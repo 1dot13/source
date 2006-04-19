@@ -1,0 +1,1826 @@
+# Microsoft Developer Studio Generated Dependency File, included by TacticalAI.mak
+
+.\AIList.cpp : \
+	"..\builddefines.h"\
+	"..\gamescreen.h"\
+	"..\GameSettings.h"\
+	"..\jascreens.h"\
+	"..\Language Defines.h"\
+	"..\Laptop\finances.h"\
+	"..\Laptop\Store Inventory.h"\
+	"..\local.h"\
+	"..\screenids.h"\
+	"..\SCREENS.H"\
+	"..\standard gaming platform\button sound control.h"\
+	"..\Standard Gaming Platform\Button System.h"\
+	"..\Standard Gaming Platform\container.h"\
+	"..\Standard Gaming Platform\Debug.h"\
+	"..\Standard Gaming Platform\DirectDraw Calls.h"\
+	"..\Standard Gaming Platform\DirectX Common.h"\
+	"..\Standard Gaming Platform\FileMan.h"\
+	"..\Standard Gaming Platform\font.h"\
+	"..\Standard Gaming Platform\himage.h"\
+	"..\Standard Gaming Platform\imgfmt.h"\
+	"..\Standard Gaming Platform\Input.h"\
+	"..\Standard Gaming Platform\MemMan.h"\
+	"..\Standard Gaming Platform\mousesystem.h"\
+	"..\Standard Gaming Platform\mousesystem_macros.h"\
+	"..\standard gaming platform\mss.h"\
+	"..\Standard Gaming Platform\Mutex Manager.h"\
+	"..\Standard Gaming Platform\random.h"\
+	"..\Standard Gaming Platform\sgp.h"\
+	"..\Standard Gaming Platform\soundman.h"\
+	"..\Standard Gaming Platform\timer.h"\
+	"..\Standard Gaming Platform\TopicIDs.h"\
+	"..\Standard Gaming Platform\TopicOps.h"\
+	"..\Standard Gaming Platform\Video.h"\
+	"..\Standard Gaming Platform\vobject.h"\
+	"..\Standard Gaming Platform\vsurface.h"\
+	"..\Standard Gaming Platform\WCheck.h"\
+	"..\Strategic\Assignments.h"\
+	"..\Strategic\Campaign Types.h"\
+	"..\Strategic\Game Clock.h"\
+	"..\Strategic\Map Screen Interface Map.h"\
+	"..\Strategic\mapscreen.h"\
+	"..\strategic\meanwhile.h"\
+	"..\Strategic\Queen Command.h"\
+	"..\Strategic\Quests.h"\
+	"..\Strategic\Scheduling.h"\
+	"..\Strategic\Strategic Movement.h"\
+	"..\Strategic\Strategic Pathing.h"\
+	"..\Strategic\Strategic Town Loyalty.h"\
+	"..\Strategic\strategic.h"\
+	"..\Strategic\strategicmap.h"\
+	"..\Sys Globals.h"\
+	"..\Tactical\animation cache.h"\
+	"..\Tactical\Animation Control.h"\
+	"..\Tactical\Animation Data.h"\
+	"..\Tactical\Arms Dealer Init.h"\
+	"..\Tactical\Boxing.h"\
+	"..\tactical\bullets.h"\
+	"..\tactical\civ quotes.h"\
+	"..\tactical\dialogue control.h"\
+	"..\tactical\faces.h"\
+	"..\Tactical\Handle Items.h"\
+	"..\Tactical\Handle UI.h"\
+	"..\tactical\interface dialogue.h"\
+	"..\Tactical\interface panels.h"\
+	"..\Tactical\Interface.h"\
+	"..\Tactical\Item Types.h"\
+	"..\Tactical\Items.h"\
+	"..\Tactical\Keys.h"\
+	"..\Tactical\los.h"\
+	"..\Tactical\Merc Hiring.h"\
+	"..\Tactical\opplist.h"\
+	"..\Tactical\overhead types.h"\
+	"..\Tactical\Overhead.h"\
+	"..\Tactical\PATHAI.H"\
+	"..\Tactical\points.h"\
+	"..\tactical\rotting corpses.h"\
+	"..\Tactical\SkillCheck.h"\
+	"..\Tactical\Soldier Add.h"\
+	"..\Tactical\soldier ani.h"\
+	"..\Tactical\Soldier Control.h"\
+	"..\Tactical\Soldier Create.h"\
+	"..\tactical\soldier find.h"\
+	"..\tactical\soldier functions.h"\
+	"..\Tactical\Soldier Init List.h"\
+	"..\Tactical\Soldier macros.h"\
+	"..\Tactical\soldier profile type.h"\
+	"..\Tactical\Soldier Profile.h"\
+	"..\tactical\soldier tile.h"\
+	"..\Tactical\Spread burst.h"\
+	"..\tactical\structure wrap.h"\
+	"..\Tactical\Tactical Save.h"\
+	"..\Tactical\TeamTurns.h"\
+	"..\Tactical\Vehicles.h"\
+	"..\Tactical\weapons.h"\
+	"..\Tactical\World Items.h"\
+	"..\TileEngine\Buildings.h"\
+	"..\TileEngine\environment.h"\
+	"..\tileengine\explosion control.h"\
+	"..\TileEngine\Interactive Tiles.h"\
+	"..\TileEngine\Isometric Utils.h"\
+	"..\TileEngine\lighting.h"\
+	"..\TileEngine\Map Edgepoints.h"\
+	"..\tileengine\phys math.h"\
+	"..\tileengine\physics.h"\
+	"..\TileEngine\Render Fun.h"\
+	"..\TileEngine\renderworld.h"\
+	"..\TileEngine\Smell.h"\
+	"..\TileEngine\Structure Internals.h"\
+	"..\TileEngine\structure.h"\
+	"..\TileEngine\Tile Animation.h"\
+	"..\TileEngine\TileDat.h"\
+	"..\TileEngine\tiledef.h"\
+	"..\TileEngine\worlddef.h"\
+	"..\TileEngine\worldman.h"\
+	"..\Utils\Event Manager.h"\
+	"..\Utils\Event Pump.h"\
+	"..\Utils\Font Control.h"\
+	"..\Utils\message.h"\
+	"..\Utils\Text.h"\
+	"..\Utils\Timer Control.h"\
+	".\AI All.h"\
+	".\ai.h"\
+	".\AIInternals.h"\
+	".\AIList.h"\
+	".\NPC.h"\
+	".\QuestDebug.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+.\AIMain.cpp : \
+	"..\builddefines.h"\
+	"..\gamescreen.h"\
+	"..\GameSettings.h"\
+	"..\jascreens.h"\
+	"..\Language Defines.h"\
+	"..\Laptop\finances.h"\
+	"..\Laptop\Store Inventory.h"\
+	"..\local.h"\
+	"..\screenids.h"\
+	"..\SCREENS.H"\
+	"..\standard gaming platform\button sound control.h"\
+	"..\Standard Gaming Platform\Button System.h"\
+	"..\Standard Gaming Platform\container.h"\
+	"..\Standard Gaming Platform\Debug.h"\
+	"..\Standard Gaming Platform\DirectDraw Calls.h"\
+	"..\Standard Gaming Platform\DirectX Common.h"\
+	"..\Standard Gaming Platform\FileMan.h"\
+	"..\Standard Gaming Platform\font.h"\
+	"..\Standard Gaming Platform\himage.h"\
+	"..\Standard Gaming Platform\imgfmt.h"\
+	"..\Standard Gaming Platform\Input.h"\
+	"..\Standard Gaming Platform\MemMan.h"\
+	"..\Standard Gaming Platform\mousesystem.h"\
+	"..\Standard Gaming Platform\mousesystem_macros.h"\
+	"..\standard gaming platform\mss.h"\
+	"..\Standard Gaming Platform\Mutex Manager.h"\
+	"..\Standard Gaming Platform\random.h"\
+	"..\Standard Gaming Platform\sgp.h"\
+	"..\Standard Gaming Platform\soundman.h"\
+	"..\Standard Gaming Platform\timer.h"\
+	"..\Standard Gaming Platform\TopicIDs.h"\
+	"..\Standard Gaming Platform\TopicOps.h"\
+	"..\Standard Gaming Platform\Video.h"\
+	"..\Standard Gaming Platform\vobject.h"\
+	"..\Standard Gaming Platform\vsurface.h"\
+	"..\Standard Gaming Platform\WCheck.h"\
+	"..\Strategic\Assignments.h"\
+	"..\Strategic\Campaign Types.h"\
+	"..\Strategic\Game Clock.h"\
+	"..\Strategic\Map Screen Interface Map.h"\
+	"..\Strategic\mapscreen.h"\
+	"..\strategic\meanwhile.h"\
+	"..\Strategic\Queen Command.h"\
+	"..\Strategic\Quests.h"\
+	"..\Strategic\Scheduling.h"\
+	"..\Strategic\Strategic Movement.h"\
+	"..\Strategic\Strategic Pathing.h"\
+	"..\Strategic\Strategic Town Loyalty.h"\
+	"..\Strategic\strategic.h"\
+	"..\Strategic\strategicmap.h"\
+	"..\Sys Globals.h"\
+	"..\Tactical\animation cache.h"\
+	"..\Tactical\Animation Control.h"\
+	"..\Tactical\Animation Data.h"\
+	"..\Tactical\Arms Dealer Init.h"\
+	"..\Tactical\Boxing.h"\
+	"..\tactical\bullets.h"\
+	"..\tactical\civ quotes.h"\
+	"..\tactical\dialogue control.h"\
+	"..\tactical\faces.h"\
+	"..\Tactical\Handle Items.h"\
+	"..\Tactical\Handle UI.h"\
+	"..\tactical\interface dialogue.h"\
+	"..\Tactical\interface panels.h"\
+	"..\Tactical\Interface.h"\
+	"..\Tactical\Item Types.h"\
+	"..\Tactical\Items.h"\
+	"..\Tactical\Keys.h"\
+	"..\Tactical\los.h"\
+	"..\Tactical\Merc Hiring.h"\
+	"..\Tactical\opplist.h"\
+	"..\Tactical\overhead types.h"\
+	"..\Tactical\Overhead.h"\
+	"..\Tactical\PATHAI.H"\
+	"..\Tactical\points.h"\
+	"..\tactical\rotting corpses.h"\
+	"..\Tactical\SkillCheck.h"\
+	"..\Tactical\Soldier Add.h"\
+	"..\Tactical\soldier ani.h"\
+	"..\Tactical\Soldier Control.h"\
+	"..\Tactical\Soldier Create.h"\
+	"..\tactical\soldier find.h"\
+	"..\tactical\soldier functions.h"\
+	"..\Tactical\Soldier Init List.h"\
+	"..\Tactical\Soldier macros.h"\
+	"..\Tactical\soldier profile type.h"\
+	"..\Tactical\Soldier Profile.h"\
+	"..\tactical\soldier tile.h"\
+	"..\Tactical\Spread burst.h"\
+	"..\tactical\structure wrap.h"\
+	"..\Tactical\Tactical Save.h"\
+	"..\Tactical\TeamTurns.h"\
+	"..\Tactical\Vehicles.h"\
+	"..\Tactical\weapons.h"\
+	"..\Tactical\World Items.h"\
+	"..\TileEngine\Buildings.h"\
+	"..\TileEngine\environment.h"\
+	"..\tileengine\explosion control.h"\
+	"..\TileEngine\Interactive Tiles.h"\
+	"..\TileEngine\Isometric Utils.h"\
+	"..\TileEngine\lighting.h"\
+	"..\TileEngine\Map Edgepoints.h"\
+	"..\tileengine\phys math.h"\
+	"..\tileengine\physics.h"\
+	"..\TileEngine\Render Fun.h"\
+	"..\TileEngine\renderworld.h"\
+	"..\TileEngine\Smell.h"\
+	"..\TileEngine\Structure Internals.h"\
+	"..\TileEngine\structure.h"\
+	"..\TileEngine\Tile Animation.h"\
+	"..\TileEngine\TileDat.h"\
+	"..\TileEngine\tiledef.h"\
+	"..\TileEngine\worlddef.h"\
+	"..\TileEngine\worldman.h"\
+	"..\Utils\Debug Control.h"\
+	"..\Utils\Event Manager.h"\
+	"..\Utils\Event Pump.h"\
+	"..\Utils\Font Control.h"\
+	"..\Utils\message.h"\
+	"..\Utils\Sound Control.h"\
+	"..\Utils\Text.h"\
+	"..\Utils\Timer Control.h"\
+	".\AI All.h"\
+	".\ai.h"\
+	".\AIInternals.h"\
+	".\AIList.h"\
+	".\NPC.h"\
+	".\QuestDebug.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+.\AIUtils.cpp : \
+	"..\builddefines.h"\
+	"..\gamescreen.h"\
+	"..\GameSettings.h"\
+	"..\jascreens.h"\
+	"..\Language Defines.h"\
+	"..\Laptop\finances.h"\
+	"..\Laptop\Store Inventory.h"\
+	"..\local.h"\
+	"..\screenids.h"\
+	"..\SCREENS.H"\
+	"..\standard gaming platform\button sound control.h"\
+	"..\Standard Gaming Platform\Button System.h"\
+	"..\Standard Gaming Platform\container.h"\
+	"..\Standard Gaming Platform\Debug.h"\
+	"..\Standard Gaming Platform\DirectDraw Calls.h"\
+	"..\Standard Gaming Platform\DirectX Common.h"\
+	"..\Standard Gaming Platform\FileMan.h"\
+	"..\Standard Gaming Platform\font.h"\
+	"..\Standard Gaming Platform\himage.h"\
+	"..\Standard Gaming Platform\imgfmt.h"\
+	"..\Standard Gaming Platform\Input.h"\
+	"..\Standard Gaming Platform\MemMan.h"\
+	"..\Standard Gaming Platform\mousesystem.h"\
+	"..\Standard Gaming Platform\mousesystem_macros.h"\
+	"..\standard gaming platform\mss.h"\
+	"..\Standard Gaming Platform\Mutex Manager.h"\
+	"..\Standard Gaming Platform\random.h"\
+	"..\Standard Gaming Platform\sgp.h"\
+	"..\Standard Gaming Platform\soundman.h"\
+	"..\Standard Gaming Platform\timer.h"\
+	"..\Standard Gaming Platform\TopicIDs.h"\
+	"..\Standard Gaming Platform\TopicOps.h"\
+	"..\Standard Gaming Platform\Video.h"\
+	"..\Standard Gaming Platform\vobject.h"\
+	"..\Standard Gaming Platform\vsurface.h"\
+	"..\Standard Gaming Platform\WCheck.h"\
+	"..\Strategic\Assignments.h"\
+	"..\Strategic\Campaign Types.h"\
+	"..\Strategic\Game Clock.h"\
+	"..\Strategic\Map Screen Interface Map.h"\
+	"..\Strategic\mapscreen.h"\
+	"..\strategic\meanwhile.h"\
+	"..\Strategic\Queen Command.h"\
+	"..\Strategic\Quests.h"\
+	"..\Strategic\Scheduling.h"\
+	"..\Strategic\Strategic Movement.h"\
+	"..\Strategic\Strategic Pathing.h"\
+	"..\Strategic\Strategic Town Loyalty.h"\
+	"..\Strategic\strategic.h"\
+	"..\Strategic\strategicmap.h"\
+	"..\Sys Globals.h"\
+	"..\Tactical\animation cache.h"\
+	"..\Tactical\Animation Control.h"\
+	"..\Tactical\Animation Data.h"\
+	"..\Tactical\Arms Dealer Init.h"\
+	"..\Tactical\Boxing.h"\
+	"..\tactical\bullets.h"\
+	"..\tactical\civ quotes.h"\
+	"..\tactical\dialogue control.h"\
+	"..\tactical\faces.h"\
+	"..\Tactical\Handle Items.h"\
+	"..\Tactical\Handle UI.h"\
+	"..\tactical\interface dialogue.h"\
+	"..\Tactical\interface panels.h"\
+	"..\Tactical\Interface.h"\
+	"..\Tactical\Item Types.h"\
+	"..\Tactical\Items.h"\
+	"..\Tactical\Keys.h"\
+	"..\Tactical\los.h"\
+	"..\Tactical\Merc Hiring.h"\
+	"..\Tactical\opplist.h"\
+	"..\Tactical\overhead types.h"\
+	"..\Tactical\Overhead.h"\
+	"..\Tactical\PATHAI.H"\
+	"..\Tactical\points.h"\
+	"..\tactical\rotting corpses.h"\
+	"..\Tactical\SkillCheck.h"\
+	"..\Tactical\Soldier Add.h"\
+	"..\Tactical\soldier ani.h"\
+	"..\Tactical\Soldier Control.h"\
+	"..\Tactical\Soldier Create.h"\
+	"..\tactical\soldier find.h"\
+	"..\tactical\soldier functions.h"\
+	"..\Tactical\Soldier Init List.h"\
+	"..\Tactical\Soldier macros.h"\
+	"..\Tactical\soldier profile type.h"\
+	"..\Tactical\Soldier Profile.h"\
+	"..\tactical\soldier tile.h"\
+	"..\Tactical\Spread burst.h"\
+	"..\tactical\structure wrap.h"\
+	"..\Tactical\Tactical Save.h"\
+	"..\Tactical\TeamTurns.h"\
+	"..\Tactical\Vehicles.h"\
+	"..\Tactical\weapons.h"\
+	"..\Tactical\World Items.h"\
+	"..\TileEngine\Buildings.h"\
+	"..\TileEngine\environment.h"\
+	"..\tileengine\explosion control.h"\
+	"..\TileEngine\Interactive Tiles.h"\
+	"..\TileEngine\Isometric Utils.h"\
+	"..\TileEngine\lighting.h"\
+	"..\TileEngine\Map Edgepoints.h"\
+	"..\tileengine\phys math.h"\
+	"..\tileengine\physics.h"\
+	"..\TileEngine\Render Fun.h"\
+	"..\TileEngine\renderworld.h"\
+	"..\TileEngine\Smell.h"\
+	"..\TileEngine\Structure Internals.h"\
+	"..\TileEngine\structure.h"\
+	"..\TileEngine\Tile Animation.h"\
+	"..\TileEngine\TileDat.h"\
+	"..\TileEngine\tiledef.h"\
+	"..\TileEngine\worlddef.h"\
+	"..\TileEngine\worldman.h"\
+	"..\Utils\Event Manager.h"\
+	"..\Utils\Event Pump.h"\
+	"..\Utils\Font Control.h"\
+	"..\Utils\message.h"\
+	"..\Utils\Text.h"\
+	"..\Utils\Timer Control.h"\
+	".\AI All.h"\
+	".\ai.h"\
+	".\AIInternals.h"\
+	".\AIList.h"\
+	".\NPC.h"\
+	".\QuestDebug.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+.\Attacks.cpp : \
+	"..\builddefines.h"\
+	"..\gamescreen.h"\
+	"..\GameSettings.h"\
+	"..\jascreens.h"\
+	"..\Language Defines.h"\
+	"..\Laptop\finances.h"\
+	"..\Laptop\Store Inventory.h"\
+	"..\local.h"\
+	"..\screenids.h"\
+	"..\SCREENS.H"\
+	"..\standard gaming platform\button sound control.h"\
+	"..\Standard Gaming Platform\Button System.h"\
+	"..\Standard Gaming Platform\container.h"\
+	"..\Standard Gaming Platform\Debug.h"\
+	"..\Standard Gaming Platform\DirectDraw Calls.h"\
+	"..\Standard Gaming Platform\DirectX Common.h"\
+	"..\Standard Gaming Platform\FileMan.h"\
+	"..\Standard Gaming Platform\font.h"\
+	"..\Standard Gaming Platform\himage.h"\
+	"..\Standard Gaming Platform\imgfmt.h"\
+	"..\Standard Gaming Platform\Input.h"\
+	"..\Standard Gaming Platform\MemMan.h"\
+	"..\Standard Gaming Platform\mousesystem.h"\
+	"..\Standard Gaming Platform\mousesystem_macros.h"\
+	"..\standard gaming platform\mss.h"\
+	"..\Standard Gaming Platform\Mutex Manager.h"\
+	"..\Standard Gaming Platform\random.h"\
+	"..\Standard Gaming Platform\sgp.h"\
+	"..\Standard Gaming Platform\soundman.h"\
+	"..\Standard Gaming Platform\timer.h"\
+	"..\Standard Gaming Platform\TopicIDs.h"\
+	"..\Standard Gaming Platform\TopicOps.h"\
+	"..\Standard Gaming Platform\Video.h"\
+	"..\Standard Gaming Platform\vobject.h"\
+	"..\Standard Gaming Platform\vsurface.h"\
+	"..\Standard Gaming Platform\WCheck.h"\
+	"..\Strategic\Assignments.h"\
+	"..\Strategic\Campaign Types.h"\
+	"..\Strategic\Game Clock.h"\
+	"..\Strategic\Map Screen Interface Map.h"\
+	"..\Strategic\mapscreen.h"\
+	"..\strategic\meanwhile.h"\
+	"..\Strategic\Queen Command.h"\
+	"..\Strategic\Quests.h"\
+	"..\Strategic\Scheduling.h"\
+	"..\Strategic\Strategic Movement.h"\
+	"..\Strategic\Strategic Pathing.h"\
+	"..\Strategic\Strategic Town Loyalty.h"\
+	"..\Strategic\strategic.h"\
+	"..\Strategic\strategicmap.h"\
+	"..\Sys Globals.h"\
+	"..\Tactical\animation cache.h"\
+	"..\Tactical\Animation Control.h"\
+	"..\Tactical\Animation Data.h"\
+	"..\Tactical\Arms Dealer Init.h"\
+	"..\Tactical\Boxing.h"\
+	"..\tactical\bullets.h"\
+	"..\tactical\civ quotes.h"\
+	"..\tactical\dialogue control.h"\
+	"..\tactical\faces.h"\
+	"..\Tactical\Handle Items.h"\
+	"..\Tactical\Handle UI.h"\
+	"..\tactical\interface dialogue.h"\
+	"..\Tactical\interface panels.h"\
+	"..\Tactical\Interface.h"\
+	"..\Tactical\Item Types.h"\
+	"..\Tactical\Items.h"\
+	"..\Tactical\Keys.h"\
+	"..\Tactical\los.h"\
+	"..\Tactical\Merc Hiring.h"\
+	"..\Tactical\opplist.h"\
+	"..\Tactical\overhead types.h"\
+	"..\Tactical\Overhead.h"\
+	"..\Tactical\PATHAI.H"\
+	"..\Tactical\points.h"\
+	"..\tactical\rotting corpses.h"\
+	"..\Tactical\SkillCheck.h"\
+	"..\Tactical\Soldier Add.h"\
+	"..\Tactical\soldier ani.h"\
+	"..\Tactical\Soldier Control.h"\
+	"..\Tactical\Soldier Create.h"\
+	"..\tactical\soldier find.h"\
+	"..\tactical\soldier functions.h"\
+	"..\Tactical\Soldier Init List.h"\
+	"..\Tactical\Soldier macros.h"\
+	"..\Tactical\soldier profile type.h"\
+	"..\Tactical\Soldier Profile.h"\
+	"..\tactical\soldier tile.h"\
+	"..\Tactical\Spread burst.h"\
+	"..\tactical\structure wrap.h"\
+	"..\Tactical\Tactical Save.h"\
+	"..\Tactical\TeamTurns.h"\
+	"..\Tactical\Vehicles.h"\
+	"..\Tactical\weapons.h"\
+	"..\Tactical\World Items.h"\
+	"..\TileEngine\Buildings.h"\
+	"..\TileEngine\environment.h"\
+	"..\tileengine\explosion control.h"\
+	"..\TileEngine\Interactive Tiles.h"\
+	"..\TileEngine\Isometric Utils.h"\
+	"..\TileEngine\lighting.h"\
+	"..\TileEngine\Map Edgepoints.h"\
+	"..\tileengine\phys math.h"\
+	"..\tileengine\physics.h"\
+	"..\TileEngine\Render Fun.h"\
+	"..\TileEngine\renderworld.h"\
+	"..\TileEngine\Smell.h"\
+	"..\TileEngine\Structure Internals.h"\
+	"..\TileEngine\structure.h"\
+	"..\TileEngine\Tile Animation.h"\
+	"..\TileEngine\TileDat.h"\
+	"..\TileEngine\tiledef.h"\
+	"..\TileEngine\worlddef.h"\
+	"..\TileEngine\worldman.h"\
+	"..\Utils\Event Manager.h"\
+	"..\Utils\Event Pump.h"\
+	"..\Utils\Font Control.h"\
+	"..\Utils\message.h"\
+	"..\Utils\Text.h"\
+	"..\Utils\Timer Control.h"\
+	".\AI All.h"\
+	".\ai.h"\
+	".\AIInternals.h"\
+	".\AIList.h"\
+	".\NPC.h"\
+	".\QuestDebug.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+.\CreatureDecideAction.cpp : \
+	"..\builddefines.h"\
+	"..\gamescreen.h"\
+	"..\GameSettings.h"\
+	"..\jascreens.h"\
+	"..\Language Defines.h"\
+	"..\Laptop\finances.h"\
+	"..\Laptop\Store Inventory.h"\
+	"..\local.h"\
+	"..\screenids.h"\
+	"..\SCREENS.H"\
+	"..\standard gaming platform\button sound control.h"\
+	"..\Standard Gaming Platform\Button System.h"\
+	"..\Standard Gaming Platform\container.h"\
+	"..\Standard Gaming Platform\Debug.h"\
+	"..\Standard Gaming Platform\DirectDraw Calls.h"\
+	"..\Standard Gaming Platform\DirectX Common.h"\
+	"..\Standard Gaming Platform\FileMan.h"\
+	"..\Standard Gaming Platform\font.h"\
+	"..\Standard Gaming Platform\himage.h"\
+	"..\Standard Gaming Platform\imgfmt.h"\
+	"..\Standard Gaming Platform\Input.h"\
+	"..\Standard Gaming Platform\MemMan.h"\
+	"..\Standard Gaming Platform\mousesystem.h"\
+	"..\Standard Gaming Platform\mousesystem_macros.h"\
+	"..\standard gaming platform\mss.h"\
+	"..\Standard Gaming Platform\Mutex Manager.h"\
+	"..\Standard Gaming Platform\random.h"\
+	"..\Standard Gaming Platform\sgp.h"\
+	"..\Standard Gaming Platform\soundman.h"\
+	"..\Standard Gaming Platform\timer.h"\
+	"..\Standard Gaming Platform\TopicIDs.h"\
+	"..\Standard Gaming Platform\TopicOps.h"\
+	"..\Standard Gaming Platform\Video.h"\
+	"..\Standard Gaming Platform\vobject.h"\
+	"..\Standard Gaming Platform\vsurface.h"\
+	"..\Standard Gaming Platform\WCheck.h"\
+	"..\Strategic\Assignments.h"\
+	"..\Strategic\Campaign Types.h"\
+	"..\Strategic\Game Clock.h"\
+	"..\Strategic\Map Screen Interface Map.h"\
+	"..\Strategic\mapscreen.h"\
+	"..\strategic\meanwhile.h"\
+	"..\Strategic\Queen Command.h"\
+	"..\Strategic\Quests.h"\
+	"..\Strategic\Scheduling.h"\
+	"..\Strategic\Strategic Movement.h"\
+	"..\Strategic\Strategic Pathing.h"\
+	"..\Strategic\Strategic Town Loyalty.h"\
+	"..\Strategic\strategic.h"\
+	"..\Strategic\strategicmap.h"\
+	"..\Sys Globals.h"\
+	"..\Tactical\animation cache.h"\
+	"..\Tactical\Animation Control.h"\
+	"..\Tactical\Animation Data.h"\
+	"..\Tactical\Arms Dealer Init.h"\
+	"..\Tactical\Boxing.h"\
+	"..\tactical\bullets.h"\
+	"..\tactical\civ quotes.h"\
+	"..\tactical\dialogue control.h"\
+	"..\tactical\faces.h"\
+	"..\Tactical\Handle Items.h"\
+	"..\Tactical\Handle UI.h"\
+	"..\tactical\interface dialogue.h"\
+	"..\Tactical\interface panels.h"\
+	"..\Tactical\Interface.h"\
+	"..\Tactical\Item Types.h"\
+	"..\Tactical\Items.h"\
+	"..\Tactical\Keys.h"\
+	"..\Tactical\los.h"\
+	"..\Tactical\Merc Hiring.h"\
+	"..\Tactical\opplist.h"\
+	"..\Tactical\overhead types.h"\
+	"..\Tactical\Overhead.h"\
+	"..\Tactical\PATHAI.H"\
+	"..\Tactical\points.h"\
+	"..\tactical\rotting corpses.h"\
+	"..\Tactical\SkillCheck.h"\
+	"..\Tactical\Soldier Add.h"\
+	"..\Tactical\soldier ani.h"\
+	"..\Tactical\Soldier Control.h"\
+	"..\Tactical\Soldier Create.h"\
+	"..\tactical\soldier find.h"\
+	"..\tactical\soldier functions.h"\
+	"..\Tactical\Soldier Init List.h"\
+	"..\Tactical\Soldier macros.h"\
+	"..\Tactical\soldier profile type.h"\
+	"..\Tactical\Soldier Profile.h"\
+	"..\tactical\soldier tile.h"\
+	"..\Tactical\Spread burst.h"\
+	"..\tactical\structure wrap.h"\
+	"..\Tactical\Tactical Save.h"\
+	"..\Tactical\TeamTurns.h"\
+	"..\Tactical\Vehicles.h"\
+	"..\Tactical\weapons.h"\
+	"..\Tactical\World Items.h"\
+	"..\TileEngine\Buildings.h"\
+	"..\TileEngine\environment.h"\
+	"..\tileengine\explosion control.h"\
+	"..\TileEngine\Interactive Tiles.h"\
+	"..\TileEngine\Isometric Utils.h"\
+	"..\TileEngine\lighting.h"\
+	"..\TileEngine\Map Edgepoints.h"\
+	"..\tileengine\phys math.h"\
+	"..\tileengine\physics.h"\
+	"..\TileEngine\Render Fun.h"\
+	"..\TileEngine\renderworld.h"\
+	"..\TileEngine\Smell.h"\
+	"..\TileEngine\Structure Internals.h"\
+	"..\TileEngine\structure.h"\
+	"..\TileEngine\Tile Animation.h"\
+	"..\TileEngine\TileDat.h"\
+	"..\TileEngine\tiledef.h"\
+	"..\TileEngine\worlddef.h"\
+	"..\TileEngine\worldman.h"\
+	"..\Utils\Event Manager.h"\
+	"..\Utils\Event Pump.h"\
+	"..\Utils\Font Control.h"\
+	"..\Utils\message.h"\
+	"..\Utils\Text.h"\
+	"..\Utils\Timer Control.h"\
+	".\AI All.h"\
+	".\ai.h"\
+	".\AIInternals.h"\
+	".\AIList.h"\
+	".\NPC.h"\
+	".\QuestDebug.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+.\DecideAction.cpp : \
+	"..\builddefines.h"\
+	"..\gamescreen.h"\
+	"..\GameSettings.h"\
+	"..\jascreens.h"\
+	"..\Language Defines.h"\
+	"..\Laptop\finances.h"\
+	"..\Laptop\Store Inventory.h"\
+	"..\local.h"\
+	"..\screenids.h"\
+	"..\SCREENS.H"\
+	"..\standard gaming platform\button sound control.h"\
+	"..\Standard Gaming Platform\Button System.h"\
+	"..\Standard Gaming Platform\container.h"\
+	"..\Standard Gaming Platform\Debug.h"\
+	"..\Standard Gaming Platform\DirectDraw Calls.h"\
+	"..\Standard Gaming Platform\DirectX Common.h"\
+	"..\Standard Gaming Platform\FileMan.h"\
+	"..\Standard Gaming Platform\font.h"\
+	"..\Standard Gaming Platform\himage.h"\
+	"..\Standard Gaming Platform\imgfmt.h"\
+	"..\Standard Gaming Platform\Input.h"\
+	"..\Standard Gaming Platform\MemMan.h"\
+	"..\Standard Gaming Platform\mousesystem.h"\
+	"..\Standard Gaming Platform\mousesystem_macros.h"\
+	"..\standard gaming platform\mss.h"\
+	"..\Standard Gaming Platform\Mutex Manager.h"\
+	"..\Standard Gaming Platform\random.h"\
+	"..\Standard Gaming Platform\sgp.h"\
+	"..\Standard Gaming Platform\soundman.h"\
+	"..\Standard Gaming Platform\timer.h"\
+	"..\Standard Gaming Platform\TopicIDs.h"\
+	"..\Standard Gaming Platform\TopicOps.h"\
+	"..\Standard Gaming Platform\Video.h"\
+	"..\Standard Gaming Platform\vobject.h"\
+	"..\Standard Gaming Platform\vsurface.h"\
+	"..\Standard Gaming Platform\WCheck.h"\
+	"..\Strategic\Assignments.h"\
+	"..\Strategic\Campaign Types.h"\
+	"..\Strategic\Game Clock.h"\
+	"..\Strategic\Map Screen Interface Map.h"\
+	"..\Strategic\mapscreen.h"\
+	"..\strategic\meanwhile.h"\
+	"..\Strategic\Queen Command.h"\
+	"..\Strategic\Quests.h"\
+	"..\Strategic\Scheduling.h"\
+	"..\Strategic\Strategic Movement.h"\
+	"..\Strategic\Strategic Pathing.h"\
+	"..\Strategic\Strategic Status.h"\
+	"..\Strategic\Strategic Town Loyalty.h"\
+	"..\Strategic\strategic.h"\
+	"..\Strategic\strategicmap.h"\
+	"..\Sys Globals.h"\
+	"..\Tactical\animation cache.h"\
+	"..\Tactical\Animation Control.h"\
+	"..\Tactical\Animation Data.h"\
+	"..\Tactical\Arms Dealer Init.h"\
+	"..\Tactical\Boxing.h"\
+	"..\tactical\bullets.h"\
+	"..\tactical\civ quotes.h"\
+	"..\tactical\dialogue control.h"\
+	"..\tactical\faces.h"\
+	"..\Tactical\Handle Items.h"\
+	"..\Tactical\Handle UI.h"\
+	"..\tactical\interface dialogue.h"\
+	"..\Tactical\interface panels.h"\
+	"..\Tactical\Interface.h"\
+	"..\Tactical\Item Types.h"\
+	"..\Tactical\Items.h"\
+	"..\Tactical\Keys.h"\
+	"..\Tactical\los.h"\
+	"..\Tactical\Merc Hiring.h"\
+	"..\Tactical\opplist.h"\
+	"..\Tactical\overhead types.h"\
+	"..\Tactical\Overhead.h"\
+	"..\Tactical\PATHAI.H"\
+	"..\Tactical\points.h"\
+	"..\tactical\rotting corpses.h"\
+	"..\Tactical\SkillCheck.h"\
+	"..\Tactical\Soldier Add.h"\
+	"..\Tactical\soldier ani.h"\
+	"..\Tactical\Soldier Control.h"\
+	"..\Tactical\Soldier Create.h"\
+	"..\tactical\soldier find.h"\
+	"..\tactical\soldier functions.h"\
+	"..\Tactical\Soldier Init List.h"\
+	"..\Tactical\Soldier macros.h"\
+	"..\Tactical\soldier profile type.h"\
+	"..\Tactical\Soldier Profile.h"\
+	"..\tactical\soldier tile.h"\
+	"..\Tactical\Spread burst.h"\
+	"..\tactical\structure wrap.h"\
+	"..\Tactical\Tactical Save.h"\
+	"..\Tactical\TeamTurns.h"\
+	"..\Tactical\Vehicles.h"\
+	"..\Tactical\weapons.h"\
+	"..\Tactical\World Items.h"\
+	"..\TileEngine\Buildings.h"\
+	"..\TileEngine\environment.h"\
+	"..\tileengine\explosion control.h"\
+	"..\TileEngine\Interactive Tiles.h"\
+	"..\TileEngine\Isometric Utils.h"\
+	"..\TileEngine\lighting.h"\
+	"..\TileEngine\Map Edgepoints.h"\
+	"..\tileengine\phys math.h"\
+	"..\tileengine\physics.h"\
+	"..\TileEngine\Render Fun.h"\
+	"..\TileEngine\renderworld.h"\
+	"..\TileEngine\Smell.h"\
+	"..\TileEngine\Structure Internals.h"\
+	"..\TileEngine\structure.h"\
+	"..\TileEngine\Tile Animation.h"\
+	"..\TileEngine\TileDat.h"\
+	"..\TileEngine\tiledef.h"\
+	"..\TileEngine\worlddef.h"\
+	"..\TileEngine\worldman.h"\
+	"..\Utils\Event Manager.h"\
+	"..\Utils\Event Pump.h"\
+	"..\Utils\Font Control.h"\
+	"..\Utils\message.h"\
+	"..\Utils\Text.h"\
+	"..\Utils\Timer Control.h"\
+	".\AI All.h"\
+	".\ai.h"\
+	".\AIInternals.h"\
+	".\AIList.h"\
+	".\NPC.h"\
+	".\QuestDebug.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+.\FindLocations.cpp : \
+	"..\builddefines.h"\
+	"..\gamescreen.h"\
+	"..\GameSettings.h"\
+	"..\jascreens.h"\
+	"..\Language Defines.h"\
+	"..\Laptop\finances.h"\
+	"..\Laptop\Store Inventory.h"\
+	"..\local.h"\
+	"..\screenids.h"\
+	"..\SCREENS.H"\
+	"..\standard gaming platform\button sound control.h"\
+	"..\Standard Gaming Platform\Button System.h"\
+	"..\Standard Gaming Platform\container.h"\
+	"..\Standard Gaming Platform\Debug.h"\
+	"..\Standard Gaming Platform\DirectDraw Calls.h"\
+	"..\Standard Gaming Platform\DirectX Common.h"\
+	"..\Standard Gaming Platform\FileMan.h"\
+	"..\Standard Gaming Platform\font.h"\
+	"..\Standard Gaming Platform\himage.h"\
+	"..\Standard Gaming Platform\imgfmt.h"\
+	"..\Standard Gaming Platform\Input.h"\
+	"..\Standard Gaming Platform\MemMan.h"\
+	"..\Standard Gaming Platform\mousesystem.h"\
+	"..\Standard Gaming Platform\mousesystem_macros.h"\
+	"..\standard gaming platform\mss.h"\
+	"..\Standard Gaming Platform\Mutex Manager.h"\
+	"..\Standard Gaming Platform\random.h"\
+	"..\Standard Gaming Platform\sgp.h"\
+	"..\Standard Gaming Platform\soundman.h"\
+	"..\Standard Gaming Platform\timer.h"\
+	"..\Standard Gaming Platform\TopicIDs.h"\
+	"..\Standard Gaming Platform\TopicOps.h"\
+	"..\Standard Gaming Platform\Video.h"\
+	"..\Standard Gaming Platform\vobject.h"\
+	"..\Standard Gaming Platform\vsurface.h"\
+	"..\Standard Gaming Platform\WCheck.h"\
+	"..\Strategic\Assignments.h"\
+	"..\Strategic\Campaign Types.h"\
+	"..\Strategic\Game Clock.h"\
+	"..\Strategic\Map Screen Interface Map.h"\
+	"..\Strategic\mapscreen.h"\
+	"..\strategic\meanwhile.h"\
+	"..\Strategic\Queen Command.h"\
+	"..\Strategic\Quests.h"\
+	"..\Strategic\Scheduling.h"\
+	"..\Strategic\Strategic Movement.h"\
+	"..\Strategic\Strategic Pathing.h"\
+	"..\Strategic\Strategic Town Loyalty.h"\
+	"..\Strategic\strategic.h"\
+	"..\Strategic\strategicmap.h"\
+	"..\Sys Globals.h"\
+	"..\Tactical\animation cache.h"\
+	"..\Tactical\Animation Control.h"\
+	"..\Tactical\Animation Data.h"\
+	"..\Tactical\Arms Dealer Init.h"\
+	"..\Tactical\Boxing.h"\
+	"..\tactical\bullets.h"\
+	"..\tactical\civ quotes.h"\
+	"..\tactical\dialogue control.h"\
+	"..\tactical\faces.h"\
+	"..\Tactical\Handle Items.h"\
+	"..\Tactical\Handle UI.h"\
+	"..\tactical\interface dialogue.h"\
+	"..\Tactical\interface panels.h"\
+	"..\Tactical\Interface.h"\
+	"..\Tactical\Item Types.h"\
+	"..\Tactical\Items.h"\
+	"..\Tactical\Keys.h"\
+	"..\Tactical\los.h"\
+	"..\Tactical\Merc Hiring.h"\
+	"..\Tactical\opplist.h"\
+	"..\Tactical\overhead types.h"\
+	"..\Tactical\Overhead.h"\
+	"..\Tactical\PATHAI.H"\
+	"..\tactical\pathaidebug.h"\
+	"..\Tactical\points.h"\
+	"..\tactical\rotting corpses.h"\
+	"..\Tactical\SkillCheck.h"\
+	"..\Tactical\Soldier Add.h"\
+	"..\Tactical\soldier ani.h"\
+	"..\Tactical\Soldier Control.h"\
+	"..\Tactical\Soldier Create.h"\
+	"..\tactical\soldier find.h"\
+	"..\tactical\soldier functions.h"\
+	"..\Tactical\Soldier Init List.h"\
+	"..\Tactical\Soldier macros.h"\
+	"..\Tactical\soldier profile type.h"\
+	"..\Tactical\Soldier Profile.h"\
+	"..\tactical\soldier tile.h"\
+	"..\Tactical\Spread burst.h"\
+	"..\tactical\structure wrap.h"\
+	"..\Tactical\Tactical Save.h"\
+	"..\Tactical\TeamTurns.h"\
+	"..\Tactical\Vehicles.h"\
+	"..\Tactical\weapons.h"\
+	"..\Tactical\World Items.h"\
+	"..\TileEngine\Buildings.h"\
+	"..\TileEngine\environment.h"\
+	"..\tileengine\explosion control.h"\
+	"..\TileEngine\Interactive Tiles.h"\
+	"..\TileEngine\Isometric Utils.h"\
+	"..\TileEngine\lighting.h"\
+	"..\TileEngine\Map Edgepoints.h"\
+	"..\tileengine\phys math.h"\
+	"..\tileengine\physics.h"\
+	"..\TileEngine\Render Fun.h"\
+	"..\TileEngine\renderworld.h"\
+	"..\TileEngine\Smell.h"\
+	"..\TileEngine\Structure Internals.h"\
+	"..\TileEngine\structure.h"\
+	"..\TileEngine\Tile Animation.h"\
+	"..\TileEngine\TileDat.h"\
+	"..\TileEngine\tiledef.h"\
+	"..\TileEngine\worlddef.h"\
+	"..\TileEngine\worldman.h"\
+	"..\Utils\Event Manager.h"\
+	"..\Utils\Event Pump.h"\
+	"..\Utils\Font Control.h"\
+	"..\Utils\message.h"\
+	"..\Utils\Text.h"\
+	"..\Utils\Timer Control.h"\
+	".\AI All.h"\
+	".\ai.h"\
+	".\AIInternals.h"\
+	".\AIList.h"\
+	".\NPC.h"\
+	".\QuestDebug.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+.\Knowledge.cpp : \
+	"..\builddefines.h"\
+	"..\gamescreen.h"\
+	"..\GameSettings.h"\
+	"..\jascreens.h"\
+	"..\Language Defines.h"\
+	"..\Laptop\finances.h"\
+	"..\Laptop\Store Inventory.h"\
+	"..\local.h"\
+	"..\screenids.h"\
+	"..\SCREENS.H"\
+	"..\standard gaming platform\button sound control.h"\
+	"..\Standard Gaming Platform\Button System.h"\
+	"..\Standard Gaming Platform\container.h"\
+	"..\Standard Gaming Platform\Debug.h"\
+	"..\Standard Gaming Platform\DirectDraw Calls.h"\
+	"..\Standard Gaming Platform\DirectX Common.h"\
+	"..\Standard Gaming Platform\FileMan.h"\
+	"..\Standard Gaming Platform\font.h"\
+	"..\Standard Gaming Platform\himage.h"\
+	"..\Standard Gaming Platform\imgfmt.h"\
+	"..\Standard Gaming Platform\Input.h"\
+	"..\Standard Gaming Platform\MemMan.h"\
+	"..\Standard Gaming Platform\mousesystem.h"\
+	"..\Standard Gaming Platform\mousesystem_macros.h"\
+	"..\standard gaming platform\mss.h"\
+	"..\Standard Gaming Platform\Mutex Manager.h"\
+	"..\Standard Gaming Platform\random.h"\
+	"..\Standard Gaming Platform\sgp.h"\
+	"..\Standard Gaming Platform\soundman.h"\
+	"..\Standard Gaming Platform\timer.h"\
+	"..\Standard Gaming Platform\TopicIDs.h"\
+	"..\Standard Gaming Platform\TopicOps.h"\
+	"..\Standard Gaming Platform\Video.h"\
+	"..\Standard Gaming Platform\vobject.h"\
+	"..\Standard Gaming Platform\vsurface.h"\
+	"..\Standard Gaming Platform\WCheck.h"\
+	"..\Strategic\Assignments.h"\
+	"..\Strategic\Campaign Types.h"\
+	"..\Strategic\Game Clock.h"\
+	"..\Strategic\Map Screen Interface Map.h"\
+	"..\Strategic\mapscreen.h"\
+	"..\strategic\meanwhile.h"\
+	"..\Strategic\Queen Command.h"\
+	"..\Strategic\Quests.h"\
+	"..\Strategic\Scheduling.h"\
+	"..\Strategic\Strategic Movement.h"\
+	"..\Strategic\Strategic Pathing.h"\
+	"..\Strategic\Strategic Town Loyalty.h"\
+	"..\Strategic\strategic.h"\
+	"..\Strategic\strategicmap.h"\
+	"..\Sys Globals.h"\
+	"..\Tactical\animation cache.h"\
+	"..\Tactical\Animation Control.h"\
+	"..\Tactical\Animation Data.h"\
+	"..\Tactical\Arms Dealer Init.h"\
+	"..\Tactical\Boxing.h"\
+	"..\tactical\bullets.h"\
+	"..\tactical\civ quotes.h"\
+	"..\tactical\dialogue control.h"\
+	"..\tactical\faces.h"\
+	"..\Tactical\Handle Items.h"\
+	"..\Tactical\Handle UI.h"\
+	"..\tactical\interface dialogue.h"\
+	"..\Tactical\interface panels.h"\
+	"..\Tactical\Interface.h"\
+	"..\Tactical\Item Types.h"\
+	"..\Tactical\Items.h"\
+	"..\Tactical\Keys.h"\
+	"..\Tactical\los.h"\
+	"..\Tactical\Merc Hiring.h"\
+	"..\Tactical\opplist.h"\
+	"..\Tactical\overhead types.h"\
+	"..\Tactical\Overhead.h"\
+	"..\Tactical\PATHAI.H"\
+	"..\Tactical\points.h"\
+	"..\tactical\rotting corpses.h"\
+	"..\Tactical\SkillCheck.h"\
+	"..\Tactical\Soldier Add.h"\
+	"..\Tactical\soldier ani.h"\
+	"..\Tactical\Soldier Control.h"\
+	"..\Tactical\Soldier Create.h"\
+	"..\tactical\soldier find.h"\
+	"..\tactical\soldier functions.h"\
+	"..\Tactical\Soldier Init List.h"\
+	"..\Tactical\Soldier macros.h"\
+	"..\Tactical\soldier profile type.h"\
+	"..\Tactical\Soldier Profile.h"\
+	"..\tactical\soldier tile.h"\
+	"..\Tactical\Spread burst.h"\
+	"..\tactical\structure wrap.h"\
+	"..\Tactical\Tactical Save.h"\
+	"..\Tactical\TeamTurns.h"\
+	"..\Tactical\Vehicles.h"\
+	"..\Tactical\weapons.h"\
+	"..\Tactical\World Items.h"\
+	"..\TileEngine\Buildings.h"\
+	"..\TileEngine\environment.h"\
+	"..\tileengine\explosion control.h"\
+	"..\TileEngine\Interactive Tiles.h"\
+	"..\TileEngine\Isometric Utils.h"\
+	"..\TileEngine\lighting.h"\
+	"..\TileEngine\Map Edgepoints.h"\
+	"..\tileengine\phys math.h"\
+	"..\tileengine\physics.h"\
+	"..\TileEngine\Render Fun.h"\
+	"..\TileEngine\renderworld.h"\
+	"..\TileEngine\Smell.h"\
+	"..\TileEngine\Structure Internals.h"\
+	"..\TileEngine\structure.h"\
+	"..\TileEngine\Tile Animation.h"\
+	"..\TileEngine\TileDat.h"\
+	"..\TileEngine\tiledef.h"\
+	"..\TileEngine\worlddef.h"\
+	"..\TileEngine\worldman.h"\
+	"..\Utils\Event Manager.h"\
+	"..\Utils\Event Pump.h"\
+	"..\Utils\Font Control.h"\
+	"..\Utils\message.h"\
+	"..\Utils\Text.h"\
+	"..\Utils\Timer Control.h"\
+	".\AI All.h"\
+	".\ai.h"\
+	".\AIInternals.h"\
+	".\AIList.h"\
+	".\NPC.h"\
+	".\QuestDebug.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+.\Medical.cpp : \
+	"..\builddefines.h"\
+	"..\gamescreen.h"\
+	"..\GameSettings.h"\
+	"..\jascreens.h"\
+	"..\Language Defines.h"\
+	"..\Laptop\finances.h"\
+	"..\Laptop\Store Inventory.h"\
+	"..\local.h"\
+	"..\screenids.h"\
+	"..\SCREENS.H"\
+	"..\standard gaming platform\button sound control.h"\
+	"..\Standard Gaming Platform\Button System.h"\
+	"..\Standard Gaming Platform\container.h"\
+	"..\Standard Gaming Platform\Debug.h"\
+	"..\Standard Gaming Platform\DirectDraw Calls.h"\
+	"..\Standard Gaming Platform\DirectX Common.h"\
+	"..\Standard Gaming Platform\FileMan.h"\
+	"..\Standard Gaming Platform\font.h"\
+	"..\Standard Gaming Platform\himage.h"\
+	"..\Standard Gaming Platform\imgfmt.h"\
+	"..\Standard Gaming Platform\Input.h"\
+	"..\Standard Gaming Platform\MemMan.h"\
+	"..\Standard Gaming Platform\mousesystem.h"\
+	"..\Standard Gaming Platform\mousesystem_macros.h"\
+	"..\standard gaming platform\mss.h"\
+	"..\Standard Gaming Platform\Mutex Manager.h"\
+	"..\Standard Gaming Platform\random.h"\
+	"..\Standard Gaming Platform\sgp.h"\
+	"..\Standard Gaming Platform\soundman.h"\
+	"..\Standard Gaming Platform\timer.h"\
+	"..\Standard Gaming Platform\TopicIDs.h"\
+	"..\Standard Gaming Platform\TopicOps.h"\
+	"..\Standard Gaming Platform\Video.h"\
+	"..\Standard Gaming Platform\vobject.h"\
+	"..\Standard Gaming Platform\vsurface.h"\
+	"..\Standard Gaming Platform\WCheck.h"\
+	"..\Strategic\Assignments.h"\
+	"..\Strategic\Campaign Types.h"\
+	"..\Strategic\Game Clock.h"\
+	"..\Strategic\Map Screen Interface Map.h"\
+	"..\Strategic\mapscreen.h"\
+	"..\strategic\meanwhile.h"\
+	"..\Strategic\Queen Command.h"\
+	"..\Strategic\Quests.h"\
+	"..\Strategic\Scheduling.h"\
+	"..\Strategic\Strategic Movement.h"\
+	"..\Strategic\Strategic Pathing.h"\
+	"..\Strategic\Strategic Town Loyalty.h"\
+	"..\Strategic\strategic.h"\
+	"..\Strategic\strategicmap.h"\
+	"..\Sys Globals.h"\
+	"..\Tactical\animation cache.h"\
+	"..\Tactical\Animation Control.h"\
+	"..\Tactical\Animation Data.h"\
+	"..\Tactical\Arms Dealer Init.h"\
+	"..\Tactical\Boxing.h"\
+	"..\tactical\bullets.h"\
+	"..\tactical\civ quotes.h"\
+	"..\tactical\dialogue control.h"\
+	"..\tactical\faces.h"\
+	"..\Tactical\Handle Items.h"\
+	"..\Tactical\Handle UI.h"\
+	"..\tactical\interface dialogue.h"\
+	"..\Tactical\interface panels.h"\
+	"..\Tactical\Interface.h"\
+	"..\Tactical\Item Types.h"\
+	"..\Tactical\Items.h"\
+	"..\Tactical\Keys.h"\
+	"..\Tactical\los.h"\
+	"..\Tactical\Merc Hiring.h"\
+	"..\Tactical\opplist.h"\
+	"..\Tactical\overhead types.h"\
+	"..\Tactical\Overhead.h"\
+	"..\Tactical\PATHAI.H"\
+	"..\Tactical\points.h"\
+	"..\tactical\rotting corpses.h"\
+	"..\Tactical\SkillCheck.h"\
+	"..\Tactical\Soldier Add.h"\
+	"..\Tactical\soldier ani.h"\
+	"..\Tactical\Soldier Control.h"\
+	"..\Tactical\Soldier Create.h"\
+	"..\tactical\soldier find.h"\
+	"..\tactical\soldier functions.h"\
+	"..\Tactical\Soldier Init List.h"\
+	"..\Tactical\Soldier macros.h"\
+	"..\Tactical\soldier profile type.h"\
+	"..\Tactical\Soldier Profile.h"\
+	"..\tactical\soldier tile.h"\
+	"..\Tactical\Spread burst.h"\
+	"..\tactical\structure wrap.h"\
+	"..\Tactical\Tactical Save.h"\
+	"..\Tactical\TeamTurns.h"\
+	"..\Tactical\Vehicles.h"\
+	"..\Tactical\weapons.h"\
+	"..\Tactical\World Items.h"\
+	"..\TileEngine\Buildings.h"\
+	"..\TileEngine\environment.h"\
+	"..\tileengine\explosion control.h"\
+	"..\TileEngine\Interactive Tiles.h"\
+	"..\TileEngine\Isometric Utils.h"\
+	"..\TileEngine\lighting.h"\
+	"..\TileEngine\Map Edgepoints.h"\
+	"..\tileengine\phys math.h"\
+	"..\tileengine\physics.h"\
+	"..\TileEngine\Render Fun.h"\
+	"..\TileEngine\renderworld.h"\
+	"..\TileEngine\Smell.h"\
+	"..\TileEngine\Structure Internals.h"\
+	"..\TileEngine\structure.h"\
+	"..\TileEngine\Tile Animation.h"\
+	"..\TileEngine\TileDat.h"\
+	"..\TileEngine\tiledef.h"\
+	"..\TileEngine\worlddef.h"\
+	"..\TileEngine\worldman.h"\
+	"..\Utils\Event Manager.h"\
+	"..\Utils\Event Pump.h"\
+	"..\Utils\Font Control.h"\
+	"..\Utils\message.h"\
+	"..\Utils\Text.h"\
+	"..\Utils\Timer Control.h"\
+	".\AI All.h"\
+	".\ai.h"\
+	".\AIInternals.h"\
+	".\AIList.h"\
+	".\NPC.h"\
+	".\QuestDebug.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+.\Movement.cpp : \
+	"..\builddefines.h"\
+	"..\gamescreen.h"\
+	"..\GameSettings.h"\
+	"..\jascreens.h"\
+	"..\Language Defines.h"\
+	"..\Laptop\finances.h"\
+	"..\Laptop\Store Inventory.h"\
+	"..\local.h"\
+	"..\screenids.h"\
+	"..\SCREENS.H"\
+	"..\standard gaming platform\button sound control.h"\
+	"..\Standard Gaming Platform\Button System.h"\
+	"..\Standard Gaming Platform\container.h"\
+	"..\Standard Gaming Platform\Debug.h"\
+	"..\Standard Gaming Platform\DirectDraw Calls.h"\
+	"..\Standard Gaming Platform\DirectX Common.h"\
+	"..\Standard Gaming Platform\FileMan.h"\
+	"..\Standard Gaming Platform\font.h"\
+	"..\Standard Gaming Platform\himage.h"\
+	"..\Standard Gaming Platform\imgfmt.h"\
+	"..\Standard Gaming Platform\Input.h"\
+	"..\Standard Gaming Platform\MemMan.h"\
+	"..\Standard Gaming Platform\mousesystem.h"\
+	"..\Standard Gaming Platform\mousesystem_macros.h"\
+	"..\standard gaming platform\mss.h"\
+	"..\Standard Gaming Platform\Mutex Manager.h"\
+	"..\Standard Gaming Platform\random.h"\
+	"..\Standard Gaming Platform\sgp.h"\
+	"..\Standard Gaming Platform\soundman.h"\
+	"..\Standard Gaming Platform\timer.h"\
+	"..\Standard Gaming Platform\TopicIDs.h"\
+	"..\Standard Gaming Platform\TopicOps.h"\
+	"..\Standard Gaming Platform\Video.h"\
+	"..\Standard Gaming Platform\vobject.h"\
+	"..\Standard Gaming Platform\vsurface.h"\
+	"..\Standard Gaming Platform\WCheck.h"\
+	"..\Strategic\Assignments.h"\
+	"..\Strategic\Campaign Types.h"\
+	"..\Strategic\Game Clock.h"\
+	"..\Strategic\Map Screen Interface Map.h"\
+	"..\Strategic\mapscreen.h"\
+	"..\strategic\meanwhile.h"\
+	"..\Strategic\Queen Command.h"\
+	"..\Strategic\Quests.h"\
+	"..\Strategic\Scheduling.h"\
+	"..\Strategic\Strategic Movement.h"\
+	"..\Strategic\Strategic Pathing.h"\
+	"..\Strategic\Strategic Town Loyalty.h"\
+	"..\Strategic\strategic.h"\
+	"..\Strategic\strategicmap.h"\
+	"..\Sys Globals.h"\
+	"..\Tactical\animation cache.h"\
+	"..\Tactical\Animation Control.h"\
+	"..\Tactical\Animation Data.h"\
+	"..\Tactical\Arms Dealer Init.h"\
+	"..\Tactical\Boxing.h"\
+	"..\tactical\bullets.h"\
+	"..\tactical\civ quotes.h"\
+	"..\tactical\dialogue control.h"\
+	"..\tactical\faces.h"\
+	"..\Tactical\Handle Items.h"\
+	"..\Tactical\Handle UI.h"\
+	"..\tactical\interface dialogue.h"\
+	"..\Tactical\interface panels.h"\
+	"..\Tactical\Interface.h"\
+	"..\Tactical\Item Types.h"\
+	"..\Tactical\Items.h"\
+	"..\Tactical\Keys.h"\
+	"..\Tactical\los.h"\
+	"..\Tactical\Merc Hiring.h"\
+	"..\Tactical\opplist.h"\
+	"..\Tactical\overhead types.h"\
+	"..\Tactical\Overhead.h"\
+	"..\Tactical\PATHAI.H"\
+	"..\Tactical\points.h"\
+	"..\tactical\rotting corpses.h"\
+	"..\Tactical\SkillCheck.h"\
+	"..\Tactical\Soldier Add.h"\
+	"..\Tactical\soldier ani.h"\
+	"..\Tactical\Soldier Control.h"\
+	"..\Tactical\Soldier Create.h"\
+	"..\tactical\soldier find.h"\
+	"..\tactical\soldier functions.h"\
+	"..\Tactical\Soldier Init List.h"\
+	"..\Tactical\Soldier macros.h"\
+	"..\Tactical\soldier profile type.h"\
+	"..\Tactical\Soldier Profile.h"\
+	"..\tactical\soldier tile.h"\
+	"..\Tactical\Spread burst.h"\
+	"..\tactical\structure wrap.h"\
+	"..\Tactical\Tactical Save.h"\
+	"..\Tactical\TeamTurns.h"\
+	"..\Tactical\Vehicles.h"\
+	"..\Tactical\weapons.h"\
+	"..\Tactical\World Items.h"\
+	"..\TileEngine\Buildings.h"\
+	"..\TileEngine\environment.h"\
+	"..\tileengine\explosion control.h"\
+	"..\TileEngine\Interactive Tiles.h"\
+	"..\TileEngine\Isometric Utils.h"\
+	"..\TileEngine\lighting.h"\
+	"..\TileEngine\Map Edgepoints.h"\
+	"..\tileengine\phys math.h"\
+	"..\tileengine\physics.h"\
+	"..\TileEngine\Render Fun.h"\
+	"..\TileEngine\renderworld.h"\
+	"..\TileEngine\Smell.h"\
+	"..\TileEngine\Structure Internals.h"\
+	"..\TileEngine\structure.h"\
+	"..\TileEngine\Tile Animation.h"\
+	"..\TileEngine\TileDat.h"\
+	"..\TileEngine\tiledef.h"\
+	"..\TileEngine\worlddef.h"\
+	"..\TileEngine\worldman.h"\
+	"..\Utils\Event Manager.h"\
+	"..\Utils\Event Pump.h"\
+	"..\Utils\Font Control.h"\
+	"..\Utils\message.h"\
+	"..\Utils\Text.h"\
+	"..\Utils\Timer Control.h"\
+	".\AI All.h"\
+	".\ai.h"\
+	".\AIInternals.h"\
+	".\AIList.h"\
+	".\NPC.h"\
+	".\QuestDebug.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+.\NPC.cpp : \
+	"..\builddefines.h"\
+	"..\gamescreen.h"\
+	"..\GameSettings.h"\
+	"..\jascreens.h"\
+	"..\Language Defines.h"\
+	"..\Laptop\finances.h"\
+	"..\Laptop\Store Inventory.h"\
+	"..\local.h"\
+	"..\screenids.h"\
+	"..\SCREENS.H"\
+	"..\standard gaming platform\button sound control.h"\
+	"..\Standard Gaming Platform\Button System.h"\
+	"..\Standard Gaming Platform\container.h"\
+	"..\Standard Gaming Platform\Debug.h"\
+	"..\Standard Gaming Platform\DirectDraw Calls.h"\
+	"..\Standard Gaming Platform\DirectX Common.h"\
+	"..\Standard Gaming Platform\FileMan.h"\
+	"..\Standard Gaming Platform\font.h"\
+	"..\Standard Gaming Platform\himage.h"\
+	"..\Standard Gaming Platform\imgfmt.h"\
+	"..\Standard Gaming Platform\Input.h"\
+	"..\Standard Gaming Platform\MemMan.h"\
+	"..\Standard Gaming Platform\mousesystem.h"\
+	"..\Standard Gaming Platform\mousesystem_macros.h"\
+	"..\standard gaming platform\mss.h"\
+	"..\Standard Gaming Platform\Mutex Manager.h"\
+	"..\Standard Gaming Platform\random.h"\
+	"..\Standard Gaming Platform\sgp.h"\
+	"..\Standard Gaming Platform\soundman.h"\
+	"..\Standard Gaming Platform\timer.h"\
+	"..\Standard Gaming Platform\TopicIDs.h"\
+	"..\Standard Gaming Platform\TopicOps.h"\
+	"..\Standard Gaming Platform\Video.h"\
+	"..\Standard Gaming Platform\vobject.h"\
+	"..\Standard Gaming Platform\vsurface.h"\
+	"..\Standard Gaming Platform\WCheck.h"\
+	"..\Strategic\Assignments.h"\
+	"..\Strategic\Campaign Types.h"\
+	"..\Strategic\Game Clock.h"\
+	"..\Strategic\Map Screen Interface Map.h"\
+	"..\Strategic\mapscreen.h"\
+	"..\strategic\meanwhile.h"\
+	"..\Strategic\Queen Command.h"\
+	"..\Strategic\Quests.h"\
+	"..\Strategic\Scheduling.h"\
+	"..\Strategic\Strategic Movement.h"\
+	"..\Strategic\Strategic Pathing.h"\
+	"..\Strategic\Strategic Town Loyalty.h"\
+	"..\Strategic\strategic.h"\
+	"..\Strategic\strategicmap.h"\
+	"..\Sys Globals.h"\
+	"..\Tactical\animation cache.h"\
+	"..\Tactical\Animation Control.h"\
+	"..\Tactical\Animation Data.h"\
+	"..\Tactical\Arms Dealer Init.h"\
+	"..\Tactical\Boxing.h"\
+	"..\tactical\bullets.h"\
+	"..\tactical\civ quotes.h"\
+	"..\tactical\dialogue control.h"\
+	"..\tactical\faces.h"\
+	"..\Tactical\Handle Items.h"\
+	"..\Tactical\Handle UI.h"\
+	"..\tactical\interface dialogue.h"\
+	"..\Tactical\Interface Items.h"\
+	"..\Tactical\interface panels.h"\
+	"..\Tactical\Interface.h"\
+	"..\Tactical\Item Types.h"\
+	"..\Tactical\Items.h"\
+	"..\Tactical\Keys.h"\
+	"..\Tactical\los.h"\
+	"..\Tactical\Merc Hiring.h"\
+	"..\Tactical\opplist.h"\
+	"..\Tactical\overhead types.h"\
+	"..\Tactical\Overhead.h"\
+	"..\Tactical\PATHAI.H"\
+	"..\Tactical\points.h"\
+	"..\tactical\rotting corpses.h"\
+	"..\Tactical\SkillCheck.h"\
+	"..\Tactical\Soldier Add.h"\
+	"..\Tactical\soldier ani.h"\
+	"..\Tactical\Soldier Control.h"\
+	"..\Tactical\Soldier Create.h"\
+	"..\tactical\soldier find.h"\
+	"..\tactical\soldier functions.h"\
+	"..\Tactical\Soldier Init List.h"\
+	"..\Tactical\Soldier macros.h"\
+	"..\Tactical\soldier profile type.h"\
+	"..\Tactical\Soldier Profile.h"\
+	"..\tactical\soldier tile.h"\
+	"..\Tactical\Spread burst.h"\
+	"..\tactical\structure wrap.h"\
+	"..\Tactical\Tactical Save.h"\
+	"..\Tactical\TeamTurns.h"\
+	"..\Tactical\Vehicles.h"\
+	"..\Tactical\weapons.h"\
+	"..\Tactical\World Items.h"\
+	"..\TileEngine\Buildings.h"\
+	"..\TileEngine\environment.h"\
+	"..\tileengine\explosion control.h"\
+	"..\TileEngine\Interactive Tiles.h"\
+	"..\TileEngine\Isometric Utils.h"\
+	"..\TileEngine\lighting.h"\
+	"..\TileEngine\Map Edgepoints.h"\
+	"..\tileengine\phys math.h"\
+	"..\tileengine\physics.h"\
+	"..\TileEngine\Render Fun.h"\
+	"..\TileEngine\renderworld.h"\
+	"..\TileEngine\Smell.h"\
+	"..\TileEngine\Structure Internals.h"\
+	"..\TileEngine\structure.h"\
+	"..\TileEngine\Tile Animation.h"\
+	"..\TileEngine\TileDat.h"\
+	"..\TileEngine\tiledef.h"\
+	"..\TileEngine\worlddef.h"\
+	"..\TileEngine\worldman.h"\
+	"..\Utils\Event Manager.h"\
+	"..\Utils\Event Pump.h"\
+	"..\Utils\Font Control.h"\
+	"..\Utils\message.h"\
+	"..\Utils\Text.h"\
+	"..\Utils\Timer Control.h"\
+	".\AI All.h"\
+	".\ai.h"\
+	".\AIInternals.h"\
+	".\AIList.h"\
+	".\NPC.h"\
+	".\QuestDebug.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+.\PanicButtons.cpp : \
+	"..\builddefines.h"\
+	"..\gamescreen.h"\
+	"..\GameSettings.h"\
+	"..\jascreens.h"\
+	"..\Language Defines.h"\
+	"..\Laptop\finances.h"\
+	"..\Laptop\Store Inventory.h"\
+	"..\local.h"\
+	"..\screenids.h"\
+	"..\SCREENS.H"\
+	"..\standard gaming platform\button sound control.h"\
+	"..\Standard Gaming Platform\Button System.h"\
+	"..\Standard Gaming Platform\container.h"\
+	"..\Standard Gaming Platform\Debug.h"\
+	"..\Standard Gaming Platform\DirectDraw Calls.h"\
+	"..\Standard Gaming Platform\DirectX Common.h"\
+	"..\Standard Gaming Platform\FileMan.h"\
+	"..\Standard Gaming Platform\font.h"\
+	"..\Standard Gaming Platform\himage.h"\
+	"..\Standard Gaming Platform\imgfmt.h"\
+	"..\Standard Gaming Platform\Input.h"\
+	"..\Standard Gaming Platform\MemMan.h"\
+	"..\Standard Gaming Platform\mousesystem.h"\
+	"..\Standard Gaming Platform\mousesystem_macros.h"\
+	"..\standard gaming platform\mss.h"\
+	"..\Standard Gaming Platform\Mutex Manager.h"\
+	"..\Standard Gaming Platform\random.h"\
+	"..\Standard Gaming Platform\sgp.h"\
+	"..\Standard Gaming Platform\soundman.h"\
+	"..\Standard Gaming Platform\timer.h"\
+	"..\Standard Gaming Platform\TopicIDs.h"\
+	"..\Standard Gaming Platform\TopicOps.h"\
+	"..\Standard Gaming Platform\Video.h"\
+	"..\Standard Gaming Platform\vobject.h"\
+	"..\Standard Gaming Platform\vsurface.h"\
+	"..\Standard Gaming Platform\WCheck.h"\
+	"..\Strategic\Assignments.h"\
+	"..\Strategic\Campaign Types.h"\
+	"..\Strategic\Game Clock.h"\
+	"..\Strategic\Map Screen Interface Map.h"\
+	"..\Strategic\mapscreen.h"\
+	"..\strategic\meanwhile.h"\
+	"..\Strategic\Queen Command.h"\
+	"..\Strategic\Quests.h"\
+	"..\Strategic\Scheduling.h"\
+	"..\Strategic\Strategic Movement.h"\
+	"..\Strategic\Strategic Pathing.h"\
+	"..\Strategic\Strategic Town Loyalty.h"\
+	"..\Strategic\strategic.h"\
+	"..\Strategic\strategicmap.h"\
+	"..\Sys Globals.h"\
+	"..\Tactical\animation cache.h"\
+	"..\Tactical\Animation Control.h"\
+	"..\Tactical\Animation Data.h"\
+	"..\Tactical\Arms Dealer Init.h"\
+	"..\Tactical\Boxing.h"\
+	"..\tactical\bullets.h"\
+	"..\tactical\civ quotes.h"\
+	"..\tactical\dialogue control.h"\
+	"..\tactical\faces.h"\
+	"..\Tactical\Handle Items.h"\
+	"..\Tactical\Handle UI.h"\
+	"..\tactical\interface dialogue.h"\
+	"..\Tactical\interface panels.h"\
+	"..\Tactical\Interface.h"\
+	"..\Tactical\Item Types.h"\
+	"..\Tactical\Items.h"\
+	"..\Tactical\Keys.h"\
+	"..\Tactical\los.h"\
+	"..\Tactical\Merc Hiring.h"\
+	"..\Tactical\opplist.h"\
+	"..\Tactical\overhead types.h"\
+	"..\Tactical\Overhead.h"\
+	"..\Tactical\PATHAI.H"\
+	"..\Tactical\points.h"\
+	"..\tactical\rotting corpses.h"\
+	"..\Tactical\SkillCheck.h"\
+	"..\Tactical\Soldier Add.h"\
+	"..\Tactical\soldier ani.h"\
+	"..\Tactical\Soldier Control.h"\
+	"..\Tactical\Soldier Create.h"\
+	"..\tactical\soldier find.h"\
+	"..\tactical\soldier functions.h"\
+	"..\Tactical\Soldier Init List.h"\
+	"..\Tactical\Soldier macros.h"\
+	"..\Tactical\soldier profile type.h"\
+	"..\Tactical\Soldier Profile.h"\
+	"..\tactical\soldier tile.h"\
+	"..\Tactical\Spread burst.h"\
+	"..\tactical\structure wrap.h"\
+	"..\Tactical\Tactical Save.h"\
+	"..\Tactical\TeamTurns.h"\
+	"..\Tactical\Vehicles.h"\
+	"..\Tactical\weapons.h"\
+	"..\Tactical\World Items.h"\
+	"..\TileEngine\Buildings.h"\
+	"..\TileEngine\environment.h"\
+	"..\tileengine\explosion control.h"\
+	"..\TileEngine\Interactive Tiles.h"\
+	"..\TileEngine\Isometric Utils.h"\
+	"..\TileEngine\lighting.h"\
+	"..\TileEngine\Map Edgepoints.h"\
+	"..\tileengine\phys math.h"\
+	"..\tileengine\physics.h"\
+	"..\TileEngine\Render Fun.h"\
+	"..\TileEngine\renderworld.h"\
+	"..\TileEngine\Smell.h"\
+	"..\TileEngine\Structure Internals.h"\
+	"..\TileEngine\structure.h"\
+	"..\TileEngine\Tile Animation.h"\
+	"..\TileEngine\TileDat.h"\
+	"..\TileEngine\tiledef.h"\
+	"..\TileEngine\worlddef.h"\
+	"..\TileEngine\worldman.h"\
+	"..\Utils\Event Manager.h"\
+	"..\Utils\Event Pump.h"\
+	"..\Utils\Font Control.h"\
+	"..\Utils\message.h"\
+	"..\Utils\Text.h"\
+	"..\Utils\Timer Control.h"\
+	".\AI All.h"\
+	".\ai.h"\
+	".\AIInternals.h"\
+	".\AIList.h"\
+	".\NPC.h"\
+	".\QuestDebug.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+.\QuestDebug.cpp : \
+	"..\builddefines.h"\
+	"..\gamescreen.h"\
+	"..\GameSettings.h"\
+	"..\jascreens.h"\
+	"..\Language Defines.h"\
+	"..\Laptop\finances.h"\
+	"..\Laptop\Store Inventory.h"\
+	"..\local.h"\
+	"..\screenids.h"\
+	"..\SCREENS.H"\
+	"..\standard gaming platform\button sound control.h"\
+	"..\Standard Gaming Platform\Button System.h"\
+	"..\Standard Gaming Platform\container.h"\
+	"..\Standard Gaming Platform\Debug.h"\
+	"..\Standard Gaming Platform\DirectDraw Calls.h"\
+	"..\Standard Gaming Platform\DirectX Common.h"\
+	"..\Standard Gaming Platform\FileMan.h"\
+	"..\Standard Gaming Platform\font.h"\
+	"..\Standard Gaming Platform\himage.h"\
+	"..\Standard Gaming Platform\imgfmt.h"\
+	"..\Standard Gaming Platform\Input.h"\
+	"..\Standard Gaming Platform\MemMan.h"\
+	"..\Standard Gaming Platform\mousesystem.h"\
+	"..\Standard Gaming Platform\mousesystem_macros.h"\
+	"..\standard gaming platform\mss.h"\
+	"..\Standard Gaming Platform\Mutex Manager.h"\
+	"..\Standard Gaming Platform\random.h"\
+	"..\Standard Gaming Platform\sgp.h"\
+	"..\Standard Gaming Platform\soundman.h"\
+	"..\Standard Gaming Platform\timer.h"\
+	"..\Standard Gaming Platform\TopicIDs.h"\
+	"..\Standard Gaming Platform\TopicOps.h"\
+	"..\Standard Gaming Platform\Video.h"\
+	"..\Standard Gaming Platform\vobject.h"\
+	"..\Standard Gaming Platform\vsurface.h"\
+	"..\Standard Gaming Platform\WCheck.h"\
+	"..\Strategic\Assignments.h"\
+	"..\Strategic\Campaign Types.h"\
+	"..\Strategic\Game Clock.h"\
+	"..\Strategic\Map Screen Interface Map.h"\
+	"..\Strategic\mapscreen.h"\
+	"..\strategic\meanwhile.h"\
+	"..\Strategic\Queen Command.h"\
+	"..\Strategic\Quests.h"\
+	"..\Strategic\Scheduling.h"\
+	"..\Strategic\Strategic Movement.h"\
+	"..\Strategic\Strategic Pathing.h"\
+	"..\Strategic\Strategic Town Loyalty.h"\
+	"..\Strategic\strategic.h"\
+	"..\Strategic\strategicmap.h"\
+	"..\Sys Globals.h"\
+	"..\Tactical\animation cache.h"\
+	"..\Tactical\Animation Control.h"\
+	"..\Tactical\Animation Data.h"\
+	"..\Tactical\Arms Dealer Init.h"\
+	"..\Tactical\Boxing.h"\
+	"..\tactical\bullets.h"\
+	"..\tactical\civ quotes.h"\
+	"..\tactical\dialogue control.h"\
+	"..\tactical\faces.h"\
+	"..\Tactical\Handle Items.h"\
+	"..\Tactical\Handle UI.h"\
+	"..\tactical\interface dialogue.h"\
+	"..\Tactical\interface panels.h"\
+	"..\Tactical\Interface.h"\
+	"..\Tactical\Item Types.h"\
+	"..\Tactical\Items.h"\
+	"..\Tactical\Keys.h"\
+	"..\Tactical\los.h"\
+	"..\Tactical\Merc Hiring.h"\
+	"..\Tactical\opplist.h"\
+	"..\Tactical\overhead types.h"\
+	"..\Tactical\Overhead.h"\
+	"..\Tactical\PATHAI.H"\
+	"..\Tactical\points.h"\
+	"..\tactical\rotting corpses.h"\
+	"..\Tactical\SkillCheck.h"\
+	"..\Tactical\Soldier Add.h"\
+	"..\Tactical\soldier ani.h"\
+	"..\Tactical\Soldier Control.h"\
+	"..\Tactical\Soldier Create.h"\
+	"..\tactical\soldier find.h"\
+	"..\tactical\soldier functions.h"\
+	"..\Tactical\Soldier Init List.h"\
+	"..\Tactical\Soldier macros.h"\
+	"..\Tactical\soldier profile type.h"\
+	"..\Tactical\Soldier Profile.h"\
+	"..\tactical\soldier tile.h"\
+	"..\Tactical\Spread burst.h"\
+	"..\tactical\structure wrap.h"\
+	"..\Tactical\Tactical Save.h"\
+	"..\Tactical\TeamTurns.h"\
+	"..\Tactical\Vehicles.h"\
+	"..\Tactical\weapons.h"\
+	"..\Tactical\World Items.h"\
+	"..\TileEngine\Buildings.h"\
+	"..\TileEngine\environment.h"\
+	"..\tileengine\explosion control.h"\
+	"..\TileEngine\Interactive Tiles.h"\
+	"..\TileEngine\Isometric Utils.h"\
+	"..\TileEngine\lighting.h"\
+	"..\TileEngine\Map Edgepoints.h"\
+	"..\tileengine\phys math.h"\
+	"..\tileengine\physics.h"\
+	"..\TileEngine\Render Fun.h"\
+	"..\TileEngine\renderworld.h"\
+	"..\TileEngine\Smell.h"\
+	"..\TileEngine\Structure Internals.h"\
+	"..\TileEngine\structure.h"\
+	"..\TileEngine\Tile Animation.h"\
+	"..\TileEngine\TileDat.h"\
+	"..\TileEngine\tiledef.h"\
+	"..\TileEngine\worlddef.h"\
+	"..\TileEngine\worldman.h"\
+	"..\Utils\Event Manager.h"\
+	"..\Utils\Event Pump.h"\
+	"..\Utils\Font Control.h"\
+	"..\Utils\message.h"\
+	"..\Utils\Text.h"\
+	"..\Utils\Timer Control.h"\
+	".\AI All.h"\
+	".\ai.h"\
+	".\AIInternals.h"\
+	".\AIList.h"\
+	".\NPC.h"\
+	".\QuestDebug.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	
+
+.\Realtime.cpp : \
+	"..\builddefines.h"\
+	"..\gamescreen.h"\
+	"..\GameSettings.h"\
+	"..\jascreens.h"\
+	"..\Language Defines.h"\
+	"..\Laptop\finances.h"\
+	"..\Laptop\Store Inventory.h"\
+	"..\local.h"\
+	"..\screenids.h"\
+	"..\SCREENS.H"\
+	"..\standard gaming platform\button sound control.h"\
+	"..\Standard Gaming Platform\Button System.h"\
+	"..\Standard Gaming Platform\container.h"\
+	"..\Standard Gaming Platform\Debug.h"\
+	"..\Standard Gaming Platform\DirectDraw Calls.h"\
+	"..\Standard Gaming Platform\DirectX Common.h"\
+	"..\Standard Gaming Platform\FileMan.h"\
+	"..\Standard Gaming Platform\font.h"\
+	"..\Standard Gaming Platform\himage.h"\
+	"..\Standard Gaming Platform\imgfmt.h"\
+	"..\Standard Gaming Platform\Input.h"\
+	"..\Standard Gaming Platform\MemMan.h"\
+	"..\Standard Gaming Platform\mousesystem.h"\
+	"..\Standard Gaming Platform\mousesystem_macros.h"\
+	"..\standard gaming platform\mss.h"\
+	"..\Standard Gaming Platform\Mutex Manager.h"\
+	"..\Standard Gaming Platform\random.h"\
+	"..\Standard Gaming Platform\sgp.h"\
+	"..\Standard Gaming Platform\soundman.h"\
+	"..\Standard Gaming Platform\timer.h"\
+	"..\Standard Gaming Platform\TopicIDs.h"\
+	"..\Standard Gaming Platform\TopicOps.h"\
+	"..\Standard Gaming Platform\Video.h"\
+	"..\Standard Gaming Platform\vobject.h"\
+	"..\Standard Gaming Platform\vsurface.h"\
+	"..\Standard Gaming Platform\WCheck.h"\
+	"..\Strategic\Assignments.h"\
+	"..\Strategic\Campaign Types.h"\
+	"..\Strategic\Game Clock.h"\
+	"..\Strategic\Map Screen Interface Map.h"\
+	"..\Strategic\mapscreen.h"\
+	"..\strategic\meanwhile.h"\
+	"..\Strategic\Queen Command.h"\
+	"..\Strategic\Quests.h"\
+	"..\Strategic\Scheduling.h"\
+	"..\Strategic\Strategic Movement.h"\
+	"..\Strategic\Strategic Pathing.h"\
+	"..\Strategic\Strategic Town Loyalty.h"\
+	"..\Strategic\strategic.h"\
+	"..\Strategic\strategicmap.h"\
+	"..\Sys Globals.h"\
+	"..\Tactical\animation cache.h"\
+	"..\Tactical\Animation Control.h"\
+	"..\Tactical\Animation Data.h"\
+	"..\Tactical\Arms Dealer Init.h"\
+	"..\Tactical\Boxing.h"\
+	"..\tactical\bullets.h"\
+	"..\tactical\civ quotes.h"\
+	"..\tactical\dialogue control.h"\
+	"..\tactical\faces.h"\
+	"..\Tactical\Handle Items.h"\
+	"..\Tactical\Handle UI.h"\
+	"..\tactical\interface dialogue.h"\
+	"..\Tactical\interface panels.h"\
+	"..\Tactical\Interface.h"\
+	"..\Tactical\Item Types.h"\
+	"..\Tactical\Items.h"\
+	"..\Tactical\Keys.h"\
+	"..\Tactical\los.h"\
+	"..\Tactical\Merc Hiring.h"\
+	"..\Tactical\opplist.h"\
+	"..\Tactical\overhead types.h"\
+	"..\Tactical\Overhead.h"\
+	"..\Tactical\PATHAI.H"\
+	"..\Tactical\points.h"\
+	"..\tactical\rotting corpses.h"\
+	"..\Tactical\SkillCheck.h"\
+	"..\Tactical\Soldier Add.h"\
+	"..\Tactical\soldier ani.h"\
+	"..\Tactical\Soldier Control.h"\
+	"..\Tactical\Soldier Create.h"\
+	"..\tactical\soldier find.h"\
+	"..\tactical\soldier functions.h"\
+	"..\Tactical\Soldier Init List.h"\
+	"..\Tactical\Soldier macros.h"\
+	"..\Tactical\soldier profile type.h"\
+	"..\Tactical\Soldier Profile.h"\
+	"..\tactical\soldier tile.h"\
+	"..\Tactical\Spread burst.h"\
+	"..\tactical\structure wrap.h"\
+	"..\Tactical\Tactical Save.h"\
+	"..\Tactical\TeamTurns.h"\
+	"..\Tactical\Vehicles.h"\
+	"..\Tactical\weapons.h"\
+	"..\Tactical\World Items.h"\
+	"..\TileEngine\Buildings.h"\
+	"..\TileEngine\environment.h"\
+	"..\tileengine\explosion control.h"\
+	"..\TileEngine\Interactive Tiles.h"\
+	"..\TileEngine\Isometric Utils.h"\
+	"..\TileEngine\lighting.h"\
+	"..\TileEngine\Map Edgepoints.h"\
+	"..\tileengine\phys math.h"\
+	"..\tileengine\physics.h"\
+	"..\TileEngine\Render Fun.h"\
+	"..\TileEngine\renderworld.h"\
+	"..\TileEngine\Smell.h"\
+	"..\TileEngine\Structure Internals.h"\
+	"..\TileEngine\structure.h"\
+	"..\TileEngine\Tile Animation.h"\
+	"..\TileEngine\TileDat.h"\
+	"..\TileEngine\tiledef.h"\
+	"..\TileEngine\worlddef.h"\
+	"..\TileEngine\worldman.h"\
+	"..\Utils\Event Manager.h"\
+	"..\Utils\Event Pump.h"\
+	"..\Utils\Font Control.h"\
+	"..\Utils\message.h"\
+	"..\Utils\Text.h"\
+	"..\Utils\Timer Control.h"\
+	".\AI All.h"\
+	".\ai.h"\
+	".\AIInternals.h"\
+	".\AIList.h"\
+	".\NPC.h"\
+	".\QuestDebug.h"\
+	"c:\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	

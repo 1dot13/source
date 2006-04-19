@@ -1,0 +1,207 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Editor", "Editor\Editor.vcproj", "{CB33540F-3AFF-4985-86FE-5E899B570133}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Laptop", "Laptop\Laptop.vcproj", "{FEE1FCB1-6A45-4247-A440-3561F33B16A3}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Standard Gaming Platform", "Standard Gaming Platform\Standard Gaming Platform.vcproj", "{4D15E8C7-9458-403C-A34B-15DF2CAF3277}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Strategic", "Strategic\Strategic.vcproj", "{5C428253-7443-4C4B-A5F2-E079DA2E6933}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tactical", "Tactical\Tactical.vcproj", "{F80B55A6-E228-4EB6-B915-4815E01CEA76}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TacticalAI", "TacticalAI\TacticalAI.vcproj", "{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TileEngine", "TileEngine\TileEngine.vcproj", "{262D8F88-8266-4B16-999E-B5C0B12EFF01}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utils", "Utils\Utils.vcproj", "{6B1D57C9-A579-452E-8642-6ECF3E9FD399}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ja2", "JA2.vcproj", "{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933} = {5C428253-7443-4C4B-A5F2-E079DA2E6933}
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3} = {FEE1FCB1-6A45-4247-A440-3561F33B16A3}
+		{CB33540F-3AFF-4985-86FE-5E899B570133} = {CB33540F-3AFF-4985-86FE-5E899B570133}
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6} = {94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399} = {6B1D57C9-A579-452E-8642-6ECF3E9FD399}
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76} = {F80B55A6-E228-4EB6-B915-4815E01CEA76}
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277} = {4D15E8C7-9458-403C-A34B-15DF2CAF3277}
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01} = {262D8F88-8266-4B16-999E-B5C0B12EFF01}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Bounds Checker = Bounds Checker
+		Debug = Debug
+		Debug Demo = Debug Demo
+		Demo Bounds Checker = Demo Bounds Checker
+		Demo Release with Debug Info = Demo Release with Debug Info
+		Release = Release
+		Release Demo = Release Demo
+		Release with Debug Info = Release with Debug Info
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{CB33540F-3AFF-4985-86FE-5E899B570133}.Bounds Checker.ActiveCfg = Bounds Checker|Win32
+		{CB33540F-3AFF-4985-86FE-5E899B570133}.Bounds Checker.Build.0 = Bounds Checker|Win32
+		{CB33540F-3AFF-4985-86FE-5E899B570133}.Debug.ActiveCfg = Debug|Win32
+		{CB33540F-3AFF-4985-86FE-5E899B570133}.Debug.Build.0 = Debug|Win32
+		{CB33540F-3AFF-4985-86FE-5E899B570133}.Debug Demo.ActiveCfg = Debug Demo|Win32
+		{CB33540F-3AFF-4985-86FE-5E899B570133}.Debug Demo.Build.0 = Debug Demo|Win32
+		{CB33540F-3AFF-4985-86FE-5E899B570133}.Demo Bounds Checker.ActiveCfg = Demo Bounds Checker|Win32
+		{CB33540F-3AFF-4985-86FE-5E899B570133}.Demo Bounds Checker.Build.0 = Demo Bounds Checker|Win32
+		{CB33540F-3AFF-4985-86FE-5E899B570133}.Demo Release with Debug Info.ActiveCfg = Demo Release with Debug Info|Win32
+		{CB33540F-3AFF-4985-86FE-5E899B570133}.Demo Release with Debug Info.Build.0 = Demo Release with Debug Info|Win32
+		{CB33540F-3AFF-4985-86FE-5E899B570133}.Release.ActiveCfg = Release|Win32
+		{CB33540F-3AFF-4985-86FE-5E899B570133}.Release.Build.0 = Release|Win32
+		{CB33540F-3AFF-4985-86FE-5E899B570133}.Release Demo.ActiveCfg = Release Demo|Win32
+		{CB33540F-3AFF-4985-86FE-5E899B570133}.Release Demo.Build.0 = Release Demo|Win32
+		{CB33540F-3AFF-4985-86FE-5E899B570133}.Release with Debug Info.ActiveCfg = Release with Debug Info|Win32
+		{CB33540F-3AFF-4985-86FE-5E899B570133}.Release with Debug Info.Build.0 = Release with Debug Info|Win32
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3}.Bounds Checker.ActiveCfg = Bounds Checker|Win32
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3}.Bounds Checker.Build.0 = Bounds Checker|Win32
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3}.Debug.ActiveCfg = Debug|Win32
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3}.Debug.Build.0 = Debug|Win32
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3}.Debug Demo.ActiveCfg = Debug Demo|Win32
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3}.Debug Demo.Build.0 = Debug Demo|Win32
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3}.Demo Bounds Checker.ActiveCfg = Demo Bounds Checker|Win32
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3}.Demo Bounds Checker.Build.0 = Demo Bounds Checker|Win32
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3}.Demo Release with Debug Info.ActiveCfg = Demo Release with Debug Info|Win32
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3}.Demo Release with Debug Info.Build.0 = Demo Release with Debug Info|Win32
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3}.Release.ActiveCfg = Release|Win32
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3}.Release.Build.0 = Release|Win32
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3}.Release Demo.ActiveCfg = Release Demo|Win32
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3}.Release Demo.Build.0 = Release Demo|Win32
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3}.Release with Debug Info.ActiveCfg = Release with Debug Info|Win32
+		{FEE1FCB1-6A45-4247-A440-3561F33B16A3}.Release with Debug Info.Build.0 = Release with Debug Info|Win32
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277}.Bounds Checker.ActiveCfg = Bounds Checker|Win32
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277}.Bounds Checker.Build.0 = Bounds Checker|Win32
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277}.Debug.ActiveCfg = Debug|Win32
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277}.Debug.Build.0 = Debug|Win32
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277}.Debug Demo.ActiveCfg = Debug Demo|Win32
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277}.Debug Demo.Build.0 = Debug Demo|Win32
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277}.Demo Bounds Checker.ActiveCfg = Bounds Checker|Win32
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277}.Demo Bounds Checker.Build.0 = Bounds Checker|Win32
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277}.Demo Release with Debug Info.ActiveCfg = Demo Release with Debug Info|Win32
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277}.Demo Release with Debug Info.Build.0 = Demo Release with Debug Info|Win32
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277}.Release.ActiveCfg = Release|Win32
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277}.Release.Build.0 = Release|Win32
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277}.Release Demo.ActiveCfg = Release Demo|Win32
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277}.Release Demo.Build.0 = Release Demo|Win32
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277}.Release with Debug Info.ActiveCfg = Release with Debug Info|Win32
+		{4D15E8C7-9458-403C-A34B-15DF2CAF3277}.Release with Debug Info.Build.0 = Release with Debug Info|Win32
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933}.Bounds Checker.ActiveCfg = Bounds Checker|Win32
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933}.Bounds Checker.Build.0 = Bounds Checker|Win32
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933}.Debug.ActiveCfg = Debug|Win32
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933}.Debug.Build.0 = Debug|Win32
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933}.Debug Demo.ActiveCfg = Debug Demo|Win32
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933}.Debug Demo.Build.0 = Debug Demo|Win32
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933}.Demo Bounds Checker.ActiveCfg = Demo Bounds Checker|Win32
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933}.Demo Bounds Checker.Build.0 = Demo Bounds Checker|Win32
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933}.Demo Release with Debug Info.ActiveCfg = Demo Release with Debug Info|Win32
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933}.Demo Release with Debug Info.Build.0 = Demo Release with Debug Info|Win32
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933}.Release.ActiveCfg = Release|Win32
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933}.Release.Build.0 = Release|Win32
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933}.Release Demo.ActiveCfg = Release Demo|Win32
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933}.Release Demo.Build.0 = Release Demo|Win32
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933}.Release with Debug Info.ActiveCfg = Release with Debug Info|Win32
+		{5C428253-7443-4C4B-A5F2-E079DA2E6933}.Release with Debug Info.Build.0 = Release with Debug Info|Win32
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76}.Bounds Checker.ActiveCfg = Bounds Checker|Win32
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76}.Bounds Checker.Build.0 = Bounds Checker|Win32
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76}.Debug.ActiveCfg = Debug|Win32
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76}.Debug.Build.0 = Debug|Win32
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76}.Debug Demo.ActiveCfg = Debug Demo|Win32
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76}.Debug Demo.Build.0 = Debug Demo|Win32
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76}.Demo Bounds Checker.ActiveCfg = Demo Bounds Checker|Win32
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76}.Demo Bounds Checker.Build.0 = Demo Bounds Checker|Win32
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76}.Demo Release with Debug Info.ActiveCfg = Demo Release with Debug Info|Win32
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76}.Demo Release with Debug Info.Build.0 = Demo Release with Debug Info|Win32
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76}.Release.ActiveCfg = Release|Win32
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76}.Release.Build.0 = Release|Win32
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76}.Release Demo.ActiveCfg = Release Demo|Win32
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76}.Release Demo.Build.0 = Release Demo|Win32
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76}.Release with Debug Info.ActiveCfg = Release with Debug Info|Win32
+		{F80B55A6-E228-4EB6-B915-4815E01CEA76}.Release with Debug Info.Build.0 = Release with Debug Info|Win32
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}.Bounds Checker.ActiveCfg = Bounds Checker|Win32
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}.Bounds Checker.Build.0 = Bounds Checker|Win32
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}.Debug.ActiveCfg = Debug|Win32
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}.Debug.Build.0 = Debug|Win32
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}.Debug Demo.ActiveCfg = Debug Demo|Win32
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}.Debug Demo.Build.0 = Debug Demo|Win32
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}.Demo Bounds Checker.ActiveCfg = Demo Bounds Checker|Win32
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}.Demo Bounds Checker.Build.0 = Demo Bounds Checker|Win32
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}.Demo Release with Debug Info.ActiveCfg = Demo Release with Debug Info|Win32
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}.Demo Release with Debug Info.Build.0 = Demo Release with Debug Info|Win32
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}.Release.ActiveCfg = Release|Win32
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}.Release.Build.0 = Release|Win32
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}.Release Demo.ActiveCfg = Release Demo|Win32
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}.Release Demo.Build.0 = Release Demo|Win32
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}.Release with Debug Info.ActiveCfg = Release with Debug Info|Win32
+		{94DA4574-7108-4CDA-B43F-DA83B1C3EDF6}.Release with Debug Info.Build.0 = Release with Debug Info|Win32
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01}.Bounds Checker.ActiveCfg = Bounds Checker|Win32
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01}.Bounds Checker.Build.0 = Bounds Checker|Win32
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01}.Debug.ActiveCfg = Debug|Win32
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01}.Debug.Build.0 = Debug|Win32
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01}.Debug Demo.ActiveCfg = Debug Demo|Win32
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01}.Debug Demo.Build.0 = Debug Demo|Win32
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01}.Demo Bounds Checker.ActiveCfg = Demo Bounds Checker|Win32
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01}.Demo Bounds Checker.Build.0 = Demo Bounds Checker|Win32
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01}.Demo Release with Debug Info.ActiveCfg = Demo Release with Debug Info|Win32
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01}.Demo Release with Debug Info.Build.0 = Demo Release with Debug Info|Win32
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01}.Release.ActiveCfg = Release|Win32
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01}.Release.Build.0 = Release|Win32
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01}.Release Demo.ActiveCfg = Release Demo|Win32
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01}.Release Demo.Build.0 = Release Demo|Win32
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01}.Release with Debug Info.ActiveCfg = Release with Debug Info|Win32
+		{262D8F88-8266-4B16-999E-B5C0B12EFF01}.Release with Debug Info.Build.0 = Release with Debug Info|Win32
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399}.Bounds Checker.ActiveCfg = Bounds Checker|Win32
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399}.Bounds Checker.Build.0 = Bounds Checker|Win32
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399}.Debug.ActiveCfg = Debug|Win32
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399}.Debug.Build.0 = Debug|Win32
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399}.Debug Demo.ActiveCfg = Debug Demo|Win32
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399}.Debug Demo.Build.0 = Debug Demo|Win32
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399}.Demo Bounds Checker.ActiveCfg = Demo Bounds Checker|Win32
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399}.Demo Bounds Checker.Build.0 = Demo Bounds Checker|Win32
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399}.Demo Release with Debug Info.ActiveCfg = Demo Release with Debug Info|Win32
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399}.Demo Release with Debug Info.Build.0 = Demo Release with Debug Info|Win32
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399}.Release.ActiveCfg = Release|Win32
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399}.Release.Build.0 = Release|Win32
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399}.Release Demo.ActiveCfg = Release Demo|Win32
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399}.Release Demo.Build.0 = Release Demo|Win32
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399}.Release with Debug Info.ActiveCfg = Release with Debug Info|Win32
+		{6B1D57C9-A579-452E-8642-6ECF3E9FD399}.Release with Debug Info.Build.0 = Release with Debug Info|Win32
+		{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}.Bounds Checker.ActiveCfg = Bounds Checker|Win32
+		{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}.Bounds Checker.Build.0 = Bounds Checker|Win32
+		{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}.Debug.ActiveCfg = Debug|Win32
+		{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}.Debug.Build.0 = Debug|Win32
+		{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}.Debug Demo.ActiveCfg = Debug Demo|Win32
+		{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}.Debug Demo.Build.0 = Debug Demo|Win32
+		{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}.Demo Bounds Checker.ActiveCfg = Demo Bounds Checker|Win32
+		{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}.Demo Bounds Checker.Build.0 = Demo Bounds Checker|Win32
+		{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}.Demo Release with Debug Info.ActiveCfg = Demo Release with Debug Info|Win32
+		{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}.Demo Release with Debug Info.Build.0 = Demo Release with Debug Info|Win32
+		{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}.Release.ActiveCfg = Release|Win32
+		{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}.Release.Build.0 = Release|Win32
+		{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}.Release Demo.ActiveCfg = Release Demo|Win32
+		{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}.Release Demo.Build.0 = Release Demo|Win32
+		{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}.Release with Debug Info.ActiveCfg = Release with Debug Info|Win32
+		{0795F6E2-EE5C-48C5-AB6B-11E64B7533D4}.Release with Debug Info.Build.0 = Release with Debug Info|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
