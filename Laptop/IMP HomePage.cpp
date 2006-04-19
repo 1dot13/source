@@ -396,10 +396,11 @@ void ProcessPlayerInputActivationString( void )
 	  iCurrentImpPage = IMP_MAIN_PAGE;
 	
 	}
-//Madd multiple imps else if( ( wcscmp(pPlayerActivationString, L"90210") == 0 ) && ( LaptopSaveInfo.fIMPCompletedFlag == FALSE ) )
-	else if( ( wcscmp(pPlayerActivationString, L"90210") == 0 ) )
+	//Madd multiple imps else if( ( wcscmp(pPlayerActivationString, L"90210") == 0 ) && ( LaptopSaveInfo.fIMPCompletedFlag == FALSE ) )
+	// Madd: load characters by name:
+	else if ( ImpExists( (STR)pPlayerActivationString ) )
 	{
-		LoadInCurrentImpCharacter( );
+		LoadImpCharacter( (STR)pPlayerActivationString );
 	}
 
 	else

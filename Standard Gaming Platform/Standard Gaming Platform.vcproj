@@ -3,8 +3,10 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="Standard Gaming Platform"
-	SccProjectName="&quot;$/Jagged Alliance 2/Development/Programming/Jagged Alliance 2/Build&quot;, AVAAAAAA"
-	SccLocalPath="..\ja2\build">
+	SccProjectName=""
+	SccAuxPath=""
+	SccLocalPath=""
+	SccProvider="">
 	<Platforms>
 		<Platform
 			Name="Win32"/>

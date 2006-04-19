@@ -33,7 +33,7 @@
 	#include "strategic.h"
 #endif
 
-#define IMP_MERC_FILE "IMP.dat"
+#define IMP_FILENAME_SUFFIX ".dat"
 
 IMP_ITEM_CHOICE_TYPE gIMPItemChoices[MAX_IMP_ITEM_TYPES];
 	
@@ -657,7 +657,7 @@ void WriteOutCurrentImpCharacter( INT32 iProfileId )
 	UINT32 uiBytesWritten = 0;
 
 	// open the file for writing
-	hFile = FileOpen(IMP_MERC_FILE, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE);
+	hFile = FileOpen(strcat((STR)(&gMercProfiles[iProfileId].zNickname),IMP_FILENAME_SUFFIX), FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE);
 
 	// write out the profile id
 	if (!FileWrite(hFile, &iProfileId, sizeof( INT32 ), &uiBytesWritten))
@@ -683,14 +683,23 @@ void WriteOutCurrentImpCharacter( INT32 iProfileId )
 	return;
 }
 
-void LoadInCurrentImpCharacter( void )
+BOOLEAN ImpExists ( STR nickName )
+{
+	DWORD attribs = GetFileAttributes(strcat(nickName,IMP_FILENAME_SUFFIX));
+	if ( attribs != INVALID_FILE_ATTRIBUTES && !(attribs & FILE_ATTRIBUTE_DIRECTORY) )
+		return TRUE;
+	
+	return FALSE;
+}
+
+void LoadImpCharacter( STR nickName )
 {
 	INT32 iProfileId = 0;
 	HWFILE hFile;
 	UINT32 uiBytesRead = 0;
 
 	// open the file for writing
-	hFile = FileOpen(IMP_MERC_FILE, FILE_ACCESS_READ, FALSE);
+	hFile = FileOpen(strcat(nickName,IMP_FILENAME_SUFFIX), FILE_ACCESS_READ, FALSE);
 
 	// valid file?
 	if( hFile == -1 )

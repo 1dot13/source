@@ -3138,6 +3138,8 @@ STR16 zMarksMapScreenText[] =
 	L"%s ist voller Milizen.",
 	L"Söldner hat begrenzten Vertrag.", 
 	L"Vertrag des Söldners ist nicht versichert",
+	// WANNE 2
+	L"Kartenübersicht",		// 24
 };
 
 STR16 pLandMarkInSectorString[] =

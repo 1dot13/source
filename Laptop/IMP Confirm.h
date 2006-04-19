@@ -7,11 +7,12 @@ void ExitIMPConfirm( void );
 void HandleIMPConfirm( void );
 
 BOOLEAN AddCharacterToPlayersTeam( void );
-void LoadInCurrentImpCharacter( void );
+void LoadImpCharacter( STR fileName );
 void WriteOutCurrentImpCharacter( INT32 iProfileId );
 
 void ResetIMPCharactersEyesAndMouthOffsets( UINT8 ubMercProfileID );
 
+BOOLEAN ImpExists ( STR fileName );
 
 #endif
 
