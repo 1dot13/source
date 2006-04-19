@@ -588,6 +588,35 @@ STR16 pAssignMenuStrings[] =
 	L"Abbrechen", // cancel this menu
 };
 
+//lal
+STR16 pMilitiaControlMenuStrings[] =
+{
+	L"Attack", // set militia to aggresive
+	L"Hold Position", // set militia to stationary
+	L"Retreat", // retreat militia
+	L"Come to me", // retreat militia
+	L"Get down", // retreat militia	
+	L"Take cover",
+	L"All: Attack", 
+	L"All: Hold Position",
+	L"All: Retreat",
+	L"All: Come to me",
+	L"All: Get down",
+	L"All: Take cover",
+	L"All: Find items",
+	L"Cancel", // cancel this menu
+};
+
+//STR16 pTalkToAllMenuStrings[] =
+//{
+//	L"Attack", // set militia to aggresive
+//	L"Hold Position", // set militia to stationary
+//	L"Retreat", // retreat militia
+//	L"Come to me", // retreat militia
+//	L"Get down", // retreat militia		 
+//	L"Cancel", // cancel this menu
+//};
+
 STR16 pRemoveMercStrings[] ={
 	L"Söldner entfernen", // remove dead merc from current team
 	L"Abbrechen",
@@ -3109,8 +3138,6 @@ STR16 zMarksMapScreenText[] =
 	L"%s ist voller Milizen.",
 	L"Söldner hat begrenzten Vertrag.", 
 	L"Vertrag des Söldners ist nicht versichert",
-	// WANNE 2
-	L"Kartenübersicht",		// 24
 };
 
 STR16 pLandMarkInSectorString[] =

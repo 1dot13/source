@@ -40,6 +40,28 @@ L"Dies ist ein IRON MAN-Spiel, und es kann nicht gespeichert werden, wenn sich G
 	L"Um den Editor zu benutzen, müssen Sie eine andere als die Standardkampgane auswählen.",		
 };
 
+//these strings match up with the defines in IMP Skill trait.cpp
+STR16 gzIMPSkillTraitsText[]=
+{
+	L"Lock picking",
+	L"Hand to hand combat",
+	L"Electronics",
+	L"Night operations",
+	L"Throwing",
+	L"Teaching",
+	L"Heavy Weapons",
+	L"Auto Weapons",
+	L"Stealth",
+	L"Ambidextrous",
+	L"Knifing",
+	L"Rooftop Sniping",
+	L"Camouflage",
+	L"Martial Arts",
+
+	L"None",
+	L"I.M.P. Specialties",
+};
+
 //@@@:  New string as of March 3, 2000.
 STR16	gzIronManModeWarningText[]=
 {

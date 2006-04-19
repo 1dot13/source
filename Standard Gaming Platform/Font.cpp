@@ -1317,9 +1317,9 @@ FontTranslationTable *CreateEnglishTransTable(  )
   pTable = (FontTranslationTable *)MemAlloc(sizeof(FontTranslationTable));
 	#ifdef JA2
 		// ha ha, we have more than Wizardry now (again)
-		pTable->usNumberOfSymbols = 172;
+		pTable->usNumberOfSymbols = 255;
 	#else
-		pTable->usNumberOfSymbols = 155;
+		pTable->usNumberOfSymbols = 255;
 	#endif
 	pTable->DynamicArrayOf16BitValues = (UINT16 *)MemAlloc(pTable->usNumberOfSymbols * 2);
 	temp = pTable->DynamicArrayOf16BitValues;
@@ -1512,6 +1512,8 @@ FontTranslationTable *CreateEnglishTransTable(  )
 	temp++;
 
 #ifdef JA2
+
+#ifdef GERMAN
 	*temp = 196; // "A" umlaut
 	temp++;
 	*temp = 214; // "O" umlaut
@@ -1526,110 +1528,86 @@ FontTranslationTable *CreateEnglishTransTable(  )
 	temp++;
 	*temp = 223; // double-s that looks like a beta/B  // 100
 	temp++;
-	// START OF FUNKY RUSSIAN STUFF
-	*temp = 1101;
+#else
+	*temp = 0; // "A" umlaut
 	temp++;
-	*temp = 1102;
+	*temp = 0; // "O" umlaut
 	temp++;
-	*temp = 1103;
+	*temp = 0; // "U" umlaut
 	temp++;
-	*temp = 1104;
+	*temp = 0; // "a" umlaut
 	temp++;
-	*temp = 1105;
+	*temp = 0; // "o" umlaut
 	temp++;
-	*temp = 1106;
+	*temp = 0; // "u" umlaut
 	temp++;
-	*temp = 1107;
+	*temp = 0; // double-s that looks like a beta/B  // 100
 	temp++;
-	*temp = 1108;
-	temp++;
-	*temp = 1109;
-	temp++;
-	*temp = 1110;
-	temp++;
-	*temp = 1111;
-	temp++;
-	*temp = 1112;
-	temp++;
-	*temp = 1113;
-	temp++;
-	*temp = 1114;
-	temp++;
-	*temp = 1115;
-	temp++;
-	*temp = 1116;
-	temp++;
-	*temp = 1117;
-	temp++;
-	*temp = 1118;
-	temp++;
-	*temp = 1119;
-	temp++;
-	*temp = 1120;
-	temp++;
-	*temp = 1121;
-	temp++;
-	*temp = 1122;
-	temp++;
-	*temp = 1123;
-	temp++;
-	*temp = 1124;
-	temp++;
-	*temp = 1125;
-	temp++;
-	*temp = 1126;
-	temp++;
-	*temp = 1127;
-	temp++;
-	*temp = 1128;
-	temp++;
-	*temp = 1129;
-	temp++;
-	*temp = 1130; // 130
-	temp++;
-	*temp = 1131;
-	temp++;
-	*temp = 1132;
-	temp++;
-	// END OF FUNKY RUSSIAN STUFF
-	*temp = 196; // Ä 
-	temp++;
+#endif
+
 	*temp = 192; // À 
 	temp++;
 	*temp = 193; // Á 
 	temp++;
-	*temp = 194; // Â
+	*temp = 194; // Ã
+	temp++;
+	*temp = 195; // Ä
+	temp++;
+	*temp = 196; // Å
+	temp++;
+    *temp = 197; // ¨
+	temp++;
+	*temp = 198; // Æ
 	temp++;
 	*temp = 199; // Ç
 	temp++;
-	*temp = 203; // Ë
+	*temp = 200; // È				140
 	temp++;
-	*temp = 200; // È
-	temp++;
-	*temp = 201; // É				140
+	*temp = 201; // É
 	temp++;
 	*temp = 202; // Ê
 	temp++;
+	*temp = 203; // Ë
+	temp++;
+	*temp = 204; // Ì
+	temp++;
+	*temp = 205; // Í
+	temp++;
+	*temp = 206; // Î
+	temp++;
 	*temp = 207; // Ï
 	temp++;
-	*temp = 214; // Ö
+	*temp = 208; // Ð
 	temp++;
-	*temp = 210; // Ò
+	*temp = 209; // Ñ
+	temp++;
+	*temp = 210; // Ò				150
 	temp++;
 	*temp = 211; // Ó
 	temp++;
 	*temp = 212; // Ô
 	temp++;
-	*temp = 220; // Ü
+	*temp = 213; // Õ
+	temp++;
+	*temp = 214; // Ö
+	temp++;
+	*temp = 215; // ×
+	temp++;
+	*temp = 216; // Ø
 	temp++;
 	*temp = 217; // Ù
 	temp++;
 	*temp = 218; // Ú
 	temp++;
-	*temp = 219; // Û				150
+	*temp = 219; // Û
 	temp++;
-
-	*temp = 228; // ä
+	*temp = 220; // Ü				160
+	temp++;
+	*temp = 221; // Ý
+	temp++;
+	*temp = 222; // Þ
+	temp++;
+	*temp = 223; // ß
 	temp++;
 	*temp = 224; // à
 	temp++;
@@ -1637,41 +1615,194 @@ FontTranslationTable *CreateEnglishTransTable(  )
 	temp++;
 	*temp = 226; // â
 	temp++;
-	*temp = 231; // ç
+	*temp = 227; // ã
 	temp++;
-	*temp = 235; // ë
+	*temp = 228; // ä
 	temp++;
-	*temp = 232; // è
+	*temp = 229; // å
 	temp++;
-	*temp = 233; // é
+	*temp = 230; // ¸				170
 	temp++;
-	*temp = 234; // ê
+	*temp = 231; // æ
 	temp++;
-	*temp = 239; // ï				160
+	*temp = 232; // ç
 	temp++;
-	*temp = 246; // ö
+	*temp = 233; // è
 	temp++;
-	*temp = 242; // ò
+	*temp = 234; // é
 	temp++;
-	*temp = 243; // ó
+	*temp = 235; // ê
 	temp++;
-	*temp = 244; // ô
+	*temp = 236; // ë
 	temp++;
-	*temp = 252; // ü
+	*temp = 237; // ì
 	temp++;
-	*temp = 249; // ù
+	*temp = 238; // í
 	temp++;
-	*temp = 250; // ú
+	*temp = 239; // î				170
 	temp++;
-	*temp = 251; // û
+	*temp = 240; // ï
 	temp++;
-	*temp = 204; // Ì
+	*temp = 241; // ð
 	temp++;
-	*temp = 206; // Î				170
+	*temp = 242; // ñ
 	temp++;
-	*temp = 236; // ì
+	*temp = 243; // ò
 	temp++;
-	*temp = 238; // î
+	*temp = 244; // ó
+	temp++;
+	*temp = 245; // ô
+	temp++;
+	*temp = 246; // õ
+	temp++;
+	*temp = 247; // ö
+	temp++;
+	*temp = 248; // ÷
+	temp++;
+	*temp = 249; // ø				170
+	temp++;
+	*temp = 250; // ù
+	temp++;
+	*temp = 251; // ú
+	temp++;
+	*temp = 252; // û
+	temp++;
+	*temp = 253; // ü				170
+	temp++;
+	*temp = 254; // ý
+	temp++;
+	*temp = 255; // þ
+	temp++;
+	*temp = 256; // ÿ
+	temp++;
+
+
+	// START OF FUNKY RUSSIAN STUFF
+	*temp = 1041;
+	temp++;
+	*temp = 1042;
+	temp++;
+	*temp = 1043;
+	temp++;
+	*temp = 1044;
+	temp++;
+	*temp = 1045;
+	temp++;
+	*temp = 1046;
+	temp++;
+	*temp = 1047;
+	temp++;
+	*temp = 1048;
+	temp++;
+	*temp = 1049;				//110
+	temp++;
+	*temp = 1050;
+	temp++;
+	*temp = 1051;
+	temp++;
+	*temp = 1052;
+	temp++;
+	*temp = 1053;
+	temp++;
+	*temp = 1054;
+	temp++;
+	*temp = 1055;
+	temp++;
+	*temp = 1056;
+	temp++;
+	*temp = 1057;
+	temp++;
+	*temp = 1058;
+	temp++;
+	*temp = 1059;				//120
+	temp++;
+	*temp = 1060;
+	temp++;
+	*temp = 1061;
+	temp++;
+	*temp = 1062;
+	temp++;
+	*temp = 1063;
+	temp++;
+	*temp = 1064;
+	temp++;
+	*temp = 1065;
+	temp++;
+	*temp = 1066;
+	temp++;
+	*temp = 1067;
+	temp++;
+	*temp = 1068;
+	temp++;
+	*temp = 1069; // 130
+	temp++;
+	*temp = 1070;
+	temp++;
+	*temp = 1071;
+	temp++;
+	*temp = 1072; // Ä 
+    temp++;
+	*temp = 1073; // À 
+	temp++;
+	*temp = 1074; // Á 
+	temp++;
+	*temp = 1075; // Â
+	temp++;
+	*temp = 1076; // Ã
+	temp++;
+	*temp = 1077; // Å
+	temp++;
+	*temp = 1078; // ¨
+	temp++;
+	*temp = 1079; // Ç				140
+	temp++;
+	*temp = 1080; // Ë
+	temp++;
+	*temp = 1081; // È
+	temp++;
+	*temp = 1082; // É				140
+	temp++;
+	*temp = 1083; // Ê
+	temp++;
+	*temp = 1084; // Ï
+	temp++;
+	*temp = 1085; // Ö
+	temp++;
+	*temp = 1086; // Ò
+	temp++;
+	*temp = 1087; // Ó
+	temp++;
+	*temp = 1088; // Ô
+	temp++;
+	*temp = 1089; // Ü				150
+	temp++;
+	*temp = 1090; // Ù
+	temp++;
+	*temp = 1091; // Ú
+	temp++;
+	*temp = 1092; // Û				150
+	temp++;
+	*temp = 1093; // ä
+	temp++;
+	*temp = 1094; // à
+	temp++;
+	*temp = 1095; // á
+	temp++;
+	*temp = 1096; // â
+	temp++;
+	*temp = 1097; // ç
+	temp++;
+	*temp = 1098; // ë
+	temp++;
+	*temp = 1099; // è				160
+	temp++;
+	*temp = 1100; // é
+	temp++;
+	*temp = 1101; // ê
+	temp++;
+	*temp = 1102; // ï				160
+	temp++;
+	*temp = 1103; // ö
 	temp++;
 
 #else

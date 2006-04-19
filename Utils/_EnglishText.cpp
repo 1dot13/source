@@ -297,8 +297,6 @@ UINT16 Message[][STRING_LENGTH] =
 	L"Bloodcats' turn",
 	L"full auto",
 	L"no full auto",
-	L"accurate",
-	L"inaccurate",
 };
 
 
@@ -612,6 +610,35 @@ STR16 pAssignMenuStrings[] =
 	L"Train", // the merc is training
 	L"Cancel", // cancel this menu
 };
+
+//lal
+STR16 pMilitiaControlMenuStrings[] =
+{
+	L"Attack", // set militia to aggresive
+	L"Hold Position", // set militia to stationary
+	L"Retreat", // retreat militia
+	L"Come to me", // retreat militia
+	L"Get down", // retreat militia	
+	L"Take cover",
+	L"All: Attack", 
+	L"All: Hold Position",
+	L"All: Retreat",
+	L"All: Come to me",
+	L"All: Get down",
+	L"All: Take cover",
+	L"All: Find items",
+	L"Cancel", // cancel this menu
+};
+
+//STR16 pTalkToAllMenuStrings[] =
+//{
+//	L"Attack", // set militia to aggresive
+//	L"Hold Position", // set militia to stationary
+//	L"Retreat", // retreat militia
+//	L"Come to me", // retreat militia
+//	L"Get down", // retreat militia		 
+//	L"Cancel", // cancel this menu
+//};
 
 STR16 pRemoveMercStrings[] =
 {
@@ -1907,7 +1934,7 @@ STR16 pMapErrorString[] =
 	L"needs an escort to move. Place her on a squad with one.", // for a female
 	L"Merc hasn't yet arrived in Arulco!",
 	L"Looks like there's some contract negotiations to settle first.",
-	L"Cannot give a movement order. Air raid is going on.",		// WANNE 2
+	L"",
 //11-15
 	L"Movement orders? There's a battle going on!",
 	L"You have been ambushed by bloodcats in sector %s!",

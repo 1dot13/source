@@ -755,8 +755,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 				#ifdef JA2BETAVERSION
 					if( !pGroup->pEnemyGroup->ubNumElites )
 					{
-						swprintf( str, L"Enemy elite killed with ubGroupID of %d, but the group doesn't contain elites!", pGroup->ubGroupID );
-						DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
+						//swprintf( str, L"Enemy elite killed with ubGroupID of %d, but the group doesn't contain elites!", pGroup->ubGroupID );
+						//DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 						break;
 					}
 					if( guiCurrentScreen == GAME_SCREEN )
@@ -781,8 +781,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 				#ifdef JA2BETAVERSION
 					if( !pGroup->pEnemyGroup->ubNumTroops )
 					{
-						swprintf( str, L"Enemy troop killed with ubGroupID of %d, but the group doesn't contain elites!", pGroup->ubGroupID );
-						DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
+						//swprintf( str, L"Enemy troop killed with ubGroupID of %d, but the group doesn't contain elites!", pGroup->ubGroupID );
+						//DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 						break;
 					}
 					if( guiCurrentScreen == GAME_SCREEN )
@@ -807,8 +807,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 				#ifdef JA2BETAVERSION
 					if( !pGroup->pEnemyGroup->ubNumAdmins )
 					{
-						swprintf( str, L"Enemy administrator killed with ubGroupID of %d, but the group doesn't contain elites!", pGroup->ubGroupID );
-						DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
+						//swprintf( str, L"Enemy administrator killed with ubGroupID of %d, but the group doesn't contain elites!", pGroup->ubGroupID );
+						//DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 						break;
 					}
 					if( guiCurrentScreen == GAME_SCREEN )
