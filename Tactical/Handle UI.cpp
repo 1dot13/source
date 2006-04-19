@@ -4669,7 +4669,7 @@ UINT32 UIHandleTOnTerrain( UI_EVENT *pUIEvent )
 
 	//ATE: Check if we have good LOS
 	// is he close enough to see that gridno if he turns his head?
-	sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sTargetGridNo, pSoldier->bLevel );
+	sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sTargetGridNo, pSoldier->bLevel, pSoldier );
 
 
 	if ( uiRange <= NPC_TALK_RADIUS )
@@ -5484,7 +5484,7 @@ BOOLEAN HandleTalkInit(  )
         {
 				  //ATE: Check if we have good LOS
 				  // is he close enough to see that gridno if he turns his head?
-				  sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, pTSoldier->sGridNo, pTSoldier->bLevel );
+				  sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, pTSoldier->sGridNo, pTSoldier->bLevel, pTSoldier );
 
 				  // Check LOS!
 				  if ( !SoldierTo3DLocationLineOfSightTest( pSoldier, pTSoldier->sGridNo,  pTSoldier->bLevel, 3, (UINT8) sDistVisible, TRUE ) )
@@ -6150,7 +6150,7 @@ BOOLEAN ValidQuickExchangePosition( )
 				  if ( PythSpacesAway( pSoldier->sGridNo, pOverSoldier->sGridNo ) == 1 )
 				  {
 					  // Check if we have LOS to them....
-					  sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, pOverSoldier->sGridNo, pOverSoldier->bLevel );
+					  sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, pOverSoldier->sGridNo, pOverSoldier->bLevel, pOverSoldier );
 
 					  if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pOverSoldier->sGridNo,  pOverSoldier->bLevel, (UINT8)3, (UINT8) sDistVisible, TRUE ) )
 					  {

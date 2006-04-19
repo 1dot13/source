@@ -3372,7 +3372,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 		iChance -= iPenalty;
 	}
 
-	sDistVis = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, 0 );
+	sDistVis = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, 0, pSoldier );
 
 	// give some leeway to allow people to spot for each other... 
 	// use distance limitation for LOS routine of 2 x maximum distance EVER visible, so that we get accurate

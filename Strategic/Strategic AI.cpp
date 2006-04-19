@@ -1,4 +1,4 @@
-
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "GameSettings.h"
@@ -692,6 +692,12 @@ void ValidateGroup( GROUP *pGroup )
 {
 	INT32 iMaxEnemyGroupSize = gGameExternalOptions.iMaxEnemyGroupSize;
 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic2");
+
+  // WANNE 2
+  if (pGroup == NULL)
+	{
+		return;
+	}
 
 	if( !pGroup->ubSectorX || !pGroup->ubSectorY || pGroup->ubSectorX > 16 || pGroup->ubSectorY > 16 )
 	{

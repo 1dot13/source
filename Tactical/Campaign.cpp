@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
@@ -60,8 +61,12 @@ UINT8 CalcImportantSectorControl( void );
 // give pSoldier usNumChances to improve ubStat.  If it's from training, it doesn't count towards experience level gain
 void StatChange(SOLDIERTYPE *pSoldier, UINT8 ubStat, UINT16 usNumChances, UINT8 ubReason)
 {
-	Assert(pSoldier != NULL);
-	Assert(pSoldier->bActive);
+	// WANNE 2
+	if (pSoldier == NULL || pSoldier->bActive == FALSE)
+		return;	// THIS SHOULD NEVER HAPPEN
+	
+	//Assert(pSoldier != NULL);
+	//Assert(pSoldier->bActive);
 
 	// ignore non-player soldiers
 	if (!PTR_OURTEAM)

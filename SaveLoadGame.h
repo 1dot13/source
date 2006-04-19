@@ -54,14 +54,13 @@ typedef struct
 } SAVED_GAME_HEADER;
 
 
-
 extern	UINT32		guiScreenToGotoAfterLoadingSavedGame;
 extern UINT32 guiSaveGameVersion;
 
 void			CreateSavedGameFileNameFromNumber( UINT8 ubSaveGameID, STR pzNewFileName );
 
 
-
+BOOLEAN InitSaveDir();
 
 BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc );
 BOOLEAN LoadSavedGame( UINT8 ubSavedGameID );

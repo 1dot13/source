@@ -6444,6 +6444,7 @@ void HandleBlitOfSectorLocatorIcon( INT16 sSectorX, INT16 sSectorY, INT16 sSecto
 
 	// invalidate region on frame buffer
 	InvalidateRegion( sScreenX, sScreenY - 1, sScreenX + MAP_GRID_X , sScreenY + MAP_GRID_Y );
+
 }
 
 

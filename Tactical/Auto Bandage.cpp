@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
@@ -430,10 +431,11 @@ void AutoBandage( BOOLEAN fStart )
 			giBoxId = PrepareMercPopupBox( -1, DIALOG_MERC_POPUP_BACKGROUND, DIALOG_MERC_POPUP_BORDER, sAutoBandageString, 200, 40, 10, 30, &gusTextBoxWidth, &gusTextBoxHeight );
 		}
 
+		// WANNE 2
 		aRect.iTop		= 	0;
 		aRect.iLeft		= 	0;
 		aRect.iBottom = 	INV_INTERFACE_START_Y;
-		aRect.iRight	= 	640;
+		aRect.iRight	= 	SCREEN_WIDTH;
 
 		// Determine position ( centered in rect )
 		gsX = (INT16)( ( ( ( aRect.iRight	- aRect.iLeft ) - gusTextBoxWidth ) / 2 ) + aRect.iLeft );
@@ -725,8 +727,9 @@ void DisplayAutoBandageUpdatePanel( void )
 
 	iTotalPixelsWide = TACT_UPDATE_MERC_FACE_X_WIDTH * iNumberDoctorsWide;
 
+	// WANNE 2
 	// now get the x and y position for the box
-	sXPosition = ( 640 - iTotalPixelsWide ) / 2;
+	sXPosition = ( SCREEN_WIDTH - iTotalPixelsWide ) / 2;
 	sYPosition = ( INV_INTERFACE_START_Y - iTotalPixelsHigh ) / 2;
 
 

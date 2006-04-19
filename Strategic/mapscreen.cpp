@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines> SCROLL BUTTONS CODE IS OUTCOMMENTED (search for // WANNE 2 <scroll>)
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "HelpScreen.h"
@@ -166,54 +167,56 @@
 #define			MAP_WEIGHT_PERCENT_X 196
 #define			MAP_WEIGHT_PERCENT_Y 266
 
-#define			MAP_CAMMO_LABEL_X						178
-#define			MAP_CAMMO_LABEL_Y						283
-#define			MAP_CAMMO_X									176
-#define			MAP_CAMMO_Y									292
+#define			MAP_CAMMO_LABEL_X					178
+#define			MAP_CAMMO_LABEL_Y					283
+#define			MAP_CAMMO_X							176
+#define			MAP_CAMMO_Y							292
 #define			MAP_CAMMO_PERCENT_X					196
 #define			MAP_CAMMO_PERCENT_Y					293
 
-#define			MAP_PERCENT_WIDTH						20
+#define			MAP_PERCENT_WIDTH					20
 #define			MAP_PERCENT_HEIGHT					10
 
-#define			MAP_INV_STATS_TITLE_FONT_COLOR				6
-#define			MAP_INV_STATS_TEXT_FONT_COLOR					5
+#define			MAP_INV_STATS_TITLE_FONT_COLOR		6
+#define			MAP_INV_STATS_TEXT_FONT_COLOR		5
 
 #define     PLAYER_INFO_FACE_START_X    9
 #define     PLAYER_INFO_FACE_START_Y    17
-#define     PLAYER_INFO_FACE_END_X			60
-#define     PLAYER_INFO_FACE_END_Y			76
+#define     PLAYER_INFO_FACE_END_X		60
+#define     PLAYER_INFO_FACE_END_Y		76
 
 #define     INV_BODY_X 71
 #define     INV_BODY_Y 116
 
+// WANNE 2 <change 2>
+#define     NAME_X						4	
+#define     NAME_WIDTH					55 - NAME_X
 
-#define     NAME_X                11
-#define     NAME_WIDTH            62 - NAME_X
-#define     ASSIGN_X              67
-#define     ASSIGN_WIDTH          118 - ASSIGN_X
-#define			SLEEP_X								123
-#define			SLEEP_WIDTH						142 - SLEEP_X
-#define     LOC_X                 147
-#define     LOC_WIDTH             179 - LOC_X
-#define     DEST_ETA_X            184
-#define     DEST_ETA_WIDTH        217 - DEST_ETA_X
-#define     TIME_REMAINING_X      222
-#define     TIME_REMAINING_WIDTH  250 - TIME_REMAINING_X
-#define     CLOCK_X_START         463 - 18
-#define     CLOCK_Y_START         298
-#define     DEST_PLOT_X						463
-#define     DEST_PLOT_Y						345
-#define     CLOCK_ETA_X           463 - 15 + 6 + 30
-#define     CLOCK_HOUR_X_START    463 + 25 + 30
-#define     CLOCK_MIN_X_START     463 + 45 + 30
+#define     ASSIGN_X					60
+#define     ASSIGN_WIDTH				111 - ASSIGN_X
+#define		SLEEP_X						116
+#define		SLEEP_WIDTH					135 - SLEEP_X
+#define     LOC_X						140
+#define     LOC_WIDTH					172 - LOC_X
+#define     DEST_ETA_X					177
+#define     DEST_ETA_WIDTH				210 - DEST_ETA_X
+#define     TIME_REMAINING_X			215
+#define     TIME_REMAINING_WIDTH		243 - TIME_REMAINING_X
 
+// WANNE 2
+#define     CLOCK_Y_START			(MAP_BORDER_Y_OFFSET + 298) // 298
+
+#define     DEST_PLOT_X				(MAP_BORDER_X_OFFSET + 463)		//463
+#define     DEST_PLOT_Y				(MAP_BORDER_Y_OFFSET + 345)		//345
+
+// WANNE 2
+#define     CLOCK_ETA_X				(MAP_BORDER_X_OFFSET + 484)		//463 - 15 + 6 + 30
+#define     CLOCK_HOUR_X_START		(MAP_BORDER_X_OFFSET + 518)		//463 + 25 + 30
+#define     CLOCK_MIN_X_START		(MAP_BORDER_X_OFFSET + 538)		//463 + 45 + 30
 
 // contract
 #define CONTRACT_X      185
 #define CONTRACT_Y      50
-//#define CONTRACT_WIDTH  63
-//#define CONTRACT_HEIGHT 10
 
 // trash can
 #define TRASH_CAN_X 176
@@ -318,8 +321,9 @@
 //#define	TM_INV_WIDTH								58
 //#define	TM_INV_HEIGHT								23
 
-#define CLOCK_X 554
-#define CLOCK_Y 459
+// WANNE 2 (the position of the clock in the strategy screen)
+//#define CLOCK_X		(SCREEN_WIDTH - 86)					//554
+//#define CLOCK_Y		(SCREEN_HEIGHT - 21)				//459
 
 
 #define RGB_WHITE				( FROMRGB( 255, 255, 255 ) )
@@ -430,13 +434,23 @@ RGBCOLOR GlowColorsC[]={
 */
 
 
+//SGPPoint gMapSortButtons[ MAX_SORT_METHODS ]={
+//	{12,125},
+//	{68,125},
+//	{124,125},
+//	{148,125},
+//	{185,125},
+//	{223,125},
+//};
+
+// WANNE 2 <change 2>
 SGPPoint gMapSortButtons[ MAX_SORT_METHODS ]={
-	{12,125},
-	{68,125},
-	{124,125},
-	{148,125},
-	{185,125},
-	{223,125},
+	{5,113},
+	{61,113},
+	{117,113},
+	{141,113},
+	{178,113},
+	{216,113},
 };
 
 
@@ -470,8 +484,39 @@ INV_REGION_DESC gSCamoXY =
 };
 
 
+// WANNE 2 <scroll>
+// buttons images
+//UINT32 guiMapMercsScrollButtonsImage[ 2 ];
+//UINT32 guiMapMercsScrollButtons[ 2 ];
+//
+//UINT32 guiMapVehicleScrollButtonsImage[ 2 ];
+//UINT32 guiMapVehicleScrollButtons [ 2 ];
+
+
+
+extern UINT16 usVehicleY;
+
+// WANNE 2 <scroll>
+// button enums
+//enum{
+//	MAP_SCROLL_MERCS_UP =0,
+//	MAP_SCROLL_MERCS_DOWN,
+//};
+//
+//enum{
+//	MAP_SCROLL_VEHICLE_UP =0,
+//	MAP_SCROLL_VEHICLE_DOWN,
+//};
+
+
 // GLOBAL VARIABLES (OURS)
 
+// WANNE 2 <scroll>
+//void CreateButtonsForScrolling(void);
+//void DeleteButtonsForScrolling(void);
+
+void BtnMessageUpMapScreenCallback( GUI_BUTTON *btn,INT32 reason );
+BOOLEAN fScrollButtonsInitialized = FALSE;
 
 BOOLEAN	fFlashAssignDone = FALSE;
 BOOLEAN	fInMapMode = FALSE;
@@ -1129,7 +1174,6 @@ void ContractBoxGlow( void )
 }
 
 
-
 void ContractListRegionBoxGlow( UINT16 usCount )
 {
  static INT32 iColorNum =10;
@@ -1139,6 +1183,8 @@ void ContractListRegionBoxGlow( UINT16 usCount )
  UINT8	*pDestBuf;
  INT16 usY = 0;
  INT16 sYAdd = 0;
+ INT16 sYStart = 0;
+ INT16 usVehicleCount = 0;
 
 
 	// if not glowing right now, leave
@@ -1167,17 +1213,24 @@ void ContractListRegionBoxGlow( UINT16 usCount )
 		iColorNum--;
 
 
+	// WANNE 2
 	if( usCount >= FIRST_VEHICLE )
 	{
-		sYAdd = 6;
+		usVehicleCount = usCount - FIRST_VEHICLE;
+		sYStart = usVehicleY;
+		usY=(Y_OFFSET*usVehicleCount-1)+(sYStart+(usVehicleCount*Y_SIZE));	
 	}
 	else
 	{
-		sYAdd = 0;
+		sYStart = Y_START;
+		usY=(Y_OFFSET*usCount-1)+(sYStart+(usCount*Y_SIZE));	
 	}
 
 	// y start position of box
-	usY=(Y_OFFSET*usCount-1)+(Y_START+(usCount*Y_SIZE) + sYAdd );	
+	//usY=(Y_OFFSET*usCount-1)+(Y_START+(usCount*Y_SIZE) + sYAdd );	
+
+	// WANNE 2 <this is not correct!!>
+	//usY=(Y_OFFSET*usCount-1)+(sYStart+(usCount*Y_SIZE));	
 
 	// glow contract box
 	usColor=Get16BPPColor( FROMRGB( GlowColorsA[iColorNum].ubRed, GlowColorsA[iColorNum].ubGreen, GlowColorsA[iColorNum].ubBlue ) );
@@ -2457,6 +2510,8 @@ void DisplayGroundEta( void )
 	SetFont( ETA_FONT );
 	SetFontForeground( FONT_LTGREEN );
 	SetFontBackground( FONT_BLACK );
+
+	// WANNE 2 <change ETA position>
 	mprintf( CLOCK_ETA_X, CLOCK_Y_START, pEtaString[ 0 ] ); 
 
 	// if less than one day
@@ -2487,6 +2542,7 @@ void HighLightAssignLine()
 	INT16 usCount = 0;
 	UINT16 usX;
 	UINT16 usY;
+	INT16 usVehicleCount = 0;
 
 
 	// is this a valid line?
@@ -2520,16 +2576,6 @@ void HighLightAssignLine()
 	else
 		iColorNum--;
 	
-
-	//usY=Y_START+(giHighLine*GetFontHeight((MAP_SCREEN_FONT)));
-	usY = ( Y_OFFSET * giAssignHighLine - 1 ) + ( Y_START + ( giAssignHighLine * Y_SIZE ) );	
-	
-	if( giAssignHighLine >= FIRST_VEHICLE )
-	{
-		usY += 6;
-	}
-		
-
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );			
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -2540,9 +2586,12 @@ void HighLightAssignLine()
 			usX=ASSIGN_X;
 			//usY=Y_START+(giHighLine*GetFontHeight((MAP_SCREEN_FONT)));
 			usY=(Y_OFFSET*usCount-1)+(Y_START+(usCount*Y_SIZE));
+			
+			// WANNE 2
 			if( usCount >= FIRST_VEHICLE )
 			{
-				usY += 6;
+				usVehicleCount = usCount - FIRST_VEHICLE;
+				usY = (Y_OFFSET*usVehicleCount-1)+(usVehicleY+(usVehicleCount*Y_SIZE));
 			}
 		
 			usColor=Get16BPPColor( FROMRGB( GlowColorsA[iColorNum].ubRed, GlowColorsA[iColorNum].ubGreen, GlowColorsA[iColorNum].ubBlue ) );
@@ -2578,6 +2627,7 @@ void HighLightDestLine()
 	UINT16 usCount = 0;
 	UINT16 usX;
 	UINT16 usY;
+	UINT16 usVehicleCont = 0;
 
 
 	if( ( giDestHighLine == -1 ) || fShowInventoryFlag )
@@ -2619,11 +2669,13 @@ void HighLightDestLine()
 		if( CharacterIsGettingPathPlotted( usCount ) == TRUE )
 		{
 			usX=DEST_ETA_X-4;
-			//usY=Y_START+(giHighLine*GetFontHeight((MAP_SCREEN_FONT)));
 			usY=(Y_OFFSET*usCount-1)+(Y_START+(usCount*Y_SIZE));
+			
+			// WANNE 2
 			if( usCount >= FIRST_VEHICLE )
 			{
-				usY += 6;
+				usVehicleCont = usCount - FIRST_VEHICLE;
+				usY=(Y_OFFSET*usVehicleCont-1)+(usVehicleY+(usVehicleCont*Y_SIZE));
 			}
 		
 			usColor=Get16BPPColor( FROMRGB( GlowColorsA[iColorNum].ubRed, GlowColorsA[iColorNum].ubGreen, GlowColorsA[iColorNum].ubBlue ) );
@@ -2662,6 +2714,7 @@ void HighLightSleepLine()
 	UINT16 usCount = 0;
 	UINT16 usX, usX2;
 	UINT16 usY;
+	UINT16 usVehicleCount = 0;
 
 
 	// is this a valid line?
@@ -2706,11 +2759,13 @@ void HighLightSleepLine()
 			usX=SLEEP_X-4;
 			usX2 = SLEEP_X + SLEEP_WIDTH;
 
-			//usY=Y_START+(giHighLine*GetFontHeight((MAP_SCREEN_FONT)));
 			usY=(Y_OFFSET*usCount-1)+(Y_START+(usCount*Y_SIZE));
+			
+			// WANNE 2
 			if( usCount >= FIRST_VEHICLE )
 			{
-				usY += 6;
+				usVehicleCount = usCount - FIRST_VEHICLE;
+				usY=(Y_OFFSET*usVehicleCount-1)+(usVehicleY+(usVehicleCount*Y_SIZE));
 			}
 		
 			usColor=Get16BPPColor( FROMRGB( GlowColorsA[iColorNum].ubRed, GlowColorsA[iColorNum].ubGreen, GlowColorsA[iColorNum].ubBlue ) );
@@ -2917,7 +2972,7 @@ void DisplayCharacterList()
 			}
 
 			SetFontForeground( ubForegroundColor );
-		 
+
 			DrawName( Menptr[gCharactersList[sCount].usSolID].name, sCount, MAP_SCREEN_FONT);
 			DrawLocation(sCount, sCount, MAP_SCREEN_FONT);
 			DrawDestination(sCount, sCount, MAP_SCREEN_FONT);
@@ -3036,7 +3091,15 @@ UINT32 MapScreenHandle(void)
 		return( MAP_SCREEN );
 	}
 
-
+	// WANNE 2 <scroll>
+	/*if (fShowInventoryFlag == TRUE)
+	{
+		DeleteButtonsForScrolling();
+	}
+	else
+	{
+		CreateButtonsForScrolling();
+	}*/
 
 //	if ( (fInMapMode == FALSE ) && ( fMapExitDueToMessageBox == FALSE ) )
 	if ( !fInMapMode )
@@ -3072,7 +3135,6 @@ UINT32 MapScreenHandle(void)
 		LoadMapScreenInterfaceBottom( );
 
 		MoveToEndOfMapScreenMessageList( );
-
 
 		// if the current time compression mode is something legal in mapscreen, keep it
 		if ( ( giTimeCompressMode >= TIME_COMPRESS_5MINS ) && ( giTimeCompressMode <= TIME_COMPRESS_60MINS ) )
@@ -3158,8 +3220,20 @@ UINT32 MapScreenHandle(void)
 		 /*strcpy(vs_desc.ImageFile, "INTERFACE\\playlist3.pcx");
 		 CHECKF(AddVideoSurface( &vs_desc, &guiCHARLIST ));*/
 		
+		 // WANNE 2
 		 VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-		 FilenameForBPP("INTERFACE\\newgoldpiece3.sti", VObjectDesc.ImageFile );
+		 if (iResolution == 0)
+		 {
+				FilenameForBPP("INTERFACE\\newgoldpiece3.sti", VObjectDesc.ImageFile );
+		 }
+		 else if (iResolution == 1)
+		 {
+			 	FilenameForBPP("INTERFACE\\newgoldpiece3_800x600.sti", VObjectDesc.ImageFile );
+		 }
+		 else if (iResolution == 2)
+		 {
+			 FilenameForBPP("INTERFACE\\newgoldpiece3_1024x768.sti", VObjectDesc.ImageFile );
+		 }
 		 CHECKF(AddVideoObject(&VObjectDesc, &guiCHARLIST));
 
 		 //VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
@@ -3261,13 +3335,11 @@ UINT32 MapScreenHandle(void)
 			AddVideoObject( &VObjectDesc, &guiNewMailIcons );
 		}
 
-
 		// create buttons
 		CreateButtonsForMapBorder( );
 
 		// create mouse regions for level markers
 		CreateMouseRegionsForLevelMarkers( );
-
 
 		// change selected sector/level if necessary
 		// NOTE: Must come after border buttons are created, since it may toggle them!
@@ -3377,6 +3449,21 @@ UINT32 MapScreenHandle(void)
 		
 		// create mouse region for pause clock
 		CreateMouseRegionForPauseOfClock( CLOCK_REGION_START_X, CLOCK_REGION_START_Y );
+
+		// WANNE 2
+
+		if (iResolution == 0)
+		{
+			usVehicleY = 319;
+		}
+		else if (iResolution == 1)
+		{
+			usVehicleY = 414;
+		}
+		else if (iResolution == 2)
+		{
+			usVehicleY = 549;
+		}
 
 		// create mouse regions
 		CreateMouseRegionsForTeamList( );
@@ -3806,7 +3893,8 @@ UINT32 MapScreenHandle(void)
 	RenderItemDescriptionBox( );
 
 	// render clock
-	RenderClock(CLOCK_X, CLOCK_Y + 1 );
+	// WANNE 2 <renders the clock in the strategy screen>
+	RenderClock(CLOCK_X, CLOCK_Y);
 
 	#ifdef JA2TESTVERSION
 	if( !gfWorldLoaded )
@@ -3816,13 +3904,13 @@ UINT32 MapScreenHandle(void)
 			SetFontForeground( FONT_DKRED );
 		else
 			SetFontForeground( FONT_RED );
-		mprintf( 530, 2, L"TESTVERSION MSG" );
+		mprintf( SCREEN_WIDTH - 110, 2, L"TESTVERSION MSG" );
 		if( GetJA2Clock() % 1000 < 500 )
 			SetFontForeground( FONT_DKYELLOW );
 		else
 			SetFontForeground( FONT_YELLOW );
-		mprintf( 530, 12, L"NO WORLD LOADED" );
-		InvalidateRegion( 530, 2, 640, 23 );
+		mprintf( SCREEN_WIDTH - 110, 12, L"NO WORLD LOADED" );
+		InvalidateRegion( SCREEN_WIDTH - 110, 2, SCREEN_WIDTH, 23 );
 	}
 	#endif
 
@@ -4190,18 +4278,23 @@ void SetClockMin(STR16 pStringA, ...)
 }
 
 
+// WANNE 2 <change 2>
 void DrawName(STR16 pName, INT16 sRowIndex, INT32 iFont)
 {
 	UINT16 usX=0;
 	UINT16 usY=0;
-	
+
+	// mercs
 	if( sRowIndex < FIRST_VEHICLE )
 	{
 		FindFontCenterCoordinates((short)NAME_X + 1, (short)(Y_START+(sRowIndex*Y_SIZE)), (short)NAME_WIDTH, (short)Y_SIZE, pName, (long)iFont, &usX, &usY);
 	}
+	// vehicles
 	else
 	{
-		FindFontCenterCoordinates((short)NAME_X + 1, (short)(Y_START+(sRowIndex*Y_SIZE) + 6), (short)NAME_WIDTH, (short)Y_SIZE, pName, (long)iFont, &usX, &usY);
+		sRowIndex = sRowIndex - FIRST_VEHICLE;
+		//FindFontCenterCoordinates((short)NAME_X + 1, (short)(Y_START+(sRowIndex*Y_SIZE) + 6), (short)NAME_WIDTH, (short)Y_SIZE, pName, (long)iFont, &usX, &usY);
+		FindFontCenterCoordinates((short)NAME_X + 1, (short)(usVehicleY+(sRowIndex*Y_SIZE)), (short)NAME_WIDTH, (short)Y_SIZE, pName, (long)iFont, &usX, &usY);
 	}
 
 	//RestoreExternBackgroundRect(NAME_X, ((UINT16)(usY+(Y_OFFSET*sRowIndex+1))), NAME_WIDTH, Y_SIZE);
@@ -4224,7 +4317,10 @@ void DrawAssignment(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 	}
 	else
 	{
-		FindFontCenterCoordinates((short)ASSIGN_X + 1, (short)(Y_START+(sRowIndex*Y_SIZE) + 6), (short)ASSIGN_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
+		// WANNE 2
+		sRowIndex = sRowIndex - FIRST_VEHICLE;
+		//FindFontCenterCoordinates((short)ASSIGN_X + 1, (short)(Y_START+(sRowIndex*Y_SIZE) + 6), (short)ASSIGN_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
+		FindFontCenterCoordinates((short)ASSIGN_X + 1, (short)(usVehicleY+(sRowIndex*Y_SIZE)), (short)ASSIGN_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
 	}
 
 	if( fFlashAssignDone == TRUE )
@@ -4255,7 +4351,10 @@ void DrawLocation(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 	}
 	else
 	{
-		FindFontCenterCoordinates((short)LOC_X + 1, (short)(Y_START+(sRowIndex*Y_SIZE) + 6), (short)LOC_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
+		// WANNE 2
+		//FindFontCenterCoordinates((short)LOC_X + 1, (short)(Y_START+(sRowIndex*Y_SIZE) + 6), (short)LOC_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
+		sRowIndex = sRowIndex - FIRST_VEHICLE;
+		FindFontCenterCoordinates((short)LOC_X + 1, (short)(usVehicleY+(sRowIndex*Y_SIZE)), (short)LOC_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
 	}
 	// restore background
 	//RestoreExternBackgroundRect(LOC_X, ((UINT16)(usY+(Y_OFFSET*sRowIndex+1))), LOC_WIDTH, Y_SIZE);
@@ -4284,7 +4383,10 @@ void DrawDestination(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 	}
 	else
 	{
-		FindFontCenterCoordinates((short)DEST_ETA_X + 1, (short)(Y_START+(sRowIndex*Y_SIZE) + 6 ), (short)DEST_ETA_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
+		// WANNE 2
+		sRowIndex = sRowIndex - FIRST_VEHICLE;
+		//FindFontCenterCoordinates((short)DEST_ETA_X + 1, (short)(Y_START+(sRowIndex*Y_SIZE) + 6 ), (short)DEST_ETA_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
+		FindFontCenterCoordinates((short)DEST_ETA_X + 1, (short)(usVehicleY+(sRowIndex*Y_SIZE)), (short)DEST_ETA_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
 	}
 
 	//RestoreExternBackgroundRect(DEST_ETA_X+1, ((UINT16)(usY+(Y_OFFSET*sRowIndex+1))), DEST_ETA_WIDTH-1, Y_SIZE);
@@ -4317,7 +4419,10 @@ void DrawTimeRemaining( INT16 sCharNumber, INT32 iFont, UINT8 ubFontColor )
 	}
 	else
 	{
-		FindFontCenterCoordinates((short)TIME_REMAINING_X + 1, (short)(Y_START+(sCharNumber*Y_SIZE) + 6 ), (short)TIME_REMAINING_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
+		// WANNE 2
+		sCharNumber = sCharNumber - FIRST_VEHICLE;
+		//FindFontCenterCoordinates((short)TIME_REMAINING_X + 1, (short)(Y_START+(sCharNumber*Y_SIZE) + 6 ), (short)TIME_REMAINING_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
+		FindFontCenterCoordinates((short)TIME_REMAINING_X + 1, (short)(usVehicleY+(sCharNumber*Y_SIZE)), (short)TIME_REMAINING_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
 	}
 
 	//RestoreExternBackgroundRect(TIME_REMAINING_X, ((UINT16)(usY+(Y_OFFSET*sCharNumber+1))), TIME_REMAINING_WIDTH, Y_SIZE);
@@ -5944,8 +6049,10 @@ void EndMapScreen( BOOLEAN fDuringFade )
 	// build squad list
 	RebuildCurrentSquad( ); 
 
-		//
 	DeleteMouseRegionsForLevelMarkers( );
+
+	// WANNE 2 <scroll>
+	//DeleteButtonsForScrolling();
 
 	if( fShowMapInventoryPool == FALSE )
 	{
@@ -7413,6 +7520,9 @@ void BlitBackgroundToSaveBuffer( void )
 	}
 	else if( gfPreBattleInterfaceActive )
 	{
+		// WANNE 2 <scroll>
+		//DeleteButtonsForScrolling();
+
 		ForceButtonUnDirty( giMapContractButton );
 		ForceButtonUnDirty( giCharInfoButton[ 0 ] );
 		ForceButtonUnDirty( giCharInfoButton[ 1 ] );
@@ -7423,12 +7533,15 @@ void BlitBackgroundToSaveBuffer( void )
 	RenderMapScreenInterfaceBottom( );
 }
 
-
+// WANNE 2
 void CreateMouseRegionsForTeamList( void )
 {
 	// will create mouse regions for assignments, path plotting, character info selection
 	INT16 sCounter = 0;
-	INT16 sYAdd = 0;
+	//INT16 sYAdd = 0;
+
+	INT16 sYStart = 0;
+	INT16 sOffsetCounter = 0;
 
 	// the info region...is the background for the list itself
 
@@ -7436,36 +7549,67 @@ void CreateMouseRegionsForTeamList( void )
 	{
 		if( sCounter >= FIRST_VEHICLE )
 		{
-			sYAdd = 6;
+			//sYAdd = 6;
+			sOffsetCounter = sCounter - FIRST_VEHICLE;
+			sYStart = usVehicleY;
 		}
 		else
 		{
-			sYAdd = 0;
+			sOffsetCounter = sCounter;
+			sYStart = Y_START;
+			//sYAdd = 0;
 		}
 
+		// WANNE 2
 		// name region
-		MSYS_DefineRegion( &gTeamListNameRegion[ sCounter ] , NAME_X, ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd ), NAME_X + NAME_WIDTH, ( INT16 )( 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL,
+		MSYS_DefineRegion( &gTeamListNameRegion[ sCounter ] , NAME_X, ( INT16 )( sYStart + ( sOffsetCounter ) * ( Y_SIZE + 2 )), NAME_X + NAME_WIDTH, ( INT16 )( (sYStart + 10) + ( sOffsetCounter + 1 ) * ( Y_SIZE + 2 )), MSYS_PRIORITY_NORMAL,
 							 MSYS_NO_CURSOR, TeamListInfoRegionMvtCallBack, TeamListInfoRegionBtnCallBack ); 
 
 		// assignment region
-		MSYS_DefineRegion( &gTeamListAssignmentRegion[ sCounter ] ,ASSIGN_X , ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd), ASSIGN_X + ASSIGN_WIDTH, ( INT16 )( 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL + 1,
+		MSYS_DefineRegion( &gTeamListAssignmentRegion[ sCounter ] ,ASSIGN_X , ( INT16 )( sYStart + ( sOffsetCounter ) * ( Y_SIZE + 2 )), ASSIGN_X + ASSIGN_WIDTH, ( INT16 )( (sYStart + 10) + ( sOffsetCounter + 1 ) * ( Y_SIZE + 2 )), MSYS_PRIORITY_NORMAL + 1,
 							 MSYS_NO_CURSOR, TeamListAssignmentRegionMvtCallBack, TeamListAssignmentRegionBtnCallBack ); 
 
 		// location region (same function as name regions, so uses the same callbacks)
-		MSYS_DefineRegion( &gTeamListLocationRegion[ sCounter ] , LOC_X, ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd ), LOC_X + LOC_WIDTH, ( INT16 )( 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL + 1,
+		MSYS_DefineRegion( &gTeamListLocationRegion[ sCounter ] , LOC_X, ( INT16 )( sYStart + ( sOffsetCounter ) * ( Y_SIZE + 2 )), LOC_X + LOC_WIDTH, ( INT16 )( (sYStart + 10) + ( sOffsetCounter + 1 ) * ( Y_SIZE + 2 )), MSYS_PRIORITY_NORMAL + 1,
 							 MSYS_NO_CURSOR, TeamListInfoRegionMvtCallBack, TeamListInfoRegionBtnCallBack ); 
 
 		// destination region
-		MSYS_DefineRegion( &gTeamListDestinationRegion[ sCounter ] ,DEST_ETA_X , ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd ), DEST_ETA_X + DEST_ETA_WIDTH, ( INT16 )( 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL + 1,
+		MSYS_DefineRegion( &gTeamListDestinationRegion[ sCounter ] ,DEST_ETA_X , ( INT16 )( sYStart + ( sOffsetCounter ) * ( Y_SIZE + 2 )), DEST_ETA_X + DEST_ETA_WIDTH, ( INT16 )( (sYStart + 10) + ( sOffsetCounter + 1 ) * ( Y_SIZE + 2 )), MSYS_PRIORITY_NORMAL + 1,
 							 MSYS_NO_CURSOR, TeamListDestinationRegionMvtCallBack, TeamListDestinationRegionBtnCallBack ); 
 
 		// contract region
-		MSYS_DefineRegion( &gTeamListContractRegion[ sCounter ] ,TIME_REMAINING_X , ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd), TIME_REMAINING_X + TIME_REMAINING_WIDTH, ( INT16 )( 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL + 1,
+		MSYS_DefineRegion( &gTeamListContractRegion[ sCounter ] ,TIME_REMAINING_X , ( INT16 )( sYStart + ( sOffsetCounter ) * ( Y_SIZE + 2 )), TIME_REMAINING_X + TIME_REMAINING_WIDTH, ( INT16 )( (sYStart + 10) + ( sOffsetCounter + 1 ) * ( Y_SIZE + 2 )), MSYS_PRIORITY_NORMAL + 1,
 							 MSYS_NO_CURSOR, TeamListContractRegionMvtCallBack, TeamListContractRegionBtnCallBack ); 
 
 		// contract region
-		MSYS_DefineRegion( &gTeamListSleepRegion[ sCounter ] ,SLEEP_X, ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd), SLEEP_X + SLEEP_WIDTH, ( INT16 )( 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL + 1,
+		MSYS_DefineRegion( &gTeamListSleepRegion[ sCounter ] ,SLEEP_X, ( INT16 )( sYStart + ( sOffsetCounter ) * ( Y_SIZE + 2 )), SLEEP_X + SLEEP_WIDTH, ( INT16 )( (sYStart + 10) + ( sOffsetCounter + 1 ) * ( Y_SIZE + 2 )), MSYS_PRIORITY_NORMAL + 1,
 							 MSYS_NO_CURSOR, TeamListSleepRegionMvtCallBack, TeamListSleepRegionBtnCallBack ); 
+
+		
+		
+		//// name region
+		//MSYS_DefineRegion( &gTeamListNameRegion[ sCounter ] , NAME_X, ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd ), NAME_X + NAME_WIDTH, ( INT16 )( 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL,
+		//					 MSYS_NO_CURSOR, TeamListInfoRegionMvtCallBack, TeamListInfoRegionBtnCallBack ); 
+
+		//// assignment region
+		//MSYS_DefineRegion( &gTeamListAssignmentRegion[ sCounter ] ,ASSIGN_X , ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd), ASSIGN_X + ASSIGN_WIDTH, ( INT16 )( 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL + 1,
+		//					 MSYS_NO_CURSOR, TeamListAssignmentRegionMvtCallBack, TeamListAssignmentRegionBtnCallBack ); 
+
+		//// location region (same function as name regions, so uses the same callbacks)
+		//MSYS_DefineRegion( &gTeamListLocationRegion[ sCounter ] , LOC_X, ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd ), LOC_X + LOC_WIDTH, ( INT16 )( 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL + 1,
+		//					 MSYS_NO_CURSOR, TeamListInfoRegionMvtCallBack, TeamListInfoRegionBtnCallBack ); 
+
+		//// destination region
+		//MSYS_DefineRegion( &gTeamListDestinationRegion[ sCounter ] ,DEST_ETA_X , ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd ), DEST_ETA_X + DEST_ETA_WIDTH, ( INT16 )( 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL + 1,
+		//					 MSYS_NO_CURSOR, TeamListDestinationRegionMvtCallBack, TeamListDestinationRegionBtnCallBack ); 
+
+		//// contract region
+		//MSYS_DefineRegion( &gTeamListContractRegion[ sCounter ] ,TIME_REMAINING_X , ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd), TIME_REMAINING_X + TIME_REMAINING_WIDTH, ( INT16 )( 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL + 1,
+		//					 MSYS_NO_CURSOR, TeamListContractRegionMvtCallBack, TeamListContractRegionBtnCallBack ); 
+
+		//// contract region
+		//MSYS_DefineRegion( &gTeamListSleepRegion[ sCounter ] ,SLEEP_X, ( INT16 )( Y_START + ( sCounter ) * ( Y_SIZE + 2 ) + sYAdd), SLEEP_X + SLEEP_WIDTH, ( INT16 )( 145 + ( sCounter + 1 ) * ( Y_SIZE + 2 ) + sYAdd ), MSYS_PRIORITY_NORMAL + 1,
+		//					 MSYS_NO_CURSOR, TeamListSleepRegionMvtCallBack, TeamListSleepRegionBtnCallBack ); 
 
 
 		MSYS_SetRegionUserData(&gTeamListNameRegion[sCounter],0,sCounter);
@@ -7480,7 +7624,7 @@ void CreateMouseRegionsForTeamList( void )
 		SetRegionFastHelpText( &gTeamListNameRegion[sCounter], pMapScreenMouseRegionHelpText[ 0 ] );
 		SetRegionFastHelpText( &gTeamListAssignmentRegion[sCounter], pMapScreenMouseRegionHelpText[ 1 ] );
 		SetRegionFastHelpText( &gTeamListSleepRegion[sCounter], pMapScreenMouseRegionHelpText[ 5 ] );
-		SetRegionFastHelpText( &gTeamListLocationRegion[sCounter], pMapScreenMouseRegionHelpText[ 0 ] );
+		SetRegionFastHelpText( &gTeamListLocationRegion[sCounter], pMapScreenMouseRegionHelpText[ 4 ] );
 		SetRegionFastHelpText( &gTeamListDestinationRegion[sCounter], pMapScreenMouseRegionHelpText[ 2 ] );
 		SetRegionFastHelpText( &gTeamListContractRegion[sCounter], pMapScreenMouseRegionHelpText[ 3 ] );
 	}
@@ -8492,7 +8636,10 @@ void RenderMapRegionBackground( void )
 
 	MapscreenMarkButtonsDirty();
 
-	RestoreExternBackgroundRect( 261, 0, 640 - 261, 359 );
+	// WANNE 2
+	//RestoreExternBackgroundRect( 261, 0, 379, 359 );
+
+	RestoreExternBackgroundRect( 261, 0, SCREEN_WIDTH - 261, SCREEN_HEIGHT - 121 );
 
 	// don't bother if showing sector inventory instead of the map!!!
 	if( !fShowMapInventoryPool )
@@ -8562,7 +8709,9 @@ void RenderTeamRegionBackground( void )
 	MarkAllBoxesAsAltered( );
 	
 	// restore background for area
-	RestoreExternBackgroundRect( 0, 107, 261 - 0, 359 - 107 );
+	
+	// WANNE 2
+	RestoreExternBackgroundRect( 0, 107, 261, SCREEN_HEIGHT - 106 - 121 );
 
 	MapscreenMarkButtonsDirty();
 
@@ -10183,8 +10332,20 @@ BOOLEAN HandlePreloadOfMapGraphics( void )
 	/*strcpy(vs_desc.ImageFile, "INTERFACE\\playlist3.pcx");
 	CHECKF(AddVideoSurface( &vs_desc, &guiCHARLIST ));*/
 
+	// WANNE 2
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\newgoldpiece3.sti", VObjectDesc.ImageFile );
+	if (iResolution == 0)
+	{
+		FilenameForBPP("INTERFACE\\newgoldpiece3.sti", VObjectDesc.ImageFile );
+	}
+	else if (iResolution == 1)
+	{
+		FilenameForBPP("INTERFACE\\newgoldpiece3_800x600.sti", VObjectDesc.ImageFile );
+	}
+	else if (iResolution == 2)
+	{
+		FilenameForBPP("INTERFACE\\newgoldpiece3_1024x768.sti", VObjectDesc.ImageFile );
+	}
 	CHECKF(AddVideoObject(&VObjectDesc, &guiCHARLIST));
 
 	//VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
@@ -10493,6 +10654,106 @@ void NextInventoryMapBtnCallback( GUI_BUTTON *btn, INT32 reason )
 		}
 	}	
 }
+
+// WANNE 2 <scroll>
+//void BtnMercsUpMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
+//{
+//	// WANNE 2 -> see Map Screen Interface Bottom Line 766 (BtnMessageUpMapScreenCallback)
+//	int i = 10;
+//}
+//
+//void BtnMercsDownMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
+//{
+//	// WANNE 2 -> see Map Screen Interface Bottom Line 766 (BtnMessageUpMapScreenCallback)
+//	int i = 10;
+//}
+//
+//void BtnVehicleUpMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
+//{
+//	// WANNE 2 -> see Map Screen Interface Bottom Line 766 (BtnMessageUpMapScreenCallback)
+//	int i = 10;
+//}
+//
+//void BtnVehicleDownMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
+//{
+//	// WANNE 2 -> see Map Screen Interface Bottom Line 766 (BtnMessageUpMapScreenCallback)
+//	int i = 10;
+//}
+
+// WANNE 2 <scroll>
+//void DeleteButtonsForScrolling(void)
+//{
+//	if (fScrollButtonsInitialized == TRUE)
+//	{
+//		// mercs scroll buttons
+//		RemoveButton( guiMapMercsScrollButtons[ 0 ]);
+//		RemoveButton( guiMapMercsScrollButtons[ 1 ]);
+//		UnloadButtonImage( guiMapMercsScrollButtonsImage[ 0 ] );
+//		UnloadButtonImage( guiMapMercsScrollButtonsImage[ 1 ] );
+//
+//		RemoveButton( guiMapVehicleScrollButtons[ 0 ]);
+//		RemoveButton( guiMapVehicleScrollButtons[ 1 ]);
+//		UnloadButtonImage( guiMapVehicleScrollButtonsImage[ 0 ] );
+//		UnloadButtonImage( guiMapVehicleScrollButtonsImage[ 1 ] );
+//
+//		fScrollButtonsInitialized = FALSE;
+//	}
+//}
+
+// WANNE 2 <scroll>
+// Create the scrolling arrows
+//void CreateButtonsForScrolling( void )
+//{
+//	if (fScrollButtonsInitialized == FALSE)
+//	{
+//		INT32	iXPos = 247;
+//		INT32	iMercUpY = -1;
+//		INT32	iVehicleUpY = -1;
+//
+//		if (iResolution == 0)
+//		{
+//			iMercUpY = 207;
+//			iVehicleUpY = 321;
+//		}
+//		else if (iResolution == 1)
+//		{
+//			iMercUpY = 256;
+//			iVehicleUpY = 429;
+//		}
+//		else if (iResolution == 2)
+//		{
+//			iMercUpY = 328;
+//			iVehicleUpY = 579;
+//		}
+//
+//		// merc - scroll up
+//		guiMapMercsScrollButtonsImage[ MAP_SCROLL_MERCS_UP ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,11,4,-1,6,-1 );
+//		guiMapMercsScrollButtons[ MAP_SCROLL_MERCS_UP ] = QuickCreateButton( guiMapMercsScrollButtonsImage[ MAP_SCROLL_MERCS_UP ], iXPos, iMercUpY,
+//											BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+//											(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMercsUpMapScreenCallback);
+//
+//		// merc - scroll down
+//		guiMapMercsScrollButtonsImage[ MAP_SCROLL_MERCS_DOWN ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,12,5,-1,7,-1 );
+//		guiMapMercsScrollButtons[ MAP_SCROLL_MERCS_DOWN ] = QuickCreateButton( guiMapMercsScrollButtonsImage[ MAP_SCROLL_MERCS_DOWN ], iXPos, iMercUpY + 17,
+//											BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+//											(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMercsDownMapScreenCallback);
+//
+//		// vehicle - scroll up
+//		guiMapVehicleScrollButtonsImage[ MAP_SCROLL_VEHICLE_UP ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,11,4,-1,6,-1 );
+//		guiMapVehicleScrollButtons[ MAP_SCROLL_VEHICLE_UP ] = QuickCreateButton( guiMapVehicleScrollButtonsImage[ MAP_SCROLL_VEHICLE_UP ], iXPos, iVehicleUpY,
+//											BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+//											(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnVehicleUpMapScreenCallback);
+//
+//		// vehicle - scroll down
+//		guiMapVehicleScrollButtonsImage[ MAP_SCROLL_VEHICLE_DOWN ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,12,5,-1,7,-1 );
+//		guiMapVehicleScrollButtons[ MAP_SCROLL_VEHICLE_DOWN ] = QuickCreateButton( guiMapVehicleScrollButtonsImage[ MAP_SCROLL_VEHICLE_DOWN ], iXPos, iVehicleUpY + 17,
+//											BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+//											(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnVehicleDownMapScreenCallback);
+//
+//		fScrollButtonsInitialized = TRUE;
+//	  }
+//}
+
 
 void CreateDestroyMapCharacterScrollButtons( void )
 {
@@ -11072,7 +11333,9 @@ void DisplayIconsForMercsAsleep( void )
 			pSoldier = MercPtrs[ gCharactersList[ iCounter ].usSolID ];
 			if( pSoldier->bActive && pSoldier->fMercAsleep && CanChangeSleepStatusForSoldier( pSoldier ) )
 			{
-				BltVideoObject( guiSAVEBUFFER , hHandle, 0, 125, ( INT16 )( Y_START+(iCounter * ( Y_SIZE + 2 ) ) ) , VO_BLT_SRCTRANSPARENCY,NULL );
+				// WANNE 2
+				//BltVideoObject( guiSAVEBUFFER , hHandle, 0, 125, ( INT16 )( Y_START+(iCounter * ( Y_SIZE + 2 ) ) ) , VO_BLT_SRCTRANSPARENCY,NULL );
+				BltVideoObject( guiSAVEBUFFER , hHandle, 0, SLEEP_X + 2, ( INT16 )( Y_START+(iCounter * ( Y_SIZE + 2 ) ) ) , VO_BLT_SRCTRANSPARENCY,NULL );
 			}
 		}
 	}
@@ -11088,25 +11351,30 @@ void CheckForAndRenderNewMailOverlay()
 	{
 		if( GetJA2Clock() % 1000 < 667 )
 		{
+			// WANNE 2
 			if( ButtonList[ guiMapBottomExitButtons[ MAP_EXIT_TO_LAPTOP ] ]->uiFlags & BUTTON_CLICKED_ON )
 			{ //button is down, so offset the icon
-				BltVideoObjectFromIndex( FRAME_BUFFER, guiNewMailIcons, 1, 465, 418, VO_BLT_SRCTRANSPARENCY, NULL );
-				InvalidateRegion( 465, 418, 480, 428 );
+				//BltVideoObjectFromIndex( FRAME_BUFFER, guiNewMailIcons, 1, 465, 418, VO_BLT_SRCTRANSPARENCY, NULL );
+				BltVideoObjectFromIndex( FRAME_BUFFER, guiNewMailIcons, 1, (SCREEN_WIDTH - 175), (SCREEN_HEIGHT - 62), VO_BLT_SRCTRANSPARENCY, NULL );
+				//InvalidateRegion( 465, 418, 480, 428 );
+				InvalidateRegion( (SCREEN_WIDTH - 175), (SCREEN_HEIGHT - 62), (SCREEN_WIDTH - 160), (SCREEN_HEIGHT - 52 ));
 			}
+			// WANNE 2
 			else
-			{ //button is up, so draw the icon normally
-				BltVideoObjectFromIndex( FRAME_BUFFER, guiNewMailIcons, 0, 464, 417, VO_BLT_SRCTRANSPARENCY, NULL );
+			{	//button is up, so draw the icon normally
+				//BltVideoObjectFromIndex( FRAME_BUFFER, guiNewMailIcons, 0, 464, 417, VO_BLT_SRCTRANSPARENCY, NULL );
+				BltVideoObjectFromIndex( FRAME_BUFFER, guiNewMailIcons, 0, (SCREEN_WIDTH - 176), (SCREEN_HEIGHT - 63), VO_BLT_SRCTRANSPARENCY, NULL );
 				if( !(ButtonList[ guiMapBottomExitButtons[ MAP_EXIT_TO_LAPTOP ] ]->uiFlags & BUTTON_ENABLED ) )
 				{
 					UINT32 uiDestPitchBYTES;
 					UINT8  *pDestBuf;
-					SGPRect area = { 463, 417, 477, 425 };
+					SGPRect area = { (SCREEN_WIDTH - 177), (SCREEN_HEIGHT - 63), (SCREEN_WIDTH - 163), (SCREEN_HEIGHT - 55) };
 
 				  pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 					Blt16BPPBufferHatchRect( (UINT16*)pDestBuf, uiDestPitchBYTES, &area );
 					UnLockVideoSurface( FRAME_BUFFER );
 				}
-				InvalidateRegion( 463, 417, 481, 430 );
+				InvalidateRegion( (SCREEN_WIDTH - 177), (SCREEN_HEIGHT - 63), (SCREEN_WIDTH - 159), (SCREEN_HEIGHT - 50) );
 
 			}
 		}

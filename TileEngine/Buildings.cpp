@@ -36,7 +36,9 @@ BUILDING * CreateNewBuilding( UINT8 * pubBuilding )
 
 BUILDING * GenerateBuilding( INT16 sDesiredSpot )
 {
+
 	UINT32	uiLoop;
+	UINT32	uiLoop2;
 	INT16		sTempGridNo, sNextTempGridNo, sVeryTemporaryGridNo;
 	INT16		sStartGridNo, sCurrGridNo, sPrevGridNo = NOWHERE, sRightGridNo;
 	INT8		bDirection, bTempDirection;
@@ -106,9 +108,9 @@ BUILDING * GenerateBuilding( INT16 sDesiredSpot )
 
 	gpWorldLevelData[ sStartGridNo ].ubExtFlags[0] |= MAPELEMENT_EXT_ROOFCODE_VISITED;
 
-	while( 1 )
+	uiLoop2 = 0;
+	while(uiLoop2 < WORLD_MAX)
 	{
-
 		// if point to (2 clockwise) is not part of building and is not visited,
 		// or is starting point, turn!
 		sRightGridNo = NewGridNo( sCurrGridNo, DirectionInc( gTwoCDirection[ bDirection ] ) );
@@ -201,8 +203,6 @@ BUILDING * GenerateBuilding( INT16 sDesiredSpot )
 		if ( !(gpWorldLevelData[ sCurrGridNo ].ubExtFlags[0] & MAPELEMENT_EXT_ROOFCODE_VISITED) )
 		{
 			gpWorldLevelData[ sCurrGridNo ].ubExtFlags[0] |= MAPELEMENT_EXT_ROOFCODE_VISITED;
-
-			//DebugMsg( TOPIC_JA2AI , DBG_LEVEL_3 , String("Building info set at %d to %d", sCurrGridNo, ubBuildingID ));
 
 			gubBuildingInfo[ sCurrGridNo ] = ubBuildingID;
 
@@ -323,8 +323,22 @@ BUILDING * GenerateBuilding( INT16 sDesiredSpot )
 			}
 
 		}
-
+		uiLoop2++;
 	}
+	// If we've run out of loop before we've run out of building, then there is
+	// something that has gone pear shaped
+	if(uiLoop2 >= WORLD_MAX)
+	{
+		UINT8 x = 0;
+		UINT8 y = 0;
+		while((sDesiredSpot - ((y + 1) * 160)) >= 0)
+		{
+			y++;
+		}
+		x = sDesiredSpot - (y * 160);
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_2,String( "113/UC Warning! Building Walk Algorithm has covered the entire map! Building %d located at [%d,%d] must be bogus.", ubBuildingID, x, y ));
+	}
+
 
 	// at end could prune # of locations if there are too many
 
@@ -338,7 +352,6 @@ BUILDING * GenerateBuilding( INT16 sDesiredSpot )
 	RefreshScreen( NULL );
 #endif
 */
-
 	return( pBuilding );
 }
 
@@ -415,7 +428,6 @@ void GenerateBuildings( void )
 
 	// search through world
 	// for each location in a room try to find building info
-
 	for ( uiLoop = 0; uiLoop < WORLD_MAX; uiLoop++ )
 	{
 		if ( (gubWorldRoomInfo[ uiLoop ] != NO_ROOM) && (gubBuildingInfo[ uiLoop ] == NO_BUILDING) && (FindStructure( (INT16) uiLoop, STRUCTURE_NORMAL_ROOF ) != NULL) )

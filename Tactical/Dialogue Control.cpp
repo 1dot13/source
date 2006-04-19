@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 	#include "PreBattle Interface.h"
@@ -1977,6 +1978,8 @@ void ExecuteTacticalTextBox( INT16 sLeftPosition, STR16 pString )
 	VIDEO_OVERLAY_DESC		VideoOverlayDesc;
 
 	// check if mouse region created, if so, do not recreate
+	
+	// WANNE 2
 	if( fTextBoxMouseRegionCreated == TRUE )
 	{
 		return;
@@ -2002,6 +2005,12 @@ void ExecuteTacticalTextBox( INT16 sLeftPosition, STR16 pString )
 	giTextBoxOverlay =  RegisterVideoOverlay( 0, &VideoOverlayDesc );
 
 	gsTopPosition = 20;
+
+	// WANNE 2
+	//if( fTextBoxMouseRegionCreated == TRUE )
+	//{
+	//	return;
+	//}
 
 	//Define main region
 	MSYS_DefineRegion( &gTextBoxMouseRegion,  VideoOverlayDesc.sLeft, VideoOverlayDesc.sTop,  VideoOverlayDesc.sRight, VideoOverlayDesc.sBottom, MSYS_PRIORITY_HIGHEST,

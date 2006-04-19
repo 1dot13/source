@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
 	#include "PreBattle Interface.h"
@@ -563,7 +564,9 @@ void RenderTacticalPlacementGUI()
 		{
 			gTPClipRect.iLeft		= iOffsetHorizontal;
 			gTPClipRect.iTop		= iOffsetVertical;
-			gTPClipRect.iRight		= iOffsetHorizontal + 640;
+			// WANNE 2
+			//gTPClipRect.iRight		= iOffsetHorizontal + 640;
+			gTPClipRect.iRight		= iOffsetHorizontal + 635;
 			gTPClipRect.iBottom		= iOffsetVertical + 320;
 			switch( gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode )
 			{

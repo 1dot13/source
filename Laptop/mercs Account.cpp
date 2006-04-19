@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Laptop All.h"
 #else
@@ -515,7 +516,8 @@ UINT32	CalculateHowMuchPlayerOwesSpeck()
 	UINT16			usMercID;
 
 
-	for(i=0; i<10; i++)
+	// WANNE 2
+	for(i=0; i<14; i++)
 	{
 		//if it larry Roach burn advance.  ( cause larry is in twice, a sober larry and a stoned larry )
 		if( i == MERC_LARRY_ROACHBURN )

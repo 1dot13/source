@@ -172,6 +172,11 @@ typedef struct
 	INT8 iCustomPersonality;
 	INT8 iCustomAttitude;
 
+	INT8 iEasyAPBonus;
+	INT8 iExperiencedAPBonus;
+	INT8 iExpertAPBonus;
+	INT8 iInsaneAPBonus;
+
 
 
 } GAME_EXTERNAL_OPTIONS;

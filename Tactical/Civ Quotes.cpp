@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #endif
@@ -380,9 +381,9 @@ void BeginCivQuote( SOLDIERTYPE *pCiv, UINT8 ubCivQuoteID, UINT8 ubEntryID, INT1
 		}
 
 		// CHECK FOR LEFT/RIGHT
-		if ( ( sX + gusCivQuoteBoxWidth ) > 640 )
+		if ( ( sX + gusCivQuoteBoxWidth ) > SCREEN_WIDTH )
 		{
-			sX = 640 - gusCivQuoteBoxWidth;
+			sX = SCREEN_WIDTH - gusCivQuoteBoxWidth;
 		}
 
 		// Now check for top
@@ -392,9 +393,9 @@ void BeginCivQuote( SOLDIERTYPE *pCiv, UINT8 ubCivQuoteID, UINT8 ubEntryID, INT1
 		}
 
 		// Check for bottom
-		if ( ( sY + gusCivQuoteBoxHeight ) > 340 )
+		if ( ( sY + gusCivQuoteBoxHeight ) > (SCREEN_HEIGHT - INV_INTERFACE_HEIGHT))
 		{
-			sY = 340 - gusCivQuoteBoxHeight;
+			sY = (SCREEN_HEIGHT - INV_INTERFACE_HEIGHT) - gusCivQuoteBoxHeight;
 		}
 	}
 

@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
 #else
@@ -1830,7 +1831,7 @@ STR16 pMapErrorString[] =
 	L"braucht eine Eskorte. Plazieren Sie sie in einem Trupp mit Eskorte.", // for a female
 	L"Söldner ist noch nicht in Arulco!",
 	L"Erst mal Vertrag aushandeln!",
-	L"",
+	L"Marschbefehl ist nicht möglich. Luftangriffe finden statt.",		// WANNE 2
 //11-15
 	L"Marschbefehl? Hier tobt ein Kampf!",
 	L"Sie sind von Bloodcats umstellt in Sektor %s!",
@@ -3108,6 +3109,8 @@ STR16 zMarksMapScreenText[] =
 	L"%s ist voller Milizen.",
 	L"Söldner hat begrenzten Vertrag.", 
 	L"Vertrag des Söldners ist nicht versichert",
+	// WANNE 2
+	L"Kartenübersicht",		// 24
 };
 
 STR16 pLandMarkInSectorString[] =

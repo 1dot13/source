@@ -246,11 +246,15 @@ void RadarRegionButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		if ( !InOverheadMap( ) )
 		{
-			GoIntoOverheadMap( );
+			// WANNE 2 <wenn wir im strategy screen sind, darf keine overhead map angezeigt werden!!>
+			if (fDisplayOverheadMap == TRUE)
+				GoIntoOverheadMap( );
 		}
 		else
 		{
-			KillOverheadMap();
+			// WANNE 2 <wenn wir im strategy screen sind, darf keine overhead map angezeigt werden!!>
+			if (fDisplayOverheadMap == TRUE)
+				KillOverheadMap();
 		}
 	}
 }
@@ -644,9 +648,10 @@ BOOLEAN CreateDestroyMouseRegionsForSquadList( void )
 	  CHECKF(AddVideoObject(&VObjectDesc, &uiHandle));
 
 	  GetVideoObject(&hHandle, uiHandle);
-		BltVideoObject( guiSAVEBUFFER , hHandle, 0,(INTERFACE_WIDTH - 102 - 1), 0 + gsVIEWPORT_END_Y, VO_BLT_SRCTRANSPARENCY,NULL );
-
-		RestoreExternBackgroundRect( (INTERFACE_WIDTH - 102), gsVIEWPORT_END_Y, (SCREEN_WIDTH - 538 ),( INT16 ) ( SCREEN_HEIGHT - gsVIEWPORT_END_Y ) );
+		
+	  
+		BltVideoObject( guiSAVEBUFFER , hHandle, 0,(SCREEN_WIDTH - 102 - 1), gsVIEWPORT_END_Y, VO_BLT_SRCTRANSPARENCY,NULL );
+		RestoreExternBackgroundRect ((SCREEN_WIDTH - 102 - 1), gsVIEWPORT_END_Y, 102,( INT16 ) ( SCREEN_HEIGHT - gsVIEWPORT_END_Y ) );
 		
 		for( sCounter = 0; sCounter < NUMBER_OF_SQUADS; sCounter++ )
 		{

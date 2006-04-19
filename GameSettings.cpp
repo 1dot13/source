@@ -327,6 +327,11 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iCustomPersonality = iniReader.ReadInteger("Options","CUSTOM_PERSONALITY",6);
 	gGameExternalOptions.iCustomAttitude = iniReader.ReadInteger("Options","CUSTOM_ATTITUDE",0);
 
+	gGameExternalOptions.iEasyAPBonus = iniReader.ReadInteger("Options","NOVICE_AP_BONUS",0);
+	gGameExternalOptions.iExperiencedAPBonus = iniReader.ReadInteger("Options","EXPERIENCED_AP_BONUS",0);
+	gGameExternalOptions.iExpertAPBonus = iniReader.ReadInteger("Options","EXPERT_AP_BONUS",0);
+	gGameExternalOptions.iInsaneAPBonus = iniReader.ReadInteger("Options","INSANE_AP_BONUS",0);
+
 }
 
 

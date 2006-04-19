@@ -1,4 +1,4 @@
-// WANNE <08.12.2005>
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
 	#include "Game Clock.h"
@@ -1086,8 +1086,10 @@ void DisplayStringsInMapScreenMessageList( void )
 	UINT16 usSpacing;
 
 
-	// WANNE <change this???>
-	SetFontDestBuffer( FRAME_BUFFER, 17, 360 + 6, 407, 360 + 101, FALSE );
+	// WANNE 2
+	//SetFontDestBuffer( FRAME_BUFFER, 17, 360 + 6, 407, 360 + 101, FALSE );
+
+	SetFontDestBuffer( FRAME_BUFFER, 17, (SCREEN_HEIGHT - 114), 407, (SCREEN_HEIGHT - 114) + 101, FALSE );
 
 	SetFont( MAP_SCREEN_MESSAGE_FONT );		// no longer supports variable fonts
 	SetFontBackground( FONT_BLACK );
@@ -1095,7 +1097,10 @@ void DisplayStringsInMapScreenMessageList( void )
 
 	ubCurrentStringIndex = gubCurrentMapMessageString;
 
-	sY = 377;
+	// WANNE 2
+	//sY = 377;
+	sY = (SCREEN_HEIGHT - 103);
+
 	usSpacing = GetFontHeight( MAP_SCREEN_MESSAGE_FONT );
 
 	for ( ubLinesPrinted = 0; ubLinesPrinted < MAX_MESSAGES_ON_MAP_BOTTOM; ubLinesPrinted++ )

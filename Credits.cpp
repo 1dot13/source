@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "JA2 All.h"
 	#include "Credits.h"
@@ -128,7 +129,7 @@ enum
 #define		CRDT_SPACE_BN_SECTIONS					50
 #define		CRDT_SPACE_BN_NODES							12
 
-#define		CRDT_START_POS_Y								479
+#define		CRDT_START_POS_Y								(SCREEN_HEIGHT - 1)	//479
 
 #define		CRDT_EYE_WIDTH									30
 #define		CRDT_EYE_HEIGHT									12
@@ -456,7 +457,20 @@ BOOLEAN		EnterCreditsScreen()
 */
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0 );
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\Credits.sti", VObjectDesc.ImageFile);
+
+	if (iResolution == 0)
+	{
+			FilenameForBPP("INTERFACE\\Credits.sti", VObjectDesc.ImageFile);
+	}
+	else if (iResolution == 1)
+	{
+		FilenameForBPP("INTERFACE\\Credits_800x600.sti", VObjectDesc.ImageFile);
+	}
+	else if (iResolution == 2)
+	{
+		FilenameForBPP("INTERFACE\\Credits_1024x768.sti", VObjectDesc.ImageFile);
+	}
+
 	CHECKF(AddVideoObject(&VObjectDesc, &guiCreditBackGroundImage ));
 
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
@@ -1032,7 +1046,9 @@ BOOLEAN DisplayCreditNode( CRDT_NODE	*pCurrent )
 		//if the surface is at the bottom of the screen
 		if( pCurrent->sOldPosY + pCurrent->sHeightOfString > CRDT_START_POS_Y )
 		{
-			INT16	sHeight = 480 - pCurrent->sOldPosY;
+			// WANNE 2
+			INT16 sHeight = SCREEN_HEIGHT - pCurrent->sOldPosY;
+			//INT16	sHeight = 480 - pCurrent->sOldPosY;
 			RestoreExternBackgroundRect( pCurrent->sOldPosX, pCurrent->sOldPosY, CRDT_WIDTH_OF_TEXT_AREA, sHeight );
 		}
 		else if( pCurrent->sOldPosY > CRDT_LINE_NODE_DISAPPEARS_AT ) 

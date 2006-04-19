@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
@@ -79,6 +80,13 @@ SKIRGBCOLOR SkiGlowColorsA[]={
 //
 ///////////////////////////////////////////
 
+// WANNE 2
+#define		SKI_INTERFACE_WIDTH								536
+#define		SKI_INTERFACE_HEIGHT							340
+
+#define		SCREEN_X_OFFSET								(((SCREEN_WIDTH - SKI_INTERFACE_WIDTH) / 2))
+#define		SCREEN_Y_OFFSET								((((SCREEN_HEIGHT - INV_INTERFACE_HEIGHT) - (SKI_INTERFACE_HEIGHT)) / 2))
+
 #define		SKI_BUTTON_FONT										MILITARYFONT1//FONT14ARIAL
 #define		SKI_BUTTON_COLOR									73
 
@@ -96,50 +104,50 @@ SKIRGBCOLOR SkiGlowColorsA[]={
 
 #define		SKIT_NUMBER_FONT									BLOCKFONT2
 
-#define		SKI_MAIN_BACKGROUND_X							0
-#define		SKI_MAIN_BACKGROUND_Y							0
+#define		SKI_MAIN_BACKGROUND_X							SCREEN_X_OFFSET
+#define		SKI_MAIN_BACKGROUND_Y							SCREEN_Y_OFFSET
 
-#define		SKI_FACE_X												13
-#define		SKI_FACE_Y												13
+#define		SKI_FACE_X										(SCREEN_X_OFFSET + 13)
+#define		SKI_FACE_Y										(SCREEN_Y_OFFSET + 13)
 #define		SKI_FACE_WIDTH										90
 #define		SKI_FACE_HEIGHT										100
 
-#define		SKI_PAGE_UP_ARROWS_X							121
-#define		SKI_PAGE_UP_ARROWS_Y							35
+#define		SKI_PAGE_UP_ARROWS_X							(SCREEN_X_OFFSET + 121)
+#define		SKI_PAGE_UP_ARROWS_Y							(SCREEN_Y_OFFSET + 35)
 
 #define		SKI_PAGE_DOWN_ARROWS_X						SKI_PAGE_UP_ARROWS_X
-#define		SKI_PAGE_DOWN_ARROWS_Y						102
+#define		SKI_PAGE_DOWN_ARROWS_Y						(SCREEN_Y_OFFSET + 102)
 
 //Evaluate:
 //#define		SKI_EVALUATE_BUTTON_X							15
 //#define		SKI_EVALUATE_BUTTON_Y							233
 
-#define		SKI_TRANSACTION_BUTTON_X					147//214
-#define		SKI_TRANSACTION_BUTTON_Y					233//SKI_EVALUATE_BUTTON_Y
+#define		SKI_TRANSACTION_BUTTON_X					(SCREEN_X_OFFSET + 147)//214
+#define		SKI_TRANSACTION_BUTTON_Y					(SCREEN_Y_OFFSET  +233)//SKI_EVALUATE_BUTTON_Y
 
-#define		SKI_DONE_BUTTON_X										292//414
-#define		SKI_DONE_BUTTON_Y										233//SKI_EVALUATE_BUTTON_Y
+#define		SKI_DONE_BUTTON_X							(SCREEN_X_OFFSET + 292)//414
+#define		SKI_DONE_BUTTON_Y							(SCREEN_Y_OFFSET + 233)//SKI_EVALUATE_BUTTON_Y
 
-#define		SKI_MAIN_TITLE_X										112
-#define		SKI_MAIN_TITLE_Y										12
+#define		SKI_MAIN_TITLE_X										(SCREEN_X_OFFSET + 112)
+#define		SKI_MAIN_TITLE_Y										(SCREEN_Y_OFFSET + 12)
 
 #define		SKI_MAIN_TITLE_WIDTH								420
 
-#define		SKI_TOTAL_COST_X										9
-#define		SKI_TOTAL_COST_Y										162//159
+#define		SKI_TOTAL_COST_X										(SCREEN_X_OFFSET + 9)
+#define		SKI_TOTAL_COST_Y										(SCREEN_Y_OFFSET + 162)//159
 #define		SKI_TOTAL_COST_WIDTH								73
 									
 #define		SKI_TOTAL_VALUE_X										SKI_TOTAL_COST_X
-#define		SKI_TOTAL_VALUE_Y										291//268
+#define		SKI_TOTAL_VALUE_Y										(SCREEN_Y_OFFSET + 291)//268
 #define		SKI_TOTAL_VALUE_WIDTH								SKI_TOTAL_COST_WIDTH
 			
-#define		SKI_PLAYERS_CURRENT_BALANCE_X				SKI_TOTAL_COST_X
-#define		SKI_PLAYERS_CURRENT_BALANCE_Y				235
-#define		SKI_PLAYERS_CURRENT_BALANCE_WIDTH		SKI_TOTAL_COST_WIDTH
-#define		SKI_PLAYERS_CURRENT_BALANCE_OFFSET_TO_VALUE			265
+#define		SKI_PLAYERS_CURRENT_BALANCE_X						SKI_TOTAL_COST_X
+#define		SKI_PLAYERS_CURRENT_BALANCE_Y						(SCREEN_Y_OFFSET + 235)
+#define		SKI_PLAYERS_CURRENT_BALANCE_WIDTH					SKI_TOTAL_COST_WIDTH
+#define		SKI_PLAYERS_CURRENT_BALANCE_OFFSET_TO_VALUE			SCREEN_Y_OFFSET + 265
 						
-#define		SKI_PAGE_X													112
-#define		SKI_PAGE_Y													70
+#define		SKI_PAGE_X													(SCREEN_X_OFFSET + 112)
+#define		SKI_PAGE_Y													(SCREEN_Y_OFFSET + 70)
 #define		SKI_PAGE_WIDTH											45
 #define		SKI_PAGE_HEIGHT											27
 
@@ -166,49 +174,48 @@ SKIRGBCOLOR SkiGlowColorsA[]={
 #define SKI_GLOW_DELAY 70
 
 //Start Locations for the inventory boxes
-#define		SKI_ARMS_DEALERS_INV_START_X					165
-#define		SKI_ARMS_DEALERS_INV_START_Y					30
+#define		SKI_ARMS_DEALERS_INV_START_X					(SCREEN_X_OFFSET + 165)
+#define		SKI_ARMS_DEALERS_INV_START_Y					(SCREEN_Y_OFFSET + 30)
 
-#define		SKI_ARMS_DEALERS_TRADING_INV_X				91
-#define		SKI_ARMS_DEALERS_TRADING_INV_Y				151
+#define		SKI_ARMS_DEALERS_TRADING_INV_X				(SCREEN_X_OFFSET + 91)
+#define		SKI_ARMS_DEALERS_TRADING_INV_Y				(SCREEN_Y_OFFSET + 151)
 #define		SKI_ARMS_DEALERS_TRADING_INV_WIDTH		436
 #define		SKI_ARMS_DEALERS_TRADING_INV_HEIGHT		67
 
-
-#define		SKI_PLAYERS_TRADING_INV_X							91
-#define		SKI_PLAYERS_TRADING_INV_Y							266
+#define		SKI_PLAYERS_TRADING_INV_X							(SCREEN_X_OFFSET + 91)
+#define		SKI_PLAYERS_TRADING_INV_Y							(SCREEN_Y_OFFSET + 266)
 #define		SKI_PLAYERS_TRADING_INV_HEIGHT				70
 #define		SKI_PLAYERS_TRADING_INV_WIDTH					440
 
-#define		SKI_ARMS_DEALER_TOTAL_COST_X					16
-#define		SKI_ARMS_DEALER_TOTAL_COST_Y					194//191
+#define		SKI_ARMS_DEALER_TOTAL_COST_X					(SCREEN_X_OFFSET + 16)
+#define		SKI_ARMS_DEALER_TOTAL_COST_Y					(SCREEN_Y_OFFSET + 194)//191
 #define		SKI_ARMS_DEALER_TOTAL_COST_WIDTH			59
 #define		SKI_ARMS_DEALER_TOTAL_COST_HEIGHT			20
 
-#define		SKI_PLAYERS_TOTAL_VALUE_X							16
-#define		SKI_PLAYERS_TOTAL_VALUE_Y							310//308
+#define		SKI_PLAYERS_TOTAL_VALUE_X							(SCREEN_X_OFFSET + 16)
+#define		SKI_PLAYERS_TOTAL_VALUE_Y							(SCREEN_Y_OFFSET + 310)//308
 #define		SKI_PLAYERS_TOTAL_VALUE_WIDTH					59
 #define		SKI_PLAYERS_TOTAL_VALUE_HEIGHT				20
 
 
-#define		SKI_TACTICAL_BACKGROUND_START_X				536
+#define		SKI_TACTICAL_BACKGROUND_START_X				(SCREEN_X_OFFSET + SKI_INTERFACE_WIDTH)
+
 #define		SKI_TACTICAL_BACKGROUND_START_Y				0
+
 #define		SKI_DROP_ITEM_TO_GROUND_START_X				SKI_TACTICAL_BACKGROUND_START_X
-#define		SKI_DROP_ITEM_TO_GROUND_START_Y				262
-#define		SKI_DROP_ITEM_TO_GROUND_TEXT_START_Y	262
+#define		SKI_DROP_ITEM_TO_GROUND_START_Y				(SCREEN_Y_OFFSET + 262)
+#define		SKI_DROP_ITEM_TO_GROUND_TEXT_START_Y		(SCREEN_Y_OFFSET + 262)
 
-#define		SKI_TACTICAL_BACKGROUND_START_WIDTH		640 - SKI_TACTICAL_BACKGROUND_START_X
-#define		SKI_TACTICAL_BACKGROUND_START_HEIGHT	340
+#define		SKI_TACTICAL_BACKGROUND_START_WIDTH		(SCREEN_WIDTH - SKI_TACTICAL_BACKGROUND_START_X)
 
-#define		SKI_ITEM_MOVEMENT_AREA_X							85
-#define		SKI_ITEM_MOVEMENT_AREA_Y							263
-#define		SKI_ITEM_MOVEMENT_AREA_WIDTH					(640 - SKI_ITEM_MOVEMENT_AREA_X)
-//#define		SKI_ITEM_MOVEMENT_AREA_WIDTH					448
-#define		SKI_ITEM_MOVEMENT_AREA_HEIGHT					215//72
+#define		SKI_TACTICAL_BACKGROUND_START_HEIGHT	(SCREEN_HEIGHT - INV_INTERFACE_HEIGHT)
 
-#define		SKI_DEALER_OFFER_AREA_Y								148
-//#define		SKI_DEALER_OFFER_AREA_Y								148
+#define		SKI_ITEM_MOVEMENT_AREA_X							(SCREEN_X_OFFSET + 85)
+#define		SKI_ITEM_MOVEMENT_AREA_Y							(SCREEN_Y_OFFSET + 263)
+#define		SKI_ITEM_MOVEMENT_AREA_WIDTH						(SCREEN_WIDTH - SKI_ITEM_MOVEMENT_AREA_X)
+#define		SKI_ITEM_MOVEMENT_AREA_HEIGHT						(SCREEN_Y_OFFSET + 215)//72
 
+#define		SKI_DEALER_OFFER_AREA_Y								(SCREEN_Y_OFFSET + 148)
 
 #define		SKI_ITEM_NUMBER_TEXT_OFFSET_X					50
 #define		SKI_ITEM_NUMBER_TEXT_OFFSET_Y					15
@@ -216,7 +223,7 @@ SKIRGBCOLOR SkiGlowColorsA[]={
 
 #define		SKI_SUBTITLE_TEXT_SIZE								512
 
-#define		SKI_POSITION_SUBTITLES_Y							140//100
+#define		SKI_POSITION_SUBTITLES_Y							(SCREEN_Y_OFFSET + INV_INTERFACE_HEIGHT)//100
 
 #define		SKI_SMALL_FACE_WIDTH									16
 #define		SKI_SMALL_FACE_HEIGHT									14
@@ -227,8 +234,8 @@ SKIRGBCOLOR SkiGlowColorsA[]={
 #define		SKI_ATTACHMENT_SYMBOL_Y_OFFSET				14
 
 
-#define		SKI_ATM_PANEL_X												87
-#define		SKI_ATM_PANEL_Y												342
+#define		SKI_ATM_PANEL_X												(SCREEN_X_OFFSET + 87)
+#define		SKI_ATM_PANEL_Y												(SCREEN_Y_OFFSET + SKI_INTERFACE_HEIGHT)
 #define		SKI_ATM_PANEL_WIDTH										127
 #define		SKI_ATM_PANEL_HEIGHT									135
 
@@ -236,7 +243,7 @@ SKIRGBCOLOR SkiGlowColorsA[]={
 #define		SKI_ATM_BUTTON_Y											SKI_ATM_PANEL_Y + 64
 #define		SKI_ATM_BUTTON_HEIGHT									15
 #define		SKI_ATM_NUM_BUTTON_WIDTH							15
-#define		SKI_ATM_SIDE_MENU_PANEL_START_X				48
+#define		SKI_ATM_SIDE_MENU_PANEL_START_X				(SCREEN_X_OFFSET + 48)
 
 #define		SKI_TRANSFER_STRING_X									SKI_ATM_PANEL_X + 22
 #define		SKI_TRANSFER_STRING_Y									SKI_ATM_PANEL_Y + 50
@@ -705,7 +712,8 @@ UINT32	ShopKeeperScreenHandle()
 		}
 		gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
 		gfRenderScreenOnNextLoop = TRUE;
-		InvalidateRegion( 0, 0, 640, 480 );
+
+		InvalidateRegion( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 	}
 
 	if( gfRenderScreenOnNextLoop )
@@ -810,7 +818,6 @@ BOOLEAN EnterShopKeeperInterface()
 	// make sure current merc is close enough and eligible to talk to the shopkeeper.
 	AssertMsg( CanMercInteractWithSelectedShopkeeper( MercPtrs[ gusSelectedSoldier ] ), "Selected merc can't interact with shopkeeper.  Send save AM-1");
 
-
 	// Create a video surface to blt corner of the tactical screen that still shines through
 	vs_desc.fCreateFlags = VSURFACE_CREATE_DEFAULT | VSURFACE_SYSTEM_MEM_USAGE;
 	vs_desc.usWidth = SKI_TACTICAL_BACKGROUND_START_WIDTH;
@@ -828,6 +835,9 @@ BOOLEAN EnterShopKeeperInterface()
 
 	//Clear out all the save background rects
 	EmptyBackgroundRects( );
+
+	// WANNE 2
+	ShadowVideoSurfaceRect( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - INV_INTERFACE_HEIGHT );
 
 	if( gfExitSKIDueToMessageBox )
 	{
@@ -973,7 +983,7 @@ ATM:
 
 
 	//Blanket the entire screen
-	MSYS_DefineRegion( &gSKI_EntireScreenMouseRegions, 0, 0, 639, 339, MSYS_PRIORITY_HIGH-2,
+	MSYS_DefineRegion( &gSKI_EntireScreenMouseRegions, 0, 0, (SCREEN_WIDTH - 1), (SCREEN_HEIGHT - INV_INTERFACE_HEIGHT), MSYS_PRIORITY_HIGH-2,
 						 CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK); 
 	MSYS_AddRegion( &gSKI_EntireScreenMouseRegions );
 
@@ -1024,6 +1034,8 @@ ATM:
 
 	//Setup the currently selected arms dealer
 	InitializeShopKeeper( TRUE );
+
+	
 
 
 	//Set the flag indicating that we are in the shop keeper interface
@@ -1107,7 +1119,7 @@ ATM:
 
 
 //Region to allow the user to drop items to the ground
-	MSYS_DefineRegion( &gArmsDealersDropItemToGroundMouseRegions, SKI_DROP_ITEM_TO_GROUND_START_X, SKI_DROP_ITEM_TO_GROUND_START_Y, 639, 339, MSYS_PRIORITY_HIGH,
+	MSYS_DefineRegion( &gArmsDealersDropItemToGroundMouseRegions, SKI_DROP_ITEM_TO_GROUND_START_X, SKI_DROP_ITEM_TO_GROUND_START_Y, SCREEN_WIDTH - 1, SCREEN_HEIGHT - INV_INTERFACE_HEIGHT, MSYS_PRIORITY_HIGH,
 						 CURSOR_NORMAL, SelectArmsDealersDropItemToGroundMovementRegionCallBack, SelectArmsDealersDropItemToGroundRegionCallBack ); 
 //						 CURSOR_NORMAL, MSYS_NO_CALLBACK, SelectArmsDealersDropItemToGroundRegionCallBack ); 
 	MSYS_AddRegion( &gArmsDealersDropItemToGroundMouseRegions );
@@ -1439,7 +1451,7 @@ BOOLEAN RenderShopKeeperInterface()
 		SrcRect.iRight = SKI_TACTICAL_BACKGROUND_START_X + SKI_TACTICAL_BACKGROUND_START_WIDTH;
 		SrcRect.iBottom = SKI_TACTICAL_BACKGROUND_START_Y + SKI_TACTICAL_BACKGROUND_START_HEIGHT;
 
-		BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, 0, 0, (RECT*)&SrcRect );
+		BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, SKI_TACTICAL_BACKGROUND_START_X, SKI_TACTICAL_BACKGROUND_START_Y, (RECT*)&SrcRect );
 
 		gfRenderScreenOnNextLoop = FALSE;
 	}
@@ -1466,7 +1478,7 @@ BOOLEAN RenderShopKeeperInterface()
 	//Restore the tactical background that is visble behind the SKI panel
 	RestoreTacticalBackGround();
 
-	InvalidateRegion( 0, 0, 640, 480 );
+	InvalidateRegion( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
 	return( TRUE );
 }
@@ -1476,23 +1488,21 @@ void RestoreTacticalBackGround()
 	HVSURFACE hDestVSurface, hSrcVSurface;
 	SGPRect		SrcRect;
 
-	//Restore the background before blitting the text back on
-//	RestoreExternBackgroundRect( SKI_TACTICAL_BACKGROUND_START_X, SKI_TACTICAL_BACKGROUND_START_Y, SKI_TACTICAL_BACKGROUND_START_WIDTH, SKI_TACTICAL_BACKGROUND_START_HEIGHT );
-
-//	BlitBufferToBuffer( guiCornerWhereTacticalIsStillSeenImage, guiRENDERBUFFER, SKI_TACTICAL_BACKGROUND_START_X, SKI_TACTICAL_BACKGROUND_START_Y, SKI_TACTICAL_BACKGROUND_START_WIDTH, SKI_TACTICAL_BACKGROUND_START_HEIGHT );
-
 	GetVideoSurface( &hDestVSurface, guiRENDERBUFFER );
 	GetVideoSurface( &hSrcVSurface, guiCornerWhereTacticalIsStillSeenImage );
 
-	SrcRect.iLeft = 0;
-	SrcRect.iTop = 0;
-	SrcRect.iRight = SKI_TACTICAL_BACKGROUND_START_WIDTH;
-	SrcRect.iBottom = SKI_TACTICAL_BACKGROUND_START_HEIGHT;
-
 	
+	// WANNE 2
+	// Top
+	SrcRect.iLeft = SKI_TACTICAL_BACKGROUND_START_X; //0;
+	SrcRect.iTop = SKI_TACTICAL_BACKGROUND_START_Y; //0;
+	SrcRect.iRight = SKI_TACTICAL_BACKGROUND_START_WIDTH;		//SKI_TACTICAL_BACKGROUND_START_WIDTH;
+	SrcRect.iBottom = SKI_TACTICAL_BACKGROUND_START_HEIGHT;	//SKI_TACTICAL_BACKGROUND_START_HEIGHT;
+
 	BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, SKI_TACTICAL_BACKGROUND_START_X, SKI_TACTICAL_BACKGROUND_START_Y, (RECT*)&SrcRect );
 
-	InvalidateRegion( 0, 0, 640, 480 );
+	// WANNE 2
+	//InvalidateRegion( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 }
 
 
@@ -1571,7 +1581,7 @@ void		GetShopKeeperInterfaceUserInput()
 					gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
 					break;
 				case 'i':
-					InvalidateRegion( 0, 0, 640, 480 );
+					InvalidateRegion( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 					break;
 
 				case 'd':
@@ -1599,7 +1609,7 @@ void DisplayAllDealersCash()
 	for( bArmsDealer=0; bArmsDealer<NUM_ARMS_DEALERS; bArmsDealer++ )
 	{
 		//Display the shopkeeper's name
-		DrawTextToScreen( gMercProfiles[ ArmsDealerInfo[ bArmsDealer ].ubShopKeeperID ].zNickname, 540, usPosY, 0, FONT10ARIAL, SKI_TITLE_COLOR, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
+		DrawTextToScreen( gMercProfiles[ ArmsDealerInfo[ bArmsDealer ].ubShopKeeperID ].zNickname, SCREEN_X_OFFSET + 540, SCREEN_Y_OFFSET + usPosY, 0, FONT10ARIAL, SKI_TITLE_COLOR, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
 
 		//Display the arms dealer cash on hand
 		swprintf( zTemp, L"%d", gArmsDealerStatus[ bArmsDealer ].uiArmsDealersCash );
@@ -1607,7 +1617,7 @@ void DisplayAllDealersCash()
 		InsertCommasForDollarFigure( zTemp );
 		InsertDollarSignInToString( zTemp );
 		ubForeColor = ( UINT8 ) ( ( bArmsDealer == gbSelectedArmsDealerID ) ? SKI_BUTTON_COLOR : SKI_TITLE_COLOR );
-		DrawTextToScreen( zTemp, 590, usPosY, 0, FONT10ARIAL, ubForeColor, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
+		DrawTextToScreen( zTemp, SCREEN_X_OFFSET + 590, SCREEN_Y_OFFSET + usPosY, 0, FONT10ARIAL, ubForeColor, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
 		usPosY += 17;
 	}
 }
@@ -2540,7 +2550,6 @@ void DisplayArmsDealerCurrentInventoryPage( )
 			}
 		}
 	}
-
 
 	if( gubSkiDirtyLevel == SKI_DIRTY_LEVEL2 )
 	{
@@ -4721,13 +4730,17 @@ void			InitShopKeeperSubTitledText( STR16 pString )
 		UINT16 usActualHeight=0;
 
     SET_USE_WINFONTS( TRUE );
-    SET_WINFONT( giSubTitleWinFont ); 	
+    SET_WINFONT( giSubTitleWinFont ); 
+
+	
 		giPopUpBoxId = PrepareMercPopupBox( giPopUpBoxId, BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER, gsShopKeeperTalkingText, 300, 0, 0, 0, &usActualWidth, &usActualHeight);
-    SET_USE_WINFONTS( FALSE );
+   
+		SET_USE_WINFONTS( FALSE );
 
 //		gusPositionOfSubTitlesX = ( 640 - usActualWidth ) / 2 ;
 		//position it to start under the guys face
-		gusPositionOfSubTitlesX = 13;
+		
+		gusPositionOfSubTitlesX = 13 + SCREEN_X_OFFSET;
 
 		RenderMercPopUpBoxFromIndex( giPopUpBoxId, gusPositionOfSubTitlesX, SKI_POSITION_SUBTITLES_Y, FRAME_BUFFER);
 
@@ -6075,7 +6088,7 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 
 BOOLEAN DoSkiMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback )
 {
-	SGPRect pCenteringRect= {0, 0, 639, 339 };
+	SGPRect pCenteringRect= {0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - INV_INTERFACE_HEIGHT };
 
 	// reset exit mode
 	gfExitSKIDueToMessageBox = TRUE;
@@ -6312,23 +6325,24 @@ void InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT8 ubPocket, UINT8 ubFro
 
 			sPosY = SKI_ARMS_DEALERS_INV_START_Y + ( ( SKI_INV_OFFSET_Y * ubSelectedInvSlot / SKI_NUM_ARMS_DEALERS_INV_COLS ) + 1 ) - ( 128 / 2 ) + SKI_INV_SLOT_HEIGHT / 2;
 
+			// WANNE 2
 			//if the start position + the height of the box is off the screen, reposition
-			if( sPosY < 0 )
-				sPosY = 0;
+			if( sPosY < (0 + SCREEN_Y_OFFSET) )
+				sPosY = 0 + SCREEN_Y_OFFSET;
 
 
 			//if the start position + the width of the box is off the screen, reposition
-			if( ( sPosX + 358 ) > 640 )
-				sPosX = sPosX - ( ( sPosX + 358 ) - 640 ) - 5;
+			if( ( sPosX + 358 ) > SCREEN_WIDTH )
+				sPosX = sPosX - ( ( sPosX + 358 ) - SCREEN_WIDTH ) - 5;
 
 			//if it is starting to far to the left
-			else if( sPosX < 0 )
-				sPosX = 0;
+			else if( sPosX < (0 + SCREEN_X_OFFSET) )
+				sPosX = 0 + SCREEN_X_OFFSET;
 
 			//if the box will appear over the mercs face, move the box over so it doesn't obstruct the face
 			if( sPosY < SKI_FACE_Y + SKI_FACE_HEIGHT + 20 )
-				if( sPosX < 160 )
-					sPosX = 160;
+				if( sPosX < (SCREEN_X_OFFSET + 160) )
+					sPosX = SCREEN_X_OFFSET + 160;
 
 		}
 		break;
@@ -6340,22 +6354,22 @@ void InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT8 ubPocket, UINT8 ubFro
 			sPosY = SKI_ARMS_DEALERS_TRADING_INV_Y + ( ( SKI_INV_OFFSET_Y * ubPocket / ( SKI_NUM_TRADING_INV_SLOTS/2) ) + 1 ) - ( 128 / 2 ) + SKI_INV_SLOT_HEIGHT / 2;
 
 			//if the start position + the height of the box is off the screen, reposition
-			if( sPosY < 0 )
-				sPosY = 0;
+			if( sPosY < (SCREEN_Y_OFFSET + 0) )
+				sPosY = 0 + SCREEN_Y_OFFSET;
 
 
 			//if the start position + the width of the box is off the screen, reposition
-			if( ( sPosX + 358 ) > 640 )
-				sPosX = sPosX - ( ( sPosX + 358 ) - 640 ) - 5;
+			if( ( sPosX + 358 ) > SCREEN_WIDTH )
+				sPosX = sPosX - ( ( sPosX + 358 ) - SCREEN_WIDTH ) - 5;
 
 			//if it is starting to far to the left
-			else if( sPosX < 0 )
-				sPosX = 10;
+			else if( sPosX < (0 + SCREEN_X_OFFSET) )
+				sPosX = 10 + SCREEN_X_OFFSET;
 
 			//if the box will appear over the mercs face, move the box over so it doesn't obstruct the face
 			if( sPosY < SKI_FACE_Y + SKI_FACE_HEIGHT + 20 )
-				if( sPosX < 160 )
-					sPosY = 140;
+				if( sPosX < (160 + SCREEN_X_OFFSET) )
+					sPosY = SCREEN_Y_OFFSET + INV_INTERFACE_HEIGHT;
 		}
 		break;
 
@@ -6377,17 +6391,20 @@ void StartSKIDescriptionBox( void )
 {
 	INT32 iCnt;
 
-
 	//shadow the entire screen
 //	ShadowVideoSurfaceRect( FRAME_BUFFER, 0, 0, 640, 480 );
 
 	//if the current merc is too far away, dont shade the SM panel because it is already shaded
+	
+	// WANNE 2: Do not shade the background
 	if( gfSMDisableForItems )
-		DrawHatchOnInventory( FRAME_BUFFER, 0, 0, 640, 338 );
+		DrawHatchOnInventory( FRAME_BUFFER, SCREEN_X_OFFSET, SCREEN_Y_OFFSET, SKI_INTERFACE_WIDTH, SKI_INTERFACE_HEIGHT );
 	else
-		DrawHatchOnInventory( FRAME_BUFFER, 0, 0, 640, 480 );
+	{
+		DrawHatchOnInventory( FRAME_BUFFER, SCREEN_X_OFFSET, SCREEN_Y_OFFSET, SKI_INTERFACE_WIDTH, SKI_INTERFACE_HEIGHT );
+	}
 
-	InvalidateRegion( 0, 0, 640, 480 );
+	InvalidateRegion( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
 	// disable almost everything!
 
@@ -7044,7 +7061,7 @@ BOOLEAN CanMercInteractWithSelectedShopkeeper( SOLDIERTYPE *pSoldier )
 		bDestLevel	= pShopkeeper->bLevel;
 
 		// is he close enough to see that gridno if he turns his head?
-		sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sDestGridNo, bDestLevel );
+		sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sDestGridNo, bDestLevel, pSoldier );
 
 		// If he has LOS...
 		if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sDestGridNo, bDestLevel, 3, (UINT8) sDistVisible, TRUE ) )
@@ -7462,6 +7479,8 @@ void DelayRepairsInProgressBy( UINT32 uiMinutesDelayed )
 //Mouse Call back for the Arms delaers face
 void SelectArmsDealersDropItemToGroundRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
+	// WANNE 2: not needed to drop the item to the ground -> on the right side of the shopkeeper screen!
+	/*
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 	}
@@ -7482,6 +7501,7 @@ void SelectArmsDealersDropItemToGroundRegionCallBack(MOUSE_REGION * pRegion, INT
 		//if we don't have an item, pick one up
 		if( gMoveingItem.sItemIndex != 0 )
 		{
+			
 			//add the item to the ground
 			ShopkeeperAddItemToPool( pDropSoldier->sGridNo, &gMoveingItem.ItemObject, VISIBLE, pDropSoldier->bLevel, 0, 0 );
 
@@ -7492,6 +7512,7 @@ void SelectArmsDealersDropItemToGroundRegionCallBack(MOUSE_REGION * pRegion, INT
 			gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
 		}
 	}
+	*/
 }
 
 void SelectArmsDealersDropItemToGroundMovementRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
@@ -7533,10 +7554,11 @@ void DisplayTheSkiDropItemToGroundString()
 	UINT16	usHeight;
 
 	//get the height of the displayed text
-	usHeight = DisplayWrappedString( SKI_DROP_ITEM_TO_GROUND_START_X, SKI_DROP_ITEM_TO_GROUND_TEXT_START_Y, (UINT16)(640-SKI_DROP_ITEM_TO_GROUND_START_X), 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[ SKI_TEXT_DROP_ITEM_TO_GROUND ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED | DONT_DISPLAY_TEXT );
+	usHeight = DisplayWrappedString( SKI_DROP_ITEM_TO_GROUND_START_X, SKI_DROP_ITEM_TO_GROUND_TEXT_START_Y, (UINT16)(SCREEN_WIDTH-SKI_DROP_ITEM_TO_GROUND_START_X), 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[ SKI_TEXT_DROP_ITEM_TO_GROUND ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED | DONT_DISPLAY_TEXT );
 
+	// WANNE 2 - not needed to show the string
 	//display the 'drop item to ground' text
-	DisplayWrappedString( SKI_DROP_ITEM_TO_GROUND_START_X, (UINT16)(SKI_DROP_ITEM_TO_GROUND_TEXT_START_Y-usHeight), (UINT16)(640-SKI_DROP_ITEM_TO_GROUND_START_X), 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[ SKI_TEXT_DROP_ITEM_TO_GROUND ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED | INVALIDATE_TEXT );
+	//DisplayWrappedString( SKI_DROP_ITEM_TO_GROUND_START_X, (UINT16)(SKI_DROP_ITEM_TO_GROUND_TEXT_START_Y-usHeight), (UINT16)(SCREEN_WIDTH-SKI_DROP_ITEM_TO_GROUND_START_X), 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[ SKI_TEXT_DROP_ITEM_TO_GROUND ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED | INVALIDATE_TEXT );
 }
 
 

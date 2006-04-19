@@ -402,7 +402,7 @@ void HandleOverheadMap( )
 		InitNewOverheadDB( gubSmTileNum );
 		gfSmTileLoaded = TRUE;
 	}
-			
+	
 	// restore background rects
 	RestoreBackgroundRects( );
 
@@ -544,11 +544,14 @@ BOOLEAN InOverheadMap( )
 }
 
 void GoIntoOverheadMap( )
-{
+	{
   VOBJECT_DESC    VObjectDesc;
 	HVOBJECT				hVObject;
 
 	gfInOverheadMap = TRUE;
+
+	// WANNE 2 NEW
+	//RestoreExternBackgroundRect( INTERFACE_START_X, INTERFACE_START_Y, SCREEN_WIDTH, INTERFACE_HEIGHT );
 
 	// Overview map should be centered in the middle of the tactical screen.
 	iOffsetHorizontal = (SCREEN_WIDTH / 2) - (640 / 2);		// Horizontal start postion of the overview map

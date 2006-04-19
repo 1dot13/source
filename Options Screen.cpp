@@ -275,6 +275,7 @@ UINT32	OptionsScreenHandle()
 
 	HandleOptionsScreen();
 
+	// WANNE 2 <redraw>
 	if( gfRedrawOptionsScreen )
 	{
 		RenderOptionsScreen();

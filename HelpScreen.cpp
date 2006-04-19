@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "JA2 All.h"
 	#include "HelpScreen.h"
@@ -727,17 +728,9 @@ void RenderHelpScreen()
 	{
 		gfHaveRenderedFirstFrameToSaveBuffer = TRUE;
 
-		// WANNE: an exception occurs, when i try to open the help screen in laptop mode, so i put a try-catch block
-		// around this. I will fix that later.
-		__try
-		{
-			//blit everything to the save buffer ( cause the save buffer can bleed through )
-			BlitBufferToBuffer(guiRENDERBUFFER, guiSAVEBUFFER, gHelpScreen.usScreenLocX, gHelpScreen.usScreenLocY, (UINT16)(gHelpScreen.usScreenLocX+gHelpScreen.usScreenWidth), (UINT16)(gHelpScreen.usScreenLocY+gHelpScreen.usScreenHeight) );
-		}
-		__except(filter(GetExceptionCode(), GetExceptionInformation()))
-		{
-		}
-
+		//blit everything to the save buffer ( cause the save buffer can bleed through )
+		BlitBufferToBuffer(guiRENDERBUFFER, guiSAVEBUFFER, gHelpScreen.usScreenLocX, gHelpScreen.usScreenLocY, (UINT16)(gHelpScreen.usScreenWidth), (UINT16)(gHelpScreen.usScreenHeight) );
+		
 		UnmarkButtonsDirty( );
 	}
 

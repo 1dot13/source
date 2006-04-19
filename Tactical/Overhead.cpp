@@ -7123,6 +7123,8 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
 
 			if ( pTarget->ubProfile == NO_PROFILE || !(gMercProfiles[ pTarget->ubProfile ].ubMiscFlags3 & PROFILE_MISC_FLAG3_TOWN_DOESNT_CARE_ABOUT_DEATH) )
 			{
+				//Kaiden: Added to keep Militia from going Hostile if you attack a Crow or Cow with an explosive.
+				if ( (pTarget->ubBodyType != CROW) && (pTarget->ubBodyType != COW) )
 				// militia, if any, turn hostile
 				MilitiaChangesSides();
 			}

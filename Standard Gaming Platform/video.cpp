@@ -772,6 +772,7 @@ BOOLEAN CanBlitToMouseBuffer(void)
 
 void InvalidateRegion(INT32 iLeft, INT32 iTop, INT32 iRight, INT32 iBottom)
 {
+	// WANNE 2
   if (gfForceFullScreenRefresh == TRUE)
   {
     //

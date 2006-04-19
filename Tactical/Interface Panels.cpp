@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
@@ -312,7 +313,7 @@ int	INTERFACE_CLOCK_X;
 int	INTERFACE_CLOCK_Y;
 int	LOCATION_NAME_X;
 int	LOCATION_NAME_Y;
- 
+
 
 typedef enum
 {
@@ -561,7 +562,7 @@ void CheckForDisabledForGiveItem( )
 			{
 				sDist = PythSpacesAway( gpSMCurrentMerc->sGridNo, pSoldier->sGridNo );
 
-				sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->bLevel );
+				sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->bLevel, gpSMCurrentMerc );
 
 				// Check LOS....
 				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, gpSMCurrentMerc->sGridNo,  gpSMCurrentMerc->bLevel, 3, (UINT8) sDistVisible, TRUE ) )
@@ -596,7 +597,7 @@ void CheckForDisabledForGiveItem( )
 				sDist = PythSpacesAway( MercPtrs[ ubSrcSoldier ]->sGridNo, sDestGridNo );
 
 				// is he close enough to see that gridno if he turns his head?
-				sDistVisible = DistanceVisible( MercPtrs[ ubSrcSoldier ], DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sDestGridNo, bDestLevel );
+				sDistVisible = DistanceVisible( MercPtrs[ ubSrcSoldier ], DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sDestGridNo, bDestLevel, MercPtrs[ ubSrcSoldier ] );
 
 				// Check LOS....
 				if ( SoldierTo3DLocationLineOfSightTest( MercPtrs[ ubSrcSoldier ], sDestGridNo,  bDestLevel, 3, (UINT8) sDistVisible, TRUE )  )
@@ -1316,9 +1317,11 @@ BOOLEAN InitializeSMPanelCoords( )
 	SM_LOOKB_Y				= ( 108 + INV_INTERFACE_START_Y );
 	SM_STEALTHMODE_X		= ( 187 + INTERFACE_START_X );
 	SM_STEALTHMODE_Y		= ( 73 + INV_INTERFACE_START_Y );
-	SM_DONE_X				= ( 543 + INTERFACE_START_X );
+
+	// WANNE 2
+	SM_DONE_X				=  (SCREEN_WIDTH - 97);//( 543 + INTERFACE_START_X );
 	SM_DONE_Y				= ( 4 + INV_INTERFACE_START_Y );
-	SM_MAPSCREEN_X			= ( 589 + INTERFACE_START_X );
+	SM_MAPSCREEN_X			=  (SCREEN_WIDTH - 51);//( 589 + INTERFACE_START_X );
 	SM_MAPSCREEN_Y			= ( 4 + INV_INTERFACE_START_Y );
 
 	SM_POSITIONB_X			= ( 106 + INTERFACE_START_X );
@@ -1382,9 +1385,9 @@ BOOLEAN InitializeSMPanelCoords( )
 	STATS_TEXT_FONT_COLOR	= 5;
 
 	// ow and te clock and location i will put it here 
-	INTERFACE_CLOCK_X	= ( 554	+ INTERFACE_START_X		);
+	INTERFACE_CLOCK_X	=  	(SCREEN_WIDTH - 86);				//( 554	+ INTERFACE_START_X		);
 	INTERFACE_CLOCK_Y	= ( 119	+ INV_INTERFACE_START_Y );
-	LOCATION_NAME_X		= ( 548	+ INTERFACE_START_X		);
+	LOCATION_NAME_X		=	(SCREEN_WIDTH - 92);				//( 548	+ INTERFACE_START_X		);
 	LOCATION_NAME_Y		= ( 65	+ INTERFACE_START_Y		);
 
 	// so we got everything "dynamic" now we just return TRUE
@@ -3486,6 +3489,7 @@ void BtnPositionShowCallback(GUI_BUTTON *btn,INT32 reason)
 
 }
 
+// WANNE 2
 BOOLEAN InitializeTEAMPanelCoords( )
 {
 
@@ -3494,11 +3498,12 @@ BOOLEAN InitializeTEAMPanelCoords( )
 	TM_APPANEL_HEIGHT	= 56;
 	TM_APPANEL_WIDTH	= 16;
 
-	TM_ENDTURN_X		= ( 507 + INTERFACE_START_X );
+	// WANNE 2
+	TM_ENDTURN_X		=	(SCREEN_WIDTH - 133);		//( 507 + INTERFACE_START_X );
 	TM_ENDTURN_Y		= ( 9 + INTERFACE_START_Y );
-	TM_ROSTERMODE_X	= ( 507 + INTERFACE_START_X );
+	TM_ROSTERMODE_X	=		(SCREEN_WIDTH - 133);		//( 507 + INTERFACE_START_X );
 	TM_ROSTERMODE_Y	= ( 45 + INTERFACE_START_Y );
-	TM_DISK_X			= ( 507 + INTERFACE_START_X );
+	TM_DISK_X			=	(SCREEN_WIDTH - 133);		//( 507 + INTERFACE_START_X );
 	TM_DISK_Y			= ( 81 + INTERFACE_START_Y );
 
 	TM_NAME_WIDTH		= 60;
@@ -3605,6 +3610,9 @@ BOOLEAN InitializeTEAMPanel(  )
   VOBJECT_DESC    VObjectDesc;
 	UINT32					cnt, posIndex;
 	static BOOLEAN	fFirstTime = TRUE;
+
+	// WANNE 2
+	fDisplayOverheadMap = TRUE;
 
 /*  OK i need to initialize coords here
  *  Isnt it cool
@@ -3716,6 +3724,7 @@ BOOLEAN InitializeTEAMPanel(  )
 
 		// Add user data
 		MSYS_SetRegionUserData( &gTEAM_SecondHandInv[ cnt ], 0, cnt );
+		
 	}
 
 
@@ -3784,6 +3793,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 	SOLDIERTYPE		*pSoldier;
 	static				INT16		pStr[ 200 ], pMoraleStr[ 20 ];
 
+	// WANNE 2 <new>
 	if ( fDirty == DIRTYLEVEL2 )
 	{
 		MarkAButtonDirty( iTEAMPanelButtons[ TEAM_DONE_BUTTON ] );	
@@ -3792,12 +3802,10 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 
 
 		// Blit video surface
-		//if(gbPixelDepth==16)
-		//{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiTEAMPanel, 0, INTERFACE_START_X, INTERFACE_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
-		//}
-
-		  RestoreExternBackgroundRect( INTERFACE_START_X, INTERFACE_START_Y, SCREEN_WIDTH - INTERFACE_START_X , INTERFACE_HEIGHT );
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiTEAMPanel, 0, INTERFACE_START_X, INTERFACE_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+		RestoreExternBackgroundRect( INTERFACE_START_X, INTERFACE_START_Y, SCREEN_WIDTH - INTERFACE_START_X , INTERFACE_HEIGHT );
+		
+		// WANNE 2 <new> <begin>
 		// LOOP THROUGH ALL MERCS ON TEAM PANEL
 		for ( cnt = 0, posIndex = 0; cnt < NUM_TEAM_SLOTS; cnt++, posIndex+= 2 )
 		{
@@ -4039,10 +4047,10 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 			}
 
 		}
-
 	}
+	
 	UpdateTEAMPanel( );
-
+	
 	if( fRenderRadarScreen == TRUE )
 	{
 		// Render clock

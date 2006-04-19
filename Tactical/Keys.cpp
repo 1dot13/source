@@ -1309,7 +1309,7 @@ BOOLEAN AllMercsLookForDoor( INT16 sGridNo, BOOLEAN fUpdateValue )
 		if ( pSoldier->bLife >= OKLIFE && pSoldier->sGridNo != NOWHERE && pSoldier->bActive && pSoldier->bInSector )
 		{
 			// is he close enough to see that gridno if he turns his head?
-			sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, 0 );
+			sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, 0, pSoldier );
 			
 			if (PythSpacesAway( pSoldier->sGridNo, sGridNo ) <= sDistVisible )
 			{
@@ -1330,7 +1330,7 @@ BOOLEAN AllMercsLookForDoor( INT16 sGridNo, BOOLEAN fUpdateValue )
 			for ( cnt2 = 0; cnt2 < 8; cnt2++ )
 			{
 					usNewGridNo = NewGridNo( sGridNo, DirectionInc( bDirs[ cnt2 ] ) );
-					sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, usNewGridNo, 0 );
+					sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, usNewGridNo, 0, pSoldier );
 				
 					if (PythSpacesAway( pSoldier->sGridNo, usNewGridNo ) <= sDistVisible )
 					{
@@ -1378,7 +1378,7 @@ BOOLEAN MercLooksForDoors( SOLDIERTYPE *pSoldier, BOOLEAN fUpdateValue )
 		sGridNo = pDoorStatus->sGridNo;
 
 		// is he close enough to see that gridno if he turns his head?
-		sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, 0 );
+		sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, 0, pSoldier );
 		
 		if ( PythSpacesAway( pSoldier->sGridNo, sGridNo ) <= sDistVisible )
 		{

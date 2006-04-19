@@ -196,8 +196,8 @@ typedef void ( *DROP_DOWN_SELECT_CALLBACK )	(STR16);
 
 
 
-#define				CLOCK_X													554
-#define				CLOCK_Y													459
+//#define				CLOCK_X													554
+//#define				CLOCK_Y													459
 	
 #define		QDS_BUTTON_HEIGHT										21
 

@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
@@ -23,8 +24,17 @@ INT8 EffectiveStrength( SOLDIERTYPE * pSoldier )
 	// 1/2 full strength
 	// plus 1/2 strength scaled according to how hurt we are
   bBandaged = pSoldier->bLifeMax - pSoldier->bLife - pSoldier->bBleeding;
-	iEffStrength = pSoldier->bStrength / 2;
-	iEffStrength += (pSoldier->bStrength / 2) * (pSoldier->bLife + bBandaged / 2) / (pSoldier->bLifeMax);
+
+	// WANNE 2
+	if (pSoldier->bStrength > 0)
+	{
+		iEffStrength = pSoldier->bStrength / 2;
+		iEffStrength += (pSoldier->bStrength / 2) * (pSoldier->bLife + bBandaged / 2) / (pSoldier->bLifeMax);
+	}
+	else
+	{
+		iEffStrength = 0;
+	}
 
 	// ATE: Make sure at least 2...
 	iEffStrength = __max( iEffStrength, 2 );

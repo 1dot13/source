@@ -1,3 +1,5 @@
+// WANNE 2 <changed some lines>
+// MAXIMUM NUMBER OF ENEMIES: 32
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "GameSettings.h"
@@ -506,7 +508,7 @@ void DoTransitionFromPreBattleInterfaceToAutoResolve()
 	sEndTop = SrcRect.iTop + gpAR->sHeight / 2;
 
 	//save the prebattle/mapscreen interface background
-	BlitBufferToBuffer( FRAME_BUFFER, guiEXTRABUFFER, 0, 0, 640, 480 );
+	BlitBufferToBuffer( FRAME_BUFFER, guiEXTRABUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
 	//render the autoresolve panel
 	RenderAutoResolve();
@@ -644,12 +646,16 @@ UINT32 AutoResolveScreenHandle()
 		//Take the framebuffer, shade it, and save it to the SAVEBUFFER.
 		ClipRect.iLeft = 0;
 		ClipRect.iTop = 0;
-		ClipRect.iRight = 640;
-		ClipRect.iBottom = 480;
+		/*ClipRect.iRight = 640;
+		ClipRect.iBottom = 480;*/
+		ClipRect.iRight = SCREEN_WIDTH;
+		ClipRect.iBottom = SCREEN_HEIGHT;
+
 		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 		Blt16BPPBufferShadowRect( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect );
 		UnLockVideoSurface( FRAME_BUFFER );
-		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, 640, 480 );
+		//BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, 640, 480 );
+		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 		KillPreBattleInterface();
 		CalculateAutoResolveInfo();
 		CalculateSoldierCells( FALSE );
@@ -658,7 +664,9 @@ UINT32 AutoResolveScreenHandle()
 		DetermineTeamLeader( FALSE ); //enemy team
 		CalculateAttackValues();
 		if( gfExtraBuffer )
+		{
 			DoTransitionFromPreBattleInterfaceToAutoResolve();
+		}
 		else
 			gpAR->fExpanding = TRUE;
 		gpAR->fRenderAutoResolve = TRUE;
@@ -826,8 +834,9 @@ void CalculateSoldierCells( BOOLEAN fReset )
 	}
 	gpAR->uiTimeSlice = gpAR->uiTimeSlice * gpAR->ubTimeModifierPercentage / 100;
 	
-	iTop = 240 - gpAR->sHeight/2;
-	if( iTop > 120 )
+	// WANNE 2
+	iTop = iScreenHeightOffset + (240 - gpAR->sHeight/2);
+	if( iTop > (iScreenHeightOffset + 120) )
 		iTop -= 40;
 
 	if( gpAR->ubMercs )
@@ -843,6 +852,7 @@ void CalculateSoldierCells( BOOLEAN fReset )
 			if( y >= gapStartRow )
 				index -= y - gapStartRow + 1;
 			Assert( index >= 0 && index < gpAR->ubMercs );
+
 			gpMercs[ index ].xp = gpAR->sCenterStartX + 3 - 55*(x+1);
 			gpMercs[ index ].yp = iStartY + y*47;			
 			gpMercs[ index ].uiFlags = CELL_MERC;
@@ -1047,15 +1057,16 @@ void BuildInterfaceBuffer()
 	INT32						x,y;
 
 	//Setup the blitting clip regions, so we don't draw outside of the region (for excess panelling)
-	gpAR->Rect.iLeft		= 320 - gpAR->sWidth/2;
+	// WANNE 2
+	gpAR->Rect.iLeft		= iScreenWidthOffset + (320 - gpAR->sWidth/2);
 	gpAR->Rect.iRight		= gpAR->Rect.iLeft + gpAR->sWidth;
-	gpAR->Rect.iTop			= 240 - gpAR->sHeight/2;
-	if( gpAR->Rect.iTop > 120 )
+	gpAR->Rect.iTop			= iScreenHeightOffset + (240 - gpAR->sHeight/2);
+	if( gpAR->Rect.iTop > (iScreenHeightOffset + 120) )
 		gpAR->Rect.iTop -= 40;
 	gpAR->Rect.iBottom	= gpAR->Rect.iTop + gpAR->sHeight;
 
 	DestRect.iLeft			= 0;
-	DestRect.iTop				= 0;
+	DestRect.iTop			= 0;
 	DestRect.iRight			= gpAR->sWidth;
 	DestRect.iBottom		= gpAR->sHeight;
 
@@ -1200,7 +1211,7 @@ void ExpandWindow()
 
 	//The new rect now determines the state of the current rectangle.
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
-	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, 640, 480 );
+	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 	RectangleDraw( TRUE, gpAR->ExRect.iLeft, gpAR->ExRect.iTop, gpAR->ExRect.iRight, gpAR->ExRect.iBottom, Get16BPPColor( FROMRGB( 200, 200, 100 ) ), pDestBuf );
 	UnLockVideoSurface( FRAME_BUFFER );
 	//left
@@ -1623,7 +1634,8 @@ void RenderAutoResolve()
 
 	if( gpAR->fPendingSurrender )
 	{
-		DisplayWrappedString( (UINT16)(gpAR->sCenterStartX+16), (UINT16)(230+gpAR->bVerticalOffset), 108, 2,
+		// WANNE 2
+		DisplayWrappedString( (UINT16)(gpAR->sCenterStartX+16), (UINT16)(iScreenHeightOffset + 230+gpAR->bVerticalOffset), 108, 2,
 			(UINT8)FONT10ARIAL, FONT_YELLOW, gpStrategicString[ STR_ENEMY_SURRENDER_OFFER ], FONT_BLACK, FALSE, LEFT_JUSTIFIED );
 	}
 	
@@ -1727,7 +1739,7 @@ void RenderAutoResolve()
 					}
 					else
 					{
-						DisplayWrappedString( (UINT16)(gpAR->sCenterStartX+16), 310, 108, 2,
+						DisplayWrappedString( (UINT16)(gpAR->sCenterStartX+16), iScreenHeightOffset + 310, 108, 2,
 							FONT10ARIAL, FONT_YELLOW, gpStrategicString[ STR_ENEMY_CAPTURED ], FONT_BLACK, FALSE, LEFT_JUSTIFIED );
 						swprintf( str, gpStrategicString[ STR_AR_OVER_CAPTURED ] );
 					}
@@ -1743,12 +1755,13 @@ void RenderAutoResolve()
 					break;
 			}
 			//Render the results of the battle.
+			// WANNE 2
 			SetFont( BLOCKFONT2 );
 			xp = gpAR->sCenterStartX + 12;
-			yp = 218 + gpAR->bVerticalOffset;
+			yp = iScreenHeightOffset + 218 + gpAR->bVerticalOffset;
 			BltVideoObjectFromIndex( FRAME_BUFFER, gpAR->iIndent, 0, xp, yp, VO_BLT_SRCTRANSPARENCY, NULL );
 			xp = gpAR->sCenterStartX + 70 - StringPixLength( str, BLOCKFONT2 )/2;
-			yp = 227 + gpAR->bVerticalOffset;
+			yp = iScreenHeightOffset + 227 + gpAR->bVerticalOffset;
 			mprintf( xp, yp, str );
 
 			//Render the total battle time elapsed.
@@ -1758,7 +1771,8 @@ void RenderAutoResolve()
 				gpAR->uiTotalElapsedBattleTimeInMilliseconds/60000,
 				(gpAR->uiTotalElapsedBattleTimeInMilliseconds%60000)/1000 );
 			xp = gpAR->sCenterStartX + 70 - StringPixLength( str, FONT10ARIAL )/2;
-			yp = 290 + gpAR->bVerticalOffset;
+			// WANNE 2
+			yp = iScreenHeightOffset + 290 + gpAR->bVerticalOffset;
 			SetFontForeground( FONT_YELLOW );
 			mprintf( xp, yp, str );
 	}
@@ -1774,7 +1788,7 @@ void CreateAutoResolveInterface()
 	HVOBJECT hVObject;
 	UINT8 ubGreenMilitia, ubRegMilitia, ubEliteMilitia;
 	//Setup new autoresolve blanket interface.
-	MSYS_DefineRegion( &gpAR->AutoResolveRegion, 0, 0, 640, 480, MSYS_PRIORITY_HIGH-1, 0,
+	MSYS_DefineRegion( &gpAR->AutoResolveRegion, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGH-1, 0,
 		MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 	gpAR->fRenderAutoResolve = TRUE;
 	gpAR->fExitAutoResolve = FALSE;
@@ -2018,28 +2032,30 @@ void CreateAutoResolveInterface()
 	//Build the interface buffer, and blit the "shaded" background.  This info won't
 	//change from now on, but will be used to restore text.
 	BuildInterfaceBuffer();
-	BlitBufferToBuffer( guiSAVEBUFFER, FRAME_BUFFER, 0, 0, 640, 480 );
+	BlitBufferToBuffer( guiSAVEBUFFER, FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
 	//If we are bumping up the interface, then also use that piece of info to
 	//move the buttons up by the same amount.
-	gpAR->bVerticalOffset = 240 - gpAR->sHeight/2 > 120 ? -40 : 0;
+
+	gpAR->bVerticalOffset = (240 - gpAR->sHeight/2) > 120 ? -40 : 0;
 	
+	// WANNE 2
 	//Create the buttons -- subject to relocation
 	gpAR->iButton[ PLAY_BUTTON ] = 
-		QuickCreateButton( gpAR->iButtonImage[ PLAY_BUTTON ] , (INT16)(gpAR->sCenterStartX+11), (INT16)(240+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+		QuickCreateButton( gpAR->iButtonImage[ PLAY_BUTTON ] , (INT16)(gpAR->sCenterStartX+11), (INT16)(iScreenHeightOffset + 240+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 		DEFAULT_MOVE_CALLBACK, PlayButtonCallback );
 	gpAR->iButton[ FAST_BUTTON ] = 
-		QuickCreateButton( gpAR->iButtonImage[ FAST_BUTTON ] , (INT16)(gpAR->sCenterStartX+51), (INT16)(240+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+		QuickCreateButton( gpAR->iButtonImage[ FAST_BUTTON ] , (INT16)(gpAR->sCenterStartX+51), (INT16)(iScreenHeightOffset + 240+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 		DEFAULT_MOVE_CALLBACK, FastButtonCallback );
 	gpAR->iButton[ FINISH_BUTTON ] = 
-		QuickCreateButton( gpAR->iButtonImage[ FINISH_BUTTON ] , (INT16)(gpAR->sCenterStartX+91), (INT16)(240+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+		QuickCreateButton( gpAR->iButtonImage[ FINISH_BUTTON ] , (INT16)(gpAR->sCenterStartX+91), (INT16)(iScreenHeightOffset + 240+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 		DEFAULT_MOVE_CALLBACK, FinishButtonCallback );
 	gpAR->iButton[ PAUSE_BUTTON ] = 
-		QuickCreateButton( gpAR->iButtonImage[ PAUSE_BUTTON ] , (INT16)(gpAR->sCenterStartX+11), (INT16)(274+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+		QuickCreateButton( gpAR->iButtonImage[ PAUSE_BUTTON ] , (INT16)(gpAR->sCenterStartX+11), (INT16)(iScreenHeightOffset + 274+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 		DEFAULT_MOVE_CALLBACK, PauseButtonCallback );
 	
 	gpAR->iButton[ RETREAT_BUTTON ] = 
-		QuickCreateButton( gpAR->iButtonImage[ RETREAT_BUTTON ], (INT16)(gpAR->sCenterStartX+51), (INT16)(274+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+		QuickCreateButton( gpAR->iButtonImage[ RETREAT_BUTTON ], (INT16)(gpAR->sCenterStartX+51), (INT16)(iScreenHeightOffset + 274+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 		DEFAULT_MOVE_CALLBACK, RetreatButtonCallback );
 	if( !gpAR->ubMercs )
 	{
@@ -2048,23 +2064,23 @@ void CreateAutoResolveInterface()
 	SpecifyGeneralButtonTextAttributes( gpAR->iButton[ RETREAT_BUTTON ], gpStrategicString[STR_AR_RETREAT_BUTTON], BLOCKFONT2, 169, FONT_NEARBLACK );
 
 	gpAR->iButton[ BANDAGE_BUTTON ] = 
-		QuickCreateButton( gpAR->iButtonImage[ BANDAGE_BUTTON ] , (INT16)(gpAR->sCenterStartX+11), (INT16)(245+gpAR->bVerticalOffset), BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
+		QuickCreateButton( gpAR->iButtonImage[ BANDAGE_BUTTON ] , (INT16)(gpAR->sCenterStartX+11), (INT16)(iScreenHeightOffset + 245+gpAR->bVerticalOffset), BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 		DEFAULT_MOVE_CALLBACK, BandageButtonCallback );
 
 	gpAR->iButton[ DONEWIN_BUTTON ] = 
-		QuickCreateButton( gpAR->iButtonImage[ DONEWIN_BUTTON ], (INT16)(gpAR->sCenterStartX+51), (INT16)(245+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+		QuickCreateButton( gpAR->iButtonImage[ DONEWIN_BUTTON ], (INT16)(gpAR->sCenterStartX+51), (INT16)(iScreenHeightOffset + 245+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 		DEFAULT_MOVE_CALLBACK, DoneButtonCallback );
 	SpecifyGeneralButtonTextAttributes( gpAR->iButton[ DONEWIN_BUTTON ], gpStrategicString[STR_AR_DONE_BUTTON], BLOCKFONT2, 169, FONT_NEARBLACK );
 
 	gpAR->iButton[ DONELOSE_BUTTON ] = 
-		QuickCreateButton( gpAR->iButtonImage[ DONELOSE_BUTTON ], (INT16)(gpAR->sCenterStartX+25), (INT16)(245+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+		QuickCreateButton( gpAR->iButtonImage[ DONELOSE_BUTTON ], (INT16)(gpAR->sCenterStartX+25), (INT16)(iScreenHeightOffset + 245+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 		DEFAULT_MOVE_CALLBACK, DoneButtonCallback );
 	SpecifyGeneralButtonTextAttributes( gpAR->iButton[ DONELOSE_BUTTON ], gpStrategicString[STR_AR_DONE_BUTTON], BLOCKFONT2, 169, FONT_NEARBLACK );
 	gpAR->iButton[ YES_BUTTON ] = 
-		QuickCreateButton( gpAR->iButtonImage[ YES_BUTTON ], (INT16)(gpAR->sCenterStartX+21), (INT16)(257+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+		QuickCreateButton( gpAR->iButtonImage[ YES_BUTTON ], (INT16)(gpAR->sCenterStartX+21), (INT16)(iScreenHeightOffset + 257+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 		DEFAULT_MOVE_CALLBACK, AcceptSurrenderCallback );
 	gpAR->iButton[ NO_BUTTON ] = 
-		QuickCreateButton( gpAR->iButtonImage[ NO_BUTTON ], (INT16)(gpAR->sCenterStartX+81), (INT16)(257+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+		QuickCreateButton( gpAR->iButtonImage[ NO_BUTTON ], (INT16)(gpAR->sCenterStartX+81), (INT16)(iScreenHeightOffset + 257+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 		DEFAULT_MOVE_CALLBACK, RejectSurrenderCallback );
 	HideButton( gpAR->iButton[ YES_BUTTON ] );
 	HideButton( gpAR->iButton[ NO_BUTTON ] );
@@ -2839,11 +2855,13 @@ void CalculateRowsAndColumns()
 	}
 
 	if( gpAR->ubMercCols + gpAR->ubEnemyCols == 9 )
-		gpAR->sWidth = 640;
+		gpAR->sWidth = SCREEN_WIDTH;
 	else
 		gpAR->sWidth = 146 + 55 * (max( max( gpAR->ubMercCols, gpAR->ubCivCols ), 2 ) + max( gpAR->ubEnemyCols, 2 ));
 
-	gpAR->sCenterStartX = 323 - gpAR->sWidth/2 + max( max( gpAR->ubMercCols, 2), max( gpAR->ubCivCols, 2 ) ) *55;
+	// WANNE 2
+	//gpAR->sCenterStartX = 323 - gpAR->sWidth/2 + max( max( gpAR->ubMercCols, 2), max( gpAR->ubCivCols, 2 ) ) *55;
+	gpAR->sCenterStartX = iScreenWidthOffset + (323 - gpAR->sWidth/2 + max( max( gpAR->ubMercCols, 2), max( gpAR->ubCivCols, 2 ) ) *55);
 
 	//Anywhere from 48*3 to 48*10
 	gpAR->sHeight = 48 * max( 3, max( gpAR->ubMercRows + gpAR->ubCivRows, gpAR->ubEnemyRows ) );

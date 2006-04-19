@@ -253,7 +253,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 	{
 		case SOLDIER_CLASS_NONE:
 			// ammo is here only so that civilians with pre-assigned ammo will get some clips for it!
-			bAmmoClips = (INT8)(1 + Random( 2 ));
+			bAmmoClips = (INT8)(2 + Random( 2 ));
 
 			// civilians get nothing, anyone who should get something should be preassigned by Linda
 			break;
@@ -274,7 +274,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 			if( Random( 2 ) )
 				bKnifeClass = bRating;
 
-			bAmmoClips = (INT8)(2 + Random( 2 ));
+			bAmmoClips = (INT8)(3 + Random( 2 ));
 
 			if( bRating >= GOOD_ADMINISTRATOR_EQUIPMENT_RATING )
 			{
@@ -316,7 +316,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 				bAttachClass = bRating;
 			}
 
-			bAmmoClips = (INT8)(2 + Random( 2 ));
+			bAmmoClips = (INT8)(3 + Random( 2 ));
 
 			if( bRating >= AVERAGE_ARMY_EQUIPMENT_RATING )
 			{
@@ -429,7 +429,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 			}
 
 			bAmmoClips = (INT8)(3 + Random( 2 ));
-			bGrenades = (INT8)(1 + Random( 3 ));
+			bGrenades = (INT8)(3 + Random( 3 ));
 
 			if( ( bRating >= AVERAGE_ELITE_EQUIPMENT_RATING ) && ( Random( 100 ) < 75 ) )
 			{

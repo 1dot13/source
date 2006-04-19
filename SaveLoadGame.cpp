@@ -101,7 +101,6 @@
 #include "Enemy Soldier Save.h"
 #include "BobbyRMailOrder.h"
 #include "Mercs.h"
-#include "INIReader.h"
 
 /////////////////////////////////////////////////////
 //
@@ -379,6 +378,8 @@ UINT32	guiSaveGameVersion=0;
 
 //CHAR8		gsSaveGameNameWithPath[ 512 ];
 
+CHAR8			gSaveDir[ MAX_PATH ];  // Snap: Initilized by InitSaveDir
+
 UINT8			gubSaveGameLoc=0;
 
 UINT32		guiScreenToGotoAfterLoadingSavedGame = 0;
@@ -459,14 +460,43 @@ void	HandleOldBobbyRMailOrders();
 /////////////////////////////////////////////////////
 
 
+// Snap: Initializes gSaveDir global, creating the save directory if necessary
+// The save directory now resides in the data directory (default or custom)
+BOOLEAN InitSaveDir()
+{
+	// Look for a custom data dir first
+	std::string dataDir = gCustomDataCat.GetRootDir();
+	if( dataDir.empty() || FileGetAttributes( (STR) dataDir.c_str() ) == 0xFFFFFFFF ) {
+		dataDir = gDefaultDataCat.GetRootDir();
+	}
+
+	// The locale-specific save dir location is of the form L"..\\SavedGames"
+	// This has not changed; instead, we strip the ".." at the beginning
+	sprintf( (char *) gSaveDir, "%s%S", dataDir.c_str(), pMessageStrings[ MSG_SAVEDIRECTORY ] + 2 );
+
+	// This was moved here from SaveGame
+	//Check to see if the save directory exists
+	if( FileGetAttributes( (STR) gSaveDir ) ==  0xFFFFFFFF )
+	{
+		//ok the direcotry doesnt exist, create it
+		if( !MakeFileManDirectory( (CHAR8 *)gSaveDir ) )
+		{
+			return FALSE;
+		}
+	}
+
+	return TRUE;
+}
+
+
 BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 {
 	UINT32	uiNumBytesWritten=0;
 	HWFILE	hFile=0;
 	SAVED_GAME_HEADER SaveGameHeader;
-	CHAR8		zSaveGameName[ 512 ];
+	CHAR8		zSaveGameName[ MAX_PATH ];
 	UINT32	uiSizeOfGeneralInfo = sizeof( GENERAL_SAVE_INFO );
-	UINT8		saveDir[100];
+	//UINT8		saveDir[100];
 	BOOLEAN	fPausedStateBeforeSaving = gfGamePaused;
 	BOOLEAN	fLockPauseStateBeforeSaving = gfLockPauseState;
 	INT32		iSaveLoadGameMessageBoxID = -1;
@@ -474,10 +504,12 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	BOOLEAN fWePausedIt = FALSE;
 
 
-	sprintf( (char *) saveDir, "%S", pMessageStrings[ MSG_SAVEDIRECTORY ] );
+	//sprintf( (char *) saveDir, "%S", pMessageStrings[ MSG_SAVEDIRECTORY ] );
 
 #ifdef JA2BETAVERSION
 #ifndef CRIPPLED_VERSION
+	//AssertMsg( uiSizeOfGeneralInfo == 1024, String( "Saved General info is NOT 1024, it is %d.  DF 1.", uiSizeOfGeneralInfo ) );
+	//AssertMsg( sizeof( LaptopSaveInfoStruct ) == 7440, String( "LaptopSaveStruct is NOT 7440, it is %d.  DF 1.", sizeof( LaptopSaveInfoStruct ) ) );
 #endif
 #endif
 
@@ -579,14 +611,14 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 		wcscpy( pGameDesc, pMessageStrings[ MSG_NODESC ] );
 
 	//Check to see if the save directory exists
-	if( FileGetAttributes( (STR) saveDir ) ==  0xFFFFFFFF )
+	/*if( FileGetAttributes( (STR) saveDir ) ==  0xFFFFFFFF )
 	{
 		//ok the direcotry doesnt exist, create it
 		if( !MakeFileManDirectory( (CHAR8 *)saveDir ) ) 
 		{
 			goto FAILED_TO_SAVE;
 		}
-	}
+	}*/
 
 	//Create the name of the file
 	CreateSavedGameFileNameFromNumber( ubSaveGameID, zSaveGameName );
@@ -1351,7 +1383,7 @@ BOOLEAN LoadSavedGame( UINT8 ubSavedGameID )
 	INT16 sLoadSectorX;
 	INT16 sLoadSectorY;
 	INT8 bLoadSectorZ;
-	CHAR8		zSaveGameName[ 512 ];
+	CHAR8		zSaveGameName[ MAX_PATH ];
 	UINT32	uiSizeOfGeneralInfo = sizeof( GENERAL_SAVE_INFO );
 
 	UINT32 uiRelStartPerc;
@@ -4034,19 +4066,19 @@ void CreateSavedGameFileNameFromNumber( UINT8 ubSaveGameID, STR pzNewFileName )
 		{
 			//if we are loading a game, and the user hasnt saved any consecutinve saves, load the defualt save
 			if( guiCurrentQuickSaveNumber == 0 )
-				sprintf( pzNewFileName , "%S\\%S.%S", pMessageStrings[ MSG_SAVEDIRECTORY ], pMessageStrings[ MSG_QUICKSAVE_NAME ], pMessageStrings[ MSG_SAVEEXTENSION ] );
+				sprintf( pzNewFileName , "%s\\%S.%S", gSaveDir, pMessageStrings[ MSG_QUICKSAVE_NAME ], pMessageStrings[ MSG_SAVEEXTENSION ] );
 			else
-				sprintf( pzNewFileName , "%S\\%S%02d.%S", pMessageStrings[ MSG_SAVEDIRECTORY ], pMessageStrings[ MSG_QUICKSAVE_NAME ], guiCurrentQuickSaveNumber, pMessageStrings[ MSG_SAVEEXTENSION ] );
+				sprintf( pzNewFileName , "%s\\%S%02d.%S", gSaveDir, pMessageStrings[ MSG_QUICKSAVE_NAME ], guiCurrentQuickSaveNumber, pMessageStrings[ MSG_SAVEEXTENSION ] );
 		}
 		else
 #endif
-			sprintf( pzNewFileName , "%S\\%S.%S", pMessageStrings[ MSG_SAVEDIRECTORY ], pMessageStrings[ MSG_QUICKSAVE_NAME ], pMessageStrings[ MSG_SAVEEXTENSION ] );
+			sprintf( pzNewFileName , "%s\\%S.%S", gSaveDir, pMessageStrings[ MSG_QUICKSAVE_NAME ], pMessageStrings[ MSG_SAVEEXTENSION ] );
 	}
 //#ifdef JA2BETAVERSION
 	else if( ubSaveGameID == SAVE__END_TURN_NUM )
 	{
 		//The name of the file
-		sprintf( pzNewFileName , "%S\\Auto%02d.%S", pMessageStrings[ MSG_SAVEDIRECTORY ], guiLastSaveGameNum, pMessageStrings[ MSG_SAVEEXTENSION ] );
+		sprintf( pzNewFileName , "%s\\Auto%02d.%S", gSaveDir, guiLastSaveGameNum, pMessageStrings[ MSG_SAVEEXTENSION ] );
 
 		//increment end turn number
 		guiLastSaveGameNum++;
@@ -4060,7 +4092,7 @@ void CreateSavedGameFileNameFromNumber( UINT8 ubSaveGameID, STR pzNewFileName )
 //#endif
 
 	else
-		sprintf( pzNewFileName , "%S\\%S%02d.%S", pMessageStrings[ MSG_SAVEDIRECTORY ], pMessageStrings[ MSG_SAVE_NAME ], ubSaveGameID, pMessageStrings[ MSG_SAVEEXTENSION ] );
+		sprintf( pzNewFileName , "%s\\%S%02d.%S", gSaveDir, pMessageStrings[ MSG_SAVE_NAME ], ubSaveGameID, pMessageStrings[ MSG_SAVEEXTENSION ] );
 }
 
 
@@ -4196,9 +4228,9 @@ BOOLEAN LoadMercPathToSoldierStruct( HWFILE hFile, UINT8	ubID )
 #ifdef JA2BETAVERSION
 void InitSaveGameFilePosition()
 {
-	CHAR8		zFileName[128];
+	CHAR8		zFileName[ MAX_PATH ];
 
-	sprintf( zFileName, "%S\\SaveGameFilePos%2d.txt", pMessageStrings[ MSG_SAVEDIRECTORY ], gubSaveGameLoc );
+	sprintf( zFileName, "%s\\SaveGameFilePos%2d.txt", gSaveDir, gubSaveGameLoc );
 
 	FileDelete( zFileName );
 }
@@ -4209,9 +4241,9 @@ void SaveGameFilePosition( INT32 iPos, STR pMsg )
 	CHAR8		zTempString[512];
 	UINT32	uiNumBytesWritten;
 	UINT32	uiStrLen=0;
-	CHAR8		zFileName[128];
+	CHAR8		zFileName[MAX_PATH];
 
-	sprintf( zFileName, "%S\\SaveGameFilePos%2d.txt", pMessageStrings[ MSG_SAVEDIRECTORY ], gubSaveGameLoc );
+	sprintf( zFileName, "%s\\SaveGameFilePos%2d.txt", gSaveDir, gubSaveGameLoc );
 
 	// create the save game file
 	hFile = FileOpen( zFileName, FILE_ACCESS_WRITE | FILE_OPEN_ALWAYS, FALSE );
@@ -4240,9 +4272,9 @@ void SaveGameFilePosition( INT32 iPos, STR pMsg )
 
 void InitLoadGameFilePosition()
 {
-	CHAR8		zFileName[128];
+	CHAR8		zFileName[MAX_PATH];
 
-	sprintf( zFileName, "%S\\LoadGameFilePos%2d.txt", pMessageStrings[ MSG_SAVEDIRECTORY ], gubSaveGameLoc );
+	sprintf( zFileName, "%s\\LoadGameFilePos%2d.txt", gSaveDir, gubSaveGameLoc );
 
 	FileDelete( zFileName );
 }
@@ -4253,9 +4285,9 @@ void LoadGameFilePosition( INT32 iPos, STR pMsg )
 	UINT32	uiNumBytesWritten;
 	UINT32	uiStrLen=0;
 
-	CHAR8		zFileName[128];
+	CHAR8		zFileName[MAX_PATH];
 
-	sprintf( zFileName, "%S\\LoadGameFilePos%2d.txt", pMessageStrings[ MSG_SAVEDIRECTORY ], gubSaveGameLoc );
+	sprintf( zFileName, "%s\\LoadGameFilePos%2d.txt", gSaveDir, gubSaveGameLoc );
 
 	// create the save game file
 	hFile = FileOpen( zFileName, FILE_ACCESS_WRITE | FILE_OPEN_ALWAYS, FALSE );
@@ -4862,7 +4894,7 @@ BOOLEAN DoesUserHaveEnoughHardDriveSpace()
 
 void InitShutDownMapTempFileTest( BOOLEAN fInit, STR pNameOfFile, UINT8 ubSaveGameID )
 {
-	CHAR8		zFileName[128];
+	CHAR8		zFileName[MAX_PATH];
 	HWFILE	hFile;
 	CHAR8		zTempString[512];
 	UINT32	uiStrLen;
@@ -4871,7 +4903,7 @@ void InitShutDownMapTempFileTest( BOOLEAN fInit, STR pNameOfFile, UINT8 ubSaveGa
 	//strcpy( gzNameOfMapTempFile, pNameOfFile);
 	sprintf( gzNameOfMapTempFile, "%s%d", pNameOfFile, ubSaveGameID );
 
-	sprintf( zFileName, "%S\\%s.txt", pMessageStrings[ MSG_SAVEDIRECTORY ], gzNameOfMapTempFile );
+	sprintf( zFileName, "%s\\%s.txt", gSaveDir, gzNameOfMapTempFile );
 
 	if( fInit )
 	{
@@ -4917,11 +4949,11 @@ void WriteTempFileNameToFile( STR pFileName, UINT32 uiSizeOfFile, HFILE hSaveFil
 	UINT32	uiNumBytesWritten;
 	UINT32	uiStrLen=0;
 
-	CHAR8		zFileName[128];
+	CHAR8		zFileName[MAX_PATH];
 
 	guiSizeOfTempFiles += uiSizeOfFile;
 
-	sprintf( zFileName, "%S\\%s.txt", pMessageStrings[ MSG_SAVEDIRECTORY ], gzNameOfMapTempFile );
+	sprintf( zFileName, "%s\\%s.txt", gSaveDir, gzNameOfMapTempFile );
 
 	// create the save game file
 	hFile = FileOpen( zFileName, FILE_ACCESS_WRITE | FILE_OPEN_ALWAYS, FALSE );
@@ -5054,9 +5086,7 @@ void TruncateStrategicGroupSizes()
 	SECTORINFO *pSector;
 	INT32 i;
 
-	//Kaiden: Loading INI file to read Values...
-	CIniReader iniReader("..\\Ja2_Options.ini");
-	INT32 iMaxEnemyGroupSize = iniReader.ReadInteger("Options","MAX_STRATEGIC_TEAM_SIZE",20);
+	INT32 iMaxEnemyGroupSize = gGameExternalOptions.iMaxEnemyGroupSize;
 
 
 	for( i = SEC_A1; i < SEC_P16; i++ )
@@ -5242,8 +5272,8 @@ void UpdateMercMercContractInfo()
 
 INT8 GetNumberForAutoSave( BOOLEAN fLatestAutoSave )
 {
-	CHAR	zFileName1[256];
-	CHAR	zFileName2[256];
+	CHAR	zFileName1[MAX_PATH];
+	CHAR	zFileName2[MAX_PATH];
 	HWFILE	hFile;
 	BOOLEAN	fFile1Exist, fFile2Exist;
 	SGP_FILETIME	CreationTime1, LastAccessedTime1, LastWriteTime1;
@@ -5254,8 +5284,8 @@ INT8 GetNumberForAutoSave( BOOLEAN fLatestAutoSave )
 
 
 	//The name of the file
-	sprintf( zFileName1, "%S\\Auto%02d.%S", pMessageStrings[ MSG_SAVEDIRECTORY ], 0, pMessageStrings[ MSG_SAVEEXTENSION ] );
-	sprintf( zFileName2, "%S\\Auto%02d.%S", pMessageStrings[ MSG_SAVEDIRECTORY ], 1, pMessageStrings[ MSG_SAVEEXTENSION ] );
+	sprintf( zFileName1, "%s\\Auto%02d.%S", gSaveDir, 0, pMessageStrings[ MSG_SAVEEXTENSION ] );
+	sprintf( zFileName2, "%s\\Auto%02d.%S", gSaveDir, 1, pMessageStrings[ MSG_SAVEEXTENSION ] );
 
 	if( FileExists( zFileName1 ) )
 	{

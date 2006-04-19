@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "GameSettings.h"
@@ -32,26 +33,30 @@
 
 extern BOOLEAN SaveWorldItemsToTempItemFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ, UINT32 uiNumberOfItems, WORLDITEM *pData );
 
+// WANNE 2
+#define MAP_INV_X_OFFSET							(((SCREEN_WIDTH - 261) - 380) / 2)
+//#define MAP_INV_Y_OFFSET					(((SCREEN_HEIGHT - 121) - 
+
 // status bar colors
 #define DESC_STATUS_BAR FROMRGB( 201, 172,  133 )
 #define DESC_STATUS_BAR_SHADOW FROMRGB( 140, 136,  119 )
 
 // page display positions
-#define MAP_INVENTORY_POOL_PAGE_X 506
-#define MAP_INVENTORY_POOL_PAGE_Y 336
-#define MAP_INVENTORY_POOL_PAGE_WIDTH 46 //552 - 494
-#define MAP_INVENTORY_POOL_PAGE_HEIGHT 345 - 332
+#define MAP_INVENTORY_POOL_PAGE_X							(MAP_INV_X_OFFSET + 506)
+#define MAP_INVENTORY_POOL_PAGE_Y							(SCREEN_HEIGHT - 121 - 23)	//336	
+#define MAP_INVENTORY_POOL_PAGE_WIDTH					46
+#define MAP_INVENTORY_POOL_PAGE_HEIGHT				13
 
 // the number of items
-#define MAP_INVENTORY_POOL_NUMBER_X 436
-#define MAP_INVENTORY_POOL_NUMBER_WIDTH 474 - 434
+#define MAP_INVENTORY_POOL_NUMBER_X						(MAP_INV_X_OFFSET + 436)
+#define MAP_INVENTORY_POOL_NUMBER_WIDTH				40
 
 // location 
-#define MAP_INVENTORY_POOL_LOC_X 326
-#define MAP_INVENTORY_POOL_LOC_WIDTH 366 - 326
+#define MAP_INVENTORY_POOL_LOC_X							MAP_INV_X_OFFSET + 326
+#define MAP_INVENTORY_POOL_LOC_WIDTH					40
 
 // delay for flash of item
-#define DELAY_FOR_HIGHLIGHT_ITEM_FLASH 200
+#define DELAY_FOR_HIGHLIGHT_ITEM_FLASH				200
 
 // inventory slot font
 #define MAP_IVEN_FONT						SMALLCOMPFONT
@@ -73,14 +78,22 @@ extern BOOLEAN SaveWorldItemsToTempItemFile( INT16 sMapX, INT16 sMapY, INT8 bMap
 #define ITEMDESC_ITEM_STATUS_INV_POOL_OFFSET_Y 22
 
 // inventory pool slot positions and sizes
-#define MAP_INVENTORY_POOL_SLOT_START_X 271
-#define MAP_INVENTORY_POOL_SLOT_START_Y 36
-#define MAP_INV_SLOT_COLS 9
+//#define MAP_INVENTORY_POOL_SLOT_START_X 271
+//#define MAP_INVENTORY_POOL_SLOT_START_Y 36
 #define MAP_INVEN_SLOT_WIDTH 65
 #define MAP_INVEN_SPACE_BTWN_SLOTS 72
 #define MAP_INVEN_SLOT_HEIGHT 32 
 #define MAP_INVEN_SLOT_IMAGE_HEIGHT 24 
 
+// WANNE 2
+// Number of inventory slots in 1024x768
+#define MAP_INVENTORY_POOL_MAX_SLOTS 170
+
+INT32 MAP_INV_SLOT_COLS;			// Number of vertical slots
+INT32 MAP_INVENTORY_POOL_SLOT_COUNT;
+
+INT32 MAP_INVENTORY_POOL_SLOT_START_X;
+INT32 MAP_INVENTORY_POOL_SLOT_START_Y;
 
 // the current highlighted item
 INT32 iCurrentlyHighLightedItem = -1;
@@ -109,9 +122,14 @@ UINT32 uiNumberOfUnSeenItems = 0;
 
 
 // the inventory slots
-MOUSE_REGION MapInventoryPoolSlots[ MAP_INVENTORY_POOL_SLOT_COUNT ];
+// WANNE 2 <new>
+//MOUSE_REGION MapInventoryPoolSlots[ MAP_INVENTORY_POOL_SLOT_COUNT ];
+MOUSE_REGION MapInventoryPoolSlots[ MAP_INVENTORY_POOL_MAX_SLOTS ];
+
 MOUSE_REGION MapInventoryPoolMask;
-BOOLEAN fMapInventoryItemCompatable[ MAP_INVENTORY_POOL_SLOT_COUNT ];
+//BOOLEAN fMapInventoryItemCompatable[ MAP_INVENTORY_POOL_SLOT_COUNT ];
+BOOLEAN fMapInventoryItemCompatable[ MAP_INVENTORY_POOL_MAX_SLOTS ];
+
 BOOLEAN fChangedInventorySlots = FALSE;
 
 // the unseen items list...have to save this
@@ -201,7 +219,32 @@ BOOLEAN LoadInventoryPoolGraphic( void )
 
 	// load the file
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	sprintf( VObjectDesc.ImageFile, "INTERFACE\\sector_inventory.sti" );
+
+	// WANNE 2
+	if (iResolution == 0)
+	{
+		MAP_INV_SLOT_COLS = 8;
+		MAP_INVENTORY_POOL_SLOT_COUNT = 40;
+		MAP_INVENTORY_POOL_SLOT_START_X = 269;
+	  MAP_INVENTORY_POOL_SLOT_START_Y = 51;
+		sprintf( VObjectDesc.ImageFile, "INTERFACE\\sector_inventory.sti" );
+	}
+	else if (iResolution == 1)
+	{
+		MAP_INV_SLOT_COLS = 11;
+		MAP_INVENTORY_POOL_SLOT_COUNT = 77;
+		MAP_INVENTORY_POOL_SLOT_START_X = 278;
+	  MAP_INVENTORY_POOL_SLOT_START_Y = 62;
+		sprintf( VObjectDesc.ImageFile, "INTERFACE\\sector_inventory_800x600.sti" );
+	}
+	else if (iResolution == 2)
+	{
+		MAP_INV_SLOT_COLS = 17;
+		MAP_INVENTORY_POOL_SLOT_COUNT = MAP_INVENTORY_POOL_MAX_SLOTS;
+		MAP_INVENTORY_POOL_SLOT_START_X = 282;
+		MAP_INVENTORY_POOL_SLOT_START_Y = 50;
+		sprintf( VObjectDesc.ImageFile, "INTERFACE\\sector_inventory_1024x768.sti" );
+	}
 	
 	// add to V-object index
 	CHECKF(AddVideoObject(&VObjectDesc, &guiMapInventoryPoolBackground));
@@ -259,6 +302,10 @@ void BlitInventoryPoolGraphic( void )
 
 	// which buttons will be active and which ones not
 	HandleButtonStatesWhileMapInventoryActive( );
+
+	// WANNE 2
+	// Invalidate
+	RestoreExternBackgroundRect(MAP_BORDER_X, MAP_BORDER_Y, SCREEN_WIDTH - MAP_BORDER_X, SCREEN_HEIGHT - 121);
 
 	return;
 }
@@ -674,8 +721,13 @@ void CreateMapInventoryPoolSlots( void )
 	INT16 sULX = 0, sULY = 0;
 	INT16 sBRX = 0, sBRY = 0;
 
+	// WANNE 2
+	//MSYS_DefineRegion( &MapInventoryPoolMask, 
+	//		MAP_INVENTORY_POOL_SLOT_START_X, 0, 640, 360,
+	//		MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MapInvenPoolScreenMaskCallback);
+
 	MSYS_DefineRegion( &MapInventoryPoolMask, 
-			MAP_INVENTORY_POOL_SLOT_START_X, 0, 640, 360,
+			MAP_INVENTORY_POOL_SLOT_START_X, 0, SCREEN_WIDTH - MAP_INVENTORY_POOL_SLOT_START_X, SCREEN_HEIGHT - 120,
 			MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MapInvenPoolScreenMaskCallback);
 
 	for( iCounter = 0; iCounter < MAP_INVENTORY_POOL_SLOT_COUNT; iCounter++ )
@@ -938,13 +990,13 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 void CreateMapInventoryButtons( void )
 {
 	guiMapInvenButtonImage[ 0 ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" , 10, 1, -1, 3, -1 );
-  guiMapInvenButton[ 0 ] = QuickCreateButton( guiMapInvenButtonImage[ 0 ], 559 , 336,
+  guiMapInvenButton[ 0 ] = QuickCreateButton( guiMapInvenButtonImage[ 0 ], (MAP_INV_X_OFFSET + 559), (SCREEN_HEIGHT - 144),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)MapInventoryPoolNextBtn );
 
 
 	guiMapInvenButtonImage[ 1 ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,9, 0, -1, 2, -1 );
-  guiMapInvenButton[ 1 ] = QuickCreateButton( guiMapInvenButtonImage[ 1 ], 487, 336,
+  guiMapInvenButton[ 1 ] = QuickCreateButton( guiMapInvenButtonImage[ 1 ], (MAP_INV_X_OFFSET + 487), (SCREEN_HEIGHT - 144),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)MapInventoryPoolPrevBtn );
 
@@ -1679,7 +1731,7 @@ void DisplayPagesForMapInventoryPool( void )
 
 	mprintf( sX, sY, sString );
 
-	SetFontDestBuffer( FRAME_BUFFER, 0,0, 640, 480, FALSE );
+	SetFontDestBuffer( FRAME_BUFFER, 0,0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
 
 }
@@ -1752,9 +1804,10 @@ void DrawNumberOfIventoryPoolItems( void )
 
 void CreateMapInventoryPoolDoneButton( void )
 {
+	// WANNE 2
 	// create done button
 	guiMapInvenButtonImage[ 2 ]=  LoadButtonImage( "INTERFACE\\done_button.sti" , -1, 0, -1, 1, -1 );
-  guiMapInvenButton[ 2 ] = QuickCreateButton( guiMapInvenButtonImage[ 2 ], 587 , 333,
+	guiMapInvenButton[ 2 ] = QuickCreateButton( guiMapInvenButtonImage[ 2 ], MAP_INV_X_OFFSET + 587 , (SCREEN_HEIGHT - 147),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)MapInventoryPoolDoneBtn );
 
@@ -1831,13 +1884,22 @@ void DrawTextOnMapInventoryBackground( void )
 	// set the buffer
 	SetFontDestBuffer( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
+	////Calculate the height of the string, as it needs to be vertically centered.
+	//usStringHeight = DisplayWrappedString( 268, 342, 53, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 0 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED | DONT_DISPLAY_TEXT );
+	//DisplayWrappedString( 268, (UINT16)(342 - (usStringHeight / 2) ), 53, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 0 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED );
+
+	////Calculate the height of the string, as it needs to be vertically centered.
+	//usStringHeight = DisplayWrappedString( 369, 342, 65, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 1 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED | DONT_DISPLAY_TEXT );
+	//DisplayWrappedString( 369, (UINT16)(342 - (usStringHeight / 2) ), 65, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 1 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED );
+
+	// WANNE 2
 	//Calculate the height of the string, as it needs to be vertically centered.
-	usStringHeight = DisplayWrappedString( 268, 342, 53, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 0 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED | DONT_DISPLAY_TEXT );
-	DisplayWrappedString( 268, (UINT16)(342 - (usStringHeight / 2) ), 53, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 0 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED );
+	usStringHeight = DisplayWrappedString( MAP_INV_X_OFFSET + 268, (SCREEN_HEIGHT - 138), 53, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 0 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED | DONT_DISPLAY_TEXT );
+	DisplayWrappedString( MAP_INV_X_OFFSET + 268, (UINT16)((SCREEN_HEIGHT - 138) - (usStringHeight / 2) ), 53, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 0 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED );
 
 	//Calculate the height of the string, as it needs to be vertically centered.
-	usStringHeight = DisplayWrappedString( 369, 342, 65, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 1 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED | DONT_DISPLAY_TEXT );
-	DisplayWrappedString( 369, (UINT16)(342 - (usStringHeight / 2) ), 65, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 1 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED );
+	usStringHeight = DisplayWrappedString( MAP_INV_X_OFFSET + 369, (SCREEN_HEIGHT - 138), 65, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 1 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED | DONT_DISPLAY_TEXT );
+	DisplayWrappedString( MAP_INV_X_OFFSET + 369, (UINT16)((SCREEN_HEIGHT - 138) - (usStringHeight / 2) ), 65, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 1 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED );
 
 	DrawTextOnSectorInventory( );
 	
@@ -1898,7 +1960,9 @@ void DrawTextOnSectorInventory( void )
 
 	SetFontDestBuffer( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
-	FindFontCenterCoordinates( MAP_INVENTORY_POOL_SLOT_START_X, MAP_INVENTORY_POOL_SLOT_START_Y - 20,  630 - MAP_INVENTORY_POOL_SLOT_START_X, GetFontHeight( FONT14ARIAL ), sString, FONT14ARIAL, &sX, &sY );
+	//FindFontCenterCoordinates( MAP_INV_X_OFFSET + MAP_INVENTORY_POOL_SLOT_START_X, MAP_INVENTORY_POOL_SLOT_START_Y - 20,  630 - MAP_INVENTORY_POOL_SLOT_START_X, GetFontHeight( FONT14ARIAL ), sString, FONT14ARIAL, &sX, &sY );
+
+	FindFontCenterCoordinates( 271, 18, SCREEN_WIDTH - 271, GetFontHeight( FONT14ARIAL ), sString, FONT14ARIAL, &sX, &sY );
 
 	SetFont( FONT14ARIAL );
 	SetFontForeground( FONT_WHITE );

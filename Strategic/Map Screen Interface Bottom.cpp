@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 #else
@@ -38,30 +39,31 @@
 #endif
 
 
-#define MAP_BOTTOM_X 0
-#define MAP_BOTTOM_Y 359
+// WANNE 2
+#define MAP_BOTTOM_X							0
+#define MAP_BOTTOM_Y							(SCREEN_HEIGHT - 121)	//359
 
-#define MESSAGE_SCROLL_AREA_START_X	330
-#define MESSAGE_SCROLL_AREA_END_X		344
-#define MESSAGE_SCROLL_AREA_WIDTH		( MESSAGE_SCROLL_AREA_END_X - MESSAGE_SCROLL_AREA_START_X + 1 )
+#define MESSAGE_SCROLL_AREA_START_X				330
+#define MESSAGE_SCROLL_AREA_END_X				344
+#define MESSAGE_SCROLL_AREA_WIDTH				( MESSAGE_SCROLL_AREA_END_X - MESSAGE_SCROLL_AREA_START_X + 1 )
 
-#define MESSAGE_SCROLL_AREA_START_Y	390
-#define MESSAGE_SCROLL_AREA_END_Y		448
-#define MESSAGE_SCROLL_AREA_HEIGHT	( MESSAGE_SCROLL_AREA_END_Y - MESSAGE_SCROLL_AREA_START_Y + 1 )
+#define MESSAGE_SCROLL_AREA_START_Y				(SCREEN_HEIGHT - 90)	//390
+#define MESSAGE_SCROLL_AREA_END_Y				(SCREEN_HEIGHT - 32)		//448
+#define MESSAGE_SCROLL_AREA_HEIGHT				( MESSAGE_SCROLL_AREA_END_Y - MESSAGE_SCROLL_AREA_START_Y + 1 )
 
-#define SLIDER_HEIGHT		11
-#define SLIDER_WIDTH		11
+#define SLIDER_HEIGHT							11
+#define SLIDER_WIDTH							11
 
-#define SLIDER_BAR_RANGE			( MESSAGE_SCROLL_AREA_HEIGHT - SLIDER_HEIGHT )
+#define SLIDER_BAR_RANGE						( MESSAGE_SCROLL_AREA_HEIGHT - SLIDER_HEIGHT )
 
 
 
-#define MESSAGE_BTN_SCROLL_TIME 100
+#define MESSAGE_BTN_SCROLL_TIME					100
 
 // delay for paused flash
-#define PAUSE_GAME_TIMER 500
+#define PAUSE_GAME_TIMER						500
 
-#define MAP_BOTTOM_FONT_COLOR ( 32 * 4 - 9 )
+#define MAP_BOTTOM_FONT_COLOR					( 32 * 4 - 9 )
 
 /*
 // delay to start auto message scroll
@@ -148,7 +150,6 @@ extern BOOLEAN fShowDescriptionFlag;
 extern MOUSE_REGION gMPanelRegion;
 
 
-
 // PROTOTYPES
 
 
@@ -205,15 +206,15 @@ void HandleLoadOfMapBottomGraphics( void )
 
 	if (iResolution == 0)
 	{
-	FilenameForBPP( "INTERFACE\\map_screen_bottom.sti", VObjectDesc.ImageFile );
+		FilenameForBPP( "INTERFACE\\map_screen_bottom.sti", VObjectDesc.ImageFile );
 	}
 	else if (iResolution == 1)
 	{
-		FilenameForBPP( "INTERFACE\\map_screen_bottom_800x241.sti", VObjectDesc.ImageFile );
+		FilenameForBPP( "INTERFACE\\map_screen_bottom_800x600.sti", VObjectDesc.ImageFile );
 	}
 	else if (iResolution == 2)
 	{
-		FilenameForBPP( "INTERFACE\\map_screen_bottom_1024x409.sti", VObjectDesc.ImageFile );
+		FilenameForBPP( "INTERFACE\\map_screen_bottom_1024x768.sti", VObjectDesc.ImageFile );
 	}
 
 	if( !AddVideoObject( &VObjectDesc, &guiMAPBOTTOMPANEL ) )
@@ -267,7 +268,11 @@ void RenderMapScreenInterfaceBottom( void )
 	HVOBJECT hHandle;
 	CHAR8 bFilename[ 32 ];
 	
-	
+	// WANNE 2
+	fDisplayOverheadMap = FALSE;
+
+
+	// WANNE 2 <redraw>
 	// render whole panel
 	if( fMapScreenBottomDirty == TRUE )
 	{
@@ -293,7 +298,7 @@ void RenderMapScreenInterfaceBottom( void )
 		// dirty buttons
 		MarkButtonsDirty( );
 
-		// WANNE
+		// WANNE 2
 		// invalidate region
 		RestoreExternBackgroundRect( MAP_BOTTOM_X, MAP_BOTTOM_Y, SCREEN_WIDTH, SCREEN_HEIGHT - MAP_BOTTOM_Y );
 
@@ -335,20 +340,20 @@ BOOLEAN CreateButtonsForMapScreenInterfaceBottom( void )
 {
 	// laptop
 	guiMapBottomExitButtonsImage[ MAP_EXIT_TO_LAPTOP ]=  LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,6,-1,15,-1 );
-  guiMapBottomExitButtons[ MAP_EXIT_TO_LAPTOP ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_LAPTOP ], 456, 410,
+  guiMapBottomExitButtons[ MAP_EXIT_TO_LAPTOP ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_LAPTOP ], (SCREEN_WIDTH - 184), (SCREEN_HEIGHT - 70),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnLaptopCallback);
  
 	// tactical
 	guiMapBottomExitButtonsImage[ MAP_EXIT_TO_TACTICAL ]=  LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,7,-1,16,-1 );
  
-	guiMapBottomExitButtons[ MAP_EXIT_TO_TACTICAL ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_TACTICAL ], 496, 410,
+	guiMapBottomExitButtons[ MAP_EXIT_TO_TACTICAL ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_TACTICAL ], (SCREEN_WIDTH - 144), (SCREEN_HEIGHT - 70),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnTacticalCallback);
 
 	// options
 	guiMapBottomExitButtonsImage[ MAP_EXIT_TO_OPTIONS ]=  LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,18,-1,19,-1 );
-  guiMapBottomExitButtons[ MAP_EXIT_TO_OPTIONS ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_OPTIONS ], 458, 372,
+  guiMapBottomExitButtons[ MAP_EXIT_TO_OPTIONS ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_OPTIONS ], (SCREEN_WIDTH - 182), (SCREEN_HEIGHT - 108),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnOptionsFromMapScreenCallback);
 	
@@ -364,12 +369,12 @@ BOOLEAN CreateButtonsForMapScreenInterfaceBottom( void )
 
 	// time compression buttons
 	guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_MORE ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,10,1,-1,3,-1 );
-  guiMapBottomTimeButtons[ MAP_TIME_COMPRESS_MORE ] = QuickCreateButton( guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_MORE ], 528, 456,
+  guiMapBottomTimeButtons[ MAP_TIME_COMPRESS_MORE ] = QuickCreateButton( guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_MORE ], (SCREEN_WIDTH - 112), (SCREEN_HEIGHT - 24),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 2 ,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnTimeCompressMoreMapScreenCallback);
  
 	guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_LESS ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,9,0,-1,2,-1 );
-  guiMapBottomTimeButtons[ MAP_TIME_COMPRESS_LESS ] = QuickCreateButton( guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_LESS ], 466, 456,
+  guiMapBottomTimeButtons[ MAP_TIME_COMPRESS_LESS ] = QuickCreateButton( guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_LESS ], (SCREEN_WIDTH - 174), (SCREEN_HEIGHT - 24),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 2,
                    (GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnTimeCompressLessMapScreenCallback);
 
@@ -383,12 +388,12 @@ BOOLEAN CreateButtonsForMapScreenInterfaceBottom( void )
 
  // scroll buttons
   guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_UP ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,11,4,-1,6,-1 );
-  guiMapMessageScrollButtons[ MAP_SCROLL_MESSAGE_UP ] = QuickCreateButton( guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_UP ], 331, 371,
+  guiMapMessageScrollButtons[ MAP_SCROLL_MESSAGE_UP ] = QuickCreateButton( guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_UP ], 331, (SCREEN_HEIGHT - 109),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMessageUpMapScreenCallback);
  
 	guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_DOWN ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,12,5,-1,7,-1 );
-  guiMapMessageScrollButtons[ MAP_SCROLL_MESSAGE_DOWN ] = QuickCreateButton( guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_DOWN ], 331, 452,
+  guiMapMessageScrollButtons[ MAP_SCROLL_MESSAGE_DOWN ] = QuickCreateButton( guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_DOWN ], 331, (SCREEN_HEIGHT - 28),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMessageDownMapScreenCallback);
 
@@ -574,7 +579,9 @@ void DrawNameOfLoadedSector( void )
 	GetSectorIDString( sSelMapX, sSelMapY, ( INT8 )( iCurrentMapSectorZ ),sString, TRUE );
 	ReduceStringLength( sString, 80, COMPFONT );
 
-	VarFindFontCenterCoordinates( 548, 426, 80, 16, COMPFONT, &sFontX, &sFontY, sString );
+	// WANNE 2
+	//VarFindFontCenterCoordinates( 548, 426, 80, 16, COMPFONT, &sFontX, &sFontY, sString );
+	VarFindFontCenterCoordinates( (SCREEN_WIDTH - 92), (SCREEN_HEIGHT - 55), 80, 16, COMPFONT, &sFontX, &sFontY, sString );
 	mprintf( sFontX, sFontY, L"%s", sString );
 }
 
@@ -917,7 +924,10 @@ void DisplayCompressMode( void )
 		}
 	}
 
-	RestoreExternBackgroundRect( 489, 456, 522 - 489, 467 - 454 );
+	//RestoreExternBackgroundRect( 489, 456, 522 - 489, 467 - 454 );
+	// WANNE 2
+	RestoreExternBackgroundRect( (SCREEN_WIDTH - 151), (SCREEN_HEIGHT - 24), 63, 13 );
+
 	SetFontDestBuffer( FRAME_BUFFER, 0,0,SCREEN_WIDTH,SCREEN_HEIGHT, FALSE );
 	SetFont( COMPFONT );
 	
@@ -942,7 +952,10 @@ void DisplayCompressMode( void )
 
 	SetFontForeground( usColor );
 	SetFontBackground( FONT_BLACK );
-  FindFontCenterCoordinates( 489, 456, 522 - 489, 467 - 454, sString, COMPFONT, &sX, &sY );
+  
+	// WANNE 2
+	//FindFontCenterCoordinates( 489, 456, 522 - 489, 467 - 454, sString, COMPFONT, &sX, &sY );
+	FindFontCenterCoordinates( (SCREEN_WIDTH - 151), (SCREEN_HEIGHT - 24), 33, 13, sString, COMPFONT, &sX, &sY );
 	mprintf( sX, sY, sString );
   
 
@@ -952,7 +965,11 @@ void DisplayCompressMode( void )
 
 void CreateCompressModePause( void )
 {
-	MSYS_DefineRegion( &gMapPauseRegion, 487, 456, 522, 467, MSYS_PRIORITY_HIGH,
+	/*MSYS_DefineRegion( &gMapPauseRegion, 487, 456, 522, 467, MSYS_PRIORITY_HIGH,
+							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressModeClickCallback );*/
+
+	// WANNE 2
+	MSYS_DefineRegion( &gMapPauseRegion, (SCREEN_WIDTH - 153), (SCREEN_HEIGHT - 24), (SCREEN_WIDTH - 118), (SCREEN_HEIGHT - 13), MSYS_PRIORITY_HIGH,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressModeClickCallback );
 
 	SetRegionFastHelpText( &gMapPauseRegion, pMapScreenBottomFastHelp[ 7 ] );
@@ -1367,17 +1384,21 @@ void DisplayCurrentBalanceTitleForMapBottom( void )
 
 	swprintf( sString, L"%s", pMapScreenBottomText[ 0 ] );
 
+	// WANNE 2
 	// center it
-	VarFindFontCenterCoordinates( 359, 387 - 14,  437 - 359, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 107),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	//VarFindFontCenterCoordinates( 359, 387 - 14,  437 - 359, 10,  COMPFONT, &sFontX, &sFontY, sString );
 	
 	// print it
 	mprintf( sFontX, sFontY, L"%s", sString );
 
 	swprintf( sString, L"%s", zMarksMapScreenText[ 2 ] );
 
+	// WANNE 2
 	// center it
-	VarFindFontCenterCoordinates( 359, 433 - 14,  437 - 359, 10,  COMPFONT, &sFontX, &sFontY, sString );
-	
+	//VarFindFontCenterCoordinates( 359, 433 - 14,  437 - 359, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 61),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
+
 	// print it
 	mprintf( sFontX, sFontY, L"%s", sString );
 
@@ -1407,8 +1428,9 @@ void DisplayCurrentBalanceForMapBottom( void )
 	InsertCommasForDollarFigure( sString );
 	InsertDollarSignInToString( sString );
 
+	// WANNE 2
 	// center it
-	VarFindFontCenterCoordinates( 359, 387 + 2,  437 - 359, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 91),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
 	
 	// print it
 	mprintf( sFontX, sFontY, L"%s", sString );
@@ -1436,16 +1458,30 @@ void CreateDestroyMouseRegionMasksForTimeCompressionButtons( void )
 	// check if disabled and not created, create
 	if( ( fDisabled ) && ( fCreated == FALSE ) )
 	{
+
 		// mask over compress more button
-		MSYS_DefineRegion( &gTimeCompressionMask[ 0 ], 528, 456, 528 + 13, 456 + 14, MSYS_PRIORITY_HIGHEST - 1,
+		//MSYS_DefineRegion( &gTimeCompressionMask[ 0 ], 528, 456, 528 + 13, 456 + 14, MSYS_PRIORITY_HIGHEST - 1,
+		//					MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback );
+
+		//// mask over compress less button
+		//MSYS_DefineRegion( &gTimeCompressionMask[ 1 ], 466, 456, 466 + 13, 456 + 14, MSYS_PRIORITY_HIGHEST - 1,
+		//					MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback );
+
+		//// mask over pause game button
+		//MSYS_DefineRegion( &gTimeCompressionMask[ 2 ], 487, 456, 522, 467, MSYS_PRIORITY_HIGHEST - 1,
+		//					MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback );
+
+		// WANNE 2
+		// mask over compress more button
+		MSYS_DefineRegion( &gTimeCompressionMask[ 0 ], (SCREEN_WIDTH - 112), (SCREEN_HEIGHT - 24), (SCREEN_WIDTH - 112) + 13, (SCREEN_HEIGHT - 24) + 14, MSYS_PRIORITY_HIGHEST - 1,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback );
 
 		// mask over compress less button
-		MSYS_DefineRegion( &gTimeCompressionMask[ 1 ], 466, 456, 466 + 13, 456 + 14, MSYS_PRIORITY_HIGHEST - 1,
+		MSYS_DefineRegion( &gTimeCompressionMask[ 1 ], (SCREEN_WIDTH - 174), (SCREEN_HEIGHT - 24), (SCREEN_WIDTH - 174) + 13, (SCREEN_HEIGHT - 24) + 14, MSYS_PRIORITY_HIGHEST - 1,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback );
 
 		// mask over pause game button
-		MSYS_DefineRegion( &gTimeCompressionMask[ 2 ], 487, 456, 522, 467, MSYS_PRIORITY_HIGHEST - 1,
+		MSYS_DefineRegion( &gTimeCompressionMask[ 2 ], (SCREEN_WIDTH - 153), (SCREEN_HEIGHT - 24), (SCREEN_WIDTH - 118), (SCREEN_HEIGHT - 13), MSYS_PRIORITY_HIGHEST - 1,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback );
 
 		fCreated = TRUE;
@@ -1506,7 +1542,8 @@ void DisplayProjectedDailyMineIncome( void )
 	InsertDollarSignInToString( sString );
 
 	// center it
-	VarFindFontCenterCoordinates( 359, 433 + 2,  437 - 359, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	// WANNE 2
+	VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 45),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
 	
 	// print it
 	mprintf( sFontX, sFontY, L"%s", sString );
@@ -1715,7 +1752,9 @@ void HandleExitsFromMapScreen( void )
 
 					if( gfExtraBuffer )
 					{ //Then initiate the transition animation from the mapscreen to laptop...
-						BlitBufferToBuffer( FRAME_BUFFER, guiEXTRABUFFER, 0, 0, 640, 480 );
+						
+						// WANNE 2
+						BlitBufferToBuffer( FRAME_BUFFER, guiEXTRABUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 						gfStartMapScreenToLaptopTransition = TRUE;
 					}
 					break;

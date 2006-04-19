@@ -1210,7 +1210,7 @@ void AllMercsOnTeamLookForCorpse( ROTTING_CORPSE *pCorpse, INT8 bTeam )
 			if ( pSoldier->bLife >= OKLIFE && pSoldier->sGridNo != NOWHERE && pSoldier->bActive && pSoldier->bInSector )
 			{
 				// is he close enough to see that gridno if he turns his head?
-				sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, pCorpse->def.bLevel );
+				sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, pCorpse->def.bLevel, pSoldier );
 				
 				if (PythSpacesAway( pSoldier->sGridNo, sGridNo ) <= sDistVisible )
 				{
@@ -1274,7 +1274,7 @@ void MercLooksForCorpses( SOLDIERTYPE *pSoldier )
 		    sGridNo = pCorpse->def.sGridNo;
 
 		    // is he close enough to see that gridno if he turns his head?
-		    sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, pCorpse->def.bLevel );
+		    sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, pCorpse->def.bLevel, pSoldier );
 		    
 		    if (PythSpacesAway( pSoldier->sGridNo, sGridNo ) <= sDistVisible )
 		    {

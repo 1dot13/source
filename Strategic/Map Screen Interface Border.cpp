@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 #else
@@ -24,13 +25,12 @@
 	#include "strategicmap.h"
 #endif
 
-#define MAP_BORDER_X 261
-#define MAP_BORDER_Y 0
-
-#define MAP_BORDER_CORNER_X 584
-#define MAP_BORDER_CORNER_Y 279
 
 
+
+
+//#define MAP_BORDER_CORNER_X 584
+//#define MAP_BORDER_CORNER_Y 279
 
 // extern to anchored button in winbart97
 extern GUI_BUTTON *gpAnchoredButton;
@@ -108,6 +108,9 @@ void LevelMarkerBtnCallback(MOUSE_REGION * pRegion, INT32 iReason );
 
 void CommonBtnCallbackBtnDownChecks( void );
 
+// WANNE 2
+void DrawTextOnMapBorder( void );
+
 
 /*
 void BtnScrollNorthMapScreenCallback( GUI_BUTTON *btn,INT32 reason );
@@ -117,6 +120,31 @@ void BtnScrollEastMapScreenCallback( GUI_BUTTON *btn,INT32 reason );
 void BtnLowerLevelBtnCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnRaiseLevelBtnCallback(GUI_BUTTON *btn,INT32 reason);
 */
+
+// WANNE 2
+void DrawTextOnMapBorder( void )
+{
+	INT16 sX = 0, sY = 0;
+	CHAR16 sString[ 64 ];
+
+	// parse the string
+	swprintf( sString, zMarksMapScreenText[ 24 ] );
+
+	SetFontDestBuffer( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
+
+	//FindFontCenterCoordinates( MAP_INV_X_OFFSET + MAP_INVENTORY_POOL_SLOT_START_X, MAP_INVENTORY_POOL_SLOT_START_Y - 20,  630 - MAP_INVENTORY_POOL_SLOT_START_X, GetFontHeight( FONT14ARIAL ), sString, FONT14ARIAL, &sX, &sY );
+
+	FindFontCenterCoordinates( 271, 18, SCREEN_WIDTH - 271, GetFontHeight( FONT14ARIAL ), sString, FONT14ARIAL, &sX, &sY );
+
+	SetFont( FONT14ARIAL );
+	SetFontForeground( FONT_WHITE );
+	SetFontBackground( FONT_BLACK );
+
+	mprintf( sX, sY, sString );
+
+	SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
+
+}
 
 
 BOOLEAN LoadMapBorderGraphics( void )
@@ -133,11 +161,11 @@ BOOLEAN LoadMapBorderGraphics( void )
 	}
 	else if (iResolution == 1)
 	{
-		FilenameForBPP( "INTERFACE\\MBS_540x360.sti", VObjectDesc.ImageFile );
+		FilenameForBPP( "INTERFACE\\MBS_800x600.sti", VObjectDesc.ImageFile );
 	}
 	else if (iResolution == 2)
 	{
-		FilenameForBPP( "INTERFACE\\MBS_764x360.sti", VObjectDesc.ImageFile );
+		FilenameForBPP( "INTERFACE\\MBS_1024x768.sti", VObjectDesc.ImageFile );
 	}
 
 	CHECKF( AddVideoObject( &VObjectDesc, &guiMapBorder ) );
@@ -189,7 +217,13 @@ void RenderMapBorder( void )
 
 	// get and blt border
 	GetVideoObject(&hHandle, guiMapBorder ); 
-	BltVideoObject( guiSAVEBUFFER , hHandle, 0,MAP_BORDER_X, MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
+	BltVideoObject( guiSAVEBUFFER , hHandle, 0, MAP_BORDER_X, MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
+
+	// WANNE 2
+	if (iResolution == 1 || iResolution == 2)
+	{
+		DrawTextOnMapBorder();
+	}
 
 	// WANNE Invalidate!!
 	RestoreExternBackgroundRect( MAP_BORDER_X, MAP_BORDER_Y, SCREEN_WIDTH - MAP_BORDER_X, SCREEN_HEIGHT );
@@ -255,9 +289,15 @@ void RenderMapBorderEtaPopUp( void )
 
 	// get and blt ETA box
 	GetVideoObject(&hHandle, guiMapBorderEtaPopUp ); 
-	BltVideoObject( FRAME_BUFFER , hHandle, 0, MAP_BORDER_X + 215, 291, VO_BLT_SRCTRANSPARENCY,NULL );
+
+	// WANNE 2 <change ETA position>
+	/*BltVideoObject( FRAME_BUFFER , hHandle, 0, MAP_BORDER_X + 215, 291, VO_BLT_SRCTRANSPARENCY,NULL );
 		
-	InvalidateRegion( MAP_BORDER_X + 215, 291, MAP_BORDER_X + 215 + 100 , 310);
+	InvalidateRegion( MAP_BORDER_X + 215, 291, MAP_BORDER_X + 215 + 100 , 310);*/
+
+	BltVideoObject( FRAME_BUFFER , hHandle, 0, MAP_BORDER_X + MAP_BORDER_X_OFFSET + 215, MAP_BORDER_Y_OFFSET + 291, VO_BLT_SRCTRANSPARENCY,NULL );
+		
+	InvalidateRegion( MAP_BORDER_X + MAP_BORDER_X_OFFSET + 215, MAP_BORDER_Y_OFFSET + 291, MAP_BORDER_X + MAP_BORDER_X_OFFSET + 215 + 100 , MAP_BORDER_Y_OFFSET + 310);
 
 	return;
 }
@@ -299,40 +339,41 @@ BOOLEAN CreateButtonsForMapBorder( void )
 */
 
 
+	// WANNE 2
 	// towns
 	giMapBorderButtonsImage[ MAP_BORDER_TOWN_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,5,-1,14,-1 );
-  giMapBorderButtons[ MAP_BORDER_TOWN_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_TOWN_BTN ], 299, 323,
+  giMapBorderButtons[ MAP_BORDER_TOWN_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_TOWN_BTN ], MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 152), (SCREEN_HEIGHT - 157),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnTownCallback);
  
 
 	// mines
 	giMapBorderButtonsImage[ MAP_BORDER_MINE_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,4,-1,13,-1 );
-  giMapBorderButtons[ MAP_BORDER_MINE_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_MINE_BTN ], 342, 323,
+  giMapBorderButtons[ MAP_BORDER_MINE_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_MINE_BTN ], MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 109), (SCREEN_HEIGHT - 157),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnMineCallback);
  
 	// people
 	giMapBorderButtonsImage[ MAP_BORDER_TEAMS_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,3,-1,12,-1 );
-  giMapBorderButtons[ MAP_BORDER_TEAMS_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_TEAMS_BTN ], 385, 323,
+  giMapBorderButtons[ MAP_BORDER_TEAMS_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_TEAMS_BTN ], MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 66), (SCREEN_HEIGHT - 157),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnTeamCallback);
  
 	// militia
 	giMapBorderButtonsImage[ MAP_BORDER_MILITIA_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,8,-1,17,-1 );
-  giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_MILITIA_BTN ], 428, 323,
+  giMapBorderButtons[ MAP_BORDER_MILITIA_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_MILITIA_BTN ], MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 23), (SCREEN_HEIGHT - 157),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnMilitiaCallback);
  
 	// airspace
 	giMapBorderButtonsImage[ MAP_BORDER_AIRSPACE_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,2,-1,11,-1 );
-  giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_AIRSPACE_BTN ], 471, 323,
+  giMapBorderButtons[ MAP_BORDER_AIRSPACE_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_AIRSPACE_BTN ], MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 19), (SCREEN_HEIGHT - 157),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnAircraftCallback);
  
 	// items
 	giMapBorderButtonsImage[ MAP_BORDER_ITEM_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,1,-1,10,-1 );
-  giMapBorderButtons[ MAP_BORDER_ITEM_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_ITEM_BTN ], 514, 323,
+  giMapBorderButtons[ MAP_BORDER_ITEM_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_ITEM_BTN ], MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 62), (SCREEN_HEIGHT - 157),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH,
 										(GUI_CALLBACK)MSYS_NO_CALLBACK, (GUI_CALLBACK)BtnItemCallback);
 
@@ -1127,7 +1168,6 @@ BOOLEAN ScrollButtonsDisplayingHelpMessage( void )
 void DisplayCurrentLevelMarker( void )
 {
 	// display the current level marker on the map border
-
 	HVOBJECT hHandle;
 	
 /*
@@ -1140,6 +1180,10 @@ void DisplayCurrentLevelMarker( void )
 	// it's actually a white rectangle, not a green arrow!
 	GetVideoObject(&hHandle, guiLEVELMARKER ); 
 	BltVideoObject( guiSAVEBUFFER , hHandle, 0,	MAP_LEVEL_MARKER_X + 1, MAP_LEVEL_MARKER_Y + ( MAP_LEVEL_MARKER_DELTA * ( INT16 )iCurrentMapSectorZ ), VO_BLT_SRCTRANSPARENCY,NULL );
+
+	// WANNE 2
+	RestoreExternBackgroundRect(MAP_LEVEL_MARKER_X + 1, MAP_LEVEL_MARKER_Y + ( MAP_LEVEL_MARKER_DELTA * ( INT16 )iCurrentMapSectorZ ), 55, 9);
+
 
 	return;
 }

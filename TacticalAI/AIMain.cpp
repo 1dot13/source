@@ -2739,7 +2739,7 @@ void ManChecksOnFriends(SOLDIERTYPE *pSoldier)
    if (pFriend->ubID == pSoldier->ubID)
      continue;  // next merc
 
-   sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, pFriend->sGridNo, pFriend->bLevel );
+   sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, pFriend->sGridNo, pFriend->bLevel, pFriend );
    // if we can see far enough to see this friend
    if (PythSpacesAway(pSoldier->sGridNo,pFriend->sGridNo) <= sDistVisible)
     {

@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 	#include "language defines.h"
@@ -1061,37 +1062,6 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 	if ( fDirtyLevel == DIRTYLEVEL2 )
 	{
 		// CHECK FOR COMPATIBILITY WITH MAGAZINES
-
-/*	OLD VERSION OF GUN/AMMO MATCH HIGHLIGHTING
-		UINT32	uiDestPitchBYTES;
-		UINT8		*pDestBuf;
-		UINT16	usLineColor;
-
-		if ( ( Item [ pSoldier->inv[ HANDPOS ].usItem ].usItemClass & IC_GUN )  && ( Item[ pObject->usItem ].usItemClass & IC_AMMO ) )
-		{
-			// CHECK
-			if (Weapon[pSoldier->inv[ HANDPOS ].usItem].ubCalibre == Magazine[Item[pObject->usItem].ubClassIndex].ubCalibre )
-			{
-				// IT's an OK calibre ammo, do something!
-				// Render Item with specific color
-				//fOutline = TRUE;
-				//sOutlineColor = Get16BPPColor( FROMRGB( 96, 104, 128 ) );
-				//sOutlineColor = Get16BPPColor( FROMRGB( 20, 20, 120 ) );
-
-				// Draw rectangle!
-				pDestBuf = LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES );
-				SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, 640, 480 );
-
-				//usLineColor = Get16BPPColor( FROMRGB( 255, 255, 0 ) );
-				usLineColor = Get16BPPColor( FROMRGB( 230, 215, 196 ) );
-				RectangleDraw( TRUE, (sX+1), (sY+1), (sX + gSMInvData[ sPocket ].sWidth - 2 ),( sY + gSMInvData[ sPocket ].sHeight - 2 ), usLineColor, pDestBuf );
-
-				SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, 640, 480 );
-
-				UnLockVideoSurface( guiSAVEBUFFER );
-			}
-		}
-*/
 
 		if ( gbCompatibleAmmo[ sPocket ] )
 		{
@@ -4913,7 +4883,7 @@ BOOLEAN HandleItemPointerClick( UINT16 usMapPos )
 						return( FALSE );
 					}
 
-					sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, gpItemPointerSoldier->sGridNo, gpItemPointerSoldier->bLevel );
+					sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, gpItemPointerSoldier->sGridNo, gpItemPointerSoldier->bLevel, gpItemPointerSoldier );
 
 					// Check LOS....
 					if ( !SoldierTo3DLocationLineOfSightTest( pSoldier, gpItemPointerSoldier->sGridNo,  gpItemPointerSoldier->bLevel, 3, (UINT8) sDistVisible, TRUE ) )
@@ -7221,14 +7191,33 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 	}
 	else if ( usItem != NOTHING )
 	{
-		if ( !gGameOptions.fGunNut && Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher && !Item[usItem].rocketrifle )
+		// Retrieve the status of the items
+		// Find the minimum status value - not just the first one
+		INT16 sValue = pObject->bStatus[ 0 ];
+		INT16 i;
+		for(i = 1; i < pObject->ubNumberOfObjects; i++)
 		{
-			swprintf( (wchar_t *)pStr, L"%s (%s)", ItemNames[ usItem ], AmmoCaliber[ Weapon[ usItem ].ubCalibre ] );
+			if(pObject->bStatus[ i ] < sValue)
+			{
+				sValue = pObject->bStatus[ i ];
+			}
 		}
-		else
-		{
-			swprintf( (wchar_t *)pStr, L"%s", ItemNames[ usItem ] );
-		}
+
+		// The first tool tip is for rocket rifles
+    if ( !gGameOptions.fGunNut && Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher && !Item[usItem].rocketrifle )
+    {
+        swprintf( (wchar_t *)pStr, L"%s (%s) [%d%%]", ItemNames[ usItem ], AmmoCaliber[ Weapon[ usItem ].ubCalibre ], sValue );
+    }
+    // The next is for ammunition which gets the measurement 'rnds'
+    else if (Item[ usItem ].usItemClass == IC_AMMO)
+    {
+        swprintf( (wchar_t *)pStr, L"%s [%d rnds]", ItemNames[ usItem ], sValue );
+    }
+    // The final, and typical case, is that of an item with a percent status
+    else
+    {
+        swprintf( (wchar_t *)pStr, L"%s [%d%%]", ItemNames[ usItem ], sValue );
+    }
 
 		if ( ( Item[pObject->usItem].fingerprintid ) && pObject->ubImprintID < NO_PROFILE )
 		{
@@ -7531,9 +7520,10 @@ BOOLEAN InitializeStealItemPickupMenu( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOppo
 		}
 
 		// CHECK FOR LEFT/RIGHT
-		if ( ( sX + gItemPickupMenu.sWidth ) > 640 )
+		// WANNE 2
+		if ( ( sX + gItemPickupMenu.sWidth ) > SCREEN_WIDTH )
 		{
-			sX = 640 - gItemPickupMenu.sWidth - ITEMPICK_START_X_OFFSET;
+			sX = SCREEN_WIDTH - gItemPickupMenu.sWidth - ITEMPICK_START_X_OFFSET;
 		}
 		else
 		{
@@ -7552,9 +7542,10 @@ BOOLEAN InitializeStealItemPickupMenu( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOppo
 		}
 
 		// Check for bottom
-		if ( ( sY + gItemPickupMenu.sHeight ) > 340 )
+		// WANNE 2
+		if ( ( sY + gItemPickupMenu.sHeight ) > (SCREEN_HEIGHT - INV_INTERFACE_HEIGHT) )
 		{
-			sY = 340 - gItemPickupMenu.sHeight;
+			sY = (SCREEN_HEIGHT - INV_INTERFACE_HEIGHT) - gItemPickupMenu.sHeight;
 		}
 
 	}
@@ -7580,8 +7571,14 @@ BOOLEAN InitializeStealItemPickupMenu( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOppo
 
 
 	// Build a mouse region here that is over any others.....
-	MSYS_DefineRegion( &(gItemPickupMenu.BackRegion ), (INT16)( 532 ), (INT16)( 367 ), (INT16)( 640 ),(INT16)( 480 ), MSYS_PRIORITY_HIGHEST,
+	/*MSYS_DefineRegion( &(gItemPickupMenu.BackRegion ), (INT16)( 532 ), (INT16)( 367 ), (INT16)( 640 ),(INT16)( 480 ), MSYS_PRIORITY_HIGHEST,
+						 CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK ); */
+
+	// WANNE 2
+	// Build a mouse region here that is over any others.....
+	MSYS_DefineRegion( &(gItemPickupMenu.BackRegion ), (INT16)( iScreenWidthOffset + 532 ), (INT16)( iScreenHeightOffset + 367 ), (INT16)( SCREEN_WIDTH ),(INT16)( SCREEN_HEIGHT ), MSYS_PRIORITY_HIGHEST,
 						 CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK ); 
+
 	// Add region
 	MSYS_AddRegion( &(gItemPickupMenu.BackRegion ) );
 

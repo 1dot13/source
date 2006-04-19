@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "Loading Screen.h"
@@ -773,6 +774,7 @@ UINT32 UndergroundTacticalTraversalTime( INT8 bExitDirection )
 	return 0xffffffff;
 }
 
+// WANNE 2 <zooming>
 void BeginLoadScreen( void )
 {
 	SGPRect SrcRect, DstRect;
@@ -788,13 +790,14 @@ void BeginLoadScreen( void )
 	{
 		DstRect.iLeft = 0;
 		DstRect.iTop = 0;
-		DstRect.iRight = 640;
-		DstRect.iBottom = 480;
+		DstRect.iRight = SCREEN_WIDTH;
+		DstRect.iBottom = SCREEN_HEIGHT;
 		uiTimeRange = 2000;
 		iPercentage = 0;
 		iLastShadePercentage = 0;
 		uiStartTime = GetJA2Clock();
-		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, 640, 480 );
+
+		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 		PlayJA2SampleFromFile( "SOUNDS\\Final Psionic Blast 01 (16-44).wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 		while( iPercentage < 100  )
 		{
@@ -811,31 +814,21 @@ void BeginLoadScreen( void )
 
 			if( iPercentage > 50 )
 			{
-				//iFactor = (iPercentage - 50) * 2;
-				//if( iFactor > iLastShadePercentage )
-			//	{
-					//Calculate the difference from last shade % to the new one.  Ex:  Going from
-					//50% shade value to 60% shade value requires applying 20% to the 50% to achieve 60%.
-					//if( iLastShadePercentage )
-					//	iReqShadePercentage = 100 - (iFactor * 100 / iLastShadePercentage);
-					//else
-					//	iReqShadePercentage = iFactor;
-					//Record the new final shade percentage.
-					//iLastShadePercentage = iFactor;
-					ShadowVideoSurfaceRectUsingLowPercentTable( guiSAVEBUFFER, 0, 0, 640, 480 );
-			//	}
+				ShadowVideoSurfaceRectUsingLowPercentTable( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 			}
 
 			SrcRect.iLeft = 536 * iPercentage / 100;
-			SrcRect.iRight = 640 - iPercentage / 20;
+			SrcRect.iRight = SCREEN_WIDTH - iPercentage / 20;
 			SrcRect.iTop = 367 * iPercentage / 100;
-			SrcRect.iBottom = 480 - 39 * iPercentage / 100;
+			SrcRect.iBottom = SCREEN_HEIGHT - 39 * iPercentage / 100;
+			
 			BltStretchVideoSurface( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, 0, &SrcRect, &DstRect );
 			InvalidateScreen();
 			RefreshScreen( NULL );
 		}
 	}
-	ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, 640, 480, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 	InvalidateScreen( );
 	RefreshScreen( NULL );
 

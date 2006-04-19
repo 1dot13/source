@@ -3,8 +3,8 @@
 
 #include "Types.h"
 
-#define     MAP_BORDER_START_X   261
-#define     MAP_BORDER_START_Y    0
+//#define     MAP_BORDER_START_X   261
+//#define     MAP_BORDER_START_Y    0
 
 
 
@@ -41,10 +41,11 @@ enum{
 */
 
 
-#define MAP_LEVEL_MARKER_X 565
-#define MAP_LEVEL_MARKER_Y 323
-#define MAP_LEVEL_MARKER_DELTA 8
-#define MAP_LEVEL_MARKER_WIDTH ( 620 - MAP_LEVEL_MARKER_X )
+// WANNE 2
+#define MAP_LEVEL_MARKER_X			(MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 + 114))	//MAP_BORDER_X + MAP_BORDER_X_OFFSET + 384		//(SCREEN_WIDTH - 75)			//565
+#define MAP_LEVEL_MARKER_Y			(SCREEN_HEIGHT - 157)						//(SCREEN_HEIGHT - 157)		//323
+#define MAP_LEVEL_MARKER_DELTA		8
+#define MAP_LEVEL_MARKER_WIDTH		55	//( (SCREEN_WIDTH - 20) - MAP_LEVEL_MARKER_X )
 
 
 extern BOOLEAN fShowTownFlag;

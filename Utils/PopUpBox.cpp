@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
 #else
@@ -1314,8 +1315,8 @@ BOOLEAN DrawBox(UINT32 uiCounter)
 	}
 
 	// make sure it will fit on screen!
-	Assert( usTopX + usWidth  <= 639 );
-	Assert( usTopY + usHeight <= 479 );
+	Assert( usTopX + usWidth  <= SCREEN_WIDTH );
+	Assert( usTopY + usHeight <= SCREEN_HEIGHT );
 
 	// subtract 4 because the 2 2-pixel corners are handled separately
 	uiNumTilesWide=((usWidth-4)/BORDER_WIDTH);

@@ -1658,6 +1658,7 @@ INT32 CreateIconButton(INT16 Icon,INT16 IconIndex,INT16 GenImg,INT16 xloc,INT16 
 	b->BackRect = -1;
 #endif
 
+	// WANNE 2
 	// Add button to the button list
 	#ifdef BUTTONSYSTEM_DEBUGGING
 	AssertFailIfIdenticalButtonAttributesFound( b );
@@ -4160,6 +4161,7 @@ void BtnGenericMouseMoveButtonCallback(GUI_BUTTON *btn,INT32 reason)
 				PlayButtonSound( btn->IDNum, BUTTON_SOUND_CLICKED_OFF );
 			}
 		}
+
 		#ifdef JA2
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 		#endif
@@ -4171,6 +4173,7 @@ void BtnGenericMouseMoveButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 			PlayButtonSound( btn->IDNum, BUTTON_SOUND_CLICKED_ON );
 		}
+
 		#ifdef JA2
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 		#endif

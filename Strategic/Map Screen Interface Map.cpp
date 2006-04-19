@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "GameSettings.h"
@@ -42,7 +43,6 @@
 	#include "GameSettings.h"
 #endif
 
-
 // zoom x and y coords for map scrolling
 INT32 iZoomX = 0;
 INT32 iZoomY = 0;
@@ -74,14 +74,15 @@ INT32 iZoomY = 0;
 #define VERT_SCROLL 10
 
 // the pop up for helicopter stuff
-#define MAP_HELICOPTER_ETA_POPUP_X 400
-#define MAP_HELICOPTER_ETA_POPUP_Y 250
-#define MAP_HELICOPTER_UPPER_ETA_POPUP_Y 50
-#define MAP_HELICOPTER_ETA_POPUP_WIDTH 120
-#define MAP_HELICOPTER_ETA_POPUP_HEIGHT 68
+#define MAP_HELICOPTER_ETA_POPUP_X				400
+#define MAP_HELICOPTER_ETA_POPUP_Y				250
+#define MAP_HELICOPTER_UPPER_ETA_POPUP_Y		50
+#define MAP_HELICOPTER_ETA_POPUP_WIDTH			120
+#define MAP_HELICOPTER_ETA_POPUP_HEIGHT			68
 
-#define MAP_LEVEL_STRING_X 432
-#define MAP_LEVEL_STRING_Y 305
+// WANNE 2
+#define MAP_LEVEL_STRING_X						(SCREEN_WIDTH - 208)		//432
+#define MAP_LEVEL_STRING_Y						(SCREEN_HEIGHT - 175)		//305
 
 // font 
 #define MAP_FONT BLOCKFONT2
@@ -95,23 +96,25 @@ INT32 iZoomY = 0;
 
 //Map Location index regions
 
+// WANNE 2 <change THIS>
+
+// WANNE 2 (The numbers above the map)
 // x start of hort index
-#define MAP_HORT_INDEX_X 292
-
+#define MAP_HORT_INDEX_X						(MAP_BORDER_X + MAP_BORDER_X_OFFSET + 31)//(SCREEN_WIDTH - 348)	//292	
 // y position of hort index
-#define MAP_HORT_INDEX_Y  10
-
+#define MAP_HORT_INDEX_Y						(MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 8)
 // height of hort index
-#define MAP_HORT_HEIGHT  GetFontHeight(MAP_FONT)
+#define MAP_HORT_HEIGHT							GetFontHeight(MAP_FONT)
 
+
+// WANNE 2 (the letters on the left side of the map)
 // vert index start x
-#define MAP_VERT_INDEX_X 273
-
+#define MAP_VERT_INDEX_X						(MAP_BORDER_X + MAP_BORDER_X_OFFSET + 13)		//(SCREEN_WIDTH - 367) // 273
 // vert index start y
-#define MAP_VERT_INDEX_Y  31
-
+#define MAP_VERT_INDEX_Y						(MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 29)
 // vert width
-#define MAP_VERT_WIDTH   GetFontHeight(MAP_FONT)
+#define MAP_VERT_WIDTH							GetFontHeight(MAP_FONT)
+
 
 // "Boxes" Icons
 #define SMALL_YELLOW_BOX			0
@@ -414,6 +417,7 @@ INT16 gpSamSectorX[] = { SAM_1_X, SAM_2_X, SAM_3_X, SAM_4_X };
 INT16 gpSamSectorY[] = { SAM_1_Y, SAM_2_Y, SAM_3_Y, SAM_4_Y };
 
 
+// WANNE 2 (reinitialization in "DrawMap()")
 // map region
 SGPRect MapScreenRect={	(MAP_VIEW_START_X+MAP_GRID_X - 2),	( MAP_VIEW_START_Y+MAP_GRID_Y - 1), MAP_VIEW_START_X + MAP_VIEW_WIDTH - 1 + MAP_GRID_X , MAP_VIEW_START_Y+MAP_VIEW_HEIGHT-10+MAP_GRID_Y};
 
@@ -680,6 +684,17 @@ UINT32 DrawMap( void )
   INT16 cnt, cnt2;
 	INT32 iCounter = 0;
 
+	// WANNE 2 <initialization>
+	//MAP_VIEW_START_X = (SCREEN_WIDTH - 370);
+	//MAP_VIEW_START_Y = 10;
+
+	MapScreenRect.iLeft = MAP_VIEW_START_X+MAP_GRID_X - 2;
+	MapScreenRect.iTop = MAP_VIEW_START_Y+MAP_GRID_Y - 1;
+	MapScreenRect.iRight = MAP_VIEW_START_X + MAP_VIEW_WIDTH - 1 + MAP_GRID_X;
+	MapScreenRect.iBottom = MAP_VIEW_START_Y+MAP_VIEW_HEIGHT-10+MAP_GRID_Y;
+
+	//MapScreenRect={	(MAP_VIEW_START_X+MAP_GRID_X - 2),	( MAP_VIEW_START_Y+MAP_GRID_Y - 1), MAP_VIEW_START_X + MAP_VIEW_WIDTH - 1 + MAP_GRID_X , MAP_VIEW_START_Y+MAP_VIEW_HEIGHT-10+MAP_GRID_Y};
+
 	if( !iCurrentMapSectorZ )
 	{
 		pDestBuf = (UINT16*)LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES);
@@ -879,7 +894,8 @@ UINT32 DrawMap( void )
 
 	DisplayLevelString( );
 
-	//RestoreClipRegionToFullScreen( );
+	// WANNE 2 <incommented>
+	RestoreClipRegionToFullScreen( );
 
 	return( TRUE );
 }
@@ -3961,7 +3977,10 @@ void ClipBlitsToMapViewRegionForRectangleAndABit( UINT32 uiDestPitchBYTES )
 void RestoreClipRegionToFullScreenForRectangle( UINT32 uiDestPitchBYTES )
 {
 	// clip blits to map view region
-	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, 640, 480 );
+	//SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, 640, 480 );
+
+	// WANNE 2
+	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
 	return;
 }
@@ -4396,8 +4415,8 @@ void DisplayPositionOfHelicopter( void )
 	CHAR16 sString[ 4 ];
 
 
-	AssertMsg( ( sOldMapX >= 0 ) && ( sOldMapX < 640 ), String( "DisplayPositionOfHelicopter: Invalid sOldMapX = %d", sOldMapX ) );
-	AssertMsg( ( sOldMapY >= 0 ) && ( sOldMapY < 480 ), String( "DisplayPositionOfHelicopter: Invalid sOldMapY = %d", sOldMapY ) );
+	AssertMsg( ( sOldMapX >= 0 ) && ( sOldMapX < SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid sOldMapX = %d", sOldMapX ) );
+	AssertMsg( ( sOldMapY >= 0 ) && ( sOldMapY < SCREEN_HEIGHT ), String( "DisplayPositionOfHelicopter: Invalid sOldMapY = %d", sOldMapY ) );
 
 	// restore background on map where it is
 	if( sOldMapX != 0 )
@@ -4471,10 +4490,11 @@ void DisplayPositionOfHelicopter( void )
 			}
 */
 
-			AssertMsg( ( minX >= 0 ) && ( minX < 640 ), String( "DisplayPositionOfHelicopter: Invalid minX = %d", minX ) );
-			AssertMsg( ( maxX >= 0 ) && ( maxX < 640 ), String( "DisplayPositionOfHelicopter: Invalid maxX = %d", maxX ) );
-			AssertMsg( ( minY >= 0 ) && ( minY < 640 ), String( "DisplayPositionOfHelicopter: Invalid minY = %d", minY ) );
-			AssertMsg( ( maxY >= 0 ) && ( maxY < 640 ), String( "DisplayPositionOfHelicopter: Invalid maxY = %d", maxY ) );
+			// WANNE 2
+			AssertMsg( ( minX >= 0 ) && ( minX < SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid minX = %d", minX ) );
+			AssertMsg( ( maxX >= 0 ) && ( maxX < SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid maxX = %d", maxX ) );
+			AssertMsg( ( minY >= 0 ) && ( minY < SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid minY = %d", minY ) );
+			AssertMsg( ( maxY >= 0 ) && ( maxY < SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid maxY = %d", maxY ) );
 
 			// IMPORTANT: Since min can easily be larger than max, we gotta cast to as signed value
 			x = ( UINT32 )( minX + flRatio * ( ( INT16 ) maxX - ( INT16 ) minX ) );
@@ -4494,10 +4514,11 @@ void DisplayPositionOfHelicopter( void )
 			}
 
 
-			AssertMsg( ( x >= 0 ) && ( x < 640 ), String( "DisplayPositionOfHelicopter: Invalid x = %d.  At %d,%d.  Next %d,%d.  Min/Max X = %d/%d",
+			// WANNE 2
+			AssertMsg( ( x >= 0 ) && ( x < SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid x = %d.  At %d,%d.  Next %d,%d.  Min/Max X = %d/%d",
 							x, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubNextX, pGroup->ubNextY, minX, maxX ) );
 
-			AssertMsg( ( y >= 0 ) && ( y < 480 ), String( "DisplayPositionOfHelicopter: Invalid y = %d.  At %d,%d.  Next %d,%d.  Min/Max Y = %d/%d",
+			AssertMsg( ( y >= 0 ) && ( y < SCREEN_HEIGHT ), String( "DisplayPositionOfHelicopter: Invalid y = %d.  At %d,%d.  Next %d,%d.  Min/Max Y = %d/%d",
 							y, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubNextX, pGroup->ubNextY, minY, maxY ) );
 
 
@@ -4540,8 +4561,9 @@ void DisplayDestinationOfHelicopter( void )
 	HVOBJECT hHandle;
 
 
-	AssertMsg( ( sOldMapX >= 0 ) && ( sOldMapX < 640 ), String( "DisplayDestinationOfHelicopter: Invalid sOldMapX = %d", sOldMapX ) );
-	AssertMsg( ( sOldMapY >= 0 ) && ( sOldMapY < 480 ), String( "DisplayDestinationOfHelicopter: Invalid sOldMapY = %d", sOldMapY ) );
+	// WANNE 2
+	AssertMsg( ( sOldMapX >= 0 ) && ( sOldMapX < SCREEN_WIDTH ), String( "DisplayDestinationOfHelicopter: Invalid sOldMapX = %d", sOldMapX ) );
+	AssertMsg( ( sOldMapY >= 0 ) && ( sOldMapY < SCREEN_HEIGHT ), String( "DisplayDestinationOfHelicopter: Invalid sOldMapY = %d", sOldMapY ) );
 
 	// restore background on map where it is
 	if( sOldMapX != 0 )
@@ -4561,8 +4583,9 @@ void DisplayDestinationOfHelicopter( void )
 		x = MAP_VIEW_START_X + ( MAP_GRID_X * sMapX ) + 1;
 		y = MAP_VIEW_START_Y + ( MAP_GRID_Y * sMapY ) + 3;
 
-		AssertMsg( ( x >= 0 ) && ( x < 640 ), String( "DisplayDestinationOfHelicopter: Invalid x = %d.  Dest %d,%d", x, sMapX, sMapY ) );
-		AssertMsg( ( y >= 0 ) && ( y < 480 ), String( "DisplayDestinationOfHelicopter: Invalid y = %d.  Dest %d,%d", y, sMapX, sMapY ) );
+		// WANNE 2
+		AssertMsg( ( x >= 0 ) && ( x < SCREEN_WIDTH ), String( "DisplayDestinationOfHelicopter: Invalid x = %d.  Dest %d,%d", x, sMapX, sMapY ) );
+		AssertMsg( ( y >= 0 ) && ( y < SCREEN_HEIGHT ), String( "DisplayDestinationOfHelicopter: Invalid y = %d.  Dest %d,%d", y, sMapX, sMapY ) );
 
 		// clip blits to mapscreen region
 		ClipBlitsToMapViewRegion( );
@@ -5006,6 +5029,7 @@ void DisplayLevelString( void )
 	SetFontBackground( FONT_BLACK );
 	swprintf( sString, L"%s %d", sMapLevelString[ 0 ], iCurrentMapSectorZ );
 	
+	// WANNE 2
 	mprintf(  MAP_LEVEL_STRING_X, MAP_LEVEL_STRING_Y, sString  );
 
 	SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );

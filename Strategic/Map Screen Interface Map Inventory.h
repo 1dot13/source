@@ -1,3 +1,4 @@
+// WANNE 2 <changed some lines>
 #ifndef _MAP_INTERFACE_MAP_INVEN_H
 #define _MAP_INTERFACE_MAP_INVEN_H
 
@@ -8,7 +9,7 @@
 #define MAX_DISTANCE_TO_PICKUP_ITEM 5
 
 // number of inventory slots
-#define MAP_INVENTORY_POOL_SLOT_COUNT 45
+//#define MAP_INVENTORY_POOL_SLOT_COUNT				84	//45	//45
 
 // whether we are showing the inventory pool graphic
 extern BOOLEAN fShowMapInventoryPool;
@@ -52,6 +53,8 @@ extern INT16 sObjectSourceGridNo;
 extern WORLDITEM *pInventoryPoolList;
 extern INT32 iCurrentInventoryPoolPage;
 extern BOOLEAN fMapInventoryItemCompatable[ ];
+// WANNE 2
+extern MAP_INVENTORY_POOL_SLOT_COUNT; 
 
 BOOLEAN IsMapScreenWorldItemInvisibleInMapInventory( WORLDITEM *pWorldItem );
 BOOLEAN IsMapScreenWorldItemVisibleInMapInventory( WORLDITEM *pWorldItem );

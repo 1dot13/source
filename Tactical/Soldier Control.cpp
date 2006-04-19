@@ -574,8 +574,41 @@ INT8 CalcActionPoints(SOLDIERTYPE *pSold)
 	}
 
 //Madd
-	if ( pSold->bTeam != CIV_TEAM && pSold->bTeam != gbPlayerNum && gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
-		ubPoints += 5; // everything and everyone moves a little faster against you on insane...
+//	if ( pSold->bTeam != CIV_TEAM && pSold->bTeam != gbPlayerNum && gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+//		ubPoints += 5; // everything and everyone moves a little faster against you on insane...
+
+
+	//Kaiden: Took your idea a step further adding the bonus for each difficulty level
+	// and then externalized it. AND added it to the Dont max out points section below.
+		if ( pSold->bTeam != CIV_TEAM && pSold->bTeam != gbPlayerNum)
+		{
+
+			switch( gGameOptions.ubDifficultyLevel )
+			{
+				case DIF_LEVEL_EASY:
+
+					ubPoints += gGameExternalOptions.iEasyAPBonus;
+					break;
+
+				case DIF_LEVEL_MEDIUM:
+
+					ubPoints += gGameExternalOptions.iExperiencedAPBonus;
+					break;
+
+				case DIF_LEVEL_HARD:
+
+					ubPoints += gGameExternalOptions.iExpertAPBonus;
+					break;
+
+				case DIF_LEVEL_INSANE:
+
+					ubPoints += gGameExternalOptions.iInsaneAPBonus; 
+					break;
+
+				default:
+					ubPoints +=0;
+			}
+		}
 
 	// if we are in boxing mode, adjust APs... THIS MUST BE LAST!
 	if ( gTacticalStatus.bBoxingState == BOXING || gTacticalStatus.bBoxingState == PRE_BOXING )
@@ -608,8 +641,43 @@ void CalcNewActionPoints( SOLDIERTYPE *pSoldier )
 
 	// Don't max out if we are drugged....
 	if ( !GetDrugEffect( pSoldier, DRUG_TYPE_ADRENALINE ) )
-	{
+	{  //Kaiden: If Enemy, they can max out, but their Max is NOW = MAX + diffAPBonus
+		 // No sense in giving them a bonus if some of the points are wasted because we
+		 // Didn't raise their cap by the same amount.
+		if ( pSoldier->bTeam != CIV_TEAM && pSoldier->bTeam != gbPlayerNum)
+		{
+			switch( gGameOptions.ubDifficultyLevel )
+			{
+				case DIF_LEVEL_EASY:
+
+					pSoldier->bActionPoints	= __min( pSoldier->bActionPoints, (gubMaxActionPoints[ pSoldier->ubBodyType ] + gGameExternalOptions.iEasyAPBonus)); 
+					break;
+
+				case DIF_LEVEL_MEDIUM:
+
+					pSoldier->bActionPoints	= __min( pSoldier->bActionPoints, (gubMaxActionPoints[ pSoldier->ubBodyType ] + gGameExternalOptions.iExperiencedAPBonus));
+					break;
+
+				case DIF_LEVEL_HARD:
+
+					pSoldier->bActionPoints	= __min( pSoldier->bActionPoints, (gubMaxActionPoints[ pSoldier->ubBodyType ] + gGameExternalOptions.iExpertAPBonus));
+					break;
+
+				case DIF_LEVEL_INSANE:
+
+					pSoldier->bActionPoints	= __min( pSoldier->bActionPoints, (gubMaxActionPoints[ pSoldier->ubBodyType ] + gGameExternalOptions.iInsaneAPBonus)); 
+					break;
+
+				default:
 		pSoldier->bActionPoints					= __min( pSoldier->bActionPoints, gubMaxActionPoints[ pSoldier->ubBodyType ] );
+			}
+
+		}
+		else
+		{ //Kaiden: Players just max out normally unless drugged
+			pSoldier->bActionPoints	= __min( pSoldier->bActionPoints, gubMaxActionPoints[ pSoldier->ubBodyType ] );
+		}
+
 	}
 
 	pSoldier->bInitialActionPoints	= pSoldier->bActionPoints;
@@ -2665,7 +2733,7 @@ void SetSoldierGridNo( SOLDIERTYPE *pSoldier, INT16 sNewGridNo, BOOLEAN fForceRe
 							// if we SEE this particular oppponent, and he DOESN'T see us... and he COULD see us...
 							if ( (pSoldier->bOppList[ cnt ] == SEEN_CURRENTLY) &&
 								 pEnemy->bOppList[ pSoldier->ubID ] != SEEN_CURRENTLY && 
-								 PythSpacesAway( pSoldier->sGridNo, pEnemy->sGridNo ) < DistanceVisible( pEnemy, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, pSoldier->sGridNo, pSoldier->bLevel ) )
+								 PythSpacesAway( pSoldier->sGridNo, pEnemy->sGridNo ) < DistanceVisible( pEnemy, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, pSoldier->sGridNo, pSoldier->bLevel, pSoldier ) )
 							{
 									// AGILITY (5):  Soldier snuck 1 square past unaware enemy
 									StatChange( pSoldier, AGILAMT, 5, FALSE );
@@ -6120,11 +6188,22 @@ void MoveMercFacingDirection( SOLDIERTYPE *pSoldier, BOOLEAN fReverse, FLOAT dMo
 void BeginSoldierClimbUpRoof( SOLDIERTYPE *pSoldier )
 {
 	INT8							bNewDirection;
+	UINT8							ubWhoIsThere;
+
 
 	if ( FindHeigherLevel( pSoldier, pSoldier->sGridNo, pSoldier->bDirection, &bNewDirection ) && ( pSoldier->bLevel == 0 ) )
 	{
 		if ( EnoughPoints( pSoldier, GetAPsToClimbRoof( pSoldier, FALSE ), 0, TRUE ) )
 		{
+			//Kaiden: Helps if we look where we are going before we try to climb on top of someone
+		 ubWhoIsThere = WhoIsThere2( NewGridNo( (UINT16)pSoldier->sGridNo, (UINT16)DirectionInc(bNewDirection ) ), 1 );
+		 if ( ubWhoIsThere != NOBODY && ubWhoIsThere != pSoldier->ubID )
+		 {
+			return;
+		 }
+	   else
+		 {
+
 			if (pSoldier->bTeam == gbPlayerNum)
 			{
 				// OK, SET INTERFACE FIRST
@@ -6139,6 +6218,8 @@ void BeginSoldierClimbUpRoof( SOLDIERTYPE *pSoldier )
 
 			InternalReceivingSoldierCancelServices( pSoldier, FALSE );				
 			InternalGivingSoldierCancelServices( pSoldier, FALSE );				
+
+		}		
 
 		}		
 	}
@@ -7329,16 +7410,30 @@ BOOLEAN CheckSoldierHitRoof( SOLDIERTYPE *pSoldier )
 void BeginSoldierClimbDownRoof( SOLDIERTYPE *pSoldier )
 {
 	INT8							bNewDirection;
+	UINT8	ubWhoIsThere;
+
 
 	if ( FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->bDirection, &bNewDirection ) && ( pSoldier->bLevel > 0 ) )
 	{
 		if ( EnoughPoints( pSoldier, GetAPsToClimbRoof( pSoldier, TRUE ), 0, TRUE ) )
 		{
+			//Kaiden: Helps if we look where we are going before we try to climb on top of someone
+		 ubWhoIsThere = WhoIsThere2( NewGridNo( (UINT16)pSoldier->sGridNo, (UINT16)DirectionInc(bNewDirection ) ), 0 );
+		 if ( ubWhoIsThere != NOBODY && ubWhoIsThere != pSoldier->ubID )
+		 {
+			return;
+		 }
+		 else
+		 {
+
 			if (pSoldier->bTeam == gbPlayerNum)
 			{
 				// OK, SET INTERFACE FIRST
 				SetUIBusy( pSoldier->ubID );
 			}
+
+
+
 
 			pSoldier->sTempNewGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, (UINT16)DirectionInc(bNewDirection ) );
 
@@ -7352,8 +7447,46 @@ void BeginSoldierClimbDownRoof( SOLDIERTYPE *pSoldier )
 
 		}
 	}
+	}
 
 }
+/*
+void BeginSoldierClimbDownRoof( SOLDIERTYPE *pSoldier )
+{
+	INT8							bNewDirection;
+	UINT8	ubWhoIsThere;
+
+
+	if ( FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->bDirection, &bNewDirection ) && ( pSoldier->bLevel > 0 ) )
+	{
+		if ( EnoughPoints( pSoldier, GetAPsToClimbRoof( pSoldier, TRUE ), 0, TRUE ) )
+		{
+			if (pSoldier->bTeam == gbPlayerNum)
+			{
+				// OK, SET INTERFACE FIRST
+				SetUIBusy( pSoldier->ubID );
+			}
+
+
+
+
+				pSoldier->sTempNewGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, (UINT16)DirectionInc(bNewDirection ) );
+
+				bNewDirection = gTwoCDirection[ bNewDirection ];
+
+				pSoldier->ubPendingDirection = bNewDirection;
+				EVENT_InitNewSoldierAnim( pSoldier, CLIMBDOWNROOF, 0 , FALSE );
+
+				InternalReceivingSoldierCancelServices( pSoldier, FALSE );				
+				InternalGivingSoldierCancelServices( pSoldier, FALSE );				
+
+		}
+	}
+
+}
+*/
+
+
 
 void MoveMerc( SOLDIERTYPE *pSoldier, FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckRange )
 {
