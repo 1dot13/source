@@ -538,7 +538,6 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	//Place a message on the screen telling the user that we are saving the game
 	iSaveLoadGameMessageBoxID = PrepareMercPopupBox( iSaveLoadGameMessageBoxID, BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER, zSaveLoadText[ SLG_SAVING_GAME_MESSAGE ], 300, 0, 0, 0, &usActualWidth, &usActualHeight);
-	
 	usPosX = ( SCREEN_WIDTH - usActualWidth ) / 2 ;
 
 	RenderMercPopUpBoxFromIndex( iSaveLoadGameMessageBoxID, usPosX, iScreenHeightOffset + 160, FRAME_BUFFER );
@@ -4546,7 +4545,6 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 //rain
 extern UINT32 guiRainLoop;
 //end rain
-
 
 BOOLEAN LoadGeneralInfo( HWFILE hFile )
 {

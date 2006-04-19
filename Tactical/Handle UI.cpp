@@ -4528,12 +4528,12 @@ UINT32 UIHandleLCOnTerrain( UI_EVENT *pUIEvent )
 
 		if( usAnimState != INVALID_ANIMATION )
 		{
-			gsCurrentActionPoints = GetAPsToReadyWeapon( pSoldier, usAnimState ) + AP_TO_AIM_TILE_IF_GETTING_READY;
+			gsCurrentActionPoints = GetAPsToReadyWeapon( pSoldier, usAnimState );// Madd: removed the next part since it was deducting 2 extra aps that would not be deducted when readying the old way //+ AP_TO_AIM_TILE_IF_GETTING_READY;
 		}
 		else if( pSoldier->sLastTarget != sXPos + (MAXCOL * sYPos ) )
 			gsCurrentActionPoints = AP_TO_AIM_TILE_IF_ALREADY_READY;
 		else
-		gsCurrentActionPoints = 0;
+			gsCurrentActionPoints = 0;
 
 		gfUIHandleShowMoveGrid = TRUE;
 		gsUIHandleShowMoveGridLocation = sXPos + (MAXCOL * sYPos );
@@ -4604,7 +4604,7 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 		if( usAnimState != INVALID_ANIMATION )
 		{
 			sAPCostToReady = GetAPsToReadyWeapon( pSoldier, usAnimState );
-			sAPCost = sAPCostToReady + AP_TO_AIM_TILE_IF_GETTING_READY;
+			sAPCost = sAPCostToReady; // Madd: removed this part since it was costing too many aps to ready weapon -- see other comment //+ AP_TO_AIM_TILE_IF_GETTING_READY;
 		}
 		else if( pSoldier->sLastTarget != sXPos + (MAXCOL * sYPos ) )
 			sAPCost = AP_TO_AIM_TILE_IF_ALREADY_READY;

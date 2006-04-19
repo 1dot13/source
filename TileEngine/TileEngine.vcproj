@@ -3,8 +3,10 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="TileEngine"
-	SccProjectName="&quot;$/Jagged Alliance 2/Development/Programming/Jagged Alliance 2/Build&quot;, AVAAAAAA"
-	SccLocalPath="..\..\..\ja2\build">
+	SccProjectName=""
+	SccAuxPath=""
+	SccLocalPath=""
+	SccProvider="">
 	<Platforms>
 		<Platform
 			Name="Win32"/>
@@ -20,8 +22,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="\Standard Gaming Platform,\ja2\Build,\ja2\Build\Tactical,\ja2\Build\Utils,\ja2\build\TacticalAI,\ja2\build\Editor,\ja2\build\strategic,\ja2\build\Laptop"
-				PreprocessorDefinitions="_DEBUG;BOUNDS_CHECKER;JA2DEMO;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS"
+				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\;..\Tactical;..\Utils;..\tacticalai;..\Editor;..\strategic;..\Laptop;.\"
+				PreprocessorDefinitions="_DEBUG;BOUNDS_CHECKER;JA2DEMO;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS;XML_STATIC;CINTERFACE"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="TileEngine All.h"
@@ -33,7 +35,7 @@
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="1"
-				CompileAs="0"/>
+				CompileAs="2"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -70,8 +72,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="\Standard Gaming Platform,\ja2\Build,\ja2\Build\Tactical,\ja2\Build\Utils,\ja2\build\TacticalAI,\ja2\build\Editor,\ja2\build\strategic,\ja2\build\Laptop"
-				PreprocessorDefinitions="_DEBUG;BOUNDS_CHECKER;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS;_VTUNE_PROFILING"
+				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\;..\Tactical;..\Utils;..\tacticalai;..\Editor;..\strategic;..\Laptop;.\"
+				PreprocessorDefinitions="_DEBUG;BOUNDS_CHECKER;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS;_VTUNE_PROFILING;XML_STATIC;CINTERFACE"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="TileEngine All.h"
@@ -83,7 +85,8 @@
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="1"
-				CompileAs="0"/>
+				CompileAs="2"
+				DisableSpecificWarnings="4292"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -121,8 +124,13 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/O2b2 "
 				Optimization="2"
+				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\Standard Gaming Platform,..\,..\Tactical,..\Utils,..\tacticalai,..\Editor,..\strategic,..\Laptop,.\"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForProcessor="3"
+				OptimizeForWindowsApplication="TRUE"
+				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\;..\Tactical;..\Utils;..\tacticalai;..\Editor;..\strategic;..\Laptop;.\"
 				PreprocessorDefinitions="CALLBACKTIMER;PRECOMPILEDHEADERS;NDEBUG;WIN32;_WINDOWS;JA2;XML_STATIC;CINTERFACE"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -136,7 +144,7 @@
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
-				CompileAs="0"/>
+				CompileAs="2"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -175,7 +183,7 @@
 				AdditionalOptions="/O2b2 "
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\Standard Gaming Platform,..\,..\Tactical,..\Utils,..\tacticalai,..\Editor,..\strategic,..\Laptop,.\"
+				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\;..\Tactical;..\Utils;..\tacticalai;..\Editor;..\strategic;..\Laptop;.\"
 				PreprocessorDefinitions="NDEBUG;RELEASE_WITH_DEBUG_INFO;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS;_VTUNE_PROFILING;XML_STATIC;CINTERFACE"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -190,12 +198,14 @@
 				WarningLevel="4"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="3"
-				CompileAs="0"/>
+				CompileAs="2"
+				DisableSpecificWarnings="4292;4189"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
 				OutputFile=".\Release with Debug\TileEngine.lib"
+				AdditionalLibraryDirectories=""
 				SuppressStartupBanner="TRUE"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -227,8 +237,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="\Standard Gaming Platform,\ja2\Build,\ja2\Build\Tactical,\ja2\Build\Utils,\ja2\build\TacticalAI,\ja2\build\Editor,\ja2\build\strategic,\ja2\build\Laptop"
-				PreprocessorDefinitions="_DEBUG;JA2DEMO;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS"
+				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\;..\Tactical;..\Utils;..\tacticalai;..\Editor;..\strategic;..\Laptop;.\"
+				PreprocessorDefinitions="_DEBUG;JA2DEMO;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS;XML_STATIC;CINTERFACE"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="TileEngine All.h"
@@ -240,7 +250,7 @@
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="1"
-				CompileAs="0"/>
+				CompileAs="2"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -277,7 +287,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Standard Gaming Platform,..\,..\Tactical,..\Utils,..\tacticalai,..\Editor,..\strategic,..\Laptop,.\"
+				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\;..\Tactical;..\Utils;..\tacticalai;..\Editor;..\strategic;..\Laptop;.\"
 				PreprocessorDefinitions="CALLBACKTIMER;PRECOMPILEDHEADERS;_DEBUG;WIN32;_WINDOWS;JA2;_VTUNE_PROFILING;XML_STATIC;CINTERFACE"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
@@ -290,7 +300,7 @@
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="1"
-				CompileAs="0"
+				CompileAs="2"
 				DisableSpecificWarnings="4292"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -330,7 +340,7 @@
 				AdditionalOptions="/O2b2 "
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\Standard Gaming Platform,..\,..\Tactical,..\Utils,..\tacticalai,..\Editor,..\strategic,..\Laptop,.\"
+				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\;..\Tactical;..\Utils;..\tacticalai;..\Editor;..\strategic;..\Laptop;.\"
 				PreprocessorDefinitions="RELEASE_WITH_DEBUG_INFO;NDEBUG;JA2DEMO;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS;XML_STATIC;CINTERFACE"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -345,7 +355,7 @@
 				WarningLevel="4"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="3"
-				CompileAs="0"/>
+				CompileAs="2"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -384,8 +394,8 @@
 				AdditionalOptions="/O2b2 "
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="\Standard Gaming Platform,\ja2\Build,\ja2\Build\Tactical,\ja2\Build\Utils,\ja2\build\tacticalai,\ja2\build\Editor,\ja2\build\strategic,\ja2\build\Laptop"
-				PreprocessorDefinitions="RELEASE_WITH_DEBUG_INFO;NDEBUG;JA2DEMO;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS"
+				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\;..\Tactical;..\Utils;..\tacticalai;..\Editor;..\strategic;..\Laptop;.\"
+				PreprocessorDefinitions="RELEASE_WITH_DEBUG_INFO;NDEBUG;JA2DEMO;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS;XML_STATIC;CINTERFACE"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
@@ -399,7 +409,7 @@
 				WarningLevel="4"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="3"
-				CompileAs="0"/>
+				CompileAs="2"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -1409,79 +1419,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="physics.cpp">
-				<FileConfiguration
-					Name="Demo Bounds Checker|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Bounds Checker|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release with Debug Info|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug Demo|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Demo Release with Debug Info|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release Demo|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
+				RelativePath=".\physics.cpp">
 			</File>
 			<File
 				RelativePath="pits.cpp">
@@ -3081,6 +3019,9 @@
 				RelativePath="Exit Grids.h">
 			</File>
 			<File
+				RelativePath=".\Explosion Control.h">
+			</File>
+			<File
 				RelativePath="Fog Of War.h">
 			</File>
 			<File
@@ -3094,6 +3035,9 @@
 			</File>
 			<File
 				RelativePath="Map Edgepoints.h">
+			</File>
+			<File
+				RelativePath=".\physics.h">
 			</File>
 			<File
 				RelativePath="pits.h">

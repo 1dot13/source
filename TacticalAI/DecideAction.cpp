@@ -20,7 +20,7 @@
 	#include "pathai.h"
 	#include "Render Fun.h"
 	#include "Boxing.h"
-	#include "Air Raid.h"
+//	#include "Air Raid.h"
 #endif
 
 extern BOOLEAN InternalIsValidStance( SOLDIERTYPE *pSoldier, INT8 bDirection, INT8 bNewStance );
@@ -934,6 +934,11 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 			case ATTACKSLAYONLY:									 break;
 			}
 
+
+		//hide those suicidal militia on the roofs for better defensive positions
+		if ( pSoldier->bTeam == MILITIA_TEAM )
+			iChance += 20;
+
 		// reduce chance for any injury, less likely to hop up if hurt
 		iChance -= (pSoldier->bLifeMax - pSoldier->bLife);
 
@@ -1500,6 +1505,9 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		 // reduce chance if breath is down, less likely to wander around when tired
 		 iChance -= (100 - pSoldier->bBreath);
 
+		//Madd: make militia less likely to go running headlong into trouble
+		if ( pSoldier->bTeam == MILITIA_TEAM )
+			iChance -= 30;
 
 		 if ((INT16) PreRandom(100) < iChance  )
 			{
@@ -1738,7 +1746,11 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			}
 
 
-		 // reduce chance if breath is down, less likely to wander around when tired
+		//Madd: make militia more likely to take cover
+		if ( pSoldier->bTeam == MILITIA_TEAM )
+			iChance += 20;
+
+		// reduce chance if breath is down, less likely to wander around when tired
 		 iChance -= (100 - pSoldier->bBreath);
 
 		 if ((INT16)PreRandom(100) < iChance)
@@ -2209,7 +2221,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 			}
 			while(	pSoldier->bActionPoints - (BestShot.ubAPCost - BestShot.ubAimTime) > ubBurstAPs &&
 					pSoldier->inv[ pSoldier->ubAttackingHand ].ubGunShotsLeft >= pSoldier->bDoAutofire &&
-					GetBurstPenalty(&pSoldier->inv[ pSoldier->ubAttackingHand ], gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)*pSoldier->bDoAutofire <= 80 ); 
+					GetAutoPenalty(&pSoldier->inv[ pSoldier->ubAttackingHand ], gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)*pSoldier->bDoAutofire <= 80 ); 
 				
 				
 			pSoldier->bDoAutofire--;
@@ -2236,7 +2248,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	}
 	// suppression not possible, do something else
  }
-
+/*
 // CALL IN AIR STRIKE & RADIO RED ALERT
 if ( !fCivilian && pSoldier->bTeam != MILITIA_TEAM && gGameOptions.fAirStrikes && airstrikeavailable && (pSoldier->bActionPoints >= AP_RADIO) && !WillAirRaidBeStopped(pSoldier->sSectorX,pSoldier->sSectorY))
   {
@@ -2293,7 +2305,7 @@ if ( !fCivilian && pSoldier->bTeam != MILITIA_TEAM && gGameOptions.fAirStrikes &
       }
     }
   }
-
+*/
 
 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: crouch and rest if running out of breath");
  ////////////////////////////////////////////////////////////////////////
@@ -2588,6 +2600,12 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 					 case CUNNINGAID:    bSeekPts +=  1; bHelpPts += +1; bHidePts += +1; bWatchPts +=  0; break;
 					 case AGGRESSIVE:    bSeekPts += +1; bHelpPts +=  0; bHidePts += -1; bWatchPts +=  0; break;
 					 case ATTACKSLAYONLY:bSeekPts += +1; bHelpPts +=  0; bHidePts += -1; bWatchPts +=  0; break;
+					}
+
+					//Madd: make militia less likely to go running headlong into trouble
+					if ( pSoldier->bTeam == MILITIA_TEAM )
+					{
+						bSeekPts += -1; bHelpPts +=  0; bHidePts += +1; bWatchPts += +1;
 					}
 				}
 
@@ -3290,7 +3308,9 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 
  BOOLEAN fAllowCoverCheck = FALSE;
 
-// once we hit status black, reset flanking status
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack");
+
+	// once we hit status black, reset flanking status
 //pSoldier->numFlanks = 0;
 
 
@@ -4144,7 +4164,7 @@ bCanAttack = FALSE;
 					}
 					else
 					{
-						iChance = (25 / (BestAttack.ubAimTime + 1));
+						iChance = (25 / max((BestAttack.ubAimTime + 1),1));
 						switch (pSoldier->bAttitude)
 						{
 							case DEFENSIVE:		iChance += -5; break;
@@ -4162,6 +4182,7 @@ bCanAttack = FALSE;
 						// increase chance based on proximity and difficulty of enemy
 						if ( PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) < 15 )
 						{
+							DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("DecideActionBlack: check chance to burst"));
 							iChance += ( 15 - PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) ) * ( 1 + SoldierDifficultyLevel( pSoldier ) );
 							if ( pSoldier->bAttitude == ATTACKSLAYONLY )
 							{
@@ -4190,8 +4211,8 @@ bCanAttack = FALSE;
 
 			if (IsGunAutofireCapable( pSoldier, BestAttack.bWeaponIn /*, FALSE*/ ) &&
 				!(Menptr[BestShot.ubOpponent].bLife < OKLIFE) && // don't burst at downed targets
-				pSoldier->inv[BestAttack.bWeaponIn].ubGunShotsLeft > 1 &&
-				BestAttack.ubAimTime != BURSTING)
+				(( pSoldier->inv[BestAttack.bWeaponIn].ubGunShotsLeft > 1 &&
+				BestAttack.ubAimTime != BURSTING ) || Weapon[pSoldier->inv[BestAttack.bWeaponIn].usItem].NoSemiAuto) )
 			{
 				pSoldier->bDoAutofire = 0;
 				do
@@ -4201,7 +4222,7 @@ bCanAttack = FALSE;
 				}
 				while(	pSoldier->bActionPoints - (BestAttack.ubAPCost - BestAttack.ubAimTime) > ubBurstAPs &&
 						pSoldier->inv[ pSoldier->ubAttackingHand ].ubGunShotsLeft >= pSoldier->bDoAutofire &&
-						GetBurstPenalty(&pSoldier->inv[ BestAttack.bWeaponIn ], gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)*pSoldier->bDoAutofire <= 80);
+						GetAutoPenalty(&pSoldier->inv[ BestAttack.bWeaponIn ], gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)*pSoldier->bDoAutofire <= 80);
 				
 				
 				
@@ -4217,7 +4238,7 @@ bCanAttack = FALSE;
 					}
 					else
 					{
-						iChance = (100 / (BestAttack.ubAimTime + 1));
+						iChance = (100 / max((BestAttack.ubAimTime + 1),1));
 						switch (pSoldier->bAttitude)
 						{
 							case DEFENSIVE:		iChance += -5; break;
@@ -4236,6 +4257,7 @@ bCanAttack = FALSE;
 						// increase chance based on proximity and difficulty of enemy
 						if ( PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) < 15 )
 						{
+							DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("DecideActionBlack: check chance to autofire"));
 							iChance += ( 15 - PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) ) * ( 1 + SoldierDifficultyLevel( pSoldier ) );
 							if ( pSoldier->bAttitude == ATTACKSLAYONLY )
 							{
@@ -4245,7 +4267,7 @@ bCanAttack = FALSE;
 						}
 					}
 
-					if ((INT32) PreRandom( 100 ) < iChance)
+					if ((INT32) PreRandom( 100 ) < iChance || Weapon[pSoldier->inv[BestAttack.bWeaponIn].usItem].NoSemiAuto)
 					{
 						BestAttack.ubAimTime = AUTOFIRING + pSoldier->bDoAutofire;
 						BestAttack.ubAPCost = BestAttack.ubAPCost - BestAttack.ubAimTime + CalcAPsToAutofire( CalcActionPoints( pSoldier ), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier->bDoAutofire );
@@ -4371,6 +4393,7 @@ bCanAttack = FALSE;
 							case ATTACKSLAYONLY:iChance += 30; break;
 						}
 						// increase chance based on proximity and difficulty of enemy
+						DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("DecideActionBlack: check chance to gl burst"));
 						iChance += ( 15 - PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) ) * ( 1 + SoldierDifficultyLevel( pSoldier ) );
 					}
 
@@ -4619,8 +4642,10 @@ bCanAttack = FALSE;
 
    // if there hasn't been an initial RED ALERT yet in this sector
    if ( !(gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition) || NeedToRadioAboutPanicTrigger() )
-     // since I'm at STATUS RED, I obviously know we're being invaded!
-     iChance = gbDiff[DIFF_RADIO_RED_ALERT][ SoldierDifficultyLevel( pSoldier ) ];
+   {     // since I'm at STATUS RED, I obviously know we're being invaded!
+		DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("DecideActionBlack: check chance to radio contact"));
+		iChance = gbDiff[DIFF_RADIO_RED_ALERT][ SoldierDifficultyLevel( pSoldier ) ];
+   }
    else // subsequent radioing (only to update enemy positions, request help)
      // base chance depends on how much new info we have to radio to the others
      iChance = 10 * WhatIKnowThatPublicDont(pSoldier,FALSE);  // use 10 * for RED alert

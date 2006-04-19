@@ -529,14 +529,14 @@ DEALER_POSSIBLE_INV gGabbyInventory[MAXITEMS+1];// =
 //
 // Frank  ( Alcohol )
 //
-DEALER_POSSIBLE_INV gFrankInventory[MAXITEMS+1] = 
-{
-	{ BEER,							12 },		
-	{ WINE,							6 },		
-	{ ALCOHOL,					9 },		
-
-	{ LAST_DEALER_ITEM,	NO_DEALER_ITEM },		//Last One
-};
+DEALER_POSSIBLE_INV gFrankInventory[MAXITEMS+1];// = 
+//{
+//	{ BEER,							12 },		
+//	{ WINE,							6 },		
+//	{ ALCOHOL,					9 },		
+//
+//	{ LAST_DEALER_ITEM,	NO_DEALER_ITEM },		//Last One
+//};
 
 
 //
@@ -902,22 +902,6 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	// the following staple items are always deemed highly suitable regardless of player's progress:
 	switch (usItemIndex)
 	{
-		case CLIP38_6:
-		case CLIP9_15:
-		case CLIP9_30:
-		case CLIP357_6:
-		case CLIP357_9:
-		case CLIP45_7:
-		case CLIP45_30:
-		case CLIP12G_7:
-		case CLIP12G_7_BUCKSHOT:
-		case CLIP545_30_HP:
-		case CLIP556_30_HP:
-		case CLIP762W_10_HP:
-		case CLIP762W_30_HP:
-		case CLIP762N_5_HP:
-		case CLIP762N_20_HP:
-
 		case FIRSTAIDKIT:
 		case MEDICKIT:
 		case TOOLKIT:
@@ -945,6 +929,9 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 
 	ubMinCoolness = HighestPlayerProgressPercentage() / 10;
 	ubMaxCoolness = ( HighestPlayerProgressPercentage() / 10 ) + 1;
+
+	if ( bArmsDealer == -1 )
+		ubMinCoolness = 1;
 
 	//Madd:  Bobby Ray's will sell higher coolness stuff if it's used, and may also have a better selection at the start of the game, depending on selection
 	if ( bArmsDealer == -1 && gGameOptions.ubBobbyRay > BR_GOOD )
@@ -976,6 +963,14 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	ubMinCoolness = max( 1, min( 9, ubMinCoolness ) );
 	ubMaxCoolness = max( 2, min( 10, ubMaxCoolness ) );
 
+	if ( bArmsDealer == -1 )
+	{
+		//Madd: BR's always sells ammo for its guns
+		if (Item[usItemIndex].usItemClass == IC_AMMO && ubItemCoolness <= ubMaxCoolness )
+		{
+			return(ITEM_SUITABILITY_ALWAYS);
+		}
+	}
 
 	// if item is too cool for current level of progress
 	if (ubItemCoolness > ubMaxCoolness)

@@ -882,6 +882,7 @@ UINT8 CalcAPsToBurst( INT8 bBaseActionPoints, OBJECTTYPE * pObj )
 		aps = (aps * 100) / (100 + GetAPReductionStatus(pObj) / (100/GetPercentAPReduction(pObj)));
 	}*/
 	
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcAPsToBurst: before bonus aps = %d, std bonus = %d, burst bonus = %d", aps,GetPercentAPReduction(pObj),GetPercentBurstFireAPReduction(pObj)));
 	// Snap: do this a little differently: % reduction means
 	// aps <- aps * ( 100 - red ) / 100
 	aps = ( aps	* ( 100 - GetPercentAPReduction(pObj) ) + 50 ) / 100;
@@ -894,6 +895,7 @@ UINT8 CalcAPsToBurst( INT8 bBaseActionPoints, OBJECTTYPE * pObj )
 	if ( aps < 0 ) aps = 0;
 	else if ( aps > AP_MAXIMUM ) aps = AP_MAXIMUM;
 	
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcAPsToBurst: return aps = %d", aps));
 	return (UINT8) aps;
 }
 
@@ -930,18 +932,19 @@ UINT8 CalcAPsToAutofire( INT8 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAut
 		//	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcAPsToAutofire: found reflex sight, aps = %d, # shots = %d",aps,pSoldier->bDoAutofire ));
 		//}
 		
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcAPsToAutoFire: before bonus aps = %d, std bonus = %d, auto bonus = %d", aps,GetPercentAPReduction(pObj),GetPercentAutofireAPReduction(pObj)));
 		aps = ( aps	* ( 100 - GetPercentAPReduction(pObj) ) + 50 ) / 100;
 		
 		aps = __max( aps, ( autofireaps + 1 ) / 2 );
 
 		// Snap: extend the burst bonus to autofire as well?
-		aps = ( aps * ( 100 - GetPercentBurstFireAPReduction(pObj) ) + 50 ) / 100;
+		aps = ( aps * ( 100 - GetPercentAutofireAPReduction(pObj) ) + 50 ) / 100;
 		
 		if ( aps < 0 ) aps = 0;
 		else if ( aps > AP_MAXIMUM ) aps = AP_MAXIMUM;
 	}
 
-
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcAPsToAutoFire: return aps = %d", aps));
 	return (UINT8) aps;
 }	
 
@@ -1311,8 +1314,6 @@ UINT8 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurni
 	// Snap: reversed DIGICRAB's change.
 	// bFullAPs are BASE APs, which do not include APs caried over from the previous turn.
 	bFullAPs = CalcActionPoints( pSoldier );
-
-	//bFullAPs = pSoldier->bInitialActionPoints;//CalcActionPoints( pSoldier ); //lal
 
 	// aim skill is the same whether we are using 1 or 2 guns
 	bAimSkill = CalcAimSkill( pSoldier, usItem );

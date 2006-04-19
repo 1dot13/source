@@ -362,10 +362,10 @@ void SetSoldierNeutral( SOLDIERTYPE * pSoldier );
 
 extern BOOLEAN sniperwarning;
 extern BOOLEAN biggunwarning;
-extern BOOLEAN airstrikeavailable;
+//extern BOOLEAN airstrikeavailable;
 
-void CheckForAndSetupAirRaid ();
-void EnemyCallInAirStrike (INT16 sSectorX, INT16 sSectorY);
+//void CheckForAndSetupAirRaid ();
+//void EnemyCallInAirStrike (INT16 sSectorX, INT16 sSectorY);
 
 // will a sam site under the players control shoot down an airraid?
 BOOLEAN WillAirRaidBeStopped( INT16 sSectorX, INT16 sSectorY );

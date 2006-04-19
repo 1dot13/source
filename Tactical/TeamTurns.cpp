@@ -163,6 +163,7 @@ void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 				// Check if this guy is able to be selected....
 				if ( MercPtrs[ gusSelectedSoldier ]->bLife < OKLIFE )
 				{
+					DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("StartPlayerTeamTurn: SelectNextAvailSoldier"));
 					SelectNextAvailSoldier( MercPtrs[ gusSelectedSoldier ] );
 				}
 
@@ -924,6 +925,7 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 			// Select soldier....
 			if ( MercPtrs[ ubInterruptedSoldier ]->bLife < OKLIFE )
 			{
+				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EndInterrupt: SelectNextAvailSoldier"));
 				SelectNextAvailSoldier( MercPtrs[ ubInterruptedSoldier ] );
 			}
 			else

@@ -57,6 +57,7 @@ typedef PARSE_STAGE;
 #define	BOBBYRAYSTRINGSFILENAME					"BobbyRayStrings.xml"
 #define AMMOCALIBERSTRINGSFILENAME				"AmmoCaliberStrings.xml"
 #define SOUNDSFILENAME							"Sounds.xml"
+#define BURSTSOUNDSFILENAME						"BurstSounds.xml"
 
 #define CITYTABLEFILENAME "Cities.xml"
 
@@ -117,4 +118,8 @@ extern BOOLEAN ReadInSoundArray(STR fileName);
 extern BOOLEAN ReadInAmmoTypeStats(STR fileName);
 extern BOOLEAN WriteAmmoTypeStats();
 
+// Lesh: 2 lines added
+extern BOOLEAN ReadInBurstSoundArray(STR fileName);
+extern BOOLEAN WriteBurstSoundArray();
+// Lesh: over
 #endif

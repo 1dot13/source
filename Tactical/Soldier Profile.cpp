@@ -216,8 +216,8 @@ BOOLEAN LoadMercProfiles(void)
 	char *pFileName3 = "BINARYDATA\\Prof3.dat";
 	char *pFileName4 = "BINARYDATA\\Prof4.dat";
 
-	UINT32 uiLoop, uiLoop2, uiLoop3;
-	UINT16 usItem, usNewGun, usAmmo, usNewAmmo;
+	UINT32 uiLoop, uiLoop2;//, uiLoop3;
+	UINT16 usItem;//, usNewGun, usAmmo, usNewAmmo;
 	UINT32	uiNumBytesRead;
 
 	switch ( gGameOptions.ubDifficultyLevel)
@@ -275,7 +275,7 @@ BOOLEAN LoadMercProfiles(void)
 		// Setup face index value
 		// Default is the ubCharNum
 		gMercProfiles[uiLoop].ubFaceIndex = (UINT8)uiLoop;
-
+/*
 		if ( !gGameOptions.fGunNut )
 		{
 
@@ -311,7 +311,7 @@ BOOLEAN LoadMercProfiles(void)
 			}
 
 		} // end of if not gun nut
-
+*/
 		//ATE: Calculate some inital attractiveness values for buddy's inital equipment...
 		// Look for gun and armour
 		gMercProfiles[uiLoop].bMainGunAttractiveness		= -1;

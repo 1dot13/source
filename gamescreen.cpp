@@ -222,7 +222,7 @@ void EnterTacticalScreen( )
 	guiTacticalLeaveScreen = FALSE;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: setpositionsndsactive"));
-	SetPositionSndsActive( );
+  SetPositionSndsActive( );
 
 	// Set pending screen
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: setpendingnewscreen"));
@@ -243,22 +243,15 @@ void EnterTacticalScreen( )
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: check our guy"));
 		if ( !OK_CONTROLLABLE_MERC( MercPtrs[ gusSelectedSoldier ] ) )
 		{
-			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: guy not controllable, select next"));
+			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: SelectNextAvailSoldier, merc not controllable"));
 			SelectNextAvailSoldier( MercPtrs[ gusSelectedSoldier ] );
 		}
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: who is selected? %d", gusSelectedSoldier));
 		// ATE: If the current guy is sleeping, change....
-		if ( MercPtrs[ gusSelectedSoldier ] != NULL && MercPtrs[ gusSelectedSoldier ]->fMercAsleep )
+		if ( gusSelectedSoldier != NOBODY && MercPtrs[ gusSelectedSoldier ]->fMercAsleep )
 		{
-			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: guy asleep, select next"));
+			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: SelectNextAvailSoldier, merc asleep"));
 			SelectNextAvailSoldier( MercPtrs[ gusSelectedSoldier ] );			
-		}
-		else if ( MercPtrs[ gusSelectedSoldier ] == NULL && gfInAirRaid ) //Madd - added to prevent air raid crash
-		{
-			for ( int i = 0; i < 20; i++ )
-			{
-				RemoveCharacterFromSquads(MercPtrs[i]);
-				AddCharacterToAnySquad(MercPtrs[i]);
-			}
 		}
 	}
 	else
@@ -281,6 +274,8 @@ void EnterTacticalScreen( )
 
 	//UpdateMercsInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: Init Interface"));
+
 	// Init interface ( ALWAYS TO TEAM PANEL.  DEF changed it to go back to the previous panel )
 	if( !gfTacticalPlacementGUIActive )
 	{
@@ -294,8 +289,8 @@ void EnterTacticalScreen( )
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: settacticalinterfaceflags"));
 	SetTacticalInterfaceFlags( 0 );
 
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: set default squad on sector entry"));
 	// set default squad on sector entry
-	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen:selectdefaultsquadonsectorentry"));
 	SetDefaultSquadOnSectorEntry( FALSE );
 	ExamineCurrentSquadLights( );
 
@@ -312,6 +307,7 @@ void EnterTacticalScreen( )
 	// Select current guy...
 	//gfGameScreenLocateToSoldier = TRUE;
 
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: check meanwhile"));
 	// Locate if in meanwhile...
 	if ( AreInMeanwhile( ) )
 	{
@@ -323,14 +319,15 @@ void EnterTacticalScreen( )
 		InternalLocateGridNo( 4561, TRUE );
 	}
 
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: clear messages"));
   // Clear tactical message q
-    DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen:cleartacticalmessagequeue"));
 	ClearTacticalMessageQueue( );
 
 	// ATE: Enable messages again...
 	EnableScrollMessages( );
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: done"));
+
 }
 
 void LeaveTacticalScreen( UINT32 uiNewScreen )
@@ -600,13 +597,12 @@ UINT32  MainGameScreenHandle(void)
 		HandleOverheadMap( );
 		return( GAME_SCREEN );
 	}
-
+/*
 	if ( !ARE_IN_FADE_IN( ) )
 	{
-		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("maingamescreenhandle: HandleAirRaid"));
 		HandleAirRaid( );
 	}
-
+*/
 	if ( gfGameScreenLocateToSoldier )
 	{
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("maingamescreenhandle: tacticalscreenlocatetosoldier"));

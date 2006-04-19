@@ -85,6 +85,14 @@
 	#include "overhead map.h"
 #endif
 
+//turnspeed
+UINT8 gubPlayerTurnSpeedUpFactor = 1;
+UINT8 gubEnemyTurnSpeedUpFactor = 1;
+UINT8 gubCreatureTurnSpeedUpFactor = 1;
+UINT8 gubMilitiaTurnSpeedUpFactor = 1;
+UINT8 gubCivTurnSpeedUpFactor = 1;
+//turnspeed
+
 extern INT16 DirIncrementer[8];
 
 #define		PALETTEFILENAME							"BINARYDATA\\ja2pal.dat"
@@ -495,6 +503,8 @@ INT8 CalcActionPoints(SOLDIERTYPE *pSold)
   //if (GameOption[INCREASEDAP] % 2 == 1)
     //points += AP_INCREASE;
 
+	//Madd: Add in AP Bonuses (Penalties) from worn gear
+	ubPoints += GetGearAPBonus ( pSold );
 
 	// Calculate bandage
 	bBandage = pSold->bLifeMax - pSold->bLife - pSold->bBleeding;
@@ -5715,6 +5725,19 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 	// here. Some animation, such as water-movement, have an ADDITIONAL speed
 	switch( pSoldier->usAnimState )
 	{
+        // Lesh: bursting animation delay control begins
+        // Add your animation ID to control it
+        case STANDING_BURST:
+        case FIRE_STAND_BURST_SPREAD:
+        case FIRE_BURST_LOW_STAND:
+        case TANK_BURST:
+        case CROUCHED_BURST:
+        case PRONE_BURST:
+            pSoldier->sAniDelay = Weapon[Item[pSoldier->inv[HANDPOS].usItem].ubClassIndex].sAniDelay;
+            AdjustAniSpeed( pSoldier );
+        return;
+        // Lesh: end
+
 		case PRONE:
 		case STANDING:
 
@@ -5849,6 +5872,25 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 
 }
 
+UINT8 GetSpeedUpFactor( )
+{
+	switch(  gTacticalStatus.ubCurrentTeam )
+	{
+	case OUR_TEAM:
+		return gubPlayerTurnSpeedUpFactor;
+	case ENEMY_TEAM:
+		return gubEnemyTurnSpeedUpFactor;
+	case CREATURE_TEAM:
+		return gubCreatureTurnSpeedUpFactor;
+	case MILITIA_TEAM:
+		return gubMilitiaTurnSpeedUpFactor;
+	case CIV_TEAM:
+		return gubCivTurnSpeedUpFactor;
+	}
+	
+
+	return 1;
+}
 
 void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier )
 {
@@ -5895,6 +5937,11 @@ void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier )
 		//pSoldier->sAniDelay = 1000;
 	}
 
+	if ( gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT )
+		if( GetSpeedUpFactor() )
+			pSoldier->sAniDelay /= GetSpeedUpFactor();	
+		else 
+			pSoldier->sAniDelay = 0;
 }
 
 
@@ -9304,11 +9351,17 @@ void ReLoadSoldierAnimationDueToHandItemChange( SOLDIERTYPE *pSoldier, UINT16 us
 	
 	// Shutoff burst....
 	// ( we could be on, then change gun that does not have burst )
-	if ( Weapon[ usNewItem ].ubShotsPerBurst == 0 )
+	if ( Weapon[ usNewItem ].ubShotsPerBurst == 0 && !Weapon[usNewItem].NoSemiAuto )
 	{
 		pSoldier->bDoBurst		= FALSE;
 		pSoldier->bWeaponMode = WM_NORMAL;
 		pSoldier->bDoAutofire = 0;
+	}
+	else if ( Weapon[usNewItem].NoSemiAuto )
+	{
+		pSoldier->bDoBurst		= TRUE;
+		pSoldier->bWeaponMode = WM_AUTOFIRE;
+		pSoldier->bDoAutofire = 1;
 	}
 
 	if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIREREADY )

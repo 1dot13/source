@@ -3764,12 +3764,12 @@ void SetupNewStrategicGame( )
 	// Daily checks for E-mail from Enrico
 	AddEveryDayStrategicEvent( EVENT_ENRICO_MAIL, ENRICO_MAIL_TIME , 0 );
 
-	if ( gGameOptions.fAirStrikes )
-	{
-		//Daily check for an air raid
-		AddEveryDayStrategicEvent( EVENT_CHECK_FOR_AIR_RAID, 360, 0 );
-	}
-
+//	if ( gGameOptions.fAirStrikes )
+//	{
+//		//Daily check for an air raid
+//		AddEveryDayStrategicEvent( EVENT_CHECK_FOR_AIR_RAID, 360, 0 );
+//	}
+//
 	// Hourly update of all sorts of things
 	AddPeriodStrategicEvent( EVENT_HOURLY_UPDATE, 60, 0 );
 	AddPeriodStrategicEvent( EVENT_QUARTER_HOUR_UPDATE, 15, 0 );

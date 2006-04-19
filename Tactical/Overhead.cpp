@@ -119,7 +119,7 @@ INT32		giPauseAllAITimer = 0;
 
 BOOLEAN sniperwarning;
 BOOLEAN biggunwarning;
-BOOLEAN airstrikeavailable;
+//BOOLEAN airstrikeavailable;
 
 TacticalStatusType	gTacticalStatus;
 
@@ -2073,21 +2073,26 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
 				//	bPosOfMask = NO_SLOT;
 				//}
 
+			  // TODO: Madd: This next section is pretty lame because it can't figure out which explosive was used to actually cause a gas effect
+				// so for now, the first explosive to use a gas effect decides the health and breath damage for all of the gasses of that type
+				// (this was hard coded before by the developers - i guess they figured they didn't need to look for the actual explosion item, 
+				// since they only had one of each gas item?!?)
+				// anyway, it means that we can only have one set of health/breath damage values for each gas type, until someone has time
+				// to dig into this further and actually make it find the original item that caused the gas
 			  if ( !AM_A_ROBOT( pSoldier ) )
 			  {
 					if ( gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->bLevel] & MAPELEMENT_EXT_TEARGAS )
 					{
 						if ( !(pSoldier->fHitByGasFlags & HIT_BY_TEARGAS) && bPosOfMask == NO_SLOT )
 						{
-							// check for gas mask
-							pExplosive = &(Explosive[ Item[ TEARGAS_GRENADE ].ubClassIndex ]);
+							pExplosive = &( Explosive[ Item[ GetFirstExplosiveOfType(EXPLOSV_TEARGAS) ].ubClassIndex ]);
 						}
 					}
 					if ( gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->bLevel] & MAPELEMENT_EXT_MUSTARDGAS )
 					{
 						if ( !(pSoldier->fHitByGasFlags & HIT_BY_MUSTARDGAS) && bPosOfMask == NO_SLOT )
 						{
-							pExplosive = &(Explosive[ Item[ MUSTARD_GRENADE ].ubClassIndex ]);
+							pExplosive = &(Explosive[ Item[ GetFirstExplosiveOfType(EXPLOSV_MUSTGAS) ].ubClassIndex ]);
 						}
 					}
 				}
@@ -2095,7 +2100,14 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
 				{
 					if ( !(pSoldier->fHitByGasFlags & HIT_BY_CREATUREGAS) ) // gas mask doesn't help vs creaturegas
 					{
-						pExplosive = &(Explosive[ Item[ SMALL_CREATURE_GAS ].ubClassIndex ]);
+						pExplosive = &(Explosive[ Item[ GetFirstExplosiveOfType(EXPLOSV_CREATUREGAS) ].ubClassIndex ]);
+					}
+				}
+				if ( gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[pSoldier->bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
+				{
+					if ( !(pSoldier->fHitByGasFlags & HIT_BY_BURNABLEGAS) )
+					{
+						pExplosive = &(Explosive[ Item[ GetFirstExplosiveOfType(EXPLOSV_BURNABLEGAS) ].ubClassIndex ]);
 					}
 				}
 				if ( pExplosive )
@@ -5576,14 +5588,14 @@ void SetEnemyPresence( )
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("SetEnemyPresence: warnings = false"));
 			sniperwarning = FALSE;
 			biggunwarning = FALSE;
-			airstrikeavailable = TRUE;
+//			airstrikeavailable = TRUE;
 		}
 		else
 		{
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("SetEnemyPresence: warnings = true"));
 			sniperwarning = TRUE;
 			biggunwarning = TRUE;
-			airstrikeavailable = FALSE;
+//			airstrikeavailable = FALSE;
 		}
 
 		// Say quote...
@@ -7519,10 +7531,20 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( UINT8 ubID, BOOLEAN fCalledByAttacke
 
 	if ( pSoldier && (pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO ))
 	{
-		// change back to single shot
-		pSoldier->bWeaponMode = WM_NORMAL;
-		pSoldier->bDoAutofire = 0;
-		pSoldier->bDoBurst = 0;
+		if ( !Weapon[pSoldier->inv[HANDPOS].usItem].NoSemiAuto )
+		{
+			// change back to single shot
+			pSoldier->bWeaponMode = WM_NORMAL;
+			pSoldier->bDoAutofire = 0;
+			pSoldier->bDoBurst = 0;
+		}
+		else
+		{
+			// change back to autofire
+			pSoldier->bWeaponMode = WM_AUTOFIRE;
+			pSoldier->bDoAutofire = 1;
+			pSoldier->bDoBurst = TRUE;
+		}
 		DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2 );
 	}
 

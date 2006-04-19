@@ -2862,7 +2862,7 @@ UINT32 cnt = 0;
 
 		pDestBuf = (UINT16 *)LockVideoSurface(guiRENDERBUFFER, &uiDestPitchBYTES);
 
-		for ( cnt = 0; cnt < ( SCREEN_WIDTH * SCREEN_HEIGHT ); cnt++ )
+		for ( cnt = 0; cnt < (UINT32)( SCREEN_WIDTH * SCREEN_HEIGHT ); cnt++ )
 		{	
 			// Get Z value
 			zVal = gpZBuffer[ cnt ];

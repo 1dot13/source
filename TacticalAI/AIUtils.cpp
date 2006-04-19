@@ -1702,6 +1702,10 @@ BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT16 sGridNo )
 	{
 		return( TRUE );
 	}
+	if ( gpWorldLevelData[sGridNo].ubExtFlags[ pSoldier->bLevel ] & MAPELEMENT_EXT_BURNABLEGAS ) 
+	{
+		return( TRUE );
+	}
 
 	return(FALSE);
 }
@@ -1719,6 +1723,10 @@ BOOLEAN InGasOrSmoke( SOLDIERTYPE *pSoldier, INT16 sGridNo )
 	//			(pSoldier->inv[HEAD1POS].usItem != GASMASK && pSoldier->inv[HEAD2POS].usItem != GASMASK) )
 	if ( (gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->bLevel] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS)) &&
 				FindGasMask(pSoldier) == NO_SLOT  )
+	{
+		return( TRUE );
+	}
+	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
 	{
 		return( TRUE );
 	}
@@ -1740,6 +1748,10 @@ INT16 InWaterOrGas(SOLDIERTYPE *pSoldier, INT16 sGridNo)
 	{
 		return( TRUE );
 	}
+	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
+	{
+		return( TRUE );
+	}
 
 	return(FALSE);
 }
@@ -1749,6 +1761,10 @@ BOOLEAN InGas( SOLDIERTYPE *pSoldier, INT16 sGridNo )
 	// tear/mustard gas
 	if ( (gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->bLevel] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS)) &&
 				FindGasMask(pSoldier) == NO_SLOT )
+	{
+		return( TRUE );
+	}
+	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
 	{
 		return( TRUE );
 	}
@@ -2350,6 +2366,7 @@ UINT8 SoldierDifficultyLevel( SOLDIERTYPE * pSoldier )
 	INT8 bDifficultyBase;
 	INT8 bDifficulty;
 
+	DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("SoldierDifficultyLevel"));
 	// difficulty modifier ranges from 0 to 100
 	// and we want to end up with a number between 0 and 4 (4=hardest)
 	// to a base of 1, divide by 34 to get a range from 1 to 3

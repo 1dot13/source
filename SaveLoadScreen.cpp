@@ -48,28 +48,36 @@ extern UINT32 guiBrokenSaveGameVersion;
 //
 //////////////////////////////////////////////////////
 
+
+
 #define		SAVE_LOAD_TITLE_FONT								FONT14ARIAL
 #define		SAVE_LOAD_TITLE_COLOR								FONT_MCOLOR_WHITE
 
 #define		SAVE_LOAD_NORMAL_FONT								FONT12ARIAL
-#define		SAVE_LOAD_NORMAL_COLOR							2
-#define		SAVE_LOAD_NORMAL_SHADOW_COLOR					118
+#define		SAVE_LOAD_NORMAL_COLOR							2//FONT_MCOLOR_DKWHITE//2//FONT_MCOLOR_WHITE
+#define		SAVE_LOAD_NORMAL_SHADOW_COLOR				118//121//118//125
+/*#define		SAVE_LOAD_NORMAL_FONT								FONT12ARIAL
+#define		SAVE_LOAD_NORMAL_COLOR							FONT_MCOLOR_DKWHITE//2//FONT_MCOLOR_WHITE
+#define		SAVE_LOAD_NORMAL_SHADOW_COLOR				2//125
+*/
 
 #define		SAVE_LOAD_QUICKSAVE_FONT						FONT12ARIAL
-#define		SAVE_LOAD_QUICKSAVE_COLOR						2
-#define		SAVE_LOAD_QUICKSAVE_SHADOW_COLOR				189
+#define		SAVE_LOAD_QUICKSAVE_COLOR						2//FONT_MCOLOR_DKGRAY//FONT_MCOLOR_WHITE
+#define		SAVE_LOAD_QUICKSAVE_SHADOW_COLOR		189//248//2
 
 #define		SAVE_LOAD_EMPTYSLOT_FONT						FONT12ARIAL
-#define		SAVE_LOAD_EMPTYSLOT_COLOR						2
-#define		SAVE_LOAD_EMPTYSLOT_SHADOW_COLOR				121
+#define		SAVE_LOAD_EMPTYSLOT_COLOR						2//125//FONT_MCOLOR_WHITE
+#define		SAVE_LOAD_EMPTYSLOT_SHADOW_COLOR		121//118
 
 #define		SAVE_LOAD_HIGHLIGHTED_FONT					FONT12ARIAL
 #define		SAVE_LOAD_HIGHLIGHTED_COLOR					FONT_MCOLOR_WHITE
 #define		SAVE_LOAD_HIGHLIGHTED_SHADOW_COLOR	2
 
 #define		SAVE_LOAD_SELECTED_FONT							FONT12ARIAL
-#define		SAVE_LOAD_SELECTED_COLOR						2
-#define		SAVE_LOAD_SELECTED_SHADOW_COLOR					130
+#define		SAVE_LOAD_SELECTED_COLOR						2//145//FONT_MCOLOR_WHITE
+#define		SAVE_LOAD_SELECTED_SHADOW_COLOR			130//2
+
+
 
 #define		SAVE_LOAD_NUMBER_FONT								FONT12ARIAL
 #define		SAVE_LOAD_NUMBER_COLOR							FONT_MCOLOR_WHITE
@@ -78,26 +86,28 @@ extern UINT32 guiBrokenSaveGameVersion;
 #define		SLG_UNSELECTED_COLOR								FONT_MCOLOR_DKWHITE
 
 #define		SLG_SAVELOCATION_WIDTH							605
-#define		SLG_SAVELOCATION_HEIGHT							30
+#define		SLG_SAVELOCATION_HEIGHT							30//46
 #define		SLG_FIRST_SAVED_SPOT_X							iScreenWidthOffset + 17
 #define		SLG_FIRST_SAVED_SPOT_Y							iScreenHeightOffset + 49
-#define		SLG_GAP_BETWEEN_LOCATIONS						35
+#define		SLG_GAP_BETWEEN_LOCATIONS						35//47
+
+
 
 #define		SLG_DATE_OFFSET_X										13
 #define		SLG_DATE_OFFSET_Y										11
 
-#define		SLG_SECTOR_OFFSET_X								95
+#define		SLG_SECTOR_OFFSET_X									95//105//114
 #define		SLG_SECTOR_OFFSET_Y									SLG_DATE_OFFSET_Y
 #define		SLG_SECTOR_WIDTH										98
 
-#define		SLG_NUM_MERCS_OFFSET_X							196
-#define		SLG_NUM_MERCS_OFFSET_Y							SLG_DATE_OFFSET_Y
+#define		SLG_NUM_MERCS_OFFSET_X							196//190//SLG_DATE_OFFSET_X
+#define		SLG_NUM_MERCS_OFFSET_Y							SLG_DATE_OFFSET_Y//26
 
-#define		SLG_BALANCE_OFFSET_X							260
-#define		SLG_BALANCE_OFFSET_Y							SLG_DATE_OFFSET_Y
+#define		SLG_BALANCE_OFFSET_X								260//SLG_SECTOR_OFFSET_X
+#define		SLG_BALANCE_OFFSET_Y								SLG_DATE_OFFSET_Y//SLG_NUM_MERCS_OFFSET_Y
 
-#define		SLG_SAVE_GAME_DESC_X							318
-#define		SLG_SAVE_GAME_DESC_Y							SLG_DATE_OFFSET_Y
+#define		SLG_SAVE_GAME_DESC_X								318//320//204
+#define		SLG_SAVE_GAME_DESC_Y								SLG_DATE_OFFSET_Y//SLG_DATE_OFFSET_Y + 7
 
 #define		SLG_TITLE_POS_X									iScreenWidthOffset
 #define		SLG_TITLE_POS_Y									iScreenHeightOffset
@@ -210,6 +220,7 @@ void		SelectedSaveRegionMovementCallBack(MOUSE_REGION * pRegion, INT32 reason );
 
 MOUSE_REGION		gSLSEntireScreenRegion;
 void		SelectedSLSEntireRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
+
 
 //////////////////////////////////////////////////////
 //
@@ -1324,12 +1335,12 @@ BOOLEAN DisplaySaveGameEntry( INT8 bEntryID )//, UINT16 usPosY )
 			//make a string containing the extended options
 			swprintf( zMouseHelpTextString, L"%20s     %22s     %22s     %22s", zDifString,
 						/*gzGIOScreenText[ GIO_TIMED_TURN_TITLE_TEXT + SaveGameHeader.sInitialGameOptions.fTurnTimeLimit + 1],*/
-
-						SaveGameHeader.sInitialGameOptions.fIronManMode ? gzGIOScreenText[ GIO_IRON_MAN_TEXT ] : gzGIOScreenText[ GIO_SAVE_ANYWHERE_TEXT ],
+//Madd
+						//SaveGameHeader.sInitialGameOptions.fIronManMode ? gzGIOScreenText[ GIO_IRON_MAN_TEXT ] : gzGIOScreenText[ GIO_SAVE_ANYWHERE_TEXT ],
 
 						SaveGameHeader.sInitialGameOptions.ubBobbyRay == BR_GOOD ? zSaveLoadText[ SLG_BR_GOOD_TEXT ] : (SaveGameHeader.sInitialGameOptions.ubBobbyRay == BR_GREAT ? zSaveLoadText[ SLG_BR_GREAT_TEXT ]: (SaveGameHeader.sInitialGameOptions.ubBobbyRay == BR_EXCELLENT ? zSaveLoadText[ SLG_BR_EXCELLENT_TEXT ]: zSaveLoadText[ SLG_BR_AWESOME_TEXT ])),
 
-						SaveGameHeader.sInitialGameOptions.fAirStrikes ? zSaveLoadText[ SLG_ADDITIONAL_GUNS ] : zSaveLoadText[ SLG_NORMAL_GUNS ],
+						SaveGameHeader.sInitialGameOptions.fGunNut ? zSaveLoadText[ SLG_ADDITIONAL_GUNS ] : zSaveLoadText[ SLG_NORMAL_GUNS ],
 
 						SaveGameHeader.sInitialGameOptions.ubGameStyle == STYLE_SCIFI ? zSaveLoadText[ SLG_SCIFI ] : (SaveGameHeader.sInitialGameOptions.ubGameStyle == STYLE_PLATINUM ? zSaveLoadText[ SLG_PLATINUM ]: zSaveLoadText[ SLG_REALISTIC ]) );
 

@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 	#include "language defines.h"
@@ -184,22 +183,24 @@
 
 #define		ITEM_FONT								TINYFONT1
 
-#define EXCEPTIONAL_DAMAGE					30
+#define EXCEPTIONAL_DAMAGE					40
 #define EXCEPTIONAL_WEIGHT					20
-#define EXCEPTIONAL_RANGE						300
-#define EXCEPTIONAL_MAGAZINE				30
-#define EXCEPTIONAL_AP_COST					7
+#define EXCEPTIONAL_RANGE					400
+#define EXCEPTIONAL_MAGAZINE				50
+#define EXCEPTIONAL_AP_COST					5
 #define EXCEPTIONAL_BURST_SIZE			5
 #define EXCEPTIONAL_RELIABILITY			2
 #define EXCEPTIONAL_REPAIR_EASE			2
+#define EXCEPTIONAL_ACCURACY			4
 
 #define BAD_DAMAGE									23
 #define BAD_WEIGHT									45
-#define BAD_RANGE										150
+#define BAD_RANGE									150
 #define BAD_MAGAZINE								10
-#define BAD_AP_COST									11
+#define BAD_AP_COST									9
 #define BAD_RELIABILITY							-2
 #define BAD_REPAIR_EASE							-2	
+#define BAD_ACCURACY							-1	
 
 #define KEYRING_X 487
 #define KEYRING_Y (105 + INV_INTERFACE_START_Y)
@@ -603,6 +604,15 @@ void GenerateProsString( UINT16 * zItemPros, OBJECTTYPE * pObject, UINT32 uiPixL
 		ubWeight += Item[ pObject->usGunAmmoItem ].ubWeight;
 	}
 
+	if (Weapon[usItem].bAccuracy >= EXCEPTIONAL_ACCURACY )
+	{
+		zTemp = Message[STR_ACCURATE];
+		if ( ! AttemptToAddSubstring( zItemPros, zTemp, &uiStringLength, uiPixLimit ) )
+		{
+			return;			
+		}
+	}
+
 	if (Item[usItem].ubWeight <= EXCEPTIONAL_WEIGHT)
 	{
 		zTemp = Message[STR_LIGHT];
@@ -711,6 +721,15 @@ void GenerateConsString( UINT16 * zItemCons, OBJECTTYPE * pObject, UINT32 uiPixL
 	UINT16			usItem = pObject->usItem;
 
 	zItemCons[0] = 0;
+
+	if (Weapon[usItem].bAccuracy <= BAD_ACCURACY)
+	{
+		zTemp = Message[STR_INACCURATE];
+		if ( ! AttemptToAddSubstring( zItemCons, zTemp, &uiStringLength, uiPixLimit ) )
+		{
+			return;			
+		}
+	}
 
 	// calculate the weight of the item plus ammunition but not including any attachments
 	ubWeight = Item[ usItem ].ubWeight;
@@ -1062,6 +1081,37 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 	if ( fDirtyLevel == DIRTYLEVEL2 )
 	{
 		// CHECK FOR COMPATIBILITY WITH MAGAZINES
+
+/*	OLD VERSION OF GUN/AMMO MATCH HIGHLIGHTING
+		UINT32	uiDestPitchBYTES;
+		UINT8		*pDestBuf;
+		UINT16	usLineColor;
+
+		if ( ( Item [ pSoldier->inv[ HANDPOS ].usItem ].usItemClass & IC_GUN )  && ( Item[ pObject->usItem ].usItemClass & IC_AMMO ) )
+		{
+			// CHECK
+			if (Weapon[pSoldier->inv[ HANDPOS ].usItem].ubCalibre == Magazine[Item[pObject->usItem].ubClassIndex].ubCalibre )
+			{
+				// IT's an OK calibre ammo, do something!
+				// Render Item with specific color
+				//fOutline = TRUE;
+				//sOutlineColor = Get16BPPColor( FROMRGB( 96, 104, 128 ) );
+				//sOutlineColor = Get16BPPColor( FROMRGB( 20, 20, 120 ) );
+
+				// Draw rectangle!
+				pDestBuf = LockVideoSurface( guiSAVEBUFFER, &uiDestPitchBYTES );
+				SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, 640, 480 );
+
+				//usLineColor = Get16BPPColor( FROMRGB( 255, 255, 0 ) );
+				usLineColor = Get16BPPColor( FROMRGB( 230, 215, 196 ) );
+				RectangleDraw( TRUE, (sX+1), (sY+1), (sX + gSMInvData[ sPocket ].sWidth - 2 ),( sY + gSMInvData[ sPocket ].sHeight - 2 ), usLineColor, pDestBuf );
+
+				SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, 640, 480 );
+
+				UnLockVideoSurface( guiSAVEBUFFER );
+			}
+		}
+*/
 
 		if ( gbCompatibleAmmo[ sPocket ] )
 		{
@@ -2212,6 +2262,11 @@ void CycleItemDescriptionItem( )
 	{
 		usOldItem--;
 
+		while ( usOldItem > 0 && ( Item[usOldItem].usItemClass == IC_NONE || Item[usOldItem].usItemClass == 0 ))
+		{
+			usOldItem--;
+		}
+
 		if ( usOldItem < 0 )
 		{
 			usOldItem = MAXITEMS-1;
@@ -2224,6 +2279,11 @@ void CycleItemDescriptionItem( )
 		if ( usOldItem > MAXITEMS )
 		{
 			usOldItem = 0;
+		}
+
+		while (usOldItem < MAXITEMS && (Item[usOldItem].usItemClass == IC_NONE || Item[usOldItem].usItemClass == 0 ))
+		{
+			usOldItem++;
 		}
 	}
 
@@ -2767,7 +2827,6 @@ void ItemDescAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 				swprintf( (wchar_t *)pStr, L"0" );
 				SpecifyButtonText( giItemDescAmmoButton, (UINT16 *)pStr );
 
-
 				fItemDescDelete = TRUE;
 			}
 
@@ -3069,6 +3128,13 @@ void RenderItemDescriptionBox( )
 					BltVideoObjectFromIndex( guiSAVEBUFFER, guiBullet, 0, MAP_BULLET_BURST_X + cnt * (BULLET_WIDTH/2 + 1), MAP_BULLET_BURST_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 				}
 			}
+			else if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
+			{
+				for ( cnt = 0; cnt < 10; cnt++ )
+				{
+					BltVideoObjectFromIndex( guiSAVEBUFFER, guiBullet, 0, MAP_BULLET_BURST_X + cnt * (BULLET_WIDTH/2 + 1), MAP_BULLET_BURST_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+				}
+			}
 
 		}
 
@@ -3193,7 +3259,7 @@ void RenderItemDescriptionBox( )
 			mprintf( gMapWeaponStats[ 1 ].sX + gsInvDescX, gMapWeaponStats[ 1 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 1 ] );
 
 
-			if (GetShotsPerBurst(gpItemDescObject) > 0)
+			if (GetShotsPerBurst(gpItemDescObject) > 0 || GetAutofireShotsPerFiveAPs(gpItemDescObject)>0)
 			{
 				mprintf( gMapWeaponStats[ 8 ].sX + gsInvDescX, gMapWeaponStats[ 8 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 8 ] );
 			}
@@ -3289,7 +3355,15 @@ void RenderItemDescriptionBox( )
 			  FindFontRightCoordinates( (INT16)(gMapWeaponStats[ 6 ].sX + gsInvDescX + gMapWeaponStats[ 6 ].sValDx), (INT16)(gMapWeaponStats[ 6 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 			  mprintf( usX, usY, pStr );
 			 }
+			 else if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0)
+			 {
 
+					SetFontForeground( 5 );
+
+					swprintf( (wchar_t *)pStr, L"%2d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, gpItemDescObject, 3 ) );
+					FindFontRightCoordinates( (INT16)(gMapWeaponStats[ 6 ].sX + gsInvDescX + gMapWeaponStats[ 6 ].sValDx), (INT16)(gMapWeaponStats[ 6 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+					mprintf( usX, usY, pStr );
+			 }
 		}
 		else if ( gpItemDescObject->usItem == MONEY )
 		{
@@ -3528,6 +3602,13 @@ void RenderItemDescriptionBox( )
 					BltVideoObjectFromIndex( guiSAVEBUFFER, guiBullet, 0, BULLET_BURST_X + cnt * (BULLET_WIDTH/2 + 1), BULLET_BURST_Y, VO_BLT_SRCTRANSPARENCY, NULL );					
 				}
 			}
+			else if ( GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
+			{
+				for ( cnt = 0; cnt < 10; cnt++ )
+				{
+					BltVideoObjectFromIndex( guiSAVEBUFFER, guiBullet, 0, BULLET_BURST_X + cnt * (BULLET_WIDTH/2 + 1), BULLET_BURST_Y, VO_BLT_SRCTRANSPARENCY, NULL );					
+				}
+			}
 
 		}
 
@@ -3643,7 +3724,7 @@ void RenderItemDescriptionBox( )
 			}
 			mprintf( gWeaponStats[ 1 ].sX + gsInvDescX, gWeaponStats[ 1 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 1 ] );
 
-			if (GetShotsPerBurst(gpItemDescObject) > 0)
+			if (GetShotsPerBurst(gpItemDescObject) > 0 || GetAutofireShotsPerFiveAPs(gpItemDescObject))
 			{
 				mprintf( gWeaponStats[ 8 ].sX + gsInvDescX, gWeaponStats[ 8 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 8 ] );
 			}
@@ -3728,6 +3809,13 @@ void RenderItemDescriptionBox( )
 					SetFontForeground( 5 );
 				}
 
+				swprintf( (wchar_t *)pStr, L"%2d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, gpItemDescObject ) );
+				FindFontRightCoordinates( (INT16)(gWeaponStats[ 6 ].sX + gsInvDescX + gWeaponStats[ 6 ].sValDx), (INT16)(gWeaponStats[ 6 ].sY + gsInvDescY ), ITEM_STATS_WIDTH, ITEM_STATS_HEIGHT, pStr, BLOCKFONT2, &usX, &usY );
+				mprintf( usX, usY, pStr );
+			}
+			else if (GetAutofireShotsPerFiveAPs(gpItemDescObject)> 0)
+			{
+				SetFontForeground( 5 );
 				swprintf( (wchar_t *)pStr, L"%2d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, gpItemDescObject ) );
 				FindFontRightCoordinates( (INT16)(gWeaponStats[ 6 ].sX + gsInvDescX + gWeaponStats[ 6 ].sValDx), (INT16)(gWeaponStats[ 6 ].sY + gsInvDescY ), ITEM_STATS_WIDTH, ITEM_STATS_HEIGHT, pStr, BLOCKFONT2, &usX, &usY );
 				mprintf( usX, usY, pStr );
@@ -7203,8 +7291,7 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 			}
 		}
 
-		// The first tool tip is for rocket rifles
-    if ( !gGameOptions.fGunNut && Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher && !Item[usItem].rocketrifle )
+    if ( Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher && !Item[usItem].rocketrifle )
     {
         swprintf( (wchar_t *)pStr, L"%s (%s) [%d%%]", ItemNames[ usItem ], AmmoCaliber[ Weapon[ usItem ].ubCalibre ], sValue );
     }

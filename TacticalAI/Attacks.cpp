@@ -164,8 +164,12 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 #endif
 
    // calculate minimum action points required to shoot at this opponent
-   ubMinAPcost = MinAPsToAttack(pSoldier,pOpponent->sGridNo,ADDTURNCOST);
-   //NumMessage("MinAPcost to shoot this opponent = ",ubMinAPcost);
+	if ( !Weapon[pSoldier->usAttackingWeapon].NoSemiAuto )
+		ubMinAPcost = MinAPsToAttack(pSoldier,pOpponent->sGridNo,ADDTURNCOST);
+	else
+		ubMinAPcost = CalcAPsToAutofire( CalcActionPoints( pSoldier ), &(pSoldier->inv[HANDPOS]), 3 );
+
+	//NumMessage("MinAPcost to shoot this opponent = ",ubMinAPcost);
 
    // if we don't have enough APs left to shoot even a snap-shot at this guy
    if (ubMinAPcost > pSoldier->bActionPoints)
@@ -252,31 +256,43 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 	 }
 
    // consider the various aiming times
-   for (ubAimTime = AP_MIN_AIM_ATTACK; ubAimTime <= ubMaxPossibleAimTime; ubAimTime++)
-    {
-     //HandleMyMouseCursor(KEYBOARDALSO);
+	if ( !Weapon[pSoldier->usAttackingWeapon].NoSemiAuto )
+	{
+		for (ubAimTime = AP_MIN_AIM_ATTACK; ubAimTime <= ubMaxPossibleAimTime; ubAimTime++)
+		{
+		 //HandleMyMouseCursor(KEYBOARDALSO);
 
-     //NumMessage("ubAimTime = ",ubAimTime);
+		 //NumMessage("ubAimTime = ",ubAimTime);
 
-     ubChanceToHit = (UINT8) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,ubAimTime, AIM_SHOT_TORSO);
-    // ExtMen[pOpponent->ubID].haveStats = TRUE;
-     //NumMessage("chance to Hit = ",ubChanceToHit);
+		 ubChanceToHit = (UINT8) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,ubAimTime, AIM_SHOT_TORSO);
+		// ExtMen[pOpponent->ubID].haveStats = TRUE;
+		 //NumMessage("chance to Hit = ",ubChanceToHit);
 
-     //sprintf((CHAR *)tempstr,"Vs. %s, at AimTime %d, ubChanceToHit = %d",ExtMen[pOpponent->ubID].name,ubAimTime,ubChanceToHit);
-     //PopMessage(tempstr);
+		 //sprintf((CHAR *)tempstr,"Vs. %s, at AimTime %d, ubChanceToHit = %d",ExtMen[pOpponent->ubID].name,ubAimTime,ubChanceToHit);
+		 //PopMessage(tempstr);
 
-     iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
-     //NumMessage("hitRate = ",iHitRate);
+		 iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
+		 //NumMessage("hitRate = ",iHitRate);
 
-     // if aiming for this amount of time produces a better hit rate
-     if (iHitRate > iBestHitRate)
-      {
-       iBestHitRate = iHitRate;
-       ubBestAimTime = ubAimTime;
-       ubBestChanceToHit = ubChanceToHit;
-      }
-    }
+		 // if aiming for this amount of time produces a better hit rate
+		 if (iHitRate > iBestHitRate)
+		  {
+		   iBestHitRate = iHitRate;
+		   ubBestAimTime = ubAimTime;
+		   ubBestChanceToHit = ubChanceToHit;
+		  }
+		}
+	}
+	else
+	{
+		ubAimTime = AP_MIN_AIM_ATTACK;
+		ubChanceToHit = (UINT8) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,ubAimTime, AIM_SHOT_TORSO);
+		iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
 
+		iBestHitRate = iHitRate;
+		ubBestAimTime = ubAimTime;
+		ubBestChanceToHit = ubChanceToHit;
+	}
 
    // if we can't get any kind of hit rate at all
    if (iBestHitRate == 0)
@@ -290,7 +306,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
      continue;          // next opponent
 
 	// really limit knife throwing so it doesn't look wrong
-	 if ( Item[ pSoldier->usAttackingWeapon ].usItemClass == IC_THROWING_KNIFE && (ubChanceToReallyHit < 30 || ( PythSpacesAway( pSoldier->sGridNo, pOpponent->sGridNo ) > CalcMaxTossRange( pSoldier, THROWING_KNIFE, FALSE ) )))// Madd / 2 ) ) )
+	 if ( Item[ pSoldier->usAttackingWeapon ].usItemClass == IC_THROWING_KNIFE && (ubChanceToReallyHit < 30 || ( PythSpacesAway( pSoldier->sGridNo, pOpponent->sGridNo ) > CalcMaxTossRange( pSoldier, pSoldier->usAttackingWeapon, FALSE ) )))// Madd / 2 ) ) )
 		continue; // don't bother... next opponent
 
    // calculate this opponent's threat value (factor in my cover from him)
@@ -805,9 +821,12 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				// if considering a gas/smoke grenade, check to see if there is such stuff already there!
 				if ( usGrenade )
 				{
+//					if ( gpWorldLevelData[ sGridNo ].ubExtFlags[ bOpponentLevel[ubLoop] ] & MAPELEMENT_EXT_SMOKE ||
+//						gpWorldLevelData[ sGridNo ].ubExtFlags[ bOpponentLevel[ubLoop] ] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS) ||
+//						gpWorldLevelData[ sGridNo ].ubExtFlags[ bOpponentLevel[ubLoop] ] & MAPELEMENT_EXT_MUSTARDGAS)
 					if ( gpWorldLevelData[ sGridNo ].ubExtFlags[ bOpponentLevel[ubLoop] ] & MAPELEMENT_EXT_SMOKE ||
-						gpWorldLevelData[ sGridNo ].ubExtFlags[ bOpponentLevel[ubLoop] ] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS) ||
-						gpWorldLevelData[ sGridNo ].ubExtFlags[ bOpponentLevel[ubLoop] ] & MAPELEMENT_EXT_MUSTARDGAS)
+						gpWorldLevelData[ sGridNo ].ubExtFlags[ bOpponentLevel[ubLoop] ] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS | MAPELEMENT_EXT_BURNABLEGAS) ||
+						gpWorldLevelData[ sGridNo ].ubExtFlags[ bOpponentLevel[ubLoop] ] & MAPELEMENT_EXT_MUSTARDGAS || gpWorldLevelData[ sGridNo ].ubExtFlags[ bOpponentLevel[ubLoop] ] & MAPELEMENT_EXT_BURNABLEGAS)
 					{
 						continue;
 					}
@@ -1718,6 +1737,12 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 		}
 
   }
+	if ( Explosive[ ubExplosiveIndex ].ubType == EXPLOSV_BURNABLEGAS )
+	{
+		// if target gridno is outdoors (where tear gas lasts only 1-2 turns)
+		if (gpWorldLevelData[sGridno].ubTerrainID != FLAT_FLOOR)
+			iBreathDamage /= 2;       // reduce effective breath damage by 1/2
+	}
 	else if (iExplosDamage)
 	{
 		// EXPLOSION DAMAGE is spread amongst locations
@@ -2337,9 +2362,6 @@ void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN s
 		//if ( Weapon [pObj->usItem ].ubWeaponType != GUN_SN_RIFLE )
 		//	return;
 
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CheckIfShotPossible: checking for scope");
-		//check for sniper scope 
-
 		// if it's in his holster, swap it into his hand temporarily
 		if (pBestShot->bWeaponIn != HANDPOS)
 		{
@@ -2347,7 +2369,7 @@ void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN s
 			RearrangePocket(pSoldier, HANDPOS, pBestShot->bWeaponIn, TEMPORARILY);
 		}
 
-		if ( (!suppressionFire && IsScoped(pObj) && GunRange(pObj) > 30 ) || (suppressionFire  && IsGunAutofireCapable(pSoldier,pBestShot->bWeaponIn ) && GetMagSize(pObj) > 30 && pObj->ubGunShotsLeft > 20 ))
+		if ( (!suppressionFire && IsScoped(pObj) && !Weapon[pObj->usItem].NoSemiAuto && GunRange(pObj) > 30 ) || (suppressionFire  && IsGunAutofireCapable(pSoldier,pBestShot->bWeaponIn ) && GetMagSize(pObj) > 30 && pObj->ubGunShotsLeft > 20 ))
 		{
 			// get the minimum cost to attack with this item
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CheckIfShotPossible: getting min aps");

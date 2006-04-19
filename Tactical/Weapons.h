@@ -178,7 +178,8 @@ enum
 	EXPLOSV_FLARE,
 	EXPLOSV_NOISE,
 	EXPLOSV_SMOKE,
-  EXPLOSV_CREATUREGAS,
+	EXPLOSV_CREATUREGAS,
+	EXPLOSV_BURNABLEGAS,
 };
 
 #define AMMO_DAMAGE_ADJUSTMENT_BUCKSHOT( x ) (x / 4)
@@ -250,6 +251,7 @@ typedef struct
  UINT8	ubHitVolume;
  UINT16	sSound;
  UINT16	sBurstSound;
+ UINT16	sSilencedBurstSound;
  UINT16	sReloadSound;
  UINT16	sLocknLoadSound;
  UINT8	bBurstAP;										// Snap: Burst AP cost replaces bBaseAutofireCost
@@ -259,12 +261,14 @@ typedef struct
  UINT32	uiIndex;
 
  BOOLEAN swapClips;
- UINT8	silencedSound;
+ UINT16	silencedSound;
  UINT8	APsToReload;
  UINT8	maxdistformessydeath;
+ BOOLEAN NoSemiAuto;
+ UINT8 AutoPenalty;
+ INT16  sAniDelay;          // Lesh: for burst animation delay
 
 } WEAPONTYPE;
-
 typedef struct
 {
 	UINT8	ubCalibre;
@@ -302,7 +306,7 @@ extern WEAPONTYPE Weapon[ MAXITEMS ];
 extern ARMOURTYPE Armour[MAXITEMS+1];
 extern MAGTYPE Magazine[MAXITEMS+1];
 extern EXPLOSIVETYPE Explosive[MAXITEMS+1];
-extern INT8 gzBurstSndStrings[MAXITEMS][30];
+extern INT8 gzBurstSndStrings[MAXITEMS*2][128];   // Lesh: changed this
 extern AMMOTYPE AmmoTypes[MAXITEMS];
 
 
@@ -353,6 +357,7 @@ UINT8 GetDamage ( OBJECTTYPE *pObj );
 UINT8 GetAutofireShotsPerFiveAPs( OBJECTTYPE *pObj );
 UINT8 GetBaseAutoFireCost( OBJECTTYPE *pObj );
 UINT8 GetBurstPenalty( OBJECTTYPE *pObj, BOOLEAN fProneStance = FALSE );
+UINT8 GetAutoPenalty( OBJECTTYPE *pObj, BOOLEAN fProneStance = FALSE );
 UINT8 GetShotsPerBurst( OBJECTTYPE *pObj );
 UINT8 GetMagSize( OBJECTTYPE *pObj );
 BOOLEAN WeaponReady(SOLDIERTYPE * pSoldier);

@@ -99,16 +99,16 @@ void InitArmyGunTypes(void)
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"InitArmyGunTypes set gun choice table");
 	// depending on selection of the gun nut option
-	if (gGameOptions.fGunNut)
-	{
+	//if (gGameOptions.fGunNut)
+	//{
 		// use table of extended gun choices
 		pGunChoiceTable = &(gExtendedArmyGunChoices[0]);
-	}
-	else
-	{
-		// use table of regular gun choices
-		pGunChoiceTable = &(gRegularArmyGunChoices[0]);
-	}
+	//}
+	//else
+	//{
+	//	// use table of regular gun choices
+	//	pGunChoiceTable = &(gRegularArmyGunChoices[0]);
+	//}
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"InitArmyGunTypes pick a gun type");
 	// for each gun category
@@ -429,7 +429,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 			}
 
 			bAmmoClips = (INT8)(3 + Random( 2 ));
-			bGrenades = (INT8)(3 + Random( 3 ));
+			bGrenades = (INT8)(2 + Random( 3 ));
 
 			if( ( bRating >= AVERAGE_ELITE_EQUIPMENT_RATING ) && ( Random( 100 ) < 75 ) )
 			{
@@ -794,28 +794,35 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 		usAttachIndex = 0;
 	}
 
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"ChooseWeaponForSoldierCreateStruct: Gun Created");
+
 	if( usScopeIndex > 0 )
 	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ChooseWeaponForSoldierCreateStruct: Create Scope %d",usScopeIndex));
 		CreateItem( usScopeIndex, 100, &Object );
 		Object.fFlags |= OBJECT_UNDROPPABLE;
 		AttachObject( NULL, &(pp->Inv[ HANDPOS ]), &Object );		
 	}
 	if( usAttachIndex > 0 )
 	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ChooseWeaponForSoldierCreateStruct: Create Attachment %d",usAttachIndex));
 		CreateItem( usAttachIndex, 100, &Object );
 		Object.fFlags |= OBJECT_UNDROPPABLE;
 		AttachObject( NULL, &(pp->Inv[ HANDPOS ]), &Object );		
 	}
 	if( usAttachIndex2 > 0 )
 	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ChooseWeaponForSoldierCreateStruct: Create 2nd Attachment %d",usAttachIndex2));
 		CreateItem( usAttachIndex2, 100, &Object );
 		Object.fFlags |= OBJECT_UNDROPPABLE;
 		AttachObject( NULL, &(pp->Inv[ HANDPOS ]), &Object );		
 	}
 
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ChooseWeaponForSoldierCreateStruct: Set bullets"));
 	//set bullets = to magsize including any attachments (c-mag adapters, etc)
 	pp->Inv[ HANDPOS ].ubGunShotsLeft = GetMagSize(&pp->Inv[ HANDPOS ]);
 
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ChooseWeaponForSoldierCreateStruct: choose ammo"));
 	if( bAmmoClips )
 	{ //We have a gun, so choose ammo clips
 
@@ -842,6 +849,7 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 	}
 
 	//Ammo
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ChooseWeaponForSoldierCreateStruct: create ammo"));
 	if( bAmmoClips && usAmmoIndex )
 	{
 		CreateItems( usAmmoIndex, 100, bAmmoClips, &Object );
@@ -849,6 +857,7 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 		PlaceObjectInSoldierCreateStruct( pp, &Object );
 	}
 
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ChooseWeaponForSoldierCreateStruct: done"));
 }
 
 void ChooseGrenadesForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bGrenades, INT8 bGrenadeClass, BOOLEAN fGrenadeLauncher )
@@ -2520,16 +2529,16 @@ UINT16 SelectStandardArmyGun( UINT8 uiGunLevel )
 	// decided to randomize it afterall instead of repeating the same weapon over and over
 
 	// depending on selection of the gun nut option
-	if (gGameOptions.fGunNut)
-	{
+	//if (gGameOptions.fGunNut)
+	//{
 		// use table of extended gun choices
 		pGunChoiceTable = &(gExtendedArmyGunChoices[0]);
-	}
-	else
-	{
-		// use table of regular gun choices
-		pGunChoiceTable = &(gRegularArmyGunChoices[0]);
-	}
+	//}
+	//else
+	//{
+	//	// use table of regular gun choices
+	//	pGunChoiceTable = &(gRegularArmyGunChoices[0]);
+	//}
 
 	// choose one the of the possible gun choices
 	uiChoice = Random(pGunChoiceTable[ uiGunLevel ].ubChoices);

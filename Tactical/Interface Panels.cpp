@@ -995,7 +995,7 @@ void UpdateSMPanel( )
 	else
 	{
 		// Enable some buttons!
-		if ( IsGunAutofireCapable( gpSMCurrentMerc, HANDPOS ) || IsGunBurstCapable( gpSMCurrentMerc, HANDPOS , FALSE ) || IsGrenadeLauncherAttached ( &(gpSMCurrentMerc->inv[HANDPOS]) ) )
+		if ( ((IsGunAutofireCapable( gpSMCurrentMerc, HANDPOS ) || IsGunBurstCapable( gpSMCurrentMerc, HANDPOS , FALSE )) && !Weapon[gpSMCurrentMerc->inv[HANDPOS].usItem].NoSemiAuto ) || IsGrenadeLauncherAttached ( &(gpSMCurrentMerc->inv[HANDPOS]) ) )
 		{
 			EnableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );		
 		}
@@ -5988,9 +5988,18 @@ void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInv
 	// if in attached weapon mode and don't have weapon with GL attached in hand, reset weapon mode
 	if ( (pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )&& !IsGrenadeLauncherAttached( &(pSoldier->inv[ HANDPOS ]) ) )
 	{
-		pSoldier->bWeaponMode = WM_NORMAL;
-		pSoldier->bDoBurst = FALSE;
-		pSoldier->bDoAutofire = 0;
+		if ( !Weapon[pSoldier->inv[ HANDPOS ].usItem].NoSemiAuto )
+		{
+			pSoldier->bWeaponMode = WM_NORMAL;
+			pSoldier->bDoBurst = FALSE;
+			pSoldier->bDoAutofire = 0;
+		}
+		else
+		{
+			pSoldier->bWeaponMode = WM_AUTOFIRE;
+			pSoldier->bDoBurst = TRUE;
+			pSoldier->bDoAutofire = 1;
+		}
 	}
 
 	// if he is loaded tactically
@@ -6016,9 +6025,18 @@ void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInv
 		// as a minimum
 		if ( (Item[ pSoldier->inv[ HANDPOS ].usItem ].usItemClass & IC_WEAPON) && GetShotsPerBurst(&pSoldier->inv[ HANDPOS ]) == 0 )
 		{
-			pSoldier->bDoBurst		= FALSE;
-			pSoldier->bWeaponMode = WM_NORMAL;
-			pSoldier->bDoAutofire = 0;
+			if ( !Weapon[pSoldier->inv[ HANDPOS ].usItem].NoSemiAuto )
+			{
+				pSoldier->bWeaponMode = WM_NORMAL;
+				pSoldier->bDoBurst = FALSE;
+				pSoldier->bDoAutofire = 0;
+			}
+			else
+			{
+				pSoldier->bWeaponMode = WM_AUTOFIRE;
+				pSoldier->bDoAutofire = 1;
+				pSoldier->bDoBurst = TRUE;
+			}
 		}
 	}
 }

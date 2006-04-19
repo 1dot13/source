@@ -109,6 +109,10 @@ INT8 FromWorldFlagsToSmokeType( UINT8 ubWorldFlags )
 	{
 		return( MUSTARDGAS_SMOKE_EFFECT );
 	}
+	else if ( ubWorldFlags & MAPELEMENT_EXT_BURNABLEGAS )
+	{
+		return( BURNABLEGAS_SMOKE_EFFECT );
+	}
 	else if ( ubWorldFlags & MAPELEMENT_EXT_CREATUREGAS )
 	{
 		return( CREATURE_SMOKE_EFFECT );
@@ -137,6 +141,11 @@ UINT8 FromSmokeTypeToWorldFlags( INT8 bType )
 		case MUSTARDGAS_SMOKE_EFFECT:
 
 			return( MAPELEMENT_EXT_MUSTARDGAS );
+			break;
+
+		case BURNABLEGAS_SMOKE_EFFECT:
+
+			return( MAPELEMENT_EXT_BURNABLEGAS );
 			break;
 
     case CREATURE_SMOKE_EFFECT:
@@ -184,6 +193,13 @@ INT32 NewSmokeEffect( INT16 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner )
 		case EXPLOSV_MUSTGAS:
 
 			bSmokeEffectType	=	MUSTARDGAS_SMOKE_EFFECT;
+			ubDuration				= Explosive[ Item[ usItem ].ubClassIndex ].ubDuration;
+			ubStartRadius			= Explosive[ Item[ usItem ].ubClassIndex ].ubStartRadius;
+			break;
+
+		case EXPLOSV_BURNABLEGAS:
+
+			bSmokeEffectType	=	BURNABLEGAS_SMOKE_EFFECT;
 			ubDuration				= Explosive[ Item[ usItem ].ubClassIndex ].ubDuration;
 			ubStartRadius			= Explosive[ Item[ usItem ].ubClassIndex ].ubStartRadius;
 			break;
@@ -373,6 +389,25 @@ void AddSmokeEffectToTile( INT32 iSmokeEffectID, INT8 bType, INT16 sGridNo, INT8
         else
         {
 			    strcpy( AniParams.zCachedFile, "TILECACHE\\MUSTARD2.STI" );			
+        }
+      }
+			break;
+
+		case BURNABLEGAS_SMOKE_EFFECT:
+
+      if ( !( gGameSettings.fOptions[ TOPTION_ANIMATE_SMOKE ] ) )
+      {
+			   strcpy( AniParams.zCachedFile, "TILECACHE\\FLAMCHZE.STI" );			
+      }
+      else
+      {
+        if ( fDissipating )
+        {
+			    strcpy( AniParams.zCachedFile, "TILECACHE\\smalflam.STI" );			
+        }
+        else
+        {
+			    strcpy( AniParams.zCachedFile, "TILECACHE\\FLAMETH2.STI" );			
         }
       }
 			break;

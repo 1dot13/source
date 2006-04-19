@@ -367,7 +367,8 @@ typedef struct
 	
 	INT16 magsizebonus;
 	INT16 percentautofireapreduction;
-	INT16 autofirebonus;
+	INT16 autofiretohitbonus;
+	INT16 APBonus;
 	INT16 rateoffirebonus;
 	INT16 burstsizebonus;
 	INT16 bursttohitbonus;
@@ -829,6 +830,8 @@ typedef enum
 	EXPLOSIVE,
 	EASY_MERGE,
 	ELECTRONIC_MERGE,
+	USE_ITEM,
+	USE_ITEM_HARD
 } MergeType;
 
 extern UINT16 Merge[MAXITEMS+1][4];

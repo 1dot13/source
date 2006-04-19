@@ -415,7 +415,7 @@ void LoadWorldItemsFromMap( INT8 **hBuffer )
 				{ //no match, so don't add item to world
 					continue;
 				}
-
+/*
 				if ( !gGameOptions.fGunNut )
 				{
 					UINT16	usReplacement;
@@ -458,6 +458,8 @@ void LoadWorldItemsFromMap( INT8 **hBuffer )
 						}
 					}
 				}
+
+*/
 			}
 			if( dummyItem.o.usItem == ACTION_ITEM && gfLoadPitsWithoutArming )
 			{ //if we are loading a pit, they are typically loaded without being armed.

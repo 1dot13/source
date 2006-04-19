@@ -1694,11 +1694,10 @@ FLOAT CalculateObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vector_3 *vP
 
 	// WANNE 2
 	// Alrighty, move this beast until it dies....
-	while( pObject->fAlive)
+	while( pObject->fAlive )
 	{
 		//cnt = cnt + 1;
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalculateObjectTrajectory: calling SIMULATEobject - this object never fucking dies!!!!");
-		//DebugMsg (TOPIC_JA2,DBG_LEVEL_3, String( "Counter: %d", cnt));
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalculateObjectTrajectory: calling simulateobject - this object never fucking dies!!!!");
 		SimulateObject( pObject, (float)DELTA_T );
 	}
 

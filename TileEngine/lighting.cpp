@@ -740,7 +740,7 @@ INT32 iDx, iDy;
 		Returns the light level at a particular level without fake lights
 
 ***************************************************************************************/
-UINT8 LightTrueLevel( INT16 sGridNo, INT8 bLevel )
+UINT8 LightTrueLevel( INT16 sGridNo, INT16 bLevel )
 {
 	LEVELNODE * pNode;
 	INT32 iSum;

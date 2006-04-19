@@ -81,6 +81,7 @@ UINT8		ubTransKeyFrame[ NUM_EXP_TYPES ] =
 	1,
 	1,
 	1,
+	1,
 };
 
 UINT8		ubDamageKeyFrame[ NUM_EXP_TYPES ] =
@@ -90,6 +91,7 @@ UINT8		ubDamageKeyFrame[ NUM_EXP_TYPES ] =
 	5,
 	5,
 	5,
+	18,
 	18,
 	18,
 	18,
@@ -108,6 +110,7 @@ UINT32	uiExplosionSoundID[ NUM_EXP_TYPES ] =
 	AIR_ESCAPING_1,
 	AIR_ESCAPING_1,
 	AIR_ESCAPING_1,
+	325,//TODO: Madd: hard coded for now -- we need to externalize explosion sounds, animations, etc. at some point in the near future 
 };
 
 
@@ -122,6 +125,7 @@ CHAR8	zBlastFilenames[][70] =
 	"TILECACHE\\TEAR_EXP.STI",
 	"TILECACHE\\TEAR_EXP.STI",
 	"TILECACHE\\MUST_EXP.STI",
+	"TILECACHE\\FLAM_EXP.STI",
 };
 
 CHAR8	sBlastSpeeds[] =
@@ -131,6 +135,8 @@ CHAR8	sBlastSpeeds[] =
 	80,
 	80,
 	20,
+	80,
+	80,
 	80,
 	80,
 	80,
@@ -1325,7 +1331,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 	 return( fRecompileMovementCosts );
  }
 
- if ( pExplosive->ubType == EXPLOSV_CREATUREGAS )
+ if ( pExplosive->ubType == EXPLOSV_CREATUREGAS || pExplosive->ubType == EXPLOSV_BURNABLEGAS)
  {
 	 if ( pSoldier->uiStatusFlags & SOLDIER_MONSTER )
 	 {
@@ -1337,6 +1343,12 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 		// already affected by creature gas this turn
 		return( fRecompileMovementCosts );				
 	 }
+	 if ( sSubsequent && pSoldier->fHitByGasFlags & HIT_BY_BURNABLEGAS )
+	 {
+		// already affected by BURNABLEGAS this turn
+		return( fRecompileMovementCosts );				
+	 }
+
  }
  else // no gas mask help from creature attacks
 	// ATE/CJC: gas stuff
@@ -1446,6 +1458,9 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 			case EXPLOSV_MUSTGAS:
 				pSoldier->fHitByGasFlags |= HIT_BY_MUSTARDGAS;
 				break;
+			case EXPLOSV_BURNABLEGAS:
+				pSoldier->fHitByGasFlags |= HIT_BY_BURNABLEGAS;
+				break;
 			default:
 				break;
 		}
@@ -1499,6 +1514,13 @@ BOOLEAN ExpAffect( INT16 sBombGridNo, INT16 sGridNo, UINT32 uiDist, UINT16 usIte
 
 					fSmokeEffect			= TRUE;
 					bSmokeEffectType	=	MUSTARDGAS_SMOKE_EFFECT; 
+					fBlastEffect			= FALSE;
+					break;
+
+				case EXPLOSV_BURNABLEGAS:
+
+					fSmokeEffect			= TRUE;
+					bSmokeEffectType	=	BURNABLEGAS_SMOKE_EFFECT; 
 					fBlastEffect			= FALSE;
 					break;
 
@@ -2118,6 +2140,7 @@ void SpreadEffect( INT16 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, 
  {
 
 	case EXPLOSV_MUSTGAS:
+	case EXPLOSV_BURNABLEGAS:
 	case EXPLOSV_TEARGAS:
 	case EXPLOSV_SMOKE:
 	case EXPLOSV_CREATUREGAS:

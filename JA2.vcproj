@@ -3,8 +3,10 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="ja2"
-	SccProjectName="&quot;$/Jagged Alliance 2/Development/Programming/Jagged Alliance 2/Build&quot;, AVAAAAAA"
-	SccLocalPath="..\..\ja2\build">
+	SccProjectName=""
+	SccAuxPath=""
+	SccLocalPath=""
+	SccProvider="">
 	<Platforms>
 		<Platform
 			Name="Win32"/>
@@ -20,7 +22,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\Standard Gaming Platform,.\TileEngine,.\Tactical,.\Utils,.\TacticalAI,.\Editor,.\Strategic,.\laptop,.\,..\"
+				AdditionalIncludeDirectories="&quot;.\Standard Gaming Platform&quot;;.\TileEngine;.\Tactical;.\Utils;.\TacticalAI;.\Editor;.\Strategic;.\laptop;.\"
 				PreprocessorDefinitions="CALLBACKTIMER;PRECOMPILEDHEADERS;_DEBUG;WIN32;_WINDOWS;JA2;_VTUNE_PROFILING;XML_STATIC;CINTERFACE"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
@@ -33,14 +35,14 @@
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
-				CompileAs="0"
+				CompileAs="2"
 				DisableSpecificWarnings="4292"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libexpatMT.lib mss32.lib winmm.lib smackw32.lib"
-				OutputFile="C:\Games\Jagged Alliance 2 v1.13\ja2_debug_wanne.exe"
+				OutputFile="C:\games\Jagged Alliance 2 Gold\ja2_debug.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories=".\..\..\Standard Gaming Platform\"
@@ -90,8 +92,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="\Standard Gaming Platform,.\TileEngine,.\Tactical,.\Utils,.\TacticalAI,.\Communications,.\Editor,.\Strategic,.\Laptop"
-				PreprocessorDefinitions="_DEBUG;JA2DEMO;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS"
+				AdditionalIncludeDirectories="&quot;.\Standard Gaming Platform&quot;;.\TileEngine;.\Tactical;.\Utils;.\TacticalAI;.\Editor;.\Strategic;.\laptop;.\"
+				PreprocessorDefinitions="_DEBUG;JA2DEMO;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS;XML_STATIC;CINTERFACE"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="JA2 All.h"
@@ -103,15 +105,16 @@
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
-				CompileAs="0"/>
+				CompileAs="2"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="winmm.lib smackw32.lib mss32.lib"
+				AdditionalDependencies="libexpatMT.lib winmm.lib smackw32.lib mss32.lib"
 				OutputFile="d:\ja2demo\ja2.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
+				IgnoreDefaultLibraryNames="libcmt"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Debug Demo/ja2.pdb"
 				GenerateMapFile="TRUE"
@@ -157,8 +160,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="\Standard Gaming Platform,.\TileEngine,.\Tactical,.\Utils,.\TacticalAI,.\Communications,.\Editor,.\Strategic,.\Laptop"
-				PreprocessorDefinitions="_DEBUG;BOUNDS_CHECKER;JA2DEMO;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS"
+				AdditionalIncludeDirectories="&quot;.\Standard Gaming Platform&quot;;.\TileEngine;.\Tactical;.\Utils;.\TacticalAI;.\Editor;.\Strategic;.\laptop;.\"
+				PreprocessorDefinitions="_DEBUG;BOUNDS_CHECKER;JA2DEMO;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS;XML_STATIC;CINTERFACE"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="JA2 All.h"
@@ -170,15 +173,16 @@
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
-				CompileAs="0"/>
+				CompileAs="2"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="winmm.lib smackw32.lib mss32.lib"
-				OutputFile="..\..\ja2.exe"
+				AdditionalDependencies="libexpatMT.lib winmm.lib smackw32.lib mss32.lib"
+				OutputFile="d:\ja2demo\ja2.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
+				IgnoreDefaultLibraryNames="libcmt"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Demo Bounds Checker/ja2.pdb"
 				GenerateMapFile="TRUE"
@@ -227,7 +231,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OptimizeForProcessor="1"
-				AdditionalIncludeDirectories=".\Standard Gaming Platform,.\TileEngine,.\Tactical,.\Utils,.\TacticalAI,.\Communications,.\Editor,.\Strategic,.\laptop,.\"
+				AdditionalIncludeDirectories="&quot;.\Standard Gaming Platform&quot;;.\TileEngine;.\Tactical;.\Utils;.\TacticalAI;.\Editor;.\Strategic;.\laptop;.\"
 				PreprocessorDefinitions="RELEASE_WITH_DEBUG_INFO;NDEBUG;JA2DEMO;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS;XML_STATIC;CINTERFACE"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -242,15 +246,16 @@
 				WarningLevel="4"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="3"
-				CompileAs="0"/>
+				CompileAs="2"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="winmm.lib smackw32.lib mss32.lib"
+				AdditionalDependencies="libexpatMT.lib winmm.lib smackw32.lib mss32.lib"
 				OutputFile="d:\ja2demo\ja2.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
+				IgnoreDefaultLibraryNames="libcmt"
 				GenerateDebugInformation="TRUE"
 				GenerateMapFile="TRUE"
 				MapFileName=".\Demo Release with Debug/ja2.map"
@@ -298,10 +303,11 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OptimizeForProcessor="1"
-				AdditionalIncludeDirectories=".\Standard Gaming Platform,.\TileEngine,.\Tactical,.\Utils,.\TacticalAI,.\Communications,.\Editor,.\Strategic,.\laptop,.\"
+				AdditionalIncludeDirectories="&quot;.\Standard Gaming Platform&quot;;.\TileEngine;.\Tactical;.\Utils;.\TacticalAI;.\Editor;.\Strategic;.\laptop;.\"
 				PreprocessorDefinitions="NDEBUG;RELEASE_WITH_DEBUG_INFO;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS;_VTUNE_PROFILING;XML_STATIC;CINTERFACE"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
+				BufferSecurityCheck="FALSE"
 				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="JA2 All.h"
@@ -310,21 +316,24 @@
 				ObjectFile=".\Release with Debug/"
 				ProgramDataBaseFileName=".\Release with Debug/"
 				BrowseInformation="1"
-				WarningLevel="4"
+				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="3"
-				CompileAs="0"/>
+				CompileAs="2"
+				DisableSpecificWarnings="4292;4189"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libexpatMT.lib winmm.lib smackw32.lib mss32.lib"
-				OutputFile="..\ja2_cvs.exe"
+				OutputFile="C:\games\Jagged Alliance 2 Gold\ja2_reldbg.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories=""
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="TRUE"
 				GenerateMapFile="TRUE"
-				MapFileName=".\Release with Debug/ja2_cvs.map"
+				MapFileName=".\Release with Debug/ja2.map"
 				SubSystem="2"
 				TargetMachine="1"/>
 			<Tool
@@ -366,8 +375,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="\Standard Gaming Platform,.\TileEngine,.\Tactical,.\Utils,.\TacticalAI,.\Communications,.\Editor,.\Strategic,.\Laptop"
-				PreprocessorDefinitions="_DEBUG;BOUNDS_CHECKER;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS;_VTUNE_PROFILING"
+				AdditionalIncludeDirectories="&quot;.\Standard Gaming Platform&quot;;.\TileEngine;.\Tactical;.\Utils;.\TacticalAI;.\Editor;.\Strategic;.\laptop;.\"
+				PreprocessorDefinitions="_DEBUG;BOUNDS_CHECKER;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS;_VTUNE_PROFILING;XML_STATIC;CINTERFACE"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="JA2 All.h"
@@ -379,15 +388,17 @@
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
-				CompileAs="0"/>
+				CompileAs="2"
+				DisableSpecificWarnings="4292"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="vtuneapi.lib winmm.lib smackw32.lib mss32.lib"
+				AdditionalDependencies="libexpatMT.lib winmm.lib smackw32.lib mss32.lib"
 				OutputFile="\ja2\ja2.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
+				IgnoreDefaultLibraryNames="libcmt"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Bounds Checker/ja2.pdb"
 				GenerateMapFile="TRUE"
@@ -436,8 +447,8 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OptimizeForProcessor="1"
-				AdditionalIncludeDirectories="\Standard Gaming Platform,.\TileEngine,.\Tactical,.\Utils,.\TacticalAI,.\Communications,.\Editor,.\Strategic,.\laptop"
-				PreprocessorDefinitions="RELEASE_WITH_DEBUG_INFO;NDEBUG;JA2DEMO;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS"
+				AdditionalIncludeDirectories="&quot;.\Standard Gaming Platform&quot;;.\TileEngine;.\Tactical;.\Utils;.\TacticalAI;.\Editor;.\Strategic;.\laptop;.\"
+				PreprocessorDefinitions="RELEASE_WITH_DEBUG_INFO;NDEBUG;JA2DEMO;CALLBACKTIMER;WIN32;_WINDOWS;JA2;PRECOMPILEDHEADERS;XML_STATIC;CINTERFACE"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
@@ -451,15 +462,16 @@
 				WarningLevel="4"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="3"
-				CompileAs="0"/>
+				CompileAs="2"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="winmm.lib smackw32.lib mss32.lib"
+				AdditionalDependencies="libexpatMT.lib winmm.lib smackw32.lib mss32.lib"
 				OutputFile="d:\ja2demo\ja2.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
+				IgnoreDefaultLibraryNames="libcmt"
 				GenerateDebugInformation="TRUE"
 				GenerateMapFile="TRUE"
 				MapFileName=".\Release Demo/ja2.map"
@@ -505,9 +517,13 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/O2b2 "
 				Optimization="2"
-				InlineFunctionExpansion="2"
-				OptimizeForProcessor="1"
-				AdditionalIncludeDirectories=".\Standard Gaming Platform,.\TileEngine,.\Tactical,.\Utils,.\TacticalAI,.\Editor,.\Strategic,.\laptop,.\"
+				GlobalOptimizations="TRUE"
+				InlineFunctionExpansion="1"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForProcessor="3"
+				OptimizeForWindowsApplication="TRUE"
+				AdditionalIncludeDirectories="&quot;.\Standard Gaming Platform&quot;;.\TileEngine;.\Tactical;.\Utils;.\TacticalAI;.\Editor;.\Strategic;.\laptop;.\"
 				PreprocessorDefinitions="CALLBACKTIMER;PRECOMPILEDHEADERS;NDEBUG;WIN32;_WINDOWS;JA2;XML_STATIC;CINTERFACE"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -522,15 +538,18 @@
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="3"
-				CompileAs="0"/>
+				CompileAs="2"
+				DisableSpecificWarnings="4292"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libexpatMT.lib winmm.lib smackw32.lib mss32.lib"
-				OutputFile="C:\Games\Jagged Alliance 2 v1.13\ja2_release_wanne.exe"
+				OutputFile="C:\Games\Jagged Alliance 2 Gold\ja2.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories=".\..\..\Standard Gaming Platform\"
+				IgnoreDefaultLibraryNames=""
 				GenerateMapFile="TRUE"
 				MapFileName=".\Release/ja2_cvs.map"
 				SubSystem="2"
@@ -2376,6 +2395,9 @@
 			</File>
 			<File
 				RelativePath="GameSettings.h">
+			</File>
+			<File
+				RelativePath=".\Init.h">
 			</File>
 			<File
 				RelativePath="JA2 All.h">

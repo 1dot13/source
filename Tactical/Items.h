@@ -208,7 +208,7 @@ INT16 GetPercentAutofireAPReduction( OBJECTTYPE * pObj );
 INT16 GetPercentBurstFireAPReduction( OBJECTTYPE * pObj );
 INT16 GetPercentReadyTimeAPReduction( OBJECTTYPE * pObj );
 INT16 GetPercentReloadTimeAPReduction( OBJECTTYPE * pObj );
-INT16 GetAutofireBonus( OBJECTTYPE * pObj );
+INT16 GetAutoToHitBonus( OBJECTTYPE * pObj, BOOLEAN fProneStance = FALSE  );
 INT16 GetRateOfFireBonus( OBJECTTYPE * pObj );
 INT16 GetBurstSizeBonus( OBJECTTYPE * pObj );
 BOOLEAN HasFastBurst( OBJECTTYPE * pObj );
@@ -278,6 +278,12 @@ INT16 GetWornCamo( SOLDIERTYPE * pSoldier );
 INT16 GetCamoBonus( OBJECTTYPE * pObj );
 
 void ApplyEquipmentBonuses(SOLDIERTYPE * pSoldier);
+
+INT16 GetGearAimBonus( SOLDIERTYPE * pSoldier, INT32 iRange, UINT8 ubAimTime);
+INT16 GetGearToHitBonus( SOLDIERTYPE * pSoldier );
+INT16 GetGearAPBonus( SOLDIERTYPE * pSoldier );
+
+UINT16 GetFirstExplosiveOfType(UINT16 expType);
 
 #endif
 

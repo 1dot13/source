@@ -297,6 +297,8 @@ UINT16 Message[][STRING_LENGTH] =
 	L"Bloodcats' turn",
 	L"full auto",
 	L"no full auto",
+	L"accurate",
+	L"inaccurate",
 };
 
 
@@ -3253,8 +3255,8 @@ STR16			zSaveLoadText[] =
 
 	L"Saving...",			//When saving a game, a message box with this string appears on the screen
 
-	L"No Air Strikes",
-	L"Air Strikes",
+	L"Tons of Guns",
+	L"10 Tons of Guns",
 	L"Realistic style",
 	L"Sci Fi style",
 
@@ -3441,9 +3443,9 @@ STR16	gzGIOScreenText[] =
 	L"Realistic",
 	L"Sci Fi",
 	L"Platinum",
-	L"Air Strikes",
-	L"On",
-	L"Off",
+	L"Items",
+	L"10 Tons of Guns",
+	L"Tons of Guns",
 	L"Difficulty Level",
 	L"Novice",
 	L"Experienced",

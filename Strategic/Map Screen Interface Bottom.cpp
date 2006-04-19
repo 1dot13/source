@@ -1568,8 +1568,8 @@ BOOLEAN CommonTimeCompressionChecks( void )
 		return( TRUE );
 	}
 
-	if ( gfInAirRaid )
-		return TRUE;
+//	if ( gfInAirRaid )
+//		return TRUE;
 
 	return( FALSE );
 }

@@ -1812,7 +1812,7 @@ UINT32 LaptopScreenHandle()
 	if( gfStartMapScreenToLaptopTransition )
 	{ 
 		// WANNE 2: I disabled the animation of the laptop, because the screen redrawing does not work correct!
-
+		// Madd: It'd be nice if someone who knows more about graphics than I do could re-enable this, at least for 640x480
 		//Everything is set up to start the transition animation.
 		//SGPRect SrcRect2, DstRect;
 		//INT32 iPercentage, iScalePercentage, iFactor;
@@ -2446,6 +2446,7 @@ BOOLEAN LeaveLapTopScreen( void )
 		if( !gfDontStartTransitionFromLaptop )
 		{
 		// WANNE 2: I disabled the laptop animation, because the screen redrawing does not work correctly!
+		// Madd: It'd be nice if someone who knows more about graphics than I do could re-enable this, at least for 640x480
 
 			//SGPRect SrcRect1, SrcRect2, DstRect;
 			//INT32 iPercentage, iScalePercentage, iFactor;

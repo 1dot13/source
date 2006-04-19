@@ -1158,6 +1158,13 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 			sDistVisible = __min( sDistVisible, 2 );
 		}
 	}
+	if ( gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[ bLevel ] & MAPELEMENT_EXT_BURNABLEGAS )
+	{
+		{
+			// in FLAMETHERgas ; reduce max distance visible to 2 tiles at most
+			sDistVisible = __min( sDistVisible, 2 );
+		}
+	}
 
 	return(sDistVisible);
 }

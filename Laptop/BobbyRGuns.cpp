@@ -1209,8 +1209,8 @@ void SetFirstLastPagesForNew( UINT32 uiClassMask )
 	UINT16 i;
 	INT16	sFirst = -1;
 	INT16	sLast = -1;
-	UINT8	ubPages=0;
-	UINT8	ubNumItems=0;
+	UINT16	ubPages=0;
+	UINT16	ubNumItems=0;
 
 	gubCurPage = 0;
 
@@ -1254,8 +1254,8 @@ void SetFirstLastPagesForUsed()
 	UINT16 i;
 	INT16	sFirst = -1;
 	INT16	sLast = -1;
-	UINT8	ubPages=0;
-	UINT8	ubNumItems=0;
+	UINT16	ubPages=0;
+	UINT16	ubNumItems=0;
 
 	gubCurPage = 0;
 

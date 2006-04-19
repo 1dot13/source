@@ -1304,7 +1304,8 @@ INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX,
 		} while( (iCurrTileX == iOldTileX) && (iCurrTileY == iOldTileY) && (iLoop < iDistance));
 
 		// leaving a tile, check to see if it had gas in it
-		if ( pMapElement->ubExtFlags[0] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS) )
+//		if ( pMapElement->ubExtFlags[0] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS) )
+		if ( pMapElement->ubExtFlags[0] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS | MAPELEMENT_EXT_BURNABLEGAS) )
 		{
 			if ( (pMapElement->ubExtFlags[0] & MAPELEMENT_EXT_SMOKE) && !fSmell )
 			{
@@ -4295,7 +4296,7 @@ void MoveBullet( INT32 iBullet )
 												OBJECTTYPE Object;
 												INT32	 iKnifeGridNo;
 
-												CreateItem( THROWING_KNIFE, (INT8) pBullet->ubItemStatus, &Object );
+												CreateItem( pBullet->fromItem, (INT8) pBullet->ubItemStatus, &Object );
 
 												// by default knife at same tile as window
 												iKnifeGridNo = (INT16) iGridNo;

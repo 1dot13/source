@@ -45,7 +45,7 @@
 #endif
 
 //rain
-#define WEAPON_RELIABILITY_REDUCTION_PER_RAIN_INTENSITY 9
+#define WEAPON_RELIABILITY_REDUCTION_PER_RAIN_INTENSITY 0
 extern INT8 gbCurrentRainIntensity;
 //end rain
 
@@ -283,7 +283,7 @@ EXPLOSIVETYPE Explosive[MAXITEMS+1];// =
 //};
 
 
-INT8 gzBurstSndStrings[MAXITEMS][30];// =
+INT8 gzBurstSndStrings[MAXITEMS*2][128];// =
 //{
 //	"",													// NOAMMO
 //	"",													// 38
@@ -383,14 +383,18 @@ weaponStartElementHandle(void *userData, const char *name, const char **atts)
 				strcmp(name, "ubHitVolume") == 0 ||
 				strcmp(name, "sSound") == 0 ||
 				strcmp(name, "sBurstSound") == 0 ||
+				strcmp(name, "sSilencedBurstSound") == 0 ||
 				strcmp(name, "sReloadSound") == 0 ||
 				strcmp(name, "sLocknLoadSound") == 0 ||
 				strcmp(name, "bBurstAP") == 0 ||
 				strcmp(name, "bAutofireShotsPerFiveAP") == 0 ||
 				strcmp(name, "APsToReload") == 0 ||
 				strcmp(name, "SwapClips") == 0 ||
+				strcmp(name, "AutoPenalty") == 0 ||
+				strcmp(name, "NoSemiAuto") == 0 ||
 				strcmp(name, "MaxDistForMessyDeath") == 0 ||
-				strcmp(name, "SilencedSound") == 0))
+				strcmp(name, "SilencedSound") == 0 || // Lesh: add new field (OR operand)
+                strcmp(name, "BurstAniDelay") == 0))   // Lesh: add new field (field itself)
 
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON_PROPERY;
@@ -545,6 +549,11 @@ weaponEndElementHandle(void *userData, const char *name)
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
 			pData->curWeapon.sBurstSound = (UINT16) atol(pData->szCharData);
 		}
+		else if(strcmp(name, "sSilencedBurstSound") == 0)
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+			pData->curWeapon.sSilencedBurstSound = (UINT16) atol(pData->szCharData);
+		}
 		else if(strcmp(name, "sReloadSound") == 0)
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
@@ -573,18 +582,36 @@ weaponEndElementHandle(void *userData, const char *name)
 		else if(strcmp(name, "SilencedSound") == 0)
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
-			pData->curWeapon.silencedSound = (UINT8) atol(pData->szCharData);
+			pData->curWeapon.silencedSound = (UINT16) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "SwapClips") == 0)
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
-			pData->curWeapon.swapClips = (UINT8) atol(pData->szCharData);
+			pData->curWeapon.swapClips = (BOOLEAN) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "MaxDistForMessyDeath") == 0)
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
 			pData->curWeapon.maxdistformessydeath = (UINT8) atol(pData->szCharData);
 		}
+		else if(strcmp(name, "AutoPenalty") == 0)
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+			pData->curWeapon.AutoPenalty = (UINT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "NoSemiAuto") == 0)
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+			pData->curWeapon.NoSemiAuto = (BOOLEAN) atol(pData->szCharData);
+		}
+        // Lesh: xmlreader must handle new field
+   		else if(strcmp(name, "BurstAniDelay") == 0)
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+            pData->curWeapon.sAniDelay = (INT16) atol(pData->szCharData);
+		}
+        // Lesh: end
+
 		pData->maxReadDepth--;
 	}
 
@@ -731,6 +758,7 @@ BOOLEAN ReadInWeaponStats(STR fileName)
 			FilePrintf(hFile,"\t\t<ubHitVolume>%d</ubHitVolume>\r\n",							Weapon[cnt].ubHitVolume);
 			FilePrintf(hFile,"\t\t<sSound>%d</sSound>\r\n",										Weapon[cnt].sSound);
 			FilePrintf(hFile,"\t\t<sBurstSound>%d</sBurstSound>\r\n",							Weapon[cnt].sBurstSound);
+			FilePrintf(hFile,"\t\t<sSilencedBurstSound>%d</sSilencedBurstSound>\r\n",							Weapon[cnt].sSilencedBurstSound);
 			FilePrintf(hFile,"\t\t<sReloadSound>%d</sReloadSound>\r\n",							Weapon[cnt].sReloadSound);
 			FilePrintf(hFile,"\t\t<sLocknLoadSound>%d</sLocknLoadSound>\r\n",					Weapon[cnt].sLocknLoadSound);
 			FilePrintf(hFile,"\t\t<bBurstAP>%d</bBurstAP>\r\n",				Weapon[cnt].bBurstAP);
@@ -827,10 +855,12 @@ BOOLEAN WriteWeaponStats()
 			FilePrintf(hFile,"\t\t<ubMagSize>%d</ubMagSize>\r\n",								Weapon[cnt].ubMagSize);
 			FilePrintf(hFile,"\t\t<usRange>%d</usRange>\r\n",									Weapon[cnt].usRange);
 			FilePrintf(hFile,"\t\t<usReloadDelay>%d</usReloadDelay>\r\n",						Weapon[cnt].usReloadDelay);
+			FilePrintf(hFile,"\t\t<BurstAniDelay>%d</BurstAniDelay>\r\n",						Weapon[cnt].sAniDelay);
 			FilePrintf(hFile,"\t\t<ubAttackVolume>%d</ubAttackVolume>\r\n",						Weapon[cnt].ubAttackVolume);
 			FilePrintf(hFile,"\t\t<ubHitVolume>%d</ubHitVolume>\r\n",							Weapon[cnt].ubHitVolume);
 			FilePrintf(hFile,"\t\t<sSound>%d</sSound>\r\n",										Weapon[cnt].sSound);
 			FilePrintf(hFile,"\t\t<sBurstSound>%d</sBurstSound>\r\n",							Weapon[cnt].sBurstSound);
+			FilePrintf(hFile,"\t\t<sSilencedBurstSound>%d</sSilencedBurstSound>\r\n",							Weapon[cnt].sSilencedBurstSound);
 			FilePrintf(hFile,"\t\t<sReloadSound>%d</sReloadSound>\r\n",							Weapon[cnt].sReloadSound);
 			FilePrintf(hFile,"\t\t<sLocknLoadSound>%d</sLocknLoadSound>\r\n",					Weapon[cnt].sLocknLoadSound);
 			FilePrintf(hFile,"\t\t<SilencedSound>%d</SilencedSound>\r\n",						Weapon[cnt].silencedSound  );
@@ -839,6 +869,8 @@ BOOLEAN WriteWeaponStats()
 			FilePrintf(hFile,"\t\t<APsToReload>%d</APsToReload>\r\n",							Weapon[cnt].APsToReload);
 			FilePrintf(hFile,"\t\t<SwapClips>%d</SwapClips>\r\n",								Weapon[cnt].swapClips );
 			FilePrintf(hFile,"\t\t<MaxDistForMessyDeath>%d</MaxDistForMessyDeath>\r\n",			Weapon[cnt].maxdistformessydeath);
+			FilePrintf(hFile,"\t\t<AutoPenalty>%d</AutoPenalty>\r\n",			Weapon[cnt].AutoPenalty);
+			FilePrintf(hFile,"\t\t<NoSemiAuto>%d</NoSemiAuto>\r\n",			Weapon[cnt].NoSemiAuto);
 
 
 
@@ -924,7 +956,7 @@ INT32 EffectiveArmour( OBJECTTYPE * pObj )
 
 		iValue += iValue2;
 	}
-	return( iValue );
+	return( max(iValue,1) );
 }
 
 INT32 ArmourPercent( SOLDIERTYPE * pSoldier )
@@ -993,7 +1025,7 @@ INT32 ExplosiveEffectiveArmour( OBJECTTYPE * pObj )
 
 		iValue += iValue2;
 	}
-	return( iValue );
+	return( max(iValue,1) );
 }
 
 INT8 ArmourVersusExplosivesPercent( SOLDIERTYPE * pSoldier )
@@ -1064,7 +1096,6 @@ void AdjustImpactByHitLocation( INT32 iImpact, UINT8 ubHitLocation, INT32 * piNe
 //rain
 extern INT8 gbCurrentRainIntensity;
 //end rain
-
 BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 {
   OBJECTTYPE *	pObj;
@@ -1096,7 +1127,7 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 				//iChance = iChance * (10 - Item[pObj->usItem].bReliability * 2) / 10;
 				
 				//rain
-				iChance = iChance * (10 - Item[pObj->usItem].bReliability * 2) / 10;
+//				iChance = iChance * (10 - Item[pObj->usItem].bReliability * 2) / 10; // Madd: took it back out
 				//end rain
 
 				if (pSoldier->bDoBurst > 1)
@@ -1130,7 +1161,7 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 			else if (pObj->bGunAmmoStatus < 0)
 			{
 				// try to unjam gun
-				iResult = SkillCheck( pSoldier, UNJAM_GUN_CHECK, (INT8) (Item[pObj->usItem].bReliability * 4) );
+				iResult = SkillCheck( pSoldier, UNJAM_GUN_CHECK, (INT8) ((Item[pObj->usItem].bReliability + Item[pObj->usGunAmmoItem].bReliability)* 4) );
 				if (iResult > 0)
 				{
 					// yay! unjammed the gun
@@ -1457,7 +1488,7 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 				if( noisefactor < MAX_PERCENT_NOISE_VOLUME_FOR_SILENCED_SOUND || Weapon[ usItemNum ].ubAttackVolume <= 10 )
 				{
 					// Pick sound file baed on how many bullets we are going to fire...
-					sprintf( (char *)zBurstString, "SOUNDS\\WEAPONS\\SILENCER BURST %d.wav", pSoldier->bBulletsLeft );
+					sprintf( (char *)zBurstString, (const char*)gzBurstSndStrings[ Weapon[ usItemNum ].sSilencedBurstSound ], pSoldier->bBulletsLeft );
 
 					// Try playing sound...
 					pSoldier->iBurstSoundID = PlayJA2SampleFromFile( (STR8) zBurstString, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
@@ -1465,7 +1496,8 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 				else
 				{
 					// Pick sound file baed on how many bullets we are going to fire...
-					sprintf( (char *)zBurstString, "SOUNDS\\WEAPONS\\%s%d.wav", gzBurstSndStrings[ Weapon[ usItemNum ].ubCalibre ], pSoldier->bBulletsLeft );
+                    // Lesh: changed next line
+					sprintf( (char *)zBurstString, (const char*)gzBurstSndStrings[ Weapon[ usItemNum ].sBurstSound ], pSoldier->bBulletsLeft );
 
 					INT8 volume = HIGHVOLUME;
 					if ( noisefactor < 100 ) volume = (volume * noisefactor) / 100;
@@ -1860,7 +1892,11 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 	}
 
 	// CJC: since jamming is no longer affected by reliability, increase chance of status going down for really unreliabile guns
-	uiDepreciateTest = BASIC_DEPRECIATE_CHANCE + 3 * Item[ usItemNum ].bReliability;
+ 	INT16 ammoReliability = 0; // Madd: ammo reliability affects gun
+	if ( Item[usItemNum].usItemClass == IC_GUN )
+		ammoReliability = Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].bReliability;
+
+	uiDepreciateTest = BASIC_DEPRECIATE_CHANCE + 3 * (Item[ usItemNum ].bReliability + ammoReliability);
 
 	if ( !PreRandom( uiDepreciateTest ) && ( pSoldier->inv[ pSoldier->ubAttackingHand ].bStatus[0] > 1) )
 	{
@@ -2929,7 +2965,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT8 bWeaponStatus, UINT
 				if ( usStructureID == INVALID_STRUCTURE_ID )
 				{	
 					// Add item
-					CreateItem( THROWING_KNIFE, bWeaponStatus, &Object );
+					CreateItem( usWeaponIndex, bWeaponStatus, &Object );
 
 					AddItemToPool( sGridNo, &Object, -1 , 0, 0, -1 );
 
@@ -3209,7 +3245,7 @@ BOOLEAN InRange( SOLDIERTYPE *pSoldier, INT16 sGridNo )
 		 if ( Item[ usInHand ].usItemClass == IC_THROWING_KNIFE )
 		 {
 			 // NB CalcMaxTossRange returns range in tiles, not in world units
-		 	 if ( sRange <= CalcMaxTossRange( pSoldier, THROWING_KNIFE, TRUE ) * CELL_X_SIZE )
+		 	 if ( sRange <= CalcMaxTossRange( pSoldier, usInHand, TRUE ) * CELL_X_SIZE )
 			 {
 				 return( TRUE );
 			 }
@@ -3230,9 +3266,9 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 {
   //SOLDIERTYPE *vicpSoldier;
 	SOLDIERTYPE * pTarget;
+	INT32 iChance, iRange, iSightRange, iMaxRange, iBonus; //, minRange;
 	//rain
-  //INT32 iChance, iRange, iSightRange, iMaxRange, iBonus; //, minRange;
-	INT32 iChance, iRange, iSightRange, iMaxRange, iScopeBonus, iBonus; //, minRange;
+	//INT32 iScopeBonus; 
 	//end rain
 
   INT32 iGunCondition, iMarksmanship;
@@ -3347,36 +3383,43 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 		}
 	}
 
+	//Madd: inherent weapon accuracy bonus
+	iChance += Weapon[usInHand].bAccuracy;
+
 //	if ( !(Item[ usInHand ].fFlags & ITEM_TWO_HANDED) )
 	if ( !(Item[ usInHand ].twohanded ) )
 	{
-		// SMGs are treated as pistols for these purpose except there is a -5 penalty;
-		if (Weapon[usInHand].ubWeaponClass == SMGCLASS)
-		{
-			iChance -= AIM_PENALTY_SMG;
-		}
-
-		/*
 		if (pSoldier->inv[SECONDHANDPOS].usItem == NOTHING)
 		{
-			// firing with pistol in right hand, and second hand empty.			
-			iChance += AIM_BONUS_TWO_HANDED_PISTOL;
+			// firing with gun in right hand, and second hand empty (ie: no grenade, med kit or anything there)			
+			// Madd: easier to fire pistol/smg w/one hand free, essentially this will make pistols a little bit more accurate, and hopefully still useful later in the game
+			if (Weapon[usInHand].ubWeaponClass == HANDGUNCLASS)
+				iChance += AIM_BONUS_TWO_HANDED_PISTOL;
 		}
-		else */
-		if ( !HAS_SKILL_TRAIT( pSoldier, AMBIDEXT ) )
+		else 
 		{
-			if ( IsValidSecondHandShot( pSoldier ) )
+			// Madd: harder to fire smgs w/something in other hand
+			// SMGs are treated as pistols for these purpose except there is a -5 penalty;
+			if (Weapon[usInHand].ubWeaponClass == SMGCLASS)
 			{
-				// penalty to aim when firing two pistols
-				iChance -= AIM_PENALTY_DUAL_PISTOLS;
+				iChance -= AIM_PENALTY_SMG;
 			}
-			/*
-			else
+
+			if ( !HAS_SKILL_TRAIT( pSoldier, AMBIDEXT ) )
 			{
-				// penalty to aim with pistol being fired one-handed
-				iChance -= AIM_PENALTY_ONE_HANDED_PISTOL;
+				if ( IsValidSecondHandShot( pSoldier ) )
+				{
+					// penalty to aim when firing two pistols
+					iChance -= AIM_PENALTY_DUAL_PISTOLS;
+				}
+				/*
+				else
+				{
+					// penalty to aim with pistol being fired one-handed
+					iChance -= AIM_PENALTY_ONE_HANDED_PISTOL;
+				}
+				*/
 			}
-			*/
 		}
 	}
 
@@ -3385,6 +3428,19 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 	{
 		// Snap: bipod may reduce burst penalty
 		iPenalty = GetBurstPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)
+			* (pSoldier->bDoBurst - 1);
+
+		// halve the penalty for people with the autofire trait
+		if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPS ) )
+		{
+			iPenalty /= 2 * NUM_SKILL_TRAITS( pSoldier, AUTO_WEAPS );
+		}
+		iChance -= iPenalty;
+	}
+	else if ( pSoldier->bDoAutofire > 0 )
+	{
+		// Snap: bipod may reduce auto penalty
+		iPenalty = GetAutoPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)
 			* (pSoldier->bDoBurst - 1);
 
 		// halve the penalty for people with the autofire trait
@@ -3497,7 +3553,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 
 		//rain
 		// reduce scope effectiveness when it's raining 
-		iScopeBonus /= 1 + gbCurrentRainIntensity;
+		// iScopeBonus /= 1 + gbCurrentRainIntensity; //madd: commented out -- didn't do anything but cause a warning :S
 		//end rain
 
 		//	// reduce effective range by the bonus obtained from the scope
@@ -3537,18 +3593,26 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 
 		//}
 
+		//Madd: Some gear can affect the to-hit bonus and the bonus from aiming
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: before bonus - ubAimTime = %d, iSightRange = %d, iChance = %d ", ubAimTime, iSightRange, iChance));
+		iSightRange -= GetGearAimBonus ( pSoldier, iRange, ubAimTime );
+		iChance += GetGearToHitBonus ( pSoldier );
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: after gear bonus - ubAimTime = %d, iSightRange = %d, iChance = %d ", ubAimTime, iSightRange, iChance));
+
 		// Reduce effective range by the aiming bonus (e.g. from sniper scope)
 		iSightRange -= GetAimBonus( pInHand, iRange, ubAimTime );
 		if (iSightRange < 1)
 		{
 			iSightRange = 1;
 		}
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: after scope bonus - ubAimTime = %d, iSightRange = %d, iChance = %d ", ubAimTime, iSightRange, iChance));
 
 		UINT8 bLightLevel = LightTrueLevel(sGridNo, pSoldier->bTargetLevel);
 		// Apply flat to-hit bonus (e.g. from laser scope)
 		// Snap: If prone and range is good, apply bipod bonus here as well
 		iChance += GetToHitBonus( pInHand, iSightRange, bLightLevel,
 			gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && iRange > MIN_PRONE_RANGE );
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: after to hit bonus - ubAimTime = %d, iSightRange = %d, iChance = %d ", ubAimTime, iSightRange, iChance));
 	}
 
 	// if aiming at the head, reduce chance to hit
@@ -3838,6 +3902,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
    }
 
 //  NumMessage("ChanceToHit = ",chance);
+   DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcChanceToHitGun: ichance = %d",iChance));
   return (iChance);
 }
 
@@ -4920,13 +4985,13 @@ BOOLEAN IsGunWeaponModeCapable( SOLDIERTYPE *pSoldier, UINT8 ubHandPos , UINT8 b
 	switch(bWpnMode)
 	{
 		case WM_NORMAL:
-		return (pSoldier->inv[ ubHandPos ].usItem != NOTHING && Item[ pSoldier->inv[ ubHandPos ].usItem ].usItemClass & IC_WEAPON);  // Check for being a weapon....
+		return (pSoldier->inv[ ubHandPos ].usItem != NOTHING && Item[ pSoldier->inv[ ubHandPos ].usItem ].usItemClass & IC_WEAPON && !Weapon[ pSoldier->inv[ ubHandPos ].usItem ].NoSemiAuto );  // Check for being a weapon....
 
 		case WM_BURST:
 		return IsGunBurstCapable(pSoldier, ubHandPos, FALSE);
 
 		case WM_AUTOFIRE:
-		return (IsGunAutofireCapable(pSoldier, ubHandPos) && !Item[pSoldier->inv[ubHandPos].usItem].grenadelauncher );
+		return ((IsGunAutofireCapable(pSoldier, ubHandPos) || Weapon[ pSoldier->inv[ ubHandPos ].usItem ].NoSemiAuto )&& !Item[pSoldier->inv[ubHandPos].usItem].grenadelauncher );
 
 		case WM_ATTACHED_GL:
 //		return (FindAttachment( &(pSoldier->inv[ubHandPos]), UNDER_GLAUNCHER ) != ITEM_NOT_FOUND && FindLaunchableAttachment( &(pSoldier->inv[ubHandPos]), UNDER_GLAUNCHER ) != ITEM_NOT_FOUND );
@@ -5272,10 +5337,14 @@ void ChangeWeaponMode( SOLDIERTYPE * pSoldier )
 	{
 		pSoldier->bWeaponMode++;
 		if(pSoldier->bWeaponMode == NUM_WEAPON_MODES)
-			pSoldier->bWeaponMode = WM_NORMAL;
+		{
+			if ( Weapon[pSoldier->inv[HANDPOS].usItem].NoSemiAuto )
+				pSoldier->bWeaponMode = WM_AUTOFIRE;
+			else
+				pSoldier->bWeaponMode = WM_NORMAL;
+		}
 	}
 	while(IsGunWeaponModeCapable( pSoldier, HANDPOS, pSoldier->bWeaponMode ) == FALSE && pSoldier->bWeaponMode != WM_NORMAL);
-
 	
 	if (pSoldier->bWeaponMode == WM_AUTOFIRE || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )
 	{
@@ -5414,11 +5483,22 @@ UINT8 GetBurstPenalty( OBJECTTYPE *pObj, BOOLEAN fProneStance )
 
 	return Weapon[ pObj->usItem ].ubBurstPenalty - bns;
 }
+UINT8 GetAutoPenalty( OBJECTTYPE *pObj, BOOLEAN fProneStance )
+{
+	// Snap: Make sure burst bonus does not exceed burst penalty!
+	INT16 bns = GetAutoToHitBonus(pObj, fProneStance);
+	
+	if ( bns > Weapon[ pObj->usItem ].AutoPenalty ) {
+		return 0;
+	}
+
+	return Weapon[ pObj->usItem ].AutoPenalty - bns;
+}
 UINT8 GetAutofireShotsPerFiveAPs( OBJECTTYPE *pObj )
 {
 //	 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("GetAutofireShotsPerFiveAPs"));
 
-	return Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP + GetAutofireBonus(pObj);
+	return Weapon[ pObj->usItem ].bAutofireShotsPerFiveAP;
 
 }
 UINT8 GetMagSize( OBJECTTYPE *pObj )
@@ -5444,3 +5524,4 @@ INT8 GetAPsToReload( OBJECTTYPE *pObj )
 		( 100 - GetPercentReloadTimeAPReduction(pObj) ) + 50 ) / 100;
 
 }
+

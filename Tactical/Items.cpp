@@ -1176,10 +1176,10 @@ BOOLEAN ItemIsLegal( UINT16 usItemIndex )
 	if( !gGameOptions.fGunNut )
 	{
 		//if the item is a gun, or ammo
-		if( (Item[ usItemIndex ].usItemClass == IC_GUN) || (Item[ usItemIndex ].usItemClass == IC_AMMO ))
+		//if( (Item[ usItemIndex ].usItemClass == IC_GUN) || (Item[ usItemIndex ].usItemClass == IC_AMMO )) //Madd: restriction removed
 		{
 			// and the item is only available with the extended guns
-			if( ExtendedGunListGun( usItemIndex ) )
+			if( Item[usItemIndex].biggunlist )
 			{
 				return(FALSE);
 			}
@@ -3192,6 +3192,39 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 
 		switch( ubType )
 		{
+			case USE_ITEM:
+			case USE_ITEM_HARD:
+				// the merge will combine the two items
+				if ( pSoldier )
+				{
+					if ( ubType == USE_ITEM_HARD )
+					{
+						// requires a skill check, and gives experience 				
+						iCheckResult = SkillCheck( pSoldier, ATTACHING_SPECIAL_ITEM_CHECK, -30 );
+						if (iCheckResult < 0)
+						{
+							// could have a chance of detonation
+							// for now, damage both objects
+							DamageObj( pTargetObj, (INT8) -iCheckResult );
+							DamageObj( pAttachment, (INT8) -iCheckResult );
+							DoMercBattleSound( pSoldier, BATTLE_SOUND_CURSE1 );
+							return( FALSE );
+						}				
+						StatChange( pSoldier, MECHANAMT, 25, FALSE );
+						StatChange( pSoldier, WISDOMAMT, 5, FALSE );
+					}
+
+					pTargetObj->usItem = usResult;
+					//AutoPlaceObject( pAttachment );
+					pTargetObj->ubWeight = CalculateObjectWeight( pTargetObj );
+					if (pSoldier->bTeam == gbPlayerNum)
+					{
+						DoMercBattleSound( pSoldier, BATTLE_SOUND_COOL1 );
+					}
+					return TRUE;
+				}
+				else
+					return FALSE;
 			case COMBINE_POINTS:
 				// transfer points...
 				if ( Item[ pTargetObj->usItem ].usItemClass == IC_AMMO )
@@ -3450,6 +3483,25 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 			KeyTable[ pObj->ubKeyID ].usSectorFound = SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
 		}
 	}
+
+    // Lesh: bugfix - replacing weapon in auto with another weapon w/o auto-mode 
+    if (bPos == HANDPOS && Item[ pObj->usItem ].usItemClass == IC_GUN)
+    {
+		//Madd: added code for nosemiauto tag
+		if (!Weapon[ Item[pObj->usItem].ubClassIndex ].NoSemiAuto)
+		{
+			pSoldier->bWeaponMode = WM_NORMAL;
+			pSoldier->bDoBurst = FALSE;
+			pSoldier->bDoAutofire = FALSE;
+		}
+		else
+		{
+			pSoldier->bWeaponMode = WM_AUTOFIRE;
+			pSoldier->bDoBurst = TRUE;
+			pSoldier->bDoAutofire = TRUE;
+		}
+    }
+    // Lesh: end
 
 	ubSlotLimit = ItemSlotLimit( pObj->usItem, bPos );
 
@@ -4272,17 +4324,22 @@ UINT16 MagazineClassIndexToItemType(UINT16 usMagIndex)
 	// Note: if any ammo items in the item table are separated from the main group,
 	// this function will have to be rewritten to scan the item table for an item
 	// with item class ammo, which has class index usMagIndex
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "MagazineClassIndexToItemType" ) );
 	for (usLoop = FIRST_AMMO; usLoop < MAXITEMS; usLoop++)  
 	{
 		if ( Item[usLoop].usItemClass  == 0 )
-			break;
-
-		if (Item[usLoop].ubClassIndex == usMagIndex)
 		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "MagazineClassIndexToItemType: breaking at index %d", usLoop ) );
+			break;
+		}
+		if (Item[usLoop].ubClassIndex == usMagIndex && Item[usLoop].usItemClass == IC_AMMO )
+		{
+			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "MagazineClassIndexToItemType: return %d", usLoop ) );
 			return( usLoop );
 		}
 	}
 
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "MagazineClassIndexToItemType: return none, got to %d", usLoop ) );
 	return(NONE);
 }
 
@@ -4292,6 +4349,7 @@ UINT16 DefaultMagazine( UINT16 usItem )
 	WEAPONTYPE *	pWeapon;
 	UINT16				usLoop;
 
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DefaultMagazine: item = %d",usItem));
 	if (!(Item[usItem].usItemClass & IC_GUN))
 	{
 		return( 0 );
@@ -4302,14 +4360,17 @@ UINT16 DefaultMagazine( UINT16 usItem )
 	while ( Magazine[usLoop].ubCalibre != NOAMMO )
 	{
 		if (Magazine[usLoop].ubCalibre == pWeapon->ubCalibre &&
-				Magazine[usLoop].ubMagSize == pWeapon->ubMagSize)
+				Magazine[usLoop].ubMagSize == pWeapon->ubMagSize &&
+				AmmoTypes[ Magazine[usLoop].ubAmmoType ].standardIssue )
 		{
+			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DefaultMagazine: found at index %d",usLoop));
 			return(MagazineClassIndexToItemType(usLoop));
 		}
 
 		usLoop++;
 	}
 
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DefaultMagazine: can't find any"));
 	return( 0 );
 }
 
@@ -4363,13 +4424,14 @@ UINT16 FindReplacementMagazineIfNecessary( UINT16 usOldGun, UINT16 usOldAmmo, UI
 }
 
 // increase this if any gun can have more types that this
-#define MAX_AMMO_TYPES_PER_GUN		6  // MADD MARKER
+#define MAX_AMMO_TYPES_PER_GUN		24  // MADD MARKER
 
 UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard )
 {
 	// Note: if any ammo items in the item table are separated from the main group,
 	// this function will have to be rewritten to scan the item table for an item
 	// with item class ammo, which has class index ubLoop
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("RandomMagazine (by index)"));
 
 	WEAPONTYPE *	pWeapon;
 	UINT16				usLoop;
@@ -4393,7 +4455,22 @@ UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard )
 		{
 			// store it! (make sure array is big enough)
 			Assert(usPossibleMagCnt < MAX_AMMO_TYPES_PER_GUN);
-			usPossibleMagIndex[usPossibleMagCnt++] = usLoop;
+			// Madd: check to see if allowed by army
+			if ( gArmyItemChoices[ENEMYAMMOTYPES].ubChoices > 0 )
+			{
+				for ( int i=0;i<gArmyItemChoices[ENEMYAMMOTYPES].ubChoices;i++ )
+				{
+					if ( gArmyItemChoices[ENEMYAMMOTYPES].bItemNo[i] == Magazine[usLoop].ubAmmoType )
+					{
+						usPossibleMagIndex[usPossibleMagCnt++] = usLoop;
+						break;
+					}
+				}
+			}
+			else
+			{
+				usPossibleMagIndex[usPossibleMagCnt++] = usLoop;
+			}
 		}
 
 		usLoop++;
@@ -4409,7 +4486,7 @@ UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard )
 	if (usPossibleMagCnt == 1)
 	{
 		// use that, no choice
-		return(MagazineClassIndexToItemType(usPossibleMagIndex[ 0 ] ));
+		return(MagazineClassIndexToItemType( usPossibleMagIndex[ 0 ] ));
 	}
 	else	// multiple choices
 	{
@@ -4417,6 +4494,8 @@ UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard )
 		if (Random(100) < ubPercentStandard)
 		{
 			ubMagChosen = 0;
+			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("RandomMagazine: ubMagChosen = %d",ubMagChosen ));
+			return( DefaultMagazine(usItem) );
 		}
 		else
 		{
@@ -4424,6 +4503,7 @@ UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard )
 			ubMagChosen = ( UINT8 ) (1 + Random(( UINT32 ) ( usPossibleMagCnt - 1 )));
 		}
 
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("RandomMagazine: ubMagChosen = %d",ubMagChosen ));
 		return( MagazineClassIndexToItemType(usPossibleMagIndex[ ubMagChosen ] ) );
 	}
 }
@@ -4433,6 +4513,7 @@ UINT16 RandomMagazine( OBJECTTYPE * pGun, UINT8 ubPercentStandard )
 	// Note: if any ammo items in the item table are separated from the main group,
 	// this function will have to be rewritten to scan the item table for an item
 	// with item class ammo, which has class index ubLoop
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("RandomMagazine"));
 
 	WEAPONTYPE *	pWeapon;
 	UINT16				usLoop;
@@ -4456,7 +4537,22 @@ UINT16 RandomMagazine( OBJECTTYPE * pGun, UINT8 ubPercentStandard )
 		{
 			// store it! (make sure array is big enough)
 			Assert(usPossibleMagCnt < MAX_AMMO_TYPES_PER_GUN);
-			usPossibleMagIndex[usPossibleMagCnt++] = usLoop;
+			// Madd: check to see if allowed by army
+			if ( gArmyItemChoices[ENEMYAMMOTYPES].ubChoices > 0 )
+			{
+				for ( int i=0;i<gArmyItemChoices[ENEMYAMMOTYPES].ubChoices;i++ )
+				{
+					if ( gArmyItemChoices[ENEMYAMMOTYPES].bItemNo[i] == Magazine[usLoop].ubAmmoType )
+					{
+						usPossibleMagIndex[usPossibleMagCnt++] = usLoop;
+						break;
+					}
+				}
+			}
+			else
+			{
+				usPossibleMagIndex[usPossibleMagCnt++] = usLoop;
+			}
 		}
 
 		usLoop++;
@@ -4480,6 +4576,8 @@ UINT16 RandomMagazine( OBJECTTYPE * pGun, UINT8 ubPercentStandard )
 		if (Random(100) < ubPercentStandard)
 		{
 			ubMagChosen = 0;
+			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("RandomMagazine: ubMagChosen = %d",ubMagChosen ));
+			return( DefaultMagazine(pGun->usItem) );
 		}
 		else
 		{
@@ -4487,6 +4585,7 @@ UINT16 RandomMagazine( OBJECTTYPE * pGun, UINT8 ubPercentStandard )
 			ubMagChosen = ( UINT8 ) (1 + Random(( UINT32 ) ( usPossibleMagCnt - 1 )));
 		}
 
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("RandomMagazine: ubMagChosen = %d",ubMagChosen ));
 		return( MagazineClassIndexToItemType(usPossibleMagIndex[ ubMagChosen ] ) );
 	}
 }
@@ -5785,6 +5884,9 @@ INT16 GetItemAimBonus( const INVTYPE* pItem, INT32 iRange, UINT8 ubAimTime )
 
 	// reduce effective sight range by aimbonus% per extra aiming time AP
 	// of the distance beyond minrangeforaimbonus.
+	if ( pItem->aimbonus < 0)
+		ubAimTime = 1;
+
 	return ( pItem->aimbonus * ubAimTime	* ( iRange - pItem->minrangeforaimbonus ) ) / 100;
 }	
 
@@ -5804,6 +5906,56 @@ INT16 GetAimBonus( OBJECTTYPE * pObj, INT32 iRange, UINT8 ubAimTime )
 	return( bns );
 }
 
+// Madd: check equipment for aim bonus (penalties)
+INT16 GetGearAimBonus( SOLDIERTYPE * pSoldier, INT32 iRange, UINT8 ubAimTime  )
+{
+	INT16 bns=0;
+
+	for (int j = HELMETPOS; j <= HEAD2POS; j++) 
+	{
+		bns += GetItemAimBonus( &Item[pSoldier->inv[j].usItem], iRange, ubAimTime );
+		for ( int i = 0; i < MAX_ATTACHMENTS; i++)
+		{
+			bns += GetItemAimBonus(&Item[pSoldier->inv[j].usAttachItem[i]],iRange,ubAimTime);
+		}
+	}
+
+	return( bns );
+}
+
+// Madd: check equipment for to hit bonus (penalties)
+INT16 GetGearToHitBonus( SOLDIERTYPE * pSoldier )
+{
+	INT16 bns=0;
+
+	for (int j = HELMETPOS; j <= HEAD2POS; j++) 
+	{
+		bns += Item[pSoldier->inv[j].usItem].tohitbonus;
+		for ( int i = 0; i < MAX_ATTACHMENTS; i++)
+		{
+			bns += Item[pSoldier->inv[j].usAttachItem[i]].tohitbonus;
+		}
+	}
+
+	return( bns );
+}
+
+// Madd: check equipment for AP bonus (penalties)
+INT16 GetGearAPBonus( SOLDIERTYPE * pSoldier )
+{
+	INT16 bns=0;
+
+	for (int j = HELMETPOS; j <= HEAD2POS; j++) 
+	{
+		bns += Item[pSoldier->inv[j].usItem].APBonus;
+		for ( int i = 0; i < MAX_ATTACHMENTS; i++)
+		{
+			bns += Item[pSoldier->inv[j].usAttachItem[i]].APBonus;
+		}
+	}
+
+	return( bns );
+}
 
 UINT32 FindRangeBonusAttachment( OBJECTTYPE * pObj )
 {
@@ -5825,7 +5977,9 @@ INT16 GetRangeBonus( OBJECTTYPE * pObj )
 	INT16 bns=0;
 
 	bns = BonusReduce( Item[pObj->usItem].rangebonus, pObj->bStatus[0] );
-	bns += Item[pObj->usGunAmmoItem].rangebonus;
+	
+	if ( pObj->ubGunShotsLeft > 0 )
+		bns += Item[pObj->usGunAmmoItem].rangebonus;
 
 	for (bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
 	{
@@ -5907,7 +6061,9 @@ INT16 GetDamageBonus( OBJECTTYPE * pObj )
 	INT16 bns=0;
 
 	bns = BonusReduce( Item[pObj->usItem].damagebonus, pObj->bStatus[0] );
-	bns += Item[pObj->usGunAmmoItem].damagebonus ;
+	
+	if ( pObj->ubGunShotsLeft > 0 )
+		bns += Item[pObj->usGunAmmoItem].damagebonus ;
 
 	for (bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
 	{
@@ -5999,18 +6155,22 @@ INT16 GetRateOfFireBonus( OBJECTTYPE * pObj )
 	return( bns );
 }
 
-INT16 GetAutofireBonus( OBJECTTYPE * pObj )
+INT16 GetAutoToHitBonus( OBJECTTYPE * pObj, BOOLEAN fProneStance )
 {
-	INT8	bLoop;
 	INT16 bns=0;
 
-	bns = BonusOnOff( Item[pObj->usItem].autofirebonus, pObj->bStatus[0] );
-	bns += Item[pObj->usGunAmmoItem].autofirebonus ;
+	// Snap: bipod is effective only in the prone stance
 
-	for (bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
+	if ( ! Item[pObj->usItem].bipod || fProneStance )
+		bns = BonusReduceMore( Item[pObj->usItem].autofiretohitbonus, pObj->bStatus[0] );
+	bns += Item[pObj->usGunAmmoItem].autofiretohitbonus ;
+
+	for (int i = 0; i < MAX_ATTACHMENTS; i++)
 	{
-		bns += BonusOnOff( Item[pObj->usAttachItem[bLoop]].autofirebonus, pObj->bAttachStatus[bLoop] );
+		if ( ! Item[pObj->usAttachItem[i]].bipod || fProneStance )
+			bns += BonusReduceMore( Item[pObj->usAttachItem[i]].autofiretohitbonus, pObj->bAttachStatus[i] );
 	}
+
 	return( bns );
 }
 
@@ -6893,4 +7053,15 @@ void ApplyEquipmentBonuses(SOLDIERTYPE * pSoldier)
 		if ( newCamo > oldCamo && pSoldier->bTeam == OUR_TEAM )
 			DoMercBattleSound( pSoldier, BATTLE_SOUND_COOL1 );
 	}
+}
+
+UINT16 GetFirstExplosiveOfType(UINT16 expType)
+{
+	for (int i=0;i<MAXITEMS;i++)
+	{
+		if ( (Item[i].usItemClass == IC_EXPLOSV || Item[i].usItemClass == IC_GRENADE) && Explosive[Item[i].ubClassIndex].ubType == expType )
+			return i;
+	}
+
+	return 0;
 }

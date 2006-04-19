@@ -185,7 +185,8 @@ itemStartElementHandle(void *userData, const char *name, const char **atts)
 				strcmp(name, "MagSizeBonus") == 0 ||
 				strcmp(name, "PercentAutofireAPReduction") == 0 ||
 				strcmp(name, "PercentBurstFireAPReduction") == 0 ||
-				strcmp(name, "AutoFireBonus") == 0 ||
+				strcmp(name, "AutoFireToHitBonus") == 0 ||
+				strcmp(name, "APBonus") == 0 ||
 				strcmp(name, "RateOfFireBonus") == 0 ||
 				strcmp(name, "BurstSizeBonus") == 0 ||
 				strcmp(name, "PercentReadyTimeAPReduction") == 0 ||
@@ -569,10 +570,15 @@ itemEndElementHandle(void *userData, const char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.percentburstfireapreduction  = (INT16) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "AutoFireBonus")	 == 0)
+		else if(strcmp(name, "AutoFireToHitBonus")	 == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.autofirebonus   = (INT16) atol(pData->szCharData);
+			pData->curItem.autofiretohitbonus   = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "APBonus")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.APBonus = (INT16) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "RateOfFireBonus")	 == 0)
 		{
@@ -1349,7 +1355,8 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<BurstSizeBonus>%d</BurstSizeBonus>\r\n",						Item[cnt].burstsizebonus );
 			FilePrintf(hFile,"\t\t<BestLaserRange>%d</BestLaserRange>\r\n",						Item[cnt].bestlaserrange );
 			FilePrintf(hFile,"\t\t<BurstToHitBonus>%d</BurstToHitBonus>\r\n",						Item[cnt].bursttohitbonus );
-			FilePrintf(hFile,"\t\t<AutoFireBonus>%d</AutoFireBonus>\r\n",						Item[cnt].autofirebonus );
+			FilePrintf(hFile,"\t\t<AutofireToHitBonus>%d</AutofireToHitBonus>\r\n",						Item[cnt].autofiretohitbonus);
+			FilePrintf(hFile,"\t\t<APBonus>%d</APBonus>\r\n",						Item[cnt].APBonus );
 
 			FilePrintf(hFile,"\t\t<PercentBurstFireAPReduction>%d</PercentBurstFireAPReduction>\r\n",						Item[cnt].percentburstfireapreduction    );
 			FilePrintf(hFile,"\t\t<PercentAutofireAPReduction>%d</PercentAutofireAPReduction>\r\n",						Item[cnt].percentautofireapreduction    );
