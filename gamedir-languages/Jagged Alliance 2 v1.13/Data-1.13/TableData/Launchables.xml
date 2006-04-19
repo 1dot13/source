@@ -1,0 +1,95 @@
+<!-- 	this a comment, all of the text between the angled brackets is ignored
+
+Attribute Field Reference:
+
+	launchableIndex		- index of launchable item
+	itemIndex			- index of item that launchable can be launched from
+
+	IMPORTANT!!!!!
+	
+	All equal launchable indexes should be grouped together.  The is due to the way the code looks at this array.  If you separate equal launchable indexes, the launchables that come after the first group will not be found by the game.
+	
+-->
+
+<LAUNCHABLELIST>
+	<LAUNCHABLE>
+		<launchableIndex>147</launchableIndex> <!-- 40mm Grenade -->
+		<itemIndex>40</itemIndex> <!-- M79 -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>147</launchableIndex> <!-- 40mm Grenade -->
+		<itemIndex>50</itemIndex> <!-- Talon -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>148</launchableIndex> <!-- 40mm Tear Gas -->
+		<itemIndex>40</itemIndex> <!-- M79 -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>148</launchableIndex> <!-- 40mm Tear Gas -->
+		<itemIndex>50</itemIndex> <!-- Talon -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>149</launchableIndex> <!-- 40mm Stun -->
+		<itemIndex>40</itemIndex> <!-- M79 -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>149</launchableIndex> <!-- 40mm Stun -->
+		<itemIndex>50</itemIndex> <!-- Talon -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex> <!-- 40mm Smoke -->
+		<itemIndex>40</itemIndex> <!-- M79 -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex> <!-- 40mm Smoke -->
+		<itemIndex>50</itemIndex> <!-- Talon -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>140</launchableIndex> <!-- Mortar Shell -->
+		<itemIndex>41</itemIndex> <!-- Mortar -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>140</launchableIndex> <!-- Mortar Shell -->
+		<itemIndex>293</itemIndex> <!-- Commando Mortar -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>152</launchableIndex> <!-- Shell -->
+		<itemIndex>60</itemIndex> <!-- Cannon -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>283</launchableIndex> <!-- HE RPG -->
+		<itemIndex>282</itemIndex> <!-- RPG-7 -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>284</launchableIndex> <!-- AP RPG -->
+		<itemIndex>282</itemIndex> <!-- RPG-7 -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>285</launchableIndex> <!-- Frag RPG -->
+		<itemIndex>282</itemIndex> <!-- RPG-7 -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>294</launchableIndex> <!-- Mustard Gas Shell -->
+		<itemIndex>293</itemIndex> <!-- Commando Mortar -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>294</launchableIndex> <!-- Mustard Gas Shell -->
+		<itemIndex>41</itemIndex> <!-- Mortar -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>295</launchableIndex> <!-- 20mm HE Clip -->
+		<itemIndex>296</itemIndex> <!-- OICW Launcher -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>298</launchableIndex> <!-- Frag Cylinder -->
+		<itemIndex>347</itemIndex> <!-- MGL Mk1 -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>299</launchableIndex> <!-- Smoke Cylinder -->
+		<itemIndex>347</itemIndex> <!-- MGL Mk1 -->
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>300</launchableIndex> <!-- Stun Cylinder -->
+		<itemIndex>347</itemIndex> <!-- MGL Mk1 -->
+	</LAUNCHABLE>
+</LAUNCHABLELIST>

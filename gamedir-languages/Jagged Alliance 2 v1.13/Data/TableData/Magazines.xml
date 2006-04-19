@@ -1,0 +1,303 @@
+<!-- 	this a comment, all of the text between the angled brackets is ignored
+
+Attribute Field Reference:
+
+	uiIndex			- index of item in array, just increment this for each new entry - should match to item class in items.xml
+	ubCalibre		- caliber of weapon
+	ubMagSize		- size of clip
+	ubAmmoType		- type of ammunition, see below
+
+Calibers:
+
+	see AmmoStrings.xml
+
+AMMO TYPES: (chage 'em in AmmoTypes.xml)
+
+	AMMO_REGULAR, 0
+	AMMO_HP, 1
+	AMMO_AP, 2
+	AMMO_SUPER_AP, 3
+	AMMO_BUCKSHOT, 4
+	AMMO_FLECHETTE, 5 - unused, will behave like regular
+	AMMO_GRENADE, 6 - specially added for 1.13 - like AMMO_HE, but with a bigger boom
+	AMMO_MONSTER, 7
+	AMMO_KNIFE, 8
+	AMMO_HE, 9
+	AMMO_HEAT, 10
+	AMMO_SLEEP_DART, 11
+	AMMO_FLAME, 12 - don't use - may crash game
+
+	
+-->
+<MAGAZINELIST>
+	<MAGAZINE>
+		<uiIndex>0</uiIndex> <!-- 9mm mag -->
+		<ubCalibre>2</ubCalibre>
+		<ubMagSize>15</ubMagSize>
+		<ubAmmoType>0</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>1</uiIndex> <!-- 9mm SMG mag -->
+		<ubCalibre>2</ubCalibre>
+		<ubMagSize>30</ubMagSize>
+		<ubAmmoType>0</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>2</uiIndex> <!-- 9mm mag AP -->
+		<ubCalibre>2</ubCalibre>
+		<ubMagSize>15</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>3</uiIndex> <!-- 9mm SMG mag AP -->
+		<ubCalibre>2</ubCalibre>
+		<ubMagSize>30</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>4</uiIndex> <!-- 9mm mag HP -->
+		<ubCalibre>2</ubCalibre>
+		<ubMagSize>15</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>5</uiIndex> <!-- 9mm SMG mag HP -->
+		<ubCalibre>2</ubCalibre>
+		<ubMagSize>30</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>6</uiIndex> <!-- .38 S-load -->
+		<ubCalibre>1</ubCalibre>
+		<ubMagSize>6</ubMagSize>
+		<ubAmmoType>0</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>7</uiIndex> <!-- .38 S-load AP -->
+		<ubCalibre>1</ubCalibre>
+		<ubMagSize>6</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>8</uiIndex> <!-- .38 S-load HP -->
+		<ubCalibre>1</ubCalibre>
+		<ubMagSize>6</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>9</uiIndex> <!-- .45 mag -->
+		<ubCalibre>3</ubCalibre>
+		<ubMagSize>7</ubMagSize>
+		<ubAmmoType>0</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>10</uiIndex> <!-- .45 SMG mag -->
+		<ubCalibre>3</ubCalibre>
+		<ubMagSize>30</ubMagSize>
+		<ubAmmoType>0</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>11</uiIndex> <!-- .45 mag AP -->
+		<ubCalibre>3</ubCalibre>
+		<ubMagSize>7</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>12</uiIndex> <!-- .45 SMG mag AP -->
+		<ubCalibre>3</ubCalibre>
+		<ubMagSize>30</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>13</uiIndex> <!-- .45 mag HP -->
+		<ubCalibre>3</ubCalibre>
+		<ubMagSize>7</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>14</uiIndex> <!-- .45 SMG mag HP -->
+		<ubCalibre>3</ubCalibre>
+		<ubMagSize>30</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>15</uiIndex> <!-- .357 S-load -->
+		<ubCalibre>4</ubCalibre>
+		<ubMagSize>6</ubMagSize>
+		<ubAmmoType>0</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>16</uiIndex> <!-- .357 mag -->
+		<ubCalibre>4</ubCalibre>
+		<ubMagSize>9</ubMagSize>
+		<ubAmmoType>0</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>17</uiIndex> <!-- .357 S-load AP -->
+		<ubCalibre>4</ubCalibre>
+		<ubMagSize>6</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>18</uiIndex> <!-- .357 mag AP -->
+		<ubCalibre>4</ubCalibre>
+		<ubMagSize>9</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>19</uiIndex> <!-- .357 S-load HP -->
+		<ubCalibre>4</ubCalibre>
+		<ubMagSize>6</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>20</uiIndex> <!-- .357 mag HP -->
+		<ubCalibre>4</ubCalibre>
+		<ubMagSize>9</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>21</uiIndex> <!-- 5.45mm mag -->
+		<ubCalibre>7</ubCalibre>
+		<ubMagSize>30</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>22</uiIndex> <!-- 5.45mm mag HP -->
+		<ubCalibre>7</ubCalibre>
+		<ubMagSize>30</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>23</uiIndex> <!-- 5.56mm mag -->
+		<ubCalibre>8</ubCalibre>
+		<ubMagSize>30</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>24</uiIndex> <!-- 5.56mm mag HP -->
+		<ubCalibre>8</ubCalibre>
+		<ubMagSize>30</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>25</uiIndex> <!-- 7.62mm WP 10 -->
+		<ubCalibre>10</ubCalibre>
+		<ubMagSize>10</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>26</uiIndex> <!-- 7.62mm WP 30 -->
+		<ubCalibre>10</ubCalibre>
+		<ubMagSize>30</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>27</uiIndex> <!-- 7.62mm WP 10 HP -->
+		<ubCalibre>10</ubCalibre>
+		<ubMagSize>10</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>28</uiIndex> <!-- 7.62mm WP 30 HP -->
+		<ubCalibre>10</ubCalibre>
+		<ubMagSize>30</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>29</uiIndex> <!-- 7.62mm NATO 5 -->
+		<ubCalibre>9</ubCalibre>
+		<ubMagSize>5</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>30</uiIndex> <!-- 7.62mm NATO 20 -->
+		<ubCalibre>9</ubCalibre>
+		<ubMagSize>20</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>31</uiIndex> <!-- 7.62mm NATO 5 HP -->
+		<ubCalibre>9</ubCalibre>
+		<ubMagSize>5</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>32</uiIndex> <!-- 7.62mm NATO 20 HP -->
+		<ubCalibre>9</ubCalibre>
+		<ubMagSize>20</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>33</uiIndex> <!-- 4.7mm mag -->
+		<ubCalibre>11</ubCalibre>
+		<ubMagSize>50</ubMagSize>
+		<ubAmmoType>3</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>34</uiIndex> <!-- 5.7mm mag -->
+		<ubCalibre>12</ubCalibre>
+		<ubMagSize>50</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>35</uiIndex> <!-- 5.7mm mag HP -->
+		<ubCalibre>12</ubCalibre>
+		<ubMagSize>50</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>36</uiIndex> <!-- 12 Gauge -->
+		<ubCalibre>5</ubCalibre>
+		<ubMagSize>7</ubMagSize>
+		<ubAmmoType>0</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>37</uiIndex> <!-- 12 Gauge BS -->
+		<ubCalibre>5</ubCalibre>
+		<ubMagSize>7</ubMagSize>
+		<ubAmmoType>4</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>38</uiIndex> <!-- CAWS mag -->
+		<ubCalibre>6</ubCalibre>
+		<ubMagSize>10</ubMagSize>
+		<ubAmmoType>3</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>39</uiIndex> <!-- CAWS Buckshot -->
+		<ubCalibre>6</ubCalibre>
+		<ubMagSize>10</ubMagSize>
+		<ubAmmoType>4</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>40</uiIndex> <!-- Minirockets, AP -->
+		<ubCalibre>14</ubCalibre>
+		<ubMagSize>5</ubMagSize>
+		<ubAmmoType>3</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>41</uiIndex> <!-- Minirockets, HE -->
+		<ubCalibre>14</ubCalibre>
+		<ubMagSize>5</ubMagSize>
+		<ubAmmoType>9</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>42</uiIndex> <!-- Minirockets, HEAP -->
+		<ubCalibre>14</ubCalibre>
+		<ubMagSize>5</ubMagSize>
+		<ubAmmoType>10</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>43</uiIndex> <!-- Dart -->
+		<ubCalibre>15</ubCalibre>
+		<ubMagSize>1</ubMagSize>
+		<ubAmmoType>11</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>44</uiIndex> <!-- Flamethrower Clip -->
+		<ubCalibre>16</ubCalibre>
+		<ubMagSize>5</ubMagSize>
+		<ubAmmoType>4</ubAmmoType>
+	</MAGAZINE>
+</MAGAZINELIST>

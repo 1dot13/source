@@ -1,0 +1,3286 @@
+<!-- 	this a comment, all of the text between the angled brackets is ignored
+	This file is made to be read with a text editor where 1tab=8spaces
+
+Attribute Field Reference:
+
+uiIndex			- the weapon index, number the weapons sequentially starting at 1 and ending at 5000 - this number should match the ubClassIndex for the weapon in Items.xml
+szWeaponName		- The weapon name, 20 characters maximun
+ubWeaponClass=3 	- the weapon class, look below for a listing
+ubWeaponType=5 		- exact weapon type, look below for a listing
+ubCalibre=10 		- what calibre of ammo the the gun uses, look below for a listing (also dictates the burst sound)
+ubReadyTime=5 		- How many APs are spend to get this weapon into the "ready" state
+ubShotsPer4Turns=11 	- the weapon's rate of fire for single shots
+ubShotsPerBurst=0 	- the number of bullets this weapon shoots per burst
+ubBurstPenalty=0 	- the % chance to hit that is deducted for each shot of the burst (later shots in the burst are lass accurate)
+ubBulletSpeed=21 	- how fast bullets fly out of the gun (aethtetic consideration only)
+ubImpact=36 		- this has an effect on how much damage the bullets do
+ubDeadliness=32 	- this is the "scare" value of the gun.  AI & NPCs use this.
+bAccuracy=0 		- this is not used anywhere
+ubMagSize=10 		- Number of bullets that can be loaded into the gun
+usRange=750 		- weapon's maximum range
+usReloadDelay=200 	- not used anywhere right now, but could be used to specify the reload speed in RT
+ubAttackVolume=80 	- how much "noise" the weapon makes
+ubHitVolume=8 		- how much "noise" the bullet makes when it hits something
+sSound=133 		- the sound that's used for single shot (and burst if the burst sound is missing)
+sBurstSound=154 	- the "default" burst sound.  This is not used anymore. However, set it to something other than 0 if you want to hear bursts
+sReloadSound=102 	- the sound of reloading
+sLocknLoadSound=108 	- this sound in used in AutoResolve and sometimes for rifles in tactical
+bBurstAP		- The AP cost of burst
+bAutofireShotsPerFiveAP - this is the number of shots you can fire using this weapon using 5 APs (ie. 25 = 5 shots per AP)
+
+Weapon Classes:
+
+0 - NOGUNCLASS
+1 - HANDGUNCLASS
+2 - SMGCLASS
+3 - RIFLECLASS
+4 - MGCLASS
+5 - SHOTGUNCLASS
+6 - KNIFECLASS
+7 - MONSTERCLASS
+
+
+Weapon Type:
+
+0 - NOT_GUN
+1 - GUN_PISTOL
+2 - GUN_M_PISTOL
+3 - GUN_SMG
+4 - GUN_RIFLE
+5 - GUN_SN_RIFLE
+6 - GUN_AS_RIFLE
+7 - GUN_LMG
+8 - GUN_SHOTGUN
+
+
+Calibre/Ammo Types:
+
+0 - NOAMMO
+1 - AMMO38
+2 - AMMO9
+3 - AMMO45
+4 - AMMO357
+5 - AMMO12G
+6 - AMMOCAWS
+7 - AMMO545
+8 - AMMO556
+9 - AMMO762N
+10 - AMMO762W
+11 - AMMO47
+12 - AMMO57
+13 - AMMOMONST
+14 - AMMOROCKET
+15 - AMMODART
+16 - AMMOFLAME
+17 - AMMO50
+18 - AMMO9H
+
+
+Sound Indices: (change 'em in sounds.xml)
+
+000 - "SOUNDS\\RICOCHET 01.WAV"
+001 - "SOUNDS\\RICOCHET 02.WAV"
+002 - "SOUNDS\\RICOCHET 01.WAV"
+003 - "SOUNDS\\RICOCHET 02.WAV"
+004 - "SOUNDS\\RICOCHET 01.WAV"
+005 - "SOUNDS\\RICOCHET 02.WAV"
+006 - "SOUNDS\\RICOCHET 01.WAV"
+007 - "SOUNDS\\RICOCHET 02.WAV"
+008 - "SOUNDS\\DIRT IMPACT 01.WAV"
+009 - "SOUNDS\\DIRT IMPACT 01.WAV"
+010 - "SOUNDS\\KNIFE HIT GROUND.WAV"
+011 - "SOUNDS\\FALL TO KNEES 01.WAV"
+012 - "SOUNDS\\FALL TO KNEES 02.WAV"
+013 - "SOUNDS\\KNEES TO DIRT 01.WAV"
+014 - "SOUNDS\\KNEES TO DIRT 02.WAV"
+015 - "SOUNDS\\KNEES TO DIRT 03.WAV"
+016 - "SOUNDS\\HEAVY FALL 01.WAV"
+017 - "SOUNDS\\BODY_SPLAT.WAV"
+018 - "SOUNDS\\GLASS_BREAK1.WAV"
+019 - "SOUNDS\\GLASS_BREAK2.WAV"
+020 - "SOUNDS\\DOOR OPEN 01.WAV"
+021 - "SOUNDS\\DOOR OPEN 02.WAV"
+022 - "SOUNDS\\DOOR OPEN 03.WAV"
+023 - "SOUNDS\\DOOR CLOSE 01.WAV"
+024 - "SOUNDS\\DOOR CLOSE 02.WAV"
+025 - "SOUNDS\\UNLOCK LOCK.WAV"
+026 - "SOUNDS\\KICKIN LOCK.WAV"
+027 - "SOUNDS\\BREAK LOCK.WAV"
+028 - "SOUNDS\\PICKING LOCK.WAV"
+029 - "SOUNDS\\GARAGE DOOR OPEN.WAV"
+030 - "SOUNDS\\GARAGE DOOR CLOSE.WAV"
+031 - "SOUNDS\\ELEVATOR DOOR OPEN.WAV"
+032 - "SOUNDS\\ELEVATOR DOOR CLOSE.WAV"
+033 - "SOUNDS\\HIGH TECH DOOR OPEN.WAV"
+034 - "SOUNDS\\HIGH TECH DOOR CLOSE.WAV"
+035 - "SOUNDS\\CURTAINS DOOR OPEN.WAV"
+036 - "SOUNDS\\CURTAINS DOOR CLOSE.WAV"
+037 - "SOUNDS\\METAL DOOR OPEN.WAV"
+038 - "SOUNDS\\METAL DOOR CLOSE.WAV"
+039 - "SOUNDS\\ftp gravel 01.WAV"
+040 - "SOUNDS\\ftp gravel 02.WAV"
+041 - "SOUNDS\\ftp gravel 03.WAV"
+042 - "SOUNDS\\ftp gravel 04.WAV"
+043 - "SOUNDS\\ftp gritty 01.WAV"
+044 - "SOUNDS\\ftp gritty 02.WAV"
+045 - "SOUNDS\\ftp gritty 03.WAV"
+046 - "SOUNDS\\ftp gritty 04.WAV"
+047 - "SOUNDS\\ftp leaves 01.WAV"
+048 - "SOUNDS\\ftp leaves 02.WAV"
+049 - "SOUNDS\\ftp leaves 03.WAV"
+050 - "SOUNDS\\ftp leaves 04.WAV"
+051 - "SOUNDS\\CRAWLING 01.WAV"
+052 - "SOUNDS\\CRAWLING 02.WAV"
+053 - "SOUNDS\\CRAWLING 03.WAV"
+054 - "SOUNDS\\CRAWLING 04.WAV"
+055 - "SOUNDS\\BEEP2.WAV"
+056 - "SOUNDS\\ENDTURN.WAV"
+057 - "SOUNDS\\JA2 DEATH HIT.WAV"
+058 - "SOUNDS\\DOORCR_B.WAV"
+059 - "SOUNDS\\HEAD EXPLODING 01.WAV"
+060 - "SOUNDS\\BODY EXPLODING.WAV"
+061 - "SOUNDS\\EXPLODE1.WAV"
+062 - "SOUNDS\\CROW EXPLODING.WAV"
+063 - "SOUNDS\\SMALL EXPLOSION 01.WAV"
+064 - "SOUNDS\\HELI1.WAV"
+065 - "SOUNDS\\BULLET IMPACT 01.WAV"
+066 - "SOUNDS\\BULLET IMPACT 02.WAV"
+067 - "SOUNDS\\BULLET IMPACT 02.WAV"
+068 - "STSOUNDS\\BLAH.WAV"										// CREATURE ATTACK
+069 - "SOUNDS\\STEP INTO WATER.WAV"
+070 - "SOUNDS\\SPLASH FROM SHALLOW TO DEEP.WAV"
+071 - "SOUNDS\\COW HIT.WAV"										// COW HIT
+072 - "SOUNDS\\COW DIE.WAV"										// COW DIE
+073 - "SOUNDS\\LINE 02 FX.WAV"
+074 - "SOUNDS\\LINE 01 FX.WAV"
+075 - "SOUNDS\\LINE 03 FX.WAV"
+076 - "SOUNDS\\CAVE COLLAPSING.WAV"									// CAVE_COLLAPSE
+077 - "SOUNDS\\RAID WHISTLE.WAV"									// RAID
+078 - "SOUNDS\\RAID AMBIENT.WAV"
+079 - "SOUNDS\\RAID DIVE.WAV"
+080 - "SOUNDS\\RAID DIVE.WAV"
+081 - "SOUNDS\\RAID WHISTLE.WAV"									// RAID
+082 - "SOUNDS\\DRIVING 01.WAV"										// DRIVING
+083 - "SOUNDS\\ENGINE START.WAV"									// ON
+084 - "SOUNDS\\ENGINE OFF.WAV"										// OFF
+085 - "SOUNDS\\INTO VEHICLE.WAV"									// INTO
+086 - "SOUNDS\\WEAPONS\\DRY FIRE 1.WAV"									// Dry fire sound ( for gun jam )
+087 - "SOUNDS\\WOOD IMPACT 01A.WAV"									// S_WOOD_IMPACT1
+088 - "SOUNDS\\WOOD IMPACT 01B.WAV"
+089 - "SOUNDS\\WOOD IMPACT 01A.WAV"
+090 - "SOUNDS\\PORCELAIN IMPACT.WAV"
+091 - "SOUNDS\\TIRE IMPACT 01.WAV"
+092 - "SOUNDS\\STONE IMPACT 01.WAV"
+093 - "SOUNDS\\WATER IMPACT 01.WAV"
+094 - "SOUNDS\\VEG IMPACT 01.WAV"
+095 - "SOUNDS\\METAL HIT 01.WAV"									// S_METAL_HIT1	
+096 - "SOUNDS\\METAL HIT 01.WAV"															
+097 - "SOUNDS\\METAL HIT 01.WAV"															
+098 - "SOUNDS\\SLAP_IMPACT.WAV"
+099 - "SOUNDS\\WEAPONS\\REVOLVER RELOAD.WAV"								// REVOLVER 
+100 - "SOUNDS\\WEAPONS\\PISTOL RELOAD.WAV"								// PISTOL
+101 - "SOUNDS\\WEAPONS\\SMG RELOAD.WAV"									// SMG
+102 - "SOUNDS\\WEAPONS\\RIFLE RELOAD.WAV"								// RIFLE
+103 - "SOUNDS\\WEAPONS\\SHOTGUN RELOAD.WAV"								// SHOTGUN
+104 - "SOUNDS\\WEAPONS\\LMG RELOAD.WAV"									// LMG
+105 - "SOUNDS\\WEAPONS\\REVOLVER LNL.WAV"								// REVOLVER 
+106 - "SOUNDS\\WEAPONS\\PISTOL LNL.WAV"									// PISTOL
+107 - "SOUNDS\\WEAPONS\\SMG LNL.WAV"									// SMG
+108 - "SOUNDS\\WEAPONS\\RIFLE LNL.WAV"									// RIFLE
+109 - "SOUNDS\\WEAPONS\\SHOTGUN LNL.WAV"								// SHOTGUN
+110 - "SOUNDS\\WEAPONS\\LMG LNL.WAV"									// LMG
+111 - "SOUNDS\\WEAPONS\\SMALL ROCKET LAUNCHER.WAV"							// SMALL ROCKET LUANCHER
+112 - "SOUNDS\\WEAPONS\\MORTAR FIRE 01.WAV"								// GRENADE LAUNCHER
+113 - "SOUNDS\\WEAPONS\\MORTAR FIRE 01.WAV"								// UNDERSLUNG GRENADE LAUNCHER
+114 - "SOUNDS\\WEAPONS\\ROCKET LAUNCHER.WAV"										
+115 - "SOUNDS\\WEAPONS\\MORTAR FIRE 01.WAV"
+116 - "SOUNDS\\WEAPONS\\9mm SINGLE SHOT.WAV"								//	S_GLOCK17			9mm
+117 - "SOUNDS\\WEAPONS\\9mm SINGLE SHOT.WAV"								//	S_GLOCK18			9mm
+118 - "SOUNDS\\WEAPONS\\9mm SINGLE SHOT.WAV"								//	S_BERETTA92			9mm
+119 - "SOUNDS\\WEAPONS\\9mm SINGLE SHOT.WAV"								//	S_BERETTA93			9mm
+120 - "SOUNDS\\WEAPONS\\38 CALIBER.WAV"									//	S_SWSPECIAL			.38
+121 - "SOUNDS\\WEAPONS\\357 SINGLE SHOT.WAV"								//	S_BARRACUDA			.357
+122 - "SOUNDS\\WEAPONS\\357 SINGLE SHOT.WAV"								//	S_DESERTEAGLE			.357
+123 - "SOUNDS\\WEAPONS\\45 CALIBER SINGLE SHOT.WAV"							//	S_M1911				.45
+124 - "SOUNDS\\WEAPONS\\9mm SINGLE SHOT.WAV"								//	S_MP5K				9mm
+125 - "SOUNDS\\WEAPONS\\45 CALIBER SINGLE SHOT.WAV"							//	S_MAC10				.45
+126 - "SOUNDS\\WEAPONS\\45 CALIBER SINGLE SHOT.WAV"							//	S_THOMPSON			.45
+127 - "SOUNDS\\WEAPONS\\5,56 SINGLE SHOT.WAV"								//	S_COMMANDO			5.56
+128 - "SOUNDS\\WEAPONS\\5,56 SINGLE SHOT.WAV"								//	S_MP53				5.56?
+129 - "SOUNDS\\WEAPONS\\5,45 SINGLE SHOT.WAV"								//	S_AKSU74			5.45
+130 - "SOUNDS\\WEAPONS\\5,7 SINGLE SHOT.WAV"								//	S_P90				5.7
+131 - "SOUNDS\\WEAPONS\\7,62 WP SINGLE SHOT.WAV"							//	S_TYPE85			7.62 WP
+132 - "SOUNDS\\WEAPONS\\7,62 WP SINGLE SHOT.WAV"							//	S_SKS				7.62 WP
+133 - "SOUNDS\\WEAPONS\\7,62 WP SINGLE SHOT.WAV"							//	S_DRAGUNOV			7.62 WP
+134 - "SOUNDS\\WEAPONS\\7,62 NATO SINGLE SHOT.WAV"							//	S_M24				7.62 NATO
+135 - "SOUNDS\\WEAPONS\\5,56 SINGLE SHOT.WAV"								//	S_AUG				5.56mm
+136 - "SOUNDS\\WEAPONS\\5,56 SINGLE SHOT.WAV"								//	S_G41				5.56mm
+137 - "SOUNDS\\WEAPONS\\5,56 SINGLE SHOT.WAV"								//	S_RUGERMINI			5.56mm
+138 - "SOUNDS\\WEAPONS\\5,56 SINGLE SHOT.WAV"								//	S_C7				5.56mm
+139 - "SOUNDS\\WEAPONS\\5,56 SINGLE SHOT.WAV"								//	S_FAMAS				5.56mm
+140 - "SOUNDS\\WEAPONS\\5,45 SINGLE SHOT.WAV"								//	S_AK74				5.45mm
+141 - "SOUNDS\\WEAPONS\\7,62 WP SINGLE SHOT.WAV"							//	S_AKM				7.62mm WP
+142 - "SOUNDS\\WEAPONS\\7,62 NATO SINGLE SHOT.WAV"							//	S_M14				7.62mm NATO
+143 - "SOUNDS\\WEAPONS\\7,62 NATO SINGLE SHOT.WAV"							//	S_FNFAL				7.62mm NATO
+144 - "SOUNDS\\WEAPONS\\7,62 NATO SINGLE SHOT.WAV"							//	S_G3A3				7.62mm NATO
+145 - "SOUNDS\\WEAPONS\\4,7 SINGLE SHOT.WAV"								//	S_G11				4.7mm
+146 - "SOUNDS\\WEAPONS\\SHOTGUN SINGLE SHOT.WAV"							//	S_M870				SHOTGUN
+147 - "SOUNDS\\WEAPONS\\SHOTGUN SINGLE SHOT.WAV"							//	S_SPAS				SHOTGUN
+148 - "SOUNDS\\WEAPONS\\SHOTGUN SINGLE SHOT.WAV"							//	S_CAWS				SHOTGUN
+149 - "SOUNDS\\WEAPONS\\5,56 SINGLE SHOT.WAV"								//	S_FNMINI			5.56mm
+150 - "SOUNDS\\WEAPONS\\5,45 SINGLE SHOT.WAV"								//	S_RPK74				5.45mm
+151 - "SOUNDS\\WEAPONS\\7,62 WP SINGLE SHOT.WAV"							//	S_21E				7.62mm
+152 - "SOUNDS\\WEAPONS\\KNIFE THROW SWOOSH.WAV"								//	KNIFE THROW
+153 - "SOUNDS\\WEAPONS\\TANK_CANNON.WAV"
+154 - "SOUNDS\\WEAPONS\\BURSTTYPE1.WAV"
+155 - "SOUNDS\\WEAPONS\\AUTOMAG SINGLE.WAV"
+156 - "SOUNDS\\WEAPONS\\SILENCER 02.WAV"
+157 - "SOUNDS\\WEAPONS\\SILENCER 03.WAV"
+158 - "SOUNDS\\SWOOSH 01.WAV"
+159 - "SOUNDS\\SWOOSH 03.WAV"
+160 - "SOUNDS\\SWOOSH 05.WAV"
+161 - "SOUNDS\\SWOOSH 06.WAV"
+162 - "SOUNDS\\SWOOSH 11.WAV"
+163 - "SOUNDS\\SWOOSH 14.WAV"
+164 - "SOUNDS\\ADULT FALL 01.WAV"
+165 - "SOUNDS\\ADULT STEP 01.WAV"
+166 - "SOUNDS\\ADULT STEP 02.WAV"
+167 - "SOUNDS\\ADULT SWIPE 01.WAV"
+168 - "SOUNDS\\Eating_Flesh 01.WAV"
+169 - "SOUNDS\\ADULT CRIPPLED.WAV"
+170 - "SOUNDS\\ADULT DYING PART 1.WAV"
+171 - "SOUNDS\\ADULT DYING PART 2.WAV"
+172 - "SOUNDS\\ADULT LUNGE 01.WAV"
+173 - "SOUNDS\\ADULT SMELLS THREAT.WAV"
+174 - "SOUNDS\\ADULT SMELLS PREY.WAV"
+175 - "SOUNDS\\ADULT SPIT.WAV"
+176 - "SOUNDS\\BABY DYING 01.WAV"
+177 - "SOUNDS\\BABY DRAGGING 01.WAV"
+178 - "SOUNDS\\BABY SHRIEK 01.WAV"
+179 - "SOUNDS\\BABY SPITTING 01.WAV"
+180 - "SOUNDS\\LARVAE MOVEMENT 01.WAV"
+181 - "SOUNDS\\LARVAE RUPTURE 01.WAV"
+182 - "SOUNDS\\QUEEN SHRIEK 01.WAV"
+183 - "SOUNDS\\QUEEN DYING 01.WAV"
+184 - "SOUNDS\\QUEEN ENRAGED ATTACK.WAV"
+185 - "SOUNDS\\QUEEN RUPTURING.WAV"
+186 - "SOUNDS\\QUEEN CRIPPLED.WAV"
+187 - "SOUNDS\\QUEEN SMELLS THREAT.WAV"
+188 - "SOUNDS\\QUEEN WHIP ATTACK.WAV"
+189 - "SOUNDS\\ROCK HIT 01.WAV"
+190 - "SOUNDS\\ROCK HIT 02.WAV"
+191 - "SOUNDS\\SCRATCH.WAV"
+192 - "SOUNDS\\ARMPIT.WAV"
+193 - "SOUNDS\\CRACKING BACK.WAV"
+194 - "SOUNDS\\WEAPONS\\Auto Resolve Composite 02 (8-22).wav"						//  The FF sound in autoresolve interface
+195 - "SOUNDS\\Email Alert 01.wav"
+196 - "SOUNDS\\Entering Text 02.wav"
+197 - "SOUNDS\\Removing Text 02.wav"
+198 - "SOUNDS\\Computer Beep 01 In.wav"
+199 - "SOUNDS\\Computer Beep 01 Out.wav"
+200 - "SOUNDS\\Computer Switch 01 In.wav"
+201 - "SOUNDS\\Computer Switch 01 Out.wav"
+202 - "SOUNDS\\Very Small Switch 01 In.wav"
+203 - "SOUNDS\\Very Small Switch 01 Out.wav"
+204 - "SOUNDS\\Very Small Switch 02 In.wav"
+205 - "SOUNDS\\Very Small Switch 02 Out.wav"
+206 - "SOUNDS\\Small Switch 01 In.wav"
+207 - "SOUNDS\\Small Switch 01 Out.wav"
+208 - "SOUNDS\\Small Switch 02 In.wav"
+209 - "SOUNDS\\Small Switch 02 Out.wav"
+210 - "SOUNDS\\Small Switch 03 In.wav"
+211 - "SOUNDS\\Small Switch 03 Out.wav"
+212 - "SOUNDS\\Big Switch 03 In.wav"
+213 - "SOUNDS\\Big Switch 03 Out.wav"
+214 - "SOUNDS\\Alarm.wav"
+215 - "SOUNDS\\Fight Bell.wav"
+216 - "SOUNDS\\Helicopter Crash Sequence.wav"
+217 - "SOUNDS\\Attachment.wav"
+218 - "SOUNDS\\Ceramic Armour Insert.wav"
+219 - "SOUNDS\\Detonator Beep.wav"
+220 - "SOUNDS\\Grab Roof.wav"
+221 - "SOUNDS\\Land On Roof.wav"
+222 - "SOUNDS\\Branch Snap 01.wav"
+223 - "SOUNDS\\Branch Snap 02.wav"
+224 - "SOUNDS\\Indoor Bump 01.wav"
+225 - "SOUNDS\\Fridge Door Open.wav"
+226 - "SOUNDS\\Fridge Door Close.wav"
+227 - "SOUNDS\\Fire 03 Loop.wav"
+228 - "SOUNDS\\GLASS_CRACK.wav"
+229 - "SOUNDS\\SPIT RICOCHET.WAV"
+230 - "SOUNDS\\TIGER HIT.WAV"
+231 - "SOUNDS\\bloodcat dying 02.WAV"
+232 - "SOUNDS\\SLAP.WAV"
+233 - "SOUNDS\\ROBOT BEEP.WAV"
+234 - "SOUNDS\\ELECTRICITY.WAV"
+235 - "SOUNDS\\SWIMMING 01.WAV"
+236 - "SOUNDS\\SWIMMING 02.WAV"
+237 - "SOUNDS\\KEY FAILURE.WAV"
+238 - "SOUNDS\\target cursor.WAV"
+239 - "SOUNDS\\statue open.WAV"
+240 - "SOUNDS\\remote activate.WAV"
+241 - "SOUNDS\\wirecutters.WAV"
+242 - "SOUNDS\\drink from canteen.WAV"
+243 - "SOUNDS\\bloodcat attack.wav"
+244 - "SOUNDS\\bloodcat loud roar.wav"
+245 - "SOUNDS\\robot greeting.wav"
+246 - "SOUNDS\\robot death.wav"
+247 - "SOUNDS\\gas grenade explode.WAV"
+248 - "SOUNDS\\air escaping.WAV"
+249 - "SOUNDS\\drawer open.WAV"
+250 - "SOUNDS\\drawer close.WAV"
+251 - "SOUNDS\\locker door open.WAV"
+252 - "SOUNDS\\locker door close.WAV"
+253 - "SOUNDS\\wooden box open.WAV"
+254 - "SOUNDS\\wooden box close.WAV"
+255 - "SOUNDS\\robot stop moving.WAV"
+256 - "SOUNDS\\water movement 01.wav"
+257 - "SOUNDS\\water movement 02.wav"
+258 - "SOUNDS\\water movement 03.wav"
+259 - "SOUNDS\\water movement 04.wav"
+260 - "SOUNDS\\PRONE TO CROUCH.WAV"
+261 - "SOUNDS\\CROUCH TO PRONE.WAV"
+262 - "SOUNDS\\CROUCH TO STAND.WAV"
+263 - "SOUNDS\\STAND TO CROUCH.WAV"
+264 - "SOUNDS\\picking something up.WAV"
+265 - "SOUNDS\\cow falling.wav"
+266 - "SOUNDS\\bloodcat_growl_01.wav"
+267 - "SOUNDS\\bloodcat_growl_02.wav"
+268 - "SOUNDS\\bloodcat_growl_03.wav"
+269 - "SOUNDS\\bloodcat_growl_04.wav"
+270 - "SOUNDS\\spit ricochet.wav"
+271 - "SOUNDS\\ADULT crippled.WAV"
+272 - "SOUNDS\\death disintegration.wav"
+273 - "SOUNDS\\Queen Ambience.wav"
+274 - "SOUNDS\\Alien Impact.wav"
+275 - "SOUNDS\\crow pecking flesh 01.wav"
+276 - "SOUNDS\\crow fly.wav"
+277 - "SOUNDS\\slap 02.wav"
+278 - "SOUNDS\\setting up mortar.wav"
+279 - "SOUNDS\\mortar whistle.wav"
+280 - "SOUNDS\\load mortar.wav"
+281 - "SOUNDS\\tank turret a.wav"
+282 - "SOUNDS\\tank turret b.wav"
+283 - "SOUNDS\\cow falling b.wav"
+284 - "SOUNDS\\stab into flesh.wav"
+285 - "SOUNDS\\explosion 10.wav"
+286 - "SOUNDS\\explosion 12.wav"
+287 - "SOUNDS\\drink from canteen male.WAV"
+288 - "SOUNDS\\x ray activated.WAV"
+289 - "SOUNDS\\catch object.wav"
+290 - "SOUNDS\\fence open.wav" 
+291 - "SOUNDS\\WEAPONS\\50CAL.WAV" // Barrett 
+292 - "SOUNDS\\WEAPONS\\VALSILENT.WAV" // Val Silent
+-->
+<WEAPONLIST>
+	<WEAPON>
+		<uiIndex>0</uiIndex>
+		<szWeaponName>nothing</szWeaponName>
+		<ubWeaponClass>0</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>0</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>0</ubImpact>
+		<ubDeadliness>0</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>10</ubMagSize>
+		<usRange>0</usRange>
+		<usReloadDelay>0</usReloadDelay>
+		<ubAttackVolume>0</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1</uiIndex>
+		<szWeaponName>Glock 17</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>16</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>24</ubBulletSpeed>
+		<ubImpact>21</ubImpact>
+		<ubDeadliness>8</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>15</ubMagSize>
+		<usRange>120</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>116</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>2</uiIndex>
+		<szWeaponName>Glock 18</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>2</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>16</ubShotsPer4Turns>
+		<ubShotsPerBurst>5</ubShotsPerBurst>
+		<ubBurstPenalty>15</ubBurstPenalty>
+		<ubBulletSpeed>24</ubBulletSpeed>
+		<ubImpact>21</ubImpact>
+		<ubDeadliness>9</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>15</ubMagSize>
+		<usRange>120</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>117</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>3</uiIndex>
+		<szWeaponName>Beretta 92F</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>18</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>22</ubImpact>
+		<ubDeadliness>9</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>15</ubMagSize>
+		<usRange>120</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>118</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>4</uiIndex>
+		<szWeaponName>Beretta 93R</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>2</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubShotsPerBurst>5</ubShotsPerBurst>
+		<ubBurstPenalty>15</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>22</ubImpact>
+		<ubDeadliness>9</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>15</ubMagSize>
+		<usRange>120</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>119</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>5</uiIndex>
+		<szWeaponName>S&amp;W Special</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>1</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>22</ubImpact>
+		<ubDeadliness>6</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>6</ubMagSize>
+		<usRange>130</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>45</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>120</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>0</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>6</uiIndex>
+		<szWeaponName>.357 Barracuda</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>4</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>24</ubImpact>
+		<ubDeadliness>7</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>6</ubMagSize>
+		<usRange>135</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>60</ubAttackVolume>
+		<ubHitVolume>5</ubHitVolume>
+		<sSound>121</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>0</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>7</uiIndex>
+		<szWeaponName>.357 DesertEagle</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>4</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>24</ubBulletSpeed>
+		<ubImpact>24</ubImpact>
+		<ubDeadliness>7</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>9</ubMagSize>
+		<usRange>135</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>60</ubAttackVolume>
+		<ubHitVolume>5</ubHitVolume>
+		<sSound>122</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>8</uiIndex>
+		<szWeaponName>.45 M1911</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>3</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>24</ubBulletSpeed>
+		<ubImpact>23</ubImpact>
+		<ubDeadliness>9</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>7</ubMagSize>
+		<usRange>125</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>55</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>123</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>9</uiIndex>
+		<szWeaponName>H&amp;K MP5K</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>1</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubShotsPerBurst>5</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>23</ubImpact>
+		<ubDeadliness>17</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>180</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>124</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>7</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>10</uiIndex>
+		<szWeaponName>.45 MAC-10</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>3</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>5</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>27</ubImpact>
+		<ubDeadliness>20</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>200</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>55</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>125</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>7</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>11</uiIndex>
+		<szWeaponName>Thompson M1A1</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>3</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>4</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>24</ubImpact>
+		<ubDeadliness>14</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>200</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>55</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>126</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>5</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>12</uiIndex>
+		<szWeaponName>Colt Commando</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubShotsPerBurst>4</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>29</ubImpact>
+		<ubDeadliness>23</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>240</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>72</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>127</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>5</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>13</uiIndex>
+		<szWeaponName>H&amp;K MP53</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>14</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>25</ubImpact>
+		<ubDeadliness>15</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>200</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>72</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>128</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>14</uiIndex>
+		<szWeaponName>AKSU-74</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>7</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>17</ubShotsPer4Turns>
+		<ubShotsPerBurst>4</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>26</ubImpact>
+		<ubDeadliness>21</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>200</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>72</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>129</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>5</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>15</uiIndex>
+		<szWeaponName>5.7mm FN P90</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>12</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubShotsPerBurst>5</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>42</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>50</ubMagSize>
+		<usRange>225</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>45</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>130</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>7</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>16</uiIndex>
+		<szWeaponName>Type-85</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>10</ubCalibre>
+		<ubReadyTime>1</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>4</ubShotsPerBurst>
+		<ubBurstPenalty>11</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>23</ubImpact>
+		<ubDeadliness>12</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>200</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>45</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>131</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>5</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>17</uiIndex>
+		<szWeaponName>SKS</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>4</ubWeaponType>
+		<ubCalibre>10</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>31</ubImpact>
+		<ubDeadliness>24</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>10</ubMagSize>
+		<usRange>300</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>80</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>132</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>18</uiIndex>
+		<szWeaponName>Dragunov</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>5</ubWeaponType>
+		<ubCalibre>10</ubCalibre>
+		<ubReadyTime>5</ubReadyTime>
+		<ubShotsPer4Turns>11</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>46</ubImpact>
+		<ubDeadliness>42</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>10</ubMagSize>
+		<usRange>750</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>90</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>133</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>15</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>19</uiIndex>
+		<szWeaponName>M24</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>5</ubWeaponType>
+		<ubCalibre>9</ubCalibre>
+		<ubReadyTime>5</ubReadyTime>
+		<ubShotsPer4Turns>8</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>46</ubImpact>
+		<ubDeadliness>32</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>5</ubMagSize>
+		<usRange>800</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>90</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>134</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>15</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>20</uiIndex>
+		<szWeaponName>Steyr AUG</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>38</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>500</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>77</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>135</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>21</uiIndex>
+		<szWeaponName>H&amp;K G41</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>4</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>29</ubImpact>
+		<ubDeadliness>27</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>300</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>77</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>136</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>5</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>22</uiIndex>
+		<szWeaponName>Ruger Mini-14</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>4</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>20</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>250</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>77</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>137</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>23</uiIndex>
+		<szWeaponName>C-7</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>41</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>400</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>77</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>138</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>24</uiIndex>
+		<szWeaponName>FA-MAS</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>17</ubShotsPer4Turns>
+		<ubShotsPerBurst>5</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>32</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>250</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>77</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>139</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>7</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>25</uiIndex>
+		<szWeaponName>AK-74</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>7</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>17</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>28</ubImpact>
+		<ubDeadliness>30</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>350</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>77</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>140</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>26</uiIndex>
+		<szWeaponName>AKM</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>10</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>17</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>11</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>29</ubImpact>
+		<ubDeadliness>25</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>250</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>80</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>141</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>27</uiIndex>
+		<szWeaponName>M-14</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>9</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>4</ubShotsPerBurst>
+		<ubBurstPenalty>11</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>33</ubImpact>
+		<ubDeadliness>33</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>20</ubMagSize>
+		<usRange>330</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>142</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>5</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>28</uiIndex>
+		<szWeaponName>FN-FAL</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>9</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>17</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>11</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>32</ubImpact>
+		<ubDeadliness>41</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>20</ubMagSize>
+		<usRange>425</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>143</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>29</uiIndex>
+		<szWeaponName>H&amp;K G3A3</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>9</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>11</ubBurstPenalty>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>31</ubImpact>
+		<ubDeadliness>26</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>20</ubMagSize>
+		<usRange>300</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>144</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>30</uiIndex>
+		<szWeaponName>H&amp;K G11</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>11</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>6</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>27</ubImpact>
+		<ubDeadliness>40</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>50</ubMagSize>
+		<usRange>300</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>70</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>145</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>1</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>31</uiIndex>
+		<szWeaponName>Remington M870</szWeaponName>
+		<ubWeaponClass>5</ubWeaponClass>
+		<ubWeaponType>8</ubWeaponType>
+		<ubCalibre>5</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>7</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>24</ubBulletSpeed>
+		<ubImpact>32</ubImpact>
+		<ubDeadliness>14</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>7</ubMagSize>
+		<usRange>135</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>146</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>103</sReloadSound>
+		<sLocknLoadSound>109</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>0</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>32</uiIndex>
+		<szWeaponName>SPAS-15</szWeaponName>
+		<ubWeaponClass>5</ubWeaponClass>
+		<ubWeaponType>8</ubWeaponType>
+		<ubCalibre>5</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>24</ubBulletSpeed>
+		<ubImpact>32</ubImpact>
+		<ubDeadliness>18</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>7</ubMagSize>
+		<usRange>135</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>147</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>103</sReloadSound>
+		<sLocknLoadSound>109</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>0</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>33</uiIndex>
+		<szWeaponName>CAWS</szWeaponName>
+		<ubWeaponClass>5</ubWeaponClass>
+		<ubWeaponType>8</ubWeaponType>
+		<ubCalibre>6</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>11</ubBurstPenalty>
+		<ubBulletSpeed>24</ubBulletSpeed>
+		<ubImpact>40</ubImpact>
+		<ubDeadliness>44</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>10</ubMagSize>
+		<usRange>135</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>148</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>103</sReloadSound>
+		<sLocknLoadSound>109</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>34</uiIndex>
+		<szWeaponName>FN Minimi</szWeaponName>
+		<ubWeaponClass>4</ubWeaponClass>
+		<ubWeaponType>7</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>6</ubShotsPerBurst>
+		<ubBurstPenalty>5</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>28</ubImpact>
+		<ubDeadliness>48</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>200</ubMagSize>
+		<usRange>500</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>77</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>149</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>104</sReloadSound>
+		<sLocknLoadSound>110</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>8</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>35</uiIndex>
+		<szWeaponName>RPK-74</szWeaponName>
+		<ubWeaponClass>4</ubWeaponClass>
+		<ubWeaponType>7</ubWeaponType>
+		<ubCalibre>7</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>5</ubShotsPerBurst>
+		<ubBurstPenalty>5</ubBurstPenalty>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>49</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>75</ubMagSize>
+		<usRange>500</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>77</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>150</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>104</sReloadSound>
+		<sLocknLoadSound>110</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>7</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>36</uiIndex>
+		<szWeaponName>H&amp;K 21E</szWeaponName>
+		<ubWeaponClass>4</ubWeaponClass>
+		<ubWeaponType>7</ubWeaponType>
+		<ubCalibre>9</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>5</ubShotsPerBurst>
+		<ubBurstPenalty>7</ubBurstPenalty>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>32</ubImpact>
+		<ubDeadliness>52</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>100</ubMagSize>
+		<usRange>500</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>151</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>104</sReloadSound>
+		<sLocknLoadSound>110</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>7</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>37</uiIndex>
+		<szWeaponName>Combat knife</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>18</ubImpact>
+		<ubDeadliness>5</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>40</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>38</uiIndex>
+		<szWeaponName>Throwing knife</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>15</ubImpact>
+		<ubDeadliness>4</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>150</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>152</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>39</uiIndex>
+		<szWeaponName>rock</szWeaponName>
+		<ubWeaponClass>0</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>0</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>0</ubImpact>
+		<ubDeadliness>0</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>0</usRange>
+		<usReloadDelay>0</usReloadDelay>
+		<ubAttackVolume>0</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>40</uiIndex>
+		<szWeaponName>grenade launcher</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>5</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>30</ubBulletSpeed>
+		<ubImpact>1</ubImpact>
+		<ubDeadliness>80</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>1</ubMagSize>
+		<usRange>500</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>20</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>112</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>41</uiIndex>
+		<szWeaponName>mortar</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>5</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>30</ubBulletSpeed>
+		<ubImpact>1</ubImpact>
+		<ubDeadliness>100</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>550</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>20</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>115</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>42</uiIndex>
+		<szWeaponName>another rock</szWeaponName>
+		<ubWeaponClass>0</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>0</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>0</ubImpact>
+		<ubDeadliness>0</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>0</usRange>
+		<usReloadDelay>0</usReloadDelay>
+		<ubAttackVolume>0</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>43</uiIndex>
+		<szWeaponName>yng male claws</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>14</ubImpact>
+		<ubDeadliness>1</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>10</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>44</uiIndex>
+		<szWeaponName>yng fem claws</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>18</ubImpact>
+		<ubDeadliness>1</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>10</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>45</uiIndex>
+		<szWeaponName>old male claws</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>20</ubImpact>
+		<ubDeadliness>1</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>10</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>46</uiIndex>
+		<szWeaponName>old fem claws</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>24</ubImpact>
+		<ubDeadliness>1</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>10</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>47</uiIndex>
+		<szWeaponName>queen tentacles</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>20</ubImpact>
+		<ubDeadliness>1</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>70</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>48</uiIndex>
+		<szWeaponName>queen spit</szWeaponName>
+		<ubWeaponClass>7</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>13</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>250</ubBulletSpeed>
+		<ubImpact>20</ubImpact>
+		<ubDeadliness>1</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>50</ubMagSize>
+		<usRange>300</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>10</ubAttackVolume>
+		<ubHitVolume>5</ubHitVolume>
+		<sSound>175</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>49</uiIndex>
+		<szWeaponName>brass knuckles</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>12</ubImpact>
+		<ubDeadliness>1</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>10</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>0</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>50</uiIndex>
+		<szWeaponName>underslung GL</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>7</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>30</ubBulletSpeed>
+		<ubImpact>1</ubImpact>
+		<ubDeadliness>80</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>1</ubMagSize>
+		<usRange>450</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>20</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>113</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>51</uiIndex>
+		<szWeaponName>rocket launcher</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>5</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>30</ubBulletSpeed>
+		<ubImpact>80</ubImpact>
+		<ubDeadliness>80</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>1</ubMagSize>
+		<usRange>500</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>80</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>114</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>52</uiIndex>
+		<szWeaponName>bloodcat claws</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>14</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>12</ubImpact>
+		<ubDeadliness>1</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>10</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>53</uiIndex>
+		<szWeaponName>bloodcat bite</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>24</ubImpact>
+		<ubDeadliness>1</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>10</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>54</uiIndex>
+		<szWeaponName>machete</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>9</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>24</ubImpact>
+		<ubDeadliness>6</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>40</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>55</uiIndex>
+		<szWeaponName>rocket rifle</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>4</ubWeaponType>
+		<ubCalibre>14</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>38</ubImpact>
+		<ubDeadliness>62</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>5</ubMagSize>
+		<usRange>600</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>80</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>111</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>56</uiIndex>
+		<szWeaponName>automag III</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>9</ubCalibre>
+		<ubReadyTime>1</ubReadyTime>
+		<ubShotsPer4Turns>9</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>24</ubBulletSpeed>
+		<ubImpact>29</ubImpact>
+		<ubDeadliness>13</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>5</ubMagSize>
+		<usRange>220</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>72</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>155</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>57</uiIndex>
+		<szWeaponName>infant spit</szWeaponName>
+		<ubWeaponClass>7</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>13</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>250</ubBulletSpeed>
+		<ubImpact>12</ubImpact>
+		<ubDeadliness>1</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>5</ubMagSize>
+		<usRange>200</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>10</ubAttackVolume>
+		<ubHitVolume>5</ubHitVolume>
+		<sSound>175</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>58</uiIndex>
+		<szWeaponName>yng male spit</szWeaponName>
+		<ubWeaponClass>7</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>13</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>250</ubBulletSpeed>
+		<ubImpact>16</ubImpact>
+		<ubDeadliness>1</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>10</ubMagSize>
+		<usRange>200</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>10</ubAttackVolume>
+		<ubHitVolume>5</ubHitVolume>
+		<sSound>175</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>59</uiIndex>
+		<szWeaponName>old male spit</szWeaponName>
+		<ubWeaponClass>7</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>13</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>250</ubBulletSpeed>
+		<ubImpact>20</ubImpact>
+		<ubDeadliness>1</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>20</ubMagSize>
+		<usRange>200</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>10</ubAttackVolume>
+		<ubHitVolume>5</ubHitVolume>
+		<sSound>175</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>60</uiIndex>
+		<szWeaponName>tank cannon</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>8</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>30</ubBulletSpeed>
+		<ubImpact>80</ubImpact>
+		<ubDeadliness>80</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>1</ubMagSize>
+		<usRange>800</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>90</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>153</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>61</uiIndex>
+		<szWeaponName>DART GUN</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>15</ubCalibre>
+		<ubReadyTime>1</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>25</ubBulletSpeed>
+		<ubImpact>2</ubImpact>
+		<ubDeadliness>10</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>1</ubMagSize>
+		<usRange>200</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>0</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>62</uiIndex>
+		<szWeaponName>Bloody Thrw KN</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>15</ubImpact>
+		<ubDeadliness>3</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>150</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>152</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>63</uiIndex>
+		<szWeaponName>Flamethrower</szWeaponName>
+		<ubWeaponClass>5</ubWeaponClass>
+		<ubWeaponType>8</ubWeaponType>
+		<ubCalibre>16</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>24</ubBulletSpeed>
+		<ubImpact>60</ubImpact>
+		<ubDeadliness>53</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>5</ubMagSize>
+		<usRange>130</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>40</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>148</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>103</sReloadSound>
+		<sLocknLoadSound>109</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>64</uiIndex>
+		<szWeaponName>crowbar</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>25</ubImpact>
+		<ubDeadliness>4</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>10</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>0</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>65</uiIndex>
+		<szWeaponName>auto rckt rifle</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>14</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
+		<ubShotsPerBurst>5</ubShotsPerBurst>
+		<ubBurstPenalty>10</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>38</ubImpact>
+		<ubDeadliness>97</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>5</ubMagSize>
+		<usRange>600</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>80</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>111</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>66</uiIndex>
+		<szWeaponName>Barrett</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>5</ubWeaponType>
+		<ubCalibre>17</ubCalibre>
+		<ubReadyTime>6</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>64</ubImpact>
+		<ubDeadliness>166</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>11</ubMagSize>
+		<usRange>1500</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>100</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>291</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>28</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>67</uiIndex>
+		<szWeaponName>VAL Silent</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>5</ubWeaponType>
+		<ubCalibre>18</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>39</ubImpact>
+		<ubDeadliness>37</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>20</ubMagSize>
+		<usRange>400</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>70</ubAttackVolume>
+		<ubHitVolume>4</ubHitVolume>
+		<sSound>292</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>12</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>68</uiIndex>
+		<szWeaponName>H&amp;K PSG1</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>5</ubWeaponType>
+		<ubCalibre>9</ubCalibre>
+		<ubReadyTime>5</ubReadyTime>
+		<ubShotsPer4Turns>11</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>48</ubImpact>
+		<ubDeadliness>60</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>20</ubMagSize>
+		<usRange>800</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>134</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>15</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>69</uiIndex>
+		<szWeaponName>TAR 21</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>17</ubShotsPer4Turns>
+		<ubShotsPerBurst>5</ubShotsPerBurst>
+		<ubBurstPenalty>6</ubBurstPenalty>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>43</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>350</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>75</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>149</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>7</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>282</uiIndex>
+		<szWeaponName>rpg-7</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>5</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>30</ubBulletSpeed>
+		<ubImpact>50</ubImpact>
+		<ubDeadliness>80</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>1</ubMagSize>
+		<usRange>500</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>80</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>114</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>293</uiIndex>
+		<szWeaponName>commando mortar</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>8</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>30</ubBulletSpeed>
+		<ubImpact>1</ubImpact>
+		<ubDeadliness>100</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>400</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>20</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>115</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>296</uiIndex>
+		<szWeaponName>OICW GL</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
+		<ubShotsPerBurst>2</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>30</ubBulletSpeed>
+		<ubImpact>1</ubImpact>
+		<ubDeadliness>80</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>6</ubMagSize>
+		<usRange>450</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>20</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>113</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>301</uiIndex>
+		<szWeaponName>Hartford 6 Shooter</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>4</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>27</ubBulletSpeed>
+		<ubImpact>25</ubImpact>
+		<ubDeadliness>10</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>6</ubMagSize>
+		<usRange>175</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>60</ubAttackVolume>
+		<ubHitVolume>5</ubHitVolume>
+		<sSound>121</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBaseAutofireCost>0</bBaseAutofireCost>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>0</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>328</uiIndex>
+		<szWeaponName>Calico M900</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>14</ubShotsPer4Turns>
+		<ubShotsPerBurst>4</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>25</ubBulletSpeed>
+		<ubImpact>25</ubImpact>
+		<ubDeadliness>20</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>50</ubMagSize>
+		<usRange>350</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>124</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>5</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>329</uiIndex>
+		<szWeaponName>Calico M950</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubShotsPerBurst>4</ubShotsPerBurst>
+		<ubBurstPenalty>4</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>22</ubImpact>
+		<ubDeadliness>11</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>50</ubMagSize>
+		<usRange>150</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>119</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>330</uiIndex>
+		<szWeaponName>Calico M960A</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>1</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubShotsPerBurst>5</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>26</ubImpact>
+		<ubDeadliness>24</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>50</ubMagSize>
+		<usRange>250</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>124</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>7</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>331</uiIndex>
+		<szWeaponName>Micro Uzi</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>1</ubReadyTime>
+		<ubShotsPer4Turns>17</ubShotsPer4Turns>
+		<ubShotsPerBurst>6</ubShotsPerBurst>
+		<ubBurstPenalty>11</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>23</ubImpact>
+		<ubDeadliness>16</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>140</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>119</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>8</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>332</uiIndex>
+		<szWeaponName>L85A1</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubShotsPerBurst>4</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>37</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>350</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>77</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>149</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>5</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>333</uiIndex>
+		<szWeaponName>H&amp;K MP5A2</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>17</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>6</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>24</ubImpact>
+		<ubDeadliness>15</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>200</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>124</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>334</uiIndex>
+		<szWeaponName>H&amp;K MP5SD</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>17</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>6</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>24</ubImpact>
+		<ubDeadliness>20</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>200</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>124</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>335</uiIndex>
+		<szWeaponName>H&amp;K MP5N</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>1</ubReadyTime>
+		<ubShotsPer4Turns>17</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>6</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>25</ubImpact>
+		<ubDeadliness>35</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>220</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>128</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>336</uiIndex>
+		<szWeaponName>H&amp;K UMP45</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>3</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>17</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>6</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>28</ubImpact>
+		<ubDeadliness>38</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>200</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>55</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>125</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>337</uiIndex>
+		<szWeaponName>Five seveN</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>12</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>18</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>28</ubImpact>
+		<ubDeadliness>35</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>20</ubMagSize>
+		<usRange>100</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>45</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>130</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>338</uiIndex>
+		<szWeaponName>P7M8</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>20</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>21</ubImpact>
+		<ubDeadliness>15</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>15</ubMagSize>
+		<usRange>120</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>116</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>339</uiIndex>
+		<szWeaponName>G36K</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>17</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>7</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>32</ubImpact>
+		<ubDeadliness>50</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>350</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>75</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>136</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>340</uiIndex>
+		<szWeaponName>G36C</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>1</ubReadyTime>
+		<ubShotsPer4Turns>19</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>6</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>45</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>250</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>70</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>136</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>341</uiIndex>
+		<szWeaponName>HK MSG-90A1</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>5</ubWeaponType>
+		<ubCalibre>9</ubCalibre>
+		<ubReadyTime>4</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>48</ubImpact>
+		<ubDeadliness>65</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>20</ubMagSize>
+		<usRange>550</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>134</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>14</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>342</uiIndex>
+		<szWeaponName>Bennelli</szWeaponName>
+		<ubWeaponClass>5</ubWeaponClass>
+		<ubWeaponType>8</ubWeaponType>
+		<ubCalibre>5</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>24</ubBulletSpeed>
+		<ubImpact>35</ubImpact>
+		<ubDeadliness>25</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>7</ubMagSize>
+		<usRange>135</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>147</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>103</sReloadSound>
+		<sLocknLoadSound>109</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>0</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>343</uiIndex>
+		<szWeaponName>AK-103</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>10</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>17</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>30</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>350</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>77</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>141</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>344</uiIndex>
+		<szWeaponName>G36E</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>16</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>7</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>35</ubImpact>
+		<ubDeadliness>50</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>400</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>75</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>136</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>345</uiIndex>
+		<szWeaponName>OICW</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>6</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>35</ubImpact>
+		<ubDeadliness>100</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>400</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>70</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>136</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>10</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>346</uiIndex>
+		<szWeaponName>MP-7</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>19</ubCalibre>
+		<ubReadyTime>1</ubReadyTime>
+		<ubShotsPer4Turns>19</ubShotsPer4Turns>
+		<ubShotsPerBurst>5</ubShotsPerBurst>
+		<ubBurstPenalty>7</ubBurstPenalty>
+		<ubBulletSpeed>28</ubBulletSpeed>
+		<ubImpact>28</ubImpact>
+		<ubDeadliness>65</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>40</ubMagSize>
+		<usRange>225</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>145</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>7</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>347</uiIndex>
+		<szWeaponName>Milkor MGL</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>10</ubBurstPenalty>
+		<ubBulletSpeed>30</ubBulletSpeed>
+		<ubImpact>1</ubImpact>
+		<ubDeadliness>90</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>6</ubMagSize>
+		<usRange>500</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>20</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>112</sSound>
+		<sBurstSound>154</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>348</uiIndex>
+		<szWeaponName>nothing</szWeaponName>
+		<ubWeaponClass>0</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>0</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>0</ubImpact>
+		<ubDeadliness>0</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>0</usRange>
+		<usReloadDelay>0</usReloadDelay>
+		<ubAttackVolume>0</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>349</uiIndex>
+		<szWeaponName>nothing</szWeaponName>
+		<ubWeaponClass>0</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>0</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>0</ubImpact>
+		<ubDeadliness>0</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>0</usRange>
+		<usReloadDelay>0</usReloadDelay>
+		<ubAttackVolume>0</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>350</uiIndex>
+		<szWeaponName>nothing</szWeaponName>
+		<ubWeaponClass>0</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>0</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>0</ubBulletSpeed>
+		<ubImpact>0</ubImpact>
+		<ubDeadliness>0</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>0</ubMagSize>
+		<usRange>0</usRange>
+		<usReloadDelay>0</usReloadDelay>
+		<ubAttackVolume>0</ubAttackVolume>
+		<ubHitVolume>0</ubHitVolume>
+		<sSound>0</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+</WEAPONLIST>

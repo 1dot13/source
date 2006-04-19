@@ -1,0 +1,1947 @@
+<!-- 	this a comment, all of the text between the angled brackets is ignored
+
+Attribute Field Reference:
+
+	attachmentIndex		- the item index of the attachment
+	itemIndex			- the item index of the item to attach it to
+
+	
+-->
+<ATTACHMENTLIST>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>1</itemIndex> <!-- Glock 17 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>2</itemIndex> <!-- Glock 18 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>3</itemIndex> <!-- Beretta 92F -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>4</itemIndex> <!-- Beretta 93R -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>5</itemIndex> <!-- .38 S&W -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>6</itemIndex> <!-- Barracuda -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>301</itemIndex> <!-- Hartford 6 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>7</itemIndex> <!-- Desert Eagle -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>8</itemIndex> <!-- Colt .45 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>9</itemIndex> <!-- MP5K -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>10</itemIndex> <!-- MAC-10 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>11</itemIndex> <!-- Thompson -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>15</itemIndex> <!-- P90 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>330</itemIndex> <!-- Calico M-960A -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>331</itemIndex> <!-- Micro-Uzi -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>329</itemIndex> <!-- Calico M-950 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>333</itemIndex> <!-- MP-5A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>335</itemIndex> <!-- MP-5N -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>337</itemIndex> <!-- Five-seveN -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>338</itemIndex> <!-- P7M8 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>341</itemIndex> <!-- MSG-90A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>207</attachmentIndex> <!-- Silencer -->
+		<itemIndex>346</itemIndex> <!-- MP-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>12</itemIndex> <!-- M4A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>17</itemIndex> <!-- SKS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>18</itemIndex> <!-- Dragunov -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>19</itemIndex> <!-- M24 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>20</itemIndex> <!-- Steyr -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>21</itemIndex> <!-- G41 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>22</itemIndex> <!-- Mini-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>23</itemIndex> <!-- C-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>24</itemIndex> <!-- FA-MAS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>25</itemIndex> <!-- AK-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>26</itemIndex> <!-- AKM -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>27</itemIndex> <!-- M-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>28</itemIndex> <!-- FN-FAL -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>29</itemIndex> <!-- G3A3 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>30</itemIndex> <!-- G11 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>328</itemIndex> <!-- Calico M-900 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>66</itemIndex> <!-- Barrett -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>68</itemIndex> <!-- H&K PSG1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>67</itemIndex> <!-- VAL Silent -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>69</itemIndex> <!-- TAR 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>332</itemIndex> <!-- L85A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>339</itemIndex> <!-- G36K -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>340</itemIndex> <!-- G36C -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>341</itemIndex> <!-- MSG-90A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>343</itemIndex> <!-- AK-103 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>208</attachmentIndex> <!-- Sniper Scope -->
+		<itemIndex>344</itemIndex> <!-- G36E -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>1</itemIndex> <!-- Glock 17 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>2</itemIndex> <!-- Glock 18 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>3</itemIndex> <!-- Beretta 92F -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>4</itemIndex> <!-- Beretta 93R -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>5</itemIndex> <!-- .38 S&W -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>6</itemIndex> <!-- Barracuda -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>301</itemIndex> <!-- Hartford 6 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>7</itemIndex> <!-- Desert Eagle -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>8</itemIndex> <!-- Colt .45 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>9</itemIndex> <!-- MP5K -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>10</itemIndex> <!-- MAC-10 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>11</itemIndex> <!-- Thompson -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>12</itemIndex> <!-- M4A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>13</itemIndex> <!-- H&K 53 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>14</itemIndex> <!-- AKSU-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>15</itemIndex> <!-- P90 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>16</itemIndex> <!-- Type-85 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>17</itemIndex> <!-- SKS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>18</itemIndex> <!-- Dragunov -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>19</itemIndex> <!-- M24 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>20</itemIndex> <!-- Steyr -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>21</itemIndex> <!-- G41 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>22</itemIndex> <!-- Mini-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>23</itemIndex> <!-- C-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>24</itemIndex> <!-- FA-MAS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>25</itemIndex> <!-- AK-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>26</itemIndex> <!-- AKM -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>27</itemIndex> <!-- M-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>28</itemIndex> <!-- FN-FAL -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>29</itemIndex> <!-- G3A3 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>30</itemIndex> <!-- G11 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>31</itemIndex> <!-- M870 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>32</itemIndex> <!-- SPAS-15 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>33</itemIndex> <!-- CAWS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>34</itemIndex> <!-- Minimi -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>35</itemIndex> <!-- RPK-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>36</itemIndex> <!-- H&K 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>56</itemIndex> <!-- Automag -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>331</itemIndex> <!-- Micro-Uzi -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>328</itemIndex> <!-- Calico M-900 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>329</itemIndex> <!-- Calico M-950 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>330</itemIndex> <!-- Calico M-960A -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>66</itemIndex> <!-- Barrett -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>68</itemIndex> <!-- H&K PSG1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>67</itemIndex> <!-- VAL Silent -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>69</itemIndex> <!-- TAR 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>332</itemIndex> <!-- L85A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>333</itemIndex> <!-- MP-5A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>335</itemIndex> <!-- MP-5N -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>336</itemIndex> <!-- UMP-45 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>334</itemIndex> <!-- MP-5SD3 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>337</itemIndex> <!-- Five-seveN -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>338</itemIndex> <!-- P7M8 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>339</itemIndex> <!-- G36K -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>340</itemIndex> <!-- G36C -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>341</itemIndex> <!-- MSG-90A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>342</itemIndex> <!-- M4 Super 90 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>343</itemIndex> <!-- AK-103 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>344</itemIndex> <!-- G36E -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex> <!-- Laser Scope -->
+		<itemIndex>346</itemIndex> <!-- MP-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>17</itemIndex> <!-- SKS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>18</itemIndex> <!-- Dragunov -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>19</itemIndex> <!-- M24 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>20</itemIndex> <!-- Steyr -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>21</itemIndex> <!-- G41 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>22</itemIndex> <!-- Mini-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>23</itemIndex> <!-- C-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>24</itemIndex> <!-- FA-MAS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>25</itemIndex> <!-- AK-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>26</itemIndex> <!-- AKM -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>27</itemIndex> <!-- M-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>28</itemIndex> <!-- FN-FAL -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>29</itemIndex> <!-- G3A3 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>30</itemIndex> <!-- G11 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>33</itemIndex> <!-- CAWS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>34</itemIndex> <!-- Minimi -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>35</itemIndex> <!-- RPK-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>36</itemIndex> <!-- H&K 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>328</itemIndex> <!-- Calico M-900 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>66</itemIndex> <!-- Barrett -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>68</itemIndex> <!-- H&K PSG1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>67</itemIndex> <!-- VAL Silent -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>69</itemIndex> <!-- TAR 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>332</itemIndex> <!-- L85A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>341</itemIndex> <!-- MSG-90A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>343</itemIndex> <!-- AK-103 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>344</itemIndex> <!-- G36E -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>209</attachmentIndex> <!-- Bipod -->
+		<itemIndex>345</itemIndex> <!-- OICW -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>244</attachmentIndex> <!-- Duckbill -->
+		<itemIndex>31</itemIndex> <!-- M870 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>244</attachmentIndex> <!-- Duckbill -->
+		<itemIndex>32</itemIndex> <!-- SPAS-15 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>244</attachmentIndex> <!-- Duckbill -->
+		<itemIndex>33</itemIndex> <!-- CAWS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>244</attachmentIndex> <!-- Duckbill -->
+		<itemIndex>342</itemIndex> <!-- M4 Super 90 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>12</itemIndex> <!-- M4A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>14</itemIndex> <!-- AKSU-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>20</itemIndex> <!-- Steyr -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>21</itemIndex> <!-- G41 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>22</itemIndex> <!-- Mini-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>23</itemIndex> <!-- C-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>24</itemIndex> <!-- FA-MAS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>25</itemIndex> <!-- AK-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>26</itemIndex> <!-- AKM -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>27</itemIndex> <!-- M-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>28</itemIndex> <!-- FN-FAL -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>29</itemIndex> <!-- G3A3 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>69</itemIndex> <!-- TAR 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>332</itemIndex> <!-- L85A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>328</itemIndex> <!-- Calico M-900 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>30</itemIndex> <!-- G11 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>17</itemIndex> <!-- SKS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>339</itemIndex> <!-- G36K -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>340</itemIndex> <!-- G36C -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>343</itemIndex> <!-- AK-103 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>50</attachmentIndex> <!-- Talon -->
+		<itemIndex>344</itemIndex> <!-- G36E -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>1</itemIndex> <!-- Glock 17 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>2</itemIndex> <!-- Glock 18 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>3</itemIndex> <!-- Beretta 92F -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>4</itemIndex> <!-- Beretta 93R -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>5</itemIndex> <!-- .38 S&W -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>6</itemIndex> <!-- Barracuda -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>301</itemIndex> <!-- Hartford 6 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>7</itemIndex> <!-- Desert Eagle -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>8</itemIndex> <!-- Colt .45 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>9</itemIndex> <!-- MP5K -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>10</itemIndex> <!-- MAC-10 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>11</itemIndex> <!-- Thompson -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>12</itemIndex> <!-- M4A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>13</itemIndex> <!-- H&K 53 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>14</itemIndex> <!-- AKSU-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>15</itemIndex> <!-- P90 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>16</itemIndex> <!-- Type-85 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>17</itemIndex> <!-- SKS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>18</itemIndex> <!-- Dragunov -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>19</itemIndex> <!-- M24 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>20</itemIndex> <!-- Steyr -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>21</itemIndex> <!-- G41 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>22</itemIndex> <!-- Mini-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>23</itemIndex> <!-- C-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>24</itemIndex> <!-- FA-MAS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>25</itemIndex> <!-- AK-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>26</itemIndex> <!-- AKM -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>27</itemIndex> <!-- M-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>28</itemIndex> <!-- FN-FAL -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>29</itemIndex> <!-- G3A3 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>30</itemIndex> <!-- G11 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>31</itemIndex> <!-- M870 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>32</itemIndex> <!-- SPAS-15 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>33</itemIndex> <!-- CAWS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>34</itemIndex> <!-- Minimi -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>35</itemIndex> <!-- RPK-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>36</itemIndex> <!-- H&K 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>56</itemIndex> <!-- Automag -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>331</itemIndex> <!-- Micro-Uzi -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>328</itemIndex> <!-- Calico M-900 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>329</itemIndex> <!-- Calico M-950 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>330</itemIndex> <!-- Calico M-960A -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>66</itemIndex> <!-- Barrett -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>68</itemIndex> <!-- H&K PSG1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>67</itemIndex> <!-- VAL Silent -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>69</itemIndex> <!-- TAR 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>332</itemIndex> <!-- L85A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>333</itemIndex> <!-- MP-5A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>335</itemIndex> <!-- MP-5N -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>336</itemIndex> <!-- UMP-45 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>334</itemIndex> <!-- MP-5SD3 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>337</itemIndex> <!-- Five-seveN -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>338</itemIndex> <!-- P7M8 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>339</itemIndex> <!-- G36K -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>340</itemIndex> <!-- G36C -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>341</itemIndex> <!-- MSG-90A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>342</itemIndex> <!-- M4 Super 90 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>343</itemIndex> <!-- AK-103 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>344</itemIndex> <!-- G36E -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>346</itemIndex> <!-- MP-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>307</attachmentIndex> <!-- Rod & Spring -->
+		<itemIndex>345</itemIndex> <!-- OICW -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>1</itemIndex> <!-- Glock 17 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>2</itemIndex> <!-- Glock 18 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>3</itemIndex> <!-- Beretta 92F -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>4</itemIndex> <!-- Beretta 93R -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>5</itemIndex> <!-- .38 S&W -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>6</itemIndex> <!-- Barracuda -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>301</itemIndex> <!-- Hartford 6 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>7</itemIndex> <!-- Desert Eagle -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>8</itemIndex> <!-- Colt .45 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>9</itemIndex> <!-- MP5K -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>10</itemIndex> <!-- MAC-10 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>11</itemIndex> <!-- Thompson -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>12</itemIndex> <!-- M4A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>13</itemIndex> <!-- H&K 53 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>14</itemIndex> <!-- AKSU-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>15</itemIndex> <!-- P90 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>16</itemIndex> <!-- Type-85 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>17</itemIndex> <!-- SKS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>18</itemIndex> <!-- Dragunov -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>19</itemIndex> <!-- M24 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>20</itemIndex> <!-- Steyr -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>21</itemIndex> <!-- G41 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>22</itemIndex> <!-- Mini-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>23</itemIndex> <!-- C-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>24</itemIndex> <!-- FA-MAS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>25</itemIndex> <!-- AK-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>26</itemIndex> <!-- AKM -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>27</itemIndex> <!-- M-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>28</itemIndex> <!-- FN-FAL -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>29</itemIndex> <!-- G3A3 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>30</itemIndex> <!-- G11 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>31</itemIndex> <!-- M870 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>32</itemIndex> <!-- SPAS-15 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>33</itemIndex> <!-- CAWS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>34</itemIndex> <!-- Minimi -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>35</itemIndex> <!-- RPK-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>36</itemIndex> <!-- H&K 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>56</itemIndex> <!-- Automag -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>331</itemIndex> <!-- Micro-Uzi -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>328</itemIndex> <!-- Calico M-900 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>329</itemIndex> <!-- Calico M-950 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>330</itemIndex> <!-- Calico M-960A -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>66</itemIndex> <!-- Barrett -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>68</itemIndex> <!-- H&K PSG1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>67</itemIndex> <!-- VAL Silent -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>69</itemIndex> <!-- TAR 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>332</itemIndex> <!-- L85A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>333</itemIndex> <!-- MP-5A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>335</itemIndex> <!-- MP-5N -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>336</itemIndex> <!-- UMP-45 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>334</itemIndex> <!-- MP-5SD3 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>337</itemIndex> <!-- Five-seveN -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>338</itemIndex> <!-- P7M8 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>339</itemIndex> <!-- G36K -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>340</itemIndex> <!-- G36C -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>341</itemIndex> <!-- MSG-90A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>342</itemIndex> <!-- M4 Super 90 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>343</itemIndex> <!-- AK-103 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>344</itemIndex> <!-- G36E -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>345</itemIndex> <!-- OICW -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>310</attachmentIndex> <!-- Extender -->
+		<itemIndex>346</itemIndex> <!-- MP-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>9</itemIndex> <!-- MP5K -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>10</itemIndex> <!-- MAC-10 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>11</itemIndex> <!-- Thompson -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>12</itemIndex> <!-- M4A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>13</itemIndex> <!-- H&K 53 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>14</itemIndex> <!-- AKSU-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>15</itemIndex> <!-- P90 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>16</itemIndex> <!-- Type-85 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>17</itemIndex> <!-- SKS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>18</itemIndex> <!-- Dragunov -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>19</itemIndex> <!-- M24 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>20</itemIndex> <!-- Steyr -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>21</itemIndex> <!-- G41 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>22</itemIndex> <!-- Mini-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>23</itemIndex> <!-- C-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>24</itemIndex> <!-- FA-MAS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>25</itemIndex> <!-- AK-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>26</itemIndex> <!-- AKM -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>27</itemIndex> <!-- M-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>28</itemIndex> <!-- FN-FAL -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>29</itemIndex> <!-- G3A3 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>30</itemIndex> <!-- G11 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>34</itemIndex> <!-- Minimi -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>35</itemIndex> <!-- RPK-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>36</itemIndex> <!-- H&K 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>331</itemIndex> <!-- Micro-Uzi -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>328</itemIndex> <!-- Calico M-900 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>329</itemIndex> <!-- Calico M-950 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>330</itemIndex> <!-- Calico M-960A -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>66</itemIndex> <!-- Barrett -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>68</itemIndex> <!-- H&K PSG1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>67</itemIndex> <!-- VAL Silent -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>69</itemIndex> <!-- TAR 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>332</itemIndex> <!-- L85A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>333</itemIndex> <!-- MP-5A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>335</itemIndex> <!-- MP-5N -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>336</itemIndex> <!-- UMP-45 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>339</itemIndex> <!-- G36K -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>340</itemIndex> <!-- G36C -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>341</itemIndex> <!-- MSG-90A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>343</itemIndex> <!-- AK-103 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>344</itemIndex> <!-- G36E -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>345</itemIndex> <!-- OICW -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>281</attachmentIndex> <!-- Suppressor -->
+		<itemIndex>346</itemIndex> <!-- MP-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>1</itemIndex> <!-- Glock 17 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>2</itemIndex> <!-- Glock 18 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>3</itemIndex> <!-- Beretta 92F -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>4</itemIndex> <!-- Beretta 93R -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>5</itemIndex> <!-- .38 S&W -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>6</itemIndex> <!-- Barracuda -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>301</itemIndex> <!-- Hartford 6 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>7</itemIndex> <!-- Desert Eagle -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>8</itemIndex> <!-- Colt .45 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>9</itemIndex> <!-- MP5K -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>10</itemIndex> <!-- MAC-10 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>11</itemIndex> <!-- Thompson -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>12</itemIndex> <!-- M4A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>13</itemIndex> <!-- H&K 53 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>14</itemIndex> <!-- AKSU-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>15</itemIndex> <!-- P90 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>16</itemIndex> <!-- Type-85 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>17</itemIndex> <!-- SKS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>20</itemIndex> <!-- Steyr -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>21</itemIndex> <!-- G41 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>22</itemIndex> <!-- Mini-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>23</itemIndex> <!-- C-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>24</itemIndex> <!-- FA-MAS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>25</itemIndex> <!-- AK-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>26</itemIndex> <!-- AKM -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>27</itemIndex> <!-- M-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>28</itemIndex> <!-- FN-FAL -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>29</itemIndex> <!-- G3A3 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>30</itemIndex> <!-- G11 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>31</itemIndex> <!-- M870 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>32</itemIndex> <!-- SPAS-15 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>33</itemIndex> <!-- CAWS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>34</itemIndex> <!-- Minimi -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>35</itemIndex> <!-- RPK-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>36</itemIndex> <!-- H&K 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>56</itemIndex> <!-- Automag -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>331</itemIndex> <!-- Micro-Uzi -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>328</itemIndex> <!-- Calico M-900 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>329</itemIndex> <!-- Calico M-950 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>330</itemIndex> <!-- Calico M-960A -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>69</itemIndex> <!-- TAR 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>332</itemIndex> <!-- L85A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>333</itemIndex> <!-- MP-5A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>335</itemIndex> <!-- MP-5N -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>336</itemIndex> <!-- UMP-45 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>334</itemIndex> <!-- MP-5SD3 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>337</itemIndex> <!-- Five-seveN -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>338</itemIndex> <!-- P7M8 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>339</itemIndex> <!-- G36K -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>340</itemIndex> <!-- G36C -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>342</itemIndex> <!-- M4 Super 90 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>343</itemIndex> <!-- AK-103 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>344</itemIndex> <!-- G36E -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>286</attachmentIndex> <!-- Reflex Scope -->
+		<itemIndex>346</itemIndex> <!-- MP-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>1</itemIndex> <!-- Glock 17 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>2</itemIndex> <!-- Glock 18 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>3</itemIndex> <!-- Beretta 92F -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>4</itemIndex> <!-- Beretta 93R -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>5</itemIndex> <!-- .38 S&W -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>6</itemIndex> <!-- Barracuda -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>301</itemIndex> <!-- Hartford 6 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>7</itemIndex> <!-- Desert Eagle -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>8</itemIndex> <!-- Colt .45 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>9</itemIndex> <!-- MP5K -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>10</itemIndex> <!-- MAC-10 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>11</itemIndex> <!-- Thompson -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>12</itemIndex> <!-- M4A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>13</itemIndex> <!-- H&K 53 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>14</itemIndex> <!-- AKSU-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>15</itemIndex> <!-- P90 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>16</itemIndex> <!-- Type-85 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>17</itemIndex> <!-- SKS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>18</itemIndex> <!-- Dragunov -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>19</itemIndex> <!-- M24 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>20</itemIndex> <!-- Steyr -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>21</itemIndex> <!-- G41 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>22</itemIndex> <!-- Mini-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>23</itemIndex> <!-- C-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>24</itemIndex> <!-- FA-MAS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>25</itemIndex> <!-- AK-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>26</itemIndex> <!-- AKM -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>27</itemIndex> <!-- M-14 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>28</itemIndex> <!-- FN-FAL -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>29</itemIndex> <!-- G3A3 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>30</itemIndex> <!-- G11 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>31</itemIndex> <!-- M870 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>32</itemIndex> <!-- SPAS-15 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>33</itemIndex> <!-- CAWS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>34</itemIndex> <!-- Minimi -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>35</itemIndex> <!-- RPK-74 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>36</itemIndex> <!-- H&K 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>56</itemIndex> <!-- Automag -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>331</itemIndex> <!-- Micro-Uzi -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>328</itemIndex> <!-- Calico M-900 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>329</itemIndex> <!-- Calico M-950 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>330</itemIndex> <!-- Calico M-960A -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>66</itemIndex> <!-- Barrett -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>68</itemIndex> <!-- H&K PSG1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>67</itemIndex> <!-- VAL Silent -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>69</itemIndex> <!-- TAR 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>332</itemIndex> <!-- L85A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>333</itemIndex> <!-- MP-5A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>335</itemIndex> <!-- MP-5N -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>336</itemIndex> <!-- UMP-45 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>334</itemIndex> <!-- MP-5SD3 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>337</itemIndex> <!-- Five-seveN -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>338</itemIndex> <!-- P7M8 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>339</itemIndex> <!-- G36K -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>340</itemIndex> <!-- G36C -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>341</itemIndex> <!-- MSG-90A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>342</itemIndex> <!-- M4 Super 90 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>343</itemIndex> <!-- AK-103 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>344</itemIndex> <!-- G36E -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>287</attachmentIndex> <!-- Reflex Sight -->
+		<itemIndex>346</itemIndex> <!-- MP-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>223</attachmentIndex> <!-- Detonator -->
+		<itemIndex>137</itemIndex> <!-- TNT -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>223</attachmentIndex> <!-- Detonator -->
+		<itemIndex>138</itemIndex> <!-- HMX -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>223</attachmentIndex> <!-- Detonator -->
+		<itemIndex>139</itemIndex> <!-- C1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>223</attachmentIndex> <!-- Detonator -->
+		<itemIndex>142</itemIndex> <!-- C4 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>224</attachmentIndex> <!-- Remote Det. -->
+		<itemIndex>137</itemIndex> <!-- TNT -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>224</attachmentIndex> <!-- Remote Det. -->
+		<itemIndex>138</itemIndex> <!-- HMX -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>224</attachmentIndex> <!-- Remote Det. -->
+		<itemIndex>139</itemIndex> <!-- C1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>224</attachmentIndex> <!-- Remote Det. -->
+		<itemIndex>142</itemIndex> <!-- C4 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>183</attachmentIndex> <!-- Ceramic Plates -->
+		<itemIndex>161</itemIndex> <!-- Flak Jacket -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>183</attachmentIndex> <!-- Ceramic Plates -->
+		<itemIndex>162</itemIndex> <!-- Flak-18 Jacket -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>183</attachmentIndex> <!-- Ceramic Plates -->
+		<itemIndex>163</itemIndex> <!-- C.Flak Jacket -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>183</attachmentIndex> <!-- Ceramic Plates -->
+		<itemIndex>164</itemIndex> <!-- Kevlar Vest -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>183</attachmentIndex> <!-- Ceramic Plates -->
+		<itemIndex>165</itemIndex> <!-- Kevlar-18 Vest -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>183</attachmentIndex> <!-- Ceramic Plates -->
+		<itemIndex>166</itemIndex> <!-- C.Kevlar Vest -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>183</attachmentIndex> <!-- Ceramic Plates -->
+		<itemIndex>167</itemIndex> <!-- Spectra Vest -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>183</attachmentIndex> <!-- Ceramic Plates -->
+		<itemIndex>168</itemIndex> <!-- Spec-18 Vest -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>183</attachmentIndex> <!-- Ceramic Plates -->
+		<itemIndex>169</itemIndex> <!-- C.Spec Vest -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>183</attachmentIndex> <!-- Ceramic Plates -->
+		<itemIndex>196</itemIndex> <!-- Guardian Vest -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>183</attachmentIndex> <!-- Ceramic Plates -->
+		<itemIndex>197</itemIndex> <!-- T. Guard Vest -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>183</attachmentIndex> <!-- Ceramic Plates -->
+		<itemIndex>198</itemIndex> <!-- C. Guard Vest -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>306</attachmentIndex> <!-- Spring -->
+		<itemIndex>305</itemIndex> <!-- Rod -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>309</attachmentIndex> <!-- Quick Glue -->
+		<itemIndex>308</itemIndex> <!-- Steel Tube -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>304</attachmentIndex> <!-- Duct Tape -->
+		<itemIndex>308</itemIndex> <!-- Steel Tube -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>319</attachmentIndex> <!-- X-ray Tube -->
+		<itemIndex>318</itemIndex> <!-- FumblePak -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>320</attachmentIndex> <!-- Gum -->
+		<itemIndex>318</itemIndex> <!-- FumblePak -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>322</attachmentIndex> <!-- Batteries -->
+		<itemIndex>324</itemIndex> <!-- X-ray Detector -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>316</attachmentIndex> <!-- Copper Wire -->
+		<itemIndex>315</itemIndex> <!-- LameBoy -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>316</attachmentIndex> <!-- Copper Wire -->
+		<itemIndex>264</itemIndex> <!-- Platinum Watch -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>291</attachmentIndex> <!-- 9mm C-Mag Adapter -->
+		<itemIndex>333</itemIndex> <!-- MP-5A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>291</attachmentIndex> <!-- 9mm C-Mag Adapter -->
+		<itemIndex>334</itemIndex> <!-- MP-5SD3 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>291</attachmentIndex> <!-- 9mm C-Mag Adapter -->
+		<itemIndex>335</itemIndex> <!-- MP-5N -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>292</attachmentIndex> <!-- 5.56mm C-Mag Adapter -->
+		<itemIndex>12</itemIndex> <!-- M4A1 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>292</attachmentIndex> <!-- 5.56mm C-Mag Adapter -->
+		<itemIndex>13</itemIndex> <!-- H&K 53 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>292</attachmentIndex> <!-- 5.56mm C-Mag Adapter -->
+		<itemIndex>20</itemIndex> <!-- Steyr -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>292</attachmentIndex> <!-- 5.56mm C-Mag Adapter -->
+		<itemIndex>21</itemIndex> <!-- G41 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>292</attachmentIndex> <!-- 5.56mm C-Mag Adapter -->
+		<itemIndex>23</itemIndex> <!-- C-7 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>292</attachmentIndex> <!-- 5.56mm C-Mag Adapter -->
+		<itemIndex>24</itemIndex> <!-- FA-MAS -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>292</attachmentIndex> <!-- 5.56mm C-Mag Adapter -->
+		<itemIndex>69</itemIndex> <!-- TAR 21 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>292</attachmentIndex> <!-- 5.56mm C-Mag Adapter -->
+		<itemIndex>332</itemIndex> <!-- L85A2 -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>292</attachmentIndex> <!-- 5.56mm C-Mag Adapter -->
+		<itemIndex>339</itemIndex> <!-- G36K -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>292</attachmentIndex> <!-- 5.56mm C-Mag Adapter -->
+		<itemIndex>340</itemIndex> <!-- G36C -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>292</attachmentIndex> <!-- 5.56mm C-Mag Adapter -->
+		<itemIndex>345</itemIndex> <!-- OICW -->
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>296</attachmentIndex> <!-- OICW Launcher -->
+		<itemIndex>345</itemIndex> <!-- OICW -->
+	</ATTACHMENT>
+</ATTACHMENTLIST>
