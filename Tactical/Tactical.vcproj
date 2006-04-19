@@ -3733,6 +3733,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Rain.cpp">
+			</File>
+			<File
 				RelativePath="Real Time Input.cpp">
 				<FileConfiguration
 					Name="Debug Demo|Win32">
@@ -6896,6 +6899,9 @@
 			</File>
 			<File
 				RelativePath="points.h">
+			</File>
+			<File
+				RelativePath=".\Rain.h">
 			</File>
 			<File
 				RelativePath="ShopKeeper Interface.h">

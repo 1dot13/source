@@ -44,6 +44,12 @@
 	#include "XML.h"
 #endif
 
+//rain
+#define WEAPON_RELIABILITY_REDUCTION_PER_RAIN_INTENSITY 9
+extern INT8 gbCurrentRainIntensity;
+//end rain
+
+
 #define MINCHANCETOHIT          1
 #define MAXCHANCETOHIT          99
 
@@ -1055,6 +1061,10 @@ void AdjustImpactByHitLocation( INT32 iImpact, UINT8 ubHitLocation, INT32 * piNe
 
 // #define	TESTGUNJAM
 
+//rain
+extern INT8 gbCurrentRainIntensity;
+//end rain
+
 BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 {
   OBJECTTYPE *	pObj;
@@ -1069,7 +1079,12 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
   			if (pObj->bGunAmmoStatus > 0)
 			{
 				// gun might jam, figure out the chance
-				iChance = (80 - pObj->bGunStatus);
+				//iChance = (80 - pObj->bGunStatus);
+				
+				//rain
+				iChance = (80 - 90 - pObj->bGunStatus) + WEAPON_RELIABILITY_REDUCTION_PER_RAIN_INTENSITY * gbCurrentRainIntensity;
+				//end rain
+
 
 				// CJC: removed reliability from formula...
 				
@@ -1080,6 +1095,10 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 				// increased by 20% per negative point...
 				//iChance = iChance * (10 - Item[pObj->usItem].bReliability * 2) / 10;
 				
+				//rain
+				iChance = iChance * (10 - Item[pObj->usItem].bReliability * 2) / 10;
+				//end rain
+
 				if (pSoldier->bDoBurst > 1)
 				{
 					// if at bullet in a burst after the first, higher chance
@@ -3211,7 +3230,11 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 {
   //SOLDIERTYPE *vicpSoldier;
 	SOLDIERTYPE * pTarget;
-  INT32 iChance, iRange, iSightRange, iMaxRange, iBonus; //, minRange;
+	//rain
+  //INT32 iChance, iRange, iSightRange, iMaxRange, iBonus; //, minRange;
+	INT32 iChance, iRange, iSightRange, iMaxRange, iScopeBonus, iBonus; //, minRange;
+	//end rain
+
   INT32 iGunCondition, iMarksmanship;
 	INT32 iPenalty;
 	UINT16	usInHand;
@@ -3471,6 +3494,11 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 
 		//	// adjust for scope condition, only has full affect at 100%
 		//	iScopeBonus = (iScopeBonus * WEAPON_STATUS_MOD(pInHand->bAttachStatus[bAttachPos])) / 100;
+
+		//rain
+		// reduce scope effectiveness when it's raining 
+		iScopeBonus /= 1 + gbCurrentRainIntensity;
+		//end rain
 
 		//	// reduce effective range by the bonus obtained from the scope
 		//	iSightRange -= iScopeBonus;

@@ -670,16 +670,15 @@ BOOLEAN	PhysicsHandleCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID, rea
 			}
 		}
 
-
 		// Check for -ve velocity still...
-		//if ( pObject->Velocity.z <= EPSILONV && pObject->Velocity.z >= -EPSILONV && 
-		//		 pObject->Velocity.y <= EPSILONV && pObject->Velocity.y >= -EPSILONV && 
-		//		 pObject->Velocity.x <= EPSILONV && pObject->Velocity.x >= -EPSILONV ) 
-		//{
-			//PhysicsDeleteObject( pObject );
-		//	pObject->fAlive = FALSE;
-		//	return( FALSE );
-		//}
+		/*if ( pObject->Velocity.z <= EPSILONV && pObject->Velocity.z >= -EPSILONV && 
+				 pObject->Velocity.y <= EPSILONV && pObject->Velocity.y >= -EPSILONV && 
+				 pObject->Velocity.x <= EPSILONV && pObject->Velocity.x >= -EPSILONV ) 
+		{
+			PhysicsDeleteObject( pObject );
+			pObject->fAlive = FALSE;
+			return( FALSE );
+		}*/
 	}
 
 	return( TRUE );

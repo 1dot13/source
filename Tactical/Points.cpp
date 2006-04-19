@@ -26,6 +26,10 @@
 	#include "Soldier Profile.h"
 #endif
 
+//rain
+#define BREATH_GAIN_REDUCTION_PER_RAIN_INTENSITY 25
+//end rain
+
 extern BOOLEAN IsValidSecondHandShot( SOLDIERTYPE *pSoldier );
 
 
@@ -770,6 +774,10 @@ void UnusedAPsToBreath(SOLDIERTYPE *pSold)
 }
 
 
+//rain
+extern INT8 gbCurrentRainIntensity;
+//end rain
+
 INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 {
 	INT16 sBreathPerAP = 0;
@@ -843,6 +851,14 @@ INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Unknown end-of-turn breath anim: %s", gAnimControl[ usAnimState ].zAnimStr ) );
 	}
+
+	//rain
+	// Reduce breath gain on 25%/rain intensity
+	if( sBreathPerAP < 0 && ( pSoldier->bLevel  ||!FindStructure( pSoldier->sGridNo, STRUCTURE_ROOF )  )  && pSoldier->bBreath > 1)
+	{
+		sBreathPerAP -= sBreathPerAP * gbCurrentRainIntensity * BREATH_GAIN_REDUCTION_PER_RAIN_INTENSITY  / 100 ;
+	}
+	//end rain
 
 	return( sBreathPerAP );
 }
@@ -1295,6 +1311,8 @@ UINT8 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurni
 	// Snap: reversed DIGICRAB's change.
 	// bFullAPs are BASE APs, which do not include APs caried over from the previous turn.
 	bFullAPs = CalcActionPoints( pSoldier );
+
+	//bFullAPs = pSoldier->bInitialActionPoints;//CalcActionPoints( pSoldier ); //lal
 
 	// aim skill is the same whether we are using 1 or 2 guns
 	bAimSkill = CalcAimSkill( pSoldier, usItem );

@@ -158,6 +158,10 @@ BOOLEAN		gfDoLighting		 = FALSE;
 UINT8		gubDesertTemperature = 0;
 UINT8		gubGlobalTemperature = 0;
 
+//rain
+extern BOOLEAN gfAllowRain;
+//end rain
+
 // local prototypes
 void EnvDoLightning(void);
 
@@ -201,12 +205,12 @@ void EnvironmentController( BOOLEAN fCheckForLights )
 		// ONly do indooors
 		if( !gfBasement && !gfCaves )
 		{
-#if 0
+//#if 0 //rain
 			if ( guiEnvWeather & ( WEATHER_FORECAST_THUNDERSHOWERS | WEATHER_FORECAST_SHOWERS ) )
 			{
 				if ( guiRainLoop == NO_SAMPLE )
 				{
-					guiRainLoop	= PlayJA2Ambient( RAIN_1, MIDVOLUME, 0 );
+					guiRainLoop	= PlayJA2Ambient( RAIN_1, BTNVOLUME, 0 );
 				}
 
 				// Do lightning if we want...
@@ -224,7 +228,7 @@ void EnvironmentController( BOOLEAN fCheckForLights )
 					guiRainLoop = NO_SAMPLE;
 				}
 			}
-#endif
+//#endif //rain
 		}
 
 		if ( gfDoLighting && fCheckForLights )
@@ -236,7 +240,7 @@ void EnvironmentController( BOOLEAN fCheckForLights )
 			if( !gfBasement && !gfCaves )
 			{
 				// Rain storms....
-#if 0
+//#if 0 //rain
 				if ( guiEnvWeather & ( WEATHER_FORECAST_THUNDERSHOWERS | WEATHER_FORECAST_SHOWERS ) )
 				{
 					// Thunder showers.. make darker
@@ -249,7 +253,7 @@ void EnvironmentController( BOOLEAN fCheckForLights )
 						ubLightAdjustFromWeather = (UINT8)(__min( gubEnvLightValue+1, NORMAL_LIGHTLEVEL_NIGHT ));
 					}
 				}
-#endif
+//#endif //rain
 			}
 
 
@@ -355,9 +359,19 @@ void BuildDayAmbientSounds( )
 
 	}
 
-	guiRainLoop = NO_SAMPLE;
+	//guiRainLoop = NO_SAMPLE;
 
+	//rain
+	if ( guiRainLoop != NO_SAMPLE )
+	{
+		SoundStop( guiRainLoop );
+	guiRainLoop = NO_SAMPLE;
+	}
+	//end rain
 }
+
+extern UINT16 gusRainChancePerDay, gusRainMinLength, gusRainMaxLength; //rain
+
 
 void ForecastDayEvents( )
 {
@@ -383,6 +397,32 @@ void ForecastDayEvents( )
 		// ATE: Don't forecast if start of game...
 		if ( guiEnvDay > 1 )
 		{
+			//rain			
+			if ( Random( 100 ) < gusRainChancePerDay )
+			{
+				// Add rain!
+				// Between 6:00 and 10:00
+				uiStartTime = (UINT32)( Random( 1440 - 1 -gusRainMaxLength  ) );
+				// Between 5 - 15 miniutes
+				uiEndTime		= uiStartTime + ( gusRainMinLength + Random( gusRainMaxLength - gusRainMinLength ) );
+
+				ubStormIntensity = 0;
+
+				// Randomze for a storm!
+				if ( Random( 10 ) < 5 )
+				{
+					ubStormIntensity = 1;
+				}
+	
+				if( gfAllowRain ) AddSameDayRangedStrategicEvent( EVENT_RAINSTORM, uiStartTime, uiEndTime - uiStartTime, ubStormIntensity );
+
+				//AddSameDayStrategicEvent( EVENT_BEGINRAINSTORM, uiStartTime, ubStormIntensity );
+				//AddSameDayStrategicEvent( EVENT_ENDRAINSTORM,		uiEndTime, 0 );
+			}
+			//end rain
+			
+
+			/*
 			// Should it rain...?
 			if ( Random( 100 ) < 20 )
 			{
@@ -406,6 +446,7 @@ void ForecastDayEvents( )
 				//AddSameDayStrategicEvent( EVENT_BEGINRAINSTORM, uiStartTime, ubStormIntensity );
 				//AddSameDayStrategicEvent( EVENT_ENDRAINSTORM,		uiEndTime, 0 );
 			}
+			*/
 		}	
 	}
 
@@ -422,6 +463,272 @@ void EnvDisableTOD(void)
 }
 
 
+
+//rain
+UINT32 guiMinLightningInterval = 5;
+UINT32 guiMaxLightningInterval = 15;
+
+UINT32 guiMinDLInterval = 1;
+UINT32 guiMaxDLInterval = 5;
+
+UINT32 guiProlongLightningIfSeenSomeone = 5;
+UINT32 guiChanceToDoLightningBetweenTurns = 20;
+
+
+ // 60 = 1 second
+#define MIN_LIGHTNING_INTERVAL ( 60 * guiMinLightningInterval )
+#define MAX_LIGHTNING_INTERVAL ( 60 * guiMaxLightningInterval )
+
+#define MAX_DELAYED_SOUNDS 10
+#define NO_DL_SOUND 0xFFFFFFFF
+ 
+// 1000 = 1 second
+#define MIN_DL_INTERVAL ( 1000 * guiMinDLInterval )
+#define MAX_DL_INTERVAL ( 1000 * guiMaxDLInterval )
+
+#define EXTRA_ADD_VIS_DIST_IF_SEEN_SOMEONE ( 1000 * guiProlongLightningIfSeenSomeone  )
+#define CHANCE_TO_DO_LIGHTNING_BETWEEN_TURNS guiChanceToDoLightningBetweenTurns
+
+BOOLEAN gfLightningInProgress = FALSE;
+BOOLEAN gfHaveSeenSomeone = FALSE;
+
+UINT8 ubRealAmbientLightLevel = 0;
+BOOLEAN gfTurnBasedDoLightning = FALSE;
+BOOLEAN gfTurnBasedLightningEnd = FALSE;
+
+BOOLEAN gfWasTurnBasedWhenLightningBegin = FALSE;
+
+UINT8 gubLastTeamLightning;
+
+#define IS_TURNBASED ( gTacticalStatus.uiFlags & TURNBASED &&  gTacticalStatus.uiFlags & INCOMBAT )
+
+void BeginTeamTurn( UINT8 ubTeam );
+
+
+
+
+void EnvDoLightning(void)
+{
+  static UINT32 uiCount=10, uiIndex=0, uiStrike=0, uiFrameNext=0;
+  static UINT8 ubLevel=0, ubLastLevel=0;
+  static UINT32 uiLastUpdate = 0xFFFFFFFF;
+  static UINT32 uiTurnOffExtraVisDist = 0xFFFFFFFF;
+  static UINT32 pDelayedSounds[ MAX_DELAYED_SOUNDS ];
+  UINT32 uiDSIndex;
+
+  if( GetJA2Clock() < uiLastUpdate )
+  {
+	uiLastUpdate = 0;
+	memset( pDelayedSounds, NO_DL_SOUND, sizeof( UINT32 ) * MAX_DELAYED_SOUNDS );
+  }
+
+  if( GetJA2Clock() < uiLastUpdate + 1000 / 60 )return;
+	else
+		uiLastUpdate = GetJA2Clock();
+
+  if( GetJA2Clock() > uiTurnOffExtraVisDist )
+  {
+	AllTeamsLookForAll( FALSE );
+	uiTurnOffExtraVisDist = 0xFFFFFFFF;
+
+	if( gfTurnBasedLightningEnd )
+	{
+		BeginTeamTurn( gubLastTeamLightning );
+		gfTurnBasedLightningEnd = FALSE;
+	}
+
+  }
+
+  for( uiDSIndex = 0; uiDSIndex < MAX_DELAYED_SOUNDS; ++uiDSIndex )
+	  if( GetJA2Clock() > pDelayedSounds[ uiDSIndex ] )
+	  {
+		  PlayJA2Ambient(LIGHTNING_1+Random(2), HIGHVOLUME, 1);
+		  pDelayedSounds[ uiDSIndex ] = NO_DL_SOUND;
+	  }
+
+  if ( gfPauseDueToPlayerGamePause )
+  {
+    return;
+  }
+
+  if( IS_TURNBASED && !gfLightningInProgress )
+  {
+	if( !gfTurnBasedDoLightning )
+	{
+		return;
+	 }
+	else
+	{
+		gfTurnBasedDoLightning = FALSE;
+		uiFrameNext = 1;
+		uiCount = 0;
+		gfTurnBasedLightningEnd = TRUE;
+	}
+  }
+
+	uiCount++;
+	if(uiCount >= (uiFrameNext+10))
+	{
+		if( gfHaveSeenSomeone && gfWasTurnBasedWhenLightningBegin  )
+			uiTurnOffExtraVisDist = GetJA2Clock() + EXTRA_ADD_VIS_DIST_IF_SEEN_SOMEONE;
+		else
+			uiTurnOffExtraVisDist = GetJA2Clock();
+
+		gfLightningInProgress = FALSE;
+		gfHaveSeenSomeone = FALSE;
+		
+		uiCount=0;
+		uiIndex=0;
+		ubLevel=0;
+		ubLastLevel=0;
+
+		uiStrike=Random(3);
+		uiFrameNext=MIN_LIGHTNING_INTERVAL+Random(MAX_LIGHTNING_INTERVAL - MIN_LIGHTNING_INTERVAL);
+	}
+	else if(uiCount >= uiFrameNext)
+	{
+		if(uiCount == uiFrameNext)
+		{
+			//EnvStopCrickets();
+//			PlayJA2Ambient(LIGHTNING_1+Random(2), HIGHVOLUME, 1);
+			for( uiDSIndex = 0; uiDSIndex < MAX_DELAYED_SOUNDS; ++uiDSIndex )
+				if( pDelayedSounds[ uiDSIndex ] == NO_DL_SOUND )
+				{
+					pDelayedSounds[ uiDSIndex ] = GetJA2Clock() + MIN_DL_INTERVAL+Random(MAX_DL_INTERVAL - MIN_DL_INTERVAL);
+					break;
+				}
+
+			ubRealAmbientLightLevel = ubAmbientLightLevel;
+
+			gfWasTurnBasedWhenLightningBegin = IS_TURNBASED;
+
+			gfLightningInProgress = TRUE;
+			AllTeamsLookForAll( FALSE );
+		}
+
+		while(uiCount > ((UINT32)ubLightningTable[uiStrike][uiIndex][0] + uiFrameNext))
+			uiIndex++;
+
+		ubLastLevel=ubLevel;
+		ubLevel=min( ubRealAmbientLightLevel - 1, ubLightningTable[uiStrike][uiIndex][1] );
+
+/*    // ATE: Don't modify if scrolling!
+	  if ( gfScrollPending || gfScrollInertia )
+	  { 
+	  }
+	  else*/
+	  {
+ 		  if(ubLastLevel!=ubLevel)
+		  {
+			  if(ubLevel > ubLastLevel)
+			  {
+				  LightAddBaseLevel(0, (UINT8)(ubLevel-ubLastLevel));
+				  if(ubLevel > 0)
+					  RenderSetShadows(TRUE);
+			  }
+			  else
+			  {
+//				  LightSubtractBaseLevel(0, (UINT8)(ubLastLevel-ubLevel));
+				  LightSetBaseLevel( ubRealAmbientLightLevel - ubLevel );
+				  if(ubLevel > 0)
+					  RenderSetShadows(TRUE);
+			  }
+			  SetRenderFlags(RENDER_FLAG_FULL);
+		  }
+    }
+
+	}
+}
+
+BOOLEAN LightningEndOfTurn( UINT8 ubTeam )
+{
+	if( !(guiEnvWeather & WEATHER_FORECAST_THUNDERSHOWERS) )return TRUE;
+	if( Random(100) >= CHANCE_TO_DO_LIGHTNING_BETWEEN_TURNS ) return TRUE;
+
+	if( !gfTurnBasedLightningEnd )
+	{
+		gfTurnBasedDoLightning = TRUE;
+		gubLastTeamLightning = ubTeam;
+		EnvDoLightning();
+		return FALSE;
+	 }
+	else
+	{
+		return TRUE;
+	}
+}
+
+UINT8 GetTimeOfDayAmbientLightLevel()
+{
+	if ( SectorTemperature( GetWorldMinutesInDay(), gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) == HOT )
+	{
+		return( HOT_DAY_LIGHTLEVEL );
+	}
+	else
+	{
+		return( gubEnvLightValue );
+	}
+}
+
+
+void EnvBeginRainStorm( UINT8 ubIntensity )
+{
+	if( !gfBasement && !gfCaves )
+	{
+		gfDoLighting = TRUE;
+
+  #ifdef JA2TESTVERSION
+	  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Starting Rain...."  );
+  #endif
+
+	  if ( ubIntensity == 1 )
+	  {
+		  // Turn on rain storms
+		  guiEnvWeather	|= WEATHER_FORECAST_THUNDERSHOWERS;
+		  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Storm started." );
+	  }
+	  else
+	  {
+		  guiEnvWeather	|= WEATHER_FORECAST_SHOWERS;
+  		  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Rain started." );
+	  }
+  }
+
+}
+
+void EnvEndRainStorm( )
+{
+	gfDoLighting = TRUE;
+
+#ifdef JA2TESTVERSION
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Ending Rain...."  );
+#endif
+
+	  if ( guiEnvWeather & WEATHER_FORECAST_THUNDERSHOWERS )
+	  {
+		  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Storm ended." );
+	  }
+	  else
+	  {
+  		  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Rain ended." );
+	  }
+
+
+	guiEnvWeather	&= (~WEATHER_FORECAST_THUNDERSHOWERS );
+	guiEnvWeather	&= (~WEATHER_FORECAST_SHOWERS );
+}
+
+//end rain
+
+
+
+
+
+
+
+
+
+/*
 void EnvDoLightning(void)
 {
 static UINT32 uiCount=0, uiIndex=0, uiStrike=0, uiFrameNext=1000;
@@ -531,6 +838,8 @@ void EnvEndRainStorm( )
 	guiEnvWeather	&= (~WEATHER_FORECAST_THUNDERSHOWERS );
 	guiEnvWeather	&= (~WEATHER_FORECAST_SHOWERS );
 }
+*/
+
 
 void TurnOnNightLights()
 {

@@ -353,7 +353,10 @@ static BOOLEAN fNewWWW=TRUE;
 extern	UINT32										guiRainLoop;
 
 
+// WANNE 2
 INT32	giRainDelayInternetSite=-1;
+
+
 
 // have we visitied this site already?
 //BOOLEAN fVisitedBookmarkAlready[20];
@@ -850,15 +853,16 @@ INT32 EnterLaptop()
 	// Stop ambients...
 	StopAmbients( );
 
-	//if its raining, start the rain showers
-	if( IsItRaining() )
-	{
-		//Enable the rain delay warning
-		giRainDelayInternetSite = -1;
+	// WANNE 2: disabled rain sound when laptop is displayed
+	////if its raining, start the rain showers
+	//if( IsItRaining() )
+	//{
+	//	//Enable the rain delay warning
+	//	giRainDelayInternetSite = -1;
 
-		//lower the volume 
-		guiRainLoop	= PlayJA2Ambient( RAIN_1, LOWVOLUME, 0 );
-	}
+	//	//lower the volume 
+	//	guiRainLoop	= PlayJA2Ambient( RAIN_1, LOWVOLUME, 0 );
+	//}
 
 	
 	//open the laptop library
@@ -1013,12 +1017,13 @@ void ExitLaptop()
 	// Start ambients...
 	BuildDayAmbientSounds( );
 
+	// WANNE 2: disabled rain sound when laptop is displayed
 	//if its raining, start the rain showers
-	if( IsItRaining() )
-	{
-		//Raise the volume to where it was
-		guiRainLoop	= PlayJA2Ambient( RAIN_1, MIDVOLUME, 0 );
-	}
+	//if( IsItRaining() )
+	//{
+	//	//Raise the volume to where it was
+	//	guiRainLoop	= PlayJA2Ambient( RAIN_1, MIDVOLUME, 0 );
+	//}
 
 	// release cursor
 	FreeMouseCursor( );
@@ -3556,18 +3561,19 @@ void BookmarkCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 void GoToWebPage(INT32 iPageId )
 { 
 
-	//if it is raining, popup a warning first saying connection time may be slow
-	if( IsItRaining() )
-	{
-		if( giRainDelayInternetSite == -1 )
-		{
-			DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, pErrorStrings[4], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, InternetRainDelayMessageBoxCallBack );
-			giRainDelayInternetSite = iPageId;
-			return;
-		}
-	}
-	else
-		giRainDelayInternetSite = -1;
+	// WANNE 2: disabled rain sound when laptop is displayed
+	////if it is raining, popup a warning first saying connection time may be slow
+	//if( IsItRaining() )
+	//{
+	//	if( giRainDelayInternetSite == -1 )
+	//	{
+	//		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, pErrorStrings[4], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, InternetRainDelayMessageBoxCallBack );
+	//		giRainDelayInternetSite = iPageId;
+	//		return;
+	//	}
+	//}
+	//else
+	//	giRainDelayInternetSite = -1;
 
 	switch(iPageId)
 	{
@@ -6347,10 +6353,11 @@ BOOLEAN IsItRaining()
 
 void		InternetRainDelayMessageBoxCallBack( UINT8 bExitValue )
 {
-	GoToWebPage(	giRainDelayInternetSite );
+	// WANNE 2
+	//GoToWebPage(	giRainDelayInternetSite );
 
 	//Set to -2 so we dont due the message for this occurence of laptop
-	giRainDelayInternetSite = -2;
+	//giRainDelayInternetSite = -2;
 }
 
 

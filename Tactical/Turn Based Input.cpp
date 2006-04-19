@@ -1513,6 +1513,32 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			}
 		}
 
+
+		/// Allow to save everywhere
+		if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == 'l') )
+		{
+			if( InputEvent.usKeyState & ALT_DOWN )
+			{
+				if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
+				{
+					LeaveTacticalScreen( GAME_SCREEN );
+					DoQuickLoad();
+				}
+			}
+			else if( InputEvent.usKeyState & CTRL_DOWN )
+			{
+				if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
+				{
+					gfSaveGame = FALSE;
+					gfCameDirectlyFromGame = TRUE;
+
+					guiPreviousOptionScreen = GAME_SCREEN;
+					LeaveTacticalScreen( SAVE_LOAD_SCREEN );
+				}
+			}
+		}
+
+
 		// Break of out IN CONV...
 		if ( CHEATER_CHEAT_LEVEL( ) )
 		{
@@ -2734,7 +2760,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				#endif
 
 				case 'l':
-
+/*
 					if( fAlt )
           {
 	          if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
@@ -2756,16 +2782,16 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						  guiPreviousOptionScreen = GAME_SCREEN;
 						  LeaveTacticalScreen( SAVE_LOAD_SCREEN );
             }
-/*
+*//*
 						if ( INFORMATION_CHEAT_LEVEL( ) )
 						{
 							*puiNewEvent = I_LEVELNODEDEBUG;
 							CountLevelNodes();
 						}
-*/
+*//*
 					}
 					else
-					{
+*/					{
 						// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
 						if ( ( gpItemPointer == NULL ) &&
 								 ( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ LOOK_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )

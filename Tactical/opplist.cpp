@@ -44,6 +44,10 @@
 	#include "SkillCheck.h"
 #endif
 
+//rain
+#define VIS_DIST_DECREASE_PER_RAIN_INTENSITY 20
+//end rain
+
 #define WE_SEE_WHAT_MILITIA_SEES_AND_VICE_VERSA
 
 extern void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier );
@@ -255,6 +259,14 @@ UINT8			gubSightFlags = 0;
 }
 
 
+//rain
+extern INT8 gbCurrentRainIntensity;
+extern BOOLEAN gfLightningInProgress;
+extern BOOLEAN gfHaveSeenSomeone;
+extern UINT8 ubRealAmbientLightLevel;
+//end rain
+
+
 INT16 AdjustMaxSightRangeForEnvEffects( SOLDIERTYPE *pSoldier, INT8 bLightLevel, INT16 sDistVisible )
 {
 	INT16 sNewDist = 0;
@@ -264,8 +276,16 @@ INT16 AdjustMaxSightRangeForEnvEffects( SOLDIERTYPE *pSoldier, INT8 bLightLevel,
 	// Adjust it based on weather...
 	if ( guiEnvWeather & ( WEATHER_FORECAST_SHOWERS | WEATHER_FORECAST_THUNDERSHOWERS ) )
 	{
-		sNewDist = sNewDist * 70 / 100;		
+		//sNewDist = sNewDist * 70 / 100;
+		//rain
+		sNewDist = sNewDist * ( 100 - VIS_DIST_DECREASE_PER_RAIN_INTENSITY * gbCurrentRainIntensity ) / 100;
+		//end rain
 	}
+	
+	//rain
+	if( gfLightningInProgress )
+		sNewDist += sNewDist * ( ubRealAmbientLightLevel ) / 10;	// 10% per dark level
+	//end rain
 
 	return( sNewDist );
 }
@@ -785,6 +805,7 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 		pSoldier->bNewOppCnt = 0;
 		pSoldier->bNeedToLook = FALSE;
 
+
 // Temporary for opplist synching - disable random order radioing
 #ifndef RECORDOPPLIST
 		// if this soldier's NOT on our team (MAY be under our control, though!)
@@ -839,7 +860,6 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 	// CJC August 13 2002: at the end of handling sight, reset sight flags to allow interrupts in case an audio cue should
 	// cause someone to see an enemy
 	gubSightFlags |= SIGHT_INTERRUPT;
-
 }
 
 
@@ -1027,7 +1047,6 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 		bSubjectDir = (INT8) GetDirectionToGridNoFromGridNo( pSoldier->sGridNo, sSubjectGridNo );
 		//bSubjectDir = atan8(pSoldier->sX,pSoldier->sY,pOpponent->sX,pOpponent->sY);
 	}
-
 
 	if ( !TANK( pSoldier ) && ( bFacingDir == DIRECTION_IRRELEVANT || (pSoldier->uiStatusFlags & SOLDIER_ROBOT) || (pSubject && pSubject->fMuzzleFlash) ) )
 	{
@@ -1420,6 +1439,7 @@ void ManLooksForOtherTeams(SOLDIERTYPE *pSoldier)
  UINT32 uiLoop;
  SOLDIERTYPE *pOpponent;
 
+
 #ifdef TESTOPPLIST
  DebugMsg( TOPIC_JA2OPPLIST, DBG_LEVEL_3,
 	   String("MANLOOKSFOROTHERTEAMS ID %d(%S) team %d side %d",pSoldier->ubID,pSoldier->name,pSoldier->bTeam,pSoldier->bSide));
@@ -1457,7 +1477,6 @@ void ManLooksForOtherTeams(SOLDIERTYPE *pSoldier)
 		 }
 	 }
  }
-
 }
 
 void HandleManNoLongerSeen( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent, INT8 * pPersOL, INT8 * pbPublOL )
@@ -1550,6 +1569,7 @@ INT16 ManLooksForMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ubCall
  INT16 sDistVisible,sDistAway;
  INT8  *pPersOL,*pbPublOL;
 
+
  /*
  if (ptr->guynum >= NOBODY)
   {
@@ -1592,6 +1612,8 @@ INT16 ManLooksForMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ubCall
 
    return(FALSE);
   }
+
+
 
  // if we're somehow looking for a guy who is inactive, at base, or already dead
  if (!pOpponent->bActive || !pOpponent->bInSector || pOpponent->bLife <= 0 || pOpponent->sGridNo == NOWHERE )
@@ -1696,6 +1718,7 @@ INT16 ManLooksForMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ubCall
  pPersOL = &(pSoldier->bOppList[pOpponent->ubID]);
  pbPublOL = &(gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID]);
 
+
  // if soldier is known about (SEEN or HEARD within last few turns)
  if (*pPersOL || *pbPublOL)
   {
@@ -1790,6 +1813,8 @@ INT16 ManLooksForMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ubCall
 	
 	
 }
+
+
 
  return(bSuccess);
 }
@@ -2256,6 +2281,9 @@ else
      // then locate to him and set his locator flag
      bDoLocate = TRUE;
 
+	//rain
+	if( gfLightningInProgress ) gfHaveSeenSomeone = TRUE;
+	//end rain
 	 }
 
    // make opponent visible (to us)
@@ -2321,7 +2349,10 @@ else
 		 {
 			 if (!pOpponent->bNeutral && (pSoldier->bSide != pOpponent->bSide))
 			 {
-					SlideTo(0,pOpponent->ubID, pSoldier->ubID, SETLOCATOR);
+					//SlideTo(0,pOpponent->ubID, pSoldier->ubID, SETLOCATOR);
+					//rain
+					SlideTo(0,pOpponent->ubID, pSoldier->ubID, SETLOCATORFAST);
+					//end rain
 			 }
 		 }
     }

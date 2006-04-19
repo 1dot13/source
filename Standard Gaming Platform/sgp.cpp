@@ -705,6 +705,15 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,  HINSTANCE hPrevInstance, LPSTR p
 		return( 0 );
 	}
 
+	//rain
+	NSLoadSettings();
+	//NSSaveSettings();
+	//InitResolution();
+
+	//EmergencyExitButtonInit();
+	//end rain
+
+
 	ghInstance = hInstance;
 
 		// Copy commandline!

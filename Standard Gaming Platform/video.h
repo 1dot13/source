@@ -66,6 +66,8 @@ extern void                 StartFrameBufferRender(void);
 extern void                 EndFrameBufferRender(void);
 extern void                 PrintScreen(void);
 
+
+
 extern BOOLEAN							EraseMouseCursor( );
 extern BOOLEAN							SetMouseCursorProperties( INT16 sOffsetX, INT16 sOffsetY, UINT16 usCursorHeight, UINT16 usCursorWidth );
 extern BOOLEAN							BltToMouseCursor(UINT32 uiVideoObjectHandle, UINT16 usVideoObjectSubIndex, UINT16 usXPos, UINT16 usYPos );

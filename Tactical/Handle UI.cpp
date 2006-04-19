@@ -75,6 +75,13 @@
 #endif
 
 
+//extern BOOLEAN gfDisplayFullCountRingBurst;
+extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady );
+
+//#define AP_TO_AIM_TILE_IF_GETTING_READY 1
+#define AP_TO_AIM_TILE_IF_ALREADY_READY ( Weapon[ Item[pSoldier->inv[HANDPOS].usItem].ubClassIndex ].ubReadyTime ? 2 : 1 )
+#define AP_TO_AIM_TILE_IF_GETTING_READY AP_TO_AIM_TILE_IF_ALREADY_READY
+
 #define MAX_ON_DUTY_SOLDIERS 6
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -4476,11 +4483,13 @@ void SetConfirmMovementModeCursor( SOLDIERTYPE *pSoldier, BOOLEAN fFromMove )
 
 }
 
+UINT8 gubShowActionPointsInRed = 0;
 
 UINT32 UIHandleLCOnTerrain( UI_EVENT *pUIEvent )
 {
 	SOLDIERTYPE				*pSoldier;
 	INT16							sFacingDir, sXPos, sYPos;
+	UINT16					usAnimState;
 
 	guiNewUICursor = LOOK_UICURSOR;				
 
@@ -4511,10 +4520,26 @@ UINT32 UIHandleLCOnTerrain( UI_EVENT *pUIEvent )
 	if ( sFacingDir != pSoldier->bDirection )
 	{
 		gsCurrentActionPoints = GetAPsToLook( pSoldier );
+		gfUIHandleShowMoveGrid = FALSE;
 	}
 	else
 	{
+		usAnimState = PickSoldierReadyAnimation( pSoldier, FALSE );
+
+		if( usAnimState != INVALID_ANIMATION )
+		{
+			gsCurrentActionPoints = GetAPsToReadyWeapon( pSoldier, usAnimState ) + AP_TO_AIM_TILE_IF_GETTING_READY;
+		}
+		else if( pSoldier->sLastTarget != sXPos + (MAXCOL * sYPos ) )
+			gsCurrentActionPoints = AP_TO_AIM_TILE_IF_ALREADY_READY;
+		else
 		gsCurrentActionPoints = 0;
+
+		gfUIHandleShowMoveGrid = TRUE;
+		gsUIHandleShowMoveGridLocation = sXPos + (MAXCOL * sYPos );
+
+		gubShowActionPointsInRed = 5;
+		//gfDisplayFullCountRingBurst = FALSE;
 	}
 
 	// Determine if we can afford!
@@ -4538,7 +4563,8 @@ UINT32 UIHandleLCChangeToLook( UI_EVENT *pUIEvent )
 
 BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 {
-	INT16							sFacingDir, sAPCost;
+	INT16							sFacingDir, sAPCost, sAPCostToReady;
+	UINT16							usAnimState;
 
 	// Get direction from mouse pos
 	sFacingDir = GetDirectionFromXY( sXPos, sYPos, pSoldier );
@@ -4569,8 +4595,42 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 
     return( TRUE );
   }
+	else
+	{
+		usAnimState = PickSoldierReadyAnimation( pSoldier, FALSE );
 
+		sAPCostToReady = 0;
+
+		if( usAnimState != INVALID_ANIMATION )
+		{
+			sAPCostToReady = GetAPsToReadyWeapon( pSoldier, usAnimState );
+			sAPCost = sAPCostToReady + AP_TO_AIM_TILE_IF_GETTING_READY;
+		}
+		else if( pSoldier->sLastTarget != sXPos + (MAXCOL * sYPos ) )
+			sAPCost = AP_TO_AIM_TILE_IF_ALREADY_READY;
+		else
+			return FALSE;
+
+
+		// Check AP cost...
+		if ( !EnoughPoints( pSoldier, sAPCost, 0, TRUE ) )
+		{
   return( FALSE );
+		}
+
+		if( usAnimState != INVALID_ANIMATION )
+			SoldierReadyWeapon( pSoldier, sXPos, sYPos, FALSE );
+
+		pSoldier->bTurningFromUI = TRUE;
+		guiOldEvent = LA_BEGINUIOURTURNLOCK;
+
+		// Setting "Last Target"
+
+		pSoldier->sLastTarget = sXPos + (MAXCOL * sYPos);
+		DeductPoints( pSoldier, (INT16)(sAPCost - sAPCostToReady), 0 );
+
+		return( TRUE );
+	}
 }
 
 

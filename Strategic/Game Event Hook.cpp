@@ -297,15 +297,16 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		case EVENT_RAINSTORM:
 
       // ATE: Disabled
-      //
-			//if( pEvent->ubEventType == ENDRANGED_EVENT )
-			//{
-			//	EnvEndRainStorm( );
-			//}
-			//else
-			//{
-			//	EnvBeginRainStorm( (UINT8)pEvent->uiParam );
-			//}
+      //rain
+			if( pEvent->ubEventType == ENDRANGED_EVENT )
+			{
+				EnvEndRainStorm( );
+			}
+			else
+			{
+				EnvBeginRainStorm( (UINT8)pEvent->uiParam );
+			}
+		//end rain
 			break;
 
 		case EVENT_MAKE_CIV_GROUP_HOSTILE_ON_NEXT_SECTOR_ENTRANCE:

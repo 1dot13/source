@@ -402,14 +402,14 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, UINT16 usGridNo, INT8 bLevel, UINT16 us
 				pSoldier->fDontChargeTurningAPs = TRUE;
 			}
 		}
-		else
+		/*else
 		{
 			// If raising gun, don't charge turning!
 		  if ( fAddingTurningCost )
 			{
 				pSoldier->fDontChargeReadyAPs = TRUE;
 			}
-		}
+		}*/
 
 	
 
@@ -1301,14 +1301,14 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, UINT16 usGridNo, INT8 bLevel, UINT16 us
 					pSoldier->fDontChargeTurningAPs = TRUE;
 				}
 			}
-			else
+			/*else
 			{
 				// If raising gun, don't charge turning!
 				if ( fAddingTurningCost )
 				{
 					pSoldier->fDontChargeReadyAPs = TRUE;
 				}
-			}
+			}*/
 		}
 
 		// If this is a player guy, show message about no APS

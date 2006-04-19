@@ -772,7 +772,6 @@ BOOLEAN CanBlitToMouseBuffer(void)
 
 void InvalidateRegion(INT32 iLeft, INT32 iTop, INT32 iRight, INT32 iBottom)
 {
-	// WANNE 2
   if (gfForceFullScreenRefresh == TRUE)
   {
     //
@@ -1504,6 +1503,12 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 }		
 
 
+//rain
+BOOLEAN IsItAllowedToRenderRain();
+extern UINT32 guiRainRenderSurface;
+
+BOOLEAN gfNextRefreshFullScreen = FALSE;
+//end rain
 
 void RefreshScreen(void *DummyVariable)
 {
@@ -1523,6 +1528,17 @@ void RefreshScreen(void *DummyVariable)
 		fShowMouse = FALSE;
 	}
 
+	if( gfNextRefreshFullScreen )
+	{
+		if( guiCurrentScreen == GAME_SCREEN )
+		{
+			InvalidateScreen();
+			gfRenderScroll = FALSE;
+			//			gfForceFullScreenRefresh = TRUE;
+			//			guiFrameBufferState == BUFFER_DIRTY;
+		}
+		gfNextRefreshFullScreen = FALSE;
+	}
 
   //DebugMsg(TOPIC_VIDEO, DBG_LEVEL_0, "Looping in refresh");
 
@@ -2101,6 +2117,20 @@ void RefreshScreen(void *DummyVariable)
     gMouseCursorBackground[CURRENT_MOUSE_DATA].fRestore = FALSE;
 
   }
+
+
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+  // Rain                                                                                      //
+  ///////////////////////////////////////////////////////////////////////////////////////////////
+
+  if( IsItAllowedToRenderRain() && gfProgramIsRunning )
+  {
+	  BltVideoSurface( BACKBUFFER, guiRainRenderSurface, 0, 0, 0, VS_BLT_FAST | VS_BLT_USECOLORKEY, NULL );
+	  gfNextRefreshFullScreen = TRUE;
+  }
+
+
 
   ///////////////////////////////////////////////////////////////////////////////////////////////
   // 

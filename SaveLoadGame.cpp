@@ -101,6 +101,11 @@
 #include "Enemy Soldier Save.h"
 #include "BobbyRMailOrder.h"
 #include "Mercs.h"
+#include "INIReader.h"
+
+//rain
+#include "Rain.h"
+//end rain
 
 /////////////////////////////////////////////////////
 //
@@ -4538,6 +4543,10 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 	return( TRUE );
 }
 
+//rain
+extern UINT32 guiRainLoop;
+//end rain
+
 
 BOOLEAN LoadGeneralInfo( HWFILE hFile )
 {
@@ -4616,6 +4625,14 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 
 	//The current state of the weather
 	guiEnvWeather = sGeneralInfo.uiEnvWeather;
+
+	//rain
+	if ( guiRainLoop != NO_SAMPLE )
+	{
+		SoundStop( guiRainLoop );
+		guiRainLoop = NO_SAMPLE;
+	}
+    //end rain
 
 	gubDefaultButton = sGeneralInfo.ubDefaultButton;
 

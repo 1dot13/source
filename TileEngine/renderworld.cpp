@@ -2800,6 +2800,12 @@ UINT32 cnt = 0;
 	if ( gfScrollInertia == FALSE || (gRenderFlags&RENDER_FLAG_NOZ ) || (gRenderFlags&RENDER_FLAG_FULL ) || (gRenderFlags&RENDER_FLAG_MARKED ) )
 	{
 		RenderDynamicWorld( );
+
+///////////////////////////////////////////////////////////
+
+//	ColorFillVideoSurfaceArea( guiSAVEBUFFER, 0, gsVIEWPORT_WINDOW_END_Y, BP_SCREEN_WIDTH_CENTERED, SCREEN_HEIGHT, Get16BPPColor( FROMRGB( 16, 8, 0 ) ) );
+
+///////////////////////////////////////////////////////////
 	}
 
 	if ( gfScrollInertia )
@@ -3504,6 +3510,7 @@ BOOLEAN HandleScrollDirections( UINT32 ScrollFlags, INT16 sScrollXStep, INT16 sS
 	return( fAGoodMove );
 }
 
+extern BOOLEAN gfNextRefreshFullScreen;
 
 void ScrollWorld( )
 {
@@ -3752,6 +3759,8 @@ void ScrollWorld( )
 
 			// Now we actually begin our scrolling
 			HandleScrollDirections( ScrollFlags, sScrollXStep, sScrollYStep, &sTempRenderCenterX, &sTempRenderCenterY, FALSE );
+
+			if( gfNextRefreshFullScreen ) SetRenderFlags( RENDER_FLAG_FULL );
 		}			
 	}
 	else

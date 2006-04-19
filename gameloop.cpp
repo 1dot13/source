@@ -29,6 +29,10 @@
 	#include "HelpScreen.h"
 #endif
 
+// rain
+#include "Rain.h" 
+// end rain
+
 
 UINT32 guiCurrentScreen;
 UINT32 guiPendingScreen = NO_PENDING_SCREEN;
@@ -161,6 +165,9 @@ void    ShutdownGame(void)
 // This is the main Gameloop. This should eventually by one big switch statement which represents
 // the state of the game (i.e. Main Menu, PC Generation, Combat loop, etc....)
 // This function exits constantly and reenters constantly
+
+// rain
+static BOOLEAN gfSkipFrame = FALSE;
 
 void GameLoop(void)
 {
@@ -309,6 +316,14 @@ void GameLoop(void)
 		guiCurrentScreen = uiOldScreen;
 	}
 
+	// rain
+	RenderRain();
+
+	if( gfSkipFrame )
+		gfSkipFrame = FALSE;
+	else
+	// end rain
+
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: refresh screen");
 	RefreshScreen( NULL );
 
@@ -339,6 +354,10 @@ void SetPendingNewScreen( UINT32 uiNewScreen )
 	guiPendingScreen = uiNewScreen;
 }
 
+// rain
+extern UINT32 guiRainLoop;
+// end rain
+
 // Gets called when the screen changes, place any needed in code in here
 void HandleNewScreenChange( UINT32 uiNewScreen, UINT32 uiOldScreen )
 {	
@@ -348,6 +367,17 @@ void HandleNewScreenChange( UINT32 uiNewScreen, UINT32 uiOldScreen )
 		//reset the help screen
 		NewScreenSoResetHelpScreen( );
 	}
+
+	//rain
+	if( uiNewScreen == MAP_SCREEN )
+	{
+		if ( guiRainLoop != NO_SAMPLE )
+		{
+			SoundStop( guiRainLoop );
+			guiRainLoop = NO_SAMPLE;
+		}
+	}
+	// end rain
 }
 
 void HandleShortCutExitState( void )
