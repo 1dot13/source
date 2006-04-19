@@ -1,95 +1,387 @@
-<!-- 	this a comment, all of the text between the angled brackets is ignored
-
-Attribute Field Reference:
-
-	launchableIndex		- index of launchable item
-	itemIndex			- index of item that launchable can be launched from
-
-	IMPORTANT!!!!!
-	
-	All equal launchable indexes should be grouped together.  The is due to the way the code looks at this array.  If you separate equal launchable indexes, the launchables that come after the first group will not be found by the game.
-	
--->
-
-<LAUNCHABLELIST>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LAUNCHABLELIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<LAUNCHABLE>
-		<launchableIndex>147</launchableIndex> <!-- 40mm Grenade -->
-		<itemIndex>40</itemIndex> <!-- M79 -->
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>40</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>147</launchableIndex> <!-- 40mm Grenade -->
-		<itemIndex>50</itemIndex> <!-- Talon -->
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>50</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>148</launchableIndex> <!-- 40mm Tear Gas -->
-		<itemIndex>40</itemIndex> <!-- M79 -->
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>902</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>148</launchableIndex> <!-- 40mm Tear Gas -->
-		<itemIndex>50</itemIndex> <!-- Talon -->
+		<launchableIndex>980</launchableIndex>
+		<itemIndex>904</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>149</launchableIndex> <!-- 40mm Stun -->
-		<itemIndex>40</itemIndex> <!-- M79 -->
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>905</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>149</launchableIndex> <!-- 40mm Stun -->
-		<itemIndex>50</itemIndex> <!-- Talon -->
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>907</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>150</launchableIndex> <!-- 40mm Smoke -->
-		<itemIndex>40</itemIndex> <!-- M79 -->
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>910</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>150</launchableIndex> <!-- 40mm Smoke -->
-		<itemIndex>50</itemIndex> <!-- Talon -->
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>911</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>140</launchableIndex> <!-- Mortar Shell -->
-		<itemIndex>41</itemIndex> <!-- Mortar -->
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>913</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>140</launchableIndex> <!-- Mortar Shell -->
-		<itemIndex>293</itemIndex> <!-- Commando Mortar -->
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>40</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>152</launchableIndex> <!-- Shell -->
-		<itemIndex>60</itemIndex> <!-- Cannon -->
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>50</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>283</launchableIndex> <!-- HE RPG -->
-		<itemIndex>282</itemIndex> <!-- RPG-7 -->
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>902</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>284</launchableIndex> <!-- AP RPG -->
-		<itemIndex>282</itemIndex> <!-- RPG-7 -->
+		<launchableIndex>981</launchableIndex>
+		<itemIndex>904</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>285</launchableIndex> <!-- Frag RPG -->
-		<itemIndex>282</itemIndex> <!-- RPG-7 -->
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>905</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>294</launchableIndex> <!-- Mustard Gas Shell -->
-		<itemIndex>293</itemIndex> <!-- Commando Mortar -->
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>907</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>294</launchableIndex> <!-- Mustard Gas Shell -->
-		<itemIndex>41</itemIndex> <!-- Mortar -->
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>910</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>295</launchableIndex> <!-- 20mm HE Clip -->
-		<itemIndex>296</itemIndex> <!-- OICW Launcher -->
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>911</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>298</launchableIndex> <!-- Frag Cylinder -->
-		<itemIndex>347</itemIndex> <!-- MGL Mk1 -->
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>913</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>299</launchableIndex> <!-- Smoke Cylinder -->
-		<itemIndex>347</itemIndex> <!-- MGL Mk1 -->
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>40</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>300</launchableIndex> <!-- Stun Cylinder -->
-		<itemIndex>347</itemIndex> <!-- MGL Mk1 -->
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>50</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>902</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>905</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>907</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>910</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>911</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>913</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>40</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>50</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>902</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>905</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>907</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>910</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>911</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>913</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>140</launchableIndex>
+		<itemIndex>41</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>140</launchableIndex>
+		<itemIndex>901</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>152</launchableIndex>
+		<itemIndex>60</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>951</launchableIndex>
+		<itemIndex>41</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>951</launchableIndex>
+		<itemIndex>901</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>952</launchableIndex>
+		<itemIndex>912</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>953</launchableIndex>
+		<itemIndex>912</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>954</launchableIndex>
+		<itemIndex>912</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>955</launchableIndex>
+		<itemIndex>912</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>956</launchableIndex>
+		<itemIndex>912</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>957</launchableIndex>
+		<itemIndex>912</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>958</launchableIndex>
+		<itemIndex>908</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>959</launchableIndex>
+		<itemIndex>908</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>960</launchableIndex>
+		<itemIndex>908</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>961</launchableIndex>
+		<itemIndex>908</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>962</launchableIndex>
+		<itemIndex>908</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>963</launchableIndex>
+		<itemIndex>908</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>964</launchableIndex>
+		<itemIndex>906</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>965</launchableIndex>
+		<itemIndex>906</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>966</launchableIndex>
+		<itemIndex>40</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>966</launchableIndex>
+		<itemIndex>50</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>966</launchableIndex>
+		<itemIndex>902</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>966</launchableIndex>
+		<itemIndex>905</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>966</launchableIndex>
+		<itemIndex>907</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>966</launchableIndex>
+		<itemIndex>910</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>966</launchableIndex>
+		<itemIndex>911</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>966</launchableIndex>
+		<itemIndex>913</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>967</launchableIndex>
+		<itemIndex>906</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>968</launchableIndex>
+		<itemIndex>906</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>969</launchableIndex>
+		<itemIndex>906</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>970</launchableIndex>
+		<itemIndex>40</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>970</launchableIndex>
+		<itemIndex>50</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>970</launchableIndex>
+		<itemIndex>902</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>970</launchableIndex>
+		<itemIndex>905</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>970</launchableIndex>
+		<itemIndex>907</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>970</launchableIndex>
+		<itemIndex>910</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>970</launchableIndex>
+		<itemIndex>911</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>970</launchableIndex>
+		<itemIndex>913</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>971</launchableIndex>
+		<itemIndex>903</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>972</launchableIndex>
+		<itemIndex>903</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>973</launchableIndex>
+		<itemIndex>903</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>974</launchableIndex>
+		<itemIndex>903</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>975</launchableIndex>
+		<itemIndex>903</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>976</launchableIndex>
+		<itemIndex>917</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>976</launchableIndex>
+		<itemIndex>914</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>976</launchableIndex>
+		<itemIndex>915</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>976</launchableIndex>
+		<itemIndex>916</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>977</launchableIndex>
+		<itemIndex>917</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>977</launchableIndex>
+		<itemIndex>914</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>977</launchableIndex>
+		<itemIndex>915</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>977</launchableIndex>
+		<itemIndex>916</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>978</launchableIndex>
+		<itemIndex>917</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>978</launchableIndex>
+		<itemIndex>914</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>978</launchableIndex>
+		<itemIndex>915</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>978</launchableIndex>
+		<itemIndex>916</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>982</launchableIndex>
+		<itemIndex>906</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>983</launchableIndex>
+		<itemIndex>909</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>984</launchableIndex>
+		<itemIndex>909</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>985</launchableIndex>
+		<itemIndex>909</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>986</launchableIndex>
+		<itemIndex>909</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>987</launchableIndex>
+		<itemIndex>909</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>988</launchableIndex>
+		<itemIndex>909</itemIndex>
 	</LAUNCHABLE>
 </LAUNCHABLELIST>

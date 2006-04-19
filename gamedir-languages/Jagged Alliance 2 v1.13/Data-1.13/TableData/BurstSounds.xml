@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SOUNDLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<SOUND>NOSOUND</SOUND>
+	<SOUND>SOUNDS\WEAPONS\9mm Burst %d.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\45 Caliber Burst %d.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\Shotgun Burst %d.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\5,45 Burst %d.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\5,56 Burst %d.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\7,62 NATO Burst %d.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\7,62 WP Burst %d.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\4,7 Caliber Burst %d.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\5,7 Burst %d.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\RL Automatic %d.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\SILENCER BURST %d.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\9mm Heavy Burst %d.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\7,62 Tokarev Burst %d.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\9mmPM Burst %d.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\mp5-40 Burst %d.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\svu burst %d.wav</SOUND>
+	<SOUND>SOUNDS\WEAPONS\val burst %d.wav</SOUND>
+</SOUNDLIST>

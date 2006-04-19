@@ -1,36 +1,7 @@
-<!-- 	this a comment, all of the text between the angled brackets is ignored
-
-Attribute Field Reference:
-
-	uiIndex						- index of item in array, just increment this for each new entry
-	fontColour					- (0-255) font colour of ammo on interface
-	grayed						- controls colour / frame of ammo box in detail screen (interface\infobox.sti) ?
-	offNormal					- controls colour / frame of ammo box in detail screen (interface\infobox.sti) ?
-	onNormal					- controls colour / frame of ammo box in detail screen (interface\infobox.sti) ?
-	structureImpactReductionMultiplier + Divisor 	- reduction of damage from bullet contact with structure (lower total = better penetration)
-	armourImpactReductionMultiplier + Divisor	- reduction of damage from bullet impact with armour (lower total = better penetration)
-	beforeArmourDamageMultiplier + Divisor	   	- extra damage caused before penetrating armour 
-	afterArmourDamageMultiplier + Divisor	   	- extra damage caused after penetrating armour
-	zeroMinimumDamage				- (0/1) minimum possible damage caused is zero
-	canGoThrough					- (0/1) bullet is able to penetrate multiple soft targets
-	standardIssue					- (0/1) ammo is standard issue for enemy (greater chance of appearing) - used for AP ammo in rifles, etc.
-	numberOfBullets 				- (1-9) number of bullets fired in a single shot - normally used with buckshot, limited to 1 - 9 for now
-	multipleBulletDamageMultiplier + Divisor	- modifier for each bullet fired by a single shot (for example, default buckshot is 1/4 with 9 bullets)
-	highExplosive					- (0/1) high explosive ammunition
-	explosionSize					- (0-3) 0=none, 1=small, 2=medium, 3=large - size of explosion for high explosive ammo
-	antiTank					- (0/1) actually does some damage against tanks
-	dart						- (0/1) tranquilizer dart effect
-	knife						- (0/1) knife ammo
-	monsterSpit					- (0/1) monster spit - causes blindness, creates a gas effect, etc.
-	acidic						- (0/1) causes serious armour degradation, like monster spit
-	ignoreArmour					- (0/1) ignore vests and leggings, like knives and monster spit
-	lockBustingPower				- if greater than zero, this ammo type will always hit locks, and can break locks with a SmashDifficulty (see BinaryData\Locks.bin) less than the lockBustingPower.  This stat is also added to the damage done to the lock.
-
-	
--->
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <AMMOTYPELIST>
 	<AMMOTYPE>
-		<uiIndex>0</uiIndex> <!-- Regular ammo -->
+		<uiIndex>0</uiIndex>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -45,7 +16,7 @@ Attribute Field Reference:
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
 		<canGoThrough>1</canGoThrough>
-		<standardIssue>0</standardIssue>
+		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
@@ -60,7 +31,7 @@ Attribute Field Reference:
 		<lockBustingPower>0</lockBustingPower>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>1</uiIndex> <!-- HP ammo -->
+		<uiIndex>1</uiIndex>
 		<fontColour>24</fontColour>
 		<grayed>12</grayed>
 		<offNormal>9</offNormal>
@@ -90,7 +61,7 @@ Attribute Field Reference:
 		<lockBustingPower>0</lockBustingPower>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>2</uiIndex> <!-- AP ammo -->
+		<uiIndex>2</uiIndex>
 		<fontColour>218</fontColour>
 		<grayed>8</grayed>
 		<offNormal>5</offNormal>
@@ -120,7 +91,7 @@ Attribute Field Reference:
 		<lockBustingPower>0</lockBustingPower>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>3</uiIndex> <!-- Super AP ammo -->
+		<uiIndex>3</uiIndex>
 		<fontColour>218</fontColour>
 		<grayed>8</grayed>
 		<offNormal>5</offNormal>
@@ -150,7 +121,7 @@ Attribute Field Reference:
 		<lockBustingPower>0</lockBustingPower>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>4</uiIndex> <!-- Buckshot ammo -->
+		<uiIndex>4</uiIndex>
 		<fontColour>125</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -180,7 +151,7 @@ Attribute Field Reference:
 		<lockBustingPower>0</lockBustingPower>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>5</uiIndex> <!-- Flechette ammo -->
+		<uiIndex>5</uiIndex>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -210,7 +181,7 @@ Attribute Field Reference:
 		<lockBustingPower>0</lockBustingPower>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>6</uiIndex> <!-- Grenade ammo -->
+		<uiIndex>6</uiIndex>
 		<fontColour>75</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -240,7 +211,7 @@ Attribute Field Reference:
 		<lockBustingPower>0</lockBustingPower>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>7</uiIndex> <!-- Monster ammo - hardcoded as ammo for monster class weapons -->
+		<uiIndex>7</uiIndex>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -255,7 +226,7 @@ Attribute Field Reference:
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
 		<canGoThrough>0</canGoThrough>
-		<standardIssue>0</standardIssue>
+		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
@@ -270,7 +241,7 @@ Attribute Field Reference:
 		<lockBustingPower>0</lockBustingPower>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>8</uiIndex> <!-- Knife ammo - hardcoded as ammo for throwing knives -->
+		<uiIndex>8</uiIndex>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -285,7 +256,7 @@ Attribute Field Reference:
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
 		<canGoThrough>0</canGoThrough>
-		<standardIssue>0</standardIssue>
+		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
@@ -300,7 +271,7 @@ Attribute Field Reference:
 		<lockBustingPower>0</lockBustingPower>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>9</uiIndex> <!-- HE ammo -->
+		<uiIndex>9</uiIndex>
 		<fontColour>75</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -315,7 +286,7 @@ Attribute Field Reference:
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
 		<canGoThrough>0</canGoThrough>
-		<standardIssue>0</standardIssue>
+		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
@@ -330,7 +301,7 @@ Attribute Field Reference:
 		<lockBustingPower>0</lockBustingPower>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>10</uiIndex> <!-- HEAT ammo -->
+		<uiIndex>10</uiIndex>
 		<fontColour>76</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -360,7 +331,7 @@ Attribute Field Reference:
 		<lockBustingPower>0</lockBustingPower>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>11</uiIndex> <!-- Tranquilizer dart ammo -->
+		<uiIndex>11</uiIndex>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -375,7 +346,7 @@ Attribute Field Reference:
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>1</zeroMinimumDamage>
 		<canGoThrough>0</canGoThrough>
-		<standardIssue>0</standardIssue>
+		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
@@ -390,11 +361,101 @@ Attribute Field Reference:
 		<lockBustingPower>0</lockBustingPower>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>12</uiIndex> <!-- Flamethrower ammo -->
+		<uiIndex>12</uiIndex>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
 		<onNormal>3</onNormal>
+		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>1</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
+		<zeroMinimumDamage>0</zeroMinimumDamage>
+		<canGoThrough>1</canGoThrough>
+		<standardIssue>1</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>0</acidic>
+		<ignoreArmour>1</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
+	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>13</uiIndex>
+		<fontColour>71</fontColour>
+		<grayed>8</grayed>
+		<offNormal>5</offNormal>
+		<onNormal>7</onNormal>
+		<structureImpactReductionMultiplier>3</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>4</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>4</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>17</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>10</afterArmourDamageDivisor>
+		<zeroMinimumDamage>0</zeroMinimumDamage>
+		<canGoThrough>1</canGoThrough>
+		<standardIssue>0</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>0</acidic>
+		<ignoreArmour>0</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
+	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>14</uiIndex>
+		<fontColour>185</fontColour>
+		<grayed>12</grayed>
+		<offNormal>9</offNormal>
+		<onNormal>11</onNormal>
+		<structureImpactReductionMultiplier>4</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>1</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>34</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>10</afterArmourDamageDivisor>
+		<zeroMinimumDamage>1</zeroMinimumDamage>
+		<canGoThrough>0</canGoThrough>
+		<standardIssue>0</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>0</acidic>
+		<ignoreArmour>0</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
+	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>15</uiIndex>
+		<fontColour>144</fontColour>
+		<grayed>4</grayed>
+		<offNormal>17</offNormal>
+		<onNormal>19</onNormal>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
@@ -418,6 +479,335 @@ Attribute Field Reference:
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>16</uiIndex>
+		<fontColour>144</fontColour>
+		<grayed>4</grayed>
+		<offNormal>17</offNormal>
+		<onNormal>19</onNormal>
+		<structureImpactReductionMultiplier>3</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>4</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>4</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
+		<zeroMinimumDamage>0</zeroMinimumDamage>
+		<canGoThrough>1</canGoThrough>
+		<standardIssue>0</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
 		<acidic>0</acidic>
+		<ignoreArmour>0</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
+	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>17</uiIndex>
+		<fontColour>133</fontColour>
+		<grayed>4</grayed>
+		<offNormal>13</offNormal>
+		<onNormal>15</onNormal>
+		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>1</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
+		<zeroMinimumDamage>0</zeroMinimumDamage>
+		<canGoThrough>1</canGoThrough>
+		<standardIssue>0</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>0</acidic>
+		<ignoreArmour>0</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
+	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>18</uiIndex>
+		<fontColour>133</fontColour>
+		<grayed>4</grayed>
+		<offNormal>13</offNormal>
+		<onNormal>15</onNormal>
+		<structureImpactReductionMultiplier>3</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>4</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>4</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
+		<zeroMinimumDamage>0</zeroMinimumDamage>
+		<canGoThrough>1</canGoThrough>
+		<standardIssue>0</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>0</acidic>
+		<ignoreArmour>0</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
+	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>19</uiIndex>
+		<fontColour>136</fontColour>
+		<grayed>4</grayed>
+		<offNormal>1</offNormal>
+		<onNormal>3</onNormal>
+		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>1</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>95</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>100</afterArmourDamageDivisor>
+		<zeroMinimumDamage>0</zeroMinimumDamage>
+		<canGoThrough>1</canGoThrough>
+		<standardIssue>0</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>0</acidic>
+		<ignoreArmour>0</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
+	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>20</uiIndex>
+		<fontColour>24</fontColour>
+		<grayed>12</grayed>
+		<offNormal>9</offNormal>
+		<onNormal>11</onNormal>
+		<structureImpactReductionMultiplier>2</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>2</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>16</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>10</afterArmourDamageDivisor>
+		<zeroMinimumDamage>1</zeroMinimumDamage>
+		<canGoThrough>0</canGoThrough>
+		<standardIssue>0</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>0</acidic>
+		<ignoreArmour>0</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
+	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>21</uiIndex>
+		<fontColour>218</fontColour>
+		<grayed>8</grayed>
+		<offNormal>5</offNormal>
+		<onNormal>7</onNormal>
+		<structureImpactReductionMultiplier>3</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>4</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>4</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>75</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>100</afterArmourDamageDivisor>
+		<zeroMinimumDamage>0</zeroMinimumDamage>
+		<canGoThrough>1</canGoThrough>
+		<standardIssue>0</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>0</acidic>
+		<ignoreArmour>0</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
+	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>22</uiIndex>
+		<fontColour>218</fontColour>
+		<grayed>8</grayed>
+		<offNormal>5</offNormal>
+		<onNormal>7</onNormal>
+		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>2</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>2</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>75</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>100</afterArmourDamageDivisor>
+		<zeroMinimumDamage>0</zeroMinimumDamage>
+		<canGoThrough>1</canGoThrough>
+		<standardIssue>0</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>0</acidic>
+		<ignoreArmour>0</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
+	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>23</uiIndex>
+		<fontColour>185</fontColour>
+		<grayed>12</grayed>
+		<offNormal>9</offNormal>
+		<onNormal>11</onNormal>
+		<structureImpactReductionMultiplier>4</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>1</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>32</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>10</afterArmourDamageDivisor>
+		<zeroMinimumDamage>1</zeroMinimumDamage>
+		<canGoThrough>0</canGoThrough>
+		<standardIssue>0</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>0</acidic>
+		<ignoreArmour>0</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
+	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>24</uiIndex>
+		<fontColour>185</fontColour>
+		<grayed>12</grayed>
+		<offNormal>9</offNormal>
+		<onNormal>11</onNormal>
+		<structureImpactReductionMultiplier>4</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>1</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>26</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>10</afterArmourDamageDivisor>
+		<zeroMinimumDamage>1</zeroMinimumDamage>
+		<canGoThrough>0</canGoThrough>
+		<standardIssue>0</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>0</acidic>
+		<ignoreArmour>0</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
+	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>25</uiIndex>
+		<fontColour>24</fontColour>
+		<grayed>12</grayed>
+		<offNormal>9</offNormal>
+		<onNormal>11</onNormal>
+		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>1</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
+		<zeroMinimumDamage>0</zeroMinimumDamage>
+		<canGoThrough>0</canGoThrough>
+		<standardIssue>0</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>0</acidic>
+		<ignoreArmour>0</ignoreArmour>
+		<lockBustingPower>75</lockBustingPower>
+	</AMMOTYPE>
+	<AMMOTYPE>
+		<uiIndex>26</uiIndex>
+		<fontColour>184</fontColour>
+		<grayed>8</grayed>
+		<offNormal>13</offNormal>
+		<onNormal>15</onNormal>
+		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>2</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>2</armourImpactReductionDivisor>
+		<beforeArmourDamageMultiplier>3</beforeArmourDamageMultiplier>
+		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
+		<afterArmourDamageMultiplier>2</afterArmourDamageMultiplier>
+		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
+		<zeroMinimumDamage>0</zeroMinimumDamage>
+		<canGoThrough>1</canGoThrough>
+		<standardIssue>0</standardIssue>
+		<numberOfBullets>1</numberOfBullets>
+		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
+		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<highExplosive>0</highExplosive>
+		<explosionSize>0</explosionSize>
+		<antiTank>0</antiTank>
+		<dart>0</dart>
+		<knife>0</knife>
+		<monsterSpit>0</monsterSpit>
+		<acidic>1</acidic>
+		<ignoreArmour>0</ignoreArmour>
+		<lockBustingPower>0</lockBustingPower>
 	</AMMOTYPE>
 </AMMOTYPELIST>

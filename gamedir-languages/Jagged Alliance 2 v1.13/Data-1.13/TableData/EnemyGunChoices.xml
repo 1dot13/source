@@ -26,12 +26,12 @@ Indexes:
 	<ENEMYGUNCHOICES>
 		<uiIndex>0</uiIndex>
 		<ubChoices>6</ubChoices>
-		<bItemNo1>5</bItemNo1> <!-- .38 S&W -->
-		<bItemNo2>6</bItemNo2> <!-- Barracuda -->
-		<bItemNo3>7</bItemNo3> <!-- Desert Eagle -->
-		<bItemNo4>1</bItemNo4> <!-- Glock 17 -->
-		<bItemNo5>8</bItemNo5> <!-- Colt .45 -->
-		<bItemNo6>3</bItemNo6> <!-- Beretta 92F -->
+		<bItemNo1>5</bItemNo1>
+		<bItemNo2>6</bItemNo2>
+		<bItemNo3>7</bItemNo3>
+		<bItemNo4>1</bItemNo4>
+		<bItemNo5>8</bItemNo5>
+		<bItemNo6>3</bItemNo6>
 		<bItemNo7>-1</bItemNo7>
 		<bItemNo8>-1</bItemNo8>
 		<bItemNo9>-1</bItemNo9>
@@ -79,12 +79,12 @@ Indexes:
 	</ENEMYGUNCHOICES>
 	<ENEMYGUNCHOICES>
 		<uiIndex>1</uiIndex>
-		<ubChoices>5</ubChoices>
-		<bItemNo1>2</bItemNo1> <!-- Glock 18 -->
-		<bItemNo2>4</bItemNo2> <!-- Beretta 93R -->
-		<bItemNo3>338</bItemNo3> <!-- P7M8 -->
-		<bItemNo4>31</bItemNo4> <!-- M870 -->
-		<bItemNo5>329</bItemNo5> <!-- Calico M-950 -->
+		<ubChoices>3</ubChoices>
+		<bItemNo1>2</bItemNo1>
+		<bItemNo2>4</bItemNo2>
+		<bItemNo3>31</bItemNo3>
+		<bItemNo4>-1</bItemNo4>
+		<bItemNo5>-1</bItemNo5>
 		<bItemNo6>-1</bItemNo6>
 		<bItemNo7>-1</bItemNo7>
 		<bItemNo8>-1</bItemNo8>
@@ -133,14 +133,14 @@ Indexes:
 	</ENEMYGUNCHOICES>
 	<ENEMYGUNCHOICES>
 		<uiIndex>2</uiIndex>
-		<ubChoices>7</ubChoices>
-		<bItemNo1>16</bItemNo1> <!-- Type-85 -->
-		<bItemNo2>11</bItemNo2> <!-- Thompson -->
-		<bItemNo3>333</bItemNo3> <!-- MP-5A2 -->
-		<bItemNo4>13</bItemNo4> <!-- H&K 53 -->
-		<bItemNo5>9</bItemNo5> <!-- MP5K -->
-		<bItemNo6>334</bItemNo6> <!-- MP-5SD3 -->
-		<bItemNo7>337</bItemNo7> <!-- Five-seveN -->
+		<ubChoices>4</ubChoices>
+		<bItemNo1>16</bItemNo1>
+		<bItemNo2>11</bItemNo2>
+		<bItemNo3>9</bItemNo3>
+		<bItemNo4>13</bItemNo4>
+		<bItemNo5>-1</bItemNo5>
+		<bItemNo6>-1</bItemNo6>
+		<bItemNo7>-1</bItemNo7>
 		<bItemNo8>-1</bItemNo8>
 		<bItemNo9>-1</bItemNo9>
 		<bItemNo10>-1</bItemNo10>
@@ -187,11 +187,11 @@ Indexes:
 	</ENEMYGUNCHOICES>
 	<ENEMYGUNCHOICES>
 		<uiIndex>3</uiIndex>
-		<ubChoices>4</ubChoices>
-		<bItemNo1>22</bItemNo1> <!-- Mini-14 -->
-		<bItemNo2>17</bItemNo2> <!-- SKS -->
-		<bItemNo3>342</bItemNo3> <!-- M4 Super 90 -->
-		<bItemNo4>32</bItemNo4> <!-- SPAS-15 -->
+		<ubChoices>3</ubChoices>
+		<bItemNo1>22</bItemNo1>
+		<bItemNo2>17</bItemNo2>
+		<bItemNo3>32</bItemNo3>
+		<bItemNo4>-1</bItemNo4>
 		<bItemNo5>-1</bItemNo5>
 		<bItemNo6>-1</bItemNo6>
 		<bItemNo7>-1</bItemNo7>
@@ -241,14 +241,14 @@ Indexes:
 	</ENEMYGUNCHOICES>
 	<ENEMYGUNCHOICES>
 		<uiIndex>4</uiIndex>
-		<ubChoices>7</ubChoices>
-		<bItemNo1>10</bItemNo1> <!-- MAC-10 -->
-		<bItemNo2>14</bItemNo2> <!-- AKSU-74 -->
-		<bItemNo3>331</bItemNo3> <!-- Micro-Uzi -->
-		<bItemNo4>12</bItemNo4> <!-- M4A1 -->
-		<bItemNo5>330</bItemNo5> <!-- Calico M-960A -->
-		<bItemNo6>336</bItemNo6> <!-- UMP-45 -->
-		<bItemNo7>335</bItemNo7> <!-- MP-5N -->
+		<ubChoices>3</ubChoices>
+		<bItemNo1>10</bItemNo1>
+		<bItemNo2>14</bItemNo2>
+		<bItemNo3>12</bItemNo3>
+		<bItemNo4>-1</bItemNo4>
+		<bItemNo5>-1</bItemNo5>
+		<bItemNo6>-1</bItemNo6>
+		<bItemNo7>-1</bItemNo7>
 		<bItemNo8>-1</bItemNo8>
 		<bItemNo9>-1</bItemNo9>
 		<bItemNo10>-1</bItemNo10>
@@ -295,13 +295,13 @@ Indexes:
 	</ENEMYGUNCHOICES>
 	<ENEMYGUNCHOICES>
 		<uiIndex>5</uiIndex>
-		<ubChoices>6</ubChoices>
-		<bItemNo1>26</bItemNo1> <!-- AKM -->
-		<bItemNo2>29</bItemNo2> <!-- G3A3 -->
-		<bItemNo3>21</bItemNo3> <!-- G41 -->
-		<bItemNo4>25</bItemNo4> <!-- AK-74 -->
-		<bItemNo5>328</bItemNo5> <!-- Calico M-900 -->
-		<bItemNo6>343</bItemNo6> <!-- AK-103 -->
+		<ubChoices>4</ubChoices>
+		<bItemNo1>26</bItemNo1>
+		<bItemNo2>29</bItemNo2>
+		<bItemNo3>21</bItemNo3>
+		<bItemNo4>25</bItemNo4>
+		<bItemNo5>-1</bItemNo5>
+		<bItemNo6>-1</bItemNo6>
 		<bItemNo7>-1</bItemNo7>
 		<bItemNo8>-1</bItemNo8>
 		<bItemNo9>-1</bItemNo9>
@@ -349,13 +349,13 @@ Indexes:
 	</ENEMYGUNCHOICES>
 	<ENEMYGUNCHOICES>
 		<uiIndex>6</uiIndex>
-		<ubChoices>6</ubChoices>
-		<bItemNo1>18</bItemNo1> <!-- Dragunov -->
-		<bItemNo2>19</bItemNo2> <!-- M24 -->
-		<bItemNo3>68</bItemNo3> <!-- H&K PSG1 -->
-		<bItemNo4>67</bItemNo4> <!-- VAL Silent -->
-		<bItemNo5>66</bItemNo5> <!-- Barrett -->
-		<bItemNo6>341</bItemNo6> <!-- MSG-90A1 -->
+		<ubChoices>2</ubChoices>
+		<bItemNo1>18</bItemNo1>
+		<bItemNo2>19</bItemNo2>
+		<bItemNo3>-1</bItemNo3>
+		<bItemNo4>-1</bItemNo4>
+		<bItemNo5>-1</bItemNo5>
+		<bItemNo6>-1</bItemNo6>
 		<bItemNo7>-1</bItemNo7>
 		<bItemNo8>-1</bItemNo8>
 		<bItemNo9>-1</bItemNo9>
@@ -403,15 +403,15 @@ Indexes:
 	</ENEMYGUNCHOICES>
 	<ENEMYGUNCHOICES>
 		<uiIndex>7</uiIndex>
-		<ubChoices>8</ubChoices>
-		<bItemNo1>24</bItemNo1> <!-- FA-MAS -->
-		<bItemNo2>27</bItemNo2> <!-- M-14 -->
-		<bItemNo3>20</bItemNo3> <!-- Steyr -->
-		<bItemNo4>23</bItemNo4> <!-- C-7 -->
-		<bItemNo5>332</bItemNo5> <!-- L85A2 -->
-		<bItemNo6>339</bItemNo6> <!-- G36K -->
-		<bItemNo7>340</bItemNo7> <!-- G36C -->
-		<bItemNo8>344</bItemNo8> <!-- G36E -->
+		<ubChoices>4</ubChoices>
+		<bItemNo1>24</bItemNo1>
+		<bItemNo2>27</bItemNo2>
+		<bItemNo3>20</bItemNo3>
+		<bItemNo4>23</bItemNo4>
+		<bItemNo5>-1</bItemNo5>
+		<bItemNo6>-1</bItemNo6>
+		<bItemNo7>-1</bItemNo7>
+		<bItemNo8>-1</bItemNo8>
 		<bItemNo9>-1</bItemNo9>
 		<bItemNo10>-1</bItemNo10>
 		<bItemNo11>-1</bItemNo11>
@@ -457,13 +457,13 @@ Indexes:
 	</ENEMYGUNCHOICES>
 	<ENEMYGUNCHOICES>
 		<uiIndex>8</uiIndex>
-		<ubChoices>6</ubChoices>
-		<bItemNo1>28</bItemNo1> <!-- FN-FAL -->
-		<bItemNo2>15</bItemNo2> <!-- P90 -->
-		<bItemNo3>30</bItemNo3> <!-- G11 -->
-		<bItemNo4>69</bItemNo4> <!-- TAR 21 -->
-		<bItemNo5>346</bItemNo5> <!-- MP-7 -->
-		<bItemNo6>33</bItemNo6> <!-- CAWS -->
+		<ubChoices>1</ubChoices>
+		<bItemNo1>28</bItemNo1>
+		<bItemNo2>-1</bItemNo2>
+		<bItemNo3>-1</bItemNo3>
+		<bItemNo4>-1</bItemNo4>
+		<bItemNo5>-1</bItemNo5>
+		<bItemNo6>-1</bItemNo6>
 		<bItemNo7>-1</bItemNo7>
 		<bItemNo8>-1</bItemNo8>
 		<bItemNo9>-1</bItemNo9>
@@ -512,9 +512,9 @@ Indexes:
 	<ENEMYGUNCHOICES>
 		<uiIndex>9</uiIndex>
 		<ubChoices>3</ubChoices>
-		<bItemNo1>34</bItemNo1> <!-- Minimi -->
-		<bItemNo2>35</bItemNo2> <!-- RPK-74 -->
-		<bItemNo3>36</bItemNo3> <!-- H&K 21 -->
+		<bItemNo1>34</bItemNo1>
+		<bItemNo2>35</bItemNo2>
+		<bItemNo3>36</bItemNo3>
 		<bItemNo4>-1</bItemNo4>
 		<bItemNo5>-1</bItemNo5>
 		<bItemNo6>-1</bItemNo6>
@@ -566,11 +566,11 @@ Indexes:
 	<ENEMYGUNCHOICES>
 		<uiIndex>10</uiIndex>
 		<ubChoices>5</ubChoices>
-		<bItemNo1>55</bItemNo1> <!-- Rocket Rifle -->
-		<bItemNo2>65</bItemNo2> <!-- A. R. Rifle -->
-		<bItemNo3>35</bItemNo3> <!-- RPK-74 -->
-		<bItemNo4>36</bItemNo4> <!-- H&K 21 -->
-		<bItemNo5>34</bItemNo5> <!-- Minimi -->
+		<bItemNo1>55</bItemNo1>
+		<bItemNo2>65</bItemNo2>
+		<bItemNo3>35</bItemNo3>
+		<bItemNo4>36</bItemNo4>
+		<bItemNo5>34</bItemNo5>
 		<bItemNo6>-1</bItemNo6>
 		<bItemNo7>-1</bItemNo7>
 		<bItemNo8>-1</bItemNo8>

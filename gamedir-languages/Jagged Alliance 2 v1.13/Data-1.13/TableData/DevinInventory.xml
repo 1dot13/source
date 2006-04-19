@@ -10,177 +10,157 @@ Attribute Field Reference:
 <INVENTORYLIST>
 	<INVENTORY>
 		<uiIndex>0</uiIndex>
-		<sItemIndex>131</sItemIndex> <!-- Stun Grenade -->
+		<sItemIndex>131</sItemIndex>
 		<ubOptimalNumber>3</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>1</uiIndex>
-		<sItemIndex>132</sItemIndex> <!-- Tear Gas -->
+		<sItemIndex>132</sItemIndex>
 		<ubOptimalNumber>3</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>2</uiIndex>
-		<sItemIndex>133</sItemIndex> <!-- Mustard Gas -->
+		<sItemIndex>133</sItemIndex>
 		<ubOptimalNumber>2</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>3</uiIndex>
-		<sItemIndex>134</sItemIndex> <!-- Mini Grenade -->
+		<sItemIndex>134</sItemIndex>
 		<ubOptimalNumber>3</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>4</uiIndex>
-		<sItemIndex>135</sItemIndex> <!-- Hand Grenade -->
+		<sItemIndex>135</sItemIndex>
 		<ubOptimalNumber>2</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>5</uiIndex>
-		<sItemIndex>151</sItemIndex> <!-- Smoke Grenade -->
+		<sItemIndex>151</sItemIndex>
 		<ubOptimalNumber>3</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>6</uiIndex>
-		<sItemIndex>147</sItemIndex> <!-- 40mm Grenade -->
+		<sItemIndex>147</sItemIndex>
 		<ubOptimalNumber>2</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>7</uiIndex>
-		<sItemIndex>148</sItemIndex> <!-- 40mm Tear Gas -->
+		<sItemIndex>148</sItemIndex>
 		<ubOptimalNumber>2</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>8</uiIndex>
-		<sItemIndex>149</sItemIndex> <!-- 40mm Stun -->
+		<sItemIndex>149</sItemIndex>
 		<ubOptimalNumber>2</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>9</uiIndex>
-		<sItemIndex>150</sItemIndex> <!-- 40mm Smoke -->
+		<sItemIndex>150</sItemIndex>
 		<ubOptimalNumber>2</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>10</uiIndex>
-		<sItemIndex>140</sItemIndex> <!-- Mortar Shell -->
+		<sItemIndex>140</sItemIndex>
 		<ubOptimalNumber>1</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>11</uiIndex>
-		<sItemIndex>283</sItemIndex> <!-- HE RPG -->
-		<ubOptimalNumber>2</ubOptimalNumber>
+		<sItemIndex>111</sItemIndex>
+		<ubOptimalNumber>1</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>12</uiIndex>
-		<sItemIndex>284</sItemIndex> <!-- AP RPG -->
-		<ubOptimalNumber>2</ubOptimalNumber>
+		<sItemIndex>112</sItemIndex>
+		<ubOptimalNumber>1</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>13</uiIndex>
-		<sItemIndex>285</sItemIndex> <!-- Frag RPG -->
-		<ubOptimalNumber>2</ubOptimalNumber>
+		<sItemIndex>113</sItemIndex>
+		<ubOptimalNumber>1</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>14</uiIndex>
-		<sItemIndex>111</sItemIndex> <!-- Minirockets, AP -->
-		<ubOptimalNumber>1</ubOptimalNumber>
-	</INVENTORY>
-	<INVENTORY>
-		<uiIndex>15</uiIndex>
-		<sItemIndex>112</sItemIndex> <!-- Minirockets, HE -->
-		<ubOptimalNumber>1</ubOptimalNumber>
-	</INVENTORY>
-	<INVENTORY>
-		<uiIndex>16</uiIndex>
-		<sItemIndex>113</sItemIndex> <!-- Minirockets, HEAP -->
-		<ubOptimalNumber>1</ubOptimalNumber>
-	</INVENTORY>
-	<INVENTORY>
-		<uiIndex>17</uiIndex>
-		<sItemIndex>223</sItemIndex> <!-- Detonator -->
+		<sItemIndex>223</sItemIndex>
 		<ubOptimalNumber>10</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
+		<uiIndex>15</uiIndex>
+		<sItemIndex>224</sItemIndex>
+		<ubOptimalNumber>5</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>16</uiIndex>
+		<sItemIndex>242</sItemIndex>
+		<ubOptimalNumber>5</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>17</uiIndex>
+		<sItemIndex>141</sItemIndex>
+		<ubOptimalNumber>6</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
 		<uiIndex>18</uiIndex>
-		<sItemIndex>224</sItemIndex> <!-- Remote Det. -->
+		<sItemIndex>136</sItemIndex>
 		<ubOptimalNumber>5</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>19</uiIndex>
-		<sItemIndex>242</sItemIndex> <!-- Remote Trigger -->
+		<sItemIndex>137</sItemIndex>
 		<ubOptimalNumber>5</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>20</uiIndex>
-		<sItemIndex>141</sItemIndex> <!-- Mine -->
-		<ubOptimalNumber>6</ubOptimalNumber>
-	</INVENTORY>
-	<INVENTORY>
-		<uiIndex>21</uiIndex>
-		<sItemIndex>136</sItemIndex> <!-- RDX -->
-		<ubOptimalNumber>5</ubOptimalNumber>
-	</INVENTORY>
-	<INVENTORY>
-		<uiIndex>22</uiIndex>
-		<sItemIndex>137</sItemIndex> <!-- TNT -->
-		<ubOptimalNumber>5</ubOptimalNumber>
-	</INVENTORY>
-	<INVENTORY>
-		<uiIndex>23</uiIndex>
-		<sItemIndex>139</sItemIndex> <!-- C1 -->
+		<sItemIndex>139</sItemIndex>
 		<ubOptimalNumber>4</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
-		<uiIndex>24</uiIndex>
-		<sItemIndex>138</sItemIndex> <!-- HMX -->
+		<uiIndex>21</uiIndex>
+		<sItemIndex>138</sItemIndex>
 		<ubOptimalNumber>3</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
-		<uiIndex>25</uiIndex>
-		<sItemIndex>142</sItemIndex> <!-- C4 -->
+		<uiIndex>22</uiIndex>
+		<sItemIndex>142</sItemIndex>
 		<ubOptimalNumber>2</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
-		<uiIndex>26</uiIndex>
-		<sItemIndex>145</sItemIndex> <!-- Shaped Charge -->
+		<uiIndex>23</uiIndex>
+		<sItemIndex>145</sItemIndex>
 		<ubOptimalNumber>5</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
+		<uiIndex>24</uiIndex>
+		<sItemIndex>40</sItemIndex>
+		<ubOptimalNumber>1</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>25</uiIndex>
+		<sItemIndex>50</sItemIndex>
+		<ubOptimalNumber>1</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>26</uiIndex>
+		<sItemIndex>51</sItemIndex>
+		<ubOptimalNumber>1</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
 		<uiIndex>27</uiIndex>
-		<sItemIndex>40</sItemIndex> <!-- M79 -->
+		<sItemIndex>41</sItemIndex>
 		<ubOptimalNumber>1</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>28</uiIndex>
-		<sItemIndex>50</sItemIndex> <!-- Talon -->
-		<ubOptimalNumber>1</ubOptimalNumber>
+		<sItemIndex>215</sItemIndex>
+		<ubOptimalNumber>2</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>29</uiIndex>
-		<sItemIndex>51</sItemIndex> <!-- LAW -->
+		<sItemIndex>243</sItemIndex>
 		<ubOptimalNumber>1</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>30</uiIndex>
-		<sItemIndex>282</sItemIndex> <!-- RPG-7 -->
-		<ubOptimalNumber>1</ubOptimalNumber>
-	</INVENTORY>
-	<INVENTORY>
-		<uiIndex>31</uiIndex>
-		<sItemIndex>41</sItemIndex> <!-- Mortar -->
-		<ubOptimalNumber>1</ubOptimalNumber>
-	</INVENTORY>
-	<INVENTORY>
-		<uiIndex>32</uiIndex>
-		<sItemIndex>215</sItemIndex> <!-- Metal Detector -->
-		<ubOptimalNumber>2</ubOptimalNumber>
-	</INVENTORY>
-	<INVENTORY>
-		<uiIndex>33</uiIndex>
-		<sItemIndex>243</sItemIndex> <!-- Wire Cutters -->
-		<ubOptimalNumber>1</ubOptimalNumber>
-	</INVENTORY>
-	<INVENTORY>
-		<uiIndex>34</uiIndex>
-		<sItemIndex>304</sItemIndex> <!-- Duct Tape -->
+		<sItemIndex>304</sItemIndex>
 		<ubOptimalNumber>1</ubOptimalNumber>
 	</INVENTORY>
 </INVENTORYLIST>
