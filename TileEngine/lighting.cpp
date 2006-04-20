@@ -2316,7 +2316,9 @@ BOOLEAN LightRevealWall(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
 	}
 
 	pStruct=gpWorldLevelData[uiTile].pStructHead;
-	while(pStruct!=NULL)
+	
+	//while(pStruct!=NULL)
+	while(pStruct!=NULL && pStruct->usIndex<NUMBEROFTILES) //lal bugfix
 	{
 		TileElem = &(gTileDatabase[pStruct->usIndex]);
 		switch(TileElem->usWallOrientation)
@@ -2337,7 +2339,9 @@ BOOLEAN LightRevealWall(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
 	}
 	
 	pStruct=gpWorldLevelData[uiTile].pStructHead;
-	while(pStruct!=NULL)
+	
+	//while(pStruct!=NULL)
+	while(pStruct!=NULL && pStruct->usIndex<NUMBEROFTILES) //lal bugfix
 	{
 		TileElem = &(gTileDatabase[pStruct->usIndex]);
 		switch(TileElem->usWallOrientation)
@@ -2392,7 +2396,9 @@ TILE_ELEMENT *TileElem;
 		fDoLeftWalls=FALSE;
 
 	pStruct=gpWorldLevelData[uiTile].pStructHead;
-	while(pStruct!=NULL)
+	
+	//while(pStruct!=NULL)
+	while(pStruct!=NULL && pStruct->usIndex<NUMBEROFTILES) // lal bugfix
 	{
 		TileElem = &(gTileDatabase[pStruct->usIndex]);
 		switch(TileElem->usWallOrientation)
@@ -2413,7 +2419,9 @@ TILE_ELEMENT *TileElem;
 	}
 
 	pStruct=gpWorldLevelData[uiTile].pStructHead;
-	while(pStruct!=NULL)
+
+	//while(pStruct!=NULL)
+	while(pStruct!=NULL && pStruct->usIndex<NUMBEROFTILES) //lal bugfix 
 	{
 		TileElem = &(gTileDatabase[pStruct->usIndex]);
 		switch(TileElem->usWallOrientation)
