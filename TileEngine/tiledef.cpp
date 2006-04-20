@@ -1046,6 +1046,7 @@ BOOLEAN	GetTileType( UINT16 usIndex, UINT32 *puiType )
   TILE_ELEMENT		TileElem;
 
 	CHECKF( usIndex != NO_TILE );
+	CHECKF( usIndex < NUMBEROFTILES ); //lal bugfix
 
 	// Get tile element
 	TileElem = gTileDatabase[ usIndex ];
@@ -1197,6 +1198,7 @@ BOOLEAN GetWallOrientation( UINT16 usIndex, UINT16 *pusWallOrientation )
   TILE_ELEMENT		TileElem;
 
 	CHECKF( usIndex != NO_TILE );
+	CHECKF( usIndex < NUMBEROFTILES ); //lal bugfix
 
 	// Get tile element
 	TileElem = gTileDatabase[ usIndex ];
