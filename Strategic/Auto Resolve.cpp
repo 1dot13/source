@@ -62,6 +62,12 @@
 
 //#define INVULNERABILITY
 
+#define MAX_AR_TEAM_SIZE 256
+
+INT32 giMaxEnemiesToRender = 40;
+INT32 giMaxMilitiaToRender = 20;//Changes depending on merc amount
+
+
 extern BOOLEAN AutoReload( SOLDIERTYPE *pSoldier );
 extern HVSURFACE ghFrameBuffer;
 BOOLEAN gfTransferTacticalOppositionToAutoResolve = FALSE;
@@ -577,13 +583,13 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve1");
 	Assert( gpMercs );
 	memset( gpMercs, 0, sizeof( SOLDIERCELL ) * 20 );
 	//Militia -- MAX_ALLOWABLE_MILITIA_PER_SECTOR max
-	gpCivs = (SOLDIERCELL*)MemAlloc( sizeof( SOLDIERCELL) * gGameExternalOptions.iMaxMilitiaPerSector );
+	gpCivs = (SOLDIERCELL*)MemAlloc( sizeof( SOLDIERCELL) * MAX_AR_TEAM_SIZE  );
 	Assert( gpCivs );
-	memset( gpCivs, 0, sizeof( SOLDIERCELL ) * gGameExternalOptions.iMaxMilitiaPerSector );
+	memset( gpCivs, 0, sizeof( SOLDIERCELL ) * MAX_AR_TEAM_SIZE  );
 	//Enemies -- 32 max
-	gpEnemies = (SOLDIERCELL*)MemAlloc( sizeof( SOLDIERCELL) * 32 );
+	gpEnemies = (SOLDIERCELL*)MemAlloc( sizeof( SOLDIERCELL) * MAX_AR_TEAM_SIZE  );
 	Assert( gpEnemies );
-	memset( gpEnemies, 0, sizeof( SOLDIERCELL ) * 32 );
+	memset( gpEnemies, 0, sizeof( SOLDIERCELL ) * MAX_AR_TEAM_SIZE  );
 
 	//Set up autoresolve 
 	gpAR->fEnteringAutoResolve = TRUE;
@@ -822,7 +828,9 @@ void CalculateSoldierCells( BOOLEAN fReset )
 	gpAR->ubAliveCivs = gpAR->ubCivs;
 	gpAR->ubAliveEnemies = gpAR->ubEnemies;
 
-	iMaxTeamSize = max( gpAR->ubMercs + gpAR->ubCivs, gpAR->ubEnemies );
+	//iMaxTeamSize = max( gpAR->ubMercs + gpAR->ubCivs, gpAR->ubEnemies );
+	iMaxTeamSize = max( min( 40,  gpAR->ubMercs + gpAR->ubCivs ), min( 40,  gpAR->ubEnemies ) );
+
 	
 	if( iMaxTeamSize > 12 )
 	{
@@ -841,7 +849,8 @@ void CalculateSoldierCells( BOOLEAN fReset )
 
 	if( gpAR->ubMercs )
 	{
-		iStartY = iTop + (gpAR->sHeight - ((gpAR->ubMercRows+gpAR->ubCivRows)*47+7))/2 + 6;
+		iStartY = iTop + (gpAR->sHeight - (min(10,gpAR->ubMercRows+gpAR->ubCivRows)*47+7))/2 + 6;
+		//iStartY = iTop + (gpAR->sHeight - ((gpAR->ubMercRows+gpAR->ubCivRows)*47+7))/2 + 6;
 		y = gpAR->ubMercRows;
 		x = gpAR->ubMercCols;
 		i = gpAR->ubMercs;
@@ -881,17 +890,16 @@ void CalculateSoldierCells( BOOLEAN fReset )
 	}
 	if( gpAR->ubCivs )
 	{
-		iStartY = iTop + (gpAR->sHeight - ((gpAR->ubMercRows+gpAR->ubCivRows)*47+7))/2 + gpAR->ubMercRows*47 + 5;
+		iStartY = iTop + (gpAR->sHeight - (min(10,gpAR->ubMercRows+gpAR->ubCivRows)*47+7))/2 + gpAR->ubMercRows*47 + 5;
 		y = gpAR->ubCivRows;
 		x = gpAR->ubCivCols;
 		i = gpAR->ubCivs;
-		gapStartRow = gpAR->ubCivRows - gpAR->ubCivRows * gpAR->ubCivCols + gpAR->ubCivs;
-		for( x = 0; x < gpAR->ubCivCols; x++ ) for( y = 0; i && y < gpAR->ubCivRows; y++, i-- ) 
+
+		for( index = 0; index < gpAR->ubCivs ; ++index )
 		{
-			index = y * gpAR->ubCivCols + gpAR->ubCivCols - x - 1;
-			if( y >= gapStartRow )
-				index -= y - gapStartRow + 1;
-			Assert( index >= 0 && index < gpAR->ubCivs );
+			x = gpAR->ubCivCols - 1  - index % gpAR->ubCivCols;
+			y = index / gpAR->ubCivCols;
+
 			gpCivs[ index ].xp = gpAR->sCenterStartX + 3 - 55*(x+1);
 			gpCivs[ index ].yp = iStartY + y*47;
 			gpCivs[ index ].uiFlags |= CELL_MILITIA;
@@ -899,19 +907,19 @@ void CalculateSoldierCells( BOOLEAN fReset )
 	}
 	if( gpAR->ubEnemies )
 	{
-		iStartY = iTop + (gpAR->sHeight - (gpAR->ubEnemyRows*47+7))/2 + 5;
+		iStartY = iTop + (gpAR->sHeight - (min(10,gpAR->ubEnemyRows)*47+7))/2 + 5;
 		y = gpAR->ubEnemyRows;
 		x = gpAR->ubEnemyCols;
 		i = gpAR->ubEnemies;
-		gapStartRow = gpAR->ubEnemyRows - gpAR->ubEnemyRows * gpAR->ubEnemyCols + gpAR->ubEnemies;
-		for( x = 0; x < gpAR->ubEnemyCols; x++ ) for( y = 0; i && y < gpAR->ubEnemyRows; y++, i-- ) 
+
+		for( index = 0; index < gpAR->ubEnemies ; ++index )
 		{
-			index = y * gpAR->ubEnemyCols + x;
-			if( y > gapStartRow )
-				index -= y - gapStartRow;
-			Assert( index >= 0 && index < gpAR->ubEnemies );
+			x = index % gpAR->ubEnemyCols;
+			y = index / gpAR->ubEnemyCols;
+
 			gpEnemies[ index ].xp = (UINT16)(gpAR->sCenterStartX + 141 + 55*x);
 			gpEnemies[ index ].yp = iStartY + y*47;
+
 			if( gubEnemyEncounterCode != CREATURE_ATTACK_CODE )
 			{
 				if( index < gpAR->ubElites )
@@ -936,9 +944,49 @@ void CalculateSoldierCells( BOOLEAN fReset )
 	}
 }
 
+
+INT32 DetermineCellID( SOLDIERCELL *pCell )
+{
+	INT32 iIndex;
+
+	if( pCell->pSoldier->bTeam == ENEMY_TEAM )
+	{
+		for( iIndex = 0 ; iIndex < gpAR->ubEnemies ; iIndex++ )
+			if(	&gpEnemies[ iIndex ] == pCell )
+				return iIndex;
+	}else if( pCell->pSoldier->bTeam == MILITIA_TEAM )
+	{
+		for( iIndex = 0 ; iIndex < gpAR->ubCivs ; iIndex++ )
+			if(	&gpCivs[ iIndex ] == pCell )
+				return iIndex;
+	}
+	
+	return 0;
+}
+
+BOOLEAN IsItAllowedToRender( SOLDIERCELL *pCell )
+{
+	INT32 iID = DetermineCellID( pCell );
+
+	switch( pCell->pSoldier->bTeam )
+	{
+	case ENEMY_TEAM:
+		if( iID >= giMaxEnemiesToRender ) return FALSE;
+		break;
+	case MILITIA_TEAM:
+		if( iID >= giMaxMilitiaToRender ) return FALSE;
+		break;
+	}
+	return TRUE;
+}
+
+
 void RenderSoldierCell( SOLDIERCELL *pCell )
 {
 	UINT8 x;
+
+	if( !IsItAllowedToRender( pCell ) ) return;
+
 	if( pCell->uiFlags & CELL_MERC )
 	{
 		ColorFillVideoSurfaceArea( FRAME_BUFFER, pCell->xp+36, pCell->yp+2, pCell->xp+44,	pCell->yp+30, 0 );
@@ -2199,7 +2247,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 	gbGreenToRegPromotions = 0;
 	gbRegToElitePromotions = 0;
 	gbMilitiaPromotions = 0;
-	for( i = 0; i < gGameExternalOptions.iMaxMilitiaPerSector; i++ )
+	for( i = 0; i < MAX_AR_TEAM_SIZE; i++ )
 	{
 		if( gpCivs[ i ].pSoldier )
 		{
@@ -2254,7 +2302,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 	}
 
 	//Record and process all enemy deaths
-	for( i = 0; i < 32; i++ )
+	for( i = 0; i < MAX_AR_TEAM_SIZE; i++ )
 	{
 		if( gpEnemies[ i ].pSoldier )
 		{
@@ -2283,7 +2331,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 		}
 	}
 	//Physically delete the soldiers now.
-	for( i = 0; i < 32; i++ )
+	for( i = 0; i < MAX_AR_TEAM_SIZE; i++ )
 	{
 		if( gpEnemies[ i ].pSoldier )
 		{
@@ -2605,7 +2653,7 @@ void CalculateAutoResolveInfo()
 	{
 		GetNumberOfEnemiesInSector( gpAR->ubSectorX, gpAR->ubSectorY, 
 																&gpAR->ubAdmins, &gpAR->ubTroops, &gpAR->ubElites );
-		gpAR->ubEnemies = (UINT8)min( gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubElites, 32 );
+		gpAR->ubEnemies = (UINT8)min( gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubElites, MAX_AR_TEAM_SIZE  );
 	}
 	else
 	{
@@ -2621,7 +2669,7 @@ void CalculateAutoResolveInfo()
 																				&gpAR->ubYMCreatures, &gpAR->ubYFCreatures,
 																				&gpAR->ubAMCreatures, &gpAR->ubAFCreatures );
 		}
-		gpAR->ubEnemies = (UINT8)min( gpAR->ubYMCreatures + gpAR->ubYFCreatures + gpAR->ubAMCreatures + gpAR->ubAFCreatures, 32 );
+		gpAR->ubEnemies = (UINT8)min( gpAR->ubYMCreatures + gpAR->ubYFCreatures + gpAR->ubAMCreatures + gpAR->ubAFCreatures, MAX_AR_TEAM_SIZE );
 	}
 	gfTransferTacticalOppositionToAutoResolve = FALSE;
 	gpAR->ubCivs = CountAllMilitiaInSector( gpAR->ubSectorX, gpAR->ubSectorY );
@@ -2661,7 +2709,9 @@ void CalculateAutoResolveInfo()
 	}
 	gpAR->iNumMercFaces = gpAR->ubMercs;
 	gpAR->iActualMercFaces = gpAR->ubMercs; 
-
+	
+	giMaxMilitiaToRender = 50 - ( (gpAR->ubMercs + 4) / 5 ) * 5;
+	
 	CalculateRowsAndColumns();
 }
 
@@ -2849,7 +2899,7 @@ void CalculateRowsAndColumns()
 		}
 		if( gpAR->ubCivCols < 5 )
 		{ //match it up with the mercs
-			gpAR->ubCivCols = gpAR->ubMercCols;
+			gpAR->ubCivCols++; // = gpAR->ubMercCols;
 			gpAR->ubCivRows = (gpAR->ubCivs+gpAR->ubCivCols-1)/gpAR->ubCivCols;
 		}
 	}
@@ -2862,9 +2912,11 @@ void CalculateRowsAndColumns()
 	// WANNE 2
 	//gpAR->sCenterStartX = 323 - gpAR->sWidth/2 + max( max( gpAR->ubMercCols, 2), max( gpAR->ubCivCols, 2 ) ) *55;
 	gpAR->sCenterStartX = iScreenWidthOffset + (323 - gpAR->sWidth/2 + max( max( gpAR->ubMercCols, 2), max( gpAR->ubCivCols, 2 ) ) *55);
+	
 
 	//Anywhere from 48*3 to 48*10
-	gpAR->sHeight = 48 * max( 3, max( gpAR->ubMercRows + gpAR->ubCivRows, gpAR->ubEnemyRows ) );
+	//gpAR->sHeight = 48 * max( 3, max( gpAR->ubMercRows + gpAR->ubCivRows, gpAR->ubEnemyRows ) );
+	gpAR->sHeight = 48 * max( 3, max( min( 10, gpAR->ubMercRows + gpAR->ubCivRows ), min( 10, gpAR->ubEnemyRows ) ) );
 	//Make it an even multiple of 40 (rounding up).
 	gpAR->sHeight += 39;
 	gpAR->sHeight /= 40;
@@ -3001,7 +3053,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve3");
 				case '}':
 					if( CHEATER_CHEAT_LEVEL() )
 					{
-						gpAR->ubMercs = gGameExternalOptions.iMaxEnemyGroupSize;
+						gpAR->ubMercs = MAX_AR_TEAM_SIZE;
 						fResetAutoResolve = TRUE;
 					}
 					break;
@@ -3018,7 +3070,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve3");
 				case ']':
 					if( CHEATER_CHEAT_LEVEL() )
 					{
-						if( gpAR->ubMercs < gGameExternalOptions.iMaxEnemyGroupSize )
+						if( gpAR->ubMercs < MAX_AR_TEAM_SIZE )
 						{
 							gpAR->ubMercs++;
 							fResetAutoResolve = TRUE;
@@ -3035,7 +3087,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve3");
 				case '"':
 					if( CHEATER_CHEAT_LEVEL() )
 					{
-						gpAR->ubCivs = gGameExternalOptions.iMaxMilitiaPerSector;
+						gpAR->ubCivs = MAX_AR_TEAM_SIZE;
 						fResetAutoResolve = TRUE;
 					}
 					break;
@@ -3052,7 +3104,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve3");
 				case 39: // ' quote
 					if( CHEATER_CHEAT_LEVEL() )
 					{
-						if( gpAR->ubCivs < gGameExternalOptions.iMaxMilitiaPerSector )
+						if( gpAR->ubCivs < MAX_AR_TEAM_SIZE )
 						{
 							gpAR->ubCivs++;
 							fResetAutoResolve = TRUE;
@@ -3106,7 +3158,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve3");
 					if( CHEATER_CHEAT_LEVEL() )
 					{
 						gpAR->ubMercs = 20;
-						gpAR->ubCivs = gGameExternalOptions.iMaxMilitiaPerSector;
+						gpAR->ubCivs = MAX_AR_TEAM_SIZE;
 						gpAR->ubEnemies = 32;
 						fResetAutoResolve = TRUE;
 					}
