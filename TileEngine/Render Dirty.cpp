@@ -22,8 +22,8 @@
 #include "Message.h"
 #endif
 
-#define		DIRTY_QUEUES				200
-#define		BACKGROUND_BUFFERS	500
+#define		DIRTY_QUEUES			200
+#define		BACKGROUND_BUFFERS		1000 //was 500
 #define		VIDEO_OVERLAYS			100
 
 
