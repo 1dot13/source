@@ -652,39 +652,12 @@ INT32 FirstFreeBigEnoughPocket(MERCPROFILESTRUCT *pProfile, UINT16 usItem)
 
 void WriteOutCurrentImpCharacter( INT32 iProfileId )
 {
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("WriteOutCurrentImpCharacter: IMP.dat"));
-	char zImpFileName[12];
-	strcat(zImpFileName,IMP_MERC_FILENAME);
-	strcat(zImpFileName,IMP_FILENAME_SUFFIX);
-	WriteOutCurrentImpCharacter ( iProfileId, zImpFileName);
-
-
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("WriteOutCurrentImpCharacter: Nickname.dat"));
-	
-	char zFileName[12];
-	char temp;
-
-	for(int i=0;i < 8;i++) // Madd: I couldn't get strcpy or anything to work here... weird... if s/o wants to fix it, go ahead
-	{
-		temp = (char) gMercProfiles[iProfileId].zNickname[i];
-		zFileName[i] = temp;
-	}
-
-	strcat(zFileName,IMP_FILENAME_SUFFIX);
-
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("WriteOutCurrentImpCharacter: %s", zFileName));
-	WriteOutCurrentImpCharacter ( iProfileId, zFileName);
-}
-
-void WriteOutCurrentImpCharacter( INT32 iProfileId, STR fileName )
-{
 	// grab the profile number and write out what is contained there in 
 	HWFILE hFile;
 	UINT32 uiBytesWritten = 0;
 
 	// open the file for writing
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("WriteOutCurrentImpCharacter: %s", fileName));
-	hFile = FileOpen(fileName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE);
+	hFile = FileOpen(strcat((STR)(&gMercProfiles[iProfileId].zNickname),IMP_FILENAME_SUFFIX), FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE);
 
 	// write out the profile id
 	if (!FileWrite(hFile, &iProfileId, sizeof( INT32 ), &uiBytesWritten))
@@ -712,15 +685,11 @@ void WriteOutCurrentImpCharacter( INT32 iProfileId, STR fileName )
 
 BOOLEAN ImpExists ( STR nickName )
 {
-	char zFileName[12];
-
-	strcpy(zFileName,nickName);
-	strcat(zFileName,IMP_FILENAME_SUFFIX);
-
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ImpExists: %s", (STR) zFileName));
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ImpExists: %d", FileExistsNoDB(zFileName) ));
-
-	return FileExistsNoDB(zFileName);
+	DWORD attribs = GetFileAttributes(strcat(nickName,IMP_FILENAME_SUFFIX));
+	if ( attribs != INVALID_FILE_ATTRIBUTES && !(attribs & FILE_ATTRIBUTE_DIRECTORY) )
+		return TRUE;
+	
+	return FALSE;
 }
 
 void LoadImpCharacter( STR nickName )
@@ -729,13 +698,8 @@ void LoadImpCharacter( STR nickName )
 	HWFILE hFile;
 	UINT32 uiBytesRead = 0;
 
-	char zFileName[12];
-
-	strcpy(zFileName,nickName);
-	strcat(zFileName,IMP_FILENAME_SUFFIX);
-
 	// open the file for writing
-	hFile = FileOpen(zFileName, FILE_ACCESS_READ, FALSE);
+	hFile = FileOpen(strcat(nickName,IMP_FILENAME_SUFFIX), FILE_ACCESS_READ, FALSE);
 
 	// valid file?
 	if( hFile == -1 )

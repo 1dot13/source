@@ -1,31 +1,36 @@
+/*
+ * ChangeLog:
+ *  11.12.2005 Lesh changed balance settings
+ */
 #ifndef SOUND_CONTROL_H
 #define SOUND_CONTROL_H
 
-
+// == Lesh modifications ======
 #define FARLEFT         0
-#define LEFTSIDE        48
-#define MIDDLE          64
-#define MIDDLEPAN				64
-#define RIGHTSIDE       80
-#define FARRIGHT        127
+#define LEFTSIDE        96
+#define MIDDLE          128
+#define MIDDLEPAN		128
+#define RIGHTSIDE       160
+#define FARRIGHT        255
+// == Lesh modifications ends =
+
+#define LOWVOLUME		25
+#define BTNVOLUME		40
+#define MIDVOLUME		65
+#define HIGHVOLUME		127
 
 
-#define LOWVOLUME				25
-#define BTNVOLUME				40
-#define MIDVOLUME				65
-#define HIGHVOLUME			127
+#define	RATE_11025		0xffffffff
 
 
-#define	RATE_11025			0xffffffff
-
-
-#define LOOPING					0
+#define LOOPING			0
 
 // sound group priorities (higher = more important)
-#define GROUP_PLAYER		1000
-#define GROUP_AMBIENT		0
+#define GROUP_PLAYER	1000
+#define GROUP_AMBIENT	0
 
-#define MAX_SAMPLES			10000
+
+#define MAX_SAMPLES			5000
 
 
 // SOUNDS ENUMERATION
@@ -207,7 +212,7 @@ enum SoundDefines
 	S_THROWKNIFE,
 	S_TANK_CANNON,
 	S_BURSTTYPE1,
-  S_AUTOMAG,
+    S_AUTOMAG,
 
 	S_SILENCER_1,
 	S_SILENCER_2,
@@ -310,72 +315,72 @@ enum SoundDefines
 	SWIM_2,
 	KEY_FAILURE,
 	TARGET_OUT_OF_RANGE,
-  OPEN_STATUE,
-  USE_STATUE_REMOTE,
-  USE_WIRE_CUTTERS,
-  DRINK_CANTEEN_FEMALE,
-  BLOODCAT_ATTACK,
-  BLOODCAT_ROAR,
-  ROBOT_GREETING,
-  ROBOT_DEATH,
-  GAS_EXPLODE_1,
-  AIR_ESCAPING_1,
+    OPEN_STATUE,
+    USE_STATUE_REMOTE,
+    USE_WIRE_CUTTERS,
+    DRINK_CANTEEN_FEMALE,
+    BLOODCAT_ATTACK,
+    BLOODCAT_ROAR,
+    ROBOT_GREETING,
+    ROBOT_DEATH,
+    GAS_EXPLODE_1,
+    AIR_ESCAPING_1,
 
-  OPEN_DRAWER,
-  CLOSE_DRAWER,
-  OPEN_LOCKER,
-  CLOSE_LOCKER,
-  OPEN_WOODEN_BOX,
-  CLOSE_WOODEN_BOX,
-  ROBOT_STOP,
+    OPEN_DRAWER,
+    CLOSE_DRAWER,
+    OPEN_LOCKER,
+    CLOSE_LOCKER,
+    OPEN_WOODEN_BOX,
+    CLOSE_WOODEN_BOX,
+    ROBOT_STOP,
 
 	WATER_WALK1_IN,
 	WATER_WALK1_OUT,
 	WATER_WALK2_IN,
 	WATER_WALK2_OUT,
 
-  PRONE_UP_SOUND,
-  PRONE_DOWN_SOUND,
-  KNEEL_UP_SOUND,
-  KNEEL_DOWN_SOUND,
-  PICKING_SOMETHING_UP,
+    PRONE_UP_SOUND,
+    PRONE_DOWN_SOUND,
+    KNEEL_UP_SOUND,
+    KNEEL_DOWN_SOUND,
+    PICKING_SOMETHING_UP,
 
-  COW_FALL,
+    COW_FALL,
 
-  BLOODCAT_GROWL_1,
-  BLOODCAT_GROWL_2,
-  BLOODCAT_GROWL_3,
-  BLOODCAT_GROWL_4,
-  CREATURE_GAS_NOISE,
-  CREATURE_FALL_PART_2,
-  CREATURE_DISSOLVE_1,
-  QUEEN_AMBIENT_NOISE,
-  CREATURE_FALL,
-  CROW_PECKING_AT_FLESH,
-  CROW_FLYING_AWAY,
-  SLAP_2,
-  MORTAR_START,
-  MORTAR_WHISTLE,
-  MORTAR_LOAD,
+    BLOODCAT_GROWL_1,
+    BLOODCAT_GROWL_2,
+    BLOODCAT_GROWL_3,
+    BLOODCAT_GROWL_4,
+    CREATURE_GAS_NOISE,
+    CREATURE_FALL_PART_2,
+    CREATURE_DISSOLVE_1,
+    QUEEN_AMBIENT_NOISE,
+    CREATURE_FALL,
+    CROW_PECKING_AT_FLESH,
+    CROW_FLYING_AWAY,
+    SLAP_2,
+    MORTAR_START,
+    MORTAR_WHISTLE,
+    MORTAR_LOAD,
 
-  TURRET_MOVE,
-  TURRET_STOP,
-  COW_FALL_2,
-  KNIFE_IMPACT,
-  EXPLOSION_ALT_BLAST_1,
-  EXPLOSION_BLAST_2,
-  DRINK_CANTEEN_MALE,
-  USE_X_RAY_MACHINE,
-  CATCH_OBJECT,
-  FENCE_OPEN,
+    TURRET_MOVE,
+    TURRET_STOP,
+    COW_FALL_2,
+    KNIFE_IMPACT,
+    EXPLOSION_ALT_BLAST_1,
+    EXPLOSION_BLAST_2,
+    DRINK_CANTEEN_MALE,
+    USE_X_RAY_MACHINE,
+    CATCH_OBJECT,
+    FENCE_OPEN,
 
-  //MADD MARKER
-  S_BARRETT,
-  S_VAL,
-//	BREAK_LIGHT_IGNITING,
+	//MADD MARKER
+	S_BARRETT,
+	S_VAL,
+	//BREAK_LIGHT_IGNITING,
+
 	NUM_SAMPLES
 };
-
 
 enum AmbientDefines
 {
@@ -411,7 +416,6 @@ UINT32 PlayJA2Sample( UINT32 usNum, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoo
 UINT32 PlayJA2StreamingSample( UINT32 usNum, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan );
 
 UINT32 PlayJA2SampleFromFile( STR8 szFileName, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan );
-
 UINT32 PlayJA2StreamingSampleFromFile( STR8 szFileName, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan, SOUND_STOP_CALLBACK EndsCallback );
 
 UINT32	PlayJA2Ambient( UINT32 usNum, UINT32 ubVolume, UINT32 ubLoops);
@@ -422,10 +426,10 @@ UINT32 PlaySoldierJA2Sample( UINT16 usID, UINT32 usNum, UINT32 usRate, UINT32 ub
 
 
 UINT32	GetSoundEffectsVolume( );
-void		SetSoundEffectsVolume( UINT32 uiNewVolume );
+void	SetSoundEffectsVolume( UINT32 uiNewVolume );
 
 UINT32	GetSpeechVolume( );
-void		SetSpeechVolume( UINT32 uiNewVolume );
+void	SetSpeechVolume( UINT32 uiNewVolume );
 
 
 //Calculates a volume based on the current Speech Volume level 
@@ -435,8 +439,8 @@ UINT32 CalculateSpeechVolume( UINT32 uiVolume );
 //Calculates a volume based on the current Sound Effects Volume level
 UINT32 CalculateSoundEffectsVolume( UINT32 uiVolume );
 
-INT8	 SoundDir( INT16 sGridNo );
-INT8 SoundVolume( INT8 bInitialVolume, INT16 sGridNo );
+INT32 SoundDir( INT16 sGridNo );
+INT32 SoundVolume( INT8 bInitialVolume, INT16 sGridNo );
 
 // ATE: Warning! Use this sparingly! NOT very robust - can
 // have only 1 delayed sound at a time, and uses the global custom
@@ -445,7 +449,7 @@ void PlayDelayedJA2Sample( UINT32 uiDelay, UINT32 usNum, UINT32 usRate, UINT32 u
 
 
 #define POSITION_SOUND_FROM_SOLDIER   0x00000001
-#define POSITION_SOUND_STATIONATY_OBJECT				0x00000002
+#define POSITION_SOUND_STATIONATY_OBJECT	0x00000002
 
 INT32 NewPositionSnd( INT16 sGridNo, UINT32 uiFlags, UINT32 uiData, UINT32 iSoundToPlay );
 void DeletePositionSnd( INT32 iPositionSndIndex );

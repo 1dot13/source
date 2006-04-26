@@ -1768,7 +1768,7 @@ INT8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN 
 			#ifdef RUSSIAN
 				if( ubCharacterNum >= FIRST_RPC && ubCharacterNum < GASTON && gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )
 				{
-					sprintf( zFileName,"SPEECH\\r_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+					sprintf( (char *) zFileName,"SPEECH\\r_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
 				}
 				else
 			#endif

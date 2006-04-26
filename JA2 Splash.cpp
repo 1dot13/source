@@ -12,8 +12,8 @@ extern HVSURFACE ghFrameBuffer;
 void InitJA2SplashScreen()
 {
 	UINT32 uiLogoID = 0;
-	//HVSURFACE hVSurface; // unused jonathanl
-	// VSURFACE_DESC VSurfaceDesc; //unused jonathanl
+	HVSURFACE hVSurface; // unused jonathanl  // lalien reenabled for international versions
+	VSURFACE_DESC VSurfaceDesc; //unused jonathanl // lalien reenabled for international versions
 	INT32 i = 0;
 
 #if !defined( ENGLISH ) && defined( JA2TESTVERSION )

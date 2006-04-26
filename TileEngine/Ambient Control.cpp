@@ -227,6 +227,8 @@ UINT32 SetupNewAmbientSound( UINT32 uiAmbientID )
 {
 	RANDOMPARMS rpParms;
 
+	//SoundLog((CHAR8 *)String("  SetupNewAmbientSound()1:  uiAmbientID: '%d'", uiAmbientID ) );
+	
 	memset(&rpParms, 0xff, sizeof(RANDOMPARMS));
 
 	rpParms.uiTimeMin		=	gAmbData[ uiAmbientID ].uiMinTime;
@@ -235,7 +237,9 @@ UINT32 SetupNewAmbientSound( UINT32 uiAmbientID )
 	rpParms.uiVolMax		= CalculateSoundEffectsVolume( gAmbData[ uiAmbientID ].uiVol );
 	rpParms.uiPriority	=	GROUP_AMBIENT;
 
-	return SoundPlayRandom( gAmbData[ uiAmbientID ].zFilename, &rpParms );
+	//SoundLog((CHAR8 *)String("  SetupNewAmbientSound()2:  gAmbData[ uiAmbientID ].zFilename: '%s',  Params: '%s'", gAmbData[ uiAmbientID ].zFilename, &rpParms ) );
+	
+	return SoundPlayRandom( gAmbData[ uiAmbientID ].zFilename, &rpParms );  //bug Nr14
 }
 
 

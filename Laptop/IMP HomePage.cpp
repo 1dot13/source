@@ -342,7 +342,7 @@ void HandleTextEvent( UINT32 uiKey )
 					uiKey == '_' || uiKey == '.' )
 			{ 
 				// if the current string position is at max or great, do nothing
-        if( iStringPos >= 8 )
+        if( iStringPos >= 6 )
         {
 					break;
 				}
@@ -387,9 +387,6 @@ void ProcessPlayerInputActivationString( void )
 	if( NumberOfMercsOnPlayerTeam() >= 18 )		
 		return;
 
-	char charPlayerActivationString[32];
-	wcstombs(charPlayerActivationString,pPlayerActivationString,32);
-
 //Madd multiple imps if( ( ( wcscmp(pPlayerActivationString, L"XEP624") == 0 ) || ( wcscmp(pPlayerActivationString, L"xep624") == 0 ) )&&( LaptopSaveInfo.fIMPCompletedFlag == FALSE ) &&( LaptopSaveInfo.gfNewGameLaptop < 2 ) )
   if( ( ( wcscmp(pPlayerActivationString, L"XEP624") == 0 ) || ( wcscmp(pPlayerActivationString, L"xep624") == 0 ) ) &&( LaptopSaveInfo.gfNewGameLaptop < 2 ) )
 	{
@@ -400,14 +397,10 @@ void ProcessPlayerInputActivationString( void )
 	
 	}
 	//Madd multiple imps else if( ( wcscmp(pPlayerActivationString, L"90210") == 0 ) && ( LaptopSaveInfo.fIMPCompletedFlag == FALSE ) )
-	else if( wcscmp(pPlayerActivationString, L"90210") == 0 )
+	// Madd: load characters by name:
+	else if ( ImpExists( (STR)pPlayerActivationString ) )
 	{
-		LoadImpCharacter( IMP_MERC_FILENAME );
-	}
-	// Madd: load characters by name
-	else if ( ImpExists( charPlayerActivationString ) )
-	{
-		LoadImpCharacter( charPlayerActivationString );
+		LoadImpCharacter( (STR)pPlayerActivationString );
 	}
 
 	else

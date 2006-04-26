@@ -154,7 +154,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			else
 			{
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"ExecuteStrategicEvent: SetupNewAmbientSound");
-				pEvent->uiParam = SetupNewAmbientSound( pEvent->uiParam );
+				pEvent->uiParam = SetupNewAmbientSound( pEvent->uiParam ); //bug Nr14
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"ExecuteStrategicEvent: SetupNewAmbientSound done");
 			}
 			break;

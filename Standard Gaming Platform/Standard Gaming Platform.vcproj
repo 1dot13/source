@@ -2749,13 +2749,16 @@
 				RelativePath="FileMan.h">
 			</File>
 			<File
+				RelativePath=".\fmod.h">
+			</File>
+			<File
+				RelativePath=".\fmod_errors.h">
+			</File>
+			<File
 				RelativePath="..\Utils\Font Control.h">
 			</File>
 			<File
 				RelativePath="font.h">
-			</File>
-			<File
-				RelativePath="gameloop.h">
 			</File>
 			<File
 				RelativePath="himage.h">
@@ -2873,9 +2876,6 @@
 			</File>
 			<File
 				RelativePath="WCheck.h">
-			</File>
-			<File
-				RelativePath="Winbart97.h">
 			</File>
 			<File
 				RelativePath="WinFont.h">

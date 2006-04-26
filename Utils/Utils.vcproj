@@ -967,6 +967,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\_Ja25RussianText.cpp">
+			</File>
+			<File
 				RelativePath="_PolishText.cpp">
 				<FileConfiguration
 					Name="Demo Release with Debug Info|Win32">
@@ -3086,6 +3089,9 @@
 				RelativePath="_Ja25GermanText.h">
 			</File>
 			<File
+				RelativePath=".\_Ja25RussianText.h">
+			</File>
+			<File
 				RelativePath="Animated ProgressBar.h">
 			</File>
 			<File
@@ -3139,10 +3145,6 @@
 			<File
 				RelativePath="Utils All.h">
 			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe">
 		</Filter>
 	</Files>
 	<Globals>

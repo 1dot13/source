@@ -5,6 +5,9 @@
 //	Stolen from Nemesis by Derek Beland.
 //	Originally by Derek Beland and Bret Rowden.
 //
+//  ChangeLog:
+//      10.12.2005 Lesh ripped everything that refers to MSS
+//      15.12.2005 Lesh enabled sound in video
 //----------------------------------------------------------------------------------
 //#include "LocalCodeAll.h"
 
@@ -23,7 +26,6 @@
 #include "FileMan.h"
 #include "smack.h"
 #include "ddraw.h"
-#include "mss.h"
 #include "DirectX Common.h"
 #include "DirectDraw Calls.h"
 #include "Cinematics.h"
@@ -131,9 +133,10 @@ DDSURFACEDESC SurfaceDescription;
 	return(fFlicStatus);
 }
 
+// Lesh changed this function only -----------------------------
 void SmkInitialize(HWND hWindow, UINT32 uiWidth, UINT32 uiHeight)
 {
-	HDIGDRIVER pSoundDriver = NULL;
+	void *pSoundDriver = NULL;
 
 	// Wipe the flic list clean
 	memset(SmkList, 0, sizeof(SMKFLIC)*SMK_NUM_FLICS);
@@ -151,7 +154,7 @@ void SmkInitialize(HWND hWindow, UINT32 uiWidth, UINT32 uiHeight)
 
 	//if we got the sound handle, use sound during the intro
 	if( pSoundDriver )
-		SmackSoundUseMSS( pSoundDriver );
+		SmackSoundUseDirectSound( pSoundDriver );
 }
 
 void SmkShutdown(void)

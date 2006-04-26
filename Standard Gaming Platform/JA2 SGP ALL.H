@@ -1,10 +1,15 @@
+/*
+ * ChangeLog:
+ *  10.12.2005 Lesh ripped out everything that refers to MSS
+ *  10.12.2005 Lesh added fmod.h
+ */ 
 #ifndef __JA2_SGP_ALL_H
 #define __JA2_SGP_ALL_H
 
 #pragma message("GENERATED PCH FOR JA2 SGP PROJECT.")
 
 //#ifndef INITGUID
-// #define INITGUID
+//	#define INITGUID
 //#endif
 
 
@@ -13,9 +18,9 @@
 #include "Button Sound Control.h"
 #include "Sound Control.h"
 #ifdef _JA2_RENDER_DIRTY
-   #include "Font Control.h"
-   #include "Render Dirty.h"
-   #include "utilities.h"
+	#include "Font Control.h"
+	#include "Render Dirty.h"
+	#include "utilities.h"
 #endif
 #include "input.h"
 #include "memman.h"
@@ -28,8 +33,8 @@
 #include <stdarg.h>
 #include "debug.h"
 #ifndef NO_ZLIB_COMPRESSION
-   #include "zlib.h"
-   #include "Compression.h"
+	#include "zlib.h"
+	#include "Compression.h"
 #endif
 #include "types.h"
 #include <stdlib.h>
@@ -73,9 +78,9 @@
 #include <tchar.h>
 #include <assert.h>
 #include "Install.h"
-#include "GameSettings.h"
+#include	"GameSettings.h"
 #ifdef _DEBUG
-   #include <crtdbg.h>
+	#include <crtdbg.h>
 #endif
 #include "mousesystem.h"
 #include "Mutex Manager.h"
@@ -83,7 +88,7 @@
 #include <windowsx.h>
 #include "vobject_private.h"
 #include "shading.h"
-#include "mss.h"
+//#include "mss.h"
 #include "imgfmt.h"
 #include "timer.h"
 #include "renderworld.h"
@@ -94,5 +99,8 @@
 #include "vsurface_private.h"
 #include "Timer Control.h"
 
+// Lesh modifications
+#include "fmod.h"
+#include "fmod_errors.h"
 
 #endif

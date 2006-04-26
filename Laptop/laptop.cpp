@@ -4519,8 +4519,8 @@ BOOLEAN DisplayTitleBarMaximizeGraphic(BOOLEAN fForward, BOOLEAN fInit, UINT16 u
 
 	sPosBottomY = LAPTOP_TITLE_BAR_HEIGHT;
 
-	SrcRect.iLeft = 0;
-	SrcRect.iTop = 0;
+	SrcRect.iLeft = iScreenWidthOffset;
+	SrcRect.iTop = iScreenHeightOffset;
 	SrcRect.iRight = LAPTOP_TITLE_BAR_WIDTH;
 	SrcRect.iBottom = LAPTOP_TITLE_BAR_HEIGHT;
 
