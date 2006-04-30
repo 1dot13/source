@@ -3487,7 +3487,14 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	dDeltaY = dEndY - dStartY;
 	dDeltaZ = dEndZ - dStartZ;
 
-	d2DDistance = Distance2D( dDeltaX, dDeltaY );
+	//lal bugfix
+	if( dDeltaZ > 0 )
+		d2DDistance = Distance3D( dDeltaX, dDeltaY, dDeltaZ );
+	else
+		d2DDistance = Distance2D( dDeltaX, dDeltaY );
+
+	//d2DDistance = Distance2D( dDeltaX, dDeltaY );
+	
 	iDistance = (INT32) d2DDistance;
 
 	if ( d2DDistance != iDistance )
