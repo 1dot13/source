@@ -451,7 +451,7 @@ BOOLEAN		EnterGIOScreen()
 			ButtonList[ guiBROptionToggles[ GIO_BR_AWESOME ] ]->uiFlags |= BUTTON_CLICKED_ON;
 			break;
 	}
-/*
+
 	// JA2Gold: iron man buttons
 	usPosY = GIO_IRON_MAN_SETTING_Y - GIO_OFFSET_TO_TOGGLE_BOX_Y;
 	for( cnt=0; cnt<NUM_SAVE_OPTIONS; cnt++)
@@ -467,7 +467,7 @@ BOOLEAN		EnterGIOScreen()
 		ButtonList[ guiGameSaveToggles[ GIO_IRON_MAN ] ]->uiFlags |= BUTTON_CLICKED_ON;
 	else
 		ButtonList[ guiGameSaveToggles[ GIO_CAN_SAVE ] ]->uiFlags |= BUTTON_CLICKED_ON;
-*/
+
 
 
 	//
@@ -567,10 +567,9 @@ BOOLEAN		ExitGIOScreen()
 	for( cnt=0; cnt<NUM_BR_OPTIONS; cnt++)
 		RemoveButton( guiBROptionToggles[ cnt ] );
 
-/*	// JA2Gold: remove iron man buttons
+	// JA2Gold: remove iron man buttons
 	for( cnt=0; cnt<NUM_SAVE_OPTIONS; cnt++)
 		RemoveButton( guiGameSaveToggles[ cnt ] );
-*/
 
 	gfGIOButtonsAllocated = FALSE;
 
@@ -726,7 +725,7 @@ BOOLEAN		RenderGIOScreen()
 	DisplayWrappedString( (UINT16)(GIO_BR_SETTING_X+GIO_OFFSET_TO_TEXT), usPosY, GIO_DIF_SETTINGS_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_BR_AWESOME_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
 // JA2Gold: Display the iron man Settings Title Text
-/*
+
 	DisplayWrappedString( GIO_IRON_MAN_SETTING_X, (UINT16)(GIO_IRON_MAN_SETTING_Y-GIO_GAP_BN_SETTINGS), GIO_DIF_SETTINGS_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_GAME_SAVE_STYLE_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 	usPosY = GIO_IRON_MAN_SETTING_Y+2;
 
@@ -737,7 +736,7 @@ BOOLEAN		RenderGIOScreen()
 
 	usPosY += 20;
 	DisplayWrappedString( (UINT16)(GIO_IRON_MAN_SETTING_X+GIO_OFFSET_TO_TEXT), usPosY, 220, 2, FONT12ARIAL, GIO_TOGGLE_TEXT_COLOR, zNewTacticalMessages[ TCTL_MSG__CANNOT_SAVE_DURING_COMBAT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-*/
+
 
 	return( TRUE );
 }
@@ -1197,14 +1196,14 @@ void RestoreGIOButtonBackGrounds()
 	}
 	*/
 
-/*	//Check box to toggle iron man options
+	//Check box to toggle iron man options
 	usPosY = GIO_IRON_MAN_SETTING_Y-GIO_OFFSET_TO_TOGGLE_BOX_Y;
 	for( cnt=0; cnt<NUM_SAVE_OPTIONS; cnt++)
 	{
 		RestoreExternBackgroundRect( GIO_IRON_MAN_SETTING_X+GIO_OFFSET_TO_TOGGLE_BOX, usPosY, 34, 29 ); 
 		usPosY += GIO_GAP_BN_SETTINGS;
 	}
-*/
+
 // Madd
 
 	usPosY = GIO_BR_SETTING_Y-GIO_OFFSET_TO_TOGGLE_BOX_Y;
@@ -1226,9 +1225,8 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	// JA2Gold: no more timed turns setting
 	//gGameOptions.fTurnTimeLimit = GetCurrentTimedTurnsButtonSetting();
 	// JA2Gold: iron man
-	//gGameOptions.fIronManMode = GetCurrentGameSaveButtonSetting();
-	// Madd
-	gGameOptions.fIronManMode = FALSE;
+	gGameOptions.fIronManMode = GetCurrentGameSaveButtonSetting();
+	
 	switch ( GetCurrentBROptionButtonSetting() )
 	{
 		case GIO_BR_GOOD:
@@ -1327,7 +1325,7 @@ void	ConfirmGioDifSettingMessageBoxCallBack( UINT8 bExitValue )
 BOOLEAN DisplayMessageToUserAboutIronManMode()
 {
 	// Madd
-	UINT8 ubIronManMode = FALSE; // GetCurrentGameSaveButtonSetting();
+	UINT8 ubIronManMode = GetCurrentGameSaveButtonSetting(); //FALSE; 
 
 	//if the user has selected IRON MAN mode
 	if( ubIronManMode )

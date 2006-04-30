@@ -1244,7 +1244,7 @@ void Print8CharacterOnlyString( void )
 
 BOOLEAN CheckCharacterInputForEgg( void )
 {
-//	MERC_HIRE_STRUCT HireMercStruct;
+	MERC_HIRE_STRUCT HireMercStruct;
 
 #ifndef JA2BETAVERSION
 	return( FALSE );

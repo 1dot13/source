@@ -1,3 +1,4 @@
+// WANNE 3 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Laptop All.h"
 #else
@@ -58,17 +59,19 @@
 #define		MERC_FILES_BIO_BOX_X							MERC_FILES_PORTRAIT_BOX_X
 #define		MERC_FILES_BIO_BOX_Y							LAPTOP_SCREEN_WEB_UL_Y + 155
 
+// OK
 #define		MERC_FILES_PREV_BUTTON_X					iScreenWidthOffset + 128
 #define		MERC_FILES_PREV_BUTTON_Y					iScreenHeightOffset + 380
 
-#define		MERC_FILES_NEXT_BUTTON_X					iScreenWidthOffset + 490
-#define		MERC_FILES_NEXT_BUTTON_Y					MERC_FILES_PREV_BUTTON_Y
-
-#define		MERC_FILES_HIRE_BUTTON_X					iScreenWidthOffset + 260
+#define		MERC_FILES_HIRE_BUTTON_X					MERC_FILES_PREV_BUTTON_X + 103 + 16		//iScreenWidthOffset + 260
 #define		MERC_FILES_HIRE_BUTTON_Y					MERC_FILES_PREV_BUTTON_Y
 
-#define		MERC_FILES_BACK_BUTTON_X					iScreenWidthOffset + 380
+#define		MERC_FILES_BACK_BUTTON_X					MERC_FILES_HIRE_BUTTON_X + 103 + 16		//iScreenWidthOffset + 380
 #define		MERC_FILES_BACK_BUTTON_Y					MERC_FILES_PREV_BUTTON_Y
+
+// OK
+#define		MERC_FILES_NEXT_BUTTON_X					iScreenWidthOffset + 485			//490
+#define		MERC_FILES_NEXT_BUTTON_Y					MERC_FILES_PREV_BUTTON_Y
 
 #define		MERC_NAME_X												MERC_FILES_STATS_BOX_X + 50
 #define		MERC_NAME_Y												MERC_FILES_STATS_BOX_Y + 10

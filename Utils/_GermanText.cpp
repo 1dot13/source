@@ -2455,6 +2455,15 @@ STR16 MercAccountText[] =
 	L"Zahlung von %s wirklich genehmigen?",		//the %s is a string that contains the dollar amount ( ex. "$150" )
 };
 
+// WANNE 3
+// Merc Account Page buttons
+STR16			MercAccountPageText[] = 
+{
+	// Text on the buttons on the bottom of the screen
+	L"Zurück",
+  L"Weiter",
+};
+
 //For use at the M.E.R.C. web site. Text relating a MERC mercenary
 STR16 MercInfo[] =
 {

@@ -559,6 +559,9 @@ enum
 };
 extern		STR16			MercAccountText[];
 
+// WANNE 3
+extern	STR16 MercAccountPageText[];
+
 
 //MercFile.c
 enum

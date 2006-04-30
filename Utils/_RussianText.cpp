@@ -2551,7 +2551,14 @@ STR16			MercAccountText[] =
 	L"¬ы уверены, что хотите подтвердить выплату %s?",		//the %s is a string that contains the dollar amount ( ex. "$150" )
 };
 
-
+// WANNE 3
+// Merc Account Page buttons
+STR16			MercAccountPageText[] = 
+{
+	// Text on the buttons on the bottom of the screen
+	L"Previous",
+  L"Next",
+};
 
 //For use at the M.E.R.C. web site. Text relating a MERC mercenary
 
