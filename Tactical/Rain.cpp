@@ -151,7 +151,7 @@ BOOLEAN IsItAllowedToRenderRain()
 {
 	if( !gfAllowRain )return FALSE;
 
-	if( !( guiEnvWeather & WEATHER_FORECAST_THUNDERSHOWERS | WEATHER_FORECAST_SHOWERS ) )return FALSE;
+	if( !( guiEnvWeather & (WEATHER_FORECAST_THUNDERSHOWERS | WEATHER_FORECAST_SHOWERS) ) )return FALSE;
 
 	if( guiCurrentScreen != GAME_SCREEN && guiCurrentScreen != SHOPKEEPER_SCREEN ) return FALSE;
 
@@ -198,7 +198,7 @@ void ResetRain()
 
 void GenerateRainDropsList()
 {
-	guiCurrMaxAmountOfRainDrops = (UINT32)(BASE_MAXIMUM_DROPS * gbCurrentRainIntensity);
+	guiCurrMaxAmountOfRainDrops = (UINT32)BASE_MAXIMUM_DROPS * gbCurrentRainIntensity;
 
 	pRainDrops = (TRainDrop *)MemAlloc( sizeof( TRainDrop ) * guiCurrMaxAmountOfRainDrops );
 	memset( pRainDrops, 0, sizeof( TRainDrop ) * guiCurrMaxAmountOfRainDrops );

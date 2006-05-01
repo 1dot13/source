@@ -16,6 +16,10 @@
 	#include "Cursor Control.h"
 #endif
 
+//aim
+extern UINT8  gubShowActionPointsInRed;
+UINT8 gpShadesFromWhiteToRed[] = {FONT_MCOLOR_WHITE, FONT_MCOLOR_DKWHITE, FONT_MCOLOR_DKGRAY, FONT_MCOLOR_DKRED, FONT_MCOLOR_RED };
+//aim
 
 #define NUM_MOUSE_LEVELS		2
 
@@ -1451,6 +1455,16 @@ void DrawMouseText( )
 					SetFontBackground( FONT_MCOLOR_BLACK );
 					SetFontForeground( FONT_MCOLOR_WHITE );
 					SetFontShadow( DEFAULT_SHADOW );				
+
+					//aim
+					if ( gubShowActionPointsInRed )
+					{
+						SetFontForeground( gpShadesFromWhiteToRed[ gubShowActionPointsInRed - 1 ] );
+						gubShowActionPointsInRed = 0;
+					}
+					else
+						SetFontForeground( FONT_MCOLOR_WHITE );
+					//aim
 				}
 			}
 			else
@@ -1460,6 +1474,14 @@ void DrawMouseText( )
 
 			if ( gfUIDisplayActionPointsBlack )
 			{
+				//aim
+				if ( gubShowActionPointsInRed )
+				{
+					SetFontForeground( gpShadesFromWhiteToRed[ gubShowActionPointsInRed - 1 ] );
+					gubShowActionPointsInRed = 0;
+				}
+				else
+				//aim
 				SetFontForeground( FONT_MCOLOR_WHITE );
 				SetFontShadow( DEFAULT_SHADOW );				
 			}

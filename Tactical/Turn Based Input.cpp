@@ -227,6 +227,7 @@ UINT8			gubCheatLevel		= STARTING_CHEAT_LEVEL;
 
 
 extern void DetermineWhichAssignmentMenusCanBeShown( void );
+extern void DetermineWhichMilitiaControlMenusCanBeShown( void ); //lal
 
 void	GetTBMouseButtonInput( UINT32 *puiNewEvent )
 {
@@ -4983,5 +4984,18 @@ void PopupAssignmentMenuInTactical( SOLDIERTYPE *pSoldier )
 	DetermineBoxPositions( );
 	DetermineWhichAssignmentMenusCanBeShown( );
 	fFirstClickInAssignmentScreenMask = TRUE;
+	gfIgnoreScrolling = TRUE;
+}
+
+//lal
+void PopupMilitiaControlMenu( SOLDIERTYPE *pSoldier )
+{
+	// do something
+	fShowMilitiaControlMenu = TRUE;
+	CreateDestroyMilitiaControlPopUpBoxes( );
+	SetTacticalPopUpMilitiaControlBoxXY( pSoldier );
+	DetermineMilitiaControlBoxPositions();
+	DetermineWhichMilitiaControlMenusCanBeShown( );
+	fFirstClickInMilitiaControlScreenMask = TRUE;
 	gfIgnoreScrolling = TRUE;
 }

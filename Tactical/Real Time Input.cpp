@@ -70,6 +70,7 @@ extern BOOLEAN fIgnoreLeftUp;
 extern UINT32  guiCurrentEvent;
 extern UINT32 guiCurrentUICursor;
 extern void DetermineWhichAssignmentMenusCanBeShown( void );
+extern void DetermineWhichMilitiaControlMenusCanBeShown( void );
 extern BOOLEAN gfIgnoreOnSelectedGuy;
 extern INT16 gsOverItemsGridNo;
 extern INT16 gsOverItemsLevel;
@@ -1023,34 +1024,38 @@ void	QueryRTRightButton( UINT32 *puiNewEvent )
 								case TALKCURSOR_MODE:
 								case MOVE_MODE:
 									
-                  if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
-                  {
-									  if ( ( guiUIFullTargetFlags & OWNED_MERC ) && ( guiUIFullTargetFlags & VISIBLE_MERC ) && !( guiUIFullTargetFlags & DEAD_MERC )&&!( pSoldier ?  pSoldier->uiStatusFlags & SOLDIER_VEHICLE : 0 ) )
-									  {
-										  //if( pSoldier->bAssignment >= ON_DUTY )
-										  {
-                        PopupAssignmentMenuInTactical( pSoldier );
-    										fClickHoldIntercepted = TRUE;
-                      }
-										  break;
-									  }
-									  else
-									  {
-										  fShowAssignmentMenu = FALSE;
-										  CreateDestroyAssignmentPopUpBoxes( );
-										  DetermineWhichAssignmentMenusCanBeShown( );
-									  }
+									if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
+									{
+										if ( ( guiUIFullTargetFlags & OWNED_MERC ) && ( guiUIFullTargetFlags & VISIBLE_MERC ) && !( guiUIFullTargetFlags & DEAD_MERC )&&!( pSoldier ?  pSoldier->uiStatusFlags & SOLDIER_VEHICLE : 0 ) )
+										{
+											//if( pSoldier->bAssignment >= ON_DUTY )
+											{
+												PopupAssignmentMenuInTactical( pSoldier );
+												fClickHoldIntercepted = TRUE;
+											}
+											break;
+										}
+										else
+										{
+											fShowAssignmentMenu = FALSE;
+											CreateDestroyAssignmentPopUpBoxes( );
+											DetermineWhichAssignmentMenusCanBeShown( );
+											
+											fShowMilitiaControlMenu = FALSE;											
+											CreateDestroyMilitiaControlPopUpBoxes( );
+											DetermineWhichMilitiaControlMenusCanBeShown( );
+										}
 
-									  // ATE:
-									  if ( !fClickHoldIntercepted )
-									  {
-										  *puiNewEvent = U_MOVEMENT_MENU;
-										  fClickHoldIntercepted = TRUE;
-									  }
-  									break;
-	  						}
-              }
-							
+										// ATE:
+										if ( !fClickHoldIntercepted )
+										{
+											*puiNewEvent = U_MOVEMENT_MENU;
+											fClickHoldIntercepted = TRUE;
+										}
+										break;
+									}
+							}
+
 							if ( gCurrentUIMode == ACTION_MODE || gCurrentUIMode == TALKCURSOR_MODE )
 							{
 								PauseRT( FALSE );

@@ -340,6 +340,7 @@ void GotoHeigherStance( SOLDIERTYPE *pSoldier );
 BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT16 sGridNo , BOOLEAN fCheckForPath);
 
 void PopupAssignmentMenuInTactical( SOLDIERTYPE *pSoldier );
+void PopupMilitiaControlMenu( SOLDIERTYPE *pSoldier ); //lal
 
 void PreventFromTheFreezingBug(SOLDIERTYPE* pSoldier);
 

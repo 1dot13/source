@@ -7,13 +7,34 @@
 
 #define GAME_INI_FILE "\\Ja2.ini"
 
-BOOLEAN gfStretch = FALSE;
-BOOLEAN gfStretchWinGDI = FALSE;
-BOOLEAN gfVSync = FALSE;
 
+#define SET_SYSTEM "JA2 System Settings"
+#define SET_RESOLUTION "JA2 Screen Resolution Settings"
+#define SET_RAIN "JA2 Rain Settings"
+#define SET_THUNDER "JA2 Thunder Settings"
+#define SET_TURN_SPEED "JA2 Turnbased Animation Speed Settings"
+#define SET_STRATEGIC "JA2 Strategic Settings"
+#define SET_SPECIAL "JA2 Special Settings"
+#define SET_TACTICAL "JA2 Tactical Settings"
+#define SET_TACTICAL_AI "JA2 Tactical AI Settings"
+#define SET_GRAPHIC "JA2 Graphic Settings"
+#define SET_GAMEPLAY "JA2 Gameplay Settings"
+
+
+UINT8 gubDeadLockDelay = 15;
+UINT8 ubStraightSightRange = 13;
+
+BOOLEAN gfVSync = FALSE;
 BOOLEAN gfAllowRain = FALSE;
 
 UINT16 gusRainChancePerDay = 100, gusRainMinLength = 60, gusRainMaxLength = 180;
+
+
+extern UINT8 gubPlayerTurnSpeedUpFactor;
+extern UINT8 gubEnemyTurnSpeedUpFactor;
+extern UINT8 gubCreatureTurnSpeedUpFactor;
+extern UINT8 gubMilitiaTurnSpeedUpFactor;
+extern UINT8 gubCivTurnSpeedUpFactor;
 
 extern UINT32 guiMinLightningInterval;
 extern UINT32 guiMaxLightningInterval;
@@ -24,6 +45,14 @@ extern UINT32 guiChanceToDoLightningBetweenTurns;
 
 extern UINT32 guiMaxRainDrops;
 
+BOOLEAN gfEnableEmergencyButton_SkipStrategicEvents = FALSE;
+BOOLEAN gfAllowMilitiaGroups = TRUE;
+BOOLEAN gfAllowReinforcments = TRUE;
+BOOLEAN gfAllowReinforcmentsOnlyInCity = FALSE;
+UINT32 guiBaseQueenPoolIncrement = 60;
+
+BOOLEAN fAllowTacticalMilitiaCommand = TRUE;
+
 typedef struct
 {
 	CHAR8* strParamName;
@@ -32,8 +61,6 @@ typedef struct
 	UINT8 ubVarType;
 }TSetting;
 
-#define SET_RAIN "JA2 Rain Settings"
-#define SET_THUNDER "JA2 Thunder Settings"
 
 enum
 {
@@ -46,8 +73,36 @@ enum
 	VT_BOOLEAN
 };
 
-TSetting gpSettings[] = {
+TSetting gpSettings[] = 
+{	
+	{"fVSync", SET_RESOLUTION, &gfVSync, VT_BOOLEAN},
 	
+	{"PlayerTurnSpeedUpFactor", SET_TURN_SPEED, (LPVOID)&gubPlayerTurnSpeedUpFactor, VT_UINT8},
+	{"EnemyTurnSpeedUpFactor", SET_TURN_SPEED, (LPVOID)&gubEnemyTurnSpeedUpFactor, VT_UINT8},
+	{"CreatureTurnSpeedUpFactor", SET_TURN_SPEED, (LPVOID)&gubCreatureTurnSpeedUpFactor, VT_UINT8},
+	{"MilitiaTurnSpeedUpFactor", SET_TURN_SPEED, (LPVOID)&gubMilitiaTurnSpeedUpFactor, VT_UINT8},
+	{"CivTurnSpeedUpFactor", SET_TURN_SPEED, (LPVOID)&gubCivTurnSpeedUpFactor, VT_UINT8},
+
+	// Militia Settings
+	{"AllowTacticalMilitiaCommand", SET_TACTICAL, &fAllowTacticalMilitiaCommand, VT_BOOLEAN},
+	
+	{"AllowMilitiaMobileGroups", SET_GAMEPLAY, &gfAllowMilitiaGroups, VT_BOOLEAN},
+	{"AllowReinforcments", SET_GAMEPLAY, &gfAllowReinforcments, VT_BOOLEAN},
+	{"AllowReinforcmentsOnlyInCities", SET_GAMEPLAY, &gfAllowReinforcmentsOnlyInCity, VT_BOOLEAN},
+	{"QueenPoolIncrementPerDifficultyLevel", SET_GAMEPLAY, &guiBaseQueenPoolIncrement, VT_UINT32},
+
+	
+	//Sight range
+	{"BaseSightRange", SET_TACTICAL, &ubStraightSightRange, VT_UINT8},
+	
+
+	// Maximal search distance for grenades
+	//{"MaxTossSearchDist", SET_TACTICAL_AI, &guiMaxTossSearchDist, VT_UINT32},
+
+	//{"fEnableEmergencyButton_NumLock_ToSkipStrategicEvents", SET_SPECIAL, &gfEnableEmergencyButton_SkipStrategicEvents, VT_BOOLEAN},
+
+
+
 	// Rain settings
 	{"ALLOW_RAIN", SET_RAIN, &gfAllowRain, VT_BOOLEAN},
 	{"RAIN_CHANCE_PER_DAY", SET_RAIN, &gusRainChancePerDay, VT_UINT16},

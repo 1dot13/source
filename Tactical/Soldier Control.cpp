@@ -93,6 +93,8 @@ UINT8 gubMilitiaTurnSpeedUpFactor = 1;
 UINT8 gubCivTurnSpeedUpFactor = 1;
 //turnspeed
 
+extern BOOLEAN fAllowTacticalMilitiaCommand; //lal
+
 extern INT16 DirIncrementer[8];
 
 #define		PALETTEFILENAME							"BINARYDATA\\ja2pal.dat"
@@ -10755,6 +10757,7 @@ void MercStealFromMerc( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTarget )
 		}
 }
 
+SOLDIERTYPE				*pTMilitiaSoldier;
 BOOLEAN PlayerSoldierStartTalking( SOLDIERTYPE *pSoldier, UINT8 ubTargetID, BOOLEAN fValidate )
 {
 	INT16							sFacingDir, sXPos, sYPos, sAPCost;
@@ -10795,26 +10798,43 @@ BOOLEAN PlayerSoldierStartTalking( SOLDIERTYPE *pSoldier, UINT8 ubTargetID, BOOL
 	// Deduct points from our guy....
 	DeductPoints( pSoldier, sAPCost, 0 );
 
-	ConvertGridNoToXY( pTSoldier->sGridNo, &sXPos, &sYPos );
+	if ( !(gTacticalStatus.uiFlags & INCOMBAT) || (gTacticalStatus.uiFlags & REALTIME) ) //lal
+	{
+		ConvertGridNoToXY( pTSoldier->sGridNo, &sXPos, &sYPos );
 
-	// Get direction from mouse pos
-	sFacingDir = GetDirectionFromXY( sXPos, sYPos, pSoldier );
+		// Get direction from mouse pos
+		sFacingDir = GetDirectionFromXY( sXPos, sYPos, pSoldier );
 
-	// Set our guy facing
-	SendSoldierSetDesiredDirectionEvent( pSoldier, sFacingDir );
+		// Set our guy facing
+		SendSoldierSetDesiredDirectionEvent( pSoldier, sFacingDir );
 
-	// Set NPC facing
-	SendSoldierSetDesiredDirectionEvent( pTSoldier, gOppositeDirection[ sFacingDir ] );
-	
-	// Stop our guys...
-	EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->bDirection );
+		// Set NPC facing
+		SendSoldierSetDesiredDirectionEvent( pTSoldier, gOppositeDirection[ sFacingDir ] );
 
+		// Stop our guys...
+		EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->bDirection );
+	}
+
+	pTMilitiaSoldier = pTSoldier; //lal
+
+	//lal 
 	// ATE; Check for normal civs...
 	if ( GetCivType( pTSoldier ) != CIV_TYPE_NA )
 	{
-		StartCivQuote( pTSoldier );
-		return( FALSE );
+		//lal
+		if ( ( pTSoldier->bTeam == MILITIA_TEAM ) && ( fAllowTacticalMilitiaCommand == TRUE ) )
+		{
+			PopupMilitiaControlMenu( pTSoldier );
+			return( FALSE );
+		}
+		else
+		{
+			StartCivQuote( pTSoldier );
+			return( FALSE );
+		}
 	}
+
+
 
 
 	// Are we an EPC that is being escorted?

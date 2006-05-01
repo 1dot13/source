@@ -78,6 +78,7 @@ BOOLEAN	gfPausedTacticalRenderFlags					 = FALSE;
 
 // which assignment menu can be shown?
 extern void DetermineWhichAssignmentMenusCanBeShown( void );
+extern void DetermineWhichMilitiaControlMenusCanBeShown( void ); //lal
 extern void HandleAnyMercInSquadHasCompatibleStuff( UINT8 ubSquad, OBJECTTYPE *pObject, BOOLEAN fReset );
 extern BOOLEAN RemoveFlashItemSlot( ITEM_POOL *pItemPool );
 
@@ -345,6 +346,10 @@ void ResetInterface( )
 	// find out if we need to show any menus
 	DetermineWhichAssignmentMenusCanBeShown();
 	CreateDestroyAssignmentPopUpBoxes( );
+
+	DetermineWhichMilitiaControlMenusCanBeShown( ); //lal
+	CreateDestroyMilitiaControlPopUpBoxes( );
+	
 
 	HideUICursor( );
 

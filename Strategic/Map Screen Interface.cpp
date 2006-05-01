@@ -290,6 +290,8 @@ BOOLEAN fShowAttributeMenu = FALSE;
 BOOLEAN fShowSquadMenu = FALSE;
 BOOLEAN fShowContractMenu = FALSE;
 BOOLEAN fShowRemoveMenu =  FALSE;
+BOOLEAN fShowMilitiaControlMenu =  FALSE; //lal
+//BOOLEAN fShowTalkToAllMenu =  FALSE;//lal
 
 BOOLEAN fRebuildMoveBox = FALSE;
 
@@ -306,8 +308,17 @@ SGPPoint VehiclePosition={160,150};
 SGPPoint RepairPosition={160,150};
 SGPRect RepairDimensions={0,0,80,80};
 
-SGPRect AssignmentDimensions = { 0,0, 100, 95};
+//lal
+SGPPoint MilitiaControlPosition={120,150}; 
+SGPRect MilitiaControlDimensions={0,0,100,95};
+
+//SGPPoint TalkToAllPosition={160,150};
+//SGPRect TalkToAllDimensions={0,0,100,95};
+//lal
+
 SGPPoint AssignmentPosition = { 120, 150 };
+SGPRect AssignmentDimensions = { 0,0, 100, 95};
+
 SGPPoint SquadPosition ={ 160, 150 };
 SGPRect SquadDimensions ={ 0, 0, 140, 60 };
 
@@ -317,6 +328,8 @@ SGPPoint OrigSquadPosition ={ 160, 150 };
 SGPPoint OrigAssignmentPosition = { 120, 150 };
 SGPPoint OrigTrainPosition={160,150};
 SGPPoint OrigVehiclePosition={160,150};
+SGPPoint OrigMilitiaControlPosition = { 120, 150 }; //lal
+//SGPPoint OrigTalkToAllPosition = { 160, 150 };
 
 //extern BOOLEAN fMapExitDueToMessageBox;
 
@@ -2203,6 +2216,65 @@ void UpdateMapScreenAssignmentPositions( void )
 	
 	return;
 }
+
+
+//lal
+void UpdateMapScreenMilitiaControlPositions( void )
+{
+	// set the position of the pop up boxes
+	SGPPoint pPoint;
+
+	if( guiCurrentScreen != MAP_SCREEN )
+	{
+		return;
+	}
+
+	if( bSelectedAssignChar == -1 )
+	{
+		if( gfPreBattleInterfaceActive == FALSE )
+		{
+			giBoxY = 0;
+		}
+		return;
+	}
+
+	if( gCharactersList[ bSelectedAssignChar ].fValid == FALSE )
+	{
+		if( gfPreBattleInterfaceActive == FALSE )
+		{
+			giBoxY = 0;
+		}
+		return;
+	}
+
+	if( gfPreBattleInterfaceActive )
+	{
+		// do nothing
+	}
+	else
+	{
+		giBoxY = ( Y_START + ( bSelectedAssignChar ) * ( Y_SIZE + 2 ) );
+	}
+		
+	MilitiaControlPosition.iY = giBoxY;
+
+	//TalkToAllPosition.iY = MilitiaControlPosition.iY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 )* MILCON_MENU_ALL;
+
+
+
+	if( fShowMilitiaControlMenu )
+	{
+		GetBoxPosition( ghMilitiaControlBox, &pPoint);
+		pPoint.iY = giBoxY;
+
+		SetBoxPosition( ghMilitiaControlBox, pPoint );
+	}
+
+	return;
+}
+//lal
+
+
 
 
 

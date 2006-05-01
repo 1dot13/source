@@ -14,6 +14,8 @@ extern UINT16 WeaponType[MAXITEMS][30];
 
 extern UINT16 Message[][STRING_LENGTH];
 extern UINT16 TeamTurnString[][STRING_LENGTH];
+extern STR16 pMilitiaControlMenuStrings[]; //lal
+//extern STR16 pTalkToAllMenuStrings[];
 extern STR16 pAssignMenuStrings[];
 extern STR16 pTrainingStrings[];
 extern STR16 pTrainingMenuStrings[];

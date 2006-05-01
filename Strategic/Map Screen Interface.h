@@ -52,6 +52,35 @@ typedef struct FASTHELPREGION {
 #define			MAP_START_KEYRING_Y   107
 #define     Y_SIZE                GetFontHeight(MAP_SCREEN_FONT)
 
+//lal
+// militia control menu
+enum{
+	MILCON_MENU_ATTACK,
+	MILCON_MENU_HOLD,
+	MILCON_MENU_RETREAT,
+	MILCON_MENU_COMETOME,
+	MILCON_MENU_GETDOWN,
+	MILCON_MENU_TAKE_COVER,
+	MILCON_MENU_ALL_ATTACK,
+	MILCON_MENU_ALL_HOLD,
+	MILCON_MENU_ALL_RETREAT,
+	MILCON_MENU_ALL_COMETOME,
+	MILCON_MENU_ALL_GETDOWN,
+	MILCON_MENU_ALL_TAKE_COVER,
+	MILCON_MENU_ALL_TAKE_ITEMS,
+	MILCON_MENU_CANCEL,
+	MAX_MILCON_STRING_COUNT,
+};
+
+//enum{
+//	TTALL_MENU_ATTACK,
+//	TTALL_MENU_HOLD,
+//	TTALL_MENU_RETREAT,
+//	TTALL_MENU_COMETOME,
+//	TTALL_MENU_GETDOWN,
+//	TTALL_MENU_CANCEL,
+//	MAX_TTALL_STRING_COUNT,
+//};
 
 // attribute menu defines (must match NUM_TRAINABLE_STATS defines, and pAttributeMenuStrings )
 enum {
@@ -212,6 +241,8 @@ extern BOOLEAN fShowAttributeMenu;
 extern BOOLEAN fShowSquadMenu ;
 extern BOOLEAN fShowContractMenu ;
 extern BOOLEAN fShowRemoveMenu ;
+extern BOOLEAN fShowMilitiaControlMenu ; //lal
+//extern BOOLEAN fShowTalkToAllMenu ;
 
 extern BOOLEAN fFirstTimeInMapScreen;
 extern BOOLEAN fLockOutMapScreenInterface;
@@ -261,12 +292,20 @@ extern SGPRect SquadDimensions ;
 extern SGPPoint RepairPosition;
 extern SGPRect RepairDimensions;
 
+extern SGPPoint MilitiaControlPosition; //lal
+extern SGPRect MilitiaControlDimensions;
+
+//extern SGPPoint TalkToAllPosition;
+//extern SGPRect TalkToAllDimensions;
+
 extern SGPPoint OrigContractPosition;
 extern SGPPoint OrigAttributePosition;
 extern SGPPoint OrigSquadPosition ;
 extern SGPPoint OrigAssignmentPosition ;
 extern SGPPoint OrigTrainPosition;
 extern SGPPoint OrigVehiclePosition;
+extern SGPPoint OrigMilitiaControlPosition ; //lal
+//extern SGPPoint OrigTalkToAllPosition ;
 
 // disble team info panel due to showing of battle roster
 extern BOOLEAN fDisableDueToBattleRoster;
@@ -433,6 +472,7 @@ void RenderMapRegionBackground( void );
 
 // update mapscreen assignment positions
 void UpdateMapScreenAssignmentPositions( void );
+void UpdateMapScreenMilitiaControlPositions( void );
 
 // get the umber of valid mercs in the mapscreen character list
 INT32 GetNumberOfPeopleInCharacterList( void );
