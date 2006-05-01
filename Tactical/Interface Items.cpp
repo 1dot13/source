@@ -5677,6 +5677,8 @@ BOOLEAN LoadTileGraphicForItem( INVTYPE *pItem, UINT32 *puiVo )
 	VOBJECT_DESC    VObjectDesc;
 	UINT16		ubGraphic;
 
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("LoadTileGraphicForItem"));
+
 	// CHECK SUBCLASS
 	ubGraphic = pItem->ubGraphicNum;
 
@@ -5734,6 +5736,8 @@ BOOLEAN LoadTileGraphicForItem( INVTYPE *pItem, UINT32 *puiVo )
 	CHECKF( AddVideoObject( &VObjectDesc, &uiVo) );
 	
 	*puiVo = uiVo;
+
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("LoadTileGraphicForItem: done"));
 
 	return( TRUE );
 }
@@ -7298,7 +7302,7 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
     // The next is for ammunition which gets the measurement 'rnds'
     else if (Item[ usItem ].usItemClass == IC_AMMO)
     {
-        swprintf( (wchar_t *)pStr, L"%s [%d rnds]", ItemNames[ usItem ], sValue );
+        swprintf( (wchar_t *)pStr, L"%s [%d rnds]", ItemNames[ usItem ], pObject->ubShotsLeft[0] );
     }
     // The final, and typical case, is that of an item with a percent status
     else

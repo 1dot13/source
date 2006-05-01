@@ -110,6 +110,7 @@ ammotypeStartElementHandle(void *userData, const char *name, const char **atts)
 				strcmp(name, "ignoreArmour") == 0 ||
 				strcmp(name, "lockBustingPower") == 0 ||
 				strcmp(name, "acidic") == 0 ||
+				strcmp(name, "tracerEffect") == 0 ||
 				strcmp(name, "monsterSpit") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -297,6 +298,11 @@ ammotypeEndElementHandle(void *userData, const char *name)
 			pData->curElement = ELEMENT;
 			pData->curAmmoType.acidic  = (BOOLEAN) atol(pData->szCharData);
 		}
+		else if(strcmp(name, "tracerEffect") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curAmmoType.tracerEffect  = (BOOLEAN) atol(pData->szCharData);
+		}
 
 		pData->maxReadDepth--;
 	}
@@ -417,6 +423,7 @@ BOOLEAN WriteAmmoTypeStats()
 			FilePrintf(hFile,"\t\t<acidic>%d</acidic>\r\n",								AmmoTypes[cnt].acidic   );
 			FilePrintf(hFile,"\t\t<ignoreArmour>%d</ignoreArmour>\r\n",								AmmoTypes[cnt].ignoreArmour   );
 			FilePrintf(hFile,"\t\t<lockBustingPower>%d</lockBustingPower>\r\n",								AmmoTypes[cnt].lockBustingPower   );
+			FilePrintf(hFile,"\t\t<tracerEffect>%d</tracerEffect>\r\n",								AmmoTypes[cnt].tracerEffect   );
 
 
 			FilePrintf(hFile,"\t</AMMOTYPE>\r\n");

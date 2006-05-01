@@ -15,6 +15,7 @@
 #define		BULLET_FLAG_TANK_CANNON			        0x0020
 #define		BULLET_FLAG_BUCKSHOT				        0x0040
 #define		BULLET_FLAG_FLAME						        0x0080
+#define		BULLET_FLAG_TRACER						        0x0100
 
 typedef struct
 {

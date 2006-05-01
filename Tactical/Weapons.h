@@ -166,6 +166,7 @@ typedef struct
 	BOOLEAN ignoreArmour;
 	BOOLEAN acidic;
 	INT16	lockBustingPower;
+	BOOLEAN tracerEffect;
 
 } AMMOTYPE;
 

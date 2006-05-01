@@ -9,6 +9,7 @@ void HandleIMPConfirm( void );
 BOOLEAN AddCharacterToPlayersTeam( void );
 void LoadImpCharacter( STR fileName );
 void WriteOutCurrentImpCharacter( INT32 iProfileId );
+void WriteOutCurrentImpCharacter( INT32 iProfileId, STR fileName );
 
 void ResetIMPCharactersEyesAndMouthOffsets( UINT8 ubMercProfileID );
 

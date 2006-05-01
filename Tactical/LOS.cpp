@@ -3534,6 +3534,10 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 		usBulletFlags |= BULLET_FLAG_FLAME;
 		ubSpreadIndex = 2;
 	}
+	else if ( AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand].ubGunAmmoType ].tracerEffect && pFirer->bDoBurst )
+	{
+		usBulletFlags |= BULLET_FLAG_TRACER;
+	}
 
 	ubImpact =(UINT8) GetDamage(&pFirer->inv[pFirer->ubAttackingHand]);
 //	if (!fFake)
@@ -4196,7 +4200,7 @@ void MoveBullet( INT32 iBullet )
 					return;
 				}
 
-				if ( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT ) )
+				if ( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_TRACER ) )
 				{
 					INT8 bStepsPerMove = STEPS_FOR_BULLET_MOVE_TRAILS;
 
@@ -4481,11 +4485,11 @@ void MoveBullet( INT32 iBullet )
 					pBullet->iCurrCubesZ = CONVERT_HEIGHTUNITS_TO_INDEX( FIXEDPT_TO_INT32( pBullet->qCurrZ ) );
 					pBullet->iLoop++;
 
-					if ( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT ) )
+					if ( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_TRACER ) )
 					{
 						INT8 bStepsPerMove = STEPS_FOR_BULLET_MOVE_TRAILS;
 
-						if ( pBullet->usFlags & ( BULLET_FLAG_SMALL_MISSILE ) )
+						if ( pBullet->usFlags & ( BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TRACER ) )
 						{
 							bStepsPerMove = STEPS_FOR_BULLET_MOVE_SMALL_TRAILS;
 						}
