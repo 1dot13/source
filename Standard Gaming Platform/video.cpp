@@ -1504,6 +1504,8 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 
 
 //rain
+extern BOOLEAN gfVSync;
+
 BOOLEAN IsItAllowedToRenderRain();
 extern UINT32 guiRainRenderSurface;
 
@@ -1803,8 +1805,8 @@ void RefreshScreen(void *DummyVariable)
     SurfaceDescription.dwSize         = sizeof(DDSURFACEDESC);
     SurfaceDescription.dwFlags        = DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT;
     SurfaceDescription.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY;
-    SurfaceDescription.dwWidth        = usScreenWidth;
-    SurfaceDescription.dwHeight       = usScreenHeight;
+    SurfaceDescription.dwWidth        = SCREEN_WIDTH;
+    SurfaceDescription.dwHeight       = SCREEN_HEIGHT;
     ReturnCode = IDirectDraw2_CreateSurface ( gpDirectDrawObject, &SurfaceDescription, &_pTmpBuffer, NULL );
 		if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
     { 
@@ -1823,8 +1825,8 @@ void RefreshScreen(void *DummyVariable)
 
     Region.left = 0;
     Region.top = 0;
-    Region.right = usScreenWidth;
-    Region.bottom = usScreenHeight;
+    Region.right = SCREEN_WIDTH;
+    Region.bottom = SCREEN_HEIGHT;
 
     do
     {            
@@ -1842,7 +1844,8 @@ void RefreshScreen(void *DummyVariable)
     sprintf((char *) FileName, "SCREEN%03d.TGA", guiPrintFrameBufferIndex++); 
     if ((OutputFile = fopen((const char *) FileName, "wb")) != NULL)
     {
-      fprintf(OutputFile, "%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c", 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x80, 0x02, 0xe0, 0x01, 0x10, 0);
+      fprintf(OutputFile, "%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c", 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, LOBYTE(SCREEN_WIDTH), HIBYTE(SCREEN_WIDTH), LOBYTE(SCREEN_HEIGHT), HIBYTE(SCREEN_HEIGHT), 0x10, 0);
+
 
       //
       // Lock temp surface
@@ -1863,27 +1866,27 @@ void RefreshScreen(void *DummyVariable)
       // 5/6/5.. create buffer...
 			if (gusRedMask == 0xF800 && gusGreenMask == 0x07E0 && gusBlueMask == 0x001F)
       {
-        p16BPPData = (UINT16 *)MemAlloc( 640 * 2 );
+        p16BPPData = (UINT16 *)MemAlloc( SCREEN_WIDTH * 2 );
       }
 
-      for (iIndex = 479; iIndex >= 0; iIndex--)
+      for (iIndex = SCREEN_HEIGHT - 1; iIndex >= 0; iIndex--)
       { 
         // ATE: OK, fix this such that it converts pixel format to 5/5/5
         // if current settings are 5/6/5....
 				if (gusRedMask == 0xF800 && gusGreenMask == 0x07E0 && gusBlueMask == 0x001F)
         {
           // Read into a buffer...
-          memcpy( p16BPPData, ( ((UINT8 *)SurfaceDescription.lpSurface) + (iIndex * 640 * 2) ), 640 * 2 ); 
+          memcpy( p16BPPData, ( ((UINT8 *)SurfaceDescription.lpSurface) + (iIndex * SCREEN_WIDTH * 2) ), SCREEN_WIDTH * 2 ); 
 
           // Convert....
-          ConvertRGBDistribution565To555( p16BPPData, 640 );
+          ConvertRGBDistribution565To555( p16BPPData, SCREEN_WIDTH );
 
           // Write
-          fwrite( p16BPPData, 640 * 2, 1, OutputFile);
+          fwrite( p16BPPData, SCREEN_WIDTH * 2, 1, OutputFile);
         }
         else
         {
-          fwrite((void *)(((UINT8 *)SurfaceDescription.lpSurface) + (iIndex * 640 * 2)), 640 * 2, 1, OutputFile);
+          fwrite((void *)(((UINT8 *)SurfaceDescription.lpSurface) + (iIndex * SCREEN_WIDTH * 2)), SCREEN_WIDTH * 2, 1, OutputFile);
         }
       }
 
@@ -2175,7 +2178,7 @@ void RefreshScreen(void *DummyVariable)
 
   do
   {
-    ReturnCode = IDirectDrawSurface_Flip(_gpPrimarySurface, NULL, DDFLIP_WAIT ); 
+	  ReturnCode = IDirectDrawSurface_Flip(_gpPrimarySurface, NULL, gfVSync ? DDFLIP_WAIT : 0x00000008l );//DDFLIP_WAIT ); 
 //    if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
 		if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
     {
@@ -3056,7 +3059,7 @@ void SnapshotSmall(void)
 	{
 		for(iCountX=0; iCountX < SCREEN_WIDTH; iCountX+= 1)
 		{
-	//		uiData=(UINT16)*(pVideo+(iCountY*640*2)+ ( iCountX * 2 ) );
+	//		uiData=(UINT16)*(pVideo+(iCountY*SCREEN_WIDTH*2)+ ( iCountX * 2 ) );
 
 //				1111 1111 1100 0000
 //				f		 f		c
@@ -3066,9 +3069,9 @@ void SnapshotSmall(void)
 	//		usPixel555=	(UINT16)(uiData);
 			
 		//	fwrite( &usPixel555, sizeof(UINT16), 1, disk);
-	//		fwrite(	(void *)(((UINT8 *)SurfaceDescription.lpSurface) + ( iCountY * 640 * 2) + ( iCountX * 2 ) ), 2 * sizeof( BYTE ), 1, disk );
+	//		fwrite(	(void *)(((UINT8 *)SurfaceDescription.lpSurface) + ( iCountY * SCREEN_WIDTH * 2) + ( iCountX * 2 ) ), 2 * sizeof( BYTE ), 1, disk );
 
-		 *( pDest + ( iCountY * 640 ) + ( iCountX ) ) = *( pVideo + ( iCountY * 640 ) + ( iCountX ) );
+		 *( pDest + ( iCountY * SCREEN_WIDTH ) + ( iCountX ) ) = *( pVideo + ( iCountY * SCREEN_WIDTH ) + ( iCountX ) );
 		}
 
 	}
@@ -3110,7 +3113,7 @@ void VideoMovieCapture( BOOLEAN fEnable )
 	{
 		for ( cnt = 0; cnt < MAX_NUM_FRAMES; cnt++ )
 		{
-			gpFrameData[ cnt ] = (UINT16 *)MemAlloc( 640 * 480 * 2 );
+			gpFrameData[ cnt ] = (UINT16 *)MemAlloc( SCREEN_WIDTH * SCREEN_HEIGHT * 2 );
 		}
 
 		giNumFrames = 0;
@@ -3162,19 +3165,19 @@ void RefreshMovieCache( )
 		memset(&Header, 0, sizeof(TARGA_HEADER));
 
 		Header.ubTargaType=2;			// Uncompressed 16/24/32 bit
-		Header.usImageWidth=640;
-		Header.usImageHeight=480;
+		Header.usImageWidth=SCREEN_WIDTH;
+		Header.usImageHeight=SCREEN_HEIGHT;
 		Header.ubBitsPerPixel=16;
 
 		fwrite(&Header, sizeof(TARGA_HEADER), 1, disk);
 
 		pDest = gpFrameData[ cnt ];
 
-		for(iCountY=480-1; iCountY >=0 ; iCountY-=1)
+		for(iCountY=SCREEN_HEIGHT-1; iCountY >=0 ; iCountY-=1)
 		{
-			for(iCountX=0; iCountX < 640; iCountX ++ )
+			for(iCountX=0; iCountX < SCREEN_WIDTH; iCountX ++ )
 			{
-				 fwrite( ( pDest + ( iCountY * 640 ) + iCountX ), sizeof(UINT16), 1, disk);
+				 fwrite( ( pDest + ( iCountY * SCREEN_WIDTH ) + iCountX ), sizeof(UINT16), 1, disk);
 			}
 
 		}
