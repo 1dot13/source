@@ -19,6 +19,7 @@
 #define SET_TACTICAL_AI "JA2 Tactical AI Settings"
 #define SET_GRAPHIC "JA2 Graphic Settings"
 #define SET_GAMEPLAY "JA2 Gameplay Settings"
+#define SET_SOUND "JA2 Sound Settings"
 
 
 UINT8 gubDeadLockDelay = 15;
@@ -49,9 +50,11 @@ BOOLEAN gfEnableEmergencyButton_SkipStrategicEvents = FALSE;
 BOOLEAN gfAllowMilitiaGroups = TRUE;
 BOOLEAN gfAllowReinforcments = TRUE;
 BOOLEAN gfAllowReinforcmentsOnlyInCity = FALSE;
-UINT32 guiBaseQueenPoolIncrement = 60;
+UINT32	guiBaseQueenPoolIncrement = 60;
 
 BOOLEAN fAllowTacticalMilitiaCommand = TRUE;
+
+UINT32 guiWeaponSoundEffectsVolume = 0;
 
 typedef struct
 {
@@ -75,6 +78,7 @@ enum
 
 TSetting gpSettings[] = 
 {	
+	//Video settings
 	{"fVSync", SET_RESOLUTION, &gfVSync, VT_BOOLEAN},
 	
 	{"PlayerTurnSpeedUpFactor", SET_TURN_SPEED, (LPVOID)&gubPlayerTurnSpeedUpFactor, VT_UINT8},
@@ -82,6 +86,9 @@ TSetting gpSettings[] =
 	{"CreatureTurnSpeedUpFactor", SET_TURN_SPEED, (LPVOID)&gubCreatureTurnSpeedUpFactor, VT_UINT8},
 	{"MilitiaTurnSpeedUpFactor", SET_TURN_SPEED, (LPVOID)&gubMilitiaTurnSpeedUpFactor, VT_UINT8},
 	{"CivTurnSpeedUpFactor", SET_TURN_SPEED, (LPVOID)&gubCivTurnSpeedUpFactor, VT_UINT8},
+
+	//Sound settings
+	{"WeaponSoundEffectsVolume", SET_SOUND, &guiWeaponSoundEffectsVolume, VT_UINT32},
 
 	// Militia Settings
 	{"AllowTacticalMilitiaCommand", SET_TACTICAL, &fAllowTacticalMilitiaCommand, VT_BOOLEAN},
