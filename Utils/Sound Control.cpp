@@ -548,7 +548,7 @@ UINT32 PlayJA2Ambient( UINT32 usNum, UINT32 ubVolume, UINT32 ubLoops)
 
 UINT32 PlayJA2AmbientRandom( UINT32 usNum, UINT32 uiTimeMin, UINT32 uiTimeMax)
 {
-RANDOMPARMS rpParms;
+	RANDOMPARMS rpParms;
 
 	memset(&rpParms, 0xff, sizeof(RANDOMPARMS));
 

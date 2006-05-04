@@ -106,8 +106,9 @@ TSetting gpSettings[] =
 	// Maximal search distance for grenades
 	//{"MaxTossSearchDist", SET_TACTICAL_AI, &guiMaxTossSearchDist, VT_UINT32},
 
+	// System settings
 	//{"fEnableEmergencyButton_NumLock_ToSkipStrategicEvents", SET_SPECIAL, &gfEnableEmergencyButton_SkipStrategicEvents, VT_BOOLEAN},
-
+	{"DeadLockDelay", SET_SPECIAL, &gubDeadLockDelay, VT_UINT8},
 
 
 	// Rain settings
