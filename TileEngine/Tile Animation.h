@@ -24,6 +24,7 @@
 #define ANITILE_EXPLOSION										0x20000000
 #define ANITILE_RELEASE_ATTACKER_WHEN_DONE	0x40000000
 #define ANITILE_USE_4DIRECTION_FOR_START_FRAME							0x02000000
+#define ANITILE_LIGHT							0x80000000
 
 
 #define	ANI_LAND_LEVEL					1
@@ -71,7 +72,7 @@ typedef struct TAG_anitile
 	UINT32											uiUserData3;
 
 	INT8												bFrameCountAfterStart;
-
+	INT32											lightSprite;
 } ANITILE;
 
 
@@ -100,7 +101,7 @@ typedef struct TAG_anitile_params
 	UINT32											uiUserData;
 	UINT8												ubUserData2;
 	UINT32											uiUserData3;
-
+	INT32											lightSprite;
 } ANITILE_PARAMS;
 
 

@@ -198,7 +198,7 @@ void ResetRain()
 
 void GenerateRainDropsList()
 {
-	guiCurrMaxAmountOfRainDrops = (UINT32)BASE_MAXIMUM_DROPS * gbCurrentRainIntensity;
+	guiCurrMaxAmountOfRainDrops = (UINT32)(BASE_MAXIMUM_DROPS) * gbCurrentRainIntensity;
 
 	pRainDrops = (TRainDrop *)MemAlloc( sizeof( TRainDrop ) * guiCurrMaxAmountOfRainDrops );
 	memset( pRainDrops, 0, sizeof( TRainDrop ) * guiCurrMaxAmountOfRainDrops );

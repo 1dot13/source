@@ -61,6 +61,7 @@ typedef struct
 	ANITILE			*pShadowAniTile;
 	UINT8		ubItemStatus;
 	UINT16	fromItem;
+	INT32 flash;
 } BULLET;
 
 extern UINT32 guiNumBullets;

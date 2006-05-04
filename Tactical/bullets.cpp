@@ -409,9 +409,11 @@ void AddMissileTrail( BULLET *pBullet, FIXEDPT qCurrX, FIXEDPT qCurrY, FIXEDPT q
 	else if ( pBullet->usFlags & ( BULLET_FLAG_TRACER ) )
 	{
 		strcpy( AniParams.zCachedFile, "TILECACHE\\BULLET_TRACER.STI" );
+		AniParams.uiFlags |= ANITILE_LIGHT;
 	}
 
 	CreateAnimationTile( &AniParams );
+
 }
 
 

@@ -245,7 +245,7 @@ INT8 FindNonSmokeLaunchable( SOLDIERTYPE * pSoldier, UINT16 usWeapon );
 INT8 FindNonSmokeLaunchableAttachment( OBJECTTYPE * pObj, UINT16 usWeapon );
 UINT16 PickARandomLaunchable(UINT16 itemIndex);
 
-BOOLEAN IsFlashSuppressor( OBJECTTYPE * pObj );
+BOOLEAN IsFlashSuppressor( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier );
 INT16 GetFlashSuppressorStatus( OBJECTTYPE * pObj );
 BOOLEAN IsRemoteDetonator( OBJECTTYPE * pObj );
 BOOLEAN IsDetonator( OBJECTTYPE * pObj );

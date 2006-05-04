@@ -136,6 +136,24 @@ ANITILE *CreateAnimationTile( ANITILE_PARAMS *pAniParams )
 
 		pNewAniNode->pLevelNode								= pNode;
 
+		if ( uiFlags & ANITILE_LIGHT )
+		{
+			if ( ubAmbientLightLevel >= MIN_AMB_LEVEL_FOR_MERC_LIGHTS )
+			{
+
+				if( ( pNewAniNode->lightSprite=LightSpriteCreate("L-R03.LHT", 0 ) )!=(-1))
+				{
+					LightSpritePower(pNewAniNode->lightSprite, TRUE);
+					{
+						INT16 sXPos, sYPos;
+
+						ConvertGridNoToCenterCellXY( sGridNo, &sXPos, &sYPos );
+						LightSpritePosition( pNewAniNode->lightSprite, (INT16)(sXPos/CELL_X_SIZE), (INT16)(sYPos/CELL_Y_SIZE));
+					}
+				}
+			}
+		}
+
 		if ( ( uiFlags & ANITILE_CACHEDTILE ) )
 		{
 			pNewAniNode->pLevelNode->uiFlags |=	( LEVELNODE_CACHEDANITILE );	
@@ -362,6 +380,10 @@ void DeleteAniTile( ANITILE *pAniTile )
 						RemoveTopmostFromLevelNode( pAniNode->sGridNo, pAniNode->pLevelNode );
 						break;
 
+				}
+				if ( pAniNode->uiFlags & ANITILE_LIGHT )
+				{
+					LightSpriteDestroy(pAniNode->lightSprite);
 				}
 
 				if ( ( pAniNode->uiFlags & ANITILE_CACHEDTILE ) )
@@ -592,6 +614,11 @@ void UpdateAniTiles( )
 					}
 					else
 					{		
+						//if ( pNode->uiFlags & ANITILE_LIGHT )
+						//{
+						//	LightSpriteDestroy(pNode->lightSprite);
+						//}
+
 						// Delete from world!
 						DeleteAniTile( pNode );
 

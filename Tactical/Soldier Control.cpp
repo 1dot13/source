@@ -2796,7 +2796,7 @@ void EVENT_FireSoldierWeapon( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo )
 	//		break;
 	//}
 
-	if ( IsFlashSuppressor (&pSoldier->inv[ pSoldier->ubAttackingHand ] ) )
+	if ( IsFlashSuppressor (&pSoldier->inv[ pSoldier->ubAttackingHand ], pSoldier ) )
 		pSoldier->fMuzzleFlash = FALSE;
 	else	
 		pSoldier->fMuzzleFlash = TRUE;

@@ -1737,7 +1737,7 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 		fBuckshot = FALSE;
 		if (!CREATURE_OR_BLOODCAT( pSoldier ) )
 		{
-			if ( IsFlashSuppressor(&pSoldier->inv[ pSoldier->ubAttackingHand ]) )
+			if ( IsFlashSuppressor(&pSoldier->inv[ pSoldier->ubAttackingHand ], pSoldier ) )
 				pSoldier->fMuzzleFlash = FALSE;
 			else
 				pSoldier->fMuzzleFlash = TRUE;

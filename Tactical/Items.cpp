@@ -6637,9 +6637,13 @@ BOOLEAN IsRemoteDetonatorAttached( OBJECTTYPE * pObj )
 	return( FALSE );
 }
 
-BOOLEAN IsFlashSuppressor( OBJECTTYPE * pObj )
+BOOLEAN IsFlashSuppressor( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier )
 {
 	INT8	bLoop;
+
+	//Madd: tracers automatically negate any muzzle flash suppression due to inherent lighting effects
+	if (Item[pObj->usItem].usItemClass == IC_GUN && AmmoTypes[pObj->ubGunAmmoType].tracerEffect && pSoldier->bDoBurst )
+		return FALSE;
 
 	if (Item[pObj->usItem].hidemuzzleflash )
 		return TRUE;
