@@ -10822,7 +10822,7 @@ BOOLEAN PlayerSoldierStartTalking( SOLDIERTYPE *pSoldier, UINT8 ubTargetID, BOOL
 	if ( GetCivType( pTSoldier ) != CIV_TYPE_NA )
 	{
 		//lal
-		if ( ( pTSoldier->bTeam == MILITIA_TEAM ) && ( fAllowTacticalMilitiaCommand == TRUE ) )
+		if ( ( pTSoldier->bTeam == MILITIA_TEAM ) && ( fAllowTacticalMilitiaCommand == TRUE ) && (pSoldier->bSide == pTSoldier->bSide) )
 		{
 			PopupMilitiaControlMenu( pTSoldier );
 			return( FALSE );
