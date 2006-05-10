@@ -332,6 +332,53 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iExpertAPBonus = iniReader.ReadInteger("Options","EXPERT_AP_BONUS",0);
 	gGameExternalOptions.iInsaneAPBonus = iniReader.ReadInteger("Options","INSANE_AP_BONUS",0);
 
+
+	// System settings
+	gGameExternalOptions.gubDeadLockDelay = iniReader.ReadInteger("JA2 System Settings","DeadLockDelay",15);
+	//gGameExternalOptions.gfEnableEmergencyButton_SkipStrategicEvents = iniReader.ReadBoolean("JA2 System Settings","EnableEmergencyButton_NumLock_ToSkipStrategicEvents",0);
+
+	//Video settings
+	gGameExternalOptions.gfVSync = iniReader.ReadBoolean("JA2 Video Settings","VerticalSync",0);
+	
+	//Animation settings
+	gGameExternalOptions.gubPlayerTurnSpeedUpFactor		= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","PlayerTurnSpeedUpFactor",1);
+	gGameExternalOptions.gubEnemyTurnSpeedUpFactor		= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","EnemyTurnSpeedUpFactor",1);
+	gGameExternalOptions.gubCreatureTurnSpeedUpFactor	= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","CreatureTurnSpeedUpFactor",1);
+	gGameExternalOptions.gubMilitiaTurnSpeedUpFactor	= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","MilitiaTurnSpeedUpFactor",1);
+	gGameExternalOptions.gubCivTurnSpeedUpFactor		= iniReader.ReadInteger("JA2 Turnbased Animation Speed Settings","CivTurnSpeedUpFactor",1);
+
+	//Sound settings	
+	gGameExternalOptions.guiWeaponSoundEffectsVolume = iniReader.ReadInteger("JA2 Sound Settings","WeaponSoundEffectsVolume",0);
+
+	// Militia Settings	
+	gGameExternalOptions.fAllowTacticalMilitiaCommand = iniReader.ReadBoolean("JA2 Tactical Settings","AllowTacticalMilitiaCommand",1);
+
+	gGameExternalOptions.gfAllowMilitiaGroups = iniReader.ReadBoolean("JA2 Gameplay Settings","AllowMilitiaMobileGroups",1);
+	gGameExternalOptions.gfAllowReinforcments = iniReader.ReadBoolean("JA2 Gameplay Settings","AllowReinforcments",1);
+	gGameExternalOptions.gfAllowReinforcmentsOnlyInCity = iniReader.ReadBoolean("JA2 Gameplay Settings","AllowReinforcmentsOnlyInCities",0);
+	gGameExternalOptions.guiBaseQueenPoolIncrement = iniReader.ReadInteger("JA2 Gameplay Settings","QueenPoolIncrementPerDifficultyLevel",60);
+	
+	//Sight range
+	gGameExternalOptions.ubStraightSightRange = iniReader.ReadInteger("JA2 Tactical Settings","BaseSightRange",13);
+
+	// Maximal search distance for grenades
+	//gGameExternalOptions.guiMaxTossSearchDist = iniReader.ReadInteger("JA2 Tactical Settings","MaxTossSearchDist",3);
+
+	// Rain settings
+	gGameExternalOptions.gfAllowRain = iniReader.ReadBoolean("JA2 Rain Settings","ALLOW_RAIN",0);
+	gGameExternalOptions.gusRainChancePerDay = iniReader.ReadInteger("JA2 Rain Settings","RAIN_CHANCE_PER_DAY",100);
+	gGameExternalOptions.gusRainMinLength = iniReader.ReadInteger("JA2 Rain Settings","RAIN_MIN_LENGTH_IN_MINUTES",60);
+	gGameExternalOptions.gusRainMaxLength = iniReader.ReadInteger("JA2 Rain Settings","RAIN_MAX_LENGTH_IN_MINUTES",180);
+	gGameExternalOptions.guiMaxRainDrops = iniReader.ReadInteger("JA2 Rain Settings","MAX_RAIN_DROPS",80);
+
+
+	// Thunder settings
+	gGameExternalOptions.guiMinLightningInterval = iniReader.ReadInteger("JA2 Thunder Settings","MIN_INTERVAL_BETWEEN_LIGHTNINGS_IN_REAL_TIME_SECONDS",5);
+	gGameExternalOptions.guiMaxLightningInterval = iniReader.ReadInteger("JA2 Thunder Settings","MAX_INTERVAL_BETWEEN_LIGHTNINGS_IN_REAL_TIME_SECONDS",15);
+	gGameExternalOptions.guiMinDLInterval = iniReader.ReadInteger("JA2 Thunder Settings","MIN_INTERVAL_BETWEEN_LIGHTNING_AND_THUNDERCLAPS_IN_SECONDS",1);
+	gGameExternalOptions.guiMaxDLInterval = iniReader.ReadInteger("JA2 Thunder Settings","MAX_INTERVAL_BETWEEN_LIGHTNING_AND_THUNDERCLAPS_IN_SECONDS",5);
+	gGameExternalOptions.guiProlongLightningIfSeenSomeone = iniReader.ReadInteger("JA2 Thunder Settings","PROLOGNE_DELAY_IF_SEEN_SOMEONE_DURING_LIGHTNING_IN_TURNBASED_IN_SECONDS",5);
+	gGameExternalOptions.guiChanceToDoLightningBetweenTurns = iniReader.ReadInteger("JA2 Thunder Settings","CHANCE_TO_DO_LIGHTNING_BETWEEN_TURNS",35);
 }
 
 

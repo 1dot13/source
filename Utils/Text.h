@@ -158,6 +158,8 @@ extern STR16 wMapScreenSortButtonHelpText[];
 extern STR16 pNewNoiseStr[];
 extern STR16 gzLateLocalizedString[];
 
+extern STR16 gzCWStrings[];
+
 enum
 {
 	ANTIHACKERSTR_EXITGAME,

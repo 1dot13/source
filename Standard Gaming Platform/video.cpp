@@ -1504,7 +1504,7 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 
 
 //rain
-extern BOOLEAN gfVSync;
+//extern BOOLEAN gfVSync;
 
 BOOLEAN IsItAllowedToRenderRain();
 extern UINT32 guiRainRenderSurface;
@@ -2178,7 +2178,7 @@ void RefreshScreen(void *DummyVariable)
 
   do
   {
-	  ReturnCode = IDirectDrawSurface_Flip(_gpPrimarySurface, NULL, gfVSync ? DDFLIP_WAIT : 0x00000008l );//DDFLIP_WAIT ); 
+	  ReturnCode = IDirectDrawSurface_Flip(_gpPrimarySurface, NULL, gGameExternalOptions.gfVSync ? DDFLIP_WAIT : 0x00000008l );//DDFLIP_WAIT ); 
 //    if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
 		if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
     {

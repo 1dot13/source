@@ -58,15 +58,23 @@
 	#include "GameSettings.h"
 #endif
 
+#include "Reinforcement.h"
+
 //#include "vtuneapi.h"
 
 //#define INVULNERABILITY
 
+// default = 7 (%)
+#define EXP_BONUS  7
+
 #define MAX_AR_TEAM_SIZE 256
+
+#define REINFORCMENT_ATTACK_DELAY_PER_SOLDIER_IN_SECTOR 1000
 
 INT32 giMaxEnemiesToRender = 40;
 INT32 giMaxMilitiaToRender = 20;//Changes depending on merc amount
 
+extern UINT8 gubReinforcementMinEnemyStaticGroupSize;
 
 extern BOOLEAN AutoReload( SOLDIERTYPE *pSoldier );
 extern HVSURFACE ghFrameBuffer;
@@ -99,7 +107,7 @@ typedef struct SOLDIERCELL
 	UINT16 usFrame;
 	INT16 xp, yp;
 	UINT16 usAttack, usDefence;
-	UINT16 usNextAttack;
+	UINT32 usNextAttack;
 	UINT16 usNextHit[3];
 	UINT16 usHitDamage[3];
 	struct SOLDIERCELL *pAttacker[3];
@@ -133,10 +141,10 @@ typedef struct AUTORESOLVE_STRUCT
 
 	SGPRect Rect, ExRect;
 
-	UINT16 usPlayerAttack;
-	UINT16 usPlayerDefence;
-	UINT16 usEnemyAttack;
-	UINT16 usEnemyDefence;
+	UINT32 usPlayerAttack;
+	UINT32 usPlayerDefence;
+	UINT32 usEnemyAttack;
+	UINT32 usEnemyDefence;
 	INT16 sWidth, sHeight;
 	INT16 sCenterStartX;
 
@@ -269,6 +277,7 @@ extern void CreateDestroyMapInvButton();
 INT16 gsEnemyGainedControlOfSectorID = -1;
 INT16 gsCiviliansEatenByMonsters = -1;
 
+BOOLEAN ProcessLoyalty();
 //Autoresolve handling -- keyboard input, callbacks
 void HandleAutoResolveInput();
 void PauseButtonCallback( GUI_BUTTON *btn, INT32 reason );
@@ -424,12 +433,12 @@ void EliminateAllEnemies( UINT8 ubSectorX, UINT8 ubSectorY )
 		{
 			for ( i = 0; i < ubNumEnemies[ ubRankIndex ]; i++ )
 			{
-				HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_ENEMY_KILLED, ubSectorX, ubSectorY, 0 );
+				if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_ENEMY_KILLED, ubSectorX, ubSectorY, 0 );
 				TrackEnemiesKilled( ENEMY_KILLED_IN_AUTO_RESOLVE, RankIndexToSoldierClass( ubRankIndex ) );
 			}
 		}
 
-		HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_WON, ubSectorX, ubSectorY, 0 );
+		if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_WON, ubSectorX, ubSectorY, 0 );
 	}
 
 	if( !gpAR || gpAR->ubBattleStatus != BATTLE_IN_PROGRESS )
@@ -560,11 +569,16 @@ void DoTransitionFromPreBattleInterfaceToAutoResolve()
 	//BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, 640, 480 );
 }
 
+extern UINT8 guiDirNumber;
+
 void EnterAutoResolveMode( UINT8 ubSectorX, UINT8 ubSectorY )
 {
 	#ifdef JA2BETAVERSION
 		CountRandomCalls( TRUE );
 	#endif
+
+
+	guiDirNumber = 0;
 
 	//Set up mapscreen for removal
 	SetPendingNewScreen( AUTORESOLVE_SCREEN );
@@ -730,8 +744,12 @@ void AssociateEnemiesWithStrategicGroups()
 	SECTORINFO *pSector;
 	GROUP *pGroup;
 	UINT8 ubNumAdmins, ubNumTroops, ubNumElites;
+	UINT8 ubISNumAdmins, ubISNumTroops, ubISNumElites;
 	UINT8 ubNumElitesInGroup, ubNumTroopsInGroup, ubNumAdminsInGroup;
 	INT32 i;
+	UINT8 pSectors[4];
+	UINT8 ubDirAmount;
+	UINT8 ubCurrSI;
 
 	if( gubEnemyEncounterCode == CREATURE_ATTACK_CODE )
 		return;
@@ -815,6 +833,97 @@ void AssociateEnemiesWithStrategicGroups()
 		}
 		pGroup = pGroup->next;
 	}
+
+/////////////////////////////////////////////////////////////////////////// Reinforcement
+
+	pGroup = gpGroupList;
+	while( pGroup )
+	{	// Don't process road block. It'll be processed as static
+		if( pGroup->ubGroupID &&  !pGroup->fPlayer && IsGroupInARightSectorToReinforce( pGroup, gpAR->ubSectorX, gpAR->ubSectorY ) )
+		{
+			ubNumElitesInGroup = pGroup->pEnemyGroup->ubNumElites;
+			ubNumTroopsInGroup = pGroup->pEnemyGroup->ubNumTroops;
+			ubNumAdminsInGroup = pGroup->pEnemyGroup->ubNumAdmins;
+			for( i = 0; i < gpAR->ubEnemies; i++ )
+			{
+				if( !(gpEnemies[ i ].uiFlags & CELL_ASSIGNED) )
+				{
+					if( ubNumElites && ubNumElitesInGroup )
+					{
+						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
+						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
+						ubNumElites--;
+						ubNumElitesInGroup--;
+					}
+					else if( ubNumTroops && ubNumTroopsInGroup )
+					{
+						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
+						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
+						ubNumTroops--;
+						ubNumTroopsInGroup--;
+					}
+					else if( ubNumAdmins && ubNumAdminsInGroup )
+					{
+						gpEnemies[ i ].pSoldier->ubGroupID = pGroup->ubGroupID;
+						gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
+						ubNumAdmins--;
+						ubNumAdminsInGroup--;
+					}
+				}
+			}
+		}
+		pGroup = pGroup->next;
+	}
+
+
+// Set GroupID = 0 for the rest
+	ubDirAmount = GetAdjacentSectors( pSectors, gpAR->ubSectorX, gpAR->ubSectorY );
+
+	for( ubCurrSI = 0; ubCurrSI < ubDirAmount; ubCurrSI++ )
+	{
+		pSector = &SectorInfo[ pSectors[ ubCurrSI ] ];
+
+		ubISNumAdmins = pSector->ubNumAdmins;
+		ubISNumTroops = pSector->ubNumTroops;
+		ubISNumElites = pSector->ubNumElites;
+
+		for( i = 0; i < gpAR->ubEnemies; i++ )
+		{
+			if( ubISNumAdmins + ubISNumTroops + ubISNumElites <= gubReinforcementMinEnemyStaticGroupSize ) break;
+
+			if( !(gpEnemies[ i ].uiFlags & CELL_ASSIGNED) )
+			{
+				if( gpEnemies[ i ].uiFlags & CELL_ELITE && ubISNumElites && ubNumElites )
+				{
+					gpEnemies[ i ].pSoldier->ubGroupID = 0;
+					gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
+					gpEnemies[ i ].pSoldier->sSectorX = SECTORX( pSectors[ ubCurrSI ] );
+					gpEnemies[ i ].pSoldier->sSectorY = SECTORY( pSectors[ ubCurrSI ] );
+					ubISNumElites--;
+					ubNumElites--;
+				}
+				else if( gpEnemies[ i ].uiFlags & CELL_TROOP && ubISNumTroops && ubNumTroops )
+				{
+					gpEnemies[ i ].pSoldier->ubGroupID = 0;
+					gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
+					gpEnemies[ i ].pSoldier->sSectorX = SECTORX( pSectors[ ubCurrSI ] );
+					gpEnemies[ i ].pSoldier->sSectorY = SECTORY( pSectors[ ubCurrSI ] );
+					ubISNumTroops--;
+					ubNumTroops--;
+				}
+				else if( gpEnemies[ i ].uiFlags & CELL_ADMIN && ubISNumAdmins && ubNumAdmins )
+				{
+					gpEnemies[ i ].pSoldier->ubGroupID = 0;
+					gpEnemies[ i ].uiFlags |= CELL_ASSIGNED;
+					gpEnemies[ i ].pSoldier->sSectorX = SECTORX( pSectors[ ubCurrSI ] );
+					gpEnemies[ i ].pSoldier->sSectorY = SECTORY( pSectors[ ubCurrSI ] );
+					ubISNumAdmins--;
+					ubNumAdmins--;
+				}
+			}
+		}
+	}
+
 }
 
 
@@ -1710,7 +1819,7 @@ void RenderAutoResolve()
 			{
 				case BATTLE_VICTORY:
 					HandleMoraleEvent( NULL, MORALE_BATTLE_WON, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
-					HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_WON, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
+					if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_WON, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 
 					SectorInfo[ SECTOR( gpAR->ubSectorX, gpAR->ubSectorY ) ].bLastKnownEnemies = 0;				
 					SetThisSectorAsPlayerControlled( gpAR->ubSectorX, gpAR->ubSectorY, 0, TRUE );
@@ -1733,14 +1842,14 @@ void RenderAutoResolve()
 						}
 					}
 					HandleMoraleEvent( NULL, MORALE_HEARD_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
-					HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
+					if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 
 					SetMusicMode( MUSIC_TACTICAL_DEATH );
 					gsEnemyGainedControlOfSectorID = (INT16)SECTOR( gpAR->ubSectorX, gpAR->ubSectorY );
 					break;
 				case BATTLE_DEFEAT:
 					HandleMoraleEvent( NULL, MORALE_HEARD_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
-					HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
+					if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_BATTLE_LOST, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 					if( gubEnemyEncounterCode != CREATURE_ATTACK_CODE )
 					{
 						gsEnemyGainedControlOfSectorID = (INT16)SECTOR( gpAR->ubSectorX, gpAR->ubSectorY );
@@ -1759,7 +1868,7 @@ void RenderAutoResolve()
 					//Tack on 5 minutes for retreat.
 					gpAR->uiTotalElapsedBattleTimeInMilliseconds += 300000;
 
-					HandleLoyaltyImplicationsOfMercRetreat( RETREAT_AUTORESOLVE, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
+					if( ProcessLoyalty() )HandleLoyaltyImplicationsOfMercRetreat( RETREAT_AUTORESOLVE, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 					if( gubEnemyEncounterCode != CREATURE_ATTACK_CODE )
 					{
 						gsEnemyGainedControlOfSectorID = (INT16)SECTOR( gpAR->ubSectorX, gpAR->ubSectorY );
@@ -1924,9 +2033,9 @@ void CreateAutoResolveInterface()
 		}
 	}
 
-	ubEliteMilitia = MilitiaInSectorOfRank( gpAR->ubSectorX, gpAR->ubSectorY, ELITE_MILITIA );
-	ubRegMilitia = MilitiaInSectorOfRank( gpAR->ubSectorX, gpAR->ubSectorY, REGULAR_MILITIA );
-	ubGreenMilitia = MilitiaInSectorOfRank( gpAR->ubSectorX, gpAR->ubSectorY, GREEN_MILITIA );
+	ubEliteMilitia = MilitiaInFiveSectorsOfRank( gpAR->ubSectorX, gpAR->ubSectorY, ELITE_MILITIA );
+	ubRegMilitia = MilitiaInFiveSectorsOfRank( gpAR->ubSectorX, gpAR->ubSectorY, REGULAR_MILITIA );
+	ubGreenMilitia = MilitiaInFiveSectorsOfRank( gpAR->ubSectorX, gpAR->ubSectorY, GREEN_MILITIA );
 	while( ubEliteMilitia + ubRegMilitia + ubGreenMilitia < gpAR->ubCivs )
 	{
 		switch( PreRandom( 3 ) )
@@ -2266,8 +2375,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 			if( fDeleteForGood && gpCivs[ i ].pSoldier->bLife < OKLIFE/2 )
 			{
 				AddDeadSoldierToUnLoadedSector( gpAR->ubSectorX, gpAR->ubSectorY, 0, gpCivs[ i ].pSoldier, RandomGridNo(), ADD_DEAD_SOLDIER_TO_SWEETSPOT );
-				StrategicRemoveMilitiaFromSector( gpAR->ubSectorX, gpAR->ubSectorY, ubCurrentRank, 1 );
-				HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_NATIVE_KILLED, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
+//				StrategicRemoveMilitiaFromSector( gpAR->ubSectorX, gpAR->ubSectorY, ubCurrentRank, 1 );
+				ARRemoveMilitiaMan( gpAR->ubSectorX, gpAR->ubSectorY, ubCurrentRank );
+				if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_NATIVE_KILLED, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 			}
 			else
 			{
@@ -2309,7 +2419,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 			if( fDeleteForGood && gpEnemies[ i ].pSoldier->bLife < OKLIFE )
 			{
 				TrackEnemiesKilled( ENEMY_KILLED_IN_AUTO_RESOLVE, gpEnemies[ i ].pSoldier->ubSoldierClass );
-				HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_ENEMY_KILLED, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
+				if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_ENEMY_KILLED, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 				ProcessQueenCmdImplicationsOfDeath( gpEnemies[ i ].pSoldier );
 				AddDeadSoldierToUnLoadedSector( gpAR->ubSectorX, gpAR->ubSectorY, 0, gpEnemies[ i ].pSoldier, RandomGridNo(), ADD_DEAD_SOLDIER_TO_SWEETSPOT );
 			}
@@ -2651,9 +2761,10 @@ void CalculateAutoResolveInfo()
 
 	if( gubEnemyEncounterCode != CREATURE_ATTACK_CODE )
 	{
-		GetNumberOfEnemiesInSector( gpAR->ubSectorX, gpAR->ubSectorY, 
+//		GetNumberOfEnemiesInSector( gpAR->ubSectorX, gpAR->ubSectorY, 
+		GetNumberOfEnemiesInFiveSectors( gpAR->ubSectorX, gpAR->ubSectorY, 
 																&gpAR->ubAdmins, &gpAR->ubTroops, &gpAR->ubElites );
-		gpAR->ubEnemies = (UINT8)min( gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubElites, MAX_AR_TEAM_SIZE  );
+		gpAR->ubEnemies = (UINT8)min( gpAR->ubAdmins + gpAR->ubTroops + gpAR->ubElites, MAX_AR_TEAM_SIZE );
 	}
 	else
 	{
@@ -2672,7 +2783,8 @@ void CalculateAutoResolveInfo()
 		gpAR->ubEnemies = (UINT8)min( gpAR->ubYMCreatures + gpAR->ubYFCreatures + gpAR->ubAMCreatures + gpAR->ubAFCreatures, MAX_AR_TEAM_SIZE );
 	}
 	gfTransferTacticalOppositionToAutoResolve = FALSE;
-	gpAR->ubCivs = CountAllMilitiaInSector( gpAR->ubSectorX, gpAR->ubSectorY );
+//	gpAR->ubCivs = CountAllMilitiaInSector( gpAR->ubSectorX, gpAR->ubSectorY );
+	gpAR->ubCivs = CountAllMilitiaInFiveSectors( gpAR->ubSectorX, gpAR->ubSectorY );
 	gpAR->ubMercs = 0;
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	pGroup = gpGroupList;
@@ -3383,6 +3495,24 @@ void ResetNextAttackCounter( SOLDIERCELL *pCell )
 	}
 }
 
+FLOAT CalcClassBonusOrPenalty( SOLDIERTYPE *pSoldier )
+{
+	switch( pSoldier->ubSoldierClass )
+	{
+	case SOLDIER_CLASS_ELITE:
+	case SOLDIER_CLASS_ELITE_MILITIA:
+		return 1.3f;
+	case SOLDIER_CLASS_ARMY:
+	case SOLDIER_CLASS_REG_MILITIA:
+		return 1.0f;
+	case SOLDIER_CLASS_ADMINISTRATOR:
+	case SOLDIER_CLASS_GREEN_MILITIA:
+		return 0.7f;
+	}
+
+	return 1.0f;
+}
+
 void CalculateAttackValues()
 {
 	INT32 i;
@@ -3435,6 +3565,7 @@ void CalculateAttackValues()
 
 		//bExpLevel adds a bonus of 7% per level after 2, level 1 soldiers get a 7% decrease
 		//usBonus += 7 * (pSoldier->bExpLevel-2);
+		usBonus += EXP_BONUS * (pSoldier->bExpLevel-5);
 		usBonus += gpAR->ubPlayerDefenceAdvantage;
 		pCell->usAttack = pCell->usAttack * usBonus / 100;
 		pCell->usDefence = pCell->usDefence * usBonus / 100;
@@ -3478,9 +3609,13 @@ void CalculateAttackValues()
 		usBonus = 100 + gpAR->ubPlayerLeadership/10;// + sOutnumberBonus;
 		//bExpLevel adds a bonus of 7% per level after 2, level 1 soldiers get a 7% decrease
 		//usBonus += 7 * (pSoldier->bExpLevel-2);
+		usBonus += EXP_BONUS * (pSoldier->bExpLevel-5);
 		usBonus += gpAR->ubPlayerDefenceAdvantage;
 		pCell->usAttack = pCell->usAttack * usBonus / 100;
 		pCell->usDefence = pCell->usDefence * usBonus / 100;
+
+		pCell->usAttack = (UINT16)( pCell->usAttack * CalcClassBonusOrPenalty( pCell->pSoldier ) );
+		pCell->usDefence =(UINT16)( pCell->usDefence * CalcClassBonusOrPenalty( pCell->pSoldier ) );
 
 		pCell->usAttack = min( pCell->usAttack, 1000 );
 		pCell->usDefence = min( pCell->usDefence, 1000 );
@@ -3490,8 +3625,16 @@ void CalculateAttackValues()
 		ResetNextAttackCounter( pCell );
 		if( i > 6 )
 		{ //Too many militia, delay attack entry of extra mercs.
-			pCell->usNextAttack += (UINT16)(( i - 4 ) * 2000 );
+			pCell->usNextAttack += (UINT32)(( i - 4 ) * 2000 );
 		}
+
+
+		if( i >= CountAllMilitiaInSector( gpAR->ubSectorX, gpAR->ubSectorY  ) )
+		{ //Extra delay if soldier's from reinforcement
+			pCell->usNextAttack += REINFORCMENT_ATTACK_DELAY_PER_SOLDIER_IN_SECTOR * CountAllMilitiaInSector( gpAR->ubSectorX, gpAR->ubSectorY  );
+		}
+
+
 		if( pCell->usNextAttack < usBestAttack )
 			usBestAttack = pCell->usNextAttack;
 	}
@@ -3525,9 +3668,12 @@ void CalculateAttackValues()
 		usBonus = 100 + gpAR->ubPlayerLeadership/10;// + sOutnumberBonus;
 		//bExpLevel adds a bonus of 7% per level after 2, level 1 soldiers get a 7% decrease
 		//usBonus += 7 * (pSoldier->bExpLevel-2);
+		usBonus += EXP_BONUS * (pSoldier->bExpLevel-5);
 		usBonus += gpAR->ubEnemyDefenceAdvantage;
-		pCell->usAttack = pCell->usAttack * usBonus / 100;
+		pCell->usAttack  = pCell->usAttack * usBonus / 100;
 		pCell->usDefence = pCell->usDefence * usBonus / 100;
+		pCell->usAttack  = (UINT16)( pCell->usAttack * CalcClassBonusOrPenalty( pCell->pSoldier ) );
+		pCell->usDefence = (UINT16)( pCell->usDefence * CalcClassBonusOrPenalty( pCell->pSoldier ) );
 
 		pCell->usAttack = min( pCell->usAttack, 1000 );
 		pCell->usDefence = min( pCell->usDefence, 1000 );
@@ -3538,8 +3684,14 @@ void CalculateAttackValues()
 
 		if( i > 4 && !(pCell->uiFlags & CELL_CREATURE) )
 		{ //Too many enemies, delay attack entry of extra mercs.
-			pCell->usNextAttack += (UINT16)( ( i - 4 ) * 1000 );
+			pCell->usNextAttack += (UINT32)( ( i - 4 ) * 1000 );
 		}
+
+		if(i >= NumEnemiesInSector( gpAR->ubSectorX, gpAR->ubSectorY  ) && !(pCell->uiFlags & CELL_CREATURE) )
+		{ //Extra delay if it's a reinforcement
+			pCell->usNextAttack += REINFORCMENT_ATTACK_DELAY_PER_SOLDIER_IN_SECTOR * NumEnemiesInSector( gpAR->ubSectorX, gpAR->ubSectorY  );
+		}
+
 		
 		if( pCell->usNextAttack < usBestAttack )
 			usBestAttack = pCell->usNextAttack;
@@ -3608,7 +3760,7 @@ SOLDIERCELL* ChooseTarget( SOLDIERCELL *pAttacker )
 	INT32 index;
 	INT32 iRandom = -1;
 	SOLDIERCELL *pTarget = NULL;
-	UINT16 usSavedDefence;
+	UINT32 usSavedDefence;
 	//Determine what team we are attacking
 	if( pAttacker->uiFlags & (CELL_ENEMY | CELL_CREATURE) )
 	{ //enemy team attacking a player
@@ -3776,7 +3928,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 
 	pAttacker->uiFlags |= CELL_FIREDATTARGET | CELL_DIRTY;
 	if( pAttacker->usAttack < 950 )
-		usAttack = (UINT16)(pAttacker->usAttack + PreRandom(1000 - pAttacker->usAttack ));
+		usAttack = (UINT16)(pAttacker->usAttack + PreRandom(2000 - pAttacker->usAttack ));
 	else 
 		usAttack = (UINT16)(950 + PreRandom( 50 ));
 	if( pTarget->uiFlags & CELL_RETREATING && !(pAttacker->uiFlags & CELL_FEMALECREATURE) )
@@ -3785,7 +3937,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		usAttack = usAttack * 7 / 10;
 	}
 	if( pTarget->usDefence < 950 )
-		usDefence = (UINT16)(pTarget->usDefence + PreRandom(1000 - pTarget->usDefence ));
+		usDefence = (UINT16)(pTarget->usDefence + PreRandom(2000 - pTarget->usDefence ));
 	else 
 		usDefence = (UINT16)(950 + PreRandom( 50 ));
 	if( pAttacker->uiFlags & CELL_FEMALECREATURE )
@@ -3862,7 +4014,8 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 	//Attacker hits
 	if( !fMelee )
 	{
-		ubImpact = (UINT8) GetDamage(&pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ]);
+		//ubImpact = (UINT8) GetDamage(&pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ]);
+		ubImpact = Weapon[ pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ].usItem ].ubImpact;
 		iRandom = PreRandom( 100 );
 		if( iRandom < 15 )
 			ubLocation = AIM_SHOT_HEAD;
@@ -3887,14 +4040,14 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 	else
 	{
 		OBJECTTYPE *pItem;
-		OBJECTTYPE tempItem;
+		//OBJECTTYPE tempItem;
 		PlayAutoResolveSample( (UINT8)(BULLET_IMPACT_1+PreRandom(3)), RATE_11025, 50, 1, MIDDLEPAN );
 		if( !pTarget->pSoldier->bLife )
 		{ //Soldier already dead (can't kill him again!)
 			return;
 		}
 
-		ubAccuracy = (UINT8)((usAttack - usDefence + PreRandom( usDefence - pTarget->usDefence ) )/10);
+		ubAccuracy = (UINT8)((usAttack - usDefence + PreRandom( usDefence - pTarget->usDefence ) )/10);  
 
 		//Determine attacking weapon.
 		pAttacker->pSoldier->usAttackingWeapon = 0;
@@ -3904,10 +4057,10 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 			if( Item[ pItem->usItem ].usItemClass & IC_WEAPON )
 				pAttacker->pSoldier->usAttackingWeapon = pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ].usItem;
 		}
-
+		
 		//if( pAttacker->bWeaponSlot != HANDPOS )
-		//{ //switch items
-		//	memcpy( &tempItem, &pAttacker->pSoldier->inv[ HANDPOS ], sizeof( OBJECTTYPE ) );
+		//{ //switch items			
+		//	memcpy( &tempItem, &pAttacker->pSoldier->inv[ HANDPOS ], sizeof( OBJECTTYPE ) );			
 		//	memcpy( &pAttacker->pSoldier->inv[ HANDPOS ], &pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ], sizeof( OBJECTTYPE ) ); //CTD
 		//	iImpact = HTHImpact( pAttacker->pSoldier, pTarget->pSoldier, ubAccuracy, (BOOLEAN)(fKnife | fClaw) );
 		//	memcpy( &pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ], &pAttacker->pSoldier->inv[ HANDPOS ], sizeof( OBJECTTYPE ) );
@@ -3917,7 +4070,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		//{
 		//	iImpact = HTHImpact( pAttacker->pSoldier, pTarget->pSoldier, ubAccuracy, (BOOLEAN)(fKnife || fClaw) );
 		//}
-
+		iImpact = 0;
 		iNewLife = pTarget->pSoldier->bLife - iImpact;
 
 		if( pAttacker->uiFlags & CELL_MERC )
@@ -4631,7 +4784,7 @@ void ProcessBattleFrame()
 			iTime -= uiSlice;
 			if( iTime > 0 )
 			{
-				pAttacker->usNextAttack = (UINT16)iTime;
+				pAttacker->usNextAttack = (UINT32)iTime;
 				continue;
 			}
 			else
@@ -4661,7 +4814,7 @@ void ProcessBattleFrame()
 					else
 						AttackTarget( pAttacker, pTarget );
 					ResetNextAttackCounter( pAttacker );
-					pAttacker->usNextAttack += (UINT16)iTime; //tack on the remainder
+					pAttacker->usNextAttack += (UINT32)iTime; //tack on the remainder
 					iAttacksThisFrame++;
 				}
 			}
@@ -4766,4 +4919,16 @@ BOOLEAN GetCurrentBattleSectorXYZAndReturnTRUEIfThereIsABattle( INT16 *psSectorX
 void AutoBandageFinishedCallback( UINT8 ubResult )
 {
 	SetupDoneInterface();
+}
+
+BOOLEAN ProcessLoyalty()
+{
+	if( PlayerMercsInSector( gpAR->ubSectorX, gpAR->ubSectorY, 0 ) )
+		return TRUE;
+
+	if( GetTownIdForSector(  gpAR->ubSectorX,  gpAR->ubSectorY ) != BLANK_SECTOR ||
+		IsThisSectorASAMSector(   gpAR->ubSectorX,  gpAR->ubSectorY, 0 ) )
+		return TRUE;
+
+	return FALSE;
 }

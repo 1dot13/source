@@ -123,7 +123,7 @@ FLOAT fpMinDropSpeed = 0;
 
 
 extern UINT32 guiCurrentScreen;
-extern BOOLEAN gfAllowRain;
+//extern BOOLEAN gfAllowRain;
 
 extern INT16 gsVIEWPORT_WINDOW_END_Y;			
 extern INT16 gsVIEWPORT_WINDOW_START_Y;
@@ -149,7 +149,7 @@ INT8 GetRainIntensityFromEnvWeather()
 
 BOOLEAN IsItAllowedToRenderRain()
 {
-	if( !gfAllowRain )return FALSE;
+	if( !gGameExternalOptions.gfAllowRain )return FALSE;
 
 	if( !( guiEnvWeather & (WEATHER_FORECAST_THUNDERSHOWERS | WEATHER_FORECAST_SHOWERS) ) )return FALSE;
 

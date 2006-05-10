@@ -61,10 +61,10 @@ UINT8 gubAICounter;
 // lots of other stuff, I think
 //
 
-extern UINT8 gubDeadLockDelay;
+//extern UINT8 gubDeadLockDelay;
 
 //#define DEADLOCK_DELAY							10000 //Madd - let's see what this does -- orig: 15000
-#define DEADLOCK_DELAY							( gubDeadLockDelay * 1000 )
+#define DEADLOCK_DELAY							( gGameExternalOptions.gubDeadLockDelay * 1000 )
 
 // Very representing if this computer is the host, therefore controlling the ai
 extern	BYTE			gfAmIHost;

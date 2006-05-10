@@ -3270,7 +3270,11 @@ STR16 zOptionsScreenHelpText[] =
 	L"ANgeschaltet, werden Drahtgitter für verborgene Wände gezeigt (|W).",
 
 	L"ANgeschaltet, wird der Bewegungs-Cursor in 3D angezeigt. ( |Home )",
-
+	
+	// Options for 1.13
+	L"Die Trefferchance wird beim Cursor angezeigt",
+	L"GL Burst, was auch immer das bedeutet :(",
+	L"Gegner lassen bei ihrem Ableben alle Gegenstände zurück.",
 };
 
 STR16 gzGIOScreenText[] =
@@ -3294,11 +3298,11 @@ STR16 gzGIOScreenText[] =
 	L"Ohne Zeitlimit",
 	L"Mit Zeitlimit",
 	L"Option nicht verfügbar", 
-	L"Bobby Ray's Selection",
-	L"Good",
-	L"Great",
-	L"Excellent",
-	L"Awesome",
+	L"Bobby Ray's Auswahl",
+	L"Normal",
+	L"Groß",
+	L"Ausgezeichnet",
+	L"Fantastisch",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -3826,6 +3830,11 @@ STR16 gzLateLocalizedString[] =
 
   L"Switch Activated.",
 
+};
+
+STR16 gzCWStrings[] = 
+{
+	L"Verstärkung von anliegenden Sektoren anfordern?",
 };
 
 #endif //GERMAN

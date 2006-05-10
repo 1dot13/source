@@ -6165,7 +6165,7 @@ void DrawTownMilitiaForcesOnMap( void )
 
 	// clip blits to mapscreen region
 	ClipBlitsToMapViewRegion( );
-	
+/*	
 	while( pTownNamesList[ iCounter ] != 0 )
 	{
 		// run through each town sector and plot the icons for the militia forces in the town
@@ -6214,20 +6214,22 @@ void DrawTownMilitiaForcesOnMap( void )
 		}
 
 		iCounter++;
-	}
+	}*/
 
 	// now handle militia for sam sectors
-	for( iCounter = 0; iCounter < NUMBER_OF_SAMS; iCounter++ )
+	for( sSectorX = 0; sSectorX < 16 ; ++sSectorX )
+	for( sSectorY = 0; sSectorY < 16 ; ++sSectorY )
+	//for( iCounter = 0; iCounter < NUMBER_OF_SAMS; iCounter++ )
 	{
-		sSectorX = SECTORX( pSamList[ iCounter ] );
-		sSectorY = SECTORY( pSamList[ iCounter ] );
+//		sSectorX = SECTORX( pSamList[ iCounter ] );
+//		sSectorY = SECTORY( pSamList[ iCounter ] );
 
-		if( !StrategicMap[ CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY ) ].fEnemyControlled )
+		if( 1)// !StrategicMap[ CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY ) ].fEnemyControlled )
 		{
 			// get number of each
-			iNumberOfGreens =  SectorInfo[ pSamList[ iCounter ] ].ubNumberOfCivsAtLevel[ GREEN_MILITIA ];
-			iNumberOfRegulars = SectorInfo[ pSamList[ iCounter ] ].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
-			iNumberOfElites = SectorInfo[pSamList[ iCounter ] ].ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
+			iNumberOfGreens =  SectorInfo[ SECTOR( sSectorX, sSectorY )  ].ubNumberOfCivsAtLevel[ GREEN_MILITIA ];
+			iNumberOfRegulars = SectorInfo[ SECTOR( sSectorX, sSectorY ) ].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
+			iNumberOfElites = SectorInfo[ SECTOR( sSectorX, sSectorY ) ].ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
 		
 			// ste the total for loop upper bound
 			iTotalNumberOfTroops = iNumberOfGreens + iNumberOfRegulars + iNumberOfElites;

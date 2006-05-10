@@ -58,6 +58,7 @@
 	#include "Strategic Pathing.h"
 #endif
 
+#include "MilitiaSquads.h"
 
 // various reason an assignment can be aborted before completion
 enum{
@@ -1913,6 +1914,8 @@ void UpdateAssignments()
 		{
 			for( bZ = 0; bZ < 4; bZ++)
 			{
+				// handle militia squads movings and creating (not an assignment)
+				if(!bZ && sX < 17 && sY < 17 && sX > 0 && sY > 0)UpdateMilitiaSquads( sX, sY );
 				// is there anyone in this sector?
 				if( fSectorsWithSoldiers[ sX + sY * MAP_WORLD_X ][ bZ ]  == TRUE )
 				{

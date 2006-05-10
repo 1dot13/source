@@ -28,6 +28,7 @@
 	#include "Font Control.h"
 #endif
 
+#include "Map Edgepoints.h"
 BOOLEAN gfOriginalList = TRUE;
 
 SOLDIERINITNODE *gSoldierInitHead = NULL;
@@ -2326,4 +2327,119 @@ void StripEnemyDetailedPlacementsIfSectorWasPlayerLiberated()
 		curr = curr->next;
 	}
 
+}
+
+//////// 
+////////  For militia squad attack!
+////////
+
+#define CENTRAL_GRIDNO 13202
+#define CENTRAL_RADIUS 30
+
+void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNumGreen, UINT8 ubNumReg, UINT8 ubNumElites )
+{
+	SOLDIERTYPE *pSoldier;
+	MAPEDGEPOINTINFO MapEdgepointInfo;
+	UINT8 ubCurrSlot;
+	UINT8 ubTotalSoldiers;
+	UINT8 bDesiredDirection=0;
+	switch( ubStrategicInsertionCode )
+	{
+		case INSERTION_CODE_NORTH:	bDesiredDirection = SOUTHEAST;										break;
+		case INSERTION_CODE_EAST:		bDesiredDirection = SOUTHWEST;										break;
+		case INSERTION_CODE_SOUTH:	bDesiredDirection = NORTHWEST;										break;
+		case INSERTION_CODE_WEST:		bDesiredDirection = NORTHEAST;										break;
+		default:  AssertMsg( 0, "Illegal direction passed to AddSoldierInitListMilitiaOnEdge()" );	break;
+	}
+	#ifdef JA2TESTVERSION
+		ScreenMsg( FONT_RED, MSG_INTERFACE, L"Militia reinforcements have arrived!  (%d admins, %d troops, %d elite)", ubNumGreen, ubNumReg, ubNumElites );
+	#endif
+
+	ubTotalSoldiers = ubNumGreen + ubNumReg + ubNumElites;
+
+	ChooseMapEdgepoints( &MapEdgepointInfo, ubStrategicInsertionCode, (UINT8)(ubNumGreen + ubNumReg + ubNumElites) );
+	ubCurrSlot = 0;
+	while( ubTotalSoldiers )
+	{
+		if( ubNumElites && Random( ubTotalSoldiers ) < ubNumElites )
+		{
+			ubNumElites--;
+			ubTotalSoldiers--;
+			pSoldier = TacticalCreateMilitia(SOLDIER_CLASS_ELITE_MILITIA);
+
+			pSoldier->bOrders = SEEKENEMY;
+			pSoldier->ubInsertionDirection = bDesiredDirection;
+
+			pSoldier->bAlertStatus = STATUS_YELLOW;
+			pSoldier->sNoiseGridno = (INT16)(CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
+			pSoldier->ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+			
+			//Setup the position
+			if( ubCurrSlot < MapEdgepointInfo.ubNumPoints )
+			{ //using an edgepoint
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				pSoldier->usStrategicInsertionData = MapEdgepointInfo.sGridNo[ ubCurrSlot++ ];
+			}
+			else 
+			{ //no edgepoints left, so put him at the entrypoint.
+				pSoldier->ubStrategicInsertionCode = ubStrategicInsertionCode;
+			}
+			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
+		}
+		else if( ubNumReg && (UINT8)Random( ubTotalSoldiers ) < (UINT8)(ubNumElites + ubNumReg) )
+		{
+			ubNumReg--;
+			ubTotalSoldiers--;
+			pSoldier = TacticalCreateMilitia(SOLDIER_CLASS_REG_MILITIA);
+
+			pSoldier->bOrders = SEEKENEMY;
+			pSoldier->ubInsertionDirection = bDesiredDirection;
+
+			pSoldier->bAlertStatus = STATUS_YELLOW;
+			pSoldier->sNoiseGridno = (INT16)(CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
+			pSoldier->ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+			
+			//Setup the position
+			if( ubCurrSlot < MapEdgepointInfo.ubNumPoints )
+			{ //using an edgepoint
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				pSoldier->usStrategicInsertionData = MapEdgepointInfo.sGridNo[ ubCurrSlot++ ];
+			}
+			else 
+			{ //no edgepoints left, so put him at the entrypoint.
+				pSoldier->ubStrategicInsertionCode = ubStrategicInsertionCode;
+			}
+			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
+		}
+		else if( ubNumGreen && (UINT8)Random( ubTotalSoldiers ) < (UINT8)(ubNumElites + ubNumReg + ubNumGreen) )
+		{
+			ubNumGreen--;
+			ubTotalSoldiers--;
+			pSoldier = TacticalCreateMilitia(SOLDIER_CLASS_GREEN_MILITIA);
+
+			pSoldier->bOrders = SEEKENEMY;
+			pSoldier->ubInsertionDirection = bDesiredDirection;
+
+			pSoldier->bAlertStatus = STATUS_YELLOW;
+			pSoldier->sNoiseGridno = (INT16)(CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
+			pSoldier->ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+
+
+//			if ( GetTimeOfDayAmbientLightLevel() < NORMAL_LIGHTLEVEL_DAY + 2 )
+//				gTacticalStatus.Team[ ENEMY_TEAM ].bAwareOfOpposition = TRUE;
+//			gTacticalStatus.Team[ MILITIA_TEAM ].bAwareOfOpposition = TRUE;
+			
+			//Setup the position
+			if( ubCurrSlot < MapEdgepointInfo.ubNumPoints )
+			{ //using an edgepoint
+				pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				pSoldier->usStrategicInsertionData = MapEdgepointInfo.sGridNo[ ubCurrSlot++ ];
+			}
+			else 
+			{ //no edgepoints left, so put him at the entrypoint.
+				pSoldier->ubStrategicInsertionCode = ubStrategicInsertionCode;
+			}
+			UpdateMercInSector( pSoldier, gWorldSectorX, gWorldSectorY, 0 );
+		}
+	}
 }

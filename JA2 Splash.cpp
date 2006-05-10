@@ -12,11 +12,11 @@ extern HVSURFACE ghFrameBuffer;
 void InitJA2SplashScreen()
 {
 	UINT32 uiLogoID = 0;
-	HVSURFACE hVSurface; // unused jonathanl  // lalien reenabled for international versions
-	VSURFACE_DESC VSurfaceDesc; //unused jonathanl // lalien reenabled for international versions
 	INT32 i = 0;
 
 #if !defined( ENGLISH ) && defined( JA2TESTVERSION )
+	HVSURFACE hVSurface; // unused jonathanl  // lalien reenabled for international versions
+	VSURFACE_DESC VSurfaceDesc; //unused jonathanl // lalien reenabled for international versions
 	memset( &VSurfaceDesc, 0, sizeof( VSURFACE_DESC ) );
 	VSurfaceDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
 	sprintf( VSurfaceDesc.ImageFile, "LOADSCREENS\\Notification.sti" );

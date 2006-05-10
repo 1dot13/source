@@ -1939,6 +1939,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\MilitiaSquads.cpp">
+			</File>
+			<File
 				RelativePath="Player Command.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -2387,6 +2390,9 @@
 						PreprocessorDefinitions=""
 						BrowseInformation="1"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Reinforcement.cpp">
 			</File>
 			<File
 				RelativePath="Scheduling.cpp">
@@ -3572,6 +3578,9 @@
 				RelativePath="Merc Contract.h">
 			</File>
 			<File
+				RelativePath=".\MilitiaSquads.h">
+			</File>
+			<File
 				RelativePath="Player Command.h">
 			</File>
 			<File
@@ -3582,6 +3591,9 @@
 			</File>
 			<File
 				RelativePath="Quests.h">
+			</File>
+			<File
+				RelativePath=".\Reinforcement.h">
 			</File>
 			<File
 				RelativePath="Scheduling.h">

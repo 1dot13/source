@@ -39,6 +39,8 @@
 	#include "Town Militia.h"
 #endif
 
+#include "MilitiaSquads.h"
+
 // the delay for a group about to arrive
 #define ABOUT_TO_ARRIVE_DELAY 5
 
@@ -1145,6 +1147,15 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 			if( fMilitiaPresent )
 			{
 				NotifyPlayerOfInvasionByEnemyForces( pGroup->ubSectorX, pGroup->ubSectorY, 0, TriggerPrebattleInterface );
+
+				if( GetTownIdForSector( pGroup->ubSectorX, pGroup->ubSectorY ) == BLANK_SECTOR)
+				{
+//					UINT16 str[ 256 ];
+//					UINT16 uiSectorC = L'A' + pGroup->ubSectorY - 1;
+//					swprintf( str, gpStrategicString[ STR_DIALOG_ENEMIES_ATTACK_MILITIA ], uiSectorC, pGroup->ubSectorX );
+//					DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, TriggerPrebattleInterface );
+					TriggerPrebattleInterface(1);
+				}
 			}
 			else
 			{
@@ -1163,6 +1174,7 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 
 		if( pPlayerDialogGroup )
 		{
+			if( !pGroup->ubSectorZ )MilitiaHelpFromAdjacentSectors( pGroup->ubSectorX, pGroup->ubSectorY );
 			PrepareForPreBattleInterface( pPlayerDialogGroup, pGroup );
 		}
 		return TRUE;
@@ -2029,6 +2041,10 @@ void HandleNonCombatGroupArrival( GROUP *pGroup, BOOLEAN fMainGroup, BOOLEAN fNe
 				}
 			}
 		}
+
+
+		//MilitiaFollowPlayer( pGroup->ubPrevX, pGroup->ubPrevY, pGroup->ubSectorX, pGroup->ubSectorY );
+
 		// look for NPCs to stop for, anyone is too tired to keep going, if all OK rebuild waypoints & continue movement
 		// NOTE: Only the main group (first group arriving) will stop for NPCs, it's just too much hassle to stop them all
 		PlayerGroupArrivedSafelyInSector( pGroup, fMainGroup );

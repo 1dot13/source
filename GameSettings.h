@@ -118,7 +118,7 @@ typedef struct
 	BOOLEAN	fTurnTimeLimit;
 	BOOLEAN	fIronManMode;
 	UINT8	ubBobbyRay;
-	UINT8		ubFiller[7];
+	UINT8	ubFiller[7];
 
 } GAME_OPTIONS;
 
@@ -178,6 +178,48 @@ typedef struct
 	INT8 iInsaneAPBonus;
 
 
+	// Moved from NewGameSettings.cpp
+
+	//Video settings
+	UINT8 gubDeadLockDelay;
+	UINT8 ubStraightSightRange;
+
+	// System settings
+	BOOLEAN gfVSync;
+	BOOLEAN gfEnableEmergencyButton_SkipStrategicEvents;
+
+	//Animation settings
+	UINT8 gubPlayerTurnSpeedUpFactor;
+	UINT8 gubEnemyTurnSpeedUpFactor;
+	UINT8 gubCreatureTurnSpeedUpFactor;
+	UINT8 gubMilitiaTurnSpeedUpFactor;
+	UINT8 gubCivTurnSpeedUpFactor;
+
+	//Sound settings
+	UINT32 guiWeaponSoundEffectsVolume;
+
+	// Militia Settings	
+	BOOLEAN fAllowTacticalMilitiaCommand;
+
+	BOOLEAN gfAllowMilitiaGroups;
+	BOOLEAN gfAllowReinforcments;
+	BOOLEAN gfAllowReinforcmentsOnlyInCity;
+	UINT32	guiBaseQueenPoolIncrement;
+
+	// Rain settings
+	BOOLEAN gfAllowRain;
+	UINT16 gusRainChancePerDay;
+	UINT16 gusRainMinLength;
+	UINT16 gusRainMaxLength;
+	UINT32 guiMaxRainDrops;
+
+	// Thunder settings
+	UINT32 guiMinLightningInterval;
+	UINT32 guiMaxLightningInterval;
+	UINT32 guiMinDLInterval;
+	UINT32 guiMaxDLInterval;
+	UINT32 guiProlongLightningIfSeenSomeone;
+	UINT32 guiChanceToDoLightningBetweenTurns;
 
 } GAME_EXTERNAL_OPTIONS;
 

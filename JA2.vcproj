@@ -1925,9 +1925,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\NewGameSettings.cpp">
-			</File>
-			<File
 				RelativePath="Options Screen.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -2344,9 +2341,6 @@
 			</File>
 			<File
 				RelativePath="MessageBoxScreen.h">
-			</File>
-			<File
-				RelativePath=".\NewGameSettings.h">
 			</File>
 			<File
 				RelativePath="Options Screen.h">

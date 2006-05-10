@@ -12,10 +12,12 @@
 	#include "PreBattle Interface.h"
 #endif
 
+#include "MilitiaSquads.h"
 
 BOOLEAN gfStrategicMilitiaChangesMade = FALSE;
 
 BOOLEAN fFirstClickInMilitiaControlScreenMask = FALSE;
+BOOLEAN gfMSResetMilitia = FALSE;
 
 
 // render pre battle interface?
@@ -98,11 +100,19 @@ extern BOOLEAN SoldierCanAffordNewStance( SOLDIERTYPE *pSoldier, UINT8 ubDesired
 
 void ResetMilitia()
 {
-	if( gfStrategicMilitiaChangesMade || gTacticalStatus.uiFlags & LOADING_SAVED_GAME )
+	BOOLEAN fBattleInProgress = FALSE;
+
+	if ( gWorldSectorX !=0 && gWorldSectorY != 0 && NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) )
+		fBattleInProgress = TRUE;
+
+	if( ( gfStrategicMilitiaChangesMade && !fBattleInProgress ) || gTacticalStatus.uiFlags & LOADING_SAVED_GAME || gfMSResetMilitia )
 	{
 		gfStrategicMilitiaChangesMade = FALSE;
-		RemoveMilitiaFromTactical();
+		
+		if( !gfMSResetMilitia )
+			RemoveMilitiaFromTactical();
 		PrepareMilitiaForTactical();
+		gfMSResetMilitia = FALSE;
 	}
 }
 
@@ -131,7 +141,7 @@ void RemoveMilitiaFromTactical()
 void PrepareMilitiaForTactical()
 {
 	SECTORINFO *pSector;
-//	INT32 i;
+	INT32 x;
 	UINT8 ubGreen, ubRegs, ubElites;
 	if( gbWorldSectorZ > 0 )
 		return;
@@ -144,16 +154,27 @@ void PrepareMilitiaForTactical()
 	ubGreen = pSector->ubNumberOfCivsAtLevel[ GREEN_MILITIA ];
 	ubRegs = pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
 	ubElites = pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
-	AddSoldierInitListMilitia( ubGreen, ubRegs, ubElites );
-	/*
-	for( i = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID; i <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; i++ )
-	{
-		if( MercPtrs[ i ]->bInSector )
+	
+	if(guiDirNumber)
+		for( x = 0 ; x < guiDirNumber ; ++x )
 		{
-			MercPtrs[ i ]->bAttitude = AGGRESSIVE;
+//			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld,%ld,%ld", gpAttackDirs[ x ][ 0 ], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2], gpAttackDirs[ x ][3] );
+			if( gpAttackDirs[ x ][ 3 ] != INSERTION_CODE_CENTER )
+				AddSoldierInitListMilitiaOnEdge( gpAttackDirs[ x ][ 3 ], gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
+//				AddSoldierInitListMilitia( gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
+//			else 
 		}
-	}
-	*/
+		else AddSoldierInitListMilitia( ubGreen, ubRegs, ubElites );
+	
+//	for( i = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID; i <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; i++ )
+//	{
+//		if( MercPtrs[ i ]->bInSector )
+//		{
+//			MercPtrs[ i ]->bOrders = SEEKENEMY;
+////			MercPtrs[ i ]->bAttitude = AGGRESSIVE;
+//		}
+//	}
+	guiDirNumber = 0;
 }
 
 void HandleMilitiaPromotions( void )

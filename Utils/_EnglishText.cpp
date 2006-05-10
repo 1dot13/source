@@ -3468,8 +3468,10 @@ STR16	zOptionsScreenHelpText[] =
 
 	L"When ON, the movement cursor is shown in 3D. ( |Home )",
 
+	// Options for 1.13
 	L"When ON, the the chance to hit is shown on the cursor.",
-
+	L"GL Burst, i dont know what is it :(",
+	L"Enemy drop all items, when he is dead.",
 };
 
 
@@ -4044,7 +4046,10 @@ STR16 gzLateLocalizedString[] =
 	L"%s fires %d more rounds than intended!"
 };
 
-
+STR16 gzCWStrings[] = 
+{
+	L"Call reinforcements from adjacent sectors?",
+};
 
 
 #endif //ENGLISH

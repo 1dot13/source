@@ -84,7 +84,7 @@ UINT8	gubBuildingInfoToSet;
 
 // STANDARD maximums... configurable!
 #define MAX_SKIPLIST_LEVEL 5
-#define MAX_TRAIL_TREE	(4096)
+#define MAX_TRAIL_TREE	(16384)//(4096)
 #define MAX_PATHQ			(512)
 
 INT32 iMaxSkipListLevel = MAX_SKIPLIST_LEVEL;
@@ -150,7 +150,7 @@ static INT32	iSkipListLevelLimit[8] = {0, 4, 16, 64, 256, 1024, 4192, 16384 };
 //#define ESTIMATEC (((dx<dy) ? ( (TRAVELCOST_FLAT * dx * 14) / 10 + dy) : (TRAVELCOST_FLAT * dy * 14 ) / 10 + dx) ) )
 #define ESTIMATE ESTIMATEC
 
-#define MAXCOST (9990)
+#define MAXCOST (16384)//(9990)
 //#define MAXCOST (255)
 //#define TOTALCOST( pCurrPtr ) (pCurrPtr->usCostSoFar + pCurrPtr->usCostToGo)
 #define TOTALCOST( ptr ) (ptr->usTotalCost)
@@ -2127,11 +2127,18 @@ void GlobalItemsReachableTest( INT16 sStartGridNo1, INT16 sStartGridNo2 )
 void RoofReachableTest( INT16 sStartGridNo, UINT8 ubBuildingID )
 {
 	SOLDIERTYPE s;
+	INT16 sGridNo;
 
 	memset( &s, 0, sizeof( SOLDIERTYPE ) );
 	s.sGridNo = sStartGridNo;
 	s.bLevel = 1;
 	s.bTeam = 1;
+
+	// clearing flags
+
+	for( sGridNo = 0 ; sGridNo < NOWHERE ; ++sGridNo )
+		gpWorldLevelData[ sGridNo ].uiFlags &= (~MAPELEMENT_REACHABLE);
+	
 
 	gubBuildingInfoToSet = ubBuildingID;
 

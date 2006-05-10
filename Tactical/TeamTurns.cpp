@@ -43,6 +43,36 @@
 	#endif
 #endif
 
+#include "Reinforcement.h"
+
+
+//extern UINT8 gubSpeedUpAnimationFactor;
+void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier );
+
+void RecalculateSoldiersAniSpeed()
+{
+	UINT32 uiLoop;
+	SOLDIERTYPE *pSoldier;
+
+//	if( gubSpeedUpAnimationFactor == 1 )return;
+
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+	{
+		pSoldier = MercSlots[ uiLoop ];
+
+		// if this merc is inactive, at base, on assignment, dead, unconscious
+		if (!pSoldier)
+		{
+			continue;          // next merc
+		}
+
+		SetSoldierAniSpeed( pSoldier );
+	}
+
+}
+
+
+
 extern void DecayPublicOpplist(INT8 bTeam);
 extern void VerifyAndDecayOpplist(SOLDIERTYPE *pSoldier);
 void EndInterrupt( BOOLEAN fMarkInterruptOccurred );
@@ -257,6 +287,8 @@ void EndTurn( UINT8 ubNextTeam )
 	{
 		AddPossiblePendingEnemiesToBattle();
 
+		AddPossiblePendingMilitiaToBattle();
+
 //		InitEnemyUIBar( );
 
 		FreezeInterfaceForEnemyTurn();
@@ -429,6 +461,8 @@ void BeginTeamTurn( UINT8 ubTeam )
 			BeginLoggingForBleedMeToos( FALSE );
 
 		}
+
+		RecalculateSoldiersAniSpeed();
 
 		if (ubTeam == gbPlayerNum )
 		{

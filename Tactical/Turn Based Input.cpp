@@ -225,7 +225,7 @@ void HandleStealthChangeFromUIKeys( );
 UINT8			gubCheatLevel		= STARTING_CHEAT_LEVEL;
 
 
-
+extern BOOLEAN CompatibleAmmoForGun( OBJECTTYPE *pTryObject, OBJECTTYPE *pTestObject );
 extern void DetermineWhichAssignmentMenusCanBeShown( void );
 extern void DetermineWhichMilitiaControlMenusCanBeShown( void ); //lal
 
@@ -2995,10 +2995,73 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							HandleStanceChangeFromUIKeys( ANIM_PRONE );
 					break;
 
+				case 'R':					
+					if (! (gTacticalStatus.uiFlags & INCOMBAT) )
+					{
+						SOLDIERTYPE	*pTeamSoldier;
+						INT8		bLoop;
+						OBJECTTYPE *pGun, *pAmmo;
+
+						// Search for soldier
+						for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+						{
+							if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
+							{	
+
+
+								// Search for gun
+								for (UINT32 bLoop2 = 0; bLoop2 < NUM_INV_SLOTS; bLoop2++)
+								{
+									if (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & IC_GUN || Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass == IC_LAUNCHER)
+									{	
+										pGun  = &(pTeamSoldier->inv[bLoop2]);
+										//magazine is not full
+										if ( pGun->ubGunShotsLeft < GetMagSize( pGun )  )
+										{
+
+											// Search for ammo in sector
+											for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; uiLoop++ )												
+											{
+												if ( gWorldItems[ uiLoop ].fExists)
+												{
+													pAmmo = &( gWorldItems[ uiLoop ].o );
+
+													if ( CompatibleAmmoForGun( pAmmo, pGun ) )
+													{
+														ReloadGun( pTeamSoldier, pGun, pAmmo );
+													}
+
+													if (pAmmo->ubShotsLeft[0] == 0)
+													{														
+														RemoveItemFromPool( gWorldItems[ uiLoop ].sGridNo, uiLoop, gWorldItems[ uiLoop ].ubLevel );
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					else
+					{
+						SOLDIERTYPE	*pTeamSoldier;
+						INT8		bLoop;
+
+						for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+						{
+							if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
+							{	
+								AutoReload( pTeamSoldier );							
+							}
+						}
+					}
+					break;
+
+
 				case 'r':
 					if( gusSelectedSoldier != NO_SOLDIER )
 					{
-
 						if( fAlt ) //reload selected merc's weapon
 						{
 							if ( CHEATER_CHEAT_LEVEL( ) )
@@ -3015,24 +3078,27 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						}
 						else
 						{ 
-              if ( !MercInWater( MercPtrs[ gusSelectedSoldier ] ) && !(MercPtrs[ gusSelectedSoldier ]->uiStatusFlags & SOLDIER_ROBOT ) )
-              {
-							  //change selected merc to run
-							  if ( MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != RUNNING )
-							  {
-								  UIHandleSoldierStanceChange( (UINT8)gusSelectedSoldier, ANIM_STAND );
-								  MercPtrs[ gusSelectedSoldier ]->fUIMovementFast = 1;
-							  }
-							  else
-							  {
-								   MercPtrs[ gusSelectedSoldier ]->fUIMovementFast = 1;
-								   MercPtrs[ gusSelectedSoldier ]->usUIMovementMode = RUNNING;
-								   gfPlotNewMovement = TRUE;
-							  }
-              }
+							if ( !MercInWater( MercPtrs[ gusSelectedSoldier ] ) && !(MercPtrs[ gusSelectedSoldier ]->uiStatusFlags & SOLDIER_ROBOT ) )
+							{
+								//change selected merc to run
+								if ( MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != WALKING && MercPtrs[ gusSelectedSoldier ]->usUIMovementMode != RUNNING )
+								{
+									UIHandleSoldierStanceChange( (UINT8)gusSelectedSoldier, ANIM_STAND );
+									MercPtrs[ gusSelectedSoldier ]->fUIMovementFast = 1;
+								}
+								else
+								{
+									MercPtrs[ gusSelectedSoldier ]->fUIMovementFast = 1;
+									MercPtrs[ gusSelectedSoldier ]->usUIMovementMode = RUNNING;
+									gfPlotNewMovement = TRUE;
+								}
+							}
 						}
 					}
 					break;
+
+
+
 				case 's':
 
 					if( fCtrl )
@@ -3347,7 +3413,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
 						if ( ( gpItemPointer == NULL ) )
 						{
-              HandleStealthChangeFromUIKeys( );
+							HandleStealthChangeFromUIKeys( );
 						}
 					}
 					break;

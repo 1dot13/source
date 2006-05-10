@@ -86,14 +86,14 @@
 #endif
 
 //turnspeed
-UINT8 gubPlayerTurnSpeedUpFactor = 1;
-UINT8 gubEnemyTurnSpeedUpFactor = 1;
-UINT8 gubCreatureTurnSpeedUpFactor = 1;
-UINT8 gubMilitiaTurnSpeedUpFactor = 1;
-UINT8 gubCivTurnSpeedUpFactor = 1;
+//UINT8 gubPlayerTurnSpeedUpFactor = 1;
+//UINT8 gubEnemyTurnSpeedUpFactor = 1;
+//UINT8 gubCreatureTurnSpeedUpFactor = 1;
+//UINT8 gubMilitiaTurnSpeedUpFactor = 1;
+//UINT8 gubCivTurnSpeedUpFactor = 1;
 //turnspeed
 
-extern BOOLEAN fAllowTacticalMilitiaCommand; //lal
+//extern BOOLEAN fAllowTacticalMilitiaCommand; //lal
 
 extern INT16 DirIncrementer[8];
 
@@ -5879,18 +5879,17 @@ UINT8 GetSpeedUpFactor( )
 	switch(  gTacticalStatus.ubCurrentTeam )
 	{
 	case OUR_TEAM:
-		return gubPlayerTurnSpeedUpFactor;
+		return gGameExternalOptions.gubPlayerTurnSpeedUpFactor;
 	case ENEMY_TEAM:
-		return gubEnemyTurnSpeedUpFactor;
+		return gGameExternalOptions.gubEnemyTurnSpeedUpFactor;
 	case CREATURE_TEAM:
-		return gubCreatureTurnSpeedUpFactor;
+		return gGameExternalOptions.gubCreatureTurnSpeedUpFactor;
 	case MILITIA_TEAM:
-		return gubMilitiaTurnSpeedUpFactor;
+		return gGameExternalOptions.gubMilitiaTurnSpeedUpFactor;
 	case CIV_TEAM:
-		return gubCivTurnSpeedUpFactor;
+		return gGameExternalOptions.gubCivTurnSpeedUpFactor;
 	}
 	
-
 	return 1;
 }
 
@@ -10822,7 +10821,7 @@ BOOLEAN PlayerSoldierStartTalking( SOLDIERTYPE *pSoldier, UINT8 ubTargetID, BOOL
 	if ( GetCivType( pTSoldier ) != CIV_TYPE_NA )
 	{
 		//lal
-		if ( ( pTSoldier->bTeam == MILITIA_TEAM ) && ( fAllowTacticalMilitiaCommand == TRUE ) && (pSoldier->bSide == pTSoldier->bSide) )
+		if ( ( pTSoldier->bTeam == MILITIA_TEAM ) && ( gGameExternalOptions.fAllowTacticalMilitiaCommand == TRUE ) && (pSoldier->bSide == pTSoldier->bSide) )
 		{
 			PopupMilitiaControlMenu( pTSoldier );
 			return( FALSE );

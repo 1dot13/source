@@ -2048,7 +2048,8 @@ SOLDIERTYPE* TacticalCreateAdministrator()
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
 	{
-		return ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_ADMINISTRATOR );
+		pSoldier = ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_ADMINISTRATOR );
+		if( pSoldier ) return pSoldier;
 	}
 
 	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
@@ -2081,7 +2082,8 @@ SOLDIERTYPE* TacticalCreateArmyTroop()
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
 	{
-		return ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_ARMY );
+		pSoldier = ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_ARMY );
+		if( pSoldier ) return pSoldier;
 	}
 
 	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
@@ -2114,7 +2116,8 @@ SOLDIERTYPE* TacticalCreateEliteEnemy()
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
 	{
-		return ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_ELITE );
+		pSoldier = ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_ELITE );
+		if( pSoldier ) return pSoldier;		
 	}
 
 	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
@@ -2146,11 +2149,53 @@ SOLDIERTYPE* TacticalCreateEliteEnemy()
 	return( pSoldier );
 }
 
+SOLDIERTYPE* ReserveTacticalMilitiaSoldierForAutoresolve( UINT8 ubSoldierClass )
+{
+	INT32 i, iStart, iEnd;
+	SOLDIERTYPE *pSoldier;
+
+	// For description look original ReserveTacticalSoldierForAutoresolve()
+
+	iStart = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
+	iEnd = gTacticalStatus.Team[ MILITIA_TEAM ].bLastID;
+
+	for( i = iStart; i <= iEnd; i++ )
+	{
+		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->bInSector && MercPtrs[ i ]->bLife && MercPtrs[ i ]->sGridNo != NOWHERE )
+		{
+			if( MercPtrs[ i ]->ubSoldierClass == ubSoldierClass )
+			{
+				//reserve this soldier
+				MercPtrs[ i ]->sGridNo = NOWHERE;
+
+				//Allocate and copy the soldier
+				pSoldier = (SOLDIERTYPE*)MemAlloc( sizeof( SOLDIERTYPE ) );
+				if( !pSoldier )
+					return NULL;
+				memcpy( pSoldier, MercPtrs[ i ], sizeof( SOLDIERTYPE ) );
+
+				//Assign a bogus ID, then return it
+				pSoldier->ubID = 255;
+				return pSoldier;
+			}
+		}
+	}
+	return NULL;
+}
+
+
 SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass )
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
 	UINT8 ubID;
+	SOLDIERTYPE * pSoldier;
+
+	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
+	{
+		pSoldier = ReserveTacticalMilitiaSoldierForAutoresolve( ubMilitiaClass );
+		if( pSoldier ) return pSoldier;		
+	}
 
 	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
 	memset( &pp, 0, sizeof( SOLDIERCREATE_STRUCT ) );
@@ -2171,10 +2216,12 @@ SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType )
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
 	UINT8 ubID;
+	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
 	{
-		return ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_CREATURE );
+		pSoldier = ReserveTacticalSoldierForAutoresolve( SOLDIER_CLASS_CREATURE );
+		if( pSoldier ) return pSoldier;
 	}
 
 	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );

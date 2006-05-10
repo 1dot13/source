@@ -159,7 +159,7 @@ UINT8		gubDesertTemperature = 0;
 UINT8		gubGlobalTemperature = 0;
 
 //rain
-extern BOOLEAN gfAllowRain;
+//extern BOOLEAN gfAllowRain;
 //end rain
 
 // local prototypes
@@ -370,7 +370,7 @@ void BuildDayAmbientSounds( )
 	//end rain
 }
 
-extern UINT16 gusRainChancePerDay, gusRainMinLength, gusRainMaxLength; //rain
+//extern UINT16 gusRainChancePerDay, gusRainMinLength, gusRainMaxLength; //rain
 
 
 void ForecastDayEvents( )
@@ -398,13 +398,13 @@ void ForecastDayEvents( )
 		if ( guiEnvDay > 1 )
 		{
 			//rain			
-			if ( Random( 100 ) < gusRainChancePerDay )
+			if ( Random( 100 ) < gGameExternalOptions.gusRainChancePerDay )
 			{
 				// Add rain!
 				// Between 6:00 and 10:00
-				uiStartTime = (UINT32)( Random( 1440 - 1 -gusRainMaxLength  ) );
+				uiStartTime = (UINT32)( Random( 1440 - 1 - gGameExternalOptions.gusRainMaxLength  ) );
 				// Between 5 - 15 miniutes
-				uiEndTime		= uiStartTime + ( gusRainMinLength + Random( gusRainMaxLength - gusRainMinLength ) );
+				uiEndTime		= uiStartTime + ( gGameExternalOptions.gusRainMinLength + Random( gGameExternalOptions.gusRainMaxLength - gGameExternalOptions.gusRainMinLength ) );
 
 				ubStormIntensity = 0;
 
@@ -414,7 +414,7 @@ void ForecastDayEvents( )
 					ubStormIntensity = 1;
 				}
 	
-				if( gfAllowRain ) AddSameDayRangedStrategicEvent( EVENT_RAINSTORM, uiStartTime, uiEndTime - uiStartTime, ubStormIntensity );
+				if( gGameExternalOptions.gfAllowRain ) AddSameDayRangedStrategicEvent( EVENT_RAINSTORM, uiStartTime, uiEndTime - uiStartTime, ubStormIntensity );
 
 				//AddSameDayStrategicEvent( EVENT_BEGINRAINSTORM, uiStartTime, ubStormIntensity );
 				//AddSameDayStrategicEvent( EVENT_ENDRAINSTORM,		uiEndTime, 0 );

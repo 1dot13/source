@@ -186,7 +186,7 @@ enum
 
 
 // CHANGE THIS VALUE TO AFFECT TOTAL SIGHT RANGE
-#define STRAIGHT_RANGE	ubStraightSightRange
+#define STRAIGHT_RANGE	gGameExternalOptions.ubStraightSightRange
 
 // CHANGE THESE VALUES TO ADJUST VARIOUS FOV ANGLES
 #define STRAIGHT_RATIO	1 //* 1.5

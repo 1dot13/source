@@ -19,7 +19,7 @@ UINT32 MIDVOLUME								START_MIDVOLUME;
 UINT32 HIGHVOLUME								START_HIGHVOLUME;
 */
 
-extern UINT32 guiWeaponSoundEffectsVolume;
+//extern UINT32 guiWeaponSoundEffectsVolume;
 
 UINT32	guiSpeechVolume = MIDVOLUME;
 UINT32	guiSoundEffectsVolume = MIDVOLUME;
@@ -453,7 +453,7 @@ UINT32 PlayJA2Sample( UINT32 usNum, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoo
 	}
 	else
 	{
-		spParms.uiVolume = (UINT32)( ( ubVolume / (FLOAT) HIGHVOLUME ) * guiSoundEffectsVolume +.5 ) * (1 + guiWeaponSoundEffectsVolume / 100);
+		spParms.uiVolume = (UINT32)( ( ubVolume / (FLOAT) HIGHVOLUME ) * guiSoundEffectsVolume +.5 ) * (1 + gGameExternalOptions.guiWeaponSoundEffectsVolume / 100);
 	}
 
 	spParms.uiVolume &= 0xFFL;
@@ -474,6 +474,7 @@ UINT32 PlayJA2StreamingSample( UINT32 usNum, UINT32 usRate, UINT32 ubVolume, UIN
 	memset(&spParms, 0xff, sizeof(SOUNDPARMS));
 
 	spParms.uiSpeed = usRate;
+
 	spParms.uiVolume = CalculateSoundEffectsVolume( ubVolume );
 	spParms.uiLoop = ubLoops;
 	spParms.uiPan = uiPan;
@@ -500,7 +501,7 @@ UINT32 PlayJA2SampleFromFile( STR8 szFileName, UINT32 usRate, UINT32 ubVolume, U
 	}
 	else
 	{
-		spParms.uiVolume = (UINT32)( ( ubVolume / (FLOAT) HIGHVOLUME ) * guiSoundEffectsVolume +.5 ) * (1 + guiWeaponSoundEffectsVolume / 100);
+		spParms.uiVolume = (UINT32)( ( ubVolume / (FLOAT) HIGHVOLUME ) * guiSoundEffectsVolume +.5 ) * (1 + gGameExternalOptions.guiWeaponSoundEffectsVolume / 100);
 	}
 	
 	spParms.uiLoop = ubLoops;
@@ -511,7 +512,6 @@ UINT32 PlayJA2SampleFromFile( STR8 szFileName, UINT32 usRate, UINT32 ubVolume, U
 
 	return(SoundPlay((STR) szFileName, &spParms));
 }
-
 
 UINT32 PlayJA2StreamingSampleFromFile( STR8 szFileName, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan, SOUND_STOP_CALLBACK EndsCallback )
 {

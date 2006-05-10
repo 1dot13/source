@@ -30,6 +30,8 @@
 	#include "Soldier macros.h"
 #endif
 
+#include "Reinforcement.h"
+
 extern void DecayPublicOpplist( INT8 bTeam );
 
 //not in overhead.h!
@@ -170,6 +172,8 @@ void HandleTacticalEndTurn( )
 	//Check for enemy pooling (add enemies if there happens to be more than the max in the
 	//current battle.  If one or more slots have freed up, we can add them now.
 	AddPossiblePendingEnemiesToBattle();
+
+	AddPossiblePendingMilitiaToBattle();
 	
 	// Loop through each active team and decay public opplist...
 	// May want this done every few times too

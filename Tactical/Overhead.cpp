@@ -3832,6 +3832,7 @@ void MilitiaChangesSides( void )
 	{
 		if (pSoldier->bActive && pSoldier->bInSector && pSoldier->bLife)
 		{
+			if ( (gWorldSectorX ==0 && gWorldSectorY == 0) || !NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) )
 			MakeCivHostile( pSoldier, 2 );
 			RecalculateOppCntsDueToNoLongerNeutral( pSoldier );
 		}
@@ -5457,7 +5458,8 @@ void EnterCombatMode( UINT8 ubStartingTeam )
 		// OK, make sure we have a selected guy
 		// Madd: this was causing a weird crash becuase gusSelectedSoldier was 156 (out of the array bounds) for some reason
 		//if ( MercPtrs[ gusSelectedSoldier ]->bOppCnt == 0 )
-		//{
+		if ( gusSelectedSoldier != NOBODY && MercPtrs[ gusSelectedSoldier ]->bOppCnt == 0 )
+		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"EnterCombatMode continuing... nobody selected");
 			// OK, look through and find one....
 			for ( cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID, pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pTeamSoldier++ )
@@ -5468,7 +5470,7 @@ void EnterCombatMode( UINT8 ubStartingTeam )
 					SelectSoldier( pTeamSoldier->ubID, FALSE, TRUE );
 				}
 			}
-		//}
+		}
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"EnterCombatMode continuing... calling startplayerteamturn");
 
 		StartPlayerTeamTurn( FALSE, TRUE );
@@ -5903,7 +5905,13 @@ void DeathNoMessageTimerCallback( void )
   CheckAndHandleUnloadingOfCurrentWorld();
 }
 
+void RemoveStaticEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY )
+{
+	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 
+	pSectorInfo->ubNumAdmins = pSectorInfo->ubNumTroops = pSectorInfo->ubNumElites = 0;
+	pSectorInfo->ubAdminsInBattle = pSectorInfo->ubTroopsInBattle = pSectorInfo->ubElitesInBattle = 0;
+}
 
 //!!!!
 //IMPORTANT NEW NOTE:
@@ -5962,6 +5970,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 		//It is possible to have more than 20 enemies in a sector.  By failing here,
 		//it gives the engine a chance to add these soldiers as reinforcements.  This
 		//is naturally handled.
+		AddPossiblePendingEnemiesToBattle();
 		if( gfPendingEnemies )
 		{
 			fBattleWon = FALSE;
@@ -6042,6 +6051,10 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 				return( FALSE );				
 			}
 		}
+
+		// Kill all enemies. Sometime even after killing all the enemies, there appeares "in battle" enemies in sector info
+		RemoveStaticEnemiesFromSectorInfo( gWorldSectorX, gWorldSectorY );
+		
 
 		// If here, the battle has been won!
 		// hurray! a glorious victory!
@@ -6168,6 +6181,10 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 			  ShouldBeginAutoBandage();
 			}
 
+			HandleMilitiaStatusInCurrentMapBeforeLoadingNewMap();
+			gfStrategicMilitiaChangesMade = TRUE;
+
+
 			// Loop through all militia and restore them to peaceful status
 			cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
 			for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; cnt++,pTeamSoldier++)
@@ -6180,10 +6197,10 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 					pTeamSoldier->ubNoiseVolume = 0;
 					pTeamSoldier->bNewSituation = FALSE;
 					pTeamSoldier->bOrders = STATIONARY;
-					if ( pTeamSoldier->bLife >= OKLIFE )
-					{
-						pTeamSoldier->bBleeding = 0;
-					}
+					if ( pTeamSoldier->bLife < OKLIFE )
+						pTeamSoldier->bLife = OKLIFE;
+
+					pTeamSoldier->bBleeding = 0; // let's think, the autobandage was done for the militia too
 				}
 			}
 			gTacticalStatus.Team[ MILITIA_TEAM ].bAwareOfOpposition = FALSE;
