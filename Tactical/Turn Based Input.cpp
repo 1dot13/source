@@ -3047,12 +3047,22 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					{
 						SOLDIERTYPE	*pTeamSoldier;
 						INT8		bLoop;
+						OBJECTTYPE *pGun;
 
 						for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
 						{
 							if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
 							{	
-								AutoReload( pTeamSoldier );							
+								if (Item[pTeamSoldier->inv[HANDPOS].usItem].usItemClass & IC_GUN || Item[pTeamSoldier->inv[HANDPOS].usItem].usItemClass == IC_LAUNCHER)
+								{
+									pGun  = &(pTeamSoldier->inv[HANDPOS]);
+
+									//magazine is not full
+									if ( pGun->ubGunShotsLeft < GetMagSize( pGun )  )
+									{
+										AutoReload( pTeamSoldier );		
+									}
+								}
 							}
 						}
 					}
