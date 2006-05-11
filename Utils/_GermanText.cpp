@@ -3106,10 +3106,10 @@ STR16 zSaveLoadText[] =
 	L"Schwierigkeit",
 	L"Platinum Mode", //Placeholder English
 	L"Bobby Ray's",
-	L"Good Selection",
-	L"Great Selection",
-	L"Excellent Selection",
-	L"Awesome Selection",
+	L"Normale Auswahl",
+	L"Groﬂe Auswahl",
+	L"Ausgezeichnete Auswahl",
+	L"Fantastische Auswahl",
 };
 
 //MapScreen
@@ -3207,6 +3207,9 @@ STR16 zOptionsToggleText[] =
 	L"Baumkronen zeigen",
 	L"Drahtgitter zeigen",
 	L"3D Cursor zeigen",
+	L"Trefferchance anzeigen",
+	L"GL Burst verwendet burst Cursor",
+	L"Gegner lassen alles fallen",
 };
 
 //This is the help text associated with the above toggles.
@@ -3291,7 +3294,7 @@ STR16 gzGIOScreenText[] =
 	L"Einsteiger",				
 	L"Profi",
 	L"Alter Hase",
-	L"INSANE",
+	L"WAHNSINNIG",
 	L"Ok",
 	L"Abbrechen",
 	L"Extraschwer",

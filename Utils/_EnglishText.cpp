@@ -3443,7 +3443,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, an additional \"safety\" click will be required for movement in Real-time.",
 
 	//Sleep/Wake notification
-  L"When ON, you will be notified when mercs on \"assignment\" go to sleep and resume work.",
+	L"When ON, you will be notified when mercs on \"assignment\" go to sleep and resume work.",
 
 	//Use the metric system
 	L"When ON, uses the metric system for measurements; otherwise it uses the Imperial system.",
@@ -3469,8 +3469,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, the movement cursor is shown in 3D. ( |Home )",
 
 	// Options for 1.13
-	L"When ON, the the chance to hit is shown on the cursor.",
-	L"GL Burst, i dont know what is it :(",
+	L"When ON, the chance to hit is shown on the cursor.",
+	L"GL Burst uses burst cursor.",
 	L"Enemy drop all items, when he is dead.",
 };
 

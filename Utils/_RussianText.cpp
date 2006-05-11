@@ -134,6 +134,8 @@ UINT16 AmmoCaliber[][20] =
 	L"Ракета",
 	L"", // дротик
 	L"", // пламя
+//	L".50 cal", // barrett
+//	L"9mm Hvy", // Val silent
 };
 
 // This BobbyRayAmmoCaliber is virtually the same as AmmoCaliber however the bobby version doesnt have as much room for the words.
@@ -161,6 +163,9 @@ UINT16 BobbyRayAmmoCaliber[][20] =
 	L"Монстр",
 	L"Ракета",
 	L"", // дротик
+//	L"", // flamethrower
+//	L".50 cal", // barrett
+//	L"9mm Hvy", // Val silent
 };
 
 
@@ -284,6 +289,8 @@ UINT16 Message[][STRING_LENGTH] =
 	L"ход Кошки-Убийцы",
 	L"automatic",
 	L"no full auto",
+	L"accurate",
+	L"inaccurate",
 };
 
 
@@ -765,6 +772,7 @@ STR16 pTacticalPopupButtonStrings[] =
 	L"Исп.взрывчатку", 
 	L"Ломом",
 	L"Отмена(|E|s|c)"
+	L"Close",
 };
 
 // Door Traps. When we examine a door, it could have a particular trap on it. These are the traps.
@@ -1830,6 +1838,7 @@ STR16 pTransactionText[] =
 	L"Стоим.экипировки ополч: %s", // initial cost to equip a town's militia
 	L"Покупки у %s.",	//is used for the Shop keeper interface.  The dealers name will be appended to the end of the string.
 	L"%s положил деньги.",
+	L"Sold Item(s) to the Locals",
 };
 
 STR16 pTransactionAlternateText[] =
@@ -1920,7 +1929,7 @@ STR16 pMapErrorString[] =
 	L"чтобы двигаться, нужен эскорт.Обеспечьте ее эскортом.", // for a female
 	L"Наемник еще не прибыл в Арулько!",
 	L"Кажется,сначала нужно уладить все проблемы с контрактом.",
-	L"",
+	L"Cannot give a movement order. Air raid is going on.",		// WANNE 2
 //11-15
 	L"Приказ двигаться? Тут же битва идет!",
 	L"Вы наткнулись на засаду Кошки-Убийцы в секторе %s!",
@@ -3283,7 +3292,7 @@ STR16			zSaveLoadText[] =
 	L"Сложн.",
 	L"Platinum Mode", //Placeholder English
 	L"Bobby Ray's",
-	L"Good Selection",
+	L"Normal Selection",
 	L"Great Selection",
 	L"Excellent Selection",
 	L"Awesome Selection",
@@ -3322,6 +3331,8 @@ STR16		zMarksMapScreenText[] =
 	L"%s:много ополченцев.",
 	L"У наемн.конечн.контракт.", 
   L"Контракт наемн.не застрахован",
+	// WANNE 2
+	L"Map Overview",		// 24
 };
 
 
@@ -3381,6 +3392,9 @@ STR16		zOptionsToggleText[] =
 	L"Показать верхушки деревьев",
 	L"Показывать каркасы",
 	L"Показать трехмерный курсор",
+	L"Show Chance to Hit on the cursor",
+	L"GL Burst Uses Burst Cursor",
+	L"Enemies Drop All Items",
 };
 
 //This is the help text associated with the above toggles.
@@ -3445,6 +3459,10 @@ STR16	zOptionsScreenHelpText[] =
 
 	L"Когда опция вкл,движущийся курсор-трехмерный.( |Home )",
 
+	// Options for 1.13
+	L"When ON, the chance to hit is shown on the cursor.",
+	L"GL Burst uses burst cursor.",
+	L"Enemy drop all items, when he is dead.",
 };
 
 
@@ -3470,7 +3488,7 @@ STR16	gzGIOScreenText[] =
 	L"Время хода ограничено",
 	L"Отключено в демо-версии", 
 	L"Bobby Ray's Selection",
-	L"Good",
+	L"Normal",
 	L"Great",
 	L"Excellent",
 	L"Awesome",
@@ -3649,6 +3667,10 @@ STR16 pMessageStrings[] =
 	L"Багаж прибыл в Драссен.",
 	L"%s должен прибыть в указанное место высадки (сектор %s) в день %d,примерно в %s.",		//first %s is mercs name, next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival
 	L"История обновлена.",
+	L"Grenade Bursts - Using Targeting Cursor (Spread fire enabled)",
+	L"Grenade Bursts - Using Trajectory Cursor (Spread fire disabled)",
+	L"Drop All Enabled",
+	L"Drop All Disabled",
 #ifdef JA2BETAVERSION
 	L"Игра сохранена в ячейку авто-сохранения.",
 #endif
@@ -4009,6 +4031,9 @@ STR16 gzLateLocalizedString[] =
 	L"Сопроводить Джона и Мэри?",
 	
   L"Выключатель нажат.",
+
+	L"%s's armour attachment has been smashed!",
+	L"%s fires %d more rounds than intended!"
 };
 
 STR16 gzCWStrings[] = 
