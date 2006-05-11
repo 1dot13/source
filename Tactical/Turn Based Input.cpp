@@ -2889,6 +2889,76 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 					break;
 
+
+
+
+				case 'N':
+					{
+						SOLDIERTYPE	*pTeamSoldier;
+						INT8		bLoop, bSlot1, bSlot2;
+
+						for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+						{
+							if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
+							{	
+								//2 head slots
+								for (bSlot1 = HEAD1POS; bSlot1 <= HEAD2POS; bSlot1++)
+								{
+									if ( (pTeamSoldier->inv[bSlot1].usItem == SUNGOGGLES)||(pTeamSoldier->inv[bSlot1].usItem == NIGHTGOGGLES)||(pTeamSoldier->inv[bSlot1].usItem == UVGOGGLES) )
+									{
+										switch (pTeamSoldier->inv[bSlot1].usItem)
+										{
+											case SUNGOGGLES:
+											{
+												bSlot2 = FindObjWithin( pTeamSoldier, UVGOGGLES, HANDPOS, SMALLPOCK8POS );
+												if ( bSlot2 != -1 )
+												{
+													SwapObjs( &(pTeamSoldier->inv[bSlot1]), &(pTeamSoldier->inv[bSlot2] ) );
+												}
+												else
+												{
+													bSlot2 = FindObjWithin( pTeamSoldier, NIGHTGOGGLES, HANDPOS, SMALLPOCK8POS );
+													if ( bSlot2 != -1 )
+													{
+														SwapObjs( &(pTeamSoldier->inv[bSlot1]), &(pTeamSoldier->inv[bSlot2] ) );
+													}
+												}
+											}
+											break;
+											
+											case NIGHTGOGGLES:
+											{
+												bSlot2 = FindObjWithin( pTeamSoldier, SUNGOGGLES, HANDPOS, SMALLPOCK8POS );
+												if ( bSlot2 != -1 )
+												{
+													SwapObjs( &(pTeamSoldier->inv[bSlot1]), &(pTeamSoldier->inv[bSlot2] ) );
+												}
+											}
+											break;
+											
+											case UVGOGGLES:
+											{
+												bSlot2 = FindObjWithin( pTeamSoldier, SUNGOGGLES, HANDPOS, SMALLPOCK8POS );
+												if ( bSlot2 != -1 )
+												{
+													SwapObjs( &(pTeamSoldier->inv[bSlot1]), &(pTeamSoldier->inv[bSlot2] ) );
+												}
+											}
+											break;
+										}
+									
+										fCharacterInfoPanelDirty = TRUE;
+										fInterfacePanelDirty = DIRTYLEVEL2;
+									}
+								}
+							}
+						}
+					}
+					break;
+
+
+
+
 				case 'n':
 
 					if( fAlt )
@@ -3008,7 +3078,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
 							{	
 
-
 								// Search for gun
 								for (UINT32 bLoop2 = 0; bLoop2 < NUM_INV_SLOTS; bLoop2++)
 								{
@@ -3022,18 +3091,25 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 											// Search for ammo in sector
 											for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; uiLoop++ )												
 											{
-												if ( gWorldItems[ uiLoop ].fExists)
+												if ( gWorldItems[ uiLoop ].fExists) //item exists
 												{
-													pAmmo = &( gWorldItems[ uiLoop ].o );
-
-													if ( CompatibleAmmoForGun( pAmmo, pGun ) )
+													if ( ( Item[ gWorldItems[ uiLoop ].o.usItem ].usItemClass & IC_AMMO ) ) // the item is ammo
 													{
-														ReloadGun( pTeamSoldier, pGun, pAmmo );
-													}
+														pAmmo = &( gWorldItems[ uiLoop ].o );
 
-													if (pAmmo->ubShotsLeft[0] == 0)
-													{														
-														RemoveItemFromPool( gWorldItems[ uiLoop ].sGridNo, uiLoop, gWorldItems[ uiLoop ].ubLevel );
+														if ( CompatibleAmmoForGun( pAmmo, pGun ) ) // can use the ammo with this gun
+														{
+															// same ammo type in gun and magazine   
+															if ( Magazine[Item[pGun->usGunAmmoItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
+															{
+																ReloadGun( pTeamSoldier, pGun, pAmmo );
+															}
+
+															if (pAmmo->ubShotsLeft[0] == 0)
+															{														
+																RemoveItemFromPool( gWorldItems[ uiLoop ].sGridNo, uiLoop, gWorldItems[ uiLoop ].ubLevel );
+															}
+														}
 													}
 												}
 											}
