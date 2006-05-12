@@ -2891,7 +2891,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 
 
-
+					// swap sungoggles and nightgoggles
 				case 'N':
 					{
 						SOLDIERTYPE	*pTeamSoldier;
@@ -2949,6 +2949,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 									
 										fCharacterInfoPanelDirty = TRUE;
 										fInterfacePanelDirty = DIRTYLEVEL2;
+										DeleteSoldierLight( pTeamSoldier );
+										PositionSoldierLight( pTeamSoldier );
 									}
 								}
 							}
@@ -3065,6 +3067,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							HandleStanceChangeFromUIKeys( ANIM_PRONE );
 					break;
 
+					// Make auto reload with magazines from sector inventory
 				case 'R':					
 					if (! (gTacticalStatus.uiFlags & INCOMBAT) )
 					{
