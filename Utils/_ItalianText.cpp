@@ -613,7 +613,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"All: Come to me",
 	L"All: Get down",
 	L"All: Take cover",
-	L"All: Find items",
+	//L"All: Find items",
 	L"Cancel", // cancel this menu
 };
 
