@@ -2895,8 +2895,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				case 'N':
 					{
 						SOLDIERTYPE	*pTeamSoldier;
-						INT8		bLoop, bSlot1, bSlot2;
-
+						INT8		bLoop, bSlot1, bSlot2, temp;
+						INT16		lastBonus=0;
 						for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
 						{
 							if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
@@ -2904,55 +2904,51 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 								//2 head slots
 								for (bSlot1 = HEAD1POS; bSlot1 <= HEAD2POS; bSlot1++)
 								{
-									if ( (pTeamSoldier->inv[bSlot1].usItem == SUNGOGGLES)||(pTeamSoldier->inv[bSlot1].usItem == NIGHTGOGGLES)||(pTeamSoldier->inv[bSlot1].usItem == UVGOGGLES) )
+									if ( Item[pTeamSoldier->inv[bSlot1].usItem].brightlightvisionrangebonus > 0  )
 									{
-										switch (pTeamSoldier->inv[bSlot1].usItem)
+										lastBonus=0;
+										bSlot2 = ITEM_NOT_FOUND;
+										temp = 0;
+										while (temp != ITEM_NOT_FOUND)
 										{
-											case SUNGOGGLES:
+											temp = FindNightGoggles( pTeamSoldier, lastBonus );
+											if ( temp > ITEM_NOT_FOUND )
 											{
-												bSlot2 = FindObjWithin( pTeamSoldier, UVGOGGLES, HANDPOS, SMALLPOCK8POS );
-												if ( bSlot2 != -1 )
-												{
-													SwapObjs( &(pTeamSoldier->inv[bSlot1]), &(pTeamSoldier->inv[bSlot2] ) );
-												}
-												else
-												{
-													bSlot2 = FindObjWithin( pTeamSoldier, NIGHTGOGGLES, HANDPOS, SMALLPOCK8POS );
-													if ( bSlot2 != -1 )
-													{
-														SwapObjs( &(pTeamSoldier->inv[bSlot1]), &(pTeamSoldier->inv[bSlot2] ) );
-													}
-												}
+												lastBonus = Item[pTeamSoldier->inv[temp].usItem].nightvisionrangebonus;
+												bSlot2 = temp;
 											}
-											break;
-											
-											case NIGHTGOGGLES:
-											{
-												bSlot2 = FindObjWithin( pTeamSoldier, SUNGOGGLES, HANDPOS, SMALLPOCK8POS );
-												if ( bSlot2 != -1 )
-												{
-													SwapObjs( &(pTeamSoldier->inv[bSlot1]), &(pTeamSoldier->inv[bSlot2] ) );
-												}
-											}
-											break;
-											
-											case UVGOGGLES:
-											{
-												bSlot2 = FindObjWithin( pTeamSoldier, SUNGOGGLES, HANDPOS, SMALLPOCK8POS );
-												if ( bSlot2 != -1 )
-												{
-													SwapObjs( &(pTeamSoldier->inv[bSlot1]), &(pTeamSoldier->inv[bSlot2] ) );
-												}
-											}
-											break;
 										}
-									
-										fCharacterInfoPanelDirty = TRUE;
-										fInterfacePanelDirty = DIRTYLEVEL2;
-										DeleteSoldierLight( pTeamSoldier );
-										PositionSoldierLight( pTeamSoldier );
+										if ( bSlot2 != ITEM_NOT_FOUND )
+										{
+											SwapObjs( &(pTeamSoldier->inv[bSlot1]), &(pTeamSoldier->inv[bSlot2] ) );
+										}
+										break;
+									}
+									else if(Item[pTeamSoldier->inv[bSlot1].usItem].nightvisionrangebonus > 0)  
+									{
+										lastBonus=0;
+										bSlot2 = ITEM_NOT_FOUND;
+										temp = 0;
+										while (temp != ITEM_NOT_FOUND)
+										{
+											temp = FindSunGoggles( pTeamSoldier, lastBonus );
+											if ( temp > ITEM_NOT_FOUND )
+											{
+												lastBonus = Item[pTeamSoldier->inv[temp].usItem].brightlightvisionrangebonus;
+												bSlot2 = temp;
+											}
+										}
+										if ( bSlot2 != ITEM_NOT_FOUND )
+										{
+											SwapObjs( &(pTeamSoldier->inv[bSlot1]), &(pTeamSoldier->inv[bSlot2] ) );
+										}
+										break;
 									}
 								}
+								fCharacterInfoPanelDirty = TRUE;
+								fInterfacePanelDirty = DIRTYLEVEL2;
+								DeleteSoldierLight( pTeamSoldier );
+								PositionSoldierLight( pTeamSoldier );
 							}
 						}
 					}
@@ -3193,7 +3189,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 
 					case 'S':
-						
 						if (! (gTacticalStatus.uiFlags & INCOMBAT) )
 						{
 							for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; uiLoop++ )												

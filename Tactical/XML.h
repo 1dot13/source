@@ -59,6 +59,8 @@ typedef PARSE_STAGE;
 #define SOUNDSFILENAME							"Sounds.xml"
 #define BURSTSOUNDSFILENAME						"BurstSounds.xml"
 
+// Lesh: filename definition
+#define EXPLOSIONDATAFILENAME                   "ExplosionData.xml"
 #define CITYTABLEFILENAME "Cities.xml"
 
 extern BOOLEAN ReadInItemStats(STR fileName);
@@ -121,5 +123,9 @@ extern BOOLEAN WriteAmmoTypeStats();
 // Lesh: 2 lines added
 extern BOOLEAN ReadInBurstSoundArray(STR fileName);
 extern BOOLEAN WriteBurstSoundArray();
+// Lesh: over
+// Lesh: 2 new lines added for explosion data
+extern BOOLEAN ReadInExplosionDataStats(STR fileName);
+extern BOOLEAN WriteExplosionDataStats();
 // Lesh: over
 #endif

@@ -7069,3 +7069,31 @@ UINT16 GetFirstExplosiveOfType(UINT16 expType)
 
 	return 0;
 }
+
+INT8 FindSunGoggles( SOLDIERTYPE * pSoldier, INT16 bonusToBeat )
+{
+	INT8	bLoop;
+
+	for (bLoop = HANDPOS; bLoop <= SMALLPOCK8POS; bLoop++)
+	{
+		if (Item[pSoldier->inv[bLoop].usItem].brightlightvisionrangebonus > bonusToBeat && Item[pSoldier->inv[bLoop].usItem].usItemClass == IC_FACE )			
+		{
+			return( bLoop );
+		}
+	}
+	return( ITEM_NOT_FOUND );
+}
+
+INT8 FindNightGoggles( SOLDIERTYPE * pSoldier, INT16 bonusToBeat  )
+{
+	INT8	bLoop;
+
+	for (bLoop = HANDPOS; bLoop <= SMALLPOCK8POS; bLoop++)
+	{
+		if (Item[pSoldier->inv[bLoop].usItem].nightvisionrangebonus > bonusToBeat && Item[pSoldier->inv[bLoop].usItem].usItemClass == IC_FACE )			
+		{
+			return( bLoop );
+		}
+	}
+	return( ITEM_NOT_FOUND );
+}

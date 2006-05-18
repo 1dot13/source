@@ -64,7 +64,7 @@ UINT8 gubAICounter;
 //extern UINT8 gubDeadLockDelay;
 
 //#define DEADLOCK_DELAY							10000 //Madd - let's see what this does -- orig: 15000
-#define DEADLOCK_DELAY							( gGameExternalOptions.gubDeadLockDelay * 1000 )
+//#define DEADLOCK_DELAY							( gGameExternalOptions.gubDeadLockDelay * 1000 )
 
 // Very representing if this computer is the host, therefore controlling the ai
 extern	BYTE			gfAmIHost;
@@ -474,7 +474,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 
 	if (gfTurnBasedAI)
 	{
-		if ( ( GetJA2Clock() - gTacticalStatus.uiTimeSinceMercAIStart	) > DEADLOCK_DELAY && !gfUIInDeadlock )
+		if ( ( GetJA2Clock() - gTacticalStatus.uiTimeSinceMercAIStart	) > ( gGameExternalOptions.gubDeadLockDelay * 1000 ) && !gfUIInDeadlock )
 		{
       // ATE: Display message that deadlock occured...
       LiveMessage( "Breaking Deadlock" );

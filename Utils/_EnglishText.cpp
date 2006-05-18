@@ -3471,7 +3471,7 @@ STR16	zOptionsScreenHelpText[] =
 	// Options for 1.13
 	L"When ON, the chance to hit is shown on the cursor.",
 	L"GL Burst uses burst cursor.",
-	L"Enemy drop all items, when he is dead.",
+	L"Enemies drop all items on death.",
 };
 
 

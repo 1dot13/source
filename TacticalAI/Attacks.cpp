@@ -1602,7 +1602,7 @@ INT32 EstimateShotDamage(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ub
 	}
 
 	// check for ceramic plates; these do affect monster spit
-	bPlatePos = FindAttachment( &(pOpponent->inv[VESTPOS]), CERAMIC_PLATES );
+	bPlatePos = FindFirstArmourAttachment( &(pOpponent->inv[VESTPOS]) );
 	if (bPlatePos != -1)
 	{
 		iTorsoProt += (INT32) Armour[Item[pOpponent->inv[VESTPOS].usAttachItem[bPlatePos]].ubClassIndex].ubProtection *

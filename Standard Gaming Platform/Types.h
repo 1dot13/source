@@ -127,7 +127,7 @@ typedef INT32		IVECTOR4[4];		// 4d vector (4x1 matrix)
 typedef VECTOR3   MATRIX3[3];       // 3x3 matrix
 typedef VECTOR4   MATRIX4[4];       // 4x4 matrix
 
-typedef VECTOR3	ANGLE;			// angle return array
+//typedef VECTOR3	ANGLE;			// angle return array //lal removed
 typedef	VECTOR4	COLOR;			// rgba color array
 
 

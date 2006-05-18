@@ -186,7 +186,7 @@ enum
 
 
 // CHANGE THIS VALUE TO AFFECT TOTAL SIGHT RANGE
-#define STRAIGHT_RANGE	gGameExternalOptions.ubStraightSightRange
+//#define STRAIGHT_RANGE gGameExternalOptions.ubStraightSightRange
 
 // CHANGE THESE VALUES TO ADJUST VARIOUS FOV ANGLES
 #define STRAIGHT_RATIO	1 //* 1.5
@@ -199,11 +199,11 @@ enum
 #define BEHIND_RATIO		0
 
 // looking distance defines
-#define BEHIND          (INT8)( BEHIND_RATIO * STRAIGHT_RANGE )
-#define SBEHIND         (INT8)( SBEHIND_RATIO * STRAIGHT_RANGE )
-#define SIDE            (INT8)( SIDE_RATIO * STRAIGHT_RANGE )
-#define ANGLE           (INT8)( ANGLE_RATIO * STRAIGHT_RANGE )
-#define STRAIGHT        (INT8)( STRAIGHT_RATIO * STRAIGHT_RANGE )
+//#define BEHIND          (INT8)( BEHIND_RATIO * STRAIGHT_RANGE )
+//#define SBEHIND         (INT8)( SBEHIND_RATIO * STRAIGHT_RANGE )
+//#define SIDE            (INT8)( SIDE_RATIO * STRAIGHT_RANGE )
+//#define ANGLE           (INT8)( ANGLE_RATIO * STRAIGHT_RANGE )
+//#define STRAIGHT        (INT8)( STRAIGHT_RATIO * STRAIGHT_RANGE )
  
 
 // opplist value constants

@@ -56,9 +56,26 @@ enum EXPLOSION_TYPES
   SMOKE_EXP,
   MUSTARD_EXP,
 	BURN_EXP,
-	NUM_EXP_TYPES
+	NUM_EXP_TYPES=50
 
 } ;
+
+// Lesh: introducing struct instead of linked arrays
+#define MAX_BLAST_FILENAME_LEN 70
+
+typedef struct
+{
+    UINT8   ubTransKeyFrame;
+    UINT8   ubDamageKeyFrame;
+    UINT32  uiExplosionSoundID;
+    UINT32  uiAltExplosionSoundID;
+    CHAR8   zBlastFilename[MAX_BLAST_FILENAME_LEN];
+    CHAR8   sBlastSpeed;
+} EXPLOSION_DATA;
+
+extern EXPLOSION_DATA gExpAniData[NUM_EXP_TYPES];
+// Lesh: done here
+
 
 typedef struct
 {

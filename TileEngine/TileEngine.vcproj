@@ -2996,6 +2996,9 @@
 						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\XML_ExplosionData.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"

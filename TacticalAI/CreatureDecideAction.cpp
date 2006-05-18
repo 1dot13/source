@@ -11,6 +11,8 @@
 	#include "soldier add.h"
 #endif
 
+extern INT8 STRAIGHT; //lal
+
 #define CAN_CALL( s ) (s->ubBodyType != BLOODCAT && s->ubBodyType != LARVAE_MONSTER && s->ubBodyType != INFANT_MONSTER)
 #define CAN_LISTEN_TO_CALL( s ) (s->ubBodyType != BLOODCAT && s->ubBodyType != LARVAE_MONSTER)
 

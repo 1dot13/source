@@ -152,30 +152,37 @@ UINT8			gubWatchedLocPoints[ TOTAL_SOLDIERS ][ NUM_WATCHED_LOCS ];
 BOOLEAN		gfWatchedLocReset[ TOTAL_SOLDIERS ][ NUM_WATCHED_LOCS ];
 BOOLEAN		gfWatchedLocHasBeenIncremented[ TOTAL_SOLDIERS ][ NUM_WATCHED_LOCS ];
 
-INT8 gbLookDistance[8][8] =
+INT8 gbLookDistance[8][8];
+
+INT8 BEHIND;
+INT8 SBEHIND;
+INT8 SIDE;
+INT8 ANGLE;
+INT8 STRAIGHT;
+
+void InitSightRange()
 {
+	BEHIND     =     (INT8)( BEHIND_RATIO	* gGameExternalOptions.ubStraightSightRange );
+	SBEHIND    =     (INT8)( SBEHIND_RATIO	* gGameExternalOptions.ubStraightSightRange );
+	SIDE       =     (INT8)( SIDE_RATIO		* gGameExternalOptions.ubStraightSightRange );
+	ANGLE      =     (INT8)( ANGLE_RATIO	* gGameExternalOptions.ubStraightSightRange );
+	STRAIGHT   =     (INT8)( STRAIGHT_RATIO * gGameExternalOptions.ubStraightSightRange );
 
-//  LOOKER DIR       LOOKEE DIR
+	gbLookDistance[8][8] =
+	
+		//  LOOKER DIR       LOOKEE DIR
+		//                   NORTH    | NORTHEAST  |   EAST   |  SOUTHEAST  |   SOUTH  |  SOUTHWEST  |   WEST    |  NORTHWEST
+		/* NORTH      */     STRAIGHT,     ANGLE,       SIDE,     SBEHIND,     BEHIND,     SBEHIND,       SIDE,       ANGLE,
+		/* NORTHEAST  */     ANGLE,     STRAIGHT,      ANGLE,        SIDE,    SBEHIND,      BEHIND,    SBEHIND,        SIDE,
+		/* EAST       */     SIDE,         ANGLE,   STRAIGHT,       ANGLE,       SIDE,     SBEHIND,     BEHIND,     SBEHIND,
+		/* SOUTHEAST  */     SBEHIND,       SIDE,      ANGLE,    STRAIGHT,      ANGLE,        SIDE,    SBEHIND,      BEHIND,
+		/* SOUTH      */     BEHIND,     SBEHIND,       SIDE,       ANGLE,   STRAIGHT,       ANGLE,       SIDE,     SBEHIND,
+		/* SOUTHWEST  */     SBEHIND,     BEHIND,    SBEHIND,        SIDE,      ANGLE,    STRAIGHT,      ANGLE,        SIDE,
+		/* WEST       */     SIDE,       SBEHIND,     BEHIND,     SBEHIND,       SIDE,       ANGLE,   STRAIGHT,       ANGLE,
+		/* NORTHWEST  */     ANGLE,         SIDE,     SBEHIND,     BEHIND,    SBEHIND,        SIDE,      ANGLE,    STRAIGHT
+	;
+}
 
-//                   NORTH    | NORTHEAST  |   EAST   |  SOUTHEAST  |   SOUTH  |  SOUTHWEST  |   WEST    |  NORTHWEST
-
-/* NORTH      */     STRAIGHT,     ANGLE,       SIDE,     SBEHIND,     BEHIND,     SBEHIND,       SIDE,       ANGLE,
-
-/* NORTHEAST  */     ANGLE,     STRAIGHT,      ANGLE,        SIDE,    SBEHIND,      BEHIND,    SBEHIND,        SIDE,
-
-/* EAST       */     SIDE,         ANGLE,   STRAIGHT,       ANGLE,       SIDE,     SBEHIND,     BEHIND,     SBEHIND,
-
-/* SOUTHEAST  */     SBEHIND,       SIDE,      ANGLE,    STRAIGHT,      ANGLE,        SIDE,    SBEHIND,      BEHIND,
-
-/* SOUTH      */     BEHIND,     SBEHIND,       SIDE,       ANGLE,   STRAIGHT,       ANGLE,       SIDE,     SBEHIND,
-
-/* SOUTHWEST  */     SBEHIND,     BEHIND,    SBEHIND,        SIDE,      ANGLE,    STRAIGHT,      ANGLE,        SIDE,
-
-/* WEST       */     SIDE,       SBEHIND,     BEHIND,     SBEHIND,       SIDE,       ANGLE,   STRAIGHT,       ANGLE,
-
-/* NORTHWEST  */     ANGLE,         SIDE,     SBEHIND,     BEHIND,    SBEHIND,        SIDE,      ANGLE,    STRAIGHT,
-
-};
 
 INT8 gbSmellStrength[3] =
 {

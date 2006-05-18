@@ -70,78 +70,90 @@ extern  void AddToShouldBecomeHostileOrSayQuoteList( UINT8 ubID );
 extern void RecompileLocalMovementCostsForWall( INT16 sGridNo, UINT8 ubOrientation );
 void FatigueCharacter( SOLDIERTYPE *pSoldier );
 
-UINT8		ubTransKeyFrame[ NUM_EXP_TYPES ] =
+#define NO_ALT_SOUND -1
+
+EXPLOSION_DATA gExpAniData[ NUM_EXP_TYPES ] = 
 {
-	0,
-	17,
-	28,
-	24,
-	1,
-	1,
-	1,
-	1,
-	1,
-	1,
+//  Trans   Damage  Explosion           Alternative             Explosion                   Animation
+//  Key     Key     Sound               Explosion               Animation                   Speed
+//  Frame   Frame   ID                  SoundID                 Filename
+    {0,     0,      EXPLOSION_1,        EXPLOSION_ALT_BLAST_1,  "",                         0},
+    {17,    3,      EXPLOSION_1,        EXPLOSION_ALT_BLAST_1,  "TILECACHE\\ZGRAV_D.STI",   80},
+    {28,    5,      EXPLOSION_BLAST_2,  NO_ALT_SOUND,           "TILECACHE\\ZGRAV_C.STI",   80},
+    {24,    5,      EXPLOSION_BLAST_2,  NO_ALT_SOUND,           "TILECACHE\\ZGRAV_B.STI",   80},
+    {1,     5,      EXPLOSION_1,        EXPLOSION_ALT_BLAST_1,  "TILECACHE\\shckwave.STI",  20},
+    {1,     18,     AIR_ESCAPING_1,     NO_ALT_SOUND,           "TILECACHE\\WAT_EXP.STI",   80},
+    {1,     18,     AIR_ESCAPING_1,     NO_ALT_SOUND,           "TILECACHE\\TEAR_EXP.STI",  80},
+    {1,     18,     AIR_ESCAPING_1,     NO_ALT_SOUND,           "TILECACHE\\TEAR_EXP.STI",  80},
+    {1,     18,     AIR_ESCAPING_1,     NO_ALT_SOUND,           "TILECACHE\\MUST_EXP.STI",  80}
 };
 
-UINT8		ubDamageKeyFrame[ NUM_EXP_TYPES ] =
-{
-	0,
-	3,
-	5,
-	5,
-	5,
-	18,
-	18,
-	18,
-	18,
-	18,
-};
-
-
-UINT32	uiExplosionSoundID[ NUM_EXP_TYPES ] =
-{
-	EXPLOSION_1,
-	EXPLOSION_1,
-	EXPLOSION_BLAST_2,  //LARGE
-	EXPLOSION_BLAST_2,
-	EXPLOSION_1,
-	AIR_ESCAPING_1,
-	AIR_ESCAPING_1,
-	AIR_ESCAPING_1,
-	AIR_ESCAPING_1,
-	325,//TODO: Madd: hard coded for now -- we need to externalize explosion sounds, animations, etc. at some point in the near future 
-};
-
-
-CHAR8	zBlastFilenames[][70] =
-{
-	"",
-	"TILECACHE\\ZGRAV_D.STI",
-	"TILECACHE\\ZGRAV_C.STI",
-	"TILECACHE\\ZGRAV_B.STI",
-	"TILECACHE\\shckwave.STI",
-	"TILECACHE\\WAT_EXP.STI",
-	"TILECACHE\\TEAR_EXP.STI",
-	"TILECACHE\\TEAR_EXP.STI",
-	"TILECACHE\\MUST_EXP.STI",
-	"TILECACHE\\FLAM_EXP.STI",
-};
-
-CHAR8	sBlastSpeeds[] =
-{	
-	0,
-	80,
-	80,
-	80,
-	20,
-	80,
-	80,
-	80,
-	80,
-	80,
-	80,
-};
+//UINT8		ubTransKeyFrame[ NUM_EXP_TYPES ] =
+//{
+//	0,
+//	17,
+//	28,
+//	24,
+//	1,
+//	1,
+//	1,
+//	1,
+//	1,
+//};
+//
+//UINT8		ubDamageKeyFrame[ NUM_EXP_TYPES ] =
+//{
+//	0,
+//	3,
+//	5,
+//	5,
+//	5,
+//	18,
+//	18,
+//	18,
+//	18,
+//};
+//
+//
+//UINT32	uiExplosionSoundID[ NUM_EXP_TYPES ] =
+//{
+//	EXPLOSION_1,
+//	EXPLOSION_1,
+//	EXPLOSION_BLAST_2,  //LARGE
+//	EXPLOSION_BLAST_2,
+//	EXPLOSION_1,
+//	AIR_ESCAPING_1,
+//	AIR_ESCAPING_1,
+//	AIR_ESCAPING_1,
+//	AIR_ESCAPING_1,
+//};
+//
+//
+//CHAR8	zBlastFilenames[][70] =
+//{
+//	"",
+//	"TILECACHE\\ZGRAV_D.STI",
+//	"TILECACHE\\ZGRAV_C.STI",
+//	"TILECACHE\\ZGRAV_B.STI",
+//	"TILECACHE\\shckwave.STI",
+//	"TILECACHE\\WAT_EXP.STI",
+//	"TILECACHE\\TEAR_EXP.STI",
+//	"TILECACHE\\TEAR_EXP.STI",
+//	"TILECACHE\\MUST_EXP.STI",
+//};
+//
+//CHAR8	sBlastSpeeds[] =
+//{	
+//	0,
+//	80,
+//	80,
+//	80,
+//	20,
+//	80,
+//	80,
+//	80,
+//	80,
+//};
 
 #define BOMB_QUEUE_DELAY (1000 + Random( 500 ) )
 
@@ -350,7 +362,7 @@ void GenerateExplosionFromExplosionPointer( EXPLOSIONTYPE *pExplosion )
 
 	AniParams.sGridNo							= sGridNo;
 	AniParams.ubLevelID						= ANI_TOPMOST_LEVEL;
-	AniParams.sDelay							= sBlastSpeeds[ ubTypeID ];
+	AniParams.sDelay		= gExpAniData[ ubTypeID ].sBlastSpeed; // Lesh: edit this line
 	AniParams.sStartFrame					= pExplosion->sCurrentFrame;
 	AniParams.uiFlags							= ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_EXPLOSION;
 
@@ -376,12 +388,12 @@ void GenerateExplosionFromExplosionPointer( EXPLOSIONTYPE *pExplosion )
 		//AniParams.uiFlags							|= ANITILE_USEABSOLUTEPOS;
 	}
 
-	AniParams.ubKeyFrame1					= ubTransKeyFrame[ ubTypeID ];
+	AniParams.ubKeyFrame1		= gExpAniData[ ubTypeID ].ubTransKeyFrame; // Lesh: edit this line
 	AniParams.uiKeyFrame1Code			= ANI_KEYFRAME_BEGIN_TRANSLUCENCY;
 
 	if ( !( uiFlags & EXPLOSION_FLAG_DISPLAYONLY ) )
 	{
-		AniParams.ubKeyFrame2					= ubDamageKeyFrame[ ubTypeID ];
+		AniParams.ubKeyFrame2		= gExpAniData[ ubTypeID ].ubDamageKeyFrame; // Lesh: edit this line
 		AniParams.uiKeyFrame2Code			= ANI_KEYFRAME_BEGIN_DAMAGE;
 	}
 	AniParams.uiUserData					= usItem;
@@ -389,7 +401,7 @@ void GenerateExplosionFromExplosionPointer( EXPLOSIONTYPE *pExplosion )
 	AniParams.uiUserData3					= pExplosion->iID;
 
 
-	strcpy( AniParams.zCachedFile, zBlastFilenames[ ubTypeID ] );
+	strcpy( AniParams.zCachedFile, gExpAniData[ ubTypeID ].zBlastFilename ); // Lesh: edit this line
 
 	CreateAnimationTile( &AniParams );
 
@@ -408,16 +420,18 @@ void GenerateExplosionFromExplosionPointer( EXPLOSIONTYPE *pExplosion )
 		}
 	}
 
-  uiSoundID = uiExplosionSoundID[ ubTypeID ];
+    // Lesh: sound randomization
+    uiSoundID = gExpAniData[ ubTypeID ].uiExplosionSoundID;
 
-  if ( uiSoundID == EXPLOSION_1 )
-  {
-      // Randomize
-     if ( Random( 2 ) == 0 )
-     {
-      uiSoundID = EXPLOSION_ALT_BLAST_1;
-     }
-  }
+    if ( gExpAniData[ ubTypeID ].uiAltExplosionSoundID != NO_ALT_SOUND )
+    {
+        // Randomize
+        if ( Random( 2 ) == 0 )
+        {
+            uiSoundID = gExpAniData[ ubTypeID ].uiAltExplosionSoundID;
+        }
+    }
+    // Lesh: sound randomization ends
 	
 	PlayJA2Sample( uiSoundID, RATE_11025, SoundVolume( HIGHVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );			
 

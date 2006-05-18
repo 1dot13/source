@@ -148,7 +148,7 @@
 #define		DOTDOTDOT L"..."
 #define		COMMA_AND_SPACE L", "
 
-#define		ITEM_PROS_AND_CONS( usItem ) ( ( Item[ usItem ].usItemClass & IC_GUN) )
+#define		ITEM_PROS_AND_CONS( usItem ) ( ( Item[ usItem ].usItemClass & IC_GUN && !Item[ usItem ].rocketlauncher ) )
 
 #define		MAP_ITEMDESC_DESC_START_X		( 23 + gsInvDescX )
 #define		MAP_ITEMDESC_DESC_START_Y		(170 + gsInvDescY)

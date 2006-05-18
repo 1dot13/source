@@ -281,6 +281,11 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	if(!ReadInMapStructure(fileName))
 		return FALSE;
 		
+	strcpy(fileName, directoryName);
+	strcat(fileName, EXPLOSIONDATAFILENAME);
+    if(!ReadInExplosionDataStats(fileName))
+		return FALSE;
+
 	return TRUE;
 }
 

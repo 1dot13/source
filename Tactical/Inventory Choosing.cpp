@@ -1194,7 +1194,7 @@ void ChooseArmourForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bHelmetC
 				{
 					CreateItem( usAttachment, (INT8)(70+Random(31)), &Object );
 					Object.fFlags |= OBJECT_UNDROPPABLE;
-					AttachObject( NULL, &(pp->Inv[ VESTPOS ]), &Object );		
+					AttachObject( NULL, &(pp->Inv[ HELMETPOS ]), &Object );		
 				}
 			}
 
@@ -1348,6 +1348,19 @@ void ChooseArmourForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bHelmetC
 		{
 			CreateItem( usItem, (INT8)(70+Random(31)), &(pp->Inv[ LEGPOS ]) );
 			pp->Inv[ LEGPOS ].fFlags |= OBJECT_UNDROPPABLE;
+
+			// roll to see if he gets an attachment, too.  Higher chance the higher his entitled Leggings class is
+			if (( INT8 ) Random( 100 ) < ( 15 * ( bLeggingsClass - Item[usItem].ubCoolness ) ) )
+			{
+				UINT16 usAttachment = PickARandomAttachment(ARMOURATTACHMENT,usItem, bLeggingsClass, FALSE);
+				if ( usAttachment > 0 )
+				{
+					CreateItem( usAttachment, (INT8)(70+Random(31)), &Object );
+					Object.fFlags |= OBJECT_UNDROPPABLE;
+					AttachObject( NULL, &(pp->Inv[ LEGPOS ]), &Object );		
+				}
+			}
+
 		}
 
 

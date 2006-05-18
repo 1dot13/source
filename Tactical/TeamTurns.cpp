@@ -46,6 +46,7 @@
 #include "Reinforcement.h"
 
 
+extern INT8 STRAIGHT;
 //extern UINT8 gubSpeedUpAnimationFactor;
 void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier );
 

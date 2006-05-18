@@ -951,7 +951,7 @@ INT32 EffectiveArmour( OBJECTTYPE * pObj )
 	{
 		INT32 iValue2;
 
-		iValue2 = Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection;
+		iValue2 = Armour[ Item[ pObj->usAttachItem[bPlate] ].ubClassIndex ].ubProtection;
 		iValue2 = iValue2 * pObj->bAttachStatus[ bPlate ] / 100;
 
 		iValue += iValue2;
@@ -1015,12 +1015,12 @@ INT32 ExplosiveEffectiveArmour( OBJECTTYPE * pObj )
 		iValue *= 3;
 	}
 
-	bPlate = FindAttachment( pObj, CERAMIC_PLATES );
+	bPlate = FindFirstArmourAttachment( pObj );
 	if ( bPlate != ITEM_NOT_FOUND )
 	{
 		INT32 iValue2;
 
-		iValue2 = Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection;
+		iValue2 = Armour[ Item[ pObj->usAttachItem[bPlate] ].ubClassIndex ].ubProtection;
 		iValue2 = iValue2 * pObj->bAttachStatus[ bPlate ] / 100;
 
 		iValue += iValue2;
@@ -4064,8 +4064,8 @@ INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 u
 		if (pArmour->usItem != NOTHING)
 		{
 			// check plates first
-			if ( iSlot == VESTPOS )
-			{
+			//if ( iSlot == VESTPOS )
+			//{
 //				bPlatePos = FindAttachment( pArmour, CERAMIC_PLATES );
 				bPlatePos = FindFirstArmourAttachment( pArmour);
 				if (bPlatePos != -1)
@@ -4087,7 +4087,8 @@ INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 u
 #endif
 					}
 				}
-			}
+			//}
+
 
 			// if the plate didn't stop the bullet...
 			if ( iImpact > iTotalProtection )
