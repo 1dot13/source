@@ -168,19 +168,46 @@ void InitSightRange()
 	ANGLE      =     (INT8)( ANGLE_RATIO	* gGameExternalOptions.ubStraightSightRange );
 	STRAIGHT   =     (INT8)( STRAIGHT_RATIO * gGameExternalOptions.ubStraightSightRange );
 
-	gbLookDistance[8][8] =
-	
-		//  LOOKER DIR       LOOKEE DIR
-		//                   NORTH    | NORTHEAST  |   EAST   |  SOUTHEAST  |   SOUTH  |  SOUTHWEST  |   WEST    |  NORTHWEST
-		/* NORTH      */     STRAIGHT,     ANGLE,       SIDE,     SBEHIND,     BEHIND,     SBEHIND,       SIDE,       ANGLE,
-		/* NORTHEAST  */     ANGLE,     STRAIGHT,      ANGLE,        SIDE,    SBEHIND,      BEHIND,    SBEHIND,        SIDE,
-		/* EAST       */     SIDE,         ANGLE,   STRAIGHT,       ANGLE,       SIDE,     SBEHIND,     BEHIND,     SBEHIND,
-		/* SOUTHEAST  */     SBEHIND,       SIDE,      ANGLE,    STRAIGHT,      ANGLE,        SIDE,    SBEHIND,      BEHIND,
-		/* SOUTH      */     BEHIND,     SBEHIND,       SIDE,       ANGLE,   STRAIGHT,       ANGLE,       SIDE,     SBEHIND,
-		/* SOUTHWEST  */     SBEHIND,     BEHIND,    SBEHIND,        SIDE,      ANGLE,    STRAIGHT,      ANGLE,        SIDE,
-		/* WEST       */     SIDE,       SBEHIND,     BEHIND,     SBEHIND,       SIDE,       ANGLE,   STRAIGHT,       ANGLE,
-		/* NORTHWEST  */     ANGLE,         SIDE,     SBEHIND,     BEHIND,    SBEHIND,        SIDE,      ANGLE,    STRAIGHT
-	;
+	INT8 dummy[15][15];
+
+	for (int i=0; i<8; i++)
+	{
+			dummy[i][i]=STRAIGHT;
+			dummy[i][i+1]=ANGLE;
+			dummy[i+1][i]=ANGLE;
+			dummy[i][i+2]=SIDE;
+			dummy[i+2][i]=SIDE;
+			dummy[i][i+3]=SBEHIND;
+			dummy[i+3][i]=SBEHIND;
+			dummy[i][i+4]=BEHIND;
+			dummy[i+4][i]=BEHIND;
+			dummy[i][i+5]=SBEHIND;
+			dummy[i+5][i]=SBEHIND;
+			dummy[i][i+6]=SIDE;
+			dummy[i+6][i]=SIDE;
+			dummy[i][i+7]=ANGLE;
+			dummy[i+7][i]=ANGLE;
+	}
+	for (int i=0; i<8; i++)
+	{
+		for (int j=0; j<8; j++)
+		{
+			gbLookDistance[i][j] = dummy[i][j];
+		}
+	}
+	//gbLookDistance[8][8] = 
+	//{
+	//	//  LOOKER DIR       LOOKEE DIR
+	//	//                   NORTH    | NORTHEAST  |   EAST   |  SOUTHEAST  |   SOUTH  |  SOUTHWEST  |   WEST    |  NORTHWEST
+	//	/* NORTH      */     STRAIGHT,     ANGLE,       SIDE,     SBEHIND,     BEHIND,     SBEHIND,       SIDE,       ANGLE,
+	//	/* NORTHEAST  */     ANGLE,     STRAIGHT,      ANGLE,        SIDE,    SBEHIND,      BEHIND,    SBEHIND,        SIDE,
+	//	/* EAST       */     SIDE,         ANGLE,   STRAIGHT,       ANGLE,       SIDE,     SBEHIND,     BEHIND,     SBEHIND,
+	//	/* SOUTHEAST  */     SBEHIND,       SIDE,      ANGLE,    STRAIGHT,      ANGLE,        SIDE,    SBEHIND,      BEHIND,
+	//	/* SOUTH      */     BEHIND,     SBEHIND,       SIDE,       ANGLE,   STRAIGHT,       ANGLE,       SIDE,     SBEHIND,
+	//	/* SOUTHWEST  */     SBEHIND,     BEHIND,    SBEHIND,        SIDE,      ANGLE,    STRAIGHT,      ANGLE,        SIDE,
+	//	/* WEST       */     SIDE,       SBEHIND,     BEHIND,     SBEHIND,       SIDE,       ANGLE,   STRAIGHT,       ANGLE,
+	//	/* NORTHWEST  */     ANGLE,         SIDE,     SBEHIND,     BEHIND,    SBEHIND,        SIDE,      ANGLE,    STRAIGHT
+	//	};
 }
 
 

@@ -2320,6 +2320,9 @@
 				RelativePath="GameSettings.h">
 			</File>
 			<File
+				RelativePath=".\GameVersion.h">
+			</File>
+			<File
 				RelativePath=".\Init.h">
 			</File>
 			<File
