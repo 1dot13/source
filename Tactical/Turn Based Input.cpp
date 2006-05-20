@@ -2317,6 +2317,27 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						}
 #endif
 					}
+					else
+					{
+						BOOLEAN						fNearHeigherLevel;
+						BOOLEAN						fNearLowerLevel;
+						INT8							bDirection;
+						GetMercClimbDirection( gpSMCurrentMerc->ubID, &fNearLowerLevel, &fNearHeigherLevel );
+
+						if ( fNearLowerLevel )
+						{
+							BeginSoldierClimbDownRoof( gpSMCurrentMerc );
+						}
+						if ( fNearHeigherLevel )
+						{
+							BeginSoldierClimbUpRoof( gpSMCurrentMerc );
+						}
+
+						if ( FindFenceJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->bDirection, &bDirection ) )
+						{
+							BeginSoldierClimbFence( gpSMCurrentMerc );
+						}			
+					}
 					break;
 
 				case 'b':
