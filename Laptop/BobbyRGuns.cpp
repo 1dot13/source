@@ -632,6 +632,9 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass)
 
 	for(i=gusCurWeaponIndex; ((i<=gusLastItemIndex) && (ubCount < 4)); i++)
 	{
+
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DisplayItemInfo: current weapon: %d",gusCurWeaponIndex));
+
 		if( uiItemClass == BOBBYR_USED_ITEMS )
 		{
 			//If there is not items in stock

@@ -45,7 +45,7 @@
 #endif
 
 //rain
-#define VIS_DIST_DECREASE_PER_RAIN_INTENSITY 20
+//#define VIS_DIST_DECREASE_PER_RAIN_INTENSITY 20
 //end rain
 
 #define WE_SEE_WHAT_MILITIA_SEES_AND_VICE_VERSA
@@ -312,7 +312,7 @@ INT16 AdjustMaxSightRangeForEnvEffects( SOLDIERTYPE *pSoldier, INT8 bLightLevel,
 	{
 		//sNewDist = sNewDist * 70 / 100;
 		//rain
-		sNewDist = sNewDist * ( 100 - VIS_DIST_DECREASE_PER_RAIN_INTENSITY * gbCurrentRainIntensity ) / 100;
+		sNewDist = sNewDist * ( 100 - gGameExternalOptions.ubVisDistDecreasePerRainIntensity * gbCurrentRainIntensity ) / 100;
 		//end rain
 	}
 	

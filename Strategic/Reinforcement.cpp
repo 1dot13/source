@@ -46,6 +46,9 @@ void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pub
 	if( !gGameExternalOptions.gfAllowReinforcments )
 		return;
 
+	if ( GetTownIdForSector( sSectorX, sSectorY ) == OMERTA ) //Madd: skip Omerta
+		return;
+
 	GenerateDirectionInfos( sSectorX, sSectorY, &ubDirNumber, pusMoveDir, 
 		( GetTownIdForSector( sSectorX, sSectorY ) != BLANK_SECTOR ? TRUE : FALSE ), TRUE, IS_ONLY_IN_CITIES );
 
@@ -245,6 +248,9 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 	SECTORINFO *pThisSector, *pSector;
 
 	if( !gGameExternalOptions.gfAllowReinforcments )
+		return 255;
+
+	if ( GetTownIdForSector( sMapX, sMapY ) == OMERTA ) //Madd: skip Omerta
 		return 255;
 
 	pThisSector = &SectorInfo[ SECTOR( sMapX, sMapY ) ];

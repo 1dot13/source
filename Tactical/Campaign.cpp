@@ -1342,19 +1342,19 @@ void HourlyProgressUpdate(void)
 		// CJC:  note when progress goes above certain values for the first time
 
 		// at 35% start the Madlab quest
-		if ( ubCurrentProgress >= 35 && gStrategicStatus.ubHighestProgress < 35 )
+		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressStartMadlabQuest && gStrategicStatus.ubHighestProgress < gGameExternalOptions.ubGameProgressStartMadlabQuest )
 		{
 			HandleScientistAWOLMeanwhileScene();
 		}
 
 		// at 50% make Mike available to the strategic AI
-		if ( ubCurrentProgress >= 50 && gStrategicStatus.ubHighestProgress < 50 )
+		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressMikeAvailable && gStrategicStatus.ubHighestProgress < gGameExternalOptions.ubGameProgressMikeAvailable )
 		{
 			SetFactTrue( FACT_MIKE_AVAILABLE_TO_ARMY );
 		}
 
 		// at 70% add Iggy to the world
-		if ( ubCurrentProgress >= 70 && gStrategicStatus.ubHighestProgress < 70 )
+		if ( ubCurrentProgress >= gGameExternalOptions.ubGameProgressIggyAvaliable && gStrategicStatus.ubHighestProgress < gGameExternalOptions.ubGameProgressIggyAvaliable )
 		{
 			gMercProfiles[ IGGY ].sSectorX = 5;
 			gMercProfiles[ IGGY ].sSectorY = MAP_ROW_C;

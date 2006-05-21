@@ -180,13 +180,13 @@ typedef struct
 
 	// Moved from NewGameSettings.cpp
 
-	//Video settings
-	UINT8 gubDeadLockDelay;
-	UINT8 ubStraightSightRange;
-
 	// System settings
-	BOOLEAN gfVSync;
+	UINT8 gubDeadLockDelay;
 	BOOLEAN gfEnableEmergencyButton_SkipStrategicEvents;
+
+
+	//Video settings	
+	BOOLEAN gfVSync;
 
 	//Animation settings
 	UINT8 gubPlayerTurnSpeedUpFactor;
@@ -205,6 +205,10 @@ typedef struct
 	BOOLEAN gfAllowReinforcments;
 	BOOLEAN gfAllowReinforcmentsOnlyInCity;
 	UINT32	guiBaseQueenPoolIncrement;
+	
+	//Sight range
+	UINT8  ubStraightSightRange;
+	UINT32 ubVisDistDecreasePerRainIntensity;
 
 	// Rain settings
 	BOOLEAN gfAllowRain;
@@ -220,6 +224,11 @@ typedef struct
 	UINT32 guiMaxDLInterval;
 	UINT32 guiProlongLightningIfSeenSomeone;
 	UINT32 guiChanceToDoLightningBetweenTurns;
+
+	//Gameplay settings
+	UINT8 ubGameProgressStartMadlabQuest;
+	UINT8 ubGameProgressMikeAvailable;
+	UINT8 ubGameProgressIggyAvaliable;
 
 } GAME_EXTERNAL_OPTIONS;
 

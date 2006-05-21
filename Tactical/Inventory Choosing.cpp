@@ -2533,8 +2533,8 @@ void ReplaceExtendedGuns( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass )
 UINT16 SelectStandardArmyGun( UINT8 uiGunLevel )
 {
 	ARMY_GUN_CHOICE_TYPE *pGunChoiceTable;
-	UINT32 uiChoice;
-	UINT16 usGunIndex;
+	int uiChoice;
+	int usGunIndex;
 
 	// pick the standard army gun for this weapon class from table
 //	usGunIndex = gStrategicStatus.ubStandardArmyGunIndex[uiGunLevel];
@@ -2554,10 +2554,28 @@ UINT16 SelectStandardArmyGun( UINT8 uiGunLevel )
 	//}
 
 	// choose one the of the possible gun choices
-	uiChoice = Random(pGunChoiceTable[ uiGunLevel ].ubChoices);
-	usGunIndex = pGunChoiceTable[ uiGunLevel ].bItemNo[ uiChoice ];
+	usGunIndex = -1;
 
-	Assert(usGunIndex);
+	while (usGunIndex == -1)
+	{
+		uiChoice = Random(pGunChoiceTable[ uiGunLevel ].ubChoices);
+		usGunIndex = pGunChoiceTable[ uiGunLevel ].bItemNo[ uiChoice ];
+
+		if (!ItemIsLegal(usGunIndex)) //Madd: check for 10 tons of guns
+			usGunIndex = -1;
+
+		if (usGunIndex == -1)
+		{
+			//Madd: there better be something from the original JA2 guns here somewhere (biggunlist=0) or else this will probably cause an endless loop
+			if ( uiGunLevel < ARMY_GUN_LEVELS )
+				uiGunLevel++;
+			else
+				uiGunLevel--;
+		}
+
+	}
+
+	//Assert(usGunIndex);
 
 	return(usGunIndex);
 }
@@ -2638,7 +2656,7 @@ UINT16 PickARandomItem(UINT8 typeIndex, UINT8 maxCoolness, BOOLEAN getMatchingCo
 		}
 		usItem = gArmyItemChoices[ typeIndex ].bItemNo[ uiChoice ];
 
-		if ( usItem >= 0 && Item[usItem].ubCoolness <= maxCoolness )
+		if ( usItem >= 0 && Item[usItem].ubCoolness <= maxCoolness && ItemIsLegal(usItem) )
 		{
 			// pick a default item in case we don't find anything with a matching coolness, but pick the coolest item we can find
 			if ( defaultItem == 0 || Item[usItem].ubCoolness > Item[defaultItem].ubCoolness )
@@ -2685,12 +2703,16 @@ UINT16 PickARandomAttachment(UINT8 typeIndex, UINT16 usBaseItem, UINT8 maxCoolne
 			if ( Item[usItem].ubCoolness == maxCoolness || !getMatchingCoolness )
 			{
 //				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("PickARandomAttachment: baseItem = %d, usItem = %d",usBaseItem, usItem));
-				return usItem;
+				if (ItemIsLegal(usItem))
+					return usItem;
 			}
 		}
 	}
 
 	// couldn't find anything with the exact matching coolness, so return the best item we did find
 //	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("PickARandomAttachment: baseItem = %d, defaultItem = %d",usBaseItem, defaultItem));
-	return defaultItem;
+	if (ItemIsLegal(usItem))
+		return defaultItem;
+	else
+		return 0;
 }
