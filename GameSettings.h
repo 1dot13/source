@@ -193,7 +193,7 @@ typedef struct
 	UINT8 gubEnemyTurnSpeedUpFactor;
 	UINT8 gubCreatureTurnSpeedUpFactor;
 	UINT8 gubMilitiaTurnSpeedUpFactor;
-	UINT8 gubCivTurnSpeedUpFactor;
+	UINT8 gubCivilianTurnSpeedUpFactor;
 
 	//Sound settings
 	UINT32 guiWeaponSoundEffectsVolume;
@@ -202,8 +202,8 @@ typedef struct
 	BOOLEAN fAllowTacticalMilitiaCommand;
 
 	BOOLEAN gfAllowMilitiaGroups;
-	BOOLEAN gfAllowReinforcments;
-	BOOLEAN gfAllowReinforcmentsOnlyInCity;
+	BOOLEAN gfAllowReinforcements;
+	BOOLEAN gfAllowReinforcementsOnlyInCity;
 	UINT32	guiBaseQueenPoolIncrement;
 	
 	//Sight range
@@ -216,6 +216,7 @@ typedef struct
 	UINT16 gusRainMinLength;
 	UINT16 gusRainMaxLength;
 	UINT32 guiMaxRainDrops;
+	UINT32 ubWeaponReliabilityReductionPerRainIntensity;
 
 	// Thunder settings
 	UINT32 guiMinLightningInterval;

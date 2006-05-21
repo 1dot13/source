@@ -85,6 +85,12 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"ExecuteStrategicEvent");
 
+	if( gGameExternalOptions.gfEnableEmergencyButton_SkipStrategicEvents && _KeyDown( NUM_LOCK ) )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Strategic event skipped!" );
+		return TRUE;
+	}
+	
 	BOOLEAN fOrigPreventFlag;
 
 	fOrigPreventFlag = gfPreventDeletionOfAnyEvent;

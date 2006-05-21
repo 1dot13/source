@@ -25,7 +25,7 @@
 #include "Reinforcement.h"
 #include "MilitiaSquads.h"
 
-#define IS_ONLY_IN_CITIES ( gGameExternalOptions.gfAllowReinforcmentsOnlyInCity ? TRUE: FALSE )
+#define IS_ONLY_IN_CITIES ( gGameExternalOptions.gfAllowReinforcementsOnlyInCity ? TRUE: FALSE )
 
 UINT8 gubReinforcementMinEnemyStaticGroupSize = 12;
 
@@ -43,7 +43,7 @@ void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pub
 	*pubNumTroops += ubNumTroops;
 	*pubNumElites += ubNumElites;
 
-	if( !gGameExternalOptions.gfAllowReinforcments )
+	if( !gGameExternalOptions.gfAllowReinforcements )
 		return;
 
 	if ( GetTownIdForSector( sSectorX, sSectorY ) == OMERTA ) //Madd: skip Omerta
@@ -99,7 +99,7 @@ BOOLEAN IsGroupInARightSectorToReinforce( GROUP *pGroup, INT16 sSectorX, INT16 s
 	if( pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
 		return TRUE;  //Well, it's in the same sector, so allow to reinforce
 
-	if( !gGameExternalOptions.gfAllowReinforcments )
+	if( !gGameExternalOptions.gfAllowReinforcements )
 		return FALSE;
 
 	GenerateDirectionInfos( sSectorX, sSectorY, &ubDirNumber, pusMoveDir, 
@@ -135,7 +135,7 @@ UINT8 CountAllMilitiaInFiveSectors(INT16 sMapX, INT16 sMapY)
 	
 	ubResult = CountAllMilitiaInSector( sMapX, sMapY );
 
-	if( !gGameExternalOptions.gfAllowReinforcments )
+	if( !gGameExternalOptions.gfAllowReinforcements )
 		return ubResult;
 
 	GenerateDirectionInfos( sMapX, sMapY, &ubDirNumber, pusMoveDir, 
@@ -156,7 +156,7 @@ UINT8 MilitiaInFiveSectorsOfRank( INT16 sMapX, INT16 sMapY, UINT8 ubRank )
 	
 	ubResult = MilitiaInSectorOfRank( sMapX, sMapY, ubRank );
 
-	if( !gGameExternalOptions.gfAllowReinforcments )
+	if( !gGameExternalOptions.gfAllowReinforcements )
 		return ubResult;
 
 	GenerateDirectionInfos( sMapX, sMapY, &ubDirNumber, pusMoveDir, 
@@ -176,7 +176,7 @@ BOOLEAN ARMoveBestMilitiaManFromAdjacentSector(INT16 sMapX, INT16 sMapY)
 	UINT8 ubDirNumber;
 	UINT8 ubRandom;
 	
-	if( !gGameExternalOptions.gfAllowReinforcments )
+	if( !gGameExternalOptions.gfAllowReinforcements )
 		return FALSE;
 
 	if( CountAllMilitiaInSector( sMapX, sMapY ) >= MAXIMUM_MILITIA_SQUAD_SIZE ||
@@ -206,7 +206,7 @@ BOOLEAN ARRemoveMilitiaMan( INT16 sMapX, INT16 sMapY, UINT8 ubRank )
 		return TRUE;
 	}
 
-	if( !gGameExternalOptions.gfAllowReinforcments )
+	if( !gGameExternalOptions.gfAllowReinforcements )
 		return FALSE;
 
 	GenerateDirectionInfos( sMapX, sMapY, &ubDirNumber, pusMoveDir, 
@@ -247,7 +247,7 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 	GROUP *pGroup;
 	SECTORINFO *pThisSector, *pSector;
 
-	if( !gGameExternalOptions.gfAllowReinforcments )
+	if( !gGameExternalOptions.gfAllowReinforcements )
 		return 255;
 
 	if ( GetTownIdForSector( sMapX, sMapY ) == OMERTA ) //Madd: skip Omerta
@@ -324,7 +324,7 @@ UINT8 DoReinforcementAsPendingMilitia( INT16 sMapX, INT16 sMapY, UINT8 *pubRank 
 	UINT8 ubDirNumber = 0, ubIndex;
 	SECTORINFO *pSector;//*pThisSector,
 
-	if( !gGameExternalOptions.gfAllowReinforcments )
+	if( !gGameExternalOptions.gfAllowReinforcements )
 		return 255;
 
 //	pThisSector = &SectorInfo[ SECTOR( sMapX, sMapY ) ];

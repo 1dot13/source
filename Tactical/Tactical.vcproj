@@ -5629,6 +5629,9 @@
 				RelativePath="Boxing.h">
 			</File>
 			<File
+				RelativePath=".\Bullets.h">
+			</File>
+			<File
 				RelativePath="Campaign.h">
 			</File>
 			<File

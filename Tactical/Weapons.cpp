@@ -45,7 +45,7 @@
 #endif
 
 //rain
-#define WEAPON_RELIABILITY_REDUCTION_PER_RAIN_INTENSITY 0
+//#define WEAPON_RELIABILITY_REDUCTION_PER_RAIN_INTENSITY 0
 extern INT8 gbCurrentRainIntensity;
 //end rain
 
@@ -1113,7 +1113,7 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 				//iChance = (80 - pObj->bGunStatus);
 				
 				//rain
-				iChance = (80 - 90 - pObj->bGunStatus) + WEAPON_RELIABILITY_REDUCTION_PER_RAIN_INTENSITY * gbCurrentRainIntensity;
+				iChance = (80 - 90 - pObj->bGunStatus) + gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * gbCurrentRainIntensity;
 				//end rain
 
 

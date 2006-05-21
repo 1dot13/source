@@ -90,7 +90,7 @@
 //UINT8 gubEnemyTurnSpeedUpFactor = 1;
 //UINT8 gubCreatureTurnSpeedUpFactor = 1;
 //UINT8 gubMilitiaTurnSpeedUpFactor = 1;
-//UINT8 gubCivTurnSpeedUpFactor = 1;
+//UINT8 gubCivilianTurnSpeedUpFactor = 1;
 //turnspeed
 
 //extern BOOLEAN fAllowTacticalMilitiaCommand; //lal
@@ -5887,7 +5887,7 @@ UINT8 GetSpeedUpFactor( )
 	case MILITIA_TEAM:
 		return gGameExternalOptions.gubMilitiaTurnSpeedUpFactor;
 	case CIV_TEAM:
-		return gGameExternalOptions.gubCivTurnSpeedUpFactor;
+		return gGameExternalOptions.gubCivilianTurnSpeedUpFactor;
 	}
 	
 	return 1;
