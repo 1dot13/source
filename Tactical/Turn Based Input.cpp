@@ -3088,7 +3088,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 					// Make auto reload with magazines from sector inventory
 				case 'R':					
-					if (! (gTacticalStatus.uiFlags & INCOMBAT) )
+					if (! ( gTacticalStatus.fEnemyInSector ) )
 					{
 						SOLDIERTYPE	*pTeamSoldier;
 						INT8		bLoop;
@@ -3145,7 +3145,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					{
 						SOLDIERTYPE	*pTeamSoldier;
 						INT8		bLoop;
-						OBJECTTYPE *pGun;
+						OBJECTTYPE *pGun, *pAmmo;
 
 						for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
 						{
@@ -3153,13 +3153,55 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							{	
 								if ( (Item[pTeamSoldier->inv[HANDPOS].usItem].usItemClass & IC_GUN) || (Item[pTeamSoldier->inv[HANDPOS].usItem].usItemClass == IC_LAUNCHER) )
 								{
-									pGun  = &(pTeamSoldier->inv[HANDPOS]);
-
-									//magazine is not full
-									if ( pGun->ubGunShotsLeft < GetMagSize( pGun )  )
+									if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
 									{
-										AutoReload( pTeamSoldier );		
+										pGun  = &(pTeamSoldier->inv[HANDPOS]);
+
+										//magazine is not full
+										if ( pGun->ubGunShotsLeft < GetMagSize( pGun )  )
+										{
+											AutoReload( pTeamSoldier );		
+										}
 									}
+									else
+									{
+										// Search for gun in soldier inventory
+										for (UINT32 bLoop2 = 0; bLoop2 < NUM_INV_SLOTS; bLoop2++)
+										{
+											if ( (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass & IC_GUN) || (Item[pTeamSoldier->inv[bLoop2].usItem].usItemClass == IC_LAUNCHER) )
+											{	
+												pGun  = &(pTeamSoldier->inv[bLoop2]);
+												//if magazine is not full
+												if ( pGun->ubGunShotsLeft < GetMagSize( pGun )  )
+												{
+
+													// Search for ammo in soldier inventory
+													for ( UINT32 uiLoop = 0; uiLoop < NUM_INV_SLOTS; uiLoop++ )												
+													{
+														if ( (Item[pTeamSoldier->inv[uiLoop].usItem].usItemClass & IC_AMMO ) ) // the item is ammo
+														{
+															pAmmo = &(pTeamSoldier->inv[uiLoop]);
+
+															if ( CompatibleAmmoForGun( pAmmo, pGun ) ) // can use the ammo with this gun
+															{
+																// same ammo type in gun and magazine   
+																if ( Magazine[Item[pGun->usGunAmmoItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
+																{
+																	ReloadGun( pTeamSoldier, pGun, pAmmo );
+
+																	fCharacterInfoPanelDirty = TRUE;
+																	fInterfacePanelDirty = DIRTYLEVEL2;
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+
+
+									}
+
 								}
 							}
 						}
@@ -3210,7 +3252,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 
 					case 'S':
-						if (! (gTacticalStatus.uiFlags & INCOMBAT) )
+						if (! ( gTacticalStatus.fEnemyInSector ) )
 						{
 							for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; uiLoop++ )												
 							{
