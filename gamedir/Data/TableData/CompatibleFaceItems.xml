@@ -1,0 +1,161 @@
+<!-- 	this a comment, all of the text between the angled brackets is ignored
+
+Attribute Field Reference:
+
+	itemIndex						- index of the first face item
+	compatiblefaceitemIndex			- index of the compatible face item
+	
+	You must pair entries to make face items truly compatible.  Ie:  you need gas mask / ext. ear AND ext. ear / gas mask
+
+
+-->
+<COMPATIBLEFACEITEMLIST>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>210</compatiblefaceitemIndex> <!-- Extended Ear -->
+		<itemIndex>211</itemIndex> <!-- Night Goggles -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>210</compatiblefaceitemIndex> <!-- Extended Ear -->
+		<itemIndex>246</itemIndex> <!-- UV Goggles -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>210</compatiblefaceitemIndex> <!-- Extended Ear -->
+		<itemIndex>212</itemIndex> <!-- Sun Goggles -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>210</compatiblefaceitemIndex> <!-- Extended Ear -->
+		<itemIndex>213</itemIndex> <!-- Gas Mask -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>210</compatiblefaceitemIndex> <!-- Extended Ear -->
+		<itemIndex>0</itemIndex> <!-- Nada -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>266</compatiblefaceitemIndex> <!-- Walkman -->
+		<itemIndex>211</itemIndex> <!-- Night Goggles -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>266</compatiblefaceitemIndex> <!-- Walkman -->
+		<itemIndex>246</itemIndex> <!-- UV Goggles -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>266</compatiblefaceitemIndex> <!-- Walkman -->
+		<itemIndex>212</itemIndex> <!-- Sun Goggles -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>266</compatiblefaceitemIndex> <!-- Walkman -->
+		<itemIndex>213</itemIndex> <!-- Gas Mask -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>266</compatiblefaceitemIndex> <!-- Walkman -->
+		<itemIndex>0</itemIndex> <!-- Nada -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>211</compatiblefaceitemIndex> <!-- Night Goggles -->
+		<itemIndex>210</itemIndex> <!-- Extended Ear -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>211</compatiblefaceitemIndex> <!-- Night Goggles -->
+		<itemIndex>266</itemIndex> <!-- Walkman -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>211</compatiblefaceitemIndex> <!-- Night Goggles -->
+		<itemIndex>259</itemIndex> <!-- Robot Remote -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>211</compatiblefaceitemIndex> <!-- Night Goggles -->
+		<itemIndex>213</itemIndex> <!-- Gas Mask -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>211</compatiblefaceitemIndex> <!-- Night Goggles -->
+		<itemIndex>0</itemIndex> <!-- Nada -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>212</compatiblefaceitemIndex> <!-- Sun Goggles -->
+		<itemIndex>210</itemIndex> <!-- Extended Ear -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>212</compatiblefaceitemIndex> <!-- Sun Goggles -->
+		<itemIndex>266</itemIndex> <!-- Walkman -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>212</compatiblefaceitemIndex> <!-- Sun Goggles -->
+		<itemIndex>213</itemIndex> <!-- Gas Mask -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>212</compatiblefaceitemIndex> <!-- Sun Goggles -->
+		<itemIndex>259</itemIndex> <!-- Robot Remote -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>212</compatiblefaceitemIndex> <!-- Sun Goggles -->
+		<itemIndex>0</itemIndex> <!-- Nada -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>246</compatiblefaceitemIndex> <!-- UV Goggles -->
+		<itemIndex>210</itemIndex> <!-- Extended Ear -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>246</compatiblefaceitemIndex> <!-- UV Goggles -->
+		<itemIndex>266</itemIndex> <!-- Walkman -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>246</compatiblefaceitemIndex> <!-- UV Goggles -->
+		<itemIndex>213</itemIndex> <!-- Gas Mask -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>246</compatiblefaceitemIndex> <!-- UV Goggles -->
+		<itemIndex>259</itemIndex> <!-- Robot Remote -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>246</compatiblefaceitemIndex> <!-- UV Goggles -->
+		<itemIndex>0</itemIndex> <!-- Nada -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>213</compatiblefaceitemIndex> <!-- Gas Mask -->
+		<itemIndex>210</itemIndex> <!-- Extended Ear -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>213</compatiblefaceitemIndex> <!-- Gas Mask -->
+		<itemIndex>266</itemIndex> <!-- Walkman -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>213</compatiblefaceitemIndex> <!-- Gas Mask -->
+		<itemIndex>211</itemIndex> <!-- Night Goggles -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>213</compatiblefaceitemIndex> <!-- Gas Mask -->
+		<itemIndex>246</itemIndex> <!-- UV Goggles -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>213</compatiblefaceitemIndex> <!-- Gas Mask -->
+		<itemIndex>212</itemIndex> <!-- Sun Goggles -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>213</compatiblefaceitemIndex> <!-- Gas Mask -->
+		<itemIndex>259</itemIndex> <!-- Robot Remote -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>213</compatiblefaceitemIndex> <!-- Gas Mask -->
+		<itemIndex>0</itemIndex> <!-- Nada -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>259</compatiblefaceitemIndex> <!-- Robot Remote -->
+		<itemIndex>211</itemIndex> <!-- Night Goggles -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>259</compatiblefaceitemIndex> <!-- Robot Remote -->
+		<itemIndex>246</itemIndex> <!-- UV Goggles -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>259</compatiblefaceitemIndex> <!-- Robot Remote -->
+		<itemIndex>212</itemIndex> <!-- Sun Goggles -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>259</compatiblefaceitemIndex> <!-- Robot Remote -->
+		<itemIndex>213</itemIndex> <!-- Gas Mask -->
+	</COMPATIBLEFACEITEM>
+	<COMPATIBLEFACEITEM>
+		<compatiblefaceitemIndex>259</compatiblefaceitemIndex> <!-- Robot Remote -->
+		<itemIndex>0</itemIndex> <!-- Nada -->
+	</COMPATIBLEFACEITEM>
+</COMPATIBLEFACEITEMLIST>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AMMOLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<AMMO>
+		<AmmoCaliber></AmmoCaliber>
+		<BRCaliber></BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>.38 Spc</AmmoCaliber>
+		<BRCaliber>.38 Spc</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>9mm</AmmoCaliber>
+		<BRCaliber>9mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>.45 ACP</AmmoCaliber>
+		<BRCaliber>.45 ACP</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>.357 Mag</AmmoCaliber>
+		<BRCaliber>.357 Mag</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>12 gauge</AmmoCaliber>
+		<BRCaliber>12 gauge</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>CAWS</AmmoCaliber>
+		<BRCaliber>CAWS</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>5.45mm</AmmoCaliber>
+		<BRCaliber>5.45mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>5.56mm</AmmoCaliber>
+		<BRCaliber>5.56mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>7.62mm NATO</AmmoCaliber>
+		<BRCaliber>7.62mm N</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>7.62mm WP</AmmoCaliber>
+		<BRCaliber>7.62mm WP</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>4.7mm</AmmoCaliber>
+		<BRCaliber>4.7mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>5.7mm</AmmoCaliber>
+		<BRCaliber>5.7mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>Monster</AmmoCaliber>
+		<BRCaliber>Monster</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>Rocket</AmmoCaliber>
+		<BRCaliber>Rocket</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>Dart</AmmoCaliber>
+		<BRCaliber>Dart</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>flame</AmmoCaliber>
+		<BRCaliber>flame</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>.50 BMG</AmmoCaliber>
+		<BRCaliber>.50 BMG</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>9mm Heavy</AmmoCaliber>
+		<BRCaliber>9mm Hvy</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>4.6mm</AmmoCaliber>
+		<BRCaliber>4.6mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>7.62mm Tokarev</AmmoCaliber>
+		<BRCaliber>7.62mm Tk</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>12.7mm</AmmoCaliber>
+		<BRCaliber>12.7mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>9mm Makarov</AmmoCaliber>
+		<BRCaliber>9mm PM</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>.40 S&amp;W</AmmoCaliber>
+		<BRCaliber>.40 S&amp;W</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>7.62mm Russian</AmmoCaliber>
+		<BRCaliber>7.62mm Rs</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>.338 Lapua</AmmoCaliber>
+		<BRCaliber>.338 LM</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>.44 Mag</AmmoCaliber>
+		<BRCaliber>.44 Mag</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>10mm</AmmoCaliber>
+		<BRCaliber>10mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>12.3mm</AmmoCaliber>
+		<BRCaliber>12.3mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>9mm Gyurza</AmmoCaliber>
+		<BRCaliber>9mm Gyurza</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>7.62mm Subsonic</AmmoCaliber>
+		<BRCaliber>7.62mm Sub</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>9mm SP-5</AmmoCaliber>
+		<BRCaliber>9mm SP-5</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>9mm SP-6</AmmoCaliber>
+		<BRCaliber>9mm SP-6</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>5.45mm Pistol</AmmoCaliber>
+		<BRCaliber>5.45mm P</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>9mm Metal Storm</AmmoCaliber>
+		<BRCaliber>9mm MS</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>.50 Action Express</AmmoCaliber>
+		<BRCaliber>.50 AE</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>.454 Casull</AmmoCaliber>
+		<BRCaliber>.454 Casull</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>.45 WM</AmmoCaliber>
+		<BRCaliber>.45 WM</BRCaliber>
+	</AMMO>
+</AMMOLIST>

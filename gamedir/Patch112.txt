@@ -1,0 +1,27 @@
+Changes in 1.12:
+- fixed the history record added when you give Carmen one of the terrorist's heads
+- Shank will no longer automatically be added to your party if you talk to him long enough
+- fixed problems with MERCs not being hireable if you withheld money so long that they quit, then 
+  you paid your balance
+- fixed problem if at the last stage of IMP character creation (confirming payment) you hit 'cancel'
+  (which resulted in no custom character being created, but at the same time preventing you from 
+  creating another)
+- prevented player from switching to the map screen if a list of items to pick up is being displayed
+- fixed problem with the code to handle mercs surrendering to the enemy that would occur if you had 
+  already played through the first surrender situation (Alma prison) and then had more mercs 
+  surrender (which is supposed to trigger the interrogation scene with Deidranna, Eliot, and Joe)
+- fixed history record for when characters die
+- fixed the infamous "burst bug" which prevented some bullets from hitting a character if they
+  were standing when hit
+
+Changes in 1.11:
+- fixed bug in which breath damage could cause values to wrap from very low to high values.  (Typically 
+  seen with stun grenades – the player throws a stun grenade at an enemy who is knocked down, but gets 
+  up the next turn raring to go.) 
+- fixed a bug that would temporarily disable interrupts
+- fixed two bugs related to stealing a weapon from an enemy, that would cause the hourglass cursor to appear 
+  and not go away 
+- fixed a bug in which the chance to hit someone was incorrectly calculated when aiming at a specific 
+  body part.  A character that had partial cover behind the edge of a roof (e.g. only their head visible) 
+  might have been impossible to hit due to a bullet-path check which was incorrectly 
+  targeted at their chest. 

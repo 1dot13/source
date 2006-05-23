@@ -1,0 +1,49 @@
+<!-- 	this a comment, all of the text between the angled brackets is ignored
+
+Attribute Field Reference:
+
+	uiIndex				- index of item in array, just increment this for each new entry
+	usItem				- original item's index
+	usAttachment1		- first attachment item index
+	usAttachment2		- second attachment item index
+	usResult			- resulting item index
+	
+-->
+
+<ATTACHMENTCOMBOMERGELIST>
+	<ATTACHMENTCOMBOMERGE>
+		<uiIndex>0</uiIndex>
+		<usItem>305</usItem> <!-- Rod -->
+		<usAttachment1>306</usAttachment1> <!-- Spring -->
+		<usAttachment2>0</usAttachment2> <!-- Nada -->
+		<usResult>307</usResult> <!-- Rod & Spring -->
+	</ATTACHMENTCOMBOMERGE>
+	<ATTACHMENTCOMBOMERGE>
+		<uiIndex>1</uiIndex>
+		<usItem>308</usItem> <!-- Steel Tube -->
+		<usAttachment1>309</usAttachment1> <!-- Quick Glue -->
+		<usAttachment2>304</usAttachment2> <!-- Duct Tape -->
+		<usResult>310</usResult> <!-- Extender -->
+	</ATTACHMENTCOMBOMERGE>
+	<ATTACHMENTCOMBOMERGE>
+		<uiIndex>2</uiIndex>
+		<usItem>318</usItem> <!-- FumblePak -->
+		<usAttachment1>319</usAttachment1> <!-- X-ray Tube -->
+		<usAttachment2>320</usAttachment2> <!-- Gum -->
+		<usResult>321</usResult> <!-- X-ray Device -->
+	</ATTACHMENTCOMBOMERGE>
+	<ATTACHMENTCOMBOMERGE>
+		<uiIndex>3</uiIndex>
+		<usItem>315</usItem> <!-- LameBoy -->
+		<usAttachment1>316</usAttachment1> <!-- Copper Wire -->
+		<usAttachment2>0</usAttachment2> <!-- Nada -->
+		<usResult>317</usResult> <!-- Display Unit -->
+	</ATTACHMENTCOMBOMERGE>
+	<ATTACHMENTCOMBOMERGE>
+		<uiIndex>4</uiIndex>
+		<usItem>264</usItem> <!-- Platinum Watch -->
+		<usAttachment1>316</usAttachment1> <!-- Copper Wire -->
+		<usAttachment2>0</usAttachment2> <!-- Nada -->
+		<usResult>223</usResult> <!-- Detonator -->
+	</ATTACHMENTCOMBOMERGE>
+</ATTACHMENTCOMBOMERGELIST>
