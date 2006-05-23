@@ -27,7 +27,7 @@
 #endif
 
 //rain
-#define BREATH_GAIN_REDUCTION_PER_RAIN_INTENSITY 25
+//#define BREATH_GAIN_REDUCTION_PER_RAIN_INTENSITY 25
 //end rain
 
 extern BOOLEAN IsValidSecondHandShot( SOLDIERTYPE *pSoldier );
@@ -856,7 +856,7 @@ INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 	// Reduce breath gain on 25%/rain intensity
 	if( sBreathPerAP < 0 && ( pSoldier->bLevel  ||!FindStructure( pSoldier->sGridNo, STRUCTURE_ROOF )  )  && pSoldier->bBreath > 1)
 	{
-		sBreathPerAP -= sBreathPerAP * gbCurrentRainIntensity * BREATH_GAIN_REDUCTION_PER_RAIN_INTENSITY  / 100 ;
+		sBreathPerAP -= sBreathPerAP * gbCurrentRainIntensity * gGameExternalOptions.ubBreathGainReductionPerRainIntensity  / 100 ;
 	}
 	//end rain
 
