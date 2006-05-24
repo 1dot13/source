@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <AMMOLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<AMMO>
-		<AmmoCaliber></AmmoCaliber>
-		<BRCaliber></BRCaliber>
+		<AmmoCaliber>0</AmmoCaliber>
+		<BRCaliber>0</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>.38 Spc</AmmoCaliber>
@@ -97,8 +97,8 @@
 		<BRCaliber>.40 S&amp;W</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>7.62mm Russian</AmmoCaliber>
-		<BRCaliber>7.62mm Rs</BRCaliber>
+		<AmmoCaliber>7.62mm Rimmed</AmmoCaliber>
+		<BRCaliber>7.62mm R</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>.338 Lapua</AmmoCaliber>
@@ -134,10 +134,10 @@
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>5.45mm Pistol</AmmoCaliber>
-		<BRCaliber>5.45mm P</BRCaliber>
+		<BRCaliber>5.45mm Pistol</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>9mm Metal Storm</AmmoCaliber>
+		<AmmoCaliber>9mm MS</AmmoCaliber>
 		<BRCaliber>9mm MS</BRCaliber>
 	</AMMO>
 	<AMMO>
