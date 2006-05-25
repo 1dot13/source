@@ -215,7 +215,7 @@ typedef struct
 	UINT16 gusRainMaxLength;
 	UINT32 guiMaxRainDrops;
 	UINT32 ubWeaponReliabilityReductionPerRainIntensity;
-	UINT32 ubBreathGainReductionPerRainIntensity;
+	double ubBreathGainReductionPerRainIntensity;
 
 	// Thunder settings
 	UINT32 guiMinLightningInterval;
