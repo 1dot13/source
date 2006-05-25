@@ -10794,9 +10794,6 @@ BOOLEAN PlayerSoldierStartTalking( SOLDIERTYPE *pSoldier, UINT8 ubTargetID, BOOL
 	// Get APs...
 	sAPCost = AP_TALK;
 
-	// Deduct points from our guy....
-	DeductPoints( pSoldier, sAPCost, 0 );
-
 	if ( !(gTacticalStatus.uiFlags & INCOMBAT) || (gTacticalStatus.uiFlags & REALTIME) ) //lal
 	{
 		ConvertGridNoToXY( pTSoldier->sGridNo, &sXPos, &sYPos );
@@ -10828,6 +10825,9 @@ BOOLEAN PlayerSoldierStartTalking( SOLDIERTYPE *pSoldier, UINT8 ubTargetID, BOOL
 		}
 		else
 		{
+			// Deduct points from our guy....
+			DeductPoints( pSoldier, sAPCost, 0 );
+
 			StartCivQuote( pTSoldier );
 			return( FALSE );
 		}

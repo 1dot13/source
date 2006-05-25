@@ -390,9 +390,9 @@ UINT32 InitScreenHandle(void)
 		//mprintf( 10, 420, zVersionLabel );
 
 #ifdef _DEBUG
-		mprintf( 10, 10, L"%s: %s (Debug %S)", pMessageStrings[ MSG_VERSION ], zVersionLabel, czVersionNumber );
+		mprintf( 10, 10, L"%s: %s Debug %S", pMessageStrings[ MSG_VERSION ], zVersionLabel, czVersionNumber );
 #else
-		mprintf( 10, 10, L"%s: %s (%S)", pMessageStrings[ MSG_VERSION ], zVersionLabel, czVersionNumber );
+		mprintf( 10, 10, L"%s: %s %S", pMessageStrings[ MSG_VERSION ], zVersionLabel, czVersionNumber );
 #endif
 
 #ifdef CRIPPLED_VERSION

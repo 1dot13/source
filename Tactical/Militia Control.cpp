@@ -1174,6 +1174,11 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							}
 						}
 
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+						{
+							DeductPoints( pSoldier, AP_TALK, 0 );
+						}
+
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
 						giAssignHighLine = -1;
@@ -1192,6 +1197,11 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							//ScreenMsg( FONT_WHITE, MSG_INTERFACE, L"Hold Position" );
 							pTMilitiaSoldier->bOrders = STATIONARY;
 							//pTMilitiaSoldier->bAttitude = DEFENSIVE;
+						}
+
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+						{
+							DeductPoints( pSoldier, AP_TALK, 0 );
 						}
 
 						// stop showing menu
@@ -1234,6 +1244,12 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 								SendGetNewSoldierPathEvent( pTMilitiaSoldier, sActionGridNo, pTMilitiaSoldier->usUIMovementMode );
 							}
 						}
+						
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+						{
+							DeductPoints( pSoldier, AP_TALK, 0 );
+						}
+
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
 						giAssignHighLine = -1;
@@ -1276,6 +1292,12 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 								}
 							}
 						}
+
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+						{
+							DeductPoints( pSoldier, AP_TALK, 0 );
+						}
+
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;						
 						giAssignHighLine = -1;
@@ -1295,6 +1317,11 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 								SendChangeSoldierStanceEvent( pTMilitiaSoldier, ANIM_PRONE );
 								//SendChangeSoldierStanceEvent( pTMilitiaSoldier, ANIM_CROUCH );
 							}
+						}
+
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+						{
+							DeductPoints( pSoldier, AP_TALK, 0 );
 						}
 
 						// stop showing menu
@@ -1331,6 +1358,12 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 								}
 							}
 						}
+
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+						{
+							DeductPoints( pSoldier, AP_TALK, 0 );
+						}
+
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
 						giAssignHighLine = -1;
@@ -1359,6 +1392,11 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							}
 						}
 
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+						{
+							DeductPoints( pSoldier, AP_TALK, 0 );
+						}
+
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
 						giAssignHighLine = -1;
@@ -1383,6 +1421,11 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 								pTeamSoldier->bOrders = STATIONARY;
 								pTeamSoldier->bAttitude = DEFENSIVE;
 							}
+						}
+
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+						{
+							DeductPoints( pSoldier, AP_TALK, 0 );
 						}
 
 						// stop showing menu
@@ -1442,6 +1485,11 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							}
 						}
 
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+						{
+							DeductPoints( pSoldier, AP_TALK, 0 );
+						}
+
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
 						giAssignHighLine = -1;
@@ -1490,6 +1538,11 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							}
 						}
 
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+						{
+							DeductPoints( pSoldier, AP_TALK, 0 );
+						}
+
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
 						giAssignHighLine = -1;
@@ -1517,6 +1570,11 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 									//SendChangeSoldierStanceEvent( pTeamSoldier, ANIM_CROUCH );
 								}
 							}
+						}
+
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+						{
+							DeductPoints( pSoldier, AP_TALK, 0 );
 						}
 
 						// stop showing menu
@@ -1588,6 +1646,11 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 							}
 						}
 
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+						{
+							DeductPoints( pSoldier, AP_TALK, 0 );
+						}
+
 						// stop showing menu
 						fShowMilitiaControlMenu = FALSE;
 						giAssignHighLine = -1;
@@ -1640,6 +1703,11 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 					//			}
 					//		}
 					//	}
+					
+					//if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+					//{
+					//	DeductPoints( pSoldier, AP_TALK, 0 );
+					//}
 
 					//	// stop showing menu
 					//	fShowMilitiaControlMenu = FALSE;
