@@ -1173,6 +1173,9 @@ UINT16 ReplacementAmmo[][2] =
 BOOLEAN ItemIsLegal( UINT16 usItemIndex )
 {
 	//if the user has selected the reduced gun list
+	if ( Item[usItemIndex].ubCoolness == 0 )
+		return FALSE;
+
 	if( !gGameOptions.fGunNut )
 	{
 		//if the item is a gun, or ammo
@@ -7018,11 +7021,11 @@ INT16 GetCamoBonus( OBJECTTYPE * pObj )
 	INT8	bLoop;
 	INT16 bns=0;
 
-	bns = (INT16) (Item[pObj->usItem].camobonus * (WEAPON_STATUS_MOD(pObj->bStatus[0]) / 100)) ;
+	bns = (INT16) (Item[pObj->usItem].camobonus);// * (WEAPON_STATUS_MOD(pObj->bStatus[0]) / 100)) ;
 
 	for (bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
 	{
-		bns += (INT16) (Item[pObj->usAttachItem[bLoop]].camobonus * (WEAPON_STATUS_MOD(pObj->bAttachStatus[bLoop]) / 100));
+		bns += (INT16) (Item[pObj->usAttachItem[bLoop]].camobonus);// * (WEAPON_STATUS_MOD(pObj->bAttachStatus[bLoop]) / 100));
 	}
 	return( bns );
 }

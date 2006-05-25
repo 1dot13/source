@@ -162,8 +162,13 @@ UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, UINT16 usMapPo
 			break;
 
 		case KNIFECURS:
-
-			ubCursorID = HandleKnifeCursor( pSoldier, sTargetGridNo, fActivated, uiCursorFlags );
+			//Madd: quick hack to make wirecutter cursor appear when using a knife that can cut through wire
+			if ( Item[ubItemIndex].wirecutters && IsCuttableWireFenceAtGridNo( sTargetGridNo ) && pSoldier->bLevel == 0 )
+			{
+				ubCursorID = GOOD_WIRECUTTER_UICURSOR;
+			}
+			else
+				ubCursorID = HandleKnifeCursor( pSoldier, sTargetGridNo, fActivated, uiCursorFlags );
 			break;
 
 		case AIDCURS:

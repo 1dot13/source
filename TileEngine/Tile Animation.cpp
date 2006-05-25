@@ -381,7 +381,7 @@ void DeleteAniTile( ANITILE *pAniTile )
 						break;
 
 				}
-				if ( pAniNode->uiFlags & ANITILE_LIGHT )
+				if ( pAniNode->uiFlags & ANITILE_LIGHT && ubAmbientLightLevel >= MIN_AMB_LEVEL_FOR_MERC_LIGHTS )
 				{
 					LightSpriteDestroy(pAniNode->lightSprite);
 				}

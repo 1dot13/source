@@ -206,17 +206,17 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, UINT16 usGridNo, INT8 bLevel, UINT16 us
 	{
 		pTargetSoldier = MercPtrs[ usSoldierIndex ];
 
-    if ( fFromUI )
-    {
-	    // ATE: Check if we are targeting an interactive tile, and adjust gridno accordingly...
-	    pIntNode = GetCurInteractiveTileGridNoAndStructure( &sGridNo, &pStructure );
+		if ( fFromUI )
+		{
+			// ATE: Check if we are targeting an interactive tile, and adjust gridno accordingly...
+			pIntNode = GetCurInteractiveTileGridNoAndStructure( &sGridNo, &pStructure );
 
   		if ( pIntNode != NULL && pTargetSoldier == pSoldier )
-      { 
-        // Truncate target sioldier
-        pTargetSoldier = NULL;
-      }
-    }
+		{ 
+			// Truncate target sioldier
+			pTargetSoldier = NULL;
+		}
+		}
 	}
 
 	// ATE: If in realtime, set attacker count to 0...
@@ -769,7 +769,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, UINT16 usGridNo, INT8 bLevel, UINT16 us
 		 }
 	}
 
-  if ( Item[usHandItem].wirecutters )
+	if ( Item[usHandItem].wirecutters && pTargetSoldier == NULL ) // Madd: quick fix to allow wirecutter/knives
 	{
 		 // See if we can get there to stab	
 		 sActionGridNo =  FindAdjacentGridEx( pSoldier, usGridNo, &ubDirection, &sAdjustedGridNo, TRUE, FALSE );

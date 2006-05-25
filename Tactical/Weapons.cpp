@@ -1194,6 +1194,11 @@ BOOLEAN	OKFireWeapon( SOLDIERTYPE *pSoldier )
 	// 1) Are we attacking with our second hand?
 	if ( pSoldier->ubAttackingHand == SECONDHANDPOS )
 	{
+		if ( Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].NoSemiAuto ) // Madd: no autofire w/second hand (yet)
+		{
+			return( FALSE );
+		}
+
 		if ( !EnoughAmmo( pSoldier, FALSE, pSoldier->ubAttackingHand ) )
 		{
 			if ( pSoldier->bTeam == gbPlayerNum	 )
