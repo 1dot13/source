@@ -338,27 +338,5 @@ MERGE TYPES:
 		<mergeType>5</mergeType>
 	</MERGE>
 	<MERGE>
-		<firstItemIndex>295</firstItemIndex> <!-- nada -->
-		<secondItemIndex>295</secondItemIndex> <!-- nada -->
-		<resultingItemIndex>295</resultingItemIndex> <!-- nada -->
-		<mergeType>1</mergeType>
-	</MERGE>
-	<MERGE>
-		<firstItemIndex>298</firstItemIndex> <!-- nada -->
-		<secondItemIndex>298</secondItemIndex> <!-- nada -->
-		<resultingItemIndex>298</resultingItemIndex> <!-- nada -->
-		<mergeType>1</mergeType>
-	</MERGE>
-	<MERGE>
-		<firstItemIndex>299</firstItemIndex> <!-- nada -->
-		<secondItemIndex>299</secondItemIndex> <!-- nada -->
-		<resultingItemIndex>299</resultingItemIndex> <!-- nada -->
-		<mergeType>1</mergeType>
-	</MERGE>
-	<MERGE>
-		<firstItemIndex>300</firstItemIndex> <!-- nada -->
-		<secondItemIndex>300</secondItemIndex> <!-- nada -->
-		<resultingItemIndex>300</resultingItemIndex> <!-- nada -->
-		<mergeType>1</mergeType>
 	</MERGE>
 </MERGELIST>

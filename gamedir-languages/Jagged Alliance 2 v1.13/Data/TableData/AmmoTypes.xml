@@ -45,7 +45,7 @@ Attribute Field Reference:
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
 		<canGoThrough>1</canGoThrough>
-		<standardIssue>0</standardIssue>
+		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
@@ -58,6 +58,7 @@ Attribute Field Reference:
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>1</uiIndex> <!-- HP ammo -->
@@ -88,6 +89,7 @@ Attribute Field Reference:
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>2</uiIndex> <!-- AP ammo -->
@@ -118,10 +120,11 @@ Attribute Field Reference:
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>3</uiIndex> <!-- Super AP ammo -->
-		<fontColour>218</fontColour>
+		<fontColour>163</fontColour>
 		<grayed>8</grayed>
 		<offNormal>5</offNormal>
 		<onNormal>7</onNormal>
@@ -148,6 +151,7 @@ Attribute Field Reference:
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>4</uiIndex> <!-- Buckshot ammo -->
@@ -165,7 +169,7 @@ Attribute Field Reference:
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
 		<canGoThrough>1</canGoThrough>
-		<standardIssue>0</standardIssue>
+		<standardIssue>1</standardIssue>
 		<numberOfBullets>9</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
 		<multipleBulletDamageDivisor>4</multipleBulletDamageDivisor>
@@ -178,6 +182,7 @@ Attribute Field Reference:
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>5</uiIndex> <!-- Flechette ammo -->
@@ -208,6 +213,7 @@ Attribute Field Reference:
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>6</uiIndex> <!-- Grenade ammo -->
@@ -238,6 +244,7 @@ Attribute Field Reference:
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>7</uiIndex> <!-- Monster ammo - hardcoded as ammo for monster class weapons -->
@@ -255,7 +262,7 @@ Attribute Field Reference:
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
 		<canGoThrough>0</canGoThrough>
-		<standardIssue>0</standardIssue>
+		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
@@ -268,6 +275,7 @@ Attribute Field Reference:
 		<acidic>1</acidic>
 		<ignoreArmour>1</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>8</uiIndex> <!-- Knife ammo - hardcoded as ammo for throwing knives -->
@@ -285,7 +293,7 @@ Attribute Field Reference:
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
 		<canGoThrough>0</canGoThrough>
-		<standardIssue>0</standardIssue>
+		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
@@ -298,6 +306,7 @@ Attribute Field Reference:
 		<acidic>0</acidic>
 		<ignoreArmour>1</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>9</uiIndex> <!-- HE ammo -->
@@ -315,7 +324,7 @@ Attribute Field Reference:
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
 		<canGoThrough>0</canGoThrough>
-		<standardIssue>0</standardIssue>
+		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
@@ -328,6 +337,7 @@ Attribute Field Reference:
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>10</uiIndex> <!-- HEAT ammo -->
@@ -358,6 +368,7 @@ Attribute Field Reference:
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>11</uiIndex> <!-- Tranquilizer dart ammo -->
@@ -375,7 +386,7 @@ Attribute Field Reference:
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>1</zeroMinimumDamage>
 		<canGoThrough>0</canGoThrough>
-		<standardIssue>0</standardIssue>
+		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
@@ -388,6 +399,7 @@ Attribute Field Reference:
 		<acidic>0</acidic>
 		<ignoreArmour>1</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>12</uiIndex> <!-- Flamethrower ammo -->
@@ -418,6 +430,6 @@ Attribute Field Reference:
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
-		<acidic>0</acidic>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 </AMMOTYPELIST>

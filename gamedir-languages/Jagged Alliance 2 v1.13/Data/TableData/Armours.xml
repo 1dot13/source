@@ -2,7 +2,7 @@
 
 Attribute Field Reference:
 
-	uiIndex				- index of item in array, just increment this for each new entry - should match ubClassIndex in items.xml
+	uiIndex				- index of item in array, just increment this for each new entry - should match to item class in items.xml
 	ubArmourClass		- type of armour
 	ubProtection		- protection offered by armour
 	ubDegradePercent	- how fast the armour's status decreases

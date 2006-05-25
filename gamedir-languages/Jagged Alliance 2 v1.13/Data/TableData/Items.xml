@@ -17,7 +17,7 @@ Attribute Field Reference:
 	ubGraphicNum		- the number of the graphic for the item as stored in the sti files
 	ubWeight			- the weight of the item, in 100g units, so 77 = 7.7 kg
 	ubPerPocket			- the quantity of this item that can fit in one large pocket.  This is halved for small pockets.  Guns should always be zero.
-	usPrice				- $$$$
+	usPrice				- $$$$ 
 	ubCoolness			- (1-10) how far along in the game you'll see the item.  Zero means that it's not cool at all and won't be sold anywhere.
 	bReliability		- how quickly the item loses status.  Positive numbers reduce status loss, negative numbers increase it.
 	bRepairEase			- how easy the item is to repair
@@ -35,7 +35,7 @@ Attribute Field Reference:
 	NotInEditor			- (1/0) so far unused
 	DefaultUndroppable	- (1/0) is item not droppable by enemies?  (Drop everything option overrides this)
 	Unaerodynamic		- (1/0) can the item only be thrown one-two squares?
-	Electronic			- (1/0) is the item electronic? (used in conjunction with Electronics specialty for repairs and attaching, etc.)
+	Electronic			- (1/0) is the item electronic? (used in conjunction with Electronics specialty for repairs and attaching, etc.)	
 	Inseparable			- (1/0) is the item a permanent attachment?
 	BR_NewInventory		- (>=0) Bobby Ray's new inventory stock of this item
 	BR_UsedInventory	- (1/0) Bobby Ray's used inventory stock of this item
@@ -59,9 +59,9 @@ Attribute Field Reference:
 	PercentReadyTimeAPReduction    - percentile bonus towards reducing aps required to ready a weapon
 	PercentReloadTimeAPReduction - percentile bonus towards reducing required time to reload a weapon
 	PercentAPReduction	- percentile bonus towards reducing required aps to use weapon item
-	PercentStatusDrainReduction - positive numbers decrease amount of kits used (and some other items as well)
+	PercentStatusDrainReduction - positive numbers decrease amount of kits used (and some other items as well) 
 	DamageBonus			- ranged damage bonus.  Applies to guns.
-	MeleeDamageBonus    - hand to hand damage bonus.  For now just applies to brass knuckles and knives
+	MeleeDamageBonus    - hand to hand damage bonus.  For now just applies to brass knuckles and knives 
 	GrenadeLauncher		- (1/0) launches grenades?  Can be assigned to guns, launchers or attachments.
 	Duckbill			- (1/0) acts as Duckbill?  (Spreads buckshot ammo, and any associated range bonuses only apply to buckshot ammo)
 	GLGrenade			- (1/0) can this item be launched in a grenade launcher?  (must also be in launchables.xml for applicable launcher)
@@ -117,7 +117,7 @@ Attribute Field Reference:
 	FingerPrintID		- (1/0) requires a Finger Print ID before use is possible (weapons only, I think)
 
 Item Classes:
-
+	
 	IC_NONE				0x00000001		Nothing							1
 	IC_GUN				0x00000002		Gun								2		Class index mapped to Weapons.xml (should equal items.xml uiIndex)
 	IC_BLADE			0x00000004		Knife							4		Class index mapped to Weapons.xml (should equal items.xml uiIndex)
@@ -162,13 +162,13 @@ Cursors:
 	SAWCURS 15
 	WIRECUTCURS	16
 	REMOTECURS	17
-	BOMBCURS		18
+	BOMBCURS		18 
 	REPAIRCURS	19
 	TRAJECTORYCURS	20
 	JARCURS			21
 	TINCANCURS	22
 	REFUELCURS  23
-
+	
 -->
 <ITEMLIST>
 	<ITEM>
@@ -222,7 +222,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -337,7 +338,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -452,7 +454,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -567,7 +570,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -682,7 +686,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -797,7 +802,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -912,7 +918,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -1027,7 +1034,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -1142,7 +1150,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -1257,7 +1266,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -1372,7 +1382,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -1487,7 +1498,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -1602,7 +1614,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -1717,7 +1730,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -1832,7 +1846,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -1947,7 +1962,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -2062,7 +2078,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -2177,7 +2194,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -2292,7 +2310,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -2407,7 +2426,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -2522,7 +2542,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -2637,7 +2658,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -2752,7 +2774,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -2867,7 +2890,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -2982,7 +3006,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -3097,7 +3122,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -3212,7 +3238,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -3327,7 +3354,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -3442,7 +3470,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -3557,7 +3586,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -3672,7 +3702,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -3787,7 +3818,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -3902,7 +3934,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -4017,7 +4050,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -4132,7 +4166,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -4247,7 +4282,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -4362,7 +4398,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -4432,7 +4469,7 @@ Cursors:
 		<szLongItemName>Combat Knife</szLongItemName>
 		<szItemDesc>This full-tang bowie-styled combat knife will convert you into a whirling, twirling machine of silent, subtle death.</szItemDesc>
 		<szBRName>Combat Knife</szBRName>
-		<szBRDesc>When the enemy is too close for comfort, this full-tang bowie-styled combat knife will definitely come in handy. It features a serrated 9&quot; blade, and a wooden handle with a heavy-duty guard and pommel.</szBRDesc>
+		<szBRDesc>When the enemy is too close for comfort, this full-tang bowie-styled combat knife will definitely come in handy. It features a serrated 9" blade, and a wooden handle with a heavy-duty guard and pommel.</szBRDesc>
 		<usItemClass>4</usItemClass>
 		<ubClassIndex>37</ubClassIndex>
 		<ubCursor>4</ubCursor>
@@ -4477,7 +4514,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -4592,7 +4630,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -4660,9 +4699,9 @@ Cursors:
 		<uiIndex>39</uiIndex>
 		<szItemName>Rock</szItemName>
 		<szLongItemName>A Rock</szLongItemName>
-		<szItemDesc>A rock.</szItemDesc>
+		<szItemDesc>A rock is what you've got in your head if you don't know what one is.</szItemDesc>
 		<szBRName>A Rock</szBRName>
-		<szBRDesc>A rock is what you&apos;ve got in your head if you don&apos;t know what one is.</szBRDesc>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>64</usItemClass>
 		<ubClassIndex>39</ubClassIndex>
 		<ubCursor>6</ubCursor>
@@ -4707,7 +4746,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -4784,15 +4824,15 @@ Cursors:
 		<bSoundType>0</bSoundType>
 		<ubGraphicType>0</ubGraphicType>
 		<ubGraphicNum>37</ubGraphicNum>
-		<ubWeight>26</ubWeight>
+		<ubWeight>27</ubWeight>
 		<ubPerPocket>0</ubPerPocket>
-		<usPrice>900</usPrice>
-		<ubCoolness>7</ubCoolness>
+		<usPrice>600</usPrice>
+		<ubCoolness>4</ubCoolness>
 		<bReliability>0</bReliability>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
-		<WaterDamages>1</WaterDamages>
+		<WaterDamages>0</WaterDamages>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
@@ -4822,7 +4862,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -4937,7 +4978,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -5005,7 +5047,7 @@ Cursors:
 		<uiIndex>42</uiIndex>
 		<szItemName>Rock</szItemName>
 		<szLongItemName>Another Rock</szLongItemName>
-		<szItemDesc>A rock is what you&apos;ve got in your head if you don&apos;t know what one is.</szItemDesc>
+		<szItemDesc>A rock usually associated with a roll is a form of modern music that tends to be loud and a preferred choice of adolescents.</szItemDesc>
 		<szBRName>Another Rock</szBRName>
 		<szBRDesc>A rock usually associated with a roll is a form of modern music that tends to be loud and a preferred choice of adolescents.</szBRDesc>
 		<usItemClass>64</usItemClass>
@@ -5052,7 +5094,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -5120,7 +5163,7 @@ Cursors:
 		<uiIndex>43</uiIndex>
 		<szItemName>YM Claws</szItemName>
 		<szLongItemName>Young Male Claws</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!  </szItemDesc>
+		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
 		<szBRName>Young Male Claws</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>4</usItemClass>
@@ -5167,7 +5210,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -5282,7 +5326,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -5397,7 +5442,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -5512,7 +5558,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -5627,7 +5674,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -5728,7 +5776,7 @@ Cursors:
 		<Inseparable>0</Inseparable>
 		<BR_NewInventory>0</BR_NewInventory>
 		<BR_UsedInventory>0</BR_UsedInventory>
-		<BR_ROF>0</BR_ROF>
+		<BR_ROF>20</BR_ROF>
 		<PercentNoiseReduction>0</PercentNoiseReduction>
 		<HideMuzzleFlash>0</HideMuzzleFlash>
 		<Bipod>0</Bipod>
@@ -5742,7 +5790,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -5812,7 +5861,7 @@ Cursors:
 		<szLongItemName>Knuckle Dusters</szLongItemName>
 		<szItemDesc>This sturdy set of brass knuckles fits most hands. They will add some power to your punch.</szItemDesc>
 		<szBRName>Knuckle Dusters</szBRName>
-		<szBRDesc>You&apos;ll be packing a real punch with this set of handy brass knuckles. Although sturdy, they&apos;re small enough to fit into most back pockets. One size fits all.</szBRDesc>
+		<szBRDesc>You'll be packing a real punch with this set of handy brass knuckles. Although sturdy, they're small enough to fit into most back pockets. One size fits all.</szBRDesc>
 		<usItemClass>128</usItemClass>
 		<ubClassIndex>49</ubClassIndex>
 		<ubCursor>2</ubCursor>
@@ -5827,7 +5876,7 @@ Cursors:
 		<bRepairEase>0</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
-		<WaterDamages>1</WaterDamages>
+		<WaterDamages>0</WaterDamages>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
@@ -5857,7 +5906,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -5925,7 +5975,7 @@ Cursors:
 		<uiIndex>50</uiIndex>
 		<szItemName>Talon</szItemName>
 		<szLongItemName>Underslung Grenade Launcher</szLongItemName>
-		<szItemDesc>The &quot;Talon&quot; US military grenade launcher is known to propel enemies into the waiting claws of death.</szItemDesc>
+		<szItemDesc>The "Talon" US military grenade launcher is known to propel enemies into the waiting claws of death.</szItemDesc>
 		<szBRName>Talon Underslung Grenade Launcher</szBRName>
 		<szBRDesc>Developed by the US military, this launcher can be attached to a wide range of assault rifles and machine guns. It comes equipped with a light folding stock and a special pistol grip stock, allowing it to be fired like a pistol. It is considered to be a good entry weapon.</szBRDesc>
 		<usItemClass>16</usItemClass>
@@ -5947,7 +5997,7 @@ Cursors:
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<HiddenAddon>0</HiddenAddon>
-		<TwoHanded>0</TwoHanded>
+		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
 		<BigGunList>0</BigGunList>
@@ -5972,7 +6022,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -6057,7 +6108,7 @@ Cursors:
 		<bRepairEase>-3</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
-		<WaterDamages>1</WaterDamages>
+		<WaterDamages>0</WaterDamages>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
@@ -6087,7 +6138,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -6202,7 +6254,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -6317,7 +6370,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -6385,9 +6439,9 @@ Cursors:
 		<uiIndex>54</uiIndex>
 		<szItemName>Machete</szItemName>
 		<szLongItemName>Machete</szLongItemName>
-		<szItemDesc>Slice &apos;em, dice &apos;em, cook &apos;em &apos;n&apos; clean &apos;em. Whether it be man, plant, or beast, this all purpose machete will chop any main course into the finest of cuts.</szItemDesc>
+		<szItemDesc>Slice 'em, dice 'em, cook 'em 'n' clean 'em. Whether it be man, plant, or beast, this all purpose machete will chop any main course into the finest of cuts.</szItemDesc>
 		<szBRName>Machete</szBRName>
-		<szBRDesc>Slice &apos;em, dice &apos;em, cook &apos;em &apos;n&apos; clean &apos;em. Whether it be man, plant, or beast, this all purpose machete will chop any main course into the finest of cuts.</szBRDesc>
+		<szBRDesc>Slice 'em, dice 'em, cook 'em 'n' clean 'em. Whether it be man, plant, or beast, this all purpose machete will chop any main course into the finest of cuts.</szBRDesc>
 		<usItemClass>4</usItemClass>
 		<ubClassIndex>54</ubClassIndex>
 		<ubCursor>4</ubCursor>
@@ -6396,7 +6450,7 @@ Cursors:
 		<ubGraphicNum>41</ubGraphicNum>
 		<ubWeight>13</ubWeight>
 		<ubPerPocket>0</ubPerPocket>
-		<usPrice>200</usPrice>
+		<usPrice>50</usPrice>
 		<ubCoolness>3</ubCoolness>
 		<bReliability>0</bReliability>
 		<bRepairEase>3</bRepairEase>
@@ -6432,7 +6486,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -6502,7 +6557,7 @@ Cursors:
 		<szLongItemName>Rocket Rifle</szLongItemName>
 		<szItemDesc>Annihilate your opponents with the cutting edge in weapons technology.  This rocket rifle comes with its own laser scope and computer security system.</szItemDesc>
 		<szBRName>Rocket Rifle</szBRName>
-		<szBRDesc>Annihilate your opponents with the cutting edge in weapons technology.  This rocket rifle comes with its own laser scope and computer security system.  </szBRDesc>
+		<szBRDesc>Annihilate your opponents with the cutting edge in weapons technology.  This rocket rifle comes with its own laser scope and computer security system.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>55</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -6547,10 +6602,11 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
-		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 		<PercentReloadTimeAPReduction>0</PercentReloadTimeAPReduction>
 		<PercentAPReduction>0</PercentAPReduction>
 		<PercentStatusDrainReduction>0</PercentStatusDrainReduction>
@@ -6615,7 +6671,7 @@ Cursors:
 		<uiIndex>56</uiIndex>
 		<szItemName>Automag</szItemName>
 		<szLongItemName>Automag III</szLongItemName>
-		<szItemDesc>This Automag has been modified into a monster of a pistol which fires 7.62mm NATO rifle rounds. The name &quot;Big Bertha&quot; has been  engraved on its sides.</szItemDesc>
+		<szItemDesc>This Automag has been modified into a monster of a pistol which fires 7.62mm NATO rifle rounds. The name "Big Bertha" has been engraved on its sides.</szItemDesc>
 		<szBRName>Automag III</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>2</usItemClass>
@@ -6662,7 +6718,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -6777,7 +6834,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -6892,7 +6950,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -7007,7 +7066,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -7093,7 +7153,7 @@ Cursors:
 		<Damageable>0</Damageable>
 		<Repairable>0</Repairable>
 		<WaterDamages>0</WaterDamages>
-		<Metal>0</Metal>
+		<Metal>1</Metal>
 		<Sinks>0</Sinks>
 		<ShowStatus>0</ShowStatus>
 		<HiddenAddon>0</HiddenAddon>
@@ -7101,8 +7161,8 @@ Cursors:
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
 		<BigGunList>0</BigGunList>
-		<NotInEditor>0</NotInEditor>
-		<DefaultUndroppable>0</DefaultUndroppable>
+		<NotInEditor>1</NotInEditor>
+		<DefaultUndroppable>1</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
 		<Electronic>0</Electronic>
 		<Inseparable>0</Inseparable>
@@ -7122,7 +7182,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -7237,7 +7298,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -7352,7 +7414,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -7420,18 +7483,18 @@ Cursors:
 		<uiIndex>63</uiIndex>
 		<szItemName>Flamethrower</szItemName>
 		<szLongItemName>Flamethrower</szLongItemName>
-		<szItemDesc>Sorry, guys, but this item didn&apos;t make it into the game!</szItemDesc>
+		<szItemDesc>Sorry, guys, but this item didn't make it into the game!</szItemDesc>
 		<szBRName>Flamethrower</szBRName>
-		<szBRDesc></szBRDesc>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>63</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<bSoundType>0</bSoundType>
 		<ubGraphicType>0</ubGraphicType>
 		<ubGraphicNum>48</ubGraphicNum>
-		<ubWeight>18</ubWeight>
+		<ubWeight>27</ubWeight>
 		<ubPerPocket>0</ubPerPocket>
-		<usPrice>0</usPrice>
+		<usPrice>3480</usPrice>
 		<ubCoolness>0</ubCoolness>
 		<bReliability>0</bReliability>
 		<bRepairEase>0</bRepairEase>
@@ -7442,7 +7505,7 @@ Cursors:
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<HiddenAddon>0</HiddenAddon>
-		<TwoHanded>0</TwoHanded>
+		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
 		<BigGunList>0</BigGunList>
@@ -7467,7 +7530,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -7535,9 +7599,9 @@ Cursors:
 		<uiIndex>64</uiIndex>
 		<szItemName>Crowbar</szItemName>
 		<szLongItemName>Crowbar</szLongItemName>
-		<szItemDesc>This durable lever tool is a one-piece bar of titanium. While harder and stronger than steel, it weighs less, and won&apos;t rust.</szItemDesc>
+		<szItemDesc>This durable lever tool is a one-piece bar of titanium. While harder and stronger than steel, it weighs less, and won't rust.</szItemDesc>
 		<szBRName>Crowbar</szBRName>
-		<szBRDesc>This titanium crowbar will come in handy when stuck in a jam. It&apos;s a one piece bar of titanium that&apos;s harder and stronger than steel, and corrosion resistant. Since it weighs almost nothing, you can take it anywhere.</szBRDesc>
+		<szBRDesc>This titanium crowbar will come in handy when stuck in a jam. It's a one piece bar of titanium that's harder and stronger than steel, and corrosion resistant. Since it weighs almost nothing, you can take it anywhere.</szBRDesc>
 		<usItemClass>128</usItemClass>
 		<ubClassIndex>64</ubClassIndex>
 		<ubCursor>2</ubCursor>
@@ -7554,8 +7618,8 @@ Cursors:
 		<Repairable>0</Repairable>
 		<WaterDamages>0</WaterDamages>
 		<Metal>1</Metal>
-		<Sinks>0</Sinks>
-		<ShowStatus>0</ShowStatus>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
 		<HiddenAddon>0</HiddenAddon>
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
@@ -7566,9 +7630,9 @@ Cursors:
 		<Unaerodynamic>0</Unaerodynamic>
 		<Electronic>0</Electronic>
 		<Inseparable>0</Inseparable>
-		<BR_NewInventory>3</BR_NewInventory>
-		<BR_UsedInventory>0</BR_UsedInventory>
-		<BR_ROF>0</BR_ROF>
+		<BR_NewInventory>5</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>20</BR_ROF>
 		<PercentNoiseReduction>0</PercentNoiseReduction>
 		<HideMuzzleFlash>0</HideMuzzleFlash>
 		<Bipod>0</Bipod>
@@ -7582,7 +7646,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -7652,7 +7717,7 @@ Cursors:
 		<szLongItemName>Auto Rocket Rifle</szLongItemName>
 		<szItemDesc>The bleeding edge in weapons technology, this experimental version of the rocket rifle is capable of emptying its entire clip in a single devastating burst!</szItemDesc>
 		<szBRName>Auto Rocket Rifle</szBRName>
-		<szBRDesc>The bleeding edge in weapons technology, this experimental version of the rocket rifle is capable of emptying its entire clip in a single devastating burst!  </szBRDesc>
+		<szBRDesc>The bleeding edge in weapons technology, this experimental version of the rocket rifle is capable of emptying its entire clip in a single devastating burst!</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>65</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -7697,10 +7762,11 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
-		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 		<PercentReloadTimeAPReduction>0</PercentReloadTimeAPReduction>
 		<PercentAPReduction>0</PercentAPReduction>
 		<PercentStatusDrainReduction>0</PercentStatusDrainReduction>
@@ -7763,32 +7829,32 @@ Cursors:
 	</ITEM>
 	<ITEM>
 		<uiIndex>66</uiIndex>
-		<szItemName>nada</szItemName>
-		<szLongItemName>Nada</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY</szItemDesc>
-		<szBRName>NOT FOR SALE AT BR</szBRName>
-		<szBRDesc>NOT FOR SALE AT BR</szBRDesc>
-		<usItemClass>128</usItemClass>
-		<ubClassIndex>0</ubClassIndex>
-		<ubCursor>2</ubCursor>
+		<szItemName>Hartford 6</szItemName>
+		<szLongItemName>Modified EMF Hartford 6 Shooter</szLongItemName>
+		<szItemDesc>This is a .357 caliber, six shooter modified for Tex Colburn. It has a ten inch barrel and a sculptured ivory handle with TEX engraved in 14kt gold flake.</szItemDesc>
+		<szBRName>Modified EMF Hartford 6 Shooter</szBRName>
+		<szBRDesc>This is a .357 caliber, six shooter modified for Tex Colburn. It has a ten inch barrel and a sculptured ivory handle with TEX engraved in 14kt gold flake.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>66</ubClassIndex>
+		<ubCursor>3</ubCursor>
 		<bSoundType>0</bSoundType>
 		<ubGraphicType>0</ubGraphicType>
-		<ubGraphicNum>0</ubGraphicNum>
-		<ubWeight>0</ubWeight>
-		<ubPerPocket>0</ubPerPocket>
-		<usPrice>0</usPrice>
+		<ubGraphicNum>76</ubGraphicNum>
+		<ubWeight>16</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<usPrice>750</usPrice>
 		<ubCoolness>0</ubCoolness>
 		<bReliability>0</bReliability>
-		<bRepairEase>0</bRepairEase>
-		<Damageable>0</Damageable>
-		<Repairable>0</Repairable>
-		<WaterDamages>0</WaterDamages>
-		<Metal>0</Metal>
-		<Sinks>0</Sinks>
-		<ShowStatus>0</ShowStatus>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
 		<HiddenAddon>0</HiddenAddon>
 		<TwoHanded>0</TwoHanded>
-		<NotBuyable>1</NotBuyable>
+		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
 		<BigGunList>0</BigGunList>
 		<NotInEditor>0</NotInEditor>
@@ -7798,7 +7864,7 @@ Cursors:
 		<Inseparable>0</Inseparable>
 		<BR_NewInventory>0</BR_NewInventory>
 		<BR_UsedInventory>0</BR_UsedInventory>
-		<BR_ROF>0</BR_ROF>
+		<BR_ROF>25</BR_ROF>
 		<PercentNoiseReduction>0</PercentNoiseReduction>
 		<HideMuzzleFlash>0</HideMuzzleFlash>
 		<Bipod>0</Bipod>
@@ -7812,7 +7878,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -7927,7 +7994,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -8042,7 +8110,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -8157,10 +8226,11 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
-		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 		<PercentReloadTimeAPReduction>0</PercentReloadTimeAPReduction>
 		<PercentAPReduction>0</PercentAPReduction>
 		<PercentStatusDrainReduction>0</PercentStatusDrainReduction>
@@ -8272,7 +8342,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -24014,7 +24085,7 @@ Cursors:
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>0</BR_ROF>
-		<PercentNoiseReduction>100</PercentNoiseReduction>
+		<PercentNoiseReduction>85</PercentNoiseReduction>
 		<HideMuzzleFlash>1</HideMuzzleFlash>
 		<Bipod>0</Bipod>
 		<RangeBonus>0</RangeBonus>
@@ -24248,7 +24319,7 @@ Cursors:
 		<HideMuzzleFlash>0</HideMuzzleFlash>
 		<Bipod>1</Bipod>
 		<RangeBonus>0</RangeBonus>
-		<ToHitBonus>0</ToHitBonus>
+		<ToHitBonus>10</ToHitBonus>
 		<BestLaserRange>0</BestLaserRange>
 		<AimBonus>0</AimBonus>
 		<MinRangeForAimBonus>0</MinRangeForAimBonus>

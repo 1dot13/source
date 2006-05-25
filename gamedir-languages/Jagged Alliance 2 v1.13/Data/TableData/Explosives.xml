@@ -2,7 +2,7 @@
 
 Attribute Field Reference:
 
-	uiIndex			- index of item in array, just increment this for each new entry - should match ubClassIndex in items.xml
+	uiIndex			- index of item in array, just increment this for each new entry - should match to item class in items.xml
 	ubType			- type of explosion, see below
 	ubDamage		- health damage caused by explosion
 	ubStunDamage	- energy damage caused by explosion
@@ -23,7 +23,7 @@ TYPES:
 	EXPLOSV_NOISE, 5
 	EXPLOSV_SMOKE, 6
     EXPLOSV_CREATUREGAS, 7
-
+EXPLOSV_BURNABLEGAS, 8
 
 
 ANIMATIONS:
