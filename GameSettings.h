@@ -235,6 +235,41 @@ typedef struct
 	UINT8 ubGunDamageMultiplier;
 	UINT8 ubMeleeDamageMultiplier;
 
+	UINT32 ubEasyEnemyStartingAlertLevel;
+	UINT32 ubNormalEnemyStartingAlertLevel;
+	UINT32 ubHardEnemyStartingAlertLevel;
+	UINT32 ubInsaneEnemyStartingAlertLevel;
+
+	UINT32 ubEasyEnemyStartingAlertDecay;
+	UINT32 ubNormalEnemyStartingAlertDecay;
+	UINT32 ubHardEnemyStartingAlertDecay;
+	UINT32 ubInsaneEnemyStartingAlertDecay;
+
+	UINT32 ubEasyTimeEvaluateInMinutes;
+	UINT32 ubNormalTimeEvaluateInMinutes;
+	UINT32 ubHardTimeEvaluateInMinutes;
+	UINT32 ubInsaneTimeEvaluateInMinutes;
+
+	UINT32 ubEasyTimeEvaluateVariance;
+	UINT32 ubNormalTimeEvaluateVariance;
+	UINT32 ubHardTimeEvaluateVariance;
+	UINT32 ubInsaneTimeEvaluateVariance;
+
+	UINT32 ubEasyGracePeriodInHours;
+	UINT32 ubNormalGracePeriodInHours;
+	UINT32 ubHardGracePeriodInHours;
+	UINT32 ubInsaneGracePeriodInHours;
+
+	UINT32 ubEasyPatrolGracePeriodInDays;
+	UINT32 ubNormalPatrolGracePeriodInDays;
+	UINT32 ubHardPatrolGracePeriodInDays;
+	UINT32 ubInsanePatrolGracePeriodInDays;
+
+	UINT32 ubEasyNumAwareBattles;
+	UINT32 ubNormalNumAwareBattles;
+	UINT32 ubHardNumAwareBattles;
+	UINT32 ubInsaneNumAwareBattles;
+
 } GAME_EXTERNAL_OPTIONS;
 
 //This structure will contain general Ja2 settings  NOT individual game settings.

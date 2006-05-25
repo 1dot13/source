@@ -109,50 +109,52 @@ of the group.  If the priority of the group is high, they
 //Sets the starting alert chances.  Everytime an enemy arrives in a new sector, or the player,
 //this is the chance the enemy will detect the player in adjacent sectors.  This chance is associated
 //with each side checked.  Stationary groups do this check periodically.
-#define EASY_ENEMY_STARTING_ALERT_LEVEL			5
-#define	NORMAL_ENEMY_STARTING_ALERT_LEVEL		20
-#define HARD_ENEMY_STARTING_ALERT_LEVEL			60
-#define INSANE_ENEMY_STARTING_ALERT_LEVEL		80
+//#define EASY_ENEMY_STARTING_ALERT_LEVEL			20
+//#define	NORMAL_ENEMY_STARTING_ALERT_LEVEL		50
+//#define HARD_ENEMY_STARTING_ALERT_LEVEL			70
+//#define INSANE_ENEMY_STARTING_ALERT_LEVEL		90
 
 //When an enemy spots and chases a player group, the alertness value decrements by this value.  The
 //higher the value, the less of a chance the enemy will spot and attack subsequent groups.  This 
 //minimizes the aggressiveness of the enemy.  Ranges from 1-100 (but recommend 20-60).
-#define EASY_ENEMY_STARTING_ALERT_DECAY			75
-#define	NORMAL_ENEMY_STARTING_ALERT_DECAY		50
-#define HARD_ENEMY_STARTING_ALERT_DECAY			25
-#define INSANE_ENEMY_STARTING_ALERT_DECAY		10
+//#define EASY_ENEMY_STARTING_ALERT_DECAY			75
+//#define	NORMAL_ENEMY_STARTING_ALERT_DECAY		50
+//#define HARD_ENEMY_STARTING_ALERT_DECAY			25
+//#define INSANE_ENEMY_STARTING_ALERT_DECAY		10
+
 //The base time that the queen can think about reinforcements for refilling lost patrol groups, 
 //town garrisons, etc. She only is allowed one action per 'turn'.
-#define EASY_TIME_EVALUATE_IN_MINUTES				480
-#define NORMAL_TIME_EVALUATE_IN_MINUTES			360
-#define HARD_TIME_EVALUATE_IN_MINUTES				180
-#define INSANE_TIME_EVALUATE_IN_MINUTES				90
+//#define EASY_TIME_EVALUATE_IN_MINUTES				480
+//#define NORMAL_TIME_EVALUATE_IN_MINUTES			360
+//#define HARD_TIME_EVALUATE_IN_MINUTES				180
+//#define INSANE_TIME_EVALUATE_IN_MINUTES				90
+
 //The variance added on.
-#define EASY_TIME_EVALUATE_VARIANCE					240
-#define NORMAL_TIME_EVALUATE_VARIANCE				180
-#define HARD_TIME_EVALUATE_VARIANCE					120
-#define INSANE_TIME_EVALUATE_VARIANCE				60
+//#define EASY_TIME_EVALUATE_VARIANCE					240
+//#define NORMAL_TIME_EVALUATE_VARIANCE				180
+//#define HARD_TIME_EVALUATE_VARIANCE					120
+//#define INSANE_TIME_EVALUATE_VARIANCE				60
 
 //When a player takes control of a sector, don't allow any enemy reinforcements to enter the sector for a 
 //limited amount of time.  This essentially dumbs down the AI, making it less aggressive.
-#define EASY_GRACE_PERIOD_IN_HOURS					144		// 6 days
-#define NORMAL_GRACE_PERIOD_IN_HOURS				96		// 4 days
-#define HARD_GRACE_PERIOD_IN_HOURS					48		// 2 days
-#define INSANE_GRACE_PERIOD_IN_HOURS				6		// hours!
+//#define EASY_GRACE_PERIOD_IN_HOURS					144		// 6 days
+//#define NORMAL_GRACE_PERIOD_IN_HOURS				96		// 4 days
+//#define HARD_GRACE_PERIOD_IN_HOURS					48		// 2 days
+//#define INSANE_GRACE_PERIOD_IN_HOURS				6		// hours!
 
 //Defines how many days must pass before the queen is willing to refill a defeated patrol group.
-#define EASY_PATROL_GRACE_PERIOD_IN_DAYS		16
-#define NORMAL_PATROL_GRACE_PERIOD_IN_DAYS	12
-#define HARD_PATROL_GRACE_PERIOD_IN_DAYS		8
-#define INSANE_PATROL_GRACE_PERIOD_IN_DAYS		2
+//#define EASY_PATROL_GRACE_PERIOD_IN_DAYS		16
+//#define NORMAL_PATROL_GRACE_PERIOD_IN_DAYS		12
+//#define HARD_PATROL_GRACE_PERIOD_IN_DAYS		8
+//#define INSANE_PATROL_GRACE_PERIOD_IN_DAYS		2
 
 //Certain conditions can cause the queen to go into a "full alert" mode.  This means that temporarily, the queen's 
 //forces will automatically succeed adjacent checks until x number of enemy initiated battles occur.  The same variable
 //is what is used to determine the free checks.
-#define EASY_NUM_AWARE_BATTLES							1
-#define NORMAL_NUM_AWARE_BATTLES						2
-#define HARD_NUM_AWARE_BATTLES							3
-#define INSANE_NUM_AWARE_BATTLES						4
+//#define EASY_NUM_AWARE_BATTLES							1
+//#define NORMAL_NUM_AWARE_BATTLES						2
+//#define HARD_NUM_AWARE_BATTLES							3
+//#define INSANE_NUM_AWARE_BATTLES						4
 
 BOOLEAN gfAutoAIAware = FALSE;
 
@@ -1074,40 +1076,40 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic3");
 	{
 		case DIF_LEVEL_EASY:
 			giReinforcementPool		= gGameExternalOptions.iReinforcementPoolNovice;
-			giForcePercentage			= gGameExternalOptions.iForcePercentageNovice;
-			giArmyAlertness				= EASY_ENEMY_STARTING_ALERT_LEVEL;
-			giArmyAlertnessDecay	= EASY_ENEMY_STARTING_ALERT_DECAY;
+			giForcePercentage		= gGameExternalOptions.iForcePercentageNovice;
+			giArmyAlertness			= gGameExternalOptions.ubEasyEnemyStartingAlertLevel;
+			giArmyAlertnessDecay	= gGameExternalOptions.ubEasyEnemyStartingAlertDecay;
 			gubMinEnemyGroupSize	= gGameExternalOptions.ubMinEnemyGroupSizeNovice;
-			gubHoursGracePeriod   = EASY_GRACE_PERIOD_IN_HOURS;
+			gubHoursGracePeriod		= gGameExternalOptions.ubEasyGracePeriodInHours;
 			// 475 is 7:55am in minutes since midnight, the time the game starts on day 1
-			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + EASY_TIME_EVALUATE_IN_MINUTES + Random( EASY_TIME_EVALUATE_VARIANCE ), 0 );
+			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + gGameExternalOptions.ubEasyTimeEvaluateInMinutes + Random( gGameExternalOptions.ubEasyTimeEvaluateVariance ), 0 );
 			break;
 		case DIF_LEVEL_MEDIUM:
 			giReinforcementPool		= gGameExternalOptions.iReinforcementPoolExperienced;
-			giForcePercentage			= gGameExternalOptions.iForcePercentageExperienced;
-			giArmyAlertness				= NORMAL_ENEMY_STARTING_ALERT_LEVEL;
-			giArmyAlertnessDecay	= NORMAL_ENEMY_STARTING_ALERT_DECAY;
+			giForcePercentage		= gGameExternalOptions.iForcePercentageExperienced;
+			giArmyAlertness			= gGameExternalOptions.ubNormalEnemyStartingAlertLevel;
+			giArmyAlertnessDecay	= gGameExternalOptions.ubNormalEnemyStartingAlertDecay;
 			gubMinEnemyGroupSize	= gGameExternalOptions.ubMinEnemyGroupSizeExperienced;
-			gubHoursGracePeriod   = NORMAL_GRACE_PERIOD_IN_HOURS;
-			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + NORMAL_TIME_EVALUATE_IN_MINUTES + Random( NORMAL_TIME_EVALUATE_VARIANCE ), 0 );
+			gubHoursGracePeriod		= gGameExternalOptions.ubNormalGracePeriodInHours;
+			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + gGameExternalOptions.ubNormalTimeEvaluateInMinutes + Random( gGameExternalOptions.ubNormalTimeEvaluateVariance ), 0 );
 			break;
 		case DIF_LEVEL_HARD:
 			giReinforcementPool		= gGameExternalOptions.iReinforcementPoolExpert;
-			giForcePercentage			= gGameExternalOptions.iForcePercentageExpert;
-			giArmyAlertness				= HARD_ENEMY_STARTING_ALERT_LEVEL;
-			giArmyAlertnessDecay	= HARD_ENEMY_STARTING_ALERT_DECAY;
+			giForcePercentage		= gGameExternalOptions.iForcePercentageExpert;
+			giArmyAlertness			= gGameExternalOptions.ubHardEnemyStartingAlertLevel;
+			giArmyAlertnessDecay	= gGameExternalOptions.ubHardEnemyStartingAlertDecay;
 			gubMinEnemyGroupSize	= gGameExternalOptions.ubMinEnemyGroupSizeExpert;
-			gubHoursGracePeriod   = HARD_GRACE_PERIOD_IN_HOURS;
-			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + HARD_TIME_EVALUATE_IN_MINUTES + Random( HARD_TIME_EVALUATE_VARIANCE ), 0 );
+			gubHoursGracePeriod		= gGameExternalOptions.ubHardGracePeriodInHours;
+			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + gGameExternalOptions.ubHardTimeEvaluateInMinutes + Random( gGameExternalOptions.ubHardTimeEvaluateVariance ), 0 );
 			break;
 		case DIF_LEVEL_INSANE:
 			giReinforcementPool		= gGameExternalOptions.iReinforcementPoolInsane;
-			giForcePercentage			= gGameExternalOptions.iForcePercentageInsane;
-			giArmyAlertness				= INSANE_ENEMY_STARTING_ALERT_LEVEL;
-			giArmyAlertnessDecay	= INSANE_ENEMY_STARTING_ALERT_DECAY;
+			giForcePercentage		= gGameExternalOptions.iForcePercentageInsane;
+			giArmyAlertness			= gGameExternalOptions.ubInsaneEnemyStartingAlertLevel;
+			giArmyAlertnessDecay	= gGameExternalOptions.ubInsaneEnemyStartingAlertDecay;
 			gubMinEnemyGroupSize	= gGameExternalOptions.ubMinEnemyGroupSizeInsane;
-			gubHoursGracePeriod   = INSANE_GRACE_PERIOD_IN_HOURS;
-			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + INSANE_TIME_EVALUATE_IN_MINUTES + Random( INSANE_TIME_EVALUATE_VARIANCE ), 0 );
+			gubHoursGracePeriod		= gGameExternalOptions.ubInsaneGracePeriodInHours;
+			AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, 475 + gGameExternalOptions.ubInsaneTimeEvaluateInMinutes + Random( gGameExternalOptions.ubInsaneTimeEvaluateVariance ), 0 );
 			break;
 	}
 
@@ -2941,16 +2943,16 @@ void EvaluateQueenSituation()
 	switch( gGameOptions.ubDifficultyLevel )
 	{
 		case DIF_LEVEL_EASY:
-			uiOffset += EASY_TIME_EVALUATE_IN_MINUTES + Random( EASY_TIME_EVALUATE_VARIANCE );
+			uiOffset += gGameExternalOptions.ubEasyTimeEvaluateInMinutes + Random( gGameExternalOptions.ubEasyTimeEvaluateVariance );
 			break;
 		case DIF_LEVEL_MEDIUM:
-			uiOffset += NORMAL_TIME_EVALUATE_IN_MINUTES + Random( NORMAL_TIME_EVALUATE_VARIANCE );
+			uiOffset += gGameExternalOptions.ubNormalTimeEvaluateInMinutes + Random( gGameExternalOptions.ubNormalTimeEvaluateVariance );
 			break;
 		case DIF_LEVEL_HARD:
-			uiOffset += HARD_TIME_EVALUATE_IN_MINUTES + Random( HARD_TIME_EVALUATE_VARIANCE );
+			uiOffset += gGameExternalOptions.ubHardTimeEvaluateInMinutes + Random( gGameExternalOptions.ubHardTimeEvaluateVariance );
 			break;
 		case DIF_LEVEL_INSANE:
-			uiOffset += INSANE_TIME_EVALUATE_IN_MINUTES + Random( INSANE_TIME_EVALUATE_VARIANCE );
+			uiOffset += gGameExternalOptions.ubInsaneTimeEvaluateInMinutes + Random( gGameExternalOptions.ubInsaneTimeEvaluateVariance );
 			break;
 	}
 
@@ -4041,16 +4043,16 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			switch( gGameOptions.ubDifficultyLevel )
 			{
 				case DIF_LEVEL_EASY:
-					gubNumAwareBattles = EASY_NUM_AWARE_BATTLES;
+					gubNumAwareBattles = gGameExternalOptions.ubEasyNumAwareBattles;
 					break;
 				case DIF_LEVEL_MEDIUM:
-					gubNumAwareBattles = NORMAL_NUM_AWARE_BATTLES;
+					gubNumAwareBattles = gGameExternalOptions.ubNormalNumAwareBattles;
 					break;
 				case DIF_LEVEL_HARD:
-					gubNumAwareBattles = HARD_NUM_AWARE_BATTLES;
+					gubNumAwareBattles = gGameExternalOptions.ubHardNumAwareBattles;
 					break;
 				case DIF_LEVEL_INSANE:
-					gubNumAwareBattles = INSANE_NUM_AWARE_BATTLES;
+					gubNumAwareBattles = gGameExternalOptions.ubInsaneNumAwareBattles;
 					break;
 			}
 			break;
@@ -5151,16 +5153,16 @@ void TagSAIGroupWithGracePeriod( GROUP *pGroup )
 			switch( gGameOptions.ubDifficultyLevel )
 			{
 				case DIF_LEVEL_EASY:
-					gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + EASY_PATROL_GRACE_PERIOD_IN_DAYS) % 100);
+					gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + gGameExternalOptions.ubEasyPatrolGracePeriodInDays) % 100);
 					break;
 				case DIF_LEVEL_MEDIUM:
-					gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + NORMAL_PATROL_GRACE_PERIOD_IN_DAYS) % 100);
+					gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + gGameExternalOptions.ubNormalPatrolGracePeriodInDays) % 100);
 					break;
 				case DIF_LEVEL_HARD:
-					gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + HARD_PATROL_GRACE_PERIOD_IN_DAYS) % 100);
+					gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + gGameExternalOptions.ubHardPatrolGracePeriodInDays) % 100);
 					break;
 				case DIF_LEVEL_INSANE:
-					gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + INSANE_PATROL_GRACE_PERIOD_IN_DAYS) % 100);
+					gPatrolGroup[ iPatrolID ].bFillPermittedAfterDayMod100 = (UINT8)((GetWorldDay() + gGameExternalOptions.ubInsanePatrolGracePeriodInDays) % 100);
 					break;
 			}
 		}
