@@ -178,8 +178,6 @@ typedef struct
 	INT8 iInsaneAPBonus;
 
 
-	// Moved from NewGameSettings.cpp
-
 	// System settings
 	UINT8 gubDeadLockDelay;
 	BOOLEAN gfEnableEmergencyButton_SkipStrategicEvents;

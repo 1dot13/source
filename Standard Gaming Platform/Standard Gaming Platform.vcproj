@@ -2761,6 +2761,9 @@
 				RelativePath="font.h">
 			</File>
 			<File
+				RelativePath="gameloop.h">
+			</File>
+			<File
 				RelativePath="himage.h">
 			</File>
 			<File
@@ -2876,6 +2879,9 @@
 			</File>
 			<File
 				RelativePath="WCheck.h">
+			</File>
+			<File
+				RelativePath="Winbart97.h">
 			</File>
 			<File
 				RelativePath="WinFont.h">

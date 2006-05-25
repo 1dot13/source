@@ -4,9 +4,6 @@
 
 #include "Screens.h"
 
-//rain
-//#include "NewGameSettings.h"
-//end rain
 
 
 
