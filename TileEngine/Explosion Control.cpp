@@ -1574,9 +1574,14 @@ BOOLEAN ExpAffect( INT16 sBombGridNo, INT16 sGridNo, UINT32 uiDist, UINT16 usIte
 
 	// Calculate wound amount
 	sWoundAmt = pExplosive->ubDamage + (INT16) ( (pExplosive->ubDamage * uiRoll) / 100 );
-
+	
+	sWoundAmt = min(255, (UINT16)( (sWoundAmt) + ( (double)sWoundAmt / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier ) ); //lal
+	
+	
 	// Calculate breath amount ( if stun damage applicable )
 	sBreathAmt = ( pExplosive->ubStunDamage * 100 ) + (INT16) ( ( ( pExplosive->ubStunDamage / 2 ) * 100 * uiRoll ) / 100 ) ;
+	
+	sBreathAmt = min(255, (UINT16)( (sBreathAmt) + ( (double)sBreathAmt / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier ) ); //lal
 
   // ATE: Make sure guys get pissed at us!
   HandleBuldingDestruction( sGridNo ,ubOwner );

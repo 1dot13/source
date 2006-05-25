@@ -5460,12 +5460,20 @@ UINT8 GetDamage ( OBJECTTYPE *pObj )
 {
 //	 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("GetDamage"));
 
-	if ( Item[pObj->usItem].usItemClass == IC_BLADE || 	Item[pObj->usItem].usItemClass == IC_PUNCH || Item[pObj->usItem].usItemClass == IC_TENTACLES )
-		return min(255,Weapon[ pObj->usItem ].ubImpact + GetMeleeDamageBonus(pObj));
+	if ( Item[pObj->usItem].usItemClass == IC_BLADE || Item[pObj->usItem].usItemClass == IC_PUNCH || Item[pObj->usItem].usItemClass == IC_TENTACLES )
+	{
+		UINT8 ubDamage = Weapon[ pObj->usItem ].ubImpact + GetMeleeDamageBonus(pObj);
+		return min(255, (UINT8)( (ubDamage) + ( (double)ubDamage / 100) * gGameExternalOptions.ubMeleeDamageMultiplier ) );
+	}
 	else
-		return min(255,Weapon[ pObj->usItem ].ubImpact + GetDamageBonus(pObj));
-
+	{
+		UINT8 ubDamage = Weapon[ pObj->usItem ].ubImpact + GetDamageBonus(pObj);
+		return min(255, (UINT8)( (ubDamage) + ( (double)ubDamage / 100) * gGameExternalOptions.ubGunDamageMultiplier ) );
+	}
 }
+
+
+
 UINT8 GetShotsPerBurst( OBJECTTYPE *pObj )
 {
 //	 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("GetShotsPerBurst"));

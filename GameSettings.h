@@ -231,6 +231,9 @@ typedef struct
 	UINT8 ubGameProgressStartMadlabQuest;
 	UINT8 ubGameProgressMikeAvailable;
 	UINT8 ubGameProgressIggyAvaliable;
+	UINT8 ubExplosivesDamageMultiplier;
+	UINT8 ubGunDamageMultiplier;
+	UINT8 ubMeleeDamageMultiplier;
 
 } GAME_EXTERNAL_OPTIONS;
 
