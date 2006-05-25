@@ -30,7 +30,6 @@ Indexes:
 19= Ammo Types - !!!! note that this index does not contain Item #s, but rather AmmoType indexes!!!!!
 
 -->
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ENEMYITEMCHOICESLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ENEMYITEMCHOICES>
 		<uiIndex>0</uiIndex>
