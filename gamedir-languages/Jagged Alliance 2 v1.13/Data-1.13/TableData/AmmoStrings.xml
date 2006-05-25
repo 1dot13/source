@@ -9,8 +9,8 @@
 		<BRCaliber>.38 Spc</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>9mm</AmmoCaliber>
-		<BRCaliber>9mm</BRCaliber>
+		<AmmoCaliber>9x19mm</AmmoCaliber>
+		<BRCaliber>9x19mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>.45 ACP</AmmoCaliber>
@@ -29,28 +29,28 @@
 		<BRCaliber>CAWS</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>5.45mm</AmmoCaliber>
-		<BRCaliber>5.45mm</BRCaliber>
+		<AmmoCaliber>5.45x39mm</AmmoCaliber>
+		<BRCaliber>5.45x39mm</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>5.56mm</AmmoCaliber>
-		<BRCaliber>5.56mm</BRCaliber>
+		<AmmoCaliber>5.56x45mm</AmmoCaliber>
+		<BRCaliber>5.56x45mm</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>7.62mm NATO</AmmoCaliber>
-		<BRCaliber>7.62mm N</BRCaliber>
+		<AmmoCaliber>7.62x51mm</AmmoCaliber>
+		<BRCaliber>7.62x51mm</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>7.62mm WP</AmmoCaliber>
-		<BRCaliber>7.62mm WP</BRCaliber>
+		<AmmoCaliber>7.62x39mm</AmmoCaliber>
+		<BRCaliber>7.62x39mm</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>4.7mm</AmmoCaliber>
-		<BRCaliber>4.7mm</BRCaliber>
+		<AmmoCaliber>4.7x33mm</AmmoCaliber>
+		<BRCaliber>4.7x33mm</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>5.7mm</AmmoCaliber>
-		<BRCaliber>5.7mm</BRCaliber>
+		<AmmoCaliber>5.7x28mm</AmmoCaliber>
+		<BRCaliber>5.7x28mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>Monster</AmmoCaliber>
@@ -73,32 +73,32 @@
 		<BRCaliber>.50 BMG</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>9mm Heavy</AmmoCaliber>
-		<BRCaliber>9mm Hvy</BRCaliber>
+		<AmmoCaliber>9x39mm</AmmoCaliber>
+		<BRCaliber>9x39mm</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>4.6mm</AmmoCaliber>
-		<BRCaliber>4.6mm</BRCaliber>
+		<AmmoCaliber>4.6x30mm</AmmoCaliber>
+		<BRCaliber>4.6x30mm</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>7.62mm Tokarev</AmmoCaliber>
-		<BRCaliber>7.62mm Tk</BRCaliber>
+		<AmmoCaliber>7.62x25mm</AmmoCaliber>
+		<BRCaliber>7.62x25mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>12.7mm</AmmoCaliber>
 		<BRCaliber>12.7mm</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>9mm Makarov</AmmoCaliber>
-		<BRCaliber>9mm PM</BRCaliber>
+		<AmmoCaliber>9x18mm</AmmoCaliber>
+		<BRCaliber>9x18mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>.40 S&amp;W</AmmoCaliber>
 		<BRCaliber>.40 S&amp;W</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>7.62mm Russian</AmmoCaliber>
-		<BRCaliber>7.62mm Rs</BRCaliber>
+		<AmmoCaliber>7.62x54R</AmmoCaliber>
+		<BRCaliber>7.62x54R</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>.338 Lapua</AmmoCaliber>
@@ -113,16 +113,16 @@
 		<BRCaliber>10mm</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>12.3mm</AmmoCaliber>
-		<BRCaliber>12.3mm</BRCaliber>
+		<AmmoCaliber>12.3x50mm</AmmoCaliber>
+		<BRCaliber>12.3x50mm</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>9mm Gyurza</AmmoCaliber>
-		<BRCaliber>9mm Gyurza</BRCaliber>
+		<AmmoCaliber>9x21mm</AmmoCaliber>
+		<BRCaliber>9x21mm</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>7.62mm Subsonic</AmmoCaliber>
-		<BRCaliber>7.62mm Sub</BRCaliber>
+		<AmmoCaliber>7.62x37mm</AmmoCaliber>
+		<BRCaliber>7.62x37mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>9mm SP-5</AmmoCaliber>
@@ -133,15 +133,15 @@
 		<BRCaliber>9mm SP-6</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>5.45mm Pistol</AmmoCaliber>
-		<BRCaliber>5.45mm P</BRCaliber>
+		<AmmoCaliber>5.45x18mm</AmmoCaliber>
+		<BRCaliber>5.45x18mm</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>9mm Metal Storm</AmmoCaliber>
+		<AmmoCaliber>9mm MS</AmmoCaliber>
 		<BRCaliber>9mm MS</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>.50 Action Express</AmmoCaliber>
+		<AmmoCaliber>.50 AE</AmmoCaliber>
 		<BRCaliber>.50 AE</BRCaliber>
 	</AMMO>
 	<AMMO>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<AMMOTYPELIST>
+<AMMOTYPELIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<AMMOTYPE>
 		<uiIndex>0</uiIndex>
 		<fontColour>136</fontColour>
@@ -29,6 +29,7 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>1</uiIndex>
@@ -59,6 +60,7 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>2</uiIndex>
@@ -89,10 +91,11 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>3</uiIndex>
-		<fontColour>218</fontColour>
+		<fontColour>163</fontColour>
 		<grayed>8</grayed>
 		<offNormal>5</offNormal>
 		<onNormal>7</onNormal>
@@ -119,6 +122,7 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>4</uiIndex>
@@ -136,7 +140,7 @@
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
 		<canGoThrough>1</canGoThrough>
-		<standardIssue>0</standardIssue>
+		<standardIssue>1</standardIssue>
 		<numberOfBullets>9</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
 		<multipleBulletDamageDivisor>4</multipleBulletDamageDivisor>
@@ -149,6 +153,7 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>5</uiIndex>
@@ -179,6 +184,7 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>6</uiIndex>
@@ -209,6 +215,7 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>7</uiIndex>
@@ -239,6 +246,7 @@
 		<acidic>1</acidic>
 		<ignoreArmour>1</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>8</uiIndex>
@@ -269,6 +277,7 @@
 		<acidic>0</acidic>
 		<ignoreArmour>1</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>9</uiIndex>
@@ -299,6 +308,7 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>10</uiIndex>
@@ -329,6 +339,7 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>11</uiIndex>
@@ -359,6 +370,7 @@
 		<acidic>0</acidic>
 		<ignoreArmour>1</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>12</uiIndex>
@@ -389,10 +401,11 @@
 		<acidic>0</acidic>
 		<ignoreArmour>1</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>13</uiIndex>
-		<fontColour>71</fontColour>
+		<fontColour>160</fontColour>
 		<grayed>8</grayed>
 		<offNormal>5</offNormal>
 		<onNormal>7</onNormal>
@@ -419,6 +432,7 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>14</uiIndex>
@@ -449,6 +463,7 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>15</uiIndex>
@@ -479,6 +494,7 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>1</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>16</uiIndex>
@@ -509,6 +525,7 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>1</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>17</uiIndex>
@@ -539,6 +556,7 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>18</uiIndex>
@@ -569,10 +587,11 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>19</uiIndex>
-		<fontColour>136</fontColour>
+		<fontColour>135</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
 		<onNormal>3</onNormal>
@@ -599,10 +618,11 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>20</uiIndex>
-		<fontColour>24</fontColour>
+		<fontColour>71</fontColour>
 		<grayed>12</grayed>
 		<offNormal>9</offNormal>
 		<onNormal>11</onNormal>
@@ -629,10 +649,11 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>21</uiIndex>
-		<fontColour>218</fontColour>
+		<fontColour>161</fontColour>
 		<grayed>8</grayed>
 		<offNormal>5</offNormal>
 		<onNormal>7</onNormal>
@@ -659,10 +680,11 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>22</uiIndex>
-		<fontColour>218</fontColour>
+		<fontColour>163</fontColour>
 		<grayed>8</grayed>
 		<offNormal>5</offNormal>
 		<onNormal>7</onNormal>
@@ -689,10 +711,11 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>23</uiIndex>
-		<fontColour>185</fontColour>
+		<fontColour>184</fontColour>
 		<grayed>12</grayed>
 		<offNormal>9</offNormal>
 		<onNormal>11</onNormal>
@@ -719,10 +742,11 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>24</uiIndex>
-		<fontColour>185</fontColour>
+		<fontColour>184</fontColour>
 		<grayed>12</grayed>
 		<offNormal>9</offNormal>
 		<onNormal>11</onNormal>
@@ -749,6 +773,7 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>25</uiIndex>
@@ -779,10 +804,11 @@
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>75</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>26</uiIndex>
-		<fontColour>184</fontColour>
+		<fontColour>186</fontColour>
 		<grayed>8</grayed>
 		<offNormal>13</offNormal>
 		<onNormal>15</onNormal>
@@ -792,7 +818,7 @@
 		<armourImpactReductionDivisor>2</armourImpactReductionDivisor>
 		<beforeArmourDamageMultiplier>3</beforeArmourDamageMultiplier>
 		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
-		<afterArmourDamageMultiplier>2</afterArmourDamageMultiplier>
+		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
 		<canGoThrough>1</canGoThrough>
@@ -809,5 +835,6 @@
 		<acidic>1</acidic>
 		<ignoreArmour>0</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
+		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 </AMMOTYPELIST>

@@ -1,16 +1,5 @@
-<!-- 	this a comment, all of the text between the angled brackets is ignored
-
-Attribute Field Reference:
-
-	uiIndex				- index of item in array, just increment this for each new entry
-	usItem				- original item's index
-	usAttachment1		- first attachment item index
-	usAttachment2		- second attachment item index
-	usResult			- resulting item index
-	
--->
-
-<ATTACHMENTCOMBOMERGELIST>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ATTACHMENTCOMBOMERGELIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ATTACHMENTCOMBOMERGE>
 		<uiIndex>0</uiIndex>
 		<usItem>305</usItem>

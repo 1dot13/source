@@ -1,71 +1,7 @@
-<!-- 	this a comment, all of the text between the angled brackets is ignored
-
-Attribute Field Reference:
-
-	uiIndex			- index of item in array - Do Not add new entries to this array!
-	ubNumItems		- number of items in array to give to IMP	
-	ubChoices		- number of valid choices in this entry - VERY IMPORTANT!!!!! MAKE SURE THIS NUMBER MATCHES THE NUMBER OF CHOICES AVAILABLE OTHERWISE YOUR GAME _WILL_ ACT STRANGELY!!!!!!!!!!!
-	bItemNoXX(1-50)	- item index to allow, "no item" <= 0, arrange the items from worst to best
-
-Attribute related items are assigned according to the following formula:
-
-Item No = ability score / ( 100 / ubChoices )
-
-You can use this to determine the score an IMP needs to get a particular item slot
-
-For example:
-
-ubChoices	Points Req'd per Choice		Ability Score	Item #
-10			10							20				2
-2			50							55				2
-2			50							49				1
-50			2							14				7
-4			25							90				4
-
-If you need to be more granular, and filter out low values, you can also set bItemNoXX to 0.
-
-Multiple items are assigned from the highest numbered slot to the lowest numbered slot.
-
-Specialty based items are randomly assigned.  Multiple items are picked at random.
-
-1-3 clips of ammo are automatically assigned to guns.
-
-Indexes:
-
-0 =	Default items - always assigned
-1 =	Random Default items - always assigned - but chosen completely at random
-
-2 = Wisdom based items - assigned based on value - see above
-3 = Dexterity based items - assigned based on value - see above
-4 = Agility based items - assigned based on value - see above
-5 = Strength based items - assigned based on value - see above
-6 = Health based items - assigned based on value - see above
-7 = Leadership based items - assigned based on value - see above
-8 = Marksmanship based items - assigned based on value - see above 
-9 = Explosive based items - assigned based on value - see above
-10 = Mechanical based items - assigned based on value - see above
-11= Medical based items - assigned based on value - see above
-
-12= Hand to Hand specialty items - randomly assigned 
-13= Martial Arts specialty items - randomly assigned 
-14= Night Ops specialty items - randomly assigned 
-15= Stealth specialty items - randomly assigned 
-16= Roof top specialty items - randomly assigned 
-17= Lock picking specialty items - randomly assigned 
-18= Electronics specialty items - randomly assigned 
-19= Throwing specialty items - randomly assigned 
-20= Knifing specialty items - randomly assigned 
-21= Heavy weapons specialty items - randomly assigned 
-22= Auto weapons specialty items - randomly assigned 
-23= Ambidextrous specialty items - randomly assigned 
-24= Camouflaged specialty items - randomly assigned 
-25= Teaching specialty items - randomly assigned 
-26= Thief specialty items - randomly assigned - this one's not used
-
--->
-<IMPITEMCHOICESLIST>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<IMPITEMCHOICESLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<IMPITEMCHOICES>
-		<uiIndex>0</uiIndex> <!-- Default Items -->
+		<uiIndex>0</uiIndex>
 		<ubChoices>2</ubChoices>
 		<ubNumItems>2</ubNumItems>
 		<bItemNo1>161</bItemNo1>
@@ -120,15 +56,15 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>1</uiIndex> <!-- Random Default Items -->
-		<ubChoices>0</ubChoices>
-		<ubNumItems>0</ubNumItems>
-		<bItemNo1>0</bItemNo1>
-		<bItemNo2>0</bItemNo2>
-		<bItemNo3>0</bItemNo3>
-		<bItemNo4>0</bItemNo4>
-		<bItemNo5>0</bItemNo5>
-		<bItemNo6>0</bItemNo6>
+		<uiIndex>1</uiIndex>
+		<ubChoices>6</ubChoices>
+		<ubNumItems>1</ubNumItems>
+		<bItemNo1>212</bItemNo1>
+		<bItemNo2>838</bItemNo2>
+		<bItemNo3>209</bItemNo3>
+		<bItemNo4>1008</bItemNo4>
+		<bItemNo5>1009</bItemNo5>
+		<bItemNo6>1011</bItemNo6>
 		<bItemNo7>0</bItemNo7>
 		<bItemNo8>0</bItemNo8>
 		<bItemNo9>0</bItemNo9>
@@ -175,7 +111,7 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>2</uiIndex> <!-- Wisdom based items -->
+		<uiIndex>2</uiIndex>
 		<ubChoices>2</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -230,7 +166,7 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>3</uiIndex> <!-- Dexterity based items -->
+		<uiIndex>3</uiIndex>
 		<ubChoices>0</ubChoices>
 		<ubNumItems>0</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -285,7 +221,7 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>4</uiIndex> <!-- Agility based items -->
+		<uiIndex>4</uiIndex>
 		<ubChoices>0</ubChoices>
 		<ubNumItems>0</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -340,7 +276,7 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>5</uiIndex> <!-- Strength based items -->
+		<uiIndex>5</uiIndex>
 		<ubChoices>0</ubChoices>
 		<ubNumItems>0</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -395,7 +331,7 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>6</uiIndex> <!-- Health based items -->
+		<uiIndex>6</uiIndex>
 		<ubChoices>0</ubChoices>
 		<ubNumItems>0</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -450,7 +386,7 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>7</uiIndex> <!-- Leadership based items -->
+		<uiIndex>7</uiIndex>
 		<ubChoices>0</ubChoices>
 		<ubNumItems>0</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -505,17 +441,17 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>8</uiIndex> <!-- Marksmanship based items -->
+		<uiIndex>8</uiIndex>
 		<ubChoices>10</ubChoices>
 		<ubNumItems>1</ubNumItems>
-		<bItemNo1>4</bItemNo1>
-		<bItemNo2>4</bItemNo2>
-		<bItemNo3>4</bItemNo3>
-		<bItemNo4>4</bItemNo4>
+		<bItemNo1>3</bItemNo1>
+		<bItemNo2>3</bItemNo2>
+		<bItemNo3>622</bItemNo3>
+		<bItemNo4>622</bItemNo4>
 		<bItemNo5>4</bItemNo5>
 		<bItemNo6>4</bItemNo6>
-		<bItemNo7>4</bItemNo7>
-		<bItemNo8>9</bItemNo8>
+		<bItemNo7>2</bItemNo7>
+		<bItemNo8>2</bItemNo8>
 		<bItemNo9>9</bItemNo9>
 		<bItemNo10>9</bItemNo10>
 		<bItemNo11>0</bItemNo11>
@@ -560,7 +496,7 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>9</uiIndex> <!-- Explosive based items -->
+		<uiIndex>9</uiIndex>
 		<ubChoices>20</ubChoices>
 		<ubNumItems>2</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -615,7 +551,7 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>10</uiIndex> <!-- Mechanical based items -->
+		<uiIndex>10</uiIndex>
 		<ubChoices>2</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -670,7 +606,7 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>11</uiIndex> <!-- Medical based items -->
+		<uiIndex>11</uiIndex>
 		<ubChoices>10</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -725,11 +661,66 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>12</uiIndex> <!-- Hand to Hand specialty items -->
-		<ubChoices>1</ubChoices>
+		<uiIndex>12</uiIndex>
+		<ubChoices>3</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>49</bItemNo1>
-		<bItemNo2>0</bItemNo2>
+		<bItemNo2>297</bItemNo2>
+		<bItemNo3>298</bItemNo3>
+		<bItemNo4>0</bItemNo4>
+		<bItemNo5>0</bItemNo5>
+		<bItemNo6>0</bItemNo6>
+		<bItemNo7>0</bItemNo7>
+		<bItemNo8>0</bItemNo8>
+		<bItemNo9>0</bItemNo9>
+		<bItemNo10>0</bItemNo10>
+		<bItemNo11>0</bItemNo11>
+		<bItemNo12>0</bItemNo12>
+		<bItemNo13>0</bItemNo13>
+		<bItemNo14>0</bItemNo14>
+		<bItemNo15>0</bItemNo15>
+		<bItemNo16>0</bItemNo16>
+		<bItemNo17>0</bItemNo17>
+		<bItemNo18>0</bItemNo18>
+		<bItemNo19>0</bItemNo19>
+		<bItemNo20>0</bItemNo20>
+		<bItemNo21>0</bItemNo21>
+		<bItemNo22>0</bItemNo22>
+		<bItemNo23>0</bItemNo23>
+		<bItemNo24>0</bItemNo24>
+		<bItemNo25>0</bItemNo25>
+		<bItemNo26>0</bItemNo26>
+		<bItemNo27>0</bItemNo27>
+		<bItemNo28>0</bItemNo28>
+		<bItemNo29>0</bItemNo29>
+		<bItemNo30>0</bItemNo30>
+		<bItemNo31>0</bItemNo31>
+		<bItemNo32>0</bItemNo32>
+		<bItemNo33>0</bItemNo33>
+		<bItemNo34>0</bItemNo34>
+		<bItemNo35>0</bItemNo35>
+		<bItemNo36>0</bItemNo36>
+		<bItemNo37>0</bItemNo37>
+		<bItemNo38>0</bItemNo38>
+		<bItemNo39>0</bItemNo39>
+		<bItemNo40>0</bItemNo40>
+		<bItemNo41>0</bItemNo41>
+		<bItemNo42>0</bItemNo42>
+		<bItemNo43>0</bItemNo43>
+		<bItemNo44>0</bItemNo44>
+		<bItemNo45>0</bItemNo45>
+		<bItemNo46>0</bItemNo46>
+		<bItemNo47>0</bItemNo47>
+		<bItemNo48>0</bItemNo48>
+		<bItemNo49>0</bItemNo49>
+		<bItemNo50>0</bItemNo50>
+	</IMPITEMCHOICES>
+	<IMPITEMCHOICES>
+		<uiIndex>13</uiIndex>
+		<ubChoices>2</ubChoices>
+		<ubNumItems>2</ubNumItems>
+		<bItemNo1>38</bItemNo1>
+		<bItemNo2>38</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -780,67 +771,12 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>13</uiIndex> <!-- Martial Arts specialty items -->
-		<ubChoices>0</ubChoices>
-		<ubNumItems>0</ubNumItems>
-		<bItemNo1>0</bItemNo1>
-		<bItemNo2>0</bItemNo2>
-		<bItemNo3>0</bItemNo3>
-		<bItemNo4>0</bItemNo4>
-		<bItemNo5>0</bItemNo5>
-		<bItemNo6>0</bItemNo6>
-		<bItemNo7>0</bItemNo7>
-		<bItemNo8>0</bItemNo8>
-		<bItemNo9>0</bItemNo9>
-		<bItemNo10>0</bItemNo10>
-		<bItemNo11>0</bItemNo11>
-		<bItemNo12>0</bItemNo12>
-		<bItemNo13>0</bItemNo13>
-		<bItemNo14>0</bItemNo14>
-		<bItemNo15>0</bItemNo15>
-		<bItemNo16>0</bItemNo16>
-		<bItemNo17>0</bItemNo17>
-		<bItemNo18>0</bItemNo18>
-		<bItemNo19>0</bItemNo19>
-		<bItemNo20>0</bItemNo20>
-		<bItemNo21>0</bItemNo21>
-		<bItemNo22>0</bItemNo22>
-		<bItemNo23>0</bItemNo23>
-		<bItemNo24>0</bItemNo24>
-		<bItemNo25>0</bItemNo25>
-		<bItemNo26>0</bItemNo26>
-		<bItemNo27>0</bItemNo27>
-		<bItemNo28>0</bItemNo28>
-		<bItemNo29>0</bItemNo29>
-		<bItemNo30>0</bItemNo30>
-		<bItemNo31>0</bItemNo31>
-		<bItemNo32>0</bItemNo32>
-		<bItemNo33>0</bItemNo33>
-		<bItemNo34>0</bItemNo34>
-		<bItemNo35>0</bItemNo35>
-		<bItemNo36>0</bItemNo36>
-		<bItemNo37>0</bItemNo37>
-		<bItemNo38>0</bItemNo38>
-		<bItemNo39>0</bItemNo39>
-		<bItemNo40>0</bItemNo40>
-		<bItemNo41>0</bItemNo41>
-		<bItemNo42>0</bItemNo42>
-		<bItemNo43>0</bItemNo43>
-		<bItemNo44>0</bItemNo44>
-		<bItemNo45>0</bItemNo45>
-		<bItemNo46>0</bItemNo46>
-		<bItemNo47>0</bItemNo47>
-		<bItemNo48>0</bItemNo48>
-		<bItemNo49>0</bItemNo49>
-		<bItemNo50>0</bItemNo50>
-	</IMPITEMCHOICES>
-	<IMPITEMCHOICES>
-		<uiIndex>14</uiIndex> <!-- Night Ops specialty items -->
-		<ubChoices>1</ubChoices>
+		<uiIndex>14</uiIndex>
+		<ubChoices>3</ubChoices>
 		<ubNumItems>1</ubNumItems>
-		<bItemNo1>211</bItemNo1>
-		<bItemNo2>0</bItemNo2>
-		<bItemNo3>0</bItemNo3>
+		<bItemNo1>246</bItemNo1>
+		<bItemNo2>246</bItemNo2>
+		<bItemNo3>205</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
@@ -890,12 +826,12 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>15</uiIndex> <!-- Stealth specialty items -->
-		<ubChoices>1</ubChoices>
+		<uiIndex>15</uiIndex>
+		<ubChoices>3</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>207</bItemNo1>
-		<bItemNo2>0</bItemNo2>
-		<bItemNo3>0</bItemNo3>
+		<bItemNo2>205</bItemNo2>
+		<bItemNo3>210</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
@@ -945,12 +881,12 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>16</uiIndex> <!-- Roof top specialty items -->
-		<ubChoices>0</ubChoices>
-		<ubNumItems>0</ubNumItems>
-		<bItemNo1>0</bItemNo1>
-		<bItemNo2>0</bItemNo2>
-		<bItemNo3>0</bItemNo3>
+		<uiIndex>16</uiIndex>
+		<ubChoices>2</ubChoices>
+		<ubNumItems>1</ubNumItems>
+		<bItemNo1>208</bItemNo1>
+		<bItemNo2>1007</bItemNo2>
+		<bItemNo3>1012</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
@@ -1000,11 +936,11 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>17</uiIndex> <!-- Lock picking specialty items -->
-		<ubChoices>1</ubChoices>
+		<uiIndex>17</uiIndex>
+		<ubChoices>2</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>204</bItemNo1>
-		<bItemNo2>0</bItemNo2>
+		<bItemNo2>299</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -1055,11 +991,11 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>18</uiIndex> <!-- Electronics specialty items -->
-		<ubChoices>1</ubChoices>
+		<uiIndex>18</uiIndex>
+		<ubChoices>2</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>215</bItemNo1>
-		<bItemNo2>0</bItemNo2>
+		<bItemNo2>241</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -1110,10 +1046,65 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>19</uiIndex> <!-- Throwing specialty items -->
+		<uiIndex>19</uiIndex>
+		<ubChoices>2</ubChoices>
+		<ubNumItems>2</ubNumItems>
+		<bItemNo1>596</bItemNo1>
+		<bItemNo2>596</bItemNo2>
+		<bItemNo3>0</bItemNo3>
+		<bItemNo4>0</bItemNo4>
+		<bItemNo5>0</bItemNo5>
+		<bItemNo6>0</bItemNo6>
+		<bItemNo7>0</bItemNo7>
+		<bItemNo8>0</bItemNo8>
+		<bItemNo9>0</bItemNo9>
+		<bItemNo10>0</bItemNo10>
+		<bItemNo11>0</bItemNo11>
+		<bItemNo12>0</bItemNo12>
+		<bItemNo13>0</bItemNo13>
+		<bItemNo14>0</bItemNo14>
+		<bItemNo15>0</bItemNo15>
+		<bItemNo16>0</bItemNo16>
+		<bItemNo17>0</bItemNo17>
+		<bItemNo18>0</bItemNo18>
+		<bItemNo19>0</bItemNo19>
+		<bItemNo20>0</bItemNo20>
+		<bItemNo21>0</bItemNo21>
+		<bItemNo22>0</bItemNo22>
+		<bItemNo23>0</bItemNo23>
+		<bItemNo24>0</bItemNo24>
+		<bItemNo25>0</bItemNo25>
+		<bItemNo26>0</bItemNo26>
+		<bItemNo27>0</bItemNo27>
+		<bItemNo28>0</bItemNo28>
+		<bItemNo29>0</bItemNo29>
+		<bItemNo30>0</bItemNo30>
+		<bItemNo31>0</bItemNo31>
+		<bItemNo32>0</bItemNo32>
+		<bItemNo33>0</bItemNo33>
+		<bItemNo34>0</bItemNo34>
+		<bItemNo35>0</bItemNo35>
+		<bItemNo36>0</bItemNo36>
+		<bItemNo37>0</bItemNo37>
+		<bItemNo38>0</bItemNo38>
+		<bItemNo39>0</bItemNo39>
+		<bItemNo40>0</bItemNo40>
+		<bItemNo41>0</bItemNo41>
+		<bItemNo42>0</bItemNo42>
+		<bItemNo43>0</bItemNo43>
+		<bItemNo44>0</bItemNo44>
+		<bItemNo45>0</bItemNo45>
+		<bItemNo46>0</bItemNo46>
+		<bItemNo47>0</bItemNo47>
+		<bItemNo48>0</bItemNo48>
+		<bItemNo49>0</bItemNo49>
+		<bItemNo50>0</bItemNo50>
+	</IMPITEMCHOICES>
+	<IMPITEMCHOICES>
+		<uiIndex>20</uiIndex>
 		<ubChoices>1</ubChoices>
 		<ubNumItems>1</ubNumItems>
-		<bItemNo1>38</bItemNo1>
+		<bItemNo1>600</bItemNo1>
 		<bItemNo2>0</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
@@ -1165,11 +1156,66 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>20</uiIndex> <!-- Knifing specialty items -->
-		<ubChoices>1</ubChoices>
+		<uiIndex>21</uiIndex>
+		<ubChoices>2</ubChoices>
+		<ubNumItems>2</ubNumItems>
+		<bItemNo1>140</bItemNo1>
+		<bItemNo2>147</bItemNo2>
+		<bItemNo3>0</bItemNo3>
+		<bItemNo4>0</bItemNo4>
+		<bItemNo5>0</bItemNo5>
+		<bItemNo6>0</bItemNo6>
+		<bItemNo7>0</bItemNo7>
+		<bItemNo8>0</bItemNo8>
+		<bItemNo9>0</bItemNo9>
+		<bItemNo10>0</bItemNo10>
+		<bItemNo11>0</bItemNo11>
+		<bItemNo12>0</bItemNo12>
+		<bItemNo13>0</bItemNo13>
+		<bItemNo14>0</bItemNo14>
+		<bItemNo15>0</bItemNo15>
+		<bItemNo16>0</bItemNo16>
+		<bItemNo17>0</bItemNo17>
+		<bItemNo18>0</bItemNo18>
+		<bItemNo19>0</bItemNo19>
+		<bItemNo20>0</bItemNo20>
+		<bItemNo21>0</bItemNo21>
+		<bItemNo22>0</bItemNo22>
+		<bItemNo23>0</bItemNo23>
+		<bItemNo24>0</bItemNo24>
+		<bItemNo25>0</bItemNo25>
+		<bItemNo26>0</bItemNo26>
+		<bItemNo27>0</bItemNo27>
+		<bItemNo28>0</bItemNo28>
+		<bItemNo29>0</bItemNo29>
+		<bItemNo30>0</bItemNo30>
+		<bItemNo31>0</bItemNo31>
+		<bItemNo32>0</bItemNo32>
+		<bItemNo33>0</bItemNo33>
+		<bItemNo34>0</bItemNo34>
+		<bItemNo35>0</bItemNo35>
+		<bItemNo36>0</bItemNo36>
+		<bItemNo37>0</bItemNo37>
+		<bItemNo38>0</bItemNo38>
+		<bItemNo39>0</bItemNo39>
+		<bItemNo40>0</bItemNo40>
+		<bItemNo41>0</bItemNo41>
+		<bItemNo42>0</bItemNo42>
+		<bItemNo43>0</bItemNo43>
+		<bItemNo44>0</bItemNo44>
+		<bItemNo45>0</bItemNo45>
+		<bItemNo46>0</bItemNo46>
+		<bItemNo47>0</bItemNo47>
+		<bItemNo48>0</bItemNo48>
+		<bItemNo49>0</bItemNo49>
+		<bItemNo50>0</bItemNo50>
+	</IMPITEMCHOICES>
+	<IMPITEMCHOICES>
+		<uiIndex>22</uiIndex>
+		<ubChoices>3</ubChoices>
 		<ubNumItems>1</ubNumItems>
-		<bItemNo1>37</bItemNo1>
-		<bItemNo2>0</bItemNo2>
+		<bItemNo1>123</bItemNo1>
+		<bItemNo2>124</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -1220,127 +1266,17 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>21</uiIndex> <!-- Heavy weapons specialty items -->
-		<ubChoices>0</ubChoices>
-		<ubNumItems>0</ubNumItems>
-		<bItemNo1>0</bItemNo1>
-		<bItemNo2>0</bItemNo2>
-		<bItemNo3>0</bItemNo3>
-		<bItemNo4>0</bItemNo4>
-		<bItemNo5>0</bItemNo5>
-		<bItemNo6>0</bItemNo6>
-		<bItemNo7>0</bItemNo7>
-		<bItemNo8>0</bItemNo8>
-		<bItemNo9>0</bItemNo9>
-		<bItemNo10>0</bItemNo10>
-		<bItemNo11>0</bItemNo11>
-		<bItemNo12>0</bItemNo12>
-		<bItemNo13>0</bItemNo13>
-		<bItemNo14>0</bItemNo14>
-		<bItemNo15>0</bItemNo15>
-		<bItemNo16>0</bItemNo16>
-		<bItemNo17>0</bItemNo17>
-		<bItemNo18>0</bItemNo18>
-		<bItemNo19>0</bItemNo19>
-		<bItemNo20>0</bItemNo20>
-		<bItemNo21>0</bItemNo21>
-		<bItemNo22>0</bItemNo22>
-		<bItemNo23>0</bItemNo23>
-		<bItemNo24>0</bItemNo24>
-		<bItemNo25>0</bItemNo25>
-		<bItemNo26>0</bItemNo26>
-		<bItemNo27>0</bItemNo27>
-		<bItemNo28>0</bItemNo28>
-		<bItemNo29>0</bItemNo29>
-		<bItemNo30>0</bItemNo30>
-		<bItemNo31>0</bItemNo31>
-		<bItemNo32>0</bItemNo32>
-		<bItemNo33>0</bItemNo33>
-		<bItemNo34>0</bItemNo34>
-		<bItemNo35>0</bItemNo35>
-		<bItemNo36>0</bItemNo36>
-		<bItemNo37>0</bItemNo37>
-		<bItemNo38>0</bItemNo38>
-		<bItemNo39>0</bItemNo39>
-		<bItemNo40>0</bItemNo40>
-		<bItemNo41>0</bItemNo41>
-		<bItemNo42>0</bItemNo42>
-		<bItemNo43>0</bItemNo43>
-		<bItemNo44>0</bItemNo44>
-		<bItemNo45>0</bItemNo45>
-		<bItemNo46>0</bItemNo46>
-		<bItemNo47>0</bItemNo47>
-		<bItemNo48>0</bItemNo48>
-		<bItemNo49>0</bItemNo49>
-		<bItemNo50>0</bItemNo50>
-	</IMPITEMCHOICES>
-	<IMPITEMCHOICES>
-		<uiIndex>22</uiIndex> <!-- Auto weapons specialty items -->
-		<ubChoices>0</ubChoices>
-		<ubNumItems>0</ubNumItems>
-		<bItemNo1>0</bItemNo1>
-		<bItemNo2>0</bItemNo2>
-		<bItemNo3>0</bItemNo3>
-		<bItemNo4>0</bItemNo4>
-		<bItemNo5>0</bItemNo5>
-		<bItemNo6>0</bItemNo6>
-		<bItemNo7>0</bItemNo7>
-		<bItemNo8>0</bItemNo8>
-		<bItemNo9>0</bItemNo9>
-		<bItemNo10>0</bItemNo10>
-		<bItemNo11>0</bItemNo11>
-		<bItemNo12>0</bItemNo12>
-		<bItemNo13>0</bItemNo13>
-		<bItemNo14>0</bItemNo14>
-		<bItemNo15>0</bItemNo15>
-		<bItemNo16>0</bItemNo16>
-		<bItemNo17>0</bItemNo17>
-		<bItemNo18>0</bItemNo18>
-		<bItemNo19>0</bItemNo19>
-		<bItemNo20>0</bItemNo20>
-		<bItemNo21>0</bItemNo21>
-		<bItemNo22>0</bItemNo22>
-		<bItemNo23>0</bItemNo23>
-		<bItemNo24>0</bItemNo24>
-		<bItemNo25>0</bItemNo25>
-		<bItemNo26>0</bItemNo26>
-		<bItemNo27>0</bItemNo27>
-		<bItemNo28>0</bItemNo28>
-		<bItemNo29>0</bItemNo29>
-		<bItemNo30>0</bItemNo30>
-		<bItemNo31>0</bItemNo31>
-		<bItemNo32>0</bItemNo32>
-		<bItemNo33>0</bItemNo33>
-		<bItemNo34>0</bItemNo34>
-		<bItemNo35>0</bItemNo35>
-		<bItemNo36>0</bItemNo36>
-		<bItemNo37>0</bItemNo37>
-		<bItemNo38>0</bItemNo38>
-		<bItemNo39>0</bItemNo39>
-		<bItemNo40>0</bItemNo40>
-		<bItemNo41>0</bItemNo41>
-		<bItemNo42>0</bItemNo42>
-		<bItemNo43>0</bItemNo43>
-		<bItemNo44>0</bItemNo44>
-		<bItemNo45>0</bItemNo45>
-		<bItemNo46>0</bItemNo46>
-		<bItemNo47>0</bItemNo47>
-		<bItemNo48>0</bItemNo48>
-		<bItemNo49>0</bItemNo49>
-		<bItemNo50>0</bItemNo50>
-	</IMPITEMCHOICES>
-	<IMPITEMCHOICES>
-		<uiIndex>23</uiIndex> <!-- Ambidextrous specialty items -->
-		<ubChoices>0</ubChoices>
+		<uiIndex>23</uiIndex>
+		<ubChoices>9</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>3</bItemNo1>
-		<bItemNo2>0</bItemNo2>
-		<bItemNo3>0</bItemNo3>
-		<bItemNo4>0</bItemNo4>
-		<bItemNo5>0</bItemNo5>
-		<bItemNo6>0</bItemNo6>
-		<bItemNo7>0</bItemNo7>
-		<bItemNo8>0</bItemNo8>
+		<bItemNo2>1</bItemNo2>
+		<bItemNo3>658</bItemNo3>
+		<bItemNo4>645</bItemNo4>
+		<bItemNo5>675</bItemNo5>
+		<bItemNo6>716</bItemNo6>
+		<bItemNo7>718</bItemNo7>
+		<bItemNo8>336</bItemNo8>
 		<bItemNo9>0</bItemNo9>
 		<bItemNo10>0</bItemNo10>
 		<bItemNo11>0</bItemNo11>
@@ -1385,11 +1321,11 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>24</uiIndex> <!-- Camouflaged specialty items -->
-		<ubChoices>0</ubChoices>
+		<uiIndex>24</uiIndex>
+		<ubChoices>2</ubChoices>
 		<ubNumItems>1</ubNumItems>
-		<bItemNo1>205</bItemNo1>
-		<bItemNo2>0</bItemNo2>
+		<bItemNo1>207</bItemNo1>
+		<bItemNo2>210</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -1440,7 +1376,62 @@ Indexes:
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
-		<uiIndex>25</uiIndex> <!-- Teaching specialty items -->
+		<uiIndex>25</uiIndex>
+		<ubChoices>3</ubChoices>
+		<ubNumItems>3</ubNumItems>
+		<bItemNo1>297</bItemNo1>
+		<bItemNo2>170</bItemNo2>
+		<bItemNo3>0</bItemNo3>
+		<bItemNo4>0</bItemNo4>
+		<bItemNo5>0</bItemNo5>
+		<bItemNo6>0</bItemNo6>
+		<bItemNo7>0</bItemNo7>
+		<bItemNo8>0</bItemNo8>
+		<bItemNo9>0</bItemNo9>
+		<bItemNo10>0</bItemNo10>
+		<bItemNo11>0</bItemNo11>
+		<bItemNo12>0</bItemNo12>
+		<bItemNo13>0</bItemNo13>
+		<bItemNo14>0</bItemNo14>
+		<bItemNo15>0</bItemNo15>
+		<bItemNo16>0</bItemNo16>
+		<bItemNo17>0</bItemNo17>
+		<bItemNo18>0</bItemNo18>
+		<bItemNo19>0</bItemNo19>
+		<bItemNo20>0</bItemNo20>
+		<bItemNo21>0</bItemNo21>
+		<bItemNo22>0</bItemNo22>
+		<bItemNo23>0</bItemNo23>
+		<bItemNo24>0</bItemNo24>
+		<bItemNo25>0</bItemNo25>
+		<bItemNo26>0</bItemNo26>
+		<bItemNo27>0</bItemNo27>
+		<bItemNo28>0</bItemNo28>
+		<bItemNo29>0</bItemNo29>
+		<bItemNo30>0</bItemNo30>
+		<bItemNo31>0</bItemNo31>
+		<bItemNo32>0</bItemNo32>
+		<bItemNo33>0</bItemNo33>
+		<bItemNo34>0</bItemNo34>
+		<bItemNo35>0</bItemNo35>
+		<bItemNo36>0</bItemNo36>
+		<bItemNo37>0</bItemNo37>
+		<bItemNo38>0</bItemNo38>
+		<bItemNo39>0</bItemNo39>
+		<bItemNo40>0</bItemNo40>
+		<bItemNo41>0</bItemNo41>
+		<bItemNo42>0</bItemNo42>
+		<bItemNo43>0</bItemNo43>
+		<bItemNo44>0</bItemNo44>
+		<bItemNo45>0</bItemNo45>
+		<bItemNo46>0</bItemNo46>
+		<bItemNo47>0</bItemNo47>
+		<bItemNo48>0</bItemNo48>
+		<bItemNo49>0</bItemNo49>
+		<bItemNo50>0</bItemNo50>
+	</IMPITEMCHOICES>
+	<IMPITEMCHOICES>
+		<uiIndex>26</uiIndex>
 		<ubChoices>0</ubChoices>
 		<ubNumItems>0</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -1494,60 +1485,4 @@ Indexes:
 		<bItemNo49>0</bItemNo49>
 		<bItemNo50>0</bItemNo50>
 	</IMPITEMCHOICES>
-	<IMPITEMCHOICES>
-		<uiIndex>26</uiIndex> <!-- Thief Specialty Items -->
-		<ubChoices>0</ubChoices>
-		<ubNumItems>0</ubNumItems>
-		<bItemNo1>0</bItemNo1>
-		<bItemNo2>0</bItemNo2>
-		<bItemNo3>0</bItemNo3>
-		<bItemNo4>0</bItemNo4>
-		<bItemNo5>0</bItemNo5>
-		<bItemNo6>0</bItemNo6>
-		<bItemNo7>0</bItemNo7>
-		<bItemNo8>0</bItemNo8>
-		<bItemNo9>0</bItemNo9>
-		<bItemNo10>0</bItemNo10>
-		<bItemNo11>0</bItemNo11>
-		<bItemNo12>0</bItemNo12>
-		<bItemNo13>0</bItemNo13>
-		<bItemNo14>0</bItemNo14>
-		<bItemNo15>0</bItemNo15>
-		<bItemNo16>0</bItemNo16>
-		<bItemNo17>0</bItemNo17>
-		<bItemNo18>0</bItemNo18>
-		<bItemNo19>0</bItemNo19>
-		<bItemNo20>0</bItemNo20>
-		<bItemNo21>0</bItemNo21>
-		<bItemNo22>0</bItemNo22>
-		<bItemNo23>0</bItemNo23>
-		<bItemNo24>0</bItemNo24>
-		<bItemNo25>0</bItemNo25>
-		<bItemNo26>0</bItemNo26>
-		<bItemNo27>0</bItemNo27>
-		<bItemNo28>0</bItemNo28>
-		<bItemNo29>0</bItemNo29>
-		<bItemNo30>0</bItemNo30>
-		<bItemNo31>0</bItemNo31>
-		<bItemNo32>0</bItemNo32>
-		<bItemNo33>0</bItemNo33>
-		<bItemNo34>0</bItemNo34>
-		<bItemNo35>0</bItemNo35>
-		<bItemNo36>0</bItemNo36>
-		<bItemNo37>0</bItemNo37>
-		<bItemNo38>0</bItemNo38>
-		<bItemNo39>0</bItemNo39>
-		<bItemNo40>0</bItemNo40>
-		<bItemNo41>0</bItemNo41>
-		<bItemNo42>0</bItemNo42>
-		<bItemNo43>0</bItemNo43>
-		<bItemNo44>0</bItemNo44>
-		<bItemNo45>0</bItemNo45>
-		<bItemNo46>0</bItemNo46>
-		<bItemNo47>0</bItemNo47>
-		<bItemNo48>0</bItemNo48>
-		<bItemNo49>0</bItemNo49>
-		<bItemNo50>0</bItemNo50>
-	</IMPITEMCHOICES>
-
 </IMPITEMCHOICESLIST>

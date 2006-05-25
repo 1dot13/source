@@ -644,7 +644,7 @@
 		<ubRadius>4</ubRadius>
 		<ubVolume>15</ubVolume>
 		<ubVolatility>1</ubVolatility>
-		<ubAnimationID>9</ubAnimationID>
+		<ubAnimationID>10</ubAnimationID>
 		<ubDuration>5</ubDuration>
 		<ubStartRadius>2</ubStartRadius>
 	</EXPLOSIVE>

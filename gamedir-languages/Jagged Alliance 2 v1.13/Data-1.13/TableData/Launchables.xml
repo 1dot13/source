@@ -1,148 +1,108 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <LAUNCHABLELIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<LAUNCHABLE>
-		<launchableIndex>147</launchableIndex>
-		<itemIndex>40</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>147</launchableIndex>
-		<itemIndex>50</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>147</launchableIndex>
-		<itemIndex>902</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>980</launchableIndex>
-		<itemIndex>904</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>147</launchableIndex>
-		<itemIndex>905</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>147</launchableIndex>
-		<itemIndex>907</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>147</launchableIndex>
-		<itemIndex>910</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>147</launchableIndex>
-		<itemIndex>911</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>147</launchableIndex>
-		<itemIndex>913</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>148</launchableIndex>
-		<itemIndex>40</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>148</launchableIndex>
-		<itemIndex>50</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>148</launchableIndex>
-		<itemIndex>902</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>981</launchableIndex>
-		<itemIndex>904</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>148</launchableIndex>
-		<itemIndex>905</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>148</launchableIndex>
-		<itemIndex>907</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>148</launchableIndex>
-		<itemIndex>910</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>148</launchableIndex>
-		<itemIndex>911</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>148</launchableIndex>
-		<itemIndex>913</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>149</launchableIndex>
-		<itemIndex>40</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>149</launchableIndex>
-		<itemIndex>50</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>149</launchableIndex>
-		<itemIndex>902</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>149</launchableIndex>
-		<itemIndex>905</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>149</launchableIndex>
-		<itemIndex>907</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>149</launchableIndex>
-		<itemIndex>910</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>149</launchableIndex>
-		<itemIndex>911</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>149</launchableIndex>
-		<itemIndex>913</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>150</launchableIndex>
-		<itemIndex>40</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>150</launchableIndex>
-		<itemIndex>50</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>150</launchableIndex>
-		<itemIndex>902</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>150</launchableIndex>
-		<itemIndex>905</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>150</launchableIndex>
-		<itemIndex>907</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>150</launchableIndex>
-		<itemIndex>910</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>150</launchableIndex>
-		<itemIndex>911</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>150</launchableIndex>
-		<itemIndex>913</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
 		<launchableIndex>140</launchableIndex>
 		<itemIndex>41</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
 		<launchableIndex>140</launchableIndex>
 		<itemIndex>901</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>40</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>50</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>902</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>905</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>910</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>147</launchableIndex>
+		<itemIndex>913</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>40</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>50</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>902</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>905</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>910</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>148</launchableIndex>
+		<itemIndex>913</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>40</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>50</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>902</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>905</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>910</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>149</launchableIndex>
+		<itemIndex>913</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>40</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>50</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>902</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>905</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>910</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>150</launchableIndex>
+		<itemIndex>913</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
 		<launchableIndex>152</launchableIndex>
@@ -230,15 +190,7 @@
 	</LAUNCHABLE>
 	<LAUNCHABLE>
 		<launchableIndex>966</launchableIndex>
-		<itemIndex>907</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>966</launchableIndex>
 		<itemIndex>910</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>966</launchableIndex>
-		<itemIndex>911</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
 		<launchableIndex>966</launchableIndex>
@@ -274,15 +226,7 @@
 	</LAUNCHABLE>
 	<LAUNCHABLE>
 		<launchableIndex>970</launchableIndex>
-		<itemIndex>907</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>970</launchableIndex>
 		<itemIndex>910</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>970</launchableIndex>
-		<itemIndex>911</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
 		<launchableIndex>970</launchableIndex>
@@ -310,10 +254,6 @@
 	</LAUNCHABLE>
 	<LAUNCHABLE>
 		<launchableIndex>976</launchableIndex>
-		<itemIndex>917</itemIndex>
-	</LAUNCHABLE>
-	<LAUNCHABLE>
-		<launchableIndex>976</launchableIndex>
 		<itemIndex>914</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
@@ -325,7 +265,7 @@
 		<itemIndex>916</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>977</launchableIndex>
+		<launchableIndex>976</launchableIndex>
 		<itemIndex>917</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
@@ -341,7 +281,7 @@
 		<itemIndex>916</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
-		<launchableIndex>978</launchableIndex>
+		<launchableIndex>977</launchableIndex>
 		<itemIndex>917</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
@@ -355,6 +295,34 @@
 	<LAUNCHABLE>
 		<launchableIndex>978</launchableIndex>
 		<itemIndex>916</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>978</launchableIndex>
+		<itemIndex>917</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>980</launchableIndex>
+		<itemIndex>904</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>980</launchableIndex>
+		<itemIndex>907</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>980</launchableIndex>
+		<itemIndex>911</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>981</launchableIndex>
+		<itemIndex>904</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>981</launchableIndex>
+		<itemIndex>907</itemIndex>
+	</LAUNCHABLE>
+	<LAUNCHABLE>
+		<launchableIndex>981</launchableIndex>
+		<itemIndex>911</itemIndex>
 	</LAUNCHABLE>
 	<LAUNCHABLE>
 		<launchableIndex>982</launchableIndex>
