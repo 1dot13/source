@@ -1,27 +1,4 @@
-<!-- 	this a comment, all of the text between the angled brackets is ignored
-
-Attribute Field Reference:
-
-	uiIndex			- index of item in array - Do Not add new entries to this array!
-	ubChoices		- number of valid choices in this entry - VERY IMPORTANT!!!!! MAKE SURE THIS NUMBER MATCHES THE NUMBER OF CHOICES AVAILABLE OTHERWISE YOUR GAME _WILL_ CRASH!!!!!!!!!!!
-	bItemNoXX(1-50)	- item index of gun to allow, invalid choices should be -1
-
-Indexes:
-
-0 - low powered pistols			
-1 - high powered pistols/shtgn	
-2 - low SMGs/shtgn	
-3 - low rifles    	
-4 - high SMGs			
-5 - medium rifles  	
-6 - sniper rifles	
-7 - high rifles
-8 - best rifles			
-9 - machine guns		
-10- rocket rifles / machine guns		
-
-
--->
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ENEMYGUNCHOICESLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ENEMYGUNCHOICES>
 		<uiIndex>0</uiIndex>

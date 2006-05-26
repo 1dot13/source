@@ -1,35 +1,4 @@
-<!-- 	this a comment, all of the text between the angled brackets is ignored
-
-Attribute Field Reference:
-
-	uiIndex			- index of item in array - Do Not add new entries to this array!
-	ubChoices		- number of valid choices in this entry - VERY IMPORTANT!!!!! MAKE SURE THIS NUMBER MATCHES THE NUMBER OF CHOICES AVAILABLE OTHERWISE YOUR GAME _WILL_ ACT STRANGELY!!!!!!!!!!!
-	bItemNoXX(1-50)	- item index to allow, invalid choices should be -1
-
-Indexes:
-
-0 = Helmets
-1 = Vests
-2 = Leggings
-3 =	Hand Grenades
-4 =	Kits - 1st aid kits and med kits should show up more than once so they have a higher probability of appearing
-5 =	Bombs
-6 =	Miscellaneous Items
-7 =	Grenade Launchers (launchables are automatic)
-8 =	Single-Shot, LAW-type rocket launchers
-9 =	Multiple-Shot, RPG-type Rocket Launchers (launchables are automatic)
-10=	Mortars (launchables are automatic)
-11=	Ceramic-plate type armour attachments
-12=	Gas mask-type face protection
-13=	Night vision goggles, lower quality face items
-14=	Ultra vision goggles, higher quality face items
-15=	Extended ears and other hearing aids
-16=	Scope choices for sniper rifles
-17=	Weapon Attachments
-18=	Knives
-19= Ammo Types - !!!! note that this index does not contain Item #s, but rather AmmoType indexes!!!!!
-
--->
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ENEMYITEMCHOICESLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ENEMYITEMCHOICES>
 		<uiIndex>0</uiIndex>
