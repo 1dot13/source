@@ -3208,7 +3208,7 @@ STR16 zOptionsToggleText[] =
 	L"Drahtgitter zeigen",
 	L"3D Cursor zeigen",
 	L"Trefferchance anzeigen",
-	L"GL Burst verwendet burst Cursor",
+	L"GL Burst verwendet Burst- Cursor",
 	L"Gegner lassen alles fallen",
 };
 
@@ -3275,8 +3275,8 @@ STR16 zOptionsScreenHelpText[] =
 	L"ANgeschaltet, wird der Bewegungs-Cursor in 3D angezeigt. ( |Home )",
 	
 	// Options for 1.13
-	L"Die Trefferchance wird beim Cursor angezeigt",
-	L"GL Burst, was auch immer das bedeutet :(",
+	L"Die Trefferchance wird über dem Cursor als Balken angezeigt",
+	L"GL Burst verwendet Burst- Cursor.",
 	L"Gegner lassen bei ihrem Ableben alle Gegenstände zurück.",
 };
 
@@ -3560,7 +3560,7 @@ STR16 gzNonPersistantPBIText[] =
 	L"Sie können den Kampf nicht vom PC entscheiden lassen, wenn Sie gegen Monster kämpfen.",
 	L"Sie können den Kampf nicht vom PC entscheiden lassen, wenn feindliche Zivilisten da sind.",
 	L"Sie können einen Kampf nicht vom PC entscheiden lassen, wenn Bloodcats da sind.",
-	L"KAMPF IM GANGE",
+	L"KAMPF IN GANGE",
 	L"Sie können sich nicht zurückziehen, wenn Sie in einem Hinterhalt sind.",
 };
 
@@ -3697,7 +3697,7 @@ STR16 zGioDifConfirmText[]=
 	L"Sie haben sich für den EINSTEIGER-Modus entschieden. Dies ist die passende Einstellung für Spieler, die noch nie zuvor Jagged Alliance oder ähnliche Spiele gespielt haben oder für Spieler, die sich ganz einfach kürzere Schlachten wünschen. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, daß Sie im Einsteiger-Modus spielen wollen?",
 	L"Sie haben sich für den FORTGESCHRITTENEN-Modus entschieden. Dies ist die passende Einstellung für Spieler, die bereits Erfahrung mit Jagged Alliance oder ähnlichen Spielen haben. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, daß Sie im Fortgeschrittenen-Modus spielen wollen?",
 	L"Sie haben sich für den PROFI-Modus entschieden. Na gut, wir haben Sie gewarnt. Machen Sie hinterher bloß nicht uns dafür verantwortlich, wenn Sie im Sarg nach Hause kommen. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, daß Sie im Profi-Modus spielen wollen?",
-	L"You have chosen INSANE mode. WARNING: Don't blame us if you get shipped back in little pieces... Deidranna WILL kick your ass.  Hard.  Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in INSANE mode?",
+	L"Sie haben sich für den WAHNSINNIG-Modus entschieden. WARNUNG: Beschweren Sie sich nicht, wenn Sie in kleinen Stücken zurückkommen ... Deidranna wird Sie in den Allerwertesten treten und das schmerzhaft. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, daß Sie im WAHNSINNIG-Modus spielen wollen?",
 };
 
 STR16 gzLateLocalizedString[] =

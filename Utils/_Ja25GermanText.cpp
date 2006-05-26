@@ -43,29 +43,29 @@ L"Dies ist ein IRON MAN-Spiel, und es kann nicht gespeichert werden, wenn sich G
 //these strings match up with the defines in IMP Skill trait.cpp
 STR16 gzIMPSkillTraitsText[]=
 {
-	L"Lock picking",
-	L"Hand to hand combat",
-	L"Electronics",
-	L"Night operations",
-	L"Throwing",
-	L"Teaching",
-	L"Heavy Weapons",
-	L"Auto Weapons",
-	L"Stealth",
-	L"Ambidextrous",
-	L"Knifing",
-	L"Rooftop Sniping",
-	L"Camouflage",
-	L"Martial Arts",
+	L"Schlösser knacken",
+	L"Nahkampf",
+	L"Elektronik",
+	L"Nachteinsatz",
+	L"Werfen",
+	L"Lehren",
+	L"Schwere Waffen",
+	L"Automatische Waffen",
+	L"Schleichen",
+	L"Beidhändig geschickt",
+	L"Messer",
+	L"Dach-Treffer Bonus",
+	L"Getarnt",
+	L"Kampfsport",
 
-	L"None",
-	L"I.M.P. Specialties",
+	L"Nichts",
+	L"B.S.E. Spezialitäten",
 };
 
 //@@@:  New string as of March 3, 2000.
 STR16	gzIronManModeWarningText[]=
 {
-	L"You have chosen IRON MAN mode. This setting makes the game considerably more challenging as you will not be able to save your game when in a sector occupied by enemies. This setting will affect the entire course of the game.  Are you sure want to play in IRON MAN mode?",
+	L"Sie haben sich für den Ironman- Modus entschieden. Mit dieser Einstellung können Sie das Spiel nicht speichern, wenn Feinde im Sektor sind. Sind Sie sicher, daß Sie im Ironman- Modus spielen wollen?",
 };
 
 
