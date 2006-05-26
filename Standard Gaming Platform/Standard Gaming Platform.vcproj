@@ -2881,9 +2881,6 @@
 				RelativePath="WCheck.h">
 			</File>
 			<File
-				RelativePath="Winbart97.h">
-			</File>
-			<File
 				RelativePath="WinFont.h">
 			</File>
 			<File
