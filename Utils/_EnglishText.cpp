@@ -1064,13 +1064,21 @@ INT16		gWeaponStatsDesc[][ 14 ] =
 {
 	L"Weight (%s):", 
 	L"Status:",
-	L"Amount:", 		// Number of bullets left in a magazine
+	L"Amount:", 	// Number of bullets left in a magazine
 	L"Rng:",		// Range
 	L"Dam:",		// Damage
 	L"AP:",			// abbreviation for Action Points
 	L"",
 	L"=",
 	L"=",
+					//Lal: additional strings for tooltips
+	L"Accuracy:",	//9
+	L"Range:",		//10	
+	L"Damage:", 	//11
+	L"Weight:",		//12
+	L"Stun Damage:",//13
+
+
 };
 
 //The headers used for the merc's money.
@@ -1294,7 +1302,7 @@ UINT16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Mute",
 	L"Stance Up (|P|g|U|p)",
 	L"Cursor Level (|T|a|b)",
-	L"Climb / Jump",
+	L"Climb / |Jump",
 	L"Stance Down (|P|g|D|n)",
 	L"Examine (|C|t|r|l)",
 	L"Previous Merc",
@@ -3639,7 +3647,7 @@ STR16 pMessageStrings[] =
 	L"No room to pass %s to %s.", //pass "item" to "merc".  Same instructions as above.
 
 	//A list of attachments appear after the items.  Ex:  Kevlar vest ( Ceramic Plate 'Attached )'
-	L" Attached )",
+	L" Attached]",
 
 	//Cheat modes
 	L"Cheat level ONE reached",

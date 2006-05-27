@@ -115,26 +115,26 @@ UINT16 ShortItemNames[MAXITEMS][80] =
 // NATO is the North Atlantic Treaty Organization
 // WP is Warsaw Pact
 // cal is an abbreviation for calibre
-UINT16 AmmoCaliber[][20] =
-{
-	L"0",
-	L"cal .38",
-	L"9 mm",
-	L"cal .45",
-	L"cal .357",
-	L"cal fisso 12",
-	L"CAW",
-	L"5.45 mm",
-	L"5.56 mm",
-	L"7.62 mm NATO",
-	L"7.62 mm WP",
-	L"4.7 mm",
-	L"5.7 mm",
-	L"Mostro",
-	L"Missile",
-	L"", // dart
-	L"", // flame
-};
+UINT16 AmmoCaliber[MAXITEMS][20];// =
+//{
+//	L"0",
+//	L"cal .38",
+//	L"9 mm",
+//	L"cal .45",
+//	L"cal .357",
+//	L"cal fisso 12",
+//	L"CAW",
+//	L"5.45 mm",
+//	L"5.56 mm",
+//	L"7.62 mm NATO",
+//	L"7.62 mm WP",
+//	L"4.7 mm",
+//	L"5.7 mm",
+//	L"Mostro",
+//	L"Missile",
+//	L"", // dart
+//	L"", // flame
+//};
 
 // This BobbyRayAmmoCaliber is virtually the same as AmmoCaliber however the bobby version doesnt have as much room for the words.
 // 
@@ -143,25 +143,25 @@ UINT16 AmmoCaliber[][20] =
 // NATO is the North Atlantic Treaty Organization
 // WP is Warsaw Pact
 // cal is an abbreviation for calibre
-UINT16 BobbyRayAmmoCaliber[][20] =
-{
-	L"0",
-	L"cal .38",
-	L"9 mm",
-	L"cal .45",
-	L"cal .357",
-	L"cal fisso 12",
-	L"CAWS",
-	L"5.45 mm",
-	L"5.56 mm",
-	L"7.62 mm N.",
-	L"7.62 mm WP",
-	L"4.7 mm",
-	L"5.7 mm",
-	L"Mostro",
-	L"Missile",
-	L"", // dart
-};
+UINT16 BobbyRayAmmoCaliber[MAXITEMS][20] ;//=
+//{
+//	L"0",
+//	L"cal .38",
+//	L"9 mm",
+//	L"cal .45",
+//	L"cal .357",
+//	L"cal fisso 12",
+//	L"CAWS",
+//	L"5.45 mm",
+//	L"5.56 mm",
+//	L"7.62 mm N.",
+//	L"7.62 mm WP",
+//	L"4.7 mm",
+//	L"5.7 mm",
+//	L"Mostro",
+//	L"Missile",
+//	L"", // dart
+//};
 
 
 UINT16 WeaponType[][30] =
@@ -1056,6 +1056,12 @@ INT16		gWeaponStatsDesc[][ 14 ] =
 	L"",
 	L"=",
 	L"=",
+						//Lal: additional strings for tooltips
+	L"Accuracy:",	//9
+	L"Range:",		//10	
+	L"Damage:", 	//11
+	L"Weight:",		//12
+	L"Stun Damage:",//13
 };
 
 //The headers used for the merc's money.

@@ -115,28 +115,28 @@ UINT16 ShortItemNames[MAXITEMS][80] =
 // NATO is the North Atlantic Treaty Organization
 // WP is Warsaw Pact
 // cal is an abbreviation for calibre
-UINT16 AmmoCaliber[][20] =
-{
-	L"0",
-	L",38 кал",
-	L"9мм",
-	L",45 кал",
-	L",357 кал",
-	L"12 кал",
-	L"ОББ",
-	L"5,45мм",
-	L"5,56мм",
-	L"7,62мм НАТО",
-	L"7,62мм ВД",
-	L"4,7мм",
-	L"5,7мм",
-	L"Монстр",
-	L"Ракета",
-	L"", // дротик
-	L"", // пламя
-//	L".50 cal", // barrett
-//	L"9mm Hvy", // Val silent
-};
+UINT16 AmmoCaliber[MAXITEMS][20];// =
+//{
+//	L"0",
+//	L",38 кал",
+//	L"9мм",
+//	L",45 кал",
+//	L",357 кал",
+//	L"12 кал",
+//	L"ОББ",
+//	L"5,45мм",
+//	L"5,56мм",
+//	L"7,62мм НАТО",
+//	L"7,62мм ВД",
+//	L"4,7мм",
+//	L"5,7мм",
+//	L"Монстр",
+//	L"Ракета",
+//	L"", // дротик
+//	L"", // пламя
+////	L".50 cal", // barrett
+////	L"9mm Hvy", // Val silent
+//};
 
 // This BobbyRayAmmoCaliber is virtually the same as AmmoCaliber however the bobby version doesnt have as much room for the words.
 // 
@@ -145,28 +145,28 @@ UINT16 AmmoCaliber[][20] =
 // NATO is the North Atlantic Treaty Organization
 // WP is Warsaw Pact
 // cal is an abbreviation for calibre
-UINT16 BobbyRayAmmoCaliber[][20] =
-{
-	L"0",
-	L",38 кал",
-	L"9мм",
-	L",45 кал",
-	L",357 кал",
-	L"12 кал",
-	L"ОББ",
-	L"5,45мм",
-	L"5,56мм",
-	L"7,62мм Н.",
-	L"7,62мм ВД",
-	L"4,7мм",
-	L"5.7мм",
-	L"Монстр",
-	L"Ракета",
-	L"", // дротик
-//	L"", // flamethrower
-//	L".50 cal", // barrett
-//	L"9mm Hvy", // Val silent
-};
+UINT16 BobbyRayAmmoCaliber[MAXITEMS][20] ;//=
+//{
+//	L"0",
+//	L",38 кал",
+//	L"9мм",
+//	L",45 кал",
+//	L",357 кал",
+//	L"12 кал",
+//	L"ОББ",
+//	L"5,45мм",
+//	L"5,56мм",
+//	L"7,62мм Н.",
+//	L"7,62мм ВД",
+//	L"4,7мм",
+//	L"5.7мм",
+//	L"Монстр",
+//	L"Ракета",
+//	L"", // дротик
+////	L"", // flamethrower
+////	L".50 cal", // barrett
+////	L"9mm Hvy", // Val silent
+//};
 
 
 UINT16 WeaponType[][30] =
@@ -1064,6 +1064,12 @@ INT16		gWeaponStatsDesc[][ 14 ] =
 	L"",
 	L"=",
 	L"=",
+						//Lal: additional strings for tooltips
+	L"Точность:",	//9
+	L"Дист:",		//10	
+	L"Урон:", 	//11
+	L"Вес:",		//12
+	L"Stun Урон:",//13
 };
 
 //The headers used for the merc's money.

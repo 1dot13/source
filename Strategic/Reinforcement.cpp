@@ -46,7 +46,7 @@ void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pub
 	if( !gGameExternalOptions.gfAllowReinforcements )
 		return;
 
-	if ( GetTownIdForSector( sSectorX, sSectorY ) == OMERTA ) //Madd: skip Omerta
+	if ( ( GetTownIdForSector( sSectorX, sSectorY ) == OMERTA )&&( gGameOptions.ubDifficultyLevel != DIF_LEVEL_INSANE ) ) //Madd: skip Omerta //Lal: but not on insane ;-)
 		return;
 
 	GenerateDirectionInfos( sSectorX, sSectorY, &ubDirNumber, pusMoveDir, 
@@ -250,7 +250,7 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 	if( !gGameExternalOptions.gfAllowReinforcements )
 		return 255;
 
-	if ( GetTownIdForSector( sMapX, sMapY ) == OMERTA ) //Madd: skip Omerta
+	if ( ( GetTownIdForSector( sMapX, sMapY ) == OMERTA )&&( gGameOptions.ubDifficultyLevel != DIF_LEVEL_INSANE ) ) //Madd: skip Omerta //Lal: but not on insane ;-)
 		return 255;
 
 	pThisSector = &SectorInfo[ SECTOR( sMapX, sMapY ) ];

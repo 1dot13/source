@@ -2319,24 +2319,28 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 					else
 					{
-						BOOLEAN						fNearHeigherLevel;
-						BOOLEAN						fNearLowerLevel;
-						INT8							bDirection;
-						GetMercClimbDirection( gpSMCurrentMerc->ubID, &fNearLowerLevel, &fNearHeigherLevel );
+						if ( gpSMCurrentMerc != NULL )
+						{
+							BOOLEAN	fNearHeigherLevel;
+							BOOLEAN	fNearLowerLevel;
+							INT8	bDirection;
 
-						if ( fNearLowerLevel )
-						{
-							BeginSoldierClimbDownRoof( gpSMCurrentMerc );
-						}
-						if ( fNearHeigherLevel )
-						{
-							BeginSoldierClimbUpRoof( gpSMCurrentMerc );
-						}
+							GetMercClimbDirection( gpSMCurrentMerc->ubID, &fNearLowerLevel, &fNearHeigherLevel );
 
-						if ( FindFenceJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->bDirection, &bDirection ) )
-						{
-							BeginSoldierClimbFence( gpSMCurrentMerc );
-						}			
+							if ( fNearLowerLevel )
+							{
+								BeginSoldierClimbDownRoof( gpSMCurrentMerc );
+							}
+							if ( fNearHeigherLevel )
+							{
+								BeginSoldierClimbUpRoof( gpSMCurrentMerc );
+							}
+
+							if ( FindFenceJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->bDirection, &bDirection ) )
+							{
+								BeginSoldierClimbFence( gpSMCurrentMerc );
+							}
+						}
 					}
 					break;
 

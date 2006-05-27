@@ -7249,12 +7249,15 @@ BOOLEAN AttemptToApplyCamo( SOLDIERTYPE *pSoldier, UINT16 usItemIndex )
 	return( FALSE );
 }
 
+
+
+
 void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier )
 {
-	INT16									pStr[ 250 ]; 
-	UINT16								usItem = pObject->usItem;
-	INT32									cnt = 0;
-	INT32									iNumAttachments = 0;
+	INT16	pStr[ 250 ]; 
+	UINT16	usItem = pObject->usItem;
+	INT32	cnt = 0;
+	INT32	iNumAttachments = 0;
 
 	if( pSoldier != NULL )
 	{
@@ -7265,15 +7268,18 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 			return;
 		}
 	}
-	
+
+	//Money
 	if ( usItem == MONEY )
 	{	
 		swprintf( (wchar_t *)pStr, L"%ld", pObject->uiMoneyAmount );
 		InsertCommasForDollarFigure( pStr );
 		InsertDollarSignInToString( pStr );
 	}
+
+	// alternate money like silver or gold
 	else if ( Item[ usItem ].usItemClass == IC_MONEY )
-	{ // alternate money like silver or gold
+	{ 
 		INT16		pStr2[20];
 		swprintf( (wchar_t *)pStr2, L"%ld", pObject->uiMoneyAmount );
 		InsertCommasForDollarFigure( pStr2 );
@@ -7281,6 +7287,8 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 
 		swprintf( (wchar_t *)pStr, L"%s (%ls)", ItemNames[ usItem ], pStr2 );
 	}
+
+	//everything else
 	else if ( usItem != NOTHING )
 	{
 		// Retrieve the status of the items
@@ -7295,21 +7303,115 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 			}
 		}
 
-    if ( Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher && !Item[usItem].rocketrifle )
-    {
-        swprintf( (wchar_t *)pStr, L"%s (%s) [%d%%]", ItemNames[ usItem ], AmmoCaliber[ Weapon[ usItem ].ubCalibre ], sValue );
-    }
+		//get item weight
+		FLOAT fWeight = (float)(CalculateObjectWeight( pObject )) / 10;
+
+		if ( !gGameSettings.fOptions[ TOPTION_USE_METRIC_SYSTEM ] ) // metric units not enabled
+		{
+			fWeight = fWeight * 2.2f;
+		}
+
+		if ( fWeight < 0.1 )
+		{
+			fWeight = 0.1f;
+		}
+
+
+		//Calculate AP's
+		INT16 apStr[20];
+
+		if ( Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher && !Item[usItem].rocketrifle )
+		{
+			INT16 apStr2[20];
+			UINT8 ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, pObject );
+
+			swprintf( (wchar_t *)apStr, L"%2d", ubAttackAPs );
+
+			if (GetShotsPerBurst(pObject) > 0)
+			{
+				swprintf( (wchar_t *)apStr2, L" / %2d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, pObject ) );
+				wcscat( apStr, apStr2 );
+			}
+			else
+			{
+				wcscat( apStr, L" / -" );
+			}
+
+			if (GetAutofireShotsPerFiveAPs(pObject) > 0)
+			{
+				swprintf( (wchar_t *)apStr2, L" / %2d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, pObject, 3 ) );
+				wcscat( apStr, apStr2 );
+			}
+			else
+			{
+				wcscat( apStr, L" / -" );
+			}
+		}
+		else
+		{
+			swprintf( (wchar_t *)apStr, L"" );
+		}
+
+		//Info for weapons
+		if ( Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher && !Item[usItem].rocketrifle )
+		{			
+			swprintf( (wchar_t *)pStr, L"%s (%s) [%d%%]\n%s %d\n%s %d\n%s %d / %d\n%s %s\n%s %1.1f %s", 
+				ItemNames[ usItem ], 
+				AmmoCaliber[ Weapon[ usItem ].ubCalibre ], 
+				sValue, 
+				gWeaponStatsDesc[ 9 ],		//Accuracy String
+				Weapon[ usItem ].bAccuracy,
+				gWeaponStatsDesc[ 11 ],		//Damage String
+				GetDamage(pObject), 
+				gWeaponStatsDesc[ 10 ],		//Range String
+				Weapon[ usItem ].usRange,	//Gun Range 
+				GunRange( pObject ),		//Modified Range
+				gWeaponStatsDesc[ 5 ],		//AP String
+				apStr,						//AP's
+				gWeaponStatsDesc[ 12 ],		//Weight String
+				fWeight,					//Weight
+				GetWeightUnitString()		//Weight units
+				);
+		}
+
     // The next is for ammunition which gets the measurement 'rnds'
     else if (Item[ usItem ].usItemClass == IC_AMMO)
     {
         swprintf( (wchar_t *)pStr, L"%s [%d rnds]", ItemNames[ usItem ], pObject->ubShotsLeft[0] );
     }
-    // The final, and typical case, is that of an item with a percent status
-    else
-    {
-        swprintf( (wchar_t *)pStr, L"%s [%d%%]", ItemNames[ usItem ], sValue );
-    }
 
+		// explosives
+		else if ( (Item[ usItem ].usItemClass == IC_GRENADE)||(Item[ usItem ].usItemClass == IC_BOMB) )
+		{
+			UINT16 explDamage = (UINT16)( Explosive[Item[ usItem ].ubClassIndex].ubDamage + ( (double) Explosive[Item[ usItem ].ubClassIndex].ubDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
+			UINT16 explStunDamage = (UINT16)( Explosive[Item[ usItem ].ubClassIndex].ubStunDamage + ( (double) Explosive[Item[ usItem ].ubClassIndex].ubStunDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
+
+			swprintf( (wchar_t *)pStr, L"%s [%d%%]\n%s %d\n%s %d\n%s %1.1f %s", 
+				ItemNames[ usItem ], 
+				sValue, 
+				gWeaponStatsDesc[ 11 ],		//Damage String
+				explDamage, 
+				gWeaponStatsDesc[ 13 ],		//Stun Damage String
+				explStunDamage,				//Stun Damage
+				gWeaponStatsDesc[ 12 ],		//Weight String
+				fWeight,					//Weight
+				GetWeightUnitString()		//Weight units
+				);
+		}
+
+		// The final, and typical case, is that of an item with a percent status
+		else
+		{
+			swprintf( (wchar_t *)pStr, L"%s [%d%%]\n%s %1.1f %s", 
+				ItemNames[ usItem ], 
+				sValue, 
+				gWeaponStatsDesc[ 12 ],		//Weight String
+				fWeight,					//Weight
+				GetWeightUnitString()		//Weight units
+				);
+		}
+
+		// Fingerprint ID (Soldier Name)
 		if ( ( Item[pObject->usItem].fingerprintid ) && pObject->ubImprintID < NO_PROFILE )
 		{
 			INT16		pStr2[20];
@@ -7326,13 +7428,13 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 
 				if ( iNumAttachments == 1 )
 				{
-					wcscat( pStr, L" ( " );
+					wcscat( pStr, L"\n[" );
 				}
 				else
 				{
-					wcscat( pStr, L", \n" );
+					wcscat( pStr, L", " );
 				}
-	
+
 				wcscat( pStr, ItemNames[ pObject->usAttachItem[ cnt ] ] );
 			}
 		}
@@ -7350,6 +7452,10 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 	// Copy over...
 	swprintf( (wchar_t *)pzStr, L"%s", pStr );
 }
+
+
+
+
 
 
 UINT8 GetPrefferedItemSlotGraphicNum( UINT16 usItem )

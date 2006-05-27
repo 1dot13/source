@@ -1841,7 +1841,12 @@ void RefreshScreen(void *DummyVariable)
     // Ok now that temp surface has contents of backbuffer, copy temp surface to disk
     //
 
-    sprintf((char *) FileName, "SCREEN%03d.TGA", guiPrintFrameBufferIndex++); 
+	do
+	{
+		sprintf((char *) FileName, "SCREEN%03d.TGA", guiPrintFrameBufferIndex++);
+	}
+	while( (_access( (const char *)FileName, 0 )) != -1 );
+
     if ((OutputFile = fopen((const char *) FileName, "wb")) != NULL)
     {
       fprintf(OutputFile, "%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c", 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, LOBYTE(SCREEN_WIDTH), HIBYTE(SCREEN_WIDTH), LOBYTE(SCREEN_HEIGHT), HIBYTE(SCREEN_HEIGHT), 0x10, 0);

@@ -58,7 +58,7 @@ STR16 gzIMPSkillTraitsText[]=
 	L"Getarnt",
 	L"Kampfsport",
 
-	L"Nichts",
+	L"Keine",
 	L"B.S.E. Spezialitäten",
 };
 
