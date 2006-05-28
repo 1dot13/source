@@ -7355,7 +7355,7 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 		//Info for weapons
 		if ( Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher && !Item[usItem].rocketrifle )
 		{			
-			swprintf( (wchar_t *)pStr, L"%s (%s) [%d%%]\n%s %d\n%s %d\n%s %d / %d\n%s %s\n%s %1.1f %s", 
+			swprintf( (wchar_t *)pStr, L"%s (%s) [%d%%]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s", 
 				ItemNames[ usItem ], 
 				AmmoCaliber[ Weapon[ usItem ].ubCalibre ], 
 				sValue, 
@@ -7364,8 +7364,8 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 				gWeaponStatsDesc[ 11 ],		//Damage String
 				GetDamage(pObject), 
 				gWeaponStatsDesc[ 10 ],		//Range String
-				Weapon[ usItem ].usRange,	//Gun Range 
 				GunRange( pObject ),		//Modified Range
+				Weapon[ usItem ].usRange,	//Gun Range 
 				gWeaponStatsDesc[ 5 ],		//AP String
 				apStr,						//AP's
 				gWeaponStatsDesc[ 12 ],		//Weight String
