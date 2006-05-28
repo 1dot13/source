@@ -4454,7 +4454,7 @@ UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard )
 	while ( Magazine[ usLoop ].ubCalibre != NOAMMO )
 	{
 		if (Magazine[usLoop].ubCalibre == pWeapon->ubCalibre &&
-				Magazine[usLoop].ubMagSize == pWeapon->ubMagSize)
+				Magazine[usLoop].ubMagSize == pWeapon->ubMagSize && ItemIsLegal(MagazineClassIndexToItemType(usLoop)))
 		{
 			// store it! (make sure array is big enough)
 			Assert(usPossibleMagCnt < MAX_AMMO_TYPES_PER_GUN);
@@ -4536,7 +4536,7 @@ UINT16 RandomMagazine( OBJECTTYPE * pGun, UINT8 ubPercentStandard )
 	while ( Magazine[ usLoop ].ubCalibre != NOAMMO )
 	{
 		if (Magazine[usLoop].ubCalibre == pWeapon->ubCalibre &&
-				Magazine[usLoop].ubMagSize == GetMagSize(pGun))
+				Magazine[usLoop].ubMagSize == GetMagSize(pGun) && ItemIsLegal(MagazineClassIndexToItemType(usLoop)))
 		{
 			// store it! (make sure array is big enough)
 			Assert(usPossibleMagCnt < MAX_AMMO_TYPES_PER_GUN);
