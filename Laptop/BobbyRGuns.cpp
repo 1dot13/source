@@ -326,6 +326,8 @@ void RenderBobbyRGuns()
   MarkButtonsDirty( );
 	RenderWWWProgramTitleBar( );
   InvalidateRegion(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
+  	fReDrawScreenFlag = TRUE;
+	fPausedReDrawScreenFlag = TRUE;	
 }
 
 
@@ -632,9 +634,6 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass)
 
 	for(i=gusCurWeaponIndex; ((i<=gusLastItemIndex) && (ubCount < 4)); i++)
 	{
-
-		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DisplayItemInfo: current weapon: %d",gusCurWeaponIndex));
-
 		if( uiItemClass == BOBBYR_USED_ITEMS )
 		{
 			//If there is not items in stock
@@ -1023,9 +1022,10 @@ UINT16 DisplayRof(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 UINT16 DisplayDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 {
 	wchar_t	sTemp[20];
+	UINT16 gunDamage = (UINT16)( Weapon[ usIndex ].ubImpact + ( (double) Weapon[ usIndex ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
 
 	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_DAMAGE], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
-	swprintf(sTemp, L"%4d", Weapon[ usIndex ].ubImpact);
+	swprintf(sTemp, L"%4d", gunDamage);
 	DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 	usPosY += usFontHeight + 2;
 	return(usPosY);
@@ -1296,8 +1296,8 @@ void SetFirstLastPagesForUsed()
 void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNumbers )
 {
 	UINT8	i;
-	CHAR16		zItemName[ SIZE_ITEM_NAME ];
-	UINT8			ubItemCount=0;
+	CHAR16	zItemName[ SIZE_ITEM_NAME ];
+	UINT8	ubItemCount=0;
 	INT16	pStr[ 250 ]; 
 
 	if( gfBigImageMouseRegionCreated )
@@ -1310,174 +1310,202 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 		MSYS_AddRegion(&gSelectedBigImageRegion[ i ]); 
 		MSYS_SetRegionUserData( &gSelectedBigImageRegion[ i ], 0, i);
 
-		////specify the help text only if the items is ammo
-		//if( Item[ pItemNumbers[ i ] ].usItemClass == IC_AMMO )
-		//{
-		//	//and only if the user has an item that can use the particular type of ammo
-		//	ubItemCount = CheckPlayersInventoryForGunMatchingGivenAmmoID( pItemNumbers[ i ] );
-		//	if( ubItemCount != 0 )
-		//	{				
-		//		swprintf( zItemName, L"%s %d %s",BobbyRText[BOBBYR_GUNS_NUM_GUNS_THAT_USE_AMMO_1], ubItemCount, BobbyRText[BOBBYR_GUNS_NUM_GUNS_THAT_USE_AMMO_2] );
-		//	}
-		//	else
-		//		zItemName[0] = '\0';
-		//}
-		//else
-		//	zItemName[0] = '\0';
-
 
 		//get item weight
 		FLOAT fWeight = GetWeightBasedOnMetricOption(Item[ pItemNumbers[ i ] ].ubWeight)/10;
 
-		//Calculate AP's
-		//INT16 apStr[20];
 
-		//if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
-		//{
-		//	INT16 apStr2[20];
-		//	UINT8 ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, pObject );
-
-		//	swprintf( (wchar_t *)apStr, L"%d", ubAttackAPs );
-
-		//	if (GetShotsPerBurst(pObject) > 0)
-		//	{
-		//		swprintf( (wchar_t *)apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, pObject ) );
-		//		wcscat( apStr, apStr2 );
-		//	}
-		//	else
-		//	{
-		//		wcscat( apStr, L" / -" );
-		//	}
-
-		//	if (GetAutofireShotsPerFiveAPs(pObject) > 0)
-		//	{
-		//		swprintf( (wchar_t *)apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, pObject, 3 ) );
-		//		wcscat( apStr, apStr2 );
-		//	}
-		//	else
-		//	{
-		//		wcscat( apStr, L" / -" );
-		//	}
-		//}
-		//else
-		//{
-		//	swprintf( (wchar_t *)apStr, L"" );
-		//}
-
-		//Info for weapons
-		if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
-		{			
-			swprintf( (wchar_t *)pStr, L"%s (%s)\n%s %d\n%s %d\n%s %d\n%s %s\n%s %1.1f %s", 
-				ItemNames[ pItemNumbers[ i ] ], 
-				AmmoCaliber[ Weapon[ pItemNumbers[ i ] ].ubCalibre ], 
-				gWeaponStatsDesc[ 9 ],		//Accuracy String
-				Weapon[ pItemNumbers[ i ] ].bAccuracy,
-				gWeaponStatsDesc[ 11 ],		//Damage String
-				Weapon[ pItemNumbers[ i ] ].ubImpact,
-				gWeaponStatsDesc[ 10 ],		//Range String
-				Weapon[ pItemNumbers[ i ] ].usRange,	//Gun Range 
-				gWeaponStatsDesc[ 5 ],		//AP String
-				//apStr,						//AP's
-				L"- / - / -",
-				gWeaponStatsDesc[ 12 ],		//Weight String
-				fWeight,					//Weight
-				GetWeightUnitString()		//Weight units
-				);
-		}
-
-
-		// The next is for ammunition which gets the measurement 'rnds'
-		else if (Item[ pItemNumbers[ i ] ].usItemClass == IC_AMMO)
+		switch( Item[ pItemNumbers[ i ] ].usItemClass )
 		{
-			swprintf( (wchar_t *)pStr, L"%s\n%s %1.1f %s", 				
-				ItemNames[ pItemNumbers[ i ] ],		//Item long name
-				gWeaponStatsDesc[ 12 ],		//Weight String
-				fWeight,					//Weight
-				GetWeightUnitString()		//Weight units
-				);
+		case IC_GUN:
+		case IC_LAUNCHER:
+			//Calculate AP's
+			//INT16 apStr[20];
 
-			//Lal: do not delete, commented out for next version
-			//swprintf( (wchar_t *)pStr, L"%s %s %s %d [%d rnds]\n%s %1.1f %s", 				
-			//	AmmoCaliber[ Magazine[ Item[usItem].ubClassIndex ].ubCalibre ],			//Ammo calibre
-			//	AmmoTypes[Magazine[ Item[usItem].ubClassIndex ].ubAmmoType].ammoName,	//Ammo type
-			//	MagNames[Magazine[ Item[usItem].ubClassIndex ].ubMagType],				//Magazine type
-			//	Magazine[ Item[usItem].ubClassIndex ].ubMagSize,						//Magazine capacity
-			//	pObject->ubShotsLeft[0],	//Shots left
-			//	gWeaponStatsDesc[ 12 ],		//Weight String
-			//	fWeight,					//Weight
-			//	GetWeightUnitString()		//Weight units
-			//	);
-		}
+			//if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
+			//{
+			//	INT16 apStr2[20];
+			//	UINT8 ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, pObject );
 
-		// explosives
-		else if ( (Item[ pItemNumbers[ i ] ].usItemClass == IC_GRENADE)||(Item[ pItemNumbers[ i ] ].usItemClass == IC_BOMB) )
-		{
-			UINT16 explDamage = (UINT16)( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubDamage + ( (double) Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
-			UINT16 explStunDamage = (UINT16)( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubStunDamage + ( (double) Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubStunDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
+			//	swprintf( (wchar_t *)apStr, L"%d", ubAttackAPs );
 
-			swprintf( (wchar_t *)pStr, L"%s\n%s %d\n%s %d\n%s %1.1f %s", 
-				ItemNames[ pItemNumbers[ i ] ], 
-				gWeaponStatsDesc[ 11 ],		//Damage String
-				explDamage, 
-				gWeaponStatsDesc[ 13 ],		//Stun Damage String
-				explStunDamage,				//Stun Damage
-				gWeaponStatsDesc[ 12 ],		//Weight String
-				fWeight,					//Weight
-				GetWeightUnitString()		//Weight units
-				);
-		}
+			//	if (GetShotsPerBurst(pObject) > 0)
+			//	{
+			//		swprintf( (wchar_t *)apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, pObject ) );
+			//		wcscat( apStr, apStr2 );
+			//	}
+			//	else
+			//	{
+			//		wcscat( apStr, L" / -" );
+			//	}
 
-		//Armor
-		else if (Item[ pItemNumbers[ i ] ].usItemClass == IC_ARMOUR)
-		{
-			INT32 iProtection = Armour[ Item[ pItemNumbers[ i ] ].ubClassIndex ].ubProtection;
+			//	if (GetAutofireShotsPerFiveAPs(pObject) > 0)
+			//	{
+			//		swprintf( (wchar_t *)apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, pObject, 3 ) );
+			//		wcscat( apStr, apStr2 );
+			//	}
+			//	else
+			//	{
+			//		wcscat( apStr, L" / -" );
+			//	}
+			//}
+			//else
+			//{
+			//	swprintf( (wchar_t *)apStr, L"" );
+			//}
 
-			switch( Armour[ Item[ pItemNumbers[ i ] ].ubClassIndex ].ubArmourClass )
+			//Info for weapons
+			if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
 			{
-			case( ARMOURCLASS_HELMET ):
-				iProtection = 15 * iProtection / Armour[ Item[ SPECTRA_HELMET_18 ].ubClassIndex ].ubProtection;
-				break;
+				UINT16 gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
 
-			case( ARMOURCLASS_VEST ):
-				iProtection = 65 * iProtection / ( Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubProtection + Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
-				break;
-
-			case( ARMOURCLASS_LEGGINGS ):
-				iProtection = 25 * iProtection / Armour[ Item[ SPECTRA_LEGGINGS_18 ].ubClassIndex ].ubProtection;
-				break;
-
-			case( ARMOURCLASS_PLATE ):
-				iProtection = 65 * iProtection / ( Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
-				break;
+				swprintf( (wchar_t *)pStr, L"%s (%s)\n%s %d\n%s %d\n%s %d\n%s %s\n%s %1.1f %s", 
+					ItemNames[ pItemNumbers[ i ] ], 
+					AmmoCaliber[ Weapon[ pItemNumbers[ i ] ].ubCalibre ], 
+					gWeaponStatsDesc[ 9 ],					//Accuracy String
+					Weapon[ pItemNumbers[ i ] ].bAccuracy,	//Accuracy
+					gWeaponStatsDesc[ 11 ],					//Damage String
+					gunDamage,								//Gun damage
+					gWeaponStatsDesc[ 10 ],					//Range String
+					Weapon[ pItemNumbers[ i ] ].usRange,	//Gun Range 
+					gWeaponStatsDesc[ 5 ],					//AP String
+					//apStr,								//AP's
+					L"- / - / -",
+					gWeaponStatsDesc[ 12 ],					//Weight String
+					fWeight,								//Weight
+					GetWeightUnitString()					//Weight units
+					);
 			}
+			break;
 
-			swprintf( (wchar_t *)pStr, L"%s [%d %%]\n%s %d%% (%d)\n%s %d%%\n%s %1.1f %s", 				
-				ItemNames[ pItemNumbers[ i ] ],		//Item long name
-				pInvPanelTitleStrings[ 4 ],	//Protection string
-				iProtection,				//Protection rating in % based on best armor
-				Armour[ Item[ pItemNumbers[ i ] ].ubClassIndex ].ubProtection, //Protection (raw data)
-				pInvPanelTitleStrings[ 3 ],	//Camo string
-				Item[ pItemNumbers[ i ] ].camobonus,	//Camo bonus
-				gWeaponStatsDesc[ 12 ],		//Weight string
-				fWeight,					//Weight
-				GetWeightUnitString()		//Weight units
-				);
+		case IC_BLADE:
+		case IC_THROWING_KNIFE:
+		case IC_PUNCH:
+			{
+				UINT16 meleeDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubMeleeDamageMultiplier );
+
+				swprintf( (wchar_t *)pStr, L"%s\n%s %d\n%s %s\n%s %1.1f %s", 
+					ItemNames[ pItemNumbers[ i ] ], 
+					gWeaponStatsDesc[ 11 ],					//Damage String
+					meleeDamage,							//Melee damage
+					gWeaponStatsDesc[ 5 ],					//AP String
+					//apStr,								//AP's
+					L"-",
+					gWeaponStatsDesc[ 12 ],					//Weight String
+					fWeight,								//Weight
+					GetWeightUnitString()					//Weight units
+					);
+			}
+			break;
+
+		case IC_AMMO:
+			{
+				swprintf( (wchar_t *)pStr, L"%s\n%s %1.1f %s", 				
+					ItemNames[ pItemNumbers[ i ] ],	//Item long name
+					gWeaponStatsDesc[ 12 ],			//Weight String
+					fWeight,						//Weight
+					GetWeightUnitString()			//Weight units
+					);
+
+				//Lal: do not delete, commented out for next version
+				//swprintf( (wchar_t *)pStr, L"%s %s %s %d [%d rnds]\n%s %1.1f %s", 				
+				//	AmmoCaliber[ Magazine[ Item[usItem].ubClassIndex ].ubCalibre ],			//Ammo calibre
+				//	AmmoTypes[Magazine[ Item[usItem].ubClassIndex ].ubAmmoType].ammoName,	//Ammo type
+				//	MagNames[Magazine[ Item[usItem].ubClassIndex ].ubMagType],				//Magazine type
+				//	Magazine[ Item[usItem].ubClassIndex ].ubMagSize,						//Magazine capacity
+				//	pObject->ubShotsLeft[0],	//Shots left
+				//	gWeaponStatsDesc[ 12 ],		//Weight String
+				//	fWeight,					//Weight
+				//	GetWeightUnitString()		//Weight units
+				//	);
+
+				//specify the help text only if the items is ammo
+				//and only if the user has an item that can use the particular type of ammo
+				ubItemCount = CheckPlayersInventoryForGunMatchingGivenAmmoID( pItemNumbers[ i ] );
+				if( ubItemCount != 0 )
+				{				
+					swprintf( zItemName, L"\n%s %d %s",BobbyRText[BOBBYR_GUNS_NUM_GUNS_THAT_USE_AMMO_1], ubItemCount, BobbyRText[BOBBYR_GUNS_NUM_GUNS_THAT_USE_AMMO_2] );
+					wcscat( (wchar_t *) pStr, zItemName );
+				}
+			}
+			break;
+
+		case IC_GRENADE:
+		case IC_BOMB:
+			// explosives
+			//if ( (Item[ pItemNumbers[ i ] ].usItemClass == IC_GRENADE)||(Item[ pItemNumbers[ i ] ].usItemClass == IC_BOMB) )
+			{
+				UINT16 explDamage = (UINT16)( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubDamage + ( (double) Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
+				UINT16 explStunDamage = (UINT16)( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubStunDamage + ( (double) Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubStunDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
+
+				swprintf( (wchar_t *)pStr, L"%s\n%s %d\n%s %d\n%s %1.1f %s", 
+					ItemNames[ pItemNumbers[ i ] ], 
+					gWeaponStatsDesc[ 11 ],		//Damage String
+					explDamage,					//Expl damage
+					gWeaponStatsDesc[ 13 ],		//Stun Damage String
+					explStunDamage,				//Stun Damage
+					gWeaponStatsDesc[ 12 ],		//Weight String
+					fWeight,					//Weight
+					GetWeightUnitString()		//Weight units
+					);
+			}
+			break;
+
+		case IC_ARMOUR:
+			//Armor
+			//if (Item[ pItemNumbers[ i ] ].usItemClass == IC_ARMOUR)
+			{
+				INT32 iProtection = Armour[ Item[ pItemNumbers[ i ] ].ubClassIndex ].ubProtection;
+
+				switch( Armour[ Item[ pItemNumbers[ i ] ].ubClassIndex ].ubArmourClass )
+				{
+				case( ARMOURCLASS_HELMET ):
+					iProtection = 15 * iProtection / Armour[ Item[ SPECTRA_HELMET_18 ].ubClassIndex ].ubProtection;
+					break;
+
+				case( ARMOURCLASS_VEST ):
+					iProtection = 65 * iProtection / ( Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubProtection + Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
+					break;
+
+				case( ARMOURCLASS_LEGGINGS ):
+					iProtection = 25 * iProtection / Armour[ Item[ SPECTRA_LEGGINGS_18 ].ubClassIndex ].ubProtection;
+					break;
+
+				case( ARMOURCLASS_PLATE ):
+					iProtection = 65 * iProtection / ( Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
+					break;
+				}
+
+				swprintf( (wchar_t *)pStr, L"%s\n%s %d%% (%d)\n%s %d%%\n%s %1.1f %s", 				
+					ItemNames[ pItemNumbers[ i ] ],									//Item long name
+					pInvPanelTitleStrings[ 4 ],										//Protection string
+					iProtection,													//Protection rating in % based on best armor
+					Armour[ Item[ pItemNumbers[ i ] ].ubClassIndex ].ubProtection,	//Protection (raw data)
+					pInvPanelTitleStrings[ 3 ],				//Camo string
+					Item[ pItemNumbers[ i ] ].camobonus,	//Camo bonus
+					gWeaponStatsDesc[ 12 ],					//Weight string
+					fWeight,								//Weight
+					GetWeightUnitString()					//Weight units
+					);
+			}
+			break;
+
+		case IC_MISC:
+		case IC_MEDKIT:
+		case IC_KIT:
+		case IC_FACE:
+		default:
+			// The final, and typical case, is that of an item with a percent status
+			{
+				swprintf( (wchar_t *)pStr, L"%s\n%s %1.1f %s", 
+					ItemNames[ pItemNumbers[ i ] ],	//Item long name
+					gWeaponStatsDesc[ 12 ],			//Weight String
+					fWeight,						//Weight
+					GetWeightUnitString()			//Weight units
+					);
+			}
+			break;
 		}
-
-		// The final, and typical case, is that of an item with a percent status
-		else
-		{
-			swprintf( (wchar_t *)pStr, L"%s\n%s %1.1f %s", 
-				ItemNames[ pItemNumbers[ i ] ],		//Item long name
-				gWeaponStatsDesc[ 12 ],		//Weight String
-				fWeight,					//Weight
-				GetWeightUnitString()		//Weight units
-				);
-		}
-
-
-
-
 
 
 
