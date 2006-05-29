@@ -7320,7 +7320,7 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 		//Calculate AP's
 		INT16 apStr[20];
 
-		if ( Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher && !Item[usItem].rocketrifle )
+		if ( Item[ usItem ].usItemClass == IC_GUN )//&& !Item[usItem].rocketlauncher && !Item[usItem].rocketrifle )
 		{
 			INT16 apStr2[20];
 			UINT8 ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, pObject );
@@ -7353,7 +7353,7 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 		}
 
 		//Info for weapons
-		if ( Item[ usItem ].usItemClass == IC_GUN && !Item[usItem].rocketlauncher && !Item[usItem].rocketrifle )
+		if ( Item[ usItem ].usItemClass == IC_GUN )//&& !Item[usItem].rocketlauncher && !Item[usItem].rocketrifle )
 		{			
 			swprintf( (wchar_t *)pStr, L"%s (%s) [%d%%]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s", 
 				ItemNames[ usItem ], 
@@ -7373,6 +7373,7 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 				GetWeightUnitString()		//Weight units
 				);
 		}
+
 
 		// The next is for ammunition which gets the measurement 'rnds'
 		else if (Item[ usItem ].usItemClass == IC_AMMO)
@@ -7417,12 +7418,51 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 				);
 		}
 
+		//Armor
+		else if (Item[ usItem ].usItemClass == IC_ARMOUR)
+		{
+			INT32 iProtection = EffectiveArmour( pObject );
+			
+			switch( Armour[ Item[ usItem ].ubClassIndex ].ubArmourClass )
+			{
+			case( ARMOURCLASS_HELMET ):
+				iProtection = 15 * iProtection / Armour[ Item[ SPECTRA_HELMET_18 ].ubClassIndex ].ubProtection;
+				break;
+
+			case( ARMOURCLASS_VEST ):
+				iProtection = 65 * iProtection / ( Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubProtection + Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
+				break;
+
+			case( ARMOURCLASS_LEGGINGS ):
+				iProtection = 25 * iProtection / Armour[ Item[ SPECTRA_LEGGINGS_18 ].ubClassIndex ].ubProtection;
+				break;
+
+			case( ARMOURCLASS_PLATE ):
+				iProtection = 65 * iProtection / ( Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
+				break;
+			}
+
+			swprintf( (wchar_t *)pStr, L"%s [%d %%]\n%s %d%% (%d/%d)\n%s %d%%\n%s %1.1f %s", 				
+				ItemNames[ usItem ],		//Item long name
+				sValue,						//Item condition
+				pInvPanelTitleStrings[ 4 ],	//Protection string
+				iProtection,				//Protection rating in % based on best armor
+				Armour[ Item[ usItem ].ubClassIndex ].ubProtection, //Protection (raw data)
+				Armour[ Item[ usItem ].ubClassIndex ].ubProtection * sValue / 100,
+				pInvPanelTitleStrings[ 3 ],	//Camo string
+				Item[ usItem ].camobonus,	//Camo bonus
+				gWeaponStatsDesc[ 12 ],		//Weight string
+				fWeight,					//Weight
+				GetWeightUnitString()		//Weight units
+				);
+		}
+
 		// The final, and typical case, is that of an item with a percent status
 		else
 		{
 			swprintf( (wchar_t *)pStr, L"%s [%d%%]\n%s %1.1f %s", 
-				ItemNames[ usItem ], 
-				sValue, 
+				ItemNames[ usItem ],		//Item long name
+				sValue,						//Item condition
 				gWeaponStatsDesc[ 12 ],		//Weight String
 				fWeight,					//Weight
 				GetWeightUnitString()		//Weight units

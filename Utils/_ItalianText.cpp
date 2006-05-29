@@ -522,6 +522,8 @@ STR16 pInvPanelTitleStrings[] =
 	L"Giubb. A-P", // the armor rating of the merc
 	L"Peso", // the weight the merc is carrying
 	L"Trav.", // the merc's camouflage rating
+	L"Camouflage:",
+	L"Protection:",
 };
 
 STR16 pShortAttributeStrings[] =

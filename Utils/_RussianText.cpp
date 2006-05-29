@@ -529,6 +529,8 @@ STR16 pInvPanelTitleStrings[] =
 	L"Броня", // the armor rating of the merc
 	L"Вес", // the weight the merc is carrying
 	L"Камуфляж", // the merc's camouflage rating
+	L"Камуфляж:",
+	L"Броня:",
 };
 
 STR16 pShortAttributeStrings[] =
