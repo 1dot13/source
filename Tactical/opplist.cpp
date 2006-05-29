@@ -1096,7 +1096,17 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 		}
 		else
 		{
+            // Lesh: added this
+			if( gGameExternalOptions.gfAllowLimitedVision )
+			{
+				bSubjectDir = (INT8) GetDirectionToGridNoFromGridNo( pSoldier->sGridNo, sSubjectGridNo );
+			}
+
 			sDistVisible = gbLookDistance[bFacingDir][bSubjectDir];
+
+            // Lesh: and this
+            if ( (sDistVisible == 0) && (gGameExternalOptions.gfAllowLimitedVision) )
+                return(0);
 
 			if ( sDistVisible != STRAIGHT )
 				sDistVisible = sDistVisible * ((100 - GetPercentTunnelVision(pSoldier))/100);
@@ -1227,28 +1237,30 @@ void EndMuzzleFlash( SOLDIERTYPE * pSoldier )
 		{
 			if ( pOtherSoldier->bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY )
 			{
-        if ( pOtherSoldier->sGridNo != NOWHERE )
-        {
-				  if ( PythSpacesAway( pOtherSoldier->sGridNo, pSoldier->sGridNo ) > DistanceVisible( pOtherSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, pSoldier->sGridNo, pSoldier->bLevel, pSoldier ) )
-				  {
-					  // if this guy can no longer see us, change to seen this turn
-					  HandleManNoLongerSeen( pOtherSoldier, pSoldier, &(pOtherSoldier->bOppList[ pSoldier->ubID ]), &(gbPublicOpplist[ pOtherSoldier->bTeam ][ pSoldier->ubID ] ) );
-				  }
-				  // else this person is still seen, if the looker is on our side or the militia the person should stay visible
-			  #ifdef WE_SEE_WHAT_MILITIA_SEES_AND_VICE_VERSA
-				  else if ( pOtherSoldier->bTeam == gbPlayerNum || pOtherSoldier->bTeam == MILITIA_TEAM )
-			  #else
-				  else if ( pOtherSoldier->bTeam == gbPlayerNum )
-			  #endif
-				  {
-					  pSoldier->bVisible = TRUE; // yes, still seen
-				  }
-        }
+				if ( pOtherSoldier->sGridNo != NOWHERE )
+				{	
+					if ( PythSpacesAway( pOtherSoldier->sGridNo, pSoldier->sGridNo ) > DistanceVisible( pOtherSoldier, (gGameExternalOptions.gfAllowLimitedVision ? pOtherSoldier->bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, pSoldier->sGridNo, pSoldier->bLevel, pSoldier ) )					
+					{
+						// if this guy can no longer see us, change to seen this turn
+						HandleManNoLongerSeen( pOtherSoldier, pSoldier, &(pOtherSoldier->bOppList[ pSoldier->ubID ]), &(gbPublicOpplist[ pOtherSoldier->bTeam ][ pSoldier->ubID ] ) );
+					}
+
+					// else this person is still seen, if the looker is on our side or the militia the person should stay visible
+#ifdef WE_SEE_WHAT_MILITIA_SEES_AND_VICE_VERSA
+					else if ( pOtherSoldier->bTeam == gbPlayerNum || pOtherSoldier->bTeam == MILITIA_TEAM )
+#else
+					else if ( pOtherSoldier->bTeam == gbPlayerNum )
+#endif
+
+					{
+						pSoldier->bVisible = TRUE; // yes, still seen
+					}
+				}
 			}
 		}
 	}
 	DecideTrueVisibility( pSoldier, FALSE );
-	
+
 }
 
 void TurnOffEveryonesMuzzleFlashes( void )
@@ -1766,7 +1778,7 @@ INT16 ManLooksForMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ubCall
    bAware = TRUE;
 
    // then we look for him full viewing distance in EVERY direction
- 	 sDistVisible = DistanceVisible(pSoldier, DIRECTION_IRRELEVANT, 0, pOpponent->sGridNo, pOpponent->bLevel, pOpponent );
+   sDistVisible = DistanceVisible(pSoldier, (gGameExternalOptions.gfAllowLimitedVision ? pSoldier->bDesiredDirection : DIRECTION_IRRELEVANT), 0, pOpponent->sGridNo, pOpponent->bLevel, pOpponent );
 	 //if (pSoldier->ubID == 0)
 		//sprintf(gDebugStr,"ALREADY KNOW: ME %d him %d val %d",pSoldier->ubID,pOpponent->ubID,pSoldier->bOppList[pOpponent->ubID]);
   }
@@ -5602,7 +5614,7 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, UINT16 sGridNo, INT8 b
 		}
 	}
 	
-	sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, bLevel, pSoldier );
+    sDistVisible = DistanceVisible( pSoldier, (gGameExternalOptions.gfAllowLimitedVision ? pSoldier->bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, sGridNo, bLevel, pSoldier );
 
 	if ( fMuzzleFlash )
 	{
@@ -6452,7 +6464,7 @@ void NoticeUnseenAttacker( SOLDIERTYPE * pAttacker, SOLDIERTYPE * pDefender, INT
 			}
 		}
 
-		ubTileSightLimit = (UINT8) DistanceVisible( pDefender, DIRECTION_IRRELEVANT, 0, pAttacker->sGridNo, pAttacker->bLevel, pAttacker );
+        ubTileSightLimit = (UINT8) DistanceVisible( pDefender, (gGameExternalOptions.gfAllowLimitedVision ? pDefender->bDesiredDirection : DIRECTION_IRRELEVANT), 0, pAttacker->sGridNo, pAttacker->bLevel, pAttacker );
 		if (SoldierToSoldierLineOfSightTest( pDefender, pAttacker, ubTileSightLimit, TRUE ) != 0)
 		{
 			fSeesAttacker = TRUE;
@@ -6712,7 +6724,7 @@ INT8 GetHighestVisibleWatchedLoc( UINT8 ubID )
 	{
 		if ( gsWatchedLoc[ ubID ][ bLoop ] != NOWHERE && gubWatchedLocPoints[ ubID ][ bLoop ] > bHighestPoints )
 		{
-			sDistVisible =  DistanceVisible( MercPtrs[ ubID ], DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, gsWatchedLoc[ ubID ][ bLoop ], gbWatchedLocLevel[ ubID ][ bLoop ], MercPtrs[ubID] );
+            sDistVisible =  DistanceVisible( MercPtrs[ ubID ], (gGameExternalOptions.gfAllowLimitedVision ? MercPtrs[ ubID ]->bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, gsWatchedLoc[ ubID ][ bLoop ], gbWatchedLocLevel[ ubID ][ bLoop ], MercPtrs[ubID] );
 			// look at standing height
 			if ( SoldierTo3DLocationLineOfSightTest( MercPtrs[ ubID ], gsWatchedLoc[ ubID ][ bLoop ], gbWatchedLocLevel[ ubID ][ bLoop ], 3, (UINT8) sDistVisible, TRUE ) )
 			{

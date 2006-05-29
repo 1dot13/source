@@ -361,6 +361,7 @@ void LoadGameExternalOptions()
 	//Sight range
 	gGameExternalOptions.ubStraightSightRange = iniReader.ReadInteger("JA2 Tactical Settings","BASE_SIGHT_RANGE",13);
 	gGameExternalOptions.ubVisDistDecreasePerRainIntensity = iniReader.ReadInteger("JA2 Tactical Settings","VISUAL_DISTANCE_DECREASE_PER_RAIN_INTENSITY",20);
+	gGameExternalOptions.gfAllowLimitedVision = iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_LIMITED_VISION",0);
 
 	// Maximal search distance for grenades
 	//gGameExternalOptions.guiMaxTossSearchDist = iniReader.ReadInteger("JA2 Tactical Settings","MaxTossSearchDist",3);

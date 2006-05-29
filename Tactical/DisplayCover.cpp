@@ -434,7 +434,9 @@ INT8	CalcCoverForGridNoBasedOnTeamKnownEnemies( SOLDIERTYPE *pSoldier, INT16 sTa
 		}
 
 		usRange = (UINT16)GetRangeInCellCoordsFromGridNoDiff( pOpponent->sGridNo, sTargetGridNo );
-		usSightLimit = DistanceVisible( pOpponent, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sTargetGridNo, pSoldier->bLevel, pSoldier );
+        // Lesh: changed 2-nd parameter in DistanceVisible function call
+		usSightLimit = DistanceVisible( pOpponent, (gGameExternalOptions.gfAllowLimitedVision ? pSoldier->bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, sTargetGridNo, pSoldier->bLevel, pSoldier );
+
 
 		if( usRange > ( usSightLimit * CELL_X_SIZE ) )
 		{
@@ -932,8 +934,9 @@ INT8 CalcIfSoldierCanSeeGridNo( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, BOOL
 		}
 	}
 
+    // Lesh: changed 2-nd parameter in DistanceVisible function call
+	usSightLimit = DistanceVisible( pSoldier, (gGameExternalOptions.gfAllowLimitedVision ? pSoldier->bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, sTargetGridNo, fRoof, pSoldier );
 
-	usSightLimit = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sTargetGridNo, fRoof, pSoldier );
 
 	//
 	// Prone

@@ -1332,23 +1332,23 @@ BOOLEAN SaveAirRaidInfoToSaveGameFile( HWFILE hFile )
 	sAirRaidSaveStruct.iNumFrames = giNumFrames;
 
 
-	if( gpRaidSoldier )
-	{
-		sAirRaidSaveStruct.bLevel = gpRaidSoldier->bLevel;
-		sAirRaidSaveStruct.bTeam = gpRaidSoldier->bTeam;
-		sAirRaidSaveStruct.bSide = gpRaidSoldier->bSide;
-		sAirRaidSaveStruct.ubAttackerID = gpRaidSoldier->ubAttackerID;
-		sAirRaidSaveStruct.usAttackingWeapon = gpRaidSoldier->usAttackingWeapon;
-		sAirRaidSaveStruct.dXPos = gpRaidSoldier->dXPos;
-		sAirRaidSaveStruct.dYPos = gpRaidSoldier->dYPos;
-		sAirRaidSaveStruct.sX = gpRaidSoldier->sX;
-		sAirRaidSaveStruct.sY = gpRaidSoldier->sY;
-		sAirRaidSaveStruct.sGridNo = gpRaidSoldier->sGridNo;
-
-		sAirRaidSaveStruct.sRaidSoldierID = MAX_NUM_SOLDIERS - 1;
-//		sAirRaidSaveStruct.sRaidSoldierID = gpRaidSoldier->ubID;
-	}
-	else
+//	if( gpRaidSoldier )
+//	{
+//		sAirRaidSaveStruct.bLevel = gpRaidSoldier->bLevel;
+//		sAirRaidSaveStruct.bTeam = gpRaidSoldier->bTeam;
+//		sAirRaidSaveStruct.bSide = gpRaidSoldier->bSide;
+//		sAirRaidSaveStruct.ubAttackerID = gpRaidSoldier->ubAttackerID;
+//		sAirRaidSaveStruct.usAttackingWeapon = gpRaidSoldier->usAttackingWeapon;
+//		sAirRaidSaveStruct.dXPos = gpRaidSoldier->dXPos;
+//		sAirRaidSaveStruct.dYPos = gpRaidSoldier->dYPos;
+//		sAirRaidSaveStruct.sX = gpRaidSoldier->sX;
+//		sAirRaidSaveStruct.sY = gpRaidSoldier->sY;
+//		sAirRaidSaveStruct.sGridNo = gpRaidSoldier->sGridNo;
+//
+//		sAirRaidSaveStruct.sRaidSoldierID = MAX_NUM_SOLDIERS - 1;
+////		sAirRaidSaveStruct.sRaidSoldierID = gpRaidSoldier->ubID;
+//	}
+//	else
 		sAirRaidSaveStruct.sRaidSoldierID = -1;
 
 
