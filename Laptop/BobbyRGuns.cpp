@@ -1298,6 +1298,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 	UINT8	i;
 	CHAR16		zItemName[ SIZE_ITEM_NAME ];
 	UINT8			ubItemCount=0;
+	INT16	pStr[ 250 ]; 
 
 	if( gfBigImageMouseRegionCreated )
 		return;
@@ -1305,27 +1306,182 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 	for(i=0; i<ubCount; i++)
 	{
 		//Mouse region for the Big Item Image
-		MSYS_DefineRegion( &gSelectedBigImageRegion[ i ], BOBBYR_GRID_PIC_X, usPosY, (BOBBYR_GRID_PIC_X + BOBBYR_GRID_PIC_WIDTH), (UINT16)(usPosY + BOBBYR_GRID_PIC_HEIGHT), MSYS_PRIORITY_HIGH,
-								 CURSOR_WWW, MSYS_NO_CALLBACK, SelectBigImageRegionCallBack); 
+		MSYS_DefineRegion( &gSelectedBigImageRegion[ i ], BOBBYR_GRID_PIC_X, usPosY, (BOBBYR_GRID_PIC_X + BOBBYR_GRID_PIC_WIDTH), (UINT16)(usPosY + BOBBYR_GRID_PIC_HEIGHT), MSYS_PRIORITY_HIGH, CURSOR_WWW, MSYS_NO_CALLBACK, SelectBigImageRegionCallBack); 
 		MSYS_AddRegion(&gSelectedBigImageRegion[ i ]); 
 		MSYS_SetRegionUserData( &gSelectedBigImageRegion[ i ], 0, i);
 
-		//specify the help text only if the items is ammo
-		if( Item[ pItemNumbers[ i ] ].usItemClass == IC_AMMO )
-		{
-			//and only if the user has an item that can use the particular type of ammo
-			ubItemCount = CheckPlayersInventoryForGunMatchingGivenAmmoID( pItemNumbers[ i ] );
-			if( ubItemCount != 0 )
-			{				
-				swprintf( zItemName, L"%s %d %s",BobbyRText[BOBBYR_GUNS_NUM_GUNS_THAT_USE_AMMO_1], ubItemCount, BobbyRText[BOBBYR_GUNS_NUM_GUNS_THAT_USE_AMMO_2] );
-			}
-			else
-				zItemName[0] = '\0';
-		}
-		else
-			zItemName[0] = '\0';
+		////specify the help text only if the items is ammo
+		//if( Item[ pItemNumbers[ i ] ].usItemClass == IC_AMMO )
+		//{
+		//	//and only if the user has an item that can use the particular type of ammo
+		//	ubItemCount = CheckPlayersInventoryForGunMatchingGivenAmmoID( pItemNumbers[ i ] );
+		//	if( ubItemCount != 0 )
+		//	{				
+		//		swprintf( zItemName, L"%s %d %s",BobbyRText[BOBBYR_GUNS_NUM_GUNS_THAT_USE_AMMO_1], ubItemCount, BobbyRText[BOBBYR_GUNS_NUM_GUNS_THAT_USE_AMMO_2] );
+		//	}
+		//	else
+		//		zItemName[0] = '\0';
+		//}
+		//else
+		//	zItemName[0] = '\0';
 
-		SetRegionFastHelpText( &gSelectedBigImageRegion[ i ], zItemName );
+
+		//get item weight
+		FLOAT fWeight = GetWeightBasedOnMetricOption(Item[ pItemNumbers[ i ] ].ubWeight)/10;
+
+		//Calculate AP's
+		//INT16 apStr[20];
+
+		//if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
+		//{
+		//	INT16 apStr2[20];
+		//	UINT8 ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, pObject );
+
+		//	swprintf( (wchar_t *)apStr, L"%d", ubAttackAPs );
+
+		//	if (GetShotsPerBurst(pObject) > 0)
+		//	{
+		//		swprintf( (wchar_t *)apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, pObject ) );
+		//		wcscat( apStr, apStr2 );
+		//	}
+		//	else
+		//	{
+		//		wcscat( apStr, L" / -" );
+		//	}
+
+		//	if (GetAutofireShotsPerFiveAPs(pObject) > 0)
+		//	{
+		//		swprintf( (wchar_t *)apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, pObject, 3 ) );
+		//		wcscat( apStr, apStr2 );
+		//	}
+		//	else
+		//	{
+		//		wcscat( apStr, L" / -" );
+		//	}
+		//}
+		//else
+		//{
+		//	swprintf( (wchar_t *)apStr, L"" );
+		//}
+
+		//Info for weapons
+		if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
+		{			
+			swprintf( (wchar_t *)pStr, L"%s (%s)\n%s %d\n%s %d\n%s %d\n%s %s\n%s %1.1f %s", 
+				ItemNames[ pItemNumbers[ i ] ], 
+				AmmoCaliber[ Weapon[ pItemNumbers[ i ] ].ubCalibre ], 
+				gWeaponStatsDesc[ 9 ],		//Accuracy String
+				Weapon[ pItemNumbers[ i ] ].bAccuracy,
+				gWeaponStatsDesc[ 11 ],		//Damage String
+				Weapon[ pItemNumbers[ i ] ].ubImpact,
+				gWeaponStatsDesc[ 10 ],		//Range String
+				Weapon[ pItemNumbers[ i ] ].usRange,	//Gun Range 
+				gWeaponStatsDesc[ 5 ],		//AP String
+				//apStr,						//AP's
+				L"- / - / -",
+				gWeaponStatsDesc[ 12 ],		//Weight String
+				fWeight,					//Weight
+				GetWeightUnitString()		//Weight units
+				);
+		}
+
+
+		// The next is for ammunition which gets the measurement 'rnds'
+		else if (Item[ pItemNumbers[ i ] ].usItemClass == IC_AMMO)
+		{
+			swprintf( (wchar_t *)pStr, L"%s\n%s %1.1f %s", 				
+				ItemNames[ pItemNumbers[ i ] ],		//Item long name
+				gWeaponStatsDesc[ 12 ],		//Weight String
+				fWeight,					//Weight
+				GetWeightUnitString()		//Weight units
+				);
+
+			//Lal: do not delete, commented out for next version
+			//swprintf( (wchar_t *)pStr, L"%s %s %s %d [%d rnds]\n%s %1.1f %s", 				
+			//	AmmoCaliber[ Magazine[ Item[usItem].ubClassIndex ].ubCalibre ],			//Ammo calibre
+			//	AmmoTypes[Magazine[ Item[usItem].ubClassIndex ].ubAmmoType].ammoName,	//Ammo type
+			//	MagNames[Magazine[ Item[usItem].ubClassIndex ].ubMagType],				//Magazine type
+			//	Magazine[ Item[usItem].ubClassIndex ].ubMagSize,						//Magazine capacity
+			//	pObject->ubShotsLeft[0],	//Shots left
+			//	gWeaponStatsDesc[ 12 ],		//Weight String
+			//	fWeight,					//Weight
+			//	GetWeightUnitString()		//Weight units
+			//	);
+		}
+
+		// explosives
+		else if ( (Item[ pItemNumbers[ i ] ].usItemClass == IC_GRENADE)||(Item[ pItemNumbers[ i ] ].usItemClass == IC_BOMB) )
+		{
+			UINT16 explDamage = (UINT16)( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubDamage + ( (double) Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
+			UINT16 explStunDamage = (UINT16)( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubStunDamage + ( (double) Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubStunDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
+
+			swprintf( (wchar_t *)pStr, L"%s\n%s %d\n%s %d\n%s %1.1f %s", 
+				ItemNames[ pItemNumbers[ i ] ], 
+				gWeaponStatsDesc[ 11 ],		//Damage String
+				explDamage, 
+				gWeaponStatsDesc[ 13 ],		//Stun Damage String
+				explStunDamage,				//Stun Damage
+				gWeaponStatsDesc[ 12 ],		//Weight String
+				fWeight,					//Weight
+				GetWeightUnitString()		//Weight units
+				);
+		}
+
+		//Armor
+		else if (Item[ pItemNumbers[ i ] ].usItemClass == IC_ARMOUR)
+		{
+			INT32 iProtection = Armour[ Item[ pItemNumbers[ i ] ].ubClassIndex ].ubProtection;
+
+			switch( Armour[ Item[ pItemNumbers[ i ] ].ubClassIndex ].ubArmourClass )
+			{
+			case( ARMOURCLASS_HELMET ):
+				iProtection = 15 * iProtection / Armour[ Item[ SPECTRA_HELMET_18 ].ubClassIndex ].ubProtection;
+				break;
+
+			case( ARMOURCLASS_VEST ):
+				iProtection = 65 * iProtection / ( Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubProtection + Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
+				break;
+
+			case( ARMOURCLASS_LEGGINGS ):
+				iProtection = 25 * iProtection / Armour[ Item[ SPECTRA_LEGGINGS_18 ].ubClassIndex ].ubProtection;
+				break;
+
+			case( ARMOURCLASS_PLATE ):
+				iProtection = 65 * iProtection / ( Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
+				break;
+			}
+
+			swprintf( (wchar_t *)pStr, L"%s [%d %%]\n%s %d%% (%d)\n%s %d%%\n%s %1.1f %s", 				
+				ItemNames[ pItemNumbers[ i ] ],		//Item long name
+				pInvPanelTitleStrings[ 4 ],	//Protection string
+				iProtection,				//Protection rating in % based on best armor
+				Armour[ Item[ pItemNumbers[ i ] ].ubClassIndex ].ubProtection, //Protection (raw data)
+				pInvPanelTitleStrings[ 3 ],	//Camo string
+				Item[ pItemNumbers[ i ] ].camobonus,	//Camo bonus
+				gWeaponStatsDesc[ 12 ],		//Weight string
+				fWeight,					//Weight
+				GetWeightUnitString()		//Weight units
+				);
+		}
+
+		// The final, and typical case, is that of an item with a percent status
+		else
+		{
+			swprintf( (wchar_t *)pStr, L"%s\n%s %1.1f %s", 
+				ItemNames[ pItemNumbers[ i ] ],		//Item long name
+				gWeaponStatsDesc[ 12 ],		//Weight String
+				fWeight,					//Weight
+				GetWeightUnitString()		//Weight units
+				);
+		}
+
+
+
+
+
+
+
+		SetRegionFastHelpText( &gSelectedBigImageRegion[ i ], pStr );
 		SetRegionHelpEndCallback( &gSelectedBigImageRegion[ i ], BobbyrRGunsHelpTextDoneCallBack );
 
 		usPosY += BOBBYR_GRID_OFFSET;
