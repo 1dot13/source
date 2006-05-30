@@ -1182,6 +1182,7 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 
 	// Snap: this takes care of all equipment bonuses at all light levels
 	// The rest is special code for robots, bloodcats and NO specialists
+	// Lalien: change to % instead of tiles, add bonus only to front view when using scope
 	if (!sideViewLimit)
 	{
 		sDistVisible += sDistVisible * GetTotalVisionRangeBonus(pSoldier, bLightLevel) / 100;
