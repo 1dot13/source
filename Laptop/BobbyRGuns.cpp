@@ -1022,7 +1022,16 @@ UINT16 DisplayRof(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 UINT16 DisplayDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 {
 	wchar_t	sTemp[20];
-	UINT16 gunDamage = (UINT16)( Weapon[ usIndex ].ubImpact + ( (double) Weapon[ usIndex ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
+	UINT16 gunDamage = 0;
+	
+	if ( Item[ usIndex ].usItemClass == IC_GUN || Item[ usIndex ].usItemClass == IC_LAUNCHER )
+	{
+		gunDamage = (UINT16)( Weapon[ usIndex ].ubImpact + ( (double) Weapon[ usIndex ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
+	}
+	else
+	{
+		gunDamage = (UINT16)( Weapon[ usIndex ].ubImpact + ( (double) Weapon[ usIndex ].ubImpact / 100) * gGameExternalOptions.ubMeleeDamageMultiplier );
+	}
 
 	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_DAMAGE], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	swprintf(sTemp, L"%4d", gunDamage);

@@ -1109,7 +1109,7 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
                 return(0);
 
 			if ( sDistVisible != STRAIGHT )
-				sDistVisible = sDistVisible * ((100 - GetPercentTunnelVision(pSoldier))/100);
+				sDistVisible = sDistVisible * ( (100 - GetPercentTunnelVision(pSoldier) ) / 100 );
 
 			if ( sDistVisible == ANGLE && (pSoldier->bTeam == OUR_TEAM || pSoldier->bAlertStatus >= STATUS_RED ) )
 			{
@@ -1133,7 +1133,8 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 	if (pSoldier->bLevel != bLevel)
 	{
 		// add two tiles distance to visibility to/from roofs
-		sDistVisible += (STRAIGHT_RATIO * 2); //2;
+		// sDistVisible += (STRAIGHT_RATIO * 2); //2;
+		sDistVisible += ( sDistVisible / 6 ); //lal changed distance to 1/6 from visible range
 	}
 
 	// now reduce based on light level; SHADE_MIN is the define for the
@@ -1156,7 +1157,7 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 	}
 	else
 	{
-	bLightLevel = LightTrueLevel(sSubjectGridNo, bLevel);
+		bLightLevel = LightTrueLevel(sSubjectGridNo, bLevel);
 	}
 
 	// Snap: I think this was intended to give maximum visibility to targets with muzzle flash...
@@ -1170,7 +1171,11 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 
 	// Snap: this takes care of all equipment bonuses at all light levels
 	// The rest is special code for robots, bloodcats and NO specialists
-	sDistVisible += GetTotalVisionRangeBonus(pSoldier, bLightLevel);
+	sDistVisible += sDistVisible * GetTotalVisionRangeBonus(pSoldier, bLightLevel) / 100;
+
+
+
+
 	
 	// give one step better vision for people with nightops
 	if (HAS_SKILL_TRAIT( pSoldier, NIGHTOPS ))
@@ -1212,6 +1217,8 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 
 	return(sDistVisible);
 }
+
+
 
 void EndMuzzleFlash( SOLDIERTYPE * pSoldier )
 {
