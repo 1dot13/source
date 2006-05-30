@@ -211,10 +211,16 @@ BOOLEAN LoadMercProfiles(void)
 //	FILE *fptr;
 	HWFILE fptr;
 	char *pFileName = "BINARYDATA\\Prof.dat";
-	char *pFileName1 = "BINARYDATA\\Prof1.dat";
-	char *pFileName2 = "BINARYDATA\\Prof2.dat";
-	char *pFileName3 = "BINARYDATA\\Prof3.dat";
-	char *pFileName4 = "BINARYDATA\\Prof4.dat";
+
+	char *pFileName1_Normal = "BINARYDATA\\Prof_Novice_NormalGuns.dat";
+	char *pFileName2_Normal = "BINARYDATA\\Prof_Experienced_NormalGuns.dat";
+	char *pFileName3_Normal = "BINARYDATA\\Prof_Expert_NormalGuns.dat";
+	char *pFileName4_Normal = "BINARYDATA\\Prof_Insane_NormalGuns.dat";
+
+	char *pFileName1_Tons = "BINARYDATA\\Prof_Novice_TonsOfGuns.dat";
+	char *pFileName2_Tons = "BINARYDATA\\Prof_Experienced_TonsOfGuns.dat";
+	char *pFileName3_Tons = "BINARYDATA\\Prof_Expert_TonsOfGuns.dat";
+	char *pFileName4_Tons = "BINARYDATA\\Prof_Insane_TonsOfGuns.dat";
 
 	UINT32 uiLoop, uiLoop2;//, uiLoop3;
 	UINT16 usItem;//, usNewGun, usAmmo, usNewAmmo;
@@ -223,16 +229,28 @@ BOOLEAN LoadMercProfiles(void)
 	switch ( gGameOptions.ubDifficultyLevel)
 	{
 		case DIF_LEVEL_EASY:
-			fptr = FileOpen(pFileName1, FILE_ACCESS_READ, FALSE );
+			if ( gGameOptions.fGunNut )
+				fptr = FileOpen(pFileName1_Tons, FILE_ACCESS_READ, FALSE );
+			else
+				fptr = FileOpen(pFileName1_Normal, FILE_ACCESS_READ, FALSE );
 			break;
 		case DIF_LEVEL_MEDIUM:
-			fptr = FileOpen(pFileName2, FILE_ACCESS_READ, FALSE );
+			if ( gGameOptions.fGunNut )
+				fptr = FileOpen(pFileName2_Tons, FILE_ACCESS_READ, FALSE );
+			else
+				fptr = FileOpen(pFileName2_Normal, FILE_ACCESS_READ, FALSE );
 			break;
 		case DIF_LEVEL_HARD:
-			fptr = FileOpen(pFileName3, FILE_ACCESS_READ, FALSE );
+			if ( gGameOptions.fGunNut )
+				fptr = FileOpen(pFileName3_Tons, FILE_ACCESS_READ, FALSE );
+			else
+				fptr = FileOpen(pFileName3_Normal, FILE_ACCESS_READ, FALSE );
 			break;
 		case DIF_LEVEL_INSANE:
-			fptr = FileOpen(pFileName4, FILE_ACCESS_READ, FALSE );
+			if ( gGameOptions.fGunNut )
+				fptr = FileOpen(pFileName4_Tons, FILE_ACCESS_READ, FALSE );
+			else
+				fptr = FileOpen(pFileName4_Normal, FILE_ACCESS_READ, FALSE );
 			break;
 		default:
 			fptr = FileOpen(pFileName, FILE_ACCESS_READ, FALSE );
