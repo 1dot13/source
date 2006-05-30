@@ -818,9 +818,13 @@ void GiveIMPRandomItems( MERCPROFILESTRUCT *pProfile, UINT8 typeIndex )
 
 	for ( int i=0; i < gIMPItemChoices[typeIndex].ubNumItems ;i++ )
 	{
-		iChoice = Random(gIMPItemChoices[ typeIndex ].ubChoices);
-		usItem = gIMPItemChoices[ typeIndex ].bItemNo[ iChoice ];
-
+		while (usItem == 0 )
+		{
+			iChoice = Random(gIMPItemChoices[ typeIndex ].ubChoices);
+			usItem = gIMPItemChoices[ typeIndex ].bItemNo[ iChoice ];
+			if (!ItemIsLegal(usItem))
+				usItem=0;
+		}
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GiveIMPRandomItems: typeIndex = %d, usItem = %d ",typeIndex, usItem ));
 		if ( usItem > 0 )
 			MakeProfileInvItemAnySlot(pProfile,usItem,100,1);
@@ -865,26 +869,27 @@ void GiveIMPItems( MERCPROFILESTRUCT *pProfile, INT8 abilityValue, UINT8 typeInd
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GiveIMPItems: 2 iChoice = %d",iChoice));
 		usItem = gIMPItemChoices[ typeIndex ].bItemNo[ iChoice ];
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GiveIMPItems: typeIndex = %d, usItem = %d, iChoice = %d, abilityValue = %d",typeIndex, usItem,iChoice, abilityValue ));
-		if ( usItem > 0 )
+		if ( usItem > 0 && ItemIsLegal(usItem))
+		{
 			MakeProfileInvItemAnySlot(pProfile,usItem,100,1);
 
 
-		// give ammo for guns
-		if ( Item[usItem].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
-		{
-			usItem = DefaultMagazine(usItem);
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GiveIMPItems: give ammo typeIndex = %d, usItem = %d",typeIndex, usItem ));
-			MakeProfileInvItemAnySlot(pProfile,usItem,100,(1+Random(3)));
-		}
+			// give ammo for guns
+			if ( Item[usItem].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
+			{
+				usItem = DefaultMagazine(usItem);
+				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GiveIMPItems: give ammo typeIndex = %d, usItem = %d",typeIndex, usItem ));
+				MakeProfileInvItemAnySlot(pProfile,usItem,100,(1+Random(3)));
+			}
 
-		// give launchables for launchers
-		if ( Item[usItem].usItemClass == IC_LAUNCHER )
-		{
-			usItem = PickARandomLaunchable(usItem);
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GiveIMPItems: give launchable typeIndex = %d, usItem = %d",typeIndex, usItem ));
-			MakeProfileInvItemAnySlot(pProfile,usItem,100,(1+Random(3)));
+			// give launchables for launchers
+			if ( Item[usItem].usItemClass == IC_LAUNCHER )
+			{
+				usItem = PickARandomLaunchable(usItem);
+				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GiveIMPItems: give launchable typeIndex = %d, usItem = %d",typeIndex, usItem ));
+				MakeProfileInvItemAnySlot(pProfile,usItem,100,(1+Random(3)));
+			}
 		}
-
 		iChoice--;
 		if (iChoice < 0)
 			iChoice = 0;
