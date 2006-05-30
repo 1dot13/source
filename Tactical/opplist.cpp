@@ -1053,9 +1053,10 @@ INT16 MaxDistanceVisible( void )
 
 INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir, INT16 sSubjectGridNo, INT8 bLevel, SOLDIERTYPE *pOther )
 {
-	INT16 sDistVisible;
+	INT16	sDistVisible;
 	INT8	bLightLevel;
 	SOLDIERTYPE * pSubject;
+	BOOLEAN sideViewLimit = FALSE;
 
 	pSubject = SimpleFindSoldier( sSubjectGridNo, bLevel );
 
@@ -1109,7 +1110,17 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
                 return(0);
 
 			if ( sDistVisible != STRAIGHT )
-				sDistVisible = sDistVisible * ( (100 - GetPercentTunnelVision(pSoldier) ) / 100 );
+			{
+				INT16 tunnelVisionInPercent = GetPercentTunnelVision(pSoldier);
+				
+				if ( tunnelVisionInPercent > 0) 
+				{
+					sideViewLimit = TRUE;
+					sDistVisible = sDistVisible * (100 - tunnelVisionInPercent ) / 100 ;
+				}
+			}
+
+//			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"sDistVisible: %d", GetPercentTunnelVision(pSoldier) );
 
 			if ( sDistVisible == ANGLE && (pSoldier->bTeam == OUR_TEAM || pSoldier->bAlertStatus >= STATUS_RED ) )
 			{
@@ -1171,8 +1182,10 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 
 	// Snap: this takes care of all equipment bonuses at all light levels
 	// The rest is special code for robots, bloodcats and NO specialists
-	sDistVisible += sDistVisible * GetTotalVisionRangeBonus(pSoldier, bLightLevel) / 100;
-
+	if (!sideViewLimit)
+	{
+		sDistVisible += sDistVisible * GetTotalVisionRangeBonus(pSoldier, bLightLevel) / 100;
+	}
 
 
 
