@@ -2,6 +2,7 @@
 	#include "AI All.h"
 	#include "DisplayCover.h"
 	#include "Interface.h"
+	#include "opplist.h"
 	#include "_Ja25Englishtext.h"
 	//#include "Ja25 Strategic Ai.h"
 #endif
@@ -435,7 +436,7 @@ INT8	CalcCoverForGridNoBasedOnTeamKnownEnemies( SOLDIERTYPE *pSoldier, INT16 sTa
 
 		usRange = (UINT16)GetRangeInCellCoordsFromGridNoDiff( pOpponent->sGridNo, sTargetGridNo );
         // Lesh: changed 2-nd parameter in DistanceVisible function call
-		usSightLimit = DistanceVisible( pOpponent, (gGameExternalOptions.gfAllowLimitedVision ? pSoldier->bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, sTargetGridNo, pSoldier->bLevel, pSoldier );
+		usSightLimit = DistanceVisible( pOpponent, (SoldierHasLimitedVision(pSoldier) ? pSoldier->bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, sTargetGridNo, pSoldier->bLevel, pSoldier );
 
 
 		if( usRange > ( usSightLimit * CELL_X_SIZE ) )
@@ -935,7 +936,7 @@ INT8 CalcIfSoldierCanSeeGridNo( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, BOOL
 	}
 
     // Lesh: changed 2-nd parameter in DistanceVisible function call
-	usSightLimit = DistanceVisible( pSoldier, (gGameExternalOptions.gfAllowLimitedVision ? pSoldier->bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, sTargetGridNo, fRoof, pSoldier );
+	usSightLimit = DistanceVisible( pSoldier, (SoldierHasLimitedVision(pSoldier) ? pSoldier->bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, sTargetGridNo, fRoof, pSoldier );
 
 
 	//

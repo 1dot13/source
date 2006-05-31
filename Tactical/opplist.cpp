@@ -1098,7 +1098,7 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 		else
 		{
             // Lesh: added this
-			if( gGameExternalOptions.gfAllowLimitedVision )
+			if( SoldierHasLimitedVision(pSoldier) )
 			{
 				bSubjectDir = (INT8) GetDirectionToGridNoFromGridNo( pSoldier->sGridNo, sSubjectGridNo );
 			}
@@ -1106,7 +1106,7 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 			sDistVisible = gbLookDistance[bFacingDir][bSubjectDir];
 
             // Lesh: and this
-            if ( (sDistVisible == 0) && (gGameExternalOptions.gfAllowLimitedVision) )
+            if ( (sDistVisible == 0) && (SoldierHasLimitedVision(pSoldier)) )
                 return(0);
 
 			if ( sDistVisible != STRAIGHT )
@@ -1260,7 +1260,7 @@ void EndMuzzleFlash( SOLDIERTYPE * pSoldier )
 			{
 				if ( pOtherSoldier->sGridNo != NOWHERE )
 				{	
-					if ( PythSpacesAway( pOtherSoldier->sGridNo, pSoldier->sGridNo ) > DistanceVisible( pOtherSoldier, (gGameExternalOptions.gfAllowLimitedVision ? pOtherSoldier->bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, pSoldier->sGridNo, pSoldier->bLevel, pSoldier ) )					
+					if ( PythSpacesAway( pOtherSoldier->sGridNo, pSoldier->sGridNo ) > DistanceVisible( pOtherSoldier, (SoldierHasLimitedVision(pSoldier) ? pOtherSoldier->bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, pSoldier->sGridNo, pSoldier->bLevel, pSoldier ) )					
 					{
 						// if this guy can no longer see us, change to seen this turn
 						HandleManNoLongerSeen( pOtherSoldier, pSoldier, &(pOtherSoldier->bOppList[ pSoldier->ubID ]), &(gbPublicOpplist[ pOtherSoldier->bTeam ][ pSoldier->ubID ] ) );
@@ -1799,7 +1799,7 @@ INT16 ManLooksForMan(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ubCall
    bAware = TRUE;
 
    // then we look for him full viewing distance in EVERY direction
-   sDistVisible = DistanceVisible(pSoldier, (gGameExternalOptions.gfAllowLimitedVision ? pSoldier->bDesiredDirection : DIRECTION_IRRELEVANT), 0, pOpponent->sGridNo, pOpponent->bLevel, pOpponent );
+   sDistVisible = DistanceVisible(pSoldier, (SoldierHasLimitedVision(pSoldier) ? pSoldier->bDesiredDirection : DIRECTION_IRRELEVANT), 0, pOpponent->sGridNo, pOpponent->bLevel, pOpponent );
 	 //if (pSoldier->ubID == 0)
 		//sprintf(gDebugStr,"ALREADY KNOW: ME %d him %d val %d",pSoldier->ubID,pOpponent->ubID,pSoldier->bOppList[pOpponent->ubID]);
   }
@@ -5635,7 +5635,7 @@ void HearNoise(SOLDIERTYPE *pSoldier, UINT8 ubNoiseMaker, UINT16 sGridNo, INT8 b
 		}
 	}
 	
-    sDistVisible = DistanceVisible( pSoldier, (gGameExternalOptions.gfAllowLimitedVision ? pSoldier->bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, sGridNo, bLevel, pSoldier );
+    sDistVisible = DistanceVisible( pSoldier, (SoldierHasLimitedVision(pSoldier) ? pSoldier->bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, sGridNo, bLevel, pSoldier );
 
 	if ( fMuzzleFlash )
 	{
@@ -6485,7 +6485,7 @@ void NoticeUnseenAttacker( SOLDIERTYPE * pAttacker, SOLDIERTYPE * pDefender, INT
 			}
 		}
 
-        ubTileSightLimit = (UINT8) DistanceVisible( pDefender, (gGameExternalOptions.gfAllowLimitedVision ? pDefender->bDesiredDirection : DIRECTION_IRRELEVANT), 0, pAttacker->sGridNo, pAttacker->bLevel, pAttacker );
+        ubTileSightLimit = (UINT8) DistanceVisible( pDefender, (SoldierHasLimitedVision(pDefender) ? pDefender->bDesiredDirection : DIRECTION_IRRELEVANT), 0, pAttacker->sGridNo, pAttacker->bLevel, pAttacker );
 		if (SoldierToSoldierLineOfSightTest( pDefender, pAttacker, ubTileSightLimit, TRUE ) != 0)
 		{
 			fSeesAttacker = TRUE;
@@ -6745,7 +6745,7 @@ INT8 GetHighestVisibleWatchedLoc( UINT8 ubID )
 	{
 		if ( gsWatchedLoc[ ubID ][ bLoop ] != NOWHERE && gubWatchedLocPoints[ ubID ][ bLoop ] > bHighestPoints )
 		{
-            sDistVisible =  DistanceVisible( MercPtrs[ ubID ], (gGameExternalOptions.gfAllowLimitedVision ? MercPtrs[ ubID ]->bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, gsWatchedLoc[ ubID ][ bLoop ], gbWatchedLocLevel[ ubID ][ bLoop ], MercPtrs[ubID] );
+            sDistVisible =  DistanceVisible( MercPtrs[ ubID ], (SoldierHasLimitedVision(MercPtrs[ ubID ]) ? MercPtrs[ ubID ]->bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, gsWatchedLoc[ ubID ][ bLoop ], gbWatchedLocLevel[ ubID ][ bLoop ], MercPtrs[ubID] );
 			// look at standing height
 			if ( SoldierTo3DLocationLineOfSightTest( MercPtrs[ ubID ], gsWatchedLoc[ ubID ][ bLoop ], gbWatchedLocLevel[ ubID ][ bLoop ], 3, (UINT8) sDistVisible, TRUE ) )
 			{
@@ -6949,4 +6949,12 @@ void MakeBloodcatsHostile( void )
 		}
 	}
 
+}
+
+BOOLEAN SoldierHasLimitedVision(SOLDIERTYPE * pSoldier)
+{
+	if ( GetPercentTunnelVision(pSoldier) > 0 || gGameExternalOptions.gfAllowLimitedVision )
+		return TRUE;
+	else
+		return FALSE;
 }
