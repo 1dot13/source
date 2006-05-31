@@ -1737,12 +1737,18 @@ void RenderAutoResolve()
 	
 	switch( gubEnemyEncounterCode )
 	{
+		case NO_ENCOUNTER_CODE:
+			swprintf( str, gpStrategicString[STR_AR_ATTACK_HEADER] );
+			break;
 		case ENEMY_ENCOUNTER_CODE:
 			swprintf( str, gpStrategicString[STR_AR_ENCOUNTER_HEADER] );
 			break;
 		case ENEMY_INVASION_CODE:
 		case CREATURE_ATTACK_CODE:
 			swprintf( str, gpStrategicString[STR_AR_DEFEND_HEADER] );
+			break;
+		default: 
+			swprintf( str, gpStrategicString[STR_AR_ATTACK_HEADER] );
 			break;
 	}
 
