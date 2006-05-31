@@ -179,7 +179,7 @@ BOOLEAN ARMoveBestMilitiaManFromAdjacentSector(INT16 sMapX, INT16 sMapY)
 	if( !gGameExternalOptions.gfAllowReinforcements )
 		return FALSE;
 
-	if( CountAllMilitiaInSector( sMapX, sMapY ) >= MAXIMUM_MILITIA_SQUAD_SIZE ||
+	if( CountAllMilitiaInSector( sMapX, sMapY ) >= gGameExternalOptions.guiMaxMilitiaSquadSize ||
 		CountAllMilitiaInFiveSectors( sMapX, sMapY ) - CountAllMilitiaInSector( sMapX, sMapY ) == 0 )
 			return FALSE;
 
@@ -315,7 +315,7 @@ UINT8 NumFreeMilitiaSlots()
 		if( !pSoldier->bActive )
 			ubNumFreeSlots++;
 	}
-	return max( 0 , ubNumFreeSlots - ( 32 - MAXIMUM_MILITIA_SQUAD_SIZE ) );
+	return max( 0 , ubNumFreeSlots - ( 32 - gGameExternalOptions.guiMaxMilitiaSquadSize ) );
 }
 
 UINT8 DoReinforcementAsPendingMilitia( INT16 sMapX, INT16 sMapY, UINT8 *pubRank )
@@ -379,7 +379,7 @@ void AddPossiblePendingMilitiaToBattle()
 
 	if( !PlayerMercsInSector( gWorldSectorX, gWorldSectorY, 0 ) || !CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY ) 
 		|| !NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) ) return;
-//MAXIMUM_MILITIA_SQUAD_SIZE - CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY );
+//gGameExternalOptions.guiMaxMilitiaSquadSize - CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY );
 	ubSlots = NumFreeMilitiaSlots();
 	if( !ubSlots )
 	{ //no available slots to add militia  to.  Try again later...

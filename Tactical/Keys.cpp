@@ -367,6 +367,8 @@ BOOLEAN AttemptToCrowbarLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 	{
 		if (iResult > -10)
 		{
+			ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, TacticalStr[ LOCK_HAS_BEEN_HIT ] );  
+
 			// STR GAIN - Damaged a lock by prying
 			StatChange( pSoldier, STRAMT, 5, FALSE );
 
@@ -445,6 +447,8 @@ BOOLEAN AttemptToSmashDoor( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 	{
 		if (iResult > -10)
 		{
+			ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, TacticalStr[ LOCK_HAS_BEEN_HIT ] );  
+
 			// STR GAIN - Damaged a lock by prying
 			StatChange( pSoldier, STRAMT, 5, FALSE );
 

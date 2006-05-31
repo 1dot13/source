@@ -353,11 +353,18 @@ void LoadGameExternalOptions()
 	// Militia Settings	
 	gGameExternalOptions.fAllowTacticalMilitiaCommand = iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_TACTICAL_MILITIA_COMMAND",1);
 
-	gGameExternalOptions.gfAllowMilitiaGroups = iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_MILITIA_MOBILE_GROUPS",1);
-	gGameExternalOptions.gfAllowReinforcements = iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_REINFORCEMENTS",1);
-	gGameExternalOptions.gfAllowReinforcementsOnlyInCity = iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_REINFORCEMENTS_ONLY_IN_CITIES",0);
-	gGameExternalOptions.guiBaseQueenPoolIncrement = iniReader.ReadInteger("JA2 Gameplay Settings","QUEEN_POOL_INCREMENT_PER_DIFFICULTY_LEVEL",60);
+	gGameExternalOptions.gfAllowMilitiaGroups =				iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_MILITIA_MOBILE_GROUPS",1);
+	gGameExternalOptions.gfAllowReinforcements =			iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_REINFORCEMENTS",1);
+	gGameExternalOptions.gfAllowReinforcementsOnlyInCity =	iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_REINFORCEMENTS_ONLY_IN_CITIES",0);
+	gGameExternalOptions.guiBaseQueenPoolIncrement =		iniReader.ReadInteger("JA2 Gameplay Settings","QUEEN_POOL_INCREMENT_PER_DIFFICULTY_LEVEL",60);
 	
+	gGameExternalOptions.guiCreateEachNHours =			iniReader.ReadInteger("JA2 Gameplay Settings","CREATE_EACH_N_HOURS",24);
+	gGameExternalOptions.guiDivOfOriginalMilitia =		iniReader.ReadInteger("JA2 Gameplay Settings","DIV_OF_ORIGINAL_MILITIA",4);
+	gGameExternalOptions.guiMinMilitiaSquadSize =		iniReader.ReadInteger("JA2 Gameplay Settings","MINIMUM_MILITIA_SQUAD_SIZE",5);
+	gGameExternalOptions.guiMaxMilitiaSquadSize =		iniReader.ReadInteger("JA2 Gameplay Settings","MAXIMUM_MILITIA_SQUAD_SIZE",20);
+	gGameExternalOptions.guiMaxMilitiaSquadSizeBattle = iniReader.ReadInteger("JA2 Gameplay Settings","MAXIMUM_MILITIA_SQUAD_SIZE_BATTLE",20);
+
+
 	//Sight range
 	gGameExternalOptions.ubStraightSightRange = iniReader.ReadInteger("JA2 Tactical Settings","BASE_SIGHT_RANGE",13);
 	gGameExternalOptions.ubVisDistDecreasePerRainIntensity = iniReader.ReadInteger("JA2 Tactical Settings","VISUAL_DISTANCE_DECREASE_PER_RAIN_INTENSITY",20);

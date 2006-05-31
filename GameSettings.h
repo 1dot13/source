@@ -204,6 +204,15 @@ typedef struct
 	BOOLEAN gfAllowReinforcementsOnlyInCity;
 	UINT32	guiBaseQueenPoolIncrement;
 	
+	UINT32	guiCreateEachNHours;
+	UINT32	guiDivOfOriginalMilitia;
+	UINT32	guiMinMilitiaSquadSize;
+	UINT32	guiMaxMilitiaSquadSize;
+	UINT32	guiMaxMilitiaSquadSizeBattle;
+
+
+
+	
 	//Sight range
 	UINT8  ubStraightSightRange;
 	UINT32 ubVisDistDecreasePerRainIntensity;
