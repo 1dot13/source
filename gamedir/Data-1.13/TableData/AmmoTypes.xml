@@ -777,10 +777,10 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>25</uiIndex>
-		<fontColour>24</fontColour>
-		<grayed>12</grayed>
-		<offNormal>9</offNormal>
-		<onNormal>11</onNormal>
+		<fontColour>133</fontColour>
+		<grayed>4</grayed>
+		<offNormal>13</offNormal>
+		<onNormal>15</onNormal>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
