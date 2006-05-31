@@ -2367,7 +2367,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			ubTotalSoldiers--;
 			pSoldier = TacticalCreateMilitia(SOLDIER_CLASS_ELITE_MILITIA);
 
-			pSoldier->bOrders = SEEKENEMY;
+			pSoldier->bOrders = ONGUARD;
 			pSoldier->ubInsertionDirection = bDesiredDirection;
 
 			pSoldier->bAlertStatus = STATUS_YELLOW;
@@ -2392,7 +2392,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			ubTotalSoldiers--;
 			pSoldier = TacticalCreateMilitia(SOLDIER_CLASS_REG_MILITIA);
 
-			pSoldier->bOrders = SEEKENEMY;
+			pSoldier->bOrders = ONGUARD;
 			pSoldier->ubInsertionDirection = bDesiredDirection;
 
 			pSoldier->bAlertStatus = STATUS_YELLOW;
@@ -2417,7 +2417,7 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			ubTotalSoldiers--;
 			pSoldier = TacticalCreateMilitia(SOLDIER_CLASS_GREEN_MILITIA);
 
-			pSoldier->bOrders = SEEKENEMY;
+			pSoldier->bOrders = ONGUARD;
 			pSoldier->ubInsertionDirection = bDesiredDirection;
 
 			pSoldier->bAlertStatus = STATUS_YELLOW;

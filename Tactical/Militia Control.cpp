@@ -159,10 +159,17 @@ void PrepareMilitiaForTactical()
 		for( x = 0 ; x < guiDirNumber ; ++x )
 		{
 //			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld,%ld,%ld", gpAttackDirs[ x ][ 0 ], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2], gpAttackDirs[ x ][3] );
-			if( gpAttackDirs[ x ][ 3 ] != INSERTION_CODE_CENTER )
-				AddSoldierInitListMilitiaOnEdge( gpAttackDirs[ x ][ 3 ], gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
-//				AddSoldierInitListMilitia( gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
-//			else 
+			if( gfMSResetMilitia )
+			{
+				if( gpAttackDirs[ x ][ 3 ] != INSERTION_CODE_CENTER )
+					AddSoldierInitListMilitiaOnEdge( gpAttackDirs[ x ][ 3 ], gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
+			}
+			else
+				if( gpAttackDirs[ x ][ 3 ] == INSERTION_CODE_CENTER )
+					AddSoldierInitListMilitia( gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
+				else
+					AddSoldierInitListMilitiaOnEdge( gpAttackDirs[ x ][ 3 ], gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
+
 		}
 		else AddSoldierInitListMilitia( ubGreen, ubRegs, ubElites );
 	

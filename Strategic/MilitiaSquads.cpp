@@ -584,7 +584,7 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 	BOOLEAN fMoreTroopsLeft[4] = {FALSE,FALSE,FALSE,FALSE};
 	BOOLEAN fFirstLoop = TRUE;
-	BOOLEAN fMilitiaAlreadyBeen = CountMilitia(pSectorInfo )>0 ? TRUE : FALSE;
+	BOOLEAN fMilitiaAlreadyBeen = CountMilitia(pSectorInfo )>0 && gWorldSectorX == sMapX && gWorldSectorX == sMapY && gbWorldSectorZ == 0;
 
 	guiDirNumber = 0;
 
