@@ -1681,6 +1681,14 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 	INT32 iExplosDamage, iBreathDamage, iArmourAmount, iDamage = 0;
 	INT8	bSlot;
 
+
+	if( pSoldier == NULL || pOpponent == NULL || ubItemPos > NUM_INV_SLOTS || sGridno > NUMBEROFTILES )
+		return 0;
+
+	if( pSoldier->inv[ubItemPos].usItem == NOTHING )
+		return 0;
+
+	
 	//switch ( pSoldier->inv[ ubItemPos ].usItem )
 	//{
 		//case GL_SMOKE_GRENADE:
