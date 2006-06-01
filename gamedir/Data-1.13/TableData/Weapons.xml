@@ -7537,9 +7537,9 @@
 		<sSound>367</sSound>
 		<sBurstSound>1</sBurstSound>
 		<sSilencedBurstSound>11</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
-		<SilencedSound>0</SilencedSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>2</APsToReload>
