@@ -2561,7 +2561,7 @@ UINT16 SelectStandardArmyGun( UINT8 uiGunLevel )
 		uiChoice = Random(pGunChoiceTable[ uiGunLevel ].ubChoices);
 		usGunIndex = pGunChoiceTable[ uiGunLevel ].bItemNo[ uiChoice ];
 
-		if (!ItemIsLegal(usGunIndex)) //Madd: check for 10 tons of guns
+		if (!ItemIsLegal(usGunIndex)) //Madd: check for tons of guns
 			usGunIndex = -1;
 
 		if (usGunIndex == -1)

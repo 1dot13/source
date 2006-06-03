@@ -3302,8 +3302,8 @@ STR16			zSaveLoadText[] =
 
 	L"Saving...",			//When saving a game, a message box with this string appears on the screen
 
+	L"Normal Guns",
 	L"Tons of Guns",
-	L"10 Tons of Guns",
 	L"Realistic style",
 	L"Sci Fi style",
 
@@ -3497,8 +3497,8 @@ STR16	gzGIOScreenText[] =
 	L"Sci Fi",
 	L"Platinum",
 	L"Items",
-	L"10 Tons of Guns",
 	L"Tons of Guns",
+	L"Normal Guns",
 	L"Difficulty Level",
 	L"Novice",
 	L"Experienced",
