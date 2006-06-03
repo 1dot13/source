@@ -4548,6 +4548,8 @@ UINT32 UIHandleLCOnTerrain( UI_EVENT *pUIEvent )
 		gfUIDisplayActionPointsInvalid = TRUE;
 	}
 
+	HandleSight( pSoldier, SIGHT_LOOK ); 
+
 	return( GAME_SCREEN );
 
 }
@@ -4590,11 +4592,11 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 
 		pSoldier->bTurningFromUI = TRUE;
 
-	  // ATE: Hard-code here previous event to ui busy event...
-	  guiOldEvent = LA_BEGINUIOURTURNLOCK;
+		// ATE: Hard-code here previous event to ui busy event...
+		guiOldEvent = LA_BEGINUIOURTURNLOCK;
 
-    return( TRUE );
-  }
+		return( TRUE );
+	}
 	else
 	{
 		usAnimState = PickSoldierReadyAnimation( pSoldier, FALSE );
@@ -4615,7 +4617,7 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 		// Check AP cost...
 		if ( !EnoughPoints( pSoldier, sAPCost, 0, TRUE ) )
 		{
-  return( FALSE );
+			return( FALSE );
 		}
 
 		if( usAnimState != INVALID_ANIMATION )
@@ -4628,6 +4630,8 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 
 		pSoldier->sLastTarget = sXPos + (MAXCOL * sYPos);
 		DeductPoints( pSoldier, (INT16)(sAPCost - sAPCostToReady), 0 );
+		
+		HandleSight( pSoldier, SIGHT_LOOK ); 
 
 		return( TRUE );
 	}
@@ -4640,12 +4644,12 @@ UINT32 UIHandleLCLook( UI_EVENT *pUIEvent )
 	SOLDIERTYPE				*pSoldier;
 	INT32						  cnt;
 	SOLDIERTYPE			  *pFirstSoldier = NULL;
-	
+
 
 	if ( !GetMouseXY( &sXPos, &sYPos ) )
-  {
-    return( GAME_SCREEN );
-  }
+	{
+		return( GAME_SCREEN );
+	}
 
 	if ( gTacticalStatus.fAtLeastOneGuyOnMultiSelect )
 	{
@@ -4657,24 +4661,24 @@ UINT32 UIHandleLCLook( UI_EVENT *pUIEvent )
 			{
 				if ( pSoldier->uiStatusFlags & SOLDIER_MULTI_SELECTED )
 				{
-          MakeSoldierTurn( pSoldier, sXPos, sYPos );					
+					MakeSoldierTurn( pSoldier, sXPos, sYPos );					
 				}
 			}
 		}
 	}
-  else
-  {
-	  // Get soldier
-	  if ( !GetSoldier( &pSoldier, gusSelectedSoldier )  )
-	  {
-		  return( GAME_SCREEN );
-	  }
+	else
+	{
+		// Get soldier
+		if ( !GetSoldier( &pSoldier, gusSelectedSoldier )  )
+		{
+			return( GAME_SCREEN );
+		}
 
-    if ( MakeSoldierTurn( pSoldier, sXPos, sYPos ) )
-    {
-		  SetUIBusy( pSoldier->ubID );		
-	  }
-  }
+		if ( MakeSoldierTurn( pSoldier, sXPos, sYPos ) )
+		{
+			SetUIBusy( pSoldier->ubID );		
+		}
+	}
 	return( GAME_SCREEN );
 }
 
