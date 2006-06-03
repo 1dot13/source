@@ -670,7 +670,40 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 	{
 		usAttachIndex = PickARandomAttachment(ATTACHMENTS,usGunIndex,bAttachClass,FALSE);
 
-		if ( usScopeIndex > 0 )
+		if ( Item[usGunIndex].defaultattachment > 0 )
+		{
+			//check for incompatibilities 
+			for(i = 0;i<sizeof(IncompatibleAttachments);i++)
+			{
+				if ( IncompatibleAttachments[i][0] == NONE )
+					break;
+			
+				if ( IncompatibleAttachments[i][0] == usAttachIndex && IncompatibleAttachments[i][1] == Item[usGunIndex].defaultattachment )
+				{
+					// default attachment wins
+					usAttachIndex = 0;
+					break;
+				}
+			}
+
+			if ( usScopeIndex > 0 )
+			{
+				//check for incompatibilities w/scope
+				for(i = 0;i<sizeof(IncompatibleAttachments);i++)
+				{
+					if ( IncompatibleAttachments[i][0] == NONE )
+						break;
+				
+					if ( IncompatibleAttachments[i][0] == usScopeIndex && IncompatibleAttachments[i][1] == Item[usGunIndex].defaultattachment )
+					{
+						// default attachment wins
+						usScopeIndex = 0;
+						break;
+					}
+				}
+			}
+		}
+		else if ( usScopeIndex > 0 )
 		{
 			//check for incompatibilities with scope
 			for(i = 0;i<sizeof(IncompatibleAttachments);i++)
