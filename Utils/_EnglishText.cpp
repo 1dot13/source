@@ -3414,6 +3414,7 @@ STR16		zOptionsToggleText[] =
 	L"Show Chance to Hit on the cursor",
 	L"GL Burst Uses Burst Cursor",
 	L"Enemies Drop All Items",
+	L"High Angle Grenade Launching",
 };
 
 //This is the help text associated with the above toggles.
@@ -3482,6 +3483,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, the chance to hit is shown on the cursor.",
 	L"GL Burst uses burst cursor.",
 	L"Enemies drop all items on death.",
+	L"Grenade launchers fire grenades at more vertical angles.",
 };
 
 
@@ -3691,6 +3693,8 @@ STR16 pMessageStrings[] =
 	L"Grenade Bursts - Using Trajectory Cursor (Spread fire disabled)",
 	L"Drop All Enabled",
 	L"Drop All Disabled",
+	L"Grenade Launchers - Fire at standard angles",
+	L"Grenade Launchers - Fire at high angles",
 #ifdef JA2BETAVERSION
 	L"Successfully Saved the Game into the End Turn Auto Save slot.",
 #endif

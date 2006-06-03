@@ -2390,7 +2390,7 @@ void UIHandleMercAttack( SOLDIERTYPE *pSoldier , SOLDIERTYPE *pTargetSoldier, UI
 	}
 
 	// Set aim time to one in UI
-	pSoldier->bAimTime			= (pSoldier->bShownAimTime/2);
+	pSoldier->bAimTime			= (pSoldier->bShownAimTime );
 	usItem									= pSoldier->inv[ HANDPOS ].usItem;
 
 	// ATE: Check if we are targeting an interactive tile, and adjust gridno accordingly...
@@ -2893,7 +2893,7 @@ BOOLEAN SelectedMercCanAffordAttack( )
 						sTargetGridNo	= usMapPos;
 				 }
 
-				 sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, TRUE, (INT8)(pSoldier->bShownAimTime / 2) );
+				 sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, TRUE, (INT8)(pSoldier->bShownAimTime ) );
 
 				 if ( EnoughPoints( pSoldier, sAPCost, 0, TRUE ) )
 				 {

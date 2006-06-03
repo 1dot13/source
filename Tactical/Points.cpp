@@ -885,12 +885,12 @@ UINT8 CalcAPsToBurst( INT8 bBaseActionPoints, OBJECTTYPE * pObj )
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcAPsToBurst: before bonus aps = %d, std bonus = %d, burst bonus = %d", aps,GetPercentAPReduction(pObj),GetPercentBurstFireAPReduction(pObj)));
 	// Snap: do this a little differently: % reduction means
 	// aps <- aps * ( 100 - red ) / 100
-	aps = ( aps	* ( 100 - GetPercentAPReduction(pObj) ) + 50 ) / 100;
+	aps = ( aps	* ( 100 - GetPercentAPReduction(pObj) ) ) / 100;
 	
 	// Snap: moved this up to allow burst AP reduction up to 100%
 	aps = __max( aps, ( Weapon[ pObj->usItem ].bBurstAP + 1 ) / 2 );
 
-	aps = ( aps * ( 100 - GetPercentBurstFireAPReduction(pObj) ) + 50 ) / 100;
+	aps = ( aps * ( 100 - GetPercentBurstFireAPReduction(pObj) ) ) / 100;
 	
 	if ( aps < 0 ) aps = 0;
 	else if ( aps > AP_MAXIMUM ) aps = AP_MAXIMUM;
@@ -933,12 +933,12 @@ UINT8 CalcAPsToAutofire( INT8 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAut
 		//}
 		
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcAPsToAutoFire: before bonus aps = %d, std bonus = %d, auto bonus = %d", aps,GetPercentAPReduction(pObj),GetPercentAutofireAPReduction(pObj)));
-		aps = ( aps	* ( 100 - GetPercentAPReduction(pObj) ) + 50 ) / 100;
+		aps = ( aps	* ( 100 - GetPercentAPReduction(pObj) ) ) / 100;
 		
 		aps = __max( aps, ( autofireaps + 1 ) / 2 );
 
 		// Snap: extend the burst bonus to autofire as well?
-		aps = ( aps * ( 100 - GetPercentAutofireAPReduction(pObj) ) + 50 ) / 100;
+		aps = ( aps * ( 100 - GetPercentAutofireAPReduction(pObj) ) ) / 100;
 		
 		if ( aps < 0 ) aps = 0;
 		else if ( aps > AP_MAXIMUM ) aps = AP_MAXIMUM;
@@ -2033,7 +2033,7 @@ INT16 GetAPsToReadyWeapon( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 		if ( Item[ usItem ].usItemClass == IC_GUN )
 		{
 			return ( Weapon[ usItem ].ubReadyTime
-				* ( 100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[ HANDPOS ]) ) + 50 ) / 100;
+				* ( 100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[ HANDPOS ]) ) ) / 100;
 
 		}
 	}

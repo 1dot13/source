@@ -142,7 +142,7 @@ BOOLEAN AddUIPlan( UINT16 sGridNo, UINT8 ubPlanID )
 	}
 	else if ( ubPlanID == UIPLAN_ACTION_FIRE )
 	{
- 	  sAPCost = CalcTotalAPsToAttack( gpUIPlannedSoldier, sGridNo, TRUE, (INT8)(gpUIPlannedSoldier->bShownAimTime /2) );
+ 	  sAPCost = CalcTotalAPsToAttack( gpUIPlannedSoldier, sGridNo, TRUE, (INT8)(gpUIPlannedSoldier->bShownAimTime ) );
 
 		// Get XY from Gridno
 		ConvertGridNoToCenterCellXY( sGridNo, &sXPos, &sYPos );

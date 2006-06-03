@@ -2563,6 +2563,18 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_DROP_ALL_ON ] );
 					}
 					break;
+				case 'q':
+					if ( gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] ) 
+					{	
+						gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] = FALSE;
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_GL_LOW_ANGLE ] );
+					}
+					else
+					{
+						gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] = TRUE;
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_GL_HIGH_ANGLE ] );
+					}
+					break;
 				case 'G':
 					if ( gGameSettings.fOptions[TOPTION_GL_BURST_CURSOR] ) 
 					{	

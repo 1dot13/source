@@ -42,7 +42,7 @@
 #define INDOORS_START_ANGLE										(FLOAT)( PI/30 )
 //#define INDOORS_START_ANGLE									(FLOAT)( 0 )
 #define	GLAUNCHER_START_ANGLE									(FLOAT)( PI/8 )
-#define	GLAUNCHER_HIGHER_LEVEL_START_ANGLE		(FLOAT)( PI/6 )
+#define	GLAUNCHER_HIGHER_LEVEL_START_ANGLE						(FLOAT)( PI/6 )
 
 #define GET_THROW_HEIGHT( l )						(INT16)( ( l * 256 ) )
 //#define GET_SOLDIER_THROW_HEIGHT( l )		(INT16)( ( l * 256 ) + STANDING_HEIGHT )
@@ -1837,7 +1837,6 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1750"));
 		// OK, look at target level and decide angle to use...
 		if ( ubLevel == 1 )
 		{
-			//dDegrees  = GLAUNCHER_START_ANGLE;
 			dDegrees  = GLAUNCHER_HIGHER_LEVEL_START_ANGLE;
 		}
 		else
@@ -1845,7 +1844,10 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1750"));
 			dDegrees  = GLAUNCHER_START_ANGLE;
 		}
 		fGLauncher = TRUE;
-		sMinRange	 = MIN_MORTAR_RANGE;
+		sMinRange	 = MIN_MORTAR_RANGE/2;
+
+		if (gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE])
+			dDegrees *= 2;
 		//fLauncher = TRUE;
 	}
 

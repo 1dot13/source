@@ -321,6 +321,7 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLE
 	BOOLEAN							fMaxPointLimitHit = FALSE;
 	UINT16							usInHand;
 
+	UINT8 maxAimLevels = AllowedAimingLevels(pSoldier);
 
 		usInHand = pSoldier->inv[ HANDPOS ].usItem;
 	
@@ -390,7 +391,7 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLE
 			else
 				gfUIAutofireBulletCount = FALSE;
 
-			gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, usMapPos, TRUE, (INT8)(pSoldier->bShownAimTime / 2) );
+			gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, usMapPos, TRUE, (INT8)(pSoldier->bShownAimTime ) );
 			gfUIDisplayActionPoints = TRUE;
 			gfUIDisplayActionPointsCenter = TRUE;
 
@@ -398,7 +399,7 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLE
 			while(!EnoughPoints( pSoldier, gsCurrentActionPoints, 0 , FALSE ) && pSoldier->bDoAutofire > 1) //oops, we don't have enough points if we are in auto-fire try to decrease bulletcount
 			{
 				pSoldier->bDoAutofire--;
-				gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, usMapPos, TRUE, (INT8)(pSoldier->bShownAimTime / 2) );
+				gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, usMapPos, TRUE, (INT8)(pSoldier->bShownAimTime ) );
 			}
 
 			// If we don't have any points and we are at the first refine, do nothing but warn!
@@ -410,11 +411,11 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLE
 			}
 			else
 			{
-				bFutureAim = (INT8)( pSoldier->bShownAimTime + 2 );
+				bFutureAim = (INT8)( pSoldier->bShownAimTime + 1 );
 
-				if ( bFutureAim <= REFINE_AIM_5 )
+				if ( bFutureAim <= maxAimLevels )
 				{
-					sAPCosts = MinAPsToAttack( pSoldier, usMapPos, TRUE ) + ( bFutureAim / 2 );
+					sAPCosts = MinAPsToAttack( pSoldier, usMapPos, TRUE ) + ( bFutureAim  );
 
 					// Determine if we can afford!
 					if ( !EnoughPoints( pSoldier, (INT16)sAPCosts, 0 , FALSE ) )
@@ -443,9 +444,9 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLE
 					{
 						pSoldier->bShownAimTime++;
 
-						if ( pSoldier->bShownAimTime > REFINE_AIM_5 )
+						if ( pSoldier->bShownAimTime > maxAimLevels )
 						{
-							pSoldier->bShownAimTime = REFINE_AIM_5;
+							pSoldier->bShownAimTime = maxAimLevels;
 						}
 						else
 						{
@@ -551,7 +552,7 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLE
 			if(gGameSettings.fOptions[ TOPTION_CTH_CURSOR ])
 			{
 				UINT32 uiHitChance;
-				uiHitChance = CalcChanceToHitGun( pSoldier, usMapPos, (INT8)(pSoldier->bShownAimTime / 2), pSoldier->bAimShotLocation );
+				uiHitChance = CalcChanceToHitGun( pSoldier, usMapPos, (INT8)(pSoldier->bShownAimTime ), pSoldier->bAimShotLocation );
 
 				gfUICtHBar = TRUE;
 				gbCtH = (gbCtH+uiHitChance)/2;
@@ -733,21 +734,144 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLE
 
 				case REFINE_AIM_MID1:
 
-					usCursor =  ACTION_TARGETAIM2_UICURSOR;
+					//usCursor =  ACTION_TARGETAIM2_UICURSOR;
+					if ( Item[ usInHand ].usItemClass == IC_THROWING_KNIFE )
+					{
+						if ( gfDisplayFullCountRing )
+						{
+							usCursor = ACTION_THROWAIMYELLOW1_UICURSOR;
+						}
+						else if ( fEnoughPoints )
+						{
+							usCursor = ACTION_THROWAIM2_UICURSOR;
+						}
+						else
+						{
+							usCursor = ACTION_THROWAIMCANT1_UICURSOR;
+						}
+					}
+					else
+					{
+						if ( gfDisplayFullCountRing )
+						{
+							usCursor = ACTION_TARGETAIMYELLOW1_UICURSOR;
+						}
+						else if ( fEnoughPoints )
+						{
+							usCursor = ACTION_TARGETAIM2_UICURSOR;
+						}
+						else
+						{
+							usCursor = ACTION_TARGETAIMCANT1_UICURSOR;
+						}
+					}
 					break;
 
 				case REFINE_AIM_MID2:
 
-					usCursor = ACTION_TARGETAIM4_UICURSOR;
+					//usCursor = ACTION_TARGETAIM4_UICURSOR;
+					if ( Item[ usInHand ].usItemClass == IC_THROWING_KNIFE )
+					{
+						if ( gfDisplayFullCountRing )
+						{
+							usCursor = ACTION_THROWAIMYELLOW3_UICURSOR;
+						}
+						else if ( fEnoughPoints )
+						{
+								usCursor =  ACTION_THROWAIM4_UICURSOR;
+						}
+						else
+						{
+								usCursor = ACTION_THROWAIMCANT3_UICURSOR;
+						}
+					}
+					else
+					{
+						if ( gfDisplayFullCountRing )
+						{
+							usCursor = ACTION_TARGETAIMYELLOW3_UICURSOR;
+						}
+						else if ( fEnoughPoints )
+						{
+								usCursor =  ACTION_TARGETAIM4_UICURSOR;
+						}
+						else
+						{
+								usCursor = ACTION_TARGETAIMCANT3_UICURSOR;
+						}
+					}
+
 					break;
 
 				case REFINE_AIM_MID3:
 
-					usCursor = ACTION_TARGETAIM6_UICURSOR;
+					//usCursor = ACTION_TARGETAIM6_UICURSOR;
+					
+					if ( Item[ usInHand ].usItemClass == IC_THROWING_KNIFE )
+					{
+						if ( gfDisplayFullCountRing )
+						{
+							usCursor = ACTION_THROWAIMYELLOW4_UICURSOR;
+						}
+						else if ( fEnoughPoints )
+						{
+							usCursor = ACTION_THROWAIM6_UICURSOR;
+						}
+						else
+						{
+							usCursor = ACTION_THROWAIMCANT4_UICURSOR;
+						}
+					}
+					else
+					{
+						if ( gfDisplayFullCountRing )
+						{
+							usCursor = ACTION_TARGETAIMYELLOW4_UICURSOR;
+						}
+						else if ( fEnoughPoints )
+						{
+							usCursor = ACTION_TARGETAIM6_UICURSOR;
+						}
+						else
+						{
+							usCursor = ACTION_TARGETAIMCANT4_UICURSOR;
+						}
+					}
+
 					break;
 
 				case REFINE_AIM_MID4:
-					usCursor =  ACTION_TARGETAIM8_UICURSOR;
+					//usCursor =  ACTION_TARGETAIM8_UICURSOR;
+					if ( Item[ usInHand ].usItemClass == IC_THROWING_KNIFE )
+					{
+						if ( gfDisplayFullCountRing )
+						{
+							usCursor = ACTION_THROWAIMFULL_UICURSOR;
+						}
+						else if ( fEnoughPoints )
+						{
+							usCursor = ACTION_THROWAIM8_UICURSOR;
+						}
+						else
+						{
+							usCursor = ACTION_THROWAIMCANT5_UICURSOR;
+						}
+					}
+					else
+					{
+						if ( gfDisplayFullCountRing )
+						{
+							usCursor = ACTION_TARGETAIMFULL_UICURSOR;
+						}
+						else if ( fEnoughPoints )
+						{
+							usCursor = ACTION_TARGETAIM8_UICURSOR;
+						}
+						else
+						{
+							usCursor = ACTION_TARGETAIMCANT5_UICURSOR;
+						}
+					}
 					break;
 			}
 		}
@@ -829,7 +953,7 @@ UINT8 HandleNonActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos , B
 	{
 		DetermineCursorBodyLocation( (UINT8)gusSelectedSoldier, fShowAPs, fRecalc );
 
-		gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, usMapPos, TRUE, (INT8)(pSoldier->bShownAimTime / 2) );
+		gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, usMapPos, TRUE, (INT8)(pSoldier->bShownAimTime ) );
 
 		gfUIDisplayActionPoints = TRUE;
 		gfUIDisplayActionPointsCenter = TRUE;
@@ -1180,7 +1304,7 @@ UINT8 HandleKnifeCursor( SOLDIERTYPE *pSoldier, UINT16 sGridNo, BOOLEAN fActivat
 		// Calculate action points
 		if ( gTacticalStatus.uiFlags & TURNBASED && (gTacticalStatus.uiFlags & INCOMBAT) )
 		{
-			gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, sGridNo, TRUE, (INT8)(pSoldier->bShownAimTime / 2) );
+			gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, sGridNo, TRUE, (INT8)(pSoldier->bShownAimTime ) );
 			gfUIDisplayActionPoints = TRUE;
 			gfUIDisplayActionPointsCenter = TRUE;
 
@@ -1308,7 +1432,7 @@ UINT8 HandlePunchCursor( SOLDIERTYPE *pSoldier, UINT16 sGridNo, BOOLEAN fActivat
 		// Calculate action points
 		if ( gTacticalStatus.uiFlags & TURNBASED )
 		{
-			gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, sGridNo, TRUE, (INT8)(pSoldier->bShownAimTime / 2) );
+			gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, sGridNo, TRUE, (INT8)(pSoldier->bShownAimTime ) );
 			gfUIDisplayActionPoints = TRUE;
 			gfUIDisplayActionPointsCenter = TRUE;
 
@@ -1487,7 +1611,7 @@ UINT8 HandleNonActivatedTossCursor( SOLDIERTYPE *pSoldier, UINT16 sGridNo, BOOLE
 	{
 		if ( ubItemCursor == TRAJECTORYCURS )
 		{
-		  gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, sGridNo, TRUE, (INT8)(pSoldier->bShownAimTime / 2) );
+		  gsCurrentActionPoints = CalcTotalAPsToAttack( pSoldier, sGridNo, TRUE, (INT8)(pSoldier->bShownAimTime ) );
 		}
 		else
 		{
@@ -1864,6 +1988,8 @@ void HandleRightClickAdjustCursor( SOLDIERTYPE *pSoldier, INT16 usMapPos )
 
 	ubCursor =  GetActionModeCursor( pSoldier );
 
+	UINT8 maxAimLevels = AllowedAimingLevels(pSoldier);
+
 	// 'snap' cursor to target tile....
 	if ( gfUIFullTargetFound )
 	{
@@ -1949,19 +2075,19 @@ void HandleRightClickAdjustCursor( SOLDIERTYPE *pSoldier, INT16 usMapPos )
 					}
 				}
 
-				bFutureAim = (INT8)( pSoldier->bShownAimTime + 2 );
+				bFutureAim = (INT8)( pSoldier->bShownAimTime + 1 );
 
-				if ( bFutureAim <= REFINE_AIM_5 )
+				if ( bFutureAim <= maxAimLevels )
 				{
-					sAPCosts = CalcTotalAPsToAttack( pSoldier, usMapPos, TRUE, (INT8)(bFutureAim / 2) );
+					sAPCosts = CalcTotalAPsToAttack( pSoldier, usMapPos, TRUE, (INT8)(bFutureAim ) );
 
 					// Determine if we can afford!
 					if ( EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) )
 					{
-						pSoldier->bShownAimTime+= 2;
-						if ( pSoldier->bShownAimTime > REFINE_AIM_5 )
+						pSoldier->bShownAimTime+= 1;
+						if ( pSoldier->bShownAimTime > maxAimLevels )
 						{
-							pSoldier->bShownAimTime = REFINE_AIM_5;
+							pSoldier->bShownAimTime = maxAimLevels;
 						}
 					}
 					// Else - goto first level!

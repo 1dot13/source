@@ -5535,7 +5535,7 @@ INT8 GetAPsToReload( OBJECTTYPE *pObj )
 //	 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("GetAPsToReload"));
 
 	return ( Weapon[ pObj->usItem ].APsToReload *
-		( 100 - GetPercentReloadTimeAPReduction(pObj) ) + 50 ) / 100;
+		( 100 - GetPercentReloadTimeAPReduction(pObj) ) ) / 100;
 
 }
 
