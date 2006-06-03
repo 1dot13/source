@@ -7100,3 +7100,40 @@ INT8 FindNightGoggles( SOLDIERTYPE * pSoldier, INT16 bonusToBeat  )
 	}
 	return( ITEM_NOT_FOUND );
 }
+
+INT16 GetMinRangeForAimBonus( OBJECTTYPE * pObj )
+{
+	INT16 bns;
+
+	bns = Item[pObj->usItem].minrangeforaimbonus;
+	bns += Item[pObj->usGunAmmoItem].minrangeforaimbonus;
+
+	for (int i = 0; i < MAX_ATTACHMENTS; i++)
+	{
+		bns += Item[pObj->usAttachItem[i]].minrangeforaimbonus;
+	}
+
+	return( bns );
+}
+
+UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier)
+{
+	UINT8 aimLevels = 4;
+	OBJECTTYPE obj = pSoldier->inv[pSoldier->ubAttackingHand]; 
+
+	if ( IsScoped( &obj ) )
+	{
+		if ( GetMinRangeForAimBonus(&obj) >= 60 ) // HACK: Madd: hard coded for now for testing
+		{
+			aimLevels += 2;
+		}
+		
+		if ( GetMinRangeForAimBonus(&obj) >= 90 ) // HACK: Madd: hard coded for now for testing
+		{
+			aimLevels += 2;
+		}
+	}
+
+	return aimLevels;
+}
+
