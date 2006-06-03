@@ -3218,6 +3218,8 @@ STR16 zOptionsToggleText[] =
 	L"Trefferchance anzeigen",
 	L"GL Burst verwendet Burst- Cursor",
 	L"Gegner lassen alles fallen",
+	L"High Angle Grenade Launching",
+	L"Restrict Extra Aim Levels to Rifles",
 };
 
 //This is the help text associated with the above toggles.
@@ -3286,6 +3288,8 @@ STR16 zOptionsScreenHelpText[] =
 	L"Die Trefferchance wird über dem Cursor als Balken angezeigt",
 	L"GL Burst verwendet Burst- Cursor.",
 	L"Gegner lassen bei ihrem Ableben alle Gegenstände zurück.",
+	L"Grenade launchers fire grenades at higher angles.",
+	L"Aim levels beyond 4 are restricted to rifles and sniper rifles.",
 };
 
 STR16 gzGIOScreenText[] =
@@ -3488,6 +3492,8 @@ STR16 pMessageStrings[] =
 	L"Paket in Drassen angekommen.",
 	L"%s kommt am %d. um ca. %s am Zielort an (Sektor %s).",		//first %s is mercs name(OK), next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival       !!!7 It should be like this: first one is merc (OK), next is day of arrival (OK) , next is time of the day for ex. 07:00 (not OK, now it is still sector), next should be sector (not OK, now it is still time of the day)
 	L"Logbuch aktualisiert.",
+	L"Grenade Launchers - Fire at standard angles",
+	L"Grenade Launchers - Fire at high angles",
 #ifdef JA2BETAVERSION
 	L"Spiel erfolgreich in Slot End Turn Auto Save gespeichert.",
 #endif

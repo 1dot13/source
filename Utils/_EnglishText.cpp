@@ -3415,6 +3415,7 @@ STR16		zOptionsToggleText[] =
 	L"GL Burst Uses Burst Cursor",
 	L"Enemies Drop All Items",
 	L"High Angle Grenade Launching",
+	L"Restrict Extra Aim Levels to Rifles",
 };
 
 //This is the help text associated with the above toggles.
@@ -3483,7 +3484,8 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, the chance to hit is shown on the cursor.",
 	L"GL Burst uses burst cursor.",
 	L"Enemies drop all items on death.",
-	L"Grenade launchers fire grenades at more vertical angles.",
+	L"Grenade launchers fire grenades at higher angles.",
+	L"Aim levels beyond 4 are restricted to rifles and sniper rifles.",
 };
 
 

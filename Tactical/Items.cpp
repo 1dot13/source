@@ -7120,8 +7120,12 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier)
 {
 	UINT8 aimLevels = 4;
 	OBJECTTYPE obj = pSoldier->inv[pSoldier->ubAttackingHand]; 
+	BOOLEAN allowed = TRUE;
 
-	if ( ( Weapon[obj.usItem].ubWeaponType == GUN_RIFLE || Weapon[obj.usItem].ubWeaponType == GUN_SN_RIFLE ) && IsScoped( &obj ) )
+	if ( gGameSettings.fOptions[TOPTION_AIM_LEVEL_RESTRICTION] && Weapon[obj.usItem].ubWeaponType != GUN_RIFLE && Weapon[obj.usItem].ubWeaponType != GUN_SN_RIFLE )
+			allowed = FALSE;
+
+	if ( allowed && IsScoped( &obj ) )
 	{
 		if ( GetMinRangeForAimBonus(&obj) >= (UINT8)(gGameExternalOptions.ubStraightSightRange * 0.3) ) // >= 30% of sight range (~4 tiles by default)
 		{
