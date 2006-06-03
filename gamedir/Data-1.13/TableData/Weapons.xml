@@ -659,7 +659,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
 		<ubDeadliness>48</ubDeadliness>
-		<bAccuracy>7</bAccuracy>
+		<bAccuracy>12</bAccuracy>
 		<ubMagSize>5</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -1747,7 +1747,7 @@
 		<ubBulletSpeed>30</ubBulletSpeed>
 		<ubImpact>80</ubImpact>
 		<ubDeadliness>80</ubDeadliness>
-		<bAccuracy>-1</bAccuracy>
+		<bAccuracy>0</bAccuracy>
 		<ubMagSize>1</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -2733,7 +2733,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>55</ubImpact>
 		<ubDeadliness>76</ubDeadliness>
-		<bAccuracy>4</bAccuracy>
+		<bAccuracy>9</bAccuracy>
 		<ubMagSize>11</ubMagSize>
 		<usRange>1100</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -4025,7 +4025,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>46</ubImpact>
 		<ubDeadliness>71</ubDeadliness>
-		<bAccuracy>6</bAccuracy>
+		<bAccuracy>11</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>1200</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -4059,7 +4059,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>50</ubImpact>
 		<ubDeadliness>42</ubDeadliness>
-		<bAccuracy>2</bAccuracy>
+		<bAccuracy>7</bAccuracy>
 		<ubMagSize>11</ubMagSize>
 		<usRange>250</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -4263,7 +4263,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
 		<ubDeadliness>48</ubDeadliness>
-		<bAccuracy>7</bAccuracy>
+		<bAccuracy>12</bAccuracy>
 		<ubMagSize>5</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -4569,7 +4569,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>49</ubDeadliness>
-		<bAccuracy>6</bAccuracy>
+		<bAccuracy>11</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -4739,7 +4739,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>45</ubImpact>
 		<ubDeadliness>83</ubDeadliness>
-		<bAccuracy>7</bAccuracy>
+		<bAccuracy>12</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>1500</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -4773,7 +4773,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>47</ubImpact>
 		<ubDeadliness>85</ubDeadliness>
-		<bAccuracy>4</bAccuracy>
+		<bAccuracy>9</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>1500</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -4932,7 +4932,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>645</uiIndex>
-		<szWeaponName>FN HP-BDA 9</szWeaponName>
+		<szWeaponName>FN BDA 9</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
@@ -5249,7 +5249,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>49</ubDeadliness>
-		<bAccuracy>6</bAccuracy>
+		<bAccuracy>11</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -5351,7 +5351,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>58</ubImpact>
 		<ubDeadliness>78</ubDeadliness>
-		<bAccuracy>5</bAccuracy>
+		<bAccuracy>10</bAccuracy>
 		<ubMagSize>5</ubMagSize>
 		<usRange>1100</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -6201,7 +6201,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>57</ubImpact>
 		<ubDeadliness>81</ubDeadliness>
-		<bAccuracy>4</bAccuracy>
+		<bAccuracy>9</bAccuracy>
 		<ubMagSize>5</ubMagSize>
 		<usRange>1200</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -6303,7 +6303,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
 		<ubDeadliness>48</ubDeadliness>
-		<bAccuracy>7</bAccuracy>
+		<bAccuracy>12</bAccuracy>
 		<ubMagSize>5</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -6575,7 +6575,7 @@
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>40</ubImpact>
 		<ubDeadliness>31</ubDeadliness>
-		<bAccuracy>5</bAccuracy>
+		<bAccuracy>10</bAccuracy>
 		<ubMagSize>5</ubMagSize>
 		<usRange>500</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -6711,7 +6711,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>57</ubImpact>
 		<ubDeadliness>81</ubDeadliness>
-		<bAccuracy>4</bAccuracy>
+		<bAccuracy>9</bAccuracy>
 		<ubMagSize>5</ubMagSize>
 		<usRange>1200</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -6745,7 +6745,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>49</ubDeadliness>
-		<bAccuracy>6</bAccuracy>
+		<bAccuracy>11</bAccuracy>
 		<ubMagSize>5</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -7119,7 +7119,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>49</ubDeadliness>
-		<bAccuracy>7</bAccuracy>
+		<bAccuracy>12</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -7153,7 +7153,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>46</ubImpact>
 		<ubDeadliness>70</ubDeadliness>
-		<bAccuracy>6</bAccuracy>
+		<bAccuracy>11</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>1200</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -7765,7 +7765,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>35</ubImpact>
 		<ubDeadliness>41</ubDeadliness>
-		<bAccuracy>7</bAccuracy>
+		<bAccuracy>12</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>600</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -7799,7 +7799,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>51</ubDeadliness>
-		<bAccuracy>6</bAccuracy>
+		<bAccuracy>11</bAccuracy>
 		<ubMagSize>5</ubMagSize>
 		<usRange>850</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -7935,7 +7935,7 @@
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>48</ubDeadliness>
-		<bAccuracy>5</bAccuracy>
+		<bAccuracy>10</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -8411,7 +8411,7 @@
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
 		<ubDeadliness>19</ubDeadliness>
-		<bAccuracy>4</bAccuracy>
+		<bAccuracy>9</bAccuracy>
 		<ubMagSize>8</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
