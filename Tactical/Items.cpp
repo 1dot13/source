@@ -7127,12 +7127,12 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier)
 
 	if ( allowed && IsScoped( &obj ) )
 	{
-		if ( GetMinRangeForAimBonus(&obj) >= (UINT8)(gGameExternalOptions.ubStraightSightRange * 0.3) ) // >= 30% of sight range (~4 tiles by default)
+		if ( GetMinRangeForAimBonus(&obj) >= (UINT8)(gGameExternalOptions.ubStraightSightRange * 3) ) // >= 30% of sight range (~4 tiles by default)
 		{
 			aimLevels += 2;
 		}
 		
-		if ( GetMinRangeForAimBonus(&obj) >= (UINT8)(gGameExternalOptions.ubStraightSightRange * 0.6) ) // >= 60% of sight range (~9 tiles by default)
+		if ( GetMinRangeForAimBonus(&obj) >= (UINT8)(gGameExternalOptions.ubStraightSightRange * 6) ) // >= 60% of sight range (~9 tiles by default)
 		{
 			aimLevels += 2;
 		}
