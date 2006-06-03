@@ -43,6 +43,7 @@ enum
 	TOPTION_CTH_CURSOR,
 	TOPTION_GL_BURST_CURSOR,
 	TOPTION_DROP_ALL,
+	TOPTION_GL_HIGH_ANGLE,
 	NUM_GAME_OPTIONS,				//Toggle up this will be able to be Toggled by the player
 
 	//These options will NOT be toggable by the Player

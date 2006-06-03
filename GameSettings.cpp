@@ -244,6 +244,7 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_CTH_CURSOR ]						= TRUE;
 //Madd:
 	gGameSettings.fOptions[ TOPTION_GL_BURST_CURSOR ]					= TRUE;
+	gGameSettings.fOptions[ TOPTION_GL_HIGH_ANGLE ]						= FALSE;
 	gGameSettings.fOptions[ TOPTION_DROP_ALL ]							= FALSE;
 	// JA2Gold
 	gGameSettings.fOptions[ TOPTION_MERC_CASTS_LIGHT ]					= TRUE;
