@@ -1678,7 +1678,7 @@ INT32 EstimateShotDamage(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ub
 INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *pOpponent, INT16 sGridno )
 {
 	UINT16	ubExplosiveIndex;
-	INT32 iExplosDamage, iBreathDamage, iArmourAmount, iDamage = 0;
+	INT32	iExplosDamage, iBreathDamage, iArmourAmount, iDamage = 0;
 	INT8	bSlot;
 
 
@@ -1688,38 +1688,37 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 	if( pSoldier->inv[ubItemPos].usItem == NOTHING )
 		return 0;
 
-	
+
 	//switch ( pSoldier->inv[ ubItemPos ].usItem )
 	//{
-		//case GL_SMOKE_GRENADE:
-		//case SMOKE_GRENADE:
-		//	// Don't want to value throwing smoke very much.  This value is based relative
-		//	// to the value for knocking somebody down, which was giving values that were
-		//	// too high
-		//	return( 5 );
-		//case RPG7:
-		//case ROCKET_LAUNCHER:
-		//	ubExplosiveIndex = Item[ C1 ].ubClassIndex;
-		//	break;
-		//default:
-			if ( Item[pSoldier->inv[ ubItemPos ].usItem].singleshotrocketlauncher )
-				ubExplosiveIndex = Item[ C1 ].ubClassIndex;
-			else if ( Item[pSoldier->inv[ ubItemPos ].usItem].rocketlauncher || Item[pSoldier->inv[ ubItemPos ].usItem].grenadelauncher || Item[pSoldier->inv[ ubItemPos ].usItem].mortar )
-			{
-				bSlot = FindLaunchableAttachment(&pSoldier->inv[ ubItemPos ],pSoldier->inv[ ubItemPos ].usItem ) ;
-				if ( bSlot != ITEM_NOT_FOUND )
-					ubExplosiveIndex = Item[pSoldier->inv[ bSlot ].usItem].ubClassIndex;
-				else
-					return 0;
-			}
-			else if ( Explosive[Item[pSoldier->inv[ ubItemPos ].usItem].ubClassIndex].ubType == EXPLOSV_SMOKE )
-				return 5;
-			else
-				ubExplosiveIndex = Item[ pSoldier->inv[ubItemPos].usItem ].ubClassIndex;
-	
-	//		break;
-	//}
+	//case GL_SMOKE_GRENADE:
+	//case SMOKE_GRENADE:
+	//	// Don't want to value throwing smoke very much.  This value is based relative
+	//	// to the value for knocking somebody down, which was giving values that were
+	//	// too high
+	//	return( 5 );
+	//case RPG7:
+	//case ROCKET_LAUNCHER:
+	//	ubExplosiveIndex = Item[ C1 ].ubClassIndex;
+	//	break;
+	//default:
+	if ( Item[pSoldier->inv[ ubItemPos ].usItem].singleshotrocketlauncher )
+		ubExplosiveIndex = Item[ C1 ].ubClassIndex;
+	else if ( Item[pSoldier->inv[ ubItemPos ].usItem].rocketlauncher || Item[pSoldier->inv[ ubItemPos ].usItem].grenadelauncher || Item[pSoldier->inv[ ubItemPos ].usItem].mortar )
+	{
+		bSlot = FindLaunchableAttachment(&pSoldier->inv[ ubItemPos ],pSoldier->inv[ ubItemPos ].usItem ) ;
+		if ( bSlot != ITEM_NOT_FOUND )
+			ubExplosiveIndex = Item[pSoldier->inv[ bSlot ].usItem].ubClassIndex;
+		else
+			return 0;
+	}
+	else if ( Explosive[Item[pSoldier->inv[ ubItemPos ].usItem].ubClassIndex].ubType == EXPLOSV_SMOKE )
+		return 5;
+	else
+		ubExplosiveIndex = Item[ pSoldier->inv[ubItemPos].usItem ].ubClassIndex;
 
+	//		break;
+	//}	
 	// JA2Gold: added
 	if ( Item[pSoldier->inv[ubItemPos].usItem].flare )
 	{
@@ -1744,7 +1743,7 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 			//NumMessage("damage after GAS MASK: ",iBreathDamage);
 		}
 
-  }
+	}
 	if ( Explosive[ ubExplosiveIndex ].ubType == EXPLOSV_BURNABLEGAS )
 	{
 		// if target gridno is outdoors (where tear gas lasts only 1-2 turns)
@@ -1759,7 +1758,7 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 
 		if (iExplosDamage < 1)
 			iExplosDamage = 1;
-  }
+	}
 
 	// if this opponent is standing
 	if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND)
@@ -1784,7 +1783,7 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 	// if the target gridno is in water, grenade may not blow (guess 50% of time)
 	/*
 	if (TTypeList[Grid[gridno].land] >= LAKETYPE)
-		iDamage /= 2;
+	iDamage /= 2;
 	*/
 
 	return( iDamage);

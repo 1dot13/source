@@ -4888,10 +4888,10 @@ BOOLEAN GetCurrentBattleSectorXYZ( INT16 *psSectorX, INT16 *psSectorY, INT16 *ps
 //Returns TRUE if a battle is happening ONLY
 BOOLEAN GetCurrentBattleSectorXYZAndReturnTRUEIfThereIsABattle( INT16 *psSectorX, INT16 *psSectorY, INT16 *psSectorZ )
 {
-	//if ( ( *psSectorX == NULL )||(*psSectorY == NULL )||(*psSectorZ == NULL ) )
-	//{	
-	//	return FALSE;
-	//}
+	if ( ( *psSectorX == NULL )||(*psSectorY == NULL )||(*psSectorZ == NULL ) )
+	{	
+		return FALSE;
+	}
 
 	if( gpAR )
 	{
