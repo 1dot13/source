@@ -242,13 +242,16 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_TOGGLE_WIREFRAME ]					= TRUE;
 	gGameSettings.fOptions[ TOPTION_3D_CURSOR ]							= FALSE;
 	gGameSettings.fOptions[ TOPTION_CTH_CURSOR ]						= TRUE;
-//Madd:
+	//Madd:
 	gGameSettings.fOptions[ TOPTION_GL_BURST_CURSOR ]					= TRUE;
 	gGameSettings.fOptions[ TOPTION_DROP_ALL ]							= FALSE;
 	gGameSettings.fOptions[ TOPTION_GL_HIGH_ANGLE ]						= FALSE;
 	gGameSettings.fOptions[	TOPTION_AIM_LEVEL_RESTRICTION ]				= TRUE;
 	// JA2Gold
 	gGameSettings.fOptions[ TOPTION_MERC_CASTS_LIGHT ]					= TRUE;
+
+	//lalien
+	gGameSettings.fOptions[ TOPTION_SPACE_SELECTS_NEXT_SQUAD ]			= TRUE;
 
 	gGameSettings.ubSizeOfDisplayCover = 4;
 	gGameSettings.ubSizeOfLOS = 4;

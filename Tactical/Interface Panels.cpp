@@ -506,6 +506,8 @@ void UpdateStatColor( UINT32 uiTimer, BOOLEAN fUpdate );
 
 extern void UpdateItemHatches();
 
+extern SOLDIERTYPE *FindNextActiveSquad( SOLDIERTYPE *pSoldier );
+
 // Wraps up check for AP-s get from a different soldier for in a vehicle...
 INT8 GetUIApsToDisplay( SOLDIERTYPE *pSoldier )
 {
@@ -5286,85 +5288,109 @@ void CheckForAndAddMercToTeamPanel( SOLDIERTYPE *pSoldier )
 UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs )
 {
 	INT32 cnt;
-  INT32 bFirstID;
-	SOLDIERTYPE             *pTeamSoldier;
-	
+	INT32 bFirstID;
+	SOLDIERTYPE *pTeamSoldier;
 
-  bFirstID = GetTeamSlotFromPlayerID( pSoldier->ubID );
 
-  if ( bFirstID == -1 )
-  {
-    return( pSoldier->ubID );
-  }
+	bFirstID = GetTeamSlotFromPlayerID( pSoldier->ubID );
+
+	if ( bFirstID == -1 )
+	{
+		return( pSoldier->ubID );
+	}
 
 	for ( cnt = ( bFirstID + 1 ); cnt < NUM_TEAM_SLOTS; cnt++ )
 	{
-	  if ( gTeamPanel[ cnt ].fOccupied )
-	  {
-		  // Set Id to close
-		  pTeamSoldier = MercPtrs[ gTeamPanel[ cnt ].ubID ];
+		if ( gTeamPanel[ cnt ].fOccupied )
+		{
+			// Set Id to close
+			pTeamSoldier = MercPtrs[ gTeamPanel[ cnt ].ubID ];
 
-		  if ( fOnlyRegularMercs )
-		  {
-			  if ( pTeamSoldier->bActive && ( AM_AN_EPC( pTeamSoldier ) || AM_A_ROBOT( pTeamSoldier ) ) )
-			  {
-				  continue;
-			  }
-		  }
+			if ( fOnlyRegularMercs )
+			{
+				if ( pTeamSoldier->bActive && ( AM_AN_EPC( pTeamSoldier ) || AM_A_ROBOT( pTeamSoldier ) ) )
+				{
+					continue;
+				}
+			}
 
-		  if ( fGoodForLessOKLife )
-		  {
-			  if ( pTeamSoldier->bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && pTeamSoldier->bAssignment < ON_DUTY  && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
-			  {
-				  return( (UINT8)gTeamPanel[ cnt ].ubID );
-			  }
-		  }
-		  else
-		  {
-			  if ( OK_CONTROLLABLE_MERC( pTeamSoldier) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
-			  {
-				  return( (UINT8)gTeamPanel[ cnt ].ubID );
-			  }
-		  }
-	  }
-  }
-
-	// none found,
-	// Now loop back
-	for ( cnt = 0; cnt < bFirstID; cnt++ )
-	{
-	  if ( gTeamPanel[ cnt ].fOccupied )
-	  {
-      pTeamSoldier = MercPtrs[ gTeamPanel[ cnt ].ubID ];
-
-		  if ( fOnlyRegularMercs )
-		  {
-			  if ( pTeamSoldier->bActive && ( AM_AN_EPC( pTeamSoldier ) || AM_A_ROBOT( pTeamSoldier ) ) )
-			  {
-				  continue;
-			  }
-		  }
-
-		  if ( fGoodForLessOKLife )
-		  {
-			  if ( pTeamSoldier->bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && pTeamSoldier->bAssignment < ON_DUTY  && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
-			  {
-				  return( (UINT8)gTeamPanel[ cnt ].ubID );
-			  }
-		  }
-		  else
-		  {
-			  if ( OK_CONTROLLABLE_MERC( pTeamSoldier) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
-			  {
-				  return( (UINT8)gTeamPanel[ cnt ].ubID );
-			  }
-		  }
-    }
+			if ( fGoodForLessOKLife )
+			{
+				if ( pTeamSoldier->bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && pTeamSoldier->bAssignment < ON_DUTY  && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
+				{
+					return( (UINT8)gTeamPanel[ cnt ].ubID );
+				}
+			}
+			else
+			{
+				if ( OK_CONTROLLABLE_MERC( pTeamSoldier) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
+				{
+					return( (UINT8)gTeamPanel[ cnt ].ubID );
+				}
+			}
+		}
 	}
 
+
+	if ( ( gusSelectedSoldier != NO_SOLDIER ) && ( gGameSettings.fOptions[ TOPTION_SPACE_SELECTS_NEXT_SQUAD ] ) )
+	{ 
+		// only allow if nothing in hand and if in SM panel, the Change Squad button must be enabled
+		if ( ( ( gsCurInterfacePanel != TEAM_PANEL ) || ( ButtonList[ iTEAMPanelButtons[ CHANGE_SQUAD_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
+		{
+			SOLDIERTYPE *pNewSoldier;
+			INT32		iCurrentSquad;
+
+			//Select next squad
+			iCurrentSquad = CurrentSquad( );
+
+			pNewSoldier = FindNextActiveSquad( MercPtrs[ gusSelectedSoldier ] );
+
+			if ( pNewSoldier->bAssignment != iCurrentSquad )
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( CurrentSquad( ) + 1 ) );
+
+				return( pNewSoldier->ubID );
+			}
+		}
+	}
+
+	if ( !gGameSettings.fOptions[ TOPTION_SPACE_SELECTS_NEXT_SQUAD ] )
+	{
+		// none found,
+		// Now loop back
+		for ( cnt = 0; cnt < bFirstID; cnt++ )
+		{
+			if ( gTeamPanel[ cnt ].fOccupied )
+			{
+				pTeamSoldier = MercPtrs[ gTeamPanel[ cnt ].ubID ];
+
+				if ( fOnlyRegularMercs )
+				{
+					if ( pTeamSoldier->bActive && ( AM_AN_EPC( pTeamSoldier ) || AM_A_ROBOT( pTeamSoldier ) ) )
+					{
+						continue;
+					}
+				}
+
+				if ( fGoodForLessOKLife )
+				{
+					if ( pTeamSoldier->bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && pTeamSoldier->bAssignment < ON_DUTY  && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
+					{
+						return( (UINT8)gTeamPanel[ cnt ].ubID );
+					}
+				}
+				else
+				{
+					if ( OK_CONTROLLABLE_MERC( pTeamSoldier) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
+					{
+						return( (UINT8)gTeamPanel[ cnt ].ubID );
+					}
+				}
+			}
+		}
+	}
 	// IF we are here, keep as we always were!
 	return( pSoldier->ubID );
-
 }
 
 

@@ -45,6 +45,7 @@ enum
 	TOPTION_DROP_ALL,
 	TOPTION_GL_HIGH_ANGLE,
 	TOPTION_AIM_LEVEL_RESTRICTION,
+	TOPTION_SPACE_SELECTS_NEXT_SQUAD,
 	NUM_GAME_OPTIONS,				//Toggle up this will be able to be Toggled by the player
 
 	//These options will NOT be toggable by the Player

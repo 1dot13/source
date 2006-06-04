@@ -3405,6 +3405,8 @@ STR16		zOptionsToggleText[] =
 	L"Enemies Drop All Items",
 	L"High Angle Grenade Launching",
 	L"Restrict Extra Aim Levels to Rifles",
+	L"Space selects next squad",
+	L"When enabled |S|p|a|c|e selects next squad automatically.",
 };
 
 //This is the help text associated with the above toggles.

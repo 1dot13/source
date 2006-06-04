@@ -1816,60 +1816,62 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			fShift = InputEvent.usKeyState & SHIFT_DOWN ? TRUE : FALSE;
 			switch( InputEvent.usParam )
 			{
-				case SPACE:
+			case SPACE:
 
-					// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
-					if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV )  &&
-							 ( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ NEXTMERC_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
+				// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
+				if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV )  &&
+					( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ NEXTMERC_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
+				{
+					if ( !InKeyRingPopup( ) )
 					{
-						if ( !InKeyRingPopup( ) )
+						if ( _KeyDown( SHIFT ) )
 						{
-							if ( _KeyDown( SHIFT ) )
-							{
-								SOLDIERTYPE *pNewSoldier;
-								INT32				iCurrentSquad;
+							SOLDIERTYPE *pNewSoldier;
+							INT32		iCurrentSquad;
 
-								if ( gusSelectedSoldier != NO_SOLDIER )
-								{ 
-									// only allow if nothing in hand and if in SM panel, the Change Squad button must be enabled
-									if ( 
-											 ( ( gsCurInterfacePanel != TEAM_PANEL ) || ( ButtonList[ iTEAMPanelButtons[ CHANGE_SQUAD_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
+							if ( gusSelectedSoldier != NO_SOLDIER )
+							{ 
+								// only allow if nothing in hand and if in SM panel, the Change Squad button must be enabled
+								if ( 
+									( ( gsCurInterfacePanel != TEAM_PANEL ) || ( ButtonList[ iTEAMPanelButtons[ CHANGE_SQUAD_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
+								{
+									//Select next squad
+									iCurrentSquad = CurrentSquad( );
+
+									pNewSoldier = FindNextActiveSquad( MercPtrs[ gusSelectedSoldier ] );
+
+									if ( pNewSoldier->bAssignment != iCurrentSquad )
 									{
-										//Select next squad
-										iCurrentSquad = CurrentSquad( );
+										HandleLocateSelectMerc( pNewSoldier->ubID, LOCATEANDSELECT_MERC );
 
-										pNewSoldier = FindNextActiveSquad( MercPtrs[ gusSelectedSoldier ] );
+										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( CurrentSquad( ) + 1 ) );
 
-										if ( pNewSoldier->bAssignment != iCurrentSquad )
-										{
-  										HandleLocateSelectMerc( pNewSoldier->ubID, LOCATEANDSELECT_MERC );
-
-											ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( CurrentSquad( ) + 1 ) );
-
-							        // Center to guy....
-							        LocateSoldier( gusSelectedSoldier, SETLOCATOR );
-										}
+										// Center to guy....
+										LocateSoldier( gusSelectedSoldier, SETLOCATOR );
 									}
 								}
 							}
-							else
-							{
-								if ( gusSelectedSoldier != NO_SOLDIER )
-								{ //Select next merc
-									UINT8 bID;
-
-                  bID = FindNextMercInTeamPanel( MercPtrs[ gusSelectedSoldier ], FALSE, FALSE );
-									HandleLocateSelectMerc( bID, LOCATEANDSELECT_MERC );
-
-							    // Center to guy....
-							    LocateSoldier( gusSelectedSoldier, SETLOCATOR );
-								}
-							}
-
-  						*puiNewEvent = M_ON_TERRAIN;
 						}
+						else
+						{
+							if ( gusSelectedSoldier != NO_SOLDIER )
+							{ //Select next merc
+								UINT8 bID;
+
+								bID = FindNextMercInTeamPanel( MercPtrs[ gusSelectedSoldier ], FALSE, FALSE );
+
+								HandleLocateSelectMerc( bID, LOCATEANDSELECT_MERC );
+
+								// Center to guy....
+								LocateSoldier( gusSelectedSoldier, SETLOCATOR );
+							}
+						}
+
+						*puiNewEvent = M_ON_TERRAIN;
 					}
-					break;
+				}
+				break;
+
 				case TAB:
 					// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
 					if ( ( gpItemPointer == NULL ) &&

@@ -3416,6 +3416,7 @@ STR16		zOptionsToggleText[] =
 	L"Enemies Drop All Items",
 	L"High Angle Grenade Launching",
 	L"Restrict Extra Aim Levels to Rifles",
+	L"Space selects next squad",
 };
 
 //This is the help text associated with the above toggles.
@@ -3486,6 +3487,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Enemies drop all items on death.",
 	L"Grenade launchers fire grenades at higher angles.",
 	L"Aim levels beyond 4 are restricted to rifles and sniper rifles.",
+	L"When enabled |S|p|a|c|e selects next squad automatically.",
 };
 
 
