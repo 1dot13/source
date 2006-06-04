@@ -7377,8 +7377,9 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 		case IC_THROWING_KNIFE:
 		case IC_PUNCH:
 			{
-				swprintf( (wchar_t *)pStr, L"%s\n%s %d\n%s %d\n%s %1.1f %s", 
+				swprintf( (wchar_t *)pStr, L"%s [%d%%]\n%s %d\n%s %d\n%s %1.1f %s", 
 					ItemNames[ usItem ], 
+					sValue, 
 					gWeaponStatsDesc[ 11 ],					//Damage String
 					GetDamage(pObject), 					//Melee damage
 					gWeaponStatsDesc[ 5 ],					//AP String
