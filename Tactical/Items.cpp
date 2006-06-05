@@ -7106,7 +7106,7 @@ INT16 GetMinRangeForAimBonus( OBJECTTYPE * pObj )
 	INT16 bns;
 
 	bns = Item[pObj->usItem].minrangeforaimbonus;
-	bns += Item[pObj->usGunAmmoItem].minrangeforaimbonus;
+	//bns += Item[pObj->usGunAmmoItem].minrangeforaimbonus;
 
 	for (int i = 0; i < MAX_ATTACHMENTS; i++)
 	{
@@ -7119,21 +7119,24 @@ INT16 GetMinRangeForAimBonus( OBJECTTYPE * pObj )
 UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier)
 {
 	UINT8 aimLevels = 4;
+	float iScopeBonus = 0;
 	OBJECTTYPE obj = pSoldier->inv[pSoldier->ubAttackingHand]; 
 	BOOLEAN allowed = TRUE;
-
+	
 	if ( gGameSettings.fOptions[TOPTION_AIM_LEVEL_RESTRICTION] && Weapon[obj.usItem].ubWeaponType != GUN_RIFLE && Weapon[obj.usItem].ubWeaponType != GUN_SN_RIFLE )
 			allowed = FALSE;
 
 	if ( allowed && IsScoped( &obj ) )
 	{
-		if ( GetMinRangeForAimBonus(&obj) >= (UINT8)(gGameExternalOptions.ubStraightSightRange * 3) ) // >= 30% of sight range (~4 tiles by default)
+		iScopeBonus = ( (float)gGameExternalOptions.ubStraightSightRange * GetMinRangeForAimBonus(&obj) / 100 );
+
+		if (  iScopeBonus >= ( (float)gGameExternalOptions.ubStraightSightRange * 0.3) ) // >= 30% of sight range (~4 tiles by default)
 		{
 			aimLevels += 2;
 		}
 		
-		if ( GetMinRangeForAimBonus(&obj) >= (UINT8)(gGameExternalOptions.ubStraightSightRange * 6) ) // >= 60% of sight range (~9 tiles by default)
-		{
+		if ( iScopeBonus >= ( (float)gGameExternalOptions.ubStraightSightRange * 0.6) ) // >= 60% of sight range (~9 tiles by default)
+		{			
 			aimLevels += 2;
 		}
 	}

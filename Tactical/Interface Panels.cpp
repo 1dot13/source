@@ -5354,41 +5354,39 @@ UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife
 		}
 	}
 
-	if ( !gGameSettings.fOptions[ TOPTION_SPACE_SELECTS_NEXT_SQUAD ] )
+	// none found,
+	// Now loop back
+	for ( cnt = 0; cnt < bFirstID; cnt++ )
 	{
-		// none found,
-		// Now loop back
-		for ( cnt = 0; cnt < bFirstID; cnt++ )
+		if ( gTeamPanel[ cnt ].fOccupied )
 		{
-			if ( gTeamPanel[ cnt ].fOccupied )
+			pTeamSoldier = MercPtrs[ gTeamPanel[ cnt ].ubID ];
+
+			if ( fOnlyRegularMercs )
 			{
-				pTeamSoldier = MercPtrs[ gTeamPanel[ cnt ].ubID ];
-
-				if ( fOnlyRegularMercs )
+				if ( pTeamSoldier->bActive && ( AM_AN_EPC( pTeamSoldier ) || AM_A_ROBOT( pTeamSoldier ) ) )
 				{
-					if ( pTeamSoldier->bActive && ( AM_AN_EPC( pTeamSoldier ) || AM_A_ROBOT( pTeamSoldier ) ) )
-					{
-						continue;
-					}
+					continue;
 				}
+			}
 
-				if ( fGoodForLessOKLife )
+			if ( fGoodForLessOKLife )
+			{
+				if ( pTeamSoldier->bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && pTeamSoldier->bAssignment < ON_DUTY  && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
 				{
-					if ( pTeamSoldier->bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && pTeamSoldier->bAssignment < ON_DUTY  && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
-					{
-						return( (UINT8)gTeamPanel[ cnt ].ubID );
-					}
+					return( (UINT8)gTeamPanel[ cnt ].ubID );
 				}
-				else
+			}
+			else
+			{
+				if ( OK_CONTROLLABLE_MERC( pTeamSoldier) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
 				{
-					if ( OK_CONTROLLABLE_MERC( pTeamSoldier) && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
-					{
-						return( (UINT8)gTeamPanel[ cnt ].ubID );
-					}
+					return( (UINT8)gTeamPanel[ cnt ].ubID );
 				}
 			}
 		}
 	}
+
 	// IF we are here, keep as we always were!
 	return( pSoldier->ubID );
 }

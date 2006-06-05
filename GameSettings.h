@@ -190,11 +190,11 @@ typedef struct
 	BOOLEAN gfVSync;
 
 	//Animation settings
-	UINT8 gubPlayerTurnSpeedUpFactor;
-	UINT8 gubEnemyTurnSpeedUpFactor;
-	UINT8 gubCreatureTurnSpeedUpFactor;
-	UINT8 gubMilitiaTurnSpeedUpFactor;
-	UINT8 gubCivilianTurnSpeedUpFactor;
+	UINT32 gubPlayerTurnSpeedUpFactor;
+	UINT32 gubEnemyTurnSpeedUpFactor;
+	UINT32 gubCreatureTurnSpeedUpFactor;
+	UINT32 gubMilitiaTurnSpeedUpFactor;
+	UINT32 gubCivilianTurnSpeedUpFactor;
 
 	//Sound settings
 	UINT32 guiWeaponSoundEffectsVolume;
@@ -217,15 +217,15 @@ typedef struct
 
 	
 	//Sight range
-	UINT8  ubStraightSightRange;
+	UINT32  ubStraightSightRange;
 	UINT32 ubVisDistDecreasePerRainIntensity;
 	BOOLEAN gfAllowLimitedVision;
 
 	// Rain settings
 	BOOLEAN gfAllowRain;
-	UINT16 gusRainChancePerDay;
-	UINT16 gusRainMinLength;
-	UINT16 gusRainMaxLength;
+	UINT32 gusRainChancePerDay;
+	UINT32 gusRainMinLength;
+	UINT32 gusRainMaxLength;
 	UINT32 guiMaxRainDrops;
 	UINT32 ubWeaponReliabilityReductionPerRainIntensity;
 	double ubBreathGainReductionPerRainIntensity;
@@ -239,12 +239,12 @@ typedef struct
 	UINT32 guiChanceToDoLightningBetweenTurns;
 
 	//Gameplay settings
-	UINT8 ubGameProgressStartMadlabQuest;
-	UINT8 ubGameProgressMikeAvailable;
-	UINT8 ubGameProgressIggyAvaliable;
-	UINT8 ubExplosivesDamageMultiplier;
-	UINT8 ubGunDamageMultiplier;
-	UINT8 ubMeleeDamageMultiplier;
+	UINT32 ubGameProgressStartMadlabQuest;
+	UINT32 ubGameProgressMikeAvailable;
+	UINT32 ubGameProgressIggyAvaliable;
+	UINT32 ubExplosivesDamageMultiplier;
+	UINT32 ubGunDamageMultiplier;
+	UINT32 ubMeleeDamageMultiplier;
 
 	UINT32 ubEasyEnemyStartingAlertLevel;
 	UINT32 ubNormalEnemyStartingAlertLevel;
