@@ -672,33 +672,44 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 
 		if ( Item[usGunIndex].defaultattachment > 0 )
 		{
-			//check for incompatibilities 
-			for(i = 0;i<sizeof(IncompatibleAttachments);i++)
-			{
-				if ( IncompatibleAttachments[i][0] == NONE )
-					break;
-			
-				if ( IncompatibleAttachments[i][0] == usAttachIndex && IncompatibleAttachments[i][1] == Item[usGunIndex].defaultattachment )
-				{
-					// default attachment wins
-					usAttachIndex = 0;
-					break;
-				}
-			}
 
-			if ( usScopeIndex > 0 )
+			if ( Item[usGunIndex].defaultattachment == usAttachIndex )
+				usAttachIndex = 0;
+			else
 			{
-				//check for incompatibilities w/scope
+				//check for incompatibilities 
 				for(i = 0;i<sizeof(IncompatibleAttachments);i++)
 				{
 					if ( IncompatibleAttachments[i][0] == NONE )
 						break;
 				
-					if ( IncompatibleAttachments[i][0] == usScopeIndex && IncompatibleAttachments[i][1] == Item[usGunIndex].defaultattachment )
+					if ( IncompatibleAttachments[i][0] == usAttachIndex && IncompatibleAttachments[i][1] == Item[usGunIndex].defaultattachment )
 					{
 						// default attachment wins
-						usScopeIndex = 0;
+						usAttachIndex = 0;
 						break;
+					}
+				}
+			}
+
+			if ( usScopeIndex > 0 )
+			{
+				if ( Item[usGunIndex].defaultattachment == usScopeIndex )
+					usScopeIndex = 0;
+				else
+				{
+					//check for incompatibilities w/scope
+					for(i = 0;i<sizeof(IncompatibleAttachments);i++)
+					{
+						if ( IncompatibleAttachments[i][0] == NONE )
+							break;
+					
+						if ( IncompatibleAttachments[i][0] == usScopeIndex && IncompatibleAttachments[i][1] == Item[usGunIndex].defaultattachment )
+						{
+							// default attachment wins
+							usScopeIndex = 0;
+							break;
+						}
 					}
 				}
 			}
@@ -725,7 +736,7 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 			if ( ( bAttachClass - Item[usAttachIndex].ubCoolness ) > 0 && Random(2) )
 			{
 				usAttachIndex2 = PickARandomAttachment(ATTACHMENTS,usGunIndex,bAttachClass,FALSE);
-				
+								
 				//check for incompatibilities with 1st attachment
 				for(i = 0;i<sizeof(IncompatibleAttachments);i++)
 				{
