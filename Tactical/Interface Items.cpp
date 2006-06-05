@@ -7323,7 +7323,6 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 			break;
 
 		case IC_GUN:
-		case IC_LAUNCHER:
 			{
 				//Calculate AP's
 				INT16 apStr[20];
@@ -7362,8 +7361,57 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 					gWeaponStatsDesc[ 11 ],		//Damage String
 					GetDamage(pObject), 
 					gWeaponStatsDesc[ 10 ],		//Range String
-					GunRange( pObject )/10,		//Modified Range
-					Weapon[ usItem ].usRange/10,	//Gun Range 
+					GunRange( pObject ),		//Modified Range
+					Weapon[ usItem ].usRange,	//Gun Range 
+					gWeaponStatsDesc[ 5 ],		//AP String
+					apStr,						//AP's
+					gWeaponStatsDesc[ 12 ],		//Weight String
+					fWeight,					//Weight
+					GetWeightUnitString()		//Weight units
+					);
+			}
+			break;
+
+		case IC_LAUNCHER:
+			{
+				//Calculate AP's
+				INT16 apStr[20];
+				INT16 apStr2[20];
+				UINT8 ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, pObject );
+
+				swprintf( (wchar_t *)apStr, L"%d", ubAttackAPs );
+
+				if (GetShotsPerBurst(pObject) > 0)
+				{
+					swprintf( (wchar_t *)apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, pObject ) );
+					wcscat( apStr, apStr2 );
+				}
+				else
+				{
+					wcscat( apStr, L" / -" );
+				}
+
+				if (GetAutofireShotsPerFiveAPs(pObject) > 0)
+				{
+					swprintf( (wchar_t *)apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, pObject, 3 ) );
+					wcscat( apStr, apStr2 );
+				}
+				else
+				{
+					wcscat( apStr, L" / -" );
+				}
+
+				//Info for weapons
+				swprintf( (wchar_t *)pStr, L"%s [%d%%]\n%s %d\n%s %d\n%s %d (%d)\n%s %s\n%s %1.1f %s", 
+					ItemNames[ usItem ], 
+					sValue, 
+					gWeaponStatsDesc[ 9 ],		//Accuracy String
+					Weapon[ usItem ].bAccuracy,
+					gWeaponStatsDesc[ 11 ],		//Damage String
+					GetDamage(pObject), 
+					gWeaponStatsDesc[ 10 ],		//Range String
+					GunRange( pObject ),		//Modified Range
+					Weapon[ usItem ].usRange,	//Gun Range 
 					gWeaponStatsDesc[ 5 ],		//AP String
 					apStr,						//AP's
 					gWeaponStatsDesc[ 12 ],		//Weight String
