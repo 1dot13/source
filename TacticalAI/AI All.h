@@ -94,5 +94,6 @@
 #include "Queen Command.h"
 #include "Lighting.h"
 #include "environment.h"
+#include "Sound Control.h"
 
 #endif

@@ -775,7 +775,7 @@ BOOLEAN ReadInWeaponStats(STR fileName)
 			FilePrintf(hFile,"\t\t<sLocknLoadSound>%d</sLocknLoadSound>\r\n",					Weapon[cnt].sLocknLoadSound);
 			FilePrintf(hFile,"\t\t<bBurstAP>%d</bBurstAP>\r\n",									Weapon[cnt].bBurstAP);
 			FilePrintf(hFile,"\t\t<bAutofireShotsPerFiveAP>%d</bAutofireShotsPerFiveAP>\r\n",	Weapon[cnt].bAutofireShotsPerFiveAP);
-			FilePrintf(hFile,"\t\t<APsToReloadManually>%d</APsToReloadManually>\r\n",			Weapon[cnt].ManualReloadAPs);
+			FilePrintf(hFile,"\t\t<APsToReloadManually>%d</APsToReloadManually>\r\n",			Weapon[cnt].APsToReloadManually);
 			FilePrintf(hFile,"\t\t<ManualReloadSound>%d</ManualReloadSound>\r\n",				Weapon[cnt].ManualReloadSound);
 			FilePrintf(hFile,"\t</WEAPON>\r\n");
 		}
