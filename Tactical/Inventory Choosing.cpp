@@ -1786,7 +1786,11 @@ void ChooseMiscGearForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bMiscC
 			usItem = PickARandomItem (MISCITEMS , bMiscClass, FALSE);
 			if ( usItem > 0 )
 			{
-				CreateItem( usItem, (INT8)(80 + Random( 21 )), &Object );
+				int bStatus = 80 + Random( 21 );
+				if ( Item[usItem].usItemClass == IC_MONEY )
+					bStatus = 1 + Random( 20 );
+
+				CreateItem( usItem, (INT8)(bStatus), &Object );
 				Object.fFlags |= OBJECT_UNDROPPABLE;
 				PlaceObjectInSoldierCreateStruct( pp, &Object );
 			}

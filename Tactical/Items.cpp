@@ -4699,7 +4699,7 @@ BOOLEAN CreateItem( UINT16 usItem, INT8 bStatus, OBJECTTYPE * pObj )
 	{
 		pObj->usItem = usItem;
 		pObj->ubNumberOfObjects = 1;
-		if (usItem == MONEY)
+		if (usItem == MONEY || Item[usItem].usItemClass == IC_MONEY )
 		{
 			// special case... always set status to 100 when creating
 			// and use status value to determine amount!
