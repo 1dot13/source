@@ -1852,18 +1852,40 @@ INT32 EstimateStabDamage( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 
 INT8 TryToReload( SOLDIERTYPE * pSoldier )
 {
-	INT8						bSlot;
-	WEAPONTYPE *		pWeapon;
+	INT8		bSlot;
+	WEAPONTYPE *pWeapon;
+	OBJECTTYPE *pObj;
 
 	pWeapon = &(Weapon[pSoldier->inv[HANDPOS].usItem]);
 	bSlot = FindAmmo( pSoldier, pWeapon->ubCalibre, pWeapon->ubMagSize, NO_SLOT );
-	if (bSlot != NO_SLOT)
+
+	//if (bSlot != NO_SLOT)
+	//{
+	//	if (ReloadGun( pSoldier, &(pSoldier->inv[HANDPOS]), &(pSoldier->inv[bSlot]) ))
+	//	{
+	//		return( TRUE );
+	//	}
+	//}
+
+//<SB> manual recharge
+	pObj = &(pSoldier->inv[HANDPOS]);
+
+	if (pObj->ubGunShotsLeft && !(pObj->ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
 	{
-		if (ReloadGun( pSoldier, &(pSoldier->inv[HANDPOS]), &(pSoldier->inv[bSlot]) ))
-		{
-			return( TRUE );
-		}
+		pObj->ubGunState |= GS_CARTRIDGE_IN_CHAMBER;
+
+		DeductPoints(pSoldier, Weapon[Item[(pObj)->usItem].ubClassIndex].APsToReloadManually, 0);
+		
+		//PlayJA2Sample( Weapon[ Item[pObj->usItem].ubClassIndex ].ManualReloadSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+		return TRUE;
 	}
+//</SB>
+
+	if (bSlot != NO_SLOT && ReloadGun( pSoldier, &(pSoldier->inv[HANDPOS]), &(pSoldier->inv[bSlot]) ))
+	{
+			return( TRUE );
+	}
+
 	return( NOSHOOT_NOAMMO );
 }
 

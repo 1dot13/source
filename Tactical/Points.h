@@ -1,7 +1,6 @@
 #ifndef __POINTS_H_
 #define __POINTS_H_
 
-
 #define AP_MINIMUM              10      // no merc can have less for his turn
 #define AP_MAXIMUM              25      // no merc can have more for his turn
 #define AP_MONSTER_MAXIMUM      40      // no monster can have more for his turn

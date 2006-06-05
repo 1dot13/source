@@ -1169,7 +1169,6 @@ UINT16 ReplacementAmmo[][2] =
 	{ 0,								0							 }
 };
 
-
 BOOLEAN ItemIsLegal( UINT16 usItemIndex )
 {
 	//if the user has selected the reduced gun list
@@ -2733,6 +2732,8 @@ BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo
 		pGun->bGunAmmoStatus = 100;
 	}
 
+	pGun->ubGunState |= GS_CARTRIDGE_IN_CHAMBER; // Madd: reloading should automatically put cartridge in chamber
+
 	return( TRUE );
 }
 
@@ -2854,6 +2855,12 @@ INT8 FindAmmoToReload( SOLDIERTYPE * pSoldier, INT8 bWeaponIn, INT8 bExcludeSlot
 		return( NO_SLOT );
 	}
 	pObj = &(pSoldier->inv[bWeaponIn]);
+
+//<SB> manual recharge
+	if (pObj->ubGunShotsLeft && !(pObj->ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
+		return bWeaponIn;
+//</SB>
+
 	if ( Item[pObj->usItem].usItemClass == IC_GUN && !Item[pObj->usItem].cannon )
 	{
 		// look for same ammo as before
@@ -2917,6 +2924,19 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier )
 
 	CHECKF( pSoldier );
 	pObj = &(pSoldier->inv[HANDPOS]);
+
+//<SB> manual recharge
+	if (pObj->ubGunShotsLeft && !(pObj->ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
+	{
+		pObj->ubGunState |= GS_CARTRIDGE_IN_CHAMBER;
+
+		DeductPoints(pSoldier, Weapon[Item[(pObj)->usItem].ubClassIndex].APsToReloadManually, 0);
+
+		PlayJA2Sample( Weapon[ Item[pObj->usItem].ubClassIndex ].ManualReloadSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+
+		return TRUE;
+	}
+//</SB>
 
 	if (Item[pObj->usItem].usItemClass == IC_GUN || Item[pObj->usItem].usItemClass == IC_LAUNCHER)
 	{
@@ -4646,6 +4666,7 @@ BOOLEAN CreateGun( UINT16 usItem, INT8 bStatus, OBJECTTYPE * pObj )
 			pObj->ubGunAmmoType = Magazine[ Item[ usAmmo ].ubClassIndex].ubAmmoType;
 			pObj->bGunAmmoStatus = 100;
 			pObj->ubGunShotsLeft = Magazine[ Item[ usAmmo ].ubClassIndex ].ubMagSize;
+			pObj->ubGunState |= GS_CARTRIDGE_IN_CHAMBER; // Madd: new guns should have cartridge in chamber
 			/*
 			if (usItem == CAWS)
 			{

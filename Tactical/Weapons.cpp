@@ -394,8 +394,10 @@ weaponStartElementHandle(void *userData, const char *name, const char **atts)
 				strcmp(name, "NoSemiAuto") == 0 ||
 				strcmp(name, "MaxDistForMessyDeath") == 0 ||
 				strcmp(name, "SilencedSound") == 0 || // Lesh: add new field (OR operand)
-                strcmp(name, "BurstAniDelay") == 0))   // Lesh: add new field (field itself)
-
+                strcmp(name, "BurstAniDelay") == 0 || // Lesh: add new field (field itself)
+				strcmp(name, "APsToReloadManually") == 0 ||
+				strcmp(name, "ManualReloadSound") == 0)
+				)
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON_PROPERY;
 
@@ -611,6 +613,16 @@ weaponEndElementHandle(void *userData, const char *name)
             pData->curWeapon.sAniDelay = (INT16) atol(pData->szCharData);
 		}
         // Lesh: end
+   		else if(strcmp(name, "APsToReloadManually") == 0)
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+            pData->curWeapon.APsToReloadManually = (UINT8) atol(pData->szCharData);
+		}
+   		else if(strcmp(name, "ManualReloadSound") == 0)
+		{
+			pData->curElement = WEAPON_ELEMENT_WEAPON;
+            pData->curWeapon.ManualReloadSound = (UINT16) atol(pData->szCharData);
+		}
 
 		pData->maxReadDepth--;
 	}
@@ -758,11 +770,13 @@ BOOLEAN ReadInWeaponStats(STR fileName)
 			FilePrintf(hFile,"\t\t<ubHitVolume>%d</ubHitVolume>\r\n",							Weapon[cnt].ubHitVolume);
 			FilePrintf(hFile,"\t\t<sSound>%d</sSound>\r\n",										Weapon[cnt].sSound);
 			FilePrintf(hFile,"\t\t<sBurstSound>%d</sBurstSound>\r\n",							Weapon[cnt].sBurstSound);
-			FilePrintf(hFile,"\t\t<sSilencedBurstSound>%d</sSilencedBurstSound>\r\n",							Weapon[cnt].sSilencedBurstSound);
+			FilePrintf(hFile,"\t\t<sSilencedBurstSound>%d</sSilencedBurstSound>\r\n",			Weapon[cnt].sSilencedBurstSound);
 			FilePrintf(hFile,"\t\t<sReloadSound>%d</sReloadSound>\r\n",							Weapon[cnt].sReloadSound);
 			FilePrintf(hFile,"\t\t<sLocknLoadSound>%d</sLocknLoadSound>\r\n",					Weapon[cnt].sLocknLoadSound);
-			FilePrintf(hFile,"\t\t<bBurstAP>%d</bBurstAP>\r\n",				Weapon[cnt].bBurstAP);
+			FilePrintf(hFile,"\t\t<bBurstAP>%d</bBurstAP>\r\n",									Weapon[cnt].bBurstAP);
 			FilePrintf(hFile,"\t\t<bAutofireShotsPerFiveAP>%d</bAutofireShotsPerFiveAP>\r\n",	Weapon[cnt].bAutofireShotsPerFiveAP);
+			FilePrintf(hFile,"\t\t<APsToReloadManually>%d</APsToReloadManually>\r\n",			Weapon[cnt].ManualReloadAPs);
+			FilePrintf(hFile,"\t\t<ManualReloadSound>%d</ManualReloadSound>\r\n",				Weapon[cnt].ManualReloadSound);
 			FilePrintf(hFile,"\t</WEAPON>\r\n");
 		}
 		FilePrintf(hFile,"</WEAPONLIST>\r\n");
@@ -1914,7 +1928,10 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 		pSoldier->bMonsterSmell--;
 	}
 
-
+//<SB> manual recharge
+	if (Weapon[Item[usItemNum].ubClassIndex].APsToReloadManually > 0)
+		pSoldier->inv[ pSoldier->ubAttackingHand ].ubGunState &= ~GS_CARTRIDGE_IN_CHAMBER;
+//<SB>
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("UseGun: done"));
 	return( TRUE );
 }

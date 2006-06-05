@@ -1583,6 +1583,16 @@ BOOLEAN EnoughAmmo( SOLDIERTYPE *pSoldier, BOOLEAN fDisplay, INT8 bInvPos )
 					}
 					return( FALSE );
 				}
+
+				//<SB> manual recharge
+				if( pSoldier->bTeam == OUR_TEAM )
+				{
+					if ( !(	pSoldier->inv[ bInvPos ].ubGunState & GS_CARTRIDGE_IN_CHAMBER ) )
+					{
+						return( FALSE );
+					}
+				}
+				//</SB>
 			}
 		}
 
@@ -1755,6 +1765,13 @@ INT8 GetAPsToAutoReload( SOLDIERTYPE * pSoldier )
 
 	CHECKF( pSoldier );
 	pObj = &(pSoldier->inv[HANDPOS]);
+
+//<SB> manual recharge
+	if (pObj->ubGunShotsLeft && !(pObj->ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
+	{
+		return Weapon[Item[(pObj)->usItem].ubClassIndex].APsToReloadManually;
+	}
+//</SB>
 
 	if (Item[pObj->usItem].usItemClass == IC_GUN || Item[pObj->usItem].usItemClass == IC_LAUNCHER) 
 	{

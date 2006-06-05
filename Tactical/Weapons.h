@@ -266,8 +266,10 @@ typedef struct
  UINT8	APsToReload;
  UINT8	maxdistformessydeath;
  BOOLEAN NoSemiAuto;
- UINT8 AutoPenalty;
+ UINT8	AutoPenalty;
  INT16  sAniDelay;          // Lesh: for burst animation delay
+ UINT8	APsToReloadManually;
+ UINT16 ManualReloadSound;
 
 } WEAPONTYPE;
 typedef struct

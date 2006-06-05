@@ -59,13 +59,15 @@ typedef enum
 #define PANIC_FREQUENCY_3 125
 
 #define OBJECT_UNDROPPABLE					0x01
-#define OBJECT_MODIFIED							0x02
+#define OBJECT_MODIFIED						0x02
 #define OBJECT_AI_UNUSABLE					0x04
-#define OBJECT_ARMED_BOMB						0x08
-#define OBJECT_KNOWN_TO_BE_TRAPPED	0x10
+#define OBJECT_ARMED_BOMB					0x08
+#define OBJECT_KNOWN_TO_BE_TRAPPED			0x10
 #define OBJECT_DISABLED_BOMB				0x20
 #define OBJECT_ALARM_TRIGGER				0x40
 #define OBJECT_NO_OVERWRITE					0x80
+
+#define GS_CARTRIDGE_IN_CHAMBER				0x01
 
 typedef struct
 {
@@ -78,8 +80,9 @@ typedef struct
 			INT8		bGunStatus;			// status % of gun
 			UINT8		ubGunAmmoType;	// ammo type, as per weapons.h
 			UINT8		ubGunShotsLeft;	// duh, amount of ammo left
-			UINT16	usGunAmmoItem;	// the item # for the item table
+			UINT16		usGunAmmoItem;	// the item # for the item table
 			INT8		bGunAmmoStatus; // only for "attached ammo" - grenades, mortar shells
+			UINT8		ubGunState; // SB manual recharge
 			UINT8		ubGunUnused[MAX_OBJECTS_PER_SLOT - 6];
 		};
 		struct
