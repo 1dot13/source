@@ -5555,4 +5555,3 @@ INT8 GetAPsToReload( OBJECTTYPE *pObj )
 		( 100 - GetPercentReloadTimeAPReduction(pObj) ) ) / 100;
 
 }
-
