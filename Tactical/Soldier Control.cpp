@@ -9789,7 +9789,7 @@ void SelectMoveAnimationFromStance( SOLDIERTYPE *pSoldier )
 
 void GetActualSoldierAnimDims( SOLDIERTYPE *pSoldier, INT16 *psHeight, INT16 *psWidth )
 {
-	UINT16											 usAnimSurface;
+	UINT16		usAnimSurface;
 	ETRLEObject *pTrav;
 
 	usAnimSurface = GetSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
@@ -9802,12 +9802,12 @@ void GetActualSoldierAnimDims( SOLDIERTYPE *pSoldier, INT16 *psHeight, INT16 *ps
 		return;
 	}
 
-  if ( gAnimSurfaceDatabase[ usAnimSurface ].hVideoObject == NULL )
-  {
+	if ( gAnimSurfaceDatabase[ usAnimSurface ].hVideoObject == NULL )
+	{
 		*psHeight					= (INT16)5;
 		*psWidth					= (INT16)5;		
 		return;
-  }
+	}
 
 	// OK, noodle here on what we should do... If we take each frame, it will be different slightly
 	// depending on the frame and the value returned here will vary thusly. However, for the
@@ -9815,7 +9815,8 @@ void GetActualSoldierAnimDims( SOLDIERTYPE *pSoldier, INT16 *psHeight, INT16 *ps
 
 	if ( pSoldier->usAniFrame >= gAnimSurfaceDatabase[ usAnimSurface ].hVideoObject->usNumberOfObjects )
 	{
-		int i = 0;		
+		//int i = 0;
+		return;
 	}
 
 	pTrav = &(gAnimSurfaceDatabase[ usAnimSurface ].hVideoObject->pETRLEObject[ pSoldier->usAniFrame ] );

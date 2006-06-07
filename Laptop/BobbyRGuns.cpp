@@ -1327,6 +1327,67 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 		switch( Item[ pItemNumbers[ i ] ].usItemClass )
 		{
 		case IC_GUN:
+			//Calculate AP's
+			//INT16 apStr[20];
+
+			//if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
+			//{
+			//	INT16 apStr2[20];
+			//	UINT8 ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, pObject );
+
+			//	swprintf( (wchar_t *)apStr, L"%d", ubAttackAPs );
+
+			//	if (GetShotsPerBurst(pObject) > 0)
+			//	{
+			//		swprintf( (wchar_t *)apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, pObject ) );
+			//		wcscat( apStr, apStr2 );
+			//	}
+			//	else
+			//	{
+			//		wcscat( apStr, L" / -" );
+			//	}
+
+			//	if (GetAutofireShotsPerFiveAPs(pObject) > 0)
+			//	{
+			//		swprintf( (wchar_t *)apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, pObject, 3 ) );
+			//		wcscat( apStr, apStr2 );
+			//	}
+			//	else
+			//	{
+			//		wcscat( apStr, L" / -" );
+			//	}
+			//}
+			//else
+			//{
+			//	swprintf( (wchar_t *)apStr, L"" );
+			//}
+
+			//Info for weapons
+			//if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
+			{
+				UINT16 gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
+
+				swprintf( (wchar_t *)pStr, L"%s (%s)\n%s %d\n%s %d\n%s %d\n%s %s\n%s %1.1f %s", 
+					ItemNames[ pItemNumbers[ i ] ], 
+					AmmoCaliber[ Weapon[ pItemNumbers[ i ] ].ubCalibre ], 
+					gWeaponStatsDesc[ 9 ],					//Accuracy String
+					Weapon[ pItemNumbers[ i ] ].bAccuracy,	//Accuracy
+					gWeaponStatsDesc[ 11 ],					//Damage String
+					gunDamage,								//Gun damage
+					gWeaponStatsDesc[ 10 ],					//Range String
+					Weapon[ pItemNumbers[ i ] ].usRange,	//Gun Range 
+					gWeaponStatsDesc[ 5 ],					//AP String
+					//apStr,								//AP's
+					L"- / - / -",
+					gWeaponStatsDesc[ 12 ],					//Weight String
+					fWeight,								//Weight
+					GetWeightUnitString()					//Weight units
+					);
+			}
+			break;
+
+		
+		
 		case IC_LAUNCHER:
 			//Calculate AP's
 			//INT16 apStr[20];
@@ -1364,13 +1425,12 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			//}
 
 			//Info for weapons
-			if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
+			//if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
 			{
 				UINT16 gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
 
-				swprintf( (wchar_t *)pStr, L"%s (%s)\n%s %d\n%s %d\n%s %d\n%s %s\n%s %1.1f %s", 
+				swprintf( (wchar_t *)pStr, L"%s\n%s %d\n%s %d\n%s %d\n%s %s\n%s %1.1f %s", 
 					ItemNames[ pItemNumbers[ i ] ], 
-					AmmoCaliber[ Weapon[ pItemNumbers[ i ] ].ubCalibre ], 
 					gWeaponStatsDesc[ 9 ],					//Accuracy String
 					Weapon[ pItemNumbers[ i ] ].bAccuracy,	//Accuracy
 					gWeaponStatsDesc[ 11 ],					//Damage String
