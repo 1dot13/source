@@ -4128,15 +4128,13 @@ void MSYS_SetBtnUserData(INT32 iButtonNum,INT32 index,INT32 userdata)
 {
   GUI_BUTTON *b;
 	b=ButtonList[iButtonNum];
-	if(index < 0 || index > 3)
+	if((index < 0) || (index > 3))
 		return;
-	b->UserData[index]=userdata;
+	if(b != NULL) b->UserData[index]=userdata;
 }
 
 INT32 MSYS_GetBtnUserData(GUI_BUTTON *b,INT32 index)
 {
-
-
 	if(index < 0 || index > 3)
 		return(0);
 
