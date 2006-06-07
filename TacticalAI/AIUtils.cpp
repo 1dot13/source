@@ -27,6 +27,8 @@
 // InWaterOrGas - gas stuff
 // RoamingRange - point patrol stuff
 
+extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady );
+
 UINT8 Urgency[NUM_STATUS_STATES][NUM_MORALE_STATES] =
 {
 	{URGENCY_LOW,  URGENCY_LOW,  URGENCY_LOW,  URGENCY_LOW,  URGENCY_LOW}, // green
@@ -47,7 +49,7 @@ UINT16 MovementMode[LAST_MOVEMENT_ACTION + 1][NUM_URGENCY_STATES] =
 
 	{WALKING,  WALKING,  WALKING }, // AI_ACTION_POINT_PATROL,
 	{WALKING,  RUNNING,  RUNNING }, // AI_ACTION_LEAVE_WATER_GAS,
-	{WALKING,  SWATTING, RUNNING }, // AI_ACTION_SEEK_NOISE,
+	{WALKING,  RUNNING, RUNNING }, // AI_ACTION_SEEK_NOISE,
 	{RUNNING,  RUNNING,  RUNNING }, // AI_ACTION_ESCORTED_MOVE,
 	{WALKING,  RUNNING,  RUNNING }, // AI_ACTION_RUN_AWAY,
 
@@ -55,7 +57,7 @@ UINT16 MovementMode[LAST_MOVEMENT_ACTION + 1][NUM_URGENCY_STATES] =
 	{WALKING,  WALKING,  WALKING }, // AI_ACTION_APPROACH_MERC
 	{RUNNING,  RUNNING,  RUNNING }, // AI_ACTION_TRACK
 	{RUNNING,	 RUNNING,  RUNNING },	// AI_ACTION_EAT 
-	{WALKING,	 RUNNING,  SWATTING},	// AI_ACTION_PICKUP_ITEM
+	{WALKING,	 RUNNING,  RUNNING},	// AI_ACTION_PICKUP_ITEM
 
 	{WALKING,	 WALKING,  WALKING},	// AI_ACTION_SCHEDULE_MOVE
 	{WALKING,	 WALKING,  WALKING},	// AI_ACTION_WALK
@@ -380,19 +382,16 @@ void NewDest(SOLDIERTYPE *pSoldier, UINT16 usGridNo)
 	{
 		if ( pSoldier->bTeam == ENEMY_TEAM && pSoldier->bAlertStatus == STATUS_RED )
 		{
-/* remove warning (jonathanl)
 			switch( pSoldier->bAction )
 			{
-*/
-				/*
+				
 				case AI_ACTION_MOVE_TO_CLIMB:
 				case AI_ACTION_RUN_AWAY:
 					pSoldier->usUIMovementMode = DetermineMovementMode( pSoldier, pSoldier->bAction );
 					fSet = TRUE;
-					break;*/
-// remove warning pt2 (jonathanl)
-//				default:
-					if ( PreRandom( 5 - SoldierDifficultyLevel( pSoldier ) ) == 0 )	
+					break;
+				default:
+/*					if ( PreRandom( 5 - SoldierDifficultyLevel( pSoldier ) ) == 0 )	
 					{
 						INT16 sClosestNoise = (INT16) MostImportantNoiseHeard( pSoldier, NULL, NULL, NULL );
 						if ( sClosestNoise != NOWHERE && PythSpacesAway( pSoldier->sGridNo, sClosestNoise ) < MaxDistanceVisible() + 10 )
@@ -400,16 +399,14 @@ void NewDest(SOLDIERTYPE *pSoldier, UINT16 usGridNo)
 							pSoldier->usUIMovementMode = SWATTING;
 							fSet = TRUE;
 						}
-					}
+					}*/
 					if ( !fSet )
 					{
 						pSoldier->usUIMovementMode = DetermineMovementMode( pSoldier, pSoldier->bAction );
 						fSet = TRUE;
 					}
-/* remove warning pt3 (jonathanl)
 					break;
 			}
-*/
 
 		}
 		else
@@ -436,6 +433,8 @@ void NewDest(SOLDIERTYPE *pSoldier, UINT16 usGridNo)
 BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 {
 	INT8	bMinPointsNeeded = 0;
+	INT8 bAPForStandUp = 0;
+	INT8 bAPToLookAtWall = ( FindDirectionForClimbing( pSoldier->sGridNo ) == pSoldier->bDirection ) ? 0 : 1;
 
 	//NumMessage("AffordableAction - Guy#",pSoldier->ubID);
 
@@ -527,11 +526,14 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 		case AI_ACTION_CLIMB_ROOF:
 			if (pSoldier->bLevel == 0)
 			{
-				bMinPointsNeeded = AP_CLIMBROOF;
+				if( PTR_CROUCHED ) bAPForStandUp = 2;
+				if( PTR_PRONE ) bAPForStandUp = 4;
+				bMinPointsNeeded = AP_CLIMBROOF + bAPForStandUp + bAPToLookAtWall;
 			}
 			else 
 			{
-				bMinPointsNeeded = AP_CLIMBOFFROOF;
+				if( !PTR_CROUCHED ) bAPForStandUp = 2;
+				bMinPointsNeeded = AP_CLIMBOFFROOF + bAPForStandUp + bAPToLookAtWall;
 			}
 			break;			
 
@@ -1423,7 +1425,7 @@ INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT16 sDestGridNo, INT
 		{
 			// different buildings!
 			// yes, pass in same gridno twice... want closest climb-down spot for building we are on!
-			sClimbGridNo = FindClosestClimbPointAvailableToAI( pSoldier, pSoldier->sGridNo, pSoldier->sGridNo, FALSE );
+			sClimbGridNo = FindClosestClimbPointAvailableToAI( pSoldier, sDestGridNo, pSoldier->sGridNo, FALSE );
 			if (sClimbGridNo == NOWHERE)
 			{
 				sPathCost = 0;
@@ -1464,7 +1466,7 @@ INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT16 sDestGridNo, INT
 		else
 		{
 			// got to go DOWN off building
-			sClimbGridNo = FindClosestClimbPointAvailableToAI( pSoldier, pSoldier->sGridNo, pSoldier->sGridNo, FALSE );
+			sClimbGridNo = FindClosestClimbPointAvailableToAI( pSoldier, sDestGridNo, pSoldier->sGridNo, FALSE );
 		}
 
 		if (sClimbGridNo == NOWHERE)
@@ -2233,6 +2235,8 @@ INT32 CalcManThreatValue( SOLDIERTYPE *pEnemy, INT16 sMyGrid, UINT8 ubReduceForC
 
 INT16 RoamingRange(SOLDIERTYPE *pSoldier, INT16 * pusFromGridNo)
 {
+	if( pSoldier->bBleeding > 0 )return MAX_ROAMING_RANGE;
+
 	if ( CREATURE_OR_BLOODCAT( pSoldier ) )
 	{
 		if ( pSoldier->bAlertStatus == STATUS_BLACK )
@@ -2512,30 +2516,166 @@ BOOLEAN ArmySeesOpponents( void )
 	return( FALSE );
 }
 
-#ifdef DEBUGDECISIONS
-void AIPopMessage ( STR16 str )
+
+void AskForNoise( SOLDIERTYPE * pSoldier, INT16 *sNoiseGridno, UINT8 *ubNoiseVolume, INT8 *bNoiseLevel, INT8 bDist )
 {
-	DebugAI((STR)str);
+	UINT32 uiLoop;
+	SOLDIERTYPE *pFriend;
+
+
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+	{
+		pFriend = MercSlots[ uiLoop ];
+
+		// it's me! Next merc
+		if( pFriend == pSoldier )
+			continue;
+
+		// if this merc is inactive, at base, on assignment, dead, unconscious
+		if (!pFriend || (pFriend->bLife < OKLIFE))
+		{
+			continue;          // next merc
+		}
+
+		if ( pSoldier->bTeam != pFriend->bTeam )
+		{
+			continue;          // next merc
+		}
+
+		if( pFriend->sNoiseGridno != NOWHERE && GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, pFriend->sGridNo ) / 10 <= bDist )
+		{
+			*sNoiseGridno = pFriend->sNoiseGridno;
+			*ubNoiseVolume = pFriend->ubNoiseVolume;
+			*bNoiseLevel = pFriend->bNoiseLevel;
+			return;
+		}
+
+	}
 }
 
-void AIPopMessage ( const char* str )
+INT32 RangeToClosestOpponent( SOLDIERTYPE *pSoldier )
 {
-	STR tempstr;
-	sprintf((CHAR *) tempstr,"%s", str);
-	DebugAI(tempstr);
+	INT16 sClosestDisturbance;
+	//BOOLEAN fClimb;
+	sClosestDisturbance = ClosestKnownOpponent(pSoldier, 0, 0);
+	if( sClosestDisturbance != NOWHERE )
+		return GetRangeFromGridNoDiff( pSoldier->sGridNo, sClosestDisturbance );
+	else 
+		return 128;
 }
 
-void AINumMessage(const char* str, INT32 num)
+
+UINT8 NeedTimeToReadyGun_IfAlreadyReady( SOLDIERTYPE *pSoldier )
 {
-	STR tempstr;
-	sprintf((CHAR *) tempstr,"%s %d", str, num);
-	DebugAI(tempstr);
+		UINT16 usAnimState = PickSoldierReadyAnimation( pSoldier, FALSE );
+
+		if( usAnimState == INVALID_ANIMATION || GetAPsToReadyWeapon( pSoldier, usAnimState ) == 0  )
+		{
+			if( pSoldier->inv[HANDPOS].usItem != NOTHING && Item[pSoldier->inv[HANDPOS].usItem ].usItemClass == IC_GUN )
+				return Weapon[ Item[pSoldier->inv[HANDPOS].usItem].ubClassIndex ].ubReadyTime;
+		}
+
+		return 0;
 }
 
-void AINameMessage(SOLDIERTYPE * pSoldier,const char* str,INT32 num)
+
+ 
+UINT32 CountRatingOfTeamMatesDensity( SOLDIERTYPE * pSoldier, INT16 sGridNo, INT32 iDist )
 {
-	STR tempstr;
-	sprintf((CHAR *) tempstr,"%d %s %d",pSoldier->name , str, num);
-	DebugAI( tempstr );
+	//UINT8	X, Y ,  ubWhoIsThere;
+	DOUBLE ddCount;
+
+//	INT16 sMaxLeft, sMaxRight, sMaxUp, sMaxDown;
+//	INT16 iGridNo;
+	DOUBLE ddDistance;
+	UINT32 uiLoop;
+	SOLDIERTYPE *pFriend;
+	DOUBLE ddMaxDistance = iDist;
+
+	ddCount = 0;
+
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+	{
+		pFriend = MercSlots[ uiLoop ];
+
+		// it's me! Next merc
+		if( pFriend == pSoldier )
+			continue;
+
+
+		// if this merc is inactive, at base, on assignment, dead, unconscious
+		if (!pFriend || (pFriend->bLife < OKLIFE))
+		{
+			continue;          // next merc
+		}
+
+		// if this man is neutral / on the same side
+		if ( pSoldier->bSide != pFriend->bSide )
+		{
+			continue;          // next merc
+		}
+
+
+		ddDistance = (INT32)(GetRangeInCellCoordsFromGridNoDiff( sGridNo, pFriend->sGridNo ) / 10);
+
+		if( ddDistance > ddMaxDistance)
+			ddDistance = ddMaxDistance;
+
+//		if( ddDistance )
+//			ddDistance = iDist + 1 - ddDistance;
+		
+		ddCount += max( 0, ddMaxDistance - ddDistance );
+	}
+
+	return( ddCount );
 }
-#endif
+
+UINT32 CountRatingOfOpponentsDensity( SOLDIERTYPE * pSoldier, INT16 sGridNo, INT32 iDist )
+{
+	//UINT8	X, Y ,  ubWhoIsThere;
+	DOUBLE ddCount;
+
+//	INT16 sMaxLeft, sMaxRight, sMaxUp, sMaxDown;
+//	INT16 iGridNo;
+	DOUBLE ddDistance;
+	UINT32 uiLoop;
+	SOLDIERTYPE *pOpponent;
+	DOUBLE ddMaxDistance = iDist;
+
+	ddCount = 0;
+
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+	{
+		pOpponent = MercSlots[ uiLoop ];
+
+		// it's me! Next merc
+		if( pOpponent == pSoldier )
+			continue;
+
+
+		// if this merc is inactive, at base, on assignment, dead, unconscious
+		if (!pOpponent || (pOpponent->bLife < OKLIFE))
+		{
+			continue;          // next merc
+		}
+
+		// if this man is neutral / on the same side
+		if ( CONSIDERED_NEUTRAL( pSoldier, pOpponent ) || (pSoldier->bSide == pOpponent->bSide))
+		{
+			continue;          // next merc
+		}
+
+
+		ddDistance = (INT32)(GetRangeInCellCoordsFromGridNoDiff( sGridNo, pOpponent->sGridNo ) / 10);
+
+		if( ddDistance > ddMaxDistance)
+			ddDistance = ddMaxDistance;
+
+//		if( ddDistance )
+//			ddDistance = iDist + 1 - ddDistance;
+		
+		ddCount += max( 0, ddMaxDistance - ddDistance );
+	}
+
+	return( ddCount );
+}

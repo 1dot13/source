@@ -8,6 +8,7 @@
 
 extern BOOLEAN gfTurnBasedAI;
 
+#define MAX_DIST 160
 // THIS IS AN ITEM #  - AND FOR NOW JUST COMPLETELY FAKE...
 
 #define MAX_TOSS_SEARCH_DIST    1       // must throw within this of opponent
@@ -87,7 +88,7 @@ enum
 
 #define PERCENT_TO_IGNORE_THREAT        50      // any less, use threat value
 #define ACTION_TIMEOUT_CYCLES	50	// # failed cycles through AI
-#define MAX_THREAT_RANGE  	400	// 30 tiles worth
+#define MAX_THREAT_RANGE  	4000	// 30 tiles worth
 #define MIN_PERCENT_BETTER	5	// 5% improvement in cover is good
 
 
@@ -222,3 +223,32 @@ INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier );
 BOOLEAN ArmySeesOpponents( void );
 
 void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN suppressionFire);
+
+void AskForNoise( SOLDIERTYPE * pSoldier, INT16 *sNoiseGridno, UINT8 *ubNoiseVolume, INT8 *bNoiseLevel, INT8 bDist );
+INT32 RangeToClosestOpponent( SOLDIERTYPE *pSoldier );
+INT16 FindClimbGridNo( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 bMaxActionPoints );
+//BOOLEAN IsTooFarFromFriends( SOLDIERTYPE *pSoldier );
+INT16 FindBestCoverNearTheGridNo(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubSearchRadius );
+INT16 FindRoofBetweenGridNos( INT16 sFGridNo, INT16 sSGridNo );
+
+INT8 FindDirectionForClimbing( INT16 sGridNo );
+
+enum
+{
+	TM_OUTOFRANGE = 0,
+	TM_HASFIRED,
+	TM_TRIED_TO_CLIMB,
+	TM_TRIED_TO_CLIMBDOWN,
+	TM_LAST_DEST_GRID,
+	TM_LOOKED_FOR_COVER,
+//	TM_LOOKFORROOF,
+	MAX_NUMBER_OF_TM
+};
+
+extern INT32 gpTurnMem[ MAX_NUMBER_OF_TM ];
+
+UINT32 CountRatingOfTeamMatesDensity( SOLDIERTYPE * pSoldier, INT16 sGridNo, INT32 iDist );
+UINT32 CountRatingOfOpponentsDensity( SOLDIERTYPE * pSoldier, INT16 sGridNo, INT32 iDist );
+UINT8 NeedTimeToReadyGun_IfAlreadyReady( SOLDIERTYPE *pSoldier );
+SOLDIERTYPE* FindFriendFarthestFromEnemies( SOLDIERTYPE * pSoldier );
+

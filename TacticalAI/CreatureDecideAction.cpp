@@ -766,7 +766,7 @@ INT8 CreatureDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 					#ifdef DEBUGDECISIONS
 					STR16 tempstr;
 					sprintf((CHAR *)tempstr,"%s - SEEKING FRIEND at %d, MOVING to %d",
-						pSoldier->name,pSoldier->ubCaller,pSoldier->usActionData);
+						pSoldier->name,sClosestFriend,pSoldier->usActionData);
 						AIPopMessage(tempstr);
 					#endif
 					return(AI_ACTION_SEEK_FRIEND);
@@ -1350,7 +1350,7 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 		sprintf((CHAR *) tempstr, "%d(%s) %s %d(%s) at gridno %d (%d APs aim)\n",
 			pSoldier->ubID,pSoldier->name,
 			(ubBestAttackAction == AI_ACTION_FIRE_GUN)?"SHOOTS":((ubBestAttackAction == AI_ACTION_TOSS_PROJECTILE)?"TOSSES AT":"STABS"),
-			BestAttack.ubOpponent, "Some Guy",
+			BestAttack.ubOpponent,ExtMen[BestAttack.ubOpponent].name,
 			BestAttack.sTarget,BestAttack.ubAimTime) ;
 		DebugAI( tempstr );
 #endif

@@ -239,16 +239,6 @@ BOOLEAN ValidCreatureTurn( SOLDIERTYPE * pCreature, INT8 bNewDirection );
 BOOLEAN WearGasMaskIfAvailable( SOLDIERTYPE * pSoldier );
 INT16 WhatIKnowThatPublicDont(SOLDIERTYPE *pSoldier, UINT8 ubInSightOnly);
 
-#ifdef DEBUGDECISIONS
-void AIPopMessage ( STR16 str );
-
-void AIPopMessage ( const char* str );
-
-void AINumMessage(const char* str, INT32 num);
-
-void AINameMessage(SOLDIERTYPE * pSoldier,const char* str,INT32 num);
-#endif
-
 INT16 FindClosestClimbPoint (SOLDIERTYPE *pSoldier, BOOLEAN fClimbUp );
 INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction );
 BOOLEAN CanClimbFromHere (SOLDIERTYPE * pSoldier, BOOLEAN fUp );
