@@ -198,9 +198,9 @@ void DecayLightEffects( UINT32 uiTime )
 		if ( pLight->fAllocated )
 		{
 			// ATE: Do this every so ofte, to acheive the effect we want...
-			if ( ( uiTime - pLight->uiTimeOfLastUpdate ) > 350 )
+			if ( ( uiTime - pLight->uiTimeOfLastUpdate ) > 10 ) 
 			{
-				usNumUpdates = ( UINT16 ) ( ( uiTime - pLight->uiTimeOfLastUpdate ) / 350 );
+				usNumUpdates = ( UINT16 ) ( ( uiTime - pLight->uiTimeOfLastUpdate ) / 10 );
 
 				pLight->uiTimeOfLastUpdate = uiTime;
 
