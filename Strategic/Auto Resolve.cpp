@@ -4888,7 +4888,7 @@ BOOLEAN GetCurrentBattleSectorXYZ( INT16 *psSectorX, INT16 *psSectorY, INT16 *ps
 //Returns TRUE if a battle is happening ONLY
 BOOLEAN GetCurrentBattleSectorXYZAndReturnTRUEIfThereIsABattle( INT16 *psSectorX, INT16 *psSectorY, INT16 *psSectorZ )
 {
-	if ( ( *psSectorX == NULL )||(*psSectorY == NULL )||(*psSectorZ == NULL ) )
+	if ( ( psSectorX == NULL )||(psSectorY == NULL )||(psSectorZ == NULL ) )
 	{	
 		return FALSE;
 	}
@@ -4934,6 +4934,8 @@ void AutoBandageFinishedCallback( UINT8 ubResult )
 
 BOOLEAN ProcessLoyalty()
 {
+	if( !gpAR ) return FALSE;
+
 	if( PlayerMercsInSector( gpAR->ubSectorX, gpAR->ubSectorY, 0 ) )
 		return TRUE;
 
