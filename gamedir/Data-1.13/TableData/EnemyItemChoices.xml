@@ -866,10 +866,10 @@
 	</ENEMYITEMCHOICES>
 	<ENEMYITEMCHOICES>
 		<uiIndex>16</uiIndex>
-		<ubChoices>3</ubChoices>
-		<bItemNo1>208</bItemNo1>
-		<bItemNo2>1007</bItemNo2>
-		<bItemNo3>1004</bItemNo3>
+		<ubChoices>0</ubChoices>
+		<bItemNo1>-1</bItemNo1>
+		<bItemNo2>-1</bItemNo2>
+		<bItemNo3>-1</bItemNo3>
 		<bItemNo4>-1</bItemNo4>
 		<bItemNo5>-1</bItemNo5>
 		<bItemNo6>-1</bItemNo6>
