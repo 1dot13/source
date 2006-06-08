@@ -523,6 +523,7 @@ UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT16 sGridNo )
 	return( ubCount );
 }
 
+static INT16 gsDesiredGridNo = NOWHERE;
 INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentBetter)
 {
 	DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("FindBestNearbyCover"));
@@ -2780,3 +2781,53 @@ BOOLEAN CanClimbFromHere (SOLDIERTYPE * pSoldier, BOOLEAN fUp )
 	return FALSE;
 }
 */
+extern BUILDING gBuildings[ MAX_BUILDINGS ];
+extern UINT8 gubNumberOfBuildings;
+
+
+INT16 FindBestCoverNearTheGridNo(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubSearchRadius )
+{
+	INT32 iPercentBetter;
+//	INT16 sTrueGridNo;
+	INT16 sResultGridNo;
+	INT8 bRealWisdom = pSoldier->bWisdom;
+
+//	sTrueGridNo = pSoldier->sGridNo;
+//	pSoldier->sGridNo = sGridNo;
+	gsDesiredGridNo = sGridNo;
+	pSoldier->bWisdom = 8 * ubSearchRadius;// 5 tiles
+	
+	sResultGridNo = FindBestNearbyCover( pSoldier, MORALE_NORMAL, &iPercentBetter);
+	
+	pSoldier->bWisdom = bRealWisdom;
+//	pSoldier->sGridNo = sTrueGridNo;
+
+	gsDesiredGridNo = NOWHERE;
+
+	if( sResultGridNo != NOWHERE )
+		return sResultGridNo;
+	else 
+		return sGridNo;
+
+}
+
+INT8 FindDirectionForClimbing( INT16 sGridNo )
+{
+	UINT16 usBuildingID;
+	UINT16 usClimbSpotIndex;
+
+	for( usBuildingID = 0; usBuildingID < gubNumberOfBuildings ; ++usBuildingID )
+		for( usClimbSpotIndex = 0; usClimbSpotIndex < gBuildings[ usBuildingID ].ubNumClimbSpots ; ++usClimbSpotIndex )
+			if( gBuildings[ usBuildingID ].sUpClimbSpots[ usClimbSpotIndex ] == sGridNo )
+			{
+				if( WhoIsThere2( gBuildings[ usBuildingID ].sDownClimbSpots[ usClimbSpotIndex ], 1 ) == NOBODY )
+					return atan8(CenterX(sGridNo),CenterY(sGridNo),CenterX(gBuildings[ usBuildingID ].sDownClimbSpots[ usClimbSpotIndex ]),CenterY(gBuildings[ usBuildingID ].sDownClimbSpots[ usClimbSpotIndex ]));
+			}else if( gBuildings[ usBuildingID ].sDownClimbSpots[ usClimbSpotIndex ] == sGridNo )
+			{
+				if( WhoIsThere2( gBuildings[ usBuildingID ].sUpClimbSpots[ usClimbSpotIndex ], 0 ) == NOBODY )
+					return atan8(CenterX(sGridNo),CenterY(sGridNo),CenterX(gBuildings[ usBuildingID ].sUpClimbSpots[ usClimbSpotIndex ]),CenterY(gBuildings[ usBuildingID ].sUpClimbSpots[ usClimbSpotIndex ]));
+			}
+	return DIRECTION_IRRELEVANT;
+}
+
+
