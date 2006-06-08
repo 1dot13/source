@@ -166,8 +166,6 @@ INT32 NewSmokeEffect( INT16 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner )
 	SMOKEEFFECT *pSmoke;
 	INT32				iSmokeIndex;
 	INT8				bSmokeEffectType=0;
-	UINT8				ubDuration=0;
-	UINT8				ubStartRadius=0;
 
 	if( ( iSmokeIndex = GetFreeSmokeEffect() )==(-1) )
 		return(-1);
@@ -193,28 +191,20 @@ INT32 NewSmokeEffect( INT16 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner )
 		case EXPLOSV_MUSTGAS:
 
 			bSmokeEffectType	=	MUSTARDGAS_SMOKE_EFFECT;
-			ubDuration				= Explosive[ Item[ usItem ].ubClassIndex ].ubDuration;
-			ubStartRadius			= Explosive[ Item[ usItem ].ubClassIndex ].ubStartRadius;
 			break;
 
 		case EXPLOSV_BURNABLEGAS:
 
 			bSmokeEffectType	=	BURNABLEGAS_SMOKE_EFFECT;
-			ubDuration				= Explosive[ Item[ usItem ].ubClassIndex ].ubDuration;
-			ubStartRadius			= Explosive[ Item[ usItem ].ubClassIndex ].ubStartRadius;
 			break;
 
 		case EXPLOSV_TEARGAS:
 			bSmokeEffectType	=	TEARGAS_SMOKE_EFFECT; 
-			ubDuration				= Explosive[ Item[ usItem ].ubClassIndex ].ubDuration;
-			ubStartRadius			= Explosive[ Item[ usItem ].ubClassIndex ].ubStartRadius;
 			break;
 
 		case EXPLOSV_SMOKE:
 
 			bSmokeEffectType	=	NORMAL_SMOKE_EFFECT; 
-			ubDuration				= Explosive[ Item[ usItem ].ubClassIndex ].ubDuration;
-			ubStartRadius			= Explosive[ Item[ usItem ].ubClassIndex ].ubStartRadius;
 			break;
 
    // case SMALL_CREATURE_GAS:
@@ -225,8 +215,6 @@ INT32 NewSmokeEffect( INT16 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner )
 
     case EXPLOSV_CREATUREGAS:
 			bSmokeEffectType	=	CREATURE_SMOKE_EFFECT; 
-			ubDuration				= Explosive[ Item[ usItem ].ubClassIndex ].ubDuration;
-			ubStartRadius			= Explosive[ Item[ usItem ].ubClassIndex ].ubStartRadius;
 			break;
 
    // case VERY_SMALL_CREATURE_GAS:
@@ -239,8 +227,8 @@ INT32 NewSmokeEffect( INT16 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner )
 
 
 
-	pSmoke->ubDuration	= ubDuration;
-	pSmoke->ubRadius    = ubStartRadius;
+	pSmoke->ubDuration	= Explosive[ Item[ usItem ].ubClassIndex ].ubDuration;
+	pSmoke->ubRadius    = Explosive[ Item[ usItem ].ubClassIndex ].ubStartRadius;
 	pSmoke->bAge				= 0;
 	pSmoke->fAllocated  = TRUE;
 	pSmoke->bType				= bSmokeEffectType;

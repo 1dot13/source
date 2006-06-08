@@ -299,7 +299,7 @@ typedef struct
 	UINT8		ubVolatility;		// maximum chance of accidental explosion
 	UINT8		ubAnimationID;	// Animation enum to use
 	UINT32		uiIndex;
-	UINT8		ubDuration;	
+	int			ubDuration;	
 	UINT8		ubStartRadius;	
 } EXPLOSIVETYPE;
 

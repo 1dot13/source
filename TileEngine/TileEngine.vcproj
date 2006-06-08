@@ -3034,6 +3034,9 @@
 				RelativePath="Isometric Utils.h">
 			</File>
 			<File
+				RelativePath=".\LightEffects.h">
+			</File>
+			<File
 				RelativePath="lighting.h">
 			</File>
 			<File
@@ -3068,6 +3071,9 @@
 			</File>
 			<File
 				RelativePath="Smell.h">
+			</File>
+			<File
+				RelativePath=".\SmokeEffects.h">
 			</File>
 			<File
 				RelativePath="Structure Internals.h">

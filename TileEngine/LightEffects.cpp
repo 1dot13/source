@@ -96,7 +96,7 @@ void UpdateLightingSprite( LIGHTEFFECT *pLight )
 }
 
 
-INT32 NewLightEffect( INT16 sGridNo, UINT8 ubDuration, UINT8 ubStartRadius )
+INT32 NewLightEffect( INT16 sGridNo, int ubDuration, UINT8 ubStartRadius )
 {
 	LIGHTEFFECT *pLight;
 	INT32				iLightIndex;
