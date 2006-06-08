@@ -194,8 +194,8 @@ ANIMATIONS:
 		<ubVolume>0</ubVolume>
 		<ubVolatility>0</ubVolatility>
 		<ubAnimationID>1</ubAnimationID>
-		<ubDuration>0</ubDuration>
-		<ubStartRadius>0</ubStartRadius>
+		<ubDuration>35</ubDuration>
+		<ubStartRadius>6</ubStartRadius>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>13</uiIndex> <!-- Trip Klaxon -->
@@ -230,8 +230,8 @@ ANIMATIONS:
 		<ubVolume>0</ubVolume>
 		<ubVolatility>0</ubVolatility>
 		<ubAnimationID>1</ubAnimationID>
-		<ubDuration>0</ubDuration>
-		<ubStartRadius>0</ubStartRadius>
+		<ubDuration>35</ubDuration>
+		<ubStartRadius>6</ubStartRadius>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>16</uiIndex> <!-- 40mm Grenade -->

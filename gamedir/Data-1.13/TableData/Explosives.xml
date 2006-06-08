@@ -153,7 +153,7 @@
 		<ubVolume>0</ubVolume>
 		<ubVolatility>0</ubVolatility>
 		<ubAnimationID>1</ubAnimationID>
-		<ubDuration>6</ubDuration>
+		<ubDuration>35</ubDuration>
 		<ubStartRadius>6</ubStartRadius>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
@@ -189,7 +189,7 @@
 		<ubVolume>0</ubVolume>
 		<ubVolatility>0</ubVolatility>
 		<ubAnimationID>1</ubAnimationID>
-		<ubDuration>6</ubDuration>
+		<ubDuration>35</ubDuration>
 		<ubStartRadius>6</ubStartRadius>
 	</EXPLOSIVE>
 	<EXPLOSIVE>
