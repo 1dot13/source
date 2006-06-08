@@ -138,20 +138,7 @@ ANITILE *CreateAnimationTile( ANITILE_PARAMS *pAniParams )
 
 		if ( uiFlags & ANITILE_LIGHT )
 		{
-			if ( ubAmbientLightLevel >= MIN_AMB_LEVEL_FOR_MERC_LIGHTS )
-			{
-
-				if( ( pNewAniNode->lightSprite=LightSpriteCreate("L-R03.LHT", 0 ) )!=(-1))
-				{
-					LightSpritePower(pNewAniNode->lightSprite, TRUE);
-					{
-						INT16 sXPos, sYPos;
-
-						ConvertGridNoToCenterCellXY( sGridNo, &sXPos, &sYPos );
-						LightSpritePosition( pNewAniNode->lightSprite, (INT16)(sXPos/CELL_X_SIZE), (INT16)(sYPos/CELL_Y_SIZE));
-					}
-				}
-			}
+			pNewAniNode->lightSprite = NewLightEffect(sGridNo, 1, 0);
 		}
 
 		if ( ( uiFlags & ANITILE_CACHEDTILE ) )
@@ -381,7 +368,7 @@ void DeleteAniTile( ANITILE *pAniTile )
 						break;
 
 				}
-				if ( pAniNode->uiFlags & ANITILE_LIGHT && ubAmbientLightLevel >= MIN_AMB_LEVEL_FOR_MERC_LIGHTS )
+				if ( pAniNode->uiFlags & ANITILE_LIGHT && pAniNode->lightSprite != NULL )
 				{
 					LightSpriteDestroy(pAniNode->lightSprite);
 				}
@@ -614,10 +601,10 @@ void UpdateAniTiles( )
 					}
 					else
 					{		
-						//if ( pNode->uiFlags & ANITILE_LIGHT )
-						//{
-						//	LightSpriteDestroy(pNode->lightSprite);
-						//}
+						if ( pNode->uiFlags & ANITILE_LIGHT && pNode->lightSprite != NULL )
+						{
+							LightSpriteDestroy(pNode->lightSprite);
+						}
 
 						// Delete from world!
 						DeleteAniTile( pNode );

@@ -96,12 +96,10 @@ void UpdateLightingSprite( LIGHTEFFECT *pLight )
 }
 
 
-INT32 NewLightEffect( INT16 sGridNo, INT8 bType )
+INT32 NewLightEffect( INT16 sGridNo, UINT8 ubDuration, UINT8 ubStartRadius )
 {
 	LIGHTEFFECT *pLight;
 	INT32				iLightIndex;
-	UINT8				ubDuration=0;
-	UINT8				ubStartRadius=0;
 
 	if( ( iLightIndex = GetFreeLightEffect() )==(-1) )
 		return(-1);
@@ -112,19 +110,8 @@ INT32 NewLightEffect( INT16 sGridNo, INT8 bType )
 
 	// Set some values...
 	pLight->sGridNo									= sGridNo;
-	pLight->bType										= bType;
 	pLight->iLight									= -1;
 	pLight->uiTimeOfLastUpdate			= GetWorldTotalSeconds( );
-
-  switch( bType )
-  {
-		case LIGHT_FLARE_MARK_1:
-
-			ubDuration				= 6;
-			ubStartRadius			= 6;
-			break;
-
-  }
 
 	pLight->ubDuration	= ubDuration;
 	pLight->bRadius     = ubStartRadius;
@@ -139,7 +126,7 @@ INT32 NewLightEffect( INT16 sGridNo, INT8 bType )
 	//Play the breaklight sound
 //	PlayJA2Sample( BREAK_LIGHT_IGNITING, RATE_11025, SoundVolume( LOWVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
 // MAdd:  for some reason this crashes the game!
-	return( iLightIndex );
+	return( pLight->iLight );
 }
 
 
@@ -192,41 +179,41 @@ void DecayLightEffects( UINT32 uiTime )
 			// ATE: Do this every so ofte, to acheive the effect we want...
 			if ( ( uiTime - pLight->uiTimeOfLastUpdate ) > 350 )
 			{
-        usNumUpdates = ( UINT16 ) ( ( uiTime - pLight->uiTimeOfLastUpdate ) / 350 );
+				usNumUpdates = ( UINT16 ) ( ( uiTime - pLight->uiTimeOfLastUpdate ) / 350 );
 
 				pLight->uiTimeOfLastUpdate = uiTime;
 
-        for ( cnt2 = 0; cnt2 < usNumUpdates; cnt2++ )
-        {
-				  pLight->bAge++;
+				for ( cnt2 = 0; cnt2 < usNumUpdates; cnt2++ )
+				{
+					pLight->bAge++;
 
-				  // if this cloud remains effective (duration not reached)
-				  if ( pLight->bAge < pLight->ubDuration)
-				  {
-					  // calculate the new cloud radius
-					  // cloud expands by 1 every turn outdoors, and every other turn indoors
-					  if ( ( pLight->bAge % 2 ) )
-					  {
-						  pLight->bRadius--;
-					  }
+					// if this cloud remains effective (duration not reached)
+					if ( pLight->bAge < pLight->ubDuration)
+					{
+						// calculate the new cloud radius
+						// cloud expands by 1 every turn outdoors, and every other turn indoors
+						if ( ( pLight->bAge % 2 ) )
+						{
+							pLight->bRadius--;
+						}
 
-					  if ( pLight->bRadius == 0 )
-					  {
-						  // Delete...
-						  fDelete = TRUE;
-              break;
-					  }
-					  else
-					  {
-						  UpdateLightingSprite( pLight );
-					  }
-				  }
-				  else
-				  {
-					  fDelete = TRUE;
-            break;
-				  }
-        }
+						if ( pLight->bRadius == 0 )
+						{
+							// Delete...
+							fDelete = TRUE;
+							break;
+						}
+						else
+						{
+							UpdateLightingSprite( pLight );
+						}
+					}
+					else
+					{
+						fDelete = TRUE;
+						break;
+					}
+				}
 
 				if ( fDelete )
 				{
@@ -238,10 +225,11 @@ void DecayLightEffects( UINT32 uiTime )
 					}
 				}
 
-        // Handle sight here....
-		    AllTeamsLookForAll( FALSE );
+				
+				// Handle sight here....
+				AllTeamsLookForAll( FALSE );
 			}
-    }
+		}
   }
 }
 

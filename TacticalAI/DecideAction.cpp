@@ -1867,7 +1867,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
  ////////////////////////////////////////////////////////////////////////////
  // SWITCH TO GREEN: determine if soldier acts as if nothing at all was wrong
  ////////////////////////////////////////////////////////////////////////////
- if ((INT16)PreRandom(100) < 1)
+ if ((INT16)PreRandom(100) < 30 )
   {
 #ifdef RECORDNET
    fprintf(NetDebugFile,"\tDecideActionYellow: guynum %d ignores noise, switching to GREEN AI...\n",pSoldier->ubID);
@@ -3625,7 +3625,13 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 			}
 
 			// REALLY tired, can't get away, force soldier's morale to hopeless state
-			pSoldier->bAIMorale = MORALE_HOPELESS;
+			if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+			{
+				pSoldier->bBreath = pSoldier->bBreathMax;  //Madd: backed into a corner, so go crazy like a wild animal...
+				pSoldier->bAIMorale = MORALE_FEARLESS; 
+			}
+			else
+				pSoldier->bAIMorale = MORALE_HOPELESS;
 		}
 
 	}
@@ -3668,7 +3674,13 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 
    // GIVE UP ON LIFE!  MERCS MUST HAVE JUST CORNERED A HELPLESS ENEMY IN A
    // GAS FILLED ROOM (OR IN WATER MORE THAN 25 TILES FROM NEAREST LAND...)
-   pSoldier->bAIMorale = MORALE_HOPELESS;
+	if ( bInGas && gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+	{
+		pSoldier->bBreath = pSoldier->bBreathMax;
+		pSoldier->bAIMorale = MORALE_FEARLESS;  // Can't move, can't get away, go nuts instead...
+	}
+	else
+		pSoldier->bAIMorale = MORALE_HOPELESS;
   }
 
 	// offer surrender?
@@ -4550,7 +4562,7 @@ bCanAttack = FALSE;
 				}
 			}
 
-			if (IsGunAutofireCapable( pSoldier, BestAttack.bWeaponIn /*, FALSE*/ ) &&
+			if (IsGunAutofireCapable( pSoldier, BestAttack.bWeaponIn ) &&
 				!(Menptr[BestShot.ubOpponent].bLife < OKLIFE) && // don't burst at downed targets
 				(( pSoldier->inv[BestAttack.bWeaponIn].ubGunShotsLeft > 1 &&
 				BestAttack.ubAimTime != BURSTING ) || Weapon[pSoldier->inv[BestAttack.bWeaponIn].usItem].NoSemiAuto) )
@@ -4591,9 +4603,11 @@ bCanAttack = FALSE;
 							case ATTACKSLAYONLY:iChance += 30; break;
 						}
 
-
 						if ( pSoldier->inv[BestAttack.bWeaponIn].ubGunShotsLeft > 50 )
 							iChance += 30;
+
+						if ( bInGas )
+							iChance += 50; //Madd: extra chance of going nuts and autofiring if stuck in gas
 
 						// increase chance based on proximity and difficulty of enemy
 						if ( PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) < 15 )

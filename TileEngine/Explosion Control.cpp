@@ -2917,7 +2917,7 @@ void HandleExplosionQueue( void )
 			}
 			else if ( pObj->usBombItem == TRIP_FLARE )
 			{
-				NewLightEffect( sGridNo, LIGHT_FLARE_MARK_1 );
+				NewLightEffect( sGridNo, Explosive[pObj->usItem].ubDuration, Explosive[pObj->usItem].ubStartRadius );
 				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
 			}
 			else

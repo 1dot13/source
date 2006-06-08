@@ -2495,7 +2495,6 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 2337"));
 
 	if ( fDoImpact )
 	{
-DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 2403"));	
 		if ( Item[pObject->Obj.usItem].flare )
 		{
 			//if the light object will ber created OFF the ground
@@ -2507,7 +2506,8 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 2403"));
 			else
 			{
 				// Add a light effect...
-				NewLightEffect( pObject->sGridNo, LIGHT_FLARE_MARK_1 );
+				
+				NewLightEffect( pObject->sGridNo, Explosive[Item[pObject->Obj.usItem].ubClassIndex].ubDuration , Explosive[Item[pObject->Obj.usItem].ubClassIndex].ubStartRadius );
 			}
 		}
 		else if ( Item[ pObject->Obj.usItem ].usItemClass & IC_GRENADE  )
