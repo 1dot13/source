@@ -666,7 +666,6 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 			usScopeIndex = PickARandomAttachment(SCOPE,usGunIndex,bAttachClass,FALSE);
 		}
 	}
-
 	//Choose attachment
 	if( bAttachClass && ( fAttachment ))
 	{
@@ -842,21 +841,21 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"ChooseWeaponForSoldierCreateStruct: Gun Created");
 
-	if( usScopeIndex > 0 )
+	if( usScopeIndex > 0 && ValidItemAttachment(&(pp->Inv[ HANDPOS ]),usScopeIndex,TRUE,FALSE) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ChooseWeaponForSoldierCreateStruct: Create Scope %d",usScopeIndex));
 		CreateItem( usScopeIndex, 100, &Object );
 		Object.fFlags |= OBJECT_UNDROPPABLE;
 		AttachObject( NULL, &(pp->Inv[ HANDPOS ]), &Object );		
 	}
-	if( usAttachIndex > 0 )
+	if( usAttachIndex > 0 && ValidItemAttachment(&(pp->Inv[ HANDPOS ]),usAttachIndex,TRUE,FALSE))
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ChooseWeaponForSoldierCreateStruct: Create Attachment %d",usAttachIndex));
 		CreateItem( usAttachIndex, 100, &Object );
 		Object.fFlags |= OBJECT_UNDROPPABLE;
 		AttachObject( NULL, &(pp->Inv[ HANDPOS ]), &Object );		
 	}
-	if( usAttachIndex2 > 0 )
+	if( usAttachIndex2 > 0 && ValidItemAttachment(&(pp->Inv[ HANDPOS ]),usAttachIndex2,TRUE,FALSE))
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ChooseWeaponForSoldierCreateStruct: Create 2nd Attachment %d",usAttachIndex2));
 		CreateItem( usAttachIndex2, 100, &Object );

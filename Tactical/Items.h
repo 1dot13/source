@@ -115,6 +115,7 @@ BOOLEAN ItemHasAttachments( OBJECTTYPE *pItem );
 //be possible to have this attachment on this item, but may already have an attachment on
 //it which doesn't work simultaneously with the new attachment (like a silencer and duckbill).
 BOOLEAN ValidItemAttachment( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN fAttemptingAttachment );
+BOOLEAN ValidItemAttachment( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN fAttemptingAttachment, BOOLEAN fDisplayMessage );
 
 // Determines if it is possible to merge an item with any item whose class 
 // is the same as the indicated item
