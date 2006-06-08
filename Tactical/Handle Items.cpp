@@ -1330,6 +1330,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, UINT16 usGridNo, INT8 bLevel, UINT16 us
 
 				// ATE: Don't charge turning...
 				pSoldier->fDontChargeTurningAPs = TRUE;
+				pSoldier->fDontChargeAPsForStanceChange = TRUE;
 
 				FireWeapon( pSoldier, sTargetGridNo );
 			}
