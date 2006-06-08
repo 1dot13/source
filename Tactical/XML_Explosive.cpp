@@ -187,7 +187,7 @@ explosiveEndElementHandle(void *userData, const char *name)
 		else if(strcmp(name, "ubDuration") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curExplosive.ubDuration   = (UINT16) atol(pData->szCharData);
+			pData->curExplosive.ubDuration   = (UINT8) atol(pData->szCharData);
 		}
 
 		pData->maxReadDepth--;

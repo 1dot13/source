@@ -15,9 +15,9 @@ typedef struct
 {
 	INT16		sGridNo;          // gridno at which the tear gas cloud is centered
 
-	UINT16		ubDuration;		       // the number of turns will remain effective
+	UINT8		ubDuration;		       // the number of turns will remain effective
 	UINT8		bRadius;	          // the current radius
-	UINT16			bAge;				        // the number of turns light has been around
+	UINT8			bAge;				        // the number of turns light has been around
 	BOOLEAN	fAllocated;
 	INT32		iLight;
 	UINT32	uiTimeOfLastUpdate;
