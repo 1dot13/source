@@ -224,31 +224,7 @@ BOOLEAN ArmySeesOpponents( void );
 
 void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN suppressionFire);
 
-void AskForNoise( SOLDIERTYPE * pSoldier, INT16 *sNoiseGridno, UINT8 *ubNoiseVolume, INT8 *bNoiseLevel, INT8 bDist );
-INT32 RangeToClosestOpponent( SOLDIERTYPE *pSoldier );
-INT16 FindClimbGridNo( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 bMaxActionPoints );
-//BOOLEAN IsTooFarFromFriends( SOLDIERTYPE *pSoldier );
 INT16 FindBestCoverNearTheGridNo(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubSearchRadius );
-INT16 FindRoofBetweenGridNos( INT16 sFGridNo, INT16 sSGridNo );
 
 INT8 FindDirectionForClimbing( INT16 sGridNo );
-
-enum
-{
-	TM_OUTOFRANGE = 0,
-	TM_HASFIRED,
-	TM_TRIED_TO_CLIMB,
-	TM_TRIED_TO_CLIMBDOWN,
-	TM_LAST_DEST_GRID,
-	TM_LOOKED_FOR_COVER,
-//	TM_LOOKFORROOF,
-	MAX_NUMBER_OF_TM
-};
-
-extern INT32 gpTurnMem[ MAX_NUMBER_OF_TM ];
-
-UINT32 CountRatingOfTeamMatesDensity( SOLDIERTYPE * pSoldier, INT16 sGridNo, INT32 iDist );
-UINT32 CountRatingOfOpponentsDensity( SOLDIERTYPE * pSoldier, INT16 sGridNo, INT32 iDist );
-UINT8 NeedTimeToReadyGun_IfAlreadyReady( SOLDIERTYPE *pSoldier );
-SOLDIERTYPE* FindFriendFarthestFromEnemies( SOLDIERTYPE * pSoldier );
 

@@ -27,9 +27,6 @@
 
 #include "PathAIDebug.h"
 
-#define MINIMUM_DISTANCE_BETWEEN_TEAMMATES 10
-#define MAX_NEAREST_ROOF_SEARCH_RADIUS 15
-
 #ifdef _DEBUG
 	INT16 gsCoverValue[WORLD_MAX];
 	INT16	gsBestCover;
@@ -526,8 +523,6 @@ UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT16 sGridNo )
 	return( ubCount );
 }
 
-static INT16 gsDesiredGridNo = NOWHERE;
-
 INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentBetter)
 {
 	DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("FindBestNearbyCover"));
@@ -559,7 +554,6 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	UINT8	ubBackgroundLightPercent = 0;
 	UINT8	ubLightPercentDifference;
 	BOOLEAN		fNight;
-	UINT16 usTmDistRatingBuffer;
 
 	switch( FindObj( pSoldier, GASMASK ) )
 	{
@@ -716,14 +710,8 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			iThreatCertainty = ThreatPercent[*pbPublOL - OLDEST_HEARD_VALUE];
 		}
 
-		sThreatLoc = pOpponent->sGridNo;
-		iThreatCertainty = 100;
-
 		// calculate how far away this threat is (in adjusted pixels)
 		//iThreatRange = AdjPixelsAway(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sThreatLoc),CenterY(sThreatLoc));
-		if( gsDesiredGridNo != NOWHERE )
-			iThreatRange = GetRangeInCellCoordsFromGridNoDiff( gsDesiredGridNo, sThreatLoc );
-		else
 		iThreatRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, sThreatLoc );
 
 		//NumMessage("Threat Range = ",iThreatRange);
@@ -733,7 +721,7 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 #endif
 
 		// if this opponent is believed to be too far away to really be a threat
-		if (iThreatRange > iMaxThreatRange +  Weapon[ Item[pOpponent->inv[HANDPOS].usItem].ubClassIndex ].usRange + GetRangeBonus(&pOpponent->inv[HANDPOS]))
+		if (iThreatRange > iMaxThreatRange)
 		{
 #ifdef DEBUGCOVER
 //			AINameMessage(pOpponent,"is too far away to be a threat",1000);
@@ -793,51 +781,13 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		if (Threat[uiLoop].iOrigRange <= MAX_THREAT_RANGE)
 		{
 			// add this opponent's cover value to our current total cover value
-			if( gsDesiredGridNo == NOWHERE )
 			iCurrentCoverValue += CalcCoverValue(pSoldier,pSoldier->sGridNo,iMyThreatValue,pSoldier->bActionPoints,uiLoop,Threat[uiLoop].iOrigRange,morale,&iCurrentScale);
-			else
-				iCurrentCoverValue += CalcCoverValue(pSoldier,gsDesiredGridNo,iMyThreatValue,pSoldier->bActionPoints,uiLoop,Threat[uiLoop].iOrigRange,morale,&iCurrentScale);
 		}
 		//sprintf((CHAR *)tempstr,"iCurrentCoverValue after opponent %d is now %d",iLoop,iCurrentCoverValue);
 		//PopMessage(tempstr);
 	}
 
-//	iCurrentCoverValue -= (iCurrentCoverValue / 10) * NumberOfTeamMatesAdjacent( pSoldier, pSoldier->sGridNo );
-
-	
-		if( gsDesiredGridNo == NOWHERE )
-			usTmDistRatingBuffer = CountRatingOfTeamMatesDensity( pSoldier, pSoldier->sGridNo, MINIMUM_DISTANCE_BETWEEN_TEAMMATES );
-		else
-			usTmDistRatingBuffer = CountRatingOfTeamMatesDensity( pSoldier, gsDesiredGridNo, MINIMUM_DISTANCE_BETWEEN_TEAMMATES );
-		usTmDistRatingBuffer *= usTmDistRatingBuffer;
-
-//		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld:%ld", sGridNo, usTmDistRatingBuffer );
-
-		if ( iCurrentCoverValue >= 0 )
-		{
-			iCurrentCoverValue -= (iCurrentCoverValue / 10) * usTmDistRatingBuffer;
-		}
-		else
-		{
-			// when negative, must add a negative to decrease the total
-			iCurrentCoverValue += (iCurrentCoverValue / 10) * usTmDistRatingBuffer;
-		}
-
-
-		// It's better to be in a room...I guess...
-		
-		if ( gsDesiredGridNo == NOWHERE ? InARoom( pSoldier->sGridNo, NULL ) : InARoom( gsDesiredGridNo, NULL ) )
-		{
-			if ( iCurrentCoverValue >= 0 )
-			{
-				iCurrentCoverValue += 2*iCurrentCoverValue;
-			}
-			else
-			{
-				iCurrentCoverValue -= 2*iCurrentCoverValue;
-			}
-		}
-
+	iCurrentCoverValue -= (iCurrentCoverValue / 10) * NumberOfTeamMatesAdjacent( pSoldier, pSoldier->sGridNo );
 
 #ifdef DEBUGCOVER
 //	AINumMessage("Search Range = ",iSearchRange);
@@ -932,11 +882,7 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			//HandleMyMouseCursor(KEYBOARDALSO);
 
 			// calculate the next potential gridno
-			if( gsDesiredGridNo == NOWHERE )
 			sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);
-			else
-				sGridNo = gsDesiredGridNo + sXOffset + (MAXCOL * sYOffset);
-			
 			if ( !(sGridNo >=0 && sGridNo < WORLD_MAX) )
 			{
 				continue;
@@ -983,9 +929,6 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			}
 
 			iPathCost = gubAIPathCosts[AI_PATHCOST_RADIUS + sXOffset][AI_PATHCOST_RADIUS + sYOffset];
-
-			if( iPathCost <= pSoldier->bActionPoints )iPathCost = 0;
-
 			/*
 			// water is OK, if the only good hiding place requires us to get wet, OK
 			iPathCost = LegalNPCDestination(pSoldier,sGridNo,ENSURE_PATH_COST,WATEROK);
@@ -1032,25 +975,14 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 
 			// reduce cover for each person adjacent to this gridno who is on our team,
 			// by 10% (so locations next to several people will be very much frowned upon
-
-			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld", iCoverValue );
-
-//			if( !iCoverValue )
-//				iCoverValue -= 100;
-
-			usTmDistRatingBuffer = CountRatingOfTeamMatesDensity( pSoldier, sGridNo, MINIMUM_DISTANCE_BETWEEN_TEAMMATES );
-			usTmDistRatingBuffer *= usTmDistRatingBuffer;
-
-//			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld:%ld", sGridNo, usTmDistRatingBuffer );
-
 			if ( iCoverValue >= 0 )
 			{
-				iCoverValue -= (iCoverValue / 10) * usTmDistRatingBuffer;
+				iCoverValue -= (iCoverValue / 10) * NumberOfTeamMatesAdjacent( pSoldier, sGridNo );
 			}
 			else
 			{
 				// when negative, must add a negative to decrease the total
-				iCoverValue += (iCoverValue / 10) * usTmDistRatingBuffer;
+				iCoverValue += (iCoverValue / 10) * NumberOfTeamMatesAdjacent( pSoldier, sGridNo );
 			}
 
 			if ( fNight && !( InARoom( sGridNo, NULL ) ) ) // ignore in buildings in case placed there
@@ -1061,29 +993,13 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 				ubLightPercentDifference = (gbLightSighting[ 0 ][ LightTrueLevel( sGridNo, pSoldier->bLevel ) ] - ubBackgroundLightPercent );
 				if ( iCoverValue >= 0 )
 				{
-					iCoverValue -= (iCoverValue / 20) * ubLightPercentDifference;
+					iCoverValue -= (iCoverValue / 100) * ubLightPercentDifference;
 				}
 				else
 				{
-					iCoverValue += (iCoverValue / 20) * ubLightPercentDifference;
+					iCoverValue += (iCoverValue / 100) * ubLightPercentDifference;
 				}
 			}
-
-
-			// It's better to be in a room...I guess...
-
-			if ( InARoom( sGridNo, NULL ) )
-			{
-				if ( iCoverValue >= 0 )
-				{
-					iCoverValue += 2*iCoverValue;
-				}
-				else
-				{
-					iCoverValue -= 2*iCoverValue;
-				}
-			}
-
 
 
 #ifdef DEBUGCOVER
@@ -1700,7 +1616,7 @@ INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 
 				// CJC: here, unfortunately, we must calculate a path so we have an AP cost
 
-				sPathCost = LegalNPCDestination(pSoldier,sGridNo,ENSURE_PATH_COST,WATEROK,0);
+				sPathCost = LegalNPCDestination(pSoldier,sGridNo,ENSURE_PATH_COST,NOWATER,0);
 
 				if (!sPathCost)
 				{
@@ -2864,246 +2780,3 @@ BOOLEAN CanClimbFromHere (SOLDIERTYPE * pSoldier, BOOLEAN fUp )
 	return FALSE;
 }
 */
-extern BUILDING gBuildings[ MAX_BUILDINGS ];
-extern UINT8 gubNumberOfBuildings;
-
-BOOLEAN IsItValidClimbSpot( INT16 sGridNo, INT8 bLevel )
-{
-	UINT16 usBuildingID;
-	UINT16 usClimbSpotIndex;
-
-	for( usBuildingID = 1; usBuildingID <= gubNumberOfBuildings ; ++usBuildingID )
-		for( usClimbSpotIndex = 0; usClimbSpotIndex < gBuildings[ usBuildingID ].ubNumClimbSpots ; ++usClimbSpotIndex )
-			if( gBuildings[ usBuildingID ].sUpClimbSpots[ usClimbSpotIndex ] == sGridNo && !bLevel )
-			{
-				if( WhoIsThere2( gBuildings[ usBuildingID ].sDownClimbSpots[ usClimbSpotIndex ], 1 ) == NOBODY )
-					return TRUE;
-			}else if( gBuildings[ usBuildingID ].sDownClimbSpots[ usClimbSpotIndex ] == sGridNo && bLevel )
-			{
-				if( WhoIsThere2( gBuildings[ usBuildingID ].sUpClimbSpots[ usClimbSpotIndex ], 0 ) == NOBODY )
-					return TRUE;
-			}
-	return FALSE;
-}
-
-BOOLEAN AreGridsAdjacent( INT16 sFGridNo, INT16 sSGridNo )
-{
-	return sFGridNo == sSGridNo - 1 ||
-				sFGridNo == sSGridNo + 1 ||
-				sFGridNo == sSGridNo - MAXCOL ||
-				sFGridNo == sSGridNo + MAXCOL;
-}
-
-INT16 FindClimbGridNo( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 bMaxActionPoints )
-{
-	BOOLEAN fClimbingNecessary;
-	INT16 sCGridNo;
-	INT16 sActionPointsNeeded = EstimatePathCostToLocation( pSoldier, sGridNo, 1, FALSE, &fClimbingNecessary, &sCGridNo );
-	
-	if( sActionPointsNeeded != 0 && fClimbingNecessary )
-	{
-		if( IsItValidClimbSpot( pSoldier->sGridNo, pSoldier->bLevel ) && AreGridsAdjacent( pSoldier->sGridNo, sCGridNo ) ) return pSoldier->sGridNo;
-
-		if( bMaxActionPoints < 0 || ( bMaxActionPoints >= 0 && sActionPointsNeeded <= bMaxActionPoints ) )
-			return sCGridNo;
-		else 
-			return NOWHERE;
-	}
-
-	return NOWHERE;
-}
-
-INT16 FindBestCoverNearTheGridNo(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubSearchRadius )
-{
-	INT32 iPercentBetter;
-//	INT16 sTrueGridNo;
-	INT16 sResultGridNo;
-	INT8 bRealWisdom = pSoldier->bWisdom;
-
-//	sTrueGridNo = pSoldier->sGridNo;
-//	pSoldier->sGridNo = sGridNo;
-	gsDesiredGridNo = sGridNo;
-	pSoldier->bWisdom = 8 * ubSearchRadius;// 5 tiles
-	
-	sResultGridNo = FindBestNearbyCover( pSoldier, MORALE_NORMAL, &iPercentBetter);
-	
-	pSoldier->bWisdom = bRealWisdom;
-//	pSoldier->sGridNo = sTrueGridNo;
-
-	gsDesiredGridNo = NOWHERE;
-
-	if( sResultGridNo != NOWHERE )
-		return sResultGridNo;
-	else 
-		return sGridNo;
-
-}
-
-INT16 FindRoofBetweenGridNos( INT16 sFGridNo, INT16 sSGridNo )
-{
-	INT16 sGridNo;
-	INT16 sCurrX, sCurrY;
-	INT16 sFGX, sFGY, sSGX, sSGY;
-
-	ConvertGridNoToXY( sFGridNo, &sFGX, &sFGY );
-	ConvertGridNoToXY( sSGridNo, &sSGX, &sSGY );
-	
-//	if( pSoldier->bLevel )
-//		return NOWHERE;
-
-//	if ( gbWorldSectorZ > 0 )
-//		return NOWHERE;
-
-
-	if( sFGX == sSGX )
-	{
-		sCurrX = sFGX;
-
-		if( sFGY < sSGY )
-			for( sCurrY = sFGY; sCurrY < sSGY ; ++sCurrY )
-			{
-				sGridNo = sCurrX + (MAXCOL * sCurrY);
-				if( gubBuildingInfo[ sGridNo ] )
-					return sGridNo;
-			}else 
-			if( sFGY > sSGY )
-				for( sCurrY = sFGY; sCurrY > sSGY ; --sCurrY )
-			{
-				sGridNo = sCurrX + (MAXCOL * sCurrY);
-				if( gubBuildingInfo[ sGridNo ] )
-					return sGridNo;
-			}
-
-	}else
-	if( sFGX < sSGX )
-		for( sCurrX = sFGX;sCurrX < sSGX ; ++sCurrX )
-		{
-			sCurrY = sFGY + ( sSGY - sFGY ) * ( (FLOAT)(sCurrX - sFGX) / (FLOAT)(sSGX - sFGX) );
-			sGridNo = sCurrX + (MAXCOL * sCurrY);
-			
-			if( gubBuildingInfo[ sGridNo ] )
-				return sGridNo;
-		}else
-	if( sFGX > sSGX )
-		for( sCurrX = sFGX;sCurrX > sSGX ; --sCurrX )
-		{
-			sCurrY = sFGY + ( sSGY - sFGY ) * ( (FLOAT)(sCurrX - sFGX) / (FLOAT)(sSGX - sFGX) );
-			sGridNo = sCurrX + (MAXCOL * sCurrY);
-			
-			if( gubBuildingInfo[ sGridNo ] )
-				return sGridNo;
-		}
-
-	return NOWHERE;
-}
-
-INT8 FindDirectionForClimbing( INT16 sGridNo )
-{
-	UINT16 usBuildingID;
-	UINT16 usClimbSpotIndex;
-
-	for( usBuildingID = 0; usBuildingID < gubNumberOfBuildings ; ++usBuildingID )
-		for( usClimbSpotIndex = 0; usClimbSpotIndex < gBuildings[ usBuildingID ].ubNumClimbSpots ; ++usClimbSpotIndex )
-			if( gBuildings[ usBuildingID ].sUpClimbSpots[ usClimbSpotIndex ] == sGridNo )
-			{
-				if( WhoIsThere2( gBuildings[ usBuildingID ].sDownClimbSpots[ usClimbSpotIndex ], 1 ) == NOBODY )
-					return atan8(CenterX(sGridNo),CenterY(sGridNo),CenterX(gBuildings[ usBuildingID ].sDownClimbSpots[ usClimbSpotIndex ]),CenterY(gBuildings[ usBuildingID ].sDownClimbSpots[ usClimbSpotIndex ]));
-			}else if( gBuildings[ usBuildingID ].sDownClimbSpots[ usClimbSpotIndex ] == sGridNo )
-			{
-				if( WhoIsThere2( gBuildings[ usBuildingID ].sUpClimbSpots[ usClimbSpotIndex ], 0 ) == NOBODY )
-					return atan8(CenterX(sGridNo),CenterY(sGridNo),CenterX(gBuildings[ usBuildingID ].sUpClimbSpots[ usClimbSpotIndex ]),CenterY(gBuildings[ usBuildingID ].sUpClimbSpots[ usClimbSpotIndex ]));
-			}
-	return DIRECTION_IRRELEVANT;
-}
-
-
-SOLDIERTYPE* FindFriendFarthestFromEnemies( SOLDIERTYPE * pSoldier )
-{
-	UINT32 uiLoop;
-	SOLDIERTYPE *pFriend;
-	SOLDIERTYPE *pBestFriend = 0;
-	UINT16 uiBestEnemyDensity = 0xFFFF;
-	UINT16 uiCurrEnemyDensity;
-
-	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
-	{
-		pFriend = MercSlots[ uiLoop ];
-
-		// it's me! Next merc
-		if( pFriend == pSoldier )
-			continue;
-
-		// if this merc is inactive, at base, on assignment, dead, unconscious
-		if (!pFriend || (pFriend->bLife < OKLIFE))
-		{
-			continue;          // next merc
-		}
-
-		// if this man is neutral / on the same side
-		if ( pSoldier->bSide != pFriend->bSide )
-		{
-			continue;          // next merc
-		}
-
-		uiCurrEnemyDensity = CountRatingOfOpponentsDensity( pFriend, pFriend->sGridNo, MAX_DIST );
-
-		if( uiCurrEnemyDensity < uiBestEnemyDensity )
-		{
-			uiBestEnemyDensity = uiCurrEnemyDensity;
-			pBestFriend = pFriend;
-		}
-	}
-
-	if( pBestFriend == pSoldier )
-		return 0;
-
-	return pBestFriend;
-}
-
-INT8 DetermineNearestRoof( SOLDIERTYPE *pSoldier )
-{
-	INT32 iSearchRange;
-	INT16 sGridNo, sCGridNo, sBestCGridNo = NOWHERE;
-	INT8 sBestRoof = NO_BUILDING;
-	INT16 sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
-	UINT8 ubBestDist = 255;
-
-	{
-		iSearchRange = MAX_NEAREST_ROOF_SEARCH_RADIUS;
-
-		// determine maximum horizontal limits
-		sMaxLeft  = min(iSearchRange,(pSoldier->sGridNo % MAXCOL));
-		sMaxRight = min(iSearchRange,MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
-	
-		// determine maximum vertical limits
-		sMaxUp   = min(iSearchRange,(pSoldier->sGridNo / MAXROW));
-		sMaxDown = min(iSearchRange,MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
-
-
-		for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
-		{
-			for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
-			{
-				sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);
-					
-				if( gubBuildingInfo[ sGridNo ] )
-				{
-					sCGridNo = FindClimbGridNo( pSoldier, sGridNo, -1 );
-					if( sCGridNo != NOWHERE && GetRangeFromGridNoDiff( pSoldier->sGridNo, sCGridNo ) < ubBestDist )
-					{
-						ubBestDist = GetRangeFromGridNoDiff( pSoldier->sGridNo, sCGridNo );
-						sBestCGridNo = sCGridNo;
-						sBestRoof = gubBuildingInfo[ sGridNo ];
-
-					}
-				}
-				
-			}
-		}
-
-		if( sBestRoof )
-			return sBestRoof;
-	}
-
-	return NO_BUILDING;
-}
