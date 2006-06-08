@@ -35,7 +35,7 @@ void AddLightEffectToTile( INT8 bType, INT16 sGridNo );
 
 void RemoveLightEffectFromTile( INT16 sGridNo );
 
-INT32 NewLightEffect( INT16 sGridNo, UINT16 ubDuration, UINT8 ubStartRadius );
+INT32 NewLightEffect( INT16 sGridNo, UINT8 ubDuration, UINT8 ubStartRadius );
 
 
 BOOLEAN SaveLightEffectsToSaveGameFile( HWFILE hFile );
