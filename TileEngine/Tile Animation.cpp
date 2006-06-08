@@ -138,7 +138,19 @@ ANITILE *CreateAnimationTile( ANITILE_PARAMS *pAniParams )
 
 		if ( uiFlags & ANITILE_LIGHT )
 		{
-			pNewAniNode->lightSprite = NewLightEffect(sGridNo, 1, 0);
+			if( !IsLightEffectAtTile(sGridNo) && ( pNewAniNode->lightSprite=LightSpriteCreate("L-R03.LHT", 0 ) )!=(-1))
+			{
+				LightSpritePower(pNewAniNode->lightSprite, TRUE);
+				{
+					INT16 sXPos, sYPos;
+
+					ConvertGridNoToCenterCellXY( sGridNo, &sXPos, &sYPos );
+					LightSpritePosition( pNewAniNode->lightSprite, (INT16)(sXPos/CELL_X_SIZE), (INT16)(sYPos/CELL_Y_SIZE));
+					AllTeamsLookForAll( FALSE );
+				}
+			}
+			else
+				pNewAniNode->lightSprite = -1;
 		}
 
 		if ( ( uiFlags & ANITILE_CACHEDTILE ) )
@@ -368,7 +380,7 @@ void DeleteAniTile( ANITILE *pAniTile )
 						break;
 
 				}
-				if ( pAniNode->uiFlags & ANITILE_LIGHT && pAniNode->lightSprite != NULL )
+				if ( pAniNode->uiFlags & ANITILE_LIGHT && pAniNode->lightSprite > 0 )
 				{
 					LightSpriteDestroy(pAniNode->lightSprite);
 				}
@@ -601,9 +613,9 @@ void UpdateAniTiles( )
 					}
 					else
 					{		
-						if ( pNode->uiFlags & ANITILE_LIGHT && pNode->lightSprite != NULL )
+						if ( pNode->uiFlags & ANITILE_LIGHT && pNode->lightSprite > 0 )
 						{
-							LightSpriteDestroy(pNode->lightSprite);
+							LightSpriteDestroy(pAniNode->lightSprite);
 						}
 
 						// Delete from world!

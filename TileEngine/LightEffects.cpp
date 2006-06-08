@@ -96,8 +96,8 @@ void UpdateLightingSprite( LIGHTEFFECT *pLight )
 }
 
 
-INT32 NewLightEffect( INT16 sGridNo, int ubDuration, UINT8 ubStartRadius )
-{
+INT32 NewLightEffect( INT16 sGridNo, UINT16 ubDuration, UINT8 ubStartRadius )
+{		
 	LIGHTEFFECT *pLight;
 	INT32				iLightIndex;
 
@@ -159,6 +159,27 @@ void RemoveLightEffectFromTile( INT16 sGridNo )
 
 }
 
+BOOLEAN IsLightEffectAtTile( INT16 sGridNo )
+{
+	LIGHTEFFECT *pLight;
+	UINT32 cnt;
+
+	// Set to unallocated....
+  for ( cnt = 0; cnt < guiNumLightEffects; cnt++ )
+  {
+		pLight = &gLightEffectData[ cnt ];
+		
+		if ( pLight->fAllocated )
+		{
+			if ( pLight->sGridNo == sGridNo )
+			{
+				return TRUE;
+			}
+		}
+	}
+
+  return FALSE;
+}
 
 void DecayLightEffects( UINT32 uiTime )
 {
@@ -187,6 +208,8 @@ void DecayLightEffects( UINT32 uiTime )
 				{
 					pLight->bAge++;
 
+					if ( pLight->ubDuration <= 0 )
+						fDelete = TRUE;
 					// if this cloud remains effective (duration not reached)
 					if ( pLight->bAge < pLight->ubDuration)
 					{

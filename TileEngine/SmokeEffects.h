@@ -22,10 +22,10 @@ typedef struct TAG_SMOKE_EFFECT
 {
 	INT16		sGridNo;          // gridno at which the tear gas cloud is centered
 
-	int		ubDuration;        // the number of turns gas will remain effective
+	UINT16		ubDuration;        // the number of turns gas will remain effective
 	UINT8		ubRadius;          // the current radius of the cloud in map tiles
 	UINT8   bFlags;            // 0 - outdoors (fast spread), 1 - indoors (slow)
-	int		bAge;             // the number of turns gas has been around
+	UINT16		bAge;             // the number of turns gas has been around
 	BOOLEAN	fAllocated;
 	INT8		bType;
 	UINT16	usItem;

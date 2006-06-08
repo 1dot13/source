@@ -15,9 +15,9 @@ typedef struct
 {
 	INT16		sGridNo;          // gridno at which the tear gas cloud is centered
 
-	int		ubDuration;		       // the number of turns will remain effective
+	UINT16		ubDuration;		       // the number of turns will remain effective
 	UINT8		bRadius;	          // the current radius
-	int			bAge;				        // the number of turns light has been around
+	UINT16			bAge;				        // the number of turns light has been around
 	BOOLEAN	fAllocated;
 	INT32		iLight;
 	UINT32	uiTimeOfLastUpdate;
@@ -35,7 +35,7 @@ void AddLightEffectToTile( INT8 bType, INT16 sGridNo );
 
 void RemoveLightEffectFromTile( INT16 sGridNo );
 
-INT32 NewLightEffect( INT16 sGridNo, int ubDuration, UINT8 ubStartRadius );
+INT32 NewLightEffect( INT16 sGridNo, UINT16 ubDuration, UINT8 ubStartRadius );
 
 
 BOOLEAN SaveLightEffectsToSaveGameFile( HWFILE hFile );
@@ -44,5 +44,7 @@ BOOLEAN LoadLightEffectsFromLoadGameFile( HWFILE hFile );
 BOOLEAN SaveLightEffectsToMapTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 BOOLEAN LoadLightEffectsFromMapTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 void ResetLightEffects();
+
+BOOLEAN IsLightEffectAtTile( INT16 sGridNo );
 
 #endif
