@@ -19,6 +19,7 @@ typedef struct
 	UINT8		bRadius;	          // the current radius
 	UINT8		bAge;				        // the number of turns light has been around
 	BOOLEAN	fAllocated;
+	INT8		bType;
 	INT32		iLight;
 	UINT32	uiTimeOfLastUpdate;
 
