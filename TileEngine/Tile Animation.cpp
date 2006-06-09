@@ -380,7 +380,7 @@ void DeleteAniTile( ANITILE *pAniTile )
 						break;
 
 				}
-				if ( pAniNode->uiFlags & ANITILE_LIGHT && pAniNode->lightSprite > 0 )
+				if ( pAniNode->uiFlags & ANITILE_LIGHT && pAniNode->lightSprite >= 0 )
 				{
 					LightSpriteDestroy(pAniNode->lightSprite);
 				}
@@ -613,7 +613,7 @@ void UpdateAniTiles( )
 					}
 					else
 					{		
-						if ( pNode->uiFlags & ANITILE_LIGHT && pNode->lightSprite > 0 )
+						if ( pNode->uiFlags & ANITILE_LIGHT && pNode->lightSprite >= 0 )
 						{
 							LightSpriteDestroy(pAniNode->lightSprite);
 						}
