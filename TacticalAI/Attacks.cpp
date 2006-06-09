@@ -16,8 +16,6 @@
 	#include "Isometric Utils.h"
 #endif
 
-#define ATTACK_VALUE_MULTIPLIER_FOR_SMOKE_GRENADES 0.5
-
 extern INT16 DirIncrementer[8];
 
 // 

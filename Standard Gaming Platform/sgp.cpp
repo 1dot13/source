@@ -383,20 +383,20 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 #if defined( JA2 )
 		case  WM_DEVICECHANGE:
 			{
-				DEV_BROADCAST_HDR  *pHeader = (DEV_BROADCAST_HDR  *)lParam;
+				//DEV_BROADCAST_HDR  *pHeader = (DEV_BROADCAST_HDR  *)lParam;
 
-				//if a device has been removed
-				if( wParam == DBT_DEVICEREMOVECOMPLETE )
-				{
-					//if its  a disk
-					if( pHeader->dbch_devicetype == DBT_DEVTYP_VOLUME )
-					{
-						//check to see if the play cd is still in the cdrom
-						if( !CheckIfGameCdromIsInCDromDrive() )
-						{
-						}
-					}
-				}
+				////if a device has been removed
+				//if( wParam == DBT_DEVICEREMOVECOMPLETE )
+				//{
+				//	//if its  a disk
+				//	if( pHeader->dbch_devicetype == DBT_DEVTYP_VOLUME )
+				//	{
+				//		//check to see if the play cd is still in the cdrom
+				//		if( !CheckIfGameCdromIsInCDromDrive() )
+				//		{
+				//		}
+				//	}
+				//}
 			}
 			break;
 #endif

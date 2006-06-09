@@ -247,7 +247,7 @@ void DoneFadeOutKilledQueen( void )
 			// ON THE STRAGETY LAYER KILL BAD GUYS!
 			if ( !pTeamSoldier->bNeutral && (pTeamSoldier->bSide != gbPlayerNum ) )
 			{
-				ProcessQueenCmdImplicationsOfDeath( pSoldier );
+				ProcessQueenCmdImplicationsOfDeath( pTeamSoldier );
 			}
 		}
 	}
