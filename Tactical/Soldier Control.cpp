@@ -3227,6 +3227,7 @@ BOOLEAN InternalSoldierReadyWeapon( SOLDIERTYPE *pSoldier, UINT8 sFacingDir, BOO
 		return( FALSE );
 	}
 
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("InternalSoldierReadyWeapon: PickingAnimation"));
 	usAnimState = PickSoldierReadyAnimation( pSoldier, fEndReady );
 
 	if ( usAnimState != INVALID_ANIMATION )
@@ -3252,8 +3253,6 @@ BOOLEAN InternalSoldierReadyWeapon( SOLDIERTYPE *pSoldier, UINT8 sFacingDir, BOO
 		//}//
 
 	}
-
-	HandleSight(pSoldier, SIGHT_LOOK );
 
 	return( fReturnVal );
 }
