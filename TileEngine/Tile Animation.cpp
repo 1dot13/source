@@ -146,7 +146,6 @@ ANITILE *CreateAnimationTile( ANITILE_PARAMS *pAniParams )
 
 					ConvertGridNoToCenterCellXY( sGridNo, &sXPos, &sYPos );
 					LightSpritePosition( pNewAniNode->lightSprite, (INT16)(sXPos/CELL_X_SIZE), (INT16)(sYPos/CELL_Y_SIZE));
-					AllTeamsLookForAll( FALSE );
 				}
 			}
 			else

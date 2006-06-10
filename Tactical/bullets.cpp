@@ -195,6 +195,10 @@ void RemoveBullet( INT32 iBullet )
 				}
 			}
 
+			if ( gBullets[ iBullet ].usFlags & ( BULLET_FLAG_TRACER ) )
+			{
+				AllTeamsLookForAll(TRUE);
+			}
 		}
 	}
 	else
@@ -410,7 +414,6 @@ void AddMissileTrail( BULLET *pBullet, FIXEDPT qCurrX, FIXEDPT qCurrY, FIXEDPT q
 	{
 		strcpy( AniParams.zCachedFile, "TILECACHE\\BULLET_TRACER.STI" );
 		AniParams.uiFlags |= ANITILE_LIGHT;
-		AniParams.sDelay = 0;
 	}
 
 	CreateAnimationTile( &AniParams );
