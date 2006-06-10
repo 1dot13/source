@@ -830,7 +830,8 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 		else if ( gGameOptions.ubDifficultyLevel >= DIF_LEVEL_MEDIUM )
 		{
 			// don't allow admins to radio
-			if ( pSoldier->bTeam == ENEMY_TEAM && gTacticalStatus.Team[ ENEMY_TEAM ].bAwareOfOpposition && pSoldier->ubSoldierClass != 	SOLDIER_CLASS_ADMINISTRATOR )
+			//Madd: Huh?  why not admins?  removed.
+			if ( pSoldier->bTeam == ENEMY_TEAM && gTacticalStatus.Team[ ENEMY_TEAM ].bAwareOfOpposition ) //&& pSoldier->ubSoldierClass != 	SOLDIER_CLASS_ADMINISTRATOR )
 			{
 				RadioSightings(pSoldier,EVERYBODY, pSoldier->bTeam );
 			}

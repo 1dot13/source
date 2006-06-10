@@ -125,7 +125,7 @@ enum
 	ONCALL,						// helps buddies anywhere within the sector
 	SEEKENEMY,				// not tied down to any one particular spot
 	RNDPTPATROL,			// patrols randomly using patrolGrids
-	//SNIPER,	// snipes
+	SNIPER,					// snipes
 	MAXORDERS
 };
 

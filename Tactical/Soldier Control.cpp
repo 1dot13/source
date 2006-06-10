@@ -3253,6 +3253,8 @@ BOOLEAN InternalSoldierReadyWeapon( SOLDIERTYPE *pSoldier, UINT8 sFacingDir, BOO
 
 	}
 
+	HandleSight(pSoldier, SIGHT_LOOK );
+
 	return( fReturnVal );
 }
 

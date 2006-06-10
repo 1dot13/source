@@ -1534,7 +1534,11 @@ void ChooseSpecialWeaponsForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 
 //		CreateItem( 298, (INT8)(50 + Random( 51 )), &Object );
 //		PlaceObjectInSoldierCreateStruct( pp, &Object );
 
-	if (fGrenadeLauncher)
+	if ( IsGrenadeLauncherAttached(&pp->Inv[HANDPOS]) ) //Madd: if there's a grenade launcher attached to the gun, then use that instead of giving him another one
+	{
+		itemGrenadeLauncher = GetAttachedGrenadeLauncher(&pp->Inv[HANDPOS]);
+	}
+	else if (fGrenadeLauncher)
 	{
 		itemGrenadeLauncher = PickARandomItem ( GRENADELAUNCHER );
 		// give grenade launcher

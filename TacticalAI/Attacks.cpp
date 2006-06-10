@@ -40,6 +40,9 @@ void LoadWeaponIfNeeded(SOLDIERTYPE *pSoldier)
 
 	usInHand = pSoldier->inv[HANDPOS].usItem;
 
+	if ( IsGrenadeLauncherAttached(&pSoldier->inv[HANDPOS]) ) 
+		usInHand = GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS]);
+
 	// if he's got a MORTAR in his hand, make sure he has a MORTARSHELL avail.
 	if (Item[usInHand].mortar )
 	{
@@ -129,6 +132,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
  ubBestChanceToHit = ubBestAimTime = ubChanceToHit = 0;
 
  pSoldier->usAttackingWeapon = pSoldier->inv[HANDPOS].usItem;
+ pSoldier->bWeaponMode = WM_NORMAL;
 
  ubBurstAPs = CalcAPsToBurst( CalcActionPoints( pSoldier ), &(pSoldier->inv[HANDPOS]) );
 
@@ -468,6 +472,9 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 
 	usInHand = pSoldier->inv[HANDPOS].usItem;
 	usGrenade = NOTHING;
+
+	if ( IsGrenadeLauncherAttached(&pSoldier->inv[HANDPOS]) )
+		usInHand = GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS]);
 
 	if ( EXPLOSIVE_GUN( usInHand ) )
 	{
@@ -1001,7 +1008,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				else
 				{
 					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcbestthrow: checking chance for launcher to beat cover");
-					ubChanceToGetThrough = 100 * CalculateLaunchItemChanceToGetThrough( pSoldier, &(pSoldier->inv[ HANDPOS ] ), sGridNo, bOpponentLevel[ubLoop], 0, &sEndGridNo, TRUE, &bEndLevel, FALSE );				//NumMessage("Chance to get through = ",ubChanceToGetThrough);
+					ubChanceToGetThrough = 100 * CalculateLaunchItemChanceToGetThrough( pSoldier, &(pSoldier->inv[ bPayloadPocket ] ), sGridNo, bOpponentLevel[ubLoop], 0, &sEndGridNo, TRUE, &bEndLevel, FALSE );				//NumMessage("Chance to get through = ",ubChanceToGetThrough);
 					// if we can't possibly get through all the cover
 					if (ubChanceToGetThrough == 0 )
 					{
@@ -1979,6 +1986,8 @@ void CheckIfTossPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CheckIfTossPossible");
 	UINT8 ubMinAPcost;
 
+	pSoldier->bWeaponMode = WM_NORMAL;
+
 	if ( TANK( pSoldier ) )
 	{
 		pBestThrow->bWeaponIn = FindCannon(pSoldier);//FindObj( pSoldier, TANK_CANNON );
@@ -1993,8 +2002,15 @@ void CheckIfTossPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			pBestThrow->bWeaponIn = FindRocketLauncherOrCannon( pSoldier );
 			if ( pBestThrow->bWeaponIn == NO_SLOT )
 			{
-				// no rocket launcher, consider grenades
-				pBestThrow->bWeaponIn = FindThrowableGrenade( pSoldier );
+				//no rocket launcher -- let's look for an underslung/attached GL
+				INT8 bGunSlot = FindAIUsableObjClass( pSoldier, IC_GUN );
+				if ( bGunSlot != NO_SLOT && IsGrenadeLauncherAttached(&pSoldier->inv[bGunSlot]) )
+				{
+					pBestThrow->bWeaponIn = bGunSlot;
+					pSoldier->bWeaponMode = WM_ATTACHED_GL;
+				}
+				else // no rocket launcher or attached GL, consider grenades
+					pBestThrow->bWeaponIn = FindThrowableGrenade( pSoldier );
 			}
 			else
 			{

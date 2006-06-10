@@ -95,6 +95,7 @@ typedef enum
 	AI_ACTION_END_COWER_AND_MOVE,	// sort of dummy value, special for civilians who are to go somewhere at end of battle
 	AI_ACTION_TRAVERSE_DOWN,			// move down a level
 	AI_ACTION_OFFER_SURRENDER,		// offer surrender to the player
+	AI_ACTION_RAISE_GUN,
 } ActionType;
 
 

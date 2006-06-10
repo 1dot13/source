@@ -1846,7 +1846,7 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1750"));
 		fGLauncher = TRUE;
 		sMinRange	 = MIN_MORTAR_RANGE/2;
 
-		if (gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE])
+		if ( (gGameSettings.fOptions[TOPTION_GL_HIGH_ANGLE] && pSoldier->bTeam == OUR_TEAM) || ( pSoldier->bTeam == ENEMY_TEAM && gGameOptions.ubDifficultyLevel >= DIF_LEVEL_HARD ) )
 			dDegrees *= 2;
 		//fLauncher = TRUE;
 	}

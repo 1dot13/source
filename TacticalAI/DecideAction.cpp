@@ -47,6 +47,8 @@ UINT32 guiRedSeekCounter = 0, guiRedHelpCounter = 0; guiRedHideCounter = 0;
 #define MIN_FLANK_DIST_RED 10 * STRAIGHT_RATIO
 #define MAX_FLANK_DIST_RED 40 * STRAIGHT_RATIO
 
+extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady );
+
 void DoneScheduleAction( SOLDIERTYPE * pSoldier )
 {
 	pSoldier->fAIFlags &= (~AI_CHECK_SCHEDULE);
@@ -667,13 +669,17 @@ INT8 DecideActionNamedNPC( SOLDIERTYPE * pSoldier )
 
 INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 {
- DOUBLE iChance, iSneaky = 10;
- INT8  bInWater,bInGas;
+	DOUBLE iChance, iSneaky = 10;
+	INT16 sBestCover;
+	INT32 iCoverPercentBetter;
+	INT8  bInWater,bInGas;
 	#ifdef DEBUGDECISIONS
 		STR16 tempstr;
 	#endif
  
- BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP || pSoldier->bNeutral || (pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV) ) );
+DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen"));
+
+BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP || pSoldier->bNeutral || (pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV) ) );
  BOOLEAN fCivilianOrMilitia = PTR_CIV_OR_MILITIA;
 
 	gubNPCPathCount = 0;
@@ -820,7 +826,11 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 
 	}
 
- ////////////////////////////////////////////////////////////////////////////
+
+	
+	
+	
+////////////////////////////////////////////////////////////////////////////
  // POINT PATROL: move towards next point unless getting a bit winded
  ////////////////////////////////////////////////////////////////////////////
 
@@ -836,7 +846,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 				pSoldier->bNextAction = AI_ACTION_WAIT;
 				pSoldier->usNextActionData = RealtimeDelay( pSoldier );
 			}
-     return(AI_ACTION_POINT_PATROL);
+		     return(AI_ACTION_POINT_PATROL);
 	 }
 	 else
 	 {
@@ -869,6 +879,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
  // WHEN LEFT IN WATER OR GAS, GO TO NEAREST REACHABLE SPOT OF UNGASSED LAND
  ////////////////////////////////////////////////////////////////////////////
 
+ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: get out of water and gas"));
 
  if (bInWater || bInGas)
   {
@@ -891,6 +902,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 	// REST IF RUNNING OUT OF BREATH
 	////////////////////////////////////////////////////////////////////////
 
+  DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: rest if running out of breath"));
 	// if our breath is running a bit low, and we're not in the way or in water
 	if ((pSoldier->bBreath < 75) && !bInWater)
 	{
@@ -902,7 +914,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 
 
  ////////////////////////////////////////////////////////////////////////////
- // TAKE SNIPER POSITION: determine % chance to climb onto a building
+ // CLIMB A BUILDING
  ////////////////////////////////////////////////////////////////////////////
 
 	if (!fCivilian)
@@ -920,6 +932,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 			case POINTPATROL:    iChance  = -20; break;
 			case FARPATROL:      iChance += -30; break;
 			case SEEKENEMY:      iChance += -20; break;
+			case SNIPER:		 iChance += 70; break;
 			}
 
 		// modify for attitude
@@ -942,13 +955,6 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 		// reduce chance for any injury, less likely to hop up if hurt
 		iChance -= (pSoldier->bLifeMax - pSoldier->bLife);
 
-		INT8 bSlot = FindAIUsableObjClass( pSoldier, IC_GUN );
-		if ( GunRange(&pSoldier->inv[bSlot]) >= 30 && IsScoped(&pSoldier->inv[bSlot]) )
-			iChance += 40;
-
-		if ( Weapon[pSoldier->inv[bSlot].usItem].ubWeaponType == GUN_SN_RIFLE )
-			iChance *= 2;
-
 		// reduce chance if breath is down
 		//iChance -= (100 - pSoldier->bBreath);         // don't care
 
@@ -963,17 +969,6 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 					if ( CanClimbFromHere ( pSoldier, fUp ) )
 					{
 							DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d is climbing roof",pSoldier->ubID) );
-							if ( GunRange(&pSoldier->inv[bSlot]) >= 30 && IsScoped(&pSoldier->inv[bSlot]) )
-							{
-								pSoldier->sniper = 1;
-								if ( !sniperwarning )
-								{
-									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Watch out for snipers..." );
-									//SayQuoteFromAnyBodyInSector( QUOTE_WEARY_SLASH_SUSPUCIOUS );
-									sniperwarning = TRUE;
-								}
-								DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d is now a sniper",pSoldier->ubID) );
-							}
 							return( AI_ACTION_CLIMB_ROOF );
 					}
 					else
@@ -988,165 +983,199 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 			}
 	}	
 
+	
+	/////////////////////////////////////////////////////////////////////////////
+	// SNIPERS GET TO COVER, EVERYONE INTO THE DARK
+	/////////////////////////////////////////////////////////////////////////////
 
-
- ////////////////////////////////////////////////////////////////////////////
+	if ( (pSoldier->bOrders == SNIPER || InLightAtNight( pSoldier->sGridNo, pSoldier->bLevel )) && pSoldier->bActionPoints >= MinPtsToMove(pSoldier) )
+	{
+		sBestCover = FindBestNearbyCover(pSoldier,pSoldier->bAIMorale,&iCoverPercentBetter);
+		if( sBestCover != NOWHERE)
+		{
+			pSoldier->usActionData = sBestCover;
+			return(AI_ACTION_TAKE_COVER);
+		}
+	}
+	
+	
+////////////////////////////////////////////////////////////////////////////
  // RANDOM PATROL:  determine % chance to start a new patrol route
  ////////////////////////////////////////////////////////////////////////////
-
-	if (!gubNPCPathCount) // try to limit pathing in Green AI
-	{
-
-	 iChance = 25 + pSoldier->bBypassToGreen;
-
-	 // set base chance according to orders
-	 switch (pSoldier->bOrders)
+		if (!gubNPCPathCount) // try to limit pathing in Green AI
 		{
-		 case STATIONARY:     iChance += -20;  break;
-		 case ONGUARD:        iChance += -15;  break;
-		 case ONCALL:                          break;
-		 case CLOSEPATROL:    iChance += +15;  break;
-		 case RNDPTPATROL:
-		 case POINTPATROL:		iChance = 0; break;
-		 /*
-		 if ( !gfTurnBasedAI )
-													{
-														// realtime deadlock... increase chance!
-														iChance = 110;// more than 100 in case person is defensive
-													}
-													else if ( pSoldier->bInitialActionPoints < pSoldier->bActionPoints ) // could be less because of carried-over points
-													{ 
-														// CJC: allow pt patrol guys to do a random move in case 
-														// of a deadlock provided they haven't done anything yet this turn
-														iChance=   0;
-													}
-													break;
-													*/
-		 case FARPATROL:      iChance += +25;  break;
-		 case SEEKENEMY:      iChance += -10;  break;
-		}
 
-	 // modify chance of patrol (and whether it's a sneaky one) by attitude
-	 switch (pSoldier->bAttitude)
-		{
-		 case DEFENSIVE:      iChance += -10;                 break;
-		 case BRAVESOLO:      iChance +=   5;                 break;
-		 case BRAVEAID:                                       break;
-		 case CUNNINGSOLO:    iChance +=   5;  iSneaky += 10; break;
-		 case CUNNINGAID:                      iSneaky +=  5; break;
-		 case AGGRESSIVE:     iChance +=  10;  iSneaky += -5; break;
-		 case ATTACKSLAYONLY: iChance +=  10;  iSneaky += -5; break;
-		}
+		iChance = 25 + pSoldier->bBypassToGreen;
 
-	 // reduce chance for any injury, less likely to wander around when hurt
-	 iChance -= (pSoldier->bLifeMax - pSoldier->bLife);
-
-	 // reduce chance if breath is down, less likely to wander around when tired
-	 iChance -= (100 - pSoldier->bBreath);
-
-
-	 // if we're in water with land miles (> 25 tiles) away,
-	 // OR if we roll under the chance calculated
-	 if (bInWater || ((INT16) PreRandom(100) < iChance))
-		{
-		 pSoldier->usActionData = RandDestWithinRange(pSoldier);
-
-		 if (pSoldier->usActionData != NOWHERE)
-		 {			
-			pSoldier->usActionData = GoAsFarAsPossibleTowards( pSoldier, pSoldier->usActionData, AI_ACTION_RANDOM_PATROL );
-		 }
-
-		 if (pSoldier->usActionData != NOWHERE)
+		// set base chance according to orders
+		switch (pSoldier->bOrders)
 			{
-	#ifdef DEBUGDECISIONS
-			 sprintf((CHAR *)tempstr,"%s - RANDOM PATROL to grid %d",pSoldier->name,pSoldier->usActionData);
-			 AIPopMessage(tempstr);
-	#endif
-				
-				if (!gfTurnBasedAI)
+			case STATIONARY:     iChance += -20;  break;
+			case ONGUARD:        iChance += -15;  break;
+			case ONCALL:                          break;
+			case CLOSEPATROL:    iChance += +15;  break;
+			case RNDPTPATROL:
+			case POINTPATROL:		iChance = 0; break;
+			/*
+			if ( !gfTurnBasedAI )
+														{
+															// realtime deadlock... increase chance!
+															iChance = 110;// more than 100 in case person is defensive
+														}
+														else if ( pSoldier->bInitialActionPoints < pSoldier->bActionPoints ) // could be less because of carried-over points
+														{ 
+															// CJC: allow pt patrol guys to do a random move in case 
+															// of a deadlock provided they haven't done anything yet this turn
+															iChance=   0;
+														}
+														break;
+														*/
+			case FARPATROL:      iChance += +25;  break;
+			case SEEKENEMY:      iChance += -10;  break;
+			case SNIPER:		iChance += -90;  break;
+			}
+
+		// modify chance of patrol (and whether it's a sneaky one) by attitude
+		switch (pSoldier->bAttitude)
+			{
+			case DEFENSIVE:      iChance += -10;                 break;
+			case BRAVESOLO:      iChance +=   5;                 break;
+			case BRAVEAID:                                       break;
+			case CUNNINGSOLO:    iChance +=   5;  iSneaky += 10; break;
+			case CUNNINGAID:                      iSneaky +=  5; break;
+			case AGGRESSIVE:     iChance +=  10;  iSneaky += -5; break;
+			case ATTACKSLAYONLY: iChance +=  10;  iSneaky += -5; break;
+			}
+
+		// reduce chance for any injury, less likely to wander around when hurt
+		iChance -= (pSoldier->bLifeMax - pSoldier->bLife);
+
+		// reduce chance if breath is down, less likely to wander around when tired
+		iChance -= (100 - pSoldier->bBreath);
+
+
+		// if we're in water with land miles (> 25 tiles) away,
+		// OR if we roll under the chance calculated
+		if (bInWater || ((INT16) PreRandom(100) < iChance))
+			{
+			pSoldier->usActionData = RandDestWithinRange(pSoldier);
+
+			if (pSoldier->usActionData != NOWHERE)
+			{			
+				pSoldier->usActionData = GoAsFarAsPossibleTowards( pSoldier, pSoldier->usActionData, AI_ACTION_RANDOM_PATROL );
+			}
+
+			if (pSoldier->usActionData != NOWHERE)
 				{
-					// wait after this...
-					pSoldier->bNextAction = AI_ACTION_WAIT;
-					pSoldier->usNextActionData = RealtimeDelay( pSoldier );
-				}
-			 return(AI_ACTION_RANDOM_PATROL);
-			}
-		}
-	}
-
-	if (!gubNPCPathCount) // try to limit pathing in Green AI
-	{
-	 ////////////////////////////////////////////////////////////////////////////
-	 // SEEK FRIEND: determine %chance for man to pay a friendly visit
-	 ////////////////////////////////////////////////////////////////////////////
-
-	 iChance = 25 + pSoldier->bBypassToGreen;
-
-	 // set base chance and maximum seeking distance according to orders
-	 switch (pSoldier->bOrders)
-		{
-		 case STATIONARY:     iChance += -20; break;
-		 case ONGUARD:        iChance += -15; break;
-		 case ONCALL:                         break;
-		 case CLOSEPATROL:    iChance += +10; break;
-		 case RNDPTPATROL:
-		 case POINTPATROL:    iChance  = -10; break;
-		 case FARPATROL:      iChance += +20; break;
-		 case SEEKENEMY:      iChance += -10; break;
-		}
-
-	 // modify for attitude
-	 switch (pSoldier->bAttitude)
-		{
-		 case DEFENSIVE:                       break;
-		 case BRAVESOLO:      iChance /= 2;    break;  // loners
-		 case BRAVEAID:       iChance += 10;   break;  // friendly
-		 case CUNNINGSOLO:    iChance /= 2;    break;  // loners
-		 case CUNNINGAID:     iChance += 10;   break;  // friendly
-		 case AGGRESSIVE:                      break;
-		 case ATTACKSLAYONLY:									 break;
-		}
-
-	 // reduce chance for any injury, less likely to wander around when hurt
-	 iChance -= (pSoldier->bLifeMax - pSoldier->bLife);
-
-	 // reduce chance if breath is down
-	 iChance -= (100 - pSoldier->bBreath);         // very likely to wait when exhausted
-
-
-	 if ((INT16) PreRandom(100) < iChance)
-		{
-		 if (RandomFriendWithin(pSoldier))
-			{
-				if ( pSoldier->usActionData == GoAsFarAsPossibleTowards( pSoldier, pSoldier->usActionData, AI_ACTION_SEEK_FRIEND ) )
-				{	  
-
-				#ifdef DEBUGDECISIONS
-						 sprintf((CHAR *)tempstr,"%s - SEEK FRIEND at grid %d",pSoldier->name,pSoldier->usActionData);
-						 AIPopMessage(tempstr);
-				#endif
-
-					 if (fCivilianOrMilitia && !gfTurnBasedAI)
-					 {
-						// pause at the end of the walk!
+		#ifdef DEBUGDECISIONS
+				sprintf((CHAR *)tempstr,"%s - RANDOM PATROL to grid %d",pSoldier->name,pSoldier->usActionData);
+				AIPopMessage(tempstr);
+		#endif
+					
+					if (!gfTurnBasedAI)
+					{
+						// wait after this...
 						pSoldier->bNextAction = AI_ACTION_WAIT;
-						pSoldier->usNextActionData = (UINT16) REALTIME_CIV_AI_DELAY;
-					 }
-
-				 return(AI_ACTION_SEEK_FRIEND);
+						pSoldier->usNextActionData = RealtimeDelay( pSoldier );
+					}
+				return(AI_ACTION_RANDOM_PATROL);
 				}
 			}
 		}
+
+		if (!gubNPCPathCount) // try to limit pathing in Green AI
+		{
+		////////////////////////////////////////////////////////////////////////////
+		// SEEK FRIEND: determine %chance for man to pay a friendly visit
+		////////////////////////////////////////////////////////////////////////////
+
+		iChance = 25 + pSoldier->bBypassToGreen;
+
+		// set base chance and maximum seeking distance according to orders
+		switch (pSoldier->bOrders)
+			{
+			case STATIONARY:     iChance += -20; break;
+			case ONGUARD:        iChance += -15; break;
+			case ONCALL:                         break;
+			case CLOSEPATROL:    iChance += +10; break;
+			case RNDPTPATROL:
+			case POINTPATROL:    iChance  = -10; break;
+			case FARPATROL:      iChance += +20; break;
+			case SEEKENEMY:      iChance += -10; break;
+			case SNIPER:		  iChance += -100; break; // Madd: Snipers have no friends :(
+			}
+
+		// modify for attitude
+		switch (pSoldier->bAttitude)
+			{
+			case DEFENSIVE:                       break;
+			case BRAVESOLO:      iChance /= 2;    break;  // loners
+			case BRAVEAID:       iChance += 10;   break;  // friendly
+			case CUNNINGSOLO:    iChance /= 2;    break;  // loners
+			case CUNNINGAID:     iChance += 10;   break;  // friendly
+			case AGGRESSIVE:                      break;
+			case ATTACKSLAYONLY:									 break;
+			}
+
+		// reduce chance for any injury, less likely to wander around when hurt
+		iChance -= (pSoldier->bLifeMax - pSoldier->bLife);
+
+		// reduce chance if breath is down
+		iChance -= (100 - pSoldier->bBreath);         // very likely to wait when exhausted
+
+
+		if ((INT16) PreRandom(100) < iChance)
+			{
+			if (RandomFriendWithin(pSoldier))
+				{
+					if ( pSoldier->usActionData == GoAsFarAsPossibleTowards( pSoldier, pSoldier->usActionData, AI_ACTION_SEEK_FRIEND ) )
+					{	  
+
+					#ifdef DEBUGDECISIONS
+							sprintf((CHAR *)tempstr,"%s - SEEK FRIEND at grid %d",pSoldier->name,pSoldier->usActionData);
+							AIPopMessage(tempstr);
+					#endif
+
+						if (fCivilianOrMilitia && !gfTurnBasedAI)
+						{
+							// pause at the end of the walk!
+							pSoldier->bNextAction = AI_ACTION_WAIT;
+							pSoldier->usNextActionData = (UINT16) REALTIME_CIV_AI_DELAY;
+						}
+
+					return(AI_ACTION_SEEK_FRIEND);
+					}
+				}
+			}
+		}
+
+		
+////////////////////////////////////////////////////////////////////////////
+ // SNIPERS LIKE TO CROUCH (even in green)
+ ////////////////////////////////////////////////////////////////////////////
+
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Snipers like to crouch"));
+ // if not in water and not already crouched, try to crouch down first
+ if (pSoldier->bOrders == SNIPER && !PTR_CROUCHED && IsValidStance( pSoldier, ANIM_CROUCH ) )
+  {
+	if (!gfTurnBasedAI || (GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) <= pSoldier->bActionPoints))
+	{
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Sniper is crouching"));
+		pSoldier->usActionData = ANIM_CROUCH;
+		pSoldier->sniper = 0;
+		return(AI_ACTION_CHANGE_STANCE);
 	}
+  }
 
  ////////////////////////////////////////////////////////////////////////////
  // LOOK AROUND: determine %chance for man to turn in place
  ////////////////////////////////////////////////////////////////////////////
 
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Soldier deciding to turn"));
 	if (!gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints)
 	{
 	 // avoid 2 consecutive random turns in a row
-	 if (pSoldier->bLastAction != AI_ACTION_CHANGE_FACING)
+		if (pSoldier->bLastAction != AI_ACTION_CHANGE_FACING)
 		{
 		 iChance = 25 + pSoldier->bBypassToGreen;
 
@@ -1160,6 +1189,8 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 		 if (pSoldier->bAttitude == DEFENSIVE)
 			 iChance += 25;
 
+		 if ( pSoldier->bOrders == SNIPER )
+			 iChance += 60;
 
 		 if ((INT16)PreRandom(100) < iChance)
 			{
@@ -1195,11 +1226,28 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 						pSoldier->usNextActionData = RealtimeDelay( pSoldier );
 					}
 
-				 return(AI_ACTION_CHANGE_FACING);
+				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Soldier is turning"));
+				return(AI_ACTION_CHANGE_FACING);
 				}
 			}
 		}
 	}
+		
+ ////////////////////////////////////////////////////////////////////////////
+ // SNIPER - RAISE WEAPON TO SCAN AREA
+ ////////////////////////////////////////////////////////////////////////////
+
+DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Snipers like to raise weapons"));
+ if ( pSoldier->bOrders == SNIPER && pSoldier->sniper == 0 ) //for some reason this check doesn't work: && pSoldier->usAnimState != PickSoldierReadyAnimation( pSoldier, FALSE ) )
+  {
+	if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
+	{
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Sniper is raising weapon"));
+		pSoldier->sniper = 1;
+		return(AI_ACTION_RAISE_GUN);
+	}
+  }
+
 
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1291,6 +1339,8 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		 // set base chance according to orders
 		 if ((pSoldier->bOrders == STATIONARY) || (pSoldier->bOrders == ONGUARD))
 			 iChance = 50;
+		 else if ( pSoldier->bOrders == SNIPER )
+			 iChance = 80;
 		 else           // all other orders
 			 iChance = 25;
 
@@ -1345,6 +1395,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
        case POINTPATROL:                 break;
        case FARPATROL:  iChance += -10;  break;
        case SEEKENEMY:  iChance += -20;  break;
+       case SNIPER:		iChance += -80; break; //Madd: sniper contacts are supposed to be automatically reported
       }
 
      // modify base chance according to attitude
@@ -1487,6 +1538,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 case POINTPATROL:                     break;
 			 case FARPATROL:      iChance +=  10;  break;
 			 case SEEKENEMY:      iChance +=  25;  break;
+			 case SNIPER:		  iChance += -50; break;
 			}
 
 		 // modify chance of patrol (and whether it's a sneaky one) by attitude
@@ -1522,7 +1574,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 				 AIPopMessage(tempstr);
 		#endif
 
-					if (fClimb && pSoldier->sniper == 0)//&& pSoldier->usActionData == sNoiseGridNo)
+					if ( fClimb )//&& pSoldier->usActionData == sNoiseGridNo)
 					{
 						// need to climb AND have enough APs to get there this turn
 						BOOLEAN fUp = TRUE;
@@ -1530,17 +1582,12 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 							fUp = FALSE;
 	
 						if (!fUp)
-							DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d, (sniper = %d), is climbing down",pSoldier->ubID,pSoldier->sniper) );
+							DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d, is climbing down",pSoldier->ubID) );
 
 						if ( CanClimbFromHere ( pSoldier, fUp ) )
 						{
 							if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( AP_CLIMBROOF + MinAPsToAttack( pSoldier, sNoiseGridNo, ADDTURNCOST)))
 							{
-								if ( pSoldier->bAttitude == DEFENSIVE )
-								{
-									pSoldier->sniper = 1;
-									DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d is now a sniper",pSoldier->ubID) );
-								}
 								return( AI_ACTION_CLIMB_ROOF );
 							}
 						}
@@ -1637,6 +1684,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 case POINTPATROL:    iChance += -10;  break;
 			 case FARPATROL:                       break;
 			 case SEEKENEMY:      iChance +=  10;  break;
+			 case SNIPER:		  iChance += -70; break;
 			}
 
 		 // modify chance of patrol (and whether it's a sneaky one) by attitude
@@ -1666,7 +1714,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 				 AIPopMessage(tempstr);
 	#endif
 
-					if (fClimb  && pSoldier->sniper == 0)//&& pSoldier->usActionData == sClosestFriend)
+					if ( fClimb )//&& pSoldier->usActionData == sClosestFriend)
 					{
 						// need to climb AND have enough APs to get there this turn
 						BOOLEAN fUp = TRUE;
@@ -1674,17 +1722,12 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 							fUp = FALSE;
 
 						if (!fUp)
-							DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d, (sniper = %d), is climbing down",pSoldier->ubID,pSoldier->sniper) );
+							DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d is climbing down",pSoldier->ubID) );
 
 						if ( CanClimbFromHere ( pSoldier, fUp ) )
 						{
 							if (IsActionAffordable(pSoldier) )
 							{
-								if ( pSoldier->bAttitude == DEFENSIVE )
-								{
-									pSoldier->sniper = 1;
-									DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d is now a sniper",pSoldier->ubID) );
-								}
 								return( AI_ACTION_CLIMB_ROOF );
 							}
 						}
@@ -1731,6 +1774,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 case POINTPATROL:                     break;
 			 case FARPATROL:      iChance +=  -5;  break;
 			 case SEEKENEMY:      iChance += -20;  break;
+			 case SNIPER:		  iChance +=  70; break;
 			}
 
 		 // modify chance (and whether it's sneaky) by attitude
@@ -1774,7 +1818,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
  ////////////////////////////////////////////////////////////////////////////
  // SWITCH TO GREEN: determine if soldier acts as if nothing at all was wrong
  ////////////////////////////////////////////////////////////////////////////
- if ((INT16)PreRandom(100) < 50 )
+ if ((INT16)PreRandom(100) < 50 || pSoldier->bOrders == SNIPER )
   {
 #ifdef RECORDNET
    fprintf(NetDebugFile,"\tDecideActionYellow: guynum %d ignores noise, switching to GREEN AI...\n",pSoldier->ubID);
@@ -2156,6 +2200,9 @@ INT32 iCoverPercentBetter;
       }
     }
 
+
+
+
 	// SNIPER!
 	CheckIfShotPossible(pSoldier,&BestShot,FALSE);
 
@@ -2184,7 +2231,7 @@ INT32 iCoverPercentBetter;
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: weapon in slot #%d",BestShot.bWeaponIn));
 		OBJECTTYPE * gun = &pSoldier->inv[BestShot.bWeaponIn];
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: men in sector %d, ubspotters called by %d, nobody %d",gTacticalStatus.Team[pSoldier->bTeam].bMenInSector,gTacticalStatus.ubSpottersCalledForBy,NOBODY ));
-		if ( ( IsScoped(gun) && GunRange(gun) > 30 ) &&
+		if ( (( IsScoped(gun) && GunRange(gun) > 30 ) || pSoldier->bOrders == SNIPER ) &&
 				 (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) &&
 				 (gTacticalStatus.ubSpottersCalledForBy == NOBODY))
 
@@ -2206,7 +2253,7 @@ INT32 iCoverPercentBetter;
 	CheckIfShotPossible(pSoldier,&BestShot,TRUE);
 
 	//must have a small chance to hit and the opponent must be on the ground (can't suppress guys on the roof)
-   if ( BestShot.ubPossible && BestShot.ubChanceToReallyHit < 50 && Menptr[BestShot.ubOpponent].bLevel == 0 )
+   if ( BestShot.ubPossible && BestShot.ubChanceToReallyHit < 50 && Menptr[BestShot.ubOpponent].bLevel == 0 && pSoldier->bOrders != SNIPER )
     {
      // then do it!  
 
@@ -2410,6 +2457,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
        case POINTPATROL:      iChance +=  -5;  break;
        case FARPATROL:        iChance += -10;  break;
        case SEEKENEMY:        iChance += -20;  break;
+       case SNIPER:			  iChance += -40;  break; // Sniper contacts should be reported automatically
       }
 
      // modify base chance according to attitude
@@ -2595,6 +2643,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 					 case FARPATROL:    bSeekPts +=  0; bHelpPts +=  0; bHidePts +=  0; bWatchPts +=  0; break;
 					 case ONCALL:       bSeekPts +=  0; bHelpPts += +1; bHidePts += -1; bWatchPts +=  0; break;
 					 case SEEKENEMY:    bSeekPts += +1; bHelpPts +=  0; bHidePts += -1; bWatchPts += -1; break;
+					 case SNIPER:		bSeekPts += -3; bHelpPts += -1; bHidePts += +2; bWatchPts += +1; break;
 					}
 
 				 // modify tendencies according to attitude
@@ -2612,7 +2661,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 					//Madd: make militia less likely to go running headlong into trouble
 					if ( pSoldier->bTeam == MILITIA_TEAM )
 					{
-						bSeekPts += -1; bHelpPts +=  0; bHidePts += +1; bWatchPts += +1;
+						bSeekPts += -1; bHelpPts +=  0; bHidePts += +1; bWatchPts += +0;
 					}
 				}
 
@@ -2641,8 +2690,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 						// if there is an opponent reachable
 						if (sClosestDisturbance != NOWHERE && gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE )
 						{
-							//////////////////////////////////////////////////////////////////////
 							DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: seek opponent");
+							//////////////////////////////////////////////////////////////////////
 							// SEEK CLOSEST DISTURBANCE: GO DIRECTLY TOWARDS CLOSEST KNOWN OPPONENT
 							//////////////////////////////////////////////////////////////////////
 
@@ -2672,7 +2721,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 								AIPopMessage(tempstr);
 							#endif						
 
-								if (fClimb  && pSoldier->sniper == 0)//&& pSoldier->usActionData == sClosestDisturbance)
+								if (fClimb)//&& pSoldier->usActionData == sClosestDisturbance)
 								{
 									// need to climb AND have enough APs to get there this turn
 									BOOLEAN fUp = TRUE;
@@ -2680,7 +2729,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 										fUp = FALSE;
 
 									if (!fUp)
-										DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d, (sniper = %d), is climbing down",pSoldier->ubID,pSoldier->sniper) );
+										DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d is climbing down",pSoldier->ubID) );
 
 									if ( CanClimbFromHere ( pSoldier, fUp ) )
 									{
@@ -2888,7 +2937,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 										 AIPopMessage(tempstr);
 								#endif
 
-								if (fClimb  && pSoldier->sniper == 0)//&& pSoldier->usActionData == sClosestFriend)
+								if ( fClimb )//&& pSoldier->usActionData == sClosestFriend)
 								{
 									// need to climb AND have enough APs to get there this turn
 									BOOLEAN fUp = TRUE;
@@ -2896,7 +2945,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 										fUp = FALSE;
 
 									if (!fUp)
-										DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d, (sniper = %d), is climbing down",pSoldier->ubID,pSoldier->sniper) );
+										DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d is climbing down",pSoldier->ubID) );
 
 									if ( CanClimbFromHere ( pSoldier, fUp ) )
 									{
@@ -4063,9 +4112,9 @@ bCanAttack = FALSE;
 
 
    // smart guys more likely to try to stay alive, dolts more likely to shoot!
-   if (pSoldier->bWisdom >= 80)
+   if (pSoldier->bWisdom >= 50) //Madd: reduced the wisdom required to want to live...
      iDefense += 10;
-   else if (pSoldier->bWisdom < 50)
+   else if (pSoldier->bWisdom < 30)
      iDefense -= 10;
 
    // some orders are more offensive, others more defensive
@@ -4073,6 +4122,8 @@ bCanAttack = FALSE;
      iOffense += 10;
    else if ((pSoldier->bOrders == STATIONARY) || (pSoldier->bOrders == ONGUARD))
      iDefense += 10;
+   else if (pSoldier->bOrders == SNIPER)
+     iDefense += 30;
 
    switch (pSoldier->bAttitude)
    {
@@ -4407,7 +4458,7 @@ bCanAttack = FALSE;
 
 
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("DecideActionBlack: Check for GL Bursts, is launcher capable? = %d, rtpcombat? = %d, bestattackaction = %d",IsGunBurstCapable( pSoldier, BestAttack.bWeaponIn, FALSE ),pSoldier->bRTPCombat,ubBestAttackAction ));
-			if (ubBestAttackAction == AI_ACTION_TOSS_PROJECTILE && IsGunBurstCapable( pSoldier, BestAttack.bWeaponIn, FALSE ) &&
+			if (ubBestAttackAction == AI_ACTION_TOSS_PROJECTILE && (Item[pSoldier->inv[BestAttack.bWeaponIn].usItem].usItemClass == IC_LAUNCHER && IsGunBurstCapable( pSoldier, BestAttack.bWeaponIn, FALSE )) &&
 				(pSoldier->bTeam != gbPlayerNum || pSoldier->bRTPCombat == RTP_COMBAT_AGGRESSIVE) )
 			{
 
@@ -4706,6 +4757,7 @@ bCanAttack = FALSE;
        case POINTPATROL:      iChance +=  -5;  break;
        case FARPATROL:        iChance += -10;  break;
        case SEEKENEMY:        iChance += -20;  break;
+       case SNIPER:			  iChance += -80;  break;
       }
 
      // modify base chance according to attitude
@@ -4787,10 +4839,16 @@ INT8 DecideAction(SOLDIERTYPE *pSoldier)
  UINT32		uiStartTime, uiEndTime;
 #endif
 
+	if ( !sniperwarning && pSoldier->bOrders == SNIPER )
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Watch out for snipers..." );
+		sniperwarning = TRUE;
+	}
+
 	if (!biggunwarning && FindRocketLauncherOrCannon(pSoldier) != NO_SLOT )
 	{
 		biggunwarning = TRUE;
-		//TODO: does this work ok here?
+		//TODO: don't say this again after reloading a savegame
 		SayQuoteFromAnyBodyInSector( QUOTE_WEARY_SLASH_SUSPUCIOUS );
 	}
 

@@ -2000,6 +2000,8 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 	// reset this field, too
 	pSoldier->bLastAttackHit = FALSE;
 
+	UINT16 usHandItem = pSoldier->inv[HANDPOS].usItem;
+
 	#ifdef TESTAICONTROL
 	if (gfTurnBasedAI || gTacticalStatus.fAutoBandageMode)
 	{
@@ -2348,7 +2350,11 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 				SimulMessage(tempstr,3000,NODECRYPT);
 			}
 #endif
-			iRetCode = HandleItem( pSoldier, pSoldier->usActionData, pSoldier->bTargetLevel, pSoldier->inv[HANDPOS].usItem, FALSE );
+			
+			if ( pSoldier->bAction == AI_ACTION_TOSS_PROJECTILE && IsGrenadeLauncherAttached(&pSoldier->inv[HANDPOS]) )
+				usHandItem = GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS]);
+
+			iRetCode = HandleItem( pSoldier, pSoldier->usActionData, pSoldier->bTargetLevel, usHandItem, FALSE );
 			if ( iRetCode != ITEM_HANDLE_OK)
 			{
 				if ( iRetCode != ITEM_HANDLE_BROKEN ) // if the item broke, this is 'legal' and doesn't need reporting
@@ -2546,6 +2552,11 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 			ActionDone( pSoldier );
 			break;
 
+		case AI_ACTION_RAISE_GUN: //Madd: action added for snipers to ready weapon and use vision range bonuses
+			SoldierReadyWeapon(pSoldier);
+			HandleSight(pSoldier, SIGHT_LOOK | SIGHT_RADIO);
+			break;
+
 		case AI_ACTION_CLIMB_ROOF:
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Executing: AI_ACTION_CLIMB_ROOF");
 
@@ -2632,7 +2643,7 @@ void CheckForChangingOrders(SOLDIERTYPE *pSoldier)
 				// crank up ONGUARD to CLOSEPATROL, and CLOSEPATROL to FARPATROL
 				pSoldier->bOrders++;       // increase roaming range by 1 category
 			}
-			else if ( pSoldier->bTeam == MILITIA_TEAM )
+			else if ( pSoldier->bTeam == MILITIA_TEAM && pSoldier->bOrders != SNIPER )
 			{
 				// go on alert!
 				pSoldier->bOrders = SEEKENEMY;

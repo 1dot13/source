@@ -4630,7 +4630,7 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 
 		pSoldier->sLastTarget = sXPos + (MAXCOL * sYPos);
 		DeductPoints( pSoldier, (INT16)(sAPCost - sAPCostToReady), 0 );
-		
+
 		HandleSight( pSoldier, SIGHT_LOOK ); 
 
 		return( TRUE );
