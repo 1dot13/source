@@ -194,11 +194,6 @@ void RemoveBullet( INT32 iBullet )
 					gBullets[ iBullet ].pShadowAniTile = NULL;
 				}
 			}
-
-			if ( gBullets[ iBullet ].usFlags & ( BULLET_FLAG_TRACER ) )
-			{
-				AllTeamsLookForAll(TRUE);
-			}
 		}
 	}
 	else
@@ -304,8 +299,12 @@ void UpdateBullets( )
 						}
 					}
 					// Are we a missle?
-					else if ( gBullets[ uiCount ].usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_TRACER ) )
+					else if ( gBullets[ uiCount ].usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT ) )
 					{
+					}
+					else if ( gBullets[ uiCount ].usFlags & ( BULLET_FLAG_TRACER ) )
+					{
+						ManLooksForOtherTeams(gBullets[ uiCount ].pFirer);
 					}
 					else
 					{
