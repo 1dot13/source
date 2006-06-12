@@ -1912,8 +1912,12 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 
 	// CJC: since jamming is no longer affected by reliability, increase chance of status going down for really unreliabile guns
  	INT16 ammoReliability = 0; // Madd: ammo reliability affects gun
+
 	if ( Item[usItemNum].usItemClass == IC_GUN )
-		ammoReliability = Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].bReliability;
+	{
+		OBJECTTYPE *pGun = &(pSoldier->inv[pSoldier->ubAttackingHand]);
+		ammoReliability = Item[pGun->usGunAmmoItem].bReliability;		
+	}
 
 	uiDepreciateTest = BASIC_DEPRECIATE_CHANCE + 3 * (Item[ usItemNum ].bReliability + ammoReliability);
 
