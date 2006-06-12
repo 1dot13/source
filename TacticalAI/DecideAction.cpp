@@ -677,7 +677,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 		STR16 tempstr;
 	#endif
  
-DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen"));
+DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen, orders = %d",pSoldier->bOrders));
 
 BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP || pSoldier->bNeutral || (pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV) ) );
  BOOLEAN fCivilianOrMilitia = PTR_CIV_OR_MILITIA;
@@ -1154,7 +1154,7 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
  // SNIPERS LIKE TO CROUCH (even in green)
  ////////////////////////////////////////////////////////////////////////////
 
-	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Snipers like to crouch"));
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Snipers like to crouch, sniper = %d",pSoldier->sniper));
  // if not in water and not already crouched, try to crouch down first
  if (pSoldier->bOrders == SNIPER && !PTR_CROUCHED && IsValidStance( pSoldier, ANIM_CROUCH ) )
   {
@@ -1166,6 +1166,30 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
 		return(AI_ACTION_CHANGE_STANCE);
 	}
   }
+
+ ////////////////////////////////////////////////////////////////////////////
+ // SNIPER - RAISE WEAPON TO SCAN AREA
+ ////////////////////////////////////////////////////////////////////////////
+
+DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Snipers like to raise weapons, sniper = %d",pSoldier->sniper));
+ if ( pSoldier->bOrders == SNIPER && pSoldier->sniper == 0 ) //for some reason this check doesn't work: && pSoldier->usAnimState != PickSoldierReadyAnimation( pSoldier, FALSE ) )
+ {
+	if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
+	{
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Sniper is raising weapon, soldier = %d, sniper = %d",pSoldier->ubID,pSoldier->sniper));
+		pSoldier->sniper = 1;
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Sniper = %d",pSoldier->sniper));
+		return(AI_ACTION_RAISE_GUN);
+	}
+ }
+ //else if ( pSoldier->sniper == 1 )
+ //{
+	//	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Sniper is lowering weapon, sniper = %d",pSoldier->sniper));
+	//	pSoldier->sniper = 0;
+	//	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Sniper = %d",pSoldier->sniper));
+	//	return(AI_ACTION_LOWER_GUN);
+ //}
+
 
  ////////////////////////////////////////////////////////////////////////////
  // LOOK AROUND: determine %chance for man to turn in place
@@ -1200,13 +1224,13 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
 					// if man has a LEGAL dominant facing, and isn't facing it, he will turn
 					// back towards that facing 50% of the time here (normally just enemies)
 					if ((pSoldier->bDominantDir >= 0) && (pSoldier->bDominantDir <= 8) &&
-						(pSoldier->bDirection != pSoldier->bDominantDir) && PreRandom(2))
+						(pSoldier->bDirection != pSoldier->bDominantDir) && PreRandom(2) && pSoldier->bOrders != SNIPER )
 					{
 						pSoldier->usActionData = pSoldier->bDominantDir;
 					}
 				 else
 					{
-						pSoldier->usActionData = (UINT16)PreRandom(8); 
+						pSoldier->usActionData = (UINT16)Random(8); 
 					}
 				} while (pSoldier->usActionData == pSoldier->bDirection);
 
@@ -1216,39 +1240,24 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
 			 AIPopMessage(tempstr);
 	#endif
 
+				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Trying to turn - checking stance validity, sniper = %d",pSoldier->sniper));
 				if ( InternalIsValidStance( pSoldier, (INT8) pSoldier->usActionData, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
 				{
 					
-					if (!gfTurnBasedAI)
+					if ( !gfTurnBasedAI )
 					{
 						// wait after this...
 						pSoldier->bNextAction = AI_ACTION_WAIT;
 						pSoldier->usNextActionData = RealtimeDelay( pSoldier );
 					}
 
-				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Soldier is turning"));
-				return(AI_ACTION_CHANGE_FACING);
+					DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Soldier is turning"));
+					return(AI_ACTION_CHANGE_FACING);
 				}
 			}
 		}
 	}
 		
- ////////////////////////////////////////////////////////////////////////////
- // SNIPER - RAISE WEAPON TO SCAN AREA
- ////////////////////////////////////////////////////////////////////////////
-
-DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Snipers like to raise weapons"));
- if ( pSoldier->bOrders == SNIPER && pSoldier->sniper == 0 ) //for some reason this check doesn't work: && pSoldier->usAnimState != PickSoldierReadyAnimation( pSoldier, FALSE ) )
-  {
-	if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
-	{
-		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Sniper is raising weapon"));
-		pSoldier->sniper = 1;
-		return(AI_ACTION_RAISE_GUN);
-	}
-  }
-
-
 
 	////////////////////////////////////////////////////////////////////////////
 	// NONE:
@@ -1340,7 +1349,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		 if ((pSoldier->bOrders == STATIONARY) || (pSoldier->bOrders == ONGUARD))
 			 iChance = 50;
 		 else if ( pSoldier->bOrders == SNIPER )
-			 iChance = 80;
+			 iChance = 90;
 		 else           // all other orders
 			 iChance = 25;
 
@@ -2643,7 +2652,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 					 case FARPATROL:    bSeekPts +=  0; bHelpPts +=  0; bHidePts +=  0; bWatchPts +=  0; break;
 					 case ONCALL:       bSeekPts +=  0; bHelpPts += +1; bHidePts += -1; bWatchPts +=  0; break;
 					 case SEEKENEMY:    bSeekPts += +1; bHelpPts +=  0; bHidePts += -1; bWatchPts += -1; break;
-					 case SNIPER:		bSeekPts += -3; bHelpPts += -1; bHidePts += +2; bWatchPts += +1; break;
+					 case SNIPER:		bSeekPts += -1; bHelpPts += -2; bHidePts += +1; bWatchPts += +2; break;
 					}
 
 				 // modify tendencies according to attitude

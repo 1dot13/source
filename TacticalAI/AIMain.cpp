@@ -2549,12 +2549,15 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 		case AI_ACTION_LOWER_GUN:
 			// for now, just do "action done"
+			InternalSoldierReadyWeapon(pSoldier,pSoldier->bDirection,TRUE);
+			HandleSight(pSoldier, SIGHT_LOOK );
 			ActionDone( pSoldier );
 			break;
 
 		case AI_ACTION_RAISE_GUN: //Madd: action added for snipers to ready weapon and use vision range bonuses
 			SoldierReadyWeapon(pSoldier);
 			HandleSight(pSoldier, SIGHT_LOOK | SIGHT_RADIO);
+			ActionDone( pSoldier );
 			break;
 
 		case AI_ACTION_CLIMB_ROOF:
