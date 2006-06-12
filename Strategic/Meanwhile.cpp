@@ -368,7 +368,8 @@ void BringupMeanwhileBox( )
 	}
 	else
 	{
-		DoMessageBox( MSG_BOX_BASIC_STYLE, zStr, guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_OK, BeginMeanwhileCallBack, NULL );
+		//DoMessageBox( MSG_BOX_BASIC_STYLE, zStr, guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_OK, BeginMeanwhileCallBack, NULL );
+		DoMessageBox( MSG_BOX_BASIC_STYLE, zStr, guiCurrentScreen, MSG_BOX_FLAG_OKSKIP, BeginMeanwhileCallBack, NULL );
 	}
 }
 
