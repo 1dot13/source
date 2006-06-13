@@ -1032,7 +1032,7 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
 														*/
 			case FARPATROL:      iChance += +25;  break;
 			case SEEKENEMY:      iChance += -10;  break;
-			case SNIPER:		iChance += -90;  break;
+			case SNIPER:		iChance += -40;  break;
 			}
 
 		// modify chance of patrol (and whether it's a sneaky one) by attitude
@@ -1102,7 +1102,7 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
 			case POINTPATROL:    iChance  = -10; break;
 			case FARPATROL:      iChance += +20; break;
 			case SEEKENEMY:      iChance += -10; break;
-			case SNIPER:		  iChance += -100; break; // Madd: Snipers have no friends :(
+			case SNIPER:		  iChance += -50; break; // Madd: Snipers have no friends :(
 			}
 
 		// modify for attitude
@@ -1349,7 +1349,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		 if ((pSoldier->bOrders == STATIONARY) || (pSoldier->bOrders == ONGUARD))
 			 iChance = 50;
 		 else if ( pSoldier->bOrders == SNIPER )
-			 iChance = 90;
+			 iChance = 60;
 		 else           // all other orders
 			 iChance = 25;
 
@@ -1547,7 +1547,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 case POINTPATROL:                     break;
 			 case FARPATROL:      iChance +=  10;  break;
 			 case SEEKENEMY:      iChance +=  25;  break;
-			 case SNIPER:		  iChance += -50; break;
+			 case SNIPER:		  iChance += -30; break;
 			}
 
 		 // modify chance of patrol (and whether it's a sneaky one) by attitude
@@ -1693,7 +1693,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 case POINTPATROL:    iChance += -10;  break;
 			 case FARPATROL:                       break;
 			 case SEEKENEMY:      iChance +=  10;  break;
-			 case SNIPER:		  iChance += -70; break;
+			 case SNIPER:		  iChance += -50; break;
 			}
 
 		 // modify chance of patrol (and whether it's a sneaky one) by attitude
@@ -1783,7 +1783,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 case POINTPATROL:                     break;
 			 case FARPATROL:      iChance +=  -5;  break;
 			 case SEEKENEMY:      iChance += -20;  break;
-			 case SNIPER:		  iChance +=  70; break;
+			 case SNIPER:		  iChance +=  40; break;
 			}
 
 		 // modify chance (and whether it's sneaky) by attitude
@@ -1827,7 +1827,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
  ////////////////////////////////////////////////////////////////////////////
  // SWITCH TO GREEN: determine if soldier acts as if nothing at all was wrong
  ////////////////////////////////////////////////////////////////////////////
- if ((INT16)PreRandom(100) < 50 || pSoldier->bOrders == SNIPER )
+ if ((INT16)PreRandom(100) < 50 )
   {
 #ifdef RECORDNET
    fprintf(NetDebugFile,"\tDecideActionYellow: guynum %d ignores noise, switching to GREEN AI...\n",pSoldier->ubID);
@@ -4132,7 +4132,7 @@ bCanAttack = FALSE;
    else if ((pSoldier->bOrders == STATIONARY) || (pSoldier->bOrders == ONGUARD))
      iDefense += 10;
    else if (pSoldier->bOrders == SNIPER)
-     iDefense += 30;
+     iDefense += 20;
 
    switch (pSoldier->bAttitude)
    {
