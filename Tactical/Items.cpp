@@ -6507,7 +6507,10 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 		}
 	}
 
-	return( bns );
+	if ( PTR_OURTEAM ) // Madd: adjust tunnel vision by difficulty level
+		return( bns );
+	else
+		return bns / gGameOptions.ubDifficultyLevel;
 }
 
 
