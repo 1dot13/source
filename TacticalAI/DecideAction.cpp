@@ -1032,7 +1032,7 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
 														*/
 			case FARPATROL:      iChance += +25;  break;
 			case SEEKENEMY:      iChance += -10;  break;
-			case SNIPER:		iChance += -40;  break;
+			case SNIPER:		iChance += -20;  break;
 			}
 
 		// modify chance of patrol (and whether it's a sneaky one) by attitude
@@ -1102,7 +1102,7 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
 			case POINTPATROL:    iChance  = -10; break;
 			case FARPATROL:      iChance += +20; break;
 			case SEEKENEMY:      iChance += -10; break;
-			case SNIPER:		  iChance += -50; break; // Madd: Snipers have no friends :(
+			case SNIPER:		  iChance += -20; break; 
 			}
 
 		// modify for attitude
@@ -1151,12 +1151,12 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
 
 		
 ////////////////////////////////////////////////////////////////////////////
- // SNIPERS LIKE TO CROUCH (even in green)
+ // SNIPERS LIKE TO CROUCH (on roofs)
  ////////////////////////////////////////////////////////////////////////////
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Snipers like to crouch, sniper = %d",pSoldier->sniper));
  // if not in water and not already crouched, try to crouch down first
- if (pSoldier->bOrders == SNIPER && !PTR_CROUCHED && IsValidStance( pSoldier, ANIM_CROUCH ) )
+ if (pSoldier->bOrders == SNIPER && !PTR_CROUCHED && IsValidStance( pSoldier, ANIM_CROUCH ) && pSoldier->bLevel == 1 )
   {
 	if (!gfTurnBasedAI || (GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) <= pSoldier->bActionPoints))
 	{
@@ -1172,7 +1172,7 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
  ////////////////////////////////////////////////////////////////////////////
 
 DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Snipers like to raise weapons, sniper = %d",pSoldier->sniper));
- if ( pSoldier->bOrders == SNIPER && pSoldier->sniper == 0 ) //for some reason this check doesn't work: && pSoldier->usAnimState != PickSoldierReadyAnimation( pSoldier, FALSE ) )
+ if ( pSoldier->bOrders == SNIPER && pSoldier->sniper == 0 && ( pSoldier->bLevel == 1 || Random(100) < 40 ) ) 
  {
 	if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
 	{
@@ -1204,7 +1204,7 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Snipers like to raise 
 		 iChance = 25 + pSoldier->bBypassToGreen;
 
 		 // set base chance according to orders
-		 if (pSoldier->bOrders == STATIONARY)
+		 if (pSoldier->bOrders == STATIONARY || pSoldier->bOrders == SNIPER)
 			 iChance += 25;
 
 		 if (pSoldier->bOrders == ONGUARD)
@@ -1213,8 +1213,8 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Snipers like to raise 
 		 if (pSoldier->bAttitude == DEFENSIVE)
 			 iChance += 25;
 
-		 if ( pSoldier->bOrders == SNIPER )
-			 iChance += 60;
+		 if ( pSoldier->bOrders == SNIPER && pSoldier->bLevel == 1)
+			 iChance += 35;
 
 		 if ((INT16)PreRandom(100) < iChance)
 			{
@@ -1346,10 +1346,8 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 	 if ((pSoldier->bDirection != ubNoiseDir) && PythSpacesAway(pSoldier->sGridNo,sNoiseGridNo) <= MaxDistanceVisible() )
 		{
 		 // set base chance according to orders
-		 if ((pSoldier->bOrders == STATIONARY) || (pSoldier->bOrders == ONGUARD))
+		 if ((pSoldier->bOrders == STATIONARY) || (pSoldier->bOrders == ONGUARD) || pSoldier->bOrders == SNIPER )
 			 iChance = 50;
-		 else if ( pSoldier->bOrders == SNIPER )
-			 iChance = 60;
 		 else           // all other orders
 			 iChance = 25;
 
@@ -1404,7 +1402,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
        case POINTPATROL:                 break;
        case FARPATROL:  iChance += -10;  break;
        case SEEKENEMY:  iChance += -20;  break;
-       case SNIPER:		iChance += -80; break; //Madd: sniper contacts are supposed to be automatically reported
+       case SNIPER:		iChance += -20; break; //Madd: sniper contacts are supposed to be automatically reported
       }
 
      // modify base chance according to attitude
@@ -1547,7 +1545,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 case POINTPATROL:                     break;
 			 case FARPATROL:      iChance +=  10;  break;
 			 case SEEKENEMY:      iChance +=  25;  break;
-			 case SNIPER:		  iChance += -30; break;
+			 case SNIPER:		  iChance += -20; break;
 			}
 
 		 // modify chance of patrol (and whether it's a sneaky one) by attitude
@@ -1693,7 +1691,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 case POINTPATROL:    iChance += -10;  break;
 			 case FARPATROL:                       break;
 			 case SEEKENEMY:      iChance +=  10;  break;
-			 case SNIPER:		  iChance += -50; break;
+			 case SNIPER:		  iChance += -20; break;
 			}
 
 		 // modify chance of patrol (and whether it's a sneaky one) by attitude
@@ -1783,7 +1781,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 case POINTPATROL:                     break;
 			 case FARPATROL:      iChance +=  -5;  break;
 			 case SEEKENEMY:      iChance += -20;  break;
-			 case SNIPER:		  iChance +=  40; break;
+			 case SNIPER:		  iChance +=  30; break;
 			}
 
 		 // modify chance (and whether it's sneaky) by attitude
@@ -2466,7 +2464,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
        case POINTPATROL:      iChance +=  -5;  break;
        case FARPATROL:        iChance += -10;  break;
        case SEEKENEMY:        iChance += -20;  break;
-       case SNIPER:			  iChance += -40;  break; // Sniper contacts should be reported automatically
+       case SNIPER:			  iChance += -20;  break; // Sniper contacts should be reported automatically
       }
 
      // modify base chance according to attitude
@@ -2652,7 +2650,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 					 case FARPATROL:    bSeekPts +=  0; bHelpPts +=  0; bHidePts +=  0; bWatchPts +=  0; break;
 					 case ONCALL:       bSeekPts +=  0; bHelpPts += +1; bHidePts += -1; bWatchPts +=  0; break;
 					 case SEEKENEMY:    bSeekPts += +1; bHelpPts +=  0; bHidePts += -1; bWatchPts += -1; break;
-					 case SNIPER:		bSeekPts += -1; bHelpPts += -2; bHidePts += +1; bWatchPts += +2; break;
+					 case SNIPER:		bSeekPts += -1; bHelpPts +=  0; bHidePts += +1; bWatchPts += +1; break;
 					}
 
 				 // modify tendencies according to attitude
@@ -3043,24 +3041,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: couldn't hide");
 					}
 				}
-
-			/////////////////////////////////////////////////////////////////////////////
-			// GET TO BETTER COVER
-			/////////////////////////////////////////////////////////////////////////////
 			}
-
-			if ( ubCanMove && ( ClosestReachableDisturbance(pSoldier, TRUE, &fClimb) == NOWHERE) )
-			{
-				sBestCover = FindBestNearbyCover(pSoldier,pSoldier->bAIMorale,&iCoverPercentBetter);
-				if( sBestCover != NOWHERE)
-				{
-					pSoldier->usActionData = sBestCover;
-					return(AI_ACTION_TAKE_COVER);
-				}
-			}
-
-		
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: nothing to do!");
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: nothing to do!");
 		 ////////////////////////////////////////////////////////////////////////////
 		 // NOTHING USEFUL POSSIBLE!  IF NPC IS CURRENTLY UNDER FIRE, TRY TO RUN AWAY
 		 ////////////////////////////////////////////////////////////////////////////
@@ -4129,10 +4111,8 @@ bCanAttack = FALSE;
    // some orders are more offensive, others more defensive
    if (pSoldier->bOrders == SEEKENEMY)
      iOffense += 10;
-   else if ((pSoldier->bOrders == STATIONARY) || (pSoldier->bOrders == ONGUARD))
+   else if ((pSoldier->bOrders == STATIONARY) || (pSoldier->bOrders == ONGUARD) || pSoldier->bOrders == SNIPER )
      iDefense += 10;
-   else if (pSoldier->bOrders == SNIPER)
-     iDefense += 20;
 
    switch (pSoldier->bAttitude)
    {
@@ -4766,7 +4746,7 @@ bCanAttack = FALSE;
        case POINTPATROL:      iChance +=  -5;  break;
        case FARPATROL:        iChance += -10;  break;
        case SEEKENEMY:        iChance += -20;  break;
-       case SNIPER:			  iChance += -80;  break;
+       case SNIPER:			  iChance += -20;  break;
       }
 
      // modify base chance according to attitude
