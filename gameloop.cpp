@@ -225,7 +225,8 @@ void GameLoop(void)
 		guiCurrentScreen = ERROR_SCREEN;
 	}
 
-
+/*
+	// Madd: removed check because it kept coming up for me, even on new games, even though I have 12GB free!!  I think the "DoesUserHaveEnoughHardDriveSpace" function is busted.
 	//if we are to check for free space on the hard drive
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: check hard drive");
 	if( gubCheckForFreeSpaceOnHardDriveCount < DONT_CHECK_FOR_FREE_SPACE )
@@ -266,7 +267,7 @@ void GameLoop(void)
 			}
 		}
 	}
-  
+*/
 	// ATE: Force to be in message box screen!
 	if ( gfInMsgBox )
 	{

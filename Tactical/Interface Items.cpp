@@ -7361,8 +7361,8 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 					gWeaponStatsDesc[ 11 ],		//Damage String
 					GetDamage(pObject), 
 					gWeaponStatsDesc[ 10 ],		//Range String
-					GunRange( pObject ),		//Modified Range
-					Weapon[ usItem ].usRange,	//Gun Range 
+					GunRange( pObject )/10,		//Modified Range
+					Weapon[ usItem ].usRange/10,	//Gun Range 
 					gWeaponStatsDesc[ 5 ],		//AP String
 					apStr,						//AP's
 					gWeaponStatsDesc[ 12 ],		//Weight String
@@ -7410,8 +7410,8 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 					gWeaponStatsDesc[ 11 ],		//Damage String
 					GetDamage(pObject), 
 					gWeaponStatsDesc[ 10 ],		//Range String
-					GunRange( pObject ),		//Modified Range
-					Weapon[ usItem ].usRange,	//Gun Range 
+					GunRange( pObject )/10,		//Modified Range
+					Weapon[ usItem ].usRange/10,	//Gun Range 
 					gWeaponStatsDesc[ 5 ],		//AP String
 					apStr,						//AP's
 					gWeaponStatsDesc[ 12 ],		//Weight String
