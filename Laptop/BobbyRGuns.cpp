@@ -890,7 +890,7 @@ BOOLEAN DisplayBigItemImage(UINT16 usIndex, UINT16 PosY)
 
 
 	//blt the shadow of the item
-	BltVideoObjectOutlineShadowFromIndex( FRAME_BUFFER, uiImage, 0, sCenX-2, sCenY+2);//pItem->ubGraphicNum
+	if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( FRAME_BUFFER, uiImage, 0, sCenX-2, sCenY+2);//pItem->ubGraphicNum
 
 	BltVideoObject(FRAME_BUFFER, hPixHandle, 0, sCenX, sCenY, VO_BLT_SRCTRANSPARENCY,NULL);
 	DeleteVideoObjectFromIndex(uiImage);

@@ -1242,7 +1242,7 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 			sCenY = PosY + ( abs( WEAPONBOX_SIZE_Y - usHeight ) / 2 ) - pTrav->sOffsetY;
 
 			//blt the shadow of the item
-			BltVideoObjectOutlineShadowFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), pItem->ubGraphicNum, sCenX-2, sCenY+2);
+			if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), pItem->ubGraphicNum, sCenX-2, sCenY+2);
 			//blt the item
 			BltVideoObjectOutlineFromIndex( FRAME_BUFFER, GetInterfaceGraphicForItem( pItem ), pItem->ubGraphicNum, sCenX, sCenY, 0, FALSE );
 

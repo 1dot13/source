@@ -3417,6 +3417,7 @@ STR16		zOptionsToggleText[] =
 	L"High Angle Grenade Launching",
 	L"Restrict Extra Aim Levels to Rifles",
 	L"Space selects next squad",
+	L"Show Item Shadow",
 };
 
 //This is the help text associated with the above toggles.
@@ -3488,6 +3489,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Grenade launchers fire grenades at higher angles.",
 	L"Aim levels beyond 4 are restricted to rifles and sniper rifles.",
 	L"When enabled |S|p|a|c|e selects next squad automatically.",
+	L"When enabled item shadows will be shown.",
 };
 
 

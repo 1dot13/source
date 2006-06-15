@@ -252,6 +252,7 @@ void InitGameSettings()
 
 	//lalien
 	gGameSettings.fOptions[ TOPTION_SPACE_SELECTS_NEXT_SQUAD ]			= TRUE;
+	gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]					= TRUE;
 
 	gGameSettings.ubSizeOfDisplayCover = 4;
 	gGameSettings.ubSizeOfLOS = 4;

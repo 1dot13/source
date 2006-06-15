@@ -1994,7 +1994,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 		sCenY =  sY + (INT16)( abs( sHeight - (double)usHeight ) / 2 ) - pTrav->sOffsetY;
 
 		// Shadow area
-		BltVideoObjectOutlineShadowFromIndex( uiBuffer, GetInterfaceGraphicForItem( pItem ), pItem->ubGraphicNum, sCenX - 2, sCenY + 2 );
+		if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( uiBuffer, GetInterfaceGraphicForItem( pItem ), pItem->ubGraphicNum, sCenX - 2, sCenY + 2 );
 		
 		BltVideoObjectOutlineFromIndex( uiBuffer, GetInterfaceGraphicForItem( pItem ), pItem->ubGraphicNum, sCenX, sCenY, sOutlineColor, fOutline );
 
@@ -3054,7 +3054,7 @@ void RenderItemDescriptionBox( )
 
 
 		// Display item
-		BltVideoObjectOutlineShadowFromIndex( guiSAVEBUFFER, guiItemGraphic, 0, sCenX - 2, sCenY + 2  );
+		if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( guiSAVEBUFFER, guiItemGraphic, 0, sCenX - 2, sCenY + 2  );
 
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemGraphic, 0, sCenX, sCenY, VO_BLT_SRCTRANSPARENCY, NULL );
 		
@@ -3542,7 +3542,7 @@ void RenderItemDescriptionBox( )
 
 
 		// Display item
-		BltVideoObjectOutlineShadowFromIndex( guiSAVEBUFFER, guiItemGraphic, 0, sCenX - 2, sCenY + 2  );
+		if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( guiSAVEBUFFER, guiItemGraphic, 0, sCenX - 2, sCenY + 2  );
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemGraphic, 0, sCenX, sCenY, VO_BLT_SRCTRANSPARENCY, NULL );
 
 		// Display status
