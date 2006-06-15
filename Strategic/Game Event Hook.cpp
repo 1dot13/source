@@ -321,9 +321,9 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 //		case EVENT_CHECK_FOR_AIR_RAID:
 //			CheckForAndSetupAirRaid( );
 //			break;
-		case EVENT_BEGIN_AIR_RAID:
-			BeginAirRaid( );
-			break;
+		//case EVENT_BEGIN_AIR_RAID:
+		//	BeginAirRaid( );
+		//	break;
 		case EVENT_MEANWHILE:
 			if( !DelayEventIfBattleInProgress( pEvent ) )
 			{

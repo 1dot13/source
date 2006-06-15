@@ -1247,7 +1247,8 @@ void HandleAirRaid( )
 
 BOOLEAN InAirRaid( )
 {
-	return( gfInAirRaid );
+	return FALSE;
+//	return( gfInAirRaid );
 }
 
 
@@ -1498,96 +1499,96 @@ void EndAirRaid( )
 // Madd
 void CheckForAndSetupAirRaid ()
 {
-	INT16 sSectorX;
-	INT16 sSectorY;
-	BOOLEAN fDoAirRaid=FALSE;
-	SECTORINFO * pSector;
-	INT16 sMenInSector;
-	INT16 sMinMenForRaid;
-	SOLDIERTYPE * pSoldier;
-	INT16 cnt=0;
+	//INT16 sSectorX;
+	//INT16 sSectorY;
+	//BOOLEAN fDoAirRaid=FALSE;
+	//SECTORINFO * pSector;
+	//INT16 sMenInSector;
+	//INT16 sMinMenForRaid;
+	//SOLDIERTYPE * pSoldier;
+	//INT16 cnt=0;
 
-	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"CheckForAndSetupAirRaid");
+	//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"CheckForAndSetupAirRaid");
 
-	switch ( gGameOptions.ubDifficultyLevel )
-	{
-		case DIF_LEVEL_EASY:
-			sMinMenForRaid = 10;
-			break;
-		case DIF_LEVEL_MEDIUM:
-			sMinMenForRaid = 8;
-			break;
-		case DIF_LEVEL_HARD:
-			sMinMenForRaid = 6;
-			break;
-		case DIF_LEVEL_INSANE:
-			sMinMenForRaid = 4;
-			break;
-	}
+	//switch ( gGameOptions.ubDifficultyLevel )
+	//{
+	//	case DIF_LEVEL_EASY:
+	//		sMinMenForRaid = 10;
+	//		break;
+	//	case DIF_LEVEL_MEDIUM:
+	//		sMinMenForRaid = 8;
+	//		break;
+	//	case DIF_LEVEL_HARD:
+	//		sMinMenForRaid = 6;
+	//		break;
+	//	case DIF_LEVEL_INSANE:
+	//		sMinMenForRaid = 4;
+	//		break;
+	//}
 
-	for ( sSectorY = 0;sSectorY < MAP_WORLD_Y;sSectorY++ )
-	{	
-		for ( sSectorX = 0;sSectorX < MAP_WORLD_X;sSectorX++ )
-		{
-			pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
+	//for ( sSectorY = 0;sSectorY < MAP_WORLD_Y;sSectorY++ )
+	//{	
+	//	for ( sSectorX = 0;sSectorX < MAP_WORLD_X;sSectorX++ )
+	//	{
+	//		pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
 
-			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CheckForAndSetupAirRaid: sector (%d,%d)",sSectorX,sSectorY));
+	//		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CheckForAndSetupAirRaid: sector (%d,%d)",sSectorX,sSectorY));
 
-			//only attack towns and sam sites
-			if( StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY ) ].bNameId == BLANK_SECTOR && !IsThisSectorASAMSector( sSectorX, sSectorY, 0 ))
-				continue;
+	//		//only attack towns and sam sites
+	//		if( StrategicMap[CALCULATE_STRATEGIC_INDEX( sSectorX, sSectorY ) ].bNameId == BLANK_SECTOR && !IsThisSectorASAMSector( sSectorX, sSectorY, 0 ))
+	//			continue;
 
-			sMenInSector = 0;
-			cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-			for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
-			{
-				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CheckForAndSetupAirRaid: soldier id = %d, (x,y,z) = (%d,%d,%d)",pSoldier->bActive,pSoldier->sSectorX,pSoldier->sSectorY,pSoldier->bSectorZ ));
-				if ( pSoldier->sSectorX == sSectorX && pSoldier->sSectorY == sSectorY && pSoldier->bSectorZ == 0 && pSoldier->bActive )
-					sMenInSector++;
-			}
-	
-			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CheckForAndSetupAirRaid: men %d, min men %d",sMenInSector,sMinMenForRaid));
-			if ( !WillAirRaidBeStopped ( sSectorX, sSectorY ) && sMenInSector >= sMinMenForRaid && Random(4) < gGameOptions.ubDifficultyLevel )
-			{
-				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CheckForAndSetupAirRaid: do a raid"));
-				fDoAirRaid = TRUE;
-				break;
-			}
-		}
-		if( fDoAirRaid )
-			break;
-	}
+	//		sMenInSector = 0;
+	//		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	//		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++, pSoldier++ )
+	//		{
+	//			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CheckForAndSetupAirRaid: soldier id = %d, (x,y,z) = (%d,%d,%d)",pSoldier->bActive,pSoldier->sSectorX,pSoldier->sSectorY,pSoldier->bSectorZ ));
+	//			if ( pSoldier->sSectorX == sSectorX && pSoldier->sSectorY == sSectorY && pSoldier->bSectorZ == 0 && pSoldier->bActive )
+	//				sMenInSector++;
+	//		}
+	//
+	//		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CheckForAndSetupAirRaid: men %d, min men %d",sMenInSector,sMinMenForRaid));
+	//		if ( !WillAirRaidBeStopped ( sSectorX, sSectorY ) && sMenInSector >= sMinMenForRaid && Random(4) < gGameOptions.ubDifficultyLevel )
+	//		{
+	//			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CheckForAndSetupAirRaid: do a raid"));
+	//			fDoAirRaid = TRUE;
+	//			break;
+	//		}
+	//	}
+	//	if( fDoAirRaid )
+	//		break;
+	//}
 
-	if ( fDoAirRaid )
-	{
-		AIR_RAID_DEFINITION	AirRaidDef;
+	//if ( fDoAirRaid )
+	//{
+	//	AIR_RAID_DEFINITION	AirRaidDef;
 
-		AirRaidDef.sSectorX		= sSectorX;
-		AirRaidDef.sSectorY		= sSectorY;
-		AirRaidDef.sSectorZ		= 0;
-		AirRaidDef.bIntensity	= max(1,gGameOptions.ubDifficultyLevel-1) ;
-		AirRaidDef.uiFlags		=	AIR_RAID_CAN_RANDOMIZE_TEASE_DIVES;
-		AirRaidDef.ubNumMinsFromCurrentTime	= Random(840) + 1;
+	//	AirRaidDef.sSectorX		= sSectorX;
+	//	AirRaidDef.sSectorY		= sSectorY;
+	//	AirRaidDef.sSectorZ		= 0;
+	//	AirRaidDef.bIntensity	= max(1,gGameOptions.ubDifficultyLevel-1) ;
+	//	AirRaidDef.uiFlags		=	AIR_RAID_CAN_RANDOMIZE_TEASE_DIVES;
+	//	AirRaidDef.ubNumMinsFromCurrentTime	= Random(840) + 1;
 
-		ScheduleAirRaid( &AirRaidDef );
+	//	ScheduleAirRaid( &AirRaidDef );
 
 		return;
-	}
+	//}
 }
 
 void EnemyCallInAirStrike (INT16 sSectorX, INT16 sSectorY)
 {
-	AIR_RAID_DEFINITION	AirRaidDef;
+	//AIR_RAID_DEFINITION	AirRaidDef;
 
-	AirRaidDef.sSectorX		= sSectorX;
-	AirRaidDef.sSectorY		= sSectorY;
-	AirRaidDef.sSectorZ		= 0;
-	AirRaidDef.bIntensity	= max(1,gGameOptions.ubDifficultyLevel-1);
-	AirRaidDef.uiFlags		=	AIR_RAID_BOMBS_ONLY;
-	AirRaidDef.ubNumMinsFromCurrentTime	= Random(2);
+	//AirRaidDef.sSectorX		= sSectorX;
+	//AirRaidDef.sSectorY		= sSectorY;
+	//AirRaidDef.sSectorZ		= 0;
+	//AirRaidDef.bIntensity	= max(1,gGameOptions.ubDifficultyLevel-1);
+	//AirRaidDef.uiFlags		=	AIR_RAID_BOMBS_ONLY;
+	//AirRaidDef.ubNumMinsFromCurrentTime	= Random(2);
 
-	if ( AirRaidDef.bIntensity > 0 )
-		ScheduleAirRaid( &AirRaidDef );
+	//if ( AirRaidDef.bIntensity > 0 )
+	//	ScheduleAirRaid( &AirRaidDef );
 
 	return;
 }
