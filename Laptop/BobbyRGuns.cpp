@@ -1375,7 +1375,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 					gWeaponStatsDesc[ 11 ],					//Damage String
 					gunDamage,								//Gun damage
 					gWeaponStatsDesc[ 10 ],					//Range String
-					Weapon[ pItemNumbers[ i ] ].usRange/10,	//Gun Range 
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? Weapon[ pItemNumbers[ i ] ].usRange/10 : Weapon[ pItemNumbers[ i ] ].usRange,	//Gun Range 
 					gWeaponStatsDesc[ 5 ],					//AP String
 					//apStr,								//AP's
 					L"- / - / -",
@@ -1436,7 +1436,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 					gWeaponStatsDesc[ 11 ],					//Damage String
 					gunDamage,								//Gun damage
 					gWeaponStatsDesc[ 10 ],					//Range String
-					Weapon[ pItemNumbers[ i ] ].usRange/10,	//Gun Range 
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? Weapon[ pItemNumbers[ i ] ].usRange/10 : Weapon[ pItemNumbers[ i ] ].usRange,	//Gun Range 
 					gWeaponStatsDesc[ 5 ],					//AP String
 					//apStr,								//AP's
 					L"- / - / -",

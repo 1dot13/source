@@ -7361,8 +7361,8 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 					gWeaponStatsDesc[ 11 ],		//Damage String
 					GetDamage(pObject), 
 					gWeaponStatsDesc[ 10 ],		//Range String
-					GunRange( pObject )/10,		//Modified Range
-					Weapon[ usItem ].usRange/10,	//Gun Range 
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GunRange( pObject )/10 : GunRange( pObject ),			//Modified Range
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? Weapon[ usItem ].usRange/10 : Weapon[ usItem ].usRange,	//Gun Range 
 					gWeaponStatsDesc[ 5 ],		//AP String
 					apStr,						//AP's
 					gWeaponStatsDesc[ 12 ],		//Weight String
@@ -7410,8 +7410,8 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 					gWeaponStatsDesc[ 11 ],		//Damage String
 					GetDamage(pObject), 
 					gWeaponStatsDesc[ 10 ],		//Range String
-					GunRange( pObject )/10,		//Modified Range
-					Weapon[ usItem ].usRange/10,	//Gun Range 
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? GunRange( pObject )/10 : GunRange( pObject ),			//Modified Range
+					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? Weapon[ usItem ].usRange/10 : Weapon[ usItem ].usRange,	//Gun Range 
 					gWeaponStatsDesc[ 5 ],		//AP String
 					apStr,						//AP's
 					gWeaponStatsDesc[ 12 ],		//Weight String
