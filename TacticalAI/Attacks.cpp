@@ -155,7 +155,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		continue;          // next merc
 
   // if this opponent is not currently in sight (ignore known but unseen!)
-	if (pSoldier->bOppList[pOpponent->ubID] != SEEN_CURRENTLY && !shootUnseen || 
+	if ((pSoldier->bOppList[pOpponent->ubID] != SEEN_CURRENTLY && !shootUnseen) || 
 	   (shootUnseen && gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID] != SEEN_CURRENTLY) )
 		continue;  // next opponent
 
