@@ -1873,7 +1873,11 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 					{
 						if( pSector->ubNumElites + pGroup->ubGroupSize >= iMaxEnemyGroupSize )
 						{ //Fill up the queen's guards, then apply the rest to the reinforcement pool
-							giReinforcementPool += iMaxEnemyGroupSize - pSector->ubNumElites;
+
+							//Madd: unlimited reinforcements in Insane, so never increase/decrease it
+							if ( gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
+								giReinforcementPool += iMaxEnemyGroupSize - pSector->ubNumElites;
+	
 							pSector->ubNumElites = iMaxEnemyGroupSize;
 							#ifdef JA2BETAVERSION
 								LogStrategicEvent( "%d reinforcements have arrived to garrison queen's sector.  The excess troops will be relocated to the reinforcement pool.", 
@@ -1891,7 +1895,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 					}
 					else
 					{ //Add all the troops to the reinforcement pool as the queen's guard is at full strength.
-						giReinforcementPool += pGroup->ubGroupSize;
+						//Madd: unlimited reinforcements in Insane, so never increase/decrease it
+						if ( gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
+							giReinforcementPool += pGroup->ubGroupSize;
 						#ifdef JA2BETAVERSION
 							LogStrategicEvent( "%d reinforcements have arrived at queen's sector and have been added to the reinforcement pool.", 
 								pGroup->ubGroupSize, pGroup->ubSectorY + 'A' - 1, pGroup->ubSectorX );
@@ -2697,7 +2703,10 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 		pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, (UINT8)iReinforcementsApproved, 0 );
 		ConvertGroupTroopsToComposition( pGroup, gGarrisonGroup[ iDstGarrisonID ].ubComposition );
 		pGroup->ubOriginalSector = (UINT8)SECTOR( ubDstSectorX, ubDstSectorY );
-		giReinforcementPool -= iReinforcementsApproved;
+		//Madd: unlimited reinforcements in Insane
+		if ( gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
+			giReinforcementPool -= iReinforcementsApproved;
+	
 		pGroup->ubMoveType = ONE_WAY;
 		gGarrisonGroup[ iDstGarrisonID ].ubPendingGroupID = pGroup->ubGroupID;
 
@@ -2861,7 +2870,10 @@ void SendReinforcementsForPatrol( INT32 iPatrolID, GROUP **pOptionalGroup )
 		}
 		pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, (UINT8)iReinforcementsApproved, 0 );
 		pGroup->ubOriginalSector = (UINT8)SECTOR( ubDstSectorX, ubDstSectorY );
-		giReinforcementPool -= iReinforcementsApproved;
+
+		//Madd: unlimited reinforcements in Insane
+		if ( gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
+			giReinforcementPool -= iReinforcementsApproved;
 
 		gPatrolGroup[ iPatrolID ].ubPendingGroupID = pGroup->ubGroupID;
 
@@ -2959,6 +2971,7 @@ void EvaluateQueenSituation()
 	if( !giReinforcementPool )
 	{ //Queen has run out of reinforcements.  Simulate recruiting and training new troops
 		uiOffset *= 10;
+		//Madd: don't need an Insane check here, since this can never happen in Insane
 		giReinforcementPool += ( gGameExternalOptions.guiBaseQueenPoolIncrement * gGameOptions.ubDifficultyLevel ) * ( 100 + CurrentPlayerProgressPercentage() ) / 100 ;
 		AddStrategicEvent( EVENT_EVALUATE_QUEEN_SITUATION, GetWorldTotalMin() + uiOffset, 0 );
 		return;
@@ -3784,6 +3797,10 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic7");
 		{
 			iFactor = -50;
 		}
+
+		if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
+			iFactor = abs(iFactor); // Madd: The Queen never gets a defensive penalty.  The range for iFactor becomes 0-50.  This should increase the priorities for sectors outside Meduna as the queen loses sectors and keep up the attacks.  This is only going to work if the reinforcement pool is unlimited, as sectors priorities won't ever go down really low.  For now, I'm limiting this change to Insane.  Depending on how it works, I may tweak it to work with the other difficulty levels.
+
 		iFactor = iFactor * gubQueenPriorityPhase / 10;
 
 		//modify priority by + or - 25% of original
@@ -3950,7 +3967,11 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			{ //this should never happen (but if it did, then this is the best way to deal with it).
 				pGroup->pEnemyGroup->ubIntention = PURSUIT;
 			}
-			giReinforcementPool -= ubNumSoldiers;
+
+			//Madd: unlimited reinforcements in Insane
+			if ( gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
+				giReinforcementPool -= ubNumSoldiers;
+		
 			giReinforcementPool = max( giReinforcementPool, 0 );
 
 			MoveSAIGroupToSector( &pGroup, ubSectorID, EVASIVE, pGroup->pEnemyGroup->ubIntention );
@@ -3964,7 +3985,11 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			pSector = &SectorInfo[ ubSectorID ];
 			ubNumSoldiers = (UINT8)(gGameOptions.ubDifficultyLevel * 4);
 			pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, ubNumSoldiers, 0 );
-			giReinforcementPool -= ubNumSoldiers;
+
+			//Madd: unlimited reinforcements in Insane
+			if ( gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
+				giReinforcementPool -= ubNumSoldiers;
+			
 			giReinforcementPool = max( giReinforcementPool, 0 );
 
 			//Determine if the battle location actually has a garrison assignment.  If so, and the following
@@ -3995,7 +4020,11 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			ubNumSoldiers = (UINT8)(gGameOptions.ubDifficultyLevel * 6); //6, 12, or 18 based on difficulty.
 			pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, ubNumSoldiers, (UINT8)(ubNumSoldiers/7) ); //add 1 elite to normal, and 2 for hard
 			ubNumSoldiers = (UINT8)(ubNumSoldiers + ubNumSoldiers / 7);
-			giReinforcementPool -= ubNumSoldiers;
+
+			//Madd: unlimited reinforcements in Insane
+			if ( gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
+				giReinforcementPool -= ubNumSoldiers;
+	
 			giReinforcementPool = max( giReinforcementPool, 0 );
 			if( PlayerMercsInSector( 9, 1, 1 ) && !PlayerMercsInSector( 10, 1, 1 ) && !PlayerMercsInSector( 10, 1, 2 ) )
 			{ //send to A9 (if mercs in A9, but not in A10 or A10 basement)
@@ -4013,7 +4042,11 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 		case NPC_ACTION_SEND_TROOPS_TO_SAM:
 			ubSectorID = (UINT8)SECTOR( sSectorX, sSectorY );
 			ubNumSoldiers = (UINT8)( 3 + gGameOptions.ubDifficultyLevel + HighestPlayerProgressPercentage() / 15 );
-			giReinforcementPool -= ubNumSoldiers;
+
+			//Madd: unlimited reinforcements in Insane
+			if ( gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
+				giReinforcementPool -= ubNumSoldiers;
+		
 			giReinforcementPool = max( giReinforcementPool, 0 );
 			pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, 0, ubNumSoldiers );
 			MoveSAIGroupToSector( &pGroup, ubSectorID, STAGE, REINFORCEMENTS );
@@ -4391,7 +4424,7 @@ void StrategicHandleQueenLosingControlOfSector( INT16 sSectorX, INT16 sSectorY, 
 			return;
 	}
 	
-	if( pSector->ubInvestigativeState >= 4 )
+	if( pSector->ubInvestigativeState >= ( 4 * gGameOptions.ubDifficultyLevel ) && gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )  //Madd: tweaked to increase attacks for experienced and expert to 8 and 12, and unlimited for insane
 	{ //This is the 4th time the player has conquered this sector.  We won't pester the player with probing attacks here anymore.
 		return;  
 	}
@@ -4537,7 +4570,10 @@ void RequestHighPriorityGarrisonReinforcements( INT32 iGarrisonID, UINT8 ubSoldi
 		pGroup->pEnemyGroup->ubIntention = REINFORCEMENTS;
 		gGarrisonGroup[ iGarrisonID ].ubPendingGroupID = pGroup->ubGroupID;
 		pGroup->ubOriginalSector = (UINT8)SECTOR( ubDstSectorX, ubDstSectorY );
-		giReinforcementPool -= (INT32)ubSoldiersRequested;
+
+		//Madd: unlimited reinforcements in Insane
+		if ( gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
+			giReinforcementPool -= (INT32)ubSoldiersRequested;
 		
 		MoveSAIGroupToSector( &pGroup, gGarrisonGroup[ iGarrisonID ].ubSectorID, EVASIVE, REINFORCEMENTS );
 		ValidateGroup( pGroup );
@@ -4865,7 +4901,7 @@ void UpgradeAdminsToTroops()
 				while ( ubAdminsToCheck > 0)
 				{
 					// chance to upgrade at each check is random, and also dependant on the garrison's priority
-					if ( Chance ( bPriority ) )
+					if ( Chance ( bPriority ) || gGameOptions.ubDifficultyLevel > DIF_LEVEL_HARD ) // Madd: Always happens on Insane
 					{
 						pSector->ubNumAdmins--;
 						pSector->ubNumTroops++;
@@ -4920,7 +4956,7 @@ void UpgradeAdminsToTroops()
 					while ( ubAdminsToCheck > 0)
 					{
 						// chance to upgrade at each check is random, and also dependant on the group's priority
-						if ( Chance ( bPriority ) )
+						if ( Chance ( bPriority ) || gGameOptions.ubDifficultyLevel >= DIF_LEVEL_HARD )// Madd: Always happens on Expert and Insane
 						{
 							pGroup->pEnemyGroup->ubNumAdmins--;
 							pGroup->pEnemyGroup->ubNumTroops++;
@@ -4992,7 +5028,10 @@ INT16 FindGarrisonIndexForGroupIDPending( UINT8 ubGroupID )
 
 void TransferGroupToPool( GROUP **pGroup )
 {
-	giReinforcementPool += (*pGroup)->ubGroupSize;
+	//Madd: unlimited reinforcements in Insane, so never increase/decrease it
+	if ( gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
+		giReinforcementPool += (*pGroup)->ubGroupSize;
+	
 	RemovePGroup( *pGroup );
 	*pGroup = NULL;
 }

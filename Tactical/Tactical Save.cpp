@@ -2575,6 +2575,11 @@ BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, S
 					pWorldItems[ bCount ].bVisible = TRUE;
 					pWorldItems[ bCount ].bRenderZHeightAboveLevel = 0;
 
+					if ( Item[pSoldier->inv[i].usItem].damageable ) // Madd: drop crappier items on higher difficulty levels
+					{
+						pSoldier->inv[i].bStatus[0] -= (gGameOptions.ubDifficultyLevel - 1) * Random(20);
+						pSoldier->inv[i].bStatus[0] = max(pSoldier->inv[i].bStatus[0],1); // never below 1%
+					}
 					memcpy( &(pWorldItems[ bCount ].o), &pSoldier->inv[i], sizeof( OBJECTTYPE ) );
 					bCount++;
 				}

@@ -1438,14 +1438,19 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 		}
 		else if ( _KeyDown ( ALT ) && fSELLALL)
 		{
+			INT32 iPrice = 0; 
+			INT8 bLoop;
 
-			INT32 iPrice = (Item[gpItemPointer->usItem].usPrice );
-			for (INT8 bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
+			for (bLoop = 0; bLoop < gItemPointer.ubNumberOfObjects; bLoop++)
 			{
-				iPrice += Item[gpItemPointer->usAttachItem[bLoop]].usPrice;
+				iPrice += (Item[gpItemPointer->usItem].usPrice ) * (gpItemPointer->bStatus[bLoop]/100);
+			}
+			for (bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
+			{
+				iPrice += Item[gpItemPointer->usAttachItem[bLoop]].usPrice  * (gpItemPointer->bAttachStatus[bLoop]/100);
 			}
 
-			iPrice = (INT32) (iPrice / iPriceModifier) * gItemPointer.ubNumberOfObjects;
+			iPrice = (INT32) (iPrice / iPriceModifier);
 			AddTransactionToPlayersBook( SOLD_ITEMS, 0, GetWorldTotalMin(), iPrice );
 		    PlayJA2Sample( COMPUTER_BEEP2_IN, RATE_11025, 15, 1, MIDDLEPAN );			              
 			gpItemPointer = NULL;
