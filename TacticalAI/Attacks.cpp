@@ -2399,13 +2399,10 @@ void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN s
 	// if the soldier does have a long range rifle
 	if (pBestShot->bWeaponIn != NO_SLOT)
 	{
-		// Consider long range rifles only
 		OBJECTTYPE * pObj = &pSoldier->inv[pBestShot->bWeaponIn];
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("CheckIfShotPossible: found a gun item # %d",pObj->usItem ));
 		
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("CheckIfShotPossible: weapon type %d",Weapon [pObj->usItem ].ubWeaponType ));
-		//if ( Weapon [pObj->usItem ].ubWeaponType != GUN_SN_RIFLE )
-		//	return;
 
 		// if it's in his holster, swap it into his hand temporarily
 		if (pBestShot->bWeaponIn != HANDPOS)
@@ -2414,7 +2411,7 @@ void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN s
 			RearrangePocket(pSoldier, HANDPOS, pBestShot->bWeaponIn, TEMPORARILY);
 		}
 
-		if ( (!suppressionFire && IsScoped(pObj) && !Weapon[pObj->usItem].NoSemiAuto && GunRange(pObj) > 30 ) || (suppressionFire  && IsGunAutofireCapable(pSoldier,pBestShot->bWeaponIn ) && GetMagSize(pObj) > 30 && pObj->ubGunShotsLeft > 20 ))
+		if ( (!suppressionFire && ( (IsScoped(pObj) && GunRange(pObj) > 30) || pSoldier->bOrders == SNIPER ) ) || (suppressionFire  && IsGunAutofireCapable(pSoldier,pBestShot->bWeaponIn ) && GetMagSize(pObj) > 30 && pObj->ubGunShotsLeft > 20 ))
 		{
 			// get the minimum cost to attack with this item
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CheckIfShotPossible: getting min aps");
