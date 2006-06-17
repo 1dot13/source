@@ -1029,7 +1029,7 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
 														*/
 			case FARPATROL:      iChance += +25;  break;
 			case SEEKENEMY:      iChance += -10;  break;
-			case SNIPER:		iChance += -20;  break;
+			case SNIPER:		iChance += -15;  break;
 			}
 
 		// modify chance of patrol (and whether it's a sneaky one) by attitude
@@ -1099,7 +1099,7 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
 			case POINTPATROL:    iChance  = -10; break;
 			case FARPATROL:      iChance += +20; break;
 			case SEEKENEMY:      iChance += -10; break;
-			case SNIPER:		  iChance += -20; break; 
+			case SNIPER:		  iChance += -15; break; 
 			}
 
 		// modify for attitude
@@ -1399,7 +1399,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
        case POINTPATROL:                 break;
        case FARPATROL:  iChance += -10;  break;
        case SEEKENEMY:  iChance += -20;  break;
-       case SNIPER:		iChance += -20; break; //Madd: sniper contacts are supposed to be automatically reported
+       case SNIPER:		iChance += -10; break; //Madd: sniper contacts are supposed to be automatically reported
       }
 
      // modify base chance according to attitude
@@ -1542,7 +1542,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 case POINTPATROL:                     break;
 			 case FARPATROL:      iChance +=  10;  break;
 			 case SEEKENEMY:      iChance +=  25;  break;
-			 case SNIPER:		  iChance += -20; break;
+			 case SNIPER:		  iChance += -15; break;
 			}
 
 		 // modify chance of patrol (and whether it's a sneaky one) by attitude
@@ -1688,7 +1688,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 case POINTPATROL:    iChance += -10;  break;
 			 case FARPATROL:                       break;
 			 case SEEKENEMY:      iChance +=  10;  break;
-			 case SNIPER:		  iChance += -20; break;
+			 case SNIPER:		  iChance += -15; break;
 			}
 
 		 // modify chance of patrol (and whether it's a sneaky one) by attitude
@@ -1778,7 +1778,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 case POINTPATROL:                     break;
 			 case FARPATROL:      iChance +=  -5;  break;
 			 case SEEKENEMY:      iChance += -20;  break;
-			 case SNIPER:		  iChance +=  30; break;
+			 case SNIPER:		  iChance +=  20; break;
 			}
 
 		 // modify chance (and whether it's sneaky) by attitude
@@ -2454,7 +2454,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
        case POINTPATROL:      iChance +=  -5;  break;
        case FARPATROL:        iChance += -10;  break;
        case SEEKENEMY:        iChance += -20;  break;
-       case SNIPER:			  iChance += -20;  break; // Sniper contacts should be reported automatically
+       case SNIPER:			  iChance += -10;  break; // Sniper contacts should be reported automatically
       }
 
      // modify base chance according to attitude
@@ -4730,7 +4730,7 @@ bCanAttack = FALSE;
        case POINTPATROL:      iChance +=  -5;  break;
        case FARPATROL:        iChance += -10;  break;
        case SEEKENEMY:        iChance += -20;  break;
-       case SNIPER:			  iChance += -20;  break;
+       case SNIPER:			  iChance += -10;  break;
       }
 
      // modify base chance according to attitude
