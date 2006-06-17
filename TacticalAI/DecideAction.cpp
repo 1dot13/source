@@ -47,7 +47,6 @@ UINT32 guiRedSeekCounter = 0, guiRedHelpCounter = 0; guiRedHideCounter = 0;
 #define MIN_FLANK_DIST_RED 10 * STRAIGHT_RATIO
 #define MAX_FLANK_DIST_RED 40 * STRAIGHT_RATIO
 
-extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady );
 
 void DoneScheduleAction( SOLDIERTYPE * pSoldier )
 {
@@ -670,8 +669,6 @@ INT8 DecideActionNamedNPC( SOLDIERTYPE * pSoldier )
 INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 {
 	DOUBLE iChance, iSneaky = 10;
-	INT16 sBestCover;
-	INT32 iCoverPercentBetter;
 	INT8  bInWater,bInGas;
 	#ifdef DEBUGDECISIONS
 		STR16 tempstr;
@@ -990,11 +987,11 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
 
 	if ( (pSoldier->bOrders == SNIPER || InLightAtNight( pSoldier->sGridNo, pSoldier->bLevel )) && pSoldier->bActionPoints >= MinPtsToMove(pSoldier) )
 	{
-		sBestCover = FindBestNearbyCover(pSoldier,pSoldier->bAIMorale,&iCoverPercentBetter);
-		if( sBestCover != NOWHERE)
+		pSoldier->usActionData = FindNearbyDarkerSpot( pSoldier );
+		if ( pSoldier->usActionData != NOWHERE )
 		{
-			pSoldier->usActionData = sBestCover;
-			return(AI_ACTION_TAKE_COVER);
+			// move as if leaving water or gas
+			return( AI_ACTION_LEAVE_WATER_GAS );
 		}
 	}
 	
@@ -1877,7 +1874,6 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 
 INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 {
-INT32 iCoverPercentBetter;
  INT8 bActionReturned;
  INT32 iDummy;
  INT16 iChance,sClosestOpponent,sClosestFriend;
@@ -1887,8 +1883,6 @@ INT32 iCoverPercentBetter;
  INT8 bSeekPts = 0, bHelpPts = 0, bHidePts = 0, bWatchPts = 0;
  INT8	bHighestWatchLoc;
  ATTACKTYPE BestThrow, BestShot;
- INT16 sBestCover = NOWHERE;
-
 #ifdef AI_TIMING_TEST
  UINT32	uiStartTime, uiEndTime;
  #endif
@@ -2052,12 +2046,8 @@ INT32 iCoverPercentBetter;
   ////////////////////////////////////////////////////////////////////////////
   // WHEN IN THE LIGHT, GET OUT OF THERE!
   ////////////////////////////////////////////////////////////////////////////
-  if ( ubCanMove && InLightAtNight( pSoldier->sGridNo, pSoldier->bLevel ) && pSoldier->bOrders != STATIONARY
-	  && pSoldier->bActionPoints <= pSoldier->bInitialActionPoints / 2)// && pSoldier->bActionInProgress != AI_ACTION_MOVE_TO_CLIMB )
+  if ( ubCanMove && InLightAtNight( pSoldier->sGridNo, pSoldier->bLevel ) && pSoldier->bOrders != STATIONARY )
 	{
-	    if( gfTurnBasedAI )
-	 		pSoldier->usActionData = FindBestNearbyCover(pSoldier,pSoldier->bAIMorale,&iCoverPercentBetter);
-		else
 		pSoldier->usActionData = FindNearbyDarkerSpot( pSoldier );
 		if ( pSoldier->usActionData != NOWHERE )
 		{
@@ -2929,12 +2919,6 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 						 // GO DIRECTLY TOWARDS CLOSEST FRIEND UNDER FIRE OR WHO LAST RADIOED
 						 //////////////////////////////////////////////////////////////////////
 						 pSoldier->usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,sClosestFriend,AP_CROUCH, AI_ACTION_SEEK_OPPONENT,0);
-
-						if ( gfTurnBasedAI && pSoldier->usActionData != NOWHERE )
-						{
-							pSoldier->usActionData = FindBestCoverNearTheGridNo( pSoldier, pSoldier->usActionData, 5 );
-							pSoldier->usActionData = GoAsFarAsPossibleTowards(pSoldier,pSoldier->usActionData,AI_ACTION_SEEK_OPPONENT);
-						}
 
 						 if (pSoldier->usActionData != NOWHERE)
 							{

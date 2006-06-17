@@ -5863,7 +5863,7 @@ void DumpItemsList( void )
 const INT8 STANDARD_STATUS_CUTOFF = 85;
 
 // Scale bonus with item status
-INT16 BonusReduce( INT16 bonus, INT8 status, INT8 statusCutoff = 100 )
+INT16 BonusReduce( INT16 bonus, INT8 status, INT8 statusCutoff = STANDARD_STATUS_CUTOFF )
 {
 	if ( bonus > 0 && status < statusCutoff && statusCutoff > 0 && statusCutoff <= 100 )
 		return ( ( status * 100 ) / statusCutoff * bonus ) / 100;
