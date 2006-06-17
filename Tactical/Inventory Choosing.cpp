@@ -897,6 +897,12 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ChooseWeaponForSoldierCreateStruct: create ammo"));
 	if( bAmmoClips && usAmmoIndex )
 	{
+		//Madd: ensure a minimum # of bullets to make sure enemies don't run out and run away
+		while ( bAmmoClips * Weapon[usGunIndex].ubMagSize < 20 ) // each soldier should have at least 20 bullets, ie: 2 9mm 15rd clips, 3 7rd shotgun shells, 4 6rd speedloaders, etc.  
+		{
+			bAmmoClips++;
+		}
+
 		CreateItems( usAmmoIndex, 100, bAmmoClips, &Object );
 		Object.fFlags |= OBJECT_UNDROPPABLE;
 		PlaceObjectInSoldierCreateStruct( pp, &Object );
