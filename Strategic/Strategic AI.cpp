@@ -3939,6 +3939,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			}
 			*/
 			break;
+
 		case NPC_ACTION_SEND_SOLDIERS_TO_DRASSEN:
 			//Send 6, 9, or 12 troops (based on difficulty) one of the Drassen sectors.  If nobody is there when they arrive,
 			//those troops will get reassigned.
@@ -3955,7 +3956,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			{
 				ubSectorID = SEC_C13;
 			}
-			ubNumSoldiers = (UINT8)(3 + gGameOptions.ubDifficultyLevel * 3);
+			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
 			pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, ubNumSoldiers, 0 );
 
 			if( !gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID )
@@ -3977,13 +3978,15 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			MoveSAIGroupToSector( &pGroup, ubSectorID, EVASIVE, pGroup->pEnemyGroup->ubIntention );
 
 			break;
+
+
 		case NPC_ACTION_SEND_SOLDIERS_TO_BATTLE_LOCATION:
 
 			//Send 4, 8, or 12 troops (based on difficulty) to the location of the first battle.  If nobody is there when they arrive,
 			//those troops will get reassigned.
 			ubSectorID = (UINT8)STRATEGIC_INDEX_TO_SECTOR_INFO( sWorldSectorLocationOfFirstBattle ); 
 			pSector = &SectorInfo[ ubSectorID ];
-			ubNumSoldiers = (UINT8)(gGameOptions.ubDifficultyLevel * 4);
+			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 4);
 			pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, ubNumSoldiers, 0 );
 
 			//Madd: unlimited reinforcements in Insane
@@ -4016,8 +4019,9 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			}
 
 			break;
+
 		case NPC_ACTION_SEND_SOLDIERS_TO_OMERTA:
-			ubNumSoldiers = (UINT8)(gGameOptions.ubDifficultyLevel * 6); //6, 12, or 18 based on difficulty.
+			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 6); //6, 12, or 18 based on difficulty.
 			pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, ubNumSoldiers, (UINT8)(ubNumSoldiers/7) ); //add 1 elite to normal, and 2 for hard
 			ubNumSoldiers = (UINT8)(ubNumSoldiers + ubNumSoldiers / 7);
 
@@ -4039,9 +4043,10 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 
 			ValidateGroup( pGroup );
 			break;
+
 		case NPC_ACTION_SEND_TROOPS_TO_SAM:
 			ubSectorID = (UINT8)SECTOR( sSectorX, sSectorY );
-			ubNumSoldiers = (UINT8)( 3 + gGameOptions.ubDifficultyLevel + HighestPlayerProgressPercentage() / 15 );
+			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel + HighestPlayerProgressPercentage() / 15 );
 
 			//Madd: unlimited reinforcements in Insane
 			if ( gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
@@ -4064,13 +4069,14 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			if( pPendingGroup )
 			{ //Reassign the pending group
 				ReassignAIGroup( &pPendingGroup );
-			}
-			
+			}			
 			break;
+
 		case NPC_ACTION_ADD_MORE_ELITES:
 			gfExtraElites = TRUE;
 			EvolveQueenPriorityPhase( TRUE );
 			break;
+
 		case NPC_ACTION_GIVE_KNOWLEDGE_OF_ALL_MERCS:
 			//temporarily make the queen's forces more aware (high alert)
 			switch( gGameOptions.ubDifficultyLevel )
@@ -4089,6 +4095,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 					break;
 			}
 			break;
+
 		default:
 			ScreenMsg( FONT_RED, MSG_DEBUG, L"QueenAI failed to handle action code %d.", usActionCode );
 			break;
