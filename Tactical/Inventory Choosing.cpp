@@ -624,6 +624,7 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 				usGunIndex = pp->Inv[ i ].usItem;
 				ubChanceStandardAmmo = 100 - (bWeaponClass * -9);		// weapon class is negative!
 				usAmmoIndex = RandomMagazine( usGunIndex, ubChanceStandardAmmo );
+				pp->Inv[ i ].ubGunAmmoType = Magazine[Item[usAmmoIndex].ubClassIndex].ubAmmoType;
 
 				if ( Item[usGunIndex].fingerprintid )
 				{
@@ -891,6 +892,7 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 		//}
 
 		usAmmoIndex = RandomMagazine( &pp->Inv[HANDPOS], ubChanceStandardAmmo );
+		pp->Inv[ HANDPOS ].ubGunAmmoType = Magazine[Item[usAmmoIndex].ubClassIndex].ubAmmoType;
 	}
 
 	//Ammo
