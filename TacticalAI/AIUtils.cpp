@@ -2235,8 +2235,6 @@ INT32 CalcManThreatValue( SOLDIERTYPE *pEnemy, INT16 sMyGrid, UINT8 ubReduceForC
 
 INT16 RoamingRange(SOLDIERTYPE *pSoldier, INT16 * pusFromGridNo)
 {
-	if( pSoldier->bBleeding > 0 )return MAX_ROAMING_RANGE;
-
 	if ( CREATURE_OR_BLOODCAT( pSoldier ) )
 	{
 		if ( pSoldier->bAlertStatus == STATUS_BLACK )
@@ -2516,5 +2514,30 @@ BOOLEAN ArmySeesOpponents( void )
 	return( FALSE );
 }
 
+#ifdef DEBUGDECISIONS
+void AIPopMessage ( STR16 str )
+{
+	DebugAI((STR)str);
+}
 
+void AIPopMessage ( const char* str )
+{
+	STR tempstr;
+	sprintf((CHAR *) tempstr,"%s", str);
+	DebugAI(tempstr);
+}
 
+void AINumMessage(const char* str, INT32 num)
+{
+	STR tempstr;
+	sprintf((CHAR *) tempstr,"%s %d", str, num);
+	DebugAI(tempstr);
+}
+
+void AINameMessage(SOLDIERTYPE * pSoldier,const char* str,INT32 num)
+{
+	STR tempstr;
+	sprintf((CHAR *) tempstr,"%d %s %d",pSoldier->name , str, num);
+	DebugAI( tempstr );
+}
+#endif
