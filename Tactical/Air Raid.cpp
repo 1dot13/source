@@ -1254,6 +1254,8 @@ BOOLEAN InAirRaid( )
 
 BOOLEAN HandleAirRaidEndTurn( UINT8 ubTeam )
 {
+	return( TRUE );
+
 	if ( !gfInAirRaid )
 	{
 		return( TRUE );
