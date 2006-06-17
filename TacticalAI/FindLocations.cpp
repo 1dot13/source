@@ -2793,15 +2793,12 @@ INT16 FindBestCoverNearTheGridNo(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubS
 
 //	sTrueGridNo = pSoldier->sGridNo;
 //	pSoldier->sGridNo = sGridNo;
-	gsDesiredGridNo = sGridNo;
 	pSoldier->bWisdom = 8 * ubSearchRadius;// 5 tiles
 	
 	sResultGridNo = FindBestNearbyCover( pSoldier, MORALE_NORMAL, &iPercentBetter);
 	
 	pSoldier->bWisdom = bRealWisdom;
 //	pSoldier->sGridNo = sTrueGridNo;
-
-	gsDesiredGridNo = NOWHERE;
 
 	if( sResultGridNo != NOWHERE )
 		return sResultGridNo;
