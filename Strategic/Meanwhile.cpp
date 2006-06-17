@@ -692,7 +692,8 @@ void ProcessImplicationsOfMeanwhile( void )
 			break;
 		case DRASSEN_LIBERATED:
 			ExecuteStrategicAIAction( STRATEGIC_AI_ACTION_WAKE_QUEEN, 0, 0 );
-			HandleNPCDoAction( QUEEN, NPC_ACTION_SEND_SOLDIERS_TO_DRASSEN, 0 );
+			//HandleNPCDoAction( QUEEN, NPC_ACTION_SEND_SOLDIERS_TO_DRASSEN, 0 );
+			ExecuteStrategicAIAction( NPC_ACTION_SEND_SOLDIERS_TO_DRASSEN, 13, 4 );
 			break;
 		case CREATURES:
 			// add Rat

@@ -3907,7 +3907,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic7");
 
 void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSectorY )
 {
-	GROUP *pGroup, *pPendingGroup = NULL;
+	GROUP *pGroup, *pGroup0, *pGroup1, *pGroup2, *pGroup3, *pPendingGroup = NULL;
 	SECTORINFO *pSector;
 	UINT8 ubSectorID;
 	UINT8 ubNumSoldiers;
@@ -3944,38 +3944,111 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			//Send 6, 9, or 12 troops (based on difficulty) one of the Drassen sectors.  If nobody is there when they arrive,
 			//those troops will get reassigned.
 
-			if( Chance( 50 ) )
-			{
-				ubSectorID = SEC_D13;
-			}
-			else if( Chance( 60 ) )
-			{
-				ubSectorID = SEC_B13;
-			}
-			else
-			{
-				ubSectorID = SEC_C13;
-			}
+			//if( Chance( 50 ) )
+			//{
+			//	ubSectorID = SEC_D13;
+			//}
+			//else if( Chance( 60 ) )
+			//{
+			//	ubSectorID = SEC_B13;
+			//}
+			//else
+			//{
+			//	ubSectorID = SEC_C13;
+			//}
+			//ubNumSoldiers = (UINT8)(3 + gGameOptions.ubDifficultyLevel * 3);
+			//pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, ubNumSoldiers, 0 );
+
+			//if( !gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID )
+			//{
+			//	pGroup->pEnemyGroup->ubIntention = STAGE;
+			//	gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup->ubGroupID;
+			//}
+			//else
+			//{ //this should never happen (but if it did, then this is the best way to deal with it).
+			//	pGroup->pEnemyGroup->ubIntention = PURSUIT;
+			//}
+
+			//Madd: unlimited reinforcements in Insane
+			//if ( gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
+			//	giReinforcementPool -= ubNumSoldiers;
+	
+			//giReinforcementPool = max( giReinforcementPool, 0 );
+
+			//MoveSAIGroupToSector( &pGroup, ubSectorID, EVASIVE, pGroup->pEnemyGroup->ubIntention );
+
+
+			ubSectorID = SEC_D13;
+			
 			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
-			pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, ubNumSoldiers, 0 );
+			//pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, ubNumSoldiers, 0 );
+
+			pGroup0 = CreateNewEnemyGroupDepartingFromSector( SEC_H13, 0, ubNumSoldiers, 0 );
+			pGroup1 = CreateNewEnemyGroupDepartingFromSector( SEC_H13, 0, ubNumSoldiers, 0 );
+			pGroup2 = CreateNewEnemyGroupDepartingFromSector( SEC_H13, 0, ubNumSoldiers, 0 );
+			pGroup3 = CreateNewEnemyGroupDepartingFromSector( SEC_H13, 0, ubNumSoldiers, 0 );
+
+
+			//pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector-16, 0, 11, 5 );
+			//pGroup->ubNextX = (UINT8)gsSelSectorX;
+			//pGroup->ubNextY = (UINT8)gsSelSectorY;
+			//pGroup->uiTraverseTime = 10;
+			//pGroup->pEnemyGroup->ubIntention = ASSAULT;
+			//SetGroupArrivalTime( pGroup, uiWorldMin + 10 );
+			//pGroup->ubMoveType = ONE_WAY;
+			//pGroup->fDebugGroup = TRUE;
+			//AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->uiArrivalTime, pGroup->ubGroupID );
+
+
+			//pGroup0->uiTraverseTime = 1000;
+			//pGroup1->uiTraverseTime = 10;
+			//pGroup2->uiTraverseTime = 10;
+			//pGroup3->uiTraverseTime = 10;
+
+			//SetGroupArrivalTime( pGroup0, GetWorldTotalMin() + 1000 );
+			//SetGroupArrivalTime( pGroup1, GetWorldTotalMin() + 10 );
+			//SetGroupArrivalTime( pGroup2, GetWorldTotalMin() + 10 );
+			//SetGroupArrivalTime( pGroup3, GetWorldTotalMin() + 10 );
+
+			//AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup0->uiArrivalTime, pGroup0->ubGroupID );
+			//AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup1->uiArrivalTime, pGroup1->ubGroupID );
+			//AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup2->uiArrivalTime, pGroup2->ubGroupID );
+			//AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup3->uiArrivalTime, pGroup3->ubGroupID );
+
 
 			if( !gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID )
 			{
-				pGroup->pEnemyGroup->ubIntention = STAGE;
-				gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup->ubGroupID;
+				//pGroup->pEnemyGroup->ubIntention = STAGE;
+				//gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup->ubGroupID;
+
+				pGroup0->pEnemyGroup->ubIntention = STAGE;
+				pGroup1->pEnemyGroup->ubIntention = STAGE;
+				pGroup2->pEnemyGroup->ubIntention = STAGE;
+				pGroup3->pEnemyGroup->ubIntention = REINFORCEMENTS;
+
+				gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup3->ubGroupID;
+
 			}
 			else
 			{ //this should never happen (but if it did, then this is the best way to deal with it).
-				pGroup->pEnemyGroup->ubIntention = PURSUIT;
+				//pGroup->pEnemyGroup->ubIntention = PURSUIT;
+				pGroup0->pEnemyGroup->ubIntention = PURSUIT;
+				pGroup1->pEnemyGroup->ubIntention = PURSUIT;
+				pGroup2->pEnemyGroup->ubIntention = PURSUIT;
+				pGroup3->pEnemyGroup->ubIntention = PURSUIT;
 			}
 
 			//Madd: unlimited reinforcements in Insane
-			if ( gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
-				giReinforcementPool -= ubNumSoldiers;
+			//if ( gGameOptions.ubDifficultyLevel < DIF_LEVEL_INSANE )
+			//	giReinforcementPool -= ubNumSoldiers;
 		
 			giReinforcementPool = max( giReinforcementPool, 0 );
 
-			MoveSAIGroupToSector( &pGroup, ubSectorID, EVASIVE, pGroup->pEnemyGroup->ubIntention );
+			//MoveSAIGroupToSector( &pGroup, ubSectorID, EVASIVE, pGroup->pEnemyGroup->ubIntention );
+			MoveSAIGroupToSector( &pGroup0, SEC_D14, EVASIVE, pGroup0->pEnemyGroup->ubIntention );
+			MoveSAIGroupToSector( &pGroup1, SEC_E13, EVASIVE, pGroup1->pEnemyGroup->ubIntention );
+			MoveSAIGroupToSector( &pGroup2, SEC_D12, EVASIVE, pGroup2->pEnemyGroup->ubIntention );
+			MoveSAIGroupToSector( &pGroup3, SEC_D14, EVASIVE, pGroup3->pEnemyGroup->ubIntention );
 
 			break;
 

@@ -1254,7 +1254,7 @@ BOOLEAN InAirRaid( )
 
 BOOLEAN HandleAirRaidEndTurn( UINT8 ubTeam )
 {
-	return( TRUE );
+	return( TRUE ); // lal bugfix air raid hangs (remove to enable air raid)
 
 	if ( !gfInAirRaid )
 	{
