@@ -88,7 +88,7 @@ enum
 
 #define PERCENT_TO_IGNORE_THREAT        50      // any less, use threat value
 #define ACTION_TIMEOUT_CYCLES	50	// # failed cycles through AI
-#define MAX_THREAT_RANGE  	4000	// 30 tiles worth
+#define MAX_THREAT_RANGE  	400	// 30 tiles worth
 #define MIN_PERCENT_BETTER	5	// 5% improvement in cover is good
 
 
