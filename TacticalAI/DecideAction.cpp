@@ -981,21 +981,6 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
 	}	
 
 	
-	/////////////////////////////////////////////////////////////////////////////
-	// SNIPERS GET TO COVER, EVERYONE INTO THE DARK
-	/////////////////////////////////////////////////////////////////////////////
-
-	if ( (pSoldier->bOrders == SNIPER || InLightAtNight( pSoldier->sGridNo, pSoldier->bLevel )) && pSoldier->bActionPoints >= MinPtsToMove(pSoldier) )
-	{
-		pSoldier->usActionData = FindNearbyDarkerSpot( pSoldier );
-		if ( pSoldier->usActionData != NOWHERE )
-		{
-			// move as if leaving water or gas
-			return( AI_ACTION_LEAVE_WATER_GAS );
-		}
-	}
-	
-	
 ////////////////////////////////////////////////////////////////////////////
  // RANDOM PATROL:  determine % chance to start a new patrol route
  ////////////////////////////////////////////////////////////////////////////
@@ -1029,7 +1014,7 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
 														*/
 			case FARPATROL:      iChance += +25;  break;
 			case SEEKENEMY:      iChance += -10;  break;
-			case SNIPER:		iChance += -15;  break;
+			case SNIPER:		iChance += -10;  break;
 			}
 
 		// modify chance of patrol (and whether it's a sneaky one) by attitude
@@ -1099,7 +1084,7 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
 			case POINTPATROL:    iChance  = -10; break;
 			case FARPATROL:      iChance += +20; break;
 			case SEEKENEMY:      iChance += -10; break;
-			case SNIPER:		  iChance += -15; break; 
+			case SNIPER:		  iChance += -10; break; 
 			}
 
 		// modify for attitude
@@ -1343,7 +1328,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 	 if ((pSoldier->bDirection != ubNoiseDir) && PythSpacesAway(pSoldier->sGridNo,sNoiseGridNo) <= MaxDistanceVisible() )
 		{
 		 // set base chance according to orders
-		 if ((pSoldier->bOrders == STATIONARY) || (pSoldier->bOrders == ONGUARD) || pSoldier->bOrders == SNIPER )
+		 if ((pSoldier->bOrders == STATIONARY) || (pSoldier->bOrders == ONGUARD) )
 			 iChance = 50;
 		 else           // all other orders
 			 iChance = 25;
@@ -1359,7 +1344,13 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 sprintf((CHAR *)tempstr,"%s - TURNS TOWARDS NOISE to face direction %d",pSoldier->name,pSoldier->usActionData);
 			 AIPopMessage(tempstr);
 	#endif
-
+			if ( pSoldier->bOrders == SNIPER )
+			{
+				if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
+				{
+					pSoldier->bNextAction = AI_ACTION_RAISE_GUN;
+				}
+			}
 			 return(AI_ACTION_CHANGE_FACING);
 			}
 		}
@@ -1542,7 +1533,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 case POINTPATROL:                     break;
 			 case FARPATROL:      iChance +=  10;  break;
 			 case SEEKENEMY:      iChance +=  25;  break;
-			 case SNIPER:		  iChance += -15; break;
+			 case SNIPER:		  iChance += -10; break;
 			}
 
 		 // modify chance of patrol (and whether it's a sneaky one) by attitude
@@ -1688,7 +1679,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 case POINTPATROL:    iChance += -10;  break;
 			 case FARPATROL:                       break;
 			 case SEEKENEMY:      iChance +=  10;  break;
-			 case SNIPER:		  iChance += -15; break;
+			 case SNIPER:		  iChance += -10; break;
 			}
 
 		 // modify chance of patrol (and whether it's a sneaky one) by attitude
@@ -1893,6 +1884,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
  BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP || 
 		(pSoldier->bNeutral && gTacticalStatus.fCivGroupHostile[pSoldier->ubCivilianGroup] == CIV_GROUP_NEUTRAL) || 
 		(pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV) ) );
+
+	 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("DecideActionRed: soldier orders = %d",pSoldier->bOrders));
 
  // if we have absolutely no action points, we can't do a thing under RED!
  if (!pSoldier->bActionPoints)
@@ -3137,10 +3130,24 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 				 sprintf((CHAR *)tempstr,"%s - TURNS TOWARDS CLOSEST ENEMY to face direction %d",pSoldier->name,pSoldier->usActionData);
 				 AIPopMessage(tempstr);
 	#endif
+				if ( pSoldier->bOrders == SNIPER )
+				{
+					if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
+					{
+						pSoldier->bNextAction = AI_ACTION_RAISE_GUN;
+					}
+				}
 
 				 return(AI_ACTION_CHANGE_FACING);
 				}
 			}
+		 else if ( pSoldier->bDirection == ubOpponentDir && pSoldier->bOrders == SNIPER )
+		 {
+			 if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
+			{
+				return AI_ACTION_RAISE_GUN;
+			}
+		 }
 		}
 	}
 
@@ -3321,9 +3328,31 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 
 
  ////////////////////////////////////////////////////////////////////////////
+ // If sniper and nothing else to do then raise gun, and if that doesn't find somebody then goto green
+ ////////////////////////////////////////////////////////////////////////////
+	if ( pSoldier->bOrders == SNIPER )
+	{
+		if ( pSoldier->sniper == 0 )
+		{
+			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionRed: sniper raising gun..."));
+			if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
+			{
+				pSoldier->sniper = 1;	
+				return AI_ACTION_RAISE_GUN;
+			}
+		}
+		else 
+		{
+			pSoldier->sniper = 0;
+			pSoldier->bBypassToGreen = 30;
+			return(DecideActionGreen(pSoldier));
+		}
+	}
+	
+////////////////////////////////////////////////////////////////////////////
  // DO NOTHING: Not enough points left to move, so save them for next turn
  ////////////////////////////////////////////////////////////////////////////
-
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionRed: do nothing at all..."));
 	#ifdef DEBUGDECISIONS
 	AINameMessage(pSoldier,"- DOES NOTHING (RED)",1000);
 	#endif

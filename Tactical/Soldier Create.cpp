@@ -127,20 +127,22 @@ void DecideToAssignSniperOrders( SOLDIERCREATE_STRUCT * pp )
 {
 	//Madd: decide if soldier should be a sniper
 
-	// 30% of anybody w/a scope and decent range being a sniper, 80% chance of a guy w/a sniper rifle being a sniper
-	if ( (GunRange(&pp->Inv[HANDPOS]) >= 40 && IsScoped(&pp->Inv[HANDPOS]) && Random(100) < 30) || ( Weapon[pp->Inv[HANDPOS].usItem].ubWeaponType == GUN_SN_RIFLE && Random(100) < 80 ) )
+	if ( pp->bOrders == STATIONARY || pp->bOrders == ONGUARD )
 	{
-		pp->bOrders = SNIPER;
+		// 30% of anybody w/a scope and decent range being a sniper, 80% chance of a guy w/a sniper rifle being a sniper
+		if ( (GunRange(&pp->Inv[HANDPOS]) >= 40 && IsScoped(&pp->Inv[HANDPOS]) && Random(100) < 30) || ( Weapon[pp->Inv[HANDPOS].usItem].ubWeaponType == GUN_SN_RIFLE && Random(100) < 80 ) )
+		{
+			pp->bOrders = SNIPER;
 
-		if (pp->bAttitude == BRAVEAID)
-			pp->bAttitude = BRAVESOLO;
+			if (pp->bAttitude == BRAVEAID)
+				pp->bAttitude = BRAVESOLO;
 
-		if (pp->bAttitude == CUNNINGAID)
-			pp->bAttitude = CUNNINGSOLO;
+			if (pp->bAttitude == CUNNINGAID)
+				pp->bAttitude = CUNNINGSOLO;
 
-		DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Sniper Created") );
+			DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Sniper Created") );
+		}
 	}
-
 }
 
 SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *pubID )
