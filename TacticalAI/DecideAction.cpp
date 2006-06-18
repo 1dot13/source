@@ -3328,7 +3328,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 
 
  ////////////////////////////////////////////////////////////////////////////
- // If sniper and nothing else to do then raise gun, and if that doesn't find somebody then goto green
+ // If sniper and nothing else to do then raise gun, and if that doesn't find somebody then goto yellow
  ////////////////////////////////////////////////////////////////////////////
 	if ( pSoldier->bOrders == SNIPER )
 	{
@@ -3344,8 +3344,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 		else 
 		{
 			pSoldier->sniper = 0;
-			pSoldier->bBypassToGreen = 30;
-			return(DecideActionGreen(pSoldier));
+			return(DecideActionYellow(pSoldier));
 		}
 	}
 	
