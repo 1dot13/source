@@ -4721,7 +4721,7 @@ void ProcessBattleFrame()
 				iMercsLeft--;
 				while( !found )
 				{
-					iRandom = PreRandom( iMercs );
+					iRandom = Random( iMercs );
 					pAttacker = &gpMercs[ iRandom ];
 					if( !(pAttacker->uiFlags & CELL_PROCESSED ) )
 					{
@@ -4735,7 +4735,7 @@ void ProcessBattleFrame()
 				iCivsLeft--;
 				while( !found )
 				{
-					iRandom = PreRandom( iCivs );
+					iRandom = Random( iCivs );
 					pAttacker = &gpCivs[ iRandom ];
 					if( !(pAttacker->uiFlags & CELL_PROCESSED ) )
 					{
@@ -4749,7 +4749,7 @@ void ProcessBattleFrame()
 				iEnemiesLeft--;
 				while( !found )
 				{
-					iRandom = PreRandom( iEnemies );
+					iRandom = Random( iEnemies );
 					pAttacker = &gpEnemies[ iRandom ];
 					if( !(pAttacker->uiFlags & CELL_PROCESSED ) )
 					{
