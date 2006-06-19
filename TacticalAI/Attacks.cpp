@@ -256,13 +256,13 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 	 }
 	 else
 	 {
-	   ubMaxPossibleAimTime = min(AP_MAX_AIM_ATTACK,pSoldier->bActionPoints - ubMinAPcost);
+	   ubMaxPossibleAimTime = min(AllowedAimingLevels(pSoldier),pSoldier->bActionPoints - ubMinAPcost);
 	 }
 
    // consider the various aiming times
 	if ( !Weapon[pSoldier->usAttackingWeapon].NoSemiAuto )
 	{
-		for (ubAimTime = AP_MIN_AIM_ATTACK; ubAimTime <= ubMaxPossibleAimTime; ubAimTime++)
+		for (ubAimTime = AllowedAimingLevels(pSoldier); ubAimTime <= ubMaxPossibleAimTime; ubAimTime++)
 		{
 		 //HandleMyMouseCursor(KEYBOARDALSO);
 
@@ -1046,7 +1046,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 				}
 
 				// calculate the maximum possible aiming time
-				ubMaxPossibleAimTime = min(AP_MAX_AIM_ATTACK,pSoldier->bActionPoints - ubMinAPcost);
+				ubMaxPossibleAimTime = min(AllowedAimingLevels(pSoldier),pSoldier->bActionPoints - ubMinAPcost);
 				DebugMsg(TOPIC_JA2 , DBG_LEVEL_3 , String("Max Possible Aim Time = %d",ubMaxPossibleAimTime ));
 
 				// calc next attack's minimum AP cost (excludes readying & turning)
@@ -1261,7 +1261,7 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
    iBestHitRate = 0;                     // reset best hit rate to minimum
 
    // calculate the maximum possible aiming time
-   ubMaxPossibleAimTime = min(AP_MAX_AIM_ATTACK,pSoldier->bActionPoints - ubMinAPCost);
+   ubMaxPossibleAimTime = min(AllowedAimingLevels(pSoldier),pSoldier->bActionPoints - ubMinAPCost);
    //NumMessage("Max Possible Aim Time = ",ubMaxPossibleAimTime);
 
    // consider the various aiming times
@@ -1443,7 +1443,7 @@ void CalcTentacleAttack(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab )
 	
    // calculate the maximum possible aiming time
 
-   //ubMaxPossibleAimTime = min(AP_MAX_AIM_ATTACK,pSoldier->bActionPoints - ubMinAPCost);
+   //ubMaxPossibleAimTime = min(AllowedAimingLevels(pSoldier),pSoldier->bActionPoints - ubMinAPCost);
 	 ubMaxPossibleAimTime = 0;
    //NumMessage("Max Possible Aim Time = ",ubMaxPossibleAimTime);	
 
