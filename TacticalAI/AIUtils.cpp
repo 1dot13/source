@@ -1778,7 +1778,7 @@ BOOLEAN WearGasMaskIfAvailable( SOLDIERTYPE * pSoldier )
 {
 	INT8		bSlot, bNewSlot;
 
-	bSlot = FindObj( pSoldier, GASMASK );
+	bSlot = FindGasMask( pSoldier );
 	if ( bSlot == NO_SLOT )
 	{
 		return( FALSE );

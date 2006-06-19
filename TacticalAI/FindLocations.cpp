@@ -548,23 +548,11 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	INT8 *		pbPublOL;
 	SOLDIERTYPE *pOpponent;
 	UINT16 usMovementMode;
-	INT8	fHasGasMask;
 
 	UINT8	ubBackgroundLightLevel;
 	UINT8	ubBackgroundLightPercent = 0;
 	UINT8	ubLightPercentDifference;
 	BOOLEAN		fNight;
-
-	switch( FindObj( pSoldier, GASMASK ) )
-	{
-		case HEAD1POS:
-		case HEAD2POS:
-			fHasGasMask = TRUE;
-			break;
-		default:
-			fHasGasMask = FALSE;
-			break;
-	}
 
 	if ( gbWorldSectorZ > 0 )
 	{
@@ -1115,19 +1103,6 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 	SOLDIERTYPE *pOpponent;
 	INT16	sOrigin;
 	INT32	iRoamRange;
-
-	INT8	fHasGasMask;
-	
-	switch( FindObj( pSoldier, GASMASK ) )
-	{
-		case HEAD1POS:
-		case HEAD2POS:
-			fHasGasMask = TRUE;
-			break;
-		default:
-			fHasGasMask = FALSE;
-			break;
-	}
 
 	// BUILD A LIST OF THREATENING GRID #s FROM PERSONAL & PUBLIC opplistS
 
@@ -2375,18 +2350,7 @@ INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
 	INT32 iSearchRange = 4;
 	INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
 
-	INT8	fHasGasMask;
 	DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("FindFlankingSpot: orig loc = %d, loc to flank = %d", pSoldier->sGridNo , sPos));
-	switch( FindObj( pSoldier, GASMASK ) )
-	{
-		case HEAD1POS:
-		case HEAD2POS:
-			fHasGasMask = TRUE;
-			break;
-		default:
-			fHasGasMask = FALSE;
-			break;
-	}
 
 	// hit the edge of the map
 	if ( FindNearestEdgePoint ( pSoldier->sGridNo ) == pSoldier->sGridNo  )
