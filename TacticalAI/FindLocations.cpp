@@ -919,11 +919,6 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 				continue;
 			}
 
-			//Madd: skip cover in light
-			if ( InLightAtNight( sGridNo, pSoldier->bLevel ) )
-				continue;
-
-
 			// ignore blacklisted spot
 			if ( sGridNo == pSoldier->sBlackList )
 			{
