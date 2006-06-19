@@ -914,13 +914,15 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 				continue;
 			}
 
-			if ( !fHasGasMask )
+			if ( InGas( pSoldier, sGridNo ) )
 			{
-				if ( InGas( pSoldier, sGridNo ) )
-				{
-					continue;
-				}
+				continue;
 			}
+
+			//Madd: skip cover in light
+			if ( InLightAtNight( sGridNo, pSoldier->bLevel ) )
+				continue;
+
 
 			// ignore blacklisted spot
 			if ( sGridNo == pSoldier->sBlackList )
@@ -1322,14 +1324,6 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 				continue;
 			}			
 
-			if ( !fHasGasMask )
-			{
-				if ( InGas( pSoldier, sGridNo ) )
-				{
-					continue;
-				}
-			}
-
 			if ( pSoldier->bTeam == CIV_TEAM )
 			{
 				iRoamRange = RoamingRange( pSoldier, &sOrigin );
@@ -1344,6 +1338,10 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 			{
 				continue;
 			}
+
+			//Madd: skip lighted spots
+			if ( InLightAtNight( sGridNo, pSoldier->bLevel ) )
+				continue;
 
 			// OK, this place shows potential.  How useful is it as cover?
 			//NumMessage("Promising seems gridno #",gridno);
@@ -2535,19 +2533,15 @@ INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
 				continue;
 			}			
 
-			if ( !fHasGasMask )
-			{
-				if ( InGas( pSoldier, sGridNo ) )
-				{
-					continue;
-				}
-			}
-
 			// exclude locations with tear/mustard gas (at this point, smoke is cool!)
 			if ( InGas( pSoldier, sGridNo ) )
 			{
 				continue;
 			}
+
+			//Madd: skip lighted spots
+			if ( InLightAtNight( sGridNo, pSoldier->bLevel ) )
+				continue;
 
 			// allow an extra direction for flanking
 			if ( bAction == AI_ACTION_FLANK_LEFT )

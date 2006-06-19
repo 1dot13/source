@@ -2036,18 +2036,6 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		}
 	}
 
-  ////////////////////////////////////////////////////////////////////////////
-  // WHEN IN THE LIGHT, GET OUT OF THERE!
-  ////////////////////////////////////////////////////////////////////////////
-  if ( ubCanMove && InLightAtNight( pSoldier->sGridNo, pSoldier->bLevel ) && pSoldier->bOrders != STATIONARY )
-	{
-		pSoldier->usActionData = FindNearbyDarkerSpot( pSoldier );
-		if ( pSoldier->usActionData != NOWHERE )
-		{
-			// move as if leaving water or gas
-			return( AI_ACTION_LEAVE_WATER_GAS );
-		}
-	}
 
 	if ( fCivilian && !( pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV ) )
 	{
@@ -2350,6 +2338,19 @@ if ( !fCivilian && pSoldier->bTeam != MILITIA_TEAM && gGameOptions.fAirStrikes &
     }
   }
 */
+
+  ////////////////////////////////////////////////////////////////////////////
+  // WHEN IN THE LIGHT, GET OUT OF THERE!
+  ////////////////////////////////////////////////////////////////////////////
+  if ( ubCanMove && InLightAtNight( pSoldier->sGridNo, pSoldier->bLevel ) && pSoldier->bOrders != STATIONARY )
+	{
+		pSoldier->usActionData = FindNearbyDarkerSpot( pSoldier );
+		if ( pSoldier->usActionData != NOWHERE )
+		{
+			// move as if leaving water or gas
+			return( AI_ACTION_LEAVE_WATER_GAS );
+		}
+	}
 
 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: crouch and rest if running out of breath");
  ////////////////////////////////////////////////////////////////////////
@@ -3747,7 +3748,11 @@ bCanAttack = FALSE;
 			 if (pSoldier->bActionPoints >= ubMinAPCost)
 			 {
 				// look around for a worthy target (which sets BestShot.ubPossible)
-				CalcBestShot(pSoldier,&BestShot,FALSE);
+				BOOLEAN shootUnseen = FALSE;
+				if (gGameOptions.ubDifficultyLevel > DIF_LEVEL_MEDIUM )
+					shootUnseen = TRUE;
+
+				CalcBestShot(pSoldier,&BestShot,shootUnseen);
 
 				if (pSoldier->bTeam == gbPlayerNum && pSoldier->bRTPCombat == RTP_COMBAT_CONSERVE)
 				{

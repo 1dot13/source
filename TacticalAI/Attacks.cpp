@@ -2423,7 +2423,7 @@ void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN s
 			{
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("CheckIfShotPossible: CalcBestShot"));
 				// then look around for a worthy target (which sets bestThrow.ubPossible)
-				CalcBestShot( pSoldier, pBestShot,!suppressionFire);
+				CalcBestShot( pSoldier, pBestShot,TRUE);
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("CheckIfShotPossible: CalcBestShot done"));
 			}
 		}
