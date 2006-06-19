@@ -2163,7 +2163,7 @@
 	<WEAPON>
 		<uiIndex>60</uiIndex>
 		<szWeaponName>tank cannon</szWeaponName>
-		<ubWeaponClass>7</ubWeaponClass>
+		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>14</ubCalibre>
 		<ubReadyTime>0</ubReadyTime>
