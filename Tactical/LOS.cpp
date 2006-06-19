@@ -3705,7 +3705,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 
 INT8 ChanceToGetThrough( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ )
 {
-	if ( Item[pFirer->usAttackingWeapon].usItemClass == IC_GUN || Item[ pFirer->usAttackingWeapon ].usItemClass == IC_THROWING_KNIFE )
+	if ( Item[pFirer->usAttackingWeapon].usItemClass == IC_GUN || Item[ pFirer->usAttackingWeapon ].usItemClass == IC_THROWING_KNIFE || Item[pFirer->usAttackingWeapon].rocketlauncher )
 	{
 		BOOLEAN fBuckShot = FALSE;
 
