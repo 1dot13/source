@@ -1573,15 +1573,15 @@ BOOLEAN ExpAffect( INT16 sBombGridNo, INT16 sGridNo, UINT32 uiDist, UINT16 usIte
 	uiRoll = PreRandom( 100 );
 
 	// Calculate wound amount
-	INT16 newDamage = pExplosive->ubDamage + (INT16)(( pExplosive->ubDamage * gGameExternalOptions.ubExplosivesDamageMultiplier) / 100) ); //lal
-
+	INT16 newDamage = pExplosive->ubDamage + (INT16)(( pExplosive->ubDamage * gGameExternalOptions.ubExplosivesDamageMultiplier) / 100); //lal
+	
 	sWoundAmt = newDamage + (INT16) ( (newDamage * uiRoll) / 100 );
 	
 	
 	
 	// Calculate breath amount ( if stun damage applicable )
-	INT16 newBreath = pExplosive->ubStunDamage + (INT16)(( pExplosive->ubStunDamage * gGameExternalOptions.ubExplosivesDamageMultiplier) / 100) ); //lal
-
+	INT16 newBreath = pExplosive->ubStunDamage + (INT16)(( pExplosive->ubStunDamage * gGameExternalOptions.ubExplosivesDamageMultiplier) / 100); //lal
+	
 	sBreathAmt = ( newBreath * 100 ) + (INT16) ( ( ( newBreath / 2 ) * 100 * uiRoll ) / 100 ) ;
 		
 
@@ -1620,7 +1620,7 @@ BOOLEAN ExpAffect( INT16 sBombGridNo, INT16 sGridNo, UINT32 uiDist, UINT16 usIte
 			sBreathAmt = 0;
 
 		// damage structures
-		if ( uiDist <= __max( 1, (UINT32) (pExplosive->ubDamage / 30) ) )
+		if ( uiDist <= __max( 1, (UINT32) (newDamage / 30) ) )
 		{
 			if ( Item[ usItem ].usItemClass & IC_GRENADE )
 			{
