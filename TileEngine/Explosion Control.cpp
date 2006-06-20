@@ -1573,19 +1573,17 @@ BOOLEAN ExpAffect( INT16 sBombGridNo, INT16 sGridNo, UINT32 uiDist, UINT16 usIte
 	uiRoll = PreRandom( 100 );
 
 	// Calculate wound amount
-	sWoundAmt = pExplosive->ubDamage + (INT16) ( (pExplosive->ubDamage * uiRoll) / 100 );
-	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("ExpAffect: explosive dmg = %d, woundamt = %d",pExplosive->ubDamage,sWoundAmt));
+	INT16 newDamage = pExplosive->ubDamage + (INT16)(( pExplosive->ubDamage * gGameExternalOptions.ubExplosivesDamageMultiplier) / 100) ); //lal
+
+	sWoundAmt = newDamage + (INT16) ( (newDamage * uiRoll) / 100 );
 	
-	sWoundAmt = min(255, (UINT16)( (sWoundAmt) + ( (double)sWoundAmt / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier ) ); //lal
-	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("ExpAffect: explosive dmg multiplier = %d, woundamt = %d",gGameExternalOptions.ubExplosivesDamageMultiplier,sWoundAmt));
 	
 	
 	// Calculate breath amount ( if stun damage applicable )
-	sBreathAmt = ( pExplosive->ubStunDamage * 100 ) + (INT16) ( ( ( pExplosive->ubStunDamage / 2 ) * 100 * uiRoll ) / 100 ) ;
-	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("ExpAffect: breath dmg = %d, breathamt = %d",pExplosive->ubStunDamage,sBreathAmt));
-	
-	sBreathAmt = (UINT16)( (sBreathAmt) + ( (double)sBreathAmt / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier ) ; //lal //Madd: remove 255 max, since it was making breath damage next to nothing
-	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("ExpAffect: breath dmg multiplier = %d, breathamt = %d",gGameExternalOptions.ubExplosivesDamageMultiplier,sBreathAmt));
+	INT16 newBreath = pExplosive->ubStunDamage + (INT16)(( pExplosive->ubStunDamage * gGameExternalOptions.ubExplosivesDamageMultiplier) / 100) ); //lal
+
+	sBreathAmt = ( newBreath * 100 ) + (INT16) ( ( ( newBreath / 2 ) * 100 * uiRoll ) / 100 ) ;
+		
 
   // ATE: Make sure guys get pissed at us!
   HandleBuldingDestruction( sGridNo ,ubOwner );

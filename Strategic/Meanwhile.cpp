@@ -681,7 +681,8 @@ void ProcessImplicationsOfMeanwhile( void )
 			{ //Wake up the queen earlier to punish the good players!
 				ExecuteStrategicAIAction( STRATEGIC_AI_ACTION_WAKE_QUEEN, 0, 0 );
 			}
-			HandleNPCDoAction( QUEEN, NPC_ACTION_SEND_SOLDIERS_TO_BATTLE_LOCATION, 0 );
+			//HandleNPCDoAction( QUEEN, NPC_ACTION_SEND_SOLDIERS_TO_BATTLE_LOCATION, 0 );
+			ExecuteStrategicAIAction( NPC_ACTION_SEND_SOLDIERS_TO_BATTLE_LOCATION, 0, 0 );
 			break;
 		case CAMBRIA_LIBERATED:
 		case ALMA_LIBERATED:
