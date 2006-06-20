@@ -326,6 +326,15 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubMinEnemyGroupSizeExpert = iniReader.ReadInteger("Options","EXPERT_MIN_ENEMY_GROUP_SIZE",6);
 	gGameExternalOptions.ubMinEnemyGroupSizeInsane = iniReader.ReadInteger("Options","INSANE_MIN_ENEMY_GROUP_SIZE",8);
 
+	gGameExternalOptions.gfEasyUnlimitedTroops = iniReader.ReadBoolean("Options","NOVICE_UNLIMITED_POOL_OF_TROOPS",FALSE);
+	gGameExternalOptions.gfNormalUnlimitedTroops = iniReader.ReadBoolean("Options","EXPERIENCED_UNLIMITED_POOL_OF_TROOPS",FALSE);
+	gGameExternalOptions.gfHardUnlimitedTroops = iniReader.ReadBoolean("Options","EXPERT_UNLIMITED_POOL_OF_TROOPS",FALSE);
+	gGameExternalOptions.gfInsaneUnlimitedTroops = iniReader.ReadBoolean("Options","INSANE_UNLIMITED_POOL_OF_TROOPS",FALSE);
+
+	gGameExternalOptions.gfEasyAggressiveQueen = iniReader.ReadBoolean("Options","NOVICE_QUEEN_AGGRESSIVE",FALSE);
+	gGameExternalOptions.gfNormalAggressiveQueen = iniReader.ReadBoolean("Options","EXPERIENCED_QUEEN_AGGRESSIVE",FALSE);
+	gGameExternalOptions.gfHardAggressiveQueen = iniReader.ReadBoolean("Options","EXPERT_QUEEN_AGGRESSIVE",FALSE);
+	gGameExternalOptions.gfInsaneAggressiveQueen = iniReader.ReadBoolean("Options","INSANE_QUEEN_AGGRESSIVE",FALSE);
 
 	gGameExternalOptions.fMercDayOne = iniReader.ReadBoolean("Options","MERC_AVAILABLE_DAY_ONE",FALSE);
 	gGameExternalOptions.fAllMercsAvailable = iniReader.ReadBoolean("Options","ALL_MERCS_AT_MERC",FALSE);
@@ -441,6 +450,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubNormalNumAwareBattles			= iniReader.ReadInteger("JA2 Gameplay Settings","NORMAL_NUM_AWARE_BATTLES", 2);
 	gGameExternalOptions.ubHardNumAwareBattles				= iniReader.ReadInteger("JA2 Gameplay Settings","HARD_NUM_AWARE_BATTLES", 3);
 	gGameExternalOptions.ubInsaneNumAwareBattles			= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_NUM_AWARE_BATTLES", 4);
+
 }
 
 

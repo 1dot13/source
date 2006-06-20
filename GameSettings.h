@@ -283,6 +283,17 @@ typedef struct
 	UINT32 ubHardNumAwareBattles;
 	UINT32 ubInsaneNumAwareBattles;
 
+
+	BOOLEAN gfEasyUnlimitedTroops;
+	BOOLEAN gfNormalUnlimitedTroops;
+	BOOLEAN gfHardUnlimitedTroops;
+	BOOLEAN gfInsaneUnlimitedTroops;
+
+	BOOLEAN gfEasyAggressiveQueen;
+	BOOLEAN gfNormalAggressiveQueen;
+	BOOLEAN gfHardAggressiveQueen;
+	BOOLEAN gfInsaneAggressiveQueen;
+
 } GAME_EXTERNAL_OPTIONS;
 
 //This structure will contain general Ja2 settings  NOT individual game settings.
