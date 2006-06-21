@@ -3088,6 +3088,12 @@ BOOLEAN SaveStrategicAI( HWFILE hFile )
 	FileWrite( hFile, &gfExtraElites,					1, &uiNumBytesWritten );
 	if( uiNumBytesWritten != 1 )
 		return FALSE;
+	FileWrite( hFile, &gfAggressiveQueen,					1, &uiNumBytesWritten );
+	if( uiNumBytesWritten != 1 )
+		return FALSE;
+	FileWrite( hFile, &gfUnlimitedTroops,					1, &uiNumBytesWritten );
+	if( uiNumBytesWritten != 1 )
+		return FALSE;
 	FileWrite( hFile, &giGarrisonArraySize,		4, &uiNumBytesWritten );
 	if( uiNumBytesWritten != 4 )
 		return FALSE;
@@ -3214,6 +3220,12 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic6");
 	if( uiNumBytesRead != 3 )
 		return FALSE;
 	FileRead( hFile, &gfExtraElites,					1, &uiNumBytesRead );
+	if( uiNumBytesRead != 1 )
+		return FALSE;
+	FileRead( hFile, &gfAggressiveQueen,					1, &uiNumBytesRead );
+	if( uiNumBytesRead != 1 )
+		return FALSE;
+	FileRead( hFile, &gfUnlimitedTroops,					1, &uiNumBytesRead );
 	if( uiNumBytesRead != 1 )
 		return FALSE;
 	FileRead( hFile, &giGarrisonArraySize,		4, &uiNumBytesRead );
