@@ -262,7 +262,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
    // consider the various aiming times
 	if ( !Weapon[pSoldier->usAttackingWeapon].NoSemiAuto )
 	{
-		for (ubAimTime = AllowedAimingLevels(pSoldier); ubAimTime <= ubMaxPossibleAimTime; ubAimTime++)
+		for (ubAimTime = AP_MIN_AIM_ATTACK; ubAimTime <= ubMaxPossibleAimTime; ubAimTime++)
 		{
 		 //HandleMyMouseCursor(KEYBOARDALSO);
 
