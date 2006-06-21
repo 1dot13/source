@@ -3088,12 +3088,6 @@ BOOLEAN SaveStrategicAI( HWFILE hFile )
 	FileWrite( hFile, &gfExtraElites,					1, &uiNumBytesWritten );
 	if( uiNumBytesWritten != 1 )
 		return FALSE;
-	FileWrite( hFile, &gfAggressiveQueen,					1, &uiNumBytesWritten );
-	if( uiNumBytesWritten != 1 )
-		return FALSE;
-	FileWrite( hFile, &gfUnlimitedTroops,					1, &uiNumBytesWritten );
-	if( uiNumBytesWritten != 1 )
-		return FALSE;
 	FileWrite( hFile, &giGarrisonArraySize,		4, &uiNumBytesWritten );
 	if( uiNumBytesWritten != 4 )
 		return FALSE;
@@ -3215,17 +3209,32 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 	INT32 i;
 	UINT8 ubSAIVersion;
 	INT32 iMaxEnemyGroupSize = gGameExternalOptions.iMaxEnemyGroupSize;
-DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic6");
+
+	switch( gGameOptions.ubDifficultyLevel )
+	{
+		case DIF_LEVEL_EASY:
+			gfUnlimitedTroops		= gGameExternalOptions.gfEasyUnlimitedTroops;
+			gfAggressiveQueen		= gGameExternalOptions.gfEasyAggressiveQueen;
+			break;
+		case DIF_LEVEL_MEDIUM:
+			gfUnlimitedTroops		= gGameExternalOptions.gfNormalUnlimitedTroops;
+			gfAggressiveQueen		= gGameExternalOptions.gfNormalAggressiveQueen;
+			break;
+		case DIF_LEVEL_HARD:
+			gfUnlimitedTroops		= gGameExternalOptions.gfHardUnlimitedTroops;
+			gfAggressiveQueen		= gGameExternalOptions.gfHardAggressiveQueen;
+			break;
+		case DIF_LEVEL_INSANE:
+			gfUnlimitedTroops		= gGameExternalOptions.gfInsaneUnlimitedTroops;
+			gfAggressiveQueen		= gGameExternalOptions.gfInsaneAggressiveQueen;
+			break;
+	}
+
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic6");
 	FileRead( hFile, gbPadding2,							3, &uiNumBytesRead );
 	if( uiNumBytesRead != 3 )
 		return FALSE;
 	FileRead( hFile, &gfExtraElites,					1, &uiNumBytesRead );
-	if( uiNumBytesRead != 1 )
-		return FALSE;
-	FileRead( hFile, &gfAggressiveQueen,					1, &uiNumBytesRead );
-	if( uiNumBytesRead != 1 )
-		return FALSE;
-	FileRead( hFile, &gfUnlimitedTroops,					1, &uiNumBytesRead );
 	if( uiNumBytesRead != 1 )
 		return FALSE;
 	FileRead( hFile, &giGarrisonArraySize,		4, &uiNumBytesRead );
