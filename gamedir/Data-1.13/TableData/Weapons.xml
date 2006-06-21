@@ -6271,7 +6271,7 @@
 		<ubWeaponType>5</ubWeaponType>
 		<ubCalibre>9</ubCalibre>
 		<ubReadyTime>5</ubReadyTime>
-		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
