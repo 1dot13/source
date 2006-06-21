@@ -1309,10 +1309,6 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 				continue;
 			}
 
-			//Madd: skip lighted spots
-			if ( InLightAtNight( sGridNo, pSoldier->bLevel ) )
-				continue;
-
 			// OK, this place shows potential.  How useful is it as cover?
 			//NumMessage("Promising seems gridno #",gridno);
 
@@ -2498,9 +2494,6 @@ INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
 				continue;
 			}
 
-			//Madd: skip lighted spots
-			if ( InLightAtNight( sGridNo, pSoldier->bLevel ) )
-				continue;
 
 			// allow an extra direction for flanking
 			if ( bAction == AI_ACTION_FLANK_LEFT )
