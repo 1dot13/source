@@ -712,7 +712,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					// FIRST CHECK IF WE'VE REACHED MAX FOR GUN
 					fStop = FALSE;
 
-					if ( pSoldier->bDoBurst > ((pSoldier->bDoAutofire)?(pSoldier->bDoAutofire):(GetShotsPerBurst(&pSoldier->inv[HANDPOS]))) || ( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST && pSoldier->bDoBurst > Weapon[GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS])].ubShotsPerBurst))
+					if ( ( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST && pSoldier->bDoBurst > Weapon[GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS])].ubShotsPerBurst) || (pSoldier->bWeaponMode != WM_ATTACHED_GL_BURST && pSoldier->bDoBurst > ((pSoldier->bDoAutofire)?(pSoldier->bDoAutofire):(GetShotsPerBurst(&pSoldier->inv[HANDPOS])))) )
 					{
 						fStop = TRUE;
 						fFreeUpAttacker = TRUE;
