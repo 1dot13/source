@@ -536,7 +536,7 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLE
 			{
 				usCursor = ACTION_TARGETCONFIRMBURST_UICURSOR;
 
-				if(pSoldier->bDoAutofire == 0)
+				if(pSoldier->bDoAutofire == 0 && gGameSettings.fOptions[ TOPTION_CTH_CURSOR ])
 				{
 					UINT32 uiHitChance;
 					uiHitChance = CalcChanceToHitGun( pSoldier, usMapPos, 0, pSoldier->bAimShotLocation );
