@@ -9548,7 +9548,7 @@
 		<ubCalibre>0</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>6</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>30</ubBulletSpeed>
 		<ubImpact>0</ubImpact>
@@ -9566,7 +9566,7 @@
 		<sReloadSound>0</sReloadSound>
 		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>0</bBurstAP>
+		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
