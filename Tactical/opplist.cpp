@@ -805,7 +805,7 @@ void HandleSight(SOLDIERTYPE *pSoldier, UINT8 ubSightFlags)
 
 	if ( pSoldier->bNewSituation && !(pSoldier->uiStatusFlags & SOLDIER_PC) )
 	{
-		HaultSoldierFromSighting( pSoldier, TRUE );
+		HaultSoldierFromSighting( pSoldier, (pSoldier->bAction != AI_ACTION_FIRE_GUN) );
 	}
 	pSoldier->bNewSituation = __max( pSoldier->bNewSituation, bTempNewSituation );
 		
