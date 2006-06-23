@@ -1094,10 +1094,6 @@ void FreeUpNPCFromTurning(SOLDIERTYPE *pSoldier, INT8 bLook)
 		//HandleSight(pSoldier,SIGHT_LOOK | SIGHT_RADIO); // no interrupt possible
     }
 
-   if (pSoldier->bOrders == SNIPER )
-    {
-		HandleSight(pSoldier,SIGHT_LOOK | SIGHT_RADIO); 
-    }
   }
 }
 

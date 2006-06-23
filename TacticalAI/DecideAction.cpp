@@ -4845,6 +4845,8 @@ INT8 DecideAction(SOLDIERTYPE *pSoldier)
  UINT32		uiStartTime, uiEndTime;
 #endif
 
+	if ( pSoldier->bTeam != MILITIA_TEAM )
+	{
 	if ( !sniperwarning && pSoldier->bOrders == SNIPER )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Watch out for snipers..." );
@@ -4857,7 +4859,7 @@ INT8 DecideAction(SOLDIERTYPE *pSoldier)
 		//TODO: don't say this again after reloading a savegame
 		SayQuoteFromAnyBodyInSector( QUOTE_WEARY_SLASH_SUSPUCIOUS );
 	}
-
+	}
  // turn off cautious flag
 	pSoldier->fAIFlags &= (~AI_CAUTIOUS);
 	//reset flank count
