@@ -114,8 +114,8 @@ typedef struct
 } THREATTYPE;
 
 // define for bAimTime for bursting
-#define BURSTING 5
-#define AUTOFIRING 6
+#define BURSTING 20
+#define AUTOFIRING 21
 
 typedef struct
 {

@@ -4847,18 +4847,18 @@ INT8 DecideAction(SOLDIERTYPE *pSoldier)
 
 	if ( pSoldier->bTeam != MILITIA_TEAM )
 	{
-	if ( !sniperwarning && pSoldier->bOrders == SNIPER )
-	{
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Watch out for snipers..." );
-		sniperwarning = TRUE;
-	}
+		if ( !sniperwarning && pSoldier->bOrders == SNIPER )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Watch out for snipers..." );
+			sniperwarning = TRUE;
+		}
 
-	if (!biggunwarning && FindRocketLauncherOrCannon(pSoldier) != NO_SLOT )
-	{
-		biggunwarning = TRUE;
-		//TODO: don't say this again after reloading a savegame
-		SayQuoteFromAnyBodyInSector( QUOTE_WEARY_SLASH_SUSPUCIOUS );
-	}
+		if (!biggunwarning && FindRocketLauncherOrCannon(pSoldier) != NO_SLOT )
+		{
+			biggunwarning = TRUE;
+			//TODO: don't say this again after reloading a savegame
+			SayQuoteFromAnyBodyInSector( QUOTE_WEARY_SLASH_SUSPUCIOUS );
+		}
 	}
  // turn off cautious flag
 	pSoldier->fAIFlags &= (~AI_CAUTIOUS);

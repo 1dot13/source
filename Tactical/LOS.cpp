@@ -3443,7 +3443,7 @@ DOUBLE CalculateVerticalAngle( SOLDIERTYPE * pFirer, SOLDIERTYPE * pTarget )
 
 INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, UINT16 usHandItem, INT16 sHitBy, BOOLEAN fBuckshot, BOOLEAN fFake )
 {
-	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"FireBulletGivenTarget");
+	//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"FireBulletGivenTarget");
 	// fFake indicates that we should set things up for a call to ChanceToGetThrough
 	FLOAT		dStartZ;
 

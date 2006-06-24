@@ -2031,8 +2031,8 @@ INT16 GetAPsToReadyWeapon( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 	{
 		//Madd: return the greater of the two weapons + 1:
 		UINT8 rt1, rt2;
-		rt1 = Weapon[usItem].ubReadyTime;
-		rt2 = Weapon[pSoldier->inv[SECONDHANDPOS].usItem].ubReadyTime ;
+		rt1 = Weapon[usItem].ubReadyTime * ( 100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[ HANDPOS ]) ) / 100;
+		rt2 = Weapon[pSoldier->inv[SECONDHANDPOS].usItem].ubReadyTime * ( 100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[ SECONDHANDPOS ]) ) / 100;
 
 		return( max(rt1,rt2) + AP_READY_DUAL );
 	}
