@@ -1480,6 +1480,7 @@ void GetSoldierAboveGuyPositions( SOLDIERTYPE *pSoldier, INT16 *psX, INT16 *psY,
 }
 
 extern void DisplaySoldierToolTip( FASTHELPREGION *pRegion );
+//QUOTE_SYSTEM_STRUCT	soldierTTInfo;
 
 void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 {
@@ -1488,7 +1489,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 	INT16			sX, sY;
 	INT32			iBack;
 	TILE_ELEMENT	TileElem;
-	UINT16			pStrInfo[ 250 ];	
+	UINT16			pStrInfo[ 250 ], pStr2[ 350 ];
 	UINT16			*pStr;
 	UINT16			NameStr[ 50 ];
 	UINT16			usGraphicToUse = THIRDPOINTERS1;
@@ -1784,16 +1785,20 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				
 				//####################################################################################################
 				if(gGameExternalOptions.gfAllowSoldierToolTips)
-				{
+				{			
+					swprintf( (wchar_t *)pStr2, L"Current APs: %d\n", pSoldier->bActionPoints );
+
 					GetHelpTextForItem( (INT16*)pStrInfo, &( pSoldier->inv[ HANDPOS ] ), pSoldier );
 					//SetRegionFastHelpText( &(gKeyRingPanel), pStrInfo );
 					//DisplayFastHelp( &(gKeyRingPanel) );
-
+			
+					wcscat( pStr2, pStrInfo );
+					
 					soldierToolTip[ 0 ].iX = sXPos+50;
 					soldierToolTip[ 0 ].iY = sYPos+50;				
 
-					wcscpy( soldierToolTip[ 0 ].FastHelpText, pStrInfo );
-
+					wcscpy( soldierToolTip[ 0 ].FastHelpText, pStr2 );
+					
 					DisplaySoldierToolTip( &( soldierToolTip[ 0 ] ) );
 				}
 				//####################################################################################################
@@ -1824,14 +1829,18 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		//####################################################################################################
 		if(gGameExternalOptions.gfAllowSoldierToolTips)
 		{
+			swprintf( (wchar_t *)pStr2, L"Current APs: %d\n", pSoldier->bActionPoints );
+
 			GetHelpTextForItem( (INT16*)pStrInfo, &( pSoldier->inv[ HANDPOS ] ), pSoldier );
 			//SetRegionFastHelpText( &(gKeyRingPanel), pStrInfo );
 			//DisplayFastHelp( &(gKeyRingPanel) );
 
-			soldierToolTip[ 0 ].iX = sXPos+50;
-			soldierToolTip[ 0 ].iY = sYPos+50;			
+			wcscat( pStr2, pStrInfo );
 
-			wcscpy( soldierToolTip[ 0 ].FastHelpText, pStrInfo );
+			soldierToolTip[ 0 ].iX = sXPos+50;
+			soldierToolTip[ 0 ].iY = sYPos+50;				
+
+			wcscpy( soldierToolTip[ 0 ].FastHelpText, pStr2 );
 
 			DisplaySoldierToolTip( &( soldierToolTip[ 0 ] ) );
 		}
