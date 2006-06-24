@@ -1489,14 +1489,11 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 	INT16			sX, sY;
 	INT32			iBack;
 	TILE_ELEMENT	TileElem;
-	UINT16			pStrInfo[ 250 ], pStr2[ 350 ];
 	UINT16			*pStr;
 	UINT16			NameStr[ 50 ];
 	UINT16			usGraphicToUse = THIRDPOINTERS1;
 	BOOLEAN         fRaiseName = FALSE;
 	BOOLEAN         fDoName = TRUE;
-	FASTHELPREGION	soldierToolTip[ 1 ];
-
 
 	GetSoldier( &pSoldier, usSoldierID );
 
@@ -1786,19 +1783,70 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				//####################################################################################################
 				if(gGameExternalOptions.gfAllowSoldierToolTips)
 				{			
-					swprintf( (wchar_t *)pStr2, L"Current APs: %d\n", pSoldier->bActionPoints );
+					FASTHELPREGION	soldierToolTip[ 1 ];
+					UINT16			pStrInfo[ 350 ];
+					INT32			iNumAttachments = 0;
 
-					GetHelpTextForItem( (INT16*)pStrInfo, &( pSoldier->inv[ HANDPOS ] ), pSoldier );
+					if ( pSoldier->inv[ HANDPOS ].usItem != NOTHING )
+					{
+						swprintf( (wchar_t *)pStrInfo, L"|I|D: %d\n|Orders: %d\n|Attitude: %d\n|Current |A|Ps: %d\n\n|Weapon: \n%s [%d%%]\n", 
+
+							pSoldier->ubID,
+							pSoldier->bOrders,
+							pSoldier->bAttitude,
+							pSoldier->bActionPoints,
+							ItemNames[ pSoldier->inv[ HANDPOS ].usItem ], 
+							pSoldier->inv[ HANDPOS ].bStatus[0]
+							);
+
+							// Add attachment string....
+							for ( INT32 cnt = 0; cnt < MAX_ATTACHMENTS; cnt++ )
+							{
+								if ( pSoldier->inv[ HANDPOS ].usAttachItem[ cnt ] != NOTHING )
+								{	
+									iNumAttachments++;
+
+									if ( iNumAttachments == 1 )
+									{
+										wcscat( pStrInfo, L"\n[" );
+									}
+									else
+									{
+										wcscat( pStrInfo, L", " );
+									}
+
+									wcscat( pStrInfo, ItemNames[ pSoldier->inv[ HANDPOS ].usAttachItem[ cnt ] ] );
+								}
+							}
+
+							if ( iNumAttachments > 0 )
+							{
+								wcscat( pStrInfo, pMessageStrings[ MSG_END_ATTACHMENT_LIST ] );
+							}
+					}
+					else
+					{
+						swprintf( (wchar_t *)pStrInfo, L"|I|D: %d\n|Orders: %d\n|Attitude: %d\n|Current |A|Ps: %d", 
+
+							pSoldier->ubID,
+							pSoldier->bOrders,
+							pSoldier->bAttitude,
+							pSoldier->bActionPoints
+							);
+					}
+
+
+					//GetHelpTextForItem( (INT16*)pStrInfo, &( pSoldier->inv[ HANDPOS ] ), pSoldier );
 					//SetRegionFastHelpText( &(gKeyRingPanel), pStrInfo );
 					//DisplayFastHelp( &(gKeyRingPanel) );
-			
-					wcscat( pStr2, pStrInfo );
-					
+
+					//wcscat( pStr2, pStrInfo );
+
 					soldierToolTip[ 0 ].iX = sXPos+50;
 					soldierToolTip[ 0 ].iY = sYPos+50;				
 
-					wcscpy( soldierToolTip[ 0 ].FastHelpText, pStr2 );
-					
+					wcscpy( soldierToolTip[ 0 ].FastHelpText, pStrInfo );
+
 					DisplaySoldierToolTip( &( soldierToolTip[ 0 ] ) );
 				}
 				//####################################################################################################
@@ -1829,18 +1877,68 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		//####################################################################################################
 		if(gGameExternalOptions.gfAllowSoldierToolTips)
 		{
-			swprintf( (wchar_t *)pStr2, L"Current APs: %d\n", pSoldier->bActionPoints );
+			FASTHELPREGION	soldierToolTip[ 1 ];
+			UINT16			pStrInfo[ 350 ];
+			INT32			iNumAttachments = 0;
 
-			GetHelpTextForItem( (INT16*)pStrInfo, &( pSoldier->inv[ HANDPOS ] ), pSoldier );
+			if ( pSoldier->inv[ HANDPOS ].usItem != NOTHING )
+			{
+				swprintf( (wchar_t *)pStrInfo, L"|I|D: %d\n|Orders: %d\n|Attitude: %d\n|Current |A|Ps: %d\n\n|Weapon: \n%s [%d%%]\n", 
+
+					pSoldier->ubID,
+					pSoldier->bOrders,
+					pSoldier->bAttitude,
+					pSoldier->bActionPoints,
+					ItemNames[ pSoldier->inv[ HANDPOS ].usItem ], 
+					pSoldier->inv[ HANDPOS ].bStatus[0]
+					);
+
+					// Add attachment string....
+					for ( INT32 cnt = 0; cnt < MAX_ATTACHMENTS; cnt++ )
+					{
+						if ( pSoldier->inv[ HANDPOS ].usAttachItem[ cnt ] != NOTHING )
+						{	
+							iNumAttachments++;
+
+							if ( iNumAttachments == 1 )
+							{
+								wcscat( pStrInfo, L"\n[" );
+							}
+							else
+							{
+								wcscat( pStrInfo, L", " );
+							}
+
+							wcscat( pStrInfo, ItemNames[ pSoldier->inv[ HANDPOS ].usAttachItem[ cnt ] ] );
+						}
+					}
+
+					if ( iNumAttachments > 0 )
+					{
+						wcscat( pStrInfo, pMessageStrings[ MSG_END_ATTACHMENT_LIST ] );
+					}
+			}
+			else
+			{
+				swprintf( (wchar_t *)pStrInfo, L"|I|D: %d\n|Orders: %d\n|Attitude: %d\n|Current |A|Ps: %d", 
+
+					pSoldier->ubID,
+					pSoldier->bOrders,
+					pSoldier->bAttitude,
+					pSoldier->bActionPoints
+					);
+			}
+
+			//GetHelpTextForItem( (INT16*)pStrInfo, &( pSoldier->inv[ HANDPOS ] ), pSoldier );
 			//SetRegionFastHelpText( &(gKeyRingPanel), pStrInfo );
 			//DisplayFastHelp( &(gKeyRingPanel) );
 
-			wcscat( pStr2, pStrInfo );
+			//wcscat( pStr2, pStrInfo );
 
 			soldierToolTip[ 0 ].iX = sXPos+50;
 			soldierToolTip[ 0 ].iY = sYPos+50;				
 
-			wcscpy( soldierToolTip[ 0 ].FastHelpText, pStr2 );
+			wcscpy( soldierToolTip[ 0 ].FastHelpText, pStrInfo );
 
 			DisplaySoldierToolTip( &( soldierToolTip[ 0 ] ) );
 		}
