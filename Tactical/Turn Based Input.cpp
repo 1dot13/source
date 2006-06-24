@@ -2579,12 +2579,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 					break;
 
-				case 'Q':
-					{
-						ExecuteStrategicAIAction( NPC_ACTION_SEND_SOLDIERS_TO_DRASSEN, 13, 4 );
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Queen attack" );
-					}
-					break;
 
 				case 'G':
 					if ( gGameSettings.fOptions[TOPTION_GL_BURST_CURSOR] ) 

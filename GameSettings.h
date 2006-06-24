@@ -215,7 +215,7 @@ typedef struct
 	UINT32	guiMaxMilitiaSquadSize;
 	UINT32	guiMaxMilitiaSquadSizeBattle;
 
-
+	BOOLEAN gfAllowSoldierToolTips;
 
 	
 	//Sight range

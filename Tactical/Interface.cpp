@@ -1479,19 +1479,22 @@ void GetSoldierAboveGuyPositions( SOLDIERTYPE *pSoldier, INT16 *psX, INT16 *psY,
 	}
 }
 
+extern void DisplaySoldierToolTip( FASTHELPREGION *pRegion );
 
 void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 {
-	SOLDIERTYPE								 *pSoldier;
-	INT16 sXPos, sYPos;
-	INT16 sX, sY;
-	INT32 iBack;
-	TILE_ELEMENT							 TileElem;
-	UINT16										*pStr;
-	UINT16										 NameStr[ 50 ];
-	UINT16										 usGraphicToUse = THIRDPOINTERS1;
-  BOOLEAN                    fRaiseName = FALSE;
-  BOOLEAN                    fDoName = TRUE;
+	SOLDIERTYPE		*pSoldier;
+	INT16			sXPos, sYPos;
+	INT16			sX, sY;
+	INT32			iBack;
+	TILE_ELEMENT	TileElem;
+	UINT16			pStrInfo[ 250 ];	
+	UINT16			*pStr;
+	UINT16			NameStr[ 50 ];
+	UINT16			usGraphicToUse = THIRDPOINTERS1;
+	BOOLEAN         fRaiseName = FALSE;
+	BOOLEAN         fDoName = TRUE;
+	FASTHELPREGION	soldierToolTip[ 1 ];
 
 
 	GetSoldier( &pSoldier, usSoldierID );
@@ -1778,6 +1781,22 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 
 
 				pStr = GetSoldierHealthString( pSoldier );
+				
+				//####################################################################################################
+				if(gGameExternalOptions.gfAllowSoldierToolTips)
+				{
+					GetHelpTextForItem( (INT16*)pStrInfo, &( pSoldier->inv[ HANDPOS ] ), pSoldier );
+					//SetRegionFastHelpText( &(gKeyRingPanel), pStrInfo );
+					//DisplayFastHelp( &(gKeyRingPanel) );
+
+					soldierToolTip[ 0 ].iX = sXPos+50;
+					soldierToolTip[ 0 ].iY = sYPos+50;				
+
+					wcscpy( soldierToolTip[ 0 ].FastHelpText, pStrInfo );
+
+					DisplaySoldierToolTip( &( soldierToolTip[ 0 ] ) );
+				}
+				//####################################################################################################
 
 				FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 10 ), (INT16)(80 ), 1, pStr, TINYFONT1, &sX, &sY );
 				gprintfdirty( sX, sY, pStr );
@@ -1801,6 +1820,22 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
     }
 
 		pStr = GetSoldierHealthString( pSoldier );
+
+		//####################################################################################################
+		if(gGameExternalOptions.gfAllowSoldierToolTips)
+		{
+			GetHelpTextForItem( (INT16*)pStrInfo, &( pSoldier->inv[ HANDPOS ] ), pSoldier );
+			//SetRegionFastHelpText( &(gKeyRingPanel), pStrInfo );
+			//DisplayFastHelp( &(gKeyRingPanel) );
+
+			soldierToolTip[ 0 ].iX = sXPos+50;
+			soldierToolTip[ 0 ].iY = sYPos+50;			
+
+			wcscpy( soldierToolTip[ 0 ].FastHelpText, pStrInfo );
+
+			DisplaySoldierToolTip( &( soldierToolTip[ 0 ] ) );
+		}
+		//####################################################################################################
 
 		SetFont( TINYFONT1 );
 		SetFontBackground( FONT_MCOLOR_BLACK );
