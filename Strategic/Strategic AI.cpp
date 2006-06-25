@@ -4019,10 +4019,12 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
 			//pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, ubNumSoldiers, 0 );
 
-			pGroup0 = CreateNewEnemyGroupDepartingFromSector( SEC_H13, 0, ubNumSoldiers, 0 );
-			pGroup1 = CreateNewEnemyGroupDepartingFromSector( SEC_H13, 0, ubNumSoldiers, 0 );
-			pGroup2 = CreateNewEnemyGroupDepartingFromSector( SEC_H13, 0, ubNumSoldiers, 0 );
-			pGroup3 = CreateNewEnemyGroupDepartingFromSector( SEC_H13, 0, ubNumSoldiers, 0 );
+			//ScreenMsg( FONT_RED, MSG_INTERFACE, L"Elites: %d", (ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel) );
+			
+			pGroup0 = CreateNewEnemyGroupDepartingFromSector( SEC_H13, 0, ubNumSoldiers, ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel );
+			pGroup1 = CreateNewEnemyGroupDepartingFromSector( SEC_H13, 0, ubNumSoldiers, ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel );
+			pGroup2 = CreateNewEnemyGroupDepartingFromSector( SEC_H13, 0, ubNumSoldiers, ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel );
+			pGroup3 = CreateNewEnemyGroupDepartingFromSector( SEC_H13, 0, ubNumSoldiers, ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel );
 
 
 			//pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector-16, 0, 11, 5 );
