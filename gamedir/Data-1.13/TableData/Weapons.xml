@@ -542,7 +542,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>15</uiIndex>
-		<szWeaponName>FN P90TR</szWeaponName>
+		<szWeaponName>FN P90</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>12</ubCalibre>
@@ -552,7 +552,7 @@
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>28</ubImpact>
-		<ubDeadliness>25</ubDeadliness>
+		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>50</ubMagSize>
 		<usRange>250</usRange>
