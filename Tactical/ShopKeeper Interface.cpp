@@ -3121,6 +3121,37 @@ UINT32 CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, 
 			break;
 
 		case IC_AMMO:
+			//Madd: quick fix for negative prices at Tony's
+			// this must handle overloaded objects from dealer boxes!
+			if ( pItemObject->ubNumberOfObjects <= MAX_OBJECTS_PER_SLOT )
+			{
+				// legal amount, count them all normally (statuses could be different)
+				ubItemsToCount = pItemObject->ubNumberOfObjects;
+				ubItemsNotCounted = 0;
+				// in this situation, uiUnitPrice will actually be the sum of the values of ALL the multiple objects
+			}
+			else
+			{
+				// overloaded amount, count just the first, the others must all be identical
+				ubItemsToCount = 1;
+				ubItemsNotCounted = pItemObject->ubNumberOfObjects - 1;
+			}
+
+			// add the value of each magazine (multiple mags may have vastly different #bullets left)
+			for (ubCnt = 0; ubCnt < ubItemsToCount; ubCnt++ )
+			{
+				// for bullets, ItemConditionModifier will convert the #ShotsLeft into a percentage
+				uiUnitPrice += (UINT32)( CalcValueOfItemToDealer( gbSelectedArmsDealerID, usItemID, fDealerSelling ) *
+																	 (pItemObject->ubShotsLeft[ubCnt] / Magazine[ Item[ usItemID ].ubClassIndex ].ubMagSize) *
+																	 dModifier );
+
+				if ( fUnitPriceOnly )
+				{
+					// want price for only one of them.  All statuses must be the same in order to use this flag!
+					break;
+				}
+			}
+			break;
 		default:
 			// this must handle overloaded objects from dealer boxes!
 			if ( pItemObject->ubNumberOfObjects <= MAX_OBJECTS_PER_SLOT )
