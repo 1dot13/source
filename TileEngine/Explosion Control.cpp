@@ -245,7 +245,18 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT16
 	// OK, go on!
 	ExpParams.uiFlags			= EXPLOSION_FLAG_USEABSPOS;
 	ExpParams.ubOwner			= ubOwner;
-	ExpParams.ubTypeID		= Explosive[ Item[ usItem ].ubClassIndex ].ubAnimationID;
+	//ExpParams.ubTypeID		= Explosive[ Item[ usItem ].ubClassIndex ].ubAnimationID;
+	// marke had to hardcode animation caused by lack of ability to load anim out of gun ammo-explosives from here 
+	if ( !( Item[ usItem ].usItemClass & IC_EXPLOSV ) )
+	{
+	ExpParams.ubTypeID		= 2;
+	//	return;
+	}
+	else
+	{
+		ExpParams.ubTypeID		= Explosive[ Item[ usItem ].ubClassIndex ].ubAnimationID;
+	}	
+
 	ExpParams.sX					= sX;
 	ExpParams.sY					= sY;
 	ExpParams.sZ					= sZ;

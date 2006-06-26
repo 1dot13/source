@@ -2797,18 +2797,27 @@ void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 s
 	if ( EXPLOSIVE_GUN( usWeaponIndex ) )
 	{
 		// Reduce attacker count!
-		if ( Item[usWeaponIndex].rocketlauncher  )
+             // marke test mag ammo type: pSoldier->inv[pSoldier->ubAttackingHand ].ubGunAmmoType
+                // 2cond 'or' added
+		if ( Item[usWeaponIndex].rocketlauncher || AmmoTypes[pSoldier->inv[pSoldier->ubAttackingHand ].ubGunAmmoType].explosionSize > 1 )
 		{
 			if ( Item[usWeaponIndex].singleshotrocketlauncher )
 			{
 				IgniteExplosion( ubAttackerID, sXPos, sYPos, 0, (INT16) (GETWORLDINDEXFROMWORLDCOORDS( sYPos, sXPos )), C1, pTargetSoldier->bLevel );
 			}
-			else
+			// changed rpg type to work only with two flags matching
+			else if ( !Item[usWeaponIndex].singleshotrocketlauncher && Item[usWeaponIndex].rocketlauncher)
 			{
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("StructureHit: RPG7 item: %d, Ammo: %d",pSoldier->inv[HANDPOS].usItem , pSoldier->inv[HANDPOS].usGunAmmoItem ) );
 				
 				IgniteExplosion( ubAttackerID, sXPos, sYPos, 0, (INT16) (GETWORLDINDEXFROMWORLDCOORDS( sYPos, sXPos )), pSoldier->inv[pSoldier->ubAttackingHand ].usGunAmmoItem, pTargetSoldier->bLevel );
 				pSoldier->inv[pSoldier->ubAttackingHand ].usGunAmmoItem = NONE;
+			}
+		    else if ( AmmoTypes[pSoldier->inv[pSoldier->ubAttackingHand ].ubGunAmmoType].explosionSize > 1)
+			{
+				// re-routed the Highexplosive value to define exposion type
+				IgniteExplosion( ubAttackerID, sXPos, sYPos, 0, (INT16) (GETWORLDINDEXFROMWORLDCOORDS( sYPos, sXPos )), AmmoTypes[pSoldier->inv[pSoldier->ubAttackingHand ].ubGunAmmoType].highExplosive , pTargetSoldier->bLevel );
+				// pSoldier->inv[pSoldier->ubAttackingHand ].usGunAmmoItem = NONE;
 			}
 		}
 		else // tank cannon
@@ -2901,24 +2910,37 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT8 bWeaponStatus, UINT
 
 	if (fStopped)
 	{
-		if ( Item[usWeaponIndex].rocketlauncher )
+		// marke need another attacker id assignment
+		SOLDIERTYPE				*pSoldier;
+
+	    // Get attacker
+	    pSoldier				= MercPtrs[ ubAttackerID ];
+                 // marke added one 'or' to get this working with HE ammo
+		if ( Item[usWeaponIndex].rocketlauncher || AmmoTypes[pSoldier->inv[pSoldier->ubAttackingHand ].ubGunAmmoType].explosionSize > 1)
 		{
 			RemoveBullet( iBullet );
 
 			// Reduce attacker count!
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - end of LAW fire") );
 			FreeUpAttacker( ubAttackerID );
-			if ( Item[usWeaponIndex].rocketlauncher )
+			if ( Item[usWeaponIndex].singleshotrocketlauncher )
 			{
 				IgniteExplosion( ubAttackerID, (INT16)CenterX( sGridNo ), (INT16)CenterY( sGridNo ), 0, sGridNo, C1, (INT8)( sZPos >= WALL_HEIGHT ) );
 			}
-			else
+			// changed too to use 2 flag to determine
+			else if ( !Item[usWeaponIndex].singleshotrocketlauncher && Item[usWeaponIndex].rocketlauncher)
 			{
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("StructureHit: RPG7 item: %d, Ammo: %d",pAttacker->inv[HANDPOS].usItem , pAttacker->inv[HANDPOS].usGunAmmoItem ) );
-				
 				IgniteExplosion( ubAttackerID, (INT16)CenterX( sGridNo ), (INT16)CenterY( sGridNo ), 0, sGridNo, pAttacker->inv[pAttacker->ubAttackingHand ].usGunAmmoItem , (INT8)( sZPos >= WALL_HEIGHT ) );
 				pAttacker->inv[pAttacker->ubAttackingHand ].usGunAmmoItem = NONE;
 			}
+			else if ( AmmoTypes[pSoldier->inv[pSoldier->ubAttackingHand ].ubGunAmmoType].explosionSize > 1)
+			{
+				// re-routed the Highexplosive value to define exposion type
+				IgniteExplosion( ubAttackerID, (INT16)CenterX( sGridNo ), (INT16)CenterY( sGridNo ), 0, sGridNo, AmmoTypes[pSoldier->inv[pSoldier->ubAttackingHand ].ubGunAmmoType].highExplosive , (INT8)( sZPos >= WALL_HEIGHT ) );
+				// pSoldier->inv[pSoldier->ubAttackingHand ].usGunAmmoItem = NONE;
+			}
+			
 			return;
 		}
 

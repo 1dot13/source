@@ -3478,7 +3478,8 @@ void EVENT_SoldierGotHit( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDa
 	{
 		ubReason = TAKE_DAMAGE_TENTACLES;
 	}
-	else if ( Item[ usWeaponIndex ].usItemClass & ( IC_GUN | IC_THROWING_KNIFE ) )
+        // marke take out gunfire if ammotype is an explosive
+	else if ( Item[ usWeaponIndex ].usItemClass & ( IC_GUN | IC_THROWING_KNIFE ) && AmmoTypes[MercPtrs[ubAttackerID]->inv[MercPtrs[ubAttackerID]->ubAttackingHand ].ubGunAmmoType].explosionSize <= 1)
 	{	
 		if ( ubSpecial == FIRE_WEAPON_SLEEP_DART_SPECIAL )
 		{
@@ -3535,7 +3536,9 @@ void EVENT_SoldierGotHit( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDa
 		}
 		ubReason = TAKE_DAMAGE_HANDTOHAND;
 	}
-	else if ( Item[ usWeaponIndex ].usItemClass & IC_EXPLOSV )
+        // marke added one 'or' for explosive ammo. variation of: AmmoTypes[pSoldier->inv[pSoldier->ubAttackingHand ].ubGunAmmoType].explosionSize > 1
+	//  extracting attacker´s ammo type
+	else if ( Item[ usWeaponIndex ].usItemClass & IC_EXPLOSV || AmmoTypes[MercPtrs[ubAttackerID]->inv[MercPtrs[ubAttackerID]->ubAttackingHand ].ubGunAmmoType].explosionSize > 1)
 	{	
 		if ( usWeaponIndex == STRUCTURE_EXPLOSION )
 		{
@@ -3843,7 +3846,8 @@ void EVENT_SoldierGotHit( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDa
 	{	
 		SoldierGotHitBlade( pSoldier, usWeaponIndex, sDamage, bDirection, sRange, ubAttackerID, ubSpecial, ubHitLocation ); 
 	}
-	if ( Item[ usWeaponIndex ].usItemClass & IC_EXPLOSV || Item[ usWeaponIndex ].usItemClass & IC_TENTACLES )
+        // marke setting ammo explosions included here with 3rd 'or' including ubReason
+	if ( Item[ usWeaponIndex ].usItemClass & IC_EXPLOSV || Item[ usWeaponIndex ].usItemClass & IC_TENTACLES || ubReason == TAKE_DAMAGE_EXPLOSION )
 	{	
 		SoldierGotHitExplosion( pSoldier, usWeaponIndex, sDamage, bDirection, sRange, ubAttackerID, ubSpecial, ubHitLocation ); 
 	}
