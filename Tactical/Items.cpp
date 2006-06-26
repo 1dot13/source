@@ -2396,7 +2396,7 @@ void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj )
 	INT8	bLoop, bLoop2;
 	INT8	bMaxPoints, bPointsToMove;
 
-	if ( !(Item[ pObj->usItem ].usItemClass & IC_AMMO || Item[ pObj->usItem ].usItemClass & IC_KIT || Item[ pObj->usItem ].usItemClass & IC_MEDKIT ) )
+	if ( !(Item[ pObj->usItem ].usItemClass & IC_AMMO || Item[ pObj->usItem ].usItemClass & IC_KIT || Item[ pObj->usItem ].usItemClass & IC_MEDKIT  || Item[pObj->usItem].canteen ) )
 	{
 		return;
 	}
@@ -5423,13 +5423,16 @@ BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT16 sGridNo, INT8 bLevel, IN
 INT8 IsMedicalKitItem( OBJECTTYPE *pObject )
 {
 	// check item id against current medical kits
-	switch( pObject->usItem )
-	{
-		case( MEDICKIT ):
-			// medical bag, return 1
-			return ( 1 );
-		break;
-	}
+	if ( Item[pObject->usItem].medicalkit )
+		return 1;
+
+	//switch( pObject->usItem )
+	//{
+	//	case( MEDICKIT ):
+	//		// medical bag, return 1
+	//		return ( 1 );
+	//	break;
+	//}
 
 	return( 0 );
 }

@@ -900,21 +900,21 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	}
 
 	// the following staple items are always deemed highly suitable regardless of player's progress:
-	switch (usItemIndex)
-	{
-		case FIRSTAIDKIT:
-		case MEDICKIT:
-		case TOOLKIT:
-		case LOCKSMITHKIT:
+	//switch (usItemIndex)
+	//{
+	//	case FIRSTAIDKIT:
+	//	case MEDICKIT:
+	//	case TOOLKIT:
+	//	case LOCKSMITHKIT:
 
-		case CANTEEN:
-		case CROWBAR:
-		case JAR:
-		case JAR_ELIXIR:
-		case JAR_CREATURE_BLOOD:
-
+	//	case CANTEEN:
+	//	case CROWBAR:
+	//	case JAR:
+	//	case JAR_ELIXIR:
+	//	case JAR_CREATURE_BLOOD:
+		if ( Item[usItemIndex].medical || Item[usItemIndex].canteen || Item[usItemIndex].medicalkit || Item[usItemIndex].locksmithkit || Item[usItemIndex].toolkit || Item[usItemIndex].crowbar || Item[usItemIndex].jar ) 
 			return(ITEM_SUITABILITY_ALWAYS);
-	}
+	//}
 
 
 	// If it's not BobbyRay, Tony, or Devin
