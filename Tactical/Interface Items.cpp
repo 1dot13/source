@@ -7329,7 +7329,14 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 				INT16 apStr2[20];
 				UINT8 ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, pObject );
 
-				swprintf( (wchar_t *)apStr, L"%d", ubAttackAPs );
+				if ( Weapon[ usItem ].NoSemiAuto )
+				{
+					swprintf( (wchar_t *)apStr, L"-" );
+				}
+				else
+				{
+					swprintf( (wchar_t *)apStr, L"%d", ubAttackAPs );
+				}
 
 				if (GetShotsPerBurst(pObject) > 0)
 				{
