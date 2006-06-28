@@ -1243,7 +1243,7 @@ BOOLEAN	OKFireWeapon( SOLDIERTYPE *pSoldier )
 BOOLEAN FireWeapon( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 {
 	// ignore passed in target gridno for now
-
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FireWeapon"));
 	// If realtime and we are reloading - do not fire until counter is done!
 	if ( ( ( gTacticalStatus.uiFlags & REALTIME ) || !( gTacticalStatus.uiFlags & INCOMBAT ) ) && !pSoldier->bDoBurst )
 	{

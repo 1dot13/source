@@ -2183,6 +2183,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 
 	// SNIPER!
 	CheckIfShotPossible(pSoldier,&BestShot,FALSE);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: is sniper shot possible? = %d, CTH = %d",BestShot.ubPossible,BestShot.ubChanceToReallyHit));
 
    if (BestShot.ubPossible && BestShot.ubChanceToReallyHit > 50 )
     {
@@ -2592,6 +2593,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 
 	// if we can move at least 1 square's worth
 		 // and have more APs than we want to reserve
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: can we move? = %d, APs = %d",ubCanMove,pSoldier->bActionPoints));
+
 		 if (ubCanMove && pSoldier->bActionPoints > MAX_AP_CARRIED)
 			{
 			 if (fCivilian)
@@ -2604,6 +2607,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 			 else
 				{
 
+				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: checking hide/seek/help/watch points... orders = %d, attitude = %d",pSoldier->bOrders,pSoldier->bAttitude));
 				 // calculate initial points for watch based on highest watch loc
 
 				 bWatchPts = GetHighestWatchedLocPoints( pSoldier->ubID );
@@ -2662,6 +2666,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 					bHidePts = -99;
 				}
 
+				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: hide = %d, seek = %d, watch = %d, help = %d",bHidePts,bSeekPts,bWatchPts,bHelpPts));
 				// while one of the three main RED REACTIONS remains viable
 				while ((bSeekPts > -90) || (bHelpPts > -90) || (bHidePts > -90) )
 				{
@@ -3376,6 +3381,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 	#ifdef DEBUGDECISIONS
 		STR16 tempstr;
 	#endif
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionBlack: soldier = %d, orders = %d, attitude = %d",pSoldier->ubID,pSoldier->bOrders,pSoldier->bAttitude));
 
  ATTACKTYPE BestShot,BestThrow,BestStab,BestAttack;
  BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP || pSoldier->bNeutral || (pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV) ) );

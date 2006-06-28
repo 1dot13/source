@@ -240,10 +240,16 @@ typedef struct
 	UINT32 guiProlongLightningIfSeenSomeone;
 	UINT32 guiChanceToDoLightningBetweenTurns;
 
-	//Gameplay settings
+	// Event settings
+
 	UINT32 ubGameProgressStartMadlabQuest;
 	UINT32 ubGameProgressMikeAvailable;
 	UINT32 ubGameProgressIggyAvaliable;
+	BOOLEAN gfSendTroopsToDrassen;
+
+
+	//Gameplay settings
+
 	UINT32 ubExplosivesDamageMultiplier;
 	UINT32 ubGunDamageMultiplier;
 	UINT32 ubMeleeDamageMultiplier;
