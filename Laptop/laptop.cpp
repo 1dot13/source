@@ -1817,6 +1817,7 @@ UINT32 LaptopScreenHandle()
 		INT32 iPercentage, iScalePercentage, iFactor;
 		UINT32 uiStartTime, uiTimeRange, uiCurrTime;
 		INT32 iX, iY, iWidth, iHeight;
+		INT32 iLaptopMonitorCenterX, iLaptopMonitorCenterY;
 
 		INT32 iRealPercentage;
 
@@ -1839,19 +1840,27 @@ UINT32 LaptopScreenHandle()
 		DstRect.iTop =	iScreenHeightOffset;						//0
 		DstRect.iRight = iScreenWidthOffset + 640;				//640
 		DstRect.iBottom = iScreenHeightOffset + 480;				//480
+		iLaptopMonitorCenterX = SCREEN_WIDTH - 184 + 19;
+		iLaptopMonitorCenterY = SCREEN_HEIGHT - 70 + 16;
 		uiTimeRange = 1000;
 		iPercentage = iRealPercentage = 0;
 		uiStartTime = GetJA2Clock();
 
 		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, iScreenWidthOffset, iScreenHeightOffset,
 			640, 480 );
-		BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset, 640, 480 );
+		// Lesh: moved into loop
+		//BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset,
+		//	SCREEN_WIDTH - iScreenWidthOffset, SCREEN_HEIGHT - iScreenHeightOffset );
 
 		PlayJA2SampleFromFile( "SOUNDS\\Laptop power up (8-11).wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 		
 		// WANNE 2 with laptop zooming
 		while( iRealPercentage < 100  )
 		{
+			// Lesh: restore mapscreen so laptop zooming won't leave "graphical trail
+			BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset,
+				SCREEN_WIDTH - iScreenWidthOffset, SCREEN_HEIGHT - iScreenHeightOffset );
+
 			uiCurrTime = GetJA2Clock();
 			iPercentage = (uiCurrTime-uiStartTime) * 100 / uiTimeRange;
 			iPercentage = min( iPercentage, 100 );
@@ -1873,8 +1882,8 @@ UINT32 LaptopScreenHandle()
 			iWidth = 12 * iScalePercentage / 100;
 			iHeight = 9 * iScalePercentage / 100;
 
-			iX = 472 - (472 - (iScreenWidthOffset + 320)) * iScalePercentage / 5333;
-			iY = 424 - (424 - (iScreenHeightOffset + 240)) * iScalePercentage / 5333;
+			iX = iLaptopMonitorCenterX - (iLaptopMonitorCenterX - (iScreenWidthOffset + 320)) * iScalePercentage / 5333;
+			iY = iLaptopMonitorCenterY - (iLaptopMonitorCenterY - (iScreenHeightOffset + 240)) * iScalePercentage / 5333;
 
 			SrcRect2.iLeft = iX - iWidth / 2;
 			SrcRect2.iRight = SrcRect2.iLeft + iWidth;
@@ -2448,6 +2457,7 @@ BOOLEAN LeaveLapTopScreen( void )
 			UINT32 uiStartTime, uiTimeRange, uiCurrTime;
 			INT32 iX, iY, iWidth, iHeight;
 			INT32 iRealPercentage;
+			INT32 iLaptopMonitorCenterX, iLaptopMonitorCenterY;
 
 			gfDontStartTransitionFromLaptop = TRUE;
 			SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
@@ -2468,6 +2478,8 @@ BOOLEAN LeaveLapTopScreen( void )
 			DstRect.iTop = iScreenHeightOffset + 0;			// 0
 			DstRect.iRight = iScreenWidthOffset + 640;		// 640
 			DstRect.iBottom = iScreenHeightOffset + 480;		// 480
+			iLaptopMonitorCenterX = SCREEN_WIDTH - 184 + 19;
+			iLaptopMonitorCenterY = SCREEN_HEIGHT - 70 + 16;
 			uiTimeRange = 1000;
 			iPercentage = iRealPercentage = 100;
 			uiStartTime = GetJA2Clock();
@@ -2480,7 +2492,8 @@ BOOLEAN LeaveLapTopScreen( void )
 			// WANNE 2
 			while( iRealPercentage > 0  )
 			{
-				BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset, 640, 480 );
+				BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset,
+					SCREEN_WIDTH - iScreenWidthOffset, SCREEN_HEIGHT - iScreenHeightOffset );
 
 				uiCurrTime = GetJA2Clock();
 				iPercentage = (uiCurrTime-uiStartTime) * 100 / uiTimeRange;
@@ -2508,8 +2521,9 @@ BOOLEAN LeaveLapTopScreen( void )
 					iScalePercentage = 5333;
 				iWidth = 12 * iScalePercentage / 100;
 				iHeight = 9 * iScalePercentage / 100;
-				iX = 472 - (472 - (iScreenWidthOffset + 320)) * iScalePercentage / 5333;
-				iY = 424 - (424 - (iScreenHeightOffset + 240)) * iScalePercentage / 5333;
+
+				iX = iLaptopMonitorCenterX - (iLaptopMonitorCenterX - (iScreenWidthOffset + 320)) * iScalePercentage / 5333;
+				iY = iLaptopMonitorCenterY - (iLaptopMonitorCenterY - (iScreenHeightOffset + 240)) * iScalePercentage / 5333;
 
 				SrcRect2.iLeft = iX - iWidth / 2;
 				SrcRect2.iRight = SrcRect2.iLeft + iWidth;
