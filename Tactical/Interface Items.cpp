@@ -731,6 +731,15 @@ void GenerateConsString( UINT16 * zItemCons, OBJECTTYPE * pObject, UINT32 uiPixL
 		}
 	}
 
+	if ( Weapon[usItem].NoSemiAuto )
+	{
+		zTemp = Message[STR_NO_SEMI_AUTO];
+		if ( ! AttemptToAddSubstring( zItemCons, zTemp, &uiStringLength, uiPixLimit ) )
+		{
+			return;			
+		}
+	}
+
 	// calculate the weight of the item plus ammunition but not including any attachments
 	ubWeight = Item[ usItem ].ubWeight;
 	if (Item[ usItem ].usItemClass == IC_GUN)
@@ -3119,7 +3128,8 @@ void RenderItemDescriptionBox( )
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_GUN || Item[ gpItemDescObject->usItem ].usItemClass & IC_LAUNCHER )
 		{
 			// display bullets for ROF
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiBullet, 0, MAP_BULLET_SING_X, MAP_BULLET_SING_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+			if ( !Weapon[gpItemDescObject->usItem].NoSemiAuto )
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiBullet, 0, MAP_BULLET_SING_X, MAP_BULLET_SING_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 
 			if (GetShotsPerBurst(gpItemDescObject)> 0)
 			{
@@ -3254,7 +3264,8 @@ void RenderItemDescriptionBox( )
 			if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_GUN || Item[ gpItemDescObject->usItem ].usItemClass & IC_LAUNCHER)
 			{
 				// equals sign
-				mprintf( gMapWeaponStats[ 7 ].sX + gsInvDescX, gMapWeaponStats[ 7 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 7 ] );
+				if ( !Weapon[gpItemDescObject->usItem].NoSemiAuto )
+					mprintf( gMapWeaponStats[ 7 ].sX + gsInvDescX, gMapWeaponStats[ 7 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 7 ] );
 			}
 			mprintf( gMapWeaponStats[ 1 ].sX + gsInvDescX, gMapWeaponStats[ 1 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 1 ] );
 
@@ -3323,21 +3334,24 @@ void RenderItemDescriptionBox( )
 			 mprintf( usX, usY, pStr );
 		  }
 
-			 ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, gpItemDescObject );
+			ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, gpItemDescObject );
 
-				if (ubAttackAPs <= EXCEPTIONAL_AP_COST)
-				{
-					SetFontForeground( ITEMDESC_FONTHIGHLIGHT );
-				}
-				else
-				{
-					SetFontForeground( 5 );
-				}		
+			if (ubAttackAPs <= EXCEPTIONAL_AP_COST)
+			{
+				SetFontForeground( ITEMDESC_FONTHIGHLIGHT );
+			}
+			else
+			{
+				SetFontForeground( 5 );
+			}		
 
 			 //Ap's
-			 swprintf( (wchar_t *)pStr, L"%2d", ubAttackAPs );
-			 FindFontRightCoordinates( (INT16)(gMapWeaponStats[ 5 ].sX + gsInvDescX + gMapWeaponStats[ 5 ].sValDx), (INT16)(gMapWeaponStats[ 5 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-			 mprintf( usX, usY, pStr );
+			if ( !Weapon[gpItemDescObject->usItem].NoSemiAuto )
+			{
+				swprintf( (wchar_t *)pStr, L"%2d", ubAttackAPs );
+				FindFontRightCoordinates( (INT16)(gMapWeaponStats[ 5 ].sX + gsInvDescX + gMapWeaponStats[ 5 ].sValDx), (INT16)(gMapWeaponStats[ 5 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+				mprintf( usX, usY, pStr );
+			}
 
 			 if (GetShotsPerBurst(gpItemDescObject) > 0)
 			 {
@@ -3593,7 +3607,8 @@ void RenderItemDescriptionBox( )
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_GUN || Item[ gpItemDescObject->usItem ].usItemClass & IC_LAUNCHER )
 		{
 			// display bullets for ROF
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiBullet, 0, BULLET_SING_X, BULLET_SING_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+			if ( !Weapon[gpItemDescObject->usItem].NoSemiAuto )
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiBullet, 0, BULLET_SING_X, BULLET_SING_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 
 			if (GetShotsPerBurst(gpItemDescObject) > 0)
 			{
@@ -3720,7 +3735,8 @@ void RenderItemDescriptionBox( )
 			mprintf( gWeaponStats[ 5 ].sX + gsInvDescX, gWeaponStats[ 5 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 5 ] );
 			if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_GUN || Item[ gpItemDescObject->usItem ].usItemClass & IC_LAUNCHER )
 			{
-				mprintf( gWeaponStats[ 7 ].sX + gsInvDescX, gWeaponStats[ 7 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 7 ] );
+				if ( !Weapon[gpItemDescObject->usItem].NoSemiAuto )
+					mprintf( gWeaponStats[ 7 ].sX + gsInvDescX, gWeaponStats[ 7 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 7 ] );
 			}
 			mprintf( gWeaponStats[ 1 ].sX + gsInvDescX, gWeaponStats[ 1 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 1 ] );
 
@@ -3794,9 +3810,12 @@ void RenderItemDescriptionBox( )
 				SetFontForeground( 5 );
 			}
 
-			swprintf( (wchar_t *)pStr, L"%2d", ubAttackAPs );
-			FindFontRightCoordinates( (INT16)(gWeaponStats[ 5 ].sX + gsInvDescX + gWeaponStats[ 5 ].sValDx), (INT16)(gWeaponStats[ 5 ].sY + gsInvDescY ), ITEM_STATS_WIDTH, ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
+			if ( !Weapon[gpItemDescObject->usItem].NoSemiAuto )
+			{
+				swprintf( (wchar_t *)pStr, L"%2d", ubAttackAPs );
+				FindFontRightCoordinates( (INT16)(gWeaponStats[ 5 ].sX + gsInvDescX + gWeaponStats[ 5 ].sValDx), (INT16)(gWeaponStats[ 5 ].sY + gsInvDescY ), ITEM_STATS_WIDTH, ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+				mprintf( usX, usY, pStr );
+			}
 
 			if (GetShotsPerBurst(gpItemDescObject)> 0)
 			{

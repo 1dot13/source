@@ -299,6 +299,7 @@ UINT16 Message[][STRING_LENGTH] =
 	L"no full auto",
 	L"accurate",
 	L"inaccurate",
+	L"no semi auto",
 };
 
 
