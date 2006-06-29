@@ -546,6 +546,14 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 			MoveMilitiaSquad( sMapX, sMapY,  SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ), FALSE );
 			AddToBlockMoveList( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );
 
+			if ( gWorldSectorX == SECTORX( pMoveDir[ iRandomRes ][0] ) && 
+				  gWorldSectorY == SECTORY( pMoveDir[ iRandomRes ][0] ) && 
+				  !gbWorldSectorZ )
+			{
+				gfStrategicMilitiaChangesMade = TRUE;
+				ResetMilitia();
+			}
+
 			if( NumEnemiesInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) )
 			{
 /*				GROUP* pEnemyGroup = GetGroup( GetEnemyGroupIdInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) );
