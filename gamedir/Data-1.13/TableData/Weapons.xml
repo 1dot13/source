@@ -89,7 +89,7 @@
 		<ubMagSize>15</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>23.0769230769231</BurstAniDelay>
+		<BurstAniDelay>23</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>371</sSound>
@@ -161,7 +161,7 @@
 		<ubMagSize>15</ubMagSize>
 		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>27.2727272727273</BurstAniDelay>
+		<BurstAniDelay>27</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>368</sSound>
@@ -341,7 +341,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>175</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>33.3333333333333</BurstAniDelay>
+		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>375</sSound>
@@ -377,7 +377,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>140</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>27.2727272727273</BurstAniDelay>
+		<BurstAniDelay>27</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>412</sSound>
@@ -413,7 +413,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>42.8571428571429</BurstAniDelay>
+		<BurstAniDelay>43</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>415</sSound>
@@ -521,7 +521,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>40.8163265306122</BurstAniDelay>
+		<BurstAniDelay>41</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>330</sSound>
@@ -557,7 +557,7 @@
 		<ubMagSize>50</ubMagSize>
 		<usRange>250</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>33.3333333333333</BurstAniDelay>
+		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>328</sSound>
@@ -773,7 +773,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>46.1538461538462</BurstAniDelay>
+		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>335</sSound>
@@ -845,7 +845,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>37.5</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>341</sSound>
@@ -881,7 +881,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>27.2727272727273</BurstAniDelay>
+		<BurstAniDelay>27</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>333</sSound>
@@ -917,7 +917,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>46.1538461538462</BurstAniDelay>
+		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>329</sSound>
@@ -1025,7 +1025,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>650</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>42.8571428571429</BurstAniDelay>
+		<BurstAniDelay>43</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>347</sSound>
@@ -1313,7 +1313,7 @@
 		<ubMagSize>100</ubMagSize>
 		<usRange>750</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>37.5</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>9</ubHitVolume>
 		<sSound>349</sSound>
@@ -2717,7 +2717,7 @@
 		<ubMagSize>15</ubMagSize>
 		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>24</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>372</sSound>
@@ -2753,7 +2753,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>343</sSound>
@@ -2789,7 +2789,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>344</sSound>
@@ -2825,7 +2825,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>34</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>385</sSound>
@@ -2861,7 +2861,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>320</sSound>
@@ -2897,7 +2897,7 @@
 		<ubMagSize>11</ubMagSize>
 		<usRange>1100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>419</sSound>
@@ -2933,7 +2933,7 @@
 		<ubMagSize>15</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>367</sSound>
@@ -2969,7 +2969,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>293</sSound>
@@ -3005,7 +3005,7 @@
 		<ubMagSize>15</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>367</sSound>
@@ -3041,7 +3041,7 @@
 		<ubMagSize>15</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>367</sSound>
@@ -3077,7 +3077,7 @@
 		<ubMagSize>7</ubMagSize>
 		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>435</sSound>
@@ -3113,7 +3113,7 @@
 		<ubMagSize>7</ubMagSize>
 		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>297</sSound>
@@ -3149,7 +3149,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>225</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>374</sSound>
@@ -3185,7 +3185,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>225</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>374</sSound>
@@ -3221,7 +3221,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>170</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>374</sSound>
@@ -3257,7 +3257,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>379</sSound>
@@ -3293,7 +3293,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>374</sSound>
@@ -3329,7 +3329,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>358</sSound>
@@ -3365,7 +3365,7 @@
 		<ubMagSize>10</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>334</sSound>
@@ -3401,7 +3401,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>383</sSound>
@@ -3437,7 +3437,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>341</sSound>
@@ -3653,7 +3653,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>437</sSound>
@@ -3689,7 +3689,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>441</sSound>
@@ -3725,7 +3725,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>442</sSound>
@@ -3761,7 +3761,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>170</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>470</sSound>
@@ -3797,7 +3797,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>456</sSound>
@@ -3833,7 +3833,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>340</sSound>
@@ -3869,7 +3869,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>358</sSound>
@@ -3905,7 +3905,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>358</sSound>
@@ -3941,7 +3941,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>329</sSound>
@@ -3977,7 +3977,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>35</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>447</sSound>
@@ -4013,7 +4013,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>453</sSound>
@@ -4049,7 +4049,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>358</sSound>
@@ -4085,7 +4085,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>358</sSound>
@@ -4121,7 +4121,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>329</sSound>
@@ -4157,7 +4157,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>358</sSound>
@@ -4193,7 +4193,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>40</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>331</sSound>
@@ -4229,7 +4229,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>385</sSound>
@@ -4265,7 +4265,7 @@
 		<ubMagSize>10</ubMagSize>
 		<usRange>1200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>440</sSound>
@@ -4301,7 +4301,7 @@
 		<ubMagSize>11</ubMagSize>
 		<usRange>250</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>291</sSound>
@@ -4337,7 +4337,7 @@
 		<ubMagSize>10</ubMagSize>
 		<usRange>1200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>440</sSound>
@@ -4373,7 +4373,7 @@
 		<ubMagSize>7</ubMagSize>
 		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>297</sSound>
@@ -4409,7 +4409,7 @@
 		<ubMagSize>15</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>51</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>367</sSound>
@@ -4445,7 +4445,7 @@
 		<ubMagSize>14</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>51</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>302</sSound>
@@ -4481,7 +4481,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>45</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>454</sSound>
@@ -4517,7 +4517,7 @@
 		<ubMagSize>5</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>314</sSound>
@@ -4553,7 +4553,7 @@
 		<ubMagSize>45</ubMagSize>
 		<usRange>230</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>461</sSound>
@@ -4589,7 +4589,7 @@
 		<ubMagSize>100</ubMagSize>
 		<usRange>500</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>60</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>351</sSound>
@@ -4625,7 +4625,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>370</sSound>
@@ -4661,7 +4661,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>600</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>348</sSound>
@@ -4697,7 +4697,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>750</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>347</sSound>
@@ -4733,7 +4733,7 @@
 		<ubMagSize>14</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>413</sSound>
@@ -4769,7 +4769,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>341</sSound>
@@ -4805,7 +4805,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>337</sSound>
@@ -4841,7 +4841,7 @@
 		<ubMagSize>10</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>314</sSound>
@@ -4877,7 +4877,7 @@
 		<ubMagSize>8</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>361</sSound>
@@ -4913,7 +4913,7 @@
 		<ubMagSize>14</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>51</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>302</sSound>
@@ -4949,7 +4949,7 @@
 		<ubMagSize>8</ubMagSize>
 		<usRange>125</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>54</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>410</sSound>
@@ -4985,7 +4985,7 @@
 		<ubMagSize>7</ubMagSize>
 		<usRange>125</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>420</sSound>
@@ -5021,7 +5021,7 @@
 		<ubMagSize>10</ubMagSize>
 		<usRange>1500</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>440</sSound>
@@ -5057,7 +5057,7 @@
 		<ubMagSize>10</ubMagSize>
 		<usRange>1500</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>440</sSound>
@@ -5093,7 +5093,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>31</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>471</sSound>
@@ -5129,7 +5129,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>25</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>471</sSound>
@@ -5165,7 +5165,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>31</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>471</sSound>
@@ -5201,7 +5201,7 @@
 		<ubMagSize>14</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>52</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>300</sSound>
@@ -5237,7 +5237,7 @@
 		<ubMagSize>15</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>51</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>367</sSound>
@@ -5273,7 +5273,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>35</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>338</sSound>
@@ -5309,7 +5309,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>347</sSound>
@@ -5345,7 +5345,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>347</sSound>
@@ -5381,7 +5381,7 @@
 		<ubMagSize>100</ubMagSize>
 		<usRange>750</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>9</ubHitVolume>
 		<sSound>352</sSound>
@@ -5417,7 +5417,7 @@
 		<ubMagSize>200</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>65</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>342</sSound>
@@ -5453,7 +5453,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>347</sSound>
@@ -5489,7 +5489,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>346</sSound>
@@ -5525,7 +5525,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>450</sSound>
@@ -5561,7 +5561,7 @@
 		<ubMagSize>10</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>314</sSound>
@@ -5597,7 +5597,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>600</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>340</sSound>
@@ -5633,7 +5633,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>325</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>340</sSound>
@@ -5669,7 +5669,7 @@
 		<ubMagSize>5</ubMagSize>
 		<usRange>1100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>296</sSound>
@@ -5705,7 +5705,7 @@
 		<ubMagSize>15</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>371</sSound>
@@ -5741,7 +5741,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>355</sSound>
@@ -5777,7 +5777,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>250</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>381</sSound>
@@ -5813,7 +5813,7 @@
 		<ubMagSize>100</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>460</sSound>
@@ -5849,7 +5849,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>485</sSound>
@@ -5885,7 +5885,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>140</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>65</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>445</sSound>
@@ -5921,7 +5921,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>334</sSound>
@@ -5957,7 +5957,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>334</sSound>
@@ -5993,7 +5993,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>334</sSound>
@@ -6029,7 +6029,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>550</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>348</sSound>
@@ -6065,7 +6065,7 @@
 		<ubMagSize>100</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>482</sSound>
@@ -6101,7 +6101,7 @@
 		<ubMagSize>200</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>483</sSound>
@@ -6137,7 +6137,7 @@
 		<ubMagSize>14</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>413</sSound>
@@ -6173,7 +6173,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>210</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>387</sSound>
@@ -6209,7 +6209,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>170</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>387</sSound>
@@ -6245,7 +6245,7 @@
 		<ubMagSize>40</ubMagSize>
 		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>326</sSound>
@@ -6281,7 +6281,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>750</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>317</sSound>
@@ -6317,7 +6317,7 @@
 		<ubMagSize>8</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>377</sSound>
@@ -6353,7 +6353,7 @@
 		<ubMagSize>10</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>134</sSound>
@@ -6389,7 +6389,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>43</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>416</sSound>
@@ -6425,7 +6425,7 @@
 		<ubMagSize>14</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>302</sSound>
@@ -6461,7 +6461,7 @@
 		<ubMagSize>4</ubMagSize>
 		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>435</sSound>
@@ -6497,7 +6497,7 @@
 		<ubMagSize>12</ubMagSize>
 		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>125</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>394</sSound>
@@ -6533,7 +6533,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>473</sSound>
@@ -6569,7 +6569,7 @@
 		<ubMagSize>5</ubMagSize>
 		<usRange>1200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>296</sSound>
@@ -6605,7 +6605,7 @@
 		<ubMagSize>10</ubMagSize>
 		<usRange>600</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>398</sSound>
@@ -6641,7 +6641,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>350</sSound>
@@ -6677,7 +6677,7 @@
 		<ubMagSize>5</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>322</sSound>
@@ -6713,7 +6713,7 @@
 		<ubMagSize>72</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>12</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>451</sSound>
@@ -6749,7 +6749,7 @@
 		<ubMagSize>100</ubMagSize>
 		<usRange>750</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>351</sSound>
@@ -6785,7 +6785,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>170</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>25</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>372</sSound>
@@ -6821,7 +6821,7 @@
 		<ubMagSize>8</ubMagSize>
 		<usRange>90</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>40</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>310</sSound>
@@ -6857,7 +6857,7 @@
 		<ubMagSize>12</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>310</sSound>
@@ -6893,7 +6893,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>250</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>484</sSound>
@@ -6929,7 +6929,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>170</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>373</sSound>
@@ -6965,7 +6965,7 @@
 		<ubMagSize>5</ubMagSize>
 		<usRange>500</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>90</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>363</sSound>
@@ -7001,7 +7001,7 @@
 		<ubMagSize>7</ubMagSize>
 		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>435</sSound>
@@ -7037,7 +7037,7 @@
 		<ubMagSize>14</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>52</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>302</sSound>
@@ -7073,7 +7073,7 @@
 		<ubMagSize>12</ubMagSize>
 		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>435</sSound>
@@ -7109,7 +7109,7 @@
 		<ubMagSize>5</ubMagSize>
 		<usRange>1200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>296</sSound>
@@ -7145,7 +7145,7 @@
 		<ubMagSize>5</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>314</sSound>
@@ -7181,7 +7181,7 @@
 		<ubMagSize>200</ubMagSize>
 		<usRange>600</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>90</ubAttackVolume>
 		<ubHitVolume>9</ubHitVolume>
 		<sSound>365</sSound>
@@ -7217,7 +7217,7 @@
 		<ubMagSize>200</ubMagSize>
 		<usRange>600</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>364</sSound>
@@ -7253,7 +7253,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>462</sSound>
@@ -7289,7 +7289,7 @@
 		<ubMagSize>75</ubMagSize>
 		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>360</sSound>
@@ -7325,7 +7325,7 @@
 		<ubMagSize>8</ubMagSize>
 		<usRange>80</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>40</ubAttackVolume>
 		<ubHitVolume>2</ubHitVolume>
 		<sSound>443</sSound>
@@ -7361,7 +7361,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>340</sSound>
@@ -7397,7 +7397,7 @@
 		<ubMagSize>100</ubMagSize>
 		<usRange>600</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>9</ubHitVolume>
 		<sSound>356</sSound>
@@ -7433,7 +7433,7 @@
 		<ubMagSize>100</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>9</ubHitVolume>
 		<sSound>357</sSound>
@@ -7469,7 +7469,7 @@
 		<ubMagSize>6</ubMagSize>
 		<usRange>125</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>54</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>409</sSound>
@@ -7505,7 +7505,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>359</sSound>
@@ -7541,7 +7541,7 @@
 		<ubMagSize>10</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>314</sSound>
@@ -7577,7 +7577,7 @@
 		<ubMagSize>10</ubMagSize>
 		<usRange>1200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>440</sSound>
@@ -7613,7 +7613,7 @@
 		<ubMagSize>2</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>435</sSound>
@@ -7649,7 +7649,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>600</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>347</sSound>
@@ -7685,7 +7685,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>43</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>341</sSound>
@@ -7721,7 +7721,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>43</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>452</sSound>
@@ -7757,7 +7757,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>320</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>43</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>452</sSound>
@@ -7793,7 +7793,7 @@
 		<ubMagSize>8</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>367</sSound>
@@ -7829,7 +7829,7 @@
 		<ubMagSize>14</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>302</sSound>
@@ -7865,7 +7865,7 @@
 		<ubMagSize>15</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>367</sSound>
@@ -7901,7 +7901,7 @@
 		<ubMagSize>14</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>90</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>302</sSound>
@@ -7937,7 +7937,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>35</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>458</sSound>
@@ -7973,7 +7973,7 @@
 		<ubMagSize>15</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>367</sSound>
@@ -8009,7 +8009,7 @@
 		<ubMagSize>14</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>302</sSound>
@@ -8045,7 +8045,7 @@
 		<ubMagSize>18</ubMagSize>
 		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>9</ubHitVolume>
 		<sSound>294</sSound>
@@ -8081,7 +8081,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>380</sSound>
@@ -8117,7 +8117,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>55</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>378</sSound>
@@ -8153,7 +8153,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>44</BurstAniDelay>
 		<ubAttackVolume>65</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>455</sSound>
@@ -8189,7 +8189,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>374</sSound>
@@ -8225,7 +8225,7 @@
 		<ubMagSize>10</ubMagSize>
 		<usRange>600</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>353</sSound>
@@ -8261,7 +8261,7 @@
 		<ubMagSize>5</ubMagSize>
 		<usRange>850</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>314</sSound>
@@ -8297,7 +8297,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>449</sSound>
@@ -8333,7 +8333,7 @@
 		<ubMagSize>12</ubMagSize>
 		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>391</sSound>
@@ -8369,7 +8369,7 @@
 		<ubMagSize>4</ubMagSize>
 		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>435</sSound>
@@ -8405,7 +8405,7 @@
 		<ubMagSize>10</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>90</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>363</sSound>
@@ -8441,7 +8441,7 @@
 		<ubMagSize>10</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>90</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>366</sSound>
@@ -8477,7 +8477,7 @@
 		<ubMagSize>10</ubMagSize>
 		<usRange>750</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>457</sSound>
@@ -8513,7 +8513,7 @@
 		<ubMagSize>6</ubMagSize>
 		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>54</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>409</sSound>
@@ -8549,7 +8549,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>415</sSound>
@@ -8585,7 +8585,7 @@
 		<ubMagSize>8</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>361</sSound>
@@ -8621,7 +8621,7 @@
 		<ubMagSize>5</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>389</sSound>
@@ -8657,7 +8657,7 @@
 		<ubMagSize>100</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>56</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>345</sSound>
@@ -8693,7 +8693,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>83</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>394</sSound>
@@ -8729,7 +8729,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>43</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>448</sSound>
@@ -8765,7 +8765,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>341</sSound>
@@ -8801,7 +8801,7 @@
 		<ubMagSize>8</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>367</sSound>
@@ -8837,7 +8837,7 @@
 		<ubMagSize>20</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>385</sSound>
@@ -8873,7 +8873,7 @@
 		<ubMagSize>5</ubMagSize>
 		<usRange>850</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>347</sSound>
@@ -8909,7 +8909,7 @@
 		<ubMagSize>8</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>54</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>409</sSound>
@@ -8945,7 +8945,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>334</sSound>
@@ -8981,7 +8981,7 @@
 		<ubMagSize>100</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>346</sSound>
@@ -9017,7 +9017,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>346</sSound>
@@ -9053,7 +9053,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>250</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>346</sSound>
@@ -9089,7 +9089,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>500</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>346</sSound>
@@ -9125,7 +9125,7 @@
 		<ubMagSize>10</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>347</sSound>
@@ -9161,7 +9161,7 @@
 		<ubMagSize>2</ubMagSize>
 		<usRange>170</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>435</sSound>
@@ -9197,7 +9197,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>334</sSound>
@@ -9233,7 +9233,7 @@
 		<ubMagSize>30</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>334</sSound>
@@ -9269,7 +9269,7 @@
 		<ubMagSize>1</ubMagSize>
 		<usRange>1000</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>20</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>115</sSound>
@@ -9305,7 +9305,7 @@
 		<ubMagSize>1</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>20</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>403</sSound>
@@ -9341,7 +9341,7 @@
 		<ubMagSize>4</ubMagSize>
 		<usRange>375</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>20</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>408</sSound>
@@ -9377,7 +9377,7 @@
 		<ubMagSize>1</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>20</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>405</sSound>
@@ -9413,7 +9413,7 @@
 		<ubMagSize>1</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>20</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>401</sSound>
@@ -9449,7 +9449,7 @@
 		<ubMagSize>6</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>20</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>404</sSound>
@@ -9485,7 +9485,7 @@
 		<ubMagSize>1</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>20</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>406</sSound>
@@ -9521,7 +9521,7 @@
 		<ubMagSize>6</ubMagSize>
 		<usRange>450</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>20</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>446</sSound>
@@ -9557,7 +9557,7 @@
 		<ubMagSize>3</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>20</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>407</sSound>
@@ -9566,8 +9566,8 @@
 		<sReloadSound>0</sReloadSound>
 		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
@@ -9593,7 +9593,7 @@
 		<ubMagSize>1</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>20</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>469</sSound>
@@ -9629,7 +9629,7 @@
 		<ubMagSize>1</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>20</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>405</sSound>
@@ -9665,7 +9665,7 @@
 		<ubMagSize>6</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>20</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>397</sSound>
@@ -9701,7 +9701,7 @@
 		<ubMagSize>1</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>20</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>403</sSound>
@@ -9737,7 +9737,7 @@
 		<ubMagSize>1</ubMagSize>
 		<usRange>500</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>432</sSound>
@@ -9773,7 +9773,7 @@
 		<ubMagSize>1</ubMagSize>
 		<usRange>550</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>429</sSound>
@@ -9809,7 +9809,7 @@
 		<ubMagSize>1</ubMagSize>
 		<usRange>600</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>430</sSound>
@@ -9845,7 +9845,7 @@
 		<ubMagSize>1</ubMagSize>
 		<usRange>650</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>431</sSound>
@@ -9881,7 +9881,7 @@
 		<ubMagSize>1</ubMagSize>
 		<usRange>500</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
+		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>428</sSound>
