@@ -3219,13 +3219,13 @@ STR16 zOptionsToggleText[] =
 	L"Drahtgitter zeigen",
 	L"3D Cursor zeigen",
 	L"Trefferchance anzeigen",
-	L"GL Burst verwendet Burst- Cursor",
+	L"GL Burst verwendet Burst Cursor",
 	L"Gegner lassen alles fallen",
-	L"High Angle Grenade Launching",
-	L"Restrict Extra Aim Levels to Rifles",
-	L"Space selects next squad",
-	L"Show Item Shadow",
-	L"Show Weapon Ranges in Tiles",
+	L"Granatwerfer feuern in hohem Winkel",
+	L"Extra Zielgenauigkeit bei Gewehren",
+	L"Space selektiert die nächste Gruppe",
+	L"Gegenständen mit Schatten",
+	L"Waffenreichweite in Felder",
 };
 
 //This is the help text associated with the above toggles.
@@ -3265,7 +3265,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Durch diese Option wird vor der Rückkehr in den Echtzeit-Modus ein zusätzlicher \"Sicherheits\"-Klick verlangt.",
 
 	//Sleep/Wake notification
-  L"Wenn ANgeschaltet werden Sie informiert, wann Ihre Söldner, die sich im \"Dienst\" befinden schlafen oder die Arbeit wieder aufnehmen.",
+    L"Wenn ANgeschaltet werden Sie informiert, wann Ihre Söldner, die sich im \"Dienst\" befinden schlafen oder die Arbeit wieder aufnehmen.",
 
 	//Use the metric system
 	L"Mit dieser Option wird im Spiel das metrische System verwendet.",
@@ -3291,14 +3291,14 @@ STR16 zOptionsScreenHelpText[] =
 	L"ANgeschaltet, wird der Bewegungs-Cursor in 3D angezeigt. ( |Home )",
 	
 	// Options for 1.13
-	L"Die Trefferchance wird über dem Cursor als Balken angezeigt",
-	L"GL Burst verwendet Burst- Cursor.",
-	L"Gegner lassen bei ihrem Ableben alle Gegenstände zurück.",
-	L"Grenade launchers fire grenades at higher angles.",
-	L"Aim levels beyond 4 are restricted to rifles and sniper rifles.",
-	L"When enabled |S|p|a|c|e selects next squad automatically.",
-	L"When enabled item shadows will be shown.",
-	L"When enabled weapon ranges will be shown in tiles.",
+	L"Diese Funktion ANschalten, wenn die Trefferwahrscheinlichkeit am Cursor angezeigt werden soll.",
+	L"Wenn diese Funktion aktiviert ist, wird für einen GL Burst der Burst Cursor angezeigt.",
+	L"ANgeschaltet, lassen tote Gegner alle Gegenstände zurück am Boden.",
+	L"Wenn diese Funktion aktiviert ist, können Granatwerfer Granaten in höherem Winkel abfeuern.",
+	L"Wenn diese Funktion aktiviert ist, wird eine Zielgenauigkeit über 4 auf Gewehre und Scharfschützengewehre eingeschränkt.",
+	L"ANgeschaltet, selektiert |S|p|a|c|e automatisch die nächste Gruppe.",
+	L"Wenn diese Funktion aktiviert ist, wird der Schatten von Gegenständen angezeigt.",
+	L"Wenn diese Funktion aktiviert ist, werden Waffenreichweiten in Feldern angezeigt.",
 };
 
 STR16 gzGIOScreenText[] =

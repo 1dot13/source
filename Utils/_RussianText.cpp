@@ -3401,12 +3401,12 @@ STR16		zOptionsToggleText[] =
 	L"Показать верхушки деревьев",
 	L"Показывать каркасы",
 	L"Показать трехмерный курсор",
-	L"Show Chance to Hit on the cursor",
-	L"GL Burst Uses Burst Cursor",
-	L"Enemies Drop All Items",
-	L"High Angle Grenade Launching",
-	L"Restrict Extra Aim Levels to Rifles",
-	L"Space selects next squad",
+	L"Show Chance to Hit on cursor",
+	L"GL Burst uses Burst cursor",
+	L"Enemies Drop all Items",
+	L"High angle Grenade launching",
+	L"Restrict extra Aim Levels",
+	L"Space selects next Squad",
 	L"Show Item Shadow",
 	L"Show Weapon Ranges in Tiles",
 };
@@ -3475,13 +3475,13 @@ STR16	zOptionsScreenHelpText[] =
 
 	// Options for 1.13
 	L"When ON, the chance to hit is shown on the cursor.",
-	L"GL Burst uses burst cursor.",
-	L"Enemy drop all items, when he is dead.",
-	L"Grenade launchers fire grenades at higher angles.",
-	L"Aim levels beyond 4 are restricted to rifles and sniper rifles.",
-	L"When enabled |S|p|a|c|e selects next squad automatically.",
-	L"When enabled item shadows will be shown.",
-	L"When enabled weapon ranges will be shown in tiles.",
+	L"When ON, GL burst uses burst cursor.",
+	L"When ON, dead enemies drop all items.",
+	L"When ON, grenade launchers fire grenades at higher angles.",
+	L"When ON, aim levels beyond 4 are restricted to rifles and sniper rifles.",
+	L"When ON, |S|p|a|c|e selects next squad automatically.",
+	L"When ON, item shadows will be shown.",
+	L"When ON, weapon ranges will be shown in tiles.",
 };
 
 
