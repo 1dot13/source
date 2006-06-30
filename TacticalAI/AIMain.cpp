@@ -2828,6 +2828,8 @@ void SetNewSituation( SOLDIERTYPE * pSoldier )
 
 void HandleAITacticalTraversal( SOLDIERTYPE * pSoldier )
 {
+	UINT8 ubQuoteActionID = pSoldier->ubQuoteActionID;
+
 	HandleNPCChangesForTacticalTraversal( pSoldier );
 
 	if ( pSoldier->ubProfile != NO_PROFILE && NPCHasUnusedRecordWithGivenApproach( pSoldier->ubProfile, APPROACH_DONE_TRAVERSAL ) )
@@ -2855,7 +2857,44 @@ void HandleAITacticalTraversal( SOLDIERTYPE * pSoldier )
 	}
 	else
 	{								
-		ProcessQueenCmdImplicationsOfDeath( pSoldier );
+		int iMapX = gWorldSectorX;
+		int iMapY = gWorldSectorY;
+
+		switch( ubQuoteActionID )
+		{
+		case QUOTE_ACTION_ID_TRAVERSE_EAST:
+			++iMapX;
+			break;
+		case QUOTE_ACTION_ID_TRAVERSE_WEST:
+			--iMapX;
+			break;
+		case QUOTE_ACTION_ID_TRAVERSE_SOUTH:
+			++iMapY;
+			break;
+		case QUOTE_ACTION_ID_TRAVERSE_NORTH:
+			--iMapY;
+			break;
+		}
+	
+		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( iMapX, iMapY ) ] );
+
+		switch( pSoldier->ubSoldierClass )
+		{
+		case SOLDIER_CLASS_ELITE:
+			++pSectorInfo->ubNumElites;
+			break;
+
+		case SOLDIER_CLASS_ARMY:
+			++pSectorInfo->ubNumTroops;
+			break;
+
+		case SOLDIER_CLASS_ADMINISTRATOR:
+			++pSectorInfo->ubNumAdmins;
+			break;
+
+		}
+
+		ProcessQueenCmdImplicationsOfDeath( pSoldier );		
 		TacticalRemoveSoldier( pSoldier->ubID );
 	}
 	CheckForEndOfBattle( TRUE );
