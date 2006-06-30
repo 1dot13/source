@@ -566,7 +566,7 @@ void RenderTacticalPlacementGUI()
 			gTPClipRect.iTop		= iOffsetVertical;
 			// WANNE 2
 			//gTPClipRect.iRight		= iOffsetHorizontal + 640;
-			gTPClipRect.iRight		= iOffsetHorizontal + 635;
+			gTPClipRect.iRight		= iOffsetHorizontal + 634;  // 635
 			gTPClipRect.iBottom		= iOffsetVertical + 320;
 			switch( gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode )
 			{
@@ -719,19 +719,19 @@ void TacticalPlacementHandle()
 		switch( gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode )
 		{
 			case INSERTION_CODE_NORTH:	
-				if( gusMouseYPos <= (iOffsetVertical + 40) )
+				if( gusMouseYPos <= (iOffsetVertical + 30) )	// 40
 					gfValidCursor = TRUE;
 				break;
 			case INSERTION_CODE_EAST:		
-				if( gusMouseXPos >= (iOffsetHorizontal + 600) )
+				if( gusMouseXPos >= (iOffsetHorizontal + 610) )   // 600
 					gfValidCursor = TRUE;
 				break;
 			case INSERTION_CODE_SOUTH:	
-				if( gusMouseYPos >= (iOffsetVertical + 280) )
+				if( gusMouseYPos >= (iOffsetVertical + 290) )  // 280
 					gfValidCursor = TRUE;
 				break;
 			case INSERTION_CODE_WEST:		
-				if( gusMouseXPos <= (iOffsetHorizontal + 40) )
+				if( gusMouseXPos <= (iOffsetHorizontal + 30) )	// 40
 					gfValidCursor = TRUE;
 				break;
 		}
