@@ -290,9 +290,9 @@ UINT16 Message[][STRING_LENGTH] =
 	L"Spielzug Bloodcats", 
 	L"automatic",
 	L"no full auto",
-	L"accurate",
-	L"inaccurate",
-	L"no semi auto",
+	L"genau",
+	L"ungenau",
+	L"kein Einzelschuss",
 };
 
 STR16 pTownNames[] =
