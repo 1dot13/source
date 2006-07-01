@@ -4016,62 +4016,34 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			if ( !gGameExternalOptions.gfSendTroopsToDrassen )
 				break;
 
-			ubSectorID = SEC_D13;
+			UINT8 ubSourceSectorID = SEC_H13;
+			UINT8 ubTargetSectorID = SEC_D13;
+
+			if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
+			{
+				ubSourceSectorID = SEC_P3;
+			}
 			
 			ubNumSoldiers = (UINT8)( gubMinEnemyGroupSize + gGameOptions.ubDifficultyLevel * 3);
-			//pGroup = CreateNewEnemyGroupDepartingFromSector( SEC_P3, 0, ubNumSoldiers, 0 );
-
-			//ScreenMsg( FONT_RED, MSG_INTERFACE, L"Elites: %d", (ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel) );
 			
-			pGroup0 = CreateNewEnemyGroupDepartingFromSector( SEC_H13, 0, ubNumSoldiers, ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel );
-			pGroup1 = CreateNewEnemyGroupDepartingFromSector( SEC_H13, 0, ubNumSoldiers, ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel );
-			pGroup2 = CreateNewEnemyGroupDepartingFromSector( SEC_H13, 0, ubNumSoldiers, ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel );
-			pGroup3 = CreateNewEnemyGroupDepartingFromSector( SEC_H13, 0, ubNumSoldiers, ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel );
+			pGroup0 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, ubNumSoldiers, ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel );
+			pGroup1 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, ubNumSoldiers, ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel );
+			pGroup2 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, ubNumSoldiers, ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel );
+			pGroup3 = CreateNewEnemyGroupDepartingFromSector( ubSourceSectorID, 0, ubNumSoldiers, ubNumSoldiers - ubNumSoldiers / gGameOptions.ubDifficultyLevel );
 
 
-			//pGroup = CreateNewEnemyGroupDepartingFromSector( ubSector-16, 0, 11, 5 );
-			//pGroup->ubNextX = (UINT8)gsSelSectorX;
-			//pGroup->ubNextY = (UINT8)gsSelSectorY;
-			//pGroup->uiTraverseTime = 10;
-			//pGroup->pEnemyGroup->ubIntention = ASSAULT;
-			//SetGroupArrivalTime( pGroup, uiWorldMin + 10 );
-			//pGroup->ubMoveType = ONE_WAY;
-			//pGroup->fDebugGroup = TRUE;
-			//AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup->uiArrivalTime, pGroup->ubGroupID );
-
-
-			//pGroup0->uiTraverseTime = 1000;
-			//pGroup1->uiTraverseTime = 10;
-			//pGroup2->uiTraverseTime = 10;
-			//pGroup3->uiTraverseTime = 10;
-
-			//SetGroupArrivalTime( pGroup0, GetWorldTotalMin() + 1000 );
-			//SetGroupArrivalTime( pGroup1, GetWorldTotalMin() + 10 );
-			//SetGroupArrivalTime( pGroup2, GetWorldTotalMin() + 10 );
-			//SetGroupArrivalTime( pGroup3, GetWorldTotalMin() + 10 );
-
-			//AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup0->uiArrivalTime, pGroup0->ubGroupID );
-			//AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup1->uiArrivalTime, pGroup1->ubGroupID );
-			//AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup2->uiArrivalTime, pGroup2->ubGroupID );
-			//AddStrategicEvent( EVENT_GROUP_ARRIVAL, pGroup3->uiArrivalTime, pGroup3->ubGroupID );
-
-
-			if( !gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID )
+			if( !gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID )
 			{
-				//pGroup->pEnemyGroup->ubIntention = STAGE;
-				//gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup->ubGroupID;
-
 				pGroup0->pEnemyGroup->ubIntention = STAGE;
 				pGroup1->pEnemyGroup->ubIntention = STAGE;
 				pGroup2->pEnemyGroup->ubIntention = STAGE;
 				pGroup3->pEnemyGroup->ubIntention = REINFORCEMENTS;
 
-				gGarrisonGroup[ SectorInfo[ ubSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup3->ubGroupID;
+				gGarrisonGroup[ SectorInfo[ ubTargetSectorID ].ubGarrisonID ].ubPendingGroupID = pGroup3->ubGroupID;
 
 			}
 			else
 			{ //this should never happen (but if it did, then this is the best way to deal with it).
-				//pGroup->pEnemyGroup->ubIntention = PURSUIT;
 				pGroup0->pEnemyGroup->ubIntention = PURSUIT;
 				pGroup1->pEnemyGroup->ubIntention = PURSUIT;
 				pGroup2->pEnemyGroup->ubIntention = PURSUIT;
@@ -4084,7 +4056,6 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 		
 			giReinforcementPool = max( giReinforcementPool, 0 );
 
-			//MoveSAIGroupToSector( &pGroup, ubSectorID, EVASIVE, pGroup->pEnemyGroup->ubIntention );
 			MoveSAIGroupToSector( &pGroup0, SEC_D14, EVASIVE, pGroup0->pEnemyGroup->ubIntention );
 			MoveSAIGroupToSector( &pGroup1, SEC_E13, EVASIVE, pGroup1->pEnemyGroup->ubIntention );
 			MoveSAIGroupToSector( &pGroup2, SEC_D12, EVASIVE, pGroup2->pEnemyGroup->ubIntention );
