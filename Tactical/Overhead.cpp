@@ -252,6 +252,9 @@ CHAR8                   gzActionStr[][ 30 ] =
 	"SCHEDULE MOVE",
 	"WALK",
 	"RUN",
+	"WITHDRAW",
+	"FLANK LEFT",
+	"FLANK RIGHT",
 	"MOVE TO CLIMB",
 	"CHG FACING",
 
@@ -285,6 +288,7 @@ CHAR8                   gzActionStr[][ 30 ] =
 	"EC&M",
 	"TRAVERSE DOWN",
 	"OFFER SURRENDER",
+	"RAISE GUN",
 };
 
 CHAR8                   gzDirectionStr[][ 30 ] = 

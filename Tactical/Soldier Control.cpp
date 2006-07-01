@@ -5123,6 +5123,16 @@ void TurnSoldier( SOLDIERTYPE *pSoldier)
       return;
    }
  }
+ else	// Lesh: patch for "Bug: Enemy turns around in turn based mode!"
+ {
+	 // in case of errors in turning tasks
+	 if ( pSoldier->bDesiredDirection > 7 || pSoldier->bDesiredDirection < 0)
+	 {
+		 DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("TurnSoldier() Warinig: Invalid desired direction for non-vehicle unit") );
+		 pSoldier->bDesiredDirection = pSoldier->bDirection;
+	 }
+ }
+ // Lesh: patch ended
 
  // We handle sight now....
  if ( pSoldier->uiStatusFlags & SOLDIER_LOOK_NEXT_TURNSOLDIER )
