@@ -555,22 +555,23 @@ void RenderTacticalPlacementGUI()
 		InvalidateRegion( iOffsetHorizontal, iOffsetVertical, iOffsetHorizontal + 640, iOffsetVertical + 320 );
 		if( gbCursorMercID == -1 )
 		{
+			// WANNE 2
 			gTPClipRect.iLeft	= gfWest	? iOffsetHorizontal + 30	: iOffsetHorizontal;
-			gTPClipRect.iTop	= gfNorth	? iOffsetVertical + 30		: iOffsetVertical;
-			gTPClipRect.iRight	= gfEast	? iOffsetHorizontal + 610	: iOffsetHorizontal + 636;
-			gTPClipRect.iBottom	= gfSouth	? iOffsetVertical + 290		: iOffsetVertical + 320;
+			gTPClipRect.iTop	= gfNorth	? iOffsetVertical + 30 + 3		: iOffsetVertical + 3;
+			gTPClipRect.iRight	= gfEast	? iOffsetHorizontal + 610	: iOffsetHorizontal + 634; // 636
+			gTPClipRect.iBottom	= gfSouth	? iOffsetVertical + 290	: iOffsetVertical + 320;
 		}
 		else
 		{
 			gTPClipRect.iLeft		= iOffsetHorizontal;
-			gTPClipRect.iTop		= iOffsetVertical;
+			gTPClipRect.iTop		= iOffsetVertical + 3;
 			// WANNE 2
 			//gTPClipRect.iRight		= iOffsetHorizontal + 640;
 			gTPClipRect.iRight		= iOffsetHorizontal + 634;  // 635
 			gTPClipRect.iBottom		= iOffsetVertical + 320;
 			switch( gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode )
 			{
-				case INSERTION_CODE_NORTH:	gTPClipRect.iTop	= iOffsetVertical + 30;			break;
+				case INSERTION_CODE_NORTH:	gTPClipRect.iTop	= iOffsetVertical + 30 + 3;			break;
 				case INSERTION_CODE_EAST:	gTPClipRect.iRight	= iOffsetHorizontal + 610;		break;
 				case INSERTION_CODE_SOUTH:	gTPClipRect.iBottom	= iOffsetVertical + 290;		break;
 				case INSERTION_CODE_WEST:	gTPClipRect.iLeft	= iOffsetHorizontal + 30;		break;
