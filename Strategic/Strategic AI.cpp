@@ -3947,6 +3947,9 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 	SECTORINFO *pSector;
 	UINT8 ubSectorID;
 	UINT8 ubNumSoldiers;
+	UINT8 ubSourceSectorID;
+	UINT8 ubTargetSectorID;
+
 	switch( usActionCode )
 	{
 		case STRATEGIC_AI_ACTION_WAKE_QUEEN:
@@ -4016,8 +4019,8 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			if ( !gGameExternalOptions.gfSendTroopsToDrassen )
 				break;
 
-			UINT8 ubSourceSectorID = SEC_H13;
-			UINT8 ubTargetSectorID = SEC_D13;
+			ubSourceSectorID = SEC_H13;
+			ubTargetSectorID = SEC_D13;
 
 			if ( !(SectorInfo[ ubSourceSectorID ].ubNumTroops > 0) )
 			{

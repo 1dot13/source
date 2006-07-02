@@ -972,18 +972,18 @@ void DisplayTopwareGermanyAddress()
 	}
 
 	//Shade out a background piece to emphasize the German address.
-	ClipRect.iLeft = 208;
-	ClipRect.iRight = 431;
-	ClipRect.iTop = 390;
-	ClipRect.iBottom = 475;
+	ClipRect.iLeft = iScreenWidthOffset + 208;
+	ClipRect.iRight = iScreenWidthOffset + 431;
+	ClipRect.iTop = iScreenHeightOffset + 390;
+	ClipRect.iBottom = iScreenHeightOffset + 475;
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 	Blt16BPPBufferShadowRect( (UINT16*)pDestBuf, uiDestPitchBYTES, &ClipRect );
 	UnLockVideoSurface( FRAME_BUFFER );
 
 	//Draw the anti-aliased address now.
-	BltVideoObjectFromIndex( FRAME_BUFFER, uiTempID, 0, 218, 400, VO_BLT_SRCTRANSPARENCY, NULL );
-	BltVideoObjectFromIndex( FRAME_BUFFER, uiTempID, 0, 218, 400, VO_BLT_SRCTRANSPARENCY, NULL );
-	InvalidateRegion( 208, 390, 431, 475 );
+	BltVideoObjectFromIndex( FRAME_BUFFER, uiTempID, 0, iScreenWidthOffset + 218, iScreenHeightOffset + 400, VO_BLT_SRCTRANSPARENCY, NULL );
+	BltVideoObjectFromIndex( FRAME_BUFFER, uiTempID, 0, iScreenWidthOffset + 218, iScreenHeightOffset + 400, VO_BLT_SRCTRANSPARENCY, NULL );
+	InvalidateRegion( iScreenWidthOffset + 208, iScreenHeightOffset + 390, iScreenWidthOffset + 431, iScreenHeightOffset + 475 );
 	DeleteVideoObjectFromIndex( uiTempID );
 	ExecuteBaseDirtyRectQueue();
 	EndFrameBufferRender();

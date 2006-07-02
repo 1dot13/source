@@ -23,7 +23,7 @@ void InitJA2SplashScreen()
 	sprintf( VSurfaceDesc.ImageFile, "LOADSCREENS\\Notification.sti" );
 	if( !AddVideoSurface( &VSurfaceDesc, &uiLogoID ) )
 	{	
-		AssertMsg( 0, String( "Failed to load %s", VSurfaceDesc.ImageFile ) );
+		//AssertMsg( 0, String( "Failed to load %s", VSurfaceDesc.ImageFile ) );
 		return;
 	}
 	GetVideoSurface(&hVSurface, uiLogoID );
@@ -59,7 +59,7 @@ void InitJA2SplashScreen()
 			}
 
 			GetVideoSurface( &hVSurface, uiLogoID );
-			BltVideoSurfaceToVideoSurface( ghFrameBuffer, hVSurface, 0, 0, 0, 0, NULL );
+			BltVideoSurfaceToVideoSurface( ghFrameBuffer, hVSurface, 0, iScreenWidthOffset, iScreenHeightOffset, 0, NULL );
 			DeleteVideoSurfaceFromIndex( uiLogoID );
 		}
 	#endif
