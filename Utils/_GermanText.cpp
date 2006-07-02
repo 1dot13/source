@@ -3224,7 +3224,7 @@ STR16 zOptionsToggleText[] =
 	L"Granatwerferflugbahn erhöhen",
 	L"Extra Zielgenauigkeit",
 	L"Nächste Gruppe selektieren",
-	L"Gegenständen mit Schatten",
+	L"Gegenstände mit Schatten",
 	L"Waffenreichweite in Felder",
 };
 

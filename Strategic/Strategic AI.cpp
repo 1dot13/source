@@ -2701,12 +2701,12 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 			//The force is strong enough to be able to take the sector.
 			gubGarrisonReinforcementsDenied[ iDstGarrisonID ] = 0;
 		}
-
+		
 		//The chance she will send them is related with the strength difference between the
 		//player's force and the queen's.
 		if( ubNumExtraReinforcements && fLimitMaxTroopsAllowable && iReinforcementsApproved == iMaxReinforcementsAllowed )
-		{
-			iChance = (iReinforcementsApproved + ubNumExtraReinforcements) * 100 / usDefencePoints;
+		{			
+			iChance = (iReinforcementsApproved + ubNumExtraReinforcements) * 100 / max(usDefencePoints, 1); // lal bugfix: max 1 added to prevent division by 0
 			if( !Chance( iChance ) )
 			{
 				ValidateWeights( 13 );
@@ -2789,8 +2789,8 @@ void SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoints
 			//The chance she will send them is related with the strength difference between the
 			//player's force and the queen's.
 			if( iReinforcementsApproved + ubNumExtraReinforcements == iMaxReinforcementsAllowed && usDefencePoints )
-			{
-				iChance = (iReinforcementsApproved + ubNumExtraReinforcements) * 100 / usDefencePoints;
+			{				
+				iChance = (iReinforcementsApproved + ubNumExtraReinforcements) * 100 / max(usDefencePoints, 1); // lal bugfix: max 1 added to prevent division by 0
 				if( !Chance( iChance ) )
 				{
 					ValidateWeights( 18 );
@@ -3946,9 +3946,9 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 	GROUP *pGroup, *pGroup0, *pGroup1, *pGroup2, *pGroup3, *pPendingGroup = NULL;
 	SECTORINFO *pSector;
 	UINT8 ubSectorID;
-	UINT8 ubNumSoldiers;
 	UINT8 ubSourceSectorID;
 	UINT8 ubTargetSectorID;
+	UINT8 ubNumSoldiers;
 
 	switch( usActionCode )
 	{

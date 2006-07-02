@@ -3406,7 +3406,7 @@ STR16		zOptionsToggleText[] =
 	L"Enemies Drop all Items",
 	L"High angle Grenade launching",
 	L"Restrict extra Aim Levels",
-	L"Select next Squad",
+	L"Space selects next Squad",
 	L"Show Item Shadow",
 	L"Show Weapon Ranges in Tiles",
 };
