@@ -100,6 +100,8 @@ FLOAT						CalculateForceFromRange( INT16 sRange, FLOAT dDegrees );
 
 UINT16          RandomGridFromRadius( INT16 sSweetGridNo, INT8 ubMinRadius, INT8 ubMaxRadius );
 
+// Lesh: needed to fix item throwing through window
+extern INT16 DirIncrementer[8];
 
 void						HandleArmedObjectImpact( REAL_OBJECT *pObject );
 void ObjectHitWindow( INT16 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, BOOLEAN fLargeForce );
@@ -1881,6 +1883,18 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1750"));
 	if ( ubLevel == 0 )
 	{
 		sInterGridNo = SoldierToLocationWindowTest( pSoldier, sGridNo );
+
+		// Lesh: fixing nasty freeze when throwing item through window
+		// sometimes SoldierToLocationWindowTest returns same value as pSoldier->sGridNo
+		// this leads to fault in FindBestAngleForTrajectory function and it subroutines loops
+		// supplied by invalid data
+		if ( pSoldier->sGridNo == sInterGridNo )
+		{
+			// bad news - i can't throw item at myself
+			// so use dir incrementer
+			UINT8	ubDir = atan8( CenterX(pSoldier->sGridNo), CenterY(pSoldier->sGridNo), CenterX(sGridNo), CenterY(sGridNo) );
+			sInterGridNo += DirIncrementer[ubDir];
+		}
 	}
 	else
 	{
