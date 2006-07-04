@@ -1123,7 +1123,7 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>9</ubShotsPer4Turns>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
@@ -1149,7 +1149,7 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>2</APsToReloadManually>
+		<APsToReloadManually>3</APsToReloadManually>
 		<ManualReloadSound>481</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1195,7 +1195,7 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>6</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>9</ubShotsPer4Turns>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>13</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
@@ -3103,7 +3103,7 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>7</ubShotsPer4Turns>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
@@ -4363,7 +4363,7 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>7</ubShotsPer4Turns>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
@@ -6451,7 +6451,7 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>9</ubShotsPer4Turns>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
@@ -6477,7 +6477,7 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>1</APsToReloadManually>
+		<APsToReloadManually>2</APsToReloadManually>
 		<ManualReloadSound>481</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -6991,7 +6991,7 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>9</ubShotsPer4Turns>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
@@ -7017,7 +7017,7 @@
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>2</APsToReloadManually>
+		<APsToReloadManually>3</APsToReloadManually>
 		<ManualReloadSound>481</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -7063,7 +7063,7 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>2</ubReadyTime>
-		<ubShotsPer4Turns>9</ubShotsPer4Turns>
+		<ubShotsPer4Turns>11</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
@@ -7603,7 +7603,7 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>0</ubReadyTime>
-		<ubShotsPer4Turns>9</ubShotsPer4Turns>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
@@ -8323,7 +8323,7 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>4</ubReadyTime>
-		<ubShotsPer4Turns>8</ubShotsPer4Turns>
+		<ubShotsPer4Turns>11</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
@@ -8359,7 +8359,7 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>0</ubReadyTime>
-		<ubShotsPer4Turns>9</ubShotsPer4Turns>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
@@ -9151,7 +9151,7 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>4</ubReadyTime>
-		<ubShotsPer4Turns>7</ubShotsPer4Turns>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
