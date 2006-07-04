@@ -2082,7 +2082,7 @@ STR16 pImpButtonText[] =
 {
 	L"About Us", 			// about the IMP site
 	L"BEGIN", 			// begin profiling
-	L"Personality", 		// personality section
+	L"Skills", 		// personality section
 	L"Attributes", 		// personal stats/attributes section
 	L"Portrait", 			// the personal portrait selection
 	L"Voice %d", 			// the voice selection
