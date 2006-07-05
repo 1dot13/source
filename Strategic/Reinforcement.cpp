@@ -37,7 +37,7 @@ void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pub
 	
 	GetNumberOfStationaryEnemiesInSector( sSectorX, sSectorY, pubNumAdmins, pubNumTroops, pubNumElites );
 
-	GetNumberOfMobileEnemiesInSector( sSectorX, sSectorY, &ubNumAdmins, &ubNumTroops, &ubNumElites );
+	GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( sSectorX, sSectorY, &ubNumAdmins, &ubNumTroops, &ubNumElites );
 
 	*pubNumAdmins += ubNumAdmins;
 	*pubNumTroops += ubNumTroops;
