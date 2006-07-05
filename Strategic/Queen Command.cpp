@@ -272,6 +272,29 @@ void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pu
 
 }
 
+void GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites )
+{
+	GROUP *pGroup;
+	SECTORINFO *pSector;
+	Assert( sSectorX >= 1 && sSectorX <= 16 );
+	Assert( sSectorY >= 1 && sSectorY <= 16 );
+
+	//Now count the number of mobile groups in the sector.
+	*pubNumTroops = *pubNumElites = *pubNumAdmins = 0;
+	pGroup = gpGroupList;
+	while( pGroup )
+	{
+		if( !pGroup->fPlayer && !pGroup->fVehicle && pGroup->ubSectorX == sSectorX && pGroup->ubSectorY == sSectorY )
+		{
+			*pubNumTroops += pGroup->pEnemyGroup->ubNumTroops;
+			*pubNumElites += pGroup->pEnemyGroup->ubNumElites;
+			*pubNumAdmins += pGroup->pEnemyGroup->ubNumAdmins;
+		}
+		pGroup = pGroup->next;
+	}
+}
+
+
 void GetNumberOfStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites )
 {
 	SECTORINFO *pSector;
