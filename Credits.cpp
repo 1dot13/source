@@ -793,7 +793,7 @@ BOOLEAN	AddCreditNode( UINT32 uiType, UINT32 uiFlags, STR16 pString )
 	//if
 	if( uiType == CRDT_NODE_NONE)
 	{
-		//Assert( 0 );
+		Assert( 0 );
 		return( TRUE );
 	}
 

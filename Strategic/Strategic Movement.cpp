@@ -3253,14 +3253,14 @@ BOOLEAN PlayersBetweenTheseSectors( INT16 sSource, INT16 sDest, INT32 *iCountEnt
 
 	if( gpBattleGroup )
 	{
-		//Assert( gfPreBattleInterfaceActive );
+		Assert( gfPreBattleInterfaceActive );
 		sBattleSector = (INT16)SECTOR( gpBattleGroup->ubSectorX, gpBattleGroup->ubSectorY );
 	}
 
 	// debug only
 	if ( gfDisplayPotentialRetreatPaths == TRUE )
 	{
-		//Assert( gfPreBattleInterfaceActive );
+		Assert( gfPreBattleInterfaceActive );
 	}
 
 
@@ -3771,7 +3771,7 @@ BOOLEAN LoadPlayerGroupList( HWFILE hFile, GROUP **pGroup )
 		sTempID = GetSoldierIDFromMercID( pTemp->ubProfileID );
 
 		//Should never happen
-		//Assert( sTempID != -1 );
+		Assert( sTempID != -1 );
 		pTemp->ubID = (UINT8) sTempID;
 
 		pTemp->pSoldier = &Menptr[ pTemp->ubID ];

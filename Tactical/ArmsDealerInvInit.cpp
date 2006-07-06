@@ -1459,7 +1459,7 @@ UINT8 GetDealerItemCategoryNumber( UINT16 usItemIndex )
 
 	// WANNE: commented the assert out, because we always get the assertion in debug mode!
 	// should never be trying to locate an item that's not covered in the table!
-	//Assert( FALSE );
+	Assert( FALSE );
 	return( 0 );
 }
 

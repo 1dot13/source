@@ -2660,7 +2660,7 @@ void JumpIntoAdjacentSector( UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT16 
 			pGroup = GetGroup( ubPrevGroupID );
 			Assert( pGroup );
 			Assert( pGroup->fPlayer );
-			//Assert( pGroup->ubGroupSize );
+			Assert( pGroup->ubGroupSize );
 			pPlayer = pGroup->pPlayerList;
 			while( pPlayer )
 			{

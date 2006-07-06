@@ -65,8 +65,8 @@ void StatChange(SOLDIERTYPE *pSoldier, UINT8 ubStat, UINT16 usNumChances, UINT8 
 	if (pSoldier == NULL || pSoldier->bActive == FALSE)
 		return;	// THIS SHOULD NEVER HAPPEN
 	
-	//Assert(pSoldier != NULL);
-	//Assert(pSoldier->bActive);
+	Assert(pSoldier != NULL);
+	Assert(pSoldier->bActive);
 
 	// ignore non-player soldiers
 	if (!PTR_OURTEAM)

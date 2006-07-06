@@ -2638,7 +2638,7 @@ UINT16 SelectStandardArmyGun( UINT8 uiGunLevel )
 
 	}
 
-	//Assert(usGunIndex);
+	Assert(usGunIndex);
 
 	return(usGunIndex);
 }
