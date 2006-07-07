@@ -129,6 +129,8 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
  SOLDIERTYPE *pOpponent;
  UINT8 ubBurstAPs;
 
+ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalcBestShot");
+
  ubBestChanceToHit = ubBestAimTime = ubChanceToHit = 0;
 
  pSoldier->usAttackingWeapon = pSoldier->inv[HANDPOS].usItem;
@@ -155,9 +157,17 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		continue;          // next merc
 
   // if this opponent is not currently in sight (ignore known but unseen!)
-	if ((pSoldier->bOppList[pOpponent->ubID] != SEEN_CURRENTLY && !shootUnseen) || 
-	   (shootUnseen && gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID] != SEEN_CURRENTLY) )
+	if ((pSoldier->bOppList[pOpponent->ubID] != SEEN_CURRENTLY && !shootUnseen)) //guys we can't see
+	{	
+	    DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("CalcBestShot: soldier = %d, target = %d, skip guys we can't see, shootUnseen = %d, personal opplist = %d",pSoldier->ubID, pOpponent->ubID, shootUnseen, pSoldier->bOppList[pOpponent->ubID]));
 		continue;  // next opponent
+	}
+	if ((pSoldier->bOppList[pOpponent->ubID] != SEEN_CURRENTLY && gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID] != SEEN_CURRENTLY)) // guys nobody sees
+	{	
+	    DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("CalcBestShot: soldier = %d, target = %d, skip guys nobody sees, shootUnseen = %d, public opplist = %d",pSoldier->ubID, pOpponent->ubID, shootUnseen,gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID]));
+		continue;  // next opponent
+	}
+
 
 	// Special stuff for Carmen the bounty hunter
 	if (pSoldier->bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != SLAY)

@@ -2627,13 +2627,42 @@ UINT16 SelectStandardArmyGun( UINT8 uiGunLevel )
 		if (!ItemIsLegal(usGunIndex)) //Madd: check for tons of guns
 			usGunIndex = -1;
 
+		//Check to avoid an endless loop looking for "normal" guns
 		if (usGunIndex == -1)
 		{
-			//Madd: there better be something from the original JA2 guns here somewhere (biggunlist=0) or else this will probably cause an endless loop
-			if ( uiGunLevel < ARMY_GUN_LEVELS )
-				uiGunLevel++;
-			else
-				uiGunLevel--;
+			//Madd: there better be something from the original JA2 guns here somewhere (biggunlist=0)! 
+			int numTries = 0;
+			//Try 5 more times...
+			while (numTries < 5 && usGunIndex == -1)
+			{			
+				uiChoice = Random(pGunChoiceTable[ uiGunLevel ].ubChoices);
+				usGunIndex = pGunChoiceTable[ uiGunLevel ].bItemNo[ uiChoice ];
+
+				if (!ItemIsLegal(usGunIndex)) //Madd: check for tons of guns
+					usGunIndex = -1;
+
+				numTries++;
+			}
+
+			if (usGunIndex == -1) //We still haven't found one!  Start just looping through the guns then
+			{
+				for (int i=0;i<pGunChoiceTable[uiGunLevel].ubChoices;i++)
+				{
+					usGunIndex = pGunChoiceTable[ uiGunLevel ].bItemNo[ i ];
+					
+					if (!ItemIsLegal(usGunIndex)) 
+						usGunIndex = -1;
+					else
+						break;
+				}
+			}
+
+			if ( usGunIndex == -1 )
+			{
+				//Still nothing?  Then he gets a glock
+				usGunIndex = GLOCK_17;
+			}
+
 		}
 
 	}
