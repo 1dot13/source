@@ -28,8 +28,11 @@ UINT8 InternalDoorTravelCost( SOLDIERTYPE * pSoldier, INT32 iGridNo, UINT8 ubMov
 
 INT16 RecalculatePathCost( SOLDIERTYPE *pSoldier, UINT16 usMovementMode );
 
+// Lesh: setup max length of path
+#define MAX_PATH_DATA_LENGTH 512
+
 // Exporting these global variables
-extern UINT32 guiPathingData[256];
+extern UINT32 guiPathingData[MAX_PATH_DATA_LENGTH];
 extern UINT8 gubNPCAPBudget;
 extern UINT16 gusNPCMovementMode;
 extern UINT8 gubNPCDistLimit;

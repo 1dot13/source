@@ -1228,8 +1228,11 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 
 	// assume we have to stand up!
 	// use the min macro here to make sure we don't wrap the UINT8 to 255...
-
-	gubNPCAPBudget = 	gubNPCAPBudget = __min( gubNPCAPBudget, gubNPCAPBudget - GetAPsToChangeStance( pSoldier, ANIM_STAND ) );
+	// Lesh: for some reason this code still allows to wrap UINT8 at low values of gubNPCAPBudget
+	//gubNPCAPBudget = 	gubNPCAPBudget = __min( gubNPCAPBudget, gubNPCAPBudget - GetAPsToChangeStance( pSoldier, ANIM_STAND ) );
+	// Lesh: will be using this form
+	if ( gubNPCAPBudget > GetAPsToChangeStance( pSoldier, ANIM_STAND ) )
+		gubNPCAPBudget = gubNPCAPBudget - GetAPsToChangeStance( pSoldier, ANIM_STAND );
 	//NumMessage("Search Range = ",iSearchRange);
 	//NumMessage("gubNPCAPBudget = ",gubNPCAPBudget);
 

@@ -400,8 +400,11 @@ BOOLEAN gfPlotDirectPath = FALSE;
 BOOLEAN gfEstimatePath = FALSE;
 BOOLEAN	gfPathAroundObstacles = TRUE;
 
-static UINT32 guiPlottedPath[256];
-UINT32 guiPathingData[256];
+// Lesh: fix CTD in Tixa
+// The game was trying to store very long path (270 cells) in 256-cell array and corrupted
+// some data, not belonged to array. It was ordinary array boundary break.
+static UINT32 guiPlottedPath[MAX_PATH_DATA_LENGTH];
+UINT32 guiPathingData[MAX_PATH_DATA_LENGTH];
 static INT32 giPathDataSize;
 static INT32 giPlotCnt;
 static UINT32 guiEndPlotGridNo;
