@@ -208,7 +208,7 @@
 		<SilencedSound>156</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>8</APsToReload>
+		<APsToReload>4</APsToReload>
 		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
@@ -244,7 +244,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>10</APsToReload>
+		<APsToReload>5</APsToReload>
 		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
@@ -2404,7 +2404,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>10</APsToReload>
+		<APsToReload>5</APsToReload>
 		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
@@ -7480,7 +7480,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>10</APsToReload>
+		<APsToReload>5</APsToReload>
 		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
@@ -8524,7 +8524,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>10</APsToReload>
+		<APsToReload>5</APsToReload>
 		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
@@ -8632,7 +8632,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>8</APsToReload>
+		<APsToReload>4</APsToReload>
 		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
