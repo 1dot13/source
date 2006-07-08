@@ -1127,7 +1127,7 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 				//iChance = (80 - pObj->bGunStatus);
 				
 				//rain
-				iChance = (80 - 90 - pObj->bGunStatus) + gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * gbCurrentRainIntensity;
+				iChance = (80 - pObj->bGunStatus) + gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * gbCurrentRainIntensity;
 				//end rain
 
 
