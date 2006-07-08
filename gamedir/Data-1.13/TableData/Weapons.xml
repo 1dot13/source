@@ -6243,7 +6243,7 @@
 		<ubDeadliness>32</ubDeadliness>
 		<bAccuracy>3</bAccuracy>
 		<ubMagSize>40</ubMagSize>
-		<usRange>130</usRange>
+		<usRange>170</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
