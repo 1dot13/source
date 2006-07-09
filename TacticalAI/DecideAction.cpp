@@ -1212,7 +1212,19 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Snipers like to raise 
 					}
 				 else
 					{
-						pSoldier->usActionData = (UINT16)Random(8); 
+						INT32 iNoiseValue;
+						BOOLEAN fClimb;
+						BOOLEAN fReachable;
+						INT16 sNoiseGridNo = MostImportantNoiseHeard(pSoldier,&iNoiseValue, &fClimb, &fReachable);
+						UINT8 ubNoiseDir;
+
+						if (sNoiseGridNo != NOWHERE)
+							ubNoiseDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sNoiseGridNo),CenterY(sNoiseGridNo));
+	
+						if ( sNoiseGridNo != NOWHERE && pSoldier->bDirection != ubNoiseDir )
+							pSoldier->usActionData = ubNoiseDir; 
+						else
+							pSoldier->usActionData = (UINT16)PreRandom(8); 
 					}
 				} while (pSoldier->usActionData == pSoldier->bDirection);
 

@@ -6504,9 +6504,12 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 	// Snap: check only attachments on a raised weapon!
 	if ( WeaponReady(pSoldier) )
 	{
+		if ( IsWeapon(pSoldier->inv[HANDPOS].usItem) ) //if not a weapon, then it was added already above
+			bns += Item[pSoldier->inv[HANDPOS].usItem].percenttunnelvision;
+
 		for (int i=0; i < MAX_ATTACHMENTS; i++)
 		{
-			bns += Item[pSoldier->inv[HANDPOS].usAttachItem[i]].percenttunnelvision ;
+			bns += Item[pSoldier->inv[HANDPOS].usAttachItem[i]].percenttunnelvision;
 		}
 	}
 
