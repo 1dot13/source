@@ -4016,7 +4016,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 
 			//MoveSAIGroupToSector( &pGroup, ubSectorID, EVASIVE, pGroup->pEnemyGroup->ubIntention );
 
-			if ( !gGameExternalOptions.gfSendTroopsToDrassen )
+			if ( !gGameExternalOptions.ubSendTroopsToDrassen )
 				break;
 
 			ubSourceSectorID = SEC_H13;

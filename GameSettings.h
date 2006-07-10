@@ -246,7 +246,7 @@ typedef struct
 	UINT32 ubGameProgressStartMadlabQuest;
 	UINT32 ubGameProgressMikeAvailable;
 	UINT32 ubGameProgressIggyAvaliable;
-	BOOLEAN gfSendTroopsToDrassen;
+	BOOLEAN ubSendTroopsToDrassen;
 
 
 	//Gameplay settings
