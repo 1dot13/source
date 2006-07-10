@@ -3409,6 +3409,7 @@ STR16		zOptionsToggleText[] =
 	L"Space selects next Squad",
 	L"Show Item Shadow",
 	L"Show Weapon Ranges in Tiles",
+	L"Tracer effect for single shot",
 };
 
 //This is the help text associated with the above toggles.
@@ -3482,6 +3483,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, |S|p|a|c|e selects next squad automatically.",
 	L"When ON, item shadows will be shown.",
 	L"When ON, weapon ranges will be shown in tiles.",
+	L"When ON, tracer effect will be shown for single shots.",	
 };
 
 

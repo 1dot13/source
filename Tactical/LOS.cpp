@@ -3534,7 +3534,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 		usBulletFlags |= BULLET_FLAG_FLAME;
 		ubSpreadIndex = 2;
 	}
-	else if ( AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand].ubGunAmmoType ].tracerEffect && pFirer->bDoBurst )
+	else if ( AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand].ubGunAmmoType ].tracerEffect && (pFirer->bDoBurst || gGameSettings.fOptions[ TOPTION_TRACERS_FOR_SINGLE_FIRE ]) )
 	{
 		usBulletFlags |= BULLET_FLAG_TRACER;
 	}

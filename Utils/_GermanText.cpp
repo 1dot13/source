@@ -3226,6 +3226,7 @@ STR16 zOptionsToggleText[] =
 	L"Nächste Gruppe selektieren",
 	L"Gegenstände mit Schatten",
 	L"Waffenreichweite in Felder",
+	L"Tracereffekte für Einzelschüsse",
 };
 
 //This is the help text associated with the above toggles.
@@ -3299,6 +3300,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"ANgeschaltet, selektiert |S|p|a|c|e automatisch die nächste Gruppe.",
 	L"Wenn diese Funktion aktiviert ist, wird der Schatten von Gegenständen angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, werden Waffenreichweiten in Feldern angezeigt.",
+	L"Wenn diese Funktion aktiviert ist, wird Tracereffekt auch für Einzelschüsse angezeigt.",
 };
 
 STR16 gzGIOScreenText[] =
