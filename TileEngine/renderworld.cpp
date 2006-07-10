@@ -493,8 +493,8 @@ SGPRect		gClippingRect;//			= { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - INTERFACE_HE
 SGPRect		gOldClipRect;
 INT16		gsRenderCenterX;
 INT16		gsRenderCenterY;
-INT16		gsRenderWorldOffsetX	= -1;
-INT16		gsRenderWorldOffsetY	= -1;
+INT16		gsRenderWorldOffsetX	= 0;  //lal was -1 : bugfix for merc screen position in tactical on high resolution
+INT16		gsRenderWorldOffsetY	= 10; //lal was -1
 SGPRect		gSelectRegion;
 UINT32		fSelectMode				= NO_SELECT;
 SGPPoint	gSelectAnchor;
