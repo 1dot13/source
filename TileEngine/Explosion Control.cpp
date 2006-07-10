@@ -222,10 +222,13 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT16
 
 
 	// Double check that we are using an explosive!
-	if ( !( Item[ usItem ].usItemClass & IC_EXPLOSV ) )
-	{
-		return;
-	}
+       // callahan start
+       // this would completely stop any HE gunfire, so it has to die
+       // if ( !( Item[ usItem ].usItemClass & IC_EXPLOSV ) )
+      //  {
+      //          return;
+      //  }
+      // callahan end
 
 	// Increment attack counter...
 
@@ -246,16 +249,18 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT16
 	ExpParams.uiFlags			= EXPLOSION_FLAG_USEABSPOS;
 	ExpParams.ubOwner			= ubOwner;
 	//ExpParams.ubTypeID		= Explosive[ Item[ usItem ].ubClassIndex ].ubAnimationID;
-	// marke had to hardcode animation caused by lack of ability to load anim out of gun ammo-explosives from here 
+        // callahan start
+        // animation is now properly extracted from explosives.xml
 	if ( !( Item[ usItem ].usItemClass & IC_EXPLOSV ) )
 	{
-	ExpParams.ubTypeID		= 2;
+	ExpParams.ubTypeID		= Explosive[AmmoTypes[MercPtrs[ubOwner]->inv[MercPtrs[ubOwner]->ubAttackingHand ].ubGunAmmoType].highExplosive].ubAnimationID;
 	//	return;
 	}
 	else
 	{
 		ExpParams.ubTypeID		= Explosive[ Item[ usItem ].ubClassIndex ].ubAnimationID;
 	}	
+        // callahan end
 
 	ExpParams.sX					= sX;
 	ExpParams.sY					= sY;
