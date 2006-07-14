@@ -224,10 +224,10 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT16
 	// Double check that we are using an explosive!
        // callahan start
        // this would completely stop any HE gunfire, so it has to die
-       // if ( !( Item[ usItem ].usItemClass & IC_EXPLOSV ) )
-      //  {
-      //          return;
-      //  }
+	 if ( !( Item[ usItem ].usItemClass & IC_EXPLOSV ) )
+	  {
+	          return;
+	  }
       // callahan end
 
 	// Increment attack counter...
