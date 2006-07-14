@@ -51,7 +51,7 @@
 		<ubDeadliness>16</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>15</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -87,7 +87,7 @@
 		<ubDeadliness>16</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>15</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>23</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -123,7 +123,7 @@
 		<ubDeadliness>15</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>15</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -159,7 +159,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
 		<ubMagSize>15</ubMagSize>
-		<usRange>110</usRange>
+		<usRange>140</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>27</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -195,7 +195,7 @@
 		<ubDeadliness>14</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
 		<ubMagSize>6</ubMagSize>
-		<usRange>90</usRange>
+		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
@@ -267,7 +267,7 @@
 		<ubDeadliness>16</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>9</ubMagSize>
-		<usRange>125</usRange>
+		<usRange>140</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
@@ -339,7 +339,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>175</usRange>
+		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -375,7 +375,7 @@
 		<ubDeadliness>19</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>140</usRange>
+		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>27</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
@@ -444,10 +444,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>27</ubDeadliness>
+		<ubDeadliness>28</ubDeadliness>
 		<bAccuracy>3</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>250</usRange>
+		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -483,7 +483,7 @@
 		<ubDeadliness>26</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>250</usRange>
+		<usRange>260</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
@@ -555,7 +555,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>50</ubMagSize>
-		<usRange>250</usRange>
+		<usRange>240</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
@@ -591,7 +591,7 @@
 		<ubDeadliness>16</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>175</usRange>
+		<usRange>170</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
@@ -624,10 +624,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>31</ubImpact>
-		<ubDeadliness>21</ubDeadliness>
+		<ubDeadliness>22</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -663,7 +663,7 @@
 		<ubDeadliness>49</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>800</usRange>
+		<usRange>790</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>90</ubAttackVolume>
@@ -696,10 +696,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
-		<ubDeadliness>47</ubDeadliness>
+		<ubDeadliness>46</ubDeadliness>
 		<bAccuracy>12</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>800</usRange>
+		<usRange>770</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -714,7 +714,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>10</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>15</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>3</APsToReloadManually>
@@ -735,7 +735,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -771,7 +771,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>360</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -807,7 +807,7 @@
 		<ubDeadliness>22</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>360</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -840,10 +840,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>31</ubDeadliness>
+		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>400</usRange>
+		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -858,7 +858,7 @@
 		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
 		<APsToReload>2</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -879,7 +879,7 @@
 		<ubDeadliness>29</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>27</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -915,7 +915,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -951,7 +951,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -984,10 +984,10 @@
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>35</ubImpact>
-		<ubDeadliness>38</ubDeadliness>
+		<ubDeadliness>41</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>600</usRange>
+		<usRange>730</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -1002,7 +1002,7 @@
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>12</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>15</MaxDistForMessyDeath>
 		<AutoPenalty>9</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -1020,10 +1020,10 @@
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>35</ubImpact>
-		<ubDeadliness>40</ubDeadliness>
+		<ubDeadliness>42</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>650</usRange>
+		<usRange>710</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>43</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -1038,7 +1038,7 @@
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>13</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>14</MaxDistForMessyDeath>
 		<AutoPenalty>9</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -1056,10 +1056,10 @@
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>34</ubImpact>
-		<ubDeadliness>38</ubDeadliness>
+		<ubDeadliness>39</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>600</usRange>
+		<usRange>640</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -1074,7 +1074,7 @@
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>12</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>13</MaxDistForMessyDeath>
 		<AutoPenalty>9</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -1123,12 +1123,12 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPer4Turns>11</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>35</ubImpact>
-		<ubDeadliness>23</ubDeadliness>
+		<ubImpact>41</ubImpact>
+		<ubDeadliness>28</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
 		<ubMagSize>7</ubMagSize>
 		<usRange>150</usRange>
@@ -1144,7 +1144,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>10</APsToReload>
+		<APsToReload>18</APsToReload>
 		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
@@ -1159,15 +1159,15 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>11</ubShotsPer4Turns>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>35</ubImpact>
-		<ubDeadliness>24</ubDeadliness>
+		<ubImpact>40</ubImpact>
+		<ubDeadliness>28</ubDeadliness>
 		<bAccuracy>-1</bAccuracy>
 		<ubMagSize>7</ubMagSize>
-		<usRange>130</usRange>
+		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -1195,12 +1195,12 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>6</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPer4Turns>9</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>13</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>45</ubImpact>
-		<ubDeadliness>55</ubDeadliness>
+		<ubImpact>50</ubImpact>
+		<ubDeadliness>59</ubDeadliness>
 		<bAccuracy>-2</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>200</usRange>
@@ -1236,10 +1236,10 @@
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>50</ubDeadliness>
+		<ubDeadliness>49</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>200</ubMagSize>
-		<usRange>400</usRange>
+		<usRange>360</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>30</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -1254,7 +1254,7 @@
 		<bAutofireShotsPerFiveAP>5</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>7</AutoPenalty>
 		<NoSemiAuto>1</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -1308,10 +1308,10 @@
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>35</ubImpact>
-		<ubDeadliness>57</ubDeadliness>
+		<ubDeadliness>56</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>750</usRange>
+		<usRange>730</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -2031,7 +2031,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>125</usRange>
+		<usRange>140</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
@@ -2427,7 +2427,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>-2</bAccuracy>
 		<ubMagSize>50</ubMagSize>
-		<usRange>110</usRange>
+		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -2463,7 +2463,7 @@
 		<ubDeadliness>17</ubDeadliness>
 		<bAccuracy>3</bAccuracy>
 		<ubMagSize>50</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>230</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -2496,10 +2496,10 @@
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>25</ubImpact>
-		<ubDeadliness>23</ubDeadliness>
+		<ubDeadliness>24</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>50</ubMagSize>
-		<usRange>200</usRange>
+		<usRange>210</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -2751,7 +2751,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>380</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -2766,7 +2766,7 @@
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
 		<AutoPenalty>7</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -2787,7 +2787,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -2859,7 +2859,7 @@
 		<ubDeadliness>50</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>800</usRange>
+		<usRange>790</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -2892,10 +2892,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>55</ubImpact>
-		<ubDeadliness>78</ubDeadliness>
+		<ubDeadliness>74</ubDeadliness>
 		<bAccuracy>9</bAccuracy>
 		<ubMagSize>11</ubMagSize>
-		<usRange>1100</usRange>
+		<usRange>1000</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
@@ -2910,7 +2910,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>8</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>22</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>20</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -2931,7 +2931,7 @@
 		<ubDeadliness>15</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>15</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -2967,7 +2967,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>110</usRange>
+		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
@@ -3003,7 +3003,7 @@
 		<ubDeadliness>14</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>15</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -3039,7 +3039,7 @@
 		<ubDeadliness>14</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>15</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
@@ -3067,15 +3067,15 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPer4Turns>11</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>35</ubImpact>
-		<ubDeadliness>23</ubDeadliness>
+		<ubImpact>39</ubImpact>
+		<ubDeadliness>27</ubDeadliness>
 		<bAccuracy>2</bAccuracy>
 		<ubMagSize>7</ubMagSize>
-		<usRange>110</usRange>
+		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -3103,15 +3103,15 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>12</ubShotsPer4Turns>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>36</ubImpact>
-		<ubDeadliness>26</ubDeadliness>
+		<ubImpact>40</ubImpact>
+		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>7</ubMagSize>
-		<usRange>130</usRange>
+		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -3124,7 +3124,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>8</APsToReload>
+		<APsToReload>18</APsToReload>
 		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
@@ -3147,7 +3147,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>225</usRange>
+		<usRange>180</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -3180,10 +3180,10 @@
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>24</ubImpact>
-		<ubDeadliness>20</ubDeadliness>
+		<ubDeadliness>19</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>225</usRange>
+		<usRange>180</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -3219,7 +3219,7 @@
 		<ubDeadliness>21</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>170</usRange>
+		<usRange>140</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -3255,7 +3255,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>200</usRange>
+		<usRange>190</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -3291,7 +3291,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>200</usRange>
+		<usRange>190</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -3327,7 +3327,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -3360,10 +3360,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>31</ubImpact>
-		<ubDeadliness>34</ubDeadliness>
+		<ubDeadliness>35</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>380</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
@@ -3378,7 +3378,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -3432,10 +3432,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>31</ubDeadliness>
+		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>400</usRange>
+		<usRange>360</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
@@ -3450,7 +3450,7 @@
 		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -3648,10 +3648,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>23</ubImpact>
-		<ubDeadliness>18</ubDeadliness>
+		<ubDeadliness>17</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>200</usRange>
+		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
@@ -3684,10 +3684,10 @@
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>30</ubDeadliness>
+		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -3759,7 +3759,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>2</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>170</usRange>
+		<usRange>140</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -3831,7 +3831,7 @@
 		<ubDeadliness>27</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>310</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -3867,7 +3867,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -3903,7 +3903,7 @@
 		<ubDeadliness>27</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>270</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -3936,10 +3936,10 @@
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>29</ubImpact>
-		<ubDeadliness>28</ubDeadliness>
+		<ubDeadliness>27</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>280</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -3972,10 +3972,10 @@
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>31</ubDeadliness>
+		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>35</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -4044,10 +4044,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>30</ubDeadliness>
+		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -4080,10 +4080,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>30</ubDeadliness>
+		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -4116,10 +4116,10 @@
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>31</ubDeadliness>
+		<ubDeadliness>32</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -4155,7 +4155,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -4188,10 +4188,10 @@
 		<ubBurstPenalty>5</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>30</ubDeadliness>
+		<ubDeadliness>29</ubDeadliness>
 		<bAccuracy>8</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>400</usRange>
+		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>40</ubAttackVolume>
@@ -4206,7 +4206,7 @@
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>7</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -4260,10 +4260,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>46</ubImpact>
-		<ubDeadliness>69</ubDeadliness>
+		<ubDeadliness>76</ubDeadliness>
 		<bAccuracy>11</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>1200</usRange>
+		<usRange>1370</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
@@ -4278,7 +4278,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>8</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>24</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>27</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>3</APsToReloadManually>
@@ -4296,10 +4296,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>50</ubImpact>
-		<ubDeadliness>44</ubDeadliness>
+		<ubDeadliness>62</ubDeadliness>
 		<bAccuracy>7</bAccuracy>
 		<ubMagSize>11</ubMagSize>
-		<usRange>250</usRange>
+		<usRange>1000</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
@@ -4314,7 +4314,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>20</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -4363,15 +4363,15 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>36</ubImpact>
-		<ubDeadliness>27</ubDeadliness>
+		<ubImpact>40</ubImpact>
+		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>7</ubMagSize>
-		<usRange>130</usRange>
+		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -4384,7 +4384,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>8</APsToReload>
+		<APsToReload>18</APsToReload>
 		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
@@ -4407,7 +4407,7 @@
 		<ubDeadliness>15</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>15</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>51</ubAttackVolume>
@@ -4443,7 +4443,7 @@
 		<ubDeadliness>16</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>14</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>51</ubAttackVolume>
@@ -4479,7 +4479,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>360</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>45</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -4512,10 +4512,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
-		<ubDeadliness>47</ubDeadliness>
+		<ubDeadliness>45</ubDeadliness>
 		<bAccuracy>12</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>800</usRange>
+		<usRange>750</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -4530,7 +4530,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>15</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>3</APsToReloadManually>
@@ -4548,10 +4548,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>24</ubImpact>
-		<ubDeadliness>20</ubDeadliness>
+		<ubDeadliness>19</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>45</ubMagSize>
-		<usRange>230</usRange>
+		<usRange>180</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
@@ -4584,10 +4584,10 @@
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
-		<ubDeadliness>53</ubDeadliness>
+		<ubDeadliness>59</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>500</usRange>
+		<usRange>770</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>60</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -4602,7 +4602,7 @@
 		<bAutofireShotsPerFiveAP>2</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>10</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>15</MaxDistForMessyDeath>
 		<AutoPenalty>7</AutoPenalty>
 		<NoSemiAuto>1</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -4620,10 +4620,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>24</ubImpact>
-		<ubDeadliness>19</ubDeadliness>
+		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>200</usRange>
+		<usRange>170</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
@@ -4656,10 +4656,10 @@
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>34</ubImpact>
-		<ubDeadliness>38</ubDeadliness>
+		<ubDeadliness>39</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>600</usRange>
+		<usRange>640</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -4674,7 +4674,7 @@
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>12</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>13</MaxDistForMessyDeath>
 		<AutoPenalty>9</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -4695,7 +4695,7 @@
 		<ubDeadliness>48</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>750</usRange>
+		<usRange>770</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -4767,7 +4767,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>400</usRange>
+		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
@@ -4782,7 +4782,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>2</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -4803,7 +4803,7 @@
 		<ubDeadliness>29</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -4836,10 +4836,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
-		<ubDeadliness>48</ubDeadliness>
+		<ubDeadliness>47</ubDeadliness>
 		<bAccuracy>11</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>800</usRange>
+		<usRange>790</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -4872,10 +4872,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>23</ubImpact>
-		<ubDeadliness>13</ubDeadliness>
+		<ubDeadliness>14</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>8</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
@@ -4911,7 +4911,7 @@
 		<ubDeadliness>17</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>14</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>51</ubAttackVolume>
@@ -4947,7 +4947,7 @@
 		<ubDeadliness>17</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>8</ubMagSize>
-		<usRange>125</usRange>
+		<usRange>140</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>54</ubAttackVolume>
@@ -4983,7 +4983,7 @@
 		<ubDeadliness>19</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>7</ubMagSize>
-		<usRange>125</usRange>
+		<usRange>140</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
@@ -5016,10 +5016,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>45</ubImpact>
-		<ubDeadliness>81</ubDeadliness>
+		<ubDeadliness>71</ubDeadliness>
 		<bAccuracy>12</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>1500</usRange>
+		<usRange>1290</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
@@ -5034,7 +5034,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>30</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>26</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>3</APsToReloadManually>
@@ -5088,10 +5088,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>22</ubImpact>
-		<ubDeadliness>18</ubDeadliness>
+		<ubDeadliness>17</ubDeadliness>
 		<bAccuracy>2</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>130</usRange>
+		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>31</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -5127,7 +5127,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>200</usRange>
+		<usRange>160</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>25</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -5163,7 +5163,7 @@
 		<ubDeadliness>22</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>150</usRange>
+		<usRange>160</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>31</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -5199,7 +5199,7 @@
 		<ubDeadliness>16</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>14</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>52</ubAttackVolume>
@@ -5235,7 +5235,7 @@
 		<ubDeadliness>15</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>15</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>51</ubAttackVolume>
@@ -5268,10 +5268,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>38</ubDeadliness>
+		<ubDeadliness>37</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>400</usRange>
+		<usRange>340</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>35</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -5286,7 +5286,7 @@
 		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -5304,10 +5304,10 @@
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>33</ubImpact>
-		<ubDeadliness>31</ubDeadliness>
+		<ubDeadliness>37</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>620</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -5322,7 +5322,7 @@
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>12</MaxDistForMessyDeath>
 		<AutoPenalty>9</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -5340,10 +5340,10 @@
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>32</ubImpact>
-		<ubDeadliness>30</ubDeadliness>
+		<ubDeadliness>32</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>440</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -5358,7 +5358,7 @@
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>9</MaxDistForMessyDeath>
 		<AutoPenalty>9</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -5376,10 +5376,10 @@
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>35</ubImpact>
-		<ubDeadliness>57</ubDeadliness>
+		<ubDeadliness>56</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>750</usRange>
+		<usRange>720</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -5394,7 +5394,7 @@
 		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>15</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>14</MaxDistForMessyDeath>
 		<AutoPenalty>7</AutoPenalty>
 		<NoSemiAuto>1</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -5487,7 +5487,7 @@
 		<ubDeadliness>36</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -5523,7 +5523,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>360</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -5556,10 +5556,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
-		<ubDeadliness>48</ubDeadliness>
+		<ubDeadliness>47</ubDeadliness>
 		<bAccuracy>11</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>800</usRange>
+		<usRange>790</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -5592,10 +5592,10 @@
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>35</ubImpact>
-		<ubDeadliness>39</ubDeadliness>
+		<ubDeadliness>42</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>600</usRange>
+		<usRange>710</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -5610,7 +5610,7 @@
 		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>12</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>14</MaxDistForMessyDeath>
 		<AutoPenalty>9</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -5631,7 +5631,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>325</usRange>
+		<usRange>320</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -5664,10 +5664,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>58</ubImpact>
-		<ubDeadliness>76</ubDeadliness>
+		<ubDeadliness>80</ubDeadliness>
 		<bAccuracy>10</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>1100</usRange>
+		<usRange>1200</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
@@ -5682,7 +5682,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>8</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>22</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>24</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>3</APsToReloadManually>
@@ -5736,10 +5736,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>30</ubDeadliness>
+		<ubDeadliness>29</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -5811,7 +5811,7 @@
 		<ubDeadliness>44</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>400</usRange>
+		<usRange>360</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -5826,7 +5826,7 @@
 		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>6</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -5847,7 +5847,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -5883,7 +5883,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>140</usRange>
+		<usRange>170</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>65</ubAttackVolume>
@@ -5916,10 +5916,10 @@
 		<ubBurstPenalty>6</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>28</ubImpact>
-		<ubDeadliness>27</ubDeadliness>
+		<ubDeadliness>28</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>200</usRange>
+		<usRange>270</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -5955,7 +5955,7 @@
 		<ubDeadliness>32</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -5991,7 +5991,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>310</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -6024,10 +6024,10 @@
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>32</ubImpact>
-		<ubDeadliness>36</ubDeadliness>
+		<ubDeadliness>35</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>550</usRange>
+		<usRange>490</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -6042,7 +6042,7 @@
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>11</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>10</MaxDistForMessyDeath>
 		<AutoPenalty>9</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -6060,10 +6060,10 @@
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>36</ubDeadliness>
+		<ubDeadliness>35</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>400</usRange>
+		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -6078,7 +6078,7 @@
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>2</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>7</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -6096,10 +6096,10 @@
 		<ubBurstPenalty>6</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>50</ubDeadliness>
+		<ubDeadliness>49</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>200</ubMagSize>
-		<usRange>400</usRange>
+		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -6114,7 +6114,7 @@
 		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>6</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -6132,10 +6132,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>26</ubImpact>
-		<ubDeadliness>16</ubDeadliness>
+		<ubDeadliness>17</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
 		<ubMagSize>14</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -6171,7 +6171,7 @@
 		<ubDeadliness>21</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>210</usRange>
+		<usRange>190</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -6207,7 +6207,7 @@
 		<ubDeadliness>23</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>170</usRange>
+		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
@@ -6243,7 +6243,7 @@
 		<ubDeadliness>32</ubDeadliness>
 		<bAccuracy>3</bAccuracy>
 		<ubMagSize>40</ubMagSize>
-		<usRange>170</usRange>
+		<usRange>160</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -6279,7 +6279,7 @@
 		<ubDeadliness>49</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>750</usRange>
+		<usRange>760</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -6315,7 +6315,7 @@
 		<ubDeadliness>13</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>8</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -6387,7 +6387,7 @@
 		<ubDeadliness>22</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>200</usRange>
+		<usRange>160</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>43</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
@@ -6423,7 +6423,7 @@
 		<ubDeadliness>15</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
 		<ubMagSize>14</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
@@ -6451,15 +6451,15 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>35</ubImpact>
-		<ubDeadliness>23</ubDeadliness>
+		<ubImpact>39</ubImpact>
+		<ubDeadliness>26</ubDeadliness>
 		<bAccuracy>2</bAccuracy>
 		<ubMagSize>4</ubMagSize>
-		<usRange>120</usRange>
+		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -6472,7 +6472,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>6</APsToReload>
+		<APsToReload>12</APsToReload>
 		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
@@ -6487,15 +6487,15 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>36</ubImpact>
-		<ubDeadliness>26</ubDeadliness>
+		<ubImpact>40</ubImpact>
+		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>2</bAccuracy>
 		<ubMagSize>12</ubMagSize>
-		<usRange>130</usRange>
+		<usRange>160</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>125</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -6531,7 +6531,7 @@
 		<ubDeadliness>19</ubDeadliness>
 		<bAccuracy>2</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>200</usRange>
+		<usRange>170</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -6564,10 +6564,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>57</ubImpact>
-		<ubDeadliness>79</ubDeadliness>
+		<ubDeadliness>75</ubDeadliness>
 		<bAccuracy>9</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>1200</usRange>
+		<usRange>1100</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
@@ -6582,7 +6582,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>24</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>22</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -6600,10 +6600,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
-		<ubDeadliness>35</ubDeadliness>
+		<ubDeadliness>40</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>600</usRange>
+		<usRange>770</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -6618,7 +6618,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>12</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>15</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -6636,10 +6636,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>35</ubImpact>
-		<ubDeadliness>47</ubDeadliness>
+		<ubDeadliness>45</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>800</usRange>
+		<usRange>730</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -6654,7 +6654,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>15</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -6672,10 +6672,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
-		<ubDeadliness>47</ubDeadliness>
+		<ubDeadliness>46</ubDeadliness>
 		<bAccuracy>12</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>800</usRange>
+		<usRange>770</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -6690,7 +6690,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>10</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>15</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>3</APsToReloadManually>
@@ -6708,10 +6708,10 @@
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>23</ubBulletSpeed>
 		<ubImpact>24</ubImpact>
-		<ubDeadliness>35</ubDeadliness>
+		<ubDeadliness>34</ubDeadliness>
 		<bAccuracy>2</bAccuracy>
 		<ubMagSize>72</ubMagSize>
-		<usRange>200</usRange>
+		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>12</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -6747,7 +6747,7 @@
 		<ubDeadliness>57</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>750</usRange>
+		<usRange>730</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -6780,10 +6780,10 @@
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>24</ubImpact>
-		<ubDeadliness>18</ubDeadliness>
+		<ubDeadliness>17</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>170</usRange>
+		<usRange>140</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>25</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -6855,7 +6855,7 @@
 		<ubDeadliness>12</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>12</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>90</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
@@ -6927,7 +6927,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>170</usRange>
+		<usRange>160</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -6991,12 +6991,12 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPer4Turns>11</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>36</ubImpact>
-		<ubDeadliness>26</ubDeadliness>
+		<ubImpact>41</ubImpact>
+		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>7</ubMagSize>
 		<usRange>150</usRange>
@@ -7012,7 +7012,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>4</APsToReload>
+		<APsToReload>18</APsToReload>
 		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
@@ -7035,7 +7035,7 @@
 		<ubDeadliness>16</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>14</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>52</ubAttackVolume>
@@ -7063,15 +7063,15 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>2</ubReadyTime>
-		<ubShotsPer4Turns>11</ubShotsPer4Turns>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>36</ubImpact>
-		<ubDeadliness>24</ubDeadliness>
+		<ubImpact>41</ubImpact>
+		<ubDeadliness>29</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>12</ubMagSize>
-		<usRange>150</usRange>
+		<usRange>160</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -7084,12 +7084,12 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>12</APsToReload>
+		<APsToReload>20</APsToReload>
 		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
+		<APsToReloadManually>3</APsToReloadManually>
 		<ManualReloadSound>481</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -7104,10 +7104,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>57</ubImpact>
-		<ubDeadliness>81</ubDeadliness>
+		<ubDeadliness>77</ubDeadliness>
 		<bAccuracy>9</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>1200</usRange>
+		<usRange>1100</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
@@ -7122,7 +7122,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>24</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>22</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>2</APsToReloadManually>
@@ -7251,7 +7251,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>2</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>150</usRange>
+		<usRange>170</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
@@ -7287,7 +7287,7 @@
 		<ubDeadliness>20</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>75</ubMagSize>
-		<usRange>150</usRange>
+		<usRange>190</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
@@ -7359,7 +7359,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>3</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>400</usRange>
+		<usRange>380</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -7392,10 +7392,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>31</ubImpact>
-		<ubDeadliness>49</ubDeadliness>
+		<ubDeadliness>44</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>600</usRange>
+		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -7410,7 +7410,7 @@
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>12</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
 		<NoSemiAuto>1</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -7467,7 +7467,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>6</ubMagSize>
-		<usRange>125</usRange>
+		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>54</ubAttackVolume>
@@ -7500,10 +7500,10 @@
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>30</ubDeadliness>
+		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>320</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -7572,10 +7572,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>46</ubImpact>
-		<ubDeadliness>68</ubDeadliness>
+		<ubDeadliness>76</ubDeadliness>
 		<bAccuracy>11</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>1200</usRange>
+		<usRange>1380</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
@@ -7590,7 +7590,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>10</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>24</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>28</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>3</APsToReloadManually>
@@ -7603,15 +7603,15 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>0</ubReadyTime>
-		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>32</ubImpact>
-		<ubDeadliness>20</ubDeadliness>
+		<ubImpact>38</ubImpact>
+		<ubDeadliness>25</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>2</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>90</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -7624,7 +7624,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>12</APsToReload>
+		<APsToReload>8</APsToReload>
 		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
@@ -7644,10 +7644,10 @@
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>34</ubImpact>
-		<ubDeadliness>38</ubDeadliness>
+		<ubDeadliness>39</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>600</usRange>
+		<usRange>660</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -7662,7 +7662,7 @@
 		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>12</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>13</MaxDistForMessyDeath>
 		<AutoPenalty>9</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -7683,7 +7683,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>380</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>43</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
@@ -7698,7 +7698,7 @@
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -7719,7 +7719,7 @@
 		<ubDeadliness>40</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>43</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
@@ -7752,10 +7752,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>28</ubImpact>
-		<ubDeadliness>32</ubDeadliness>
+		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>320</usRange>
+		<usRange>270</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>43</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
@@ -7788,10 +7788,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>23</ubImpact>
-		<ubDeadliness>13</ubDeadliness>
+		<ubDeadliness>14</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>8</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
@@ -7827,7 +7827,7 @@
 		<ubDeadliness>17</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>14</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
@@ -7932,10 +7932,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>22</ubImpact>
-		<ubDeadliness>16</ubDeadliness>
+		<ubDeadliness>15</ubDeadliness>
 		<bAccuracy>2</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>150</usRange>
+		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>35</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
@@ -7971,7 +7971,7 @@
 		<ubDeadliness>14</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>15</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -8007,7 +8007,7 @@
 		<ubDeadliness>16</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>14</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
@@ -8040,10 +8040,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>24</ubImpact>
-		<ubDeadliness>16</ubDeadliness>
+		<ubDeadliness>17</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>18</ubMagSize>
-		<usRange>110</usRange>
+		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -8079,7 +8079,7 @@
 		<ubDeadliness>16</ubDeadliness>
 		<bAccuracy>-1</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
@@ -8112,10 +8112,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>24</ubImpact>
-		<ubDeadliness>19</ubDeadliness>
+		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>200</usRange>
+		<usRange>160</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>55</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -8187,7 +8187,7 @@
 		<ubDeadliness>21</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>200</usRange>
+		<usRange>230</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -8220,10 +8220,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>35</ubImpact>
-		<ubDeadliness>39</ubDeadliness>
+		<ubDeadliness>41</ubDeadliness>
 		<bAccuracy>12</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>600</usRange>
+		<usRange>690</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -8238,7 +8238,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>12</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>14</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>3</APsToReloadManually>
@@ -8256,10 +8256,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
-		<ubDeadliness>49</ubDeadliness>
+		<ubDeadliness>47</ubDeadliness>
 		<bAccuracy>11</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>850</usRange>
+		<usRange>790</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -8274,7 +8274,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>17</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>3</APsToReloadManually>
@@ -8292,10 +8292,10 @@
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>24</ubImpact>
-		<ubDeadliness>18</ubDeadliness>
+		<ubDeadliness>19</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>110</usRange>
+		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
@@ -8323,15 +8323,15 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>4</ubReadyTime>
-		<ubShotsPer4Turns>11</ubShotsPer4Turns>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>35</ubImpact>
-		<ubDeadliness>25</ubDeadliness>
+		<ubImpact>39</ubImpact>
+		<ubDeadliness>29</ubDeadliness>
 		<bAccuracy>-1</bAccuracy>
 		<ubMagSize>12</ubMagSize>
-		<usRange>130</usRange>
+		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -8344,7 +8344,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>6</APsToReload>
+		<APsToReload>10</APsToReload>
 		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
@@ -8359,15 +8359,15 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>0</ubReadyTime>
-		<ubShotsPer4Turns>12</ubShotsPer4Turns>
+		<ubShotsPer4Turns>14</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>32</ubImpact>
-		<ubDeadliness>21</ubDeadliness>
+		<ubImpact>38</ubImpact>
+		<ubDeadliness>26</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>4</ubMagSize>
-		<usRange>110</usRange>
+		<usRange>90</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -8380,12 +8380,12 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>10</APsToReload>
+		<APsToReload>12</APsToReload>
 		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
+		<APsToReloadManually>2</APsToReloadManually>
 		<ManualReloadSound>481</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -8436,10 +8436,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
-		<ubDeadliness>49</ubDeadliness>
+		<ubDeadliness>48</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>800</usRange>
+		<usRange>770</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>90</ubAttackVolume>
@@ -8454,7 +8454,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>15</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -8511,7 +8511,7 @@
 		<ubDeadliness>17</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>6</ubMagSize>
-		<usRange>110</usRange>
+		<usRange>140</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>54</ubAttackVolume>
@@ -8583,7 +8583,7 @@
 		<ubDeadliness>13</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>8</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
@@ -8652,10 +8652,10 @@
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>46</ubDeadliness>
+		<ubDeadliness>45</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>400</usRange>
+		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>56</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -8670,7 +8670,7 @@
 		<bAutofireShotsPerFiveAP>2</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>7</AutoPenalty>
 		<NoSemiAuto>1</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -8683,15 +8683,15 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>4</ubReadyTime>
-		<ubShotsPer4Turns>11</ubShotsPer4Turns>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>10</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>35</ubImpact>
-		<ubDeadliness>26</ubDeadliness>
+		<ubImpact>40</ubImpact>
+		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>-1</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>130</usRange>
+		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>83</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -8724,10 +8724,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>29</ubDeadliness>
+		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>330</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>43</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -8760,10 +8760,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>29</ubDeadliness>
+		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -8799,7 +8799,7 @@
 		<ubDeadliness>13</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>8</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -8868,10 +8868,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
-		<ubDeadliness>61</ubDeadliness>
+		<ubDeadliness>59</ubDeadliness>
 		<bAccuracy>7</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>850</usRange>
+		<usRange>790</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -8886,7 +8886,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>17</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -8907,7 +8907,7 @@
 		<ubDeadliness>21</ubDeadliness>
 		<bAccuracy>9</bAccuracy>
 		<ubMagSize>8</ubMagSize>
-		<usRange>200</usRange>
+		<usRange>220</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>54</ubAttackVolume>
@@ -8940,10 +8940,10 @@
 		<ubBurstPenalty>6</ubBurstPenalty>
 		<ubBulletSpeed>23</ubBulletSpeed>
 		<ubImpact>29</ubImpact>
-		<ubDeadliness>43</ubDeadliness>
+		<ubDeadliness>42</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>280</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -8979,7 +8979,7 @@
 		<ubDeadliness>39</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>400</usRange>
+		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -8994,7 +8994,7 @@
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -9015,7 +9015,7 @@
 		<ubDeadliness>34</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>310</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -9051,7 +9051,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>250</usRange>
+		<usRange>270</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -9084,10 +9084,10 @@
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>23</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
-		<ubDeadliness>38</ubDeadliness>
+		<ubDeadliness>35</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>500</usRange>
+		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -9102,7 +9102,7 @@
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>10</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -9120,10 +9120,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>35</ubImpact>
-		<ubDeadliness>46</ubDeadliness>
+		<ubDeadliness>44</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>800</usRange>
+		<usRange>720</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -9138,7 +9138,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>14</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -9151,12 +9151,12 @@
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>4</ubReadyTime>
-		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubShotsPer4Turns>11</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>37</ubImpact>
-		<ubDeadliness>25</ubDeadliness>
+		<ubImpact>42</ubImpact>
+		<ubDeadliness>29</ubDeadliness>
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>2</ubMagSize>
 		<usRange>170</usRange>
@@ -9172,7 +9172,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>4</APsToReload>
+		<APsToReload>8</APsToReload>
 		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
@@ -9195,7 +9195,7 @@
 		<ubDeadliness>42</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -9231,7 +9231,7 @@
 		<ubDeadliness>41</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>300</usRange>
+		<usRange>310</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
