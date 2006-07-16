@@ -220,23 +220,31 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT16
 {
 	EXPLOSION_PARAMS	ExpParams ;
 
-
+	// Callahan start
 	// Double check that we are using an explosive!
-       // callahan start
-       // this would completely stop any HE gunfire, so it has to die
-	 if ( !( Item[ usItem ].usItemClass & IC_EXPLOSV ) )
-	  {
-	          return;
-	  }
-      // callahan end
+	// Check if there is an explosive or an attacker
+
+	if ( !( Item[ usItem ].usItemClass & IC_EXPLOSV ) && ubOwner == NOBODY )
+	{
+		return; // no explosive / no attacker
+	}
+
+	// Okay, we either got an explosive or a real attacker to check for.
+	// Let's check for the attacker first.
+	if (  ubOwner != NOBODY )
+	{
+		if ( !( Item[ usItem ].usItemClass & IC_EXPLOSV ) &&  AmmoTypes[MercPtrs[ubOwner]->inv[MercPtrs[ubOwner]->ubAttackingHand ].ubGunAmmoType].explosionSize < 2 )
+		{
+			return; // no explosive and attackers gun is not fireing HE
+		}
+	}  
 
 	// Increment attack counter...
-
 	if (gubElementsOnExplosionQueue == 0)
 	{
 		// single explosion, disable sight until the end, and set flag
 		// to check sight at end of attack
-		
+
 		gTacticalStatus.uiFlags |= (DISALLOW_SIGHT | CHECK_SIGHT_AT_END_OF_ATTACK);
 	}
 
@@ -248,19 +256,18 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT16
 	// OK, go on!
 	ExpParams.uiFlags			= EXPLOSION_FLAG_USEABSPOS;
 	ExpParams.ubOwner			= ubOwner;
-	//ExpParams.ubTypeID		= Explosive[ Item[ usItem ].ubClassIndex ].ubAnimationID;
-        // callahan start
-        // animation is now properly extracted from explosives.xml
-	if ( !( Item[ usItem ].usItemClass & IC_EXPLOSV ) )
+
+	// No explosive but an attacker with HE ammo.
+	if ( !( Item[ usItem ].usItemClass & IC_EXPLOSV ) && ubOwner != NOBODY)
 	{
-	ExpParams.ubTypeID		= Explosive[AmmoTypes[MercPtrs[ubOwner]->inv[MercPtrs[ubOwner]->ubAttackingHand ].ubGunAmmoType].highExplosive].ubAnimationID;
-	//	return;
+		ExpParams.ubTypeID = Explosive[AmmoTypes[MercPtrs[ubOwner]->inv[MercPtrs[ubOwner]->ubAttackingHand ].ubGunAmmoType].highExplosive].ubAnimationID;
+		//	return;
 	}
-	else
+	else // just normal explosives should get here
 	{
-		ExpParams.ubTypeID		= Explosive[ Item[ usItem ].ubClassIndex ].ubAnimationID;
+		ExpParams.ubTypeID = Explosive[ Item[ usItem ].ubClassIndex ].ubAnimationID;
 	}	
-        // callahan end
+	// Callahan end
 
 	ExpParams.sX					= sX;
 	ExpParams.sY					= sY;
@@ -271,8 +278,11 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT16
 	ExpParams.bLevel			= bLevel;
 
 	GenerateExplosion( &ExpParams );
-			
 }
+
+
+
+
 
 void IgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT16 sGridNo, UINT16 usItem, INT8 bLevel )
 {
