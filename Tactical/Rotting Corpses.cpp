@@ -888,10 +888,10 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 							//add a flag to the item so when all enemies are killed, we can run through and reveal all the enemies items
 							usItemFlags |= WORLD_ITEM_DROPPED_FROM_ENEMY;
 
-							if ( Item[pObj->usItem].damageable ) // Madd: drop crappier items from enemies on higher difficulty levels
+							if ( Item[pObj->usItem].damageable && Item[pObj->usItem].usItemClass != IC_THROWING_KNIFE ) // Madd: drop crappier items from enemies on higher difficulty levels - note the quick fix for throwing knives
 							{
 								pObj->bStatus[0] -= (gGameOptions.ubDifficultyLevel - 1) * Random(20);
-								pObj->bStatus[0] = max(pObj->bStatus[0],1); // never below 1%
+								pObj->bStatus[0] = min(max(pObj->bStatus[0],1),100); // never below 1% or above 100%
 							}
 						}
 
