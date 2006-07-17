@@ -2349,10 +2349,10 @@
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>15</ubShotsPer4Turns>
 		<ubShotsPerBurst>5</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBurstPenalty>6</ubBurstPenalty>
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>40</ubImpact>
-		<ubDeadliness>61</ubDeadliness>
+		<ubDeadliness>63</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>5</ubMagSize>
 		<usRange>450</usRange>
@@ -8936,7 +8936,7 @@
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>15</ubShotsPer4Turns>
-		<ubShotsPerBurst>2</ubShotsPerBurst>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
 		<ubBurstPenalty>6</ubBurstPenalty>
 		<ubBulletSpeed>23</ubBulletSpeed>
 		<ubImpact>29</ubImpact>
@@ -8954,7 +8954,7 @@
 		<sReloadSound>102</sReloadSound>
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>156</SilencedSound>
-		<bBurstAP>2</bBurstAP>
+		<bBurstAP>3</bBurstAP>
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
@@ -9333,7 +9333,7 @@
 		<ubReadyTime>4</ubReadyTime>
 		<ubShotsPer4Turns>7</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>30</ubBulletSpeed>
 		<ubImpact>0</ubImpact>
 		<ubDeadliness>75</ubDeadliness>
@@ -9441,7 +9441,7 @@
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>7</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>30</ubBulletSpeed>
 		<ubImpact>0</ubImpact>
 		<ubDeadliness>75</ubDeadliness>
@@ -9513,7 +9513,7 @@
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>9</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>30</ubBulletSpeed>
 		<ubImpact>0</ubImpact>
 		<ubDeadliness>65</ubDeadliness>
@@ -9549,7 +9549,7 @@
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>6</ubShotsPer4Turns>
 		<ubShotsPerBurst>3</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>30</ubBulletSpeed>
 		<ubImpact>0</ubImpact>
 		<ubDeadliness>65</ubDeadliness>
@@ -9657,7 +9657,7 @@
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>9</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>30</ubBulletSpeed>
 		<ubImpact>0</ubImpact>
 		<ubDeadliness>55</ubDeadliness>
