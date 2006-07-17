@@ -3478,7 +3478,17 @@ void EVENT_SoldierGotHit( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDa
 	{
 		ubReason = TAKE_DAMAGE_TENTACLES;
 	}
-        // marke take out gunfire if ammotype is an explosive
+	// marke take out gunfire if ammotype is explosive
+	
+                // callahan update start
+                // setting new func to intercept testhit
+	else if ( Item[ usWeaponIndex ].usItemClass & ( IC_GUN | IC_THROWING_KNIFE ) && ubAttackerID == NOBODY)
+	{
+		sBreathLoss += BP_GET_HIT;
+		ubReason = TAKE_DAMAGE_GUNFIRE;
+	}
+	// callahan update end
+               
 	else if ( Item[ usWeaponIndex ].usItemClass & ( IC_GUN | IC_THROWING_KNIFE ) && AmmoTypes[MercPtrs[ubAttackerID]->inv[MercPtrs[ubAttackerID]->ubAttackingHand ].ubGunAmmoType].explosionSize <= 1)
 	{	
 		if ( ubSpecial == FIRE_WEAPON_SLEEP_DART_SPECIAL )
@@ -3537,6 +3547,8 @@ void EVENT_SoldierGotHit( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDa
 		ubReason = TAKE_DAMAGE_HANDTOHAND;
 	}
         // marke added one 'or' for explosive ammo. variation of: AmmoTypes[pSoldier->inv[pSoldier->ubAttackingHand ].ubGunAmmoType].explosionSize > 1
+	// marke need another attacker id assignment
+	//	MercPtrs[ubAttackerID]->bLastAttackHit = TRUE;
 	//  extracting attacker´s ammo type
 	else if ( Item[ usWeaponIndex ].usItemClass & IC_EXPLOSV || AmmoTypes[MercPtrs[ubAttackerID]->inv[MercPtrs[ubAttackerID]->ubAttackingHand ].ubGunAmmoType].explosionSize > 1)
 	{	

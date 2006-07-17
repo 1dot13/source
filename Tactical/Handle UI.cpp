@@ -1211,20 +1211,18 @@ UINT32 UIHandleTestHit( UI_EVENT *pUIEvent )
 		{
 			if ( Random(2)  )
 			{
-				bDamage = 80; // was 20
+				bDamage = 20;
 			}
 			else
 			{
-				bDamage = 100; // was 25
+				bDamage = 25;
 			}
 		}
 
-	gTacticalStatus.ubAttackBusyCount++;
-	// marke new call without gun ID
-	EVENT_SoldierGotHit( pSoldier, 0, bDamage, 0, pSoldier->bDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pSoldier->bAimShotLocation, 0, NOWHERE );
-
-	// marke lined out old call 
-	// EVENT_SoldierGotHit( pSoldier, 1, bDamage, 10, pSoldier->bDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pSoldier->bAimShotLocation, 0, NOWHERE );
+		gTacticalStatus.ubAttackBusyCount++;
+        
+		 EVENT_SoldierGotHit( pSoldier, 1, bDamage, 10, pSoldier->bDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pSoldier->bAimShotLocation, 0, NOWHERE );
+		// callahan update end - put everything as it was
 	}
 	return( GAME_SCREEN );
 }
