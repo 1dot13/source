@@ -653,18 +653,18 @@ INT32 FirstFreeBigEnoughPocket(MERCPROFILESTRUCT *pProfile, UINT16 usItem)
 void WriteOutCurrentImpCharacter( INT32 iProfileId )
 {
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("WriteOutCurrentImpCharacter: IMP.dat"));
-	char zImpFileName[12];
-	strcat(zImpFileName,IMP_MERC_FILENAME);
+	char zImpFileName[13];
+	strcpy(zImpFileName,IMP_MERC_FILENAME);
 	strcat(zImpFileName,IMP_FILENAME_SUFFIX);
 	WriteOutCurrentImpCharacter ( iProfileId, zImpFileName);
 
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("WriteOutCurrentImpCharacter: Nickname.dat"));
 	
-	char zFileName[12];
+	char zFileName[13];
 	char temp;
 
-	for(int i=0;i < 8;i++) // Madd: I couldn't get strcpy or anything to work here... weird... if s/o wants to fix it, go ahead
+	for(int i=0;i < 9;i++) // Madd: I couldn't get strcpy or anything to work here... weird... if s/o wants to fix it, go ahead
 	{
 		temp = (char) gMercProfiles[iProfileId].zNickname[i];
 		zFileName[i] = temp;
@@ -712,7 +712,7 @@ void WriteOutCurrentImpCharacter( INT32 iProfileId, STR fileName )
 
 BOOLEAN ImpExists ( STR nickName )
 {
-	char zFileName[12];
+	char zFileName[13];
 
 	strcpy(zFileName,nickName);
 	strcat(zFileName,IMP_FILENAME_SUFFIX);
@@ -729,7 +729,7 @@ void LoadImpCharacter( STR nickName )
 	HWFILE hFile;
 	UINT32 uiBytesRead = 0;
 
-	char zFileName[12];
+	char zFileName[13];
 
 	strcpy(zFileName,nickName);
 	strcat(zFileName,IMP_FILENAME_SUFFIX);

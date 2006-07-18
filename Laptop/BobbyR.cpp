@@ -669,7 +669,7 @@ void DailyUpdateOfBobbyRaysNewInventory()
 		if( LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnOrder == 0)
 		{
 			//if the qty on hand is half the desired amount or fewer
-			if( LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnHand <= (StoreInventory[ usItemIndex ][ BOBBY_RAY_NEW ] / 2 ) )
+			if( LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnHand <= (StoreInventory[ usItemIndex ][ BOBBY_RAY_NEW ] / 2 * gGameOptions.ubBobbyRay ) )
 			{
 				// remember value of the "previously eligible" flag
 				fPrevElig = LaptopSaveInfo.BobbyRayInventory[ i ].fPreviouslyEligible;
@@ -766,7 +766,7 @@ UINT8 HowManyBRItemsToOrder(UINT16 usItemIndex, UINT8 ubCurrentlyOnHand, UINT8 u
 
 	Assert(usItemIndex < MAXITEMS);
 	// formulas below will fail if there are more items already in stock than optimal
-	Assert(ubCurrentlyOnHand <= StoreInventory[ usItemIndex ][ ubBobbyRayNewUsed ]);
+	Assert(ubCurrentlyOnHand <= StoreInventory[ usItemIndex ][ ubBobbyRayNewUsed ] * gGameOptions.ubBobbyRay) ;
 	Assert(ubBobbyRayNewUsed < BOBBY_RAY_LISTS);
 
 
