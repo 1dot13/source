@@ -407,8 +407,8 @@
 		<uiIndex>13</uiIndex>
 		<fontColour>160</fontColour>
 		<grayed>8</grayed>
-		<offNormal>5</offNormal>
-		<onNormal>7</onNormal>
+		<offNormal>25</offNormal>
+		<onNormal>27</onNormal>
 		<structureImpactReductionMultiplier>3</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>4</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
@@ -438,8 +438,8 @@
 		<uiIndex>14</uiIndex>
 		<fontColour>185</fontColour>
 		<grayed>12</grayed>
-		<offNormal>9</offNormal>
-		<onNormal>11</onNormal>
+		<offNormal>21</offNormal>
+		<onNormal>23</onNormal>
 		<structureImpactReductionMultiplier>4</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
@@ -717,8 +717,8 @@
 		<uiIndex>23</uiIndex>
 		<fontColour>184</fontColour>
 		<grayed>12</grayed>
-		<offNormal>9</offNormal>
-		<onNormal>11</onNormal>
+		<offNormal>21</offNormal>
+		<onNormal>23</onNormal>
 		<structureImpactReductionMultiplier>4</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
@@ -748,8 +748,8 @@
 		<uiIndex>24</uiIndex>
 		<fontColour>184</fontColour>
 		<grayed>12</grayed>
-		<offNormal>9</offNormal>
-		<onNormal>11</onNormal>
+		<offNormal>21</offNormal>
+		<onNormal>23</onNormal>
 		<structureImpactReductionMultiplier>4</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>3</armourImpactReductionMultiplier>
@@ -810,8 +810,8 @@
 		<uiIndex>26</uiIndex>
 		<fontColour>186</fontColour>
 		<grayed>8</grayed>
-		<offNormal>13</offNormal>
-		<onNormal>15</onNormal>
+		<offNormal>21</offNormal>
+		<onNormal>23</onNormal>
 		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
 		<structureImpactReductionDivisor>2</structureImpactReductionDivisor>
 		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
