@@ -669,7 +669,7 @@ void DailyUpdateOfBobbyRaysNewInventory()
 		if( LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnOrder == 0)
 		{
 			//if the qty on hand is half the desired amount or fewer
-			if( LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnHand <= (StoreInventory[ usItemIndex ][ BOBBY_RAY_NEW ] / 2 * gGameOptions.ubBobbyRay ) )
+			if( LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnHand <= (StoreInventory[ usItemIndex ][ BOBBY_RAY_NEW ] * gGameOptions.ubBobbyRay )/2 )
 			{
 				// remember value of the "previously eligible" flag
 				fPrevElig = LaptopSaveInfo.BobbyRayInventory[ i ].fPreviouslyEligible;
