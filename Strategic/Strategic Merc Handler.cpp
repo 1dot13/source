@@ -689,10 +689,10 @@ BOOLEAN SoldierHasWorseEquipmentThanUsedTo( SOLDIERTYPE *pSoldier )
 {
 	INT32		cnt;
 	UINT16	usItem;
-	INT8		bBestArmour = -1;
-	INT8		bBestArmourIndex = -1;
-	INT8		bBestGun = -1;
-	INT8		bBestGunIndex = -1;
+	INT32		bBestArmour = -1;
+	INT32		bBestArmourIndex = -1;
+	INT32		bBestGun = -1;
+	INT32		bBestGunIndex = -1;
 
 
 	for ( cnt = 0; cnt < NUM_INV_SLOTS; cnt++ )

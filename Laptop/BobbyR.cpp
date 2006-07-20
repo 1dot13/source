@@ -111,7 +111,7 @@
 
 #define BOBBY_R_NEW_PURCHASE_ARRIVAL_TIME		(1 * 60 * 24) // minutes in 1 day
 
-#define	BOBBY_R_USED_PURCHASE_OFFSET		1000
+#define	BOBBY_R_USED_PURCHASE_OFFSET		MAXITEMS 
 
 #define	BOBBYR_UNDERCONSTRUCTION_ANI_DELAY		150
 #define	BOBBYR_UNDERCONSTRUCTION_NUM_FRAMES		5
@@ -643,10 +643,11 @@ BOOLEAN InitBobbyRayUsedInventory()
 
 void DailyUpdateOfBobbyRaysNewInventory()
 {
-	INT16 i;
+	INT32 i;
 	UINT16 usItemIndex;
 	BOOLEAN fPrevElig;
 
+	DebugMsg(TOPIC_JA2, DBG_LEVEL_3,String("DailyUpdateOfBobbyRaysNewInventory: list length = %d", LaptopSaveInfo.usInventoryListLength[BOBBY_RAY_NEW]));
 
 	//simulate other buyers by reducing the current quantity on hand
 	SimulateBobbyRayCustomer(LaptopSaveInfo.BobbyRayInventory, BOBBY_RAY_NEW);
@@ -659,15 +660,18 @@ void DailyUpdateOfBobbyRaysNewInventory()
 
 		Assert(usItemIndex < MAXITEMS);
 
+		DebugMsg(TOPIC_JA2, DBG_LEVEL_3,String("DailyUpdateOfBobbyRaysNewInventory: checking item = %d, qty on order = %d",usItemIndex,LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnOrder));
 		// make sure this item is still sellable in the latest version of the store inventory
 		if ( StoreInventory[ usItemIndex ][ BOBBY_RAY_NEW ] == 0 )
 		{
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3,String("DailyUpdateOfBobbyRaysNewInventory: skipping item = %d",usItemIndex));
 			continue;
 		}
 
 		//if the item isn't already on order
-		if( LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnOrder == 0)
+		if( LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnOrder == 0 || gGameOptions.ubBobbyRay == BR_AWESOME )
 		{
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3,String("DailyUpdateOfBobbyRaysNewInventory: item = %d, qty on hand = %d, half desired amount = %d",usItemIndex,LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnHand,(StoreInventory[ usItemIndex ][ BOBBY_RAY_NEW ] * gGameOptions.ubBobbyRay )/2));
 			//if the qty on hand is half the desired amount or fewer
 			if( LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnHand <= (StoreInventory[ usItemIndex ][ BOBBY_RAY_NEW ] * gGameOptions.ubBobbyRay )/2 )
 			{
@@ -683,6 +687,7 @@ void DailyUpdateOfBobbyRaysNewInventory()
 					// if this is the first day the player is eligible to have access to this thing
 					if ( !fPrevElig || gGameOptions.ubBobbyRay == BR_AWESOME )
 					{
+						DebugMsg(TOPIC_JA2, DBG_LEVEL_3,String("DailyUpdateOfBobbyRaysNewInventory: item = %d, add fresh inventory",usItemIndex));
 						// eliminate the ordering delay and stock the items instantly!
 						// This is just a way to reward the player right away for making progress without the reordering lag...
 						AddFreshBobbyRayInventory( usItemIndex );
@@ -709,14 +714,13 @@ void DailyUpdateOfBobbyRaysUsedInventory()
 	UINT16 usItemIndex;
 	BOOLEAN fPrevElig;
 
-
 	//simulate other buyers by reducing the current quantity on hand
 	SimulateBobbyRayCustomer(LaptopSaveInfo.BobbyRayUsedInventory, BOBBY_RAY_USED);
 
 	for(i = 0; i < LaptopSaveInfo.usInventoryListLength[BOBBY_RAY_USED]; i++)
 	{
 		//if the used item isn't already on order
-		if( LaptopSaveInfo.BobbyRayUsedInventory[ i ].ubQtyOnOrder == 0 )
+		if( LaptopSaveInfo.BobbyRayUsedInventory[ i ].ubQtyOnOrder == 0 || gGameOptions.ubBobbyRay == BR_AWESOME )
 		{
 			//if we don't have ANY
 			if( LaptopSaveInfo.BobbyRayUsedInventory[ i ].ubQtyOnHand == 0 )
@@ -763,10 +767,11 @@ UINT8 HowManyBRItemsToOrder(UINT16 usItemIndex, UINT8 ubCurrentlyOnHand, UINT8 u
 {
 	UINT8	ubItemsOrdered = 0;
 
+	DebugMsg(TOPIC_JA2, DBG_LEVEL_3,String("HowManyBRItemsToOrder: item = %d",usItemIndex));
 
 	Assert(usItemIndex < MAXITEMS);
 	// formulas below will fail if there are more items already in stock than optimal
-	Assert(ubCurrentlyOnHand <= StoreInventory[ usItemIndex ][ ubBobbyRayNewUsed ] * gGameOptions.ubBobbyRay) ;
+	//Assert(ubCurrentlyOnHand <= StoreInventory[ usItemIndex ][ ubBobbyRayNewUsed ] * gGameOptions.ubBobbyRay) ;
 	Assert(ubBobbyRayNewUsed < BOBBY_RAY_LISTS);
 
 
@@ -812,6 +817,7 @@ void AddFreshBobbyRayInventory( UINT16 usItemIndex )
 	BOOLEAN fUsed;
 	UINT8 ubItemQuality;
 
+	DebugMsg(TOPIC_JA2, DBG_LEVEL_3,String("AddFreshBobbyRayInventory: item = %d", usItemIndex ));
 
 	if( usItemIndex >= BOBBY_R_USED_PURCHASE_OFFSET )
 	{
@@ -832,10 +838,12 @@ void AddFreshBobbyRayInventory( UINT16 usItemIndex )
 	sInventorySlot = GetInventorySlotForItem(pInventoryArray, usItemIndex, fUsed);
 	if (sInventorySlot == -1)
 	{
+		DebugMsg(TOPIC_JA2, DBG_LEVEL_3,String("AddFreshBobbyRayInventory: item not found! = %d", usItemIndex ));
 		AssertMsg( FALSE, String( "AddFreshBobbyRayInventory(), Item %d not found.  AM-0.", usItemIndex ) );
 		return;
 	}
 
+	DebugMsg(TOPIC_JA2, DBG_LEVEL_3,String("AddFreshBobbyRayInventory: item = %d, qty on hand = %d, qty on order = %d", usItemIndex,pInventoryArray[ sInventorySlot ].ubQtyOnHand, pInventoryArray[ sInventorySlot ].ubQtyOnOrder ));
 
 	pInventoryArray[ sInventorySlot ].ubQtyOnHand += pInventoryArray[ sInventorySlot ].ubQtyOnOrder;
 	pInventoryArray[ sInventorySlot ].ubItemQuality = ubItemQuality;
