@@ -4144,6 +4144,17 @@ INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 u
 				iTotalProtection += ArmourProtection( pTarget, Item[pArmour->usItem].ubClassIndex, &(pArmour->bStatus[0]), iImpact, ubAmmoType );
 				if ( pArmour->bStatus[ 0 ] < USABLE )
 				{
+					//Madd: put any attachments that someone might have added to the armour in the merc's inventory
+					for (int bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
+					{
+						OBJECTTYPE newObj;
+						CreateItem(pArmour->usAttachItem[bLoop], pArmour->bAttachStatus[bLoop], &newObj);
+						if ( !AutoPlaceObject( pTarget, &newObj, FALSE ) )
+						{   // put it on the ground
+							AddItemToPool( pTarget->sGridNo, &newObj, 1, pTarget->bLevel, 0 , -1 );
+						}
+					}
+
 					DeleteObj( pArmour );
 					DirtyMercPanelInterface( pTarget, DIRTYLEVEL2 );
 				}

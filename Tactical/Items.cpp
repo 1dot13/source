@@ -7177,4 +7177,34 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier)
 
 	return aimLevels;
 }
+//Madd: added
+INT16 GetStealthBonus( OBJECTTYPE * pObj ) 
+{
+	INT8	bLoop;
+	INT16 bns=0;
 
+	bns = (INT16) BonusReduce(Item[pObj->usItem].stealthbonus,pObj->bStatus[0]);
+
+	for (bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
+	{
+		bns += (INT16) BonusReduce(Item[pObj->usAttachItem[bLoop]].stealthbonus,pObj->bAttachStatus[bLoop]);
+	}
+	return( bns );
+}
+INT16 GetWornStealth( SOLDIERTYPE * pSoldier )
+{
+	//note: Stealth bonus is capped at 100
+	//note: Stealth is not a perk! Stealth bonus only applies to equipment, and stacks with camouflage
+	//note: stealth bonus is not affected by terrain like the camo bonus, otherwise they're very similar
+	//note: stealth bonus also affects noise made by characters walking
+	INT8	bLoop;
+	INT16 ttl=0;
+
+	for (bLoop = HELMETPOS; bLoop <= LEGPOS; bLoop++)
+	{
+		if ( pSoldier->inv[bLoop].usItem > NONE )
+			ttl += GetStealthBonus(&pSoldier->inv[bLoop]);
+	}
+
+	return __min( ttl, 100 );
+}

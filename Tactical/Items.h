@@ -277,6 +277,8 @@ INT8 FindTrigger( SOLDIERTYPE * pSoldier );
 INT8 FindRemoteControl( SOLDIERTYPE * pSoldier );
 INT16 GetWornCamo( SOLDIERTYPE * pSoldier );
 INT16 GetCamoBonus( OBJECTTYPE * pObj );
+INT16 GetWornStealth( SOLDIERTYPE * pSoldier );
+INT16 GetStealthBonus( OBJECTTYPE * pObj );
 
 void ApplyEquipmentBonuses(SOLDIERTYPE * pSoldier);
 

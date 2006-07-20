@@ -630,7 +630,7 @@ BOOLEAN ResolveHitOnWall( STRUCTURE * pStructure, INT32 iGridNo, INT8 bLOSIndexX
  * - stops at other obstacles
  *
  */
-INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, UINT8 ubTileSightLimit, UINT8 ubTreeSightReduction, INT8 bAware, INT8 bCamouflage, BOOLEAN fSmell, INT16 * psWindowGridNo )
+INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, UINT8 ubTileSightLimit, UINT8 ubTreeSightReduction, INT8 bAware, INT32 bCamouflage, BOOLEAN fSmell, INT16 * psWindowGridNo )
 {
 	// Parameters...
 	// the X,Y,Z triplets should be obvious
@@ -1548,8 +1548,10 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 	FLOAT			dStartZPos, dEndZPos;
 	BOOLEAN		fOk;
 	BOOLEAN		fSmell;
-	INT8			bEffectiveCamo;
+	INT16			bEffectiveCamo;
+	INT16			bEffectiveStealth;
 	UINT8			ubTreeReduction;
+	INT32 iTemp;
 
 	// TO ADD: if target is camouflaged and in cover, reduce sight distance by 30%
 	// TO ADD: if in tear gas, reduce sight limit to 2 tiles
@@ -1613,8 +1615,6 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 	if ( ( pEndSoldier->bCamo + pEndSoldier->wornCamo ) > 0 && !bAware )
 	{
 
-		INT32 iTemp;
-
 		// reduce effects of camo of 5% per tile moved last turn
 		if ( pEndSoldier->ubBodyType == BLOODCAT )
 		{
@@ -1648,6 +1648,26 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 		bEffectiveCamo = 0;
 	}
 
+	//Madd: added - note stealth is capped at 100 just like camo
+	if ( ( GetWornStealth(pEndSoldier) ) > 0 && !bAware )
+	{
+
+		// reduce effects of stealth by 5% per tile moved last turn
+		bEffectiveStealth = max(0,min(100,(GetWornStealth(pEndSoldier)))) * (100 - pEndSoldier->bTilesMoved * 5) / 100;
+
+		bEffectiveStealth = __max( bEffectiveStealth, 0 );
+
+		// reduce visibility by up to a third for Stealth!
+		// stance and terrain don't matter
+		iTemp = ubTileSightLimit;
+		iTemp -= iTemp * (bEffectiveStealth / 3) / 100;
+		ubTileSightLimit = (UINT8) iTemp;
+	}
+	else
+	{
+		bEffectiveStealth = 0;
+	}
+
 	if ( TANK( pEndSoldier ) )
 	{
 		ubTreeReduction = 0;
@@ -1657,7 +1677,7 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 		ubTreeReduction = gubTreeSightReduction[ gAnimControl[pEndSoldier->usAnimState].ubEndHeight ];
 	}
 
-	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) CenterX( pEndSoldier->sGridNo ), (FLOAT) CenterY( pEndSoldier->sGridNo ), dEndZPos, ubTileSightLimit, ubTreeReduction, bAware, bEffectiveCamo, fSmell, NULL ) );
+	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) CenterX( pEndSoldier->sGridNo ), (FLOAT) CenterY( pEndSoldier->sGridNo ), dEndZPos, ubTileSightLimit, ubTreeReduction, bAware, bEffectiveCamo + bEffectiveStealth, fSmell, NULL ) );
 }
 
 INT16 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT16 sEndGridNo )

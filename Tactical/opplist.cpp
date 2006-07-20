@@ -4671,6 +4671,9 @@ UINT8 MovementNoise( SOLDIERTYPE *pSoldier )
 		iStealthSkill += 25 * NUM_SKILL_TRAITS( pSoldier, STEALTHY );
 	}
 
+	if ( GetWornStealth(pSoldier) > 0 )
+		iStealthSkill += GetWornStealth(pSoldier) / 2;
+
 
  //NumMessage("Base Stealth = ",stealthSkill);
 

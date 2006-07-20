@@ -383,6 +383,7 @@ typedef struct
 	INT16 percentburstfireapreduction;
 
 	INT16 camobonus;
+	INT16 stealthbonus;
 
 	UINT16 defaultattachment;
 } INVTYPE;

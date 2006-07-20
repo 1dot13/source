@@ -197,6 +197,7 @@ itemStartElementHandle(void *userData, const char *name, const char **atts)
 				strcmp(name, "PercentTunnelVision") == 0 ||
 				strcmp(name, "DefaultAttachment") == 0 ||
 				strcmp(name, "CamoBonus") == 0 ||
+				strcmp(name, "StealthBonus") == 0 ||
 
 	strcmp(name, "fFlags") == 0 ))
 		{
@@ -513,6 +514,11 @@ itemEndElementHandle(void *userData, const char *name)
 		{
 			pData->curElement = ELEMENT;
 		 	pData->curItem.camobonus = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "StealthBonus")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.stealthbonus = (INT16) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "PercentNoiseReduction")	 == 0)
 		{
@@ -1385,6 +1391,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<Rock>%d</Rock>\r\n",						Item[cnt].rock  );
 
 			FilePrintf(hFile,"\t\t<CamoBonus>%d</CamoBonus>\r\n",						Item[cnt].camobonus  );
+			FilePrintf(hFile,"\t\t<StealthBonus>%d</StealthBonus>\r\n",						Item[cnt].stealthbonus  );
 			FilePrintf(hFile,"\t\t<FlakJacket>%d</FlakJacket>\r\n",						Item[cnt].flakjacket  );
 			FilePrintf(hFile,"\t\t<LeatherJacket>%d</LeatherJacket>\r\n",						Item[cnt].leatherjacket  );
 
