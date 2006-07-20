@@ -311,15 +311,19 @@ UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, UINT16 usMapPo
 }
 
 
+// WANNE 4: Zeigt den Schusscursor, wenn dieser auf einem Gegner steht
 UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLEAN fShowAPs, BOOLEAN fRecalc, UINT32 uiCursorFlags )
 {
 	UINT8							switchVal;
 	BOOLEAN							fEnoughPoints = TRUE;
 	UINT8							bFutureAim;
 	INT16							sAPCosts;
+	INT16							sAPCostsMin;
 	UINT16							usCursor=0;
 	BOOLEAN							fMaxPointLimitHit = FALSE;
 	UINT16							usInHand;
+
+	UINT16	reverse = 0;
 
 	UINT8 maxAimLevels = AllowedAimingLevels(pSoldier);
 
@@ -411,19 +415,45 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLE
 			}
 			else
 			{
+				// WANNE 4: Wie oft erhöht?
 				bFutureAim = (INT8)( pSoldier->bShownAimTime + 1 );
 
 				if ( bFutureAim <= maxAimLevels )
 				{
-					sAPCosts = MinAPsToAttack( pSoldier, usMapPos, TRUE ) + ( bFutureAim  );
-
-					// Determine if we can afford!
-					if ( !EnoughPoints( pSoldier, (INT16)sAPCosts, 0 , FALSE ) )
+					if (reverse == 0)
 					{
-						fEnoughPoints = FALSE;
+						// WANNE 4: Aktuelle AP Kosten fürs ziehlen
+						sAPCosts = MinAPsToAttack( pSoldier, usMapPos, TRUE ) + ( bFutureAim  );
+
+						//gsCurrentActionPoints = sAPCosts;
+
+						// Determine if we can afford!
+						if ( !EnoughPoints( pSoldier, (INT16)sAPCosts, 0 , FALSE ) )
+						{
+							fEnoughPoints = FALSE;
+						}
+					}
+					else
+					{
+						sAPCosts = MinAPsToAttack( pSoldier, usMapPos, TRUE ) + maxAimLevels - (bFutureAim + 1);
+
+						gsCurrentActionPoints = sAPCosts;
+
+						sAPCostsMin = MinAPsToAttack( pSoldier, usMapPos, TRUE );
+						if (sAPCosts < sAPCostsMin)
+						{
+							fEnoughPoints = FALSE;
+						}
 					}
 
+					//// Determine if we can afford!
+					//if ( !EnoughPoints( pSoldier, (INT16)sAPCosts, 0 , FALSE ) )
+					//{
+					//	fEnoughPoints = FALSE;
+					//}
+
 				}
+				
 			}
 		}
 
@@ -905,7 +935,7 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLE
 
 
 
-
+// WANNE 4: Zeigt den Schusscursor, wenn dieser auf keinem Gegner steht
 UINT8 HandleNonActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos , BOOLEAN fShowAPs, BOOLEAN fRecalc, UINT32 uiCursorFlags  )
 {
   UINT16				usInHand;

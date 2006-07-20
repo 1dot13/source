@@ -1792,8 +1792,27 @@ extern BOOLEAN gfPrintFrameBuffer;
 // WANNE 2 <change laptop zooming>
 UINT32 LaptopScreenHandle()
 {
+	INT16 sYOffset = 0;
+	INT16 sXOffset = 0;
+
 	//User just changed modes.  This is determined by the button callbacks 
 	//created in LaptopScreenInit()
+
+	// Correct the minor cosmetic bug (laptop zooming start not correct)
+	if (iResolution == 0)
+	{
+		sXOffset = -2;
+		sYOffset = -2;
+	}
+	else if (iResolution == 1)
+	{
+		sYOffset = -1;
+	}
+	else if (iResolution == 2)
+	{
+		sXOffset = 2;
+		sYOffset = 1;
+	}
 
 	// Set mouse region values
 	LaptopScreenRect.iLeft = LAPTOP_UL_X;
@@ -1840,8 +1859,8 @@ UINT32 LaptopScreenHandle()
 		DstRect.iTop =	iScreenHeightOffset;						//0
 		DstRect.iRight = iScreenWidthOffset + 640;				//640
 		DstRect.iBottom = iScreenHeightOffset + 480;				//480
-		iLaptopMonitorCenterX = SCREEN_WIDTH - 184 + 19;
-		iLaptopMonitorCenterY = SCREEN_HEIGHT - 70 + 16;
+		iLaptopMonitorCenterX = SCREEN_WIDTH - 184 + 19 + sXOffset;
+		iLaptopMonitorCenterY = SCREEN_HEIGHT - 70 + 16 + sYOffset;		// WANNE 2
 		uiTimeRange = 1000;
 		iPercentage = iRealPercentage = 0;
 		uiStartTime = GetJA2Clock();
@@ -2427,6 +2446,24 @@ BtnOnCallback(GUI_BUTTON *btn,INT32 reason)
 
 BOOLEAN LeaveLapTopScreen( void )
 {
+	INT16 sYOffset = 0;
+	INT16 sXOffset = 0;
+
+	// Correct the minor cosmetic bug (laptop zooming start not correct)
+	if (iResolution == 0)
+	{
+		sXOffset = -2;
+		sYOffset = -2;
+	}
+	else if (iResolution == 1)
+	{
+		sYOffset = -1;
+	}
+	else if (iResolution == 2)
+	{
+		sXOffset = 2;
+		sYOffset = 1;
+	}
 	
 	if( ExitLaptopDone( ) )
 	{
@@ -2478,8 +2515,8 @@ BOOLEAN LeaveLapTopScreen( void )
 			DstRect.iTop = iScreenHeightOffset + 0;			// 0
 			DstRect.iRight = iScreenWidthOffset + 640;		// 640
 			DstRect.iBottom = iScreenHeightOffset + 480;		// 480
-			iLaptopMonitorCenterX = SCREEN_WIDTH - 184 + 19;
-			iLaptopMonitorCenterY = SCREEN_HEIGHT - 70 + 16;
+			iLaptopMonitorCenterX = SCREEN_WIDTH - 184 + 19 + sXOffset;
+			iLaptopMonitorCenterY = SCREEN_HEIGHT - 70 + 16 + sYOffset;
 			uiTimeRange = 1000;
 			iPercentage = iRealPercentage = 100;
 			uiStartTime = GetJA2Clock();

@@ -497,6 +497,8 @@ void RestorePathAIToDefaults( void )
 ////////////////////////////////////////////////////////////////////////
 INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMovementMode, INT8 bCopy, UINT8 fFlags )
 {
+	//__try
+	//{
 	INT32 iDestination = sDestination, iOrigination;
 	INT32 iCnt=-1, iStructIndex;
 	INT32 iLoopStart = 0, iLoopEnd = 0;
@@ -2036,6 +2038,11 @@ ENDOFLOOP:
 	gubNPCAPBudget = 0;
 	gubNPCDistLimit = 0;
 	return(0);
+	//}
+	//__except(filter(GetExceptionCode(), GetExceptionInformation()))
+	//{
+	//	return (0);
+	//}
 }
 
 void GlobalReachableTest( INT16 sStartGridNo )
