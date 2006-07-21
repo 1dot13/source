@@ -1504,8 +1504,12 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 			default:
 				break;
 		}
+		
+		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"ExpControl pSoldier->fHitByGasFlags: %d", pSoldier->fHitByGasFlags );	
+
 		// a gas effect, take damage directly...
 		SoldierTakeDamage( pSoldier, ANIM_STAND, sWoundAmt, sBreathAmt, TAKE_DAMAGE_GAS, NOBODY, NOWHERE, 0, TRUE );
+
 		if ( pSoldier->bLife >= CONSCIOUSNESS )
 		{
 			DoMercBattleSound( pSoldier, (INT8)( BATTLE_SOUND_HIT1 + Random( 2 ) ) );

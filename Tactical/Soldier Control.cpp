@@ -2701,7 +2701,7 @@ void SetSoldierGridNo( SOLDIERTYPE *pSoldier, INT16 sNewGridNo, BOOLEAN fForceRe
 		}
 
     // are we now standing in tear gas without a decently working gas mask?
-    if ( GetSmokeEffectOnTile( sNewGridNo, pSoldier->bLevel ) )
+		if ( GetSmokeEffectOnTile( sNewGridNo, pSoldier->bLevel ) > 1 ) //lal: removed normal smoke 
 		{
 			BOOLEAN fSetGassed = TRUE;
 

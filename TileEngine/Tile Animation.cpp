@@ -490,7 +490,7 @@ void UpdateAniTiles( )
 		if ( (uiClock - pNode->uiTimeLastUpdate ) > (UINT32)pNode->sDelay && !( pNode->uiFlags & ANITILE_PAUSED ) )
 		{
 			pNode->uiTimeLastUpdate = GetJA2Clock( );
-					
+
 			if ( pNode->uiFlags & ( ANITILE_OPTIMIZEFORSLOWMOVING ) )
 			{
 				pNode->pLevelNode->uiFlags |= (LEVELNODE_DYNAMIC );
@@ -498,7 +498,7 @@ void UpdateAniTiles( )
 			}
 			else if ( pNode->uiFlags & ( ANITILE_OPTIMIZEFORSMOKEEFFECT ) )
 			{
-			//	pNode->pLevelNode->uiFlags |= LEVELNODE_DYNAMICZ;
+				//	pNode->pLevelNode->uiFlags |= LEVELNODE_DYNAMICZ;
 				ResetSpecificLayerOptimizing( TILES_DYNAMIC_STRUCTURES );
 				pNode->pLevelNode->uiFlags &= (~LEVELNODE_LASTDYNAMIC);
 				pNode->pLevelNode->uiFlags |= (LEVELNODE_DYNAMIC );
@@ -536,20 +536,20 @@ void UpdateAniTiles( )
 					{
 						switch( pNode->uiKeyFrame1Code )
 						{
-							case ANI_KEYFRAME_BEGIN_TRANSLUCENCY:
+						case ANI_KEYFRAME_BEGIN_TRANSLUCENCY:
 
-								pNode->pLevelNode->uiFlags |= LEVELNODE_REVEAL;
-								break;
+							pNode->pLevelNode->uiFlags |= LEVELNODE_REVEAL;
+							break;
 
-							case ANI_KEYFRAME_CHAIN_WATER_EXPLOSION:
-								
-								IgniteExplosion( pNode->ubUserData2, pNode->pLevelNode->sRelativeX, pNode->pLevelNode->sRelativeY, 0, pNode->sGridNo, (UINT16)( pNode->uiUserData ), 0 );
-								break;
+						case ANI_KEYFRAME_CHAIN_WATER_EXPLOSION:
 
-              case ANI_KEYFRAME_DO_SOUND:
+							IgniteExplosion( pNode->ubUserData2, pNode->pLevelNode->sRelativeX, pNode->pLevelNode->sRelativeY, 0, pNode->sGridNo, (UINT16)( pNode->uiUserData ), 0 );
+							break;
 
-                PlayJA2Sample( pNode->uiUserData, RATE_11025, SoundVolume( MIDVOLUME, (INT16)pNode->uiUserData3 ), 1, SoundDir( (INT16)pNode->uiUserData3 ) );			
-                break;
+						case ANI_KEYFRAME_DO_SOUND:
+
+							PlayJA2Sample( pNode->uiUserData, RATE_11025, SoundVolume( MIDVOLUME, (INT16)pNode->uiUserData3 ), 1, SoundDir( (INT16)pNode->uiUserData3 ) );			
+							break;
 						}
 
 					} 
@@ -557,29 +557,29 @@ void UpdateAniTiles( )
 					// CHECK IF WE SHOULD BE DISPLAYING TRANSLUCENTLY!
 					if ( pNode->sCurrentFrame == pNode->ubKeyFrame2 )
 					{
-            UINT8     ubExpType;
+						UINT8     ubExpType;
 
-           	switch( pNode->uiKeyFrame2Code )
+						switch( pNode->uiKeyFrame2Code )
 						{
-							case ANI_KEYFRAME_BEGIN_DAMAGE:
+						case ANI_KEYFRAME_BEGIN_DAMAGE:
 
-                ubExpType = Explosive[ Item[ (UINT16)pNode->uiUserData ].ubClassIndex ].ubType;
+							ubExpType = Explosive[ Item[ (UINT16)pNode->uiUserData ].ubClassIndex ].ubType;
 
-//              if ( ubExpType == EXPLOSV_TEARGAS || ubExpType == EXPLOSV_MUSTGAS || 
-//                   ubExpType == EXPLOSV_SMOKE )
-				if ( ubExpType == EXPLOSV_TEARGAS || ubExpType == EXPLOSV_MUSTGAS || 
-                   ubExpType == EXPLOSV_SMOKE || ubExpType == EXPLOSV_BURNABLEGAS )
-                {
-                  // Do sound....
-                  // PlayJA2Sample( AIR_ESCAPING_1, RATE_11025, SoundVolume( HIGHVOLUME, pNode->sGridNo ), 1, SoundDir( pNode->sGridNo ) );			
-		              NewSmokeEffect( pNode->sGridNo, (UINT16)pNode->uiUserData, gExplosionData[ pNode->uiUserData3 ].Params.bLevel, (UINT8)pNode->ubUserData2 );
-                }
-                else
-                {
-    							SpreadEffect( pNode->sGridNo, Explosive[ Item[ (UINT16)pNode->uiUserData ].ubClassIndex ].ubRadius, (UINT16)pNode->uiUserData, (UINT8)pNode->ubUserData2, FALSE, gExplosionData[ pNode->uiUserData3 ].Params.bLevel, -1 );
-                }
-								// Forfait any other animations this frame....
-								return;
+							//              if ( ubExpType == EXPLOSV_TEARGAS || ubExpType == EXPLOSV_MUSTGAS || 
+							//                   ubExpType == EXPLOSV_SMOKE )
+							if ( ubExpType == EXPLOSV_TEARGAS || ubExpType == EXPLOSV_MUSTGAS || 
+								ubExpType == EXPLOSV_SMOKE || ubExpType == EXPLOSV_BURNABLEGAS )
+							{
+								// Do sound....
+								// PlayJA2Sample( AIR_ESCAPING_1, RATE_11025, SoundVolume( HIGHVOLUME, pNode->sGridNo ), 1, SoundDir( pNode->sGridNo ) );			
+								NewSmokeEffect( pNode->sGridNo, (UINT16)pNode->uiUserData, gExplosionData[ pNode->uiUserData3 ].Params.bLevel, (UINT8)pNode->ubUserData2 );
+							}
+							else
+							{
+								SpreadEffect( pNode->sGridNo, Explosive[ Item[ (UINT16)pNode->uiUserData ].ubClassIndex ].ubRadius, (UINT16)pNode->uiUserData, (UINT8)pNode->ubUserData2, FALSE, gExplosionData[ pNode->uiUserData3 ].Params.bLevel, -1 );
+							}
+							// Forfait any other animations this frame....
+							return;
 						}
 
 					}
@@ -629,7 +629,7 @@ void UpdateAniTiles( )
 					}
 				}
 			}
-			
+
 			if ( pNode->uiFlags & ANITILE_BACKWARD )
 			{
 				if ( pNode->uiFlags & ANITILE_ERASEITEMFROMSAVEBUFFFER )
@@ -734,7 +734,7 @@ void UpdateAniTiles( )
 				}
 
 			}
-			
+
 		}
 		else
 		{

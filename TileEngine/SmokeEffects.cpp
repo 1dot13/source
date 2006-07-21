@@ -109,13 +109,13 @@ INT8 FromWorldFlagsToSmokeType( UINT8 ubWorldFlags )
 	{
 		return( MUSTARDGAS_SMOKE_EFFECT );
 	}
-	else if ( ubWorldFlags & MAPELEMENT_EXT_BURNABLEGAS )
-	{
-		return( BURNABLEGAS_SMOKE_EFFECT );
-	}
 	else if ( ubWorldFlags & MAPELEMENT_EXT_CREATUREGAS )
 	{
 		return( CREATURE_SMOKE_EFFECT );
+	}
+	else if ( ubWorldFlags & MAPELEMENT_EXT_BURNABLEGAS )
+	{
+		return( BURNABLEGAS_SMOKE_EFFECT );
 	}
 	else
 	{
