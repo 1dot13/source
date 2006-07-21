@@ -179,10 +179,13 @@ void EnvironmentController( BOOLEAN fCheckForLights )
 	  guiEnvWeather	&= (~WEATHER_FORECAST_THUNDERSHOWERS );
 	  guiEnvWeather	&= (~WEATHER_FORECAST_SHOWERS );
 
-		if ( guiRainLoop != NO_SAMPLE )
+		if (gGameSettings.fOptions[ TOPTION_RAIN_SOUND ] == TRUE)
 		{
-			SoundStop( guiRainLoop );
-			guiRainLoop = NO_SAMPLE;
+			if ( guiRainLoop != NO_SAMPLE )
+			{
+				SoundStop( guiRainLoop );
+				guiRainLoop = NO_SAMPLE;
+			}
 		}
 		return;
 	}
@@ -208,9 +211,13 @@ void EnvironmentController( BOOLEAN fCheckForLights )
 //#if 0 //rain
 			if ( guiEnvWeather & ( WEATHER_FORECAST_THUNDERSHOWERS | WEATHER_FORECAST_SHOWERS ) )
 			{
-				if ( guiRainLoop == NO_SAMPLE )
+
+				if (gGameSettings.fOptions[ TOPTION_RAIN_SOUND ] == TRUE)
 				{
-					guiRainLoop	= PlayJA2Ambient( RAIN_1, BTNVOLUME, 0 );
+					if ( guiRainLoop == NO_SAMPLE )
+					{
+						guiRainLoop	= PlayJA2Ambient( RAIN_1, BTNVOLUME, 0 );
+					}
 				}
 
 				// Do lightning if we want...
@@ -222,10 +229,13 @@ void EnvironmentController( BOOLEAN fCheckForLights )
 			}
 			else
 			{
-				if ( guiRainLoop != NO_SAMPLE )
+				if (gGameSettings.fOptions[ TOPTION_RAIN_SOUND ] == TRUE)
 				{
-					SoundStop( guiRainLoop );
-					guiRainLoop = NO_SAMPLE;
+					if ( guiRainLoop != NO_SAMPLE )
+					{
+						SoundStop( guiRainLoop );
+						guiRainLoop = NO_SAMPLE;
+					}
 				}
 			}
 //#endif //rain
@@ -362,10 +372,13 @@ void BuildDayAmbientSounds( )
 	//guiRainLoop = NO_SAMPLE;
 
 	//rain
-	if ( guiRainLoop != NO_SAMPLE )
+	if (gGameSettings.fOptions[ TOPTION_RAIN_SOUND ] == TRUE)
 	{
-		SoundStop( guiRainLoop );
-	guiRainLoop = NO_SAMPLE;
+		if ( guiRainLoop != NO_SAMPLE )
+		{
+			SoundStop( guiRainLoop );
+			guiRainLoop = NO_SAMPLE;
+		}
 	}
 	//end rain
 }

@@ -3227,6 +3227,7 @@ STR16 zOptionsToggleText[] =
 	L"Gegenstände mit Schatten",
 	L"Waffenreichweite in Felder",
 	L"Tracereffekte für Einzelschüsse",
+	L"Regengeräusche",
 };
 
 //This is the help text associated with the above toggles.
@@ -3292,15 +3293,16 @@ STR16 zOptionsScreenHelpText[] =
 	L"ANgeschaltet, wird der Bewegungs-Cursor in 3D angezeigt. ( |Home )",
 	
 	// Options for 1.13
-	L"Diese Funktion ANschalten, wenn die Trefferwahrscheinlichkeit am Cursor angezeigt werden soll.",
+	L"Wenn diese Funktion aktiviert ist, wird die Trefferwahrscheinlichkeit am Cursor angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, wird für einen GL Burst der Burst Cursor angezeigt.",
-	L"ANgeschaltet, lassen tote Gegner alle Gegenstände zurück am Boden.",
-	L"Wenn diese Funktion aktiviert ist, können Granatwerfer Granaten in höherem Winkel abfeuern.",
-	L"Wenn diese Funktion aktiviert ist, wird eine Zielgenauigkeit über 4 auf Gewehre und Scharfschützengewehre eingeschränkt.",
-	L"ANgeschaltet, selektiert |S|p|a|c|e automatisch die nächste Gruppe.",
+	L"Wenn diese Funktion aktiviert ist, lassen tote Gegner alle Gegenstände zurück am Boden.",
+	L"Wenn diese Funktion aktiviert ist, können Granatwerfer Granaten in höherem Winkel abfeuern (|Q).",
+	L"Wenn diese Funktion aktiviert ist, kann die Zielgenauigkeit von Gewehre und Scharfschützengewehre über 4 gesteigert werden.",
+	L"Wenn diese Funktion aktiviert ist, selektiert |S|p|a|c|e automatisch die nächste Gruppe.",
 	L"Wenn diese Funktion aktiviert ist, wird der Schatten von Gegenständen angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, werden Waffenreichweiten in Feldern angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, wird Tracereffekt auch für Einzelschüsse angezeigt.",
+	L"Wenn diese Funktion aktiviert ist, werden Regengeräusche hörbar.",
 };
 
 STR16 gzGIOScreenText[] =

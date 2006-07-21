@@ -3399,6 +3399,16 @@ STR16		zOptionsToggleText[] =
 	L"Afficher cimes",
 	L"Affichage fil de fer",
 	L"Curseur 3D",
+	L"Show Chance to Hit on cursor",
+	L"GL Burst uses Burst cursor",
+	L"Enemies Drop all Items",
+	L"High angle Grenade launching",
+	L"Restrict extra Aim Levels",
+	L"Space selects next Squad",
+	L"Show Item Shadow",
+	L"Show Weapon Ranges in Tiles",
+	L"Tracer effect for single shot",
+	L"Rain noises",
 };
 
 //This is the help text associated with the above toggles.
@@ -3462,6 +3472,18 @@ STR16	zOptionsScreenHelpText[] =
 	L"Activez cette option pour afficher les murs en fil de fer.",
 
 	L"Activez cette option pour afficher le curseur en 3D. ( |Home )",
+
+	// Options for 1.13
+	L"When ON, the chance to hit is shown on the cursor.",
+	L"When ON, GL burst uses burst cursor.",
+	L"When ON, dead enemies drop all items.",
+	L"When ON, grenade launchers fire grenades at higher angles (|Q).",
+	L"When ON, aim levels beyond 4 are restricted to rifles and sniper rifles.",
+	L"When ON, |S|p|a|c|e selects next squad automatically.",
+	L"When ON, item shadows will be shown.",
+	L"When ON, weapon ranges will be shown in tiles.",
+	L"When ON, tracer effect will be shown for single shots.",
+	L"When ON, rain noises will be activated.",
 
 };
 

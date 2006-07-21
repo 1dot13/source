@@ -15,7 +15,7 @@
 
 STR16	zNewTacticalMessages[]=
 {
-	L"Entfernung zum Ziel: %d Felder",
+	L"Entfernung zum Ziel: %d Felder, Helligkeit = %d/%d",
 	L"Verbinden Sie den Transmitter mit Ihrem Laptop-Computer.",
 	L"Sie haben nicht genug Geld, um %s anzuheuern",
 	L"Das obenstehende Honorar deckt für einen begrenzten Zeitraum die Kosten der Gesamtmission, und schließt untenstehendes Equipment mit ein.",

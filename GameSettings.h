@@ -49,7 +49,9 @@ enum
 	TOPTION_SHOW_ITEM_SHADOW,
 	TOPTION_SHOW_WEAPON_RANGE_IN_TILES,
 	TOPTION_TRACERS_FOR_SINGLE_FIRE,
+	TOPTION_RAIN_SOUND,
 	NUM_GAME_OPTIONS,				//Toggle up this will be able to be Toggled by the player
+	
 
 	//These options will NOT be toggable by the Player
 	TOPTION_MERC_CASTS_LIGHT = NUM_GAME_OPTIONS,

@@ -3421,6 +3421,7 @@ STR16		zOptionsToggleText[] =
 	L"Show Item Shadow",
 	L"Show Weapon Ranges in Tiles",
 	L"Tracer effect for single shot",
+	L"Rain noises",
 };
 
 //This is the help text associated with the above toggles.
@@ -3489,12 +3490,13 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, the chance to hit is shown on the cursor.",
 	L"When ON, GL burst uses burst cursor.",
 	L"When ON, dead enemies drop all items.",
-	L"When ON, grenade launchers fire grenades at higher angles.",
+	L"When ON, grenade launchers fire grenades at higher angles (|Q).",
 	L"When ON, aim levels beyond 4 are restricted to rifles and sniper rifles.",
 	L"When ON, |S|p|a|c|e selects next squad automatically.",
 	L"When ON, item shadows will be shown.",
 	L"When ON, weapon ranges will be shown in tiles.",
 	L"When ON, tracer effect will be shown for single shots.",
+	L"When ON, rain noises will be activated.",
 };
 
 
