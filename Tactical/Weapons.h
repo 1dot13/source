@@ -291,16 +291,16 @@ typedef struct
 
 typedef struct
 {
-	UINT8		ubType;					// type of explosive
-	UINT8		ubDamage;				// damage value
-	UINT8		ubStunDamage;		// stun amount / 100
-	UINT8		ubRadius;				// radius of effect
-	UINT8		ubVolume;				// sound radius of explosion
-	UINT8		ubVolatility;		// maximum chance of accidental explosion
-	UINT8		ubAnimationID;	// Animation enum to use
+	UINT16		ubType;					// type of explosive
+	UINT16		ubDamage;				// damage value
+	UINT16		ubStunDamage;		// stun amount / 100
+	UINT16		ubRadius;				// radius of effect
+	UINT16		ubVolume;				// sound radius of explosion
+	UINT16		ubVolatility;		// maximum chance of accidental explosion
+	UINT16		ubAnimationID;	// Animation enum to use
 	UINT32		uiIndex;
-	UINT8		ubDuration;	
-	UINT8		ubStartRadius;	
+	UINT16		ubDuration;	
+	UINT16		ubStartRadius;	
 } EXPLOSIVETYPE;
 
 //GLOBALS
