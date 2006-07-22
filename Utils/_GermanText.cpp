@@ -3302,7 +3302,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, wird der Schatten von Gegenständen angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, werden Waffenreichweiten in Feldern angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, wird Tracereffekt auch für Einzelschüsse angezeigt.",
-	L"Wenn diese Funktion aktiviert ist, werden Regengeräusche hörbar.",
+	L"Wenn diese Funktion aktiviert ist, werden Regengeräusche hörbar falls es regnet.",
 };
 
 STR16 gzGIOScreenText[] =

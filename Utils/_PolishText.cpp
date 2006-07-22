@@ -3476,7 +3476,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, item shadows will be shown.",
 	L"When ON, weapon ranges will be shown in tiles.",
 	L"When ON, tracer effect will be shown for single shots.",
-	L"When ON, rain noises will be activated.",
+	L"When ON, you will hear rain noises when it is raining.",
 
 };
 
