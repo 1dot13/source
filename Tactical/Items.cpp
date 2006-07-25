@@ -7164,12 +7164,13 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier)
 	{
 		iScopeBonus = ( (float)gGameExternalOptions.ubStraightSightRange * GetMinRangeForAimBonus(&obj) / 100 );
 
-		if (  iScopeBonus >= ( (float)gGameExternalOptions.ubStraightSightRange * 0.3) ) // >= 30% of sight range (~4 tiles by default)
+		if ( iScopeBonus >= ( (float)gGameExternalOptions.ubStraightSightRange * 0.3) ) // >= 30% of sight range (~4 tiles by default)
 		{
 			aimLevels += 2;
 		}
-		
-		if ( iScopeBonus >= ( (float)gGameExternalOptions.ubStraightSightRange * 0.6) ) // >= 60% of sight range (~9 tiles by default)
+
+		//Madd: nerfing semi-auto sniper rifles and forcing players to use bolt action sniper rifles for the extra aiming APs
+		if ( iScopeBonus >= ( (float)gGameExternalOptions.ubStraightSightRange * 0.6) && Weapon[obj.usItem].APsToReloadManually > 0 ) // >= 60% of sight range (~9 tiles by default)
 		{			
 			aimLevels += 2;
 		}
