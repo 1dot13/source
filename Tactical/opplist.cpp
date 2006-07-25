@@ -312,7 +312,7 @@ INT16 AdjustMaxSightRangeForEnvEffects( SOLDIERTYPE *pSoldier, INT8 bLightLevel,
 	{
 		//sNewDist = sNewDist * 70 / 100;
 		//rain
-		sNewDist = sNewDist * ( 100 - gGameExternalOptions.ubVisDistDecreasePerRainIntensity * gbCurrentRainIntensity ) / 100;
+		sNewDist = sNewDist * ( 100 - min( gGameExternalOptions.ubVisDistDecreasePerRainIntensity * gbCurrentRainIntensity, 100) ) / 100;
 		//end rain
 	}
 	
