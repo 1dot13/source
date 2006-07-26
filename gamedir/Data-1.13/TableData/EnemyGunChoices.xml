@@ -542,7 +542,7 @@
 	</ENEMYGUNCHOICES>
 	<ENEMYGUNCHOICES>
 		<uiIndex>10</uiIndex>
-		<ubChoices>17</ubChoices>
+		<ubChoices>16</ubChoices>
 		<bItemNo1>639</bItemNo1>
 		<bItemNo2>750</bItemNo2>
 		<bItemNo3>751</bItemNo3>
@@ -557,9 +557,9 @@
 		<bItemNo12>55</bItemNo12>
 		<bItemNo13>699</bItemNo13>
 		<bItemNo14>65</bItemNo14>
-		<bItemNo15>620</bItemNo15>
+		<bItemNo15>640</bItemNo15>
 		<bItemNo16>618</bItemNo16>
-		<bItemNo17>640</bItemNo17>
+		<bItemNo17>-1</bItemNo17>
 		<bItemNo18>-1</bItemNo18>
 		<bItemNo19>-1</bItemNo19>
 		<bItemNo20>-1</bItemNo20>
