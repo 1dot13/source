@@ -1849,7 +1849,7 @@
 		<ubBulletSpeed>30</ubBulletSpeed>
 		<ubImpact>80</ubImpact>
 		<ubDeadliness>80</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
+		<bAccuracy>2</bAccuracy>
 		<ubMagSize>1</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -1865,7 +1865,7 @@
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>0</APsToReload>
-		<SwapClips>1</SwapClips>
+		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
@@ -9733,7 +9733,7 @@
 		<ubBulletSpeed>30</ubBulletSpeed>
 		<ubImpact>80</ubImpact>
 		<ubDeadliness>90</ubDeadliness>
-		<bAccuracy>1</bAccuracy>
+		<bAccuracy>2</bAccuracy>
 		<ubMagSize>1</ubMagSize>
 		<usRange>500</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -9749,7 +9749,7 @@
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>10</APsToReload>
-		<SwapClips>1</SwapClips>
+		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>10</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
@@ -9769,7 +9769,7 @@
 		<ubBulletSpeed>30</ubBulletSpeed>
 		<ubImpact>80</ubImpact>
 		<ubDeadliness>100</ubDeadliness>
-		<bAccuracy>2</bAccuracy>
+		<bAccuracy>4</bAccuracy>
 		<ubMagSize>1</ubMagSize>
 		<usRange>550</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -9785,7 +9785,7 @@
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>10</APsToReload>
-		<SwapClips>1</SwapClips>
+		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>11</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
@@ -9804,10 +9804,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>30</ubBulletSpeed>
 		<ubImpact>100</ubImpact>
-		<ubDeadliness>110</ubDeadliness>
+		<ubDeadliness>100</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>1</ubMagSize>
-		<usRange>600</usRange>
+		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -9820,9 +9820,9 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>10</APsToReload>
-		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>12</MaxDistForMessyDeath>
+		<APsToReload>0</APsToReload>
+		<SwapClips>0</SwapClips>
+		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -9839,11 +9839,11 @@
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>30</ubBulletSpeed>
-		<ubImpact>100</ubImpact>
-		<ubDeadliness>120</ubDeadliness>
+		<ubImpact>120</ubImpact>
+		<ubDeadliness>110</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>1</ubMagSize>
-		<usRange>650</usRange>
+		<usRange>450</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -9856,9 +9856,9 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>10</APsToReload>
-		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>13</MaxDistForMessyDeath>
+		<APsToReload>0</APsToReload>
+		<SwapClips>0</SwapClips>
+		<MaxDistForMessyDeath>9</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
@@ -9875,9 +9875,9 @@
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>30</ubBulletSpeed>
-		<ubImpact>80</ubImpact>
+		<ubImpact>140</ubImpact>
 		<ubDeadliness>120</ubDeadliness>
-		<bAccuracy>4</bAccuracy>
+		<bAccuracy>8</bAccuracy>
 		<ubMagSize>1</ubMagSize>
 		<usRange>500</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -9893,7 +9893,7 @@
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>0</APsToReload>
-		<SwapClips>1</SwapClips>
+		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>10</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
