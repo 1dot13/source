@@ -61,6 +61,18 @@
 		<ubDegradePercent>20</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
+		<uiIndex>10</uiIndex>
+		<ubArmourClass>2</ubArmourClass>
+		<ubProtection>19</ubProtection>
+		<ubDegradePercent>15</ubDegradePercent>
+	</ARMOUR>
+	<ARMOUR>
+		<uiIndex>11</uiIndex>
+		<ubArmourClass>2</ubArmourClass>
+		<ubProtection>24</ubProtection>
+		<ubDegradePercent>10</ubDegradePercent>
+	</ARMOUR>
+	<ARMOUR>
 		<uiIndex>12</uiIndex>
 		<ubArmourClass>2</ubArmourClass>
 		<ubProtection>30</ubProtection>
