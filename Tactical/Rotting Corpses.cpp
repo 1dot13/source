@@ -705,6 +705,11 @@ BOOLEAN CreateCorpsePalette( ROTTING_CORPSE *pCorpse )
 		strcpy( zColFilename, "ANIMS\\camo.COL" );
 		bBodyTypePalette = 1;
 	}
+  else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_STEALTH_PALETTE )
+	{
+		strcpy( zColFilename, "ANIMS\\stealth.col" );
+		bBodyTypePalette = 1;
+	}
 
 	if ( bBodyTypePalette == -1  )
 	{
@@ -790,7 +795,11 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	SET_PALETTEREP_ID ( Corpse.SkinPal,		pSoldier->SkinPal );
 	SET_PALETTEREP_ID ( Corpse.PantsPal,   pSoldier->PantsPal );
 
-	if ( pSoldier->bCamo != 0 )
+	if ( GetWornStealth(pSoldier) >= 50 )
+	{
+		Corpse.usFlags |= ROTTING_CORPSE_USE_STEALTH_PALETTE;
+	}
+	else if ( pSoldier->bCamo >= 50 )
 	{
 		Corpse.usFlags |= ROTTING_CORPSE_USE_CAMMO_PALETTE;
 	}

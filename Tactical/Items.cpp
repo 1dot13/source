@@ -7086,14 +7086,16 @@ void ApplyEquipmentBonuses(SOLDIERTYPE * pSoldier)
 	if ( oldCamo != newCamo )
 	{	
 		pSoldier->wornCamo = newCamo;
-		if ( pSoldier->bInSector)
-			CreateSoldierPalettes( pSoldier );
-
-		fInterfacePanelDirty = DIRTYLEVEL2;
 
 		if ( newCamo > oldCamo && pSoldier->bTeam == OUR_TEAM )
 			DoMercBattleSound( pSoldier, BATTLE_SOUND_COOL1 );
 	}
+
+	//Madd: do this regardless of camo.  This will need to be called to do custom part colours and new overlays anyway.
+	if ( pSoldier->bInSector)
+		CreateSoldierPalettes( pSoldier );
+
+	fInterfacePanelDirty = DIRTYLEVEL2;
 }
 
 UINT16 GetFirstExplosiveOfType(UINT16 expType)
