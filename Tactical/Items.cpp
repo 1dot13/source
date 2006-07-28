@@ -3711,8 +3711,6 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 		UpdateRobotControllerGivenController( pSoldier );
 	}
 	
-	ApplyEquipmentBonuses(pSoldier);
-
 	return( TRUE );
 }
 

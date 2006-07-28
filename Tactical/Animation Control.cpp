@@ -3212,7 +3212,7 @@ INT8	GetBodyTypePaletteSubstitutionCode( SOLDIERTYPE *pSoldier, UINT8 ubBodyType
 				// Check for cammo...
 				if ( GetWornStealth(pSoldier) >= 50 )
 				{
-					strcpy( zColFilename, "ANIMS\\steath.col" );
+					strcpy( zColFilename, "ANIMS\\stealth.col" );
 					return( 1 );
 				}
 				else if ( ( pSoldier->bCamo + pSoldier->wornCamo ) >= 50 )
