@@ -1221,6 +1221,9 @@ STRUCTURE * FindStructure( INT16 sGridNo, UINT32 fFlags )
 { // finds a structure that matches any of the given flags
 	STRUCTURE * pCurrent;
 
+	if( sGridNo > WORLD_MAX-1 ) 
+		return( NULL );
+
 	pCurrent =  gpWorldLevelData[sGridNo].pStructureHead;
 	while (pCurrent != NULL)
 	{
