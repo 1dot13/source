@@ -2803,7 +2803,8 @@ void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 s
 	if ( EXPLOSIVE_GUN( usWeaponIndex ) )
 	{
 		// Reduce attacker count!
-             // marke test mag ammo type: pSoldier->inv[pSoldier->ubAttackingHand ].ubGunAmmoType
+		//TODO: Madd --- I don't think this code will ever get called for the HE ammo -- the EXPLOSIVE_GUN check filters out regular guns 
+		// marke test mag ammo type: pSoldier->inv[pSoldier->ubAttackingHand ].ubGunAmmoType
                 // 2cond 'or' added
 		if ( Item[usWeaponIndex].rocketlauncher || AmmoTypes[pSoldier->inv[pSoldier->ubAttackingHand ].ubGunAmmoType].explosionSize > 1 )
 		{
@@ -2814,7 +2815,7 @@ void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 s
 			// changed rpg type to work only with two flags matching
 			else if ( !Item[usWeaponIndex].singleshotrocketlauncher && Item[usWeaponIndex].rocketlauncher)
 			{
-				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("StructureHit: RPG7 item: %d, Ammo: %d",pSoldier->inv[HANDPOS].usItem , pSoldier->inv[HANDPOS].usGunAmmoItem ) );
+				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("WeaponHit: RPG7 item: %d, Ammo: %d",pSoldier->inv[HANDPOS].usItem , pSoldier->inv[HANDPOS].usGunAmmoItem ) );
 				
 				IgniteExplosion( ubAttackerID, sXPos, sYPos, 0, (INT16) (GETWORLDINDEXFROMWORLDCOORDS( sYPos, sXPos )), pSoldier->inv[pSoldier->ubAttackingHand ].usGunAmmoItem, pTargetSoldier->bLevel );
 				pSoldier->inv[pSoldier->ubAttackingHand ].usGunAmmoItem = NONE;
