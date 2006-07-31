@@ -2922,9 +2922,9 @@ INT8 FindAmmoToReload( SOLDIERTYPE * pSoldier, INT8 bWeaponIn, INT8 bExcludeSlot
 
 BOOLEAN AutoReload( SOLDIERTYPE * pSoldier )
 {
-	OBJECTTYPE *	pObj;
-	INT8					bSlot, bAPCost;
-	BOOLEAN				fRet;
+	OBJECTTYPE *pObj, *pObj2;
+	INT8		bSlot, bAPCost;
+	BOOLEAN		fRet;
 
 	CHECKF( pSoldier );
 	pObj = &(pSoldier->inv[HANDPOS]);
@@ -2938,7 +2938,36 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier )
 
 		PlayJA2Sample( Weapon[ Item[pObj->usItem].ubClassIndex ].ManualReloadSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 
+		if ( IsValidSecondHandShot( pSoldier ) )
+		{
+			pObj2 = &(pSoldier->inv[SECONDHANDPOS]);
+
+			if (pObj2->ubGunShotsLeft && !(pObj2->ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
+			{				
+				pObj2->ubGunState |= GS_CARTRIDGE_IN_CHAMBER;
+				PlayJA2Sample( Weapon[ Item[pObj2->usItem].ubClassIndex ].ManualReloadSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+			}
+		}
+
 		return TRUE;
+	}
+	else
+	{
+		if ( IsValidSecondHandShot( pSoldier ) )
+		{
+			pObj2 = &(pSoldier->inv[SECONDHANDPOS]);
+
+			if (pObj2->ubGunShotsLeft && !(pObj2->ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
+			{
+				pObj2->ubGunState |= GS_CARTRIDGE_IN_CHAMBER;
+
+				DeductPoints(pSoldier, Weapon[Item[(pObj2)->usItem].ubClassIndex].APsToReloadManually, 0);
+
+				PlayJA2Sample( Weapon[ Item[pObj2->usItem].ubClassIndex ].ManualReloadSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+
+				return TRUE;
+			}
+		}
 	}
 //</SB>
 

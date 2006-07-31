@@ -1871,7 +1871,7 @@ INT8 TryToReload( SOLDIERTYPE * pSoldier )
 {
 	INT8		bSlot;
 	WEAPONTYPE *pWeapon;
-	OBJECTTYPE *pObj;
+	OBJECTTYPE *pObj, *pObj2;
 
 	pWeapon = &(Weapon[pSoldier->inv[HANDPOS].usItem]);
 	bSlot = FindAmmo( pSoldier, pWeapon->ubCalibre, pWeapon->ubMagSize, NO_SLOT );
@@ -1894,7 +1894,38 @@ INT8 TryToReload( SOLDIERTYPE * pSoldier )
 		DeductPoints(pSoldier, Weapon[Item[(pObj)->usItem].ubClassIndex].APsToReloadManually, 0);
 		
 		PlayJA2Sample( Weapon[ Item[pObj->usItem].ubClassIndex ].ManualReloadSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+		
+
+		if ( IsValidSecondHandShot( pSoldier ) )
+		{
+			pObj2 = &(pSoldier->inv[SECONDHANDPOS]);
+
+			if (pObj2->ubGunShotsLeft && !(pObj2->ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
+			{				
+				pObj2->ubGunState |= GS_CARTRIDGE_IN_CHAMBER;
+				PlayJA2Sample( Weapon[ Item[pObj2->usItem].ubClassIndex ].ManualReloadSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+			}
+		}
+		
 		return TRUE;
+	}
+	else
+	{
+		if ( IsValidSecondHandShot( pSoldier ) )
+		{
+			pObj2 = &(pSoldier->inv[SECONDHANDPOS]);
+
+			if (pObj2->ubGunShotsLeft && !(pObj2->ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
+			{
+				pObj2->ubGunState |= GS_CARTRIDGE_IN_CHAMBER;
+				
+				DeductPoints(pSoldier, Weapon[Item[(pObj2)->usItem].ubClassIndex].APsToReloadManually, 0);
+
+				PlayJA2Sample( Weapon[ Item[pObj2->usItem].ubClassIndex ].ManualReloadSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
+				
+				return TRUE;
+			}
+		}
 	}
 //</SB>
 

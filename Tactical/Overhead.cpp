@@ -1658,9 +1658,9 @@ BOOLEAN ExecuteOverhead( )
 			if ( ( GetJA2Clock( ) - guiWaitingForAllMercsToExitTimer ) > 2500 )
 			{
 				// OK, set num waiting to 0 
-				#ifdef JA2BETAVERSION
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_DEBUG, L"Waiting too long for Mercs to exit...forcing entry." );
-				#endif
+#ifdef JA2BETAVERSION
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_DEBUG, L"Waiting too long for Mercs to exit...forcing entry." );
+#endif
 				gbNumMercsUntilWaitingOver = 0;
 
 				// Reset all waitng codes
@@ -1674,6 +1674,7 @@ BOOLEAN ExecuteOverhead( )
 				}
 
 			}
+		}
 
 			if ( gbNumMercsUntilWaitingOver == 0 )
 			{
@@ -1684,36 +1685,36 @@ BOOLEAN ExecuteOverhead( )
 				// OK cheif, do something here....
 				switch( gubWaitingForAllMercsToExitCode )
 				{
-					case WAIT_FOR_MERCS_TO_WALKOFF_SCREEN:
+				case WAIT_FOR_MERCS_TO_WALKOFF_SCREEN:
 
-            if ( ( gTacticalStatus.ubCurrentTeam == gbPlayerNum ) )
-            {
-						  guiPendingOverrideEvent = LU_ENDUILOCK;
-						  HandleTacticalUI( );
-            }
-						AllMercsHaveWalkedOffSector( );
-						break;
+					if ( ( gTacticalStatus.ubCurrentTeam == gbPlayerNum ) )
+					{
+						guiPendingOverrideEvent = LU_ENDUILOCK;
+						HandleTacticalUI( );
+					}
+					AllMercsHaveWalkedOffSector( );
+					break;
 
-					case WAIT_FOR_MERCS_TO_WALKON_SCREEN:
+				case WAIT_FOR_MERCS_TO_WALKON_SCREEN:
 
-						// OK, unset UI
-            if ( ( gTacticalStatus.ubCurrentTeam == gbPlayerNum ) )
-            {
-						  guiPendingOverrideEvent = LU_ENDUILOCK;
-						  HandleTacticalUI( );
-            }
-						break;
+					// OK, unset UI
+					if ( ( gTacticalStatus.ubCurrentTeam == gbPlayerNum ) )
+					{
+						guiPendingOverrideEvent = LU_ENDUILOCK;
+						HandleTacticalUI( );
+					}
+					break;
 
-					case WAIT_FOR_MERCS_TO_WALK_TO_GRIDNO:
+				case WAIT_FOR_MERCS_TO_WALK_TO_GRIDNO:
 
-						// OK, unset UI
-            if ( ( gTacticalStatus.ubCurrentTeam == gbPlayerNum ) )
-            {
-						  guiPendingOverrideEvent = LU_ENDUILOCK;
-						  HandleTacticalUI( );
-            }
-						AllMercsWalkedToExitGrid( );
-						break;
+					// OK, unset UI
+					if ( ( gTacticalStatus.ubCurrentTeam == gbPlayerNum ) )
+					{
+						guiPendingOverrideEvent = LU_ENDUILOCK;
+						HandleTacticalUI( );
+					}
+					AllMercsWalkedToExitGrid( );
+					break;
 
 				}
 
@@ -1723,8 +1724,8 @@ BOOLEAN ExecuteOverhead( )
 				gubWaitingForAllMercsToExitCode = 0;
 			}
 		}
-	}
 	
+
 	// reset these AI-related global variables to 0 to ensure they don't interfere with the UI
 	gubNPCAPBudget = 0;
 	gubNPCDistLimit = 0;

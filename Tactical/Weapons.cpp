@@ -1606,10 +1606,16 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 		OBJECTTYPE * pInHand;
 		pInHand = &(pSoldier->inv[pSoldier->ubAttackingHand]);
 		UINT32 item;
-		item = FindRangeBonusAttachment(pInHand);
-		bAttachPos = FindAttachment( pInHand, item );
+		//item = FindRangeBonusAttachment(pInHand);
+		//bAttachPos = FindAttachment( pInHand, item );
+
+		// lalien: search for barrel extender not for any item with range bonus. (else barrel extender will fall off even when none is attached)
+		bAttachPos = FindAttachment( pInHand, GUN_BARREL_EXTENDER );
+
 		if ( bAttachPos != ITEM_NOT_FOUND )
 		{
+			item = Item[pInHand->usAttachItem[bAttachPos]].uiIndex;
+
 			// reduce status and see if it falls off
 			pInHand->bAttachStatus[ bAttachPos ] -= (INT8) Random( 2 );
 
