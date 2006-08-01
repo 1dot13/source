@@ -4432,32 +4432,32 @@ UINT16 DefaultMagazine( UINT16 usItem )
 
 UINT16 FindReplacementMagazine( UINT8 ubCalibre, UINT8 ubMagSize, UINT8 ubAmmoType )
 {
-	UINT8 ubLoop;
+	UINT16 usLoop;
 	UINT16 usDefault;
 	
-	ubLoop = 0;
+	usLoop = 0;
 	usDefault = NOTHING;
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FindReplacementMagazine: calibre = %d, Mag size = %d, ammo type = %d",ubCalibre,ubMagSize,ubAmmoType));
 
-	while ( Magazine[ubLoop].ubCalibre != NOAMMO )
+	while ( Magazine[usLoop].ubCalibre != NOAMMO )
 	{
-		if (Magazine[ubLoop].ubCalibre == ubCalibre &&
-				Magazine[ubLoop].ubMagSize == ubMagSize )
+		if (Magazine[usLoop].ubCalibre == ubCalibre &&
+				Magazine[usLoop].ubMagSize == ubMagSize )
 		{
-			if ( Magazine[ubLoop].ubAmmoType == ubAmmoType )
+			if ( Magazine[usLoop].ubAmmoType == ubAmmoType )
 			{
-				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FindReplacementMagazine: returning item = %d",MagazineClassIndexToItemType( ubLoop )));
-				return( MagazineClassIndexToItemType( ubLoop ) );
+				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FindReplacementMagazine: returning item = %d",MagazineClassIndexToItemType( usLoop )));
+				return( MagazineClassIndexToItemType( usLoop ) );
 			}
 			else if ( usDefault == NOTHING )
 			{
 				// store this one to use if all else fails
-				usDefault = MagazineClassIndexToItemType( ubLoop );
+				usDefault = MagazineClassIndexToItemType( usLoop );
 			}
 			
 		}
 
-		ubLoop++;
+		usLoop++;
 	}
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FindReplacementMagazine: returning default item = %d",usDefault));
