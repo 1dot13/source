@@ -2445,7 +2445,10 @@ INT32 HandleBulletStructureInteraction( BULLET * pBullet, STRUCTURE * pStructure
  
 		// Does it have a lock?
 		INT16 lockBustingPower = AmmoTypes[pBullet->pFirer->inv[ pBullet->pFirer->ubAttackingHand ].ubGunAmmoType].lockBustingPower;
-		if ( pDoor && (( LockTable[ pDoor->ubLockID ].ubPickDifficulty < 50 && LockTable[ pDoor->ubLockID ].ubSmashDifficulty < 70 ) || lockBustingPower >= LockTable[ pDoor->ubLockID ].ubSmashDifficulty ) )
+
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Door info: damage = %d, pick difficulty = %d, smash difficulty = %d, lockbuster power = %d",pDoor->bLockDamage,LockTable[ pDoor->ubLockID ].ubPickDifficulty,LockTable[ pDoor->ubLockID ].ubSmashDifficulty,lockBustingPower) );
+
+		if ( pDoor && (( LockTable[ pDoor->ubLockID ].ubPickDifficulty < 50 && LockTable[ pDoor->ubLockID ].ubSmashDifficulty < 70 ) || lockBustingPower*2 >= LockTable[ pDoor->ubLockID ].ubSmashDifficulty ) )
 		{
 			// Yup.....
 
@@ -2454,15 +2457,22 @@ INT32 HandleBulletStructureInteraction( BULLET * pBullet, STRUCTURE * pStructure
 			{
 				// Adjust damage-- CC adjust this based on gun type, etc.....
 				//sLockDamage = (INT16)( 35 + Random( 35 ) );
-				sLockDamage = (INT16) (pBullet->iImpact - pBullet->iImpactReduction + lockBustingPower);
+				sLockDamage = (INT16) (pBullet->iImpact - pBullet->iImpactReduction );
 				sLockDamage += (INT16) PreRandom( sLockDamage );
-				
+				sLockDamage += lockBustingPower;
+
+				sLockDamage = min(sLockDamage,127);
+
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ LOCK_HAS_BEEN_HIT ] );
 
-				pDoor->bLockDamage+= sLockDamage;
+				//Madd: catch the overflow
+				if ( sLockDamage + pDoor->bLockDamage > 127 )
+					pDoor->bLockDamage = 127;
+				else
+					pDoor->bLockDamage+= sLockDamage;
 
 				// Check if it has been shot!
-				if ( pDoor->bLockDamage > LockTable[ pDoor->ubLockID ].ubSmashDifficulty )
+				if ( pDoor->bLockDamage > LockTable[ pDoor->ubLockID ].ubSmashDifficulty || sLockDamage > LockTable[ pDoor->ubLockID ].ubSmashDifficulty )
 				{
 					// Display message!
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ LOCK_HAS_BEEN_DESTROYED ] );
