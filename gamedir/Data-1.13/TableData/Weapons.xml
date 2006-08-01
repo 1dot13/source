@@ -2734,7 +2734,7 @@
 		<AutoPenalty>10</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0.375</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>331</uiIndex>
@@ -2770,7 +2770,7 @@
 		<AutoPenalty>7</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>2.66666666666667</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>332</uiIndex>
@@ -2806,7 +2806,7 @@
 		<AutoPenalty>8</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>2.66666666666667</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>333</uiIndex>
@@ -2842,7 +2842,7 @@
 		<AutoPenalty>11</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>2.66666666666667</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>334</uiIndex>
@@ -2878,7 +2878,7 @@
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>5.04166666666667</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>335</uiIndex>
@@ -2914,7 +2914,7 @@
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>6</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>336</uiIndex>
@@ -2950,7 +2950,7 @@
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>337</uiIndex>
@@ -2986,7 +2986,7 @@
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>338</uiIndex>
@@ -3022,7 +3022,7 @@
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>339</uiIndex>
@@ -3058,7 +3058,7 @@
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>340</uiIndex>
@@ -3094,7 +3094,7 @@
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>3.375</ManualReloadSound>
+		<ManualReloadSound>481</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>341</uiIndex>
@@ -3130,7 +3130,7 @@
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>3.375</ManualReloadSound>
+		<ManualReloadSound>481</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>342</uiIndex>
@@ -3166,7 +3166,7 @@
 		<AutoPenalty>9</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>1.04166666666667</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>343</uiIndex>
@@ -3202,7 +3202,7 @@
 		<AutoPenalty>9</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>1.5</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>344</uiIndex>
@@ -3238,7 +3238,7 @@
 		<AutoPenalty>8</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>3.375</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>345</uiIndex>
@@ -3274,7 +3274,7 @@
 		<AutoPenalty>8</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>2.66666666666667</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>346</uiIndex>
@@ -3310,7 +3310,7 @@
 		<AutoPenalty>8</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>2.66666666666667</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>347</uiIndex>
@@ -3346,7 +3346,7 @@
 		<AutoPenalty>8</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>3.375</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>348</uiIndex>
@@ -3382,7 +3382,7 @@
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>3.375</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>349</uiIndex>
@@ -3418,7 +3418,7 @@
 		<AutoPenalty>11</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0.666666666666667</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>350</uiIndex>
@@ -3454,7 +3454,7 @@
 		<AutoPenalty>8</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>3.375</ManualReloadSound>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>596</uiIndex>
