@@ -803,7 +803,7 @@
 		<monsterSpit>0</monsterSpit>
 		<acidic>0</acidic>
 		<ignoreArmour>0</ignoreArmour>
-		<lockBustingPower>75</lockBustingPower>
+		<lockBustingPower>100</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
