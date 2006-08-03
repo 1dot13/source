@@ -1612,7 +1612,20 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 		}
 	}
 
-	if ( ( pEndSoldier->bCamo + pEndSoldier->wornCamo ) > 0 && !bAware )
+	//get the total camouflage
+	float jungle = (float)(pEndSoldier->bCamo + pEndSoldier->wornCamo);
+	float urban = (float)(pEndSoldier->urbanCamo + pEndSoldier->wornUrbanCamo);
+	float desert = (float)(pEndSoldier->desertCamo + pEndSoldier->wornDesertCamo);
+	float snow = (float)(pEndSoldier->snowCamo + pEndSoldier->wornSnowCamo);
+	int totalCamo = (int)(jungle + urban + desert + snow);
+
+	//get the percentage of each type
+	jungle = jungle / totalCamo;
+	urban = urban / totalCamo;
+	desert = desert / totalCamo;
+	snow = snow / totalCamo;
+
+	if ( ( totalCamo ) > 0 && !bAware )
 	{
 
 		// reduce effects of camo of 5% per tile moved last turn
@@ -1622,25 +1635,40 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 		}
 		else
 		{
-			bEffectiveCamo = max(0,min(100,(pEndSoldier->bCamo + pEndSoldier->wornCamo))) * (100 - pEndSoldier->bTilesMoved * 5) / 100;
+			bEffectiveCamo = max(0,min(100,(totalCamo))) * (100 - pEndSoldier->bTilesMoved * 5) / 100;
 		}
 		bEffectiveCamo = __max( bEffectiveCamo, 0 );
 
 		if ( gAnimControl[ pEndSoldier->usAnimState ].ubEndHeight < ANIM_STAND )
 		{
+			iTemp = ubTileSightLimit;
 			// reduce visibility by up to a third for camouflage!
 			switch( pEndSoldier->bOverTerrainType )
 			{
-				case FLAT_GROUND:
 				case LOW_GRASS:
-				case HIGH_GRASS:
-					iTemp = ubTileSightLimit;
-					iTemp -= iTemp * (bEffectiveCamo / 3) / 100;
-					ubTileSightLimit = (UINT8) iTemp;
+				case HIGH_GRASS:  // jungle camo bonus
+					iTemp -= iTemp * (int)(jungle * bEffectiveCamo / 3) / 100;
+					break;
+				case FLAT_FLOOR: // flat floor = indoors
+				case PAVED_ROAD: // urban camo bonus
+					iTemp -= iTemp * (int)(urban * bEffectiveCamo / 3) / 100;
+					break;
+				case DIRT_ROAD:  // desert camo bonus
+				case TRAIN_TRACKS:
+					iTemp -= iTemp * (int)(desert * bEffectiveCamo / 3) / 100;
+					break;
+				//case ??? :  // snow camo bonus
+				//	iTemp -= iTemp * (snow * bEffectiveCamo / 3) / 100;
+				//	break;
+				case FLAT_GROUND:  
+					//in this case both desert and jungle can work:
+					iTemp -= iTemp * (int)(jungle * bEffectiveCamo / 3) / 100;
+					iTemp -= iTemp * (int)(desert * bEffectiveCamo / 3) / 100;
 					break;
 				default:
 					break;
 			}
+			ubTileSightLimit = (UINT8) iTemp;
 		}
 	}
 	else

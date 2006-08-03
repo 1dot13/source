@@ -457,7 +457,10 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 					if ( i != NO_SLOT && Random( 5 ) < SoldierDifficultyLevel( &Soldier ))
 					{
 						// start camouflaged
-						Soldier.bCamo = 100;
+						Soldier.bCamo = Item[i].camobonus;
+						Soldier.urbanCamo = Item[i].urbanCamobonus;
+						Soldier.desertCamo = Item[i].desertCamobonus;
+						Soldier.snowCamo = Item[i].snowCamobonus;
 					}
 				}
 			}
@@ -721,6 +724,21 @@ BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STR
 	{
 		// set camouflaged to 100 automatically
 		pSoldier->bCamo = 100;
+	}
+	if ( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_URBAN ) )
+	{
+		// set camouflaged to 100 automatically
+		pSoldier->urbanCamo = 100;
+	}
+	if ( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_DESERT ) )
+	{
+		// set camouflaged to 100 automatically
+		pSoldier->desertCamo = 100;
+	}
+	if ( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_SNOW ) )
+	{
+		// set camouflaged to 100 automatically
+		pSoldier->snowCamo = 100;
 	}
 	return( TRUE );
 }

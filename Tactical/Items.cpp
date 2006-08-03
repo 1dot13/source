@@ -2177,7 +2177,7 @@ UINT8 CalculateObjectWeight( OBJECTTYPE *pObject )
 	// Start with base weight
 	usWeight = pItem->ubWeight;
 
-	if (pItem->ubPerPocket < 2)
+	if ( pItem->ubPerPocket < 2 && pItem->usItemClass != IC_AMMO )
 	{
 		// account for any attachments
 		for ( cnt = 0; cnt < MAX_ATTACHMENTS; cnt++ )
@@ -2191,12 +2191,26 @@ UINT8 CalculateObjectWeight( OBJECTTYPE *pObject )
 		// add in weight of ammo
 		if (Item[ pObject->usItem ].usItemClass == IC_GUN && pObject->ubGunShotsLeft > 0)
 		{
-			usWeight += Item[ pObject->usGunAmmoItem ].ubWeight;
+			usWeight += (INT16)((pObject->ubGunShotsLeft / Magazine[Item[pObject->usGunAmmoItem].ubClassIndex].ubMagSize ) * Item[ pObject->usGunAmmoItem ].ubWeight);//Madd: added weight allowance for ammo not being full
 		}
 	}
-	
+	else if ( pItem->usItemClass == IC_AMMO )//Madd: added weight allowance for ammo not being full
+	{
+		for ( cnt = 0; cnt < MAX_OBJECTS_PER_SLOT; cnt++ )
+		{
+			if (pObject->ubShotsLeft[cnt] > 0 )
+			{
+				usWeight += (INT16)(pObject->ubShotsLeft[cnt]/Magazine[pItem->usItemClass].ubMagSize) * pItem->ubWeight;
+			}
+		}
+	}
+
+
 	// make sure it really fits into that UINT8, in case we ever add anything real heavy with attachments/ammo
 	Assert(usWeight <= 255);
+
+	if ( usWeight > 255 )
+		usWeight = 255; //Madd: limit to 255 to prevent negative weights, at least until we can change the OBJECTTYPE structure
 
 	return( (UINT8) usWeight );
 }
@@ -5556,29 +5570,74 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 			}
 		}
 	}
+	BOOLEAN camoWoreOff = FALSE;
 	if (pSoldier->bCamo > 0 && !HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED ) )
 	{
 		// reduce camouflage by 2% per tile of deep water
 		// and 1% for medium water
 		if ( pSoldier->bOverTerrainType == DEEP_WATER )
-		{
 			pSoldier->bCamo = __max( 0, pSoldier->bCamo - 2 );
-		}
 		else
-		{
 			pSoldier->bCamo = __max( 0, pSoldier->bCamo - 1 );
-		}
-		if ( (pSoldier->bCamo)== 0)
-		{
-			// Reload palettes....
-			if ( pSoldier->bInSector )
-			{	
-				CreateSoldierPalettes( pSoldier );
-			}
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_CAMMO_WASHED_OFF], pSoldier->name );
-		}
 
+		if ( (pSoldier->bCamo)== 0)
+			camoWoreOff = TRUE;
 	}
+
+	if (pSoldier->urbanCamo > 0 && !HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_URBAN ) )
+	{
+		// reduce camouflage by 2% per tile of deep water
+		// and 1% for medium water
+		if ( pSoldier->bOverTerrainType == DEEP_WATER )
+			pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 2 );
+		else
+			pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 1 );
+
+		if ( (pSoldier->urbanCamo)== 0)
+			camoWoreOff = TRUE;
+	}
+
+	if (pSoldier->desertCamo > 0 && !HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_DESERT ) )
+	{
+		// reduce camouflage by 2% per tile of deep water
+		// and 1% for medium water
+		if ( pSoldier->bOverTerrainType == DEEP_WATER )
+			pSoldier->desertCamo = __max( 0, pSoldier->desertCamo - 2 );
+		else
+			pSoldier->desertCamo = __max( 0, pSoldier->desertCamo - 1 );
+
+		if ( (pSoldier->desertCamo)== 0)
+			camoWoreOff = TRUE;
+	}
+
+	if (pSoldier->snowCamo > 0 && !HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_SNOW ) )
+	{
+		// reduce camouflage by 2% per tile of deep water
+		// and 1% for medium water
+		if ( pSoldier->bOverTerrainType == DEEP_WATER )
+			pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 2 );
+		else
+			pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 1 );
+
+		if ( (pSoldier->snowCamo)== 0)
+			camoWoreOff = TRUE;
+	}
+
+	if ( camoWoreOff )
+	{
+		// Reload palettes....
+		if ( pSoldier->bInSector )
+		{	
+			CreateSoldierPalettes( pSoldier );
+		}
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_CAMMO_WASHED_OFF], pSoldier->name );
+	}
+
+
+
+
+
+
 	if ( pSoldier->bTeam == gbPlayerNum && pSoldier->bMonsterSmell > 0 )
 	{
 		if ( pSoldier->bOverTerrainType == DEEP_WATER )
@@ -5623,7 +5682,14 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 		return( FALSE );
 	}
 
-	if ((pSoldier->bCamo + pSoldier->wornCamo ) >= 100)
+	//get total camo bonus for kit -- note that camo kits now require the camobonus tag to be set
+	int itemCamo = Item[pObj->usItem].camobonus + Item[pObj->usItem].urbanCamobonus + Item[pObj->usItem].desertCamobonus + Item[pObj->usItem].snowCamobonus;
+
+	if ( itemCamo < 100 )
+		usTotalKitPoints = (INT16)((itemCamo / 100) * usTotalKitPoints);
+
+	int totalCamo = pSoldier->bCamo + pSoldier->wornCamo + pSoldier->urbanCamo+pSoldier->wornUrbanCamo+pSoldier->desertCamo+pSoldier->wornDesertCamo+pSoldier->snowCamo+pSoldier->wornSnowCamo;
+	if ((totalCamo) >= 100)
 	{
 		// nothing more to add
 		return( FALSE );
@@ -5631,9 +5697,19 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 
 	// points are used up at a rate of 50% kit = 100% cammo on guy
 	// add 1 to round off
-	bPointsToUse = (100 - (pSoldier->bCamo + pSoldier->wornCamo) + 1 ) / 2;
+	bPointsToUse = (100 - (totalCamo) + 1 ) / 2;
 	bPointsToUse = __min( bPointsToUse, usTotalKitPoints );
-	pSoldier->bCamo = __min( 100, pSoldier->bCamo + bPointsToUse * 2);
+
+	//figure out proportions of each to be applied, one item can theoretically have more than one camouflage type this way
+	int urban = (int)((Item[pObj->usItem].urbanCamobonus / itemCamo) * bPointsToUse);
+	int jungle = (int)((Item[pObj->usItem].camobonus / itemCamo) * bPointsToUse);
+	int desert = (int)((Item[pObj->usItem].desertCamobonus / itemCamo) * bPointsToUse);
+	int snow = (int)((Item[pObj->usItem].snowCamobonus / itemCamo) * bPointsToUse);
+
+	pSoldier->bCamo = __min( 100, pSoldier->bCamo + jungle * 2);
+	pSoldier->urbanCamo = __min( 100, pSoldier->urbanCamo + urban * 2);
+	pSoldier->desertCamo = __min( 100, pSoldier->desertCamo + desert * 2);
+	pSoldier->snowCamo = __min( 100, pSoldier->snowCamo + snow * 2);
 	
 	UseKitPoints( pObj, bPointsToUse, pSoldier );
 

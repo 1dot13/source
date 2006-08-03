@@ -1056,7 +1056,6 @@ ANIMSUBTYPE gDoubleHandledSub =
 	STANDING, RGMDBLBREATH,			BGMDBLBREATH,			RGMDBLBREATH,			RGFDBLBREATH
 };
 
-
 void	InitAnimationSurfacesPerBodytype( )
 {
 	INT32 cnt1, cnt2;
@@ -3209,18 +3208,36 @@ INT8	GetBodyTypePaletteSubstitutionCode( SOLDIERTYPE *pSoldier, UINT8 ubBodyType
 					return( 0 );
 				}
 
-				// Check for cammo...
+				
+				// Check for camo...
+				
+				//stealth has priority
 				if ( GetWornStealth(pSoldier) >= 50 )
 				{
 					strcpy( zColFilename, "ANIMS\\stealth.col" );
 					return( 1 );
 				}
-				else if ( ( pSoldier->bCamo + pSoldier->wornCamo ) >= 50 )
+				
+				int urban = pSoldier->urbanCamo + pSoldier->wornUrbanCamo;
+				int jungle = pSoldier->bCamo + pSoldier->wornCamo;
+				int desert = pSoldier->desertCamo + pSoldier->wornDesertCamo;
+				int snow = pSoldier->snowCamo + pSoldier->wornSnowCamo;
+				int total = urban + jungle + desert + snow;
+
+				// display camo depending on which is higher
+				if ( total >= 50 )
 				{
-					strcpy( zColFilename, "ANIMS\\camo.COL" );
+					if ( jungle >= urban && jungle >= desert && jungle >= snow )
+						strcpy( zColFilename, "ANIMS\\camo.COL" );
+					else if ( urban >= jungle && urban >= desert && urban >= snow )
+						strcpy( zColFilename, "ANIMS\\urban.col" );
+					else if ( desert >= urban && desert >= jungle && desert >= snow )
+						strcpy( zColFilename, "ANIMS\\desert.col" );
+					else if ( snow >= urban && snow >= desert && snow >= jungle )
+						strcpy( zColFilename, "ANIMS\\snow.col" );
+
 					return( 1 );
 				}
-				
 			}
 			return( -1 );
 

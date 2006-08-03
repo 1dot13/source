@@ -3097,6 +3097,9 @@
 				RelativePath="TileEngine All.h">
 			</File>
 			<File
+				RelativePath=".\World Tileset Enums.h">
+			</File>
+			<File
 				RelativePath="WorldDat.h">
 			</File>
 			<File

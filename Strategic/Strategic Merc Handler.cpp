@@ -1048,7 +1048,7 @@ void HourlyCamouflageUpdate( void )
 {
 	INT8 bMercID, bLastTeamID;
 	SOLDIERTYPE * pSoldier;
-
+	BOOLEAN camoWoreOff = FALSE;
 	bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
@@ -1064,16 +1064,49 @@ void HourlyCamouflageUpdate( void )
 				if (pSoldier->bCamo <= 0)
 				{
 					pSoldier->bCamo = 0;
-					// Reload palettes....
-					if ( pSoldier->bInSector )
-					{	
-						CreateSoldierPalettes( pSoldier );
-					}
-
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_CAMMO_WORN_OFF], pSoldier->name );
-					DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
+					camoWoreOff = TRUE;
 				}
 			}
+			if( ( pSoldier->urbanCamo > 0) && ( !( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_URBAN) ) ) )
+			{
+				pSoldier->urbanCamo -= 2;
+				if (pSoldier->urbanCamo <= 0)
+				{
+					pSoldier->urbanCamo = 0;
+					camoWoreOff = TRUE;
+				}
+			}
+			if( ( pSoldier->desertCamo > 0) && ( !( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_DESERT) ) ) )
+			{
+				pSoldier->desertCamo -= 2;
+				if (pSoldier->desertCamo <= 0)
+				{
+					pSoldier->desertCamo = 0;
+					camoWoreOff = TRUE;
+				}
+			}
+			if( ( pSoldier->snowCamo > 0) && ( !( HAS_SKILL_TRAIT( pSoldier, CAMOUFLAGED_SNOW) ) ) )
+			{
+				pSoldier->snowCamo -= 2;
+				if (pSoldier->snowCamo <= 0)
+				{
+					pSoldier->snowCamo = 0;
+					camoWoreOff = TRUE;
+				}
+			}
+
+			if ( camoWoreOff )
+			{
+				// Reload palettes....
+				if ( pSoldier->bInSector )
+				{	
+					CreateSoldierPalettes( pSoldier );
+				}
+
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_CAMMO_WORN_OFF], pSoldier->name );
+				DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
+			}
+
 			// if the merc has non-zero monster smell, degrade it by 1
 			if ( pSoldier->bMonsterSmell > 0 )
 			{

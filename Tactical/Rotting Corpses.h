@@ -73,14 +73,17 @@ enum RottingCorpseDefines
 
 
 
-#define		ROTTING_CORPSE_FIND_SWEETSPOT_FROM_GRIDNO			0x01		//Find the closest spot to the given gridno
-#define		ROTTING_CORPSE_USE_NORTH_ENTRY_POINT					0x02		//Find the spot closest to the north entry grid
-#define		ROTTING_CORPSE_USE_SOUTH_ENTRY_POINT					0x04		//Find the spot closest to the south entry grid
-#define		ROTTING_CORPSE_USE_EAST_ENTRY_POINT						0x08		//Find the spot closest to the east entry grid
-#define		ROTTING_CORPSE_USE_WEST_ENTRY_POINT						0x10		//Find the spot closest to the west entry grid
-#define		ROTTING_CORPSE_USE_CAMMO_PALETTE							0x20		//We use cammo palette here....
-#define		ROTTING_CORPSE_VEHICLE												0x40		//Vehicle Corpse
-#define		ROTTING_CORPSE_USE_STEALTH_PALETTE							0x80		//We use stealth palette here....
+#define		ROTTING_CORPSE_FIND_SWEETSPOT_FROM_GRIDNO			0x001		//Find the closest spot to the given gridno
+#define		ROTTING_CORPSE_USE_NORTH_ENTRY_POINT					0x002		//Find the spot closest to the north entry grid
+#define		ROTTING_CORPSE_USE_SOUTH_ENTRY_POINT					0x004		//Find the spot closest to the south entry grid
+#define		ROTTING_CORPSE_USE_EAST_ENTRY_POINT						0x008		//Find the spot closest to the east entry grid
+#define		ROTTING_CORPSE_USE_WEST_ENTRY_POINT						0x010		//Find the spot closest to the west entry grid
+#define		ROTTING_CORPSE_USE_CAMO_PALETTE							0x020		//We use cammo palette here....
+#define		ROTTING_CORPSE_VEHICLE												0x040		//Vehicle Corpse
+#define		ROTTING_CORPSE_USE_STEALTH_PALETTE							0x080		//We use stealth palette here....
+#define		ROTTING_CORPSE_USE_URBAN_CAMO_PALETTE							0x100		//We use urban palette here....
+#define		ROTTING_CORPSE_USE_DESERT_CAMO_PALETTE							0x200		//We use desert palette here....
+#define		ROTTING_CORPSE_USE_SNOW_CAMO_PALETTE							0x400		//We use snow palette here....
 
 typedef struct
 {

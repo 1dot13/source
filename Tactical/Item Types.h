@@ -384,6 +384,9 @@ typedef struct
 
 	INT16 camobonus;
 	INT16 stealthbonus;
+	INT16 urbanCamobonus;
+	INT16 desertCamobonus;
+	INT16 snowCamobonus;
 
 	UINT16 defaultattachment;
 } INVTYPE;

@@ -549,7 +549,7 @@ void GiveItemsToPC( UINT8 ubProfileId )
 		GiveIMPRandomItems(pProfile,IMP_KNIFING);
 	}
 
-	if (PROFILE_HAS_SKILL_TRAIT(pProfile, CAMOUFLAGED))
+	if (PROFILE_HAS_SKILL_TRAIT(pProfile, CAMOUFLAGED)) // TODO: Madd - other camouflage types, once we figure out a way to enable more traits
 	{
 //		MakeProfileInvItemAnySlot(pProfile, CAMOUFLAGEKIT, 100, 1);
 		GiveIMPRandomItems(pProfile,IMP_CAMOUFLAGED);

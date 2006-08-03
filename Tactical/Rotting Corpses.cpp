@@ -700,9 +700,24 @@ BOOLEAN CreateCorpsePalette( ROTTING_CORPSE *pCorpse )
   {
 		bBodyTypePalette = 0;
   }
-  else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_CAMMO_PALETTE )
+  else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_CAMO_PALETTE )
 	{
 		strcpy( zColFilename, "ANIMS\\camo.COL" );
+		bBodyTypePalette = 1;
+	}
+  else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_URBAN_CAMO_PALETTE )
+	{
+		strcpy( zColFilename, "ANIMS\\urban.col" );
+		bBodyTypePalette = 1;
+	}
+  else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_DESERT_CAMO_PALETTE )
+	{
+		strcpy( zColFilename, "ANIMS\\desert.col" );
+		bBodyTypePalette = 1;
+	}
+  else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_SNOW_CAMO_PALETTE )
+	{
+		strcpy( zColFilename, "ANIMS\\snow.col" );
 		bBodyTypePalette = 1;
 	}
   else if ( pCorpse->def.usFlags & ROTTING_CORPSE_USE_STEALTH_PALETTE )
@@ -795,14 +810,29 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	SET_PALETTEREP_ID ( Corpse.SkinPal,		pSoldier->SkinPal );
 	SET_PALETTEREP_ID ( Corpse.PantsPal,   pSoldier->PantsPal );
 
+	int urban = pSoldier->urbanCamo + pSoldier->wornUrbanCamo;
+	int jungle = pSoldier->bCamo + pSoldier->wornCamo;
+	int desert = pSoldier->desertCamo + pSoldier->wornDesertCamo;
+	int snow = pSoldier->snowCamo + pSoldier->wornSnowCamo;
+	int total = urban + jungle + desert + snow;
+
 	if ( GetWornStealth(pSoldier) >= 50 )
 	{
 		Corpse.usFlags |= ROTTING_CORPSE_USE_STEALTH_PALETTE;
 	}
-	else if ( pSoldier->bCamo >= 50 )
+	else if ( total >= 50 )
 	{
-		Corpse.usFlags |= ROTTING_CORPSE_USE_CAMMO_PALETTE;
+		// display camo depending on which is higher
+		if ( jungle >= urban && jungle >= desert && jungle >= snow )
+			Corpse.usFlags |= ROTTING_CORPSE_USE_CAMO_PALETTE;
+		else if ( urban >= jungle && urban >= desert && urban >= snow )
+			Corpse.usFlags |= ROTTING_CORPSE_USE_URBAN_CAMO_PALETTE;
+		else if ( desert >= urban && desert >= jungle && desert >= snow )
+			Corpse.usFlags |= ROTTING_CORPSE_USE_DESERT_CAMO_PALETTE;
+		else if ( snow >= urban && snow >= desert && snow >= jungle )
+			Corpse.usFlags |= ROTTING_CORPSE_USE_SNOW_CAMO_PALETTE;
 	}
+
 	
 	// Determine corpse type!
 	ubType = (UINT8)gubAnimSurfaceCorpseID[ pSoldier->ubBodyType][ pSoldier->usAnimState ];

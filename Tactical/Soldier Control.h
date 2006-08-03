@@ -943,8 +943,18 @@ typedef struct
 	BOOLEAN lastFlankLeft;
 	INT8 sniper;
 	INT16 origDir;
-	INT16	wornCamo;
-	UINT8					bFiller[ 41 ];
+	INT8	wornCamo;
+
+	INT8	urbanCamo;	// Madd: new camo types
+	INT8	wornUrbanCamo;
+
+	INT8	desertCamo;	
+	INT8	wornDesertCamo;
+
+	INT8	snowCamo;	
+	INT8	wornSnowCamo;
+	
+	UINT8					bFiller[ 36 ];
 
 } SOLDIERTYPE;	
 
