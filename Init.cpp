@@ -90,18 +90,23 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcpy(fileName, directoryName);
 	strcat(fileName, AMMOTYPESFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-
 	if(!ReadInAmmoTypeStats(fileName))
 		return FALSE;
 
-	//if(!WriteAmmoTypeStats())
-	//	return FALSE;
-
+//Madd: Simple Localization
+//Read in the correct ammostring file for the given language
 	strcpy(fileName, directoryName);
+#ifdef GERMAN
+	strcat(fileName, GERMAN_PREFIX); // add German. prefix to filename
+#endif
+#ifdef RUSSIAN
+	strcat(fileName, RUSSIAN_PREFIX); // add Russian. prefix to filename
+#endif
 	strcat(fileName, AMMOFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	if(!ReadInAmmoStats(fileName))
 		return FALSE;
+
 
     // Lesh: added this, begin
 	strcpy(fileName, directoryName);
@@ -116,6 +121,38 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	if(!ReadInItemStats(fileName))
 		return FALSE;
+
+//Madd: Simple localization
+// The idea here is that we can have a separate xml file that's named differently
+// but only contains the relevant tags that need to be localized
+// then when the file is read in using the same xml reader code, it will only overwrite
+// the tags that are contained in the localized file.  This only works for items.xml 
+// since I tweaked the xml_items.cpp to make it work :p
+// So for instance, the german file would be called German.Items.xml and would only contain
+// the uiIndex (for reference), szItemName, szLongItemName, szItemDesc, szBRName, and szBRDesc tags
+ 
+#ifdef GERMAN 
+	strcpy(fileName, directoryName);
+	strcat(fileName, GERMAN_PREFIX);
+	strcat(fileName, ITEMSFILENAME);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInItemStats(fileName))
+			return FALSE;
+	}
+#endif
+#ifdef RUSSIAN 
+	strcpy(fileName, directoryName);
+	strcat(fileName, RUSSIAN_PREFIX);
+	strcat(fileName, ITEMSFILENAME);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInItemStats(fileName))
+			return FALSE;
+	}
+#endif
 
 	//if(!WriteItemStats())
 	//	return FALSE;

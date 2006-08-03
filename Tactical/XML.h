@@ -16,6 +16,10 @@ typedef PARSE_STAGE;
 
 #define TABLEDATA_DIRECTORY						"TableData\\"
 
+#define GERMAN_PREFIX							"German."
+#define RUSSIAN_PREFIX							"Russian."
+
+
 #define	ATTACHMENTSFILENAME						"Attachments.xml"
 #define	ATTACHMENTINFOFILENAME					"AttachmentInfo.xml"
 #define	ITEMSFILENAME							"Items.xml"

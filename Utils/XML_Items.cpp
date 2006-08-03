@@ -243,9 +243,19 @@ itemEndElementHandle(void *userData, const char *name)
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			if(pData->curItem.uiIndex < pData->maxArraySize && pData->curItem.usItemClass != 0)
+			if(pData->curItem.uiIndex < pData->maxArraySize) 
 			{
-				pData->curArray[pData->curItem.uiIndex] = pData->curItem; //write the item into the table
+				if ( pData->curItem.usItemClass != 0 )
+					pData->curArray[pData->curItem.uiIndex] = pData->curItem; //write the item into the table
+				else if ( sizeof(pData->curItem.szItemName)>0 )
+				{
+					//Madd: needs testing
+					strcpy(pData->curArray[pData->curItem.uiIndex].szItemName,pData->curItem.szItemName);
+					strcpy(pData->curArray[pData->curItem.uiIndex].szLongItemName,pData->curItem.szLongItemName);
+					strcpy(pData->curArray[pData->curItem.uiIndex].szBRName,pData->curItem.szBRName);
+					strcpy(pData->curArray[pData->curItem.uiIndex].szItemDesc,pData->curItem.szItemDesc);
+					strcpy(pData->curArray[pData->curItem.uiIndex].szBRDesc,pData->curItem.szBRDesc);
+				}
 			}
 		}
 		else if(strcmp(name, "uiIndex") == 0)
