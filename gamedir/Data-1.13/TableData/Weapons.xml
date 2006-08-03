@@ -6600,10 +6600,10 @@
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
-		<ubDeadliness>40</ubDeadliness>
+		<ubDeadliness>35</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>770</usRange>
+		<usRange>600</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -6618,7 +6618,7 @@
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>15</MaxDistForMessyDeath>
+		<MaxDistForMessyDeath>12</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
