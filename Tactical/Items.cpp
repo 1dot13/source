@@ -7213,7 +7213,8 @@ INT16 GetCamoBonus( OBJECTTYPE * pObj )
 
 	for (bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
 	{
-		bns += (INT16) (Item[pObj->usAttachItem[bLoop]].camobonus);// * (WEAPON_STATUS_MOD(pObj->bAttachStatus[bLoop]) / 100));
+		if (!Item[pObj->usAttachItem[bLoop]].camouflagekit)
+			bns += (INT16) (Item[pObj->usAttachItem[bLoop]].camobonus);// * (WEAPON_STATUS_MOD(pObj->bAttachStatus[bLoop]) / 100));
 	}
 	return( bns );
 }
@@ -7226,7 +7227,8 @@ INT16 GetUrbanCamoBonus( OBJECTTYPE * pObj )
 
 	for (bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
 	{
-		bns += (INT16) (Item[pObj->usAttachItem[bLoop]].urbanCamobonus);// * (WEAPON_STATUS_MOD(pObj->bAttachStatus[bLoop]) / 100));
+		if (!Item[pObj->usAttachItem[bLoop]].camouflagekit)
+			bns += (INT16) (Item[pObj->usAttachItem[bLoop]].urbanCamobonus);// * (WEAPON_STATUS_MOD(pObj->bAttachStatus[bLoop]) / 100));
 	}
 	return( bns );
 }
@@ -7239,7 +7241,8 @@ INT16 GetDesertCamoBonus( OBJECTTYPE * pObj )
 
 	for (bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
 	{
-		bns += (INT16) (Item[pObj->usAttachItem[bLoop]].desertCamobonus);// * (WEAPON_STATUS_MOD(pObj->bAttachStatus[bLoop]) / 100));
+		if (!Item[pObj->usAttachItem[bLoop]].camouflagekit)
+			bns += (INT16) (Item[pObj->usAttachItem[bLoop]].desertCamobonus);// * (WEAPON_STATUS_MOD(pObj->bAttachStatus[bLoop]) / 100));
 	}
 	return( bns );
 }
@@ -7252,7 +7255,8 @@ INT16 GetSnowCamoBonus( OBJECTTYPE * pObj )
 
 	for (bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
 	{
-		bns += (INT16) (Item[pObj->usAttachItem[bLoop]].snowCamobonus);// * (WEAPON_STATUS_MOD(pObj->bAttachStatus[bLoop]) / 100));
+		if (!Item[pObj->usAttachItem[bLoop]].camouflagekit)
+			bns += (INT16) (Item[pObj->usAttachItem[bLoop]].snowCamobonus);// * (WEAPON_STATUS_MOD(pObj->bAttachStatus[bLoop]) / 100));
 	}
 	return( bns );
 }
