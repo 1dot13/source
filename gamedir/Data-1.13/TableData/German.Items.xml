@@ -1,3 +1,5 @@
+<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
+<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -6713,387 +6715,387 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>839</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 839</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>SO-Helm</szItemName>
+		<szLongItemName>Stealth Ops Helm</szLongItemName>
+		<szItemDesc>Mit diesem Helm werden Sie die meiste Zeit unentdeckt bleiben. Er schützt Sie auch ausreichend vor Geschosse kleineren Kalibers.</szItemDesc>
+		<szBRName>Stealth Ops Helm</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>840</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 840</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>SO-Weste</szItemName>
+		<szLongItemName>Stealth Ops Weste</szLongItemName>
+		<szItemDesc>Mit dieser Weste werden Sie die meiste Zeit unentdeckt bleiben. Jedoch bietet sie keinen ausreichenden Schutz vor Geschosse größeren Kalibers.</szItemDesc>
+		<szBRName>Stealth Ops Weste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>841</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 841</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>SO-Hose</szItemName>
+		<szLongItemName>Stealth Ops Hose</szLongItemName>
+		<szItemDesc>Mit dieser Hose werden Sie die meiste Zeit unentdeckt bleiben. Jedoch bietet sie keinen ausreichenden Schutz vor Geschosse größeren Kalibers.</szItemDesc>
+		<szBRName>Stealth Ops Hose</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>842</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 842</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Recon K-Weste</szItemName>
+		<szLongItemName>Recon Kevlarweste</szLongItemName>
+		<szItemDesc>Diese Kevlarweste in der Farbe woodland ist die beste Lösung für jede Aufklärungs-Mission. In dieser Weste können Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarn-Bonus: 25 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Recon Kevlarweste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>843</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 843</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Recon G-Weste</szItemName>
+		<szLongItemName>Recon Guardianweste</szLongItemName>
+		<szItemDesc>Diese Guardinweste in der Farbe woodland ist die beste Lösung für jede Aufklärungs-Mission. In dieser Weste können Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarn-Bonus: 25 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Recon Guardianweste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>844</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 844</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Recon Tw.-Weste</szItemName>
+		<szLongItemName>Recon Twaron-Weste</szLongItemName>
+		<szItemDesc>Diese Twaron-Weste in der Farbe woodland ist die beste Lösung für jede Aufklärungs-Mission. In dieser Weste können Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarn-Bonus: 25 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Recon Twaron-Weste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>845</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 845</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Recon K-Hose</szItemName>
+		<szLongItemName>Recon Kevlarhose</szLongItemName>
+		<szItemDesc>Diese Kevlarhose in der Farbe woodland ist die beste Lösung für jede Aufklärungs-Mission. In dieser Weste können Sie Messer, Tarnset, Drahtschere und Booster unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 15 Prozent</szItemDesc>
+		<szBRName>Recon Kevlarhose</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>846</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 846</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Recon Tw.-Hose</szItemName>
+		<szLongItemName>Recon Twaron-Hose</szLongItemName>
+		<szItemDesc>Diese Twaron-Hose in der Farbe woodland ist die beste Lösung für jede Aufklärungs-Mission. In dieser Weste können Sie Messer, Tarnset, Drahtschere und Booster unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 15 Prozent</szItemDesc>
+		<szBRName>Recon Twaron-Hose</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>847</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 847</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Medic K-Weste</szItemName>
+		<szLongItemName>Sanitäter Kevlarweste</szLongItemName>
+		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. In dieser Weste können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Sanitäter Kevlarweste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>848</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 848</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Medic G-Weste</szItemName>
+		<szLongItemName>Sanitäter Guardianweste</szLongItemName>
+		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. In dieser Weste können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Sanitäter Guardianweste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>849</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 849</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Medic Tw.-Weste</szItemName>
+		<szLongItemName>Sanitäter Twaron-Weste</szLongItemName>
+		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. In dieser Weste können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Sanitäter Twaron-Weste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>850</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 850</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Medic S-Weste</szItemName>
+		<szLongItemName>Sanitäter Spectraweste</szLongItemName>
+		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. In dieser Weste können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Sanitäter Spectra-Weste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>851</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 851</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Medic Dyn.-Weste</szItemName>
+		<szLongItemName>Sanitäter Dyneema-Weste</szLongItemName>
+		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. In dieser Weste können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Sanitäter Dyneema-Weste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>852</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 852</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Medic K-Hose</szItemName>
+		<szLongItemName>Sanitäter Kevlarhose</szLongItemName>
+		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. In dieser Weste können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Sanitäter Kevlarhose</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>853</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 853</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Medic Tw.-Hose</szItemName>
+		<szLongItemName>Sanitäter Twaron-Hose</szLongItemName>
+		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. In dieser Weste können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Sanitäter Twaron-Hose</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>854</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 854</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Medic S-Hose</szItemName>
+		<szLongItemName>Sanitäter Spectrahose</szLongItemName>
+		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. In dieser Weste können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Sanitäter Spectra-Hose</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>855</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 855</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Medic Dyn.-Hose</szItemName>
+		<szLongItemName>Sanitäter Dyneema-Hose</szLongItemName>
+		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. In dieser Weste können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Sanitäter Dyneema-Hose</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>856</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 856</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Mech. K-Weste</szItemName>
+		<szLongItemName>Mechaniker Kevlarweste</szLongItemName>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. In dieser Weste können Sie Plastiik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Mechaniker Kevlarweste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>857</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 857</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Mech. G-Weste</szItemName>
+		<szLongItemName>Mechaniker Guardianweste</szLongItemName>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. In dieser Weste können Sie Plastiik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Mechaniker Guardianweste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>858</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 858</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Mech. Tw.-Weste</szItemName>
+		<szLongItemName>Mechaniker Twaron-Weste</szLongItemName>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. In dieser Weste können Sie Plastiik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Mechaniker Twaron-Weste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>859</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 859</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Mech. S-Weste</szItemName>
+		<szLongItemName>Mechaniker Spectra-Weste</szLongItemName>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. In dieser Weste können Sie Plastiik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Mechaniker Spectra-Weste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>860</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 860</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Mech. Dyn.-Weste</szItemName>
+		<szLongItemName>Mechaniker Dyneema-Weste</szLongItemName>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. In dieser Weste können Sie Plastiik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Mechaniker Dyneema-Weste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>861</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 861</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Mech. K-Hose</szItemName>
+		<szLongItemName>Mechaniker Kevlarhose</szLongItemName>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. In dieser Weste können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Mechaniker Kevlarhose</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>862</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 862</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Mech. Tw.-Hose</szItemName>
+		<szLongItemName>Mechaniker Twaron-Hose</szLongItemName>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. In dieser Hose können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Mechaniker Twaron-Hose</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>863</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 863</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Mech. S-Hose</szItemName>
+		<szLongItemName>Mechaniker Spectrahose</szLongItemName>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. In dieser Hose können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Mechaniker Spectrahose</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>864</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 864</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Mech. Dyn.-Hose</szItemName>
+		<szLongItemName>Mechaniker Dyneema-Hose</szLongItemName>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. In dieser Hose können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Mechaniker Dyneema-Hose</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>865</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 865</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>FO K-Weste</szItemName>
+		<szLongItemName>Field Ops Kevlarweste</szLongItemName>
+		<szItemDesc>Sollten Sie vorhaben längere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Weste. In dieser Weste können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarn-Bonus: 20 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Field Ops Kevlarweste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>866</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 866</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>FO G-Weste</szItemName>
+		<szLongItemName>Field Ops Guardianweste</szLongItemName>
+		<szItemDesc>Sollten Sie vorhaben längere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Weste. In dieser Weste können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarn-Bonus: 20 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Field Ops Guardianweste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>867</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 867</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>FO Tw.-Weste</szItemName>
+		<szLongItemName>Field Ops Twaron-Weste</szLongItemName>
+		<szItemDesc>Sollten Sie vorhaben längere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Weste. In dieser Weste können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarn-Bonus: 20 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Field Ops Twaron-Weste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>868</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 868</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>FO S-Weste</szItemName>
+		<szLongItemName>Field Ops Spectra-Weste</szLongItemName>
+		<szItemDesc>Sollten Sie vorhaben längere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Weste. In dieser Weste können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarn-Bonus: 20 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Field Ops Spectra-Weste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>869</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 869</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>FO Dyn.-Weste</szItemName>
+		<szLongItemName>Field Ops Dyneema-Weste</szLongItemName>
+		<szItemDesc>Sollten Sie vorhaben längere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Weste. In dieser Weste können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarn-Bonus: 20 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Field Ops Dyneema-Weste</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>870</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 870</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>FO K-Hose</szItemName>
+		<szLongItemName>Field Ops Kevlarhose</szLongItemName>
+		<szItemDesc>Sollten Sie vorhaben längere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Hose. In dieser Hose können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Field Ops Kevlarhose</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>871</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 871</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>FO Tw.-Hose</szItemName>
+		<szLongItemName>Field Ops Twaron-Hose</szLongItemName>
+		<szItemDesc>Sollten Sie vorhaben längere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Hose. In dieser Hose können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Field Ops Twaron-Hose</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>872</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 872</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>FO S-Hose</szItemName>
+		<szLongItemName>Field Ops Spectrahose</szLongItemName>
+		<szItemDesc>Sollten Sie vorhaben längere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Hose. In dieser Hose können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Field Ops Spectrahose</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>873</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 873</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>FO Dyn.-Hose</szItemName>
+		<szLongItemName>Field Ops Dyneema-Hose</szLongItemName>
+		<szItemDesc>Sollten Sie vorhaben längere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Hose. In dieser Hose können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Field Ops Dyneema-Hose</szBRName>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>874</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 874</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>SO-Helm Kit</szItemName>
+		<szLongItemName>Stealth Ops Helm Upgrade Kit</szLongItemName>
+		<szItemDesc>Dieses universelle Upgrade Kit kann verwendet werden um jeden gewöhnlichen Kevlarhelm in einen stealth ops Helm zu verwandeln.</szItemDesc>
+		<szBRName>Stealth Ops Helm Upgrade Kit</szBRName>
+		<szBRDesc>Dieses universelle Upgrade Kit kann verwendet werden um jeden gewöhnlichen Kevlarhelm in einen stealth ops Helm zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>875</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 875</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>SO-Weste Kit</szItemName>
+		<szLongItemName>Stealth Ops Weste Upgrade Kit</szLongItemName>
+		<szItemDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine state-of-the-art Stealth Ops Ausrüstung zu verwandeln.</szItemDesc>
+		<szBRName>Stealth Ops Weste Upgrade Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine state-of-the-art Stealth Ops Ausrüstung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>876</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 876</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>SO-Hose Kit</szItemName>
+		<szLongItemName>Stealth Ops Hose Upgrade Kit</szLongItemName>
+		<szItemDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine state-of-the-art Stealth Ops Ausrüstung zu verwandeln.</szItemDesc>
+		<szBRName>Stealth Ops Hose Upgrade Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine state-of-the-art Stealth Ops Ausrüstung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>877</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 877</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Recon Weste Kit</szItemName>
+		<szLongItemName>Recon Weste Upgrade Kit</szLongItemName>
+		<szItemDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine getarnte Recon-Ausrüstung zu verwandeln.</szItemDesc>
+		<szBRName>Recon Weste Upgrade Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine getarnte Recon-Ausrüstung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>878</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 878</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Recon Hose Kit</szItemName>
+		<szLongItemName>Recon Hose Upgrade Kit</szLongItemName>
+		<szItemDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine getarnte Recon-Ausrüstung zu verwandeln.</szItemDesc>
+		<szBRName>Recon Hose Upgrade Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine getarnte Recon-Ausrüstung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>879</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 879</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Sanitäter Weste Kit</szItemName>
+		<szLongItemName>Sanitäter Weste Upgrade Kit</szLongItemName>
+		<szItemDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine Sanitäter Ausrüstung zu verwandeln.</szItemDesc>
+		<szBRName>Sani.-Weste Upgrade Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine Sanitäter Ausrüstung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>880</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 880</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Sanitäter Hose Kit</szItemName>
+		<szLongItemName>Sanitäter Hose Upgrade Kit</szLongItemName>
+		<szItemDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine Sanitäter Ausrüstung zu verwandeln.</szItemDesc>
+		<szBRName>Sani-Hose Upgrade Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine Sanitäter Ausrüstung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>881</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 881</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Mechaniker Weste Kit</szItemName>
+		<szLongItemName>Mechaniker Weste Upgrade Kit</szLongItemName>
+		<szItemDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine Mechaniker Ausrüstung zu verwandeln.</szItemDesc>
+		<szBRName>Mech.-Weste Upgrade Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine Mechaniker Ausrüstung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>882</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 882</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Mechaniker Hose Kit</szItemName>
+		<szLongItemName>Mechaniker Hose Upgrade Kit</szLongItemName>
+		<szItemDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine Mechaniker Ausrüstung zu verwandeln.</szItemDesc>
+		<szBRName>Mech.-Hose Upgrade Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine Mechaniker Ausrüstung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>883</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 883</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>FO-Weste Kit</szItemName>
+		<szLongItemName>Field Ops Weste Upgrade Kit</szLongItemName>
+		<szItemDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine state-of-the-art Field Ops Ausrüstung zu verwandeln.</szItemDesc>
+		<szBRName>Field Ops Weste Upgrade Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine state-of-the-art Field Ops Ausrüstung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>884</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 884</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>FO- Hose Kit</szItemName>
+		<szLongItemName>Field Ops Hose Upgrade Kit</szLongItemName>
+		<szItemDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine state-of-the-art Field Ops Ausrüstung zu verwandeln.</szItemDesc>
+		<szBRName>Field Ops Hose Upgrade Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine state-of-the-art Field Ops Ausrüstung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>885</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 885</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Tarbezug Mk.I</szItemName>
+		<szLongItemName>Helm Tarbezug Mk.I</szLongItemName>
+		<szItemDesc>Dieser Tarnbezug wird Ihren Helm weniger auffallend machen. Tarn-Bonus: 10 Prozent</szItemDesc>
+		<szBRName>Helm Tarbezug Mk.I</szBRName>
+		<szBRDesc>Dieser Tarnbezug wird Ihren Helm weniger auffallend machen. Tarn-Bonus: 10 Prozent</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>886</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 886</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Tarbezug Mk.II</szItemName>
+		<szLongItemName>Helm Tarbezug Mk.II</szLongItemName>
+		<szItemDesc>Dieser Tarnbezug wird Ihren Helm weniger auffallend machen. Er hat zusätzlich ein Netz das dazu verwendet werden kann, Blätter oder anderes Grün zu befestigen. Somit erreichen Sie eine noch bessere Tarnung. Tarn-Bonus: 15 Prozent</szItemDesc>
+		<szBRName>Helm Tarbezug Mk.II</szBRName>
+		<szBRDesc>Dieser Tarnbezug wird Ihren Helm weniger auffallend machen. Er hat zusätzlich ein Netz das dazu verwendet werden kann, Blätter oder anderes Grün zu befestigen. Somit erreichen Sie eine noch bessere Tarnung. Tarn-Bonus: 15 Prozent</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>887</uiIndex>
