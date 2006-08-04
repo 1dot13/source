@@ -5750,10 +5750,10 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 	bPointsToUse = __min( bPointsToUse, usTotalKitPoints );
 
 	//figure out proportions of each to be applied, one item can theoretically have more than one camouflage type this way
-	int urban = (int)(Item[pObj->usItem].urbanCamobonus * bPointsToUse / itemCamo );
-	int jungle = (int)(Item[pObj->usItem].camobonus * bPointsToUse / itemCamo );
-	int desert = (int)(Item[pObj->usItem].desertCamobonus * bPointsToUse / itemCamo );
-	int snow = (int)(Item[pObj->usItem].snowCamobonus * bPointsToUse / itemCamo );
+	int urban = (int)(Item[pObj->usItem].urbanCamobonus * bPointsToUse * 2 / 100 );
+	int jungle = (int)(Item[pObj->usItem].camobonus * bPointsToUse * 2 / 100 );
+	int desert = (int)(Item[pObj->usItem].desertCamobonus * bPointsToUse * 2 / 100 );
+	int snow = (int)(Item[pObj->usItem].snowCamobonus * bPointsToUse * 2 / 100 );
 
 	pSoldier->bCamo = __min( 100, pSoldier->bCamo + jungle );
 	pSoldier->urbanCamo = __min( 100, pSoldier->urbanCamo + urban );
