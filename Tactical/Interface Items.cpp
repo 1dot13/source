@@ -7316,6 +7316,8 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 		}
 
 
+		if ( Item[usItem].usItemClass != IC_AMMO || !gGameExternalOptions.fAmmoDynamicWeight ) //Madd: quick fix to display total stack weight
+			fWeight *= pObject->ubNumberOfObjects;
 
 		switch( Item[ usItem ].usItemClass )
 		{
