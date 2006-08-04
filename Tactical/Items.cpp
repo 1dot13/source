@@ -2179,6 +2179,7 @@ UINT8 CalculateObjectWeight( OBJECTTYPE *pObject )
 
 	if ( pItem->ubPerPocket < 2 && pItem->usItemClass != IC_AMMO )
 	{
+
 		// account for any attachments
 		for ( cnt = 0; cnt < MAX_ATTACHMENTS; cnt++ )
 		{
@@ -2191,18 +2192,62 @@ UINT8 CalculateObjectWeight( OBJECTTYPE *pObject )
 		// add in weight of ammo
 		if (Item[ pObject->usItem ].usItemClass == IC_GUN && pObject->ubGunShotsLeft > 0)
 		{
-			usWeight += (INT16)((pObject->ubGunShotsLeft / Magazine[Item[pObject->usGunAmmoItem].ubClassIndex].ubMagSize ) * Item[ pObject->usGunAmmoItem ].ubWeight);//Madd: added weight allowance for ammo not being full
-		}
-	}
-	else if ( pItem->usItemClass == IC_AMMO )//Madd: added weight allowance for ammo not being full
-	{
-		for ( cnt = 0; cnt < MAX_OBJECTS_PER_SLOT; cnt++ )
-		{
-			if (pObject->ubShotsLeft[cnt] > 0 )
+			if( gGameExternalOptions.fAmmoDynamicWeight == TRUE )
 			{
-				usWeight += (INT16)(pObject->ubShotsLeft[cnt]/Magazine[pItem->ubClassIndex].ubMagSize) * pItem->ubWeight;
+				//Pulmu:
+				//Temporary calculation for minWeight
+				UINT32 uiMinWeight = (Item[ pObject->usGunAmmoItem].ubWeight / 5.0) + 0.5;
+				if( uiMinWeight < 1 || uiMinWeight > Item[ pObject->usGunAmmoItem].ubWeight)
+				{
+					uiMinWeight = 1;
+				}
+
+				if( uiMinWeight == Item[ pObject->usGunAmmoItem].ubWeight )
+				{
+					usWeight += uiMinWeight;
+				}
+				else
+				{
+					double weight = (double)uiMinWeight + (( (double)pObject->ubGunShotsLeft / (double)Weapon[pObject->usItem].ubMagSize) * ( (double)Item[ pObject->usGunAmmoItem].ubWeight - (double)uiMinWeight )) + 0.5; //Pulmu: Account for number of rounds left.
+					usWeight += (UINT16)weight;
+				}
+			}
+			else
+			{
+				usWeight += Item[ pObject->usGunAmmoItem ].ubWeight;
 			}
 		}
+	}
+	else if ( pItem->usItemClass == IC_AMMO && gGameExternalOptions.fAmmoDynamicWeight == TRUE )//Pulmu: added weight allowance for ammo not being full
+	{
+		usWeight = 0;
+		//Temporary calculation for minWeight. 0.2*ubWeight rounded correctly 
+		UINT32 uiMinWeight = (Item[pObject->usItem].ubWeight / 5.0) + 0.5;
+		//UINT32 uiMinWeight = Magazine[ Item[ pObject->usItem].ubClassIndex].ubMinWeight; //Minimum weight of magazine, now disabled because not corresponding entry in magazines.xml and weapons.h
+		if( uiMinWeight < 1 || uiMinWeight > Item[pObject->usItem].ubWeight)
+		{
+			uiMinWeight = 1;
+		}
+
+		double weight = 0.0;
+		
+		for( cnt = 0; cnt < pObject->ubNumberOfObjects; cnt++ )
+		{
+			if(pObject->ubShotsLeft[cnt] > 0)
+			{
+				if( uiMinWeight == Item[pObject->usItem].ubWeight )
+				{
+					weight += (double)uiMinWeight;
+				}
+				else
+				{
+					weight += (double)uiMinWeight + (( (double)pObject->ubShotsLeft[cnt] / (double)Magazine[ Item[ pObject->usItem].ubClassIndex ].ubMagSize) * ( (double)Item[pObject->usItem].ubWeight - (double)uiMinWeight ));
+				}
+			}
+		}
+		weight += 0.5; //Pulmu:To round correctly
+		usWeight = (UINT16)weight;
+		//Pulmu end
 	}
 
 
@@ -2223,10 +2268,11 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier )
 	UINT16  usWeight;
 	UINT8		ubStrengthForCarrying;
 
+	//Pulmu: Changes for dynamic ammo weight
 	for( ubLoop = 0; ubLoop < NUM_INV_SLOTS; ubLoop++)
 	{
 		usWeight = pSoldier->inv[ubLoop].ubWeight;
-		if (Item[ pSoldier->inv[ubLoop].usItem ].ubPerPocket > 1)
+		if (Item[ pSoldier->inv[ubLoop].usItem ].ubPerPocket > 1 && (Item[ pSoldier->inv[ubLoop].usItem].usItemClass != IC_AMMO || gGameExternalOptions.fAmmoDynamicWeight == FALSE))
 		{
 			// account for # of items
 			usWeight *= pSoldier->inv[ubLoop].ubNumberOfObjects;
@@ -2784,7 +2830,9 @@ BOOLEAN EmptyWeaponMagazine( OBJECTTYPE * pWeapon, OBJECTTYPE *pAmmo )
 		}
 
 		pWeapon->ubWeight = CalculateObjectWeight( pWeapon );
-
+		// Pulmu bugfix:
+		pAmmo->ubWeight = CalculateObjectWeight( pAmmo );
+		// Pulmu end:
 		return( TRUE );
 	}
 	else
@@ -3755,7 +3803,9 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 	}
 	
 	ApplyEquipmentBonuses(pSoldier);
-
+	//Pulmu bugfix
+	pInSlot->ubWeight = CalculateObjectWeight(pInSlot);
+	//Pulmu end
 	return( TRUE );
 }
 
@@ -3768,6 +3818,8 @@ BOOLEAN InternalAutoPlaceObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOL
 	// statuses of extra objects would be 0 if the # exceeds the maximum
 	Assert( pObj->ubNumberOfObjects <= MAX_OBJECTS_PER_SLOT);
 
+	//Pulmu bugfix		
+	pObj->ubWeight = CalculateObjectWeight( pObj);
 	pItem = &(Item[pObj->usItem]);
 	ubPerSlot = pItem->ubPerPocket;
 

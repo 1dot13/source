@@ -303,6 +303,8 @@ typedef struct
 	BOOLEAN gfHardAggressiveQueen;
 	BOOLEAN gfInsaneAggressiveQueen;
 
+	BOOLEAN fAmmoDynamicWeight; //Pulmu
+
 } GAME_EXTERNAL_OPTIONS;
 
 //This structure will contain general Ja2 settings  NOT individual game settings.
