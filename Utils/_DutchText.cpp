@@ -755,6 +755,9 @@ STR16 gzMercSkillText[] =
 	L"Mesworp",
 	L"Raak op dak! Bonus",
 	L"Camouflaged",
+	L"Camouflage (Urban)",						
+	L"Camouflage (Desert)",						
+	L"Camouflage (Snow)",						
 	L"(Expert)",
 };
 

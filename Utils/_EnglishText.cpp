@@ -754,6 +754,9 @@ STR16 gzMercSkillText[] =
 	L"Knifing",
 	L"Rooftop Sniping",				//JA25: modified
 	L"Camouflage",						//JA25: modified
+	L"Camouflage (Urban)",						
+	L"Camouflage (Desert)",						
+	L"Camouflage (Snow)",						
 	L"(Expert)",
 };
 

@@ -745,6 +745,9 @@ STR16 gzMercSkillText[] =
 	L"Couteau",
 	L"Bonus toucher (sur le toit)",
 	L"Camouflage",
+	L"Camouflage (Urban)",						
+	L"Camouflage (Desert)",						
+	L"Camouflage (Snow)",						
 	L"(Expert)",
 };
 

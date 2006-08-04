@@ -739,6 +739,9 @@ STR16 gzMercSkillText[] =
 	L"Broñ bia³a",
 	L"Snajper",
 	L"Kamufla¿",
+	L"Kamufla¿ (Urban)",
+	L"Kamufla¿ (Desert)",
+	L"Kamufla¿ (Snow)",
 	L"(Eksp.)",
 };
 

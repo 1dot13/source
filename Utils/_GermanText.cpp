@@ -729,6 +729,9 @@ STR16 gzMercSkillText[] =
 	L"Messer",
 	L"Dach-Treffer-Bonus",
 	L"Getarnt",
+	L"Getarnt (Urban)",						
+	L"Getarnt (Desert)",						
+	L"Getarnt (Snow)",						
 	L"(Experte)",
 };
 

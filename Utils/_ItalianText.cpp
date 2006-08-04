@@ -738,6 +738,9 @@ STR16 gzMercSkillText[] =
 	L"Coltelli",
 	L"Bonus per altezza",
 	L"Camuffato",
+	L"Camuffato (Urban)",
+	L"Camuffato (Desert)",
+	L"Camuffato (Snow)",
 	L"(Esperto)",
 };
 
