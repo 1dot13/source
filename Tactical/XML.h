@@ -67,7 +67,7 @@ typedef PARSE_STAGE;
 #define EXPLOSIONDATAFILENAME                   "ExplosionData.xml"
 #define CITYTABLEFILENAME "Cities.xml"
 
-extern BOOLEAN ReadInItemStats(STR fileName);
+extern BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteItemStats();
 
 extern BOOLEAN ReadInAttachmentStats(STR fileName);

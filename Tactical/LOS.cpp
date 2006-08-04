@@ -1613,17 +1613,11 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 	}
 
 	//get the total camouflage
-	float jungle = (float)(pEndSoldier->bCamo + pEndSoldier->wornCamo);
-	float urban = (float)(pEndSoldier->urbanCamo + pEndSoldier->wornUrbanCamo);
-	float desert = (float)(pEndSoldier->desertCamo + pEndSoldier->wornDesertCamo);
-	float snow = (float)(pEndSoldier->snowCamo + pEndSoldier->wornSnowCamo);
-	int totalCamo = (int)(jungle + urban + desert + snow);
-
-	//get the percentage of each type
-	jungle = jungle / totalCamo;
-	urban = urban / totalCamo;
-	desert = desert / totalCamo;
-	snow = snow / totalCamo;
+	int jungle = max(1,min(100,pEndSoldier->bCamo + pEndSoldier->wornCamo));
+	int urban = max(1,min(100,pEndSoldier->urbanCamo + pEndSoldier->wornUrbanCamo));
+	int desert = max(1,min(100,pEndSoldier->desertCamo + pEndSoldier->wornDesertCamo));
+	int snow = max(1,min(100,pEndSoldier->snowCamo + pEndSoldier->wornSnowCamo));
+	int totalCamo = max(1,min(100,jungle + urban + desert + snow));
 
 	if ( ( totalCamo ) > 0 && !bAware )
 	{
@@ -1647,23 +1641,23 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 			{
 				case LOW_GRASS:
 				case HIGH_GRASS:  // jungle camo bonus
-					iTemp -= iTemp * (int)(jungle * bEffectiveCamo / 3) / 100;
+					iTemp -= iTemp * (jungle * bEffectiveCamo / 3 / totalCamo) / 100;
 					break;
 				case FLAT_FLOOR: // flat floor = indoors
 				case PAVED_ROAD: // urban camo bonus
-					iTemp -= iTemp * (int)(urban * bEffectiveCamo / 3) / 100;
+					iTemp -= iTemp * (urban * bEffectiveCamo / 3 / totalCamo) / 100;
 					break;
 				case DIRT_ROAD:  // desert camo bonus
 				case TRAIN_TRACKS:
-					iTemp -= iTemp * (int)(desert * bEffectiveCamo / 3) / 100;
+					iTemp -= iTemp * (desert * bEffectiveCamo / 3 / totalCamo) / 100;
 					break;
 				//case ??? :  // snow camo bonus
-				//	iTemp -= iTemp * (snow * bEffectiveCamo / 3) / 100;
+				//	iTemp -= iTemp * (snow * bEffectiveCamo / 3 / totalCamo) / 100;
 				//	break;
 				case FLAT_GROUND:  
 					//in this case both desert and jungle can work:
-					iTemp -= iTemp * (int)(jungle * bEffectiveCamo / 3) / 100;
-					iTemp -= iTemp * (int)(desert * bEffectiveCamo / 3) / 100;
+					iTemp -= iTemp * (jungle * bEffectiveCamo / 3 / totalCamo) / 100;
+					iTemp -= iTemp * (desert * bEffectiveCamo / 3 / totalCamo) / 100;
 					break;
 				default:
 					break;

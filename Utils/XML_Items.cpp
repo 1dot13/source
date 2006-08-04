@@ -58,6 +58,8 @@ struct
 }
 typedef itemParseData;
 
+BOOLEAN localizedTextOnly;
+
 static void XMLCALL 
 itemStartElementHandle(void *userData, const char *name, const char **atts)
 {
@@ -70,7 +72,8 @@ itemStartElementHandle(void *userData, const char *name, const char **atts)
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			memset(pData->curArray,0,sizeof(INVTYPE)*pData->maxArraySize);
+			if ( !localizedTextOnly )
+				memset(pData->curArray,0,sizeof(INVTYPE)*pData->maxArraySize);
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -78,7 +81,8 @@ itemStartElementHandle(void *userData, const char *name, const char **atts)
 		{
 			pData->curElement = ELEMENT;
 
-			memset(&pData->curItem,0,sizeof(INVTYPE));
+			if ( !localizedTextOnly )
+				memset(&pData->curItem,0,sizeof(INVTYPE));
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -250,9 +254,8 @@ itemEndElementHandle(void *userData, const char *name)
 			{
 				if ( pData->curItem.usItemClass != 0 )
 					pData->curArray[pData->curItem.uiIndex] = pData->curItem; //write the item into the table
-				else if ( sizeof(pData->curItem.szItemName)>0 )
+				else if ( sizeof(pData->curItem.szItemName)>0 && localizedTextOnly )
 				{
-					//Madd: needs testing
 					strcpy(pData->curArray[pData->curItem.uiIndex].szItemName,pData->curItem.szItemName);
 					strcpy(pData->curArray[pData->curItem.uiIndex].szLongItemName,pData->curItem.szLongItemName);
 					strcpy(pData->curArray[pData->curItem.uiIndex].szBRName,pData->curItem.szBRName);
@@ -946,7 +949,7 @@ itemEndElementHandle(void *userData, const char *name)
 
 
 
-BOOLEAN ReadInItemStats(STR fileName)
+BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion )
 {
 	HWFILE		hFile;
 	UINT32		uiBytesRead;
@@ -955,6 +958,8 @@ BOOLEAN ReadInItemStats(STR fileName)
 	XML_Parser	parser = XML_ParserCreate(NULL);
 	
 	itemParseData pData;
+	
+	localizedTextOnly = localizedVersion;
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading Items.xml" );
 

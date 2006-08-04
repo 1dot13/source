@@ -7543,7 +7543,7 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 					Armour[ Item[ usItem ].ubClassIndex ].ubProtection, //Protection (raw data)
 					Armour[ Item[ usItem ].ubClassIndex ].ubProtection * sValue / 100,
 					pInvPanelTitleStrings[ 3 ],	//Camo string
-					Item[ usItem ].camobonus,	//Camo bonus
+					GetCamoBonus(pObject)+GetUrbanCamoBonus(pObject)+GetDesertCamoBonus(pObject)+GetSnowCamoBonus(pObject),	//Camo bonus
 					gWeaponStatsDesc[ 12 ],		//Weight string
 					fWeight,					//Weight
 					GetWeightUnitString()		//Weight units

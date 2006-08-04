@@ -119,7 +119,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcpy(fileName, directoryName);
 	strcat(fileName, ITEMSFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-	if(!ReadInItemStats(fileName))
+	if(!ReadInItemStats(fileName,FALSE))
 		return FALSE;
 
 //Madd: Simple localization
@@ -138,7 +138,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInItemStats(fileName))
+		if(!ReadInItemStats(fileName,TRUE))
 			return FALSE;
 	}
 #endif
@@ -149,7 +149,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInItemStats(fileName))
+		if(!ReadInItemStats(fileName,TRUE))
 			return FALSE;
 	}
 #endif

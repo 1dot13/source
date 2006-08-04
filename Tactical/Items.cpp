@@ -2200,7 +2200,7 @@ UINT8 CalculateObjectWeight( OBJECTTYPE *pObject )
 		{
 			if (pObject->ubShotsLeft[cnt] > 0 )
 			{
-				usWeight += (INT16)(pObject->ubShotsLeft[cnt]/Magazine[pItem->usItemClass].ubMagSize) * pItem->ubWeight;
+				usWeight += (INT16)(pObject->ubShotsLeft[cnt]/Magazine[pItem->ubClassIndex].ubMagSize) * pItem->ubWeight;
 			}
 		}
 	}
@@ -5685,9 +5685,6 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 	//get total camo bonus for kit -- note that camo kits now require the camobonus tag to be set
 	int itemCamo = Item[pObj->usItem].camobonus + Item[pObj->usItem].urbanCamobonus + Item[pObj->usItem].desertCamobonus + Item[pObj->usItem].snowCamobonus;
 
-	if ( itemCamo < 100 )
-		usTotalKitPoints = (INT16)((itemCamo / 100) * usTotalKitPoints);
-
 	int totalCamo = pSoldier->bCamo + pSoldier->wornCamo + pSoldier->urbanCamo+pSoldier->wornUrbanCamo+pSoldier->desertCamo+pSoldier->wornDesertCamo+pSoldier->snowCamo+pSoldier->wornSnowCamo;
 	if ((totalCamo) >= 100)
 	{
@@ -5701,15 +5698,15 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 	bPointsToUse = __min( bPointsToUse, usTotalKitPoints );
 
 	//figure out proportions of each to be applied, one item can theoretically have more than one camouflage type this way
-	int urban = (int)((Item[pObj->usItem].urbanCamobonus / itemCamo) * bPointsToUse);
-	int jungle = (int)((Item[pObj->usItem].camobonus / itemCamo) * bPointsToUse);
-	int desert = (int)((Item[pObj->usItem].desertCamobonus / itemCamo) * bPointsToUse);
-	int snow = (int)((Item[pObj->usItem].snowCamobonus / itemCamo) * bPointsToUse);
+	int urban = (int)(Item[pObj->usItem].urbanCamobonus * bPointsToUse / itemCamo );
+	int jungle = (int)(Item[pObj->usItem].camobonus * bPointsToUse / itemCamo );
+	int desert = (int)(Item[pObj->usItem].desertCamobonus * bPointsToUse / itemCamo );
+	int snow = (int)(Item[pObj->usItem].snowCamobonus * bPointsToUse / itemCamo );
 
-	pSoldier->bCamo = __min( 100, pSoldier->bCamo + jungle * 2);
-	pSoldier->urbanCamo = __min( 100, pSoldier->urbanCamo + urban * 2);
-	pSoldier->desertCamo = __min( 100, pSoldier->desertCamo + desert * 2);
-	pSoldier->snowCamo = __min( 100, pSoldier->snowCamo + snow * 2);
+	pSoldier->bCamo = __min( 100, pSoldier->bCamo + jungle );
+	pSoldier->urbanCamo = __min( 100, pSoldier->urbanCamo + urban );
+	pSoldier->desertCamo = __min( 100, pSoldier->desertCamo + desert );
+	pSoldier->snowCamo = __min( 100, pSoldier->snowCamo + snow );
 	
 	UseKitPoints( pObj, bPointsToUse, pSoldier );
 
@@ -7168,6 +7165,45 @@ INT16 GetCamoBonus( OBJECTTYPE * pObj )
 	}
 	return( bns );
 }
+INT16 GetUrbanCamoBonus( OBJECTTYPE * pObj )
+{
+	INT8	bLoop;
+	INT16 bns=0;
+
+	bns = (INT16) (Item[pObj->usItem].urbanCamobonus);// * (WEAPON_STATUS_MOD(pObj->bStatus[0]) / 100)) ;
+
+	for (bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
+	{
+		bns += (INT16) (Item[pObj->usAttachItem[bLoop]].urbanCamobonus);// * (WEAPON_STATUS_MOD(pObj->bAttachStatus[bLoop]) / 100));
+	}
+	return( bns );
+}
+INT16 GetDesertCamoBonus( OBJECTTYPE * pObj )
+{
+	INT8	bLoop;
+	INT16 bns=0;
+
+	bns = (INT16) (Item[pObj->usItem].desertCamobonus);// * (WEAPON_STATUS_MOD(pObj->bStatus[0]) / 100)) ;
+
+	for (bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
+	{
+		bns += (INT16) (Item[pObj->usAttachItem[bLoop]].desertCamobonus);// * (WEAPON_STATUS_MOD(pObj->bAttachStatus[bLoop]) / 100));
+	}
+	return( bns );
+}
+INT16 GetSnowCamoBonus( OBJECTTYPE * pObj )
+{
+	INT8	bLoop;
+	INT16 bns=0;
+
+	bns = (INT16) (Item[pObj->usItem].snowCamobonus);// * (WEAPON_STATUS_MOD(pObj->bStatus[0]) / 100)) ;
+
+	for (bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
+	{
+		bns += (INT16) (Item[pObj->usAttachItem[bLoop]].snowCamobonus);// * (WEAPON_STATUS_MOD(pObj->bAttachStatus[bLoop]) / 100));
+	}
+	return( bns );
+}
 INT16 GetWornCamo( SOLDIERTYPE * pSoldier )
 {
 	INT8	bLoop;
@@ -7181,6 +7217,45 @@ INT16 GetWornCamo( SOLDIERTYPE * pSoldier )
 
 	return __min( ttl, 100 );
 }
+INT16 GetWornUrbanCamo( SOLDIERTYPE * pSoldier )
+{
+	INT8	bLoop;
+	INT16 ttl=0;
+
+	for (bLoop = HELMETPOS; bLoop <= LEGPOS; bLoop++)
+	{
+		if ( pSoldier->inv[bLoop].usItem > NONE )
+			ttl += GetUrbanCamoBonus(&pSoldier->inv[bLoop]);
+	}
+
+	return __min( ttl, 100 );
+}
+INT16 GetWornDesertCamo( SOLDIERTYPE * pSoldier )
+{
+	INT8	bLoop;
+	INT16 ttl=0;
+
+	for (bLoop = HELMETPOS; bLoop <= LEGPOS; bLoop++)
+	{
+		if ( pSoldier->inv[bLoop].usItem > NONE )
+			ttl += GetDesertCamoBonus(&pSoldier->inv[bLoop]);
+	}
+
+	return __min( ttl, 100 );
+}
+INT16 GetWornSnowCamo( SOLDIERTYPE * pSoldier )
+{
+	INT8	bLoop;
+	INT16 ttl=0;
+
+	for (bLoop = HELMETPOS; bLoop <= LEGPOS; bLoop++)
+	{
+		if ( pSoldier->inv[bLoop].usItem > NONE )
+			ttl += GetSnowCamoBonus(&pSoldier->inv[bLoop]);
+	}
+
+	return __min( ttl, 100 );
+}
 
 void ApplyEquipmentBonuses(SOLDIERTYPE * pSoldier)
 {
@@ -7189,12 +7264,25 @@ void ApplyEquipmentBonuses(SOLDIERTYPE * pSoldier)
 	INT16 newCamo = GetWornCamo ( pSoldier );
 	INT16 oldCamo = pSoldier->wornCamo;
 	if ( oldCamo != newCamo )
-	{	
-		pSoldier->wornCamo = newCamo;
+		pSoldier->wornCamo = (INT8)newCamo;
 
-		if ( newCamo > oldCamo && pSoldier->bTeam == OUR_TEAM )
-			DoMercBattleSound( pSoldier, BATTLE_SOUND_COOL1 );
-	}
+	newCamo = GetWornUrbanCamo ( pSoldier );
+	oldCamo = pSoldier->wornUrbanCamo;
+	if ( oldCamo != newCamo )
+		pSoldier->wornUrbanCamo = (INT8)newCamo;
+
+	newCamo = GetWornDesertCamo ( pSoldier );
+	oldCamo = pSoldier->wornDesertCamo;
+	if ( oldCamo != newCamo )
+		pSoldier->wornDesertCamo = (INT8)newCamo;
+
+	newCamo = GetWornSnowCamo ( pSoldier );
+	oldCamo = pSoldier->wornSnowCamo;
+	if ( oldCamo != newCamo )
+		pSoldier->wornSnowCamo = (INT8)newCamo;
+
+	if ( newCamo > oldCamo && pSoldier->bTeam == OUR_TEAM )
+		DoMercBattleSound( pSoldier, BATTLE_SOUND_COOL1 );
 
 	//Madd: do this regardless of camo.  This will need to be called to do custom part colours and new overlays anyway.
 	if ( pSoldier->bInSector)

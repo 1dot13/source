@@ -294,5 +294,14 @@ INT8 FindNightGoggles( SOLDIERTYPE * pSoldier, INT16 bonusToBeat );
 INT16 GetMinRangeForAimBonus( OBJECTTYPE * pObj );
 UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier);
 
+INT16 GetWornUrbanCamo( SOLDIERTYPE * pSoldier );
+INT16 GetUrbanCamoBonus( OBJECTTYPE * pObj );
+INT16 GetWornDesertCamo( SOLDIERTYPE * pSoldier );
+INT16 GetDesertCamoBonus( OBJECTTYPE * pObj );
+INT16 GetWornSnowCamo( SOLDIERTYPE * pSoldier );
+INT16 GetSnowCamoBonus( OBJECTTYPE * pObj );
+
+
+
 #endif
 
