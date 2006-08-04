@@ -3075,9 +3075,6 @@
 			<File
 				RelativePath=".\XML_Strings.cpp">
 			</File>
-			<File
-				RelativePath=".\XML_Strings2.cpp">
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"

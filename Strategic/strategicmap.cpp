@@ -1243,236 +1243,239 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	UNDERGROUND_SECTORINFO	*pUnderWorld=NULL;
 	BOOLEAN									fChangeMusic = TRUE;
 
-	#ifdef CRIPPLED_VERSION
-		if( sMapY >= 5 && sMapY != 16 )
-		{
-			CrippledVersionFailureToLoadMapCheck();
-			return FALSE;	
-		}
-	#endif
-	
+#ifdef CRIPPLED_VERSION
+	if( sMapY >= 5 && sMapY != 16 )
+	{
+		CrippledVersionFailureToLoadMapCheck();
+		return FALSE;	
+	}
+#endif
+
 	// ATE: Zero out accounting functions
 	memset( gbMercIsNewInThisSector, 0, sizeof( gbMercIsNewInThisSector ) );
 
 	SyncStrategicTurnTimes();
-	
-	#ifdef JA2BETAVERSION
+
+#ifdef JA2BETAVERSION
 	if( gfOverrideSector )
 	{
 		//skip the cancel, and force load the sector.  This is used by the AIViewer to "reset" a level with
 		//different numbers of various types of enemies.
 	}
 	else
-	#endif
-	// is the sector already loaded?
-	if( ( gWorldSectorX == sMapX ) && ( sMapY == gWorldSectorY) && ( bMapZ == gbWorldSectorZ) )
-	{
-		//Inserts the enemies into the newly loaded map based on the strategic information.
-		//Note, the flag will return TRUE only if enemies were added.  The game may wish to
-		//do something else in a case where no enemies are present.
-
-		SetPendingNewScreen(GAME_SCREEN);
-		if( !NumEnemyInSector( ) )
+#endif
+		// is the sector already loaded?
+		if( ( gWorldSectorX == sMapX ) && ( sMapY == gWorldSectorY) && ( bMapZ == gbWorldSectorZ) )
 		{
-			PrepareEnemyForSectorBattle();
-		}
-		if( gubNumCreaturesAttackingTown && !gbWorldSectorZ && 
+			//Inserts the enemies into the newly loaded map based on the strategic information.
+			//Note, the flag will return TRUE only if enemies were added.  The game may wish to
+			//do something else in a case where no enemies are present.
+
+			SetPendingNewScreen(GAME_SCREEN);
+			if( !NumEnemyInSector( ) )
+			{
+				PrepareEnemyForSectorBattle();
+			}
+			if( gubNumCreaturesAttackingTown && !gbWorldSectorZ && 
 				gubSectorIDOfCreatureAttack == SECTOR( gWorldSectorX, gWorldSectorY ) )
-		{
-			PrepareCreaturesForBattle();
+			{
+				PrepareCreaturesForBattle();
+			}
+			if( gfGotoSectorTransition )
+			{
+				BeginLoadScreen( );
+				gfGotoSectorTransition = FALSE;
+			}
+
+			// Check for helicopter being on the ground in this sector...
+			HandleHelicopterOnGroundGraphic( );
+
+			ResetMilitia();
+			AllTeamsLookForAll( TRUE );
+			return( TRUE );
 		}
-		if( gfGotoSectorTransition )
+
+		if( gWorldSectorX && gWorldSectorY && gbWorldSectorZ != -1 )
 		{
-			BeginLoadScreen( );
-			gfGotoSectorTransition = FALSE;
+			HandleDefiniteUnloadingOfWorld( ABOUT_TO_LOAD_NEW_MAP );
 		}
 
-		// Check for helicopter being on the ground in this sector...
-		HandleHelicopterOnGroundGraphic( );
+		// make this the currently loaded sector
+		gWorldSectorX  = sMapX;
+		gWorldSectorY  = sMapY;
+		gbWorldSectorZ = bMapZ;
 
-		ResetMilitia();
-		AllTeamsLookForAll( TRUE );
-		return( TRUE );
-	}
-
-	if( gWorldSectorX && gWorldSectorY && gbWorldSectorZ != -1 )
-	{
-		HandleDefiniteUnloadingOfWorld( ABOUT_TO_LOAD_NEW_MAP );
-	}
-
-	// make this the currently loaded sector
-	gWorldSectorX  = sMapX;
-	gWorldSectorY  = sMapY;
-	gbWorldSectorZ = bMapZ;
-
-	// update currently selected map sector to match
-	ChangeSelectedMapSector( sMapX, sMapY, bMapZ );
+		// update currently selected map sector to match
+		ChangeSelectedMapSector( sMapX, sMapY, bMapZ );
 
 
-	//Check to see if the sector we are loading is the cave sector under Tixa.  If so
-	//then we will set up the meanwhile scene to start the creature quest.
-	if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
-	{
-    StopAnyCurrentlyTalkingSpeech( );
-
-		if( gWorldSectorX == 9 && gWorldSectorY == 10 && gbWorldSectorZ == 2 )
-		{
-			InitCreatureQuest(); //Ignored if already active.
-		}
-	}
-
-	//Stop playing any music -- will fade out.
-	// SetMusicMode( MUSIC_NONE );
-
-	// ATE: Determine if we should set the default music...
-
-	// Are we already in 'tense' music...
-
-	// ATE: Change music only if not loading....
-	/*-
-	if ( gubMusicMode == MUSIC_TACTICAL_ENEMYPRESENT  )
-	{
-		fChangeMusic = FALSE;
-	}
-
-	// Did we 'tactically traverse' over....
-	if ( gfTacticalTraversal )
-	{
-		fChangeMusic = FALSE;
-	}
-
-	// If we have no music playing at all....
-	if ( gubMusicMode == MUSIC_NONE  )
-	{
-		fChangeMusic = TRUE;
-	}
-	-*/
-	
-	if( (gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
-	{
-		fChangeMusic = TRUE;
-	}
-	else
-	{
-		fChangeMusic = FALSE;
-	}
-
-
-	if ( fChangeMusic )
-	{
-		SetMusicMode( MUSIC_MAIN_MENU );		
-	}
-
-	// ATE: Do this stuff earlier!
-	if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
-	{
-		// Update the last time we were in tactical...
-		gTacticalStatus.uiTimeSinceLastInTactical = GetWorldTotalMin( );
-
-		// init some AI stuff
-		InitializeTacticalStatusAtBattleStart();
-
-		// CJC: delay this until after entering the sector!
-		//InitAI();
-
-	  // Check for helicopter being on the ground in this sector...
-	  HandleHelicopterOnGroundSkyriderProfile( );
-	}
-
-	//Load and enter the new sector
-	if( EnterSector( gWorldSectorX, gWorldSectorY, bMapZ ) )
-	{
-		// CJC: moved this here Feb 17
+		//Check to see if the sector we are loading is the cave sector under Tixa.  If so
+		//then we will set up the meanwhile scene to start the creature quest.
 		if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 		{
-			InitAI();
+			StopAnyCurrentlyTalkingSpeech( );
+
+			if( gWorldSectorX == 9 && gWorldSectorY == 10 && gbWorldSectorZ == 2 )
+			{
+				InitCreatureQuest(); //Ignored if already active.
+			}
 		}
 
-		//If there are any people with schedules, now is the time to process them.
-		//CJC: doesn't work here if we're going through the tactical placement GUI; moving
-		// this call to PrepareLoadedSector()
-		//PostSchedules();
+		//Stop playing any music -- will fade out.
+		// SetMusicMode( MUSIC_NONE );
 
-		// ATE: OK, add code here to update the states of doors if they should 
-		// be closed......
+		// ATE: Determine if we should set the default music...
+
+		// Are we already in 'tense' music...
+
+		// ATE: Change music only if not loading....
+		/*-
+		if ( gubMusicMode == MUSIC_TACTICAL_ENEMYPRESENT  )
+		{
+		fChangeMusic = FALSE;
+		}
+
+		// Did we 'tactically traverse' over....
+		if ( gfTacticalTraversal )
+		{
+		fChangeMusic = FALSE;
+		}
+
+		// If we have no music playing at all....
+		if ( gubMusicMode == MUSIC_NONE  )
+		{
+		fChangeMusic = TRUE;
+		}
+		-*/
+
+		if( (gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
+		{
+			fChangeMusic = TRUE;
+		}
+		else
+		{
+			fChangeMusic = FALSE;
+		}
+
+
+		if ( fChangeMusic )
+		{
+			SetMusicMode( MUSIC_MAIN_MENU );		
+		}
+
+		// ATE: Do this stuff earlier!
 		if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 		{
-			ExamineDoorsOnEnteringSector( );
+			// Update the last time we were in tactical...
+			gTacticalStatus.uiTimeSinceLastInTactical = GetWorldTotalMin( );
+
+			// init some AI stuff
+			InitializeTacticalStatusAtBattleStart();
+
+			// CJC: delay this until after entering the sector!
+			//InitAI();
+
+			// Check for helicopter being on the ground in this sector...
+			HandleHelicopterOnGroundSkyriderProfile( );
 		}
 
-		// Update all the doors in the sector according to the temp file previously
-		// loaded, and any changes made by the schedules
-		UpdateDoorGraphicsFromStatus( TRUE, FALSE );
+		//Load and enter the new sector
+		if( EnterSector( gWorldSectorX, gWorldSectorY, bMapZ ) )
+		{
+			// CJC: moved this here Feb 17
+			if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
+			{
+				InitAI();
+			}
 
-		//Set the fact we have visited the  sector
-		SetSectorFlag( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, SF_ALREADY_LOADED );
+			//If there are any people with schedules, now is the time to process them.
+			//CJC: doesn't work here if we're going through the tactical placement GUI; moving
+			// this call to PrepareLoadedSector()
+			//PostSchedules();
 
-		// Check for helicopter being on the ground in this sector...
-		HandleHelicopterOnGroundGraphic( );
-	}
-	else
-		return( FALSE );
+			// ATE: OK, add code here to update the states of doors if they should 
+			// be closed......
+			if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
+			{
+				ExamineDoorsOnEnteringSector( );
+			}
 
-	if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
-	{
-		if( (gubMusicMode != MUSIC_TACTICAL_ENEMYPRESENT && gubMusicMode != MUSIC_TACTICAL_BATTLE) || 
+			// Update all the doors in the sector according to the temp file previously
+			// loaded, and any changes made by the schedules
+			UpdateDoorGraphicsFromStatus( TRUE, FALSE );
+
+			//Set the fact we have visited the  sector
+			SetSectorFlag( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, SF_ALREADY_LOADED );
+
+			// Check for helicopter being on the ground in this sector...
+			HandleHelicopterOnGroundGraphic( );
+		}
+		else
+			return( FALSE );
+
+		if( !(gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
+		{
+			if( (gubMusicMode != MUSIC_TACTICAL_ENEMYPRESENT && gubMusicMode != MUSIC_TACTICAL_BATTLE) || 
 				(!NumHostilesInSector( sMapX, sMapY, bMapZ ) && gubMusicMode == MUSIC_TACTICAL_ENEMYPRESENT) )
-		{
-			// ATE; Fade FA.T....
-			SetMusicFadeSpeed( 5 );
+			{
+				// ATE; Fade FA.T....
+				SetMusicFadeSpeed( 5 );
 
-			SetMusicMode( MUSIC_TACTICAL_NOTHING );
+				SetMusicMode( MUSIC_TACTICAL_NOTHING );
+			}
+
+			// ATE: Check what sector we are in, to show description if we have an RPC.....
+			HandleRPCDescriptionOfSector( sMapX, sMapY, bMapZ );
+
+
+
+			// ATE: Set Flag for being visited...
+			SetSectorFlag( sMapX, sMapY, bMapZ, SF_HAS_ENTERED_TACTICAL );
+
+			// ATE; Reset some flags for creature sayings....
+			gTacticalStatus.fSaidCreatureFlavourQuote = FALSE;
+			gTacticalStatus.fHaveSeenCreature					= FALSE;
+			gTacticalStatus.fBeenInCombatOnce					= FALSE;
+			gTacticalStatus.fSaidCreatureSmellQuote		= FALSE;
+			ResetMultiSelection( );
+
+			// ATE: Decide if we can have crows here....
+			gTacticalStatus.fGoodToAllowCrows					= FALSE;
+			gTacticalStatus.fHasEnteredCombatModeSinceEntering = FALSE;
+			gTacticalStatus.fDontAddNewCrows          = FALSE;
+
+			// Adjust delay for tense quote
+			gTacticalStatus.sCreatureTenseQuoteDelay = (INT16)( 10 + Random( 20 ) );
+
+			{
+				INT16 sWarpWorldX;
+				INT16 sWarpWorldY;
+				INT8  bWarpWorldZ;
+				INT16 sWarpGridNo;
+
+				if ( GetWarpOutOfMineCodes( &sWarpWorldX, &sWarpWorldY, &bWarpWorldZ, &sWarpGridNo ) && gbWorldSectorZ >= 2 )
+				{
+					gTacticalStatus.uiFlags |= IN_CREATURE_LAIR;
+				}
+				else
+				{
+					gTacticalStatus.uiFlags &= ( ~IN_CREATURE_LAIR );
+				}
+			}
+
+			// Every third turn
+			//if ( Random( 3 ) == 0  )
+			{
+				if(gGameSettings.fOptions[ TOPTION_ALLOW_CROWS ] == TRUE)
+				{
+					gTacticalStatus.fGoodToAllowCrows	= TRUE;
+					gTacticalStatus.ubNumCrowsPossible	= (UINT8)( 5 + Random( 5 ) );
+				}
+			}
+
 		}
 
-		// ATE: Check what sector we are in, to show description if we have an RPC.....
-		HandleRPCDescriptionOfSector( sMapX, sMapY, bMapZ );
-
-    
-
-		// ATE: Set Flag for being visited...
-		SetSectorFlag( sMapX, sMapY, bMapZ, SF_HAS_ENTERED_TACTICAL );
-
-		// ATE; Reset some flags for creature sayings....
-		gTacticalStatus.fSaidCreatureFlavourQuote = FALSE;
-		gTacticalStatus.fHaveSeenCreature					= FALSE;
-		gTacticalStatus.fBeenInCombatOnce					= FALSE;
-		gTacticalStatus.fSaidCreatureSmellQuote		= FALSE;
-		ResetMultiSelection( );
-
-		// ATE: Decide if we can have crows here....
-		gTacticalStatus.fGoodToAllowCrows					= FALSE;
-    gTacticalStatus.fHasEnteredCombatModeSinceEntering = FALSE;
-    gTacticalStatus.fDontAddNewCrows          = FALSE;
-
-    // Adjust delay for tense quote
-    gTacticalStatus.sCreatureTenseQuoteDelay = (INT16)( 10 + Random( 20 ) );
-
-    {
-      INT16 sWarpWorldX;
-      INT16 sWarpWorldY;
-      INT8  bWarpWorldZ;
-      INT16 sWarpGridNo;
-
-      if ( GetWarpOutOfMineCodes( &sWarpWorldX, &sWarpWorldY, &bWarpWorldZ, &sWarpGridNo ) && gbWorldSectorZ >= 2 )
-      {
-        gTacticalStatus.uiFlags |= IN_CREATURE_LAIR;
-      }
-      else
-      {
-        gTacticalStatus.uiFlags &= ( ~IN_CREATURE_LAIR );
-      }
-    }
-
-		// Every third turn
-		//if ( Random( 3 ) == 0  )
-		{
-			gTacticalStatus.fGoodToAllowCrows				= TRUE;
-			gTacticalStatus.ubNumCrowsPossible			= (UINT8)( 5 + Random( 5 ) );
-		}
-
-	}
-
-	return( TRUE );
+		return( TRUE );
 }
 
 BOOLEAN MapExists( UINT8 * szFilename )

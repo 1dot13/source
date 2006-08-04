@@ -729,9 +729,9 @@ STR16 gzMercSkillText[] =
 	L"Messer",
 	L"Dach-Treffer-Bonus",
 	L"Getarnt",
-	L"Getarnt (Urban)",						
-	L"Getarnt (Desert)",						
-	L"Getarnt (Snow)",						
+	L"Getarnt (Stadt)",						
+	L"Getarnt (Wüste)",						
+	L"Getarnt (Schnee)",						
 	L"(Experte)",
 };
 
@@ -3231,6 +3231,7 @@ STR16 zOptionsToggleText[] =
 	L"Waffenreichweite in Felder",
 	L"Tracereffekte für Einzelschüsse",
 	L"Regengeräusche",
+	L"Krähen erlauben",
 };
 
 //This is the help text associated with the above toggles.
@@ -3306,6 +3307,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, werden Waffenreichweiten in Feldern angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, wird Tracereffekt auch für Einzelschüsse angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, werden Regengeräusche hörbar falls es regnet.",
+	L"Wenn diese Funktion aktiviert ist, sind Krähen im Spiel vorhanden.",
 };
 
 STR16 gzGIOScreenText[] =
