@@ -1572,10 +1572,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 								UIHandleLUIEndLock( NULL );
 
 						}
-						if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == ENTER ) && ( InputEvent.usKeyState & CTRL_DOWN ) )
-						{ 
-							EscapeUILock( );
-						}
+					}
+					//Madd: removed from cheat mode
+					if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == ENTER ) && ( InputEvent.usKeyState & CTRL_DOWN ) )
+					{ 
+						EscapeUILock( );
 					}
 				}
 				else

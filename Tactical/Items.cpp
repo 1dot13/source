@@ -1256,7 +1256,7 @@ BOOLEAN WeaponInHand( SOLDIERTYPE * pSoldier )
 		{
 			if (pSoldier->inv[HANDPOS].ubImprintID != NO_PROFILE)
 			{
-				if (pSoldier->ubProfile != NO_PROFILE)
+				if (pSoldier->ubProfile != NO_PROFILE && pSoldier->ubProfile != MADLAB )
 				{
 					if (pSoldier->inv[HANDPOS].ubImprintID != pSoldier->ubProfile)
 					{
@@ -2223,7 +2223,6 @@ UINT8 CalculateObjectWeight( OBJECTTYPE *pObject )
 		usWeight = 0;
 		//Temporary calculation for minWeight. 0.2*ubWeight rounded correctly 
 		UINT32 uiMinWeight = (Item[pObject->usItem].ubWeight / 5.0) + 0.5;
-		//UINT32 uiMinWeight = Magazine[ Item[ pObject->usItem].ubClassIndex].ubMinWeight; //Minimum weight of magazine, now disabled because not corresponding entry in magazines.xml and weapons.h
 		if( uiMinWeight < 1 || uiMinWeight > Item[pObject->usItem].ubWeight)
 		{
 			uiMinWeight = 1;
