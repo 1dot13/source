@@ -678,4 +678,16 @@
 		<resultingItemIndex>979</resultingItemIndex>
 		<mergeType>4</mergeType>
 	</MERGE>
+	<MERGE>
+		<firstItemIndex>1027</firstItemIndex>
+		<secondItemIndex>1027</secondItemIndex>
+		<resultingItemIndex>1027</resultingItemIndex>
+		<mergeType>1</mergeType>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1027</firstItemIndex>
+		<secondItemIndex>1027</secondItemIndex>
+		<resultingItemIndex>1027</resultingItemIndex>
+		<mergeType>1</mergeType>
+	</MERGE>
 </MERGELIST>

@@ -218,7 +218,7 @@
 	</ENEMYITEMCHOICES>
 	<ENEMYITEMCHOICES>
 		<uiIndex>4</uiIndex>
-		<ubChoices>8</ubChoices>
+		<ubChoices>10</ubChoices>
 		<bItemNo1>201</bItemNo1>
 		<bItemNo2>202</bItemNo2>
 		<bItemNo3>204</bItemNo3>
@@ -227,8 +227,8 @@
 		<bItemNo6>201</bItemNo6>
 		<bItemNo7>202</bItemNo7>
 		<bItemNo8>203</bItemNo8>
-		<bItemNo9>-1</bItemNo9>
-		<bItemNo10>-1</bItemNo10>
+		<bItemNo9>1027</bItemNo9>
+		<bItemNo10>1028</bItemNo10>
 		<bItemNo11>-1</bItemNo11>
 		<bItemNo12>-1</bItemNo12>
 		<bItemNo13>-1</bItemNo13>
