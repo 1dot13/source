@@ -141,6 +141,14 @@
 		<incompatibleattachmentIndex>183</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
 	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>885</itemIndex>
+		<incompatibleattachmentIndex>886</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>886</itemIndex>
+		<incompatibleattachmentIndex>885</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>902</itemIndex>
 		<incompatibleattachmentIndex>50</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
