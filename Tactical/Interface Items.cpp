@@ -3228,7 +3228,28 @@ void RenderItemDescriptionBox( )
 		uiRightLength=35;
 
 
-		fWeight = (float)(CalculateObjectWeight( gpItemDescObject )) / 10;
+		//Pulmu: Changed weight calculation of single item in stack
+		if( Item[gpItemDescObject->usItem].usItemClass == IC_AMMO && gpItemDescObject->ubNumberOfObjects > 1 && gubItemDescStatusIndex < gpItemDescObject->ubNumberOfObjects)
+		{
+			//Get weight of one item in stack.
+			UINT8 ubShotsLeftFirst = gpItemDescObject->ubShotsLeft[0];
+			UINT8 ubNumberOfObjects = gpItemDescObject->ubNumberOfObjects;
+			gpItemDescObject->ubNumberOfObjects = 1;
+			gpItemDescObject->ubShotsLeft[0] = gpItemDescObject->ubShotsLeft[gubItemDescStatusIndex];
+			fWeight = (float)(CalculateObjectWeight( gpItemDescObject )) / 10;
+			gpItemDescObject->ubShotsLeft[0] = ubShotsLeftFirst;
+			gpItemDescObject->ubNumberOfObjects = ubNumberOfObjects;
+		}
+		//Item does not exist
+		else if( gubItemDescStatusIndex >= gpItemDescObject->ubNumberOfObjects )
+		{
+			fWeight = (float)0.0;
+		}
+		else
+		{
+			fWeight = (float)(CalculateObjectWeight( gpItemDescObject )) / 10;
+		}
+
 		if ( !gGameSettings.fOptions[ TOPTION_USE_METRIC_SYSTEM ] ) // metric units not enabled
 		{
 			fWeight = fWeight * 2.2f;
@@ -3236,10 +3257,11 @@ void RenderItemDescriptionBox( )
 
 		// Add weight of attachments here !
 
-		if ( fWeight < 0.1 )
+		if ( fWeight < 0.1 && gubItemDescStatusIndex < gpItemDescObject->ubNumberOfObjects )
 		{
-			fWeight = 0.1f;
+			fWeight = (float)0.1;
 		}
+		//Pulmu end
 
 		// Render, stat  name
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON )
@@ -3483,7 +3505,7 @@ void RenderItemDescriptionBox( )
 			if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_AMMO )
 			{
 				// Ammo
-					swprintf( (wchar_t *)pStr, L"%d/%d", gpItemDescObject->ubShotsLeft[0], Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex ].ubMagSize );
+					swprintf( (wchar_t *)pStr, L"%d/%d", gpItemDescObject->ubShotsLeft[gubItemDescStatusIndex], Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex ].ubMagSize ); //Pulmu: Correct # of rounds for stacked ammo.
 					uiStringLength=StringPixLength(pStr, ITEMDESC_FONT );
 		//			sStrX =  gMapWeaponStats[ 0 ].sX + gsInvDescX + gMapWeaponStats[ 0 ].sValDx + ( uiRightLength - uiStringLength );
 					FindFontRightCoordinates( (INT16)(gMapWeaponStats[ 2 ].sX + gsInvDescX + gMapWeaponStats[ 2 ].sValDx+6), (INT16)(gMapWeaponStats[ 2 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
@@ -3700,16 +3722,39 @@ void RenderItemDescriptionBox( )
 		uiRightLength=35;
 
 		// Calculate total weight of item and attachments
-		fWeight = (float)(CalculateObjectWeight( gpItemDescObject )) / 10;
+		//Pulmu: Changed weight calculation of single item in stack.
+		if( Item[gpItemDescObject->usItem].usItemClass == IC_AMMO && gpItemDescObject->ubNumberOfObjects > 1 && gubItemDescStatusIndex < gpItemDescObject->ubNumberOfObjects)
+		{
+			//Get weight of one ammo clip in stack.
+			UINT8 ubShotsLeftFirst = gpItemDescObject->ubShotsLeft[0];
+			UINT8 ubNumberOfObjects = gpItemDescObject->ubNumberOfObjects;
+			gpItemDescObject->ubNumberOfObjects = 1;
+			gpItemDescObject->ubShotsLeft[0] = gpItemDescObject->ubShotsLeft[gubItemDescStatusIndex];
+			fWeight = (float)(CalculateObjectWeight( gpItemDescObject )) / 10;
+			gpItemDescObject->ubShotsLeft[0] = ubShotsLeftFirst;
+			gpItemDescObject->ubNumberOfObjects = ubNumberOfObjects;
+		}
+		//Item does not exist
+		else if( gubItemDescStatusIndex >= gpItemDescObject->ubNumberOfObjects )
+		{
+			fWeight = (float)0.0;
+		}
+		else
+		{
+			fWeight = (float)(CalculateObjectWeight( gpItemDescObject )) / 10;
+		}
+		
+
 		if ( !gGameSettings.fOptions[ TOPTION_USE_METRIC_SYSTEM ] )
 		{
 			fWeight = fWeight * 2.2f;
 		}
 
-		if ( fWeight < 0.1 )
+		if ( fWeight < 0.1 && gubItemDescStatusIndex < gpItemDescObject->ubNumberOfObjects )
 		{
 			fWeight = (float)0.1;
 		}
+		//Pulmu end
     
 		// Render, stat  name
 		if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON )
@@ -3960,7 +4005,7 @@ void RenderItemDescriptionBox( )
 			{
 				// Ammo - print amount
 				//Status
-				swprintf( (wchar_t *)pStr, L"%d/%d", gpItemDescObject->ubShotsLeft[0], Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex ].ubMagSize );		 
+				swprintf( (wchar_t *)pStr, L"%d/%d", gpItemDescObject->ubShotsLeft[gubItemDescStatusIndex], Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex ].ubMagSize );		  //Pulmu: Correct # of rounds for stacked ammo
 				FindFontRightCoordinates( (INT16)(gWeaponStats[ 2 ].sX + gsInvDescX + gWeaponStats[ 2 ].sValDx), (INT16)(gWeaponStats[ 2 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 				mprintf( usX, usY, pStr );
 			}
