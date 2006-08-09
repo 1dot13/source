@@ -3338,6 +3338,7 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 					{
 						DoMercBattleSound( pSoldier, BATTLE_SOUND_COOL1 );
 					}
+					ApplyEquipmentBonuses(pSoldier);
 					return TRUE;
 				}
 				else
@@ -3429,6 +3430,8 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 				}
 				break;
 			}
+			if ( pSoldier != NULL )
+				ApplyEquipmentBonuses(pSoldier);
 			return( TRUE );
 	}
 	return( FALSE );
@@ -7321,22 +7324,22 @@ void ApplyEquipmentBonuses(SOLDIERTYPE * pSoldier)
 	if ( oldCamo != newCamo )
 		pSoldier->wornCamo = (INT8)newCamo;
 
-	newCamo = GetWornUrbanCamo ( pSoldier );
-	oldCamo = pSoldier->wornUrbanCamo;
-	if ( oldCamo != newCamo )
-		pSoldier->wornUrbanCamo = (INT8)newCamo;
+	INT16 newUrbanCamo = GetWornUrbanCamo ( pSoldier );
+	INT16 oldUrbanCamo = pSoldier->wornUrbanCamo;
+	if ( oldUrbanCamo != newUrbanCamo )
+		pSoldier->wornUrbanCamo = (INT8)newUrbanCamo;
 
-	newCamo = GetWornDesertCamo ( pSoldier );
-	oldCamo = pSoldier->wornDesertCamo;
-	if ( oldCamo != newCamo )
-		pSoldier->wornDesertCamo = (INT8)newCamo;
+	INT16 newDesertCamo = GetWornDesertCamo ( pSoldier );
+	INT16 oldDesertCamo = pSoldier->wornDesertCamo;
+	if ( oldDesertCamo != newDesertCamo )
+		pSoldier->wornDesertCamo = (INT8)newDesertCamo;
 
-	newCamo = GetWornSnowCamo ( pSoldier );
-	oldCamo = pSoldier->wornSnowCamo;
-	if ( oldCamo != newCamo )
-		pSoldier->wornSnowCamo = (INT8)newCamo;
+	INT16 newSnowCamo = GetWornSnowCamo ( pSoldier );
+	INT16 oldSnowCamo = pSoldier->wornSnowCamo;
+	if ( oldSnowCamo != newSnowCamo )
+		pSoldier->wornSnowCamo = (INT8)newSnowCamo;
 
-	if ( newCamo > oldCamo && pSoldier->bTeam == OUR_TEAM )
+	if ( (newCamo > oldCamo || newUrbanCamo > oldUrbanCamo || newDesertCamo > oldDesertCamo || newSnowCamo > oldSnowCamo )&& pSoldier->bTeam == OUR_TEAM )
 		DoMercBattleSound( pSoldier, BATTLE_SOUND_COOL1 );
 
 	//Madd: do this regardless of camo.  This will need to be called to do custom part colours and new overlays anyway.
