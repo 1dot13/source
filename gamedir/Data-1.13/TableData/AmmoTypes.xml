@@ -138,7 +138,7 @@
 		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
-		<zeroMinimumDamage>0</zeroMinimumDamage>
+		<zeroMinimumDamage>1</zeroMinimumDamage>
 		<canGoThrough>1</canGoThrough>
 		<standardIssue>1</standardIssue>
 		<numberOfBullets>9</numberOfBullets>
