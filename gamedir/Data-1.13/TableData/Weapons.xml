@@ -3242,7 +3242,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>345</uiIndex>
-		<szWeaponName>UZI</szWeaponName>
+		<szWeaponName>Uzi</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
@@ -5654,11 +5654,11 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>657</uiIndex>
-		<szWeaponName>Gepard M1</szWeaponName>
+		<szWeaponName>Gepard M2</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>5</ubWeaponType>
 		<ubCalibre>21</ubCalibre>
-		<ubReadyTime>7</ubReadyTime>
+		<ubReadyTime>6</ubReadyTime>
 		<ubShotsPer4Turns>6</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
@@ -6914,7 +6914,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>692</uiIndex>
-		<szWeaponName>Mini UZI</szWeaponName>
+		<szWeaponName>Mini-Uzi</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
