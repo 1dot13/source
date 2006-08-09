@@ -434,11 +434,11 @@
 	</ENEMYITEMCHOICES>
 	<ENEMYITEMCHOICES>
 		<uiIndex>8</uiIndex>
-		<ubChoices>2</ubChoices>
+		<ubChoices>4</ubChoices>
 		<bItemNo1>51</bItemNo1>
 		<bItemNo2>918</bItemNo2>
-		<bItemNo3>-1</bItemNo3>
-		<bItemNo4>-1</bItemNo4>
+		<bItemNo3>916</bItemNo3>
+		<bItemNo4>917</bItemNo4>
 		<bItemNo5>-1</bItemNo5>
 		<bItemNo6>-1</bItemNo6>
 		<bItemNo7>-1</bItemNo7>
@@ -488,11 +488,11 @@
 	</ENEMYITEMCHOICES>
 	<ENEMYITEMCHOICES>
 		<uiIndex>9</uiIndex>
-		<ubChoices>4</ubChoices>
+		<ubChoices>2</ubChoices>
 		<bItemNo1>914</bItemNo1>
 		<bItemNo2>915</bItemNo2>
-		<bItemNo3>916</bItemNo3>
-		<bItemNo4>917</bItemNo4>
+		<bItemNo3>-1</bItemNo3>
+		<bItemNo4>-1</bItemNo4>
 		<bItemNo5>-1</bItemNo5>
 		<bItemNo6>-1</bItemNo6>
 		<bItemNo7>-1</bItemNo7>

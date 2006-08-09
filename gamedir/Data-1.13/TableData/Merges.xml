@@ -673,24 +673,6 @@
 		<mergeType>4</mergeType>
 	</MERGE>
 	<MERGE>
-		<firstItemIndex>1022</firstItemIndex>
-		<secondItemIndex>245</secondItemIndex>
-		<resultingItemIndex>979</resultingItemIndex>
-		<mergeType>4</mergeType>
-	</MERGE>
-	<MERGE>
-		<firstItemIndex>1027</firstItemIndex>
-		<secondItemIndex>1027</secondItemIndex>
-		<resultingItemIndex>1027</resultingItemIndex>
-		<mergeType>1</mergeType>
-	</MERGE>
-	<MERGE>
-		<firstItemIndex>1028</firstItemIndex>
-		<secondItemIndex>1028</secondItemIndex>
-		<resultingItemIndex>1028</resultingItemIndex>
-		<mergeType>1</mergeType>
-	</MERGE>
-	<MERGE>
 		<firstItemIndex>952</firstItemIndex>
 		<secondItemIndex>952</secondItemIndex>
 		<resultingItemIndex>952</resultingItemIndex>
@@ -862,6 +844,24 @@
 		<firstItemIndex>988</firstItemIndex>
 		<secondItemIndex>988</secondItemIndex>
 		<resultingItemIndex>988</resultingItemIndex>
+		<mergeType>1</mergeType>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1022</firstItemIndex>
+		<secondItemIndex>245</secondItemIndex>
+		<resultingItemIndex>979</resultingItemIndex>
+		<mergeType>4</mergeType>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1027</firstItemIndex>
+		<secondItemIndex>1027</secondItemIndex>
+		<resultingItemIndex>1027</resultingItemIndex>
+		<mergeType>1</mergeType>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1028</firstItemIndex>
+		<secondItemIndex>1028</secondItemIndex>
+		<resultingItemIndex>1028</resultingItemIndex>
 		<mergeType>1</mergeType>
 	</MERGE>
 </MERGELIST>
