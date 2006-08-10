@@ -205,6 +205,7 @@ itemStartElementHandle(void *userData, const char *name, const char **atts)
 				strcmp(name, "DesertCamoBonus") == 0 ||
 				strcmp(name, "SnowCamoBonus") == 0 ||
 				strcmp(name, "StealthBonus") == 0 ||
+				strcmp(name, "SciFi") == 0 ||
 
 	strcmp(name, "fFlags") == 0 ))
 		{
@@ -688,6 +689,11 @@ itemEndElementHandle(void *userData, const char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.thermaloptics   = (BOOLEAN) atol(pData->szCharData);
 		}
+		else if(strcmp(name, "SciFi")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.scifi   = (BOOLEAN) atol(pData->szCharData);
+		}
 		else if(strcmp(name, "HideMuzzleFlash")	 == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -918,23 +924,22 @@ itemEndElementHandle(void *userData, const char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.firstaidkit  = (BOOLEAN) atol(pData->szCharData);
 		}
-
 		else if(strcmp(name, "MetalDetector")	 == 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.metaldetector  = (BOOLEAN) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "PercentTunnelVision")	 == 0)
+		if(strcmp(name, "PercentTunnelVision")	 == 0) //Madd: had to scrap the "else" due to a compiler limit
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.percenttunnelvision  = (UINT8) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "Jar")	 == 0)
+		if(strcmp(name, "Jar")	 == 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.jar    = (BOOLEAN) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "BestLaserRange")	 == 0)
+		if(strcmp(name, "BestLaserRange")	 == 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.bestlaserrange    = (INT16) atol(pData->szCharData);
@@ -1370,6 +1375,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<NotBuyable>%d</NotBuyable>\r\n",						Item[cnt].notbuyable );
 			FilePrintf(hFile,"\t\t<Attachment>%d</Attachment>\r\n",						Item[cnt].attachment  );
 			FilePrintf(hFile,"\t\t<BigGunList>%d</BigGunList>\r\n",						Item[cnt].biggunlist   );
+			FilePrintf(hFile,"\t\t<SciFi>%d</SciFi>\r\n",						Item[cnt].scifi   );
 			FilePrintf(hFile,"\t\t<NotInEditor>%d</NotInEditor>\r\n",						Item[cnt].notineditor  );
 			FilePrintf(hFile,"\t\t<DefaultUndroppable>%d</DefaultUndroppable>\r\n",						Item[cnt].defaultundroppable );
 			FilePrintf(hFile,"\t\t<Unaerodynamic>%d</Unaerodynamic>\r\n",						Item[cnt].unaerodynamic );

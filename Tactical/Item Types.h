@@ -388,6 +388,8 @@ typedef struct
 	INT16 desertCamobonus;
 	INT16 snowCamobonus;
 
+	BOOLEAN scifi; // item only available in scifi mode
+
 	UINT16 defaultattachment;
 } INVTYPE;
 

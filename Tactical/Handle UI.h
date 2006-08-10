@@ -344,4 +344,6 @@ void PopupMilitiaControlMenu( SOLDIERTYPE *pSoldier ); //lal
 
 void PreventFromTheFreezingBug(SOLDIERTYPE* pSoldier);
 
+void GetGridNoScreenXY( INT16 sGridNo, INT16 *pScreenX, INT16 *pScreenY );
+
 #endif
