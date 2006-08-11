@@ -135,17 +135,22 @@ void PickBurstLocations( SOLDIERTYPE *pSoldier )
 	{
 		INT16	sAPCosts;
 
-		pSoldier->bDoAutofire = 1;
-
-		do
+		if ( pSoldier->bDoAutofire <= gbNumBurstLocations )
 		{
-			pSoldier->bDoAutofire++;
-			sAPCosts = CalcTotalAPsToAttack( pSoldier, gsBurstLocations[0].sGridNo, TRUE, 0);
-		}
-		while(EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) && pSoldier->inv[ pSoldier->ubAttackingHand ].ubGunShotsLeft >= pSoldier->bDoAutofire && gbNumBurstLocations >= pSoldier->bDoAutofire);
-		pSoldier->bDoAutofire--;
+			pSoldier->bDoAutofire = 1;
+			do
+			{
+				pSoldier->bDoAutofire++;
+				sAPCosts = CalcTotalAPsToAttack( pSoldier, gsBurstLocations[0].sGridNo, TRUE, 0);
+			}
+			while(EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) && pSoldier->inv[ pSoldier->ubAttackingHand ].ubGunShotsLeft >= pSoldier->bDoAutofire && gbNumBurstLocations >= pSoldier->bDoAutofire);
+			pSoldier->bDoAutofire--;
 
-		ubShotsPerBurst = __min(pSoldier->bDoAutofire,MAX_BURST_SPREAD_TARGETS);
+			ubShotsPerBurst = __min(pSoldier->bDoAutofire,MAX_BURST_SPREAD_TARGETS);
+		}
+		else if ( gbNumBurstLocations > 0 )
+			ubShotsPerBurst = pSoldier->bDoAutofire / gbNumBurstLocations;
+
 	}
 	else
 	{
