@@ -1216,7 +1216,7 @@ void HandleRPCDescriptionOfSector( INT16 sSectorX, INT16 sSectorY, INT16 sSector
 			if ( sSectorX == ubSectorDescription[ cnt ][ 1 ] && sSectorY == ubSectorDescription[ cnt ][ 0 ] )
 			{
 				// If we're not scifi, skip some
-				if ( !(gGameOptions.ubGameStyle == STYLE_SCIFI) && cnt == 3 )
+				if ( !(gGameOptions.ubGameStyle == STYLE_SCIFI && gGameExternalOptions.fEnableCrepitus) && cnt == 3 )
 				{
 					continue;
 				}

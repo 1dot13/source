@@ -305,6 +305,7 @@ typedef struct
 	BOOLEAN gfInsaneAggressiveQueen;
 
 	BOOLEAN fAmmoDynamicWeight; //Pulmu
+	BOOLEAN fEnableCrepitus;
 
 } GAME_EXTERNAL_OPTIONS;
 

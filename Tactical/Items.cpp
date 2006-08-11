@@ -1188,7 +1188,7 @@ BOOLEAN ItemIsLegal( UINT16 usItemIndex )
 		}
 	}
 
-	if ( gGameOptions.ubGameStyle == STYLE_REALISTIC && Item[usItemIndex].scifi )
+	if ( gGameOptions.ubGameStyle != STYLE_SCIFI && Item[usItemIndex].scifi )
 	{
 		return FALSE;
 	}

@@ -160,7 +160,7 @@ void InitNPCs( void )
   gfPlayerTeamSawJoey = FALSE;
 
 
-	if ( gGameOptions.ubGameStyle == STYLE_SCIFI )
+	if ( gGameOptions.ubGameStyle == STYLE_SCIFI  && gGameExternalOptions.fEnableCrepitus )
 	{
 		// add Bob
 		pProfile = &(gMercProfiles[BOB]);

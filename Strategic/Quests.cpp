@@ -1017,7 +1017,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			break;
 
 		case FACT_FATHER_DRUNK_AND_SCIFI_OPTION_ON:
-			gubFact[usFact] = ( ( gMercProfiles[ FATHER ].bNPCData >= 5 ) && gGameOptions.ubGameStyle == STYLE_SCIFI );
+			gubFact[usFact] = ( ( gMercProfiles[ FATHER ].bNPCData >= 5 ) && gGameOptions.ubGameStyle == STYLE_SCIFI && gGameExternalOptions.fEnableCrepitus);
 			break;
 
 		case FACT_BLOODCAT_QUEST_STARTED_TWO_DAYS_AGO:

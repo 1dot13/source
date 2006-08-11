@@ -946,6 +946,10 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	// Make team look for items
 	AllSoldiersLookforItems( TRUE );
 
+	//Madd: set warning value to signal other enemies
+	if( pSoldier->bTeam == ENEMY_TEAM )
+		Corpse.ubAIWarningValue = 20;
+
 	//if we are to call TacticalRemoveSoldier after adding the corpse
 	if( fRemoveMerc )
 	{

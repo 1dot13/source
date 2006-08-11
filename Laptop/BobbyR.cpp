@@ -574,7 +574,7 @@ BOOLEAN InitBobbyRayNewInventory()
 			break;
 		//if Bobby Ray sells this, it can be sold, and it's allowed into this game (some depend on e.g. gun-nut option)
 //		if( ( StoreInventory[ i ][ BOBBY_RAY_NEW ] != 0) && !( Item[ i ].fFlags & ITEM_NOT_BUYABLE ) && ItemIsLegal( i ) )
-		if( ( StoreInventory[ i ][ BOBBY_RAY_NEW ] != 0) && !( Item[ i ].notbuyable  ) && ItemIsLegal( i ) )
+		if( !( Item[ i ].notbuyable  ) )
 		{
 			LaptopSaveInfo.BobbyRayInventory[ usBobbyrIndex ].usItemIndex = i;
 			usBobbyrIndex++;
@@ -612,10 +612,8 @@ BOOLEAN InitBobbyRayUsedInventory()
 			break;
 		//if Bobby Ray sells this, it can be sold, and it's allowed into this game (some depend on e.g. gun-nut option)
 //		if( ( StoreInventory[ i ][ BOBBY_RAY_USED ] != 0) && !( Item[ i ].fFlags & ITEM_NOT_BUYABLE ) && ItemIsLegal( i ) )
-		if( ( StoreInventory[ i ][ BOBBY_RAY_USED ] != 0) && !( Item[ i ].notbuyable  ) && ItemIsLegal( i ) )
+		if( !( Item[ i ].notbuyable  ) )
 		{
-//			if( (StoreInventory[ i ][ BOBBY_RAY_USED ] != 0) && !( Item[i].fFlags & ITEM_NOT_BUYABLE )  && ItemIsLegal( i ))
-			if( (StoreInventory[ i ][ BOBBY_RAY_USED ] != 0) && !( Item[i].notbuyable )  && ItemIsLegal( i ))
 			// in case his store inventory list is wrong, make sure this category of item can be sold used
 			if ( CanDealerItemBeSoldUsed( i ) )
 			{

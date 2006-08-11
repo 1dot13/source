@@ -2594,7 +2594,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				break;
 			case NPC_ACTION_NO_SCI_FI_END_MEANWHILE:
 
-				if ( !( gGameOptions.ubGameStyle == STYLE_SCIFI ) )
+				if ( !( gGameOptions.ubGameStyle == STYLE_SCIFI && gGameExternalOptions.fEnableCrepitus) )
 				{
 					// End meanwhile....
 					// End meanwhile....
@@ -3892,7 +3892,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				break;
 
 			case NPC_ACTION_TRIGGER_MICKY_BY_SCI_FI:
-				if ( gGameOptions.ubGameStyle == STYLE_SCIFI )
+				if ( gGameOptions.ubGameStyle == STYLE_SCIFI && gGameExternalOptions.fEnableCrepitus)
 				{
 					TriggerNPCRecord( MICKY, 7 );
 				}
