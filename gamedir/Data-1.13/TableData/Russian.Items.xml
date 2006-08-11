@@ -5257,10 +5257,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>657</uiIndex>
-		<szItemName>Gepard M1</szItemName>
-		<szLongItemName>Gepard M1</szLongItemName>
+		<szItemName>Gepard M2</szItemName>
+		<szLongItemName>Gepard M2</szLongItemName>
 		<szItemDesc>There are big guns, there are big, big guns, and then there's this gun. Bring shoulder pads.</szItemDesc>
-		<szBRName>Gepard M1</szBRName>
+		<szBRName>Gepard M2</szBRName>
 		<szBRDesc>Ugly as sin, but so what? Whether it's knocking the treads off a tank or popping an enemy combatant like a water balloon, this gun makes it easy to feel like God.</szBRDesc>
 	</ITEM>
 	<ITEM>
