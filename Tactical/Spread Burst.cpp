@@ -30,10 +30,10 @@ void ResetBurstLocations( )
 	gbNumBurstLocations = 0;
 }
 
-void AccumulateBurstLocation( INT16 sGridNo )
+
+void InternalAccumulateBurstLocation( INT16 sGridNo )
 {
 	INT32 cnt;
-
 	if ( gbNumBurstLocations < MAX_BURST_LOCATIONS )
 	{
 		// Check if it already exists!
@@ -54,6 +54,68 @@ void AccumulateBurstLocation( INT16 sGridNo )
 	}
 }
 
+//Madd: to add a bit more usefulness to spread fire, I'm making it so that 
+//it will automatically latch onto enemies within iSearchRange tiles of the mouse drag.
+void AccumulateBurstLocation( INT16 sGridNo )
+{
+	SOLDIERTYPE* pTarget;
+	int iSearchRange = 2; // number of tiles beside the mouse drag to look at
+	INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset, sAdjacentGridNo;
+	BOOLEAN foundTarget = FALSE;
+
+		//first see if we can find a guy standing right on the spot
+		pTarget = SimpleFindSoldier(sGridNo,0);
+		if (!pTarget)
+			pTarget = SimpleFindSoldier(sGridNo, 1); //try on a roof
+
+		if (pTarget)
+		{
+			InternalAccumulateBurstLocation(sGridNo);			
+			foundTarget = TRUE;	
+		}
+		//let's now look around this square - maybe there are some adjacent enemies we can latch onto
+
+		// stay away from the edges
+
+		// determine maximum horizontal limits
+		sMaxLeft  = min( iSearchRange, (sGridNo % MAXCOL));
+		sMaxRight = min( iSearchRange, MAXCOL - ((sGridNo % MAXCOL) + 1));
+
+		// determine maximum vertical limits
+		sMaxUp   = min( iSearchRange, (sGridNo / MAXROW));
+		sMaxDown = min( iSearchRange, MAXROW - ((sGridNo / MAXROW) + 1));
+
+		// reset the "reachable" flags in the region we're looking at
+		for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
+		{
+			for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
+			{
+				sAdjacentGridNo = sGridNo + sXOffset + (MAXCOL * sYOffset);
+				if ( !(sAdjacentGridNo >=0 && sAdjacentGridNo < WORLD_MAX) )
+				{
+					continue;
+				}
+
+				pTarget = SimpleFindSoldier(sAdjacentGridNo,0); // look for a guy in that gridno
+
+				if (!pTarget)
+					pTarget = SimpleFindSoldier(sAdjacentGridNo, 1); //try on a roof
+
+				if (pTarget)
+				{		
+					InternalAccumulateBurstLocation(sAdjacentGridNo); //there's somebody there! let's latch onto him
+					foundTarget = TRUE;	
+				}
+			}
+		}
+
+
+		if ( !foundTarget )
+		{
+			//didn't find anyone nearby, but we should target this space anyway to prevent players from abusing this feature
+			InternalAccumulateBurstLocation(sGridNo);
+		}
+}
 
 
 void PickBurstLocations( SOLDIERTYPE *pSoldier )
