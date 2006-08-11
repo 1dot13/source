@@ -12,7 +12,6 @@
 	#include "wcheck.h"
 	#include "worlddef.h" 
 	#include "renderworld.h"
-	#include "input.h"
 	#include "font.h"  
 	#include "screenids.h"
 	#include "screens.h"

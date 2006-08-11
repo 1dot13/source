@@ -28,6 +28,8 @@ BOOLEAN EnterBobbyRAmmo()
 {
   VOBJECT_DESC    VObjectDesc;
 
+	//gfBigImageMouseRegionCreated = FALSE;
+
 	// load the background graphic and add it
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("LAPTOP\\ammobackground.sti", VObjectDesc.ImageFile);
@@ -40,12 +42,14 @@ BOOLEAN EnterBobbyRAmmo()
 
 	InitBobbyBrTitle();
 
+	guiPrevAmmoFilterMode = -1;
+	guiCurrentAmmoFilterMode = -1;
 
-	SetFirstLastPagesForNew( IC_AMMO );
-//	CalculateFirstAndLastIndexs();
+	SetFirstLastPagesForNew( IC_AMMO, guiCurrentAmmoFilterMode );
 
 	//Draw menu bar
 	InitBobbyMenuBar( );
+	InitBobbyRAmmoFilterBar();
 
 	RenderBobbyRAmmo( );
 
@@ -57,6 +61,9 @@ void ExitBobbyRAmmo()
 	DeleteVideoObjectFromIndex(guiAmmoBackground);
 	DeleteVideoObjectFromIndex(guiAmmoGrid);
 	DeleteBobbyMenuBar();
+
+	// WANNE
+	DeleteBobbyRAmmoFilter();
 
 	DeleteBobbyBrTitle();
 	DeleteMouseRegionForBigImage();
@@ -71,23 +78,24 @@ void HandleBobbyRAmmo()
 
 void RenderBobbyRAmmo()
 {
-  HVOBJECT hPixHandle;
+	HVOBJECT hPixHandle;
 
 	WebPageTileBackground(BOBBYR_NUM_HORIZONTAL_TILES, BOBBYR_NUM_VERTICAL_TILES, BOBBYR_BACKGROUND_WIDTH, BOBBYR_BACKGROUND_HEIGHT, guiAmmoBackground);
 
 	//Display title at top of page
-	DisplayBobbyRBrTitle();
+	//DisplayBobbyRBrTitle();
 
 	// GunForm
 	GetVideoObject(&hPixHandle, guiAmmoGrid);
-  BltVideoObject(FRAME_BUFFER, hPixHandle, 0, BOBBYR_GRIDLOC_X, BOBBYR_GRIDLOC_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+	BltVideoObject(FRAME_BUFFER, hPixHandle, 0, BOBBYR_GRIDLOC_X, BOBBYR_GRIDLOC_Y, VO_BLT_SRCTRANSPARENCY,NULL);
 
-	DisplayItemInfo(IC_AMMO);
-
+	DisplayItemInfo(IC_AMMO, guiCurrentAmmoFilterMode);
 	UpdateButtonText(guiCurrentLaptopMode);
-  MarkButtonsDirty( );
+	UpdateAmmoFilterButtons(guiCurrentAmmoFilterMode, guiPrevAmmoFilterMode);
+
+	MarkButtonsDirty( );
 	RenderWWWProgramTitleBar( );
-  InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
+	InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
   	fReDrawScreenFlag = TRUE;
 	fPausedReDrawScreenFlag = TRUE;	
 }

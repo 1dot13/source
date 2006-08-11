@@ -47,6 +47,24 @@ void ClearOutTempLaptopFiles( void );
 
 void HaventMadeImpMercEmailCallBack();
 
+// WANNE
+extern INT32 guiCurrentGunFilterMode;
+extern INT32 guiPrevGunFilterMode;
+
+extern INT32 guiCurrentAmmoFilterMode;
+extern INT32 guiPrevAmmoFilterMode;
+
+extern INT32 guiCurrentUsedFilterMode;
+extern INT32 guiPrevUsedFilterMode;
+
+extern INT32 guiCurrentArmourFilterMode;
+extern INT32 guiPrevArmourFilterMode;
+
+extern INT32 guiCurrentMiscFilterMode;
+extern INT32 guiPrevMiscFilterMode;
+
+extern BOOLEAN gbMessageDisplayed;
+
 extern UINT32 guiCurrentLaptopMode;
 extern UINT32 guiPreviousLaptopMode;
 extern INT32	 giCurrentSubPage;

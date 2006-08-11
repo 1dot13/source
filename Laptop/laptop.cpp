@@ -267,6 +267,24 @@ extern BOOLEAN fFirstTimeInGameScreen;
 #define		LAPTOP__NEW_EMAIL_ICON_X						iScreenWidthOffset + 67
 #define		LAPTOP__NEW_EMAIL_ICON_Y						LAPTOP__NEW_FILE_ICON_Y
 
+// WANNE
+INT32 guiCurrentGunFilterMode;
+INT32 guiPrevGunFilterMode;
+
+INT32 guiCurrentAmmoFilterMode;
+INT32 guiPrevAmmoFilterMode;
+
+INT32 guiCurrentUsedFilterMode;
+INT32 guiPrevUsedFilterMode;
+
+INT32 guiCurrentArmourFilterMode;
+INT32 guiPrevArmourFilterMode;
+
+INT32 guiCurrentMiscFilterMode;
+INT32 guiPrevMiscFilterMode;
+
+BOOLEAN	gbMessageDisplayed;
+
 
 // Mode values
 UINT32 guiCurrentLaptopMode;

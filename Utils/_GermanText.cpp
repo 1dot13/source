@@ -2659,6 +2659,36 @@ STR16 BobbyROrderFormText[] =
 	L"Lieferungen",	
 };
 
+// WANNE
+STR16			BobbyRFilter[] =
+{
+	// Guns
+	L"Pistole",
+	L"M. Pistole",
+	L"SMG",
+	L"Gewehr",
+	L"SS Gewehr",
+	L"Sturmgew.",
+	L"LMG",
+	L"Schrotfl.",
+
+	// Ammo
+	L"Pistole",
+	L"M. Pistole",
+	L"SMG",
+	L"Gewehr",
+	L"SS Gewehr",
+	L"Sturmgew.",
+	L"LMG",
+	L"Schrotfl.",
+
+	// Used
+	L"Feuerwfn.",
+	L"Munition",
+	L"Rüstung",
+	L"Sonstiges",
+};
+
 // This text is used when on the various Bobby Ray Web site pages that sell items
 STR16 BobbyRText[] = 
 {

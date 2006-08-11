@@ -26,6 +26,8 @@ BOOLEAN EnterBobbyRUsed()
 {
   VOBJECT_DESC    VObjectDesc;
 
+	 //gfBigImageMouseRegionCreated = FALSE;
+
 	// load the background graphic and add it
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("LAPTOP\\usedbackground.sti", VObjectDesc.ImageFile);
@@ -38,11 +40,14 @@ BOOLEAN EnterBobbyRUsed()
 
 	InitBobbyBrTitle();
 
-	SetFirstLastPagesForUsed();
-//	CalculateFirstAndLastIndexs();
+	guiPrevUsedFilterMode = -1;
+	guiCurrentUsedFilterMode = -1;
+
+	SetFirstLastPagesForUsed(guiCurrentUsedFilterMode);
 
 	//Draw menu bar
 	InitBobbyMenuBar( );
+	InitBobbyRUsedFilterBar();
 
 	RenderBobbyRUsed( );
 
@@ -54,6 +59,9 @@ void ExitBobbyRUsed()
 	DeleteVideoObjectFromIndex(guiUsedBackground);
 	DeleteVideoObjectFromIndex(guiUsedGrid);
 	DeleteBobbyMenuBar();
+
+	DeleteBobbyRUsedFilter();
+
 	DeleteBobbyBrTitle();
 	DeleteMouseRegionForBigImage();
 
@@ -72,15 +80,17 @@ void RenderBobbyRUsed()
 	WebPageTileBackground(BOBBYR_NUM_HORIZONTAL_TILES, BOBBYR_NUM_VERTICAL_TILES, BOBBYR_BACKGROUND_WIDTH, BOBBYR_BACKGROUND_HEIGHT, guiUsedBackground);
 
 	//Display title at top of page
-	DisplayBobbyRBrTitle();
+	//DisplayBobbyRBrTitle();
 
 	// GunForm
 	GetVideoObject(&hPixHandle, guiUsedGrid);
   BltVideoObject(FRAME_BUFFER, hPixHandle, 0, BOBBYR_GRIDLOC_X, BOBBYR_GRIDLOC_Y, VO_BLT_SRCTRANSPARENCY,NULL);
 
-	DisplayItemInfo(BOBBYR_USED_ITEMS);
+	DisplayItemInfo(BOBBYR_USED_ITEMS, guiCurrentUsedFilterMode);
 
 	UpdateButtonText(guiCurrentLaptopMode);
+	UpdateUsedFilterButtons();
+
   MarkButtonsDirty( );
 	RenderWWWProgramTitleBar( );
   InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
