@@ -441,13 +441,17 @@ void DecideActiveTerrorists( void )
 		case DIF_LEVEL_EASY:
 			uiChance = 70;
 			break;
-		case DIF_LEVEL_HARD:
+		case DIF_LEVEL_INSANE:
 			uiChance = 30;
 			break;
 		default:
 			uiChance = 50;
 			break;
 	}
+
+	if ( gGameExternalOptions.fEnableAllTerrorists )
+		uiChance = 100;
+
 	// add at least 2 more
 	ubNumAdditionalTerrorists = 2;
 	for (ubLoop = 0; ubLoop < (MAX_ADDITIONAL_TERRORISTS - 2); ubLoop++)

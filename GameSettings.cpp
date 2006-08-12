@@ -485,6 +485,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fAmmoDynamicWeight			= iniReader.ReadBoolean("JA2 Gameplay Settings", "DYNAMIC_AMMO_WEIGHT", TRUE); //Pulmu
 	gGameExternalOptions.fEnableCrepitus			= iniReader.ReadBoolean("JA2 Gameplay Settings", "ENABLE_CREPITUS", TRUE); 
 
+	gGameExternalOptions.fEnableAllTerrorists			= iniReader.ReadBoolean("JA2 Gameplay Settings", "ENABLE_ALL_TERRORISTS", FALSE); 
+	gGameExternalOptions.fEnableAllWeaponCaches			= iniReader.ReadBoolean("JA2 Gameplay Settings", "ENABLE_ALL_WEAPON_CACHES", FALSE); 
 }
 
 

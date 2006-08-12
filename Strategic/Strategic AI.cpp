@@ -1388,16 +1388,41 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic3");
 	//final thing to do is choose 1 cache map out of 5 possible maps.  Simply select the sector randomly,
 	//set up the flags to use the alternate map, then place 8-12 regular troops there (no ai though).
 	//changing MAX_STRATEGIC_TEAM_SIZE may require changes to to the defending force here.
-	switch( Random( 5 ) )
+	if ( !gGameExternalOptions.fEnableAllWeaponCaches )
 	{
-		case 0:	pSector = &SectorInfo[ SEC_E11 ]; break;
-		case 1:	pSector = &SectorInfo[ SEC_H5 ]; break;
-		case 2:	pSector = &SectorInfo[ SEC_H10 ]; break;
-		case 3:	pSector = &SectorInfo[ SEC_J12 ]; break;
-		case 4:	pSector = &SectorInfo[ SEC_M9 ]; break;
+		switch( Random( 5 ) )
+		{
+			case 0:	pSector = &SectorInfo[ SEC_E11 ]; break;
+			case 1:	pSector = &SectorInfo[ SEC_H5 ]; break;
+			case 2:	pSector = &SectorInfo[ SEC_H10 ]; break;
+			case 3:	pSector = &SectorInfo[ SEC_J12 ]; break;
+			case 4:	pSector = &SectorInfo[ SEC_M9 ]; break;
+		}
+		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+		pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
 	}
-	pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-	pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
+	else
+	{
+		pSector = &SectorInfo[ SEC_E11 ];
+		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+		pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
+
+		pSector = &SectorInfo[ SEC_H5 ];
+		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+		pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
+
+		pSector = &SectorInfo[ SEC_H10 ];
+		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+		pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
+
+		pSector = &SectorInfo[ SEC_J12 ];
+		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+		pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
+
+		pSector = &SectorInfo[ SEC_M9 ];
+		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+		pSector->ubNumTroops = (UINT8)(6 + gGameOptions.ubDifficultyLevel * 2);
+	}
 
 	ValidateWeights( 1 );
 }
