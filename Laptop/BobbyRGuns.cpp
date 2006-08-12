@@ -59,14 +59,14 @@
 #define		BOBBYR_TO_ORDER_TEXT_WIDTH				330
 
 #define		BOBBYR_PREVIOUS_BUTTON_X					LAPTOP_SCREEN_UL_X + 5			//BOBBYR_HOME_BUTTON_X + BOBBYR_CATALOGUE_BUTTON_WIDTH + 5 
-#define		BOBBYR_PREVIOUS_BUTTON_Y					LAPTOP_SCREEN_WEB_UL_Y + 310	//LAPTOP_SCREEN_WEB_UL_Y + 340		//BOBBYR_HOME_BUTTON_Y 
+#define		BOBBYR_PREVIOUS_BUTTON_Y					LAPTOP_SCREEN_WEB_UL_Y + 300	//LAPTOP_SCREEN_WEB_UL_Y + 340		//BOBBYR_HOME_BUTTON_Y 
 
 #define		BOBBYR_NEXT_BUTTON_X							LAPTOP_SCREEN_UL_X + 412		//BOBBYR_ORDER_FORM_X + BOBBYR_ORDER_FORM_WIDTH + 5 
 #define		BOBBYR_NEXT_BUTTON_Y							BOBBYR_PREVIOUS_BUTTON_Y		//BOBBYR_PREVIOUS_BUTTON_Y 
 
 #define		BOBBYR_CATALOGUE_BUTTON_START_X		BOBBYR_PREVIOUS_BUTTON_X + 92 	//LAPTOP_SCREEN_UL_X + 93 - BOBBYR_CATALOGUE_BUTTON_WIDTH/2
 #define		BOBBYR_CATALOGUE_BUTTON_GAP				( 318 - NUM_CATALOGUE_BUTTONS * BOBBYR_CATALOGUE_BUTTON_WIDTH) / (NUM_CATALOGUE_BUTTONS + 1) + BOBBYR_CATALOGUE_BUTTON_WIDTH + 1//80
-#define		BOBBYR_CATALOGUE_BUTTON_Y					LAPTOP_SCREEN_WEB_UL_Y + 310
+#define		BOBBYR_CATALOGUE_BUTTON_Y					LAPTOP_SCREEN_WEB_UL_Y + 300
 #define		BOBBYR_CATALOGUE_BUTTON_WIDTH			56//75
 
 #define   BOBBYR_HOME_BUTTON_X							iScreenWidthOffset + 120
@@ -139,12 +139,12 @@ BobbyRayPurchaseStruct BobbyRayPurchases[ MAX_PURCHASE_AMOUNT ];
 #define		FILTER_BUTTONS_GUN_START_X				BOBBYR_PREVIOUS_BUTTON_X
 #define		FILTER_BUTTONS_AMMO_START_X				FILTER_BUTTONS_GUN_START_X
 #define		FILTER_BUTTONS_USED_START_X				FILTER_BUTTONS_GUN_START_X + 122
-#define		FILTER_BUTTONS_Y						BOBBYR_PREVIOUS_BUTTON_Y + 30
+#define		FILTER_BUTTONS_Y						BOBBYR_PREVIOUS_BUTTON_Y + 25
 
 // WANNE
 // The number of filter buttons which category uses
-#define		NUMBER_GUNS_FILTER_BUTTONS			8
-#define		NUMBER_AMMO_FILTER_BUTTONS			8
+#define		NUMBER_GUNS_FILTER_BUTTONS			9
+#define		NUMBER_AMMO_FILTER_BUTTONS			9
 #define		NUMBER_ARMOUR_FILTER_BUTTONS		1
 #define		NUMBER_MISC_FILTER_BUTTONS			1
 #define		NUMBER_USED_FILTER_BUTTONS			4
@@ -174,6 +174,7 @@ BOOLEAN IsAmmoMatchinWeaponType(UINT16 usItemIndex, UINT8 ubWeaponType);
 
 // WANNE
 INT8			ubFilterGunsButtonValues[] = {
+							BOBBYR_FILTER_GUNS_HEAVY,
 							BOBBYR_FILTER_GUNS_PISTOL,
 							BOBBYR_FILTER_GUNS_M_PISTOL,
 							BOBBYR_FILTER_GUNS_SMG,
@@ -185,6 +186,7 @@ INT8			ubFilterGunsButtonValues[] = {
 
 // WANNE
 INT8			ubFilterAmmoButtonValues[] = {
+							BOBBYR_FILTER_AMMO_HEAVY,
 							BOBBYR_FILTER_AMMO_PISTOL,
 							BOBBYR_FILTER_AMMO_M_PISTOL,
 							BOBBYR_FILTER_AMMO_SMG,
@@ -474,7 +476,7 @@ BOOLEAN InitBobbyRGunsFilterBar()
 	UINT8	i;
 	UINT16	usPosX;
 	UINT8		bCurMode;
-
+	UINT16	usYOffset = 0;
 
 	bCurMode = 0;
 	usPosX = FILTER_BUTTONS_GUN_START_X;
@@ -484,12 +486,19 @@ BOOLEAN InitBobbyRGunsFilterBar()
 	// Loop through the filter buttons
 	for(i=0; i<NUMBER_GUNS_FILTER_BUTTONS; i++)
 	{
+		// Next row
+		if (i > 7)
+		{
+			usPosX = FILTER_BUTTONS_GUN_START_X;
+			usYOffset = 25;
+		}
+
 		// Filter buttons
-		guiBobbyRFilterGuns[i] = CreateIconAndTextButton( guiBobbyRFilterImage, BobbyRFilter[BOBBYR_FILTER_GUNS_PISTOL+i], BOBBYR_GUNS_BUTTON_FONT, 
+		guiBobbyRFilterGuns[i] = CreateIconAndTextButton( guiBobbyRFilterImage, BobbyRFilter[BOBBYR_FILTER_GUNS_HEAVY+i], BOBBYR_GUNS_BUTTON_FONT, 
 													BOBBYR_GUNS_TEXT_COLOR_ON, BOBBYR_GUNS_SHADOW_COLOR, 
 													BOBBYR_GUNS_TEXT_COLOR_OFF, BOBBYR_GUNS_SHADOW_COLOR, 
 													TEXT_CJUSTIFIED, 
-													usPosX, FILTER_BUTTONS_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													usPosX, FILTER_BUTTONS_Y + usYOffset, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 													DEFAULT_MOVE_CALLBACK, BtnBobbyRFilterGunsCallback);
 
 		SetButtonCursor(guiBobbyRFilterGuns[i], CURSOR_LAPTOP_SCREEN);
@@ -510,6 +519,7 @@ BOOLEAN InitBobbyRAmmoFilterBar()
 	UINT8	i;
 	UINT16	usPosX;
 	UINT8		bCurMode;
+	UINT16	usYOffset = 0;
 
 
 	bCurMode = 0;
@@ -520,12 +530,19 @@ BOOLEAN InitBobbyRAmmoFilterBar()
 	// Loop through the filter buttons
 	for(i=0; i<NUMBER_AMMO_FILTER_BUTTONS; i++)
 	{
+		// Next row
+		if (i > 7)
+		{
+			usPosX = FILTER_BUTTONS_AMMO_START_X;
+			usYOffset = 25;
+		}
+
 		// Filter buttons
-		guiBobbyRFilterAmmo[i] = CreateIconAndTextButton( guiBobbyRFilterImage, BobbyRFilter[BOBBYR_FILTER_AMMO_PISTOL+i], BOBBYR_GUNS_BUTTON_FONT, 
+		guiBobbyRFilterAmmo[i] = CreateIconAndTextButton( guiBobbyRFilterImage, BobbyRFilter[BOBBYR_FILTER_AMMO_HEAVY+i], BOBBYR_GUNS_BUTTON_FONT, 
 													BOBBYR_GUNS_TEXT_COLOR_ON, BOBBYR_GUNS_SHADOW_COLOR, 
 													BOBBYR_GUNS_TEXT_COLOR_OFF, BOBBYR_GUNS_SHADOW_COLOR, 
 													TEXT_CJUSTIFIED, 
-													usPosX, FILTER_BUTTONS_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													usPosX, FILTER_BUTTONS_Y + usYOffset, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 													DEFAULT_MOVE_CALLBACK, BtnBobbyRFilterAmmoCallback);
 
 		SetButtonCursor(guiBobbyRFilterAmmo[i], CURSOR_LAPTOP_SCREEN);
@@ -829,6 +846,11 @@ void BtnBobbyRFilterGunsCallback(GUI_BUTTON *btn,INT32 reason)
 
 		switch (bNewValue)
 		{
+			// TODO: Add a new button "Heavy Weapons" (Weapon Type = NOT_GUN
+			// ItemClass = IC_LAUNCHER. (IC_LAUNCHER is already included in IC_BOBBY_GUN!)
+			case BOBBYR_FILTER_GUNS_HEAVY:
+				guiCurrentGunFilterMode = NOT_GUN;
+				break;
 			case BOBBYR_FILTER_GUNS_PISTOL:
 				guiCurrentGunFilterMode = GUN_PISTOL;
 				break;
@@ -897,6 +919,9 @@ void BtnBobbyRFilterAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 		
 		switch (bNewValue)
 		{
+			case BOBBYR_FILTER_AMMO_HEAVY:
+				guiCurrentAmmoFilterMode = NOT_GUN;
+				break;
 			case BOBBYR_FILTER_AMMO_PISTOL:
 				guiCurrentAmmoFilterMode = GUN_PISTOL;
 				break;
@@ -2574,13 +2599,13 @@ void UpdateAmmoFilterButtons(INT32 iNewButton, INT32 iOldButton)
 		if (iNewButton > -1)
 		{
 			// Disable new Button
-			DisableButton(guiBobbyRFilterAmmo[iNewButton - 1]);
+			DisableButton(guiBobbyRFilterAmmo[iNewButton]);
 		}
 
 		if (iOldButton > -1)
 		{
 			// Enable old Button
-			EnableButton(guiBobbyRFilterAmmo[iOldButton - 1]);
+			EnableButton(guiBobbyRFilterAmmo[iOldButton]);
 		}
 	}
 }
@@ -2592,13 +2617,13 @@ void UpdateGunFilterButtons(INT32 iNewButton, INT32 iOldButton)
 		if (iNewButton > -1)
 		{
 			// Disable new Button
-			DisableButton(guiBobbyRFilterGuns[iNewButton - 1]);
+			DisableButton(guiBobbyRFilterGuns[iNewButton]);
 		}
 
 		if (iOldButton > -1)
 		{
 			// Enable old Button
-			EnableButton(guiBobbyRFilterGuns[iOldButton - 1]);
+			EnableButton(guiBobbyRFilterGuns[iOldButton]);
 		}
 	}
 }

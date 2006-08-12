@@ -306,6 +306,8 @@ typedef struct
 
 	BOOLEAN fAmmoDynamicWeight; //Pulmu
 	BOOLEAN fEnableCrepitus;
+	BOOLEAN fEnableAllWeaponCaches;
+	BOOLEAN fEnableAllTerrorists;
 
 } GAME_EXTERNAL_OPTIONS;
 
