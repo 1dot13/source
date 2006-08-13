@@ -157,14 +157,14 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>5</uiIndex>
-		<fontColour>136</fontColour>
-		<grayed>4</grayed>
-		<offNormal>1</offNormal>
-		<onNormal>3</onNormal>
-		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
-		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
-		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
-		<armourImpactReductionDivisor>1</armourImpactReductionDivisor>
+		<fontColour>218</fontColour>
+		<grayed>8</grayed>
+		<offNormal>5</offNormal>
+		<onNormal>7</onNormal>
+		<structureImpactReductionMultiplier>2</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>3</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>2</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>3</armourImpactReductionDivisor>
 		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
 		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
@@ -172,9 +172,9 @@
 		<zeroMinimumDamage>0</zeroMinimumDamage>
 		<canGoThrough>1</canGoThrough>
 		<standardIssue>0</standardIssue>
-		<numberOfBullets>1</numberOfBullets>
+		<numberOfBullets>6</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
-		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<multipleBulletDamageDivisor>2</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
 		<antiTank>0</antiTank>
