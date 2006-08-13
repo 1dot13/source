@@ -900,8 +900,6 @@ void CancelAllPendingBRPurchaseOrders(void)
 	// zero out all the quantities on order
 	for(i = 0; i < MAXITEMS; i++)
 	{
-		if ( Item[i].usItemClass  == 0 )
-			break;
 		LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnOrder = 0;
 		LaptopSaveInfo.BobbyRayUsedInventory[ i ].ubQtyOnOrder = 0;
 	}

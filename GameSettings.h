@@ -304,6 +304,7 @@ typedef struct
 	BOOLEAN gfHardAggressiveQueen;
 	BOOLEAN gfInsaneAggressiveQueen;
 
+	//Misc settings
 	BOOLEAN fAmmoDynamicWeight; //Pulmu
 	BOOLEAN fEnableCrepitus;
 	BOOLEAN fEnableAllWeaponCaches;

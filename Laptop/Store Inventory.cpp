@@ -840,8 +840,6 @@ BOOLEAN DoesGunOfSameClassExistInInventory( UINT8 ubItemIndex, UINT8 ubDealerID 
 	//go through all of the guns
 	for(i=0; i<MAXITEMS; i++) 
 	{
-		if ( Item[i].usItemClass  == 0 )
-			break;
 		//if it's the class we are looking for 
 		if( Weapon[ i ].ubWeaponClass == ubItemIndex )
 		{

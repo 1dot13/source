@@ -1849,8 +1849,6 @@ void SetFirstLastPagesForNew( UINT32 uiClassMask, INT32 iFilter )
 	//First loop through to get the first and last index indexs
 	for(i=0; i<MAXITEMS; i++)
 	{
-		if ( Item[i].usItemClass  == 0 )
-			break;
 		//If we have some of the inventory on hand
 		if( LaptopSaveInfo.BobbyRayInventory[ i ].ubQtyOnHand != 0 )
 		{
@@ -1938,8 +1936,6 @@ void SetFirstLastPagesForUsed(INT32 iFilter)
 	//First loop through to get the first and last index indexs
 	for(i=0; i<MAXITEMS; i++)
 	{
-		if ( Item[i].usItemClass  == 0 )
-			break;
 		//If we have some of the inventory on hand
 		if( LaptopSaveInfo.BobbyRayUsedInventory[ i ].ubQtyOnHand != 0 )
 		{
