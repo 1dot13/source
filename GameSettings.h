@@ -304,6 +304,34 @@ typedef struct
 	BOOLEAN gfHardAggressiveQueen;
 	BOOLEAN gfInsaneAggressiveQueen;
 
+	//Merc Assignment settings
+	INT32 ubAssignmentUnitsPerDay;
+	INT32 ubMinutesForAssignmentToCount;
+
+
+	INT32 ubTrainingSkillMin;
+	INT32 ubTrainingSkillMax;
+	INT32 ubSelfTrainingDivisor;
+	INT32 ubInstructedTrainingDivisor;
+	INT32 ubGunRangeTrainingBonus;
+	INT32 ubTownMilitiaTrainingRate;
+	INT32 ubMaxMilitiaTrainersPerSector;
+	INT32 ubTeachBonusToTrain;
+	INT32 ubRpcBonusToTrainMilitia;
+	INT32 ubMinSkillToTeach;
+
+	INT32 ubLowActivityLevel;
+	INT32 ubMediumActivityLevel;
+	INT32 ubHighActivityLevel;
+	INT32 ubDoctoringRateDivisor;
+	INT32 ubHospitalHealingRate;
+	INT32 ubBaseMedicalSkillToDealWithEmergency;
+	INT32 ubMultiplierForDifferenceInLifeValueForEmergency;
+	INT32 ubPointCostPerHealthBelowOkLife;//OKLIFE = 15
+
+	INT32 ubRepairCostPerJam;
+	INT32 ubRepairRateDivisor;
+
 	//Misc settings
 	BOOLEAN fAmmoDynamicWeight; //Pulmu
 	BOOLEAN fEnableCrepitus;

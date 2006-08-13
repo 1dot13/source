@@ -1851,7 +1851,7 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 
 void ResolveInterruptsVs( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType)
 {
-	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"ResolveInterruptsVs");
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ResolveInterruptsVs: Soldier ID = %d, APs = %d",pSoldier->ubID,pSoldier->bActionPoints));
 	UINT8 ubTeam, ubOpp;
 	UINT8 ubIntCnt;
 	UINT8 ubIntList[MAXMERCS];
@@ -1901,6 +1901,7 @@ void ResolveInterruptsVs( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType)
 						switch (pOpponent->bInterruptDuelPts)
 						{
 							case NO_INTERRUPT:		// no interrupt possible, no duel necessary
+								DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("ResolveInterruptsVs: No interrupt for opponent %d", pOpponent->ubID ) );
 								fIntOccurs = FALSE;
 								break;
 

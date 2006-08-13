@@ -186,7 +186,7 @@ SOLDIERTYPE *gpDismissSoldier = NULL;
 
 BOOLEAN gfReEvaluateEveryonesNothingToDo = FALSE;
 
-
+/*
 // the amount time must be on assignment before it can have any effect
 #define MINUTES_FOR_ASSIGNMENT_TO_COUNT	45
 
@@ -241,7 +241,7 @@ BOOLEAN gfReEvaluateEveryonesNothingToDo = FALSE;
 #define LOW_ACTIVITY_LEVEL      1
 #define MEDIUM_ACTIVITY_LEVEL   4
 #define HIGH_ACTIVITY_LEVEL			12
-
+*/
 /*
 // the min breath to stay awake
 #define MIN_BREATH_TO_STAY_AWAKE 15
@@ -1100,7 +1100,7 @@ BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 			MilitiaTrainingAllowedInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) &&
 			DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( pSoldier ) &&
 			( IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier ) == FALSE ) &&
-			( CountMilitiaTrainersInSoldiersSector( pSoldier ) < MAX_MILITIA_TRAINERS_PER_SECTOR ) )
+			( CountMilitiaTrainersInSoldiersSector( pSoldier ) < gGameExternalOptions.ubMaxMilitiaTrainersPerSector ) )
 	{
 		return( TRUE );
 	}
@@ -1276,45 +1276,53 @@ BOOLEAN CanCharacterTrainStat( SOLDIERTYPE *pSoldier, INT8 bStat, BOOLEAN fTrain
 	{
 		case ( STRENGTH ):
 			// strength
-			if( ( ( pSoldier -> bStrength < MIN_RATING_TO_TEACH ) && ( fTrainTeammate ) ) )
+			if ( pSoldier->bStrength < gGameExternalOptions.ubTrainingSkillMin )
+				return FALSE;
+			else if( ( ( pSoldier -> bStrength < gGameExternalOptions.ubMinSkillToTeach ) && ( fTrainTeammate ) ) )
 			{
 				return ( FALSE );
 			}
-			else if( ( pSoldier -> bStrength >=  TRAINING_RATING_CAP ) && ( fTrainSelf ) )
+			else if( ( pSoldier -> bStrength >=  gGameExternalOptions.ubTrainingSkillMax ) && ( fTrainSelf ) )
 			{
 				return ( FALSE );
 			}
 		break;
 		case( DEXTERITY ):
 			// dexterity
-			if( ( ( pSoldier -> bDexterity < MIN_RATING_TO_TEACH ) && ( fTrainTeammate ) ) )
+			if ( pSoldier->bDexterity < gGameExternalOptions.ubTrainingSkillMin )
+				return FALSE;
+			else if( ( ( pSoldier -> bDexterity < gGameExternalOptions.ubMinSkillToTeach ) && ( fTrainTeammate ) ) )
 			{
 				return ( FALSE );
 			}
-			else if( ( pSoldier -> bDexterity >= TRAINING_RATING_CAP )&&( fTrainSelf ) )
+			else if( ( pSoldier -> bDexterity >= gGameExternalOptions.ubTrainingSkillMax )&&( fTrainSelf ) )
 			{
 				return ( FALSE );
 			}
 		break;
 		case( AGILITY ):
 			// agility
-			if( ( ( pSoldier -> bAgility < MIN_RATING_TO_TEACH ) && ( fTrainTeammate ) ) )
+			if ( pSoldier->bAgility < gGameExternalOptions.ubTrainingSkillMin )
+				return FALSE;
+			else if( ( ( pSoldier -> bAgility < gGameExternalOptions.ubMinSkillToTeach ) && ( fTrainTeammate ) ) )
 			{
 				return ( FALSE );
 			}
-			else if( ( pSoldier -> bAgility >= TRAINING_RATING_CAP )&&( fTrainSelf ) )
+			else if( ( pSoldier -> bAgility >= gGameExternalOptions.ubTrainingSkillMax )&&( fTrainSelf ) )
 			{
 				return ( FALSE );
 			}
 
 		break;
 		case( HEALTH ):
-			// wisdom
-			if( ( ( pSoldier -> bLifeMax < MIN_RATING_TO_TEACH ) && ( fTrainTeammate ) ) )
+			// health
+			if ( pSoldier->bLifeMax < gGameExternalOptions.ubTrainingSkillMin )
+				return FALSE;
+			else if( ( ( pSoldier -> bLifeMax < gGameExternalOptions.ubMinSkillToTeach ) && ( fTrainTeammate ) ) )
 			{
 				return ( FALSE );
 			}
-			else if( ( pSoldier -> bLifeMax >= TRAINING_RATING_CAP )&&( fTrainSelf ) )
+			else if( ( pSoldier -> bLifeMax >= gGameExternalOptions.ubTrainingSkillMax )&&( fTrainSelf ) )
 			{
 				return ( FALSE );
 			}
@@ -1322,11 +1330,13 @@ BOOLEAN CanCharacterTrainStat( SOLDIERTYPE *pSoldier, INT8 bStat, BOOLEAN fTrain
 		break;
 		case( MARKSMANSHIP ):
 			// marksmanship
-			if( ( ( pSoldier -> bMarksmanship < MIN_RATING_TO_TEACH ) && ( fTrainTeammate ) ) )
+			if ( pSoldier->bMarksmanship < gGameExternalOptions.ubTrainingSkillMin )
+				return FALSE;
+			else if( ( ( pSoldier -> bMarksmanship < gGameExternalOptions.ubMinSkillToTeach ) && ( fTrainTeammate ) ) )
 			{
 				return ( FALSE );
 			}
-			else if( ( pSoldier -> bMarksmanship >= TRAINING_RATING_CAP )&&( fTrainSelf ) )
+			else if( ( pSoldier -> bMarksmanship >= gGameExternalOptions.ubTrainingSkillMax )&&( fTrainSelf ) )
 			{
 				return ( FALSE );
 			}
@@ -1334,11 +1344,13 @@ BOOLEAN CanCharacterTrainStat( SOLDIERTYPE *pSoldier, INT8 bStat, BOOLEAN fTrain
 		break;
 		case( MEDICAL ):
 			// medical
-			if( ( ( pSoldier -> bMedical < MIN_RATING_TO_TEACH ) && ( fTrainTeammate ) ) )
+			if ( pSoldier->bMedical < gGameExternalOptions.ubTrainingSkillMin )
+				return FALSE;
+			else if( ( ( pSoldier -> bMedical < gGameExternalOptions.ubMinSkillToTeach ) && ( fTrainTeammate ) ) )
 			{
 				return ( FALSE );
 			}
-			else if( ( pSoldier -> bMedical >= TRAINING_RATING_CAP )&&( fTrainSelf ) )
+			else if( ( pSoldier -> bMedical >= gGameExternalOptions.ubTrainingSkillMax )&&( fTrainSelf ) )
 			{
 				return ( FALSE );
 			}
@@ -1346,33 +1358,39 @@ BOOLEAN CanCharacterTrainStat( SOLDIERTYPE *pSoldier, INT8 bStat, BOOLEAN fTrain
 		break;
 		case( MECHANICAL ):
 			// mechanical
-			if( ( ( pSoldier -> bMechanical < MIN_RATING_TO_TEACH ) && ( fTrainTeammate ) ) )
+			if ( pSoldier->bMechanical < gGameExternalOptions.ubTrainingSkillMin )
+				return FALSE;
+			else if( ( ( pSoldier -> bMechanical < gGameExternalOptions.ubMinSkillToTeach ) && ( fTrainTeammate ) ) )
 			{
 				return ( FALSE );
 			}
-			else if( ( pSoldier -> bMechanical >= TRAINING_RATING_CAP )&&( fTrainSelf ) )
+			else if( ( pSoldier -> bMechanical >= gGameExternalOptions.ubTrainingSkillMax )&&( fTrainSelf ) )
 			{
 				return ( FALSE );
 			}
 		break;
 		case( LEADERSHIP ):
 			// leadership
-			if( ( ( pSoldier -> bLeadership < MIN_RATING_TO_TEACH ) && ( fTrainTeammate ) ) )
+			if ( pSoldier->bLeadership < gGameExternalOptions.ubTrainingSkillMin )
+				return FALSE;
+			else if( ( ( pSoldier -> bLeadership < gGameExternalOptions.ubMinSkillToTeach ) && ( fTrainTeammate ) ) )
 			{
 				return ( FALSE );
 			}
-			else if( ( pSoldier -> bLeadership >= TRAINING_RATING_CAP )&&( fTrainSelf ) )
+			else if( ( pSoldier -> bLeadership >= gGameExternalOptions.ubTrainingSkillMax )&&( fTrainSelf ) )
 			{
 				return ( FALSE );
 			}
 		break;
 		case( EXPLOSIVE_ASSIGN ):
 			// explosives
-			if( ( ( pSoldier -> bExplosive < MIN_RATING_TO_TEACH ) && ( fTrainTeammate ) ) )
+			if ( pSoldier->bExplosive < gGameExternalOptions.ubTrainingSkillMin )
+				return FALSE;
+			else if( ( ( pSoldier -> bExplosive < gGameExternalOptions.ubMinSkillToTeach ) && ( fTrainTeammate ) ) )
 			{
 				return ( FALSE );
 			}
-			else if( ( pSoldier -> bExplosive >= TRAINING_RATING_CAP )&&( fTrainSelf ) )
+			else if( ( pSoldier -> bExplosive >= gGameExternalOptions.ubTrainingSkillMax )&&( fTrainSelf ) )
 			{
 				return ( FALSE );
 			}
@@ -2090,11 +2108,11 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pDoctor, UINT16 *pusMaxPts, 
 	}
 
 	// calculate effective doctoring rate (adjusted for drugs, alcohol, etc.)
-	usHealPts = ( EffectiveMedical( pDoctor ) * (( EffectiveDexterity( pDoctor ) + EffectiveWisdom( pDoctor ) ) / 2) * (100 + ( 5 * EffectiveExpLevel( pDoctor) ) ) ) / DOCTORING_RATE_DIVISOR;
+	usHealPts = ( EffectiveMedical( pDoctor ) * (( EffectiveDexterity( pDoctor ) + EffectiveWisdom( pDoctor ) ) / 2) * (100 + ( 5 * EffectiveExpLevel( pDoctor) ) ) ) / gGameExternalOptions.ubDoctoringRateDivisor;
 
 	// calculate normal doctoring rate - what it would be if his stats were "normal" (ignoring drugs, fatigue, equipment condition)
 	// and equipment was not a hindrance
-	*pusMaxPts = ( pDoctor -> bMedical * (( pDoctor -> bDexterity + pDoctor -> bWisdom ) / 2 ) * (100 + ( 5 * pDoctor->bExpLevel) ) ) / DOCTORING_RATE_DIVISOR;
+	*pusMaxPts = ( pDoctor -> bMedical * (( pDoctor -> bDexterity + pDoctor -> bWisdom ) / 2 ) * (100 + ( 5 * pDoctor->bExpLevel) ) ) / gGameExternalOptions.ubDoctoringRateDivisor;
 
 	// adjust for fatigue
 	ReducePointsForFatigue( pDoctor, &usHealPts );
@@ -2149,11 +2167,11 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 	}
 
 	// calculate effective repair rate (adjusted for drugs, alcohol, etc.)
-	usRepairPts = (EffectiveMechanical( pSoldier ) * EffectiveDexterity( pSoldier ) * (100 + ( 5 * EffectiveExpLevel( pSoldier) ) ) ) / ( REPAIR_RATE_DIVISOR * ASSIGNMENT_UNITS_PER_DAY );
+	usRepairPts = (EffectiveMechanical( pSoldier ) * EffectiveDexterity( pSoldier ) * (100 + ( 5 * EffectiveExpLevel( pSoldier) ) ) ) / ( gGameExternalOptions.ubRepairRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay );
 
 	// calculate normal repair rate - what it would be if his stats were "normal" (ignoring drugs, fatigue, equipment condition)
 	// and equipment was not a hindrance
-	*pusMaxPts = ( pSoldier -> bMechanical * pSoldier -> bDexterity * (100 + ( 5 * pSoldier->bExpLevel) ) ) / ( REPAIR_RATE_DIVISOR * ASSIGNMENT_UNITS_PER_DAY );
+	*pusMaxPts = ( pSoldier -> bMechanical * pSoldier -> bDexterity * (100 + ( 5 * pSoldier->bExpLevel) ) ) / ( gGameExternalOptions.ubRepairRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay );
 
 
 	// adjust for fatigue
@@ -2542,7 +2560,7 @@ UINT8 GetMinHealingSkillNeeded( SOLDIERTYPE *pPatient )
 	if( pPatient -> bLife < OKLIFE )
 	{
 		// less than ok life, return skill needed
-		return( BASE_MEDICAL_SKILL_TO_DEAL_WITH_EMERGENCY + ( MULTIPLIER_FOR_DIFFERENCE_IN_LIFE_VALUE_FOR_EMERGENCY * ( OKLIFE - pPatient -> bLife ) ) );
+		return( gGameExternalOptions.ubBaseMedicalSkillToDealWithEmergency + ( gGameExternalOptions.ubMultiplierForDifferenceInLifeValueForEmergency * ( OKLIFE - pPatient -> bLife ) ) );
 	}
 	else
 	{
@@ -2623,7 +2641,7 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHundr
 	if( pPatient -> bLife < OKLIFE )
 	{
 		// get points needed to heal him to OKLIFE
-		bPointsToUse = POINT_COST_PER_HEALTH_BELOW_OKLIFE * ( OKLIFE - pPatient -> bLife );
+		bPointsToUse = gGameExternalOptions.ubPointCostPerHealthBelowOkLife * ( OKLIFE - pPatient -> bLife );
 
 		// if he needs more than we have, reduce to that
 		if( bPointsToUse > usHealingPtsLeft )
@@ -2650,7 +2668,7 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHundr
 				usTotalFullPtsUsed += bPointsHealed;
 
 				// heal person the amount / POINT_COST_PER_HEALTH_BELOW_OKLIFE
-				pPatient -> bLife += (bPointsHealed / POINT_COST_PER_HEALTH_BELOW_OKLIFE);
+				pPatient -> bLife += (bPointsHealed / gGameExternalOptions.ubPointCostPerHealthBelowOkLife);
 
 				// if we're done all we're supposed to, or the guy's at OKLIFE, bail
 				if ( ( bPointsToUse <= 0 ) || ( pPatient -> bLife >= OKLIFE ) )
@@ -2750,7 +2768,7 @@ void CheckForAndHandleHospitalPatients( void )
 				if ( ( pTeamSoldier -> sSectorX == HOSPITAL_SECTOR_X ) && ( pTeamSoldier -> sSectorY == HOSPITAL_SECTOR_Y ) && ( pTeamSoldier -> bSectorZ == 0 ) )
 				{
 					// heal this character
-					HealHospitalPatient( pTeamSoldier, HOSPITAL_HEALING_RATE );
+					HealHospitalPatient( pTeamSoldier, gGameExternalOptions.ubHospitalHealingRate );
 				}
 			}
 		}
@@ -2780,7 +2798,7 @@ void HealHospitalPatient( SOLDIERTYPE *pPatient, UINT16 usHealingPtsLeft )
 	if( pPatient -> bLife < OKLIFE )
 	{
 		// get points needed to heal him to OKLIFE
-		bPointsToUse = POINT_COST_PER_HEALTH_BELOW_OKLIFE * ( OKLIFE - pPatient -> bLife );
+		bPointsToUse = gGameExternalOptions.ubPointCostPerHealthBelowOkLife * ( OKLIFE - pPatient -> bLife );
 
 		// if he needs more than we have, reduce to that
 		if( bPointsToUse > usHealingPtsLeft )
@@ -2791,7 +2809,7 @@ void HealHospitalPatient( SOLDIERTYPE *pPatient, UINT16 usHealingPtsLeft )
 		usHealingPtsLeft -= bPointsToUse;
 
 		// heal person the amount / POINT_COST_PER_HEALTH_BELOW_OKLIFE
-		pPatient -> bLife += ( bPointsToUse / POINT_COST_PER_HEALTH_BELOW_OKLIFE );
+		pPatient -> bLife += ( bPointsToUse / gGameExternalOptions.ubPointCostPerHealthBelowOkLife );
 	}
 
 	// critical condition handled, now solve normal healing
@@ -3756,7 +3774,7 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 		// if trainee skill 0 or at/beyond the training cap, can't train
 //Orig:		if ( ( bTraineeSkill == 0 ) || ( bTraineeSkill >= TRAINING_RATING_CAP ) )
 		// Madd
-		if ( ( bTraineeSkill >= TRAINING_RATING_CAP ) )
+		if ( bTraineeSkill < gGameExternalOptions.ubTrainingSkillMin || bTraineeSkill >= gGameExternalOptions.ubTrainingSkillMax )
 		{
 			return 0;
 		}
@@ -3775,10 +3793,10 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 	}
 
 	// calculate effective training pts
-	sTrainingPts = ( bTrainerEffSkill - bTraineeSkill ) * ( bTraineeEffWisdom + ( EffectiveWisdom( pInstructor ) + EffectiveLeadership( pInstructor ) ) / 2 ) / INSTRUCTED_TRAINING_DIVISOR;
+	sTrainingPts = ( bTrainerEffSkill - bTraineeSkill ) * ( bTraineeEffWisdom + ( EffectiveWisdom( pInstructor ) + EffectiveLeadership( pInstructor ) ) / 2 ) / gGameExternalOptions.ubInstructedTrainingDivisor;
 
 	// calculate normal training pts - what it would be if his stats were "normal" (ignoring drugs, fatigue)
-	*pusMaxPts   = ( bTrainerNatSkill - bTraineeSkill ) * ( bTraineeNatWisdom + ( pInstructor->bWisdom + pInstructor->bLeadership ) / 2 ) / INSTRUCTED_TRAINING_DIVISOR;
+	*pusMaxPts   = ( bTrainerNatSkill - bTraineeSkill ) * ( bTraineeNatWisdom + ( pInstructor->bWisdom + pInstructor->bLeadership ) / 2 ) / gGameExternalOptions.ubInstructedTrainingDivisor;
 
 	// put in a minimum (that can be reduced due to instructor being tired?)
 	if (*pusMaxPts == 0)
@@ -3794,11 +3812,11 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 	// check for teaching skill bonuses
 	if( gMercProfiles[ pInstructor -> ubProfile ].bSkillTrait == TEACHING )
 	{
-		bTrainingBonus += TEACH_BONUS_TO_TRAIN;
+		bTrainingBonus += gGameExternalOptions.ubTeachBonusToTrain;
 	}
 	if( gMercProfiles[ pInstructor -> ubProfile ].bSkillTrait2 == TEACHING )
 	{
-		bTrainingBonus += TEACH_BONUS_TO_TRAIN;
+		bTrainingBonus += gGameExternalOptions.ubTeachBonusToTrain;
 	}
 
 	// teaching bonus is counted as normal, but gun range bonus is not
@@ -3807,7 +3825,7 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 	// get special bonus if we're training marksmanship and we're in the gun range sector in Alma
 	if ( ( bTrainStat == MARKSMANSHIP ) && fAtGunRange )
 	{
-		bTrainingBonus += GUN_RANGE_TRAINING_BONUS;
+		bTrainingBonus += gGameExternalOptions.ubGunRangeTrainingBonus;
 	}
 
 	// adjust for any training bonuses and for the relationship
@@ -3868,27 +3886,23 @@ INT16 GetSoldierTrainingPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, BOOLEAN fAt
 				return(0);
 	}
 
-	// Madd
-	if ( bSkill == 0 )
-		bSkill = 1;
-
 	// if skill 0 or at/beyond the training cap, can't train
-	if ( ( bSkill == 0 ) || ( bSkill >= TRAINING_RATING_CAP ) )
+	if ( ( bSkill < gGameExternalOptions.ubTrainingSkillMin) || ( bSkill >= gGameExternalOptions.ubTrainingSkillMax ) )
 	{
 		return 0;
 	}
 
 
 	// calculate normal training pts - what it would be if his stats were "normal" (ignoring drugs, fatigue)
-	*pusMaxPts = __max( ( ( pSoldier->bWisdom * ( TRAINING_RATING_CAP - bSkill ) ) / SELF_TRAINING_DIVISOR ), 1 );	
+	*pusMaxPts = __max( ( ( pSoldier->bWisdom * ( gGameExternalOptions.ubTrainingSkillMax - bSkill ) ) / gGameExternalOptions.ubSelfTrainingDivisor ), 1 );	
 
 	// calculate effective training pts
-	sTrainingPts = __max( ( ( EffectiveWisdom( pSoldier ) * ( TRAINING_RATING_CAP - bSkill ) ) / SELF_TRAINING_DIVISOR ), 1 );
+	sTrainingPts = __max( ( ( EffectiveWisdom( pSoldier ) * ( gGameExternalOptions.ubTrainingSkillMax - bSkill ) ) / gGameExternalOptions.ubSelfTrainingDivisor ), 1 );
 
 	// get special bonus if we're training marksmanship and we're in the gun range sector in Alma
 	if ( ( bTrainStat == MARKSMANSHIP ) && fAtGunRange )
 	{
-		bTrainingBonus += GUN_RANGE_TRAINING_BONUS;
+		bTrainingBonus += gGameExternalOptions.ubGunRangeTrainingBonus;
 	}
 
 	// adjust for any training bonuses
@@ -3954,22 +3968,22 @@ INT16 GetSoldierStudentPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, BOOLEAN fAtG
 	}
 
 	// if skill 0 or at/beyond the training cap, can't train
-	if ( ( bSkill == 0 ) || ( bSkill >= TRAINING_RATING_CAP ) )
+	if ( bSkill < gGameExternalOptions.ubTrainingSkillMin || bSkill >= gGameExternalOptions.ubTrainingSkillMax )
 	{
 		return 0;
 	}
 
 
 	// calculate normal training pts - what it would be if his stats were "normal" (ignoring drugs, fatigue)
-	*pusMaxPts = __max( ( ( pSoldier->bWisdom * ( TRAINING_RATING_CAP - bSkill ) ) / SELF_TRAINING_DIVISOR ), 1 );	
+	*pusMaxPts = __max( ( ( pSoldier->bWisdom * ( gGameExternalOptions.ubTrainingSkillMax - bSkill ) ) / gGameExternalOptions.ubSelfTrainingDivisor ), 1 );	
 
 	// calculate effective training pts
-	sTrainingPts = __max( ( ( EffectiveWisdom( pSoldier ) * ( TRAINING_RATING_CAP - bSkill ) ) / SELF_TRAINING_DIVISOR ), 1 );
+	sTrainingPts = __max( ( ( EffectiveWisdom( pSoldier ) * ( gGameExternalOptions.ubTrainingSkillMax - bSkill ) ) / gGameExternalOptions.ubSelfTrainingDivisor ), 1 );
 
 	// get special bonus if we're training marksmanship and we're in the gun range sector in Alma
 	if ( ( bTrainStat == MARKSMANSHIP ) && fAtGunRange )
 	{
-		bTrainingBonus += GUN_RANGE_TRAINING_BONUS;
+		bTrainingBonus += gGameExternalOptions.ubGunRangeTrainingBonus;
 	}
 
 	// adjust for any training bonuses
@@ -4145,26 +4159,26 @@ INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 //	UINT8 ubTownId = 0;
 
 	// calculate normal training pts - what it would be if his stats were "normal" (ignoring drugs, fatigue)
-	*pusMaxPts = ( pTrainer -> bWisdom + pTrainer -> bLeadership + ( 10 * pTrainer -> bExpLevel ) ) * TOWN_TRAINING_RATE;
+	*pusMaxPts = ( pTrainer -> bWisdom + pTrainer -> bLeadership + ( 10 * pTrainer -> bExpLevel ) ) * gGameExternalOptions.ubTownMilitiaTrainingRate;
 
 	// calculate effective training points (this is hundredths of pts / hour)
 	// typical: 300/hr, maximum: 600/hr
-	sTotalTrainingPts = ( EffectiveWisdom( pTrainer ) + EffectiveLeadership ( pTrainer ) + ( 10 * EffectiveExpLevel ( pTrainer ) ) ) * TOWN_TRAINING_RATE;
+	sTotalTrainingPts = ( EffectiveWisdom( pTrainer ) + EffectiveLeadership ( pTrainer ) + ( 10 * EffectiveExpLevel ( pTrainer ) ) ) * gGameExternalOptions.ubTownMilitiaTrainingRate;
 
 	// check for teaching bonuses
 	if( gMercProfiles[ pTrainer -> ubProfile ].bSkillTrait == TEACHING )
 	{
-		bTrainingBonus += TEACH_BONUS_TO_TRAIN;
+		bTrainingBonus += gGameExternalOptions.ubTeachBonusToTrain;
 	}
 	if( gMercProfiles[ pTrainer -> ubProfile ].bSkillTrait2 == TEACHING )
 	{
-		bTrainingBonus += TEACH_BONUS_TO_TRAIN;
+		bTrainingBonus += gGameExternalOptions.ubTeachBonusToTrain;
 	}
 
 	// RPCs get a small training bonus for being more familiar with the locals and their customs/needs than outsiders
 	if( pTrainer->ubProfile >= FIRST_RPC )
 	{
-		bTrainingBonus += RPC_BONUS_TO_TRAIN;
+		bTrainingBonus += gGameExternalOptions.ubRpcBonusToTrainMilitia;
 	}
 
 	// adjust for teaching bonus (a percentage)
@@ -4402,11 +4416,11 @@ void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 	if( pSoldier -> bAssignment == ASSIGNMENT_POW )
 	{
 		// use high activity level to simulate stress, torture, poor conditions for healing
-		bActivityLevelDivisor = HIGH_ACTIVITY_LEVEL;
+		bActivityLevelDivisor = gGameExternalOptions.ubHighActivityLevel;
 	}
 	if( ( pSoldier -> fMercAsleep == TRUE ) || ( pSoldier -> bAssignment == PATIENT ) || ( pSoldier -> bAssignment == ASSIGNMENT_HOSPITAL ) )
 	{
-		bActivityLevelDivisor = LOW_ACTIVITY_LEVEL;
+		bActivityLevelDivisor = gGameExternalOptions.ubLowActivityLevel;
 	}
 	else if ( pSoldier->bAssignment < ON_DUTY )
 	{
@@ -4414,17 +4428,17 @@ void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 		if ( IsTimeBeingCompressed() && !PlayerIDGroupInMotion( pSoldier->ubGroupID ) )
 		{
 			// basically resting
-			bActivityLevelDivisor = LOW_ACTIVITY_LEVEL;
+			bActivityLevelDivisor = gGameExternalOptions.ubLowActivityLevel;
 		}
 		else
 		{
 			// either they're on the move, or they're being tactically active
-			bActivityLevelDivisor = HIGH_ACTIVITY_LEVEL;
+			bActivityLevelDivisor = gGameExternalOptions.ubHighActivityLevel;
 		}
 	}
 	else	// this includes being in a vehicle - that's neither very strenous, nor very restful
 	{
-		bActivityLevelDivisor = MEDIUM_ACTIVITY_LEVEL;
+		bActivityLevelDivisor = gGameExternalOptions.ubMediumActivityLevel;
 	}
 
 
@@ -7376,9 +7390,9 @@ void TrainingMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						break;
 					}
 
-					if ( CountMilitiaTrainersInSoldiersSector( pSoldier ) >= MAX_MILITIA_TRAINERS_PER_SECTOR )
+					if ( CountMilitiaTrainersInSoldiersSector( pSoldier ) >= gGameExternalOptions.ubMaxMilitiaTrainersPerSector )
 					{
-						swprintf( sString, gzLateLocalizedString[ 47 ], MAX_MILITIA_TRAINERS_PER_SECTOR );
+						swprintf( sString, gzLateLocalizedString[ 47 ], gGameExternalOptions.ubMaxMilitiaTrainersPerSector );
 						DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 						break;
 					}
@@ -10295,7 +10309,7 @@ void SetTimeOfAssignmentChangeForMerc( SOLDIERTYPE *pSoldier )
 // have we spent enough time on assignment for it to count?
 BOOLEAN EnoughTimeOnAssignment( SOLDIERTYPE *pSoldier )
 {
-	if( GetWorldTotalMin() - pSoldier->uiLastAssignmentChangeMin >= MINUTES_FOR_ASSIGNMENT_TO_COUNT )
+	if( GetWorldTotalMin() - pSoldier->uiLastAssignmentChangeMin >= gGameExternalOptions.ubMinutesForAssignmentToCount )
 	{
 		return( TRUE );
 	}
@@ -11503,9 +11517,9 @@ BOOLEAN UnjamGunsOnSoldier( SOLDIERTYPE *pOwnerSoldier, SOLDIERTYPE *pRepairSold
 		// the object a weapon? and jammed?
 		if ( ( Item[ pOwnerSoldier->inv[ bPocket ].usItem ].usItemClass == IC_GUN ) && ( pOwnerSoldier->inv[ bPocket ].bGunAmmoStatus < 0 ) )
 		{
-			if ( *pubRepairPtsLeft >= REPAIR_COST_PER_JAM )
+			if ( *pubRepairPtsLeft >= gGameExternalOptions.ubRepairCostPerJam )
 			{
-				*pubRepairPtsLeft -= REPAIR_COST_PER_JAM;
+				*pubRepairPtsLeft -= gGameExternalOptions.ubRepairCostPerJam;
 
 				pOwnerSoldier->inv [ bPocket ].bGunAmmoStatus *= -1;
 

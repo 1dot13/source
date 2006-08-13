@@ -7605,6 +7605,7 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( UINT8 ubID, BOOLEAN fCalledByAttacke
 
 SOLDIERTYPE * ReduceAttackBusyCount( UINT8 ubID, BOOLEAN fCalledByAttacker )
 {
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("ReduceAttackBusyCount") );	
   if ( ubID == NOBODY )
   {
 	  return( InternalReduceAttackBusyCount( ubID, fCalledByAttacker, NOBODY ) );
@@ -7620,7 +7621,7 @@ SOLDIERTYPE * FreeUpAttacker( UINT8 ubID )
 	// Strange as this may seem, this function returns a pointer to
 	// the *target* in case the target has changed sides as a result
 	// of being attacked
-
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("FreeUpAttacker") );	
 	return( ReduceAttackBusyCount( ubID, TRUE ) );
 }
 
@@ -7629,7 +7630,7 @@ SOLDIERTYPE * FreeUpAttackerGivenTarget( UINT8 ubID, UINT8 ubTargetID )
 	// Strange as this may seem, this function returns a pointer to
 	// the *target* in case the target has changed sides as a result
 	// of being attacked
-
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("FreeUpAttackerGivenTarget") );	
 	return( InternalReduceAttackBusyCount( ubID, TRUE, ubTargetID ) );
 }
 
@@ -7638,7 +7639,7 @@ SOLDIERTYPE * ReduceAttackBusyGivenTarget( UINT8 ubID, UINT8 ubTargetID )
 	// Strange as this may seem, this function returns a pointer to
 	// the *target* in case the target has changed sides as a result
 	// of being attacked
-
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("ReduceAttackBusyGivenTarget") );	
 	return( InternalReduceAttackBusyCount( ubID, FALSE, ubTargetID ) );
 }
 

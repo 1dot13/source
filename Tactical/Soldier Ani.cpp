@@ -331,6 +331,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 				case 430:
 
+					DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: case 430");
 					// SHOOT GUN
 					// MAKE AN EVENT, BUT ONLY DO STUFF IF WE OWN THE GUY!
 					SFireWeapon.usSoldierID			= pSoldier->ubID;
@@ -714,6 +715,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 					if ( ( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST && pSoldier->bDoBurst > Weapon[GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS])].ubShotsPerBurst) || (pSoldier->bWeaponMode != WM_ATTACHED_GL_BURST && pSoldier->bDoBurst > ((pSoldier->bDoAutofire)?(pSoldier->bDoAutofire):(GetShotsPerBurst(&pSoldier->inv[HANDPOS])))) )
 					{
+						DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: Burst case 448, stopping because burst size too large");
 						fStop = TRUE;
 						fFreeUpAttacker = TRUE;
 					}
@@ -721,6 +723,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					// CHECK IF WE HAVE AMMO LEFT, IF NOT, END ANIMATION!
 					if ( !EnoughAmmo( pSoldier, FALSE, pSoldier->ubAttackingHand ) )
 					{
+						DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: Burst case 448, stopping because not enough ammo");
 						fStop = TRUE;
 						fFreeUpAttacker = TRUE;
 						if ( pSoldier->bTeam == gbPlayerNum	 )
@@ -734,6 +737,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 						bWeaponJammed = CheckForGunJam( pSoldier );
 						if ( bWeaponJammed == TRUE )
 						{
+							DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"AdjustToNextAnimationFrame: Burst case 448, stopping because weapon jammed");
 							fStop = TRUE;
 							fFreeUpAttacker = TRUE;
 							// stop shooting!

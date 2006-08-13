@@ -116,6 +116,7 @@ void StartBombMessageBox( SOLDIERTYPE * pSoldier, INT16 sGridNo );
 BOOLEAN	HandleCheckForBadChangeToGetThrough( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pTargetSoldier, INT16 sTargetGridNo , INT8 bLevel ) 
 {
 	BOOLEAN						fBadChangeToGetThrough = FALSE;
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleCheckForBadChangeToGetThrough"));
 
 	if ( pTargetSoldier != NULL )
 	{

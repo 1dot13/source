@@ -252,7 +252,7 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 				usChance = 100 - (bCurrentRating + (*psStatGainPtr / usSubpointsPerPoint));
 
 				// prevent training beyond the training cap
-				if ((ubReason == FROM_TRAINING) && (bCurrentRating + (*psStatGainPtr / usSubpointsPerPoint) >= TRAINING_RATING_CAP))
+				if ((ubReason == FROM_TRAINING) && (bCurrentRating + (*psStatGainPtr / usSubpointsPerPoint) >= gGameExternalOptions.ubTrainingSkillMax))
 				{
 					usChance = 0;
 				}

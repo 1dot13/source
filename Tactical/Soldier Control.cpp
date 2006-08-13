@@ -1333,6 +1333,7 @@ void CheckForFreeupFromHit( SOLDIERTYPE *pSoldier, UINT32 uiOldAnimFlags, UINT32
 // THIS IS CALLED FROM AN EVENT ( S_CHANGESTATE )!
 BOOLEAN EVENT_InitNewSoldierAnim( SOLDIERTYPE *pSoldier, UINT16 usNewState, UINT16 usStartingAniCode, BOOLEAN fForce )
 {
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"EVENT_InitNewSoldierAnim");
 	UINT16  usNewGridNo = 0;
 	INT16		sAPCost = 0;
 	INT16		sBPCost = 0;
@@ -2827,6 +2828,7 @@ void EVENT_FireSoldierWeapon( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo )
 				pSoldier->bBulletsLeft = __min( pSoldier->bDoAutofire, pSoldier->inv[ pSoldier->ubAttackingHand ].ubGunShotsLeft );
 			else
 			{
+				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"EVENT_FireSoldierWeapon: do burst");
 				if ( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST )
 					pSoldier->bBulletsLeft = __min( Weapon[GetAttachedGrenadeLauncher(&pSoldier->inv[pSoldier->ubAttackingHand])].ubShotsPerBurst, pSoldier->inv[ pSoldier->ubAttackingHand ].ubGunShotsLeft );
 				else
@@ -5167,6 +5169,7 @@ void TurnSoldier( SOLDIERTYPE *pSoldier)
 		{
 			if ( ( (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIREREADY ) && !pSoldier->fTurningFromPronePosition ) || pSoldier->ubBodyType == ROBOTNOWEAPON || pSoldier->ubBodyType == TANK_NW || pSoldier->ubBodyType == TANK_NE  )
 			{
+				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("TurnSoldier: EVENT_InitNewSoldierAnim") );
 				EVENT_InitNewSoldierAnim( pSoldier, SelectFireAnimation( pSoldier, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ), 0, FALSE );
 				pSoldier->fTurningToShoot = FALSE;
 
@@ -5744,6 +5747,7 @@ void AdjustAniSpeed( SOLDIERTYPE *pSoldier )
 
 void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier )
 {
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"CalculateSoldierAniSpeed");
 	UINT32 uiTerrainDelay;
 	UINT32 uiSpeed = 0;
  
@@ -5924,6 +5928,7 @@ void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier )
 {
 	SOLDIERTYPE *pStatsSoldier;
 		
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"SetSoldierAniSpeed");
 
 	// ATE: If we are an enemy and are not visible......
 	// Set speed to 0
@@ -8125,6 +8130,7 @@ void SendChangeSoldierStanceEvent( SOLDIERTYPE *pSoldier, UINT8 ubNewStance )
 
 void SendBeginFireWeaponEvent( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo )
 {
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("SendBeginFireWeaponEvent"));
 	EV_S_BEGINFIREWEAPON		SBeginFireWeapon;
 
 	SBeginFireWeapon.usSoldierID			= pSoldier->ubID;
@@ -9189,6 +9195,7 @@ void GivingSoldierCancelServices( SOLDIERTYPE *pSoldier )
 
 void HaultSoldierFromSighting( SOLDIERTYPE *pSoldier, BOOLEAN fFromSightingEnemy )
 {
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("HaultSoldierFromSighting") );
 	// SEND HUALT EVENT!
 	//EV_S_STOP_MERC				SStopMerc;
 

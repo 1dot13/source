@@ -481,12 +481,42 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iMilitiaTrainingCost				= iniReader.ReadInteger("JA2 Gameplay Settings","MILITIA_TRAINING_COST",750);
 	gGameExternalOptions.iMinLoyaltyToTrain					= iniReader.ReadInteger("JA2 Gameplay Settings","MIN_LOYALTY_TO_TRAIN",20);
 
-	//Misc
-	gGameExternalOptions.fAmmoDynamicWeight			= iniReader.ReadBoolean("JA2 Gameplay Settings", "DYNAMIC_AMMO_WEIGHT", TRUE); //Pulmu
-	gGameExternalOptions.fEnableCrepitus			= iniReader.ReadBoolean("JA2 Gameplay Settings", "ENABLE_CREPITUS", TRUE); 
+	//Assignment Settings (training, repairing, doctoring, etc)
+	gGameExternalOptions.ubAssignmentUnitsPerDay			= iniReader.ReadInteger("JA2 Gameplay Settings","ASSIGNMENT_UNITS_PER_DAY",24);
+	gGameExternalOptions.ubMinutesForAssignmentToCount		= iniReader.ReadInteger("JA2 Gameplay Settings","MINUTES_FOR_ASSIGNMENT_TO_COUNT",45);
 
-	gGameExternalOptions.fEnableAllTerrorists			= iniReader.ReadBoolean("JA2 Gameplay Settings", "ENABLE_ALL_TERRORISTS", FALSE); 
-	gGameExternalOptions.fEnableAllWeaponCaches			= iniReader.ReadBoolean("JA2 Gameplay Settings", "ENABLE_ALL_WEAPON_CACHES", FALSE); 
+
+	gGameExternalOptions.ubTrainingSkillMin					= iniReader.ReadInteger("JA2 Gameplay Settings","TRAINING_SKILL_MIN",0);
+	gGameExternalOptions.ubTrainingSkillMax					= iniReader.ReadInteger("JA2 Gameplay Settings","TRAINING_SKILL_MAX",100);
+	gGameExternalOptions.ubSelfTrainingDivisor				= iniReader.ReadInteger("JA2 Gameplay Settings","SELF_TRAINING_DIVISOR",1000);
+	gGameExternalOptions.ubInstructedTrainingDivisor		= iniReader.ReadInteger("JA2 Gameplay Settings","INSTRUCTED_TRAINING_DIVISOR",3000);
+	gGameExternalOptions.ubGunRangeTrainingBonus			= iniReader.ReadInteger("JA2 Gameplay Settings","GUN_RANGE_TRAINING_BONUS",25);
+	gGameExternalOptions.ubTownMilitiaTrainingRate			= iniReader.ReadInteger("JA2 Gameplay Settings","MILITIA_TRAINING_RATE",4);
+	gGameExternalOptions.ubMaxMilitiaTrainersPerSector		= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_MILITIA_TRAINERS_PER_SECTOR",2);
+	gGameExternalOptions.ubTeachBonusToTrain				= iniReader.ReadInteger("JA2 Gameplay Settings","TEACH_BONUS_TO_TRAIN",30);
+	gGameExternalOptions.ubRpcBonusToTrainMilitia			= iniReader.ReadInteger("JA2 Gameplay Settings","RPC_BONUS_TO_TRAIN_MILITIA",10);
+	gGameExternalOptions.ubMinSkillToTeach					= iniReader.ReadInteger("JA2 Gameplay Settings","MIN_RATING_TO_TEACH",25);
+
+	gGameExternalOptions.ubLowActivityLevel					= iniReader.ReadInteger("JA2 Gameplay Settings","LOW_ACTIVITY_LEVEL",1);
+	gGameExternalOptions.ubMediumActivityLevel				= iniReader.ReadInteger("JA2 Gameplay Settings","MEDIUM_ACTIVITY_LEVEL",4);
+	gGameExternalOptions.ubHighActivityLevel				= iniReader.ReadInteger("JA2 Gameplay Settings","HIGH_ACTIVITY_LEVEL",12);
+	gGameExternalOptions.ubDoctoringRateDivisor				= iniReader.ReadInteger("JA2 Gameplay Settings","DOCTORING_RATE_DIVISOR",2400);
+	gGameExternalOptions.ubHospitalHealingRate				= iniReader.ReadInteger("JA2 Gameplay Settings","HOSPITAL_HEALING_RATE",5);
+	gGameExternalOptions.ubBaseMedicalSkillToDealWithEmergency	= iniReader.ReadInteger("JA2 Gameplay Settings","BASE_MEDICAL_SKILL_TO_DEAL_WITH_EMERGENCY",20);
+	gGameExternalOptions.ubMultiplierForDifferenceInLifeValueForEmergency = iniReader.ReadInteger("JA2 Gameplay Settings","MULTIPLIER_FOR_DIFFERENCE_IN_LIFE_VALUE_FOR_EMERGENCY",4);
+	gGameExternalOptions.ubPointCostPerHealthBelowOkLife	= iniReader.ReadInteger("JA2 Gameplay Settings","POINT_COST_PER_HEALTH_BELOW_OKLIFE",2);//OKLIFE = 15
+
+	gGameExternalOptions.ubRepairCostPerJam					= iniReader.ReadInteger("JA2 Gameplay Settings","REPAIR_COST_PER_JAM",2);
+	gGameExternalOptions.ubRepairRateDivisor				= iniReader.ReadInteger("JA2 Gameplay Settings","REPAIR_RATE_DIVISOR",2500);
+
+
+
+	//Misc
+	gGameExternalOptions.fAmmoDynamicWeight					= iniReader.ReadBoolean("JA2 Gameplay Settings", "DYNAMIC_AMMO_WEIGHT", TRUE); //Pulmu
+	gGameExternalOptions.fEnableCrepitus					= iniReader.ReadBoolean("JA2 Gameplay Settings", "ENABLE_CREPITUS", TRUE); 
+
+	gGameExternalOptions.fEnableAllTerrorists				= iniReader.ReadBoolean("JA2 Gameplay Settings", "ENABLE_ALL_TERRORISTS", FALSE); 
+	gGameExternalOptions.fEnableAllWeaponCaches				= iniReader.ReadBoolean("JA2 Gameplay Settings", "ENABLE_ALL_WEAPON_CACHES", FALSE); 
 }
 
 

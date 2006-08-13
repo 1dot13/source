@@ -1063,7 +1063,7 @@ UINT8 ChanceOfItemTransaction( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEAN fDe
 
 	// Madd
 	if ( !fDealerIsSelling && fBobbyRay )
-	    ubChance *= gGameOptions.ubBobbyRay;
+	    ubChance = min(100,gGameOptions.ubBobbyRay * ubChance);
 
 	// if there's any uncertainty
 	if ((ubChance > 0) && (ubChance < 100))
@@ -1181,6 +1181,7 @@ UINT8 HowManyItemsAreSold( INT8 bArmsDealerID, UINT16 usItemIndex, UINT8 ubNumIn
 UINT8 HowManyItemsToReorder(UINT8 ubWanted, UINT8 ubStillHave)
 {
 	UINT8 ubNumReordered;
+	DebugMsg(TOPIC_JA2, DBG_LEVEL_3,String("HowManyItemsToReorder: wanted = %d, still have = %d",ubWanted, ubStillHave));
 
 	Assert(ubStillHave <= ubWanted);
 
@@ -1197,6 +1198,7 @@ UINT8 HowManyItemsToReorder(UINT8 ubWanted, UINT8 ubStillHave)
 			break;
 	}
 
+	DebugMsg(TOPIC_JA2, DBG_LEVEL_3,String("HowManyBRItemsToOrder: reordered = %d",ubNumReordered));
 	return(ubNumReordered);
 }
 

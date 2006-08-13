@@ -38,7 +38,7 @@
 
 // training cap: you can't train any stat/skill beyond this value
 // Madd
-#define TRAINING_RATING_CAP	100 // 85
+//#define TRAINING_RATING_CAP	100 // 85
 
 // stat change causes
 #define FROM_SUCCESS		0
