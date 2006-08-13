@@ -974,15 +974,15 @@
 	</ENEMYITEMCHOICES>
 	<ENEMYITEMCHOICES>
 		<uiIndex>18</uiIndex>
-		<ubChoices>5</ubChoices>
+		<ubChoices>8</ubChoices>
 		<bItemNo1>37</bItemNo1>
 		<bItemNo2>38</bItemNo2>
 		<bItemNo3>54</bItemNo3>
 		<bItemNo4>300</bItemNo4>
 		<bItemNo5>298</bItemNo5>
-		<bItemNo6>-1</bItemNo6>
-		<bItemNo7>-1</bItemNo7>
-		<bItemNo8>-1</bItemNo8>
+		<bItemNo6>593</bItemNo6>
+		<bItemNo7>594</bItemNo7>
+		<bItemNo8>595</bItemNo8>
 		<bItemNo9>-1</bItemNo9>
 		<bItemNo10>-1</bItemNo10>
 		<bItemNo11>-1</bItemNo11>
