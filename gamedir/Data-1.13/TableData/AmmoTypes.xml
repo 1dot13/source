@@ -174,7 +174,7 @@
 		<standardIssue>0</standardIssue>
 		<numberOfBullets>6</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
-		<multipleBulletDamageDivisor>2</multipleBulletDamageDivisor>
+		<multipleBulletDamageDivisor>3</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
 		<antiTank>0</antiTank>
