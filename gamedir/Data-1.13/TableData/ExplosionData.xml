@@ -76,7 +76,7 @@
 		<DamageKeyFrame>18</DamageKeyFrame>
 		<ExplosionSoundID>286</ExplosionSoundID>
 		<AltExplosionSoundID>-1</AltExplosionSoundID>
-		<BlastFilename>TILECACHE\FLAM_EXP.STI</BlastFilename>
+		<BlastFilename>TILECACHE\ZGRAV_C.STI</BlastFilename>
 		<BlastSpeed>80</BlastSpeed>
 	</EXPDATA>
 	<EXPDATA>
