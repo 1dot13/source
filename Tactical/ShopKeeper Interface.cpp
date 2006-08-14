@@ -556,7 +556,7 @@ void			SetSkiFaceRegionHelpText( INVENTORY_IN_SLOT *pInv, MOUSE_REGION* pRegion,
 void			RestoreTacticalBackGround();
 void			DisplayPlayersOfferArea();
 UINT32		CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, UINT16 usItemID, FLOAT dModifier, OBJECTTYPE	*pItemObject );
-FLOAT			ItemConditionModifier(UINT16 usItemIndex, INT8 bStatus);
+FLOAT			ItemConditionModifier(UINT16 usItemIndex, INT16 bStatus);
 BOOLEAN		RemoveItemFromPlayersOfferArea( INT8 bSlotIdInOtherLocation );
 
 //Evaluate:
@@ -3142,7 +3142,7 @@ UINT32 CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, 
 			{
 				// for bullets, ItemConditionModifier will convert the #ShotsLeft into a percentage
 				uiUnitPrice += (UINT32)( CalcValueOfItemToDealer( gbSelectedArmsDealerID, usItemID, fDealerSelling ) *
-																	 (pItemObject->ubShotsLeft[ubCnt] / Magazine[ Item[ usItemID ].ubClassIndex ].ubMagSize) *
+																	 ItemConditionModifier(usItemID, pItemObject->ubShotsLeft[ubCnt]) *
 																	 dModifier );
 
 				if ( fUnitPriceOnly )
@@ -3255,7 +3255,7 @@ UINT32 CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, 
 }
 
 
-FLOAT ItemConditionModifier(UINT16 usItemIndex, INT8 bStatus)
+FLOAT ItemConditionModifier(UINT16 usItemIndex, INT16 bStatus)
 {
 	FLOAT dConditionModifier = 1.0f;
 
