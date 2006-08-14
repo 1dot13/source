@@ -446,8 +446,8 @@
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>3</bItemNo1>
 		<bItemNo2>3</bItemNo2>
-		<bItemNo3>622</bItemNo3>
-		<bItemNo4>622</bItemNo4>
+		<bItemNo3>3</bItemNo3>
+		<bItemNo4>3</bItemNo4>
 		<bItemNo5>4</bItemNo5>
 		<bItemNo6>4</bItemNo6>
 		<bItemNo7>2</bItemNo7>
@@ -1102,10 +1102,10 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>20</uiIndex>
-		<ubChoices>1</ubChoices>
+		<ubChoices>2</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>600</bItemNo1>
-		<bItemNo2>0</bItemNo2>
+		<bItemNo2>594</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -1216,7 +1216,7 @@
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>123</bItemNo1>
 		<bItemNo2>124</bItemNo2>
-		<bItemNo3>0</bItemNo3>
+		<bItemNo3>444</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
