@@ -720,7 +720,7 @@
 		<ubChoices>2</ubChoices>
 		<ubNumItems>2</ubNumItems>
 		<bItemNo1>38</bItemNo1>
-		<bItemNo2>38</bItemNo2>
+		<bItemNo2>49</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -886,7 +886,7 @@
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>208</bItemNo1>
 		<bItemNo2>1007</bItemNo2>
-		<bItemNo3>1012</bItemNo3>
+		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
@@ -1050,7 +1050,7 @@
 		<ubChoices>2</ubChoices>
 		<ubNumItems>2</ubNumItems>
 		<bItemNo1>596</bItemNo1>
-		<bItemNo2>596</bItemNo2>
+		<bItemNo2>38</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
@@ -1102,12 +1102,12 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>20</uiIndex>
-		<ubChoices>2</ubChoices>
+		<ubChoices>4</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>600</bItemNo1>
 		<bItemNo2>594</bItemNo2>
-		<bItemNo3>0</bItemNo3>
-		<bItemNo4>0</bItemNo4>
+		<bItemNo3>37</bItemNo3>
+		<bItemNo4>595</bItemNo4>
 		<bItemNo5>0</bItemNo5>
 		<bItemNo6>0</bItemNo6>
 		<bItemNo7>0</bItemNo7>
@@ -1160,7 +1160,7 @@
 		<ubChoices>2</ubChoices>
 		<ubNumItems>2</ubNumItems>
 		<bItemNo1>140</bItemNo1>
-		<bItemNo2>147</bItemNo2>
+		<bItemNo2>951</bItemNo2>
 		<bItemNo3>0</bItemNo3>
 		<bItemNo4>0</bItemNo4>
 		<bItemNo5>0</bItemNo5>
