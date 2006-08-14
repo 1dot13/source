@@ -566,7 +566,7 @@
 	</EXPLOSIVE>
 	<EXPLOSIVE>
 		<uiIndex>47</uiIndex>
-		<ubType>0</ubType>
+		<ubType>8</ubType>
 		<ubDamage>50</ubDamage>
 		<ubStunDamage>120</ubStunDamage>
 		<ubRadius>16</ubRadius>
