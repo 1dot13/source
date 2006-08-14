@@ -565,7 +565,7 @@ itemEndElementHandle(void *userData, const char *name)
 		else if(strcmp(name, "Bipod")	 == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.bipod = (BOOLEAN) atol(pData->szCharData);
+			pData->curItem.bipod = (INT16) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "ToHitBonus")	 == 0)
 		{

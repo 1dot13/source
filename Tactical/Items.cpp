@@ -6214,14 +6214,18 @@ INT16 GetToHitBonus( OBJECTTYPE * pObj, INT32 iRange, UINT8 bLightLevel, BOOLEAN
 
 	// Snap: bipod is effective only in the prone stance
 
-	if ( ! Item[pObj->usItem].bipod || fProneStance )
-		bns = BonusReduceMore( LaserBonus( &Item[pObj->usItem], iRange, bLightLevel), pObj->bStatus[0] );
+	if ( fProneStance )
+		bns += Item[pObj->usItem].bipod;
+		
+	bns += BonusReduceMore( LaserBonus( &Item[pObj->usItem], iRange, bLightLevel), pObj->bStatus[0] );
 	bns += Item[pObj->usGunAmmoItem].tohitbonus;
 
 	for (int i = 0; i < MAX_ATTACHMENTS; i++)
 	{
-		if ( ! Item[pObj->usAttachItem[i]].bipod || fProneStance )
-			bns += BonusReduceMore( LaserBonus( &Item[pObj->usAttachItem[i]], iRange, bLightLevel), pObj->bAttachStatus[i] );
+		if ( fProneStance )
+			bns += Item[pObj->usAttachItem[i]].bipod;
+
+		bns += BonusReduceMore( LaserBonus( &Item[pObj->usAttachItem[i]], iRange, bLightLevel), pObj->bAttachStatus[i] );
 	}
 
 	// Snap (TODO): add special treatment of laser scopes
@@ -6234,14 +6238,18 @@ INT16 GetBurstToHitBonus( OBJECTTYPE * pObj, BOOLEAN fProneStance )
 
 	// Snap: bipod is effective only in the prone stance
 
-	if ( ! Item[pObj->usItem].bipod || fProneStance )
-		bns = BonusReduceMore( Item[pObj->usItem].bursttohitbonus, pObj->bStatus[0] );
+	if ( fProneStance )
+		bns += Item[pObj->usItem].bipod;
+
+	bns += BonusReduceMore( Item[pObj->usItem].bursttohitbonus, pObj->bStatus[0] );
 	bns += Item[pObj->usGunAmmoItem].bursttohitbonus ;
 
 	for (int i = 0; i < MAX_ATTACHMENTS; i++)
 	{
-		if ( ! Item[pObj->usAttachItem[i]].bipod || fProneStance )
-			bns += BonusReduceMore( Item[pObj->usAttachItem[i]].bursttohitbonus, pObj->bAttachStatus[i] );
+		if ( fProneStance )
+			bns += Item[pObj->usAttachItem[i]].bipod;
+
+		bns += BonusReduceMore( Item[pObj->usAttachItem[i]].bursttohitbonus, pObj->bAttachStatus[i] );
 	}
 
 	return( bns );
@@ -6354,13 +6362,19 @@ INT16 GetAutoToHitBonus( OBJECTTYPE * pObj, BOOLEAN fProneStance )
 
 	// Snap: bipod is effective only in the prone stance
 
-	if ( ! Item[pObj->usItem].bipod || fProneStance )
-		bns = BonusReduceMore( Item[pObj->usItem].autofiretohitbonus, pObj->bStatus[0] );
+	if ( fProneStance )
+		bns += Item[pObj->usItem].bipod;
+
+
+	bns += BonusReduceMore( Item[pObj->usItem].autofiretohitbonus, pObj->bStatus[0] );
+
 	bns += Item[pObj->usGunAmmoItem].autofiretohitbonus ;
 
 	for (int i = 0; i < MAX_ATTACHMENTS; i++)
 	{
-		if ( ! Item[pObj->usAttachItem[i]].bipod || fProneStance )
+		if ( fProneStance )
+			bns += Item[pObj->usAttachItem[i]].bipod;
+
 			bns += BonusReduceMore( Item[pObj->usAttachItem[i]].autofiretohitbonus, pObj->bAttachStatus[i] );
 	}
 

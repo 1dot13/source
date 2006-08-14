@@ -312,7 +312,7 @@ typedef struct
 	BOOLEAN lockbomb;
 	BOOLEAN flare;
 	INT16 percentnoisereduction;
-	BOOLEAN bipod;
+	INT16 bipod;
 	INT16 tohitbonus;
 	INT16 bestlaserrange;
 	INT16 rangebonus;
