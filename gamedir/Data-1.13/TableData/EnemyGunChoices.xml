@@ -2,7 +2,7 @@
 <ENEMYGUNCHOICESLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<ENEMYGUNCHOICES>
 		<uiIndex>0</uiIndex>
-		<ubChoices>13</ubChoices>
+		<ubChoices>14</ubChoices>
 		<bItemNo1>689</bItemNo1>
 		<bItemNo2>690</bItemNo2>
 		<bItemNo3>635</bItemNo3>
@@ -16,7 +16,7 @@
 		<bItemNo11>718</bItemNo11>
 		<bItemNo12>5</bItemNo12>
 		<bItemNo13>720</bItemNo13>
-		<bItemNo14>-1</bItemNo14>
+		<bItemNo14>759</bItemNo14>
 		<bItemNo15>-1</bItemNo15>
 		<bItemNo16>-1</bItemNo16>
 		<bItemNo17>-1</bItemNo17>

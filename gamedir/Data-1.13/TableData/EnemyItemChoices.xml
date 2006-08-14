@@ -542,9 +542,9 @@
 	</ENEMYITEMCHOICES>
 	<ENEMYITEMCHOICES>
 		<uiIndex>10</uiIndex>
-		<ubChoices>1</ubChoices>
+		<ubChoices>2</ubChoices>
 		<bItemNo1>41</bItemNo1>
-		<bItemNo2>-1</bItemNo2>
+		<bItemNo2>901</bItemNo2>
 		<bItemNo3>-1</bItemNo3>
 		<bItemNo4>-1</bItemNo4>
 		<bItemNo5>-1</bItemNo5>
