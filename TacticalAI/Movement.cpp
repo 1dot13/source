@@ -82,6 +82,18 @@ int LegalNPCDestination(SOLDIERTYPE *pSoldier, INT16 sGridno, UINT8 ubPathMode, 
 		if (!ubWaterOK && Water(sGridno))
 		  return(FALSE);
 
+		//Madd: added to prevent people from running into gas and fire
+		if ( (gpWorldLevelData[sGridno].ubExtFlags[pSoldier->bLevel] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS)) &&
+					FindGasMask(pSoldier) == NO_SLOT  )
+		{
+			return( FALSE );
+		}
+		if ( gpWorldLevelData[sGridno].ubExtFlags[pSoldier->bLevel] & MAPELEMENT_EXT_BURNABLEGAS )
+		{
+			return( FALSE );
+		}
+
+
     // passed all checks, now try to make sure we can get there!
     switch (ubPathMode)
      {
