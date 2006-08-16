@@ -457,10 +457,10 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 					if ( i != NO_SLOT && Random( 5 ) < SoldierDifficultyLevel( &Soldier ))
 					{
 						// start camouflaged
-						Soldier.bCamo = (INT8)Item[i].camobonus;
-						Soldier.urbanCamo = (INT8)Item[i].urbanCamobonus;
-						Soldier.desertCamo = (INT8)Item[i].desertCamobonus;
-						Soldier.snowCamo = (INT8)Item[i].snowCamobonus;
+						Soldier.bCamo = (INT8)Item[Soldier.inv[ i ].usItem].camobonus;
+						Soldier.urbanCamo = (INT8)Item[Soldier.inv[ i ].usItem].urbanCamobonus;
+						Soldier.desertCamo = (INT8)Item[Soldier.inv[ i ].usItem].desertCamobonus;
+						Soldier.snowCamo = (INT8)Item[Soldier.inv[ i ].usItem].snowCamobonus;
 					}
 				}
 			}
