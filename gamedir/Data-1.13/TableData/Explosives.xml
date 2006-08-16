@@ -474,7 +474,7 @@
 		<ubDamage>30</ubDamage>
 		<ubStunDamage>20</ubStunDamage>
 		<ubRadius>3</ubRadius>
-		<ubVolume>50</ubVolume>
+		<ubVolume>75</ubVolume>
 		<ubVolatility>2</ubVolatility>
 		<ubAnimationID>9</ubAnimationID>
 		<ubDuration>2</ubDuration>
@@ -546,7 +546,7 @@
 		<ubDamage>35</ubDamage>
 		<ubStunDamage>25</ubStunDamage>
 		<ubRadius>4</ubRadius>
-		<ubVolume>50</ubVolume>
+		<ubVolume>75</ubVolume>
 		<ubVolatility>2</ubVolatility>
 		<ubAnimationID>9</ubAnimationID>
 		<ubDuration>3</ubDuration>
@@ -570,7 +570,7 @@
 		<ubDamage>40</ubDamage>
 		<ubStunDamage>40</ubStunDamage>
 		<ubRadius>6</ubRadius>
-		<ubVolume>50</ubVolume>
+		<ubVolume>75</ubVolume>
 		<ubVolatility>2</ubVolatility>
 		<ubAnimationID>9</ubAnimationID>
 		<ubDuration>4</ubDuration>
@@ -644,7 +644,7 @@
 		<ubRadius>4</ubRadius>
 		<ubVolume>15</ubVolume>
 		<ubVolatility>1</ubVolatility>
-		<ubAnimationID>9</ubAnimationID>
+		<ubAnimationID>10</ubAnimationID>
 		<ubDuration>5</ubDuration>
 		<ubStartRadius>2</ubStartRadius>
 	</EXPLOSIVE>
@@ -667,6 +667,42 @@
 		<ubStunDamage>5</ubStunDamage>
 		<ubRadius>8</ubRadius>
 		<ubVolume>25</ubVolume>
+		<ubVolatility>1</ubVolatility>
+		<ubAnimationID>2</ubAnimationID>
+		<ubDuration>0</ubDuration>
+		<ubStartRadius>0</ubStartRadius>
+	</EXPLOSIVE>
+	<EXPLOSIVE>
+		<uiIndex>56</uiIndex>
+		<ubType>0</ubType>
+		<ubDamage>25</ubDamage>
+		<ubStunDamage>100</ubStunDamage>
+		<ubRadius>8</ubRadius>
+		<ubVolume>50</ubVolume>
+		<ubVolatility>1</ubVolatility>
+		<ubAnimationID>2</ubAnimationID>
+		<ubDuration>0</ubDuration>
+		<ubStartRadius>0</ubStartRadius>
+	</EXPLOSIVE>
+	<EXPLOSIVE>
+		<uiIndex>57</uiIndex>
+		<ubType>0</ubType>
+		<ubDamage>30</ubDamage>
+		<ubStunDamage>120</ubStunDamage>
+		<ubRadius>9</ubRadius>
+		<ubVolume>50</ubVolume>
+		<ubVolatility>1</ubVolatility>
+		<ubAnimationID>2</ubAnimationID>
+		<ubDuration>0</ubDuration>
+		<ubStartRadius>0</ubStartRadius>
+	</EXPLOSIVE>
+	<EXPLOSIVE>
+		<uiIndex>58</uiIndex>
+		<ubType>0</ubType>
+		<ubDamage>40</ubDamage>
+		<ubStunDamage>140</ubStunDamage>
+		<ubRadius>10</ubRadius>
+		<ubVolume>50</ubVolume>
 		<ubVolatility>1</ubVolatility>
 		<ubAnimationID>2</ubAnimationID>
 		<ubDuration>0</ubDuration>
