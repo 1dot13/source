@@ -2960,4 +2960,9 @@
 		<sItemIndex>564</sItemIndex>
 		<ubOptimalNumber>3</ubOptimalNumber>
 	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>592</uiIndex>
+		<sItemIndex>759</sItemIndex>
+		<ubOptimalNumber>3</ubOptimalNumber>
+	</INVENTORY>
 </INVENTORYLIST>

@@ -6489,6 +6489,14 @@
 		<itemIndex>757</itemIndex>
 	</ATTACHMENT>
 	<ATTACHMENT>
+		<attachmentIndex>1003</attachmentIndex>
+		<itemIndex>758</itemIndex>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1003</attachmentIndex>
+		<itemIndex>759</itemIndex>
+	</ATTACHMENT>
+	<ATTACHMENT>
 		<attachmentIndex>1004</attachmentIndex>
 		<itemIndex>12</itemIndex>
 	</ATTACHMENT>
@@ -8359,6 +8367,10 @@
 	<ATTACHMENT>
 		<attachmentIndex>1006</attachmentIndex>
 		<itemIndex>759</itemIndex>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1006</attachmentIndex>
+		<itemIndex>760</itemIndex>
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1007</attachmentIndex>
