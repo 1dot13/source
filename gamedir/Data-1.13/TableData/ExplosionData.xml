@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <EXPDATALIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<EXPDATA>
 		<TransKeyFrame>0</TransKeyFrame>
@@ -86,5 +86,13 @@
 		<AltExplosionSoundID>-1</AltExplosionSoundID>
 		<BlastFilename>TILECACHE\FLAM_EXP.STI</BlastFilename>
 		<BlastSpeed>80</BlastSpeed>
+	</EXPDATA>
+	<EXPDATA>
+		<TransKeyFrame>1</TransKeyFrame>
+		<DamageKeyFrame>5</DamageKeyFrame>
+		<ExplosionSoundID>465</ExplosionSoundID>
+		<AltExplosionSoundID>-1</AltExplosionSoundID>
+		<BlastSpeed>15</BlastSpeed>
+		<BlastFilename>TILECACHE\shckwave.STI</BlastFilename>
 	</EXPDATA>
 </EXPDATALIST>
