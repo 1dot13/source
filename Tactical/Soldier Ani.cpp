@@ -3462,10 +3462,12 @@ void CheckForAndHandleSoldierIncompacitated( SOLDIERTYPE *pSoldier )
 		// Randomly fall back or forward, if we are in the standing hit animation
 		if ( pSoldier->usAnimState == GENERIC_HIT_STAND || pSoldier->usAnimState == STANDING_BURST_HIT || pSoldier->usAnimState == RIFLE_STAND_HIT )
 		{
-			INT8			bTestDirection = pSoldier->bDirection;
+			INT8		bTestDirection  = pSoldier->bDirection;
 			BOOLEAN		fForceDirection = FALSE;
-			BOOLEAN		fDoFallback			= FALSE;
+			BOOLEAN		fDoFallback		= FALSE;
 
+
+			// Lesh: lets fix dead humans fallback through obstacles
 
 			// TRY FALLING BACKWARDS, ( ONLY IF WE ARE A MERC! )
 #ifdef TESTFALLBACK
@@ -3484,49 +3486,43 @@ void CheckForAndHandleSoldierIncompacitated( SOLDIERTYPE *pSoldier )
 					fForceDirection = TRUE;
 				}
 
-				sNewGridNo = pSoldier->sGridNo;
+				sNewGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, DirectionInc( gOppositeDirection[ bTestDirection ] ) );
 
-//				if ( OKFallDirection( pSoldier, sNewGridNo, pSoldier->bLevel, bTestDirection, FALLBACK_HIT_STAND ) )
-//				{
-					// SECOND GRIDNO
-					sNewGridNo = NewGridNo( (UINT16)sNewGridNo, DirectionInc( gOppositeDirection[ bTestDirection ] ) );
-
-//					if ( OKFallDirection( pSoldier, sNewGridNo, pSoldier->bLevel, bTestDirection, FALLBACK_HIT_STAND ) )
-//					{
-						// ALL'S OK HERE..... IF WE FORCED DIRECTION, SET!
-						if ( fForceDirection )
-						{
-							EVENT_SetSoldierDesiredDirection( pSoldier, bTestDirection );
-							EVENT_SetSoldierDirection( pSoldier, bTestDirection );
-						}
-						ChangeToFallbackAnimation( pSoldier, pSoldier->bDirection );
-						return;
-//					}
-					//else
-					//{
-					//	fDoFallback = TRUE;
-					//}
-				//}
-				//else
-				//{
-				//	fDoFallback = TRUE;
-				//}
+				if ( OKFallDirection( pSoldier, sNewGridNo, pSoldier->bLevel, bTestDirection, FLYBACK_HIT ) )
+				{
+					// CHECKED BEHIND GRIDS - OK
+					fDoFallback = TRUE;
+				}
+				else
+				{
+					fDoFallback = FALSE;
+				}
 
 			}
 			else
 			{
-				fDoFallback = TRUE;
+				fDoFallback = FALSE;
 			}
 
-			if ( fDoFallback )
+			if ( !fDoFallback )
 			{
-				// 1 )REC DIRECTION
+				// 1 ) REC DIRECTION
 				// 2 ) SET FLAG FOR STARTING TO FALL
-        BeginTyingToFall( pSoldier );
+				BeginTyingToFall( pSoldier );
 				ChangeSoldierState( pSoldier, FALLFORWARD_FROMHIT_STAND, 0, FALSE );
 				return;
 			}
-
+			else
+			{
+				// ALL'S OK HERE..... IF WE FORCED DIRECTION, SET!
+				if ( fForceDirection )
+				{
+					EVENT_SetSoldierDesiredDirection( pSoldier, bTestDirection );
+					EVENT_SetSoldierDirection( pSoldier, bTestDirection );
+				}
+				ChangeToFallbackAnimation( pSoldier, pSoldier->bDirection );
+				return;
+			}
 		}
 		else if ( pSoldier->usAnimState == GENERIC_HIT_CROUCH )
 		{
