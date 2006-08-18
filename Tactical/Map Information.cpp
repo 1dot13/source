@@ -38,7 +38,7 @@ MAPCREATE_STRUCT gMapInformation;
 
 //Current minor map version updater.
 // Lesh: increased. was 25
-#define MINOR_MAP_VERSION		27
+#define MINOR_MAP_VERSION		25
 UINT8 gubMinorMapVersion = MINOR_MAP_VERSION;
 
 /*
