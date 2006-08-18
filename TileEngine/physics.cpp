@@ -2512,7 +2512,7 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 2337"));
 		if ( Item[pObject->Obj.usItem].flare )
 		{
 			//if the light object will ber created OFF the ground
-			if( pObject->Position.z > 0 )
+			if( pObject->Position.z > 0 && FindBuilding(pObject->sGridNo) )
 			{
 				//we cannot create the light source above the ground, or on a roof.  The system doesnt support it.
 				AddItemToPool( pObject->sGridNo, &( pObject->Obj ), 1, 1, 0, -1 );
