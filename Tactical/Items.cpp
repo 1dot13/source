@@ -3337,6 +3337,45 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 						StatChange( pSoldier, WISDOMAMT, 5, FALSE );
 					}
 
+					//Madd: unload guns after merge if ammo caliber or mag size don't match
+					if ( Item[pTargetObj->usItem].usItemClass == IC_GUN && pTargetObj->usGunAmmoItem != NONE && pTargetObj->ubGunShotsLeft > 0 )
+					{
+						if ( Item[usResult].usItemClass != IC_GUN || Weapon[Item[usResult].ubClassIndex].ubCalibre != Weapon[Item[pTargetObj->usItem].ubClassIndex].ubCalibre || pTargetObj->ubGunShotsLeft > Weapon[Item[usResult].ubClassIndex].ubMagSize )
+						{ // item types/calibers/magazines don't match, spit out old ammo
+							OBJECTTYPE newObj;
+							CreateItem(pTargetObj->usGunAmmoItem, 100, &newObj);
+							newObj.ubShotsLeft[0] = pTargetObj->ubGunShotsLeft;
+							pTargetObj->ubGunShotsLeft = 0;
+							pTargetObj->usGunAmmoItem = NONE;
+							if ( !AutoPlaceObject( pSoldier, &newObj, FALSE ) )
+							{   // put it on the ground
+								AddItemToPool( pSoldier->sGridNo, &newObj, 1, pSoldier->bLevel, 0 , -1 );
+							}
+						}
+					}
+
+					//Madd: remove any prohibited attachments
+					for (bAttachPos = 0; bAttachPos < MAX_ATTACHMENTS; bAttachPos++)
+					{
+						if (pTargetObj->usAttachItem[ bAttachPos ] != NOTHING && !ValidAttachment(pTargetObj->usAttachItem[ bAttachPos ],usResult) && !ValidLaunchable(pTargetObj->usAttachItem[ bAttachPos ],usResult) )
+						{
+							if ( !Item[pTargetObj->usAttachItem[ bAttachPos ]].inseparable )
+							{//remove it
+								OBJECTTYPE newObj;
+								RemoveAttachment(pTargetObj,bAttachPos,&newObj);
+								if ( !AutoPlaceObject( pSoldier, &newObj, FALSE ) )
+								{   // put it on the ground
+									AddItemToPool( pSoldier->sGridNo, &newObj, 1, pSoldier->bLevel, 0 , -1 );
+								}
+							}
+							else
+							{//destroy it
+								pTargetObj->usAttachItem[bAttachPos] = NOTHING;
+								pTargetObj->bAttachStatus[bAttachPos] = 0;
+							}
+						}
+					}
+
 					pTargetObj->usItem = usResult;
 					//AutoPlaceObject( pAttachment );
 					pTargetObj->ubWeight = CalculateObjectWeight( pTargetObj );
@@ -3423,6 +3462,46 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 				// fall through
 			default:
 				// the merge will combine the two items
+
+				//Madd: unload guns after merge if ammo caliber or mag size don't match
+				if ( Item[pTargetObj->usItem].usItemClass == IC_GUN && pTargetObj->usGunAmmoItem != NONE && pTargetObj->ubGunShotsLeft > 0 )
+				{
+					if ( Item[usResult].usItemClass != IC_GUN || Weapon[Item[usResult].ubClassIndex].ubCalibre != Weapon[Item[pTargetObj->usItem].ubClassIndex].ubCalibre || pTargetObj->ubGunShotsLeft > Weapon[Item[usResult].ubClassIndex].ubMagSize )
+					{ // item types/calibers/magazines don't match, spit out old ammo
+						OBJECTTYPE newObj;
+						CreateItem(pTargetObj->usGunAmmoItem, 100, &newObj);
+						newObj.ubShotsLeft[0] = pTargetObj->ubGunShotsLeft;
+						pTargetObj->ubGunShotsLeft = 0;
+						pTargetObj->usGunAmmoItem = NONE;
+						if ( !AutoPlaceObject( pSoldier, &newObj, FALSE ) )
+						{   // put it on the ground
+							AddItemToPool( pSoldier->sGridNo, &newObj, 1, pSoldier->bLevel, 0 , -1 );
+						}
+					}
+				}
+
+				//Madd: remove any prohibited attachments
+				for (bAttachPos = 0; bAttachPos < MAX_ATTACHMENTS; bAttachPos++)
+				{
+					if (pTargetObj->usAttachItem[ bAttachPos ] != NOTHING && !ValidAttachment(pTargetObj->usAttachItem[ bAttachPos ],usResult) && !ValidLaunchable(pTargetObj->usAttachItem[ bAttachPos ],usResult) )
+					{
+						if ( !Item[pTargetObj->usAttachItem[ bAttachPos ]].inseparable )
+						{//remove it
+							OBJECTTYPE newObj;
+							RemoveAttachment(pTargetObj,bAttachPos,&newObj);
+							if ( !AutoPlaceObject( pSoldier, &newObj, FALSE ) )
+							{   // put it on the ground
+								AddItemToPool( pSoldier->sGridNo, &newObj, 1, pSoldier->bLevel, 0 , -1 );
+							}
+						}
+						else
+						{//destroy it
+							pTargetObj->usAttachItem[bAttachPos] = NOTHING;
+							pTargetObj->bAttachStatus[bAttachPos] = 0;
+						}
+					}
+				}
+
 				pTargetObj->usItem = usResult;
 				if ( ubType != TREAT_ARMOUR )
 				{
