@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <EXPLOSIVELIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<EXPLOSIVE>
 		<uiIndex>0</uiIndex>
@@ -706,6 +706,18 @@
 		<ubVolatility>1</ubVolatility>
 		<ubAnimationID>2</ubAnimationID>
 		<ubDuration>0</ubDuration>
+		<ubStartRadius>0</ubStartRadius>
+	</EXPLOSIVE>
+	<EXPLOSIVE>
+		<uiIndex>59</uiIndex>
+		<ubType>9</ubType>
+		<ubDamage>2</ubDamage>
+		<ubStunDamage>10</ubStunDamage>
+		<ubRadius>5</ubRadius>
+		<ubVolume>80</ubVolume>
+		<ubVolatility>0</ubVolatility>
+		<ubAnimationID>11</ubAnimationID>
+		<ubDuration>2</ubDuration>
 		<ubStartRadius>0</ubStartRadius>
 	</EXPLOSIVE>
 </EXPLOSIVELIST>
