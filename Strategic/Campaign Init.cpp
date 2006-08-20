@@ -19,6 +19,32 @@ void InitKnowFacilitiesFlags( );
 
 UNDERGROUND_SECTORINFO* gpUndergroundSectorInfoTail = NULL;
 
+// Lesh: this array controls randomization of sectors
+// Note that some sectors in game already using alternative map
+// It is Skyrider quest: B15, E14, D12, C16
+//       weapon caches: E11, H5, H10, J12, M9
+//       Madlab quest: H7, H16, I11, E4
+// Do not enable randomization of this sectors until you are know what you're doing
+BOOLEAN RandomSector[256] = 
+{
+	//		1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16
+	/* A */	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
+	/* B */	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
+	/* C */	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
+	/* D */	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
+	/* E */	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
+	/* F */	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
+	/* G */	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
+	/* H */	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
+	/* I */	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
+	/* J */	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
+	/* K */	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
+	/* L */	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
+	/* M */	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
+	/* N */	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
+	/* O */	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,
+	/* P */	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0
+};
 
 UNDERGROUND_SECTORINFO* NewUndergroundNode( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ )
 {
@@ -343,6 +369,23 @@ void BuildUndergroundSectorInfoList()
 	curr->ubAdjacentSectors |= SOUTH_ADJACENT_SECTOR;
 }
 
+// Lesh: this function creates randomized world
+//       every sector can be randomized between common and alternative, chances 50/50
+//       randomization of individual sectors can be switched off via array RandomSector[]
+void InitWorld()
+{
+	INT16	sSectorCounter;
+
+	for (sSectorCounter = 0; sSectorCounter < 256; sSectorCounter++)
+	{
+		if ( RandomSector[ sSectorCounter ] )
+		{
+			if ( Random(100) >= 50 )
+				SectorInfo[ sSectorCounter ].uiFlags |= SF_USE_ALTERNATE_MAP;
+		}
+	}
+}
+
 //This is the function that is called only once, when the player begins a new game.  This will calculate
 //starting numbers of the queen's army in various parts of the map, which will vary from campaign to campaign.
 //This is also highly effected by the game's difficulty setting.
@@ -355,6 +398,7 @@ void InitNewCampaign()
 	InitStrategicMovementCosts();
 	RemoveAllGroups();
 
+	InitWorld();
 	InitMiningLocations();
 	InitKnowFacilitiesFlags( );
 
