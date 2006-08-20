@@ -138,16 +138,16 @@ BobbyRayPurchaseStruct BobbyRayPurchases[ MAX_PURCHASE_AMOUNT ];
 // WANNE
 #define		FILTER_BUTTONS_GUN_START_X				BOBBYR_PREVIOUS_BUTTON_X
 #define		FILTER_BUTTONS_AMMO_START_X				FILTER_BUTTONS_GUN_START_X
-#define		FILTER_BUTTONS_USED_START_X				FILTER_BUTTONS_GUN_START_X + 122
+#define		FILTER_BUTTONS_USED_START_X				FILTER_BUTTONS_GUN_START_X	//FILTER_BUTTONS_GUN_START_X + 122
 #define		FILTER_BUTTONS_Y						BOBBYR_PREVIOUS_BUTTON_Y + 25
 
 // WANNE
 // The number of filter buttons which category uses
 #define		NUMBER_GUNS_FILTER_BUTTONS			9
-#define		NUMBER_AMMO_FILTER_BUTTONS			9
+#define		NUMBER_AMMO_FILTER_BUTTONS			8
 #define		NUMBER_ARMOUR_FILTER_BUTTONS		1
 #define		NUMBER_MISC_FILTER_BUTTONS			1
-#define		NUMBER_USED_FILTER_BUTTONS			4
+#define		NUMBER_USED_FILTER_BUTTONS			3
 
 // WANNE
 #define		BOBBYR_GUNS_FILTER_BUTTON_GAP			BOBBYR_CATALOGUE_BUTTON_GAP - 1
@@ -186,7 +186,7 @@ INT8			ubFilterGunsButtonValues[] = {
 
 // WANNE
 INT8			ubFilterAmmoButtonValues[] = {
-							BOBBYR_FILTER_AMMO_HEAVY,
+							//BOBBYR_FILTER_AMMO_HEAVY,
 							BOBBYR_FILTER_AMMO_PISTOL,
 							BOBBYR_FILTER_AMMO_M_PISTOL,
 							BOBBYR_FILTER_AMMO_SMG,
@@ -198,7 +198,7 @@ INT8			ubFilterAmmoButtonValues[] = {
 
 INT8			ubFilterUsedButtonValues[] = {
 							BOBBYR_FILTER_USED_GUNS,
-							BOBBYR_FILTER_USED_AMMO,
+							//BOBBYR_FILTER_USED_AMMO,
 							BOBBYR_FILTER_USED_ARMOR,
 							BOBBYR_FILTER_USED_MISC};
 
@@ -538,7 +538,7 @@ BOOLEAN InitBobbyRAmmoFilterBar()
 		}
 
 		// Filter buttons
-		guiBobbyRFilterAmmo[i] = CreateIconAndTextButton( guiBobbyRFilterImage, BobbyRFilter[BOBBYR_FILTER_AMMO_HEAVY+i], BOBBYR_GUNS_BUTTON_FONT, 
+		guiBobbyRFilterAmmo[i] = CreateIconAndTextButton( guiBobbyRFilterImage, BobbyRFilter[BOBBYR_FILTER_AMMO_PISTOL+i], BOBBYR_GUNS_BUTTON_FONT, 
 													BOBBYR_GUNS_TEXT_COLOR_ON, BOBBYR_GUNS_SHADOW_COLOR, 
 													BOBBYR_GUNS_TEXT_COLOR_OFF, BOBBYR_GUNS_SHADOW_COLOR, 
 													TEXT_CJUSTIFIED, 
@@ -919,9 +919,9 @@ void BtnBobbyRFilterAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 		
 		switch (bNewValue)
 		{
-			case BOBBYR_FILTER_AMMO_HEAVY:
-				guiCurrentAmmoFilterMode = NOT_GUN;
-				break;
+			//case BOBBYR_FILTER_AMMO_HEAVY:
+			//	guiCurrentAmmoFilterMode = NOT_GUN;
+			//	break;
 			case BOBBYR_FILTER_AMMO_PISTOL:
 				guiCurrentAmmoFilterMode = GUN_PISTOL;
 				break;
@@ -990,9 +990,9 @@ void BtnBobbyRFilterUsedCallback(GUI_BUTTON *btn,INT32 reason)
 			case BOBBYR_FILTER_USED_GUNS:
 				guiCurrentUsedFilterMode = IC_BOBBY_GUN;
 				break;
-			case BOBBYR_FILTER_USED_AMMO:
-				guiCurrentUsedFilterMode = IC_AMMO;
-				break;
+			//case BOBBYR_FILTER_USED_AMMO:
+			//	guiCurrentUsedFilterMode = IC_AMMO;
+			//	break;
 			case BOBBYR_FILTER_USED_ARMOR:
 				guiCurrentUsedFilterMode = IC_ARMOUR;
 				break;
@@ -2595,13 +2595,13 @@ void UpdateAmmoFilterButtons(INT32 iNewButton, INT32 iOldButton)
 		if (iNewButton > -1)
 		{
 			// Disable new Button
-			DisableButton(guiBobbyRFilterAmmo[iNewButton]);
+			DisableButton(guiBobbyRFilterAmmo[iNewButton - 1]);
 		}
 
 		if (iOldButton > -1)
 		{
 			// Enable old Button
-			EnableButton(guiBobbyRFilterAmmo[iOldButton]);
+			EnableButton(guiBobbyRFilterAmmo[iOldButton - 1]);
 		}
 	}
 }

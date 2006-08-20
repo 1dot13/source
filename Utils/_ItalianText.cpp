@@ -2793,23 +2793,23 @@ STR16			BobbyRFilter[] =
 	L"Rifle",
 	L"SN Rifle",
 	L"AS Rifle",
-	L"LMG",
+	L"MG",
 	L"Shotgun",
 
 	// Ammo
-	L"Heavy W.",
+	//L"Heavy W.",
 	L"Pistol",
 	L"M. Pistol",
 	L"SMG",
 	L"Rifle",
 	L"SN Rifle",
 	L"AS Rifle",
-	L"LMG",
+	L"MG",
 	L"Shotgun",
 
 	// Used
 	L"Guns",
-	L"Ammo",
+	//L"Ammo",
 	L"Armor",
 	L"Misc",
 };
