@@ -2633,28 +2633,28 @@ void UpdateUsedFilterButtons()
 
 			EnableButton(guiBobbyRFilterUsed[1]);
 			EnableButton(guiBobbyRFilterUsed[2]);
-			EnableButton(guiBobbyRFilterUsed[3]);
+			//EnableButton(guiBobbyRFilterUsed[3]);
 			break;
-		case IC_AMMO:
+		/*case IC_AMMO:
 			DisableButton(guiBobbyRFilterUsed[1]);
 
 			EnableButton(guiBobbyRFilterUsed[0]);
 			EnableButton(guiBobbyRFilterUsed[2]);
 			EnableButton(guiBobbyRFilterUsed[3]);
-			break;
+			break;*/
 		case IC_ARMOUR:
+			DisableButton(guiBobbyRFilterUsed[1]);
+
+			EnableButton(guiBobbyRFilterUsed[0]);
+			EnableButton(guiBobbyRFilterUsed[2]);
+			//EnableButton(guiBobbyRFilterUsed[3]);
+			break;
+		case IC_BOBBY_MISC:
 			DisableButton(guiBobbyRFilterUsed[2]);
 
 			EnableButton(guiBobbyRFilterUsed[0]);
 			EnableButton(guiBobbyRFilterUsed[1]);
-			EnableButton(guiBobbyRFilterUsed[3]);
-			break;
-		case IC_BOBBY_MISC:
-			DisableButton(guiBobbyRFilterUsed[3]);
-
-			EnableButton(guiBobbyRFilterUsed[0]);
-			EnableButton(guiBobbyRFilterUsed[1]);
-			EnableButton(guiBobbyRFilterUsed[2]);
+			//EnableButton(guiBobbyRFilterUsed[2]);
 			break;
 	}
 }
