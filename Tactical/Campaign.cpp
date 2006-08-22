@@ -1101,8 +1101,9 @@ void HandleUnhiredMercImprovement( MERCPROFILESTRUCT *pProfile )
 	// if he's working on another job
 	if (pProfile->bMercStatus == MERC_WORKING_ELSEWHERE)
 	{
+		// Lesh: changed chance from 20 to 70
 		// if he did't do anything interesting today
-		if (Random(100) < 20)
+		if (Random(100) < 70)
 		{
 			// no chance to change today
 			return;
@@ -1114,7 +1115,8 @@ void HandleUnhiredMercImprovement( MERCPROFILESTRUCT *pProfile )
 		// 80 wisdom gives 8 rolls per stat per day, 10 stats, avg success rate 40% = 32pts per day,
 		// so about 10 working days to hit lvl 2.  This seems high, but mercs don't actually "work" that often, and it's twice
 		// as long to hit level 3.  If we go lower, attribs & skills will barely move.
-		usNumChances = ( pProfile->bWisdom / 10 );
+		// Lesh: changed wisdom divided by 7 insead of 10
+		usNumChances = ( pProfile->bWisdom / 7 );
 		for (ubStat = FIRST_CHANGEABLE_STAT; ubStat <= LAST_CHANGEABLE_STAT; ubStat++)
 		{
 			ProfileStatChange( pProfile, ubStat, usNumChances, FALSE );
