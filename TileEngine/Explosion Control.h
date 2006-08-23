@@ -16,7 +16,7 @@ typedef struct
 	UINT32											uiFlags;
 
 	UINT8												ubOwner;
-	UINT8												ubTypeID;
+	INT8												ubTypeID;
 
 	UINT16											usItem;
 
@@ -52,10 +52,12 @@ enum EXPLOSION_TYPES
 	BLAST_3,
 	STUN_BLAST,	
 	WATER_BLAST,
-  TARGAS_EXP,
-  SMOKE_EXP,
-  MUSTARD_EXP,
+	TARGAS_EXP,
+	SMOKE_EXP,
+	MUSTARD_EXP,
 	BURN_EXP,
+	THERMOBARIC_EXP,
+	FLASHBANG_EXP,		// Lesh: enum added
 	NUM_EXP_TYPES=50
 
 } ;
@@ -91,8 +93,8 @@ typedef struct
 
 
 #define	NUM_EXPLOSION_SLOTS					100
-extern	EXPLOSIONTYPE								gExplosionData[ NUM_EXPLOSION_SLOTS ];
 
+extern	EXPLOSIONTYPE								gExplosionData[ NUM_EXPLOSION_SLOTS ];
 extern UINT8 gubElementsOnExplosionQueue;
 extern BOOLEAN gfExplosionQueueActive;
 

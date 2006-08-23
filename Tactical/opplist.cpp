@@ -5459,6 +5459,12 @@ UINT8 CalcEffVolume(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT8 ubN
 {
 	INT32 iEffVolume, iDistance;
 
+	// Lesh: deafness
+	if ( pSoldier->bDeafenedCounter > 0 )
+	{
+		return( 0 );
+	}
+
 	if ( FindWalkman(pSoldier) != ITEM_NOT_FOUND  )
 	{
 		return( 0 );

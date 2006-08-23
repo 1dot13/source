@@ -927,7 +927,7 @@ typedef struct
 	BOOLEAN											fRTInNonintAnim;
   BOOLEAN                     fDoingExternalDeath;
   INT8                        bCorpseQuoteTolerance;
-  INT8                        bYetAnotherPaddingSpace;
+  INT8                        bDeafenedCounter;
   INT32                       iPositionSndID;  
   INT32                       iTuringSoundID;
   UINT8                       ubLastDamageReason;
