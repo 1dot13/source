@@ -74,6 +74,9 @@
 #define		COLOR_WHITE					208
 #define		COLOR_BLACK					72
 
+// Lesh: light types - it is not recomended due to problems with roof lighting 
+//#define		LIGHT_TYPE_NORMAL		0
+//#define		LIGHT_TYPE_BRIGHT		1
 
 // stucture of node in linked list for lights
 typedef struct light_p {

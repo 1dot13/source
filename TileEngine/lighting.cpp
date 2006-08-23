@@ -869,6 +869,9 @@ BOOLEAN fFake;
 	//else
 		ubShadeAdd=ubShade;
 
+		// Lesh: it is not recomended due to problems with roof lighting 
+		//if ( uiLightType == LIGHT_TYPE_BRIGHT )
+		//	ubShadeAdd += -6;
  
 	if (uiFlags&LIGHT_FAKE)
 	{
@@ -1008,6 +1011,10 @@ BOOLEAN fFake; // only passed in to land and roof layers; others get fed FALSE
 //		ubShadeSubtract=ubShade*7/10;
 //	else
 		ubShadeSubtract=ubShade;
+
+		// Lesh: it is not recomended due to problems with roof lighting 
+		//if ( uiLightType == LIGHT_TYPE_BRIGHT )
+		//	ubShadeSubtract += -6;
 
 	if (uiFlags&LIGHT_FAKE)
 	{
@@ -3460,11 +3467,39 @@ BOOLEAN LightSpritePower(INT32 iSprite, BOOLEAN fOn)
 {
 	if(fOn)
 	{
-		LightSprites[iSprite].uiFlags|=(LIGHT_SPR_ON|LIGHT_SPR_REDRAW);
+		//LightSprites[iSprite].uiFlags|=(LIGHT_SPR_ON|LIGHT_SPR_REDRAW);
+		LightSprites[iSprite].uiFlags|=(LIGHT_SPR_ON);
+		//LightSprites[iSprite].uiFlags&=(~LIGHT_SPR_ERASE);
 		LightSprites[iSprite].iOldX=WORLD_COLS;
 	}
 	else
+	{
 		LightSprites[iSprite].uiFlags&=(~LIGHT_SPR_ON);
+		//LightSprites[iSprite].uiFlags&=(~LIGHT_SPR_ERASE);
+		LightSprites[iSprite].uiFlags|=(LIGHT_SPR_ERASE);
+	}
+
+	if(LightSprites[iSprite].uiFlags&LIGHT_SPR_ACTIVE)
+	{
+		if(LightSprites[iSprite].uiFlags&LIGHT_SPR_ERASE)
+		{
+			if((LightSprites[iSprite].iX < WORLD_COLS) && (LightSprites[iSprite].iY < WORLD_ROWS))
+			{
+				LightErase(LightSprites[iSprite].uiLightType, LightSprites[iSprite].iTemplate, LightSprites[iSprite].iX, LightSprites[iSprite].iY, iSprite);
+				LightSpriteDirty(iSprite);
+			}
+		}
+
+		if(LightSprites[iSprite].uiFlags&LIGHT_SPR_ON)
+		{
+			if((LightSprites[iSprite].iX < WORLD_COLS) && (LightSprites[iSprite].iY < WORLD_ROWS))
+			{
+				LightDraw(LightSprites[iSprite].uiLightType, LightSprites[iSprite].iTemplate, LightSprites[iSprite].iX, LightSprites[iSprite].iY, iSprite);
+				LightSprites[iSprite].uiFlags|=LIGHT_SPR_ERASE;
+				LightSpriteDirty(iSprite);
+			}
+		}
+	}
 
 	return(TRUE);
 
