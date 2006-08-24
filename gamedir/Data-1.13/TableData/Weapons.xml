@@ -3936,7 +3936,7 @@
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>29</ubImpact>
-		<ubDeadliness>27</ubDeadliness>
+		<ubDeadliness>28</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
 		<usRange>310</usRange>
@@ -6266,7 +6266,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>671</uiIndex>
-		<szWeaponName>HK MP5/10A5</szWeaponName>
+		<szWeaponName>HK MP5/10A3</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>27</ubCalibre>
@@ -6302,7 +6302,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>672</uiIndex>
-		<szWeaponName>HK MP5/10SD6</szWeaponName>
+		<szWeaponName>HK MP5/10SD3</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>27</ubCalibre>
@@ -9496,6 +9496,41 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
+		<NoSemiAuto>0</NoSemiAuto>
+		<APsToReloadManually>0</APsToReloadManually>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>761</uiIndex>
+		<szWeaponName>Walther MPL</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>24</ubImpact>
+		<ubDeadliness>18</ubDeadliness>
+		<bAccuracy>5</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>190</usRange>
+		<BurstAniDelay>63</BurstAniDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>374</sSound>
+		<sBurstSound>60</sBurstSound>
+		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>376</SilencedSound>
+		<bBurstAP>4</bBurstAP>
+		<bAutofireShotsPerFiveAP>2</bAutofireShotsPerFiveAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>8</AutoPenalty>
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
