@@ -16,36 +16,36 @@ Attribute Field Reference:
 	<DROPITEM>
 		<uiIndex>0</uiIndex>
 		<ubArmourClass>0</ubArmourClass>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- ARMOURCLASS_VEST -->
 	<DROPITEM>
 		<uiIndex>1</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- ARMOURCLASS_LEGGINGS -->
 	<DROPITEM>
 		<uiIndex>2</uiIndex>
 		<ubArmourClass>2</ubArmourClass>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- ARMOURCLASS_PLATE -->
 	<DROPITEM>
 		<uiIndex>3</uiIndex>
 		<ubArmourClass>3</ubArmourClass>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- ARMOURCLASS_MONST -->
 	<DROPITEM>
 		<uiIndex>4</uiIndex>
 		<ubArmourClass>4</ubArmourClass>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- ARMOURCLASS_VEHICLE -->
 	<DROPITEM>
 		<uiIndex>5</uiIndex>
 		<ubArmourClass>5</ubArmourClass>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 </ARMOURDROPLIST>

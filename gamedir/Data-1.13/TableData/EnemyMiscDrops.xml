@@ -16,42 +16,42 @@ Attribute Field Reference:
 	<DROPITEM>
 		<uiIndex>0</uiIndex>
 		<usItemClass>4096</usItemClass>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- IC_KIT -->
 	<DROPITEM>
 		<uiIndex>1</uiIndex>
 		<usItemClass>8192</usItemClass>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- IC_APPLIABLE -->
 	<DROPITEM>
 		<uiIndex>2</uiIndex>
 		<usItemClass>16384</usItemClass>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- IC_FACE -->
 	<DROPITEM>
 		<uiIndex>3</uiIndex>
 		<usItemClass>32768</usItemClass>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- IC_KEY -->
 	<DROPITEM>
 		<uiIndex>4</uiIndex>
 		<usItemClass>65536</usItemClass>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- IC_MISC -->
 	<DROPITEM>
 		<uiIndex>5</uiIndex>
 		<usItemClass>268435456</usItemClass>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- IC_Money -->
 	<DROPITEM>
 		<uiIndex>6</uiIndex>
 		<usItemClass>536870912</usItemClass>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 </MISCDROPLIST>

@@ -16,54 +16,54 @@ Attribute Field Reference:
 	<DROPITEM>
 		<uiIndex>0</uiIndex>
 		<ubWeaponType>0</ubWeaponType>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- GUN_PISTOL -->
 	<DROPITEM>
 		<uiIndex>1</uiIndex>
 		<ubWeaponType>1</ubWeaponType>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- GUN_M_PISTOL -->
 	<DROPITEM>
 		<uiIndex>2</uiIndex>
 		<ubWeaponType>2</ubWeaponType>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- GUN_SMG -->
 	<DROPITEM>
 		<uiIndex>3</uiIndex>
 		<ubWeaponType>3</ubWeaponType>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- GUN_RIFLE -->
 	<DROPITEM>
 		<uiIndex>4</uiIndex>
 		<ubWeaponType>4</ubWeaponType>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- GUN_SN_RIFLE -->
 	<DROPITEM>
 		<uiIndex>5</uiIndex>
 		<ubWeaponType>5</ubWeaponType>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- GUN_AS_RIFLE -->
 	<DROPITEM>
 		<uiIndex>6</uiIndex>
 		<ubWeaponType>6</ubWeaponType>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- GUN_LMG -->
 	<DROPITEM>
 		<uiIndex>7</uiIndex>
 		<ubWeaponType>7</ubWeaponType>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 	<!-- GUN_SHOTGUN -->
 	<DROPITEM>
 		<uiIndex>8</uiIndex>
 		<ubWeaponType>8</ubWeaponType>
-		<ubDropRate>50</ubDropRate>
+		<ubDropRate>15</ubDropRate>
 	</DROPITEM>
 </WEAPONDROPLIST>
