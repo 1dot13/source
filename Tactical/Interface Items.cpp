@@ -2973,7 +2973,7 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		else
 		{
       // ATE: Make sure we have enough AP's to drop it if we pick it up!
-			if ( EnoughPoints( gpItemDescSoldier, ( AttachmentAPCost( gpItemPointer->usItem, gpItemDescObject->usItem ) + AP_PICKUP_ITEM ), 0, TRUE ) )
+			if ( EnoughPoints( gpItemDescSoldier, ( AttachmentAPCost( gpItemDescObject->usAttachItem[uiItemPos], gpItemDescObject->usItem ) + AP_PICKUP_ITEM ), 0, TRUE ) )
 			{
 				// Get attachment if there is one
 				// The follwing function will handle if no attachment is here
