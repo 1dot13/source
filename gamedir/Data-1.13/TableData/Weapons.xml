@@ -9048,7 +9048,7 @@
 		<ubBurstPenalty>6</ubBurstPenalty>
 		<ubBulletSpeed>23</ubBulletSpeed>
 		<ubImpact>29</ubImpact>
-		<ubDeadliness>42</ubDeadliness>
+		<ubDeadliness>45</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
 		<usRange>280</usRange>
