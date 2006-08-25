@@ -185,7 +185,8 @@ typedef struct
 	INT8 iExperiencedAPBonus;
 	INT8 iExpertAPBonus;
 	INT8 iInsaneAPBonus;
-
+	// Kaiden: Vehicle Inventory change - Added for INI Option
+	BOOLEAN fVehicleInventory;
 
 	// System settings
 	UINT8 gubDeadLockDelay;
@@ -303,6 +304,9 @@ typedef struct
 	BOOLEAN gfNormalAggressiveQueen;
 	BOOLEAN gfHardAggressiveQueen;
 	BOOLEAN gfInsaneAggressiveQueen;
+
+	// WANNE
+	INT32 ubEnemiesItemDrop;
 
 	//Merc Assignment settings
 	INT32 ubAssignmentUnitsPerDay;

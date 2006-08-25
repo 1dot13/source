@@ -2,6 +2,7 @@
 #define __XML_H
 
 #include "armsdealerinvinit.h"
+#include "EnemyItemDrops.h"
 
 enum
 {
@@ -67,6 +68,14 @@ typedef PARSE_STAGE;
 #define EXPLOSIONDATAFILENAME                   "ExplosionData.xml"
 #define CITYTABLEFILENAME "Cities.xml"
 
+// WANNE: drops filename
+#define ENEMYWEAPONDROPSFILENAME				"EnemyWeaponDrops.xml"
+#define ENEMYAMMODROPSFILENAME					"EnemyAmmoDrops.xml"
+#define ENEMYEXPLOSIVEDROPSFILENAME				"EnemyExplosiveDrops.xml"
+#define ENEMYARMOURDROPSFILENAME				"EnemyArmourDrops.xml"
+#define ENEMYMISCDROPSFILENAME					"EnemyMiscDrops.xml"
+
+
 extern BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteItemStats();
 
@@ -123,6 +132,18 @@ extern BOOLEAN ReadInSoundArray(STR fileName);
 
 extern BOOLEAN ReadInAmmoTypeStats(STR fileName);
 extern BOOLEAN WriteAmmoTypeStats();
+
+// WANNE: Enemy drops
+extern BOOLEAN ReadInEnemyWeaponDropsStats(WEAPON_DROPS *pEnemyWeaponDrops, STR fileName);
+extern BOOLEAN WriteEnemyWeaponDropsStats(WEAPON_DROPS *pEnemyWeaponDrops, STR fileName);
+extern BOOLEAN ReadInEnemyAmmoDropsStats(AMMO_DROPS *pEnemyAmmoDrops, STR fileName);
+extern BOOLEAN WriteEnemyAmmoDropsStats(AMMO_DROPS *pEnemyAmmoDrops, STR fileName);
+extern BOOLEAN ReadInEnemyExplosiveDropsStats(EXPLOSIVE_DROPS *pEnemyExplosiveDrops, STR fileName);
+extern BOOLEAN WriteEnemyExplosiveDropsStats(EXPLOSIVE_DROPS *pEnemyExplosiveDrops, STR fileName);
+extern BOOLEAN ReadInEnemyArmourDropsStats(ARMOUR_DROPS *pEnemyArmourDrops, STR fileName);
+extern BOOLEAN WriteEnemyArmourDropsStats(ARMOUR_DROPS *pEnemyArmourDrops, STR fileName);
+extern BOOLEAN ReadInEnemyMiscDropsStats(MISC_DROPS *pEnemyMiscDrops, STR fileName);
+extern BOOLEAN WriteEnemyMiscDropsStats(MISC_DROPS *pEnemyMiscDrops, STR fileName);
 
 // Lesh: 2 lines added
 extern BOOLEAN ReadInBurstSoundArray(STR fileName);

@@ -11462,7 +11462,10 @@ BOOLEAN MapCharacterHasAccessibleInventory( INT8 bCharNumber )
 
 	if( ( pSoldier->bAssignment == IN_TRANSIT ) ||
 			( pSoldier->bAssignment == ASSIGNMENT_POW ) ||
-			( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) ||
+				// Kaiden: Vehicle Inventory change - Commented the following line
+				// ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) ||
+				// And added this instead:
+			( (!gGameExternalOptions.fVehicleInventory) && (pSoldier->uiStatusFlags & SOLDIER_VEHICLE) ) ||
 			( AM_A_ROBOT( pSoldier ) ) ||
 			( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC ) ||
 			( pSoldier->bLife < OKLIFE )

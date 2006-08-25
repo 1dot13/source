@@ -87,6 +87,46 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 {
 	char fileName[MAX_PATH];
 
+	// WANNE: Enemy drops
+	strcpy(fileName, directoryName);
+	strcat(fileName, ENEMYMISCDROPSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	if(!ReadInEnemyMiscDropsStats(gEnemyMiscDrops, fileName))
+		return FALSE;
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ENEMYEXPLOSIVEDROPSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	if(!ReadInEnemyExplosiveDropsStats(gEnemyExplosiveDrops, fileName))
+		return FALSE;
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ENEMYWEAPONDROPSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	if(!ReadInEnemyWeaponDropsStats(gEnemyWeaponDrops, fileName))
+		return FALSE;
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ENEMYAMMODROPSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	if(!ReadInEnemyAmmoDropsStats(gEnemyAmmoDrops, fileName))
+		return FALSE;
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, ENEMYARMOURDROPSFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+	if(!ReadInEnemyArmourDropsStats(gEnemyArmourDrops, fileName))
+		return FALSE;
+	
+	
+
+	
+
+	
+
+
+	// --------
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, AMMOTYPESFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));

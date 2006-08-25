@@ -1639,6 +1639,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\EnemyItemDrops.cpp">
+			</File>
+			<File
 				RelativePath="Faces.cpp">
 				<FileConfiguration
 					Name="Debug Demo|Win32">
@@ -5571,10 +5574,25 @@
 				RelativePath=".\XML_CompatibleFaceItems.cpp">
 			</File>
 			<File
+				RelativePath=".\XML_EnemyAmmoDrops.cpp">
+			</File>
+			<File
+				RelativePath=".\XML_EnemyArmourDrops.cpp">
+			</File>
+			<File
+				RelativePath=".\XML_EnemyExplosiveDrops.cpp">
+			</File>
+			<File
 				RelativePath=".\XML_EnemyItemChoice.cpp">
 			</File>
 			<File
+				RelativePath=".\XML_EnemyMiscDrops.cpp">
+			</File>
+			<File
 				RelativePath=".\XML_EnemyWeaponChoice.cpp">
+			</File>
+			<File
+				RelativePath=".\XML_EnemyWeaponDrops.cpp">
 			</File>
 			<File
 				RelativePath=".\XML_Explosive.cpp">
@@ -5639,6 +5657,9 @@
 			</File>
 			<File
 				RelativePath="Enemy Soldier Save.h">
+			</File>
+			<File
+				RelativePath=".\EnemyItemDrops.h">
 			</File>
 			<File
 				RelativePath="Handle Items.h">

@@ -448,14 +448,21 @@ AnimationSurfaceType	gAnimSurfaceDatabase[ NUMANIMATIONSURFACETYPES ] =
 	TANKNE_READY,				"ANIMS\\VEHICLES\\TNK2_ROT.STI",	S_STRUCT,	ANIM_DATA_FLAG_NOFRAMES,	32, TO_INIT, NULL, NULL, 0, -1,
 	TANKNE_SHOOT,				"ANIMS\\VEHICLES\\TNK2_SHT.STI",	S_STRUCT,	0,												8,  TO_INIT, NULL, NULL, 0, -1,
 	TANKNE_DIE,					"ANIMS\\VEHICLES\\TK2_WREK.STI",	S_STRUCT,	0,												1,  TO_INIT, NULL, NULL, 0, -1,
-
-	ELDORADO_BASIC,			"ANIMS\\VEHICLES\\HUMMER.STI",		S_STRUCT,	ANIM_DATA_FLAG_NOFRAMES,	32, TO_INIT, NULL, NULL, 0, -1,
+	//Kaiden: Below, I have replaced HUMMER2.STI with 
+	// ELDORADO.STI and JEEP.STI respectively,
+	// This has not been tested for effect, however,
+	// It should not result in anything worse than
+	// Bad animations if it's not going to work.
+	// And in that case, anyone comfortable with STI
+	// Animations should be able to make them presentable.
+	// Test it and remove it if neccessary.
+	ELDORADO_BASIC,			"ANIMS\\VEHICLES\\ELDRDO.STI",		S_STRUCT,	ANIM_DATA_FLAG_NOFRAMES,	32, TO_INIT, NULL, NULL, 0, -1,
 	ELDORADO_DIE,				"ANIMS\\VEHICLES\\HM_WREK.STI",		NO_STRUCT,	0,			2, TO_INIT, NULL, NULL, 0, -1,
 
 	ICECREAMTRUCK_BASIC,"ANIMS\\VEHICLES\\ICECRM.STI",		S_STRUCT,	ANIM_DATA_FLAG_NOFRAMES,	32, TO_INIT, NULL, NULL, 0, -1,
 	ICECREAMTRUCK_DIE,	"ANIMS\\VEHICLES\\HM_WREK.STI",		NO_STRUCT,	0,			2, TO_INIT, NULL, NULL, 0, -1,
 
-	JEEP_BASIC,					"ANIMS\\VEHICLES\\HUMMER.STI",		S_STRUCT,	ANIM_DATA_FLAG_NOFRAMES,	32, TO_INIT, NULL, NULL, 0, -1,
+	JEEP_BASIC,					"ANIMS\\VEHICLES\\JEEP.STI",		S_STRUCT,	ANIM_DATA_FLAG_NOFRAMES,	32, TO_INIT, NULL, NULL, 0, -1,
 	JEEP_DIE,						"ANIMS\\VEHICLES\\HM_WREK.STI",		NO_STRUCT,	0,			2, TO_INIT, NULL, NULL, 0, -1,
 
 	BODYEXPLODE,				"ANIMS\\S_MERC\\BOD_BLOW.STI",		NO_STRUCT,	0,				1, TO_INIT, NULL, NULL, 0, -1,

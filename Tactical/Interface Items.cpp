@@ -558,7 +558,8 @@ MOUSE_REGION		gSMInvCamoRegion;
 INT8						gbCompatibleAmmo[ NUM_INV_SLOTS ]; 
 INT8						gbInvalidPlacementSlot[ NUM_INV_SLOTS ]; 
 UINT16					us16BPPItemCyclePlacedItemColors[ 20 ];
-UINT32					guiBodyInvVO[ 4 ][ 2 ];
+// Kaiden: Vehicle Inventory change - Increase this from 4-2 to 5-2
+UINT32					guiBodyInvVO[ 5 ][ 2 ];
 UINT32					guiGoldKeyVO;
 INT8						gbCompatibleApplyItem = FALSE; 
 
@@ -890,6 +891,19 @@ BOOLEAN InitInvSlotInterface( INV_REGION_DESC *pRegionDesc , INV_REGION_DESC *pC
 	FilenameForBPP("INTERFACE\\inventory_figure_female_H.sti", VObjectDesc.ImageFile);
 	CHECKF( AddVideoObject( &VObjectDesc, &(guiBodyInvVO[ 3 ][ 1 ] ) ) );
 
+	// Kaiden: Vehicle Inventory change - Added two new STI's for Vehicle Inventory
+	// Feel free to change them to more appropriate pictures, I just blanked out
+	// the body image for now, I'm no graphics artist.
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP("INTERFACE\\inventory_figure_Vehicle.sti", 
+VObjectDesc.ImageFile);
+	CHECKF( AddVideoObject( &VObjectDesc, &(guiBodyInvVO[ 4 ][ 0 ] ) ) );
+
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP("INTERFACE\\inventory_figure_Vehicle_h.sti", 
+VObjectDesc.ImageFile);
+	CHECKF( AddVideoObject( &VObjectDesc, &(guiBodyInvVO[ 4 ][ 1 ] ) ) );
+
 	// add gold key graphic
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("INTERFACE\\gold_key_button.sti", VObjectDesc.ImageFile);
@@ -993,15 +1007,20 @@ void ShutdownInvSlotInterface( )
 {
 	UINT32		cnt;
 
+	// Kaiden: Vehicle Inventory change - Added 4-0 and 4-1
+    // to be deleted as well.
+
 	// Remove all body type panels
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 0 ][ 0 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 2 ][ 0 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 1 ][ 0 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 3 ][ 0 ] );
+	DeleteVideoObjectFromIndex( guiBodyInvVO[ 4 ][ 0 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 0 ][ 1 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 2 ][ 1 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 1 ][ 1 ] );
 	DeleteVideoObjectFromIndex( guiBodyInvVO[ 3 ][ 1 ] );
+	DeleteVideoObjectFromIndex( guiBodyInvVO[ 4 ][ 1 ] );
 
 	DeleteVideoObjectFromIndex( guiGoldKeyVO );
 
@@ -1023,9 +1042,18 @@ void RenderInvBodyPanel( SOLDIERTYPE *pSoldier, INT16 sX, INT16 sY )
 	// Blit body inv, based on body type
 	INT8 bSubImageIndex = gbCompatibleApplyItem;
 
-	BltVideoObjectFromIndex( guiSAVEBUFFER, guiBodyInvVO[ pSoldier->ubBodyType ][ bSubImageIndex ], 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
-}
+	// Kaiden: Vehicle Inventory change - Added IF Test, Else function call was
+	// the original statement
+	if ( (gGameExternalOptions.fVehicleInventory) && (pSoldier->uiStatusFlags & SOLDIER_VEHICLE) )
+	{
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiBodyInvVO[4][0], 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
+	}
+	else
+	{
+		BltVideoObjectFromIndex( guiSAVEBUFFER, guiBodyInvVO[ pSoldier->ubBodyType ][ bSubImageIndex ], 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
 
+	}
+}
 
 void HandleRenderInvSlots( SOLDIERTYPE *pSoldier, UINT8 fDirtyLevel )
 {
@@ -5018,7 +5046,11 @@ BOOLEAN HandleItemPointerClick( UINT16 usMapPos )
 	{
 		sGridNo = usMapPos;
 
-		if ( sDist <= PASSING_ITEM_DISTANCE_OKLIFE && gfUIFullTargetFound && MercPtrs[ gusUIFullTargetID ]->bTeam == gbPlayerNum && !AM_AN_EPC( MercPtrs[ gusUIFullTargetID ] ) && !( MercPtrs[ gusUIFullTargetID ]->uiStatusFlags & SOLDIER_VEHICLE ) )
+		// Kaiden: Vehicle Inventory change - Commented the following If test:
+		//if ( sDist <= PASSING_ITEM_DISTANCE_OKLIFE && gfUIFullTargetFound && MercPtrs[ gusUIFullTargetID ]->bTeam == gbPlayerNum && !AM_AN_EPC( MercPtrs[ gusUIFullTargetID ] ) && !( MercPtrs[ gusUIFullTargetID ]->uiStatusFlags & SOLDIER_VEHICLE ) )
+		
+		// And added this one instead:
+		if ( ( sDist <= PASSING_ITEM_DISTANCE_OKLIFE && gfUIFullTargetFound && MercPtrs[ gusUIFullTargetID ]->bTeam == gbPlayerNum && !AM_AN_EPC( MercPtrs[ gusUIFullTargetID ] ) ) && !( (!gGameExternalOptions.fVehicleInventory) && (MercPtrs[ gusUIFullTargetID ]->uiStatusFlags & SOLDIER_VEHICLE) ) )
 		{
 			// OK, do the transfer...
 			{
@@ -5119,7 +5151,11 @@ BOOLEAN HandleItemPointerClick( UINT16 usMapPos )
 			{
 				pSoldier = MercPtrs[ gusUIFullTargetID ];
 
-				if ( pSoldier->bTeam == gbPlayerNum && pSoldier->bLife >= OKLIFE && !AM_AN_EPC( pSoldier ) && !( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) )
+				// Kaiden: Vehicle Inventory change - Commented the following If Test:
+				//if ( pSoldier->bTeam == gbPlayerNum && pSoldier->bLife >= OKLIFE && !AM_AN_EPC( pSoldier ) && !( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) )
+				
+				// And replaced it with this one:
+				if ( ( pSoldier->bTeam == gbPlayerNum && pSoldier->bLife >= OKLIFE && !AM_AN_EPC( pSoldier ) ) && !( ( !gGameExternalOptions.fVehicleInventory ) &&  ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) ) )
 				{
 					// OK, on our team, 
 

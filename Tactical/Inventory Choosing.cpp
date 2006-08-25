@@ -2005,6 +2005,7 @@ BOOLEAN PlaceObjectInSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, OBJECTTYPE *
 void RandomlyChooseWhichItemsAreDroppable( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass )
 {
 	INT32 i;
+	INT32 j;
 //	UINT16 usRandomNum;
 	UINT32 uiItemClass;
 	UINT8 ubNumMatches = 0;
@@ -2020,6 +2021,7 @@ void RandomlyChooseWhichItemsAreDroppable( SOLDIERCREATE_STRUCT *pp, INT8 bSoldi
 	BOOLEAN fKit = FALSE;
 	BOOLEAN fFace = FALSE;
 	BOOLEAN fMisc = FALSE;
+	UINT32 uiRandomValue = 0;
 
 	//Madd
 if ( gGameSettings.fOptions[TOPTION_DROP_ALL] )
@@ -2033,12 +2035,27 @@ if ( gGameSettings.fOptions[TOPTION_DROP_ALL] )
 }
 else
 {
-	ENEMYAMMODROPRATE = 50;      
-	ENEMYGRENADEDROPRATE = 25;
-	ENEMYEQUIPDROPRATE = 15;
-	MILITIAAMMODROPRATE = 5;     
-	MILITIAGRENADEDROPRATE = 3;	 
-	MILITIAEQUIPDROPRATE = 2;     
+	// Default random drop
+	if (gGameExternalOptions.ubEnemiesItemDrop == 0)
+	{
+		ENEMYAMMODROPRATE = 50;      
+		ENEMYGRENADEDROPRATE = 25;
+		ENEMYEQUIPDROPRATE = 15;
+		MILITIAAMMODROPRATE = 5;     
+		MILITIAGRENADEDROPRATE = 3;	 
+		MILITIAEQUIPDROPRATE = 2;     
+	}
+	// Get drop rate from XML-Files
+	else
+	{
+		// Reset, because it is not used anymore
+		ENEMYAMMODROPRATE = -1;      
+		ENEMYGRENADEDROPRATE = -1;
+		ENEMYEQUIPDROPRATE = -1;
+		MILITIAAMMODROPRATE = -1;     
+		MILITIAGRENADEDROPRATE = -1;	 
+		MILITIAEQUIPDROPRATE = -1;   
+	}
 }
 
 /*
@@ -2132,20 +2149,24 @@ else
 			}
 			else
 			{
-					// if it's a weapon (monster parts included - they won't drop due to checks elsewhere!)
-				if ((usItem > NONE) && (usItem < MAXITEMS )) // Madd -- this should be ok set to maxitems instead of max_Weapons 
+				// Default random drop
+				if (gGameExternalOptions.ubEnemiesItemDrop == 0)
 				{
-					// and we're allowed to change its flags
-					if(! (pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE ))
+						// if it's a weapon (monster parts included - they won't drop due to checks elsewhere!)
+					if ((usItem > NONE) && (usItem < MAXITEMS )) // Madd -- this should be ok set to maxitems instead of max_Weapons 
 					{
-						// and it's never been dropped before in this game
-						if (!gStrategicStatus.fWeaponDroppedAlready[usItem])
+						// and we're allowed to change its flags
+						if(! (pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE ))
 						{
-							// mark it as droppable, and remember we did so.  If the player never kills this particular dude, oh well,
-							// tough luck, he missed his chance for an easy reward, he'll have to wait til next time and need some luck...
-							pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+							// and it's never been dropped before in this game
+							if (!gStrategicStatus.fWeaponDroppedAlready[usItem])
+							{
+								// mark it as droppable, and remember we did so.  If the player never kills this particular dude, oh well,
+								// tough luck, he missed his chance for an easy reward, he'll have to wait til next time and need some luck...
+								pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
 
-							MarkAllWeaponsOfSameGunClassAsDropped( usItem );
+								MarkAllWeaponsOfSameGunClassAsDropped( usItem );
+							}
 						}
 					}
 				}
@@ -2157,71 +2178,60 @@ else
 		return;
 
 
-//Madd	
-	if( gGameSettings.fOptions[TOPTION_DROP_ALL] || Random(100) < ubAmmoDropRate )
-		fAmmo = TRUE;
 
-//Madd	
-	if( gGameSettings.fOptions[TOPTION_DROP_ALL] || Random(100) < ubOtherDropRate )
-		fWeapon = TRUE;
-
-	if( Random(100) < ubOtherDropRate )
-		fArmour = TRUE;
-
-	if( Random(100) < ubOtherDropRate )
-		fKnife = TRUE;
-
-	if( Random(100) < ubGrenadeDropRate )
-		fGrenades = TRUE;
-
-	if( Random(100) < ubOtherDropRate )
-		fKit = TRUE;
-
-	if( Random(100) < (UINT32)(ubOtherDropRate / 3) )
-		fFace = TRUE;
-
-	if( Random(100) < ubOtherDropRate )
-		fMisc = TRUE;
-
-
-	//Now, that the flags are set for each item, we now have to search through the item slots to
-	//see if we can find a matching item, however, if we find any items in a particular class that
-	//have the OBJECT_NO_OVERWRITE flag set, we will not make any items droppable for that class
-	//because the editor would have specified it already.
-	if( fAmmo )
+	// WANNE: Randomly choose which type of items should be dropped
+	if (gGameExternalOptions.ubEnemiesItemDrop == 0)
 	{
-		// now drops ALL ammo found, not just the first slot
-		for( i = 0; i < NUM_INV_SLOTS; i++ )
+		if( /*gGameSettings.fOptions[TOPTION_DROP_ALL] ||*/ Random(100) < ubAmmoDropRate )
+			fAmmo = TRUE;
+
+		if( /*gGameSettings.fOptions[TOPTION_DROP_ALL] ||*/ Random(100) < ubOtherDropRate )
+			fWeapon = TRUE;
+
+		if( Random(100) < ubOtherDropRate )
+			fArmour = TRUE;
+
+		if( Random(100) < ubOtherDropRate )
+			fKnife = TRUE;
+
+		if( Random(100) < ubGrenadeDropRate )
+			fGrenades = TRUE;
+
+		if( Random(100) < ubOtherDropRate )
+			fKit = TRUE;
+
+		if( Random(100) < (UINT32)(ubOtherDropRate / 3) )
+			fFace = TRUE;
+
+		if( Random(100) < ubOtherDropRate )
+			fMisc = TRUE;
+
+
+		//Now, that the flags are set for each item, we now have to search through the item slots to
+		//see if we can find a matching item, however, if we find any items in a particular class that
+		//have the OBJECT_NO_OVERWRITE flag set, we will not make any items droppable for that class
+		//because the editor would have specified it already.
+		if( fAmmo )
 		{
-			uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
-			if( uiItemClass == IC_AMMO )
+			// now drops ALL ammo found, not just the first slot
+			for( i = 0; i < NUM_INV_SLOTS; i++ )
 			{
-				if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
-					continue;
-				else
+				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
+				if( uiItemClass == IC_AMMO )
 				{
-					pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+					if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
+						continue;
+					else
+					{
+						pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+					}
 				}
 			}
 		}
-	}
 
-	if( fWeapon )
-	{
-		ubNumMatches = 0;
-		for( i = 0; i < NUM_INV_SLOTS; i++ )
+		if( fWeapon )
 		{
-			uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
-			if( uiItemClass == IC_GUN || uiItemClass == IC_LAUNCHER )
-			{
-				if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
-					break;
-				else
-					ubNumMatches++;
-			}
-		}
-		if ( ubNumMatches > 0 )
-		{
+			ubNumMatches = 0;
 			for( i = 0; i < NUM_INV_SLOTS; i++ )
 			{
 				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
@@ -2229,32 +2239,32 @@ else
 				{
 					if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
 						break;
-					else if( !Random( ubNumMatches-- )  )
+					else
+						ubNumMatches++;
+				}
+			}
+			if ( ubNumMatches > 0 )
+			{
+				for( i = 0; i < NUM_INV_SLOTS; i++ )
+				{
+					uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
+					if( uiItemClass == IC_GUN || uiItemClass == IC_LAUNCHER )
 					{
-						pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
-						break;
+						if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
+							break;
+						else if( !Random( ubNumMatches-- )  )
+						{
+							pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+							break;
+						}
 					}
 				}
 			}
 		}
-	}
 
-	if( fArmour )
-	{
-		ubNumMatches = 0;
-		for( i = 0; i < NUM_INV_SLOTS; i++ )
+		if( fArmour )
 		{
-			uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
-			if( uiItemClass == IC_ARMOUR )
-			{
-				if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
-					break;
-				else
-					ubNumMatches++;
-			}
-		}
-		if ( ubNumMatches > 0 )
-		{
+			ubNumMatches = 0;
 			for( i = 0; i < NUM_INV_SLOTS; i++ )
 			{
 				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
@@ -2262,60 +2272,40 @@ else
 				{
 					if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
 						break;
-					else if( !Random( ubNumMatches-- ) )
+					else
+						ubNumMatches++;
+				}
+			}
+			if ( ubNumMatches > 0 )
+			{
+				for( i = 0; i < NUM_INV_SLOTS; i++ )
+				{
+					uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
+					if( uiItemClass == IC_ARMOUR )
 					{
-						pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
-						break;
+						if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
+							break;
+						else if( !Random( ubNumMatches-- ) )
+						{
+							pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+							break;
+						}
 					}
 				}
 			}
 		}
-	}
 
-	if( fKnife)
-	{
-		for( i = 0; i < NUM_INV_SLOTS; i++ )
-		{
-			// drops FIRST knife found
-			uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
-			if( uiItemClass == IC_BLADE || uiItemClass == IC_THROWING_KNIFE )
-			{
-				if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
-					break;
-				else
-				{
-					pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
-					break;
-				}
-			}
-		}
-	}
-
-	// note that they'll only drop ONE TYPE of grenade if they have multiple types (very common)
-	if( fGrenades )
-	{
-		ubNumMatches = 0;
-		for( i = 0; i < NUM_INV_SLOTS; i++ )
-		{
-			uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
-			if( uiItemClass & IC_GRENADE )
-			{
-				if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
-					break;
-				else
-					ubNumMatches++;
-			}
-		}
-		if ( ubNumMatches > 0 )
+		if( fKnife)
 		{
 			for( i = 0; i < NUM_INV_SLOTS; i++ )
 			{
+				// drops FIRST knife found
 				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
-				if( uiItemClass & IC_GRENADE )
+				if( uiItemClass == IC_BLADE || uiItemClass == IC_THROWING_KNIFE )
 				{
 					if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
 						break;
-					else if( !Random( ubNumMatches-- )  )
+					else
 					{
 						pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
 						break;
@@ -2323,24 +2313,44 @@ else
 				}
 			}
 		}
-	}
 
-	if( fKit )
-	{
-		ubNumMatches = 0;
-		for( i = 0; i < NUM_INV_SLOTS; i++ )
+		// note that they'll only drop ONE TYPE of grenade if they have multiple types (very common)
+		if( fGrenades )
 		{
-			uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
-			if( uiItemClass == IC_MEDKIT || uiItemClass == IC_KIT )
+			ubNumMatches = 0;
+			for( i = 0; i < NUM_INV_SLOTS; i++ )
 			{
-				if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
-					break;
-				else
-					ubNumMatches++;
+				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
+				if( uiItemClass == IC_GRENADE )
+				{
+					if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
+						break;
+					else
+						ubNumMatches++;
+				}
+			}
+			if ( ubNumMatches > 0 )
+			{
+				for( i = 0; i < NUM_INV_SLOTS; i++ )
+				{
+					uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
+					if( uiItemClass == IC_GRENADE )
+					{
+						if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
+							break;
+						else if( !Random( ubNumMatches-- )  )
+						{
+							pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+							break;
+						}
+					}
+				}
 			}
 		}
-		if ( ubNumMatches > 0 )
+
+		if( fKit )
 		{
+			ubNumMatches = 0;
 			for( i = 0; i < NUM_INV_SLOTS; i++ )
 			{
 				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
@@ -2348,32 +2358,32 @@ else
 				{
 					if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
 						break;
-					else if( !Random( ubNumMatches-- )  )
+					else
+						ubNumMatches++;
+				}
+			}
+			if ( ubNumMatches > 0 )
+			{
+				for( i = 0; i < NUM_INV_SLOTS; i++ )
+				{
+					uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
+					if( uiItemClass == IC_MEDKIT || uiItemClass == IC_KIT )
 					{
-						pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
-						break;
+						if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
+							break;
+						else if( !Random( ubNumMatches-- )  )
+						{
+							pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+							break;
+						}
 					}
 				}
 			}
 		}
-	}
 
-	if( fFace )
-	{
-		ubNumMatches = 0;
-		for( i = 0; i < NUM_INV_SLOTS; i++ )
+		if( fFace )
 		{
-			uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
-			if( uiItemClass == IC_FACE )
-			{
-				if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
-					break;
-				else
-					ubNumMatches++;
-			}
-		}
-		if ( ubNumMatches > 0 )
-		{
+			ubNumMatches = 0;
 			for( i = 0; i < NUM_INV_SLOTS; i++ )
 			{
 				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
@@ -2381,32 +2391,32 @@ else
 				{
 					if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
 						break;
-					else if( !Random( ubNumMatches-- ) )
+					else
+						ubNumMatches++;
+				}
+			}
+			if ( ubNumMatches > 0 )
+			{
+				for( i = 0; i < NUM_INV_SLOTS; i++ )
+				{
+					uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
+					if( uiItemClass == IC_FACE )
 					{
-						pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
-						break;
+						if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
+							break;
+						else if( !Random( ubNumMatches-- ) )
+						{
+							pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+							break;
+						}
 					}
 				}
 			}
 		}
-	}
 
-	if( fMisc )
-	{
-		ubNumMatches = 0;
-		for( i = 0; i < NUM_INV_SLOTS; i++ )
+		if( fMisc )
 		{
-			uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
-			if( uiItemClass == IC_MISC )
-			{
-				if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
-					break;
-				else
-					ubNumMatches++;
-			}
-		}
-		if ( ubNumMatches > 0 )
-		{
+			ubNumMatches = 0;
 			for( i = 0; i < NUM_INV_SLOTS; i++ )
 			{
 				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
@@ -2414,14 +2424,182 @@ else
 				{
 					if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
 						break;
-					else if( !Random( ubNumMatches-- ) )
+					else
+						ubNumMatches++;
+				}
+			}
+			if ( ubNumMatches > 0 )
+			{
+				for( i = 0; i < NUM_INV_SLOTS; i++ )
+				{
+					uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
+					if( uiItemClass == IC_MISC )
 					{
-						pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
-						break;
+						if( pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE )
+							break;
+						else if( !Random( ubNumMatches-- ) )
+						{
+							pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+							break;
+						}
 					}
 				}
 			}
 		}
+	}
+	// WANNE: Drop-rate from different XML-Files
+	else if (gGameExternalOptions.ubEnemiesItemDrop == 1)
+	{
+		// Loop through the enemy inter
+		for( i = 0; i < NUM_INV_SLOTS; i++ )
+			{
+				uiItemClass = Item[ pp->Inv[ i ].usItem ].usItemClass;
+
+				// We are allowed to change the object and it is not the first (nothing) object
+				if(! (pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE ) && pp->Inv[ i ].usItem != 0)
+				{
+					// Weapon
+					if( uiItemClass == IC_GUN || uiItemClass == IC_BLADE ||
+						uiItemClass == IC_THROWING_KNIFE || uiItemClass == IC_LAUNCHER ||
+						uiItemClass == IC_TENTACLES || uiItemClass == IC_THROWN ||
+						uiItemClass == IC_PUNCH)
+					{
+						// Find matching weaponType in the XML
+						for (j = 0; j < MAX_DROP_ITEMS; j++)
+						{
+							// We have no more weapon items -> exit from loop
+							if (j > 0 && gEnemyWeaponDrops[j].uiIndex == 0)
+								break;
+
+							// We found the matching weapon type
+							if (Weapon[ Item[ pp->Inv[ i ].usItem ].ubClassIndex ].ubWeaponType == gEnemyWeaponDrops[j].ubWeaponType)
+							{
+								uiRandomValue = Random(100);
+
+								if (uiRandomValue == 0)
+									uiRandomValue++;
+
+								// Drop the weapon!
+								if (uiRandomValue <= gEnemyWeaponDrops[j].ubDropRate)
+								{
+									pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+								}
+								break;
+							}
+						}
+					}
+					// Ammo
+					else if (uiItemClass == IC_AMMO)
+					{
+						// Find matching ammo in the XML
+						for (j = 0; j < MAX_DROP_ITEMS; j++)
+						{
+							// We have no more ammo items -> exit from loop
+							if (j > 0 && gEnemyAmmoDrops[j].uiIndex == 0)
+								break;
+
+							// We found the matching ammo type
+							if (Magazine[ Item[ pp->Inv[ i ].usItem ].ubClassIndex ].ubAmmoType == gEnemyAmmoDrops[j].uiType)
+							{
+								uiRandomValue = Random(100);
+
+								if (uiRandomValue == 0)
+									uiRandomValue++;
+
+								// Drop the weapon!
+								if (uiRandomValue <= gEnemyAmmoDrops[j].ubDropRate)
+								{
+									pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+								}
+								break;
+							}
+						}
+					}
+					// Explosive
+					else if (uiItemClass == IC_GRENADE || uiItemClass == IC_BOMB)
+					{
+						// Find matching explosive in the XML
+						for (j = 0; j < MAX_DROP_ITEMS; j++)
+						{
+							// We have no more explosive items -> exit from loop
+							if (j > 0 && gEnemyExplosiveDrops[j].uiIndex == 0)
+								break;
+
+							// We found the matching explosive type
+							if (Explosive[Item[ pp->Inv[ i ].usItem ].ubClassIndex].ubType == gEnemyExplosiveDrops[j].ubType)
+							{
+								uiRandomValue = Random(100);
+
+								if (uiRandomValue == 0)
+									uiRandomValue++;
+
+								// Drop the weapon!
+								if (uiRandomValue <= gEnemyExplosiveDrops[j].ubDropRate)
+								{
+									pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+								}
+								break;
+							}
+						}
+					}
+					// Armour
+					else if (uiItemClass == IC_ARMOUR)
+					{
+						// Find matching armour in the XML
+						for (j = 0; j < MAX_DROP_ITEMS; j++)
+						{
+							// We have no more armour items -> exit from loop
+							if (j > 0 && gEnemyArmourDrops[j].uiIndex == 0)
+								break;
+
+							// We found the matching armour type
+							if (Armour[ Item[ pp->Inv[ i ].usItem ].ubClassIndex ].ubArmourClass == gEnemyArmourDrops[j].ubArmourClass)
+							{
+								uiRandomValue = Random(100);
+
+								if (uiRandomValue == 0)
+									uiRandomValue++;
+
+								// Drop the weapon!
+								if (uiRandomValue <= gEnemyArmourDrops[j].ubDropRate)
+								{
+									pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+								}
+								break;
+							}
+						}
+					}
+					// Misc
+					else if (uiItemClass == IC_MEDKIT || uiItemClass == IC_KIT ||
+						uiItemClass == IC_APPLIABLE || uiItemClass == IC_FACE ||
+						uiItemClass == IC_KEY || uiItemClass == IC_MISC || uiItemClass == IC_MONEY)
+					{
+						// Find matching armour in the XML
+						for (j = 0; j < MAX_DROP_ITEMS; j++)
+						{
+							// We have no more armour items -> exit from loop
+							if (j > 0 && gEnemyMiscDrops[j].uiIndex == 0)
+								break;
+
+							// We found the matching armour type
+							if (Item[ pp->Inv[ i ].usItem ].usItemClass == gEnemyMiscDrops[j].usItemClass)
+							{
+								uiRandomValue = Random(100);
+
+								if (uiRandomValue == 0)
+									uiRandomValue++;
+
+								// Drop the weapon!
+								if (uiRandomValue <= gEnemyMiscDrops[j].ubDropRate)
+								{
+									pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+								}
+								break;
+							}
+						}
+					}
+				}
+			}
 	}
 }
 

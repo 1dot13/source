@@ -210,6 +210,8 @@
 #include "Game Events.h"
 #include "BobbyR.h"
 
+#include "EnemyItemDrops.h"
+
 #ifdef JA2BETAVERSION
 	#include	"Quest Debug System.h"
 #endif
