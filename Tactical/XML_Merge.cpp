@@ -50,7 +50,7 @@ struct
 
 	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 
-	UINT16			curMerge[4];
+	UINT16			curMerge[6];
 	UINT32			maxArraySize;
 	UINT32			curIndex;	
 	UINT32			currentDepth;
