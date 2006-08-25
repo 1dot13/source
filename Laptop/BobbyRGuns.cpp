@@ -2912,14 +2912,21 @@ BOOLEAN IsAmmoMatchinWeaponType(UINT16 usItemIndex, UINT8 ubWeaponType)
 				// Weapon has the correct filter ammo weapon type
 				if (Weapon[i].ubWeaponType == ubWeaponType)
 				{
-					bRetValue = TRUE;
+					//Weapon has correct magazine size
+					//if(Weapon[i].ubMagSize == Magazine[Item[usItemIndex].ubClassIndex].ubMagSize )
+					{
+					    bRetValue = TRUE;
+						break;
+					}
 				}
 				// Weapon has another filter ammo weapon type
+				/*
 				else
 				{
 					bRetValue = FALSE;
 				}
 				break;
+				*/
 			}
 		}
 	}
