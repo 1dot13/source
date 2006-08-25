@@ -2958,7 +2958,7 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		if ( gpItemPointer != NULL )
 		{
 			// nb pointer could be NULL because of inventory manipulation in mapscreen from sector inv
-			if ( !gpItemPointerSoldier || EnoughPoints( gpItemPointerSoldier, AP_RELOAD_GUN, 0, TRUE ) )
+			if ( !gpItemPointerSoldier || EnoughPoints( gpItemPointerSoldier, AttachmentAPCost( gpItemPointer->usItem, gpItemDescObject->usItem ), 0, TRUE ) )
 			{
 //				if ( (Item[ gpItemPointer->usItem ].fFlags & ITEM_INSEPARABLE) && ValidAttachment( gpItemPointer->usItem, gpItemDescObject->usItem ) )
 				if ( (Item[ gpItemPointer->usItem ].inseparable ) && ValidAttachment( gpItemPointer->usItem, gpItemDescObject->usItem ) )
@@ -2973,7 +2973,7 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		else
 		{
       // ATE: Make sure we have enough AP's to drop it if we pick it up!
-			if ( EnoughPoints( gpItemDescSoldier, ( AP_RELOAD_GUN + AP_PICKUP_ITEM ), 0, TRUE ) )
+			if ( EnoughPoints( gpItemDescSoldier, ( AttachmentAPCost( gpItemPointer->usItem, gpItemDescObject->usItem ) + AP_PICKUP_ITEM ), 0, TRUE ) )
 			{
 				// Get attachment if there is one
 				// The follwing function will handle if no attachment is here
@@ -4099,6 +4099,7 @@ void DeleteItemDescriptionBox( )
 {
 	INT32 cnt, cnt2;
 	BOOLEAN	fFound, fAllFound;
+	UINT8 ubAPCost;
 
 	if( gfInItemDescBox == FALSE )
 	{
@@ -4135,6 +4136,7 @@ void DeleteItemDescriptionBox( )
 					if (!fFound)
 					{
 						// charge APs
+						ubAPCost = AttachmentAPCost(gusOriginalAttachItem[ cnt ],gpItemDescObject->usItem);
 						fAllFound = FALSE;
 						break;
 					}
@@ -4159,6 +4161,7 @@ void DeleteItemDescriptionBox( )
 						if (!fFound)
 						{
 							// charge APs
+							ubAPCost = AttachmentAPCost(gpItemDescObject->usAttachItem[ cnt ],gpItemDescObject->usItem);
 							fAllFound = FALSE;
 							break;
 						}
@@ -4168,7 +4171,7 @@ void DeleteItemDescriptionBox( )
 
 			if (!fAllFound)
 			{
-				DeductPoints( gpAttachSoldier, AP_RELOAD_GUN, 0 );
+				DeductPoints( gpAttachSoldier, ubAPCost, 0 );
 			}
 		}
 	}

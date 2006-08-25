@@ -516,7 +516,7 @@ AttachmentInfoStruct AttachmentInfo[MAXITEMS+1];// =
 //	{ 0,												0 }
 //};
 
-UINT16 Attachment[MAXATTACHMENTS][2];// =
+UINT16 Attachment[MAXATTACHMENTS][3];// =
 //{
 //	{SILENCER, GLOCK_17},
 //	{SILENCER, GLOCK_18},
@@ -1773,9 +1773,10 @@ INT8 GetAttachmentInfoIndex( UINT16 usItem )
 }
 
 //Determine if it is possible to add this attachment to the item.
-BOOLEAN ValidAttachment( UINT16 usAttachment, UINT16 usItem )
+BOOLEAN internalValidAttachment( UINT16 usAttachment, UINT16 usItem, UINT8 * pubAPCost )
 {
 	INT32 iLoop = 0;
+	*pubAPCost = (UINT8)AP_RELOAD_GUN; //default value
 
 	// look for the section of the array pertaining to this attachment...
 	while( 1 )
@@ -1796,6 +1797,7 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, UINT16 usItem )
 	{
 		if (Attachment[iLoop][1] == usItem)
 		{
+			*pubAPCost = (UINT8)Attachment[iLoop][2]; //Madd: get ap cost of attaching items :)
 			break;
 		}
 		iLoop++;
@@ -1806,6 +1808,22 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, UINT16 usItem )
 		}
 	}
 	return( TRUE );
+}
+
+//Determine if it is possible to add this attachment to the item.
+BOOLEAN ValidAttachment( UINT16 usAttachment, UINT16 usItem )
+{
+	UINT8 ubAPCost;
+
+	return internalValidAttachment( usAttachment, usItem, &ubAPCost);
+}
+UINT8 AttachmentAPCost( UINT16 usAttachment, UINT16 usItem )
+{
+	UINT8 ubAPCost;
+
+	internalValidAttachment( usAttachment, usItem, &ubAPCost);
+
+	return ubAPCost;
 }
 
 //Determine if this item can receive this attachment.  This is different, in that it may

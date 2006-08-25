@@ -130,6 +130,7 @@ BOOLEAN TwoHandedItem( UINT16 usItem );
 //Existing functions without header def's, added them here, just incase I'll need to call
 //them from the editor.
 BOOLEAN ValidAttachment( UINT16 usAttachment, UINT16 usItem );
+UINT8 AttachmentAPCost( UINT16 usAttachment, UINT16 usItem );
 
 BOOLEAN ValidLaunchable( UINT16 usLaunchable, UINT16 usItem );
 UINT16 GetLauncherFromLaunchable( UINT16 usLaunchable );

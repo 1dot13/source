@@ -814,7 +814,7 @@ typedef enum
 #define MAXATTACHMENTS 30000
 
 extern INVTYPE Item[MAXITEMS];
-extern UINT16 Attachment[MAXATTACHMENTS][2];
+extern UINT16 Attachment[MAXATTACHMENTS][3];
 
 typedef struct
 {
