@@ -4,8 +4,10 @@ Attribute Field Reference:
 
 	firstItemIndex			- index of original item
 	secondItemIndex			- item index to merge with
-	resultingItemIndex		- resulting item index
-	mergeType				- type of merge to perform, see below
+	firstResultingItemIndex		- resulting item index
+	secondResultingItemIndex	- resulting item index 2 (secondary merge output, only works for standard merges)
+	mergeType			- type of merge to perform, see below
+	APCost				- APs deducted to perform the merge
 
 MERGE TYPES:
 
@@ -22,321 +24,425 @@ MERGE TYPES:
 	<MERGE>
 		<firstItemIndex>201</firstItemIndex> <!-- 1st Aid Kit -->
 		<secondItemIndex>201</secondItemIndex> <!-- 1st Aid Kit -->
-		<resultingItemIndex>201</resultingItemIndex> <!-- 1st Aid Kit -->
+		<firstResultingItemIndex>201</firstResultingItemIndex> <!-- 1st Aid Kit -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>1</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>202</firstItemIndex> <!-- Med Kit -->
 		<secondItemIndex>202</secondItemIndex> <!-- Med Kit -->
-		<resultingItemIndex>202</resultingItemIndex> <!-- Med Kit -->
+		<firstResultingItemIndex>202</firstResultingItemIndex> <!-- Med Kit -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>1</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>214</firstItemIndex> <!-- Canteen -->
 		<secondItemIndex>214</secondItemIndex> <!-- Canteen -->
-		<resultingItemIndex>214</resultingItemIndex> <!-- Canteen -->
+		<firstResultingItemIndex>214</firstResultingItemIndex> <!-- Canteen -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>1</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>204</firstItemIndex> <!-- Locksmith Kit -->
 		<secondItemIndex>204</secondItemIndex> <!-- Locksmith Kit -->
-		<resultingItemIndex>204</resultingItemIndex> <!-- Locksmith Kit -->
+		<firstResultingItemIndex>204</firstResultingItemIndex> <!-- Locksmith Kit -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>1</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>203</firstItemIndex> <!-- Tool Kit -->
 		<secondItemIndex>203</secondItemIndex> <!-- Tool Kit -->
-		<resultingItemIndex>203</resultingItemIndex> <!-- Tool Kit -->
+		<firstResultingItemIndex>203</firstResultingItemIndex> <!-- Tool Kit -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>1</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>327</firstItemIndex> <!-- Gas -->
 		<secondItemIndex>327</secondItemIndex> <!-- Gas -->
-		<resultingItemIndex>327</resultingItemIndex> <!-- Gas -->
+		<firstResultingItemIndex>327</firstResultingItemIndex> <!-- Gas -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>1</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>205</firstItemIndex> <!-- Camo Kit -->
 		<secondItemIndex>205</secondItemIndex> <!-- Camo Kit -->
-		<resultingItemIndex>205</resultingItemIndex> <!-- Camo Kit -->
+		<firstResultingItemIndex>205</firstResultingItemIndex> <!-- Camo Kit -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>1</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>256</firstItemIndex> <!-- Beer -->
 		<secondItemIndex>256</secondItemIndex> <!-- Beer -->
-		<resultingItemIndex>256</resultingItemIndex> <!-- Beer -->
+		<firstResultingItemIndex>256</firstResultingItemIndex> <!-- Beer -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>1</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>255</firstItemIndex> <!-- Wine -->
 		<secondItemIndex>255</secondItemIndex> <!-- Wine -->
-		<resultingItemIndex>255</resultingItemIndex> <!-- Wine -->
+		<firstResultingItemIndex>255</firstResultingItemIndex> <!-- Wine -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>1</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>245</firstItemIndex> <!-- Alcohol -->
 		<secondItemIndex>245</secondItemIndex> <!-- Alcohol -->
-		<resultingItemIndex>245</resultingItemIndex> <!-- Alcohol -->
+		<firstResultingItemIndex>245</firstResultingItemIndex> <!-- Alcohol -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>1</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>161</secondItemIndex> <!-- Flak Jacket -->
-		<resultingItemIndex>162</resultingItemIndex> <!-- Flak-18 Jacket -->
+		<firstResultingItemIndex>162</firstResultingItemIndex> <!-- Flak-18 Jacket -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>164</secondItemIndex> <!-- Kevlar Vest -->
-		<resultingItemIndex>165</resultingItemIndex> <!-- Kevlar-18 Vest -->
+		<firstResultingItemIndex>165</firstResultingItemIndex> <!-- Kevlar-18 Vest -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>196</secondItemIndex> <!-- Guardian Vest -->
-		<resultingItemIndex>197</resultingItemIndex> <!-- T. Guard Vest -->
+		<firstResultingItemIndex>197</firstResultingItemIndex> <!-- T. Guard Vest -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>167</secondItemIndex> <!-- Spectra Vest -->
-		<resultingItemIndex>168</resultingItemIndex> <!-- Spec-18 Vest -->
+		<firstResultingItemIndex>168</firstResultingItemIndex> <!-- Spec-18 Vest -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>189</secondItemIndex> <!-- Kvlr Leather -->
-		<resultingItemIndex>190</resultingItemIndex> <!-- Kvlr-18 Leather -->
+		<firstResultingItemIndex>190</firstResultingItemIndex> <!-- Kvlr-18 Leather -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>170</secondItemIndex> <!-- Kevlar Pants -->
-		<resultingItemIndex>171</resultingItemIndex> <!-- Kevlar-18 Pants -->
+		<firstResultingItemIndex>171</firstResultingItemIndex> <!-- Kevlar-18 Pants -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>173</secondItemIndex> <!-- Spectra Pants -->
-		<resultingItemIndex>174</resultingItemIndex> <!-- Spec-18 Pants -->
+		<firstResultingItemIndex>174</firstResultingItemIndex> <!-- Spec-18 Pants -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>177</secondItemIndex> <!-- Kevlar Helmet -->
-		<resultingItemIndex>178</resultingItemIndex> <!-- Kvlr-18 Helmet -->
+		<firstResultingItemIndex>178</firstResultingItemIndex> <!-- Kvlr-18 Helmet -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>180</secondItemIndex> <!-- Spectra Helmet -->
-		<resultingItemIndex>181</resultingItemIndex> <!-- Spec-18 Helmet -->
+		<firstResultingItemIndex>181</firstResultingItemIndex> <!-- Spec-18 Helmet -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>163</secondItemIndex> <!-- C.Flak Jacket -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>166</secondItemIndex> <!-- C.Kevlar Vest -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>169</secondItemIndex> <!-- C.Spec Vest -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>191</secondItemIndex> <!-- C.Kvlr Leather -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>172</secondItemIndex> <!-- C.Kevlar Pants -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>175</secondItemIndex> <!-- C.Spec Pants -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>179</secondItemIndex> <!-- C.Kvlr Helmet -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>216</firstItemIndex> <!-- Compound 18 -->
 		<secondItemIndex>182</secondItemIndex> <!-- C.Spec Helmet -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>161</secondItemIndex> <!-- Flak Jacket -->
-		<resultingItemIndex>163</resultingItemIndex> <!-- C.Flak Jacket -->
+		<firstResultingItemIndex>163</firstResultingItemIndex> <!-- C.Flak Jacket -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>164</secondItemIndex> <!-- Kevlar Vest -->
-		<resultingItemIndex>166</resultingItemIndex> <!-- C.Kevlar Vest -->
+		<firstResultingItemIndex>166</firstResultingItemIndex> <!-- C.Kevlar Vest -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>167</secondItemIndex> <!-- Spectra Vest -->
-		<resultingItemIndex>169</resultingItemIndex> <!-- C.Spec Vest -->
+		<firstResultingItemIndex>169</firstResultingItemIndex> <!-- C.Spec Vest -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>189</secondItemIndex> <!-- Kvlr Leather -->
-		<resultingItemIndex>191</resultingItemIndex> <!-- C.Kvlr Leather -->
+		<firstResultingItemIndex>191</firstResultingItemIndex> <!-- C.Kvlr Leather -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>196</secondItemIndex> <!-- Guardian Vest -->
-		<resultingItemIndex>198</resultingItemIndex> <!-- C. Guard Vest -->
+		<firstResultingItemIndex>198</firstResultingItemIndex> <!-- C. Guard Vest -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>170</secondItemIndex> <!-- Kevlar Pants -->
-		<resultingItemIndex>172</resultingItemIndex> <!-- C.Kevlar Pants -->
+		<firstResultingItemIndex>172</firstResultingItemIndex> <!-- C.Kevlar Pants -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>173</secondItemIndex> <!-- Spectra Pants -->
-		<resultingItemIndex>175</resultingItemIndex> <!-- C.Spec Pants -->
+		<firstResultingItemIndex>175</firstResultingItemIndex> <!-- C.Spec Pants -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>177</secondItemIndex> <!-- Kevlar Helmet -->
-		<resultingItemIndex>179</resultingItemIndex> <!-- C.Kvlr Helmet -->
+		<firstResultingItemIndex>179</firstResultingItemIndex> <!-- C.Kvlr Helmet -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>180</secondItemIndex> <!-- Spectra Helmet -->
-		<resultingItemIndex>182</resultingItemIndex> <!-- C.Spec Helmet -->
+		<firstResultingItemIndex>182</firstResultingItemIndex> <!-- C.Spec Helmet -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>2</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>162</secondItemIndex> <!-- Flak-18 Jacket -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>165</secondItemIndex> <!-- Kevlar-18 Vest -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>197</secondItemIndex> <!-- T. Guard Vest -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>168</secondItemIndex> <!-- Spec-18 Vest -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>190</secondItemIndex> <!-- Kvlr-18 Leather -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>171</secondItemIndex> <!-- Kevlar-18 Pants -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>174</secondItemIndex> <!-- Spec-18 Pants -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>178</secondItemIndex> <!-- Kvlr-18 Helmet -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>217</firstItemIndex> <!-- Jelly -->
 		<secondItemIndex>181</secondItemIndex> <!-- Spec-18 Helmet -->
-		<resultingItemIndex>0</resultingItemIndex> <!-- Nada -->
+		<firstResultingItemIndex>0</firstResultingItemIndex> <!-- Nada -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>0</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>136</firstItemIndex> <!-- RDX -->
 		<secondItemIndex>137</secondItemIndex> <!-- TNT -->
-		<resultingItemIndex>138</resultingItemIndex> <!-- HMX -->
+		<firstResultingItemIndex>138</firstResultingItemIndex> <!-- HMX -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>3</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>136</firstItemIndex> <!-- RDX -->
 		<secondItemIndex>139</secondItemIndex> <!-- C1 -->
-		<resultingItemIndex>142</resultingItemIndex> <!-- C4 -->
+		<firstResultingItemIndex>142</firstResultingItemIndex> <!-- C4 -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>3</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>137</firstItemIndex> <!-- TNT -->
 		<secondItemIndex>136</secondItemIndex> <!-- RDX -->
-		<resultingItemIndex>138</resultingItemIndex> <!-- HMX -->
+		<firstResultingItemIndex>138</firstResultingItemIndex> <!-- HMX -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>3</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>139</firstItemIndex> <!-- C1 -->
 		<secondItemIndex>136</secondItemIndex> <!-- RDX -->
-		<resultingItemIndex>142</resultingItemIndex> <!-- C4 -->
+		<firstResultingItemIndex>142</firstResultingItemIndex> <!-- C4 -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>3</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>311</firstItemIndex> <!-- String -->
 		<secondItemIndex>312</secondItemIndex> <!-- Can -->
-		<resultingItemIndex>313</resultingItemIndex> <!-- Can w/ String -->
+		<firstResultingItemIndex>313</firstResultingItemIndex> <!-- Can w/ String -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>4</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>312</firstItemIndex> <!-- Can -->
 		<secondItemIndex>311</secondItemIndex> <!-- String -->
-		<resultingItemIndex>313</resultingItemIndex> <!-- Can w/ String -->
+		<firstResultingItemIndex>313</firstResultingItemIndex> <!-- Can w/ String -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>4</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>321</firstItemIndex> <!-- X-ray Device -->
 		<secondItemIndex>317</secondItemIndex> <!-- Display Unit -->
-		<resultingItemIndex>324</resultingItemIndex> <!-- X-ray Detector -->
+		<firstResultingItemIndex>324</firstResultingItemIndex> <!-- X-ray Detector -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>5</mergeType>
+		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
 		<firstItemIndex>317</firstItemIndex> <!-- Display Unit -->
 		<secondItemIndex>321</secondItemIndex> <!-- X-ray Device -->
-		<resultingItemIndex>324</resultingItemIndex> <!-- X-ray Detector -->
+		<firstResultingItemIndex>324</firstResultingItemIndex> <!-- X-ray Detector -->
+		<secondResultingItemIndex>0</secondResultingItemIndex>
 		<mergeType>5</mergeType>
-	</MERGE>
-	<MERGE>
+		<APCost>8</APCost>
 	</MERGE>
 </MERGELIST>
