@@ -1,0 +1,69 @@
+<!--
+If you want to use the XML-Drop files, you must do the following:
+a.) Set ENEMIES_ITEM_DROP = 1 in the Ja2_Options.ini
+b.) Disable "Enemies drop all items" in the option screen of the game
+
+Attribute Field Reference:
+
+	uiIndex				- the item index, number the items sequentially starting at 0 up to 199
+	uiType				- the weapon type pointing to <ubWeaponType> in Weapons.xml 
+	ubDropRate			- if the enemy (or militia) has the item, this is the chance (0 - 100) in percent that the item will be dropped
+						- 0 	-> Item will never be dropped
+						- 100 	-> Item will always be dropped, if the enemy (or militia) has this item in the inventory
+-->
+<WEAPONDROPLIST>
+	<!-- NOT_GUN -->
+	<DROPITEM>
+		<uiIndex>0</uiIndex>
+		<ubWeaponType>0</ubWeaponType>
+		<ubDropRate>50</ubDropRate>
+	</DROPITEM>
+	<!-- GUN_PISTOL -->
+	<DROPITEM>
+		<uiIndex>1</uiIndex>
+		<ubWeaponType>1</ubWeaponType>
+		<ubDropRate>50</ubDropRate>
+	</DROPITEM>
+	<!-- GUN_M_PISTOL -->
+	<DROPITEM>
+		<uiIndex>2</uiIndex>
+		<ubWeaponType>2</ubWeaponType>
+		<ubDropRate>50</ubDropRate>
+	</DROPITEM>
+	<!-- GUN_SMG -->
+	<DROPITEM>
+		<uiIndex>3</uiIndex>
+		<ubWeaponType>3</ubWeaponType>
+		<ubDropRate>50</ubDropRate>
+	</DROPITEM>
+	<!-- GUN_RIFLE -->
+	<DROPITEM>
+		<uiIndex>4</uiIndex>
+		<ubWeaponType>4</ubWeaponType>
+		<ubDropRate>50</ubDropRate>
+	</DROPITEM>
+	<!-- GUN_SN_RIFLE -->
+	<DROPITEM>
+		<uiIndex>5</uiIndex>
+		<ubWeaponType>5</ubWeaponType>
+		<ubDropRate>50</ubDropRate>
+	</DROPITEM>
+	<!-- GUN_AS_RIFLE -->
+	<DROPITEM>
+		<uiIndex>6</uiIndex>
+		<ubWeaponType>6</ubWeaponType>
+		<ubDropRate>50</ubDropRate>
+	</DROPITEM>
+	<!-- GUN_LMG -->
+	<DROPITEM>
+		<uiIndex>7</uiIndex>
+		<ubWeaponType>7</ubWeaponType>
+		<ubDropRate>50</ubDropRate>
+	</DROPITEM>
+	<!-- GUN_SHOTGUN -->
+	<DROPITEM>
+		<uiIndex>8</uiIndex>
+		<ubWeaponType>8</ubWeaponType>
+		<ubDropRate>50</ubDropRate>
+	</DROPITEM>
+</WEAPONDROPLIST>

@@ -1,0 +1,57 @@
+<!--
+If you want to use the XML-Drop files, you must do the following:
+a.) Set ENEMIES_ITEM_DROP = 1 in the Ja2_Options.ini
+b.) Disable "Enemies drop all items" in the option screen of the game
+
+Attribute Field Reference:
+
+	uiIndex				- the item index, number the items sequentially starting at 0 up to 199
+	uiType				- the misc item class pointing to <usItemClass> in Items.xml 
+	ubDropRate			- if the enemy (or militia) has the item, this is the chance (0 - 100) in percent that the item will be dropped
+						- 0 	-> Item will never be dropped
+						- 100 	-> Item will always be dropped, if the enemy (or militia) has this item in the inventory
+-->
+<MISCDROPLIST>
+	<!-- IC_MEDKIT -->
+	<DROPITEM>
+		<uiIndex>0</uiIndex>
+		<usItemClass>4096</usItemClass>
+		<ubDropRate>50</ubDropRate>
+	</DROPITEM>
+	<!-- IC_KIT -->
+	<DROPITEM>
+		<uiIndex>1</uiIndex>
+		<usItemClass>8192</usItemClass>
+		<ubDropRate>50</ubDropRate>
+	</DROPITEM>
+	<!-- IC_APPLIABLE -->
+	<DROPITEM>
+		<uiIndex>2</uiIndex>
+		<usItemClass>16384</usItemClass>
+		<ubDropRate>50</ubDropRate>
+	</DROPITEM>
+	<!-- IC_FACE -->
+	<DROPITEM>
+		<uiIndex>3</uiIndex>
+		<usItemClass>32768</usItemClass>
+		<ubDropRate>50</ubDropRate>
+	</DROPITEM>
+	<!-- IC_KEY -->
+	<DROPITEM>
+		<uiIndex>4</uiIndex>
+		<usItemClass>65536</usItemClass>
+		<ubDropRate>50</ubDropRate>
+	</DROPITEM>
+	<!-- IC_MISC -->
+	<DROPITEM>
+		<uiIndex>5</uiIndex>
+		<usItemClass>268435456</usItemClass>
+		<ubDropRate>50</ubDropRate>
+	</DROPITEM>
+	<!-- IC_Money -->
+	<DROPITEM>
+		<uiIndex>6</uiIndex>
+		<usItemClass>536870912</usItemClass>
+		<ubDropRate>50</ubDropRate>
+	</DROPITEM>
+</MISCDROPLIST>
