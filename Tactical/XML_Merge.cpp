@@ -85,7 +85,9 @@ mergeStartElementHandle(void *userData, const char *name, const char **atts)
 		else if(pData->curElement == ELEMENT &&
 				(strcmp(name, "firstItemIndex") == 0 ||
 				strcmp(name, "secondItemIndex") == 0 ||
-				strcmp(name, "resultingItemIndex") == 0 ||
+				strcmp(name, "firstResultingItemIndex") == 0 ||
+				strcmp(name, "secondResultingItemIndex") == 0 ||
+				strcmp(name, "APCost") == 0 ||
 				strcmp(name, "mergeType") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -147,15 +149,25 @@ mergeEndElementHandle(void *userData, const char *name)
 			pData->curElement = ELEMENT;
 			pData->curMerge[1] = (UINT16) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "resultingItemIndex") == 0)
+		else if(strcmp(name, "firstResultingItemIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curMerge[2] = (UINT16) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "mergeType") == 0)
+		else if(strcmp(name, "secondResultingItemIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
 			pData->curMerge[3] = (UINT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "mergeType") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curMerge[4] = (UINT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "APCost") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curMerge[5] = (UINT16) atol(pData->szCharData);
 		}
 
 		pData->maxReadDepth--;
@@ -248,8 +260,10 @@ BOOLEAN WriteMergeStats()
 
 			FilePrintf(hFile,"\t\t<firstItemIndex>%d</firstItemIndex>\r\n",						Merge[cnt][0]);
 			FilePrintf(hFile,"\t\t<secondItemIndex>%d</secondItemIndex>\r\n",							Merge[cnt][1]);
-			FilePrintf(hFile,"\t\t<resultingItemIndex>%d</resultingItemIndex>\r\n",							Merge[cnt][2]);
-			FilePrintf(hFile,"\t\t<mergeType>%d</mergeType>\r\n",							Merge[cnt][3]);
+			FilePrintf(hFile,"\t\t<firstResultingItemIndex>%d</firstResultingItemIndex>\r\n",							Merge[cnt][2]);
+			FilePrintf(hFile,"\t\t<secondResultingItemIndex>%d</secondResultingItemIndex>\r\n",							Merge[cnt][3]);
+			FilePrintf(hFile,"\t\t<mergeType>%d</mergeType>\r\n",							Merge[cnt][4]);
+			FilePrintf(hFile,"\t\t<APCost>%d</APCost>\r\n",							Merge[cnt][5]);
 
 			FilePrintf(hFile,"\t</MERGE>\r\n");
 		}

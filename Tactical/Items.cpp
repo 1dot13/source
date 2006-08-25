@@ -1042,7 +1042,7 @@ UINT16 CompatibleFaceItems[MAXITEMS+1][2];// =
 //};
 
 
-UINT16 Merge[MAXITEMS+1][4];// =
+UINT16 Merge[MAXITEMS+1][6];// =
 //{ // first item			second item						resulting item,					merge type
 //	{FIRSTAIDKIT,			FIRSTAIDKIT,					FIRSTAIDKIT,						COMBINE_POINTS},
 //	{MEDICKIT,				MEDICKIT,							MEDICKIT,								COMBINE_POINTS},
@@ -2120,7 +2120,7 @@ UINT16 GetLauncherFromLaunchable( UINT16 usLaunchable )
 
 
 
-BOOLEAN EvaluateValidMerge( UINT16 usMerge, UINT16 usItem, UINT16 * pusResult, UINT8 * pubType )
+BOOLEAN EvaluateValidMerge( UINT16 usMerge, UINT16 usItem, UINT16 * pusResult, UINT16 * pusResult2, UINT8 * pubType, UINT8 * pubAPCost )
 {
 	// NB "usMerge" is the object being merged with (e.g. compound 18)
 	// "usItem" is the item being merged "onto" (e.g. kevlar vest)
@@ -2161,15 +2161,17 @@ BOOLEAN EvaluateValidMerge( UINT16 usMerge, UINT16 usItem, UINT16 * pusResult, U
 		}
 	}
 	*pusResult = Merge[iLoop][2];
-	*pubType = (UINT8) Merge[iLoop][3];
+	*pusResult2 = Merge[iLoop][3];
+	*pubType = (UINT8) Merge[iLoop][4];
+	*pubAPCost = (UINT8) Merge[iLoop][5];
 	return( TRUE );
 }
 
 BOOLEAN ValidMerge( UINT16 usMerge, UINT16 usItem )
 {
-	UINT16	usIgnoreResult;
-	UINT8		ubIgnoreType;
-	return( EvaluateValidMerge( usMerge, usItem, &usIgnoreResult, &ubIgnoreType ) );
+	UINT16	usIgnoreResult, usIgnoreResult2;
+	UINT8		ubIgnoreType, ubIgnoreAPCost;
+	return( EvaluateValidMerge( usMerge, usItem, &usIgnoreResult, &usIgnoreResult2, &ubIgnoreType, &ubIgnoreAPCost ) );
 }
 
 UINT8 CalculateObjectWeight( OBJECTTYPE *pObject )
@@ -3151,9 +3153,9 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYPE * pAttachment, BOOLEAN playSound )
 {
 	INT8		bAttachPos, bSecondAttachPos;//, bAbility, bSuccess;
-	UINT16	usResult;
+	UINT16		usResult, usResult2;
 	INT8		bLoop;
-	UINT8		ubType, ubLimit;
+	UINT8		ubType, ubLimit, ubAPCost;
 	INT32		iCheckResult;
 	INT8		bAttachInfoIndex = -1, bAttachComboMerge;
 	BOOLEAN	fValidLaunchable = FALSE;
@@ -3301,16 +3303,16 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 		}
 	}
 	// check for merges
-	else if (EvaluateValidMerge( pAttachment->usItem, pTargetObj->usItem, &usResult, &ubType ))	
+	else if (EvaluateValidMerge( pAttachment->usItem, pTargetObj->usItem, &usResult, &usResult2, &ubType, &ubAPCost ))	
 	{
 		if ( ubType != COMBINE_POINTS )
 		{
-			if ( !EnoughPoints( pSoldier, AP_MERGE, 0, TRUE ) )
+			if ( !EnoughPoints( pSoldier, ubAPCost, 0, TRUE ) )
 			{
 				return( FALSE );
 			}
 
-			DeductPoints( pSoldier, AP_MERGE, 0 );
+			DeductPoints( pSoldier, ubAPCost, 0 );
 		}
 
 		switch( ubType )
@@ -3336,6 +3338,9 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 						StatChange( pSoldier, MECHANAMT, 25, FALSE );
 						StatChange( pSoldier, WISDOMAMT, 5, FALSE );
 					}
+
+
+					//Madd: note that use_item cannot produce two different items!!! so it doesn't use usResult2
 
 					//Madd: unload guns after merge if ammo caliber or mag size don't match
 					if ( Item[pTargetObj->usItem].usItemClass == IC_GUN && pTargetObj->usGunAmmoItem != NONE && pTargetObj->ubGunShotsLeft > 0 )
@@ -3462,6 +3467,7 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 				// fall through
 			default:
 				// the merge will combine the two items
+				//Madd: usResult2 only works for standard merges -> item1 + item2 = item3 + item4
 
 				//Madd: unload guns after merge if ammo caliber or mag size don't match
 				if ( Item[pTargetObj->usItem].usItemClass == IC_GUN && pTargetObj->usGunAmmoItem != NONE && pTargetObj->ubGunShotsLeft > 0 )
@@ -3507,8 +3513,64 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 				{
 					pTargetObj->bStatus[0] = (pTargetObj->bStatus[0] + pAttachment->bStatus[0]) / 2;
 				}
-				DeleteObj( pAttachment );
+
 				pTargetObj->ubWeight = CalculateObjectWeight( pTargetObj );
+
+				if ( usResult2 != NOTHING )
+				{
+					//Madd: usResult2 is what the original attachment/source item turns into
+
+					//Madd: unload guns after merge if ammo caliber or mag size don't match
+					if ( Item[pAttachment->usItem].usItemClass == IC_GUN && pAttachment->usGunAmmoItem != NONE && pAttachment->ubGunShotsLeft > 0 )
+					{
+						if ( Item[usResult2].usItemClass != IC_GUN || Weapon[Item[usResult2].ubClassIndex].ubCalibre != Weapon[Item[pAttachment->usItem].ubClassIndex].ubCalibre || pAttachment->ubGunShotsLeft > Weapon[Item[usResult2].ubClassIndex].ubMagSize )
+						{ // item types/calibers/magazines don't match, spit out old ammo
+							OBJECTTYPE newObj;
+							CreateItem(pAttachment->usGunAmmoItem, 100, &newObj);
+							newObj.ubShotsLeft[0] = pAttachment->ubGunShotsLeft;
+							pAttachment->ubGunShotsLeft = 0;
+							pAttachment->usGunAmmoItem = NONE;
+							if ( !AutoPlaceObject( pSoldier, &newObj, FALSE ) )
+							{   // put it on the ground
+								AddItemToPool( pSoldier->sGridNo, &newObj, 1, pSoldier->bLevel, 0 , -1 );
+							}
+						}
+					}
+
+					//Madd: remove any prohibited attachments
+					for (bAttachPos = 0; bAttachPos < MAX_ATTACHMENTS; bAttachPos++)
+					{
+						if (pAttachment->usAttachItem[ bAttachPos ] != NOTHING && !ValidAttachment(pAttachment->usAttachItem[ bAttachPos ],usResult2) && !ValidLaunchable(pAttachment->usAttachItem[ bAttachPos ],usResult2) )
+						{
+							if ( !Item[pAttachment->usAttachItem[ bAttachPos ]].inseparable )
+							{//remove it
+								OBJECTTYPE newObj;
+								RemoveAttachment(pAttachment,bAttachPos,&newObj);
+								if ( !AutoPlaceObject( pSoldier, &newObj, FALSE ) )
+								{   // put it on the ground
+									AddItemToPool( pSoldier->sGridNo, &newObj, 1, pSoldier->bLevel, 0 , -1 );
+								}
+							}
+							else
+							{//destroy it
+								pAttachment->usAttachItem[bAttachPos] = NOTHING;
+								pAttachment->bAttachStatus[bAttachPos] = 0;
+							}
+						}
+					}
+
+
+
+					pAttachment->usItem = usResult2;
+					if ( ubType != TREAT_ARMOUR )
+					{
+						pAttachment->bStatus[0] = (pAttachment->bStatus[0] + pTargetObj->bStatus[0]) / 2;
+					}
+					pAttachment->ubWeight = CalculateObjectWeight( pAttachment );
+				}
+				else	
+					DeleteObj( pAttachment );
+
 				if (pSoldier && pSoldier->bTeam == gbPlayerNum)
 				{
 					DoMercBattleSound( pSoldier, BATTLE_SOUND_COOL1 );

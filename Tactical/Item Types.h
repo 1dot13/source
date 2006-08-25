@@ -843,7 +843,7 @@ typedef enum
 	USE_ITEM_HARD
 } MergeType;
 
-extern UINT16 Merge[MAXITEMS+1][4];
+extern UINT16 Merge[MAXITEMS+1][6];
 
 typedef struct
 {
