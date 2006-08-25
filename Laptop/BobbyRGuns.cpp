@@ -2913,7 +2913,7 @@ BOOLEAN IsAmmoMatchinWeaponType(UINT16 usItemIndex, UINT8 ubWeaponType)
 				if (Weapon[i].ubWeaponType == ubWeaponType)
 				{
 					//Weapon has correct magazine size
-					//if(Weapon[i].ubMagSize == Magazine[Item[usItemIndex].ubClassIndex].ubMagSize )
+					if(Weapon[i].ubMagSize == Magazine[Item[usItemIndex].ubClassIndex].ubMagSize )
 					{
 					    bRetValue = TRUE;
 						break;
