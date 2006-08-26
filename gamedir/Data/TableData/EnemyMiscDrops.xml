@@ -7,51 +7,116 @@ Attribute Field Reference:
 
 	uiIndex				- the item index, number the items sequentially starting at 0 up to 199
 	uiType				- the misc item class pointing to <usItemClass> in Items.xml 
-	ubDropRate			- if the enemy (or militia) has the item, this is the chance (0 - 100) in percent that the item will be dropped
+	ubEnemyDropRate		- if the enemy has the item, this is the chance (0 - 100) in percent that the item will be dropped
 						- 0 	-> Item will never be dropped
-						- 100 	-> Item will always be dropped, if the enemy (or militia) has this item in the inventory
+						- 100 	-> Item will always be dropped, if the enemy has this item in the inventory
+	ubMilitiaDropRate	- if the militia has the item, this is the chance (0 - 100) in percent that the item will be dropped
+						- 0 	-> Item will never be dropped
+						- 100 	-> Item will always be dropped, if the militia has this item in the inventory
 -->
 <MISCDROPLIST>
-	<!-- IC_MEDKIT -->
+	<!-- IC_BLADE -->
+	<!-- Knives -->
 	<DROPITEM>
 		<uiIndex>0</uiIndex>
-		<usItemClass>4096</usItemClass>
-		<ubDropRate>15</ubDropRate>
+		<usItemClass>4</usItemClass>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
-	<!-- IC_KIT -->
+	<!-- IC_THROWING_KNIFE -->
+	<!-- Throwing knives -->
 	<DROPITEM>
 		<uiIndex>1</uiIndex>
-		<usItemClass>8192</usItemClass>
-		<ubDropRate>15</ubDropRate>
+		<usItemClass>8</usItemClass>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
-	<!-- IC_APPLIABLE -->
+	<!-- IC_LAUNCHER -->
+	<!-- Mortars, Grenade launchers, Talons, ... -->
 	<DROPITEM>
 		<uiIndex>2</uiIndex>
-		<usItemClass>16384</usItemClass>
-		<ubDropRate>15</ubDropRate>
+		<usItemClass>16</usItemClass>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
-	<!-- IC_FACE -->
+	<!-- IC_TENTACLES -->
+	<!-- Queen tentacles -->
 	<DROPITEM>
 		<uiIndex>3</uiIndex>
-		<usItemClass>32768</usItemClass>
-		<ubDropRate>15</ubDropRate>
+		<usItemClass>32</usItemClass>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
-	<!-- IC_KEY -->
+	<!-- IC_THROWN -->
+	<!-- Rocks -->
 	<DROPITEM>
 		<uiIndex>4</uiIndex>
-		<usItemClass>65536</usItemClass>
-		<ubDropRate>15</ubDropRate>
+		<usItemClass>64</usItemClass>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
-	<!-- IC_MISC -->
+	<!-- IC_PUNCH -->
+	<!-- Brass knuckles -->
 	<DROPITEM>
 		<uiIndex>5</uiIndex>
-		<usItemClass>268435456</usItemClass>
-		<ubDropRate>15</ubDropRate>
+		<usItemClass>128</usItemClass>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
-	<!-- IC_Money -->
+	<!-- IC_MEDKIT -->
+	<!-- Medikits -->
 	<DROPITEM>
 		<uiIndex>6</uiIndex>
+		<usItemClass>4096</usItemClass>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
+	</DROPITEM>
+	<!-- IC_KIT -->
+	<!-- Other kits -->
+	<DROPITEM>
+		<uiIndex>7</uiIndex>
+		<usItemClass>8192</usItemClass>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
+	</DROPITEM>
+	<!-- IC_APPLIABLE -->
+	<!-- Unused -->
+	<DROPITEM>
+		<uiIndex>8</uiIndex>
+		<usItemClass>16384</usItemClass>
+		<ubEnemyDropRate>0</ubEnemyDropRate>
+		<ubMilitiaDropRate>0</ubMilitiaDropRate>
+	</DROPITEM>
+	<!-- IC_FACE -->
+	<!-- Gas masks, googles, ... -->
+	<DROPITEM>
+		<uiIndex>9</uiIndex>
+		<usItemClass>32768</usItemClass>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
+	</DROPITEM>
+	<!-- IC_KEY -->
+	<!-- Keys -->
+	<DROPITEM>
+		<uiIndex>10</uiIndex>
+		<usItemClass>65536</usItemClass>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
+	</DROPITEM>
+	<!-- IC_MISC -->
+	<!-- Most attachments -->
+	<DROPITEM>
+		<uiIndex>11</uiIndex>
+		<usItemClass>268435456</usItemClass>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
+	</DROPITEM>
+	<!-- IC_Money -->
+	<!-- Money -->
+	<DROPITEM>
+		<uiIndex>12</uiIndex>
 		<usItemClass>536870912</usItemClass>
-		<ubDropRate>15</ubDropRate>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
 </MISCDROPLIST>

@@ -8,144 +8,174 @@ Attribute Field Reference:
 	uiIndex				- the item index, number the items sequentially starting at 0 up to 199
 	uiType				- the ammo type pointing to <uiIndex> in AmmoTypes.xml 
 						- add additional <DROPITEM> for each new <AMMOTYPE> in AmmoTypes.xml
-	ubDropRate			- if the enemy (or militia) has the item, this is the chance (0 - 100) in percent that the item will be dropped
+	ubEnemyDropRate		- if the enemy has the item, this is the chance (0 - 100) in percent that the item will be dropped
 						- 0 	-> Item will never be dropped
-						- 100 	-> Item will always be dropped, if the enemy (or militia) has this item in the inventory
+						- 100 	-> Item will always be dropped, if the enemy has this item in the inventory
+	ubMilitiaDropRate	- if the militia has the item, this is the chance (0 - 100) in percent that the item will be dropped
+						- 0 	-> Item will never be dropped
+						- 100 	-> Item will always be dropped, if the militia has this item in the inventory
 -->
 <AMMODROPLIST>
 	<DROPITEM>
 		<uiIndex>0</uiIndex>
 		<uiType>0</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>1</uiIndex>
 		<uiType>1</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>2</uiIndex>
 		<uiType>2</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>3</uiIndex>
 		<uiType>3</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>4</uiIndex>
 		<uiType>4</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>5</uiIndex>
 		<uiType>5</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>6</uiIndex>
 		<uiType>6</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>7</uiIndex>
 		<uiType>7</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>8</uiIndex>
 		<uiType>8</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>9</uiIndex>
 		<uiType>9</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>10</uiIndex>
 		<uiType>10</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>11</uiIndex>
 		<uiType>11</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>12</uiIndex>
 		<uiType>12</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>13</uiIndex>
 		<uiType>13</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>14</uiIndex>
 		<uiType>14</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>15</uiIndex>
 		<uiType>15</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>16</uiIndex>
 		<uiType>16</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>17</uiIndex>
 		<uiType>17</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>18</uiIndex>
 		<uiType>18</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>19</uiIndex>
 		<uiType>19</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>20</uiIndex>
 		<uiType>20</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>21</uiIndex>
 		<uiType>21</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>22</uiIndex>
 		<uiType>22</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>23</uiIndex>
 		<uiType>23</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>24</uiIndex>
 		<uiType>24</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>25</uiIndex>
 		<uiType>25</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>26</uiIndex>
 		<uiType>26</uiType>
-		<ubDropRate>50</ubDropRate>
+		<ubEnemyDropRate>50</ubEnemyDropRate>
+		<ubMilitiaDropRate>5</ubMilitiaDropRate>
 	</DROPITEM>
 </AMMODROPLIST>

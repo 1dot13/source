@@ -7,63 +7,84 @@ Attribute Field Reference:
 
 	uiIndex				- the item index, number the items sequentially starting at 0 up to 199
 	uiType				- the weapon type pointing to <ubWeaponType> in Weapons.xml 
-	ubDropRate			- if the enemy (or militia) has the item, this is the chance (0 - 100) in percent that the item will be dropped
+	ubEnemyDropRate		- if the enemy has the item, this is the chance (0 - 100) in percent that the item will be dropped
 						- 0 	-> Item will never be dropped
-						- 100 	-> Item will always be dropped, if the enemy (or militia) has this item in the inventory
+						- 100 	-> Item will always be dropped, if the enemy has this item in the inventory
+	ubMilitiaDropRate	- if the militia has the item, this is the chance (0 - 100) in percent that the item will be dropped
+						- 0 	-> Item will never be dropped
+						- 100 	-> Item will always be dropped, if the militia has this item in the inventory
 -->
 <WEAPONDROPLIST>
 	<!-- NOT_GUN -->
+	<!-- Laws -->
 	<DROPITEM>
 		<uiIndex>0</uiIndex>
 		<ubWeaponType>0</ubWeaponType>
-		<ubDropRate>15</ubDropRate>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
 	<!-- GUN_PISTOL -->
+	<!-- Pistols -->
 	<DROPITEM>
 		<uiIndex>1</uiIndex>
 		<ubWeaponType>1</ubWeaponType>
-		<ubDropRate>15</ubDropRate>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
 	<!-- GUN_M_PISTOL -->
+	<!-- Machine pistols -->
 	<DROPITEM>
 		<uiIndex>2</uiIndex>
 		<ubWeaponType>2</ubWeaponType>
-		<ubDropRate>15</ubDropRate>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
 	<!-- GUN_SMG -->
+	<!-- SMGs -->
 	<DROPITEM>
 		<uiIndex>3</uiIndex>
 		<ubWeaponType>3</ubWeaponType>
-		<ubDropRate>15</ubDropRate>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
 	<!-- GUN_RIFLE -->
+	<!-- Rifles -->
 	<DROPITEM>
 		<uiIndex>4</uiIndex>
 		<ubWeaponType>4</ubWeaponType>
-		<ubDropRate>15</ubDropRate>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
 	<!-- GUN_SN_RIFLE -->
+	<!-- Sniper rifles -->
 	<DROPITEM>
 		<uiIndex>5</uiIndex>
 		<ubWeaponType>5</ubWeaponType>
-		<ubDropRate>15</ubDropRate>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
 	<!-- GUN_AS_RIFLE -->
+	<!-- Assault rifles -->
 	<DROPITEM>
 		<uiIndex>6</uiIndex>
 		<ubWeaponType>6</ubWeaponType>
-		<ubDropRate>15</ubDropRate>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
 	<!-- GUN_LMG -->
+	<!-- LMGs -->
 	<DROPITEM>
 		<uiIndex>7</uiIndex>
 		<ubWeaponType>7</ubWeaponType>
-		<ubDropRate>15</ubDropRate>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
 	<!-- GUN_SHOTGUN -->
+	<!-- Shotguns -->
 	<DROPITEM>
 		<uiIndex>8</uiIndex>
 		<ubWeaponType>8</ubWeaponType>
-		<ubDropRate>15</ubDropRate>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
 </WEAPONDROPLIST>
