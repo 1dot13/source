@@ -86,7 +86,8 @@ miscDropStartElementHandle(void *userData, const char *name, const char **atts)
 		else if(pData->curElement == ELEMENT &&
 				(strcmp(name, "uiIndex") == 0 || 
 				strcmp(name, "usItemClass") == 0 ||
-				strcmp(name, "ubDropRate") == 0 ))
+				strcmp(name, "ubEnemyDropRate") == 0 || 
+				strcmp(name, "ubMilitiaDropRate") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -143,10 +144,15 @@ miscDropEndElementHandle(void *userData, const char *name)
 			pData->curElement = ELEMENT;
 			pData->curMiscDrop.usItemClass   = (UINT32) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "ubDropRate") == 0)
+		else if(strcmp(name, "ubEnemyDropRate") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curMiscDrop.ubDropRate  = (UINT8) atol(pData->szCharData);
+			pData->curMiscDrop.ubEnemyDropRate  = (UINT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "ubMilitiaDropRate") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curMiscDrop.ubMilitiaDropRate  = (UINT8) atol(pData->szCharData);
 		}
 
 		pData->maxReadDepth--;
@@ -242,7 +248,8 @@ BOOLEAN WriteEnemyMiscDropsStats(MISC_DROPS *pEnemyMiscDrops, STR fileName)
 
 			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n", cnt);
 			FilePrintf(hFile,"\t\t<usItemClass>%d</usItemClass>\r\n", pEnemyMiscDrops[cnt].usItemClass);
-			FilePrintf(hFile,"\t\t<ubDropRate>%d</ubDropRate>\r\n", pEnemyMiscDrops[cnt].ubDropRate);
+			FilePrintf(hFile,"\t\t<ubEnemyDropRate>%d</ubEnemyDropRate>\r\n", pEnemyMiscDrops[cnt].ubEnemyDropRate);
+			FilePrintf(hFile,"\t\t<ubMilitiaDropRate>%d</ubMilitiaDropRate>\r\n", pEnemyMiscDrops[cnt].ubMilitiaDropRate);
 
 			FilePrintf(hFile,"\t</DROPITEM>\r\n");
 		}

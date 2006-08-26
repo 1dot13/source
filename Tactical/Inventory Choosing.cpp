@@ -2459,10 +2459,7 @@ else
 				if(! (pp->Inv[ i ].fFlags & OBJECT_NO_OVERWRITE ) && pp->Inv[ i ].usItem != 0)
 				{
 					// Weapon
-					if( uiItemClass == IC_GUN || uiItemClass == IC_BLADE ||
-						uiItemClass == IC_THROWING_KNIFE || uiItemClass == IC_LAUNCHER ||
-						uiItemClass == IC_TENTACLES || uiItemClass == IC_THROWN ||
-						uiItemClass == IC_PUNCH)
+					if( uiItemClass == IC_GUN)
 					{
 						// Find matching weaponType in the XML
 						for (j = 0; j < MAX_DROP_ITEMS; j++)
@@ -2479,11 +2476,25 @@ else
 								if (uiRandomValue == 0)
 									uiRandomValue++;
 
-								// Drop the weapon!
-								if (uiRandomValue <= gEnemyWeaponDrops[j].ubDropRate)
+								// militia
+								if ( SOLDIER_CLASS_MILITIA( bSoldierClass ) )
 								{
-									pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+									// Drop the item!
+									if (uiRandomValue <= gEnemyWeaponDrops[j].ubMilitiaDropRate)
+									{
+										pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+									}
 								}
+								// enemy
+								else
+								{
+									// Drop the item!
+									if (uiRandomValue <= gEnemyWeaponDrops[j].ubEnemyDropRate)
+									{
+										pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+									}
+								}
+
 								break;
 							}
 						}
@@ -2506,11 +2517,24 @@ else
 								if (uiRandomValue == 0)
 									uiRandomValue++;
 
-								// Drop the weapon!
-								if (uiRandomValue <= gEnemyAmmoDrops[j].ubDropRate)
+								// militia
+								if ( SOLDIER_CLASS_MILITIA( bSoldierClass ) )
 								{
-									pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+									// Drop the item!
+									if (uiRandomValue <= gEnemyAmmoDrops[j].ubMilitiaDropRate)
+									{
+										pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+									}
 								}
+								else
+								{
+									// Drop the item!
+									if (uiRandomValue <= gEnemyAmmoDrops[j].ubEnemyDropRate)
+									{
+										pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+									}
+								}
+
 								break;
 							}
 						}
@@ -2533,11 +2557,26 @@ else
 								if (uiRandomValue == 0)
 									uiRandomValue++;
 
-								// Drop the weapon!
-								if (uiRandomValue <= gEnemyExplosiveDrops[j].ubDropRate)
+								// militia
+								if ( SOLDIER_CLASS_MILITIA( bSoldierClass ) )
 								{
-									pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+									// Drop the item!
+									if (uiRandomValue <= gEnemyExplosiveDrops[j].ubMilitiaDropRate)
+									{
+										pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+									}
 								}
+								// enemy
+								else
+								{
+									// Drop the item!
+									if (uiRandomValue <= gEnemyExplosiveDrops[j].ubEnemyDropRate)
+									{
+										pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+									}
+								}
+
+								
 								break;
 							}
 						}
@@ -2560,19 +2599,35 @@ else
 								if (uiRandomValue == 0)
 									uiRandomValue++;
 
-								// Drop the weapon!
-								if (uiRandomValue <= gEnemyArmourDrops[j].ubDropRate)
+								// militia
+								if ( SOLDIER_CLASS_MILITIA( bSoldierClass ) )
 								{
-									pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+									// Drop the item!
+									if (uiRandomValue <= gEnemyArmourDrops[j].ubMilitiaDropRate)
+									{
+										pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+									}
 								}
+								// enemy
+								else
+								{
+									// Drop the item!
+									if (uiRandomValue <= gEnemyArmourDrops[j].ubEnemyDropRate)
+									{
+										pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+									}
+								}
+
 								break;
 							}
 						}
 					}
 					// Misc
-					else if (uiItemClass == IC_MEDKIT || uiItemClass == IC_KIT ||
-						uiItemClass == IC_APPLIABLE || uiItemClass == IC_FACE ||
-						uiItemClass == IC_KEY || uiItemClass == IC_MISC || uiItemClass == IC_MONEY)
+					else if (uiItemClass == IC_BLADE || uiItemClass == IC_MEDKIT || uiItemClass == IC_KIT ||
+						uiItemClass == IC_THROWING_KNIFE || uiItemClass == IC_LAUNCHER || 
+						uiItemClass == IC_APPLIABLE || uiItemClass == IC_FACE || uiItemClass == IC_TENTACLES || 
+						uiItemClass == IC_THROWN || uiItemClass == IC_PUNCH || uiItemClass == IC_KEY || 
+						uiItemClass == IC_MISC || uiItemClass == IC_MONEY)
 					{
 						// Find matching armour in the XML
 						for (j = 0; j < MAX_DROP_ITEMS; j++)
@@ -2589,11 +2644,25 @@ else
 								if (uiRandomValue == 0)
 									uiRandomValue++;
 
-								// Drop the weapon!
-								if (uiRandomValue <= gEnemyMiscDrops[j].ubDropRate)
+								// militia
+								if ( SOLDIER_CLASS_MILITIA( bSoldierClass ) )
 								{
-									pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+									// Drop the item!
+									if (uiRandomValue <= gEnemyMiscDrops[j].ubMilitiaDropRate)
+									{
+										pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+									}
 								}
+								// enemy
+								else
+								{
+									// Drop the item!
+									if (uiRandomValue <= gEnemyMiscDrops[j].ubEnemyDropRate)
+									{
+										pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+									}
+								}
+
 								break;
 							}
 						}

@@ -87,7 +87,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 {
 	char fileName[MAX_PATH];
 
-	// WANNE: Enemy drops
+	// WANNE: Enemy drops - begin
 	strcpy(fileName, directoryName);
 	strcat(fileName, ENEMYMISCDROPSFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
@@ -117,15 +117,9 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	if(!ReadInEnemyArmourDropsStats(gEnemyArmourDrops, fileName))
 		return FALSE;
-	
-	
 
+	// WANNE: Enemy drops - end
 	
-
-	
-
-
-	// --------
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, AMMOTYPESFILENAME);

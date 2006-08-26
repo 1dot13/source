@@ -6,35 +6,40 @@
 typedef struct
 {
 	UINT8		ubWeaponType;
-	UINT8		ubDropRate;
+	UINT8		ubEnemyDropRate;
+	UINT8		ubMilitiaDropRate;
 	UINT32		uiIndex;
 } WEAPON_DROPS;
 
 typedef struct
 {
 	UINT32		uiType;
-	UINT8		ubDropRate;
+	UINT8		ubEnemyDropRate;
+	UINT8		ubMilitiaDropRate;
 	UINT32		uiIndex;
 } AMMO_DROPS;
 
 typedef struct
 {
 	UINT8		ubType;
-	UINT8		ubDropRate;
+	UINT8		ubEnemyDropRate;
+	UINT8		ubMilitiaDropRate;
 	UINT32		uiIndex;
 } EXPLOSIVE_DROPS;
 
 typedef struct
 {
 	UINT8		ubArmourClass;
-	UINT8		ubDropRate;
+	UINT8		ubEnemyDropRate;
+	UINT8		ubMilitiaDropRate;
 	UINT32		uiIndex;
 } ARMOUR_DROPS;
 
 typedef struct
 {
 	UINT32		usItemClass;
-	UINT8		ubDropRate;
+	UINT8		ubEnemyDropRate;
+	UINT8		ubMilitiaDropRate;
 	UINT32		uiIndex;
 } MISC_DROPS;
 

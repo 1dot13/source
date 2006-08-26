@@ -86,7 +86,8 @@ armourDropStartElementHandle(void *userData, const char *name, const char **atts
 		else if(pData->curElement == ELEMENT &&
 				(strcmp(name, "uiIndex") == 0 || 
 				strcmp(name, "ubArmourClass") == 0 ||
-				strcmp(name, "ubDropRate") == 0 ))
+				strcmp(name, "ubEnemyDropRate") == 0 ||
+				strcmp(name, "ubMilitiaDropRate") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
 
@@ -143,10 +144,15 @@ armourDropEndElementHandle(void *userData, const char *name)
 			pData->curElement = ELEMENT;
 			pData->curArmourDrop.ubArmourClass   = (UINT8) atol(pData->szCharData);
 		}
-		else if(strcmp(name, "ubDropRate") == 0)
+		else if(strcmp(name, "ubEnemyDropRate") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curArmourDrop.ubDropRate  = (UINT8) atol(pData->szCharData);
+			pData->curArmourDrop.ubEnemyDropRate  = (UINT8) atol(pData->szCharData);
+		}
+		else if (strcmp(name, "ubMilitiaDropRate") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curArmourDrop.ubMilitiaDropRate  = (UINT8) atol(pData->szCharData);
 		}
 
 		pData->maxReadDepth--;
@@ -242,7 +248,8 @@ BOOLEAN WriteEnemyArmourDropsStats(ARMOUR_DROPS *pEnemyArmourDrops, STR fileName
 
 			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n", cnt);
 			FilePrintf(hFile,"\t\t<ubArmourClass>%d</ubArmourClass>\r\n", pEnemyArmourDrops[cnt].ubArmourClass);
-			FilePrintf(hFile,"\t\t<ubDropRate>%d</ubDropRate>\r\n", pEnemyArmourDrops[cnt].ubDropRate);
+			FilePrintf(hFile,"\t\t<ubEnemyDropRate>%d</ubEnemyDropRate>\r\n", pEnemyArmourDrops[cnt].ubEnemyDropRate);
+			FilePrintf(hFile,"\t\t<ubMilitiaDropRate>%d</ubMilitiaDropRate>\r\n", pEnemyArmourDrops[cnt].ubMilitiaDropRate);
 
 			FilePrintf(hFile,"\t</DROPITEM>\r\n");
 		}
