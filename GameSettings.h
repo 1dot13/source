@@ -167,6 +167,7 @@ typedef struct
 
 	INT32 iPercentElitesBonusExpert;
 	INT32 iPercentElitesBonusInsane;
+	INT32 iPercentElitesBonusExperienced;
 
 	UINT8 ubMinEnemyGroupSizeNovice;
 	UINT8 ubMinEnemyGroupSizeExperienced;
