@@ -132,6 +132,7 @@ attachmentEndElementHandle(void *userData, const char *name)
 				//DebugMsg(TOPIC_JA2, DBG_LEVEL_3,"AttachmentStartElementHandle: writing attachment to array");
 				Attachment[pData->curIndex][0] = pData->curAttachment[0]; //write the attachment into the table
 				Attachment[pData->curIndex][1] = pData->curAttachment[1];
+				Attachment[pData->curIndex][2] = pData->curAttachment[2];
 			}
 		}
 		else if(strcmp(name, "attachmentIndex") == 0)

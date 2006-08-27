@@ -137,6 +137,8 @@ mergeEndElementHandle(void *userData, const char *name)
 				Merge[pData->curIndex][1] = pData->curMerge[1];
 				Merge[pData->curIndex][2] = pData->curMerge[2];
 				Merge[pData->curIndex][3] = pData->curMerge[3];
+				Merge[pData->curIndex][4] = pData->curMerge[4];
+				Merge[pData->curIndex][5] = pData->curMerge[5];
 			}
 		}
 		else if(strcmp(name, "firstItemIndex") == 0)
