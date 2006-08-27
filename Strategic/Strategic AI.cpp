@@ -1147,9 +1147,24 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic3");
 			gArmyComp[ LEVEL3_DEFENCE ].bDesiredPopulation = 0;
 			gArmyComp[ LEVEL3_DEFENCE ].bStartPopulation = 0;
 			break;
+			// Kaiden: original Experienced troop compositions:
+		  //case DIF_LEVEL_MEDIUM:
+			//gArmyComp[ LEVEL3_DEFENCE ].bDesiredPopulation = 0;
+			//gArmyComp[ LEVEL3_DEFENCE ].bStartPopulation = 0;
+			//break;
+
+		//Kaiden: Added to allow an elite bonus for experienced.
 		case DIF_LEVEL_MEDIUM:
-			gArmyComp[ LEVEL3_DEFENCE ].bDesiredPopulation = 0;
-			gArmyComp[ LEVEL3_DEFENCE ].bStartPopulation = 0;
+			for( i = 0; i <= NUM_ARMY_COMPOSITIONS; i++ )
+			{
+				if ( i != OMERTA_WELCOME_WAGON )
+				{
+					iPercentElitesBonus = gGameExternalOptions.iPercentElitesBonusExperienced;
+					gArmyComp[ i ].bElitePercentage = min(100,gArmyComp[ i ].bElitePercentage + iPercentElitesBonus);
+					gArmyComp[ i ].bTroopPercentage = max(0,gArmyComp[ i ].bTroopPercentage - iPercentElitesBonus);
+					gArmyComp[ i ].bAdminPercentage = 0;
+				}
+			}
 			break;
 		case DIF_LEVEL_HARD:
 			for( i = 0; i <= NUM_ARMY_COMPOSITIONS; i++ )
