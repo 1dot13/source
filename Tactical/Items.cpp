@@ -7342,6 +7342,23 @@ INT8 FindRemoteControl( SOLDIERTYPE * pSoldier )
 	return( NO_SLOT );
 }
 
+UINT16 LowestLaunchableCoolness(UINT16 launcherIndex)
+{
+	UINT16 i = 0;
+	UINT16 lowestCoolness = 999;
+
+	for( i = 0; i < MAXITEMS; i++ )
+	{
+		if ( Item[i].usItemClass  == 0 )
+			break;
+
+		if( ValidLaunchable( i, launcherIndex ) && Item[i].ubCoolness <= lowestCoolness )
+		{	
+			lowestCoolness = Item[i].ubCoolness;
+		}
+	}
+	return lowestCoolness;
+}
 
 UINT16 PickARandomLaunchable(UINT16 itemIndex)
 {
@@ -7349,7 +7366,7 @@ UINT16 PickARandomLaunchable(UINT16 itemIndex)
 	UINT16 usNumMatches = 0;
 	UINT16 usRandom = 0;
 	UINT16 i = 0;
-
+	UINT16 lowestCoolness = LowestLaunchableCoolness(itemIndex);
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("PickARandomLaunchable: itemIndex = %d", itemIndex));
 
 	while( !usNumMatches )
@@ -7358,8 +7375,8 @@ UINT16 PickARandomLaunchable(UINT16 itemIndex)
 		{
 			if ( Item[i].usItemClass  == 0 )
 				break;
-		
-			if( ValidLaunchable( i, itemIndex ) )
+			//Madd: quickfix: make it not choose best grenades right away. 
+			if( ValidLaunchable( i, itemIndex ) && Item[i].ubCoolness <= max(HighestPlayerProgressPercentage()/10,lowestCoolness) )
 				usNumMatches++;
 		}
 	}
@@ -7371,7 +7388,7 @@ UINT16 PickARandomLaunchable(UINT16 itemIndex)
 			if ( Item[i].usItemClass  == 0 )
 				break;
 
-			if( ValidLaunchable( i, itemIndex ) )
+			if( ValidLaunchable( i, itemIndex ) && Item[i].ubCoolness <= max(HighestPlayerProgressPercentage()/10,lowestCoolness) )
 			{	
 				if( usRandom )
 					usRandom--;
