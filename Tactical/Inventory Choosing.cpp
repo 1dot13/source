@@ -2995,8 +2995,8 @@ UINT16 PickARandomItem(UINT8 typeIndex, UINT8 maxCoolness, BOOLEAN getMatchingCo
 		}
 		usItem = gArmyItemChoices[ typeIndex ].bItemNo[ uiChoice ];
 
-		//Madd: quickfix: don't use NVGs during the day
-		if ( usItem >= 0 && Item[usItem].ubCoolness <= maxCoolness && ItemIsLegal(usItem) && ( NightTime() || Item[usItem].nightvisionrangebonus == 0 ) )
+		//Madd: quickfix: don't use NVGs during the day, and no sungoggles at night either
+		if ( usItem >= 0 && Item[usItem].ubCoolness <= maxCoolness && ItemIsLegal(usItem) && (( DayTime() && Item[usItem].nightvisionrangebonus == 0 ) || ( NightTime() && Item[usItem].dayvisionrangebonus == 0 )))
 		{
 			// pick a default item in case we don't find anything with a matching coolness, but pick the coolest item we can find
 			if ( defaultItem == 0 || Item[usItem].ubCoolness > Item[defaultItem].ubCoolness )
