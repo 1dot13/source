@@ -343,6 +343,30 @@ typedef struct
 	BOOLEAN fEnableAllWeaponCaches;
 	BOOLEAN fEnableAllTerrorists;
 
+	// ShadoWarrior: Tooltip changes (start)
+	UINT8 ubSoldierTooltipDetailLevel;
+
+	BOOLEAN fEnableSoldierTooltipLocation;
+	BOOLEAN fEnableSoldierTooltipBrightness;
+	BOOLEAN fEnableSoldierTooltipRangeToTarget;
+	BOOLEAN fEnableSoldierTooltipID;
+	BOOLEAN fEnableSoldierTooltipOrders;
+	BOOLEAN fEnableSoldierTooltipAttitude;
+	BOOLEAN fEnableSoldierTooltipActionPoints;
+	BOOLEAN fEnableSoldierTooltipHealth;
+	BOOLEAN fEnableSoldierTooltipHelmet;
+	BOOLEAN fEnableSoldierTooltipVest;
+	BOOLEAN fEnableSoldierTooltipLeggings;
+	BOOLEAN fEnableSoldierTooltipHeadItem1;
+	BOOLEAN fEnableSoldierTooltipHeadItem2;
+	BOOLEAN fEnableSoldierTooltipWeapon;
+	BOOLEAN fEnableSoldierTooltipSecondHand;
+	BOOLEAN fEnableSoldierTooltipBigSlot1;
+	BOOLEAN fEnableSoldierTooltipBigSlot2;
+	BOOLEAN fEnableSoldierTooltipBigSlot3;
+	BOOLEAN fEnableSoldierTooltipBigSlot4;
+	// ShadoWarrior: Tooltip changes (end)
+
 } GAME_EXTERNAL_OPTIONS;
 
 //This structure will contain general Ja2 settings  NOT individual game settings.

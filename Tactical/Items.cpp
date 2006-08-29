@@ -6966,7 +6966,7 @@ INT8 FindGasMask( SOLDIERTYPE * pSoldier )
 {
 	INT8 bLoop;
 
-	for (bLoop = 0; bLoop < BIGPOCK1POS; bLoop++)
+	for (bLoop = 0; bLoop < HANDPOS; bLoop++)
 	{
 		if ( Item[pSoldier->inv[bLoop].usItem].gasmask )
 		{

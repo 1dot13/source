@@ -4650,6 +4650,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\SoldierTooltips.cpp">
+			</File>
+			<File
 				RelativePath="Spread Burst.cpp">
 				<FileConfiguration
 					Name="Debug Demo|Win32">

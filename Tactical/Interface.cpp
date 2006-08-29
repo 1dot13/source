@@ -1479,7 +1479,7 @@ void GetSoldierAboveGuyPositions( SOLDIERTYPE *pSoldier, INT16 *psX, INT16 *psY,
 	}
 }
 
-extern void DisplaySoldierToolTip( FASTHELPREGION *pRegion );
+
 //QUOTE_SYSTEM_STRUCT	soldierTTInfo;
 
 void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
@@ -1502,10 +1502,10 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		return;
 	}
 
-  if ( pSoldier->sGridNo == NOWHERE )
-  {
-    return;
-  }
+	if ( pSoldier->sGridNo == NOWHERE )
+	{
+		return;
+	}
 
 	if ( pSoldier->fFlashLocator )
 	{
@@ -1669,23 +1669,23 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			mprintf( sX, sY, NameStr );
       fRaiseName = TRUE;
 		}
-    else if ( pSoldier->bAssignment >= ON_DUTY )
-    {
-			SetFontForeground( FONT_YELLOW );
-			swprintf( NameStr, L"(%s)", pAssignmentStrings[ pSoldier->bAssignment ] );
-			FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-			gprintfdirty( sX, sY, NameStr );
-			mprintf( sX, sY, NameStr );
-      fRaiseName = TRUE;
-    }
-    else if ( pSoldier->bTeam == gbPlayerNum &&  pSoldier->bAssignment < ON_DUTY && pSoldier->bAssignment != CurrentSquad() && !(  pSoldier->uiStatusFlags & SOLDIER_MULTI_SELECTED ) )
-    {
-			swprintf( NameStr, gzLateLocalizedString[ 34 ], ( pSoldier->bAssignment + 1 ) );
-			FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-			gprintfdirty( sX, sY, NameStr );
-			mprintf( sX, sY, NameStr );
-      fRaiseName = TRUE;
-    }
+		else if ( pSoldier->bAssignment >= ON_DUTY )
+		{
+				SetFontForeground( FONT_YELLOW );
+				swprintf( NameStr, L"(%s)", pAssignmentStrings[ pSoldier->bAssignment ] );
+				FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+				gprintfdirty( sX, sY, NameStr );
+				mprintf( sX, sY, NameStr );
+		fRaiseName = TRUE;
+		}
+		else if ( pSoldier->bTeam == gbPlayerNum &&  pSoldier->bAssignment < ON_DUTY && pSoldier->bAssignment != CurrentSquad() && !(  pSoldier->uiStatusFlags & SOLDIER_MULTI_SELECTED ) )
+		{
+				swprintf( NameStr, gzLateLocalizedString[ 34 ], ( pSoldier->bAssignment + 1 ) );
+				FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+				gprintfdirty( sX, sY, NameStr );
+				mprintf( sX, sY, NameStr );
+		fRaiseName = TRUE;
+		}
 
 
 		// If not in a squad....
@@ -1704,8 +1704,8 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			}
 		}
 
-    if ( fDoName )
-    {
+		if ( fDoName )
+		{
 		  if ( fRaiseName )
 		  {
 			  swprintf( NameStr, L"%s", pSoldier->name );
@@ -1720,7 +1720,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			  gprintfdirty( sX, sY, NameStr );
 			  mprintf( sX, sY, NameStr );
 		  }
-    }
+		}
 
 		if ( pSoldier->ubProfile < FIRST_RPC || pSoldier->ubProfile >= GASTON || RPC_RECRUITED( pSoldier ) || AM_AN_EPC( pSoldier ) || ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) )
 		{
@@ -1758,8 +1758,8 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				DrawBarsInUIBox( pSoldier,  (INT16)(sXPos ), (INT16)(sYPos ), 16, 1 );
 			}
 		}
-		else
-		{
+		else // ( pSoldier->ubProfile < FIRST_RPC || pSoldier->ubProfile >= GASTON || 
+		{    // RPC_RECRUITED( pSoldier ) || AM_AN_EPC( pSoldier ) || ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) )
 			if ( gfUIMouseOnValidCatcher == 2 && pSoldier->ubID == gubUIValidCatcherID )
 			{
 				SetFont( TINYFONT1 );
@@ -1770,6 +1770,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				FindFontCenterCoordinates( sXPos, (INT16)(sYPos + 10 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
 				gprintfdirty( sX, sY, NameStr );
 				mprintf( sX, sY, NameStr );
+
 			}
 			else
 			{
@@ -1780,76 +1781,6 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 
 				pStr = GetSoldierHealthString( pSoldier );
 				
-				//####################################################################################################
-				if(gGameExternalOptions.gfAllowSoldierToolTips)
-				{			
-					FASTHELPREGION	soldierToolTip[ 1 ];
-					UINT16			pStrInfo[ 350 ];
-					INT32			iNumAttachments = 0;
-
-					if ( pSoldier->inv[ HANDPOS ].usItem != NOTHING )
-					{
-						swprintf( (wchar_t *)pStrInfo, L"|I|D: %d\n|Orders: %d\n|Attitude: %d\n|Current |A|Ps: %d\n\n|Weapon: \n%s [%d%%]\n", 
-
-							pSoldier->ubID,
-							pSoldier->bOrders,
-							pSoldier->bAttitude,
-							pSoldier->bActionPoints,
-							ItemNames[ pSoldier->inv[ HANDPOS ].usItem ], 
-							pSoldier->inv[ HANDPOS ].bStatus[0]
-							);
-
-							// Add attachment string....
-							for ( INT32 cnt = 0; cnt < MAX_ATTACHMENTS; cnt++ )
-							{
-								if ( pSoldier->inv[ HANDPOS ].usAttachItem[ cnt ] != NOTHING )
-								{	
-									iNumAttachments++;
-
-									if ( iNumAttachments == 1 )
-									{
-										wcscat( pStrInfo, L"\n[" );
-									}
-									else
-									{
-										wcscat( pStrInfo, L", " );
-									}
-
-									wcscat( pStrInfo, ItemNames[ pSoldier->inv[ HANDPOS ].usAttachItem[ cnt ] ] );
-								}
-							}
-
-							if ( iNumAttachments > 0 )
-							{
-								wcscat( pStrInfo, pMessageStrings[ MSG_END_ATTACHMENT_LIST ] );
-							}
-					}
-					else
-					{
-						swprintf( (wchar_t *)pStrInfo, L"|I|D: %d\n|Orders: %d\n|Attitude: %d\n|Current |A|Ps: %d", 
-
-							pSoldier->ubID,
-							pSoldier->bOrders,
-							pSoldier->bAttitude,
-							pSoldier->bActionPoints
-							);
-					}
-
-
-					//GetHelpTextForItem( (INT16*)pStrInfo, &( pSoldier->inv[ HANDPOS ] ), pSoldier );
-					//SetRegionFastHelpText( &(gKeyRingPanel), pStrInfo );
-					//DisplayFastHelp( &(gKeyRingPanel) );
-
-					//wcscat( pStr2, pStrInfo );
-
-					soldierToolTip[ 0 ].iX = sXPos+50;
-					soldierToolTip[ 0 ].iY = sYPos+50;				
-
-					wcscpy( soldierToolTip[ 0 ].FastHelpText, pStrInfo );
-
-					DisplaySoldierToolTip( &( soldierToolTip[ 0 ] ) );
-				}
-				//####################################################################################################
 
 				FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 10 ), (INT16)(80 ), 1, pStr, TINYFONT1, &sX, &sY );
 				gprintfdirty( sX, sY, pStr );
@@ -1857,92 +1788,26 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			}
 		}
 	}
-	else
+	else //pSoldier->ubProfile != NO_PROFILE || ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
 	{
-    if ( pSoldier->bLevel != 0 )
-    {
-	    // Display name
-	    SetFont( TINYFONT1 );
-	    SetFontBackground( FONT_MCOLOR_BLACK );
-	    SetFontForeground( FONT_YELLOW );
+		if ( pSoldier->bLevel != 0 )
+		{
+			// Display name
+			SetFont( TINYFONT1 );
+			SetFontBackground( FONT_MCOLOR_BLACK );
+			SetFontForeground( FONT_YELLOW );
 
-			swprintf( NameStr, gzLateLocalizedString[ 15 ] );
-			FindFontCenterCoordinates( sXPos, (INT16)(sYPos + 10 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-			gprintfdirty( sX, sY, NameStr );
-			mprintf( sX, sY, NameStr );
-    }
+				swprintf( NameStr, gzLateLocalizedString[ 15 ] );
+				FindFontCenterCoordinates( sXPos, (INT16)(sYPos + 10 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+				gprintfdirty( sX, sY, NameStr );
+				mprintf( sX, sY, NameStr );
+		}
 
 		pStr = GetSoldierHealthString( pSoldier );
 
-		//####################################################################################################
-		if(gGameExternalOptions.gfAllowSoldierToolTips)
-		{
-			FASTHELPREGION	soldierToolTip[ 1 ];
-			UINT16			pStrInfo[ 350 ];
-			INT32			iNumAttachments = 0;
-
-			if ( pSoldier->inv[ HANDPOS ].usItem != NOTHING )
-			{
-				swprintf( (wchar_t *)pStrInfo, L"|I|D: %d\n|Orders: %d\n|Attitude: %d\n|Current |A|Ps: %d\n\n|Weapon: \n%s [%d%%]\n", 
-
-					pSoldier->ubID,
-					pSoldier->bOrders,
-					pSoldier->bAttitude,
-					pSoldier->bActionPoints,
-					ItemNames[ pSoldier->inv[ HANDPOS ].usItem ], 
-					pSoldier->inv[ HANDPOS ].bStatus[0]
-					);
-
-					// Add attachment string....
-					for ( INT32 cnt = 0; cnt < MAX_ATTACHMENTS; cnt++ )
-					{
-						if ( pSoldier->inv[ HANDPOS ].usAttachItem[ cnt ] != NOTHING )
-						{	
-							iNumAttachments++;
-
-							if ( iNumAttachments == 1 )
-							{
-								wcscat( pStrInfo, L"\n[" );
-							}
-							else
-							{
-								wcscat( pStrInfo, L", " );
-							}
-
-							wcscat( pStrInfo, ItemNames[ pSoldier->inv[ HANDPOS ].usAttachItem[ cnt ] ] );
-						}
-					}
-
-					if ( iNumAttachments > 0 )
-					{
-						wcscat( pStrInfo, pMessageStrings[ MSG_END_ATTACHMENT_LIST ] );
-					}
-			}
-			else
-			{
-				swprintf( (wchar_t *)pStrInfo, L"|I|D: %d\n|Orders: %d\n|Attitude: %d\n|Current |A|Ps: %d", 
-
-					pSoldier->ubID,
-					pSoldier->bOrders,
-					pSoldier->bAttitude,
-					pSoldier->bActionPoints
-					);
-			}
-
-			//GetHelpTextForItem( (INT16*)pStrInfo, &( pSoldier->inv[ HANDPOS ] ), pSoldier );
-			//SetRegionFastHelpText( &(gKeyRingPanel), pStrInfo );
-			//DisplayFastHelp( &(gKeyRingPanel) );
-
-			//wcscat( pStr2, pStrInfo );
-
-			soldierToolTip[ 0 ].iX = sXPos+50;
-			soldierToolTip[ 0 ].iY = sYPos+50;				
-
-			wcscpy( soldierToolTip[ 0 ].FastHelpText, pStrInfo );
-
-			DisplaySoldierToolTip( &( soldierToolTip[ 0 ] ) );
-		}
-		//####################################################################################################
+		//jones
+		extern void SoldierTooltip(SOLDIERTYPE*);
+		SoldierTooltip(pSoldier);
 
 		SetFont( TINYFONT1 );
 		SetFontBackground( FONT_MCOLOR_BLACK );
@@ -1951,9 +1816,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		FindFontCenterCoordinates( sXPos, sYPos, (INT16)(80 ), 1, pStr, TINYFONT1, &sX, &sY );
 		gprintfdirty( sX, sY, pStr );
 		mprintf( sX, sY, pStr );
-
 	}
-
 }
 
 
