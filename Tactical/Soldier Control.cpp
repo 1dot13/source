@@ -3570,6 +3570,11 @@ void EVENT_SoldierGotHit( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDa
 			{
 				// deal max special damage
 				pSoldier->bBlindedCounter = (INT8)Explosive[ Item[ usWeaponIndex ].ubClassIndex ].ubDuration;
+				// say quote
+				if (pSoldier->uiStatusFlags & SOLDIER_PC)
+				{
+					TacticalCharacterDialogue( pSoldier, QUOTE_BLINDED );
+				}
 			}
             else if ( NightTime() ) // if soldier outside at night
 			{
@@ -3578,6 +3583,11 @@ void EVENT_SoldierGotHit( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDa
 				if ( pSoldier->bBlindedCounter == 0 )
 					pSoldier->bBlindedCounter = 1;
 				pSoldier->bDeafenedCounter /= 2;
+				// say quote
+				if (pSoldier->uiStatusFlags & SOLDIER_PC)
+				{
+					TacticalCharacterDialogue( pSoldier, QUOTE_BLINDED );
+				}
 			}
 			DecayIndividualOpplist( pSoldier ); 
 			break;
