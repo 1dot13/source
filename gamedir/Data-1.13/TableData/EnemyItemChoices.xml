@@ -758,10 +758,10 @@
 	</ENEMYITEMCHOICES>
 	<ENEMYITEMCHOICES>
 		<uiIndex>14</uiIndex>
-		<ubChoices>2</ubChoices>
+		<ubChoices>3</ubChoices>
 		<bItemNo1>1024</bItemNo1>
 		<bItemNo2>246</bItemNo2>
-		<bItemNo3>-1</bItemNo3>
+		<bItemNo3>212</bItemNo3>
 		<bItemNo4>-1</bItemNo4>
 		<bItemNo5>-1</bItemNo5>
 		<bItemNo6>-1</bItemNo6>
