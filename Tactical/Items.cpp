@@ -4415,12 +4415,14 @@ UINT16 UseKitPoints( OBJECTTYPE * pObj, UINT16 usPoints, SOLDIERTYPE *pSoldier )
 
 	for (bLoop = pObj->ubNumberOfObjects - 1; bLoop >= 0; bLoop--)
 	{
-		if (usPoints < (UINT16) pObj->bStatus[bLoop])
+		if (Item[pObj->usItem].percentstatusdrainreduction  > 0 && ((usPoints * (100 - Item[pObj->usItem].percentstatusdrainreduction))/100) < pObj->bStatus[bLoop] )
 		{
-			if ( Item[pObj->usItem].percentstatusdrainreduction  > 0 )
-				pObj->bStatus[bLoop] -= (INT8) ((usPoints * (100 - Item[pObj->usItem].percentstatusdrainreduction ) )/100);
-			else	
-				pObj->bStatus[bLoop] -= (INT8) usPoints;
+			pObj->bStatus[bLoop] -= (INT8) ((usPoints * (100 - Item[pObj->usItem].percentstatusdrainreduction ) )/100);
+			return( usOriginalPoints );
+		}
+		else if (usPoints < (UINT16) pObj->bStatus[bLoop])
+		{
+			pObj->bStatus[bLoop] -= (INT8) usPoints;
 			return( usOriginalPoints );
 		}
 		else
