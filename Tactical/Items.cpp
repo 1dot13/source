@@ -7352,7 +7352,7 @@ UINT16 LowestLaunchableCoolness(UINT16 launcherIndex)
 		if ( Item[i].usItemClass  == 0 )
 			break;
 
-		if( ValidLaunchable( i, launcherIndex ) && Item[i].ubCoolness <= lowestCoolness )
+		if( ValidLaunchable( i, launcherIndex ) && ItemIsLegal(i) && Item[i].ubCoolness <= lowestCoolness )
 		{	
 			lowestCoolness = Item[i].ubCoolness;
 		}
