@@ -17,6 +17,7 @@ typedef PARSE_STAGE;
 
 #define TABLEDATA_DIRECTORY						"TableData\\"
 
+// WANNE: Removed the prefix, because it does not work correct.
 #define GERMAN_PREFIX							"German."
 #define RUSSIAN_PREFIX							"Russian."
 
