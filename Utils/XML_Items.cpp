@@ -72,6 +72,7 @@ itemStartElementHandle(void *userData, const char *name, const char **atts)
 		{
 			pData->curElement = ELEMENT_LIST;
 
+			// WANNE
 			if ( !localizedTextOnly )
 				memset(pData->curArray,0,sizeof(INVTYPE)*pData->maxArraySize);
 
@@ -81,6 +82,7 @@ itemStartElementHandle(void *userData, const char *name, const char **atts)
 		{
 			pData->curElement = ELEMENT;
 
+			// WANNE
 			if ( !localizedTextOnly )
 				memset(&pData->curItem,0,sizeof(INVTYPE));
 
@@ -282,6 +284,16 @@ itemEndElementHandle(void *userData, const char *name)
 			//	strncpy(pData->curItem.szItemName,pData->szCharData,MAX_CHAR_DATA_LENGTH);
 			//	pData->curItem.szItemName[MAX_CHAR_DATA_LENGTH] = '\0';
 			//}
+
+			// WANNE
+			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
+				strcpy(pData->curItem.szItemName,pData->szCharData);
+			else
+			{
+				strncpy(pData->curItem.szItemName,pData->szCharData,MAX_CHAR_DATA_LENGTH);
+				pData->curItem.szItemName[MAX_CHAR_DATA_LENGTH] = '\0';
+			}
+
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_CHAR_DATA_LENGTH);i++)
 			{
 				temp = pData->szCharData[i];
@@ -293,6 +305,17 @@ itemEndElementHandle(void *userData, const char *name)
 		{
 			//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"itemEndElementHandle: longitemname");
 			pData->curElement = ELEMENT;
+
+			// WANNE
+			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
+			{
+				strcpy(pData->curItem.szLongItemName,pData->szCharData);
+			}
+			else
+			{
+				strncpy(pData->curItem.szLongItemName,pData->szCharData,MAX_CHAR_DATA_LENGTH);
+				pData->curItem.szLongItemName[MAX_CHAR_DATA_LENGTH] = '\0';
+			}
 
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_CHAR_DATA_LENGTH);i++)
 			{
@@ -315,13 +338,15 @@ itemEndElementHandle(void *userData, const char *name)
 			//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"itemEndElementHandle: itemdesc");
 			pData->curElement = ELEMENT;
 
-			//if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
-			//	strcpy(pData->curItem.szItemDesc,pData->szCharData);
-			//else
-			//{
-			//	strncpy(pData->curItem.szItemDesc,pData->szCharData,MAX_CHAR_DATA_LENGTH);
-			//	pData->curItem.szItemDesc[MAX_CHAR_DATA_LENGTH] = '\0';
-			//}
+			// WANNE
+			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
+				strcpy(pData->curItem.szItemDesc,pData->szCharData);
+			else
+			{
+				strncpy(pData->curItem.szItemDesc,pData->szCharData,MAX_CHAR_DATA_LENGTH);
+				pData->curItem.szItemDesc[MAX_CHAR_DATA_LENGTH] = '\0';
+			}
+
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_CHAR_DATA_LENGTH);i++)
 			{
 				temp = pData->szCharData[i];
@@ -334,13 +359,15 @@ itemEndElementHandle(void *userData, const char *name)
 			//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"itemEndElementHandle: brname");
 			pData->curElement = ELEMENT;
 
-			//if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
-			//	strcpy(pData->curItem.szBRName,pData->szCharData);
-			//else
-			//{
-			//	strncpy(pData->curItem.szBRName,pData->szCharData,MAX_CHAR_DATA_LENGTH);
-			//	pData->curItem.szBRName[MAX_CHAR_DATA_LENGTH] = '\0';
-			//}
+			// WANNE
+			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
+				strcpy(pData->curItem.szBRName,pData->szCharData);
+			else
+			{
+				strncpy(pData->curItem.szBRName,pData->szCharData,MAX_CHAR_DATA_LENGTH);
+				pData->curItem.szBRName[MAX_CHAR_DATA_LENGTH] = '\0';
+			}
+
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_CHAR_DATA_LENGTH);i++)
 			{
 				temp = pData->szCharData[i];
@@ -353,13 +380,15 @@ itemEndElementHandle(void *userData, const char *name)
 			//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"itemEndElementHandle: brdesc");
 			pData->curElement = ELEMENT;
 
-			//if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
-			//	strcpy(pData->curItem.szBRDesc,pData->szCharData);
-			//else
-			//{
-			//	strncpy(pData->curItem.szBRDesc,pData->szCharData,MAX_CHAR_DATA_LENGTH);
-			//	pData->curItem.szBRDesc[MAX_CHAR_DATA_LENGTH] = '\0';
-			//}
+			// WANNE
+			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
+				strcpy(pData->curItem.szBRDesc,pData->szCharData);
+			else
+			{
+				strncpy(pData->curItem.szBRDesc,pData->szCharData,MAX_CHAR_DATA_LENGTH);
+				pData->curItem.szBRDesc[MAX_CHAR_DATA_LENGTH] = '\0';
+			}
+
 			for(int i=0;i<min((int)strlen(pData->szCharData),MAX_CHAR_DATA_LENGTH);i++)
 			{
 				temp = pData->szCharData[i];
