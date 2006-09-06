@@ -4,9 +4,9 @@
 #include "types.h"
 
 //Macro to convert sector coordinates (1-16,1-16) to 0-255
-#define SECTOR(x,y)				((y-1)*16+x-1)
-#define SECTORX(SectorID) ((SectorID % 16) + 1)
-#define SECTORY(SectorID) ((SectorID / 16) + 1)
+#define SECTOR(x,y)			((y-1)*16+x-1)
+#define SECTORX(SectorID)	((SectorID % 16) + 1)
+#define SECTORY(SectorID)	((SectorID / 16) + 1)
 
 //Sector enumerations
 //
@@ -53,36 +53,34 @@ enum //strategic values for each sector
 
 //Various flag definitions
 
-#define SF_USE_MAP_SETTINGS											0x00000001
-#define SF_ENEMY_AMBUSH_LOCATION								0x00000002
+#define SF_USE_MAP_SETTINGS							0x00000001
+#define SF_ENEMY_AMBUSH_LOCATION					0x00000002
 
 //Special case flag used when players encounter enemies in a sector, then retreat.  The number of enemies
 //will display on mapscreen until time is compressed.  When time is compressed, the flag is cleared, and
 //a question mark is displayed to reflect that the player no longer knows.
-#define SF_PLAYER_KNOWS_ENEMIES_ARE_HERE				0x00000004	
+#define SF_PLAYER_KNOWS_ENEMIES_ARE_HERE			0x00000004	
 
-#define SF_SAM_SITE															0x00000008
-#define SF_MINING_SITE													0x00000010
-#define	SF_ALREADY_VISITED											0x00000020
-#define SF_USE_ALTERNATE_MAP										0x00000040
-#define SF_PENDING_ALTERNATE_MAP								0x00000080
-#define SF_ALREADY_LOADED												0x00000100
-#define SF_HAS_ENTERED_TACTICAL									0x00000200
-#define SF_SKYRIDER_NOTICED_ENEMIES_HERE				0x00000400
-#define SF_HAVE_USED_GUIDE_QUOTE								0x00000800
+#define SF_SAM_SITE									0x00000008
+#define SF_MINING_SITE								0x00000010
+#define SF_ALREADY_VISITED							0x00000020
+#define SF_USE_ALTERNATE_MAP						0x00000040
+#define SF_PENDING_ALTERNATE_MAP					0x00000080
+#define SF_ALREADY_LOADED							0x00000100
+#define SF_HAS_ENTERED_TACTICAL						0x00000200
+#define SF_SKYRIDER_NOTICED_ENEMIES_HERE			0x00000400
+#define SF_HAVE_USED_GUIDE_QUOTE					0x00000800
 
-
-#define	SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS				0x00100000		//Temp File starts with sm_
-#define	SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS		0x00200000		//Temp File starts with l_
-
-#define	SF_REVEALED_STATUS_TEMP_FILE_EXISTS			0x01000000		//Temp File starts with v_
-#define	SF_DOOR_STATUS_TEMP_FILE_EXISTS					0x02000000		//Temp File starts with ds_
+#define SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS			0x00100000		//Temp File starts with sm_
+#define SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS		0x00200000		//Temp File starts with l_
+#define SF_REVEALED_STATUS_TEMP_FILE_EXISTS			0x01000000		//Temp File starts with v_
+#define SF_DOOR_STATUS_TEMP_FILE_EXISTS				0x02000000		//Temp File starts with ds_
 #define SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS			0x04000000		//Temp File starts with e_
-#define SF_CIV_PRESERVED_TEMP_FILE_EXISTS				0x08000000		//Temp File starts with c_
-#define	SF_ITEM_TEMP_FILE_EXISTS								0x10000000		//Temp File starts with i_
-#define	SF_ROTTING_CORPSE_TEMP_FILE_EXISTS			0x20000000		//Temp File starts with r_
-#define	SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS		0x40000000		//Temp File starts with m_
-#define	SF_DOOR_TABLE_TEMP_FILES_EXISTS					0x80000000		//Temp File starts with d_
+#define SF_CIV_PRESERVED_TEMP_FILE_EXISTS			0x08000000		//Temp File starts with c_
+#define SF_ITEM_TEMP_FILE_EXISTS					0x10000000		//Temp File starts with i_
+#define SF_ROTTING_CORPSE_TEMP_FILE_EXISTS			0x20000000		//Temp File starts with r_
+#define SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS		0x40000000		//Temp File starts with m_
+#define SF_DOOR_TABLE_TEMP_FILES_EXISTS				0x80000000		//Temp File starts with d_
 
 
 // town militia experience categories
@@ -95,11 +93,11 @@ enum
 };
 
 // facilities flags
-#define SFCF_HOSPITAL		0x00000001
-#define SFCF_INDUSTRY		0x00000002
-#define SFCF_PRISON			0x00000004
-#define SFCF_MILITARY		0x00000008
-#define SFCF_AIRPORT		0x00000010
+#define SFCF_HOSPITAL	0x00000001
+#define SFCF_INDUSTRY	0x00000002
+#define SFCF_PRISON		0x00000004
+#define SFCF_MILITARY	0x00000008
+#define SFCF_AIRPORT	0x00000010
 #define SFCF_GUN_RANGE	0x00000020
 
 // coordinates of shooting range sector
@@ -109,28 +107,29 @@ enum
 
 
 //Vehicle types
-#define FOOT				0x01 //anywhere
-#define CAR					0x02 //roads
-#define TRUCK				0x04 //roads, plains, sparse
+#define FOOT			0x01 //anywhere
+#define CAR				0x02 //roads
+#define TRUCK			0x04 //roads, plains, sparse
 #define TRACKED			0x08 //roads, plains, sand, sparse
-#define AIR					0x10 //can traverse all terrains at 100%
+#define AIR				0x10 //can traverse all terrains at 100%
 
 //Traversability ratings
 enum
 {
-	TOWN,					//instant
-	ROAD,					//everything travels at 100%
+	TOWN,				//instant
+	ROAD,				//everything travels at 100%
 	PLAINS,				//foot 90%, truck 75%, tracked 100%
-	SAND,					//foot 70%, tracked 60%
+	SAND,				//foot 70%, tracked 60%
 	SPARSE,				//foot 70%, truck 50%, tracked 60%
 	DENSE,				//foot 50% 
 	SWAMP,				//foot 20%
 	WATER,				//foot 15%
 	HILLS,				//foot 50%, truck 50%, tracked 50%
-	GROUNDBARRIER,//only air (super dense forest, ocean, etc.)
+	GROUNDBARRIER,		//only air (super dense forest, ocean, etc.)
 	NS_RIVER,			//river from north to south
 	EW_RIVER,			//river from east to west
 	EDGEOFWORLD,		//nobody can traverse.
+
 	//NEW (not used for border values -- traversal calculations)
 	TROPICS,
 	FARMLAND,
@@ -144,11 +143,12 @@ enum
 	COASTAL_ROAD,
 	SAND_ROAD,
 	SWAMP_ROAD,
+
 	//only used for text purposes and not assigned to areas (SAM sites are hard coded throughout the code)
-	SPARSE_SAM_SITE, //D15 near Drassen
-	SAND_SAM_SITE,   //I8 near Tixa
-	TROPICS_SAM_SITE, //D2 near Chitzena
-	MEDUNA_SAM_SITE, //N4 in Meduna
+	SPARSE_SAM_SITE,		//D15 near Drassen
+	SAND_SAM_SITE,			//I8 near Tixa
+	TROPICS_SAM_SITE,		//D2 near Chitzena
+	MEDUNA_SAM_SITE,		//N4 in Meduna
 	CAMBRIA_HOSPITAL_SITE,
 	DRASSEN_AIRPORT_SITE,
 	MEDUNA_AIRPORT_SITE,
@@ -166,71 +166,71 @@ enum
 };
 extern UINT8 gszTerrain[NUM_TRAVTERRAIN_TYPES][15];
 
-#define TRAVELRATING_NONE				0
-#define TRAVELRATING_LOW				25
+#define TRAVELRATING_NONE			0
+#define TRAVELRATING_LOW			25
 #define TRAVELRATING_NORMAL			50
-#define TRAVELRATING_HIGH				75
+#define TRAVELRATING_HIGH			75
 #define TRAVELRATING_EXTREME		100
 
 //Used by ubGarrisonID when a sector doesn't point to a garrison.  Used by strategic AI only.
-#define NO_GARRISON							255
+#define NO_GARRISON					255
 
 typedef struct SECTORINFO
 {
 	//information pertaining to this sector
-	UINT32	uiFlags;						//various special conditions
-	UINT8		ubInvestigativeState;		//When the sector is attacked by the player, the state increases by 1 permanently.
-																	//This value determines how quickly it is investigated by the enemy.
-	UINT8		ubGarrisonID;						//IF the sector has an ID for this (non 255), then the queen values this sector and it
-																	//indexes the garrison group.
-	INT8		ubPendingReinforcements;	//when the enemy owns this sector, this value will keep track of HIGH priority reinforcements -- not regular.
+	UINT32	uiFlags;					//various special conditions
+	UINT8	ubInvestigativeState;		//When the sector is attacked by the player, the state increases by 1 permanently.
+										//This value determines how quickly it is investigated by the enemy.
+	UINT8	ubGarrisonID;				//IF the sector has an ID for this (non 255), then the queen values this sector and it
+										//indexes the garrison group.
+	INT8	ubPendingReinforcements;	//when the enemy owns this sector, this value will keep track of HIGH priority reinforcements -- not regular.
 	BOOLEAN fMilitiaTrainingPaid;
-	UINT8		ubMilitiaTrainingPercentDone;
-	UINT8		ubMilitiaTrainingHundredths;
+	UINT8	ubMilitiaTrainingPercentDone;
+	UINT8	ubMilitiaTrainingHundredths;
 	//enemy military presence
 	BOOLEAN	fPlayer[ 4 ];				//whether the player THINKS the sector is unde his control or not. array is for sublevels
 	//enemy only info
-	UINT8		ubNumTroops;				//the actual number of troops here.
-	UINT8		ubNumElites;				//the actual number of elites here.
-	UINT8		ubNumAdmins;				//the actual number of admins here.
-	UINT8		ubNumCreatures;			//only set when immediately before ground attack made!
+	UINT8	ubNumTroops;				//the actual number of troops here.
+	UINT8	ubNumElites;				//the actual number of elites here.
+	UINT8	ubNumAdmins;				//the actual number of admins here.
+	UINT8	ubNumCreatures;				//only set when immediately before ground attack made!
 	UINT8   ubTroopsInBattle, ubElitesInBattle, ubAdminsInBattle, ubCreaturesInBattle;
 
-	INT8		bLastKnownEnemies;	// -1 means never been there, no idea, otherwise it's what we'd observed most recently
-															// while this is being maintained (partially, surely buggy), nothing uses it anymore. ARM
+	INT8	bLastKnownEnemies;			// -1 means never been there, no idea, otherwise it's what we'd observed most recently
+										// while this is being maintained (partially, surely buggy), nothing uses it anymore. ARM
 
 	UINT32	ubDayOfLastCreatureAttack;
-	UINT32	uiFacilitiesFlags;	// the flags for various facilities
+	UINT32	uiFacilitiesFlags;			// the flags for various facilities
 
-	UINT8		ubTraversability[5];//determines the traversability ratings to adjacent sectors.
-															//The last index represents the traversability if travelling
-															//throught the sector without entering it.
-	INT8  bNameId;
-	INT8 bUSUSED;   
-	INT8 bBloodCats;
-	INT8 bBloodCatPlacements;
-	INT8 UNUSEDbSAMCondition;
+	UINT8	ubTraversability[5];		//determines the traversability ratings to adjacent sectors.
+										//The last index represents the traversability if travelling
+										//throught the sector without entering it.
+	INT8	bNameId;
+	INT8	bUSUSED;   
+	INT8	bBloodCats;
+	INT8	bBloodCatPlacements;
+	INT8	UNUSEDbSAMCondition;
 
-	UINT8 ubTravelRating;	//Represents how travelled a sector is.  Typically, the higher the travel rating,
-												//the more people go near it.  A travel rating of 0 means there are never people
-												//around.  This value is used for determining how often items would "vanish" from
-												//a sector (nice theory, except it isn't being used that way.  Stealing is only in towns.  ARM)
-	UINT8 ubNumberOfCivsAtLevel[ MAX_MILITIA_LEVELS ]; // town militia per experience class, 0/1/2 is GREEN/REGULAR/ELITE
-	UINT16 usUNUSEDMilitiaLevels;				// unused (ARM)
+	UINT8	ubTravelRating;				//Represents how travelled a sector is.  Typically, the higher the travel rating,
+										//the more people go near it.  A travel rating of 0 means there are never people
+										//around.  This value is used for determining how often items would "vanish" from
+										//a sector (nice theory, except it isn't being used that way.  Stealing is only in towns.  ARM)
+	UINT8	ubNumberOfCivsAtLevel[ MAX_MILITIA_LEVELS ]; // town militia per experience class, 0/1/2 is GREEN/REGULAR/ELITE
+	UINT16	usUNUSEDMilitiaLevels;					// unused (ARM)
 	UINT8	ubUNUSEDNumberOfJoeBlowCivilians;		// unused (ARM)
 	UINT32	uiTimeCurrentSectorWasLastLoaded;		//Specifies the last time the player was in the sector
-	UINT8 ubUNUSEDNumberOfEnemiesThoughtToBeHere;		// using bLastKnownEnemies instead
-	UINT32 uiTimeLastPlayerLiberated; //in game seconds (used to prevent the queen from attacking for awhile)
+	UINT8	ubUNUSEDNumberOfEnemiesThoughtToBeHere;	// using bLastKnownEnemies instead
+	UINT32	uiTimeLastPlayerLiberated;				//in game seconds (used to prevent the queen from attacking for awhile)
 
 	BOOLEAN fSurfaceWasEverPlayerControlled;
 
-	UINT8		bFiller1;
-	UINT8		bFiller2;
-	UINT8		bFiller3;
+	UINT8	bFiller1;
+	UINT8	bFiller2;
+	UINT8	bFiller3;
 
 	UINT32	uiNumberOfWorldItemsInTempFileThatCanBeSeenByPlayer;
 
-	INT8 bPadding[ 41 ];
+	INT8	bPadding[ 41 ];
 
 }SECTORINFO;
 
@@ -243,22 +243,22 @@ typedef struct SECTORINFO
 
 typedef struct UNDERGROUND_SECTORINFO
 {
-	UINT32 uiFlags;
-	UINT8 ubSectorX, ubSectorY, ubSectorZ;
-	UINT8 ubNumElites, ubNumTroops, ubNumAdmins, ubNumCreatures;
-	UINT8 fVisited;
-	INT8 ubTravelRating;	//Represents how travelled a sector is.  Typically, the higher the travel rating,
-												//the more people go near it.  A travel rating of 0 means there are never people
-												//around.  This value is used for determining how often items would "vanish" from
-												//a sector.
+	UINT32	uiFlags;
+	UINT8	ubSectorX, ubSectorY, ubSectorZ;
+	UINT8	ubNumElites, ubNumTroops, ubNumAdmins, ubNumCreatures;
+	UINT8	fVisited;
+	INT8	ubTravelRating;				//Represents how travelled a sector is.  Typically, the higher the travel rating,
+										//the more people go near it.  A travel rating of 0 means there are never people
+										//around.  This value is used for determining how often items would "vanish" from
+										//a sector.
 	UINT32	uiTimeCurrentSectorWasLastLoaded;		//Specifies the last time the player was in the sector
-	struct UNDERGROUND_SECTORINFO *next;
-	UINT8	ubAdjacentSectors;	//mask containing which sectors are adjacent
-	UINT8 ubCreatureHabitat;	//determines how creatures live in this sector (see creature spreading.c)
-	UINT8 ubElitesInBattle, ubTroopsInBattle, ubAdminsInBattle, ubCreaturesInBattle;
+	struct	UNDERGROUND_SECTORINFO *next;
+	UINT8	ubAdjacentSectors;			//mask containing which sectors are adjacent
+	UINT8	ubCreatureHabitat;			//determines how creatures live in this sector (see creature spreading.c)
+	UINT8	ubElitesInBattle, ubTroopsInBattle, ubAdminsInBattle, ubCreaturesInBattle;
 
 	UINT32	uiNumberOfWorldItemsInTempFileThatCanBeSeenByPlayer;
-	INT8 bPadding[36];
+	INT8	bPadding[36];
 	//no padding left!
 }UNDERGROUND_SECTORINFO;
 

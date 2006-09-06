@@ -507,7 +507,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		{
 			return;	// no shells, can't fire the MORTAR
 		}
-		ubSafetyMargin = Explosive[ Item[ pSoldier->inv[bPayloadPocket].usItem ].ubClassIndex ].ubRadius;
+		ubSafetyMargin = (UINT8)Explosive[ Item[ pSoldier->inv[bPayloadPocket].usItem ].ubClassIndex ].ubRadius;
   }
 	// if he's got a GL in his hand, make sure he has some type of GRENADE avail.
 	else if (Item[usInHand].grenadelauncher )
@@ -519,7 +519,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		{
 			return;	// no grenades, can't fire the GLAUNCHER
 		}
-		ubSafetyMargin = Explosive[ Item[ pSoldier->inv[ bPayloadPocket ].usItem ].ubClassIndex ].ubRadius;
+		ubSafetyMargin = (UINT8)Explosive[ Item[ pSoldier->inv[ bPayloadPocket ].usItem ].ubClassIndex ].ubRadius;
 		usGrenade = pSoldier->inv[ bPayloadPocket ].usItem;
 	}
 	else if ( Item[usInHand].rocketlauncher )
@@ -528,7 +528,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		// put in hand
 		if ( Item[usInHand].singleshotrocketlauncher )
 			// as C1
-			ubSafetyMargin = Explosive[ Item[ C1 ].ubClassIndex ].ubRadius;
+			ubSafetyMargin = (UINT8)Explosive[ Item[ C1 ].ubClassIndex ].ubRadius;
 		else
 		{
 			bPayloadPocket = FindLaunchable ( pSoldier, usInHand );
@@ -536,7 +536,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 			{
 				return;	// no ammo, can't fire 
 			}
-			ubSafetyMargin = Explosive[ Item[ pSoldier->inv[bPayloadPocket].usItem ].ubClassIndex ].ubRadius;
+			ubSafetyMargin = (UINT8)Explosive[ Item[ pSoldier->inv[bPayloadPocket].usItem ].ubClassIndex ].ubRadius;
 		}
 	}
 	else if (Item[usInHand].cannon )
@@ -547,7 +547,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		{
 			return;	// no ammo, can't fire 
 		}
-		ubSafetyMargin = Explosive[ Item[ pSoldier->inv[bPayloadPocket].usItem ].ubClassIndex ].ubRadius;
+		ubSafetyMargin = (UINT8)Explosive[ Item[ pSoldier->inv[bPayloadPocket].usItem ].ubClassIndex ].ubRadius;
 
 
 		//bPayloadPocket = FindObj( pSoldier, TANK_SHELL );
@@ -563,7 +563,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 		// else it's a plain old grenade, now in his hand
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"calcbestthrow: buddy's got a grenade");
 		bPayloadPocket = HANDPOS;
-		ubSafetyMargin = Explosive[ Item[ pSoldier->inv[ bPayloadPocket ].usItem ].ubClassIndex ].ubRadius;
+		ubSafetyMargin = (UINT8)Explosive[ Item[ pSoldier->inv[ bPayloadPocket ].usItem ].ubClassIndex ].ubRadius;
 		usGrenade = pSoldier->inv[ bPayloadPocket ].usItem;
 
 		if ( Item[usGrenade].flare )
@@ -1675,13 +1675,13 @@ INT32 EstimateShotDamage(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ub
 		{
 			// explosive damage is 100-200% that of the rated, so multiply by 3/2s here
 			case CREATURE_QUEEN_SPIT: //TODO: Madd - remove the hardcoding here
-				iDamage += ( 3 * Explosive[ Item[ LARGE_CREATURE_GAS ].ubClassIndex ].ubDamage * NumMercsCloseTo( pOpponent->sGridNo, Explosive[ Item[ LARGE_CREATURE_GAS ].ubClassIndex ].ubRadius ) ) / 2;
+				iDamage += ( 3 * Explosive[ Item[ LARGE_CREATURE_GAS ].ubClassIndex ].ubDamage * NumMercsCloseTo( pOpponent->sGridNo, (UINT8)Explosive[ Item[ LARGE_CREATURE_GAS ].ubClassIndex ].ubRadius ) ) / 2;
 				break;
 			case CREATURE_OLD_MALE_SPIT:
-				iDamage += ( 3 * Explosive[ Item[ SMALL_CREATURE_GAS ].ubClassIndex ].ubDamage * NumMercsCloseTo( pOpponent->sGridNo, Explosive[ Item[ SMALL_CREATURE_GAS ].ubClassIndex  ].ubRadius ) ) / 2;
+				iDamage += ( 3 * Explosive[ Item[ SMALL_CREATURE_GAS ].ubClassIndex ].ubDamage * NumMercsCloseTo( pOpponent->sGridNo, (UINT8)Explosive[ Item[ SMALL_CREATURE_GAS ].ubClassIndex  ].ubRadius ) ) / 2;
 				break;
 			default:
-				iDamage += ( 3 * Explosive[ Item[ VERY_SMALL_CREATURE_GAS ].ubClassIndex ].ubDamage * NumMercsCloseTo( pOpponent->sGridNo, Explosive[ Item[ VERY_SMALL_CREATURE_GAS ].ubClassIndex  ].ubRadius ) ) / 2;
+				iDamage += ( 3 * Explosive[ Item[ VERY_SMALL_CREATURE_GAS ].ubClassIndex ].ubDamage * NumMercsCloseTo( pOpponent->sGridNo, (UINT8)Explosive[ Item[ VERY_SMALL_CREATURE_GAS ].ubClassIndex  ].ubRadius ) ) / 2;
 				break;
 		}
   }

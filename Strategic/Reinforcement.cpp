@@ -122,7 +122,7 @@ UINT8 GetAdjacentSectors( UINT8 pSectors[4], INT16 sSectorX, INT16 sSectorY )
 		( GetTownIdForSector( sSectorX, sSectorY ) != BLANK_SECTOR ? TRUE : FALSE ), TRUE, IS_ONLY_IN_CITIES );
 
 	for( ubIndex = 0; ubIndex < ubDirNumber; ubIndex++ )
-		pSectors[ ubCounter++ ] = pusMoveDir[ ubIndex ][ 0 ];
+		pSectors[ ubCounter++ ] = (UINT8)pusMoveDir[ ubIndex ][ 0 ];
 
 	return ubCounter;
 }
@@ -266,10 +266,10 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 			pGroup->ubPrevX = pGroup->ubSectorX;
 			pGroup->ubPrevY = pGroup->ubSectorY;
 
-			pGroup->ubSectorX = pGroup->ubNextX = sMapX;
-			pGroup->ubSectorY = pGroup->ubNextY = sMapY;
+			pGroup->ubSectorX = pGroup->ubNextX = (UINT8)sMapX;
+			pGroup->ubSectorY = pGroup->ubNextY = (UINT8)sMapY;
 
-			return pusMoveDir[ ubIndex ][ 2 ];
+			return (UINT8)pusMoveDir[ ubIndex ][ 2 ];
 		}
 
 	if( NumEnemiesInFiveSectors( sMapX, sMapY ) - NumEnemiesInSector( sMapX, sMapY ) == 0 )
@@ -297,7 +297,7 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 				(pSector->ubNumAdmins)--;
 			}
 
-			return pusMoveDir[ ubIndex ][ 2 ];
+			return (UINT8)pusMoveDir[ ubIndex ][ 2 ];
 		}
 	}
 }
@@ -361,7 +361,7 @@ UINT8 DoReinforcementAsPendingMilitia( INT16 sMapX, INT16 sMapY, UINT8 *pubRank 
 				*pubRank = GREEN_MILITIA;
 			}
 
-			return pusMoveDir[ ubIndex ][ 2 ];
+			return (UINT8)pusMoveDir[ ubIndex ][ 2 ];
 		}
 	}
 	
@@ -377,7 +377,7 @@ void AddPossiblePendingMilitiaToBattle()
 	static UINT8 ubPredefinedInsertionCode = 255;
 	static UINT8 ubPredefinedRank = 255;
 
-	if( !PlayerMercsInSector( gWorldSectorX, gWorldSectorY, 0 ) || !CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY ) 
+	if( !PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, 0 ) || !CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY ) 
 		|| !NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) ) return;
 //gGameExternalOptions.guiMaxMilitiaSquadSize - CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY );
 	ubSlots = NumFreeMilitiaSlots();

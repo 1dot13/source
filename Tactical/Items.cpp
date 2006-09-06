@@ -2222,7 +2222,7 @@ UINT8 CalculateObjectWeight( OBJECTTYPE *pObject )
 			{
 				//Pulmu:
 				//Temporary calculation for minWeight
-				UINT32 uiMinWeight = (Item[ pObject->usGunAmmoItem].ubWeight / 5.0) + 0.5;
+				UINT32 uiMinWeight = (UINT32)((Item[ pObject->usGunAmmoItem].ubWeight / 5.0) + 0.5);
 				if( uiMinWeight < 1 || uiMinWeight > Item[ pObject->usGunAmmoItem].ubWeight)
 				{
 					uiMinWeight = 1;
@@ -2248,7 +2248,7 @@ UINT8 CalculateObjectWeight( OBJECTTYPE *pObject )
 	{
 		usWeight = 0;
 		//Temporary calculation for minWeight. 0.2*ubWeight rounded correctly 
-		UINT32 uiMinWeight = (Item[pObject->usItem].ubWeight / 5.0) + 0.5;
+		UINT32 uiMinWeight = (UINT32)((Item[pObject->usItem].ubWeight / 5.0) + 0.5);
 		if( uiMinWeight < 1 || uiMinWeight > Item[pObject->usItem].ubWeight)
 		{
 			uiMinWeight = 1;

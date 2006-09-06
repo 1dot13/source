@@ -263,12 +263,12 @@ void InternalIgniteExplosion( UINT8 ubOwner, INT16 sX, INT16 sY, INT16 sZ, INT16
 	// No explosive but an attacker with HE ammo.
 	if ( !( Item[ usItem ].usItemClass & IC_EXPLOSV ) && ubOwner != NOBODY)
 	{
-		ExpParams.ubTypeID = Explosive[AmmoTypes[MercPtrs[ubOwner]->inv[MercPtrs[ubOwner]->ubAttackingHand ].ubGunAmmoType].highExplosive].ubAnimationID;
+		ExpParams.ubTypeID = (INT8)Explosive[AmmoTypes[MercPtrs[ubOwner]->inv[MercPtrs[ubOwner]->ubAttackingHand ].ubGunAmmoType].highExplosive].ubAnimationID;
 		//	return;
 	}
 	else // just normal explosives should get here
 	{
-		ExpParams.ubTypeID = Explosive[ Item[ usItem ].ubClassIndex ].ubAnimationID;
+		ExpParams.ubTypeID = (INT8)Explosive[ Item[ usItem ].ubClassIndex ].ubAnimationID;
 	}	
 	// Callahan end
 
@@ -1100,7 +1100,7 @@ BOOLEAN ExplosiveDamageStructureAtGridNo( STRUCTURE * pCurrent, STRUCTURE **ppNe
 				// Get tile type
 				GetTileType( pNode->usIndex, &uiTileType );
 				// Check if we are a fountain!
-				if ( stricmp( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiTileType ], "fount1.sti" ) == 0 )
+				if ( _stricmp( gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ uiTileType ], "fount1.sti" ) == 0 )
 				{
 					// Yes we are!
 					// Remove water....
@@ -2458,7 +2458,7 @@ void SpreadEffect( INT16 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, 
 
 	if ( fSubsequent != BLOOD_SPREAD_EFFECT )
 	{
-		MakeNoise( NOBODY, sGridNo, bLevel, gpWorldLevelData[sGridNo].ubTerrainID, Explosive[ Item [ usItem ].ubClassIndex ].ubVolume, NOISE_EXPLOSION );
+		MakeNoise( NOBODY, sGridNo, bLevel, gpWorldLevelData[sGridNo].ubTerrainID, (UINT8)Explosive[ Item [ usItem ].ubClassIndex ].ubVolume, NOISE_EXPLOSION );
 
 	}
 }
@@ -3017,7 +3017,7 @@ void HandleExplosionQueue( void )
 			}
 			else if ( pObj->usBombItem == TRIP_FLARE )
 			{
-				NewLightEffect( sGridNo, Explosive[pObj->usItem].ubDuration, Explosive[pObj->usItem].ubStartRadius );
+				NewLightEffect( sGridNo, (UINT8)Explosive[pObj->usItem].ubDuration, (UINT8)Explosive[pObj->usItem].ubStartRadius );
 				RemoveItemFromPool( sGridNo, gWorldBombs[ uiWorldBombIndex ].iItemIndex, ubLevel );
 			}
 			else

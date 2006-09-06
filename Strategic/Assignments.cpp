@@ -10309,7 +10309,7 @@ void SetTimeOfAssignmentChangeForMerc( SOLDIERTYPE *pSoldier )
 // have we spent enough time on assignment for it to count?
 BOOLEAN EnoughTimeOnAssignment( SOLDIERTYPE *pSoldier )
 {
-	if( GetWorldTotalMin() - pSoldier->uiLastAssignmentChangeMin >= gGameExternalOptions.ubMinutesForAssignmentToCount )
+	if( GetWorldTotalMin() - pSoldier->uiLastAssignmentChangeMin >= (UINT32)gGameExternalOptions.ubMinutesForAssignmentToCount )
 	{
 		return( TRUE );
 	}

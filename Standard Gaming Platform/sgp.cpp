@@ -118,7 +118,7 @@ UINT8		gbPixelDepth = PIXEL_DEPTH;
 
 INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam)
 { 
-	static fRestore = FALSE;
+	static BOOLEAN fRestore = FALSE;
 
   if(gfIgnoreMessages)
 		return(DefWindowProc(hWindow, Message, wParam, lParam));

@@ -11443,7 +11443,7 @@ void DebugValidateSoldierData( )
 	SOLDIERTYPE		*pSoldier;
 	CHAR16 sString[ 1024 ];
 	BOOLEAN fProblemDetected = FALSE;
-	static uiFrameCount = 0;
+	static UINT32 uiFrameCount = 0;
 
 
 	// this function is too slow to run every frame, so do the check only every 50 frames

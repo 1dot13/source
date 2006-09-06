@@ -2963,7 +2963,7 @@ HRESULT       ReturnCode;
 	return(TRUE);
 }
 
-template void FatalError<char const *>(char *, ...);
+// template void FatalError<char const *>(char *, ...);
 template void FatalError<char const *>(char const *, ...);
 template <typename string1>
 void FatalError( string1 pError, ...)

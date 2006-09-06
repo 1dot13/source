@@ -521,7 +521,7 @@ void SetMainMenuExitScreen( UINT32 uiNewScreen )
 
 void CreateDestroyBackGroundMouseMask( BOOLEAN fCreate )
 {
-	static fRegionCreated = FALSE;
+	static BOOLEAN fRegionCreated = FALSE;
 
 	if( fCreate )
 	{

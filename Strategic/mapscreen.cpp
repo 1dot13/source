@@ -9862,7 +9862,7 @@ void MapInvDoneButtonfastHelpCall( )
 void UpdateStatusOfMapSortButtons( void )
 {
 	INT32 iCounter = 0;
-	static fShownLastTime = FALSE;
+	static BOOLEAN fShownLastTime = FALSE;
 
 
 	if( ( gfPreBattleInterfaceActive ) || fShowInventoryFlag )

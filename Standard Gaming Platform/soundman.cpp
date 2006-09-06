@@ -1207,7 +1207,7 @@ BOOLEAN fRemoved;
 		FileClose(hFile);
 
 		strcpy(pSampleList[uiSample].pName, pFilename);
-		strupr(pSampleList[uiSample].pName);
+		_strupr(pSampleList[uiSample].pName);
 		pSampleList[uiSample].uiSize=uiSize;
 		pSampleList[uiSample].uiFlags|=SAMPLE_ALLOCATED;
 		return(uiSample);

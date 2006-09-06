@@ -26,8 +26,8 @@
 #include "SaveLoadGame.h"
 
 
-INT8 FromWorldFlagsToSmokeType( UINT8 ubWorldFlags );
-UINT8 FromSmokeTypeToWorldFlags( INT8 bType );
+INT8 FromWorldFlagsToSmokeType( UINT16 ubWorldFlags );
+UINT16 FromSmokeTypeToWorldFlags( INT8 bType );
 
 
 
@@ -80,7 +80,7 @@ void RecountSmokeEffects( void )
 // Returns NO_SMOKE_EFFECT if none there...
 INT8 GetSmokeEffectOnTile( INT16 sGridNo, INT8 bLevel )
 {
-	UINT8		ubExtFlags;
+	UINT16		ubExtFlags;
 
 	ubExtFlags = gpWorldLevelData[ sGridNo ].ubExtFlags[ bLevel ];
 
@@ -95,7 +95,7 @@ INT8 GetSmokeEffectOnTile( INT16 sGridNo, INT8 bLevel )
 }
 
 
-INT8 FromWorldFlagsToSmokeType( UINT8 ubWorldFlags )
+INT8 FromWorldFlagsToSmokeType( UINT16 ubWorldFlags )
 {
 	if ( ubWorldFlags & MAPELEMENT_EXT_SMOKE )
 	{
@@ -124,7 +124,7 @@ INT8 FromWorldFlagsToSmokeType( UINT8 ubWorldFlags )
 }
 
 
-UINT8 FromSmokeTypeToWorldFlags( INT8 bType )
+UINT16 FromSmokeTypeToWorldFlags( INT8 bType )
 {
 	switch( bType )
 	{
@@ -227,8 +227,8 @@ INT32 NewSmokeEffect( INT16 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner )
 
 
 
-	pSmoke->ubDuration	= Explosive[ Item[ usItem ].ubClassIndex ].ubDuration;
-	pSmoke->ubRadius    = Explosive[ Item[ usItem ].ubClassIndex ].ubStartRadius;
+	pSmoke->ubDuration	= (UINT8)Explosive[ Item[ usItem ].ubClassIndex ].ubDuration;
+	pSmoke->ubRadius    = (UINT8)Explosive[ Item[ usItem ].ubClassIndex ].ubStartRadius;
 	pSmoke->bAge				= 0;
 	pSmoke->fAllocated  = TRUE;
 	pSmoke->bType				= bSmokeEffectType;

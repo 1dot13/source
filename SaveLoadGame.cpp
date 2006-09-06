@@ -121,7 +121,7 @@ extern void TrashAllSoldiers( );
 extern void ResetJA2ClockGlobalTimers( void );
 
 extern void BeginLoadScreen( void );
-extern EndLoadScreen();
+extern void EndLoadScreen();
 
 //Global variable used
 #ifdef JA2BETAVERSION

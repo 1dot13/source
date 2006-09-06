@@ -67,7 +67,7 @@
 // default = 7 (%)
 #define EXP_BONUS  7
 
-#define MAX_AR_TEAM_SIZE 256
+#define MAX_AR_TEAM_SIZE 255 // Must fit in 8 bits
 
 #define REINFORCMENT_ATTACK_DELAY_PER_SOLDIER_IN_SECTOR 1000
 

@@ -275,7 +275,6 @@ void GetNumberOfMobileEnemiesInSector( INT16 sSectorX, INT16 sSectorY, UINT8 *pu
 void GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( INT16 sSectorX, INT16 sSectorY, UINT8 *pubNumAdmins, UINT8 *pubNumTroops, UINT8 *pubNumElites )
 {
 	GROUP *pGroup;
-	SECTORINFO *pSector;
 	Assert( sSectorX >= 1 && sSectorX <= 16 );
 	Assert( sSectorY >= 1 && sSectorY <= 16 );
 
@@ -958,7 +957,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 						#ifdef JA2BETAVERSION
 							if( guiCurrentScreen == GAME_SCREEN )
 							{
-								if( ubTotalEnemies <= iMaxEnemyGroupSize && pSector->ubNumCreatures != pSector->ubCreaturesInBattle ||
+								if( ubTotalEnemies <= (UINT32)iMaxEnemyGroupSize && pSector->ubNumCreatures != pSector->ubCreaturesInBattle ||
 										!pSector->ubNumCreatures || !pSector->ubCreaturesInBattle ||
 										pSector->ubNumCreatures > 50 || pSector->ubCreaturesInBattle > 50 )
 								{
@@ -999,7 +998,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 				{
 					case SOLDIER_CLASS_ADMINISTRATOR:
 						#ifdef JA2BETAVERSION
-						if( ubTotalEnemies <= iMaxEnemyGroupSize && pSector->ubNumAdmins != pSector->ubAdminsInBattle ||
+						if( ubTotalEnemies <= (UINT32)iMaxEnemyGroupSize && pSector->ubNumAdmins != pSector->ubAdminsInBattle ||
 								!pSector->ubNumAdmins || !pSector->ubAdminsInBattle ||
 								pSector->ubNumAdmins > 100 || pSector->ubAdminsInBattle > iMaxEnemyGroupSize )
 						{
@@ -1017,7 +1016,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 						break;
 					case SOLDIER_CLASS_ARMY:
 						#ifdef JA2BETAVERSION
-						if( ubTotalEnemies <= iMaxEnemyGroupSize && pSector->ubNumTroops != pSector->ubTroopsInBattle ||
+						if( ubTotalEnemies <= (UINT32)iMaxEnemyGroupSize && pSector->ubNumTroops != pSector->ubTroopsInBattle ||
 								!pSector->ubNumTroops || !pSector->ubTroopsInBattle ||
 								pSector->ubNumTroops > 100 || pSector->ubTroopsInBattle > iMaxEnemyGroupSize )
 						{
@@ -1035,7 +1034,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 						break;
 					case SOLDIER_CLASS_ELITE:
 						#ifdef JA2BETAVERSION
-						if( ubTotalEnemies <= iMaxEnemyGroupSize && pSector->ubNumElites != pSector->ubElitesInBattle ||
+						if( ubTotalEnemies <= (UINT32)iMaxEnemyGroupSize && pSector->ubNumElites != pSector->ubElitesInBattle ||
 								!pSector->ubNumElites || !pSector->ubElitesInBattle ||
 								pSector->ubNumElites > 100 || pSector->ubElitesInBattle > iMaxEnemyGroupSize )
 						{
@@ -1053,7 +1052,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 						break;
 					case SOLDIER_CLASS_CREATURE:
 						#ifdef JA2BETAVERSION
-						if( ubTotalEnemies <= iMaxEnemyGroupSize && pSector->ubNumCreatures != pSector->ubCreaturesInBattle ||
+						if( ubTotalEnemies <= (UINT32)iMaxEnemyGroupSize && pSector->ubNumCreatures != pSector->ubCreaturesInBattle ||
 								!pSector->ubNumCreatures || !pSector->ubCreaturesInBattle ||
 								pSector->ubNumCreatures > 50 || pSector->ubCreaturesInBattle > 50 )
 						{
@@ -1123,7 +1122,7 @@ void AddPossiblePendingEnemiesToBattle()
 	SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
 	static UINT8 ubPredefinedInsertionCode = 255;
 
-	if( ( !PlayerMercsInSector( gWorldSectorX, gWorldSectorY, 0 ) && !CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY ) )
+	if( ( !PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, 0 ) && !CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY ) )
 		|| !NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) ) return;
 
 

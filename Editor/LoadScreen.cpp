@@ -638,7 +638,7 @@ FDLG_LIST *AddToFDlgList(FDLG_LIST *pList, GETFILESTRUCT *pInfo)
 	}
 
 	// Add and sort alphabetically without regard to case -- function limited to 10 chars comparison
-	if ( stricmp(pList->FileInfo.zFileName, pInfo->zFileName ) > 0 )
+	if ( _stricmp(pList->FileInfo.zFileName, pInfo->zFileName ) > 0 )
 	{
 		// pInfo is smaller than pList (i.e. Insert before)
 		pNode = (FDLG_LIST *)MemAlloc( sizeof(FDLG_LIST) );

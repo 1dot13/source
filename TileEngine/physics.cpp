@@ -2521,7 +2521,7 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 2337"));
 			{
 				// Add a light effect...
 				
-				NewLightEffect( pObject->sGridNo, Explosive[Item[pObject->Obj.usItem].ubClassIndex].ubDuration , Explosive[Item[pObject->Obj.usItem].ubClassIndex].ubStartRadius );
+				NewLightEffect( pObject->sGridNo, (UINT8)Explosive[Item[pObject->Obj.usItem].ubClassIndex].ubDuration , (UINT8)Explosive[Item[pObject->Obj.usItem].ubClassIndex].ubStartRadius );
 			}
 		}
 		else if ( Item[ pObject->Obj.usItem ].usItemClass & IC_GRENADE  )

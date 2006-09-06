@@ -248,7 +248,7 @@ UINT16 CountDirectionEnemyRating( INT16 sMapX, INT16 sMapY, UINT8 uiDir )
 			// is it in a right direction?
 			if( ddAngle >= ddMinAngle && ddAngle <= ddMaxAngle )
 			{
-				DOUBLE ddDistance = sqrt( pow( sLMY - sMapY, 2 ) + pow( sLMX - sMapX, 2 ) );
+				DOUBLE ddDistance = sqrt( pow( (double)(sLMY - sMapY), 2 ) + pow( (double)(sLMX - sMapX), 2 ) );
 
 				ddRes += (DOUBLE)uiSumOfEnemyTroops / pow( ddDistance, 2 );
 	
@@ -289,17 +289,17 @@ UINT16 CountDirectionRating( INT16 sMapX, INT16 sMapY, UINT8 uiDir )
 	}
 
 	if( CountAllMilitiaInSector( sDMapX, sDMapY ) &&
-		CountAllMilitiaInSector( sDMapX, sDMapY ) + CountAllMilitiaInSector( sMapX, sMapY )	<= gGameExternalOptions.guiMaxMilitiaSquadSize )
+		(UINT32)( CountAllMilitiaInSector( sDMapX, sDMapY ) + CountAllMilitiaInSector( sMapX, sMapY ) ) <= gGameExternalOptions.guiMaxMilitiaSquadSize )
 		iRes += DIR_WITH_UNFULL_SQUAD_RATING_BONUS;
 	
 	if( NumEnemiesInSector( sDMapX, sDMapY  ) )
 	{
 	//	if( GetTownIdForSector( sMapX, sMapY ) == BLANK_SECTOR )
-			iDiff = iRes * ( (FLOAT)CountAllMilitiaInFiveSectors( sDMapX, sDMapY ) / (FLOAT)NumEnemiesInFiveSectors( sDMapX, sDMapY ) );
+			iDiff = (INT32)( (FLOAT)iRes * ( (FLOAT)CountAllMilitiaInFiveSectors( sDMapX, sDMapY ) / (FLOAT)NumEnemiesInFiveSectors( sDMapX, sDMapY ) ) );
 	//	else 
 	//		iDiff = iRes * ( (FLOAT)CountAllMilitiaInFiveSectors( sMapX, sMapY ) / DIV_OF_ORIGINAL_MILITIA / (FLOAT)NumEnemiesInFiveSectors( sDMapX, sDMapY ) );
 
-		if( iDiff > (FLOAT)DIR_MIN_DIF * iRes ) 
+		if( iDiff > (INT32)( (FLOAT)DIR_MIN_DIF * (FLOAT)iRes ) ) 
 			iRes = iDiff;
 		else 
 			iRes = 0;
@@ -307,7 +307,7 @@ UINT16 CountDirectionRating( INT16 sMapX, INT16 sMapY, UINT8 uiDir )
 
 
 // There's player's mercs! Go there
-	if( PlayerMercsInSector_MSE( sDMapX, sDMapY, FALSE ) )
+	if( PlayerMercsInSector_MSE( (UINT8)sDMapX, (UINT8)sDMapY, FALSE ) )
 		iRes += 15000;// should be enough
 
 //	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"M %ld, E%ld,%ld %ld, Diff %ld", CountAllMilitiaInSector( sMapX, sMapY ), sDMapX, sDMapY, NumEnemiesInSector( sDMapX, sDMapY ), ((INT32)CountAllMilitiaInSector( sMapX, sMapY )) - ((INT32)NumEnemiesInSector( sDMapX, sDMapY )) );
@@ -512,7 +512,7 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	}
 	// moving squad, if it is not a SAM site
 	else if(!IsThisSectorASAMSector(  sMapX, sMapY, 0 ))
-		if( !PlayerMercsInSector_MSE( sMapX, sMapY, FALSE ) ) // and there's no player's mercs in the sector
+		if( !PlayerMercsInSector_MSE( (UINT8)sMapX, (UINT8)sMapY, FALSE ) ) // and there's no player's mercs in the sector
 	{
 		if( GetWorldHour() % 2 )return;
 
@@ -621,7 +621,7 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 			gpAttackDirs[ x + 1 ][0] += pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA] - uiNumGreen;
 			gpAttackDirs[ x + 1 ][1] += pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA] - uiNumReg;
 			gpAttackDirs[ x + 1 ][2] += pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA] - uiNumElite;
-			gpAttackDirs[ x + 1 ][3] = pMoveDir[ x ][2];
+			gpAttackDirs[ x + 1 ][3] = (UINT8)pMoveDir[ x ][2];
 			
 			uiNumGreen = pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];
 			uiNumReg = pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];
@@ -679,7 +679,7 @@ void MilitiaFollowPlayer( INT16 sMapX, INT16 sMapY, INT16 sDMapX, INT16 sDMapY )
 {
 	if( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR ||
 		 IsThisSectorASAMSector( sMapX, sMapY, 0 ) ||
-		 PlayerMercsInSector_MSE( sMapX, sMapY, TRUE ) )return;
+		 PlayerMercsInSector_MSE( (UINT8)sMapX, (UINT8)sMapY, TRUE ) )return;
 
 	if( GetTownIdForSector( sDMapX, sDMapY ) != BLANK_SECTOR ||
 		 IsThisSectorASAMSector( sDMapX, sDMapY, 0 ) )return;

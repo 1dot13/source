@@ -4515,10 +4515,10 @@ void DisplayPositionOfHelicopter( void )
 
 
 			// WANNE 2
-			AssertMsg( ( x >= 0 ) && ( x < SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid x = %d.  At %d,%d.  Next %d,%d.  Min/Max X = %d/%d",
+			AssertMsg( ( x >= 0 ) && ( x < (UINT32)SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid x = %d.  At %d,%d.  Next %d,%d.  Min/Max X = %d/%d",
 							x, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubNextX, pGroup->ubNextY, minX, maxX ) );
 
-			AssertMsg( ( y >= 0 ) && ( y < SCREEN_HEIGHT ), String( "DisplayPositionOfHelicopter: Invalid y = %d.  At %d,%d.  Next %d,%d.  Min/Max Y = %d/%d",
+			AssertMsg( ( y >= 0 ) && ( y < (UINT32)SCREEN_HEIGHT ), String( "DisplayPositionOfHelicopter: Invalid y = %d.  At %d,%d.  Next %d,%d.  Min/Max Y = %d/%d",
 							y, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubNextX, pGroup->ubNextY, minY, maxY ) );
 
 
@@ -4584,8 +4584,8 @@ void DisplayDestinationOfHelicopter( void )
 		y = MAP_VIEW_START_Y + ( MAP_GRID_Y * sMapY ) + 3;
 
 		// WANNE 2
-		AssertMsg( ( x >= 0 ) && ( x < SCREEN_WIDTH ), String( "DisplayDestinationOfHelicopter: Invalid x = %d.  Dest %d,%d", x, sMapX, sMapY ) );
-		AssertMsg( ( y >= 0 ) && ( y < SCREEN_HEIGHT ), String( "DisplayDestinationOfHelicopter: Invalid y = %d.  Dest %d,%d", y, sMapX, sMapY ) );
+		AssertMsg( ( x >= 0 ) && ( x < (UINT32)SCREEN_WIDTH ), String( "DisplayDestinationOfHelicopter: Invalid x = %d.  Dest %d,%d", x, sMapX, sMapY ) );
+		AssertMsg( ( y >= 0 ) && ( y < (UINT32)SCREEN_HEIGHT ), String( "DisplayDestinationOfHelicopter: Invalid y = %d.  Dest %d,%d", y, sMapX, sMapY ) );
 
 		// clip blits to mapscreen region
 		ClipBlitsToMapViewRegion( );

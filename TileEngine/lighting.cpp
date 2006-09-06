@@ -3098,7 +3098,7 @@ INT32 iCount;
 
 	for(iCount=0; iCount < MAX_LIGHT_TEMPLATES; iCount++)
 	{
-		if((pLightNames[iCount]!=NULL) && !(stricmp(pFilename, pLightNames[iCount])))
+		if((pLightNames[iCount]!=NULL) && !(_stricmp(pFilename, pLightNames[iCount])))
 			return(iCount);
 	}
 

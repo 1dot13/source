@@ -144,7 +144,7 @@ static UINT8 gubTreeSightReduction[ANIM_STAND + 1] =
 
 #define MAX_CHANCE_OF_HITTING_STRUCTURE 90
 
-static guiStructureHitChance[ MAX_DIST_FOR_LESS_THAN_MAX_CHANCE_TO_HIT_STRUCTURE + 1] =
+static UINT32 guiStructureHitChance[ MAX_DIST_FOR_LESS_THAN_MAX_CHANCE_TO_HIT_STRUCTURE + 1] =
 {
 	 0,	// 0 tiles
 	 0,

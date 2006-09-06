@@ -188,7 +188,7 @@ void SetRaisedObjectFlag( char *cFilename, TILE_IMAGERY *pTileSurf )
 		GetRootName( (INT8 *)cRootFile, (INT8 *)cFilename );
 		while( ubRaisedObjectFiles[ cnt ][ 0 ] != '1' )
 		{
-			if ( stricmp( ubRaisedObjectFiles[ cnt ], cRootFile ) == 0 )
+			if ( _stricmp( ubRaisedObjectFiles[ cnt ], cRootFile ) == 0 )
 			{		
 				pTileSurf->bRaisedObjectType = TRUE;
 			}

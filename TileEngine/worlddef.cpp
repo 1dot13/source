@@ -2987,6 +2987,7 @@ BOOLEAN LoadWorld( UINT8 *	puiFilename )
 	{
 		UINT32 uiNums[37];
 		LOADDATA( uiNums, pBuffer, 37 * sizeof( INT32 ) );
+		dMajorMapVersion = 5.00;
 	}
 
 	SetRelativeStartAndEndPercentage( 0, 58, 59, L"Loading room information..." );
