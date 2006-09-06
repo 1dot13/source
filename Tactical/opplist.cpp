@@ -169,7 +169,9 @@ void InitSightRange()
 	STRAIGHT   =     (INT8)( STRAIGHT_RATIO * gGameExternalOptions.ubStraightSightRange );
 
 	INT8 dummy[15][15];
-
+	
+	
+	{	//Pulmu: VC6 compatibility
 	for (int i=0; i<8; i++)
 	{
 			dummy[i][i]=STRAIGHT;
@@ -187,6 +189,7 @@ void InitSightRange()
 			dummy[i+6][i]=SIDE;
 			dummy[i][i+7]=ANGLE;
 			dummy[i+7][i]=ANGLE;
+	}
 	}
 	for (int i=0; i<8; i++)
 	{
