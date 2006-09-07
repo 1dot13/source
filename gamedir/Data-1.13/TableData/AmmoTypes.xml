@@ -446,7 +446,7 @@
 		<armourImpactReductionDivisor>1</armourImpactReductionDivisor>
 		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
 		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
-		<afterArmourDamageMultiplier>34</afterArmourDamageMultiplier>
+		<afterArmourDamageMultiplier>30</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>10</afterArmourDamageDivisor>
 		<zeroMinimumDamage>1</zeroMinimumDamage>
 		<canGoThrough>0</canGoThrough>
@@ -725,7 +725,7 @@
 		<armourImpactReductionDivisor>1</armourImpactReductionDivisor>
 		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
 		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
-		<afterArmourDamageMultiplier>32</afterArmourDamageMultiplier>
+		<afterArmourDamageMultiplier>26</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>10</afterArmourDamageDivisor>
 		<zeroMinimumDamage>1</zeroMinimumDamage>
 		<canGoThrough>0</canGoThrough>

@@ -434,7 +434,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>12</uiIndex>
-		<szWeaponName>Colt M16A2 Commando</szWeaponName>
+		<szWeaponName>Colt M4 Commando</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
