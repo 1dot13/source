@@ -173,8 +173,8 @@ UINT8 NumEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 	GROUP *pGroup;
 	UINT8 ubNumTroops;
 
-	Assert( sSectorX >= 1 && sSectorX <= 16 );
-	Assert( sSectorY >= 1 && sSectorY <= 16 );
+	//Assert( sSectorX >= 1 && sSectorX <= 16 );
+	//Assert( sSectorY >= 1 && sSectorY <= 16 );
 
 	pSector = &SectorInfo[ SECTOR( sSectorX, sSectorY ) ];
 	ubNumTroops = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites);

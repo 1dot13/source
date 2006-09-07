@@ -2139,13 +2139,17 @@ else
 
 			if ( gGameSettings.fOptions[TOPTION_DROP_ALL]  )
 			{
+				// WANNE - "Drop all" should mean "Drop all"
+				/*
 				if ( Item[ pp->Inv[ i ].usItem ].usItemClass == IC_FACE )
 				{
 					if( Random(100) < ubOtherDropRate ) // way too many gas masks, nvg and extended ears getting dropped!
 						pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE; 
 				}
 				else
-					pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
+				*/
+				
+				pp->Inv[ i ].fFlags &= ~OBJECT_UNDROPPABLE;
 			}
 			else
 			{
