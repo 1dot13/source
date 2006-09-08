@@ -16,15 +16,17 @@ const int	DL_Basic		= 2;
 const int	DL_Full			= 3;
 const int	DL_Debug		= 4;
 
-void DisplayWeaponInfo( SOLDIERTYPE*, CHAR16*, UINT8 );
+void DisplayWeaponInfo( SOLDIERTYPE*, CHAR16*, UINT8, UINT8 );
 void DrawMouseTooltip(void);
+
+#define MAX(a, b) (a > b ? a : b)
 
 void SoldierTooltip( SOLDIERTYPE* pSoldier )
 {			
-	SGPRect aRect;
+	SGPRect		aRect;
 	extern void GetSoldierScreenRect(SOLDIERTYPE*,SGPRect*);
 	GetSoldierScreenRect( pSoldier,  &aRect );
-	INT16 a1,a2;
+	INT16		a1,a2;
 
 	if ( gfKeyState[ALT] && pSoldier &&
 		IsPointInScreenRectWithRelative( gusMouseXPos, gusMouseYPos, &aRect, &a1, &a2 ) )
@@ -32,27 +34,82 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		MOUSETT		*pRegion = &mouseTT;
 		CHAR16		pStrInfo[ sizeof( pRegion->FastHelpText ) ];
 		int			iNVG = 0;
-		INT8		bGasMaskPos;
-
 		INT16		sSoldierGridNo;
+		BOOLEAN		fDisplayBigSlotItem	= FALSE;
+		BOOLEAN		fMercIsUsingScope	= FALSE;
+		UINT16		iCarriedRL = 0;
+		INT32		iRangeToTarget = 0;
+		UINT8		ubTooltipDetailLevel = gGameExternalOptions.ubSoldierTooltipDetailLevel;
+		UINT32		uiMaxTooltipDistance = gGameExternalOptions.ubStraightSightRange;
 
-		//Get the gridno the cursor is at
+		// get the gridno the cursor is at
 		GetMouseMapPos( &sSoldierGridNo );
 
+		// get the distance to enemy's tile from the selected merc
+		if ( gusSelectedSoldier != NOBODY )
+			iRangeToTarget = GetRangeInCellCoordsFromGridNoDiff( MercPtrs[ gusSelectedSoldier ]->sGridNo, sSoldierGridNo ) / 10;
+
+		if ( gGameExternalOptions.fEnableDynamicSoldierTooltips )
+		{
+			for ( INT32 cnt = 0; cnt < MAX_ATTACHMENTS; cnt++ )
+			{
+				if ( Item[MercPtrs[gusSelectedSoldier]->inv[HANDPOS].usAttachItem[cnt]].visionrangebonus > 0 )
+				{
+					fMercIsUsingScope = TRUE;
+					break;
+				}
+			}
+
+			if ( fMercIsUsingScope )
+			{
+				// set detail level to (at least) Full
+				ubTooltipDetailLevel = MAX(DL_Full,ubTooltipDetailLevel);
+			}
+			else
+			{
+				// add 10% to max tooltip viewing distance per level of the merc
+				uiMaxTooltipDistance *= 1 + (MercPtrs[ gusSelectedSoldier ]->bExpLevel / 10);
+
+				if ( gGameExternalOptions.gfAllowLimitedVision )
+					uiMaxTooltipDistance *= 1 - (gGameExternalOptions.ubVisDistDecreasePerRainIntensity / 100);
+
+				if ( !(Item[MercPtrs[gusSelectedSoldier]->inv[HEAD1POS].usItem].nightvisionrangebonus > 0) &&
+					 !(Item[MercPtrs[gusSelectedSoldier]->inv[HEAD2POS].usItem].nightvisionrangebonus > 0) &&
+					 !DayTime() )
+				{
+					// if night reduce max tooltip viewing distance by a factor of 4 if merc is not wearing NVG
+					uiMaxTooltipDistance >>= 2;
+				}
+
+				if ( iRangeToTarget <= (INT32)(uiMaxTooltipDistance / 2) )
+				{
+					// at under half the maximum view distance set tooltip detail to (at least) Basic
+					ubTooltipDetailLevel = MAX(DL_Basic,ubTooltipDetailLevel);
+				}
+				else if ( iRangeToTarget <= (INT32)uiMaxTooltipDistance )
+				{
+					// at under the maximum view distance set tooltip detail to (at least) Limited
+					ubTooltipDetailLevel = MAX(DL_Limited,ubTooltipDetailLevel);
+				}
+				else
+				{
+					// beyond visual range, do not display tooltip if player has not chosen full or debug details
+					if ( ubTooltipDetailLevel < DL_Full )
+						return;
+				}
+			} // fMercIsUsingScope is false
+		} // gGameExternalOptions.fEnableDynamicSoldierTooltips
+
 		swprintf( pStrInfo, L"" );
-		if ( gGameExternalOptions.ubSoldierTooltipDetailLevel == DL_Debug )
+		if ( ubTooltipDetailLevel == DL_Debug )
 		{
 			// display "debug" info
 			if ( gGameExternalOptions.fEnableSoldierTooltipLocation )
 				swprintf( pStrInfo, L"%s|Location: %d\n", pStrInfo, sSoldierGridNo );
 			if ( gGameExternalOptions.fEnableSoldierTooltipBrightness )
 				swprintf( pStrInfo, L"%s|Brightness: %d / %d\n", pStrInfo, SHADE_MIN - LightTrueLevel( sSoldierGridNo, gsInterfaceLevel ), SHADE_MIN );
-			if ( ( gGameExternalOptions.fEnableSoldierTooltipRangeToTarget ) &&
-				( gusSelectedSoldier != NOBODY ) )
-			{
-				swprintf( pStrInfo, L"%s|Range to |Target: %d\n", pStrInfo,
-					GetRangeInCellCoordsFromGridNoDiff( MercPtrs[ gusSelectedSoldier ]->sGridNo, sSoldierGridNo ) / 10 );
-			}
+			if ( gGameExternalOptions.fEnableSoldierTooltipRangeToTarget )
+				swprintf( pStrInfo, L"%s|Range to |Target: %d\n", pStrInfo, iRangeToTarget );
 			if ( gGameExternalOptions.fEnableSoldierTooltipID )
 				swprintf( pStrInfo, L"%s|I|D: %d\n", pStrInfo, pSoldier->ubID );
 			if ( gGameExternalOptions.fEnableSoldierTooltipOrders )
@@ -66,7 +123,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		}
 
 		// armor info code block start
-		if ( gGameExternalOptions.ubSoldierTooltipDetailLevel >= DL_Full )
+		if ( ubTooltipDetailLevel >= DL_Full )
 		{
 			if ( gGameExternalOptions.fEnableSoldierTooltipHelmet )
 				swprintf( pStrInfo, L"%s|Helmet: %s\n", pStrInfo, pSoldier->inv[HELMETPOS].usItem ? ItemNames[ pSoldier->inv[HELMETPOS].usItem ] : L"No helmet" );
@@ -85,7 +142,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 				if ( ArmourPercent( pSoldier ) )
 				{
 					swprintf( pStrInfo, L"|Armor: " );
-					if ( gGameExternalOptions.ubSoldierTooltipDetailLevel == DL_Basic )
+					if ( ubTooltipDetailLevel == DL_Basic )
 					{
 						if ( gGameExternalOptions.fEnableSoldierTooltipHelmet )
 							swprintf( pStrInfo, L"%s%s", pStrInfo, pSoldier->inv[HELMETPOS].usItem ? L"helmet " : L"" );
@@ -95,7 +152,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 							swprintf( pStrInfo, L"%s%s", pStrInfo, pSoldier->inv[LEGPOS].usItem ? L"leggings" : L"" );
 						wcscat( pStrInfo, L"\n" );
 					}
-					else // gGameExternalOptions.ubSoldierTooltipDetailLevel == DL_Limited
+					else // ubTooltipDetailLevel == DL_Limited
 					{
 						swprintf( pStrInfo, L"|Armor: %s\n", L"worn" );
 					}
@@ -109,7 +166,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		// armor info code block end
 
 		// head slots info code block start
-		if ( gGameExternalOptions.ubSoldierTooltipDetailLevel != DL_Debug )
+		if ( ubTooltipDetailLevel != DL_Debug )
 		{
 
 			if( Item[pSoldier->inv[HEAD1POS].usItem].nightvisionrangebonus > 0 )
@@ -121,7 +178,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 					!gGameExternalOptions.fEnableSoldierTooltipHeadItem2) )
 				// do not display the NVG/mask lines if both head slot toggles are set to false
 			{
-				if ( gGameExternalOptions.ubSoldierTooltipDetailLevel >= DL_Full )
+				if ( ubTooltipDetailLevel >= DL_Full )
 				{
 					swprintf( pStrInfo, L"%s|N|V|G: %s\n", pStrInfo,
 						iNVG ? ItemNames[ pSoldier->inv[ iNVG ].usItem ] : L"no NVG" );
@@ -130,9 +187,8 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 				{
 					swprintf( pStrInfo, L"%s|N|V|G: %s\n", pStrInfo, iNVG ? L"worn" : L"no NVG" );
 				}
-				bGasMaskPos = FindGasMask(pSoldier);
 				swprintf( pStrInfo, L"%s|Gas |Mask: %s\n", pStrInfo,
-					( bGasMaskPos == HEAD1POS || bGasMaskPos == HEAD2POS ) ? L"worn" : L"no mask" );
+					( FindGasMask(pSoldier) != NO_SLOT ) ? L"worn" : L"no mask" );
 			}
 		}
 		else // gGameExternalOptions.ubSoldierTooltipDetailLevel == DL_Debug
@@ -147,7 +203,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		// weapon in primary hand info code block start
 		if ( gGameExternalOptions.fEnableSoldierTooltipWeapon )
 		{
-			DisplayWeaponInfo( pSoldier, pStrInfo, HANDPOS );
+			DisplayWeaponInfo( pSoldier, pStrInfo, HANDPOS, ubTooltipDetailLevel );
 		} // gGameExternalOptions.fEnableSoldierTooltipWeapon
 		// weapon in primary hand info code block end
 
@@ -158,7 +214,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 			{
 				// if there's something in the slot display it
 				wcscat( pStrInfo, L"\n" );
-				DisplayWeaponInfo( pSoldier, pStrInfo, SECONDHANDPOS );
+				DisplayWeaponInfo( pSoldier, pStrInfo, SECONDHANDPOS, ubTooltipDetailLevel );
 			}
 		}
 		// weapon in off hand info code block end
@@ -190,6 +246,9 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 					break;
 			}
 
+			if ( Item[ pSoldier->inv[ BigSlot ].usItem ].rocketlauncher )
+				iCarriedRL = pSoldier->inv[ BigSlot ].usItem; // remember that enemy is carrying a rocket launcher when check for rocket ammo is made later on
+
 			if ( (  Item[ pSoldier->inv[ BigSlot ].usItem ].usItemClass == IC_LAUNCHER ) ||
 				 (	Item[ pSoldier->inv[ BigSlot ].usItem ].usItemClass == IC_GUN ) )
 			{
@@ -198,9 +257,23 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 					 (	Weapon[pSoldier->inv[ BigSlot ].usItem].ubWeaponClass != SMGCLASS ) )
 				{
 					// it's a long gun or heavy weapon
-					wcscat( pStrInfo, L"\n(In Backpack) " );
-					DisplayWeaponInfo( pSoldier, pStrInfo, BigSlot );
+					fDisplayBigSlotItem = TRUE;
 				}
+			}
+			else
+			{
+				// check for rocket ammo
+				if ( ( iCarriedRL != 0 ) &&												// soldier is carrying a RL ...
+					 ValidLaunchable( pSoldier->inv[ BigSlot ].usItem, iCarriedRL ) )	// this item is launchable by the RL
+				{
+					fDisplayBigSlotItem = TRUE;
+				}
+			}
+			if ( fDisplayBigSlotItem )
+			{
+				wcscat( pStrInfo, L"\n(In Backpack) " );
+				DisplayWeaponInfo( pSoldier, pStrInfo, BigSlot, ubTooltipDetailLevel );
+				fDisplayBigSlotItem = FALSE;
 			}
 		}
 		// large objects in big inventory slots info code block end
@@ -208,9 +281,9 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		pRegion->iX = gusMouseXPos;
 		pRegion->iY = gusMouseYPos;				
 
-		if ( gGameExternalOptions.ubSoldierTooltipDetailLevel == DL_Debug )
-			swprintf( pRegion->FastHelpText, L"%s\n|String |Length|: %d", pStrInfo, wcslen(pStrInfo) );
-		else
+//		if ( gGameExternalOptions.ubSoldierTooltipDetailLevel == DL_Debug )
+//			swprintf( pRegion->FastHelpText, L"%s\n|String |Length|: %d", pStrInfo, wcslen(pStrInfo) );
+//		else
 			wcscpy( pRegion->FastHelpText, pStrInfo );
 	}
 
@@ -222,11 +295,16 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 } // SoldierTooltip(SOLDIERTYPE* pSoldier)
 
 
-void DisplayWeaponInfo( SOLDIERTYPE* pSoldier, CHAR16* pStrInfo, UINT8 ubSlot )
+void DisplayWeaponInfo( SOLDIERTYPE* pSoldier, CHAR16* pStrInfo, UINT8 ubSlot, UINT8 ubTooltipDetailLevel )
 {
-	INT32	iNumAttachments = 0;
+	const int	TriggerGroup		= 1026;
+	const int	GunBarrelExtender	= 310;
+	const int	CMagAdapter556mm	= 1001;
+	const int	CMagAdapter9mm		= 1002;
+	INT32		iNumAttachments		= 0;
+	BOOLEAN		fDisplayAttachment	= FALSE;
 
-	if ( gGameExternalOptions.ubSoldierTooltipDetailLevel >= DL_Full )
+	if ( ubTooltipDetailLevel >= DL_Full )
 	{
 		// display exact weapon model
 		swprintf( pStrInfo, L"%s|Weapon: %s ", pStrInfo,
@@ -234,7 +312,7 @@ void DisplayWeaponInfo( SOLDIERTYPE* pSoldier, CHAR16* pStrInfo, UINT8 ubSlot )
 	}
 	else
 	{
-		if ( gGameExternalOptions.ubSoldierTooltipDetailLevel == DL_Limited )
+		if ( ubTooltipDetailLevel == DL_Limited )
 		{
 			// display general weapon class
 			switch( Weapon[pSoldier->inv[ubSlot].usItem].ubWeaponClass )
@@ -277,30 +355,50 @@ void DisplayWeaponInfo( SOLDIERTYPE* pSoldier, CHAR16* pStrInfo, UINT8 ubSlot )
 		{
 			if ( pSoldier->inv[ubSlot].usAttachItem[ cnt ] != NOTHING )
 			{	
-				if ( gGameExternalOptions.ubSoldierTooltipDetailLevel == DL_Basic )
+				if ( ubTooltipDetailLevel == DL_Basic )
 				{
 					// display only externally-visible weapon attachments
-					// don't display inseparable attachments
+					// don't display inseparable attachments such as the integral GLs on OICW & AICW
 					if ( !Item[pSoldier->inv[ubSlot].usAttachItem[ cnt ]].inseparable )
 					{
-						iNumAttachments++;
-							if ( iNumAttachments == 1 )
-								wcscat( pStrInfo, L"\n[" );
-							else
-								wcscat( pStrInfo, L", " );
-							wcscat( pStrInfo, ItemNames[ pSoldier->inv[ubSlot].usAttachItem[ cnt ] ] );
-
+						if ( pSoldier->inv[ubSlot].usAttachItem[ cnt ] != TriggerGroup )
+						{
+							fDisplayAttachment = TRUE;
+						}
+					}
+					else
+					{
+						// display C-mags and barrel extensions
+						switch( pSoldier->inv[ubSlot].usAttachItem[ cnt ] )
+						{
+							case GunBarrelExtender:
+								fDisplayAttachment = TRUE;
+								break;
+							case CMagAdapter556mm:
+								fDisplayAttachment = TRUE;
+								break;
+							case CMagAdapter9mm:
+								fDisplayAttachment = TRUE;
+								break;
+							default:
+								break;
+						}
 					}
 				}
 				else
 				{
 					// display all weapon attachments
+					fDisplayAttachment = TRUE;
+				}
+				if ( fDisplayAttachment )
+				{
 					iNumAttachments++;
 					if ( iNumAttachments == 1 )
 						wcscat( pStrInfo, L"\n[" );
 					else
 						wcscat( pStrInfo, L", " );
 					wcscat( pStrInfo, ItemNames[ pSoldier->inv[ubSlot].usAttachItem[ cnt ] ] );
+					fDisplayAttachment = FALSE; // clear flag for next loop iteration
 				}
 			} // pSoldier->inv[HANDPOS].usAttachItem[ cnt ] != NOTHING
 		} // for

@@ -346,6 +346,7 @@ typedef struct
 	// ShadoWarrior: Tooltip changes (start)
 	UINT8 ubSoldierTooltipDetailLevel;
 
+	BOOLEAN fEnableDynamicSoldierTooltips;
 	BOOLEAN fEnableSoldierTooltipLocation;
 	BOOLEAN fEnableSoldierTooltipBrightness;
 	BOOLEAN fEnableSoldierTooltipRangeToTarget;
