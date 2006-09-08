@@ -32,6 +32,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		MOUSETT		*pRegion = &mouseTT;
 		CHAR16		pStrInfo[ sizeof( pRegion->FastHelpText ) ];
 		int			iNVG = 0;
+		INT8		bGasMaskPos;
 
 		INT16		sSoldierGridNo;
 
@@ -129,8 +130,9 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 				{
 					swprintf( pStrInfo, L"%s|N|V|G: %s\n", pStrInfo, iNVG ? L"worn" : L"no NVG" );
 				}
+				bGasMaskPos = FindGasMask(pSoldier);
 				swprintf( pStrInfo, L"%s|Gas |Mask: %s\n", pStrInfo,
-					( FindGasMask(pSoldier) ) ? L"worn" : L"no mask" );
+					( bGasMaskPos == HEAD1POS || bGasMaskPos == HEAD2POS ) ? L"worn" : L"no mask" );
 			}
 		}
 		else // gGameExternalOptions.ubSoldierTooltipDetailLevel == DL_Debug
