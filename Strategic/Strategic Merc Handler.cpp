@@ -1105,6 +1105,7 @@ void HourlyCamouflageUpdate( void )
 
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_CAMMO_WORN_OFF], pSoldier->name );
 				DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
+				camoWoreOff = FALSE;
 			}
 
 			// if the merc has non-zero monster smell, degrade it by 1
