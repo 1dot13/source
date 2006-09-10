@@ -132,22 +132,22 @@ BOOLEAN LoadShadeTable( HVOBJECT pObj, UINT32 uiTileTypeIndex )
 	HWFILE hfile;
 	INT32 i;
 	UINT32 uiNumBytesRead;
-	UINT8 ShadeFileName[ 100 ];
-	UINT8 *ptr;
+	CHAR8 ShadeFileName[ 100 ];
+	CHAR8 *ptr;
 	//ASSUMPTIONS:
 	//We are assuming that the uiTileTypeIndex is referring to the correct file
 	//stored in the TileSurfaceFilenames[].  If it isn't, then that is a huge problem
 	//and should be fixed.  Also assumes that the directory is set to Data\ShadeTables.
 	strcpy( ShadeFileName, TileSurfaceFilenames[ uiTileTypeIndex ] );
-	ptr = (UINT8 *)strstr( ShadeFileName, "." );
+	ptr = strstr( ShadeFileName, "." );
 	if( !ptr )
 	{
 		return FALSE;
 	}
 	ptr++;
-	sprintf( (char *)ptr, "sha" );
+	sprintf( ptr, "sha" );
 
-	hfile = FileOpen( (STR)ShadeFileName, FILE_ACCESS_READ, FALSE );
+	hfile = FileOpen( ShadeFileName, FILE_ACCESS_READ, FALSE );
 	if( !hfile )
 	{ //File doesn't exist, so generate it
 		FileClose( hfile );
@@ -176,8 +176,8 @@ BOOLEAN SaveShadeTable( HVOBJECT pObj, UINT32 uiTileTypeIndex )
 	HWFILE hfile;
 	INT32 i;
 	UINT32 uiNumBytesWritten;
-	UINT8 ShadeFileName[ 100 ];
-	UINT8 *ptr;
+	CHAR8 ShadeFileName[ 100 ];
+	CHAR8 *ptr;
 	#ifdef JA2TESTVERSION
 		uiNumTablesSaved++;
 	#endif
@@ -186,15 +186,15 @@ BOOLEAN SaveShadeTable( HVOBJECT pObj, UINT32 uiTileTypeIndex )
 	//stored in the TileSurfaceFilenames[].  If it isn't, then that is a huge problem
 	//and should be fixed.  Also assumes that the directory is set to Data\ShadeTables.
 	strcpy( ShadeFileName, TileSurfaceFilenames[ uiTileTypeIndex ] );
-	ptr = (UINT8 *)strstr( ShadeFileName, "." );
+	ptr = strstr( ShadeFileName, "." );
 	if( !ptr )
 	{
 		return FALSE;
 	}
 	ptr++;
-	sprintf( (char *) ptr, "sha" );
+	sprintf( ptr, "sha" );
 
-	hfile = FileOpen( (STR)ShadeFileName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
+	hfile = FileOpen( ShadeFileName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 	if( !hfile )
 	{ 
 		FileClose( hfile );

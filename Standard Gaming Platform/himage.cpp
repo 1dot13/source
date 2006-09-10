@@ -54,7 +54,7 @@ HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents )
 
 	// Depending on extension of filename, use different image readers
 	// Get extension
-	StrPtr = strstr( ImageFile, ExtensionSep );
+	StrPtr = strstr( (char *)ImageFile, (const char *)ExtensionSep );
 
 	if ( StrPtr == NULL )
 	{

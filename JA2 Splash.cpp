@@ -11,12 +11,15 @@ extern HVSURFACE ghFrameBuffer;
 //Simply create videosurface, load image, and draw it to the screen.
 void InitJA2SplashScreen()
 {
+#ifdef ENGLISH
+	ClearMainMenu();
+
+#else
 	UINT32 uiLogoID = 0;
 	HVSURFACE hVSurface; // unused jonathanl  // lalien reenabled for international versions
 	VSURFACE_DESC VSurfaceDesc; //unused jonathanl // lalien reenabled for international versions
+ #ifdef JA2TESTVERSION
 	INT32 i = 0;
-
-#if !defined( ENGLISH ) && defined( JA2TESTVERSION )
 
 	memset( &VSurfaceDesc, 0, sizeof( VSURFACE_DESC ) );
 	VSurfaceDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
@@ -44,11 +47,6 @@ void InitJA2SplashScreen()
 	}
 #endif
 	
-	#ifdef ENGLISH
-		ClearMainMenu();
-	#else
-		{
-
 			memset( &VSurfaceDesc, 0, sizeof( VSURFACE_DESC ) );
 			VSurfaceDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
 			GetMLGFilename( VSurfaceDesc.ImageFile, MLG_SPLASH );
@@ -61,9 +59,7 @@ void InitJA2SplashScreen()
 			GetVideoSurface( &hVSurface, uiLogoID );
 			BltVideoSurfaceToVideoSurface( ghFrameBuffer, hVSurface, 0, iScreenWidthOffset, iScreenHeightOffset, 0, NULL );
 			DeleteVideoSurfaceFromIndex( uiLogoID );
-		}
 	#endif
-
 
 	InvalidateScreen();
 	RefreshScreen( NULL );

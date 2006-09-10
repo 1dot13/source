@@ -2170,25 +2170,25 @@ void SummaryOverrideCallback( GUI_BUTTON *btn, INT32 reason )
 void CalculateOverrideStatus()
 {
 	GETFILESTRUCT FileInfo;
-	UINT8 szFilename[40];
+	CHAR8 szFilename[40];
 	gfOverrideDirty = FALSE;
 	gfOverride = FALSE;
 	if( gfTempFile )
 	{
-		UINT8 *ptr;
-		sprintf( (char *)szFilename, "MAPS\\%S", gszTempFilename );
+		CHAR8 *ptr;
+		sprintf( szFilename, "MAPS\\%S", gszTempFilename );
 		if( strlen( szFilename ) == 5 )
 			strcat( szFilename, "test.dat" );
-		ptr = (UINT8 *) strstr( szFilename, "." );
+		ptr = strstr( szFilename, "." );
 		if( !ptr )
 			strcat( szFilename, ".dat" );
 		else
-			sprintf( (char *)ptr, ".dat" );
+			sprintf( ptr, ".dat" );
 	}
 	else
-		sprintf( (char *)szFilename, "MAPS\\%S", gszFilename );
+		sprintf( szFilename, "MAPS\\%S", gszFilename );
 	swprintf( gszDisplayName, L"%S", &(szFilename[5]) );
-	if( GetFileFirst( (CHAR8 *)szFilename, &FileInfo) )
+	if( GetFileFirst( szFilename, &FileInfo) )
 	{
 		if( gfWorldLoaded )
 		{
@@ -2459,7 +2459,7 @@ void WriteSectorSummaryUpdate( UINT8 *puiFilename, UINT8 ubLevel, SUMMARYFILE *p
 	STRING512			DataDir;
 	STRING512			ExecDir;
 	STRING512			Dir;
-	UINT8					*ptr;
+	CHAR8					*ptr;
 	INT8 x, y;
 	
 	// Snap: save current directory
@@ -2471,10 +2471,10 @@ void WriteSectorSummaryUpdate( UINT8 *puiFilename, UINT8 ubLevel, SUMMARYFILE *p
 	if( !SetFileManCurrentDirectory( Dir ) )
 		AssertMsg( 0, "JA2\\DevInfo folder not found and should exist!");
 
-	ptr = (UINT8 *) strstr( puiFilename, ".dat" );
+	ptr = strstr( (CHAR8 *)puiFilename, ".dat" );
 	if( !ptr )
 		AssertMsg( 0, "Illegal sector summary filename.");
-	sprintf( (char *)ptr, ".sum" );
+	sprintf( ptr, ".sum" );
 
 	//write the summary information
 	fp = fopen( (const char *)puiFilename, "wb" );
