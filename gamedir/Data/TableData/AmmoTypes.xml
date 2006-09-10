@@ -30,7 +30,7 @@ Attribute Field Reference:
 -->
 <AMMOTYPELIST>
 	<AMMOTYPE>
-		<uiIndex>0</uiIndex> <!-- Regular ammo -->
+		<uiIndex>0</uiIndex>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -61,7 +61,7 @@ Attribute Field Reference:
 		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>1</uiIndex> <!-- HP ammo -->
+		<uiIndex>1</uiIndex>
 		<fontColour>24</fontColour>
 		<grayed>12</grayed>
 		<offNormal>9</offNormal>
@@ -92,7 +92,7 @@ Attribute Field Reference:
 		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>2</uiIndex> <!-- AP ammo -->
+		<uiIndex>2</uiIndex>
 		<fontColour>218</fontColour>
 		<grayed>8</grayed>
 		<offNormal>5</offNormal>
@@ -123,7 +123,7 @@ Attribute Field Reference:
 		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>3</uiIndex> <!-- Super AP ammo -->
+		<uiIndex>3</uiIndex>
 		<fontColour>163</fontColour>
 		<grayed>8</grayed>
 		<offNormal>5</offNormal>
@@ -154,7 +154,7 @@ Attribute Field Reference:
 		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>4</uiIndex> <!-- Buckshot ammo -->
+		<uiIndex>4</uiIndex>
 		<fontColour>125</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -167,7 +167,7 @@ Attribute Field Reference:
 		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
-		<zeroMinimumDamage>0</zeroMinimumDamage>
+		<zeroMinimumDamage>1</zeroMinimumDamage>
 		<canGoThrough>1</canGoThrough>
 		<standardIssue>1</standardIssue>
 		<numberOfBullets>9</numberOfBullets>
@@ -185,15 +185,15 @@ Attribute Field Reference:
 		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>5</uiIndex> <!-- Flechette ammo -->
-		<fontColour>136</fontColour>
-		<grayed>4</grayed>
-		<offNormal>1</offNormal>
-		<onNormal>3</onNormal>
-		<structureImpactReductionMultiplier>1</structureImpactReductionMultiplier>
-		<structureImpactReductionDivisor>1</structureImpactReductionDivisor>
-		<armourImpactReductionMultiplier>1</armourImpactReductionMultiplier>
-		<armourImpactReductionDivisor>1</armourImpactReductionDivisor>
+		<uiIndex>5</uiIndex>
+		<fontColour>218</fontColour>
+		<grayed>8</grayed>
+		<offNormal>5</offNormal>
+		<onNormal>7</onNormal>
+		<structureImpactReductionMultiplier>4</structureImpactReductionMultiplier>
+		<structureImpactReductionDivisor>5</structureImpactReductionDivisor>
+		<armourImpactReductionMultiplier>4</armourImpactReductionMultiplier>
+		<armourImpactReductionDivisor>5</armourImpactReductionDivisor>
 		<beforeArmourDamageMultiplier>1</beforeArmourDamageMultiplier>
 		<beforeArmourDamageDivisor>1</beforeArmourDamageDivisor>
 		<afterArmourDamageMultiplier>1</afterArmourDamageMultiplier>
@@ -201,9 +201,9 @@ Attribute Field Reference:
 		<zeroMinimumDamage>0</zeroMinimumDamage>
 		<canGoThrough>1</canGoThrough>
 		<standardIssue>0</standardIssue>
-		<numberOfBullets>1</numberOfBullets>
+		<numberOfBullets>6</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
-		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
+		<multipleBulletDamageDivisor>3</multipleBulletDamageDivisor>
 		<highExplosive>0</highExplosive>
 		<explosionSize>0</explosionSize>
 		<antiTank>0</antiTank>
@@ -216,7 +216,7 @@ Attribute Field Reference:
 		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>6</uiIndex> <!-- Grenade ammo -->
+		<uiIndex>6</uiIndex>
 		<fontColour>75</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -247,7 +247,7 @@ Attribute Field Reference:
 		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>7</uiIndex> <!-- Monster ammo - hardcoded as ammo for monster class weapons -->
+		<uiIndex>7</uiIndex>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -278,7 +278,7 @@ Attribute Field Reference:
 		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>8</uiIndex> <!-- Knife ammo - hardcoded as ammo for throwing knives -->
+		<uiIndex>8</uiIndex>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -309,7 +309,7 @@ Attribute Field Reference:
 		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>9</uiIndex> <!-- HE ammo -->
+		<uiIndex>9</uiIndex>
 		<fontColour>75</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -340,7 +340,7 @@ Attribute Field Reference:
 		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>10</uiIndex> <!-- HEAT ammo -->
+		<uiIndex>10</uiIndex>
 		<fontColour>76</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -371,7 +371,7 @@ Attribute Field Reference:
 		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>11</uiIndex> <!-- Tranquilizer dart ammo -->
+		<uiIndex>11</uiIndex>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -402,7 +402,7 @@ Attribute Field Reference:
 		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>
 	<AMMOTYPE>
-		<uiIndex>12</uiIndex> <!-- Flamethrower ammo -->
+		<uiIndex>12</uiIndex>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -417,7 +417,7 @@ Attribute Field Reference:
 		<afterArmourDamageDivisor>1</afterArmourDamageDivisor>
 		<zeroMinimumDamage>0</zeroMinimumDamage>
 		<canGoThrough>1</canGoThrough>
-		<standardIssue>0</standardIssue>
+		<standardIssue>1</standardIssue>
 		<numberOfBullets>1</numberOfBullets>
 		<multipleBulletDamageMultiplier>1</multipleBulletDamageMultiplier>
 		<multipleBulletDamageDivisor>1</multipleBulletDamageDivisor>
@@ -428,7 +428,7 @@ Attribute Field Reference:
 		<knife>0</knife>
 		<monsterSpit>0</monsterSpit>
 		<acidic>0</acidic>
-		<ignoreArmour>0</ignoreArmour>
+		<ignoreArmour>1</ignoreArmour>
 		<lockBustingPower>0</lockBustingPower>
 		<tracerEffect>0</tracerEffect>
 	</AMMOTYPE>

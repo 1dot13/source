@@ -1,14 +1,5 @@
-<!-- 	this a comment, all of the text between the angled brackets is ignored
-
-Attribute Field Reference:
-
-	AmmoCaliber		- caliber string listed in item's description box
-	BRCaliber		- caliber string listed at BR's
-	BurstSound		- sound file prefix for bursts
-
-	The items in this file match up to the ubCalibre stat in Magazines.xml.  The number there points to the ordered location of the item here.
--->
-<AMMOLIST>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AMMOLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<AMMO>
 		<AmmoCaliber>0</AmmoCaliber>
 		<BRCaliber>0</BRCaliber>
