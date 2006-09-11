@@ -6980,10 +6980,6 @@ void ItemPickupCancel( GUI_BUTTON *btn, INT32 reason )
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 		btn->uiFlags |= BUTTON_CLICKED_ON;
-		if (gfStealing)		//jackaians modif
-		{
-			DeletePool(gItemPickupMenu.pItemPool);
-		}
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
@@ -6991,6 +6987,12 @@ void ItemPickupCancel( GUI_BUTTON *btn, INT32 reason )
 
 		// OK, pickup item....
 		gItemPickupMenu.fHandled = TRUE;
+
+		// Nonomori: Fix crash-on-cancel by doing this here instead of on the ...LBUTTON_DWN event
+		if (gfStealing)		//jackaians modif
+		{
+			DeletePool(gItemPickupMenu.pItemPool);
+		}
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
 	{
@@ -7023,13 +7025,22 @@ void ItemPickMenuMouseMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				// Show compatible ammo...
 				pTempItemPool = gItemPickupMenu.ItemPoolSlots[ gItemPickupMenu.bCurSelect - gItemPickupMenu.ubScrollAnchor ];
 
-				memcpy( &(gItemPickupMenu.CompAmmoObject), &( gWorldItems[ pTempItemPool->iItemIndex ].o ), sizeof( OBJECTTYPE ) ); 
+				// Nonomori: Fix crash caused by stealing ammo in a sector with no items loaded.
+				// memcpy( &(gItemPickupMenu.CompAmmoObject), &( gWorldItems[ pTempItemPool->iItemIndex ].o ), sizeof( OBJECTTYPE ) ); 
+				OBJECTTYPE * pCompAmmoObject = (OBJECTTYPE *) _alloca( sizeof( OBJECTTYPE ) );
+				if ( gWorldItems && gWorldItems[ pTempItemPool->iItemIndex ].fExists )
+					pCompAmmoObject = &( gWorldItems[ pTempItemPool->iItemIndex ].o );
+				else
+					CreateItem( pTempItemPool->iItemIndex, 100, pCompAmmoObject);
+				memcpy( &(gItemPickupMenu.CompAmmoObject), pCompAmmoObject, sizeof( OBJECTTYPE ) ); 
 
 				// Turn off first...
 				HandleAnyMercInSquadHasCompatibleStuff( (INT8) CurrentSquad( ), NULL, TRUE );
 				InternalHandleCompatibleAmmoUI( gpSMCurrentMerc, &( gItemPickupMenu.CompAmmoObject ), TRUE );
 
-				HandleAnyMercInSquadHasCompatibleStuff( (INT8)CurrentSquad( ), &(gWorldItems[ pTempItemPool->iItemIndex ].o ), FALSE );
+				// Nonomori: Fix crash caused by stealing ammo in a sector with no items loaded.
+				// HandleAnyMercInSquadHasCompatibleStuff( (INT8)CurrentSquad( ), &(gWorldItems[ pTempItemPool->iItemIndex ].o ), FALSE );
+				HandleAnyMercInSquadHasCompatibleStuff( (INT8)CurrentSquad( ), pCompAmmoObject, FALSE );
 
 				SetItemPickupMenuDirty( DIRTYLEVEL2 );
 
