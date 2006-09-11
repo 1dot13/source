@@ -7027,7 +7027,7 @@ void ItemPickMenuMouseMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 				// Nonomori: Fix crash caused by stealing ammo in a sector with no items loaded.
 				// memcpy( &(gItemPickupMenu.CompAmmoObject), &( gWorldItems[ pTempItemPool->iItemIndex ].o ), sizeof( OBJECTTYPE ) ); 
-				OBJECTTYPE * pCompAmmoObject = (OBJECTTYPE *) _alloca( sizeof( OBJECTTYPE ) );
+				OBJECTTYPE * pCompAmmoObject = (OBJECTTYPE *) MemAlloc( sizeof( OBJECTTYPE ) );
 				if ( gWorldItems && gWorldItems[ pTempItemPool->iItemIndex ].fExists )
 					pCompAmmoObject = &( gWorldItems[ pTempItemPool->iItemIndex ].o );
 				else
