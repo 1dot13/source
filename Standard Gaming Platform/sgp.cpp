@@ -191,7 +191,6 @@ RECT				rcWindow;
 POINT				ptWindowSize;
 
 // moved from header file: 24mar98:HJH
-UINT32				giStartMem;
 //UINT8				gbPixelDepth;		// redefintion... look down a few lines (jonathanl)
 // GLOBAL RUN-TIME SETTINGS
 
@@ -200,7 +199,6 @@ UINT32				guiMouseWheelMsg;			// For mouse wheel messages
 BOOLEAN				gfApplicationActive;
 BOOLEAN				gfProgramIsRunning;
 BOOLEAN				gfGameInitialized = FALSE;
-//UINT32			giStartMem; // redefintion... look up a few lines (jonathanl)
 BOOLEAN				gfDontUseDDBlits	= FALSE;
 
 // There were TWO of them??!?! -- DB
@@ -1188,10 +1186,6 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 #else
 	ProcessCommandLine(pCommandLine);
 #endif
-
-	// Mem Usage
-	giStartMem = MemGetFree(	) / 1024;
-	
 
 #ifdef JA2
 	// Handle Check for CD
