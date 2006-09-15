@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
 <AMMOLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<AMMO>
 		<AmmoCaliber>0</AmmoCaliber>
 		<BRCaliber>0</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>.38 Spc</AmmoCaliber>
-		<BRCaliber>.38 Spc</BRCaliber>
+		<AmmoCaliber>.38 S&amp;W</AmmoCaliber>
+		<BRCaliber>.38 S&amp;W</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>9x19mm</AmmoCaliber>
@@ -17,12 +18,12 @@
 		<BRCaliber>.45 ACP</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>.357 Mag</AmmoCaliber>
-		<BRCaliber>.357 Mag</BRCaliber>
+		<AmmoCaliber>.357 MAG</AmmoCaliber>
+		<BRCaliber>.357 MAG</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>12 gauge</AmmoCaliber>
-		<BRCaliber>12 gauge</BRCaliber>
+		<AmmoCaliber>Kal. 12/70</AmmoCaliber>
+		<BRCaliber>Kal. 12/70</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>CAWS</AmmoCaliber>
@@ -45,8 +46,8 @@
 		<BRCaliber>7.62x39mm</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>4.7x33mm</AmmoCaliber>
-		<BRCaliber>4.7x33mm</BRCaliber>
+		<AmmoCaliber>4.73x33mm</AmmoCaliber>
+		<BRCaliber>4.73x33mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>5.7x28mm</AmmoCaliber>
@@ -57,15 +58,15 @@
 		<BRCaliber>Monster</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>Rocket</AmmoCaliber>
-		<BRCaliber>Rocket</BRCaliber>
+		<AmmoCaliber>Rakete</AmmoCaliber>
+		<BRCaliber>Rakete</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>Dart</AmmoCaliber>
-		<BRCaliber>Dart</BRCaliber>
+		<AmmoCaliber>Pfeil</AmmoCaliber>
+		<BRCaliber>Pfeil</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>flame</AmmoCaliber>
-		<BRCaliber>flame</BRCaliber>
+		<AmmoCaliber>Flammenw.</AmmoCaliber>
+		<BRCaliber>Flammenw.</BRCaliber>
 	</AMMO>
 </AMMOLIST>

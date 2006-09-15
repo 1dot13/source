@@ -1,7 +1,4 @@
 <!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
-<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
-<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
-<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -33,7 +30,7 @@
 		<szLongItemName>Beretta 92F</szLongItemName>
 		<szItemDesc>Seit 1984 wird die BERETTA 92F als Dienstpistole M9 in der US-Army und ihren Teileinheiten verwendet.</szItemDesc>
 		<szBRName>Beretta 92F</szBRName>
-		<szBRDesc>Als im Jahre 1980 die US-Army eine Ausschreibung fuer eine neue Dienstwaffe bekannt gab, bewarb sich auch Beretta. In 1984 bekam die BERETTA 92FS den Zuschlag und wurde als M9 an das US-Militaer geliefert.</szBRDesc>
+		<szBRDesc>Als im Jahre 1980 die US-Army eine Ausschreibung fuer eine neue Dienstwaffe bekannt gab, bewarb sich auch Beretta. In 1984 bekam die BERETTA 92F den Zuschlag und wurde als M9 an das US-Militaer geliefert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>4</uiIndex>
@@ -41,7 +38,7 @@
 		<szLongItemName>Beretta 93R</szLongItemName>
 		<szItemDesc>Die Schwester der 92F. Diese vollautomatische MP koennte sich bei einem Schusswechsel als Ihre beste Freundin erweisen.</szItemDesc>
 		<szBRName>Beretta 93R</szBRName>
-		<szBRDesc>Die Schwester der 92F. Diese vollautomatische MP koennte sich bei einem Schusswechsel als Ihre beste Freundin erweisen.</szBRDesc>
+		<szBRDesc>Die Schwester der 92F. Diese vollautomatische MP koennte sich bei einem Schusswechsel als Ihre beste Freundin erweisen. Sie besitzt eine S-3 Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>5</uiIndex>
@@ -64,32 +61,32 @@
 		<szItemName>Desert Eagle .357</szItemName>
 		<szLongItemName>IMI Desert Eagle Mark XIX</szLongItemName>
 		<szItemDesc>Die Pistole ist in den Kalibern .357MAG, .44MAG, .50AE und .440COR-BON erhaeltlich. Heute wird diese Waffe von vielen Spezialeinheiten eingesetzt.</szItemDesc>
-		<szBRName>IMI Desert Eagle Mark XIX</szBRName>
-		<szBRDesc>Die Desert Eagle entstand aus der Vorstellung, eine halbautomatische, gasbetriebene Handfeuerwaffe zu entwickeln, die mit einem Magnum-Kaliber ausgestattet war. Mit der Desert Eagle gelang dies MAGNUM RESEARCH seit Markteinfuehrung 1983 beeindruckend. </szBRDesc>
+		<szBRName>IMI Desert Eagle .357</szBRName>
+		<szBRDesc>Die Desert Eagle entstand aus der Vorstellung, eine halbautomatische Handfeuerwaffe zu entwickeln, die mit einem Magnum-Kaliber ausgestattet ist. Mit der Desert Eagle gelang dies MAGNUM RESEARCH seit Markteinfuehrung 1983 beeindruckend.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>8</uiIndex>
-		<szItemName>.45 Colt</szItemName>
-		<szLongItemName>Colt Government M1911A1</szLongItemName>
-		<szItemDesc>Die M1911A1 Pistole war die Standard-Seitenwaffe fuer Offiziere der US-Army im 2. Weltkrieg. Ihre Entstehung fuehrt zurueck ins Jahr 1911.</szItemDesc>
-		<szBRName>Colt Government M1911</szBRName>
-		<szBRDesc>Die M1911A1 Pistole war die Seitenwaffe fuer Offiziere der US-Army im 2. Weltkrieg. Ihre Entstehung fuehrt zurueck ins Jahr 1911, als nach ausgiebigen Tests die neue Pistole von der US-Army eingefuehrt wurde.</szBRDesc>
+		<szItemName>Government</szItemName>
+		<szLongItemName>Colt Government</szLongItemName>
+		<szItemDesc>Das Model M1911A1 war die Seitenwaffe fuer Offiziere der US-Army bis 1985. Danach wurde sie durch die BERETTA 92FS schrittweise ersetzt.</szItemDesc>
+		<szBRName>Colt Government</szBRName>
+		<szBRDesc>Das Modell M1911A1 war die Seitenwaffe fuer Offiziere der US-Army bis 1985. Danach wurde sie durch die BERETTA 92FS schrittweise ersetzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>9</uiIndex>
 		<szItemName>MP5KA4</szItemName>
-		<szLongItemName>HK MP5KA4</szLongItemName>
+		<szLongItemName>H&amp;K MP5KA4</szLongItemName>
 		<szItemDesc>Viele Sondereinheiten forderten eine sehr kompakte, vollautomatische Waffe zur Bekaempfung von Einzelzielen und zum Selbstschutz.</szItemDesc>
-		<szBRName>HK MP5KA4</szBRName>
-		<szBRDesc>Viele Sondereinheiten forderten eine sehr kompakte, vollautomatische Waffe zur Bekaempfung von Einzelzielen und zum Selbstschutz. So reduzierte man die Laenge der MP5 auf 325mm, in dem der Lauf auf drastische 115mm gekuerzt wurde.</szBRDesc>
+		<szBRName>H&amp;K MP5KA4</szBRName>
+		<szBRDesc>Viele Sondereinheiten forderten eine sehr kompakte, vollautomatische Waffe. So reduzierte man die Laenge der MP5 auf 325mm, in dem der Lauf auf drastische 115mm gekuerzt wurde. Sie besitzt eine S-3-F Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>10</uiIndex>
 		<szItemName>MAC-10</szItemName>
 		<szLongItemName>Ingram MAC-10</szLongItemName>
-		<szItemDesc>Die MAC-10 ist eine MP, die von der US-Army als Ersatz fuer vorher verwendeten schwedischen MP Modelle beschafft wurde.</szItemDesc>
+		<szItemDesc>Die MAC-10 wurde von der US-Army als Ersatz fuer vorher verwendeten schwedischen MP Modelle beschafft.</szItemDesc>
 		<szBRName>Ingram MAC-10</szBRName>
-		<szBRDesc>Die MAC-10 ist eine MP, die von der US-Army als Ersatz fuer vorher verwendeten schwedischen MP Modelle beschafft wurde. Sie war fuer den Einsatz bei Kommando- und Spezialeinheiten gedacht.</szBRDesc>
+		<szBRDesc>Die MAC-10 besitzt nur Dauerfeuer und wurde von der US-Army als Ersatz fuer vorher verwendete schwedische MP-Modelle beschafft. Sie war fuer den Einsatz bei Kommando- und Spezialeinheiten gedacht.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>11</uiIndex>
@@ -102,18 +99,18 @@
 	<ITEM>
 		<uiIndex>12</uiIndex>
 		<szItemName>Commando</szItemName>
-		<szLongItemName>Colt M16A2 Commando</szLongItemName>
-		<szItemDesc>Diese Mini-Version des M16 ist eine sehr geschaetzte Waffe zum Abknallen von laermenden Nachbarn und von sich eingenommene Diktatoren.</szItemDesc>
-		<szBRName>Colt M16A2 Commando</szBRName>
-		<szBRDesc>Diese Mini-Version des M16 ist eine sehr geschaetzte Waffe zum Abknallen von laermenden Nachbarn und von sich eingenommene Diktatoren.</szBRDesc>
+		<szLongItemName>Colt M4 Commando</szLongItemName>
+		<szItemDesc>Das kompakteste 5.56mm-Modell von COLT ist eine sehr geschaetzte Waffe zum Abknallen von laermenden Nachbarn und von sich eingenommene Diktatoren.</szItemDesc>
+		<szBRName>Colt M4 Commando</szBRName>
+		<szBRDesc>Das kompakteste 5.56mm-Modell von COLT besitzt eine S-F Abzugsgruppe und ist eine sehr geschaetzte Waffe zum Abknallen von laermenden Nachbarn.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>13</uiIndex>
 		<szItemName>MP53A3</szItemName>
-		<szLongItemName>HK MP53A3</szLongItemName>
+		<szLongItemName>H&amp;K MP53A3</szLongItemName>
 		<szItemDesc>Diese Waffe kombiniert die Feuerkraft des 5.56mm Kalibers mit der Kompaktheit einer MP5. Beachten Sie den etwas staerkeren Rueckstoss.</szItemDesc>
-		<szBRName>HK MP53A3</szBRName>
-		<szBRDesc>Motiviert durch den Verkauferfolg von ihren MPs Anfang der 1980er, stellte HK die MP53 her. Die Waffe gehoert der Waffengruppe MP5 an wobei sich die Aehnlichkeit nicht nur auf das Aussehen beschraenkt, auch das Funktionsprinzip ist sehr aehnlich.</szBRDesc>
+		<szBRName>H&amp;K MP53A3</szBRName>
+		<szBRDesc>Motiviert durch den Verkauferfolg von ihren MPs Anfang der 1980er, stellte H&amp;K die MP53 im Kaliber 5.56mm her. Sie besitzt eine S-3-F Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>14</uiIndex>
@@ -121,7 +118,7 @@
 		<szLongItemName>Kalaschnikow AKS-74U</szLongItemName>
 		<szItemDesc>Die Russen entwickelten die schwere MP AKS-74U fuer Besatzungen von Panzern und anderen Fahrzeugen.</szItemDesc>
 		<szBRName>AKS-74U</szBRName>
-		<szBRDesc>Die Russen entwickelten die schwere MP AKS-74U fuer Besatzungen von Panzern und anderen Fahrzeugen. Sie musste kurz genug sein, um beim Ein- und Aussteigen von Fahrzeugen nicht hinderlich zu sein.</szBRDesc>
+		<szBRDesc>Die Russen entwickelten diese schwere MP fuer Panzernbesatzungen. Sie musste kurz genug sein, um beim Ein- und Aussteigen nicht hinderlich zu sein. Sie besitzt eine S-F Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>15</uiIndex>
@@ -151,9 +148,9 @@
 		<uiIndex>18</uiIndex>
 		<szItemName>SVD</szItemName>
 		<szLongItemName>Dragunov SVD</szLongItemName>
-		<szItemDesc>Das SVD ist ein leichtes, sehr genaues Scharf- schuetzengewehr. Es wurde im Jahre 1963 in der russischen Armee eingefuehrt.</szItemDesc>
+		<szItemDesc>Das SVD ist ein leichtes, sehr genaues Scharfschuetzengewehr. Es wurde im Jahre 1963 in der russischen Armee eingefuehrt.</szItemDesc>
 		<szBRName>Dragunov SVD</szBRName>
-		<szBRDesc>Das SVD (Snaiperskaja Vintovka Dragunov) ist ein leichtes, sehr genaues, gasdruckgetriebenes, halbautomatisches Scharfschuetzengewehr. Es wurde im Jahre 1963 in der russischen Armee eingefuehrt.</szBRDesc>
+		<szBRDesc>Das SVD (Snaiperskaja Vintovka Dragunova) ist ein leichtes, sehr genaues, halbautomatisches Scharfschuetzengewehr. Es wurde im Jahre 1963 in der russischen Armee eingefuehrt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>19</uiIndex>
@@ -161,23 +158,23 @@
 		<szLongItemName>Remington M24 SWS</szLongItemName>
 		<szItemDesc>Entworfen fuer die US-Army und von ihr verwendet, ist das M24 auch bei den SWAT-Teams der USA und bei auslaendischen Armeen sehr beliebt.</szItemDesc>
 		<szBRName>Remington M24 SWS</szBRName>
-		<szBRDesc>Entworfen fuer die US-Army und von ihr verwendet, ist das M24 auch bei den SWAT-Teams der USA und bei auslaendischen Armeen sehr beliebt. Das 'Sniper Weapon System' basiert auf dem legendaeren Modell 700.</szBRDesc>
+		<szBRDesc>Entworfen fuer die US-Army und von ihr verwendet, ist das M24 auch bei den SWAT-Teams der USA und bei auslaendischen Armeen sehr beliebt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>20</uiIndex>
 		<szItemName>AUG-A2</szItemName>
 		<szLongItemName>Steyr AUG-A2</szLongItemName>
-		<szItemDesc>Die Standardwaffe des oesterreichischen Bundes- heeres. Die Steyr AUG ist ein kompaktes, futuristisch aussehendes Sturmgewehr.</szItemDesc>
+		<szItemDesc>Die Standardwaffe des oesterreichischen Bundesheeres. Das Steyr AUG ist ein futuristisch aussehendes Sturmgewehr mit kompaktem Design.</szItemDesc>
 		<szBRName>Steyr AUG-A2</szBRName>
-		<szBRDesc>Die Standardwaffe des oesterreichischen Bundesheeres. Die Steyr AUG ist ein futuristisch aussehendes Sturmgewehr mit einem kompakten Design.</szBRDesc>
+		<szBRDesc>Die Standardwaffe des oesterreichischen Bundesheeres. Das Steyr AUG ist ein futuristisch aussehendes Sturmgewehr mit kompaktem Design und besitzt eine S-F Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>21</uiIndex>
 		<szItemName>G41A2</szItemName>
 		<szLongItemName>HK G41A2</szLongItemName>
-		<szItemDesc>Im September 1979 erhielt die Bundeswehr das G41 von HK zur Truppenerprobung. Da die Truppenerprobung erfolgreich verlief, konnte das Modell binnen kurzer Zeit fertig gestellt werden, wurde jedoch nicht in Dienst gestellt.</szItemDesc>
+		<szItemDesc>Das G41 sollte neben dem G11 zum Standardgewehr der BUNDESWEHR werden. Aufgrund der polit. Veraenderungen 1989 kam es jedoch nicht dazu.</szItemDesc>
 		<szBRName>HK G41A2</szBRName>
-		<szBRDesc>Im September 1979 erhielt die Bundeswehr das G41 von HK zur Truppenerprobung. Da die Truppenerprobung erfolgreich verlief, konnte das Modell binnen kurzer Zeit fertig gestellt werden, wurde jedoch nicht in Dienst gestellt.</szBRDesc>
+		<szBRDesc>Das G41 ist ein hervorragendes Sturmgewehr, es besitzt eine S-3-F Abzugsgruppe und sollte viele M16-Schuetzen abwerben. Aufgrund des hohen Preises ging es jedoch nie in Serie. Wir von BR konnten einige Exemplare bekommen - kaufen Sie jetzt!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>22</uiIndex>
@@ -193,7 +190,7 @@
 		<szLongItemName>Diemaco C7A2</szLongItemName>
 		<szItemDesc>Dieses Gewehr steht fuer das kanadische Motto, 'Was die Yankees koennen, koennen wir schon lange.' Diese Version des M16 ist der Traum eines jeden Soeldners.</szItemDesc>
 		<szBRName>Diemaco C7A2</szBRName>
-		<szBRDesc>Dieses Gewehr steht fuer das kanadische Motto, 'Was die Yankees koennen, koennen wir schon lange.' Diese Version des M16 ist der Traum eines jeden Soeldners.</szBRDesc>
+		<szBRDesc>Dieses Gewehr steht fuer das kanadische Motto, 'Was die Yankees koennen, koennen wir schon lange.' Diese Version des M16 ist der Traum eines jeden Soeldners. Es besitzt eine S-F Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>24</uiIndex>
@@ -201,7 +198,7 @@
 		<szLongItemName>FAMAS G2</szLongItemName>
 		<szItemDesc>Das FAMAS ist Frankreichs neuestes Gewehr und hat sich seit seiner Einfuehrung grundsaetzlich bewaehrt. Es wurde erstmals 1973 vorgestellt.</szItemDesc>
 		<szBRName>FAMAS G2</szBRName>
-		<szBRDesc>Das FAMAS ist Frankreichs neuestes Gewehr und hat sich seit seiner Einfuehrung grundsaetzlich bewaehrt. Es wurde erstmals 1973 vorgestellt und bis zu seiner offiziellen Abnahme durch die franzoesische Armee im Jahre 1979 mehrfach veraendert.</szBRDesc>
+		<szBRDesc>Das FAMAS ist Frankreichs neuestes Gewehr und hat sich seit seiner Einfuehrung grundsaetzlich bewaehrt. Es besitzt eine S-3-F Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>25</uiIndex>
@@ -209,7 +206,7 @@
 		<szLongItemName>Kalaschnikow AK-74</szLongItemName>
 		<szItemDesc>Das Kalaschnikow-Sturmgewehr AK-74 ist eine Weiterentwicklung der Baureihe.</szItemDesc>
 		<szBRName>Kalaschnikow AK-74</szBRName>
-		<szBRDesc>Das Kalaschnikow-Sturmgewehr AK-74 ist eine Weiterentwicklung der Baureihe. Hauptsaechlicher Unterschied besteht im Wechsel des Kalibers von 7.62x39 auf 5.45x39mm.</szBRDesc>
+		<szBRDesc>Das Kalaschnikow-Sturmgewehr AK-74 ist eine Weiterentwicklung der Baureihe. Hauptsaechlicher Unterschied besteht im Wechsel des Kalibers von 7.62x39 auf 5.45x39mm. Es besitzt eine S-F Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>26</uiIndex>
@@ -239,17 +236,17 @@
 		<uiIndex>29</uiIndex>
 		<szItemName>G3A3</szItemName>
 		<szLongItemName>HK G3A3</szLongItemName>
-		<szItemDesc>Das G3A3 war bis Ende der 1990er Jahre das Sturmgewehr der Bundeswehr. Es wurde durch das G36 seit 1998 schrittweise ersetzt.</szItemDesc>
+		<szItemDesc>Das G3A3 besitzt eine S-F Abzugsgruppe und war bis Ende der 90er Jahre das Sturmgewehr der BUNDESWEHR. Es wurde ab 1997 schrittweise durch das G36 ersetzt.</szItemDesc>
 		<szBRName>HK G3A3</szBRName>
-		<szBRDesc>Das G3A3 von HECKLER &amp; KOCH war bis Ende der 1990er Jahre das Standard-Sturmgewehr der Bundeswehr. Es wurde durch das G36, ebenfalls von HK, seit 1998 schrittweise ersetzt.</szBRDesc>
+		<szBRDesc>Das G3A3 besitzt eine S-F Abzugsgruppe und war bis Ende der 90er Jahre das Sturmgewehr der BUNDESWEHR. Es wurde ab 1997 schrittweise durch das G36 ersetzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>30</uiIndex>
 		<szItemName>G11</szItemName>
 		<szLongItemName>HK G11</szLongItemName>
-		<szItemDesc>Die Entwicklung des G11 begann in den spaeten 60er Jahren, als man sich dazu entschloss, das G3 durch eine leichtere Waffe zu ersetzen.</szItemDesc>
+		<szItemDesc>Das G11 sollte neben dem G41 zum Standardgewehr der BUNDESWEHR werden. Aufgrund der polit. Veraenderungen 1989 kam es jedoch nicht dazu.</szItemDesc>
 		<szBRName>HK G11</szBRName>
-		<szBRDesc>Die Entwicklung dieses Sturmgewehrs begann in den spaeten 60er Jahren, als man sich dazu entschloss, das G3 durch eine leichtere Waffe mit hoeherer Trefferwahrscheinlichkeit zu ersetzen.</szBRDesc>
+		<szBRDesc>Das 1988 vorgestellte G11 von H&amp;K stellt eine recht aussergewoehnliche zukunftsorientierte Waffe dar. Das Ziel bei dieser plump und eckig aussehenden Konstruktion ist einfach: Die Trefferquote bei Feuerstoessen soll auch fuer maessige Schuetzen drastisch erhoeht werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>31</uiIndex>
@@ -271,17 +268,17 @@
 		<uiIndex>33</uiIndex>
 		<szItemName>CAWS</szItemName>
 		<szLongItemName>HK/Olin CAWS</szLongItemName>
-		<szItemDesc>Diese dt./amerik. Flinte im Bull-Pop-Design entstand in Kooperation zwischen den Firmen HK und WINCHESTER/ Olin.</szItemDesc>
+		<szItemDesc>Diese dt.-amerik. Flinte im Bullpup-Design entstand in Kooperation zwischen den Firmen HK und WINCHESTER/Olin.</szItemDesc>
 		<szBRName>HK/Olin CAWS</szBRName>
-		<szBRDesc>Diese dt./amerik. Flinte im Bull-Pop-Design entstand in Kooperation zwischen den Firmen HK und WINCHESTER/ Olin. Wie die meisten Waffen kann sie Einzelfeuer und in 3er-Bursts feuern.</szBRDesc>
+		<szBRDesc>Diese dt.-amerik. Flinte im Bullpup-Design entstand in Kooperation zwischen den Firmen H&amp;K und WINCHESTER/Olin. Sie besitzt eine S-3 Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>34</uiIndex>
-		<szItemName>Minimi SAW</szItemName>
-		<szLongItemName>FN M249 SAW Minimi</szLongItemName>
+		<szItemName>M249</szItemName>
+		<szLongItemName>FN Minimi SAW</szLongItemName>
 		<szItemDesc>Das M249 wurde Anfang der 80er Jahre entwickelt, um den Feuerteams auf Zugebene eine praezise dauerfeuerfaehige Unterstuetzungswaffe zu geben.</szItemDesc>
-		<szBRName>FN M249 SAW</szBRName>
-		<szBRDesc>Das M249 SAW wurde Anfang der 1980er Jahre entwickelt, um den Feuerteams auf Zugebene eine praezise dauerfeuerfaehige Unterstuetzungswaffe zu geben. 1982 wurde die Waffe offiziell bei der US-Army eingefuehrt.</szBRDesc>
+		<szBRName>FN Minimi SAW</szBRName>
+		<szBRDesc>Das M249 SAW wurde Anfang der 1980er Jahre entwickelt, um den Feuerteams auf Zugebene eine praezise dauerfeuerfaehige Unterstuetzungswaffe zu geben - sie besitzt nur Dauerfeuer. 1982 wurde die Waffe offiziell bei der US-Army eingefuehrt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>35</uiIndex>
@@ -297,7 +294,7 @@
 		<szLongItemName>HK21E</szLongItemName>
 		<szItemDesc>Die HK21E ist ein leichtes MG, dessen Mechanik auf dem G3A3 aufbaut. Durch die Bauweise wurde eine hoehere Einzelschuss-Zielgenauigkeit erreicht.</szItemDesc>
 		<szBRName>HK21E</szBRName>
-		<szBRDesc>Die HK21E ist ein leichtes MG, dessen Mechanik auf dem G3A3 aufbaut. Durch die Bauweise wurde eine hoehere Einzelschuss-Zielgenauigkeit als bei den meisten leichten Maschinengewehren erreicht.</szBRDesc>
+		<szBRDesc>Die HK21E ist ein leichtes MG, dessen Mechanik auf dem G3A3 aufbaut. Durch die Bauweise wurde eine hoehere Einzelschuss-Zielgenauigkeit erreicht. Es besitzt eine S-3-F Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>37</uiIndex>
@@ -413,11 +410,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>51</uiIndex>
-		<szItemName>PzFst</szItemName>
+		<szItemName>PzFst 3-T</szItemName>
 		<szLongItemName>Panzerfaust 3-T</szLongItemName>
-		<szItemDesc>Ein Treffer aus dieser leichten Panzerabwehrwaffe ist besser als eine Fahrkarte direkt zum Juengsten Gericht.</szItemDesc>
+		<szItemDesc>Im Auftrag der BUNDESWEHR entwickelte die Fa. DYNAMIT NOBEL die Panzerfaust 3. Dabei handelt es sich um eine rueckstossarme Schulterwaffe, die von einem Soldaten bedient werden kann und alle an eine moderne Panzerabwehrwaffe gestellten Forderungen erfuellt.</szItemDesc>
 		<szBRName>Panzerfaust 3-T</szBRName>
-		<szBRDesc>Ein Treffer aus dieser leichten Panzerabwehrwaffe ist besser als eine Fahrkarte direkt zum Juengsten Gericht.</szBRDesc>
+		<szBRDesc>Im Auftrag der BUNDESWEHR entwickelte die Fa. DYNAMIT NOBEL die Panzerfaust 3. Dabei handelt es sich um eine rueckstossarme Schulterwaffe, die von einem Soldaten bedient werden kann und alle an eine moderne Panzerabwehrwaffe gestellten Forderungen erfuellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>52</uiIndex>
@@ -455,7 +452,7 @@
 		<uiIndex>56</uiIndex>
 		<szItemName>Automag III</szItemName>
 		<szLongItemName>Automag III</szLongItemName>
-		<szItemDesc>Diese Pistole wurde in ein Monstrum verwandelt. Der Name 'Big Bertha' ist an den Seiten eingraviert.</szItemDesc>
+		<szItemDesc>Diese Pistole wurde in ein Monstrum verwandelt und verschiesst Patronen im Kaliber .50 Beowulf. Der Name 'Big Bertha' ist an den Seiten eingraviert.</szItemDesc>
 		<szBRName>Automag III</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -534,34 +531,34 @@
 	<ITEM>
 		<uiIndex>66</uiIndex>
 		<szItemName>EMF Hartford</szItemName>
-		<szLongItemName>EMF Hartford 1873 Single Action Revolver</szLongItemName>
-		<szItemDesc>Diese Waffe wurde fuer Tex Colburn in eine modifiziert. Sie hat einen 7,5 Zoll langen Lauf und einen eisernen Griff.</szItemDesc>
-		<szBRName>EMF Hartford 1873 Single Action Revolver</szBRName>
-		<szBRDesc>Diese Waffe wurde fuer Tex Colburn in eine modifiziert. Sie hat einen 7,5 Zoll langen Lauf und einen eisernen Griff.</szBRDesc>
+		<szLongItemName>EMF Hartford 1873 Revolver</szLongItemName>
+		<szItemDesc>Diese Waffe wurde fuer Tex Colburn in eine modifiziert. Sie hat einen 7.5 Zoll langen Lauf und einen eisernen Griff.</szItemDesc>
+		<szBRName>EMF Hartford 1873</szBRName>
+		<szBRDesc>Diese Waffe wurde fuer Tex Colburn in eine modifiziert. Sie hat einen 7.5 Zoll langen Lauf und einen eisernen Griff.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>67</uiIndex>
 		<szItemName>M-950</szItemName>
 		<szLongItemName>Calico M-950</szLongItemName>
-		<szItemDesc>Diese Version der M960 Pistole ist nur mit einer halb automatischen Feuerfunktion und dem gleichen 50 Schuss Munitionsband ausgestattet.</szItemDesc>
+		<szItemDesc>Diese Version der M-960 Pistole ist nur mit einer halbautomatischen Feuerfunktion und dem gleichen 50 Schuss Munitionsband ausgestattet.</szItemDesc>
 		<szBRName>Calico M-950</szBRName>
-		<szBRDesc>Die CALICO MPs sind mysterioes und beruehmt-beruechtigt fuer ihr Design. Diese Version der M960 Pistole ist nur mit einer halb automatischen Feuerfunktion und dem gleichen 50 Schuss Munitionsband ausgestattet.</szBRDesc>
+		<szBRDesc>Die CALICO MPs sind mysterioes und beruehmt-beruechtigt fuer ihr Design. Diese Version der M-960 Pistole ist nur mit einer halb automatischen Feuerfunktion und dem gleichen 50 Schuss Munitionsband ausgestattet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>68</uiIndex>
 		<szItemName>M-900</szItemName>
 		<szLongItemName>Calico M-900</szLongItemName>
-		<szItemDesc>Eine weitere Reinkarnation der M960. Diese Version ist mit einem ungewoehnlich langen Lauf fuer eine 9mm Waffe ausgestattet.</szItemDesc>
+		<szItemDesc>Eine weitere Reinkarnation der M-960. Diese Version ist mit einem ungewoehnlich langen Lauf fuer eine 9mm Waffe ausgestattet.</szItemDesc>
 		<szBRName>Calico M-900</szBRName>
-		<szBRDesc>Die CALICO MPs sind mysterioes und beruehmt-beruechtigt fuer ihr Design. Eine weitere Reinkarnation der M960. Diese Version ist mit einem ungewoehnlich langen Lauf fuer eine 9mm Waffe ausgestattet.</szBRDesc>
+		<szBRDesc>Die CALICO MPs sind mysterioes und beruehmt-beruechtigt fuer ihr Design. Eine weitere Reinkarnation der M-960. Diese Version ist mit einem ungewoehnlich langen Lauf fuer eine 9mm Waffe ausgestattet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>69</uiIndex>
 		<szItemName>M-960A</szItemName>
 		<szLongItemName>Calico M-960A</szLongItemName>
-		<szItemDesc>Dieses amerikanische Model ist bekannt als 'Mini-Maschinengewehr' und verwendet ein spiralenfoermiges Magazinband mit 9mm Kugeln.</szItemDesc>
+		<szItemDesc>Dieses amerikanische Model ist bekannt als Mini-Maschinengewehr und verwendet ein spiralenfoermiges Magazinband mit 9mm Kugeln.</szItemDesc>
 		<szBRName>Calico M-960A</szBRName>
-		<szBRDesc>Dieses amerikanische Model ist bekannt als 'Mini-Maschinengewehr' und verwendet ein spiralenfoermiges Magazinband mit 9mm Kugeln.</szBRDesc>
+		<szBRDesc>Dieses amerikanische Model ist bekannt als Mini-Maschinengewehr und verwendet ein spiralenfoermiges Magazinband mit 9mm Kugeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>70</uiIndex>
@@ -573,7 +570,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>71</uiIndex>
-		<szItemName>9x19 Mag</szItemName>
+		<szItemName>9x19 Mag #15</szItemName>
 		<szLongItemName>9x19mm Magazin</szLongItemName>
 		<szItemDesc>Diese FIOCCHI VM-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschuetzte/ ungeschuetzte Gegner.</szItemDesc>
 		<szBRName>9x19 Mag #15</szBRName>
@@ -621,26 +618,26 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>77</uiIndex>
-		<szItemName>.38 Spec. Blei</szItemName>
-		<szLongItemName>.38 Special, Blei-Rundkopf</szLongItemName>
+		<szItemName>.38 S&amp;W</szItemName>
+		<szLongItemName>.38 S&amp;W</szLongItemName>
 		<szItemDesc>Diese FIOCCHI Blei-Rundkopf Projektile deformieren sich leicht und tendieren zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschuetzte als auch ungeschuetzte Gegner. </szItemDesc>
-		<szBRName>.38 Special Blei #6</szBRName>
+		<szBRName>.38 S&amp;W #6</szBRName>
 		<szBRDesc>Diese FIOCCHI Blei-Rundkopf Projektile deformieren sich leicht und tendieren zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschuetzte als auch ungeschuetzte Gegner. </szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>78</uiIndex>
-		<szItemName>.38 Spec. PB</szItemName>
-		<szLongItemName>.38 Special, Cop-Killer</szLongItemName>
+		<szItemName>.38 S&amp;W PB</szItemName>
+		<szLongItemName>.38 S&amp;W, Cop-Killer</szLongItemName>
 		<szItemDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 1960er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotueren zu ermoeglichen.</szItemDesc>
-		<szBRName>.38 Special PB #6</szBRName>
+		<szBRName>.38 S&amp;W PB #6</szBRName>
 		<szBRDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 1960er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotueren zu ermoeglichen. Diese Patrone war lange Zeit unbekannt, wurde jedoch auch von Kriminellen entdeckt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>79</uiIndex>
-		<szItemName>.38 Spec. HS</szItemName>
-		<szLongItemName>.38 Special, Hohlspitz</szLongItemName>
+		<szItemName>.38 S&amp;W HS</szItemName>
+		<szLongItemName>.38 S&amp;W, Hohlspitz</szLongItemName>
 		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfer- geschoss. Sie liefert kontrollierte Expansion und grosse Mannstoppwirkung.</szItemDesc>
-		<szBRName>.38 Special HS #6</szBRName>
+		<szBRName>.38 S&amp;W HS #6</szBRName>
 		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion fuer leistungsfaehigen Energietransfer und grosser Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -744,7 +741,7 @@
 		<szItemName>5.45x39 Mag</szItemName>
 		<szLongItemName>5.45x39mm Mag</szLongItemName>
 		<szItemDesc>Dieses Magazin enthaelt PB-Geschosse aus tschechischer Produktion. Dank ihrer Metallmantelung durchschlagen sie nicht nur Waende, sondern auch mehrere menschliche Koerper auf einmal.</szItemDesc>
-		<szBRName>5.45x39mm Mag</szBRName>
+		<szBRName>5.45x39 Mag</szBRName>
 		<szBRDesc>Dieses Magazin enthaelt PB-Geschosse aus tschechischer Produktion. Dank ihrer Metallmantelung durchschlagen sie nicht nur Waende, sondern auch mehrere menschliche Koerper auf einmal.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -752,7 +749,7 @@
 		<szItemName>5.45x39 Mag HS</szItemName>
 		<szLongItemName>5.45x39mm Mag, HS</szLongItemName>
 		<szItemDesc>Mit diesen HS-Geschossen aus tschechischer Produktion koennen Sie Feinde mit leichtem Koerperschutz eliminieren. Sie verformen sich beim Aufprall pilzfoermig und expandieren, dies verursacht grosse Wunden.</szItemDesc>
-		<szBRName>5.45x39mm Mag HS</szBRName>
+		<szBRName>5.45x39 Mag HS</szBRName>
 		<szBRDesc>Mit diesen HS-Geschossen aus tschechischer Produktion koennen Sie Feinde mit leichtem Koerperschutz eliminieren. Sie verformen sich beim Aufprall pilzfoermig und expandieren, dies verursacht grosse Wunden.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -760,7 +757,7 @@
 		<szItemName>5.56x45 Mag</szItemName>
 		<szLongItemName>5.56x45mm Mag</szLongItemName>
 		<szItemDesc>Die NATO-Qualifikation der MEN Doppelkern-Patrone im Fruehjahr 2000 war ein Meilenstein in der Geschichte dieses Kalibers. Wir sind stolz darauf, dass wir dies in engster Zusammenarbeit mit der Bundeswehr erreicht haben.</szItemDesc>
-		<szBRName>5.56x45mm Mag</szBRName>
+		<szBRName>5.56x45 Mag</szBRName>
 		<szBRDesc>Die NATO-Qualifikation der MEN Doppelkern-Patrone im Fruehjahr 2000 war ein Meilenstein in der Geschichte dieses Kalibers. Wir sind stolz darauf, dass wir dies in engster Zusammenarbeit mit der Bundeswehr erreicht haben.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -768,7 +765,7 @@
 		<szItemName>5.56x45 Mag HS</szItemName>
 		<szLongItemName>5.56x45mm Mag, HS</szLongItemName>
 		<szItemDesc>Die NATO-Qualifikation der MEN Weichkern-Patrone im Fruehjahr 2000 war ein Meilenstein in der Geschichte dieses Kalibers. Wir sind stolz darauf, dass wir dies in engster Zusammenarbeit mit der Bundeswehr erreicht haben.</szItemDesc>
-		<szBRName>5.56x45mm HS</szBRName>
+		<szBRName>5.56x45 HS</szBRName>
 		<szBRDesc>Die NATO-Qualifikation der MEN Weichkern-Patrone im Fruehjahr 2000 war ein Meilenstein in der Geschichte dieses Kalibers. Wir sind stolz darauf, dass wir dies in engster Zusammenarbeit mit der Bundeswehr erreicht haben.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -776,7 +773,7 @@
 		<szItemName>7.62x39 Mag</szItemName>
 		<szLongItemName>7.62x39mm Mag</szLongItemName>
 		<szItemDesc>Dieses Magazin enthaelt PB-Geschosse aus polnischer Produktion, die dafuer bekannt sind, fast alle Arten von Schutzruestung zu durchschlagen und den Gegnern erheblichen Schaden zuzufuegen.</szItemDesc>
-		<szBRName>7.62x39mm Mag #10</szBRName>
+		<szBRName>7.62x39 Mag #10</szBRName>
 		<szBRDesc>Dieses Magazin enthaelt PB-Geschosse aus polnischer Produktion, die dafuer bekannt sind, fast alle Arten von Schutzruestung zu durchschlagen und den Gegnern erheblichen Schaden zuzufuegen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -784,7 +781,7 @@
 		<szItemName>7.62x39 Mag</szItemName>
 		<szLongItemName>7.62x39mm Mag</szLongItemName>
 		<szItemDesc>Dieses Magazin enthaelt PB-Geschosse aus polnischer Produktion, die dafuer bekannt sind, fast alle Arten von Schutzruestung zu durchschlagen und den Gegnern erheblichen Schaden zuzufuegen.</szItemDesc>
-		<szBRName>7.62x39mm Mag</szBRName>
+		<szBRName>7.62x39 Mag</szBRName>
 		<szBRDesc>Dieses Magazin enthaelt PB-Geschosse aus polnischer Produktion, die dafuer bekannt sind, fast alle Arten von Schutzruestung zu durchschlagen und den Gegnern erheblichen Schaden zuzufuegen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -792,7 +789,7 @@
 		<szItemName>7.62x39 Mag HS</szItemName>
 		<szLongItemName>7.62x39mm Mag, HS</szLongItemName>
 		<szItemDesc>Mit diesen HS-Geschossen aus polnischer Produktion koennen Sie Feinde mit leichtem Koerperschutz eliminieren. Sie sind aber weniger effektiv gegen staerkere Schutzausruestungen.</szItemDesc>
-		<szBRName>7.62x39mm HS #10</szBRName>
+		<szBRName>7.62x39 HS #10</szBRName>
 		<szBRDesc>Mit diesen HS-Geschossen aus polnischer Produktion koennen Sie Feinde mit leichtem Koerperschutz eliminieren. Sie sind aber weniger effektiv gegen staerkere Schutzausruestungen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -800,23 +797,23 @@
 		<szItemName>7.62x39 Mag HS</szItemName>
 		<szLongItemName>7.62x39mm Mag, HS</szLongItemName>
 		<szItemDesc>Mit diesen HS-Geschossen aus polnischer Produktion koennen Sie Feinde mit leichtem Koerperschutz eliminieren. Sie sind aber weniger effektiv gegen staerkere Schutzausruestungen.</szItemDesc>
-		<szBRName>7.62x39mm HS</szBRName>
+		<szBRName>7.62x39 HS</szBRName>
 		<szBRDesc>Mit diesen HS-Geschossen aus polnischer Produktion koennen Sie Feinde mit leichtem Koerperschutz eliminieren. Sie sind aber weniger effektiv gegen staerkere Schutzausruestungen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>100</uiIndex>
 		<szItemName>7.62x51 Mag</szItemName>
 		<szLongItemName>7.62x51mm Mag</szLongItemName>
-		<szItemDesc>Seit ueber 40 Jahren fertigt die MEN das ehemalige NATO-Kaliber, in dieser Zeit wurde es millionenfach hergestellt. Die Hartkern-Patrone (HK) enthaelt einen Wolframcarbid-Kern mit hervorragender Durchschlagsleistung.</szItemDesc>
-		<szBRName>7.62x51mm #5</szBRName>
-		<szBRDesc>Seit ueber 40 Jahren fertigt die MEN das ehemalige NATO-Kaliber, in dieser Zeit wurde es millionenfach hergestellt. Die Hartkern-Patrone (HK) enthaelt einen Wolframcarbid-Kern mit hervorragender Durchschlagsleistung.</szBRDesc>
+		<szItemDesc>Seit ueber 40 Jahren fertigt die MEN das ehemalige NATO-Kaliber, in dieser Zeit wurde es millionenfach hergestellt. Die Hartkern-Patrone enthaelt einen Wolframcarbid-Kern mit hervorragender Durchschlagsleistung.</szItemDesc>
+		<szBRName>7.62x51 #5</szBRName>
+		<szBRDesc>Seit ueber 40 Jahren fertigt die MEN das ehemalige NATO-Kaliber, in dieser Zeit wurde es millionenfach hergestellt. Die Hartkern-Patrone enthaelt einen Wolframcarbid-Kern mit hervorragender Durchschlagsleistung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>101</uiIndex>
 		<szItemName>7.62x51 Mag</szItemName>
 		<szLongItemName>7.62x51mm Mag</szLongItemName>
 		<szItemDesc>Seit ueber 40 Jahren fertigt die MEN das ehemalige NATO-Kaliber, in dieser Zeit wurde es millionenfach hergestellt. Die Hartkern-Patrone (HK) enthaelt einen Wolframcarbid-Kern mit hervorragender Durchschlagsleistung.</szItemDesc>
-		<szBRName>7.62x51mm</szBRName>
+		<szBRName>7.62x51</szBRName>
 		<szBRDesc>Seit ueber 40 Jahren fertigt die MEN das ehemalige NATO-Kaliber, in dieser Zeit wurde es millionenfach hergestellt. Die Hartkern-Patrone (HK) enthaelt einen Wolframcarbid-Kern mit hervorragender Durchschlagsleistung.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -824,7 +821,7 @@
 		<szItemName>7.62x51 Mag HS</szItemName>
 		<szLongItemName>7.62x51mm Mag, Hohlspitz</szLongItemName>
 		<szItemDesc>Die neu entwickelte RWS Evolution Patrone kombiniert mit einer ausgefeilten Mantelkonstruktion und dem innovativen Rapid-X-Tip eine ueberzeugende Performance auf allen jagdueblichen Schuss-Distanzen.</szItemDesc>
-		<szBRName>7.62x51mm HS #5</szBRName>
+		<szBRName>7.62x51 HS #5</szBRName>
 		<szBRDesc>Die neu entwickelte RWS Evolution Patrone kombiniert mit einer ausgefeilten Mantelkonstruktion und dem innovativen Rapid-X-Tip eine ueberzeugende Performance auf allen jagdueblichen Schuss-Distanzen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -832,23 +829,23 @@
 		<szItemName>7.62x51 Mag HS</szItemName>
 		<szLongItemName>7.62x51mm Mag, HS</szLongItemName>
 		<szItemDesc>Seit ueber 40 Jahren fertigt die MEN das ehemalige NATO-Kaliber, in dieser Zeit wurde es millionenfach hergestellt. Neben der Weichkern-Patrone (WK) fertigen wir auch eine Hartkernpatrone mit hervorragender Durchschlagsleistung.</szItemDesc>
-		<szBRName>7.62x51mm HS</szBRName>
+		<szBRName>7.62x51 HS</szBRName>
 		<szBRDesc>Seit ueber 40 Jahren fertigt die MEN das ehemalige NATO-Kaliber, in dieser Zeit wurde es millionenfach hergestellt. Neben der Weichkern-Patrone (WK) fertigen wir auch eine Hartkernpatrone mit hervorragender Durchschlagsleistung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>104</uiIndex>
-		<szItemName>4.73x33mm Mag</szItemName>
-		<szLongItemName>4.73x33mm Mag</szLongItemName>
+		<szItemName>4.73x33 Mag XPB</szItemName>
+		<szLongItemName>4.73x33mm Mag, XPB</szLongItemName>
 		<szItemDesc>Die von DYNAMIT NOBEL entwickelte huelsenlose Munition durchschlaegt Kevlarwesten ohne Probleme. Um eine hohe Zielwirkung und geringe Umfeldgefaehrdung zu erreichen, gibt das Projektil seine Energie schnell ab und taumelt im Zielmedium.</szItemDesc>
-		<szBRName>4.73x33mm Mag</szBRName>
+		<szBRName>4.73x33 Mag, XPB</szBRName>
 		<szBRDesc>Die von DYNAMIT NOBEL entwickelte huelsenlose Munition durchschlaegt Kevlarwesten ohne Probleme. Um eine hohe Zielwirkung und geringe Umfeldgefaehrdung zu erreichen, gibt das Projektil seine Energie schnell ab und taumelt im Zielmedium.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>105</uiIndex>
-		<szItemName>5.7x28 MP-Mag PB</szItemName>
-		<szLongItemName>5.7x28mm MP-Mag, PB</szLongItemName>
+		<szItemName>5.7x28 MP-Mag XPB</szItemName>
+		<szLongItemName>5.7x28mm MP-Mag, XPB</szLongItemName>
 		<szItemDesc>Die SS190 Patronen durchschlagen Kevlarwesten wie sie von der Polizei verwendet werden. Fuer eine hohe Zielwirkung und geringe Umfeldgefaehrdung ist das Projektil so ausgelegt, dass es seine Energie schnell abgibt und im Zielmedium taumelt.</szItemDesc>
-		<szBRName>5.7x28 MP-Mag, PB</szBRName>
+		<szBRName>5.7x28 MP-Mag, XPB</szBRName>
 		<szBRDesc>Die SS190 Patronen durchschlagen Kevlarwesten wie sie von der Polizei verwendet werden. Fuer eine hohe Zielwirkung und geringe Umfeldgefaehrdung ist das Projektil so ausgelegt, dass es seine Energie schnell abgibt und im Zielmedium taumelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -861,34 +858,34 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>107</uiIndex>
-		<szItemName>Kal.12 FLG</szItemName>
-		<szLongItemName>Kal.12/70 Flintenlaufgeschosse</szLongItemName>
-		<szItemDesc>Mit seinen schraeggestellten Rippen ist das BRENNEKE RubinSabot pfeilstabilisiert und kann aus allen Flintenlaeufen verschossen werden. Es besitzt eine sehr hohe Praezision und steigert leicht die Reichweite Ihrer Waffe.</szItemDesc>
-		<szBRName>Kal.12 FLG #7</szBRName>
-		<szBRDesc>Mit seinen schraeggestellten Rippen ist das BRENNEKE RubinSabot pfeilstabilisiert und kann aus allen Flintenlaeufen verschossen werden. Es besitzt eine sehr hohe Praezision und steigert leicht die Reichweite Ihrer Waffe.</szBRDesc>
+		<szItemName>12g FLG #7</szItemName>
+		<szLongItemName>Kaliber 12/70 Flintenlaufgeschosse</szLongItemName>
+		<szItemDesc>Mit seinen schraeggestellten Rippen ist das BRENNEKE RubinSabot pfeilstabilisiert und kann aus allen Flintenlaeufen verschossen werden. Es besitzt eine sehr hohe Praezision und steigert die Reichweite Ihrer Waffe um 50m.</szItemDesc>
+		<szBRName>12g FLG #7</szBRName>
+		<szBRDesc>Mit seinen schraeggestellten Rippen ist das BRENNEKE RubinSabot pfeilstabilisiert und kann aus allen Flintenlaeufen verschossen werden. Es besitzt eine sehr hohe Praezision und steigert die Reichweite Ihrer Waffe um 50m.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>108</uiIndex>
-		<szItemName>Kal.12 Schrot</szItemName>
-		<szLongItemName>Kal.12/70 Schrot 00</szLongItemName>
+		<szItemName>12g Schrot #7</szItemName>
+		<szLongItemName>Kaliber 12/70 Schrot 00</szLongItemName>
 		<szItemDesc>Die ROTTWEIL Steel Game Weicheisen Patronen beruecksichtigen Umweltaspekte und sind fuer die Jagd an Gewaessern und in sensiblen Landschaftsbereichen, in denen kein Bleischrot zugelassen ist, hervorragend geeignet.</szItemDesc>
-		<szBRName>Kal.12 Schrot 00 #7</szBRName>
+		<szBRName>12g Schrot 00 #7</szBRName>
 		<szBRDesc>Die ROTTWEIL Steel Game Weicheisen Patronen beruecksichtigen Umweltaspekte und sind fuer die Jagd an Gewaessern und in sensiblen Landschaftsbereichen, in denen kein Bleischrot zugelassen ist, hervorragend geeignet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>109</uiIndex>
-		<szItemName>CAWS Mag Slugs</szItemName>
+		<szItemName>CAWS Slugs</szItemName>
 		<szLongItemName>CAWS Magazin, Slugs</szLongItemName>
 		<szItemDesc>Die REMINGTON Core-Lokt Ultra Slugs werden gern von Polizei und Militaer verwendet. Ihre Geschosse durchlagen mehrschichtige Schutzwesten ohne Probleme, besitzen eine sehr hohe Praezision und steigern leicht die Reichweite.</szItemDesc>
-		<szBRName>CAWS Mag Slugs #10</szBRName>
+		<szBRName>CAWS Slugs #10</szBRName>
 		<szBRDesc>Die REMINGTON Core-Lokt Ultra Slugs werden gern von Polizei und Militaer verwendet. Ihre Geschosse durchlagen mehrschichtige Schutzwesten ohne Probleme, besitzen eine sehr hohe Praezision und steigern leicht die Reichweite.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>110</uiIndex>
-		<szItemName>CAWS Mag BS</szItemName>
+		<szItemName>CAWS BS</szItemName>
 		<szLongItemName>CAWS Magazin, Buckshot 00</szLongItemName>
 		<szItemDesc>Die REMINGTON Express Buckshot Patronen werden gern von Gesetzeshuetern verwendet. Durch die Streuung der Schrote erleidet der Gegner einen toedlichen Nervenschock. Im Nahkampf haben Schrote eine verheerende, absolut toedliche Wirkung.</szItemDesc>
-		<szBRName>CAWS Mag Buckshot #10</szBRName>
+		<szBRName>CAWS Buckshot #10</szBRName>
 		<szBRDesc>Die REMINGTON Express Buckshot Patronen werden gern von Gesetzeshuetern verwendet. Durch die Streuung der Schrote erleidet der Gegner einen toedlichen Nervenschock. Im Nahkampf haben Schrote eine verheerende, absolut toedliche Wirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -925,11 +922,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>115</uiIndex>
-		<szItemName>Flammenwerfer Clip</szItemName>
+		<szItemName>FW-Clip</szItemName>
 		<szLongItemName>Flammenwerfer Clip</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc/>
 		<szBRName>Flammenwerfer Clip</szBRName>
-		<szBRDesc>NO DESCRIPTION NECESSARY!</szBRDesc>
+		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>116</uiIndex>
@@ -1000,16 +997,16 @@
 		<szItemName>5.56x45 Gurt HS</szItemName>
 		<szLongItemName>5.56x45mm Gurt, Hohlspitz</szLongItemName>
 		<szItemDesc>Die NATO-Qualifikation der MEN Weichkern-Patrone im Fruehjahr 2000 war ein Meilenstein in der Geschichte dieses Kalibers. Wir sind stolz darauf, dass wir dies in engster Zusammenarbeit mit der Bundeswehr erreicht haben.</szItemDesc>
-		<szBRName>5.56 x45 Gurt HS #100</szBRName>
+		<szBRName>5.56x45 Gurt HS #100</szBRName>
 		<szBRDesc>Die NATO-Qualifikation der MEN Weichkern-Patrone im Fruehjahr 2000 war ein Meilenstein in der Geschichte dieses Kalibers. Wir sind stolz darauf, dass wir dies in engster Zusammenarbeit mit der Bundeswehr erreicht haben.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>125</uiIndex>
 		<szItemName>7.62x51 Gurt</szItemName>
 		<szLongItemName>7.62x51mm Gurt</szLongItemName>
-		<szItemDesc>Seit ueber 40 Jahren fertigt die MEN das ehemalige NATO-Kaliber, in dieser Zeit wurde es millionenfach hergestellt. Die Hartkern-Patrone (HK) enthaelt einen Wolframcarbid-Kern mit hervorragender Durchschlagsleistung.</szItemDesc>
+		<szItemDesc>Seit ueber 40 Jahren fertigt die MEN das ehemalige NATO-Kaliber, in dieser Zeit wurde es millionenfach hergestellt. Die Hartkern-Patrone enthaelt einen Wolframcarbid-Kern mit hervorragender Durchschlagsleistung.</szItemDesc>
 		<szBRName>7.62x51 Gurt #100</szBRName>
-		<szBRDesc>Seit ueber 40 Jahren fertigt die MEN das ehemalige NATO-Kaliber, in dieser Zeit wurde es millionenfach hergestellt. Die Hartkern-Patrone (HK) enthaelt einen Wolframcarbid-Kern mit hervorragender Durchschlagsleistung.</szBRDesc>
+		<szBRDesc>Seit ueber 40 Jahren fertigt die MEN das ehemalige NATO-Kaliber, in dieser Zeit wurde es millionenfach hergestellt. Die Hartkern-Patrone enthaelt einen Wolframcarbid-Kern mit hervorragender Durchschlagsleistung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>126</uiIndex>
@@ -1646,10 +1643,10 @@
 	<ITEM>
 		<uiIndex>205</uiIndex>
 		<szItemName>Tarnset</szItemName>
-		<szLongItemName>Tarnfarbe</szLongItemName>
-		<szItemDesc>Das Tarn-Kompakt-Set enthaelt Gesichtsbemalung auf Fettbasis in den Farben olivgruen, schwarz, braun und beige.</szItemDesc>
-		<szBRName>Tarnset</szBRName>
-		<szBRDesc>Das Tarn-Kompakt-Set enthaelt Gesichtsbemalung auf Fettbasis in den Farben olivgruen, schwarz, braun und beige, einen Spiegel und ein Benutzerhandbuch.</szBRDesc>
+		<szLongItemName>Tarnfarbe, Woodland</szLongItemName>
+		<szItemDesc>Das Tarn-Kompakt-Set enthaelt Gesichtsbemalung auf Fettbasis in den Farben olivgruen und braun.</szItemDesc>
+		<szBRName>Tarnset Woodland</szBRName>
+		<szBRDesc>Das Tarn-Kompakt-Set enthaelt Gesichtsbemalung auf Fettbasis in den Farben olivgruen und braun, einen Spiegel und ein Benutzerhandbuch.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>206</uiIndex>
@@ -1670,10 +1667,10 @@
 	<ITEM>
 		<uiIndex>208</uiIndex>
 		<szItemName>S&amp;B CQB PM II</szItemName>
-		<szLongItemName>Schmidt &amp; Bender CQB Short Dot Police Marksman II</szLongItemName>
-		<szItemDesc>Eine modifizierte Version des CQB Short Dot PM II von S&amp;B ist das neue ZF der Scharfschuetzen- gewehre des US Marine Corps.</szItemDesc>
+		<szLongItemName>S&amp;B Police Marksman II</szLongItemName>
+		<szItemDesc>Eine modifizierte Version des SCHMIDT&amp;BENDER 3-12x50 Police Marksman II ist das neue Zielfernrohr der Kaliber .308 und .50 Scharfschuetzengewehre des US Marine Corps.</szItemDesc>
 		<szBRName>S&amp;B CQB PM II</szBRName>
-		<szBRDesc>Eine modifizierte Version des ZF 3-12x50 PMLPII von S&amp;B ist das neue ZF der .308 WIN und .50 BMG Scharfschuetzengewehre des US Marine Corps. Es ersetzt ein bereits 25 Jahre lang verwendetes Modell.</szBRDesc>
+		<szBRDesc>Eine modifizierte Version des SCHMIDT&amp;BENDER 3-12x50 Police Marksman II ist das neue Zielfernrohr der Kaliber .308 und .50 Scharfschuetzengewehre des US Marine Corps.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>209</uiIndex>
@@ -1711,9 +1708,9 @@
 		<uiIndex>213</uiIndex>
 		<szItemName>Gasmaske</szItemName>
 		<szLongItemName>Gasmaske</szLongItemName>
-		<szItemDesc>Diese der russischen M-17A1 nachgebildete Gummimaske hat Wangenfilter, kratzfeste Linsen, verstellbare Halteriemen und einen Trinkaufsatz.</szItemDesc>
+		<szItemDesc>Diese Gasmaske hatte das russische Modell M-17A1 zum Vorbild. Sie besitzt einen Wangenfilter, kratzfeste Linsen, verstellbare Halteriemen und einen Trinkaufsatz.</szItemDesc>
 		<szBRName>Gasmaske</szBRName>
-		<szBRDesc>Diese der russischen M-17A1 nachgebildete Gummimaske hat Wangenfilter, kratzfeste Linsen, verstellbare Halteriemen und einen Trinkaufsatz. Eine Schultertasche aus Vinyl und ein Plastikponcho werden mitgeliefert.</szBRDesc>
+		<szBRDesc>Diese Gasmaske hatte das russische Modell M-17A1 zum Vorbild. Sie besitzt einen Wangenfilter, kratzfeste Linsen, verstellbare Halteriemen und einen Trinkaufsatz. Eine Schultertasche aus Vinyl und ein Plastikponcho werden mitgeliefert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>214</uiIndex>
@@ -1975,16 +1972,16 @@
 		<uiIndex>246</uiIndex>
 		<szItemName>NSG II</szItemName>
 		<szLongItemName>Night-Vision D-2MS, NSG II</szLongItemName>
-		<szItemDesc>Mit diesem Nachtsichgeraet der 2. Generation kann sich niemand in der Dunkelheit vor Ihnen verstecken.</szItemDesc>
-		<szBRName>Night-Vision D-2MS</szBRName>
-		<szBRDesc>Mit diesem Nachtsichgeraet der 2. Generation kann sich niemand in der Dunkelheit vor Ihnen verstecken.</szBRDesc>
+		<szItemDesc>Mit diesem Nachtsichgeraet der zweiten Generation kann sich niemand in der Dunkelheit vor Ihnen verstecken.</szItemDesc>
+		<szBRName>Night-Vision D-2MS, NSG II</szBRName>
+		<szBRDesc>Mit diesem Nachtsichgeraet der zweiten Generation kann sich niemand in der Dunkelheit vor Ihnen verstecken.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>247</uiIndex>
 		<szItemName>leere PzFst</szItemName>
 		<szLongItemName>leere PzFst</szLongItemName>
 		<szItemDesc>Diese Panzerfaust hat ihre Schuldigkeit getan und wird den Rest der Zeit als unnoetigen Ballast verbringen.</szItemDesc>
-		<szBRName>leer PzFst</szBRName>
+		<szBRName>leere PzFst</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2111,7 +2108,7 @@
 		<uiIndex>263</uiIndex>
 		<szItemName>Fernbedienung</szItemName>
 		<szLongItemName>Fernbedienung</szLongItemName>
-		<szItemDesc>Mit diesem kleinen Geraet lassen sich Tueren leicht und sicher oeffnen. Druecken Sie einfach den kleinen Knopf und - voil‡! - schon sind Sie drin!</szItemDesc>
+		<szItemDesc>Mit diesem kleinen Geraet lassen sich Tueren leicht und sicher oeffnen. Druecken Sie einfach den kleinen Knopf und - voil√†! - schon sind Sie drin!</szItemDesc>
 		<szBRName>Fernbedienung</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2237,10 +2234,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>279</uiIndex>
-		<szItemName>5.7x28 Mag PB</szItemName>
-		<szLongItemName>5.7x28mm Magazin, PB</szLongItemName>
+		<szItemName>5.7x28 Mag XPB</szItemName>
+		<szLongItemName>5.7x28mm Magazin, XPB</szLongItemName>
 		<szItemDesc>Die SS190 Patronen durchschlagen Kevlarwesten wie sie von der Polizei verwendet werden. Fuer eine hohe Zielwirkung und geringe Umfeldgefaehrdung ist das Projektil so ausgelegt, dass es seine Energie schnell abgibt und im Zielmedium taumelt.</szItemDesc>
-		<szBRName>5.7x28 Mag PB #20</szBRName>
+		<szBRName>5.7x28 Mag XPB #20</szBRName>
 		<szBRDesc>Die SS190 Patronen durchschlagen Kevlarwesten wie sie von der Polizei verwendet werden. Fuer eine hohe Zielwirkung und geringe Umfeldgefaehrdung ist das Projektil so ausgelegt, dass es seine Energie schnell abgibt und im Zielmedium taumelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2311,9 +2308,9 @@
 		<uiIndex>288</uiIndex>
 		<szItemName>Barett</szItemName>
 		<szLongItemName>rotes Barett</szLongItemName>
-		<szItemDesc>Parlay voo francais? Dieses Barett mag nicht franzoesischer Herkunft sein, aber es sieht irgendwie schwul aus.</szItemDesc>
+		<szItemDesc>Ein rotes Barett wie es von Feldjaegern der BUNDESWEHR getragen wird.</szItemDesc>
 		<szBRName>rotes Barett</szBRName>
-		<szBRDesc>Parlay voo francais? Dieses Barett mag nicht franzoesischer Herkunft sein, aber es sieht irgendwie schwul aus.</szBRDesc>
+		<szBRDesc>Ein rotes Barett wie es von Feldjaegern der BUNDESWEHR getragen wird.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>289</uiIndex>
