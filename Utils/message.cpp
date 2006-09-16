@@ -573,8 +573,8 @@ void UnHideMessagesDuringNPCDialogue( void )
 
 void ScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ...)
 {
-	__try
-	{
+	//__try
+	//{
 		wchar_t	DestString[512];
 		va_list argptr;
 
@@ -648,11 +648,11 @@ void ScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ...)
 		}
 
 		return;
-	}
-	__except(filter(GetExceptionCode(), GetExceptionInformation()))
-	{
-		return;
-	}
+	//}
+	//__except(filter(GetExceptionCode(), GetExceptionInformation()))
+	//{
+	//	return;
+	//}
 }
 
 void ClearWrappedStrings( WRAPPED_STRING *pStringWrapperHead )

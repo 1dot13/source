@@ -714,7 +714,6 @@ void			ExitSaveLoadScreen()
 {
 	INT8	i;
 
-
 	gfLoadGameUponEntry = FALSE;
 
 	if( !gfSaveLoadScreenButtonsCreated )
@@ -738,7 +737,7 @@ void			ExitSaveLoadScreen()
 
 	for(i=0; i<NUM_SAVE_GAMES; i++)
 	{
-	  MSYS_RemoveRegion( &gSelectedSaveRegion[i]);
+		MSYS_RemoveRegion( &gSelectedSaveRegion[i]);
 	}
 
 	DeleteVideoObjectFromIndex( guiSlgBackGroundImage );
@@ -847,14 +846,14 @@ void		GetSaveLoadScreenUserInput()
 	}
 
 
-	if( gfKeyState[ ALT ] )
+	/*if( gfKeyState[ ALT ] )
 	{
 		DisplayOnScreenNumber( FALSE );
 	}
 	else
 	{
 		DisplayOnScreenNumber( TRUE );
-	}
+	}*/
 
 	if( gfKeyState[ CTRL ] || fWasCtrlHeldDownLastFrame )
 	{

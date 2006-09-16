@@ -309,6 +309,8 @@ typedef struct
 	// WANNE
 	INT32 ubEnemiesItemDrop;
 
+	BOOLEAN gfUseAutoSave;
+
 	//Merc Assignment settings
 	INT32 ubAssignmentUnitsPerDay;
 	INT32 ubMinutesForAssignmentToCount;

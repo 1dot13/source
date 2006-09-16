@@ -1172,7 +1172,11 @@ UINT32 UIHandleEndTurn( UI_EVENT *pUIEvent )
 	}
 	else
 	{
-		if( FileExists( "..\\AutoSave.pls" ) && CanGameBeSaved() )
+		// WANNE: Changed the auto save depending from AutoSave.pls
+		// to an option setting.
+		// So no more need to have a file AutoSave.pls in you ja2 root directory
+		//if( FileExists( "..\\AutoSave.pls" ) && CanGameBeSaved() )
+		if (gGameExternalOptions.gfUseAutoSave == TRUE && CanGameBeSaved() )
 		{
 			//Save the game
 			guiPreviousOptionScreen = guiCurrentScreen;
