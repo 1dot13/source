@@ -110,7 +110,7 @@
 		<BRCaliber>.44 MAG</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>10x25mm</AmmoCaliber>
+		<AmmoCaliber>10mm AUTO</AmmoCaliber>
 		<BRCaliber>10mm AUTO</BRCaliber>
 	</AMMO>
 	<AMMO>
@@ -152,5 +152,9 @@
 	<AMMO>
 		<AmmoCaliber>.45 WM</AmmoCaliber>
 		<BRCaliber>.45 WM</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>.50 Beowulf</AmmoCaliber>
+		<BRCaliber>.50 Beowulf</BRCaliber>
 	</AMMO>
 </AMMOLIST>
