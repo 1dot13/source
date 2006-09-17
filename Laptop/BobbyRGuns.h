@@ -38,7 +38,6 @@ void ExitBobbyRGuns();
 void HandleBobbyRGuns();
 void RenderBobbyRGuns();
 
-// WANNE
 BOOLEAN DeleteBobbyRGunsFilter();
 BOOLEAN DeleteBobbyRAmmoFilter();
 BOOLEAN DeleteBobbyRUsedFilter();
@@ -59,7 +58,6 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter);
 void DeleteMouseRegionForBigImage();
 void UpdateButtonText(UINT32	uiCurPage);
 
-// WANNE
 void UpdateAmmoFilterButtons(INT32 iNewButton, INT32 iOldButton);
 void UpdateGunFilterButtons(INT32 iNewButton, INT32 iOldButton);
 void UpdateUsedFilterButtons();

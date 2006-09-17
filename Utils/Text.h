@@ -566,7 +566,7 @@ enum
 };
 extern		STR16			MercAccountText[];
 
-// WANNE 3
+// WANNE: The "Next" and "Prev" button text of the merc account page
 extern	STR16 MercAccountPageText[];
 
 

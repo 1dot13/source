@@ -379,14 +379,14 @@ void BobbyRayPurchaseEventCallback( UINT8 ubOrderID )
 	if( !fThisShipmentIsFromJohnKulba )
 	{
 		//Add an email from Bobby r telling the user the shipment 'Should' be there
-		AddEmail( BOBBYR_SHIPMENT_ARRIVED, BOBBYR_SHIPMENT_ARRIVED_LENGTH, BOBBY_R, GetWorldTotalMin() );
+		AddEmail( BOBBYR_SHIPMENT_ARRIVED, BOBBYR_SHIPMENT_ARRIVED_LENGTH, BOBBY_R, GetWorldTotalMin(), -1 );
 	}
 	else
 	{
 		//if the shipment is from John Kulba
 
 		//Add an email from kulba telling the user the shipment is there
-		AddEmail( JOHN_KULBA_GIFT_IN_DRASSEN, JOHN_KULBA_GIFT_IN_DRASSEN_LENGTH, JOHN_KULBA, GetWorldTotalMin() );
+		AddEmail( JOHN_KULBA_GIFT_IN_DRASSEN, JOHN_KULBA_GIFT_IN_DRASSEN_LENGTH, JOHN_KULBA, GetWorldTotalMin(), -1 );
 	}
 }
 
@@ -661,7 +661,7 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 					{
 						// KP knows money is gone, hasn't told player, if this event is called then the 2
 						// days are up... send email
-						AddEmail( KING_PIN_LETTER, KING_PIN_LETTER_LENGTH, KING_PIN, GetWorldTotalMin() );
+						AddEmail( KING_PIN_LETTER, KING_PIN_LETTER_LENGTH, KING_PIN, GetWorldTotalMin(), -1 );
 						StartQuest( QUEST_KINGPIN_MONEY, 5, MAP_ROW_D );
 						// add event to send terrorists two days from now
 						AddFutureDayStrategicEvent( EVENT_SET_BY_NPC_SYSTEM, Random( 120 ), FACT_KINGPIN_KNOWS_MONEY_GONE, 2 );
@@ -758,7 +758,7 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 				break;
 
 			case NPC_ACTION_SEND_ENRICO_MIGUEL_EMAIL:
-				AddEmail( ENRICO_MIGUEL, ENRICO_MIGUEL_LENGTH, MAIL_ENRICO, GetWorldTotalMin() );
+				AddEmail( ENRICO_MIGUEL, ENRICO_MIGUEL_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1 );
 				break;
 
 			case NPC_ACTION_TIMER_FOR_VEHICLE:
@@ -1185,5 +1185,5 @@ void DropOffItemsInMeduna( UINT8 ubOrderNum )
 	gpNewBobbyrShipments[ ubOrderNum ].fActive = FALSE;
 
 	//Add an email from kulba telling the user the shipment is there
-	AddEmail( BOBBY_R_MEDUNA_SHIPMENT, BOBBY_R_MEDUNA_SHIPMENT_LENGTH, BOBBY_R, GetWorldTotalMin() );
+	AddEmail( BOBBY_R_MEDUNA_SHIPMENT, BOBBY_R_MEDUNA_SHIPMENT_LENGTH, BOBBY_R, GetWorldTotalMin(), -1 );
 }

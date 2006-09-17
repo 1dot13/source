@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifndef _MAP_SCREEN_INTERFACE_MAP_H
 #define _MAP_SCREEN_INTERFACE_MAP_H
 
@@ -156,19 +155,16 @@ enum {
 #define SOUTH_ZOOM_BOUND 324
 #define NORTH_ZOOM_BOUND 36
 
-// WANNE 2 <change THIS>
-// WANNE 2 (the starting top/left position of the background image
+// WANNE: The starting top/left position of the background image
 #define MAP_BORDER_X						261
 #define MAP_BORDER_Y						0
 
 
-// WANNE 2 <change THIS>
-// WANNE 2 (the offset of the map border)
+// WANNE: The offset of the map border
 #define MAP_BORDER_X_OFFSET					(((SCREEN_WIDTH - 261) - 380) / 2)
 #define MAP_BORDER_Y_OFFSET					(((SCREEN_HEIGHT - 121) - 360) / 2)
 
-// WANNE 2 <THE MAP IMAGE PCX>
-// map view region
+// WANNE: The map view region (map image pcx)
 #define			MAP_VIEW_START_X			(MAP_BORDER_X + MAP_BORDER_X_OFFSET + 9)
 #define			MAP_VIEW_START_Y			(MAP_BORDER_Y + MAP_BORDER_Y_OFFSET + 10)
 #define			MAP_VIEW_WIDTH				336

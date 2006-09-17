@@ -163,6 +163,10 @@ struct email
 	UINT32	uiFifthData;
 	UINT32	uiSixData;
 
+	// WANNE: A reference to the IMP position in the gMercProfiles array. 
+	// So we know which analyse email belongs to the imp
+	INT32		iCurrentIMPPosition;
+
 	struct	email *Next;
 	struct	email *Prev;
 };
@@ -272,11 +276,11 @@ void RenderEmail();
 
 
 // message manipulation
-void AddEmailMessage(INT32 iMessageOffset, INT32 iMessageLength,STR16 pSubject, INT32 iDate, UINT8 ubSender, BOOLEAN fAlreadyRead, INT32 uiFirstData, UINT32 uiSecondData );
+void AddEmailMessage(INT32 iMessageOffset, INT32 iMessageLength,STR16 pSubject, INT32 iDate, UINT8 ubSender, BOOLEAN fAlreadyRead, INT32 uiFirstData, UINT32 uiSecondData, INT32 iCurrentIMPPosition );
 void RemoveEmailMessage(INT32 iId);
 EmailPtr GetEmailMessage(INT32 iId);
 void LookForUnread();
-void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate);
+void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition);
 void AddPreReadEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate);
 BOOLEAN DisplayNewMailBox();
 void CreateDestroyNewMailButton();

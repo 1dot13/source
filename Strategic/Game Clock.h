@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifndef __WORLD_CLOCK
 #define __WORLD_CLOCK
 
@@ -6,11 +5,9 @@
 
 
 // where the time string itself is rendered
-// WANNE 2
 #define			CLOCK_X							(SCREEN_WIDTH - 86)			//554
 #define			CLOCK_Y							(SCREEN_HEIGHT - 21)		//459
 
-// WANNE 2
 // the mouse region around the clock (bigger)
 #define			CLOCK_REGION_START_X			(SCREEN_WIDTH - 88)								//552
 #define			CLOCK_REGION_START_Y			(SCREEN_HEIGHT - 24)							//456

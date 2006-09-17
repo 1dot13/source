@@ -47,7 +47,6 @@ void ClearOutTempLaptopFiles( void );
 
 void HaventMadeImpMercEmailCallBack();
 
-// WANNE
 extern INT32 guiCurrentGunFilterMode;
 extern INT32 guiPrevGunFilterMode;
 

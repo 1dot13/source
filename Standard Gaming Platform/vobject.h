@@ -138,7 +138,6 @@ extern "C" {
 // Creates a list to contain video objects
 BOOLEAN InitializeVideoObjectManager( );
 
-// WANNE
 int filter(unsigned int code, struct _EXCEPTION_POINTERS *ep);
 
 // Deletes any video object placed into list

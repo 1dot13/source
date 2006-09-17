@@ -786,7 +786,7 @@ void DailyUpdateOfMercSite( UINT16 usDate)
 		if( LaptopSaveInfo.gubPlayersMercAccountStatus != MERC_ACCOUNT_INVALID )
 		{
 			LaptopSaveInfo.gubPlayersMercAccountStatus = MERC_ACCOUNT_INVALID;
-			AddEmail( MERC_INVALID, MERC_INVALID_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin());
+			AddEmail( MERC_INVALID, MERC_INVALID_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1);
 		}
 	}
 	else if( iNumDays > MERC_NUM_DAYS_TILL_ACCOUNT_SUSPENDED )
@@ -794,7 +794,7 @@ void DailyUpdateOfMercSite( UINT16 usDate)
 		if( LaptopSaveInfo.gubPlayersMercAccountStatus != MERC_ACCOUNT_SUSPENDED )
 		{
 			LaptopSaveInfo.gubPlayersMercAccountStatus = MERC_ACCOUNT_SUSPENDED;
-			AddEmail( MERC_WARNING, MERC_WARNING_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin());
+			AddEmail( MERC_WARNING, MERC_WARNING_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1);
 
 			// Have speck complain next time player come to site
 			LaptopSaveInfo.uiSpeckQuoteFlags |= SPECK_QUOTE__SENT_EMAIL_ABOUT_LACK_OF_PAYMENT;
@@ -805,7 +805,7 @@ void DailyUpdateOfMercSite( UINT16 usDate)
 		if( LaptopSaveInfo.gubPlayersMercAccountStatus != MERC_ACCOUNT_VALID_FIRST_WARNING )
 		{
 			LaptopSaveInfo.gubPlayersMercAccountStatus = MERC_ACCOUNT_VALID_FIRST_WARNING;
-			AddEmail( MERC_FIRST_WARNING, MERC_FIRST_WARNING_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin());
+			AddEmail( MERC_FIRST_WARNING, MERC_FIRST_WARNING_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1);
 
 			// Have speck complain next time player come to site
 			LaptopSaveInfo.uiSpeckQuoteFlags |= SPECK_QUOTE__SENT_EMAIL_ABOUT_LACK_OF_PAYMENT;
@@ -2325,7 +2325,7 @@ BOOLEAN ShouldTheMercSiteServerGoDown()
 void GetMercSiteBackOnline()
 {
 	//Add an email telling the user the site is back up
-	AddEmail( MERC_NEW_SITE_ADDRESS, MERC_NEW_SITE_ADDRESS_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin() );
+	AddEmail( MERC_NEW_SITE_ADDRESS, MERC_NEW_SITE_ADDRESS_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1 );
 
 	//Set a flag indicating that the server just went up ( so speck can make a comment when the player next visits the site )
 	LaptopSaveInfo.fFirstVisitSinceServerWentDown = TRUE;
@@ -2631,7 +2631,7 @@ void NewMercsAvailableAtMercSiteCallBack( )
 	}
 
 	if( fSendEmail )
-		AddEmail( NEW_MERCS_AT_MERC, NEW_MERCS_AT_MERC_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin());
+		AddEmail( NEW_MERCS_AT_MERC, NEW_MERCS_AT_MERC_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1);
 
 	//new mercs are available
 	LaptopSaveInfo.fNewMercsAvailableAtMercSite = TRUE;

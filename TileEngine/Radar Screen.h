@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifndef __RADAR_SCREEN_H
 #define __RADAR_SCREEN_H
 
@@ -10,7 +9,6 @@ void RadarRegionButtonCallback( MOUSE_REGION * pRegion, INT32 iReason );
 
 BOOLEAN LoadRadarScreenBitmap( CHAR8 * aFilename );
 
-// WANNE 2
 // RADAR WINDOW DEFINES
 #define	RADAR_WINDOW_X				(SCREEN_WIDTH - 97)				//543
 #define RADAR_WINDOW_TM_Y				INTERFACE_START_Y + 13

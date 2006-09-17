@@ -353,7 +353,7 @@ void  BtnIMPConfirmYes(GUI_BUTTON *btn,INT32 reason)
 			//Kaiden: And here is my Answer to the IMP E-mails only
 			// profiling the last IMP made. You get the results immediately
 			// But they should become different per different IMP.
-			AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ) );
+			AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), PLAYER_GENERATED_CHARACTER_ID + LaptopSaveInfo.iVoiceId );
 
 			//RenderCharProfile( );
 

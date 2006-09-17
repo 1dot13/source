@@ -15,7 +15,7 @@ void ResetIMPCharactersEyesAndMouthOffsets( UINT8 ubMercProfileID );
 
 BOOLEAN ImpExists ( STR fileName );
 
-// WANNE 10:
+// WANNE: Determines the free and current slot of the imp in the gMercProfiles array
 INT32 GetNextFreeIMPSlot( void );
 INT32 GetCurrentIMPSlot( void );
 

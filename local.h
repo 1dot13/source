@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifndef __LOCAL_DEFINES_
 #define __LOCAL_DEFINES_
 
@@ -33,7 +32,6 @@ extern int iResolution;			// Resolution id from the ini file
 extern int iScreenWidthOffset;
 extern int iScreenHeightOffset;
 
-// WANNE 2
 extern BOOLEAN fDisplayOverheadMap;
 
 #define PIXEL_DEPTH           16

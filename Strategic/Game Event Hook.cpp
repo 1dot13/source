@@ -189,11 +189,11 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
     case EVENT_DAY3_ADD_EMAIL_FROM_SPECK:
 			if(!bMercDayOne)
 			{
-				AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin( ) );
+				AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin( ), -1 );
 			}
 			break;
 		case EVENT_DAY2_ADD_EMAIL_FROM_IMP:
-			AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ) );
+			AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), -1 );
 			break;
 		//If a merc gets hired and they dont show up immediately, the merc gets added to the queue and shows up
 		// uiTimeTillMercArrives  minutes later
