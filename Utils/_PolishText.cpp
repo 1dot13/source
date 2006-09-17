@@ -2058,6 +2058,7 @@ STR16 pImpPopUpStrings[] =
 	L"Opcja tym razem nieaktywna.",
 	L"Aby wykonaæ profil, musisz mieæ miejsce dla przynajmniej jednego cz³onka za³ogi.",
 	L"Profil zosta³ ju¿ wykonany.",
+	L"You have already reached the maximum number of I.M.P. characters.",
 };
 
 
@@ -3512,7 +3513,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, weapon ranges will be shown in tiles.",
 	L"When ON, tracer effect will be shown for single shots.",
 	L"When ON, you will hear rain noises when it is raining.",
-
+	L"When ON, I.M.P characters will get random personality and attitude.",
 };
 
 

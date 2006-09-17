@@ -51,6 +51,7 @@ enum
 	TOPTION_TRACERS_FOR_SINGLE_FIRE,
 	TOPTION_RAIN_SOUND,
 	TOPTION_ALLOW_CROWS,
+	TOPTION_USE_RANDOM_PERSONALITY,
 	NUM_GAME_OPTIONS,				//Toggle up this will be able to be Toggled by the player
 	
 
@@ -142,6 +143,7 @@ typedef struct
 	BOOLEAN fSellAll;
 	INT16 iPriceModifier;
 
+	INT32 iMaxIMPCharacters;
 	INT32 iMinAttribute;
 	INT32 iMaxAttribute;
 	INT32 iImpAttributePoints;
@@ -177,7 +179,7 @@ typedef struct
 	BOOLEAN fMercDayOne;
 	BOOLEAN fAllMercsAvailable;
 
-	BOOLEAN fPers_att;
+	//BOOLEAN fPers_att;
 
 	INT8 iCustomPersonality;
 	INT8 iCustomAttitude;

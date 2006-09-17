@@ -15,5 +15,9 @@ void ResetIMPCharactersEyesAndMouthOffsets( UINT8 ubMercProfileID );
 
 BOOLEAN ImpExists ( STR fileName );
 
+// WANNE 10:
+INT32 GetNextFreeIMPSlot( void );
+INT32 GetCurrentIMPSlot( void );
+
 #endif
 

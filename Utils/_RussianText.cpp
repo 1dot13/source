@@ -2064,9 +2064,10 @@ STR16 pImpPopUpStrings[] =
 	L"Вы уверены, что хотите начать процесс записи профайла заново?",
 	L"Введите полное имя и пол",
 	L"Предварит.анализ ваших финансов показал, что у вас недостаточно денег на анализ.",
-  L"Сейчас вы не можете выбрать это.",
+	L"Сейчас вы не можете выбрать это.",
 	L"Чтобы закончить анализ,нужно иметь место еще хотя бы для одного члена команды.",
 	L"Анализ уже завершен.",
+	L"You have already reached the maximum number of I.M.P. characters.",
 };
 
 
@@ -3524,6 +3525,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, tracer effect will be shown for single shots.",	
 	L"When ON, you will hear rain noises when it is raining.",
 	L"When ON, the crows are present in game.",
+	L"When ON, I.M.P characters will get random personality and attitude.",
 };
 
 

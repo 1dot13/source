@@ -382,6 +382,8 @@ void HandleTextEvent( UINT32 uiKey )
 
 void ProcessPlayerInputActivationString( void )
 {
+	INT16 iNextSlot = -1;
+
   // prcess string to see if it matches activation string
 
 	if( NumberOfMercsOnPlayerTeam() >= 18 )		
@@ -390,39 +392,47 @@ void ProcessPlayerInputActivationString( void )
 	char charPlayerActivationString[32];
 	wcstombs(charPlayerActivationString,pPlayerActivationString,32);
 
-//Madd multiple imps if( ( ( wcscmp(pPlayerActivationString, L"XEP624") == 0 ) || ( wcscmp(pPlayerActivationString, L"xep624") == 0 ) )&&( LaptopSaveInfo.fIMPCompletedFlag == FALSE ) &&( LaptopSaveInfo.gfNewGameLaptop < 2 ) )
-  if( ( ( wcscmp(pPlayerActivationString, L"XEP624") == 0 ) || ( wcscmp(pPlayerActivationString, L"xep624") == 0 ) ) &&( LaptopSaveInfo.gfNewGameLaptop < 2 ) )
+	iNextSlot = GetNextFreeIMPSlot();
+
+	// We have at least one more free slot for a imp character
+	if (iNextSlot != -1)
 	{
-		// Kaiden: Need to reset skills, attributes and personalities with the new UB Method.
-		ResetSkillsAttributesAndPersonality( );
-		ClearAllSkillsList( );
-	  iCurrentImpPage = IMP_MAIN_PAGE;
-	
+		//Madd multiple imps if( ( ( wcscmp(pPlayerActivationString, L"XEP624") == 0 ) || ( wcscmp(pPlayerActivationString, L"xep624") == 0 ) )&&( LaptopSaveInfo.fIMPCompletedFlag == FALSE ) &&( LaptopSaveInfo.gfNewGameLaptop < 2 ) )
+		if( ( ( wcscmp(pPlayerActivationString, L"XEP624") == 0 ) || ( wcscmp(pPlayerActivationString, L"xep624") == 0 ) ) &&( LaptopSaveInfo.gfNewGameLaptop < 2 ) )
+		{
+			// Kaiden: Need to reset skills, attributes and personalities with the new UB Method.
+			ResetSkillsAttributesAndPersonality( );
+			ClearAllSkillsList( );
+			iCurrentImpPage = IMP_MAIN_PAGE;
+		
+		}
+		//Madd multiple imps else if( ( wcscmp(pPlayerActivationString, L"90210") == 0 ) && ( LaptopSaveInfo.fIMPCompletedFlag == FALSE ) )
+		else if( wcscmp(pPlayerActivationString, L"90210") == 0 )
+		{
+			LoadImpCharacter( IMP_MERC_FILENAME );
+		}
+		// Madd: load characters by name
+		else if ( ImpExists( charPlayerActivationString ) )
+		{
+			LoadImpCharacter( charPlayerActivationString );
+		}
+		else
+		{
+			if( ( ( wcscmp(pPlayerActivationString, L"XEP624") != 0 ) && ( wcscmp(pPlayerActivationString, L"xep624") != 0 ) ) )
+			{
+				DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 0 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+			}
+			else if( LaptopSaveInfo.fIMPCompletedFlag == TRUE )
+			{
+				DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 6 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+			}
+		}
 	}
-	//Madd multiple imps else if( ( wcscmp(pPlayerActivationString, L"90210") == 0 ) && ( LaptopSaveInfo.fIMPCompletedFlag == FALSE ) )
-	else if( wcscmp(pPlayerActivationString, L"90210") == 0 )
+	else
 	{
-		LoadImpCharacter( IMP_MERC_FILENAME );
-	}
-	// Madd: load characters by name
-	else if ( ImpExists( charPlayerActivationString ) )
-	{
-		LoadImpCharacter( charPlayerActivationString );
+		DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 7 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 	}
 
-	else
-  {
-		if( ( ( wcscmp(pPlayerActivationString, L"XEP624") != 0 ) && ( wcscmp(pPlayerActivationString, L"xep624") != 0 ) ) )
-		{
-			DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 0 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
-		}
-		else if( LaptopSaveInfo.fIMPCompletedFlag == TRUE )
-		{
-		   DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 6 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
-		}
-		
-		
-	}
 	return;
 }
 

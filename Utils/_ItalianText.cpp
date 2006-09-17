@@ -2055,9 +2055,10 @@ STR16 pImpPopUpStrings[] =
 	L"State per riiniziare l'intero processo di profilo. Ne siete certi?",
 	L"Inserite nome e cognome corretti oltre che al sesso",
 	L"L'analisi preliminare del vostro stato finanziario mostra che non potete offrire un'analisi di profilo.",
-  L"Opzione non valida questa volta.",
+	L"Opzione non valida questa volta.",
 	L"Per completare un profilo accurato, dovete aver spazio per almeno uno dei membri della squadra.",
 	L"Profilo già completato.",
+	L"You have already reached the maximum number of I.M.P. characters.",
 };
 
 

@@ -2,6 +2,7 @@
 	#include "Laptop All.h"
 #else
 	#include "CharProfile.h"
+	#include "IMP Confirm.h"
 	#include "IMP Voices.h"
 	#include "IMP MainPage.h"
 	#include "IMP HomePage.h"
@@ -383,14 +384,20 @@ void BtnIMPVoicesDoneCallback(GUI_BUTTON *btn,INT32 reason)
 			}
 */
 			// set voice id, to grab character slot
-      if( fCharacterIsMale == TRUE )
-			{
-				LaptopSaveInfo.iVoiceId = iCurrentVoices;
-			}
-			else
-			{
-				LaptopSaveInfo.iVoiceId = iCurrentVoices + 3;
-			}
+      
+			// WANNE 10:
+			//if( fCharacterIsMale == TRUE )
+			//{
+			//	LaptopSaveInfo.iVoiceId = iCurrentVoices;
+			//}
+			//else
+			//{
+			//	LaptopSaveInfo.iVoiceId = iCurrentVoices + 3;
+			//}
+
+			// Get the next free imp slot
+			LaptopSaveInfo.iVoiceId = GetNextFreeIMPSlot() - PLAYER_GENERATED_CHARACTER_ID;
+
 
 			// set button up image  pending
 			fButtonPendingFlag = TRUE;

@@ -210,11 +210,46 @@ void DestroyConfirmButtons( void )
 	return;
 }
 
+INT32 GetCurrentIMPSlot( void )
+{
+	INT16 iFilledSlot = PLAYER_GENERATED_CHARACTER_ID;
+	INT16 i;
+
+	for (i = PLAYER_GENERATED_CHARACTER_ID + gGameExternalOptions.iMaxIMPCharacters - 1; i >= PLAYER_GENERATED_CHARACTER_ID; i--)
+	{
+		// We found the current imp
+		if (wcscmp( gMercProfiles[i].zName, L"") != 0)
+		{
+			iFilledSlot = i;
+			break;
+		}
+	}
+
+	return iFilledSlot;
+}
+
+// WANNE 10:
+INT32 GetNextFreeIMPSlot( void )
+{
+	INT16 iFreeSlot = -1;
+	INT16 i;
+	
+	for (i = PLAYER_GENERATED_CHARACTER_ID; i < PLAYER_GENERATED_CHARACTER_ID + gGameExternalOptions.iMaxIMPCharacters; i++)
+	{
+		if (wcscmp( gMercProfiles[i].zName, L"") == 0)
+		{
+			iFreeSlot = i;
+			break;
+		}
+	}
+
+	return iFreeSlot;
+}
 
 
 BOOLEAN AddCharacterToPlayersTeam( void )
 {
-
+	INT32 iFreeIMPSlot = 0;
 	MERC_HIRE_STRUCT HireMercStruct;
 
 
@@ -225,7 +260,10 @@ BOOLEAN AddCharacterToPlayersTeam( void )
 
 	memset(&HireMercStruct, 0, sizeof(MERC_HIRE_STRUCT));
 
-	HireMercStruct.ubProfileID = ( UINT8 )( PLAYER_GENERATED_CHARACTER_ID + LaptopSaveInfo.iVoiceId ) ;
+	//HireMercStruct.ubProfileID = ( UINT8 )( PLAYER_GENERATED_CHARACTER_ID + LaptopSaveInfo.iVoiceId ) ;
+
+	// Get the current imp slot (imp is already stored)
+	HireMercStruct.ubProfileID = GetCurrentIMPSlot();
 
 	if( fLoadingCharacterForPreviousImpProfile == FALSE )
 	{
@@ -755,6 +793,9 @@ void LoadImpCharacter( STR nickName )
 		return;
 	}
 
+	// WANNE 10: set the next free profile id for the new imp
+	iProfileId = GetNextFreeIMPSlot();
+
 	// read in the profile
 	if (!FileRead(hFile, &gMercProfiles[ iProfileId ] ,sizeof( MERCPROFILESTRUCT ), &uiBytesRead))
 	{
@@ -777,8 +818,11 @@ void LoadImpCharacter( STR nickName )
 	fLoadingCharacterForPreviousImpProfile = TRUE;
 	AddTransactionToPlayersBook(IMP_PROFILE,0, GetWorldTotalMin( ), - ( COST_OF_PROFILE ) );
   AddHistoryToPlayersLog( HISTORY_CHARACTER_GENERATED, 0,GetWorldTotalMin( ), -1, -1 );
-	LaptopSaveInfo.iVoiceId = iProfileId - PLAYER_GENERATED_CHARACTER_ID;
-	AddCharacterToPlayersTeam( );
+
+
+  LaptopSaveInfo.iVoiceId = iProfileId - PLAYER_GENERATED_CHARACTER_ID;
+	 
+  AddCharacterToPlayersTeam( );
 	AddFutureDayStrategicEvent( EVENT_DAY2_ADD_EMAIL_FROM_IMP, 60 * 7, 0, 2 );
 	LaptopSaveInfo.fIMPCompletedFlag = TRUE;
 	fPausedReDrawScreenFlag = TRUE;

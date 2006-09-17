@@ -1992,6 +1992,7 @@ STR16 pImpPopUpStrings[] =
 	L"Option zur Zeit nicht gültig.",
 	L"Um eine genaue Evaluierung durchzuführen, müssen Sie mindestens noch ein Teammitglied aufnehmen können.",
 	L"Evaluierung bereits durchgeführt.",
+	L"Sie habe bereits die maximale Anzahl an B.S.E Charakteren.",
 };
 
 // button labels used on the IMP site
@@ -2665,10 +2666,10 @@ STR16			BobbyRFilter[] =
 	// Guns
 	L"Schwere W.",
 	L"Pistole",
-	L"M. Pistole",
+	L"MP",
 	L"SMG",
 	L"Gewehr",
-	L"SS Gewehr",
+	L"SSG",
 	L"Sturmgew.",
 	L"MG",
 	L"Schrotfl.",
@@ -3340,6 +3341,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, wird Tracereffekt auch für Einzelschüsse angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, werden Regengeräusche hörbar falls es regnet.",
 	L"Wenn diese Funktion aktiviert ist, sind Krähen im Spiel vorhanden.",
+	L"Wenn diese Funktion aktiviert ist, erhalten B.S.E Charaktere zufällige Persönlichkeit und Einstellung.",
 };
 
 STR16 gzGIOScreenText[] =

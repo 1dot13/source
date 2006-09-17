@@ -362,10 +362,13 @@ void BtnIMPBeginScreenDoneCallback(GUI_BUTTON *btn,INT32 reason)
 			}
 			else
 			{
+				// WANNE:
+				/*
 			  if( CheckCharacterInputForEgg( ) )
 				{
 					fEggOnYouFace = TRUE;
 				}
+				*/
 			}
 
 

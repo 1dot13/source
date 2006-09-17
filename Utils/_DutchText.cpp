@@ -2075,6 +2075,7 @@ STR16 pImpPopUpStrings[] =
 	L"Geen geldige optie op dit moment.",
 	L"Om een nauwkeurig profiel te maken, moet je ruimte hebben voor tenminste één teamlid.",
 	L"Profiel is al gemaakt.",
+	L"You have already reached the maximum number of I.M.P. characters.",
 };
 
 
@@ -3530,6 +3531,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, weapon ranges will be shown in tiles.",
 	L"When ON, tracer effect will be shown for single shots.",
 	L"When ON, you will hear rain noises when it is raining.",
+	L"When ON, I.M.P characters will get random personality and attitude.",
 
 };
 

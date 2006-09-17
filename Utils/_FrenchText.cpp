@@ -2061,9 +2061,10 @@ STR16 pImpPopUpStrings[] =
 	L"Vous allez établir un nouveau profil. Etes-vous sûr de vouloir recommencer ?",
 	L"Veuillez entrer votre nom et votre sexe.",
 	L"Vous n'avez pas les moyens de vous offrir une analyse de profil.",
-L"Option inaccessible pour le moment.",
+	L"Option inaccessible pour le moment.",
 	L"Pour que cette analyse soit efficace, il doit vous rester au moins une place dans votre escouade.",
 	L"Profil déjà établi.",
+	L"You have already reached the maximum number of I.M.P. characters.",
 };
 
 
@@ -3519,7 +3520,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, weapon ranges will be shown in tiles.",
 	L"When ON, tracer effect will be shown for single shots.",
 	L"When ON, you will hear rain noises when it is raining.",
-
+	L"When ON, I.M.P characters will get random personality and attitude.",
 };
 
 
