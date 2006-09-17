@@ -175,11 +175,11 @@ UINT16 WeaponType[][30] =
 	L"Andere",
 	L"Pistole",
 	L"Maschinenpistole",
-	L"Schwere Maschinenpistole",
+	L"Schwere MP",
 	L"Gewehr",
 	L"Scharfschützengewehr",
 	L"Sturmgewehr",
-	L"Leichtes Maschinengewehr",
+	L"Leichtes MP",
 	L"Schrotflinte",
 };
 
