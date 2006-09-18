@@ -200,6 +200,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -321,6 +322,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -442,6 +444,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -563,6 +566,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -684,6 +688,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -805,6 +810,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -926,6 +932,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -1032,7 +1039,7 @@ Cursors:
 		<ubGraphicType>0</ubGraphicType>
 		<ubGraphicNum>7</ubGraphicNum>
 		<ubWeight>17</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
+		<ubPerPocket>0</ubPerPocket>
 		<usPrice>650</usPrice>
 		<ubCoolness>2</ubCoolness>
 		<bReliability>0</bReliability>
@@ -1047,6 +1054,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -1168,6 +1176,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -1289,6 +1298,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -1410,6 +1420,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -1531,6 +1542,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -1626,10 +1638,10 @@ Cursors:
 	<ITEM>
 		<uiIndex>12</uiIndex>
 		<szItemName>Commando</szItemName>
-		<szLongItemName>Colt M4 Commando</szLongItemName>
+		<szLongItemName>Colt M16A2 Commando</szLongItemName>
 		<szItemDesc>This mini version of the M16 is a prized tool for knocking off noisy neighbors and petty dictators.</szItemDesc>
-		<szBRName>Colt M4 Commando</szBRName>
-		<szBRDesc>Very small, and yet, very deadly. The Colt 635 Commando is an attractively short and concealable assault rifle that was based on the M16 design. It is extremely popular among several US armed forces.</szBRDesc>
+		<szBRName>Colt M16A2 Commando</szBRName>
+		<szBRDesc>Very small, and yet, very deadly. The Colt 733 Commando is an attractively short and concealable assault rifle that was based on the M16 design. It is extremely popular among several US armed forces.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>12</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -1652,6 +1664,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -1773,6 +1786,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -1894,6 +1908,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -2015,6 +2030,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -2136,6 +2152,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -2257,6 +2274,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -2378,6 +2396,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -2499,6 +2518,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -2620,6 +2640,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -2741,6 +2762,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -2862,6 +2884,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -2983,6 +3006,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -3104,6 +3128,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -3225,6 +3250,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -3346,6 +3372,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -3467,6 +3494,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -3588,6 +3616,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -3709,6 +3738,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -3830,6 +3860,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>1</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -3951,6 +3982,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -4072,6 +4104,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -4193,6 +4226,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>1</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -4314,6 +4348,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -4435,6 +4470,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -4556,6 +4592,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -4677,6 +4714,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -4798,6 +4836,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -4919,6 +4958,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -5040,6 +5080,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -5161,6 +5202,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -5282,6 +5324,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -5403,6 +5446,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -5524,6 +5568,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -5645,6 +5690,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -5766,6 +5812,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -5887,6 +5934,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -6008,6 +6056,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -6129,6 +6178,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -6250,6 +6300,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -6371,6 +6422,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -6492,6 +6544,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -6613,6 +6666,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -6734,6 +6788,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -6855,6 +6910,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>1</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -6976,6 +7032,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -7097,6 +7154,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -7218,6 +7276,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -7339,6 +7398,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -7460,6 +7520,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -7581,6 +7642,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -7702,6 +7764,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -7823,6 +7886,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -7944,6 +8008,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -8065,6 +8130,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>1</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -8186,6 +8252,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -8307,6 +8374,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -8428,6 +8496,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -8549,6 +8618,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -8670,6 +8740,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -8791,6 +8862,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -8912,6 +8984,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -9033,6 +9106,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -9154,6 +9228,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -9275,6 +9350,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -9396,6 +9472,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -9517,6 +9594,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -9638,6 +9716,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -9759,6 +9838,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -9880,6 +9960,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -10001,6 +10082,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -10122,6 +10204,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -10243,6 +10326,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -10364,6 +10448,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -10485,6 +10570,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -10606,6 +10692,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -10727,6 +10814,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -10848,6 +10936,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -10969,6 +11058,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -11090,6 +11180,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -11211,6 +11302,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -11332,6 +11424,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -11453,6 +11546,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -11574,6 +11668,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -11695,6 +11790,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -11816,6 +11912,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -11937,6 +12034,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -12058,6 +12156,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -12179,6 +12278,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -12300,6 +12400,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -12421,6 +12522,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -12542,6 +12644,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -12663,6 +12766,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -12784,6 +12888,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -12905,6 +13010,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -13026,6 +13132,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -13147,6 +13254,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -13268,6 +13376,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -13389,6 +13498,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -13510,6 +13620,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -13631,6 +13742,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>1</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -13752,6 +13864,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>1</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -13873,6 +13986,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>1</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -13994,6 +14108,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -14115,6 +14230,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -14236,6 +14352,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -14357,6 +14474,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -14478,6 +14596,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -14599,6 +14718,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -14720,6 +14840,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -14841,6 +14962,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -14962,6 +15084,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -15083,6 +15206,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -15204,6 +15328,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -15325,6 +15450,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -15446,6 +15572,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -15567,6 +15694,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -15688,6 +15816,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -15809,6 +15938,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -15930,6 +16060,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -16051,6 +16182,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -16172,6 +16304,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -16293,6 +16426,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -16414,6 +16548,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -16535,6 +16670,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -16656,6 +16792,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -16777,6 +16914,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -16898,6 +17036,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -17019,6 +17158,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -17140,6 +17280,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -17261,6 +17402,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -17382,6 +17524,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -17503,6 +17646,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -17624,6 +17768,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -17745,6 +17890,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -17866,6 +18012,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -17987,6 +18134,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -18108,6 +18256,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -18229,6 +18378,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -18350,6 +18500,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -18471,6 +18622,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -18592,6 +18744,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -18713,6 +18866,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -18834,6 +18988,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -18955,6 +19110,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -19076,6 +19232,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -19197,6 +19354,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -19318,6 +19476,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -19439,6 +19598,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -19560,6 +19720,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -19681,6 +19842,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -19802,6 +19964,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -19923,6 +20086,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -20044,6 +20208,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -20165,6 +20330,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -20286,6 +20452,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -20407,6 +20574,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -20528,6 +20696,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -20649,6 +20818,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -20770,6 +20940,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -20891,6 +21062,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -21012,6 +21184,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -21133,6 +21306,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -21254,6 +21428,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -21375,6 +21550,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -21496,6 +21672,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -21617,6 +21794,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -21738,6 +21916,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -21859,6 +22038,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -21980,6 +22160,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -22101,6 +22282,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -22222,6 +22404,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -22343,6 +22526,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>1</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -22464,6 +22648,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -22585,6 +22770,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -22706,6 +22892,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -22827,6 +23014,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -22948,6 +23136,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -23069,6 +23258,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -23190,6 +23380,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -23311,6 +23502,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -23432,6 +23624,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -23553,6 +23746,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -23674,6 +23868,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -23795,6 +23990,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -23916,6 +24112,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -24037,6 +24234,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -24158,6 +24356,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -24279,6 +24478,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -24400,6 +24600,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -24521,6 +24722,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -24642,6 +24844,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -24763,6 +24966,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -24884,6 +25088,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -25005,6 +25210,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -25126,6 +25332,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -25247,6 +25454,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>1</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -25368,6 +25576,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>1</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -25489,6 +25698,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>1</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -25610,6 +25820,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -25731,6 +25942,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -25852,6 +26064,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -25973,6 +26186,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -26094,6 +26308,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -26215,6 +26430,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -26336,6 +26552,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>1</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -26457,6 +26674,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -26578,6 +26796,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -26699,6 +26918,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -26820,6 +27040,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -26941,6 +27162,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -27062,6 +27284,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -27183,6 +27406,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>1</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -27304,6 +27528,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>1</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -27425,6 +27650,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -27546,6 +27772,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -27667,6 +27894,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -27788,6 +28016,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -27909,6 +28138,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -28030,6 +28260,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -28151,6 +28382,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -28272,6 +28504,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -28393,6 +28626,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -28514,6 +28748,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -28635,6 +28870,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>1</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -28756,6 +28992,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -28877,6 +29114,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -28998,6 +29236,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -29119,6 +29358,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -29240,6 +29480,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -29361,6 +29602,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>1</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -29482,6 +29724,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -29603,6 +29846,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -29724,6 +29968,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>1</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -29845,6 +30090,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -29966,6 +30212,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -30087,6 +30334,7 @@ Cursors:
 		<TwoHanded>1</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -30208,6 +30456,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -30329,6 +30578,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -30450,6 +30700,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -30571,6 +30822,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -30692,6 +30944,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -30813,6 +31066,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -30934,6 +31188,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -31055,6 +31310,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -31176,6 +31432,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -31297,6 +31554,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -31418,6 +31676,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -31539,6 +31798,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -31660,6 +31920,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -31781,6 +32042,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -31902,6 +32164,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -32023,6 +32286,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -32144,6 +32408,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -32265,6 +32530,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -32386,6 +32652,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -32507,6 +32774,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -32628,6 +32896,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -32749,6 +33018,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -32870,6 +33140,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -32991,6 +33262,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -33112,6 +33384,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -33233,6 +33506,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -33354,6 +33628,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -33475,6 +33750,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -33596,6 +33872,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -33717,6 +33994,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -33838,6 +34116,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -33959,6 +34238,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -34080,6 +34360,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -34201,6 +34482,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -34322,6 +34604,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -34443,6 +34726,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -34564,6 +34848,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -34685,6 +34970,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -34806,6 +35092,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -34927,6 +35214,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -35048,6 +35336,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -35169,6 +35458,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -35290,6 +35580,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -35411,6 +35702,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -35532,6 +35824,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -35653,6 +35946,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -35774,6 +36068,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -35895,6 +36190,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -36016,6 +36312,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -36137,6 +36434,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -36258,6 +36556,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -36379,6 +36678,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -36500,6 +36800,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -36621,6 +36922,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -36742,6 +37044,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>1</NotInEditor>
@@ -36863,6 +37166,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -36984,6 +37288,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -37105,6 +37410,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -37226,6 +37532,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -37347,6 +37654,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>1</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -37468,6 +37776,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -37589,6 +37898,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -37710,6 +38020,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -37831,6 +38142,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -37952,6 +38264,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -38073,6 +38386,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -38194,6 +38508,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -38315,6 +38630,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -38436,6 +38752,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -38557,6 +38874,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -38678,6 +38996,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -38799,6 +39118,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -38920,6 +39240,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -39041,6 +39362,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -39162,6 +39484,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -39283,6 +39606,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -39404,6 +39728,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -39525,6 +39850,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -39646,6 +39972,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -39767,6 +40094,7 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>0</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
 		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
@@ -39888,7 +40216,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -39910,7 +40240,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -39935,6 +40266,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -40003,7 +40338,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -40025,7 +40362,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -40050,6 +40388,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -40118,7 +40460,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -40140,7 +40484,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -40165,6 +40510,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -40233,7 +40582,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -40255,7 +40606,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -40280,6 +40632,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -40348,7 +40704,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -40370,7 +40728,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -40395,6 +40754,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -40463,7 +40826,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -40485,7 +40850,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -40510,6 +40876,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -40578,7 +40948,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -40600,7 +40972,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -40625,6 +40998,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -40693,7 +41070,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -40715,7 +41094,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -40740,6 +41120,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -40808,7 +41192,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -40830,7 +41216,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -40855,6 +41242,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -40923,7 +41314,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -40945,7 +41338,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -40970,6 +41364,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -41038,7 +41436,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -41060,7 +41460,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -41085,6 +41486,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -41153,7 +41558,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -41175,7 +41582,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -41200,6 +41608,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -41268,7 +41680,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -41290,7 +41704,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -41315,6 +41730,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -41383,7 +41802,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -41405,7 +41826,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -41430,6 +41852,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -41498,7 +41924,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -41520,7 +41948,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -41545,6 +41974,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -41613,7 +42046,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -41635,7 +42070,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -41660,6 +42096,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -41728,7 +42168,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -41750,7 +42192,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -41775,6 +42218,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -41843,7 +42290,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -41857,7 +42306,7 @@ Cursors:
 		<Bipod>0</Bipod>
 		<RangeBonus>0</RangeBonus>
 		<ToHitBonus>0</ToHitBonus>
-		<BestLaserRange>90</BestLaserRange>
+		<BestLaserRange>0</BestLaserRange>
 		<AimBonus>0</AimBonus>
 		<MinRangeForAimBonus>0</MinRangeForAimBonus>
 		<MagSizeBonus>0</MagSizeBonus>
@@ -41865,7 +42314,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -41890,6 +42340,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -41958,7 +42412,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -41980,7 +42436,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -42005,6 +42462,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -42073,7 +42534,9 @@ Cursors:
 		<TwoHanded>0</TwoHanded>
 		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -42095,7 +42558,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -42120,6 +42584,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -42161,14 +42629,14 @@ Cursors:
 	</ITEM>
 	<ITEM>
 		<uiIndex>348</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-		<usItemClass>1</usItemClass>
+		<szItemName>nada</szItemName>
+		<szLongItemName>Nada</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY</szItemDesc>
+		<szBRName>NOT FOR SALE AT BR</szBRName>
+		<szBRDesc>NOT FOR SALE AT BR</szBRDesc>
+		<usItemClass>128</usItemClass>
 		<ubClassIndex>0</ubClassIndex>
-		<ubCursor>0</ubCursor>
+		<ubCursor>2</ubCursor>
 		<bSoundType>0</bSoundType>
 		<ubGraphicType>0</ubGraphicType>
 		<ubGraphicNum>0</ubGraphicNum>
@@ -42186,9 +42654,11 @@ Cursors:
 		<ShowStatus>0</ShowStatus>
 		<HiddenAddon>0</HiddenAddon>
 		<TwoHanded>0</TwoHanded>
-		<NotBuyable>0</NotBuyable>
+		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -42210,7 +42680,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -42235,6 +42706,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -42276,14 +42751,14 @@ Cursors:
 	</ITEM>
 	<ITEM>
 		<uiIndex>349</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-		<usItemClass>1</usItemClass>
+		<szItemName>nada</szItemName>
+		<szLongItemName>Nada</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY</szItemDesc>
+		<szBRName>NOT FOR SALE AT BR</szBRName>
+		<szBRDesc>NOT FOR SALE AT BR</szBRDesc>
+		<usItemClass>128</usItemClass>
 		<ubClassIndex>0</ubClassIndex>
-		<ubCursor>0</ubCursor>
+		<ubCursor>2</ubCursor>
 		<bSoundType>0</bSoundType>
 		<ubGraphicType>0</ubGraphicType>
 		<ubGraphicNum>0</ubGraphicNum>
@@ -42301,9 +42776,11 @@ Cursors:
 		<ShowStatus>0</ShowStatus>
 		<HiddenAddon>0</HiddenAddon>
 		<TwoHanded>0</TwoHanded>
-		<NotBuyable>0</NotBuyable>
+		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -42325,7 +42802,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -42350,6 +42828,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
@@ -42391,14 +42873,14 @@ Cursors:
 	</ITEM>
 	<ITEM>
 		<uiIndex>350</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-		<usItemClass>1</usItemClass>
+		<szItemName>nada</szItemName>
+		<szLongItemName>Nada</szLongItemName>
+		<szItemDesc>NO DESCRIPTION NECESSARY</szItemDesc>
+		<szBRName>NOT FOR SALE AT BR</szBRName>
+		<szBRDesc>NOT FOR SALE AT BR</szBRDesc>
+		<usItemClass>128</usItemClass>
 		<ubClassIndex>0</ubClassIndex>
-		<ubCursor>0</ubCursor>
+		<ubCursor>2</ubCursor>
 		<bSoundType>0</bSoundType>
 		<ubGraphicType>0</ubGraphicType>
 		<ubGraphicNum>0</ubGraphicNum>
@@ -42416,9 +42898,11 @@ Cursors:
 		<ShowStatus>0</ShowStatus>
 		<HiddenAddon>0</HiddenAddon>
 		<TwoHanded>0</TwoHanded>
-		<NotBuyable>0</NotBuyable>
+		<NotBuyable>1</NotBuyable>
 		<Attachment>0</Attachment>
+		<HiddenAttachment>0</HiddenAttachment>
 		<BigGunList>0</BigGunList>
+		<SciFi>0</SciFi>
 		<NotInEditor>0</NotInEditor>
 		<DefaultUndroppable>0</DefaultUndroppable>
 		<Unaerodynamic>0</Unaerodynamic>
@@ -42440,7 +42924,8 @@ Cursors:
 		<BulletSpeedBonus>0</BulletSpeedBonus>
 		<BurstSizeBonus>0</BurstSizeBonus>
 		<BurstToHitBonus>0</BurstToHitBonus>
-		<AutoFireBonus>0</AutoFireBonus>
+		<AutoFireToHitBonus>0</AutoFireToHitBonus>
+		<APBonus>0</APBonus>
 		<PercentBurstFireAPReduction>0</PercentBurstFireAPReduction>
 		<PercentAutofireAPReduction>0</PercentAutofireAPReduction>
 		<PercentReadyTimeAPReduction>0</PercentReadyTimeAPReduction>
@@ -42465,6 +42950,10 @@ Cursors:
 		<BloodiedItem>0</BloodiedItem>
 		<Rock>0</Rock>
 		<CamoBonus>0</CamoBonus>
+		<UrbanCamoBonus>0</UrbanCamoBonus>
+		<DesertCamoBonus>0</DesertCamoBonus>
+		<SnowCamoBonus>0</SnowCamoBonus>
+		<StealthBonus>0</StealthBonus>
 		<FlakJacket>0</FlakJacket>
 		<LeatherJacket>0</LeatherJacket>
 		<Detonator>0</Detonator>
