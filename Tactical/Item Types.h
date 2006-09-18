@@ -289,6 +289,7 @@ typedef struct
 	BOOLEAN twohanded;
 	BOOLEAN notbuyable;
 	BOOLEAN attachment;
+	BOOLEAN hiddenattachment;
 	BOOLEAN biggunlist;
 	BOOLEAN notineditor;
 	BOOLEAN defaultundroppable;

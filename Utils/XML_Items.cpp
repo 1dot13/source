@@ -117,6 +117,7 @@ itemStartElementHandle(void *userData, const char *name, const char **atts)
 				strcmp(name, "TwoHanded") == 0 ||
 				strcmp(name, "NotBuyable") == 0 ||
 				strcmp(name, "Attachment") == 0 ||
+				strcmp(name, "HiddenAttachment") == 0 ||
 				strcmp(name, "BigGunList") == 0 ||
 				strcmp(name, "NotInEditor") == 0 ||
 				strcmp(name, "DefaultUndroppable") == 0 ||
@@ -510,6 +511,11 @@ itemEndElementHandle(void *userData, const char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.attachment = (BOOLEAN) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "HiddenAttachment")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.hiddenattachment = (BOOLEAN) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "BigGunList")	 == 0)
 		{
