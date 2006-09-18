@@ -143,6 +143,7 @@ typedef struct
 	BOOLEAN fSellAll;
 	INT16 iPriceModifier;
 
+	INT32 iMaxIMPMaleCharacters;
 	INT32 iMaxIMPCharacters;
 	INT32 iMinAttribute;
 	INT32 iMaxAttribute;

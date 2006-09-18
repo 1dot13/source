@@ -2064,7 +2064,11 @@ STR16 pImpPopUpStrings[] =
 	L"Option inaccessible pour le moment.",
 	L"Pour que cette analyse soit efficace, il doit vous rester au moins une place dans votre escouade.",
 	L"Profil déjà établi.",
+	L"Cannot load I.M.P. character from disk.",
 	L"You have already reached the maximum number of I.M.P. characters.",
+	L"You have already three I.M.P characters with the same gender on your team.",
+	L"You cannot afford the I.M.P character.",
+	L"The new I.M.P character has joined your team.",
 };
 
 

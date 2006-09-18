@@ -1992,7 +1992,11 @@ STR16 pImpPopUpStrings[] =
 	L"Option zur Zeit nicht gültig.",
 	L"Um eine genaue Evaluierung durchzuführen, müssen Sie mindestens noch ein Teammitglied aufnehmen können.",
 	L"Evaluierung bereits durchgeführt.",
-	L"Sie habe bereits die maximale Anzahl an B.S.E Charakteren.",
+	L"Fehler beim Laden des B.S.E. Charakters.",
+	L"Sie haben bereits die maximale Anzahl an B.S.E. Charakteren.",
+	L"Sie haben bereits drei B.S.E. Charaktere mit dem gleichen Geschlecht.",
+	L"Sie können sich den I.M.P. Charakter nicht leisten.",
+	L"Der neue B.S.E. Charakter ist nun in ihrem Team.",
 };
 
 // button labels used on the IMP site

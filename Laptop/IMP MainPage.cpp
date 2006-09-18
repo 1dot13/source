@@ -798,6 +798,85 @@ void IMPMainPageNotSelectableBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
 	return;
 }
 
+// WANNE NEW
+INT32 GetFilledIMPSlots( INT8 iSex )
+{
+	INT32 i;
+	INT32 iCount = 0;
+	INT32 iStart;
+	INT32 iEnd;
+
+	// Only count the free imp male slots
+	if (iSex == MALE)
+	{
+		iStart = PLAYER_GENERATED_CHARACTER_ID;
+		iEnd = iStart + 3;
+	}
+	// Only count the free imp female slots
+	else if (iSex == FEMALE)
+	{
+		iStart = PLAYER_GENERATED_CHARACTER_ID + 3;
+		iEnd = iStart + 3;
+	}
+	// Count all free imp slots
+	else
+	{
+		iStart = PLAYER_GENERATED_CHARACTER_ID;
+		iEnd = PLAYER_GENERATED_CHARACTER_ID + 6;
+	}
+
+	for (i = iStart; i < iEnd; i++)
+	{
+		// We found a free slot
+		if (wcscmp(gMercProfiles[i].zName, L"") != 0) 
+		{
+			iCount++;
+		}
+	}
+
+	// Return the number of free imp slots
+	return iCount;
+}
+
+// WANNE NEW
+INT32 GetFreeIMPSlot(INT32 iIMPId)
+{
+	INT32 iStart;
+	INT32 iEnd;
+	INT32 i;
+	INT32 iFreeSlot = -1;
+
+	if (iIMPId != -1)
+	{
+		// Female
+		if (iIMPId >= PLAYER_GENERATED_CHARACTER_ID + 3)
+		{
+			iStart = PLAYER_GENERATED_CHARACTER_ID + 3;
+			iEnd = PLAYER_GENERATED_CHARACTER_ID + 6;
+		}
+		// Male
+		else
+		{
+			iStart = PLAYER_GENERATED_CHARACTER_ID;
+			iEnd = PLAYER_GENERATED_CHARACTER_ID + 3;
+		}
+
+		// Find a free imp slot
+		for (i = iStart; i < iEnd; i++)
+		{
+			// Found a free imp slot
+			if (wcscmp(gMercProfiles[i].zName, L"") == 0) 
+			{
+				iFreeSlot = i;
+				break;
+			}
+		}
+		
+	}
+
+	return iFreeSlot;
+}
+
 
 BOOLEAN LoadCharacterPortraitForMainPage( void )
 {

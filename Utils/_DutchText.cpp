@@ -2075,7 +2075,11 @@ STR16 pImpPopUpStrings[] =
 	L"Geen geldige optie op dit moment.",
 	L"Om een nauwkeurig profiel te maken, moet je ruimte hebben voor tenminste één teamlid.",
 	L"Profiel is al gemaakt.",
+	L"Cannot load I.M.P. character from disk.",
 	L"You have already reached the maximum number of I.M.P. characters.",
+	L"You have already three I.M.P characters with the same gender on your team.",
+	L"You cannot afford the I.M.P character.",
+	L"The new I.M.P character has joined your team.",
 };
 
 

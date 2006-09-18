@@ -2,7 +2,6 @@
 	#include "Laptop All.h"
 #else
 	#include "CharProfile.h"
-	#include "IMP Confirm.h"
 	#include "IMP Voices.h"
 	#include "IMP MainPage.h"
 	#include "IMP HomePage.h"
@@ -23,8 +22,11 @@
 #endif
 
 //current and last pages
+
+// WANNE NEW: Set iLastVoice dynamically, skip used voices
 INT32 iCurrentVoices = 0;
-INT32 iLastVoice = 2;
+
+INT32 iVoiceId = 0;
 
 //INT32 iVoiceId = 0;
 
@@ -67,7 +69,11 @@ void EnterIMPVoices( void )
 	fVoiceBVisited = FALSE;
 	fVoiceCVisited = FALSE;
 
-		// create buttons
+	// Set the initialize voice
+	iVoiceId = -1;
+	IncrementVoice();
+
+	// create buttons
 	CreateIMPVoicesButtons( );
 	 
 	// create mouse regions
@@ -78,21 +84,6 @@ void EnterIMPVoices( void )
 
 	// play voice once
 	uiVocVoiceSound = PlayVoice( );
-
-	//if the character is a male
-	if( fCharacterIsMale )
-	{
-		iLastVoice = 2;
-	}
-	else
-	{
-		iLastVoice = 2;
-	}
-
-	if( iCurrentVoices > iLastVoice )
-	{
-		iCurrentVoices = iLastVoice;
-	}
 
 	return;
 }
@@ -150,21 +141,55 @@ void HandleIMPVoices( void )
 	return;
 }
 
+BOOLEAN IsIMPSlotFree(INT32 iIMPId)
+{
+	if (wcscmp(gMercProfiles[iIMPId].zName, L"") == 0)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
 
-
-
+// WANNE NEW
 void IncrementVoice( void )
 {
-	// cycle to next voice
-	
-	iCurrentVoices++;
+	INT32 iIMPIndex = -1;
+	INT32 iOffset;
+	INT32 i;
 
-	// gone too far?
-	if( iCurrentVoices > iLastVoice )
+	iVoiceId++;
+
+	if (iVoiceId > 2)
+		iVoiceId = 0;
+
+	if (fCharacterIsMale == TRUE)
+		iOffset = 0;
+	else
+		iOffset = 3;
+
+	// Just to be save (so we use no endless loop)
+	for (i = 0; i < 20; i++)
 	{
-		iCurrentVoices = 0;
+		if (IsIMPSlotFree(PLAYER_GENERATED_CHARACTER_ID + iOffset + iVoiceId) == TRUE)
+		{
+			// This is the free imp index
+			iIMPIndex = PLAYER_GENERATED_CHARACTER_ID + iOffset + iVoiceId;
+			break;
+		}
+
+		iVoiceId++;
+
+		// Upper range -> Reset to 0
+		if (iVoiceId > 2)
+			iVoiceId = 0;
 	}
 
+	// Set the voice id of the free slot
+	iCurrentVoices = iIMPIndex - iOffset - PLAYER_GENERATED_CHARACTER_ID;
+	iVoiceId = iCurrentVoices;
 
   return; 
 }
@@ -172,17 +197,42 @@ void IncrementVoice( void )
 
 void DecrementVoice( void )
 {
-  // cycle to previous voice
-	
-	iCurrentVoices--;
+  	INT32 iIMPIndex = -1;
+	INT32 iOffset;
+	INT32 i;
 
-	// gone too far?
-  if( iCurrentVoices < 0 )
+	iVoiceId--;
+
+	if (iVoiceId < 0)
+		iVoiceId = 2;
+
+	if (fCharacterIsMale == TRUE)
+		iOffset = 0;
+	else
+		iOffset = 3;
+
+	// Just to be save (so we use no endless loop)
+	for (i = 0; i < 20; i++)
 	{
-    iCurrentVoices = iLastVoice;
+		if (IsIMPSlotFree(PLAYER_GENERATED_CHARACTER_ID + iOffset + iVoiceId) == TRUE)
+		{
+			// This is the free imp index
+			iIMPIndex = PLAYER_GENERATED_CHARACTER_ID + iOffset + iVoiceId;
+			break;
+		}
+
+		iVoiceId--;
+
+		// Upper range -> Reset to 0
+		if (iVoiceId < 0)
+			iVoiceId = 2;
 	}
 
-	return;
+	// Set the voice id of the free slot
+	iCurrentVoices = iIMPIndex - iOffset - PLAYER_GENERATED_CHARACTER_ID;
+	iVoiceId = iCurrentVoices;
+
+  return; 
 }
 
 
@@ -284,7 +334,7 @@ void BtnIMPVoicesNextCallback(GUI_BUTTON *btn,INT32 reason)
 			// play voice
 			if( ! SoundIsPlaying( uiVocVoiceSound ) )
 			{
-        uiVocVoiceSound = PlayVoice( );
+				 uiVocVoiceSound = PlayVoice( );
 			}	
 			else
 			{
@@ -386,18 +436,14 @@ void BtnIMPVoicesDoneCallback(GUI_BUTTON *btn,INT32 reason)
 			// set voice id, to grab character slot
       
 			// WANNE 10:
-			//if( fCharacterIsMale == TRUE )
-			//{
-			//	LaptopSaveInfo.iVoiceId = iCurrentVoices;
-			//}
-			//else
-			//{
-			//	LaptopSaveInfo.iVoiceId = iCurrentVoices + 3;
-			//}
-
-			// Get the next free imp slot
-			LaptopSaveInfo.iVoiceId = GetNextFreeIMPSlot() - PLAYER_GENERATED_CHARACTER_ID;
-
+			if( fCharacterIsMale == TRUE )
+			{
+				LaptopSaveInfo.iVoiceId = iCurrentVoices;
+			}
+			else
+			{
+				LaptopSaveInfo.iVoiceId = iCurrentVoices + 3;
+			}
 
 			// set button up image  pending
 			fButtonPendingFlag = TRUE;

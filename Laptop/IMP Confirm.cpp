@@ -210,46 +210,11 @@ void DestroyConfirmButtons( void )
 	return;
 }
 
-INT32 GetCurrentIMPSlot( void )
-{
-	INT16 iFilledSlot = PLAYER_GENERATED_CHARACTER_ID;
-	INT16 i;
-
-	for (i = PLAYER_GENERATED_CHARACTER_ID + gGameExternalOptions.iMaxIMPCharacters - 1; i >= PLAYER_GENERATED_CHARACTER_ID; i--)
-	{
-		// We found the current imp
-		if (wcscmp( gMercProfiles[i].zName, L"") != 0)
-		{
-			iFilledSlot = i;
-			break;
-		}
-	}
-
-	return iFilledSlot;
-}
-
-// WANNE 10:
-INT32 GetNextFreeIMPSlot( void )
-{
-	INT16 iFreeSlot = -1;
-	INT16 i;
-	
-	for (i = PLAYER_GENERATED_CHARACTER_ID; i < PLAYER_GENERATED_CHARACTER_ID + gGameExternalOptions.iMaxIMPCharacters; i++)
-	{
-		if (wcscmp( gMercProfiles[i].zName, L"") == 0)
-		{
-			iFreeSlot = i;
-			break;
-		}
-	}
-
-	return iFreeSlot;
-}
 
 
 BOOLEAN AddCharacterToPlayersTeam( void )
 {
-	INT32 iFreeIMPSlot = 0;
+
 	MERC_HIRE_STRUCT HireMercStruct;
 
 
@@ -260,10 +225,8 @@ BOOLEAN AddCharacterToPlayersTeam( void )
 
 	memset(&HireMercStruct, 0, sizeof(MERC_HIRE_STRUCT));
 
-	//HireMercStruct.ubProfileID = ( UINT8 )( PLAYER_GENERATED_CHARACTER_ID + LaptopSaveInfo.iVoiceId ) ;
-
-	// Get the current imp slot (imp is already stored)
-	HireMercStruct.ubProfileID = GetCurrentIMPSlot();
+	// WANNE NEW: Any changes here. I don't think so
+	HireMercStruct.ubProfileID = ( UINT8 )( PLAYER_GENERATED_CHARACTER_ID + LaptopSaveInfo.iVoiceId ) ;
 
 	if( fLoadingCharacterForPreviousImpProfile == FALSE )
 	{
@@ -352,7 +315,6 @@ void  BtnIMPConfirmYes(GUI_BUTTON *btn,INT32 reason)
 
 			//Kaiden: And here is my Answer to the IMP E-mails only
 			// profiling the last IMP made. You get the results immediately
-			// But they should become different per different IMP.
 			AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), PLAYER_GENERATED_CHARACTER_ID + LaptopSaveInfo.iVoiceId );
 
 			//RenderCharProfile( );
@@ -727,23 +689,30 @@ void WriteOutCurrentImpCharacter( INT32 iProfileId, STR fileName )
 	// write out the profile id
 	if (!FileWrite(hFile, &iProfileId, sizeof( INT32 ), &uiBytesWritten))
 	{
+		if (hFile)
+			FileClose(hFile);
 		return;
 	}
 
 	// write out the portrait id
 	if (!FileWrite(hFile, &iPortraitNumber, sizeof( INT32 ), &uiBytesWritten))
 	{
+		if (hFile)
+			FileClose(hFile);
 		return;
 	}
 
 	// write out the profile itself
 	if (!FileWrite(hFile, &gMercProfiles[ iProfileId ], sizeof( MERCPROFILESTRUCT ), &uiBytesWritten))
 	{
+		if (hFile)
+			FileClose(hFile);
 		return;
 	}
 
 	// close file
-	FileClose(hFile);
+	if (hFile)
+		FileClose(hFile);
 
 	return;
 }
@@ -761,7 +730,7 @@ BOOLEAN ImpExists ( STR nickName )
 	return FileExistsNoDB(zFileName);
 }
 
-void LoadImpCharacter( STR nickName )
+BOOLEAN LoadImpCharacter( STR nickName )
 {
 	INT32 iProfileId = 0;
 	HWFILE hFile;
@@ -778,57 +747,73 @@ void LoadImpCharacter( STR nickName )
 	// valid file?
 	if( hFile == -1 )
 	{
-		return;
+		DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 7 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+		return FALSE;
 	}
 
 	// read in the profile
+
 	if (!FileRead(hFile, &iProfileId,sizeof( INT32 ), &uiBytesRead))
 	{
-		return;
+		DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 7 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+		return FALSE;
 	}
 
 	// read in the portrait
 	if (!FileRead(hFile, &iPortraitNumber ,sizeof( INT32 ), &uiBytesRead))
 	{
-		return;
+		DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 7 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+		return FALSE;
 	}
 
-	// WANNE 10: set the next free profile id for the new imp
-	iProfileId = GetNextFreeIMPSlot();
+	// Set the ID of the new IMP
+	iProfileId = GetFreeIMPSlot(iProfileId);
 
-	// read in the profile
-	if (!FileRead(hFile, &gMercProfiles[ iProfileId ] ,sizeof( MERCPROFILESTRUCT ), &uiBytesRead))
+	// We can create the new imp, beacuse we found an empty slot
+	if (iProfileId != -1)
 	{
-		return;
-	}
+		LaptopSaveInfo.iVoiceId = iProfileId - PLAYER_GENERATED_CHARACTER_ID;
 
-	// close file
-	FileClose(hFile);
-	
-	if( LaptopSaveInfo.iCurrentBalance < COST_OF_PROFILE )
+		// read in the profile
+		if (!FileRead(hFile, &gMercProfiles[ iProfileId ] ,sizeof( MERCPROFILESTRUCT ), &uiBytesRead))
+		{
+			DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 7 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+			return FALSE;
+		}
+
+		// close file
+		FileClose(hFile);
+		
+		if( LaptopSaveInfo.iCurrentBalance < COST_OF_PROFILE )
+		{
+			DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 3 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+
+			// not enough
+			return FALSE;
+		}
+		
+
+		// charge the player
+		// is the character male?
+		fCharacterIsMale = ( gMercProfiles[ iProfileId ].bSex == MALE );
+		fLoadingCharacterForPreviousImpProfile = TRUE;
+		AddTransactionToPlayersBook(IMP_PROFILE,0, GetWorldTotalMin( ), - ( COST_OF_PROFILE ) );
+		AddHistoryToPlayersLog( HISTORY_CHARACTER_GENERATED, 0,GetWorldTotalMin( ), -1, -1 );
+		LaptopSaveInfo.iVoiceId = iProfileId - PLAYER_GENERATED_CHARACTER_ID;
+		AddCharacterToPlayersTeam( );
+		AddFutureDayStrategicEvent( EVENT_DAY2_ADD_EMAIL_FROM_IMP, 60 * 7, 0, 2 );
+		LaptopSaveInfo.fIMPCompletedFlag = TRUE;
+		fPausedReDrawScreenFlag = TRUE;
+		fLoadingCharacterForPreviousImpProfile = FALSE;
+
+		return TRUE;
+	}
+	else
 	{
-		// not enough
-		return;
+		// You cannot have more than 3 I.M.P characters with the same gender on your team.
+		DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 9 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+		return FALSE;
 	}
-	
-
-	// charge the player
-	// is the character male?
-	fCharacterIsMale = ( gMercProfiles[ iProfileId ].bSex == MALE );
-	fLoadingCharacterForPreviousImpProfile = TRUE;
-	AddTransactionToPlayersBook(IMP_PROFILE,0, GetWorldTotalMin( ), - ( COST_OF_PROFILE ) );
-  AddHistoryToPlayersLog( HISTORY_CHARACTER_GENERATED, 0,GetWorldTotalMin( ), -1, -1 );
-
-
-  LaptopSaveInfo.iVoiceId = iProfileId - PLAYER_GENERATED_CHARACTER_ID;
-	 
-  AddCharacterToPlayersTeam( );
-	AddFutureDayStrategicEvent( EVENT_DAY2_ADD_EMAIL_FROM_IMP, 60 * 7, 0, 2 );
-	LaptopSaveInfo.fIMPCompletedFlag = TRUE;
-	fPausedReDrawScreenFlag = TRUE;
-	fLoadingCharacterForPreviousImpProfile = FALSE;
-
-	return;
 }
 
 

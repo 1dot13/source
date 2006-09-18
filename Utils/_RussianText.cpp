@@ -2067,7 +2067,11 @@ STR16 pImpPopUpStrings[] =
 	L"Сейчас вы не можете выбрать это.",
 	L"Чтобы закончить анализ,нужно иметь место еще хотя бы для одного члена команды.",
 	L"Анализ уже завершен.",
+	L"Cannot load I.M.P. character from disk.",
 	L"You have already reached the maximum number of I.M.P. characters.",
+	L"You have already three I.M.P characters with the same gender on your team.",
+	L"You cannot afford the I.M.P character.",
+	L"The new I.M.P character has joined your team.",
 };
 
 

@@ -249,85 +249,84 @@ BOOLEAN DoesCharacterHaveAPersoanlity( void )
 
 void CreatePlayerAttitude( void )
 {
-	// WANNE
-	if (gGameSettings.fOptions[ TOPTION_USE_RANDOM_PERSONALITY ] == TRUE)
-	//if(gGameExternalOptions.fPers_att)
-	{
-		AddAnAttitudeToAttitudeList( ATT_OPTIMIST );
-		AddAnAttitudeToAttitudeList( ATT_LONER );
-		AddAnAttitudeToAttitudeList( ATT_FRIENDLY );
-		AddAnAttitudeToAttitudeList( ATT_ARROGANT );
-		AddAnAttitudeToAttitudeList( ATT_NORMAL );
-		AddAnAttitudeToAttitudeList( ATT_ASSHOLE );
-		AddAnAttitudeToAttitudeList( ATT_COWARD );
-		AddAnAttitudeToAttitudeList( ATT_AGGRESSIVE );
-		AddAnAttitudeToAttitudeList( ATT_PESSIMIST );
-		AddAnAttitudeToAttitudeList( ATT_BIG_SHOT );	
 
-		// this function will 'roll a die' and decide if any attitude does exists
-		INT32 iDiceValue = 0;
-		INT32 iCounter = 0, iCounter2 = 0;
-
-		INT32	iAttitudeHits[NUM_ATTITUDES] = { 0 };
-		INT32	iHighestHits = 0;
-		INT32	iNumAttitudesWithHighestHits = 0;
-
-		iAttitude = ATT_NORMAL;
-
-		if ( iLastElementInAttitudeList == 0 )
+	if(gGameSettings.fOptions[TOPTION_USE_RANDOM_PERSONALITY] == TRUE)
 		{
-			return;
-		}
+			AddAnAttitudeToAttitudeList( ATT_OPTIMIST );
+			AddAnAttitudeToAttitudeList(  ATT_LONER );
+			AddAnAttitudeToAttitudeList(  ATT_FRIENDLY );
+			AddAnAttitudeToAttitudeList( ATT_ARROGANT );
+			AddAnAttitudeToAttitudeList( ATT_NORMAL );
+			AddAnAttitudeToAttitudeList( ATT_ASSHOLE );
+			AddAnAttitudeToAttitudeList( ATT_COWARD );
+			AddAnAttitudeToAttitudeList( ATT_AGGRESSIVE );
+			AddAnAttitudeToAttitudeList( ATT_PESSIMIST );
+			AddAnAttitudeToAttitudeList( ATT_BIG_SHOT );	
 
-		// count # of hits for each attitude
-		for ( iCounter = 0; iCounter < iLastElementInAttitudeList; iCounter++ )
-		{
-			iAttitudeHits[ AttitudeList[ iCounter ] ]++;
-		}
+			// this function will 'roll a die' and decide if any attitude does exists
+			INT32 iDiceValue = 0;
+			INT32 iCounter = 0, iCounter2 = 0;
 
-		// find highest # of hits for any attitude
-		for ( iCounter = 0; iCounter < NUM_ATTITUDES; iCounter++ )
-		{
-			if ( iAttitudeHits[ iCounter ] )
+			INT32	iAttitudeHits[NUM_ATTITUDES] = { 0 };
+			INT32	iHighestHits = 0;
+			INT32	iNumAttitudesWithHighestHits = 0;
+
+			iAttitude = ATT_NORMAL;
+
+			if ( iLastElementInAttitudeList == 0 )
 			{
-				if ( iAttitudeHits[ iCounter ] > iHighestHits )
+				return;
+			}
+
+			// count # of hits for each attitude
+			for ( iCounter = 0; iCounter < iLastElementInAttitudeList; iCounter++ )
+			{
+				iAttitudeHits[ AttitudeList[ iCounter ] ]++;
+			}
+
+			// find highest # of hits for any attitude
+			for ( iCounter = 0; iCounter < NUM_ATTITUDES; iCounter++ )
+			{
+				if ( iAttitudeHits[ iCounter ] )
 				{
-					iHighestHits = __max( iHighestHits, iAttitudeHits[ iCounter ] );
-					iNumAttitudesWithHighestHits = 1;
+					if ( iAttitudeHits[ iCounter ] > iHighestHits )
+					{
+						iHighestHits = __max( iHighestHits, iAttitudeHits[ iCounter ] );
+						iNumAttitudesWithHighestHits = 1;
+					}
+					else if ( iAttitudeHits[ iCounter ] == iHighestHits )
+					{
+						iNumAttitudesWithHighestHits++;
+					}
 				}
-				else if ( iAttitudeHits[ iCounter ] == iHighestHits )
+			}
+
+			// roll dice
+			iDiceValue = Random( iNumAttitudesWithHighestHits + 1 );
+
+			// find attitude
+			for ( iCounter = 0; iCounter < NUM_ATTITUDES; iCounter++ )
+			{
+				if ( iAttitudeHits[ iCounter ] == iHighestHits )
 				{
-					iNumAttitudesWithHighestHits++;
+					if ( iCounter2 == iDiceValue )
+					{
+						// this is it!
+						iAttitude = iCounter2;
+						break;
+					}
+					else
+					{
+						// one of the next attitudes...
+						iCounter2++;
+					}
 				}
 			}
 		}
-
-		// roll dice
-		iDiceValue = Random( iNumAttitudesWithHighestHits + 1 );
-
-		// find attitude
-		for ( iCounter = 0; iCounter < NUM_ATTITUDES; iCounter++ )
+		else
 		{
-			if ( iAttitudeHits[ iCounter ] == iHighestHits )
-			{
-				if ( iCounter2 == iDiceValue )
-				{
-					// this is it!
-					iAttitude = iCounter2;
-					break;
-				}
-				else
-				{
-					// one of the next attitudes...
-					iCounter2++;
-				}
-			}
+			iAttitude =	gGameExternalOptions.iCustomAttitude;
 		}
-	}
-	else
-	{
-		iAttitude =	gGameExternalOptions.iCustomAttitude;
-	}
 }
 
 
@@ -593,82 +592,84 @@ void AddAPersonalityToPersonalityList( INT8 bPersonlity )
 
 void CreatePlayerPersonality( void )
 {
-	// WANNE
-	if (gGameSettings.fOptions[ TOPTION_USE_RANDOM_PERSONALITY ] == TRUE)
 
 	// Kaiden: Added for optional Mercenary personalities and attitudes
-	//if(gGameExternalOptions.fPers_att)
-	{
-		// Kaiden: More chances for Psycho and Normal.
-		AddAPersonalityToPersonalityList( NO_PERSONALITYTRAIT );
-		AddAPersonalityToPersonalityList( PSYCHO );
-		AddAPersonalityToPersonalityList( FORGETFUL );
-		AddAPersonalityToPersonalityList( NERVOUS );
-		AddAPersonalityToPersonalityList( HEAT_INTOLERANT );
-		AddAPersonalityToPersonalityList( NO_PERSONALITYTRAIT );
-		AddAPersonalityToPersonalityList( PSYCHO );
-		AddAPersonalityToPersonalityList( CLAUSTROPHOBIC );
-		AddAPersonalityToPersonalityList( NONSWIMMER );
-		AddAPersonalityToPersonalityList( FEAR_OF_INSECTS );
-		AddAPersonalityToPersonalityList( NO_PERSONALITYTRAIT );
-		AddAPersonalityToPersonalityList( PSYCHO );			
-		AddAPersonalityToPersonalityList( FORGETFUL );
-		AddAPersonalityToPersonalityList( NERVOUS );
-		AddAPersonalityToPersonalityList( HEAT_INTOLERANT );
-		AddAPersonalityToPersonalityList( NO_PERSONALITYTRAIT );
-		AddAPersonalityToPersonalityList( PSYCHO );
-		AddAPersonalityToPersonalityList( CLAUSTROPHOBIC );
-		AddAPersonalityToPersonalityList( NONSWIMMER );
-		AddAPersonalityToPersonalityList( FEAR_OF_INSECTS );
 
-		INT32 iDiceValue = 0;
-		INT32 iCounter = 0;
-		INT32 iCounter2 = 0;
-
-		// Kaiden: Roll dice 20 times just to be on the safe side 
-		// was getting too many repeats. Will end up scrapping
-		// rand() later anyway so will worry about fixing it then.
-		
-		// WANNE: No need to make a 20 times repeat
-		/*for (iCounter2 = 0; iCounter2 < 20; iCounter2++)
+	if(gGameSettings.fOptions[TOPTION_USE_RANDOM_PERSONALITY] == TRUE)
 		{
-			iDiceValue = Random( iLastElementInPersonalityList + 1 );
-		}*/
+				// Kaiden: More chances for Psycho and Normal.
+			AddAPersonalityToPersonalityList( NO_PERSONALITYTRAIT );
+			AddAPersonalityToPersonalityList( PSYCHO );
+			AddAPersonalityToPersonalityList( FORGETFUL );
+			AddAPersonalityToPersonalityList( NERVOUS );
+			AddAPersonalityToPersonalityList( HEAT_INTOLERANT );
+			AddAPersonalityToPersonalityList( NO_PERSONALITYTRAIT );
+			AddAPersonalityToPersonalityList( PSYCHO );
+			AddAPersonalityToPersonalityList( CLAUSTROPHOBIC );
+			AddAPersonalityToPersonalityList( NONSWIMMER );
+			AddAPersonalityToPersonalityList( FEAR_OF_INSECTS );
+			AddAPersonalityToPersonalityList( NO_PERSONALITYTRAIT );
+			AddAPersonalityToPersonalityList( PSYCHO );			
+			AddAPersonalityToPersonalityList( FORGETFUL );
+			AddAPersonalityToPersonalityList( NERVOUS );
+			AddAPersonalityToPersonalityList( HEAT_INTOLERANT );
+			AddAPersonalityToPersonalityList( NO_PERSONALITYTRAIT );
+			AddAPersonalityToPersonalityList( PSYCHO );
+			AddAPersonalityToPersonalityList( CLAUSTROPHOBIC );
+			AddAPersonalityToPersonalityList( NONSWIMMER );
+			AddAPersonalityToPersonalityList( FEAR_OF_INSECTS );
 
-		iDiceValue = Random( iLastElementInPersonalityList + 1 );
 
-		// Kaiden two chances to avoid a normal personality. As IMP
-		// says, They check it twice just to make sure :p
-  		for( iCounter = 0; iCounter < iLastElementInPersonalityList; iCounter++ )
-		{
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("iDiceValue = %d",iDiceValue));
+			INT32 iDiceValue = 0;
+			INT32 iCounter = 0;
+			INT32 iCounter2 = 0;
 
-			if( PersonalityList[ iDiceValue ] ==  NO_PERSONALITYTRAIT )
+			// Kaiden: Roll dice 20 times just to be on the safe side 
+			// was getting too many repeats. Will end up scrapping
+			// rand() later anyway so will worry about fixing it then.
+			for (iCounter2 = 0; iCounter2 < 20; iCounter2++)
 			{
-				//Kaiden: Roll one more time for good measure:
 				iDiceValue = Random( iLastElementInPersonalityList + 1 );
 			}
+
+			// Kaiden two chances to avoid a normal personality. As IMP
+			// says, They check it twice just to make sure :p
+  			for( iCounter = 0; iCounter < iLastElementInPersonalityList; iCounter++ )
+				{
+
+					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("iDiceValue = %d",iDiceValue));
+
+					if( PersonalityList[ iDiceValue ] ==  NO_PERSONALITYTRAIT )
+						{
+							//Kaiden: Roll one more time for good measure:
+							iDiceValue = Random( iLastElementInPersonalityList + 1 );
+						}
+				}
+				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("And our Personality is... = %d",PersonalityList[ iDiceValue ]));
+				iPersonality = PersonalityList[ iDiceValue ];
 		}
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("And our Personality is... = %d",PersonalityList[ iDiceValue ]));
-		iPersonality = PersonalityList[ iDiceValue ];
-	}
-	else
-	{
-		iPersonality = gGameExternalOptions.iCustomPersonality;
-	}
+		else
+		{
+			iPersonality = gGameExternalOptions.iCustomPersonality;
+		}
 	return;
+
 }
 
 
 void CreatePlayersPersonalitySkillsAndAttitude( void )
 {
+
+
+
+  
 	// creates personality, skills and attitudes from curretly built list
 
 	// personality
 	CreatePlayerPersonality( );
 
 	// skills are now created later after stats have been chosen
-	//CreatePlayerSkills( );
+  //CreatePlayerSkills( );
 
 	// attitude
 	CreatePlayerAttitude( );
@@ -932,7 +933,7 @@ void HandleMercStatsForChangesInFace( )
 		return;
 	}
 
-	//add the skills to the skills listgMercProfiles
+	//add the skills to the skills list
 	AddSelectedSkillsToSkillsList();
 
 	// now figure out skills

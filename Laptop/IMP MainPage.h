@@ -9,6 +9,9 @@ void HandleIMPMainPage( void );
 void NextProfilingMode( void );
 void ShadeUnSelectableButtons( void );
 
+// WANNE NEW
+INT32 GetFreeIMPSlot(INT32 iIMPId);
+INT32 GetFilledIMPSlots( INT8 iSex );
 
 extern INT32 iCurrentProfileMode;
 

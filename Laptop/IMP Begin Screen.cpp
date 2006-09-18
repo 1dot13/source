@@ -338,6 +338,8 @@ void BtnIMPBeginScreenDoneCallback(GUI_BUTTON *btn,INT32 reason)
 	// easter egg check
 	BOOLEAN fEggOnYouFace = FALSE;
 
+	BOOLEAN bProceed = TRUE;
+
 	// btn callback for IMP Begin Screen done button
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
@@ -350,9 +352,8 @@ void BtnIMPBeginScreenDoneCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-      btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			 btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
-			
 			if( fFinishedCharGeneration )
 			{
 				// simply reviewing name and gender, exit to finish page
@@ -360,30 +361,76 @@ void BtnIMPBeginScreenDoneCallback(GUI_BUTTON *btn,INT32 reason)
 				fButtonPendingFlag = TRUE;
 				return;
 			}
+			/*
 			else
 			{
-				// WANNE:
-				/*
 			  if( CheckCharacterInputForEgg( ) )
 				{
 					fEggOnYouFace = TRUE;
 				}
-				*/
+			}
+			*/
+
+			if (bProceed == TRUE)
+			{
+				// check to see if a name has been selected, if not, do not allow player to proceed with more char generation
+				if( ( pFullNameString[ 0 ] != 0) && ( pFullNameString[ 0 ] != L' ' ) && ( bGenderFlag != -1 ) )
+				{
+					if (bGenderFlag == IMP_MALE)
+					{
+						if (GetFilledIMPSlots(MALE) >= 3)
+						{
+							// You cannot have more than 3 I.M.P characters with the same gender on your team.
+							DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 9 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+							bProceed = FALSE;
+						}
+					}
+					else if (bGenderFlag == IMP_FEMALE)
+					{
+						if (GetFilledIMPSlots(FEMALE) >= 3)
+						{
+							// You cannot have more than 3 I.M.P characters with the same gender on your team.
+							DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 9 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+							bProceed = FALSE;
+						}
+					}
+				}
+				else
+				{
+					// invalid name, reset current mode
+					DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 2 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+					iCurrentProfileMode = IMP__REGISTRY;
+					bProceed = FALSE;
+				}
 			}
 
+			// Check if we can create an imp with the selected gender
+			// WANNE NEW
+			/*if (bProceed == TRUE)
+			{
+				if( FEMALE_GENDER_SELECT  == ubTextEnterMode )
+				{
+				    bGenderFlag = IMP_FEMALE;
+				}
+			    else if( MALE_GENDER_SELECT  == ubTextEnterMode  )
+				{
+					bGenderFlag = IMP_MALE;
+				}
+				else
+				{
+					bProceed = FALSE;
+				}
+			}*/
 
-			// back to mainpage
-			
-
-			// check to see if a name has been selected, if not, do not allow player to proceed with more char generation
-			if( ( pFullNameString[ 0 ] != 0) && ( pFullNameString[ 0 ] != L' ' ) && ( bGenderFlag != -1 ) )
+			// Data is valid
+			if (bProceed == TRUE)
 			{
 				// valid full name, check to see if nick name
 				if( ( pNickNameString[ 0 ] == 0 ) || ( pNickNameString[ 0 ] == L' '))
 				{
 					// no nick name
 					// copy first name to nick name
-          CopyFirstNameIntoNickName( );
+					CopyFirstNameIntoNickName( );
 				}
 				// ok, now set back to main page, and set the fact we have completed part 1
 				if ( ( iCurrentProfileMode < IMP__PERSONALITY ) &&( bGenderFlag != -1 ) )
@@ -397,16 +444,9 @@ void BtnIMPBeginScreenDoneCallback(GUI_BUTTON *btn,INT32 reason)
 				// no easter egg?...then proceed along
 				if( fEggOnYouFace == FALSE )
 				{
-				  iCurrentImpPage = IMP_MAIN_PAGE;
-          fButtonPendingFlag = TRUE;
+					iCurrentImpPage = IMP_MAIN_PAGE;
+					fButtonPendingFlag = TRUE;
 				}
-
-			}
-			else
-			{
-				// invalid name, reset current mode
-				DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 2 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
-				iCurrentProfileMode = IMP__REGISTRY;	
 			}
 		}
 	}	
@@ -1003,7 +1043,7 @@ void DecrementTextEnterMode( void )
 	// if at IMP_FEMALE gender selection, reset to full name
 	if(  FULL_NAME_MODE == ubTextEnterMode)
 	{
-    ubTextEnterMode =  FEMALE_GENDER_SELECT;
+		ubTextEnterMode =  FEMALE_GENDER_SELECT;
 	}
   else
 	{
@@ -1185,7 +1225,7 @@ void MvtOnFemaleRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	}
 	else if( iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE)
 	{
-    ubTextEnterMode = FEMALE_GENDER_SELECT;
+		ubTextEnterMode = FEMALE_GENDER_SELECT;
 		fNewCharInString = TRUE;
 	}
 }
@@ -1199,7 +1239,7 @@ void MvtOnMaleRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	}
 	else if( iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE)
 	{
-    ubTextEnterMode = MALE_GENDER_SELECT;
+		ubTextEnterMode = MALE_GENDER_SELECT;
 		fNewCharInString = TRUE;
 	}
 }
