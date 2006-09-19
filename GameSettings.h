@@ -143,6 +143,7 @@ typedef struct
 	BOOLEAN fSellAll;
 	INT16 iPriceModifier;
 
+	INT32 iMaxIMPMaleCharacters;
 	INT32 iMaxIMPCharacters;
 	INT32 iMinAttribute;
 	INT32 iMaxAttribute;
@@ -350,6 +351,7 @@ typedef struct
 	// ShadoWarrior: Tooltip changes (start)
 	UINT8 ubSoldierTooltipDetailLevel;
 
+	BOOLEAN fEnableDynamicSoldierTooltips;
 	BOOLEAN fEnableSoldierTooltipLocation;
 	BOOLEAN fEnableSoldierTooltipBrightness;
 	BOOLEAN fEnableSoldierTooltipRangeToTarget;

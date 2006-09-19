@@ -49,8 +49,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		if ( gusSelectedSoldier != NOBODY )
 			iRangeToTarget = GetRangeInCellCoordsFromGridNoDiff( MercPtrs[ gusSelectedSoldier ]->sGridNo, sSoldierGridNo ) / 10;
 
-		// WANNE NEW
-		//if ( gGameExternalOptions.fEnableDynamicSoldierTooltips )
+		if ( gGameExternalOptions.fEnableDynamicSoldierTooltips )
 		{
 			for ( INT32 cnt = 0; cnt < MAX_ATTACHMENTS; cnt++ )
 			{
