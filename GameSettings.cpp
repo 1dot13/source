@@ -536,7 +536,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fVehicleInventory					= iniReader.ReadBoolean("JA2 Gameplay Settings", "VEHICLE_INVENTORY", TRUE);
 
 	// ShadoWarrior: Tooltip changes (start)
-	gGameExternalOptions.ubSoldierTooltipDetailLevel		= iniReader.ReadInteger("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DETAIL_LEVEL", 2);
+	gGameExternalOptions.ubSoldierTooltipDetailLevel		= iniReader.ReadInteger("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DETAIL_LEVEL", 1);
 
 	gGameExternalOptions.fEnableDynamicSoldierTooltips		= iniReader.ReadBoolean("JA2 Tactical Settings", "DYNAMIC_SOLDIER_TOOLTIPS", TRUE);
 	gGameExternalOptions.fEnableSoldierTooltipLocation		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_LOCATION", TRUE);

@@ -3269,6 +3269,7 @@ STR16 zOptionsToggleText[] =
 	L"Tracereffekte für Einzelschüsse",
 	L"Regengeräusche",
 	L"Krähen erlauben",
+	L"Zufällige B.S.E Personalität",
 };
 
 //This is the help text associated with the above toggles.

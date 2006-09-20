@@ -3453,6 +3453,7 @@ STR16		zOptionsToggleText[] =
 	L"Tracer effect for single shot",
 	L"Rain noises",
 	L"Allow crows",
+	L"Random I.M.P personality",
 };
 
 //This is the help text associated with the above toggles.

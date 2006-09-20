@@ -2978,6 +2978,7 @@ UINT16 PickARandomItem(UINT8 typeIndex, UINT8 maxCoolness, BOOLEAN getMatchingCo
 	UINT16 usItem = 0;
 	UINT32 uiChoice;
 	UINT16 defaultItem = 0;
+	BOOLEAN pickItem = FALSE;
 
 	if ( gArmyItemChoices[ typeIndex ].ubChoices <= 0 )
 		return 0;
@@ -2991,6 +2992,7 @@ UINT16 PickARandomItem(UINT8 typeIndex, UINT8 maxCoolness, BOOLEAN getMatchingCo
 
 		// a chance for nothing!
 		uiChoice = Random(gArmyItemChoices[ typeIndex ].ubChoices + (int) ( gArmyItemChoices[ typeIndex ].ubChoices / 3 ));
+		
 		if ( uiChoice >= gArmyItemChoices[ typeIndex ].ubChoices )
 		{	
 			if ( !getMatchingCoolness )
@@ -3000,8 +3002,37 @@ UINT16 PickARandomItem(UINT8 typeIndex, UINT8 maxCoolness, BOOLEAN getMatchingCo
 		}
 		usItem = gArmyItemChoices[ typeIndex ].bItemNo[ uiChoice ];
 
+		// WANNE
+		if (usItem >= 0 && Item[usItem].ubCoolness <= maxCoolness && ItemIsLegal(usItem))
+		{
+			// On day
+			if (DayTime() == TRUE)
+			{
+				// Only pick items, that have not a negative day vision bonus range
+				// So we only pick normal items and day items (sun googles, ...)
+				if (Item[usItem].dayvisionrangebonus >= 0 )
+				{
+					pickItem = TRUE;
+				}
+			}
+			// At night
+			else
+			{
+				// Only pick items, that have not a negative night vision bonus range
+				// So we only pick normal items and night items (NVG, ...)
+				if (Item[usItem].nightvisionrangebonus >= 0 )
+				{
+					pickItem = TRUE;
+				}
+			}
+		}
+
+
 		//Madd: quickfix: don't use NVGs during the day, and no sungoggles at night either
-		if ( usItem >= 0 && Item[usItem].ubCoolness <= maxCoolness && ItemIsLegal(usItem) && (( DayTime() && Item[usItem].nightvisionrangebonus == 0 ) || ( NightTime() && Item[usItem].dayvisionrangebonus == 0 )))
+		//if ( usItem >= 0 && Item[usItem].ubCoolness <= maxCoolness && ItemIsLegal(usItem) && (( DayTime() && Item[usItem].nightvisionrangebonus == 0 ) || ( NightTime() && Item[usItem].dayvisionrangebonus == 0 )))
+		
+		// WANNE
+		if (pickItem == TRUE)
 		{
 			// pick a default item in case we don't find anything with a matching coolness, but pick the coolest item we can find
 			if ( defaultItem == 0 || Item[usItem].ubCoolness > Item[defaultItem].ubCoolness )

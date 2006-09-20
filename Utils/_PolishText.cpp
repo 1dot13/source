@@ -3442,6 +3442,7 @@ STR16		zOptionsToggleText[] =
 	L"Show Weapon Ranges in Tiles",
 	L"Tracer effect for single shot",
 	L"Rain noises",
+	L"Random I.M.P personality",
 };
 
 //This is the help text associated with the above toggles.
