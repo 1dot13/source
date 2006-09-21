@@ -100,10 +100,10 @@
 	<ITEM>
 		<uiIndex>12</uiIndex>
 		<szItemName>Commando</szItemName>
-		<szLongItemName>Colt M16A2 Commando</szLongItemName>
-		<szItemDesc>Das kompakteste 5.56mm-Modell von COLT ist eine sehr geschaetzte Waffe zum Abknallen von laermenden Nachbarn und von sich eingenommene Diktatoren.</szItemDesc>
-		<szBRName>COLT M16A2 Commando</szBRName>
-		<szBRDesc>Das kompakteste 5.56mm-Modell von COLT besitzt eine S-F Abzugsgruppe und ist eine sehr geschaetzte Waffe zum Abknallen von laermenden Nachbarn.</szBRDesc>
+		<szLongItemName>Colt M4 Commando</szLongItemName>
+		<szItemDesc>Diese Waffe wird aufgrund ihrer Eigenschaften wie geringes Gewicht, einfache Handhabung, hohe Schussgenauigkeit, Zuverlaessigkeit und hohe Feuerkraft oft einer MP vorgezogen.</szItemDesc>
+		<szBRName>COLT M4 Commando</szBRName>
+		<szBRDesc>Das M4 Commando ist das kompakteste 5.56mm-Modell von COLT und besitzt eine S-F Abzugsgruppe. Diese Waffe wird aufgrund ihrer Eigenschaften wie geringes Gewicht, einfache Handhabung, hohe Schussgenauigkeit, Zuverlaessigkeit und hohe Feuerkraft oft einer MP vorgezogen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>13</uiIndex>
@@ -157,9 +157,9 @@
 		<uiIndex>19</uiIndex>
 		<szItemName>M24 SWS</szItemName>
 		<szLongItemName>Remington M24 SWS</szLongItemName>
-		<szItemDesc>Entworfen fuer die US-Army und von ihr verwendet, ist das M24 auch bei den SWAT-Teams der USA und bei auslaendischen Armeen sehr beliebt.</szItemDesc>
+		<szItemDesc>Das M24 gilt aufgrund seiner hohen Praezision als Massstab fuer Scharfschuetzengewehre.</szItemDesc>
 		<szBRName>Remington M24 SWS</szBRName>
-		<szBRDesc>Entworfen fuer die US-Army und von ihr verwendet, ist das M24 auch bei den SWAT-Teams der USA und bei auslaendischen Armeen sehr beliebt.</szBRDesc>
+		<szBRDesc>Das M24 gilt aufgrund seiner hohen Praezision als Massstab fuer Scharfschuetzengewehre. Waehrend eines Einsatzes im Irak, konnte ein Schuetze mit diesem Gewehr ein Ziel auf 1.250m vernichten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>20</uiIndex>
@@ -269,7 +269,7 @@
 		<uiIndex>33</uiIndex>
 		<szItemName>CAWS</szItemName>
 		<szLongItemName>HK/Olin CAWS</szLongItemName>
-		<szItemDesc>Diese dt.-amerik. Flinte im Bullpup-Design entstand in Kooperation zwischen den Firmen HK und WINCHESTER/Olin.</szItemDesc>
+		<szItemDesc>Diese dt.-amerik. Flinte im Bullpup-Design entstand in Kooperation zwischen den Firmen H&amp;K und WINCHESTER/Olin.</szItemDesc>
 		<szBRName>HK/Olin CAWS</szBRName>
 		<szBRDesc>Diese dt.-amerik. Flinte im Bullpup-Design entstand in Kooperation zwischen den Firmen H&amp;K und WINCHESTER/Olin. Sie besitzt eine S-3 Abzugsgruppe.</szBRDesc>
 	</ITEM>
@@ -571,7 +571,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>71</uiIndex>
-		<szItemName>9x19 Mag</szItemName>
+		<szItemName>9x19 Mag #15</szItemName>
 		<szLongItemName>9x19mm Magazin</szLongItemName>
 		<szItemDesc>Diese FIOCCHI VM-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschuetzte/ ungeschuetzte Gegner.</szItemDesc>
 		<szBRName>9x19 Mag #15</szBRName>
@@ -598,7 +598,7 @@
 		<szItemName>9x19 PB</szItemName>
 		<szLongItemName>9x19mm MP-Mag, Cop-Killer</szLongItemName>
 		<szItemDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 1960er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotueren zu ermoeglichen.</szItemDesc>
-		<szBRName>9x19 PB</szBRName>
+		<szBRName>9x19 MP-Mag PB</szBRName>
 		<szBRDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 1960er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotueren zu ermoeglichen. Diese Patrone war lange Zeit unbekannt, wurde jedoch auch von Kriminellen entdeckt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2725,17 +2725,17 @@
 		<uiIndex>340</uiIndex>
 		<szItemName>Saiga 12K</szItemName>
 		<szLongItemName>Saiga 12K</szLongItemName>
-		<szItemDesc>Diese Schrotflinte aus russischer Produktion ist fuer die Jagd auf Klein- sowie Schwarzwild vorgesehen.</szItemDesc>
+		<szItemDesc>Diese Schrotflinte wird von IZHMASH gefertigt und ist fuer die Jagd auf Klein- sowie Schwarzwild vorgesehen.</szItemDesc>
 		<szBRName>Saiga 12K</szBRName>
-		<szBRDesc>Diese Schrotflinte aus russischer Produktion ist fuer die Jagd auf Klein- sowie Schwarzwild vorgesehen.</szBRDesc>
+		<szBRDesc>Diese Schrotflinte wird von IZHMASH gefertigt und ist fuer die Jagd auf Klein- sowie Schwarzwild vorgesehen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>341</uiIndex>
 		<szItemName>M3 Convertible</szItemName>
 		<szLongItemName>Benelli M3 Convertible</szLongItemName>
-		<szItemDesc>Die M3 Convertible wurde mit Blick auf die besonderen Anforderungen von Polizei und Antiterror-Einheiten entwickelt.</szItemDesc>
+		<szItemDesc>Diese Schrotflinte wurde von BENELLI mit Blick auf die besonderen Anforderungen von Polizei und Antiterror-Einheiten entwickelt.</szItemDesc>
 		<szBRName>Benelli M3 Convertible</szBRName>
-		<szBRDesc>Die M3 Convertible wurde mit Blick auf die besonderen Anforderungen von Polizei und Antiterror-Einheiten entwickelt.</szBRDesc>
+		<szBRDesc>Diese Schrotflinte wurde von BENELLI mit Blick auf die besonderen Anforderungen von Polizei und Antiterror-Einheiten entwickelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>342</uiIndex>
@@ -2877,33 +2877,33 @@
 		<uiIndex>359</uiIndex>
 		<szItemName>9x19 US</szItemName>
 		<szLongItemName>9x19mm Magazin, Unterschall</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US #8</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>360</uiIndex>
 		<szItemName>9x19 US-HS</szItemName>
 		<szLongItemName>9x19mm Magazin, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US-HS #8</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>361</uiIndex>
 		<szItemName>9x19 US-PB</szItemName>
 		<szLongItemName>9x19mm Magazin, US-PB</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US-PB #8</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>362</uiIndex>
 		<szItemName>9x19 US-G</szItemName>
 		<szLongItemName>9x19mm Magazin, US-Glaser</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US-G #8</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>363</uiIndex>
@@ -2941,33 +2941,33 @@
 		<uiIndex>367</uiIndex>
 		<szItemName>9x19 US</szItemName>
 		<szLongItemName>9x19mm Magazin, Unterschall</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US #15</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>368</uiIndex>
 		<szItemName>9x19 US-HS</szItemName>
 		<szLongItemName>9x19mm Magazin, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US-HS #15</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>369</uiIndex>
 		<szItemName>9x19 US-PB</szItemName>
 		<szLongItemName>9x19mm Magazin, US-PB</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US-PB #15</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>370</uiIndex>
 		<szItemName>9x19 US-G</szItemName>
 		<szLongItemName>9x19mm Magazin, US-Glaser</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US-G #15</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>371</uiIndex>
@@ -3005,33 +3005,33 @@
 		<uiIndex>375</uiIndex>
 		<szItemName>9x19 US</szItemName>
 		<szLongItemName>9x19mm MP-Mag, Unterschall</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 Unterschall</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>376</uiIndex>
 		<szItemName>9x19 US-HS</szItemName>
 		<szLongItemName>9x19mm MP-Mag, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US-HS</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>377</uiIndex>
 		<szItemName>9x19 US-PB</szItemName>
 		<szLongItemName>9x19mm MP-Mag, US-PB</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US-PB</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>378</uiIndex>
 		<szItemName>9x19 US-G</szItemName>
 		<szLongItemName>9x19mm MP-Mag, US-Glaser</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US-G</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>379</uiIndex>
@@ -3069,33 +3069,33 @@
 		<uiIndex>383</uiIndex>
 		<szItemName>9x19 US</szItemName>
 		<szLongItemName>9x19mm gr. Mag, Unterschall</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 Unterschall</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>384</uiIndex>
 		<szItemName>9x19 US-HS</szItemName>
 		<szLongItemName>9x19mm gr. Mag, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US-HS</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>385</uiIndex>
 		<szItemName>9x19 US-PB</szItemName>
 		<szLongItemName>9x19mm gr. Mag, US-PB</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US-PB</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>386</uiIndex>
 		<szItemName>9x19 US-G</szItemName>
 		<szLongItemName>9x19mm gr. Mag, US-Glaser</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US-G</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>387</uiIndex>
@@ -3157,33 +3157,33 @@
 		<uiIndex>394</uiIndex>
 		<szItemName>9x19 US</szItemName>
 		<szLongItemName>9x19mm C-Mag, Unterschall</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US #100</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>395</uiIndex>
 		<szItemName>9x19 US-HS</szItemName>
 		<szLongItemName>9x19mm C-Mag, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US-HS #100</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>396</uiIndex>
 		<szItemName>9x19 US-PB</szItemName>
 		<szLongItemName>9x19mm C-Mag, US-PB</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US-PB #100</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>397</uiIndex>
 		<szItemName>9x19 US-G</szItemName>
 		<szLongItemName>9x19mm C-Mag, US-Glaser </szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>9x19 US-G #100</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>398</uiIndex>
@@ -3413,25 +3413,25 @@
 		<uiIndex>426</uiIndex>
 		<szItemName>5.56x45 US-HS</szItemName>
 		<szLongItemName>5.56x45mm Mag, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>5.56x45 US-HS #10</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>427</uiIndex>
 		<szItemName>5.56x45 US</szItemName>
 		<szLongItemName>5.56x45mm Mag, Unterschall</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>5.56x45 US #10</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>428</uiIndex>
 		<szItemName>5.56x45 US-G</szItemName>
 		<szLongItemName>5.56x45mm Mag, US-Glaser</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>5.56x45 US-G #10</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>429</uiIndex>
@@ -3461,25 +3461,25 @@
 		<uiIndex>432</uiIndex>
 		<szItemName>5.56x45 US-HS</szItemName>
 		<szLongItemName>5.56x45mm Mag, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>5.56x45 US-HS</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>433</uiIndex>
 		<szItemName>5.56x45 US</szItemName>
 		<szLongItemName>5.56x45mm Mag, US</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>5.56x45 US</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>434</uiIndex>
 		<szItemName>5.56x45 US-G</szItemName>
 		<szLongItemName>5.56x45mm Mag, US-Glaser</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>5.56x45 US-G</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>435</uiIndex>
@@ -3525,25 +3525,25 @@
 		<uiIndex>440</uiIndex>
 		<szItemName>5.56x45 US-HS</szItemName>
 		<szLongItemName>5.56x45mm C-Mag, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>5.56x45 US-HS</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>441</uiIndex>
 		<szItemName>5.56x45 US</szItemName>
 		<szLongItemName>5.56x45mm C-Mag Unterschall</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>5.56x45 Unterschall</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>442</uiIndex>
 		<szItemName>5.56x45 US-G</szItemName>
 		<szLongItemName>5.56x45mm C-Mag, US-Glaser</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>5.56x45 US-G</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>443</uiIndex>
@@ -3573,25 +3573,25 @@
 		<uiIndex>446</uiIndex>
 		<szItemName>5.56x45 US-HS</szItemName>
 		<szLongItemName>5.56x45mm Gurt, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>5.56x45 US-HS</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>447</uiIndex>
 		<szItemName>5.56x45 US</szItemName>
 		<szLongItemName>5.56x45mm Gurt Unterschall</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>5.56x45 Unterschall</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>448</uiIndex>
 		<szItemName>5.56x45 US-G</szItemName>
 		<szLongItemName>5.56x45mm Gurt, US-Glaser</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>5.56x45 US-G</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>449</uiIndex>
@@ -3621,25 +3621,25 @@
 		<uiIndex>452</uiIndex>
 		<szItemName>7.62x51 US-HS</szItemName>
 		<szLongItemName>7.62x51mm Mag, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x51 US-HS #5</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>453</uiIndex>
 		<szItemName>7.62x51 US</szItemName>
 		<szLongItemName>7.62x51mm Mag, Unterschall</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x51 US #5</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>454</uiIndex>
 		<szItemName>7.62x51 US-G</szItemName>
 		<szLongItemName>7.62x51mm Mag, US-Glaser</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x51 US-G #5</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>455</uiIndex>
@@ -3685,25 +3685,25 @@
 		<uiIndex>460</uiIndex>
 		<szItemName>7.62x51 US-HS </szItemName>
 		<szLongItemName>7.62x51mm Mag, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x51 US-HS #10</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>461</uiIndex>
 		<szItemName>7.62x51 US #10</szItemName>
 		<szLongItemName>7.62x51mm Mag, Unterschall</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x51 US #10</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>462</uiIndex>
 		<szItemName>7.62x51 US-G</szItemName>
 		<szLongItemName>7.62x51mm Mag, US-Glaser</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x51 US-G #10</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>463</uiIndex>
@@ -3733,25 +3733,25 @@
 		<uiIndex>466</uiIndex>
 		<szItemName>7.62x51 US-HS</szItemName>
 		<szLongItemName>7.62x51mm Mag, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x51 US-HS</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>467</uiIndex>
 		<szItemName>7.62x51 US</szItemName>
 		<szLongItemName>7.62x51mm Mag, Unterschall</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x51 US</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>468</uiIndex>
 		<szItemName>7.62x51 US-G</szItemName>
 		<szLongItemName>7.62x51mm Mag, US-Glaser</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x51 US-G</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>469</uiIndex>
@@ -3781,25 +3781,25 @@
 		<uiIndex>472</uiIndex>
 		<szItemName>7.62x51 US-HS</szItemName>
 		<szLongItemName>7.62x51mm Gurt, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x51 US-HS</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>473</uiIndex>
 		<szItemName>7.62x51 US</szItemName>
 		<szLongItemName>7.62x51mm Gurt, Unterschall</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x51 Unterschall</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>474</uiIndex>
 		<szItemName>7.62x51 US-G</szItemName>
 		<szLongItemName>7.62x51mm Gurt, US-Glaser</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x51 US-G</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>475</uiIndex>
@@ -3845,25 +3845,25 @@
 		<uiIndex>480</uiIndex>
 		<szItemName>7.62x51 US-HS</szItemName>
 		<szLongItemName>7.62x51mm Box, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x51 US-HS</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>481</uiIndex>
 		<szItemName>7.62x51 US</szItemName>
 		<szLongItemName>7.62x51mm Box, Unterschall</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x51 US #250</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>482</uiIndex>
 		<szItemName>7.62x51 US-G</szItemName>
 		<szLongItemName>7.62x51mm Box, US-Glaser</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x51 US-G</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>483</uiIndex>
@@ -3933,33 +3933,33 @@
 		<uiIndex>491</uiIndex>
 		<szItemName>7.62x25 US</szItemName>
 		<szLongItemName>7.62x25mm Magazin, Unterschall</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x25 Unterschall</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>492</uiIndex>
 		<szItemName>7.62x25 US-HS</szItemName>
 		<szLongItemName>7.62x25mm Magazin, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x25 US-HS</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>493</uiIndex>
 		<szItemName>7.62x25 MP-Mag US</szItemName>
 		<szLongItemName>7.62x25mm MP-Mag, Unterschall</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x25 US</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>494</uiIndex>
 		<szItemName>7.62x25 US-HS</szItemName>
 		<szLongItemName>7.62x25mm MP-Mag, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x25 US-HS</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>495</uiIndex>
@@ -3981,17 +3981,17 @@
 		<uiIndex>497</uiIndex>
 		<szItemName>7.62x25 US</szItemName>
 		<szLongItemName>7.62x25mm Bizon Mag, US</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x25 Biz.Mag US</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>498</uiIndex>
 		<szItemName>7.62x25 US-HS </szItemName>
 		<szLongItemName>7.62x25mm Bizon Mag, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x25 US-HS</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>499</uiIndex>
@@ -4013,17 +4013,17 @@
 		<uiIndex>501</uiIndex>
 		<szItemName>7.62x25 US</szItemName>
 		<szLongItemName>7.62x25mm Trommel, US</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x25 US #100</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>502</uiIndex>
 		<szItemName>7.62x25 Tr. US-HS </szItemName>
 		<szLongItemName>7.62x25mm Trommel, US-HS</szLongItemName>
-		<szItemDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szItemDesc>
 		<szBRName>7.62x25 US-HS</szBRName>
-		<szBRDesc>Wenn Sie die EXTREME SHOCK Silent Warrior Patrone mit Ihrer schallgedaempften Waffe abfeuern, hoeren Sie nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen. Unterschall-Munition wird auch als 'Subsonic' oder 'cold-loaded' bezeichnet. </szBRDesc>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hoeren nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfuellen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>503</uiIndex>
@@ -4067,10 +4067,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>508</uiIndex>
-		<szItemName>9x18 Mag</szItemName>
+		<szItemName>9x18 MP-Mag</szItemName>
 		<szLongItemName>9x18mm MP-Mag</szLongItemName>
 		<szItemDesc>Diese FIOCCHI VM-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschuetzte/ ungeschuetzte Gegner.</szItemDesc>
-		<szBRName>9x18 Mag #20</szBRName>
+		<szBRName>9x18 MP-Mag</szBRName>
 		<szBRDesc>Diese FIOCCHI VM-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschuetzte/ ungeschuetzte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4083,10 +4083,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>510</uiIndex>
-		<szItemName>9x18 Mag</szItemName>
+		<szItemName>9x18 MP-Mag</szItemName>
 		<szLongItemName>9x18mm MP-Mag</szLongItemName>
 		<szItemDesc>Diese FIOCCHI VM-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschuetzte/ ungeschuetzte Gegner.</szItemDesc>
-		<szBRName>9x18 Mag #30</szBRName>
+		<szBRName>9x18 MP-Mag</szBRName>
 		<szBRDesc>Diese FIOCCHI VM-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschuetzte/ ungeschuetzte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4094,7 +4094,7 @@
 		<szItemName>9x18 HS</szItemName>
 		<szLongItemName>9x18mm MP-Mag, HS</szLongItemName>
 		<szItemDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion fuer leistungsfaehigen Energietransfer und grosser Mannstoppwirkung.</szItemDesc>
-		<szBRName>9x18 HS #30</szBRName>
+		<szBRName>9x18 MP-Mag HS</szBRName>
 		<szBRDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion fuer leistungsfaehigen Energietransfer und grosser Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4164,7 +4164,7 @@
 	<ITEM>
 		<uiIndex>520</uiIndex>
 		<szItemName>7.62x54R Box</szItemName>
-		<szLongItemName>7.62x54R Box, panzerbrechend</szLongItemName>
+		<szLongItemName>7.62x54R Box, PB</szLongItemName>
 		<szItemDesc>Dieses Magazin enthaelt PB-Geschosse aus polnischer Produktion, die dafuer bekannt sind, fast alle Arten von Schutzruestung zu durchschlagen und den Gegnern erheblichen Schaden zuzufuegen.</szItemDesc>
 		<szBRName>7.62x54R Box #200</szBRName>
 		<szBRDesc>Dieses Magazin enthaelt PB-Geschosse aus polnischer Produktion, die dafuer bekannt sind, fast alle Arten von Schutzruestung zu durchschlagen und den Gegnern erheblichen Schaden zuzufuegen.</szBRDesc>
@@ -5069,9 +5069,9 @@
 		<uiIndex>633</uiIndex>
 		<szItemName>M4A1</szItemName>
 		<szLongItemName>Colt M4A1 Karabiner</szLongItemName>
-		<szItemDesc>Der M4-Karabiner wird meist dann benutzt, wenn eine kompakte Waffe mit hoher Feuerkraft gefragt ist.</szItemDesc>
+		<szItemDesc>Der M4-Karabiner ist unter allen Einsatzbedingungen eine sehr genaue und effektive Waffe. Die Waffe ist fuer Soeldner und Einzelkaempfer bestens geeignet.</szItemDesc>
 		<szBRName>Colt M4A1 Karabiner</szBRName>
-		<szBRDesc>Der M4-Karabiner besitzt eine S-F Abzugsgruppe und wird meist dann benutzt, wenn eine kompakte Waffe mit hoher Feuerkraft gefragt ist, die trotzdem leicht und handlich ist. Anwendung findet sie im Strassen- und Haeuserkampf.</szBRDesc>
+		<szBRDesc>Der M4-Karabiner ist unter allen Einsatzbedingungen eine sehr genaue und effektive Waffe. Die Waffe hat eine S-F Abzugsgruppe und ist fuer Soeldner und Einzelkaempfer bestens geeignet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>634</uiIndex>
@@ -5213,9 +5213,9 @@
 		<uiIndex>651</uiIndex>
 		<szItemName>SCAR-H</szItemName>
 		<szLongItemName>FN SCAR-H</szLongItemName>
-		<szItemDesc>Das ist FN's neueste Enwicklung im Bereich der Sturmgewehre.</szItemDesc>
+		<szItemDesc>Das ist FN's neueste Enwicklung im Bereich der Sturmgewehre. Hier die CQC-Ausfuehrung fuer den Nahkampf.</szItemDesc>
 		<szBRName>FN SCAR-H</szBRName>
-		<szBRDesc>Das ist FN's neueste Enwicklung im Bereich der Sturmgewehre.</szBRDesc>
+		<szBRDesc>Das ist FN's neueste Enwicklung im Bereich der Sturmgewehre. Hier die 'Close Qarter Combat' Ausfuehrung - fuer den Nahkampf.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>652</uiIndex>
@@ -5301,9 +5301,9 @@
 		<uiIndex>662</uiIndex>
 		<szItemName>HK416</szItemName>
 		<szLongItemName>HK416</szLongItemName>
-		<szItemDesc>Das HK416, eine weiterentwickelte Variante des M16, wird von Soldaten in Spezialeinheiten bevorzugt eingesetzt.</szItemDesc>
+		<szItemDesc>Das HK416 Sturmgewehr ist eine weiterentwickelte Variante des M16 und soll die Jahrzehnte alten M16- und M4-Systeme des US-Militaers ersetzen.</szItemDesc>
 		<szBRName>HK416</szBRName>
-		<szBRDesc>Das HK416 ist die Antwort auf die beiden gescheiterten Projekte XM29 und XM8, ausserdem soll es die Jahrzehnte alten M16- und M4-Systeme ersetzen. Das HK416, eine weiterentwickelte Variante des M16, wird von Soldaten in Spezialeinheiten bevorzugt eingesetzt.</szBRDesc>
+		<szBRDesc>Das HK416 Sturmgewehr ist eine weiterentwickelte Variante des M16 und die Antwort auf die beiden gescheiterten Projekte XM29 und XM8. Es soll die Jahrzehnte alten M16- und M4-Systeme des US-Militaers ersetzen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>663</uiIndex>
@@ -5311,7 +5311,7 @@
 		<szLongItemName>HK G11-PDW</szLongItemName>
 		<szItemDesc>Die kleinere Variante des G11 ist als Selbstverteidigungswaffe gedacht.</szItemDesc>
 		<szBRName>HK G11-PDW</szBRName>
-		<szBRDesc>SONDERANGEBOT: Wir von BR konnten einige Exemplare der G11-PDW auftreiben. Kaufen Sie jetzt! - Nur fuer kurze Zeit!</szBRDesc>
+		<szBRDesc>SONDERANGEBOT: Wir von BR konnten einige Exemplare der G11-PDW auftreiben. Kaufen Sie jetzt - nur fuer kurze Zeit!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>664</uiIndex>
@@ -5391,7 +5391,7 @@
 		<szLongItemName>H&amp;K MP7A1</szLongItemName>
 		<szItemDesc>Die MP7 ist eine perfekte 3 in 1 Loesung: Pistole, MP und Sturmgewehr. Sie durchschlaegt CRISAT-Schutz (1,6mm Titan kombiniert mit 20 Kevlarschichten) auf 200m Entfernung.</szItemDesc>
 		<szBRName>H&amp;K MP7A1</szBRName>
-		<szBRDesc>Die MP7 vereint die Vorteile einer Pistole, MP und Sturmgewehres in sich. In den Verbaenden (Feldjaeger, DSO) in denen sie seit 2002 zum Einsatz kommt, erfreut sie sich schon jetzt grosser Beliebtheit. Sie durchschlaegt CRISAT-Schutz (1,6mm Titan kombiniert mit 20 Kevlarschichten) auf 200m Entfernung.</szBRDesc>
+		<szBRDesc>Die MP7 vereint die Vorteile einer Pistole, MP und Sturmgewehres in sich. In den Verbaenden (Feldjaeger, DSO) in denen sie seit 2002 zum Einsatz kommt, erfreut sie sich schon jetzt grosser Beliebtheit. Sie durchschlaegt CRISAT-Schutz (1,6mm Titan kombiniert mit 20 Schichten Kevlar) auf 200m Entfernung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>674</uiIndex>
@@ -5463,37 +5463,37 @@
 		<szLongItemName>ZID KSVK</szLongItemName>
 		<szItemDesc>Dieses Grosskaliber-Scharfschuetzengewehr wurde Ende der 90er Jahre in Russland entwickelt. Es befindet sich in geringen Stueckzahlen im Einsatz.</szItemDesc>
 		<szBRName>ZID KSVK</szBRName>
-		<szBRDesc>Dieses Grosskaliber-Scharfschuetzengewehr wurde Ende der 90er Jahre in Russland entwickelt. Es befindet sich in geringen Stueckzahlen im Einsatz. Hauptproblem ist die nicht Verfuegbarkeit von Praezisionsmunition, die erhaeltliche MG-Mun. laesst nur Kampf-Entfernungen bis 300m zu.</szBRDesc>
+		<szBRDesc>Dieses Grosskaliber-Scharfschuetzengewehr wurde Ende der 90er Jahre in Russland entwickelt. Es befindet sich in geringen Stueckzahlen im Einsatz. Hauptproblem ist die nicht Verfuegbarkeit von Praezisionsmunition, die erhaeltliche MG-Mun. laesst nur Kampfentfernungen bis 300m zu.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>683</uiIndex>
 		<szItemName>M1 Garand</szItemName>
-		<szLongItemName>M1 Garand</szLongItemName>
-		<szItemDesc>Das Sturmgewehr M1 Garand wird auch 'Das Gewehr, das den Krieg gewann' genannt.</szItemDesc>
-		<szBRName>M1 Garand</szBRName>
-		<szBRDesc>Das Sturmgewehr M1 Garand wird auch 'Das Gewehr, das den Krieg gewann' genannt. Bis zum Produktionsende 1957 wurden ueber 5,5 Mio. Stueck hergestellt.</szBRDesc>
+		<szLongItemName>Springfield M1 Garand</szLongItemName>
+		<szItemDesc>Der M1 Garand war das Gewehr der US-Soldaten im Zweiten Weltkrieg. Dieses Exemplar ist fabrikneu und wurde von SPRINGFIELD gefertigt.</szItemDesc>
+		<szBRName>Springfield M1 Garand</szBRName>
+		<szBRDesc>Wer haette das gedacht, ein fabrikneuer M1 Garant. Diese Gewehr wird von SPRINGFIELD fuer Waffenliebhaber gefertigt - wir von BR konnten ein paar Exemplare bekommen!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>684</uiIndex>
 		<szItemName>M21 Tactical</szItemName>
-		<szLongItemName>M21 Tactical</szLongItemName>
+		<szLongItemName>Springfield M21 Tactical</szLongItemName>
 		<szItemDesc>Das M21 ist ein sehr praezises, halb-automatisches Gewehr. Weltweit im Dienst bei Eliteeinheiten, ist es die ultimative Waffe fuer den Scharfschuetzen.</szItemDesc>
-		<szBRName>M21 Tactical</szBRName>
-		<szBRDesc>Das M21 ist ein sehr praezises, halb-automatisches Gewehr. Weltweit im Dienst bei Eliteeinheiten, ist es die ultimative Waffe fuer den Scharfschuetzen.</szBRDesc>
+		<szBRName>Springfield M21 Tactical</szBRName>
+		<szBRDesc>Das M21 Tactical ist eine modifizierte Zivilversion des M14/M1A National Match Gewehres, welches urspruenglich aus uebrig gebliebenen Teilen der M14-Produktion gefertigt wurde. Es hat einen impraegnierten Schaft, eine Glasfaserbettung fuer den Lauf und eine verfeinerte Abzugscharakteristik.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>685</uiIndex>
 		<szItemName>M40A1</szItemName>
-		<szLongItemName>M40A1</szLongItemName>
-		<szItemDesc>Das M40A1 ist eine vom USMC modifizierte Version des REMINGTON 700/M40. Anfang der 70er Jahre wurde es mit UNERTL Zielfernrohren ausgeruestet.</szItemDesc>
-		<szBRName>M40A1</szBRName>
-		<szBRDesc>Das M40A1 ist eine vom USMC modifizierte Version des REMINGTON 700/M40. Anfang der 70er Jahre wurde es mit UNERTL Zielfernrohren ausgeruestet. Diese wurden in 2006 durch S&amp;B Zielfernrohre ersetzt.</szBRDesc>
+		<szLongItemName>Remington M40A1</szLongItemName>
+		<szItemDesc>Dieses Gewehr basiert auf dem Modell 700 M40 und wird von REMINGTON in Gedenken an die U.S.M.C. Scharfschuetzen die in Vietnam dienten gefertigt.</szItemDesc>
+		<szBRName>Remington M40A1</szBRName>
+		<szBRDesc>Dieses Gewehr basiert auf dem Modell 700 M40 und wurde frueher von U.S.M.C. Force Recon Personal benutzt. Dieses Modell wird von REMINGTON in Gedenken an die U.S.M.C. Scharfschuetzen die in Vietnam dienten gefertigt. Diese Limited Edition ist nur fuer kurze Zeit erhaeltlich!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>686</uiIndex>
 		<szItemName>SZW</szItemName>
 		<szLongItemName>Metal Storm Surf Zone Weapon</szLongItemName>
-		<szItemDesc>Diese Waffe garantiert Funktionssicherheit in jeder Umgebung - 6 Laeufe - 72 Schuss - 3,4kg Gewicht - keine Mechanik - keine Fehlfunktion</szItemDesc>
+		<szItemDesc>Das Gewehr kommt mit einem speziellen 10-fach Unertl Zielfernrohr. Mit dem Zielfernrohr wiegt die Waffe ca. 7Kg. Sie verfuegt ueber ein intergriertes 5 Schuss Magazin.</szItemDesc>
 		<szBRName>Surf Zone Weapon</szBRName>
 		<szBRDesc>Die neuste Waffe von METAL STORM: Funktionssicherheit in trockener/ nasser Umgebung - 6 Laeufe - Mehrfach-Effekte - 72 Schuss - 3,4kg Gewicht - keine Mechanik - keine Fehlfunktion</szBRDesc>
 	</ITEM>
@@ -5501,7 +5501,6 @@
 		<uiIndex>687</uiIndex>
 		<szItemName>M60E3</szItemName>
 		<szLongItemName>Saco Defense M60E3</szLongItemName>
-		<szItemDesc>Das M60E3 ist eine Weiterentwicklung des M60. Um Zuverlaessigkeit und Effektivitaet zu erhoehen, wurden umfangreiche Verbesserungen vorgenommen.</szItemDesc>
 		<szBRName>Saco Defense M60E3</szBRName>
 		<szBRDesc>Das M60 ist ein automatisches Maschinengewehr mit Gurtzufuehrung und Gasdruckladermechanismus und wurde Ende der 40er-Jahre entwickelt. Die Entwicklung war zum Teil stark von deutschen Waffen beeinflusst. Das M60 wurde 1950 an die US-Army ausgeliefert. </szBRDesc>
 	</ITEM>
@@ -5509,7 +5508,7 @@
 		<uiIndex>688</uiIndex>
 		<szItemName>MAC-11/9</szItemName>
 		<szLongItemName>Ingram MAC-11/9</szLongItemName>
-		<szItemDesc>Die MAC-11/9 wurde von der US-Army als Ersatz fuer vorher verwendete schwedische MP-Modelle beschafft. Sie war fuer den Einsatz bei Kommando- und Spezialeinheiten gedacht.</szItemDesc>
+		<szItemDesc>Die Waffe wurde frueher als Spezialanfertigung durch qualifizierte und trainierte Waffenschmiede der US Armee in Quantico, Virginia angefertigt. Primaer genutzt wurden die Waffen von MArine Force Recon Personal und anderen speziell ausgebildeten Einheiten.</szItemDesc>
 		<szBRName>Ingram MAC-11/9</szBRName>
 		<szBRDesc>Die MAC-11/9 besitzt nur Dauerfeuer und wurde von der US-Army als Ersatz fuer vorher verwendete schwedische MP-Modelle beschafft. Sie war fuer den Einsatz bei Kommando- und Spezialeinheiten gedacht.</szBRDesc>
 	</ITEM>
@@ -5517,7 +5516,6 @@
 		<uiIndex>689</uiIndex>
 		<szItemName>Makarov PM</szItemName>
 		<szLongItemName>Makarov PM</szLongItemName>
-		<szItemDesc>Diese weltberuehmte Pistole wird seit 55 Jahren von IMZ in Russland hergestellt.</szItemDesc>
 		<szBRName>Makarov PM</szBRName>
 		<szBRDesc>Diese weltberuehmte Pistole wird seit 55 Jahren von  IZHEVSKY MEKHANICHESKY ZAVOD in Russland hergestellt.</szBRDesc>
 	</ITEM>
@@ -5525,7 +5523,7 @@
 		<uiIndex>690</uiIndex>
 		<szItemName>Makarov PMM</szItemName>
 		<szLongItemName>Makarov PMM</szLongItemName>
-		<szItemDesc>Diese modifizierte Variante der Makarov PM ging 1994 in Serie.</szItemDesc>
+		<szItemDesc>Nun wurde dieses Praezisionsgewehr neu aufgelegt und wird von im Ruhestand stehenden Waffenschmieden aus Quantico und anderen talentieren Herstellern fuer spezielle/zahlungskraeftige Kunden in aller Welt hergestellt.</szItemDesc>
 		<szBRName>Makarov PMM</szBRName>
 		<szBRDesc>Diese modifizierte Variante der Makarov PM ging 1994 in Serie.</szBRDesc>
 	</ITEM>
@@ -5827,7 +5825,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>728</uiIndex>
-		<szItemName>Scout</szItemName>
+		<szItemName>Scout Tactical</szItemName>
 		<szLongItemName>Steyr Scout Tactical</szLongItemName>
 		<szItemDesc>Sie suchen nach einem leichten, kompakten sehr genauen SSG? Dann suchen Sie nicht weiter. Das Scout Tactical ist genau was Sie suchen.</szItemDesc>
 		<szBRName>Steyr Scout Tactical</szBRName>
@@ -5852,18 +5850,18 @@
 	<ITEM>
 		<uiIndex>731</uiIndex>
 		<szItemName>Street Sweeper</szItemName>
-		<szLongItemName>DAO-12 Street Sweeper</szLongItemName>
-		<szItemDesc>Diese Flinte wurde Anfang der 80er Jahre in Suedafrika entwickelt. Sie verkaufte sich gut und fand ihren Weg in alle Ecken der Welt.</szItemDesc>
-		<szBRName>DAO-12 Street Sweeper</szBRName>
-		<szBRDesc>Diese Flinte wurde Anfang der 80er Jahre in Suedafrika entwickelt. Sie verkaufte sich gut und fand ihren Weg in alle Ecken der Welt.</szBRDesc>
+		<szLongItemName>Street Sweeper</szLongItemName>
+		<szItemDesc>Diese Flinte ist eine Kopie der DAO-12 Striker, welche Anfang der 80er Jahre in Suedafrika entwickelt wurde. Sie wird in den USA hergestellt.</szItemDesc>
+		<szBRName>Street Sweeper</szBRName>
+		<szBRDesc>Diese Flinte ist eine Kopie der DAO-12 Striker, welche Anfang der 80er Jahre in Suedafrika entwickelt wurde. Sie wird in den USA hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>732</uiIndex>
-		<szItemName>Super-Shorty</szItemName>
-		<szLongItemName>Super-Shorty</szLongItemName>
-		<szItemDesc>Die Super-Shorty wird von Polizei- und Spezialeinheiten weltweit verwendet.</szItemDesc>
-		<szBRName>Super-Shorty</szBRName>
-		<szBRDesc>Die Super-Shorty wird von Polizei- und Spezialeinheiten weltweit verwendet. Wenn Sie mit einer Schrotflinte rumlaufen wollen oder eine kompakte, feuerstarke Waffe suchen, dann ist das die Richtige fuer Sie.</szBRDesc>
+		<szItemName>SUPER-SHORTY</szItemName>
+		<szLongItemName>SUPER-SHORTY</szLongItemName>
+		<szItemDesc>Die SUPER-SHORTY basiert auf der Remington M870 und wird von Polizei- und Spezialeinheiten der USA eingesetzt.</szItemDesc>
+		<szBRName>SUPER-SHORTY</szBRName>
+		<szBRDesc>Die SUPER-SHORTY basiert auf der Remington M870 und wird von Polizei- und Spezialeinheiten der USA eingesetzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>733</uiIndex>
@@ -5933,9 +5931,9 @@
 		<uiIndex>741</uiIndex>
 		<szItemName>USAS-12</szItemName>
 		<szLongItemName>Daewoo USAS-12</szLongItemName>
-		<szItemDesc>Diese Flinte sieht dem M16 Sturmgewehr aehnlich. Ihre Aufgabe ist unterstuetzendes Feuer im Haeuser- und Strassenkampf zu geben.</szItemDesc>
+		<szItemDesc>Diese Flinte sieht dem M16 Sturmgewehr aehnlich. Ihre Aufgabe ist unterstuetzendes Feuer im Haeuserkampf zu geben.</szItemDesc>
 		<szBRName>Daewoo USAS-12</szBRName>
-		<szBRDesc>Die USAS-12 Flinte wurde in Suedkorea von der Firma DAEWOO PRECISION INDUSTRIES entwickelt. Sie sieht dem M16 Sturmgewehr aehnlich. Ihre Aufgabe ist unterstuetzendes Feuer im Haeuser- und Strassenkampf zu geben.</szBRDesc>
+		<szBRDesc>Die USAS-12 Flinte wurde in den USA entwickelt, jedoch war kein Hersteller bereit diese Waffe zu fertigen. Die Firma DAEWOO PRECISION INDUSTRIES in Suedkorea bekundete Interesse an der Herstellung dieser Waffe und erwarb die Lizenz. die Aufgabe der USAS-12 ist es unterstuetzendes Feuer im Haeuserkampf zu geben.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>742</uiIndex>
@@ -5957,9 +5955,9 @@
 		<uiIndex>744</uiIndex>
 		<szItemName>VIS-35</szItemName>
 		<szLongItemName>F.B. Random VIS-35</szLongItemName>
-		<szItemDesc>Nach erfolgreichen Test wurde diese polnische Pistole 1936 bei der polnischen Armee in Dienst gestellt.</szItemDesc>
+		<szItemDesc>Nach erfolgreichen Test wurde diese Pistole 1936 bei der polnischen Armee in Dienst gestellt.</szItemDesc>
 		<szBRName>VIS-35</szBRName>
-		<szBRDesc>Nach erfolgreichen Test wurde diese polnische Pistole 1936 bei der polnischen Armee in Dienst gestellt. Waehrend des 2. Weltkriegs wurde die Produktion weitergefuehrt und die VIS-35 von der Wehrmacht eingesetzt.</szBRDesc>
+		<szBRDesc>Nach erfolgreichen Test wurde diese Pistole 1936 bei der polnischen Armee in Dienst gestellt. Waehrend des 2. Weltkriegs wurde die Produktion weitergefuehrt und die VIS-35 von der Wehrmacht eingesetzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>745</uiIndex>
@@ -6716,7 +6714,7 @@
 	<ITEM>
 		<uiIndex>839</uiIndex>
 		<szItemName>SO-Helm</szItemName>
-		<szLongItemName>Stealth Ops Helm</szLongItemName>
+		<szLongItemName>Stealth-Ops Helm</szLongItemName>
 		<szItemDesc>Mit diesem Helm werden Sie die meiste Zeit unentdeckt bleiben. Er schuetzt Sie auch ausreichend vor Geschosse kleineren Kalibers.</szItemDesc>
 		<szBRName>Stealth Ops Helm</szBRName>
 		<szBRDesc/>
@@ -6724,7 +6722,7 @@
 	<ITEM>
 		<uiIndex>840</uiIndex>
 		<szItemName>SO-Weste</szItemName>
-		<szLongItemName>Stealth Ops Weste</szLongItemName>
+		<szLongItemName>Stealth-Ops Weste</szLongItemName>
 		<szItemDesc>Mit dieser Weste werden Sie die meiste Zeit unentdeckt bleiben. Jedoch bietet sie keinen ausreichenden Schutz vor Geschosse groesseren Kalibers.</szItemDesc>
 		<szBRName>Stealth Ops Weste</szBRName>
 		<szBRDesc/>
@@ -6732,7 +6730,7 @@
 	<ITEM>
 		<uiIndex>841</uiIndex>
 		<szItemName>SO-Hose</szItemName>
-		<szLongItemName>Stealth Ops Hose</szLongItemName>
+		<szLongItemName>Stealth-Ops Hose</szLongItemName>
 		<szItemDesc>Mit dieser Hose werden Sie die meiste Zeit unentdeckt bleiben. Jedoch bietet sie keinen ausreichenden Schutz vor Geschosse groesseren Kalibers.</szItemDesc>
 		<szBRName>Stealth Ops Hose</szBRName>
 		<szBRDesc/>
@@ -6741,7 +6739,7 @@
 		<uiIndex>842</uiIndex>
 		<szItemName>Recon K-Weste</szItemName>
 		<szLongItemName>Recon Kevlarweste</szLongItemName>
-		<szItemDesc>Diese Kevlarweste in der Farbe woodland ist die beste Loesung fuer jede Aufklaerungs-Mission. In dieser Weste koennen Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarn-Bonus: 25 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szItemDesc>Diese woodland Kevlarweste ist die beste Loesung fuer jede Aufklaerungs-Mission. Hier koennen Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarn-Bonus: 25 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
 		<szBRName>Recon Kevlarweste</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6749,7 +6747,7 @@
 		<uiIndex>843</uiIndex>
 		<szItemName>Recon G-Weste</szItemName>
 		<szLongItemName>Recon Guardianweste</szLongItemName>
-		<szItemDesc>Diese Guardinweste in der Farbe woodland ist die beste Loesung fuer jede Aufklaerungs-Mission. In dieser Weste koennen Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarn-Bonus: 25 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szItemDesc>Diese woodland Guardinweste ist die beste Loesung fuer jede Aufklaerungs-Mission. Hier koennen Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarn-Bonus: 25 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
 		<szBRName>Recon Guardianweste</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6757,7 +6755,7 @@
 		<uiIndex>844</uiIndex>
 		<szItemName>Recon Tw.-Weste</szItemName>
 		<szLongItemName>Recon Twaron-Weste</szLongItemName>
-		<szItemDesc>Diese Twaron-Weste in der Farbe woodland ist die beste Loesung fuer jede Aufklaerungs-Mission. In dieser Weste koennen Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarn-Bonus: 25 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szItemDesc>Diese woodland Twaron-Weste ist die beste Loesung fuer jede Aufklaerungs-Mission. Hier koennen Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarn-Bonus: 25 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
 		<szBRName>Recon Twaron-Weste</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6765,7 +6763,7 @@
 		<uiIndex>845</uiIndex>
 		<szItemName>Recon K-Hose</szItemName>
 		<szLongItemName>Recon Kevlarhose</szLongItemName>
-		<szItemDesc>Diese Kevlarhose in der Farbe woodland ist die beste Loesung fuer jede Aufklaerungs-Mission. In dieser Weste koennen Sie Messer, Tarnset, Drahtschere und Booster unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 15 Prozent</szItemDesc>
+		<szItemDesc>Diese woodland Kevlarhose ist die beste Loesung fuer jede Aufklaerungs-Mission. Hier koennen Sie Messer, Tarnset, Drahtschere und Booster unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 15 Prozent</szItemDesc>
 		<szBRName>Recon Kevlarhose</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6773,7 +6771,7 @@
 		<uiIndex>846</uiIndex>
 		<szItemName>Recon Tw.-Hose</szItemName>
 		<szLongItemName>Recon Twaron-Hose</szLongItemName>
-		<szItemDesc>Diese Twaron-Hose in der Farbe woodland ist die beste Loesung fuer jede Aufklaerungs-Mission. In dieser Weste koennen Sie Messer, Tarnset, Drahtschere und Booster unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 15 Prozent</szItemDesc>
+		<szItemDesc>Diese woodland Twaron-Hose ist die beste Loesung fuer jede Aufklaerungs-Mission. Hier koennen Sie Messer, Tarnset, Drahtschere und Booster unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 15 Prozent</szItemDesc>
 		<szBRName>Recon Twaron-Hose</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6781,7 +6779,7 @@
 		<uiIndex>847</uiIndex>
 		<szItemName>Medic K-Weste</szItemName>
 		<szLongItemName>Sanitaeter Kevlarweste</szLongItemName>
-		<szItemDesc>Diese Art Weste wird gewoehnlich von Sanitaetern getragen, da sie mehr Platz fuer ihre Asuruestung bietet. In dieser Weste koennen Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szItemDesc>Diese Art Weste wird gewoehnlich von Sanitaetern getragen, da sie mehr Platz fuer ihre Asuruestung bietet. Hier koennen Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
 		<szBRName>Sanitaeter Kevlarweste</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6789,7 +6787,7 @@
 		<uiIndex>848</uiIndex>
 		<szItemName>Medic G-Weste</szItemName>
 		<szLongItemName>Sanitaeter Guardianweste</szLongItemName>
-		<szItemDesc>Diese Art Weste wird gewoehnlich von Sanitaetern getragen, da sie mehr Platz fuer ihre Asuruestung bietet. In dieser Weste koennen Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szItemDesc>Diese Art Weste wird gewoehnlich von Sanitaetern getragen, da sie mehr Platz fuer ihre Asuruestung bietet. Hier koennen Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
 		<szBRName>Sanitaeter Guardianweste</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6797,7 +6795,7 @@
 		<uiIndex>849</uiIndex>
 		<szItemName>Medic Tw.-Weste</szItemName>
 		<szLongItemName>Sanitaeter Twaron-Weste</szLongItemName>
-		<szItemDesc>Diese Art Weste wird gewoehnlich von Sanitaetern getragen, da sie mehr Platz fuer ihre Asuruestung bietet. In dieser Weste koennen Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szItemDesc>Diese Art Weste wird gewoehnlich von Sanitaetern getragen, da sie mehr Platz fuer ihre Asuruestung bietet. Hier koennen Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
 		<szBRName>Sanitaeter Twaron-Weste</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6805,7 +6803,7 @@
 		<uiIndex>850</uiIndex>
 		<szItemName>Medic S-Weste</szItemName>
 		<szLongItemName>Sanitaeter Spectraweste</szLongItemName>
-		<szItemDesc>Diese Art Weste wird gewoehnlich von Sanitaetern getragen, da sie mehr Platz fuer ihre Asuruestung bietet. In dieser Weste koennen Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szItemDesc>Diese Art Weste wird gewoehnlich von Sanitaetern getragen, da sie mehr Platz fuer ihre Asuruestung bietet. Hier koennen Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
 		<szBRName>Sanitaeter Spectra-Weste</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6813,7 +6811,7 @@
 		<uiIndex>851</uiIndex>
 		<szItemName>Medic Dyn.-Weste</szItemName>
 		<szLongItemName>Sanitaeter Dyneema-Weste</szLongItemName>
-		<szItemDesc>Diese Art Weste wird gewoehnlich von Sanitaetern getragen, da sie mehr Platz fuer ihre Asuruestung bietet. In dieser Weste koennen Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szItemDesc>Diese Art Weste wird gewoehnlich von Sanitaetern getragen, da sie mehr Platz fuer ihre Asuruestung bietet. Hier koennen Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
 		<szBRName>Sanitaeter Dyneema-Weste</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6821,7 +6819,7 @@
 		<uiIndex>852</uiIndex>
 		<szItemName>Medic K-Hose</szItemName>
 		<szLongItemName>Sanitaeter Kevlarhose</szLongItemName>
-		<szItemDesc>Nirgendwo ein perfekter Platz fuer Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz fuer Ihre Utensilien. In dieser Weste koennen Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szItemDesc>Nirgendwo ein perfekter Platz fuer Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz fuer Ihre Utensilien. Hier koennen Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
 		<szBRName>Sanitaeter Kevlarhose</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6829,7 +6827,7 @@
 		<uiIndex>853</uiIndex>
 		<szItemName>Medic Tw.-Hose</szItemName>
 		<szLongItemName>Sanitaeter Twaron-Hose</szLongItemName>
-		<szItemDesc>Nirgendwo ein perfekter Platz fuer Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz fuer Ihre Utensilien. In dieser Weste koennen Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szItemDesc>Nirgendwo ein perfekter Platz fuer Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz fuer Ihre Utensilien. Hier koennen Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
 		<szBRName>Sanitaeter Twaron-Hose</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6837,7 +6835,7 @@
 		<uiIndex>854</uiIndex>
 		<szItemName>Medic S-Hose</szItemName>
 		<szLongItemName>Sanitaeter Spectrahose</szLongItemName>
-		<szItemDesc>Nirgendwo ein perfekter Platz fuer Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz fuer Ihre Utensilien. In dieser Weste koennen Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szItemDesc>Nirgendwo ein perfekter Platz fuer Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz fuer Ihre Utensilien. Hier koennen Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
 		<szBRName>Sanitaeter Spectra-Hose</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6845,7 +6843,7 @@
 		<uiIndex>855</uiIndex>
 		<szItemName>Medic Dyn.-Hose</szItemName>
 		<szLongItemName>Sanitaeter Dyneema-Hose</szLongItemName>
-		<szItemDesc>Nirgendwo ein perfekter Platz fuer Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz fuer Ihre Utensilien. In dieser Weste koennen Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szItemDesc>Nirgendwo ein perfekter Platz fuer Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz fuer Ihre Utensilien. Hier koennen Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
 		<szBRName>Sanitaeter Dyneema-Hose</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6853,7 +6851,7 @@
 		<uiIndex>856</uiIndex>
 		<szItemName>Mech. K-Weste</szItemName>
 		<szLongItemName>Mechaniker Kevlarweste</szLongItemName>
-		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. In dieser Weste koennen Sie Plastiik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier koennen Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
 		<szBRName>Mechaniker Kevlarweste</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6861,7 +6859,7 @@
 		<uiIndex>857</uiIndex>
 		<szItemName>Mech. G-Weste</szItemName>
 		<szLongItemName>Mechaniker Guardianweste</szLongItemName>
-		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. In dieser Weste koennen Sie Plastiik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier koennen Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
 		<szBRName>Mechaniker Guardianweste</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6869,7 +6867,7 @@
 		<uiIndex>858</uiIndex>
 		<szItemName>Mech. Tw.-Weste</szItemName>
 		<szLongItemName>Mechaniker Twaron-Weste</szLongItemName>
-		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. In dieser Weste koennen Sie Plastiik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier koennen Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
 		<szBRName>Mechaniker Twaron-Weste</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6877,7 +6875,7 @@
 		<uiIndex>859</uiIndex>
 		<szItemName>Mech. S-Weste</szItemName>
 		<szLongItemName>Mechaniker Spectra-Weste</szLongItemName>
-		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. In dieser Weste koennen Sie Plastiik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier koennen Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
 		<szBRName>Mechaniker Spectra-Weste</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6885,7 +6883,7 @@
 		<uiIndex>860</uiIndex>
 		<szItemName>Mech. Dyn.-Weste</szItemName>
 		<szLongItemName>Mechaniker Dyneema-Weste</szLongItemName>
-		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. In dieser Weste koennen Sie Plastiik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier koennen Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
 		<szBRName>Mechaniker Dyneema-Weste</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6893,7 +6891,7 @@
 		<uiIndex>861</uiIndex>
 		<szItemName>Mech. K-Hose</szItemName>
 		<szLongItemName>Mechaniker Kevlarhose</szLongItemName>
-		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. In dieser Weste koennen Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier koennen Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
 		<szBRName>Mechaniker Kevlarhose</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6901,7 +6899,7 @@
 		<uiIndex>862</uiIndex>
 		<szItemName>Mech. Tw.-Hose</szItemName>
 		<szLongItemName>Mechaniker Twaron-Hose</szLongItemName>
-		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. In dieser Hose koennen Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier koennen Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
 		<szBRName>Mechaniker Twaron-Hose</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6909,7 +6907,7 @@
 		<uiIndex>863</uiIndex>
 		<szItemName>Mech. S-Hose</szItemName>
 		<szLongItemName>Mechaniker Spectrahose</szLongItemName>
-		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. In dieser Hose koennen Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier koennen Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
 		<szBRName>Mechaniker Spectrahose</szBRName>
 		<szBRDesc/>
 	</ITEM>
@@ -6917,128 +6915,128 @@
 		<uiIndex>864</uiIndex>
 		<szItemName>Mech. Dyn.-Hose</szItemName>
 		<szLongItemName>Mechaniker Dyneema-Hose</szLongItemName>
-		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. In dieser Hose koennen Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szItemDesc>Fuer alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier koennen Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzuender und Booster unterbringen. Tarn-Bonus: 10 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
 		<szBRName>Mechaniker Dyneema-Hose</szBRName>
 		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>865</uiIndex>
-		<szItemName>FO K-Weste</szItemName>
-		<szLongItemName>Field Ops Kevlarweste</szLongItemName>
-		<szItemDesc>Sollten Sie vorhaben laengere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Weste. In dieser Weste koennen Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarn-Bonus: 20 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
-		<szBRName>Field Ops Kevlarweste</szBRName>
+		<szItemName>EK K-Weste</szItemName>
+		<szLongItemName>Einzelkaempfer Kevlarweste</szLongItemName>
+		<szItemDesc>Sollten Sie laengere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier koennen Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarn-Bonus: 20 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Einzelkaempfer Kevlarweste</szBRName>
 		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>866</uiIndex>
-		<szItemName>FO G-Weste</szItemName>
-		<szLongItemName>Field Ops Guardianweste</szLongItemName>
-		<szItemDesc>Sollten Sie vorhaben laengere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Weste. In dieser Weste koennen Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarn-Bonus: 20 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
-		<szBRName>Field Ops Guardianweste</szBRName>
+		<szItemName>EK G-Weste</szItemName>
+		<szLongItemName>Einzelkaempfer Guardianweste</szLongItemName>
+		<szItemDesc>Sollten Sie laengere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier koennen Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarn-Bonus: 20 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Einzelkaempfer Guardianweste</szBRName>
 		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>867</uiIndex>
-		<szItemName>FO Tw.-Weste</szItemName>
-		<szLongItemName>Field Ops Twaron-Weste</szLongItemName>
-		<szItemDesc>Sollten Sie vorhaben laengere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Weste. In dieser Weste koennen Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarn-Bonus: 20 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
-		<szBRName>Field Ops Twaron-Weste</szBRName>
+		<szItemName>EK Tw.-Weste</szItemName>
+		<szLongItemName>Einzelkaempfer Twaron-Weste</szLongItemName>
+		<szItemDesc>Sollten Sie laengere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier koennen Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarn-Bonus: 20 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Einzelkaempfer Twaron-Weste</szBRName>
 		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>868</uiIndex>
-		<szItemName>FO S-Weste</szItemName>
-		<szLongItemName>Field Ops Spectra-Weste</szLongItemName>
-		<szItemDesc>Sollten Sie vorhaben laengere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Weste. In dieser Weste koennen Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarn-Bonus: 20 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
-		<szBRName>Field Ops Spectra-Weste</szBRName>
+		<szItemName>EK S-Weste</szItemName>
+		<szLongItemName>Einzelkaempfer Spectra-Weste</szLongItemName>
+		<szItemDesc>Sollten Sie laengere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Weste. Hier koennen Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarn-Bonus: 20 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Einzelkaempfer Spectra-Weste</szBRName>
 		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>869</uiIndex>
-		<szItemName>FO Dyn.-Weste</szItemName>
-		<szLongItemName>Field Ops Dyneema-Weste</szLongItemName>
-		<szItemDesc>Sollten Sie vorhaben laengere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Weste. In dieser Weste koennen Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarn-Bonus: 20 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
-		<szBRName>Field Ops Dyneema-Weste</szBRName>
+		<szItemName>EK Dyn.-Weste</szItemName>
+		<szLongItemName>Einzelkaempfer Dyneema-Weste</szLongItemName>
+		<szItemDesc>Sollten Sie laengere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier koennen Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarn-Bonus: 20 Prozent - Armor-Bonus: 25 Prozent</szItemDesc>
+		<szBRName>Einzelkaempfer Dyneema-Weste</szBRName>
 		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>870</uiIndex>
-		<szItemName>FO K-Hose</szItemName>
-		<szLongItemName>Field Ops Kevlarhose</szLongItemName>
-		<szItemDesc>Sollten Sie vorhaben laengere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Hose. In dieser Hose koennen Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
-		<szBRName>Field Ops Kevlarhose</szBRName>
+		<szItemName>EK K-Hose</szItemName>
+		<szLongItemName>Einzelkaempfer Kevlarhose</szLongItemName>
+		<szItemDesc>Sollten Sie laengere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier koennen Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Einzelkaempfer Kevlarhose</szBRName>
 		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>871</uiIndex>
-		<szItemName>FO Tw.-Hose</szItemName>
-		<szLongItemName>Field Ops Twaron-Hose</szLongItemName>
-		<szItemDesc>Sollten Sie vorhaben laengere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Hose. In dieser Hose koennen Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
-		<szBRName>Field Ops Twaron-Hose</szBRName>
+		<szItemName>EK Tw.-Hose</szItemName>
+		<szLongItemName>Einzelkaempfer Twaron-Hose</szLongItemName>
+		<szItemDesc>Sollten Sie laengere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier koennen Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Einzelkaempfer Twaron-Hose</szBRName>
 		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>872</uiIndex>
-		<szItemName>FO S-Hose</szItemName>
-		<szLongItemName>Field Ops Spectrahose</szLongItemName>
-		<szItemDesc>Sollten Sie vorhaben laengere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Hose. In dieser Hose koennen Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
-		<szBRName>Field Ops Spectrahose</szBRName>
+		<szItemName>EK S-Hose</szItemName>
+		<szLongItemName>Einzelkaempfer Spectrahose</szLongItemName>
+		<szItemDesc>Sollten Sie laengere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier koennen Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Einzelkaempfer Spectrahose</szBRName>
 		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>873</uiIndex>
-		<szItemName>FO Dyn.-Hose</szItemName>
-		<szLongItemName>Field Ops Dyneema-Hose</szLongItemName>
-		<szItemDesc>Sollten Sie vorhaben laengere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Hose. In dieser Hose koennen Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
-		<szBRName>Field Ops Dyneema-Hose</szBRName>
+		<szItemName>EK Dyn.-Hose</szItemName>
+		<szLongItemName>Einzelkaempfer Dyneema-Hose</szLongItemName>
+		<szItemDesc>Sollten Sie laengere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier koennen Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarn-Bonus: 15 Prozent - Armor-Bonus: 20 Prozent</szItemDesc>
+		<szBRName>Einzelkaempfer Dyneema-Hose</szBRName>
 		<szBRDesc/>
 	</ITEM>
 	<ITEM>
 		<uiIndex>874</uiIndex>
 		<szItemName>SO-Helm Kit</szItemName>
-		<szLongItemName>Stealth Ops Helm Upgrade Kit</szLongItemName>
+		<szLongItemName>Stealth-Ops Helm Upgrade Kit</szLongItemName>
 		<szItemDesc>Dieses universelle Upgrade Kit kann verwendet werden um jeden gewoehnlichen Kevlarhelm in einen stealth ops Helm zu verwandeln.</szItemDesc>
-		<szBRName>Stealth Ops Helm Upgrade Kit</szBRName>
-		<szBRDesc>Dieses universelle Upgrade Kit kann verwendet werden um jeden gewoehnlichen Kevlarhelm in einen stealth ops Helm zu verwandeln.</szBRDesc>
+		<szBRName>Stealth-Ops Helm Kit</szBRName>
+		<szBRDesc>Dieses universelle Upgrade Kit kann verwendet werden um jeden gewoehnlichen Kevlarhelm in einen Stealth-Ops Helm zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>875</uiIndex>
 		<szItemName>SO-Weste Kit</szItemName>
-		<szLongItemName>Stealth Ops Weste Upgrade Kit</szLongItemName>
+		<szLongItemName>Stealth-Ops Weste Upgrade Kit</szLongItemName>
 		<szItemDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine state-of-the-art Stealth Ops Ausruestung zu verwandeln.</szItemDesc>
-		<szBRName>Stealth Ops Weste Upgrade Kit</szBRName>
-		<szBRDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine state-of-the-art Stealth Ops Ausruestung zu verwandeln.</szBRDesc>
+		<szBRName>Stealth-Ops Weste Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine state-of-the-art Stealth-Ops Ausruestung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>876</uiIndex>
 		<szItemName>SO-Hose Kit</szItemName>
-		<szLongItemName>Stealth Ops Hose Upgrade Kit</szLongItemName>
+		<szLongItemName>Stealth-Ops Hose Upgrade Kit</szLongItemName>
 		<szItemDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine state-of-the-art Stealth Ops Ausruestung zu verwandeln.</szItemDesc>
-		<szBRName>Stealth Ops Hose Upgrade Kit</szBRName>
-		<szBRDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine state-of-the-art Stealth Ops Ausruestung zu verwandeln.</szBRDesc>
+		<szBRName>Stealth-Ops Hose Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine state-of-the-art Stealth-Ops Ausruestung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>877</uiIndex>
 		<szItemName>Recon Weste Kit</szItemName>
 		<szLongItemName>Recon Weste Upgrade Kit</szLongItemName>
-		<szItemDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine getarnte Recon-Ausruestung zu verwandeln.</szItemDesc>
-		<szBRName>Recon Weste Upgrade Kit</szBRName>
-		<szBRDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine getarnte Recon-Ausruestung zu verwandeln.</szBRDesc>
+		<szItemDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine getarnte Aufklaerer-Ausruestung zu verwandeln.</szItemDesc>
+		<szBRName>Recon Weste Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine getarnte Aufklaerer-Ausruestung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>878</uiIndex>
 		<szItemName>Recon Hose Kit</szItemName>
 		<szLongItemName>Recon Hose Upgrade Kit</szLongItemName>
-		<szItemDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine getarnte Recon-Ausruestung zu verwandeln.</szItemDesc>
-		<szBRName>Recon Hose Upgrade Kit</szBRName>
-		<szBRDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine getarnte Recon-Ausruestung zu verwandeln.</szBRDesc>
+		<szItemDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine getarnte Aufklaerer-Ausruestung zu verwandeln.</szItemDesc>
+		<szBRName>Recon Hose Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine getarnte Aufklaerer-Ausruestung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>879</uiIndex>
 		<szItemName>Sanitaeter Weste Kit</szItemName>
 		<szLongItemName>Sanitaeter Weste Upgrade Kit</szLongItemName>
 		<szItemDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine Sanitaeter Ausruestung zu verwandeln.</szItemDesc>
-		<szBRName>Sani.-Weste Upgrade Kit</szBRName>
+		<szBRName>Sani.-Weste Kit</szBRName>
 		<szBRDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine Sanitaeter Ausruestung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -7046,7 +7044,7 @@
 		<szItemName>Sanitaeter Hose Kit</szItemName>
 		<szLongItemName>Sanitaeter Hose Upgrade Kit</szLongItemName>
 		<szItemDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine Sanitaeter Ausruestung zu verwandeln.</szItemDesc>
-		<szBRName>Sani-Hose Upgrade Kit</szBRName>
+		<szBRName>Sani-Hose Kit</szBRName>
 		<szBRDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine Sanitaeter Ausruestung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -7054,7 +7052,7 @@
 		<szItemName>Mechaniker Weste Kit</szItemName>
 		<szLongItemName>Mechaniker Weste Upgrade Kit</szLongItemName>
 		<szItemDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine Mechaniker Ausruestung zu verwandeln.</szItemDesc>
-		<szBRName>Mech.-Weste Upgrade Kit</szBRName>
+		<szBRName>Mech.-Weste Kit</szBRName>
 		<szBRDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine Mechaniker Ausruestung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -7062,24 +7060,24 @@
 		<szItemName>Mechaniker Hose Kit</szItemName>
 		<szLongItemName>Mechaniker Hose Upgrade Kit</szLongItemName>
 		<szItemDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine Mechaniker Ausruestung zu verwandeln.</szItemDesc>
-		<szBRName>Mech.-Hose Upgrade Kit</szBRName>
+		<szBRName>Mech.-Hose Kit</szBRName>
 		<szBRDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine Mechaniker Ausruestung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>883</uiIndex>
-		<szItemName>FO-Weste Kit</szItemName>
-		<szLongItemName>Field Ops Weste Upgrade Kit</szLongItemName>
-		<szItemDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine state-of-the-art Field Ops Ausruestung zu verwandeln.</szItemDesc>
-		<szBRName>Field Ops Weste Upgrade Kit</szBRName>
-		<szBRDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine state-of-the-art Field Ops Ausruestung zu verwandeln.</szBRDesc>
+		<szItemName>EK-Weste Kit</szItemName>
+		<szLongItemName>Einzelkaempfer Weste Upgrade Kit</szLongItemName>
+		<szItemDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine Einzelkaempfer Ausruestung zu verwandeln.</szItemDesc>
+		<szBRName>Einzelkaempfer Weste Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine Einzelkaempfer Ausruestung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>884</uiIndex>
-		<szItemName>FO-Hose Kit</szItemName>
-		<szLongItemName>Field Ops Hose Upgrade Kit</szLongItemName>
-		<szItemDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine state-of-the-art Field Ops Ausruestung zu verwandeln.</szItemDesc>
-		<szBRName>Field Ops Hose Upgrade Kit</szBRName>
-		<szBRDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine state-of-the-art Field Ops Ausruestung zu verwandeln.</szBRDesc>
+		<szItemName>EK-Hose Kit</szItemName>
+		<szLongItemName>Einzelkaempfer Hose Upgrade Kit</szLongItemName>
+		<szItemDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine Einzelkaempfer Ausruestung zu verwandeln.</szItemDesc>
+		<szBRName>Einzelkaempfer Hose Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthaelt alle benoetigten Komponenten und Werkzeuge um Ihre gewoehnliche Ausruestung in eine Einzelkaempfer Ausruestung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>885</uiIndex>
