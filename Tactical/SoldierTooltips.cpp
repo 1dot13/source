@@ -402,11 +402,9 @@ void DrawMouseTooltip()
 	extern void DisplayTooltipString( STR16 pStringA, INT16 sX, INT16 sY );
 	extern void j_log(PTR,...);
 
-//	if (!gGameExternalOptions.gfAllowSoldierToolTips) return;
-
-		iX = mouseTT.iX;iY = mouseTT.iY;
-		iW = (INT32)GetWidthOfString( mouseTT.FastHelpText ) + 10;
-		iH = (INT32)( GetNumberOfLinesInHeight( mouseTT.FastHelpText ) * (GetFontHeight(FONT10ARIAL)+1) + 8 );
+	iX = mouseTT.iX;iY = mouseTT.iY;
+	iW = (INT32)GetWidthOfString( mouseTT.FastHelpText ) + 10;
+	iH = (INT32)( GetNumberOfLinesInHeight( mouseTT.FastHelpText ) * (GetFontHeight(FONT10ARIAL)+1) + 8 );
 
 	if(1)//draw at cursor
 	{

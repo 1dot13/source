@@ -3947,10 +3947,16 @@ void HandleIMPCharProfileResultsMessage( void)
       	// read one record from email file
 		  //LoadEncryptedDataFromFile( "BINARYDATA\\Impass.edt", pString, MAIL_STRING_SIZE * ( IMP_SKILLS_SPECIAL_ONROOF ), MAIL_STRING_SIZE );
 		 
-			wcscpy(pString, L"Rooftop: <No description yet>");
+			#ifdef ENGLISH
+				wcscpy(pString, L"Rooftop Sniping: <No description yet>");
+			#endif
+
+			#ifdef RUSSIAN
+				wcscpy(pString, L"Rooftop Sniping: <No description yet>");
+			#endif
 
 			#ifdef GERMAN
-			wcscpy(pString, L"Scharfschütze: <Noch keine Beschreibung vorhanden>");
+				wcscpy(pString, L"Dach-Treffer Bonus: <Noch keine Beschreibung vorhanden>");
 			#endif
 
 		  // add to list
@@ -3964,10 +3970,16 @@ void HandleIMPCharProfileResultsMessage( void)
       	// read one record from email file
 		  //LoadEncryptedDataFromFile( "BINARYDATA\\Impass.edt", pString, MAIL_STRING_SIZE * ( IMP_SKILLS_SPECIAL_CAMOUFLAGED ), MAIL_STRING_SIZE );
 		 
-			wcscpy(pString, L"Camouflaged: <No description yet>");
+			#ifdef ENGLISH
+				wcscpy(pString, L"Camouflage: <No description yet>");
+			#endif
+
+			#ifdef RUSSIAN
+				wcscpy(pString, L"Camouflage: <No description yet>");
+			#endif
 
 			#ifdef GERMAN
-			wcscpy(pString, L"Tarnung: <Noch keine Beschreibung vorhanden>");
+				wcscpy(pString, L"Getarnt: <Noch keine Beschreibung vorhanden>");
 			#endif
 
 		  // add to list

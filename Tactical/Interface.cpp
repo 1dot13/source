@@ -1807,7 +1807,8 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 
 		//jones
 		extern void SoldierTooltip(SOLDIERTYPE*);
-		SoldierTooltip(pSoldier);
+		if ( gGameExternalOptions.gfAllowSoldierToolTips )
+		    SoldierTooltip(pSoldier);
 
 		SetFont( TINYFONT1 );
 		SetFontBackground( FONT_MCOLOR_BLACK );

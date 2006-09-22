@@ -4091,6 +4091,10 @@ STR16 gzLateLocalizedString[] =
 	L"Escorter John et Mary ?",
 	
   L"Interrupteur activé.",
+
+  L"%s's armour attachment has been smashed!",
+	L"%s fires %d more rounds than intended!",
+	L"%s fires %d more round than intended!",
 };
 
 #endif //FRENCH

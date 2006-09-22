@@ -288,8 +288,8 @@ UINT16 Message[][STRING_LENGTH] =
 	L"Wenn Sie zu Skyriders Heli wollen, müssen Sie Söldner einem FAHRZEUG/HELIKOPTER ZUWEISEN.",
 	L"%s hat nur Zeit, EINE Waffe zu laden",
 	L"Spielzug Bloodcats", 
-	L"automatic",
-	L"no full auto",
+	L"automatisch",
+	L"nicht komplett automatisch",
 	L"genau",
 	L"ungenau",
 	L"kein Einzelschuss",
@@ -596,20 +596,20 @@ STR16 pAssignMenuStrings[] =
 //lal
 STR16 pMilitiaControlMenuStrings[] =
 {
-	L"Attack", // set militia to aggresive
-	L"Hold Position", // set militia to stationary
-	L"Retreat", // retreat militia
-	L"Come to me", // retreat militia
-	L"Get down", // retreat militia	
-	L"Take cover",
-	L"All: Attack", 
-	L"All: Hold Position",
-	L"All: Retreat",
-	L"All: Come to me",
-	L"All: Get down",
-	L"All: Take cover",
+	L"Angreifen", // set militia to aggresive
+	L"Position halten", // set militia to stationary
+	L"Rückzug", // retreat militia
+	L"An meine Position", // retreat militia
+	L"Auf den Boden", // retreat militia	
+	L"In Deckung gehen",
+	L"Alle: Angreifen", 
+	L"Alle: Position halten",
+	L"Alle: Rückzug",
+	L"Alle: An meine Position",
+	L"All: Auf den Boden",
+	L"All: In Deckung gehen",
 	//L"All: Find items",
-	L"Cancel", // cancel this menu
+	L"Abbrechen", // cancel this menu
 };
 
 //STR16 pTalkToAllMenuStrings[] =
@@ -1132,7 +1132,7 @@ STR16 pVehicleStrings[] =
 	L"Hummer", // a hummer jeep/truck -- military vehicle
 	L"Ice Cream Truck",
 	L"Jeep",
-	L"Tank",
+	L"Panzer",
 	L"Helikopter",
 };
 
@@ -1152,7 +1152,7 @@ STR16 zVehicleName[] =
 	L"Hummer",		//a military jeep. This is a brand name.
 	L"Truck",			// Ice cream truck
 	L"Jeep",
-	L"Tank",
+	L"Panzer",
 	L"Heli", 		//an abbreviation for Helicopter
 };
 
@@ -1168,18 +1168,18 @@ UINT16 TacticalStr[][ MED_STRING_LENGTH ] =
 	
 	// The %s is a string from pDoorTrapStrings
 	
-	L"Das Schloß hat %s.", 
-	L"Es gibt kein Schloß.",
+	L"Das Schloss hat %s.", 
+	L"Es gibt kein Schloss.",
 	L"Erfolg!",
 	L"Fehlschlag.",
 	L"Erfolg!",
 	L"Fehlschlag.",
-	L"Das Schloß hat keine Falle.",
+	L"Das Schloss hat keine Falle.",
 	L"Erfolg!",
 	// The %s is a merc name
 	L"%s hat nicht den richtigen Schlüssel.",
-	L"Die Falle am Schloß ist entschärft.",
-	L"Das Schloß hat keine Falle.",
+	L"Die Falle am Schloss ist entschärft.",
+	L"Das Schloss hat keine Falle.",
 	L"Geschl.",
 	L"TÜR",
 	L"FALLE AN",
@@ -1352,8 +1352,8 @@ UINT16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Automatische Erste Hilfe nicht möglich",
 	L"Weg blockiert für %s",
 	L"Ihre von Deidrannas Truppe gefangenen Soldaten sind hier inhaftiert", 		
-	L"Schloß getroffen",
-	L"Schloß zerstört",
+	L"Schloss getroffen",
+	L"Schloss zerstört",
 	L"Noch jemand an der Tür.",
 	L"Gesundh.: %d/%d\nTank: %d/%d",
 	L"%s kann %s nicht sehen.", // Cannot see person trying to talk to
@@ -3902,8 +3902,11 @@ STR16 gzLateLocalizedString[] =
 	//59
 	L"John und Mary eskortieren?",
 
-  L"Switch Activated.",
+	L"Schalter aktiviert.",
 
+	L"%s's Rüstungsverstärkung wurde zertrümmert!",
+	L"%s feuert %d Schüsse mehr als beabsichtigt!",
+	L"%s feuert %d Schuss mehr als beabsichtigt!",
 };
 
 STR16 gzCWStrings[] = 

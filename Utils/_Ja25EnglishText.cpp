@@ -15,7 +15,7 @@
 
 STR16	zNewTacticalMessages[]=
 {
-	L"Range to target: %d tiles, Brightness = %d/%d",
+	L"Range to target: %d tiles, Brightness: %d/%d",
 	L"Attaching the transmitter to your laptop computer.",
 	L"You cannot afford to hire %s",
 	L"For a limited time, the above fee covers the cost of the entire mission and includes the equipment listed below.",

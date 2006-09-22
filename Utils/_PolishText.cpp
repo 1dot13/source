@@ -4085,6 +4085,10 @@ STR16 gzLateLocalizedString[] =
 	L"Eskortowaæ Johna i Mary?",
 	
   L"Prze³¹cznik aktywowany.",
+
+  L"%s's armour attachment has been smashed!",
+	L"%s fires %d more rounds than intended!",
+	L"%s fires %d more round than intended!",
 };
 
 

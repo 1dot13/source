@@ -4089,6 +4089,10 @@ STR16 gzLateLocalizedString[] =
 	L"Accompagnate John e Mary?",
 	
   L"Interruttore attivato.",
+
+  L"%s's armour attachment has been smashed!",
+	L"%s fires %d more rounds than intended!",
+	L"%s fires %d more round than intended!",
 };
 
 

@@ -4110,6 +4110,10 @@ STR16 gzLateLocalizedString[] =
 	L"John en Mary escorteren?",
 	
 	L"Schakelaar geactiveerd.",
+
+	L"%s's armour attachment has been smashed!",
+	L"%s fires %d more rounds than intended!",
+	L"%s fires %d more round than intended!",
 };
 
 

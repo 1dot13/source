@@ -3003,6 +3003,8 @@ UINT16 PickARandomItem(UINT8 typeIndex, UINT8 maxCoolness, BOOLEAN getMatchingCo
 		usItem = gArmyItemChoices[ typeIndex ].bItemNo[ uiChoice ];
 
 		// WANNE
+		pickItem = FALSE;
+
 		if (usItem >= 0 && Item[usItem].ubCoolness <= maxCoolness && ItemIsLegal(usItem))
 		{
 			// On day
