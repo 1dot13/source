@@ -457,5 +457,9 @@ SOURCE=.\VtuneApi.h
 
 SOURCE=.\Res\jagged3.ico
 # End Source File
+# Begin Source File
+
+SOURCE=.\fmodvc.lib
+# End Source File
 # End Target
 # End Project

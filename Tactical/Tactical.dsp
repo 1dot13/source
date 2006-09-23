@@ -299,6 +299,10 @@ SOURCE=".\Enemy Soldier Save.cpp"
 # End Source File
 # Begin Source File
 
+SOURCE=.\EnemyItemDrops.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Faces.cpp
 # End Source File
 # Begin Source File
@@ -504,6 +508,10 @@ SOURCE=.\QARRAY.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Rain.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=".\Real Time Input.cpp"
 # End Source File
 # Begin Source File
@@ -599,6 +607,10 @@ SOURCE=".\Soldier Tile.cpp"
 # End Source File
 # Begin Source File
 
+SOURCE=.\SoldierTooltips.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=".\Spread Burst.cpp"
 # End Source File
 # Begin Source File
@@ -647,6 +659,10 @@ SOURCE=".\World Items.cpp"
 # End Source File
 # Begin Source File
 
+SOURCE=.\XML_AmmoStrings.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\XML_AmmoTypes.cpp
 # End Source File
 # Begin Source File
@@ -663,7 +679,7 @@ SOURCE=.\XML_Attachments.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\XML_BurstSoundStrings.cpp
+SOURCE=.\XML_BurstSounds.cpp
 # End Source File
 # Begin Source File
 
@@ -675,11 +691,31 @@ SOURCE=.\XML_CompatibleFaceItems.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\XML_EnemyAmmoDrops.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\XML_EnemyArmourDrops.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\XML_EnemyExplosiveDrops.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\XML_EnemyItemChoice.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\XML_EnemyMiscDrops.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\XML_EnemyWeaponChoice.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\XML_EnemyWeaponDrops.cpp
 # End Source File
 # Begin Source File
 

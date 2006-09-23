@@ -546,5 +546,13 @@ SOURCE=.\strategicmap.h
 SOURCE=".\Town Militia.h"
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\MilitiaSquads.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Reinforcement.cpp
+# End Source File
 # End Target
 # End Project

@@ -373,6 +373,10 @@ SOURCE=.\worlddef.cpp
 
 SOURCE=.\worldman.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=.\XML_ExplosionData.cpp
+# End Source File
 # End Group
 # Begin Group "Header Files"
 

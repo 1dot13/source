@@ -3,53 +3,1323 @@
 <pre>
 <h1>Build Log</h1>
 <h3>
---------------------Configuration: ja2 - Win32 Release with Debug Info--------------------
+--------------------Configuration: TileEngine - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\JONATH~1\LOCALS~1\Temp\RSP351.tmp" with contents
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPD.tmp" with contents
 [
-libexpatMT.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib winmm.lib smackw32.lib mss32.lib /nologo /subsystem:windows /profile /map:"Release with Debug/ja2_cvs.map" /debug /machine:I386 /out:"..\ja2_cvs.exe" 
-".\Release with Debug\_Ja25GermanText.obj"
-".\Release with Debug\aniviewscreen.obj"
-".\Release with Debug\Credits.obj"
-".\Release with Debug\Cursors.obj"
-".\Release with Debug\Fade Screen.obj"
-".\Release with Debug\GameInitOptionsScreen.obj"
-".\Release with Debug\gameloop.obj"
-".\Release with Debug\gamescreen.obj"
-".\Release with Debug\GameSettings.obj"
-".\Release with Debug\GameVersion.obj"
-".\Release with Debug\HelpScreen.obj"
-".\Release with Debug\Init.obj"
-".\Release with Debug\Intro.obj"
-".\Release with Debug\JA2 Splash.obj"
-".\Release with Debug\jascreens.obj"
-".\Release with Debug\Loading Screen.obj"
-".\Release with Debug\MainMenuScreen.obj"
-".\Release with Debug\MessageBoxScreen.obj"
-".\Release with Debug\Options Screen.obj"
-".\Release with Debug\SaveLoadGame.obj"
-".\Release with Debug\SaveLoadScreen.obj"
-".\Release with Debug\SCREENS.obj"
-".\Release with Debug\Sys Globals.obj"
-".\Release with Debug\ja2.res"
-".\TileEngine\Release with Debug\TileEngine.lib"
-".\Standard Gaming Platform\Release with Debug Info\Standard Gaming Platform.lib"
-".\Tactical\Release with Debug\Tactical.lib"
-".\Utils\Release with Debug\Utils.lib"
-".\TacticalAI\Release with Debug\TacticalAI.lib"
-".\Editor\Release with Debug\Editor.lib"
-".\Laptop\Release with Debug\Laptop.lib"
-".\Strategic\Release with Debug\Strategic.lib"
+/nologo /MT /W3 /GX /O2 /I "..\Standard Gaming Platform" /I "..\\" /I "..\Tactical" /I "..\Utils" /I "..\tacticalai" /I "..\Editor" /I "..\strategic" /I "..\Laptop" /I ".\\" /D "CALLBACKTIMER" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /FR"Release/" /Fp"Release/TileEngine.pch" /YX"TileEngine All.h" /Fo"Release/" /Fd"Release/" /FD /O2b2 /c 
+"C:\JA2\Build\TileEngine\Ambient Control.cpp"
+"C:\JA2\Build\TileEngine\Buildings.cpp"
+"C:\JA2\Build\TileEngine\environment.cpp"
+"C:\JA2\Build\TileEngine\Exit Grids.cpp"
+"C:\JA2\Build\TileEngine\Explosion Control.cpp"
+"C:\JA2\Build\TileEngine\Fog Of War.cpp"
+"C:\JA2\Build\TileEngine\Interactive Tiles.cpp"
+"C:\JA2\Build\TileEngine\Isometric Utils.cpp"
+"C:\JA2\Build\TileEngine\LightEffects.cpp"
+"C:\JA2\Build\TileEngine\lighting.cpp"
+"C:\JA2\Build\TileEngine\Map Edgepoints.cpp"
+"C:\JA2\Build\TileEngine\overhead map.cpp"
+"C:\JA2\Build\TileEngine\phys math.cpp"
+"C:\JA2\Build\TileEngine\physics.cpp"
+"C:\JA2\Build\TileEngine\pits.cpp"
+"C:\JA2\Build\TileEngine\Radar Screen.cpp"
+"C:\JA2\Build\TileEngine\Render Dirty.cpp"
+"C:\JA2\Build\TileEngine\Render Fun.cpp"
+"C:\JA2\Build\TileEngine\renderworld.cpp"
+"C:\JA2\Build\TileEngine\SaveLoadMap.cpp"
+"C:\JA2\Build\TileEngine\Shade Table Util.cpp"
+"C:\JA2\Build\TileEngine\Simple Render Utils.cpp"
+"C:\JA2\Build\TileEngine\Smell.cpp"
+"C:\JA2\Build\TileEngine\SmokeEffects.cpp"
+"C:\JA2\Build\TileEngine\structure.cpp"
+"C:\JA2\Build\TileEngine\sysutil.cpp"
+"C:\JA2\Build\TileEngine\Tactical Placement GUI.cpp"
+"C:\JA2\Build\TileEngine\Tile Animation.cpp"
+"C:\JA2\Build\TileEngine\Tile Cache.cpp"
+"C:\JA2\Build\TileEngine\Tile Surface.cpp"
+"C:\JA2\Build\TileEngine\TileDat.cpp"
+"C:\JA2\Build\TileEngine\tiledef.cpp"
+"C:\JA2\Build\TileEngine\WorldDat.cpp"
+"C:\JA2\Build\TileEngine\worlddef.cpp"
+"C:\JA2\Build\TileEngine\worldman.cpp"
+"C:\JA2\Build\TileEngine\XML_ExplosionData.cpp"
 ]
-Creating command line "link.exe @C:\DOCUME~1\JONATH~1\LOCALS~1\Temp\RSP351.tmp"
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPD.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPE.tmp" with contents
+[
+/nologo /out:"Release\TileEngine.lib" 
+".\Release\Ambient Control.obj"
+.\Release\Buildings.obj
+.\Release\environment.obj
+".\Release\Exit Grids.obj"
+".\Release\Explosion Control.obj"
+".\Release\Fog Of War.obj"
+".\Release\Interactive Tiles.obj"
+".\Release\Isometric Utils.obj"
+.\Release\LightEffects.obj
+.\Release\lighting.obj
+".\Release\Map Edgepoints.obj"
+".\Release\overhead map.obj"
+".\Release\phys math.obj"
+.\Release\physics.obj
+.\Release\pits.obj
+".\Release\Radar Screen.obj"
+".\Release\Render Dirty.obj"
+".\Release\Render Fun.obj"
+.\Release\renderworld.obj
+.\Release\SaveLoadMap.obj
+".\Release\Shade Table Util.obj"
+".\Release\Simple Render Utils.obj"
+.\Release\Smell.obj
+.\Release\SmokeEffects.obj
+.\Release\structure.obj
+.\Release\sysutil.obj
+".\Release\Tactical Placement GUI.obj"
+".\Release\Tile Animation.obj"
+".\Release\Tile Cache.obj"
+".\Release\Tile Surface.obj"
+.\Release\TileDat.obj
+.\Release\tiledef.obj
+.\Release\WorldDat.obj
+.\Release\worlddef.obj
+.\Release\worldman.obj
+.\Release\XML_ExplosionData.obj
+]
+Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPE.tmp"
 <h3>Output Window</h3>
+Compiling...
+Ambient Control.cpp
+GENERATED PCH FOR TILEENGINE PROJECT.
+Buildings.cpp
+environment.cpp
+Exit Grids.cpp
+Explosion Control.cpp
+Fog Of War.cpp
+Interactive Tiles.cpp
+Isometric Utils.cpp
+LightEffects.cpp
+lighting.cpp
+Map Edgepoints.cpp
+overhead map.cpp
+phys math.cpp
+physics.cpp
+pits.cpp
+Radar Screen.cpp
+Render Dirty.cpp
+Render Fun.cpp
+renderworld.cpp
+SaveLoadMap.cpp
+Shade Table Util.cpp
+Simple Render Utils.cpp
+Smell.cpp
+SmokeEffects.cpp
+structure.cpp
+sysutil.cpp
+Tactical Placement GUI.cpp
+Tile Animation.cpp
+Tile Cache.cpp
+Tile Surface.cpp
+TileDat.cpp
+tiledef.cpp
+WorldDat.cpp
+worlddef.cpp
+worldman.cpp
+XML_ExplosionData.cpp
+Creating library...
+<h3>
+--------------------Configuration: Standard Gaming Platform - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPF.tmp" with contents
+[
+/nologo /MT /W3 /GX /O2 /I "..\\" /I "..\TileEngine" /I "..\Tactical" /I "..\Utils" /I "..\strategic" /I ".\\" /D "NO_ZLIB" /D "JA2_PRECOMPILED_HEADERS" /D "NO_ZLIB_COMPRESSION" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /FR".\Release/" /Fp".\Release/Standard Gaming Platform.pch" /YX"JA2 SGP ALL.H" /Fo".\Release/" /Fd".\Release/" /FD /c 
+"C:\JA2\Build\Standard Gaming Platform\Button Sound Control.cpp"
+"C:\JA2\Build\Standard Gaming Platform\Button System.cpp"
+"C:\JA2\Build\Standard Gaming Platform\Container.cpp"
+"C:\JA2\Build\Standard Gaming Platform\Cursor Control.cpp"
+"C:\JA2\Build\Standard Gaming Platform\DbMan.cpp"
+"C:\JA2\Build\Standard Gaming Platform\DirectDraw Calls.cpp"
+"C:\JA2\Build\Standard Gaming Platform\DirectX Common.cpp"
+"C:\JA2\Build\Standard Gaming Platform\English.cpp"
+"C:\JA2\Build\Standard Gaming Platform\ExceptionHandling.cpp"
+"C:\JA2\Build\Standard Gaming Platform\FileCat.cpp"
+"C:\JA2\Build\Standard Gaming Platform\FileMan.cpp"
+"C:\JA2\Build\Standard Gaming Platform\Font.cpp"
+"C:\JA2\Build\Standard Gaming Platform\himage.cpp"
+"C:\JA2\Build\Standard Gaming Platform\impTGA.cpp"
+"C:\JA2\Build\Standard Gaming Platform\input.cpp"
+"C:\JA2\Build\Standard Gaming Platform\Install.cpp"
+"C:\JA2\Build\Standard Gaming Platform\LibraryDataBase.cpp"
+"C:\JA2\Build\Standard Gaming Platform\line.cpp"
+"C:\JA2\Build\Standard Gaming Platform\MemMan.cpp"
+"C:\JA2\Build\Standard Gaming Platform\mousesystem.cpp"
+"C:\JA2\Build\Standard Gaming Platform\Mutex Manager.cpp"
+"C:\JA2\Build\Standard Gaming Platform\PCX.cpp"
+"C:\JA2\Build\Standard Gaming Platform\Random.cpp"
+"C:\JA2\Build\Standard Gaming Platform\readdir.cpp"
+"C:\JA2\Build\Standard Gaming Platform\RegInst.cpp"
+"C:\JA2\Build\Standard Gaming Platform\sgp.cpp"
+"C:\JA2\Build\Standard Gaming Platform\shading.cpp"
+"C:\JA2\Build\Standard Gaming Platform\soundman.cpp"
+"C:\JA2\Build\Standard Gaming Platform\STCI.cpp"
+"C:\JA2\Build\Standard Gaming Platform\stringicmp.cpp"
+"C:\JA2\Build\Standard Gaming Platform\timer.cpp"
+"C:\JA2\Build\Standard Gaming Platform\video.cpp"
+"C:\JA2\Build\Standard Gaming Platform\vobject.cpp"
+"C:\JA2\Build\Standard Gaming Platform\vobject_blitters.cpp"
+"C:\JA2\Build\Standard Gaming Platform\vsurface.cpp"
+"C:\JA2\Build\Standard Gaming Platform\WinFont.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPF.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP10.tmp" with contents
+[
+/nologo /MT /W3 /GX /O2 /I "..\\" /I "..\TileEngine" /I "..\Tactical" /I "..\Utils" /I "..\strategic" /I ".\\" /D "NO_ZLIB" /D "JA2_PRECOMPILED_HEADERS" /D "NO_ZLIB_COMPRESSION" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /D "_DEBUG" /FR".\Release/" /Fp".\Release/Standard Gaming Platform.pch" /YX"JA2 SGP ALL.H" /Fo".\Release/" /Fd".\Release/" /FD /c 
+"C:\JA2\Build\Standard Gaming Platform\DEBUG.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP10.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP11.tmp" with contents
+[
+/nologo /out:".\Release\Standard Gaming Platform.lib" 
+".\Release\Button Sound Control.obj"
+".\Release\Button System.obj"
+".\Release\Container.obj"
+".\Release\Cursor Control.obj"
+".\Release\DbMan.obj"
+".\Release\DEBUG.obj"
+".\Release\DirectDraw Calls.obj"
+".\Release\DirectX Common.obj"
+".\Release\English.obj"
+".\Release\ExceptionHandling.obj"
+".\Release\FileCat.obj"
+".\Release\FileMan.obj"
+".\Release\Font.obj"
+".\Release\himage.obj"
+".\Release\impTGA.obj"
+".\Release\input.obj"
+".\Release\Install.obj"
+".\Release\LibraryDataBase.obj"
+".\Release\line.obj"
+".\Release\MemMan.obj"
+".\Release\mousesystem.obj"
+".\Release\Mutex Manager.obj"
+".\Release\PCX.obj"
+".\Release\Random.obj"
+".\Release\readdir.obj"
+".\Release\RegInst.obj"
+".\Release\sgp.obj"
+".\Release\shading.obj"
+".\Release\soundman.obj"
+".\Release\STCI.obj"
+".\Release\stringicmp.obj"
+".\Release\timer.obj"
+".\Release\video.obj"
+".\Release\vobject.obj"
+".\Release\vobject_blitters.obj"
+".\Release\vsurface.obj"
+".\Release\WinFont.obj"
+".\ddraw.lib"
+]
+Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP11.tmp"
+<h3>Output Window</h3>
+Compiling...
+Button Sound Control.cpp
+GENERATED PCH FOR JA2 SGP PROJECT.
+Button System.cpp
+Container.cpp
+Cursor Control.cpp
+DbMan.cpp
+DirectDraw Calls.cpp
+DirectX Common.cpp
+GENERATED PCH FOR JA2 SGP PROJECT.
+English.cpp
+GENERATED PCH FOR JA2 SGP PROJECT.
+ExceptionHandling.cpp
+FileCat.cpp
+FileMan.cpp
+GENERATED PCH FOR JA2 SGP PROJECT.
+Font.cpp
+himage.cpp
+impTGA.cpp
+input.cpp
+Install.cpp
+LibraryDataBase.cpp
+line.cpp
+MemMan.cpp
+mousesystem.cpp
+GENERATED PCH FOR JA2 SGP PROJECT.
+Mutex Manager.cpp
+PCX.cpp
+Random.cpp
+readdir.cpp
+RegInst.cpp
+GENERATED PCH FOR JA2 SGP PROJECT.
+sgp.cpp
+shading.cpp
+soundman.cpp
+STCI.cpp
+stringicmp.cpp
+timer.cpp
+GENERATED PCH FOR JA2 SGP PROJECT.
+video.cpp
+vobject.cpp
+vobject_blitters.cpp
+vsurface.cpp
+WinFont.cpp
+Compiling...
+DEBUG.cpp
+GENERATED PCH FOR JA2 SGP PROJECT.
+Creating library...
+<h3>
+--------------------Configuration: Tactical - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP12.tmp" with contents
+[
+/nologo /MT /W3 /GX /O2 /I "..\Standard Gaming Platform" /I "..\TileEngine" /I "..\\" /I "..\Utils" /I "..\tacticalai" /I "..\Editor" /I "..\strategic" /I "..\Laptop" /I ".\\" /D "CALLBACKTIMER" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /FR"Release/" /Fp"Release/Tactical.pch" /YX"Tactical All.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\JA2\Build\Tactical\Air Raid.cpp"
+"C:\JA2\Build\Tactical\Animation Cache.cpp"
+"C:\JA2\Build\Tactical\Animation Control.cpp"
+"C:\JA2\Build\Tactical\Animation Data.cpp"
+"C:\JA2\Build\Tactical\Arms Dealer Init.cpp"
+"C:\JA2\Build\Tactical\ArmsDealerInvInit.cpp"
+"C:\JA2\Build\Tactical\Auto Bandage.cpp"
+"C:\JA2\Build\Tactical\Boxing.cpp"
+"C:\JA2\Build\Tactical\bullets.cpp"
+"C:\JA2\Build\Tactical\Campaign.cpp"
+"C:\JA2\Build\Tactical\Civ Quotes.cpp"
+"C:\JA2\Build\Tactical\Dialogue Control.cpp"
+"C:\JA2\Build\Tactical\DisplayCover.cpp"
+"C:\JA2\Build\Tactical\Drugs And Alcohol.cpp"
+"C:\JA2\Build\Tactical\End Game.cpp"
+"C:\JA2\Build\Tactical\Enemy Soldier Save.cpp"
+"C:\JA2\Build\Tactical\EnemyItemDrops.cpp"
+"C:\JA2\Build\Tactical\Faces.cpp"
+"C:\JA2\Build\Tactical\fov.cpp"
+"C:\JA2\Build\Tactical\GAP.cpp"
+"C:\JA2\Build\Tactical\Handle Doors.cpp"
+"C:\JA2\Build\Tactical\Handle Items.cpp"
+"C:\JA2\Build\Tactical\Handle UI Plan.cpp"
+"C:\JA2\Build\Tactical\Handle UI.cpp"
+"C:\JA2\Build\Tactical\Interface Control.cpp"
+"C:\JA2\Build\Tactical\Interface Cursors.cpp"
+"C:\JA2\Build\Tactical\Interface Dialogue.cpp"
+"C:\JA2\Build\Tactical\Interface Items.cpp"
+"C:\JA2\Build\Tactical\Interface Panels.cpp"
+"C:\JA2\Build\Tactical\Interface Utils.cpp"
+"C:\JA2\Build\Tactical\Interface.cpp"
+"C:\JA2\Build\Tactical\Inventory Choosing.cpp"
+"C:\JA2\Build\Tactical\Items.cpp"
+"C:\JA2\Build\Tactical\Keys.cpp"
+"C:\JA2\Build\Tactical\Map Information.cpp"
+"C:\JA2\Build\Tactical\Merc Entering.cpp"
+"C:\JA2\Build\Tactical\Merc Hiring.cpp"
+"C:\JA2\Build\Tactical\Militia Control.cpp"
+"C:\JA2\Build\Tactical\Morale.cpp"
+"C:\JA2\Build\Tactical\opplist.cpp"
+"C:\JA2\Build\Tactical\Overhead.cpp"
+"C:\JA2\Build\Tactical\PATHAI.cpp"
+"C:\JA2\Build\Tactical\Points.cpp"
+"C:\JA2\Build\Tactical\QARRAY.cpp"
+"C:\JA2\Build\Tactical\Rain.cpp"
+"C:\JA2\Build\Tactical\Real Time Input.cpp"
+"C:\JA2\Build\Tactical\Rotting Corpses.cpp"
+"C:\JA2\Build\Tactical\ShopKeeper Interface.cpp"
+"C:\JA2\Build\Tactical\SkillCheck.cpp"
+"C:\JA2\Build\Tactical\Soldier Add.cpp"
+"C:\JA2\Build\Tactical\Soldier Ani.cpp"
+"C:\JA2\Build\Tactical\Soldier Control.cpp"
+"C:\JA2\Build\Tactical\Soldier Create.cpp"
+"C:\JA2\Build\Tactical\Soldier Find.cpp"
+"C:\JA2\Build\Tactical\Soldier Init List.cpp"
+"C:\JA2\Build\Tactical\Soldier Profile.cpp"
+"C:\JA2\Build\Tactical\Soldier Tile.cpp"
+"C:\JA2\Build\Tactical\Spread Burst.cpp"
+"C:\JA2\Build\Tactical\Squads.cpp"
+"C:\JA2\Build\Tactical\Strategic Exit GUI.cpp"
+"C:\JA2\Build\Tactical\Structure Wrap.cpp"
+"C:\JA2\Build\Tactical\Tactical Save.cpp"
+"C:\JA2\Build\Tactical\Tactical Turns.cpp"
+"C:\JA2\Build\Tactical\TeamTurns.cpp"
+"C:\JA2\Build\Tactical\Turn Based Input.cpp"
+"C:\JA2\Build\Tactical\UI Cursors.cpp"
+"C:\JA2\Build\Tactical\Vehicles.cpp"
+"C:\JA2\Build\Tactical\Weapons.cpp"
+"C:\JA2\Build\Tactical\World Items.cpp"
+"C:\JA2\Build\Tactical\XML_AmmoStrings.cpp"
+"C:\JA2\Build\Tactical\XML_AmmoTypes.cpp"
+"C:\JA2\Build\Tactical\XML_Armour.cpp"
+"C:\JA2\Build\Tactical\XML_AttachmentInfo.cpp"
+"C:\JA2\Build\Tactical\XML_Attachments.cpp"
+"C:\JA2\Build\Tactical\XML_BurstSounds.cpp"
+"C:\JA2\Build\Tactical\XML_ComboMergeInfo.cpp"
+"C:\JA2\Build\Tactical\XML_CompatibleFaceItems.cpp"
+"C:\JA2\Build\Tactical\XML_EnemyAmmoDrops.cpp"
+"C:\JA2\Build\Tactical\XML_EnemyArmourDrops.cpp"
+"C:\JA2\Build\Tactical\XML_EnemyExplosiveDrops.cpp"
+"C:\JA2\Build\Tactical\XML_EnemyItemChoice.cpp"
+"C:\JA2\Build\Tactical\XML_EnemyMiscDrops.cpp"
+"C:\JA2\Build\Tactical\XML_EnemyWeaponChoice.cpp"
+"C:\JA2\Build\Tactical\XML_EnemyWeaponDrops.cpp"
+"C:\JA2\Build\Tactical\XML_Explosive.cpp"
+"C:\JA2\Build\Tactical\XML_IMPItemChoices.cpp"
+"C:\JA2\Build\Tactical\XML_IncompatibleAttachments.cpp"
+"C:\JA2\Build\Tactical\XML_Launchable.cpp"
+"C:\JA2\Build\Tactical\XML_Magazine.cpp"
+"C:\JA2\Build\Tactical\XML_Merge.cpp"
+"C:\JA2\Build\Tactical\XML_Sounds.cpp"
+"C:\JA2\Build\Tactical\XML_TonyInventory.cpp"
+"C:\JA2\Build\Tactical\SoldierTooltips.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP12.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP13.tmp" with contents
+[
+/nologo /MT /W3 /GX /Od /I "..\Standard Gaming Platform" /I "..\TileEngine" /I "..\\" /I "..\Utils" /I "..\tacticalai" /I "..\Editor" /I "..\strategic" /I "..\Laptop" /I ".\\" /D "CALLBACKTIMER" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /FR"Release/" /Fp"Release/Tactical.pch" /YX"Tactical All.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\JA2\Build\Tactical\LOS.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP13.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP14.tmp" with contents
+[
+/nologo /out:"Release\Tactical.lib" 
+".\Release\Air Raid.obj"
+".\Release\Animation Cache.obj"
+".\Release\Animation Control.obj"
+".\Release\Animation Data.obj"
+".\Release\Arms Dealer Init.obj"
+.\Release\ArmsDealerInvInit.obj
+".\Release\Auto Bandage.obj"
+.\Release\Boxing.obj
+.\Release\bullets.obj
+.\Release\Campaign.obj
+".\Release\Civ Quotes.obj"
+".\Release\Dialogue Control.obj"
+.\Release\DisplayCover.obj
+".\Release\Drugs And Alcohol.obj"
+".\Release\End Game.obj"
+".\Release\Enemy Soldier Save.obj"
+.\Release\EnemyItemDrops.obj
+.\Release\Faces.obj
+.\Release\fov.obj
+.\Release\GAP.obj
+".\Release\Handle Doors.obj"
+".\Release\Handle Items.obj"
+".\Release\Handle UI Plan.obj"
+".\Release\Handle UI.obj"
+".\Release\Interface Control.obj"
+".\Release\Interface Cursors.obj"
+".\Release\Interface Dialogue.obj"
+".\Release\Interface Items.obj"
+".\Release\Interface Panels.obj"
+".\Release\Interface Utils.obj"
+.\Release\Interface.obj
+".\Release\Inventory Choosing.obj"
+.\Release\Items.obj
+.\Release\Keys.obj
+.\Release\LOS.obj
+".\Release\Map Information.obj"
+".\Release\Merc Entering.obj"
+".\Release\Merc Hiring.obj"
+".\Release\Militia Control.obj"
+.\Release\Morale.obj
+.\Release\opplist.obj
+.\Release\Overhead.obj
+.\Release\PATHAI.obj
+.\Release\Points.obj
+.\Release\QARRAY.obj
+.\Release\Rain.obj
+".\Release\Real Time Input.obj"
+".\Release\Rotting Corpses.obj"
+".\Release\ShopKeeper Interface.obj"
+.\Release\SkillCheck.obj
+".\Release\Soldier Add.obj"
+".\Release\Soldier Ani.obj"
+".\Release\Soldier Control.obj"
+".\Release\Soldier Create.obj"
+".\Release\Soldier Find.obj"
+".\Release\Soldier Init List.obj"
+".\Release\Soldier Profile.obj"
+".\Release\Soldier Tile.obj"
+".\Release\Spread Burst.obj"
+.\Release\Squads.obj
+".\Release\Strategic Exit GUI.obj"
+".\Release\Structure Wrap.obj"
+".\Release\Tactical Save.obj"
+".\Release\Tactical Turns.obj"
+.\Release\TeamTurns.obj
+".\Release\Turn Based Input.obj"
+".\Release\UI Cursors.obj"
+.\Release\Vehicles.obj
+.\Release\Weapons.obj
+".\Release\World Items.obj"
+.\Release\XML_AmmoStrings.obj
+.\Release\XML_AmmoTypes.obj
+.\Release\XML_Armour.obj
+.\Release\XML_AttachmentInfo.obj
+.\Release\XML_Attachments.obj
+.\Release\XML_BurstSounds.obj
+.\Release\XML_ComboMergeInfo.obj
+.\Release\XML_CompatibleFaceItems.obj
+.\Release\XML_EnemyAmmoDrops.obj
+.\Release\XML_EnemyArmourDrops.obj
+.\Release\XML_EnemyExplosiveDrops.obj
+.\Release\XML_EnemyItemChoice.obj
+.\Release\XML_EnemyMiscDrops.obj
+.\Release\XML_EnemyWeaponChoice.obj
+.\Release\XML_EnemyWeaponDrops.obj
+.\Release\XML_Explosive.obj
+.\Release\XML_IMPItemChoices.obj
+.\Release\XML_IncompatibleAttachments.obj
+.\Release\XML_Launchable.obj
+.\Release\XML_Magazine.obj
+.\Release\XML_Merge.obj
+.\Release\XML_Sounds.obj
+.\Release\XML_TonyInventory.obj
+.\Release\SoldierTooltips.obj
+]
+Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP14.tmp"
+<h3>Output Window</h3>
+Compiling...
+Air Raid.cpp
+GENERATED PCH FOR TACTICAL PROJECT.
+Animation Cache.cpp
+Animation Control.cpp
+Animation Data.cpp
+Arms Dealer Init.cpp
+ArmsDealerInvInit.cpp
+Auto Bandage.cpp
+Boxing.cpp
+bullets.cpp
+Campaign.cpp
+Civ Quotes.cpp
+Dialogue Control.cpp
+DisplayCover.cpp
+GENERATED PCH FOR TACTICAL AI PROJECT.
+Drugs And Alcohol.cpp
+GENERATED PCH FOR TACTICAL PROJECT.
+End Game.cpp
+Enemy Soldier Save.cpp
+EnemyItemDrops.cpp
+Faces.cpp
+fov.cpp
+GAP.cpp
+Handle Doors.cpp
+Handle Items.cpp
+Handle UI Plan.cpp
+Handle UI.cpp
+Interface Control.cpp
+Interface Cursors.cpp
+Interface Dialogue.cpp
+Interface Items.cpp
+Interface Panels.cpp
+Interface Utils.cpp
+Interface.cpp
+Inventory Choosing.cpp
+Items.cpp
+Keys.cpp
+Map Information.cpp
+Merc Entering.cpp
+Merc Hiring.cpp
+Militia Control.cpp
+Morale.cpp
+opplist.cpp
+Overhead.cpp
+PATHAI.cpp
+Points.cpp
+QARRAY.cpp
+Rain.cpp
+Real Time Input.cpp
+Rotting Corpses.cpp
+ShopKeeper Interface.cpp
+SkillCheck.cpp
+Soldier Add.cpp
+Soldier Ani.cpp
+Soldier Control.cpp
+Soldier Create.cpp
+Soldier Find.cpp
+Soldier Init List.cpp
+Soldier Profile.cpp
+Soldier Tile.cpp
+Spread Burst.cpp
+Squads.cpp
+Strategic Exit GUI.cpp
+Structure Wrap.cpp
+Tactical Save.cpp
+Tactical Turns.cpp
+TeamTurns.cpp
+Turn Based Input.cpp
+UI Cursors.cpp
+Vehicles.cpp
+Weapons.cpp
+World Items.cpp
+XML_AmmoStrings.cpp
+XML_AmmoTypes.cpp
+XML_Armour.cpp
+XML_AttachmentInfo.cpp
+XML_Attachments.cpp
+XML_BurstSounds.cpp
+XML_ComboMergeInfo.cpp
+XML_CompatibleFaceItems.cpp
+XML_EnemyAmmoDrops.cpp
+XML_EnemyArmourDrops.cpp
+XML_EnemyExplosiveDrops.cpp
+XML_EnemyItemChoice.cpp
+XML_EnemyMiscDrops.cpp
+XML_EnemyWeaponChoice.cpp
+XML_EnemyWeaponDrops.cpp
+XML_Explosive.cpp
+XML_IMPItemChoices.cpp
+XML_IncompatibleAttachments.cpp
+XML_Launchable.cpp
+XML_Magazine.cpp
+XML_Merge.cpp
+XML_Sounds.cpp
+XML_TonyInventory.cpp
+SoldierTooltips.cpp
+GENERATED PCH FOR TACTICAL PROJECT.
+Compiling...
+LOS.cpp
+GENERATED PCH FOR TACTICAL PROJECT.
+Creating library...
+<h3>
+--------------------Configuration: Utils - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP15.tmp" with contents
+[
+/nologo /MT /W3 /GX /O2 /I "..\Standard Gaming Platform" /I "..\TileEngine" /I "..\\" /I "..\Tactical" /I "..\tacticalai" /I "..\Editor" /I "..\strategic" /I "..\Laptop" /I ".\\" /D "CALLBACKTIMER" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /FR"Release/" /Fp"Release/Utils.pch" /YX"Utils All.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\JA2\Build\Utils\_DutchText.cpp"
+"C:\JA2\Build\Utils\_EnglishText.cpp"
+"C:\JA2\Build\Utils\_FrenchText.cpp"
+"C:\JA2\Build\Utils\_GermanText.cpp"
+"C:\JA2\Build\Utils\_ItalianText.cpp"
+"C:\JA2\Build\Utils\_Ja25EnglishText.cpp"
+"C:\JA2\Build\Utils\_Ja25GermanText.cpp"
+"C:\JA2\Build\Utils\_PolishText.cpp"
+"C:\JA2\Build\Utils\_RussianText.cpp"
+"C:\JA2\Build\Utils\Animated ProgressBar.cpp"
+"C:\JA2\Build\Utils\Cinematics.cpp"
+"C:\JA2\Build\Utils\Cursors.cpp"
+"C:\JA2\Build\Utils\Debug Control.cpp"
+"C:\JA2\Build\Utils\dsutil.cpp"
+"C:\JA2\Build\Utils\Encrypted File.cpp"
+"C:\JA2\Build\Utils\Event Manager.cpp"
+"C:\JA2\Build\Utils\Event Pump.cpp"
+"C:\JA2\Build\Utils\Font Control.cpp"
+"C:\JA2\Build\Utils\INIReader.cpp"
+"C:\JA2\Build\Utils\MapUtility.cpp"
+"C:\JA2\Build\Utils\MercTextBox.cpp"
+"C:\JA2\Build\Utils\message.cpp"
+"C:\JA2\Build\Utils\Multi Language Graphic Utils.cpp"
+"C:\JA2\Build\Utils\Multilingual Text Code Generator.cpp"
+"C:\JA2\Build\Utils\Music Control.cpp"
+"C:\JA2\Build\Utils\PopUpBox.cpp"
+"C:\JA2\Build\Utils\Quantize Wrap.cpp"
+"C:\JA2\Build\Utils\Quantize.cpp"
+"C:\JA2\Build\Utils\Slider.cpp"
+"C:\JA2\Build\Utils\Sound Control.cpp"
+"C:\JA2\Build\Utils\STIConvert.cpp"
+"C:\JA2\Build\Utils\Text Input.cpp"
+"C:\JA2\Build\Utils\Text Utils.cpp"
+"C:\JA2\Build\Utils\Timer Control.cpp"
+"C:\JA2\Build\Utils\Utilities.cpp"
+"C:\JA2\Build\Utils\WordWrap.cpp"
+"C:\JA2\Build\Utils\XML_Items.cpp"
+"C:\JA2\Build\Utils\XML_Strings.cpp"
+"C:\JA2\Build\Utils\XML_Strings2.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP15.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP16.tmp" with contents
+[
+/nologo /out:"Release\Utils.lib" 
+.\Release\_DutchText.obj
+.\Release\_EnglishText.obj
+.\Release\_FrenchText.obj
+.\Release\_GermanText.obj
+.\Release\_ItalianText.obj
+.\Release\_Ja25EnglishText.obj
+.\Release\_Ja25GermanText.obj
+.\Release\_PolishText.obj
+.\Release\_RussianText.obj
+".\Release\Animated ProgressBar.obj"
+.\Release\Cinematics.obj
+.\Release\Cursors.obj
+".\Release\Debug Control.obj"
+.\Release\dsutil.obj
+".\Release\Encrypted File.obj"
+".\Release\Event Manager.obj"
+".\Release\Event Pump.obj"
+".\Release\Font Control.obj"
+.\Release\INIReader.obj
+.\Release\MapUtility.obj
+.\Release\MercTextBox.obj
+.\Release\message.obj
+".\Release\Multi Language Graphic Utils.obj"
+".\Release\Multilingual Text Code Generator.obj"
+".\Release\Music Control.obj"
+.\Release\PopUpBox.obj
+".\Release\Quantize Wrap.obj"
+.\Release\Quantize.obj
+.\Release\Slider.obj
+".\Release\Sound Control.obj"
+.\Release\STIConvert.obj
+".\Release\Text Input.obj"
+".\Release\Text Utils.obj"
+".\Release\Timer Control.obj"
+.\Release\Utilities.obj
+.\Release\WordWrap.obj
+.\Release\XML_Items.obj
+.\Release\XML_Strings.obj
+.\Release\XML_Strings2.obj
+]
+Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP16.tmp"
+<h3>Output Window</h3>
+Compiling...
+_DutchText.cpp
+GENERATED PCH FOR UTILS PROJECT.
+_EnglishText.cpp
+GENERATED PCH FOR UTILS PROJECT.
+_FrenchText.cpp
+_GermanText.cpp
+_ItalianText.cpp
+GENERATED PCH FOR UTILS PROJECT.
+_Ja25EnglishText.cpp
+GENERATED PCH FOR UTILS PROJECT.
+_Ja25GermanText.cpp
+_PolishText.cpp
+GENERATED PCH FOR UTILS PROJECT.
+_RussianText.cpp
+Animated ProgressBar.cpp
+GENERATED PCH FOR UTILS PROJECT.
+Cinematics.cpp
+Cursors.cpp
+GENERATED PCH FOR UTILS PROJECT.
+Debug Control.cpp
+dsutil.cpp
+Encrypted File.cpp
+Event Manager.cpp
+Event Pump.cpp
+Font Control.cpp
+INIReader.cpp
+MapUtility.cpp
+GENERATED PCH FOR UTILS PROJECT.
+MercTextBox.cpp
+message.cpp
+Multi Language Graphic Utils.cpp
+GENERATED PCH FOR UTILS PROJECT.
+Multilingual Text Code Generator.cpp
+Music Control.cpp
+GENERATED PCH FOR UTILS PROJECT.
+PopUpBox.cpp
+Quantize Wrap.cpp
+Quantize.cpp
+Slider.cpp
+GENERATED PCH FOR UTILS PROJECT.
+Sound Control.cpp
+STIConvert.cpp
+Text Input.cpp
+Text Utils.cpp
+Timer Control.cpp
+Utilities.cpp
+WordWrap.cpp
+XML_Items.cpp
+GENERATED PCH FOR TACTICAL PROJECT.
+XML_Strings.cpp
+XML_Strings2.cpp
+Creating library...
+<h3>
+--------------------Configuration: TacticalAI - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP17.tmp" with contents
+[
+/nologo /MT /W3 /GX /O2 /I "..\Standard Gaming Platform" /I "..\TileEngine" /I "..\\" /I "..\Tactical" /I "..\Utils" /I "..\Editor" /I "..\strategic" /I "..\Laptop" /I ".\\" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /FR"Release/" /Fp"Release/TacticalAI.pch" /YX"AI All.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\JA2\Build\TacticalAI\AIList.cpp"
+"C:\JA2\Build\TacticalAI\AIMain.cpp"
+"C:\JA2\Build\TacticalAI\AIUtils.cpp"
+"C:\JA2\Build\TacticalAI\Attacks.cpp"
+"C:\JA2\Build\TacticalAI\CreatureDecideAction.cpp"
+"C:\JA2\Build\TacticalAI\DecideAction.cpp"
+"C:\JA2\Build\TacticalAI\FindLocations.cpp"
+"C:\JA2\Build\TacticalAI\Knowledge.cpp"
+"C:\JA2\Build\TacticalAI\Medical.cpp"
+"C:\JA2\Build\TacticalAI\Movement.cpp"
+"C:\JA2\Build\TacticalAI\NPC.cpp"
+"C:\JA2\Build\TacticalAI\PanicButtons.cpp"
+"C:\JA2\Build\TacticalAI\QuestDebug.cpp"
+"C:\JA2\Build\TacticalAI\Realtime.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP17.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP18.tmp" with contents
+[
+/nologo /out:"Release\TacticalAI.lib" 
+.\Release\AIList.obj
+.\Release\AIMain.obj
+.\Release\AIUtils.obj
+.\Release\Attacks.obj
+.\Release\CreatureDecideAction.obj
+.\Release\DecideAction.obj
+.\Release\FindLocations.obj
+.\Release\Knowledge.obj
+.\Release\Medical.obj
+.\Release\Movement.obj
+.\Release\NPC.obj
+.\Release\PanicButtons.obj
+.\Release\QuestDebug.obj
+.\Release\Realtime.obj
+]
+Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP18.tmp"
+<h3>Output Window</h3>
+Compiling...
+AIList.cpp
+GENERATED PCH FOR TACTICAL AI PROJECT.
+AIMain.cpp
+AIUtils.cpp
+Attacks.cpp
+CreatureDecideAction.cpp
+DecideAction.cpp
+FindLocations.cpp
+Knowledge.cpp
+Medical.cpp
+Movement.cpp
+NPC.cpp
+PanicButtons.cpp
+QuestDebug.cpp
+Realtime.cpp
+Creating library...
+<h3>
+--------------------Configuration: Editor - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP19.tmp" with contents
+[
+/nologo /MT /W3 /GX /O2 /Ob2 /I "..\Standard Gaming Platform" /I "..\TileEngine" /I "..\\" /I "..\Tactical" /I "..\Utils" /I "..\tacticalai" /I "..\strategic" /I "..\Laptop" /I ".\\" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /FR"Release/" /Fp"Release/Editor.pch" /YX"Editor All.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\JA2\Build\Editor\Cursor Modes.cpp"
+"C:\JA2\Build\Editor\edit_sys.cpp"
+"C:\JA2\Build\Editor\Editor Callbacks.cpp"
+"C:\JA2\Build\Editor\Editor Modes.cpp"
+"C:\JA2\Build\Editor\Editor Taskbar Creation.cpp"
+"C:\JA2\Build\Editor\Editor Taskbar Utils.cpp"
+"C:\JA2\Build\Editor\Editor Undo.cpp"
+"C:\JA2\Build\Editor\EditorBuildings.cpp"
+"C:\JA2\Build\Editor\EditorItems.cpp"
+"C:\JA2\Build\Editor\EditorMapInfo.cpp"
+"C:\JA2\Build\Editor\EditorMercs.cpp"
+"C:\JA2\Build\Editor\EditorTerrain.cpp"
+"C:\JA2\Build\Editor\editscreen.cpp"
+"C:\JA2\Build\Editor\Item Statistics.cpp"
+"C:\JA2\Build\Editor\LoadScreen.cpp"
+"C:\JA2\Build\Editor\messagebox.cpp"
+"C:\JA2\Build\Editor\newsmooth.cpp"
+"C:\JA2\Build\Editor\popupmenu.cpp"
+"C:\JA2\Build\Editor\Road Smoothing.cpp"
+"C:\JA2\Build\Editor\Sector Summary.cpp"
+"C:\JA2\Build\Editor\selectwin.cpp"
+"C:\JA2\Build\Editor\SmartMethod.cpp"
+"C:\JA2\Build\Editor\smooth.cpp"
+"C:\JA2\Build\Editor\Smoothing Utils.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP19.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1A.tmp" with contents
+[
+/nologo /out:"Release\Editor.lib" 
+".\Release\Cursor Modes.obj"
+.\Release\edit_sys.obj
+".\Release\Editor Callbacks.obj"
+".\Release\Editor Modes.obj"
+".\Release\Editor Taskbar Creation.obj"
+".\Release\Editor Taskbar Utils.obj"
+".\Release\Editor Undo.obj"
+.\Release\EditorBuildings.obj
+.\Release\EditorItems.obj
+.\Release\EditorMapInfo.obj
+.\Release\EditorMercs.obj
+.\Release\EditorTerrain.obj
+.\Release\editscreen.obj
+".\Release\Item Statistics.obj"
+.\Release\LoadScreen.obj
+.\Release\messagebox.obj
+.\Release\newsmooth.obj
+.\Release\popupmenu.obj
+".\Release\Road Smoothing.obj"
+".\Release\Sector Summary.obj"
+.\Release\selectwin.obj
+.\Release\SmartMethod.obj
+.\Release\smooth.obj
+".\Release\Smoothing Utils.obj"
+]
+Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1A.tmp"
+<h3>Output Window</h3>
+Compiling...
+Cursor Modes.cpp
+edit_sys.cpp
+Editor Callbacks.cpp
+Editor Modes.cpp
+Editor Taskbar Creation.cpp
+Editor Taskbar Utils.cpp
+Editor Undo.cpp
+EditorBuildings.cpp
+EditorItems.cpp
+EditorMapInfo.cpp
+EditorMercs.cpp
+EditorTerrain.cpp
+editscreen.cpp
+Item Statistics.cpp
+LoadScreen.cpp
+messagebox.cpp
+newsmooth.cpp
+popupmenu.cpp
+Road Smoothing.cpp
+Sector Summary.cpp
+selectwin.cpp
+SmartMethod.cpp
+smooth.cpp
+Smoothing Utils.cpp
+Creating library...
+<h3>
+--------------------Configuration: Laptop - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1B.tmp" with contents
+[
+/nologo /MT /W3 /GX /O2 /I "..\Standard Gaming Platform" /I "..\TileEngine" /I "..\\" /I "..\Tactical" /I "..\Utils" /I "..\tacticalai" /I "..\Editor" /I "..\strategic" /I ".\\" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /FR"Release/" /Fp"Release/Laptop.pch" /YX"Laptop All.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\JA2\Build\Laptop\aim.cpp"
+"C:\JA2\Build\Laptop\AimArchives.cpp"
+"C:\JA2\Build\Laptop\AimFacialIndex.cpp"
+"C:\JA2\Build\Laptop\AimHistory.cpp"
+"C:\JA2\Build\Laptop\AimLinks.cpp"
+"C:\JA2\Build\Laptop\AimMembers.cpp"
+"C:\JA2\Build\Laptop\AimPolicies.cpp"
+"C:\JA2\Build\Laptop\AimSort.cpp"
+"C:\JA2\Build\Laptop\BobbyR.cpp"
+"C:\JA2\Build\Laptop\BobbyRAmmo.cpp"
+"C:\JA2\Build\Laptop\BobbyRArmour.cpp"
+"C:\JA2\Build\Laptop\BobbyRGuns.cpp"
+"C:\JA2\Build\Laptop\BobbyRMailOrder.cpp"
+"C:\JA2\Build\Laptop\BobbyRMisc.cpp"
+"C:\JA2\Build\Laptop\BobbyRShipments.cpp"
+"C:\JA2\Build\Laptop\BobbyRUsed.cpp"
+"C:\JA2\Build\Laptop\BrokenLink.cpp"
+"C:\JA2\Build\Laptop\CharProfile.cpp"
+"C:\JA2\Build\Laptop\email.cpp"
+"C:\JA2\Build\Laptop\files.cpp"
+"C:\JA2\Build\Laptop\finances.cpp"
+"C:\JA2\Build\Laptop\florist Cards.cpp"
+"C:\JA2\Build\Laptop\florist Gallery.cpp"
+"C:\JA2\Build\Laptop\florist Order Form.cpp"
+"C:\JA2\Build\Laptop\florist.cpp"
+"C:\JA2\Build\Laptop\funeral.cpp"
+"C:\JA2\Build\Laptop\history.cpp"
+"C:\JA2\Build\Laptop\IMP AboutUs.cpp"
+"C:\JA2\Build\Laptop\IMP Attribute Entrance.cpp"
+"C:\JA2\Build\Laptop\IMP Attribute Finish.cpp"
+"C:\JA2\Build\Laptop\IMP Attribute Selection.cpp"
+"C:\JA2\Build\Laptop\IMP Begin Screen.cpp"
+"C:\JA2\Build\Laptop\IMP Compile Character.cpp"
+"C:\JA2\Build\Laptop\IMP Confirm.cpp"
+"C:\JA2\Build\Laptop\IMP Finish.cpp"
+"C:\JA2\Build\Laptop\IMP HomePage.cpp"
+"C:\JA2\Build\Laptop\IMP MainPage.cpp"
+"C:\JA2\Build\Laptop\IMP Personality Entrance.cpp"
+"C:\JA2\Build\Laptop\IMP Personality Finish.cpp"
+"C:\JA2\Build\Laptop\IMP Personality Quiz.cpp"
+"C:\JA2\Build\Laptop\IMP Portraits.cpp"
+"C:\JA2\Build\Laptop\IMP Skill Trait.cpp"
+"C:\JA2\Build\Laptop\IMP Text System.cpp"
+"C:\JA2\Build\Laptop\IMP Voices.cpp"
+"C:\JA2\Build\Laptop\IMPVideoObjects.cpp"
+"C:\JA2\Build\Laptop\insurance Comments.cpp"
+"C:\JA2\Build\Laptop\insurance Contract.cpp"
+"C:\JA2\Build\Laptop\insurance Info.cpp"
+"C:\JA2\Build\Laptop\insurance.cpp"
+"C:\JA2\Build\Laptop\laptop.cpp"
+"C:\JA2\Build\Laptop\mercs Account.cpp"
+"C:\JA2\Build\Laptop\mercs Files.cpp"
+"C:\JA2\Build\Laptop\mercs No Account.cpp"
+"C:\JA2\Build\Laptop\mercs.cpp"
+"C:\JA2\Build\Laptop\personnel.cpp"
+"C:\JA2\Build\Laptop\sirtech.cpp"
+"C:\JA2\Build\Laptop\Store Inventory.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1B.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1C.tmp" with contents
+[
+/nologo /out:"Release\Laptop.lib" 
+.\Release\aim.obj
+.\Release\AimArchives.obj
+.\Release\AimFacialIndex.obj
+.\Release\AimHistory.obj
+.\Release\AimLinks.obj
+.\Release\AimMembers.obj
+.\Release\AimPolicies.obj
+.\Release\AimSort.obj
+.\Release\BobbyR.obj
+.\Release\BobbyRAmmo.obj
+.\Release\BobbyRArmour.obj
+.\Release\BobbyRGuns.obj
+.\Release\BobbyRMailOrder.obj
+.\Release\BobbyRMisc.obj
+.\Release\BobbyRShipments.obj
+.\Release\BobbyRUsed.obj
+.\Release\BrokenLink.obj
+.\Release\CharProfile.obj
+.\Release\email.obj
+.\Release\files.obj
+.\Release\finances.obj
+".\Release\florist Cards.obj"
+".\Release\florist Gallery.obj"
+".\Release\florist Order Form.obj"
+.\Release\florist.obj
+.\Release\funeral.obj
+.\Release\history.obj
+".\Release\IMP AboutUs.obj"
+".\Release\IMP Attribute Entrance.obj"
+".\Release\IMP Attribute Finish.obj"
+".\Release\IMP Attribute Selection.obj"
+".\Release\IMP Begin Screen.obj"
+".\Release\IMP Compile Character.obj"
+".\Release\IMP Confirm.obj"
+".\Release\IMP Finish.obj"
+".\Release\IMP HomePage.obj"
+".\Release\IMP MainPage.obj"
+".\Release\IMP Personality Entrance.obj"
+".\Release\IMP Personality Finish.obj"
+".\Release\IMP Personality Quiz.obj"
+".\Release\IMP Portraits.obj"
+".\Release\IMP Skill Trait.obj"
+".\Release\IMP Text System.obj"
+".\Release\IMP Voices.obj"
+.\Release\IMPVideoObjects.obj
+".\Release\insurance Comments.obj"
+".\Release\insurance Contract.obj"
+".\Release\insurance Info.obj"
+.\Release\insurance.obj
+.\Release\laptop.obj
+".\Release\mercs Account.obj"
+".\Release\mercs Files.obj"
+".\Release\mercs No Account.obj"
+.\Release\mercs.obj
+.\Release\personnel.obj
+.\Release\sirtech.obj
+".\Release\Store Inventory.obj"
+]
+Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1C.tmp"
+<h3>Output Window</h3>
+Compiling...
+aim.cpp
+GENERATED PCH FOR LAPTOP PROJECT.
+AimArchives.cpp
+AimFacialIndex.cpp
+AimHistory.cpp
+AimLinks.cpp
+AimMembers.cpp
+AimPolicies.cpp
+AimSort.cpp
+BobbyR.cpp
+BobbyRAmmo.cpp
+BobbyRArmour.cpp
+BobbyRGuns.cpp
+BobbyRMailOrder.cpp
+BobbyRMisc.cpp
+BobbyRShipments.cpp
+BobbyRUsed.cpp
+BrokenLink.cpp
+CharProfile.cpp
+email.cpp
+files.cpp
+finances.cpp
+florist Cards.cpp
+florist Gallery.cpp
+florist Order Form.cpp
+florist.cpp
+funeral.cpp
+history.cpp
+IMP AboutUs.cpp
+IMP Attribute Entrance.cpp
+IMP Attribute Finish.cpp
+IMP Attribute Selection.cpp
+IMP Begin Screen.cpp
+IMP Compile Character.cpp
+IMP Confirm.cpp
+IMP Finish.cpp
+IMP HomePage.cpp
+IMP MainPage.cpp
+IMP Personality Entrance.cpp
+IMP Personality Finish.cpp
+IMP Personality Quiz.cpp
+IMP Portraits.cpp
+IMP Skill Trait.cpp
+IMP Text System.cpp
+IMP Voices.cpp
+IMPVideoObjects.cpp
+insurance Comments.cpp
+insurance Contract.cpp
+insurance Info.cpp
+insurance.cpp
+laptop.cpp
+mercs Account.cpp
+mercs Files.cpp
+mercs No Account.cpp
+mercs.cpp
+personnel.cpp
+sirtech.cpp
+Store Inventory.cpp
+Creating library...
+<h3>
+--------------------Configuration: Strategic - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1D.tmp" with contents
+[
+/nologo /MT /W3 /GX /O2 /I "..\Standard Gaming Platform" /I "..\TileEngine" /I "..\\" /I "..\Tactical" /I "..\Utils" /I "..\tacticalai" /I "..\Editor" /I "..\Laptop" /I ".\\" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /FR"Release/" /Fp"Release/Strategic.pch" /YX"Strategic All.h" /Fo"Release/" /Fd"Release/" /FD /c 
+"C:\JA2\Build\Strategic\AI Viewer.cpp"
+"C:\JA2\Build\Strategic\Assignments.cpp"
+"C:\JA2\Build\Strategic\Auto Resolve.cpp"
+"C:\JA2\Build\Strategic\Campaign Init.cpp"
+"C:\JA2\Build\Strategic\Creature Spreading.cpp"
+"C:\JA2\Build\Strategic\Game Clock.cpp"
+"C:\JA2\Build\Strategic\Game Event Hook.cpp"
+"C:\JA2\Build\Strategic\Game Events.cpp"
+"C:\JA2\Build\Strategic\Game Init.cpp"
+"C:\JA2\Build\Strategic\Hourly Update.cpp"
+"C:\JA2\Build\Strategic\Map Screen Helicopter.cpp"
+"C:\JA2\Build\Strategic\Map Screen Interface Border.cpp"
+"C:\JA2\Build\Strategic\Map Screen Interface Bottom.cpp"
+"C:\JA2\Build\Strategic\Map Screen Interface Map Inventory.cpp"
+"C:\JA2\Build\Strategic\Map Screen Interface Map.cpp"
+"C:\JA2\Build\Strategic\Map Screen Interface TownMine Info.cpp"
+"C:\JA2\Build\Strategic\Map Screen Interface.cpp"
+"C:\JA2\Build\Strategic\mapscreen.cpp"
+"C:\JA2\Build\Strategic\Meanwhile.cpp"
+"C:\JA2\Build\Strategic\Merc Contract.cpp"
+"C:\JA2\Build\Strategic\Player Command.cpp"
+"C:\JA2\Build\Strategic\PreBattle Interface.cpp"
+"C:\JA2\Build\Strategic\Queen Command.cpp"
+"C:\JA2\Build\Strategic\Quest Debug System.cpp"
+"C:\JA2\Build\Strategic\Quests.cpp"
+"C:\JA2\Build\Strategic\QuestText.cpp"
+"C:\JA2\Build\Strategic\Scheduling.cpp"
+"C:\JA2\Build\Strategic\Strategic AI.cpp"
+"C:\JA2\Build\Strategic\Strategic Event Handler.cpp"
+"C:\JA2\Build\Strategic\Strategic Merc Handler.cpp"
+"C:\JA2\Build\Strategic\Strategic Mines.cpp"
+"C:\JA2\Build\Strategic\Strategic Movement Costs.cpp"
+"C:\JA2\Build\Strategic\Strategic Movement.cpp"
+"C:\JA2\Build\Strategic\Strategic Pathing.cpp"
+"C:\JA2\Build\Strategic\Strategic Status.cpp"
+"C:\JA2\Build\Strategic\Strategic Town Loyalty.cpp"
+"C:\JA2\Build\Strategic\strategic town reputation.cpp"
+"C:\JA2\Build\Strategic\Strategic Turns.cpp"
+"C:\JA2\Build\Strategic\strategic.cpp"
+"C:\JA2\Build\Strategic\strategicmap.cpp"
+"C:\JA2\Build\Strategic\Town Militia.cpp"
+"C:\JA2\Build\Strategic\MilitiaSquads.cpp"
+"C:\JA2\Build\Strategic\Reinforcement.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1D.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1E.tmp" with contents
+[
+/nologo /out:"Release\Strategic.lib" 
+".\Release\AI Viewer.obj"
+.\Release\Assignments.obj
+".\Release\Auto Resolve.obj"
+".\Release\Campaign Init.obj"
+".\Release\Creature Spreading.obj"
+".\Release\Game Clock.obj"
+".\Release\Game Event Hook.obj"
+".\Release\Game Events.obj"
+".\Release\Game Init.obj"
+".\Release\Hourly Update.obj"
+".\Release\Map Screen Helicopter.obj"
+".\Release\Map Screen Interface Border.obj"
+".\Release\Map Screen Interface Bottom.obj"
+".\Release\Map Screen Interface Map Inventory.obj"
+".\Release\Map Screen Interface Map.obj"
+".\Release\Map Screen Interface TownMine Info.obj"
+".\Release\Map Screen Interface.obj"
+.\Release\mapscreen.obj
+.\Release\Meanwhile.obj
+".\Release\Merc Contract.obj"
+".\Release\Player Command.obj"
+".\Release\PreBattle Interface.obj"
+".\Release\Queen Command.obj"
+".\Release\Quest Debug System.obj"
+.\Release\Quests.obj
+.\Release\QuestText.obj
+.\Release\Scheduling.obj
+".\Release\Strategic AI.obj"
+".\Release\Strategic Event Handler.obj"
+".\Release\Strategic Merc Handler.obj"
+".\Release\Strategic Mines.obj"
+".\Release\Strategic Movement Costs.obj"
+".\Release\Strategic Movement.obj"
+".\Release\Strategic Pathing.obj"
+".\Release\Strategic Status.obj"
+".\Release\Strategic Town Loyalty.obj"
+".\Release\strategic town reputation.obj"
+".\Release\Strategic Turns.obj"
+.\Release\strategic.obj
+.\Release\strategicmap.obj
+".\Release\Town Militia.obj"
+.\Release\MilitiaSquads.obj
+.\Release\Reinforcement.obj
+]
+Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1E.tmp"
+<h3>Output Window</h3>
+Compiling...
+AI Viewer.cpp
+GENERATED PCH FOR STRATEGIC PROJECT.
+Assignments.cpp
+Auto Resolve.cpp
+Campaign Init.cpp
+Creature Spreading.cpp
+Game Clock.cpp
+Game Event Hook.cpp
+Game Events.cpp
+Game Init.cpp
+Hourly Update.cpp
+Map Screen Helicopter.cpp
+Map Screen Interface Border.cpp
+Map Screen Interface Bottom.cpp
+Map Screen Interface Map Inventory.cpp
+Map Screen Interface Map.cpp
+Map Screen Interface TownMine Info.cpp
+Map Screen Interface.cpp
+mapscreen.cpp
+Meanwhile.cpp
+Merc Contract.cpp
+Player Command.cpp
+PreBattle Interface.cpp
+Queen Command.cpp
+Quest Debug System.cpp
+Quests.cpp
+QuestText.cpp
+Scheduling.cpp
+Strategic AI.cpp
+Strategic Event Handler.cpp
+Strategic Merc Handler.cpp
+Strategic Mines.cpp
+Strategic Movement Costs.cpp
+Strategic Movement.cpp
+Strategic Pathing.cpp
+Strategic Status.cpp
+Strategic Town Loyalty.cpp
+strategic town reputation.cpp
+Strategic Turns.cpp
+strategic.cpp
+strategicmap.cpp
+Town Militia.cpp
+MilitiaSquads.cpp
+Reinforcement.cpp
+Creating library...
+<h3>
+--------------------Configuration: ja2 - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /fo"Release/ja2.res" /i "Res" /i ".\Res" /d "NDEBUG" "C:\JA2\Build\Res\ja2.rc"" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1F.tmp" with contents
+[
+/nologo /G5 /MT /W3 /GX /Zi /O2 /Ob2 /I ".\Standard Gaming Platform" /I ".\TileEngine" /I ".\Tactical" /I ".\Utils" /I ".\TacticalAI" /I ".\Editor" /I ".\Strategic" /I ".\laptop" /I ".\\" /D "CALLBACKTIMER" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /FR"Release/" /Fp"Release/JA2.pch" /YX"JA2 All.h" /Fo"Release/" /Fd"Release/" /FD /O2b2 /c 
+"C:\JA2\Build\Utils\_Ja25GermanText.cpp"
+"C:\JA2\Build\aniviewscreen.cpp"
+"C:\JA2\Build\Credits.cpp"
+"C:\JA2\Build\Utils\Cursors.cpp"
+"C:\JA2\Build\Fade Screen.cpp"
+"C:\JA2\Build\GameInitOptionsScreen.cpp"
+"C:\JA2\Build\gameloop.cpp"
+"C:\JA2\Build\gamescreen.cpp"
+"C:\JA2\Build\GameSettings.cpp"
+"C:\JA2\Build\GameVersion.cpp"
+"C:\JA2\Build\HelpScreen.cpp"
+"C:\JA2\Build\Init.cpp"
+"C:\JA2\Build\Intro.cpp"
+"C:\JA2\Build\JA2 Splash.cpp"
+"C:\JA2\Build\jascreens.cpp"
+"C:\JA2\Build\Loading Screen.cpp"
+"C:\JA2\Build\MainMenuScreen.cpp"
+"C:\JA2\Build\MessageBoxScreen.cpp"
+"C:\JA2\Build\Options Screen.cpp"
+"C:\JA2\Build\SaveLoadGame.cpp"
+"C:\JA2\Build\SaveLoadScreen.cpp"
+"C:\JA2\Build\SCREENS.cpp"
+"C:\JA2\Build\Sys Globals.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1F.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP20.tmp" with contents
+[
+libexpatMT.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib winmm.lib smackw32.lib mss32.lib /nologo /subsystem:windows /profile /map:"Release/ja2_cvs.map" /machine:I386 /out:"..\ja2_cvs.exe" 
+.\Release\_Ja25GermanText.obj
+.\Release\aniviewscreen.obj
+.\Release\Credits.obj
+.\Release\Cursors.obj
+".\Release\Fade Screen.obj"
+.\Release\GameInitOptionsScreen.obj
+.\Release\gameloop.obj
+.\Release\gamescreen.obj
+.\Release\GameSettings.obj
+.\Release\GameVersion.obj
+.\Release\HelpScreen.obj
+.\Release\Init.obj
+.\Release\Intro.obj
+".\Release\JA2 Splash.obj"
+.\Release\jascreens.obj
+".\Release\Loading Screen.obj"
+.\Release\MainMenuScreen.obj
+.\Release\MessageBoxScreen.obj
+".\Release\Options Screen.obj"
+.\Release\SaveLoadGame.obj
+.\Release\SaveLoadScreen.obj
+.\Release\SCREENS.obj
+".\Release\Sys Globals.obj"
+.\Release\ja2.res
+.\fmodvc.lib
+.\TileEngine\Release\TileEngine.lib
+".\Standard Gaming Platform\Release\Standard Gaming Platform.lib"
+.\Tactical\Release\Tactical.lib
+.\Utils\Release\Utils.lib
+.\TacticalAI\Release\TacticalAI.lib
+.\Editor\Release\Editor.lib
+.\Laptop\Release\Laptop.lib
+.\Strategic\Release\Strategic.lib
+]
+Creating command line "link.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP20.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+_Ja25GermanText.cpp
+GENERATED PCH FOR UTILS PROJECT.
+aniviewscreen.cpp
+GENERATED PCH FOR JA2 PROJECT.
+Credits.cpp
+Cursors.cpp
+GENERATED PCH FOR UTILS PROJECT.
+Fade Screen.cpp
+GENERATED PCH FOR JA2 PROJECT.
+GameInitOptionsScreen.cpp
+gameloop.cpp
+gamescreen.cpp
+GameSettings.cpp
+GameVersion.cpp
+HelpScreen.cpp
+Init.cpp
+Intro.cpp
+JA2 Splash.cpp
+jascreens.cpp
+Loading Screen.cpp
+MainMenuScreen.cpp
+MessageBoxScreen.cpp
+Options Screen.cpp
+SaveLoadGame.cpp
+SaveLoadScreen.cpp
+SCREENS.cpp
+Sys Globals.cpp
 Linking...
+LINK : warning LNK4089: all references to "ADVAPI32.dll" discarded by /OPT:REF
 
 
 
 <h3>Results</h3>
-ja2_cvs.exe - 0 error(s), 0 warning(s)
+ja2_cvs.exe - 0 error(s), 1 warning(s)
 </pre>
 </body>
 </html>
