@@ -4092,7 +4092,14 @@ void DrawDialogBox( INT32 iDlgBox )
 
 //------------------------------------------------------------------------------------------------------
 
-// template INT32 CreateCheckBoxButton<char const *>(INT16, INT16, char *, INT16, GUI_CALLBACK);
+
+
+// Kaiden: Added for VC6 compatibility
+
+#if _MSC_VER <= 1200 
+	template INT32 CreateCheckBoxButton<char const *>(INT16, INT16, char *, INT16, GUI_CALLBACK);
+#endif
+
 template INT32 CreateCheckBoxButton<char const *>(INT16, INT16, char const *, INT16, GUI_CALLBACK);
 template <typename string3>
 INT32 CreateCheckBoxButton( INT16 x, INT16 y, string3 filename, INT16 Priority, GUI_CALLBACK ClickCallback )
