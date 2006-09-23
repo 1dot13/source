@@ -2963,7 +2963,12 @@ HRESULT       ReturnCode;
 	return(TRUE);
 }
 
-// template void FatalError<char const *>(char *, ...);
+
+//Kaiden - Added for VC6 Compatibility
+#if _MSC_VER <= 1200
+	template void FatalError<char const *>(char *, ...);
+#endif
+ 
 template void FatalError<char const *>(char const *, ...);
 template <typename string1>
 void FatalError( string1 pError, ...)
