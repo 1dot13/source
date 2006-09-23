@@ -1154,15 +1154,25 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic3");
 			//break;
 
 		//Kaiden: Added to allow an elite bonus for experienced.
+		//Kaiden: Fixed to add the old way of doing this if the
+		//bonus is set to 0 percent.
 		case DIF_LEVEL_MEDIUM:
-			for( i = 0; i <= NUM_ARMY_COMPOSITIONS; i++ )
+			if (gGameExternalOptions.iPercentElitesBonusExperienced == 0)
 			{
-				if ( i != OMERTA_WELCOME_WAGON )
+				gArmyComp[ LEVEL3_DEFENCE ].bDesiredPopulation = 0;
+				gArmyComp[ LEVEL3_DEFENCE ].bStartPopulation = 0;
+			}
+			else
+			{
+				for( i = 0; i <= NUM_ARMY_COMPOSITIONS; i++ )
 				{
-					iPercentElitesBonus = gGameExternalOptions.iPercentElitesBonusExperienced;
-					gArmyComp[ i ].bElitePercentage = min(100,gArmyComp[ i ].bElitePercentage + iPercentElitesBonus);
-					gArmyComp[ i ].bTroopPercentage = max(0,gArmyComp[ i ].bTroopPercentage - iPercentElitesBonus);
-					gArmyComp[ i ].bAdminPercentage = 0;
+					if ( i != OMERTA_WELCOME_WAGON )
+					{
+						iPercentElitesBonus = gGameExternalOptions.iPercentElitesBonusExperienced;
+						gArmyComp[ i ].bElitePercentage = min(100,gArmyComp[ i ].bElitePercentage + iPercentElitesBonus);
+						gArmyComp[ i ].bTroopPercentage = max(0,gArmyComp[ i ].bTroopPercentage - iPercentElitesBonus);
+						gArmyComp[ i ].bAdminPercentage = 0;
+					}
 				}
 			}
 			break;
