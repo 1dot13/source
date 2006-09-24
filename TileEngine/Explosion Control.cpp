@@ -1206,21 +1206,11 @@ void ExplosiveDamageGridNo( INT16 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLE
 	UINT8				ubNumberOfTiles;
 	BOOLEAN				fMultiStructSpecialFlag = FALSE;
 	BOOLEAN				fExplodeDamageReturn = FALSE;
-	FILE				*pDebug;
-
-	pDebug = fopen("explosion.log", "wt");
-	fprintf(pDebug, "ExplosiveDamageGridNo start\n");
-	fclose(pDebug);
 
 	// Based on distance away, damage any struct at this gridno
 	// OK, loop through structures and damage!
 	pCurrent		 = gpWorldLevelData[ sGridNo ].pStructureHead;
 	sDesiredLevel	 = STRUCTURE_ON_GROUND;
-
-	pDebug = fopen("explosion.log", "a+t");
-	fprintf(pDebug, "sGridNo  = %d\n", sGridNo);
-	fprintf(pDebug, "pCurrent = %08X\n", pCurrent);
-	fclose(pDebug);
 
 	// This code gets a little hairy because 
 	// (1) we might need to destroy the currently-examined structure
@@ -1228,9 +1218,6 @@ void ExplosiveDamageGridNo( INT16 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLE
 	{
 		// ATE: These are for the chacks below for multi-structs....
 		pBaseStructure = FindBaseStructure( pCurrent );
-		pDebug = fopen("explosion.log", "a+t");
-		fprintf(pDebug, "pBaseStructure = %08X\n", pBaseStructure);
-		fclose(pDebug);
 
 		if ( pBaseStructure )
 		{
@@ -1238,14 +1225,6 @@ void ExplosiveDamageGridNo( INT16 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLE
 			ubNumberOfTiles = pBaseStructure->pDBStructureRef->pDBStructure->ubNumberOfTiles;
 			fMultiStructure = ( ( pBaseStructure->fFlags & STRUCTURE_MULTI ) != 0 );
 			ppTile = (DB_STRUCTURE_TILE **) MemAlloc( sizeof( DB_STRUCTURE_TILE ) * ubNumberOfTiles );
-
-			pDebug = fopen("explosion.log", "a+t");
-			fprintf(pDebug, "sBaseGridNo = %d\n", sBaseGridNo);
-			fprintf(pDebug, "ubNumberOfTiles = %d\n", ubNumberOfTiles);
-			fprintf(pDebug, "fMultiStructure = %d\n", fMultiStructure);
-			fprintf(pDebug, "ppTile = %08X\n", ppTile);
-			fprintf(pDebug, "pBaseStructure->pDBStructureRef->ppTile = %08X\n", pBaseStructure->pDBStructureRef->ppTile);
-			fclose(pDebug);
 
 			// Lesh: CTD was in next line once
 			memcpy( ppTile, pBaseStructure->pDBStructureRef->ppTile, sizeof( DB_STRUCTURE_TILE ) * ubNumberOfTiles );
@@ -1362,10 +1341,6 @@ void ExplosiveDamageGridNo( INT16 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLE
 		pCurrent = pNextCurrent;
 	}
 
-
-	pDebug = fopen("explosion.log", "a+t");
-	fprintf(pDebug, "ExplosiveDamageGridNo finish\n");
-	fclose(pDebug);
 }
 
 
