@@ -10,7 +10,7 @@ void NextProfilingMode( void );
 void ShadeUnSelectableButtons( void );
 
 // WANNE NEW
-INT32 GetFreeIMPSlot(INT32 iIMPId);
+INT32 GetFreeIMPSlot(INT32 iIMPId, INT32 iDefaultIMPId);
 INT32 GetFilledIMPSlots( INT8 iSex );
 
 extern INT32 iCurrentProfileMode;

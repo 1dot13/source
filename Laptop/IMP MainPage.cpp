@@ -839,36 +839,51 @@ INT32 GetFilledIMPSlots( INT8 iSex )
 }
 
 // WANNE NEW
-INT32 GetFreeIMPSlot(INT32 iIMPId)
+INT32 GetFreeIMPSlot(INT32 iIMPId, INT32 iDefaultIMPId)
 {
 	INT32 iStart;
 	INT32 iEnd;
 	INT32 i;
 	INT32 iFreeSlot = -1;
+	BOOLEAN bFoundDefaultIMP = FALSE;
 
 	if (iIMPId != -1)
 	{
-		// Female
-		if (iIMPId >= PLAYER_GENERATED_CHARACTER_ID + 3)
+		// We have a default imp id (90210 or nickname)
+		if (iDefaultIMPId != -1)
 		{
-			iStart = PLAYER_GENERATED_CHARACTER_ID + 3;
-			iEnd = PLAYER_GENERATED_CHARACTER_ID + 6;
-		}
-		// Male
-		else
-		{
-			iStart = PLAYER_GENERATED_CHARACTER_ID;
-			iEnd = PLAYER_GENERATED_CHARACTER_ID + 3;
+			if (wcscmp(gMercProfiles[iDefaultIMPId].zName, L"") == 0) 
+			{
+				iFreeSlot = iDefaultIMPId;
+				return iFreeSlot;
+			}
 		}
 
-		// Find a free imp slot
-		for (i = iStart; i < iEnd; i++)
+		// The default IMP id is already used, find next free imp id
+		if (bFoundDefaultIMP == FALSE)
 		{
-			// Found a free imp slot
-			if (wcscmp(gMercProfiles[i].zName, L"") == 0) 
+			// Female
+			if (iIMPId >= PLAYER_GENERATED_CHARACTER_ID + 3)
 			{
-				iFreeSlot = i;
-				break;
+				iStart = PLAYER_GENERATED_CHARACTER_ID + 3;
+				iEnd = PLAYER_GENERATED_CHARACTER_ID + 6;
+			}
+			// Male
+			else
+			{
+				iStart = PLAYER_GENERATED_CHARACTER_ID;
+				iEnd = PLAYER_GENERATED_CHARACTER_ID + 3;
+			}
+
+			// Find a free imp slot
+			for (i = iStart; i < iEnd; i++)
+			{
+				// Found a free imp slot
+				if (wcscmp(gMercProfiles[i].zName, L"") == 0) 
+				{
+					iFreeSlot = i;
+					break;
+				}
 			}
 		}
 		

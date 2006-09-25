@@ -767,7 +767,7 @@ BOOLEAN LoadImpCharacter( STR nickName )
 	}
 
 	// Set the ID of the new IMP
-	iProfileId = GetFreeIMPSlot(iProfileId);
+	iProfileId = GetFreeIMPSlot(iProfileId, iProfileId);
 
 	// We can create the new imp, beacuse we found an empty slot
 	if (iProfileId != -1)
