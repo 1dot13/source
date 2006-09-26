@@ -194,9 +194,9 @@ typedef struct
 	BOOLEAN fRead;
 	BOOLEAN fNew;
 
-	// WANNE: A reference to the IMP position in the gMercProfiles array. 
-	// So we know which analyse email belongs to the imp
-	INT32		iCurrentIMPPosition;
+	// WANNE - SAVEGAME-STRUCTURE: Remove the comment, until we have bigger changes in the savegame structure
+	// BECAUSE A NEW GAME MUST BE STARTED! 
+	//INT32		iCurrentIMPPosition;
 
 } SavedEmailStruct;
 
