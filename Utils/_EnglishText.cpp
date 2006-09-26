@@ -181,12 +181,12 @@ UINT16 WeaponType[MAXITEMS][30] =
 {
 	L"Other",
 	L"Pistol",
-	L"Machine pistol",
-	L"Submachine gun",
+	L"MP",
+	L"SMG",
 	L"Rifle",
 	L"Sniper rifle",
 	L"Assault rifle",
-	L"Light machine gun",
+	L"LMG",
 	L"Shotgun",
 };
 

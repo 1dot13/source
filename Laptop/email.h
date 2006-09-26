@@ -193,6 +193,11 @@ typedef struct
 
 	BOOLEAN fRead;
 	BOOLEAN fNew;
+
+	// WANNE: A reference to the IMP position in the gMercProfiles array. 
+	// So we know which analyse email belongs to the imp
+	INT32		iCurrentIMPPosition;
+
 } SavedEmailStruct;
 
 

@@ -3591,6 +3591,7 @@ UINT16 GetSoldierAnimationSurface( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 
 	if ( usAnimSurface != INVALID_ANIMATION_SURFACE )
 	{
+		// WANNE NEW 2
 		// Ensure that it's loaded!
 		if ( gAnimSurfaceDatabase[ usAnimSurface ].hVideoObject == NULL )
 		{
