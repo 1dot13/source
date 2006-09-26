@@ -164,6 +164,7 @@ BOOLEAN SaveMapTempFilesToSavedGameFile( HWFILE hFile )
 	//Loop though all the array elements to see if there is a data file to be saved
 	//
 
+	// Lesh: try to fix save/reload havok
 	//First look through the above ground sectors
 	for( sMapY=1; sMapY<=16; sMapY++ )
 	{
@@ -172,58 +173,68 @@ BOOLEAN SaveMapTempFilesToSavedGameFile( HWFILE hFile )
 			//Save the Temp Item Files to the saved game file
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_ITEM_TEMP_FILE_EXISTS )
 			{
-				AddTempFileToSavedGame( hFile, SF_ITEM_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !AddTempFileToSavedGame( hFile, SF_ITEM_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 			// Save the Rotting Corpse Temp file to the saved game file
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_ROTTING_CORPSE_TEMP_FILE_EXISTS )
 			{
-				AddTempFileToSavedGame( hFile, SF_ROTTING_CORPSE_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !AddTempFileToSavedGame( hFile, SF_ROTTING_CORPSE_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 
 			// Save the Map Modifications Temp file to the saved game file
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS )
 			{
-				AddTempFileToSavedGame( hFile, SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !AddTempFileToSavedGame( hFile, SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 			//Save the Door Table temp file to the saved game file
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_DOOR_TABLE_TEMP_FILES_EXISTS )
 			{
-				AddTempFileToSavedGame( hFile, SF_DOOR_TABLE_TEMP_FILES_EXISTS, sMapX, sMapY, 0 );
+				if ( !AddTempFileToSavedGame( hFile, SF_DOOR_TABLE_TEMP_FILES_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 			//Save the revealed status temp file to the saved game file
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_REVEALED_STATUS_TEMP_FILE_EXISTS )
 			{
-				AddTempFileToSavedGame( hFile, SF_REVEALED_STATUS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !AddTempFileToSavedGame( hFile, SF_REVEALED_STATUS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 			//Save the door status temp file to the saved game file
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_DOOR_STATUS_TEMP_FILE_EXISTS )
 			{
-				AddTempFileToSavedGame( hFile, SF_DOOR_STATUS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !AddTempFileToSavedGame( hFile, SF_DOOR_STATUS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS )
 			{
-				AddTempFileToSavedGame( hFile, SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !AddTempFileToSavedGame( hFile, SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_CIV_PRESERVED_TEMP_FILE_EXISTS )
 			{
-				AddTempFileToSavedGame( hFile, SF_CIV_PRESERVED_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !AddTempFileToSavedGame( hFile, SF_CIV_PRESERVED_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS )
 			{
-				AddTempFileToSavedGame( hFile, SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !AddTempFileToSavedGame( hFile, SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS )
 			{
-				AddTempFileToSavedGame( hFile, SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !AddTempFileToSavedGame( hFile, SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 
@@ -237,57 +248,67 @@ BOOLEAN SaveMapTempFilesToSavedGameFile( HWFILE hFile )
 	{
 		if( TempNode->uiFlags & SF_ITEM_TEMP_FILE_EXISTS )
 		{
-			AddTempFileToSavedGame( hFile, SF_ITEM_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !AddTempFileToSavedGame( hFile, SF_ITEM_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		if( TempNode->uiFlags & SF_ROTTING_CORPSE_TEMP_FILE_EXISTS )
 		{
-			AddTempFileToSavedGame( hFile, SF_ROTTING_CORPSE_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !AddTempFileToSavedGame( hFile, SF_ROTTING_CORPSE_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		// Save the Map Modifications Temp file to the saved game file
 		if( TempNode->uiFlags & SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS )
 		{
-			AddTempFileToSavedGame( hFile, SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !AddTempFileToSavedGame( hFile, SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		
 		//Save the door table to the saved game file
 		if( TempNode->uiFlags & SF_DOOR_TABLE_TEMP_FILES_EXISTS )
 		{
-			AddTempFileToSavedGame( hFile, SF_DOOR_TABLE_TEMP_FILES_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !AddTempFileToSavedGame( hFile, SF_DOOR_TABLE_TEMP_FILES_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		//Save the revealed status temp file to the saved game file
 		if( TempNode->uiFlags & SF_REVEALED_STATUS_TEMP_FILE_EXISTS )
 		{
-			AddTempFileToSavedGame( hFile, SF_REVEALED_STATUS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !AddTempFileToSavedGame( hFile, SF_REVEALED_STATUS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		//Save the door status temp file to the saved game file
 		if( TempNode->uiFlags & SF_DOOR_STATUS_TEMP_FILE_EXISTS )
 		{
-			AddTempFileToSavedGame( hFile, SF_DOOR_STATUS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !AddTempFileToSavedGame( hFile, SF_DOOR_STATUS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		if( TempNode->uiFlags & SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS )
 		{
-			AddTempFileToSavedGame( hFile, SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !AddTempFileToSavedGame( hFile, SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		if( TempNode->uiFlags & SF_CIV_PRESERVED_TEMP_FILE_EXISTS )
 		{
-			AddTempFileToSavedGame( hFile, SF_CIV_PRESERVED_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !AddTempFileToSavedGame( hFile, SF_CIV_PRESERVED_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		if( TempNode->uiFlags & SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS )
 		{
-			AddTempFileToSavedGame( hFile, SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !AddTempFileToSavedGame( hFile, SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		if( TempNode->uiFlags & SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS )
 		{
-			AddTempFileToSavedGame( hFile, SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !AddTempFileToSavedGame( hFile, SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		//ttt
@@ -347,7 +368,8 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 		{
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_ITEM_TEMP_FILE_EXISTS )
 			{
-				RetrieveTempFileFromSavedGame( hFile, SF_ITEM_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !RetrieveTempFileFromSavedGame( hFile, SF_ITEM_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 
 				//sync up the temp file data to the sector structure data
 				SynchronizeItemTempFileVisbleItemsToSectorInfoVisbleItems( sMapX, sMapY, 0, TRUE );
@@ -355,39 +377,47 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_ROTTING_CORPSE_TEMP_FILE_EXISTS )
 			{
-				RetrieveTempFileFromSavedGame( hFile, SF_ROTTING_CORPSE_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !RetrieveTempFileFromSavedGame( hFile, SF_ROTTING_CORPSE_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS )
 			{
-				RetrieveTempFileFromSavedGame( hFile, SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !RetrieveTempFileFromSavedGame( hFile, SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_DOOR_TABLE_TEMP_FILES_EXISTS )
 			{
-				RetrieveTempFileFromSavedGame( hFile, SF_DOOR_TABLE_TEMP_FILES_EXISTS, sMapX, sMapY, 0 );
+				if ( !RetrieveTempFileFromSavedGame( hFile, SF_DOOR_TABLE_TEMP_FILES_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 			//Get the revealed status temp file From the saved game file
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_REVEALED_STATUS_TEMP_FILE_EXISTS )
 			{
-				RetrieveTempFileFromSavedGame( hFile, SF_REVEALED_STATUS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !RetrieveTempFileFromSavedGame( hFile, SF_REVEALED_STATUS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 			//Get the revealed status temp file From the saved game file
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_DOOR_STATUS_TEMP_FILE_EXISTS )
 			{
-				RetrieveTempFileFromSavedGame( hFile, SF_DOOR_STATUS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !RetrieveTempFileFromSavedGame( hFile, SF_DOOR_STATUS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS )
 			{
-				RetrieveTempFileFromSavedGame( hFile, SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !RetrieveTempFileFromSavedGame( hFile, SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_CIV_PRESERVED_TEMP_FILE_EXISTS )
 			{
-				RetrieveTempFileFromSavedGame( hFile, SF_CIV_PRESERVED_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !RetrieveTempFileFromSavedGame( hFile, SF_CIV_PRESERVED_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
+
 				if ( (gTacticalStatus.uiFlags & LOADING_SAVED_GAME) && guiSaveGameVersion < 78 )
 				{
 					INT8 pMapName[ 128 ];
@@ -404,12 +434,14 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS )
 			{
-				RetrieveTempFileFromSavedGame( hFile, SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !RetrieveTempFileFromSavedGame( hFile, SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 			if( SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags & SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS )
 			{
-				RetrieveTempFileFromSavedGame( hFile, SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 );
+				if ( !RetrieveTempFileFromSavedGame( hFile, SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS, sMapX, sMapY, 0 ) )
+					return FALSE;
 			}
 
 
@@ -430,7 +462,8 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 	{
 		if( TempNode->uiFlags & SF_ITEM_TEMP_FILE_EXISTS )
 		{
-			RetrieveTempFileFromSavedGame( hFile, SF_ITEM_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !RetrieveTempFileFromSavedGame( hFile, SF_ITEM_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 
 			//sync up the temp file data to the sector structure data
 			SynchronizeItemTempFileVisbleItemsToSectorInfoVisbleItems( TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ, TRUE );
@@ -438,40 +471,47 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 
 		if( TempNode->uiFlags & SF_ROTTING_CORPSE_TEMP_FILE_EXISTS )
 		{
-			RetrieveTempFileFromSavedGame( hFile, SF_ROTTING_CORPSE_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !RetrieveTempFileFromSavedGame( hFile, SF_ROTTING_CORPSE_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 
 		if( TempNode->uiFlags & SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS )
 		{
-			RetrieveTempFileFromSavedGame( hFile, SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !RetrieveTempFileFromSavedGame( hFile, SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		if( TempNode->uiFlags & SF_DOOR_TABLE_TEMP_FILES_EXISTS )
 		{
-			RetrieveTempFileFromSavedGame( hFile, SF_DOOR_TABLE_TEMP_FILES_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !RetrieveTempFileFromSavedGame( hFile, SF_DOOR_TABLE_TEMP_FILES_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		//Get the revealed status temp file From the saved game file
 		if( TempNode->uiFlags & SF_REVEALED_STATUS_TEMP_FILE_EXISTS )
 		{
-			RetrieveTempFileFromSavedGame( hFile, SF_REVEALED_STATUS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !RetrieveTempFileFromSavedGame( hFile, SF_REVEALED_STATUS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		//Get the revealed status temp file From the saved game file
 		if( TempNode->uiFlags & SF_DOOR_STATUS_TEMP_FILE_EXISTS )
 		{
-			RetrieveTempFileFromSavedGame( hFile, SF_DOOR_STATUS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !RetrieveTempFileFromSavedGame( hFile, SF_DOOR_STATUS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		if( TempNode->uiFlags & SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS )
 		{
-			RetrieveTempFileFromSavedGame( hFile, SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !RetrieveTempFileFromSavedGame( hFile, SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		if( TempNode->uiFlags & SF_CIV_PRESERVED_TEMP_FILE_EXISTS )
 		{
-			RetrieveTempFileFromSavedGame( hFile, SF_CIV_PRESERVED_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !RetrieveTempFileFromSavedGame( hFile, SF_CIV_PRESERVED_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 			if ( (gTacticalStatus.uiFlags & LOADING_SAVED_GAME) && guiSaveGameVersion < 78 )
 			{
 				INT8 pMapName[ 128 ];
@@ -489,12 +529,14 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 
 		if( TempNode->uiFlags & SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS )
 		{
-			RetrieveTempFileFromSavedGame( hFile, SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !RetrieveTempFileFromSavedGame( hFile, SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		if( TempNode->uiFlags & SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS )
 		{
-			RetrieveTempFileFromSavedGame( hFile, SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+			if ( !RetrieveTempFileFromSavedGame( hFile, SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ ) )
+				return FALSE;
 		}
 
 		TempNode = TempNode->next;
