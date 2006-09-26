@@ -3526,6 +3526,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 		iSightRange = SoldierToBodyPartLineOfSightTest( pSoldier, sGridNo, pSoldier->bTargetLevel, pSoldier->bAimShotLocation, (UINT8) (MaxDistanceVisible() * 2), TRUE );	
 	}
 	
+	// WANNE NEW: 
 	if (iSightRange == -1) // didn't do a bodypart-based test
 	{
 		iSightRange = SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pSoldier->bTargetLevel, pSoldier->bTargetCubeLevel, (UINT8) (MaxDistanceVisible() * 2), TRUE );

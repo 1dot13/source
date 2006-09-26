@@ -2234,7 +2234,8 @@ UINT8 CalculateObjectWeight( OBJECTTYPE *pObject )
 				}
 				else
 				{
-					double weight = (double)uiMinWeight + (( (double)pObject->ubGunShotsLeft / (double)Weapon[pObject->usItem].ubMagSize) * ( (double)Item[ pObject->usGunAmmoItem].ubWeight - (double)uiMinWeight )) + 0.5; //Pulmu: Account for number of rounds left.
+					// WANNE: Added Pulmu's weight fix
+					double weight = (double)uiMinWeight + (( (double)pObject->ubGunShotsLeft / Magazine[Item[pObject->usGunAmmoItem].ubClassIndex].ubMagSize ) * ( (double)Item[ pObject->usGunAmmoItem].ubWeight - (double)uiMinWeight )) + 0.5; //Pulmu: Account for number of rounds left.
 					usWeight += (UINT16)weight;
 				}
 			}
