@@ -535,6 +535,8 @@ void LoadGameExternalOptions()
 	// Kaiden: Vehicle Inventory change - Added INI file Option VEHICLE_INVENTORY
 	gGameExternalOptions.fVehicleInventory					= iniReader.ReadBoolean("JA2 Gameplay Settings", "VEHICLE_INVENTORY", TRUE);
 
+	gGameExternalOptions.fEnableArmorCoverage				= iniReader.ReadBoolean("JA2 Tactical Settings", "ENABLE_ARMOR_COVERAGE", FALSE); // ShadoWarrior for Captain J's armor coverage
+
 	// ShadoWarrior: Tooltip changes (start)
 	gGameExternalOptions.ubSoldierTooltipDetailLevel		= iniReader.ReadInteger("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DETAIL_LEVEL", 1);
 

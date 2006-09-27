@@ -991,6 +991,7 @@ INT32 ArmourPercent( SOLDIERTYPE * pSoldier )
 		}
 		else
 		{
+			iVest = 65 * iVest / ( Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubProtection + Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
 		}
 	}
 	else
@@ -1003,6 +1004,7 @@ INT32 ArmourPercent( SOLDIERTYPE * pSoldier )
 		iHelmet = EffectiveArmour( &(pSoldier->inv[HELMETPOS]) );
 		iDivideValue = ( Armour[ Item[ SPECTRA_HELMET_18 ].ubClassIndex ].ubProtection * Armour[ Item[ SPECTRA_HELMET_18 ].ubClassIndex ].ubCoverage );
 
+		// WANNE: Just to be on the save side
 		if (iDivideValue > 0)
 		{
 			// convert to % of best; ignoring bug-treated stuff
@@ -1010,6 +1012,7 @@ INT32 ArmourPercent( SOLDIERTYPE * pSoldier )
 		}
 		else
 		{
+			iHelmet = 15 * iHelmet / Armour[ Item[ SPECTRA_HELMET_18 ].ubClassIndex ].ubProtection;
 		}
 	}
 	else
@@ -1022,6 +1025,7 @@ INT32 ArmourPercent( SOLDIERTYPE * pSoldier )
 		iLeg = EffectiveArmour( &(pSoldier->inv[LEGPOS]) );
 		iDivideValue = ( Armour[ Item[ SPECTRA_LEGGINGS_18 ].ubClassIndex ].ubProtection * Armour[ Item[ SPECTRA_LEGGINGS_18 ].ubClassIndex ].ubCoverage );
 
+		// WANNE: Just to be on the save side
 		if (iDivideValue > 0)
 		{
 			// convert to % of best; ignoring bug-treated stuff
@@ -1029,6 +1033,7 @@ INT32 ArmourPercent( SOLDIERTYPE * pSoldier )
 		}
 		else
 		{
+			iLeg = 25 * iLeg / Armour[ Item[ SPECTRA_LEGGINGS_18 ].ubClassIndex ].ubProtection;
 		}
 	}
 	else
