@@ -957,7 +957,7 @@ INT32 EffectiveArmour( OBJECTTYPE * pObj )
 		return( 0 );
 	}
 	iValue = Armour[ Item[pObj->usItem].ubClassIndex ].ubProtection;
-	iValue = iValue * pObj->bStatus[0] / 100;
+	iValue = iValue * pObj->bStatus[0] * Armour[ Item[pObj->usItem].ubClassIndex ].ubCoverage / 10000;
 
 //	bPlate = FindAttachment( pObj, CERAMIC_PLATES );
 	bPlate = FindFirstArmourAttachment( pObj );
@@ -966,7 +966,7 @@ INT32 EffectiveArmour( OBJECTTYPE * pObj )
 		INT32 iValue2;
 
 		iValue2 = Armour[ Item[ pObj->usAttachItem[bPlate] ].ubClassIndex ].ubProtection;
-		iValue2 = iValue2 * pObj->bAttachStatus[ bPlate ] / 100;
+		iValue2 = iValue2 * pObj->bAttachStatus[ bPlate ] * Armour[ Item[ pObj->usAttachItem[bPlate] ].ubClassIndex ].ubCoverage / 10000;
 
 		iValue += iValue2;
 	}
@@ -976,12 +976,22 @@ INT32 EffectiveArmour( OBJECTTYPE * pObj )
 INT32 ArmourPercent( SOLDIERTYPE * pSoldier )
 {
 	INT32 iVest, iHelmet, iLeg;
+	INT32 iDivideValue;
 
 	if (pSoldier->inv[VESTPOS].usItem)
 	{
 		iVest = EffectiveArmour( &(pSoldier->inv[VESTPOS]) );
-		// convert to % of best; ignoring bug-treated stuff
-		iVest = 65 * iVest / ( Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubProtection + Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection );
+		iDivideValue = ( ( Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubProtection * Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubCoverage ) + ( Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection * Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubCoverage ) );
+
+		// WANNE: Just to be on the save side
+		if (iDivideValue > 0)
+		{
+			// convert to % of best; ignoring bug-treated stuff
+			iVest = 6500 * iVest / iDivideValue;
+		}
+		else
+		{
+		}
 	}
 	else
 	{
@@ -991,8 +1001,16 @@ INT32 ArmourPercent( SOLDIERTYPE * pSoldier )
 	if (pSoldier->inv[HELMETPOS].usItem)
 	{
 		iHelmet = EffectiveArmour( &(pSoldier->inv[HELMETPOS]) );
-		// convert to % of best; ignoring bug-treated stuff
-		iHelmet = 15 * iHelmet / Armour[ Item[ SPECTRA_HELMET_18 ].ubClassIndex ].ubProtection;
+		iDivideValue = ( Armour[ Item[ SPECTRA_HELMET_18 ].ubClassIndex ].ubProtection * Armour[ Item[ SPECTRA_HELMET_18 ].ubClassIndex ].ubCoverage );
+
+		if (iDivideValue > 0)
+		{
+			// convert to % of best; ignoring bug-treated stuff
+			iHelmet = 1500 * iHelmet / iDivideValue;
+		}
+		else
+		{
+		}
 	}
 	else
 	{
@@ -1002,8 +1020,16 @@ INT32 ArmourPercent( SOLDIERTYPE * pSoldier )
 	if (pSoldier->inv[LEGPOS].usItem)
 	{
 		iLeg = EffectiveArmour( &(pSoldier->inv[LEGPOS]) );
-		// convert to % of best; ignoring bug-treated stuff
-		iLeg = 25 * iLeg / Armour[ Item[ SPECTRA_LEGGINGS_18 ].ubClassIndex ].ubProtection;
+		iDivideValue = ( Armour[ Item[ SPECTRA_LEGGINGS_18 ].ubClassIndex ].ubProtection * Armour[ Item[ SPECTRA_LEGGINGS_18 ].ubClassIndex ].ubCoverage );
+
+		if (iDivideValue > 0)
+		{
+			// convert to % of best; ignoring bug-treated stuff
+			iLeg = 2500 * iLeg / iDivideValue;
+		}
+		else
+		{
+		}
 	}
 	else
 	{
@@ -1022,7 +1048,7 @@ INT32 ExplosiveEffectiveArmour( OBJECTTYPE * pObj )
 		return( 0 );
 	}
 	iValue = Armour[ Item[pObj->usItem].ubClassIndex ].ubProtection;
-	iValue = iValue * pObj->bStatus[0] / 100;
+	iValue = iValue * pObj->bStatus[0] * Armour[ Item[pObj->usItem].ubClassIndex ].ubCoverage / 10000;
 	if ( Item[pObj->usItem].flakjacket )
 	{
 		// increase value for flak jackets!
@@ -1035,7 +1061,7 @@ INT32 ExplosiveEffectiveArmour( OBJECTTYPE * pObj )
 		INT32 iValue2;
 
 		iValue2 = Armour[ Item[ pObj->usAttachItem[bPlate] ].ubClassIndex ].ubProtection;
-		iValue2 = iValue2 * pObj->bAttachStatus[ bPlate ] / 100;
+		iValue2 = iValue2 * pObj->bAttachStatus[ bPlate ] * Armour[ Item[ pObj->usAttachItem[bPlate] ].ubClassIndex ].ubCoverage / 10000;
 
 		iValue += iValue2;
 	}
@@ -1051,7 +1077,7 @@ INT8 ArmourVersusExplosivesPercent( SOLDIERTYPE * pSoldier )
 	{
 		iVest = ExplosiveEffectiveArmour( &(pSoldier->inv[VESTPOS]) );
 		// convert to % of best; ignoring bug-treated stuff
-		iVest = __min( 65, 65 * iVest / ( Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubProtection + Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection) );
+		iVest = __min( 65, 6500 * iVest / ( ( Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubProtection * Armour[ Item[ SPECTRA_VEST_18 ].ubClassIndex ].ubCoverage ) + ( Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubProtection * Armour[ Item[ CERAMIC_PLATES ].ubClassIndex ].ubCoverage ) ) );
 	}
 	else
 	{
@@ -1062,7 +1088,7 @@ INT8 ArmourVersusExplosivesPercent( SOLDIERTYPE * pSoldier )
 	{
 		iHelmet = ExplosiveEffectiveArmour( &(pSoldier->inv[HELMETPOS]) );
 		// convert to % of best; ignoring bug-treated stuff
-		iHelmet = __min( 15, 15 * iHelmet / Armour[ Item[ SPECTRA_HELMET_18 ].ubClassIndex ].ubProtection );
+		iHelmet = __min( 15, 1500 * iHelmet / ( Armour[ Item[ SPECTRA_HELMET_18 ].ubClassIndex ].ubProtection * Armour[ Item[ SPECTRA_HELMET_18 ].ubClassIndex ].ubCoverage ) );
 	}
 	else
 	{
@@ -1073,7 +1099,7 @@ INT8 ArmourVersusExplosivesPercent( SOLDIERTYPE * pSoldier )
 	{
 		iLeg = ExplosiveEffectiveArmour( &(pSoldier->inv[LEGPOS]) );
 		// convert to % of best; ignoring bug-treated stuff
-		iLeg = __min( 25, 25 * iLeg / Armour[ Item[ SPECTRA_LEGGINGS_18 ].ubClassIndex ].ubProtection );
+		iLeg = __min( 25, 2500 * iLeg / ( Armour[ Item[ SPECTRA_LEGGINGS_18 ].ubClassIndex ].ubProtection * Armour[ Item[ SPECTRA_LEGGINGS_18 ].ubClassIndex ].ubCoverage ) );
 	}
 	else
 	{
@@ -3526,7 +3552,6 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 		iSightRange = SoldierToBodyPartLineOfSightTest( pSoldier, sGridNo, pSoldier->bTargetLevel, pSoldier->bAimShotLocation, (UINT8) (MaxDistanceVisible() * 2), TRUE );	
 	}
 	
-	// WANNE NEW: 
 	if (iSightRange == -1) // didn't do a bodypart-based test
 	{
 		iSightRange = SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pSoldier->bTargetLevel, pSoldier->bTargetCubeLevel, (UINT8) (MaxDistanceVisible() * 2), TRUE );
@@ -4001,14 +4026,26 @@ INT32 CalcBodyImpactReduction( UINT8 ubAmmoType, UINT8 ubHitLocation )
 	return( iReduction );
 }
 
-INT32 ArmourProtection( SOLDIERTYPE * pTarget, UINT16 ubArmourType, INT8 * pbStatus, INT32 iImpact, UINT8 ubAmmoType )
+INT32 ArmourProtection( SOLDIERTYPE * pTarget, UINT16 ubArmourType, INT8 * pbStatus, INT32 iImpact, UINT8 ubAmmoType, BOOLEAN *plateHit )
 {
-	INT32		iProtection, iAppliedProtection, iFailure;
+	INT32		iProtection, iAppliedProtection, iFailure, iCoverage;
 
 	iProtection = Armour[ ubArmourType ].ubProtection;
+	iCoverage = Armour [ ubArmourType ].ubCoverage;
+	if ( *plateHit ) iCoverage = 100;
 
 	if ( !AM_A_ROBOT( pTarget ) )
 	{
+		// check for the bullet missing armor due to coverage
+		iFailure = PreRandom( 100 ) + 1 - iCoverage;
+		if (iFailure > 0 )
+		{
+			if (Armour[ ubArmourType ].ubArmourClass == ARMOURCLASS_VEST && !AmmoTypes[ubAmmoType].ignoreArmour)
+			{
+			 	return ( iImpact/2 );
+			}
+			else return ( 0 );
+		}
 		// check for the bullet hitting a weak spot in the armour
 		iFailure = PreRandom( 100 ) + 1 - *pbStatus;
 		if (iFailure > 0)
@@ -4016,6 +4053,7 @@ INT32 ArmourProtection( SOLDIERTYPE * pTarget, UINT16 ubArmourType, INT8 * pbSta
 			iProtection -= iFailure;
 			if (iProtection < 0)
 			{
+				if (Armour[ ubArmourType ].ubArmourClass == ARMOURCLASS_PLATE ) *plateHit=true;
 				return( 0 );
 			}
 		}
@@ -4077,6 +4115,7 @@ INT32 ArmourProtection( SOLDIERTYPE * pTarget, UINT16 ubArmourType, INT8 * pbSta
 	}
 
 	// return armour protection
+	if (Armour[ ubArmourType ].ubArmourClass == ARMOURCLASS_PLATE ) *plateHit=true;
 	return( iProtection );
 }
 
@@ -4086,14 +4125,16 @@ INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 u
 	INT32					iTotalProtection = 0, iSlot;
 	OBJECTTYPE *	pArmour;
 	INT8					bPlatePos = -1;
+	BOOLEAN					plateHit = false;
 
 	if (pTarget->uiStatusFlags & SOLDIER_VEHICLE)
 	{
 		INT8 bDummyStatus = 100;
+		BOOLEAN dummyCoverage = true;
 
 		//bDummyStatus = (INT8) pVehicleList[ pTarget->bVehicleID ].sExternalArmorLocationsStatus[ ubHitLocation ];
 
-		iTotalProtection += ArmourProtection( pTarget, (UINT8) pVehicleList[ pTarget->bVehicleID ].sArmourType, &bDummyStatus, iImpact, ubAmmoType );
+		iTotalProtection += ArmourProtection( pTarget, (UINT8) pVehicleList[ pTarget->bVehicleID ].sArmourType, &bDummyStatus, iImpact, ubAmmoType, &dummyCoverage );
 
 		//pVehicleList[ pTarget->bVehicleID ].sExternalArmorLocationsStatus[ ubHitLocation ] = bDummyStatus; 
 
@@ -4129,7 +4170,7 @@ INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 u
 				if (bPlatePos != -1)
 				{
 					// bullet got through jacket; apply ceramic plate armour
-					iTotalProtection += ArmourProtection( pTarget, Item[pArmour->usAttachItem[bPlatePos]].ubClassIndex, &(pArmour->bAttachStatus[bPlatePos]), iImpact, ubAmmoType );
+					iTotalProtection += ArmourProtection( pTarget, Item[pArmour->usAttachItem[bPlatePos]].ubClassIndex, &(pArmour->bAttachStatus[bPlatePos]), iImpact, ubAmmoType, &plateHit );
 					if ( pArmour->bAttachStatus[bPlatePos] < USABLE )
 					{
 						// destroy plates!
@@ -4151,7 +4192,7 @@ INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 u
 			// if the plate didn't stop the bullet...
 			if ( iImpact > iTotalProtection )
 			{
-				iTotalProtection += ArmourProtection( pTarget, Item[pArmour->usItem].ubClassIndex, &(pArmour->bStatus[0]), iImpact, ubAmmoType );
+				iTotalProtection += ArmourProtection( pTarget, Item[pArmour->usItem].ubClassIndex, &(pArmour->bStatus[0]), iImpact, ubAmmoType, &plateHit );
 				if ( pArmour->bStatus[ 0 ] < USABLE )
 				{
 					//Madd: put any attachments that someone might have added to the armour in the merc's inventory
