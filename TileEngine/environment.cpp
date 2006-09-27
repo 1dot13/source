@@ -421,11 +421,17 @@ void ForecastDayEvents( )
 
 				ubStormIntensity = 0;
 
-				// Randomze for a storm!
-				if ( Random( 10 ) < 5 )
+				
+				//Kaiden: making thunderstorms optional
+				if (gGameExternalOptions.gfAllowLightning)
 				{
-					ubStormIntensity = 1;
+					// Randomze for a storm!
+					if ( Random( 10 ) < 5 )
+					{
+						ubStormIntensity = 1;
+					}
 				}
+
 	
 				if( gGameExternalOptions.gfAllowRain ) AddSameDayRangedStrategicEvent( EVENT_RAINSTORM, uiStartTime, uiEndTime - uiStartTime, ubStormIntensity );
 
