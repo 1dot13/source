@@ -242,6 +242,7 @@ typedef struct
 	double ubBreathGainReductionPerRainIntensity;
 
 	// Thunder settings
+	BOOLEAN gfAllowLightning;
 	UINT32 guiMinLightningInterval;
 	UINT32 guiMaxLightningInterval;
 	UINT32 guiMinDLInterval;

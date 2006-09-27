@@ -366,6 +366,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubBreathGainReductionPerRainIntensity			= iniReader.ReadFloat("JA2 Rain Settings","BREATH_GAIN_REDUCTION_PER_RAIN_INTENSITY",25);
 
 	// Thunder settings
+	gGameExternalOptions.gfAllowLightning							= iniReader.ReadBoolean("JA2 Thunder Settings","ALLOW_LIGHTNING",0);
 	gGameExternalOptions.guiMinLightningInterval			= iniReader.ReadInteger("JA2 Thunder Settings","MIN_INTERVAL_BETWEEN_LIGHTNINGS_IN_REAL_TIME_SECONDS",5);
 	gGameExternalOptions.guiMaxLightningInterval			= iniReader.ReadInteger("JA2 Thunder Settings","MAX_INTERVAL_BETWEEN_LIGHTNINGS_IN_REAL_TIME_SECONDS",15);
 	gGameExternalOptions.guiMinDLInterval					= iniReader.ReadInteger("JA2 Thunder Settings","MIN_INTERVAL_BETWEEN_LIGHTNING_AND_THUNDERCLAPS_IN_SECONDS",1);
