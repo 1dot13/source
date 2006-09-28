@@ -3386,8 +3386,7 @@ UINT8 WhoIsThere2( INT16 sGridNo, INT8 bLevel )
 			// person must either have their pSoldier->sGridNo here or be non-passable
 			if ( (pStructure->fFlags & STRUCTURE_PERSON) && ( !(pStructure->fFlags & STRUCTURE_PASSABLE) || MercPtrs[ pStructure->usStructureID ]->sGridNo == sGridNo) )
 			{
-				// WANNE NEW: CTH Fix
-				//if ( ( bLevel == 0 && pStructure->sCubeOffset == 0 ) || (bLevel > 0 && pStructure->sCubeOffset > 0) )
+				if ( ( bLevel == 0 && pStructure->sCubeOffset == 0 ) || (bLevel > 0 && pStructure->sCubeOffset > 0) )
 				{
 					// found a person, on the right level!
 					// structure ID and merc ID are identical for merc structures

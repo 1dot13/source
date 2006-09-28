@@ -366,7 +366,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubBreathGainReductionPerRainIntensity			= iniReader.ReadFloat("JA2 Rain Settings","BREATH_GAIN_REDUCTION_PER_RAIN_INTENSITY",25);
 
 	// Thunder settings
-	gGameExternalOptions.gfAllowLightning							= iniReader.ReadBoolean("JA2 Thunder Settings","ALLOW_LIGHTNING",0);
+	gGameExternalOptions.gfAllowLightning					= iniReader.ReadBoolean("JA2 Thunder Settings","ALLOW_LIGHTNING",TRUE);
 	gGameExternalOptions.guiMinLightningInterval			= iniReader.ReadInteger("JA2 Thunder Settings","MIN_INTERVAL_BETWEEN_LIGHTNINGS_IN_REAL_TIME_SECONDS",5);
 	gGameExternalOptions.guiMaxLightningInterval			= iniReader.ReadInteger("JA2 Thunder Settings","MAX_INTERVAL_BETWEEN_LIGHTNINGS_IN_REAL_TIME_SECONDS",15);
 	gGameExternalOptions.guiMinDLInterval					= iniReader.ReadInteger("JA2 Thunder Settings","MIN_INTERVAL_BETWEEN_LIGHTNING_AND_THUNDERCLAPS_IN_SECONDS",1);
@@ -472,11 +472,9 @@ void LoadGameExternalOptions()
 	// WANNE: Drop Items
 	gGameExternalOptions.ubEnemiesItemDrop					= iniReader.ReadInteger("JA2 Gameplay Settings","ENEMIES_ITEM_DROP", 0);
 
-	// WANNE: Auto save: I did not set USE_AUTO_SAVE in the ja2_options.ini, because
-	// the game always crashes after a "normal" savegame is loaded after loading an autosave
+	// WANNE: Auto save: Attention: The game always crashes after a "normal" savegame is loaded after loading an autosave
 	// So for now USE_AUTO_SAVE is always false.
 	// The game crashes when removing mouse region that are not set
-	// After we fix that bug, we can make the entry USE_AUTO_SAVE in the ja2_options.ini
 	gGameExternalOptions.gfUseAutoSave						= iniReader.ReadBoolean("JA2 Gameplay Settings","USE_AUTO_SAVE",FALSE);
 
 	// Militia settings
