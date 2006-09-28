@@ -640,7 +640,13 @@ Removed so that the user can click on it and get displayed a message that the qu
 					{
 						memset( &SaveGameHeader, 0, sizeof( SAVED_GAME_HEADER ) );
 						gbSaveGameSelectedLocation[ gbSelectedSaveLocation ] = SLG_UNSELECTED_SLOT_GRAPHICS_NUMBER;
-						gbSaveGameArray[ gbSelectedSaveLocation ] = FALSE;
+						
+						// WANNE: NEW
+						if (gbSelectedSaveLocation != SAVE__END_TURN_NUM)
+						{
+							gbSaveGameArray[ gbSelectedSaveLocation ] = FALSE;
+						}
+						
 						gbSelectedSaveLocation = gGameSettings.bLastSavedGameSlot = -1;
 					}
 
