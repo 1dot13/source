@@ -494,7 +494,9 @@ template void _FailMessage<char const *, char const *>(char const *, unsigned in
 template void _FailMessage<int, char const *>(int, unsigned int, char const *);
 template void _FailMessage<int, char *>(int, unsigned int, char *);
 template void _FailMessage<char *, char *>(char *, unsigned int, char *);
-// template void _FailMessage<char *, char *>(unsigned char *, unsigned int, char *);
+#if _MSC_VER <= 1200
+	template void _FailMessage<char *, char *>(unsigned char *, unsigned int, char *);
+#endif
 template void _FailMessage<unsigned char *, char const *>(unsigned char *, unsigned int, char const *);
 template <typename type1, typename type2>
 void _FailMessage( type1 pString, UINT32 uiLineNum, type2 pSourceFile )
