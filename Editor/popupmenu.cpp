@@ -129,7 +129,7 @@ void InitPopupMenu( INT32 iButtonID, UINT8 ubPopupMenuID, UINT8 ubDirection )
 	switch( ubPopupMenuID )
 	{
 		case CHANGETSET_POPUP:	//change tileset
-			gPopup.ubNumEntries = NUM_TILESETS;
+			gPopup.ubNumEntries = gubNumSets;
 			break;
 		case OWNERSHIPGROUP_POPUP:
 		case CHANGECIVGROUP_POPUP:

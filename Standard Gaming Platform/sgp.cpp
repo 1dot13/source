@@ -867,6 +867,14 @@ void GetRuntimeSettings( )
 		iResolution = atoi(zScreenResolution);
 	}
 
+#ifdef JA2EDITOR
+		if (GetPrivateProfileString( "Ja2 Settings","EDITOR_SCREEN_RESOLUTION", "", zScreenResolution, 50, INIFile ))
+		{
+			iResolution = atoi(zScreenResolution);
+		}
+#endif
+
+
 	int	iResX;
 	int iResY;
 

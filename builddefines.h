@@ -12,11 +12,6 @@
 // If we want to include the editor
 //#define JA2EDITOR
 
-// Kaiden: So only the JA2EDITOR define needs to be uncommented
-#ifdef JA2EDITOR
-	#define JA2TBETAVERSION
-#endif
-
 #ifdef _DEBUG
 	#ifndef JA2TESTVERSION
 		#define JA2TESTVERSION
@@ -30,13 +25,14 @@
 #endif
 
 
-// Kaiden: Comment out this section when building the EDITOR
-// It slows the thing down horribly and isn't neccessary
-// Unless a debug version is needed.
+// Kaiden: Not defining these for Editor unless we
+// end up needing a debug version for it.
 #ifdef JA2BETAVERSION
-	#define SGP_DEBUG
-	#define	FORCE_ASSERTS_ON
-	#define SGP_VIDEO_DEBUGGING
+	#ifndef JA2EDITOR
+		#define SGP_DEBUG
+		#define	FORCE_ASSERTS_ON
+		#define SGP_VIDEO_DEBUGGING
+	#endif
 #endif
 
 //#define CRIPPLED_VERSION
