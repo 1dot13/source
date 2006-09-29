@@ -236,8 +236,10 @@ BOOLEAN CreateAIViewer()
 	UINT16 str[6];
 
 	//Kaiden: Loading INI file to read Values...
-	CIniReader iniReader("..\\Ja2_Options.ini");
-	INT32 iMaxEnemyGroupSize = iniReader.ReadInteger("Options","MAX_STRATEGIC_TEAM_SIZE",20);
+	// Here's another one of those INI reads
+	// killing the Map Editor>
+	//CIniReader iniReader("..\\Ja2_Options.ini");
+	//INT32 iMaxEnemyGroupSize = iniReader.ReadInteger("Options","MAX_STRATEGIC_TEAM_SIZE",20);
 
 	//Check to see if data exists.
 	if( !FileExists( "DevTools\\arulco.sti" )			|| 
@@ -377,13 +379,13 @@ BOOLEAN CreateAIViewer()
 
 	//Add the enemy population override fields
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
-	StringFromValue( str, gsAINumAdmins, iMaxEnemyGroupSize );
+	StringFromValue( str, gsAINumAdmins, gGameExternalOptions.iMaxEnemyGroupSize );
 	AddTextInputField( 10, VIEWER_BOTTOM + 30, 25, 15, MSYS_PRIORITY_NORMAL, str, 2, INPUTTYPE_NUMERICSTRICT );
-	StringFromValue( str, gsAINumTroops, iMaxEnemyGroupSize );
+	StringFromValue( str, gsAINumTroops, gGameExternalOptions.iMaxEnemyGroupSize );
 	AddTextInputField( 10, VIEWER_BOTTOM + 50, 25, 15, MSYS_PRIORITY_NORMAL, str, 2, INPUTTYPE_NUMERICSTRICT );
-	StringFromValue( str, gsAINumElites, iMaxEnemyGroupSize );
+	StringFromValue( str, gsAINumElites, gGameExternalOptions.iMaxEnemyGroupSize );
 	AddTextInputField( 10, VIEWER_BOTTOM + 70, 25, 15, MSYS_PRIORITY_NORMAL, str, 2, INPUTTYPE_NUMERICSTRICT );
-	StringFromValue( str, gsAINumCreatures, iMaxEnemyGroupSize );
+	StringFromValue( str, gsAINumCreatures, gGameExternalOptions.iMaxEnemyGroupSize );
 	AddTextInputField( 10, VIEWER_BOTTOM + 90, 25, 15, MSYS_PRIORITY_NORMAL, str, 2, INPUTTYPE_NUMERICSTRICT );
 
 	//Press buttons in based on current settings
@@ -1428,19 +1430,23 @@ void ExtractAndUpdatePopulations()
 
 
 	//Kaiden: Loading INI file to read Values...
-	CIniReader iniReader("..\\Ja2_Options.ini");
-	INT32 iMaxEnemyGroupSize = iniReader.ReadInteger("Options","MAX_STRATEGIC_TEAM_SIZE",20);
+	//Tag for later - this is one of the reasons the 
+	// Map Editor won't compile. And I feel stupid about it.
+	// Pointing to a static location for the INI file.
+	// Not only bad, the file is no longer there.
+	//CIniReader iniReader("..\\Ja2_Options.ini");
+	//INT32 iMaxEnemyGroupSize = iniReader.ReadInteger("Options","MAX_STRATEGIC_TEAM_SIZE",20);
 
-	gsAINumAdmins = min( GetNumericStrictValueFromField( 0 ), iMaxEnemyGroupSize );
+	gsAINumAdmins = min( GetNumericStrictValueFromField( 0 ), gGameExternalOptions.iMaxEnemyGroupSize );
 	SetInputFieldStringWithNumericStrictValue( 0, gsAINumAdmins );
 
-	gsAINumTroops = min( GetNumericStrictValueFromField( 1 ), iMaxEnemyGroupSize );
+	gsAINumTroops = min( GetNumericStrictValueFromField( 1 ), gGameExternalOptions.iMaxEnemyGroupSize );
 	SetInputFieldStringWithNumericStrictValue( 1, gsAINumTroops );
 
-	gsAINumElites = min( GetNumericStrictValueFromField( 2 ), iMaxEnemyGroupSize );
+	gsAINumElites = min( GetNumericStrictValueFromField( 2 ), gGameExternalOptions.iMaxEnemyGroupSize );
 	SetInputFieldStringWithNumericStrictValue( 2, gsAINumElites );
 
-	gsAINumCreatures = min( GetNumericStrictValueFromField( 3 ), iMaxEnemyGroupSize );
+	gsAINumCreatures = min( GetNumericStrictValueFromField( 3 ), gGameExternalOptions.iMaxEnemyGroupSize );
 	SetInputFieldStringWithNumericStrictValue( 3, gsAINumCreatures );
 }
 

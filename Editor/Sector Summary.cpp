@@ -142,6 +142,7 @@ BOOLEAN gfRenderGrid;
 //layer.  When clear, the entire map is shown in full color.
 BOOLEAN gfRenderProgress;
 //When set, only the map section is rerendered.
+
 extern BOOLEAN gfRenderMap; // symbol already declared globally in AI Viewer.cpp (jonathanl)
 //Set whenever the ctrl key is held down.  This is used in conjunction with gfFileIO to determine whether the 
 //selected sector is to be saved instead of loaded when clear.
@@ -201,12 +202,13 @@ INT16 gsSectorX, gsSectorY;
 //The layer of the sector that is currently loaded in memory.
 INT32 gsSectorLayer;
 //The sector coordinates of the mouse position (yellow)
+
 extern INT16 gsHiSectorX; // symbol already declared globally in AI Viewer.cpp (jonathanl)
 extern INT16 gsHiSectorY; // symbol already declared globally in AI Viewer.cpp (jonathanl)
 //The sector coordinates of the selected sector (red)
+
 extern INT16 gsSelSectorX; // symbol already declared globally in AI Viewer.cpp (jonathanl)
 extern INT16 gsSelSectorY; // symbol already declared globally in AI Viewer.cpp (jonathanl)
-
 //Used to determine how long the F5 key has been held down for to determine whether or not the
 //summary is going to be persistant or not.
 UINT32 giInitTimer;

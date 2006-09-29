@@ -4,13 +4,18 @@
 #include "Language Defines.h"
 
 // Beta version
-// #define	JA2BETAVERSION
+//#define	JA2BETAVERSION
 
 // Normal test version
 // #define JA2TESTVERSION
 
 // If we want to include the editor
 //#define JA2EDITOR
+
+// Kaiden: So only the JA2EDITOR define needs to be uncommented
+#ifdef JA2EDITOR
+	#define JA2TBETAVERSION
+#endif
 
 #ifdef _DEBUG
 	#ifndef JA2TESTVERSION
@@ -24,6 +29,10 @@
 	#define JA2EDITOR
 #endif
 
+
+// Kaiden: Comment out this section when building the EDITOR
+// It slows the thing down horribly and isn't neccessary
+// Unless a debug version is needed.
 #ifdef JA2BETAVERSION
 	#define SGP_DEBUG
 	#define	FORCE_ASSERTS_ON

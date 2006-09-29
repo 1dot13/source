@@ -80,7 +80,13 @@ extern UINT8			gubAssertString[128];
 
 //*******************************************************************************************
 #endif
- 
+
+
+// Kaiden: Added this for Map Editor
+#ifdef JA2BETAVERSION
+	extern UINT8			gubAssertString[128];
+#endif
+	
 // Moved these out of the defines - debug mgr always initialized
 #define InitializeDebugManager()		DbgInitialize()
 #define ShutdownDebugManager()			DbgShutdown()
