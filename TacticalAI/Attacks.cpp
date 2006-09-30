@@ -2430,6 +2430,7 @@ void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN s
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CheckIfShotPossible");
 	UINT8 ubMinAPcost;
 	pBestShot->ubPossible = FALSE;
+	pBestShot->bWeaponIn = NO_SLOT;
 
 	if ( !TANK( pSoldier ) )
 	{
@@ -2452,7 +2453,7 @@ void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN s
 			RearrangePocket(pSoldier, HANDPOS, pBestShot->bWeaponIn, TEMPORARILY);
 		}
 
-		if ( (!suppressionFire && ( (IsScoped(pObj) && GunRange(pObj) > 30) || pSoldier->bOrders == SNIPER ) ) || (suppressionFire  && IsGunAutofireCapable(pSoldier,pBestShot->bWeaponIn ) && GetMagSize(pObj) > 30 && pObj->ubGunShotsLeft > 20 ))
+		if ( (!suppressionFire && ( (IsScoped(pObj) && GunRange(pObj) > MaxDistanceVisible() ) || pSoldier->bOrders == SNIPER ) ) || (suppressionFire  && IsGunAutofireCapable(pSoldier,pBestShot->bWeaponIn ) && GetMagSize(pObj) > 30 && pObj->ubGunShotsLeft > 20 ))
 		{
 			// get the minimum cost to attack with this item
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CheckIfShotPossible: getting min aps");

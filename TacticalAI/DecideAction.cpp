@@ -2222,7 +2222,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: weapon in slot #%d",BestShot.bWeaponIn));
 		OBJECTTYPE * gun = &pSoldier->inv[BestShot.bWeaponIn];
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: men in sector %d, ubspotters called by %d, nobody %d",gTacticalStatus.Team[pSoldier->bTeam].bMenInSector,gTacticalStatus.ubSpottersCalledForBy,NOBODY ));
-		if ( ( ( IsScoped(gun) && GunRange(gun) > 30 ) || pSoldier->bOrders == SNIPER ) &&
+		if ( ( ( IsScoped(gun) && GunRange(gun) > MaxDistanceVisible() ) || pSoldier->bOrders == SNIPER ) &&
 				 (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) &&
 				 (gTacticalStatus.ubSpottersCalledForBy == NOBODY))
 
