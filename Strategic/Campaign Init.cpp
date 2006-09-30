@@ -14,7 +14,7 @@
 	#include "Strategic AI.h"
 #endif
 
-extern void	InitStrategicMovementCosts();
+extern BOOLEAN InitStrategicMovementCosts();
 void InitKnowFacilitiesFlags( );
 
 UNDERGROUND_SECTORINFO* gpUndergroundSectorInfoTail = NULL;

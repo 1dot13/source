@@ -352,6 +352,10 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	if(!ReadInMapStructure(fileName))
 		return FALSE;
 		
+	// Lesh: Strategic movement costs will be read in Strategic\Strategic Movement Costs.cpp,
+	//       function BOOLEAN InitStrategicMovementCosts();
+	//       It is called several times from various places and acts after clearing SectorInfo array
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, EXPLOSIONDATAFILENAME);
     if(!ReadInExplosionDataStats(fileName))
@@ -409,7 +413,10 @@ UINT32 InitializeJA2(void)
 	}
 	
 	//needs to be called here to init the SectorInfo struct
-	InitStrategicMovementCosts( );
+	if ( !InitStrategicMovementCosts( ) )
+	{
+		return( ERROR_SCREEN );
+	}
 
 	// Init tactical engine
 	if ( !InitTacticalEngine( ) )

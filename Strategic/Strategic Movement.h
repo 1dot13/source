@@ -291,7 +291,7 @@ void ReportVehicleOutOfGas( INT32 iVehicleID, UINT8 ubSectorX, UINT8 ubSectorY )
 
 void RandomizePatrolGroupLocation( GROUP *pGroup );
 
-void InitStrategicMovementCosts();
+BOOLEAN InitStrategicMovementCosts();
 
 void PlaceGroupInSector( UINT8 ubGroupID, INT16 sPrevX, INT16 sPrevY, INT16 sNextX, INT16 sNextY, INT8 bZ, BOOLEAN fCheckForBattle );
 

@@ -38,34 +38,35 @@ typedef PARSE_STAGE;
 #define	ENEMYITEMCHOICESFILENAME				"EnemyItemChoices.xml"
 #define	IMPITEMCHOICESFILENAME					"IMPItemChoices.xml"
 
-#define	TONYINVENTORYFILENAME					"TonyInventory.xml"
-#define	DEVININVENTORYFILENAME					"DevinInventory.xml"
-#define	FRANZINVENTORYFILENAME					"FranzInventory.xml"
-#define	KEITHINVENTORYFILENAME					"KeithInventory.xml"
-#define	SAMINVENTORYFILENAME					"SamInventory.xml"
-#define	JAKEINVENTORYFILENAME					"JakeInventory.xml"
-#define	HOWARDINVENTORYFILENAME					"HowardInventory.xml"
-#define	GABBYINVENTORYFILENAME					"GabbyInventory.xml"
-#define	FRANKINVENTORYFILENAME					"FrankInventory.xml"
-#define	ELGININVENTORYFILENAME					"ElginInventory.xml"
-#define	MANNYINVENTORYFILENAME					"MannyInventory.xml"
-#define	HERVEINVENTORYFILENAME					"HerveInventory.xml"
-#define	PETERINVENTORYFILENAME					"PeterInventory.xml"
-#define	ALBERTOINVENTORYFILENAME				"AlbertoInventory.xml"
-#define	CARLOINVENTORYFILENAME					"CarloInventory.xml"
-#define	MICKEYINVENTORYFILENAME					"MickeyInventory.xml"
-#define	ARNIEINVENTORYFILENAME					"ArnieInventory.xml"
-#define	PERKOINVENTORYFILENAME					"PerkoInventory.xml"
-#define	FREDOINVENTORYFILENAME					"FredoInventory.xml"
+#define TONYINVENTORYFILENAME					"NPCInventory\\TonyInventory.xml"
+#define DEVININVENTORYFILENAME					"NPCInventory\\DevinInventory.xml"
+#define FRANZINVENTORYFILENAME					"NPCInventory\\FranzInventory.xml"
+#define KEITHINVENTORYFILENAME					"NPCInventory\\KeithInventory.xml"
+#define SAMINVENTORYFILENAME					"NPCInventory\\SamInventory.xml"
+#define JAKEINVENTORYFILENAME					"NPCInventory\\JakeInventory.xml"
+#define HOWARDINVENTORYFILENAME					"NPCInventory\\HowardInventory.xml"
+#define GABBYINVENTORYFILENAME					"NPCInventory\\GabbyInventory.xml"
+#define FRANKINVENTORYFILENAME					"NPCInventory\\FrankInventory.xml"
+#define ELGININVENTORYFILENAME					"NPCInventory\\ElginInventory.xml"
+#define MANNYINVENTORYFILENAME					"NPCInventory\\MannyInventory.xml"
+#define HERVEINVENTORYFILENAME					"NPCInventory\\HerveInventory.xml"
+#define PETERINVENTORYFILENAME					"NPCInventory\\PeterInventory.xml"
+#define ALBERTOINVENTORYFILENAME				"NPCInventory\\AlbertoInventory.xml"
+#define CARLOINVENTORYFILENAME					"NPCInventory\\CarloInventory.xml"
+#define MICKEYINVENTORYFILENAME					"NPCInventory\\MickeyInventory.xml"
+#define ARNIEINVENTORYFILENAME					"NPCInventory\\ArnieInventory.xml"
+#define PERKOINVENTORYFILENAME					"NPCInventory\\PerkoInventory.xml"
+#define FREDOINVENTORYFILENAME					"NPCInventory\\FredoInventory.xml"
 
 #define	BOBBYRAYSTRINGSFILENAME					"BobbyRayStrings.xml"
 #define AMMOCALIBERSTRINGSFILENAME				"AmmoCaliberStrings.xml"
-#define SOUNDSFILENAME							"Sounds.xml"
-#define BURSTSOUNDSFILENAME						"BurstSounds.xml"
 
-// Lesh: filename definition
+#define SOUNDSFILENAME							"Sounds\\Sounds.xml"
+#define BURSTSOUNDSFILENAME						"Sounds\\BurstSounds.xml"
+
 #define EXPLOSIONDATAFILENAME                   "ExplosionData.xml"
-#define CITYTABLEFILENAME "Cities.xml"
+#define CITYTABLEFILENAME                       "Map\\Cities.xml"
+#define MOVEMENTCOSTFILENAME                    "Map\\MovementCosts.xml"
 
 // WANNE: drops filename
 #define ENEMYWEAPONDROPSFILENAME				"EnemyWeaponDrops.xml"
@@ -144,12 +145,14 @@ extern BOOLEAN WriteEnemyArmourDropsStats(ARMOUR_DROPS *pEnemyArmourDrops, STR f
 extern BOOLEAN ReadInEnemyMiscDropsStats(MISC_DROPS *pEnemyMiscDrops, STR fileName);
 extern BOOLEAN WriteEnemyMiscDropsStats(MISC_DROPS *pEnemyMiscDrops, STR fileName);
 
-// Lesh: 2 lines added
+// Lesh: burst sounds and explosion info
 extern BOOLEAN ReadInBurstSoundArray(STR fileName);
 extern BOOLEAN WriteBurstSoundArray();
-// Lesh: over
-// Lesh: 2 new lines added for explosion data
 extern BOOLEAN ReadInExplosionDataStats(STR fileName);
 extern BOOLEAN WriteExplosionDataStats();
-// Lesh: over
+
+//Lesh: strategic movement costs
+extern BOOLEAN ReadInStrategicMovementCosts(STR fileName);
+extern BOOLEAN WriteInStrategicMovementCosts(STR fileName);
+
 #endif
