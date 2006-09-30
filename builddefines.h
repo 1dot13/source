@@ -25,14 +25,11 @@
 #endif
 
 
-// Kaiden: Not defining these for Editor unless we
-// end up needing a debug version for it.
+
 #ifdef JA2BETAVERSION
-	#ifndef JA2EDITOR
-		#define SGP_DEBUG
-		#define	FORCE_ASSERTS_ON
-		#define SGP_VIDEO_DEBUGGING
-	#endif
+	#define SGP_DEBUG
+	#define	FORCE_ASSERTS_ON
+	#define SGP_VIDEO_DEBUGGING
 #endif
 
 //#define CRIPPLED_VERSION
