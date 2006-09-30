@@ -1,0 +1,168 @@
+<CITY_INFO>
+	<CITYLIST>
+		<CITY>
+			<uiIndex>1</uiIndex>
+			<szName>Omerta</szName>
+			<baseSector>
+				<x>9</x>
+				<y>1</y>
+			</baseSector>
+			<townPoint>
+				<x>90</x>
+				<y>10</y>
+			</townPoint>
+		</CITY>
+		<CITY>
+			<uiIndex>2</uiIndex>
+			<szName>Drassen</szName>
+			<baseSector>
+				<x>13</x>
+				<y>2</y>
+			</baseSector>
+			<townPoint>
+				<x>125</x>
+				<y>40</y>
+			</townPoint>
+		</CITY>
+		<CITY>
+			<uiIndex>3</uiIndex>
+			<szName>Alma</szName>
+			<baseSector>
+				<x>13</x>
+				<y>8</y>
+			</baseSector>
+			<townPoint>
+				<x>130</x>
+				<y>90</y>
+			</townPoint>
+		</CITY>
+		<CITY>
+			<uiIndex>4</uiIndex>
+			<szName>Grumm</szName>
+			<baseSector>
+				<x>1</x>
+				<y>7</y>
+			</baseSector>
+			<townPoint>
+				<x>15</x>
+				<y>80</y>
+			</townPoint>
+		</CITY>
+		<CITY>
+			<uiIndex>5</uiIndex>
+			<szName>Tixa</szName>
+			<baseSector>
+				<x>8</x>
+				<y>9</y>
+			</baseSector>
+			<townPoint>
+				<x>85</x>
+				<y>100</y>
+			</townPoint>
+		</CITY>
+		<CITY>
+			<uiIndex>6</uiIndex>
+			<szName>Cambria</szName>
+			<baseSector>
+				<x>8</x>
+				<y>6</y>
+			</baseSector>
+			<townPoint>
+				<x>95</x>
+				<y>70</y>
+			</townPoint>
+		</CITY>
+		<CITY>
+			<uiIndex>7</uiIndex>
+			<szName>San Mona</szName>
+			<baseSector>
+				<x>4</x>
+				<y>2</y>
+			</baseSector>
+			<townPoint>
+				<x>45</x>
+				<y>40</y>
+			</townPoint>
+		</CITY>
+		<CITY>
+			<uiIndex>8</uiIndex>
+			<szName>Estoni</szName>
+			<baseSector>
+				<x>5</x>
+				<y>8</y>
+			</baseSector>
+			<townPoint>
+				<x>55</x>
+				<y>90</y>
+			</townPoint>
+		</CITY>
+		<CITY>
+			<uiIndex>9</uiIndex>
+			<szName>Orta</szName>
+			<baseSector>
+				<x>3</x>
+				<y>10</y>
+			</baseSector>
+			<townPoint>
+				<x>35</x>
+				<y>110</y>
+			</townPoint>
+		</CITY>
+		<CITY>
+			<uiIndex>10</uiIndex>
+			<szName>Balime</szName>
+			<baseSector>
+				<x>11</x>
+				<y>11</y>
+			</baseSector>
+			<townPoint>
+				<x>110</x>
+				<y>120</y>
+			</townPoint>
+		</CITY>
+		<CITY>
+			<uiIndex>11</uiIndex>
+			<szName>Meduna</szName>
+			<baseSector>
+				<x>3</x>
+				<y>14</y>
+			</baseSector>
+			<townPoint>
+				<x>45</x>
+				<y>150</y>
+			</townPoint>
+		</CITY>
+		<CITY>
+			<uiIndex>12</uiIndex>
+			<szName>Chitzena</szName>
+			<baseSector>
+				<x>2</x>
+				<y>1</y>
+			</baseSector>
+			<townPoint>
+				<x>15</x>
+				<y>20</y>
+			</townPoint>
+		</CITY>
+	</CITYLIST>
+	<CITY_TABLE>
+		<CITY_TABLE_ROW row="00"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="01"> 0  0  12 0  0  0  0  0  0  1  1  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="02"> 0  0  12 0  0  0  0  0  0  0  0  0  0  2  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="03"> 0  0  0  0  0  7  7  0  0  0  0  0  0  2  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="04"> 0  0  0  0  7  7  0  0  0  0  0  0  0  2  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="05"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="06"> 0  0  0  0  0  0  0  0  6  6  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="07"> 0  4  4  0  0  0  0  0  6  6  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="08"> 0  4  4  4  0  0  0  0  6  0  0  0  0  3  3  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="09"> 0  0  0  0  0  0  8  0  0  0  0  0  0  3  3  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="10"> 0  0  0  0  0  0  0  0  0  5  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="11"> 0  0  0  0  9  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="12"> 0  0  0  0  0  0  0  0  0  0  0  10 10 0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="13"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="14"> 0  0  0  11 11 11 0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="15"> 0  0  0  11 11 0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="16"> 0  0  0  11 0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+		<CITY_TABLE_ROW row="17"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
+	</CITY_TABLE>
+</CITY_INFO>

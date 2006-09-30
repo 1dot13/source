@@ -1,0 +1,61 @@
+<!-- 	this a comment, all of the text between the angled brackets is ignored
+
+Attribute Field Reference:
+
+	uiIndex				- index of item in array, just increment this for each new entry
+	sItemIndex			- item index to stock
+	ubOptimalNumber		- optimal number of items to keep in stock - if zero, shopkeeper will just buy item, not sell it
+
+-->
+<INVENTORYLIST>
+	<INVENTORY>
+		<uiIndex>0</uiIndex>
+		<sItemIndex>220</sItemIndex> <!-- Jar -->
+		<ubOptimalNumber>12</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>1</uiIndex>
+		<sItemIndex>218</sItemIndex> <!-- Elixir -->
+		<ubOptimalNumber>3</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>2</uiIndex>
+		<sItemIndex>221</sItemIndex> <!-- Full Jar -->
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>3</uiIndex>
+		<sItemIndex>217</sItemIndex> <!-- Jelly -->
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>4</uiIndex>
+		<sItemIndex>230</sItemIndex> <!-- Claws -->
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>5</uiIndex>
+		<sItemIndex>231</sItemIndex> <!-- Teeth -->
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>6</uiIndex>
+		<sItemIndex>232</sItemIndex> <!-- Pelt -->
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>7</uiIndex>
+		<sItemIndex>260</sItemIndex> <!-- Claw -->
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>8</uiIndex>
+		<sItemIndex>261</sItemIndex> <!-- Flesh -->
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>9</uiIndex>
+		<sItemIndex>262</sItemIndex> <!-- Organ -->
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+</INVENTORYLIST>
