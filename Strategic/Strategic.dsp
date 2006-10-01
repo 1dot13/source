@@ -315,6 +315,10 @@ SOURCE=".\Merc Contract.cpp"
 # End Source File
 # Begin Source File
 
+SOURCE=.\MilitiaSquads.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=".\Player Command.cpp"
 # End Source File
 # Begin Source File
@@ -336,6 +340,10 @@ SOURCE=.\Quests.cpp
 # Begin Source File
 
 SOURCE=.\QuestText.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Reinforcement.cpp
 # End Source File
 # Begin Source File
 
@@ -475,6 +483,10 @@ SOURCE=".\Merc Contract.h"
 # End Source File
 # Begin Source File
 
+SOURCE=.\MilitiaSquads.h
+# End Source File
+# Begin Source File
+
 SOURCE=".\Player Command.h"
 # End Source File
 # Begin Source File
@@ -488,6 +500,10 @@ SOURCE=".\Queen Command.h"
 # Begin Source File
 
 SOURCE=.\Quests.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Reinforcement.h
 # End Source File
 # Begin Source File
 
@@ -546,13 +562,5 @@ SOURCE=.\strategicmap.h
 SOURCE=".\Town Militia.h"
 # End Source File
 # End Group
-# Begin Source File
-
-SOURCE=.\MilitiaSquads.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Reinforcement.cpp
-# End Source File
 # End Target
 # End Project

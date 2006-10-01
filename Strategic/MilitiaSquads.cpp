@@ -456,7 +456,9 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	
 	if( !uiMilitiaCount )return;
 
-	// new squad
+
+	//new squad
+
 	if( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR )
 	{
 		if( GetWorldHour() % gGameExternalOptions.guiCreateEachNHours )return;
@@ -481,35 +483,41 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 
 			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld:Dir count %ld, Rand %ld. Go to %ld,%ld", sMapX, sMapY, uiDirNumber, iRandomRes, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ));
 
-			GenerateMilitiaSquad( sMapX, sMapY,  SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );
-			AddToBlockMoveList( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );
+
+				// Kaiden: Roaming Militia Training:
+				// If we're training roaming militia,	
+				// We'll get our new squad elsewhere.
+			if(!gGameExternalOptions.gfmusttrainroaming)
+			{	
+				GenerateMilitiaSquad( sMapX, sMapY,  SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );
+				AddToBlockMoveList( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );
 			
-			if( NumEnemiesInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) && CountAllMilitiaInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) )
-			{
-/*				GROUP* pEnemyGroup = GetGroup( GetEnemyGroupIdInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) );
-		
-				if(pEnemyGroup && pEnemyGroup->ubGroupID)
+				if( NumEnemiesInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) && CountAllMilitiaInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) )
 				{
-					//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Attacking from %ld,%ld to %ld,%ld - enemy's group id %ld", sMapX, sMapY, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0], pEnemyGroup->ubGroupID ));
-					//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Arrival 1, Arrival 2");
+	/*				GROUP* pEnemyGroup = GetGroup( GetEnemyGroupIdInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) );
+			
+					if(pEnemyGroup && pEnemyGroup->ubGroupID)
+					{
+						//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Attacking from %ld,%ld to %ld,%ld - enemy's group id %ld", sMapX, sMapY, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0], pEnemyGroup->ubGroupID ));
+						//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Arrival 1, Arrival 2");
 
-					pEnemyGroup->ubPrevX = sMapX;
-					pEnemyGroup->ubPrevY = sMapY;
+						pEnemyGroup->ubPrevX = sMapX;
+						pEnemyGroup->ubPrevY = sMapY;
 
-					pEnemyGroup->ubNextX = SECTORX( pMoveDir[ iRandomRes ][0] );
-					pEnemyGroup->ubNextY = SECTORY( pMoveDir[ iRandomRes ][0] );
-*/
-					gfMSBattle = TRUE;
-//					GroupArrivedAtSector( pEnemyGroup->ubGroupID , TRUE, FALSE );
-					
-					EnterAutoResolveMode( SECTORX( pMoveDir[ iRandomRes ][0] ),  SECTORY( pMoveDir[ iRandomRes ][0] ) );
-//				}
+						pEnemyGroup->ubNextX = SECTORX( pMoveDir[ iRandomRes ][0] );
+						pEnemyGroup->ubNextY = SECTORY( pMoveDir[ iRandomRes ][0] );
+	*/
+						gfMSBattle = TRUE;
+	//					GroupArrivedAtSector( pEnemyGroup->ubGroupID , TRUE, FALSE );
+						
+						EnterAutoResolveMode( SECTORX( pMoveDir[ iRandomRes ][0] ),  SECTORY( pMoveDir[ iRandomRes ][0] ) );
+	//				}
+				}
 			}
-
 		}
-			else return;
-
+		else return;
 	}
+
 	// moving squad, if it is not a SAM site
 	else if(!IsThisSectorASAMSector(  sMapX, sMapY, 0 ))
 		if( !PlayerMercsInSector_MSE( (UINT8)sMapX, (UINT8)sMapY, FALSE ) ) // and there's no player's mercs in the sector
@@ -580,6 +588,102 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	}
 
 }
+
+	// Kaiden: Roaming Militia Training:
+	// If we're training roaming militia,	
+	// we'll get our squad from here:
+
+void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
+{
+	UINT16 pMoveDir[4][3];
+	UINT8 uiDirNumber = 0;
+	UINT32 iRandomRes = 0, iRandom = 0;
+	UINT8 x;//,y;
+	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
+	UINT8 uiMilitiaCount;
+
+	if( !gGameExternalOptions.gfAllowMilitiaGroups )
+		return;
+
+	if( sMapX == 1 && sMapY == 1 )
+	{
+		ClearBlockMoveList();
+		gfMSBattle = FALSE;
+	}
+
+	if( CheckInBlockMoveList( sMapX, sMapY ) )return;
+
+	uiMilitiaCount = CountMilitia(pSectorInfo);
+	
+	if( !uiMilitiaCount )return;
+
+	// new squad
+
+	if(gGameExternalOptions.gfmusttrainroaming)
+	{
+		if( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR )
+		{
+			GenerateDirectionInfos( sMapX, sMapY, &uiDirNumber, pMoveDir, FALSE, FALSE, FALSE );
+
+			if(uiDirNumber)// && Random(100) < CHANCE_TO_GENERATE_A_SQUAD)
+			{
+				for( x = 1; x < uiDirNumber ; ++x )pMoveDir[x][1] += pMoveDir[x-1][1];
+
+				iRandomRes = Random( pMoveDir[ uiDirNumber - 1 ][1] );
+
+				for( x = 0; x < uiDirNumber; ++x)
+					if( iRandomRes < pMoveDir[x][1] )
+					{
+						iRandomRes = x;
+						break;
+					}
+				
+				// shouldn't be!
+				if(iRandomRes >= uiDirNumber)iRandomRes = 0;
+
+				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld:Dir count %ld, Rand %ld. Go to %ld,%ld", sMapX, sMapY, uiDirNumber, iRandomRes, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ));
+
+				GenerateMilitiaSquad( sMapX, sMapY,  SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );
+				AddToBlockMoveList( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );
+				
+				if( NumEnemiesInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) && CountAllMilitiaInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) )
+				{
+	/*				GROUP* pEnemyGroup = GetGroup( GetEnemyGroupIdInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) );
+			
+					if(pEnemyGroup && pEnemyGroup->ubGroupID)
+					{
+						//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Attacking from %ld,%ld to %ld,%ld - enemy's group id %ld", sMapX, sMapY, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0], pEnemyGroup->ubGroupID ));
+						//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Arrival 1, Arrival 2");
+
+						pEnemyGroup->ubPrevX = sMapX;
+						pEnemyGroup->ubPrevY = sMapY;
+
+						pEnemyGroup->ubNextX = SECTORX( pMoveDir[ iRandomRes ][0] );
+						pEnemyGroup->ubNextY = SECTORY( pMoveDir[ iRandomRes ][0] );
+	*/
+						gfMSBattle = TRUE;
+	//					GroupArrivedAtSector( pEnemyGroup->ubGroupID , TRUE, FALSE );
+						
+						EnterAutoResolveMode( SECTORX( pMoveDir[ iRandomRes ][0] ),  SECTORY( pMoveDir[ iRandomRes ][0] ) );
+	//				}
+				}
+
+			}
+				else return;
+		}
+	}
+
+	return;
+}
+
+
+
+
+
+
+
+
+
 
 extern BOOLEAN gfMSResetMilitia;
 

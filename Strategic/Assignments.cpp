@@ -1092,21 +1092,43 @@ BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 	return( TRUE );
 }
 
-
+// Kaiden: Roaming Militia Training:
+// Commenting out the check for: 
+// IsMilitiaTrainableFromSoldiersSectorMaxed(
+// At this point, we don't care if it's full yet
 
 BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 {
-	if( BasicCanCharacterTrainMilitia( pSoldier ) &&
+
+	if (gGameExternalOptions.gfmusttrainroaming)
+	{
+		if( BasicCanCharacterTrainMilitia( pSoldier ) &&
+			MilitiaTrainingAllowedInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) &&
+			DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( pSoldier ) &&
+			/*( IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier ) == FALSE ) && */
+			( CountMilitiaTrainersInSoldiersSector( pSoldier ) < gGameExternalOptions.ubMaxMilitiaTrainersPerSector ) )
+		{
+			return( TRUE );
+		}
+		else
+		{
+			return( FALSE );
+		}
+	}
+	else
+	{
+		if( BasicCanCharacterTrainMilitia( pSoldier ) &&
 			MilitiaTrainingAllowedInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) &&
 			DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( pSoldier ) &&
 			( IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier ) == FALSE ) &&
 			( CountMilitiaTrainersInSoldiersSector( pSoldier ) < gGameExternalOptions.ubMaxMilitiaTrainersPerSector ) )
-	{
-		return( TRUE );
-	}
-	else
-	{
-		return( FALSE );
+		{
+			return( TRUE );
+		}
+		else
+		{
+			return( FALSE );
+		}
 	}
 }
 
@@ -7372,7 +7394,12 @@ void TrainingMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						}
 					}
 
-					if( IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier ) )
+
+					// Kaiden: Roaming Militia Training:
+					// Added to the if test here:
+					// && (!gGameExternalOptions.gfmusttrainroaming)
+
+					if( IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier ) && (!gGameExternalOptions.gfmusttrainroaming))
 					{
 						if( bTownId == BLANK_SECTOR )
 						{
@@ -7388,7 +7415,12 @@ void TrainingMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 						DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 						break;
-					}
+					} 
+
+
+
+
+
 
 					if ( CountMilitiaTrainersInSoldiersSector( pSoldier ) >= gGameExternalOptions.ubMaxMilitiaTrainersPerSector )
 					{
