@@ -667,8 +667,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 	// if ( IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier ) )
 	// And we're not training mobile militia from a SAM Site
 
-	if ( (( IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier ))  && (IsThisSectorASAMSector(sSectorX,sSectorY,0 )))
-			|| (( IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier ))  && (!gGameExternalOptions.gfmusttrainroaming)) )
+	if ((IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier )) 
+		&& ((!gGameExternalOptions.gfmusttrainroaming) 
+		|| (IsThisSectorASAMSector(sSectorX,sSectorY,0 ))) )
 	{
 		// we're full!!! go home!
 		bTownId = GetTownIdForSector( sSectorX, sSectorY );
