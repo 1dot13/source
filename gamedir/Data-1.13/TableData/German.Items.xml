@@ -1,5 +1,4 @@
 <!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
-<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -167,7 +166,7 @@
 		<szLongItemName>Steyr AUG-A2</szLongItemName>
 		<szItemDesc>Die Standardwaffe des oesterreichischen Bundesheeres. Das Steyr AUG ist ein futuristisch aussehendes Sturmgewehr mit kompaktem Design.</szItemDesc>
 		<szBRName>Steyr AUG-A2</szBRName>
-		<szBRDesc>Die Standardwaffe des oesterreichischen Bundesheeres. Das Steyr AUG ist ein futuristisch aussehendes Sturmgewehr mit kompaktem Design und besitzt eine S-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Das STEYR AUG-A2 ist ein gasbetriebenes halb- und vollautomatisches Sturmgewehr mit integriertem Zielfernrohr. Aufgrund des Bullpup-Designs entsteht so ein kurzes, handliches Gewehr welches hohe Zuverlaessigkeit und Praezision bietet. Es besitzt eine S-F Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>21</uiIndex>
@@ -3909,9 +3908,9 @@
 		<uiIndex>488</uiIndex>
 		<szItemName>4.6x30 XPB</szItemName>
 		<szLongItemName>4.6x30mm Magazin, XPB</szLongItemName>
-		<szItemDesc>Diese Spezialmunition wird nur von der H&amp;K MP7 verwendet. Das Geschoss ist ungefaehr so gross wie ein Gewehrprojektil und hat die gleiche Durchschlagskraft! Sie durchschlaegt CRISAT-Schutz (1,6mm Titan kombiniert mit 20 Kevlarschichten) auf 200m Entfernung.</szItemDesc>
+		<szItemDesc>Diese Spezialmunition wird nur von der H&amp;K MP7 verwendet. Das Geschoss ist ungefaehr so gross wie ein Gewehrprojektil und hat die gleiche Durchschlagskraft! Sie durchschlaegt CRISAT-Schutz (20 Schichten Kevlar + 1,6mm Titan) auf 200m Entfernung.</szItemDesc>
 		<szBRName>4.6x30 XPB #40</szBRName>
-		<szBRDesc>Diese Spezialmunition wird nur von der H&amp;K MP7 verwendet. Das Geschoss ist ungefaehr so gross wie ein Gewehrprojektil und hat die gleiche Durchschlagskraft! Sie durchschlaegt CRISAT-Schutz (1,6mm Titan kombiniert mit 20 Kevlarschichten) auf 200m Entfernung.</szBRDesc>
+		<szBRDesc>Diese Spezialmunition wird nur von der H&amp;K MP7 verwendet. Das Geschoss ist ungefaehr so gross wie ein Gewehrprojektil und hat die gleiche Durchschlagskraft! Sie durchschlaegt CRISAT-Schutz (20 Schichten Kevlar + 1,6mm Titan) auf 200m Entfernung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>489</uiIndex>
@@ -5389,9 +5388,9 @@
 		<uiIndex>673</uiIndex>
 		<szItemName>MP7A1</szItemName>
 		<szLongItemName>H&amp;K MP7A1</szLongItemName>
-		<szItemDesc>Die MP7 ist eine perfekte 3 in 1 Loesung: Pistole, MP und Sturmgewehr. Sie durchschlaegt CRISAT-Schutz (1,6mm Titan kombiniert mit 20 Kevlarschichten) auf 200m Entfernung.</szItemDesc>
+		<szItemDesc>Die MP7 ist eine perfekte 3 in 1 Loesung: Pistole, MP und Sturmgewehr. Sie durchschlaegt CRISAT-Schutz (20 Schichten Kevlar + 1,6mm Titan) auf 200m Entfernung.</szItemDesc>
 		<szBRName>H&amp;K MP7A1</szBRName>
-		<szBRDesc>Die MP7 vereint die Vorteile einer Pistole, MP und Sturmgewehres in sich. In den Verbaenden (Feldjaeger, DSO) in denen sie seit 2002 zum Einsatz kommt, erfreut sie sich schon jetzt grosser Beliebtheit. Sie durchschlaegt CRISAT-Schutz (1,6mm Titan kombiniert mit 20 Schichten Kevlar) auf 200m Entfernung.</szBRDesc>
+		<szBRDesc>Die MP7 vereint die Vorteile einer Pistole, MP und Sturmgewehres in sich. In den Verbaenden (Feldjaeger, DSO) in denen sie seit 2002 zum Einsatz kommt, erfreut sie sich schon jetzt grosser Beliebtheit. Sie durchschlaegt CRISAT-Schutz (20 Schichten Kevlar + 1,6mm Titan) auf 200m Entfernung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>674</uiIndex>
@@ -5493,22 +5492,23 @@
 		<uiIndex>686</uiIndex>
 		<szItemName>SZW</szItemName>
 		<szLongItemName>Metal Storm Surf Zone Weapon</szLongItemName>
-		<szItemDesc>Das Gewehr kommt mit einem speziellen 10-fach Unertl Zielfernrohr. Mit dem Zielfernrohr wiegt die Waffe ca. 7Kg. Sie verfuegt ueber ein intergriertes 5 Schuss Magazin.</szItemDesc>
+		<szItemDesc>Egal ob Dschungel oder Wueste, METAL STORM's Surf Zone ist immer zuverlaessig. Sorgen Sie nur dafuer das ein Elektroniker in der Naehe ist.</szItemDesc>
 		<szBRName>Surf Zone Weapon</szBRName>
-		<szBRDesc>Die neuste Waffe von METAL STORM: Funktionssicherheit in trockener/ nasser Umgebung - 6 Laeufe - Mehrfach-Effekte - 72 Schuss - 3,4kg Gewicht - keine Mechanik - keine Fehlfunktion</szBRDesc>
+		<szBRDesc>Die neuste Waffe von METAL STORM: Funktionssicherheit in trockener/ nasser Umgebung - 6 Laeufe - 72 Schuss - keine Mechanik - keine Fehlfunktion</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>687</uiIndex>
 		<szItemName>M60E3</szItemName>
 		<szLongItemName>Saco Defense M60E3</szLongItemName>
+		<szItemDesc>Das M60E3 ist eine leichtere und verbesserte Version des legendaeren M60 LMG der US-Army.</szItemDesc>
 		<szBRName>Saco Defense M60E3</szBRName>
-		<szBRDesc>Das M60 ist ein automatisches Maschinengewehr mit Gurtzufuehrung und Gasdruckladermechanismus und wurde Ende der 40er-Jahre entwickelt. Die Entwicklung war zum Teil stark von deutschen Waffen beeinflusst. Das M60 wurde 1950 an die US-Army ausgeliefert. </szBRDesc>
+		<szBRDesc>Das M60E3 ist ein Gasdrucklader mit Gurtzufuehrung und wurde 1986 in Dienst gestellt. Es ist eine leichtere und verbesserte Version des M60.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>688</uiIndex>
 		<szItemName>MAC-11/9</szItemName>
 		<szLongItemName>Ingram MAC-11/9</szLongItemName>
-		<szItemDesc>Die Waffe wurde frueher als Spezialanfertigung durch qualifizierte und trainierte Waffenschmiede der US Armee in Quantico, Virginia angefertigt. Primaer genutzt wurden die Waffen von MArine Force Recon Personal und anderen speziell ausgebildeten Einheiten.</szItemDesc>
+		<szItemDesc>Die MAC-10 wurde von der US-Army als Ersatz fuer vorher verwendeten schwedischen MP Modelle beschafft.</szItemDesc>
 		<szBRName>Ingram MAC-11/9</szBRName>
 		<szBRDesc>Die MAC-11/9 besitzt nur Dauerfeuer und wurde von der US-Army als Ersatz fuer vorher verwendete schwedische MP-Modelle beschafft. Sie war fuer den Einsatz bei Kommando- und Spezialeinheiten gedacht.</szBRDesc>
 	</ITEM>
@@ -5516,14 +5516,15 @@
 		<uiIndex>689</uiIndex>
 		<szItemName>Makarov PM</szItemName>
 		<szLongItemName>Makarov PM</szLongItemName>
+		<szItemDesc>Die PM basiert auf der Walther PP und wurde 1951 Ordonnanzwaffe der Roten Armee und ersetzte die Tokarev TT. Aus heutiger Sicht ist die sie recht schwer und ungenau, aber robust und zuverlaessig.</szItemDesc>
 		<szBRName>Makarov PM</szBRName>
-		<szBRDesc>Diese weltberuehmte Pistole wird seit 55 Jahren von  IZHEVSKY MEKHANICHESKY ZAVOD in Russland hergestellt.</szBRDesc>
+		<szBRDesc>Diese weltberuehmte Pistole wurde von IMZ in Russland sowie in Bulgarien, China und der DDR hergestellt. Die qualitativ besten Makarovs wurden in Suhl (Thueringen) gefertigt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>690</uiIndex>
 		<szItemName>Makarov PMM</szItemName>
 		<szLongItemName>Makarov PMM</szLongItemName>
-		<szItemDesc>Nun wurde dieses Praezisionsgewehr neu aufgelegt und wird von im Ruhestand stehenden Waffenschmieden aus Quantico und anderen talentieren Herstellern fuer spezielle/zahlungskraeftige Kunden in aller Welt hergestellt.</szItemDesc>
+		<szItemDesc>Diese modifizierte Variante der Makarov PM ging 1994 in Serie.</szItemDesc>
 		<szBRName>Makarov PMM</szBRName>
 		<szBRDesc>Diese modifizierte Variante der Makarov PM ging 1994 in Serie.</szBRDesc>
 	</ITEM>
@@ -5709,7 +5710,7 @@
 		<szLongItemName>SIG SG550</szLongItemName>
 		<szItemDesc>Das SIG SG550 wurde in den 80er Jahren entwickelt, als die Schweizer Armee ein neues Sturmgewehr benoetigte.</szItemDesc>
 		<szBRName>SIG SG550</szBRName>
-		<szBRDesc>Das SIG SG550 wurde in den 80er Jahren entwickelt, als die Schweizer Armee ein neues Sturmgewehr benoetigte. Es handelt sich dabei nicht um eine komplette Neuentwicklung, sondern eher um eine Weiterentwicklung des bereits in den Diensten der Schweizer Armee stehenden SIG540.</szBRDesc>
+		<szBRDesc>Das SIG SG550 wurde in den 80er Jahren entwickelt, als die Schweizer Armee ein neues Sturmgewehr benoetigte. Es handelt sich dabei um eine Weiterentwicklung des bereits in den Diensten der Schweizer Armee stehenden SIG540.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>714</uiIndex>
@@ -5787,9 +5788,9 @@
 		<uiIndex>723</uiIndex>
 		<szItemName>SR-1 Vektor</szItemName>
 		<szLongItemName>SR-1 Vektor</szLongItemName>
-		<szItemDesc>Das von dieser Pistole verwendete Kaliber wurde speziell entwickelt, um Kevlar- und Titan-Platten auf 100m zu durchschlagen. Diese fuer lange Zeit vergessene russische Pistole ist heute die Seitenwaffe der russischen Offiziere und wird auch vom FSB verwendet.</szItemDesc>
+		<szItemDesc>Das von dieser Pistole verwendete Kaliber wurde speziell entwickelt, um 30 Schichten Kevlar + 2,8mm Titan auf 100m zu durchschlagen.</szItemDesc>
 		<szBRName>SR-1 Vektor</szBRName>
-		<szBRDesc>Das von dieser Pistole verwendete Kaliber wurde speziell entwickelt, um Kevlar- und Titan-Platten auf 100m zu durchschlagen. Diese fuer lange Zeit vergessene russische Pistole ist heute die Seitenwaffe der russischen Offiziere und wird auch vom FSB verwendet.</szBRDesc>
+		<szBRDesc>Das von dieser Pistole verwendete Kaliber wurde speziell entwickelt, um 30 Schichten Kevlar + 2,8mm Titan auf 100m zu durchschlagen. Diese fuer lange Zeit vergessene russische Pistole ist heute die Seitenwaffe der russischen Offiziere und wird auch vom FSB verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>724</uiIndex>
@@ -5827,7 +5828,7 @@
 		<uiIndex>728</uiIndex>
 		<szItemName>Scout Tactical</szItemName>
 		<szLongItemName>Steyr Scout Tactical</szLongItemName>
-		<szItemDesc>Sie suchen nach einem leichten, kompakten sehr genauen SSG? Dann suchen Sie nicht weiter. Das Scout Tactical ist genau was Sie suchen.</szItemDesc>
+		<szItemDesc>Das Steyr Scout ist nicht wirklich ein Survival-Gewehr, es ist mehr eine Universal-Jagdbuechse. Das Scout ist kurz gehalten, hat einen glasfaserverstaerkten Kunststoff-Schaft und ein integriertes Zweibein.</szItemDesc>
 		<szBRName>Steyr Scout Tactical</szBRName>
 		<szBRDesc>Sie suchen nach einem leichten, kompakten sehr genauen SSG? Dann suchen Sie nicht weiter. Das Scout Tactical ist genau was Sie suchen.</szBRDesc>
 	</ITEM>
