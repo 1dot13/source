@@ -11,7 +11,10 @@
 extern UINT8 gpAttackDirs[5][4];
 extern UINT8 guiDirNumber;
 
+// Updates movement orders for militia squads
 void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY );
+// Kaiden: creates militia squad in an adjacent sector
+// to the coordinates you pass to it.
 void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY );
 void MilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY );
 

@@ -441,6 +441,9 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 	UINT8 uiMilitiaCount;
 
+
+	// If we don't want roaming militia
+	// We shouldn't be here.
 	if( !gGameExternalOptions.gfAllowMilitiaGroups )
 		return;
 
@@ -456,137 +459,87 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	
 	if( !uiMilitiaCount )return;
 
-
-	//new squad
-
-	if( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR )
+	// Kaiden: Moved Create Militia code into CreateMilitiaSquads
+	// Removed the code from here and added the procedure call
+	// If it's time, and this is a city sector create a new group.
+	// But only if we're not training our own. 
+	if( (!gGameExternalOptions.gfmusttrainroaming) && ( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR ) ) 
 	{
 		if( GetWorldHour() % gGameExternalOptions.guiCreateEachNHours )return;
-
-		GenerateDirectionInfos( sMapX, sMapY, &uiDirNumber, pMoveDir, FALSE, FALSE, FALSE );
-
-		if(uiDirNumber)// && Random(100) < CHANCE_TO_GENERATE_A_SQUAD)
-		{
-			for( x = 1; x < uiDirNumber ; ++x )pMoveDir[x][1] += pMoveDir[x-1][1];
-
-			iRandomRes = Random( pMoveDir[ uiDirNumber - 1 ][1] );
-
-			for( x = 0; x < uiDirNumber; ++x)
-				if( iRandomRes < pMoveDir[x][1] )
-				{
-					iRandomRes = x;
-					break;
-				}
-			
-			// shouldn't be!
-			if(iRandomRes >= uiDirNumber)iRandomRes = 0;
-
-			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld:Dir count %ld, Rand %ld. Go to %ld,%ld", sMapX, sMapY, uiDirNumber, iRandomRes, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ));
-
-
-				// Kaiden: Roaming Militia Training:
-				// If we're training roaming militia,	
-				// We'll get our new squad elsewhere.
-			if(!gGameExternalOptions.gfmusttrainroaming)
-			{	
-				GenerateMilitiaSquad( sMapX, sMapY,  SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );
-				AddToBlockMoveList( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );
-			
-				if( NumEnemiesInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) && CountAllMilitiaInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) )
-				{
-	/*				GROUP* pEnemyGroup = GetGroup( GetEnemyGroupIdInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) );
-			
-					if(pEnemyGroup && pEnemyGroup->ubGroupID)
-					{
-						//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Attacking from %ld,%ld to %ld,%ld - enemy's group id %ld", sMapX, sMapY, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0], pEnemyGroup->ubGroupID ));
-						//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Arrival 1, Arrival 2");
-
-						pEnemyGroup->ubPrevX = sMapX;
-						pEnemyGroup->ubPrevY = sMapY;
-
-						pEnemyGroup->ubNextX = SECTORX( pMoveDir[ iRandomRes ][0] );
-						pEnemyGroup->ubNextY = SECTORY( pMoveDir[ iRandomRes ][0] );
-	*/
-						gfMSBattle = TRUE;
-	//					GroupArrivedAtSector( pEnemyGroup->ubGroupID , TRUE, FALSE );
-						
-						EnterAutoResolveMode( SECTORX( pMoveDir[ iRandomRes ][0] ),  SECTORY( pMoveDir[ iRandomRes ][0] ) );
-	//				}
-				}
-			}
-		}
-		else return;
+		CreateMilitiaSquads( sMapX, sMapY );
 	}
+
 
 	// moving squad, if it is not a SAM site
-	else if(!IsThisSectorASAMSector(  sMapX, sMapY, 0 ))
+	if( ( GetTownIdForSector( sMapX, sMapY ) == BLANK_SECTOR ) && (!IsThisSectorASAMSector(  sMapX, sMapY, 0 )) )
+	{	
 		if( !PlayerMercsInSector_MSE( (UINT8)sMapX, (UINT8)sMapY, FALSE ) ) // and there's no player's mercs in the sector
-	{
-		if( GetWorldHour() % 2 )return;
-
-		GenerateDirectionInfos( sMapX, sMapY, &uiDirNumber, pMoveDir, FALSE, FALSE, FALSE );
-
-		if( uiDirNumber )
 		{
-			for( x = 1; x < uiDirNumber ; ++x )pMoveDir[x][1] += pMoveDir[x-1][1];
-		//			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld", x, pMoveDir[x][1]);
-					
-			iRandom = Random( pMoveDir[ uiDirNumber - 1 ][1] + 
-				( uiMilitiaCount >= gGameExternalOptions.guiMinMilitiaSquadSize ? CHANCE_TO_MOVE_A_SQUAD : CHANCE_TO_MOVE_AN_UNFULL_SQUAD ) );
+			if( GetWorldHour() % 2 )return;
 
-			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Roll %ld", iRandomRes);
+			GenerateDirectionInfos( sMapX, sMapY, &uiDirNumber, pMoveDir, FALSE, FALSE, FALSE );
 
-			iRandomRes = 256;
-
-			for( x = 0; x < uiDirNumber; ++x)
-				if( iRandom < pMoveDir[x][1] )
-				{
-					iRandomRes = x;
-					break;
-				}
-			
-			// "Decided" to stay here
-			if(iRandomRes >= uiDirNumber)
-				return;
-
-			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld:Dir count %ld, Rand %ld. Go to %ld,%ld. Have %ld militia men", sMapX, sMapY, uiDirNumber, iRandomRes, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ), uiMilitiaCount);
-
-			MoveMilitiaSquad( sMapX, sMapY,  SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ), FALSE );
-			AddToBlockMoveList( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );
-
-			if ( gWorldSectorX == SECTORX( pMoveDir[ iRandomRes ][0] ) && 
-				  gWorldSectorY == SECTORY( pMoveDir[ iRandomRes ][0] ) && 
-				  !gbWorldSectorZ )
+			if( uiDirNumber )
 			{
-				gfStrategicMilitiaChangesMade = TRUE;
-				ResetMilitia();
-			}
+				for( x = 1; x < uiDirNumber ; ++x )pMoveDir[x][1] += pMoveDir[x-1][1];
+			//			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld", x, pMoveDir[x][1]);
+						
+				iRandom = Random( pMoveDir[ uiDirNumber - 1 ][1] + 
+					( uiMilitiaCount >= gGameExternalOptions.guiMinMilitiaSquadSize ? CHANCE_TO_MOVE_A_SQUAD : CHANCE_TO_MOVE_AN_UNFULL_SQUAD ) );
 
-			if( NumEnemiesInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) )
-			{
-/*				GROUP* pEnemyGroup = GetGroup( GetEnemyGroupIdInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) );
+				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Roll %ld", iRandomRes);
+
+				iRandomRes = 256;
+
+				for( x = 0; x < uiDirNumber; ++x)
+					if( iRandom < pMoveDir[x][1] )
+					{
+						iRandomRes = x;
+						break;
+					}
 		
-				if(pEnemyGroup && pEnemyGroup->ubGroupID)
-				{
-					//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Attacking from %ld,%ld to %ld,%ld - enemy's group id %ld", sMapX, sMapY, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0], pEnemyGroup->ubGroupID ));
-					//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Arrival 1, Arrival 2");
+					// "Decided" to stay here
+					if(iRandomRes >= uiDirNumber)
+						return;
 
-					pEnemyGroup->ubPrevX = sMapX;
-					pEnemyGroup->ubPrevY = sMapY;
+					//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld:Dir count %ld, Rand %ld. Go to %ld,%ld. Have %ld militia men", sMapX, sMapY, uiDirNumber, iRandomRes, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ), uiMilitiaCount);
 
-					pEnemyGroup->ubNextX = SECTORX( pMoveDir[ iRandomRes ][0] );
-					pEnemyGroup->ubNextY = SECTORY( pMoveDir[ iRandomRes ][0] );
-*/					
-					gfMSBattle = TRUE;
-	
-	//				GroupArrivedAtSector( pEnemyGroup->ubGroupID , TRUE, FALSE );
-					EnterAutoResolveMode( SECTORX( pMoveDir[ iRandomRes ][0] ),  SECTORY( pMoveDir[ iRandomRes ][0] ) );
-//				}
+					MoveMilitiaSquad( sMapX, sMapY,  SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ), FALSE );
+					AddToBlockMoveList( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );
+
+					if ( gWorldSectorX == SECTORX( pMoveDir[ iRandomRes ][0] ) && 
+							gWorldSectorY == SECTORY( pMoveDir[ iRandomRes ][0] ) && 
+							!gbWorldSectorZ )
+					{
+						gfStrategicMilitiaChangesMade = TRUE;
+						ResetMilitia();
+					}
+
+					if( NumEnemiesInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) )
+					{
+		/*				GROUP* pEnemyGroup = GetGroup( GetEnemyGroupIdInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) );
+				
+						if(pEnemyGroup && pEnemyGroup->ubGroupID)
+						{
+							//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Attacking from %ld,%ld to %ld,%ld - enemy's group id %ld", sMapX, sMapY, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0], pEnemyGroup->ubGroupID ));
+							//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Arrival 1, Arrival 2");
+
+							pEnemyGroup->ubPrevX = sMapX;
+							pEnemyGroup->ubPrevY = sMapY;
+
+							pEnemyGroup->ubNextX = SECTORX( pMoveDir[ iRandomRes ][0] );
+							pEnemyGroup->ubNextY = SECTORY( pMoveDir[ iRandomRes ][0] );
+		*/					
+							gfMSBattle = TRUE;
+			
+			//				GroupArrivedAtSector( pEnemyGroup->ubGroupID , TRUE, FALSE );
+							EnterAutoResolveMode( SECTORX( pMoveDir[ iRandomRes ][0] ),  SECTORY( pMoveDir[ iRandomRes ][0] ) );
+		//				}
+					}
 			}
+					else return;
 		}
-			else return;
 	}
-
 }
 
 	// Kaiden: Roaming Militia Training:
@@ -602,6 +555,13 @@ void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 	UINT8 uiMilitiaCount;
 
+
+	// If we're not allowing roaming groups, 
+	// then we're not creating them either.
+	// Remove this if you want to create them
+	// for some other reason. But you also have to
+	// remove the same line in UpdateMilitiaSquads
+	// Or the ones you create won't move.
 	if( !gGameExternalOptions.gfAllowMilitiaGroups )
 		return;
 
@@ -617,10 +577,8 @@ void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	
 	if( !uiMilitiaCount )return;
 
-	// new squad
+	// Create new Militia Squad
 
-	if(gGameExternalOptions.gfmusttrainroaming)
-	{
 		if( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR )
 		{
 			GenerateDirectionInfos( sMapX, sMapY, &uiDirNumber, pMoveDir, FALSE, FALSE, FALSE );
@@ -671,8 +629,6 @@ void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 			}
 				else return;
 		}
-	}
-
 	return;
 }
 
