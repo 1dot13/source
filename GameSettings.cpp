@@ -258,6 +258,7 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_RAIN_SOUND ]						= TRUE;
 	gGameSettings.fOptions[ TOPTION_ALLOW_CROWS ]						= TRUE;
 	gGameSettings.fOptions[ TOPTION_USE_RANDOM_PERSONALITY ]			= FALSE;
+	gGameSettings.fOptions[ TOPTION_USE_AUTO_SAVE ]						= FALSE;
 
 	gGameSettings.ubSizeOfDisplayCover = 4;
 	gGameSettings.ubSizeOfLOS = 4;
@@ -475,7 +476,7 @@ void LoadGameExternalOptions()
 	// WANNE: Auto save: Attention: The game always crashes after a "normal" savegame is loaded after loading an autosave
 	// So for now USE_AUTO_SAVE is always false.
 	// The game crashes when removing mouse region that are not set
-	gGameExternalOptions.gfUseAutoSave						= iniReader.ReadBoolean("JA2 Gameplay Settings","USE_AUTO_SAVE",FALSE);
+	//gGameExternalOptions.gfUseAutoSave						= iniReader.ReadBoolean("JA2 Gameplay Settings","USE_AUTO_SAVE",FALSE);
 
 	// Militia settings
 	gGameExternalOptions.gfTrainVeteranMilitia			= iniReader.ReadBoolean("JA2 Gameplay Settings","TRAIN_VETERAN_MILITIA",FALSE);

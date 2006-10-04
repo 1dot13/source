@@ -52,6 +52,7 @@ enum
 	TOPTION_RAIN_SOUND,
 	TOPTION_ALLOW_CROWS,
 	TOPTION_USE_RANDOM_PERSONALITY,
+	TOPTION_USE_AUTO_SAVE,
 	NUM_GAME_OPTIONS,				//Toggle up this will be able to be Toggled by the player
 	
 

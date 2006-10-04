@@ -42,6 +42,7 @@
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
+	#include "utilities.h"
 #endif
 
 struct
@@ -260,11 +261,20 @@ itemEndElementHandle(void *userData, const char *name)
 					pData->curArray[pData->curItem.uiIndex] = pData->curItem; //write the item into the table
 				else if ( sizeof(pData->curItem.szItemName)>0 && localizedTextOnly )
 				{
+					// WANNE: Replace	 specific characters (ö, ä, ...)
+					#ifdef GERMAN
+					strcpy((char *)pData->curArray[pData->curItem.uiIndex].szItemName, (char *)ReplaceGermanSpecialCharacters((char *)pData->curItem.szItemName));
+					strcpy((char *)pData->curArray[pData->curItem.uiIndex].szLongItemName, (char *)ReplaceGermanSpecialCharacters((char *)pData->curItem.szLongItemName));
+					strcpy((char *)pData->curArray[pData->curItem.uiIndex].szBRName, (char *)ReplaceGermanSpecialCharacters((char *)pData->curItem.szBRName));
+					strcpy((char *)pData->curArray[pData->curItem.uiIndex].szItemDesc, (char *)ReplaceGermanSpecialCharacters((char *)pData->curItem.szItemDesc));
+					strcpy((char *)pData->curArray[pData->curItem.uiIndex].szBRDesc, (char *)ReplaceGermanSpecialCharacters((char *)pData->curItem.szBRDesc));
+					#else
 					strcpy(pData->curArray[pData->curItem.uiIndex].szItemName,pData->curItem.szItemName);
 					strcpy(pData->curArray[pData->curItem.uiIndex].szLongItemName,pData->curItem.szLongItemName);
 					strcpy(pData->curArray[pData->curItem.uiIndex].szBRName,pData->curItem.szBRName);
 					strcpy(pData->curArray[pData->curItem.uiIndex].szItemDesc,pData->curItem.szItemDesc);
 					strcpy(pData->curArray[pData->curItem.uiIndex].szBRDesc,pData->curItem.szBRDesc);
+					#endif
 				}
 			}
 		}
@@ -995,6 +1005,7 @@ BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion )
 	UINT32		uiBytesRead;
 	UINT32		uiFSize;
 	CHAR8 *		lpcBuffer;
+
 	XML_Parser	parser = XML_ParserCreate(NULL);
 	
 	itemParseData pData;

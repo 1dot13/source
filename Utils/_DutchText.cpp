@@ -3461,6 +3461,7 @@ STR16		zOptionsToggleText[] =
 	L"Tracer effect for single shot",
 	L"Rain noises",
 	L"Random I.M.P personality",
+	L"Auto save",
 };
 
 //This is the help text associated with the above toggles.
@@ -3537,7 +3538,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, tracer effect will be shown for single shots.",
 	L"When ON, you will hear rain noises when it is raining.",
 	L"When ON, I.M.P characters will get random personality and attitude.",
-
+	L"When ON, game will be saved in tactical after each players turn.",
 };
 
 

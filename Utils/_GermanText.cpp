@@ -3270,6 +3270,7 @@ STR16 zOptionsToggleText[] =
 	L"Regengeräusche",
 	L"Krähen erlauben",
 	L"Zufällige B.S.E Personalität",
+	L"Automatisch speichern",
 };
 
 //This is the help text associated with the above toggles.
@@ -3347,6 +3348,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, werden Regengeräusche hörbar falls es regnet.",
 	L"Wenn diese Funktion aktiviert ist, sind Krähen im Spiel vorhanden.",
 	L"Wenn diese Funktion aktiviert ist, erhalten B.S.E Charaktere zufällige Persönlichkeit und Einstellung.",
+	L"Wenn diese Funktion aktiviert ist, wird nach jeder Runde automatisch gespeichert.",
 };
 
 STR16 gzGIOScreenText[] =
