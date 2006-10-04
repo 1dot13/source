@@ -67,6 +67,7 @@ typedef PARSE_STAGE;
 #define EXPLOSIONDATAFILENAME                   "ExplosionData.xml"
 #define CITYTABLEFILENAME                       "Map\\Cities.xml"
 #define MOVEMENTCOSTFILENAME                    "Map\\MovementCosts.xml"
+#define ALTSECTORSFILENAME                      "Map\\AltSectors.xml"
 
 // WANNE: drops filename
 #define ENEMYWEAPONDROPSFILENAME				"EnemyWeaponDrops.xml"
@@ -151,8 +152,10 @@ extern BOOLEAN WriteBurstSoundArray();
 extern BOOLEAN ReadInExplosionDataStats(STR fileName);
 extern BOOLEAN WriteExplosionDataStats();
 
-//Lesh: strategic movement costs
+//Lesh: strategic movement costs and alternative sectors table
 extern BOOLEAN ReadInStrategicMovementCosts(STR fileName);
 extern BOOLEAN WriteInStrategicMovementCosts(STR fileName);
+extern BOOLEAN ReadInAltSectors(STR fileName);
+extern BOOLEAN WriteInAltSectors(STR fileName);
 
 #endif

@@ -356,6 +356,12 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	//       function BOOLEAN InitStrategicMovementCosts();
 	//       It is called several times from various places and acts after clearing SectorInfo array
 
+	// Lesh: load altsectors list
+	strcpy(fileName, directoryName);
+	strcat(fileName, ALTSECTORSFILENAME);
+	if ( !ReadInAltSectors(fileName) )
+		return FALSE;
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, EXPLOSIONDATAFILENAME);
     if(!ReadInExplosionDataStats(fileName))
