@@ -27,8 +27,10 @@ BOOLEAN HandleJA2CDCheckTwo( );
 
 // WANNE: This method replaces characters in a given text with new characters
 char *Replace(char *string, char *oldpiece, char *newpiece);
+
 // WANNE: This method calls the replace method and replaces all german specific characters
-char *ReplaceGermanSpecialCharacters(char *text);
+// WANNE: Not used!
+//char *ReplaceGermanSpecialCharacters(char *text);
 
 
 // Snap: integer division that rounds the result to the nearest integer

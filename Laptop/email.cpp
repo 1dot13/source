@@ -3944,34 +3944,34 @@ void HandleIMPCharProfileResultsMessage( void)
 		if( ( gMercProfiles[ iCurrentIMPSlot ].bSkillTrait == ONROOF )||( gMercProfiles[ iCurrentIMPSlot ].bSkillTrait2 == ONROOF ) )
 		{
 			// WANNE: No entry in the Impass.edt for rooftop, so add any static text here
-      		// read one record from email file
-			//LoadEncryptedDataFromFile( "BINARYDATA\\Impass.edt", pString, MAIL_STRING_SIZE * ( IMP_SKILLS_SPECIAL_ONROOF ), MAIL_STRING_SIZE );
+      	// read one record from email file
+		  //LoadEncryptedDataFromFile( "BINARYDATA\\Impass.edt", pString, MAIL_STRING_SIZE * ( IMP_SKILLS_SPECIAL_ONROOF ), MAIL_STRING_SIZE );
 		 
 			#ifdef GERMAN
-			wcscpy(pString, L"Dach-Treffer Bonus: <Noch keine Beschreibung vorhanden>");
+				wcscpy(pString, L"Dach-Treffer Bonus: <Noch keine Beschreibung vorhanden>");
 			#else
 			wcscpy(pString, L"Rooftop Sniping: <No description yet>");
 			#endif
 
-			// add to list
-			AddEmailRecordToList( pString );
+		  // add to list
+		  AddEmailRecordToList( pString );
 		}
 
 		// camouflage
 		if( ( gMercProfiles[ iCurrentIMPSlot ].bSkillTrait == CAMOUFLAGED )||( gMercProfiles[ iCurrentIMPSlot ].bSkillTrait2 == CAMOUFLAGED ) )
 		{
 			// WANNE: No entry in the Impass.edt for camouflage, so add any static text here
-      		// read one record from email file
-			//LoadEncryptedDataFromFile( "BINARYDATA\\Impass.edt", pString, MAIL_STRING_SIZE * ( IMP_SKILLS_SPECIAL_CAMOUFLAGED ), MAIL_STRING_SIZE );
+      	// read one record from email file
+		  //LoadEncryptedDataFromFile( "BINARYDATA\\Impass.edt", pString, MAIL_STRING_SIZE * ( IMP_SKILLS_SPECIAL_CAMOUFLAGED ), MAIL_STRING_SIZE );
 		 
 			#ifdef GERMAN
-			wcscpy(pString, L"Getarnt: <Noch keine Beschreibung vorhanden>");
+				wcscpy(pString, L"Getarnt: <Noch keine Beschreibung vorhanden>");
 			#else
 			wcscpy(pString, L"Camouflage: <No description yet>");
 			#endif
 
-			// add to list
-			AddEmailRecordToList( pString );
+		  // add to list
+		  AddEmailRecordToList( pString );
 		}
 
 		// now the physical

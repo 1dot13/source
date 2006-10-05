@@ -3751,80 +3751,80 @@ INT32 GetAvgStatOfCurrentTeamStat( INT32 iStat )
 		// Only count stats of merc (not vehicles)
 		if ( !( pTeamSoldier->uiStatusFlags & SOLDIER_VEHICLE ) )
 		{
-			if(( pTeamSoldier->bActive)&&( pTeamSoldier->bLife > 0 ) && !AM_A_ROBOT( pTeamSoldier ) )
-			{
-				switch( iStat )
-				{
-					case 0:
-				// health
+		 if(( pTeamSoldier->bActive)&&( pTeamSoldier->bLife > 0 ) && !AM_A_ROBOT( pTeamSoldier ) )
+		 {
+			 switch( iStat )
+			 {
+				 case 0:
+			   // health
 
-							//if this is a pow, dont count his stats
-							if( pTeamSoldier->bAssignment == ASSIGNMENT_POW )
-							{
-								bNumberOfPows++;
-								continue;
-							}
+						//if this is a pow, dont count his stats
+						if( pTeamSoldier->bAssignment == ASSIGNMENT_POW )
+						{
+							bNumberOfPows++;
+							continue;
+						}
 
-						iTotalStatValue += pTeamSoldier -> bLifeMax;
-						 
-					break;
-					case 1:
-						// agility
-						iTotalStatValue +=pTeamSoldier -> bAgility;
+					  iTotalStatValue += pTeamSoldier -> bLifeMax;
+					 
+				   break;
+				 case 1:
+					 // agility
+					 iTotalStatValue +=pTeamSoldier -> bAgility;
 
-						break;
-					case 2:
-						// dexterity
-						iTotalStatValue +=  pTeamSoldier -> bDexterity;
-
-						break;
-					case 3:
-					// strength
-					iTotalStatValue +=  pTeamSoldier -> bStrength;
+					 break;
+				 case 2:
+					// dexterity
+					 iTotalStatValue +=  pTeamSoldier -> bDexterity;
 
 					break;
-					case 4:
-						// leadership
-						iTotalStatValue +=  pTeamSoldier -> bLeadership;
+				 case 3:
+				 // strength
+				 iTotalStatValue +=  pTeamSoldier -> bStrength;
 
-					break;
-					case 5:
-						// wisdom
-						
-						iTotalStatValue += pTeamSoldier -> bWisdom;
-					break;
-					case 6:
-						// exper
-	           
-						iTotalStatValue +=  pTeamSoldier -> bExpLevel;
+				 break;
+				 case 4:
+					// leadership
+					 iTotalStatValue +=  pTeamSoldier -> bLeadership;
 
-					break;
-					case 7:
-						//mrkmanship
-						 
-						iTotalStatValue +=  pTeamSoldier -> bMarksmanship;
-	       			 
-					break;
-					case 8:
-						// mech
-						 
-						iTotalStatValue +=  pTeamSoldier -> bMechanical;
-					break;
-					case 9:
-						// exp
-						 
-						iTotalStatValue +=  pTeamSoldier ->bExplosive;
-					break;
-					case 10:
-						// med
-						 
-						iTotalStatValue +=  pTeamSoldier -> bMedical;
-					break;
-				}
+				 break;
+				 case 5:
+					// wisdom
+					
+					 iTotalStatValue += pTeamSoldier -> bWisdom;
+				 break;
+				 case 6:
+					// exper
+           
+					 iTotalStatValue +=  pTeamSoldier -> bExpLevel;
 
-				ubNumberOfMercsInCalculation++;
-			}
-		}
+				 break;
+				 case 7:
+					 //mrkmanship
+					 
+					 iTotalStatValue +=  pTeamSoldier -> bMarksmanship;
+       			 
+				 break;
+				 case 8:
+					// mech
+					 
+					 iTotalStatValue +=  pTeamSoldier -> bMechanical;
+				 break;
+				 case 9:
+					// exp
+					 
+					 iTotalStatValue +=  pTeamSoldier ->bExplosive;
+				 break;
+				 case 10:
+					 // med
+					 
+					 iTotalStatValue +=  pTeamSoldier -> bMedical;
+				 break;
+			 }
+
+			 ubNumberOfMercsInCalculation++;
+		 }
+	}	
 	}	
 
 

@@ -130,13 +130,7 @@ ammoEndElementHandle(void *userData, const char *name)
 			{
 				for(int i=0;i<min((int)strlen(pData->szCharData),MAX_CHAR_DATA_LENGTH);i++)
 				{
-					// WANNE: TODO with ReplaceGermanSpecificCharacters() Method
-					#ifdef GERMAN
 					temp = pData->szCharData[i];
-					#else
-					temp = pData->szCharData[i];
-					#endif
-
 					AmmoCaliber[pData->curIndex][i] = temp;
 				}
 			}
@@ -149,13 +143,7 @@ ammoEndElementHandle(void *userData, const char *name)
 			{
 				for(int i=0;i<min((int)strlen(pData->szCharData),MAX_CHAR_DATA_LENGTH);i++)
 				{
-					// WANNE: TODO with ReplaceGermanSpecificCharacters() Method
-					#ifdef GERMAN
 					temp = pData->szCharData[i];
-					#else
-					temp = pData->szCharData[i];
-					#endif
-
 					BobbyRayAmmoCaliber[pData->curIndex][i] = temp;
 				}
 			}

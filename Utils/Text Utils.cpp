@@ -8,32 +8,62 @@
 
 BOOLEAN LoadItemInfo(UINT16 ubIndex, STR16 pNameString, STR16 pInfoString )
 {
+	int j = 0;
+
 	if (pNameString != NULL)
 	{
+		j = -1;
 		for (int i=0;i<80;i++)
 		{
-			if ( i<(int)strlen(Item[ubIndex].szLongItemName ))
+			j++;
+			if ( j<(int)strlen(Item[ubIndex].szLongItemName ))
 			{
-				pNameString[i] =  Item[ubIndex].szLongItemName  [i];
+				pNameString[i] =  Item[ubIndex].szLongItemName  [j];
 
-				// WANNE: German specific characters
 				#ifdef GERMAN
-				switch( pNameString[ i ] )
+				// We have a german special character
+				if (Item[ubIndex].szLongItemName [j] == -61)
 				{
-					// ü
-					case 65532:	pNameString[i] = 252; break;
-					// Ü
-					case 65500:	pNameString[i] = 220; break;
-					// ä
-					case 65508:	pNameString[i] = 228; break;
-					// Ä
-					case 65476:	pNameString[i] = 196; break;
-					// ö
-					case 65526:	pNameString[i] = 246; break;
-					// Ö
-					case 65494:	pNameString[i] = 214; break;
-					// ß
-					case 65503:	pNameString[i] = 223; break;
+					// This character determines the special character
+					switch (Item[ubIndex].szLongItemName [j + 1])
+					{
+						// ü
+						case -68:	
+							pNameString[i] = 252;
+							// Skip next character, because "umlaute" have 2 chars
+							j++;
+							break;
+						// Ü
+						case -100:	
+							pNameString[i] = 220;
+							j++;
+							break;
+						// ä
+						case -92:	
+							pNameString[i] = 228; 
+							j++;
+							break;
+						// Ä
+						case -124:	
+							pNameString[i] = 196; 
+							j++;
+							break;
+						// ö
+						case -74:	
+							pNameString[i] = 246; 
+							j++;
+							break;
+						// Ö
+						case -106:	
+							pNameString[i] = 214; 
+							j++;
+							break;
+						// ß
+						case -97:	
+							pNameString[i] = 223; 
+							j++;
+							break;
+					}
 				}
 				#endif
 
@@ -72,36 +102,63 @@ BOOLEAN LoadItemInfo(UINT16 ubIndex, STR16 pNameString, STR16 pInfoString )
 
 	if(pInfoString != NULL)
 	{
-		// WANNE: CHANGE THIS
+		j = -1;
 		for (int i=0;i<400;i++)
 		{
-			if ( i<(int)strlen(Item[ubIndex].szItemDesc ))
+			j++;
+			if ( j<(int)strlen(Item[ubIndex].szItemDesc ))
 			{
-				pInfoString[i] =  Item[ubIndex].szItemDesc  [i];
+				pInfoString[i] =  Item[ubIndex].szItemDesc  [j];
 
-				// WANNE: German specific characters
 				#ifdef GERMAN
-				switch( pInfoString[ i ] )
+				// We have a german special character
+				if (Item[ubIndex].szItemDesc [j] == -61)
 				{
-					// ü
-					case 65532:	pInfoString[i] = 252; break;
-					// Ü
-					case 65500:	pInfoString[i] = 220; break;
-					// ä
-					case 65508:	pInfoString[i] = 228; break;
-					// Ä
-					case 65476:	pInfoString[i] = 196; break;
-					// ö
-					case 65526:	pInfoString[i] = 246; break;
-					// Ö
-					case 65494:	pInfoString[i] = 214; break;
-					// ß
-					case 65503:	pInfoString[i] = 223; break;
+					// This character determines the special character
+					switch (Item[ubIndex].szItemDesc [j + 1])
+					{
+						// ü
+						case -68:	
+							pInfoString[i] = 252;
+							// Skip next character, because "umlaute" have 2 chars
+							j++;
+							break;
+						// Ü
+						case -100:	
+							pInfoString[i] = 220;
+							j++;
+							break;
+						// ä
+						case -92:	
+							pInfoString[i] = 228; 
+							j++;
+							break;
+						// Ä
+						case -124:	
+							pInfoString[i] = 196; 
+							j++;
+							break;
+						// ö
+						case -74:	
+							pInfoString[i] = 246; 
+							j++;
+							break;
+						// Ö
+						case -106:	
+							pInfoString[i] = 214; 
+							j++;
+							break;
+						// ß
+						case -97:	
+							pInfoString[i] = 223; 
+							j++;
+							break;
+					}
 				}
 				#endif
 
-				#ifdef POLISH
-				switch( pNameString[ i ] )
+		#ifdef POLISH
+			switch( pNameString[ i ] )
 				{
 					case 260:		pInfoString[ i ] = 165;		break;
 					case 262:		pInfoString[ i ] = 198;		break;
@@ -124,8 +181,8 @@ BOOLEAN LoadItemInfo(UINT16 ubIndex, STR16 pNameString, STR16 pInfoString )
 					case 380:		pInfoString[ i ] = 191;		break;
 					case 378:		pInfoString[ i ] = 376;		break;
 				}
-				#endif
-			}
+			#endif
+		}
 			else
 			{
 				pInfoString[i] ='\0';
@@ -140,30 +197,59 @@ BOOLEAN LoadBRName(UINT16 ubIndex, STR16 pNameString )
 {
 	if (pNameString != NULL)
 	{
+		int j = -1;
+
 		for (int i=0;i<80;i++)
 		{
-			if ( i<(int)strlen(Item[ubIndex].szBRName))
+			j++;
+			if ( j<(int)strlen(Item[ubIndex].szBRName))
 			{
-				pNameString[i] =  Item[ubIndex].szBRName [i];
+				pNameString[i] =  Item[ubIndex].szBRName [j];
 
-				// WANNE: German specific characters
 				#ifdef GERMAN
-				switch( pNameString[ i ] )
+				// We have a german special character
+				if (Item[ubIndex].szBRName [j] == -61)
 				{
-					// ü
-					case 65532:	pNameString[i] = 252; break;
-					// Ü
-					case 65500:	pNameString[i] = 220; break;
-					// ä
-					case 65508:	pNameString[i] = 228; break;
-					// Ä
-					case 65476:	pNameString[i] = 196; break;
-					// ö
-					case 65526:	pNameString[i] = 246; break;
-					// Ö
-					case 65494:	pNameString[i] = 214; break;
-					// ß
-					case 65503:	pNameString[i] = 223; break;
+					// This character determines the special character
+					switch (Item[ubIndex].szBRName [j + 1])
+					{
+						// ü
+						case -68:	
+							pNameString[i] = 252;
+							// Skip next character, because "umlaute" have 2 chars
+							j++;
+							break;
+						// Ü
+						case -100:	
+							pNameString[i] = 220;
+							j++;
+							break;
+						// ä
+						case -92:	
+							pNameString[i] = 228; 
+							j++;
+							break;
+						// Ä
+						case -124:	
+							pNameString[i] = 196; 
+							j++;
+							break;
+						// ö
+						case -74:	
+							pNameString[i] = 246; 
+							j++;
+							break;
+						// Ö
+						case -106:	
+							pNameString[i] = 214; 
+							j++;
+							break;
+						// ß
+						case -97:	
+							pNameString[i] = 223; 
+							j++;
+							break;
+					}
 				}
 				#endif
 
@@ -193,10 +279,10 @@ BOOLEAN LoadBRName(UINT16 ubIndex, STR16 pNameString )
 				}
 				#endif
 			}
-			else
+		else
 			{
-				pNameString[i] ='\0';
-			}
+			pNameString[i] ='\0';
+	}
 		}
 	}
 	return TRUE;
@@ -206,30 +292,60 @@ BOOLEAN LoadBRDesc(UINT16 ubIndex, STR16 pDescString )
 {
 	if (pDescString != NULL)
 	{
+		int j = -1;
+
 		for (int i=0;i<400;i++)
 		{
-			if ( i<(int)strlen(Item[ubIndex].szBRDesc))
+			j++;
+			if ( j<(int)strlen(Item[ubIndex].szBRDesc))
 			{
-				pDescString[i] =  Item[ubIndex].szBRDesc [i];
+				pDescString[i] =  Item[ubIndex].szBRDesc [j];
 
 				// WANNE: German specific characters
 				#ifdef GERMAN
-				switch( pDescString[ i ] )
+				// We have a german special character
+				if (Item[ubIndex].szBRDesc [j] == -61)
 				{
-					// ü
-					case 65532:	pDescString[i] = 252; break;
-					// Ü
-					case 65500:	pDescString[i] = 220; break;
-					// ä
-					case 65508:	pDescString[i] = 228; break;
-					// Ä
-					case 65476:	pDescString[i] = 196; break;
-					// ö
-					case 65526:	pDescString[i] = 246; break;
-					// Ö
-					case 65494:	pDescString[i] = 214; break;
-					// ß
-					case 65503:	pDescString[i] = 223; break;
+					// This character determines the special character
+					switch (Item[ubIndex].szBRDesc [j + 1])
+					{
+						// ü
+						case -68:	
+							pDescString[i] = 252;
+							// Skip next character, because "umlaute" have 2 chars
+							j++;
+							break;
+						// Ü
+						case -100:	
+							pDescString[i] = 220;
+							j++;
+							break;
+						// ä
+						case -92:	
+							pDescString[i] = 228; 
+							j++;
+							break;
+						// Ä
+						case -124:	
+							pDescString[i] = 196; 
+							j++;
+							break;
+						// ö
+						case -74:	
+							pDescString[i] = 246; 
+							j++;
+							break;
+						// Ö
+						case -106:	
+							pDescString[i] = 214; 
+							j++;
+							break;
+						// ß
+						case -97:	
+							pDescString[i] = 223; 
+							j++;
+							break;
+					}
 				}
 				#endif
 
@@ -274,11 +390,11 @@ BOOLEAN LoadShortNameItemInfo(UINT16 ubIndex, STR16 pNameString )
 	if(pNameString != NULL)
 	{
 		// WANNE:
-		for (int i=0;i<80;i++)
-		{
-			if ( i<(int)strlen(Item[ubIndex].szItemName))
+	for (int i=0;i<80;i++)
+	{
+		if ( i<(int)strlen(Item[ubIndex].szItemName))
 			{
-				pNameString[i] =  Item[ubIndex].szItemName [i];
+			pNameString[i] =  Item[ubIndex].szItemName [i];
 
 				// WANNE: German specific characters
 				#ifdef GERMAN
@@ -301,32 +417,32 @@ BOOLEAN LoadShortNameItemInfo(UINT16 ubIndex, STR16 pNameString )
 				}
 				#endif
 
-				#ifdef POLISH
-				switch( pNameString[ i ] )
-				{
-					case 260:		pNameString[ i ] = 165;		break;
-					case 262:		pNameString[ i ] = 198;		break;
-					case 280:		pNameString[ i ] = 202;		break;
-					case 321:		pNameString[ i ] = 163;		break;
-					case 323:		pNameString[ i ] = 209;		break;
-					case 211:		pNameString[ i ] = 211;		break;
+		#ifdef POLISH
+			switch( pNameString[ i ] )
+			{
+				case 260:		pNameString[ i ] = 165;		break;
+				case 262:		pNameString[ i ] = 198;		break;
+				case 280:		pNameString[ i ] = 202;		break;
+				case 321:		pNameString[ i ] = 163;		break;
+				case 323:		pNameString[ i ] = 209;		break;
+				case 211:		pNameString[ i ] = 211;		break;
 
-					case 346:		pNameString[ i ] = 338;		break;
-					case 379:		pNameString[ i ] = 175;		break;
-					case 377:		pNameString[ i ] = 143;		break;
-					case 261:		pNameString[ i ] = 185;		break;
-					case 263:		pNameString[ i ] = 230;		break;
-					case 281:		pNameString[ i ] = 234;		break;
+				case 346:		pNameString[ i ] = 338;		break;
+				case 379:		pNameString[ i ] = 175;		break;
+				case 377:		pNameString[ i ] = 143;		break;
+				case 261:		pNameString[ i ] = 185;		break;
+				case 263:		pNameString[ i ] = 230;		break;
+				case 281:		pNameString[ i ] = 234;		break;
 
-					case 322:		pNameString[ i ] = 179;		break;
-					case 324:		pNameString[ i ] = 241;		break;
-					case 243:		pNameString[ i ] = 243;		break;
-					case 347:		pNameString[ i ] = 339;		break;
-					case 380:		pNameString[ i ] = 191;		break;
-					case 378:		pNameString[ i ] = 376;		break;
-				}
-				#endif
+				case 322:		pNameString[ i ] = 179;		break;
+				case 324:		pNameString[ i ] = 241;		break;
+				case 243:		pNameString[ i ] = 243;		break;
+				case 347:		pNameString[ i ] = 339;		break;
+				case 380:		pNameString[ i ] = 191;		break;
+				case 378:		pNameString[ i ] = 376;		break;
 			}
+		#endif
+	}
 			else
 			{
 				pNameString[i] ='\0';
