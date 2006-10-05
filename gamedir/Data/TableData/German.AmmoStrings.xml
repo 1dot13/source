@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
-<AMMOLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<AMMOLIST>
 	<AMMO>
 		<AmmoCaliber>0</AmmoCaliber>
 		<BRCaliber>0</BRCaliber>
