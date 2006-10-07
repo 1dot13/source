@@ -1165,17 +1165,17 @@ void HandleUnhiredMercDeaths( INT32 iProfileID )
 	// how many in total can be killed like this depends on player's difficulty setting
 	switch( gGameOptions.ubDifficultyLevel )
 	{
-		case DIF_LEVEL_EASY:
-			ubMaxDeaths = 1;
+		case DIF_LEVEL_EASY:  //Kaiden Externalized ubMaxDeaths Values
+			ubMaxDeaths = gGameExternalOptions.giEasyMercDeaths;
 			break;
 		case DIF_LEVEL_MEDIUM:
-			ubMaxDeaths = 2;
+			ubMaxDeaths = gGameExternalOptions.giExperiencedMercDeaths;
 			break;
 		case DIF_LEVEL_HARD:
-			ubMaxDeaths = 3;
+			ubMaxDeaths = gGameExternalOptions.giExpertMercDeaths;
 			break;
 		case DIF_LEVEL_INSANE:
-			ubMaxDeaths = 3;
+			ubMaxDeaths = gGameExternalOptions.giInsaneMercDeaths;
 			break;
 		default:
 			Assert(FALSE);

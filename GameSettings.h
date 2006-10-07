@@ -379,6 +379,14 @@ typedef struct
 	BOOLEAN fEnableSoldierTooltipBigSlot4;
 	// ShadoWarrior: Tooltip changes (end)
 
+	//Kaiden MERC Deaths Externalized:
+	BOOLEAN gfMercsDieOnAssignment;
+	INT32 giEasyMercDeaths;
+	INT32 giExperiencedMercDeaths;
+	INT32 giExpertMercDeaths;
+	INT32 giInsaneMercDeaths;
+
+
 } GAME_EXTERNAL_OPTIONS;
 
 //This structure will contain general Ja2 settings  NOT individual game settings.

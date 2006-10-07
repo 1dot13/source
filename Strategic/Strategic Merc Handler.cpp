@@ -414,7 +414,10 @@ void MercDailyUpdate()
 				if (pProfile->bMercStatus == MERC_WORKING_ELSEWHERE)
 				{
 					// check if he's killed
-					HandleUnhiredMercDeaths( cnt );
+
+					//Kaiden: Externalized if Mercs get killed
+					if (gGameExternalOptions.gfMercsDieOnAssignment)
+						HandleUnhiredMercDeaths( cnt );
 				}
 			}
 		}

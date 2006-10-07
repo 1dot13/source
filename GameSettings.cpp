@@ -310,7 +310,13 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fMercDayOne			= iniReader.ReadBoolean("JA2 Laptop Settings","MERC_AVAILABLE_DAY_ONE",FALSE);
 	gGameExternalOptions.fAllMercsAvailable		= iniReader.ReadBoolean("JA2 Laptop Settings","ALL_MERCS_AT_MERC",FALSE);
 
-	
+	//Merc Death Settings:
+	gGameExternalOptions.gfMercsDieOnAssignment			  = iniReader.ReadBoolean("JA2 Laptop Settings","MERCS_DIE_ON_ASSIGNMENT",TRUE);
+	gGameExternalOptions.giEasyMercDeaths		          = iniReader.ReadInteger("JA2 Laptop Settings","EASY_MERC_DEATHS",1);
+	gGameExternalOptions.giExperiencedMercDeaths	    = iniReader.ReadInteger("JA2 Laptop Settings","EXPERIENCED_MERC_DEATHS",2);
+	gGameExternalOptions.giExpertMercDeaths	          = iniReader.ReadInteger("JA2 Laptop Settings","EXPERT_MERC_DEATHS",3);
+	gGameExternalOptions.giInsaneMercDeaths	          = iniReader.ReadInteger("JA2 Laptop Settings","INSANE_MERC_DEATHS",4);
+
 	//################# System Settings #################
 	gGameExternalOptions.gubDeadLockDelay = iniReader.ReadInteger("JA2 System Settings","DEAD_LOCK_DELAY",15);
 	gGameExternalOptions.gfEnableEmergencyButton_SkipStrategicEvents = iniReader.ReadBoolean("JA2 System Settings","ENABLE_EMERGENCY_BUTTON_NUMLOCK_TO_SKIP_STRATEGIC_EVENTS",0);
