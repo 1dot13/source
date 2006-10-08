@@ -1359,11 +1359,26 @@ UINT32 uiCount;
 //*******************************************************************************
 BOOLEAN SoundInitHardware(void)
 {
+	UINT32 uiCaps;
+
     SoundLog("Init hardware...");
 
 	// Try to start up the FMOD Sound System
     FSOUND_SetOutput(FSOUND_OUTPUT_DSOUND);
     FSOUND_SetBufferSize(AUDIO_BUFFER_LEN);
+    SoundLog((CHAR8 *)String("  Using DirectSound driver: %s", FSOUND_GetDriverName(FSOUND_GetDriver())));
+	SoundLog("    Driver capabilities:");
+	FSOUND_GetDriverCaps( FSOUND_GetDriver(), &uiCaps );
+
+	if ( uiCaps & FSOUND_CAPS_HARDWARE )
+		SoundLog("      - supports hardware accelerated 3d sound");
+
+	if ( uiCaps & FSOUND_CAPS_EAX2 )
+		SoundLog("      - supports EAX 2 reverb");
+
+	if ( uiCaps & FSOUND_CAPS_EAX3 )
+		SoundLog("      - supports EAX 3 reverb");
+
 	if( !FSOUND_Init(44100, SOUND_MAX_CHANNELS, FSOUND_INIT_GLOBALFOCUS|FSOUND_INIT_DONTLATENCYADJUST) )
     {
         SoundLog((CHAR8 *)String("  ERROR in SoundInitHardware(): %s", FMOD_ErrorString(FSOUND_GetError())));
@@ -1371,7 +1386,6 @@ BOOLEAN SoundInitHardware(void)
     }
 
     SoundLog("  FMOD started");
-    SoundLog((CHAR8 *)String("  Using DirectSound driver: %s", FSOUND_GetDriverName(FSOUND_GetDriver())));
     SoundLog((CHAR8 *)String("  Mixing rate: %d", FSOUND_GetOutputRate()));
 
 	// Driver is ready
