@@ -156,6 +156,8 @@ typedef struct
 	INT32 iTrainingSquadSize;
 	INT32 iMilitiaTrainingCost;
 	INT32 iMilitiaCostModifier;
+	INT32 iRegularCostModifier;
+	INT32 iVeteranCostModifier;
 	INT32 iMinLoyaltyToTrain;
 
 	INT32 iMaxEnemyGroupSize;
@@ -221,6 +223,8 @@ typedef struct
 	BOOLEAN gfAllowReinforcementsOnlyInCity;
 	UINT32	guiBaseQueenPoolIncrement;
 	
+	UINT32	guiAllowMilitiaGroupsDelay;
+	UINT32	guiTrainVeteranMilitiaDelay;
 	UINT32	guiCreateEachNHours;
 	UINT32	guiDivOfOriginalMilitia;
 	UINT32	guiMinMilitiaSquadSize;

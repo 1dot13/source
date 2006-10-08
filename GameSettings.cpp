@@ -485,6 +485,8 @@ void LoadGameExternalOptions()
 	//gGameExternalOptions.gfUseAutoSave						= iniReader.ReadBoolean("JA2 Gameplay Settings","USE_AUTO_SAVE",FALSE);
 
 	// Militia settings
+	gGameExternalOptions.guiAllowMilitiaGroupsDelay  = iniReader.ReadInteger("JA2 Gameplay Settings","ALLOW_MILITIA_MOBILE_DELAY",1);
+	gGameExternalOptions.guiTrainVeteranMilitiaDelay = iniReader.ReadInteger("JA2 Gameplay Settings","TRAIN_VETERAN_MILITIA_DELAY",1);
 	gGameExternalOptions.gfTrainVeteranMilitia			= iniReader.ReadBoolean("JA2 Gameplay Settings","TRAIN_VETERAN_MILITIA",FALSE);
 	gGameExternalOptions.gfAllowMilitiaGroups				= iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_MILITIA_MOBILE_GROUPS",FALSE);
 	gGameExternalOptions.gfmusttrainroaming					= iniReader.ReadBoolean("JA2 Gameplay Settings","MUST_TRAIN_MOBILE_MILITIA",FALSE);
@@ -502,6 +504,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iTrainingSquadSize					= iniReader.ReadInteger("JA2 Gameplay Settings","MAX_TRAINING_SQUAD_SIZE",10);
 	gGameExternalOptions.iMilitiaTrainingCost				= iniReader.ReadInteger("JA2 Gameplay Settings","MILITIA_TRAINING_COST",750);
 	gGameExternalOptions.iMilitiaCostModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","MILITIA_COST_MODIFIER",3);
+	gGameExternalOptions.iRegularCostModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","REGULAR_COST_MODIFIER",1);
+	gGameExternalOptions.iVeteranCostModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","VETERAN_COST_MODIFIER",2);
 	gGameExternalOptions.iMinLoyaltyToTrain					= iniReader.ReadInteger("JA2 Gameplay Settings","MIN_LOYALTY_TO_TRAIN",20);
 
 	//Assignment Settings (training, repairing, doctoring, etc)

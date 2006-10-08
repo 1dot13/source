@@ -462,10 +462,16 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	// Kaiden: Moved Create Militia code into CreateMilitiaSquads
 	// Removed the code from here and added the procedure call
 	// If it's time, and this is a city sector create a new group.
-	// But only if we're not training our own. 
+	// But only if we're not training our own.
+
 	if( (!gGameExternalOptions.gfmusttrainroaming) && ( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR ) ) 
 	{
-		if( GetWorldHour() % gGameExternalOptions.guiCreateEachNHours )return;
+		if (GetWorldDay( ) < gGameExternalOptions.guiAllowMilitiaGroupsDelay)
+			return;
+
+		if( GetWorldHour() % gGameExternalOptions.guiCreateEachNHours )
+			return;
+
 		CreateMilitiaSquads( sMapX, sMapY );
 	}
 
@@ -545,7 +551,8 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	// Kaiden: Roaming Militia Training:
 	// If we're training roaming militia,	
 	// we'll get our squad from here:
-
+	// Don't need to check for delay, as this function won't be
+	// called if there is a delay set.
 void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 {
 	UINT16 pMoveDir[4][3];

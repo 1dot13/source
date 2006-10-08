@@ -315,7 +315,7 @@ void ReEvaluateEveryonesNothingToDo();
 void SetAssignmentForList( INT8 bAssignment, INT8 bParam );
 
 // is this area maxed out on militia?
-BOOLEAN IsMilitiaTrainableFromSoldiersSectorMaxed( SOLDIERTYPE *pSoldier );
+BOOLEAN IsMilitiaTrainableFromSoldiersSectorMaxed( SOLDIERTYPE *pSoldier, INT8 iMilitiaType );
 
 // function where we actually set someone's assignment so we can trap certain situations
 void ChangeSoldiersAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment );

@@ -1100,7 +1100,9 @@ BOOLEAN BasicCanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 {
 
-	if (gGameExternalOptions.gfmusttrainroaming)
+	if (gGameExternalOptions.gfmusttrainroaming 
+		&& (GetWorldDay( ) >= gGameExternalOptions.guiAllowMilitiaGroupsDelay)
+		&& (!IsThisSectorASAMSector(pSoldier->sSectorX,pSoldier->sSectorY,0 )))
 	{
 		if( BasicCanCharacterTrainMilitia( pSoldier ) &&
 			MilitiaTrainingAllowedInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) &&
@@ -1120,7 +1122,7 @@ BOOLEAN CanCharacterTrainMilitia( SOLDIERTYPE *pSoldier )
 		if( BasicCanCharacterTrainMilitia( pSoldier ) &&
 			MilitiaTrainingAllowedInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) &&
 			DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( pSoldier ) &&
-			( IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier ) == FALSE ) &&
+			( IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier,ELITE_MILITIA ) == FALSE ) &&
 			( CountMilitiaTrainersInSoldiersSector( pSoldier ) < gGameExternalOptions.ubMaxMilitiaTrainersPerSector ) )
 		{
 			return( TRUE );
@@ -1211,7 +1213,7 @@ INT8 CountMilitiaTrainersInSoldiersSector( SOLDIERTYPE * pSoldier )
 
 
 
-BOOLEAN IsMilitiaTrainableFromSoldiersSectorMaxed( SOLDIERTYPE *pSoldier )
+BOOLEAN IsMilitiaTrainableFromSoldiersSectorMaxed( SOLDIERTYPE *pSoldier, INT8 iMilitiaType )
 {
 	INT8 bTownId = 0;
 	BOOLEAN fSamSitePresent = FALSE;
@@ -1232,18 +1234,17 @@ BOOLEAN IsMilitiaTrainableFromSoldiersSectorMaxed( SOLDIERTYPE *pSoldier )
 		// if there is a sam site here
 		if( fSamSitePresent )
 		{
-			if( IsSAMSiteFullOfMilitia( pSoldier->sSectorX, pSoldier->sSectorY ) )
-			{
-				return( TRUE );
-			}
-			return( FALSE );
+			if( IsSAMSiteFullOfMilitia( pSoldier->sSectorX, pSoldier->sSectorY,iMilitiaType ) )
+				{
+					return( TRUE );
+				}
+				return( FALSE );
 		}
-
 		return( FALSE );
 	}
 
 	// this considers *ALL* safe sectors of the town, not just the one soldier is in
-	if( IsTownFullMilitia( bTownId ) )
+	if( IsTownFullMilitia( bTownId, iMilitiaType ) )
 	{
 		// town is full of militia
 		return( TRUE );
@@ -7332,6 +7333,7 @@ void TrainingMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	INT8 bTownId;
 	CHAR16 sString[ 128 ];
 	CHAR16 sStringA[ 128 ];
+	BOOLEAN fCanTrainMilitia = TRUE;
 
 
 	pSoldier = GetSelectedAssignSoldier( FALSE );
@@ -7396,10 +7398,18 @@ void TrainingMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 
 					// Kaiden: Roaming Militia Training:
-					// Added to the if test here:
-					// && (!gGameExternalOptions.gfmusttrainroaming)
+					if(IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier, ELITE_MILITIA ))
+						if (!gGameExternalOptions.gfmusttrainroaming)
+							fCanTrainMilitia = FALSE;
+						else if (GetWorldDay( ) < gGameExternalOptions.guiAllowMilitiaGroupsDelay)
+							fCanTrainMilitia = FALSE;
+						else if (IsThisSectorASAMSector(pSoldier->sSectorX,pSoldier->sSectorY,0 ))
+							fCanTrainMilitia = FALSE;
+						else 
+							fCanTrainMilitia = TRUE;
 
-					if( IsMilitiaTrainableFromSoldiersSectorMaxed( pSoldier ) && (!gGameExternalOptions.gfmusttrainroaming))
+
+					if(!fCanTrainMilitia)
 					{
 						if( bTownId == BLANK_SECTOR )
 						{
@@ -7416,11 +7426,6 @@ void TrainingMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL );
 						break;
 					} 
-
-
-
-
-
 
 					if ( CountMilitiaTrainersInSoldiersSector( pSoldier ) >= gGameExternalOptions.ubMaxMilitiaTrainersPerSector )
 					{
