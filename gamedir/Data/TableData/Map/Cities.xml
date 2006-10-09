@@ -2,7 +2,7 @@
 	<CITYLIST>
 		<CITY>
 			<uiIndex>1</uiIndex>
-			<szName>Omerta</szName>
+			<cityName>Omerta</cityName>
 			<baseSector>
 				<x>9</x>
 				<y>1</y>
@@ -14,7 +14,7 @@
 		</CITY>
 		<CITY>
 			<uiIndex>2</uiIndex>
-			<szName>Drassen</szName>
+			<cityName>Drassen</cityName>
 			<baseSector>
 				<x>13</x>
 				<y>2</y>
@@ -26,7 +26,7 @@
 		</CITY>
 		<CITY>
 			<uiIndex>3</uiIndex>
-			<szName>Alma</szName>
+			<cityName>Alma</cityName>
 			<baseSector>
 				<x>13</x>
 				<y>8</y>
@@ -38,7 +38,7 @@
 		</CITY>
 		<CITY>
 			<uiIndex>4</uiIndex>
-			<szName>Grumm</szName>
+			<cityName>Grumm</cityName>
 			<baseSector>
 				<x>1</x>
 				<y>7</y>
@@ -50,7 +50,7 @@
 		</CITY>
 		<CITY>
 			<uiIndex>5</uiIndex>
-			<szName>Tixa</szName>
+			<cityName>Tixa</cityName>
 			<baseSector>
 				<x>8</x>
 				<y>9</y>
@@ -62,7 +62,7 @@
 		</CITY>
 		<CITY>
 			<uiIndex>6</uiIndex>
-			<szName>Cambria</szName>
+			<cityName>Cambria</cityName>
 			<baseSector>
 				<x>8</x>
 				<y>6</y>
@@ -74,7 +74,7 @@
 		</CITY>
 		<CITY>
 			<uiIndex>7</uiIndex>
-			<szName>San Mona</szName>
+			<cityName>San Mona</cityName>
 			<baseSector>
 				<x>4</x>
 				<y>2</y>
@@ -86,7 +86,7 @@
 		</CITY>
 		<CITY>
 			<uiIndex>8</uiIndex>
-			<szName>Estoni</szName>
+			<cityName>Estoni</cityName>
 			<baseSector>
 				<x>5</x>
 				<y>8</y>
@@ -98,7 +98,7 @@
 		</CITY>
 		<CITY>
 			<uiIndex>9</uiIndex>
-			<szName>Orta</szName>
+			<cityName>Orta</cityName>
 			<baseSector>
 				<x>3</x>
 				<y>10</y>
@@ -110,7 +110,7 @@
 		</CITY>
 		<CITY>
 			<uiIndex>10</uiIndex>
-			<szName>Balime</szName>
+			<cityName>Balime</cityName>
 			<baseSector>
 				<x>11</x>
 				<y>11</y>
@@ -122,7 +122,7 @@
 		</CITY>
 		<CITY>
 			<uiIndex>11</uiIndex>
-			<szName>Meduna</szName>
+			<cityName>Meduna</cityName>
 			<baseSector>
 				<x>3</x>
 				<y>14</y>
@@ -134,7 +134,7 @@
 		</CITY>
 		<CITY>
 			<uiIndex>12</uiIndex>
-			<szName>Chitzena</szName>
+			<cityName>Chitzena</cityName>
 			<baseSector>
 				<x>2</x>
 				<y>1</y>
