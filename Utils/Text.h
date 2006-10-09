@@ -3,6 +3,7 @@
 
 #include "items.h"
 #include "types.h"
+#include "mapscreen.h"
 
 #define STRING_LENGTH 255
 
@@ -26,7 +27,7 @@ extern STR16 pLongAttributeStrings[];
 extern STR16 pContractStrings[];
 extern STR16 pAssignmentStrings[];
 extern STR16 pConditionStrings[];
-extern STR16 pTownNames[];
+extern CHAR16 pTownNames[NUM_TOWNS][MAX_TOWN_NAME_LENGHT];	// Lesh: look mapscreen.h for definitions
 extern STR16 pPersonnelScreenStrings[];
 extern STR16 pPersonnelTitle[];
 extern STR16 pUpperLeftMapScreenStrings[];

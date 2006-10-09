@@ -172,7 +172,7 @@ extern UINT32	guiNumWorldItems;
 // preprocess sector for mercs in it
 extern BOOLEAN fSectorsWithSoldiers[ MAP_WORLD_X * MAP_WORLD_X ][ 4 ];
 
-extern STR16 pTownNames[];
+extern CHAR16 pTownNames[NUM_TOWNS][MAX_TOWN_NAME_LENGHT];
 
 
 

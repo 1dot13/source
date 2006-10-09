@@ -8,11 +8,12 @@
 #define			MAP_WORLD_X						18
 #define			MAP_WORLD_Y						18
 
+#define MAX_TOWN_NAME_LENGHT	32
 
 // Sector name identifiers
 enum Towns
 {
-  BLANK_SECTOR=0,
+	BLANK_SECTOR=0,
 	OMERTA,
 	DRASSEN,
 	ALMA,
@@ -24,7 +25,8 @@ enum Towns
 	ORTA,
 	BALIME,
 	MEDUNA,
-  CHITZENA,
+	CHITZENA,
+
 	NUM_TOWNS
 } ;
 

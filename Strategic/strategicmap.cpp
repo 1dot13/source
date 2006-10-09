@@ -358,6 +358,7 @@ typedef enum
 	CITYTABLE_ELEMENT_CITYLIST,
 	CITYTABLE_ELEMENT_CITY,
 	CITYTABLE_ELEMENT_INDEX,
+	CITYTABLE_ELEMENT_NAME,
 	CITYTABLE_ELEMENT_BASESECTOR,
 	CITYTABLE_ELEMENT_BASESECTOR_X,
 	CITYTABLE_ELEMENT_BASESECTOR_Y,
@@ -372,6 +373,7 @@ typedef struct
 	UINT8	ubBaseX;
 	UINT8	ubBaseY;
 	POINT	townPoint;
+	CHAR8	cityName[MAX_TOWN_NAME_LENGHT];
 } cityInfo;
 
 typedef struct
@@ -434,6 +436,11 @@ citytableStartElementHandle(void *userData, const char *name, const char **atts)
 
 			memset(&pData->curCityInfo,0,sizeof(cityInfo));
 
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "cityName") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITY)
+		{
+			pData->curElement = CITYTABLE_ELEMENT_NAME;
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if(strcmp(name, "uiIndex") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITY)
@@ -539,6 +546,13 @@ citytableEndElementHandle(void *userData, const char *name)
 			pData->curElement = CITYTABLE_ELEMENT_CITY;
 
 			pData->curCityInfo.uiIndex = atol(pData->szCharData);
+		}
+		else if(strcmp(name, "cityName") == 0 && pData->curElement == CITYTABLE_ELEMENT_NAME)
+		{
+			// Copy this string into the pTownNames array
+			mbstowcs(pTownNames[pData->curCityInfo.uiIndex], (const char *) pData->szCharData, MAX_TOWN_NAME_LENGHT);
+			pTownNames[pData->curCityInfo.uiIndex][MAX_TOWN_NAME_LENGHT - 1] = 0;
+			pData->curElement = CITYTABLE_ELEMENT_CITY;
 		}
 		else if(strcmp(name, "baseSector") == 0 && pData->curElement == CITYTABLE_ELEMENT_BASESECTOR)
 		{
