@@ -347,6 +347,9 @@ void CrippledVersionFailureToLoadMapCheck();
 	#include "tiledat.h"
 #endif
 
+extern UINT8 gubTownRebelSentiment[ NUM_TOWNS ];
+extern BOOLEAN gfTownUsesLoyalty[ NUM_TOWNS ];
+
 #define MAX_CHAR_DATA_LENGTH			500
 
 typedef enum
@@ -365,6 +368,8 @@ typedef enum
 	CITYTABLE_ELEMENT_TOWNPOINT,
 	CITYTABLE_ELEMENT_TOWNPOINT_X,
 	CITYTABLE_ELEMENT_TOWNPOINT_Y,
+	CITYTABLE_ELEMENT_USES_LOYALTY,
+	CITYTABLE_ELEMENT_REBEL_SENTIMENT
 } CITYTABLE_PARSE_STAGE;
 
 typedef struct
@@ -373,6 +378,8 @@ typedef struct
 	UINT8	ubBaseX;
 	UINT8	ubBaseY;
 	POINT	townPoint;
+	BOOLEAN townUsesLoyalty;
+	UINT8	townRebelSentiment;
 	CHAR8	cityName[MAX_TOWN_NAME_LENGHT];
 } cityInfo;
 
@@ -427,6 +434,8 @@ citytableStartElementHandle(void *userData, const char *name, const char **atts)
 
 			memset(sBaseSectorList,0,sizeof(sBaseSectorList));
 			memset(pTownPoints,0,sizeof(pTownPoints));
+			memset(gfTownUsesLoyalty,0,sizeof(gfTownUsesLoyalty));
+			memset(gubTownRebelSentiment,0,sizeof(gubTownRebelSentiment));
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -438,7 +447,7 @@ citytableStartElementHandle(void *userData, const char *name, const char **atts)
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
-		else if(strcmp(name, "cityName") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITY)
+		else if(strcmp(name, "townName") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITY)
 		{
 			pData->curElement = CITYTABLE_ELEMENT_NAME;
 			pData->maxReadDepth++; //we are not skipping this element
@@ -446,6 +455,16 @@ citytableStartElementHandle(void *userData, const char *name, const char **atts)
 		else if(strcmp(name, "uiIndex") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITY)
 		{
 			pData->curElement = CITYTABLE_ELEMENT_INDEX;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "townUsesLoyalty") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITY)
+		{
+			pData->curElement = CITYTABLE_ELEMENT_USES_LOYALTY;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "townRebelSentiment") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITY)
+		{
+			pData->curElement = CITYTABLE_ELEMENT_REBEL_SENTIMENT;
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if(strcmp(name, "baseSector") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITY)
@@ -538,8 +557,12 @@ citytableEndElementHandle(void *userData, const char *name)
 		{
 			pData->curElement = CITYTABLE_ELEMENT_CITYLIST;
 
-			sBaseSectorList[pData->curCityInfo.uiIndex-1] = SECTOR(pData->curCityInfo.ubBaseX,pData->curCityInfo.ubBaseY);
-			pTownPoints[pData->curCityInfo.uiIndex] = pData->curCityInfo.townPoint;
+			sBaseSectorList       [pData->curCityInfo.uiIndex-1] = SECTOR(pData->curCityInfo.ubBaseX,pData->curCityInfo.ubBaseY);
+			pTownPoints           [pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townPoint;
+			gfTownUsesLoyalty     [pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townUsesLoyalty;
+			gubTownRebelSentiment [pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townRebelSentiment;
+
+			mbstowcs( pTownNames[pData->curCityInfo.uiIndex], pData->curCityInfo.cityName, MAX_TOWN_NAME_LENGHT);
 		}
 		else if(strcmp(name, "uiIndex") == 0 && pData->curElement == CITYTABLE_ELEMENT_INDEX)
 		{
@@ -547,12 +570,30 @@ citytableEndElementHandle(void *userData, const char *name)
 
 			pData->curCityInfo.uiIndex = atol(pData->szCharData);
 		}
-		else if(strcmp(name, "cityName") == 0 && pData->curElement == CITYTABLE_ELEMENT_NAME)
+		else if(strcmp(name, "townName") == 0 && pData->curElement == CITYTABLE_ELEMENT_NAME)
 		{
-			// Copy this string into the pTownNames array
-			mbstowcs(pTownNames[pData->curCityInfo.uiIndex], (const char *) pData->szCharData, MAX_TOWN_NAME_LENGHT);
-			pTownNames[pData->curCityInfo.uiIndex][MAX_TOWN_NAME_LENGHT - 1] = 0;
+			strncpy(pData->curCityInfo.cityName, (const char *) pData->szCharData, MAX_TOWN_NAME_LENGHT - 1);
+			pData->curCityInfo.cityName[MAX_TOWN_NAME_LENGHT - 1] = 0;
+
 			pData->curElement = CITYTABLE_ELEMENT_CITY;
+		}
+		else if(strcmp(name, "townUsesLoyalty") == 0 && pData->curElement == CITYTABLE_ELEMENT_USES_LOYALTY )
+		{
+			pData->curElement = CITYTABLE_ELEMENT_CITY;
+
+			pData->curCityInfo.townUsesLoyalty = (BOOLEAN)atol(pData->szCharData);
+		}
+		else if(strcmp(name, "townRebelSentiment") == 0 && pData->curElement == CITYTABLE_ELEMENT_REBEL_SENTIMENT )
+		{
+			pData->curElement = CITYTABLE_ELEMENT_CITY;
+
+			pData->curCityInfo.townRebelSentiment = (UINT8)atol(pData->szCharData);
+			if ( pData->curCityInfo.townRebelSentiment > 100 )
+			{
+				pData->curCityInfo.townRebelSentiment = 100;
+			}
+			else if ( !pData->curCityInfo.townRebelSentiment )
+				pData->curCityInfo.townRebelSentiment = 1;
 		}
 		else if(strcmp(name, "baseSector") == 0 && pData->curElement == CITYTABLE_ELEMENT_BASESECTOR)
 		{
@@ -593,6 +634,69 @@ citytableEndElementHandle(void *userData, const char *name)
 	pData->currentDepth--;
 }
 
+BOOLEAN WriteInStrategicMapSectorTownNames(STR fileName)
+{
+	HWFILE		hFile;
+	
+	hFile = FileOpen( fileName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
+	if ( !hFile )
+		return( FALSE );
+	
+	{
+		UINT32 x, y, cnt;
+
+
+		FilePrintf(hFile,"<CITY_INFO>\r\n");
+		FilePrintf(hFile,"\t<CITYLIST>\r\n");
+		for(cnt = 1; cnt < NUM_TOWNS; cnt++)
+		{
+			FilePrintf(hFile,"\t\t<CITY>\r\n");
+
+			FilePrintf(hFile,"\t\t\t<uiIndex>%d</uiIndex>\r\n",cnt);
+
+			FilePrintf(hFile,"\t\t\t<townName>%S</townName>\r\n", pTownNames[cnt] );
+
+			FilePrintf(hFile,"\t\t\t<townUsesLoyalty>%d</townUsesLoyalty>\r\n", gfTownUsesLoyalty[cnt] );
+
+			FilePrintf(hFile,"\t\t\t<townRebelSentiment>%d</townRebelSentiment>\r\n", gubTownRebelSentiment[cnt] );
+
+			FilePrintf(hFile,"\t\t\t<baseSector>\r\n");
+			FilePrintf(hFile,"\t\t\t\t<x>%d</x>\r\n",(sBaseSectorList[cnt-1]%16)+1);
+			FilePrintf(hFile,"\t\t\t\t<y>%d</y>\r\n",(sBaseSectorList[cnt-1]/16)+1);
+			FilePrintf(hFile,"\t\t\t</baseSector>\r\n");
+
+
+			FilePrintf(hFile,"\t\t\t<townPoint>\r\n");
+			FilePrintf(hFile,"\t\t\t\t<x>%d</x>\r\n",pTownPoints[cnt].x);
+			FilePrintf(hFile,"\t\t\t\t<y>%d</y>\r\n",pTownPoints[cnt].y);
+			FilePrintf(hFile,"\t\t\t</townPoint>\r\n");
+
+
+			FilePrintf(hFile,"\t\t</CITY>\r\n");
+		}
+		FilePrintf(hFile,"\t</CITYLIST>\r\n");
+
+		FilePrintf(hFile,"\t<CITY_TABLE>\r\n");
+		for(y = 0;y < MAP_WORLD_Y;y++)
+		{
+			FilePrintf(hFile,"\t\t<CITY_TABLE_ROW row=\"%02d\">",y);
+			for(x = 0;x < MAP_WORLD_X;x++)
+			{
+				if(x < MAP_WORLD_X-1)
+				{
+					FilePrintf(hFile,"%3d",StrategicMap[x+y*MAP_WORLD_X].bNameId);
+				}
+				else
+					FilePrintf(hFile,"%3d </CITY_TABLE_ROW>\r\n",StrategicMap[x+y*MAP_WORLD_X].bNameId);
+			}
+		}	
+		FilePrintf(hFile,"\t</CITY_TABLE>\r\n");
+		FilePrintf(hFile,"</CITY_INFO>\r\n");
+	}
+	FileClose( hFile );
+
+	return TRUE;
+}
 
 BOOLEAN ReadInStrategicMapSectorTownNames(STR fileName)
 {
@@ -648,110 +752,6 @@ BOOLEAN ReadInStrategicMapSectorTownNames(STR fileName)
 	MemFree(lpcBuffer);
 
 	XML_ParserFree(parser);
-
-#ifdef JA2TESTVERSION
-	hFile = FileOpen( "TABLEDATA\\~Cities.xml", FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
-	if ( !hFile )
-		return( FALSE );
-	
-	{
-		UINT32 x, y, cnt;
-
-
-		FilePrintf(hFile,"<CITY_INFO>\r\n");
-		FilePrintf(hFile,"\t<CITYLIST>\r\n");
-		for(cnt = 1;cnt <= 12;cnt++)
-		{
-			FilePrintf(hFile,"\t\t<CITY>\r\n");
-
-			FilePrintf(hFile,"\t\t\t<uiIndex>%d</uiIndex>\r\n",cnt);
-
-			switch(cnt)
-			{
-				case 1:
-					FilePrintf(hFile,"\t\t\t<szName>Omerta</szName>\r\n");
-				break;
-
-				case 2:
-					FilePrintf(hFile,"\t\t\t<szName>Drassen</szName>\r\n");
-				break;
-
-				case 3:
-					FilePrintf(hFile,"\t\t\t<szName>Alma</szName>\r\n");
-				break;
-
-				case 4:
-					FilePrintf(hFile,"\t\t\t<szName>Grumm</szName>\r\n");
-				break;
-
-				case 5:
-					FilePrintf(hFile,"\t\t\t<szName>Tixa</szName>\r\n");
-				break;
-
-				case 6:
-					FilePrintf(hFile,"\t\t\t<szName>Cambria</szName>\r\n");
-				break;
-
-				case 7:
-					FilePrintf(hFile,"\t\t\t<szName>San Mona</szName>\r\n");
-				break;
-
-				case 8:
-					FilePrintf(hFile,"\t\t\t<szName>Estoni</szName>\r\n");
-				break;
-
-				case 9:
-					FilePrintf(hFile,"\t\t\t<szName>Orta</szName>\r\n");
-				break;
-
-				case 10:
-					FilePrintf(hFile,"\t\t\t<szName>Balime</szName>\r\n");
-				break;
-
-				case 11:
-					FilePrintf(hFile,"\t\t\t<szName>Meduna</szName>\r\n");
-				break;
-
-				case 12:
-					FilePrintf(hFile,"\t\t\t<szName>Chitzena</szName>\r\n");
-				break;
-			}
-
-			FilePrintf(hFile,"\t\t\t<baseSector>\r\n");
-			FilePrintf(hFile,"\t\t\t\t<x>%d</x>\r\n",(sBaseSectorList[cnt-1]%16)+1);
-			FilePrintf(hFile,"\t\t\t\t<y>%d</y>\r\n",(sBaseSectorList[cnt-1]/16)+1);
-			FilePrintf(hFile,"\t\t\t</baseSector>\r\n");
-
-
-			FilePrintf(hFile,"\t\t\t<townPoint>\r\n");
-			FilePrintf(hFile,"\t\t\t\t<x>%d</x>\r\n",pTownPoints[cnt].x);
-			FilePrintf(hFile,"\t\t\t\t<y>%d</y>\r\n",pTownPoints[cnt].y);
-			FilePrintf(hFile,"\t\t\t</townPoint>\r\n");
-
-
-			FilePrintf(hFile,"\t\t</CITY>\r\n");
-		}
-		FilePrintf(hFile,"\t</CITYLIST>\r\n");
-
-		FilePrintf(hFile,"\t<CITY_TABLE>\r\n");
-		for(y = 0;y < MAP_WORLD_Y;y++)
-		{
-			FilePrintf(hFile,"\t\t<CITY_TABLE_ROW row=\"%02d\">",y);
-			for(x = 0;x < MAP_WORLD_X;x++)
-			{
-				if(x < MAP_WORLD_X-1)
-				{
-					FilePrintf(hFile,"%3d",StrategicMap[x+y*MAP_WORLD_X].bNameId);
-				}
-				else
-					FilePrintf(hFile,"%3d </CITY_TABLE_ROW>\r\n",StrategicMap[x+y*MAP_WORLD_X].bNameId);
-			}
-		}	
-		FilePrintf(hFile,"\t</CITY_TABLE>\r\n");
-		FilePrintf(hFile,"</CITY_INFO>\r\n");
-	}
-	FileClose( hFile );
-#endif
 
 	return TRUE;
 }

@@ -129,39 +129,39 @@ UINT32 uiPercentLoyaltyDecreaseForCivMurder[]={
 
 // on a scale of 1-100, this is a measure of how much each town hates the Queen's opression & is willing to stand against it
 // it primarily controls the RATE of loyalty change in each town: the loyalty effect of the same events depends on it
-UINT8 gubTownRebelSentiment[ NUM_TOWNS ] =
-{
-	0,	// not a town - blank sector index
- 90,	// OMERTA,	- They ARE the rebels!!!
- 30,	// DRASSEN,	- Rebel friendly, makes it pretty easy to get first mine's income going at the start
- 12,	// ALMA			- Military town, high loyalty to Queen, need quests to get 100%
- 15,	// GRUMM,		- Close to Meduna, strong influence
- 20,	// TIXA,		- Not a real town
- 15,	// CAMBRIA, - Artificially much lower 'cause it's big and central and too easy to get loyalty up there
- 20,	// SAN_MONA,- Neutral ground, loyalty doesn't vary
- 20,	// ESTONI,	- Not a real town
- 20,	// ORTA,		- Not a real town
- 12,	// BALIME,	- Rich town, high loyalty to Queen
- 10,	// MEDUNA,	- Enemy HQ, for God's sake!
- 35,	// CHITZENA, - Artificially high 'cause there's not enough fights near it to get the loyalty up otherwise
-};
+UINT8 gubTownRebelSentiment[ NUM_TOWNS ]; // =
+//{
+//	0,	// not a town - blank sector index
+// 90,	// OMERTA,	- They ARE the rebels!!!
+// 30,	// DRASSEN,	- Rebel friendly, makes it pretty easy to get first mine's income going at the start
+// 12,	// ALMA			- Military town, high loyalty to Queen, need quests to get 100%
+// 15,	// GRUMM,		- Close to Meduna, strong influence
+// 20,	// TIXA,		- Not a real town
+// 15,	// CAMBRIA, - Artificially much lower 'cause it's big and central and too easy to get loyalty up there
+// 20,	// SAN_MONA,- Neutral ground, loyalty doesn't vary
+// 20,	// ESTONI,	- Not a real town
+// 20,	// ORTA,		- Not a real town
+// 12,	// BALIME,	- Rich town, high loyalty to Queen
+// 10,	// MEDUNA,	- Enemy HQ, for God's sake!
+// 35,	// CHITZENA, - Artificially high 'cause there's not enough fights near it to get the loyalty up otherwise
+//};
 
-BOOLEAN gfTownUsesLoyalty[ NUM_TOWNS ] =
-{
-	FALSE,		// not a town - blank sector index
-	TRUE	,		// OMERTA
-	TRUE,			// DRASSEN
-	TRUE,			// ALMA
-	TRUE,			// GRUMM
-	FALSE,		// TIXA
-	TRUE,			// CAMBRIA
-	FALSE,		// SAN_MONA
-	FALSE,		// ESTONI
-	FALSE,		// ORTA
-	TRUE,			// BALIME
-	TRUE,			// MEDUNA
-	TRUE,			// CHITZENA
-};
+BOOLEAN gfTownUsesLoyalty[ NUM_TOWNS ];// =
+//{
+//	FALSE,		// not a town - blank sector index
+//	TRUE	,		// OMERTA
+//	TRUE,			// DRASSEN
+//	TRUE,			// ALMA
+//	TRUE,			// GRUMM
+//	FALSE,		// TIXA
+//	TRUE,			// CAMBRIA
+//	FALSE,		// SAN_MONA
+//	FALSE,		// ESTONI
+//	FALSE,		// ORTA
+//	TRUE,			// BALIME
+//	TRUE,			// MEDUNA
+//	TRUE,			// CHITZENA
+//};
 
 // location of first enocunter with enemy
 INT16 sWorldSectorLocationOfFirstBattle = 0;
