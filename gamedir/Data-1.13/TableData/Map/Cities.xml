@@ -1,8 +1,37 @@
+<!--
+
+This file defines towns in game.
+
+Fields index:
+	uiIndex 		- it is UNIQUE number of town, used in town table (end of this xml).
+                          	  Value 0 is reserved and stands for "no town here".
+	townName		- it's simple. Town name (Max 31 char).
+	townUsesLoyalty 	- defines whether town maintains (and displays) loyalty or not.
+			  	  Possible values: 0 - no loyalty, 1 - use loyalty in this town.
+	townRebelSentiment	- this is a measure of how much each town hates the Queen's
+				  opression & is willing to stand against it. It primarily controls
+				  the RATE of loyalty change in each town: the loyalty effect of
+				  the same events depends on it. Scale of 1-100.
+	baseSector		- this is co-ordinates of the top left corner of the 3x3 town
+				  tiles cutouts in Interface/MilitiaMaps.sti!
+	townPoint		- position of town names on the map. These are 10 * (X, Y) position
+				  in SECTORS (fractions possible) to the X-CENTER of the town
+
+There is town table at the end on this file. The table represent town placement on the world map.
+
+NOTE: Town rows 0 and 17, and also columns 0 and 17 CANNOT BE USED.
+      It is world borders.
+
+Changes do not require starting of a new game.
+
+-->
 <CITY_INFO>
 	<CITYLIST>
 		<CITY>
 			<uiIndex>1</uiIndex>
-			<cityName>Omerta</cityName>
+			<townName>Omerta</townName>
+			<townUsesLoyalty>1</townUsesLoyalty>
+			<townRebelSentiment>90</townRebelSentiment>
 			<baseSector>
 				<x>9</x>
 				<y>1</y>
@@ -14,7 +43,9 @@
 		</CITY>
 		<CITY>
 			<uiIndex>2</uiIndex>
-			<cityName>Drassen</cityName>
+			<townName>Drassen</townName>
+			<townUsesLoyalty>1</townUsesLoyalty>
+			<townRebelSentiment>30</townRebelSentiment>
 			<baseSector>
 				<x>13</x>
 				<y>2</y>
@@ -26,7 +57,9 @@
 		</CITY>
 		<CITY>
 			<uiIndex>3</uiIndex>
-			<cityName>Alma</cityName>
+			<townName>Alma</townName>
+			<townUsesLoyalty>1</townUsesLoyalty>
+			<townRebelSentiment>12</townRebelSentiment>
 			<baseSector>
 				<x>13</x>
 				<y>8</y>
@@ -38,7 +71,9 @@
 		</CITY>
 		<CITY>
 			<uiIndex>4</uiIndex>
-			<cityName>Grumm</cityName>
+			<townName>Grumm</townName>
+			<townUsesLoyalty>1</townUsesLoyalty>
+			<townRebelSentiment>15</townRebelSentiment>
 			<baseSector>
 				<x>1</x>
 				<y>7</y>
@@ -50,7 +85,9 @@
 		</CITY>
 		<CITY>
 			<uiIndex>5</uiIndex>
-			<cityName>Tixa</cityName>
+			<townName>Tixa</townName>
+			<townUsesLoyalty>0</townUsesLoyalty>
+			<townRebelSentiment>20</townRebelSentiment>
 			<baseSector>
 				<x>8</x>
 				<y>9</y>
@@ -62,7 +99,9 @@
 		</CITY>
 		<CITY>
 			<uiIndex>6</uiIndex>
-			<cityName>Cambria</cityName>
+			<townName>Cambria</townName>
+			<townUsesLoyalty>1</townUsesLoyalty>
+			<townRebelSentiment>15</townRebelSentiment>
 			<baseSector>
 				<x>8</x>
 				<y>6</y>
@@ -74,7 +113,9 @@
 		</CITY>
 		<CITY>
 			<uiIndex>7</uiIndex>
-			<cityName>San Mona</cityName>
+			<townName>San Mona</townName>
+			<townUsesLoyalty>0</townUsesLoyalty>
+			<townRebelSentiment>20</townRebelSentiment>
 			<baseSector>
 				<x>4</x>
 				<y>2</y>
@@ -86,7 +127,9 @@
 		</CITY>
 		<CITY>
 			<uiIndex>8</uiIndex>
-			<cityName>Estoni</cityName>
+			<townName>Estoni</townName>
+			<townUsesLoyalty>0</townUsesLoyalty>
+			<townRebelSentiment>20</townRebelSentiment>
 			<baseSector>
 				<x>5</x>
 				<y>8</y>
@@ -98,7 +141,9 @@
 		</CITY>
 		<CITY>
 			<uiIndex>9</uiIndex>
-			<cityName>Orta</cityName>
+			<townName>Orta</townName>
+			<townUsesLoyalty>0</townUsesLoyalty>
+			<townRebelSentiment>20</townRebelSentiment>
 			<baseSector>
 				<x>3</x>
 				<y>10</y>
@@ -110,7 +155,9 @@
 		</CITY>
 		<CITY>
 			<uiIndex>10</uiIndex>
-			<cityName>Balime</cityName>
+			<townName>Balime</townName>
+			<townUsesLoyalty>1</townUsesLoyalty>
+			<townRebelSentiment>12</townRebelSentiment>
 			<baseSector>
 				<x>11</x>
 				<y>11</y>
@@ -122,7 +169,9 @@
 		</CITY>
 		<CITY>
 			<uiIndex>11</uiIndex>
-			<cityName>Meduna</cityName>
+			<townName>Meduna</townName>
+			<townUsesLoyalty>1</townUsesLoyalty>
+			<townRebelSentiment>10</townRebelSentiment>
 			<baseSector>
 				<x>3</x>
 				<y>14</y>
@@ -134,7 +183,9 @@
 		</CITY>
 		<CITY>
 			<uiIndex>12</uiIndex>
-			<cityName>Chitzena</cityName>
+			<townName>Chitzena</townName>
+			<townUsesLoyalty>1</townUsesLoyalty>
+			<townRebelSentiment>35</townRebelSentiment>
 			<baseSector>
 				<x>2</x>
 				<y>1</y>
@@ -146,6 +197,8 @@
 		</CITY>
 	</CITYLIST>
 	<CITY_TABLE>
+		<!--        Column index: 0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 -->
+		<!--										-->
 		<CITY_TABLE_ROW row="00"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
 		<CITY_TABLE_ROW row="01"> 0  0  12 0  0  0  0  0  0  1  1  0  0  0  0  0  0  0 </CITY_TABLE_ROW>
 		<CITY_TABLE_ROW row="02"> 0  0  12 0  0  0  0  0  0  0  0  0  0  2  0  0  0  0 </CITY_TABLE_ROW>
