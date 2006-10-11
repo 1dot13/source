@@ -72,7 +72,7 @@ smctableStartElementHandle(void *userData, const char *name, const char **atts)
 				{
 					if ( isalpha(atts[uiAttrIndex+1][0]) )
 					{
-						pData->uiRowNumber = (UINT32)(atts[uiAttrIndex+1][0] - 0x40);
+						pData->uiRowNumber = (UINT32)(atts[uiAttrIndex+1][0] & 0xDF - 0x40);
 					}
 					else
 					{
