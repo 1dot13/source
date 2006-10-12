@@ -1,3 +1,4 @@
+// WANNE: EDITOR?
 #ifdef PRECOMPILEDHEADERS
 	#include "Editor All.h"
 #else
@@ -120,12 +121,12 @@ void InitEditorRegions()
 	//By doing this, all of the buttons underneath are blanketed and can't be used anymore.
 	//Any new buttons will cover this up as well.  Think of it as a barrier between the editor buttons,
 	//and the game's interface panel buttons and regions.
-	MSYS_DefineRegion( &EditorRegion, 0, 360, 640, 480, MSYS_PRIORITY_NORMAL, 0, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+	MSYS_DefineRegion( &EditorRegion, 0, SCREEN_HEIGHT - 120, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_NORMAL, 0, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 
 	//Create the regions for the terrain tile selections
 	for( x = 0; x < NUM_TERRAIN_TILE_REGIONS; x++ )
 	{
-		MSYS_DefineRegion(&TerrainTileButtonRegion[x],(INT16)(261+x*42),369,(INT16)(303+x*42),391,
+		MSYS_DefineRegion(&TerrainTileButtonRegion[x],(INT16)(iScreenWidthOffset + 261+x*42), 2 * iScreenHeightOffset + 369,(INT16)(iScreenWidthOffset + 303+x*42),2 * iScreenHeightOffset + 391,
 			MSYS_PRIORITY_NORMAL, 0, MSYS_NO_CALLBACK,(MOUSE_CALLBACK)TerrainTileButtonRegionCallback);
 		MSYS_SetRegionUserData( &TerrainTileButtonRegion[x], 0, x );
 		MSYS_DisableRegion( &TerrainTileButtonRegion[x] );
@@ -133,12 +134,12 @@ void InitEditorRegions()
 	gfShowTerrainTileButtons=FALSE;
 
 	//Create the region for the items selection window.
-	MSYS_DefineRegion( &ItemsRegion, 100, 360, 540, 440, MSYS_PRIORITY_NORMAL, 0, 
+	MSYS_DefineRegion( &ItemsRegion, iScreenWidthOffset + 100, 2 * iScreenHeightOffset + 360, iScreenWidthOffset + 540, 2 * iScreenHeightOffset + 440, MSYS_PRIORITY_NORMAL, 0, 
 		(MOUSE_CALLBACK)MouseMovedInItemsRegion, (MOUSE_CALLBACK)MouseClickedInItemsRegion );
 	MSYS_DisableRegion( &ItemsRegion );
 
 	//Create the region for the merc inventory panel.
-	MSYS_DefineRegion( &MercRegion, 175, 361, 450, 460, MSYS_PRIORITY_NORMAL, 0, 
+	MSYS_DefineRegion( &MercRegion, iScreenWidthOffset + 175, 2 * iScreenHeightOffset + 361, iScreenWidthOffset + 450, 2 * iScreenHeightOffset + 460, MSYS_PRIORITY_NORMAL, 0, 
 		MouseMovedInMercRegion, MouseClickedInMercRegion );
 	MSYS_DisableRegion( &MercRegion );
 }
@@ -446,6 +447,7 @@ void mprintfEditor(INT16 x, INT16 y, UINT16 *pFontString, ...)
 	mprintf( x, y, string );
 }
 
+// WANNE: EDITOR continue
 void ClearTaskbarRegion( INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom )
 {
 	ColorFillVideoSurfaceArea( ButtonDestBuffer, sLeft, sTop, sRight, sBottom, gusEditorTaskbarColor );
@@ -455,15 +457,15 @@ void ClearTaskbarRegion( INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom )
 		ColorFillVideoSurfaceArea( ButtonDestBuffer, 0, sTop, 1, sBottom, gusEditorTaskbarHiColor );
 		sLeft++;
 	}
-	if( sTop == 360 )
+	if( sTop == (SCREEN_HEIGHT - 120) )
 	{
-		ColorFillVideoSurfaceArea( ButtonDestBuffer, sLeft, 360, sRight, 361, gusEditorTaskbarHiColor );
+		ColorFillVideoSurfaceArea( ButtonDestBuffer, sLeft, 2 * iScreenHeightOffset + 360, sRight, 2 * iScreenHeightOffset + 361, gusEditorTaskbarHiColor );
 		sTop++;
 	}
-	if( sBottom == 480 )
-		ColorFillVideoSurfaceArea( ButtonDestBuffer, sLeft, 479, sRight, 480, gusEditorTaskbarLoColor );
-	if( sRight == 640 )
-		ColorFillVideoSurfaceArea( ButtonDestBuffer, 639, sTop, 640, sBottom, gusEditorTaskbarLoColor );
+	if( sBottom == SCREEN_HEIGHT )
+		ColorFillVideoSurfaceArea( ButtonDestBuffer, sLeft, 2 * iScreenHeightOffset + 479, sRight, 2 * iScreenHeightOffset + 480, gusEditorTaskbarLoColor );
+	if( sRight == SCREEN_WIDTH )
+		ColorFillVideoSurfaceArea( ButtonDestBuffer, iScreenWidthOffset + 639, sTop, iScreenWidthOffset + 640, sBottom, gusEditorTaskbarLoColor );
 
 	InvalidateRegion( sLeft, sTop, sRight, sBottom );
 }
@@ -607,6 +609,7 @@ void EnableEditorButtons( INT32 iFirstEditorButtonID, INT32 iLastEditorButtonID 
 		EnableButton( iEditorButton[ i ] );
 }
 
+// WANNE: EDITOR?
 void RenderMapEntryPointsAndLights()
 {
 	INT16 sGridNo;
@@ -621,7 +624,7 @@ void RenderMapEntryPointsAndLights()
 	if( sGridNo != -1 )
 	{
 		GetGridNoScreenPos( sGridNo, 0, &sScreenX, &sScreenY );
-		if( sScreenY >= -20 && sScreenY < 340 && sScreenX >= -40  && sScreenX < 640 )
+		if( sScreenY >= (- 20) && sScreenY < (2 * iScreenHeightOffset + 340) && sScreenX >= (- 40)  && sScreenX < SCREEN_WIDTH )
 		{
 			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, L"North Entry Point", FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 		}
@@ -630,7 +633,7 @@ void RenderMapEntryPointsAndLights()
 	if( sGridNo != -1 )
 	{
 		GetGridNoScreenPos( sGridNo, 0, &sScreenX, &sScreenY );
-		if( sScreenY >= -20 && sScreenY < 340 && sScreenX >= -40  && sScreenX < 640 )
+		if( sScreenY >= (- 20) && sScreenY < (2 * iScreenHeightOffset + 340) && sScreenX >= (- 40)  && sScreenX < SCREEN_WIDTH )
 		{
 			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, L"West Entry Point", FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 		}
@@ -639,7 +642,7 @@ void RenderMapEntryPointsAndLights()
 	if( sGridNo != -1 )
 	{
 		GetGridNoScreenPos( sGridNo, 0, &sScreenX, &sScreenY );
-		if( sScreenY >= -20 && sScreenY < 340 && sScreenX >= -40  && sScreenX < 640 )
+		if( sScreenY >= (- 20) && sScreenY < (2 * iScreenHeightOffset + 340) && sScreenX >= (- 40)  && sScreenX < SCREEN_WIDTH )
 		{
 			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, L"East Entry Point", FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 		}
@@ -648,7 +651,7 @@ void RenderMapEntryPointsAndLights()
 	if( sGridNo != -1 )
 	{
 		GetGridNoScreenPos( sGridNo, 0, &sScreenX, &sScreenY );
-		if( sScreenY >= -20 && sScreenY < 340 && sScreenX >= -40  && sScreenX < 640 )
+		if( sScreenY >= ( - 20) && sScreenY < (2 * iScreenHeightOffset + 340) && sScreenX >= (- 40)  && sScreenX < SCREEN_WIDTH )
 		{
 			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, L"South Entry Point", FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 		}
@@ -657,7 +660,7 @@ void RenderMapEntryPointsAndLights()
 	if( sGridNo != -1 )
 	{
 		GetGridNoScreenPos( sGridNo, 0, &sScreenX, &sScreenY );
-		if( sScreenY >= -20 && sScreenY < 340 && sScreenX >= -40  && sScreenX < 640 )
+		if( sScreenY >= (- 20) && sScreenY < (2 * iScreenHeightOffset + 340) && sScreenX >= (- 40)  && sScreenX < SCREEN_WIDTH )
 		{
 			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, L"Center Entry Point", FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 		}
@@ -666,11 +669,12 @@ void RenderMapEntryPointsAndLights()
 	if( sGridNo != -1 )
 	{
 		GetGridNoScreenPos( sGridNo, 0, &sScreenX, &sScreenY );
-		if( sScreenY >= -20 && sScreenY < 340 && sScreenX >= -40  && sScreenX < 640 )
+		if( sScreenY >= (- 20) && sScreenY < (2 * iScreenHeightOffset + 340) && sScreenX >= (- 40)  && sScreenX < SCREEN_WIDTH )
 		{
 			DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 40, 2, FONT10ARIAL, FONT_YELLOW, L"Isolated Entry Point", FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 		}
 	}
+
 	//Do the lights now.
 	for( i = 0; i < MAX_LIGHT_SPRITES; i++ )
 	{
@@ -678,7 +682,7 @@ void RenderMapEntryPointsAndLights()
 		{
 			sGridNo = LightSprites[ i ].iY * WORLD_COLS + LightSprites[ i ].iX;
 			GetGridNoScreenPos( sGridNo, 0, &sScreenX, &sScreenY );
-			if( sScreenY >= -50 && sScreenY < 300 && sScreenX >= -40  && sScreenX < 640 )
+			if( sScreenY >= (- 50) && sScreenY < (2 * iScreenHeightOffset + 300) && sScreenX >= (- 40)  && sScreenX < SCREEN_WIDTH )
 			{
 				if( LightSprites[ i ].uiFlags & LIGHT_PRIMETIME )
 					DisplayWrappedString( sScreenX, (INT16)(sScreenY-5), 50, 2, FONT10ARIAL, FONT_ORANGE, L"Prime", FONT_BLACK, TRUE, CENTER_JUSTIFIED );
@@ -719,6 +723,7 @@ void BuildTriggerName( OBJECTTYPE *pItem, UINT16 *szItemName )
 	}
 }
 
+// WANNE: EDITOR?
 void RenderDoorLockInfo()
 {
 	INT16 i, xp, yp;
@@ -727,7 +732,7 @@ void RenderDoorLockInfo()
 	for( i = 0; i < gubNumDoors; i++ )
 	{
 		GetGridNoScreenPos( DoorTable[ i ].sGridNo, 0, &sScreenX, &sScreenY );
-		if( sScreenY > 390 )
+		if( sScreenY > (2 * iScreenHeightOffset + 390) )
 			continue;
 		if( DoorTable[ i ].ubLockID != 255 )
 			swprintf( str, L"%S", LockTable[ DoorTable[ i ].ubLockID ].ubEditorName );
@@ -770,6 +775,7 @@ void RenderDoorLockInfo()
 	}
 }
 
+	// WANNE: EDITOR?
 void RenderSelectedItemBlownUp()
 {
 	UINT32 uiVideoObjectIndex;
@@ -782,7 +788,7 @@ void RenderSelectedItemBlownUp()
 
 	GetGridNoScreenPos( gsItemGridNo, 0, &sScreenX, &sScreenY );
 
-	if( sScreenY > 340 )
+	if( sScreenY > (2 * iScreenHeightOffset + 340) )
 		return;
 
 	//Display the enlarged item graphic
@@ -873,23 +879,23 @@ void RenderEditorInfo( )
 		swprintf( FPSText, L"   (%d)   ", iMapIndex );
 	else
 		swprintf( FPSText, L"          " );
-	mprintfEditor( (UINT16)(50-StringPixLength( FPSText, FONT12POINT1 )/2), 463, FPSText );
+	mprintfEditor( (UINT16)(iScreenWidthOffset + 50-StringPixLength( FPSText, FONT12POINT1 )/2), 2 * iScreenHeightOffset + 463, FPSText );
 
 	switch( iCurrentTaskbar )
 	{
 		case TASK_OPTIONS:
 			if( !gfWorldLoaded || giCurrentTilesetID < 0 )
-				mprintf( 260, 445, L"No map currently loaded." );
+				mprintf( iScreenWidthOffset + 260, 2 * iScreenHeightOffset + 445, L"No map currently loaded." );
 			else
-				mprintf( 260, 445, L"File:  %S, Current Tileset:  %s", 
+				mprintf( iScreenWidthOffset + 260, 2 * iScreenHeightOffset + 445, L"File:  %S, Current Tileset:  %s", 
 					gubFilename, gTilesets[ giCurrentTilesetID ].zName );
 			break;
 		case TASK_TERRAIN:
 			if( gusSelectionType == LINESELECTION )
 				swprintf( wszSelType[LINESELECTION], L"Width: %d", gusSelectionWidth );
-			DrawEditorInfoBox( wszSelType[gusSelectionType], FONT12POINT1, 220, 430, 60, 30 );
+			DrawEditorInfoBox( wszSelType[gusSelectionType], FONT12POINT1, iScreenWidthOffset + 220, 2 * iScreenHeightOffset + 430, 60, 30 );
 			swprintf( FPSText, L"%d%%", gusSelectionDensity );
-			DrawEditorInfoBox( FPSText, FONT12POINT1, 310, 430, 40, 30 );
+			DrawEditorInfoBox( FPSText, FONT12POINT1, iScreenWidthOffset + 310, 2 * iScreenHeightOffset + 430, 40, 30 );
 			break;
 		case TASK_ITEMS:
 			RenderEditorItemsInfo();
@@ -899,7 +905,7 @@ void RenderEditorInfo( )
 			UpdateBuildingsInfo();
 			if( gusSelectionType == LINESELECTION )
 				swprintf( wszSelType[LINESELECTION], L"Width: %d", gusSelectionWidth );
-			DrawEditorInfoBox( wszSelType[gusSelectionType], FONT12POINT1, 530, 430, 60, 30 );
+			DrawEditorInfoBox( wszSelType[gusSelectionType], FONT12POINT1, iScreenWidthOffset + 530, 2 * iScreenHeightOffset + 430, 60, 30 );
 			break;
 		case TASK_MERCS:
 			UpdateMercsInfo();
@@ -908,7 +914,7 @@ void RenderEditorInfo( )
 			UpdateMapInfo();
 			if( gusSelectionType == LINESELECTION )
 				swprintf( wszSelType[LINESELECTION], L"Width: %d", gusSelectionWidth );
-			DrawEditorInfoBox( wszSelType[gusSelectionType], FONT12POINT1, 440, 430, 60, 30 );
+			DrawEditorInfoBox( wszSelType[gusSelectionType], FONT12POINT1, iScreenWidthOffset + 440, 2 * iScreenHeightOffset + 430, 60, 30 );
 			break;
 	}
 }
@@ -923,7 +929,7 @@ void ProcessEditorRendering()
 	BOOLEAN fSaveBuffer = FALSE;
 	if( gfRenderTaskbar ) //do a full taskbar render.
 	{
-		ClearTaskbarRegion( 0, 360, 640, 480 );
+		ClearTaskbarRegion( 0, SCREEN_HEIGHT - 120, SCREEN_WIDTH, SCREEN_HEIGHT );
 		RenderTerrainTileButtons();
 		MarkButtonsDirty();
 		gfRenderTaskbar = FALSE;
@@ -969,7 +975,8 @@ void ProcessEditorRendering()
 
 
 	if( fSaveBuffer )
-		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 360, 640, 120 );
+		// WANNE: EDITOR?
+		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 2 * iScreenHeightOffset + 360, SCREEN_WIDTH, 120 );
 
 	//Make sure this is TRUE at all times.
 	//It is set to false when before we save the buffer, so the buttons don't get 

@@ -606,8 +606,8 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"Alle: Position halten",
 	L"Alle: Rückzug",
 	L"Alle: An meine Position",
-	L"All: Auf den Boden",
-	L"All: In Deckung gehen",
+	L"Alle: Auf den Boden",
+	L"Alle: In Deckung gehen",
 	//L"All: Find items",
 	L"Abbrechen", // cancel this menu
 };
@@ -2668,7 +2668,7 @@ STR16 BobbyROrderFormText[] =
 STR16			BobbyRFilter[] =
 {
 	// Guns
-	L"Schwere W.",
+	L"Schw. W.",
 	L"Pistole",
 	L"MP",
 	L"SMG",

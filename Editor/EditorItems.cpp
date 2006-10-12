@@ -1,3 +1,4 @@
+// WANNE: EDITOR: todo
 #ifdef PRECOMPILEDHEADERS
 	#include "Editor All.h"
 #else
@@ -206,6 +207,7 @@ void EntryInitEditorItemsInfo()
 	}
 }
 
+// WANNE: EDITOR?
 void InitEditorItemsInfo(UINT32 uiItemType)
 {
 	VSURFACE_DESC		vs_desc;
@@ -235,13 +237,13 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 		else
 		{	//User selected a different item classification -- delete it first.
 			ClearEditorItemsInfo();
-			ClearTaskbarRegion( 100, 360, 480, 440 ); 
+			ClearTaskbarRegion( iScreenWidthOffset + 100, 2 * iScreenHeightOffset + 360, iScreenWidthOffset + 480, 2 * iScreenHeightOffset + 440 ); 
 		}
 	}
 	else
 	{
 		//Clear the menu area, so that the buffer doesn't get corrupted.
-		ClearTaskbarRegion( 100, 360, 480, 440 ); 
+		ClearTaskbarRegion( iScreenWidthOffset + 100, 2 * iScreenHeightOffset + 360, iScreenWidthOffset + 480, 2 * iScreenHeightOffset + 440 ); 
 	}
 	EnableEditorRegion( ITEM_REGION_ID );
 	
@@ -308,7 +310,9 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 	//calculate the width of the buffer based on the number of items.
 	//every pair of items (odd rounded up) requires 60 pixels for width.
 	//the minimum buffer size is 420.  Height is always 80 pixels.
-	eInfo.sWidth = (eInfo.sNumItems > 12) ? ((eInfo.sNumItems+1)/2)*60 : 360;
+
+	// WANNE: EDITOR?
+	eInfo.sWidth = (eInfo.sNumItems > 12) ? ((eInfo.sNumItems+1)/2)*60 : SCREEN_HEIGHT - 120;
 	eInfo.sHeight = 80;
 	// Create item buffer
 	GetCurrentVideoSettings( &usUselessWidth, &usUselessHeight, &ubBitDepth );
@@ -331,13 +335,15 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 	//copy a blank chunk of the editor interface to the new buffer.
 	for( i=0; i<eInfo.sWidth; i+=60 )
 	{
+		// WANNE: EDITOR?
 		Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES, 
-			(UINT16 *)pSrcBuf, uiSrcPitchBYTES, 0+i, 0, 100, 360, 60, 80 );
+			(UINT16 *)pSrcBuf, uiSrcPitchBYTES, 0+i, 0, iScreenWidthOffset + 100, 2 * iScreenHeightOffset + 360, 60, 80 );
 	}
 	
 	UnLockVideoSurface(eInfo.uiBuffer);
 	UnLockVideoSurface(FRAME_BUFFER);
 
+	// WANNE: EDITOR?
 	x = 0;
 	y = 0;
 	usCounter = 0;
@@ -372,6 +378,8 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 
 			BltVideoObjectOutlineFromIndex( eInfo.uiBuffer, uiVideoObjectIndex, item->ubGraphicNum, sStart, y+2, 0, FALSE );
 			//cycle through the various slot positions (0,0), (0,40), (60,0), (60,40), (120,0)...
+			
+			// WANNE: EDITOR?
 			if( y == 0 )
 			{
 				y = 40;
@@ -505,6 +513,8 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 							swprintf( (wchar_t *)pStr, (wchar_t *)L"Action%d", (i-4)/2 );
 					}
 				}
+
+				// WANNE: EDITOR?
 				DisplayWrappedString(x, (UINT16)(y+25), 60, 2, SMALLCOMPFONT, FONT_WHITE, (STR16)pStr, FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 
 				//Calculate the center position of the graphic in a 60 pixel wide area.
@@ -516,6 +526,8 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 				{
 					BltVideoObjectOutlineFromIndex( eInfo.uiBuffer, uiVideoObjectIndex, item->ubGraphicNum, sStart, y+2, 0, FALSE );
 				}
+
+				// WANNE: EDITOR?
 				//cycle through the various slot positions (0,0), (0,40), (60,0), (60,40), (120,0)...
 				if( y == 0 )
 				{
@@ -567,16 +579,22 @@ void RenderEditorItemsInfo()
 	{
 		return;
 	}
-	if( gusMouseXPos < 110 || gusMouseXPos > 480 || gusMouseYPos < 360 || gusMouseYPos > 440 )
+
+	// WANNE: EDITOR?
+	if( gusMouseXPos < (iScreenWidthOffset + 110) || gusMouseXPos > (iScreenWidthOffset + 480) || gusMouseYPos < (2 * iScreenHeightOffset + 360) || gusMouseYPos > (2 * iScreenHeightOffset + 440) )
 	{ //Mouse has moved out of the items display region -- so nothing can be highlighted.
 		eInfo.sHilitedItemIndex = -1;
 	}
 	pDestBuf = LockVideoSurface(FRAME_BUFFER, &uiDestPitchBYTES);
 	pSrcBuf = LockVideoSurface(eInfo.uiBuffer, &uiSrcPitchBYTES);
 
+	// WANNE: EDITOR?
 	//copy the items buffer to the editor bar
+	//Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES, 
+	//			(UINT16 *)pSrcBuf, uiSrcPitchBYTES, iScreenWidthOffset + 110, 2 * iScreenHeightOffset + 360, 60*eInfo.sScrollIndex, 0, 360, 80 );
+
 	Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES, 
-				(UINT16 *)pSrcBuf, uiSrcPitchBYTES, 110, 360, 60*eInfo.sScrollIndex, 0, 360, 80 );
+				(UINT16 *)pSrcBuf, uiSrcPitchBYTES, iScreenWidthOffset + 110, 2 * iScreenHeightOffset + 360, 60*eInfo.sScrollIndex, 0, 360, 80 );
 
 	UnLockVideoSurface(eInfo.uiBuffer);
 	UnLockVideoSurface(FRAME_BUFFER);
@@ -594,8 +612,10 @@ void RenderEditorItemsInfo()
 			item = &Item[eInfo.pusItemIndex[eInfo.sHilitedItemIndex]];
 			uiVideoObjectIndex = GetInterfaceGraphicForItem( item );
 			GetVideoObject( &hVObject, uiVideoObjectIndex );
-			x = (eInfo.sHilitedItemIndex/2 - eInfo.sScrollIndex)*60 + 110;
-			y = 360 + (eInfo.sHilitedItemIndex % 2) * 40;
+			
+			// WANNE: EDITOR?
+			x = iScreenWidthOffset + (eInfo.sHilitedItemIndex/2 - eInfo.sScrollIndex)*60 + 110;
+			y = 2 * iScreenHeightOffset + 360 + (eInfo.sHilitedItemIndex % 2) * 40;
 			sWidth = hVObject->pETRLEObject[item->ubGraphicNum].usWidth;
 			sOffset = hVObject->pETRLEObject[item->ubGraphicNum].sOffsetX;
 			sStart = x + (60 - sWidth - sOffset*2) / 2;
@@ -613,8 +633,10 @@ void RenderEditorItemsInfo()
 			item = &Item[eInfo.pusItemIndex[eInfo.sSelItemIndex]];
 			uiVideoObjectIndex = GetInterfaceGraphicForItem( item );
 			GetVideoObject( &hVObject, uiVideoObjectIndex );
-			x = (eInfo.sSelItemIndex/2 - eInfo.sScrollIndex)*60 + 110;
-			y = 360 + (eInfo.sSelItemIndex % 2) * 40;
+			
+			// WANNE: EDITOR?
+			x = iScreenWidthOffset + (eInfo.sSelItemIndex/2 - eInfo.sScrollIndex)*60 + 110;
+			y = 2 * iScreenHeightOffset + 360 + (eInfo.sSelItemIndex % 2) * 40;
 			sWidth = hVObject->pETRLEObject[item->ubGraphicNum].usWidth;
 			sOffset = hVObject->pETRLEObject[item->ubGraphicNum].sOffsetX;
 			sStart = x + (60 - sWidth - sOffset*2) / 2;
@@ -631,8 +653,9 @@ void RenderEditorItemsInfo()
 		usNumItems = CountNumberOfEditorPlacementsInWorld( i, &usQuantity );
 		if( usNumItems )
 		{
-			x = (i/2 - eInfo.sScrollIndex)*60 + 110;
-			y = 360 + (i % 2) * 40;
+			// WANNE: EDITOR?
+			x = iScreenWidthOffset + (i/2 - eInfo.sScrollIndex)*60 + 110;
+			y = 2 * iScreenHeightOffset + 360 + (i % 2) * 40;
 			SetFont( FONT10ARIAL );
 			SetFontForeground( FONT_YELLOW );
 			SetFontShadow( FONT_NEARBLACK );
@@ -711,11 +734,13 @@ void HandleItemsPanel( UINT16 usScreenX, UINT16 usScreenY, INT8 bEvent )
 	//Calc base index from scrolling index
 	sIndex = eInfo.sScrollIndex * 2;
 	//Determine if the index is in the first row or second row from mouse YPos.
-	if( usScreenY >= 400 )
+	if( usScreenY >= (2 * iScreenHeightOffset + 400) )
 		sIndex++;
 	//Add the converted mouse's XPos into a relative index;
 	//Calc:  starting from 110, for every 60 pixels, add 2 to the index
-	sIndex += ((usScreenX-110)/60) * 2;
+	
+	// WANNE: EDITOR????
+	sIndex += ((usScreenX-110-iScreenWidthOffset)/60) * 2;
 	switch( bEvent )
 	{
 		case GUI_MOVE_EVENT:
@@ -1622,12 +1647,12 @@ void DisplayItemStatistics()
 	pItem = &Item[ usItemIndex ];
 	LoadItemInfo( usItemIndex, pItemName, NULL );
 
-	mprintf( 50 - StringPixLength( pItemName , SMALLCOMPFONT )/2, 403, pItemName );
-	mprintf( 2, 410, L"Status Info Line 1");
-	mprintf( 2, 420, L"Status Info Line 2");
-	mprintf( 2, 430, L"Status Info Line 3");
-	mprintf( 2, 440, L"Status Info Line 4");
-	mprintf( 2, 450, L"Status Info Line 5");
+	mprintf( iScreenWidthOffset + 50 - StringPixLength( pItemName , SMALLCOMPFONT )/2, 2 * iScreenHeightOffset + 403, pItemName );
+	mprintf( iScreenWidthOffset + 2, 2 * iScreenHeightOffset + 410, L"Status Info Line 1");
+	mprintf( iScreenWidthOffset + 2, 2 * iScreenHeightOffset + 420, L"Status Info Line 2");
+	mprintf( iScreenWidthOffset + 2, 2 * iScreenHeightOffset + 430, L"Status Info Line 3");
+	mprintf( iScreenWidthOffset + 2, 2 * iScreenHeightOffset + 440, L"Status Info Line 4");
+	mprintf( iScreenWidthOffset + 2, 2 * iScreenHeightOffset + 450, L"Status Info Line 5");
 }
 
 

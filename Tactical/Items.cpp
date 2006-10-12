@@ -5028,9 +5028,6 @@ BOOLEAN CreateItems( UINT16 usItem, INT8 bStatus, UINT8 ubNumber, OBJECTTYPE * p
 	BOOLEAN fOk;
 	UINT8		ubLoop;
 
-	// can't create any more than this, the loop for setting the bStatus[] of others will overwrite memory!
-	Assert( ubNumber <= MAX_OBJECTS_PER_SLOT );
-
 	// ARM: to avoid whacking memory once Assertions are removed...  Items will be lost in this situation!
 	if ( ubNumber > MAX_OBJECTS_PER_SLOT )
 	{

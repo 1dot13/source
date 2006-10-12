@@ -1,3 +1,4 @@
+// WANNE: EDITOR: done
 #ifdef PRECOMPILEDHEADERS
 	#include "Editor All.h"
 #else
@@ -335,7 +336,7 @@ UINT32 LoadSaveScreenHandle(void)
 	{
 		SetFontForeground( FONT_LTRED );
 		SetFontBackground( 142 );
-	  mprintf( 226, 126, L"NO FILES IN \\MAPS DIRECTORY" );
+	  mprintf( iScreenWidthOffset + 226, iScreenHeightOffset + 126, L"NO FILES IN \\MAPS DIRECTORY" );
 	}
 	else for(x=iTopFileShown;x<(iTopFileShown+8) && x<iTotalFiles && FListNode != NULL; x++)
 	{
@@ -349,7 +350,7 @@ UINT32 LoadSaveScreenHandle(void)
 			SetFontForeground( FONT_BLACK );
 			SetFontBackground( 142 );
 		}
-		mprintf( 186,(73+ (x-iTopFileShown)*15 ), L"%S", FListNode->FileInfo.zFileName);
+		mprintf( iScreenWidthOffset + 186,(iScreenHeightOffset + 73+ (x-iTopFileShown)*15 ), L"%S", FListNode->FileInfo.zFileName);
 		FListNode = FListNode->pNext;
 	}
 
@@ -419,8 +420,8 @@ UINT32 LoadSaveScreenHandle(void)
 				return LOADSAVE_SCREEN;
 			}
 			RemoveFileDialog();
-			CreateProgressBar( 0, 118, 183, 522, 202 );
-			DefineProgressBarPanel( 0, 65, 79, 94, 100, 155, 540, 235 );
+			CreateProgressBar( 0, iScreenWidthOffset + 118, iScreenHeightOffset + 183, iScreenWidthOffset + 522, iScreenHeightOffset + 202 );
+			DefineProgressBarPanel( 0, 65, 79, 94, iScreenWidthOffset + 100, iScreenHeightOffset + 155, iScreenWidthOffset + 540, iScreenHeightOffset + 235 );
 			swprintf( zOrigName, L"Loading map:  %s", gzFilename );
 			SetProgressBarTitle( 0, zOrigName, BLOCKFONT2, FONT_RED, FONT_NEARBLACK );
 			gbCurrentFileIOStatus = INITIATE_MAP_LOAD;
@@ -444,21 +445,23 @@ void CreateFileDialog( UINT16 *zTitle )
 
 	//Okay and cancel buttons
 	iFileDlgButtons[0] = CreateTextButton( L"Okay", FONT12POINT1, FONT_BLACK, FONT_BLACK,
-		BUTTON_USE_DEFAULT, 354, 225, 50, 30, BUTTON_NO_TOGGLE,	MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, FDlgOkCallback );
+		BUTTON_USE_DEFAULT, iScreenWidthOffset + 354, iScreenHeightOffset + 225, 50, 30, BUTTON_NO_TOGGLE,	MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, FDlgOkCallback );
 	iFileDlgButtons[1] = CreateTextButton( L"Cancel", FONT12POINT1, FONT_BLACK, FONT_BLACK,
-		BUTTON_USE_DEFAULT, 406, 225, 50, 30, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, FDlgCancelCallback );
+		BUTTON_USE_DEFAULT, iScreenWidthOffset + 406, iScreenHeightOffset + 225, 50, 30, BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, FDlgCancelCallback );
 
 	//Scroll buttons
-	iFileDlgButtons[2] = CreateSimpleButton( 426,92,"EDITOR//uparrow.sti", BUTTON_NO_TOGGLE,
+	iFileDlgButtons[2] = CreateSimpleButton( iScreenWidthOffset + 426, iScreenHeightOffset + 92,"EDITOR//uparrow.sti", BUTTON_NO_TOGGLE,
 																MSYS_PRIORITY_HIGH, FDlgUpCallback );
-	iFileDlgButtons[3] = CreateSimpleButton( 426,182,"EDITOR//downarrow.sti", BUTTON_NO_TOGGLE,
+	iFileDlgButtons[3] = CreateSimpleButton( iScreenWidthOffset + 426, iScreenHeightOffset + 182,"EDITOR//downarrow.sti", BUTTON_NO_TOGGLE,
 																MSYS_PRIORITY_HIGH, FDlgDwnCallback );
 
 	//File list window
-	iFileDlgButtons[4] = CreateHotSpot( (179+4), (69+3), (179+4+240), (69+120+3), MSYS_PRIORITY_HIGH-1, BUTTON_NO_CALLBACK, FDlgNamesCallback);	
+
+	// WANNE: EDITOR?
+	iFileDlgButtons[4] = CreateHotSpot( (iScreenWidthOffset + 179+4), (iScreenHeightOffset + 69+3), (179+4+240), (69+120+3), MSYS_PRIORITY_HIGH-1, BUTTON_NO_CALLBACK, FDlgNamesCallback);	
 	//Title button
 	iFileDlgButtons[5] = CreateTextButton(zTitle, HUGEFONT, FONT_LTKHAKI, FONT_DKKHAKI,
-		BUTTON_USE_DEFAULT,179,39,281,30,BUTTON_NO_TOGGLE,
+		BUTTON_USE_DEFAULT,iScreenWidthOffset + 179, iScreenHeightOffset + 39,281,30,BUTTON_NO_TOGGLE,
 		MSYS_PRIORITY_HIGH-2,BUTTON_NO_CALLBACK,BUTTON_NO_CALLBACK);
 	DisableButton(iFileDlgButtons[5]);
 	SpecifyDisabledButtonStyle( iFileDlgButtons[5], DISABLED_STYLE_NONE );
@@ -467,7 +470,7 @@ void CreateFileDialog( UINT16 *zTitle )
 	if( iCurrentAction == ACTION_SAVE_MAP )
 	{	//checkboxes
 		//The update world info checkbox
-		iFileDlgButtons[6] = CreateCheckBoxButton( 183, 229, "EDITOR//smcheckbox.sti", MSYS_PRIORITY_HIGH, UpdateWorldInfoCallback );
+		iFileDlgButtons[6] = CreateCheckBoxButton( iScreenWidthOffset + 183, iScreenHeightOffset + 229, "EDITOR//smcheckbox.sti", MSYS_PRIORITY_HIGH, UpdateWorldInfoCallback );
 		if( gfUpdateSummaryInfo )
 			ButtonList[ iFileDlgButtons[6] ]->uiFlags |= BUTTON_CLICKED_ON;
 	}
@@ -475,7 +478,7 @@ void CreateFileDialog( UINT16 *zTitle )
 	//Add the text input fields
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
 	//field 1 (filename) 
-	AddTextInputField( /*233*/183, 195, 190, 20, MSYS_PRIORITY_HIGH, gzFilename, 30, INPUTTYPE_EXCLUSIVE_DOSFILENAME );
+	AddTextInputField( /*233*/iScreenWidthOffset + 183, iScreenHeightOffset + 195, 190, 20, MSYS_PRIORITY_HIGH, gzFilename, 30, INPUTTYPE_EXCLUSIVE_DOSFILENAME );
 	//field 2 -- user field that allows mouse/key interaction with the filename list
 	AddUserInputField( FileDialogModeCallback );
 
@@ -546,13 +549,13 @@ void RemoveFileDialog(void)
 
 void DrawFileDialog(void)
 {
-	ColorFillVideoSurfaceArea(FRAME_BUFFER,	179, 69, (179+281), 261, Get16BPPColor(FROMRGB(136, 138, 135)) );
-	ColorFillVideoSurfaceArea(FRAME_BUFFER,	180, 70, (179+281), 261, Get16BPPColor(FROMRGB(24, 61, 81)) );
-	ColorFillVideoSurfaceArea(FRAME_BUFFER,	180, 70, (179+280), 260, Get16BPPColor(FROMRGB(65, 79, 94)) );
+	ColorFillVideoSurfaceArea(FRAME_BUFFER,	iScreenWidthOffset + 179, iScreenHeightOffset + 69, (iScreenWidthOffset + 179+281), iScreenHeightOffset + 261, Get16BPPColor(FROMRGB(136, 138, 135)) );
+	ColorFillVideoSurfaceArea(FRAME_BUFFER,	iScreenWidthOffset + 180, 70, (iScreenWidthOffset + 179+281), iScreenHeightOffset + 261, Get16BPPColor(FROMRGB(24, 61, 81)) );
+	ColorFillVideoSurfaceArea(FRAME_BUFFER,	iScreenWidthOffset + 180, 70, (iScreenWidthOffset + 179+280), iScreenHeightOffset + 260, Get16BPPColor(FROMRGB(65, 79, 94)) );
 
-	ColorFillVideoSurfaceArea(FRAME_BUFFER, (179+4), (69+3), (179+4+240), (69+123), Get16BPPColor(FROMRGB(24, 61, 81)) );
-	ColorFillVideoSurfaceArea(FRAME_BUFFER, (179+5), (69+4), (179+4+240), (69+123), Get16BPPColor(FROMRGB(136, 138, 135)) );
-	ColorFillVideoSurfaceArea(FRAME_BUFFER, (179+5), (69+4), (179+3+240), (69+122), Get16BPPColor(FROMRGB(250, 240, 188)) );
+	ColorFillVideoSurfaceArea(FRAME_BUFFER, (iScreenWidthOffset + 179+4), (iScreenHeightOffset + 69+3), (iScreenWidthOffset + 179+4+240), (iScreenHeightOffset + 69+123), Get16BPPColor(FROMRGB(24, 61, 81)) );
+	ColorFillVideoSurfaceArea(FRAME_BUFFER, (iScreenWidthOffset + 179+5), (iScreenHeightOffset + 69+4), (iScreenWidthOffset + 179+4+240), (iScreenHeightOffset + 69+123), Get16BPPColor(FROMRGB(136, 138, 135)) );
+	ColorFillVideoSurfaceArea(FRAME_BUFFER, (iScreenWidthOffset + 179+5), (iScreenHeightOffset + 69+4), (iScreenWidthOffset + 179+3+240), (iScreenHeightOffset + 69+122), Get16BPPColor(FROMRGB(250, 240, 188)) );
 
 	MarkButtonsDirty();
 	RenderButtons();
@@ -562,11 +565,11 @@ void DrawFileDialog(void)
 	SetFontForeground( FONT_LTKHAKI );
 	SetFontShadow( FONT_DKKHAKI );
 	SetFontBackground( FONT_BLACK );
-	mprintf( 183, 217, L"Filename" );
+	mprintf( iScreenWidthOffset + 183, iScreenHeightOffset + 217, L"Filename" );
 	
 	if( iFileDlgButtons[6] != -1 ) 
 	{
-		mprintf( 200, 231, L"Update world info" );
+		mprintf( iScreenWidthOffset + 200, iScreenHeightOffset + 231, L"Update world info" );
 	}
 }
 
@@ -851,7 +854,7 @@ void SetGlobalSectorValues( UINT16 *szFilename )
 
 void InitErrorCatchDialog()
 {
-	SGPRect CenteringRect= {0, 0, 639, 479 };
+	SGPRect CenteringRect= {0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1 };
 
 	// do message box and return
 	giErrorCatchMessageBox = DoMessageBox( MSG_BOX_BASIC_STYLE, gzErrorCatchString, 
@@ -877,8 +880,8 @@ UINT32 ProcessFileIO()
 			SetFontShadow( FONT_DKKHAKI );
 			SetFontBackground( 0 );
 			swprintf( zOrigName, L"Saving map:  %s", gzFilename );
-			usStartX = 320 - StringPixLength( zOrigName, LARGEFONT1 ) / 2;
-			usStartY = 180 - GetFontHeight( LARGEFONT1 ) / 2;
+			usStartX = iScreenWidthOffset + 320 - StringPixLength( zOrigName, LARGEFONT1 ) / 2;
+			usStartY = iScreenHeightOffset + 180 - GetFontHeight( LARGEFONT1 ) / 2;
 			mprintf( usStartX, usStartY, zOrigName );
 
 			InvalidateScreen( );

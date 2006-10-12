@@ -1,3 +1,4 @@
+// WANNE: EDITOR: done
 #ifdef PRECOMPILEDHEADERS
 	#include "Editor All.h"
 #else
@@ -34,11 +35,11 @@ void CreateMessageBox( UINT16 *wzString )
 	INT16 sStartX, sStartY;
 
 	sPixLen = StringPixLength ( wzString, (UINT16)gpLargeFontType1 ) + 10;
-	if ( sPixLen > 600 )
-		sPixLen = 600;
+	if ( sPixLen > iScreenWidthOffset + 600 )
+		sPixLen = iScreenWidthOffset + 600;
 
-	sStartX = (640 - sPixLen) / 2;
-	sStartY = (480 - 96) / 2;
+	sStartX = (SCREEN_WIDTH - sPixLen) / 2;
+	sStartY = ((SCREEN_HEIGHT - 96) / 2);
 
 	gfMessageBoxResult = FALSE;
 

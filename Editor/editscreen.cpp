@@ -1,3 +1,4 @@
+// WANNE: EDITOR: done
 #ifdef PRECOMPILEDHEADERS
 	#include "Editor All.h"
 #else
@@ -777,6 +778,7 @@ BOOLEAN DrawTempMouseCursorObject(void)
 }
 			
 
+// WANNE: EDITOR?
 //Displays the current drawing object in the small, lower left window of the editor's toolbar.
 void ShowCurrentDrawingMode( void )
 {
@@ -784,8 +786,8 @@ void ShowCurrentDrawingMode( void )
 	INT32				iShowMode;
 	UINT16			usUseIndex;
 	UINT16			usObjIndex;
-	INT32				iStartX = 50;
-	INT32				iStartY = 440;
+	INT32				iStartX = iScreenWidthOffset + 50;
+	INT32				iStartY = 2  * iScreenHeightOffset + 440;
 	INT32				iPicHeight, iPicWidth;
 	INT16				sTempOffsetX;
 	INT16				sTempOffsetY;
@@ -795,17 +797,18 @@ void ShowCurrentDrawingMode( void )
 	UINT16			usFillColor;
 	INT32				iIndexToUse;
 	
+	// WANNE: EDITOR?
 	// Set up a clipping rectangle for the display window.
-	NewRect.iLeft = 0;
-	NewRect.iTop = 400;
-	NewRect.iRight = 100;
-	NewRect.iBottom = 458;
+	NewRect.iLeft = iScreenWidthOffset + 0;
+	NewRect.iTop = 2 * iScreenHeightOffset + 400;
+	NewRect.iRight = iScreenWidthOffset + 100;
+	NewRect.iBottom = 2 * iScreenWidthOffset + 458;
 
 	GetClippingRect(&ClipRect);
 	SetClippingRect(&NewRect);
 
 	// Clear it out
-	ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 400, 100, 458, 0 );
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, iScreenWidthOffset, 2 * iScreenHeightOffset + 400, iScreenWidthOffset + 100, 2 * iScreenHeightOffset + 458, 0 );
 
 	iShowMode = iDrawMode;
 	if ( iDrawMode >= DRAW_MODE_ERASE )
@@ -1003,6 +1006,7 @@ void ShowCurrentDrawingMode( void )
 		iPicWidth = (INT32)pETRLEObject->usWidth;
 		iPicHeight = (INT32)pETRLEObject->usHeight;
 
+		// WANNE: EDITOR?
 		// Center the picture in the display window.
 		iStartX = ( 100 - iPicWidth ) / 2;
 		iStartY = ( 60 - iPicHeight ) / 2;
@@ -1015,26 +1019,28 @@ void ShowCurrentDrawingMode( void )
 		pETRLEObject->sOffsetX = 0;
 		pETRLEObject->sOffsetY = 0;
 
+		// WANNE: EDITOR?
 		SetObjectShade( gTileDatabase[gTileTypeStartIndex[usObjIndex]].hTileSurface, DEFAULT_SHADE_LEVEL );
 		BltVideoObject( FRAME_BUFFER, gTileDatabase[gTileTypeStartIndex[usObjIndex]].hTileSurface, 
-									 usUseIndex, (0 + iStartX), (400 + iStartY), 
+									 usUseIndex, (iScreenWidthOffset + 0 + iStartX), (2 * iScreenHeightOffset + 400 + iStartY), 
 									 VO_BLT_SRCTRANSPARENCY, NULL);
 
 		pETRLEObject->sOffsetX = sTempOffsetX;
 		pETRLEObject->sOffsetY = sTempOffsetY;
 	}
 
+	// WANNE: EDITOR?
 	// Set the color for the window's border. Blueish color = Normal, Red = Fake lighting is turned on
 	usFillColor = GenericButtonFillColors[0];
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 	if(gbPixelDepth==16)
-		RectangleDraw( FALSE, 0, 400, 99, 458, usFillColor, pDestBuf );
+		RectangleDraw( FALSE, iScreenWidthOffset + 0, 2 * iScreenHeightOffset + 400, iScreenWidthOffset + 99, 2 * iScreenHeightOffset + 458, usFillColor, pDestBuf );
 	else if(gbPixelDepth==8)
-		RectangleDraw8( FALSE, 0, 400, 99, 458, usFillColor, pDestBuf );
+		RectangleDraw8( FALSE, iScreenWidthOffset + 0, 2 * iScreenHeightOffset + 400, iScreenWidthOffset + 99, 2 * iScreenHeightOffset + 458, usFillColor, pDestBuf );
 
 	UnLockVideoSurface( FRAME_BUFFER );
 
-	InvalidateRegion( 0, 400, 100, 458 );
+	InvalidateRegion( iScreenWidthOffset + 0, 2 * iScreenHeightOffset + 400, iScreenWidthOffset + 100, 2 * iScreenHeightOffset + 458 );
 	SetClippingRect(&ClipRect);
 }
 
@@ -2394,77 +2400,78 @@ UINT32 WaitForHelpScreenResponse( void )
   InputAtom DummyEvent;
 	BOOLEAN fLeaveScreen;
 
-	ColorFillVideoSurfaceArea(FRAME_BUFFER,	50, 50, 590, 310,
+	// WANNE: EDITOR?
+	ColorFillVideoSurfaceArea(FRAME_BUFFER,	iScreenWidthOffset + 50, iScreenHeightOffset + 50, iScreenWidthOffset + 590, iScreenHeightOffset + 310,
 													Get16BPPColor(FROMRGB(136, 138, 135)) );
-	ColorFillVideoSurfaceArea(FRAME_BUFFER,	51, 51, 590, 310,
+	ColorFillVideoSurfaceArea(FRAME_BUFFER,	iScreenWidthOffset + 51, iScreenHeightOffset + 51, iScreenWidthOffset + 590, iScreenHeightOffset + 310,
 													Get16BPPColor(FROMRGB(24, 61, 81)) );
-	ColorFillVideoSurfaceArea(FRAME_BUFFER,	51, 51, 589, 309,
+	ColorFillVideoSurfaceArea(FRAME_BUFFER,	iScreenWidthOffset + 51, iScreenHeightOffset + 51, iScreenWidthOffset + 589, iScreenHeightOffset + 309,
 													GenericButtonFillColors[0]);
 
 	SetFont( gp12PointFont1 );
 
-	gprintf( 55,  55, L"HOME" );
-	gprintf( 205, 55, L"Toggle fake editor lighting ON/OFF" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 55, L"HOME" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 55, L"Toggle fake editor lighting ON/OFF" );
 
-	gprintf( 55,  67, L"INSERT" );
-	gprintf( 205, 67, L"Toggle fill mode ON/OFF" );
+	gprintf( iScreenWidthOffset + 55, iScreenHeightOffset + 67, L"INSERT" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 67, L"Toggle fill mode ON/OFF" );
 
-	gprintf( 55,  79, L"BKSPC" );
-	gprintf( 205, 79, L"Undo last change" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 79, L"BKSPC" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 79, L"Undo last change" );
 
-	gprintf( 55,  91, L"DEL" );
-	gprintf( 205, 91, L"Quick erase object under mouse cursor" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 91, L"DEL" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 91, L"Quick erase object under mouse cursor" );
 
-	gprintf( 55,  103, L"ESC" );
-	gprintf( 205, 103, L"Exit editor" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 103, L"ESC" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 103, L"Exit editor" );
 
-	gprintf( 55,  115, L"PGUP/PGDN" );
-	gprintf( 205, 115, L"Change object to be pasted" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 115, L"PGUP/PGDN" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 115, L"Change object to be pasted" );
 
-	gprintf( 55,  127, L"F1" );
-	gprintf( 205, 127, L"This help screen" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 127, L"F1" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 127, L"This help screen" );
 
-	gprintf( 55,  139, L"F10" );
-	gprintf( 205, 139, L"Save current map" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 139, L"F10" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 139, L"Save current map" );
 
-	gprintf( 55,  151, L"F11" );
-	gprintf( 205, 151, L"Load map as current" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 151, L"F11" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 151, L"Load map as current" );
 
-	gprintf( 55,  163, L"+/-" );
-	gprintf( 205, 163, L"Change shadow darkness by .01" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 163, L"+/-" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 163, L"Change shadow darkness by .01" );
 
-	gprintf( 55,  175, L"SHFT +/-" );
-	gprintf( 205, 175, L"Change shadow darkness by .05" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 175, L"SHFT +/-" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 175, L"Change shadow darkness by .05" );
 
-	gprintf( 55,  187, L"0 - 9" );
-	gprintf( 205, 187, L"Change map/tileset filename" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 187, L"0 - 9" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 187, L"Change map/tileset filename" );
 	
-	gprintf( 55,  199, L"b" );
-	gprintf( 205, 199, L"Change brush size" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 199, L"b" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 199, L"Change brush size" );
 	
-	gprintf( 55,  211, L"d" );
-	gprintf( 205, 211, L"Draw debris" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 211, L"d" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 211, L"Draw debris" );
 
-	gprintf( 55,  223, L"o" );
-	gprintf( 205, 223, L"Draw obstacle" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 223, L"o" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 223, L"Draw obstacle" );
 
-	gprintf( 55,  235, L"r" );
-	gprintf( 205, 235, L"Draw rocks" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 235, L"r" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 235, L"Draw rocks" );
 
-	gprintf( 55,  247, L"t" );
-	gprintf( 205, 247, L"Toggle trees display ON/OFF" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 247, L"t" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 247, L"Toggle trees display ON/OFF" );
 
-	gprintf( 55,  259, L"g" );
-	gprintf( 205, 259, L"Draw ground textures" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 259, L"g" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 259, L"Draw ground textures" );
 
-	gprintf( 55,  271, L"w" );
-	gprintf( 205, 271, L"Draw building walls" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 271, L"w" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 271, L"Draw building walls" );
 
-	gprintf( 55,  283, L"e" );
-	gprintf( 205, 283, L"Toggle erase mode ON/OFF" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 283, L"e" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 283, L"Toggle erase mode ON/OFF" );
 
-	gprintf( 55,  295, L"h" );
-	gprintf( 205, 295, L"Toggle roofs ON/OFF" );
+	gprintf( iScreenWidthOffset + 55,  iScreenHeightOffset + 295, L"h" );
+	gprintf( iScreenWidthOffset + 205, iScreenHeightOffset + 295, L"Toggle roofs ON/OFF" );
 
 
 	fLeaveScreen = FALSE;
@@ -2609,10 +2616,11 @@ void ShowCurrentSlotSurface( UINT32 vSurface, INT32 iWindow )
 	INT32				iWinWidth, iWinHeight;
 	blt_vs_fx		vSfx;
 
-	WinRect.iLeft = (iWindow == 0) ? (336) : (488);
-	WinRect.iTop = 211;
-	WinRect.iRight = (iWindow == 0) ? (485) : (637);
-	WinRect.iBottom = 399;
+	// WANNE: EDITOR
+	WinRect.iLeft = (iWindow == 0) ? (iScreenWidthOffset + 336) : (iScreenWidthOffset + 488);
+	WinRect.iTop = 2 * iScreenHeightOffset + 211;
+	WinRect.iRight = (iWindow == 0) ? (iScreenWidthOffset + 485) : (iScreenWidthOffset + 637);
+	WinRect.iBottom = 2 * iScreenHeightOffset + 399;
 
 	ColorFillVideoSurfaceArea(FRAME_BUFFER, WinRect.iLeft - 1, WinRect.iTop - 1, 
 																					WinRect.iRight + 1, WinRect.iBottom + 1, 
@@ -2676,10 +2684,11 @@ void ShowCurrentSlotImage( HVOBJECT hVObj, INT32 iWindow )
 	ETRLEObject *pETRLEObject;
 	INT32				iWinWidth, iWinHeight;
 
-	NewRect.iLeft = (iWindow == 0) ? (336) : (488);
-	NewRect.iTop = 211;
-	NewRect.iRight = (iWindow == 0) ? (485) : (637);
-	NewRect.iBottom = 399;
+	// WANNE: EDITOR?
+	NewRect.iLeft = (iWindow == 0) ? (iScreenWidthOffset + 336) : (iScreenWidthOffset + 488);
+	NewRect.iTop = 2 * iScreenHeightOffset + 211;
+	NewRect.iRight = (iWindow == 0) ? (iScreenWidthOffset + 485) : (iScreenWidthOffset + 637);
+	NewRect.iBottom = 2 * iScreenHeightOffset + 399;
 
 	iWinWidth = NewRect.iRight - NewRect.iLeft;
 	iWinHeight = NewRect.iBottom - NewRect.iTop;
@@ -3760,21 +3769,22 @@ UINT32  EditScreenHandle( void )
 
 void CreateGotoGridNoUI()
 {
+	// WANNE: EDITOR
 	gfGotoGridNoUI = TRUE;
 	//Disable the rest of the editor
 	DisableEditorTaskbar();
 	//Create the background panel.
 	guiGotoGridNoUIButtonID =
 		CreateTextButton( L"Enter gridno:", FONT10ARIAL, FONT_YELLOW, FONT_BLACK, BUTTON_USE_DEFAULT,
-		290, 155, 60, 50, BUTTON_NO_TOGGLE, MSYS_PRIORITY_NORMAL, DEFAULT_MOVE_CALLBACK, MSYS_NO_CALLBACK );
+		iScreenWidthOffset + 290, iScreenHeightOffset + 155, 60, 50, BUTTON_NO_TOGGLE, MSYS_PRIORITY_NORMAL, DEFAULT_MOVE_CALLBACK, MSYS_NO_CALLBACK );
 	SpecifyDisabledButtonStyle( guiGotoGridNoUIButtonID, DISABLED_STYLE_NONE );
 	SpecifyButtonTextOffsets( guiGotoGridNoUIButtonID, 5, 5, FALSE );
 	DisableButton( guiGotoGridNoUIButtonID );
 	//Create a blanket region so nobody can use
-	MSYS_DefineRegion( &GotoGridNoUIRegion, 0, 0, 640, 480,	MSYS_PRIORITY_NORMAL+1, 0, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+	MSYS_DefineRegion( &GotoGridNoUIRegion, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,	MSYS_PRIORITY_NORMAL+1, 0, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 	//Init a text input field.
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
-	AddTextInputField( 300, 180, 40, 18, MSYS_PRIORITY_HIGH, L"", 6, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 300, iScreenHeightOffset + 180, 40, 18, MSYS_PRIORITY_HIGH, L"", 6, INPUTTYPE_NUMERICSTRICT );
 }
 
 void RemoveGotoGridNoUI()

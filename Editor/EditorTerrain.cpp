@@ -1,3 +1,4 @@
+// WANNE: EDITOR: done
 #ifdef PRECOMPILEDHEADERS
 	#include "Editor All.h"
 #else
@@ -101,15 +102,15 @@ void RenderTerrainTileButtons()
 		usFillColorLight = Get16BPPColor(FROMRGB(136, 138, 135));
 		usFillColorRed = Get16BPPColor(FROMRGB(255, 0, 0));
 
-		usY = 369;
-		usY2 = 391;
+		usY = 2 * iScreenHeightOffset + 369;
+		usY2 = 2 * iScreenHeightOffset + 391;
 
 		SetFont( SMALLCOMPFONT );
 		SetFontForeground( FONT_YELLOW );
 
 		for( x = 0; x < NUM_TERRAIN_TILE_REGIONS; x++ )
 		{
-			usX = 261 + (x * 42);
+			usX = iScreenWidthOffset + 261 + (x * 42);
 			usX2 = usX + 42;
 
 			if ( x == CurrentPaste && !fUseTerrainWeights )

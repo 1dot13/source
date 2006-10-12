@@ -1,3 +1,4 @@
+// WANNE: EDITOR: done
 #ifdef PRECOMPILEDHEADERS
 	#include "Editor All.h"
 #else
@@ -82,16 +83,16 @@ void UpdateBuildingsInfo()
 	//print the headers on top of the columns
 	SetFont( SMALLCOMPFONT );
 	SetFontForeground( FONT_RED );
-	mprintfEditor( 112, 362, L"TOGGLE");
-	mprintfEditor( 114, 372, L"VIEWS");
+	mprintfEditor( iScreenWidthOffset + 112, 2 * iScreenHeightOffset + 362, L"TOGGLE");
+	mprintfEditor( iScreenWidthOffset + 114, 2 * iScreenHeightOffset + 372, L"VIEWS");
 	SetFontForeground( FONT_YELLOW );
-	mprintfEditor( 185, 362, L"SELECTION METHOD");
+	mprintfEditor( iScreenWidthOffset + 185, 2 * iScreenHeightOffset + 362, L"SELECTION METHOD");
 	SetFontForeground( FONT_LTGREEN );
-	mprintfEditor( 290, 362, L"SMART METHOD");
+	mprintfEditor( iScreenWidthOffset + 290, 2 * iScreenHeightOffset + 362, L"SMART METHOD");
 	SetFontForeground( FONT_LTBLUE );
-	mprintfEditor( 390, 362, L"BUILDING METHOD");
+	mprintfEditor( iScreenWidthOffset + 390, 2 * iScreenHeightOffset + 362, L"BUILDING METHOD");
 	SetFontForeground( FONT_GRAY2 );
-	mprintfEditor( 437, 404, L"Room#" );
+	mprintfEditor( iScreenWidthOffset + 437, 2 * iScreenHeightOffset + 404, L"Room#" );
 }
 
 //Uses a recursive method to elimate adjacent tiles of structure information.
@@ -510,26 +511,26 @@ void InitDoorEditing( INT32 iMapIndex )
 	gfEditingDoor = TRUE;
 	iDoorMapIndex = iMapIndex;
 	DisableEditorTaskbar();
-	MSYS_DefineRegion( &DoorRegion, 0, 0, 640, 480, MSYS_PRIORITY_HIGH-2, 0, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+	MSYS_DefineRegion( &DoorRegion, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGH-2, 0, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 	iDoorButton[ DOOR_BACKGROUND ] =
-		CreateTextButton( 0, 0, 0, 0, BUTTON_USE_DEFAULT, 200, 130, 240, 100, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1, 
+		CreateTextButton( 0, 0, 0, 0, BUTTON_USE_DEFAULT, iScreenWidthOffset + 200, 2 * iScreenHeightOffset + 130, 240, 100, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1, 
 		BUTTON_NO_CALLBACK, BUTTON_NO_CALLBACK );
 	DisableButton( iDoorButton[ DOOR_BACKGROUND ] );
 	SpecifyDisabledButtonStyle( iDoorButton[ DOOR_BACKGROUND ], DISABLED_STYLE_NONE );
 	iDoorButton[ DOOR_OKAY ] =
 		CreateTextButton(L"Okay", FONT12POINT1, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
-		330, 195, 50, 30, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, 
+		iScreenWidthOffset + 330, 2 * iScreenHeightOffset + 195, 50, 30, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, 
 		DoorOkayCallback );
 	iDoorButton[ DOOR_CANCEL ] =
 		CreateTextButton(L"Cancel", FONT12POINT1, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
-		385, 195, 50, 30, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, 
+		iScreenWidthOffset + 385, 2 * iScreenHeightOffset + 195, 50, 30, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, 
 		DoorCancelCallback );
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
-	AddTextInputField( 210, 155, 25, 16, MSYS_PRIORITY_HIGH, L"0", 3, INPUTTYPE_NUMERICSTRICT );
-	AddTextInputField( 210, 175, 25, 16, MSYS_PRIORITY_HIGH, L"0", 2, INPUTTYPE_NUMERICSTRICT );
-	AddTextInputField( 210, 195, 25, 16, MSYS_PRIORITY_HIGH, L"0", 2, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 210, 2 * iScreenHeightOffset + 155, 25, 16, MSYS_PRIORITY_HIGH, L"0", 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 210, 2 * iScreenHeightOffset + 175, 25, 16, MSYS_PRIORITY_HIGH, L"0", 2, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 210, 2 * iScreenHeightOffset + 195, 25, 16, MSYS_PRIORITY_HIGH, L"0", 2, INPUTTYPE_NUMERICSTRICT );
 	iDoorButton[ DOOR_LOCKED ] = 
-		CreateCheckBoxButton(	210, 215, "EDITOR//SmCheckbox.sti", MSYS_PRIORITY_HIGH, DoorToggleLockedCallback );
+		CreateCheckBoxButton(	iScreenWidthOffset + 210, 2 * iScreenHeightOffset + 215, "EDITOR//SmCheckbox.sti", MSYS_PRIORITY_HIGH, DoorToggleLockedCallback );
 
 	pDoor = FindDoorInfoAtGridNo( iDoorMapIndex );
 	if( pDoor )
@@ -644,18 +645,18 @@ void FindNextLockedDoor()
 
 void RenderDoorEditingWindow()
 {
-	InvalidateRegion( 200, 130, 440, 230 );
+	InvalidateRegion( iScreenWidthOffset + 200, 2 * iScreenHeightOffset + 130, iScreenWidthOffset + 440, 2 * iScreenHeightOffset + 230 );
 	SetFont( FONT10ARIAL );
 	SetFontForeground( FONT_YELLOW );
 	SetFontShadow( FONT_NEARBLACK );
 	SetFontBackground( 0 );
-	mprintf( 210, 140, L"Editing lock attributes at map index %d.", iDoorMapIndex );
+	mprintf( iScreenWidthOffset + 210, 2 * iScreenHeightOffset + 140, L"Editing lock attributes at map index %d.", iDoorMapIndex );
 
 	SetFontForeground( FONT_GRAY2 );
-	mprintf( 238, 160, L"Lock ID" );
-	mprintf( 238, 180, L"Trap Type" );
-	mprintf( 238, 200, L"Trap Level" );
-	mprintf( 238, 218, L"Locked" );
+	mprintf( iScreenWidthOffset + 238, 2 * iScreenHeightOffset + 160, L"Lock ID" );
+	mprintf( iScreenWidthOffset + 238, 2 * iScreenHeightOffset + 180, L"Trap Type" );
+	mprintf( iScreenWidthOffset + 238, 2 * iScreenHeightOffset + 200, L"Trap Level" );
+	mprintf( iScreenWidthOffset + 238, 2 * iScreenHeightOffset + 218, L"Locked" );
 }
 
 void KillDoorEditing()
@@ -732,7 +733,7 @@ void SetupTextInputForBuildings()
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
 	AddUserInputField( NULL );  //just so we can use short cut keys while not typing.
 	swprintf( str, L"%d", gubMaxRoomNumber );
-	AddTextInputField( 410, 400, 25, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 410, 2 * iScreenHeightOffset + 400, 25, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 }
 
 void ExtractAndUpdateBuildingInfo()

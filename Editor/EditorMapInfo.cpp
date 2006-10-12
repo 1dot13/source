@@ -1,3 +1,4 @@
+// WANNE: EDITOR: done
 #ifdef PRECOMPILEDHEADERS
 	#include "Editor All.h"
 #else
@@ -75,31 +76,31 @@ void SetupTextInputForMapInfo()
 
 	//light rgb fields
 	swprintf( str, L"%d", gEditorLightColor.peRed );
-	AddTextInputField( 10, 394, 25, 18, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 10, 2 * iScreenHeightOffset + 394, 25, 18, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	swprintf( str, L"%d", gEditorLightColor.peGreen );
-	AddTextInputField( 10, 414, 25, 18, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 10, 2 * iScreenHeightOffset + 414, 25, 18, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	swprintf( str, L"%d", gEditorLightColor.peBlue );
-	AddTextInputField( 10, 434, 25, 18, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 10, 2 * iScreenHeightOffset + 434, 25, 18, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 
 	swprintf( str, L"%d", gsLightRadius );
-	AddTextInputField( 120, 394, 25, 18, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 120, 2 * iScreenHeightOffset + 394, 25, 18, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	swprintf( str, L"%d", gusLightLevel );
-	AddTextInputField( 120, 414, 25, 18, MSYS_PRIORITY_NORMAL, str, 2, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 120, 2 * iScreenHeightOffset + 414, 25, 18, MSYS_PRIORITY_NORMAL, str, 2, INPUTTYPE_NUMERICSTRICT );
 
 	//Scroll restriction ID
 	if( !gMapInformation.ubRestrictedScrollID )
 		swprintf( str, L"" );
 	else
 		swprintf( str, L"%d", gMapInformation.ubRestrictedScrollID );
-	AddTextInputField( 210, 420, 30, 20, MSYS_PRIORITY_NORMAL, str, 2, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 210, 2 * iScreenHeightOffset + 420, 30, 20, MSYS_PRIORITY_NORMAL, str, 2, INPUTTYPE_NUMERICSTRICT );
 
 	//exit grid input fields
 	swprintf( str, L"%c%d", gExitGrid.ubGotoSectorY + 'A' - 1, gExitGrid.ubGotoSectorX );
-	AddTextInputField( 338, 363, 30, 18, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_EXCLUSIVE_COORDINATE );
+	AddTextInputField( iScreenWidthOffset + 338, 2 * iScreenHeightOffset + 363, 30, 18, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_EXCLUSIVE_COORDINATE );
 	swprintf( str, L"%d", gExitGrid.ubGotoSectorZ );
-	AddTextInputField( 338, 383, 30, 18, MSYS_PRIORITY_NORMAL, str, 1, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 338, 2 * iScreenHeightOffset + 383, 30, 18, MSYS_PRIORITY_NORMAL, str, 1, INPUTTYPE_NUMERICSTRICT );
 	swprintf( str, L"%d", gExitGrid.usGridNo );
-	AddTextInputField( 338, 403, 40, 18, MSYS_PRIORITY_NORMAL, str, 5, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 338, 2 * iScreenHeightOffset + 403, 40, 18, MSYS_PRIORITY_NORMAL, str, 5, INPUTTYPE_NUMERICSTRICT );
 }
 
 void UpdateMapInfo()
@@ -108,41 +109,41 @@ void UpdateMapInfo()
 	SetFontShadow( FONT_NEARBLACK );
 
 	SetFontForeground( FONT_RED );
-	mprintf( 38, 399, L"R");
+	mprintf( iScreenWidthOffset + 38, 2 * iScreenHeightOffset + 399, L"R");
 	SetFontForeground( FONT_GREEN );
-	mprintf( 38, 419, L"G");
+	mprintf( iScreenWidthOffset + 38, 2 * iScreenHeightOffset + 419, L"G");
 	SetFontForeground( FONT_DKBLUE );
-	mprintf( 38, 439, L"B");
+	mprintf( iScreenWidthOffset + 38, 2 * iScreenHeightOffset + 439, L"B");
 
 	SetFontForeground( FONT_YELLOW );
-	mprintf( 65, 369, L"Prime" );
-	mprintf( 65, 382, L"Night" );
-	mprintf( 65, 397, L"24Hrs" );
+	mprintf( iScreenWidthOffset + 65, 2 * iScreenHeightOffset + 369, L"Prime" );
+	mprintf( iScreenWidthOffset + 65, 2 * iScreenHeightOffset + 382, L"Night" );
+	mprintf( iScreenWidthOffset + 65, 2 * iScreenHeightOffset + 397, L"24Hrs" );
 
 	SetFontForeground( FONT_YELLOW );
-	mprintf( 148, 399, L"Radius");
+	mprintf( iScreenWidthOffset + 148, 2 * iScreenHeightOffset + 399, L"Radius");
 
 	if( !gfBasement && !gfCaves )
 		SetFontForeground( FONT_DKYELLOW );
-	mprintf( 148, 414, L"Underground" );
-	mprintf( 148, 423, L"Light Level" );
+	mprintf( iScreenWidthOffset + 148, 2 * iScreenHeightOffset + 414, L"Underground" );
+	mprintf( iScreenWidthOffset + 148, 2 * iScreenHeightOffset + 423, L"Light Level" );
 
 	SetFontForeground( FONT_YELLOW );
-	mprintf( 230, 369, L"Outdoors" );
-	mprintf( 230, 384, L"Basement" );
-	mprintf( 230, 399, L"Caves" );
+	mprintf( iScreenWidthOffset + 230, 2 * iScreenHeightOffset + 369, L"Outdoors" );
+	mprintf( iScreenWidthOffset + 230, 2 * iScreenHeightOffset + 384, L"Basement" );
+	mprintf( iScreenWidthOffset + 230, 2 * iScreenHeightOffset + 399, L"Caves" );
 
 	SetFontForeground( FONT_ORANGE );
-	mprintf( 250, 420, L"Restricted" );
-	mprintf( 250, 430, L"Scroll ID" );
+	mprintf( iScreenWidthOffset + 250, 2 * iScreenHeightOffset + 420, L"Restricted" );
+	mprintf( iScreenWidthOffset + 250, 2 * iScreenHeightOffset + 430, L"Scroll ID" );
 
 	SetFontForeground( FONT_YELLOW );
-	mprintf( 368, 363, L"Destination");
-	mprintf( 368, 372, L"Sector" );
-	mprintf( 368, 383, L"Destination");
-	mprintf( 368, 392, L"Bsmt. Level" );
-	mprintf( 378, 403, L"Dest." );
-	mprintf( 378, 412, L"GridNo" );
+	mprintf( iScreenWidthOffset + 368, 2 * iScreenHeightOffset + 363, L"Destination");
+	mprintf( iScreenWidthOffset + 368, 2 * iScreenHeightOffset + 372, L"Sector" );
+	mprintf( iScreenWidthOffset + 368, 2 * iScreenHeightOffset + 383, L"Destination");
+	mprintf( iScreenWidthOffset + 368, 2 * iScreenHeightOffset + 392, L"Bsmt. Level" );
+	mprintf( iScreenWidthOffset + 378, 2 * iScreenHeightOffset + 403, L"Dest." );
+	mprintf( iScreenWidthOffset + 378, 2 * iScreenHeightOffset + 412, L"GridNo" );
 	SetFontForeground( FONT_RED );
 }
 

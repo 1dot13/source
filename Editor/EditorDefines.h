@@ -1,3 +1,4 @@
+// WANNE: EDITOR done
 #include "BuildDefines.h"
 
 #ifdef JA2EDITOR
@@ -251,8 +252,8 @@ extern BOOLEAN gfMercGetItem;
 //When actually editing item statistics, this value will be set, for the purposes of rendering, input, etc.
 extern BOOLEAN gfShowItemStatsPanel;
 
-#define	MERCPANEL_X						177
-#define MERCPANEL_Y						361
+#define	MERCPANEL_X						(iScreenWidthOffset + 177)
+#define MERCPANEL_Y						(2 * iScreenHeightOffset + 361)
 
 #endif
 #endif

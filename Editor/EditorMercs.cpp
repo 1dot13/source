@@ -1,3 +1,4 @@
+// WANNE: EDITOR: done
 #ifdef PRECOMPILEDHEADERS
 	#include "Editor All.h"
 #else
@@ -792,10 +793,11 @@ void DisplayEditMercWindow( void )
 	usFillColorLight = Get16BPPColor(FROMRGB(136, 138, 135));
 	usFillColorTextBk = Get16BPPColor(FROMRGB(250, 240, 188));
 
+	// WANNE: EDITOR?
 	iWidth = 266;
 	iHeight = 360;
-	iYPos = 0;
-	iXPos = 0;
+	iYPos = iScreenHeightOffset + 0;
+	iXPos = iScreenWidthOffset + 0;
 
 
 	// Main window
@@ -1244,10 +1246,11 @@ void ShowEditMercColorSet( UINT8 ubPaletteRep, INT16 sSet )
 
 	sUnitSize = 128 / (INT16)(ubSize);
 
-	sTop = 364 + (sSet * 24);
+	// WANNE: EDITOR?
+	sTop = 2 * iScreenHeightOffset + 364 + (sSet * 24);
 	sBottom = sTop + 20;
-	sLeft = 230;
-	sRight = 359; 
+	sLeft = iScreenWidthOffset + 230;
+	sRight = iScreenWidthOffset + 359; 
 
 	usFillColorDark = Get16BPPColor(FROMRGB(24, 61, 81));
 	usFillColorLight = Get16BPPColor(FROMRGB(136, 138, 135));
@@ -1266,7 +1269,7 @@ void ShowEditMercColorSet( UINT8 ubPaletteRep, INT16 sSet )
 	for ( cnt1 = 0; cnt1 < ubSize; cnt1++ )
 	{
 		if (cnt1 == (ubSize - 1) )
-			sRight = 358;
+			sRight = iScreenWidthOffset + 358;
 		if( ubPaletteRep == 0xff )
 			us16BPPColor = Get16BPPColor( FROMRGB( (16 - cnt1)*10, (16 - cnt1)*10, (16 - cnt1)*10 ) );
 		else
@@ -1331,7 +1334,8 @@ void DisplayWayPoints(void)
 		// Bring it down a touch
 		sScreenY += 5;
 
-		if( sScreenY <= 355 )
+		// WANNE: EDITOR?
+		if( sScreenY <= (2 * iScreenHeightOffset + 355 ))
 		{
 			// Shown it on screen!
 			SetFont(TINYFONT1);
@@ -1356,10 +1360,11 @@ void CreateEditMercWindow( void )
 	INT32 x;
 	SOLDIERTYPE *pSoldier;
 
+	// WANNE: EDITOR?
 	iWidth = 266;
 	iHeight = 360;
-	iYPos = 0;
-	iXPos = 0;
+	iYPos = iScreenHeightOffset + 0;
+	iXPos = iScreenWidthOffset + 0;
 
 
 	GetSoldier( &pSoldier, (INT16)gsSelectedMercID );
@@ -1725,7 +1730,7 @@ void SetupTextInputForMercProfile()
 		str[0] = '\0';
 	else
 		CalcStringForValue( str, gpSelected->pDetailedPlacement->ubProfile, NUM_PROFILES );
-	AddTextInputField( 200, 430, 30, 20, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 200, 2 * iScreenHeightOffset + 430, 30, 20, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 
 }
 
@@ -1736,31 +1741,31 @@ void SetupTextInputForMercAttributes()
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
 
 	CalcStringForValue( str, gpSelected->pDetailedPlacement->bExpLevel, 100 );
-	AddTextInputField( 200, 365, 20, 15, MSYS_PRIORITY_NORMAL, str, 1, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 200, 2 * iScreenHeightOffset + 365, 20, 15, MSYS_PRIORITY_NORMAL, str, 1, INPUTTYPE_NUMERICSTRICT );
 	CalcStringForValue( str, gpSelected->pDetailedPlacement->bLife, 100 );
-	AddTextInputField( 200, 390, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 200, 2 * iScreenHeightOffset + 390, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	CalcStringForValue( str, gpSelected->pDetailedPlacement->bLifeMax, 100 );
-	AddTextInputField( 200, 415, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 200, 2 * iScreenHeightOffset + 415, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	CalcStringForValue( str, gpSelected->pDetailedPlacement->bMarksmanship, 100 );
-	AddTextInputField( 200, 440, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 200, 2 * iScreenHeightOffset + 440, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	CalcStringForValue( str, gpSelected->pDetailedPlacement->bStrength, 100 );
-	AddTextInputField( 300, 365, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 300, 2 * iScreenHeightOffset + 365, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	CalcStringForValue( str, gpSelected->pDetailedPlacement->bAgility, 100 );
-	AddTextInputField( 300, 390, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 300, 2 * iScreenHeightOffset + 390, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	CalcStringForValue( str, gpSelected->pDetailedPlacement->bDexterity, 100 );
-	AddTextInputField( 300, 415, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 300, 2 * iScreenHeightOffset + 415, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	CalcStringForValue( str, gpSelected->pDetailedPlacement->bWisdom, 100 );
-	AddTextInputField( 300, 440, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 300, 2 * iScreenHeightOffset + 440, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	CalcStringForValue( str, gpSelected->pDetailedPlacement->bLeadership, 100 );
-	AddTextInputField( 400, 365, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 400, 2 * iScreenHeightOffset + 365, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	CalcStringForValue( str, gpSelected->pDetailedPlacement->bExplosive, 100 );
-	AddTextInputField( 400, 390, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 400, 2 * iScreenHeightOffset + 390, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	CalcStringForValue( str, gpSelected->pDetailedPlacement->bMedical, 100 );
-	AddTextInputField( 400, 415, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 400, 2 * iScreenHeightOffset + 415, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	CalcStringForValue( str, gpSelected->pDetailedPlacement->bMechanical, 100 );
-	AddTextInputField( 400, 440, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 400, 2 * iScreenHeightOffset + 440, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	CalcStringForValue( str, gpSelected->pDetailedPlacement->bMorale, 100 );
-	AddTextInputField( 500, 365, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 500, 2 * iScreenHeightOffset + 365, 20, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 
 	if( !gfCanEditMercs )
 		DisableAllTextFields();
@@ -1862,13 +1867,13 @@ void SetupTextInputForMercSchedule()
 {
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
 	AddUserInputField( NULL );
-	AddTextInputField( 268, 373, 36, 16, MSYS_PRIORITY_NORMAL, L"", 6, INPUTTYPE_EXCLUSIVE_24HOURCLOCK );
+	AddTextInputField( iScreenWidthOffset + 268, 2 * iScreenHeightOffset + 373, 36, 16, MSYS_PRIORITY_NORMAL, L"", 6, INPUTTYPE_EXCLUSIVE_24HOURCLOCK );
 	SetExclusive24HourTimeValue( 1, gCurrSchedule.usTime[0] );
-	AddTextInputField( 268, 394, 36, 16, MSYS_PRIORITY_NORMAL, L"", 6, INPUTTYPE_EXCLUSIVE_24HOURCLOCK );
+	AddTextInputField( iScreenWidthOffset + 268, 2 * iScreenHeightOffset + 394, 36, 16, MSYS_PRIORITY_NORMAL, L"", 6, INPUTTYPE_EXCLUSIVE_24HOURCLOCK );
 	SetExclusive24HourTimeValue( 2, gCurrSchedule.usTime[1] );
-	AddTextInputField( 268, 415, 36, 16, MSYS_PRIORITY_NORMAL, L"", 6, INPUTTYPE_EXCLUSIVE_24HOURCLOCK );
+	AddTextInputField( iScreenWidthOffset + 268, 2 * iScreenHeightOffset + 415, 36, 16, MSYS_PRIORITY_NORMAL, L"", 6, INPUTTYPE_EXCLUSIVE_24HOURCLOCK );
 	SetExclusive24HourTimeValue( 3, gCurrSchedule.usTime[2] );
-	AddTextInputField( 268, 436, 36, 16, MSYS_PRIORITY_NORMAL, L"", 6, INPUTTYPE_EXCLUSIVE_24HOURCLOCK );
+	AddTextInputField( iScreenWidthOffset + 268, 2 * iScreenHeightOffset + 436, 36, 16, MSYS_PRIORITY_NORMAL, L"", 6, INPUTTYPE_EXCLUSIVE_24HOURCLOCK );
 	SetExclusive24HourTimeValue( 4, gCurrSchedule.usTime[3] );
 }
 
@@ -2416,7 +2421,7 @@ void DisplayBodyTypeInfo()
 		case QUEENMONSTER:				swprintf( str, L"Queen Monster" );	break;
 		case BLOODCAT:						swprintf( str, L"Bloodcat" );				break;
 	}
-	DrawEditorInfoBox( str, FONT10ARIAL, 490, 364, 70, 20 );
+	DrawEditorInfoBox( str, FONT10ARIAL, iScreenWidthOffset + 490, 2 * iScreenHeightOffset + 364, 70, 20 );
 }
 
 void UpdateMercsInfo()
@@ -2441,56 +2446,56 @@ void UpdateMercsInfo()
 			break;
 		case MERC_BASICMODE:
 		case MERC_GENERALMODE:
-			BltVideoObjectFromIndex( FRAME_BUFFER, guiExclamation, 0, 188, 362, VO_BLT_SRCTRANSPARENCY, NULL );
-			BltVideoObjectFromIndex( FRAME_BUFFER, guiKeyImage, 0, 186, 387, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( FRAME_BUFFER, guiExclamation, 0, iScreenWidthOffset + 188, 2 * iScreenHeightOffset + 362, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( FRAME_BUFFER, guiKeyImage, 0, iScreenWidthOffset + 186, 2 * iScreenHeightOffset + 387, VO_BLT_SRCTRANSPARENCY, NULL );
 			SetFont( SMALLCOMPFONT );
 			SetFontForeground( FONT_YELLOW );
 			SetFontShadow( FONT_NEARBLACK );
-			mprintf( 240, 363, L" --=ORDERS=-- ");
-			mprintf( 240, 419, L"--=ATTITUDE=--");
+			mprintf( iScreenWidthOffset + 240, 2 * iScreenHeightOffset + 363, L" --=ORDERS=-- ");
+			mprintf( iScreenWidthOffset + 240, 2 * iScreenHeightOffset + 419, L"--=ATTITUDE=--");
 			if( iDrawMode == DRAW_MODE_CREATURE )
 			{
 				DisplayBodyTypeInfo();
 				SetFont( SMALLCOMPFONT );
 				SetFontForeground( FONT_LTBLUE );
-				mprintf( 493, 416, L"RELATIVE"); 
-				mprintf( 480, 422, L"ATTRIBUTES"); 
+				mprintf( iScreenWidthOffset + 493, 2 * iScreenHeightOffset + 416, L"RELATIVE"); 
+				mprintf( iScreenWidthOffset + 480, 2 * iScreenHeightOffset + 422, L"ATTRIBUTES"); 
 			}
 			else
 			{
 				SetFontForeground( FONT_LTGREEN );
-				mprintf( 480, 363, L"RELATIVE"); 
-				mprintf( 480, 371, L"EQUIPMENT"); 
+				mprintf( iScreenWidthOffset + 480, 2 * iScreenHeightOffset + 363, L"RELATIVE"); 
+				mprintf( iScreenWidthOffset + 480, 2 * iScreenHeightOffset + 371, L"EQUIPMENT"); 
 				SetFontForeground( FONT_LTBLUE );
-				mprintf( 530, 363, L"RELATIVE"); 
-				mprintf( 530, 371, L"ATTRIBUTES"); 
+				mprintf( iScreenWidthOffset + 530, 2 * iScreenHeightOffset + 363, L"RELATIVE"); 
+				mprintf( iScreenWidthOffset + 530, 2 * iScreenHeightOffset + 371, L"ATTRIBUTES"); 
 			}
 			if( iDrawMode == DRAW_MODE_ENEMY )
 			{
 				SetFont( FONT10ARIAL );
 				SetFontForeground( FONT_YELLOW );
-				mprintf( 590, 411, L"Army" );
-				mprintf( 590, 425, L"Admin" );
-				mprintf( 590, 439, L"Elite" );
+				mprintf( iScreenWidthOffset + 590, 2 * iScreenHeightOffset + 411, L"Army" );
+				mprintf( iScreenWidthOffset + 590, 2 * iScreenHeightOffset + 425, L"Admin" );
+				mprintf( iScreenWidthOffset + 590, 2 * iScreenHeightOffset + 439, L"Elite" );
 			}
 			break;
 		case MERC_ATTRIBUTEMODE:
 			SetFont( FONT10ARIAL );
 			SetFontForeground( FONT_YELLOW );
 			SetFontShadow( FONT_NEARBLACK );
-			mprintf( 225, 370, L"Exp. Level");
-			mprintf( 225, 395, L"Life");
-			mprintf( 225, 420, L"LifeMax");
-			mprintf( 225, 445, L"Marksmanship");
-			mprintf( 325, 370, L"Strength");
-			mprintf( 325, 395, L"Agility");
-			mprintf( 325, 420, L"Dexterity");
-			mprintf( 325, 445, L"Wisdom");
-			mprintf( 425, 370, L"Leadership");
-			mprintf( 425, 395, L"Explosives");
-			mprintf( 425, 420, L"Medical");
-			mprintf( 425, 445, L"Mechanical");
-			mprintf( 525, 370, L"Morale");
+			mprintf( iScreenWidthOffset + 225, 2 * iScreenHeightOffset + 370, L"Exp. Level");
+			mprintf( iScreenWidthOffset + 225, 2 * iScreenHeightOffset + 395, L"Life");
+			mprintf( iScreenWidthOffset + 225, 2 * iScreenHeightOffset + 420, L"LifeMax");
+			mprintf( iScreenWidthOffset + 225, 2 * iScreenHeightOffset + 445, L"Marksmanship");
+			mprintf( iScreenWidthOffset + 325, 2 * iScreenHeightOffset + 370, L"Strength");
+			mprintf( iScreenWidthOffset + 325, 2 * iScreenHeightOffset + 395, L"Agility");
+			mprintf( iScreenWidthOffset + 325, 2 * iScreenHeightOffset + 420, L"Dexterity");
+			mprintf( iScreenWidthOffset + 325, 2 * iScreenHeightOffset + 445, L"Wisdom");
+			mprintf( iScreenWidthOffset + 425, 2 * iScreenHeightOffset + 370, L"Leadership");
+			mprintf( iScreenWidthOffset + 425, 2 * iScreenHeightOffset + 395, L"Explosives");
+			mprintf( iScreenWidthOffset + 425, 2 * iScreenHeightOffset + 420, L"Medical");
+			mprintf( iScreenWidthOffset + 425, 2 * iScreenHeightOffset + 445, L"Mechanical");
+			mprintf( iScreenWidthOffset + 525, 2 * iScreenHeightOffset + 370, L"Morale");
 			break;
 		case MERC_APPEARANCEMODE:
 			SetFont( FONT10ARIAL );
@@ -2500,27 +2505,27 @@ void UpdateMercsInfo()
 				SetFontForeground( FONT_DKYELLOW );
 			SetFontShadow( FONT_NEARBLACK );
 
-			mprintf( 396, 364, L"Hair color:");
-			mprintf( 396, 388, L"Skin color:");
-			mprintf( 396, 412, L"Vest color:"); 
-			mprintf( 396, 436, L"Pant color:");
+			mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 364, L"Hair color:");
+			mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 388, L"Skin color:");
+			mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 412, L"Vest color:"); 
+			mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 436, L"Pant color:");
 
 			SetFont( SMALLCOMPFONT );
 			SetFontForeground( FONT_BLACK );
 			if( gpSelected->pDetailedPlacement->fVisible || gpSelected->pDetailedPlacement->ubProfile != NO_PROFILE )
 			{
-				mprintfEditor( 396, 374, L"%S    ", gpSelected->pSoldier->HeadPal );
-				mprintfEditor( 396, 398, L"%S    ", gpSelected->pSoldier->SkinPal );
-				mprintfEditor( 396, 422, L"%S    ", gpSelected->pSoldier->VestPal );
-				mprintfEditor( 396, 446, L"%S    ", gpSelected->pSoldier->PantsPal );
+				mprintfEditor( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 374, L"%S    ", gpSelected->pSoldier->HeadPal );
+				mprintfEditor( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 398, L"%S    ", gpSelected->pSoldier->SkinPal );
+				mprintfEditor( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 422, L"%S    ", gpSelected->pSoldier->VestPal );
+				mprintfEditor( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 446, L"%S    ", gpSelected->pSoldier->PantsPal );
 				ShowEditMercPalettes( gpSelected->pSoldier );
 			}
 			else
 			{
-				mprintf( 396, 374, L"RANDOM");
-				mprintf( 396, 398, L"RANDOM");
-				mprintf( 396, 422, L"RANDOM");
-				mprintf( 396, 446, L"RANDOM");
+				mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 374, L"RANDOM");
+				mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 398, L"RANDOM");
+				mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 422, L"RANDOM");
+				mprintf( iScreenWidthOffset + 396, 2 * iScreenHeightOffset + 446, L"RANDOM");
 				ShowEditMercPalettes( NULL ); //will display grey scale to signify random
 			}
 			DisplayBodyTypeInfo();
@@ -2537,18 +2542,18 @@ void UpdateMercsInfo()
 					L"though, you will still be able to view stats, etc.  Pressing ENTER will automatically ",
 					L"extract the number you have typed.  A blank field will clear the profile.  The current ",
 					L"number of profiles range from 0 to ", NUM_PROFILES );
-				DisplayWrappedString(180, 370, 400, 2, FONT10ARIAL, 146, tempStr,	FONT_BLACK, FALSE, LEFT_JUSTIFIED );
+				DisplayWrappedString(iScreenWidthOffset + 180, 2 * iScreenHeightOffset + 370, 400, 2, FONT10ARIAL, 146, tempStr,	FONT_BLACK, FALSE, LEFT_JUSTIFIED );
 				SetFont( FONT12POINT1 );
 				if( gpSelected->pDetailedPlacement->ubProfile == NO_PROFILE )
 				{
 					SetFontForeground( FONT_GRAY3 );
-					mprintfEditor( 240, 435, L"Current Profile:  n/a                            ");
+					mprintfEditor( iScreenWidthOffset + 240, 2 * iScreenHeightOffset + 435, L"Current Profile:  n/a                            ");
 				}
 				else
 				{
 					SetFontForeground( FONT_WHITE );
-					ClearTaskbarRegion( 240, 435, 580, 445 );
-					mprintf( 240, 435, L"Current Profile:  %s", gMercProfiles[ gpSelected->pDetailedPlacement->ubProfile ].zName );
+					ClearTaskbarRegion( iScreenWidthOffset + 240, 2 * iScreenHeightOffset + 435, iScreenWidthOffset + 580, 2 * iScreenHeightOffset + 445 );
+					mprintf( iScreenWidthOffset + 240, 2 * iScreenHeightOffset + 435, L"Current Profile:  %s", gMercProfiles[ gpSelected->pDetailedPlacement->ubProfile ].zName );
 				}
 			}
 			break;
@@ -2558,30 +2563,30 @@ void UpdateMercsInfo()
 			SetFontShadow( FONT_NEARBLACK );
 			switch( gpSelected->pSoldier->bOrders )
 			{
-				case STATIONARY:	mprintf( 430, 363, L"STATIONARY" );			break;
-				case ONCALL:			mprintf( 430, 363, L"ON CALL" );				break;
-				case ONGUARD:			mprintf( 430, 363, L"ON GUARD" );				break;
-				case SEEKENEMY:		mprintf( 430, 363, L"SEEK ENEMY" );			break;
-				case CLOSEPATROL:	mprintf( 430, 363, L"CLOSE PATROL" );		break;
-				case FARPATROL:		mprintf( 430, 363, L"FAR PATROL" );			break;
-				case POINTPATROL:	mprintf( 430, 363, L"POINT PATROL" );		break;
-				case RNDPTPATROL:	mprintf( 430, 363, L"RND PT PATROL" );	break;
+				case STATIONARY:	mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, L"STATIONARY" );			break;
+				case ONCALL:			mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, L"ON CALL" );				break;
+				case ONGUARD:			mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, L"ON GUARD" );				break;
+				case SEEKENEMY:		mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, L"SEEK ENEMY" );			break;
+				case CLOSEPATROL:	mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, L"CLOSE PATROL" );		break;
+				case FARPATROL:		mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, L"FAR PATROL" );			break;
+				case POINTPATROL:	mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, L"POINT PATROL" );		break;
+				case RNDPTPATROL:	mprintf( iScreenWidthOffset + 430, 2 * iScreenHeightOffset + 363, L"RND PT PATROL" );	break;
 			}
 			SetFontForeground( FONT_YELLOW );
-			mprintf( 186, 363, L"Action" );
-			mprintf( 268, 363, L"Time" );
-			mprintf( 309, 363, L"V" );
-			mprintf( 331, 363, L"GridNo 1" );
-			mprintf( 381, 363, L"GridNo 2" );
-			mprintf( 172, 376, L"1)" );
-			mprintf( 172, 397, L"2)" );
-			mprintf( 172, 418, L"3)" );
-			mprintf( 172, 439, L"4)" );
+			mprintf( iScreenWidthOffset + 186, 2 * iScreenHeightOffset + 363, L"Action" );
+			mprintf( iScreenWidthOffset + 268, 2 * iScreenHeightOffset + 363, L"Time" );
+			mprintf( iScreenWidthOffset + 309, 2 * iScreenHeightOffset + 363, L"V" );
+			mprintf( iScreenWidthOffset + 331, 2 * iScreenHeightOffset + 363, L"GridNo 1" );
+			mprintf( iScreenWidthOffset + 381, 2 * iScreenHeightOffset + 363, L"GridNo 2" );
+			mprintf( iScreenWidthOffset + 172, 2 * iScreenHeightOffset + 376, L"1)" );
+			mprintf( iScreenWidthOffset + 172, 2 * iScreenHeightOffset + 397, L"2)" );
+			mprintf( iScreenWidthOffset + 172, 2 * iScreenHeightOffset + 418, L"3)" );
+			mprintf( iScreenWidthOffset + 172, 2 * iScreenHeightOffset + 439, L"4)" );
 			if( gubScheduleInstructions )
 			{
 				UINT16 str[255];
 				UINT16 keyword[10] = L"";
-				ColorFillVideoSurfaceArea( FRAME_BUFFER, 431, 388, 590, 450, Get16BPPColor( FROMRGB( 32, 45, 72 ) ) );
+				ColorFillVideoSurfaceArea( FRAME_BUFFER, iScreenWidthOffset + 431, 2 * iScreenHeightOffset + 388, iScreenWidthOffset + 590, 2 * iScreenHeightOffset + 450, Get16BPPColor( FROMRGB( 32, 45, 72 ) ) );
 				switch( gCurrSchedule.ubAction[ gubCurrentScheduleActionIndex ] )
 				{
 					case SCHEDULE_ACTION_LOCKDOOR:			swprintf( keyword, L"lock" );			break;
@@ -2606,7 +2611,7 @@ void UpdateMercsInfo()
 						return;
 				}
 				wcscat( str, L"  Hit ESC to abort entering this line in the schedule." );
-				DisplayWrappedString( 436, 392, 149, 2, FONT10ARIAL, FONT_YELLOW, str, FONT_BLACK, FALSE, LEFT_JUSTIFIED );
+				DisplayWrappedString( iScreenWidthOffset + 436, 2 * iScreenHeightOffset + 392, 149, 2, FONT10ARIAL, FONT_YELLOW, str, FONT_BLACK, FALSE, LEFT_JUSTIFIED );
 			}
 			break;
 	}
@@ -2641,7 +2646,7 @@ void DrawRect( SGPRect *pRect, INT16 color )
 	UINT32	uiDestPitchBYTES;
 	UINT8		*pDestBuf;
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
-	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, 640, 480 );
+	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 	RectangleDraw( TRUE, pRect->iLeft+MERCPANEL_X, pRect->iTop+MERCPANEL_Y, pRect->iRight+MERCPANEL_X, pRect->iBottom+MERCPANEL_Y, color, pDestBuf );
 	UnLockVideoSurface( FRAME_BUFFER );
 	//InvalidateRegion( pRect->iLeft+175, pRect->iTop+361, pRect->iRight+176, pRect->iBottom+362 );
@@ -2790,6 +2795,7 @@ void AddNewItemToSelectedMercsInventory( BOOLEAN fCreate )
 	uiSrcID = guiMercTempBuffer;
 	uiDstID = guiMercInvPanelBuffers[ gbCurrSelect ];
 
+	// WANNE: EDITOR?
 	//build the rects
 	iDstWidth = gbCurrSelect < 3 ? MERCINV_SMSLOT_WIDTH : MERCINV_LGSLOT_WIDTH;
 	iDstHeight = MERCINV_SLOT_HEIGHT;
@@ -2890,7 +2896,7 @@ void RenderMercInventoryPanel()
 	if( gbCurrSelect != -1 )
 		DrawRect( &mercRects[ gbCurrSelect ], Get16BPPColor( FROMRGB( 200,   0, 0 ) ) );
 	RenderSelectedMercsInventory();
-	InvalidateRegion( MERCPANEL_X, MERCPANEL_Y, 475, 460 );
+	InvalidateRegion( MERCPANEL_X, MERCPANEL_Y, iScreenWidthOffset + 475, 2 * iScreenHeightOffset + 460 );
 	UpdateItemStatsPanel();
 }
 
@@ -3123,7 +3129,7 @@ void RenderMercStrings()
 			if ( pSoldier->ubProfile != NO_PROFILE )
 			{
 				FindFontCenterCoordinates( sXPos, sYPos, (INT16)(80 ), 1, pSoldier->name, TINYFONT1, &sX, &sY );
-				if( sY < 352 )
+				if( sY < (2 * iScreenHeightOffset + 352 ))
 				{
 					gprintfdirty( sX, sY, pSoldier->name );
 					mprintf( sX, sY, pSoldier->name );
@@ -3137,7 +3143,7 @@ void RenderMercStrings()
 				SetFontForeground( FONT_RED );
 
 				FindFontCenterCoordinates( sXPos, sYPos, 80, 1, pStr, TINYFONT1, &sX, &sY );
-				if( sY < 352 )
+				if( sY < (2 * iScreenHeightOffset + 352 ))
 				{
 					gprintfdirty( sX, sY, pStr );
 					mprintf( sX, sY, pStr );
@@ -3147,7 +3153,7 @@ void RenderMercStrings()
 				SetFontForeground( FONT_GRAY2 );
 				swprintf( str, L"Slot #%d", pSoldier->ubID );
 				FindFontCenterCoordinates( sXPos, sYPos, 80, 1, str, TINYFONT1, &sX, &sY );
-				if( sY < 352 )
+				if( sY < (2 * iScreenHeightOffset + 352 ))
 				{
 					gprintfdirty( sX, sY, str );
 					mprintf( sX, sY, str );
@@ -3163,7 +3169,7 @@ void RenderMercStrings()
 				SetFontForeground( FONT_RED );
 
 				FindFontCenterCoordinates( sXPos, sYPos, 80, 1, pStr, TINYFONT1, &sX, &sY );
-				if( sY < 352 )
+				if( sY < (2 * iScreenHeightOffset + 352 ))
 				{
 					gprintfdirty( sX, sY, pStr );
 					mprintf( sX, sY, pStr );
@@ -3173,7 +3179,7 @@ void RenderMercStrings()
 				SetFontForeground( FONT_GRAY2 );
 				swprintf( str, L"Slot #%d", pSoldier->ubID );
 				FindFontCenterCoordinates( sXPos, sYPos, 80, 1, str, TINYFONT1, &sX, &sY );
-				if( sY < 352 )
+				if( sY < (2 * iScreenHeightOffset + 352) )
 				{
 					gprintfdirty( sX, sY, str );
 					mprintf( sX, sY, str );
@@ -3190,7 +3196,7 @@ void RenderMercStrings()
 						SetFontForeground( FONT_RED );
 					swprintf( str, L"Patrol orders with no waypoints" );
 					FindFontCenterCoordinates( sXPos, sYPos, 80, 1, str, TINYFONT1, &sX, &sY );
-					if( sY < 352 )
+					if( sY < (2 * iScreenHeightOffset + 352) )
 					{
 						gprintfdirty( sX, sY, str );
 						mprintf( sX, sY, str );
@@ -3206,7 +3212,7 @@ void RenderMercStrings()
 					SetFontForeground( FONT_RED );
 				swprintf( str, L"Waypoints with no patrol orders" );
 				FindFontCenterCoordinates( sXPos, sYPos, 80, 1, str, TINYFONT1, &sX, &sY );
-				if( sY < 352 )
+				if( sY < (2 * iScreenHeightOffset + 352) )
 				{
 					gprintfdirty( sX, sY, str );
 					mprintf( sX, sY, str );
@@ -3520,7 +3526,7 @@ void RenderCurrentSchedule()
 		// Bring it down a touch
 		sScreenY += 5;
 
-		if( sScreenY <= 355 )
+		if( sScreenY <= (2 * iScreenHeightOffset + 355) )
 		{
 			// Shown it on screen!
 			SetFont(TINYFONT1);
