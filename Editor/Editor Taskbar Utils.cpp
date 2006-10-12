@@ -609,7 +609,6 @@ void EnableEditorButtons( INT32 iFirstEditorButtonID, INT32 iLastEditorButtonID 
 		EnableButton( iEditorButton[ i ] );
 }
 
-// WANNE: EDITOR?
 void RenderMapEntryPointsAndLights()
 {
 	INT16 sGridNo;
@@ -891,8 +890,11 @@ void RenderEditorInfo( )
 					gubFilename, gTilesets[ giCurrentTilesetID ].zName );
 			break;
 		case TASK_TERRAIN:
-			if( gusSelectionType == LINESELECTION )
-				swprintf( wszSelType[LINESELECTION], L"Width: %d", gusSelectionWidth );
+
+			// WANNE: EDITOR: comment this two lines, because we always get an exception here!
+			//if( gusSelectionType == LINESELECTION )
+			//	swprintf( wszSelType[LINESELECTION], L"Width: %d", gusSelectionWidth );
+			
 			DrawEditorInfoBox( wszSelType[gusSelectionType], FONT12POINT1, iScreenWidthOffset + 220, 2 * iScreenHeightOffset + 430, 60, 30 );
 			swprintf( FPSText, L"%d%%", gusSelectionDensity );
 			DrawEditorInfoBox( FPSText, FONT12POINT1, iScreenWidthOffset + 310, 2 * iScreenHeightOffset + 430, 40, 30 );
@@ -903,8 +905,12 @@ void RenderEditorInfo( )
 			break;
 		case TASK_BUILDINGS:
 			UpdateBuildingsInfo();
-			if( gusSelectionType == LINESELECTION )
-				swprintf( wszSelType[LINESELECTION], L"Width: %d", gusSelectionWidth );
+
+
+			// WANNE: EDITOR: comment this two lines, because we always get an exception here!
+			//if( gusSelectionType == LINESELECTION )
+			//	swprintf( wszSelType[LINESELECTION], L"%d", gusSelectionWidth );
+			
 			DrawEditorInfoBox( wszSelType[gusSelectionType], FONT12POINT1, iScreenWidthOffset + 530, 2 * iScreenHeightOffset + 430, 60, 30 );
 			break;
 		case TASK_MERCS:
@@ -912,8 +918,10 @@ void RenderEditorInfo( )
 			break;
 		case TASK_MAPINFO:
 			UpdateMapInfo();
-			if( gusSelectionType == LINESELECTION )
-				swprintf( wszSelType[LINESELECTION], L"Width: %d", gusSelectionWidth );
+			// WANNE: EDITOR: comment this two lines, because we always get an exception here!
+			//if( gusSelectionType == LINESELECTION )
+			//	swprintf( wszSelType[LINESELECTION], L"Width: %d", gusSelectionWidth );
+			
 			DrawEditorInfoBox( wszSelType[gusSelectionType], FONT12POINT1, iScreenWidthOffset + 440, 2 * iScreenHeightOffset + 430, 60, 30 );
 			break;
 	}

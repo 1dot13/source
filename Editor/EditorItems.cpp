@@ -1,4 +1,4 @@
-// WANNE: EDITOR: todo
+// WANNE: EDITOR?
 #ifdef PRECOMPILEDHEADERS
 	#include "Editor All.h"
 #else
@@ -335,7 +335,6 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 	//copy a blank chunk of the editor interface to the new buffer.
 	for( i=0; i<eInfo.sWidth; i+=60 )
 	{
-		// WANNE: EDITOR?
 		Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES, 
 			(UINT16 *)pSrcBuf, uiSrcPitchBYTES, 0+i, 0, iScreenWidthOffset + 100, 2 * iScreenHeightOffset + 360, 60, 80 );
 	}
@@ -343,7 +342,6 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 	UnLockVideoSurface(eInfo.uiBuffer);
 	UnLockVideoSurface(FRAME_BUFFER);
 
-	// WANNE: EDITOR?
 	x = 0;
 	y = 0;
 	usCounter = 0;
@@ -588,11 +586,6 @@ void RenderEditorItemsInfo()
 	pDestBuf = LockVideoSurface(FRAME_BUFFER, &uiDestPitchBYTES);
 	pSrcBuf = LockVideoSurface(eInfo.uiBuffer, &uiSrcPitchBYTES);
 
-	// WANNE: EDITOR?
-	//copy the items buffer to the editor bar
-	//Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES, 
-	//			(UINT16 *)pSrcBuf, uiSrcPitchBYTES, iScreenWidthOffset + 110, 2 * iScreenHeightOffset + 360, 60*eInfo.sScrollIndex, 0, 360, 80 );
-
 	Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES, 
 				(UINT16 *)pSrcBuf, uiSrcPitchBYTES, iScreenWidthOffset + 110, 2 * iScreenHeightOffset + 360, 60*eInfo.sScrollIndex, 0, 360, 80 );
 
@@ -613,7 +606,6 @@ void RenderEditorItemsInfo()
 			uiVideoObjectIndex = GetInterfaceGraphicForItem( item );
 			GetVideoObject( &hVObject, uiVideoObjectIndex );
 			
-			// WANNE: EDITOR?
 			x = iScreenWidthOffset + (eInfo.sHilitedItemIndex/2 - eInfo.sScrollIndex)*60 + 110;
 			y = 2 * iScreenHeightOffset + 360 + (eInfo.sHilitedItemIndex % 2) * 40;
 			sWidth = hVObject->pETRLEObject[item->ubGraphicNum].usWidth;
@@ -634,7 +626,6 @@ void RenderEditorItemsInfo()
 			uiVideoObjectIndex = GetInterfaceGraphicForItem( item );
 			GetVideoObject( &hVObject, uiVideoObjectIndex );
 			
-			// WANNE: EDITOR?
 			x = iScreenWidthOffset + (eInfo.sSelItemIndex/2 - eInfo.sScrollIndex)*60 + 110;
 			y = 2 * iScreenHeightOffset + 360 + (eInfo.sSelItemIndex % 2) * 40;
 			sWidth = hVObject->pETRLEObject[item->ubGraphicNum].usWidth;
@@ -653,7 +644,6 @@ void RenderEditorItemsInfo()
 		usNumItems = CountNumberOfEditorPlacementsInWorld( i, &usQuantity );
 		if( usNumItems )
 		{
-			// WANNE: EDITOR?
 			x = iScreenWidthOffset + (i/2 - eInfo.sScrollIndex)*60 + 110;
 			y = 2 * iScreenHeightOffset + 360 + (i % 2) * 40;
 			SetFont( FONT10ARIAL );

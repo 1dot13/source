@@ -513,24 +513,24 @@ void InitDoorEditing( INT32 iMapIndex )
 	DisableEditorTaskbar();
 	MSYS_DefineRegion( &DoorRegion, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGH-2, 0, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 	iDoorButton[ DOOR_BACKGROUND ] =
-		CreateTextButton( 0, 0, 0, 0, BUTTON_USE_DEFAULT, iScreenWidthOffset + 200, 2 * iScreenHeightOffset + 130, 240, 100, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1, 
+		CreateTextButton( 0, 0, 0, 0, BUTTON_USE_DEFAULT, iScreenWidthOffset + 200, iScreenHeightOffset + 130, 240, 100, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1, 
 		BUTTON_NO_CALLBACK, BUTTON_NO_CALLBACK );
 	DisableButton( iDoorButton[ DOOR_BACKGROUND ] );
 	SpecifyDisabledButtonStyle( iDoorButton[ DOOR_BACKGROUND ], DISABLED_STYLE_NONE );
 	iDoorButton[ DOOR_OKAY ] =
 		CreateTextButton(L"Okay", FONT12POINT1, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
-		iScreenWidthOffset + 330, 2 * iScreenHeightOffset + 195, 50, 30, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, 
+		iScreenWidthOffset + 330, iScreenHeightOffset + 195, 50, 30, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, 
 		DoorOkayCallback );
 	iDoorButton[ DOOR_CANCEL ] =
 		CreateTextButton(L"Cancel", FONT12POINT1, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
-		iScreenWidthOffset + 385, 2 * iScreenHeightOffset + 195, 50, 30, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, 
+		iScreenWidthOffset + 385, iScreenHeightOffset + 195, 50, 30, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, 
 		DoorCancelCallback );
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
-	AddTextInputField( iScreenWidthOffset + 210, 2 * iScreenHeightOffset + 155, 25, 16, MSYS_PRIORITY_HIGH, L"0", 3, INPUTTYPE_NUMERICSTRICT );
-	AddTextInputField( iScreenWidthOffset + 210, 2 * iScreenHeightOffset + 175, 25, 16, MSYS_PRIORITY_HIGH, L"0", 2, INPUTTYPE_NUMERICSTRICT );
-	AddTextInputField( iScreenWidthOffset + 210, 2 * iScreenHeightOffset + 195, 25, 16, MSYS_PRIORITY_HIGH, L"0", 2, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 210, iScreenHeightOffset + 155, 25, 16, MSYS_PRIORITY_HIGH, L"0", 3, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 210, iScreenHeightOffset + 175, 25, 16, MSYS_PRIORITY_HIGH, L"0", 2, INPUTTYPE_NUMERICSTRICT );
+	AddTextInputField( iScreenWidthOffset + 210, iScreenHeightOffset + 195, 25, 16, MSYS_PRIORITY_HIGH, L"0", 2, INPUTTYPE_NUMERICSTRICT );
 	iDoorButton[ DOOR_LOCKED ] = 
-		CreateCheckBoxButton(	iScreenWidthOffset + 210, 2 * iScreenHeightOffset + 215, "EDITOR//SmCheckbox.sti", MSYS_PRIORITY_HIGH, DoorToggleLockedCallback );
+		CreateCheckBoxButton(	iScreenWidthOffset + 210, iScreenHeightOffset + 215, "EDITOR//SmCheckbox.sti", MSYS_PRIORITY_HIGH, DoorToggleLockedCallback );
 
 	pDoor = FindDoorInfoAtGridNo( iDoorMapIndex );
 	if( pDoor )
@@ -645,18 +645,18 @@ void FindNextLockedDoor()
 
 void RenderDoorEditingWindow()
 {
-	InvalidateRegion( iScreenWidthOffset + 200, 2 * iScreenHeightOffset + 130, iScreenWidthOffset + 440, 2 * iScreenHeightOffset + 230 );
+	InvalidateRegion( iScreenWidthOffset + 200, iScreenHeightOffset + 130, iScreenWidthOffset + 440, iScreenHeightOffset + 230 );
 	SetFont( FONT10ARIAL );
 	SetFontForeground( FONT_YELLOW );
 	SetFontShadow( FONT_NEARBLACK );
 	SetFontBackground( 0 );
-	mprintf( iScreenWidthOffset + 210, 2 * iScreenHeightOffset + 140, L"Editing lock attributes at map index %d.", iDoorMapIndex );
+	mprintf( iScreenWidthOffset + 210, iScreenHeightOffset + 140, L"Editing lock attributes at map index %d.", iDoorMapIndex );
 
 	SetFontForeground( FONT_GRAY2 );
-	mprintf( iScreenWidthOffset + 238, 2 * iScreenHeightOffset + 160, L"Lock ID" );
-	mprintf( iScreenWidthOffset + 238, 2 * iScreenHeightOffset + 180, L"Trap Type" );
-	mprintf( iScreenWidthOffset + 238, 2 * iScreenHeightOffset + 200, L"Trap Level" );
-	mprintf( iScreenWidthOffset + 238, 2 * iScreenHeightOffset + 218, L"Locked" );
+	mprintf( iScreenWidthOffset + 238, iScreenHeightOffset + 160, L"Lock ID" );
+	mprintf( iScreenWidthOffset + 238, iScreenHeightOffset + 180, L"Trap Type" );
+	mprintf( iScreenWidthOffset + 238, iScreenHeightOffset + 200, L"Trap Level" );
+	mprintf( iScreenWidthOffset + 238, iScreenHeightOffset + 218, L"Locked" );
 }
 
 void KillDoorEditing()

@@ -315,13 +315,13 @@ void InitEditorMercsToolbar()
 		MSYS_SetBtnUserData( iEditorButton[ FIRST_MERCS_REL_ATTRIBUTE_BUTTON + x ], 0, x);
 
 	iEditorButton[ MERCS_ARMY_CODE ] = 
-		CreateCheckBoxButton(	2 * iScreenWidthOffset + 575, iScreenHeightOffset + 410, "EDITOR//radiobutton.sti", MSYS_PRIORITY_NORMAL, MercsSetEnemyColorCodeCallback );
+		CreateCheckBoxButton(	iScreenWidthOffset + 575, 2 * iScreenHeightOffset + 410, "EDITOR//radiobutton.sti", MSYS_PRIORITY_NORMAL, MercsSetEnemyColorCodeCallback );
 	MSYS_SetBtnUserData( iEditorButton[ MERCS_ARMY_CODE ], 0, SOLDIER_CLASS_ARMY );
 	iEditorButton[ MERCS_ADMIN_CODE ] = 
-		CreateCheckBoxButton(	2 * iScreenWidthOffset + 575, iScreenHeightOffset + 424, "EDITOR//radiobutton.sti", MSYS_PRIORITY_NORMAL, MercsSetEnemyColorCodeCallback );
+		CreateCheckBoxButton(	iScreenWidthOffset + 575, 2 * iScreenHeightOffset + 424, "EDITOR//radiobutton.sti", MSYS_PRIORITY_NORMAL, MercsSetEnemyColorCodeCallback );
 	MSYS_SetBtnUserData( iEditorButton[ MERCS_ADMIN_CODE ], 0, SOLDIER_CLASS_ADMINISTRATOR );
 	iEditorButton[ MERCS_ELITE_CODE ] = 
-		CreateCheckBoxButton(	2 * iScreenWidthOffset + 575, iScreenHeightOffset + 438, "EDITOR//radiobutton.sti", MSYS_PRIORITY_NORMAL, MercsSetEnemyColorCodeCallback );
+		CreateCheckBoxButton(	iScreenWidthOffset + 575, 2 * iScreenHeightOffset + 438, "EDITOR//radiobutton.sti", MSYS_PRIORITY_NORMAL, MercsSetEnemyColorCodeCallback );
 	MSYS_SetBtnUserData( iEditorButton[ MERCS_ELITE_CODE ], 0, SOLDIER_CLASS_ELITE );
 
 	iEditorButton[ MERCS_CIVILIAN_GROUP ] = 
@@ -355,10 +355,10 @@ void InitEditorMercsToolbar()
 	}
 
 	iEditorButton[MERCS_BODYTYPE_DOWN] = 
-		CreateEasyNoToggleButton( iScreenWidthOffset + 460,2 * iScreenHeightOffset +364,"EDITOR//leftarrow.sti", MercsSetBodyTypeCallback );
+		CreateEasyNoToggleButton( iScreenWidthOffset + 460, 2 * iScreenHeightOffset +364,"EDITOR//leftarrow.sti", MercsSetBodyTypeCallback );
 	SetButtonFastHelpText( iEditorButton[ MERCS_BODYTYPE_DOWN ], L"Previous body type");
 	iEditorButton[MERCS_BODYTYPE_UP] = 
-		CreateEasyNoToggleButton( iScreenWidthOffset + 560,2 * iScreenHeightOffset +364,"EDITOR//rightarrow.sti", MercsSetBodyTypeCallback );
+		CreateEasyNoToggleButton( iScreenWidthOffset + 560, 2 * iScreenHeightOffset +364,"EDITOR//rightarrow.sti", MercsSetBodyTypeCallback );
 	SetButtonFastHelpText( iEditorButton[ MERCS_BODYTYPE_UP ], L"Next body type");
 
 	iEditorButton[ MERCS_SCHEDULE_VARIANCE1 ] = 
@@ -592,9 +592,9 @@ void InitEditorItemsToolbar()
 		ItemsKeysCallback );
 
 	iEditorButton[ITEMS_LEFTSCROLL] = 
-		CreateEasyNoToggleButton( iScreenWidthOffset + 1,2 * iScreenHeightOffset + 361,"EDITOR//leftscroll.sti", ItemsLeftScrollCallback);
+		CreateEasyNoToggleButton( iScreenWidthOffset + 1, 2 * iScreenHeightOffset + 361,"EDITOR//leftscroll.sti", ItemsLeftScrollCallback);
 	iEditorButton[ITEMS_RIGHTSCROLL] = 
-		CreateEasyNoToggleButton( iScreenWidthOffset + 50,2 * iScreenHeightOffset + 361,"EDITOR//rightscroll.sti", ItemsRightScrollCallback);
+		CreateEasyNoToggleButton( iScreenWidthOffset + 50, 2 * iScreenHeightOffset + 361,"EDITOR//rightscroll.sti", ItemsRightScrollCallback);
 
 }
 			

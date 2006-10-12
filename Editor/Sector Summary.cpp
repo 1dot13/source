@@ -2100,9 +2100,10 @@ void SummaryLoadMapCallback( GUI_BUTTON *btn, INT32 reason )
 		//mprintf( MAP_LEFT, MAP_BOTTOM+100, str );
 		//InvalidateRegion( MAP_LEFT, MAP_BOTTOM+100, MAP_LEFT+150,	MAP_BOTTOM+110 );
 		
-		CreateProgressBar( 0, MAP_LEFT+5, MAP_BOTTOM+110, 573, MAP_BOTTOM+120 );
+		CreateProgressBar( 0, MAP_LEFT+5, MAP_BOTTOM+110, iScreenWidthOffset + 573, MAP_BOTTOM+120 );
 
-		DefineProgressBarPanel( 0, 65, 79, 94, MAP_LEFT, iScreenHeightOffset + 318, iScreenWidthOffset + 578, iScreenHeightOffset + 356 );
+		//DefineProgressBarPanel( 0, 65, 79, 94, MAP_LEFT, iScreenHeightOffset + 318, iScreenWidthOffset + 578, iScreenHeightOffset + 356 );
+		DefineProgressBarPanel( 0, 65, 79, 94, MAP_LEFT, iScreenHeightOffset + 318, MAP_LEFT + 161, iScreenHeightOffset + 356 );
 		swprintf( str, L"Loading map:  %s", gszDisplayName );
 		SetProgressBarTitle( 0, str, BLOCKFONT2, FONT_RED, FONT_NEARBLACK );
 		SetProgressBarMsgAttributes( 0, SMALLCOMPFONT, FONT_BLACK, FONT_BLACK );

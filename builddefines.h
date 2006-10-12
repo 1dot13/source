@@ -6,10 +6,13 @@
 // Beta version
 //#define	JA2BETAVERSION
 
+
+// Release version of the editor!
 // Normal test version
 // #define JA2TESTVERSION
 
-// If we want to include the editor
+
+// Debug version of the editor!
 //#define JA2EDITOR
 
 #ifdef _DEBUG

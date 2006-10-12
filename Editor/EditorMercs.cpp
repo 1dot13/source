@@ -793,12 +793,11 @@ void DisplayEditMercWindow( void )
 	usFillColorLight = Get16BPPColor(FROMRGB(136, 138, 135));
 	usFillColorTextBk = Get16BPPColor(FROMRGB(250, 240, 188));
 
-	// WANNE: EDITOR?
+	// WANNE: EDITOR?????????
 	iWidth = 266;
 	iHeight = 360;
 	iYPos = iScreenHeightOffset + 0;
 	iXPos = iScreenWidthOffset + 0;
-
 
 	// Main window
 	ColorFillVideoSurfaceArea(FRAME_BUFFER, iXPos, iYPos, iXPos + iWidth, iYPos + iHeight, usFillColorLight );
