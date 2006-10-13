@@ -3301,18 +3301,18 @@ STR16			zSaveLoadText[] =
 	//is used for the final version.  Please don't modify the "#ifdef JA2BETAVERSION" or the "#else" or the "#endif" as they are
 	//used by the compiler and will cause program errors if modified/removed.  It's okay to translate the strings though.	
 #ifdef JA2BETAVERSION
-	L"Nieprawid³owa wersja zapisu gry.  W razie problemów prosimy o raport.  Kontynuowaæ?",
+	L"Nieprawid³owa wersja zapisu gry. W razie problemów prosimy o raport. Kontynuowaæ?",
 #else
-	L"Próba odczytu starszej wersji zapisu gry.  Zaktualizowaæ ten zapis i odczytaæ grê?",
+	L"Próba odczytu starszej wersji zapisu gry. Zaktualizowaæ ten zapis i odczytaæ grê?",
 #endif
 
 	//Translators, the next two strings are for the same thing.  The first one is for beta version releases and the second one
 	//is used for the final version.  Please don't modify the "#ifdef JA2BETAVERSION" or the "#else" or the "#endif" as they are
 	//used by the compiler and will cause program errors if modified/removed.  It's okay to translate the strings though.
 #ifdef JA2BETAVERSION
-	L"Nieprawid³owa wersja zapisu gry.  W razie problemów prosimy o raport.  Kontynuowaæ?",
+	L"Nieprawid³owa wersja zapisu gry. W razie problemów prosimy o raport. Kontynuowaæ?",
 #else
-	L"Próba odczytu starszej wersji zapisu gry.  Zaktualizowaæ ten zapis i odczytaæ grê?",
+	L"Próba odczytu starszej wersji zapisu gry. Zaktualizowaæ ten zapis i odczytaæ grê?",
 #endif
 
 	L"Czy na pewno chcesz nadpisaæ grê na pozycji %d?",

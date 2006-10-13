@@ -3301,16 +3301,16 @@ STR16			zSaveLoadText[] =
 	L"Chargement réussi",
 	L"ERREUR lors du chargement !",
 
-	L"La version de la sauvegarde est différente de celle du jeu. Désirez-vous continuer ?",
-	L"Les fichiers de sauvegarde sont peut-être altérés. Voulez-vous les effacer ?",
+	L"La version de la sauvegarde est différente de celle du jeu. Désirez-vous continuer?",
+	L"Les fichiers de sauvegarde sont peut-être altérés. Voulez-vous les effacer?",
 
 	//Translators, the next two strings are for the same thing.  The first one is for beta version releases and the second one
 	//is used for the final version.  Please don't modify the "#ifdef JA2BETAVERSION" or the "#else" or the "#endif" as they are
 	//used by the compiler and will cause program errors if modified/removed.  It's okay to translate the strings though.
 #ifdef JA2BETAVERSION
-	L"La version de la sauvegarde a changé. Désirez-vous continuer ?",
+	L"La version de la sauvegarde a changé. Désirez-vous continuer?",
 #else
-	L"Tentative de chargement d'une sauvegarde de version précédente. Voulez-vous effectuer une mise à jour ?",
+	L"Tentative de chargement d'une sauvegarde de version précédente. Voulez-vous effectuer une mise à jour?",
 #endif
 
 	//Translators, the next two strings are for the same thing.  The first one is for beta version releases and the second one
@@ -3319,11 +3319,11 @@ STR16			zSaveLoadText[] =
 #ifdef JA2BETAVERSION
 	L"La version de la sauvegarde a changé. Désirez-vous continuer?",
 #else
-	L"Tentative de chargement d'une sauvegarde de version précédente. Voulez-vous effectuer une mise à jour ?",
+	L"Tentative de chargement d'une sauvegarde de version précédente. Voulez-vous effectuer une mise à jour?",
 #endif
 
-	L"Etes-vous sûr de vouloir écraser la sauvegarde #%d ?",
-	L"Voulez-vous charger la sauvegarde #%d ?",
+	L"Etes-vous sûr de vouloir écraser la sauvegarde #%d?",
+	L"Voulez-vous charger la sauvegarde #%d?",
 
 
 	//The first %d is a number that contains the amount of free space on the users hard drive,

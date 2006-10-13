@@ -9,7 +9,7 @@
 
 // Release version of the editor!
 // Normal test version
-// #define JA2TESTVERSION
+//#define JA2TESTVERSION
 
 
 // Debug version of the editor!

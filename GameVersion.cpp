@@ -13,7 +13,7 @@
 #ifdef JA2BETAVERSION
 
 //BETA/TEST BUILD VERSION
-INT16		zVersionLabel[256]		= { L"Map Editor v1.13.592" }; 
+INT16		zVersionLabel[256]		= { L"Map Editor v1.13.602" }; 
 
 #elif defined CRIPPLED_VERSION
 
@@ -23,12 +23,12 @@ INT16		zVersionLabel[256]		= { L"Beta v. 0.98" };
 #else
 
 	//RELEASE BUILD VERSION  
-	INT16		zVersionLabel[256]		= { L"Release v1.13.592" };
+	INT16		zVersionLabel[256]		= { L"Release v1.13.602" };
 
 
 #endif
 
-INT8		czVersionNumber[16]	= { "Build 06.10.05" };
+INT8		czVersionNumber[16]	= { "Build 06.10.13" };
 INT16		zTrackingNumber[16]	= { L"Z" };
 	
 
@@ -36,6 +36,6 @@ INT16		zTrackingNumber[16]	= { L"Z" };
 //		Keeps track of the saved game version.  Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
-#define			SAVE_GAME_VERSION					99
+#define			SAVE_GAME_VERSION					100 // 99
 
 const	UINT32	guiSavedGameVersion = SAVE_GAME_VERSION;
