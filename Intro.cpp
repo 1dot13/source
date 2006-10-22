@@ -504,8 +504,25 @@ void DisplaySirtechSplashScreen()
 //	FilenameForBPP("INTERFACE\\TShold.sti", VObjectDesc.ImageFile);
 	if( !AddVideoObject(&VObjectDesc, &uiLogoID) )
 	{	
+  	FilenameForBPP("GERMAN\\SPLASH_GERMAN.sti", VObjectDesc.ImageFile);
+	  if( !AddVideoObject(&VObjectDesc, &uiLogoID) )
+	  {	
+      /* 
+       * This is the place, where most non english coders stranding.
+       * Don't hesitate, don't give up! 
+       * I'll now tell You what You made wrong
+       *                                (2006-10-10, Sergeant_Kolja)
+       */
+      #ifdef _DEBUG
+      #  if defined(ENGLISH)
+		     AssertMsg( 0, String( "Wheter English nor German works. May be You built English - but have only German or other foreign Disk?" ) );
+      #  elif defined(GERMAN)
+		     AssertMsg( 0, String( "Weder Englisch noch Deutsch geht. Deutsche Version kompiliert und mit englischer CDs gestartet? Das geht nicht!" ) );
+      #  endif
+      #endif
 		AssertMsg( 0, String( "Failed to load %s", VObjectDesc.ImageFile ) );
 		return;
+	}
 	}
 
 	GetVideoObject(&hPixHandle, uiLogoID);
