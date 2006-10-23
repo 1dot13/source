@@ -12,6 +12,8 @@ Fields index:
 				  opression & is willing to stand against it. It primarily controls
 				  the RATE of loyalty change in each town: the loyalty effect of
 				  the same events depends on it. Scale of 1-100.
+	townMilitiaAllowed	- defines the ability to have and train militia in town.
+				  Possible values: 0 - no militia, 1 - allow train militia in this town.
 	baseSector		- this is co-ordinates of the top left corner of the 3x3 town
 				  tiles cutouts in Interface/MilitiaMaps.sti!
 	townPoint		- position of town names on the map. These are 10 * (X, Y) position
@@ -32,6 +34,7 @@ Changes do not require starting of a new game.
 			<townName>Omerta</townName>
 			<townUsesLoyalty>1</townUsesLoyalty>
 			<townRebelSentiment>90</townRebelSentiment>
+			<townMilitiaAllowed>0</townMilitiaAllowed>
 			<baseSector>
 				<x>9</x>
 				<y>1</y>
@@ -46,6 +49,7 @@ Changes do not require starting of a new game.
 			<townName>Drassen</townName>
 			<townUsesLoyalty>1</townUsesLoyalty>
 			<townRebelSentiment>30</townRebelSentiment>
+			<townMilitiaAllowed>1</townMilitiaAllowed>
 			<baseSector>
 				<x>13</x>
 				<y>2</y>
@@ -60,6 +64,7 @@ Changes do not require starting of a new game.
 			<townName>Alma</townName>
 			<townUsesLoyalty>1</townUsesLoyalty>
 			<townRebelSentiment>12</townRebelSentiment>
+			<townMilitiaAllowed>1</townMilitiaAllowed>
 			<baseSector>
 				<x>13</x>
 				<y>8</y>
@@ -74,6 +79,7 @@ Changes do not require starting of a new game.
 			<townName>Grumm</townName>
 			<townUsesLoyalty>1</townUsesLoyalty>
 			<townRebelSentiment>15</townRebelSentiment>
+			<townMilitiaAllowed>1</townMilitiaAllowed>
 			<baseSector>
 				<x>1</x>
 				<y>7</y>
@@ -88,6 +94,7 @@ Changes do not require starting of a new game.
 			<townName>Tixa</townName>
 			<townUsesLoyalty>0</townUsesLoyalty>
 			<townRebelSentiment>20</townRebelSentiment>
+			<townMilitiaAllowed>0</townMilitiaAllowed>
 			<baseSector>
 				<x>8</x>
 				<y>9</y>
@@ -102,6 +109,7 @@ Changes do not require starting of a new game.
 			<townName>Cambria</townName>
 			<townUsesLoyalty>1</townUsesLoyalty>
 			<townRebelSentiment>15</townRebelSentiment>
+			<townMilitiaAllowed>1</townMilitiaAllowed>
 			<baseSector>
 				<x>8</x>
 				<y>6</y>
@@ -116,6 +124,7 @@ Changes do not require starting of a new game.
 			<townName>San Mona</townName>
 			<townUsesLoyalty>0</townUsesLoyalty>
 			<townRebelSentiment>20</townRebelSentiment>
+			<townMilitiaAllowed>0</townMilitiaAllowed>
 			<baseSector>
 				<x>4</x>
 				<y>2</y>
@@ -130,6 +139,7 @@ Changes do not require starting of a new game.
 			<townName>Estoni</townName>
 			<townUsesLoyalty>0</townUsesLoyalty>
 			<townRebelSentiment>20</townRebelSentiment>
+			<townMilitiaAllowed>0</townMilitiaAllowed>
 			<baseSector>
 				<x>5</x>
 				<y>8</y>
@@ -144,6 +154,7 @@ Changes do not require starting of a new game.
 			<townName>Orta</townName>
 			<townUsesLoyalty>0</townUsesLoyalty>
 			<townRebelSentiment>20</townRebelSentiment>
+			<townMilitiaAllowed>0</townMilitiaAllowed>
 			<baseSector>
 				<x>3</x>
 				<y>10</y>
@@ -158,6 +169,7 @@ Changes do not require starting of a new game.
 			<townName>Balime</townName>
 			<townUsesLoyalty>1</townUsesLoyalty>
 			<townRebelSentiment>12</townRebelSentiment>
+			<townMilitiaAllowed>1</townMilitiaAllowed>
 			<baseSector>
 				<x>11</x>
 				<y>11</y>
@@ -172,6 +184,7 @@ Changes do not require starting of a new game.
 			<townName>Meduna</townName>
 			<townUsesLoyalty>1</townUsesLoyalty>
 			<townRebelSentiment>10</townRebelSentiment>
+			<townMilitiaAllowed>1</townMilitiaAllowed>
 			<baseSector>
 				<x>3</x>
 				<y>14</y>
@@ -186,6 +199,7 @@ Changes do not require starting of a new game.
 			<townName>Chitzena</townName>
 			<townUsesLoyalty>1</townUsesLoyalty>
 			<townRebelSentiment>35</townRebelSentiment>
+			<townMilitiaAllowed>1</townMilitiaAllowed>
 			<baseSector>
 				<x>2</x>
 				<y>1</y>
