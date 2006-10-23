@@ -349,6 +349,7 @@ void CrippledVersionFailureToLoadMapCheck();
 
 extern UINT8 gubTownRebelSentiment[ NUM_TOWNS ];
 extern BOOLEAN gfTownUsesLoyalty[ NUM_TOWNS ];
+extern BOOLEAN gfMilitiaAllowedInTown[NUM_TOWNS];
 
 #define MAX_CHAR_DATA_LENGTH			500
 
@@ -369,7 +370,8 @@ typedef enum
 	CITYTABLE_ELEMENT_TOWNPOINT_X,
 	CITYTABLE_ELEMENT_TOWNPOINT_Y,
 	CITYTABLE_ELEMENT_USES_LOYALTY,
-	CITYTABLE_ELEMENT_REBEL_SENTIMENT
+	CITYTABLE_ELEMENT_REBEL_SENTIMENT,
+	CITYTABLE_ELEMENT_MILITIA
 } CITYTABLE_PARSE_STAGE;
 
 typedef struct
@@ -380,6 +382,7 @@ typedef struct
 	POINT	townPoint;
 	BOOLEAN townUsesLoyalty;
 	UINT8	townRebelSentiment;
+	BOOLEAN	townMilitiaAllowed;
 	CHAR8	cityName[MAX_TOWN_NAME_LENGHT];
 } cityInfo;
 
@@ -465,6 +468,11 @@ citytableStartElementHandle(void *userData, const char *name, const char **atts)
 		else if(strcmp(name, "townRebelSentiment") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITY)
 		{
 			pData->curElement = CITYTABLE_ELEMENT_REBEL_SENTIMENT;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "townMilitiaAllowed") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITY)
+		{
+			pData->curElement = CITYTABLE_ELEMENT_MILITIA;
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 		else if(strcmp(name, "baseSector") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITY)
@@ -561,6 +569,7 @@ citytableEndElementHandle(void *userData, const char *name)
 			pTownPoints           [pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townPoint;
 			gfTownUsesLoyalty     [pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townUsesLoyalty;
 			gubTownRebelSentiment [pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townRebelSentiment;
+			gfMilitiaAllowedInTown[pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townMilitiaAllowed;
 
 			mbstowcs( pTownNames[pData->curCityInfo.uiIndex], pData->curCityInfo.cityName, MAX_TOWN_NAME_LENGHT);
 		}
@@ -594,6 +603,12 @@ citytableEndElementHandle(void *userData, const char *name)
 			}
 			else if ( !pData->curCityInfo.townRebelSentiment )
 				pData->curCityInfo.townRebelSentiment = 1;
+		}
+		else if(strcmp(name, "townMilitiaAllowed") == 0 && pData->curElement == CITYTABLE_ELEMENT_MILITIA )
+		{
+			pData->curElement = CITYTABLE_ELEMENT_CITY;
+
+			pData->curCityInfo.townMilitiaAllowed = (BOOLEAN)atol(pData->szCharData);
 		}
 		else if(strcmp(name, "baseSector") == 0 && pData->curElement == CITYTABLE_ELEMENT_BASESECTOR)
 		{
@@ -659,6 +674,8 @@ BOOLEAN WriteInStrategicMapSectorTownNames(STR fileName)
 			FilePrintf(hFile,"\t\t\t<townUsesLoyalty>%d</townUsesLoyalty>\r\n", gfTownUsesLoyalty[cnt] );
 
 			FilePrintf(hFile,"\t\t\t<townRebelSentiment>%d</townRebelSentiment>\r\n", gubTownRebelSentiment[cnt] );
+
+			FilePrintf(hFile,"\t\t\t<townMilitiaAllowed>%d</townMilitiaAllowed>\r\n", gfMilitiaAllowedInTown[cnt] );
 
 			FilePrintf(hFile,"\t\t\t<baseSector>\r\n");
 			FilePrintf(hFile,"\t\t\t\t<x>%d</x>\r\n",(sBaseSectorList[cnt-1]%16)+1);

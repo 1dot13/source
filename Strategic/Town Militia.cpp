@@ -49,7 +49,23 @@ INT16 gsUnpaidStrategicSector[ MAX_CHARACTER_COUNT ];
 // the selected list of mercs
 extern BOOLEAN fSelectedListOfMercsForMapScreen[ MAX_CHARACTER_COUNT ];
 
-
+// towns with militia training allowed
+BOOLEAN gfMilitiaAllowedInTown[NUM_TOWNS] =
+{
+	0,	// blank sector
+	0,	// omerta
+	1,	// drassen
+	1,	// alma
+	1,	// grumm
+	0,	// tixa
+	1,	// cambria
+	0,	// san mona
+	0,	// estoni
+	0,	// orta
+	1,	// balime
+	1,	// meduna
+	1,	// chitzena
+};
 
 // private prototypes
 void PayMilitiaTrainingYesNoBoxCallback( UINT8 bExitValue );
@@ -1437,31 +1453,7 @@ BOOLEAN MilitiaTrainingAllowedInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSe
 
 BOOLEAN MilitiaTrainingAllowedInTown( INT8 bTownId )
 {
-	switch ( bTownId )
-	{
-		case DRASSEN:
-		case ALMA:
-		case GRUMM:
-		case CAMBRIA:
-		case BALIME:
-		case MEDUNA:
-		case CHITZENA:
-			return(TRUE);
-
-		case OMERTA:
-		case ESTONI:
-		case SAN_MONA:
-		case TIXA:
-		case ORTA:
-			// can't keep militia in these towns
-			return(FALSE);
-
-		case BLANK_SECTOR:
-		default:
-			// not a town sector!
-			return(FALSE);
-
-	}
+	return( gfMilitiaAllowedInTown[bTownId] );
 }
 
 void BuildMilitiaPromotionsString( UINT16 *str )
