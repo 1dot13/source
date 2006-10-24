@@ -162,8 +162,8 @@ enum{
 #define NUMBER_OF_INVENTORY_PERSONNEL 8
 #define Y_SIZE_OF_PERSONNEL_SCROLL_REGION ( 422 - 219 )
 #define X_SIZE_OF_PERSONNEL_SCROLL_REGION ( 589 - 573 )
-#define Y_OF_PERSONNEL_SCROLL_REGION					iScreenHeightOffset + 219
-#define X_OF_PERSONNEL_SCROLL_REGION					iScreenWidthOffset + 573
+#define Y_OF_PERSONNEL_SCROLL_REGION					(iScreenHeightOffset + 219)
+#define X_OF_PERSONNEL_SCROLL_REGION					(iScreenWidthOffset + 573)
 #define SIZE_OF_PERSONNEL_CURSOR 19
 
 // number buttons

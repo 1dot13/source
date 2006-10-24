@@ -801,7 +801,8 @@ BOOLEAN LoadImpCharacter( STR nickName )
 		AddHistoryToPlayersLog( HISTORY_CHARACTER_GENERATED, 0,GetWorldTotalMin( ), -1, -1 );
 		LaptopSaveInfo.iVoiceId = iProfileId - PLAYER_GENERATED_CHARACTER_ID;
 		AddCharacterToPlayersTeam( );
-		AddFutureDayStrategicEvent( EVENT_DAY2_ADD_EMAIL_FROM_IMP, 60 * 7, 0, 2 );
+		// WANNE: Email is sent immediatly after the imp was created. So no need to send it later again
+		//AddFutureDayStrategicEvent( EVENT_DAY2_ADD_EMAIL_FROM_IMP, 60 * 7, 0, 2 );
 		LaptopSaveInfo.fIMPCompletedFlag = TRUE;
 		fPausedReDrawScreenFlag = TRUE;
 		fLoadingCharacterForPreviousImpProfile = FALSE;
