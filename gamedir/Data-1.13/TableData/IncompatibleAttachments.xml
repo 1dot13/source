@@ -61,6 +61,10 @@
 		<incompatibleattachmentIndex>1007</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
 	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>208</itemIndex>
+		<incompatibleattachmentIndex>1029</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>209</itemIndex>
 		<incompatibleattachmentIndex>50</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
@@ -513,6 +517,10 @@
 		<incompatibleattachmentIndex>1007</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
 	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1004</itemIndex>
+		<incompatibleattachmentIndex>1029</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1005</itemIndex>
 		<incompatibleattachmentIndex>241</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
@@ -527,6 +535,10 @@
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1007</itemIndex>
 		<incompatibleattachmentIndex>1004</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1007</itemIndex>
+		<incompatibleattachmentIndex>1029</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1008</itemIndex>
@@ -627,5 +639,17 @@
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1012</itemIndex>
 		<incompatibleattachmentIndex>1003</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1029</itemIndex>
+		<incompatibleattachmentIndex>208</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1029</itemIndex>
+		<incompatibleattachmentIndex>1004</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1029</itemIndex>
+		<incompatibleattachmentIndex>1007</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
 </INCOMPATIBLEATTACHMENTLIST>
