@@ -569,6 +569,8 @@ void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	// for some other reason. But you also have to
 	// remove the same line in UpdateMilitiaSquads
 	// Or the ones you create won't move.
+	// This function is only called from UpdateMilitiaSquads
+	// and TownMilitiaTrainingCompleted
 	if( !gGameExternalOptions.gfAllowMilitiaGroups )
 		return;
 

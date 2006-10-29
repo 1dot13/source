@@ -81,6 +81,8 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 
 
 	//Kaiden: Getting Value for MERC Available on Day one?
+	// for some reason, this can't be in gamesettings.cpp
+	// or it won't work. 
 	bMercDayOne = iniReader.ReadBoolean("Options","MERC_DAY_ONE",FALSE);
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"ExecuteStrategicEvent");

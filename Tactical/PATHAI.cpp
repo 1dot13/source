@@ -1069,7 +1069,6 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMo
 				goto NEXTDIR;
 			}
 
-			/*
 			if ( gpWorldLevelData[newLoc].uiFlags & (MAPELEMENT_ENEMY_MINE_PRESENT | MAPELEMENT_PLAYER_MINE_PRESENT) )
 			{
 				if (s->bSide == 0)
@@ -1093,7 +1092,6 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMo
 					}
 				}
 			}
-			*/
 
 			//how much is admission to the next tile
 			if ( gfPathAroundObstacles )

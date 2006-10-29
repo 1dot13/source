@@ -278,6 +278,8 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 			}
 */
 
+
+
       // maximum possible usChance is 99%
       if (usChance > 99)
 			{
@@ -354,6 +356,9 @@ void ProcessStatChange(MERCPROFILESTRUCT *pProfile, UINT8 ubStat, UINT16 usNumCh
 					usChance = 1;
 				}
       }
+
+			if (usChance <= 0)
+				usChance = 1;
 
       if (PreRandom(100) < usChance )
       {

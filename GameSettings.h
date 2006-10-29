@@ -326,7 +326,6 @@ typedef struct
 	INT32 ubAssignmentUnitsPerDay;
 	INT32 ubMinutesForAssignmentToCount;
 
-
 	INT32 ubTrainingSkillMin;
 	INT32 ubTrainingSkillMax;
 	INT32 ubSelfTrainingDivisor;

@@ -585,8 +585,6 @@ void EnterAutoResolveMode( UINT8 ubSectorX, UINT8 ubSectorY )
 	CreateDestroyMapInvButton();
 	RenderButtons();
 
-	//Kaiden: Setting Ja2_Options.ini file to be read
-
 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve1");
 	//Allocate memory for all the globals while we are in this mode.
 	gpAR = (AUTORESOLVE_STRUCT*)MemAlloc( sizeof( AUTORESOLVE_STRUCT ) );
