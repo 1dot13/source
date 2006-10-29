@@ -81,14 +81,14 @@ typedef struct TOWN_LOYALTY
 
 
 // the loyalty variables for each town
-extern TOWN_LOYALTY gTownLoyalty[ NUM_TOWNS ];
+extern TOWN_LOYALTY gTownLoyalty[ MAX_TOWNS ];
 
 // town names list
 extern INT32 pTownNamesList[];
 // town locations list
 extern INT32 pTownLocationsList[]; 
 // whether town maintains/displays loyalty or not
-extern BOOLEAN gfTownUsesLoyalty[ NUM_TOWNS ];
+extern BOOLEAN gfTownUsesLoyalty[ MAX_TOWNS ];
 
 
 

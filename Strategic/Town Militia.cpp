@@ -50,7 +50,7 @@ INT16 gsUnpaidStrategicSector[ MAX_CHARACTER_COUNT ];
 extern BOOLEAN fSelectedListOfMercsForMapScreen[ MAX_CHARACTER_COUNT ];
 
 // towns with militia training allowed
-BOOLEAN gfMilitiaAllowedInTown[NUM_TOWNS] =
+BOOLEAN gfMilitiaAllowedInTown[MAX_TOWNS] =
 {
 	0,	// blank sector
 	0,	// omerta

@@ -10,6 +10,8 @@
 
 #define MAX_TOWN_NAME_LENGHT	32
 
+#define MAX_TOWNS	13
+
 // Sector name identifiers
 enum Towns
 {
@@ -27,8 +29,10 @@ enum Towns
 	MEDUNA,
 	CHITZENA,
 
-	NUM_TOWNS
+	//NUM_TOWNS
 } ;
+
+extern INT8 NUM_TOWNS;
 
 #define FIRST_TOWN	OMERTA
 //#define PALACE			NUM_TOWNS

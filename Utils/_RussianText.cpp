@@ -297,7 +297,7 @@ UINT16 Message[][STRING_LENGTH] =
 
 // the names of the towns in the game
 
-CHAR16 pTownNames[NUM_TOWNS][MAX_TOWN_NAME_LENGHT] =
+CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT] =
 {
 	L"",
 	L"ќмерта",

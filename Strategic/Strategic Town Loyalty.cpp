@@ -102,14 +102,14 @@
 
 
 // town loyalty table
-TOWN_LOYALTY gTownLoyalty[ NUM_TOWNS ];
+TOWN_LOYALTY gTownLoyalty[ MAX_TOWNS ];
 
 
 // town name and locations arrays, for town theft and what not
 INT32 pTownNamesList[ 40 ];
 INT32 pTownLocationsList[ 40 ]; 
 
-INT32 iTownDistances[ NUM_TOWNS ][ NUM_TOWNS ];
+INT32 iTownDistances[ MAX_TOWNS ][ MAX_TOWNS ];
 
 
 #define BASIC_COST_FOR_CIV_MURDER	(10 * GAIN_PTS_PER_LOYALTY_PT)
@@ -129,7 +129,7 @@ UINT32 uiPercentLoyaltyDecreaseForCivMurder[]={
 
 // on a scale of 1-100, this is a measure of how much each town hates the Queen's opression & is willing to stand against it
 // it primarily controls the RATE of loyalty change in each town: the loyalty effect of the same events depends on it
-UINT8 gubTownRebelSentiment[ NUM_TOWNS ]; // =
+UINT8 gubTownRebelSentiment[ MAX_TOWNS ]; // =
 //{
 //	0,	// not a town - blank sector index
 // 90,	// OMERTA,	- They ARE the rebels!!!
@@ -146,7 +146,7 @@ UINT8 gubTownRebelSentiment[ NUM_TOWNS ]; // =
 // 35,	// CHITZENA, - Artificially high 'cause there's not enough fights near it to get the loyalty up otherwise
 //};
 
-BOOLEAN gfTownUsesLoyalty[ NUM_TOWNS ];// =
+BOOLEAN gfTownUsesLoyalty[ MAX_TOWNS ];// =
 //{
 //	FALSE,		// not a town - blank sector index
 //	TRUE	,		// OMERTA
@@ -172,7 +172,7 @@ extern UINT32	guiNumWorldItems;
 // preprocess sector for mercs in it
 extern BOOLEAN fSectorsWithSoldiers[ MAP_WORLD_X * MAP_WORLD_X ][ 4 ];
 
-extern CHAR16 pTownNames[NUM_TOWNS][MAX_TOWN_NAME_LENGHT];
+extern CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT];
 
 
 
@@ -1295,7 +1295,7 @@ void WriteOutDistancesBetweenTowns( void )
 
 	hFileHandle = FileOpen( "BinaryData\\TownDistances.dat", FILE_ACCESS_WRITE|FILE_OPEN_ALWAYS, FALSE );
 
-	FileWrite( hFileHandle, &( iTownDistances ),  ( sizeof( INT32 ) * NUM_TOWNS * NUM_TOWNS ), NULL );
+	FileWrite( hFileHandle, &( iTownDistances ),  ( sizeof( INT32 ) * MAX_TOWNS * MAX_TOWNS ), NULL );
 
 	// close file
   FileClose( hFileHandle );
@@ -1360,7 +1360,7 @@ void ReadInDistancesBetweenTowns( void )
 
 	hFileHandle = FileOpen( "BinaryData\\TownDistances.dat", FILE_ACCESS_READ, FALSE );
 
-	FileRead( hFileHandle, &( iTownDistances ),  ( sizeof( INT32 ) * NUM_TOWNS * NUM_TOWNS ), NULL );
+	FileRead( hFileHandle, &( iTownDistances ),  ( sizeof( INT32 ) * MAX_TOWNS * MAX_TOWNS ), NULL );
 
 	// close file
   FileClose( hFileHandle );
@@ -1432,8 +1432,8 @@ BOOLEAN SaveStrategicTownLoyaltyToSaveGameFile( HWFILE hFile )
 	UINT32	uiNumBytesWritten;
 
 	//Save the Town Loyalty
-	FileWrite( hFile, gTownLoyalty, sizeof( TOWN_LOYALTY ) * NUM_TOWNS, &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( TOWN_LOYALTY ) * NUM_TOWNS )
+	FileWrite( hFile, gTownLoyalty, sizeof( TOWN_LOYALTY ) * MAX_TOWNS, &uiNumBytesWritten );
+	if( uiNumBytesWritten != sizeof( TOWN_LOYALTY ) * MAX_TOWNS )
 	{
 		return( FALSE );
 	}
@@ -1446,8 +1446,8 @@ BOOLEAN LoadStrategicTownLoyaltyFromSavedGameFile( HWFILE hFile )
 	UINT32	uiNumBytesRead;
 
 	//Restore the Town Loyalty
-	FileRead( hFile, gTownLoyalty, sizeof( TOWN_LOYALTY ) * NUM_TOWNS, &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( TOWN_LOYALTY ) * NUM_TOWNS )
+	FileRead( hFile, gTownLoyalty, sizeof( TOWN_LOYALTY ) * MAX_TOWNS, &uiNumBytesRead );
+	if( uiNumBytesRead != sizeof( TOWN_LOYALTY ) * MAX_TOWNS )
 	{
 		return( FALSE );
 	}
@@ -1678,7 +1678,7 @@ void AffectAllTownsLoyaltyByDistanceFrom( INT32 iLoyaltyChange, INT16 sSectorX, 
 	INT8 bTownId;
 	UINT32 uiIndex;
 	INT32 iThisDistance;
-	INT32 iShortestDistance[NUM_TOWNS];
+	INT32 iShortestDistance[MAX_TOWNS];
 	INT32 iPercentAdjustment;
 	INT32 iDistanceAdjustedLoyalty;
 

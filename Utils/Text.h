@@ -27,7 +27,7 @@ extern STR16 pLongAttributeStrings[];
 extern STR16 pContractStrings[];
 extern STR16 pAssignmentStrings[];
 extern STR16 pConditionStrings[];
-extern CHAR16 pTownNames[NUM_TOWNS][MAX_TOWN_NAME_LENGHT];	// Lesh: look mapscreen.h for definitions
+extern CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT];	// Lesh: look mapscreen.h for definitions
 extern STR16 pPersonnelScreenStrings[];
 extern STR16 pPersonnelTitle[];
 extern STR16 pUpperLeftMapScreenStrings[];

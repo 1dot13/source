@@ -347,11 +347,14 @@ void CrippledVersionFailureToLoadMapCheck();
 	#include "tiledat.h"
 #endif
 
-extern UINT8 gubTownRebelSentiment[ NUM_TOWNS ];
-extern BOOLEAN gfTownUsesLoyalty[ NUM_TOWNS ];
-extern BOOLEAN gfMilitiaAllowedInTown[NUM_TOWNS];
+INT8 NUM_TOWNS;
+
+extern UINT8 gubTownRebelSentiment[ MAX_TOWNS ];
+extern BOOLEAN gfTownUsesLoyalty[ MAX_TOWNS ];
+extern BOOLEAN gfMilitiaAllowedInTown[MAX_TOWNS];
 
 #define MAX_CHAR_DATA_LENGTH			500
+#define INVALID_TOWN_INDEX				-1
 
 typedef enum
 {
@@ -393,6 +396,7 @@ typedef struct
 	INT8					szCharData[MAX_CHAR_DATA_LENGTH+1];
 	cityInfo				curCityInfo;
 	UINT32					uiRowNumber;
+	UINT32					uiHighestIndex;
 	
 	UINT32					currentDepth;
 	UINT32					maxReadDepth;
@@ -439,6 +443,7 @@ citytableStartElementHandle(void *userData, const char *name, const char **atts)
 			memset(pTownPoints,0,sizeof(pTownPoints));
 			memset(gfTownUsesLoyalty,0,sizeof(gfTownUsesLoyalty));
 			memset(gubTownRebelSentiment,0,sizeof(gubTownRebelSentiment));
+			memset(gfMilitiaAllowedInTown,0,sizeof(gfMilitiaAllowedInTown));
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -526,6 +531,8 @@ citytableCharacterDataHandle(void *userData, const char *str, int len)
 static void XMLCALL
 citytableEndElementHandle(void *userData, const char *name)
 {
+	FILE *pDebug;
+
 	citytableParseData * pData = (citytableParseData *) userData;
 
 	if(pData->currentDepth <= pData->maxReadDepth) //we're at the end of an element that we've been reading
@@ -560,24 +567,49 @@ citytableEndElementHandle(void *userData, const char *name)
 		else if(strcmp(name, "CITYLIST") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITYLIST)
 		{
 			pData->curElement = CITYTABLE_ELEMENT_CITYINFO;
+
+			NUM_TOWNS = pData->uiHighestIndex + 1;
+			pDebug = fopen("towns.log", "a+t");
+			fprintf(pDebug, "NUM_TOWNS = %d\n", NUM_TOWNS);
+			fclose(pDebug);
 		}
 		else if(strcmp(name, "CITY") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITY)
 		{
 			pData->curElement = CITYTABLE_ELEMENT_CITYLIST;
 
-			sBaseSectorList       [pData->curCityInfo.uiIndex-1] = SECTOR(pData->curCityInfo.ubBaseX,pData->curCityInfo.ubBaseY);
-			pTownPoints           [pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townPoint;
-			gfTownUsesLoyalty     [pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townUsesLoyalty;
-			gubTownRebelSentiment [pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townRebelSentiment;
-			gfMilitiaAllowedInTown[pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townMilitiaAllowed;
-
-			mbstowcs( pTownNames[pData->curCityInfo.uiIndex], pData->curCityInfo.cityName, MAX_TOWN_NAME_LENGHT);
+			if ( pData->curCityInfo.uiIndex != INVALID_TOWN_INDEX )
+			{
+				sBaseSectorList       [pData->curCityInfo.uiIndex-1] = SECTOR(pData->curCityInfo.ubBaseX,pData->curCityInfo.ubBaseY);
+				pTownPoints           [pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townPoint;
+				gfTownUsesLoyalty     [pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townUsesLoyalty;
+				gubTownRebelSentiment [pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townRebelSentiment;
+				gfMilitiaAllowedInTown[pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townMilitiaAllowed;
+				mbstowcs( pTownNames[pData->curCityInfo.uiIndex], pData->curCityInfo.cityName, MAX_TOWN_NAME_LENGHT);
+			}
 		}
 		else if(strcmp(name, "uiIndex") == 0 && pData->curElement == CITYTABLE_ELEMENT_INDEX)
 		{
 			pData->curElement = CITYTABLE_ELEMENT_CITY;
 
 			pData->curCityInfo.uiIndex = atol(pData->szCharData);
+			pDebug = fopen("towns.log", "a+t");
+			fprintf(pDebug, "Got Index %d\n", pData->curCityInfo.uiIndex );
+			fprintf(pDebug, "Highest = %d, Current = %d\n", pData->uiHighestIndex, pData->curCityInfo.uiIndex);
+			fclose(pDebug);
+			if ( !pData->curCityInfo.uiIndex || pData->curCityInfo.uiIndex >= MAX_TOWNS )
+			{
+				pData->curCityInfo.uiIndex = INVALID_TOWN_INDEX;
+				pDebug = fopen("towns.log", "a+t");
+				fprintf(pDebug, "Index Discarded\n");
+				fclose(pDebug);
+			}
+			else if ( pData->curCityInfo.uiIndex > pData->uiHighestIndex )
+			{
+				pData->uiHighestIndex = pData->curCityInfo.uiIndex;
+				pDebug = fopen("towns.log", "a+t");
+				fprintf(pDebug, "Set new Highest = %d\n", pData->uiHighestIndex);
+				fclose(pDebug);
+			}
 		}
 		else if(strcmp(name, "townName") == 0 && pData->curElement == CITYTABLE_ELEMENT_NAME)
 		{
@@ -658,7 +690,8 @@ BOOLEAN WriteInStrategicMapSectorTownNames(STR fileName)
 		return( FALSE );
 	
 	{
-		UINT32 x, y, cnt;
+		UINT32 x, y;
+		INT8 cnt;
 
 
 		FilePrintf(hFile,"<CITY_INFO>\r\n");
@@ -752,6 +785,7 @@ BOOLEAN ReadInStrategicMapSectorTownNames(STR fileName)
 
 	
 	memset(&pData,0,sizeof(pData));
+	NUM_TOWNS = 0;
 	XML_SetUserData(parser, &pData);
 
 
