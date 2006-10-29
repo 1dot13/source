@@ -531,8 +531,6 @@ citytableCharacterDataHandle(void *userData, const char *str, int len)
 static void XMLCALL
 citytableEndElementHandle(void *userData, const char *name)
 {
-	FILE *pDebug;
-
 	citytableParseData * pData = (citytableParseData *) userData;
 
 	if(pData->currentDepth <= pData->maxReadDepth) //we're at the end of an element that we've been reading
@@ -569,9 +567,6 @@ citytableEndElementHandle(void *userData, const char *name)
 			pData->curElement = CITYTABLE_ELEMENT_CITYINFO;
 
 			NUM_TOWNS = pData->uiHighestIndex + 1;
-			pDebug = fopen("towns.log", "a+t");
-			fprintf(pDebug, "NUM_TOWNS = %d\n", NUM_TOWNS);
-			fclose(pDebug);
 		}
 		else if(strcmp(name, "CITY") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITY)
 		{
@@ -592,23 +587,13 @@ citytableEndElementHandle(void *userData, const char *name)
 			pData->curElement = CITYTABLE_ELEMENT_CITY;
 
 			pData->curCityInfo.uiIndex = atol(pData->szCharData);
-			pDebug = fopen("towns.log", "a+t");
-			fprintf(pDebug, "Got Index %d\n", pData->curCityInfo.uiIndex );
-			fprintf(pDebug, "Highest = %d, Current = %d\n", pData->uiHighestIndex, pData->curCityInfo.uiIndex);
-			fclose(pDebug);
 			if ( !pData->curCityInfo.uiIndex || pData->curCityInfo.uiIndex >= MAX_TOWNS )
 			{
 				pData->curCityInfo.uiIndex = INVALID_TOWN_INDEX;
-				pDebug = fopen("towns.log", "a+t");
-				fprintf(pDebug, "Index Discarded\n");
-				fclose(pDebug);
 			}
 			else if ( pData->curCityInfo.uiIndex > pData->uiHighestIndex )
 			{
 				pData->uiHighestIndex = pData->curCityInfo.uiIndex;
-				pDebug = fopen("towns.log", "a+t");
-				fprintf(pDebug, "Set new Highest = %d\n", pData->uiHighestIndex);
-				fclose(pDebug);
 			}
 		}
 		else if(strcmp(name, "townName") == 0 && pData->curElement == CITYTABLE_ELEMENT_NAME)
