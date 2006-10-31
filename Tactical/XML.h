@@ -68,6 +68,7 @@ typedef PARSE_STAGE;
 #define CITYTABLEFILENAME                       "Map\\Cities.xml"
 #define MOVEMENTCOSTFILENAME                    "Map\\MovementCosts.xml"
 #define ALTSECTORSFILENAME                      "Map\\AltSectors.xml"
+#define SAMSITESFILENAME                        "Map\\SamSites.xml"
 
 // WANNE: drops filename
 #define ENEMYWEAPONDROPSFILENAME				"EnemyWeaponDrops.xml"
@@ -157,5 +158,9 @@ extern BOOLEAN ReadInStrategicMovementCosts(STR fileName);
 extern BOOLEAN WriteInStrategicMovementCosts(STR fileName);
 extern BOOLEAN ReadInAltSectors(STR fileName);
 extern BOOLEAN WriteInAltSectors(STR fileName);
+
+//Lesh: samsite info
+extern BOOLEAN ReadInSAMInfo(STR fileName);
+extern BOOLEAN WriteInSAMInfo(STR fileName);
 
 #endif

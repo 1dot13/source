@@ -315,7 +315,7 @@ typedef struct
 
 	UINT32	uiUNUSED;
 
-	BOOLEAN fSamSiteFound[ NUMBER_OF_SAMS ];
+	BOOLEAN fSamSiteFound[ MAX_NUMBER_OF_SAMS ];
 
 	UINT8		ubNumTerrorists;
 	UINT8		ubCambriaMedicalObjects;
@@ -4490,7 +4490,7 @@ BOOLEAN SaveGeneralInfo( HWFILE hFile )
 
 	sGeneralInfo.fLastBoxingMatchWonByPlayer = gfLastBoxingMatchWonByPlayer;
 
-	memcpy( &sGeneralInfo.fSamSiteFound, &fSamSiteFound, NUMBER_OF_SAMS * sizeof( BOOLEAN ) );
+	memcpy( &sGeneralInfo.fSamSiteFound, &fSamSiteFound, MAX_NUMBER_OF_SAMS * sizeof( BOOLEAN ) );
 
 	sGeneralInfo.ubNumTerrorists = gubNumTerrorists;
 	sGeneralInfo.ubCambriaMedicalObjects = gubCambriaMedicalObjects;
@@ -4756,7 +4756,7 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 
 	gfLastBoxingMatchWonByPlayer = sGeneralInfo.fLastBoxingMatchWonByPlayer;
 
-	memcpy( &fSamSiteFound, &sGeneralInfo.fSamSiteFound, NUMBER_OF_SAMS * sizeof( BOOLEAN ) );
+	memcpy( &fSamSiteFound, &sGeneralInfo.fSamSiteFound, MAX_NUMBER_OF_SAMS * sizeof( BOOLEAN ) );
 
 	gubNumTerrorists = sGeneralInfo.ubNumTerrorists;
 	gubCambriaMedicalObjects = sGeneralInfo.ubCambriaMedicalObjects;

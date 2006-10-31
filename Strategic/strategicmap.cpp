@@ -151,43 +151,45 @@ BOOLEAN		gfUseAlternateMap = FALSE;
 // whether or not we have found Orta yet
 BOOLEAN fFoundOrta = FALSE;
 
+UINT8	NUMBER_OF_SAMS = 4;
+
 // have any of the sam sites been found
-BOOLEAN fSamSiteFound[ NUMBER_OF_SAMS ]={
-	FALSE,
-	FALSE,
-	FALSE,
-	FALSE,
-};
+BOOLEAN fSamSiteFound[ MAX_NUMBER_OF_SAMS ];//={
+//	FALSE,
+//	FALSE,
+//	FALSE,
+//	FALSE,
+//};
 
-INT16 pSamList[ NUMBER_OF_SAMS ]={
-	SECTOR( SAM_1_X, SAM_1_Y ),
-	SECTOR( SAM_2_X, SAM_2_Y ),
-	SECTOR( SAM_3_X, SAM_3_Y ),
-	SECTOR( SAM_4_X, SAM_4_Y ),
-};
+INT16 pSamList[ MAX_NUMBER_OF_SAMS ];//={
+//	SECTOR( SAM_1_X, SAM_1_Y ),
+//	SECTOR( SAM_2_X, SAM_2_Y ),
+//	SECTOR( SAM_3_X, SAM_3_Y ),
+//	SECTOR( SAM_4_X, SAM_4_Y ),
+//};
 
-INT16 pSamGridNoAList[ NUMBER_OF_SAMS ]={
-	10196,
-	11295,
-	16080,
-	11913,
-};
+INT16 pSamGridNoAList[ MAX_NUMBER_OF_SAMS ];//={
+//	10196,
+//	11295,
+//	16080,
+//	11913,
+//};
 
-INT16 pSamGridNoBList[ NUMBER_OF_SAMS ]={
-	10195,
-	11135,
-	15920,
-	11912, 
-};
+INT16 pSamGridNoBList[ MAX_NUMBER_OF_SAMS ];//={
+//	10195,
+//	11135,
+//	15920,
+//	11912, 
+//};
 
 // ATE: Update this w/ graphic used 
 // Use 3 if / orientation, 4 if \ orientation
-INT8 gbSAMGraphicList[ NUMBER_OF_SAMS ]={
-	4,
-	3,
-	3,
-  3,
-};
+INT8 gbSAMGraphicList[ MAX_NUMBER_OF_SAMS ];//={
+//	4,
+//	3,
+//	3,
+//  3,
+//};
 
 INT8 gbMercIsNewInThisSector[ MAX_NUM_SOLDIERS ];
 
@@ -198,29 +200,29 @@ INT8 gbMercIsNewInThisSector[ MAX_NUM_SOLDIERS ];
 
 
 
-UINT8 ubSAMControlledSectors[ MAP_WORLD_Y ][ MAP_WORLD_X ] = {
+UINT8 ubSAMControlledSectors[ MAP_WORLD_Y ][ MAP_WORLD_X ];// = {
 //       1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16
-    0,   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,   0,
-
-    0,   1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 2, 2, 2, 2, 2, 2,   0,		// A
-    0,   1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2,   0,		// B
-    0,   1, 1, 1, 1, 1, 1, 1, 3, 2, 2, 2, 2, 2, 2, 2, 2,   0,		// C
-    0,   1,01, 1, 1, 1, 1, 1, 3, 3, 2, 2, 2, 2, 2,02, 2,   0,		// D
-    0,   1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2,   0,		// E
-    0,   1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2,   0,		// F
-    0,   1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2,   0,		// G
-    0,   1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2,   0,		// H
-    0,   1, 1, 3, 3, 3, 3, 3,03, 3, 3, 3, 3, 3, 2, 2, 2,   0,		// I
-    0,   1, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2,   0,		// J
-    0,   4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2,   0,		// K
-    0,   4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2,   0,		// L
-    0,   4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 2, 2, 2,   0,		// M
-    0,   4, 4, 4,04, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2, 2,   0,		// N
-    0,   4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2,   0,		// O
-    0,   4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2,   0,		// P
-
-    0,   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,   0,
-};
+//    0,   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,   0,
+//
+//    0,   1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 2, 2, 2, 2, 2, 2,   0,		// A
+//    0,   1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2,   0,		// B
+//    0,   1, 1, 1, 1, 1, 1, 1, 3, 2, 2, 2, 2, 2, 2, 2, 2,   0,		// C
+//    0,   1,01, 1, 1, 1, 1, 1, 3, 3, 2, 2, 2, 2, 2,02, 2,   0,		// D
+//    0,   1, 1, 1, 1, 1, 1, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2,   0,		// E
+//    0,   1, 1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2,   0,		// F
+//    0,   1, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2,   0,		// G
+//    0,   1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2,   0,		// H
+//    0,   1, 1, 3, 3, 3, 3, 3,03, 3, 3, 3, 3, 3, 2, 2, 2,   0,		// I
+//    0,   1, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2,   0,		// J
+//    0,   4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2,   0,		// K
+//    0,   4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2,   0,		// L
+//    0,   4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 2, 2, 2,   0,		// M
+//    0,   4, 4, 4,04, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2, 2,   0,		// N
+//    0,   4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2,   0,		// O
+//    0,   4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2,   0,		// P
+//
+//    0,   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,   0,
+//};
 
 INT16 DirXIncrementer[8] =
  {
@@ -347,13 +349,423 @@ void CrippledVersionFailureToLoadMapCheck();
 	#include "tiledat.h"
 #endif
 
-INT8 NUM_TOWNS;
-
-extern UINT8 gubTownRebelSentiment[ MAX_TOWNS ];
-extern BOOLEAN gfTownUsesLoyalty[ MAX_TOWNS ];
-extern BOOLEAN gfMilitiaAllowedInTown[MAX_TOWNS];
+// SAM externalization stuff
 
 #define MAX_CHAR_DATA_LENGTH			500
+#define INVALID_SAMSITE_INDEX			-1
+
+extern INT16 gpSamSectorX[ MAX_NUMBER_OF_SAMS ];
+extern INT16 gpSamSectorY[ MAX_NUMBER_OF_SAMS ];
+
+typedef enum
+{
+	SAMSITE_ELEMENT_NONE = 0,
+	SAMSITE_ELEMENT_SAMINFO,
+	SAMSITE_ELEMENT_SAMLIST,
+	SAMSITE_ELEMENT_SAM_CONTROLLED_SECTORS,
+	SAMSITE_ELEMENT_MAP_ROW,
+	SAMSITE_ELEMENT_SAM,
+	SAMSITE_ELEMENT_INDEX,
+	SAMSITE_ELEMENT_SAMSECTOR,
+	SAMSITE_ELEMENT_SAMSECTOR_X,
+	SAMSITE_ELEMENT_SAMSECTOR_Y,
+	SAMSITE_ELEMENT_SAM_HIDDEN,
+	SAMSITE_ELEMENT_SAM_ORIENTATION,
+	SAMSITE_ELEMENT_SAM_GRIDNO_A,
+	SAMSITE_ELEMENT_SAM_GRIDNO_B
+} SAMSITE_PARSE_STAGE;
+
+typedef struct
+{
+	UINT32	uiIndex;
+	INT16	samSectorX;
+	INT16	samSectorY;
+	BOOLEAN samHidden;
+	INT8	samOrientation;
+	INT16	samGridNoA;
+	INT16	samGridNoB;
+} samInfo;
+
+typedef struct
+{
+	SAMSITE_PARSE_STAGE	curElement;
+
+	INT8					szCharData[MAX_CHAR_DATA_LENGTH+1];
+	samInfo					curSamInfo;
+	UINT32					uiRowNumber;
+	UINT32					uiHighestIndex;
+	
+	UINT32					currentDepth;
+	UINT32					maxReadDepth;
+} samsiteParseData;
+
+static void XMLCALL
+samsiteStartElementHandle(void *userData, const char *name, const char **atts)
+{
+	samsiteParseData * pData = (samsiteParseData *) userData;
+
+	if(pData->currentDepth <= pData->maxReadDepth) //are we reading this element?
+	{
+
+		if(strcmp(name, "SAM_INFO") == 0 && pData->curElement == SAMSITE_ELEMENT_NONE)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAMINFO;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "SAM_CONTROLLED_SECTORS") == 0 && pData->curElement == SAMSITE_ELEMENT_SAMINFO)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAM_CONTROLLED_SECTORS;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "MAP_ROW") == 0 && pData->curElement == SAMSITE_ELEMENT_SAM_CONTROLLED_SECTORS)
+		{
+			UINT32 uiAttrIndex;
+			pData->curElement = SAMSITE_ELEMENT_MAP_ROW;
+
+			for(uiAttrIndex = 0;atts[uiAttrIndex] != NULL;uiAttrIndex += 2)
+				if(strcmp(atts[uiAttrIndex], "row") == 0)
+				{
+					pData->uiRowNumber = atol(atts[uiAttrIndex+1]);
+					break;
+				}
+
+			if(atts[uiAttrIndex] != NULL && pData->uiRowNumber < MAP_WORLD_Y)
+				pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "SAMLIST") == 0 && pData->curElement == SAMSITE_ELEMENT_SAMINFO)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAMLIST;
+
+			memset( fSamSiteFound,		0,	sizeof(fSamSiteFound)		);
+			memset( pSamList,			0,	sizeof(pSamList)			);
+			memset( pSamGridNoAList,	0,	sizeof(pSamGridNoAList)		);
+			memset( pSamGridNoBList,	0,	sizeof(pSamGridNoBList)		);
+			memset( gbSAMGraphicList,	0,	sizeof(gbSAMGraphicList)	);
+			memset( gpSamSectorX,		0,	sizeof(gpSamSectorX)		);
+			memset( gpSamSectorY,		0,	sizeof(gpSamSectorY)		);
+
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "SAM") == 0 && pData->curElement == SAMSITE_ELEMENT_SAMLIST)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAM;
+
+			memset( &pData->curSamInfo, 0, sizeof(samInfo) );
+
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "samIndex") == 0 && pData->curElement == SAMSITE_ELEMENT_SAM)
+		{
+			pData->curElement = SAMSITE_ELEMENT_INDEX;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "samSector") == 0 && pData->curElement == SAMSITE_ELEMENT_SAM)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAMSECTOR;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "x") == 0 && pData->curElement == SAMSITE_ELEMENT_SAMSECTOR)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAMSECTOR_X;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "y") == 0 && pData->curElement == SAMSITE_ELEMENT_SAMSECTOR)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAMSECTOR_Y;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "samHidden") == 0 && pData->curElement == SAMSITE_ELEMENT_SAM)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAM_HIDDEN;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "samOrientation") == 0 && pData->curElement == SAMSITE_ELEMENT_SAM)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAM_ORIENTATION;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "samGridNoA") == 0 && pData->curElement == SAMSITE_ELEMENT_SAM)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAM_GRIDNO_A;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		else if(strcmp(name, "samGridNoB") == 0 && pData->curElement == SAMSITE_ELEMENT_SAM)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAM_GRIDNO_B;
+			pData->maxReadDepth++; //we are not skipping this element
+		}
+		pData->szCharData[0] = '\0';
+	}
+
+	pData->currentDepth++;
+
+}
+
+static void XMLCALL
+samsiteCharacterDataHandle(void *userData, const char *str, int len)
+{
+	samsiteParseData * pData = (samsiteParseData *) userData;
+
+	if(pData->currentDepth <= pData->maxReadDepth && strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH)
+		strncat(pData->szCharData,str,__min((unsigned int)len,MAX_CHAR_DATA_LENGTH-strlen(pData->szCharData)));
+}
+
+
+static void XMLCALL
+samsiteEndElementHandle(void *userData, const char *name)
+{
+	samsiteParseData * pData = (samsiteParseData *) userData;
+
+	if(pData->currentDepth <= pData->maxReadDepth) //we're at the end of an element that we've been reading
+	{
+		if(strcmp(name, "SAM_INFO") == 0 && pData->curElement == SAMSITE_ELEMENT_SAMINFO)
+		{
+			pData->curElement = SAMSITE_ELEMENT_NONE;
+		}
+		else if(strcmp(name, "SAM_CONTROLLED_SECTORS") == 0 && pData->curElement == SAMSITE_ELEMENT_SAM_CONTROLLED_SECTORS)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAMINFO;
+		}
+		else if(strcmp(name, "MAP_ROW") == 0 && pData->curElement == SAMSITE_ELEMENT_MAP_ROW)
+		{
+			INT8 * curBuffer = pData->szCharData + strspn((const char *)pData->szCharData," \t\n\r");
+			UINT32 curCellIndex = 0;
+			UINT32 curNumber;
+
+			pData->curElement = SAMSITE_ELEMENT_SAM_CONTROLLED_SECTORS;
+
+			while(curBuffer[0] != '\0')
+			{
+				sscanf( (const char *)curBuffer,"%d",&curNumber);
+
+				ubSAMControlledSectors[pData->uiRowNumber][curCellIndex] = curNumber;
+
+				curCellIndex++;
+				curBuffer += strcspn(curBuffer," \t\n\r\0");
+				curBuffer += strspn((const char *)curBuffer," \t\n\r");
+			}
+		}
+		else if(strcmp(name, "SAMLIST") == 0 && pData->curElement == SAMSITE_ELEMENT_SAMLIST)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAMINFO;
+
+			NUMBER_OF_SAMS = pData->uiHighestIndex;
+		}
+		else if(strcmp(name, "SAM") == 0 && pData->curElement == SAMSITE_ELEMENT_SAM)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAMLIST;
+
+			if ( pData->curSamInfo.uiIndex != INVALID_SAMSITE_INDEX )
+			{
+				pData->curSamInfo.uiIndex--;
+				fSamSiteFound	[ pData->curSamInfo.uiIndex ] = !pData->curSamInfo.samHidden;
+				gpSamSectorX	[ pData->curSamInfo.uiIndex ] = pData->curSamInfo.samSectorX;
+				gpSamSectorY	[ pData->curSamInfo.uiIndex ] = pData->curSamInfo.samSectorY;
+				pSamList		[ pData->curSamInfo.uiIndex ] = SECTOR(pData->curSamInfo.samSectorX,pData->curSamInfo.samSectorY);
+				gbSAMGraphicList[ pData->curSamInfo.uiIndex ] = pData->curSamInfo.samOrientation;
+				pSamGridNoAList	[ pData->curSamInfo.uiIndex ] = pData->curSamInfo.samGridNoA;
+				pSamGridNoBList	[ pData->curSamInfo.uiIndex ] = pData->curSamInfo.samGridNoB;
+			}
+		}
+		else if(strcmp(name, "samIndex") == 0 && pData->curElement == SAMSITE_ELEMENT_INDEX)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAM;
+
+			pData->curSamInfo.uiIndex = atol(pData->szCharData);
+			if ( !pData->curSamInfo.uiIndex || pData->curSamInfo.uiIndex > MAX_NUMBER_OF_SAMS )
+			{
+				pData->curSamInfo.uiIndex = INVALID_SAMSITE_INDEX;
+			}
+			else if ( pData->curSamInfo.uiIndex > pData->uiHighestIndex )
+			{
+				pData->uiHighestIndex = pData->curSamInfo.uiIndex;
+			}
+		}
+		else if(strcmp(name, "samSector") == 0 && pData->curElement == SAMSITE_ELEMENT_SAMSECTOR)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAM;
+		}
+		else if(strcmp(name, "x") == 0 && pData->curElement == SAMSITE_ELEMENT_SAMSECTOR_X)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAMSECTOR;
+
+			pData->curSamInfo.samSectorX = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "y") == 0 && pData->curElement == SAMSITE_ELEMENT_SAMSECTOR_Y)
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAMSECTOR;
+
+			pData->curSamInfo.samSectorY = (INT16) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "samHidden") == 0 && pData->curElement == SAMSITE_ELEMENT_SAM_HIDDEN )
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAM;
+
+			pData->curSamInfo.samHidden = (BOOLEAN)atol(pData->szCharData);
+		}
+		else if(strcmp(name, "samOrientation") == 0 && pData->curElement == SAMSITE_ELEMENT_SAM_ORIENTATION )
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAM;
+
+			pData->curSamInfo.samOrientation = (INT8)atol(pData->szCharData);
+			if ( pData->curSamInfo.samOrientation != 3 || pData->curSamInfo.samOrientation != 4 )
+			{
+				pData->curSamInfo.samOrientation = 3;
+			}
+		}
+		else if(strcmp(name, "samGridNoA") == 0 && pData->curElement == SAMSITE_ELEMENT_SAM_GRIDNO_A )
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAM;
+
+			pData->curSamInfo.samGridNoA = (INT16)atol(pData->szCharData);
+			if ( pData->curSamInfo.samGridNoA >= WORLD_MAX )
+			{
+				pData->curSamInfo.samGridNoA = 0;
+			}
+		}
+		else if(strcmp(name, "samGridNoB") == 0 && pData->curElement == SAMSITE_ELEMENT_SAM_GRIDNO_B )
+		{
+			pData->curElement = SAMSITE_ELEMENT_SAM;
+
+			pData->curSamInfo.samGridNoB = (INT16)atol(pData->szCharData);
+			if ( pData->curSamInfo.samGridNoB >= WORLD_MAX )
+			{
+				pData->curSamInfo.samGridNoB = 1;
+			}
+		}
+		pData->maxReadDepth--;
+	}
+
+	pData->currentDepth--;
+}
+
+BOOLEAN ReadInSAMInfo(STR fileName)
+{
+	HWFILE		hFile;
+	UINT32		uiBytesRead;
+	UINT32		uiFSize;
+	CHAR8 *		lpcBuffer;
+	XML_Parser	parser = XML_ParserCreate(NULL);
+	
+	samsiteParseData pData;
+
+
+
+	// Open weapons file
+	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
+	if ( !hFile )
+		return( FALSE );
+	
+	uiFSize = FileGetSize(hFile);
+	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);
+
+	//Read in block
+	if ( !FileRead( hFile, lpcBuffer, uiFSize, &uiBytesRead ) )
+	{
+		MemFree(lpcBuffer);
+		return( FALSE );
+	}
+
+	lpcBuffer[uiFSize] = 0; //add a null terminator
+
+	FileClose( hFile );
+
+	
+	XML_SetElementHandler(parser, samsiteStartElementHandle, samsiteEndElementHandle);
+	XML_SetCharacterDataHandler(parser, samsiteCharacterDataHandle);
+
+	
+	memset(&pData,0,sizeof(pData));
+	NUMBER_OF_SAMS = 0;
+	XML_SetUserData(parser, &pData);
+
+
+    if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
+	{
+		CHAR8 errorBuf[511];
+
+		sprintf(errorBuf, "XML Parser Error in SamSites.xml: %s at line %d", XML_ErrorString(XML_GetErrorCode(parser)), XML_GetCurrentLineNumber(parser));
+		LiveMessage(errorBuf);
+
+		MemFree(lpcBuffer);
+		return FALSE;
+	}
+
+	MemFree(lpcBuffer);
+
+	XML_ParserFree(parser);
+
+	return TRUE;
+}
+
+BOOLEAN WriteInSAMInfo(STR fileName)
+{
+	HWFILE		hFile;
+	
+	hFile = FileOpen( fileName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
+	if ( !hFile )
+		return( FALSE );
+	
+	{
+		UINT32 x, y;
+		INT8 cnt;
+
+
+		FilePrintf(hFile,"<SAM_INFO>\r\n");
+		FilePrintf(hFile,"\t<SAMLIST>\r\n");
+		for(cnt = 0; cnt < NUMBER_OF_SAMS; cnt++)
+		{
+			FilePrintf(hFile,"\t\t<SAM>\r\n");
+
+			FilePrintf(hFile,"\t\t\t<samIndex>%d</samIndex>\r\n",cnt+1);
+
+			FilePrintf(hFile,"\t\t\t<samSector>\r\n");
+			FilePrintf(hFile,"\t\t\t\t<x>%d</x>\r\n",(pSamList[cnt]%16)+1);
+			FilePrintf(hFile,"\t\t\t\t<y>%d</y>\r\n",(pSamList[cnt]/16)+1);
+			FilePrintf(hFile,"\t\t\t</samSector>\r\n");
+
+			FilePrintf(hFile,"\t\t\t<samHidden>%d</samHidden>\r\n", !fSamSiteFound[cnt] );
+
+			FilePrintf(hFile,"\t\t\t<samOrientation>%d</samOrientation>\r\n", gbSAMGraphicList[cnt] );
+
+			FilePrintf(hFile,"\t\t\t<samGridNoA>%d</samGridNoA>\r\n", pSamGridNoAList[cnt] );
+
+			FilePrintf(hFile,"\t\t\t<samGridNoB>%d</samGridNoB>\r\n", pSamGridNoBList[cnt] );
+
+			FilePrintf(hFile,"\t\t</SAM>\r\n");
+		}
+		FilePrintf(hFile,"\t</SAMLIST>\r\n");
+
+		FilePrintf(hFile,"\t<SAM_CONTROLLED_SECTORS>\r\n");
+		for(y = 0;y < MAP_WORLD_Y;y++)
+		{
+			FilePrintf(hFile,"\t\t<MAP_ROW row=\"%02d\">",y);
+			for(x = 0;x < MAP_WORLD_X;x++)
+			{
+				if(x < MAP_WORLD_X-1)
+				{
+					FilePrintf(hFile,"%2d ",ubSAMControlledSectors[y][x]);
+				}
+				else
+					FilePrintf(hFile,"%2d </MAP_ROW>\r\n",ubSAMControlledSectors[y][x]);
+			}
+		}	
+		FilePrintf(hFile,"\t</SAM_CONTROLLED_SECTORS>\r\n");
+		FilePrintf(hFile,"</SAM_INFO>\r\n");
+	}
+	FileClose( hFile );
+
+	return TRUE;
+}
+
+
+// town externalization stuff
+INT8 NUM_TOWNS;
+
+extern UINT8	gubTownRebelSentiment	[ MAX_TOWNS ];
+extern BOOLEAN	gfTownUsesLoyalty		[ MAX_TOWNS ];
+extern BOOLEAN	gfMilitiaAllowedInTown	[ MAX_TOWNS ];
+
 #define INVALID_TOWN_INDEX				-1
 
 typedef enum
@@ -1118,15 +1530,20 @@ UINT8 GetTownSectorsUnderControl( INT8 bTownId )
 
 void InitializeSAMSites( void )
 {
+	UINT32 cnt;
 	// move the landing zone over to Omerta
 	gsMercArriveSectorX = 9;
 	gsMercArriveSectorY = 1;
 
 	// all SAM sites start game in perfect working condition
-	StrategicMap[(SAM_1_X)+(MAP_WORLD_X*(SAM_1_Y))].bSAMCondition = 100;
-	StrategicMap[(SAM_2_X)+(MAP_WORLD_X*(SAM_2_Y))].bSAMCondition = 100;
-	StrategicMap[(SAM_3_X)+(MAP_WORLD_X*(SAM_3_Y))].bSAMCondition = 100;
-	StrategicMap[(SAM_4_X)+(MAP_WORLD_X*(SAM_4_Y))].bSAMCondition = 100;
+	for ( cnt = 0; cnt < NUMBER_OF_SAMS; cnt++ )
+	{
+		StrategicMap[ gpSamSectorX[cnt] + ( MAP_WORLD_X * gpSamSectorY[cnt] ) ].bSAMCondition = 100;
+	};
+	//StrategicMap[(SAM_1_X)+(MAP_WORLD_X*(SAM_1_Y))].bSAMCondition = 100;
+	//StrategicMap[(SAM_2_X)+(MAP_WORLD_X*(SAM_2_Y))].bSAMCondition = 100;
+	//StrategicMap[(SAM_3_X)+(MAP_WORLD_X*(SAM_3_Y))].bSAMCondition = 100;
+	//StrategicMap[(SAM_4_X)+(MAP_WORLD_X*(SAM_4_Y))].bSAMCondition = 100;
 
 	UpdateAirspaceControl( );
 }

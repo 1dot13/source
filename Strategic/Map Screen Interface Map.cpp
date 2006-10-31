@@ -413,8 +413,8 @@ POINT pTownPoints[13];/*={
 };
 */
 
-INT16 gpSamSectorX[] = { SAM_1_X, SAM_2_X, SAM_3_X, SAM_4_X };
-INT16 gpSamSectorY[] = { SAM_1_Y, SAM_2_Y, SAM_3_Y, SAM_4_Y };
+INT16 gpSamSectorX[ MAX_NUMBER_OF_SAMS ];// = { SAM_1_X, SAM_2_X, SAM_3_X, SAM_4_X };
+INT16 gpSamSectorY[ MAX_NUMBER_OF_SAMS ];// = { SAM_1_Y, SAM_2_Y, SAM_3_Y, SAM_4_Y };
 
 
 // WANNE 2 (reinitialization in "DrawMap()")
@@ -7064,15 +7064,16 @@ void HideExistenceOfUndergroundMapSector( UINT8 ubSectorX, UINT8 ubSectorY )
 
 void InitMapSecrets( void )
 {
-	UINT8 ubSamIndex;
+	//UINT8 ubSamIndex;
 
 	fFoundTixa = FALSE;
 	fFoundOrta = FALSE;
 
-	for( ubSamIndex = 0; ubSamIndex < NUMBER_OF_SAMS; ubSamIndex++ )
-	{
-		fSamSiteFound[ ubSamIndex ] = FALSE;
-	}
+	// Lesh: commented out for reason: now samsites.xml control sam hidden status
+	//for( ubSamIndex = 0; ubSamIndex < NUMBER_OF_SAMS; ubSamIndex++ )
+	//{
+	//	fSamSiteFound[ ubSamIndex ] = FALSE;
+	//}
 }
 
 

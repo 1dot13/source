@@ -362,6 +362,12 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	if ( !ReadInAltSectors(fileName) )
 		return FALSE;
 
+	// Lesh: load samsites - must be after cities.xml
+	strcpy(fileName, directoryName);
+	strcat(fileName, SAMSITESFILENAME);
+	if ( !ReadInSAMInfo(fileName) )
+		return FALSE;
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, EXPLOSIONDATAFILENAME);
     if(!ReadInExplosionDataStats(fileName))

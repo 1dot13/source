@@ -28,15 +28,16 @@ extern INT16	gWorldSectorX;
 extern INT16	gWorldSectorY;
 extern INT8		gbWorldSectorZ;
 
-#define NUMBER_OF_SAMS 4
- 
+// SAM definitions
+extern UINT8	NUMBER_OF_SAMS;
+#define MAX_NUMBER_OF_SAMS	4 
 
-extern INT16 pSamList[ NUMBER_OF_SAMS ];
-extern INT16 pSamGridNoAList[ NUMBER_OF_SAMS ];
-extern INT16 pSamGridNoBList[ NUMBER_OF_SAMS ];
+extern INT16 pSamList[ MAX_NUMBER_OF_SAMS ];
+extern INT16 pSamGridNoAList[ MAX_NUMBER_OF_SAMS ];
+extern INT16 pSamGridNoBList[ MAX_NUMBER_OF_SAMS ];
 
 extern BOOLEAN fFoundOrta;
-extern BOOLEAN fSamSiteFound[ NUMBER_OF_SAMS ];
+extern BOOLEAN fSamSiteFound[ MAX_NUMBER_OF_SAMS ];
 
 extern	BOOLEAN		gfUseAlternateMap;
 

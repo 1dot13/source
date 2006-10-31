@@ -68,7 +68,7 @@ BOOLEAN ExpAffect( INT16 sBombGridNo, INT16 sGridNo, UINT32 uiDist, UINT16 usIte
 // Flashbang effect on soldier
 UINT8 DetermineFlashbangEffect( SOLDIERTYPE *pSoldier, INT8 ubExplosionDir, BOOLEAN fInBuilding);
 
-extern INT8	 gbSAMGraphicList[ NUMBER_OF_SAMS ];
+extern INT8	 gbSAMGraphicList[ MAX_NUMBER_OF_SAMS ];
 extern  void AddToShouldBecomeHostileOrSayQuoteList( UINT8 ubID );
 extern void RecompileLocalMovementCostsForWall( INT16 sGridNo, UINT8 ubOrientation );
 void FatigueCharacter( SOLDIERTYPE *pSoldier );
