@@ -1,0 +1,112 @@
+<!--
+
+This file defines sam sites in game.
+
+Fields index:
+	samIndex 		- it is UNIQUE number of sam site, used in air control table (end of this xml).
+                          	  Value 0 is reserved and stands for "no air coverage here".
+	samSector		- it's simple. Sam site coordinates.
+	samHidden       	- defines whether sam site is hidden from player from the beginning
+				  of game. Changes in this field require starting a new game to take effect.
+			  	  Possible values: 0 - sam site is known and displayed, 1 - sam is hidden.
+	samOrientation    	- comment about this value in game sources signs: "Use 3 if / orientation,
+				  4 if \ orientation". But I didn't notice any difference between 3 and 4.
+				  Probably, this value in not used. Just provide 3 or 4 to this tag.
+	samGridNoA        	- OK. Here is needed some theory to explain these two fields ;)
+	samGridNoB		  It is known that every sam in game should have a control terminal
+				  (its a terminal with blue rectangle on screen and large yellow
+                                  region instead of keyboard). If player manages to destroy this
+                                  terminal, then sam site becomes non-functional. But elites can
+				  repair it, if they retake sam. So, it is needed to specify terminal
+				  position on the TACTICAL map. Terminal is two-tile object and can be
+				  placed on map in two directions (isometric view):
+
+				     1) #	2)  #		1) B       2)  B
+					 #	   #                A	      A
+
+				  Note, that I used A-B scheme to the right to show, where is GridNoA and
+				  GridNoB. GridNoA is always lower than GridNoB on the screen. So you need
+				  to grab terminal gridno's A and B via editor and write them down here.
+
+
+There is air control table at the end on this file.
+The numbers indicate what sam site controls air space of sector.
+Zero (0) means neither of sams control this sector.
+
+NOTE: Rows 0 and 17, and also columns 0 and 17 CANNOT BE USED.
+      It is world borders.
+
+Changes to samHidden or samSector tags require starting of a new game.
+Others not.
+
+-->
+<SAM_INFO>
+	<SAMLIST>
+		<SAM>
+			<samIndex>1</samIndex>
+			<samSector>
+				<x>2</x>
+				<y>4</y>
+			</samSector>
+			<samHidden>1</samHidden>
+			<samOrientation>4</samOrientation>
+			<samGridNoA>10196</samGridNoA>
+			<samGridNoB>10195</samGridNoB>
+		</SAM>
+		<SAM>
+			<samIndex>2</samIndex>
+			<samSector>
+				<x>15</x>
+				<y>4</y>
+			</samSector>
+			<samHidden>1</samHidden>
+			<samOrientation>3</samOrientation>
+			<samGridNoA>11295</samGridNoA>
+			<samGridNoB>11135</samGridNoB>
+		</SAM>
+		<SAM>
+			<samIndex>3</samIndex>
+			<samSector>
+				<x>8</x>
+				<y>9</y>
+			</samSector>
+			<samHidden>1</samHidden>
+			<samOrientation>3</samOrientation>
+			<samGridNoA>16080</samGridNoA>
+			<samGridNoB>15920</samGridNoB>
+		</SAM>
+		<SAM>
+			<samIndex>4</samIndex>
+			<samSector>
+				<x>4</x>
+				<y>14</y>
+			</samSector>
+			<samHidden>1</samHidden>
+			<samOrientation>3</samOrientation>
+			<samGridNoA>11913</samGridNoA>
+			<samGridNoB>11912</samGridNoB>
+		</SAM>
+	</SAMLIST>
+	<SAM_CONTROLLED_SECTORS>
+		<!-- Column index: 0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 -->
+		<!-- 									 -->
+		<MAP_ROW row="00"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </MAP_ROW>
+		<MAP_ROW row="01"> 0  1  1  1  1  1  1  1  1  0  0  2  2  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="02"> 0  1  1  1  1  1  1  1  1  2  2  2  2  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="03"> 0  1  1  1  1  1  1  1  3  2  2  2  2  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="04"> 0  1  1  1  1  1  1  1  3  3  2  2  2  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="05"> 0  1  1  1  1  1  1  3  3  3  3  2  2  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="06"> 0  1  1  1  1  1  3  3  3  3  3  3  2  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="07"> 0  1  1  1  1  3  3  3  3  3  3  3  3  2  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="08"> 0  1  1  1  3  3  3  3  3  3  3  3  3  3  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="09"> 0  1  1  3  3  3  3  3  3  3  3  3  3  3  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="10"> 0  1  4  4  4  3  3  3  3  3  3  3  3  3  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="11"> 0  4  4  4  4  4  3  3  3  3  3  3  3  3  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="12"> 0  4  4  4  4  4  4  3  3  3  3  3  3  3  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="13"> 0  4  4  4  4  4  4  4  3  3  3  3  3  3  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="14"> 0  4  4  4  4  4  4  4  4  4  4  4  4  4  2  2  2  0 </MAP_ROW>
+		<MAP_ROW row="15"> 0  4  4  4  4  4  4  4  4  4  4  4  4  4  4  2  2  0 </MAP_ROW>
+		<MAP_ROW row="16"> 0  4  4  4  4  4  4  4  4  4  4  4  4  4  4  4  2  0 </MAP_ROW>
+		<MAP_ROW row="17"> 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 </MAP_ROW>
+	</SAM_CONTROLLED_SECTORS>
+</SAM_INFO>
