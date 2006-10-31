@@ -291,6 +291,7 @@ UINT16 Message[][STRING_LENGTH] =
 	L"Tour des chats sauvages",
 	L"automatic",
 	L"no full auto",
+	L"No more items to steal!",
 };
 
 
@@ -4097,6 +4098,56 @@ STR16 gzLateLocalizedString[] =
   L"%s's armour attachment has been smashed!",
 	L"%s fires %d more rounds than intended!",
 	L"%s fires %d more round than intended!",
+};
+
+STR16 gzCWStrings[] = 
+{
+	L"Call reinforcements from adjacent sectors?",
+};
+
+// WANNE: Tooltips
+STR16 gzTooltipStrings[] =
+{
+	// Debug info
+	L"%s|Location: %d\n",
+	L"%s|Brightness: %d / %d\n",
+	L"%s|Range to |Target: %d\n",
+	L"%s|I|D: %d\n",
+	L"%s|Orders: %d\n",
+	L"%s|Attitude: %d\n",
+	L"%s|Current |A|Ps: %d\n",
+	L"%s|Current |Health: %d\n",
+	// Full info
+	L"%s|Helmet: %s\n",
+	L"%s|Vest: %s\n",
+	L"%s|Leggings: %s\n",
+	// Limited, Basic
+	L"|Armor: ",
+	L"Helmet",
+	L"Vest",
+	L"Leggings",
+	L"worn",
+	L"no Armor",
+	L"%s|N|V|G: %s\n",
+	L"no NVG",
+	L"%s|Gas |Mask: %s\n",
+	L"no Gas Mask",
+	L"%s|Head |Position |1: %s\n",
+	L"%s|Head |Position |2: %s\n",
+	L"\n(in Backpack) ",
+	L"%s|Weapon: %s ",
+	L"no Weapon",
+	L"Handgun",
+	L"SMG",
+	L"Rifle",
+	L"MG",
+	L"Shotgun",
+	L"Knife",
+	L"Heavy Weapon",
+	L"no Helmet",
+	L"no Vest",
+	L"no Leggings",
+	L"|Armor: %s\n", 
 };
 
 #endif //FRENCH

@@ -293,6 +293,7 @@ UINT16 Message[][STRING_LENGTH] =
 	L"genau",
 	L"ungenau",
 	L"kein Einzelschuss",
+	L"Es sind keine Gegenstände mehr zum Stehlen vorhanden!",
 };
 
 CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT] =
@@ -3347,7 +3348,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, wird Tracereffekt auch für Einzelschüsse angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, werden Regengeräusche hörbar falls es regnet.",
 	L"Wenn diese Funktion aktiviert ist, sind Krähen im Spiel vorhanden.",
-	L"Wenn diese Funktion aktiviert ist, erhalten B.S.E Charaktere zufällige Persönlichkeit und Einstellung.",
+	L"Wenn diese Funktion aktiviert ist, erhalten B.S.E Charaktere zufällige Persönlichkeit und Gesinnung.",
 	L"Wenn diese Funktion aktiviert ist, wird nach jeder Runde automatisch gespeichert.",
 };
 
@@ -3914,6 +3915,51 @@ STR16 gzLateLocalizedString[] =
 STR16 gzCWStrings[] = 
 {
 	L"Verstärkung von anliegenden Sektoren anfordern?",
+};
+
+// WANNE: Tooltips
+STR16 gzTooltipStrings[] =
+{
+	// Debug info
+	L"%s|Ort: %d\n",
+	L"%s|Helligkeit: %d / %d\n",
+	L"%s|Entfernung zum |Ziel: %d\n",
+	L"%s|I|D: %d\n",
+	L"%s|Befehle: %d\n",
+	L"%s|Gesinnung: %d\n",
+	L"%s|Aktuelle |A|Ps: %d\n",
+	L"%s|Aktuelle |Gesundheit: %d\n",
+	// Full info
+	L"%s|Helm: %s\n",
+	L"%s|Weste: %s\n",
+	L"%s|Hose: %s\n",
+	// Limited, Basic
+	L"|Rüstung: ",
+	L"Helm",
+	L"Weste",
+	L"Hose",
+	L"getragen",
+	L"keine Rüstung",
+	L"%s|N|V|G: %s\n",
+	L"kein NVG",
+	L"%s|Gasmaske: %s\n",
+	L"keine Gasmaske",
+	L"%s|Kopf |Position |1: %s\n",
+	L"%s|Kopf |Position |2: %s\n",
+	L"\n(im Rucksack) ",
+	L"%s|Waffe: %s ",
+	L"keine Waffe",
+	L"Pistole",
+	L"SMG",
+	L"Gewehr",
+	L"MG",
+	L"Schrotflinte",
+	L"Messer",
+	L"Schwere Waffe",
+	L"kein Helm",
+	L"keine Weste",
+	L"keine Hose",
+	L"|Rüstung: %s\n", 
 };
 
 #endif //GERMAN
