@@ -200,7 +200,7 @@ static UINT32 guiStructureHitChance[ MAX_DIST_FOR_LESS_THAN_MAX_CHANCE_TO_HIT_ST
 // MoveBullet and ChanceToGetThrough use this array to maintain which
 // of which structures in a tile might be hit by a bullet.
 
-#define MAX_LOCAL_STRUCTURES 20
+#define MAX_LOCAL_STRUCTURES 100
 
 STRUCTURE * gpLocalStructure[MAX_LOCAL_STRUCTURES];
 UINT32			guiLocalStructureCTH[MAX_LOCAL_STRUCTURES];
