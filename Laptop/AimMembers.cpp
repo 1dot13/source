@@ -1782,10 +1782,10 @@ INT8 AimMemberHireMerc()
 
 	//if we succesfully hired the merc
 	bReturnCode = HireMerc( &HireMercStruct );
-	if( bReturnCode == MERC_HIRE_OVER_20_MERCS_HIRED )
+	if( bReturnCode == MERC_HIRE_OVER_18_MERCS_HIRED )
 	{
-		//display a warning saying u cant hire more then 20 mercs
-		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_20_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+		//display a warning saying u cant hire more than 18 mercs
+		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_18_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 		return(FALSE);
 	}
 	else if( bReturnCode == MERC_HIRE_FAILED )
@@ -4167,10 +4167,10 @@ BOOLEAN QuickHireMerc()
 	SetFlagToForceHireMerc( TRUE );
 	bReturnCode = HireMerc( &HireMercStruct );
 	SetFlagToForceHireMerc( FALSE );
-	if( bReturnCode == MERC_HIRE_OVER_20_MERCS_HIRED )
+	if( bReturnCode == MERC_HIRE_OVER_18_MERCS_HIRED )
 	{
-		//display a warning saying u cant hire more then 20 mercs
-		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_20_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+		//display a warning saying u cant hire more than 18 mercs
+		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_18_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 		return(FALSE);
 	}
 	else if( bReturnCode == MERC_HIRE_FAILED )

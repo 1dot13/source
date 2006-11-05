@@ -1063,9 +1063,9 @@ UINT32 UIHandleNewMerc( UI_EVENT *pUIEvent )
 			{
 				ScreenMsg( FONT_ORANGE, MSG_BETAVERSION, L"Merc hire failed:  Either already hired or dislikes you." );
 			}
-			else if( bReturnCode == MERC_HIRE_OVER_20_MERCS_HIRED )
+			else if( bReturnCode == MERC_HIRE_OVER_18_MERCS_HIRED )
 			{
-				ScreenMsg( FONT_ORANGE, MSG_BETAVERSION, L"Can't hire more than 20 mercs." );
+				ScreenMsg( FONT_ORANGE, MSG_BETAVERSION, L"Can't hire more than 18 mercs." );
 			}
 			else
 			{

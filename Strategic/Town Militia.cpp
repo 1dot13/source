@@ -336,7 +336,7 @@ void StrategicPromoteMilitiaInSector(INT16 sMapX, INT16 sMapY, UINT8 ubCurrentRa
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 
 	// damn well better have that many around to promote!
-	Assert(pSectorInfo->ubNumberOfCivsAtLevel[ ubCurrentRank ] >= ubHowMany);
+	//Assert(pSectorInfo->ubNumberOfCivsAtLevel[ ubCurrentRank ] >= ubHowMany);
 
 	//KM : July 21, 1999 patch fix
 	if( pSectorInfo->ubNumberOfCivsAtLevel[ ubCurrentRank ] < ubHowMany )

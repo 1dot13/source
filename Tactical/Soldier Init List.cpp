@@ -2343,6 +2343,13 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 	UINT8 ubCurrSlot;
 	UINT8 ubTotalSoldiers;
 	UINT8 bDesiredDirection=0;
+
+	ubTotalSoldiers = ubNumGreen + ubNumReg + ubNumElites;
+
+	// WANNE: If we have no militia soldiers -> exit!
+	if (ubTotalSoldiers == 0)
+		return;
+
 	switch( ubStrategicInsertionCode )
 	{
 		case INSERTION_CODE_NORTH:	bDesiredDirection = SOUTHEAST;										break;
@@ -2354,8 +2361,6 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 	#ifdef JA2TESTVERSION
 		ScreenMsg( FONT_RED, MSG_INTERFACE, L"Militia reinforcements have arrived!  (%d admins, %d troops, %d elite)", ubNumGreen, ubNumReg, ubNumElites );
 	#endif
-
-	ubTotalSoldiers = ubNumGreen + ubNumReg + ubNumElites;
 
 	ChooseMapEdgepoints( &MapEdgepointInfo, ubStrategicInsertionCode, (UINT8)(ubNumGreen + ubNumReg + ubNumElites) );
 	ubCurrSlot = 0;

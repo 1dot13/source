@@ -383,16 +383,27 @@ void HandleTextEvent( UINT32 uiKey )
 void ProcessPlayerInputActivationString( void )
 {
   // prcess string to see if it matches activation string
-
-	if( NumberOfMercsOnPlayerTeam() >= 18 )		
-		return;
-
 	char charPlayerActivationString[32];
 	wcstombs(charPlayerActivationString,pPlayerActivationString,32);
+
+	BOOLEAN freeMercSlot = TRUE;
+
+	// WANNE: Check total number of hired mercs
+	if( NumberOfMercsOnPlayerTeam() >= 18 )	
+	{
+		freeMercSlot = FALSE;
+	}
 
 	//Madd multiple imps if( ( ( wcscmp(pPlayerActivationString, L"XEP624") == 0 ) || ( wcscmp(pPlayerActivationString, L"xep624") == 0 ) )&&( LaptopSaveInfo.fIMPCompletedFlag == FALSE ) &&( LaptopSaveInfo.gfNewGameLaptop < 2 ) )
 	if( ( ( wcscmp(pPlayerActivationString, L"XEP624") == 0 ) || ( wcscmp(pPlayerActivationString, L"xep624") == 0 ) ) &&( LaptopSaveInfo.gfNewGameLaptop < 2 ) )
 	{
+		// WANNE: Check total number of hired mercs
+		if( freeMercSlot == FALSE )	
+		{
+			DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_18_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+			return;
+		}
+
 		if (GetFilledIMPSlots(-1) < gGameExternalOptions.iMaxIMPCharacters)
 		{
 			// Kaiden: Need to reset skills, attributes and personalities with the new UB Method.
@@ -408,6 +419,13 @@ void ProcessPlayerInputActivationString( void )
 	//Madd multiple imps else if( ( wcscmp(pPlayerActivationString, L"90210") == 0 ) && ( LaptopSaveInfo.fIMPCompletedFlag == FALSE ) )
 	else if( wcscmp(pPlayerActivationString, L"90210") == 0 )
 	{
+		// WANNE: Check total number of hired mercs
+		if( freeMercSlot == FALSE )	
+		{
+			DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_18_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+			return;
+		}
+
 		if (GetFilledIMPSlots(-1) < gGameExternalOptions.iMaxIMPCharacters)
 		{
 			if (LoadImpCharacter( IMP_MERC_FILENAME ) == TRUE)
@@ -424,6 +442,13 @@ void ProcessPlayerInputActivationString( void )
 	// Madd: load characters by name
 	else if ( ImpExists( charPlayerActivationString ) )
 	{
+		// WANNE: Check total number of hired mercs
+		if( freeMercSlot == FALSE )	
+		{
+			DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, AimPopUpText[ AIM_MEMBER_ALREADY_HAVE_18_MERCS ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+			return;
+		}
+
 		if (GetFilledIMPSlots(-1) < gGameExternalOptions.iMaxIMPCharacters)
 		{
 			if (LoadImpCharacter( charPlayerActivationString ) == TRUE)

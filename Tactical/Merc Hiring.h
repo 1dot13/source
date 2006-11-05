@@ -7,7 +7,7 @@
 //
 // Used with the HireMerc function
 //
-#define		MERC_HIRE_OVER_20_MERCS_HIRED		-1
+#define		MERC_HIRE_OVER_18_MERCS_HIRED		-1
 #define		MERC_HIRE_FAILED								0
 #define		MERC_HIRE_OK										1
 

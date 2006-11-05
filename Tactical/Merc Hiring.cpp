@@ -92,7 +92,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 		return( MERC_HIRE_FAILED );
 
 	if( NumberOfMercsOnPlayerTeam() >= 18 )
-		return( MERC_HIRE_OVER_20_MERCS_HIRED );
+		return( MERC_HIRE_OVER_18_MERCS_HIRED );
 
 	// ATE: if we are to use landing zone, update to latest value
 	// they will be updated again just before arrival...
