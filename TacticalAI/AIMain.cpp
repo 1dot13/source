@@ -1177,6 +1177,10 @@ void ActionDone(SOLDIERTYPE *pSoldier)
 		}
 		*/
 
+		if ( pSoldier->bLastAction == AI_ACTION_RAISE_GUN )
+		{
+			HandleSight( pSoldier, SIGHT_LOOK );
+		}
 
 		// make sure pathStored is not left TRUE by accident.
 		// This is possible if we decide on an action that we have no points for

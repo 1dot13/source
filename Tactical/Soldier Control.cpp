@@ -2245,6 +2245,15 @@ BOOLEAN EVENT_InitNewSoldierAnim( SOLDIERTYPE *pSoldier, UINT16 usNewState, UINT
 	// Setup offset information for UI above guy
 	SetSoldierLocatorOffsets( pSoldier );
 
+	// Lesh: test fix visibility after raising gun
+	if ( ( gAnimControl[ pSoldier->usOldAniState ].uiFlags & ANIM_RAISE_WEAPON) && (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIREREADY) )
+	//equivalent if ( (pSoldier->usAnimState == AIM_RIFLE_PRONE) || (pSoldier->usAnimState == AIM_RIFLE_CROUCH) || (pSoldier->usAnimState == AIM_RIFLE_STAND) )
+	{
+		if ( (pSoldier->usOldAniState == READY_RIFLE_STAND) || (pSoldier->usOldAniState == READY_RIFLE_CROUCH) || (pSoldier->usOldAniState == READY_RIFLE_PRONE) )
+		{
+			HandleSight(pSoldier,SIGHT_LOOK);
+		}
+	}
 	// If our own guy...
 	if ( pSoldier->bTeam == gbPlayerNum )
 	{
