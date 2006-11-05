@@ -4475,8 +4475,9 @@ void DialogueMessageBoxCallBack( UINT8 ubExitValue )
 				{
 					if ( ubProfile == JOHN )
 					{
+						// WANNE: Bugfix: CTD when recruting John and Mary and there is only one place left in the team.
 						// Mary might be alive, and if so we need to ensure two places
-						pSoldier = FindSoldierByProfileID( MARY, TRUE );
+						pSoldier = FindSoldierByProfileID( MARY, FALSE );
 						if ( pSoldier && !PlayerTeamHasTwoSpotsLeft() )
 						{
 							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ CANNOT_RECRUIT_TEAM_FULL ] );							
