@@ -48,6 +48,8 @@ INT32 GlowColorsList[][3] ={
 // btn callbacks
 void BtnIMPAboutUsCallback(GUI_BUTTON *btn,INT32 reason);
 
+void ResetActivationStringTextBox(void);
+
 // position defines
 #define IMP_PLAYER_ACTIVATION_STRING_X LAPTOP_SCREEN_UL_X + 261
 #define IMP_PLAYER_ACTIVATION_STRING_Y LAPTOP_SCREEN_WEB_UL_Y + 336
@@ -306,7 +308,6 @@ void HandleTextEvent( UINT32 uiKey )
 {
    // this function checks to see if a letter or a backspace was pressed, if so, either put char to screen
 	 // or delete it
-
   switch( uiKey )
 	{
 	  case ( BACKSPACE ): 
@@ -430,6 +431,9 @@ void ProcessPlayerInputActivationString( void )
 		{
 			if (LoadImpCharacter( IMP_MERC_FILENAME ) == TRUE)
 			{
+				// Reset activation text box
+				ResetActivationStringTextBox();
+
 				//DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 11 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 				AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), PLAYER_GENERATED_CHARACTER_ID + LaptopSaveInfo.iVoiceId );
 			}
@@ -453,6 +457,9 @@ void ProcessPlayerInputActivationString( void )
 		{
 			if (LoadImpCharacter( charPlayerActivationString ) == TRUE)
 			{
+				// Reset activation text box
+				ResetActivationStringTextBox();
+				
 				//DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 11 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 				AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), PLAYER_GENERATED_CHARACTER_ID + LaptopSaveInfo.iVoiceId );
 			}
@@ -477,7 +484,20 @@ void ProcessPlayerInputActivationString( void )
 	return;
 }
 
+void ResetActivationStringTextBox(void)
+{
+	// Reset activation text box
+	for (int i = 0; i < iStringPos; i++)
+	{
+		pPlayerActivationString[i] = 0;
+	}
 
+	iStringPos = 0;
+	
+	uiCursorPosition = StringPixLength( pPlayerActivationString, FONT14ARIAL ) + IMP_PLAYER_ACTIVATION_STRING_X;
+	DisplayPlayerActivationString();
+	DisplayActivationStringCursor();
+}
 
 void CreateIMPHomePageButtons( void )
 {

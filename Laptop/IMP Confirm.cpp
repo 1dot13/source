@@ -811,6 +811,9 @@ BOOLEAN LoadImpCharacter( STR nickName )
 	}
 	else
 	{
+		// close file
+		FileClose(hFile);
+
 		// You cannot have more than 3 I.M.P characters with the same gender on your team.
 		DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 9 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 		return FALSE;
