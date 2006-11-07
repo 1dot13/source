@@ -7022,6 +7022,8 @@ void ItemPickMenuMouseMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 			if ( !bChecked )
 			{
+				// WANNE: There is a big bug in the stealing routine.
+				/*
 				// Show compatible ammo...
 				pTempItemPool = gItemPickupMenu.ItemPoolSlots[ gItemPickupMenu.bCurSelect - gItemPickupMenu.ubScrollAnchor ];
 
@@ -7041,6 +7043,8 @@ void ItemPickMenuMouseMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				// Nonomori: Fix crash caused by stealing ammo in a sector with no items loaded.
 				// HandleAnyMercInSquadHasCompatibleStuff( (INT8)CurrentSquad( ), &(gWorldItems[ pTempItemPool->iItemIndex ].o ), FALSE );
 				HandleAnyMercInSquadHasCompatibleStuff( (INT8)CurrentSquad( ), pCompAmmoObject, FALSE );
+				*/
+				
 
 				SetItemPickupMenuDirty( DIRTYLEVEL2 );
 

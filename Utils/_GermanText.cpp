@@ -293,7 +293,7 @@ UINT16 Message[][STRING_LENGTH] =
 	L"genau",
 	L"ungenau",
 	L"kein Einzelschuss",
-	L"Es sind keine Gegenstände mehr zum Stehlen vorhanden!",
+	L"Der Gegner besitzt keine Gegenstände mehr zum Stehlen!",
 };
 
 CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT] =

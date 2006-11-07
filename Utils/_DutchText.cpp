@@ -285,7 +285,7 @@ UINT16 Message[][STRING_LENGTH] =
 	L"Beurt bloodcats",
 	L"automatic",
 	L"no full auto",
-	L"No more items to steal!",
+	L"The enemy has no more items to steal!",	// WANNE
 };
 
 

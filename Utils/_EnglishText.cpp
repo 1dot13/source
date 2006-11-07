@@ -300,7 +300,7 @@ UINT16 Message[][STRING_LENGTH] =
 	L"accurate",
 	L"inaccurate",
 	L"no semi auto",
-	L"No more items to steal!",	// WANNE
+	L"The enemy has no more items to steal!",	// WANNE
 };
 
 

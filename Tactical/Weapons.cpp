@@ -2164,15 +2164,21 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, BOOLEAN fStea
 	UINT16							usOldItem;
 	UINT8								ubExpGain;
 	UINT8					ubIndexRet;
-	BOOLEAN					fFailure;
+	BOOLEAN					fFailure;		// no stealing occured
+	BOOLEAN					fNoMoreItems;	// The enemy has no more items to steal!
 	// Deduct points!
 	// August 13 2002: unless stealing - APs already deducted elsewhere
 
-//	if (!fStealing)
+	// Punch the enemy
+	if (!fStealing)
 	{
  		sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, FALSE, pSoldier->bAimTime );
-
 		DeductPoints( pSoldier, sAPCost, 0 );
+	}
+	// Steal from the enemy
+	else
+	{
+		// APs were already reduced!
 	}
 	
 	// See if a guy is here!
@@ -2188,6 +2194,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, BOOLEAN fStea
 
 		if (fStealing)
 		{
+			// Calculate the possible chance to steal!
 			if ( AM_A_ROBOT( pTargetSoldier ) || TANK( pTargetSoldier ) || CREATURE_OR_BLOODCAT( pTargetSoldier ) || TANK( pTargetSoldier ) )
 			{
 				iHitChance = 0;
@@ -2232,28 +2239,41 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, BOOLEAN fStea
 		// GET TARGET XY VALUES
 		ConvertGridNoToCenterCellXY( sTargetGridNo, &sXMapPos, &sYMapPos );
 
-if (fStealing )
+		// -----------------------------------
+		// Steal from the Enemy
+		// -----------------------------------
+		if (fStealing )
 		{
 			fFailure=FALSE;
-			if ( iDiceRoll <= iHitChance )
+
+			// Do we have luck on stealing?
+			if ( iDiceRoll <= iHitChance && iHitChance > 0 )
 			{
-				if ( pSoldier->bTeam == gbPlayerNum && pTargetSoldier->bTeam != gbPlayerNum && !(pTargetSoldier->uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pTargetSoldier ) && !TANK( pTargetSoldier ) )
-				{
-					// made a steal; give experience
-					StatChange( pSoldier, STRAMT, 8, FALSE );
-					StatChange( pSoldier, DEXTAMT, 3, FALSE );
-					StatChange( pSoldier, AGILAMT, 3, FALSE );
-				}
+				// Do we have the chance to steal more than 1 item?
 				if (( iDiceRoll <= iHitChance * 2 / 3) || (pTargetSoldier->bCollapsed))
 				{
-					if (StealItems(pSoldier, pTargetSoldier,&ubIndexRet) == 1)
+					INT16 sNumStolenItems = StealItems(pSoldier, pTargetSoldier,&ubIndexRet);
+
+					// We have only stolen 1 item, because the enemy has not more than one item.
+					if ( sNumStolenItems == 1)
 					{
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[ STR_STOLE_SOMETHING ], pSoldier->name, ShortItemNames[ pTargetSoldier->inv[ubIndexRet].usItem ] );
+						
+						// Try to place the item in the merc inventory
 						if (!AutoPlaceObject( pSoldier, &(pTargetSoldier->inv[ubIndexRet]), TRUE ))
+						{
+							// Place the item on the ground
 							AddItemToPool( pSoldier->sGridNo, &(pTargetSoldier->inv[HANDPOS]), 1, pSoldier->bLevel, 0, -1 );
+						}
 						DeleteObj( &(pTargetSoldier->inv[ubIndexRet]) );
 					}
+					// The enemy has no more items to steal
+					else if (sNumStolenItems == 0)
+					{
+						fNoMoreItems = TRUE;
+					}
 				}
+				// We had not much luck, so we can only steal 1 item.
 				else if ( pTargetSoldier->inv[HANDPOS].usItem != NOTHING )
 				{
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[ STR_STOLE_SOMETHING ], pSoldier->name, ShortItemNames[ pTargetSoldier->inv[HANDPOS].usItem ] );
@@ -2279,46 +2299,75 @@ if (fStealing )
 					// Reload buddy's animation...
 					ReLoadSoldierAnimationDueToHandItemChange( pTargetSoldier, usOldItem, NOTHING );
 				}
+				// Steal was successfull, but the enemy had nothing to steal (we had stolen the Nada item)
 				else
 				{
-					fFailure=TRUE;
+					fNoMoreItems = TRUE;
+					//fFailure=TRUE;
 				}
 				// Reload buddy's animation...
 				//ReLoadSoldierAnimationDueToHandItemChange( pTargetSoldier, usOldItem, NOTHING );
 			}
+			// We could not steal from the enemy, we had no luck
 			else
 			{
 				fFailure=TRUE;
 			}
+
+			// We failed to steal something!
 			if (fFailure)
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, 
-					Message[ STR_FAILED_TO_STEAL_SOMETHING ], 
-					pSoldier->name, ShortItemNames[ pTargetSoldier->inv[HANDPOS].usItem ] );
-				if ( pSoldier->bTeam == gbPlayerNum )
+				// Only report if it was not the Nada item!
+				if (pTargetSoldier->inv[HANDPOS].usItem != NOTHING)
 				{
-					DoMercBattleSound( pSoldier, BATTLE_SOUND_CURSE1 );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, 
+						Message[ STR_FAILED_TO_STEAL_SOMETHING ], 
+						pSoldier->name, ShortItemNames[ pTargetSoldier->inv[HANDPOS].usItem ] );
+					
+					if ( pSoldier->bTeam == gbPlayerNum )
+					{
+						DoMercBattleSound( pSoldier, BATTLE_SOUND_CURSE1 );
+					}
 				}
+			}
+			// The enemy had no more items to steal, or we had stolen the Nada item
+			if (fNoMoreItems == TRUE)
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, 
+					Message[ STR_NO_MORE_ITEMS_TO_STEAL ], 
+					pSoldier->name, ShortItemNames[ pTargetSoldier->inv[HANDPOS].usItem ] );
+			}
 
-				if ( iHitChance > 0 && pSoldier->bTeam == gbPlayerNum && pTargetSoldier->bTeam != gbPlayerNum && !(pTargetSoldier->uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pTargetSoldier ) && !TANK( pTargetSoldier ) )
-				{	
+			// Give some experience
+			if ( iHitChance > 0 && pSoldier->bTeam == gbPlayerNum && pTargetSoldier->bTeam != gbPlayerNum && !(pTargetSoldier->uiStatusFlags & SOLDIER_VEHICLE) && !AM_A_ROBOT( pTargetSoldier ) && !TANK( pTargetSoldier ) )
+			{
+				if (fFailure == FALSE)
+				{
+					// We were successfull in stealing. Give some experience
+					StatChange( pSoldier, STRAMT, 8, FALSE );
+					StatChange( pSoldier, DEXTAMT, 3, FALSE );
+					StatChange( pSoldier, AGILAMT, 3, FALSE );
+				}
+				else
+				{
 					// failed a steal; give some experience
 					StatChange( pSoldier, STRAMT, 4, FROM_FAILURE );
 					StatChange( pSoldier, DEXTAMT, 1, FROM_FAILURE );
 					StatChange( pSoldier, AGILAMT, 1, FROM_FAILURE );
 				}
-
 			}
 
 			#ifdef JA2BETAVERSION
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - steal") );
 			#endif
 			FreeUpAttacker( (UINT8) pSoldier->ubID );
-
 		}
+
+		// -----------------------------------
+		// Punch, Kick the Enemy
+		// -----------------------------------
 		else
 		{
-
 			// ATE/CC: if doing ninja spin kick (only), automatically make it a hit
 			if ( pSoldier->usAnimState == NINJA_SPINKICK)
 			{

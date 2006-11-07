@@ -2243,7 +2243,10 @@ INT8 GetAPsToStealItem( SOLDIERTYPE *pSoldier, INT16 usMapPos )
 {
 	UINT16						sAPCost = 0;
 
-	sAPCost = PlotPath( pSoldier, usMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
+	if (usMapPos != -1)
+	{
+		sAPCost = PlotPath( pSoldier, usMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
+	}
 
 	// ADD APS TO PICKUP
 	sAPCost += AP_STEAL_ITEM;
