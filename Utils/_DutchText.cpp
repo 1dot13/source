@@ -4141,8 +4141,8 @@ STR16 gzTooltipStrings[] =
 	L"%s|Leggings: %s\n",
 	// Limited, Basic
 	L"|Armor: ",
-	L"Helmet",
-	L"Vest",
+	L"Helmet ",
+	L"Vest ",
 	L"Leggings",
 	L"worn",
 	L"no Armor",

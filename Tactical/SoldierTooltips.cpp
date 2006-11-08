@@ -75,7 +75,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 
 				if ( !(Item[MercPtrs[gusSelectedSoldier]->inv[HEAD1POS].usItem].nightvisionrangebonus > 0) &&
 					 !(Item[MercPtrs[gusSelectedSoldier]->inv[HEAD2POS].usItem].nightvisionrangebonus > 0) &&
-					 !DayTime() )
+ 					 !DayTime() )
 				{
 					// if night reduce max tooltip viewing distance by a factor of 4 if merc is not wearing NVG
 					uiMaxTooltipDistance >>= 2;
@@ -99,6 +99,20 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 				}
 			} // fMercIsUsingScope is false
 		} // gGameExternalOptions.fEnableDynamicSoldierTooltips
+
+
+		// WANNE: Check if enemy soldier is in line of sight only if player has not chosen full or debug details
+		if ( ubTooltipDetailLevel < DL_Full)
+		{
+			// Get the current selected merc
+			SOLDIERTYPE* pMerc = MercPtrs[ gusSelectedSoldier ];
+			
+			if (ManLooksForMan(pMerc, pSoldier, 1) == FALSE)
+			{
+				// We do not see the enemy. Return and do not display the tooltip.
+				return;
+			}
+		}
 
 		swprintf( pStrInfo, L"" );
 		if ( ubTooltipDetailLevel == DL_Debug )

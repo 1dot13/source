@@ -7004,7 +7004,7 @@ void ItemPickupCancel( GUI_BUTTON *btn, INT32 reason )
 void ItemPickMenuMouseMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	UINT32					uiItemPos;
-	ITEM_POOL				*pTempItemPool;
+	//ITEM_POOL				*pTempItemPool;
 	INT32						bPos;
 	static					BOOLEAN	bChecked = FALSE;
 

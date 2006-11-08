@@ -3935,8 +3935,8 @@ STR16 gzTooltipStrings[] =
 	L"%s|Hose: %s\n",
 	// Limited, Basic
 	L"|Rüstung: ",
-	L"Helm",
-	L"Weste",
+	L"Helm ",
+	L"Weste ",
 	L"Hose",
 	L"getragen",
 	L"keine Rüstung",
