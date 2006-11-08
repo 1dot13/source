@@ -378,7 +378,7 @@ UINT32 guiMapBorderHeliSectors;
 BOOLEAN sBadSectorsList[ WORLD_MAP_X ][ WORLD_MAP_X ];
 
 
-INT16 sBaseSectorList[12];/*={
+INT16 sBaseSectorList[ MAX_TOWNS - 1 ];/*={
 	// NOTE: These co-ordinates must match the top left corner of the 3x3 town tiles cutouts in Interface/MilitiaMaps.sti!
 	SECTOR(  9, 1 ), // Omerta
 	SECTOR( 13, 2 ), // Drassen
@@ -396,7 +396,7 @@ INT16 sBaseSectorList[12];/*={
 
 // position of town names on the map
 // these are no longer PIXELS, but 10 * the X,Y position in SECTORS (fractions possible) to the X-CENTER of the town
-POINT pTownPoints[13];/*={
+POINT pTownPoints[ MAX_TOWNS ];/*={
 	{ 0 ,  0 },
 	{ 90, 10}, // Omerta
 	{125, 40}, // Drassen

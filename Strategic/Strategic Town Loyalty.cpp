@@ -106,8 +106,8 @@ TOWN_LOYALTY gTownLoyalty[ MAX_TOWNS ];
 
 
 // town name and locations arrays, for town theft and what not
-INT32 pTownNamesList[ 40 ];
-INT32 pTownLocationsList[ 40 ]; 
+INT32 pTownNamesList     [ MAX_TOWN_SECTORS ];
+INT32 pTownLocationsList [ MAX_TOWN_SECTORS ]; 
 
 INT32 iTownDistances[ MAX_TOWNS ][ MAX_TOWNS ];
 
