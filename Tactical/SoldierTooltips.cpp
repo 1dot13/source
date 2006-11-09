@@ -104,14 +104,13 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		} // gGameExternalOptions.fEnableDynamicSoldierTooltips
 
 
-		// WANNE: Check if enemy soldier is in line of sight only if player has not chosen full or debug details
-		if ( ubTooltipDetailLevel < DL_Full)
+		// WANNE: Check if enemy soldier is in line of sight but only if player has not choosen debug details
+		if ( ubTooltipDetailLevel < DL_Debug)
 		{
 			// Get the current selected merc
 			SOLDIERTYPE* pMerc = MercPtrs[ gusSelectedSoldier ];
 			
 			if ( pMerc->bOppList[pSoldier->ubID] != SEEN_CURRENTLY )
-			//if (ManLooksForMan(pMerc, pSoldier, 1) == FALSE)
 			{
 				// We do not see the enemy. Return and do not display the tooltip.
 				return;
