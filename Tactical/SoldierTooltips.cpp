@@ -27,6 +27,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 	extern void GetSoldierScreenRect(SOLDIERTYPE*,SGPRect*);
 	GetSoldierScreenRect( pSoldier,  &aRect );
 	INT16		a1,a2;
+	BOOLEAN		fDrawTooltip = FALSE;
 
 	if ( gfKeyState[ALT] && pSoldier &&
 		IsPointInScreenRectWithRelative( gusMouseXPos, gusMouseYPos, &aRect, &a1, &a2 ) )
@@ -41,6 +42,8 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		INT32		iRangeToTarget = 0;
 		UINT8		ubTooltipDetailLevel = gGameExternalOptions.ubSoldierTooltipDetailLevel;
 		UINT32		uiMaxTooltipDistance = gGameExternalOptions.ubStraightSightRange;
+
+		fDrawTooltip = TRUE;
 
 		// get the gridno the cursor is at
 		GetMouseMapPos( &sSoldierGridNo );
@@ -93,8 +96,8 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 				}
 				else
 				{
-					// beyond visual range, do not display tooltip if player has not chosen full or debug details
-					if ( ubTooltipDetailLevel < DL_Full )
+					// beyond visual range, do not display tooltip if player has not chosen debug details
+					if ( ubTooltipDetailLevel < DL_Debug )
 						return;
 				}
 			} // fMercIsUsingScope is false
@@ -107,7 +110,8 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 			// Get the current selected merc
 			SOLDIERTYPE* pMerc = MercPtrs[ gusSelectedSoldier ];
 			
-			if (ManLooksForMan(pMerc, pSoldier, 1) == FALSE)
+			if ( pMerc->bOppList[pSoldier->ubID] != SEEN_CURRENTLY )
+			//if (ManLooksForMan(pMerc, pSoldier, 1) == FALSE)
 			{
 				// We do not see the enemy. Return and do not display the tooltip.
 				return;
@@ -301,7 +305,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 			wcscpy( pRegion->FastHelpText, pStrInfo );
 	}
 
-	if ( gfKeyState[ ALT ] )
+	if ( gfKeyState[ ALT ] && fDrawTooltip )
 	{
 		DrawMouseTooltip();
 		SetRenderFlags( RENDER_FLAG_FULL );
