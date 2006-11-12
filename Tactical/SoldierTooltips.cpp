@@ -96,8 +96,8 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 				}
 				else
 				{
-					// beyond visual range, do not display tooltip if player has not chosen debug details
-					if ( ubTooltipDetailLevel < DL_Debug )
+					// beyond visual range, do not display tooltip if player has not chosen full or debug details
+					if ( ubTooltipDetailLevel < DL_Full )
 						return;
 				}
 			} // fMercIsUsingScope is false
@@ -105,7 +105,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 
 
 		// WANNE: Check if enemy soldier is in line of sight but only if player has not choosen debug details
-		if ( ubTooltipDetailLevel < DL_Debug)
+		if ( ubTooltipDetailLevel < DL_Full)
 		{
 			// Get the current selected merc
 			SOLDIERTYPE* pMerc = MercPtrs[ gusSelectedSoldier ];
