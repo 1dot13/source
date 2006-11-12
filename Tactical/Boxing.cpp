@@ -300,10 +300,15 @@ BOOLEAN CheckOnBoxers( void )
 		for( uiLoop = 0; uiLoop < NUM_BOXERS; uiLoop++ )
 		{
 			ubID = WhoIsThere2( gsBoxerGridNo[ uiLoop ], 0 );
-			if ( FindObjClass( MercPtrs[ ubID ], IC_WEAPON ) == NO_SLOT )
-			{	
-				// no weapon so this guy is a boxer
-				gubBoxerID[ uiLoop ] = ubID;
+
+			// WANNE: Safty check!
+			if (ubID < TOTAL_SOLDIERS)
+			{
+				if ( FindObjClass( MercPtrs[ ubID ], IC_WEAPON ) == NO_SLOT )
+				{	
+					// no weapon so this guy is a boxer
+					gubBoxerID[ uiLoop ] = ubID;
+				}
 			}
 		}
 	}
