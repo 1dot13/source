@@ -279,7 +279,7 @@ UINT16 Message[][STRING_LENGTH] =
 	L"Die Modifikation ist permanent. Weitermachen?",
 	L"%s fühlt sich frischer!",
 	L"%s ist auf Murmeln ausgerutscht!",
-	L"%s konnte %s nicht greifen!",
+	L"%s konnte %s aus der Hand des Feindes nicht stehlen!",
 	L"%s hat %s repariert",
 	L"Unterbrechung für ",
 	L"Ergeben?",
@@ -293,7 +293,8 @@ UINT16 Message[][STRING_LENGTH] =
 	L"genau",
 	L"ungenau",
 	L"kein Einzelschuss",
-	L"Der Gegner besitzt keine Gegenstände mehr zum Stehlen!",
+	L"Der Feind besitzt keine Gegenstände mehr zum Stehlen!",
+	L"Der Feind hat keinen Gegenstand in seiner Hand!", //WANNE
 };
 
 CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT] =
@@ -1884,7 +1885,7 @@ STR16 pMapErrorString[] =
 	L"Raketenstützpunkt in %s wurde erobert.",
 //16-20
 	L"Mine in %s wurde erobert. Ihre Tageseinnahmen wurden reduziert auf %s.",
-	L"Gegner hat Sektor %s ohne Gegenwehr erobert.",
+	L"Feind hat Sektor %s ohne Gegenwehr erobert.",
 	L"Mindestens ein Söldner konnte nicht eingeteilt werden.",
 	L"%s konnte sich nicht anschließen, weil %s voll ist", 
 	L"%s konnte sich %s nicht anschließen, weil er zu weit weg ist.", 

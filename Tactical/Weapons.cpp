@@ -2161,11 +2161,13 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, BOOLEAN fStea
 	INT16								sAPCost;
 	EV_S_WEAPONHIT			SWeaponHit;
 	INT32								iImpact;
-	UINT16							usOldItem;
+	UINT16							usOldItem, usNewItem;
 	UINT8								ubExpGain;
 	UINT8					ubIndexRet;
 	BOOLEAN					fFailure;		// no stealing occured
-	BOOLEAN					fNoMoreItems;	// The enemy has no more items to steal!
+	BOOLEAN					fNoMoreItems = FALSE;	// The enemy has no more items to steal!
+	BOOLEAN					fNoMoreItemInHand = FALSE;
+	BOOLEAN					fSoldierCollapsed = FALSE;
 	// Deduct points!
 	// August 13 2002: unless stealing - APs already deducted elsewhere
 
@@ -2207,6 +2209,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, BOOLEAN fStea
 			else if ( pTargetSoldier->bLife < OKLIFE || pTargetSoldier->bCollapsed )
 			{
 				iHitChance = 100;
+				fSoldierCollapsed = TRUE;
 			}
 			else
 			{
@@ -2252,6 +2255,9 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, BOOLEAN fStea
 				// Do we have the chance to steal more than 1 item?
 				if (( iDiceRoll <= iHitChance * 2 / 3) || (pTargetSoldier->bCollapsed))
 				{
+					// The item that the enemy holds in his hand before the stealing
+					usOldItem = pTargetSoldier->inv[HANDPOS].usItem;
+
 					INT16 sNumStolenItems = StealItems(pSoldier, pTargetSoldier,&ubIndexRet);
 
 					// We have only stolen 1 item, because the enemy has not more than one item.
@@ -2266,6 +2272,15 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, BOOLEAN fStea
 							AddItemToPool( pSoldier->sGridNo, &(pTargetSoldier->inv[HANDPOS]), 1, pSoldier->bLevel, 0, -1 );
 						}
 						DeleteObj( &(pTargetSoldier->inv[ubIndexRet]) );
+
+						// WANNE: NEW
+						// The item that the enemy holds in his hand before the stealing
+						usNewItem = pTargetSoldier->inv[HANDPOS].usItem;
+
+						if (usOldItem != usNewItem)
+						{	
+							ReLoadSoldierAnimationDueToHandItemChange(pTargetSoldier, usOldItem, usNewItem );
+						}
 					}
 					// The enemy has no more items to steal
 					else if (sNumStolenItems == 0)
@@ -2299,11 +2314,10 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, BOOLEAN fStea
 					// Reload buddy's animation...
 					ReLoadSoldierAnimationDueToHandItemChange( pTargetSoldier, usOldItem, NOTHING );
 				}
-				// Steal was successfull, but the enemy had nothing to steal (we had stolen the Nada item)
+				// Enemy has no item in his hand.
 				else
 				{
-					fNoMoreItems = TRUE;
-					//fFailure=TRUE;
+					fNoMoreItemInHand = TRUE;
 				}
 				// Reload buddy's animation...
 				//ReLoadSoldierAnimationDueToHandItemChange( pTargetSoldier, usOldItem, NOTHING );
@@ -2329,13 +2343,24 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, BOOLEAN fStea
 						DoMercBattleSound( pSoldier, BATTLE_SOUND_CURSE1 );
 					}
 				}
+				else
+				{
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, 
+					Message[ STR_NO_MORE_ITEM_IN_HAND ]); 
+				}
 			}
-			// The enemy had no more items to steal, or we had stolen the Nada item
-			if (fNoMoreItems == TRUE)
+			// Enemy had no item in its hand
+			else if (fNoMoreItemInHand == TRUE)
 			{
 				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, 
-					Message[ STR_NO_MORE_ITEMS_TO_STEAL ], 
-					pSoldier->name, ShortItemNames[ pTargetSoldier->inv[HANDPOS].usItem ] );
+					Message[ STR_NO_MORE_ITEM_IN_HAND ]); 
+			}
+
+			// The enemy has no more items to steal
+			else if (fNoMoreItems == TRUE)
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, 
+					Message[ STR_NO_MORE_ITEMS_TO_STEAL ]); 
 			}
 
 			// Give some experience

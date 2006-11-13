@@ -5319,31 +5319,70 @@ UINT8 StealItems(SOLDIERTYPE* pSoldier,SOLDIERTYPE* pOpponent, UINT8* ubIndexRet
 	ITEM_POOL	*pItemPool,*pTempItemPool,*pTempLastItemPool;
 	OBJECTTYPE	*pObject;	
 	UINT8		i;
+	BOOLEAN		fStealItem = FALSE;
 
 	//Create a temporary item pool, with index in Opponent's inventory as index
 	pItemPool=NULL;
 	for(i=0 ; i<NUM_INV_SLOTS; i++)
 	{
+		fStealItem = FALSE;
+
 		pObject=pOpponent->inv+i;
 		if (pObject->usItem!=0)
 		{
-			pTempItemPool = (ITEM_POOL*)MemAlloc(sizeof(ITEM_POOL));
-			++ubCount;
-			if (pItemPool == NULL)
+			// Is the enemy collapsed
+			if ( pOpponent->bLife < OKLIFE || pOpponent->bCollapsed )
 			{
-				pItemPool = pTempItemPool;
-				pItemPool->pPrev = NULL;
+				// We can steal any of his items in the inventory
+				fStealItem = TRUE;
 			}
 			else
 			{
-				pTempItemPool->pPrev = pTempLastItemPool;
-				pTempLastItemPool->pNext = pTempItemPool;
+				// Check, if we can steal the item
+				switch (i)
+				{
+					case HANDPOS:
+					case SECONDHANDPOS:
+					case BIGPOCK1POS:
+					case BIGPOCK2POS:
+					case BIGPOCK3POS:
+					case BIGPOCK4POS:
+					case SMALLPOCK1POS:
+					case SMALLPOCK2POS:
+					case SMALLPOCK3POS:
+					case SMALLPOCK4POS:
+					case SMALLPOCK5POS:
+					case SMALLPOCK6POS:
+					case SMALLPOCK7POS:
+					case SMALLPOCK8POS:
+						fStealItem = TRUE;
+						break;
+					default:
+						fStealItem = FALSE;
+						break;
+				}
 			}
-			pTempItemPool->pNext = NULL;
-			pTempItemPool->iItemIndex = i;
-			//very bad, jack, to test if we are stealing?
-			pTempItemPool->pLevelNode=NULL;//finally not used
-			pTempLastItemPool=pTempItemPool;
+
+			if (fStealItem == TRUE)
+			{
+				pTempItemPool = (ITEM_POOL*)MemAlloc(sizeof(ITEM_POOL));
+				++ubCount;
+				if (pItemPool == NULL)
+				{
+					pItemPool = pTempItemPool;
+					pItemPool->pPrev = NULL;
+				}
+				else
+				{
+					pTempItemPool->pPrev = pTempLastItemPool;
+					pTempLastItemPool->pNext = pTempItemPool;
+				}
+				pTempItemPool->pNext = NULL;
+				pTempItemPool->iItemIndex = i;
+				//very bad, jack, to test if we are stealing?
+				pTempItemPool->pLevelNode=NULL;//finally not used
+				pTempLastItemPool=pTempItemPool;
+			}
 		}
 	}
 	if (ubCount == 0)

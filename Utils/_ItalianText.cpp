@@ -285,6 +285,7 @@ UINT16 Message[][STRING_LENGTH] =
 	L"automatic",
 	L"no full auto",
 	L"The enemy has no more items to steal!",	// WANNE
+	L"The enemy has no item in its hand!", //WANNE
 };
 
 

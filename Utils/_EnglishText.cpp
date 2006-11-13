@@ -286,7 +286,7 @@ UINT16 Message[][STRING_LENGTH] =
 	L"This attachment will be permanent.  Go ahead with it?",
 	L"%s feels more energetic!",
 	L"%s slipped on some marbles!",
-	L"%s failed to grab the %s!",
+	L"%s failed to grab the %s from enemy's hand!",
 	L"%s has repaired the %s",
 	L"Interrupt for ",
 	L"Surrender?",
@@ -301,6 +301,7 @@ UINT16 Message[][STRING_LENGTH] =
 	L"inaccurate",
 	L"no semi auto",
 	L"The enemy has no more items to steal!",	// WANNE
+	L"The enemy has no item in its hand!", //WANNE
 };
 
 

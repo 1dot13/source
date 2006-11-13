@@ -6960,6 +6960,8 @@ void ItemPickupOK( GUI_BUTTON *btn, INT32 reason )
 			DeletePool(gItemPickupMenu.pItemPool);
 			if ((gpOpponent->inv[HANDPOS].usItem == NOTHING ) && (usLastItem!=NOTHING))
 				ReLoadSoldierAnimationDueToHandItemChange( gpOpponent, usLastItem, NOTHING );
+
+			PreventFromTheFreezingBug(gItemPickupMenu.pSoldier);
 		}
 		else
 		{
@@ -6992,6 +6994,8 @@ void ItemPickupCancel( GUI_BUTTON *btn, INT32 reason )
 		if (gfStealing)		//jackaians modif
 		{
 			DeletePool(gItemPickupMenu.pItemPool);
+
+			PreventFromTheFreezingBug(gItemPickupMenu.pSoldier);
 		}
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
