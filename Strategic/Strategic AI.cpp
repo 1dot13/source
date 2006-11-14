@@ -200,14 +200,17 @@ BOOLEAN gfUseAlternateQueenPosition = FALSE;
 #define SAI_PADDING_BYTES				97
 INT8		gbPadding[SAI_PADDING_BYTES];
 //patrol group info plus padding
-#define SAVED_PATROL_GROUPS			50
+#define SAVED_PATROL_GROUPS			MAX_PATROL_GROUPS
 PATROL_GROUP *gPatrolGroup			= NULL;
 //army composition info plus padding
-#define SAVED_ARMY_COMPOSITIONS	60
-ARMY_COMPOSITION gArmyComp[ NUM_ARMY_COMPOSITIONS ];
+#define SAVED_ARMY_COMPOSITIONS		MAX_ARMY_COMPOSITIONS
+ARMY_COMPOSITION gArmyComp[ MAX_ARMY_COMPOSITIONS ];
 //garrison info plus padding
-#define SAVED_GARRISON_GROUPS		100
+#define SAVED_GARRISON_GROUPS		MAX_GARRISON_GROUPS
 GARRISON_GROUP *gGarrisonGroup	= NULL;
+
+// 
+UINT8 NUM_ARMY_COMPOSITIONS;
 
 extern UINT8 gubNumGroupsArrivedSimultaneously;
 
@@ -239,158 +242,158 @@ extern BOOLEAN TeleportSoldier( SOLDIERTYPE *pSoldier, INT16 sGridNo, BOOLEAN fF
 
 //If you change the MAX_STRATEGIC_TEAM_SIZE, then all the garrison sizes (start, desired) will have to be changed accordingly.
 
-ARMY_COMPOSITION gOrigArmyComp[ NUM_ARMY_COMPOSITIONS ] = 
-{	//COMPOSITION				PRIORITY		ELITE%		TROOP%		ADMIN 		DESIRED#		START#		PADDING
-	//																								START%
-	QUEEN_DEFENCE,				100,			100,		0,			0,			32,				32,				{0,0,0,0,0,0,0,0,0,0},
-	MEDUNA_DEFENCE,				95,				55,			45,			0,			16,				20,				{0,0,0,0,0,0,0,0,0,0},
-	MEDUNA_SAMSITE,				96,				65,			35,			0,			20,				20,				{0,0,0,0,0,0,0,0,0,0},
-	LEVEL1_DEFENCE,				40,				20,			80,			0,			12,				20,				{0,0,0,0,0,0,0,0,0,0},
-	LEVEL2_DEFENCE,				30,				10,			90,			0,			10,				20,				{0,0,0,0,0,0,0,0,0,0},
-	LEVEL3_DEFENCE,				20,				5,			95,			0,			8,				20,				{0,0,0,0,0,0,0,0,0,0},
-	ORTA_DEFENCE,				90,				50,			50,			0,			18,				19,				{0,0,0,0,0,0,0,0,0,0},
-	EAST_GRUMM_DEFENCE,			80,				20,			80,			0,			15,				15,				{0,0,0,0,0,0,0,0,0,0},
-	WEST_GRUMM_DEFENCE,			70,				0,			100,		40,			15,				15,				{0,0,0,0,0,0,0,0,0,0},
-	GRUMM_MINE,					85,				25,			75,			45,			15,				15,				{0,0,0,0,0,0,0,0,0,0},
-	OMERTA_WELCOME_WAGON,		0,				0,			100,		0,			0,				3,				{0,0,0,0,0,0,0,0,0,0},
-	BALIME_DEFENCE,				60,				45,			55,			20,			10,				4,				{0,0,0,0,0,0,0,0,0,0},
-	TIXA_PRISON,				80,				10,			90,			15,			15,				15,				{0,0,0,0,0,0,0,0,0,0},
-	TIXA_SAMSITE,				85,				10,			90,			0,			12,				12,				{0,0,0,0,0,0,0,0,0,0},
-	ALMA_DEFENCE,				74,				15,			85,			0,			11,				20,				{0,0,0,0,0,0,0,0,0,0},
-	ALMA_MINE,					80,				20,			80,			45,			15,				20,				{0,0,0,0,0,0,0,0,0,0},
-	CAMBRIA_DEFENCE,			50,				0,			100,		30,			10,				6,				{0,0,0,0,0,0,0,0,0,0},
-	CAMBRIA_MINE,				60,				15,			90,			40,			11,				6,				{0,0,0,0,0,0,0,0,0,0},
-	CHITZENA_DEFENCE,			30,				0,			100,		75,			12,				10,				{0,0,0,0,0,0,0,0,0,0},
-	CHITZENA_MINE,				40,				0,			100,		75,			10,				10,				{0,0,0,0,0,0,0,0,0,0},
-	CHITZENA_SAMSITE,			75,				10,			90,			0,			9,				9,				{0,0,0,0,0,0,0,0,0,0},
-	DRASSEN_AIRPORT,			30,				0,			100,		85,			12,				10,				{0,0,0,0,0,0,0,0,0,0},
-	DRASSEN_DEFENCE,			20,				0,			100,		80,			10,				8,				{0,0,0,0,0,0,0,0,0,0},
-	DRASSEN_MINE,				35,				0,			100,		75,			11,				9,				{0,0,0,0,0,0,0,0,0,0},
-	DRASSEN_SAMSITE,			50,				0,			100,		0,			10,				10,				{0,0,0,0,0,0,0,0,0,0},
-	ROADBLOCK,					20,				2,			98,			0,			8,				0,				{0,0,0,0,0,0,0,0,0,0},
-	SANMONA_SMALL,				0,				0,			0,			0,			0,				0,				{0,0,0,0,0,0,0,0,0,0},			
-};
+ARMY_COMPOSITION gOrigArmyComp[ MAX_ARMY_COMPOSITIONS ];// = 
+//{	//COMPOSITION				PRIORITY		ELITE%		TROOP%		ADMIN 		DESIRED#		START#		PADDING
+//	//																								START%
+//	QUEEN_DEFENCE,				100,			100,		0,			0,			32,				32,				{0,0,0,0,0,0,0,0,0,0},
+//	MEDUNA_DEFENCE,				95,				55,			45,			0,			16,				20,				{0,0,0,0,0,0,0,0,0,0},
+//	MEDUNA_SAMSITE,				96,				65,			35,			0,			20,				20,				{0,0,0,0,0,0,0,0,0,0},
+//	LEVEL1_DEFENCE,				40,				20,			80,			0,			12,				20,				{0,0,0,0,0,0,0,0,0,0},
+//	LEVEL2_DEFENCE,				30,				10,			90,			0,			10,				20,				{0,0,0,0,0,0,0,0,0,0},
+//	LEVEL3_DEFENCE,				20,				5,			95,			0,			8,				20,				{0,0,0,0,0,0,0,0,0,0},
+//	ORTA_DEFENCE,				90,				50,			50,			0,			18,				19,				{0,0,0,0,0,0,0,0,0,0},
+//	EAST_GRUMM_DEFENCE,			80,				20,			80,			0,			15,				15,				{0,0,0,0,0,0,0,0,0,0},
+//	WEST_GRUMM_DEFENCE,			70,				0,			100,		40,			15,				15,				{0,0,0,0,0,0,0,0,0,0},
+//	GRUMM_MINE,					85,				25,			75,			45,			15,				15,				{0,0,0,0,0,0,0,0,0,0},
+//	OMERTA_WELCOME_WAGON,		0,				0,			100,		0,			0,				3,				{0,0,0,0,0,0,0,0,0,0},
+//	BALIME_DEFENCE,				60,				45,			55,			20,			10,				4,				{0,0,0,0,0,0,0,0,0,0},
+//	TIXA_PRISON,				80,				10,			90,			15,			15,				15,				{0,0,0,0,0,0,0,0,0,0},
+//	TIXA_SAMSITE,				85,				10,			90,			0,			12,				12,				{0,0,0,0,0,0,0,0,0,0},
+//	ALMA_DEFENCE,				74,				15,			85,			0,			11,				20,				{0,0,0,0,0,0,0,0,0,0},
+//	ALMA_MINE,					80,				20,			80,			45,			15,				20,				{0,0,0,0,0,0,0,0,0,0},
+//	CAMBRIA_DEFENCE,			50,				0,			100,		30,			10,				6,				{0,0,0,0,0,0,0,0,0,0},
+//	CAMBRIA_MINE,				60,				15,			90,			40,			11,				6,				{0,0,0,0,0,0,0,0,0,0},
+//	CHITZENA_DEFENCE,			30,				0,			100,		75,			12,				10,				{0,0,0,0,0,0,0,0,0,0},
+//	CHITZENA_MINE,				40,				0,			100,		75,			10,				10,				{0,0,0,0,0,0,0,0,0,0},
+//	CHITZENA_SAMSITE,			75,				10,			90,			0,			9,				9,				{0,0,0,0,0,0,0,0,0,0},
+//	DRASSEN_AIRPORT,			30,				0,			100,		85,			12,				10,				{0,0,0,0,0,0,0,0,0,0},
+//	DRASSEN_DEFENCE,			20,				0,			100,		80,			10,				8,				{0,0,0,0,0,0,0,0,0,0},
+//	DRASSEN_MINE,				35,				0,			100,		75,			11,				9,				{0,0,0,0,0,0,0,0,0,0},
+//	DRASSEN_SAMSITE,			50,				0,			100,		0,			10,				10,				{0,0,0,0,0,0,0,0,0,0},
+//	ROADBLOCK,					20,				2,			98,			0,			8,				0,				{0,0,0,0,0,0,0,0,0,0},
+//	SANMONA_SMALL,				0,				0,			0,			0,			0,				0,				{0,0,0,0,0,0,0,0,0,0},			
+//};
 
 //Patrol definitions
 //NOTE:	  A point containing 0 is actually the same as SEC_A1, but because nobody is using SEC_A1 in any 
 //				of the patrol groups, I am coding 0 to be ignored.
 //NOTE:		Must have at least two points.
-PATROL_GROUP gOrigPatrolGroup[] =	
-{ //SIZE	PRIORITY	POINT1		POINT2		POINT3		POINT4		MOD 		GROUPID	WEIGHT	PENDING		
-	//																												DAY100									GROUP ID
-	8,			40,				SEC_B1,		SEC_C1,		SEC_C3,		SEC_A3,		-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	6,			35,				SEC_B4,		SEC_B7,		SEC_C7,		0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	6,			25,				SEC_A8,		SEC_B8,		SEC_B9,		0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	6,			30,				SEC_B10,	SEC_B12,	0,				0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	7,			45,				SEC_A11,	SEC_A14,	SEC_D14,	0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	//5	
-	6,			50,				SEC_C8,		SEC_C9,		SEC_D9,		0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	12,			55,				SEC_D3,		SEC_G3,		0,				0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	10,			50,				SEC_D6,		SEC_D7,		SEC_F7,		0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	10,			55,				SEC_E8,		SEC_E11,	SEC_F11,	0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	10,			60,				SEC_E12,	SEC_E15,	0,				0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	//10
-	12,			60,				SEC_G4,		SEC_G7,		0,				0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	12,			65,				SEC_G10,	SEC_G12,	SEC_F12,	0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	12,			65,				SEC_G13,	SEC_G15,	0,				0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	10,			65,				SEC_H15,	SEC_J15,	0,				0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	14,			65,				SEC_H12,	SEC_J12,	SEC_J13,	0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	//15
-	13,			70,				SEC_H9,		SEC_I9,		SEC_I10,	SEC_J10,	-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	11,			70,				SEC_K11,	SEC_K14,	SEC_J14,	0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	12,			75,				SEC_J2,		SEC_K2,		0,				0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	12,			80,				SEC_I3,		SEC_J3,		0,				0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	12,			80,				SEC_J6,		SEC_K6,		0,				0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	//20
-	13,			85,				SEC_K7,		SEC_K10,	0,				0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	12,			90,				SEC_L10,	SEC_M10,	0,				0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	12,			90,				SEC_N9,		SEC_N10,	0,				0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	12,			80,				SEC_L7,		SEC_L8,		SEC_M8,		SEC_M9,		-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	14,			80,				SEC_H4,		SEC_H5,		SEC_I5,		0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	//25
-	7,			40,				SEC_D4,		SEC_E4,		SEC_E5,		0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	7,			50,				SEC_C10,	SEC_C11,	SEC_D11,	SEC_D12,	-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	8,			40,				SEC_A15,	SEC_C15,	SEC_C16,	0,				-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	12,			30,				SEC_L13,	SEC_M13,	SEC_M14,	SEC_L14,	-1,			0,			0,			0,				{0,0,0,0,0,0,0,0,0,0},
-	//29
-};
-#define PATROL_GROUPS 29
+PATROL_GROUP gOrigPatrolGroup[MAX_PATROL_GROUPS];// =	
+//{ //SIZE	PRIORITY	POINT1		POINT2		POINT3		POINT4		MOD 	GROUPID	WEIGHT	PENDING		
+//	//																	DAY100					GROUP ID
+//	8,		40,			SEC_B1,		SEC_C1,		SEC_C3,		SEC_A3,		-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	6,		35,			SEC_B4,		SEC_B7,		SEC_C7,		0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	6,		25,			SEC_A8,		SEC_B8,		SEC_B9,		0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	6,		30,			SEC_B10,	SEC_B12,	0,			0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	7,		45,			SEC_A11,	SEC_A14,	SEC_D14,	0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	//5	
+//	6,		50,			SEC_C8,		SEC_C9,		SEC_D9,		0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	12,		55,			SEC_D3,		SEC_G3,		0,			0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	10,		50,			SEC_D6,		SEC_D7,		SEC_F7,		0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	10,		55,			SEC_E8,		SEC_E11,	SEC_F11,	0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	10,		60,			SEC_E12,	SEC_E15,	0,			0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	//10
+//	12,		60,			SEC_G4,		SEC_G7,		0,			0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	12,		65,			SEC_G10,	SEC_G12,	SEC_F12,	0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	12,		65,			SEC_G13,	SEC_G15,	0,			0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	10,		65,			SEC_H15,	SEC_J15,	0,			0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	14,		65,			SEC_H12,	SEC_J12,	SEC_J13,	0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	//15
+//	13,		70,			SEC_H9,		SEC_I9,		SEC_I10,	SEC_J10,	-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	11,		70,			SEC_K11,	SEC_K14,	SEC_J14,	0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	12,		75,			SEC_J2,		SEC_K2,		0,			0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	12,		80,			SEC_I3,		SEC_J3,		0,			0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	12,		80,			SEC_J6,		SEC_K6,		0,			0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	//20
+//	13,		85,			SEC_K7,		SEC_K10,	0,			0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	12,		90,			SEC_L10,	SEC_M10,	0,			0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	12,		90,			SEC_N9,		SEC_N10,	0,			0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	12,		80,			SEC_L7,		SEC_L8,		SEC_M8,		SEC_M9,		-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	14,		80,			SEC_H4,		SEC_H5,		SEC_I5,		0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	//25
+//	7,		40,			SEC_D4,		SEC_E4,		SEC_E5,		0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	7,		50,			SEC_C10,	SEC_C11,	SEC_D11,	SEC_D12,	-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	8,		40,			SEC_A15,	SEC_C15,	SEC_C16,	0,			-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	12,		30,			SEC_L13,	SEC_M13,	SEC_M14,	SEC_L14,	-1,		0,		0,		0,				{0,0,0,0,0,0,0,0,0,0},
+//	//29
+//};
+//#define PATROL_GROUPS 29
 
 
 
-GARRISON_GROUP gOrigGarrisonGroup[] = 
-{ //SECTOR	MILITARY								WEIGHT	UNUSED
-	//				COMPOSITION											GROUP ID
-	SEC_P3,		QUEEN_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_O3,		MEDUNA_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_O4,		MEDUNA_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_N3,		MEDUNA_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_N4,		MEDUNA_SAMSITE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	//5
-	SEC_N5,		MEDUNA_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_M3,		LEVEL1_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_M4,		LEVEL1_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_M5,		LEVEL1_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_N6,		LEVEL1_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	//10
-	SEC_M2,		LEVEL2_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_L3,		LEVEL2_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_L4,		LEVEL2_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_L5,		LEVEL2_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_M6,		LEVEL2_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	//15
-	SEC_N7,		LEVEL1_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_L2,		LEVEL3_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_K3,		LEVEL3_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_K5,		LEVEL3_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_L6,		LEVEL3_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	//20
-	SEC_M7,		LEVEL3_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_N8,		LEVEL3_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_K4,		ORTA_DEFENCE,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_G1,		WEST_GRUMM_DEFENCE,			0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_G2,		EAST_GRUMM_DEFENCE,			0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	//25
-	SEC_H1,		WEST_GRUMM_DEFENCE,			0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_H2,		EAST_GRUMM_DEFENCE,			0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_H3,		GRUMM_MINE,							0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_A9,		OMERTA_WELCOME_WAGON,		0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_L11,	BALIME_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	//30
-	SEC_L12,	BALIME_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_J9,		TIXA_PRISON,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_I8,		TIXA_SAMSITE,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_H13,	ALMA_DEFENCE,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_H14,	ALMA_DEFENCE,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	//35
-	SEC_I13,	ALMA_DEFENCE,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_I14,	ALMA_MINE,							0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_F8,		CAMBRIA_DEFENCE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_F9,		CAMBRIA_DEFENCE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_G8,		CAMBRIA_DEFENCE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	//40
-	SEC_G9,		CAMBRIA_DEFENCE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_H8,		CAMBRIA_MINE,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_A2,		CHITZENA_DEFENCE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_B2,		CHITZENA_MINE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_D2,		CHITZENA_SAMSITE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	//45
-	SEC_B13,	DRASSEN_AIRPORT,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_C13,	DRASSEN_DEFENCE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_D13,	DRASSEN_MINE,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_D15,	DRASSEN_SAMSITE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_G12,	ROADBLOCK,							0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	//50
-	SEC_M10,	ROADBLOCK,							0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_G6,		ROADBLOCK,							0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_C9,		ROADBLOCK,							0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_K10,	ROADBLOCK,							0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_G7,		ROADBLOCK,							0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	//55
-	SEC_G3,		ROADBLOCK,							0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	SEC_C5,		SANMONA_SMALL,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
-	//57
-};
+GARRISON_GROUP gOrigGarrisonGroup[MAX_GARRISON_GROUPS];// = 
+//{   //SECTOR	MILITARY						WEIGHT					UNUSED
+//	//			COMPOSITION						GROUP ID
+//	SEC_P3,		QUEEN_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_O3,		MEDUNA_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_O4,		MEDUNA_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_N3,		MEDUNA_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_N4,		MEDUNA_SAMSITE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	//5
+//	SEC_N5,		MEDUNA_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_M3,		LEVEL1_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_M4,		LEVEL1_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_M5,		LEVEL1_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_N6,		LEVEL1_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	//10
+//	SEC_M2,		LEVEL2_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_L3,		LEVEL2_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_L4,		LEVEL2_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_L5,		LEVEL2_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_M6,		LEVEL2_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	//15
+//	SEC_N7,		LEVEL1_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_L2,		LEVEL3_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_K3,		LEVEL3_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_K5,		LEVEL3_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_L6,		LEVEL3_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	//20
+//	SEC_M7,		LEVEL3_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_N8,		LEVEL3_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_K4,		ORTA_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_G1,		WEST_GRUMM_DEFENCE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_G2,		EAST_GRUMM_DEFENCE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	//25
+//	SEC_H1,		WEST_GRUMM_DEFENCE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_H2,		EAST_GRUMM_DEFENCE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_H3,		GRUMM_MINE,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_A9,		OMERTA_WELCOME_WAGON,			0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_L11,	BALIME_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	//30
+//	SEC_L12,	BALIME_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_J9,		TIXA_PRISON,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_I8,		TIXA_SAMSITE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_H13,	ALMA_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_H14,	ALMA_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	//35
+//	SEC_I13,	ALMA_DEFENCE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_I14,	ALMA_MINE,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_F8,		CAMBRIA_DEFENCE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_F9,		CAMBRIA_DEFENCE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_G8,		CAMBRIA_DEFENCE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	//40
+//	SEC_G9,		CAMBRIA_DEFENCE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_H8,		CAMBRIA_MINE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_A2,		CHITZENA_DEFENCE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_B2,		CHITZENA_MINE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_D2,		CHITZENA_SAMSITE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	//45
+//	SEC_B13,	DRASSEN_AIRPORT,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_C13,	DRASSEN_DEFENCE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_D13,	DRASSEN_MINE,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_D15,	DRASSEN_SAMSITE,				0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_G12,	ROADBLOCK,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	//50
+//	SEC_M10,	ROADBLOCK,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_G6,		ROADBLOCK,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_C9,		ROADBLOCK,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_K10,	ROADBLOCK,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_G7,		ROADBLOCK,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	//55
+//	SEC_G3,		ROADBLOCK,						0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	SEC_C5,		SANMONA_SMALL,					0,			0,			{0,0,0,0,0,0,0,0,0,0},
+//	//57
+//};
 
 //Various decision functions and utils to help make those decisions.
 BOOLEAN AdjacentSectorIsImportantAndUndefended( UINT8 ubSectorID );
@@ -1044,9 +1047,8 @@ void InitStrategicAI()
 	GROUP *pGroup;
 	UINT8 ubNumTroops;
 	INT32 iPercentElitesBonus;
-
 	INT32 iMaxEnemyGroupSize = gGameExternalOptions.iMaxEnemyGroupSize;
-DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic3");
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic3");
 
 	//Initialize the basic variables.
 
@@ -1054,8 +1056,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic3");
 	gbPadding2[1]						= 0;
 	gbPadding2[2]						= 0;
 	gfExtraElites						= FALSE;	
-	giGarrisonArraySize			= 0;
-	giPatrolArraySize				= 0;
+	//giGarrisonArraySize			= 0;	// Lesh: already counted from xml
+	//giPatrolArraySize				= 0;	// Lesh: already counted from xml
 	giForcePercentage				= 0;	
 	giArmyAlertness					= 0;	
 	giArmyAlertnessDecay		= 0;	
@@ -1164,7 +1166,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic3");
 			}
 			else
 			{
-				for( i = 0; i <= NUM_ARMY_COMPOSITIONS; i++ )
+				for( i = 0; i < NUM_ARMY_COMPOSITIONS; i++ )
 				{
 					if ( i != OMERTA_WELCOME_WAGON )
 					{
@@ -1177,7 +1179,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic3");
 			}
 			break;
 		case DIF_LEVEL_HARD:
-			for( i = 0; i <= NUM_ARMY_COMPOSITIONS; i++ )
+			for( i = 0; i < NUM_ARMY_COMPOSITIONS; i++ )
 			{
 				if ( i != OMERTA_WELCOME_WAGON )
 				{
@@ -1188,7 +1190,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic3");
 				}
 			}
 		case DIF_LEVEL_INSANE:
-			for( i = 0; i <= NUM_ARMY_COMPOSITIONS; i++ )
+			for( i = 0; i < NUM_ARMY_COMPOSITIONS; i++ )
 			{
 				if ( i != OMERTA_WELCOME_WAGON )
 				{
@@ -1201,7 +1203,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic3");
 			break;
 	}
 	//initialize the patrol group definitions
-	giPatrolArraySize = sizeof( gOrigPatrolGroup ) / sizeof( PATROL_GROUP );
+	// Lesh: giPatrolArraySize already calculated while reading xml
+	//giPatrolArraySize = sizeof( gOrigPatrolGroup ) / sizeof( PATROL_GROUP );
 	if( !gPatrolGroup )
 	{ //Allocate it (otherwise, we just overwrite it because the size never changes)
 		gPatrolGroup = (PATROL_GROUP*)MemAlloc( sizeof( gOrigPatrolGroup ) );
@@ -1213,7 +1216,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic3");
 	memset( gubPatrolReinforcementsDenied, 0, giPatrolArraySize );
 
 	//initialize the garrison group definitions
-	giGarrisonArraySize = sizeof( gOrigGarrisonGroup ) / sizeof( GARRISON_GROUP );
+	// Lesh: giGarrisonArraySize already calculated while reading xml
+	//giGarrisonArraySize = sizeof( gOrigGarrisonGroup ) / sizeof( GARRISON_GROUP );
 	if( !gGarrisonGroup )
 	{
 		gGarrisonGroup = (GARRISON_GROUP*)MemAlloc( sizeof( gOrigGarrisonGroup ) );
@@ -1404,11 +1408,17 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic3");
 		//}
 	}
 
+	// Lesh: new declaration of sam sites
+	for (i=0; i < NUMBER_OF_SAMS; i++)
+	{
+		SectorInfo[ pSamList[i] ].uiFlags |= SF_SAM_SITE;
+	}
+
 	//Setup the flags for the four sam sites.
-	SectorInfo[SEC_D2].uiFlags |= SF_SAM_SITE;
-	SectorInfo[SEC_D15].uiFlags |= SF_SAM_SITE;
-	SectorInfo[SEC_I8].uiFlags |= SF_SAM_SITE;
-	SectorInfo[SEC_N4].uiFlags |= SF_SAM_SITE;
+	//SectorInfo[SEC_D2].uiFlags |= SF_SAM_SITE;
+	//SectorInfo[SEC_D15].uiFlags |= SF_SAM_SITE;
+	//SectorInfo[SEC_I8].uiFlags |= SF_SAM_SITE;
+	//SectorInfo[SEC_N4].uiFlags |= SF_SAM_SITE;
 
 	//final thing to do is choose 1 cache map out of 5 possible maps.  Simply select the sector randomly,
 	//set up the flags to use the alternate map, then place 8-12 regular troops there (no ai though).
@@ -3803,8 +3813,8 @@ void EvolveQueenPriorityPhase( BOOLEAN fForceChange )
 	INT32 i, index, num, iFactor;
 	INT32 iChange, iNew, iNumSoldiers, iNumPromotions;
 	SECTORINFO *pSector;
-	UINT8 ubOwned[ NUM_ARMY_COMPOSITIONS ];
-	UINT8 ubTotal[ NUM_ARMY_COMPOSITIONS ];
+	UINT8 ubOwned[ MAX_ARMY_COMPOSITIONS ];
+	UINT8 ubTotal[ MAX_ARMY_COMPOSITIONS ];
 	UINT8 ubNewPhase;
 	ubNewPhase = CurrentPlayerProgressPercentage() / 10;
 	INT32 iMaxEnemyGroupSize = gGameExternalOptions.iMaxEnemyGroupSize;
@@ -3841,8 +3851,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic7");
 	//are controlled by her, the desired number will be increased as well as the priority.  On the other
 	//hand, if she doesn't own those sectors, the values will be decreased instead.  All values are based off of
 	//the originals.
-	memset( ubOwned, 0, NUM_ARMY_COMPOSITIONS );
-	memset( ubTotal, 0, NUM_ARMY_COMPOSITIONS );
+	memset( ubOwned, 0, MAX_ARMY_COMPOSITIONS );
+	memset( ubTotal, 0, MAX_ARMY_COMPOSITIONS );
 
 	//Record the values required to calculate the percentage of each composition type that the queen controls.
 	for( i = 0; i < giGarrisonArraySize; i++ )

@@ -98,32 +98,32 @@ enum
 	DRASSEN_MINE,
 	DRASSEN_SAMSITE,		//Sam site near Drassen (least importance to queen of all samsites)
 	ROADBLOCK,					//General outside city roadblocks -- enhance chance of ambush?
-	SANMONA_SMALL,
-	NUM_ARMY_COMPOSITIONS
+	SANMONA_SMALL
 };
 
+extern UINT8 NUM_ARMY_COMPOSITIONS;
 
 typedef struct ARMY_COMPOSITION
 {
 	INT32 iReadability;					//contains the enumeration which is useless, but helps readability.
-	INT8 bPriority;
-	INT8 bElitePercentage;
-	INT8 bTroopPercentage;
-	INT8 bAdminPercentage;
-	INT8 bDesiredPopulation;
-	INT8 bStartPopulation;
-	INT8 bPadding[10];
+	INT8  bPriority;
+	INT8  bElitePercentage;
+	INT8  bTroopPercentage;
+	INT8  bAdminPercentage;
+	INT8  bDesiredPopulation;
+	INT8  bStartPopulation;
+	INT8  bPadding[10];
 }ARMY_COMPOSITION;
 
 //Defines the patrol groups -- movement groups.
 typedef struct PATROL_GROUP
 { 
-	INT8	bSize;
-	INT8	bPriority;
-	UINT8	ubSectorID[4];
-	INT8	bFillPermittedAfterDayMod100;
+	INT8  bSize;
+	INT8  bPriority;
+	UINT8 ubSectorID[4];
+	INT8  bFillPermittedAfterDayMod100;
 	UINT8 ubGroupID;
-	INT8	bWeight;
+	INT8  bWeight;
 	UINT8 ubPendingGroupID;
 	INT8  bPadding[10];
 }PATROL_GROUP;
@@ -132,11 +132,14 @@ typedef struct PATROL_GROUP
 typedef struct GARRISON_GROUP
 {
 	UINT8 ubSectorID;
-	UINT8	ubComposition;
-	INT8 bWeight;
+	UINT8 ubComposition;
+	INT8  bWeight;
 	UINT8 ubPendingGroupID;
-	INT8 bPadding[10];
+	INT8  bPadding[10];
 }GARRISON_GROUP;
 
+#define MAX_GARRISON_GROUPS   100
+#define MAX_PATROL_GROUPS     50
+#define MAX_ARMY_COMPOSITIONS 60
 
 #endif

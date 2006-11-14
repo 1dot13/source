@@ -367,6 +367,27 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, SAMSITESFILENAME);
 	if ( !ReadInSAMInfo(fileName) )
 		return FALSE;
+	
+	// Lesh: army externalization
+	strcpy(fileName, directoryName);
+	strcat(fileName, COMPOSITIONFILENAME);
+	if ( !ReadInPatrolInfo(fileName) )
+		return FALSE;
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, GARRISONFILENAME);
+	if ( !ReadInGarrisonInfo(fileName) )
+		return FALSE;
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, PATROLFILENAME);
+	if ( !ReadInPatrolInfo(fileName) )
+		return FALSE;
+
+	strcpy(fileName, directoryName);
+	strcat(fileName, COMPOSITIONFILENAME);
+	if ( !ReadInArmyCompositionInfo(fileName) )
+		return FALSE;
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, EXPLOSIONDATAFILENAME);
