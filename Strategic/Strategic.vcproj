@@ -3519,6 +3519,9 @@
 						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\XML_Army.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
