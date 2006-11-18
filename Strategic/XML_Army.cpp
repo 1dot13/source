@@ -11,8 +11,8 @@
 extern GARRISON_GROUP	gOrigGarrisonGroup[ MAX_GARRISON_GROUPS ];
 extern PATROL_GROUP		gOrigPatrolGroup[ MAX_PATROL_GROUPS ];
 extern ARMY_COMPOSITION	gOrigArmyComp[ MAX_ARMY_COMPOSITIONS ];
-extern INT32	giGarrisonArraySize;
-extern INT32	giPatrolArraySize;
+extern INT32	iOrigGarrisonArraySize;
+extern INT32	iOrigPatrolArraySize;
 
 
 // Garrison externalization
@@ -101,7 +101,7 @@ garrisonEndElementHandle(void *userData, const char *name)
 		if(strcmp(name, "GARRISON_INFO") == 0 && pData->curElement == GARRISON_ELEMENT_GARRISON_INFO)
 		{
 			pData->curElement = GARRISON_ELEMENT_NONE;
-			giGarrisonArraySize = pData->uiGarrisonCount;
+			iOrigGarrisonArraySize = pData->uiGarrisonCount;
 		}
 		else if(strcmp(name, "GARRISON") == 0 && pData->curElement == GARRISON_ELEMENT_GARRISON)
 		{
@@ -179,7 +179,7 @@ BOOLEAN ReadInGarrisonInfo(STR fileName)
 	
 	memset(&pData,0,sizeof(pData));
 	XML_SetUserData(parser, &pData);
-	giGarrisonArraySize = 0;
+	iOrigGarrisonArraySize = 0;
 
     if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
@@ -351,7 +351,7 @@ patrolEndElementHandle(void *userData, const char *name)
 		if(strcmp(name, "PATROL_INFO") == 0 && pData->curElement == PATROL_ELEMENT_PATROL_INFO)
 		{
 			pData->curElement = PATROL_ELEMENT_NONE;
-			giPatrolArraySize = pData->uiPatrolCount;
+			iOrigPatrolArraySize = pData->uiPatrolCount;
 		}
 		else if(strcmp(name, "PATROL") == 0 && pData->curElement == PATROL_ELEMENT_PATROL)
 		{
@@ -523,7 +523,7 @@ BOOLEAN ReadInPatrolInfo(STR fileName)
 	
 	memset(&pData,0,sizeof(pData));
 	XML_SetUserData(parser, &pData);
-	giPatrolArraySize = 0;
+	iOrigPatrolArraySize = 0;
 
     if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{

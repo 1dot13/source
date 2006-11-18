@@ -158,17 +158,21 @@ of the group.  If the priority of the group is high, they
 
 BOOLEAN gfAutoAIAware = FALSE;
 
+// original values to start a clean new game
+INT32	iOrigGarrisonArraySize;
+INT32	iOrigPatrolArraySize;
+
 //Saved vars
-INT8		gbPadding2[3]						= {0, 0, 0};	//NOT USED
-BOOLEAN gfExtraElites						= 0;	//Set when queen compositions are augmented with bonus elites.
-INT32		giGarrisonArraySize			= 0;
-INT32		giPatrolArraySize				= 0;
-INT32		giForcePercentage				= 0;	//Modifies the starting group sizes relative by percentage
-INT32		giArmyAlertness					= 0;	//The chance the group will spot an adjacent player/militia
-INT32   giArmyAlertnessDecay		= 0;	//How much the spotting chance decreases when spot check succeeds
-UINT8		gubNumAwareBattles			= 0;	//When non-zero, this means the queen is very aware and searching for players.  Every time
-																			//there is an enemy initiated battle, this counter decrements until zero.  Until that point,
-																			//all adjacent sector checks automatically succeed.
+INT8	gbPadding2[3]			= {0, 0, 0};	//NOT USED
+BOOLEAN gfExtraElites			= 0;	//Set when queen compositions are augmented with bonus elites.
+INT32	giGarrisonArraySize		= 0;
+INT32	giPatrolArraySize		= 0;
+INT32	giForcePercentage		= 0;	//Modifies the starting group sizes relative by percentage
+INT32	giArmyAlertness			= 0;	//The chance the group will spot an adjacent player/militia
+INT32   giArmyAlertnessDecay	= 0;	//How much the spotting chance decreases when spot check succeeds
+UINT8	gubNumAwareBattles		= 0;	//When non-zero, this means the queen is very aware and searching for players.  Every time
+										//there is an enemy initiated battle, this counter decrements until zero.  Until that point,
+										//all adjacent sector checks automatically succeed.
 BOOLEAN gfQueenAIAwake					= FALSE;	//This flag turns on/off the strategic decisions.  If it's off, no reinforcements 
 																					//or assaults will happen.  
 																					//@@@Alex, this flag is ONLY set by the first meanwhile scene which calls an action.  If this
@@ -1049,15 +1053,15 @@ void InitStrategicAI()
 	INT32 iPercentElitesBonus;
 	INT32 iMaxEnemyGroupSize = gGameExternalOptions.iMaxEnemyGroupSize;
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic3");
-
+	
 	//Initialize the basic variables.
 
 	gbPadding2[0]						= 0;
 	gbPadding2[1]						= 0;
 	gbPadding2[2]						= 0;
 	gfExtraElites						= FALSE;	
-	//giGarrisonArraySize			= 0;	// Lesh: already counted from xml
-	//giPatrolArraySize				= 0;	// Lesh: already counted from xml
+	//giGarrisonArraySize			= 0;
+	//giPatrolArraySize				= 0;
 	giForcePercentage				= 0;	
 	giArmyAlertness					= 0;	
 	giArmyAlertnessDecay		= 0;	
@@ -1202,29 +1206,38 @@ void InitStrategicAI()
 			}
 			break;
 	}
+
 	//initialize the patrol group definitions
-	// Lesh: giPatrolArraySize already calculated while reading xml
-	//giPatrolArraySize = sizeof( gOrigPatrolGroup ) / sizeof( PATROL_GROUP );
-	if( !gPatrolGroup )
-	{ //Allocate it (otherwise, we just overwrite it because the size never changes)
-		gPatrolGroup = (PATROL_GROUP*)MemAlloc( sizeof( gOrigPatrolGroup ) );
-		Assert( gPatrolGroup );
+	giPatrolArraySize = iOrigPatrolArraySize;
+	if( gPatrolGroup )
+	{
+		MemFree( gPatrolGroup );
 	}
+	gPatrolGroup = (PATROL_GROUP*)MemAlloc( sizeof( gOrigPatrolGroup ) );
+	Assert( gPatrolGroup );
 	memcpy( gPatrolGroup, gOrigPatrolGroup, sizeof( gOrigPatrolGroup ) );
 
+	if( gubPatrolReinforcementsDenied )
+	{
+		MemFree( gubPatrolReinforcementsDenied );
+	}
 	gubPatrolReinforcementsDenied = (UINT8*)MemAlloc( giPatrolArraySize );
 	memset( gubPatrolReinforcementsDenied, 0, giPatrolArraySize );
 
 	//initialize the garrison group definitions
-	// Lesh: giGarrisonArraySize already calculated while reading xml
-	//giGarrisonArraySize = sizeof( gOrigGarrisonGroup ) / sizeof( GARRISON_GROUP );
-	if( !gGarrisonGroup )
+	giGarrisonArraySize = iOrigGarrisonArraySize;
+	if( gGarrisonGroup )
 	{
-		gGarrisonGroup = (GARRISON_GROUP*)MemAlloc( sizeof( gOrigGarrisonGroup ) );
-		Assert( gGarrisonGroup );
+		MemFree( gGarrisonGroup );
 	}
+	gGarrisonGroup = (GARRISON_GROUP*)MemAlloc( sizeof( gOrigGarrisonGroup ) );
+	Assert( gGarrisonGroup );
 	memcpy( gGarrisonGroup, gOrigGarrisonGroup, sizeof( gOrigGarrisonGroup ) );
 	
+	if ( gubGarrisonReinforcementsDenied )
+	{
+		MemFree( gubGarrisonReinforcementsDenied );
+	}
 	gubGarrisonReinforcementsDenied = (UINT8*)MemAlloc( giGarrisonArraySize );
 	memset( gubGarrisonReinforcementsDenied, 0, giGarrisonArraySize );
 
@@ -1254,6 +1267,7 @@ void InitStrategicAI()
 			gPatrolGroup[ i ].bSize = (INT8)max( gubMinEnemyGroupSize, min( iMaxEnemyGroupSize, (gPatrolGroup[ i ].bSize * giForcePercentage / 100 ) ) );
 		}
 	}
+
 
 	//Now, initialize the garrisons based on the initial sizes (all variances are plus or minus 1).
 	for( i = 0; i < giGarrisonArraySize; i++ )
@@ -1363,6 +1377,7 @@ void InitStrategicAI()
 		//Spread them out so that they process at different times.
 		AddPeriodStrategicEventWithOffset( EVENT_CHECK_ENEMY_CONTROLLED_SECTOR, 140 - 20 * gGameOptions.ubDifficultyLevel + Random( 4 ), 475 + i, gGarrisonGroup[ i ].ubSectorID );
 	}
+
 	//Now, initialize each of the patrol groups
 	for( i = 0; i < giPatrolArraySize; i++ )
 	{	// IGNORE COMMENT, FEATURE REMOVED!
@@ -3354,6 +3369,7 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 	FileRead( hFile, gbPadding,								SAI_PADDING_BYTES, &uiNumBytesRead );
 	if( uiNumBytesRead != SAI_PADDING_BYTES )
 		return FALSE;
+
 	//Restore the army composition 
 	FileRead( hFile, gArmyComp,	NUM_ARMY_COMPOSITIONS * sizeof( ARMY_COMPOSITION ), &uiNumBytesRead );
 	if( uiNumBytesRead != NUM_ARMY_COMPOSITIONS * sizeof( ARMY_COMPOSITION ) )
@@ -3439,7 +3455,7 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 	{ //Reinitialize the costs since they have changed.
 
 		//Recreate the compositions
-		memcpy( gArmyComp, gOrigArmyComp, NUM_ARMY_COMPOSITIONS * sizeof( ARMY_COMPOSITION ) );
+		memcpy( gArmyComp, gOrigArmyComp, MAX_ARMY_COMPOSITIONS * sizeof( ARMY_COMPOSITION ) );
 		EvolveQueenPriorityPhase( TRUE );
 		
 		//Recreate the patrol desired sizes

@@ -151,45 +151,24 @@ BOOLEAN		gfUseAlternateMap = FALSE;
 // whether or not we have found Orta yet
 BOOLEAN fFoundOrta = FALSE;
 
-UINT8	NUMBER_OF_SAMS = 4;
+UINT8	NUMBER_OF_SAMS;
 
-// have any of the sam sites been found
-BOOLEAN fSamSiteFound[ MAX_NUMBER_OF_SAMS ];//={
-//	FALSE,
-//	FALSE,
-//	FALSE,
-//	FALSE,
-//};
+// have any of the sam sites been found (actual values, saved to savegames)
+BOOLEAN fSamSiteFound[ MAX_NUMBER_OF_SAMS ];
 
-INT16 pSamList[ MAX_NUMBER_OF_SAMS ];//={
-//	SECTOR( SAM_1_X, SAM_1_Y ),
-//	SECTOR( SAM_2_X, SAM_2_Y ),
-//	SECTOR( SAM_3_X, SAM_3_Y ),
-//	SECTOR( SAM_4_X, SAM_4_Y ),
-//};
+// original of previous for proper initialization of a new game
+BOOLEAN fSamSiteFoundOrig[ MAX_NUMBER_OF_SAMS ];
 
-INT16 pSamGridNoAList[ MAX_NUMBER_OF_SAMS ];//={
-//	10196,
-//	11295,
-//	16080,
-//	11913,
-//};
+// sectors with sam sites
+INT16 pSamList[ MAX_NUMBER_OF_SAMS ];
 
-INT16 pSamGridNoBList[ MAX_NUMBER_OF_SAMS ];//={
-//	10195,
-//	11135,
-//	15920,
-//	11912, 
-//};
+// girdno's of control terminal of sam site
+INT16 pSamGridNoAList[ MAX_NUMBER_OF_SAMS ];
+INT16 pSamGridNoBList[ MAX_NUMBER_OF_SAMS ];
 
 // ATE: Update this w/ graphic used 
 // Use 3 if / orientation, 4 if \ orientation
-INT8 gbSAMGraphicList[ MAX_NUMBER_OF_SAMS ];//={
-//	4,
-//	3,
-//	3,
-//  3,
-//};
+INT8 gbSAMGraphicList[ MAX_NUMBER_OF_SAMS ];
 
 INT8 gbMercIsNewInThisSector[ MAX_NUM_SOLDIERS ];
 
@@ -436,7 +415,7 @@ samsiteStartElementHandle(void *userData, const char *name, const char **atts)
 		{
 			pData->curElement = SAMSITE_ELEMENT_SAMLIST;
 
-			memset( fSamSiteFound,		0,	sizeof(fSamSiteFound)		);
+			memset( fSamSiteFoundOrig,	0,	sizeof(fSamSiteFoundOrig)	);
 			memset( pSamList,			0,	sizeof(pSamList)			);
 			memset( pSamGridNoAList,	0,	sizeof(pSamGridNoAList)		);
 			memset( pSamGridNoBList,	0,	sizeof(pSamGridNoBList)		);
@@ -558,13 +537,13 @@ samsiteEndElementHandle(void *userData, const char *name)
 			if ( pData->curSamInfo.uiIndex != INVALID_SAMSITE_INDEX )
 			{
 				pData->curSamInfo.uiIndex--;
-				fSamSiteFound	[ pData->curSamInfo.uiIndex ] = !pData->curSamInfo.samHidden;
-				gpSamSectorX	[ pData->curSamInfo.uiIndex ] = pData->curSamInfo.samSectorX;
-				gpSamSectorY	[ pData->curSamInfo.uiIndex ] = pData->curSamInfo.samSectorY;
-				pSamList		[ pData->curSamInfo.uiIndex ] = SECTOR(pData->curSamInfo.samSectorX,pData->curSamInfo.samSectorY);
-				gbSAMGraphicList[ pData->curSamInfo.uiIndex ] = pData->curSamInfo.samOrientation;
-				pSamGridNoAList	[ pData->curSamInfo.uiIndex ] = pData->curSamInfo.samGridNoA;
-				pSamGridNoBList	[ pData->curSamInfo.uiIndex ] = pData->curSamInfo.samGridNoB;
+				fSamSiteFoundOrig[ pData->curSamInfo.uiIndex ] = !pData->curSamInfo.samHidden;
+				gpSamSectorX	 [ pData->curSamInfo.uiIndex ] = pData->curSamInfo.samSectorX;
+				gpSamSectorY	 [ pData->curSamInfo.uiIndex ] = pData->curSamInfo.samSectorY;
+				pSamList		 [ pData->curSamInfo.uiIndex ] = SECTOR(pData->curSamInfo.samSectorX,pData->curSamInfo.samSectorY);
+				gbSAMGraphicList [ pData->curSamInfo.uiIndex ] = pData->curSamInfo.samOrientation;
+				pSamGridNoAList	 [ pData->curSamInfo.uiIndex ] = pData->curSamInfo.samGridNoA;
+				pSamGridNoBList	 [ pData->curSamInfo.uiIndex ] = pData->curSamInfo.samGridNoB;
 			}
 		}
 		else if(strcmp(name, "samIndex") == 0 && pData->curElement == SAMSITE_ELEMENT_INDEX)

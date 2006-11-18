@@ -413,9 +413,11 @@ POINT pTownPoints[ MAX_TOWNS ];/*={
 };
 */
 
-INT16 gpSamSectorX[ MAX_NUMBER_OF_SAMS ];// = { SAM_1_X, SAM_2_X, SAM_3_X, SAM_4_X };
-INT16 gpSamSectorY[ MAX_NUMBER_OF_SAMS ];// = { SAM_1_Y, SAM_2_Y, SAM_3_Y, SAM_4_Y };
+// coordinates X,Y of sam sites on strategic map
+INT16 gpSamSectorX[ MAX_NUMBER_OF_SAMS ];
+INT16 gpSamSectorY[ MAX_NUMBER_OF_SAMS ];
 
+extern BOOLEAN fSamSiteFoundOrig[ MAX_NUMBER_OF_SAMS ];
 
 // WANNE 2 (reinitialization in "DrawMap()")
 // map region
@@ -7069,11 +7071,11 @@ void InitMapSecrets( void )
 	fFoundTixa = FALSE;
 	fFoundOrta = FALSE;
 
-	// Lesh: commented out for reason: now samsites.xml control sam hidden status
 	//for( ubSamIndex = 0; ubSamIndex < NUMBER_OF_SAMS; ubSamIndex++ )
 	//{
-	//	fSamSiteFound[ ubSamIndex ] = FALSE;
+	//	fSamSiteFound[ ubSamIndex ] = fSamSiteFoundOrig[ ubSamIndex ];
 	//}
+	memcpy(fSamSiteFound, fSamSiteFoundOrig, sizeof(fSamSiteFound));
 }
 
 
