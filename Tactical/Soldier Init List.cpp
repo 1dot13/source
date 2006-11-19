@@ -2372,6 +2372,11 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			ubTotalSoldiers--;
 			pSoldier = TacticalCreateMilitia(SOLDIER_CLASS_ELITE_MILITIA);
 
+			// Lesh: if pSoldier is NULL then no slot for a new men or other problems
+			//       it better to leave this function is such case
+			if ( !pSoldier )
+				return;
+
 			pSoldier->bOrders = ONGUARD;
 			pSoldier->ubInsertionDirection = bDesiredDirection;
 
@@ -2397,6 +2402,11 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			ubTotalSoldiers--;
 			pSoldier = TacticalCreateMilitia(SOLDIER_CLASS_REG_MILITIA);
 
+			// Lesh: if pSoldier is NULL then no slot for a new men or other problems
+			//       it better to leave this function is such case
+			if ( !pSoldier )
+				return;
+
 			pSoldier->bOrders = ONGUARD;
 			pSoldier->ubInsertionDirection = bDesiredDirection;
 
@@ -2421,6 +2431,11 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			ubNumGreen--;
 			ubTotalSoldiers--;
 			pSoldier = TacticalCreateMilitia(SOLDIER_CLASS_GREEN_MILITIA);
+
+			// Lesh: if pSoldier is NULL then no slot for a new men or other problems
+			//       it better to leave this function is such case
+			if ( !pSoldier )
+				return;
 
 			pSoldier->bOrders = ONGUARD;
 			pSoldier->ubInsertionDirection = bDesiredDirection;
