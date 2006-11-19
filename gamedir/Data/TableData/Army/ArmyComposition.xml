@@ -28,34 +28,34 @@ Fields index:
 
 Indexes reference in original JA2:
 
-Index	Short name		Desription
-0	QUEEN_DEFENCE,		//The most important sector, the queen's palace.
-1	MEDUNA_DEFENCE,		//The town surrounding the queen's palace.
-2	MEDUNA_SAMSITE,		//A sam site within Meduna (higher priority)
-3	LEVEL1_DEFENCE,		//The sectors immediately adjacent to Meduna (defence and spawning area)
-4	LEVEL2_DEFENCE,		//Two sectors away from Meduna (defence and spawning area)
-5	LEVEL3_DEFENCE,		//Three sectors away from Meduna (defence and spawning area)
-6	ORTA_DEFENCE,		//The top secret military base containing lots of elites
-7	EAST_GRUMM_DEFENCE,	//The most-industrial town in Arulco (more mine income)
-8	WEST_GRUMM_DEFENCE,	//The most-industrial town in Arulco (more mine income)
-9	GRUMM_MINE,
-10	OMERTA_WELCOME_WAGON,	//Small force that greets the player upon arrival in game.
-11	BALIME_DEFENCE,		//Rich town, paved roads, close to Meduna (in queen's favor)
-12	TIXA_PRISON,		//Prison, well defended, but no point in retaking
-13	TIXA_SAMSITE,		//The central-most sam site (important for queen to keep)
-14	ALMA_DEFENCE,		//The military town of Meduna.  Also very important for queen.
-15	ALMA_MINE,		//Mine income AND administrators
-16	CAMBRIA_DEFENCE,	//Medical town, large, central.
-17	CAMBRIA_MINE,
-18	CHITZENA_DEFENCE,	//Small town, small mine, far away.
-19	CHITZENA_MINE,
-20	CHITZENA_SAMSITE,	//Sam site near Chitzena.
-21	DRASSEN_AIRPORT,	//Very far away, a supply depot of little importance.
-22	DRASSEN_DEFENCE,	//Medium town, normal.
-23	DRASSEN_MINE,
-24	DRASSEN_SAMSITE,	//Sam site near Drassen (least importance to queen of all samsites)
-25	ROADBLOCK,		//General outside city roadblocks -- enhance chance of ambush?
-26	SANMONA_SMALL
+Index	Short name				Desription
+0		QUEEN_DEFENCE			The most important sector, the queen's palace.
+1		MEDUNA_DEFENCE			The town surrounding the queen's palace.
+2		MEDUNA_SAMSITE			A sam site within Meduna (higher priority)
+3		LEVEL1_DEFENCE			The sectors immediately adjacent to Meduna (defence and spawning area)
+4		LEVEL2_DEFENCE			Two sectors away from Meduna (defence and spawning area)
+5		LEVEL3_DEFENCE			Three sectors away from Meduna (defence and spawning area)
+6		ORTA_DEFENCE			The top secret military base containing lots of elites
+7		EAST_GRUMM_DEFENCE		The most-industrial town in Arulco (more mine income)
+8		WEST_GRUMM_DEFENCE		The most-industrial town in Arulco (more mine income)
+9		GRUMM_MINE
+10		OMERTA_WELCOME_WAGON	Small force that greets the player upon arrival in game.
+11		BALIME_DEFENCE			Rich town, paved roads, close to Meduna (in queen's favor)
+12		TIXA_PRISON				Prison, well defended, but no point in retaking
+13		TIXA_SAMSITE			The central-most sam site (important for queen to keep)
+14		ALMA_DEFENCE			The military town of Meduna.  Also very important for queen.
+15		ALMA_MINE				Mine income AND administrators
+16		CAMBRIA_DEFENCE			Medical town, large, central.
+17		CAMBRIA_MINE
+18		CHITZENA_DEFENCE		Small town, small mine, far away.
+19		CHITZENA_MINE
+20		CHITZENA_SAMSITE		Sam site near Chitzena.
+21		DRASSEN_AIRPORT			Very far away, a supply depot of little importance.
+22		DRASSEN_DEFENCE			Medium town, normal.
+23		DRASSEN_MINE
+24		DRASSEN_SAMSITE			Sam site near Drassen (least importance to queen of all samsites)
+25		ROADBLOCK				General outside city roadblocks - enhance chance of ambush?
+26		SANMONA_SMALL
 
 
 Army composition soldier count calculation:
