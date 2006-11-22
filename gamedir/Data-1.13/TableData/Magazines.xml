@@ -1674,4 +1674,22 @@
 		<ubMagSize>9</ubMagSize>
 		<ubAmmoType>13</ubAmmoType>
 	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>279</uiIndex>
+		<ubCalibre>37</ubCalibre>
+		<ubMagSize>7</ubMagSize>
+		<ubAmmoType>0</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>280</uiIndex>
+		<ubCalibre>37</ubCalibre>
+		<ubMagSize>7</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>281</uiIndex>
+		<ubCalibre>37</ubCalibre>
+		<ubMagSize>7</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
 </MAGAZINELIST>
