@@ -4522,43 +4522,43 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>565</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 565</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.357 SL DPX</szItemName>
+		<szLongItemName>.357 Schnellader DPX</szLongItemName>
+		<szItemDesc>Direkt aus Frankreich kommen diese Atombomben in 9x33mm.Schutzwesten würden sagen: "Wiederstand ist zwecklos".Die Träger der Westen sagen nach einem Treffer garnichts mehr.</szItemDesc>
+		<szBRName>.357 Schnellader DPX</szBRName>
+		<szBRDesc>Direkt aus Frankreich kommen diese Atombomben in 9x33mm.Schutzwesten würden sagen: "Wiederstand ist zwecklos".Die Träger der Westen sagen nach einem Treffer garnichts mehr.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>566</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 566</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.357 Mag DPX</szItemName>
+		<szLongItemName>.357 Magazin DPX</szLongItemName>
+		<szItemDesc>Direkt aus Frankreich kommen diese Atombomben in 9x33mm.Schutzwesten würden sagen: "Wiederstand ist zwecklos".Die Träger der Westen sagen nach einem Treffer garnichts mehr.</szItemDesc>
+		<szBRName>.357 Magazin DPX</szBRName>
+		<szBRDesc>Direkt aus Frankreich kommen diese Atombomben in 9x33mm.Schutzwesten würden sagen: "Wiederstand ist zwecklos".Die Träger der Westen sagen nach einem Treffer garnichts mehr.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>567</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 567</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.45 WM Mag</szItemName>
+		<szLongItemName>.45 WM Magazin</szLongItemName>
+		<szItemDesc>Diese Patrone wurde 79 auf den Markt gebracht und basiert auf der .45 ACP Hülse, welche um 7,62 mm verlängert wurde.Sie ist etwa 1/3 stärker als die 44. Magnum.</szItemDesc>
+		<szBRName>.45 WM Magazin </szBRName>
+		<szBRDesc>Diese Patrone wurde 79 auf den Markt gebracht und basiert auf der .45 ACP Hülse, welche um 7,62 mm verlängert wurde.Sie ist etwa 1/3 stärker als die 44. Magnum.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>568</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 568</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.45 WM Mag HP</szItemName>
+		<szLongItemName>.45WM Magazin HP</szLongItemName>
+		<szItemDesc>Diese Patrone wurde 79 auf den Markt gebracht und basiert auf der .45 ACP Hülse, welche um 7,62 mm verlängert wurde.Dies ist die Hohlspitzvariante für das "Extra" an Gewebeschaden.</szItemDesc>
+		<szBRName>.45 WM Magazin HP</szBRName>
+		<szBRDesc>Diese Patrone wurde 79 auf den Markt gebracht und basiert auf der .45 ACP Hülse, welche um 7,62 mm verlängert wurde.Dies ist die Hohlspitzvariante für das "Extra" an Gewebeschaden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>569</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 569</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.45 WM Mag</szItemName>
+		<szLongItemName>.45 WM Magazin Panzerbrechend</szLongItemName>
+		<szItemDesc>Diese Patrone wurde 79 auf den Markt gebracht und basiert auf der .45 ACP Hülse, welche um 7,62 mm verlängert wurde.Die PB Variante stellt den Sinn von Schutzwesten stark in Frage.</szItemDesc>
+		<szBRName>.45 WM Magazin Panzerbrechend</szBRName>
+		<szBRDesc>Diese Patrone wurde 79 auf den Markt gebracht und basiert auf der .45 ACP Hülse, welche um 7,62 mm verlängert wurde.Die PB Variante stellt den Sinn von Schutzwesten stark in Frage.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>570</uiIndex>
@@ -6130,27 +6130,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>766</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 766</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Automag IV Pistole</szItemName>
+		<szLongItemName>Automag IV Pistole</szLongItemName>
+		<szItemDesc>Eine schwere .45 WM Pistole der Firma AMT.Hat eine verstellbare Visierung und gilt als eine der ergonomischten "Magnum" Automatikpistolen die es gibt.</szItemDesc>.
+		<szBRName>Automag IV Pistole</szBRName>
+		<szBRDesc>Eine schwere .45 WM Pistole der Firma AMT.Hat eine verstellbare Visierung und gilt als eine der ergonomischten "Magnum" Automatikpistolen die es gibt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>767</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 767</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Grizzly .45 WM</szItemName>
+		<szLongItemName>LAR Grizzly .45 WM Pistole</szLongItemName>
+		<szItemDesc>Der Charme einer 1911er und der Bums einer Desert Eagle. Was will man mehr ?</szItemDesc>
+		<szBRName>LAR Grizzly .45 WM Pistole</szBRName>
+		<szBRDesc>Der Charme einer 1911er und der Bums einer Desert Eagle. Was will man mehr ?</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>768</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 768</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Wildey Survivor Pistole</szItemName>
+		<szLongItemName>Wildey Survivor Pistole</szLongItemName>
+		<szItemDesc>Sie wollen so cool wie Charles Bronson oder Mikey Knox sein ? Dann ist diese Pistole genau das richtige für sie!</szItemDesc>
+		<szBRName>Wildey Survivor Pistole</szBRName>
+		<szBRDesc>Sie wollen so cool wie Charles Bronson oder Mikey Knox sein ? Dann ist diese Pistole genau das richtige für sie! BR liefert ihnen noch kostenlos "Death Wish 3" und "Natural Born Killers" mit, für die richtige Stimmung!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>769</uiIndex>
@@ -7363,11 +7363,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>920</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 920</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>M203 CLS</szItemName>
+		<szLongItemName>M203 Colt Launcher System</szLongItemName>
+		<szItemDesc>Colt versucht das excellente Design der HK 69 GraPi zu kopieren. Ob sie Erfolg damit haben wird sich noch zeigen</szItemDesc>
+		<szBRName>M203 Colt Launcher System</szBRName>
+		<szBRDesc>Colt versucht das excellente Design der HK 69 GraPi zu kopieren. Ob sie Erfolg damit haben wird sich noch zeigen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>921</uiIndex>
