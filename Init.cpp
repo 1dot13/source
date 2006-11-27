@@ -370,11 +370,6 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	
 	// Lesh: army externalization
 	strcpy(fileName, directoryName);
-	strcat(fileName, COMPOSITIONFILENAME);
-	if ( !ReadInPatrolInfo(fileName) )
-		return FALSE;
-
-	strcpy(fileName, directoryName);
 	strcat(fileName, GARRISONFILENAME);
 	if ( !ReadInGarrisonInfo(fileName) )
 		return FALSE;

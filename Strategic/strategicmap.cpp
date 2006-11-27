@@ -4249,7 +4249,7 @@ INT8 GetSAMIdFromSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 	sSectorValue = SECTOR( sSectorX, sSectorY );
 
 	// run through list of sam sites
-	for( bCounter = 0; bCounter < 4; bCounter++ )
+	for( bCounter = 0; bCounter < NUMBER_OF_SAMS; bCounter++ )
 	{
 		if( pSamList[ bCounter ] == sSectorValue )
 		{

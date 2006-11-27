@@ -5246,7 +5246,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							UINT8 ubSamIndex;
 
 							// ALT-F9: Reveal all SAM sites
-							for( ubSamIndex = 0; ubSamIndex < NUMBER_OF_SAM_SITES; ubSamIndex++ )
+							for( ubSamIndex = 0; ubSamIndex < NUMBER_OF_SAMS; ubSamIndex++ )
 							{
 								SetSAMSiteAsFound( ubSamIndex );
 							}

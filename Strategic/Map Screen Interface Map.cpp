@@ -6664,7 +6664,7 @@ void ShowSAMSitesOnStrategicMap( void )
 		BlitSAMGridMarkers( );
 	}
 
-	for( iCounter = 0; iCounter < NUMBER_OF_SAM_SITES; iCounter++ )
+	for( iCounter = 0; iCounter < NUMBER_OF_SAMS; iCounter++ )
 	{
 		// has the sam site here been found?
 		if( !fSamSiteFound[ iCounter ] )
@@ -6770,7 +6770,7 @@ void BlitSAMGridMarkers( void )
 	// clip to view region
 	ClipBlitsToMapViewRegionForRectangleAndABit( uiDestPitchBYTES );
 
-	for( iCounter = 0; iCounter < NUMBER_OF_SAM_SITES; iCounter++ )
+	for( iCounter = 0; iCounter < NUMBER_OF_SAMS; iCounter++ )
 	{	
 		// has the sam site here been found?
 		if( !fSamSiteFound[ iCounter ] )

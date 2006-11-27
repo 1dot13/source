@@ -1121,10 +1121,13 @@ void AddPossiblePendingEnemiesToBattle()
 	GROUP *pGroup;
 	SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
 	static UINT8 ubPredefinedInsertionCode = 255;
+	
+	// check if no world is loaded
+	if ( !gWorldSectorX && !gWorldSectorY && (gbWorldSectorZ == -1) )
+		return;
 
 	if( ( !PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, 0 ) && !CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY ) )
 		|| !NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) ) return;
-
 
 /*	if( !gfPendingEnemies )
 	{ //Optimization.  No point in checking if we know that there aren't any more enemies that can
