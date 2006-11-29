@@ -15,14 +15,14 @@
 // Debug version of the editor!
 //#define JA2EDITOR
 
-/*
+
 // Editor
 #ifdef _DEBUG
 	#ifndef JA2TESTVERSION
 		#define JA2TESTVERSION
 	#endif
 #endif
-*/
+
 
 // Do combinations
 #ifdef JA2TESTVERSION
