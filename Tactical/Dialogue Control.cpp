@@ -1717,11 +1717,20 @@ INT8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN 
 	{
 		if ( fWavFile )
 		{
+			// Lesh: patch to allow playback ogg speech files
 			// build name of wav file (characternum + quotenum)
 			#ifdef RUSSIAN
-				sprintf( (char *)zFileName,"NPC_SPEECH\\g_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+				sprintf( (char *)zFileName,"NPC_SPEECH\\g_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
+				if ( !FileExists( (STR)zFileName ) )
+				{
+					sprintf( (char *)zFileName,"NPC_SPEECH\\g_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+				}
 			#else
-				sprintf( (char *)zFileName,"NPC_SPEECH\\d_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+				sprintf( (char *)zFileName,"NPC_SPEECH\\d_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
+				if ( !FileExists( (STR)zFileName ) )
+				{
+					sprintf( (char *)zFileName,"NPC_SPEECH\\d_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+				}
 			#endif
 		}
 		else
@@ -1753,7 +1762,12 @@ INT8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN 
 
 		if ( fWavFile )
 		{
-			sprintf( (char *)zFileName,"NPC_SPEECH\\%03d_%03d.wav",ubFileNumID,usQuoteNum );
+			// Lesh: patch to allow playback ogg speech files
+			sprintf( (char *)zFileName,"NPC_SPEECH\\%03d_%03d.ogg",ubFileNumID,usQuoteNum );
+			if ( !FileExists( (STR)zFileName ) )
+			{
+				sprintf( (char *)zFileName,"NPC_SPEECH\\%03d_%03d.wav",ubFileNumID,usQuoteNum );
+			}
 		}
 		else
 		{
@@ -1768,12 +1782,20 @@ INT8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN 
 			#ifdef RUSSIAN
 				if( ubCharacterNum >= FIRST_RPC && ubCharacterNum < GASTON && gMercProfiles[ ubCharacterNum ].ubMiscFlags & PROFILE_MISC_FLAG_RECRUITED )
 				{
-					sprintf( (char *) zFileName,"SPEECH\\r_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+					sprintf( (char *) zFileName,"SPEECH\\r_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
+					if ( !FileExists( (STR)zFileName ) )
+					{
+						sprintf( (char *) zFileName,"SPEECH\\r_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+					}
 				}
 				else
 			#endif
 			{	// build name of wav file (characternum + quotenum)
-				sprintf( (char *)zFileName,"SPEECH\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+				sprintf( (char *)zFileName,"SPEECH\\%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
+				if ( !FileExists( (STR)zFileName ) )
+				{
+					sprintf( (char *)zFileName,"SPEECH\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+				}
 			}
 		}
 		else
