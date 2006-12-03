@@ -11604,11 +11604,19 @@ BOOLEAN CanExtendContractForCharSlot( INT8 bCharNumber )
 	Assert( pSoldier->bActive );
 
 	// if a vehicle, in transit, or a POW
-	if( ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) ||
+	if( /*( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) ||*/
 			( pSoldier->bAssignment == IN_TRANSIT ) ||
 			( pSoldier->bAssignment == ASSIGNMENT_POW ) )
 	{
 		// can't extend contracts at this time
+		return (FALSE);
+	}
+
+	// if a vehicle has passengers
+	if (	(pSoldier->uiStatusFlags & SOLDIER_VEHICLE) &&
+			(DoesVehicleHaveAnyPassengers(pSoldier->bVehicleID) ) )
+	{
+		// then restrict contract menu
 		return (FALSE);
 	}
 
