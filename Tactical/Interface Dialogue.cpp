@@ -4359,7 +4359,9 @@ BOOLEAN PlayerTeamHasTwoSpotsLeft( )
 		}
 	}
 
-	if ( uiCount <= (UINT32) (gTacticalStatus.Team[ gbPlayerNum ].bLastID - 2) - 2 )
+	// WANNE
+	//if ( uiCount <= (UINT32) (gTacticalStatus.Team[ gbPlayerNum ].bLastID - 2) - 2 )
+	if ( uiCount <= (18 - 2) )
 	{
 		return( TRUE );
 	}
