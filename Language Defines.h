@@ -31,7 +31,7 @@
 
 /* ====================================================================
  * Regardless of if we did it Workspace wide or by uncommenting above,
- * HERE we must see, what languaga was selected. If one, we
+ * HERE we must see, what language was selected. If one, we
  */
 #if defined(ENGLISH)
 #  pragma message(" (Language set to ENGLISH, You'll need english CDs)")
