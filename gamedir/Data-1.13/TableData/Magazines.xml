@@ -1695,19 +1695,19 @@
 	<MAGAZINE>
 		<uiIndex>282</uiIndex>
 		<ubCalibre>36</ubCalibre>
-		<ubMagSize>6</ubMagSize>
+		<ubMagSize>5</ubMagSize>
 		<ubAmmoType>0</ubAmmoType>
 	</MAGAZINE>
 	<MAGAZINE>
 		<uiIndex>283</uiIndex>
 		<ubCalibre>36</ubCalibre>
-		<ubMagSize>6</ubMagSize>
+		<ubMagSize>5</ubMagSize>
 		<ubAmmoType>1</ubAmmoType>
 	</MAGAZINE>
 	<MAGAZINE>
 		<uiIndex>284</uiIndex>
 		<ubCalibre>36</ubCalibre>
-		<ubMagSize>6</ubMagSize>
+		<ubMagSize>5</ubMagSize>
 		<ubAmmoType>2</ubAmmoType>
 	</MAGAZINE>
 	<MAGAZINE>
