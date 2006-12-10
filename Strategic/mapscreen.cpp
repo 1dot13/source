@@ -3028,7 +3028,23 @@ UINT32 MapScreenInit(void)
 
 
 UINT32 MapScreenShutdown(void)
-{ 
+{
+	// destroy some popup boxes
+	fShowAssignmentMenu = FALSE;
+	CreateDestroyAssignmentPopUpBoxes( );
+
+	fShowContractMenu = FALSE;
+	DetermineIfContractMenuCanBeShown( );
+	RemoveBox(ghContractBox);
+	ghContractBox = -1;
+
+	if ( ghRemoveMercAssignBox != -1 )
+	{
+		fShowRemoveMenu = FALSE;
+		RemoveBox( ghRemoveMercAssignBox );
+		ghRemoveMercAssignBox = -1;
+	}
+
 	// free up alloced mapscreen messages
 	FreeGlobalMessageList( );
 

@@ -1366,7 +1366,10 @@ BOOLEAN LoadAndAddWorldItemsFromTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 
 	//Load the World Items from the file
 	if( !LoadWorldItemsFromTempItemFile( sMapX, sMapY, bMapZ, pWorldItems ) )
+	{
+		MemFree( pWorldItems );
 		return( FALSE );
+	}
 
 
 	//If we have already been to the sector
@@ -1415,6 +1418,8 @@ BOOLEAN LoadAndAddWorldItemsFromTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			AddItemToPool( pWorldItems[cnt].sGridNo, &pWorldItems[cnt].o, pWorldItems[cnt].bVisible, pWorldItems[cnt].ubLevel, pWorldItems[cnt].usFlags, pWorldItems[cnt].bRenderZHeightAboveLevel );
 		}
 	}
+
+	MemFree( pWorldItems );
 
 	return( TRUE );
 }
