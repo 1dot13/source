@@ -48,6 +48,8 @@ UINT16 gusLOSEndSoldier = NOBODY;
 extern UINT32 guiSoldierFlags;
 extern INT16 DirIncrementer[8];
 
+extern BOOLEAN fTracer;
+
 static FIXEDPT gqStandardWallHeight = INT32_TO_FIXEDPT( WALL_HEIGHT_UNITS );
 static FIXEDPT gqStandardWindowBottomHeight = INT32_TO_FIXEDPT( WINDOW_BOTTOM_HEIGHT_UNITS );
 static FIXEDPT gqStandardWindowTopHeight = INT32_TO_FIXEDPT( WINDOW_TOP_HEIGHT_UNITS );
@@ -3563,6 +3565,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	ddOrigVerticAngle = atan2( dDeltaZ, (d2DDistance * 2.56f) );
 
 	ubShots = 1;
+	fTracer = FALSE;
 
 	// Check if we have spit as a weapon!
 	if ( Weapon[ usHandItem ].ubWeaponClass == MONSTERCLASS )
@@ -3592,7 +3595,8 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	}
 	else if ( AmmoTypes[ pFirer->inv[pFirer->ubAttackingHand].ubGunAmmoType ].tracerEffect && (pFirer->bDoBurst || gGameSettings.fOptions[ TOPTION_TRACERS_FOR_SINGLE_FIRE ]) )
 	{
-		usBulletFlags |= BULLET_FLAG_TRACER;
+		//usBulletFlags |= BULLET_FLAG_TRACER;
+		fTracer = TRUE;
 	}
 
 	ubImpact =(UINT8) GetDamage(&pFirer->inv[pFirer->ubAttackingHand]);
@@ -4256,7 +4260,7 @@ void MoveBullet( INT32 iBullet )
 					return;
 				}
 
-				if ( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_TRACER ) )
+				if (( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT /*| BULLET_FLAG_TRACER*/  ) ) || fTracer == TRUE)
 				{
 					INT8 bStepsPerMove = STEPS_FOR_BULLET_MOVE_TRAILS;
 
@@ -4541,11 +4545,11 @@ void MoveBullet( INT32 iBullet )
 					pBullet->iCurrCubesZ = CONVERT_HEIGHTUNITS_TO_INDEX( FIXEDPT_TO_INT32( pBullet->qCurrZ ) );
 					pBullet->iLoop++;
 
-					if ( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_TRACER ) )
+					if (( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT /*| BULLET_FLAG_TRACER */) ) || fTracer == TRUE)
 					{
 						INT8 bStepsPerMove = STEPS_FOR_BULLET_MOVE_TRAILS;
 
-						if ( pBullet->usFlags & ( BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TRACER ) )
+						if (( pBullet->usFlags & ( BULLET_FLAG_SMALL_MISSILE /*| BULLET_FLAG_TRACER*/ ) ) || fTracer == TRUE)
 						{
 							bStepsPerMove = STEPS_FOR_BULLET_MOVE_SMALL_TRAILS;
 						}

@@ -35,6 +35,7 @@
 // GLOBAL FOR FACES LISTING
 BULLET	gBullets[ NUM_BULLET_SLOTS ];
 UINT32  guiNumBullets = 0;
+BOOLEAN	fTracer = FALSE;
 
 
 INT32 GetFreeBullet(void)
@@ -255,7 +256,7 @@ void UpdateBullets( )
 				{
 					// ALRIGHTY, CHECK WHAT TYPE OF BULLET WE ARE
 
-					if ( gBullets[ uiCount ].usFlags & ( BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_KNIFE | BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_TRACER ) )
+					if ( gBullets[ uiCount ].usFlags & ( BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_KNIFE | BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME /*| BULLET_FLAG_TRACER*/ ) )
 					{
 					}
 					else
@@ -302,10 +303,18 @@ void UpdateBullets( )
 					else if ( gBullets[ uiCount ].usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT ) )
 					{
 					}
+					/*
 					else if ( gBullets[ uiCount ].usFlags & ( BULLET_FLAG_TRACER ) )
 					{
 						ManLooksForOtherTeams(gBullets[ uiCount ].pFirer);
 					}
+					*/
+					/*
+					else if (fTracer == TRUE)
+					{
+						ManLooksForOtherTeams(gBullets[ uiCount ].pFirer);
+					}
+					*/
 					else
 					{
 						pNode = AddStructToTail( gBullets[ uiCount ].sGridNo, BULLETTILE1 );
@@ -363,7 +372,15 @@ void AddMissileTrail( BULLET *pBullet, FIXEDPT qCurrX, FIXEDPT qCurrY, FIXEDPT q
 	ANITILE_PARAMS	AniParams;
 
 	// If we are a small missle, don't show
-	if ( pBullet->usFlags & ( BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_TRACER ) )
+	if ( pBullet->usFlags & ( BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT /*| BULLET_FLAG_TRACER*/ ) )
+	{
+		if ( pBullet->iLoop < 5 )
+		{
+			return;
+		}
+	}
+
+	if (fTracer == TRUE)
 	{
 		if ( pBullet->iLoop < 5 )
 		{
@@ -409,7 +426,8 @@ void AddMissileTrail( BULLET *pBullet, FIXEDPT qCurrX, FIXEDPT qCurrY, FIXEDPT q
 		strcpy( AniParams.zCachedFile, "TILECACHE\\FLMTHR2.STI" );
 		AniParams.sDelay							= (INT16)( 100 );
 	}
-	else if ( pBullet->usFlags & ( BULLET_FLAG_TRACER ) )
+	//else if ( pBullet->usFlags & ( BULLET_FLAG_TRACER ) )
+	else if (fTracer == TRUE)
 	{
 		strcpy( AniParams.zCachedFile, "TILECACHE\\BULLET_TRACER.STI" );
 		AniParams.uiFlags |= ANITILE_LIGHT;
