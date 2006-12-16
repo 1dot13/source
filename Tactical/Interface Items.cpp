@@ -7640,7 +7640,7 @@ void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldi
 					break;
 				}
 
-				swprintf( (wchar_t *)pStr, L"%s [%d %%]\n%s %d%% (%d/%d)\n%s %d%%\n%s %1.1f %s", 				
+				swprintf( (wchar_t *)pStr, L"%s [%d%%]\n%s %d%% (%d/%d)\n%s %d%%\n%s %1.1f %s", 				
 					ItemNames[ usItem ],		//Item long name
 					sValue,						//Item condition
 					pInvPanelTitleStrings[ 4 ],	//Protection string

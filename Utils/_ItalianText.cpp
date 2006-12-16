@@ -3687,7 +3687,7 @@ STR16 pMessageStrings[] =
 	L"Nessun spazio per passare %s a %s.", //pass "item" to "merc".  Same instructions as above.
 
 	//A list of attachments appear after the items.  Ex:  Kevlar vest (Ceramic Plate 'Attached)'
-	L" Compreso )",
+	L" compreso )",
 
 	//Cheat modes
 	L"Raggiunto il livello Cheat UNO",
