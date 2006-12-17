@@ -6136,8 +6136,12 @@
       
       
       
+      
+      
       .
 		
+      
+      
       
       
       
@@ -8240,5 +8244,13 @@
       <szItemDesc>Das kompakte Tarnset (Wüste) enthält die Farben braun, beige und weiß sowie einen Spiegel ein. Diese lang anhaltende, nichtverlaufende Gesichtsfarbe kann mit Wasser und Seife leicht entfernt werden.</szItemDesc>
       <szBRName>Tarnset, Wüste</szBRName>
       <szBRDesc>Das kompakte Tarnset (Wüste) enthält die Farben braun, beige und weiß sowie einen Spiegel ein. Diese lang anhaltende, nichtverlaufende Gesichtsfarbe kann mit Wasser und Seife leicht entfernt werden. Das Set beinhaltet auch ein Handbuch, das den richtigen Gebrauch erklärt.</szBRDesc>
+   </ITEM>
+   <ITEM>
+      <uiIndex>1029</uiIndex>
+      <szItemName>K.Zielfernrohr</szItemName>
+      <szLongItemName>Kleines Zielfernrohr</szLongItemName>
+      <szItemDesc>Ein 1,6 Fach vergrösserndes Zielfernrohr.Hiermit sind sie beim Anvisieren mittendrin statt nur dabei.</szItemDesc>
+      <szBRName>Kleines Zielfernrohr</szBRName>
+      <szBRDesc>Ein 1,6 Fach vergrösserndes Zielfernrohr.Hiermit sind sie beim Anvisieren mittendrin statt nur dabei.</szBRDesc>
    </ITEM>
 </ITEMLIST>
