@@ -2254,6 +2254,7 @@ BOOLEAN EVENT_InitNewSoldierAnim( SOLDIERTYPE *pSoldier, UINT16 usNewState, UINT
 			HandleSight(pSoldier,SIGHT_LOOK);
 		}
 	}
+
 	// If our own guy...
 	if ( pSoldier->bTeam == gbPlayerNum )
 	{

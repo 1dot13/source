@@ -1792,7 +1792,6 @@ void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY_M, INT
 										pShadeTable = pSoldier->pEffectShades[ 1 ];
 									}
 
-
 									hVObject=gAnimSurfaceDatabase[ usAnimSurface ].hVideoObject;
 
 									if ( hVObject == NULL )

@@ -7536,12 +7536,25 @@ void ApplyEquipmentBonuses(SOLDIERTYPE * pSoldier)
 		pSoldier->wornSnowCamo = (INT8)newSnowCamo;
 
 	if ( (newCamo > oldCamo || newUrbanCamo > oldUrbanCamo || newDesertCamo > oldDesertCamo || newSnowCamo > oldSnowCamo )&& pSoldier->bTeam == OUR_TEAM )
+	{	
 		DoMercBattleSound( pSoldier, BATTLE_SOUND_COOL1 );
-
+		
+		// WANNE: Only call the method if oldCame != newCamo
+		if ( pSoldier->bInSector)
+			CreateSoldierPalettes( pSoldier );
+	}
+	else if ( (newCamo < oldCamo || newUrbanCamo < oldUrbanCamo || newDesertCamo < oldDesertCamo || newSnowCamo < oldSnowCamo )&& pSoldier->bTeam == OUR_TEAM )
+	{
+		// WANNE: Only call the method if oldCame != newCamo
+		if ( pSoldier->bInSector)
+			CreateSoldierPalettes( pSoldier );
+	}
+	// WANNE: IRA: Madd, I commented this, because this leads to IRAs INVISIBLE BUG!
+	// We should only call the CreateSoldierPalettes if oldCamo != newCamo. See above!
 	//Madd: do this regardless of camo.  This will need to be called to do custom part colours and new overlays anyway.
-	if ( pSoldier->bInSector)
-		CreateSoldierPalettes( pSoldier );
-
+	//if ( pSoldier->bInSector)
+	//	CreateSoldierPalettes( pSoldier );
+	
 	fInterfacePanelDirty = DIRTYLEVEL2;
 }
 

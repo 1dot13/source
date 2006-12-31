@@ -746,7 +746,7 @@ BOOLEAN DeInitAnimationSystem( )
 			if ( gAnimSurfaceDatabase[ cnt1 ].hVideoObject != NULL )
 			{
 					DeleteVideoObject( gAnimSurfaceDatabase[ cnt1 ].hVideoObject );
-          gAnimSurfaceDatabase[ cnt1 ].hVideoObject = NULL;
+					gAnimSurfaceDatabase[ cnt1 ].hVideoObject = NULL;
 			}
 	 }
 
@@ -815,6 +815,12 @@ STRUCTURE_FILE_REF	*GetDefaultStructureRef( UINT16 usSoldierID )
 BOOLEAN LoadAnimationSurface( UINT16 usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState )
 {
 	AuxObjectData *pAuxData;
+
+	if (usSurfaceIndex == 251)
+	{
+		int a = 10;
+		a++;
+	}
 
 	// Check for valid surface
 	CHECKF( usSurfaceIndex < NUMANIMATIONSURFACETYPES );
@@ -935,6 +941,13 @@ BOOLEAN LoadAnimationSurface( UINT16 usSoldierID, UINT16 usSurfaceIndex, UINT16 
 
 BOOLEAN UnLoadAnimationSurface( UINT16 usSoldierID, UINT16 usSurfaceIndex )
 {
+
+	if (usSurfaceIndex == 251)
+	{
+		int a = 10;
+		a++;
+	}
+
 	// Decrement usage flag, only if this soldier has it currently tagged
 	if ( gbAnimUsageHistory[ usSurfaceIndex ][ usSoldierID ] > 0 )
 	{
@@ -959,6 +972,8 @@ BOOLEAN UnLoadAnimationSurface( UINT16 usSoldierID, UINT16 usSurfaceIndex )
 	{
 		gAnimSurfaceDatabase[ usSurfaceIndex ].bUsageCount = 0;
 	}
+
+	
 
 
 	// Check if count has reached zero and delet if so

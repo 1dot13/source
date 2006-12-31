@@ -12,17 +12,18 @@
 //#define JA2TESTVERSION
 
 
-// Debug version of the editor!
+// Remove comment to build the editor!
 //#define JA2EDITOR
 
 
-// Editor
+// Remove comment to build the editor!
 #ifdef _DEBUG
 	#ifndef JA2TESTVERSION
 		#define JA2TESTVERSION
 	#endif
 #endif
 
+// Remove comment to build the editor!
 
 // Do combinations
 #ifdef JA2TESTVERSION
