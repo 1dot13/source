@@ -3969,6 +3969,10 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, UINT16 usMapPos, UINT32 uiFlags 
 			 if ( sGotLocation != NOWHERE )
 			 {
 				 sAPCost += MinAPsToAttack( pSoldier, sAdjustedGridNo, TRUE );
+
+				 // WANNE: Turn around APs were missing!
+				//sAPCost += APsToTurnAround(pSoldier, sAdjustedGridNo);
+				
 				 sAPCost += UIPlotPath( pSoldier, sGotLocation, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
 
 				 if ( sGotLocation != pSoldier->sGridNo && fGotAdjacent )
@@ -4081,6 +4085,39 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, UINT16 usMapPos, UINT32 uiFlags 
 	}
 
 	return( bReturnCode );
+}
+
+// WANNE: Calculate the APs to turn around
+INT16 APsToTurnAround(SOLDIERTYPE *pSoldier, INT16 sAdjustedGridNo)
+{
+	INT16 sAPCost = 0;
+	BOOLEAN fInitalMove = FALSE;
+
+	// Get the new direction
+	UINT8 ubDirection = (UINT8)GetDirectionFromGridNo( sAdjustedGridNo, pSoldier );
+
+	// If new direction is not the same than the old direction
+	if ( pSoldier->bDesiredDirection != ubDirection)
+	{
+		if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_BREATH | ANIM_OK_CHARGE_AP_FOR_TURN | ANIM_FIREREADY ) && !fInitalMove && !pSoldier->fDontChargeTurningAPs )
+		{
+			// Which position has the soldier?
+			switch( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
+			{
+				case ANIM_STAND:
+					sAPCost += AP_LOOK_STANDING;
+					break;
+				case ANIM_CROUCH:
+					sAPCost += AP_LOOK_CROUCHED;
+					break;
+				case ANIM_PRONE:
+					sAPCost += AP_LOOK_PRONE;
+					break;
+			}
+		}
+	}
+
+	return sAPCost;
 }
 
 

@@ -1073,6 +1073,7 @@ UINT8 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 
 			// Add points to attack
 			sAPCost += MinAPsToAttack( pSoldier, sAdjustedGridNo, ubAddTurningCost );
+			//sAPCost += APsToTurnAround(pSoldier, sAdjustedGridNo);
 		}
 		else
 		{
