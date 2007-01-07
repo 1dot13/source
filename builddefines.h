@@ -17,19 +17,19 @@
 
 
 // Remove comment to build the editor!
-#ifdef _DEBUG
-	#ifndef JA2TESTVERSION
-		#define JA2TESTVERSION
-	#endif
-#endif
+//#ifdef _DEBUG
+//	#ifndef JA2TESTVERSION
+//		#define JA2TESTVERSION
+//	#endif
+//#endif
 
 // Remove comment to build the editor!
 
 // Do combinations
-#ifdef JA2TESTVERSION
-	#define JA2BETAVERSION
-	#define JA2EDITOR
-#endif
+//#ifdef JA2TESTVERSION
+//	#define JA2BETAVERSION
+//	#define JA2EDITOR
+//#endif
 
 
 

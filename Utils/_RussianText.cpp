@@ -2823,9 +2823,14 @@ STR16			BobbyRFilter[] =
 
 	// Used
 	L"Guns",
-	//L"Ammo",
 	L"Armor",
 	L"Misc",
+
+	// Armour
+	L"Helm",
+	L"Vest",
+	L"Legging",
+	L"Plate",
 };
 
 

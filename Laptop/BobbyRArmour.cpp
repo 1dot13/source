@@ -23,6 +23,7 @@ void GameInitBobbyRArmour()
 
 }
 
+// WANNE
 BOOLEAN EnterBobbyRArmour()
 {
   VOBJECT_DESC    VObjectDesc;
@@ -42,10 +43,12 @@ BOOLEAN EnterBobbyRArmour()
 	guiPrevArmourFilterMode = -1;
 	guiCurrentArmourFilterMode = -1;
 
+	SetFirstLastPagesForNew( IC_ARMOUR, guiCurrentArmourFilterMode );
+
 	//Draw menu bar
 	InitBobbyMenuBar( );
-
-	SetFirstLastPagesForNew( IC_ARMOUR, guiCurrentArmourFilterMode );
+	// WANNE
+	InitBobbyRArmourFilterBar();
 
 	RenderBobbyRArmour( );
 
@@ -57,6 +60,9 @@ void ExitBobbyRArmour()
 	DeleteVideoObjectFromIndex(guiArmourBackground);
 	DeleteVideoObjectFromIndex(guiArmourGrid);
 	DeleteBobbyMenuBar();
+
+	// WANNE
+	DeleteBobbyRArmourFilter();
 
 	DeleteBobbyBrTitle();
 	DeleteMouseRegionForBigImage();
@@ -88,7 +94,7 @@ void RenderBobbyRArmour()
 	UpdateButtonText(guiCurrentLaptopMode);
 	// TODO
 
-	//UpdateGunFilterButtons(guiCurrentArmourFilterMode, guiPrevArmourFilterMode);
+	UpdateArmourFilterButtons(guiCurrentArmourFilterMode, guiPrevArmourFilterMode);
 
   MarkButtonsDirty( );
 	RenderWWWProgramTitleBar( );

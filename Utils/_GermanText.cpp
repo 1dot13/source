@@ -2681,7 +2681,6 @@ STR16			BobbyRFilter[] =
 	L"Schrotfl.",
 
 	// Ammo
-	//L"Schwere W.",
 	L"Pistole",
 	L"M. Pistole",
 	L"SMG",
@@ -2693,9 +2692,14 @@ STR16			BobbyRFilter[] =
 
 	// Used
 	L"Feuerwfn.",
-	//L"Munition",
 	L"Rüstung",
 	L"Sonstiges",
+
+	// Armour
+	L"Helm",
+	L"Weste",
+	L"Hose",
+	L"Platte",
 };
 
 // This text is used when on the various Bobby Ray Web site pages that sell items
