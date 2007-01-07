@@ -2827,10 +2827,21 @@ STR16			BobbyRFilter[] =
 	L"Misc",
 
 	// Armour
-	L"Helm",
-	L"Vest",
-	L"Legging",
-	L"Plate",
+	L"Helmets",
+	L"Vests",
+	L"Leggings",
+	L"Plates",
+
+	// Misc
+	L"Blades",
+	L"Th. Knives",
+	L"Punch. W.",
+	L"Grenades",
+	L"Bombs",
+	L"Med. Kits",
+	L"Kits",
+	L"Face Items",
+	L"Misc.",
 };
 
 

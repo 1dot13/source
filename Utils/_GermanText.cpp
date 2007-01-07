@@ -2692,14 +2692,25 @@ STR16			BobbyRFilter[] =
 
 	// Used
 	L"Feuerwfn.",
-	L"Rüstung",
+	L"Rüstungen",
 	L"Sonstiges",
 
 	// Armour
-	L"Helm",
-	L"Weste",
-	L"Hose",
-	L"Platte",
+	L"Helme",
+	L"Westen",
+	L"Hosen",
+	L"Platten",
+
+	// Misc
+	L"Klingen",
+	L"Wurfmesser",
+	L"Schlagwaf.",
+	L"Granaten",
+	L"Bomben",
+	L"Verbandsk.",
+	L"Taschen",
+	L"Gesicht G.",
+	L"Sonstiges",
 };
 
 // This text is used when on the various Bobby Ray Web site pages that sell items

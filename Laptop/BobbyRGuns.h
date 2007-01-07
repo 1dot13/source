@@ -42,10 +42,12 @@ BOOLEAN DeleteBobbyRGunsFilter();
 BOOLEAN DeleteBobbyRAmmoFilter();
 BOOLEAN DeleteBobbyRUsedFilter();
 BOOLEAN DeleteBobbyRArmourFilter();
+BOOLEAN DeleteBobbyRMiscFilter();
 BOOLEAN InitBobbyRGunsFilterBar();
 BOOLEAN InitBobbyRAmmoFilterBar();
 BOOLEAN InitBobbyRUsedFilterBar();
 BOOLEAN InitBobbyRArmourFilterBar();
+BOOLEAN InitBobbyRMiscFilterBar();
 
 BOOLEAN DisplayBobbyRBrTitle();
 BOOLEAN DeleteBobbyBrTitle();
@@ -64,6 +66,7 @@ void UpdateAmmoFilterButtons(INT32 iNewButton, INT32 iOldButton);
 void UpdateGunFilterButtons(INT32 iNewButton, INT32 iOldButton);
 void UpdateUsedFilterButtons();
 void UpdateArmourFilterButtons(INT32 iNewButton, INT32 iOldButton);
+void UpdateMiscFilterButtons();
 
 void EnterInitBobbyRGuns();
 void DailyUpdateOfBobbyRaysUsedInventory();
