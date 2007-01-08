@@ -1483,11 +1483,13 @@ void KillStrategicAI()
 	{
 		MemFree( gPatrolGroup );
 		gPatrolGroup = NULL;
+		giPatrolArraySize = 0;
 	}
 	if( gGarrisonGroup )
 	{
 		MemFree( gGarrisonGroup );
 		gGarrisonGroup = NULL;
+		giGarrisonArraySize = 0;
 	}
 	if( gubPatrolReinforcementsDenied )
 	{

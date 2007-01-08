@@ -1450,6 +1450,10 @@ BOOLEAN LoadSavedGame( UINT8 ubSavedGameID )
 	//where it would be in a pre-load state.  
 	TrashWorld();
 
+	// Lesh: To kill memory leaks during re-loading a saved game
+	//       release strategic layer resources
+	ShutdownStrategicLayer();
+	FreeGlobalMessageList();
 
 	//Deletes all the Temp files in the Maps\Temp directory
 	InitTacticalSave( TRUE );
