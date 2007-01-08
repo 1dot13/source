@@ -1100,6 +1100,42 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 		}
 	}
 
+
+
+	// Lesh: give to enemies AMBIDEXTEROUS skill and a second pistol
+	if( pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE || pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE_MILITIA )
+	{
+		if ( Chance( 20 ) )
+		{
+			pSoldier->ubSkillTrait1 = AMBIDEXT;
+			if ( Chance( 10 ) )
+			{
+				pSoldier->ubSkillTrait2 = AMBIDEXT;
+			}
+			if ( Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].usItemClass == IC_GUN &&
+				!Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].twohanded )
+			{
+				memcpy( &(pCreateStruct->Inv[SECONDHANDPOS]), &(pCreateStruct->Inv[HANDPOS]), sizeof( OBJECTTYPE ) );
+			}
+		}
+	}
+	else if( pSoldier->ubSoldierClass == SOLDIER_CLASS_ARMY || pSoldier->ubSoldierClass == SOLDIER_CLASS_REG_MILITIA )
+	{
+		if ( Chance( 10 ) )
+		{
+			pSoldier->ubSkillTrait1 = AMBIDEXT;
+			if ( Chance( 5 ) )
+			{
+				pSoldier->ubSkillTrait2 = AMBIDEXT;
+			}
+			if ( Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].usItemClass == IC_GUN &&
+				!Item[ pCreateStruct->Inv[ HANDPOS ].usItem ].twohanded )
+			{
+				memcpy( &(pCreateStruct->Inv[SECONDHANDPOS]), &(pCreateStruct->Inv[HANDPOS]), sizeof( OBJECTTYPE ) );
+			}
+		}
+	}
+
 	//KM:  November 10, 1997
 	//Adding patrol points
 	//CAUTION:  CONVERTING SIGNED TO UNSIGNED though the values should never be negative.
