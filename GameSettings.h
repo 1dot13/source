@@ -389,6 +389,8 @@ typedef struct
 	INT32 giExpertMercDeaths;
 	INT32 giInsaneMercDeaths;
 
+	// Lesh: slow enemy items choice progress
+	BOOLEAN fSlowProgressForEnemyItemsChoice;
 
 } GAME_EXTERNAL_OPTIONS;
 

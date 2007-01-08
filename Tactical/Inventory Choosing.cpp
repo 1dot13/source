@@ -247,7 +247,22 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 
 	// equipment level is modified by 1/10 of the difficulty percentage, -5, so it's between -5 to +5
 	// (on normal, this is actually -4 to +4, easy is -5 to +3, and hard is -3 to +5)
-	bEquipmentModifier = bEquipmentRating + ( ( CalcDifficultyModifier( bSoldierClass ) / 10 ) - 5 );
+	//bEquipmentModifier = bEquipmentRating + ( ( CalcDifficultyModifier( bSoldierClass ) / 10 ) - 5 );
+
+	// Lesh 1.13 mod notes
+	// My idea of enemy choice balancing is based on bEquipmentModifier, which is influenced by
+	// game progress and difficulty. You can see that I throw out bEquipmentRating from the formulae.
+	// This variable has a very big influence to result. Also as you can see below I commented
+	// out such constants as BAD_ADMINISTRATOR_EQUIPMENT_RATING. They have big influence too,
+	// maybe because of enemy choices table was incorrectly assembled. For example:
+	// BAD_ADMINISTRATOR_EQUIPMENT_RATING is equal 1 and BAD_ELITE_EQUIPMENT_RATING is equal 5.
+	// So in the same time when admins hold crappy weapons, elites get stuff up to nearly 6 level
+	// in Drassen counter-attack. In this situation it is very hard to make balanced xml-file(IMHO).
+	// Made in optional form
+	if ( gGameExternalOptions.fSlowProgressForEnemyItemsChoice )
+		bEquipmentModifier = ( CalcDifficultyModifier( bSoldierClass ) / 10 );
+	else
+		bEquipmentModifier = bEquipmentRating + ( ( CalcDifficultyModifier( bSoldierClass ) / 10 ) - 5 );
 
 	switch( bSoldierClass )
 	{
@@ -260,7 +275,10 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 
 		case SOLDIER_CLASS_ADMINISTRATOR:
 		case SOLDIER_CLASS_GREEN_MILITIA:
-			bRating = BAD_ADMINISTRATOR_EQUIPMENT_RATING + bEquipmentModifier;
+			if ( gGameExternalOptions.fSlowProgressForEnemyItemsChoice )
+				bRating = bEquipmentModifier;
+			else
+				bRating = BAD_ADMINISTRATOR_EQUIPMENT_RATING + bEquipmentModifier;
 			bRating = (INT8)max( MIN_EQUIPMENT_CLASS, min( MAX_EQUIPMENT_CLASS, bRating ) );
 
 			bWeaponClass = bRating;
@@ -302,7 +320,10 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 		case SOLDIER_CLASS_ARMY:
 		case SOLDIER_CLASS_REG_MILITIA:
 			//army guys tend to have a broad range of equipment
-			bRating = BAD_ARMY_EQUIPMENT_RATING + bEquipmentModifier;
+			if ( gGameExternalOptions.fSlowProgressForEnemyItemsChoice )
+				bRating = bEquipmentModifier;
+			else
+				bRating = BAD_ARMY_EQUIPMENT_RATING + bEquipmentModifier;
 			bRating = (INT8)max( MIN_EQUIPMENT_CLASS, min( MAX_EQUIPMENT_CLASS, bRating ) );
 
 			bWeaponClass = bRating;
@@ -411,7 +432,10 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 
 		case SOLDIER_CLASS_ELITE:
 		case SOLDIER_CLASS_ELITE_MILITIA:
-			bRating = BAD_ELITE_EQUIPMENT_RATING + bEquipmentModifier;
+			if ( gGameExternalOptions.fSlowProgressForEnemyItemsChoice )
+				bRating = bEquipmentModifier;
+			else
+				bRating = BAD_ELITE_EQUIPMENT_RATING + bEquipmentModifier;
 			bRating = (INT8)max( MIN_EQUIPMENT_CLASS, min( MAX_EQUIPMENT_CLASS, bRating ) );
 
 			bWeaponClass = bRating;
@@ -1631,41 +1655,47 @@ void ChooseFaceGearForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp )
 	{
 		case SOLDIER_CLASS_ELITE:
 		case SOLDIER_CLASS_ELITE_MILITIA:
-			//All elites get a gasmask and either night goggles or uv goggles.
-			if( Chance( 75 ) )
+			if ( Chance( bDifficultyRating ) )
 			{
-				usItem = PickARandomItem(GASMASKS);
-				if ( usItem > 0 )
+				//All elites get a gasmask and either night goggles or uv goggles.
+				if( Chance( 75 ) )
 				{
-					CreateItem( usItem, (INT8)(70+Random(31)), &(pp->Inv[ HEAD1POS ]) );
-					pp->Inv[ HEAD1POS ].fFlags |= OBJECT_UNDROPPABLE;
+					usItem = PickARandomItem(GASMASKS);
+					if ( usItem > 0 )
+					{
+						CreateItem( usItem, (INT8)(70+Random(31)), &(pp->Inv[ HEAD1POS ]) );
+						pp->Inv[ HEAD1POS ].fFlags |= OBJECT_UNDROPPABLE;
+					}
+				}
+				else
+				{
+					usItem = PickARandomItem(HEARINGAIDS);
+					if ( usItem > 0 )
+					{
+						CreateItem( usItem, (INT8)(70+Random(31)), &(pp->Inv[ HEAD1POS ]) );
+						pp->Inv[ HEAD1POS ].fFlags |= OBJECT_UNDROPPABLE;
+					}
 				}
 			}
-			else
+			if ( Chance( bDifficultyRating / 3 ) )
 			{
-				usItem = PickARandomItem(HEARINGAIDS);
-				if ( usItem > 0 )
+				if( Chance( 75 ) )
 				{
-					CreateItem( usItem, (INT8)(70+Random(31)), &(pp->Inv[ HEAD1POS ]) );
-					pp->Inv[ HEAD1POS ].fFlags |= OBJECT_UNDROPPABLE;
+					usItem = PickARandomItem(NVGLOW);
+					if ( usItem > 0 )
+					{
+						CreateItem( usItem, (INT8)(70+Random(31)), &(pp->Inv[ HEAD2POS ]) );
+						pp->Inv[ HEAD2POS ].fFlags |= OBJECT_UNDROPPABLE;
+					}
 				}
-			}
-			if( Chance( 75 ) )
-			{
-				usItem = PickARandomItem(NVGLOW);
-				if ( usItem > 0 )
+				else
 				{
-					CreateItem( usItem, (INT8)(70+Random(31)), &(pp->Inv[ HEAD2POS ]) );
-					pp->Inv[ HEAD2POS ].fFlags |= OBJECT_UNDROPPABLE;
-				}
-			}
-			else
-			{
-				usItem = PickARandomItem(NVGHIGH);
-				if ( usItem > 0 )
-				{
-					CreateItem( usItem, (INT8)(70+Random(31)), &(pp->Inv[ HEAD2POS ]) );
-					pp->Inv[ HEAD2POS ].fFlags |= OBJECT_UNDROPPABLE;
+					usItem = PickARandomItem(NVGHIGH);
+					if ( usItem > 0 )
+					{
+						CreateItem( usItem, (INT8)(70+Random(31)), &(pp->Inv[ HEAD2POS ]) );
+						pp->Inv[ HEAD2POS ].fFlags |= OBJECT_UNDROPPABLE;
+					}
 				}
 			}
 			break;
