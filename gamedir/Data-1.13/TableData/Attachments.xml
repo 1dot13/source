@@ -1737,11 +1737,6 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>209</attachmentIndex>
-		<itemIndex>726</itemIndex>
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>209</attachmentIndex>
 		<itemIndex>728</itemIndex>
 		<APCost>5</APCost>
 	</ATTACHMENT>
@@ -5078,11 +5073,6 @@
 	<ATTACHMENT>
 		<attachmentIndex>307</attachmentIndex>
 		<itemIndex>730</itemIndex>
-		<APCost>5</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>307</attachmentIndex>
-		<itemIndex>735</itemIndex>
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
