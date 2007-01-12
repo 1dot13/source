@@ -351,7 +351,7 @@ BOOLEAN HandleHeliEnteringSector( INT16 sX, INT16 sY )
 			if ( ( GetNumberOfPassengersInHelicopter() > 0 ) || !fHeliReturnStraightToBase )
 			{
 				// arrived at destination
-				HeliCharacterDialogue( pSkyRider, ARRIVED_IN_NON_HOSTILE_SECTOR );
+				if(gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE) HeliCharacterDialogue( pSkyRider, ARRIVED_IN_NON_HOSTILE_SECTOR );
 				StopTimeCompression();
 			}
 
@@ -361,7 +361,7 @@ BOOLEAN HandleHeliEnteringSector( INT16 sX, INT16 sY )
 		else
 		{
 			// Say quote: "Gonna have to abort.  Enemies below"
-			HeliCharacterDialogue( pSkyRider, ARRIVED_IN_HOSTILE_SECTOR );
+			if(gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE) HeliCharacterDialogue( pSkyRider, ARRIVED_IN_HOSTILE_SECTOR );
 			StopTimeCompression();
 		}
 

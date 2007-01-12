@@ -53,6 +53,7 @@ enum
 	TOPTION_ALLOW_CROWS,
 	TOPTION_USE_RANDOM_PERSONALITY,
 	TOPTION_USE_AUTO_SAVE,
+	TOPTION_SILENT_SKYRIDER,
 	NUM_GAME_OPTIONS,				//Toggle up this will be able to be Toggled by the player
 	
 

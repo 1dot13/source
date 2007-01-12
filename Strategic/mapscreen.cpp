@@ -12187,7 +12187,7 @@ BOOLEAN RequestGiveSkyriderNewDestination( void )
 		}
 
 		// say Yo!
-		SkyRiderTalk( SKYRIDER_SAYS_HI );
+		if(gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE) SkyRiderTalk( SKYRIDER_SAYS_HI );
 
 		// start plotting helicopter movement
 		fPlotForHelicopter = TRUE;
@@ -12306,7 +12306,7 @@ void HandleNewDestConfirmation( INT16 sMapX, INT16 sMapY )
 			else
 			{
 				// ordinary confirmation quote
-				SkyRiderTalk( CONFIRM_DESTINATION );
+				if(gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE) SkyRiderTalk( CONFIRM_DESTINATION );
 			}
 		}
 		else
