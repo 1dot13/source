@@ -149,11 +149,23 @@
 		<BRCaliber>.454 Casull</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>.45 WM</AmmoCaliber>
-		<BRCaliber>.45 WM</BRCaliber>
+		<AmmoCaliber>.45 WinMag</AmmoCaliber>
+		<BRCaliber>.45 WinMag</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>.50 Beowulf</AmmoCaliber>
 		<BRCaliber>.50 Beowulf</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>.300 WinMag</AmmoCaliber>
+		<BRCaliber>.300 WinMag</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>7.92x57mm</AmmoCaliber>
+		<BRCaliber>7.92x57mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<AmmoCaliber>12.7mm Subsonic</AmmoCaliber>
+		<BRCaliber>12.7mm Sub.</BRCaliber>
 	</AMMO>
 </AMMOLIST>

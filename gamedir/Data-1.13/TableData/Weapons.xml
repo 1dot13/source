@@ -1050,7 +1050,7 @@
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>9</ubCalibre>
-		<ubReadyTime>5</ubReadyTime>
+		<ubReadyTime>4</ubReadyTime>
 		<ubShotsPer4Turns>11</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>9</ubBurstPenalty>
@@ -8969,7 +8969,7 @@
 		<szWeaponName>Walther WA 2000</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>5</ubWeaponType>
-		<ubCalibre>9</ubCalibre>
+		<ubCalibre>39</ubCalibre>
 		<ubReadyTime>4</ubReadyTime>
 		<ubShotsPer4Turns>12</ubShotsPer4Turns>
 		<ubShotsPerBurst>0</ubShotsPerBurst>
@@ -9254,7 +9254,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>754</uiIndex>
-		<szWeaponName>Baikal MP-233</szWeaponName>
+		<szWeaponName>Baikal MP-233B</szWeaponName>
 		<ubWeaponClass>5</ubWeaponClass>
 		<ubWeaponType>8</ubWeaponType>
 		<ubCalibre>5</ubCalibre>
@@ -9927,6 +9927,114 @@
 		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>480</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>773</uiIndex>
+		<szWeaponName>KP M/31</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>4</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>25</ubImpact>
+		<ubDeadliness>20</ubDeadliness>
+		<bAccuracy>5</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>210</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>33</BurstAniDelay>
+		<ubAttackVolume>60</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>360</sSound>
+		<sBurstSound>50</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>6</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>8</AutoPenalty>
+		<NoSemiAuto>0</NoSemiAuto>
+		<APsToReloadManually>0</APsToReloadManually>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>774</uiIndex>
+		<szWeaponName>VSSK Vychlop</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>5</ubWeaponType>
+		<ubCalibre>41</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>9</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>50</ubImpact>
+		<ubDeadliness>55</ubDeadliness>
+		<bAccuracy>6</bAccuracy>
+		<ubMagSize>5</ubMagSize>
+		<usRange>500</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>80</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>134</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sSilencedBurstSound>71</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>309</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>8</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>0</AutoPenalty>
+		<NoSemiAuto>0</NoSemiAuto>
+		<APsToReloadManually>0</APsToReloadManually>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>775</uiIndex>
+		<szWeaponName>SPAS-12</szWeaponName>
+		<ubWeaponClass>5</ubWeaponClass>
+		<ubWeaponType>8</ubWeaponType>
+		<ubCalibre>5</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>11</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>40</ubImpact>
+		<ubDeadliness>28</ubDeadliness>
+		<bAccuracy>-1</bAccuracy>
+		<ubMagSize>7</ubMagSize>
+		<usRange>160</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>391</sSound>
+		<sBurstSound>3</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>103</sReloadSound>
+		<sLocknLoadSound>109</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>18</APsToReload>
+		<SwapClips>0</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>0</AutoPenalty>
+		<NoSemiAuto>0</NoSemiAuto>
+		<APsToReloadManually>0</APsToReloadManually>
+		<ManualReloadSound>481</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>901</uiIndex>
