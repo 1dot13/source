@@ -2377,12 +2377,22 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			if ( !pSoldier )
 				return;
 
-			pSoldier->bOrders = ONGUARD;
 			pSoldier->ubInsertionDirection = bDesiredDirection;
 
-			pSoldier->bAlertStatus = STATUS_YELLOW;
-			pSoldier->sNoiseGridno = (INT16)(CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
-			pSoldier->ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+			// Lesh: militia came from another sector can't reach opposite side of map in case of battle there
+			//       they are often stop at a half way. trying to fix this
+			if ( gTacticalStatus.Team[ MILITIA_TEAM ].bAwareOfOpposition )
+			{
+				pSoldier->bOrders = SEEKENEMY;
+				pSoldier->bAlertStatus = STATUS_RED;
+			}
+			else
+			{
+				pSoldier->bOrders = ONGUARD;
+				pSoldier->bAlertStatus = STATUS_YELLOW;
+				pSoldier->sNoiseGridno = (INT16)(CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
+				pSoldier->ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+			}
 			
 			//Setup the position
 			if( ubCurrSlot < MapEdgepointInfo.ubNumPoints )
@@ -2407,13 +2417,23 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			if ( !pSoldier )
 				return;
 
-			pSoldier->bOrders = ONGUARD;
 			pSoldier->ubInsertionDirection = bDesiredDirection;
 
-			pSoldier->bAlertStatus = STATUS_YELLOW;
-			pSoldier->sNoiseGridno = (INT16)(CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
-			pSoldier->ubNoiseVolume = MAX_MISC_NOISE_DURATION;
-			
+			// Lesh: militia came from another sector can't reach opposite side of map in case of battle there
+			//       they are often stop at a half way. trying to fix this
+			if ( gTacticalStatus.Team[ MILITIA_TEAM ].bAwareOfOpposition )
+			{
+				pSoldier->bOrders = SEEKENEMY;
+				pSoldier->bAlertStatus = STATUS_RED;
+			}
+			else
+			{
+				pSoldier->bOrders = ONGUARD;
+				pSoldier->bAlertStatus = STATUS_YELLOW;
+				pSoldier->sNoiseGridno = (INT16)(CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
+				pSoldier->ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+			}
+
 			//Setup the position
 			if( ubCurrSlot < MapEdgepointInfo.ubNumPoints )
 			{ //using an edgepoint
@@ -2437,13 +2457,22 @@ void AddSoldierInitListMilitiaOnEdge( UINT8 ubStrategicInsertionCode, UINT8 ubNu
 			if ( !pSoldier )
 				return;
 
-			pSoldier->bOrders = ONGUARD;
 			pSoldier->ubInsertionDirection = bDesiredDirection;
 
-			pSoldier->bAlertStatus = STATUS_YELLOW;
-			pSoldier->sNoiseGridno = (INT16)(CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
-			pSoldier->ubNoiseVolume = MAX_MISC_NOISE_DURATION;
-
+			// Lesh: militia came from another sector can't reach opposite side of map in case of battle there
+			//       they are often stop at a half way. trying to fix this
+			if ( gTacticalStatus.Team[ MILITIA_TEAM ].bAwareOfOpposition )
+			{
+				pSoldier->bOrders = SEEKENEMY;
+				pSoldier->bAlertStatus = STATUS_RED;
+			}
+			else
+			{
+				pSoldier->bOrders = ONGUARD;
+				pSoldier->bAlertStatus = STATUS_YELLOW;
+				pSoldier->sNoiseGridno = (INT16)(CENTRAL_GRIDNO + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) + ( Random( CENTRAL_RADIUS * 2 + 1 ) - CENTRAL_RADIUS ) * WORLD_COLS);
+				pSoldier->ubNoiseVolume = MAX_MISC_NOISE_DURATION;
+			}
 
 //			if ( GetTimeOfDayAmbientLightLevel() < NORMAL_LIGHTLEVEL_DAY + 2 )
 //				gTacticalStatus.Team[ ENEMY_TEAM ].bAwareOfOpposition = TRUE;
