@@ -3131,6 +3131,8 @@ INT8 GetAttachmentComboMerge( OBJECTTYPE * pObj )
 	return( -1 );
 }
 
+
+
 void PerformAttachmentComboMerge( OBJECTTYPE * pObj, INT8 bAttachmentComboMerge )
 {
 	INT8		bAttachLoop, bAttachPos;
@@ -3165,10 +3167,14 @@ void PerformAttachmentComboMerge( OBJECTTYPE * pObj, INT8 bAttachmentComboMerge 
 	pObj->usItem = AttachmentComboMerge[ bAttachmentComboMerge ].usResult;
 	pObj->bStatus[ 0 ] = (INT8) (uiStatusTotal / bNumStatusContributors );
 }
+
+
 BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYPE * pAttachment )
 {
 	return AttachObject( pSoldier, pTargetObj, pAttachment, TRUE );
 }
+
+
 BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYPE * pAttachment, BOOLEAN playSound )
 {
 	INT8		bAttachPos, bSecondAttachPos;//, bAbility, bSuccess;
@@ -3178,6 +3184,12 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 	INT32		iCheckResult;
 	INT8		bAttachInfoIndex = -1, bAttachComboMerge;
 	BOOLEAN	fValidLaunchable = FALSE;
+
+
+	if ( pTargetObj->ubNumberOfObjects > 1 )
+	{
+		return( FALSE );
+	}
 
 	fValidLaunchable = ValidLaunchable( pAttachment->usItem, pTargetObj->usItem );
 
