@@ -2,6 +2,7 @@
 <EXPDATALIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<EXPDATA>
 		<uiIndex>0</uiIndex>
+		<name>None</name>
 		<TransKeyFrame>0</TransKeyFrame>
 		<DamageKeyFrame>0</DamageKeyFrame>
 		<ExplosionSoundID>61</ExplosionSoundID>
@@ -10,6 +11,7 @@
 	</EXPDATA>
 	<EXPDATA>
 		<uiIndex>1</uiIndex>
+		<name>Standard</name>
 		<TransKeyFrame>17</TransKeyFrame>
 		<DamageKeyFrame>3</DamageKeyFrame>
 		<ExplosionSoundID>61</ExplosionSoundID>
@@ -19,6 +21,7 @@
 	</EXPDATA>
 	<EXPDATA>
 		<uiIndex>2</uiIndex>
+		<name>Large</name>
 		<TransKeyFrame>28</TransKeyFrame>
 		<DamageKeyFrame>5</DamageKeyFrame>
 		<ExplosionSoundID>286</ExplosionSoundID>
@@ -28,6 +31,7 @@
 	</EXPDATA>
 	<EXPDATA>
 		<uiIndex>3</uiIndex>
+		<name>Extra Large</name>
 		<TransKeyFrame>24</TransKeyFrame>
 		<DamageKeyFrame>5</DamageKeyFrame>
 		<ExplosionSoundID>286</ExplosionSoundID>
@@ -37,6 +41,7 @@
 	</EXPDATA>
 	<EXPDATA>
 		<uiIndex>4</uiIndex>
+		<name>Stun</name>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>5</DamageKeyFrame>
 		<ExplosionSoundID>61</ExplosionSoundID>
@@ -46,6 +51,7 @@
 	</EXPDATA>
 	<EXPDATA>
 		<uiIndex>5</uiIndex>
+		<name>Underwater</name>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>18</DamageKeyFrame>
 		<ExplosionSoundID>248</ExplosionSoundID>
@@ -55,6 +61,7 @@
 	</EXPDATA>
 	<EXPDATA>
 		<uiIndex>6</uiIndex>
+		<name>Tear Gas</name>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>18</DamageKeyFrame>
 		<ExplosionSoundID>248</ExplosionSoundID>
@@ -64,6 +71,7 @@
 	</EXPDATA>
 	<EXPDATA>
 		<uiIndex>7</uiIndex>
+		<name>Smoke</name>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>18</DamageKeyFrame>
 		<ExplosionSoundID>248</ExplosionSoundID>
@@ -73,6 +81,7 @@
 	</EXPDATA>
 	<EXPDATA>
 		<uiIndex>8</uiIndex>
+		<name>Mustard Gas</name>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>18</DamageKeyFrame>
 		<ExplosionSoundID>248</ExplosionSoundID>
@@ -82,6 +91,7 @@
 	</EXPDATA>
 	<EXPDATA>
 		<uiIndex>9</uiIndex>
+		<name>Flame</name>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>18</DamageKeyFrame>
 		<ExplosionSoundID>286</ExplosionSoundID>
@@ -91,6 +101,7 @@
 	</EXPDATA>
 	<EXPDATA>
 		<uiIndex>10</uiIndex>
+		<name>Molotov Flame</name>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>18</DamageKeyFrame>
 		<ExplosionSoundID>325</ExplosionSoundID>
@@ -100,6 +111,7 @@
 	</EXPDATA>
 	<EXPDATA>
 		<uiIndex>11</uiIndex>
+		<name>Flashbang</name>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>5</DamageKeyFrame>
 		<ExplosionSoundID>465</ExplosionSoundID>
