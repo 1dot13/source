@@ -276,7 +276,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 		case SOLDIER_CLASS_ADMINISTRATOR:
 		case SOLDIER_CLASS_GREEN_MILITIA:
 			if ( gGameExternalOptions.fSlowProgressForEnemyItemsChoice )
-				bRating = bEquipmentModifier;
+				bRating = bEquipmentModifier - ( bSoldierClass == SOLDIER_CLASS_GREEN_MILITIA );
 			else
 				bRating = BAD_ADMINISTRATOR_EQUIPMENT_RATING + bEquipmentModifier;
 			bRating = (INT8)max( MIN_EQUIPMENT_CLASS, min( MAX_EQUIPMENT_CLASS, bRating ) );
@@ -321,7 +321,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 		case SOLDIER_CLASS_REG_MILITIA:
 			//army guys tend to have a broad range of equipment
 			if ( gGameExternalOptions.fSlowProgressForEnemyItemsChoice )
-				bRating = bEquipmentModifier;
+				bRating = bEquipmentModifier - ( bSoldierClass == SOLDIER_CLASS_REG_MILITIA );
 			else
 				bRating = BAD_ARMY_EQUIPMENT_RATING + bEquipmentModifier;
 			bRating = (INT8)max( MIN_EQUIPMENT_CLASS, min( MAX_EQUIPMENT_CLASS, bRating ) );
@@ -433,7 +433,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 		case SOLDIER_CLASS_ELITE:
 		case SOLDIER_CLASS_ELITE_MILITIA:
 			if ( gGameExternalOptions.fSlowProgressForEnemyItemsChoice )
-				bRating = bEquipmentModifier;
+				bRating = bEquipmentModifier - ( bSoldierClass == SOLDIER_CLASS_ELITE_MILITIA );
 			else
 				bRating = BAD_ELITE_EQUIPMENT_RATING + bEquipmentModifier;
 			bRating = (INT8)max( MIN_EQUIPMENT_CLASS, min( MAX_EQUIPMENT_CLASS, bRating ) );
