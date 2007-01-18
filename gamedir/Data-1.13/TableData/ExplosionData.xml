@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <EXPDATALIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<EXPDATA>
+		<uiIndex>0</uiIndex>
 		<TransKeyFrame>0</TransKeyFrame>
 		<DamageKeyFrame>0</DamageKeyFrame>
 		<ExplosionSoundID>61</ExplosionSoundID>
@@ -8,6 +9,7 @@
 		<BlastSpeed>0</BlastSpeed>
 	</EXPDATA>
 	<EXPDATA>
+		<uiIndex>1</uiIndex>
 		<TransKeyFrame>17</TransKeyFrame>
 		<DamageKeyFrame>3</DamageKeyFrame>
 		<ExplosionSoundID>61</ExplosionSoundID>
@@ -16,6 +18,7 @@
 		<BlastSpeed>80</BlastSpeed>
 	</EXPDATA>
 	<EXPDATA>
+		<uiIndex>2</uiIndex>
 		<TransKeyFrame>28</TransKeyFrame>
 		<DamageKeyFrame>5</DamageKeyFrame>
 		<ExplosionSoundID>286</ExplosionSoundID>
@@ -24,6 +27,7 @@
 		<BlastSpeed>80</BlastSpeed>
 	</EXPDATA>
 	<EXPDATA>
+		<uiIndex>3</uiIndex>
 		<TransKeyFrame>24</TransKeyFrame>
 		<DamageKeyFrame>5</DamageKeyFrame>
 		<ExplosionSoundID>286</ExplosionSoundID>
@@ -32,6 +36,7 @@
 		<BlastSpeed>80</BlastSpeed>
 	</EXPDATA>
 	<EXPDATA>
+		<uiIndex>4</uiIndex>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>5</DamageKeyFrame>
 		<ExplosionSoundID>61</ExplosionSoundID>
@@ -40,6 +45,7 @@
 		<BlastSpeed>20</BlastSpeed>
 	</EXPDATA>
 	<EXPDATA>
+		<uiIndex>5</uiIndex>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>18</DamageKeyFrame>
 		<ExplosionSoundID>248</ExplosionSoundID>
@@ -48,6 +54,7 @@
 		<BlastSpeed>80</BlastSpeed>
 	</EXPDATA>
 	<EXPDATA>
+		<uiIndex>6</uiIndex>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>18</DamageKeyFrame>
 		<ExplosionSoundID>248</ExplosionSoundID>
@@ -56,6 +63,7 @@
 		<BlastSpeed>80</BlastSpeed>
 	</EXPDATA>
 	<EXPDATA>
+		<uiIndex>7</uiIndex>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>18</DamageKeyFrame>
 		<ExplosionSoundID>248</ExplosionSoundID>
@@ -64,6 +72,7 @@
 		<BlastSpeed>80</BlastSpeed>
 	</EXPDATA>
 	<EXPDATA>
+		<uiIndex>8</uiIndex>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>18</DamageKeyFrame>
 		<ExplosionSoundID>248</ExplosionSoundID>
@@ -72,6 +81,7 @@
 		<BlastSpeed>80</BlastSpeed>
 	</EXPDATA>
 	<EXPDATA>
+		<uiIndex>9</uiIndex>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>18</DamageKeyFrame>
 		<ExplosionSoundID>286</ExplosionSoundID>
@@ -80,6 +90,7 @@
 		<BlastSpeed>80</BlastSpeed>
 	</EXPDATA>
 	<EXPDATA>
+		<uiIndex>10</uiIndex>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>18</DamageKeyFrame>
 		<ExplosionSoundID>325</ExplosionSoundID>
@@ -88,6 +99,7 @@
 		<BlastSpeed>80</BlastSpeed>
 	</EXPDATA>
 	<EXPDATA>
+		<uiIndex>11</uiIndex>
 		<TransKeyFrame>1</TransKeyFrame>
 		<DamageKeyFrame>5</DamageKeyFrame>
 		<ExplosionSoundID>465</ExplosionSoundID>

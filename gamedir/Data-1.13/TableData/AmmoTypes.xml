@@ -2,6 +2,7 @@
 <AMMOTYPELIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<AMMOTYPE>
 		<uiIndex>0</uiIndex>
+		<name>Ball</name>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -33,6 +34,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>1</uiIndex>
+		<name>HP</name>
 		<fontColour>24</fontColour>
 		<grayed>12</grayed>
 		<offNormal>9</offNormal>
@@ -64,6 +66,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>2</uiIndex>
+		<name>AP/FMJ</name>
 		<fontColour>218</fontColour>
 		<grayed>8</grayed>
 		<offNormal>5</offNormal>
@@ -95,6 +98,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>3</uiIndex>
+		<name>SAP</name>
 		<fontColour>163</fontColour>
 		<grayed>8</grayed>
 		<offNormal>5</offNormal>
@@ -126,6 +130,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>4</uiIndex>
+		<name>Buckshot</name>
 		<fontColour>125</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -157,6 +162,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>5</uiIndex>
+		<name>Flechette</name>
 		<fontColour>218</fontColour>
 		<grayed>8</grayed>
 		<offNormal>5</offNormal>
@@ -188,6 +194,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>6</uiIndex>
+		<name>Grenade</name>
 		<fontColour>75</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -219,6 +226,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>7</uiIndex>
+		<name>Monster</name>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -250,6 +258,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>8</uiIndex>
+		<name>Knife</name>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -281,6 +290,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>9</uiIndex>
+		<name>HE</name>
 		<fontColour>75</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -312,6 +322,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>10</uiIndex>
+		<name>HEAT</name>
 		<fontColour>76</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -343,6 +354,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>11</uiIndex>
+		<name>Dart</name>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -374,6 +386,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>12</uiIndex>
+		<name>Flame</name>
 		<fontColour>136</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -405,6 +418,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>13</uiIndex>
+		<name>AET</name>
 		<fontColour>160</fontColour>
 		<grayed>8</grayed>
 		<offNormal>25</offNormal>
@@ -436,6 +450,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>14</uiIndex>
+		<name>Glaser</name>
 		<fontColour>185</fontColour>
 		<grayed>12</grayed>
 		<offNormal>21</offNormal>
@@ -467,6 +482,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>15</uiIndex>
+		<name>Tracer Ball</name>
 		<fontColour>144</fontColour>
 		<grayed>4</grayed>
 		<offNormal>17</offNormal>
@@ -498,6 +514,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>16</uiIndex>
+		<name>Tracer FMJ</name>
 		<fontColour>144</fontColour>
 		<grayed>4</grayed>
 		<offNormal>17</offNormal>
@@ -529,6 +546,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>17</uiIndex>
+		<name>Match Ball</name>
 		<fontColour>133</fontColour>
 		<grayed>4</grayed>
 		<offNormal>13</offNormal>
@@ -560,6 +578,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>18</uiIndex>
+		<name>Match FMJ</name>
 		<fontColour>133</fontColour>
 		<grayed>4</grayed>
 		<offNormal>13</offNormal>
@@ -591,6 +610,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>19</uiIndex>
+		<name>Cold Ball</name>
 		<fontColour>135</fontColour>
 		<grayed>4</grayed>
 		<offNormal>1</offNormal>
@@ -622,6 +642,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>20</uiIndex>
+		<name>Cold HP</name>
 		<fontColour>71</fontColour>
 		<grayed>12</grayed>
 		<offNormal>9</offNormal>
@@ -653,6 +674,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>21</uiIndex>
+		<name>Cold AP/FMJ</name>
 		<fontColour>161</fontColour>
 		<grayed>8</grayed>
 		<offNormal>5</offNormal>
@@ -684,6 +706,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>22</uiIndex>
+		<name>Cold SAP</name>
 		<fontColour>163</fontColour>
 		<grayed>8</grayed>
 		<offNormal>5</offNormal>
@@ -715,6 +738,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>23</uiIndex>
+		<name>Cold Glaser Ball</name>
 		<fontColour>184</fontColour>
 		<grayed>12</grayed>
 		<offNormal>21</offNormal>
@@ -746,6 +770,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>24</uiIndex>
+		<name>Cold Glaser FMJ</name>
 		<fontColour>184</fontColour>
 		<grayed>12</grayed>
 		<offNormal>21</offNormal>
@@ -777,6 +802,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>25</uiIndex>
+		<name>Lock Buster</name>
 		<fontColour>133</fontColour>
 		<grayed>4</grayed>
 		<offNormal>13</offNormal>
@@ -808,6 +834,7 @@
 	</AMMOTYPE>
 	<AMMOTYPE>
 		<uiIndex>26</uiIndex>
+		<name>Depleted Uranium</name>
 		<fontColour>186</fontColour>
 		<grayed>8</grayed>
 		<offNormal>21</offNormal>
