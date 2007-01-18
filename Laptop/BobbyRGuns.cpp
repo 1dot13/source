@@ -1197,8 +1197,6 @@ void BtnBobbyRFilterMiscCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	UINT32		bNewValue;
 	bNewValue = MSYS_GetBtnUserData( btn, 0 );
-	INT32		iPrevButton, iNewButton;
-	
 
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
