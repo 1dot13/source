@@ -124,9 +124,6 @@ enum
 	EX_DIRECTION_IRRELEVANT
 } ExtendedWorldDirections;
 
-// WANNE
-BOOLEAN bPreDeductPunchAPs = FALSE;
-
 // LUT for conversion from 8-direction to extended direction
 UINT8 ubExtDirection[] = 
 {
@@ -4839,29 +4836,25 @@ void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT16	usN
 
 	if ( pSoldier->bDesiredDirection != pSoldier->bDirection )
 	{
-		// WANNE: If we punch the enemy, do not pre deduct the aps!
-		if (bPreDeductPunchAPs == TRUE)
+		if ( gAnimControl[ usAnimState ].uiFlags & ( ANIM_BREATH | ANIM_OK_CHARGE_AP_FOR_TURN | ANIM_FIREREADY ) && !fInitalMove && !pSoldier->fDontChargeTurningAPs )
 		{
-			if ( gAnimControl[ usAnimState ].uiFlags & ( ANIM_BREATH | ANIM_OK_CHARGE_AP_FOR_TURN | ANIM_FIREREADY ) && !fInitalMove && !pSoldier->fDontChargeTurningAPs )
+			// Deduct points for initial turn!
+			switch( gAnimControl[ usAnimState ].ubEndHeight )
 			{
-				// Deduct points for initial turn!
-				switch( gAnimControl[ usAnimState ].ubEndHeight )
-				{
-					// Now change to appropriate animation
-					case ANIM_STAND:
-						DeductPoints( pSoldier, AP_LOOK_STANDING, 0 );
-						break;
+				// Now change to appropriate animation
+				case ANIM_STAND:
+					DeductPoints( pSoldier, AP_LOOK_STANDING, 0 );
+					break;
 
-					case ANIM_CROUCH:
-						DeductPoints( pSoldier, AP_LOOK_CROUCHED, 0 );
-						break;
+				case ANIM_CROUCH:
+					DeductPoints( pSoldier, AP_LOOK_CROUCHED, 0 );
+					break;
 
-					case ANIM_PRONE:
-						DeductPoints( pSoldier, AP_LOOK_PRONE, 0 );
-						break;
-				}
+				case ANIM_PRONE:
+					DeductPoints( pSoldier, AP_LOOK_PRONE, 0 );
+					break;
 			}
-
+		
 		}
 
 		pSoldier->fDontChargeTurningAPs = FALSE;
@@ -8816,19 +8809,12 @@ void EVENT_SoldierBeginPunchAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 
 		return;
 	}
 
-
 	if ( fChangeDirection )
 	{
-		// WANNE: Do not pre deduct APs for punching. These APs are calculated later!
-		bPreDeductPunchAPs = FALSE;
-
 		// CHANGE DIRECTION AND GOTO ANIMATION NOW
 		EVENT_SetSoldierDesiredDirection( pSoldier, ubDirection );
 		EVENT_SetSoldierDirection( pSoldier, ubDirection );
-	
-		bPreDeductPunchAPs = TRUE;
 	}
-
 
 	// Are we a martial artist?
 	if ( HAS_SKILL_TRAIT( pSoldier, MARTIALARTS ) )
