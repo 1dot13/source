@@ -10,8 +10,8 @@
 
 #define MAX_TOWN_NAME_LENGHT	32
 
-#define MAX_TOWNS			50
-#define MAX_TOWN_SECTORS	260
+#define MAX_TOWNS			13	//50
+#define MAX_TOWN_SECTORS	40	//260
 
 // Sector name identifiers
 enum Towns
