@@ -4567,14 +4567,16 @@ UINT32 UIHandleLCOnTerrain( UI_EVENT *pUIEvent )
 	{
 		usAnimState = PickSoldierReadyAnimation( pSoldier, FALSE );
 
+		gsCurrentActionPoints = 0;
+
+		// Lesh: raise weapon include APs to set weapon towards enemy and APs to aquire/change target
+		if( pSoldier->sLastTarget != sXPos + (MAXCOL * sYPos ) )
+			gsCurrentActionPoints = AP_CHANGE_TARGET;
+
 		if( usAnimState != INVALID_ANIMATION )
 		{
-			gsCurrentActionPoints = GetAPsToReadyWeapon( pSoldier, usAnimState );// Madd: removed the next part since it was deducting 2 extra aps that would not be deducted when readying the old way //+ AP_TO_AIM_TILE_IF_GETTING_READY;
+			gsCurrentActionPoints += GetAPsToReadyWeapon( pSoldier, usAnimState );// Madd: removed the next part since it was deducting 2 extra aps that would not be deducted when readying the old way //+ AP_TO_AIM_TILE_IF_GETTING_READY;
 		}
-		else if( pSoldier->sLastTarget != sXPos + (MAXCOL * sYPos ) )
-			gsCurrentActionPoints = AP_TO_AIM_TILE_IF_ALREADY_READY;
-		else
-			gsCurrentActionPoints = 0;
 
 		gfUIHandleShowMoveGrid = TRUE;
 		gsUIHandleShowMoveGridLocation = sXPos + (MAXCOL * sYPos );
@@ -4642,21 +4644,19 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 	{
 		usAnimState = PickSoldierReadyAnimation( pSoldier, FALSE );
 
-		sAPCostToReady = 0;
+		sAPCostToReady = sAPCost = 0;
+
+		// Lesh: raise weapon include APs to set weapon towards enemy and APs to aquire/change target
+		if( pSoldier->sLastTarget != sXPos + (MAXCOL * sYPos ) )
+			sAPCost = AP_CHANGE_TARGET;
 
 		if( usAnimState != INVALID_ANIMATION )
 		{
 			sAPCostToReady = GetAPsToReadyWeapon( pSoldier, usAnimState );
-			sAPCost = sAPCostToReady; // Madd: removed this part since it was costing too many aps to ready weapon -- see other comment //+ AP_TO_AIM_TILE_IF_GETTING_READY;
 		}
-		else if( pSoldier->sLastTarget != sXPos + (MAXCOL * sYPos ) )
-			sAPCost = AP_TO_AIM_TILE_IF_ALREADY_READY;
-		else
-			return FALSE;
-
 
 		// Check AP cost...
-		if ( !EnoughPoints( pSoldier, sAPCost, 0, TRUE ) )
+		if ( !EnoughPoints( pSoldier, sAPCost + sAPCostToReady, 0, TRUE ) )
 		{
 			return( FALSE );
 		}
@@ -4670,7 +4670,7 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 		// Setting "Last Target"
 
 		pSoldier->sLastTarget = sXPos + (MAXCOL * sYPos);
-		DeductPoints( pSoldier, (INT16)(sAPCost - sAPCostToReady), 0 );
+		DeductPoints( pSoldier, sAPCost, 0 );
 
 		return( TRUE );
 	}
