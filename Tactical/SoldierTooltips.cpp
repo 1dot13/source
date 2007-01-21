@@ -50,10 +50,17 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 
 		// get the distance to enemy's tile from the selected merc
 		if ( gusSelectedSoldier != NOBODY )
+		{		
 			iRangeToTarget = GetRangeInCellCoordsFromGridNoDiff( MercPtrs[ gusSelectedSoldier ]->sGridNo, sSoldierGridNo ) / 10;
+		}
+		// WANNE: If we want to show the tooltip of milita and no merc is present in the sector
+		else
+		{
+			return;
+		}
 
 		if ( gGameExternalOptions.fEnableDynamicSoldierTooltips )
-		{
+		{			
 			for ( INT32 cnt = 0; cnt < MAX_ATTACHMENTS; cnt++ )
 			{
 				if ( Item[MercPtrs[gusSelectedSoldier]->inv[HANDPOS].usAttachItem[cnt]].visionrangebonus > 0 )
