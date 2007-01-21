@@ -3466,8 +3466,10 @@ STR16		zOptionsToggleText[] =
 	L"Show Weapon Ranges in Tiles",
 	L"Tracer effect for single shot",
 	L"Rain noises",
+	L"Allow crows",
 	L"Random I.M.P personality",
 	L"Auto save",
+	L"Silent Skyrider",
 };
 
 //This is the help text associated with the above toggles.
@@ -3543,8 +3545,10 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, weapon ranges will be shown in tiles.",
 	L"When ON, tracer effect will be shown for single shots.",
 	L"When ON, you will hear rain noises when it is raining.",
+	L"When ON, the crows are present in game.",
 	L"When ON, I.M.P characters will get random personality and attitude.",
-	L"When ON, game will be saved in tactical after each players turn.",
+	L"When ON, game will be saved after each players turn.",
+	L"When ON, Skyrider will not talk anymore.",
 };
 
 
