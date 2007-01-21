@@ -624,10 +624,13 @@ INT32 MineAMine( INT8 bMineIndex )
 	{
 		// we didn't want mines to run out without player ever even going to them, so now the queen doesn't reduce the
 		// amount remaining until the mine has produced for the player first (so she'd have to capture it).
+		
+		// WANNE: We do not want to give money to the player, when the queen has captured the mine!
 		if ( gMineStatus[ bMineIndex ].fMineHasProducedForPlayer )
 		{
 			// don't actually give her money, just take production away
-			iAmtExtracted = ExtractOreFromMine( bMineIndex , GetCurrentWorkRateOfMineForEnemy( bMineIndex ) );
+			//iAmtExtracted = ExtractOreFromMine( bMineIndex , GetCurrentWorkRateOfMineForEnemy( bMineIndex ) );
+			iAmtExtracted = 0;
 		}
 	}
 
