@@ -1,11 +1,12 @@
+<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
 <AMMOLIST>
 	<AMMO>
 		<AmmoCaliber>0</AmmoCaliber>
 		<BRCaliber>0</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>.38 S&amp;W</AmmoCaliber>
-		<BRCaliber>.38 S&amp;W</BRCaliber>
+		<AmmoCaliber>.38 Special</AmmoCaliber>
+		<BRCaliber>.38 Special</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>9x19mm</AmmoCaliber>
@@ -16,8 +17,8 @@
 		<BRCaliber>.45 ACP</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>.357 MAG</AmmoCaliber>
-		<BRCaliber>.357 MAG</BRCaliber>
+		<AmmoCaliber>.357 Magnum</AmmoCaliber>
+		<BRCaliber>.357 Magnum</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>Kal. 12/70</AmmoCaliber>
@@ -104,8 +105,8 @@
 		<BRCaliber>.338 Lapua</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>.44 MAG</AmmoCaliber>
-		<BRCaliber>.44 MAG</BRCaliber>
+		<AmmoCaliber>.44 Magnum</AmmoCaliber>
+		<BRCaliber>.44 Magnum</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>10mm AUTO</AmmoCaliber>
@@ -156,8 +157,8 @@
 		<BRCaliber>.50 Beowulf</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>.300 WinMag</AmmoCaliber>
-		<BRCaliber>.300 WinMag</BRCaliber>
+		<AmmoCaliber>.300 WM</AmmoCaliber>
+		<BRCaliber>.300 WM</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>7.92x57mm</AmmoCaliber>

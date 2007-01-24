@@ -1,4 +1,13 @@
 <!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
+<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
+<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
+<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
+<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
+<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
+<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
+<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
+<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
+<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -187,10 +196,10 @@
 	<ITEM>
 		<uiIndex>23</uiIndex>
 		<szItemName>C7A2</szItemName>
-		<szLongItemName>Diemaco C7A2</szLongItemName>
-		<szItemDesc>Dieses Gewehr steht für das kanadische Motto, 'Was die Yankees können, können wir schon lange.' Diese Version des M16 ist der Traum eines jeden Söldners.</szItemDesc>
-		<szBRName>Diemaco C7A2</szBRName>
-		<szBRDesc>Dieses Gewehr steht für das kanadische Motto, 'Was die Yankees können, können wir schon lange.' Diese Version des M16 ist der Traum eines jeden Söldners. Es besitzt eine S-F Abzugsgruppe.</szBRDesc>
+		<szLongItemName>Colt Canada C7A2</szLongItemName>
+		<szItemDesc>Dieses Sturmgewehr ist eine weitere Variante aus der AR-15/M16-Baureihe. Es wird von der kanadischen Armee eingesetzt. Diese Version des M16 ist der Traum eines jeden Söldners.</szItemDesc>
+		<szBRName>Colt Canada C7A2</szBRName>
+		<szBRDesc>Dieses Sturmgewehr ist eine weitere Variante aus der AR-15/M16-Baureihe. Es wird von der kanadischen Armee eingesetzt. Diese Version des M16 ist der Traum eines jeden Söldners.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>24</uiIndex>
@@ -3746,11 +3755,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>468</uiIndex>
-		<szItemName>7.62x51 US-G</szItemName>
-		<szLongItemName>7.62x51mm Mag, US-Glaser</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>7.62x51 US-G</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 468</szItemDesc>
+		<szBRName>Nada</szBRName>
+		<szBRDesc>Index 468</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>469</uiIndex>
@@ -3802,67 +3811,64 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>475</uiIndex>
-		<szItemName>7.62x51 HS</szItemName>
-		<szLongItemName>7.62x51mm Box, HS</szLongItemName>
-		<szItemDesc>Seit über 40 Jahren fertigt die MEN das ehemalige NATO-Kaliber, in dieser Zeit wurde es millionenfach hergestellt. Neben der Weichkern-Patrone (WK) fertigen wir auch eine Hartkernpatrone mit hervorragender Durchschlagsleistung.</szItemDesc>
-		<szBRName>7.62x51 HS #250</szBRName>
-		<szBRDesc>Seit über 40 Jahren fertigt die MEN das ehemalige NATO-Kaliber, in dieser Zeit wurde es millionenfach hergestellt. Neben der Weichkern-Patrone (WK) fertigen wir auch eine Hartkernpatrone mit hervorragender Durchschlagsleistung.</szBRDesc>
+		<szItemName>.300 WM HS</szItemName>
+		<szLongItemName>.300 WM Magazin, HS</szLongItemName>
+		<szItemDesc>Die neu entwickelte RWS Evolution Patrone kombiniert mit einer ausgefeilten Mantelkonstruktion und dem innovativen Rapid-X-Tip eine überzeugende Performance auf allen jagdüblichen Schuss-Distanzen.</szItemDesc>
+		<szBRName>.300 WM HS #5</szBRName>
+		<szBRDesc>Die neu entwickelte RWS Evolution Patrone kombiniert mit einer ausgefeilten Mantelkonstruktion und dem innovativen Rapid-X-Tip eine überzeugende Performance auf allen jagdüblichen Schuss-Distanzen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>476</uiIndex>
-		<szItemName>7.62x51 Box</szItemName>
-		<szLongItemName>7.62x51mm Box, PB</szLongItemName>
-		<szItemDesc>Seit über 40 Jahren fertigt die MEN das ehemalige NATO-Kaliber, in dieser Zeit wurde es millionenfach hergestellt. Die Hartkern-Patrone enthält einen Wolframcarbid-Kern mit hervorragender Durchschlagsleistung.</szItemDesc>
-		<szBRName>7.62x51 Box #250</szBRName>
-		<szBRDesc>Seit über 40 Jahren fertigt die MEN das ehemalige NATO-Kaliber, in dieser Zeit wurde es millionenfach hergestellt. Die Hartkern-Patrone enthält einen Wolframcarbid-Kern mit hervorragender Durchschlagsleistung.</szBRDesc>
+		<szItemName>.300 WM PB</szItemName>
+		<szLongItemName>.300 WM Magazin, PB</szLongItemName>
+		<szItemDesc>Die REMINGTON Core-Lokt Patronen sind eine Klasse für sich. Sie werden gern von Jäger und Wildhüter verwendet. Ihre Geschosse haben eine hohe Durchschlagskraft und besitzen eine sehr hohe Präzision.</szItemDesc>
+		<szBRName>.300 WM PB #5</szBRName>
+		<szBRDesc>Die REMINGTON Core-Lokt Patronen sind eine Klasse für sich. Sie werden gern von Jäger und Wildhüter verwendet. Ihre Geschosse haben eine hohe Durchschlagskraft und besitzen eine sehr hohe Präzision.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>477</uiIndex>
-		<szItemName>7.62x51 Glaser</szItemName>
-		<szLongItemName>7.62x51mm Box, Glaser</szLongItemName>
-		<szItemDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szItemDesc>
-		<szBRName>7.62x51 Glaser</szBRName>
-		<szBRDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szBRDesc>
+		<szItemName>7.92x57 HS</szItemName>
+		<szLongItemName>7.92x57mm Magazin, HS</szLongItemName>
+		<szItemDesc>Während des 2. WK war das die Munition für die Strumgewehre der Wehrmacht. Heute wird es mit dem Kaliber .308 Winchester gleichgesetzt.</szItemDesc>
+		<szBRName>7.92x57mm HS #5</szBRName>
+		<szBRDesc>Sie besitzen ein altes MAUSER Gewehr 98 oder einen Karabiner 98K? Wir haben dafür die passende Munition Opa!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>478</uiIndex>
-		<szItemName>7.62x51 LS</szItemName>
-		<szLongItemName>7.62x51mm Box, Leuchtspur-PB</szLongItemName>
-		<szItemDesc>Mit dieser Leuchtspurmunition sollte das Zielen und Treffen im Burstmodus kein Problem mehr sein.</szItemDesc>
-		<szBRName>7.62x51 LS-PB #250</szBRName>
-		<szBRDesc>Mit dieser Leuchtspurmunition sollte das Zielen und Treffen im Burstmodus kein Problem mehr sein.</szBRDesc>
+		<szItemName>7.92x57 PB</szItemName>
+		<szLongItemName>7.92x57mm Magazin, PB</szLongItemName>
+		<szItemDesc>Während des 2. WK war das die Munition für die Strumgewehre der Wehrmacht. Heute wird es mit dem Kaliber .308 Winchester gleichgesetzt.</szItemDesc>
+		<szBRName>7.92x57mm PB #5</szBRName>
+		<szBRDesc>Sie besitzen ein altes MAUSER Gewehr 98 oder einen Karabiner 98K? Wir haben dafür die passende Munition Opa!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>479</uiIndex>
-		<szItemName>7.62x51 M-PB</szItemName>
-		<szLongItemName>7.62x51mm Box, Match-PB</szLongItemName>
-		<szItemDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 120m.</szItemDesc>
-		<szBRName>7.62x51 Match-PB</szBRName>
-		<szBRDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 120m.</szBRDesc>
+		<szItemName>12.7mm US</szItemName>
+		<szLongItemName>12.7mm Unterschall</szLongItemName>
+		<szItemDesc>Sie möchten im Kaliber .50 feuern ohne ein Geräusch zu machen? Dann nehme Sie diese gekürzten 12.7mm Patronen, sie passen in das russische VSSK.</szItemDesc>
+		<szBRName>12.7mm Unterschall</szBRName>
+		<szBRDesc>Sie möchten im Kaliber .50 feuern ohne ein Geräusch zu machen? Dann nehme Sie diese gekürzten 12.7mm Patronen, sie passen in das russische VSSK.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>480</uiIndex>
-		<szItemName>7.62x51 US-HS</szItemName>
-		<szLongItemName>7.62x51mm Box, US-HS</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>7.62x51 US-HS</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 480</szItemDesc>
+		<szBRDesc>480</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>481</uiIndex>
-		<szItemName>7.62x51 US</szItemName>
-		<szLongItemName>7.62x51mm Box, Unterschall</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>7.62x51 US #250</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>index 481</szItemDesc>
+		<szBRDesc>481</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>482</uiIndex>
-		<szItemName>7.62x51 US-G</szItemName>
-		<szLongItemName>7.62x51mm Box, US-Glaser</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>7.62x51 US-G</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 482</szItemDesc>
+		<szBRDesc>482</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>483</uiIndex>
@@ -4101,7 +4107,7 @@
 		<szItemName>.40 Mag</szItemName>
 		<szLongItemName>.40 S&amp;W Mag</szLongItemName>
 		<szItemDesc>Diese FIOCCHI VM-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
-		<szBRName>.40 Mag</szBRName>
+		<szBRName>.40 Magazin</szBRName>
 		<szBRDesc>Diese FIOCCHI VM-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4181,7 +4187,7 @@
 		<szItemName>.338 LM Mag</szItemName>
 		<szLongItemName>.338 Lapua Magazin</szLongItemName>
 		<szItemDesc>Die beste Wahl bei Großwildjagd und großen Kampfentfernungen. Diese ultrastarke Patrone garantiert, das Ihre Ziele da umfallen wo sie sich gerade befinden.</szItemDesc>
-		<szBRName>.338 Lapua Magazin</szBRName>
+		<szBRName>.338 Lapua</szBRName>
 		<szBRDesc>Die beste Wahl bei Großwildjagd und großen Kampfentfernungen. Diese ultrastarke Patrone garantiert, das Ihre Ziele da umfallen wo sie sich gerade befinden.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4221,7 +4227,7 @@
 		<szItemName>.44 Mag</szItemName>
 		<szLongItemName>.44 Magazin</szLongItemName>
 		<szItemDesc>Diese PMC Vollmantel-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
-		<szBRName>.44 Mag</szBRName>
+		<szBRName>.44 Magazin</szBRName>
 		<szBRDesc>Diese PMC Vollmantel-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4323,7 +4329,7 @@
 	<ITEM>
 		<uiIndex>540</uiIndex>
 		<szItemName>7.62x37 Mag</szItemName>
-		<szLongItemName>7.62x37mm Mag</szLongItemName>
+		<szLongItemName>7.62x37mm Magazin</szLongItemName>
 		<szItemDesc>Diese Munition im Kaliber 7.62x37mm ist besonders für schallgedämpfte Scharfschützegewehre geignet.</szItemDesc>
 		<szBRName>7.62x37 Mag</szBRName>
 		<szBRDesc>Diese Munition im Kaliber 7.62x37mm ist besonders für schallgedämpfte Scharfschützegewehre geignet.</szBRDesc>
@@ -4331,7 +4337,7 @@
 	<ITEM>
 		<uiIndex>541</uiIndex>
 		<szItemName>7.62x37 DU</szItemName>
-		<szLongItemName>7.62x37mm Mag, DU</szLongItemName>
+		<szLongItemName>7.62x37mm Magazin, DU</szLongItemName>
 		<szItemDesc>Uranmunition ist panzerbrechend, das Projektil enthält Uran-234. Aufgrund der großen Härte der verwendeten Legierungen entfalten diese Geschosse eine große Durchschlagskraft.</szItemDesc>
 		<szBRName>7.62x37 DU</szBRName>
 		<szBRDesc>Uranmunition ist panzerbrechend, das Projektil enthält Uran-234. Aufgrund der großen Härte der verwendeten Legierungen entfalten diese Geschosse eine große Durchschlagskraft.</szBRDesc>
@@ -4387,7 +4393,7 @@
 	<ITEM>
 		<uiIndex>548</uiIndex>
 		<szItemName>4.6x30 DPX</szItemName>
-		<szLongItemName>4.6x30mm Mag DPX</szLongItemName>
+		<szLongItemName>4.6x30mm Magazin DPX</szLongItemName>
 		<szItemDesc>Wenn Sie Ihrer Waffe maximale Durchschlagskraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Autoscheiben/-türen und Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szItemDesc>
 		<szBRName>4.6x30 DPX #40</szBRName>
 		<szBRDesc>Wenn Sie Ihrer Waffe maximale Durchschlagskraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Autoscheiben/-türen und Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szBRDesc>
@@ -4524,89 +4530,89 @@
 		<uiIndex>565</uiIndex>
 		<szItemName>.357 SL DPX</szItemName>
 		<szLongItemName>.357 Schnellader DPX</szLongItemName>
-		<szItemDesc>Direkt aus Frankreich kommen diese Atombomben in 9x33mm.Schutzwesten würden sagen: "Wiederstand ist zwecklos".Die Träger der Westen sagen nach einem Treffer garnichts mehr.</szItemDesc>
-		<szBRName>.357 Schnellader DPX</szBRName>
-		<szBRDesc>Direkt aus Frankreich kommen diese Atombomben in 9x33mm.Schutzwesten würden sagen: "Wiederstand ist zwecklos".Die Träger der Westen sagen nach einem Treffer garnichts mehr.</szBRDesc>
+		<szItemDesc>Diese .357 Magnum DPX Patronen wurden in Frankreich gefertigt. Warnen Sie vor einem Gefecht Ihren Gegner, denn nach einem Treffer sagt er nix mehr!</szItemDesc>
+		<szBRName>.357 SL DPX</szBRName>
+		<szBRDesc>Diese .357 Magnum DPX Patronen wurden in Frankreich gefertigt. Warnen Sie vor einem Gefecht Ihren Gegner, denn nach einem Treffer sagt er nix mehr!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>566</uiIndex>
 		<szItemName>.357 Mag DPX</szItemName>
 		<szLongItemName>.357 Magazin DPX</szLongItemName>
-		<szItemDesc>Direkt aus Frankreich kommen diese Atombomben in 9x33mm.Schutzwesten würden sagen: "Wiederstand ist zwecklos".Die Träger der Westen sagen nach einem Treffer garnichts mehr.</szItemDesc>
-		<szBRName>.357 Magazin DPX</szBRName>
-		<szBRDesc>Direkt aus Frankreich kommen diese Atombomben in 9x33mm.Schutzwesten würden sagen: "Wiederstand ist zwecklos".Die Träger der Westen sagen nach einem Treffer garnichts mehr.</szBRDesc>
+		<szItemDesc>Diese .357 Magnum DPX Patronen wurden in Frankreich gefertigt. Warnen Sie vor einem Gefecht Ihren Gegner, denn nach einem Treffer sagt er nix mehr!</szItemDesc>
+		<szBRName>.357 Mag DPX</szBRName>
+		<szBRDesc>Diese .357 Magnum DPX Patronen wurden in Frankreich gefertigt. Warnen Sie vor einem Gefecht Ihren Gegner, denn nach einem Treffer sagt er nix mehr!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>567</uiIndex>
 		<szItemName>.45 WM Mag</szItemName>
 		<szLongItemName>.45 WM Magazin</szLongItemName>
-		<szItemDesc>Diese Patrone wurde 79 auf den Markt gebracht und basiert auf der .45 ACP Hülse, welche um 7,62 mm verlängert wurde.Sie ist etwa 1/3 stärker als die 44. Magnum.</szItemDesc>
+		<szItemDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone.</szItemDesc>
 		<szBRName>.45 WM Magazin </szBRName>
-		<szBRDesc>Diese Patrone wurde 79 auf den Markt gebracht und basiert auf der .45 ACP Hülse, welche um 7,62 mm verlängert wurde.Sie ist etwa 1/3 stärker als die 44. Magnum.</szBRDesc>
+		<szBRDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>568</uiIndex>
-		<szItemName>.45 WM Mag HP</szItemName>
-		<szLongItemName>.45WM Magazin HP</szLongItemName>
-		<szItemDesc>Diese Patrone wurde 79 auf den Markt gebracht und basiert auf der .45 ACP Hülse, welche um 7,62 mm verlängert wurde.Dies ist die Hohlspitzvariante für das "Extra" an Gewebeschaden.</szItemDesc>
-		<szBRName>.45 WM Magazin HP</szBRName>
-		<szBRDesc>Diese Patrone wurde 79 auf den Markt gebracht und basiert auf der .45 ACP Hülse, welche um 7,62 mm verlängert wurde.Dies ist die Hohlspitzvariante für das "Extra" an Gewebeschaden.</szBRDesc>
+		<szItemName>.45 WM HS</szItemName>
+		<szLongItemName>.45 WM Magazin, HS</szLongItemName>
+		<szItemDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone.</szItemDesc>
+		<szBRName>.45 WM Mag HS</szBRName>
+		<szBRDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>569</uiIndex>
-		<szItemName>.45 WM Mag</szItemName>
-		<szLongItemName>.45 WM Magazin Panzerbrechend</szLongItemName>
-		<szItemDesc>Diese Patrone wurde 79 auf den Markt gebracht und basiert auf der .45 ACP Hülse, welche um 7,62 mm verlängert wurde.Die PB Variante stellt den Sinn von Schutzwesten stark in Frage.</szItemDesc>
-		<szBRName>.45 WM Magazin Panzerbrechend</szBRName>
-		<szBRDesc>Diese Patrone wurde 79 auf den Markt gebracht und basiert auf der .45 ACP Hülse, welche um 7,62 mm verlängert wurde.Die PB Variante stellt den Sinn von Schutzwesten stark in Frage.</szBRDesc>
+		<szItemName>.45 WM PB</szItemName>
+		<szLongItemName>.45 WM Magazin, PB</szLongItemName>
+		<szItemDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone.</szItemDesc>
+		<szBRName>.45 WM Mag PB</szBRName>
+		<szBRDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>570</uiIndex>
-		<szItemName>.454 Schnellader </szItemName>
+		<szItemName>.454 SL</szItemName>
 		<szLongItemName>.454 Schnellader </szLongItemName>
-		<szItemDesc>Eine weitere verlängerte und verbesserte Variante der 45. Colt Patrone. Eignet sich gut zur Jagd.</szItemDesc>
-		<szBRName>.454 Schnellader </szBRName>
-		<szBRDesc>Eine weitere verlängerte und verbesserte Variante der 45. Colt Patrone. Eignet sich gut zur Jagd.</szBRDesc>
+		<szItemDesc>Dick Casull, ein genialer Konstrukteur, entwickelte diese Patrone bei der normale Revolver auseinander fliegen. Sie basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert.</szItemDesc>
+		<szBRName>.454 SL</szBRName>
+		<szBRDesc>Dick Casull, ein genialer Konstrukteur, entwickelte diese Patrone bei der normale Revolver auseinander fliegen. Sie basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>571</uiIndex>
-		<szItemName>.454 Schnellader HS</szItemName>
+		<szItemName>.454 SL HS</szItemName>
 		<szLongItemName>.454 Schnellader HS</szLongItemName>
-		<szItemDesc>Eine weitere verlängerte und verbesserte Variante der 45. Colt Patrone. Hier die Hohlspitzvariante für kleine Atompilze im Körper des Feindes.</szItemDesc>
-		<szBRName>.454 Schnellader HS</szBRName>
-		<szBRDesc>Eine weitere verlängerte und verbesserte Variante der 45. Colt Patrone. Hier die Hohlspitzvariante für kleine Atompilze im Körper des Feindes.</szBRDesc>
+		<szItemDesc>Dick Casull, ein genialer Konstrukteur, entwickelte diese Patrone bei der normale Revolver auseinander fliegen. Sie basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert.</szItemDesc>
+		<szBRName>.454 SL HS</szBRName>
+		<szBRDesc>Dick Casull, ein genialer Konstrukteur, entwickelte diese Patrone bei der normale Revolver auseinander fliegen. Sie basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>572</uiIndex>
-		<szItemName>.454 Schnellader PB</szItemName>
+		<szItemName>.454 SL PB</szItemName>
 		<szLongItemName>.454 Schnellader PB</szLongItemName>
-		<szItemDesc>Eine weitere verlängerte und verbesserte Variante der 45. Colt Patrone. Die AP Variante versaut  Stephanie Louise Kwolek den Lebensabend.</szItemDesc>
-		<szBRName>.454 Schnellader PB</szBRName>
-		<szBRDesc>Eine weitere verlängerte und verbesserte Variante der 45. Colt Patrone. Die AP Variante versaut  Stephanie Louise Kwolek den Lebensabend.</szBRDesc>
+		<szItemDesc>Dick Casull, ein genialer Konstrukteur, entwickelte diese Patrone bei der normale Revolver auseinander fliegen. Sie basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert. Diese Variante wirkt Wunder gegen Schutzwesten.</szItemDesc>
+		<szBRName>.454 SL PB</szBRName>
+		<szBRDesc>Dick Casull, ein genialer Konstrukteur, entwickelte diese Patrone bei der normale Revolver auseinander fliegen. Sie basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert. Diese Variante wirkt Wunder gegen Schutzwesten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>573</uiIndex>
 		<szItemName>.454 Patrone</szItemName>
 		<szLongItemName>.454 Patrone</szLongItemName>
-		<szItemDesc>Eine weitere verlängerte und verbesserte Variante der 45. Colt Patrone. Eignet sich gut zur Jagd.</szItemDesc>
+		<szItemDesc>Dick Casull, ein genialer Konstrukteur, entwickelte diese Patrone bei der normale Revolver auseinander fliegen. Sie basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert.</szItemDesc>
 		<szBRName>.454 Patrone</szBRName>
-		<szBRDesc>Eine weitere verlängerte und verbesserte Variante der 45. Colt Patrone. Eignet sich gut zur Jagd.</szBRDesc>
+		<szBRDesc>Dick Casull, ein genialer Konstrukteur, entwickelte diese Patrone bei der normale Revolver auseinander fliegen. Sie basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>574</uiIndex>
 		<szItemName>.454 Patrone HS</szItemName>
 		<szLongItemName>.454 Patrone HS</szLongItemName>
-		<szItemDesc>Eine weitere verlängerte und verbesserte Variante der 45. Colt Patrone. Hier die Hohlspitzvariante für kleine Atompilze im Körper des Feindes.</szItemDesc>
+		<szItemDesc>Dick Casull, ein genialer Konstrukteur, entwickelte diese Patrone bei der normale Revolver auseinander fliegen. Sie basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert.</szItemDesc>
 		<szBRName>.454 Patrone HS</szBRName>
-		<szBRDesc>Eine weitere verlängerte und verbesserte Variante der 45. Colt Patrone. Hier die Hohlspitzvariante für kleine Atompilze im Körper des Feindes.</szBRDesc>
+		<szBRDesc>Dick Casull, ein genialer Konstrukteur, entwickelte diese Patrone bei der normale Revolver auseinander fliegen. Sie basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>575</uiIndex>
 		<szItemName>.454 Patrone PB</szItemName>
 		<szLongItemName>.454 Patrone PB</szLongItemName>
-		<szItemDesc>Eine weitere verlängerte und verbesserte Variante der 45. ACP Patrone. Die AP Variante versaut  Stephanie Louise Kwolek den Lebensabend.</szItemDesc>
+		<szItemDesc>Dick Casull, ein genialer Konstrukteur, entwickelte diese Patrone bei der normale Revolver auseinander fliegen. Sie basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert. Diese Variante wirkt Wunder gegen Schutzwesten.</szItemDesc>
 		<szBRName>.454 Patrone PB</szBRName>
-		<szBRDesc>Eine weitere verlängerte und verbesserte Variante der 45. ACP Patrone. Die AP Variante versaut  Stephanie Louise Kwolek den Lebensabend.</szBRDesc>
+		<szBRDesc>Dick Casull, ein genialer Konstrukteur, entwickelte diese Patrone bei der normale Revolver auseinander fliegen. Sie basiert auf der .45 ACP, die Hülse wurde jedoch verstärkt und verlängert. Diese Variante wirkt Wunder gegen Schutzwesten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>576</uiIndex>
@@ -6116,61 +6122,61 @@
 		<uiIndex>764</uiIndex>
 		<szItemName>CMMG 7.3"</szItemName>
 		<szLongItemName>CMMG 7.3"</szLongItemName>
-		<szItemDesc>Bei dieser Waffe handelt es sich um eine weitere Pistoen-Variante auf Basis der AR-15-Baureihe.</szItemDesc>
+		<szItemDesc>Bei dieser Waffe handelt es sich um eine weitere Pistolen-Variante auf Basis der AR-15/M16-Baureihe.</szItemDesc>
 		<szBRName>CMMG 7.3"</szBRName>
-		<szBRDesc>Bei dieser Waffe handelt es sich um eine weitere Pistoen-Variante auf Basis der AR-15-Baureihe.</szBRDesc>
+		<szBRDesc>Bei dieser Waffe handelt es sich um eine weitere Pistolen-Variante auf Basis der AR-15/M16-Baureihe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>765</uiIndex>
 		<szItemName>OA-93</szItemName>
 		<szLongItemName>Olympic Arms 93</szLongItemName>
-		<szItemDesc>Diese Waffe wird seit mehr als 10 Jahren von OLYMPIC ARMS in Olypia, WA (USA) gefertigt. Sie basiert auf der bekannten AR-15-Baureihe.</szItemDesc>
-		<szBRName>OA-93 6.5" AR-15 Pistole</szBRName>
-		<szBRDesc>Diese Waffe wird seit mehr als 10 Jahren von OLYMPIC ARMS in Olypia, WA (USA) gefertigt. Sie basiert auf der bekannten AR-15-Baureihe.</szBRDesc>
+		<szItemDesc>Diese Waffe wird seit mehr als 10 Jahren von OLYMPIC ARMS in Olypia, WA (USA) gefertigt. Sie basiert auf der bekannten AR-15/M16-Baureihe.</szItemDesc>
+		<szBRName>OA-93 6.5"</szBRName>
+		<szBRDesc>Diese Waffe wird seit mehr als 10 Jahren von OLYMPIC ARMS in Olypia, WA (USA) gefertigt. Sie basiert auf der bekannten AR-15/M16-Baureihe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>766</uiIndex>
 		<szItemName>Automag IV</szItemName>
-		<szLongItemName>Automag IV</szLongItemName>
-		<szItemDesc>Eine schwere Pistole der Firma AMT im Kaliber .45 WM. Sie besitzt eine verstellbare Visierung und gilt als eine der ergonomischten "Magnum" Automatikpistolen die es gibt.</szItemDesc>
-		<szBRName>Automag IV</szBRName>
-		<szBRDesc>Eine schwere Pistole der Firma AMT im Kaliber .45 WM. Sie besitzt eine verstellbare Visierung und gilt als eine der ergonomischten "Magnum" Automatikpistolen die es gibt.</szBRDesc>
+		<szLongItemName>AMT Automag IV</szLongItemName>
+		<szItemDesc>Eine schwere Pistole von AMT im Kaliber .45 WM. Sie besitzt eine verstellbare Visierung und gilt als eine der ergonomischten "Magnum" Automatikpistolen die es gibt.</szItemDesc>
+		<szBRName>AMT Automag IV</szBRName>
+		<szBRDesc>Eine schwere Pistole von AMT im Kaliber .45 WM. Sie besitzt eine verstellbare Visierung und gilt als eine der ergonomischten "Magnum" Automatikpistolen die es gibt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>767</uiIndex>
 		<szItemName>Grizzly .45 WM</szItemName>
-		<szLongItemName>LAR Grizzly .45 WM</szLongItemName>
+		<szLongItemName>L.A.R. Grizzly .45 WM</szLongItemName>
 		<szItemDesc>Diese Pistole hat den Charme einer 1911er und die Durchschlagskraft einer Desert Eagle. Was will man mehr?</szItemDesc>
-		<szBRName>LAR Grizzly .45 WM Pistole</szBRName>
+		<szBRName>L.A.R. Grizzly</szBRName>
 		<szBRDesc>Diese Pistole hat den Charme einer 1911er und die Durchschlagskraft einer Desert Eagle. Was will man mehr?</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>768</uiIndex>
-		<szItemName>Wildey Survivor Pistole</szItemName>
-		<szLongItemName>Wildey Survivor Pistole</szLongItemName>
-		<szItemDesc>Sie wollen so cool wie Charles Bronson oder Mikey Knox sein? Dann ist diese Pistole genau das richtige für sie!</szItemDesc>
-		<szBRName>Wildey Survivor Pistole</szBRName>
-		<szBRDesc>Sie wollen so cool wie Charles Bronson oder Mikey Knox sein? Dann ist diese Pistole genau das richtige für sie! wir von BR liefern ihnen noch kostenlos "Death Wish 3" und "Natural Born Killers" mit.</szBRDesc>
+		<szItemName>Wildey Survivor</szItemName>
+		<szLongItemName>Wildey Survivor</szLongItemName>
+		<szItemDesc>Die Wildey Magnum Pistole wurde durch den Film "Death Wish 3" mit Charles Bronson weltberühmt. Sie ist in verschiedenen Magnum-Kalibern erhältlich.</szItemDesc>
+		<szBRName>Wildey Survivor</szBRName>
+		<szBRDesc>Die Wildey Magnum Pistole wurde durch den Film "Death Wish 3" mit Charles Bronson weltberühmt. Sie ist in verschiedenen Magnum-Kalibern erhältlich.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>769</uiIndex>
 		<szItemName>C7CT</szItemName>
 		<szLongItemName>Colt Canada C7CT</szLongItemName>
-		<szItemDesc>Eine Scharfschützen-Ausführung der kanadischen Kopie des M16A2. Sehr zu empfehlen!</szItemDesc>
+		<szItemDesc>Das C7 Custom Tactical ist die Scharfschützen- Ausführung des C7A2. Es wird vorwiegend von Spezial-Einheiten verwendet.</szItemDesc>
 		<szBRName>Colt Canada C7CT</szBRName>
-		<szBRDesc>Eine Scharfschützen-Ausführung der kanadischen Kopie des M16A2. Sehr zu empfehlen!</szBRDesc>
+		<szBRDesc>Das C7 Custom Tactical ist die Scharfschützen- Ausführung des C7A2. Es wird vorwiegend von Spezial-Einheiten verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>770</uiIndex>
-		<szItemName>Thompson Contender</szItemName>
+		<szItemName>Encore</szItemName>
 		<szLongItemName>Thompson Contender Encore</szLongItemName>
 		<szItemDesc>Das Optimum in Sachen Einzellader Pistolen. Hervorragende Verarbeitung und großartige Präzision.</szItemDesc>
-		<szBRName>Thompson Contender Encore</szBRName>
+		<szBRName>Thompson</szBRName>
 		<szBRDesc>Das Optimum in Sachen Einzellader Pistolen. Hervorragende Verarbeitung und großartige Präzision.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>771</uiIndex>
-		<szItemName>Ruger Redhawk Alaskan</szItemName>
+		<szItemName>Alaskan</szItemName>
 		<szLongItemName>Ruger Super Redhawk Alaskan</szLongItemName>
 		<szItemDesc>Ein kleiner aber sehr durchschlagskräftiger Revolver. Ideal als Zweitwaffe bei der Bären- oder Menschenjagd.</szItemDesc>
 		<szBRName>Ruger Super Redhawk Alaskan</szBRName>
@@ -6180,9 +6186,9 @@
 		<uiIndex>772</uiIndex>
 		<szItemName>FA Model 83 </szItemName>
 		<szLongItemName>FA Model 83 Premier Grade</szLongItemName>
-		<szItemDesc>Ein hochwertiger Revolver von FREEDOM ARMS aus Wyoming, USA. Sehr geschätzt von Waffensammlern in aller Welt.</szItemDesc>
+		<szItemDesc>FREEDOM ARMS, Wyoming (USA) baut mit dem .454 Casull Revolver die passende Waffe zur Patrone. Er gilt als stärkster Revolver der Welt.</szItemDesc>
 		<szBRName>Freedom Arms Model 83</szBRName>
-		<szBRDesc>Ein hochwertiger Revolver von FREEDOM ARMS aus Wyoming, USA. Sehr geschätzt von Waffensammlern in aller Welt.</szBRDesc>
+		<szBRDesc>FREEDOM ARMS, Wyoming (USA) baut mit dem .454 Casull Revolver die passende Waffe zur Patrone. Er gilt als stärkster Revolver der Welt und wird gern von Bärenjäger genommen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>773</uiIndex>
@@ -7364,9 +7370,9 @@
 	<ITEM>
 		<uiIndex>920</uiIndex>
 		<szItemName>M203 CLS</szItemName>
-		<szLongItemName>M203 Colt Launcher System</szLongItemName>
+		<szLongItemName>Colt Granatwerfer M203</szLongItemName>
 		<szItemDesc>Colt versucht das excellente Design der HK 69 GraPi zu kopieren. Ob sie Erfolg damit haben wird sich noch zeigen</szItemDesc>
-		<szBRName>M203 Colt Launcher System</szBRName>
+		<szBRName>Colt Granatwerfer M203</szBRName>
 		<szBRDesc>Colt versucht das excellente Design der HK 69 GraPi zu kopieren. Ob sie Erfolg damit haben wird sich noch zeigen</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8037,9 +8043,9 @@
 		<uiIndex>1004</uiIndex>
 		<szItemName>Mark 4 CQ/T</szItemName>
 		<szLongItemName>LEUPOLD Mark 4 CQ/T</szLongItemName>
-		<szItemDesc>Das LEUPOLD Mark 4 1-3x14 CQ/T ist ein revolutionäres Visier für taktische Schusswaffen. Unglaublich robust, wasserdicht und verheerend genau ist nur das LEUPOLD Mark 4 CQ/T in der Lage die vielfältigsten Situationen im Nahkampf zu erfüllen.</szItemDesc>
+		<szItemDesc>Das LEUPOLD Mark 4 CQ/T ist ein revolutionäres Visier für taktische Schusswaffen. Unglaublich robust, wasserdicht und verheerend genau ist nur das LEUPOLD Mark 4 CQ/T in der Lage die vielfältigsten Situationen im Nahkampf zu erfüllen.</szItemDesc>
 		<szBRName>LEUPOLD Mark 4 CQ/T</szBRName>
-		<szBRDesc>Dieses revolutionäre Visier für taktische Schusswaffen wurde in Zusammenarbeit mit dem US-Militär und der Polizei entwickelt. Es vereint die Stärken von Rotpunktvisier und Zielfernrohr. Unglaublich robust, wasserdicht und verheerend genau ist nur das LEUPOLD Mark 4 1-3x14 CQ/T in der Lage die vielfältigsten Situationen im Nahkampf zu erfüllen.</szBRDesc>
+		<szBRDesc>Dieses revolutionäre Visier für taktische Schusswaffen wurde in Zusammenarbeit mit dem US-Militär und der Polizei entwickelt. Es vereint die Stärken von Rotpunktvisier und Zielfernrohr. Unglaublich robust, wasserdicht und verheerend genau ist nur das LEUPOLD Mark 4 CQ/T in der Lage die vielfältigsten Situationen im Nahkampf zu erfüllen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1005</uiIndex>
@@ -8235,10 +8241,18 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1029</uiIndex>
-		<szItemName>K.Zielfernrohr</szItemName>
-		<szLongItemName>Kleines Zielfernrohr</szLongItemName>
-		<szItemDesc>Ein 1,6 Fach vergrösserndes Zielfernrohr.Hiermit sind sie beim Anvisieren mittendrin statt nur dabei.</szItemDesc>
-		<szBRName>Kleines Zielfernrohr</szBRName>
-		<szBRDesc>Ein 1,6 Fach vergrösserndes Zielfernrohr.Hiermit sind sie beim Anvisieren mittendrin statt nur dabei.</szBRDesc>
+		<szItemName>kompaktes ZF</szItemName>
+		<szLongItemName>kompaktes Zielfernrohr</szLongItemName>
+		<szItemDesc>Ein 1,6-fach vergrößerndes Zielfernrohr. Es kann auf die meisten Waffen montiert werden.</szItemDesc>
+		<szBRName>kompaktes ZF</szBRName>
+		<szBRDesc>Ein 1,6-fach vergrößerndes Zielfernrohr. Es kann auf die meisten Waffen montiert werden.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1030</uiIndex>
+		<szItemName>TA33</szItemName>
+		<szLongItemName>Trijicon ACOG TA33</szLongItemName>
+		<szItemDesc>Seit August 2004 wird das TRIJICON Advanced Combat Optical Gunsight (TA31F 4x ACOG) als neues Zielfernrohr beim U.S. Marine Corps verwendet.</szItemDesc>
+		<szBRName>Trijicon TA33</szBRName>
+		<szBRDesc>Seit August 2004 wird das TRIJICON Advanced Combat Optical Gunsight (TA31F 4x ACOG) als neues Zielfernrohr beim U.S. Marine Corps verwendet.</szBRDesc>
 	</ITEM>
 </ITEMLIST>
