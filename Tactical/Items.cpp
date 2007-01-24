@@ -3209,7 +3209,7 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 				if ( pAttachment->ubNumberOfObjects > 1 )
 				{
 					return( FALSE );
-				}
+				}				
 			}
 			else
 			{
@@ -3225,6 +3225,16 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 				bAttachPos = FindAttachment( pTargetObj, NOTHING );
 			}
 		}
+
+		//lalien: added to make a GL/RL work when reloaded manually
+		if (bAttachPos != ITEM_NOT_FOUND)
+		{
+			if ( Item[ pTargetObj->usItem ].usItemClass == IC_LAUNCHER || Item[pTargetObj->usItem].cannon )
+			{
+				pTargetObj->usGunAmmoItem = pAttachment->usItem; 	
+			}
+		}
+
 
 		if (bAttachPos == ITEM_NOT_FOUND)
 		{
@@ -3298,7 +3308,7 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 						pTargetObj->usAttachItem[bSecondAttachPos] = pAttachment->usAttachItem[0];
 						pTargetObj->bAttachStatus[bSecondAttachPos] = pAttachment->bAttachStatus[0];
 						pAttachment->usAttachItem[0] = NOTHING;
-						pAttachment->bAttachStatus[0] = 0;
+						pAttachment->bAttachStatus[0] = 0;						
 					}
 				}
 			}
