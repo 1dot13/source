@@ -3152,22 +3152,32 @@
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>630</uiIndex>
-		<sItemIndex>999</sItemIndex>
+		<sItemIndex>998</sItemIndex>
 		<ubOptimalNumber>1</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>631</uiIndex>
-		<sItemIndex>1000</sItemIndex>
+		<sItemIndex>999</sItemIndex>
 		<ubOptimalNumber>1</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>632</uiIndex>
-		<sItemIndex>1030</sItemIndex>
+		<sItemIndex>1000</sItemIndex>
 		<ubOptimalNumber>1</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
 		<uiIndex>633</uiIndex>
+		<sItemIndex>1030</sItemIndex>
+		<ubOptimalNumber>1</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>634</uiIndex>
 		<sItemIndex>279</sItemIndex>
+		<ubOptimalNumber>1</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>635</uiIndex>
+		<sItemIndex>280</sItemIndex>
 		<ubOptimalNumber>1</ubOptimalNumber>
 	</INVENTORY>
 </INVENTORYLIST>
