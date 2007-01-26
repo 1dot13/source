@@ -4161,7 +4161,16 @@ void DeleteItemDescriptionBox( )
 						if (!fFound)
 						{
 							// charge APs
-							ubAPCost = AttachmentAPCost(gpItemDescObject->usAttachItem[ cnt ],gpItemDescObject->usItem);
+							//lalien: changed to charge AP's for reloading a GL/RL 
+							if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_LAUNCHER || Item[gpItemDescObject->usItem].cannon )
+							{
+								ubAPCost = GetAPsToReload( gpItemDescObject );
+							}
+							else
+							{
+								ubAPCost = AttachmentAPCost(gpItemDescObject->usAttachItem[ cnt ],gpItemDescObject->usItem);
+							}
+							
 							fAllFound = FALSE;
 							break;
 						}
@@ -4178,7 +4187,7 @@ void DeleteItemDescriptionBox( )
 
 	//Remove
 	DeleteVideoObjectFromIndex( guiItemDescBox );
-  DeleteVideoObjectFromIndex( guiMapItemDescBox );
+	DeleteVideoObjectFromIndex( guiMapItemDescBox );
 	DeleteVideoObjectFromIndex( guiBullet );
 	// Delete item graphic
 	DeleteVideoObjectFromIndex( guiItemGraphic );

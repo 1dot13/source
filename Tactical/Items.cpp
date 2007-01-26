@@ -2586,15 +2586,15 @@ BOOLEAN PlaceObjectAtObjectIndex( OBJECTTYPE * pSourceObj, OBJECTTYPE * pTargetO
 
 BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo )
 {
-	OBJECTTYPE	OldAmmo;
-	UINT8				ubBulletsToMove;
-	INT8				bAPs;
+	OBJECTTYPE		OldAmmo;
+	UINT8			ubBulletsToMove;
+	INT8			bAPs;
 	UINT16			usReloadSound;
 	BOOLEAN			fSameAmmoType;
 	BOOLEAN			fSameMagazineSize;
 	BOOLEAN			fReloadingWithStack;
 	BOOLEAN			fEmptyGun;
-	INT8				bReloadType;
+	INT8			bReloadType;
 	UINT16			usNewAmmoItem;
 
 	if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
@@ -3183,7 +3183,8 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 	UINT8		ubType, ubLimit, ubAPCost;
 	INT32		iCheckResult;
 	INT8		bAttachInfoIndex = -1, bAttachComboMerge;
-	BOOLEAN	fValidLaunchable = FALSE;
+	BOOLEAN		fValidLaunchable = FALSE;
+	BOOLEAN		IsAGLorRL = FALSE;
 
 
 	if ( pTargetObj->ubNumberOfObjects > 1 )
@@ -3227,11 +3228,27 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 		}
 
 		//lalien: added to make a GL/RL work when reloaded manually
+		// the AP costs for reloading GL/RL will be taken from weapons.xml ( wrong place!!! the AP's are deducted in DeleteItemDescriptionBox() )
 		if (bAttachPos != ITEM_NOT_FOUND)
 		{
 			if ( Item[ pTargetObj->usItem ].usItemClass == IC_LAUNCHER || Item[pTargetObj->usItem].cannon )
 			{
-				pTargetObj->usGunAmmoItem = pAttachment->usItem; 	
+				//if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
+				//{
+				//	INT8 bAPs = GetAPsToReloadGunWithAmmo( pTargetObj, pAttachment );
+				//	
+				//	if ( !EnoughPoints( pSoldier, bAPs, 0,TRUE ) )
+				//	{
+				//		return( FALSE );
+				//	}
+				//	else
+				//	{
+				//		DeductPoints( pSoldier, bAPs, 0 );
+				//		IsAGLorRL = TRUE;
+				//	}
+				//}
+
+				pTargetObj->usGunAmmoItem = pAttachment->usItem;
 			}
 		}
 
@@ -3353,7 +3370,11 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 				return( FALSE );
 			}
 
-			DeductPoints( pSoldier, ubAPCost, 0 );
+			//lalien: don't charge AP's for reloading a GL/RL ( wrong place!!! the AP's are deducted in DeleteItemDescriptionBox() )
+			//if ( IsAGLorRL == FALSE )
+			//{
+				DeductPoints( pSoldier, ubAPCost, 0 );
+			//}
 		}
 
 		switch( ubType )
