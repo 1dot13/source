@@ -1,4 +1,5 @@
 <!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
+<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
 <AMMOLIST>
 	<AMMO>
 		<AmmoCaliber>0</AmmoCaliber>
@@ -18,7 +19,7 @@
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>.357 Magnum</AmmoCaliber>
-		<BRCaliber>.357 Magnum</BRCaliber>
+		<BRCaliber>.357 Mag.</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>Kal. 12/70</AmmoCaliber>
@@ -65,7 +66,7 @@
 		<BRCaliber>Pfeil</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>Flammenw.</AmmoCaliber>
+		<AmmoCaliber>Flammenwerfer</AmmoCaliber>
 		<BRCaliber>Flammenw.</BRCaliber>
 	</AMMO>
 	<AMMO>
@@ -101,16 +102,16 @@
 		<BRCaliber>7.62x54R</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>.338 Lapua</AmmoCaliber>
+		<AmmoCaliber>.338 Lapua Mag.</AmmoCaliber>
 		<BRCaliber>.338 Lapua</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>.44 Magnum</AmmoCaliber>
-		<BRCaliber>.44 Magnum</BRCaliber>
+		<BRCaliber>.44 Mag.</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>10mm AUTO</AmmoCaliber>
-		<BRCaliber>10mm AUTO</BRCaliber>
+		<AmmoCaliber>10mm Auto</AmmoCaliber>
+		<BRCaliber>10mm Auto</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>12.3x50mm</AmmoCaliber>
@@ -137,8 +138,8 @@
 		<BRCaliber>5.45x18mm</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>9mm MS</AmmoCaliber>
-		<BRCaliber>9mm MS</BRCaliber>
+		<AmmoCaliber>9mm M.S.</AmmoCaliber>
+		<BRCaliber>9mm M.S.</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<AmmoCaliber>.50 AE</AmmoCaliber>
@@ -149,7 +150,7 @@
 		<BRCaliber>.454 Casull</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>.45 WM</AmmoCaliber>
+		<AmmoCaliber>.45 Win. Mag.</AmmoCaliber>
 		<BRCaliber>.45 WM</BRCaliber>
 	</AMMO>
 	<AMMO>
@@ -157,7 +158,7 @@
 		<BRCaliber>.50 Beowulf</BRCaliber>
 	</AMMO>
 	<AMMO>
-		<AmmoCaliber>.300 WM</AmmoCaliber>
+		<AmmoCaliber>.300 Win. Mag.</AmmoCaliber>
 		<BRCaliber>.300 WM</BRCaliber>
 	</AMMO>
 	<AMMO>
