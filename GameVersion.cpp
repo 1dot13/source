@@ -36,6 +36,6 @@ INT16		zTrackingNumber[16]	= { L"Z" };
 //		Keeps track of the saved game version.  Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
-#define			SAVE_GAME_VERSION					100 // 99
+#define			SAVE_GAME_VERSION					101	//100 // 99
 
 const	UINT32	guiSavedGameVersion = SAVE_GAME_VERSION;
