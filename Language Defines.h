@@ -20,8 +20,8 @@
 
 #if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH)
 /* please set one manually here (by uncommenting) if not willingly to set Workspace wide */
-#define ENGLISH
-//#define GERMAN
+//#define ENGLISH
+#define GERMAN
 //#define RUSSIAN
 //#define DUTCH
 //#define POLISH

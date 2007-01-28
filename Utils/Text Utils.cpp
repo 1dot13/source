@@ -389,60 +389,91 @@ BOOLEAN LoadShortNameItemInfo(UINT16 ubIndex, STR16 pNameString )
 {
 	if(pNameString != NULL)
 	{
+		int j = -1;
+
 		// WANNE:
-	for (int i=0;i<80;i++)
-	{
-		if ( i<(int)strlen(Item[ubIndex].szItemName))
+		for (int i=0;i<80;i++)
+		{
+			j++;
+			
+			if ( i<(int)strlen(Item[ubIndex].szItemName))
 			{
-			pNameString[i] =  Item[ubIndex].szItemName [i];
+				pNameString[i] = Item[ubIndex].szItemName [j];
 
 				// WANNE: German specific characters
 				#ifdef GERMAN
-				switch( pNameString[ i ] )
+				// We have a german special character
+				if (Item[ubIndex].szItemName [j] == -61)
 				{
-					// ü
-					case 65532:	pNameString[i] = 252; break;
-					// Ü
-					case 65500:	pNameString[i] = 220; break;
-					// ä
-					case 65508:	pNameString[i] = 228; break;
-					// Ä
-					case 65476:	pNameString[i] = 196; break;
-					// ö
-					case 65526:	pNameString[i] = 246; break;
-					// Ö
-					case 65494:	pNameString[i] = 214; break;
-					// ß
-					case 65503:	pNameString[i] = 223; break;
+					// This character determines the special character
+					switch (Item[ubIndex].szItemName [j + 1])
+					{
+						// ü
+						case -68:	
+							pNameString[i] = 252;
+							// Skip next character, because "umlaute" have 2 chars
+							j++;
+							break;
+						// Ü
+						case -100:	
+							pNameString[i] = 220;
+							j++;
+							break;
+						// ä
+						case -92:	
+							pNameString[i] = 228; 
+							j++;
+							break;
+						// Ä
+						case -124:	
+							pNameString[i] = 196; 
+							j++;
+							break;
+						// ö
+						case -74:	
+							pNameString[i] = 246; 
+							j++;
+							break;
+						// Ö
+						case -106:	
+							pNameString[i] = 214; 
+							j++;
+							break;
+						// ß
+						case -97:	
+							pNameString[i] = 223; 
+							j++;
+							break;
+					}
 				}
 				#endif
 
-		#ifdef POLISH
-			switch( pNameString[ i ] )
-			{
-				case 260:		pNameString[ i ] = 165;		break;
-				case 262:		pNameString[ i ] = 198;		break;
-				case 280:		pNameString[ i ] = 202;		break;
-				case 321:		pNameString[ i ] = 163;		break;
-				case 323:		pNameString[ i ] = 209;		break;
-				case 211:		pNameString[ i ] = 211;		break;
+				#ifdef POLISH
+				switch( pNameString[ i ] )
+				{
+					case 260:		pNameString[ i ] = 165;		break;
+					case 262:		pNameString[ i ] = 198;		break;
+					case 280:		pNameString[ i ] = 202;		break;
+					case 321:		pNameString[ i ] = 163;		break;
+					case 323:		pNameString[ i ] = 209;		break;
+					case 211:		pNameString[ i ] = 211;		break;
 
-				case 346:		pNameString[ i ] = 338;		break;
-				case 379:		pNameString[ i ] = 175;		break;
-				case 377:		pNameString[ i ] = 143;		break;
-				case 261:		pNameString[ i ] = 185;		break;
-				case 263:		pNameString[ i ] = 230;		break;
-				case 281:		pNameString[ i ] = 234;		break;
+					case 346:		pNameString[ i ] = 338;		break;
+					case 379:		pNameString[ i ] = 175;		break;
+					case 377:		pNameString[ i ] = 143;		break;
+					case 261:		pNameString[ i ] = 185;		break;
+					case 263:		pNameString[ i ] = 230;		break;
+					case 281:		pNameString[ i ] = 234;		break;
 
-				case 322:		pNameString[ i ] = 179;		break;
-				case 324:		pNameString[ i ] = 241;		break;
-				case 243:		pNameString[ i ] = 243;		break;
-				case 347:		pNameString[ i ] = 339;		break;
-				case 380:		pNameString[ i ] = 191;		break;
-				case 378:		pNameString[ i ] = 376;		break;
+					case 322:		pNameString[ i ] = 179;		break;
+					case 324:		pNameString[ i ] = 241;		break;
+					case 243:		pNameString[ i ] = 243;		break;
+					case 347:		pNameString[ i ] = 339;		break;
+					case 380:		pNameString[ i ] = 191;		break;
+					case 378:		pNameString[ i ] = 376;		break;
+				}
+				#endif
 			}
-		#endif
-	}
 			else
 			{
 				pNameString[i] ='\0';
