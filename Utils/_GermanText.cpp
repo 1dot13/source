@@ -3479,7 +3479,7 @@ STR16 pMessageStrings[] =
 	L"Keine Beschreibung", //Save slots that don't have a description.
 	L"Spiel gespeichert",	
 	L"Spiel gespeichert",	
-	L"QuickSave", //The name of the quicksave file (filename, text reference)
+	L"QuickSave", //10	The name of the quicksave file (filename, text reference)
 	L"Spielstand",	//The name of the normal savegame file, such as SaveGame01, SaveGame02, etc.
 	L"sav",				//The 3 character dos extension (represents sav)
 	L"..\\Spielstände", //The name of the directory where games are saved.
@@ -3489,7 +3489,7 @@ STR16 pMessageStrings[] =
 	L"Demo",				//Demo of JA2
 	L"Debug",				//State of development of a project (JA2) that is a debug build
 	L"Veröffentlichung",			//Release build for JA2
-	L"KpM",					//Abbreviation for Rounds per minute -- the potential # of bullets fired in a minute.
+	L"KpM",					//20	Abbreviation for Rounds per minute -- the potential # of bullets fired in a minute.
 	L"min",					//Abbreviation for minute.
 	L"m",						//One character abbreviation for meter (metric distance measurement unit).
 	L"Kgln",				//Abbreviation for rounds (# of bullets)
@@ -3499,7 +3499,7 @@ STR16 pMessageStrings[] =
 	L"US$",					//Abbreviation for US Dollars
 	L"n.a",					//Lowercase acronym for not applicable.
 	L"Inzwischen",		//Meanwhile
-	L"%s ist angekommen im Sektor %s%s", //Name/Squad has arrived in sector A9. Order must not change without notifying SirTech
+	L"%s ist angekommen im Sektor %s%s", //30	Name/Squad has arrived in sector A9. Order must not change without notifying SirTech
 	L"Version", 
 	L"Leerer Quick-Save-Slot",
 	L"Dieser Slot ist nur für Quick-Saves aus den Map Screens und dem Taktik-Bildschirm. Speichern mit ALT+S",
@@ -3510,7 +3510,7 @@ STR16 pMessageStrings[] =
 	L"%s hat %s gefangen.",		//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
 
 	L"%s hat die Droge genommen.", //'Merc name' has taken the drug
-	L"%s hat keine medizinischen Fähigkeiten",//'Merc name' has no medical skill.
+	L"%s hat keine medizinischen Fähigkeiten",//40	'Merc name' has no medical skill.
 
 	//CDRom errors (such as ejecting CD while attempting to read the CD)
 	L"Die Integrität des Spieles wurde beschädigt.", //The integrity of the game has been compromised
@@ -3532,7 +3532,7 @@ STR16 pMessageStrings[] =
 	L"Kein Platz, um %s an %s weiterzugeben.", //pass "item" to "merc". Same instructions as above.
 
 	//A list of attachments appear after the items. Ex: Kevlar vest ( Ceramic Plate 'Attached )'
-	L" angebracht )",
+	L" angebracht )",			// 50
 
 	//Cheat modes
 	L"Cheat-Level EINS erreicht",
@@ -3552,7 +3552,7 @@ STR16 pMessageStrings[] =
 	//These are used in the cheat modes for changing levels in the game. Going from a basement level to
 	//an upper level, etc. 
 	L"Von dieser Ebene geht es nicht nach oben...",
-	L"Noch tiefere Ebenen gibt es nicht...",
+	L"Noch tiefere Ebenen gibt es nicht...",			// 60
 	L"Gewölbeebene %d betreten...",
 	L"Gewölbe verlassen...",
 
@@ -3563,17 +3563,21 @@ STR16 pMessageStrings[] =
 	L"3D-Cursor AN.",
 	L"Trupp %d aktiv.",
 	L"Sie können %ss Tagessold von %s nicht zahlen",	//first %s is the mercs name, the second is a string containing the salary
-	L"Abbruch", 
+	L"Abbruch",			// 70
 	L"%s kann alleine nicht gehen.",
 	L"Spielstand namens Spielstand99.sav kreiert. Wenn nötig, in Spielstand01 - Spielstand10 umbennen und über die Option 'Laden' aufrufen.",
 	L"%s hat %s getrunken.",
 	L"Paket in Drassen angekommen.",
 	L"%s kommt am %d. um ca. %s am Zielort an (Sektor %s).",		//first %s is mercs name(OK), next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival       !!!7 It should be like this: first one is merc (OK), next is day of arrival (OK) , next is time of the day for ex. 07:00 (not OK, now it is still sector), next should be sector (not OK, now it is still time of the day)
 	L"Logbuch aktualisiert.",
-	L"Grenade Launchers - Fire at standard angles",
-	L"Grenade Launchers - Fire at high angles",
+	L"Granaten Feuerstöße verwenden Ziel Cursor (Sperrfeuer aktiviert).",
+	L"Granaten Feuerstöße verwenden Flugbahn Cursor (Sperrfeuer deaktiviert).",
+	L"Alles fallen lassen einschalten.",
+	L"Alles fallen lassen ausschalten.",	// 80
+	L"Granatwerfer schießen im normalen Winkel.",
+	L"Granatwerfer schießen im erhöhten Winkel.",
 #ifdef JA2BETAVERSION
-	L"Spiel erfolgreich in Slot End Turn Auto Save gespeichert.",
+	L"Spiel erfolgreich in Slot End Turn Auto Save gespeichert.",		// 83
 #endif
 };
 

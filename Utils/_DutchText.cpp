@@ -3764,6 +3764,12 @@ STR16 pMessageStrings[] =
 	L"Een pakket is in Drassen gearriveerd.",
 	L"%s zou moeten arriveren op het aangewezen punt (sector %s) op dag %d, om ongeveer %s.",
 	L"Geschiedenisverslag bijgewerkt.",
+	L"Grenade Bursts use Targeting Cursor (Spread fire enabled)",
+	L"Grenade Bursts use Trajectory Cursor (Spread fire disabled)",
+	L"Drop All Enabled",
+	L"Drop All Disabled",
+	L"Granade Launchers fire at standard angles",
+	L"Grenade Launchers fire at higher angles",
 #ifdef JA2BETAVERSION
 	L"Spel succesvol bewaard in de Einde Beurt Auto Bewaar Slot.",
 #endif

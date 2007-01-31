@@ -3757,12 +3757,12 @@ STR16 pMessageStrings[] =
 	L"Ѕагаж прибыл в ƒрассен.",
 	L"%s должен прибыть в указанное место высадки (сектор %s) в день %d,примерно в %s.",		//first %s is mercs name, next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival
 	L"»стори€ обновлена.",
-	L"Grenade Bursts - Using Targeting Cursor (Spread fire enabled)",
-	L"Grenade Bursts - Using Trajectory Cursor (Spread fire disabled)",
+	L"Grenade Bursts use Targeting Cursor (Spread fire enabled)",
+	L"Grenade Bursts use Trajectory Cursor (Spread fire disabled)",
 	L"Drop All Enabled",
 	L"Drop All Disabled",
-	L"Grenade Launchers - Fire at standard angles",
-	L"Grenade Launchers - Fire at high angles",
+	L"Granade Launchers fire at standard angles",
+	L"Grenade Launchers fire at higher angles",
 #ifdef JA2BETAVERSION
 	L"»гра сохранена в €чейку авто-сохранени€.",
 #endif

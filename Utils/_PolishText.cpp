@@ -3746,6 +3746,12 @@ STR16 pMessageStrings[] =
 	L"Przesy³ka dotar³a do Drassen.",
  	L"%s przybêdzie do wyznaczonego punktu zrzutu (sektor %s) w dniu %d, oko³o godziny %s.",		//first %s is mercs name, next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival	
 	L"Lista historii zaktualizowana.",
+	L"Grenade Bursts use Targeting Cursor (Spread fire enabled)",
+	L"Grenade Bursts use Trajectory Cursor (Spread fire disabled)",
+	L"Drop All Enabled",
+	L"Drop All Disabled",
+	L"Granade Launchers fire at standard angles",
+	L"Grenade Launchers fire at higher angles",
 #ifdef JA2BETAVERSION
 	L"Automatyczny zapis zosta³ pomyœlnie wykonany.",
 #endif

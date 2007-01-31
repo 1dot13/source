@@ -3676,7 +3676,7 @@ STR16 pMessageStrings[] =
 	L"No description", //Save slots that don't have a description.
 	L"Game Saved.",
 	L"Game Saved.",
-	L"QuickSave", //The name of the quicksave file (filename, text reference)
+	L"QuickSave", //10	The name of the quicksave file (filename, text reference)
 	L"SaveGame",	//The name of the normal savegame file, such as SaveGame01, SaveGame02, etc.
 	L"sav",				//The 3 character dos extension (represents sav)
 	L"..\\SavedGames", //The name of the directory where games are saved.
@@ -3686,7 +3686,7 @@ STR16 pMessageStrings[] =
 	L"Demo",				//Demo of JA2
 	L"Debug",				//State of development of a project (JA2) that is a debug build
 	L"Release",			//Release build for JA2
-	L"rpm",					//Abbreviation for Rounds per minute -- the potential # of bullets fired in a minute.
+	L"rpm",					//20	Abbreviation for Rounds per minute -- the potential # of bullets fired in a minute.
 	L"min",					//Abbreviation for minute.
 	L"m",						//One character abbreviation for meter (metric distance measurement unit).
 	L"rnds",				//Abbreviation for rounds (# of bullets)
@@ -3696,7 +3696,7 @@ STR16 pMessageStrings[] =
 	L"USD",					//Abbreviation to US dollars
 	L"n/a",					//Lowercase acronym for not applicable.
 	L"Meanwhile",		//Meanwhile
-	L"%s has arrived in sector %s%s", //Name/Squad has arrived in sector A9.  Order must not change without notifying
+	L"%s has arrived in sector %s%s", //30	Name/Squad has arrived in sector A9.  Order must not change without notifying
 																		//SirTech
 	L"Version",
 	L"Empty Quick Save Slot",
@@ -3707,7 +3707,7 @@ STR16 pMessageStrings[] =
 	L"Hired %s from AIM", 
 	L"%s has caught %s.",		//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
 	L"%s has taken the drug.", //'Merc name' has taken the drug
-	L"%s has no medical skill",//'Merc name' has no medical skill.
+	L"%s has no medical skill",//40	'Merc name' has no medical skill.
 
 	//CDRom errors (such as ejecting CD while attempting to read the CD)
 	L"The integrity of the game has been compromised.",
@@ -3729,7 +3729,7 @@ STR16 pMessageStrings[] =
 	L"No room to pass %s to %s.", //pass "item" to "merc".  Same instructions as above.
 
 	//A list of attachments appear after the items.  Ex:  Kevlar vest ( Ceramic Plate 'Attached )'
-	L" attached]",
+	L" attached]",			// 50
 
 	//Cheat modes
 	L"Cheat level ONE reached",
@@ -3749,7 +3749,7 @@ STR16 pMessageStrings[] =
 	//These are used in the cheat modes for changing levels in the game.  Going from a basement level to
 	//an upper level, etc.  
 	L"Can't go up from this level...",
-	L"There are no lower levels...",
+	L"There are no lower levels...",		// 60
 	L"Entering basement level %d...",
 	L"Leaving basement...",
 
@@ -3760,19 +3760,19 @@ STR16 pMessageStrings[] =
 	L"3D Cursor ON.",
 	L"Squad %d active.",
 	L"You cannot afford to pay for %s's daily salary of %s",	//first %s is the mercs name, the seconds is a string containing the salary
-	L"Skip",
+	L"Skip",				// 70
 	L"%s cannot leave alone.",
 	L"A save has been created called, SaveGame99.sav.  If needed, rename it to SaveGame01 - SaveGame10 and then you will have access to it in the Load screen.",
 	L"%s drank some %s",
 	L"A package has arrived in Drassen.",
  	L"%s should arrive at the designated drop-off point (sector %s) on day %d, at approximately %s.",		//first %s is mercs name, next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival
 	L"History log updated.",
-	L"Grenade Bursts - Using Targeting Cursor (Spread fire enabled)",
-	L"Grenade Bursts - Using Trajectory Cursor (Spread fire disabled)",
+	L"Grenade Bursts use Targeting Cursor (Spread fire enabled)",
+	L"Grenade Bursts use Trajectory Cursor (Spread fire disabled)",
 	L"Drop All Enabled",
 	L"Drop All Disabled",
-	L"Grenade Launchers - Fire at standard angles",
-	L"Grenade Launchers - Fire at high angles",
+	L"Granade Launchers fire at standard angles",
+	L"Grenade Launchers fire at higher angles",
 #ifdef JA2BETAVERSION
 	L"Successfully Saved the Game into the End Turn Auto Save slot.",
 #endif

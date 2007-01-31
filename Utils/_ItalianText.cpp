@@ -3744,6 +3744,12 @@ STR16 pMessageStrings[] =
 	L"Un pacco è arivato a Drassen.",
  	L"%s dovrebbe arrivare al punto designato di partenza (settore %s) nel giorno %d, approssimativamente alle ore %s.",		//first %s is mercs name, next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival
 	L"Registro aggiornato.",
+	L"Grenade Bursts use Targeting Cursor (Spread fire enabled)",
+	L"Grenade Bursts use Trajectory Cursor (Spread fire disabled)",
+	L"Drop All Enabled",
+	L"Drop All Disabled",
+	L"Granade Launchers fire at standard angles",
+	L"Grenade Launchers fire at higher angles",
 #ifdef JA2BETAVERSION
 	L"Salvataggio riuscito della partita nello slot End Turn Auto Save.",
 #endif
