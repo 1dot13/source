@@ -36,4 +36,8 @@
     <id>8</id>
     <name>Fire</name>
   </ExplosionType>
+  <ExplosionType>
+    <id>9</id>
+    <name>Flashbang</name>
+  </ExplosionType>
 </JA2Data>
