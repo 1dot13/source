@@ -1,6 +1,4 @@
 <!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
-<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
-<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -77,9 +75,9 @@
 	<ITEM>
 		<uiIndex>9</uiIndex>
 		<szItemName>MP5KA4</szItemName>
-		<szLongItemName>H&amp;K MP5KA4</szLongItemName>
+		<szLongItemName>HK MP5KA4</szLongItemName>
 		<szItemDesc>Viele Sondereinheiten forderten eine sehr kompakte, vollautomatische Waffe zur Bekämpfung von Einzelzielen und zum Selbstschutz.</szItemDesc>
-		<szBRName>H&amp;K MP5KA4</szBRName>
+		<szBRName>HK MP5KA4</szBRName>
 		<szBRDesc>Viele Sondereinheiten forderten eine sehr kompakte, vollautomatische Waffe. So reduzierte man die Länge der MP5 auf 325mm, in dem der Lauf auf drastische 115mm gekürzt wurde. Sie besitzt eine S-3-F Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -109,10 +107,10 @@
 	<ITEM>
 		<uiIndex>13</uiIndex>
 		<szItemName>MP53A3</szItemName>
-		<szLongItemName>H&amp;K MP53A3</szLongItemName>
+		<szLongItemName>HK MP53A3</szLongItemName>
 		<szItemDesc>Diese Waffe kombiniert die Feuerkraft des 5.56mm Kalibers mit der Kompaktheit einer MP5. Beachten Sie den etwas stärkeren Rückstoß.</szItemDesc>
-		<szBRName>H&amp;K MP53A3</szBRName>
-		<szBRDesc>Motiviert durch den Verkauferfolg von ihren MPs Anfang der 80er Jahre, stellte H&amp;K die MP53 im Kaliber 5.56mm her. Sie besitzt eine S-3-F Abzugsgruppe.</szBRDesc>
+		<szBRName>HK MP53A3</szBRName>
+		<szBRDesc>Motiviert durch den Verkauferfolg von ihren MPs Anfang der 80er Jahre, stellte H&amp;K die MP53 im Kaliber 5.56mm her. Feuermodus: S-3-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>14</uiIndex>
@@ -261,9 +259,9 @@
 	<ITEM>
 		<uiIndex>32</uiIndex>
 		<szItemName>SPAS-15</szItemName>
-		<szLongItemName>SPAS-15</szLongItemName>
+		<szLongItemName>Franchi SPAS-15</szLongItemName>
 		<szItemDesc>Die SPAS-15 erschien erstmals 1988 und wurde speziell für militärische Zwecke entwickelt.</szItemDesc>
-		<szBRName>SPAS-15</szBRName>
+		<szBRName> Franchi SPAS-15</szBRName>
 		<szBRDesc>Die SPAS-15 erschien erstmals 1988 und wurde speziell für militärische Zwecke entwickelt. Die halbautomatische Flinte, kann durch drücken eines Knopfes auf manuellen Pump-Action-Modus umgestellt werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -272,15 +270,15 @@
 		<szLongItemName>HK/Olin CAWS</szLongItemName>
 		<szItemDesc>Diese dt.-amerik. Flinte im Bullpup-Design entstand in Kooperation zwischen den Firmen H&amp;K und WINCHESTER/Olin.</szItemDesc>
 		<szBRName>HK/Olin CAWS</szBRName>
-		<szBRDesc>Diese dt.-amerik. Flinte im Bullpup-Design entstand in Kooperation zwischen den Firmen H&amp;K und WINCHESTER/Olin. Sie besitzt eine S-3 Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Diese dt.-amerik. Flinte im Bullpup-Design hat das kaliber 18.5x76mm und entstand in Kooperation zwischen den Firmen H&amp;K und WINCHESTER/Olin. Feuermodus: S-3</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>34</uiIndex>
-		<szItemName>M249</szItemName>
-		<szLongItemName>FN Minimi SAW</szLongItemName>
-		<szItemDesc>Das M249 wurde Anfang der 80er Jahre entwickelt, um den Feuerteams auf Zugebene eine präzise dauerfeuerfähige Unterstützungswaffe zu geben.</szItemDesc>
-		<szBRName>FN Minimi SAW</szBRName>
-		<szBRDesc>Das M249 SAW wurde Anfang der 80er Jahre entwickelt, um den Feuerteams auf Zugebene eine präzise dauerfeuerfähige Unterstützungswaffe zu geben - sie besitzt nur Dauerfeuer. In 1982 wurde das MG offiziell bei der US-Army eingeführt.</szBRDesc>
+		<szItemName>M249 SAW</szItemName>
+		<szLongItemName>FN Minimi</szLongItemName>
+		<szItemDesc>Das M249 wurde Anfang der 80er Jahre entwickelt um den Teams eine präzise dauerfeuerfähige Waffe zu geben.</szItemDesc>
+		<szBRName>FN Minimi</szBRName>
+		<szBRDesc>Das M249 SAW wurde Anfang der 80er Jahre entwickelt, um den Teams auf Zugebene eine präzise dauerfeuerfähige Waffe zu geben - sie besitzt nur Dauerfeuer. In 1982 wurde das MG offiziell bei der US-Army eingeführt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>35</uiIndex>
@@ -294,9 +292,9 @@
 		<uiIndex>36</uiIndex>
 		<szItemName>HK21E</szItemName>
 		<szLongItemName>HK21E</szLongItemName>
-		<szItemDesc>Die HK21E ist ein leichtes MG, dessen Mechanik auf dem G3A3 aufbaut. Durch die Bauweise wurde eine höhere Einzelschuss-Zielgenauigkeit erreicht.</szItemDesc>
+		<szItemDesc>Die HK21E ist ein leichtes MG, dessen Mechanik auf dem G3 aufbaut. Durch die Bauweise wurde eine höhere Einzelschuss-Zielgenauigkeit erreicht.</szItemDesc>
 		<szBRName>HK21E</szBRName>
-		<szBRDesc>Die HK21E ist ein leichtes MG, dessen Mechanik auf dem G3A3 aufbaut. Durch die Bauweise wurde eine höhere Einzelschuss-Zielgenauigkeit erreicht. Es besitzt eine S-3-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Die HK21E ist ein leichtes MG, dessen Mechanik auf dem G3 aufbaut. Durch die Bauweise wurde eine höhere Einzelschuss-Zielgenauigkeit erreicht. Feuermodus: S-3-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>37</uiIndex>
@@ -1084,11 +1082,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>135</uiIndex>
-		<szItemName>MK2 Handranate</szItemName>
-		<szLongItemName>MK2 Handgranate</szLongItemName>
-		<szItemDesc>Diese Splittergranate ist mit TNT gefüllt und wird durch Abziehen eines Zugrings gezündet.</szItemDesc>
-		<szBRName>MK2 Handgranate</szBRName>
-		<szBRDesc>Diese Splittergranate ist mit TNT gefüllt und wird durch Abziehen eines Zugrings gezündet.</szBRDesc>
+		<szItemName>Handgranate</szItemName>
+		<szLongItemName>Handgranate Mk 2</szLongItemName>
+		<szItemDesc>Diese mit TNT gefüllte Splittergranate, auch als 'Ananas' bekannt, wurde von der US-Army im 2. Weltkrieg und in Vietnam eingesetzt. Mit der Zeit wurde sie durch die M61- und M67-Granaten ersetzt.</szItemDesc>
+		<szBRName>Handgranate Mk 2</szBRName>
+		<szBRDesc>Diese mit TNT gefüllte Splittergranate, auch als 'Ananas' bekannt, wurde von der US-Army im 2. Weltkrieg und in Vietnam eingesetzt. Mit der Zeit wurde sie durch die M61- und M67-Granaten ersetzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>136</uiIndex>
@@ -1214,9 +1212,9 @@
 		<uiIndex>151</uiIndex>
 		<szItemName>Nebel-Granate</szItemName>
 		<szLongItemName>Nebel-Handgranate</szLongItemName>
-		<szItemDesc>Diese Handgranate erfüllt Hunderte von Aufgaben wie zum Beispiel: Unbeobachtetes Herannahen an feindliche Stellungen.</szItemDesc>
+		<szItemDesc>Diese Handgranate erfüllt hunderte von Aufgaben wie zum Beispiel: Unbeobachtetes Herannahen an feindliche Stellungen.</szItemDesc>
 		<szBRName>Nebel-Granate</szBRName>
-		<szBRDesc>Diese Handgranate erfüllt Hunderte von Aufgaben wie zum Beispiel: Unbeobachtetes Herannahen an feindliche Stellungen, Markieren möglicher Landeplätze und Feuerwehrmänner in Panik versetzen.</szBRDesc>
+		<szBRDesc>Diese Handgranate erfüllt hunderte von Aufgaben wie zum Beispiel: Unbeobachtetes Herannahen an feindliche Stellungen, Markieren möglicher Landeplätze und Feuerwehrmänner in Panik versetzen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>152</uiIndex>
@@ -1620,10 +1618,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>202</uiIndex>
-		<szItemName>Arztkoffer</szItemName>
-		<szLongItemName>Arztkoffer</szLongItemName>
+		<szItemName>Sani-Tasche</szItemName>
+		<szLongItemName>Sanitäterausrüstung</szLongItemName>
 		<szItemDesc>Neben den Erste-Hilfe-Utensilien enthält dieser Kasten Nadel, Faden und Schere, Tupfer, Pinzette, Schmerzmittel, Skalpell, Wundhaken, Betäubungs- mittel, Antibiotika und ein Chirurgie-Handbuch.</szItemDesc>
-		<szBRName>Arztkoffer</szBRName>
+		<szBRName>Sani-Tasche</szBRName>
 		<szBRDesc>Neben den Erste-Hilfe-Utensilien enthält dieser Kasten Nadel, Faden und Schere, Tupfer, Pinzette, Schmerzmittel, Skalpell, Wundhaken, Betäubungs- mittel, Antibiotika und ein Chirurgie-Handbuch.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1668,11 +1666,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>208</uiIndex>
-		<szItemName>PM II LP</szItemName>
-		<szLongItemName>S&amp;B Police Marksman II LP</szLongItemName>
-		<szItemDesc>Das SCHMIDT &amp; BENDER 5-25x56 Police Marksman II LP ist ein hochmodernes Präzisions-ZF. Es bietet 5-fach Vergrößerung, mehrere Justiermöglichkeiten und ist bis auf 2.000m zielgenau. Es wird von Profis sehr geschätzt.</szItemDesc>
-		<szBRName>S&amp;B PM II LP</szBRName>
-		<szBRDesc>Das SCHMIDT &amp; BENDER 5-25x56 Police Marksman II LP ist ein hochmodernes Präzisions-ZF. Es bietet 5-fach Vergrößerung, mehrere Justiermöglichkeiten und ist bis auf 2.000m zielgenau. Es wird von Profis sehr geschätzt.</szBRDesc>
+		<szItemName>ZF-5</szItemName>
+		<szLongItemName>S&amp;B Police Marksman II, ZF-5</szLongItemName>
+		<szItemDesc>Das SCHMIDT &amp; BENDER Police Marksman II ist ein hochmodernes Präzisions-ZF. Es bietet 12-fache Vergrößerung, mehrere Justiermöglichkeiten und ist bis 2.000m zielgenau. Es wird von Profis sehr geschätzt.</szItemDesc>
+		<szBRName>S&amp;B PM II</szBRName>
+		<szBRDesc>Das SCHMIDT &amp; BENDER Police Marksman II ist ein hochmodernes Präzisions-ZF. Es bietet 12-fache Vergrößerung, mehrere Justiermöglichkeiten und ist bis auf 2.000m zielgenau. Es wird von Profis sehr geschätzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>209</uiIndex>
@@ -1932,11 +1930,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>241</uiIndex>
-		<szItemName>Laser Pointer</szItemName>
-		<szLongItemName>Laser Pointer</szLongItemName>
-		<szItemDesc>Der Universal-Laserpointer markiert auch über große Entfernungen Ziele mit einem gut sichtbaren roten Punkt. Sein rostfreies Stahlgehäuse passt auf die meisten MGs und MPs.</szItemDesc>
-		<szBRName>Laser Pointer</szBRName>
-		<szBRDesc>Der Universal-Laserpointer markiert auch über große Entfernungen Ziele mit einem gut sichtbaren roten Punkt. Sein rostfreies Stahlgehäuse passt auf die meisten MGs und MPs.</szBRDesc>
+		<szItemName>Lasermodul</szItemName>
+		<szLongItemName>ATN LTAD-SN Lasermodul</szLongItemName>
+		<szItemDesc>Dieses IR-Lasermodul von ATN markiert Ziele mit einem gut sichtbaren roten Punkt (100m/Tag, 1.000m/Nacht). Er wurde entsprechend den Anforderungen von Polizei und Militär entwickelt.</szItemDesc>
+		<szBRName>ATN Lasermodul</szBRName>
+		<szBRDesc>Dieses IR-Lasermodul von ATN markiert Ziele mit einem gut sichtbaren roten Punkt (100m/Tag, 1.000m/Nacht). Er wurde entsprechend den Anforderungen von Polizei und Militär entwickelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>242</uiIndex>
@@ -2054,7 +2052,7 @@
 		<uiIndex>256</uiIndex>
 		<szItemName>Bier</szItemName>
 		<szLongItemName>Radeberger Pilsner</szLongItemName>
-		<szItemDesc>Wenn kümmert es bei 4,9 Prozent Alkoholgehalt noch, wo das Zeug herkommt? Mit diesem Eisbier kann man jeden Russen unter den Tisch saufen.</szItemDesc>
+		<szItemDesc>Wen kümmert es bei 4,9 Prozent Alkoholgehalt noch, wo das Zeug herkommt? Mit diesem Eisbier kann man jeden Russen unter den Tisch saufen.</szItemDesc>
 		<szBRName>Bier</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2062,7 +2060,7 @@
 		<uiIndex>257</uiIndex>
 		<szItemName>Porno</szItemName>
 		<szLongItemName>Porno Magazin</szLongItemName>
-		<szItemDesc>Die COUPE 7/2006 enthält ein hochinteressantes Poster von den Darstellerinnen aus der Serie 'The L-Word' und diverse Artikel, für die sich kein Schwein interessiert.</szItemDesc>
+		<szItemDesc>Die COUPE 10/2006 enthält ein hochinteressantes Poster von den Darstellerinnen aus der Serie 'The L-Word' und diverse Artikel, für die sich kein Schwein interessiert.</szItemDesc>
 		<szBRName>Porno Magazin</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2709,17 +2707,17 @@
 	<ITEM>
 		<uiIndex>338</uiIndex>
 		<szItemName>Grach</szItemName>
-		<szLongItemName>MP-443 Grach</szLongItemName>
+		<szLongItemName>MR-443 Grach</szLongItemName>
 		<szItemDesc>Diese Pistole wurde nach den Anforderungen des russischen Verteidigungsministeriums bei IMZ entwickelt.</szItemDesc>
-		<szBRName>MP-443 Grach</szBRName>
+		<szBRName>MR-443 Grach</szBRName>
 		<szBRDesc>Diese Pistole wurde nach den Anforderungen des russischen Verteidigungsministeriums bei IZHEVSKY MEKHANICHESKY ZAVOD  entwickelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>339</uiIndex>
 		<szItemName>Viking</szItemName>
-		<szLongItemName>MP-446 Viking</szLongItemName>
+		<szLongItemName>MR-446 Viking</szLongItemName>
 		<szItemDesc>Diese Pistole kombiniert die neuesten Entwicklungen im Bereich Technologie und Material.</szItemDesc>
-		<szBRName>MP-446 Viking</szBRName>
+		<szBRName>MR-446 Viking</szBRName>
 		<szBRDesc>Diese Pistole kombiniert die neuesten Entwicklungen im Bereich Technologie und Material.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2741,26 +2739,26 @@
 	<ITEM>
 		<uiIndex>342</uiIndex>
 		<szItemName>MP5A4</szItemName>
-		<szLongItemName>H&amp;K MP5A4</szLongItemName>
+		<szLongItemName>HK MP5A4</szLongItemName>
 		<szItemDesc>Die MP5 ist die bevorzugte MP von Antiterror-Einheiten in aller Welt. Sie ist bekannt für ihre Zuverlässigkeit und Präzision.</szItemDesc>
-		<szBRName>H&amp;K MP5A4</szBRName>
-		<szBRDesc>Die MP5 ist die bevorzugte MP von Antiterror-Einheiten in aller Welt. Sie ist bekannt für ihre Zuverlässigkeit und Präzision - selbst im Vollautomatikmodus. Sie besitzt eine S-3-F Abzugsgruppe.</szBRDesc>
+		<szBRName>HK MP5A4</szBRName>
+		<szBRDesc>Die MP5 ist die bevorzugte MP von Antiterror-Einheiten in aller Welt. Sie ist bekannt für ihre Zuverlässigkeit und Präzision - selbst im Vollautomatikmodus. Feuermodus: S-3-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>343</uiIndex>
 		<szItemName>MP5N</szItemName>
-		<szLongItemName>H&amp;K MP5 Navy</szLongItemName>
+		<szLongItemName>HK MP5 Navy</szLongItemName>
 		<szItemDesc>Die MP5 Navy wurde speziell für Sondereinheiten entwickelt und hat sich in umfangreichen Tests und im härtesten Einsatz bewährt.</szItemDesc>
-		<szBRName>H&amp;K MP5 Navy</szBRName>
-		<szBRDesc>Die MP5 Navy wurde speziell für Sondereinheiten entwickelt und hat sich in umfangreichen Tests und im härtesten Einsatz bewährt. Sie besitzt eine S-F Abzugsgruppe.</szBRDesc>
+		<szBRName>HK MP5 Navy</szBRName>
+		<szBRDesc>Die MP5 Navy wurde speziell für Sondereinheiten entwickelt und hat sich in umfangreichen Tests und im härtesten Einsatz bewährt. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>344</uiIndex>
 		<szItemName>MP5SD5</szItemName>
-		<szLongItemName>H&amp;K MP5SD5</szLongItemName>
+		<szLongItemName>HK MP5SD5</szLongItemName>
 		<szItemDesc>Die MP5SD wird von vielen Spezialeinheiten verwendet. Ihr Alu-Schalldämpfer ist so wirksam, dass man nur das Klicken des Abzugs hört.</szItemDesc>
-		<szBRName>H&amp;K MP5SD5</szBRName>
-		<szBRDesc>Terroristen auf der ganzen Welt fürchten die MP5SD. Ihr integrierter Alu-Schalldämpfer ist so wirksam, dass man nur das Klicken des Abzugs hört. Es muss keine Unterschall-Munition verwendet werden. Sie besitzt eine S-3-F Abzugsgruppe.</szBRDesc>
+		<szBRName>HK MP5SD5</szBRName>
+		<szBRDesc>Terroristen auf der ganzen Welt fürchten die MP5SD. Ihr integrierter Alu-Schalldämpfer ist so wirksam, dass man nur das Klicken des Abzugs hört. Es muss keine Unterschall-Munition verwendet werden. Feuermodus: S-3-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>345</uiIndex>
@@ -2768,7 +2766,7 @@
 		<szLongItemName>I.M.I. Uzi</szLongItemName>
 		<szItemDesc>Die Uzi ist neben der MP5 die wohl bekannteste Maschinenpistole weltweit. Sie wird seit über 50 Jahren hergestellt.</szItemDesc>
 		<szBRName>I.M.I. Uzi</szBRName>
-		<szBRDesc>Die Uzi ist neben der MP5 die wohl bekannteste Maschinenpistole weltweit. Sie wird seit über 50 Jahren vom staatlichen Rüstungskonzern ISRAEL MILITARY INDUSTRIES hergestellt und in alle Welt verkauft. Sie besitzt eine S-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Die Uzi ist neben der MP5 die wohl bekannteste Maschinenpistole weltweit. Sie wird seit über 50 Jahren vom staatlichen Rüstungskonzern ISRAEL MILITARY INDUSTRIES hergestellt und in alle Welt verkauft. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>346</uiIndex>
@@ -2784,7 +2782,7 @@
 		<szLongItemName>AK-47</szLongItemName>
 		<szItemDesc>Das Kalaschnikow Sturmgewehr wurde erstmals 1949 vom sowjetischen Militär eingesetzt. Seitdem hat seine weltweite Beliebtheit stark zugenommen.</szItemDesc>
 		<szBRName>Kalaschnikow AK-47</szBRName>
-		<szBRDesc>Das Kalaschnikow Sturmgewehr wurde erstmals 1949 vom sowjetischen Militär eingesetzt. Seitdem hat seine weltweite Beliebtheit stark zugenommen, vor allem wegen der einfachen Bedienung und der robusten Bauweise. Es besitzt eine S-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Das Kalaschnikow Sturmgewehr wurde erstmals 1949 vom sowjetischen Militär eingesetzt. Seitdem hat seine weltweite Beliebtheit stark zugenommen, vor allem wegen der einfachen Bedienung und der robusten Bauweise. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>348</uiIndex>
@@ -2800,7 +2798,7 @@
 		<szLongItemName>SR-3 Vikhr Compact</szLongItemName>
 		<szItemDesc>Diese schwere MP im Kaliber 9x39mm wird von russischen Spezialeinheiten verwendet.</szItemDesc>
 		<szBRName>SR-3 Vikhr Compact</szBRName>
-		<szBRDesc>Dieser schwere MP im Kaliber 9x39mm wird von russischen Spezialeinheiten verwendet. Sie besitzt eine S-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Dieser schwere MP im Kaliber 9x39mm wird von russischen Spezialeinheiten verwendet. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>350</uiIndex>
@@ -3814,9 +3812,9 @@
 		<uiIndex>476</uiIndex>
 		<szItemName>.300WM PB</szItemName>
 		<szLongItemName>.300 Win. Mag. Magazin, PB</szLongItemName>
-		<szItemDesc>In Zusammenarbeit mit der Bundeswehr wurde in diesem Kaliber die Bw-Scharfschützenmunition entwickelt. Die Hartkern-Geschosse bestechen durch ihre Präzision und ihre Leistungsstärke. Aufgrund der ausgezeichneten Qualität ist die MEN alleiniger Lieferant der Bundeswehr für diese Scharfschützenmunition. </szItemDesc>
+		<szItemDesc>In Zusammenarbeit mit der Bundeswehr wurde in diesem Kaliber die Scharfschützenmunition entwickelt. Die Hartkern-Geschosse bestechen durch ihre Präzision und ihre Leistungsstärke.</szItemDesc>
 		<szBRName>.300WM PB #5</szBRName>
-		<szBRDesc>In Zusammenarbeit mit der Bundeswehr wurde in diesem Kaliber die Bw-Scharfschützenmunition entwickelt. Die Hartkern-Geschosse bestechen durch ihre Präzision und ihre Leistungsstärke. Aufgrund der ausgezeichneten Qualität ist die MEN alleiniger Lieferant der Bundeswehr für diese Scharfschützenmunition. </szBRDesc>
+		<szBRDesc>In Zusammenarbeit mit der Bundeswehr wurde in diesem Kaliber die Scharfschützenmunition entwickelt. Die Hartkern-Geschosse bestechen durch ihre Präzision und ihre Leistungsstärke. Aufgrund der ausgezeichneten Qualität ist die MEN alleiniger Lieferant der Bundeswehr.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>477</uiIndex>
@@ -3907,9 +3905,9 @@
 		<uiIndex>488</uiIndex>
 		<szItemName>4.6x30 XPB</szItemName>
 		<szLongItemName>4.6x30mm MP-Magazin, XPB</szLongItemName>
-		<szItemDesc>Diese Spezialmunition wird nur von der H&amp;K MP7 verwendet. Das Geschoss ist ungefähr so groß wie ein Gewehrprojektil und hat die gleiche Durchschlagskraft! Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1,6mm Titan) auf 200m Entfernung.</szItemDesc>
+		<szItemDesc>Diese Spezialmunition wird nur von der HK MP7 verwendet. Das Geschoss ist ungefähr so groß wie ein Gewehrprojektil und hat die gleiche Durchschlagskraft! Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szItemDesc>
 		<szBRName>4.6x30 XPB #40</szBRName>
-		<szBRDesc>Diese Spezialmunition wird nur von der H&amp;K MP7 verwendet. Das Geschoss ist ungefähr so groß wie ein Gewehrprojektil und hat die gleiche Durchschlagskraft! Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1,6mm Titan) auf 200m Entfernung.</szBRDesc>
+		<szBRDesc>Diese Spezialmunition wird nur von der HK MP7 verwendet. Das Geschoss ist ungefähr so groß wie ein Gewehrprojektil und hat die gleiche Durchschlagskraft! Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>489</uiIndex>
@@ -5291,17 +5289,17 @@
 		<uiIndex>661</uiIndex>
 		<szItemName>HK23E</szItemName>
 		<szLongItemName>HK23E</szLongItemName>
-		<szItemDesc>Der Name des Herstellers sagt schon alles. Wir können dieses MG nur empfehlen. Es erfüllt seinen Zweck am Besten mit einem Beta-C-Magazin.</szItemDesc>
+		<szItemDesc>Der Name des Herstellers sagt schon alles. Wir können dieses MG nur empfehlen. Es erfüllt seinen Zweck am Besten mit einem Beta-C Magazin.</szItemDesc>
 		<szBRName>HK23E</szBRName>
-		<szBRDesc>Der Name des Herstellers sagt schon alles. Wir können dieses MG nur empfehlen. Es erfüllt seinen Zweck am Besten mit einem Beta-C-Magazin.</szBRDesc>
+		<szBRDesc>Der Name des Herstellers sagt schon alles. Wir können dieses MG nur empfehlen. Es erfüllt seinen Zweck am Besten mit einem Beta-C Magazin.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>662</uiIndex>
 		<szItemName>HK416</szItemName>
 		<szLongItemName>HK416</szLongItemName>
-		<szItemDesc>Das HK416 Sturmgewehr ist eine weiterentwickelte Variante des M16 und soll die Jahrzehnte alten M16- und M4-Systeme des US-Militärs ersetzen.</szItemDesc>
+		<szItemDesc>Das HK416 Sturmgewehr ist eine weiterentwickelte Variante des AR-15/M16 und soll die Jahrzehnte alten M16- und M4-Systeme des US-Militärs ersetzen.</szItemDesc>
 		<szBRName>HK416</szBRName>
-		<szBRDesc>Das HK416 Sturmgewehr ist eine weiterentwickelte Variante des M16 und die Antwort auf die beiden gescheiterten Projekte XM29 und XM8. Es soll die Jahrzehnte alten M16- und M4-Systeme des US-Militärs ersetzen.</szBRDesc>
+		<szBRDesc>Das HK416 Sturmgewehr ist eine weiterentwickelte Variante des AR-15/M16 und die Antwort auf die beiden gescheiterten Projekte XM29 und XM8. Es soll die Jahrzehnte alten M16- und M4-Systeme des US-Militärs ersetzen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>663</uiIndex>
@@ -5317,7 +5315,7 @@
 		<szLongItemName>HK G36 Compakt</szLongItemName>
 		<szItemDesc>Das kleinste Modell aus der G36-Baureihe, ideal für Polizei und Anti-Terroreinheiten.</szItemDesc>
 		<szBRName>HK G36C</szBRName>
-		<szBRDesc>Für Einsatzwecke insbesondere im Bereich der Polizei müssen selbst bei kompakten Gewehren Zugeständnisse gemacht werden. Aus diesem Grund taten die Designer bei H&amp;K alles daran, Gewicht und Größe weiter zu minimieren. Es besitzt eine S-2-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Für Einsatzwecke insbesondere im Bereich der Polizei müssen selbst bei kompakten Gewehren Zugeständnisse gemacht werden. Aus diesem Grund taten die Designer bei H&amp;K alles daran, Gewicht und Größe weiter zu minimieren. Feuermodus: S-2-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>665</uiIndex>
@@ -5325,7 +5323,7 @@
 		<szLongItemName>HK G36E</szLongItemName>
 		<szItemDesc>Offizielle Bekanntgabe: Das G36E wird im einheitlichen Kaliber 5.56x45mm zur neuen Standardwaffe der spanischen Armee.</szItemDesc>
 		<szBRName>HK G36E</szBRName>
-		<szBRDesc>Offizielle Bekanntgabe: Das G36E wird im einheitlichen Kaliber 5.56x45mm zur neuen Standardwaffe der spanischen Armee. Es besitzt eine S-2-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Offizielle Bekanntgabe: Das G36E wird im einheitlichen Kaliber 5.56x45mm zur neuen Standardwaffe der spanischen Armee. Feuermodus: S-2-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>666</uiIndex>
@@ -5333,7 +5331,7 @@
 		<szLongItemName>HK G36KE</szLongItemName>
 		<szItemDesc>Das G36K (Export) ist das neuste Sturmgewehr der Baureihe. Durch seine kompakte Bauweise ist es vor allem im Nahkampf von Vorteil.</szItemDesc>
 		<szBRName>HK G36KE</szBRName>
-		<szBRDesc>Das G36K (Export) ist das neuste Sturmgewehr der Baureihe. Durch seine kompakte Bauweise ist es vor allem im Nahkampf von Vorteil. Es besitzt eine S-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Das G36K (Export) ist das neuste Sturmgewehr der Baureihe. Durch seine kompakte Bauweise ist es vor allem im Nahkampf von Vorteil. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>667</uiIndex>
@@ -5353,43 +5351,43 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>669</uiIndex>
-		<szItemName>MG43</szItemName>
-		<szLongItemName>HK MG43</szLongItemName>
-		<szItemDesc>Das neueste MG von H&amp;K ist gasbetrieben, hat Gurtzuführung und Luftkühlung.</szItemDesc>
-		<szBRName>HK MG43</szBRName>
-		<szBRDesc>Das neueste MG von H&amp;K ist gasbetrieben, hat Gurtzuführung und Luftkühlung. Ein integriertes Zweibein und RIS Schienen erlauben vielfältige Anbaumöglichkeiten.</szBRDesc>
+		<szItemName>HK MG4</szItemName>
+		<szLongItemName>HK MG4 (MG43)</szLongItemName>
+		<szItemDesc>Bei der Entwicklung des HK MG4 wurde auf minimales Gewicht, maximale Sicherheit und leichte Handhabung Wert gelegt.</szItemDesc>
+		<szBRName>HK MG4 (MG43)</szBRName>
+		<szBRDesc>Das neueste MG von H&amp;K wurde erstmals 2001 in London vorgestellt. Es hat Gurtzuführung, ein integriertes Zweibein und RIS-Schienen erlauben vielfältige Anbaumöglichkeiten. Seit 2006 ersetzt es das MG3 der Bundeswehr.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>670</uiIndex>
-		<szItemName>H&amp;K Mk. 23</szItemName>
-		<szLongItemName>H&amp;K Mark 23 SOCOM</szLongItemName>
+		<szItemName>HK MK23</szItemName>
+		<szLongItemName>HK Mark 23 SOCOM</szLongItemName>
 		<szItemDesc>Die MK23 garantiert dem Schützen absolute Matchpräzision, dennoch erfüllt sie die strengsten Einsatzanforderungen, die jemals an eine Dienstwaffe gestellt wurden.</szItemDesc>
-		<szBRName>H&amp;K Mk. 23 SOCOM</szBRName>
+		<szBRName>HK MK23 SOCOM</szBRName>
 		<szBRDesc>Die MK23 garantiert dem Schützen absolute Matchpräzision, dennoch erfüllt sie die strengsten Einsatzanforderungen, die jemals an eine Dienstwaffe gestellt wurden. Die extreme Präzision und Zuverlässigkeit machen sie zu einer sehr beliebten Dienstwaffe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>671</uiIndex>
-		<szItemName>MP5/10A5</szItemName>
-		<szLongItemName>H&amp;K MP5/10A5</szLongItemName>
-		<szItemDesc>Die MP5/10A5 stellt mit ihrem 10x25mm Kaliber eine verbesserte Variante der altbewährten MP5 dar.</szItemDesc>
-		<szBRName>H&amp;K MP5/10A5</szBRName>
-		<szBRDesc>Die MP5/10A5 stellt mit ihrem 10x25mm Kaliber eine verbesserte Variante der altbewährten MP5 dar. Der härtere Rückstoß wird durch die erhöhte Durchschlagskraft des schwereren Kalibers wieder ausgeglichen.</szBRDesc>
+		<szItemName>MP5/10</szItemName>
+		<szLongItemName>HK MP5/10</szLongItemName>
+		<szItemDesc>Die MP5/10 stellt mit ihrem 10x25mm Kaliber eine verbesserte Variante der altbewährten MP5 dar.</szItemDesc>
+		<szBRName>HK MP5/10</szBRName>
+		<szBRDesc>Die MP5/10 stellt mit ihrem 10x25mm Kaliber eine verbesserte Variante der altbewährten MP5 dar. Der härtere Rückstoß wird durch die erhöhte Durchschlagskraft des schwereren Kalibers wieder ausgeglichen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>672</uiIndex>
 		<szItemName>MP5/10SD6</szItemName>
-		<szLongItemName>H&amp;K MP5/10SD6</szLongItemName>
+		<szLongItemName>HK MP5/10SD6</szLongItemName>
 		<szItemDesc>Diese mit einem Schalldämpfer ausgerüstete MP5/10 vereint eine hohe Durchschlagskraft mit einer beeindruckenden Lautlosigkeit.</szItemDesc>
-		<szBRName>H&amp;K MP5/10SD6</szBRName>
+		<szBRName>HK MP5/10SD6</szBRName>
 		<szBRDesc>Diese mit einem Schalldämpfer ausgerüstete MP5/10 vereint eine hohe Durchschlagskraft mit einer beeindruckenden Lautlosigkeit.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>673</uiIndex>
 		<szItemName>MP7A1</szItemName>
-		<szLongItemName>H&amp;K MP7A1</szLongItemName>
-		<szItemDesc>Die MP7 ist eine perfekte 3 in 1 Lösung: Pistole, MP und Sturmgewehr. Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1,6mm Titan) auf 200m Entfernung.</szItemDesc>
-		<szBRName>H&amp;K MP7A1</szBRName>
-		<szBRDesc>Die MP7 vereint die Vorteile einer Pistole, MP und Sturmgewehres in sich. Seit 2002 kommt sie in der Bundeswehr zum Einsatz und erfreut sich schon jetzt großer Beliebtheit. Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1,6mm Titan) auf 200m Entfernung.</szBRDesc>
+		<szLongItemName>HK MP7A1</szLongItemName>
+		<szItemDesc>Die MP7 ist eine perfekte 3 in 1 Lösung: Pistole, MP und Sturmgewehr. Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szItemDesc>
+		<szBRName>HK MP7A1</szBRName>
+		<szBRDesc>Die MP7 vereint die Vorteile einer Pistole, MP und Sturmgewehres in sich. Seit 2002 kommt sie in der Bundeswehr zum Einsatz und erfreut sich schon jetzt großer Beliebtheit. Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>674</uiIndex>
@@ -5401,10 +5399,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>675</uiIndex>
-		<szItemName>H&amp;K P7M8</szItemName>
-		<szLongItemName>H&amp;K P7M8</szLongItemName>
+		<szItemName>HK P7M8</szItemName>
+		<szLongItemName>HK P7M8</szLongItemName>
 		<szItemDesc>Die Pistolen der P7-Modellreihe sind exzellent verarbeitet, zuverlässig, sicher und präzise.</szItemDesc>
-		<szBRName>H&amp;K P7M8</szBRName>
+		<szBRName>HK P7M8</szBRName>
 		<szBRDesc>Die Pistolen der P7-Modellreihe sind exzellent verarbeitet, zuverlässig, sicher und präzise. Die P7M8 von HECKLER &amp; KOCH wird in der Bundeswehr als Personenschutzwaffe für die Feldjägertruppe genutzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -5418,17 +5416,17 @@
 	<ITEM>
 		<uiIndex>677</uiIndex>
 		<szItemName>UMP45</szItemName>
-		<szLongItemName>H&amp;K UMP45</szLongItemName>
+		<szLongItemName>HK UMP45</szLongItemName>
 		<szItemDesc>Die UMP kombiniert hervorragende Leistung mit einfacher Handhabung und hohem Sicherheits- standard.</szItemDesc>
-		<szBRName>H&amp;K UMP45</szBRName>
+		<szBRName>HK UMP45</szBRName>
 		<szBRDesc>Die UMP kombiniert hervorragende Leistung mit einfacher Handhabung und hohem Sicherheitsstandard. Das macht diese MP zu einer perfekten Waffe für militärische und polizeiliche Zwecke.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>678</uiIndex>
-		<szItemName>H&amp;K USP</szItemName>
-		<szLongItemName>H&amp;K USP</szLongItemName>
+		<szItemName>HK USP</szItemName>
+		<szLongItemName>HK USP</szLongItemName>
 		<szItemDesc>Bei der Entwicklung wurden die vom Militär und die von Sicherheitskräften favorisierten Eigenschaften einer Pistole konsequent berücksichtigt. </szItemDesc>
-		<szBRName>H&amp;K USP</szBRName>
+		<szBRName>HK USP</szBRName>
 		<szBRDesc>Die USP ist die erste Dienstpistole, die auf einem modularen Konzept beruht. Bei der Entwicklung wurden die vom Militär und die von Sicherheitskräften favorisierten Eigenschaften einer Pistole konsequent berücksichtigt. </szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -5507,25 +5505,25 @@
 		<uiIndex>688</uiIndex>
 		<szItemName>MAC-11/9</szItemName>
 		<szLongItemName>Ingram MAC-11/9</szLongItemName>
-		<szItemDesc>Die MAC-10 wurde von der US-Army als Ersatz für vorher verwendeten schwedischen MP Modelle beschafft.</szItemDesc>
+		<szItemDesc>Die MAC-10 wurde von der US-Army als Ersatz für vorher verwendeten schwedischen MP-Modelle beschafft.</szItemDesc>
 		<szBRName>Ingram MAC-11/9</szBRName>
 		<szBRDesc>Die MAC-11/9 besitzt nur Dauerfeuer und wurde von der US-Army als Ersatz für vorher verwendete schwedische MP-Modelle beschafft. Sie war für den Einsatz bei Kommando- und Spezialeinheiten gedacht.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>689</uiIndex>
-		<szItemName>Makarov PM</szItemName>
-		<szLongItemName>Makarov PM</szLongItemName>
-		<szItemDesc>Die PM basiert auf der Walther PP und wurde 1951 Ordonnanzwaffe der Roten Armee und ersetzte die Tokarev TT. Aus heutiger Sicht ist die sie recht schwer und ungenau, aber robust und zuverlässig.</szItemDesc>
-		<szBRName>Makarov PM</szBRName>
-		<szBRDesc>Diese weltberühmte Pistole wurde von IMZ in Russland sowie in Bulgarien, China und der DDR hergestellt. Die qualitativ besten Makarovs wurden in Suhl (Thüringen) gefertigt.</szBRDesc>
+		<szItemName>Makarow PM</szItemName>
+		<szLongItemName>Makarow PM</szLongItemName>
+		<szItemDesc>Die PM basiert auf der Walther PP und wurde 1951 Ordonnanzwaffe der Roten Armee und ersetzte die Tokarew. Aus heutiger Sicht ist sie recht schwer und ungenau, aber robust und zuverlässig.</szItemDesc>
+		<szBRName>Makarow PM</szBRName>
+		<szBRDesc>Diese weltberühmte Pistole wurde von IMZ in Russland sowie in Bulgarien, China und der DDR hergestellt. Die qualitativ besten Makarows wurden in Suhl (Thüringen) gefertigt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>690</uiIndex>
-		<szItemName>Makarov PMM</szItemName>
-		<szLongItemName>Makarov PMM</szLongItemName>
-		<szItemDesc>Diese modifizierte Variante der Makarov PM ging 1994 in Serie.</szItemDesc>
-		<szBRName>Makarov PMM</szBRName>
-		<szBRDesc>Diese modifizierte Variante der Makarov PM ging 1994 in Serie.</szBRDesc>
+		<szItemName>Makarow PMM</szItemName>
+		<szLongItemName>Makarow PMM</szLongItemName>
+		<szItemDesc>Diese modifizierte Variante der Makarow PM ging 1994 in Serie.</szItemDesc>
+		<szBRName>Makarow PMM</szBRName>
+		<szBRDesc>Diese modifizierte Variante der Makarow PM ging 1994 in Serie.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>691</uiIndex>
@@ -5547,7 +5545,7 @@
 		<uiIndex>693</uiIndex>
 		<szItemName>Mosin-Nagant</szItemName>
 		<szLongItemName>Mosin-Nagant M1891/30</szLongItemName>
-		<szItemDesc>Dieses russ. Sturmgewehr war bis Ende der 40er-Jahre im Dienst. Einen TV-Auftritt hatte es im Film 'Duell - Enemy at the Gates'.</szItemDesc>
+		<szItemDesc>Dieses russ. Sturmgewehr war bis Ende der 40er Jahre im Dienst. Einen TV-Auftritt hatte es im Film 'Duell - Enemy at the Gates'.</szItemDesc>
 		<szBRName>Mosin-Nagant M1891/30</szBRName>
 		<szBRDesc>Seit 1883 gab es Überlegungen, welches Gewehr in der russischen Armee eingeführt werden sollte. Nach Tests entschied man sich für das Gewehr von Mosin, das leicht nach dem Vorbild Nagants modifiziert wurde.</szBRDesc>
 	</ITEM>
@@ -5787,9 +5785,9 @@
 		<uiIndex>723</uiIndex>
 		<szItemName>SR-1 Vektor</szItemName>
 		<szLongItemName>SR-1 Vektor</szLongItemName>
-		<szItemDesc>Das von dieser Pistole verwendete Kaliber wurde speziell entwickelt um 30 Schichten Kevlar + 2,8mm Titan auf 100m zu durchschlagen.</szItemDesc>
+		<szItemDesc>Das von dieser Pistole verwendete Kaliber wurde speziell entwickelt um 30 Schichten Kevlar + 2.8mm Titan auf 100m zu durchschlagen.</szItemDesc>
 		<szBRName>SR-1 Vektor</szBRName>
-		<szBRDesc>Das von dieser Pistole verwendete Kaliber wurde speziell entwickelt, um 30 Schichten Kevlar + 2,8mm Titan auf 100m zu durchschlagen. Diese für lange Zeit vergessene russische Pistole ist heute die Seitenwaffe der russischen Offiziere und wird auch vom FSB verwendet.</szBRDesc>
+		<szBRDesc>Das von dieser Pistole verwendete Kaliber wurde speziell entwickelt, um 30 Schichten Kevlar + 2.8mm Titan auf 100m zu durchschlagen. Diese für lange Zeit vergessene russische Pistole ist heute die Seitenwaffe der russischen Offiziere und wird auch vom FSB verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>724</uiIndex>
@@ -5821,7 +5819,7 @@
 		<szLongItemName>Steyr AUG Para</szLongItemName>
 		<szItemDesc>Eine gekürzte Variante des AUG im Kaliber 9mm.</szItemDesc>
 		<szBRName>Steyr AUG Para</szBRName>
-		<szBRDesc> Eine gekürzte Variante des AUG im Kaliber 9mm.</szBRDesc>
+		<szBRDesc>Eine gekürzte Variante des AUG im Kaliber 9mm.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>728</uiIndex>
@@ -5875,16 +5873,16 @@
 		<uiIndex>734</uiIndex>
 		<szItemName>SVDS</szItemName>
 		<szLongItemName>Dragunov SVDS</szLongItemName>
-		<szItemDesc>Das SVD ist ein leichtes, sehr genaues Scharfschützengewehr. Diese Variante des SVD besitzt eine klappbare Schulterstütze.</szItemDesc>
+		<szItemDesc>Das SVD ist ein leichtes, sehr genaues Scharfschützengewehr. Diese Variante besitzt eine klappbare Schulterstütze.</szItemDesc>
 		<szBRName>Dragunov SVDS</szBRName>
-		<szBRDesc>Das SVD (Snaiperskaja Vintovka Dragunov) ist ein leichtes, sehr genaues, halbautomatisches Scharfschützengewehr. Diese Variante des SVD besitzt eine klappbare Schulterstütze.</szBRDesc>
+		<szBRDesc>Das SVD (Snaiperskaja Vintovka Dragunova) ist ein leichtes, sehr genaues, halbautomatisches Scharfschützengewehr. Diese Variante besitzt eine klappbare Schulterstütze.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>735</uiIndex>
-		<szItemName>SVU</szItemName>
-		<szLongItemName>Dragunov SVU</szLongItemName>
+		<szItemName>SWU</szItemName>
+		<szLongItemName>Dragunov SWU</szLongItemName>
 		<szItemDesc>Dieses Gewehr ist eine kompaktere Variante des SVD und hat auch eine geringere Reichweite.</szItemDesc>
-		<szBRName>Dragunov SVU</szBRName>
+		<szBRName>Dragunov SWU</szBRName>
 		<szBRDesc>Dieses Gewehr ist eine kompaktere Variante des SVD und hat auch eine geringere Reichweite. Es ist auch etwas leiser da es einen MF-Dämpfer sowie einen Schallunterdrücker besitzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -5906,10 +5904,10 @@
 	<ITEM>
 		<uiIndex>738</uiIndex>
 		<szItemName>TT-33</szItemName>
-		<szLongItemName>Tokarev TT-33</szLongItemName>
-		<szItemDesc>Die Tokarev ist eine Pistole der Roten Armee und Nachfolgerin des früheren Nagant-Revolver, mit ihr sollten auch einige Pistolen ersetzt werden.</szItemDesc>
-		<szBRName>Tokarev TT-33</szBRName>
-		<szBRDesc>Die Tokarev ist eine Pistole der Roten Armee und Nachfolgerin des früheren Nagant-Revolver, mit ihr sollten auch einige Pistolen ersetzt werden. Die TT-33 war bis 1951 Ordonanzpistole der Roten Armee, dann wurde sie durch die Makarov PM ersetzt.</szBRDesc>
+		<szLongItemName>Tokarew TT-33</szLongItemName>
+		<szItemDesc>Die Tokarew ist eine Pistole der Roten Armee und Nachfolgerin des früheren Nagant-Revolver, mit ihr sollten auch einige Pistolen ersetzt werden.</szItemDesc>
+		<szBRName>Tokarew TT-33</szBRName>
+		<szBRDesc>Die Tokarew ist eine Pistole der Roten Armee und Nachfolgerin des früheren Nagant-Revolver, mit ihr sollten auch einige Pistolen ersetzt werden. Die TT-33 war bis 1951 Ordonanzpistole der Roten Armee, dann wurde sie durch die Makarow PM ersetzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>739</uiIndex>
@@ -5977,7 +5975,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>747</uiIndex>
-		<szItemName>94 Trapper</szItemName>
+		<szItemName>Winchester</szItemName>
 		<szLongItemName>Winchester 94 Trapper</szLongItemName>
 		<szItemDesc>Bei Schießereien im Wilden Westen ist das Winchester Gewehr immer eine gute Wahl gewesen. </szItemDesc>
 		<szBRName>Winchester 94 Trapper</szBRName>
@@ -6083,9 +6081,9 @@
 		<uiIndex>760</uiIndex>
 		<szItemName>.50 Beowulf</szItemName>
 		<szLongItemName>Alexander Arms .50 Beowulf</szLongItemName>
-		<szItemDesc>Das Kaliber .50 Beowulf Overmatch Plus Gewehr wird in den USA hergestellt und basiert auf der AR-15/M16 Modellreihe.</szItemDesc>
+		<szItemDesc>Das Kaliber .50 Beowulf Overmatch Plus Gewehr wird in den USA hergestellt und basiert auf dem AR-15/M16 System.</szItemDesc>
 		<szBRName>.50 Beowulf</szBRName>
-		<szBRDesc>Das Kaliber .50 Beowulf Overmatch Plus Gewehr wird in den USA hergestellt und basiert auf dem AR-15/M16 Modellreihe. Es besitzt nur Einzelfeuer, garantiert aber eine hohe Zielgenauigkeit &amp; Durchschlagskraft.</szBRDesc>
+		<szBRDesc>Das Kaliber .50 Beowulf Overmatch Plus Gewehr wird in den USA hergestellt und basiert auf dem AR-15/M16 System. Es besitzt nur Einzelfeuer, garantiert aber eine hohe Zielgenauigkeit &amp; Durchschlagskraft.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>761</uiIndex>
@@ -6115,25 +6113,25 @@
 		<uiIndex>764</uiIndex>
 		<szItemName>CMMG 7.3"</szItemName>
 		<szLongItemName>CMMG 7.3"</szLongItemName>
-		<szItemDesc>Bei dieser Waffe handelt es sich um eine weitere Pistolen-Variante auf Basis der AR-15/M16 Modellreihe.</szItemDesc>
+		<szItemDesc>Diese Waffe basiert ebenfalls auf dem bekannten AR-15/M16 System.</szItemDesc>
 		<szBRName>CMMG 7.3"</szBRName>
-		<szBRDesc>Bei dieser Waffe handelt es sich um eine weitere Pistolen-Variante auf Basis der AR-15/M16 Modellreihe.</szBRDesc>
+		<szBRDesc>Diese Waffe basiert ebenfalls auf dem bekannten AR-15/M16 System. Sie eignet sich hervorragend für den Häuserkampf.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>765</uiIndex>
 		<szItemName>OA-93</szItemName>
 		<szLongItemName>Olympic Arms 93</szLongItemName>
-		<szItemDesc>Diese Waffe wird seit mehr als 10 Jahren von OLYMPIC ARMS in Olypia, WA (USA) gefertigt. Sie basiert auf der bekannten AR-15/M16 Modellreihe.</szItemDesc>
+		<szItemDesc>Diese Waffe wird seit mehr als 10 Jahren von OLYMPIC ARMS in Olypia, WA (USA) gefertigt. Sie basiert auf dem bekannten AR-15/M16 System.</szItemDesc>
 		<szBRName>OA-93 6.5"</szBRName>
-		<szBRDesc>Diese Waffe wird seit mehr als 10 Jahren von OLYMPIC ARMS in Olypia, WA (USA) gefertigt. Sie basiert auf der bekannten AR-15/M16 Modellreihe.</szBRDesc>
+		<szBRDesc>Diese Waffe wird seit mehr als 10 Jahren von OLYMPIC ARMS in Olypia, WA (USA) gefertigt. Sie basiert auf dem bekannten AR-15/M16 System.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>766</uiIndex>
 		<szItemName>Automag IV</szItemName>
 		<szLongItemName>AMT Automag IV</szLongItemName>
-		<szItemDesc>Die Automag IV wurde 1991auf den Markt gebracht. Sie hat einen 6.5" Lauf und wird ausschließlich in Edelstahl gefertigt.</szItemDesc>
+		<szItemDesc>Die Automag IV wurde 1991 auf den Markt gebracht. Sie hat einen 6.5" Lauf und wird ausschließlich in Edelstahl gefertigt.</szItemDesc>
 		<szBRName>AMT Automag IV</szBRName>
-		<szBRDesc>Die Automag IV wurde von Harry Sanford entwickelt und 1991auf den Markt gebracht. Sie hat einen 6.5" Lauf und wird ausschließlich in Edelstahl gefertigt.</szBRDesc>
+		<szBRDesc>Die Automag IV wurde von Harry Sanford entwickelt und 1991 auf den Markt gebracht. Sie hat einen 6.5" Lauf und wird ausschließlich in Edelstahl gefertigt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>767</uiIndex>
@@ -6155,16 +6153,16 @@
 		<uiIndex>769</uiIndex>
 		<szItemName>C7CT</szItemName>
 		<szLongItemName>Colt Canada C7CT</szLongItemName>
-		<szItemDesc>Das C7 Custom Tactical ist die Scharfschützen- Ausführung des C7A2. Es wird vorwiegend von Spezial-Einheiten verwendet.</szItemDesc>
+		<szItemDesc>Das C7 Custom Tactical ist die Scharfschützen- Ausführung des C7A2. Es wird vorwiegend von Spezialeinheiten verwendet.</szItemDesc>
 		<szBRName>Colt Canada C7CT</szBRName>
-		<szBRDesc>Das C7 Custom Tactical ist die Scharfschützen- Ausführung des C7A2. Es wird vorwiegend von Spezial-Einheiten verwendet.</szBRDesc>
+		<szBRDesc>Das C7 Custom Tactical ist die Scharfschützen- Ausführung des C7A2. Es wird vorwiegend von Spezialeinheiten verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>770</uiIndex>
-		<szItemName>Encore</szItemName>
+		<szItemName>Contender</szItemName>
 		<szLongItemName>Thompson Contender Encore</szLongItemName>
 		<szItemDesc>Das Optimum in Sachen Einzellader Pistolen. Hervorragende Verarbeitung und großartige Präzision.</szItemDesc>
-		<szBRName>Thompson</szBRName>
+		<szBRName>Contender</szBRName>
 		<szBRDesc>Das Optimum in Sachen Einzellader Pistolen. Hervorragende Verarbeitung und großartige Präzision.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6172,7 +6170,7 @@
 		<szItemName>Alaskan</szItemName>
 		<szLongItemName>Ruger Super Redhawk Alaskan</szLongItemName>
 		<szItemDesc>Ein kleiner aber sehr durchschlagskräftiger Revolver. Ideal als Zweitwaffe bei der Bären- oder Menschenjagd.</szItemDesc>
-		<szBRName>Ruger Super Redhawk Alaskan</szBRName>
+		<szBRName>Ruger Super Redhawk</szBRName>
 		<szBRDesc>Ein kleiner aber sehr durchschlagskräftiger Revolver. Ideal als Zweitwaffe bei der Bären- oder Menschenjagd.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6202,9 +6200,9 @@
 	<ITEM>
 		<uiIndex>775</uiIndex>
 		<szItemName>SPAS-12</szItemName>
-		<szLongItemName>SPAS-12</szLongItemName>
+		<szLongItemName>Franchi SPAS-12</szLongItemName>
 		<szItemDesc>Diese halbautomat. Flinte wurde speziell für den Polizei-Einsatz entwickelt und kam 1979 auf den Markt.</szItemDesc>
-		<szBRName>SPAS-12</szBRName>
+		<szBRName>Franchi SPAS-12</szBRName>
 		<szBRDesc>Diese halbautomat. Flinte wurde speziell für den Polizei-Einsatz entwickelt und kam 1979 auf den Markt. Die halbautomatische Flinte, kann durch drücken eines Knopfes auf manuellen Pump-Action-Modus umgestellt werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6217,27 +6215,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>777</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 777</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing 777</szBRDesc>
+		<szItemName>Benelli R-1</szItemName>
+		<szLongItemName>Benelli R-1</szLongItemName>
+		<szItemDesc>Das neue Jagdgewehr BENELLI R-1 mit 24" Lauf nutzt 'ComfortTech' um den Rückstoß zu dämpfen.</szItemDesc>
+		<szBRName>Benelli R-1</szBRName>
+		<szBRDesc>Das neue Jagdgewehr BENELLI R-1 mit 24" Lauf nutzt 'ComfortTech' um den Rückstoß zu dämpfen. Mit keinem anderen Gewehr können Sie schneller den zweiten Schuss abgeben. Dieses .300 Win. Mag. Modell besitzt ein 5-Schuss Magazin.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>778</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 778</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing 778</szBRDesc>
+		<szItemName>Blaser LRS2</szItemName>
+		<szLongItemName>Blaser R93 LRS2</szLongItemName>
+		<szItemDesc>Mit dem neu entwickelten Radialbundverschluss erfolgt das Repetieren geradlienig, ohne Drehbewegung im Verschluss und extrem schnell.</szItemDesc>
+		<szBRName>Blaser R93 LRS2</szBRName>
+		<szBRDesc>Die Blaser R 93 LRS 2 ist die neueste und vollendete Interpretation des R 93 Matchgewehrs für Profischützen. Alle Elemente sind auf absolute Stabilität und Zuverlässigkeit ausgerichtet. High-End Präzision, auch mit Standard-Munition, war die Maxime bei der Konstruktion.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>779</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 779</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing 779</szBRDesc>
+		<szItemName>S&amp;O Shorty</szItemName>
+		<szLongItemName>S&amp;O Shorty</szLongItemName>
+		<szItemDesc>Das S&amp;O Shorty ist ein Repetiergewehr im Bullpup-Design.</szItemDesc>
+		<szBRName>S&amp;O Shorty</szBRName>
+		<szBRDesc>Das S&amp;O Shorty ist ein Repetiergewehr im Bullpup-Design.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>780</uiIndex>
@@ -7220,9 +7218,9 @@
 		<uiIndex>902</uiIndex>
 		<szItemName>M203PI</szItemName>
 		<szLongItemName>Colt M203PI Granatwerfer</szLongItemName>
-		<szItemDesc>Der verbesserte M203 passt Dank eines genialen Adapters an eine Vielzahl von Waffen. Ein spezieller Handgriff ist ebenfalls erhältlich.</szItemDesc>
+		<szItemDesc>Das Modell M203PI kann Dank eines Adapters auch an weitere Strumgewehre montiert werden und so die Feuerkraft des damit ausgerüsteten Infanteristen massiv erhöhen.</szItemDesc>
 		<szBRName>Colt M203PI Granatwerfer</szBRName>
-		<szBRDesc>Der verbesserte M203 passt Dank eines genialen Adapters an eine Vielzahl von Waffen. Ein spezieller Handgriff ist ebenfalls erhältlich.</szBRDesc>
+		<szBRDesc>Das Modell M203PI kann Dank eines Adapters auch an weitere Strumgewehre montiert werden und so die Feuerkraft des damit ausgerüsteten Infanteristen massiv erhöhen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>903</uiIndex>
@@ -7236,17 +7234,17 @@
 		<uiIndex>904</uiIndex>
 		<szItemName>GP-30</szItemName>
 		<szLongItemName>GP-30 Granatwerfer</szLongItemName>
-		<szItemDesc>Dieser 40mm Granatwerfer wurde Mitte der 80er-Jahre für die AK-Familie entwickelt.</szItemDesc>
+		<szItemDesc>Dieser 40mm Granatwerfer wurde Mitte der 80er Jahre für die AK-Familie entwickelt.</szItemDesc>
 		<szBRName>GP-30 Granatwerfer</szBRName>
-		<szBRDesc>Dieser 40mm Granatwerfer wurde Mitte der 80er-Jahre für die AK-Familie entwickelt.</szBRDesc>
+		<szBRDesc>Dieser 40mm Granatwerfer wurde Mitte der 80er Jahre für die AK-Familie entwickelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>905</uiIndex>
 		<szItemName>AG36</szItemName>
 		<szLongItemName>HK AG36 Granatwerfer</szLongItemName>
-		<szItemDesc>Bei der Konstruktion des neuen Anbau-Granat- werfers wurde konsequent auf die Wünsche und Forderungen unserer Kunden eingegangen.</szItemDesc>
+		<szItemDesc>Bei der Konstruktion des neuen Anbau-Granatwerfers wurde konsequent auf die Wünsche und Forderungen unserer Kunden eingegangen.</szItemDesc>
 		<szBRName>HK AG36</szBRName>
-		<szBRDesc>Bei der Konstruktion des neuen Anbau-Granat- werfers wurde konsequent auf die Wünsche und Forderungen unserer Kunden eingegangen. Das AG36 vereint hoch entwickelte technische Details und leichte Handhabung in einem Gerät.</szBRDesc>
+		<szBRDesc>Bei der Konstruktion des neuen Anbau-Granatwerfers wurde konsequent auf die Wünsche und Forderungen unserer Kunden eingegangen. Das AG36 vereint hoch entwickelte technische Details und leichte Handhabung in einem Gerät.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>906</uiIndex>
@@ -7268,9 +7266,9 @@
 		<uiIndex>908</uiIndex>
 		<szItemName>XM25</szItemName>
 		<szLongItemName>HK XM25 Granatwerfer</szLongItemName>
-		<szItemDesc>Wer braucht Munition, wenn man Granaten haben kann? Der XM-25 ist das Magazin gestützte Granatwerfersystem aus dem OICW Program.</szItemDesc>
+		<szItemDesc>Wer braucht Munition, wenn man Granaten haben kann? Der XM25 ist das Magazin gestützte Granatwerfersystem aus dem OICW Program.</szItemDesc>
 		<szBRName>HK XM25</szBRName>
-		<szBRDesc>Wer braucht Munition, wenn man Granaten haben kann? Der XM-25 ist das Magazin gestützte Granatwerfersystem aus dem OICW Program. Ihren Feinden sei gesagt, dass es von jetzt an keinen Platz mehr zum Verstecken gibt.</szBRDesc>
+		<szBRDesc>Wer braucht Munition, wenn man Granaten haben kann? Der XM25 ist das Magazin gestützte Granatwerfersystem aus dem OICW Program. Ihren Feinden sei gesagt, dass es von jetzt an keinen Platz mehr zum Verstecken gibt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>909</uiIndex>
@@ -7291,18 +7289,18 @@
 	<ITEM>
 		<uiIndex>911</uiIndex>
 		<szItemName>GP-30</szItemName>
-		<szLongItemName>Groza GP-30 (Built-in)</szLongItemName>
-		<szItemDesc>Dieser 40mm Granatwerfer wurde Mitte der 80er-Jahre für die AK-Familie entwickelt.</szItemDesc>
-		<szBRName>Groza GP-30 (Built-in)</szBRName>
-		<szBRDesc>Dieser 40mm Granatwerfer wurde Mitte der 80er-Jahre für die AK-Familie entwickelt.</szBRDesc>
+		<szLongItemName>Groza GP-30 (integriert)</szLongItemName>
+		<szItemDesc>Dieser 40mm Granatwerfer wurde Mitte der 80er Jahre für die AK-Familie entwickelt.</szItemDesc>
+		<szBRName>Groza GP-30 (integriert)</szBRName>
+		<szBRDesc>Dieser 40mm Granatwerfer wurde Mitte der 80er Jahre für die AK-Familie entwickelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>912</uiIndex>
 		<szItemName>OICW</szItemName>
 		<szLongItemName>HK OICW Granatwerfer</szLongItemName>
-		<szItemDesc>Diese Variante des XM-29 OICW wird mit einem integrierten 20mm Granatwerfer geliefert.</szItemDesc>
+		<szItemDesc>Diese Variante des XM29 OICW wird mit einem integrierten 20mm Granatwerfer geliefert.</szItemDesc>
 		<szBRName>OICW Granatwerfer</szBRName>
-		<szBRDesc>Diese Variante des XM-29 OICW wird mit einem integrierten 20mm Granatwerfer geliefert.</szBRDesc>
+		<szBRDesc>Diese Variante des XM29 OICW wird mit einem integrierten 20mm Granatwerfer geliefert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>913</uiIndex>
@@ -7362,11 +7360,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>920</uiIndex>
-		<szItemName>M203 CLS</szItemName>
-		<szLongItemName>Colt Granatwerfer M203</szLongItemName>
-		<szItemDesc>Colt versucht das excellente Design der HK 69 GraPi zu kopieren. Ob sie Erfolg damit haben wird sich noch zeigen</szItemDesc>
-		<szBRName>Colt Granatwerfer M203</szBRName>
-		<szBRDesc>Colt versucht das excellente Design der HK 69 GraPi zu kopieren. Ob sie Erfolg damit haben wird sich noch zeigen</szBRDesc>
+		<szItemName>M203</szItemName>
+		<szLongItemName>Colt M203 Granatwerfer</szLongItemName>
+		<szItemDesc>Dieser 40mm Granatwerfer kann am M16-Sturmgewehr und in der Version M203A1 am M4-Karabiner montiert werden.</szItemDesc>
+		<szBRName>Colt M203</szBRName>
+		<szBRDesc>Dieser Granatwerfer für 40mm Granaten ist die perfekte Ergänzung zu Ihrem M16-Sturmgewehr.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>921</uiIndex>
@@ -7987,7 +7985,7 @@
 	<ITEM>
 		<uiIndex>998</uiIndex>
 		<szItemName>Kobra</szItemName>
-		<szLongItemName>Kobra</szLongItemName>
+		<szLongItemName>Kobra Reflexvisier</szLongItemName>
 		<szItemDesc>Dieses russische Reflexvisier kann auf die meisten Gewehre der AK-Modellreihe montiert werden und ermöglicht ein schnelles zielen im Nahkampf.</szItemDesc>
 		<szBRName>Kobra</szBRName>
 		<szBRDesc>Dieses russische Reflexvisier kann auf die meisten Gewehre der AK-Modellreihe montiert werden und ermöglicht ein schnelles zielen im Nahkampf.</szBRDesc>
@@ -8004,25 +8002,25 @@
 		<uiIndex>1000</uiIndex>
 		<szItemName>PSO-P</szItemName>
 		<szLongItemName>PSO-P Zielfernrohr</szLongItemName>
-		<szItemDesc>Dieses verbesserte russische Zielfernrohr kann auf die meisten Gewehre der AK-Modellreihe montiert werden, es wird auch für Scharfschützen-Gewehre verwendet.</szItemDesc>
+		<szItemDesc>Dieses verbesserte russische Zielfernrohr kann auf die meisten Gewehre der AK-Modellreihe montiert werden, es wird auch für Scharfschützengewehre verwendet.</szItemDesc>
 		<szBRName>PSO-P</szBRName>
-		<szBRDesc>Dieses verbesserte russische Zielfernrohr kann auf die meisten Gewehre der AK-Modellreihe montiert werden, es wird auch für Scharfschützen-Gewehre verwendet.</szBRDesc>
+		<szBRDesc>Dieses verbesserte russische Zielfernrohr kann auf die meisten Gewehre der AK-Modellreihe montiert werden, es wird auch für Scharfschützengewehre verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1001</uiIndex>
 		<szItemName>5.56mm C-Mag Ad.</szItemName>
 		<szLongItemName>5.56mm C-Mag Adapter</szLongItemName>
-		<szItemDesc>Dieses Adapter kann an verschiedene 5.56mm Waffen angebracht werden und erlaubt die verwendung des 100 Schuss Beta-C-Magazins.</szItemDesc>
+		<szItemDesc>Dieses Adapter kann an verschiedene 5.56mm Waffen angebracht werden und erlaubt die verwendung des 100 Schuss Beta-C Magazins.</szItemDesc>
 		<szBRName>5.56mm C-Mag Ad.</szBRName>
-		<szBRDesc>Dieses Adapter kann an verschiedene 5.56mm Waffen angebracht werden und erlaubt die verwendung des 100 Schuss Beta-C-Magazins.</szBRDesc>
+		<szBRDesc>Dieses Adapter kann an verschiedene 5.56mm Waffen angebracht werden und erlaubt die verwendung des 100 Schuss Beta-C Magazins.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1002</uiIndex>
 		<szItemName>9mm C-Mag Ad.</szItemName>
 		<szLongItemName>9mm C-Mag Adapter</szLongItemName>
-		<szItemDesc>Dieses Adapter kann an verschiedene 9mm Waffen angebracht werden und erlaubt die verwendung des 100 Schuss Beta-C-Magazins.</szItemDesc>
+		<szItemDesc>Dieses Adapter kann an verschiedene 9mm Waffen angebracht werden und erlaubt die verwendung des 100 Schuss Beta-C Magazins.</szItemDesc>
 		<szBRName>9mm C-Mag Ad.</szBRName>
-		<szBRDesc>Dieses Adapter kann an verschiedene 9mm Waffen angebracht werden und erlaubt die verwendung des 100 Schuss Beta-C-Magazins.</szBRDesc>
+		<szBRDesc>Dieses Adapter kann an verschiedene 9mm Waffen angebracht werden und erlaubt die verwendung des 100 Schuss Beta-C Magazins.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1003</uiIndex>
@@ -8034,35 +8032,35 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1004</uiIndex>
-		<szItemName>Mark 4 CQ/T</szItemName>
-		<szLongItemName>LEUPOLD Mark 4 CQ/T</szLongItemName>
-		<szItemDesc>Dieses revolutionäre Visier vereint die Stärken von Rotpunktvisier und Zielfernrohr. Unglaublich robust, wasserdicht und verheerend genau ist es in der Lage die vielfältigsten Situationen im Nahkampf zu erfüllen.</szItemDesc>
-		<szBRName>LEUPOLD Mark 4 CQ/T</szBRName>
-		<szBRDesc>Dieses revolutionäre Visier vereint die Stärken von Rotpunktvisier und Zielfernrohr. Unglaublich robust, wasserdicht und verheerend genau ist nur das LEUPOLD Mark 4 CQ/T in der Lage die vielfältigsten Situationen im Nahkampf zu erfüllen.</szBRDesc>
+		<szItemName>ZF-3</szItemName>
+		<szLongItemName>ACOG+Reflexvisier, ZF-3</szLongItemName>
+		<szItemDesc>Diese Kombination besteht aus dem TRIJICON ACOG und dem DOCTER Rotpunktvisier. Es bietet 4-fache Vergrößerung sowie verschiedene Justiermöglichkeiten.</szItemDesc>
+		<szBRName>ACOG+Reflexvisier</szBRName>
+		<szBRDesc>Diese Kombination besteht aus dem TRIJICON ACOG und dem DOCTER Rotpunktvisier. Es bietet 4-fache Vergrößerung sowie verschiedene Justiermöglichkeiten. Seit August 2004 wird das TRIJICON  ACOG als neue Zieloptik vom U.S. Marine Corps verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1005</uiIndex>
 		<szItemName>LAM-200</szItemName>
-		<szLongItemName>Insight Corp. LAM-200</szLongItemName>
-		<szItemDesc>Das Laser Pointer Modell LAM-200 von INSIGHT Corp. stellt eine einzigartige Kombination aus sichtbarem Laser, IR-Licht und einer weissen Lichtquelle zur Verfügung.</szItemDesc>
-		<szBRName>LAM-200</szBRName>
-		<szBRDesc>Das Laser pointer Modell LAM-200 von INSIGHT Corp. stellt eine einzigartige Kombination aus sichtbarem Laser, IR-Licht und einer weissen Lichtquelle zur Verfügung.</szBRDesc>
+		<szLongItemName>Insight LAM-200</szLongItemName>
+		<szItemDesc>Der Laserpointer LAM-200 von INSIGHT stellt eine einzigartige Kombination aus sichtbarem Laser, IR-Licht und einer weißen Lichtquelle zur Verfügung.</szItemDesc>
+		<szBRName>Insight LAM-200</szBRName>
+		<szBRDesc>Der Laserpointer LAM-200 von INSIGHT stellt eine einzigartige Kombination aus sichtbarem Laser, IR-Licht und einer weißen Lichtquelle zur Verfügung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1006</uiIndex>
-		<szItemName>Z-Point</szItemName>
-		<szLongItemName>ZEISS Z-Point</szLongItemName>
-		<szItemDesc>Das innovative ZEISS Z-Point Reflexvisier, ausgestattet mit modernster Optik und Elektronik. Für eine schnelle Zielerfassung. </szItemDesc>
-		<szBRName>ZEISS Z-Point</szBRName>
-		<szBRDesc>Das innovative ZEISS Rotpunkt-Reflexvisier, ausgestattet mit modernster Optik und Elektronik. Für eine schnelle Zielerfassung.</szBRDesc>
+		<szItemName>Reflexvisier</szItemName>
+		<szLongItemName>DOCTER Reflexvisier</szLongItemName>
+		<szItemDesc>Das neue DOCTER Rotpunktvisier ermöglicht dem Schützen ein schnelles Zielen mit beiden Augen geöffnet.</szItemDesc>
+		<szBRName>DOCTER Reflexvisier</szBRName>
+		<szBRDesc>Beim Reflexvisier (Kollimatorvisier, Rotpunktvisier) wird oberhalb des Visiers Sonnenlicht eingefangen und in das Visier als roter Punkt eingespiegelt. Der Schütze hat beim Schießen mit diesem Visier beide Augen geöffnet, was ein größeres Sichtfeld und schnellere Reaktionen ermöglicht.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1007</uiIndex>
-		<szItemName>CQB Short Dot</szItemName>
-		<szLongItemName>S&amp;B CQB Short Dot</szLongItemName>
-		<szItemDesc>Viele Schützen bezeichnen das CQB Short Dot 1.1-4x20 als das beste taktische Zielfernrohr, es hat einen neuen Standard im taktischen Bereich gesetzt. Das CQB Schort Dot wird von verschiedenen Spezialeinheiten verwendet.</szItemDesc>
-		<szBRName>S&amp;B CQB Short Dot</szBRName>
-		<szBRDesc>Viele Schützen bezeichnen das CQB Short Dot 1.1-4x20 als das beste taktische Zielfernrohr, es hat einen neuen Standard im taktischen Bereich gesetzt. Das CQB Schort Dot wird von verschiedenen Spezialeinheiten verwendet.</szBRDesc>
+		<szItemName>ZF-4</szItemName>
+		<szLongItemName>Leupold Mark 4 MR/T, ZF-4</szLongItemName>
+		<szItemDesc>Dank des neuen LEUPOLD Mark 4 MR/T wird aus jedem Söldner mit Repetiergewehr, AR-10, M16, FAL, G3, SCAR-H oder M14 ein zuverlässiger Scharfschütze.</szItemDesc>
+		<szBRName>Leupold Mark 4 MR/T</szBRName>
+		<szBRDesc>Das LEUPOLD Mark 4 MR/T gilt als eines der besten taktischen Zielfernrohre und bietet 8-fache Vergrößerung. Egal mit welchem Sturmgewehr, AR-15/M16 Modell oder Jagdgewehr Sie schießen, dieses ZF passt immer.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1008</uiIndex>
@@ -8234,18 +8232,18 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1029</uiIndex>
-		<szItemName>kompaktes ZF</szItemName>
-		<szLongItemName>kompaktes Zielfernrohr</szLongItemName>
-		<szItemDesc>Ein 1,6-fach vergrößerndes Zielfernrohr. Es kann auf die meisten Waffen montiert werden.</szItemDesc>
-		<szBRName>kompaktes ZF</szBRName>
-		<szBRDesc>Ein 1,6-fach vergrößerndes Zielfernrohr. Es kann auf die meisten Waffen montiert werden.</szBRDesc>
+		<szItemName>ZF-1</szItemName>
+		<szLongItemName>Leupold FX-II, ZF-3</szLongItemName>
+		<szItemDesc>Ein Bestseller unter den kompakten Zielfernrohr ist  dieses 1.7-fach vergrößernde FX-II 2x20mm von LEUPOLD. Es kann auf die meisten Handfeuerwaffen sowie Jagdgewehre und Flinten montiert werden.</szItemDesc>
+		<szBRName>Leupold FX-II</szBRName>
+		<szBRDesc>Kein anderes kompaktes Zielfernrohr wird so oft gekauft wie dieses 1.7-fach vergrößernde FX-II 2x20mm von LEUPOLD. Es kann auf die meisten Handfeuerwaffen sowie Jagdgewehre und Flinten montiert werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1030</uiIndex>
-		<szItemName>TA33</szItemName>
-		<szLongItemName>Trijicon ACOG TA33</szLongItemName>
-		<szItemDesc>Seit August 2004 wird das TRIJICON Advanced Combat Optical Gunsight (TA31F 4x ACOG) als neues Zielfernrohr beim U.S. Marine Corps verwendet.</szItemDesc>
-		<szBRName>Trijicon TA33</szBRName>
-		<szBRDesc>Seit August 2004 wird das TRIJICON Advanced Combat Optical Gunsight (TA31F 4x ACOG) als neues Zielfernrohr beim U.S. Marine Corps verwendet.</szBRDesc>
+		<szItemName>ZF-2</szItemName>
+		<szLongItemName>S&amp;B CQB Short Dot, ZF-2</szLongItemName>
+		<szItemDesc>Das SCHMIDT &amp; BENDER CQB Short Dot 1.1-4x20 bietet eine 4-fache Vergrößerung, ist unglaublich robust, wasserdicht und verheerend genau. Es ist es in der Lage die vielfältigsten Situationen im Nahkampf zu erfüllen.</szItemDesc>
+		<szBRName>S&amp;B CQB</szBRName>
+		<szBRDesc>Das SCHMIDT &amp; BENDER CQB Short Dot 1.1-4x20 bietet eine 4-fache Vergrößerung, ist unglaublich robust, wasserdicht und verheerend genau. Es ist es in der Lage die vielfältigsten Situationen im Nahkampf zu erfüllen.</szBRDesc>
 	</ITEM>
 </ITEMLIST>
