@@ -293,7 +293,8 @@ INT32 AddVehicleToList( INT16 sMapX, INT16 sMapY, INT16 sGridNo, UINT8 ubType )
 
 	if( !pGroup )
 	{
-		if( gfEditMode )
+		// WANNE: Commented the following line, because we got a CTD when skyrider sees his heli in drassen!
+		//if( gfEditMode )
 		{
 			//This is okay, no groups exist, so simply return.
 			return iVehicleIdValue;

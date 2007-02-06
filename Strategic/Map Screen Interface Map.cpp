@@ -74,9 +74,9 @@ INT32 iZoomY = 0;
 #define VERT_SCROLL 10
 
 // the pop up for helicopter stuff
-#define MAP_HELICOPTER_ETA_POPUP_X				400
-#define MAP_HELICOPTER_ETA_POPUP_Y				250
-#define MAP_HELICOPTER_UPPER_ETA_POPUP_Y		50
+#define MAP_HELICOPTER_ETA_POPUP_X				(400 + iScreenWidthOffset)
+#define MAP_HELICOPTER_ETA_POPUP_Y				(250 + iScreenHeightOffset)
+#define MAP_HELICOPTER_UPPER_ETA_POPUP_Y		(50 + iScreenHeightOffset)
 #define MAP_HELICOPTER_ETA_POPUP_WIDTH			120
 #define MAP_HELICOPTER_ETA_POPUP_HEIGHT			68
 
