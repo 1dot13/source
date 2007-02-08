@@ -8975,7 +8975,7 @@
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>39</ubImpact>
+		<ubImpact>41</ubImpact>
 		<ubDeadliness>59</ubDeadliness>
 		<bAccuracy>7</bAccuracy>
 		<ubMagSize>5</ubMagSize>
@@ -10083,7 +10083,7 @@
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>39</ubImpact>
+		<ubImpact>41</ubImpact>
 		<ubDeadliness>48</ubDeadliness>
 		<bAccuracy>11</bAccuracy>
 		<ubMagSize>5</ubMagSize>
@@ -10119,7 +10119,7 @@
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>39</ubImpact>
+		<ubImpact>41</ubImpact>
 		<ubDeadliness>48</ubDeadliness>
 		<bAccuracy>12</bAccuracy>
 		<ubMagSize>5</ubMagSize>
@@ -10155,7 +10155,7 @@
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>39</ubImpact>
+		<ubImpact>41</ubImpact>
 		<ubDeadliness>50</ubDeadliness>
 		<bAccuracy>11</bAccuracy>
 		<ubMagSize>5</ubMagSize>
