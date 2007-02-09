@@ -2017,6 +2017,11 @@ BOOLEAN CompatibleFaceItem( UINT16 usItem1, UINT16 usItem2 )
 {
 	INT32 iLoop = 0;
 
+	//Madd: skip this function if either item is nothing
+	//this will let us trim some lines from compatiblefaceitems.xml
+	if ( usItem1 == NONE || usItem2 == NONE )
+		return TRUE;
+
 	// look for the section of the array pertaining to this attachment...
 	while( 1 )
 	{
