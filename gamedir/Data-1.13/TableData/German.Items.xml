@@ -26,7 +26,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>Glock 18</szLongItemName>
 		<szItemDesc>Diese vollautomatische Variante der Glock 17 wurde speziell für eine militärische Verwendung entwickelt.</szItemDesc>
 		<szBRName>Glock 18</szBRName>
-		<szBRDesc>Die Glock 18 ist die vollautomatische Variante der G17 und wird daher als leichte MP klassifiziert. Durch das revolutionäre 'Safe Action' Abzugssystem ist sie sicher, einfach und schnell bedienbar. Feuermodus: S-F</szBRDesc>
+		<szBRDesc>Die Glock 18 ist die vollautomatische Variante der Glock 17 und wird daher als leichte MP klassifiziert. Durch das revolutionäre 'Safe Action' Abzugssystem ist sie sicher, einfach und schnell bedienbar. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>3</uiIndex>
@@ -266,7 +266,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>Franchi SPAS-15</szLongItemName>
 		<szItemDesc>Die SPAS-15 erschien erstmals 1988 und wurde speziell für militärische Zwecke entwickelt.</szItemDesc>
 		<szBRName> Franchi SPAS-15</szBRName>
-		<szBRDesc>Die SPAS-15 erschien erstmals 1988 und wurde speziell für militärische Zwecke entwickelt. Die halbautomatische Flinte, kann durch drücken eines Knopfes auf manuellen Pump-Action-Modus umgestellt werden.</szBRDesc>
+		<szBRDesc>Die SPAS-15 erschien erstmals 1988 und wurde speziell für militärische Zwecke entwickelt. Die halbautomatische Flinte, kann durch drücken eines Knopfes auf manuellen Pump-Action Modus umgestellt werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>33</uiIndex>
@@ -274,7 +274,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>HK CAWS</szLongItemName>
 		<szItemDesc>Diese dt.-amerik. Flinte im Bullpup-Design entstand in Kooperation zwischen den Firmen H&amp;K und WINCHESTER.</szItemDesc>
 		<szBRName>HK CAWS</szBRName>
-		<szBRDesc>Diese dt.-amerik. Flinte im Bullpup-Design hat das kaliber 18.5x76mm und entstand in Kooperation zwischen den Firmen H&amp;K und WINCHESTER. Feuermodus: S-3</szBRDesc>
+		<szBRDesc>Diese dt.-amerik. Flinte im Bullpup-Design hat das Kaliber 18.5x76mm und entstand in Kooperation zwischen den Firmen HECKLER &amp; KOCH und WINCHESTER. Feuermodus: S-3</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>34</uiIndex>
@@ -296,9 +296,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>36</uiIndex>
 		<szItemName>HK21E</szItemName>
 		<szLongItemName>HK21E</szLongItemName>
-		<szItemDesc>Die HK21E ist ein leichtes MG, dessen Mechanik auf dem G3 aufbaut. Durch die Bauweise wurde eine höhere Einzelschuss-Zielgenauigkeit erreicht.</szItemDesc>
+		<szItemDesc>Das Universal-Maschinengewehr HK21E funktioniert nach dem gleichen, zuverlässigen Prinzip wie das Sturmgewehr HK G3.</szItemDesc>
 		<szBRName>HK21E</szBRName>
-		<szBRDesc>Die HK21E ist ein leichtes MG, dessen Mechanik auf dem G3 aufbaut. Durch die Bauweise wurde eine höhere Einzelschuss-Zielgenauigkeit erreicht. Feuermodus: S-3-F</szBRDesc>
+		<szBRDesc>Das Universal-Maschinengewehr HK21E funktioniert nach dem gleichen, zuverlässigen Prinzip wie das Sturmgewehr HK G3. Aufgrund der hohen Kadenz von 850 Schuss/Minute erzielt der Schütze mehr Trefferlagen im Ziel. Feuermodus: S-3-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>37</uiIndex>
@@ -330,7 +330,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>M79 Granatwerfer</szLongItemName>
 		<szItemDesc>Falls Sie eine Ziegelwand oder Feindlinie schnell durchbrechen müssen, wird dieser amerikanische 40mm-Granatwerfer das Problem lösen.</szItemDesc>
 		<szBRName>M79 Granatwerfer</szBRName>
-		<szBRDesc>Falls Sie eine Ziegelwand oder Feindlinie schnell durchbrechen müssen, wird dieser amerikanische 40mm-Granatwerfer aus der Vietnam-Ära das Problem lösen.</szBRDesc>
+		<szBRDesc>Falls Sie eine Ziegelwand oder die Feindlinie schnell durchbrechen müssen, wird dieser amerikanische 40mm Granatwerfer aus der Vietnam-Ära das Problem lösen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>41</uiIndex>
@@ -418,7 +418,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>M72A4 LAW</szLongItemName>
 		<szItemDesc>Diese leichte Panzerabwehrwaffe wird von der Schulter abgefeuert und kann bis zu 30cm Panzerung durchschlagen.</szItemDesc>
 		<szBRName>M72A4 LAW</szBRName>
-		<szBRDesc>Diese leichte Panzerabwehrwaffe wird von der Schulter abgefeuert und kann bis zu 30 cm Panzerung durchschlagen. Eine Einwegwaffe mit unglaublicher Zerstörungskraft!</szBRDesc>
+		<szBRDesc>Diese leichte Panzerabwehrwaffe wird von der Schulter abgefeuert und kann bis zu 30cm Panzerung durchschlagen. Eine Einwegwaffe mit unglaublicher Zerstörungskraft!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>52</uiIndex>
@@ -546,7 +546,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>Calico M-950</szLongItemName>
 		<szItemDesc>Die Haupteigenschaften der CALICO Feuerwaffen bilden das extrem große Magazin kombiniert mit schlanken Profil und geringem Rückstoß.</szItemDesc>
 		<szBRName>Calico M-950</szBRName>
-		<szBRDesc>Die Haupteigenschaften der CALICO Feuerwaffen bilden das extrem große Magazin kombiniert mit schlanken Profil und geringem Rückstoß. Diese Pistolen-Version ist nur mit Einzelfeuer ausgestattet.</szBRDesc>
+		<szBRDesc>Die Haupteigenschaften der CALICO Feuer- waffen bilden das extrem große Magazin kombiniert mit schlanken Profil und geringem Rückstoß. Diese Pistolen-Version ist nur mit Einzelfeuer ausgestattet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>68</uiIndex>
@@ -554,7 +554,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>Calico M-900</szLongItemName>
 		<szItemDesc>Der Karabiner hat einen ungewöhnlich langen Lauf für eine 9mm Waffe.</szItemDesc>
 		<szBRName>Calico M-900</szBRName>
-		<szBRDesc>Die Haupteigenschaften der CALICO Feuerwaffen bilden das extrem große Magazin kombiniert mit schlanken Profil und geringem Rückstoß. Die Karabiner-Version ist nur mit Einzelfeuer ausgestattet.</szBRDesc>
+		<szBRDesc>Die Haupteigenschaften der CALICO Feuer- waffen bilden das extrem große Magazin kombiniert mit schlanken Profil und geringem Rückstoß. Die Karabiner-Version ist nur mit Einzelfeuer ausgestattet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>69</uiIndex>
@@ -562,7 +562,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>Calico M-960A</szLongItemName>
 		<szItemDesc>Das MP-Modell von CALICO verwendet ein spiralenförmiges Magazinband.</szItemDesc>
 		<szBRName>Calico M-960A</szBRName>
-		<szBRDesc>Die Haupteigenschaften der CALICO Feuerwaffen bilden das extrem große Magazin kombiniert mit schlanken Profil und geringem Rückstoß. Die MP-Version besitzt eine S-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Die Haupteigenschaften der CALICO Feuer- waffen bilden das extrem große Magazin kombiniert mit schlanken Profil und geringem Rückstoß. Die MP-Version besitzt eine S-F Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>70</uiIndex>
@@ -879,9 +879,9 @@ Welt im täglichen Dienst.</szBRDesc>
 	<ITEM>
 		<uiIndex>109</uiIndex>
 		<szItemName>CAWS Mag</szItemName>
-		<szLongItemName>CAWS Magazin, Slugs</szLongItemName>
+		<szLongItemName>CAWS Magazin, FLG</szLongItemName>
 		<szItemDesc>Die REMINGTON Core-Lokt Ultra Slugs werden gern von Polizei und Militär verwendet. Ihre Geschosse durchlagen mehrschichtige Schutzwesten ohne Probleme, besitzen eine sehr hohe Präzision und steigern leicht die Reichweite.</szItemDesc>
-		<szBRName>CAWS Slugs #10</szBRName>
+		<szBRName>CAWS FLG #10</szBRName>
 		<szBRDesc>Die REMINGTON Core-Lokt Ultra Slugs werden gern von Polizei und Militär verwendet. Ihre Geschosse durchlagen mehrschichtige Schutzwesten ohne Probleme, besitzen eine sehr hohe Präzision und steigern leicht die Reichweite.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2128,7 +2128,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>265</uiIndex>
 		<szItemName>Golf Schläger</szItemName>
 		<szLongItemName>Golf Schläger</szLongItemName>
-		<szItemDesc>Diese Tasche mit dem klassischen Satz an Hölzern und Eisen hat schon bessere Tage auf dem Grün gesehen. Obwohl schon leicht abgenutzt, können Sie mit  diesen Schlägern noch immer locker unter par bleiben.</szItemDesc>
+		<szItemDesc>Diese Tasche mit dem klassischen Satz an Hölzern und Eisen hat schon bessere Tage auf dem Grün gesehen. Obwohl schon leicht abgenutzt, können Sie mit diesen Schlägern noch immer locker unter par bleiben.</szItemDesc>
 		<szBRName>Golf Schläger</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2656,9 +2656,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>331</uiIndex>
 		<szItemName>L85A2</szItemName>
 		<szLongItemName>Enfield L85A2</szLongItemName>
-		<szItemDesc>Das Enfield L85A2 (SA80) ist die Infanteriewaffe der britischen Armee. Diese Variante wurde von H&amp;K modifiziert um die Zuverlässigkeit zu erhöhen.</szItemDesc>
+		<szItemDesc>Das Enfield L85A2 (SA80) ist die Infanteriewaffe der britischen Armee. Diese Variante wurde von HK modifiziert um die Zuverlässigkeit zu erhöhen.</szItemDesc>
 		<szBRName>Enfield L85A2</szBRName>
-		<szBRDesc>Das Enfield L85A2 (auch als SA80 bekannt) ist die Standardwaffe der britischen Armee. Diese Variante wurde von H&amp;K modifiziert um die Zuverlässigkeit zu erhöhen. Es besitzt eine S-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Das Enfield L85A2 (auch als SA80 bekannt) ist die Standardwaffe der britischen Armee. Diese Variante wurde von HK modifiziert um die Zuverlässigkeit zu erhöhen. Es besitzt eine S-F Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>332</uiIndex>
@@ -2714,7 +2714,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>MP-443 Grach</szLongItemName>
 		<szItemDesc>Diese Pistole wurde nach den Anforderungen des russischen Verteidigungsministeriums bei IMZ entwickelt.</szItemDesc>
 		<szBRName>MP-443 Grach</szBRName>
-		<szBRDesc>Diese Pistole wurde nach den Anforderungen des russischen Verteidigungsministeriums bei IZHEVSKY MEKHANICHESKY ZAVOD  entwickelt.</szBRDesc>
+		<szBRDesc>Diese Pistole wurde nach den Anforderungen des russischen Verteidigungsministeriums bei IZHEVSKY MEKHANICHESKY ZAVOD entwickelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>339</uiIndex>
@@ -2744,23 +2744,23 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>342</uiIndex>
 		<szItemName>MP5A4</szItemName>
 		<szLongItemName>HK MP5A4</szLongItemName>
-		<szItemDesc>Die MP5 ist die bevorzugte MP von Antiterror-Einheiten in aller Welt. Sie ist bekannt für ihre Zuverlässigkeit und Präzision.</szItemDesc>
+		<szItemDesc>Die MP5A4 wird von Sicherheitskräften und SWAT-Teams in aller Welt bevorzugt. Sie ist bekannt für ihre Zuverlässigkeit und Präzision.</szItemDesc>
 		<szBRName>HK MP5A4</szBRName>
-		<szBRDesc>Die MP5 ist die bevorzugte MP von Antiterror-Einheiten in aller Welt. Sie ist bekannt für ihre Zuverlässigkeit und Präzision - selbst im Vollautomatikmodus. Feuermodus: S-3-F</szBRDesc>
+		<szBRDesc>Die HK MP5A4 wird von Sicherheitskräften und SWAT-Teams in aller Welt bevorzugt. Sie ist bekannt für ihre Zuverlässigkeit und Präzision. Feuermodus: S-3-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>343</uiIndex>
 		<szItemName>MP5N</szItemName>
-		<szLongItemName>HK MP5 Navy</szLongItemName>
-		<szItemDesc>Die MP5 Navy wurde speziell für Sondereinheiten entwickelt und hat sich in umfangreichen Tests und im härtesten Einsatz bewährt.</szItemDesc>
-		<szBRName>HK MP5 Navy</szBRName>
-		<szBRDesc>Die MP5 Navy wurde speziell für Sondereinheiten entwickelt und hat sich in umfangreichen Tests und im härtesten Einsatz bewährt. Feuermodus: S-F</szBRDesc>
+		<szLongItemName>HK MP5N</szLongItemName>
+		<szItemDesc>Die HK MP5 Navy wurde ursprünglich für die U.S. Navy SEALs entwickelt. Seit ihrer Einführung hat sie sich unter härtesten Einsatzbedingungen bewährt.</szItemDesc>
+		<szBRName>HK MP5N</szBRName>
+		<szBRDesc>Die HK MP5 Navy wurde ursprünglich für die U.S. Navy SEALs entwickelt. Seit ihrer Einführung hat sie sich unter härtesten Einsatzbedingungen bewährt. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>344</uiIndex>
 		<szItemName>MP5SD5</szItemName>
 		<szLongItemName>HK MP5SD5</szLongItemName>
-		<szItemDesc>Die MP5SD wird von vielen Spezialeinheiten verwendet. Ihr Alu-Schalldämpfer ist so wirksam, dass man nur das Klicken des Abzugs hört.</szItemDesc>
+		<szItemDesc>Die HK MP5SD wird von vielen Spezialeinheiten verwendet. Ihr Alu-Schalldämpfer ist so wirksam, dass man nur das Klicken des Abzugs hört.</szItemDesc>
 		<szBRName>HK MP5SD5</szBRName>
 		<szBRDesc>Terroristen auf der ganzen Welt fürchten die MP5SD. Ihr integrierter Alu-Schalldämpfer ist so wirksam, dass man nur das Klicken des Abzugs hört. Es muss keine Unterschall-Munition verwendet werden. Feuermodus: S-3-F</szBRDesc>
 	</ITEM>
@@ -2800,9 +2800,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>349</uiIndex>
 		<szItemName>SR-3 Vikhr</szItemName>
 		<szLongItemName>SR-3 Vikhr Compact</szLongItemName>
-		<szItemDesc>Diese schwere MP im Kaliber 9x39mm wird von russischen Spezialeinheiten verwendet.</szItemDesc>
+		<szItemDesc>Diese schwere Maschinenpistole im Kaliber 9x39mm wird von russischen Spezialeinheiten verwendet.</szItemDesc>
 		<szBRName>SR-3 Vikhr Compact</szBRName>
-		<szBRDesc>Dieser schwere MP im Kaliber 9x39mm wird von russischen Spezialeinheiten verwendet. Feuermodus: S-F</szBRDesc>
+		<szBRDesc>Diese schwere Maschinenpistole im Kaliber 9x39mm wird von russischen Spezialeinheiten verwendet. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>350</uiIndex>
@@ -3342,10 +3342,10 @@ Welt im täglichen Dienst.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>417</uiIndex>
-		<szItemName>12g Slugs #12</szItemName>
-		<szLongItemName>Kaliber 12/70 Slugs</szLongItemName>
+		<szItemName>12g FLG #12</szItemName>
+		<szLongItemName>Kaliber 12/70 FLG</szLongItemName>
 		<szItemDesc>Die WINCHESTER Supreme Partition Gold Slugs werden gern von Polizei und Militär verwendet. Ihre Geschosse durchlagen mehrschichtige Schutzwesten ohne Probleme, besitzen eine sehr hohe Präzision und steigern die Reichweite Ihrer Waffe um 50m.</szItemDesc>
-		<szBRName>12g Slugs #12</szBRName>
+		<szBRName>12g FLG #12</szBRName>
 		<szBRDesc>Die WINCHESTER Supreme Partition Gold Slugs werden gern von Polizei und Militär verwendet. Ihre Geschosse durchlagen mehrschichtige Schutzwesten ohne Probleme, besitzen eine sehr hohe Präzision und steigern die Reichweite Ihrer Waffe um 50m.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -3826,7 +3826,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>7.92x57mm Ladestreifen, HS</szLongItemName>
 		<szItemDesc>Diese Munition ist passend für den MAUSER K98k. Heute wird dieses Kaliber mit dem .308 Winchester gleichgesetzt.</szItemDesc>
 		<szBRName>7.92x57mm HS #5</szBRName>
-		<szBRDesc>Sie besitzen ein altes MAUSER Gewehr 98 oder einen Karabiner 98K? Wir haben dafür die passenden Ladestreifen Opa!</szBRDesc>
+		<szBRDesc>Sie besitzen ein altes MAUSER Gewehr 98 oder einen Karabiner 98k? Wir haben dafür die passenden Ladestreifen Opa!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>478</uiIndex>
@@ -3834,7 +3834,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>7.92x57mm Ladestreifen</szLongItemName>
 		<szItemDesc>Diese Munition ist passend für den MAUSER K98k. Heute wird dieses Kaliber mit dem .308 Winchester gleichgesetzt.</szItemDesc>
 		<szBRName>7.92x57mm #5</szBRName>
-		<szBRDesc>Sie besitzen ein altes MAUSER Gewehr 98 oder einen Karabiner 98K? Wir haben dafür die passenden Ladestreifen Opa!</szBRDesc>
+		<szBRDesc>Sie besitzen ein altes MAUSER Gewehr 98 oder einen Karabiner 98k? Wir haben dafür die passenden Ladestreifen Opa!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>479</uiIndex>
@@ -4174,7 +4174,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szItemName>7.62x54R LS</szItemName>
 		<szLongItemName>7.62x54R Box, LS-PB</szLongItemName>
 		<szItemDesc>Mit dieser Leuchtspurmunition sollte das Zielen und Treffen im Burstmodus kein Problem mehr sein.</szItemDesc>
-		<szBRName>7.62x54R  LS-PB #200</szBRName>
+		<szBRName>7.62x54R LS-PB #200</szBRName>
 		<szBRDesc>Mit dieser Leuchtspurmunition sollte das Zielen und Treffen im Burstmodus kein Problem mehr sein.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -5071,7 +5071,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>Colt M4A1 Karabiner</szLongItemName>
 		<szItemDesc>Der M4-Karabiner ist unter allen Einsatzbedingungen eine sehr genaue und effektive Waffe. Die Waffe ist für Söldner und Einzelkämpfer bestens geeignet.</szItemDesc>
 		<szBRName>Colt M4A1 Karabiner</szBRName>
-		<szBRDesc>Der M4-Karabiner ist unter allen Einsatzbedingungen eine sehr genaue und effektive Waffe. Die Waffe hat eine S-F Abzugsgruppe und ist für Söldner und Einzelkämpfer bestens geeignet.</szBRDesc>
+		<szBRDesc>Der M4-Karabiner ist unter allen Einsatz- bedingungen eine sehr genaue und effektive Waffe. Die Waffe hat eine S-F Abzugsgruppe und ist für Söldner und Einzelkämpfer bestens geeignet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>634</uiIndex>
@@ -5119,7 +5119,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>AMP DSR-1</szLongItemName>
 		<szItemDesc>Mit Aluminiumhandschutz und futuristischen Design ist das eine der coolsten Waffen die es gibt. Auf dem Gehäuse steht 'Made in Germany'.</szItemDesc>
 		<szBRName>AMP DSR-1</szBRName>
-		<szBRDesc>Mit freien beweglichen Lauf,  Aluminiumhandschutz und futuristischen Design ist das eine der coolsten Waffen die wir jemals gesehen haben. Auf dem Gehäuse steht 'Made in Germany'.</szBRDesc>
+		<szBRDesc>Mit freien beweglichen Lauf, Aluminium- handschutz und futuristischen Design ist das eine der coolsten Waffen die wir jemals gesehen haben. Auf dem Gehäuse steht 'Made in Germany' - wer hätte das gedacht?!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>640</uiIndex>
@@ -5237,9 +5237,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>654</uiIndex>
 		<szItemName>FR-F2</szItemName>
 		<szLongItemName>FR-F2</szLongItemName>
-		<szItemDesc>Der tödlichste französische Vertreter seit Napoleon. Dieses hervorragende  Scharfschützen-Gewehr ist sehr präzise.</szItemDesc>
+		<szItemDesc>Der tödlichste französische Vertreter seit Napoleon. Dieses hervorragende Scharfschützengewehr ist sehr präzise.</szItemDesc>
 		<szBRName>FR-F2</szBRName>
-		<szBRDesc>Der tödlichste französische Vertreter seit Napoleon. Dieses hervorragende  Scharfschützen-Gewehr ist sehr präzise.</szBRDesc>
+		<szBRDesc>Der tödlichste französische Vertreter seit Napoleon. Dieses hervorragende Scharfschützengewehr ist sehr präzise.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>655</uiIndex>
@@ -5293,9 +5293,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>661</uiIndex>
 		<szItemName>HK23E</szItemName>
 		<szLongItemName>HK23E</szLongItemName>
-		<szItemDesc>Der Name des Herstellers sagt schon alles. Es erfüllt seinen Zweck am Besten mit einem Beta-C Magazin.</szItemDesc>
+		<szItemDesc>Das Universal-Maschinengewehr HK23E funktioniert nach dem gleichen, zuverlässigen Prinzip wie das Sturmgewehr HK G3.</szItemDesc>
 		<szBRName>HK23E</szBRName>
-		<szBRDesc>Der Name des Herstellers sagt schon alles. Wir können dieses MG nur empfehlen. Es erfüllt seinen Zweck am Besten mit einem Beta-C Magazin. Feuermodus: S-3-F</szBRDesc>
+		<szBRDesc>Das Universal-Maschinengewehr HK23E funktioniert nach dem gleichen, zuverlässigen Prinzip wie das Sturmgewehr HK G3. Aufgrund der hohen Kadenz von 850 Schuss/Minute erzielt der Schütze mehr Trefferlagen im Ziel. Feuermodus: S-3-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>662</uiIndex>
@@ -5349,17 +5349,17 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>668</uiIndex>
 		<szItemName>MG36E</szItemName>
 		<szLongItemName>HK MG36E</szLongItemName>
-		<szItemDesc>Das neue MG auf Basis des G36 dient als 'Light Support Weapon' für die Infanterie.</szItemDesc>
+		<szItemDesc>Das neue Maschinengewehr auf Basis des G36 dient als 'Light Support Weapon' für die Infanterie.</szItemDesc>
 		<szBRName>HK MG36E</szBRName>
-		<szBRDesc>Das neue MG auf Basis des G36 dient als 'Light Support Weapon' für die Infanterie.</szBRDesc>
+		<szBRDesc>Das neue Maschinengewehr auf Basis des G36 dient als 'Light Support Weapon' für die Infanterie.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>669</uiIndex>
-		<szItemName>HK MG43</szItemName>
+		<szItemName>MG43</szItemName>
 		<szLongItemName>HK MG43 (MG4)</szLongItemName>
 		<szItemDesc>Bei der Entwicklung des HK MG43 wurde auf minimales Gewicht, maximale Sicherheit und leichte Handhabung Wert gelegt.</szItemDesc>
 		<szBRName>HK MG43</szBRName>
-		<szBRDesc>Das neueste MG von HK wurde erstmals 2001 in London vorgestellt. Es hat Gurtzuführung, ein integriertes Zweibein und RIS-Schienen erlauben vielfältige Anbaumöglichkeiten. Seit 2006 ersetzt es das MG3 der Bundeswehr.</szBRDesc>
+		<szBRDesc>HK's neuestes MG wurde erstmals 2001 in London vorgestellt. Es hat Gurtzuführung, ein integriertes Zweibein und RIS-Schienen erlauben vielfältige Anbaumöglichkeiten. Seit 2006 wird es als MG4 an die Bundeswehr geliefert und ersetzt das in die Jahre gekommene MG3.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>670</uiIndex>
@@ -5903,7 +5903,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>Thompson M1928A1</szLongItemName>
 		<szItemDesc>Die Thompson M1928 auch 'Tommy Gun' genannt, war eine amerik. MP, die während der Zeit der Prohibition berühmt wurde.</szItemDesc>
 		<szBRName>Thompson M1928A1</szBRName>
-		<szBRDesc>Die Thompson M1928 auch 'Tommy Gun' genannt, war eine amerik. MP, die während der Zeit der Prohibition berühmt wurde. Gangster nannten sie 'Chicago- Schreibmaschine'  und schätzten sie aufgrund ihrer kompakten Größe und hohen Feuerrate.</szBRDesc>
+		<szBRDesc>Die Thompson M1928 auch 'Tommy Gun' genannt, war eine amerik. MP, die während der Zeit der Prohibition berühmt wurde. Gangster nannten sie 'Chicago- Schreibmaschine' und schätzten sie aufgrund ihrer kompakten Größe und hohen Feuerrate.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>738</uiIndex>
@@ -6149,9 +6149,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>768</uiIndex>
 		<szItemName>Wildey Survivor</szItemName>
 		<szLongItemName>Wildey Survivor</szLongItemName>
-		<szItemDesc>Die Wildey Magnum Pistole wurde durch den Film "Death Wish 3" mit Charles Bronson weltberühmt. Sie ist in verschiedenen Magnum-Kalibern erhältlich.</szItemDesc>
+		<szItemDesc>Die Wildey Magnum Pistole wurde durch den Film 'Death Wish 3' mit Charles Bronson weltberühmt. Sie ist in verschiedenen Magnum-Kalibern erhältlich.</szItemDesc>
 		<szBRName>Wildey Survivor</szBRName>
-		<szBRDesc>Die Wildey Magnum Pistole wurde durch den Film "Death Wish 3" mit Charles Bronson weltberühmt. Sie ist in verschiedenen Magnum-Kalibern erhältlich.</szBRDesc>
+		<szBRDesc>Die Wildey Magnum Pistole wurde durch den Film 'Death Wish 3' mit Charles Bronson weltberühmt. Sie ist in verschiedenen Magnum-Kalibern erhältlich.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>769</uiIndex>
@@ -6213,9 +6213,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>776</uiIndex>
 		<szItemName>K98k</szItemName>
 		<szLongItemName>Mauser Karabiner 98k</szLongItemName>
-		<szItemDesc>Das Standard-Gewehr der Wehrmacht während des 2. Weltkriegs. Es ist sehr robust und zuverlässig.</szItemDesc>
+		<szItemDesc>Dieses Gewehr war die Standardwaffe der deutschen Soldaten im 2. Weltkrieg. Es ist sehr robust und zuverlässig.</szItemDesc>
 		<szBRName>Mauser K98k</szBRName>
-		<szBRDesc>Der MAUSER Karabiner 98k ist eine Weiterentwicklung des MAUSER Modell 98 (G98) von 1898. Während des 2. Weltkriegs wurden bis 1945 über 12 Mio. Stück hergestellt. Heute ist das K98k Exerzierwaffe beim Wachbataillon der Bundeswehr in Berlin.</szBRDesc>
+		<szBRDesc>Der MAUSER Karabiner 98k ist eine Weiterentwicklung des MAUSER Modell 98 (G98) von 1898. Im 2. Weltkrieg wurden bis 1945 über 12 Mio. Stück hergestellt. Heute ist das K98k Exerzierwaffe beim Wachbataillon der Bundeswehr in Berlin.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>777</uiIndex>
@@ -6237,33 +6237,33 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>779</uiIndex>
 		<szItemName>S&amp;O Shorty</szItemName>
 		<szLongItemName>S&amp;O Shorty</szLongItemName>
-		<szItemDesc>Das S&amp;O Shorty ist ein Repetiergewehr im Bullpup-Design.</szItemDesc>
+		<szItemDesc>Das S&amp;O Shorty ist ein geradlinig repetierendes Gewehr im futuristischen Bullpup-Design.</szItemDesc>
 		<szBRName>S&amp;O Shorty</szBRName>
-		<szBRDesc>Das S&amp;O Shorty ist ein Repetiergewehr im Bullpup-Design.</szBRDesc>
+		<szBRDesc>Das S&amp;O Shorty ist ein geradlinig repetierendes Gewehr im futuristischen Bullpup-Design.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>780</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 780</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing 780</szBRDesc>
+		<szItemName>SA-24</szItemName>
+		<szLongItemName>SA-24</szLongItemName>
+		<szItemDesc>Diese tschechische MP wurde von 1949-68 produziert und vornehmlich in Ostblockländer geliefert.</szItemDesc>
+		<szBRName>SA-24</szBRName>
+		<szBRDesc>Diese ältere tschechische MP verschießt Patronen im russischen Kaliber 7.62x25mm. Es wird behauptet, dass auch die 7.63mm Mauser Pistolen Patrone verwendet werden kann.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>781</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 781</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing 781</szBRDesc>
+		<szItemName>SAR-21</szItemName>
+		<szLongItemName>SAR-21</szLongItemName>
+		<szItemDesc>Diese Variante des SAR-21 hat Picatinny-Schienen an Stelle eines fest angebrachten Visiers mit integriertem Lasermodul. Sie können viele Zubehöre anbringen.</szItemDesc>
+		<szBRName>SAR-21</szBRName>
+		<szBRDesc>Diese Variante des SAR-21 hat Picatinny- Schienen an Stelle eines fest angebrachten Visiers mit integriertem Lasermodul. Das bedeutet für Sie volle Flexibilität, da Sie optionales Zubehör anbringen können.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>782</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 782</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing 782</szBRDesc>
+		<szItemName>SR-47</szItemName>
+		<szLongItemName>KAC SR-47</szLongItemName>
+		<szItemDesc>Diese M4-Variante wurde für Spezialeinheiten von Eugene Stoner entwickelt um Magazine des Gegners verwenden zu können.</szItemDesc>
+		<szBRName>KAC SR-47</szBRName>
+		<szBRDesc>Diese M4-Variante wurde für Spezialeinheiten entwickelt um Magazine des Gegners verwenden zu können. Dieses Modell wird von KNIGHT's ARMAMENT COMPANY hergestellt und mit einem Schalldämpfer geliefert. Greifen Sie zu, wir haben nur wenige auf Lager!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>783</uiIndex>
@@ -6437,25 +6437,25 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>804</uiIndex>
 		<szItemName>EOD-Helm</szItemName>
 		<szLongItemName>EOD-Helm</szLongItemName>
-		<szItemDesc>Im weltweiten Einsatz bei  Bomben- entschärfungsteams bewährt, bietet die EOD-Schutzausrüstung von SECURITY PRO USA Schutz auf höchstem Niveau bei maximaler Bequemlichkeit und Flexibilität für den Benutzer. Schutzklasse: III (NIJ)</szItemDesc>
+		<szItemDesc>Im weltweiten Einsatz bei Bomben- entschärfungsteams bewährt, bietet die EOD-Schutzausrüstung von SECURITY PRO USA Schutz auf höchstem Niveau bei maximaler Bequemlichkeit und Flexibilität für den Benutzer. Schutzklasse: III (NIJ)</szItemDesc>
 		<szBRName>EOD-Helm</szBRName>
-		<szBRDesc>Im weltweiten Einsatz bei  Bomben- entschärfungsteams bewährt, bietet die EOD-Schutzausrüstung von SECURITY PRO USA Schutz auf höchstem Niveau bei maximaler Bequemlichkeit und Flexibilität für den Benutzer. Schutzklasse: III (NIJ)</szBRDesc>
+		<szBRDesc>Im weltweiten Einsatz bei Bomben- entschärfungsteams bewährt, bietet die EOD-Schutzausrüstung von SECURITY PRO USA Schutz auf höchstem Niveau bei maximaler Bequemlichkeit und Flexibilität für den Benutzer. Schutzklasse: III (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>805</uiIndex>
 		<szItemName>EOD-Hose</szItemName>
 		<szLongItemName>EOD-Hose</szLongItemName>
-		<szItemDesc>Im weltweiten Einsatz bei  Bomben- entschärfungsteams bewährt, bietet die EOD-Schutzausrüstung von SECURITY PRO USA Schutz auf höchstem Niveau bei maximaler Bequemlichkeit und Flexibilität für den Benutzer. Schutzklasse: III (NIJ)</szItemDesc>
+		<szItemDesc>Im weltweiten Einsatz bei Bomben- entschärfungsteams bewährt, bietet die EOD-Schutzausrüstung von SECURITY PRO USA Schutz auf höchstem Niveau bei maximaler Bequemlichkeit und Flexibilität für den Benutzer. Schutzklasse: III (NIJ)</szItemDesc>
 		<szBRName>EOD-Hose</szBRName>
-		<szBRDesc>Im weltweiten Einsatz bei  Bomben- entschärfungsteams bewährt, bietet die EOD-Schutzausrüstung von SECURITY PRO USA Schutz auf höchstem Niveau bei maximaler Bequemlichkeit und Flexibilität für den Benutzer. Schutzklasse: III (NIJ)</szBRDesc>
+		<szBRDesc>Im weltweiten Einsatz bei Bomben- entschärfungsteams bewährt, bietet die EOD-Schutzausrüstung von SECURITY PRO USA Schutz auf höchstem Niveau bei maximaler Bequemlichkeit und Flexibilität für den Benutzer. Schutzklasse: III (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>806</uiIndex>
 		<szItemName>EOD-Weste</szItemName>
 		<szLongItemName>EOD-Weste</szLongItemName>
-		<szItemDesc>Im weltweiten Einsatz bei  Bomben- entschärfungsteams bewährt, bietet die EOD-Schutzausrüstung von SECURITY PRO USA Schutz auf höchstem Niveau bei maximaler Bequemlichkeit und Flexibilität für den Benutzer. Schutzklasse: III (NIJ)</szItemDesc>
+		<szItemDesc>Im weltweiten Einsatz bei Bomben- entschärfungsteams bewährt, bietet die EOD-Schutzausrüstung von SECURITY PRO USA Schutz auf höchstem Niveau bei maximaler Bequemlichkeit und Flexibilität für den Benutzer. Schutzklasse: III (NIJ)</szItemDesc>
 		<szBRName>EOD-Weste</szBRName>
-		<szBRDesc>Im weltweiten Einsatz bei  Bomben- entschärfungsteams bewährt, bietet die EOD-Schutzausrüstung von SECURITY PRO USA Schutz auf höchstem Niveau bei maximaler Bequemlichkeit und Flexibilität für den Benutzer. Schutzklasse: III (NIJ)</szBRDesc>
+		<szBRDesc>Im weltweiten Einsatz bei Bomben- entschärfungsteams bewährt, bietet die EOD-Schutzausrüstung von SECURITY PRO USA Schutz auf höchstem Niveau bei maximaler Bequemlichkeit und Flexibilität für den Benutzer. Schutzklasse: III (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>807</uiIndex>
@@ -7246,17 +7246,17 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>905</uiIndex>
 		<szItemName>AG36</szItemName>
 		<szLongItemName>HK AG36 Granatwerfer</szLongItemName>
-		<szItemDesc>Bei der Konstruktion des neuen Anbau-Granatwerfers wurde konsequent auf die Wünsche und Forderungen unserer Kunden eingegangen.</szItemDesc>
+		<szItemDesc>Bei der Konstruktion des neuen Granatwerfers für das G36 wurde konsequent auf die Wünsche und Forderungen der Kunden eingegangen.</szItemDesc>
 		<szBRName>HK AG36</szBRName>
-		<szBRDesc>Bei der Konstruktion des neuen Anbau-Granatwerfers wurde konsequent auf die Wünsche und Forderungen unserer Kunden eingegangen. Das AG36 vereint hoch entwickelte technische Details und leichte Handhabung in einem Gerät.</szBRDesc>
+		<szBRDesc>Bei der Konstruktion des neuen Granatwerfers für das G36 wurde konsequent auf die Wünsche und Forderungen der Kunden eingegangen. Der AG36 vereint hoch entwickelte technische Details und leichte Handhabung in einem Gerät.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>906</uiIndex>
 		<szItemName>MGL-140</szItemName>
-		<szLongItemName>Milkor MGL-140 Granatwerfer</szLongItemName>
+		<szLongItemName>Milkor MGL-140</szLongItemName>
 		<szItemDesc>Der MGL-140 wurde 2005 von der südafrikanischen Firma MILKOR entwickelt, um 'Hyper Lethal' (sehr tödliche) Munition zu verschießen.</szItemDesc>
-		<szBRName>Milkor MGL-140 Granatwerfer</szBRName>
-		<szBRDesc>Dieser leichte, halbautomatische, Schulter gestützte Granatwerfer verschießt 40mm Granaten. Sein einzigartiger Revolvermechanismus mit sechs Kammern gibt ihm eine extrem hohe Feuerkraft im Vergleich zu einschüssigen Granatwerfern.</szBRDesc>
+		<szBRName>Milkor MGL-140</szBRName>
+		<szBRDesc>Dieser leichte, halbautomatische, Schulter gestützte Granatwerfer verschießt 40mm Granaten. Sein einzigartiger Revolver- mechanismus mit sechs Kammern gibt ihm eine extrem hohe Feuerrate im Vergleich zu einschüssigen Granatwerfern.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>907</uiIndex>
@@ -7318,9 +7318,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>914</uiIndex>
 		<szItemName>RPG-7</szItemName>
 		<szLongItemName>RPG-7</szLongItemName>
-		<szItemDesc>Die RPG-7 ist eine russische Panzerabwehrwaffe und entstand 1961 als überarbeitetes Nachfolge- modell der RPG-2.</szItemDesc>
+		<szItemDesc>Die RPG-7 ist eine russische Panzerabwehrwaffe und entstand 1961 als überarbeitetes Nachfolgemodell der RPG-2.</szItemDesc>
 		<szBRName>RPG-7</szBRName>
-		<szBRDesc>Die RPG-7 ist eine russische Panzerabwehrwaffe und entstand 1961 als überarbeitetes Nachfolge- modell der RPG-2. Die Abkürzung steht für Raketengetriebe Granate</szBRDesc>
+		<szBRDesc>Die RPG-7 ist eine russische Panzerabwehrwaffe und entstand 1961 als überarbeitetes Nachfolgemodell der RPG-2. Die Abkürzung steht für Raketengetriebe Granate</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>915</uiIndex>
@@ -7328,7 +7328,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>RPG-16</szLongItemName>
 		<szItemDesc>Die RPG-16 ist eine russische Panzerabwehrwaffe und entstand als überarbeitetes Nachfolgemodell der RPG-7.</szItemDesc>
 		<szBRName>RPG-16</szBRName>
-		<szBRDesc>Die RPG-16 ist eine russische Panzerabwehrwaffe und entstand als überarbeitetes Nachfolgemodell der RPG-7.</szBRDesc>
+		<szBRDesc>Die RPG-16 ist eine russische Panzer- abwehrwaffe und entstand als überarbeitetes Nachfolgemodell der RPG-7.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>916</uiIndex>
@@ -7336,7 +7336,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>RPG-26</szLongItemName>
 		<szItemDesc>Die RPG-26 ist eine russische Panzerabwehrwaffe und entstand als überarbeitetes Nachfolgemodell der RPG-16.</szItemDesc>
 		<szBRName>RPG-26</szBRName>
-		<szBRDesc>Die RPG-26 ist eine russische Panzerabwehrwaffe und entstand als überarbeitetes Nachfolgemodell der RPG-16.</szBRDesc>
+		<szBRDesc>Die RPG-26 ist eine russische Panzer- abwehrwaffe und entstand als überarbeitetes Nachfolgemodell der RPG-16.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>917</uiIndex>
@@ -7366,9 +7366,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>920</uiIndex>
 		<szItemName>M203</szItemName>
 		<szLongItemName>Colt M203 Granatwerfer</szLongItemName>
-		<szItemDesc>Dieser 40mm Granatwerfer kann am M16-Sturmgewehr und in der Version M203A1 am M4-Karabiner montiert werden.</szItemDesc>
+		<szItemDesc>Dieser 40mm Granatwerfer ist die perfekte Ergänzung zu Ihrem M16-Sturmgewehr. Die Ausführung M203A1 kann auch am M4-Karabiner angebracht werden.</szItemDesc>
 		<szBRName>Colt M203</szBRName>
-		<szBRDesc>Dieser Granatwerfer für 40mm Granaten ist die perfekte Ergänzung zu Ihrem M16-Sturmgewehr.</szBRDesc>
+		<szBRDesc>Dieser 40mm Granatwerfer ist die perfekte Ergänzung zu Ihrem M16-Sturmgewehr. Die Ausführung M203A1 kann auch am M4-Karabiner angebracht werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>921</uiIndex>
@@ -7640,7 +7640,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>20mm Nebel-Clip</szLongItemName>
 		<szItemDesc>Diese Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlachtfeldes oder beim Rückzug Deckung bietet.</szItemDesc>
 		<szBRName>20mm N-Clip #6</szBRName>
-		<szBRDesc>Diese Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlachtfeldes oder beim Rückzug Deckung bietet.</szBRDesc>
+		<szBRDesc>Diese Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlacht- feldes oder beim Rückzug Deckung bietet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>955</uiIndex>
@@ -7792,7 +7792,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>43mm Nebel-Granaten</szLongItemName>
 		<szItemDesc>Diese Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlachtfeldes oder beim Rückzug Deckung bietet.</szItemDesc>
 		<szBRName>43mm N-Gran. #4</szBRName>
-		<szBRDesc>Diese Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlachtfeldes oder beim Rückzug Deckung bietet.</szBRDesc>
+		<szBRDesc>Diese Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlacht- feldes oder beim Rückzug Deckung bietet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>974</uiIndex>
@@ -7888,7 +7888,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>40mm Metal Storm Nebel</szLongItemName>
 		<szItemDesc>Diese Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlachtfeldes oder beim Rückzug Deckung bietet.</szItemDesc>
 		<szBRName>40mm MS-N #3</szBRName>
-		<szBRDesc>METAL STORM's elektronisch gezündete Munition verspricht zuverlässige Feuerkraft bei geringem Gewicht. Diese Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlachtfeldes oder beim Rückzug Deckung bietet.</szBRDesc>
+		<szBRDesc>METAL STORM's elektronisch gezündete Munition verspricht zuverlässige Feuerkraft bei geringem Gewicht. Diese Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlacht- feldes oder beim Rückzug Deckung bietet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>986</uiIndex>
@@ -8040,7 +8040,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>ACOG+Reflexvisier, ZF-3</szLongItemName>
 		<szItemDesc>Diese Kombination besteht aus dem TRIJICON ACOG und dem DOCTER Rotpunktvisier. Es bietet 4-fache Vergrößerung sowie verschiedene Justiermöglichkeiten.</szItemDesc>
 		<szBRName>ACOG+Reflexvisier</szBRName>
-		<szBRDesc>Diese Kombination besteht aus dem TRIJICON ACOG und dem DOCTER Rotpunktvisier. Es bietet 4-fache Vergrößerung sowie verschiedene Justiermöglichkeiten. Seit August 2004 wird das TRIJICON  ACOG als neue Zieloptik vom U.S. Marine Corps verwendet.</szBRDesc>
+		<szBRDesc>Diese Kombination besteht aus dem TRIJICON ACOG und dem DOCTER Rotpunktvisier. Es bietet 4-fache Vergrößerung sowie verschiedene Justiermöglichkeiten. Seit August 2004 wird das TRIJICON ACOG als neue Zieloptik vom U.S. Marine Corps verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1005</uiIndex>
@@ -8237,8 +8237,8 @@ Welt im täglichen Dienst.</szBRDesc>
 	<ITEM>
 		<uiIndex>1029</uiIndex>
 		<szItemName>ZF-1</szItemName>
-		<szLongItemName>Leupold FX-II, ZF-3</szLongItemName>
-		<szItemDesc>Ein Bestseller unter den kompakten Zielfernrohr ist  dieses 1.7-fach vergrößernde FX-II 2x20mm von LEUPOLD. Es kann auf die meisten Handfeuerwaffen sowie Jagdgewehre und Flinten montiert werden.</szItemDesc>
+		<szLongItemName>Leupold FX-II, ZF-1</szLongItemName>
+		<szItemDesc>Ein Bestseller unter den kompakten Zielfernrohr ist dieses 1.7-fach vergrößernde FX-II 2x20mm von LEUPOLD. Es kann auf die meisten Handfeuerwaffen sowie Jagdgewehre und Flinten montiert werden.</szItemDesc>
 		<szBRName>Leupold FX-II</szBRName>
 		<szBRDesc>Kein anderes kompaktes Zielfernrohr wird so oft gekauft wie dieses 1.7-fach vergrößernde FX-II 2x20mm von LEUPOLD. Es kann auf die meisten Handfeuerwaffen sowie Jagdgewehre und Flinten montiert werden.</szBRDesc>
 	</ITEM>
