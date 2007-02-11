@@ -1053,14 +1053,14 @@
 	<MAGAZINE>
 		<uiIndex>175</uiIndex>
 		<ubCalibre>7</ubCalibre>
-		<ubMagSize>0</ubMagSize>
-		<ubAmmoType>0</ubAmmoType>
+		<ubMagSize>30</ubMagSize>
+		<ubAmmoType>18</ubAmmoType>
 	</MAGAZINE>
 	<MAGAZINE>
 		<uiIndex>176</uiIndex>
 		<ubCalibre>7</ubCalibre>
-		<ubMagSize>0</ubMagSize>
-		<ubAmmoType>0</ubAmmoType>
+		<ubMagSize>45</ubMagSize>
+		<ubAmmoType>18</ubAmmoType>
 	</MAGAZINE>
 	<MAGAZINE>
 		<uiIndex>177</uiIndex>
@@ -1593,20 +1593,20 @@
 	<MAGAZINE>
 		<uiIndex>265</uiIndex>
 		<ubCalibre>10</ubCalibre>
-		<ubMagSize>0</ubMagSize>
-		<ubAmmoType>0</ubAmmoType>
+		<ubMagSize>10</ubMagSize>
+		<ubAmmoType>18</ubAmmoType>
 	</MAGAZINE>
 	<MAGAZINE>
 		<uiIndex>266</uiIndex>
 		<ubCalibre>10</ubCalibre>
-		<ubMagSize>0</ubMagSize>
-		<ubAmmoType>0</ubAmmoType>
+		<ubMagSize>30</ubMagSize>
+		<ubAmmoType>18</ubAmmoType>
 	</MAGAZINE>
 	<MAGAZINE>
 		<uiIndex>267</uiIndex>
 		<ubCalibre>10</ubCalibre>
-		<ubMagSize>0</ubMagSize>
-		<ubAmmoType>0</ubAmmoType>
+		<ubMagSize>100</ubMagSize>
+		<ubAmmoType>18</ubAmmoType>
 	</MAGAZINE>
 	<MAGAZINE>
 		<uiIndex>268</uiIndex>
@@ -2541,8 +2541,8 @@
 	<MAGAZINE>
 		<uiIndex>423</uiIndex>
 		<ubCalibre>35</ubCalibre>
-		<ubMagSize>0</ubMagSize>
-		<ubAmmoType>0</ubAmmoType>
+		<ubMagSize>7</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
 	</MAGAZINE>
 	<MAGAZINE>
 		<uiIndex>424</uiIndex>

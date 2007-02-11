@@ -10181,6 +10181,114 @@
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
+		<uiIndex>780</uiIndex>
+		<szWeaponName>SA-24</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>20</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>25</ubImpact>
+		<ubDeadliness>18</ubDeadliness>
+		<bAccuracy>4</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>200</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>40</BurstAniDelay>
+		<ubAttackVolume>60</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>362</sSound>
+		<sBurstSound>51</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>8</AutoPenalty>
+		<NoSemiAuto>0</NoSemiAuto>
+		<APsToReloadManually>0</APsToReloadManually>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>781</uiIndex>
+		<szWeaponName>SAR 21</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>31</ubDeadliness>
+		<bAccuracy>5</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>370</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>40</BurstAniDelay>
+		<ubAttackVolume>77</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>439</sSound>
+		<sBurstSound>82</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
+		<APsToReload>6</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>8</AutoPenalty>
+		<NoSemiAuto>0</NoSemiAuto>
+		<APsToReloadManually>0</APsToReloadManually>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>782</uiIndex>
+		<szWeaponName>KAC SR-47</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>10</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>31</ubImpact>
+		<ubDeadliness>30</ubDeadliness>
+		<bAccuracy>6</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>310</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>32</BurstAniDelay>
+		<ubAttackVolume>80</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>358</sSound>
+		<sBurstSound>45</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>8</AutoPenalty>
+		<NoSemiAuto>0</NoSemiAuto>
+		<APsToReloadManually>0</APsToReloadManually>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
 		<uiIndex>901</uiIndex>
 		<szWeaponName>Commando Mortar</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
@@ -10857,6 +10965,42 @@
 		<bBurstAP>0</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>0</AutoPenalty>
+		<NoSemiAuto>0</NoSemiAuto>
+		<APsToReloadManually>0</APsToReloadManually>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>921</uiIndex>
+		<szWeaponName>FN SCAR GL</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>0</ubWeaponType>
+		<ubCalibre>0</ubCalibre>
+		<ubReadyTime>4</ubReadyTime>
+		<ubShotsPer4Turns>6</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>30</ubBulletSpeed>
+		<ubImpact>0</ubImpact>
+		<ubDeadliness>60</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>1</ubMagSize>
+		<usRange>300</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>20</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>403</sSound>
+		<sBurstSound>0</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>0</sReloadSound>
+		<sLocknLoadSound>0</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>0</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>8</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
