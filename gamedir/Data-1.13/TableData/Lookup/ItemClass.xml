@@ -22,15 +22,15 @@
   </ItemClass>
   <ItemClass>
     <id>32</id>
-    <name>Tentacles</name>
+    <name>Tentacle</name>
   </ItemClass>
   <ItemClass>
     <id>64</id>
-    <name>Thrown</name>
+    <name>Thrown Weapon</name>
   </ItemClass>
   <ItemClass>
     <id>128</id>
-    <name>Punch</name>
+    <name>Blunt Weapon</name>
   </ItemClass>
   <ItemClass>
     <id>256</id>
@@ -57,12 +57,8 @@
     <name>Kit</name>
   </ItemClass>
   <ItemClass>
-    <id>16384</id>
-    <name>(Unused)</name>
-  </ItemClass>
-  <ItemClass>
     <id>32768</id>
-    <name>Face</name>
+    <name>Face Item</name>
   </ItemClass>
   <ItemClass>
     <id>65536</id>
