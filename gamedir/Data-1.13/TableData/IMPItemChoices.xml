@@ -2,6 +2,7 @@
 <IMPITEMCHOICESLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<IMPITEMCHOICES>
 		<uiIndex>0</uiIndex>
+		<name>Default Items</name>
 		<ubChoices>2</ubChoices>
 		<ubNumItems>2</ubNumItems>
 		<bItemNo1>161</bItemNo1>
@@ -57,6 +58,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>1</uiIndex>
+		<name>Random Items</name>
 		<ubChoices>6</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>212</bItemNo1>
@@ -112,6 +114,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>2</uiIndex>
+		<name>Wisdom</name>
 		<ubChoices>2</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -167,6 +170,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>3</uiIndex>
+		<name>Dexterity</name>
 		<ubChoices>0</ubChoices>
 		<ubNumItems>0</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -222,6 +226,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>4</uiIndex>
+		<name>Agility</name>
 		<ubChoices>0</ubChoices>
 		<ubNumItems>0</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -277,6 +282,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>5</uiIndex>
+		<name>Strength</name>
 		<ubChoices>0</ubChoices>
 		<ubNumItems>0</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -332,6 +338,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>6</uiIndex>
+		<name>Health</name>
 		<ubChoices>0</ubChoices>
 		<ubNumItems>0</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -387,6 +394,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>7</uiIndex>
+		<name>Leadership</name>
 		<ubChoices>0</ubChoices>
 		<ubNumItems>0</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -442,6 +450,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>8</uiIndex>
+		<name>Marksmanship</name>
 		<ubChoices>10</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>3</bItemNo1>
@@ -497,6 +506,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>9</uiIndex>
+		<name>Explosives</name>
 		<ubChoices>20</ubChoices>
 		<ubNumItems>2</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -552,6 +562,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>10</uiIndex>
+		<name>Mechanical</name>
 		<ubChoices>2</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -607,6 +618,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>11</uiIndex>
+		<name>Medical</name>
 		<ubChoices>10</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>0</bItemNo1>
@@ -662,6 +674,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>12</uiIndex>
+		<name>Hand-To-Hand</name>
 		<ubChoices>3</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>49</bItemNo1>
@@ -717,6 +730,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>13</uiIndex>
+		<name>Martial Arts</name>
 		<ubChoices>2</ubChoices>
 		<ubNumItems>2</ubNumItems>
 		<bItemNo1>38</bItemNo1>
@@ -772,6 +786,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>14</uiIndex>
+		<name>Night Ops</name>
 		<ubChoices>3</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>246</bItemNo1>
@@ -827,6 +842,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>15</uiIndex>
+		<name>Stealth</name>
 		<ubChoices>3</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>207</bItemNo1>
@@ -882,6 +898,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>16</uiIndex>
+		<name>Rooftop Sniping</name>
 		<ubChoices>2</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>208</bItemNo1>
@@ -937,6 +954,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>17</uiIndex>
+		<name>Lockpicking</name>
 		<ubChoices>2</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>204</bItemNo1>
@@ -992,6 +1010,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>18</uiIndex>
+		<name>Electronics</name>
 		<ubChoices>2</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>215</bItemNo1>
@@ -1047,6 +1066,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>19</uiIndex>
+		<name>Throwing</name>
 		<ubChoices>2</ubChoices>
 		<ubNumItems>2</ubNumItems>
 		<bItemNo1>596</bItemNo1>
@@ -1102,6 +1122,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>20</uiIndex>
+		<name>Knifing</name>
 		<ubChoices>4</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>600</bItemNo1>
@@ -1157,6 +1178,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>21</uiIndex>
+		<name>Heavy Weapons</name>
 		<ubChoices>2</ubChoices>
 		<ubNumItems>2</ubNumItems>
 		<bItemNo1>140</bItemNo1>
@@ -1212,6 +1234,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>22</uiIndex>
+		<name>Auto Weapons</name>
 		<ubChoices>3</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>123</bItemNo1>
@@ -1267,6 +1290,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>23</uiIndex>
+		<name>Ambidextrous</name>
 		<ubChoices>8</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>3</bItemNo1>
@@ -1322,6 +1346,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>24</uiIndex>
+		<name>Camouflage</name>
 		<ubChoices>2</ubChoices>
 		<ubNumItems>1</ubNumItems>
 		<bItemNo1>207</bItemNo1>
@@ -1377,6 +1402,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>25</uiIndex>
+		<name>Teaching</name>
 		<ubChoices>3</ubChoices>
 		<ubNumItems>3</ubNumItems>
 		<bItemNo1>297</bItemNo1>
@@ -1432,6 +1458,7 @@
 	</IMPITEMCHOICES>
 	<IMPITEMCHOICES>
 		<uiIndex>26</uiIndex>
+		<name>Thieving</name>
 		<ubChoices>0</ubChoices>
 		<ubNumItems>0</ubNumItems>
 		<bItemNo1>0</bItemNo1>
