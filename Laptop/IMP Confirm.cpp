@@ -128,7 +128,7 @@ void DestroyConfirmButtons( void );
 void GiveItemsToPC( UINT8 ubProfileId );
 void MakeProfileInvItemAnySlot(MERCPROFILESTRUCT *pProfile, UINT16 usItem, UINT8 ubStatus, UINT8 ubHowMany);
 void MakeProfileInvItemThisSlot(MERCPROFILESTRUCT *pProfile, UINT32 uiPos, UINT16 usItem, UINT8 ubStatus, UINT8 ubHowMany);
-INT32 FirstFreeBigEnoughPocket(MERCPROFILESTRUCT *pProfile, UINT16 usItem);
+INT32 FirstFreeBigEnoughPocket(MERCPROFILESTRUCT *pProfile, UINT16 usItem, UINT8 ubHowMany);
 
 // callbacks
 void BtnIMPConfirmNo( GUI_BUTTON *btn,INT32 reason );
@@ -597,7 +597,7 @@ void MakeProfileInvItemAnySlot(MERCPROFILESTRUCT *pProfile, UINT16 usItem, UINT8
 {
 	INT32 iSlot;
 
-	iSlot = FirstFreeBigEnoughPocket(pProfile, usItem);
+	iSlot = FirstFreeBigEnoughPocket(pProfile, usItem, ubHowMany);
 
 	if (iSlot == -1)
 	{
@@ -618,11 +618,29 @@ void MakeProfileInvItemThisSlot(MERCPROFILESTRUCT *pProfile, UINT32 uiPos, UINT1
 }
 
 
-INT32 FirstFreeBigEnoughPocket(MERCPROFILESTRUCT *pProfile, UINT16 usItem)
+INT32 FirstFreeBigEnoughPocket(MERCPROFILESTRUCT *pProfile, UINT16 usItem, UINT8 ubHowMany)
 {
 	UINT32 uiPos;
 
+	if (ubHowMany == 1)
+	{
+		// check body spots
 
+		if ( pProfile->inv[HELMETPOS] == NONE && Item[usItem].usItemClass == IC_ARMOUR && Armour[Item[usItem].ubClassIndex].ubArmourClass == ARMOURCLASS_HELMET )
+			return HELMETPOS;
+		if ( pProfile->inv[VESTPOS] == NONE && Item[usItem].usItemClass == IC_ARMOUR && Armour[Item[usItem].ubClassIndex].ubArmourClass == ARMOURCLASS_VEST )
+			return VESTPOS;
+		if ( pProfile->inv[LEGPOS] == NONE && Item[usItem].usItemClass == IC_ARMOUR && Armour[Item[usItem].ubClassIndex].ubArmourClass == ARMOURCLASS_LEGGINGS )
+			return LEGPOS;
+		if ( pProfile->inv[HEAD1POS] == NONE && Item[usItem].usItemClass == IC_FACE && CompatibleFaceItem(usItem,pProfile->inv[HEAD2POS]) )
+			return HEAD1POS;
+		if ( pProfile->inv[HEAD2POS] == NONE && Item[usItem].usItemClass == IC_FACE && CompatibleFaceItem(usItem,pProfile->inv[HEAD1POS]) )
+			return HEAD2POS;
+		if ( pProfile->inv[HANDPOS] == NONE )
+			return HANDPOS;
+		if ( pProfile->inv[SECONDHANDPOS] == NONE )
+			return SECONDHANDPOS;
+	}
 	// if it fits into a small pocket
 	if (Item[usItem].ubPerPocket != 0)
 	{
@@ -644,7 +662,6 @@ INT32 FirstFreeBigEnoughPocket(MERCPROFILESTRUCT *pProfile, UINT16 usItem)
 			return(uiPos);
 		}
 	}
-
 
 	return(-1);
 }
@@ -867,7 +884,7 @@ void GiveIMPRandomItems( MERCPROFILESTRUCT *pProfile, UINT8 typeIndex )
 		{
 			usItem = DefaultMagazine(usItem);
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GiveIMPRandomItems: give ammo typeIndex = %d, usItem = %d ",typeIndex, usItem ));
-			MakeProfileInvItemAnySlot(pProfile,usItem,100,(1+Random(3)));
+			MakeProfileInvItemAnySlot(pProfile,usItem,100,(1+Random(1)));
 		}
 
 		// give launchables for launchers
@@ -875,7 +892,7 @@ void GiveIMPRandomItems( MERCPROFILESTRUCT *pProfile, UINT8 typeIndex )
 		{
 			usItem = PickARandomLaunchable(usItem);
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GiveIMPRandomItems: give launchable typeIndex = %d, usItem = %d",typeIndex, usItem ));
-			MakeProfileInvItemAnySlot(pProfile,usItem,100,(1+Random(3)));
+			MakeProfileInvItemAnySlot(pProfile,usItem,100,(2+Random(2)));
 		}
 	}
 
@@ -912,7 +929,7 @@ void GiveIMPItems( MERCPROFILESTRUCT *pProfile, INT8 abilityValue, UINT8 typeInd
 			{
 				usItem = DefaultMagazine(usItem);
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GiveIMPItems: give ammo typeIndex = %d, usItem = %d",typeIndex, usItem ));
-				MakeProfileInvItemAnySlot(pProfile,usItem,100,(1+Random(3)));
+				MakeProfileInvItemAnySlot(pProfile,usItem,100,(2+Random(2)));
 			}
 
 			// give launchables for launchers
@@ -920,7 +937,7 @@ void GiveIMPItems( MERCPROFILESTRUCT *pProfile, INT8 abilityValue, UINT8 typeInd
 			{
 				usItem = PickARandomLaunchable(usItem);
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GiveIMPItems: give launchable typeIndex = %d, usItem = %d",typeIndex, usItem ));
-				MakeProfileInvItemAnySlot(pProfile,usItem,100,(1+Random(3)));
+				MakeProfileInvItemAnySlot(pProfile,usItem,100,(2+Random(2)));
 			}
 		}
 		iChoice--;
