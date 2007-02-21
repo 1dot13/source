@@ -3463,6 +3463,7 @@ STR16		zOptionsToggleText[] =
 	L"Random I.M.P personality",
 	L"Auto save",
 	L"Silent Skyrider",
+	L"Low CPU Usage",
 };
 
 //This is the help text associated with the above toggles.
@@ -3542,6 +3543,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, I.M.P characters will get random personality and attitude.",
 	L"When ON, game will be saved after each players turn.",
 	L"When ON, Skyrider will not talk anymore.",
+	L"Low CPU Usage",
 };
 
 

@@ -260,6 +260,7 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_USE_RANDOM_PERSONALITY ]			= FALSE;
 	gGameSettings.fOptions[ TOPTION_USE_AUTO_SAVE ]						= FALSE;
 	gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ]					= FALSE;
+	gGameSettings.fOptions[ TOPTION_LOW_CPU_USAGE ]						= FALSE;
 
 	gGameSettings.ubSizeOfDisplayCover = 4;
 	gGameSettings.ubSizeOfLOS = 4;

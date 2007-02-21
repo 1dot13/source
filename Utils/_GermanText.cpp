@@ -3289,6 +3289,7 @@ STR16 zOptionsToggleText[] =
 	L"Zufällige B.S.E Personalität",
 	L"Automatisch speichern",
 	L"Stummer Skyrider",
+	L"Low CPU Usage",
 };
 
 //This is the help text associated with the above toggles.
@@ -3368,6 +3369,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, erhalten B.S.E Charaktere zufällige Persönlichkeit und Gesinnung.",
 	L"Wenn diese Funktion aktiviert ist, wird nach jeder Runde automatisch gespeichert.",
 	L"Wenn diese Funktion aktiviert ist, wird Skyrider nichts mehr sprechen.",
+	L"Low CPU Usage",
 };
 
 STR16 gzGIOScreenText[] =

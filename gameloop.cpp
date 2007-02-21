@@ -45,7 +45,7 @@ UINT8		gubCheckForFreeSpaceOnHardDriveCount=DONT_CHECK_FOR_FREE_SPACE;
 
 extern	BOOLEAN	DoSkiMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
 
-extern	void			NotEnoughHardDriveSpaceForQuickSaveMessageBoxCallBack( UINT8 bExitValue );
+extern void NotEnoughHardDriveSpaceForQuickSaveMessageBoxCallBack( UINT8 bExitValue );
 extern BOOLEAN gfTacticalPlacementGUIActive;
 extern BOOLEAN gfTacticalPlacementGUIDirty;
 extern BOOLEAN gfValidLocationsChanged; 
@@ -88,7 +88,7 @@ BOOLEAN InitializeGame(void)
 
 	giStartingMemValue = MemGetFree( );
 
-	
+
 	ClearAllDebugTopics();
 	RegisterJA2DebugTopic( TOPIC_JA2OPPLIST, "Reg" );
 	//RegisterJA2DebugTopic( TOPIC_MEMORY_MANAGER, "Reg" );
@@ -116,13 +116,13 @@ BOOLEAN InitializeGame(void)
 	InitTacticalSave( TRUE );
 
 	// Initialize Game Screens.
-  for (uiIndex = 0; uiIndex < MAX_SCREENS; uiIndex++)
-  { 
-    if ((*(GameScreens[uiIndex].InitializeScreen))() == FALSE)
-    { // Failed to initialize one of the screens. 
-      return FALSE;
-    }
-  }
+	for (uiIndex = 0; uiIndex < MAX_SCREENS; uiIndex++)
+	{ 
+		if ((*(GameScreens[uiIndex].InitializeScreen))() == FALSE)
+		{ // Failed to initialize one of the screens. 
+			return FALSE;
+		}
+	}
 
 	//Init the help screen system
 	InitHelpScreenSystem();
@@ -132,19 +132,19 @@ BOOLEAN InitializeGame(void)
 
 	//Initialize the Game options ( Gun nut, scifi and dif. levels
 	InitGameOptions();
-	
+
 	// preload mapscreen graphics
 	HandlePreloadOfMapGraphics( );
 
 	guiCurrentScreen = INIT_SCREEN;
-	
-  return TRUE;
+
+	return TRUE;
 }
 
 // The ShutdownGame function will free up/undo all things that were started in InitializeGame()
 // It will also be responsible to making sure that all Gaming Engine tasks exit properly
 
-void    ShutdownGame(void)
+void ShutdownGame(void)
 { 
 	// handle shutdown of game with respect to preloaded mapscreen graphics
 	HandleRemovalOfPreLoadedMapGraphics( );
@@ -164,7 +164,7 @@ void    ShutdownGame(void)
 }
 
  
-// This is the main Gameloop. This should eventually by one big switch statement which represents
+// This is the main Gameloop. This should eventually be one big switch statement which represents
 // the state of the game (i.e. Main Menu, PC Generation, Combat loop, etc....)
 // This function exits constantly and reenters constantly
 
@@ -173,14 +173,16 @@ static BOOLEAN gfSkipFrame = FALSE;
 
 void GameLoop(void)
 {
-//	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop");
+	//	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop");
 
-	InputAtom					InputEvent;
-	POINT  MousePos;
-	UINT32	uiOldScreen=guiCurrentScreen;
+	InputAtom	InputEvent;
+	POINT		MousePos;
+	UINT32		uiOldScreen=guiCurrentScreen;
+	clock_t		startTime = clock(); // decrease CPU load patch from defrog
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: get mouse position");
 	GetCursorPos(&MousePos);
+	
 	// Hook into mouse stuff for MOVEMENT MESSAGES
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: get mouse hook");
 	MouseSystemHook(MOUSE_POS, (UINT16)MousePos.x ,(UINT16)MousePos.y ,_LeftButtonDown, _RightButtonDown);
@@ -188,8 +190,8 @@ void GameLoop(void)
 	MusicPoll( FALSE );
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: check for mouse events");
-  while (DequeueSpecificEvent(&InputEvent, LEFT_BUTTON_REPEAT|RIGHT_BUTTON_REPEAT|LEFT_BUTTON_DOWN|LEFT_BUTTON_UP|RIGHT_BUTTON_DOWN|RIGHT_BUTTON_UP ) == TRUE )
-  {
+	while (DequeueSpecificEvent(&InputEvent, LEFT_BUTTON_REPEAT|RIGHT_BUTTON_REPEAT|LEFT_BUTTON_DOWN|LEFT_BUTTON_UP|RIGHT_BUTTON_DOWN|RIGHT_BUTTON_UP ) == TRUE )
+	{
 		// HOOK INTO MOUSE HOOKS
 	  //DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GameLoop: mouse event %d", InputEvent.usEvent ));
 		switch(InputEvent.usEvent)
@@ -215,7 +217,7 @@ void GameLoop(void)
 	  }
 	}
 
-	
+
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: check for errors");
 	if ( gfGlobalError )
@@ -282,15 +284,15 @@ void GameLoop(void)
 		{
 			switch( guiCurrentScreen )
 			{
-				case MAP_SCREEN:
-					if( guiPendingScreen != MSG_BOX_SCREEN )
-					{
-						EndMapScreen( FALSE );
-					}
-					break;
-				case LAPTOP_SCREEN:
-					ExitLaptop();
-					break;
+			case MAP_SCREEN:
+				if( guiPendingScreen != MSG_BOX_SCREEN )
+				{
+					EndMapScreen( FALSE );
+				}
+				break;
+			case LAPTOP_SCREEN:
+				ExitLaptop();
+				break;
 			}
 		}
 
@@ -308,9 +310,9 @@ void GameLoop(void)
 	}
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: screen changed");
-	
 
-  uiOldScreen = (*(GameScreens[guiCurrentScreen].HandleScreen))(); 
+
+	uiOldScreen = (*(GameScreens[guiCurrentScreen].HandleScreen))(); 
 
 	// if the screen has chnaged
 	if( uiOldScreen != guiCurrentScreen )
@@ -325,22 +327,38 @@ void GameLoop(void)
 	if( gfSkipFrame )
 		gfSkipFrame = FALSE;
 	else
-	// end rain
+		// end rain
 
-	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: refresh screen");
-	RefreshScreen( NULL );
+		//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: refresh screen");
+		RefreshScreen( NULL );
 
 	guiGameCycleCounter++;
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: update clock");
 	UpdateClock();
 
-	#ifdef JA2BETAVERSION
+#ifdef JA2BETAVERSION
 	if( gubReportMapscreenLock )
 	{
 		ReportMapscreenErrorLock();
 	}
-	#endif
+#endif
+
+	if( gGameSettings.fOptions[ TOPTION_LOW_CPU_USAGE ] == TRUE )
+	{
+		// decrease CPU load patch from MTX (http://www.ja-galaxy-forum.com/board/ubbthreads.php/ubb/showflat/Number/102405/page/1#Post102405)
+		//OK! 12% CPU:
+		//Sleep(10);
+
+		// decrease CPU load patch from defrog
+		clock_t endTime = clock();
+
+		//long sleeptime = 33 - (endTime-startTime)/(CLK_TCK/1000);
+		long sleeptime = 33 - (endTime-startTime);
+
+		if( sleeptime > 0 )
+			Sleep(sleeptime);
+	}
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop done");
 } 
