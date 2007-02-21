@@ -3935,7 +3935,7 @@
 		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>29</ubImpact>
+		<ubImpact>30</ubImpact>
 		<ubDeadliness>28</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
