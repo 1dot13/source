@@ -27,10 +27,6 @@ Attribute Field Reference:
 		<itemIndex>213</itemIndex> <!-- Gas Mask -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
-		<compatiblefaceitemIndex>210</compatiblefaceitemIndex> <!-- Extended Ear -->
-		<itemIndex>0</itemIndex> <!-- Nada -->
-	</COMPATIBLEFACEITEM>
-	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>266</compatiblefaceitemIndex> <!-- Walkman -->
 		<itemIndex>211</itemIndex> <!-- Night Goggles -->
 	</COMPATIBLEFACEITEM>
@@ -47,10 +43,6 @@ Attribute Field Reference:
 		<itemIndex>213</itemIndex> <!-- Gas Mask -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
-		<compatiblefaceitemIndex>266</compatiblefaceitemIndex> <!-- Walkman -->
-		<itemIndex>0</itemIndex> <!-- Nada -->
-	</COMPATIBLEFACEITEM>
-	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>211</compatiblefaceitemIndex> <!-- Night Goggles -->
 		<itemIndex>210</itemIndex> <!-- Extended Ear -->
 	</COMPATIBLEFACEITEM>
@@ -65,10 +57,6 @@ Attribute Field Reference:
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>211</compatiblefaceitemIndex> <!-- Night Goggles -->
 		<itemIndex>213</itemIndex> <!-- Gas Mask -->
-	</COMPATIBLEFACEITEM>
-	<COMPATIBLEFACEITEM>
-		<compatiblefaceitemIndex>211</compatiblefaceitemIndex> <!-- Night Goggles -->
-		<itemIndex>0</itemIndex> <!-- Nada -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>212</compatiblefaceitemIndex> <!-- Sun Goggles -->
@@ -87,10 +75,6 @@ Attribute Field Reference:
 		<itemIndex>259</itemIndex> <!-- Robot Remote -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
-		<compatiblefaceitemIndex>212</compatiblefaceitemIndex> <!-- Sun Goggles -->
-		<itemIndex>0</itemIndex> <!-- Nada -->
-	</COMPATIBLEFACEITEM>
-	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>246</compatiblefaceitemIndex> <!-- UV Goggles -->
 		<itemIndex>210</itemIndex> <!-- Extended Ear -->
 	</COMPATIBLEFACEITEM>
@@ -105,10 +89,6 @@ Attribute Field Reference:
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>246</compatiblefaceitemIndex> <!-- UV Goggles -->
 		<itemIndex>259</itemIndex> <!-- Robot Remote -->
-	</COMPATIBLEFACEITEM>
-	<COMPATIBLEFACEITEM>
-		<compatiblefaceitemIndex>246</compatiblefaceitemIndex> <!-- UV Goggles -->
-		<itemIndex>0</itemIndex> <!-- Nada -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>213</compatiblefaceitemIndex> <!-- Gas Mask -->
@@ -135,10 +115,6 @@ Attribute Field Reference:
 		<itemIndex>259</itemIndex> <!-- Robot Remote -->
 	</COMPATIBLEFACEITEM>
 	<COMPATIBLEFACEITEM>
-		<compatiblefaceitemIndex>213</compatiblefaceitemIndex> <!-- Gas Mask -->
-		<itemIndex>0</itemIndex> <!-- Nada -->
-	</COMPATIBLEFACEITEM>
-	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>259</compatiblefaceitemIndex> <!-- Robot Remote -->
 		<itemIndex>211</itemIndex> <!-- Night Goggles -->
 	</COMPATIBLEFACEITEM>
@@ -153,9 +129,5 @@ Attribute Field Reference:
 	<COMPATIBLEFACEITEM>
 		<compatiblefaceitemIndex>259</compatiblefaceitemIndex> <!-- Robot Remote -->
 		<itemIndex>213</itemIndex> <!-- Gas Mask -->
-	</COMPATIBLEFACEITEM>
-	<COMPATIBLEFACEITEM>
-		<compatiblefaceitemIndex>259</compatiblefaceitemIndex> <!-- Robot Remote -->
-		<itemIndex>0</itemIndex> <!-- Nada -->
 	</COMPATIBLEFACEITEM>
 </COMPATIBLEFACEITEMLIST>
