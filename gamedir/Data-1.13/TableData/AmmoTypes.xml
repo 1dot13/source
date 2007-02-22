@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<AMMOTYPELIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+﻿<AMMOTYPELIST>
 	<AMMOTYPE>
 		<uiIndex>0</uiIndex>
 		<name>Ball</name>

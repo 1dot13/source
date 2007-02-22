@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<EXPDATALIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+﻿<EXPDATALIST>
 	<EXPDATA>
 		<uiIndex>0</uiIndex>
 		<name>None</name>
@@ -7,6 +6,7 @@
 		<DamageKeyFrame>0</DamageKeyFrame>
 		<ExplosionSoundID>61</ExplosionSoundID>
 		<AltExplosionSoundID>285</AltExplosionSoundID>
+		<BlastFilename />
 		<BlastSpeed>0</BlastSpeed>
 	</EXPDATA>
 	<EXPDATA>
@@ -116,7 +116,7 @@
 		<DamageKeyFrame>5</DamageKeyFrame>
 		<ExplosionSoundID>465</ExplosionSoundID>
 		<AltExplosionSoundID>-1</AltExplosionSoundID>
-		<BlastSpeed>15</BlastSpeed>
 		<BlastFilename>TILECACHE\shckwave.STI</BlastFilename>
+		<BlastSpeed>15</BlastSpeed>
 	</EXPDATA>
 </EXPDATALIST>

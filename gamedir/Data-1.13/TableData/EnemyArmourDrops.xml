@@ -1,62 +1,34 @@
-<!--
-If you want to use the XML-Drop files, you must do the following:
-a.) Set ENEMIES_ITEM_DROP = 1 in the Ja2_Options.ini
-b.) Disable "Enemies drop all items" in the option screen of the game
-
-Attribute Field Reference:
-
-	uiIndex				- the item index, number the items sequentially starting at 0 up to 199
-	uiType				- the armour class pointing to <ubArmourClass> in Armours.xml 
-	ubEnemyDropRate		- if the enemy has the item, this is the chance (0 - 100) in percent that the item will be dropped
-						- 0 	-> Item will never be dropped
-						- 100 	-> Item will always be dropped, if the enemy has this item in the inventory
-	ubMilitiaDropRate	- if the militia has the item, this is the chance (0 - 100) in percent that the item will be dropped
-						- 0 	-> Item will never be dropped
-						- 100 	-> Item will always be dropped, if the militia has this item in the inventory
--->
-<ARMOURDROPLIST>
-	<!-- ARMOURCLASS_HELMET -->
-	<!-- Helmets -->
+﻿<ARMOURDROPLIST>
 	<DROPITEM>
 		<uiIndex>0</uiIndex>
 		<ubArmourClass>0</ubArmourClass>
 		<ubEnemyDropRate>15</ubEnemyDropRate>
 		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
-	<!-- ARMOURCLASS_VEST -->
-	<!-- Vests -->
 	<DROPITEM>
 		<uiIndex>1</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
 		<ubEnemyDropRate>15</ubEnemyDropRate>
 		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
-	<!-- ARMOURCLASS_LEGGINGS -->
-	<!-- Leggings -->
 	<DROPITEM>
 		<uiIndex>2</uiIndex>
 		<ubArmourClass>2</ubArmourClass>
 		<ubEnemyDropRate>15</ubEnemyDropRate>
 		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
-	<!-- ARMOURCLASS_PLATE -->
-	<!-- Plates -->
 	<DROPITEM>
 		<uiIndex>3</uiIndex>
 		<ubArmourClass>3</ubArmourClass>
 		<ubEnemyDropRate>15</ubEnemyDropRate>
 		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
-	<!-- ARMOURCLASS_MONST -->
-	<!-- Monsters -->
 	<DROPITEM>
 		<uiIndex>4</uiIndex>
 		<ubArmourClass>4</ubArmourClass>
 		<ubEnemyDropRate>0</ubEnemyDropRate>
 		<ubMilitiaDropRate>0</ubMilitiaDropRate>
 	</DROPITEM>
-	<!-- ARMOURCLASS_VEHICLE -->
-	<!-- Vehicles -->
 	<DROPITEM>
 		<uiIndex>5</uiIndex>
 		<ubArmourClass>5</ubArmourClass>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<SOUNDLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+﻿<SOUNDLIST>
 	<SOUND>NOSOUND</SOUND>
 	<SOUND>SOUNDS\WEAPONS\9mm Burst %d.wav</SOUND>
 	<SOUND>SOUNDS\WEAPONS\45 Caliber Burst %d.wav</SOUND>

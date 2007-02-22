@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<INCOMPATIBLEATTACHMENTLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+﻿<INCOMPATIBLEATTACHMENTLIST>
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>50</itemIndex>
 		<incompatibleattachmentIndex>209</incompatibleattachmentIndex>
@@ -35,6 +34,14 @@
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>50</itemIndex>
 		<incompatibleattachmentIndex>913</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>50</itemIndex>
+		<incompatibleattachmentIndex>1011</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>50</itemIndex>
+		<incompatibleattachmentIndex>1010</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>183</itemIndex>
@@ -503,6 +510,18 @@
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>913</itemIndex>
 		<incompatibleattachmentIndex>1011</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>913</itemIndex>
+		<incompatibleattachmentIndex>912</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>913</itemIndex>
+		<incompatibleattachmentIndex>911</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>913</itemIndex>
+		<incompatibleattachmentIndex>909</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>998</itemIndex>

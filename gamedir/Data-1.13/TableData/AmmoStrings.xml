@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<AMMOLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+﻿<AMMOLIST>
 	<AMMO>
 		<uiIndex>0</uiIndex>
 		<AmmoCaliber>0</AmmoCaliber>

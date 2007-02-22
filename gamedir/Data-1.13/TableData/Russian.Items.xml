@@ -1,4 +1,4 @@
-<ITEMLIST>
+﻿<ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
 		<szItemName>Nada</szItemName>
@@ -8214,5 +8214,37 @@
 		<szItemDesc>For the unhappy trigger-happy folks: Just attach the ACME Trigger Group to your favourite assault rifle and enjoy simple and effective 3-round burst fire.</szItemDesc>
 		<szBRName>Trigger Group</szBRName>
 		<szBRDesc>For the unhappy trigger-happy folks out there, we are proud to present the ACME Trigger Group!  Marksmanship skill too low?  Tired of firing too many bullets in autofire?  Simply attach the ACME Trigger Group to your favourite assault rifle and enjoy simple and effective 3-round burst fire.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1027</uiIndex>
+		<szItemName />
+		<szLongItemName />
+		<szItemDesc />
+		<szBRName />
+		<szBRDesc />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1028</uiIndex>
+		<szItemName />
+		<szLongItemName />
+		<szItemDesc />
+		<szBRName />
+		<szBRDesc />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1029</uiIndex>
+		<szItemName />
+		<szLongItemName />
+		<szItemDesc />
+		<szBRName />
+		<szBRDesc />
+	</ITEM>
+	<ITEM>
+		<uiIndex>1030</uiIndex>
+		<szItemName />
+		<szLongItemName />
+		<szItemDesc />
+		<szBRName />
+		<szBRDesc />
 	</ITEM>
 </ITEMLIST>
