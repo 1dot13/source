@@ -1,5 +1,4 @@
 <!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
-<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
 <AMMOLIST>
 	<AMMO>
 		<uiIndex>0</uiIndex>
@@ -33,8 +32,8 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>6</uiIndex>
-		<AmmoCaliber>CAWS</AmmoCaliber>
-		<BRCaliber>CAWS</BRCaliber>
+		<AmmoCaliber>18.5x76mm</AmmoCaliber>
+		<BRCaliber>18.5x76mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>7</uiIndex>
@@ -138,8 +137,8 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>27</uiIndex>
-		<AmmoCaliber>10mm Auto</AmmoCaliber>
-		<BRCaliber>10mm Auto</BRCaliber>
+		<AmmoCaliber>10mm AUTO</AmmoCaliber>
+		<BRCaliber>10mm AUTO</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>28</uiIndex>
@@ -173,8 +172,8 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>34</uiIndex>
-		<AmmoCaliber>9mm M.S.</AmmoCaliber>
-		<BRCaliber>9mm M.S.</BRCaliber>
+		<AmmoCaliber>9mm MS</AmmoCaliber>
+		<BRCaliber>9mm MS</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>35</uiIndex>
