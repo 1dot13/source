@@ -10289,6 +10289,42 @@
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
+		<uiIndex>783</uiIndex>
+		<szWeaponName>Walther P99</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>0</ubReadyTime>
+		<ubShotsPer4Turns>18</ubShotsPer4Turns>
+		<ubShotsPerBurst>0</ubShotsPerBurst>
+		<ubBurstPenalty>0</ubBurstPenalty>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>23</ubImpact>
+		<ubDeadliness>16</ubDeadliness>
+		<bAccuracy>0</bAccuracy>
+		<ubMagSize>15</ubMagSize>
+		<usRange>100</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>72</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>371</sSound>
+		<sBurstSound>1</sBurstSound>
+		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
+		<APsToReload>2</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>0</AutoPenalty>
+		<NoSemiAuto>0</NoSemiAuto>
+		<APsToReloadManually>0</APsToReloadManually>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
 		<uiIndex>901</uiIndex>
 		<szWeaponName>Commando Mortar</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
