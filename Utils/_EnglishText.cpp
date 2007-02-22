@@ -3773,7 +3773,7 @@ STR16 pMessageStrings[] =
 	L"Grenade Bursts use Trajectory Cursor (Spread fire disabled)",
 	L"Drop All Enabled",
 	L"Drop All Disabled",
-	L"Granade Launchers fire at standard angles",
+	L"Grenade Launchers fire at standard angles",
 	L"Grenade Launchers fire at higher angles",
 #ifdef JA2BETAVERSION
 	L"Successfully Saved the Game into the End Turn Auto Save slot.",
