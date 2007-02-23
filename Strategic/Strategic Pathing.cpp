@@ -1890,7 +1890,18 @@ PathStPtr GetSoldierMercPathPtr( SOLDIERTYPE *pSoldier )
 	// IS a vehicle?
 	else if( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
 	{
-		pMercPath = pVehicleList[ pSoldier->bVehicleID ].pMercPath;
+    /* Sergeant_Kolja, 2007-02-20: got an pVehicleList==NULL Exception on loading an older save here... not REALY fixed! */
+    if( !pVehicleList ) /*bcause we have no vehicle list at all, we act as we are a person*/
+      {
+      pSoldier->uiStatusFlags &= ~SOLDIER_VEHICLE;
+  		pMercPath = pSoldier->pMercPath;
+      /* after all, create an empty Vehicle list */
+			pVehicleList = (VEHICLETYPE *) MemAlloc( sizeof( VEHICLETYPE ) );
+   		memset( pVehicleList, 0, sizeof( VEHICLETYPE ) );
+      pVehicleList->fValid = 0;
+      }
+    else
+      pMercPath = pVehicleList[ pSoldier->bVehicleID ].pMercPath;
 	}
 	else	// a person
 	{

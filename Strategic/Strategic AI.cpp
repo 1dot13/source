@@ -3595,6 +3595,12 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 	}
 	if( ubSAIVersion < 19 )
 	{
+    if( !gGarrisonGroup ) /* Sergeant Kolja, 2007-02-20: loading an older Qicksave, I crashed with NULL gGarrisonGroup[] */
+      {
+      gGarrisonGroup = (GARRISON_GROUP*)MemAlloc( sizeof( gOrigGarrisonGroup ) );
+	    Assert( gGarrisonGroup );
+	    memcpy( gGarrisonGroup, gOrigGarrisonGroup, sizeof( gOrigGarrisonGroup ) );
+      }
 		//Clear the garrison in C5
 		gArmyComp[ gGarrisonGroup[ SectorInfo[ SEC_C5 ].ubGarrisonID ].ubComposition ].bPriority = 0;
 		gArmyComp[ gGarrisonGroup[ SectorInfo[ SEC_C5 ].ubGarrisonID ].ubComposition ].bDesiredPopulation = 0;
