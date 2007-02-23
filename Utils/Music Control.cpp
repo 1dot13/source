@@ -15,6 +15,7 @@
 	#include "fade screen.h"
 #endif
 
+extern int iScreenMode;
 
 UINT32 uiMusicHandle=NO_SAMPLE;
 UINT32 uiMusicVolume=50;
@@ -99,9 +100,10 @@ void MusicStopCallback( void *pData );
 //********************************************************************************
 BOOLEAN MusicPlay(UINT32 uiNum)
 {
-#ifndef WINDOWED_MODE
+  if( 1==iScreenMode ) /* on Windowed mode, skip the music? was coded for WINDOWED_MODE that way...*/
+    return FALSE;
 
-SOUNDPARMS spParms;	
+  SOUNDPARMS spParms;	
 
 	if(fMusicPlaying)
 		MusicStop();
@@ -128,10 +130,6 @@ SOUNDPARMS spParms;
 	}
 
 	//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Music PLay %d %d", uiMusicHandle, gubMusicMode  ) );
-
-
-#endif
-
 	return(FALSE);
 }
 
@@ -147,9 +145,11 @@ BOOLEAN MusicSetVolume(UINT32 uiVolume)
 {
   INT32 uiOldMusicVolume = uiMusicVolume;
 
-#ifndef WINDOWED_MODE
+  if( 1==iScreenMode ) /* on Windowed mode, skip the music? was coded for WINDOWED_MODE that way...*/
+    return FALSE;
 
-	uiMusicVolume=__min(uiVolume, 127);
+  
+  uiMusicVolume=__min(uiVolume, 127);
 
 	if(uiMusicHandle!=NO_SAMPLE)
 	{
@@ -172,8 +172,6 @@ BOOLEAN MusicSetVolume(UINT32 uiVolume)
   {
     StartMusicBasedOnMode( );
   }
-
-#endif
 
 	return(FALSE);
 }
@@ -201,8 +199,8 @@ UINT32 MusicGetVolume(void)
 //********************************************************************************
 BOOLEAN MusicStop(void)
 {
-
-#ifndef WINDOWED_MODE
+  if( 1==iScreenMode ) /* on Windowed mode, skip the music? was coded for WINDOWED_MODE that way...*/
+  	return(FALSE);
 
 
 	if(uiMusicHandle!=NO_SAMPLE)
@@ -216,9 +214,6 @@ BOOLEAN MusicStop(void)
 	}
 
 	//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Music Stop %d %d", uiMusicHandle, gubMusicMode ) );
-
-#endif
-
 	return(FALSE);
 }
 
@@ -271,7 +266,9 @@ BOOLEAN MusicPoll( BOOLEAN fForce )
 {
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"MusicPoll");
 
-#ifndef WINDOWED_MODE
+  if( 1==iScreenMode ) /* on Windowed mode, skip the music? was coded for WINDOWED_MODE that way...*/
+  	return(TRUE);
+
 	INT32 iVol;
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"MusicPoll: SoundServiceStreams ");
@@ -356,7 +353,6 @@ BOOLEAN MusicPoll( BOOLEAN fForce )
       gfDontRestartSong = FALSE;
 		}
 	}
-#endif
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"MusicPoll done");
 	return(TRUE);

@@ -54,6 +54,8 @@
 extern UINT32 MemDebugCounter;
 #ifdef JA2
 extern BOOLEAN gfPauseDueToPlayerGamePause;
+extern int     iScreenMode;
+extern BOOL    bScreenModeCmdLine;
 #endif
 
 extern	BOOLEAN	CheckIfGameCdromIsInCDromDrive();
@@ -89,9 +91,7 @@ HINSTANCE					ghInstance;
 #endif
 
 // Global Variable Declarations
-#ifdef WINDOWED_MODE
 RECT				rcWindow;
-#endif
 
 // moved from header file: 24mar98:HJH
 UINT32		giStartMem;
@@ -139,14 +139,14 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 			}
 		
 #ifdef JA2
-#ifdef WINDOWED_MODE
     case WM_MOVE:
-
-        GetClientRect(hWindow, &rcWindow);
-        ClientToScreen(hWindow, (LPPOINT)&rcWindow);
-        ClientToScreen(hWindow, (LPPOINT)&rcWindow+1);
+        if( 1==iScreenMode )
+          {
+          GetClientRect(hWindow, &rcWindow);
+          ClientToScreen(hWindow, (LPPOINT)&rcWindow);
+          ClientToScreen(hWindow, (LPPOINT)&rcWindow+1);
+          }
         break;
-#endif
 #else
 		case WM_MOUSEMOVE:
 			break;
@@ -788,7 +788,7 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,  HINSTANCE hPrevInstance, LPSTR p
         GameLoop();        
 
 				// After this frame, reset input given flag
-	      gfSGPInputReceived  =  FALSE;			
+	      gfSGPInputReceived  =  FALSE;
       }
     }
   }
@@ -905,6 +905,11 @@ void GetRuntimeSettings( )
 
 	iScreenWidthOffset = (SCREEN_WIDTH - 640) / 2;
 	iScreenHeightOffset = (SCREEN_HEIGHT - 480) / 2;
+
+  /* Sergeant_Kolja. 2007-02-20: runtime Windowed mode instead of compile-time */
+  /* 1 for Windowed, 0 for Fullscreen */
+  if( !bScreenModeCmdLine )
+    iScreenMode = (int) GetPrivateProfileInt( "Ja2 Settings","SCREEN_MODE_WINDOWED", iScreenMode, INIFile );
 }
 
 void ShutdownWithErrorBox(CHAR8 *pcMessage)
@@ -1014,8 +1019,22 @@ void ProcessJa2CommandLineBeforeInitialization(CHAR8 *pCommandLine)
 			//disable the sound
 			SoundEnableSound(FALSE);
 		}
+		else if(!_strnicmp(pToken, "/FULLSCREEN", 11))
+		{
+			//overwrite Graphic setting from JA2_settings.ini
+			iScreenMode=0; /* 1 for Windowed, 0 for Fullscreen */
+      bScreenModeCmdLine = TRUE; /* if set TRUE, INI is no longer evaluated */
+      /* no resolution read from Args. Still from INI, but could be added here, too...*/
+		}
+		else if(!_strnicmp(pToken, "/WINDOW", 7))
+		{
+			//overwrite Graphic setting from JA2_settings.ini
+			iScreenMode=1; /* 1 for Windowed, 0 for Fullscreen */
+      bScreenModeCmdLine = TRUE; /* if set TRUE, INI is no longer evaluated */
+      /* no resolution read from Args. Still from INI, but could be added here, too...*/
+		}
 
-		//get the next token
+    //get the next token
 		pToken=strtok(NULL, cSeparators);
 	}
 

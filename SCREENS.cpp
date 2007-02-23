@@ -6,8 +6,19 @@
 #endif
 
 int iResolution;		// INI file
-// WANNE
-int iScreenMode;		// INI file	(Windowed or Fullscreen) // REPLACE all defines WINDOWED_MODE with this variable
+/* WANNE, Sgt.Kolja
+ * INI file (Windowed or Fullscreen) 
+ * REPLACE all defines WINDOWED_MODE with this variable
+ * this is the LAST occurence of WINDOWED_MODE !
+ * If (and only if) optionally set, we got a preset of
+ * Windowed Screen. But this can be overloaded by INI or CmdLine
+ */
+#ifdef WINDOWED_MODE 
+int iScreenMode = 1;	/* 1 for Windowed, 0 for Fullscreen */
+#else
+int iScreenMode = 0;	/* 0 for Fullscreen */
+#endif
+BOOL bScreenModeCmdLine = FALSE;
 
 int SCREEN_WIDTH;
 int SCREEN_HEIGHT;

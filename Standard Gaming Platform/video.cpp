@@ -22,6 +22,8 @@
 	#define _MT
 #endif
 
+extern int iScreenMode;
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Local Defines
@@ -101,15 +103,9 @@ static LPDIRECTDRAWSURFACE2   gpBackBuffer = NULL;
 
 static LPDIRECTDRAWSURFACE    _gpFrameBuffer = NULL;
 static LPDIRECTDRAWSURFACE2   gpFrameBuffer = NULL;
-
-#ifdef WINDOWED_MODE
-
 static LPDIRECTDRAWSURFACE    _gpBackBuffer = NULL;
+extern RECT									  rcWindow;
 
-extern RECT									rcWindow;
-
-
-#endif
 
 
 //
@@ -217,11 +213,7 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
   DDSURFACEDESC SurfaceDescription;
   DDCOLORKEY    ColorKey;
   PTR           pTmpPointer;
-
-#ifndef WINDOWED_MODE
   DDSCAPS       SurfaceCaps;
-#endif
-
 
   //
   // Register debug topics
@@ -255,11 +247,11 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
   // Get a window handle for our application (gotta have on of those)
   // Don't change this
   //
-#ifdef WINDOWED_MODE
-  hWindow = CreateWindowEx(0, (LPCSTR) ClassName, "Windowed JA2 !!", WS_POPUP, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, NULL, NULL, hInstance, NULL);
-#else
-  hWindow = CreateWindowEx(WS_EX_TOPMOST, (LPCSTR) ClassName, (LPCSTR)ClassName, WS_POPUP | WS_VISIBLE, 0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), NULL, NULL, hInstance, NULL);
-#endif
+  if( 1==iScreenMode )
+    hWindow = CreateWindowEx(0, (LPCSTR) ClassName, "Windowed JA2 !!", WS_POPUP, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, NULL, NULL, hInstance, NULL);
+  else
+    hWindow = CreateWindowEx(WS_EX_TOPMOST, (LPCSTR) ClassName, (LPCSTR)ClassName, WS_POPUP | WS_VISIBLE, 0, 0, GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN), NULL, NULL, hInstance, NULL);
+
   if (hWindow == NULL)
   { 
     DebugMsg(TOPIC_VIDEO, DBG_LEVEL_0, "Failed to create window frame for Direct Draw");
@@ -311,11 +303,11 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
   //
   // Set the exclusive mode
   //
-#ifdef WINDOWED_MODE
-	ReturnCode = IDirectDraw2_SetCooperativeLevel(gpDirectDrawObject, ghWindow, DDSCL_NORMAL );
-#else
-	ReturnCode = IDirectDraw2_SetCooperativeLevel(gpDirectDrawObject, ghWindow, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN );
-#endif
+  if( 1==iScreenMode ) /* Windowed mode */
+  	ReturnCode = IDirectDraw2_SetCooperativeLevel(gpDirectDrawObject, ghWindow, DDSCL_NORMAL );
+  else
+	  ReturnCode = IDirectDraw2_SetCooperativeLevel(gpDirectDrawObject, ghWindow, DDSCL_EXCLUSIVE | DDSCL_FULLSCREEN );
+
   if (ReturnCode != DD_OK)
   { 
     DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
@@ -325,14 +317,15 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
   //
   // Set the display mode
   //
-#ifndef WINDOWED_MODE
-  ReturnCode = IDirectDraw2_SetDisplayMode( gpDirectDrawObject, SCREEN_WIDTH, SCREEN_HEIGHT, gbPixelDepth, 0, 0 );
-  if (ReturnCode != DD_OK)
-  { 
-    DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
-    return FALSE;
-  }
-#endif
+  if( 0==iScreenMode ) /* Fullscreen mode */
+    {
+    ReturnCode = IDirectDraw2_SetDisplayMode( gpDirectDrawObject, SCREEN_WIDTH, SCREEN_HEIGHT, gbPixelDepth, 0, 0 );
+    if (ReturnCode != DD_OK)
+      { 
+      DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
+      return FALSE;
+      }
+    }
 
   gusScreenWidth = SCREEN_WIDTH;
   gusScreenHeight = SCREEN_HEIGHT;
@@ -349,81 +342,80 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
   //
 
   ZEROMEM(SurfaceDescription);
-#ifdef WINDOWED_MODE
+  if( 1==iScreenMode ) /* Windowed mode */
+    {
+  	// Create a primary surface and a backbuffer in system memory
+    SurfaceDescription.dwSize = sizeof(DDSURFACEDESC);
+    SurfaceDescription.dwFlags = DDSD_CAPS;
+    SurfaceDescription.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
 
-	// Create a primary surface and a backbuffer in system memory
-  SurfaceDescription.dwSize = sizeof(DDSURFACEDESC);
-  SurfaceDescription.dwFlags = DDSD_CAPS;
-  SurfaceDescription.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
-
-  ReturnCode = IDirectDraw2_CreateSurface ( gpDirectDrawObject, &SurfaceDescription, &_gpPrimarySurface, NULL );
-  if (ReturnCode != DD_OK)
-  { 
-    DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
-    return FALSE;
-  }
-
-
-  ReturnCode = IDirectDrawSurface_QueryInterface(_gpPrimarySurface, /*&*/IID_IDirectDrawSurface2, (LPVOID *)&gpPrimarySurface); // (jonathanl)
-  if (ReturnCode != DD_OK)
-  { 
-    DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
-    return FALSE;
-  }
-
-	// Backbuffer
-  ZEROMEM(SurfaceDescription);
-  SurfaceDescription.dwSize         = sizeof(DDSURFACEDESC);
-  SurfaceDescription.dwFlags        = DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT;
-  SurfaceDescription.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY;
-  SurfaceDescription.dwWidth        = SCREEN_WIDTH;
-  SurfaceDescription.dwHeight       = SCREEN_HEIGHT;
-  ReturnCode = IDirectDraw2_CreateSurface ( gpDirectDrawObject, &SurfaceDescription, &_gpBackBuffer, NULL );
-  if (ReturnCode != DD_OK)
-  { 
-    DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
-    return FALSE;
-  }
+    ReturnCode = IDirectDraw2_CreateSurface ( gpDirectDrawObject, &SurfaceDescription, &_gpPrimarySurface, NULL );
+    if (ReturnCode != DD_OK)
+      { 
+      DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
+      return FALSE;
+      }
 
 
-  ReturnCode = IDirectDrawSurface_QueryInterface(_gpBackBuffer, /*&*/IID_IDirectDrawSurface2, (LPVOID *)&gpBackBuffer); // (jonathanl)
-  if (ReturnCode != DD_OK)
-  { 
-    DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
-    return FALSE;
-  }
+    ReturnCode = IDirectDrawSurface_QueryInterface(_gpPrimarySurface, /*&*/IID_IDirectDrawSurface2, (LPVOID *)&gpPrimarySurface); // (jonathanl)
+    if (ReturnCode != DD_OK)
+      { 
+      DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
+      return FALSE;
+      }
+
+	  // Backbuffer
+    ZEROMEM(SurfaceDescription);
+    SurfaceDescription.dwSize         = sizeof(DDSURFACEDESC);
+    SurfaceDescription.dwFlags        = DDSD_CAPS | DDSD_WIDTH | DDSD_HEIGHT;
+    SurfaceDescription.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN | DDSCAPS_SYSTEMMEMORY;
+    SurfaceDescription.dwWidth        = SCREEN_WIDTH;
+    SurfaceDescription.dwHeight       = SCREEN_HEIGHT;
+    ReturnCode = IDirectDraw2_CreateSurface ( gpDirectDrawObject, &SurfaceDescription, &_gpBackBuffer, NULL );
+    if (ReturnCode != DD_OK)
+      { 
+      DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
+      return FALSE;
+      }
 
 
-#else
-  SurfaceDescription.dwSize = sizeof(DDSURFACEDESC);
-  SurfaceDescription.dwFlags = DDSD_CAPS | DDSD_BACKBUFFERCOUNT;
-  SurfaceDescription.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE | DDSCAPS_FLIP | DDSCAPS_COMPLEX;
-  SurfaceDescription.dwBackBufferCount = 1;
+    ReturnCode = IDirectDrawSurface_QueryInterface(_gpBackBuffer, /*&*/IID_IDirectDrawSurface2, (LPVOID *)&gpBackBuffer); // (jonathanl)
+    if (ReturnCode != DD_OK)
+      { 
+      DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
+      return FALSE;
+      }
+    }
+  else /* iScreenMode = FULLSCREEN */
+    {
+    SurfaceDescription.dwSize = sizeof(DDSURFACEDESC);
+    SurfaceDescription.dwFlags = DDSD_CAPS | DDSD_BACKBUFFERCOUNT;
+    SurfaceDescription.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE | DDSCAPS_FLIP | DDSCAPS_COMPLEX;
+    SurfaceDescription.dwBackBufferCount = 1;
 
-  ReturnCode = IDirectDraw2_CreateSurface ( gpDirectDrawObject, &SurfaceDescription, &_gpPrimarySurface, NULL );
-  if (ReturnCode != DD_OK)
-  { 
-    DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
-    return FALSE;
-  }
+    ReturnCode = IDirectDraw2_CreateSurface ( gpDirectDrawObject, &SurfaceDescription, &_gpPrimarySurface, NULL );
+    if (ReturnCode != DD_OK)
+      { 
+      DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
+      return FALSE;
+      }
 
 
-  ReturnCode = IDirectDrawSurface_QueryInterface(_gpPrimarySurface, /*&*/IID_IDirectDrawSurface2, (LPVOID *) &gpPrimarySurface);
-  if (ReturnCode != DD_OK)
-  { 
-    DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
-    return FALSE;
-  }
+    ReturnCode = IDirectDrawSurface_QueryInterface(_gpPrimarySurface, /*&*/IID_IDirectDrawSurface2, (LPVOID *) &gpPrimarySurface);
+    if (ReturnCode != DD_OK)
+      { 
+      DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
+      return FALSE;
+      }
 
-  SurfaceCaps.dwCaps = DDSCAPS_BACKBUFFER;
-  ReturnCode = IDirectDrawSurface2_GetAttachedSurface( gpPrimarySurface, &SurfaceCaps, &gpBackBuffer );
-  if (ReturnCode != DD_OK)
-  { 
-    DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
-    return FALSE;
-  }
-
-#endif
+    SurfaceCaps.dwCaps = DDSCAPS_BACKBUFFER;
+    ReturnCode = IDirectDrawSurface2_GetAttachedSurface( gpPrimarySurface, &SurfaceCaps, &gpBackBuffer );
+    if (ReturnCode != DD_OK)
+      { 
+      DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
+      return FALSE;
+      }
+    } /* endif iScreenMode */
 
   //
   // Initialize the frame buffer
@@ -2153,20 +2145,28 @@ void RefreshScreen(void *DummyVariable)
   //
   // Step (1) - Flip pages
   //
-#ifdef WINDOWED_MODE
-
   do
   {
+    if( 1==iScreenMode ) /* Windowed mode */
+      {
+   	  ReturnCode = IDirectDrawSurface_Blt(
+                      gpPrimarySurface,       // dest surface
+                      &rcWindow,              // dest rect
+                      gpBackBuffer,           // src surface
+                      NULL,                   // src rect (all of it)
+                      DDBLT_WAIT,
+                      NULL);
+      }
+    else
+      {
+	    ReturnCode = IDirectDrawSurface_Flip(
+                      _gpPrimarySurface, 
+                      NULL, 
+                      gGameExternalOptions.gfVSync ? DDFLIP_WAIT : 0x00000008l 
+                      );
+      }
 
-	  ReturnCode = IDirectDrawSurface_Blt(
-                    gpPrimarySurface,          // dest surface
-                    &rcWindow,              // dest rect
-                    gpBackBuffer,           // src surface
-                    NULL,                   // src rect (all of it)
-                    DDBLT_WAIT,
-                    NULL);
-
-		if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
+    if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
     {
       DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
@@ -2178,26 +2178,6 @@ void RefreshScreen(void *DummyVariable)
 
   } while (ReturnCode != DD_OK);
 
-
-#else
-
-  do
-  {
-	  ReturnCode = IDirectDrawSurface_Flip(_gpPrimarySurface, NULL, gGameExternalOptions.gfVSync ? DDFLIP_WAIT : 0x00000008l );//DDFLIP_WAIT ); 
-//    if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
-		if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
-    {
-      DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
-
-      if (ReturnCode == DDERR_SURFACELOST)
-      {
-        goto ENDOFLOOP;
-      }
-    }
-
-  } while (ReturnCode != DD_OK);
-
-#endif
 
   //
   // Step (2) - Copy Primary Surface to the Back Buffer
