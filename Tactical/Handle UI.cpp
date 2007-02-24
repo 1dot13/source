@@ -5713,45 +5713,52 @@ BOOLEAN HandleTalkInit(  )
 
 			if ( ( uiRange > commandRange ) && ( !CheckIfRadioIsEquipped() ) ) //lal
 			{
-				// First get an adjacent gridno....
-				sActionGridNo =  FindAdjacentGridEx( pSoldier, pTSoldier->sGridNo, &ubDirection, NULL, FALSE, TRUE );
-
-				if ( sActionGridNo == -1 )
-				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ NO_PATH ] );
-					return( FALSE );
-				}
-
-				if ( UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints ) == 0 )
-				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ NO_PATH ] );
-					return( FALSE );
-				}
-
-				// Walk up and talk to buddy....
-				gfNPCCircularDistLimit = TRUE;
-				sGoodGridNo = FindGridNoFromSweetSpotWithStructData( pSoldier, pSoldier->usUIMovementMode, pTSoldier->sGridNo, (NPC_TALK_RADIUS-1), &ubNewDirection, TRUE );
-				gfNPCCircularDistLimit = FALSE;
-
-				// First calculate APs and validate...
-				sAPCost = AP_TALK;				
-				//sAPCost += UIPlotPath( pSoldier, sGoodGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
-
-				// Check AP cost...
-				if ( !EnoughPoints( pSoldier, sAPCost, 0, TRUE ) )
+				if( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )				
 				{
 					return( FALSE );
 				}
+				else
+				{
+					// First get an adjacent gridno....
+					sActionGridNo =  FindAdjacentGridEx( pSoldier, pTSoldier->sGridNo, &ubDirection, NULL, FALSE, TRUE );
 
-				// Now walkup to talk....
-				pSoldier->ubPendingAction = MERC_TALK;
-				pSoldier->uiPendingActionData1 = pTSoldier->ubID;
-				pSoldier->ubPendingActionAnimCount = 0;
+					if ( sActionGridNo == -1 )
+					{
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ NO_PATH ] );
+						return( FALSE );
+					}
 
-				// WALK UP TO DEST FIRST
-				EVENT_InternalGetNewSoldierPath( pSoldier, sGoodGridNo, pSoldier->usUIMovementMode , TRUE , pSoldier->fNoAPToFinishMove );					
+					if ( UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints ) == 0 )
+					{
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ NO_PATH ] );
+						return( FALSE );
+					}
 
-				return( FALSE );
+					// Walk up and talk to buddy....
+					gfNPCCircularDistLimit = TRUE;
+					sGoodGridNo = FindGridNoFromSweetSpotWithStructData( pSoldier, pSoldier->usUIMovementMode, pTSoldier->sGridNo, (NPC_TALK_RADIUS-1), &ubNewDirection, TRUE );
+					gfNPCCircularDistLimit = FALSE;
+
+					// First calculate APs and validate...
+					sAPCost = AP_TALK;				
+					//sAPCost += UIPlotPath( pSoldier, sGoodGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
+
+					// Check AP cost...
+					if ( !EnoughPoints( pSoldier, sAPCost, 0, TRUE ) )
+					{
+						return( FALSE );
+					}
+
+					// Now walkup to talk....
+					pSoldier->ubPendingAction = MERC_TALK;
+					pSoldier->uiPendingActionData1 = pTSoldier->ubID;
+					pSoldier->ubPendingActionAnimCount = 0;
+
+					// WALK UP TO DEST FIRST
+					EVENT_InternalGetNewSoldierPath( pSoldier, sGoodGridNo, pSoldier->usUIMovementMode , TRUE , pSoldier->fNoAPToFinishMove );					
+
+					return( FALSE );
+				}
 			}
 			else
 			{
