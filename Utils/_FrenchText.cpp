@@ -106,6 +106,17 @@ FAST HELP TEXT -- Explains how the syntax of fast help text works.
 
 */
 
+STR16 pCreditsJA2113[] =
+{
+	L"@T,{;JA2 v1.13 Development Team",
+	L"@T,C144,R134,{;Coding",
+	L"@T,C144,R134,{;Graphics and Sounds",
+	L"@};(Various other mods!)",
+	L"@T,C144,R134,{;Items",
+	L"@T,C144,R134,{;Other Contributors",
+	L"@};(All other community members who contributed input and feedback!)",
+};
+
 UINT16 ItemNames[MAXITEMS][80] =
 {
 	L"",
@@ -3470,7 +3481,7 @@ STR16		zOptionsToggleText[] =
 	L"Random I.M.P personality",
 	L"Auto save",
 	L"Silent Skyrider",
-	L"Low CPU Usage",
+	L"Low CPU usage",
 };
 
 //This is the help text associated with the above toggles.
@@ -3550,7 +3561,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, I.M.P characters will get random personality and attitude.",
 	L"When ON, game will be saved after each players turn.",
 	L"When ON, Skyrider will not talk anymore.",
-	L"Low CPU Usage",
+	L"When ON, game will run with much lower CPU usage.",
 };
 
 

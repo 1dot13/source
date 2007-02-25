@@ -3,9 +3,13 @@
 	#include "JA2 All.h"
 	#include "Credits.h"
 	#include "Encrypted File.h"
+	//#include "Utils All.h" 
+	#include "Language Defines.h" 
 #else
 	#include "Types.h"
 	#include "Credits.h"
+	//#include "Utils All.h" 
+	#include "Language Defines.h" 
 #endif
 
 
@@ -530,7 +534,7 @@ BOOLEAN		EnterCreditsScreen()
 	giCurrentlySelectedFace = -1;
 	gfPauseCreditScreen = FALSE;
 
-	InitCreditEyeBlinking();
+	//InitCreditEyeBlinking();
 
 
 	return( TRUE );
@@ -584,7 +588,7 @@ void			HandleCreditScreen()
 	HandleCreditNodes();
 
 	//Handle the blinkng eyes
-	HandleCreditEyeBlinking();
+	//HandleCreditEyeBlinking();
 
 
 	//is it time to get a new node
@@ -655,7 +659,7 @@ void			GetCreditScreenUserInput()
 					SetCreditsExitScreen( MAINMENU_SCREEN );
 					break;
 
-#ifdef JA2TESTVERSION
+//#ifdef JA2TESTVERSION
 				case 'r':
 					gubCreditScreenRenderFlags = CRDT_RENDER_ALL;
 					break;
@@ -679,7 +683,7 @@ void			GetCreditScreenUserInput()
 					else
 						gfPauseCreditScreen = TRUE;
 					break;
-#endif
+//#endif
 			}
 		}
 	}
@@ -1095,7 +1099,7 @@ BOOLEAN	GetNextCreditFromTextFile()
 		break;
 
 		case 1:
-			wcscpy(zOriginalString, L"@T,{;JA2: Whitehat Project Team");
+			wcscpy(zOriginalString, pCreditsJA2113[0]);
 		break;
 
 		case 2:
@@ -1103,36 +1107,185 @@ BOOLEAN	GetNextCreditFromTextFile()
 		break;
 
 		case 3:
-			wcscpy(zOriginalString, L"@T,C163,{;Programming");
+			wcscpy(zOriginalString, pCreditsJA2113[1]);
 		break;
 
 		case 4:
-			wcscpy(zOriginalString, L"Alex \"Digicrab\" Vostrov");
+			wcscpy(zOriginalString, L"Kaiden");
 		break;
 
 		case 5:
-			wcscpy(zOriginalString, L"Michal \"Joker\" Laskowski");
+			wcscpy(zOriginalString, L"Lesh");
 		break;
 
 		case 6:
-			wcscpy(zOriginalString, L"@};Jackaians");
+			wcscpy(zOriginalString, L"Little Alien");
 		break;
 
 		case 7:
-			wcscpy(zOriginalString, L"@T,{;Project Organization");
+			wcscpy(zOriginalString, L"Madd Mugsy");
 		break;
 
 		case 8:
-			wcscpy(zOriginalString, L"Shanga");
+			wcscpy(zOriginalString, L"@};Roman");
 		break;
 		
 		case 9:
-			wcscpy(zOriginalString, L"@};Keith \"Mouse Master\" Scroggins");
+			wcscpy(zOriginalString, pCreditsJA2113[2]);
 		break;
 
+		case 10:
+			wcscpy(zOriginalString, L"BulletSix");
+		break;
+
+		case 11:
+			wcscpy(zOriginalString, L"Corpse");
+		break;
+
+		case 12:
+			wcscpy(zOriginalString, L"John Wright");
+		break;
+
+		case 13:
+			wcscpy(zOriginalString, L"Khor");
+		break;
+
+		case 14:
+			wcscpy(zOriginalString, L"Lisac");
+		break;
+
+		case 15:
+			wcscpy(zOriginalString, L"Madd Mugsy");
+		break;
+
+		case 16:
+			wcscpy(zOriginalString, L"Marlboro Man");
+		break;
+
+		case 17:
+			wcscpy(zOriginalString, L"Scorpion");
+		break;
+
+		case 18:
+			wcscpy(zOriginalString, L"Starwalker");
+		break;
+
+		case 19:
+			wcscpy(zOriginalString, L"Tbird94lx");
+		break;
+
+		case 20:
+			wcscpy(zOriginalString, L"Terry Thorne");
+		break;
+
+		case 21:
+			wcscpy(zOriginalString, pCreditsJA2113[3]);
+		break;
+
+		case 22:
+			wcscpy(zOriginalString, pCreditsJA2113[4]);
+		break;
+
+		case 23:
+			wcscpy(zOriginalString, L"Madd Mugsy");
+		break;
+
+		case 24:
+			wcscpy(zOriginalString,  L"Starwalker");
+		break;
+
+		case 25:
+			wcscpy(zOriginalString, L"@};Lisac");
+		break;
+
+		case 26:
+			wcscpy(zOriginalString, pCreditsJA2113[5]);
+		break;
+
+		case 27:
+			wcscpy(zOriginalString, L"BearPit");
+		break;
+
+		case 28:
+			wcscpy(zOriginalString, L"Bugmonster");
+		break;
+
+		case 29:
+			wcscpy(zOriginalString, L"Captain J");
+		break;
+
+		case 30:
+			wcscpy(zOriginalString, L"DeFrog");
+		break;
+
+		case 31:
+			wcscpy(zOriginalString, L"Farmer Toby");
+		break;
+
+		case 32:
+			wcscpy(zOriginalString, L"Headrock");
+		break;
+
+		case 33:
+			wcscpy(zOriginalString, L"Jones");
+		break;
+
+		case 34:
+			wcscpy(zOriginalString, L"Judge");
+		break;
+
+		case 35:
+			wcscpy(zOriginalString, L"Nitrat");
+		break;
+
+		case 36:
+			wcscpy(zOriginalString, L"Pulmu");
+		break;
+
+		case 37:
+			wcscpy(zOriginalString, L"Realist");
+		break;
+
+		case 38:
+			wcscpy(zOriginalString, L"Scorpion");
+		break;
+
+		case 39:
+			wcscpy(zOriginalString, L"Sergeant Kolja");
+		break;
+
+		case 40:
+			wcscpy(zOriginalString, L"ShadoWarrior");
+		break;
+
+		case 41:
+			wcscpy(zOriginalString, L"Snap");
+		break;
+
+		case 42:
+			wcscpy(zOriginalString, L"TheDrill");
+		break;
+
+		case 43:
+			wcscpy(zOriginalString, L"Wil473");
+		break;
+
+		case 44:
+			wcscpy(zOriginalString, pCreditsJA2113[6]);
+		break;
+
+		// Additonal lines for free space
+		case 45:
+			wcscpy(zOriginalString, L"@T,B40,C208,{; ");
+		break;
+
+		case 46:
+			wcscpy(zOriginalString, L"@}; ");
+		break;
+		
 		default:
 			//Get the current Credit record
-			uiStartLoc = CREDITS_LINESIZE * (guiCurrentCreditRecord-10);
+			uiStartLoc = CREDITS_LINESIZE * (guiCurrentCreditRecord-47);
 			if( !LoadEncryptedDataFromFile( CRDT_NAME_OF_CREDIT_FILE, zOriginalString, uiStartLoc, CREDITS_LINESIZE ) )
 			{
 				//there are no more credits
@@ -1465,7 +1618,9 @@ void HandleCreditEyeBlinking()
 	{
 		if( ( GetJA2Clock() - gCreditFaces[ubCnt].uiLastBlinkTime ) > (UINT32)gCreditFaces[ubCnt].sBlinkFreq )
 		{
-		  BltVideoObject( FRAME_BUFFER, hPixHandle, (UINT8)(ubCnt*3), gCreditFaces[ubCnt].sEyeX, gCreditFaces[ubCnt].sEyeY, VO_BLT_SRCTRANSPARENCY, NULL);
+			// EXCEPTION IS THROWN HERE!
+			BltVideoObject( FRAME_BUFFER, hPixHandle, (UINT8)(ubCnt*3), gCreditFaces[ubCnt].sEyeX, gCreditFaces[ubCnt].sEyeY, VO_BLT_SRCTRANSPARENCY, NULL);
+			
 			InvalidateRegion( gCreditFaces[ubCnt].sEyeX, gCreditFaces[ubCnt].sEyeY, gCreditFaces[ubCnt].sEyeX + CRDT_EYE_WIDTH, gCreditFaces[ubCnt].sEyeY + CRDT_EYE_HEIGHT );
 
 			gCreditFaces[ubCnt].uiLastBlinkTime = GetJA2Clock();

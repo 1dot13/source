@@ -7,6 +7,7 @@
 
 #define STRING_LENGTH 255
 
+extern STR16 pCreditsJA2113[];
 extern UINT16 ShortItemNames[MAXITEMS][80];
 extern UINT16 ItemNames[MAXITEMS][80];
 extern UINT16 AmmoCaliber[MAXITEMS][20];

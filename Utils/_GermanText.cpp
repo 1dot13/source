@@ -107,6 +107,17 @@ FAST HELP TEXT -- Explains how the syntax of fast help text works.
 
 */
 
+STR16 pCreditsJA2113[] =
+{
+	L"@T,{;JA2 v1.13 Entwicklungsteam",
+	L"@T,C144,R134,{;Programmierung",
+	L"@T,C144,R134,{;Grafiken und Sounds",
+	L"@};(Verschiedene weiter Mods!)",
+	L"@T,C144,R134,{;Gegenstände",
+	L"@T,C144,R134,{;Weitere Mitwirkende",
+	L"@};(Alle weiteren Community Mitglieder die Ideen und Feedback eingebracht haben!)",
+};
+
 UINT16 ItemNames[MAXITEMS][80] =
 {
 	L"",
@@ -3289,7 +3300,7 @@ STR16 zOptionsToggleText[] =
 	L"Zufällige B.S.E Personalität",
 	L"Automatisch speichern",
 	L"Stummer Skyrider",
-	L"Low CPU Usage",
+	L"Niedrige CPU Belastung",
 };
 
 //This is the help text associated with the above toggles.
@@ -3369,7 +3380,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, erhalten B.S.E Charaktere zufällige Persönlichkeit und Gesinnung.",
 	L"Wenn diese Funktion aktiviert ist, wird nach jeder Runde automatisch gespeichert.",
 	L"Wenn diese Funktion aktiviert ist, wird Skyrider nichts mehr sprechen.",
-	L"Low CPU Usage",
+	L"Wenn diese Funktion aktiviert ist, wird das Spiel mit viel geringerer CPU Belastung laufen.",
 };
 
 STR16 gzGIOScreenText[] =

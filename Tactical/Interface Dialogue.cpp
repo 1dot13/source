@@ -4361,7 +4361,9 @@ BOOLEAN PlayerTeamHasTwoSpotsLeft( )
 
 	// WANNE
 	//if ( uiCount <= (UINT32) (gTacticalStatus.Team[ gbPlayerNum ].bLastID - 2) - 2 )
-	if ( uiCount <= (18 - 2) )
+	//if ( uiCount <= (18 - 2) )
+
+	if ( uiCount <= (UINT32) (gTacticalStatus.Team[ gbPlayerNum].bLastID - 2) - 1 )
 	{
 		return( TRUE );
 	}
