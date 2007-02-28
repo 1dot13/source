@@ -9071,6 +9071,16 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1004</attachmentIndex>
+		<itemIndex>714</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1004</attachmentIndex>
+		<itemIndex>715</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1004</attachmentIndex>
 		<itemIndex>742</itemIndex>
 		<APCost>5</APCost>
 	</ATTACHMENT>
@@ -11071,6 +11081,16 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1006</attachmentIndex>
+		<itemIndex>714</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1006</attachmentIndex>
+		<itemIndex>715</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1006</attachmentIndex>
 		<itemIndex>716</itemIndex>
 		<APCost>5</APCost>
 	</ATTACHMENT>
@@ -11707,6 +11727,11 @@
 	<ATTACHMENT>
 		<attachmentIndex>1007</attachmentIndex>
 		<itemIndex>713</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1007</attachmentIndex>
+		<itemIndex>714</itemIndex>
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
@@ -14086,6 +14111,11 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1029</attachmentIndex>
+		<itemIndex>714</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1029</attachmentIndex>
 		<itemIndex>715</itemIndex>
 		<APCost>5</APCost>
 	</ATTACHMENT>
@@ -14547,6 +14577,16 @@
 	<ATTACHMENT>
 		<attachmentIndex>1030</attachmentIndex>
 		<itemIndex>713</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1030</attachmentIndex>
+		<itemIndex>714</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1030</attachmentIndex>
+		<itemIndex>715</itemIndex>
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>

@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<WEAPONLIST xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+﻿<WEAPONLIST>
 	<WEAPON>
 		<uiIndex>0</uiIndex>
-		<szWeaponName>nothing</szWeaponName>
+		<szWeaponName>Nothing</szWeaponName>
 		<ubWeaponClass>0</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>0</ubCalibre>
@@ -1406,7 +1405,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>39</uiIndex>
-		<szWeaponName>rock</szWeaponName>
+		<szWeaponName>A Rock</szWeaponName>
 		<ubWeaponClass>0</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>0</ubCalibre>
@@ -1514,7 +1513,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>42</uiIndex>
-		<szWeaponName>another rock</szWeaponName>
+		<szWeaponName>Another Rock</szWeaponName>
 		<ubWeaponClass>0</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>0</ubCalibre>
@@ -1550,7 +1549,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>43</uiIndex>
-		<szWeaponName>yng male claws</szWeaponName>
+		<szWeaponName>Young Male Claws</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>0</ubCalibre>
@@ -1586,7 +1585,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>44</uiIndex>
-		<szWeaponName>yng fem claws</szWeaponName>
+		<szWeaponName>Adult Male Claws</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>0</ubCalibre>
@@ -1622,7 +1621,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>45</uiIndex>
-		<szWeaponName>old male claws</szWeaponName>
+		<szWeaponName>Young Female Claws</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>0</ubCalibre>
@@ -1658,7 +1657,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>46</uiIndex>
-		<szWeaponName>old fem claws</szWeaponName>
+		<szWeaponName>Adult Female Creature Claws</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>0</ubCalibre>
@@ -1694,7 +1693,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>47</uiIndex>
-		<szWeaponName>queen tentacles</szWeaponName>
+		<szWeaponName>Queen Tentacle</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>0</ubCalibre>
@@ -1730,7 +1729,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>48</uiIndex>
-		<szWeaponName>queen spit</szWeaponName>
+		<szWeaponName>Queen Creature Spit</szWeaponName>
 		<ubWeaponClass>7</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>13</ubCalibre>
@@ -1874,7 +1873,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>52</uiIndex>
-		<szWeaponName>bloodcat claws</szWeaponName>
+		<szWeaponName>Bloodcat Claws</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>0</ubCalibre>
@@ -1910,7 +1909,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>53</uiIndex>
-		<szWeaponName>bloodcat bite</szWeaponName>
+		<szWeaponName>Bloodcat Bite</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>0</ubCalibre>
@@ -2054,7 +2053,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>57</uiIndex>
-		<szWeaponName>infant spit</szWeaponName>
+		<szWeaponName>Infant Spit</szWeaponName>
 		<ubWeaponClass>7</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>13</ubCalibre>
@@ -2090,7 +2089,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>58</uiIndex>
-		<szWeaponName>yng male spit</szWeaponName>
+		<szWeaponName>Young Male Spit</szWeaponName>
 		<ubWeaponClass>7</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>13</ubCalibre>
@@ -2126,7 +2125,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>59</uiIndex>
-		<szWeaponName>old male spit</szWeaponName>
+		<szWeaponName>Old Male Spit</szWeaponName>
 		<ubWeaponClass>7</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>13</ubCalibre>
@@ -2162,7 +2161,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>60</uiIndex>
-		<szWeaponName>tank cannon</szWeaponName>
+		<szWeaponName>Tank Cannon</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>14</ubCalibre>
@@ -6050,7 +6049,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>665</uiIndex>
-		<szWeaponName>HK G36E</szWeaponName>
+		<szWeaponName>HK G36 Tactical</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
@@ -6086,7 +6085,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>666</uiIndex>
-		<szWeaponName>HK G36KE</szWeaponName>
+		<szWeaponName>HK G36K Tactical</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
@@ -6122,7 +6121,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>667</uiIndex>
-		<szWeaponName>HK G3KA3</szWeaponName>
+		<szWeaponName>HK G3KA4</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>9</ubCalibre>
@@ -6230,7 +6229,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>670</uiIndex>
-		<szWeaponName>HK Mk 23 SOCOM</szWeaponName>
+		<szWeaponName>HK Mark 23 SOCOM</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>3</ubCalibre>
@@ -6338,7 +6337,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>673</uiIndex>
-		<szWeaponName>HK MP7 PDW</szWeaponName>
+		<szWeaponName>HK MP7A1</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>19</ubCalibre>
@@ -9376,6 +9375,7 @@
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
 		<usRange>360</usRange>
+		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>45</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
@@ -9411,6 +9411,7 @@
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>7</ubMagSize>
 		<usRange>130</usRange>
+		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
@@ -9446,6 +9447,7 @@
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>15</ubMagSize>
 		<usRange>115</usRange>
+		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
@@ -9481,6 +9483,7 @@
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>7</ubMagSize>
 		<usRange>300</usRange>
+		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
@@ -9516,6 +9519,7 @@
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
 		<usRange>190</usRange>
+		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>63</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
@@ -9695,6 +9699,7 @@
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>7</ubMagSize>
 		<usRange>140</usRange>
+		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
@@ -9730,6 +9735,7 @@
 		<bAccuracy>0</bAccuracy>
 		<ubMagSize>7</ubMagSize>
 		<usRange>140</usRange>
+		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
@@ -9765,6 +9771,7 @@
 		<bAccuracy>-1</bAccuracy>
 		<ubMagSize>7</ubMagSize>
 		<usRange>170</usRange>
+		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
@@ -9858,7 +9865,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>771</uiIndex>
-		<szWeaponName>Ruger Super Redhawk Alaskan</szWeaponName>
+		<szWeaponName>Ruger S. Redhawk Alaskan</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>36</ubCalibre>
@@ -9894,7 +9901,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>772</uiIndex>
-		<szWeaponName>Federal Arms M83 Premier Grade</szWeaponName>
+		<szWeaponName>Fr. Arms M83 Premier Grade</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>36</ubCalibre>
@@ -9930,7 +9937,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>773</uiIndex>
-		<szWeaponName>KP M/31</szWeaponName>
+		<szWeaponName>KP M/31 Suomi</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
@@ -10038,7 +10045,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>776</uiIndex>
-		<szWeaponName>Kar 98k</szWeaponName>
+		<szWeaponName>Mauser Karabiner 98k</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>4</ubWeaponType>
 		<ubCalibre>40</ubCalibre>
@@ -10974,7 +10981,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>920</uiIndex>
-		<szWeaponName>M203 CLS</szWeaponName>
+		<szWeaponName>Colt Launcher System</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>0</ubCalibre>
@@ -11001,42 +11008,6 @@
 		<bBurstAP>0</bBurstAP>
 		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
-		<SwapClips>1</SwapClips>
-		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>476</ManualReloadSound>
-	</WEAPON>
-	<WEAPON>
-		<uiIndex>921</uiIndex>
-		<szWeaponName>FN SCAR GL</szWeaponName>
-		<ubWeaponClass>3</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>4</ubReadyTime>
-		<ubShotsPer4Turns>6</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
-		<ubBulletSpeed>30</ubBulletSpeed>
-		<ubImpact>0</ubImpact>
-		<ubDeadliness>60</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>1</ubMagSize>
-		<usRange>300</usRange>
-		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>100</BurstAniDelay>
-		<ubAttackVolume>20</ubAttackVolume>
-		<ubHitVolume>10</ubHitVolume>
-		<sSound>403</sSound>
-		<sBurstSound>0</sBurstSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
-		<SilencedSound>157</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>8</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>0</AutoPenalty>
