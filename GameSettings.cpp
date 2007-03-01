@@ -24,7 +24,7 @@
 
 #include	"Text.h"
 
-#define				GAME_SETTINGS_FILE		"..\\Ja2.set"
+#define				GAME_SETTINGS_FILE		"Ja2.set"
 
 #define				GAME_INI_FILE					"..\\Ja2.ini"
 
@@ -60,10 +60,12 @@ BOOLEAN LoadGameSettings()
 {
 	HWFILE	hFile;
 	UINT32	uiNumBytesRead;
+	char gameSettingsFilePath[MAX_PATH];
 
+	sprintf(gameSettingsFilePath, "%s\\%s", gCustomDataCat.GetRootDir().c_str(), GAME_SETTINGS_FILE);
 
 	//if the game settings file does NOT exist, or if it is smaller then what it should be
-	if( !FileExists( GAME_SETTINGS_FILE ) || FileSize( GAME_SETTINGS_FILE ) != sizeof( GAME_SETTINGS ) )
+	if( !FileExists( gameSettingsFilePath ) || FileSize( gameSettingsFilePath ) != sizeof( GAME_SETTINGS ) )
 	{
 		//Initialize the settings
 		InitGameSettings();
@@ -73,7 +75,7 @@ BOOLEAN LoadGameSettings()
 	}
 	else
 	{
-		hFile = FileOpen( GAME_SETTINGS_FILE, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+		hFile = FileOpen( gameSettingsFilePath, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 		if( !hFile )
 		{
 			FileClose( hFile );
@@ -161,11 +163,13 @@ BOOLEAN	SaveGameSettings()
 {
 	HWFILE		hFile;
 	UINT32	uiNumBytesWritten;
+	char gameSettingsFilePath[MAX_PATH];
 
+	sprintf(gameSettingsFilePath, "%s\\%s", gCustomDataCat.GetRootDir().c_str(), GAME_SETTINGS_FILE);
 
 
 	//create the file
-	hFile = FileOpen( GAME_SETTINGS_FILE, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
+	hFile = FileOpen( gameSettingsFilePath, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 	if( !hFile )
 	{
 		FileClose( hFile );
