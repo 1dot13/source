@@ -53,6 +53,10 @@ extern BOOLEAN gfOverrideSector;
 
 INT16 gsInterrogationGridNo[3] = { 7756, 7757, 7758 };
 
+
+extern void Enshure_RepairedGarrisonGroup( GARRISON_GROUP **ppGarrison, INT32 *pGarraySize );
+
+
 void ValidateEnemiesHaveWeapons()
 {
 	#ifdef JA2BETAVERSION
@@ -203,7 +207,9 @@ UINT8 NumStationaryEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 		return( 0 );
 	}
 	
-	// don't count roadblocks as stationary garrison, we want to see how many enemies are in them, not question marks
+ Enshure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	 /* added NULL fix, 2007-03-03, Sgt. Kolja */
+
+  // don't count roadblocks as stationary garrison, we want to see how many enemies are in them, not question marks
 	if ( gGarrisonGroup[ pSector->ubGarrisonID ].ubComposition == ROADBLOCK )
 	{
 		// pretend they're not stationary

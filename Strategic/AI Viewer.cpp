@@ -209,6 +209,9 @@ extern GARRISON_GROUP *gGarrisonGroup;
 extern INT32 giGarrisonArraySize;
 
 
+extern void Enshure_RepairedGarrisonGroup( GARRISON_GROUP **ppGarrison, INT32 *pGarraySize );
+
+
 
 UINT16 gwGroupTypeString[ NUM_ENEMY_INTENTIONS ][ 20 ] =
 {
@@ -454,6 +457,7 @@ void RenderStationaryGroups()
 	SetFontShadow( FONT_NEARBLACK );
 
 	GetVideoObject( &hVObject, guiMapIconsID );
+ Enshure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize ); /* added NULL fix, 2007-03-03, Sgt. Kolja */
 
 	//Render groups that are stationary...
 	for( y = 0; y < 16; y++ )
@@ -1877,11 +1881,12 @@ void PrintDetailedEnemiesInSectorInfo( INT32 iScreenX, INT32 iScreenY, UINT8 ubS
 
 
 	pSector = &SectorInfo[ SECTOR( ubSectorX, ubSectorY ) ];
+ Enshure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	 /* added NULL fix, 2007-03-03, Sgt. Kolja */
 
 	// handle garrisoned enemies
 	if( pSector->ubGarrisonID != NO_GARRISON )
 	{
-		iDesired = gArmyComp[ gGarrisonGroup[ pSector->ubGarrisonID ].ubComposition ].bDesiredPopulation;
+   iDesired = gArmyComp[ gGarrisonGroup[ pSector->ubGarrisonID ].ubComposition ].bDesiredPopulation;
 		iSurplus = pSector->ubNumTroops + pSector->ubNumAdmins + pSector->ubNumElites - iDesired;
 		SetFontForeground( FONT_WHITE );
 
