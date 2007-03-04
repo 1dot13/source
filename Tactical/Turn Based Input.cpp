@@ -2760,18 +2760,19 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 						//GoIntoOverheadMap();
 						break;
 
-				case END:
+				// Lalien: commented out, to fix "end move & LOS bug" (same button has two different actions)
+				//case END:
 
-						if ( gusSelectedSoldier != NOBODY )
-						{
-							if ( CheckForMercContMove( MercPtrs[ gusSelectedSoldier ] ) )
-							{
-								// Continue
-								ContinueMercMovement( MercPtrs[ gusSelectedSoldier ] );
-								ErasePath( TRUE );
-							}
-						}
-						break;
+				//		if ( gusSelectedSoldier != NOBODY )
+				//		{
+				//			if ( CheckForMercContMove( MercPtrs[ gusSelectedSoldier ] ) )
+				//			{
+				//				// Continue
+				//				ContinueMercMovement( MercPtrs[ gusSelectedSoldier ] );
+				//				ErasePath( TRUE );
+				//			}
+				//		}
+				//		break;
 
 				case HOME:
 
