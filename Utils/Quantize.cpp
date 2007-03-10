@@ -129,11 +129,14 @@ void CQuantizer::ReduceTree (UINT nColorBits, UINT* pLeafCount,
     //
     // Find the deepest level containing at least one reducible node.
     //
-    for (int i=nColorBits - 1; (i>0) && (pReducibleNodes[i] == NULL); i--);
+	int i = 0;
+
+    for (i=nColorBits - 1; (i>0) && (pReducibleNodes[i] == NULL); i--);
 
     //
     // Reduce the node most recently added to the list at level i.
     //
+
     NODE* pNode = pReducibleNodes[i];
     pReducibleNodes[i] = pNode->pNext;
 
