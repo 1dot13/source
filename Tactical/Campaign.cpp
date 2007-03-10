@@ -1239,9 +1239,10 @@ void HandleUnhiredMercDeaths( INT32 iProfileID )
 
 
 // These HAVE to total 100% at all times!!!
-#define PROGRESS_PORTION_KILLS		25
-#define PROGRESS_PORTION_CONTROL	25
-#define PROGRESS_PORTION_INCOME		50
+//#define PROGRESS_PORTION_KILLS	25
+//#define PROGRESS_PORTION_CONTROL	25
+//#define PROGRESS_PORTION_INCOME	50
+//Lalien: Removed due to externalization
 
 
 // returns a number between 0-100, this is an estimate of how far a player has progressed through the game
@@ -1274,7 +1275,7 @@ UINT8 CurrentPlayerProgressPercentage(void)
 	//Kris:  Make sure you don't divide by zero!!!
 	if( uiPossibleIncome > 0)
 	{
-		ubCurrentProgress = (UINT8) ((uiCurrentIncome * PROGRESS_PORTION_INCOME) / uiPossibleIncome);
+		ubCurrentProgress = (UINT8) ((uiCurrentIncome * gGameExternalOptions.ubGameProgressPortionIncome) / uiPossibleIncome);
 	}
 	else
 	{
@@ -1303,9 +1304,9 @@ UINT8 CurrentPlayerProgressPercentage(void)
 	}
 
 	usKillsProgress = gStrategicStatus.usPlayerKills / ubKillsPerPoint;
-	if (usKillsProgress > PROGRESS_PORTION_KILLS)
+	if (usKillsProgress > gGameExternalOptions.ubGameProgressPortionKills)
 	{
-		usKillsProgress = PROGRESS_PORTION_KILLS;
+		usKillsProgress = gGameExternalOptions.ubGameProgressPortionKills;
 	}
 
 	// add kills progress to income progress
@@ -1314,9 +1315,9 @@ UINT8 CurrentPlayerProgressPercentage(void)
 
 	// 19 sectors in mining towns + 3 wilderness SAMs each count double.  Balime & Meduna are extra and not required
 	usControlProgress = CalcImportantSectorControl();
-	if (usControlProgress > PROGRESS_PORTION_CONTROL)
+	if (usControlProgress > gGameExternalOptions.ubGameProgressPortionControl)
 	{
-		usControlProgress = PROGRESS_PORTION_CONTROL;
+		usControlProgress = gGameExternalOptions.ubGameProgressPortionControl;
 	}
 
 	// add control progress

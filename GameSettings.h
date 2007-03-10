@@ -259,6 +259,12 @@ typedef struct
 	UINT32 guiProlongLightningIfSeenSomeone;
 	UINT32 guiChanceToDoLightningBetweenTurns;
 
+	// WDS: Progress settings
+
+	UINT32 ubGameProgressPortionKills;
+	UINT32 ubGameProgressPortionControl;
+	UINT32 ubGameProgressPortionIncome;
+
 	// Event settings
 
 	UINT32 ubGameProgressStartMadlabQuest;

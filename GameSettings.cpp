@@ -289,6 +289,12 @@ void InitGameOptions()
 }
 
 
+// WDS: These HAVE to total 100% at all times!!!
+#define PROGRESS_PORTION_KILLS		25
+#define PROGRESS_PORTION_CONTROL	25
+#define PROGRESS_PORTION_INCOME		50
+
+
 // Snap: Read options from an INI file in the default of custom Data directory
 void LoadGameExternalOptions()
 {
@@ -400,6 +406,19 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fSellAll					= iniReader.ReadBoolean("JA2 Gameplay Settings","CAN_SELL_ALT_LMB",FALSE);
 	gGameExternalOptions.iPriceModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","PRICE_MODIFIER",10);
 
+
+	// WDS: Game progress 
+	gGameExternalOptions.ubGameProgressPortionKills     = iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_KILLS",25);
+	gGameExternalOptions.ubGameProgressPortionControl	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_CONTROL",25);
+	gGameExternalOptions.ubGameProgressPortionIncome	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_INCOME",50);
+    
+	// Any way to warn on this?
+	if (gGameExternalOptions.ubGameProgressPortionKills + gGameExternalOptions.ubGameProgressPortionControl + gGameExternalOptions.ubGameProgressPortionIncome != 100) 
+	{
+		gGameExternalOptions.ubGameProgressPortionKills     = 25;
+		gGameExternalOptions.ubGameProgressPortionControl	= 25;
+		gGameExternalOptions.ubGameProgressPortionIncome	= 50;
+	}
 
 	//Global game events 
 	gGameExternalOptions.ubGameProgressStartMadlabQuest = iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_START_MADLAB_QUEST",35);
