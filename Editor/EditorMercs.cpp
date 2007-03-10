@@ -185,7 +185,7 @@ void SetupTextInputForMercSchedule();
 void ExtractAndUpdateMercAttributes();
 void ExtractAndUpdateMercProfile();
 void ExtractAndUpdateMercSchedule();
-void CalcStringForValue( UINT16 *str, INT32 iValue, UINT32 uiMax );
+void CalcStringForValue( wchar_t *str, INT32 iValue, UINT32 uiMax );
 void ChangeBodyType( INT8 bOffset );  //+1 or -1 only
 
 //internal merc variables
@@ -1719,7 +1719,7 @@ void DeleteSelectedMerc()
 
 void SetupTextInputForMercProfile()
 {
-	UINT16 str[4];
+	wchar_t str[4];
 	INT16 sNum;
 
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
@@ -1735,7 +1735,7 @@ void SetupTextInputForMercProfile()
 
 void SetupTextInputForMercAttributes()
 {
-	UINT16 str[4];
+	wchar_t str[4];
 
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
 
@@ -1773,7 +1773,7 @@ void SetupTextInputForMercAttributes()
 //In the merc editing, all detailed placement values for generated attributes are set to -1.  
 //When making a generated attribute static, we then set the value to its applicable value.
 //This function is similar to the itoa function except that -1 is converted to a null string.
-void CalcStringForValue( UINT16 *str, INT32 iValue, UINT32 uiMax )
+void CalcStringForValue( wchar_t *str, INT32 iValue, UINT32 uiMax )
 {
 	if( iValue < 0 )			//a blank string is determined by a negative value.
 		str[0] = '\0';
@@ -2388,7 +2388,7 @@ void SetMercEditingMode( UINT8 ubNewMode )
 
 void DisplayBodyTypeInfo()
 {
-	UINT16 str[20];
+	wchar_t str[20];
 	switch( gpSelected->pBasicPlacement->bBodyType )
 	{
 		case RANDOM:							swprintf( str, L"Random" );					break;
@@ -2583,7 +2583,7 @@ void UpdateMercsInfo()
 			mprintf( iScreenWidthOffset + 172, 2 * iScreenHeightOffset + 439, L"4)" );
 			if( gubScheduleInstructions )
 			{
-				UINT16 str[255];
+				wchar_t str[255];
 				UINT16 keyword[10] = L"";
 				ColorFillVideoSurfaceArea( FRAME_BUFFER, iScreenWidthOffset + 431, 2 * iScreenHeightOffset + 388, iScreenWidthOffset + 590, 2 * iScreenHeightOffset + 450, Get16BPPColor( FROMRGB( 32, 45, 72 ) ) );
 				switch( gCurrSchedule.ubAction[ gubCurrentScheduleActionIndex ] )
@@ -3112,7 +3112,7 @@ void RenderMercStrings()
 	INT16 sX, sY;
 	UINT16 *pStr;
 	SOLDIERINITNODE *curr;
-	UINT16 str[50];
+	wchar_t str[50];
 
 	curr = gSoldierInitHead;
 	while( curr )
@@ -3306,7 +3306,7 @@ void CancelCurrentScheduleAction()
 
 void RegisterCurrentScheduleAction( INT32 iMapIndex )
 {
-	UINT16 str[6];
+	wchar_t str[6];
 	MarkWorldDirty();
 	swprintf( str, L"%d", iMapIndex );
 	if( gfUseScheduleData2 )
@@ -3498,7 +3498,7 @@ void RenderCurrentSchedule()
 	INT16 sXMapPos, sYMapPos;
 	INT16 sScreenX, sScreenY;
 	INT16 sX, sY;
-	UINT16 str[ 3 ];
+	wchar_t str[ 3 ];
 	for( i = 0; i < 8; i++ )
 	{
 		if( i % 2 )
@@ -3542,7 +3542,7 @@ void UpdateScheduleInfo()
 {
 	INT32 i;
 	SCHEDULENODE *pSchedule;
-	UINT16 str[6];
+	wchar_t str[6];
 	if( gpSelected->pSoldier->ubScheduleID )
 	{
 		pSchedule = GetSchedule( gpSelected->pSoldier->ubScheduleID );

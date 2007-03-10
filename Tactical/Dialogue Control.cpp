@@ -142,7 +142,7 @@ UINT16			gusSubtitleBoxHeight;
 INT32				giTextBoxOverlay = -1;
 BOOLEAN			gfFacePanelActive = FALSE;
 UINT32			guiScreenIDUsedWhenUICreated;
-INT16					gzQuoteStr[ QUOTE_MESSAGE_SIZE ];
+wchar_t					gzQuoteStr[ QUOTE_MESSAGE_SIZE ];
 MOUSE_REGION	gTextBoxMouseRegion;
 MOUSE_REGION	gFacePopupMouseRegion;
 BOOLEAN				gfUseAlternateDialogueFile = FALSE;
@@ -187,12 +187,12 @@ void FaceOverlayClickCallback( MOUSE_REGION * pRegion, INT32 iReason );
 
 
 // Handler functions for tactical ui diaplay
-void HandleTacticalTextUI( INT32 iFaceIndex, SOLDIERTYPE *pSoldier, INT16 *zQuoteStr );
-void HandleTacticalNPCTextUI( UINT8 ubCharacterNum, INT16 *zQuoteStr );
+void HandleTacticalTextUI( INT32 iFaceIndex, SOLDIERTYPE *pSoldier, wchar_t *zQuoteStr );
+void HandleTacticalNPCTextUI( UINT8 ubCharacterNum, wchar_t *zQuoteStr );
 void HandleTacticalSpeechUI( UINT8 ubCharacterNum, INT32 iFaceIndex );
 
 void DisplayTextForExternalNPC(  UINT8 ubCharacterNum, STR16 zQuoteStr );
-void CreateTalkingUI( INT8 bUIHandlerID, INT32 iFaceIndex, UINT8 ubCharacterNum, SOLDIERTYPE *pSoldier, INT16 *zQuoteStr );
+void CreateTalkingUI( INT8 bUIHandlerID, INT32 iFaceIndex, UINT8 ubCharacterNum, SOLDIERTYPE *pSoldier, wchar_t *zQuoteStr );
 
 
 void HandleExternNPCSpeechFace( INT32 iIndex );
@@ -1184,7 +1184,7 @@ void HandleDialogue( )
 	MemFree( QItem );
 }
 
-BOOLEAN GetDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iDataSize, UINT16 * zDialogueText, UINT32 *puiSoundID, CHAR8 *zSoundString );
+BOOLEAN GetDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iDataSize, wchar_t * zDialogueText, UINT32 *puiSoundID, CHAR8 *zSoundString );
 
 
 BOOLEAN DelayedTacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum )
@@ -1621,7 +1621,7 @@ BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32
 	CHECKF( iFaceIndex != -1 );
 
   if ( !GetDialogue( ubCharacterNum, 
-                    usQuoteNum, DIALOGUESIZE, (UINT16 *)gzQuoteStr, &uiSoundID, zSoundString) )
+                    usQuoteNum, DIALOGUESIZE, gzQuoteStr, &uiSoundID, zSoundString) )
   {
     return( FALSE );
   }
@@ -1648,7 +1648,7 @@ BOOLEAN ExecuteCharacterDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, INT32
 }
 
 
-void CreateTalkingUI( INT8 bUIHandlerID, INT32 iFaceIndex, UINT8 ubCharacterNum, SOLDIERTYPE *pSoldier, INT16 *zQuoteStr )
+void CreateTalkingUI( INT8 bUIHandlerID, INT32 iFaceIndex, UINT8 ubCharacterNum, SOLDIERTYPE *pSoldier, wchar_t *zQuoteStr )
 {
 
 	// Show text, if on
@@ -1823,7 +1823,7 @@ BOOLEAN DialogueDataFileExistsForProfile( UINT8 ubCharacterNum, UINT16 usQuoteNu
 	return( FileExists( (STR)pFilename ) );
 }
 
-BOOLEAN GetDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iDataSize, UINT16 * zDialogueText, UINT32 *puiSoundID, CHAR8 *zSoundString )
+BOOLEAN GetDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iDataSize, wchar_t * zDialogueText, UINT32 *puiSoundID, CHAR8 *zSoundString )
 {
   UINT8 *pFilename;
 
@@ -1890,9 +1890,9 @@ BOOLEAN GetDialogue( UINT8 ubCharacterNum, UINT16 usQuoteNum, UINT32 iDataSize, 
 
 
 // Handlers for tactical UI stuff
-void HandleTacticalNPCTextUI( UINT8 ubCharacterNum, INT16 *zQuoteStr )
+void HandleTacticalNPCTextUI( UINT8 ubCharacterNum, wchar_t *zQuoteStr )
 {
-	INT16									zText[ QUOTE_MESSAGE_SIZE ];
+	wchar_t									zText[ QUOTE_MESSAGE_SIZE ];
 
 	// Setup dialogue text box
 	if ( guiCurrentScreen != MAP_SCREEN )
@@ -1952,9 +1952,9 @@ void DisplayTextForExternalNPC(  UINT8 ubCharacterNum, STR16 zQuoteStr )
 }
 
 
-void HandleTacticalTextUI( INT32 iFaceIndex, SOLDIERTYPE *pSoldier, INT16 *zQuoteStr )
+void HandleTacticalTextUI( INT32 iFaceIndex, SOLDIERTYPE *pSoldier, wchar_t *zQuoteStr )
 {
-	INT16									zText[ QUOTE_MESSAGE_SIZE ];
+	wchar_t									zText[ QUOTE_MESSAGE_SIZE ];
 	INT16									sLeft = 0;
 
 	//BUild text

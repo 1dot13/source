@@ -1973,7 +1973,7 @@ BOOLEAN ReduceStringLength( STR16 pString, UINT32 uiWidthToFitIn, UINT32 uiFont 
 	UINT32			uiSrcStringCntr = 0;
 	UINT32			uiOneCharWidth = 0;
 
-  uiStringPixWidth = WFStringPixLength( (UINT16 *)pString, uiFont );
+  uiStringPixWidth = WFStringPixLength( pString, uiFont );
 
 	OneChar[1] = L'\0';
 	zTemp[0] = L'\0';

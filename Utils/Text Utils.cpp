@@ -504,15 +504,15 @@ void LoadAllExternalText( void )
 	LoadAllItemNames();
 }
 
-INT16* GetWeightUnitString( void )
+wchar_t* GetWeightUnitString( void )
 {
 	if ( gGameSettings.fOptions[ TOPTION_USE_METRIC_SYSTEM ] ) // metric
 	{
-		return(INT16 *)( pMessageStrings[ MSG_KILOGRAM_ABBREVIATION ] );
+		return( pMessageStrings[ MSG_KILOGRAM_ABBREVIATION ] );
 	}
 	else
 	{
-		return(INT16 *)( pMessageStrings[ MSG_POUND_ABBREVIATION ] );
+		return( pMessageStrings[ MSG_POUND_ABBREVIATION ] );
 	}
 }
 

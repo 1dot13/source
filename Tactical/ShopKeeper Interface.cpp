@@ -7759,7 +7759,7 @@ void BuildItemHelpTextString( wchar_t sString[], INVENTORY_IN_SLOT *pInv, UINT8 
 
 	if( pInv != NULL )
 	{
-		GetHelpTextForItem( (INT16 *)zHelpText, &( pInv->ItemObject ), NULL );
+		GetHelpTextForItem( zHelpText, &( pInv->ItemObject ), NULL );
 
 		// add repair time for items in a repairman's offer area
 		if ( ( ubScreenArea == ARMS_DEALER_OFFER_AREA ) &&

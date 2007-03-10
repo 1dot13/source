@@ -2280,7 +2280,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 	UINT8	i;
 	CHAR16	zItemName[ SIZE_ITEM_NAME ];
 	UINT8	ubItemCount=0;
-	INT16	pStr[ 250 ]; 
+	wchar_t	pStr[ 250 ]; 
 
 	if( gfBigImageMouseRegionCreated )
 		return;

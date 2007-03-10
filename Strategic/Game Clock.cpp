@@ -82,7 +82,7 @@ INT32			  iPausedPopUpBox = -1;
 UINT32			guiDay;
 UINT32			guiHour;
 UINT32			guiMin;
-UINT16			gswzWorldTimeStr[20];
+wchar_t			gswzWorldTimeStr[20];
 INT32				giTimeCompressSpeeds[ NUM_TIME_COMPRESS_SPEEDS ] = { 0, 1, 5 * 60, 30 * 60, 60 * 60 };
 UINT16      usPausedActualWidth;
 UINT16			usPausedActualHeight;

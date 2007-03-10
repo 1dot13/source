@@ -261,7 +261,7 @@ void GameLoop(void)
 					swprintf( zText, pMessageStrings[ MSG_LOWDISKSPACE_WARNING ], zSpaceOnDrive, zSizeNeeded );
 
 					if( guiPreviousOptionScreen == MAP_SCREEN )
-						DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)zText, MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+						DoMapMessageBox( MSG_BOX_BASIC_STYLE, zText, MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 					else
 						DoMessageBox( MSG_BOX_BASIC_STYLE, zText, GAME_SCREEN, MSG_BOX_FLAG_OK, NULL, NULL );
 				}
@@ -424,17 +424,17 @@ void HandleShortCutExitState( void )
 	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 	{
 		// set up for mapscreen
-		DoMapMessageBox( MSG_BOX_BASIC_STYLE,(INT16 *) pMessageStrings[ MSG_EXITGAME ], MAP_SCREEN, MSG_BOX_FLAG_YESNO, EndGameMessageBoxCallBack );
+		DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMessageStrings[ MSG_EXITGAME ], MAP_SCREEN, MSG_BOX_FLAG_YESNO, EndGameMessageBoxCallBack );
 
 	}
 	else if( guiCurrentScreen == LAPTOP_SCREEN )
 	{
 		// set up for laptop
-		DoLapTopSystemMessageBox( MSG_BOX_LAPTOP_DEFAULT, (INT16 *) pMessageStrings[ MSG_EXITGAME ], LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, EndGameMessageBoxCallBack );
+		DoLapTopSystemMessageBox( MSG_BOX_LAPTOP_DEFAULT,  pMessageStrings[ MSG_EXITGAME ], LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, EndGameMessageBoxCallBack );
 	}
 	else if( guiCurrentScreen == SHOPKEEPER_SCREEN )
 	{
-		DoSkiMessageBox( MSG_BOX_BASIC_STYLE, (STR16)pMessageStrings[ MSG_EXITGAME ], SHOPKEEPER_SCREEN, MSG_BOX_FLAG_YESNO, EndGameMessageBoxCallBack );
+		DoSkiMessageBox( MSG_BOX_BASIC_STYLE, pMessageStrings[ MSG_EXITGAME ], SHOPKEEPER_SCREEN, MSG_BOX_FLAG_YESNO, EndGameMessageBoxCallBack );
 	}
 	else
 	{

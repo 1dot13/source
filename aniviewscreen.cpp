@@ -350,7 +350,7 @@ void BuildListFile( )
 	int numEntries = 0;
 	int	cnt;
 	UINT16 usState;
-	INT16 zError[128];
+	wchar_t zError[128];
 	
 
 	//Verify the existance of the header text file.

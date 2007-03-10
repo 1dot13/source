@@ -1514,7 +1514,7 @@ void ProcessTransactionString(STR16 pString, FinanceUnitPtr pFinance)
 			break;
 		case( TRAIN_TOWN_MILITIA ):
 			{
-				UINT16 str[ 128 ];
+				wchar_t str[ 128 ];
 				UINT8 ubSectorX;
 				UINT8 ubSectorY;
 				ubSectorX = (UINT8)SECTORX( pFinance->ubSecondCode );

@@ -463,7 +463,7 @@ void UpdateHelpTextForInvnentoryStashSlots( void )
 	{
 			if( pInventoryPoolList[ iCounter + iFirstSlotOnPage ].o.ubNumberOfObjects > 0 ) 
 			{
-				GetHelpTextForItem( (INT16 *)pStr , &( pInventoryPoolList[ iCounter + iFirstSlotOnPage ].o ), NULL );
+				GetHelpTextForItem( pStr , &( pInventoryPoolList[ iCounter + iFirstSlotOnPage ].o ), NULL );
 				SetRegionFastHelpText( &(MapInventoryPoolSlots[ iCounter ] ), pStr );
 				
 				/*
@@ -836,7 +836,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 			if ( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].o.usItem != NOTHING )
 			{
 				// not reachable
-				DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)gzLateLocalizedString[38], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+				DoMapMessageBox( MSG_BOX_BASIC_STYLE, gzLateLocalizedString[38], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 				return;
 			}
 		}
@@ -847,7 +847,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 		// valid character?
 		if( gCharactersList[ bSelectedInfoChar ].fValid == FALSE )
 		{
-			DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)pMapInventoryErrorString[ 1 ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+			DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMapInventoryErrorString[ 1 ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 			return;
 		}
 
@@ -869,7 +869,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 				{
 					swprintf( sString, pMapInventoryErrorString[ 5 ], Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].name );
 				}
-				DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)sString, MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+				DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 				return;
 			}
 		}
@@ -888,7 +888,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 //			if( ( ( gTacticalStatus.fEnemyInSector ) ||( ( sSelMapX == gWorldSectorX ) && ( sSelMapY == gWorldSectorY ) && ( iCurrentMapSectorZ == gbWorldSectorZ ) && ( gTacticalStatus.uiFlags & INCOMBAT ) ) ) )
 			if( !CanPlayerUseSectorInventory( &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] ) )
 			{
-				DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)pMapInventoryErrorString[ 3 ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+				DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMapInventoryErrorString[ 3 ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 				return;
 			}
 
@@ -921,7 +921,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 //			if( ( gTacticalStatus.fEnemyInSector ) ||( ( sSelMapX == gWorldSectorX ) && ( sSelMapY == gWorldSectorY ) && ( iCurrentMapSectorZ == gbWorldSectorZ ) && ( gTacticalStatus.uiFlags & INCOMBAT ) ) )
 			if( !CanPlayerUseSectorInventory( &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] ) )
 			{
-				DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)pMapInventoryErrorString[ 4 ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+				DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMapInventoryErrorString[ 4 ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 				return;
 			}
 

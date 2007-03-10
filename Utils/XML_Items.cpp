@@ -1076,8 +1076,8 @@ BOOLEAN WriteItemStats()
 	
 	{
 		UINT32 cnt;
-		UINT16 str[100];
-		UINT16 strDesc[500];
+		wchar_t str[100];
+		wchar_t strDesc[500];
 
 		FilePrintf(hFile,"<ITEMLIST>\r\n");
 		for(cnt = 0;cnt < 351;cnt++)//just do the old limit for now
@@ -1085,7 +1085,7 @@ BOOLEAN WriteItemStats()
 			LoadShortNameItemInfo( (UINT16)cnt, str );
 
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"writeitemstats: itemname");
-			UINT16 * szRemainder = str; //the remaining string to be output (for making valid XML)
+			wchar_t * szRemainder = str; //the remaining string to be output (for making valid XML)
 
 			FilePrintf(hFile,"\t<ITEM>\r\n");
 			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n",									cnt);
@@ -1094,7 +1094,7 @@ BOOLEAN WriteItemStats()
 			while(szRemainder[0] != '\0')
 			{
 				UINT32 uiCharLoc = strcspn(szRemainder,"&<>\'\"\0");
-				UINT16 invChar = szRemainder[uiCharLoc];
+				wchar_t invChar = szRemainder[uiCharLoc];
 				
 				if(uiCharLoc)
 				{
@@ -1146,7 +1146,7 @@ BOOLEAN WriteItemStats()
 			while(szRemainder[0] != '\0')
 			{
 				UINT32 uiCharLoc = strcspn(szRemainder,"&<>\'\"\0");
-				UINT16 invChar = szRemainder[uiCharLoc];
+				wchar_t invChar = szRemainder[uiCharLoc];
 				
 				if(uiCharLoc)
 				{
@@ -1197,7 +1197,7 @@ BOOLEAN WriteItemStats()
 			while(szRemainder[0] != '\0')
 			{
 				UINT32 uiCharLoc = strcspn(szRemainder,"&<>\'\"\0");
-				UINT16 invChar = szRemainder[uiCharLoc];
+				wchar_t invChar = szRemainder[uiCharLoc];
 				
 				//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"writeitemstats: characters set");
 	
@@ -1268,7 +1268,7 @@ BOOLEAN WriteItemStats()
 			while(szRemainder[0] != '\0')
 			{
 				UINT32 uiCharLoc = strcspn(szRemainder,"&<>\'\"\0");
-				UINT16 invChar = szRemainder[uiCharLoc];
+				wchar_t invChar = szRemainder[uiCharLoc];
 				
 				if(uiCharLoc)
 				{
@@ -1324,7 +1324,7 @@ BOOLEAN WriteItemStats()
 			while(szRemainder[0] != '\0')
 			{
 				UINT32 uiCharLoc = strcspn(szRemainder,"&<>\'\"\0");
-				UINT16 invChar = szRemainder[uiCharLoc];
+				wchar_t invChar = szRemainder[uiCharLoc];
 				
 				if(uiCharLoc)
 				{

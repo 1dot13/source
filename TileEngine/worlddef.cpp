@@ -2229,7 +2229,7 @@ BOOLEAN EvaluateWorld( UINT8 * pSector, UINT8 ubLevel )
 	INT32 cnt;
 	INT32 i;
 	INT32 iTilesetID;
-	UINT16 str[40];
+	wchar_t str[40];
 	UINT8	bCounts[ WORLD_MAX ][8];
 	UINT8 ubCombine;
 	UINT8 szDirFilename[ 50 ];

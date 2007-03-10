@@ -240,7 +240,7 @@ void			DoneFadeOutForExitGameInitOptionScreen( void );
 void			DoneFadeInForExitGameInitOptionScreen( void );
 // JA2Gold: no more timed turns setting
 //UINT8			GetCurrentTimedTurnsButtonSetting();
-BOOLEAN		DoGioMessageBox( UINT8 ubStyle, INT16 *zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback );
+BOOLEAN		DoGioMessageBox( UINT8 ubStyle, wchar_t *zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback );
 void			DisplayMessageToUserAboutGameDifficulty();
 void			ConfirmGioDifSettingMessageBoxCallBack( UINT8 bExitValue );
 BOOLEAN		DisplayMessageToUserAboutIronManMode();
@@ -1276,7 +1276,7 @@ void DoneFadeInForExitGameInitOptionScreen( void )
 }
 
 
-BOOLEAN DoGioMessageBox( UINT8 ubStyle, INT16 *zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+BOOLEAN DoGioMessageBox( UINT8 ubStyle, wchar_t *zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
   SGPRect CenteringRect= {0, 0, SCREEN_WIDTH-1, SCREEN_HEIGHT-1 };
   
@@ -1299,16 +1299,16 @@ void DisplayMessageToUserAboutGameDifficulty()
 	switch( ubDiffLevel )
 	{
 		case 0:
-			DoGioMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)zGioDifConfirmText[GIO_CFS_NOVICE], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
+			DoGioMessageBox( MSG_BOX_BASIC_STYLE, zGioDifConfirmText[GIO_CFS_NOVICE], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
 			break;
 		case 1:
-			DoGioMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)zGioDifConfirmText[GIO_CFS_EXPERIENCED], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
+			DoGioMessageBox( MSG_BOX_BASIC_STYLE, zGioDifConfirmText[GIO_CFS_EXPERIENCED], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
 			break;
 		case 2:
-			DoGioMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)zGioDifConfirmText[GIO_CFS_EXPERT], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
+			DoGioMessageBox( MSG_BOX_BASIC_STYLE, zGioDifConfirmText[GIO_CFS_EXPERT], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
 			break;
 		case 3:
-			DoGioMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)zGioDifConfirmText[GIO_CFS_INSANE], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
+			DoGioMessageBox( MSG_BOX_BASIC_STYLE, zGioDifConfirmText[GIO_CFS_INSANE], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioDifSettingMessageBoxCallBack );
 			break;
 	}
 }
@@ -1330,7 +1330,7 @@ BOOLEAN DisplayMessageToUserAboutIronManMode()
 	//if the user has selected IRON MAN mode
 	if( ubIronManMode )
 	{
-		DoGioMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)gzIronManModeWarningText[ IMM__IRON_MAN_MODE_WARNING_TEXT ], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioIronManMessageBoxCallBack );
+		DoGioMessageBox( MSG_BOX_BASIC_STYLE, gzIronManModeWarningText[ IMM__IRON_MAN_MODE_WARNING_TEXT ], GAME_INIT_OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmGioIronManMessageBoxCallBack );
 
 		return( TRUE );
 	}

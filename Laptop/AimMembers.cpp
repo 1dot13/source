@@ -1210,7 +1210,7 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 	HVOBJECT		hVObject;
 	UINT32			usHeight, usWidth;
   ETRLEObject	*pTrav;
-	UINT16			gzItemName[ SIZE_ITEM_NAME ];
+	wchar_t			gzItemName[ SIZE_ITEM_NAME ];
 	UINT8				ubItemCount=0;
 //	UINT16			gzTempItemName[ SIZE_ITEM_INFO ];
 
@@ -2432,7 +2432,7 @@ BOOLEAN DisplayTalkingMercFaceForVideoPopUp(INT32	iFaceIndex)
 	return(fIsTheMercTalking);
 }
 
-void DisplayTextForMercFaceVideoPopUp(INT16 * pString)
+void DisplayTextForMercFaceVideoPopUp(wchar_t * pString)
 {
 
 #ifdef TAIWANESE

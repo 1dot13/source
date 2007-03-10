@@ -626,7 +626,7 @@ void			ChangeFactState( INT32 iNumber );
 void			DisplayCurrentGridNo();
 void			EnableQDSButtons();
 
-BOOLEAN			DoQDSMessageBox( UINT8 ubStyle, INT16 * zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
+BOOLEAN			DoQDSMessageBox( UINT8 ubStyle, wchar_t * zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
 void			IncrementActiveDropDownBox( INT16 sIncrementValue );
 INT16			IsMercInTheSector( UINT16 usMercID );
 void			RefreshAllNPCInventory();
@@ -1038,7 +1038,7 @@ BOOLEAN	EnterQuestDebugSystem()
 
 	if( giHaveSelectedNPC != -1 )
 	{
-		UINT16	zItemDesc[ SIZE_ITEM_INFO ];
+		wchar_t	zItemDesc[ SIZE_ITEM_INFO ];
 
 		if( gfUseLocalNPCs )
 			swprintf( zItemDesc, L"%d - %s", gubCurrentNpcInSector[ giHaveSelectedNPC ],  gMercProfiles[ gubCurrentNpcInSector[ giHaveSelectedNPC ] ].zNickname );
@@ -1053,8 +1053,8 @@ BOOLEAN	EnterQuestDebugSystem()
 
 	if( giHaveSelectedItem != -1 )
 	{
-		UINT16	zItemName[ SIZE_ITEM_NAME ];
-		UINT16	zItemDesc[ SIZE_ITEM_INFO ];
+		wchar_t	zItemName[ SIZE_ITEM_NAME ];
+		wchar_t	zItemDesc[ SIZE_ITEM_INFO ];
 
 		wcscpy( zItemName, ShortItemNames[ giHaveSelectedItem ] );
 
@@ -1388,7 +1388,7 @@ void		GetUserInput()
 						// toggle whether dropped items are damaged or not
 						gfDropDamagedItems ^= 1;
 						swprintf( zTemp, L"Items dropped will be in %s condition", gfDropDamagedItems ? L"DAMAGED" : L"PERFECT" );
-						DoQDSMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)zTemp, QUEST_DEBUG_SCREEN, MSG_BOX_FLAG_OK, NULL );
+						DoQDSMessageBox( MSG_BOX_BASIC_STYLE, zTemp, QUEST_DEBUG_SCREEN, MSG_BOX_FLAG_OK, NULL );
 					}
 					break;
 			}
@@ -2045,8 +2045,8 @@ void DisplaySelectedItem()
 	UINT16	i;
 	UINT16	usPosX, usPosY;
 	UINT16	usFontHeight = GetFontHeight( QUEST_DBS_FONT_LISTBOX_TEXT ) + 2;
-	UINT16	zItemName[ SIZE_ITEM_NAME ];
-//	UINT16	zItemDesc[ SIZE_ITEM_INFO ];
+	wchar_t	zItemName[ SIZE_ITEM_NAME ];
+//	wchar_t	zItemDesc[ SIZE_ITEM_INFO ];
 	
 	wchar_t	zButtonName[ 256 ];
 
@@ -2661,7 +2661,7 @@ void BtnQuestDebugNPCRefreshButtonButtonCallback(GUI_BUTTON *btn,INT32 reason)
 			swprintf( zTemp, L"%s %s", QuestDebugText[ QUEST_DBS_REFRESH_FAILED ], gMercProfiles[ ubMercID ].zNickname );
 		}
 
-		DoQDSMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)zTemp, QUEST_DEBUG_SCREEN, MSG_BOX_FLAG_OK, NULL );
+		DoQDSMessageBox( MSG_BOX_BASIC_STYLE, zTemp, QUEST_DEBUG_SCREEN, MSG_BOX_FLAG_OK, NULL );
 
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
@@ -3120,8 +3120,8 @@ void CreateDestroyDisplayNPCInventoryPopup( UINT8 ubAction )
 
 		case QD_DROP_DOWN_DISPLAY:
 		{
-			UINT16	zItemName[ SIZE_ITEM_NAME ];
-//			UINT16	zItemDesc[ SIZE_ITEM_INFO ];
+			wchar_t	zItemName[ SIZE_ITEM_NAME ];
+//			wchar_t	zItemDesc[ SIZE_ITEM_INFO ];
 			UINT16	usFontHeight = GetFontHeight( QUEST_DBS_FONT_LISTBOX_TEXT ) + 2;
 
 
@@ -3565,7 +3565,7 @@ void EnableQDSButtons()
 */
 }
 
-BOOLEAN		DoQDSMessageBox( UINT8 ubStyle, INT16 * zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback )
+BOOLEAN		DoQDSMessageBox( UINT8 ubStyle, wchar_t * zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback )
 {
   SGPRect pCenteringRect= {0, 0, 639, 479 };
   
@@ -3706,7 +3706,7 @@ void StartMercTalkingFromQuoteNum( INT32 iQuoteToStartTalkingFrom )
 	if( iQuoteToStartTalkingFrom < 0 || iQuoteToStartTalkingFrom > uiMaxNumberOfQuotes )
 	{
 		swprintf( zTemp, L"Please enter a value between 0 and %d", uiMaxNumberOfQuotes );
-		DoQDSMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)zTemp, QUEST_DEBUG_SCREEN, MSG_BOX_FLAG_OK, NULL );
+		DoQDSMessageBox( MSG_BOX_BASIC_STYLE, zTemp, QUEST_DEBUG_SCREEN, MSG_BOX_FLAG_OK, NULL );
 	}
 	else
 	{

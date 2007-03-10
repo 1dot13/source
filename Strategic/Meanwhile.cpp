@@ -350,7 +350,7 @@ BOOLEAN BeginMeanwhile( UINT8 ubMeanwhileID )
 
 void BringupMeanwhileBox( )
 {
-	INT16 zStr[256];
+	wchar_t zStr[256];
 
 #ifdef JA2TESTVERSION
 	swprintf( (wchar_t *)zStr, (wchar_t *)L"Meanwhile..... ( %S : Remember to make sure towns are controlled if required by script )", gzMeanwhileStr[ gCurrentMeanwhileDef.ubMeanwhileID ] );

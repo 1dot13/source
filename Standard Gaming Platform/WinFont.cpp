@@ -108,7 +108,7 @@ HWINFONT *GetWinFont( INT32 iFont )
   }
 }
 
-UINT16 gzFontName[32];
+wchar_t gzFontName[32];
 
 INT32 CreateWinFont( INT32 iHeight, INT32 iWidth, INT32 iEscapement,  
                      INT32 iWeight, BOOLEAN fItalic,  BOOLEAN fUnderline,  BOOLEAN fStrikeOut, STR16 szFontName, INT32 iCharSet )
@@ -191,7 +191,7 @@ void SetWinFontBackColor( INT32 iFont, COLORVAL *pColor )
 }
 
 
-void PrintWinFont( UINT32 uiDestBuf, INT32 iFont, INT32 x, INT32 y, UINT16 *pFontString, ...)
+void PrintWinFont( UINT32 uiDestBuf, INT32 iFont, INT32 x, INT32 y, wchar_t *pFontString, ...)
 {
   va_list                 argptr;
   wchar_t									string2[512];
@@ -240,7 +240,7 @@ void PrintWinFont( UINT32 uiDestBuf, INT32 iFont, INT32 x, INT32 y, UINT16 *pFon
 
 }
 
-INT16 WinFontStringPixLength( UINT16 *string2, INT32 iFont )
+INT16 WinFontStringPixLength( wchar_t *string2, INT32 iFont )
 {
   HWINFONT                *pWinFont;
   HDC                     hdc;
@@ -269,7 +269,7 @@ INT16 WinFontStringPixLength( UINT16 *string2, INT32 iFont )
 }
 
 
-INT16 GetWinFontHeight( UINT16 *string2, INT32 iFont )
+INT16 GetWinFontHeight( wchar_t *string2, INT32 iFont )
 {
   HWINFONT                *pWinFont;
   HDC                     hdc;
@@ -297,7 +297,7 @@ INT16 GetWinFontHeight( UINT16 *string2, INT32 iFont )
   return( (INT16)RectSize.cy );
 }
 
-UINT32	WinFont_mprintf( INT32 iFont, INT32 x, INT32 y, UINT16 *pFontString, ...)
+UINT32	WinFont_mprintf( INT32 iFont, INT32 x, INT32 y, wchar_t *pFontString, ...)
 {
   va_list                 argptr;
   wchar_t	                string[512];

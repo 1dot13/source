@@ -257,13 +257,13 @@ BOOLEAN			gfInItemDescBox = FALSE;
 UINT32			guiCurrentItemDescriptionScreen=0;
 OBJECTTYPE	*gpItemDescObject = NULL;
 BOOLEAN			gfItemDescObjectIsAttachment = FALSE;
-UINT16			gzItemName[ SIZE_ITEM_NAME ];
-UINT16			gzItemDesc[ SIZE_ITEM_INFO ];
-UINT16			gzItemPros[ SIZE_ITEM_PROS ];
-UINT16			gzItemCons[ SIZE_ITEM_CONS ];
-UINT16			gzFullItemPros[ SIZE_ITEM_PROS ];
-UINT16			gzFullItemCons[ SIZE_ITEM_PROS ];
-UINT16			gzFullItemTemp[ SIZE_ITEM_PROS ]; // necessary, unfortunately
+wchar_t			gzItemName[ SIZE_ITEM_NAME ];
+wchar_t			gzItemDesc[ SIZE_ITEM_INFO ];
+wchar_t			gzItemPros[ SIZE_ITEM_PROS ];
+wchar_t			gzItemCons[ SIZE_ITEM_CONS ];
+wchar_t			gzFullItemPros[ SIZE_ITEM_PROS ];
+wchar_t			gzFullItemCons[ SIZE_ITEM_PROS ];
+wchar_t			gzFullItemTemp[ SIZE_ITEM_PROS ]; // necessary, unfortunately
 void ItemDescCallback( MOUSE_REGION * pRegion, INT32 iReason );
 INT16				gsInvDescX;
 INT16				gsInvDescY;
@@ -590,10 +590,10 @@ BOOLEAN AttemptToAddSubstring( STR16 zDest, STR16 zTemp, UINT32 * puiStringLengt
 	}
 }
 
-void GenerateProsString( UINT16 * zItemPros, OBJECTTYPE * pObject, UINT32 uiPixLimit )
+void GenerateProsString( wchar_t * zItemPros, OBJECTTYPE * pObject, UINT32 uiPixLimit )
 {
 	UINT32			uiStringLength = 0;
-	UINT16 *		zTemp;
+	wchar_t *		zTemp;
 	UINT16			usItem = pObject->usItem;
 	UINT8				ubWeight;
 
@@ -714,10 +714,10 @@ void GenerateProsString( UINT16 * zItemPros, OBJECTTYPE * pObject, UINT32 uiPixL
 	}
 }
 
-void GenerateConsString( UINT16 * zItemCons, OBJECTTYPE * pObject, UINT32 uiPixLimit )
+void GenerateConsString( wchar_t * zItemCons, OBJECTTYPE * pObject, UINT32 uiPixLimit )
 {
 	UINT32			uiStringLength = 0;
-	UINT16 *		zTemp;
+	wchar_t *		zTemp;
 	UINT8				ubWeight;
 	UINT16			usItem = pObject->usItem;
 
@@ -1058,7 +1058,7 @@ void RenderInvBodyPanel( SOLDIERTYPE *pSoldier, INT16 sX, INT16 sY )
 void HandleRenderInvSlots( SOLDIERTYPE *pSoldier, UINT8 fDirtyLevel )
 {
 	INT32									cnt;
-	static INT16					pStr[ 150 ]; 
+	static wchar_t					pStr[ 150 ]; 
 
 	if ( InItemDescriptionBox( ) || InItemStackPopup( ) || InKeyRingPopup( ) )
 	{
@@ -1999,7 +1999,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 	INT16									sFontX2, sFontY2;
 	INT16									sFontX, sFontY;
 
-	static INT16					pStr[ 100 ], pStr2[ 100 ];
+	static wchar_t					pStr[ 100 ], pStr2[ 100 ];
 
 	if ( pObject->usItem == NOTHING )
 	{
@@ -2090,13 +2090,13 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				//}
 	
 
-				swprintf( (wchar_t *)pStr, L"%d", pObject->ubGunShotsLeft );
+				swprintf( pStr, L"%d", pObject->ubGunShotsLeft );
 				if ( uiBuffer == guiSAVEBUFFER )
 				{
 					RestoreExternBackgroundRect( sNewX, sNewY, 20, 15 );
 				}
 				mprintf( sNewX, sNewY, pStr );
-				gprintfinvalidate( sNewX, sNewY, (UINT16 *)pStr );
+				gprintfinvalidate( sNewX, sNewY, pStr );
 
 				SetFontForeground( FONT_MCOLOR_DKGRAY );
 
@@ -2117,7 +2117,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 					VarFindFontCenterCoordinates( sX, sY, sWidth, sHeight , ITEM_FONT, &sNewX, &sNewY, pStr );
 
 					mprintf( sNewX, sNewY, pStr );
-					gprintfinvalidate( sNewX, sNewY, (UINT16 *)pStr );
+					gprintfinvalidate( sNewX, sNewY, pStr );
 				}
 			}
 			else
@@ -2142,7 +2142,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 							RestoreExternBackgroundRect( sNewX, sNewY, 15, 15 );
 						}
 						mprintf( sNewX, sNewY, pStr );
-						gprintfinvalidate( sNewX, sNewY, (UINT16 *)pStr );
+						gprintfinvalidate( sNewX, sNewY, pStr );
 					}
 
 				}
@@ -2172,7 +2172,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 					RestoreExternBackgroundRect( sNewX, sNewY, 15, 15 );
 				}
 				mprintf( sNewX, sNewY, pStr );
-				gprintfinvalidate( sNewX, sNewY, (UINT16 *)pStr );
+				gprintfinvalidate( sNewX, sNewY, pStr );
 
 			}
 
@@ -2215,7 +2215,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 					RestoreExternBackgroundRect( sNewX, sNewY, 15, 15 );
 				}
 				mprintf( sNewX, sNewY, pStr );
-				gprintfinvalidate( sNewX, sNewY, (UINT16 *)pStr );
+				gprintfinvalidate( sNewX, sNewY, pStr );
 				
 			}
 
@@ -2246,13 +2246,13 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 
 			VarFindFontCenterCoordinates( sX, sY, sWidth, sHeight , ITEM_FONT, &sFontX, &sFontY, pStr );
 			sFontY = sY + 1;
-			gprintfinvalidate( sFontX, sFontY, (UINT16 *)pStr );
+			gprintfinvalidate( sFontX, sFontY, pStr );
 
 			if ( fLineSplit )
 			{
 				VarFindFontCenterCoordinates( sX, sY, sWidth, sHeight , ITEM_FONT, &sFontX2, &sFontY2, pStr2 );
 				sFontY2 = sY + 13;
-				gprintfinvalidate( sFontX2, sFontY2, (UINT16 *)pStr2 );
+				gprintfinvalidate( sFontX2, sFontY2, pStr2 );
 			}
 
 		}
@@ -2269,11 +2269,11 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 		else if ( *pubHighlightCounter == 1 )
 		{
 			*pubHighlightCounter = 0;
-			gprintfRestore( sFontX, sFontY, (UINT16 *)pStr );
+			gprintfRestore( sFontX, sFontY, pStr );
 
 			if ( fLineSplit )
 			{
-				gprintfRestore( sFontX2, sFontY2, (UINT16 *)pStr2 );
+				gprintfRestore( sFontX2, sFontY2, pStr2 );
 			}
 		}
 	}
@@ -2797,7 +2797,7 @@ BOOLEAN ReloadItemDesc( )
 void ItemDescAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	static BOOLEAN fRightDown = FALSE;
-	INT16		pStr[10];
+	wchar_t		pStr[10];
 
 /*	region gets disabled in SKI for shopkeeper boxes.  It now works normally for merc's inventory boxes!
 	//if we are currently in the shopkeeper interface, return;
@@ -2830,7 +2830,7 @@ void ItemDescAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 				gpItemPointerSoldier = gpItemDescSoldier;
 
 				swprintf( (wchar_t *)pStr, L"0" );
-				SpecifyButtonText( giItemDescAmmoButton, (UINT16 *)pStr );
+				SpecifyButtonText( giItemDescAmmoButton, pStr );
 
 				// Set mouse
 				guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
@@ -2862,7 +2862,7 @@ void ItemDescAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 				fInterfacePanelDirty = DIRTYLEVEL2;
 
 				swprintf( (wchar_t *)pStr, L"0" );
-				SpecifyButtonText( giItemDescAmmoButton, (UINT16 *)pStr );
+				SpecifyButtonText( giItemDescAmmoButton, pStr );
 
 				fItemDescDelete = TRUE;
 			}
@@ -7383,7 +7383,7 @@ BOOLEAN AttemptToApplyCamo( SOLDIERTYPE *pSoldier, UINT16 usItemIndex )
 
 
 
-void GetHelpTextForItem( INT16 * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier )
+void GetHelpTextForItem( wchar_t * pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier )
 {
 	INT16	pStr[ 250 ]; 
 	UINT16	usItem = pObject->usItem;

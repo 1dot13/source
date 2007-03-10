@@ -221,7 +221,7 @@ void			SetOptionsExitScreen( UINT32 uiExitScreen );
 void			SoundFXSliderChangeCallBack( INT32 iNewValue );
 void			SpeechSliderChangeCallBack( INT32 iNewValue );
 void			MusicSliderChangeCallBack( INT32 iNewValue );
-//BOOLEAN		DoOptionsMessageBox( UINT8 ubStyle, INT16 *zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
+//BOOLEAN		DoOptionsMessageBox( UINT8 ubStyle, wchar_t *zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
 void			ConfirmQuitToMainMenuMessageBoxCallBack( UINT8 bExitValue );
 void			HandleSliderBarMovementSounds();
 void			HandleOptionToggle( UINT8 ubButton, BOOLEAN fState, BOOLEAN fDown, BOOLEAN fPlaySound );
@@ -973,7 +973,7 @@ void BtnOptQuitCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
 		//Confirm the Exit to the main menu screen
-		DoOptionsMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)zOptionsText[OPT_RETURN_TO_MAIN], OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmQuitToMainMenuMessageBoxCallBack );
+		DoOptionsMessageBox( MSG_BOX_BASIC_STYLE, zOptionsText[OPT_RETURN_TO_MAIN], OPTIONS_SCREEN, MSG_BOX_FLAG_YESNO, ConfirmQuitToMainMenuMessageBoxCallBack );
 
 ///		SetOptionsExitScreen( MAINMENU_SCREEN );
 
@@ -1084,7 +1084,7 @@ void HandleOptionToggle( UINT8 ubButton, BOOLEAN fState, BOOLEAN fDown, BOOLEAN 
 					ButtonList[ guiOptionsToggles[ ubButton ] ]->uiFlags |= BUTTON_CLICKED_ON;
 
 					//Confirm the Exit to the main menu screen
-					DoOptionsMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)zOptionsText[OPT_NEED_AT_LEAST_SPEECH_OR_SUBTITLE_OPTION_ON], OPTIONS_SCREEN, MSG_BOX_FLAG_OK, NULL );
+					DoOptionsMessageBox( MSG_BOX_BASIC_STYLE, zOptionsText[OPT_NEED_AT_LEAST_SPEECH_OR_SUBTITLE_OPTION_ON], OPTIONS_SCREEN, MSG_BOX_FLAG_OK, NULL );
 					gfExitOptionsDueToMessageBox = FALSE;
 				}
 			}
@@ -1136,7 +1136,7 @@ void MusicSliderChangeCallBack( INT32 iNewValue )
 	MusicSetVolume( iNewValue );	
 }
 
-BOOLEAN DoOptionsMessageBoxWithRect( UINT8 ubStyle, INT16 *zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
+BOOLEAN DoOptionsMessageBoxWithRect( UINT8 ubStyle, wchar_t *zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
 {	
 	// reset exit mode
 	gfExitOptionsDueToMessageBox = TRUE;
@@ -1148,7 +1148,7 @@ BOOLEAN DoOptionsMessageBoxWithRect( UINT8 ubStyle, INT16 *zString, UINT32 uiExi
 	return( ( giOptionsMessageBox != -1 ) );
 }
 
-BOOLEAN DoOptionsMessageBox( UINT8 ubStyle, INT16 *zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+BOOLEAN DoOptionsMessageBox( UINT8 ubStyle, wchar_t *zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
   SGPRect CenteringRect= {0, 0, SCREEN_WIDTH-1, SCREEN_HEIGHT-1 };
   

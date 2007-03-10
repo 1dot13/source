@@ -440,7 +440,7 @@ void RenderTacticalPlacementGUI()
 	SOLDIERTYPE *pSoldier;
 	UINT32 uiDestPitchBYTES;
 	UINT16 usHatchColor;
-	UINT16 str[ 128 ];
+	wchar_t str[ 128 ];
 	UINT8 *pDestBuf;
 	UINT8 ubColor;
 

@@ -2554,7 +2554,7 @@ UINT32 UIHandleCAMercShoot( UI_EVENT *pUIEvent )
 				// If this is one of our own guys.....pop up requiester...
 				if ( ( pTSoldier->bTeam == gbPlayerNum || pTSoldier->bTeam == MILITIA_TEAM ) && Item[ pSoldier->inv[ HANDPOS ].usItem ].usItemClass != IC_MEDKIT && !Item[pSoldier->inv[ HANDPOS ].usItem].gascan && gTacticalStatus.ubLastRequesterTargetID != pTSoldier->ubProfile && ( pTSoldier->ubID != pSoldier->ubID ) )
 				{
-					INT16							zStr[200];
+					wchar_t	zStr[200];
 
 					gpRequesterMerc			  = pSoldier;
 					gpRequesterTargetMerc = pTSoldier;

@@ -123,11 +123,11 @@ UINT16 *GetFontObjectPalette16BPP(INT32 iFont);
 void DestroyEnglishTransTable( void );
 
 extern HVOBJECT	 GetFontObject(INT32 iFont);
-extern UINT32		 gprintf(INT32 x, INT32 y, UINT16 *pFontString, ...);
-extern UINT32    gprintfDirty(INT32 x, INT32 y, UINT16 *pFontString, ...);
+extern UINT32		 gprintf(INT32 x, INT32 y, wchar_t *pFontString, ...);
+extern UINT32    gprintfDirty(INT32 x, INT32 y, wchar_t *pFontString, ...);
 template <typename type3>
 extern UINT32		 mprintf(INT32 x, INT32 y, type3 pFontString, ...);
-extern UINT32		 gprintf_buffer( UINT8 *pDestBuf, UINT32 uiDestPitchBYTES, UINT32 FontType, INT32 x, INT32 y, UINT16 *pFontString, ...);
+extern UINT32		 gprintf_buffer( UINT8 *pDestBuf, UINT32 uiDestPitchBYTES, UINT32 FontType, INT32 x, INT32 y, wchar_t *pFontString, ...);
 template <typename string6>
 extern UINT32	mprintf_buffer( UINT8 *pDestBuf, UINT32 uiDestPitchBYTES, UINT32 FontType, INT32 x, INT32 y, string6 pFontString, ...);
 
@@ -137,7 +137,7 @@ extern UINT32	mprintf_buffer( UINT8 *pDestBuf, UINT32 uiDestPitchBYTES, UINT32 F
 
 template <typename string6>
 UINT32 mprintf_buffer_coded( UINT8 *pDestBuf, UINT32 uiDestPitchBYTES, UINT32 FontType, INT32 x, INT32 y, string6 pFontString, ...);
-UINT32 mprintf_coded( INT32 x, INT32 y, UINT16 *pFontString, ...);
+UINT32 mprintf_coded( INT32 x, INT32 y, wchar_t *pFontString, ...);
 
 
 extern BOOLEAN	 SetFontDestBuffer(UINT32 DestBuffer, INT32 x1, INT32 y1, INT32 x2, INT32 y2, BOOLEAN wrap);
@@ -155,12 +155,12 @@ extern FontTranslationTable *CreateEnglishTransTable(  );
 extern INT16 GetIndex(UINT16 siChar);
 extern UINT32 GetWidth(HVOBJECT hSrcVObject, INT16 ssIndex);
 
-extern INT16 StringPixLengthArgFastHelp( INT32 usUseFont, INT32 usBoldFont, UINT32 uiCharCount, UINT16 *pFontString );
-extern INT16 StringPixLengthArg(INT32 usUseFont, UINT32 uiCharCount, UINT16 *pFontString, ...);
+extern INT16 StringPixLengthArgFastHelp( INT32 usUseFont, INT32 usBoldFont, UINT32 uiCharCount, wchar_t *pFontString );
+extern INT16 StringPixLengthArg(INT32 usUseFont, UINT32 uiCharCount, wchar_t *pFontString, ...);
 template <typename type1>
 extern INT16 StringPixLength(type1 string,INT32 UseFont);
 
-extern INT16 StringNPixLength(UINT16 *string, UINT32 uiMaxCount, INT32 UseFont);
+extern INT16 StringNPixLength(wchar_t *string, UINT32 uiMaxCount, INT32 UseFont);
 extern void SaveFontSettings(void);
 extern void RestoreFontSettings(void);
 

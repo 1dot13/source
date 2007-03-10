@@ -499,7 +499,7 @@ void DestroySummaryWindow()
 
 void RenderSectorInformation()
 {
-	//UINT16 str[ 100 ];
+	//wchar_t str[ 100 ];
 	MAPCREATE_STRUCT *m;
 	SUMMARYFILE *s;
 	UINT8 ePoints = 0;
@@ -677,7 +677,7 @@ void RenderItemDetails()
 	FLOAT dAvgExistChance, dAvgStatus;
 	OBJECTTYPE *pItem;
 	INT32 index, i;
-	UINT16 str[100];
+	wchar_t str[100];
 	UINT32 uiQuantity, uiExistChance, uiStatus;
 	UINT32 uiTriggerQuantity[8], uiActionQuantity[8], uiTriggerExistChance[8], uiActionExistChance[8];
 	UINT32 xp, yp;
@@ -1025,7 +1025,7 @@ void RenderSummaryWindow()
 		SetFontShadow( FONT_NEARBLACK );
 		if( gfGlobalSummaryExists )
 		{
-			UINT16 str[100];
+			wchar_t str[100];
 			BOOLEAN fSectorSummaryExists = FALSE;
 			if( gusNumEntriesWithOutdatedOrNoSummaryInfo && !gfOutdatedDenied )
 			{
@@ -1379,7 +1379,7 @@ void RenderSummaryWindow()
 		}
 		for( x = 1; x <= 16; x++ )
 		{
-			UINT16 str[3];
+			wchar_t str[3];
 			swprintf( str, L"%d", x );
 			mprintf( MAP_LEFT+x*13-(13+StringPixLength( str, SMALLCOMPFONT ))/2, MAP_TOP-8, str );
 		}
@@ -1402,7 +1402,7 @@ void RenderSummaryWindow()
 		if( gfRenderProgress )
 		{
 			UINT8 ubNumUndergroundLevels;
-			UINT16 str[2];
+			wchar_t str[2];
 			for( y = 0; y < 16; y++ ) 
 			{
 				ClipRect.iTop = MAP_TOP + y*13;
@@ -1528,7 +1528,7 @@ void RenderSummaryWindow()
 
 void UpdateSectorSummary( UINT16 *gszFilename, BOOLEAN fUpdate )
 {
-	UINT16 str[50];
+	wchar_t str[50];
 	UINT8 szCoord[40];
 	UINT16 *ptr;
 	INT16 x, y;
@@ -2089,7 +2089,7 @@ void SummaryLoadMapCallback( GUI_BUTTON *btn, INT32 reason )
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
 		UINT16 *ptr;
-		UINT16 str[ 50 ];
+		wchar_t str[ 50 ];
 		gfRenderSummary = TRUE;
 		
 		SetFont( FONT10ARIAL );
@@ -2623,7 +2623,7 @@ void UpdateMasterProgress()
 void ReportError( UINT8 *pSector, UINT8 ubLevel )
 {
 	static INT32 yp = iScreenHeightOffset + 180;
-	UINT16 str[40];
+	wchar_t str[40];
 	UINT16 temp[10];
 
 	//Make sure the file exists... if not, then return false
@@ -2751,7 +2751,7 @@ void SummaryUpdateCallback( GUI_BUTTON *btn, INT32 reason )
 
 void ExtractTempFilename()
 {
-	UINT16 str[40];
+	wchar_t str[40];
 	Get16BitStringFromField( 1, str );
 	if( wcscmp( gszTempFilename, str ) )
 	{
@@ -2766,7 +2766,7 @@ void ExtractTempFilename()
 void ApologizeOverrideAndForceUpdateEverything()
 {
 	INT32 x, y;
-	UINT16 str[ 50 ];
+	wchar_t str[ 50 ];
 	UINT8 name[50];
 	SUMMARYFILE *pSF;
 	//Create one huge assed button

@@ -223,7 +223,7 @@ UINT16 gwGroupTypeString[ NUM_ENEMY_INTENTIONS ][ 20 ] =
 };
 
 
-void StringFromValue( UINT16 *str, INT32 iValue, UINT32 uiMax )
+void StringFromValue( wchar_t *str, INT32 iValue, UINT32 uiMax )
 {
 	if( iValue < 0 )			//a blank string is determined by a negative value.
 		str[0] = '\0';
@@ -236,7 +236,7 @@ void StringFromValue( UINT16 *str, INT32 iValue, UINT32 uiMax )
 BOOLEAN CreateAIViewer()
 {
   VOBJECT_DESC    VObjectDesc;
-	UINT16 str[6];
+	wchar_t str[6];
 
 	//Kaiden: Loading INI file to read Values...
 	// Here's another one of those INI reads
@@ -447,7 +447,7 @@ void RenderStationaryGroups()
 	HVOBJECT hVObject;
 	SECTORINFO *pSector;
 	INT32 x, y, xp, yp;
-	UINT16 str[20];
+	wchar_t str[20];
 	INT32 iSector = 0;
 	UINT8 ubIconColor;
 	UINT8 ubGroupSize = 0;
@@ -851,7 +851,7 @@ void RenderViewer()
 		}
 		for( x = 1; x <= 16; x++ )
 		{
-			UINT16 str[3];
+			wchar_t str[3];
 			if( x == gsSelSectorX )
 				SetFontForeground( FONT_RED );
 			else if( x == gsHiSectorX )

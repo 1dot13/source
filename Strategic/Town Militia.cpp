@@ -647,17 +647,17 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia2");
 	// if we are in mapscreen, make a pop up
 	if( guiCurrentScreen == MAP_SCREEN )
 	{
-		DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)sString, MAP_SCREEN, MSG_BOX_FLAG_YESNO, PayMilitiaTrainingYesNoBoxCallback );
+		DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_YESNO, PayMilitiaTrainingYesNoBoxCallback );
 	}
 	else
 	{
-		DoMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)sString, GAME_SCREEN, MSG_BOX_FLAG_YESNO, PayMilitiaTrainingYesNoBoxCallback, &pCenteringRect );
+		DoMessageBox( MSG_BOX_BASIC_STYLE, sString, GAME_SCREEN, MSG_BOX_FLAG_YESNO, PayMilitiaTrainingYesNoBoxCallback, &pCenteringRect );
 	}
 
 	return;
 }
 
-void DoContinueMilitiaTrainingMessageBox( INT16 sSectorX, INT16 sSectorY, UINT16 *str, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+void DoContinueMilitiaTrainingMessageBox( INT16 sSectorX, INT16 sSectorY, wchar_t *str, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
 	if( sSectorX <= 10 && sSectorY >= 6 && sSectorY <= 11 )
 	{
@@ -780,7 +780,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 
 	// ask player whether he'd like to continue training
 	//DoContinueMilitiaTrainingMessageBox( sSectorX, sSectorY, sString, MSG_BOX_FLAG_YESNO, PayMilitiaTrainingYesNoBoxCallback );
-	DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)sString, MAP_SCREEN, MSG_BOX_FLAG_YESNO, PayMilitiaTrainingYesNoBoxCallback );
+	DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_YESNO, PayMilitiaTrainingYesNoBoxCallback );
 }
 
 
@@ -821,7 +821,7 @@ void PayMilitiaTrainingYesNoBoxCallback( UINT8 bExitValue )
 			StopTimeCompression();
 
 			swprintf( sString, L"%s", pMilitiaConfirmStrings[ 2 ] );
-			DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)sString, MAP_SCREEN, MSG_BOX_FLAG_OK, CantTrainMilitiaOkBoxCallback );
+			DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_OK, CantTrainMilitiaOkBoxCallback );
 		}
 	}
 	else if( bExitValue == MSG_BOX_RETURN_NO )
@@ -1456,9 +1456,9 @@ BOOLEAN MilitiaTrainingAllowedInTown( INT8 bTownId )
 	return( gfMilitiaAllowedInTown[bTownId] );
 }
 
-void BuildMilitiaPromotionsString( UINT16 *str )
+void BuildMilitiaPromotionsString( wchar_t *str )
 {
-	UINT16 pStr[256];
+	wchar_t pStr[256];
 	BOOLEAN fAddSpace = FALSE;
 	swprintf( str, L"" );
 

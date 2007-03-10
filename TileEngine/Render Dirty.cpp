@@ -746,7 +746,7 @@ BOOLEAN CopyExternBackgroundRect( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 s
 // to the video buffer.
 //    
 //*****************************************************************************
-UINT16 gprintfdirty(INT16 x, INT16 y, UINT16 * pFontString, ...)
+UINT16 gprintfdirty(INT16 x, INT16 y, wchar_t * pFontString, ...)
 {
 va_list argptr;
 wchar_t	string[512];
@@ -783,7 +783,7 @@ INT32 iBack;
 	return(uiStringLength);
 }
 
-UINT16 gprintfinvalidate(INT16 x, INT16 y, UINT16 * pFontString, ...)
+UINT16 gprintfinvalidate(INT16 x, INT16 y, wchar_t * pFontString, ...)
 {
 va_list argptr;
 wchar_t	string[512];
@@ -807,7 +807,7 @@ UINT16 uiStringLength, uiStringHeight;
 
 // explicit instantiating work around MSVC not supporting export templated functions/classes (jonathanl)
 
-UINT16 gprintfRestore(INT16 x, INT16 y, UINT16 * pFontString, ...)
+UINT16 gprintfRestore(INT16 x, INT16 y, wchar_t * pFontString, ...)
 {
 va_list argptr;
 wchar_t	string[512];

@@ -83,7 +83,7 @@ typedef struct
 		INT16				sY;
 		UINT8				ubFontBack;
 		UINT8				ubFontFore;
-		INT16				pzText[ 200 ];
+		wchar_t				pzText[ 200 ];
 		OVERLAY_CALLBACK		BltCallback;
 
 }	VIDEO_OVERLAY_DESC;
@@ -124,9 +124,9 @@ BOOLEAN EmptyBackgroundRects( void );
 
 
 // GPRINTF DIRTY STUFF
-UINT16 gprintfdirty(INT16 x, INT16 y, UINT16 * pFontString, ...);
-UINT16 gprintfinvalidate(INT16 x, INT16 y, UINT16 * pFontString, ...);
-UINT16 gprintfRestore(INT16 x, INT16 y, UINT16 * pFontString, ...);
+UINT16 gprintfdirty(INT16 x, INT16 y, wchar_t * pFontString, ...);
+UINT16 gprintfinvalidate(INT16 x, INT16 y, wchar_t * pFontString, ...);
+UINT16 gprintfRestore(INT16 x, INT16 y, wchar_t * pFontString, ...);
 
 
 // VIDEO OVERLAY STUFF

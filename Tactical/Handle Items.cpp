@@ -3209,7 +3209,7 @@ BOOLEAN DrawItemPoolList( ITEM_POOL *pItemPool, INT16 sGridNo, UINT8 bCommand, I
 	INT16 sY;
 	INVTYPE			*pItem;
 	ITEM_POOL		*pTempItemPool;
-	INT16 pStr[ 100 ];
+	wchar_t pStr[ 100 ];
 	INT16		cnt = 0, sHeight = 0;
 	INT16	 sLargeLineWidth = 0, sLineWidth;
 	BOOLEAN			fRecalcNumListed = FALSE;
@@ -3380,7 +3380,7 @@ BOOLEAN DrawItemPoolList( ITEM_POOL *pItemPool, INT16 sGridNo, UINT8 bCommand, I
 			SetFontForeground( FONT_MCOLOR_DKGRAY );
 		}
 		swprintf( (wchar_t *)pStr, (wchar_t *)TacticalStr[ ITEMPOOL_POPUP_PREV_STR ] );
-		gprintfdirty( sFontX, sY, (UINT16 *)pStr );
+		gprintfdirty( sFontX, sY, pStr );
 		mprintf( sFontX, sY, pStr );
 		sY += GetFontHeight( SMALLFONT1 ) - 2;
 		cnt++;
@@ -3416,7 +3416,7 @@ BOOLEAN DrawItemPoolList( ITEM_POOL *pItemPool, INT16 sGridNo, UINT8 bCommand, I
 				swprintf( (wchar_t *)pStr, (wchar_t *)L"%s", ShortItemNames[ gWorldItems[ pItemPool->iItemIndex ].o.usItem ] );
 			}
 
-			gprintfdirty( sFontX, sY, (UINT16 *)pStr );
+			gprintfdirty( sFontX, sY, pStr );
 			mprintf( sFontX, sY, pStr );
 
 			sY += GetFontHeight( SMALLFONT1 ) - 2;
@@ -3448,7 +3448,7 @@ BOOLEAN DrawItemPoolList( ITEM_POOL *pItemPool, INT16 sGridNo, UINT8 bCommand, I
 					SetFontForeground( FONT_MCOLOR_DKGRAY );
 				}
 				swprintf( (wchar_t *)pStr, (wchar_t *)TacticalStr[ ITEMPOOL_POPUP_MORE_STR ] );
-				gprintfdirty( sFontX, sY, (UINT16 *)pStr );
+				gprintfdirty( sFontX, sY, pStr );
 				mprintf( sFontX, sY, pStr );
 			}
 	}

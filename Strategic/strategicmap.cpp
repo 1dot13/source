@@ -1313,7 +1313,7 @@ void EndLoadScreen( )
 #ifdef JA2TESTVERSION
 	//Report the time it took to load the map.  This is temporary until we are satisfied with the time
 	//it takes to load the map.
-	UINT16 str[60];
+	wchar_t str[60];
 	FILE *fp;
 	UINT32 uiSeconds;
 	UINT32 uiHundreths;
@@ -2677,8 +2677,8 @@ void UpdateMercInSector( SOLDIERTYPE *pSoldier, INT16 sSectorX, INT16 sSectorY, 
 			if( fError )
 			{ //strategic insertion failed because it expected to find an entry point.  This is likely 
 				//a missing part of the map or possible fault in strategic movement costs, traversal logic, etc.
-				UINT16 szEntry[10];
-				UINT16 szSector[10];
+				wchar_t szEntry[10];
+				wchar_t szSector[10];
 				INT16 sGridNo;
 				GetLoadedSectorString( szSector );
 				if( gMapInformation.sNorthGridNo != -1 )
@@ -5253,7 +5253,7 @@ INT16 PickGridNoToWalkIn( SOLDIERTYPE *pSoldier, UINT8 ubInsertionDirection, UIN
 }
 
 
-void GetLoadedSectorString( UINT16 *pString )
+void GetLoadedSectorString( wchar_t *pString )
 {
 	if( !gfWorldLoaded )
 	{

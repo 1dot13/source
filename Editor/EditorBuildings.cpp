@@ -729,7 +729,7 @@ void RemoveLockedDoorCursors()
 
 void SetupTextInputForBuildings()
 {
-	UINT16 str[4];
+	wchar_t str[4];
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
 	AddUserInputField( NULL );  //just so we can use short cut keys while not typing.
 	swprintf( str, L"%d", gubMaxRoomNumber );
@@ -738,7 +738,7 @@ void SetupTextInputForBuildings()
 
 void ExtractAndUpdateBuildingInfo()
 {
-	UINT16 str[4];
+	wchar_t str[4];
 	INT32 temp;
 	//extract light1 colors
 	temp = min( GetNumericStrictValueFromField( 1 ), 255 );

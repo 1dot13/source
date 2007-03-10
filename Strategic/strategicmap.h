@@ -93,7 +93,7 @@ void GetShortSectorString( INT16 sMapX,INT16 sMapY, STR16 sString );
 //Examples:		A9		
 //						A10_B1		
 //						J9_B2_A ( >= BETAVERSION ) else J9_B2 (release equivalent)
-void GetLoadedSectorString( UINT16 *pString );
+void GetLoadedSectorString( wchar_t *pString );
 
 // This will get an ID string like A9- OMERTA...
 void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , CHAR16 * zString, BOOLEAN fDetailed );

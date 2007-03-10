@@ -1550,8 +1550,8 @@ void AdjustLoyaltyForCivsEatenByMonsters( INT16 sSectorX, INT16 sSectorY, UINT8 
 {
 	INT8 bTownId = 0;
 	UINT32 uiLoyaltyChange = 0;
-	UINT16 str[256];
-	UINT16 pSectorString[128];
+	wchar_t str[256];
+	wchar_t pSectorString[128];
 
 
 	// get town id

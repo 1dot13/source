@@ -128,7 +128,7 @@ void DefineProgressBarPanel( UINT32 ubID, UINT8 r, UINT8 g, UINT8 b,
 
 //Assigning a title for the panel will automatically position the text horizontally centered on the
 //panel and vertically centered from the top of the panel, to the top of the progress bar.
-void SetProgressBarTitle( UINT32 ubID, UINT16 *pString, UINT32 usFont, UINT8 ubForeColor, UINT8 ubShadowColor )
+void SetProgressBarTitle( UINT32 ubID, wchar_t *pString, UINT32 usFont, UINT8 ubForeColor, UINT8 ubShadowColor )
 {
 	PROGRESSBAR *pCurr;
 	Assert( ubID < MAX_PROGRESSBARS );
@@ -142,7 +142,7 @@ void SetProgressBarTitle( UINT32 ubID, UINT16 *pString, UINT32 usFont, UINT8 ubF
 	}
 	if( pString && wcslen( pString ) )
 	{
-		pCurr->swzTitle = (UINT16*)MemAlloc( sizeof( UINT16 ) * ( wcslen( pString ) + 1 ) );
+		pCurr->swzTitle = (wchar_t*)MemAlloc( sizeof( wchar_t ) * ( wcslen( pString ) + 1 ) );
 		swprintf( pCurr->swzTitle, pString );
 	}
 	pCurr->usTitleFont = (UINT16)usFont;
@@ -186,7 +186,7 @@ void RemoveProgressBar( UINT8 ubID )
 //As the process animates using UpdateProgressBar( 0 to 100 ), the total progress bar will only reach 30%
 //at the 100% mark within UpdateProgressBar.  At that time, you would go onto the next step, resetting the
 //relative start and end percentage from 30 to whatever, until your done.
-void SetRelativeStartAndEndPercentage( UINT8 ubID, UINT32 uiRelStartPerc, UINT32 uiRelEndPerc, UINT16 *str)
+void SetRelativeStartAndEndPercentage( UINT8 ubID, UINT32 uiRelStartPerc, UINT32 uiRelEndPerc, wchar_t *str)
 {
 	PROGRESSBAR *pCurr;
 	UINT16 usStartX, usStartY;

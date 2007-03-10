@@ -4378,7 +4378,7 @@ BOOLEAN PlayerTeamHasTwoSpotsLeft( )
 void StartDialogueMessageBox( UINT8 ubProfileID, UINT16 usMessageBoxType )
 {
 	INT32			iTemp;
-	UINT16		zTemp[256], zTemp2[256];
+	wchar_t		zTemp[256], zTemp2[256];
 
 	gusDialogueMessageBoxType = usMessageBoxType;
 	switch( gusDialogueMessageBoxType )

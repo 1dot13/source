@@ -371,7 +371,7 @@ UINT32 LoadSaveScreenHandle(void)
 			sprintf( gszCurrFilename, "MAPS\\%S", gzFilename );
 			if( GetFileFirst(gszCurrFilename, &FileInfo) )
 			{
-				UINT16 str[40];
+				wchar_t str[40];
 				if( FileInfo.uiFileAttribs & (FILE_IS_READONLY|FILE_IS_HIDDEN|FILE_IS_SYSTEM) )
 				{
 					swprintf( str, L" Delete READ-ONLY file %s? ", gzFilename );

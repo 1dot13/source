@@ -3528,7 +3528,7 @@ UINT32 MapScreenHandle(void)
 			RenderTeamRegionBackground( );
 
 			// now do the warning box
-			DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)pMapErrorString[ 4 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
+			DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMapErrorString[ 4 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 		}
 
 
@@ -4917,7 +4917,7 @@ UINT32 HandleMapUI( )
 							else
 							{
 								// no strategic movement is possible from underground sectors
-								DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)pMapErrorString[ 1 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
+								DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMapErrorString[ 1 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 								return( MAP_SCREEN );
 							}
 						}
@@ -5732,7 +5732,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							else
 							{
 								//Display a message saying the player cant save now
-								DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)zNewTacticalMessages[ TCTL_MSG__IRON_MAN_CANT_SAVE_NOW ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+								DoMapMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__IRON_MAN_CANT_SAVE_NOW ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 							}
 						}
 					}
@@ -6622,7 +6622,7 @@ void PollRightButtonInMapView( UINT32 *puiNewEvent )
 
 
 
-void PopupText( UINT16 *pFontString, ...  )
+void PopupText( wchar_t *pFontString, ...  )
 {
 	UINT8	 *pDestBuf;
 	UINT32 uiDestPitchBYTES;
@@ -9841,11 +9841,11 @@ void TrashCanBtnCallback( MOUSE_REGION *pRegion, INT32 iReason)
 		  // set up for mapscreen
 			if( gpItemPointer -> ubMission )
 			{
-				DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)pTrashItemText[ 1 ], MAP_SCREEN, MSG_BOX_FLAG_YESNO, TrashItemMessageBoxCallBack );
+				DoMapMessageBox( MSG_BOX_BASIC_STYLE, pTrashItemText[ 1 ], MAP_SCREEN, MSG_BOX_FLAG_YESNO, TrashItemMessageBoxCallBack );
 			}
 			else
 			{
-				DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)pTrashItemText[ 0 ], MAP_SCREEN, MSG_BOX_FLAG_YESNO, TrashItemMessageBoxCallBack );
+				DoMapMessageBox( MSG_BOX_BASIC_STYLE, pTrashItemText[ 0 ], MAP_SCREEN, MSG_BOX_FLAG_YESNO, TrashItemMessageBoxCallBack );
 			}
 		}
 	}
@@ -10830,17 +10830,17 @@ void TellPlayerWhyHeCantCompressTime( void )
 	else if( gfAtLeastOneMercWasHired == FALSE )
 	{
 		// no mercs hired, ever
-		DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)pMapScreenJustStartedHelpText[ 0 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
+		DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMapScreenJustStartedHelpText[ 0 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 	}
 	else if ( !AnyUsableRealMercenariesOnTeam() )
 	{
 		// no usable mercs left on team
-		DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)pMapErrorString[ 39 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
+		DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMapErrorString[ 39 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 	}
 	else if ( ActiveTimedBombExists() )
 	{	
 		// can't time compress when a bomb is about to go off!
-		DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)gzLateLocalizedString[ 2 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
+		DoMapMessageBox( MSG_BOX_BASIC_STYLE, gzLateLocalizedString[ 2 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 	}
 	else if ( gfContractRenewalSquenceOn )
 	{
@@ -10868,7 +10868,7 @@ void TellPlayerWhyHeCantCompressTime( void )
 	}
 	else if( fShowMapInventoryPool )
 	{
-		DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)gzLateLocalizedString[ 55 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
+		DoMapMessageBox( MSG_BOX_BASIC_STYLE, gzLateLocalizedString[ 55 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 	}
 	// ARM: THIS TEST SHOULD BE THE LAST ONE, BECAUSE IT ACTUALLY RESULTS IN SOMETHING HAPPENING NOW.
 	// KM:  Except if we are in a creature lair and haven't loaded the sector yet (no battle yet)
@@ -10876,11 +10876,11 @@ void TellPlayerWhyHeCantCompressTime( void )
 	{
 		if( OnlyHostileCivsInSector() )
 		{
-			UINT16 str[ 256 ];
-			UINT16 pSectorString[ 128 ];
+			wchar_t str[ 256 ];
+			wchar_t pSectorString[ 128 ];
 			GetSectorIDString( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, pSectorString, TRUE );
 			swprintf( str, gzLateLocalizedString[ 27 ], pSectorString );
-			DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)str, MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
+			DoMapMessageBox( MSG_BOX_BASIC_STYLE, str, MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 		}
 		else
 		{
@@ -10890,7 +10890,7 @@ void TellPlayerWhyHeCantCompressTime( void )
 	}
 	else if( PlayerGroupIsInACreatureInfestedMine() )
 	{
-		DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)gzLateLocalizedString[ 28 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
+		DoMapMessageBox( MSG_BOX_BASIC_STYLE, gzLateLocalizedString[ 28 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 	}
 }
 
@@ -12181,7 +12181,7 @@ BOOLEAN RequestGiveSkyriderNewDestination( void )
 			 ( GetNumberOfPassengersInHelicopter() == 0 ) &&
 			 ( PlayerMercsInHelicopterSector() > 0 ) )
 		{
-			DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)pSkyriderText[ 6 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
+			DoMapMessageBox( MSG_BOX_BASIC_STYLE, pSkyriderText[ 6 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 			gfSkyriderEmptyHelpGiven = TRUE;
 			return( FALSE );
 		}
@@ -12602,7 +12602,7 @@ void HandlePostAutoresolveMessages()
 	}
 	else if( gbMilitiaPromotions )
 	{
-		UINT16 str[ 512 ];
+		wchar_t str[ 512 ];
 		BuildMilitiaPromotionsString( str );
 		DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 	}

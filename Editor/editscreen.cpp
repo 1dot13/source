@@ -3540,7 +3540,7 @@ void ProcessAreaSelection( BOOLEAN fWithLeftButton )
 				gubMaxRoomNumber++;
 				if( iCurrentTaskbar == TASK_BUILDINGS && TextInputMode() )
 				{
-					UINT16 str[4];
+					wchar_t str[4];
 					swprintf( str, L"%d", gubCurrRoomNumber );
 					SetInputFieldStringWith16BitString( 1, str );
 					SetActiveField( 0 );

@@ -4439,6 +4439,8 @@ void LapTopScreenCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	return;
 }
 
+template BOOLEAN DoLapTopMessageBox<wchar_t *>(UINT8, wchar_t *, UINT32, UINT8, MSGBOX_CALLBACK);
+template BOOLEAN DoLapTopMessageBox<wchar_t const *>(UINT8, wchar_t const *, UINT32, UINT8, MSGBOX_CALLBACK);
 template BOOLEAN DoLapTopMessageBox<unsigned short *>(UINT8, unsigned short *, UINT32, UINT8, MSGBOX_CALLBACK);
 template BOOLEAN DoLapTopMessageBox<unsigned short const *>(UINT8, unsigned short const *, UINT32, UINT8, MSGBOX_CALLBACK);
 template <typename string2>
@@ -4462,7 +4464,7 @@ BOOLEAN		DoLapTopMessageBox( UINT8 ubStyle, string2 zString, UINT32 uiExitScreen
 }
 
 
-BOOLEAN DoLapTopSystemMessageBoxWithRect( UINT8 ubStyle, INT16 *zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
+BOOLEAN DoLapTopSystemMessageBoxWithRect( UINT8 ubStyle, wchar_t *zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
 {
 	// reset exit mode
 	fExitDueToMessageBox = TRUE;
@@ -4474,7 +4476,7 @@ BOOLEAN DoLapTopSystemMessageBoxWithRect( UINT8 ubStyle, INT16 *zString, UINT32 
 	return( ( iLaptopMessageBox != -1 ) );
 }
 
-BOOLEAN DoLapTopSystemMessageBox( UINT8 ubStyle, INT16 *zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+BOOLEAN DoLapTopSystemMessageBox( UINT8 ubStyle, wchar_t *zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
 	SGPRect CenteringRect= {iScreenWidthOffset, iScreenHeightOffset,
 		iScreenWidthOffset + 640, INV_INTERFACE_START_Y };

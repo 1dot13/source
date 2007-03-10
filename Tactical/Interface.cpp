@@ -111,7 +111,7 @@ typedef struct
 TOP_MESSAGE		gTopMessage;
 BOOLEAN				gfTopMessageDirty = FALSE;
 
-void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, UINT16 * psString );
+void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, wchar_t * psString );
 
 extern UINT16 GetAnimStateForInteraction( SOLDIERTYPE *pSoldier, BOOLEAN fDoor, UINT16 usAnimState );
 
@@ -681,7 +681,7 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 	SOLDIERTYPE					*pSoldier = NULL;
 	INT32								iMenuAnchorX, iMenuAnchorY;
 	UINT32							uiActionImages;
-	INT16								zActionString[ 50 ];
+	wchar_t								zActionString[ 50 ];
 	BOOLEAN							fDisableAction = FALSE;
 
 	// Erase other menus....
@@ -920,7 +920,7 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 		return;
 	}
 	//SetButtonSavedRect( iActionIcons[ ACTIONC_ICON ] );
-	SetButtonFastHelpText( iActionIcons[ ACTIONC_ICON ], (UINT16 *)zActionString );
+	SetButtonFastHelpText( iActionIcons[ ACTIONC_ICON ], zActionString );
 	ButtonList[ iActionIcons[ ACTIONC_ICON ] ]->UserData[0] = (UINT32)pUIEvent;
 
 	if ( fDisableAction )
@@ -1489,8 +1489,8 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 	INT16			sX, sY;
 	INT32			iBack;
 	TILE_ELEMENT	TileElem;
-	UINT16			*pStr;
-	UINT16			NameStr[ 50 ];
+	wchar_t			*pStr;
+	wchar_t			NameStr[ 50 ];
 	UINT16			usGraphicToUse = THIRDPOINTERS1;
 	BOOLEAN         fRaiseName = FALSE;
 	BOOLEAN         fDoName = TRUE;
@@ -1836,7 +1836,7 @@ void RenderOverlayMessage( VIDEO_OVERLAY *pBlitter )
 }
 
 
-void BeginOverlayMessage( UINT32 uiFont, UINT16 *pFontString, ... )
+void BeginOverlayMessage( UINT32 uiFont, wchar_t *pFontString, ... )
 {
 	va_list argptr;
 	VIDEO_OVERLAY_DESC		VideoOverlayDesc;
@@ -2215,7 +2215,7 @@ BOOLEAN InitDoorOpenMenu( SOLDIERTYPE *pSoldier, STRUCTURE *pStructure, UINT8 ub
 void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 {
 	INT32								iMenuAnchorX, iMenuAnchorY;
-	INT16								zDisp[ 100 ];
+	wchar_t								zDisp[ 100 ];
 
 	iMenuAnchorX = gOpenDoorMenu.sX;
 	iMenuAnchorY = gOpenDoorMenu.sY;
@@ -2250,7 +2250,7 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 	{
 		swprintf( (wchar_t *)zDisp, L"%s ( %d )", pTacticalPopupButtonStrings[ USE_KEYRING_ICON ], AP_UNLOCK_DOOR );
 	}
-	SetButtonFastHelpText( iActionIcons[ USE_KEYRING_ICON ], (UINT16 *)zDisp );
+	SetButtonFastHelpText( iActionIcons[ USE_KEYRING_ICON ], zDisp );
 
 	if ( !EnoughPoints(  gOpenDoorMenu.pSoldier, AP_UNLOCK_DOOR, BP_UNLOCK_DOOR, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
 	{
@@ -2281,7 +2281,7 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 	{
 		swprintf( (wchar_t *)zDisp, L"%s ( %d )", pTacticalPopupButtonStrings[ USE_CROWBAR_ICON ], AP_USE_CROWBAR );
 	}
-	SetButtonFastHelpText( iActionIcons[ USE_CROWBAR_ICON ], (UINT16 *)zDisp );
+	SetButtonFastHelpText( iActionIcons[ USE_CROWBAR_ICON ], zDisp );
 
 	// Greyout if no crowbar found...
 	if ( FindUsableCrowbar ( gOpenDoorMenu.pSoldier ) == NO_SLOT  || fClosingDoor )
@@ -2311,7 +2311,7 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 	{
 		swprintf( (wchar_t *)zDisp, L"%s ( %d )", pTacticalPopupButtonStrings[ LOCKPICK_DOOR_ICON ], AP_PICKLOCK );
 	}
-	SetButtonFastHelpText( iActionIcons[ LOCKPICK_DOOR_ICON ], (UINT16 *)zDisp );
+	SetButtonFastHelpText( iActionIcons[ LOCKPICK_DOOR_ICON ], zDisp );
 
 	if ( !EnoughPoints(  gOpenDoorMenu.pSoldier, AP_PICKLOCK, BP_PICKLOCK, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
 	{
@@ -2343,7 +2343,7 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 	{
 		swprintf( (wchar_t *)zDisp, L"%s ( %d )", pTacticalPopupButtonStrings[ EXPLOSIVE_DOOR_ICON ], AP_EXPLODE_DOOR );
 	}
-	SetButtonFastHelpText( iActionIcons[ EXPLOSIVE_DOOR_ICON ], (UINT16 *)zDisp );
+	SetButtonFastHelpText( iActionIcons[ EXPLOSIVE_DOOR_ICON ], zDisp );
 
 	if ( !EnoughPoints(  gOpenDoorMenu.pSoldier, AP_EXPLODE_DOOR, BP_EXPLODE_DOOR, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
 	{
@@ -2389,7 +2389,7 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 			swprintf( (wchar_t *)zDisp, L"%s ( %d )", pTacticalPopupButtonStrings[ OPEN_DOOR_ICON ], AP_OPEN_DOOR );
 		}
 	}
-	SetButtonFastHelpText( iActionIcons[ OPEN_DOOR_ICON ], (UINT16 *)zDisp );
+	SetButtonFastHelpText( iActionIcons[ OPEN_DOOR_ICON ], zDisp );
 
 	if ( !EnoughPoints(  gOpenDoorMenu.pSoldier, AP_OPEN_DOOR, BP_OPEN_DOOR, FALSE ) )
 	{
@@ -2415,7 +2415,7 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 	{
 		swprintf( (wchar_t *)zDisp, L"%s ( %d )", pTacticalPopupButtonStrings[ EXAMINE_DOOR_ICON ], AP_EXAMINE_DOOR );
 	}
-	SetButtonFastHelpText( iActionIcons[ EXAMINE_DOOR_ICON ], (UINT16 *)zDisp );
+	SetButtonFastHelpText( iActionIcons[ EXAMINE_DOOR_ICON ], zDisp );
 
 	if ( !EnoughPoints(  gOpenDoorMenu.pSoldier, AP_EXAMINE_DOOR, BP_EXAMINE_DOOR, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
 	{
@@ -2439,7 +2439,7 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 	{
 		swprintf( (wchar_t *)zDisp, L"%s ( %d )", pTacticalPopupButtonStrings[ BOOT_DOOR_ICON ], AP_BOOT_DOOR );
 	}
-	SetButtonFastHelpText( iActionIcons[ BOOT_DOOR_ICON ], (UINT16 *)zDisp );
+	SetButtonFastHelpText( iActionIcons[ BOOT_DOOR_ICON ], zDisp );
 
 	if ( !EnoughPoints(  gOpenDoorMenu.pSoldier, AP_BOOT_DOOR, BP_BOOT_DOOR, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
 	{
@@ -2464,7 +2464,7 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 	{
 		swprintf( (wchar_t *)zDisp, L"%s ( %d )", pTacticalPopupButtonStrings[ UNTRAP_DOOR_ICON ], AP_UNTRAP_DOOR );
 	}
-	SetButtonFastHelpText( iActionIcons[ UNTRAP_DOOR_ICON ], (UINT16 *)zDisp );
+	SetButtonFastHelpText( iActionIcons[ UNTRAP_DOOR_ICON ], zDisp );
 
 	if ( !EnoughPoints(  gOpenDoorMenu.pSoldier, AP_UNTRAP_DOOR, BP_UNTRAP_DOOR, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
 	{
@@ -2752,7 +2752,7 @@ void RenderUIMessage( VIDEO_OVERLAY *pBlitter )
 }
 
 
-void InternalBeginUIMessage( BOOLEAN fUseSkullIcon, UINT16 *pFontString, ... )
+void InternalBeginUIMessage( BOOLEAN fUseSkullIcon, wchar_t *pFontString, ... )
 {
 	va_list argptr;
 	VIDEO_OVERLAY_DESC		VideoOverlayDesc;
@@ -2812,7 +2812,7 @@ void InternalBeginUIMessage( BOOLEAN fUseSkullIcon, UINT16 *pFontString, ... )
 	gfUseSkullIconMessage = fUseSkullIcon;
 }
 
-void BeginUIMessage( UINT16 *pFontString, ... )
+void BeginUIMessage( wchar_t *pFontString, ... )
 {
 	va_list argptr;
 	wchar_t	MsgString[512];
@@ -2825,7 +2825,7 @@ void BeginUIMessage( UINT16 *pFontString, ... )
 }
 
 
-void BeginMapUIMessage( UINT8 ubPosition, UINT16 *pFontString, ... )
+void BeginMapUIMessage( UINT8 ubPosition, wchar_t *pFontString, ... )
 {
 	va_list argptr;
 	VIDEO_OVERLAY_DESC		VideoOverlayDesc;
@@ -2919,7 +2919,7 @@ void EndUIMessage( )
 #define PLAYER_TEAM_TIMER_TICKS_PER_ENEMY									( 2000 / PLAYER_TEAM_TIMER_SEC_PER_TICKS )
 
 
-BOOLEAN AddTopMessage( UINT8 ubType, UINT16 * pzString )
+BOOLEAN AddTopMessage( UINT8 ubType, wchar_t * pzString )
 {
 	UINT32	cnt;
 	BOOLEAN	fFound = FALSE;
@@ -2956,7 +2956,7 @@ BOOLEAN AddTopMessage( UINT8 ubType, UINT16 * pzString )
 	return( FALSE );
 }
 
-void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, UINT16 * psString )
+void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, wchar_t * psString )
 {
 	UINT32	uiBAR, uiPLAYERBAR, uiINTBAR;
   VOBJECT_DESC    VObjectDesc;
@@ -3260,7 +3260,7 @@ void HandleTopMessages( )
 		if ( !gTopMessage.fCreated )
 		{
 			gfTopMessageDirty = TRUE;
-			AddTopMessage( gTacticalStatus.ubTopMessageType, (UINT16 *)gTacticalStatus.zTopMessageString );
+			AddTopMessage( gTacticalStatus.ubTopMessageType, gTacticalStatus.zTopMessageString );
 		}
 
 		if ( gTacticalStatus.ubTopMessageType == COMPUTER_TURN_MESSAGE || 
@@ -3285,7 +3285,7 @@ void HandleTopMessages( )
 					gTacticalStatus.usTactialTurnLimitCounter = ( ( gubProgCurEnemy ) * PLAYER_TEAM_TIMER_TICKS_PER_ENEMY );
 				}
 
-				CreateTopMessage( gTopMessage.uiSurface, gTacticalStatus.ubTopMessageType, (UINT16 *)gTacticalStatus.zTopMessageString );
+				CreateTopMessage( gTopMessage.uiSurface, gTacticalStatus.ubTopMessageType, gTacticalStatus.zTopMessageString );
 			}
 		}
 		else if ( gGameOptions.fTurnTimeLimit )
@@ -3329,7 +3329,7 @@ void HandleTopMessages( )
 									gTacticalStatus.usTactialTurnLimitCounter++;
 								}
 
-								CreateTopMessage( gTopMessage.uiSurface, gTacticalStatus.ubTopMessageType, (UINT16 *)gTacticalStatus.zTopMessageString );
+								CreateTopMessage( gTopMessage.uiSurface, gTacticalStatus.ubTopMessageType, gTacticalStatus.zTopMessageString );
 
 								// Have we reached max?
 								if ( gTacticalStatus.usTactialTurnLimitCounter == ( gTacticalStatus.usTactialTurnLimitMax - 1) )
@@ -3501,7 +3501,7 @@ void UpdateEnemyUIBar( )
 		if ( gTacticalStatus.ubTopMessageType == COMPUTER_TURN_MESSAGE )
 		{
 			// Update message!
-			CreateTopMessage( gTopMessage.uiSurface, COMPUTER_TURN_MESSAGE, (UINT16 *)gTacticalStatus.zTopMessageString );
+			CreateTopMessage( gTopMessage.uiSurface, COMPUTER_TURN_MESSAGE, gTacticalStatus.zTopMessageString );
 		}
 	}
 }
@@ -3598,7 +3598,7 @@ void DoorMenuBackregionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	}
 }
 
-UINT16 *GetSoldierHealthString( SOLDIERTYPE *pSoldier )
+wchar_t *GetSoldierHealthString( SOLDIERTYPE *pSoldier )
 {
 	INT32 cnt, cntStart;
 	if( pSoldier->bLife == pSoldier->bLifeMax )

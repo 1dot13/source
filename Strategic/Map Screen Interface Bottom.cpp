@@ -1618,7 +1618,7 @@ void RequestTriggerExitFromMapscreen( INT8 bExitToWhere )
 			if( !CanGameBeSaved() )
 			{
 				//Display a message saying the player cant save now
-				DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)zNewTacticalMessages[ TCTL_MSG__IRON_MAN_CANT_SAVE_NOW ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+				DoMapMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__IRON_MAN_CANT_SAVE_NOW ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 				return;
 			}
 		}

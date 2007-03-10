@@ -7078,7 +7078,7 @@ void ContractMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
         }
         else
         {
-  			  DoMapMessageBox( MSG_BOX_BASIC_STYLE, (INT16 *)gzLateLocalizedString[ 48 ], MAP_SCREEN, MSG_BOX_FLAG_YESNO, MercDismissConfirmCallBack );
+  			  DoMapMessageBox( MSG_BOX_BASIC_STYLE, gzLateLocalizedString[ 48 ], MAP_SCREEN, MSG_BOX_FLAG_YESNO, MercDismissConfirmCallBack );
         }
 
         fOkToClose = TRUE;

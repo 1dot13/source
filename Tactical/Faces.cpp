@@ -1387,12 +1387,12 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 					if ( pFace->fDisplayTextOver == FACE_DRAW_TEXT_OVER )
 					{
-						gprintfinvalidate( sFontX, sFontY, (UINT16 *)pFace->zDisplayText );			
+						gprintfinvalidate( sFontX, sFontY, pFace->zDisplayText );			
 						mprintf( sFontX, sFontY, pFace->zDisplayText );
 					}
 					else if ( pFace->fDisplayTextOver == FACE_ERASE_TEXT_OVER )
 					{
-						gprintfRestore( sFontX, sFontY, (UINT16 *)pFace->zDisplayText );			
+						gprintfRestore( sFontX, sFontY, pFace->zDisplayText );			
 						pFace->fDisplayTextOver = FACE_NO_TEXT_OVER;
 					}
 

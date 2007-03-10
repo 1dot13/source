@@ -1537,7 +1537,7 @@ void HandleTalkingSpeck()
 		}
 }
 
-void DisplayTextForSpeckVideoPopUp(INT16 * pString)
+void DisplayTextForSpeckVideoPopUp(wchar_t * pString)
 {
 	UINT16	usActualHeight;
 	INT32		iOldMercPopUpBoxId = iMercPopUpBox;

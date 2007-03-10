@@ -1234,6 +1234,8 @@ void RefreshMouseRegions( )
 
 }
 
+template void SetRegionFastHelpText<wchar_t *>(MOUSE_REGION *, wchar_t *);
+template void SetRegionFastHelpText<wchar_t const*>(MOUSE_REGION *, wchar_t const*);
 template void SetRegionFastHelpText<short *>(MOUSE_REGION *, short *);
 template void SetRegionFastHelpText<unsigned short *>(MOUSE_REGION *, unsigned short *);
 template void SetRegionFastHelpText<unsigned short const*>(MOUSE_REGION *, unsigned short const*);
@@ -1257,7 +1259,7 @@ void SetRegionFastHelpText( MOUSE_REGION *region, type2 szText )
 		return; //blank (or clear)
 
 	// Allocate memory for the button's FastHelp text string...
-	region->FastHelpText = (UINT16*)MemAlloc( (wcslen( (wchar_t *)szText ) + 1) * sizeof(UINT16) );
+	region->FastHelpText = (wchar_t*)MemAlloc( (wcslen( (wchar_t *)szText ) + 1) * sizeof(wchar_t) );
 	Assert( region->FastHelpText );
 
 	wcscpy( region->FastHelpText, szText );

@@ -207,7 +207,7 @@ BOOLEAN WriteStringArray()
 		{
 			FilePrintf(hFile,"\t<STRING>");
 
-			UINT16 * szRemainder = AmmoCaliber[cnt]; //the remaining string to be output (for making valid XML)
+			wchar_t * szRemainder = AmmoCaliber[cnt]; //the remaining string to be output (for making valid XML)
 
 			while(szRemainder[0] != '\0')
 			{

@@ -392,7 +392,7 @@ INT32 PrepareMercPopupBox(  INT32 iBoxId, UINT8 ubBackgroundIndex, UINT8 ubBorde
 	// reset flags
 	guiFlags = 0;
 
-	usStringPixLength = WFStringPixLength( (UINT16 *) pString, TEXT_POPUP_FONT);
+	usStringPixLength = WFStringPixLength( pString, TEXT_POPUP_FONT);
 
 	if( usStringPixLength < ( usWidth - ( MERC_TEXT_POPUP_WINDOW_TEXT_OFFSET_X ) * 2 ) )
 	{

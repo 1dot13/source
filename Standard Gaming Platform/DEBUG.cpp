@@ -17,6 +17,10 @@
 // Because we're in a library, define SGP_DEBUG here - the client may not always
 // use the code to write text, because the header switches on the define
 #define SGP_DEBUG
+//#undef _DEBUG
+
+// WDS:  Note:  To compile with VS2005 in release mode you might have to not define SGP_DEBUG and
+// undefine _DEBUG or you get linker errors.
 
 
 #ifdef JA2_PRECOMPILED_HEADERS
@@ -70,7 +74,15 @@ UINT8 gubAssertString[128];
 UINT8		gbTmpDebugString[8][MAX_MSG_LENGTH2];
 UINT8		gubStringIndex = 0;
 
+#ifdef __cplusplus
+}
+#endif
+
 #ifdef SGP_DEBUG
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 //**************************************************************************
 //
@@ -501,9 +513,9 @@ template void _FailMessage<unsigned char *, char const *>(unsigned char *, unsig
 template <typename type1, typename type2>
 void _FailMessage( type1 pString, UINT32 uiLineNum, type2 pSourceFile )
 { 
-	MSG Message;
 	UINT8 ubOutputString[512];
 #ifndef _NO_DEBUG_TXT
+	MSG Message;
 	FILE *DebugFile;
 #endif
 	BOOLEAN fDone = FALSE;
@@ -613,6 +625,9 @@ void _FailMessage(UINT8 *pString, UINT32 uiLineNum, UINT8 *pSourceFile)
 
 #endif
 
+#else
+BOOLEAN	DbgInitialize(void) { return true; };
+void		DbgShutdown(void) {};
 #endif
 
 // This is NOT a _DEBUG only function! It is also needed in

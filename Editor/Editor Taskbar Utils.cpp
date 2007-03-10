@@ -475,7 +475,7 @@ void ClearTaskbarRegion( INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom )
 //This is a new function which duplicates the older "yellow info boxes" that
 //are common throughout the editor.  This draws the yellow box with the indentation
 //look.
-void DrawEditorInfoBox( UINT16 *str, UINT32 uiFont, UINT16 x, UINT16 y, UINT16 w, UINT16 h )
+void DrawEditorInfoBox( wchar_t *str, UINT32 uiFont, UINT16 x, UINT16 y, UINT16 w, UINT16 h )
 {
 	UINT16 usFillColorDark, usFillColorLight, usFillColorBack;
 	UINT16 x2, y2;
@@ -727,7 +727,7 @@ void RenderDoorLockInfo()
 {
 	INT16 i, xp, yp;
 	INT16 sScreenX, sScreenY;
-	UINT16 str[ 50 ];
+	wchar_t str[ 50 ];
 	for( i = 0; i < gubNumDoors; i++ )
 	{
 		GetGridNoScreenPos( DoorTable[ i ].sGridNo, 0, &sScreenX, &sScreenY );

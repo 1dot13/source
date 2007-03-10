@@ -1625,7 +1625,7 @@ void PurchaseOrExtendInsuranceForSoldier( SOLDIERTYPE *pSoldier, UINT32 uiInsura
 			if( guiCurrentScreen == LAPTOP_SCREEN )
 				DoLapTopMessageBox( MSG_BOX_RED_ON_WHITE, sText, LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 			else
-				DoMapMessageBox( MSG_BOX_RED_ON_WHITE, (INT16 *)sText, MAP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+				DoMapMessageBox( MSG_BOX_RED_ON_WHITE, sText, MAP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 		}
 		else
 		{

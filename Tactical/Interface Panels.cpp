@@ -3795,7 +3795,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 	INT16 sFontX, sFontY;
 	UINT32				cnt, posIndex;
 	SOLDIERTYPE		*pSoldier;
-	static				INT16		pStr[ 200 ], pMoraleStr[ 20 ];
+	static				wchar_t		pStr[ 200 ], pMoraleStr[ 20 ];
 
 	// WANNE 2 <new>
 	if ( fDirty == DIRTYLEVEL2 )
