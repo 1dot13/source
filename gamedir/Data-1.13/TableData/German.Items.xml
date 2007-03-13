@@ -1029,11 +1029,11 @@ Welt im täglichen Dienst.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>128</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 128</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>A.L.I.C.E.</szItemName>
+		<szLongItemName>A.L.I.C.E. Kampftasche</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>A.L.I.C.E. Kampftasche</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>129</uiIndex>
@@ -6277,19 +6277,19 @@ Welt im täglichen Dienst.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>784</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 784</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Mauser M-03</szItemName>
+		<szLongItemName>Mauser M-03</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Mauser M-03</szBRName>
+		<szBRDesc>Beschreibung erwünscht.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>785</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 785</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>AKMSU</szItemName>
+		<szLongItemName>AKMSU</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>AKMSU</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>786</uiIndex>

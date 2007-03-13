@@ -112,7 +112,7 @@
 	<ENEMYGUNCHOICES>
 		<uiIndex>2</uiIndex>
 		<name>20%</name>
-		<ubChoices>18</ubChoices>
+		<ubChoices>19</ubChoices>
 		<bItemNo1>694</bItemNo1>
 		<bItemNo2>2</bItemNo2>
 		<bItemNo3>22</bItemNo3>
@@ -131,7 +131,7 @@
 		<bItemNo16>761</bItemNo16>
 		<bItemNo17>773</bItemNo17>
 		<bItemNo18>775</bItemNo18>
-		<bItemNo19>0</bItemNo19>
+		<bItemNo19>780</bItemNo19>
 		<bItemNo20>0</bItemNo20>
 		<bItemNo21>0</bItemNo21>
 		<bItemNo22>0</bItemNo22>
@@ -603,5 +603,115 @@
 		<bItemNo48>0</bItemNo48>
 		<bItemNo49>0</bItemNo49>
 		<bItemNo50>0</bItemNo50>
+	</ENEMYGUNCHOICES>
+	<ENEMYGUNCHOICES>
+		<uiIndex>12</uiIndex>
+		<name>50%</name>
+		<ubChoices>23</ubChoices>
+		<bItemNo1>784</bItemNo1>
+		<bItemNo2>784</bItemNo2>
+		<bItemNo3>784</bItemNo3>
+		<bItemNo4>784</bItemNo4>
+		<bItemNo5>784</bItemNo5>
+		<bItemNo6>784</bItemNo6>
+		<bItemNo7>784</bItemNo7>
+		<bItemNo8>784</bItemNo8>
+		<bItemNo9>784</bItemNo9>
+		<bItemNo10>784</bItemNo10>
+		<bItemNo11>784</bItemNo11>
+		<bItemNo12>784</bItemNo12>
+		<bItemNo13>784</bItemNo13>
+		<bItemNo14>784</bItemNo14>
+		<bItemNo15>784</bItemNo15>
+		<bItemNo16>784</bItemNo16>
+		<bItemNo17>784</bItemNo17>
+		<bItemNo18>784</bItemNo18>
+		<bItemNo19>784</bItemNo19>
+		<bItemNo20>784</bItemNo20>
+		<bItemNo21>784</bItemNo21>
+		<bItemNo22>784</bItemNo22>
+		<bItemNo23>784</bItemNo23>
+		<bItemNo24>784</bItemNo24>
+		<bItemNo25>784</bItemNo25>
+		<bItemNo26>784</bItemNo26>
+		<bItemNo27>784</bItemNo27>
+		<bItemNo28>784</bItemNo28>
+		<bItemNo29>784</bItemNo29>
+		<bItemNo30>784</bItemNo30>
+		<bItemNo31>784</bItemNo31>
+		<bItemNo32>784</bItemNo32>
+		<bItemNo33>784</bItemNo33>
+		<bItemNo34>784</bItemNo34>
+		<bItemNo35>784</bItemNo35>
+		<bItemNo36>784</bItemNo36>
+		<bItemNo37>784</bItemNo37>
+		<bItemNo38>784</bItemNo38>
+		<bItemNo39>784</bItemNo39>
+		<bItemNo40>784</bItemNo40>
+		<bItemNo41>784</bItemNo41>
+		<bItemNo42>784</bItemNo42>
+		<bItemNo43>784</bItemNo43>
+		<bItemNo44>784</bItemNo44>
+		<bItemNo45>784</bItemNo45>
+		<bItemNo46>784</bItemNo46>
+		<bItemNo47>784</bItemNo47>
+		<bItemNo48>784</bItemNo48>
+		<bItemNo49>784</bItemNo49>
+		<bItemNo50>784</bItemNo50>
+	</ENEMYGUNCHOICES>
+	<ENEMYGUNCHOICES>
+		<uiIndex>13</uiIndex>
+		<name>60%</name>
+		<ubChoices>24</ubChoices>
+		<bItemNo1>785</bItemNo1>
+		<bItemNo2>785</bItemNo2>
+		<bItemNo3>785</bItemNo3>
+		<bItemNo4>785</bItemNo4>
+		<bItemNo5>785</bItemNo5>
+		<bItemNo6>785</bItemNo6>
+		<bItemNo7>785</bItemNo7>
+		<bItemNo8>785</bItemNo8>
+		<bItemNo9>785</bItemNo9>
+		<bItemNo10>785</bItemNo10>
+		<bItemNo11>785</bItemNo11>
+		<bItemNo12>785</bItemNo12>
+		<bItemNo13>785</bItemNo13>
+		<bItemNo14>785</bItemNo14>
+		<bItemNo15>785</bItemNo15>
+		<bItemNo16>785</bItemNo16>
+		<bItemNo17>785</bItemNo17>
+		<bItemNo18>785</bItemNo18>
+		<bItemNo19>785</bItemNo19>
+		<bItemNo20>785</bItemNo20>
+		<bItemNo21>785</bItemNo21>
+		<bItemNo22>785</bItemNo22>
+		<bItemNo23>785</bItemNo23>
+		<bItemNo24>785</bItemNo24>
+		<bItemNo25>785</bItemNo25>
+		<bItemNo26>785</bItemNo26>
+		<bItemNo27>785</bItemNo27>
+		<bItemNo28>785</bItemNo28>
+		<bItemNo29>785</bItemNo29>
+		<bItemNo30>785</bItemNo30>
+		<bItemNo31>785</bItemNo31>
+		<bItemNo32>785</bItemNo32>
+		<bItemNo33>785</bItemNo33>
+		<bItemNo34>785</bItemNo34>
+		<bItemNo35>785</bItemNo35>
+		<bItemNo36>785</bItemNo36>
+		<bItemNo37>785</bItemNo37>
+		<bItemNo38>785</bItemNo38>
+		<bItemNo39>785</bItemNo39>
+		<bItemNo40>785</bItemNo40>
+		<bItemNo41>785</bItemNo41>
+		<bItemNo42>785</bItemNo42>
+		<bItemNo43>785</bItemNo43>
+		<bItemNo44>785</bItemNo44>
+		<bItemNo45>785</bItemNo45>
+		<bItemNo46>785</bItemNo46>
+		<bItemNo47>785</bItemNo47>
+		<bItemNo48>785</bItemNo48>
+		<bItemNo49>785</bItemNo49>
+		<bItemNo50>785</bItemNo50>
 	</ENEMYGUNCHOICES>
 </ENEMYGUNCHOICESLIST>
