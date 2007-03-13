@@ -118,12 +118,12 @@ STR16 pCreditsJA2113[] =
 	L"@};(Alle weiteren Community Mitglieder die Ideen und Feedback eingebracht haben!)",
 };
 
-UINT16 ItemNames[MAXITEMS][80] =
+wchar_t ItemNames[MAXITEMS][80] =
 {
 	L"",
 };
 
-UINT16 ShortItemNames[MAXITEMS][80] =
+wchar_t ShortItemNames[MAXITEMS][80] =
 {
 	L"",
 };
@@ -133,7 +133,7 @@ UINT16 ShortItemNames[MAXITEMS][80] =
 // NATO is the North Atlantic Treaty Organization
 // WP is Warsaw Pact
 // cal is an abbreviation for calibre
-UINT16 AmmoCaliber[MAXITEMS][20];// =
+wchar_t AmmoCaliber[MAXITEMS][20];// =
 //{
 //	L"0",
 //	L".38 Kal",
@@ -161,7 +161,7 @@ UINT16 AmmoCaliber[MAXITEMS][20];// =
 // NATO is the North Atlantic Treaty Organization
 // WP is Warsaw Pact
 // cal is an abbreviation for calibre
-UINT16 BobbyRayAmmoCaliber[MAXITEMS][20] ;//=
+wchar_t BobbyRayAmmoCaliber[MAXITEMS][20] ;//=
 //{
 //	L"0",
 //	L".38 Kal",
@@ -181,7 +181,7 @@ UINT16 BobbyRayAmmoCaliber[MAXITEMS][20] ;//=
 //	L"", // dart
 //};
 
-UINT16 WeaponType[][30] =
+wchar_t WeaponType[][30] =
 {
 	L"Andere",
 	L"Pistole",
@@ -194,7 +194,7 @@ UINT16 WeaponType[][30] =
 	L"Schrotflinte",
 };
 
-UINT16 TeamTurnString[][STRING_LENGTH] =
+wchar_t TeamTurnString[][STRING_LENGTH] =
 {
 	L"Spielzug Spieler",
 	L"Spielzug Gegner",
@@ -204,7 +204,7 @@ UINT16 TeamTurnString[][STRING_LENGTH] =
 	// planning turn
 };
 
-UINT16 Message[][STRING_LENGTH] =
+wchar_t Message[][STRING_LENGTH] =
 {
 	L"",
 
@@ -1082,7 +1082,7 @@ INT16 gMoneyStatsDesc[][ 13 ] =
 
 //The health of various creatures, enemies, characters in the game. The numbers following each are for comment
 //only, but represent the precentage of points remaining. 
-UINT16 zHealthStr[][13] =	//used to be 10
+wchar_t zHealthStr[][13] =	//used to be 10
 {
 	L"STIRBT",		//	>= 0
 	L"KRITISCH", 	//	>= 15
@@ -1115,7 +1115,7 @@ INT16 gzConsLabel[10] =
 };
 
 //Conversation options a player has when encountering an NPC
-UINT16 zTalkMenuStrings[6][ SMALL_STRING_LENGTH ] =
+wchar_t zTalkMenuStrings[6][ SMALL_STRING_LENGTH ] =
 {
 	L"Wie bitte?", 	//meaning "Repeat yourself" 
 	L"Freundlich",		//approach in a friendly
@@ -1126,7 +1126,7 @@ UINT16 zTalkMenuStrings[6][ SMALL_STRING_LENGTH ] =
 };
 
 //Some NPCs buy, sell or repair items. These different options are available for those NPCs as well.
-UINT16 zDealerStrings[4][ SMALL_STRING_LENGTH ]=
+wchar_t zDealerStrings[4][ SMALL_STRING_LENGTH ]=
 {
 	L"Handeln",	
 	L"Kaufen",
@@ -1134,7 +1134,7 @@ UINT16 zDealerStrings[4][ SMALL_STRING_LENGTH ]=
 	L"Reparieren",
 };
 
-UINT16 zDialogActions[1][ SMALL_STRING_LENGTH ] = 
+wchar_t zDialogActions[1][ SMALL_STRING_LENGTH ] = 
 {
 	L"Fertig",
 };
@@ -1170,7 +1170,7 @@ STR16 zVehicleName[] =
 };
 
 //These are messages Used in the Tactical Screen
-UINT16 TacticalStr[][ MED_STRING_LENGTH ] =
+wchar_t TacticalStr[][ MED_STRING_LENGTH ] =
 {
 	L"Luftangriff",
 	L"Automatisch Erste Hilfe leisten?",
@@ -2446,7 +2446,7 @@ STR16 pUpdatePanelButtons[] =
 };
 
 // Text which appears when everyone on your team is incapacitated and incapable of battle
-UINT16 LargeTacticalStr[][ LARGE_STRING_LENGTH ] =
+wchar_t LargeTacticalStr[][ LARGE_STRING_LENGTH ] =
 {
 	L"Sie sind in diesem Sektor geschlagen worden!",
 	L"Der Feind hat kein Erbarmen mit den Seelen Ihrer Teammitglieder und verschlingt jeden einzelnen.",
@@ -3594,7 +3594,7 @@ STR16 pMessageStrings[] =
 #endif
 };
 
-UINT16 ItemPickupHelpPopup[][40] =
+wchar_t ItemPickupHelpPopup[][40] =
 {
 	L"OK",
 	L"Hochscrollen",
