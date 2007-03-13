@@ -205,16 +205,16 @@
 	<ARMOUR>
 		<uiIndex>29</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
-		<ubProtection>12</ubProtection>
+		<ubProtection>22</ubProtection>
 		<ubCoverage>95</ubCoverage>
-		<ubDegradePercent>25</ubDegradePercent>
+		<ubDegradePercent>18</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
 		<uiIndex>30</uiIndex>
 		<ubArmourClass>1</ubArmourClass>
-		<ubProtection>12</ubProtection>
+		<ubProtection>24</ubProtection>
 		<ubCoverage>95</ubCoverage>
-		<ubDegradePercent>20</ubDegradePercent>
+		<ubDegradePercent>15</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
 		<uiIndex>31</uiIndex>
