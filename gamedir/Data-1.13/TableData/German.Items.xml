@@ -319,7 +319,6 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>39</uiIndex>
 		<szItemName>Stein</szItemName>
 		<szLongItemName>Ein Kieselstein</szLongItemName>
-		<szItemDesc />
 		<szBRName>Stein</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -567,9 +566,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>70</uiIndex>
 		<szItemName>Nada</szItemName>
 		<szLongItemName>Using this slot will cause the game to crash.</szLongItemName>
-		<szItemDesc />
 		<szBRName>Using this slot will cause the game to crash.</szBRName>
-		<szBRDesc />
 	</ITEM>
 	<ITEM>
 		<uiIndex>71</uiIndex>
@@ -1239,9 +1236,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>154</uiIndex>
 		<szItemName>Cocktail</szItemName>
 		<szLongItemName>Creature cocktail</szLongItemName>
-		<szItemDesc />
 		<szBRName>Creature cocktail</szBRName>
-		<szBRDesc />
 	</ITEM>
 	<ITEM>
 		<uiIndex>155</uiIndex>
@@ -1743,7 +1738,6 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>217</uiIndex>
 		<szItemName>Jelly</szItemName>
 		<szLongItemName>Royal Jelly</szLongItemName>
-		<szItemDesc />
 		<szBRName>Royal Jelly</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -1751,7 +1745,6 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>218</uiIndex>
 		<szItemName>Elixir</szItemName>
 		<szLongItemName>Jar of Elixir</szLongItemName>
-		<szItemDesc />
 		<szBRName>Jar of Elixir</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -1759,15 +1752,12 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>219</uiIndex>
 		<szItemName>Geld</szItemName>
 		<szLongItemName>Geld</szLongItemName>
-		<szItemDesc />
 		<szBRName>Geld</szBRName>
-		<szBRDesc />
 	</ITEM>
 	<ITEM>
 		<uiIndex>220</uiIndex>
 		<szItemName>Glas</szItemName>
 		<szLongItemName>Glas</szLongItemName>
-		<szItemDesc />
 		<szBRName>Glas</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -1775,7 +1765,6 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>221</uiIndex>
 		<szItemName>volles Glas</szItemName>
 		<szLongItemName>Glas mit Blut</szLongItemName>
-		<szItemDesc />
 		<szBRName>Glas mit Blut</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -1919,7 +1908,6 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>239</uiIndex>
 		<szItemName>volles Glas</szItemName>
 		<szLongItemName>Glas mit menschl. Blut</szLongItemName>
-		<szItemDesc />
 		<szBRName>Glas mit menschl. Blut.</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -1927,7 +1915,6 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>240</uiIndex>
 		<szItemName>Besitz-Urkunde</szItemName>
 		<szLongItemName>Besitz-Urkunde</szLongItemName>
-		<szItemDesc />
 		<szBRName>Besitz-Urkunde</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2087,7 +2074,6 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>260</uiIndex>
 		<szItemName>Klauen</szItemName>
 		<szLongItemName>Monsterklauen</szLongItemName>
-		<szItemDesc />
 		<szBRName>Monsterklauen</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2095,7 +2081,6 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>261</uiIndex>
 		<szItemName>Fleisch</szItemName>
 		<szLongItemName>Monsterfleisch</szLongItemName>
-		<szItemDesc />
 		<szBRName>Monsterfleisch</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2103,7 +2088,6 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>262</uiIndex>
 		<szItemName>Organ</szItemName>
 		<szLongItemName>Monsterorgan</szLongItemName>
-		<szItemDesc />
 		<szBRName>Monsterorgan</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2527,7 +2511,6 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>315</uiIndex>
 		<szItemName>LameBoy</szItemName>
 		<szLongItemName>LameBoy Display</szLongItemName>
-		<szItemDesc />
 		<szBRName>LameBoy Display</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2551,7 +2534,6 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>318</uiIndex>
 		<szItemName>FumblePak</szItemName>
 		<szLongItemName>FumblePak</szLongItemName>
-		<szItemDesc />
 		<szBRName>FumblePak</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2583,7 +2565,6 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>322</uiIndex>
 		<szItemName>Batterien</szItemName>
 		<szLongItemName>Batterien</szLongItemName>
-		<szItemDesc />
 		<szBRName>Batterien</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -8088,7 +8069,6 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>1010</uiIndex>
 		<szItemName>Handgriff</szItemName>
 		<szLongItemName>Universal Handgriff</szLongItemName>
-		<szItemDesc />
 		<szBRName>Universal Handgriff</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -8136,7 +8116,6 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>1016</uiIndex>
 		<szItemName>Gameboy</szItemName>
 		<szLongItemName>Gameboy</szLongItemName>
-		<szItemDesc />
 		<szBRName>Gameboy</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -8144,7 +8123,6 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>1017</uiIndex>
 		<szItemName>Camcorder</szItemName>
 		<szLongItemName>Camcorder</szLongItemName>
-		<szItemDesc />
 		<szBRName>Camcorder</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -8152,7 +8130,6 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>1018</uiIndex>
 		<szItemName>Batterien</szItemName>
 		<szLongItemName>Batterien</szLongItemName>
-		<szItemDesc />
 		<szBRName>Batterien</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
