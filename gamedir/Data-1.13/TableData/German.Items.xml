@@ -493,7 +493,7 @@
 		<szLongItemName>Pfeilpistole</szLongItemName>
 		<szItemDesc>Mit dieser Druckluft betriebenen Pfeilpistole legen Sie Großwild jeder Art schlafen, ohne die ganze Herde in Aufruhr zu versetzen.</szItemDesc>
 		<szBRName>Pfeilpistole</szBRName>
-		<szBRDesc>Ein stummer Vertreter in der lärmenden Gruppe der Schußwaffen. Hiermit können Sie den Job erledigen, ohne den Sensenmann aufzuwecken.</szBRDesc>
+		<szBRDesc>Ein stummer Vertreter in der lärmenden Gruppe der Schußwaffen. Hiermit können Sie den Job erledigen, ohne den Sensenmann aufzuwecken. Mit Prüfsiegel verschiedener Veterinär-Vereinigungen und zoologischer Gärten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>62</uiIndex>
@@ -549,7 +549,7 @@
 		<szLongItemName>Calico M-900 Karabiner</szLongItemName>
 		<szItemDesc>Ein halbautomatischer Karabiner mit riesigem Magazin für 50 Schuß der preiswerten 9mm Para Munition.</szItemDesc>
 		<szBRName>Calico M-900</szBRName>
-		<szBRDesc>Nahezu baugleich zur M-950 Pistole, wurde mittels Kunststoffkolben und hartverchromten, extrem langen Lauf ein Karabiner mit ertaunlicher Schußleistung geschaffen.</szBRDesc>
+		<szBRDesc>Nahezu baugleich zur M-950 Pistole wurde mittels Kunststoffkolben und hartverchromten, extrem langen Lauf ein Karabiner mit erstaunlicher Schußleistung geschaffen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>69</uiIndex>
@@ -1657,7 +1657,7 @@
 		<szLongItemName>Schalldämpfer</szLongItemName>
 		<szItemDesc>Dieser leichte und kompakte Schalldämpfer ermöglicht aufgrund seines Designs eine unkomplizierte Anbringung an den meisten Pistolen und MPs. Um eine maximale Wirkung zu erzielen, sollte speziele Unterschall-Mun. verwendet werden.</szItemDesc>
 		<szBRName>Schalldämpfer</szBRName>
-		<szBRDesc>Dieser kompakte Schalldämpfer paßt an den meisten Pistolen und MPs. Er durchschießt keine Filz- oder Gummischeiben und ist daher nahezu wartungsfrei. Bitte Unterschall-Munition mitbestellen!</szBRDesc>
+		<szBRDesc>Dieser kompakte Schalldämpfer paßt an die meisten Pistolen und MPs. Er durchschießt keine Filz- oder Gummischeiben und ist daher nahezu wartungsfrei. Bitte Unterschall-Munition mitbestellen!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>208</uiIndex>
@@ -2284,9 +2284,9 @@
 		<uiIndex>287</uiIndex>
 		<szItemName>Mütze</szItemName>
 		<szLongItemName>Offiziersmütze, USA</szLongItemName>
-		<szItemDesc>Das ist die Mütze eines Offiziers. Nach dem Aussehen zu urteilen, wahrscheinlich aus den USA.</szItemDesc>
+		<szItemDesc>Das ist die Mütze eines Offiziers. Nach dem Aussehen zu urteilen, wahrscheinlich eines Majors der US-Streitkräfte.</szItemDesc>
 		<szBRName>Offiziersmütze USA</szBRName>
-		<szBRDesc>Das ist die Mütze eines Offiziers. Nach dem Aussehen zu urteilen, wahrscheinlich aus den USA.</szBRDesc>
+		<szBRDesc>Verschaffen Sie sich Respekt in Ihrem Team. Zeigen Sie, wer den Hut aufhat! Diese Schirmmütze wird mit verschiedenen Spiegeln der Armeen der NATO geliefert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>288</uiIndex>
@@ -2324,7 +2324,7 @@
 		<uiIndex>292</uiIndex>
 		<szItemName>Mütze</szItemName>
 		<szLongItemName>Offiziersmütze, Sowjetunion</szLongItemName>
-		<szItemDesc>Das ist die Mütze eines Offiziers. Nach dem Aussehen zu urteilen, wahrscheinlich ein Berater aus der früheren Sowjetunion.</szItemDesc>
+		<szItemDesc>Das ist die Mütze eines Offiziers. Nach dem Aussehen zu urteilen, wahrscheinlich eines Beraters aus der früheren Sowjetunion.</szItemDesc>
 		<szBRName>Offiziersmütze</szBRName>
 		<szBRDesc>Verschaffen Sie sich Respekt in Ihrem Team. Zeigen Sie, wer den Hut aufhat! Diese Schirmmütze wird mit verschiedenen Spiegeln der Armeen des Warschauer Pakts geliefert.</szBRDesc>
 	</ITEM>
@@ -4905,9 +4905,9 @@
 		<uiIndex>615</uiIndex>
 		<szItemName>AMD-65M</szItemName>
 		<szLongItemName>AMD-65M</szLongItemName>
-		<szItemDesc>Eine ungarische Variante der AKMS. Mit Klappschaft und zusätzlichem vorderen Handgriff.</szItemDesc>
+		<szItemDesc>Eine ungarische Variante der AKMS. Normalerweise mit Klappschaft und zusätzlichem vorderen Handgriff, verfügt diese Exportversion über einen Holzkolben.</szItemDesc>
 		<szBRName>AMD-65M</szBRName>
-		<szBRDesc>Diese ungarische Variante der AKMS verfügt ebenso über einen Klappschaft, hat jedoch einen zusätzlichen vorderen Handgriff.</szBRDesc>
+		<szBRDesc>Diese ungarische Variante der AKMS verfügt normalerweise über einen Klappschaft und einen zusätzlichen vorderen Handgriff. Dieses Modell wurde jedoch mit einem festen Kolben für den Export für die Pakistanische Armee ausgerüstet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>616</uiIndex>
@@ -4915,7 +4915,7 @@
 		<szLongItemName>AN-94 Abakan</szLongItemName>
 		<szItemDesc>Das AN-94 Abakan konkurriert direkt mit den technisch vergleichbaren Modellen AEK-971 und 973, ist aber aufwändiger zu warten und teurer.</szItemDesc>
 		<szBRName>AN-94 Abakan</szBRName>
-		<szBRDesc>Das von IZHMASH entwickelte und hergestellte AN-94 Abakan verfügt ebenfalls über einen gegenläufigen Rückstoßkompensator. Es hat eine höhere Kadenz als die AEKs und idt effektiver gegen Körperschutz. Feuermodus: S-2-F</szBRDesc>
+		<szBRDesc>Das von IZHMASH entwickelte und hergestellte AN-94 Abakan verfügt ebenfalls über einen gegenläufigen Rückstoßkompensator. Es hat eine höhere Kadenz als die AEKs und ist effektiver gegen Körperschutz. Feuermodus: S-2-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>617</uiIndex>
@@ -5619,7 +5619,7 @@
 		<szLongItemName>QBZ-97</szLongItemName>
 		<szItemDesc>Die Exportversion des chinesischen Bullpup Sturmgewehres.</szItemDesc>
 		<szBRName>QBZ-97</szBRName>
-		<szBRDesc>Im Jahr 1901 vom britischen Thorneycroft-Karabiner vorgestellt, hat das 'Bullenkalb'-Design es nun auch nach China geschafft. Unsere Importeure bekräftigen, daß die Exportversion qualitativ hochwertiger ist.</szBRDesc>
+		<szBRDesc>Im Jahr 1901 vom britischen Thorneycroft- Karabiner vorgestellt, hat es das 'Bullenkalb'- Design nun auch nach China geschafft. Unsere Importeure bekräftigen, daß die Exportversion qualitativ hochwertiger als die nationale Version ist.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>705</uiIndex>
@@ -6011,7 +6011,7 @@
 		<szLongItemName>Zastava M76</szLongItemName>
 		<szItemDesc>Das Zastava M76 war das Scharfschützengewehr der jugoslawischen Armee. </szItemDesc>
 		<szBRName>Zastava M76</szBRName>
-		<szBRDesc>Das Zastava M76 war das Scharfschützen- gewehr der jugoslawischen Armee. Nach dem Zerfall Jugoslawiens behielten die einzelnen Staaten das Gewehr bei. Die Waffe basiert auf der Technik des Sturmgewehrs AK-47.</szBRDesc>
+		<szBRDesc>Das Zastava M76 war das Scharfschützen- gewehr der jugoslawischen Armee. Nach dem Zerfall Jugoslawiens behielten die einzelnen Staaten das Gewehr bei. Die Waffe basiert im Gegensatz zum SWD auf dem Systemkasten des AK-47.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>754</uiIndex>
@@ -6259,15 +6259,15 @@
 		<szLongItemName>Mauser M-03</szLongItemName>
 		<szItemDesc>ein präzises Jagdgewehr auch für den Geldbeutel des Jungjägers. Ausführung 'Solid' 8x57IS mit 600mm Lauf.</szItemDesc>
 		<szBRName>Mauser M-03</szBRName>
-		<szBRDesc>Die M03 ist ein präzises Jagdgewehr prädestiniert für den weiten Schuß. Hergestellt in in: .308 Win, .30-06, 8,5x63, 8x57IS, 9,3x62, .300 Win.Mag., .25-06 Remington, ist sie zur Zeit bei BR nur in 7.92x57mm (8x57IS) lieferbar.</szBRDesc>
+		<szBRDesc>Die M03 ist ein präzises Jagdgewehr, prädestiniert für den weiten Schuß. Hergestellt in in: .308 Win, .30-06, 8,5x63, 8x57IS, 9,3x62, .300 Win.Mag., .25-06 Remington, ist sie zur Zeit bei BR nur in 8x57IS (=7.92x57mm) lieferbar.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>785</uiIndex>
 		<szItemName>AKMSU</szItemName>
 		<szLongItemName>AKMSU</szLongItemName>
-		<szItemDesc>Das AKMSU ist ein AK/M + abklappbarer Schulterstütze + gekürzten Lauf.</szItemDesc>
+		<szItemDesc>Das AKMSU ist ein AK/M + abklappbare Schulterstütze + gekürzter Lauf.</szItemDesc>
 		<szBRName>AKMSU</szBRName>
-		<szBRDesc>Das AKMSU ist ein AK/M + abklappbarer Schulterstütze + gekürzten Lauf. Einige Varianten kommen mit einem vorderen Daumenlochgriff daher.</szBRDesc>
+		<szBRDesc>Das AKMSU ist ein AK/M + abklappbare Schulterstütze + gekürzter Lauf. Diese Varianten kommt zusätzlich mit einem vorderen Daumenlochgriff daher.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>786</uiIndex>
@@ -7977,17 +7977,17 @@
 		<uiIndex>999</uiIndex>
 		<szItemName>PSO-1</szItemName>
 		<szLongItemName>PSO-1 Zielfernrohr 4x24</szLongItemName>
-		<szItemDesc>Dieses russische Zielfernrohr kann auf die meisten Gewehre der AK-Modellreihen und einige SWD-Klone montiert werden.</szItemDesc>
+		<szItemDesc>Dieses russische 4x24 Zielfernrohr kann auf die meisten Gewehre der AK-Modellreihen und einige SWD-Klone montiert werden.</szItemDesc>
 		<szBRName>PSO-1</szBRName>
-		<szBRDesc>Dieses russische Zielfernrohr kann an alle Gewehre mit Kalaschnikow-Systemkasten (AK, AEK, Saiga u.s.w.) montiert werden. </szBRDesc>
+		<szBRDesc>Dieses russische 4x24 Zielfernrohr kann an alle Gewehre mit Kalaschnikow-Systemkasten (AK, AEK, Saiga u.s.w.) montiert werden. </szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1000</uiIndex>
 		<szItemName>PSO-P</szItemName>
 		<szLongItemName>PSO-P Zielfernrohr 8x42</szLongItemName>
-		<szItemDesc>Dieses verbesserte russische Zielfernrohr kann an die meisten Gewehre der AK-Modellreihe sowie an alle SWD Scharfschützengewehre montiert werden.</szItemDesc>
+		<szItemDesc>Dieses verbesserte russische 8x42 Zielfernrohr kann an die meisten Gewehre der AK-Modellreihe sowie an alle SWD Scharfschützengewehre montiert werden.</szItemDesc>
 		<szBRName>PSO-P</szBRName>
-		<szBRDesc>Dieses verbesserte russische Zielfernrohr kann an die meisten Gewehre des ehem. Ostblocks montiert werden. Es ist mit 'SWD Side Mounting Rail' oder 'Russian Small Arms Mounting Rail' lieferbar, paßt jedoch nicht an Picatinny Rails</szBRDesc>
+		<szBRDesc>Dieses verbesserte russische 8x42 Zielfernrohr kann an die meisten Gewehre des ehem. Ostblocks montiert werden. Es ist mit 'SWD Side Mounting Rail' oder 'Russian Small Arms Mounting Rail' lieferbar, paßt jedoch nicht an Picatinny Rails</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1001</uiIndex>
