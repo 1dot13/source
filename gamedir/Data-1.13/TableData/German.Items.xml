@@ -13,11 +13,7 @@
 		<szLongItemName>Glock 17</szLongItemName>
 		<szItemDesc>Diese österreichische, halbautomatische Pistole wird weltweit von vielen Sicherheitskräften und Offizieren bevorzugt und gilt daher als Standardseitenwaffe.</szItemDesc>
 		<szBRName>Glock 17</szBRName>
-		<szBRDesc>Die Glock 17 ist die weltweit 
-meistbenutzte Behördenpistole. Wegen ihrer 
-unübertroffenen Zuverlässigkeit, hohen Magazinkapazität sowie ihrem geringen 
-Gewicht vertrauen ihr Beamte auf der ganzen 
-Welt im täglichen Dienst.</szBRDesc>
+		<szBRDesc>Die Glock 17 ist die weltweit meistbenutzte Behördenpistole. Wegen ihrer unübertroffenen Zuverlässigkeit, hohen Magazinkapazität sowie ihrem geringen Gewicht vertrauen ihr Beamte auf der ganzen Welt im täglichen Dienst.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>2</uiIndex>
@@ -31,7 +27,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>3</uiIndex>
 		<szItemName>Beretta 92F</szItemName>
 		<szLongItemName>Beretta 92F</szLongItemName>
-		<szItemDesc>Mit dieser italienische Double-Action Pistole wird jeder Schütze zu einer tödlichen Waffe.</szItemDesc>
+		<szItemDesc>Mit dieser italienischen Double-Action Pistole wird jeder Schütze zu einer tödlichen Waffe.</szItemDesc>
 		<szBRName>Beretta 92F</szBRName>
 		<szBRDesc>Seit 1984 wird die Beretta 92F als Dienstpistole M9 von der US-Army und ihren Teileinheiten verwendet. Das Griffstück wurde leicht geändert um ein beidhändiges Schießen zu ermöglichen.</szBRDesc>
 	</ITEM>
@@ -39,9 +35,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>4</uiIndex>
 		<szItemName>Beretta 93R</szItemName>
 		<szLongItemName>Beretta 93R</szLongItemName>
-		<szItemDesc>Die Schwester der 92F wir als leichte MP klassifiziert und könnte sich bei einem Schusswechsel als Ihre beste Freundin erweisen.</szItemDesc>
+		<szItemDesc>Die Schwester der 92F wird als leichte MP klassifiziert und könnte sich bei einem Schußwechsel als Ihre beste Freundin erweisen.</szItemDesc>
 		<szBRName>Beretta 93R</szBRName>
-		<szBRDesc>Die Schwester der 92F wir als leichte Maschinenpistole klassifiziert und könnte sich bei einem Schusswechsel als Ihre beste Freundin erweisen. Feuermodus: S-3</szBRDesc>
+		<szBRDesc>Die Schwester der 92F wird als leichte Maschinenpistole klassifiziert und könnte sich bei einem Schußwechsel als Ihre beste Freundin erweisen. Feuermodus: S-3</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>5</uiIndex>
@@ -87,17 +83,17 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>10</uiIndex>
 		<szItemName>MAC-10</szItemName>
 		<szLongItemName>Ingram MAC-10</szLongItemName>
-		<szItemDesc>Die MAC-10 kam 1970 auf den Markt. Sie besitzt nur Dauerfeuer und war für den Einsatz in Spezialeinheiten gedacht. Ihr größter Konkurrent war die HK MP5.</szItemDesc>
+		<szItemDesc>Die MAC-10 kam 1970 auf den Markt. Sie schießt nur Dauerfeuer und war für den Einsatz in Spezialeinheiten gedacht. Ihr größter Konkurrent war die HK MP5.</szItemDesc>
 		<szBRName>Ingram MAC-10</szBRName>
-		<szBRDesc>Die MAC-10 kam 1970 auf den Markt. Sie besitzt nur Dauerfeuer und war für den Einsatz in Spezialeinheiten gedacht. Ihr größter Konkurrent war die HK MP5.</szBRDesc>
+		<szBRDesc>Das 'Military Armament Corporation Model 10' wurde 1964 von G. Ingram entwickelt und schnell Standardwaffe bei Spezialeinheiten des USMC. Inzwischen wird sie von Ingrams eigener Firma gefertigt. Sie kann mit einem Geräuschunterdrücker ausgestattet werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>11</uiIndex>
 		<szItemName>M1A1</szItemName>
 		<szLongItemName>Thompson M1A1</szLongItemName>
-		<szItemDesc>Als der Vorläufer der 'Tommy Gun', wurde diese Waffe in Chicago und am Strand der Normandie bevorzugt eingesetzt.</szItemDesc>
+		<szItemDesc>Als Vorläufer der modernen Sturmgewehre wurde diese 'Thompson A1' am Strand der Normandie eingesetzt.</szItemDesc>
 		<szBRName>Thompson M1A1</szBRName>
-		<szBRDesc>Als der Vorläufer der 'Tommy Gun', wurde diese Waffe in Chicago und am Strand der Normandie bevorzugt eingesetzt.</szBRDesc>
+		<szBRDesc>Der Vorläufer dieser am Strand der Normandie eingesetzten, billigeren 'Thompson A1', war die in Chicago bekannt gewordene M1928A1. Die M1A1 ist zwar häßlicher und hat ein kleineres Magazin, aber dafür die selben Schußleistungen und ein geringeres Gewicht.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>12</uiIndex>
@@ -149,11 +145,11 @@ Welt im täglichen Dienst.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>18</uiIndex>
-		<szItemName>SVD</szItemName>
-		<szLongItemName>Dragunov SVD</szLongItemName>
-		<szItemDesc>Das SVD ist ein leichtes, sehr genaues Scharfschützengewehr. Es wurde im Jahre 1963 in der russischen Armee eingeführt.</szItemDesc>
-		<szBRName>Dragunov SVD</szBRName>
-		<szBRDesc>Das SVD (Snaiperskaja Vintovka Dragunova) ist ein leichtes, sehr genaues, halbautomatisches Scharfschützengewehr. Es wurde erstmals 1963 an die russische Armee ausgeliefert. Heute noch wird es in modifizierter Form von IZHMASH hergestellt.</szBRDesc>
+		<szItemName>SWD</szItemName>
+		<szLongItemName>Dragunow SWD</szLongItemName>
+		<szItemDesc>Das SWD ist ein leichtes, sehr genaues Scharfschützengewehr. Es wurde im Jahre 1963 in der russischen Armee eingeführt.</szItemDesc>
+		<szBRName>Dragunow SWD</szBRName>
+		<szBRDesc>Das SWD (Snaiperskaja Wintowka Dragunowa, lateinisch transliteriert auch 'SVD') ist ein leichtes, sehr genaues, halbautomatisches Scharfschützengewehr. Es wurde erstmals 1963 an die russische Armee ausgeliefert. Heute noch wird es in modifizierter Form von IZHMASH hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>19</uiIndex>
@@ -225,15 +221,15 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>Winchester M14</szLongItemName>
 		<szItemDesc>Das WINCHESTER M14 löste Ende der 50er Jahre den seit 1936 im Einsatz befindlichen M1 Garand ab. Es besitzt eine herausragende Schussgenauigkeit.</szItemDesc>
 		<szBRName>Winchester M14</szBRName>
-		<szBRDesc>Das WINCHESTER M14 löste Ende der 50er Jahre den seit 1936 im Einsatz befindlichen M1 Garand ab. Aufgrund seiner guten Schussleistung erfreut es sich großer Beliebheit bei Reservisten und Jäger. SPRINGFIELD ARMORY fertigt mit dem Modell M1A eine zivile Variante.</szBRDesc>
+		<szBRDesc>Das WINCHESTER M14 löste Ende der 50er Jahre den seit 1936 im Einsatz befindlichen M1 Garand ab. Aufgrund seiner guten Schussleistung erfreut es sich großer Beliebheit bei Reservisten und Jägern. SPRINGFIELD ARMORY fertigt mit dem Modell M1A eine zivile Variante.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>28</uiIndex>
 		<szItemName>FN-FAL</szItemName>
 		<szLongItemName>FN-FAL</szLongItemName>
-		<szItemDesc>Dieses belgische Sturmgewehr ist weit verbreitet und bekannt für seinen großen Rückstoß.</szItemDesc>
+		<szItemDesc>Dieses belgische Sturmgewehr ist weit verbreitet und bekannt für seinen enormen Rückstoß.</szItemDesc>
 		<szBRName>FN-FAL</szBRName>
-		<szBRDesc>Dieses belgische Sturmgewehr ist weit verbreitet. Wegen des harten Rückstoßes im Vollautomatik-Modus, wird es oft nur als Halbautomatik verwendet.</szBRDesc>
+		<szBRDesc>Dieses belgische Sturmgewehr ist weit verbreitet. Wegen des harten Rückstoßes im Vollautomatik-Modus, wird es oft nur im Halbautomatik-Modus verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>29</uiIndex>
@@ -281,7 +277,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>FN Minimi</szLongItemName>
 		<szItemDesc>Das M249 wurde Anfang der 80er Jahre entwickelt um den Teams eine präzise dauerfeuerfähige Waffe zu geben.</szItemDesc>
 		<szBRName>FN Minimi</szBRName>
-		<szBRDesc>Das M249 SAW wurde Anfang der 80er Jahre entwickelt, um den Teams auf Zugebene eine präzise dauerfeuerfähige Waffe zu geben - sie besitzt nur Dauerfeuer. In 1982 wurde das MG offiziell bei der US-Army eingeführt.</szBRDesc>
+		<szBRDesc>Das M249 SAW wurde Anfang der 80er Jahre entwickelt, um den Teams auf Zugebene eine präzise dauerfeuerfähige Waffe zu geben - sie schießt nur Dauerfeuer. In 1982 wurde das MG offiziell bei der US-Army eingeführt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>35</uiIndex>
@@ -318,7 +314,8 @@ Welt im täglichen Dienst.</szBRDesc>
 	<ITEM>
 		<uiIndex>39</uiIndex>
 		<szItemName>Stein</szItemName>
-		<szLongItemName>Ein Kieselstein</szLongItemName>
+		<szLongItemName>Ein großer Kieselstein.</szLongItemName>
+		<szItemDesc>Damit kann man Lärm machen. Oder Beulen. Oder Scherben.</szItemDesc>
 		<szBRName>Stein</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -342,7 +339,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>42</uiIndex>
 		<szItemName>Stein</szItemName>
 		<szLongItemName>Ein weiterer Stein</szLongItemName>
-		<szItemDesc>Ein Stein aus Arulco.</szItemDesc>
+		<szItemDesc>Ein Stein aus Arulco, der sich gut werfen läßt.</szItemDesc>
 		<szBRName>Stein</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -494,15 +491,15 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>61</uiIndex>
 		<szItemName>Pfeilpistole</szItemName>
 		<szLongItemName>Pfeilpistole</szLongItemName>
-		<szItemDesc>Ein stummer Vertreter in der lärmenden Gruppe der Feuerwaffen. Hiermit können Sie den Job erledigen, ohne den Sensenmann aufzuwecken.</szItemDesc>
+		<szItemDesc>Mit dieser Druckluft betriebenen Pfeilpistole legen Sie Großwild jeder Art schlafen, ohne die ganze Herde in Aufruhr zu versetzen.</szItemDesc>
 		<szBRName>Pfeilpistole</szBRName>
-		<szBRDesc>Ein stummer Vertreter in der lärmenden Gruppe der Feuerwaffen. Hiermit können Sie den Job erledigen, ohne den Sensenmann aufzuwecken.</szBRDesc>
+		<szBRDesc>Ein stummer Vertreter in der lärmenden Gruppe der Schußwaffen. Hiermit können Sie den Job erledigen, ohne den Sensenmann aufzuwecken.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>62</uiIndex>
 		<szItemName>bl. W-Messer</szItemName>
 		<szLongItemName>blutiges Wurfmesser</szLongItemName>
-		<szItemDesc>Ein kleines, leichtes Wurfmesser mit einer zweischneidigen, hartverchromten Karbonstahlklinge, die mit Blut bedeckt ist.</szItemDesc>
+		<szItemDesc>Ein kleines, leichtes Wurfmesser mit einer zweischneidigen, hartverchromten Karbonstahlklinge, die blutverklebt ist.</szItemDesc>
 		<szBRName>blutiges Wurfmesser</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -542,25 +539,25 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>67</uiIndex>
 		<szItemName>M-950</szItemName>
 		<szLongItemName>Calico M-950</szLongItemName>
-		<szItemDesc>Die CALICO Feuerwaffen zeichnen sich duch ein schlankes Profil kombiniert mit einem großen Magazin und geringem Rückstoß aus.</szItemDesc>
+		<szItemDesc>Diese halbautomatische Pistole verfügt über das bekannte, gigantische CALICO 50-Schuß-Helix Magazin.</szItemDesc>
 		<szBRName>Calico M-950</szBRName>
-		<szBRDesc>Die CALICO Feuerwaffen zeichnen sich duch ein schlankes Profil kombiniert mit einem großen Magazin und geringem Rückstoß aus. Diese Pistolen-Version ist nur mit Einzelfeuer ausgestattet.</szBRDesc>
+		<szBRDesc>Das gigantische CALICO 50-Schuß-Helix Magazin verleiht dieser halbautomatischen und erstaunlich schlanken Pistole einen geringen Rückstoß.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>68</uiIndex>
 		<szItemName>M-900</szItemName>
 		<szLongItemName>Calico M-900 Karabiner</szLongItemName>
-		<szItemDesc>Die CALICO Feuerwaffen zeichnen sich duch ein schlankes Profil kombiniert mit einem großen Magazin und geringem Rückstoß aus.</szItemDesc>
+		<szItemDesc>Ein halbautomatischer Karabiner mit riesigem Magazin für 50 Schuß der preiswerten 9mm Para Munition.</szItemDesc>
 		<szBRName>Calico M-900</szBRName>
-		<szBRDesc>Die CALICO Feuerwaffen zeichnen sich duch ein schlankes Profil kombiniert mit einem großen Magazin und geringem Rückstoß aus. Die Karabiner-Version ist nur mit Einzelfeuer ausgestattet.</szBRDesc>
+		<szBRDesc>Nahezu baugleich zur M-950 Pistole, wurde mittels Kunststoffkolben und hartverchromten, extrem langen Lauf ein Karabiner mit ertaunlicher Schußleistung geschaffen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>69</uiIndex>
 		<szItemName>M-960A</szItemName>
 		<szLongItemName>Calico M-960A</szLongItemName>
-		<szItemDesc>Die CALICO Feuerwaffen zeichnen sich duch ein schlankes Profil kombiniert mit einem großen Magazin und geringem Rückstoß aus.</szItemDesc>
+		<szItemDesc>Erst der vollautomatische Betrieb würdigt die Kapazität des CALICO-Helix-Magazins richtig.</szItemDesc>
 		<szBRName>Calico M-960A</szBRName>
-		<szBRDesc>Die CALICO Feuerwaffen zeichnen sich duch ein schlankes Profil kombiniert mit einem großen Magazin und geringem Rückstoß aus. Die MP-Version besitzt eine S-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Diese Maschinenpistole liegt aufgrund ihres gigantischen 50-Schuß-Magazins sehr ruhig in der Hand. Die MP-Version besitzt eine S-F Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>70</uiIndex>
@@ -572,9 +569,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>71</uiIndex>
 		<szItemName>9x19 Mag</szItemName>
 		<szLongItemName>9x19mm Magazin</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>9x19 Mag #15</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>72</uiIndex>
@@ -940,9 +937,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>117</uiIndex>
 		<szItemName>9x39 Mag</szItemName>
 		<szLongItemName>9x39mm Magazin, PB</szLongItemName>
-		<szItemDesc>Diese Munition im stärkeren Kaliber 9x39mm wird von einer Reihe russischer Waffen verwendet. Darunter das bekannte AS Val, VSS Vintorez und SR-3 Vikhr.</szItemDesc>
+		<szItemDesc>Die Unterschall-Munition im stärkeren Kaliber 9x39mm wird von einer Reihe neuerer russischer Waffen verwendet. Darunter AS Val, VSS Vintorez und SR-3 Vikhr.</szItemDesc>
 		<szBRName>9x39 Magazin #20</szBRName>
-		<szBRDesc>Diese Munition im stärkeren Kaliber 9x39mm wird von einer Reihe russischer Waffen verwendet. Darunter das bekannte AS Val, VSS Vintorez und SR-3 Vikhr.</szBRDesc>
+		<szBRDesc>Diese Munition im stärkeren Kaliber 9x39mm wird von einer Reihe russischer Waffen verwendet. Darunter AS Val, VSS Vintorez und SR-3 Vikhr. Optimiert für Einsatz mit 9mm Schalldämpfern</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>118</uiIndex>
@@ -1027,10 +1024,10 @@ Welt im täglichen Dienst.</szBRDesc>
 	<ITEM>
 		<uiIndex>128</uiIndex>
 		<szItemName>A.L.I.C.E.</szItemName>
-		<szLongItemName>A.L.I.C.E. Kampftasche</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szLongItemName>A.L.I.C.E. Rucksack</szLongItemName>
+		<szItemDesc>Ein dunkler Segeltuch-Rucksack mit 4 großen Innentaschen</szItemDesc>
 		<szBRName>A.L.I.C.E. Kampftasche</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Dieser Rucksack ermöglicht es Ihnen, bei unerwarteten Kampfhandlungen schnell Ihr Gewicht zu reduzieren und somit Ihre Beweglichkeit zu erhöhen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>129</uiIndex>
@@ -1514,15 +1511,15 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>189</uiIndex>
 		<szItemName>K-Pilotenjacke</szItemName>
 		<szLongItemName>Kevlar-Pilotenjacke</szLongItemName>
-		<szItemDesc>Diese Fliegerjacke ist mit Kevlarfasern durchsetzt, um ein Mindestmaß an Schutz zu gewährleisten.</szItemDesc>
+		<szItemDesc>Diese Fliegerjacke ist mit Kevlarfasern verstärkt, um ein Mindestmaß an Schutz zu gewährleisten.</szItemDesc>
 		<szBRName>Kevlar-Pilotenjacke</szBRName>
-		<szBRDesc>Diese Fliegerjacke ist mit Kevlarfasern durchsetzt, um ein Mindestmaß an Schutz zu gewährleisten.</szBRDesc>
+		<szBRDesc>Diese lederne Fliegerjacke ist mit einem Innenfutter aus Kevlarfasern vernäht, um ein Mindestmaß an Schutz zu gewährleisten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>190</uiIndex>
 		<szItemName>C18-K-Pilotenjacke</szItemName>
 		<szLongItemName>Comp.18-Kevlar-Pilotenjacke</szLongItemName>
-		<szItemDesc>Diese Fliegerjacke aus Leder ist mit Kevlarfasern durchsetzt und mit Compound-18 behandelt worden, wodurch sie noch besser schützt.</szItemDesc>
+		<szItemDesc>Diese Fliegerjacke aus Leder mit Kevlar-Innenfutter ist mit Compound-18 behandelt worden, wodurch sie noch besser schützt.</szItemDesc>
 		<szBRName>C18-K-Pilotenjacke</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -1562,7 +1559,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>195</uiIndex>
 		<szItemName>T-Shirt</szItemName>
 		<szLongItemName>Deidranna T-Shirt</szLongItemName>
-		<szItemDesc>Die stilvolle Art, Ergebenheit gegenüber der Herrin zu zeigen. Seit ihrer Machtergreifung ist es unter Arulcanern Mode, sich bei staatstragenden Auftritten mit diesen 'Deidranna herrscht!'-Shirts sehen zu lassen.</szItemDesc>
+		<szItemDesc>Das 'Deidranna Rulez!'-Shirt tragen zu müssen, ist eine weitere Erniedrigung der Arulcaner. In unbeobachtetet Momenten zerschneiden sie diese Shirts gerne zu Putzlappen.</szItemDesc>
 		<szBRName>Deidranna T-Shirt</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -1594,17 +1591,17 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>199</uiIndex>
 		<szItemName>Fernglas I</szItemName>
 		<szLongItemName>10x30 Fernglas</szLongItemName>
-		<szItemDesc>Ein kompaktes 10x30 Fernglas.</szItemDesc>
+		<szItemDesc>Ein kompaktes 10x30 Fernglas made in China. Trägt die Aufschrift 'TCM'. Enthält nur Kunsstoffteile.</szItemDesc>
 		<szBRName>10x30 Fernglas</szBRName>
-		<szBRDesc>Ein kompaktes 10x30 Fernglas.</szBRDesc>
+		<szBRDesc>Ein kompaktes 10x30 Fernglas. Diese preiswerte Glas wird in Europa von einem Kafferöster vertrieben, der uns seine Restbestände überlies.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>200</uiIndex>
 		<szItemName>Fernglas II</szItemName>
 		<szLongItemName>7x50 Fernglas</szLongItemName>
-		<szItemDesc>Ein hochwertiges 7x50 Fernglas.</szItemDesc>
+		<szItemDesc>Ein hochwertiges 7x50 Fernglas, made in Austria. Entspiegelte, beschichtete Linsen aus Glas. Outdoor geeignet</szItemDesc>
 		<szBRName>7x50 Fernglas</szBRName>
-		<szBRDesc>Ein hochwertiges 7x50 Fernglas.</szBRDesc>
+		<szBRDesc>Ein hochwertiges 7x50 Fernglas von Svarovski. Mit einer Schutzumhüllung aus Neopren.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>201</uiIndex>
@@ -1660,7 +1657,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>Schalldämpfer</szLongItemName>
 		<szItemDesc>Dieser leichte und kompakte Schalldämpfer ermöglicht aufgrund seines Designs eine unkomplizierte Anbringung an den meisten Pistolen und MPs. Um eine maximale Wirkung zu erzielen, sollte speziele Unterschall-Mun. verwendet werden.</szItemDesc>
 		<szBRName>Schalldämpfer</szBRName>
-		<szBRDesc>Dieser leichte und kompakte Schalldämpfer ermöglicht aufgrund seines Designs eine unkomplizierte Anbringung an den meisten Pistolen und MPs. Um eine maximale Wirkung zu erzielen, sollte speziele Unterschall-Mun. verwendet werden.</szBRDesc>
+		<szBRDesc>Dieser kompakte Schalldämpfer paßt an den meisten Pistolen und MPs. Er durchschießt keine Filz- oder Gummischeiben und ist daher nahezu wartungsfrei. Bitte Unterschall-Munition mitbestellen!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>208</uiIndex>
@@ -1674,9 +1671,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>209</uiIndex>
 		<szItemName>Zweibein</szItemName>
 		<szLongItemName>Zweibein</szLongItemName>
-		<szItemDesc>Dieser Universalständer passt zu den meisten Sturm- und Präzisionsgewehren sowie einigen leichten MPs.</szItemDesc>
+		<szItemDesc>Dieser Universalständer passt an die meisten Sturm- und Präzisionsgewehre sowie einige leichte MPs.</szItemDesc>
 		<szBRName>Zweibein</szBRName>
-		<szBRDesc>Dieser Universalständer passt zu den meisten Sturm- und Präzisionsgewehren sowie einigen leichten MPs. Er besteht aus Druckgussaluminium und hat eine mattierte Lackierung. Seine Beine lassen sich zusammenklappen.</szBRDesc>
+		<szBRDesc>Dieser Universalständer passt an die meisten Sturm- und Präzisionsgewehre sowie einige leichte MPs. Er besteht aus Druckgussaluminium und hat eine mattierte Lackierung. Seine Beine lassen sich zusammenklappen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>210</uiIndex>
@@ -1714,9 +1711,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>214</uiIndex>
 		<szItemName>Feldflasche</szItemName>
 		<szLongItemName>Feldflasche</szLongItemName>
-		<szItemDesc>Diese robuste, geruchsfreie Feldflasche hat ein Fassungsvermögen von 0,25 Liter.</szItemDesc>
+		<szItemDesc>Diese robuste, geruchsfreie Feldflasche hat ein Fassungsvermögen von 0,25 Litern.</szItemDesc>
 		<szBRName>Feldflasche</szBRName>
-		<szBRDesc>Diese robuste, geruchsfreie Feldflasche hat ein Fassungsvermögen von 0,25 Liter.</szBRDesc>
+		<szBRDesc>Diese robuste, geruchsfreie Feldflasche hat ein Fassungsvermögen von 0,25 Litern.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>215</uiIndex>
@@ -1954,7 +1951,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>245</uiIndex>
 		<szItemName>Alkohol</szItemName>
 		<szLongItemName>Flasche mit Alkohol</szLongItemName>
-		<szItemDesc>Dieser hochprozentige Alkohol findet vielseitige Verwendung, z.B. für Molotov-Coctails.</szItemDesc>
+		<szItemDesc>Aus Pflanzenresten fraglicher Herkunft wird dieser arulcanische Fusel destilliert. Brennt besser, als er schmeckt. Zum Mixen von Molotov-Coctails geeignet.</szItemDesc>
 		<szBRName>Flasche mit Alkohol</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2095,7 +2092,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>263</uiIndex>
 		<szItemName>Fernbedienung</szItemName>
 		<szLongItemName>Fernbedienung</szLongItemName>
-		<szItemDesc>Mit diesem kleinen Gerät lassen sich Türen leicht und sicher öffnen. Drücken Sie einfach den kleinen Knopf und - voilà! - schon sind Sie drin!</szItemDesc>
+		<szItemDesc>Mit diesem kleinen Gerät werden normalerweise Markisen, Springbrunnen oder Garagentore betätigt. Mal sehen, wer sich in Arulco sowas leisten kann...</szItemDesc>
 		<szBRName>Fernbedienung</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2103,7 +2100,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>264</uiIndex>
 		<szItemName>Platinuhr</szItemName>
 		<szLongItemName>Platinuhr</szLongItemName>
-		<szItemDesc>Ein stilvoller Designerchronograph mit Quartzdisplay, Schweizer Uhrwerk und vier Mikrometer-Platingehäuse.</szItemDesc>
+		<szItemDesc>Ein stilvoller Designerchronograph mit automatischem Schweizer Uhrwerk, Quartzglas und vier Mikrometer-Platingehäuse.</szItemDesc>
 		<szBRName>Platinuhr</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2127,7 +2124,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>267</uiIndex>
 		<szItemName>Portable TV</szItemName>
 		<szLongItemName>Portable TV</szLongItemName>
-		<szItemDesc>Mit diesem tragbaren Fernseher verpassen Sie keine Folge Ihrer Lieblingszeichentrickserie und sind immer über die aktuellen Spielstände der Bundesliga informiert.</szItemDesc>
+		<szItemDesc>Mit diesem tragbaren Fernseher verpassen Sie keine Folge des A-Teams und sind immer über die politische Lage in der Hauptstadt informiert.</szItemDesc>
 		<szBRName>Portable TV</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2159,7 +2156,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>271</uiIndex>
 		<szItemName>Schlüssel</szItemName>
 		<szLongItemName>kleiner Schlüssel</szLongItemName>
-		<szItemDesc>Ein kleiner, goldener Schlüsse, der vielleicht zu einem Schrank passt.</szItemDesc>
+		<szItemDesc>Ein kleiner, goldener Schlüssel, der vielleicht zu einem Schrank passt.</szItemDesc>
 		<szBRName>kleiner Schlüssel</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2175,7 +2172,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>273</uiIndex>
 		<szItemName>Schlüssel</szItemName>
 		<szLongItemName>einfacher Schlüssel</szLongItemName>
-		<szItemDesc>Ein einfacher Schlüssel. Passt wahrscheinlich auf ein primitives Schloss.</szItemDesc>
+		<szItemDesc>Ein einfacher Schlüssel. Passt wahrscheinlich in ein primitives Schloss.</szItemDesc>
 		<szBRName>einfacher Schlüssel</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2311,9 +2308,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>290</uiIndex>
 		<szItemName>Mütze</szItemName>
 		<szLongItemName>Fellmütze</szLongItemName>
-		<szItemDesc>Für den kalten russischen Wintern brauchen Sie das Beste um Ihren Kopf warm zu halten. Aber warum würden Sie ihn in Arulco brauchen?</szItemDesc>
+		<szItemDesc>Für den kalten russischen Winter brauchen Sie das Beste, um Ihren Kopf warm zu halten. Aber kann es in Arulco auch so kalt werden?</szItemDesc>
 		<szBRName>Fellmütze</szBRName>
-		<szBRDesc>Für den kalten russischen Wintern brauchen Sie das Beste um Ihren Kopf warm zu halten. Aber warum würden Sie ihn in Arulco brauchen?</szBRDesc>
+		<szBRDesc>Von ostdeutschen Söldnern 'BäFo' (Bärenfotze) genannt, schützt dieser militärische Kopfschmuck Ihre Ohren vor Kälte, Schlägen, Insektenbissen - leider auch vor Geräuschen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>291</uiIndex>
@@ -2327,9 +2324,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>292</uiIndex>
 		<szItemName>Mütze</szItemName>
 		<szLongItemName>Offiziersmütze, Sowjetunion</szLongItemName>
-		<szItemDesc>Das ist die Mütze eines Offiziers. Nach dem Aussehen zu urteilen, wahrscheinlich aus der früheren Sowjetunion.</szItemDesc>
+		<szItemDesc>Das ist die Mütze eines Offiziers. Nach dem Aussehen zu urteilen, wahrscheinlich ein Berater aus der früheren Sowjetunion.</szItemDesc>
 		<szBRName>Offiziersmütze</szBRName>
-		<szBRDesc>Das ist die Mütze eines Offiziers. Nach dem Aussehen zu urteilen, wahrscheinlich aus der früheren Sowjetunion.</szBRDesc>
+		<szBRDesc>Verschaffen Sie sich Respekt in Ihrem Team. Zeigen Sie, wer den Hut aufhat! Diese Schirmmütze wird mit verschiedenen Spiegeln der Armeen des Warschauer Pakts geliefert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>293</uiIndex>
@@ -2369,23 +2366,23 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>Teleskop-Schlagstock</szLongItemName>
 		<szItemDesc>Ein Schlagstock gehört zur Grundausstattung von Sicherheitskräften.</szItemDesc>
 		<szBRName>Teleskop-Schlagstock</szBRName>
-		<szBRDesc>Ein Schlagstock gehört zur Grundausstattung von Sicherheitskräften.</szBRDesc>
+		<szBRDesc>Dieser Teleskop-Schlagstock ist verdeckt zu tragen und schnell einsatzbereit. Wird auch gerne von radikalen Fußballfreunden gekauft!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>298</uiIndex>
-		<szItemName>Schlagstock</szItemName>
+		<szItemName>Tonfa</szItemName>
 		<szLongItemName>Schlagstock</szLongItemName>
-		<szItemDesc>Ein Schlagstock gehört zur Grundausstattung von Sicherheitskräften.</szItemDesc>
+		<szItemDesc>TONFA/RMS/PEMS, ein Schlagstock der zu Grundausstattung von Sicherheitskräften gehört.</szItemDesc>
 		<szBRName>Schlagstock</szBRName>
-		<szBRDesc>Ein Schlagstock gehört zur Grundausstattung von Sicherheitskräften.</szBRDesc>
+		<szBRDesc>Diese aus dem japanischen Tonfa abgeleitete Waffe (RMS-Rettungsmehrzweckstock) ist ausschließlich der Militärpolizei (Feldjäger) vorbehalten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>299</uiIndex>
 		<szItemName>Messer</szItemName>
 		<szLongItemName>Mehrzweck-Messer</szLongItemName>
-		<szItemDesc>Brechen Sie Schlösser auf oder stechen Sie Ihre Feinde mit diesem Mehrzweck-Messer nieder.</szItemDesc>
+		<szItemDesc>Brechen Sie Schlösser auf oder stechen Sie Ihre Feinde mit diesem Mehrzweck-Messer nieder. Roter Griff mit Schweizer Wappen.</szItemDesc>
 		<szBRName>Mehrzweck-Messer</szBRName>
-		<szBRDesc>Brechen Sie Schlösser auf oder stechen Sie Ihre Feinde mit diesem Mehrzweck-Messer nieder.</szBRDesc>
+		<szBRDesc>Mit dieser 'Schweizer Taschenarmee' brechen Sie Schlösser auf, öffnen Weinflaschen oder Halsaterien, entfernen Holzsplitter oder Lungenflügel.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>300</uiIndex>
@@ -2423,7 +2420,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>304</uiIndex>
 		<szItemName>Klebeband</szItemName>
 		<szLongItemName>Klebeband</szLongItemName>
-		<szItemDesc>Mit dieser Rolle 5cm breiten Klebeband lassen sich wunderbar Löcher stopfen und Dinge zusammenhalten.</szItemDesc>
+		<szItemDesc>Mit dieser Rolle 5cm breiten Klebebandes lassen sich wunderbar Löcher stopfen und Dinge zusammenhalten.</szItemDesc>
 		<szBRName>Klebeband</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2439,7 +2436,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>306</uiIndex>
 		<szItemName>Feder</szItemName>
 		<szLongItemName>Feder</szLongItemName>
-		<szItemDesc>Eine kleine, strapazierfähige Metallspirale, wie man sie in vielen Haushaltsgeräten und Küchenhilfen findet.</szItemDesc>
+		<szItemDesc>Eine kleine, stählerne Spiralfeder, wie man sie in vielen Haushaltsgeräten und Küchenhilfen findet.</szItemDesc>
 		<szBRName>Feder</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2455,7 +2452,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>308</uiIndex>
 		<szItemName>Stahlrohr</szItemName>
 		<szLongItemName>Stahlrohr</szLongItemName>
-		<szItemDesc>Ein heimatloses Stück Eisen.</szItemDesc>
+		<szItemDesc>Ein länglicher Stahlzylinder mit einer Bohrung zwischen 5,45 und 12,5 Millimetern. Müßte man mal nachmessen...</szItemDesc>
 		<szBRName>Stahlrohr</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -4804,17 +4801,17 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>602</uiIndex>
 		<szItemName>AEK-971</szItemName>
 		<szLongItemName>AEK-971</szLongItemName>
-		<szItemDesc>Man sagt das einige Schützen mit diesem Gewehr bis zu 20 Prozent zielsicherer sind als mit dem AK-74.</szItemDesc>
+		<szItemDesc>Man sagt, daß einige Schützen mit diesem Gewehr bis zu 20 Prozent zielsicherer sind als mit dem AK-74. Für Patrone 'M74'</szItemDesc>
 		<szBRName>AEK-971</szBRName>
-		<szBRDesc>Man sagt das einige Schützen mit diesem Gewehr bis zu 20 Prozent zielsicherer sind als mit dem AK-74. Die Vorteile gegenüber dem AN-94 sind geringeres Gewicht, besser kontrollierbar und zielgenau im Feuerstoß und höhere Zuverlässigkeit.</szBRDesc>
+		<szBRDesc>Der dem AN-94N vergleichbare Rückstoßausgleicher bewirkt eine höhere Treffsicherheit gegenüber dem AK-74. Die Vorteile gegenüber dem AN-94 sind geringeres Gewicht, höhere Zuverlässigkeit und bessere Kontrollierbarkeit im Feuerstoß.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>603</uiIndex>
 		<szItemName>AEK-973</szItemName>
 		<szLongItemName>AEK-973</szLongItemName>
-		<szItemDesc>Man sagt das einige Schützen mit diesem Gewehr bis zu 20 Prozent zielsicherer sind als mit dem AK-74.</szItemDesc>
+		<szItemDesc>Man sagt, daß einige Schützen mit diesem Gewehr bis zu 20 Prozent zielsicherer sind als mit dem AK-74. Für Patrone 'M43' und 'M67'</szItemDesc>
 		<szBRName>AEK-973</szBRName>
-		<szBRDesc>Man sagt das einige Schützen mit diesem Gewehr bis zu 20 Prozent zielsicherer sind als mit dem AK-74. Probieren Sie es aus!</szBRDesc>
+		<szBRDesc>Der dem AN-94N vergleichbare Rückstoßausgleicher bewirkt eine höhere Treffsicherheit gegenüber dem AK-74 - obwohl hier nur die 7.62x39mm Patrone zum Einsatz kommt. Probieren Sie es aus!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>604</uiIndex>
@@ -4822,7 +4819,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>Agram 2000</szLongItemName>
 		<szItemDesc>Diese MP hat ein gutes Design und hohe Zielgenauigkeit. Das macht sie nicht nur bei der Polizei sondern auch bei der Mafia beliebt.</szItemDesc>
 		<szBRName>Agram 2000</szBRName>
-		<szBRDesc>Diese MP hat ein gutes Design und hohe Zielgenauigkeit. Das macht sie nicht nur bei der Polizei im ehem. Ostblocks sondern auch bei der Mafia beliebt.</szBRDesc>
+		<szBRDesc>Diese MP hat ein gutes Design und hohe Zielgenauigkeit. Das macht sie nicht nur bei der Polizei des ehem. Ostblocks sondern auch bei der Mafia beliebt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>605</uiIndex>
@@ -4836,57 +4833,57 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>606</uiIndex>
 		<szItemName>AK-102</szItemName>
 		<szLongItemName>Kalaschnikow AK-102</szLongItemName>
-		<szItemDesc>Auch wenn nicht so kompakt wie das AKS-74U, bietet dieses Sturmgewehr eine höhere Präzison aufgrund des längeren Laufes.</szItemDesc>
+		<szItemDesc>Wenngleich nicht so kompakt wie das AKS-74U, bietet dieses Sturmgewehr mit Klappschaft eine höhere Präzison.</szItemDesc>
 		<szBRName>Kalaschnikow AK-102</szBRName>
-		<szBRDesc>Auch wenn nicht so kompakt wie das AKS-74U, bietet dieses Sturmgewehr eine höhere Präzison aufgrund des längeren Laufes.</szBRDesc>
+		<szBRDesc>Wenngleich nicht so kompakt wie das AKS-74U, bietet dieses Sturmgewehr mit Klappschaft Vorteile durch eine höhere Präzison aufgrund des längeren Laufes. Verwendet NATO 5.56mm Munition.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>607</uiIndex>
 		<szItemName>AK-103</szItemName>
 		<szLongItemName>Kalaschnikow AK-103</szLongItemName>
-		<szItemDesc>Stärker als sein Vorgänger AK-74, besitzt dieses Gewehr viele Verbesserungen.</szItemDesc>
+		<szItemDesc>Stärker als sein Vorgänger AK-74, Ist dieser vollautomatische Karabiner eher als modernisiertes AK-47/M zu sehen.</szItemDesc>
 		<szBRName>Kalaschnikow AK-103</szBRName>
-		<szBRDesc>Stärker als sein Vorgänger AK-74, besitzt dieses Gewehr viele Verbesserungen.</szBRDesc>
+		<szBRDesc>Als Kombination von AK-74, AK-101 und der Patrone 'M67' ist dieses Sturmgewehr stärker und leichter als sein Vorgänger AK-74. Es ermöglicht viele Anbauten und ist wartungsfreundlicher.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>608</uiIndex>
 		<szItemName>AK-104</szItemName>
 		<szLongItemName>Kalaschnikow AK-104</szLongItemName>
-		<szItemDesc>Ein weiterer Klon aus der AK-100 Baureihe.</szItemDesc>
+		<szItemDesc>Das AK-104 ist ein gekürztes AK-103 für Besatzungen von Schützenpanzern und für Fallschirmjäger.</szItemDesc>
 		<szBRName>Kalaschnikow AK-104</szBRName>
-		<szBRDesc>Ein weiterer Klon aus der AK-100 Baureihe.</szBRDesc>
+		<szBRDesc>Das AK-104 ist ein gekürztes AK-103 für Besatzungen von Schützenpanzern und für Fallschirmjäger. Verwendet die Patrone 'M67' (7.62mm)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>609</uiIndex>
 		<szItemName>AK-105</szItemName>
 		<szLongItemName>Kalaschnikow AK-105</szLongItemName>
-		<szItemDesc>Ein weiterer Klon aus der AK-100 Baureihe.</szItemDesc>
+		<szItemDesc>Ein weiterer Klon aus der AK-100 Baureihe. Es ist baugleich zum AK-104, nur verwendet es die Patrone 'M74' (5.45mm)</szItemDesc>
 		<szBRName>Kalaschnikow AK-105</szBRName>
-		<szBRDesc>Ein weiterer Klon aus der AK-100 Baureihe.</szBRDesc>
+		<szBRDesc>Ein weiterer Klon aus der AK-100 Baureihe. Es ist baugleich zum AK-104, nur verwendet es die Patrone 'M74' (5.45mm).</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>610</uiIndex>
 		<szItemName>AK-107</szItemName>
 		<szLongItemName>Kalaschnikow AK-107</szLongItemName>
-		<szItemDesc>Ein weiterer Klon aus der AK-100 Baureihe.</szItemDesc>
+		<szItemDesc>Erstmals verwendet auch Kalaschnikow das BARS System in einer Waffe für die Patrone 5.45 x 39.</szItemDesc>
 		<szBRName>Kalaschnikow AK-107</szBRName>
-		<szBRDesc>Ein weiterer Klon aus der AK-100 Baureihe.</szBRDesc>
+		<szBRDesc>Wenn Sie jemanden vom Dolvich-Klan anheuern, geben Sie ihm nur das Original! AK-74 + BARS Rückstoßverminderung = AK-107.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>611</uiIndex>
 		<szItemName>AK-108</szItemName>
 		<szLongItemName>Kalaschnikow AK-108</szLongItemName>
-		<szItemDesc>Ein weiterer Klon aus der AK-100 Baureihe.</szItemDesc>
+		<szItemDesc>Erstmals verwendet auch Kalaschnikow das BARS System in einer Waffe für die Patrone 5.56 x 45.</szItemDesc>
 		<szBRName>Kalaschnikow AK-108</szBRName>
-		<szBRDesc>Ein weiterer Klon aus der AK-100 Baureihe.</szBRDesc>
+		<szBRDesc>Wenngleich die Jungs vom Dolvich-Klan das Original bevorzugen, werden sie auch das AK-108 lieben! AK-74 + BARS Rückstoßverminderung + weit verfügbare M855 Patrone = AK-108.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>612</uiIndex>
 		<szItemName>AKMS</szItemName>
 		<szLongItemName>Kalaschnikow AKMS</szLongItemName>
-		<szItemDesc>Diese Version des AKM kommt mit einer umklappbaren Schulterstütze. Aufgrund der kompakte Größe ist sie ideal für Fallschirmjäger.</szItemDesc>
+		<szItemDesc>Diese Version des AK-M kommt mit einer umklappbaren Schulterstütze. Aufgrund der kompakte Größe ist sie ideal für Fallschirmjäger.</szItemDesc>
 		<szBRName>Kalaschnikow AKMS</szBRName>
-		<szBRDesc>Diese Version des AKM kommt mit einer umklappbaren Schulterstütze. Aufgrund der kompakte Größe ist sie ideal für Fallschirmjäger und Fahrzeugbesatzungen.</szBRDesc>
+		<szBRDesc>Diese Version des AK-M (7.62) kommt mit einer umklappbaren Schulterstütze. Aufgrund der kompakte Größe ist sie ideal für Fallschirmjäger und Fahrzeugbesatzungen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>613</uiIndex>
@@ -4894,7 +4891,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>Kalaschnikow AKS-47</szLongItemName>
 		<szItemDesc>Das ist Michael Kalaschnikows Geschenk für die Welt, um bewaffnete Konflikte seit mehr als 50 Jahren zu lösen.</szItemDesc>
 		<szBRName>Kalaschnikow AKS-47</szBRName>
-		<szBRDesc>Das ist Michael Kalaschnikows Geschenk für die Welt, um bewaffnete Konflikte seit mehr als 50 Jahren zu lösen. Es wurde vielfach kopiert, aber bleibt unerreicht.</szBRDesc>
+		<szBRDesc>Während das AKSU-System ultrakompakt ist, bietet das AKS zwar eine abklappbare Schulterstütze, aber höhere Präzision, da der Lauf nicht gekürzt wurde.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>614</uiIndex>
@@ -4908,17 +4905,17 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>615</uiIndex>
 		<szItemName>AMD-65M</szItemName>
 		<szLongItemName>AMD-65M</szLongItemName>
-		<szItemDesc>Eine weitere AK-Kopie, irgendwo im Dschungel hergestellt.</szItemDesc>
+		<szItemDesc>Eine ungarische Variante der AKMS. Mit Klappschaft und zusätzlichem vorderen Handgriff.</szItemDesc>
 		<szBRName>AMD-65M</szBRName>
-		<szBRDesc>Eine weitere AK-Kopie, irgendwo im Dschungel hergestellt.</szBRDesc>
+		<szBRDesc>Diese ungarische Variante der AKMS verfügt ebenso über einen Klappschaft, hat jedoch einen zusätzlichen vorderen Handgriff.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>616</uiIndex>
 		<szItemName>AN-94</szItemName>
 		<szLongItemName>AN-94 Abakan</szLongItemName>
-		<szItemDesc>Das von IZHMASH entwickelte und hergestellte AN-94 Abakan wird seit 1994 an die russische Armee ausgeliefert und ersetzt das in die Jahre gekommene AK-74.</szItemDesc>
+		<szItemDesc>Das AN-94 Abakan konkurriert direkt mit den technisch vergleichbaren Modellen AEK-971 und 973, ist aber aufwändiger zu warten und teurer.</szItemDesc>
 		<szBRName>AN-94 Abakan</szBRName>
-		<szBRDesc>Das von IZHMASH entwickelte und hergestellte AN-94 Abakan wird seit 1994 an die russische Armee ausgeliefert und ersetzt das in die Jahre gekommene AK-74. Feuermodus: S-2-F</szBRDesc>
+		<szBRDesc>Das von IZHMASH entwickelte und hergestellte AN-94 Abakan verfügt ebenfalls über einen gegenläufigen Rückstoßkompensator. Es hat eine höhere Kadenz als die AEKs und idt effektiver gegen Körperschutz. Feuermodus: S-2-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>617</uiIndex>
@@ -4972,9 +4969,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>623</uiIndex>
 		<szItemName>Brigadier</szItemName>
 		<szLongItemName>Beretta 96FS Brigadier</szLongItemName>
-		<szItemDesc>Diese Variante der Beretta 92 wurde auf das Kaliber .40 S&amp;W umgebaut und hat einen neudesignten Schlitten.</szItemDesc>
+		<szItemDesc>Diese Variante der Beretta 92 wurde auf das Kaliber .40 S&amp;W umgebaut und hat einen neu designten Schlitten.</szItemDesc>
 		<szBRName>Beretta 96FS Brigadier</szBRName>
-		<szBRDesc>Diese Variante der Beretta 92 wurde auf das Kaliber .40 S&amp;W umgebaut und hat einen neudesignten Schlitten.</szBRDesc>
+		<szBRDesc>Diese Variante der Beretta 92 wurde auf das Kaliber .40 S&amp;W umgebaut und hat einen neu designten Schlitten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>624</uiIndex>
@@ -4996,9 +4993,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>626</uiIndex>
 		<szItemName>PP-27 Bison</szItemName>
 		<szLongItemName>PP-27 Bison</szLongItemName>
-		<szItemDesc>Diese russische MP wurde 1993 von Viktor Kalaschnikow und Aleksej Dragunow entwickelt.</szItemDesc>
+		<szItemDesc>Diese russische MP wurde 1993 von Viktor Kalaschnikow und Aleksej Dragunow, inspiriert durch das CALICO Helix-System, entwickelt.</szItemDesc>
 		<szBRName>PP-27 Bison</szBRName>
-		<szBRDesc>Diese MP wurde 1993 von Viktor Kalaschnikow und Aleksej Dragunow auf der bewährten Basis der AKMS-74 entwickelt. Die kleine robuste Waffe erfreute sich schnell wachsender Beliebtheit.</szBRDesc>
+		<szBRDesc>Diese MP wurde 1993 von Viktor Kalaschnikow und Aleksej Dragunow auf der bewährten Basis der AKMS-74 entwickelt und durch CALICOs Helix-Magazin inspiriert. Die kleine robuste Waffe erfreute sich schnell wachsender Beliebtheit.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>627</uiIndex>
@@ -5036,9 +5033,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>631</uiIndex>
 		<szItemName>M1911A1 Hi-Cap</szItemName>
 		<szLongItemName>Colt M1911A1 Covernment Hi-Cap</szLongItemName>
-		<szItemDesc>Der COLT M1911A1 war bis 1985 die Seitenwaffe für Offiziere der US-Army. Danach wurde er durch die 9mm Beretta schrittweise ersetzt.</szItemDesc>
+		<szItemDesc>Der COLT M1911A1 Hi-Cap war ein Versuch, die Einführung der Beretta 96 aufzuhalten, indem das zu kleine 7-Schuß-Magazin durch ein zweireihiges 14-Schuß-Magazin ausgetauscht wurde.</szItemDesc>
 		<szBRName>Colt M1911A1 Hi-Cap</szBRName>
-		<szBRDesc>Der COLT M1911A1 war bis 1985 die Seitenwaffe für Offiziere der US-Army. Danach wurde er durch die 9mm Beretta schrittweise ersetzt.</szBRDesc>
+		<szBRDesc>Ziehen Sie etwa 15 Schuß 9mm Para der Wirkung von 14 Schuß .45ACP vor? Nein? Wir auch nicht! Kaufen Sie diese verbesserte Pistole COLT M1911A1 Hi-Cap. Vergessen Sie die Beretta 96F. Richtige Männer brauchen FEUERKRAFT!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>632</uiIndex>
@@ -5070,7 +5067,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>CZ-52</szLongItemName>
 		<szItemDesc>Die tschechoslowakische Armeepistole Modell 52, ist eine äußerst interessante waffentechnische Entwicklung aus dem Jahr 1949.</szItemDesc>
 		<szBRName>CZ-52</szBRName>
-		<szBRDesc>Die tschechoslowakische Armeepistole Modell 52, kurz CZ-52 genannt, ist eine äußerst interessante waffentechnische Entwicklung aus dem Jahr 1949. Sie hat das Kaliber 7.62x25 mm Tokarev, welches eine Kopie des 7.63 Mauser ist.</szBRDesc>
+		<szBRDesc>Die tschechoslowakische Armeepistole Modell 52, kurz CZ-52 genannt, ist eine äußerst interessante waffentechnische Entwicklung aus dem Jahr 1949. Sie verwendet das Kaliber 7.62x25 mm Tokarev (eine Kopie des 7.63 Mauser).</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>636</uiIndex>
@@ -5229,15 +5226,15 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szItemName>Galil AR</szItemName>
 		<szLongItemName>Galil AR</szLongItemName>
 		<szItemDesc>Dieses israelische Sturmgewehr wurde nach Plänen des Valmet M76 entwickelt.</szItemDesc>
-		<szBRName>Galil AR</szBRName>
-		<szBRDesc>Dieses israelische Sturmgewehr wurde nach Plänen des Valmet M76 entwickelt.</szBRDesc>
+		<szBRName>I.M.I. Galil AR</szBRName>
+		<szBRDesc>Dieses israelische Sturmgewehr wurde nach Plänen des Valmet M76 entwickelt und stellt somit ein Klon eines Klons einer AK-47 dar, verwendet jedoch NATO Patronen M855.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>656</uiIndex>
 		<szItemName>Galil SAR</szItemName>
 		<szLongItemName>Galil SAR</szLongItemName>
 		<szItemDesc>Das ist die kompaktere Variante des Galil AR, bestens geeignet für Fallschirmjäger.</szItemDesc>
-		<szBRName>Galil SAR</szBRName>
+		<szBRName>I.M.I. Galil SAR</szBRName>
 		<szBRDesc>Das ist die kompaktere Variante des Galil AR, bestens geeignet für Fallschirmjäger.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -5252,9 +5249,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>658</uiIndex>
 		<szItemName>Glock 19</szItemName>
 		<szLongItemName>Glock 19</szLongItemName>
-		<szItemDesc>Als eine kompaktere Version der Glock 17, gibt Ihnen dieses Modell die gleiche Zuverlässigkeit.</szItemDesc>
+		<szItemDesc>Als eine kompaktere Version der Glock 17 bietet Ihnen dieses Modell die gleiche Zuverlässigkeit.</szItemDesc>
 		<szBRName>Glock 19</szBRName>
-		<szBRDesc>Als eine kompaktere Version der Glock 17, gibt Ihnen dieses Modell die gleiche Zuverlässigkeit.</szBRDesc>
+		<szBRDesc>Als eine kompaktere Version der Glock 17 bietet Ihnen dieses Modell die gleiche Zuverlässigkeit.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>659</uiIndex>
@@ -5540,9 +5537,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>694</uiIndex>
 		<szItemName>MP-133</szItemName>
 		<szLongItemName>Baikal MP-133</szLongItemName>
-		<szItemDesc>Seit Jahren entwickelt und produziert BAIKAL excellente Schrotflinten.</szItemDesc>
+		<szItemDesc>Seit Jahren entwickelt und produziert BAIKAL exzellente Schrotflinten.</szItemDesc>
 		<szBRName>Baikal MP-133</szBRName>
-		<szBRDesc>Seit Jahren entwickelt und produziert BAIKAL excellente Schrotflinten. Dieses Modell eignet sich hervorragend für die Jagd, Polizeibehörden und Selbstverteidigung.</szBRDesc>
+		<szBRDesc>Seit Jahren entwickelt und produziert BAIKAL exzellente Schrotflinten. Dieses Modell eignet sich hervorragend für die Jagd, Polizeibehörden und Selbstverteidigung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>695</uiIndex>
@@ -5620,9 +5617,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>704</uiIndex>
 		<szItemName>QBZ-97</szItemName>
 		<szLongItemName>QBZ-97</szLongItemName>
-		<szItemDesc>Die Exportversion des chinesischen Sturmgewehres.</szItemDesc>
+		<szItemDesc>Die Exportversion des chinesischen Bullpup Sturmgewehres.</szItemDesc>
 		<szBRName>QBZ-97</szBRName>
-		<szBRDesc>Die Exportversion des chinesischen Sturmgewehres.</szBRDesc>
+		<szBRDesc>Im Jahr 1901 vom britischen Thorneycroft-Karabiner vorgestellt, hat das 'Bullenkalb'-Design es nun auch nach China geschafft. Unsere Importeure bekräftigen, daß die Exportversion qualitativ hochwertiger ist.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>705</uiIndex>
@@ -5756,9 +5753,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>721</uiIndex>
 		<szItemName>Sphinx 3000</szItemName>
 		<szLongItemName>Sphinx 3000</szLongItemName>
-		<szItemDesc>Die Sphinx 3000 wurde von Grund auf als Ganz-Metall Pistole entwickelt. Alle Haupt- bestandteile werden mittels modernster CNC Maschinen aus dem Vollen gefräst.</szItemDesc>
+		<szItemDesc>Die Sphinx 3000 wurde von Grund auf als Ganzmetall- Pistole entwickelt. Alle Hauptbestandteile werden mittels modernster CNC Maschinen aus dem Vollen gefräst.</szItemDesc>
 		<szBRName>Sphinx 3000</szBRName>
-		<szBRDesc>Die Sphinx 3000 wurde von Grund auf als Ganz-Metall Pistole entwickelt. Alle Hauptbestandteile werden mittels modernster CNC Maschinen aus dem Vollen gefräst.</szBRDesc>
+		<szBRDesc>Die Sphinx 3000 wurde von Grund auf als Ganzmetall- Pistole entwickelt. Alle Hauptbestandteile werden mittels modernster CNC Maschinen aus dem Vollen gefräst.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>722</uiIndex>
@@ -5858,19 +5855,19 @@ Welt im täglichen Dienst.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>734</uiIndex>
-		<szItemName>SVDS</szItemName>
-		<szLongItemName>Dragunov SVDS</szLongItemName>
-		<szItemDesc>Das SVD ist ein leichtes, sehr genaues Scharfschützengewehr. Diese Variante besitzt eine klappbare Schulterstütze.</szItemDesc>
-		<szBRName>Dragunov SVDS</szBRName>
-		<szBRDesc>Das SVD (Snaiperskaja Vintovka Dragunova) ist ein leichtes, sehr genaues, halbautomatisches Scharfschützengewehr. Diese Variante besitzt eine klappbare Schulterstütze.</szBRDesc>
+		<szItemName>SWDS</szItemName>
+		<szLongItemName>Dragunow SWDS</szLongItemName>
+		<szItemDesc>Das SWDS ist ein leichtes, sehr genaues Scharfschützengewehr. Diese Variante besitzt eine klappbare Schulterstütze.</szItemDesc>
+		<szBRName>DragunoW SWDS</szBRName>
+		<szBRDesc>Das SWD (Snaiperskaja Wintowka Dragunowa, lateinisch transliteriert auch 'SVD') wurde zu einem leichteren Modell SWDS modernisiert. Wie auch das 1963 eingeführte Original ist es ein sehr genaues, halbautomatisches Scharfschützengewehr.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>735</uiIndex>
-		<szItemName>SVU</szItemName>
-		<szLongItemName>Dragunov SVU</szLongItemName>
-		<szItemDesc>Dieses Gewehr ist eine kompaktere Variante des SVD und hat auch eine geringere Reichweite.</szItemDesc>
-		<szBRName>Dragunov SVU</szBRName>
-		<szBRDesc>Dieses Gewehr ist eine kompaktere Variante des SVD und hat auch eine geringere Reichweite. Es ist auch etwas leiser da es einen MF-Dämpfer sowie einen Schallunterdrücker besitzt.</szBRDesc>
+		<szItemName>SWU</szItemName>
+		<szLongItemName>Dragunow SWU-A</szLongItemName>
+		<szItemDesc>Dieses Gewehr ist eine Bullpup- Variante des SWD und hat eine geringere Reichweite.</szItemDesc>
+		<szBRName>Dragunov SWU-A</szBRName>
+		<szBRDesc>Dieses Gewehr (Snaiperskaja Wintowka Ukorochennaja - Awtomat) ist eine kompaktere (Bullpup) Variante des SWD. Es hat auch eine geringere Reichweite und ist etwas leiser da es einen MF-Dämpfer sowie einen Schallunterdrücker besitzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>736</uiIndex>
@@ -5900,9 +5897,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>739</uiIndex>
 		<szItemName>U-94 Udar</szItemName>
 		<szLongItemName>U-94 Udar</szLongItemName>
-		<szItemDesc>Ein großer Revolver des Kalibers 12.3mm mit hohe Durchschlagskraft. Er wird von privaten Sicherheitskräften und Spec-Ops Einheiten verwendet.</szItemDesc>
+		<szItemDesc>Ein großer Revolver des Kalibers 12.3mm mit hoher Durchschlagskraft. Er wird von privaten Sicherheitskräften und Spec-Ops Einheiten verwendet.</szItemDesc>
 		<szBRName>U-94 Udar</szBRName>
-		<szBRDesc>Ein großer Revolver des Kalibers 12.3mm mit hohe Durchschlagskraft. Er wird von privaten Sicherheitskräften und Spec-Ops Einheiten verwendet.</szBRDesc>
+		<szBRDesc>Ein großer Revolver des Kalibers 12.3mm mit hoher Durchschlagskraft. Er wird von privaten Sicherheitskräften und Spec-Ops Einheiten verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>740</uiIndex>
@@ -6166,7 +6163,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>Freedom Arms Model 83 Premier Grade</szLongItemName>
 		<szItemDesc>FREEDOM ARMS in Wyoming (USA) baut mit dem .454 Casull Revolver die passende Waffe zur Patrone. Er gilt als stärkster Revolver der Welt.</szItemDesc>
 		<szBRName>FA Model 83</szBRName>
-		<szBRDesc>FREEDOM ARMS in Wyoming (USA) baut mit dem .454 Casull Revolver die passende Waffe zur Patrone. Er gilt als stärkster Revolver der Welt und wird von Großwildjäger bevorzugt.</szBRDesc>
+		<szBRDesc>FREEDOM ARMS in Wyoming (USA) baut mit dem .454 Casull Revolver die passende Waffe zur Patrone. Er gilt als stärkster Revolver der Welt und wird von Großwildjägern bevorzugt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>773</uiIndex>
@@ -6188,9 +6185,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>775</uiIndex>
 		<szItemName>SPAS-12</szItemName>
 		<szLongItemName>Franchi SPAS-12</szLongItemName>
-		<szItemDesc>Diese halbautomat. Flinte wurde speziell für den Polizei-Einsatz entwickelt und kam 1979 auf den Markt.</szItemDesc>
+		<szItemDesc>Diese halbautomatische Flinte wurde speziell für den Polizei-Einsatz entwickelt und kam 1979 auf den Markt.</szItemDesc>
 		<szBRName>Franchi SPAS-12</szBRName>
-		<szBRDesc>Diese halbautomat. Flinte wurde speziell für den Polizei-Einsatz entwickelt und kam 1979 auf den Markt. Die halbautomatische Flinte, kann durch drücken eines Knopfes auf manuellen Pump-Action-Modus umgestellt werden.</szBRDesc>
+		<szBRDesc>Diese halbautomatische Flinte wurde speziell für den Polizei-Einsatz entwickelt und kam 1979 auf den Markt. Die Waffe kann durch Drücken eines Knopfes auf manuellen Pump-Action-Modus umgestellt werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>776</uiIndex>
@@ -6198,7 +6195,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>Mauser Karabiner 98K</szLongItemName>
 		<szItemDesc>Bis heute wurden ca. 100 Mio. System 98 hergestellt. Heute ist der Karabiner 98K Exerzierwaffe beim Wachbataillon der Bundeswehr in Berlin.</szItemDesc>
 		<szBRName>Mauser Karabiner</szBRName>
-		<szBRDesc>Der MAUSER Karabiner 98K ist eine Weiter- entwicklung des Modell 98 von 1898. In den beiden Weltkriegen war es die wichtigste Waffe der dt. Truppen. Jedoch verhalfen Großwildjäger in Afrika dem 98er Gewehr zu seinem Ruhm und nicht die Schlachtfelder der Weltkriege!</szBRDesc>
+		<szBRDesc>Der Karabiner 98K ist eine Weiterentwicklung des Karabiners 'Modell 1898'. In den beiden Weltkriegen war es die wichtigste Waffe der dt. Truppen. Großwildjäger in Afrika verhalfen dem 98er zu einem ähnlich traurigen Ruhm wie die beiden Weltkriege.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>777</uiIndex>
@@ -6236,7 +6233,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>781</uiIndex>
 		<szItemName>SAR-21</szItemName>
 		<szLongItemName>SAR-21</szLongItemName>
-		<szItemDesc>Diese Variante des SAR-21 hat Picatinny-Schienen an Stelle eines fest angebrachten Visiers mit integriertem Lasermodul. Sie können viele Zubehöre anbringen.</szItemDesc>
+		<szItemDesc>Diese Variante des 'Singapore Army Rifle for 21st Century' hat Picatinny-Schienen. Sie können viele Zubehöre anbringen.</szItemDesc>
 		<szBRName>SAR-21</szBRName>
 		<szBRDesc>Diese Variante des SAR-21 hat Picatinny- Schienen an Stelle eines fest angebrachten Visiers mit integriertem Lasermodul. Das bedeutet für Sie volle Flexibilität, da Sie optionales Zubehör anbringen können.</szBRDesc>
 	</ITEM>
@@ -6260,17 +6257,17 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>784</uiIndex>
 		<szItemName>Mauser M-03</szItemName>
 		<szLongItemName>Mauser M-03</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>ein präzises Jagdgewehr auch für den Geldbeutel des Jungjägers. Ausführung 'Solid' 8x57IS mit 600mm Lauf.</szItemDesc>
 		<szBRName>Mauser M-03</szBRName>
-		<szBRDesc>Beschreibung erwünscht.</szBRDesc>
+		<szBRDesc>Die M03 ist ein präzises Jagdgewehr prädestiniert für den weiten Schuß. Hergestellt in in: .308 Win, .30-06, 8,5x63, 8x57IS, 9,3x62, .300 Win.Mag., .25-06 Remington, ist sie zur Zeit bei BR nur in 7.92x57mm (8x57IS) lieferbar.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>785</uiIndex>
 		<szItemName>AKMSU</szItemName>
 		<szLongItemName>AKMSU</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Das AKMSU ist ein AK/M + abklappbarer Schulterstütze + gekürzten Lauf.</szItemDesc>
 		<szBRName>AKMSU</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Das AKMSU ist ein AK/M + abklappbarer Schulterstütze + gekürzten Lauf. Einige Varianten kommen mit einem vorderen Daumenlochgriff daher.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>786</uiIndex>
@@ -7066,18 +7063,18 @@ Welt im täglichen Dienst.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>885</uiIndex>
-		<szItemName>Tarbezug Mk.I</szItemName>
-		<szLongItemName>Helm Tarbezug Mk.I</szLongItemName>
+		<szItemName>Tarnbezug Mk.I</szItemName>
+		<szLongItemName>Helm Tarnbezug Mk.I</szLongItemName>
 		<szItemDesc>Dieser Tarnbezug wird Ihren Helm weniger auffallend machen. Tarnung: 10 Prozent</szItemDesc>
 		<szBRName>Helm Tarbezug Mk.I</szBRName>
 		<szBRDesc>Dieser Tarnbezug wird Ihren Helm weniger auffallend machen. Tarnung: 10 Prozent</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>886</uiIndex>
-		<szItemName>Tarbezug Mk.II</szItemName>
-		<szLongItemName>Helm Tarbezug Mk.II</szLongItemName>
+		<szItemName>Tarnbezug Mk.II</szItemName>
+		<szLongItemName>Helm Tarnbezug Mk.II</szLongItemName>
 		<szItemDesc>Dieser Tarnbezug wird Ihren Helm weniger auffallend machen. Er hat zusätzlich ein Netz das dazu verwendet werden kann, Blätter oder anderes Grün zu befestigen. Somit erreichen Sie eine noch bessere Tarnung. Tarnung: 15 Prozent</szItemDesc>
-		<szBRName>Helm Tarbezug Mk.II</szBRName>
+		<szBRName>Helm Tarnbezug Mk.II</szBRName>
 		<szBRDesc>Dieser Tarnbezug wird Ihren Helm weniger auffallend machen. Er hat zusätzlich ein Netz das dazu verwendet werden kann, Blätter oder anderes Grün zu befestigen. Somit erreichen Sie eine noch bessere Tarnung. Tarnung: 15 Prozent</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -7198,8 +7195,7 @@ Welt im täglichen Dienst.</szBRDesc>
 		<szLongItemName>Kommando Mörser</szLongItemName>
 		<szItemDesc>Der Kommando Mörser ist ein 60mm Mörser, etwas leichter und schneller als der M224.</szItemDesc>
 		<szBRName>Kommando Mörser</szBRName>
-		<szBRDesc>Der Kommando Mörser ist ein 60mm Mörser, etwas leichter und schneller als der M224.
-</szBRDesc>
+		<szBRDesc>Der Kommando Mörser ist ein 60mm Mörser, etwas leichter und schneller als der M224.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>902</uiIndex>
@@ -7980,18 +7976,18 @@ Welt im täglichen Dienst.</szBRDesc>
 	<ITEM>
 		<uiIndex>999</uiIndex>
 		<szItemName>PSO-1</szItemName>
-		<szLongItemName>PSO-1 Zielfernrohr</szLongItemName>
-		<szItemDesc>Dieses russische Zielfernrohr kann auf die meisten Gewehre der AK-Modellreihe montiert werden.</szItemDesc>
+		<szLongItemName>PSO-1 Zielfernrohr 4x24</szLongItemName>
+		<szItemDesc>Dieses russische Zielfernrohr kann auf die meisten Gewehre der AK-Modellreihen und einige SWD-Klone montiert werden.</szItemDesc>
 		<szBRName>PSO-1</szBRName>
-		<szBRDesc>Dieses russische Zielfernrohr kann auf die meisten Gewehre der AK-Modellreihe montiert werden.</szBRDesc>
+		<szBRDesc>Dieses russische Zielfernrohr kann an alle Gewehre mit Kalaschnikow-Systemkasten (AK, AEK, Saiga u.s.w.) montiert werden. </szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1000</uiIndex>
 		<szItemName>PSO-P</szItemName>
-		<szLongItemName>PSO-P Zielfernrohr</szLongItemName>
-		<szItemDesc>Dieses verbesserte russische Zielfernrohr kann auf die meisten Gewehre der AK-Modellreihe montiert werden, es wird auch für Scharfschützengewehre verwendet.</szItemDesc>
+		<szLongItemName>PSO-P Zielfernrohr 8x42</szLongItemName>
+		<szItemDesc>Dieses verbesserte russische Zielfernrohr kann an die meisten Gewehre der AK-Modellreihe sowie an alle SWD Scharfschützengewehre montiert werden.</szItemDesc>
 		<szBRName>PSO-P</szBRName>
-		<szBRDesc>Dieses verbesserte russische Zielfernrohr kann auf die meisten Gewehre der AK-Modellreihe montiert werden, es wird auch für Scharfschützengewehre verwendet.</szBRDesc>
+		<szBRDesc>Dieses verbesserte russische Zielfernrohr kann an die meisten Gewehre des ehem. Ostblocks montiert werden. Es ist mit 'SWD Side Mounting Rail' oder 'Russian Small Arms Mounting Rail' lieferbar, paßt jedoch nicht an Picatinny Rails</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1001</uiIndex>
@@ -8013,9 +8009,9 @@ Welt im täglichen Dienst.</szBRDesc>
 		<uiIndex>1003</uiIndex>
 		<szItemName>MF-Dämpfer</szItemName>
 		<szLongItemName>Mündungsfeuer-Dämpfer</szLongItemName>
-		<szItemDesc>Dieser Dämpfer verhintert den Feuerstrahl aus dem Lauf Ihrer Waffe und verhindert, das Ihre Position bekannt gegeben wird.</szItemDesc>
+		<szItemDesc>Dieser Dämpfer verringert den Feuerstrahl aus dem Lauf Ihrer Waffe und verhindert somit, daß Ihre Position bekannt wird.</szItemDesc>
 		<szBRName>MF-Dämpfer</szBRName>
-		<szBRDesc>Dieser Dämpfer verhintert den Feuerstrahl aus dem Lauf Ihrer Waffe und verhindert, das Ihre Position bekannt gegeben wird.</szBRDesc>
+		<szBRDesc>Dieser Dämpfer verringert besonders in den Abend- und Nachtstunden den Feuerstrahl aus dem Lauf Ihrer Waffe und verhindert somit die Preisgabe Ihrer Position. Außerdem verbessert er durch Gasumleitung das Rückstoßverhalten minimal.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1004</uiIndex>
