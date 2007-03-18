@@ -538,7 +538,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>32</ubImpact>
 		<ubDeadliness>22</ubDeadliness>
-		<bAccuracy>1</bAccuracy>
+		<bAccuracy>3</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -2107,7 +2107,7 @@
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>27</ubImpact>
 		<ubDeadliness>22</ubDeadliness>
-		<bAccuracy>1</bAccuracy>
+		<bAccuracy>2</bAccuracy>
 		<ubMagSize>20</ubMagSize>
 		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -4829,7 +4829,7 @@
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>26</ubImpact>
 		<ubDeadliness>17</ubDeadliness>
-		<bAccuracy>1</bAccuracy>
+		<bAccuracy>2</bAccuracy>
 		<ubMagSize>14</ubMagSize>
 		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -6405,6 +6405,7 @@
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>23</ubImpact>
 		<ubDeadliness>14</ubDeadliness>
+		<bAccuracy>2</bAccuracy>
 		<ubMagSize>15</ubMagSize>
 		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -7396,7 +7397,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>35</ubImpact>
 		<ubDeadliness>45</ubDeadliness>
-		<bAccuracy>5</bAccuracy>
+		<bAccuracy>6</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>750</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -7908,7 +7909,7 @@
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>33</ubImpact>
 		<ubDeadliness>21</ubDeadliness>
-		<bAccuracy>2</bAccuracy>
+		<bAccuracy>3</bAccuracy>
 		<ubMagSize>1</ubMagSize>
 		<usRange>170</usRange>
 		<usReloadDelay>200</usReloadDelay>
