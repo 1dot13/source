@@ -1001,7 +1001,7 @@
 		<szLongItemName>HK CAWS</szLongItemName>
 		<szItemDesc>This German/US experimental Close Assault Weapon System makes the concept of human skeet shooting a gory reality.</szItemDesc>
 		<szBRName>HK CAWS</szBRName>
-		<szBRDesc>Olin/Heckler and Koch's Close Assault Weapon System is the ideal light support weapon for any aspiring mercenary. Designed for the 12-guage shotgun shell, it also fires miniature grenades.</szBRDesc>
+		<szBRDesc>Olin/Heckler and Koch's Close Assault Weapon System is the ideal light support weapon for any aspiring mercenary. Designed for the 10-gauge shotgun shell, it also fires miniature grenades.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>33</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -3612,13 +3612,24 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>160</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 160</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Grenade Panel</szItemName>
+		<szLongItemName>Grenade Panel</szLongItemName>
+		<szItemDesc>Four pouches, each for a single grenade, mounted onto a modular panel that can be attached to your load bearing equipment.</szItemDesc>
+		<szBRName>Grenade Panel</szBRName>
+		<szBRDesc>No more grenades dangling from D-rings and ripping off while crawling through the underbrush. Our grenade carrier panel has four individual pouches to carry your grenades safely.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>573</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<usPrice>180</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<bRepairEase>3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>161</uiIndex>
@@ -10099,9 +10110,9 @@
 	<ITEM>
 		<uiIndex>479</uiIndex>
 		<szItemName>12.7mm Subsonic</szItemName>
-		<szLongItemName>12.7mm Subsonic</szLongItemName>
+		<szLongItemName>12.7x97mm Subsonic</szLongItemName>
 		<szItemDesc>A five-round magazine of 12.7mm subsonic ammunition. This is the version with the highpower penetrator.</szItemDesc>
-		<szBRName>12.7mm Subsonic</szBRName>
+		<szBRName>12.7x97mm Subsonic</szBRName>
 		<szBRDesc>Want to fire a .50 cal round without making noise? These babies are cutdown 12.7mm rounds to fit the Russian VSSK.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>296</ubClassIndex>
@@ -13136,7 +13147,7 @@
 		<uiIndex>619</uiIndex>
 		<szItemName>M82B1K-PDW</szItemName>
 		<szLongItemName>Barrett M82B1K-PDW</szLongItemName>
-		<szItemDesc>Originally clocked as an internet spoof, somebody somewhere with a lot of gunsmithing experience took a hacksaw and a saudering iron to the M82A2.</szItemDesc>
+		<szItemDesc>Originally clocked as an internet spoof, somebody somewhere with a lot of gunsmithing experience took a hacksaw and a soldering iron to the M82A2.</szItemDesc>
 		<szBRName>Barrett M82B1K-PDW</szBRName>
 		<szBRDesc>Nobody will mess with you if you're carrying a bullpup .50 BMG. And we do mean nobody.</szBRDesc>
 		<usItemClass>2</usItemClass>
@@ -14035,18 +14046,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>651</uiIndex>
-		<szItemName>SCAR-H</szItemName>
-		<szLongItemName>FN SCAR-H</szLongItemName>
-		<szItemDesc>The SCAR is FN's newest offering into the military armament scene. The "H" stands for "Heavy", and refers to this version firing the 7.62mm NATO round.</szItemDesc>
-		<szBRName>FN SCAR-H</szBRName>
+		<szItemName>SCAR-H CQC</szItemName>
+		<szLongItemName>FN SCAR-H CQC</szLongItemName>
+		<szItemDesc>The SCAR is FN's newest offering into the military armament scene. The "H" stands for "Heavy", and refers to this version firing the 7.62mm NATO round. CQC denotes the shortest version for fighting in dense terrain.</szItemDesc>
+		<szBRName>FN SCAR-H CQC</szBRName>
 		<szBRDesc>US SOCOM issued a solicitation for the procurement of SOF Combat Assault Rifles (SCAR) on October 15th, 2003, and this is what FN came up with. Widely customizable and extremely durable; if ever a gun had promise, the SCAR does.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>651</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>246</ubGraphicNum>
-		<ubWeight>39</ubWeight>
+		<ubWeight>31</ubWeight>
 		<usPrice>4430</usPrice>
 		<ubCoolness>9</ubCoolness>
+		<bReliability>2</bReliability>
 		<bRepairEase>-3</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -14059,26 +14071,24 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>600</BR_ROF>
-		<Bipod>10</Bipod>
 		<ToHitBonus>-1</ToHitBonus>
-		<BurstToHitBonus>5</BurstToHitBonus>
-		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>652</uiIndex>
-		<szItemName>SCAR-L</szItemName>
-		<szLongItemName>FN SCAR-L</szLongItemName>
-		<szItemDesc>FN's latest addition to the SCAR family is the "L" or Light version, chambered in 5.56mm NATO.</szItemDesc>
-		<szBRName>FN SCAR-L</szBRName>
-		<szBRDesc>The FN SCAR was designed to be more customizable than any other weapon, period.  Experts agree: it's nearly perfect.  This version is chambered for the lighter 5.56mm NATO round.</szBRDesc>
+		<szItemName>SCAR-L CQC</szItemName>
+		<szLongItemName>FN SCAR-L CQC</szLongItemName>
+		<szItemDesc>FN's latest addition to the SCAR family is the "L" or Light version, chambered in 5.56mm NATO. The CQC version is for MOUT or dense terrain.</szItemDesc>
+		<szBRName>FN SCAR-L CQC</szBRName>
+		<szBRDesc>The FN SCAR was designed to be more customizable than any other weapon, period. Experts agree: it's nearly perfect. This version is chambered for the lighter 5.56mm NATO round.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>652</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>243</ubGraphicNum>
-		<ubWeight>35</ubWeight>
+		<ubWeight>31</ubWeight>
 		<usPrice>4230</usPrice>
 		<ubCoolness>9</ubCoolness>
+		<bReliability>2</bReliability>
 		<bRepairEase>-3</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -14091,10 +14101,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>600</BR_ROF>
-		<Bipod>10</Bipod>
 		<ToHitBonus>-1</ToHitBonus>
-		<BurstToHitBonus>5</BurstToHitBonus>
-		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 	<ITEM>
@@ -17873,33 +17880,85 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>786</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 786</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Elite 10mm</szItemName>
+		<szLongItemName>Colt Delta Elite</szLongItemName>
+		<szItemDesc>A Colt semiautomatic chambered for the 10mm Auto cartridge.</szItemDesc>
+		<szBRName>Colt Delta Elite</szBRName>
+		<szBRDesc>Colt's entry into the 10mm pistol market. All you expect from a Colt pistol, and more.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>786</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>295</ubGraphicNum>
+		<ubWeight>11</ubWeight>
+		<ubPerPocket>0</ubPerPocket>
+		<usPrice>850</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>36</BR_ROF>
 	</ITEM>
 	<ITEM>
 		<uiIndex>787</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 787</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>SCAR-H SV</szItemName>
+		<szLongItemName>FN SCAR-H SV</szLongItemName>
+		<szItemDesc>The SCAR is FN's newest offering into the military armament scene. The "H" stands for "Heavy", and refers to this version firing the 7.62mm NATO round. This is the sniper variant.</szItemDesc>
+		<szBRName>FN SCAR-H SV</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>787</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>299</ubGraphicNum>
+		<ubWeight>35</ubWeight>
+		<usPrice>4430</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<bReliability>2</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
+		<BR_ROF>600</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>788</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 788</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>SCAR-L SV</szItemName>
+		<szLongItemName>FN SCAR-L SV</szLongItemName>
+		<szItemDesc>FN's latest addition to the SCAR family is the "L" or Light version, chambered in 5.56mm NATO. This is the sniper variant.</szItemDesc>
+		<szBRName>FN SCAR-L SV</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>788</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>300</ubGraphicNum>
+		<ubWeight>34</ubWeight>
+		<usPrice>4230</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<bReliability>2</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
+		<BR_ROF>600</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>789</uiIndex>
@@ -20717,13 +20776,30 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>921</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 921</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>FN EGLM</szItemName>
+		<szLongItemName>FN EGLM Grenade Launcher</szLongItemName>
+		<szItemDesc>FN Herstal's underbarrel grenade launcher for the SCAR. Obviously developed from the launcher for the F2000.</szItemDesc>
+		<szBRName>FN EGLM Grenade Launcher</szBRName>
+		<szBRDesc>FN Herstal developed their launcher for the F2000 some more to fit it on the SCAR. Will fire grenades of any length and can use future medium velocity grenades.</szBRDesc>
+		<usItemClass>16</usItemClass>
+		<ubClassIndex>921</ubClassIndex>
+		<ubCursor>20</ubCursor>
+		<ubGraphicNum>292</ubGraphicNum>
+		<ubWeight>14</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<usPrice>800</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<bRepairEase>0</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<Attachment>1</Attachment>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>12</BR_ROF>
+		<GrenadeLauncher>1</GrenadeLauncher>
 	</ITEM>
 	<ITEM>
 		<uiIndex>922</uiIndex>
@@ -22843,5 +22919,87 @@
 		<MinRangeForAimBonus>20</MinRangeForAimBonus>
 		<VisionRangeBonus>20</VisionRangeBonus>
 		<PercentTunnelVision>20</PercentTunnelVision>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1031</uiIndex>
+		<szItemName>CQC .223 Barrel</szItemName>
+		<szLongItemName>SCAR-L CQC Barrel</szLongItemName>
+		<szItemDesc>A short barrel to change the SCAR-L into the CQC version.</szItemDesc>
+		<szBRName>SCAR-L CQC Barrel</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>574</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<usPrice>600</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<NotBuyable>1</NotBuyable>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1032</uiIndex>
+		<szItemName>SV .223 Barrel</szItemName>
+		<szLongItemName>SCAR-L SV Barrel</szLongItemName>
+		<szItemDesc>A long barrel to change the SCAR-L into the SV version.</szItemDesc>
+		<szBRName>SCAR-L SV Barrel</szBRName>
+		<szBRDesc>This long barrel changes your SCAR-L into the sniper variant.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>575</ubGraphicNum>
+		<ubWeight>9</ubWeight>
+		<usPrice>900</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BR_NewInventory>1</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1033</uiIndex>
+		<szItemName>CQC .308 Barrel</szItemName>
+		<szLongItemName>SCAR-H CQC Barrel</szLongItemName>
+		<szItemDesc>A short barrel to change the SCAR-H into the CQC version.</szItemDesc>
+		<szBRName>SCAR-H CQC Barrel</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>574</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<usPrice>600</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<NotBuyable>1</NotBuyable>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1034</uiIndex>
+		<szItemName>SV .308 Barrel</szItemName>
+		<szLongItemName>SCAR-H SV Barrel</szLongItemName>
+		<szItemDesc>A long barrel to change the SCAR-H into the SV version.</szItemDesc>
+		<szBRName>SCAR-H SV Barrel</szBRName>
+		<szBRDesc>This long barrel changes your SCAR-H into the sniper variant.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>575</ubGraphicNum>
+		<ubWeight>9</ubWeight>
+		<usPrice>900</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BR_NewInventory>1</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 </ITEMLIST>

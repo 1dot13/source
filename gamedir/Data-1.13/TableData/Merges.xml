@@ -1167,4 +1167,36 @@
 		<mergeType>4</mergeType>
 		<APCost>8</APCost>
 	</MERGE>
+	<MERGE>
+		<firstItemIndex>1031</firstItemIndex>
+		<secondItemIndex>788</secondItemIndex>
+		<firstResultingItemIndex>652</firstResultingItemIndex>
+		<secondResultingItemIndex>1032</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>10</APCost>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1032</firstItemIndex>
+		<secondItemIndex>652</secondItemIndex>
+		<firstResultingItemIndex>788</firstResultingItemIndex>
+		<secondResultingItemIndex>1031</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>10</APCost>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1033</firstItemIndex>
+		<secondItemIndex>787</secondItemIndex>
+		<firstResultingItemIndex>651</firstResultingItemIndex>
+		<secondResultingItemIndex>1034</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>10</APCost>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1034</firstItemIndex>
+		<secondItemIndex>651</secondItemIndex>
+		<firstResultingItemIndex>787</firstResultingItemIndex>
+		<secondResultingItemIndex>1033</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>10</APCost>
+	</MERGE>
 </MERGELIST>

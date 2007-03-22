@@ -206,7 +206,7 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>41</uiIndex>
-		<AmmoCaliber>12.7mm Subsonic</AmmoCaliber>
-		<BRCaliber>12.7mm Sub.</BRCaliber>
+		<AmmoCaliber>12.7x97mm Subsonic</AmmoCaliber>
+		<BRCaliber>12.7x97mm</BRCaliber>
 	</AMMO>
 </AMMOLIST>

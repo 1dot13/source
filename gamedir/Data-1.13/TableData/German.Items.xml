@@ -6271,27 +6271,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>786</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 786</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Elite 10mm</szItemName>
+		<szLongItemName>Colt Delta Elite</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Colt Delta Elite</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>787</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 787</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>SCAR-H SV</szItemName>
+		<szLongItemName>FN SCAR-H SV</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>FN SCAR-H SV</szBRName>
+		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>788</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 788</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>SCAR-L SV</szItemName>
+		<szLongItemName>FN SCAR-L SV</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>FN SCAR-L SV</szBRName>
+		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>789</uiIndex>
@@ -8224,5 +8224,37 @@
 		<szItemDesc>Das TRIJICON 'Advanced Combat Optical Gunsight' bietet 4-fache Vergrößerung sowie verschiedene Justiermöglichkeiten. Seit August 2004 wird es als neue Zieloptik vom U.S. Marine Corps verwendet.</szItemDesc>
 		<szBRName>ACOG</szBRName>
 		<szBRDesc>Das TRIJICON 'Advanced Combat Optical Gunsight' bietet 4-fache Vergrößerung sowie verschiedene Justiermöglichkeiten. Seit August 2004 wird es als neue Zieloptik vom U.S. Marine Corps verwendet.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1031</uiIndex>
+		<szItemName>CQC .223 Lauf</szItemName>
+		<szLongItemName>SCAR-L CQC Lauf</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SCAR-L CQC Lauf</szBRName>
+		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1032</uiIndex>
+		<szItemName>SV .223 Lauf</szItemName>
+		<szLongItemName>SCAR-L SV Lauf</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SCAR-L SV Lauf</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1033</uiIndex>
+		<szItemName>CQC .308 Lauf</szItemName>
+		<szLongItemName>SCAR-H CQC Lauf</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SCAR-H CQC Lauf</szBRName>
+		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1034</uiIndex>
+		<szItemName>SV .308 Lauf</szItemName>
+		<szLongItemName>SCAR-H SV Lauf</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SCAR-H SV Lauf</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 </ITEMLIST>

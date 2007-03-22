@@ -538,7 +538,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>32</ubImpact>
 		<ubDeadliness>22</ubDeadliness>
-		<bAccuracy>1</bAccuracy>
+		<bAccuracy>3</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -568,7 +568,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>49</ubDeadliness>
-		<bAccuracy>5</bAccuracy>
+		<bAccuracy>7</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>790</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -4205,12 +4205,12 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>651</uiIndex>
-		<szWeaponName>FN SCAR-H</szWeaponName>
+		<szWeaponName>FN SCAR-H CQC</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>9</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>23</ubBulletSpeed>
 		<ubImpact>32</ubImpact>
@@ -4238,19 +4238,19 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>652</uiIndex>
-		<szWeaponName>FN SCAR-L</szWeaponName>
+		<szWeaponName>FN SCAR-L CQC</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
-		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubShotsPer4Turns>14</ubShotsPer4Turns>
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>23</ubBulletSpeed>
-		<ubImpact>30</ubImpact>
+		<ubImpact>29</ubImpact>
 		<ubDeadliness>36</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>340</usRange>
+		<usRange>280</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -6374,7 +6374,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>22</ubImpact>
 		<ubDeadliness>15</ubDeadliness>
-		<bAccuracy>2</bAccuracy>
+		<bAccuracy>3</bAccuracy>
 		<ubMagSize>20</ubMagSize>
 		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -6803,7 +6803,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
 		<ubDeadliness>48</ubDeadliness>
-		<bAccuracy>5</bAccuracy>
+		<bAccuracy>7</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>770</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -7397,7 +7397,7 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>35</ubImpact>
 		<ubDeadliness>45</ubDeadliness>
-		<bAccuracy>5</bAccuracy>
+		<bAccuracy>6</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>750</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -8384,6 +8384,100 @@
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
+		<uiIndex>786</uiIndex>
+		<szWeaponName>Colt Delta Elite</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>27</ubCalibre>
+		<ubShotsPer4Turns>17</ubShotsPer4Turns>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>26</ubImpact>
+		<ubDeadliness>18</ubDeadliness>
+		<ubMagSize>8</ubMagSize>
+		<usRange>120</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>74</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>388</sSound>
+		<sBurstSound>15</sBurstSound>
+		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<APsToReload>2</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>787</uiIndex>
+		<szWeaponName>FN SCAR-H SV</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>9</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
+		<ubBurstPenalty>9</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>35</ubImpact>
+		<ubDeadliness>40</ubDeadliness>
+		<bAccuracy>6</bAccuracy>
+		<ubMagSize>20</ubMagSize>
+		<usRange>670</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>50</BurstAniDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>347</sSound>
+		<sBurstSound>39</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<AutoPenalty>9</AutoPenalty>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>788</uiIndex>
+		<szWeaponName>FN SCAR-L SV</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>14</ubShotsPer4Turns>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>38</ubDeadliness>
+		<bAccuracy>6</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>380</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>50</BurstAniDelay>
+		<ubAttackVolume>70</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>346</sSound>
+		<sBurstSound>38</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>8</AutoPenalty>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
 		<uiIndex>901</uiIndex>
 		<szWeaponName>Commando Mortar</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
@@ -8792,6 +8886,29 @@
 	<WEAPON>
 		<uiIndex>920</uiIndex>
 		<szWeaponName>Colt Launcher System</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>7</ubShotsPer4Turns>
+		<ubBulletSpeed>30</ubBulletSpeed>
+		<ubDeadliness>35</ubDeadliness>
+		<bAccuracy>4</bAccuracy>
+		<ubMagSize>1</ubMagSize>
+		<usRange>350</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>20</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>402</sSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<SilencedSound>157</SilencedSound>
+		<APsToReload>6</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>921</uiIndex>
+		<szWeaponName>FN EGLM Grenade Launcher</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubReadyTime>2</ubReadyTime>
 		<ubShotsPer4Turns>7</ubShotsPer4Turns>
