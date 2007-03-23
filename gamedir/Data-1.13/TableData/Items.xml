@@ -2945,6 +2945,7 @@
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
@@ -3628,6 +3629,7 @@
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
@@ -6466,6 +6468,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
 		<NotInEditor>1</NotInEditor>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -9657,6 +9660,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>455</uiIndex>
@@ -9811,6 +9815,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>463</uiIndex>
@@ -9927,6 +9932,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>469</uiIndex>
@@ -10030,6 +10036,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>475</uiIndex>
@@ -10048,6 +10055,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>6</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -10067,6 +10075,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>6</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -10086,6 +10095,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>9</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -10105,6 +10115,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>9</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -10124,6 +10135,7 @@
 		<ubCoolness>10</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>4</BR_NewInventory>
 		<PercentNoiseReduction>80</PercentNoiseReduction>
 	</ITEM>
@@ -10136,6 +10148,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>481</uiIndex>
@@ -10146,6 +10159,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>482</uiIndex>
@@ -10156,6 +10170,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>483</uiIndex>
@@ -11864,6 +11879,7 @@
 		<bReliability>-3</bReliability>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>7</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -11884,6 +11900,7 @@
 		<bReliability>-3</bReliability>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>7</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -11903,6 +11920,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>5</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -11922,6 +11940,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>5</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -11941,6 +11960,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>5</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -11960,6 +11980,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>5</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -11979,6 +12000,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>5</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -11998,6 +12020,7 @@
 		<ubCoolness>3</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>5</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -12017,6 +12040,7 @@
 		<ubCoolness>2</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>5</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -12036,6 +12060,7 @@
 		<ubCoolness>2</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>5</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -12055,6 +12080,7 @@
 		<ubCoolness>2</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>5</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -12074,6 +12100,7 @@
 		<ubCoolness>2</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>4</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -12093,6 +12120,7 @@
 		<ubCoolness>2</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>4</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -12112,6 +12140,7 @@
 		<ubCoolness>2</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>4</BR_NewInventory>
 	</ITEM>
 	<ITEM>
@@ -12131,6 +12160,7 @@
 		<ubCoolness>2</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>580</uiIndex>
@@ -12149,6 +12179,7 @@
 		<ubCoolness>2</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>581</uiIndex>
@@ -12167,6 +12198,7 @@
 		<ubCoolness>2</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>582</uiIndex>
@@ -12205,6 +12237,7 @@
 		<ubCoolness>6</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<RangeBonus>100</RangeBonus>
 	</ITEM>
@@ -12225,6 +12258,7 @@
 		<ubCoolness>6</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<RangeBonus>100</RangeBonus>
 	</ITEM>
@@ -12379,6 +12413,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>593</uiIndex>
@@ -17426,6 +17461,7 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>28</BR_ROF>
@@ -17456,6 +17492,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>10</BR_ROF>
@@ -17483,6 +17520,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>20</BR_ROF>
@@ -17509,6 +17547,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>20</BR_ROF>
@@ -17592,6 +17631,7 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>24</BR_ROF>
@@ -17621,6 +17661,7 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>26</BR_ROF>
@@ -17841,6 +17882,7 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>26</BR_ROF>
@@ -17968,6 +18010,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>790</uiIndex>
@@ -17978,6 +18021,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>791</uiIndex>
@@ -17988,6 +18032,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>792</uiIndex>
@@ -17998,6 +18043,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>793</uiIndex>
@@ -18008,6 +18054,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>794</uiIndex>
@@ -18018,6 +18065,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>795</uiIndex>
@@ -18028,6 +18076,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>796</uiIndex>
@@ -18038,6 +18087,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>797</uiIndex>
@@ -18048,6 +18098,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>798</uiIndex>
@@ -18058,6 +18109,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>799</uiIndex>
@@ -18068,6 +18120,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>800</uiIndex>
@@ -18078,6 +18131,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>801</uiIndex>
@@ -20092,6 +20146,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>888</uiIndex>
@@ -20102,6 +20157,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>889</uiIndex>
@@ -20112,6 +20168,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>890</uiIndex>
@@ -20122,6 +20179,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>891</uiIndex>
@@ -20132,6 +20190,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>892</uiIndex>
@@ -20142,6 +20201,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>893</uiIndex>
@@ -20152,6 +20212,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>894</uiIndex>
@@ -20162,6 +20223,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>895</uiIndex>
@@ -20172,6 +20234,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>896</uiIndex>
@@ -20182,6 +20245,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>897</uiIndex>
@@ -20192,6 +20256,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>898</uiIndex>
@@ -20202,6 +20267,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>899</uiIndex>
@@ -20212,6 +20278,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>900</uiIndex>
@@ -20222,6 +20289,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>901</uiIndex>
@@ -20768,6 +20836,7 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>12</BR_ROF>
@@ -20794,6 +20863,7 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>12</BR_ROF>
@@ -20808,6 +20878,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>923</uiIndex>
@@ -20818,6 +20889,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>924</uiIndex>
@@ -20828,6 +20900,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>925</uiIndex>
@@ -20838,6 +20911,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>926</uiIndex>
@@ -20848,6 +20922,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>927</uiIndex>
@@ -20858,6 +20933,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>928</uiIndex>
@@ -20868,6 +20944,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>929</uiIndex>
@@ -20878,6 +20955,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>930</uiIndex>
@@ -20888,6 +20966,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>931</uiIndex>
@@ -20898,6 +20977,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>932</uiIndex>
@@ -20908,6 +20988,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>933</uiIndex>
@@ -20918,6 +20999,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>934</uiIndex>
@@ -20928,6 +21010,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>935</uiIndex>
@@ -20938,6 +21021,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>936</uiIndex>
@@ -20948,6 +21032,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>937</uiIndex>
@@ -20958,6 +21043,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>938</uiIndex>
@@ -20968,6 +21054,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>939</uiIndex>
@@ -20978,6 +21065,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>940</uiIndex>
@@ -20988,6 +21076,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>941</uiIndex>
@@ -20998,6 +21087,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>942</uiIndex>
@@ -21008,6 +21098,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>943</uiIndex>
@@ -21018,6 +21109,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>944</uiIndex>
@@ -21028,6 +21120,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>945</uiIndex>
@@ -21038,6 +21131,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>946</uiIndex>
@@ -21048,6 +21142,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>947</uiIndex>
@@ -21058,6 +21153,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>948</uiIndex>
@@ -21077,6 +21173,7 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -21103,6 +21200,7 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -21128,6 +21226,7 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -22123,6 +22222,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>996</uiIndex>
@@ -22133,6 +22233,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>997</uiIndex>
@@ -22143,6 +22244,7 @@
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>998</uiIndex>
@@ -22410,6 +22512,7 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>15</AimBonus>
@@ -22752,6 +22855,7 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -22882,6 +22986,7 @@
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
 		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>5</AimBonus>
@@ -22937,6 +23042,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1032</uiIndex>
@@ -22956,6 +23062,7 @@
 		<WaterDamages>1</WaterDamages>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
@@ -22978,6 +23085,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1034</uiIndex>
@@ -22997,6 +23105,7 @@
 		<WaterDamages>1</WaterDamages>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
