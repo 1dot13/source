@@ -17890,7 +17890,6 @@
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>295</ubGraphicNum>
 		<ubWeight>11</ubWeight>
-		<ubPerPocket>0</ubPerPocket>
 		<usPrice>850</usPrice>
 		<ubCoolness>2</ubCoolness>
 		<Damageable>1</Damageable>
@@ -20789,7 +20788,6 @@
 		<ubPerPocket>1</ubPerPocket>
 		<usPrice>800</usPrice>
 		<ubCoolness>9</ubCoolness>
-		<bRepairEase>0</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>

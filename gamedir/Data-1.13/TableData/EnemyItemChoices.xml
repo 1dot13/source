@@ -387,13 +387,13 @@
 	<ENEMYITEMCHOICES>
 		<uiIndex>7</uiIndex>
 		<name>Grenade Launchers</name>
-		<ubChoices>4</ubChoices>
+		<ubChoices>6</ubChoices>
 		<bItemNo1>40</bItemNo1>
 		<bItemNo2>906</bItemNo2>
 		<bItemNo3>907</bItemNo3>
 		<bItemNo4>908</bItemNo4>
-		<bItemNo5>0</bItemNo5>
-		<bItemNo6>0</bItemNo6>
+		<bItemNo5>920</bItemNo5>
+		<bItemNo6>903</bItemNo6>
 		<bItemNo7>0</bItemNo7>
 		<bItemNo8>0</bItemNo8>
 		<bItemNo9>0</bItemNo9>
@@ -937,7 +937,7 @@
 	<ENEMYITEMCHOICES>
 		<uiIndex>17</uiIndex>
 		<name>Weapon Attachments</name>
-		<ubChoices>23</ubChoices>
+		<ubChoices>32</ubChoices>
 		<bItemNo1>207</bItemNo1>
 		<bItemNo2>208</bItemNo2>
 		<bItemNo3>209</bItemNo3>
@@ -961,15 +961,15 @@
 		<bItemNo21>913</bItemNo21>
 		<bItemNo22>307</bItemNo22>
 		<bItemNo23>310</bItemNo23>
-		<bItemNo24>0</bItemNo24>
-		<bItemNo25>0</bItemNo25>
-		<bItemNo26>0</bItemNo26>
-		<bItemNo27>0</bItemNo27>
-		<bItemNo28>0</bItemNo28>
-		<bItemNo29>0</bItemNo29>
-		<bItemNo30>0</bItemNo30>
-		<bItemNo31>0</bItemNo31>
-		<bItemNo32>0</bItemNo32>
+		<bItemNo24>1030</bItemNo24>
+		<bItemNo25>1029</bItemNo25>
+		<bItemNo26>999</bItemNo26>
+		<bItemNo27>1000</bItemNo27>
+		<bItemNo28>998</bItemNo28>
+		<bItemNo29>949</bItemNo29>
+		<bItemNo30>950</bItemNo30>
+		<bItemNo31>948</bItemNo31>
+		<bItemNo32>921</bItemNo32>
 		<bItemNo33>0</bItemNo33>
 		<bItemNo34>0</bItemNo34>
 		<bItemNo35>0</bItemNo35>
@@ -992,7 +992,7 @@
 	<ENEMYITEMCHOICES>
 		<uiIndex>18</uiIndex>
 		<name>Knives</name>
-		<ubChoices>8</ubChoices>
+		<ubChoices>12</ubChoices>
 		<bItemNo1>37</bItemNo1>
 		<bItemNo2>38</bItemNo2>
 		<bItemNo3>54</bItemNo3>
@@ -1001,10 +1001,10 @@
 		<bItemNo6>593</bItemNo6>
 		<bItemNo7>594</bItemNo7>
 		<bItemNo8>595</bItemNo8>
-		<bItemNo9>0</bItemNo9>
-		<bItemNo10>0</bItemNo10>
-		<bItemNo11>0</bItemNo11>
-		<bItemNo12>0</bItemNo12>
+		<bItemNo9>596</bItemNo9>
+		<bItemNo10>299</bItemNo10>
+		<bItemNo11>600</bItemNo11>
+		<bItemNo12>297</bItemNo12>
 		<bItemNo13>0</bItemNo13>
 		<bItemNo14>0</bItemNo14>
 		<bItemNo15>0</bItemNo15>
