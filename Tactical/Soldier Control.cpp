@@ -9391,6 +9391,14 @@ void HaultSoldierFromSighting( SOLDIERTYPE *pSoldier, BOOLEAN fFromSightingEnemy
 	{
 		// Place it back into inv....
 		AutoPlaceObject( pSoldier, pSoldier->pTempObject, FALSE );
+		
+		//AXP 25.03.2007: Not needed anymore, grenade costs are only deducted on throwing the object
+		//AXP 24.03.2007: Give APs back if we wanted to throw grenade, but interrupt/spotting occured
+		//if ( pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM )
+		//{
+		//	DeductPoints( pSoldier, -MinAPsToAttack( pSoldier, pSoldier->sTargetGridNo, FALSE ), 0 );
+		//}
+		
 		MemFree( pSoldier->pTempObject );
 		pSoldier->pTempObject					= NULL;
 		pSoldier->usPendingAnimation  = NO_PENDING_ANIMATION;

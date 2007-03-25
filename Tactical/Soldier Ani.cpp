@@ -963,6 +963,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 						// ATE: If we are armmed...
 						if ( pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM )
 						{
+							//AXP 25.03.2007: MinAPsToThrow now actually returns the real cost, not 0
 							// ATE: Deduct points!
 							DeductPoints( pSoldier, MinAPsToThrow( pSoldier, pSoldier->sTargetGridNo, FALSE ), 0 );
 						}

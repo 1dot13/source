@@ -975,7 +975,6 @@ UINT8 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 		}
 		else
 		{
-
 			sAPCost += bAimTime;
 		}
 	}
@@ -1083,7 +1082,7 @@ UINT8 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 		}
 
 		// Add aim time...
-    sAPCost += bAimTime;
+		sAPCost += bAimTime;
 
 	}
 
@@ -2129,54 +2128,66 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCos
 	INT32	iFullAPs;
 	INT32 iAPCost = AP_MIN_AIM_ATTACK;
 	UINT16 usInHand;
-  UINT16 usTargID;
-  UINT32 uiMercFlags;
-  UINT8 ubDirection;
+	UINT16 usTargID;
+	UINT32 uiMercFlags;
+	UINT8 ubDirection;
 
 	// make sure the guy's actually got a throwable item in his hand!
 	usInHand = pSoldier->inv[ HANDPOS ].usItem;
 
-  if ( ( !(Item[ usInHand ].usItemClass & IC_GRENADE) ) )
+	if ( ( !(Item[ usInHand ].usItemClass & IC_GRENADE) ) )
 	{
+		//AXP 25.03.2007: See if we are about to throw grenade (grenade was not in hand, but in temp object)
+		if ( pSoldier->pTempObject != NULL && pSoldier->pThrowParams != NULL &&
+			pSoldier->pThrowParams->ubActionCode == THROW_ARM_ITEM && (Item[ pSoldier->pTempObject->usItem ].usItemClass & IC_GRENADE) )
+		{
+			//nothing here
+		}
+		else
+		{
 #ifdef JA2TESTVERSION
-	 ScreenMsg( MSG_FONT_YELLOW, MSG_DEBUG, L"MinAPsToThrow - Called when in-hand item is %s", usInHand );
+			ScreenMsg( MSG_FONT_YELLOW, MSG_DEBUG, L"MinAPsToThrow - Called when in-hand item is %s", usInHand );
 #endif
-	 return(0);
+			return(0);
+		}
 	}
 
- if ( sGridNo != NOWHERE )
- {
-	 // Given a gridno here, check if we are on a guy - if so - get his gridno
-	 if ( FindSoldier( sGridNo, &usTargID, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
-	 {
+	if ( sGridNo != NOWHERE )
+	{
+		// Given a gridno here, check if we are on a guy - if so - get his gridno
+		if ( FindSoldier( sGridNo, &usTargID, &uiMercFlags, FIND_SOLDIER_GRIDNO ) )
+		{
 			sGridNo = MercPtrs[ usTargID ]->sGridNo;
-	 }
+		}
 
-	 // OK, get a direction and see if we need to turn...
-	 if (ubAddTurningCost)
-	 {
-		 ubDirection = (UINT8)GetDirectionFromGridNo( sGridNo, pSoldier );
+		// OK, get a direction and see if we need to turn...
+		if (ubAddTurningCost)
+		{
+			ubDirection = (UINT8)GetDirectionFromGridNo( sGridNo, pSoldier );
 
-		 // Is it the same as he's facing?
-		 if ( ubDirection != pSoldier->bDirection )
+			// Is it the same as he's facing?
+			if ( ubDirection != pSoldier->bDirection )
 		 {
-				//iAPCost += GetAPsToLook( pSoldier );
+			 //Lalien: disabled it again 
+			 //AXP 25.03.2007: Reenabled look cost
+			 //iAPCost += GetAPsToLook( pSoldier );
 		 }
-	 }
- }
- else
- {
+		}
+	}
+	else
+	{
 		// Assume we need to add cost!
 		//iAPCost += GetAPsToLook( pSoldier );
- }
+	}
 
- // if attacking a new target (or if the specific target is uncertain)
- if ( ( sGridNo != pSoldier->sLastTarget ) )
- {
-   iAPCost += AP_CHANGE_TARGET;
- }
+	// if attacking a new target (or if the specific target is uncertain)
+	//AXP 25.03.2007: Aim-at-same-tile AP cost/bonus doesn't make any sense for thrown objects
+	//if ( ( sGridNo != pSoldier->sLastTarget ) )
+	//{
+	//	iAPCost += AP_CHANGE_TARGET;
+	//}
 
- iAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
+	iAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
 
 
 	// Calculate default top & bottom of the magic "aiming" formula)
@@ -2188,29 +2199,29 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCos
 	iTop = 2 * iFullAPs;
 
 	// if it's anything but a mortar
-//	if ( usInHand != MORTAR)
-   // tosses per turn is for max dexterity, drops down to 1/2 at dexterity = 0
-  // bottom = (TOSSES_PER_10TURNS * (50 + (ptr->dexterity / 2)) / 10);
- //else
-   iBottom = ( TOSSES_PER_10TURNS * (50 + ( pSoldier->bDexterity / 2 ) ) / 10 );
+	//	if ( usInHand != MORTAR)
+	// tosses per turn is for max dexterity, drops down to 1/2 at dexterity = 0
+	// bottom = (TOSSES_PER_10TURNS * (50 + (ptr->dexterity / 2)) / 10);
+	//else
+	iBottom = ( TOSSES_PER_10TURNS * (50 + ( pSoldier->bDexterity / 2 ) ) / 10 );
 
 
- // add minimum aiming time to the overall minimum AP_cost
- //     This here ROUNDS UP fractions of 0.5 or higher using integer math
- //     This works because 'top' is 2x what it really should be throughout
+	// add minimum aiming time to the overall minimum AP_cost
+	//     This here ROUNDS UP fractions of 0.5 or higher using integer math
+	//     This works because 'top' is 2x what it really should be throughout
 	iAPCost += ( ( ( 100 * iTop ) / iBottom) + 1) / 2;
 
 
- // the minimum AP cost of ANY throw can NEVER be more than merc has APs!
- if ( iAPCost > iFullAPs )
-   iAPCost = iFullAPs;
+	// the minimum AP cost of ANY throw can NEVER be more than merc has APs!
+	if ( iAPCost > iFullAPs )
+		iAPCost = iFullAPs;
 
- // this SHOULD be impossible, but nevertheless...
- if ( iAPCost < 1 )
-   iAPCost = 1;
+	// this SHOULD be impossible, but nevertheless...
+	if ( iAPCost < 1 )
+		iAPCost = 1;
 
 
- return ( (INT16)iAPCost );
+	return ( (INT16)iAPCost );
 }
 
 UINT16 GetAPsToDropBomb( SOLDIERTYPE *pSoldier )

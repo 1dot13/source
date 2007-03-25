@@ -2586,6 +2586,17 @@ BOOLEAN UseThrown( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo )
 	
 	CalculateLaunchItemParamsForThrow( pSoldier, sTargetGridNo, pSoldier->bTargetLevel, (INT16)(pSoldier->bTargetLevel * 256 ), &(pSoldier->inv[ HANDPOS ] ), (INT8)(uiDiceRoll - uiHitChance), THROW_ARM_ITEM, 0 );
 
+	//AXP 25.03.2007: Cleaned up throwing AP costs. Now only turning + stance change AP 
+	//	costs are deducted. Final throw cost is deducted on creating the grenade object
+	if ( (UINT8)GetDirectionFromGridNo( sTargetGridNo, pSoldier ) != pSoldier->bDirection )
+			sAPCost += (INT16)GetAPsToLook( pSoldier );
+	sAPCost += (INT16)GetAPsToChangeStance( pSoldier, ANIM_STAND );
+
+	HandleSoldierThrowItem( pSoldier, pSoldier->sTargetGridNo );
+	DeductPoints( pSoldier, sAPCost, 0 );
+	RemoveObjs( &(pSoldier->inv[ HANDPOS ] ), 1 );
+	
+	/*
 	// Madd: Next 2 lines added: Deduct points!
 
 	sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, FALSE, pSoldier->bAimTime );
@@ -2597,7 +2608,7 @@ BOOLEAN UseThrown( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo )
     // Kaiden: Deducting points too early, moving the line down
 	DeductPoints( pSoldier, sAPCost, 0 );
 	RemoveObjs( &(pSoldier->inv[ HANDPOS ] ), 1 );
-
+	*/
 	return( TRUE );
 }
 
