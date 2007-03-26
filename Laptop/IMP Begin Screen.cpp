@@ -332,6 +332,7 @@ void RemoveIMPBeginScreenButtons( void )
 }
 
 
+
 void BtnIMPBeginScreenDoneCallback(GUI_BUTTON *btn,INT32 reason)
 {
 
@@ -371,6 +372,7 @@ void BtnIMPBeginScreenDoneCallback(GUI_BUTTON *btn,INT32 reason)
 			}
 			*/
 
+			// WDS: Allow flexible numbers of IMPs of each sex
 			if (bProceed == TRUE)
 			{
 				// check to see if a name has been selected, if not, do not allow player to proceed with more char generation
@@ -378,18 +380,18 @@ void BtnIMPBeginScreenDoneCallback(GUI_BUTTON *btn,INT32 reason)
 				{
 					if (bGenderFlag == IMP_MALE)
 					{
-						if (GetFilledIMPSlots(MALE) >= 3)
+						if (CountEmptyIMPSlots(MALE) == 0)
 						{
-							// You cannot have more than 3 I.M.P characters with the same gender on your team.
+							// You cannot have more than the male max I.M.P characters on your team.
 							DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 9 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 							bProceed = FALSE;
 						}
 					}
 					else if (bGenderFlag == IMP_FEMALE)
 					{
-						if (GetFilledIMPSlots(FEMALE) >= 3)
+						if (CountEmptyIMPSlots(FEMALE) == 0)
 						{
-							// You cannot have more than 3 I.M.P characters with the same gender on your team.
+							// You cannot have more than the female max I.M.P characters on your team.
 							DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 9 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 							bProceed = FALSE;
 						}
@@ -1313,7 +1315,8 @@ BOOLEAN CheckCharacterInputForEgg( void )
     iPersonality = NO_PERSONALITYTRAIT;
 		iAttitude = ATT_ASSHOLE;
 		iCurrentImpPage = IMP_FINISH;
-		LaptopSaveInfo.iVoiceId = 1;
+		LaptopSaveInfo.iCurrentVoice = 1;
+		LaptopSaveInfo.iCharIndex = 1;
 		iPortraitNumber = 2;
 	  return TRUE;
 	}
@@ -1337,7 +1340,8 @@ BOOLEAN CheckCharacterInputForEgg( void )
     iPersonality = NO_PERSONALITYTRAIT;
 		iAttitude = ATT_FRIENDLY;
 		iCurrentImpPage = IMP_FINISH;
-		LaptopSaveInfo.iVoiceId = 1;
+		LaptopSaveInfo.iCurrentVoice = 1;
+		LaptopSaveInfo.iCharIndex = 1;
 		iPortraitNumber = 1;
 	  return TRUE;
 	}
@@ -1361,7 +1365,8 @@ BOOLEAN CheckCharacterInputForEgg( void )
     iPersonality = NO_PERSONALITYTRAIT;
 		iAttitude = ATT_FRIENDLY;
 		iCurrentImpPage = IMP_FINISH;
-		LaptopSaveInfo.iVoiceId = 2;
+		LaptopSaveInfo.iCurrentVoice = 2;
+		LaptopSaveInfo.iCharIndex = 2;
 		iPortraitNumber = 1;
 	  return TRUE;
 	}
@@ -1388,7 +1393,8 @@ BOOLEAN CheckCharacterInputForEgg( void )
 		iPersonality = NO_PERSONALITYTRAIT;
 		iAttitude = ATT_AGGRESSIVE;
 		iCurrentImpPage = IMP_FINISH;
-		LaptopSaveInfo.iVoiceId = 1;
+		LaptopSaveInfo.iCurrentVoice = 1;
+		LaptopSaveInfo.iCharIndex = 1;
 		iPortraitNumber = 4;
 	  return TRUE;
 	}
@@ -1415,7 +1421,8 @@ BOOLEAN CheckCharacterInputForEgg( void )
 		iPersonality = NO_PERSONALITYTRAIT;
 		iAttitude = ATT_ARROGANT;
 		iCurrentImpPage = IMP_FINISH;
-		LaptopSaveInfo.iVoiceId = 1;
+		LaptopSaveInfo.iCurrentVoice = 1;
+		LaptopSaveInfo.iCharIndex = 1;
 		iPortraitNumber = 2;
 	  return TRUE;
 	}
@@ -1442,7 +1449,8 @@ BOOLEAN CheckCharacterInputForEgg( void )
 		iPersonality = NO_PERSONALITYTRAIT;
 		iAttitude = ATT_AGGRESSIVE;
 		iCurrentImpPage = IMP_FINISH;
-		LaptopSaveInfo.iVoiceId = 1;
+		LaptopSaveInfo.iCurrentVoice = 1;
+		LaptopSaveInfo.iCharIndex = 1;
 		iPortraitNumber = 4;
 	  return TRUE;
 	}
@@ -1469,7 +1477,8 @@ BOOLEAN CheckCharacterInputForEgg( void )
 		iPersonality = NO_PERSONALITYTRAIT;
 		iAttitude = ATT_LONER;
 		iCurrentImpPage = IMP_FINISH;
-		LaptopSaveInfo.iVoiceId = 1;
+		LaptopSaveInfo.iCurrentVoice = 1;
+		LaptopSaveInfo.iCharIndex = 1;
 		iPortraitNumber = 3;
 	  return TRUE;
 	}
@@ -1493,7 +1502,8 @@ BOOLEAN CheckCharacterInputForEgg( void )
     iPersonality = PSYCHO;
 		iAttitude = ATT_ASSHOLE;
 		iCurrentImpPage = IMP_FINISH;
-		LaptopSaveInfo.iVoiceId = 1;
+		LaptopSaveInfo.iCurrentVoice = 1;
+		LaptopSaveInfo.iCharIndex = 1;
 		iPortraitNumber = 2;
 
 		//DEF: temp
@@ -1549,7 +1559,8 @@ BOOLEAN CheckCharacterInputForEgg( void )
 		iPersonality = NO_PERSONALITYTRAIT;
 		iAttitude = ATT_LONER;
 		iCurrentImpPage = IMP_FINISH;
-		LaptopSaveInfo.iVoiceId = 1;
+		LaptopSaveInfo.iCurrentVoice = 1;
+		LaptopSaveInfo.iCharIndex = 1;
 		iPortraitNumber = 3;
 	  return TRUE;
 	}
@@ -1578,7 +1589,7 @@ BOOLEAN CheckCharacterInputForEgg( void )
 		iPersonality = NO_PERSONALITYTRAIT;
 		iAttitude = ATT_LONER;
 		iCurrentImpPage = IMP_FINISH;
-		LaptopSaveInfo.iVoiceId = 1;
+		LaptopSaveInfo.iIMPIndex = 54;
 		iPortraitNumber = 5;
 		return (TRUE );
 	}

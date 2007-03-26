@@ -146,8 +146,15 @@ typedef struct
 	BOOLEAN fSellAll;
 	INT16 iPriceModifier;
 
-	INT32 iMaxIMPMaleCharacters;
-	INT32 iMaxIMPCharacters;
+	// WDS: Allow flexible numbers of IMPs of each sex
+	INT32 iIMPMaleCharacterCount;	// Count of how many there are
+	INT32 iIMPFemaleCharacterCount;
+	INT32 iMaxIMPCharacters;		// Limit of how many to allow
+	//
+	// iaIMPSlots is an array of the slots (in prof.dat) to use for IMPs.
+	//
+	UINT32 *iaIMPSlots;
+
 	INT32 iMinAttribute;
 	INT32 iMaxAttribute;
 	INT32 iImpAttributePoints;
@@ -264,6 +271,7 @@ typedef struct
 	UINT32 ubGameProgressPortionKills;
 	UINT32 ubGameProgressPortionControl;
 	UINT32 ubGameProgressPortionIncome;
+	UINT32 ubGameProgressPortionVisited;
 
 	// Event settings
 

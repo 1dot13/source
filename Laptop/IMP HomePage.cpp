@@ -405,7 +405,7 @@ void ProcessPlayerInputActivationString( void )
 			return;
 		}
 
-		if (GetFilledIMPSlots(-1) < gGameExternalOptions.iMaxIMPCharacters)
+		if (CountFilledIMPSlots(-1) < gGameExternalOptions.iMaxIMPCharacters)
 		{
 			// Kaiden: Need to reset skills, attributes and personalities with the new UB Method.
 			ResetSkillsAttributesAndPersonality( );
@@ -427,7 +427,7 @@ void ProcessPlayerInputActivationString( void )
 			return;
 		}
 
-		if (GetFilledIMPSlots(-1) < gGameExternalOptions.iMaxIMPCharacters)
+		if (CountFilledIMPSlots(-1) < gGameExternalOptions.iMaxIMPCharacters)
 		{
 			if (LoadImpCharacter( IMP_MERC_FILENAME ) == TRUE)
 			{
@@ -435,7 +435,7 @@ void ProcessPlayerInputActivationString( void )
 				ResetActivationStringTextBox();
 
 				//DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 11 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
-				AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), PLAYER_GENERATED_CHARACTER_ID + LaptopSaveInfo.iVoiceId );
+				AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), LaptopSaveInfo.iIMPIndex );
 			}
 		}
 		else
@@ -453,7 +453,7 @@ void ProcessPlayerInputActivationString( void )
 			return;
 		}
 
-		if (GetFilledIMPSlots(-1) < gGameExternalOptions.iMaxIMPCharacters)
+		if (CountFilledIMPSlots(-1) < gGameExternalOptions.iMaxIMPCharacters)
 		{
 			if (LoadImpCharacter( charPlayerActivationString ) == TRUE)
 			{
@@ -461,7 +461,7 @@ void ProcessPlayerInputActivationString( void )
 				ResetActivationStringTextBox();
 				
 				//DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 11 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
-				AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), PLAYER_GENERATED_CHARACTER_ID + LaptopSaveInfo.iVoiceId );
+				AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), LaptopSaveInfo.iIMPIndex );
 			}
 		}
 		else

@@ -969,6 +969,13 @@ BOOLEAN StrategicRemoveMerc( SOLDIERTYPE *pSoldier )
 	// stop time compression so player can react to the departure
 	StopTimeCompression();
 
+	// WDS: This allows for replacing dead IMP mercs.  See "BtnIMPBeginScreenDoneCallback" in "IMP Begin Screen.cpp"
+	if( ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__PLAYER_CHARACTER ) &&
+		( gMercProfiles[ pSoldier->ubProfile ].bMercStatus == MERC_IS_DEAD ) ) {
+		// Replace the name with an empty string
+		wcsncpy( gMercProfiles[ pSoldier->ubProfile ].zName, L"", 1 );
+	}
+
   // ATE: update team panels....
   UpdateTeamPanelAssignments( );
 

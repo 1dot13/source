@@ -134,7 +134,7 @@ typedef struct
 
 	UINT16							usInventoryListLength[BOBBY_RAY_LISTS];
 
-	INT32								iVoiceId;
+	INT32								iIMPIndex;
 
 	UINT8								ubHaveBeenToBobbyRaysAtLeastOnceWhileUnderConstruction;
 

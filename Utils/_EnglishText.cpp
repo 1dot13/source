@@ -2080,6 +2080,8 @@ STR16 pMercContractOverStrings[] =
 
 // Text used on IMP Web Pages
 
+// WDS: Allow flexible numbers of IMPs of each sex
+//    note: I only updated the English text to remove "three" below
 STR16 pImpPopUpStrings[] =
 {
 	L"Invalid authorization code",
@@ -2091,7 +2093,7 @@ STR16 pImpPopUpStrings[] =
 	L"Profile already completed.",
 	L"Cannot load I.M.P. character from disk.",
 	L"You have already reached the maximum number of I.M.P. characters.",
-	L"You have already three I.M.P characters with the same gender on your team.",
+	L"You have already the maximum number of I.M.P characters with that gender on your team.",
 	L"You cannot afford the I.M.P character.",
 	L"The new I.M.P character has joined your team.",
 };

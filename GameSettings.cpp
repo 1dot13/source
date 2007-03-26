@@ -295,6 +295,16 @@ void InitGameOptions()
 #define PROGRESS_PORTION_INCOME		50
 
 
+// The following are for fixing problems when reading the .ini file
+#define COUNT_STANDARD_MALE_SLOTS 3
+#define FIRST_STANDARD_MALE_SLOT 51
+#define COUNT_STANDARD_FEMALE_SLOTS 3
+#define FIRST_STANDARD_FEMALE_SLOT 54
+
+
+extern INT32 CountFilledIMPSlots( INT8 iSex );
+extern INT32 CountEmptyIMPSlots( INT8 iSex );
+
 // Snap: Read options from an INI file in the default of custom Data directory
 void LoadGameExternalOptions()
 {
@@ -304,8 +314,59 @@ void LoadGameExternalOptions()
 
 	//################# Laptop Settings #################
 
-	// WANNE: Maximum number of imp characters (0 to 6)
+	// WDS: Allow flexible numbers of IMPs of each sex
 	gGameExternalOptions.iMaxIMPCharacters		= iniReader.ReadInteger("JA2 Laptop Settings","MAX_IMP_CHARACTERS",1);
+
+	gGameExternalOptions.iIMPMaleCharacterCount	= iniReader.ReadInteger("JA2 Laptop Settings","IMP_MALE_CHARACTER_COUNT", COUNT_STANDARD_MALE_SLOTS, 1, NUM_PROFILES);
+	gGameExternalOptions.iIMPFemaleCharacterCount = iniReader.ReadInteger("JA2 Laptop Settings","IMP_FEMALE_CHARACTER_COUNT", COUNT_STANDARD_FEMALE_SLOTS, 1, NUM_PROFILES);
+	if (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount > NUM_PROFILES) 
+	{
+		gGameExternalOptions.iIMPMaleCharacterCount	= COUNT_STANDARD_MALE_SLOTS;
+		gGameExternalOptions.iIMPFemaleCharacterCount = COUNT_STANDARD_FEMALE_SLOTS;
+	}
+
+	//
+	// Note: put -1 between male/female slots and -1 at end.  This allows everything to be
+	// counted dynamically quite easily.  Note that all the code assumes there is AT
+	// LEAST ONE slot for each sex.  If that changes the code will have to be updated.
+	//
+	// Because errors in these values can really goof things up we will try to fix up bad
+	// values and use the defaults instead.
+	//
+	int idx;
+	char caMaleCountStr [] = "IMP_MALE_%d";
+	char caFemaleCountStr [] = "IMP_FEMALE_%d";
+	char caCountStr[20];
+
+	gGameExternalOptions.iaIMPSlots = (UINT32*)MemAlloc( (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount + 2) * sizeof( UINT32 ) );
+	for (idx = 0; idx < gGameExternalOptions.iIMPMaleCharacterCount; ++idx)
+	{
+		sprintf( caCountStr, caMaleCountStr, idx+1);
+		gGameExternalOptions.iaIMPSlots[idx] = iniReader.ReadInteger("JA2 Laptop Settings",caCountStr, -1, -1, NUM_PROFILES-1);
+		if (gGameExternalOptions.iaIMPSlots[idx] < 0)
+		{
+			if (idx < COUNT_STANDARD_MALE_SLOTS)
+				gGameExternalOptions.iaIMPSlots[idx] = FIRST_STANDARD_MALE_SLOT+idx;
+			else
+				// This is bad so just use the last standard slot #
+				gGameExternalOptions.iaIMPSlots[idx] = FIRST_STANDARD_MALE_SLOT+COUNT_STANDARD_MALE_SLOTS-1;
+		}
+	}
+	gGameExternalOptions.iaIMPSlots[gGameExternalOptions.iIMPMaleCharacterCount] = -1;
+	for (idx = 0; idx < gGameExternalOptions.iIMPFemaleCharacterCount; ++idx)
+	{
+		sprintf( caCountStr, caFemaleCountStr, idx+1);
+		gGameExternalOptions.iaIMPSlots[idx+gGameExternalOptions.iIMPMaleCharacterCount+1] = iniReader.ReadInteger("JA2 Laptop Settings",caCountStr, -1, -1, NUM_PROFILES-1);
+		if (gGameExternalOptions.iaIMPSlots[idx] < 0)
+		{
+			if (idx < COUNT_STANDARD_FEMALE_SLOTS)
+				gGameExternalOptions.iaIMPSlots[idx] = FIRST_STANDARD_FEMALE_SLOT+idx;
+			else
+				// This is bad so just use the last standard slot #
+				gGameExternalOptions.iaIMPSlots[idx] = FIRST_STANDARD_FEMALE_SLOT+COUNT_STANDARD_FEMALE_SLOTS-1;
+		}
+	}
+	gGameExternalOptions.iaIMPSlots[gGameExternalOptions.iIMPFemaleCharacterCount+gGameExternalOptions.iIMPMaleCharacterCount+1] = -1;
 
 	//Character generation
 	gGameExternalOptions.iMinAttribute			= iniReader.ReadInteger("JA2 Laptop Settings","MIN_ATTRIBUTE_POINT",35);
@@ -411,13 +472,15 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.ubGameProgressPortionKills     = iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_KILLS",25);
 	gGameExternalOptions.ubGameProgressPortionControl	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_CONTROL",25);
 	gGameExternalOptions.ubGameProgressPortionIncome	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_INCOME",50);
+	gGameExternalOptions.ubGameProgressPortionVisited	= iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_VISITED",0);
     
 	// Any way to warn on this?
-	if (gGameExternalOptions.ubGameProgressPortionKills + gGameExternalOptions.ubGameProgressPortionControl + gGameExternalOptions.ubGameProgressPortionIncome != 100) 
+	if (gGameExternalOptions.ubGameProgressPortionKills + gGameExternalOptions.ubGameProgressPortionControl + gGameExternalOptions.ubGameProgressPortionIncome + gGameExternalOptions.ubGameProgressPortionVisited != 100) 
 	{
 		gGameExternalOptions.ubGameProgressPortionKills     = 25;
 		gGameExternalOptions.ubGameProgressPortionControl	= 25;
 		gGameExternalOptions.ubGameProgressPortionIncome	= 50;
+		gGameExternalOptions.ubGameProgressPortionVisited	= 0;
 	}
 
 	//Global game events 

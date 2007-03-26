@@ -226,7 +226,7 @@ BOOLEAN AddCharacterToPlayersTeam( void )
 	memset(&HireMercStruct, 0, sizeof(MERC_HIRE_STRUCT));
 
 	// WANNE NEW: Any changes here. I don't think so
-	HireMercStruct.ubProfileID = ( UINT8 )( PLAYER_GENERATED_CHARACTER_ID + LaptopSaveInfo.iVoiceId ) ;
+	HireMercStruct.ubProfileID = ( UINT8 )( LaptopSaveInfo.iIMPIndex ) ;
 
 	if( fLoadingCharacterForPreviousImpProfile == FALSE )
 	{
@@ -296,12 +296,12 @@ void  BtnIMPConfirmYes(GUI_BUTTON *btn,INT32 reason)
 			LaptopSaveInfo.fIMPCompletedFlag = TRUE;
 
 			// charge the player
-			AddTransactionToPlayersBook(IMP_PROFILE, (UINT8)(PLAYER_GENERATED_CHARACTER_ID + LaptopSaveInfo.iVoiceId), GetWorldTotalMin( ), - ( COST_OF_PROFILE ) );
+			AddTransactionToPlayersBook(IMP_PROFILE, (UINT8)(LaptopSaveInfo.iIMPIndex), GetWorldTotalMin( ), - ( COST_OF_PROFILE ) );
       AddHistoryToPlayersLog( HISTORY_CHARACTER_GENERATED, 0,GetWorldTotalMin( ), -1, -1 );
 			AddCharacterToPlayersTeam( );
 			
 			// write the created imp merc
-			WriteOutCurrentImpCharacter( ( UINT8 )( PLAYER_GENERATED_CHARACTER_ID + LaptopSaveInfo.iVoiceId ) );
+			WriteOutCurrentImpCharacter( ( UINT8 )( LaptopSaveInfo.iIMPIndex ) );
 		
 			fButtonPendingFlag = TRUE;
 			iCurrentImpPage = IMP_HOME_PAGE;
@@ -315,14 +315,14 @@ void  BtnIMPConfirmYes(GUI_BUTTON *btn,INT32 reason)
 
 			//Kaiden: And here is my Answer to the IMP E-mails only
 			// profiling the last IMP made. You get the results immediately
-			AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), PLAYER_GENERATED_CHARACTER_ID + LaptopSaveInfo.iVoiceId );
+			AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), LaptopSaveInfo.iIMPIndex );
 
 			//RenderCharProfile( );
 
 			ResetCharacterStats();
 
 			//Display a popup msg box telling the user when and where the merc will arrive
-			//DisplayPopUpBoxExplainingMercArrivalLocationAndTime( PLAYER_GENERATED_CHARACTER_ID + LaptopSaveInfo.iVoiceId );
+			//DisplayPopUpBoxExplainingMercArrivalLocationAndTime( LaptopSaveInfo.iIMPIndex );
 		
 			//reset the id of the last merc so we dont get the DisplayPopUpBoxExplainingMercArrivalLocationAndTime() pop up box in another screen by accident
 			LaptopSaveInfo.sLastHiredMerc.iIdOfMerc = -1;
@@ -770,7 +770,7 @@ BOOLEAN LoadImpCharacter( STR nickName )
 
 	// read in the profile
 
-	if (!FileRead(hFile, &iProfileId,sizeof( INT32 ), &uiBytesRead))
+	if (!FileRead(hFile, &iProfileId, sizeof( INT32 ), &uiBytesRead))
 	{
 		DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 7 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 		return FALSE;
@@ -789,7 +789,7 @@ BOOLEAN LoadImpCharacter( STR nickName )
 	// We can create the new imp, beacuse we found an empty slot
 	if (iProfileId != -1)
 	{
-		LaptopSaveInfo.iVoiceId = iProfileId - PLAYER_GENERATED_CHARACTER_ID;
+		LaptopSaveInfo.iIMPIndex = iProfileId;
 
 		// read in the profile
 		if (!FileRead(hFile, &gMercProfiles[ iProfileId ] ,sizeof( MERCPROFILESTRUCT ), &uiBytesRead))
@@ -816,7 +816,7 @@ BOOLEAN LoadImpCharacter( STR nickName )
 		fLoadingCharacterForPreviousImpProfile = TRUE;
 		AddTransactionToPlayersBook(IMP_PROFILE,0, GetWorldTotalMin( ), - ( COST_OF_PROFILE ) );
 		AddHistoryToPlayersLog( HISTORY_CHARACTER_GENERATED, 0,GetWorldTotalMin( ), -1, -1 );
-		LaptopSaveInfo.iVoiceId = iProfileId - PLAYER_GENERATED_CHARACTER_ID;
+		LaptopSaveInfo.iIMPIndex = iProfileId;
 		AddCharacterToPlayersTeam( );
 		// WANNE: Email is sent immediatly after the imp was created. So no need to send it later again
 		//AddFutureDayStrategicEvent( EVENT_DAY2_ADD_EMAIL_FROM_IMP, 60 * 7, 0, 2 );
@@ -830,6 +830,9 @@ BOOLEAN LoadImpCharacter( STR nickName )
 	{
 		// close file
 		FileClose(hFile);
+
+		// WDS: Allow flexible numbers of IMPs of each sex
+		//  note: check this
 
 		// You cannot have more than 3 I.M.P characters with the same gender on your team.
 		DoLapTopMessageBox( MSG_BOX_IMP_STYLE, pImpPopUpStrings[ 9 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);

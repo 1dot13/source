@@ -21,15 +21,7 @@
 	#include "text.h"
 #endif
 
-//current and last pages
-
-// WANNE NEW: Set iLastVoice dynamically, skip used voices
-INT32 iCurrentVoices = 0;
-
-INT32 iVoiceId = 0;
-
-//INT32 iVoiceId = 0;
-
+INT32 iCurrentVoice = 0;
 
 UINT32 uiVocVoiceSound = 0;
 // buttons needed for the IMP Voices screen
@@ -69,9 +61,15 @@ void EnterIMPVoices( void )
 	fVoiceBVisited = FALSE;
 	fVoiceCVisited = FALSE;
 
-	// Set the initialize voice
-	iVoiceId = -1;
-	IncrementVoice();
+	// Set the initial voice
+	if (fCharacterIsMale == TRUE) 
+	{
+		iCurrentVoice = GetFirstFreeSlot(MALE);
+	}
+	else
+	{
+		iCurrentVoice = GetFirstFreeSlot(FEMALE);
+	}
 
 	// create buttons
 	CreateIMPVoicesButtons( );
@@ -141,98 +139,75 @@ void HandleIMPVoices( void )
 	return;
 }
 
-BOOLEAN IsIMPSlotFree(INT32 iIMPId)
+
+
+// WDS: Allow flexible numbers of IMPs of each sex
+// Ensure the voice is within the valid range
+void FixVoiceRange() 
 {
-	if (wcscmp(gMercProfiles[iIMPId].zName, L"") == 0)
+	if (fCharacterIsMale == TRUE)
 	{
-		return TRUE;
+		if (iCurrentVoice > GetLastMaleSlot())
+			iCurrentVoice = GetFirstMaleSlot();
+		else if (iCurrentVoice < GetFirstMaleSlot())
+			iCurrentVoice = GetLastMaleSlot();
 	}
 	else
 	{
-		return FALSE;
+		if (iCurrentVoice > GetLastFemaleSlot())
+			iCurrentVoice = GetFirstFemaleSlot();
+		else if (iCurrentVoice < GetFirstFemaleSlot())
+			iCurrentVoice = GetLastFemaleSlot();
 	}
 }
+
 
 // WANNE NEW
 void IncrementVoice( void )
 {
 	INT32 iIMPIndex = -1;
-	INT32 iOffset;
 	INT32 i;
 
-	iVoiceId++;
+	iCurrentVoice++;
+	FixVoiceRange();
 
-	if (iVoiceId > 2)
-		iVoiceId = 0;
-
-	if (fCharacterIsMale == TRUE)
-		iOffset = 0;
-	else
-		iOffset = 3;
-
-	// Just to be save (so we use no endless loop)
-	for (i = 0; i < 20; i++)
+	// Just to be safe (so we use no endless loop)
+	for (i = 0; i < CountIMPSlots(); i++)
 	{
-		if (IsIMPSlotFree(PLAYER_GENERATED_CHARACTER_ID + iOffset + iVoiceId) == TRUE)
+		if (IsIMPSlotFree(gGameExternalOptions.iaIMPSlots[iCurrentVoice]) == TRUE)
 		{
-			// This is the free imp index
-			iIMPIndex = PLAYER_GENERATED_CHARACTER_ID + iOffset + iVoiceId;
+			// This is a free imp index
+			iIMPIndex = gGameExternalOptions.iaIMPSlots[iCurrentVoice];
 			break;
 		}
 
-		iVoiceId++;
-
-		// Upper range -> Reset to 0
-		if (iVoiceId > 2)
-			iVoiceId = 0;
+		iCurrentVoice++;
+		FixVoiceRange();
 	}
-
-	// Set the voice id of the free slot
-	iCurrentVoices = iIMPIndex - iOffset - PLAYER_GENERATED_CHARACTER_ID;
-	iVoiceId = iCurrentVoices;
-
-  return; 
 }
 
 
 void DecrementVoice( void )
 {
   	INT32 iIMPIndex = -1;
-	INT32 iOffset;
 	INT32 i;
 
-	iVoiceId--;
+	iCurrentVoice--;
+	FixVoiceRange();
 
-	if (iVoiceId < 0)
-		iVoiceId = 2;
-
-	if (fCharacterIsMale == TRUE)
-		iOffset = 0;
-	else
-		iOffset = 3;
-
-	// Just to be save (so we use no endless loop)
-	for (i = 0; i < 20; i++)
+	// Just to be safe (so we use no endless loop)
+	for (i = 0; i < CountIMPSlots(); i++)
 	{
-		if (IsIMPSlotFree(PLAYER_GENERATED_CHARACTER_ID + iOffset + iVoiceId) == TRUE)
+		if (IsIMPSlotFree(gGameExternalOptions.iaIMPSlots[iCurrentVoice]) == TRUE)
 		{
 			// This is the free imp index
-			iIMPIndex = PLAYER_GENERATED_CHARACTER_ID + iOffset + iVoiceId;
+			iIMPIndex = gGameExternalOptions.iaIMPSlots[iCurrentVoice];
 			break;
 		}
 
-		iVoiceId--;
-
-		// Upper range -> Reset to 0
-		if (iVoiceId < 0)
-			iVoiceId = 2;
+		iCurrentVoice--;
+		FixVoiceRange();
 	}
-
-	// Set the voice id of the free slot
-	iCurrentVoices = iIMPIndex - iOffset - PLAYER_GENERATED_CHARACTER_ID;
-	iVoiceId = iCurrentVoices;
-
-  return; 
 }
 
 
@@ -436,14 +411,8 @@ void BtnIMPVoicesDoneCallback(GUI_BUTTON *btn,INT32 reason)
 			// set voice id, to grab character slot
       
 			// WANNE 10:
-			if( fCharacterIsMale == TRUE )
-			{
-				LaptopSaveInfo.iVoiceId = iCurrentVoices;
-			}
-			else
-			{
-				LaptopSaveInfo.iVoiceId = iCurrentVoices + 3;
-			}
+			// WDS: Allow flexible numbers of IMPs of each sex
+			LaptopSaveInfo.iIMPIndex = gGameExternalOptions.iaIMPSlots[iCurrentVoice];
 
 			// set button up image  pending
 			fButtonPendingFlag = TRUE;
@@ -468,45 +437,13 @@ BOOLEAN CameBackToVoicePageButNotFinished()
 
 UINT32 PlayVoice( void )
 {
-//	CHAR16 sString[ 64 ];
+	INT32 iSlot = gGameExternalOptions.iaIMPSlots[iCurrentVoice];
+	char caVoiceSample[] = "Speech\\%03d_001.wav";
 
-	// gender?
+	Assert((iSlot >= 0) && (iSlot <= 999));
+	sprintf(caVoiceSample, caVoiceSample, iSlot);
 
-	if( fCharacterIsMale == TRUE )
-	{
-	  switch( iCurrentVoices )
-		{
-		  case( 0 ):
-			  return( PlayJA2SampleFromFile( "Speech\\051_001.wav", RATE_11025, MIDVOLUME, 1 , MIDDLEPAN ) );	 
-			  break;
-			case( 1 ):
-		    return( PlayJA2SampleFromFile( "Speech\\052_001.wav", RATE_11025, MIDVOLUME, 1 , MIDDLEPAN ) );	 
-			  break;
-			case( 2 ):
-				return( PlayJA2SampleFromFile( "Speech\\053_001.wav", RATE_11025, MIDVOLUME, 1 , MIDDLEPAN ) );	 
-			  break;
-			case( 3 ):
-				return( PlayJA2SampleFromFile( "Speech\\057_001.wav", RATE_11025, MIDVOLUME, 1 , MIDDLEPAN ) );	 
-			  break;
-		}
-	}
-	else
-	{
-    switch( iCurrentVoices )
-		{
-		  case( 0 ):
-				return( PlayJA2SampleFromFile( "Speech\\054_001.wav", RATE_11025, MIDVOLUME, 1 , MIDDLEPAN ) );	 
-			  break;
-		  case( 1 ):
-				return( PlayJA2SampleFromFile( "Speech\\055_001.wav", RATE_11025, MIDVOLUME, 1 , MIDDLEPAN ) );	 
-			  break;
-			case( 2 ):
-	    	return( PlayJA2SampleFromFile( "Speech\\056_001.wav", RATE_11025, MIDVOLUME, 1 , MIDDLEPAN ) );	 
-			  break;
-		}
-
-	}
-	return 0;
+	return( PlayJA2SampleFromFile( caVoiceSample, RATE_11025, MIDVOLUME, 1 , MIDDLEPAN ) );	 
 }
 
 
@@ -559,7 +496,7 @@ void RenderVoiceIndex( void )
 	INT16 sX, sY;
 
 	// render the voice index value on the the blank portrait
-	swprintf( sString, L"%s %d", pIMPVoicesStrings[ 0 ], iCurrentVoices + 1 );
+	swprintf( sString, L"%s %d", pIMPVoicesStrings[ 0 ], GetVoiceCountFromVoiceSlot(iCurrentVoice));
 
 	FindFontCenterCoordinates( 290 + LAPTOP_UL_X, 0, 100, 0, sString, FONT12ARIAL, &sX, &sY );
 

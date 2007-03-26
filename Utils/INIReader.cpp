@@ -5,6 +5,7 @@
 
 // Kaiden: INI reading function definitions:
 
+
 CIniReader::CIniReader(const char* szFileName)
 {
 	// Snap: Look for the INI file in the custom Data directory.
@@ -22,6 +23,20 @@ int CIniReader::ReadInteger(const char* szSection, const char* szKey, int iDefau
 {
 	return GetPrivateProfileInt(szSection,  szKey, iDefaultValue, m_szFileName); 
 }
+
+
+int CIniReader::ReadInteger(const char* szSection, const char* szKey, int iDefaultValue, int iMinValue, int iMaxValue)
+{
+	int i = GetPrivateProfileInt(szSection,  szKey, iDefaultValue, m_szFileName); 
+	if (i < iMinValue)
+		return iMinValue;
+	else if (i > iMaxValue)
+		return iMaxValue;
+	return i;
+}
+
+	int ReadInteger(const char* szSection, const char* szKey, int iDefaultValue, int iMinValue, int iMaxValue);
+
 
 
 float CIniReader::ReadFloat(const char* szSection, const char* szKey, float fltDefaultValue)

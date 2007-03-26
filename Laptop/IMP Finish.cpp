@@ -52,12 +52,12 @@ UINT32 uiVoiceSound = 0;
 // image handle
 UINT32 guiCHARACTERPORTRAIT;
 extern INT32 iCurrentPortrait;
-extern INT32 iCurrentVoices;
+extern INT32 iCurrentVoice;
 
 // function definitions
 void CreateIMPFinishButtons( void );
 void DeleteIMPFinishButtons( void );
-BOOLEAN RenderCharProfileFinishFace( void );
+//BOOLEAN RenderCharProfileFinishFace( void );
 void RenderCharFullName( void );
 BOOLEAN LoadCharacterPortrait( void );
 void DestroyCharacterPortrait( void );
@@ -215,7 +215,7 @@ void CreateIMPFinishButtons( void )
   SpecifyButtonIcon(  giIMPFinishButton[ 4 ], guiCHARACTERPORTRAIT, 0, 
 													 33, 23, FALSE );
 
-	swprintf( sString, pImpButtonText[ 5 ], iCurrentVoices + 1 );
+	swprintf( sString, pImpButtonText[ 5 ], GetVoiceCountFromVoiceSlot(iCurrentVoice));
 
 	// the voice button
 	giIMPFinishButtonImage[5]=  LoadButtonImage( "LAPTOP\\button_8.sti" ,-1,0,-1,1,-1 );
@@ -493,17 +493,18 @@ void BtnIMPFinishVoiceCallback(GUI_BUTTON *btn,INT32 reason)
 	}	
 } 
 
+/*
+WDS - Unused?
 BOOLEAN RenderCharProfileFinishFace( void )
 {
-
-// render the portrait of the current picture
-  VOBJECT_DESC    VObjectDesc;
+	// render the portrait of the current picture
+	VOBJECT_DESC    VObjectDesc;
 	HVOBJECT hHandle;
 	UINT32 uiGraphicHandle;
 
   if( fCharacterIsMale == TRUE )
 	{
-	  switch( LaptopSaveInfo.iVoiceId )
+	  switch( LaptopSaveInfo.iCurrentVoice )
 		{
 		  case( 0 ):
         // first portrait
@@ -562,7 +563,7 @@ BOOLEAN RenderCharProfileFinishFace( void )
 	}
 	else
 	{
-    switch( LaptopSaveInfo.iVoiceId )
+    switch( LaptopSaveInfo.iCurrentVoice )
 		{
 		  case( 0 ):
         // first portrait
@@ -628,7 +629,7 @@ BOOLEAN RenderCharProfileFinishFace( void )
 	return( TRUE );
 
 }
-
+*/
 void RenderCharFullName( void )
 {
 
