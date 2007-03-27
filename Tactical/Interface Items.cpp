@@ -2422,6 +2422,8 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 		FilenameForBPP("INTERFACE\\infobox.sti", (STR)ubString);
 		 sForeColour = ITEMDESC_AMMO_FORE;
 
+		// TODO: WANNE: Make own sti for the ammo types and an own for the interface
+		// For now, they are together in interface\infobox.sti
 		giItemDescAmmoButtonImages	= LoadButtonImage(ubString,AmmoTypes[pObject->ubGunAmmoType].grayed,AmmoTypes[pObject->ubGunAmmoType].offNormal,-1,AmmoTypes[pObject->ubGunAmmoType].onNormal,-1 );
 
 		//switch( pObject->ubGunAmmoType )
@@ -2566,7 +2568,7 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 
 	// Load graphic
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	strcpy( VObjectDesc.ImageFile, "INTERFACE\\infobox.sti" );
+	strcpy( VObjectDesc.ImageFile, "INTERFACE\\infobox_interface.sti" );
 	CHECKF( AddVideoObject( &VObjectDesc, &guiItemDescBox) );
 
 
