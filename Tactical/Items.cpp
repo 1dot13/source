@@ -6670,7 +6670,8 @@ INT16 GetVisionRangeBonus( SOLDIERTYPE * pSoldier )
 	}
 
 	// Snap: check only attachments on a raised weapon!
-	if ( WeaponReady(pSoldier) )
+	//AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
+	if ( WeaponReady(pSoldier) || gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIRE )
 	{
 		for (int i=0; i < MAX_ATTACHMENTS; i++)
 		{
