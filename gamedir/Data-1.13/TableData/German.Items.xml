@@ -1,4 +1,5 @@
-﻿<ITEMLIST>
+<!-- edited with XMLSpy v2006 U (http://www.altova.com) by Sergeant_Kolja (West Cambria) -->
+<ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
 		<szItemName>Nada</szItemName>
@@ -149,7 +150,7 @@
 		<szLongItemName>Dragunow SWD</szLongItemName>
 		<szItemDesc>Das SWD ist ein leichtes, sehr genaues Scharfschützengewehr. Es wurde im Jahre 1963 in der russischen Armee eingeführt.</szItemDesc>
 		<szBRName>Dragunow SWD</szBRName>
-		<szBRDesc>Das SWD (Snaiperskaja Wintowka Dragunowa, lateinisch transliteriert auch 'SVD') ist ein leichtes, sehr genaues, halbautomatisches Scharfschützengewehr. Es wurde erstmals 1963 an die russische Armee ausgeliefert. Heute noch wird es in modifizierter Form von IZHMASH hergestellt.</szBRDesc>
+		<szBRDesc>Das SWD (Snaiperskaja Wintowka Dragunowa, lateinisch transliteriert auch 'SVD') ist ein Scharfschützengewehr. Es wurde erstmals 1963 an die russische Armee ausgeliefert. Heute noch wird es in modifizierter Form von IZHMASH hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>19</uiIndex>
@@ -1277,11 +1278,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>160</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 160</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Gran.Holster</szItemName>
+		<szLongItemName>Granatenholster</szLongItemName>
+		<szItemDesc>Vier Holster, jedes für einen Granatentyp, sind auf einem Träger montiert, der an das Gurtzeug oder das Koppel gehängt werden kann.</szItemDesc>
+		<szBRName>Granatenholster</szBRName>
+		<szBRDesc>Vier Holster, jedes für einen Granatentyp, sind auf einem Träger montiert, der an das Gurtzeug oder das Koppel gehängt werden kann.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>161</uiIndex>
@@ -4671,51 +4672,51 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>586</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 586</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>10mm Mag</szItemName>
+		<szLongItemName>10mm Mag</szLongItemName>
+		<szItemDesc>Ein Pistolenmagazin mit 8 Schuß der starken 10mm Flachkopf- Munition von NORMA.</szItemDesc>
+		<szBRName>10mm Mag</szBRName>
+		<szBRDesc>Dieses 8-schüssige Pistolenmagazin enthält die kraftvolle NORMA 10mm x 25 Munition.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>587</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 587</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>10mm Mag HP</szItemName>
+		<szLongItemName>10mm Mag HP</szLongItemName>
+		<szItemDesc>Ein Pistolenmagazin mit 8 Schuß 10mm Munition mit eingekerbtem Kupferkopf. Das Projektil gehört zur Familie der Holspitz-Geschosse, da es sich im Weichziel schnell deformiert.</szItemDesc>
+		<szBRName>10mm Mag HP</szBRName>
+		<szBRDesc>Dieses 8-schüssige Pistolenmagazin enthält die Holspitz- Variante der kraftvollen 10mm x 25 FBI Munition. Ideal für den Personenschutz, da ein Durchschlagen mehrerer Ziele ausgeschlossen ist!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>588</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 588</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>10mm Mag AP</szItemName>
+		<szLongItemName>10mm Mag AP</szLongItemName>
+		<szItemDesc>Ein Pistolenmagazin mit 8 Schuß 10mm 'Armor Piercing' Munition. Diese Patrone gehört zur Standardausrüstung einige FBI-Einheiten.</szItemDesc>
+		<szBRName>10mm Mag AP</szBRName>
+		<szBRDesc>Dieses 8-schüssige Pistolenmagazin enthält die 'Armor Piercing'- Variante der kraftvollen 10mm x 25 FBI Munition. Nur für Militär- und Polizeikräfte erlaubt!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>589</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 589</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>10mm Mag AET</szItemName>
+		<szLongItemName>10mm Mag AET</szLongItemName>
+		<szItemDesc>Ein Pistolenmagazin mit 8 Schuß 10mm 'AET' Hochengergie- Munition. Diese Munition hilft Ihnen auch dort noch, wo AP Geschsse versagen.</szItemDesc>
+		<szBRName>10mm Mag AET</szBRName>
+		<szBRDesc>Dieses 8-schüssige  Pistolenmagazin enthält 10mm x 25 'AET' Munition. Hinter einer Rundkopf-Plastikhülle verbirgt sich ein 'Reverse Ogive' Geschoß mit ungeahnter Durchlagswirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>590</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 590</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>10mm Mag G</szItemName>
+		<szLongItemName>10mm Mag Glaser</szLongItemName>
+		<szItemDesc>Ein Pistolenmagazin mit 8 Schuß 10mm Glaser- Mannstop- Munition. Diese Munition gibt ihre gesamte Energie sehr schnell im Weichziel ab.</szItemDesc>
+		<szBRName>10mm Mag Glaser</szBRName>
+		<szBRDesc>Dieses 8-schüssige Pistolenmagazin enthält 10mm x 25 Glaser Munition. Es gibt nichts Besseres gegen ungeschützte Ziele.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>591</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 591</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>10mm Mag M</szItemName>
+		<szLongItemName>10mm Mag Match</szLongItemName>
+		<szItemDesc>Ein Pistolenmagazin mit 8 Schuß Match- Munition im Kaliber 10mm. Schießt weiter und präziser.</szItemDesc>
+		<szBRName>10mm Mag Match</szBRName>
+		<szBRDesc>Dieses 8-schüssige Pistolenmagazin enthält 10mm x 25 Munition in perfekt abgestimmter Match-Laborierung. Gehört laut internen FBI-Berichten nicht in Frauenhände.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>592</uiIndex>
@@ -6273,15 +6274,15 @@
 		<uiIndex>786</uiIndex>
 		<szItemName>Elite 10mm</szItemName>
 		<szLongItemName>Colt Delta Elite</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Die Delta Elite basiert auf der Pistole Colt M1911A1, wurde jedoch angepaßt für das Kaliber 10 mm Auto. Sie ist im Design und in der Funktionsweise der M1911 ähnlich. Die Patrone ist  jedoch wesentlich kraftvoller als die .45ACP.</szItemDesc>
 		<szBRName>Colt Delta Elite</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Die Delta Elite war die erste erfolgreiche Pistole, die das 10 mm Auto Kaliber nutzt, nachdem die krankgesagte Bren Ten an dieser Patrone scheiterte. FBI Mitarbeiterinnen beschwerten sich auch bei der Elite über den zu harten Rückschlag.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>787</uiIndex>
 		<szItemName>SCAR-H SV</szItemName>
 		<szLongItemName>FN SCAR-H SV</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Für die SOCOM-Ausschreibung 'Special forces Combat Assault Rifle (SCAR)' entwickelte FN Herstal u.a. diese "Sniper Variant" im Kaliber 7,62 (SCAR-H).</szItemDesc>
 		<szBRName>FN SCAR-H SV</szBRName>
 		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
 	</ITEM>
@@ -6289,7 +6290,7 @@
 		<uiIndex>788</uiIndex>
 		<szItemName>SCAR-L SV</szItemName>
 		<szLongItemName>FN SCAR-L SV</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Für die SOCOM-Ausschreibung 'Special forces Combat Assault Rifle (SCAR)' entwickelte FN Herstal u.a. diese "Sniper Variant" im Kaliber 5,56mm (SCAR-L).</szItemDesc>
 		<szBRName>FN SCAR-L SV</szBRName>
 		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
 	</ITEM>
@@ -7351,11 +7352,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>921</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 921</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>FN EGLM</szItemName>
+		<szLongItemName>FN EGLM Granatwerfer</szLongItemName>
+		<szItemDesc>FN Herstal's Unterlauf- Granatwerfer für SCAR. Ursprünglichh für F2000 entwickelt.</szItemDesc>
+		<szBRName>FN EGLM Grenade Launcher</szBRName>
+		<szBRDesc>FN Herstal entwickelte den Werfer des F2000 so weiter, daß er nun auch an das SCAR paßt. Feuert 40mm Granaten jeder Länge und ist für künftige 'Mittelgeschwindigkeits'- Granaten geeignet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>922</uiIndex>
@@ -7567,27 +7568,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>948</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 948</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Laser (alt)</szItemName>
+		<szLongItemName>Alter Laserpointer</szLongItemName>
+		<szItemDesc>Dieser Laserpointer alter Bauart wiegt genug, um selbst als Waffe (Keule) zu dienen. Paßt an ältere H&amp;K Gewehre.</szItemDesc>
+		<szBRName>Alter Laserpointer</szBRName>
+		<szBRDesc>Inzwischen schwer aufzutreiben, weist die Sicherheitswarnung (Augen!) auf seine effektive Reichweite hin. Paßt an ältere H&amp;K Gewehre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>949</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 949</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Laser</szItemName>
+		<szLongItemName>Laserpointer</szLongItemName>
+		<szItemDesc>Dieses LAM (Laser Aiming Module) paß an alle modernen Montageschinen. Es ist zwar groß und schwerer, hat aber eine größe Reichweite als Laser, die am unteren Handschutz montiert werden.</szItemDesc>
+		<szBRName>Laserpointer</szBRName>
+		<szBRDesc>Dieses LAM (Laser Aiming Module) paßt an alle moderne Montageschinen. Es ist zwar groß und schwerer, hat aber eine größe Reichweite als Laser, die am unteren Handschutz montiert werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>950</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 950</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Laser-Lampe</szItemName>
+		<szLongItemName>Laserpointer m. Blendlicht</szLongItemName>
+		<szItemDesc>Diese Kombination von Laserpointer und taktischer Lampe paßt an alle moderne Montageschinen.</szItemDesc>
+		<szBRName>Laserpointer m. Blendlicht</szBRName>
+		<szBRDesc>Diese Kombination von Laserpointer und taktischer Lampe paßt an alle moderne Montageschinen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>951</uiIndex>
@@ -8049,9 +8050,9 @@
 		<uiIndex>1008</uiIndex>
 		<szItemName>umkl. Kolben</szItemName>
 		<szLongItemName>umklappbarer Kolben</szLongItemName>
-		<szItemDesc>Mit dieser Schulterstütze sind Sie in der Lage Ihre Waffe schneller zu ziehen. Das Zielen kann aber etwas schwerer fallen.</szItemDesc>
+		<szItemDesc>Mit dieser Schulterstütze sind Sie in der Lage Ihre Waffe schneller zu ziehen. Das Zielen kann aber etwas schwerer fallen als mit einem festen Kolben.</szItemDesc>
 		<szBRName>umkl. Kolben</szBRName>
-		<szBRDesc>Mit dieser Schulterstütze sind Sie in der Lage Ihre Waffe schneller zu ziehen. Das Zielen kann aber etwas schwerer fallen.</szBRDesc>
+		<szBRDesc>Mit dieser Schulterstütze sind Sie in der Lage Ihre Waffe schneller zu ziehen. Das Zielen kann aber etwas schwerer fallen als mit einem festen Kolben.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1009</uiIndex>
@@ -8229,7 +8230,7 @@
 		<uiIndex>1031</uiIndex>
 		<szItemName>CQC .223 Lauf</szItemName>
 		<szLongItemName>SCAR-L CQC Lauf</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>mit diesem Austausch-Lauf im Kal. .223 Rem (5.56 NATO) bauen Sie jedes SCAR zu einer SCAR-L CQC "Close Quarter Combat" Kommandoversion um</szItemDesc>
 		<szBRName>SCAR-L CQC Lauf</szBRName>
 		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
 	</ITEM>
@@ -8237,15 +8238,15 @@
 		<uiIndex>1032</uiIndex>
 		<szItemName>SV .223 Lauf</szItemName>
 		<szLongItemName>SCAR-L SV Lauf</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>mit diesem extrem langen Austausch-Lauf im Kal. .223 Rem (5.56 NATO) bauen Sie jedes SCAR zu einem SCAR-L SV "Sniper Variant" Präzisionsgewehr um.</szItemDesc>
 		<szBRName>SCAR-L SV Lauf</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>mit diesem extrem langen Austausch-Lauf im Kal. .223 Rem (5.56 NATO) bauen Sie jedes SCAR zu einem SCAR-L SV "Sniper Variant" Präzisionsgewehr um.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1033</uiIndex>
 		<szItemName>CQC .308 Lauf</szItemName>
 		<szLongItemName>SCAR-H CQC Lauf</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>mit diesem Austausch-Lauf im Kaliber .308 Winchester (7,62mm) bauen Sie jedes SCAR zu einer SCAR-H CQC "Close Quarter Combat" Kommandoversion um.</szItemDesc>
 		<szBRName>SCAR-H CQC Lauf</szBRName>
 		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
 	</ITEM>
@@ -8253,8 +8254,8 @@
 		<uiIndex>1034</uiIndex>
 		<szItemName>SV .308 Lauf</szItemName>
 		<szLongItemName>SCAR-H SV Lauf</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>mit diesem extrem langen Austausch-Lauf im Kaliber .308 Winchester (7,62mm)  bauen Sie jedes SCAR zu einem SCAR-H SV "Sniper Variant" Präzisionsgewehr um.</szItemDesc>
 		<szBRName>SCAR-H SV Lauf</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>mit diesem extrem langen Austausch-Lauf im Kaliber .308 Winchester (7,62mm)  bauen Sie jedes SCAR zu einem SCAR-H SV "Sniper Variant" Präzisionsgewehr um.</szBRDesc>
 	</ITEM>
 </ITEMLIST>
