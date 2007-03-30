@@ -568,8 +568,14 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLE
 
 				if(pSoldier->bDoAutofire == 0 && gGameSettings.fOptions[ TOPTION_CTH_CURSOR ])
 				{
+					//AXP 29.03.2007: Rooftop CtH fix. See below.
+					INT8 bTempTargetLevel = pSoldier->bTargetLevel;
+					pSoldier->bTargetLevel = gsInterfaceLevel;
+
 					UINT32 uiHitChance;
 					uiHitChance = CalcChanceToHitGun( pSoldier, usMapPos, 0, pSoldier->bAimShotLocation );
+
+					pSoldier->bTargetLevel = bTempTargetLevel;
 
 					gfUICtHBar = TRUE;
 					gbCtH = (gbCtH+uiHitChance)/2;
@@ -581,9 +587,16 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLE
 			//DIGICRAB: Graphical CtH
 			if(gGameSettings.fOptions[ TOPTION_CTH_CURSOR ])
 			{
+				//AXP 29.03.2007: Rooftop CtH fix. Temporarily set soldier targetlevel to the real interface
+				//level (selected with TAB), so the first shot after switching TL is calculated correctly
+				INT8 bTempTargetLevel = pSoldier->bTargetLevel;
+				pSoldier->bTargetLevel = gsInterfaceLevel;
+
 				UINT32 uiHitChance;
 				uiHitChance = CalcChanceToHitGun( pSoldier, usMapPos, (INT8)(pSoldier->bShownAimTime ), pSoldier->bAimShotLocation );
 
+				pSoldier->bTargetLevel = bTempTargetLevel;
+				
 				gfUICtHBar = TRUE;
 				gbCtH = (gbCtH+uiHitChance)/2;
 			}
