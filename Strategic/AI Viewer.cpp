@@ -209,7 +209,7 @@ extern GARRISON_GROUP *gGarrisonGroup;
 extern INT32 giGarrisonArraySize;
 
 
-extern void Enshure_RepairedGarrisonGroup( GARRISON_GROUP **ppGarrison, INT32 *pGarraySize );
+extern void Ensure_RepairedGarrisonGroup( GARRISON_GROUP **ppGarrison, INT32 *pGarraySize );
 
 
 
@@ -457,7 +457,7 @@ void RenderStationaryGroups()
 	SetFontShadow( FONT_NEARBLACK );
 
 	GetVideoObject( &hVObject, guiMapIconsID );
- Enshure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize ); /* added NULL fix, 2007-03-03, Sgt. Kolja */
+ Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize ); /* added NULL fix, 2007-03-03, Sgt. Kolja */
 
 	//Render groups that are stationary...
 	for( y = 0; y < 16; y++ )
@@ -1881,7 +1881,7 @@ void PrintDetailedEnemiesInSectorInfo( INT32 iScreenX, INT32 iScreenY, UINT8 ubS
 
 
 	pSector = &SectorInfo[ SECTOR( ubSectorX, ubSectorY ) ];
- Enshure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	 /* added NULL fix, 2007-03-03, Sgt. Kolja */
+ Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	 /* added NULL fix, 2007-03-03, Sgt. Kolja */
 
 	// handle garrisoned enemies
 	if( pSector->ubGarrisonID != NO_GARRISON )
