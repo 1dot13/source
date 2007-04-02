@@ -338,7 +338,7 @@ void LoadGameExternalOptions()
 	char caFemaleCountStr [] = "IMP_FEMALE_%d";
 	char caCountStr[20];
 
-	gGameExternalOptions.iaIMPSlots = (UINT32*)MemAlloc( (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount + 2) * sizeof( UINT32 ) );
+	gGameExternalOptions.iaIMPSlots = (INT32*)MemAlloc( (gGameExternalOptions.iIMPMaleCharacterCount + gGameExternalOptions.iIMPFemaleCharacterCount + 2) * sizeof( UINT32 ) );
 	for (idx = 0; idx < gGameExternalOptions.iIMPMaleCharacterCount; ++idx)
 	{
 		sprintf( caCountStr, caMaleCountStr, idx+1);
@@ -357,13 +357,13 @@ void LoadGameExternalOptions()
 	{
 		sprintf( caCountStr, caFemaleCountStr, idx+1);
 		gGameExternalOptions.iaIMPSlots[idx+gGameExternalOptions.iIMPMaleCharacterCount+1] = iniReader.ReadInteger("JA2 Laptop Settings",caCountStr, -1, -1, NUM_PROFILES-1);
-		if (gGameExternalOptions.iaIMPSlots[idx] < 0)
+		if (gGameExternalOptions.iaIMPSlots[idx+gGameExternalOptions.iIMPMaleCharacterCount+1] < 0)
 		{
 			if (idx < COUNT_STANDARD_FEMALE_SLOTS)
-				gGameExternalOptions.iaIMPSlots[idx] = FIRST_STANDARD_FEMALE_SLOT+idx;
+				gGameExternalOptions.iaIMPSlots[idx+gGameExternalOptions.iIMPMaleCharacterCount+1] = FIRST_STANDARD_FEMALE_SLOT+idx;
 			else
 				// This is bad so just use the last standard slot #
-				gGameExternalOptions.iaIMPSlots[idx] = FIRST_STANDARD_FEMALE_SLOT+COUNT_STANDARD_FEMALE_SLOTS-1;
+				gGameExternalOptions.iaIMPSlots[idx+gGameExternalOptions.iIMPMaleCharacterCount+1] = FIRST_STANDARD_FEMALE_SLOT+COUNT_STANDARD_FEMALE_SLOTS-1;
 		}
 	}
 	gGameExternalOptions.iaIMPSlots[gGameExternalOptions.iIMPFemaleCharacterCount+gGameExternalOptions.iIMPMaleCharacterCount+1] = -1;
@@ -467,6 +467,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fSellAll					= iniReader.ReadBoolean("JA2 Gameplay Settings","CAN_SELL_ALT_LMB",FALSE);
 	gGameExternalOptions.iPriceModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","PRICE_MODIFIER",10);
 
+
+	// WDS - Option to turn off stealing
+	gGameExternalOptions.fStealingDisabled			= iniReader.ReadBoolean("JA2 Gameplay Settings","STEALING_FROM_SHIPMENTS_DISABLED",FALSE);
 
 	// WDS: Game progress 
 	gGameExternalOptions.ubGameProgressPortionKills     = iniReader.ReadInteger("JA2 Gameplay Settings","GAME_PROGRESS_KILLS",25);

@@ -153,7 +153,7 @@ typedef struct
 	//
 	// iaIMPSlots is an array of the slots (in prof.dat) to use for IMPs.
 	//
-	UINT32 *iaIMPSlots;
+	INT32 *iaIMPSlots;
 
 	INT32 iMinAttribute;
 	INT32 iMaxAttribute;
@@ -222,6 +222,9 @@ typedef struct
 
 	//Sound settings
 	UINT32 guiWeaponSoundEffectsVolume;
+
+	// WDS - Option to turn off stealing
+	BOOLEAN fStealingDisabled;
 
 	// Militia Settings	
 	BOOLEAN fAllowTacticalMilitiaCommand;
