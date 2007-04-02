@@ -1,4 +1,5 @@
-﻿<INVENTORYLIST>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<INVENTORYLIST>
 	<INVENTORY>
 		<uiIndex>0</uiIndex>
 		<sItemIndex>230</sItemIndex>

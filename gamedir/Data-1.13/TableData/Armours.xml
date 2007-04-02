@@ -1,4 +1,5 @@
-﻿<ARMOURLIST>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ARMOURLIST>
 	<ARMOUR>
 		<uiIndex>0</uiIndex>
 		<ubArmourClass>1</ubArmourClass>

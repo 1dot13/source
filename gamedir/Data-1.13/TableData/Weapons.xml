@@ -1,4 +1,5 @@
-﻿<WEAPONLIST>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WEAPONLIST>
 	<WEAPON>
 		<uiIndex>0</uiIndex>
 		<szWeaponName>Nothing</szWeaponName>

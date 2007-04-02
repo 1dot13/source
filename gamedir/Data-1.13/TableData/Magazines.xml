@@ -1,4 +1,5 @@
-﻿<MAGAZINELIST>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MAGAZINELIST>
 	<MAGAZINE>
 		<uiIndex>0</uiIndex>
 		<ubCalibre>1</ubCalibre>

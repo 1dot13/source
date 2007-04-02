@@ -1,4 +1,5 @@
-﻿<AMMOTYPELIST>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AMMOTYPELIST>
 	<AMMOTYPE>
 		<uiIndex>0</uiIndex>
 		<name>Ball</name>

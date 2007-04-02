@@ -1,4 +1,5 @@
-﻿<EXPLOSIVELIST>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EXPLOSIVELIST>
 	<EXPLOSIVE>
 		<uiIndex>0</uiIndex>
 		<ubType>1</ubType>
