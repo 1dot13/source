@@ -3204,8 +3204,8 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 		OBJECTTYPE	TempObj = {0};
 
 		// find an attachment position... 
-		// second half of this 'if' is for attaching GL grenades to a gun
-		if ( fValidLaunchable || Item[pAttachment->usItem].glgrenade )
+		// second half of this 'if' is for attaching GL grenades to a gun w/attached GL
+		if ( fValidLaunchable || (Item[pAttachment->usItem].glgrenade && FindAttachmentByClass(pTargetObj, IC_LAUNCHER) != NO_SLOT ) )
 		{
 			// try replacing if possible
 			bAttachPos = FindAttachmentByClass( pTargetObj, Item[ pAttachment->usItem ].usItemClass );
