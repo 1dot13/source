@@ -12760,8 +12760,8 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>800</BR_ROF>
-		<ToHitBonus>-1</ToHitBonus>
-		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
+		<BurstToHitBonus>5</BurstToHitBonus>
+		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>605</uiIndex>
