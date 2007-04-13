@@ -12200,6 +12200,7 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
+		<RangeBonus>70</RangeBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>582</uiIndex>
