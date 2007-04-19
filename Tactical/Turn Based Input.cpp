@@ -227,7 +227,7 @@ UINT8			gubCheatLevel		= STARTING_CHEAT_LEVEL;
 extern void StackObjs( OBJECTTYPE * pSourceObj, OBJECTTYPE * pTargetObj, UINT8 ubNumberToCopy );
 extern BOOLEAN CompatibleAmmoForGun( OBJECTTYPE *pTryObject, OBJECTTYPE *pTestObject );
 extern void DetermineWhichAssignmentMenusCanBeShown( void );
-extern void DetermineWhichMilitiaControlMenusCanBeShown( void ); //lal
+extern void DetermineWhichMilitiaControlMenusCanBeShown( void ); //lalien
 
 void	GetTBMouseButtonInput( UINT32 *puiNewEvent )
 {
@@ -2555,6 +2555,65 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 					break;
 
+
+
+					case 'F':
+						if ( !(gTacticalStatus.fEnemyInSector) )
+						{
+							HandleAllReachAbleItemsInTheSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
+							for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; uiLoop++ ) //for all items in sector
+							{
+								if ( (gWorldItems[ uiLoop ].fExists) && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE) )//item exists and is reachable
+								{
+									if (( Item[ gWorldItems[ uiLoop ].o.usItem ].usItemClass == IC_GUN ) && (gGameExternalOptions.gfShiftFUnloadWeapons == TRUE) )//item is a gun and unloading is allowed
+									{										
+										//Remove magazine 
+										if ( (gWorldItems[ uiLoop ].o.usGunAmmoItem != NONE) && (gWorldItems[ uiLoop ].o.ubGunShotsLeft > 0) )
+										{
+											OBJECTTYPE newObj; //Create object
+											CreateItem(gWorldItems[ uiLoop ].o.usGunAmmoItem, 100, &newObj);
+											newObj.ubShotsLeft[0] = gWorldItems[ uiLoop ].o.ubGunShotsLeft;
+											gWorldItems[ uiLoop ].o.ubGunShotsLeft = 0;
+											gWorldItems[ uiLoop ].o.usGunAmmoItem = NONE;
+
+											// put it on the ground
+											AddItemToPool( gWorldItems[ uiLoop ].sGridNo, &newObj, 1, gWorldItems[ uiLoop ].ubLevel, 0 , -1 );
+										}
+									}
+
+									//remove attachments
+									if ( gGameExternalOptions.gfShiftFRemoveAttachments == TRUE )
+									{
+										for (int bAttachPos = MAX_ATTACHMENTS-1; bAttachPos >= 0; bAttachPos--)
+										{
+											if (gWorldItems[ uiLoop ].o.usAttachItem[ bAttachPos ] != NOTHING)
+											{
+												if ( !Item[ gWorldItems[ uiLoop ].o.usAttachItem[ bAttachPos ] ].inseparable )
+												{												
+													OBJECTTYPE newObj;
+													if (RemoveAttachment( &(gWorldItems[ uiLoop ].o), bAttachPos, &newObj ))
+													{
+														ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ ATTACHMENT_REMOVED ] );
+													}
+													// put it on the ground
+													AddItemToPool( gWorldItems[ uiLoop ].sGridNo, &newObj, 1, gWorldItems[ uiLoop ].ubLevel, 0 , -1 );
+												}
+											}
+										}
+									}
+
+
+								}
+							}
+						}
+					break;
+
+
+
+
+
+
 				case 'D':
 					if ( gGameSettings.fOptions[TOPTION_DROP_ALL] ) 
 					{	
@@ -3277,6 +3336,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					case 'S':
 						if (! ( gTacticalStatus.fEnemyInSector ) )
 						{
+							HandleAllReachAbleItemsInTheSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
 							for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; uiLoop++ )												
 							{
 								if ( ( gWorldItems[ uiLoop ].fExists) && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE) )//item exists and is reachable
@@ -3305,6 +3366,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 									}
 								}
 							}
+
+							//HandleAllReachAbleItemsInTheSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 						}
 					break;
 

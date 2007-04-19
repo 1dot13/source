@@ -251,6 +251,9 @@ typedef struct
 	UINT32 ubVisDistDecreasePerRainIntensity;
 	BOOLEAN gfAllowLimitedVision;
 
+	BOOLEAN gfShiftFUnloadWeapons;
+	BOOLEAN gfShiftFRemoveAttachments;
+
 	// Rain settings
 	BOOLEAN gfAllowRain;
 	UINT32 gusRainChancePerDay;

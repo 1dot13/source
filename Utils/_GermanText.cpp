@@ -1370,6 +1370,7 @@ wchar_t TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Noch jemand an der Tür.",
 	L"Gesundh.: %d/%d\nTank: %d/%d",
 	L"%s kann %s nicht sehen.", // Cannot see person trying to talk to
+	L"Attachment removed",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

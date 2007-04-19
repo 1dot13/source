@@ -1395,7 +1395,8 @@ wchar_t TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Verrou détruit",
 	L"Quelqu'un d'autre veut essayer sur cette porte.",
 	L"Etat : %d/%d\nCarburant : %d/%d",
-L"%s ne peut pas voir %s.",  // Cannot see person trying to talk to
+	L"%s ne peut pas voir %s.",  // Cannot see person trying to talk to
+	L"Attachment removed",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.

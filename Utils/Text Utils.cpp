@@ -247,8 +247,8 @@ BOOLEAN LoadItemInfo(UINT16 ubIndex, STR16 pNameString, STR16 pInfoString )
 				}
 				#endif
 
-		#ifdef POLISH
-			switch( pNameString[ i ] )
+				#ifdef POLISH
+				switch( pNameString[ i ] )
 				{
 					case 260:		pInfoString[ i ] = 165;		break;
 					case 262:		pInfoString[ i ] = 198;		break;
@@ -271,10 +271,10 @@ BOOLEAN LoadItemInfo(UINT16 ubIndex, STR16 pNameString, STR16 pInfoString )
 					case 380:		pInfoString[ i ] = 191;		break;
 					case 378:		pInfoString[ i ] = 376;		break;
 				}
-			#endif
+				#endif
 
 
-			#ifdef RUSSIAN
+				#ifdef RUSSIAN
 				if ((unsigned char)Item[ubIndex].szItemDesc [j] == 208) //d0
 				{
 					// This character determines the special character
@@ -372,8 +372,7 @@ BOOLEAN LoadItemInfo(UINT16 ubIndex, STR16 pNameString, STR16 pInfoString )
 				//	}
 				//}
 			#endif
-
-		}
+			}
 			else
 			{
 				pInfoString[i] ='\0';

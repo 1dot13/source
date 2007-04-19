@@ -2167,11 +2167,11 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCos
 
 			// Is it the same as he's facing?
 			if ( ubDirection != pSoldier->bDirection )
-		 {
-			 //Lalien: disabled it again 
-			 //AXP 25.03.2007: Reenabled look cost
-			 //iAPCost += GetAPsToLook( pSoldier );
-		 }
+			{
+				//Lalien: disabled it again 
+				//AXP 25.03.2007: Reenabled look cost
+				//iAPCost += GetAPsToLook( pSoldier );
+			}
 		}
 	}
 	else

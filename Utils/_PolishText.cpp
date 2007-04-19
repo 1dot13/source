@@ -1389,7 +1389,8 @@ wchar_t TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Zamek zosta³ zniszczony",
 	L"Ktoœ inny majstruje przy tych drzwiach.",
 	L"Stan: %d/%d\nPaliwo: %d/%d",
-  L"%s nie widzi - %s.",  // Cannot see person trying to talk to
+	L"%s nie widzi - %s.",  // Cannot see person trying to talk to
+	L"Attachment removed",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
