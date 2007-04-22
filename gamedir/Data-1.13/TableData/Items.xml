@@ -14091,7 +14091,8 @@
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>651</ubClassIndex>
 		<ubCursor>3</ubCursor>
-		<ubGraphicNum>246</ubGraphicNum>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>576</ubGraphicNum>
 		<ubWeight>31</ubWeight>
 		<usPrice>4430</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -14121,7 +14122,8 @@
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>652</ubClassIndex>
 		<ubCursor>3</ubCursor>
-		<ubGraphicNum>243</ubGraphicNum>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>577</ubGraphicNum>
 		<ubWeight>31</ubWeight>
 		<usPrice>4230</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -17957,7 +17959,8 @@
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>787</ubClassIndex>
 		<ubCursor>3</ubCursor>
-		<ubGraphicNum>299</ubGraphicNum>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>578</ubGraphicNum>
 		<ubWeight>35</ubWeight>
 		<usPrice>4430</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -17985,7 +17988,8 @@
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>788</ubClassIndex>
 		<ubCursor>3</ubCursor>
-		<ubGraphicNum>300</ubGraphicNum>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>579</ubGraphicNum>
 		<ubWeight>34</ubWeight>
 		<usPrice>4230</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -22918,7 +22922,6 @@
 		<HiddenAttachment>1</HiddenAttachment>
 		<BigGunList>1</BigGunList>
 		<SciFi>1</SciFi>
-		<Electronic>1</Electronic>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BurstSizeBonus>3</BurstSizeBonus>
