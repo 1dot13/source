@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -2317,9 +2317,9 @@
 		<uiIndex>291</uiIndex>
 		<szItemName>Mantel</szItemName>
 		<szLongItemName>Offiziersmantel</szLongItemName>
-		<szItemDesc>Obwohl dieser russische Mantel so aussieht, als ob er feinen Regen abhalten kann, wird er nicht viel gegen Kugeln ausrichten können.</szItemDesc>
+		<szItemDesc>Obwohl dieser russische Mantel so aussieht, als ob er feinen Regen abhalten kann, wird er nicht viel gegen Kugeln ausrichten können. Mit Innenfutter aus Baumwolle...</szItemDesc>
 		<szBRName>Offiziersmantel</szBRName>
-		<szBRDesc>Obwohl dieser russische Mantel so aussieht, als ob er feinen Regen abhalten kann, wird er nicht viel gegen Kugeln ausrichten können.</szBRDesc>
+		<szBRDesc>Obwohl dieser russische Mantel so aussieht, als ob er feinen Regen abhalten kann, wird er nicht viel gegen Kugeln ausrichten können. Mit Innenfutter aus Baumwolle...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>292</uiIndex>
@@ -2357,7 +2357,7 @@
 		<uiIndex>296</uiIndex>
 		<szItemName>T-Shirt</szItemName>
 		<szLongItemName>T-Shirt</szLongItemName>
-		<szItemDesc>Ein Deidranna-T-Shirt.</szItemDesc>
+		<szItemDesc>Ein 'Deidranna'-Shirt tragen zu müssen, ist eine weitere Erniedrigung der Arulcaner. In unbeobachtetet Momenten zerschneiden sie diese Shirts gerne zu Putzlappen.</szItemDesc>
 		<szBRName>T-Shirt</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -4314,9 +4314,9 @@
 		<uiIndex>541</uiIndex>
 		<szItemName>7.62x37 DU</szItemName>
 		<szLongItemName>7.62x37mm Magazin, DU</szLongItemName>
-		<szItemDesc>Aufgrund der verwendeten Legierung entfalten diese panzerbrechenden Geschosse eine große Durchschlagskraft. Das Projektil enthält Uran-235 und setzt beim Einschlagen einen radioaktiven Staub frei, welcher sehr tödlich ist.</szItemDesc>
+		<szItemDesc>Durch das verwendete Uran-238 entfalten diese panzerbrechenden Geschosse eine große Durchschlagskraft. Uran-238 hat eine 20% höhere kinetische Energie als Wolframkarbid und 66% höhere als Blei.</szItemDesc>
 		<szBRName>7.62x37 Mag DU #10</szBRName>
-		<szBRDesc>Aufgrund der verwendeten Legierung entfalten diese panzerbrechenden Geschosse eine große Durchschlagskraft. Das Projektil enthält Uran-235 und setzt beim Einschlagen einen radioaktiven Staub frei, welcher sehr tödlich ist.</szBRDesc>
+		<szBRDesc>Aufgrund des 'selbstschärfenden' Projektils aus abgereichertem Uran entfalten diese panzerbrechenden Geschosse eine große Durchschlagskraft. Die Radioaktivität ist unbedeutend, doch der Staub ist sehr giftig.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>542</uiIndex>
@@ -5466,9 +5466,9 @@
 		<uiIndex>685</uiIndex>
 		<szItemName>M40A1</szItemName>
 		<szLongItemName>Remington M40A1</szLongItemName>
-		<szItemDesc>Dieses Gewehr basiert auf dem Modell 700 M40 und wird von REMINGTON in Gedenken an die U.S.M.C. Scharfschützen die in Vietnam dienten gefertigt.</szItemDesc>
+		<szItemDesc>Dieses Gewehr basiert auf dem Modell 700 M40 und wird von REMINGTON in Gedenken an die U.S.M.C. Scharfschützen, die in Vietnam dienten, gefertigt.</szItemDesc>
 		<szBRName>Remington M40A1</szBRName>
-		<szBRDesc>Dieses Gewehr basiert auf dem Modell 700 M40 und wurde früher von U.S.M.C. Force Recon Personal benutzt. Dieses Modell wird von REMINGTON in Gedenken an die U.S.M.C. Scharfschützen die in Vietnam dienten gefertigt.</szBRDesc>
+		<szBRDesc>Dieses Gewehr basiert auf dem Modell 700 M40 und wurde früher von U.S.M.C. Force Recon Personal benutzt. Dieses Modell wird von REMINGTON in Gedenken an die U.S.M.C. Scharfschützen, die in Vietnam dienten, gefertigt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>686</uiIndex>
@@ -5850,16 +5850,16 @@
 		<uiIndex>733</uiIndex>
 		<szItemName>SV-98</szItemName>
 		<szLongItemName>SV-98</szLongItemName>
-		<szItemDesc>Im Jahre 1998 wurde das neue Scharfschützengewehr SV-98 an die russische Armee ausgeliefert. Es ersetzt die in die Jahre gekommene Dragunov.</szItemDesc>
+		<szItemDesc>Im Jahre 1998 wurde das neue Scharfschützengewehr SV-98 an die russische Armee ausgeliefert. Es ersetzt die in die Jahre gekommene Dragunow.</szItemDesc>
 		<szBRName>SV-98</szBRName>
-		<szBRDesc>Im Jahre 1998 wurde das neue Scharfschützengewehr SV-98 an die russische Armee ausgeliefert. Es ersetzt das in die Jahre gekommene Dragunov SVD.</szBRDesc>
+		<szBRDesc>Im Jahre 1998 wurde das neue Scharfschützengewehr SV-98 an die russische Armee ausgeliefert. Es ersetzt das in die Jahre gekommene Dragunow SWD.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>734</uiIndex>
 		<szItemName>SWDS</szItemName>
 		<szLongItemName>Dragunow SWDS</szLongItemName>
 		<szItemDesc>Das SWDS ist ein leichtes, sehr genaues Scharfschützengewehr. Diese Variante besitzt eine klappbare Schulterstütze.</szItemDesc>
-		<szBRName>DragunoW SWDS</szBRName>
+		<szBRName>Dragunow SWDS</szBRName>
 		<szBRDesc>Das SWD (Snaiperskaja Wintowka Dragunowa, lateinisch transliteriert auch 'SVD') wurde zu einem leichteren Modell SWDS modernisiert. Wie auch das 1963 eingeführte Original ist es ein sehr genaues, halbautomatisches Scharfschützengewehr.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -5867,7 +5867,7 @@
 		<szItemName>SWU</szItemName>
 		<szLongItemName>Dragunow SWU-A</szLongItemName>
 		<szItemDesc>Dieses Gewehr ist eine Bullpup- Variante des SWD und hat eine geringere Reichweite.</szItemDesc>
-		<szBRName>Dragunov SWU-A</szBRName>
+		<szBRName>Dragunow SWU-A</szBRName>
 		<szBRDesc>Dieses Gewehr (Snaiperskaja Wintowka Ukorochennaja - Awtomat) ist eine kompaktere (Bullpup) Variante des SWD. Es hat auch eine geringere Reichweite und ist etwas leiser da es einen MF-Dämpfer sowie einen Schallunterdrücker besitzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6394,25 +6394,25 @@
 		<uiIndex>801</uiIndex>
 		<szItemName>DSM-Helm</szItemName>
 		<szLongItemName>Dyneema-Helm</szLongItemName>
-		<szItemDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Zusammen mit der hohen Flexibilität und Bequemlichkeit wird sichergestellt, dass sie auch im Dienst wirklich getragen wird. Schutzklasse: III-A (NIJ)</szItemDesc>
+		<szItemDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Durch die hohe Flexibilität und Bequemlichkeit wird erreicht, dass sie auch wirklich getragen wird. Schutzklasse: III-A (NIJ)</szItemDesc>
 		<szBRName>Dyneema-Helm</szBRName>
-		<szBRDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Zusammen mit der hohen Flexibilität und Bequemlichkeit wird sichergestellt, dass sie auch im Dienst wirklich getragen wird. Schutzklasse: III-A (NIJ)</szBRDesc>
+		<szBRDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Durch die hohe Flexibilität und Bequemlichkeit wird erreicht, dass sie auch wirklich getragen wird. Schutzklasse: III-A (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>802</uiIndex>
 		<szItemName>DSM-Hose</szItemName>
 		<szLongItemName>Dyneema-Hose</szLongItemName>
-		<szItemDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Zusammen mit der hohen Flexibilität und Bequemlichkeit wird sichergestellt, dass sie auch im Dienst wirklich getragen wird. Schutzklasse: III-A (NIJ)</szItemDesc>
+		<szItemDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Durch die hohe Flexibilität und Bequemlichkeit wird erreicht, dass sie auch wirklich getragen wird. Schutzklasse: III-A (NIJ)</szItemDesc>
 		<szBRName>Dyneema-Hose</szBRName>
-		<szBRDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Zusammen mit der hohen Flexibilität und Bequemlichkeit wird sichergestellt, dass sie auch im Dienst wirklich getragen wird. Schutzklasse: III-A (NIJ)</szBRDesc>
+		<szBRDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Durch die hohe Flexibilität und Bequemlichkeit wird erreicht, dass sie auch wirklich getragen wird. Schutzklasse: III-A (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>803</uiIndex>
 		<szItemName>DSM-Weste</szItemName>
 		<szLongItemName>Dyneema-Weste</szLongItemName>
-		<szItemDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Zusammen mit der hohen Flexibilität und Bequemlichkeit wird sichergestellt, dass sie auch im Dienst wirklich getragen wird. Schutzklasse: III-A (NIJ)</szItemDesc>
+		<szItemDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Durch die hohe Flexibilität und Bequemlichkeit wird erreicht, dass sie auch wirklich getragen wird. Schutzklasse: III-A (NIJ)</szItemDesc>
 		<szBRName>Dyneema-Weste</szBRName>
-		<szBRDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Zusammen mit der hohen Flexibilität und Bequemlichkeit wird sichergestellt, dass sie auch im Dienst wirklich getragen wird. Schutzklasse: III-A (NIJ)</szBRDesc>
+		<szBRDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Durch die hohe Flexibilität und Bequemlichkeit wird erreicht, dass sie auch wirklich getragen wird. Schutzklasse: III-A (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>804</uiIndex>
@@ -7572,7 +7572,7 @@
 		<szLongItemName>Alter Laserpointer</szLongItemName>
 		<szItemDesc>Dieser Laserpointer alter Bauart wiegt genug, um selbst als Waffe (Keule) zu dienen. Paßt an ältere H&amp;K Gewehre.</szItemDesc>
 		<szBRName>Alter Laserpointer</szBRName>
-		<szBRDesc>Inzwischen schwer aufzutreiben, weist die Sicherheitswarnung (Augen!) auf seine effektive Reichweite hin. Paßt an ältere H&amp;K Gewehre.</szBRDesc>
+		<szBRDesc>Inzwischen schwer aufzutreiben, weist die Sicherheitswarnung dieses älteren Modells (nicht in die Augen leuchten!) auf seine effektive Reichweite hin. Paßt an ältere H&amp;K Gewehre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>949</uiIndex>
