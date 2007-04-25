@@ -6278,7 +6278,9 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 
 		// Kaiden: More UB Reveal All Items after combat code.
 		//When all the enemy gets killed, reveal the items they dropped
-		RevealAllDroppedEnemyItems();
+		//But only if the option is turned ON.
+		if(gGameExternalOptions.gfRevealItems)
+			RevealAllDroppedEnemyItems();
 
 		return( TRUE );
 	}

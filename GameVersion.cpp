@@ -13,12 +13,12 @@
 #ifdef JA2BETAVERSION
 
 //BETA/TEST BUILD VERSION
-INT16		zVersionLabel[256]		= { L"Map Editor v1.13.687" }; 
+wchar_t zVersionLabel[256]		= { L"Map Editor v1.13.687" }; 
 
 #elif defined CRIPPLED_VERSION
 
 //RELEASE BUILD VERSION 
-INT16		zVersionLabel[256]		= { L"Beta v. 0.98" }; 
+wchar_t zVersionLabel[256]		= { L"Beta v. 0.98" }; 
 
 #else
 

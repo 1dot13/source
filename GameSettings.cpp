@@ -414,14 +414,16 @@ void LoadGameExternalOptions()
 
 	//################# Tactical Settings #################
 
+	gGameExternalOptions.gfRevealItems  = iniReader.ReadBoolean("JA2 Tactical Settings","REVEAL_ITEMS_AFTER_COMBAT",TRUE);
+
 	// Militia Settings	
 	gGameExternalOptions.fAllowTacticalMilitiaCommand	= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_TACTICAL_MILITIA_COMMAND",0);
 
 	// Enemy AP settings
-	gGameExternalOptions.iEasyAPBonus					= iniReader.ReadInteger("JA2 Tactical Settings","NOVICE_AP_BONUS",0);
-	gGameExternalOptions.iExperiencedAPBonus			= iniReader.ReadInteger("JA2 Tactical Settings","EXPERIENCED_AP_BONUS",0);
-	gGameExternalOptions.iExpertAPBonus					= iniReader.ReadInteger("JA2 Tactical Settings","EXPERT_AP_BONUS",0);
-	gGameExternalOptions.iInsaneAPBonus					= iniReader.ReadInteger("JA2 Tactical Settings","INSANE_AP_BONUS",0);
+	gGameExternalOptions.iEasyAPBonus					= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_AP_BONUS",0);
+	gGameExternalOptions.iExperiencedAPBonus			= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_AP_BONUS",0);
+	gGameExternalOptions.iExpertAPBonus					= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_AP_BONUS",0);
+	gGameExternalOptions.iInsaneAPBonus					= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_AP_BONUS",0);
 
 	// Sight range
 	gGameExternalOptions.ubStraightSightRange				= iniReader.ReadInteger("JA2 Tactical Settings","BASE_SIGHT_RANGE",13);
@@ -602,7 +604,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iRegularCostModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","REGULAR_COST_MODIFIER",1);
 	gGameExternalOptions.iVeteranCostModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","VETERAN_COST_MODIFIER",2);
 	gGameExternalOptions.iMinLoyaltyToTrain					= iniReader.ReadInteger("JA2 Gameplay Settings","MIN_LOYALTY_TO_TRAIN",20);
-
+	gGameExternalOptions.gflimitedRoaming					= iniReader.ReadBoolean("JA2 Gameplay Settings","RESTRICT_ROAMING",FALSE);
 	//Assignment Settings (training, repairing, doctoring, etc)
 	gGameExternalOptions.ubAssignmentUnitsPerDay			= iniReader.ReadInteger("JA2 Gameplay Settings","ASSIGNMENT_UNITS_PER_DAY",24);
 	gGameExternalOptions.ubMinutesForAssignmentToCount		= iniReader.ReadInteger("JA2 Gameplay Settings","MINUTES_FOR_ASSIGNMENT_TO_COUNT",45);

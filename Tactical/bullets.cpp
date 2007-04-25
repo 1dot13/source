@@ -431,13 +431,13 @@ void AddMissileTrail( BULLET *pBullet, FIXEDPT qCurrX, FIXEDPT qCurrY, FIXEDPT q
 	{
 		strcpy( AniParams.zCachedFile, "TILECACHE\\BULLET_TRACER.STI" );
 		AniParams.uiFlags |= ANITILE_LIGHT;
-		if ( pBullet->pFirer->bLevel > 0 ) // if firer on roof then
+		/*if ( pBullet->pFirer->bLevel > 0 ) // if firer on roof then
 		{
 			if ( FindBuilding(AniParams.sGridNo) != NULL ) // if this spot is still within the building's grid area
 			{
 				AniParams.uiFlags &= ~ANITILE_LIGHT;
 			}
-		}
+		}*/
 	}
 
 	CreateAnimationTile( &AniParams );

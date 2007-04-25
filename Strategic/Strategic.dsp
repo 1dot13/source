@@ -405,6 +405,14 @@ SOURCE=.\strategicmap.cpp
 
 SOURCE=".\Town Militia.cpp"
 # End Source File
+# Begin Source File
+
+SOURCE=.\XML_Army.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\XML_Roaming.cpp
+# End Source File
 # End Group
 # Begin Group "Header Files"
 

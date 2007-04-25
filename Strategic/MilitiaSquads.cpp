@@ -57,6 +57,9 @@
 #define DIR_SOUTH 2
 #define DIR_WEST 3
 
+INT32  iRestrictedSectorArraySize;
+UINT32 gRestrictMilitia[256];
+
 UINT8 gpAttackDirs[5][4]; // 0. Green Militia 1. Regular Militia 2. Elite Militia 3. Insertion code
 UINT8 guiDirNumber = 0;
 BOOLEAN gfMSBattle = FALSE;
@@ -509,6 +512,16 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 						return;
 
 					//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld:Dir count %ld, Rand %ld. Go to %ld,%ld. Have %ld militia men", sMapX, sMapY, uiDirNumber, iRandomRes, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ), uiMilitiaCount);
+					//Kaiden: if Restricted Sectors List option is turned on, 
+					// militia can't move to any sectors in the list.
+					// Unless they are following a group of mercs.
+					if (gGameExternalOptions.gflimitedRoaming)
+						for (INT32 i=0;i<iRestrictedSectorArraySize; ++i)
+						{
+							DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("RestrictedSectors, %d", gRestrictMilitia[i]));
+							if(pMoveDir[iRandomRes][0] == gRestrictMilitia[i])
+								return;
+						}
 
 					MoveMilitiaSquad( sMapX, sMapY,  SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ), FALSE );
 					AddToBlockMoveList( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );

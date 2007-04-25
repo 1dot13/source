@@ -314,7 +314,6 @@ extern EXPLOSIVETYPE Explosive[MAXITEMS+1];
 extern INT8 gzBurstSndStrings[MAXITEMS*2][128];   // Lesh: changed this
 extern AMMOTYPE AmmoTypes[MAXITEMS];
 
-
 extern BOOLEAN ReadInWeaponStats(STR fileName);
 extern BOOLEAN WriteWeaponStats();
 

@@ -6,7 +6,7 @@
 --------------------Configuration: TileEngine - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPC.tmp" with contents
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP54.tmp" with contents
 [
 /nologo /MT /W3 /GX /O2 /I "..\Standard Gaming Platform" /I "..\\" /I "..\Tactical" /I "..\Utils" /I "..\tacticalai" /I "..\Editor" /I "..\strategic" /I "..\Laptop" /I ".\\" /D "CALLBACKTIMER" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /FR"Release/" /Fp"Release/TileEngine.pch" /YX"TileEngine All.h" /Fo"Release/" /Fd"Release/" /FD /O2b2 /c 
 "C:\JA2\Build\TileEngine\Ambient Control.cpp"
@@ -46,8 +46,8 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPC.tmp" with contents
 "C:\JA2\Build\TileEngine\worldman.cpp"
 "C:\JA2\Build\TileEngine\XML_ExplosionData.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPC.tmp" 
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPD.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP54.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP55.tmp" with contents
 [
 /nologo /out:"Release\TileEngine.lib" 
 ".\Release\Ambient Control.obj"
@@ -87,11 +87,12 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPD.tmp" with contents
 .\Release\worldman.obj
 .\Release\XML_ExplosionData.obj
 ]
-Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPD.tmp"
+Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP55.tmp"
 <h3>Output Window</h3>
 Compiling...
 Ambient Control.cpp
 GENERATED PCH FOR TILEENGINE PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Buildings.cpp
 environment.cpp
 Exit Grids.cpp
@@ -132,7 +133,7 @@ Creating library...
 --------------------Configuration: Standard Gaming Platform - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPE.tmp" with contents
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP56.tmp" with contents
 [
 /nologo /MT /W3 /GX /O2 /I "..\\" /I "..\TileEngine" /I "..\Tactical" /I "..\Utils" /I "..\strategic" /I ".\\" /D "NO_ZLIB" /D "JA2_PRECOMPILED_HEADERS" /D "NO_ZLIB_COMPRESSION" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /FR".\Release/" /Fp".\Release/Standard Gaming Platform.pch" /YX"JA2 SGP ALL.H" /Fo".\Release/" /Fd".\Release/" /FD /c 
 "C:\JA2\Build\Standard Gaming Platform\Button Sound Control.cpp"
@@ -172,14 +173,14 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPE.tmp" with contents
 "C:\JA2\Build\Standard Gaming Platform\vsurface.cpp"
 "C:\JA2\Build\Standard Gaming Platform\WinFont.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPE.tmp" 
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPF.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP56.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP57.tmp" with contents
 [
 /nologo /MT /W3 /GX /O2 /I "..\\" /I "..\TileEngine" /I "..\Tactical" /I "..\Utils" /I "..\strategic" /I ".\\" /D "NO_ZLIB" /D "JA2_PRECOMPILED_HEADERS" /D "NO_ZLIB_COMPRESSION" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /D "_DEBUG" /FR".\Release/" /Fp".\Release/Standard Gaming Platform.pch" /YX"JA2 SGP ALL.H" /Fo".\Release/" /Fd".\Release/" /FD /c 
 "C:\JA2\Build\Standard Gaming Platform\DEBUG.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSPF.tmp" 
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP10.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP57.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP58.tmp" with contents
 [
 /nologo /out:".\Release\Standard Gaming Platform.lib" 
 ".\Release\Button Sound Control.obj"
@@ -221,24 +222,28 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP10.tmp" with content
 ".\Release\WinFont.obj"
 ".\ddraw.lib"
 ]
-Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP10.tmp"
+Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP58.tmp"
 <h3>Output Window</h3>
 Compiling...
 Button Sound Control.cpp
 GENERATED PCH FOR JA2 SGP PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Button System.cpp
 Container.cpp
 Cursor Control.cpp
 DbMan.cpp
 DirectDraw Calls.cpp
 DirectX Common.cpp
+ (Language set to ENGLISH, You'll need english CDs)
 GENERATED PCH FOR JA2 SGP PROJECT.
 English.cpp
 GENERATED PCH FOR JA2 SGP PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 ExceptionHandling.cpp
 FileCat.cpp
 FileMan.cpp
 GENERATED PCH FOR JA2 SGP PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Font.cpp
 himage.cpp
 impTGA.cpp
@@ -247,14 +252,17 @@ Install.cpp
 LibraryDataBase.cpp
 line.cpp
 MemMan.cpp
+ (Language set to ENGLISH, You'll need english CDs)
 mousesystem.cpp
 GENERATED PCH FOR JA2 SGP PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Mutex Manager.cpp
 PCX.cpp
 Random.cpp
 readdir.cpp
 RegInst.cpp
 GENERATED PCH FOR JA2 SGP PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 sgp.cpp
 shading.cpp
 soundman.cpp
@@ -262,20 +270,23 @@ STCI.cpp
 stringicmp.cpp
 timer.cpp
 GENERATED PCH FOR JA2 SGP PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 video.cpp
 vobject.cpp
 vobject_blitters.cpp
 vsurface.cpp
 WinFont.cpp
+ (Language set to ENGLISH, You'll need english CDs)
 Compiling...
 DEBUG.cpp
 GENERATED PCH FOR JA2 SGP PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Creating library...
 <h3>
 --------------------Configuration: Tactical - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP11.tmp" with contents
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP59.tmp" with contents
 [
 /nologo /MT /W3 /GX /O2 /I "..\Standard Gaming Platform" /I "..\TileEngine" /I "..\\" /I "..\Utils" /I "..\tacticalai" /I "..\Editor" /I "..\strategic" /I "..\Laptop" /I ".\\" /D "CALLBACKTIMER" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /FR"Release/" /Fp"Release/Tactical.pch" /YX"Tactical All.h" /Fo"Release/" /Fd"Release/" /FD /c 
 "C:\JA2\Build\Tactical\Air Raid.cpp"
@@ -372,14 +383,14 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP11.tmp" with content
 "C:\JA2\Build\Tactical\XML_Sounds.cpp"
 "C:\JA2\Build\Tactical\XML_TonyInventory.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP11.tmp" 
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP12.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP59.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP5A.tmp" with contents
 [
 /nologo /MT /W3 /GX /Od /I "..\Standard Gaming Platform" /I "..\TileEngine" /I "..\\" /I "..\Utils" /I "..\tacticalai" /I "..\Editor" /I "..\strategic" /I "..\Laptop" /I ".\\" /D "CALLBACKTIMER" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /FR"Release/" /Fp"Release/Tactical.pch" /YX"Tactical All.h" /Fo"Release/" /Fd"Release/" /FD /c 
 "C:\JA2\Build\Tactical\LOS.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP12.tmp" 
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP13.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP5A.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP5B.tmp" with contents
 [
 /nologo /out:"Release\Tactical.lib" 
 ".\Release\Air Raid.obj"
@@ -477,11 +488,12 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP13.tmp" with content
 .\Release\XML_Sounds.obj
 .\Release\XML_TonyInventory.obj
 ]
-Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP13.tmp"
+Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP5B.tmp"
 <h3>Output Window</h3>
 Compiling...
 Air Raid.cpp
 GENERATED PCH FOR TACTICAL PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Animation Cache.cpp
 Animation Control.cpp
 Animation Data.cpp
@@ -495,8 +507,10 @@ Civ Quotes.cpp
 Dialogue Control.cpp
 DisplayCover.cpp
 GENERATED PCH FOR TACTICAL AI PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Drugs And Alcohol.cpp
 GENERATED PCH FOR TACTICAL PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 End Game.cpp
 Enemy Soldier Save.cpp
 EnemyItemDrops.cpp
@@ -542,8 +556,10 @@ Soldier Profile.cpp
 Soldier Tile.cpp
 SoldierTooltips.cpp
 GENERATED PCH FOR TACTICAL PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Spread Burst.cpp
 GENERATED PCH FOR TACTICAL PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Squads.cpp
 Strategic Exit GUI.cpp
 Structure Wrap.cpp
@@ -581,12 +597,13 @@ XML_TonyInventory.cpp
 Compiling...
 LOS.cpp
 GENERATED PCH FOR TACTICAL PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Creating library...
 <h3>
 --------------------Configuration: Utils - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP14.tmp" with contents
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP5C.tmp" with contents
 [
 /nologo /MT /W3 /GX /O2 /I "..\Standard Gaming Platform" /I "..\TileEngine" /I "..\\" /I "..\Tactical" /I "..\tacticalai" /I "..\Editor" /I "..\strategic" /I "..\Laptop" /I ".\\" /D "CALLBACKTIMER" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /FR"Release/" /Fp"Release/Utils.pch" /YX"Utils All.h" /Fo"Release/" /Fd"Release/" /FD /c 
 "C:\JA2\Build\Utils\_DutchText.cpp"
@@ -629,8 +646,8 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP14.tmp" with content
 "C:\JA2\Build\Utils\XML_Strings.cpp"
 "C:\JA2\Build\Utils\XML_Strings2.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP14.tmp" 
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP15.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP5C.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP5D.tmp" with contents
 [
 /nologo /out:"Release\Utils.lib" 
 .\Release\_DutchText.obj
@@ -673,28 +690,36 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP15.tmp" with content
 .\Release\XML_Strings.obj
 .\Release\XML_Strings2.obj
 ]
-Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP15.tmp"
+Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP5D.tmp"
 <h3>Output Window</h3>
 Compiling...
 _DutchText.cpp
 GENERATED PCH FOR UTILS PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 _EnglishText.cpp
 GENERATED PCH FOR UTILS PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 _FrenchText.cpp
 _GermanText.cpp
 _ItalianText.cpp
 GENERATED PCH FOR UTILS PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 _Ja25EnglishText.cpp
 GENERATED PCH FOR UTILS PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 _Ja25GermanText.cpp
 _PolishText.cpp
 GENERATED PCH FOR UTILS PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 _RussianText.cpp
 Animated ProgressBar.cpp
 GENERATED PCH FOR UTILS PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Cinematics.cpp
+ (Language set to ENGLISH, You'll need english CDs)
 Cursors.cpp
 GENERATED PCH FOR UTILS PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Debug Control.cpp
 dsutil.cpp
 Encrypted File.cpp
@@ -702,20 +727,27 @@ Event Manager.cpp
 Event Pump.cpp
 Font Control.cpp
 INIReader.cpp
+ (Language set to ENGLISH, You'll need english CDs)
 MapUtility.cpp
 GENERATED PCH FOR UTILS PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 MercTextBox.cpp
 message.cpp
 Multi Language Graphic Utils.cpp
 GENERATED PCH FOR UTILS PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Multilingual Text Code Generator.cpp
 Music Control.cpp
 GENERATED PCH FOR UTILS PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 PopUpBox.cpp
 Quantize Wrap.cpp
+ (Language set to ENGLISH, You'll need english CDs)
 Quantize.cpp
+ (Language set to ENGLISH, You'll need english CDs)
 Slider.cpp
 GENERATED PCH FOR UTILS PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Sound Control.cpp
 STIConvert.cpp
 Text Input.cpp
@@ -725,6 +757,7 @@ Utilities.cpp
 WordWrap.cpp
 XML_Items.cpp
 GENERATED PCH FOR TACTICAL PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 XML_Strings.cpp
 XML_Strings2.cpp
 Creating library...
@@ -732,7 +765,7 @@ Creating library...
 --------------------Configuration: TacticalAI - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP16.tmp" with contents
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP5E.tmp" with contents
 [
 /nologo /MT /W3 /GX /O2 /I "..\Standard Gaming Platform" /I "..\TileEngine" /I "..\\" /I "..\Tactical" /I "..\Utils" /I "..\Editor" /I "..\strategic" /I "..\Laptop" /I ".\\" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /FR"Release/" /Fp"Release/TacticalAI.pch" /YX"AI All.h" /Fo"Release/" /Fd"Release/" /FD /c 
 "C:\JA2\Build\TacticalAI\AIList.cpp"
@@ -750,8 +783,8 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP16.tmp" with content
 "C:\JA2\Build\TacticalAI\QuestDebug.cpp"
 "C:\JA2\Build\TacticalAI\Realtime.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP16.tmp" 
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP17.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP5E.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP5F.tmp" with contents
 [
 /nologo /out:"Release\TacticalAI.lib" 
 .\Release\AIList.obj
@@ -769,11 +802,12 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP17.tmp" with content
 .\Release\QuestDebug.obj
 .\Release\Realtime.obj
 ]
-Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP17.tmp"
+Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP5F.tmp"
 <h3>Output Window</h3>
 Compiling...
 AIList.cpp
 GENERATED PCH FOR TACTICAL AI PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 AIMain.cpp
 AIUtils.cpp
 Attacks.cpp
@@ -792,7 +826,7 @@ Creating library...
 --------------------Configuration: Editor - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP18.tmp" with contents
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP60.tmp" with contents
 [
 /nologo /MT /W3 /GX /O2 /Ob2 /I "..\Standard Gaming Platform" /I "..\TileEngine" /I "..\\" /I "..\Tactical" /I "..\Utils" /I "..\tacticalai" /I "..\strategic" /I "..\Laptop" /I ".\\" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /FR"Release/" /Fp"Release/Editor.pch" /YX"Editor All.h" /Fo"Release/" /Fd"Release/" /FD /c 
 "C:\JA2\Build\Editor\Cursor Modes.cpp"
@@ -820,8 +854,8 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP18.tmp" with content
 "C:\JA2\Build\Editor\smooth.cpp"
 "C:\JA2\Build\Editor\Smoothing Utils.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP18.tmp" 
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP19.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP60.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP61.tmp" with contents
 [
 /nologo /out:"Release\Editor.lib" 
 ".\Release\Cursor Modes.obj"
@@ -849,10 +883,11 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP19.tmp" with content
 .\Release\smooth.obj
 ".\Release\Smoothing Utils.obj"
 ]
-Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP19.tmp"
+Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP61.tmp"
 <h3>Output Window</h3>
 Compiling...
 Cursor Modes.cpp
+ (Language set to ENGLISH, You'll need english CDs)
 edit_sys.cpp
 Editor Callbacks.cpp
 Editor Modes.cpp
@@ -881,7 +916,7 @@ Creating library...
 --------------------Configuration: Laptop - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1A.tmp" with contents
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP62.tmp" with contents
 [
 /nologo /MT /W3 /GX /O2 /I "..\Standard Gaming Platform" /I "..\TileEngine" /I "..\\" /I "..\Tactical" /I "..\Utils" /I "..\tacticalai" /I "..\Editor" /I "..\strategic" /I ".\\" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /FR"Release/" /Fp"Release/Laptop.pch" /YX"Laptop All.h" /Fo"Release/" /Fd"Release/" /FD /c 
 "C:\JA2\Build\Laptop\aim.cpp"
@@ -942,8 +977,8 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1A.tmp" with content
 "C:\JA2\Build\Laptop\sirtech.cpp"
 "C:\JA2\Build\Laptop\Store Inventory.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1A.tmp" 
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1B.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP62.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP63.tmp" with contents
 [
 /nologo /out:"Release\Laptop.lib" 
 .\Release\aim.obj
@@ -1004,11 +1039,12 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1B.tmp" with content
 .\Release\sirtech.obj
 ".\Release\Store Inventory.obj"
 ]
-Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1B.tmp"
+Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP63.tmp"
 <h3>Output Window</h3>
 Compiling...
 aim.cpp
 GENERATED PCH FOR LAPTOP PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 AimArchives.cpp
 AimFacialIndex.cpp
 AimHistory.cpp
@@ -1070,7 +1106,7 @@ Creating library...
 --------------------Configuration: Strategic - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1C.tmp" with contents
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP64.tmp" with contents
 [
 /nologo /MT /W3 /GX /O2 /I "..\Standard Gaming Platform" /I "..\TileEngine" /I "..\\" /I "..\Tactical" /I "..\Utils" /I "..\tacticalai" /I "..\Editor" /I "..\Laptop" /I ".\\" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /FR"Release/" /Fp"Release/Strategic.pch" /YX"Strategic All.h" /Fo"Release/" /Fd"Release/" /FD /c 
 "C:\JA2\Build\Strategic\AI Viewer.cpp"
@@ -1116,9 +1152,11 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1C.tmp" with content
 "C:\JA2\Build\Strategic\strategic.cpp"
 "C:\JA2\Build\Strategic\strategicmap.cpp"
 "C:\JA2\Build\Strategic\Town Militia.cpp"
+"C:\JA2\Build\Strategic\XML_Army.cpp"
+"C:\JA2\Build\Strategic\XML_Roaming.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1C.tmp" 
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1D.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP64.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP65.tmp" with contents
 [
 /nologo /out:"Release\Strategic.lib" 
 ".\Release\AI Viewer.obj"
@@ -1164,12 +1202,15 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1D.tmp" with content
 .\Release\strategic.obj
 .\Release\strategicmap.obj
 ".\Release\Town Militia.obj"
+.\Release\XML_Army.obj
+.\Release\XML_Roaming.obj
 ]
-Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1D.tmp"
+Creating command line "link.exe -lib @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP65.tmp"
 <h3>Output Window</h3>
 Compiling...
 AI Viewer.cpp
 GENERATED PCH FOR STRATEGIC PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Assignments.cpp
 Auto Resolve.cpp
 Campaign Init.cpp
@@ -1212,13 +1253,15 @@ Strategic Turns.cpp
 strategic.cpp
 strategicmap.cpp
 Town Militia.cpp
+XML_Army.cpp
+XML_Roaming.cpp
 Creating library...
 <h3>
 --------------------Configuration: ja2 - Win32 Release--------------------
 </h3>
 <h3>Command Lines</h3>
 Creating command line "rc.exe /l 0x409 /fo"Release/ja2.res" /i "Res" /i ".\Res" /d "NDEBUG" "C:\JA2\Build\Res\ja2.rc"" 
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1E.tmp" with contents
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP66.tmp" with contents
 [
 /nologo /G5 /MT /W3 /GX /Zi /O2 /Ob2 /I ".\Standard Gaming Platform" /I ".\TileEngine" /I ".\Tactical" /I ".\Utils" /I ".\TacticalAI" /I ".\Editor" /I ".\Strategic" /I ".\laptop" /I ".\\" /D "CALLBACKTIMER" /D "PRECOMPILEDHEADERS" /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "JA2" /D "XML_STATIC" /D "CINTERFACE" /FR"Release/" /Fp"Release/JA2.pch" /YX"JA2 All.h" /Fo"Release/" /Fd"Release/" /FD /O2b2 /c 
 "C:\JA2\Build\Utils\_Ja25GermanText.cpp"
@@ -1245,8 +1288,8 @@ Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1E.tmp" with content
 "C:\JA2\Build\SCREENS.cpp"
 "C:\JA2\Build\Sys Globals.cpp"
 ]
-Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1E.tmp" 
-Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1F.tmp" with contents
+Creating command line "cl.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP66.tmp" 
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP67.tmp" with contents
 [
 libexpatMT.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib winmm.lib smackw32.lib mss32.lib /nologo /subsystem:windows /profile /map:"Release/ja2_cvs.map" /machine:I386 /out:"..\ja2_cvs.exe" 
 .\Release\_Ja25GermanText.obj
@@ -1283,19 +1326,23 @@ libexpatMT.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advap
 .\Laptop\Release\Laptop.lib
 .\Strategic\Release\Strategic.lib
 ]
-Creating command line "link.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP1F.tmp"
+Creating command line "link.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP67.tmp"
 <h3>Output Window</h3>
 Compiling resources...
 Compiling...
 _Ja25GermanText.cpp
 GENERATED PCH FOR UTILS PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 aniviewscreen.cpp
 GENERATED PCH FOR JA2 PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Credits.cpp
 Cursors.cpp
 GENERATED PCH FOR UTILS PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 Fade Screen.cpp
 GENERATED PCH FOR JA2 PROJECT.
+ (Language set to ENGLISH, You'll need english CDs)
 GameInitOptionsScreen.cpp
 gameloop.cpp
 gamescreen.cpp
@@ -1316,6 +1363,35 @@ SCREENS.cpp
 Sys Globals.cpp
 Linking...
 LINK : warning LNK4089: all references to "ADVAPI32.dll" discarded by /OPT:REF
+Creating temporary file "C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP69.tmp" with contents
+[
+/nologo /o"Release/JA2.bsc" 
+.\Release\_Ja25GermanText.sbr
+.\Release\aniviewscreen.sbr
+.\Release\Credits.sbr
+.\Release\Cursors.sbr
+".\Release\Fade Screen.sbr"
+.\Release\GameInitOptionsScreen.sbr
+.\Release\gameloop.sbr
+.\Release\gamescreen.sbr
+.\Release\GameSettings.sbr
+.\Release\GameVersion.sbr
+.\Release\HelpScreen.sbr
+.\Release\Init.sbr
+.\Release\Intro.sbr
+".\Release\JA2 Splash.sbr"
+.\Release\jascreens.sbr
+".\Release\Loading Screen.sbr"
+.\Release\MainMenuScreen.sbr
+.\Release\MessageBoxScreen.sbr
+".\Release\Options Screen.sbr"
+.\Release\SaveLoadGame.sbr
+.\Release\SaveLoadScreen.sbr
+.\Release\SCREENS.sbr
+".\Release\Sys Globals.sbr"]
+Creating command line "bscmake.exe @C:\DOCUME~1\Owner\LOCALS~1\Temp\RSP69.tmp"
+Creating browse info file...
+<h3>Output Window</h3>
 
 
 

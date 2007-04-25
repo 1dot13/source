@@ -70,6 +70,8 @@ typedef PARSE_STAGE;
 #define MOVEMENTCOSTFILENAME                    "Map\\MovementCosts.xml"
 #define ALTSECTORSFILENAME                      "Map\\AltSectors.xml"
 #define SAMSITESFILENAME                        "Map\\SamSites.xml"
+#define ROAMINGMILITIAFILENAME									"Map\\RestrictedRoamingMilitia.xml"
+
 
 #define GARRISONFILENAME                        "Army\\GarrisonGroups.xml"
 #define PATROLFILENAME                          "Army\\PatrolGroups.xml"
@@ -175,4 +177,7 @@ extern BOOLEAN ReadInPatrolInfo(STR fileName);
 extern BOOLEAN WriteInPatrolInfo(STR fileName);
 extern BOOLEAN ReadInArmyCompositionInfo(STR fileName);
 extern BOOLEAN WriteInArmyCompositionInfo(STR fileName);
+
+//Kaiden: Roaming Militia Restricted Sectors List
+extern BOOLEAN ReadInRoamingInfo(STR filename);
 #endif

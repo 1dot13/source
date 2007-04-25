@@ -231,6 +231,7 @@ typedef struct
 	BOOLEAN gfTrainVeteranMilitia;
 	BOOLEAN gfAllowMilitiaGroups;
 	BOOLEAN gfmusttrainroaming;
+	BOOLEAN gflimitedRoaming;
 	BOOLEAN gfAllowReinforcements;
 	BOOLEAN gfAllowReinforcementsOnlyInCity;
 	UINT32	guiBaseQueenPoolIncrement;
@@ -376,7 +377,7 @@ typedef struct
 	BOOLEAN fEnableCrepitus;
 	BOOLEAN fEnableAllWeaponCaches;
 	BOOLEAN fEnableAllTerrorists;
-
+	BOOLEAN gfRevealItems;
 	BOOLEAN fEnableArmorCoverage; // ShadoWarrior for Captain J's armor coverage
 
 	// ShadoWarrior: Tooltip changes (start)

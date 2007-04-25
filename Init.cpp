@@ -389,6 +389,13 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
     if(!ReadInExplosionDataStats(fileName))
 		return FALSE;
 
+	// Kaiden: Read in Restricted Sectors for Mobile Militia
+	strcpy(fileName, directoryName);
+	strcat(fileName, ROAMINGMILITIAFILENAME);
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+    if(!ReadInRoamingInfo(fileName))
+		return FALSE;
+
 	return TRUE;
 }
 

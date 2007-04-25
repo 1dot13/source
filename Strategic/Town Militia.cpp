@@ -208,7 +208,7 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 							// are there any REGULAR militia men in the training sector itself?
 							if (MilitiaInSectorOfRank(sMapX, sMapY, REGULAR_MILITIA) > 0)
 							{
-								// great! Promote a REGULAR militia guy in the training sector to a REGULAR
+								// great! Promote a REGULAR militia guy in the training sector to a VETERAN
 								StrategicPromoteMilitiaInSector(sMapX, sMapY, REGULAR_MILITIA, 1);
 								fFoundOne = TRUE;
 							}
@@ -216,7 +216,7 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 							{
 								if( ubTownId != BLANK_SECTOR )
 								{
-									// dammit! Last chance - try to find other eligible sectors in the same town with a Green guy to be promoted
+									// dammit! Last chance - try to find other eligible sectors in the same town with a Regular guy to be promoted
 									InitFriendlyTownSectorServer(ubTownId, sMapX, sMapY);
 
 									// check other eligible sectors in this town for room for another militia
@@ -225,7 +225,7 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 										// are there any REGULAR militia men in the neighbouring sector ?
 										if (MilitiaInSectorOfRank(sNeighbourX, sNeighbourY, REGULAR_MILITIA) > 0)
 										{
-											// great! Promote a GREEN militia guy in the neighbouring sector to a REGULAR
+											// great! Promote a Regular militia guy in the neighbouring sector to a Veteran
 											StrategicPromoteMilitiaInSector(sNeighbourX, sNeighbourY, REGULAR_MILITIA, 1);
 
 											fFoundOne = TRUE;
