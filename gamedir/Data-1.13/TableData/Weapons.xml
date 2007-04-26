@@ -8479,6 +8479,26 @@
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
+		<uiIndex>789</uiIndex>
+		<szWeaponName>Steyr ACR</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>43</ubCalibre>
+		<ubReadyTime>1</ubReadyTime>
+		<ubShotsPer4Turns>4</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>1</ubBurstPenalty>
+		<ubImpact>1</ubImpact>
+		<ubDeadliness>1</ubDeadliness>
+		<bAccuracy>1</bAccuracy>
+		<ubMagSize>24</ubMagSize>
+		<usRange>600</usRange>
+		<bBurstAP>1</bBurstAP>
+		<APsToReload>6</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>10</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
 		<uiIndex>901</uiIndex>
 		<szWeaponName>Commando Mortar</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>

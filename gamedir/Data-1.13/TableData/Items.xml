@@ -6404,7 +6404,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>172</ubGraphicNum>
 		<ubWeight>5</ubWeight>
-		<ubPerPocket>1</ubPerPocket>
+		<ubPerPocket>2</ubPerPocket>
 		<usPrice>45</usPrice>
 		<ubCoolness>2</ubCoolness>
 		<bReliability>1</bReliability>
@@ -10142,14 +10142,20 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>480</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 921</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>5.56 SCF mag</szItemName>
+		<szLongItemName>5.56x45mm SCF mag</szLongItemName>
+		<szItemDesc>A magazine of armor piercing flechette dart ammunition.</szItemDesc>
+		<szBRName>5.56x45mm SCF mag</szBRName>
+		<szBRDesc>Newly developed flechette ammo that goes together with the newly developed Steyr Advanced Combat Rifle.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>297</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>580</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<usPrice>1</usPrice>
 		<BigGunList>1</BigGunList>
+		<SciFi>1</SciFi>
 	</ITEM>
 	<ITEM>
 		<uiIndex>481</uiIndex>
@@ -17936,6 +17942,7 @@
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>295</ubGraphicNum>
 		<ubWeight>11</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
 		<usPrice>850</usPrice>
 		<ubCoolness>2</ubCoolness>
 		<Damageable>1</Damageable>
@@ -18009,14 +18016,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>789</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 789</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Steyr ACR</szItemName>
+		<szLongItemName>Steyr ACR</szLongItemName>
+		<szItemDesc>The Advanced Combat Rifle fires a small armor penetrating fin stabilized dart over a considerable range.</szItemDesc>
+		<szBRName>Steyr ACR</szBRName>
+		<szBRDesc>Prototype of a new generation of assault rifles, the Steyr ACR fires fin stabilized darts. This is the future weapon of choice.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>789</ubClassIndex>
+		<ubGraphicNum>301</ubGraphicNum>
+		<ubWeight>32</ubWeight>
+		<usPrice>1</usPrice>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
+		<SciFi>1</SciFi>
+		<BR_NewInventory>1</BR_NewInventory>
+		<BR_ROF>1200</BR_ROF>
+		<DefaultAttachment>1029</DefaultAttachment>
 	</ITEM>
 	<ITEM>
 		<uiIndex>790</uiIndex>
@@ -20858,7 +20878,8 @@
 		<usItemClass>16</usItemClass>
 		<ubClassIndex>921</ubClassIndex>
 		<ubCursor>20</ubCursor>
-		<ubGraphicNum>292</ubGraphicNum>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>581</ubGraphicNum>
 		<ubWeight>14</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
 		<usPrice>800</usPrice>

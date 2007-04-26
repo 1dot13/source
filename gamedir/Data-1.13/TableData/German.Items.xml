@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -3824,17 +3824,17 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>480</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 480</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>5.56 SCF mag</szItemName>
+		<szLongItemName>5.56x45mm SCF mag</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>5.56x45mm SCF mag</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>481</uiIndex>
 		<szItemName>Nada</szItemName>
 		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>index 481</szItemDesc>
+		<szItemDesc>Index 480</szItemDesc>
 		<szBRName>Nothing</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
@@ -6296,11 +6296,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>789</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 789</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Steyr ACR</szItemName>
+		<szLongItemName>Steyr ACR</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Steyr ACR</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>790</uiIndex>

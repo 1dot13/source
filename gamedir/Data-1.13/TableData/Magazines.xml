@@ -1782,4 +1782,10 @@
 		<ubMagSize>5</ubMagSize>
 		<ubAmmoType>3</ubAmmoType>
 	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>297</uiIndex>
+		<ubCalibre>43</ubCalibre>
+		<ubMagSize>24</ubMagSize>
+		<ubAmmoType>3</ubAmmoType>
+	</MAGAZINE>
 </MAGAZINELIST>

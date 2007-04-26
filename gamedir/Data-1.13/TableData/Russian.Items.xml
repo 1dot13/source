@@ -3842,19 +3842,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>480</uiIndex>
+		<szItemName>5.56 SCF mag</szItemName>
+		<szLongItemName>5.56x45mm SCF mag</szLongItemName>
+		<szItemDesc>Description needed</szItemDesc>
+		<szBRName>5.56x45mm SCF mag</szBRName>
+		<szBRDesc>Description needed</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>481</uiIndex>
 		<szItemName>7.62x51mm Box HP C</szItemName>
 		<szLongItemName>7.62x51mm Box, HP Cold</szLongItemName>
 		<szItemDesc>250 rounds of 7.62x51mm cold loaded hollow point ammo for muted stopping power</szItemDesc>
 		<szBRName>7.62x51mm Box HP Cold</szBRName>
 		<szBRDesc>Quietly shoot them down without shooting through them.</szBRDesc>
-	</ITEM>
-	<ITEM>
-		<uiIndex>481</uiIndex>
-		<szItemName>7.62x51mm Box C</szItemName>
-		<szLongItemName>7.62x51mm Box, Cold</szLongItemName>
-		<szItemDesc>One box of cold loaded 7.62x51mm, quieter by 40% than standard FMJ ammo.</szItemDesc>
-		<szBRName>7.62x51mm Box Cold</szBRName>
-		<szBRDesc>Maximum carnage, minium audibility and penetration power.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>482</uiIndex>
@@ -6314,10 +6314,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>789</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szItemName>Steyr ACR</szItemName>
+		<szLongItemName>Steyr ACR</szLongItemName>
 		<szItemDesc>Index 789</szItemDesc>
-		<szBRName>Nothing</szBRName>
+		<szBRName>Steyr ACR</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>

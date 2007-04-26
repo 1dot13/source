@@ -210,4 +210,14 @@
 		<AmmoCaliber>12.7x97mm Subsonic</AmmoCaliber>
 		<BRCaliber>12.7x97mm</BRCaliber>
 	</AMMO>
+	<AMMO>
+		<uiIndex>42</uiIndex>
+		<AmmoCaliber>6.8x43mm SPC</AmmoCaliber>
+		<BRCaliber>6.8x43mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>43</uiIndex>
+		<AmmoCaliber>5.56x45mm SCF</AmmoCaliber>
+		<BRCaliber>5.56mm SCF</BRCaliber>
+	</AMMO>
 </AMMOLIST>
