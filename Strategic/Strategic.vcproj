@@ -3522,6 +3522,9 @@
 			<File
 				RelativePath=".\XML_Army.cpp">
 			</File>
+			<File
+				RelativePath=".\XML_Roaming.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"

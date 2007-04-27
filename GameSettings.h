@@ -341,6 +341,9 @@ typedef struct
 	BOOLEAN gfHardAggressiveQueen;
 	BOOLEAN gfInsaneAggressiveQueen;
 
+	BOOLEAN gfInvestigateSector;
+	BOOLEAN gfReassignPendingReinforcements;
+
 	// WANNE
 	INT32 ubEnemiesItemDrop;
 
