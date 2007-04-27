@@ -621,6 +621,8 @@ INT8 CalcActionPoints(SOLDIERTYPE *pSold)
 					ubPoints +=0;
 			}
 		}
+		else
+			ubPoints += gGameExternalOptions.iPlayerAPBonus;
 
 	// if we are in boxing mode, adjust APs... THIS MUST BE LAST!
 	if ( gTacticalStatus.bBoxingState == BOXING || gTacticalStatus.bBoxingState == PRE_BOXING )
@@ -687,7 +689,7 @@ void CalcNewActionPoints( SOLDIERTYPE *pSoldier )
 		}
 		else
 		{ //Kaiden: Players just max out normally unless drugged
-			pSoldier->bActionPoints	= __min( pSoldier->bActionPoints, gubMaxActionPoints[ pSoldier->ubBodyType ] );
+			pSoldier->bActionPoints	= __min( pSoldier->bActionPoints, (gubMaxActionPoints[ pSoldier->ubBodyType ] + gGameExternalOptions.iPlayerAPBonus) );
 		}
 
 	}

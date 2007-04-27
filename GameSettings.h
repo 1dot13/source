@@ -202,6 +202,7 @@ typedef struct
 	INT8 iExperiencedAPBonus;
 	INT8 iExpertAPBonus;
 	INT8 iInsaneAPBonus;
+	INT8 iPlayerAPBonus;
 	// Kaiden: Vehicle Inventory change - Added for INI Option
 	BOOLEAN fVehicleInventory;
 

@@ -424,6 +424,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iExperiencedAPBonus			= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_AP_BONUS",0);
 	gGameExternalOptions.iExpertAPBonus					= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_AP_BONUS",0);
 	gGameExternalOptions.iInsaneAPBonus					= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_AP_BONUS",0);
+	gGameExternalOptions.iPlayerAPBonus					= iniReader.ReadInteger("JA2 Gameplay Settings","PLAYER_AP_BONUS",0);
 
 	// Sight range
 	gGameExternalOptions.ubStraightSightRange				= iniReader.ReadInteger("JA2 Tactical Settings","BASE_SIGHT_RANGE",13);
