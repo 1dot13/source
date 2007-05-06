@@ -3832,19 +3832,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>481</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 480</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>6.8x43mm SPC mag HP</szItemName>
+		<szLongItemName>6.8x43mm SPC mag HP</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>6.8x43mm SPC mag HP</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>482</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 482</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>6.8 SPC mag</szItemName>
+		<szLongItemName>6.8x43mm SPC mag</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>6.8x43mm SPC mag</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>483</uiIndex>
@@ -6304,43 +6304,43 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>790</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 790</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>SCAR-WP CQC</szItemName>
+		<szLongItemName>FN SCAR-WP CQC</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>FN SCAR-WP CQC</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>791</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 791</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>SCAR-WP SV</szItemName>
+		<szLongItemName>FN SCAR-WP SV</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>FN SCAR-WP SV</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>792</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 792</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>SCAR-68 CQC</szItemName>
+		<szLongItemName>FN SCAR-68 CQC</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>FN SCAR-68 CQC</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>793</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 793</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>SCAR-68 SV</szItemName>
+		<szLongItemName>FN SCAR-68 SV</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>FN SCAR-68 SV</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>794</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 794</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>MP5/40A3</szItemName>
+		<szLongItemName>HK MP5/40A3</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>HK MP5/40A3</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>795</uiIndex>
@@ -8257,5 +8257,173 @@
 		<szItemDesc>mit diesem extrem langen Austausch-Lauf im Kaliber .308 Winchester (7,62mm)  bauen Sie jedes SCAR zu einem SCAR-H SV "Sniper Variant" Präzisionsgewehr um.</szItemDesc>
 		<szBRName>SCAR-H SV Lauf</szBRName>
 		<szBRDesc>mit diesem extrem langen Austausch-Lauf im Kaliber .308 Winchester (7,62mm)  bauen Sie jedes SCAR zu einem SCAR-H SV "Sniper Variant" Präzisionsgewehr um.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1035</uiIndex>
+		<szItemName>CK 68 CQC</szItemName>
+		<szLongItemName>SCAR-68 Conversion Kit</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SCAR-68 Conversion Kit</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1036</uiIndex>
+		<szItemName>CK 68 SV</szItemName>
+		<szLongItemName>SCAR-68 Conversion Kit SV</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SCAR-68 Conversion Kit SV</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1037</uiIndex>
+		<szItemName>CK L CQC</szItemName>
+		<szLongItemName>SCAR-L Conversion Kit</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SCAR-L Conversion Kit</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1038</uiIndex>
+		<szItemName>CK L SV</szItemName>
+		<szLongItemName>SCAR-L Conversion Kit SV</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SCAR-L Conversion Kit SV</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1039</uiIndex>
+		<szItemName>CQC 6.8 Lauf</szItemName>
+		<szLongItemName>SCAR-68 CQC Lauf</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SCAR-68 CQC Lauf</szBRName>
+		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1040</uiIndex>
+		<szItemName>SV 6.8 Lauf</szItemName>
+		<szLongItemName>SCAR-68 SV Lauf</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SCAR-68 SV Lauf</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1041</uiIndex>
+		<szItemName>CK WP CQC</szItemName>
+		<szLongItemName>SCAR-WP Conversion Kit</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SCAR-WP Conversion Kit</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1042</uiIndex>
+		<szItemName>CK WP SV</szItemName>
+		<szLongItemName>SCAR-WP Conversion Kit SV</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SCAR-WP Conversion Kit SV</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1043</uiIndex>
+		<szItemName>CK H CQC</szItemName>
+		<szLongItemName>SCAR-H Conversion Kit</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SCAR-H Conversion Kit</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1044</uiIndex>
+		<szItemName>CK H SV</szItemName>
+		<szLongItemName>SCAR-H Conversion Kit SV</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SCAR-H Conversion Kit SV</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1045</uiIndex>
+		<szItemName>CQC WP Lauf</szItemName>
+		<szLongItemName>SCAR-WP CQC Lauf</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SCAR-WP CQC Lauf</szBRName>
+		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1046</uiIndex>
+		<szItemName>SV WP Lauf</szItemName>
+		<szLongItemName>SCAR-WP SV Lauf</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SCAR-WP SV Lauf</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1047</uiIndex>
+		<szItemName>.40 SMG Mag</szItemName>
+		<szLongItemName>.40 S&amp;W Magazin</szLongItemName>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szBRName>.40 Mag</szBRName>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1048</uiIndex>
+		<szItemName>.40 SMG Mag HS</szItemName>
+		<szLongItemName>.40 S&amp;W Magazin, HS</szLongItemName>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szItemDesc>
+		<szBRName>.40 Mag HS #14</szBRName>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1049</uiIndex>
+		<szItemName>.40 SMG Mag PB</szItemName>
+		<szLongItemName>.40 S&amp;W Magazin, PB</szLongItemName>
+		<szItemDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
+		<szBRName>.40 Mag PB #14</szBRName>
+		<szBRDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen. Diese Patrone wurde jedoch auch von Kriminellen entdeckt und als 'Cop-Killer' berühmt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1050</uiIndex>
+		<szItemName>.40 SMG Mag DPX</szItemName>
+		<szLongItemName>.40 S&amp;W Magazin, DPX</szLongItemName>
+		<szItemDesc>Wenn Sie Ihrer Waffe maximale Durchschlagskraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szItemDesc>
+		<szBRName>.40 Mag DPX #14</szBRName>
+		<szBRDesc>Wenn Sie Ihrer Waffe maximale Durchschlagskraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1051</uiIndex>
+		<szItemName>.40 SMG Mag G</szItemName>
+		<szLongItemName>.40 S&amp;W SMG Magazin, Glaser</szLongItemName>
+		<szItemDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szItemDesc>
+		<szBRName>.40 Mag Glaser #14</szBRName>
+		<szBRDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1052</uiIndex>
+		<szItemName>.40 SMG Mag M</szItemName>
+		<szLongItemName>.40 S&amp;W Magazin, Match</szLongItemName>
+		<szItemDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 70m.</szItemDesc>
+		<szBRName>.40 Mag Match #14</szBRName>
+		<szBRDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 70m.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1053</uiIndex>
+		<szItemName>W-Messer</szItemName>
+		<szLongItemName>Wurfmesser</szLongItemName>
+		<szItemDesc>Das genau ausbalancierte Wurfmesser mit Stahlklinge gibt dem Ausdruck vom 'sanften Tod' eine neue Bedeutung.</szItemDesc>
+		<szBRName>Wurfmesser</szBRName>
+		<szBRDesc>Das genau ausbalancierte Wurfmesser mit Stahlklinge gibt dem Ausdruck vom 'sanften Tod' eine neue Bedeutung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1054</uiIndex>
+		<szItemName>Tonfa</szItemName>
+		<szLongItemName>Schlagstock</szLongItemName>
+		<szItemDesc>TONFA/RMS/PEMS, ein Schlagstock der zu Grundausstattung von Sicherheitskräften gehört.</szItemDesc>
+		<szBRName>Schlagstock</szBRName>
+		<szBRDesc>Diese aus dem japanischen Tonfa abgeleitete Waffe (RMS-Rettungsmehrzweckstock) ist ausschließlich der Militärpolizei (Feldjäger) vorbehalten.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1055</uiIndex>
+		<szItemName>SABRE-Messer</szItemName>
+		<szLongItemName>SABRE-Messer</szLongItemName>
+		<szItemDesc>Das ist ein Messer!</szItemDesc>
+		<szBRName>SABRE-Messer</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 </ITEMLIST>

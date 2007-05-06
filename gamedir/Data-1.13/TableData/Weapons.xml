@@ -1892,7 +1892,7 @@
 		<ubImpact>23</ubImpact>
 		<ubDeadliness>15</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
-		<ubMagSize>15</ubMagSize>
+		<ubMagSize>30</ubMagSize>
 		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>24</BurstAniDelay>
@@ -8484,19 +8484,195 @@
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>43</ubCalibre>
-		<ubReadyTime>1</ubReadyTime>
-		<ubShotsPer4Turns>4</ubShotsPer4Turns>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>14</ubShotsPer4Turns>
 		<ubShotsPerBurst>3</ubShotsPerBurst>
-		<ubBurstPenalty>1</ubBurstPenalty>
-		<ubImpact>1</ubImpact>
-		<ubDeadliness>1</ubDeadliness>
-		<bAccuracy>1</bAccuracy>
+		<ubBurstPenalty>6</ubBurstPenalty>
+		<ubImpact>36</ubImpact>
+		<ubDeadliness>38</ubDeadliness>
+		<bAccuracy>6</bAccuracy>
 		<ubMagSize>24</ubMagSize>
 		<usRange>600</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>40</BurstAniDelay>
+		<ubAttackVolume>77</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>439</sSound>
+		<sBurstSound>82</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
 		<bBurstAP>1</bBurstAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>10</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>790</uiIndex>
+		<szWeaponName>FN SCAR-WP CQC</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>10</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
+		<ubBurstPenalty>9</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>36</ubDeadliness>
+		<bAccuracy>5</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>230</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>50</BurstAniDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>347</sSound>
+		<sBurstSound>39</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<AutoPenalty>9</AutoPenalty>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>791</uiIndex>
+		<szWeaponName>FN SCAR-WP SV</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>10</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
+		<ubBurstPenalty>9</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>32</ubImpact>
+		<ubDeadliness>38</ubDeadliness>
+		<bAccuracy>6</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>360</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>50</BurstAniDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>347</sSound>
+		<sBurstSound>39</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<AutoPenalty>9</AutoPenalty>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>792</uiIndex>
+		<szWeaponName>FN SCAR-68 CQC</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>42</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>14</ubShotsPer4Turns>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>31</ubImpact>
+		<ubDeadliness>37</ubDeadliness>
+		<bAccuracy>5</bAccuracy>
+		<ubMagSize>25</ubMagSize>
+		<usRange>330</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>50</BurstAniDelay>
+		<ubAttackVolume>70</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>346</sSound>
+		<sBurstSound>38</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>8</AutoPenalty>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>793</uiIndex>
+		<szWeaponName>FN SCAR-68 SV</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>42</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>14</ubShotsPer4Turns>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>23</ubBulletSpeed>
+		<ubImpact>32</ubImpact>
+		<ubDeadliness>39</ubDeadliness>
+		<bAccuracy>6</bAccuracy>
+		<ubMagSize>25</ubMagSize>
+		<usRange>490</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>50</BurstAniDelay>
+		<ubAttackVolume>70</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>346</sSound>
+		<sBurstSound>38</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>8</AutoPenalty>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>794</uiIndex>
+		<szWeaponName>HK MP5/40A3</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>23</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>9</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>27</ubImpact>
+		<ubDeadliness>21</ubDeadliness>
+		<bAccuracy>5</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>190</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>38</BurstAniDelay>
+		<ubAttackVolume>77</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>387</sSound>
+		<sBurstSound>15</sBurstSound>
+		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>376</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>10</AutoPenalty>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>901</uiIndex>
@@ -8949,5 +9125,40 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1053</uiIndex>
+		<szWeaponName>Shuriken</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>20</ubShotsPer4Turns>
+		<ubImpact>15</ubImpact>
+		<ubDeadliness>4</ubDeadliness>
+		<usRange>200</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<sSound>152</sSound>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1054</uiIndex>
+		<szWeaponName>Nunchaku</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>20</ubShotsPer4Turns>
+		<ubImpact>26</ubImpact>
+		<ubDeadliness>8</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1055</uiIndex>
+		<szWeaponName>Katana</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>14</ubShotsPer4Turns>
+		<ubImpact>28</ubImpact>
+		<ubDeadliness>9</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 	</WEAPON>
 </WEAPONLIST>

@@ -2484,9 +2484,9 @@
 		<uiIndex>104</uiIndex>
 		<szItemName>4.7mm Mag 45</szItemName>
 		<szLongItemName>4.7x33mm Mag, 45</szLongItemName>
-		<szItemDesc>This 50-round magazine contains 4.7mm caseless ammunition. This round possesses wound and range capabilites that are comparable to the 5.56mm NATO round, but is 40 per cent lighter.</szItemDesc>
+		<szItemDesc>This 45-round magazine contains 4.7mm caseless ammunition. This round possesses wound and range capabilites that are comparable to the 5.56mm NATO round, but is 40 per cent lighter.</szItemDesc>
 		<szBRName>4.7x33mm Mag 45</szBRName>
-		<szBRDesc>Recovered crates from a classified German warehouse have supplied us with these 50-round magazines. They come complete with a full load of the legandary 4.7mm caseless ammunition.</szBRDesc>
+		<szBRDesc>Recovered crates from a classified German warehouse have supplied us with these 45-round magazines. They come complete with a full load of the legandary 4.7mm caseless ammunition.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>194</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
@@ -2918,7 +2918,7 @@
 		<szBRName>7.62x54R Mag 10</szBRName>
 		<szBRDesc>10 rounds of long range penetrating power for the 7.62x54R chambered weapon in your collection. </szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>243</ubClassIndex>
+		<ubClassIndex>249</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>289</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -4627,10 +4627,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>207</uiIndex>
-		<szItemName>Silencer</szItemName>
-		<szLongItemName>Small Caliber Silencer</szLongItemName>
+		<szItemName>Pistol Supp.</szItemName>
+		<szLongItemName>Pistol Suppressor</szLongItemName>
 		<szItemDesc>The light, compact design of this silencer can be fitted easily to most handguns and sub-machine guns.</szItemDesc>
-		<szBRName>Small Caliber Silencer</szBRName>
+		<szBRName>Pistol Suppressor</szBRName>
 		<szBRDesc>This is the ideal silencer for both indoor and outdoor missions that have to be kept quiet. Its light and compact design can be fitted easily to most handguns and sub-machine guns.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
@@ -10047,7 +10047,7 @@
 		<szBRName>.300 WM Mag HP</szBRName>
 		<szBRDesc>The .300 Winchester Magnum can be considered a standard hunting round, especially with expanding hollowpoint bullets.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>292</ubClassIndex>
+		<ubClassIndex>298</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>540</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -10067,7 +10067,7 @@
 		<szBRName>.300 WM Mag AP</szBRName>
 		<szBRDesc>The .300 Winchester Magnum can be considered a standard hunting round, though these bullets are for the deer with Kevlar vest.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>293</ubClassIndex>
+		<ubClassIndex>299</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>541</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -10087,7 +10087,7 @@
 		<szBRName>7.92x57mm 5 HP</szBRName>
 		<szBRDesc>Own a vintage Mauser Gewehr 98 or Karabiner 98k? We have the ammo for your old pal!</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>294</ubClassIndex>
+		<ubClassIndex>300</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>542</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -10107,7 +10107,7 @@
 		<szBRName>7.92x57mm 5 AP</szBRName>
 		<szBRDesc>Our AP ammo for your old Mauser Gewehr 98 or Kar 98k.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>295</ubClassIndex>
+		<ubClassIndex>301</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>543</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -10127,7 +10127,7 @@
 		<szBRName>12.7x97mm Subsonic</szBRName>
 		<szBRDesc>Want to fire a .50 cal round without making noise? These babies are cutdown 12.7mm rounds to fit the Russian VSSK.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>296</ubClassIndex>
+		<ubClassIndex>302</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>544</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -10148,36 +10148,57 @@
 		<szBRName>5.56x45mm SCF mag</szBRName>
 		<szBRDesc>Newly developed flechette ammo that goes together with the newly developed Steyr Advanced Combat Rifle.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>297</ubClassIndex>
+		<ubClassIndex>305</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>580</ubGraphicNum>
 		<ubWeight>3</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
-		<usPrice>1</usPrice>
+		<usPrice>280</usPrice>
+		<ubCoolness>8</ubCoolness>
+		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
 		<SciFi>1</SciFi>
+		<BR_NewInventory>2</BR_NewInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>481</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 921</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>6.8 SPC mag HP</szItemName>
+		<szLongItemName>6.8x43mm SPC mag HP</szLongItemName>
+		<szItemDesc>25 rounds of 6.8mm SPC ammo. This magazine holds cartridges with hollowpoint bullets.</szItemDesc>
+		<szBRName>6.8x43mm SPC mag HP</szBRName>
+		<szBRDesc>The 6.8x43mm Special Purpose Cartridge was developed under participation of the special operations comunity, who wanted a round that should be more lethal than the 5.56x45mm. Now they got it.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>303</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>582</ubGraphicNum>
+		<ubWeight>5</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<usPrice>120</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>482</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 921</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>6.8 SPC mag</szItemName>
+		<szLongItemName>6.8x43mm SPC mag</szLongItemName>
+		<szItemDesc>A magazine holding 25 rounds of the new 6.8x43mm ammo.</szItemDesc>
+		<szBRName>6.8x43mm SPC mag</szBRName>
+		<szBRDesc>The new 6.8x43mm SPC special forces ammo. More range and effect than the standard NATO-5.56mm round.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>304</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>583</ubGraphicNum>
+		<ubWeight>5</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<usPrice>180</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>483</uiIndex>
@@ -10893,7 +10914,7 @@
 		<szBRName>7.62x54R Mag 5</szBRName>
 		<szBRDesc>7.62x54R is an old fashioned heavy hitter.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>241</ubClassIndex>
+		<ubClassIndex>247</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>433</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -10913,7 +10934,7 @@
 		<szBRName>7.62x54R Mag 5 Tracer</szBRName>
 		<szBRDesc>Light up the battlefield night or day with these tracer rounds.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>242</ubClassIndex>
+		<ubClassIndex>248</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>434</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -10934,7 +10955,7 @@
 		<szBRName>7.62x54R Box</szBRName>
 		<szBRDesc>Crack open a box of 7.62x54R when its time to reload the squad PKM.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>245</ubClassIndex>
+		<ubClassIndex>251</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>412</ubGraphicNum>
 		<ubWeight>62</ubWeight>
@@ -10953,7 +10974,7 @@
 		<szBRName>7.62x54R Box Tracer</szBRName>
 		<szBRDesc>Adjusting automatic fire is an easy task with tracer ammo.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>246</ubClassIndex>
+		<ubClassIndex>252</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>413</ubGraphicNum>
 		<ubWeight>62</ubWeight>
@@ -10975,7 +10996,7 @@
 		<szBRName>.338 Lapua Mag</szBRName>
 		<szBRDesc>If this massive largebore ammo fails to terminate the target, Bobby Ray's offers a fine line of anti-tank weaponry.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>247</ubClassIndex>
+		<ubClassIndex>253</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>414</ubGraphicNum>
 		<ubWeight>8</ubWeight>
@@ -10995,7 +11016,7 @@
 		<szBRName>.44 S-Load</szBRName>
 		<szBRDesc>Why get pinned behind cover thumbing shells into your gun? Get back in the fight quickly with this speed-loader.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>248</ubClassIndex>
+		<ubClassIndex>254</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>384</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -11015,7 +11036,7 @@
 		<szBRName>.44 S-Load HP</szBRName>
 		<szBRDesc>For every aspiring Dirty Harry, or if you've just got a thing for making a big mess, these hollow point .44 rounds will really make your day.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>249</ubClassIndex>
+		<ubClassIndex>255</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>385</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -11035,7 +11056,7 @@
 		<szBRName>.44 S-Load AP</szBRName>
 		<szBRDesc>The infamous 'Cop Killer' round is now commercially available thanks to a convenient legislation loophole. Although not quite as effective as the NBC would have you believe, these can still pack a fair punch against targets wearing body armor.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>250</ubClassIndex>
+		<ubClassIndex>256</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>386</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -11055,7 +11076,7 @@
 		<szBRName>.44 S-Load Glaser</szBRName>
 		<szBRDesc>Six rounds of frangible fun. All of the man-stopping power, none of the over-penetration.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>251</ubClassIndex>
+		<ubClassIndex>257</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>387</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -11075,7 +11096,7 @@
 		<szBRName>.44 Mag</szBRName>
 		<szBRDesc>Unparalleled muzzle velocity and knock down power in this clip of Magnum rounds.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>252</ubClassIndex>
+		<ubClassIndex>258</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>439</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11095,7 +11116,7 @@
 		<szBRName>.44 Mag HP</szBRName>
 		<szBRDesc>For every aspiring Dirty Harry, or if you've just got a thing for making a big mess, these hollow point .44 rounds will really make your day.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>253</ubClassIndex>
+		<ubClassIndex>259</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>440</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11115,7 +11136,7 @@
 		<szBRName>.44 Mag AP</szBRName>
 		<szBRDesc>The infamous 'Cop Killer' round is now commercially available thanks to a convenient legislation loophole. Although not quite as effective as the NBC would have you believe, these can still pack a fair punch against targets wearing body armor.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>254</ubClassIndex>
+		<ubClassIndex>260</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>441</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11135,7 +11156,7 @@
 		<szBRName>.44 Mag Glaser</szBRName>
 		<szBRDesc>Eight rounds of frangible fun. All of the man-stopping power, none of the over-penetration.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>255</ubClassIndex>
+		<ubClassIndex>261</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>442</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11155,7 +11176,7 @@
 		<szBRName>10mm SMG Mag</szBRName>
 		<szBRDesc>Developed for its stopping power, 10mm is not an uncommon ordninance for police and counter-terrorist agents.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>262</ubClassIndex>
+		<ubClassIndex>268</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>415</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -11175,7 +11196,7 @@
 		<szBRName>10mm Mag HP</szBRName>
 		<szBRDesc>10mm HP is perfect for detering persistent foes.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>263</ubClassIndex>
+		<ubClassIndex>269</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>416</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -11195,7 +11216,7 @@
 		<szBRName>10mm Mag AP</szBRName>
 		<szBRDesc>Targets in armor are no match for an AP round in their 10 ring.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>264</ubClassIndex>
+		<ubClassIndex>270</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>417</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -11215,7 +11236,7 @@
 		<szBRName>10mm Mag AET</szBRName>
 		<szBRDesc>10mm AET doesn't brake for armor or tough organic matter. Burn down the burliest opponent regardless of ballistic armor.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>265</ubClassIndex>
+		<ubClassIndex>271</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>419</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -11236,7 +11257,7 @@
 		<szBRName>10mm Mag Glaser</szBRName>
 		<szBRDesc>Thirty rounds of frangible fun. All of the man-stopping power, none of the over-penetration.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>266</ubClassIndex>
+		<ubClassIndex>272</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>418</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -11256,7 +11277,7 @@
 		<szBRName>10mm Mag Match</szBRName>
 		<szBRDesc>Increased range and performance are features of this hard hitting round.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>267</ubClassIndex>
+		<ubClassIndex>273</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>420</ubGraphicNum>
 		<ubWeight>6</ubWeight>
@@ -11277,13 +11298,12 @@
 		<szBRName>10mm Mag D-U</szBRName>
 		<szBRDesc>If a bad case of lead poisoning doesn't slow the target down, radiation poisoning surely will.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>268</ubClassIndex>
+		<ubClassIndex>274</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>438</ubGraphicNum>
 		<ubWeight>6</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>5040</usPrice>
-		<ubCoolness>8</ubCoolness>
 		<bReliability>-6</bReliability>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -11299,7 +11319,7 @@
 		<szBRName>12.3mm Loader</szBRName>
 		<szBRDesc>Owing its dimensions to the 32 gauge shotgun shell, the 12.3mm is a weighty round for a weighty handgun.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>269</ubClassIndex>
+		<ubClassIndex>275</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>462</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -11319,7 +11339,7 @@
 		<szBRName>9x21mm Mag</szBRName>
 		<szBRDesc>According to its press, 9x21mm's tungsten core enables it to penetrate armored targets from 100 meters away.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>271</ubClassIndex>
+		<ubClassIndex>277</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>362</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11339,7 +11359,7 @@
 		<szBRName>7.62x37mm Mag</szBRName>
 		<szBRDesc>Designed so snipers punch through helmets, not the sound barrier.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>272</ubClassIndex>
+		<ubClassIndex>278</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>409</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11360,7 +11380,7 @@
 		<szBRName>7.62x37mm Mag D-U</szBRName>
 		<szBRDesc>Deliver a tactical nuclear strike on the smallest possible scale from your silenced sniper rifle.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>273</ubClassIndex>
+		<ubClassIndex>279</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>437</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11383,7 +11403,7 @@
 		<szBRName>5.45x18mm Mag</szBRName>
 		<szBRDesc>8 round magazine of 5.45x18mm ammo.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>274</ubClassIndex>
+		<ubClassIndex>280</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>293</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -11403,7 +11423,7 @@
 		<szBRName>5.45x18mm Mag HP</szBRName>
 		<szBRDesc>HP bullets augment the stopping power of this small-bore cartridge.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>275</ubClassIndex>
+		<ubClassIndex>281</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>294</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -11423,7 +11443,7 @@
 		<szBRName>9mm Metal Storm Mag</szBRName>
 		<szBRDesc>Dispensing with mechanical loading and firing, Metal Storm's stacked electronically fired ammunition promises reliable mass firepower at low weight. This bundle is configured for 72 rounds across 6 barrels, in 9mm.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>276</ubClassIndex>
+		<ubClassIndex>282</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>463</ubGraphicNum>
 		<ubWeight>19</ubWeight>
@@ -11485,7 +11505,7 @@
 		<szBRName>.50 Action Express Mag</szBRName>
 		<szBRDesc>Magzine size, accuracy and controlability are a fair trade off for stopping power and coolness, right?  Because if you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>278</ubClassIndex>
+		<ubClassIndex>284</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>175</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11615,7 +11635,7 @@
 		<szBRName>7.62x54R 10 Tracer</szBRName>
 		<szBRDesc>Ranging and shot placement are easy with 10 rounds of 7.62 Russian tracer. Tracer ammo adds a bonus to hit in burst and full-auto modes.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>244</ubClassIndex>
+		<ubClassIndex>250</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>290</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -11655,7 +11675,7 @@
 		<szBRName>.50 Beowulf 7</szBRName>
 		<szBRDesc>7 rounds of the highpowered .50 Beowulf ammo, just the thing for stopping vehicles.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>291</ubClassIndex>
+		<ubClassIndex>297</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>515</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11678,7 +11698,7 @@
 		<szBRName>.50 Beowulf 7 HP</szBRName>
 		<szBRDesc>A clip of 7 Hollow Point rounds, perfect for harassing big pussycats.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>290</ubClassIndex>
+		<ubClassIndex>296</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>516</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11701,7 +11721,7 @@
 		<szBRName>.50 Beowulf 4</szBRName>
 		<szBRDesc>not for sale at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>289</ubClassIndex>
+		<ubClassIndex>295</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>517</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -11723,7 +11743,7 @@
 		<szBRName>.50 Beowulf 4 HP</szBRName>
 		<szBRDesc>not for sale at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>288</ubClassIndex>
+		<ubClassIndex>294</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>518</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -11855,7 +11875,7 @@
 		<szBRName>12.3mm Loader FL</szBRName>
 		<szBRDesc>Open up with a shower of armour piercing metal shards and your opponents will be cut down to size.. Literally.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>270</ubClassIndex>
+		<ubClassIndex>276</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>523</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -11918,7 +11938,7 @@
 		<szBRName>.45 WinMag Mag</szBRName>
 		<szBRDesc>Standard ammo for some of the big-bore pistols.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>285</ubClassIndex>
+		<ubClassIndex>291</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>528</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11938,7 +11958,7 @@
 		<szBRName>.45 WinMag Mag HP</szBRName>
 		<szBRDesc>If you're a hunter, then you'll need this for your sidearm if your prey is not as dead as you believed on first sight...</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>286</ubClassIndex>
+		<ubClassIndex>292</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>529</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11958,7 +11978,7 @@
 		<szBRName>.45 WinMag Mag AP</szBRName>
 		<szBRDesc>Armor piercing ammo for the Wildey pistol and other .45 WinMag pistols.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>287</ubClassIndex>
+		<ubClassIndex>293</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>530</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11978,7 +11998,7 @@
 		<szBRName>.454 C S-Load</szBRName>
 		<szBRDesc>.454 Casull is a round developed for some truly large revolvers.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>282</ubClassIndex>
+		<ubClassIndex>288</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>531</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11998,7 +12018,7 @@
 		<szBRName>.454 C S-Load HP</szBRName>
 		<szBRDesc>.454 Casull Hollow Point ammunition, if you use your revolver for hunting.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>283</ubClassIndex>
+		<ubClassIndex>289</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>532</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12018,7 +12038,7 @@
 		<szBRName>.454 C S-Load AP</szBRName>
 		<szBRDesc>.454 Casull Armor Piercers meet any need for self-defense ammo.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>284</ubClassIndex>
+		<ubClassIndex>290</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>533</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12038,7 +12058,7 @@
 		<szBRName>.454 C Cartridge</szBRName>
 		<szBRDesc>A single .454 Casull cartridge.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>279</ubClassIndex>
+		<ubClassIndex>285</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>534</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -12058,7 +12078,7 @@
 		<szBRName>.454 C Cartridge HP</szBRName>
 		<szBRDesc>.454 Casull Hollow Point ammunition, for hunting game large enough not to be splattered by it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>280</ubClassIndex>
+		<ubClassIndex>286</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>535</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -12078,7 +12098,7 @@
 		<szBRName>.454 C Cartridge AP</szBRName>
 		<szBRDesc>A .454 Casull Armor Piercer, if you want to shock the rangemaster at your next silhouette-training.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>281</ubClassIndex>
+		<ubClassIndex>287</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>536</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -12216,7 +12236,7 @@
 		<szBRName>.50 Action Express Mag HP</szBRName>
 		<szBRDesc>Hollowpoint bullets for your .50 AE handcannon. Probably better used for target-practice, if you shoot anything living with these, there will not be much left of it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>277</ubClassIndex>
+		<ubClassIndex>283</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>557</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12299,7 +12319,7 @@
 		<szBRName>10mm Mag</szBRName>
 		<szBRDesc>Preferred by the FBI, 10mm Auto ammunition in magazines of 8 rounds each.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>256</ubClassIndex>
+		<ubClassIndex>262</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>567</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12319,7 +12339,7 @@
 		<szBRName>10mm Mag HP</szBRName>
 		<szBRDesc>Hollowpoint ammunition in 10mm Auto, for serious self-defense.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>257</ubClassIndex>
+		<ubClassIndex>263</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>568</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12339,7 +12359,7 @@
 		<szBRName>10mm Mag AP</szBRName>
 		<szBRDesc>10mm Auto armor piercing ammo, for law enforcement and military use.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>258</ubClassIndex>
+		<ubClassIndex>264</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>569</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12359,7 +12379,7 @@
 		<szBRName>10mm Mag AET</szBRName>
 		<szBRDesc>If armor piercing ist not good enough, AET will do.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>259</ubClassIndex>
+		<ubClassIndex>265</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>570</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12379,7 +12399,7 @@
 		<szBRName>10mm Mag Glaser</szBRName>
 		<szBRDesc>Glaser ammo in the much underestimated 10mm Auto caliber.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>260</ubClassIndex>
+		<ubClassIndex>266</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>571</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12399,7 +12419,7 @@
 		<szBRName>10mm Mag Match</szBRName>
 		<szBRDesc>This 10mm Auto match ammunition is intended for the serious gun enthusiast.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>261</ubClassIndex>
+		<ubClassIndex>267</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>572</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -14698,7 +14718,7 @@
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
+		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>800</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
@@ -14717,7 +14737,6 @@
 		<ubGraphicNum>106</ubGraphicNum>
 		<ubWeight>35</ubWeight>
 		<usPrice>2080</usPrice>
-		<ubCoolness>4</ubCoolness>
 		<bRepairEase>-3</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -18023,9 +18042,13 @@
 		<szBRDesc>Prototype of a new generation of assault rifles, the Steyr ACR fires fin stabilized darts. This is the future weapon of choice.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>789</ubClassIndex>
+		<ubCursor>3</ubCursor>
 		<ubGraphicNum>301</ubGraphicNum>
 		<ubWeight>32</ubWeight>
-		<usPrice>1</usPrice>
+		<usPrice>4870</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<bReliability>1</bReliability>
+		<bRepairEase>-3</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -18036,62 +18059,151 @@
 		<SciFi>1</SciFi>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_ROF>1200</BR_ROF>
-		<DefaultAttachment>1029</DefaultAttachment>
+		<DefaultAttachment>1030</DefaultAttachment>
 	</ITEM>
 	<ITEM>
 		<uiIndex>790</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 790</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>SCAR-WP CQC</szItemName>
+		<szLongItemName>FN SCAR-WP CQC</szLongItemName>
+		<szItemDesc>The SCAR is FN's newest offering into the military armament scene. The "WP" refers to this version firing the 7.62mm WP round. CQC denotes the shortest version for fighting in dense terrain.</szItemDesc>
+		<szBRName>FN SCAR-WP CQC</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>790</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>584</ubGraphicNum>
+		<ubWeight>31</ubWeight>
+		<usPrice>4430</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<bReliability>2</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
+		<BR_ROF>600</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>791</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 791</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>SCAR-WP SV</szItemName>
+		<szLongItemName>FN SCAR-WP SV</szLongItemName>
+		<szItemDesc>The SCAR is FN's newest offering into the military armament scene. The "WP" refers to this version firing the 7.62mm WP round. This is the sniper variant.</szItemDesc>
+		<szBRName>FN SCAR-WP SV</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>791</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>585</ubGraphicNum>
+		<ubWeight>35</ubWeight>
+		<usPrice>4430</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<bReliability>2</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
+		<BR_ROF>600</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>792</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 792</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>SCAR-68 CQC</szItemName>
+		<szLongItemName>FN SCAR-68 CQC</szLongItemName>
+		<szItemDesc>This CQC version of the SCAR-L has been converted to fire the 6.8mm SPC round.</szItemDesc>
+		<szBRName>FN SCAR-68 CQC</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>792</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>586</ubGraphicNum>
+		<ubWeight>31</ubWeight>
+		<usPrice>4230</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<bReliability>2</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
+		<BR_ROF>600</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>793</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 793</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>SCAR-68 SV</szItemName>
+		<szLongItemName>FN SCAR-68 SV</szLongItemName>
+		<szItemDesc>This sniper variant of the SCAR-L has been converted for the new 6.8x43mm SPC round.</szItemDesc>
+		<szBRName>FN SCAR-68 SV</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>793</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>587</ubGraphicNum>
+		<ubWeight>34</ubWeight>
+		<usPrice>4230</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<bReliability>2</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
+		<BR_ROF>600</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>794</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 794</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>MP5/40A3</szItemName>
+		<szLongItemName>HK MP5/40A3</szLongItemName>
+		<szItemDesc>Yet another version of the H&amp;K MP5, chambered in .40 S&amp;W.</szItemDesc>
+		<szBRName>HK MP5/40A3</szBRName>
+		<szBRDesc>The more popular of the new caliber MP5's, this is the .40 S&amp;W version</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>794</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>303</ubGraphicNum>
+		<ubWeight>29</ubWeight>
+		<usPrice>1410</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>800</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>795</uiIndex>
@@ -22649,10 +22761,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1012</uiIndex>
-		<szItemName>Large Silencer</szItemName>
-		<szLongItemName>Large Caliber Silencer</szLongItemName>
+		<szItemName>Rifle Supp.</szItemName>
+		<szLongItemName>Rifle Suppressor</szLongItemName>
 		<szItemDesc>A large sound suppressor that can be fitted to most carbines and assault rifles.  While it will reduce the muzzle noise and flash, it's still far from silent.</szItemDesc>
-		<szBRName>Large Caliber Silencer</szBRName>
+		<szBRName>Rifle Suppressor</szBRName>
 		<szBRDesc>A large sound suppressor that can be fitted to most carbines and assault rifles.  Caution: This item is not 100 percent effective on its own.  Use it in conjunction with cold-loaded or subsonic ammunition to achieve a greatly reduced muzzle volume.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
@@ -23134,5 +23246,469 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1035</uiIndex>
+		<szItemName>CK 68 CQC</szItemName>
+		<szLongItemName>SCAR-68 Conversion Kit</szLongItemName>
+		<szItemDesc>This kit contains the necessary parts to convert your SCAR-L to the 6.8mm SPC caliber.</szItemDesc>
+		<szBRName>SCAR-68 Conversion Kit</szBRName>
+		<szBRDesc>If you need to convert your SCAR-L to the new 6.8x43mm SPC caliber, here are the necessary parts: A new CQC-barrel, bolt, and triggergroup with magazine well.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>588</ubGraphicNum>
+		<ubWeight>12</ubWeight>
+		<usPrice>1800</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>1</BR_NewInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1036</uiIndex>
+		<szItemName>CK 68 SV</szItemName>
+		<szLongItemName>SCAR-68 Conversion Kit SV</szLongItemName>
+		<szItemDesc>This kit contains the necessary parts to convert your SCAR-L to the 6.8mm SPC caliber sniper variant.</szItemDesc>
+		<szBRName>SCAR-68 Conversion Kit SV</szBRName>
+		<szBRDesc>If you need to convert your SCAR-L to the new 6.8x43mm SPC caliber, here are the necessary parts: A new SV-barrel, bolt, and triggergroup with magazine well.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>589</ubGraphicNum>
+		<ubWeight>15</ubWeight>
+		<usPrice>2100</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>1</BR_NewInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1037</uiIndex>
+		<szItemName>CK L CQC</szItemName>
+		<szLongItemName>SCAR-L Conversion Kit</szLongItemName>
+		<szItemDesc>The leftover parts after you converted your SCAR-L to another caliber. Of course, with these you can change the gun back again.</szItemDesc>
+		<szBRName>SCAR-L Conversion Kit</szBRName>
+		<szBRDesc>Not for sale through BR</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>590</ubGraphicNum>
+		<ubWeight>12</ubWeight>
+		<usPrice>1800</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1038</uiIndex>
+		<szItemName>CK L SV</szItemName>
+		<szLongItemName>SCAR-L Conversion Kit SV</szLongItemName>
+		<szItemDesc>The leftover parts after you converted your SCAR-L to another caliber. Of course, with these you can change the gun back again.</szItemDesc>
+		<szBRName>SCAR-L Conversion Kit SV</szBRName>
+		<szBRDesc>Not for sale through BR</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>591</ubGraphicNum>
+		<ubWeight>15</ubWeight>
+		<usPrice>2100</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1039</uiIndex>
+		<szItemName>CQC 6.8 Barrel</szItemName>
+		<szLongItemName>SCAR-68 CQC Barrel</szLongItemName>
+		<szItemDesc>A short barrel to change the SCAR-68 into the CQC version.</szItemDesc>
+		<szBRName>SCAR-68 CQC Barrel</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>574</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<usPrice>600</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1040</uiIndex>
+		<szItemName>SV 6.8 Barrel</szItemName>
+		<szLongItemName>SCAR-68 SV Barrel</szLongItemName>
+		<szItemDesc>A long barrel to change the SCAR-68 into the SV version.</szItemDesc>
+		<szBRName>SCAR-68 SV Barrel</szBRName>
+		<szBRDesc>This long barrel changes your SCAR-68 into the sniper variant.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>575</ubGraphicNum>
+		<ubWeight>9</ubWeight>
+		<usPrice>900</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>1</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1041</uiIndex>
+		<szItemName>CK WP CQC</szItemName>
+		<szLongItemName>SCAR-WP Conversion Kit</szLongItemName>
+		<szItemDesc>This kit contains the necessary parts to convert your SCAR-H to the 7.62x39mm caliber.</szItemDesc>
+		<szBRName>SCAR-WP Conversion Kit</szBRName>
+		<szBRDesc>If you need to convert your SCAR-H to the Russian 7.92x39mm caliber, here are the necessary parts: A new CQC-barrel, bolt, and triggergroup with magazine well.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>588</ubGraphicNum>
+		<ubWeight>12</ubWeight>
+		<usPrice>1800</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>1</BR_NewInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1042</uiIndex>
+		<szItemName>CK WP SV</szItemName>
+		<szLongItemName>SCAR-WP Conversion Kit SV</szLongItemName>
+		<szItemDesc>This kit contains the necessary parts to convert your SCAR-H to the 7.62x39mm caliber long-barreled variant.</szItemDesc>
+		<szBRName>SCAR-WP Conversion Kit SV</szBRName>
+		<szBRDesc>If you need to convert your SCAR-H to the Russian 7.62x39mm caliber, here are the necessary parts: A new SV-barrel, bolt, and triggergroup with magazine well.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>589</ubGraphicNum>
+		<ubWeight>15</ubWeight>
+		<usPrice>2100</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>1</BR_NewInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1043</uiIndex>
+		<szItemName>CK H CQC</szItemName>
+		<szLongItemName>SCAR-H Conversion Kit</szLongItemName>
+		<szItemDesc>The leftover parts after you converted your SCAR-H to another caliber. Of course, with these you can change the gun back again.</szItemDesc>
+		<szBRName>SCAR-H Conversion Kit</szBRName>
+		<szBRDesc>Not for sale through BR</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>590</ubGraphicNum>
+		<ubWeight>12</ubWeight>
+		<usPrice>1800</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1044</uiIndex>
+		<szItemName>CK H SV</szItemName>
+		<szLongItemName>SCAR-H Conversion Kit SV</szLongItemName>
+		<szItemDesc>The leftover parts after you converted your SCAR-H to another caliber. Of course, with these you can change the gun back again.</szItemDesc>
+		<szBRName>SCAR-H Conversion Kit SV</szBRName>
+		<szBRDesc>Not for sale through BR</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>591</ubGraphicNum>
+		<ubWeight>15</ubWeight>
+		<usPrice>2100</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1045</uiIndex>
+		<szItemName>CQC WP Barrel</szItemName>
+		<szLongItemName>SCAR-WP CQC Barrel</szLongItemName>
+		<szItemDesc>A short barrel to change the SCAR-WP into the CQC version.</szItemDesc>
+		<szBRName>SCAR-WP CQC Barrel</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>574</ubGraphicNum>
+		<ubWeight>6</ubWeight>
+		<usPrice>600</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1046</uiIndex>
+		<szItemName>SV WP Barrel</szItemName>
+		<szLongItemName>SCAR-WP SV Barrel</szLongItemName>
+		<szItemDesc>A long barrel to change the SCAR-WP into the SV version.</szItemDesc>
+		<szBRName>SCAR-WP SV Barrel</szBRName>
+		<szBRDesc>This long barrel changes your SCAR-WP into the sniper variant.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>575</ubGraphicNum>
+		<ubWeight>9</ubWeight>
+		<usPrice>900</usPrice>
+		<ubCoolness>9</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>1</BR_NewInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1047</uiIndex>
+		<szItemName>.40 SMG Mag</szItemName>
+		<szLongItemName>.40 S&amp;W SMG Mag</szLongItemName>
+		<szItemDesc>.40 S&amp;W emerged in the late 1990s as "middle of the road" round with more stopping power than the 9mm and more penetration than the .45ACP.</szItemDesc>
+		<szBRName>.40 S&amp;W SMG Mag</szBRName>
+		<szBRDesc>.40 S&amp;W is a popular ammunition among many law enforcement officers.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>241</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>601</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<usPrice>30</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>5</BR_NewInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1048</uiIndex>
+		<szItemName>.40 SMG Mag HP</szItemName>
+		<szLongItemName>.40 S&amp;W SMG Mag, HP</szLongItemName>
+		<szItemDesc>This hollow point ammo gives increased punch to the the .40 S&amp;W's already significant stopping power.</szItemDesc>
+		<szBRName>.40 S&amp;W SMG Mag, HP</szBRName>
+		<szBRDesc>The expansion power of HP adds substance to this powerful pistol ammunition.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>242</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>602</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<usPrice>60</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>4</BR_NewInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1049</uiIndex>
+		<szItemName>.40 SMG Mag AP</szItemName>
+		<szLongItemName>.40 S&amp;W SMG Mag, AP</szLongItemName>
+		<szItemDesc>30 rounds of .40 S&amp;W armor-piercing ammo.</szItemDesc>
+		<szBRName>.40 S&amp;W SMG Mag, AP</szBRName>
+		<szBRDesc>Punch holes in the competition with these handy AP rounds.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>243</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>603</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<usPrice>90</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1050</uiIndex>
+		<szItemName>.40 SMG Mag AET</szItemName>
+		<szLongItemName>.40 S&amp;W SMG Mag, AET</szLongItemName>
+		<szItemDesc>A fruitful marriage of penerating power and game-stopping expansion in .40 caliber.</szItemDesc>
+		<szBRName>.40 S&amp;W SMG Mag, AET</szBRName>
+		<szBRDesc>Armored targets will go down and stay down when you tag them with this potent AET round.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>244</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>606</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<usPrice>230</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bReliability>-3</bReliability>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1051</uiIndex>
+		<szItemName>.40 SMG Mag G</szItemName>
+		<szLongItemName>.40 S&amp;W SMG Mag, Glaser</szLongItemName>
+		<szItemDesc>If 30 rounds of Glaser Safety ammo fail to make your point, the conversation wasn't worth having to begin with.</szItemDesc>
+		<szBRName>.40 S&amp;W SMG Mag, Glaser</szBRName>
+		<szBRDesc>Thirty rounds of frangible fun. All of the man-stopping power, none of the over-penetration.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>245</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>604</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<usPrice>200</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1052</uiIndex>
+		<szItemName>.40 SMG Mag M</szItemName>
+		<szLongItemName>.40 S&amp;W SMG Mag, Match</szLongItemName>
+		<szItemDesc>30 rounds of match grade .40 S&amp;W; added range with the same mild recoil.</szItemDesc>
+		<szBRName>.40 S&amp;W SMG Mag, Match</szBRName>
+		<szBRDesc>Competitive shooting or life and death struggle, match ammo extends your reach.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>246</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>605</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<usPrice>170</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<RangeBonus>70</RangeBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1053</uiIndex>
+		<szItemName>Shuriken</szItemName>
+		<szLongItemName>Shuriken</szLongItemName>
+		<szItemDesc>The most renowned silent, fast projectile weapon of Ninpo Taijutsu.</szItemDesc>
+		<szBRName>Shuriken</szBRName>
+		<szBRDesc>Silent, swift, and effective with razor-sharp edges.</szBRDesc>
+		<usItemClass>8</usItemClass>
+		<ubClassIndex>1053</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>609</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>6</ubPerPocket>
+		<usPrice>75</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bReliability>-1</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>0</BR_ROF>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1054</uiIndex>
+		<szItemName>Nunchaku</szItemName>
+		<szLongItemName>Nunchaku</szLongItemName>
+		<szItemDesc>In the right hands this is one of the most dangerous and compact weapons in martial arts.</szItemDesc>
+		<szBRName>Nunchaku</szBRName>
+		<szBRDesc>This is one of the favoured weapons of Ninpo Taijutsu.</szBRDesc>
+		<usItemClass>128</usItemClass>
+		<ubClassIndex>1054</ubClassIndex>
+		<ubCursor>2</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>608</ubGraphicNum>
+		<ubWeight>10</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<usPrice>120</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bReliability>1</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>0</BR_ROF>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1055</uiIndex>
+		<szItemName>Katana</szItemName>
+		<szLongItemName>Katana</szLongItemName>
+		<szItemDesc>This is the pride of the samurai.</szItemDesc>
+		<szBRName>Katana</szBRName>
+		<szBRDesc>This is a rare Japanese masterpiece, decorated with dragons. It can chop through bamboo like a hot knife through butter!</szBRDesc>
+		<usItemClass>4</usItemClass>
+		<ubClassIndex>1055</ubClassIndex>
+		<ubCursor>4</ubCursor>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>607</ubGraphicNum>
+		<ubWeight>20</ubWeight>
+		<usPrice>2000</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bReliability>1</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>0</BR_ROF>
 	</ITEM>
 </ITEMLIST>
