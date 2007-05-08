@@ -4353,6 +4353,8 @@ bCanAttack = FALSE;
 				
 				
 				pSoldier->bDoAutofire--;
+				if (pSoldier->bDoAutofire > 0)
+				{
 				ubBurstAPs = CalcAPsToAutofire( CalcActionPoints( pSoldier ), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier->bDoAutofire );
 
 				if (pSoldier->bActionPoints - (BestAttack.ubAPCost - BestAttack.ubAimTime) >= ubBurstAPs )
@@ -4402,8 +4404,14 @@ bCanAttack = FALSE;
 						BestAttack.ubAPCost = BestAttack.ubAPCost - BestAttack.ubAimTime + CalcAPsToAutofire( CalcActionPoints( pSoldier ), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier->bDoAutofire );
 					}
 				}
-				
-				pSoldier->bDoAutofire = 0;
+				}
+				else
+				{
+					pSoldier->bAimTime			= 0;
+					pSoldier->bDoBurst			= 0;
+					pSoldier->bDoAutofire		= 0;
+					// not enough aps - do somthing else
+				}
 			}
 
 			//////////////////////////////////////////////////////////////////////////
