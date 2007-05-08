@@ -186,13 +186,14 @@ CHAR8	zNoBloodCorpseFilenames[ NUM_CORPSES ][70] =
 
 UINT8		gb4DirectionsFrom8[8] =
 {
-	7,		// NORTH
+//	7,		// NORTH
+	0,
 	0,		// NE
-	0,		// E
+	1,		// E
 	0,		// SE
-	1,		// S
+	2,		// S
 	0,		// SW,
-	2,		// W,
+	3,		// W,
 	0			// NW
 };
 
@@ -419,10 +420,10 @@ UINT16 GetCorpseStructIndex( ROTTING_CORPSE_DEFINITION *pCorpseDef, BOOLEAN fFor
 			// OK , these have 4 directions....
 			bDirection = gb4DirectionsFrom8[ pCorpseDef->bDirection ];
 
-      if ( fForImage )
-      {
-			  bDirection = gOneCDirection[ bDirection ];
-      }
+//      if ( fForImage )
+//      {
+//			  bDirection = gOneCDirection[ bDirection ];
+//      }
 			break;
 
 		default:

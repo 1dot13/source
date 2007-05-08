@@ -1224,10 +1224,10 @@ void ExplosiveDamageGridNo( INT16 sGridNo, INT16 sWoundAmt, UINT32 uiDist, BOOLE
 			sBaseGridNo = pBaseStructure->sGridNo;
 			ubNumberOfTiles = pBaseStructure->pDBStructureRef->pDBStructure->ubNumberOfTiles;
 			fMultiStructure = ( ( pBaseStructure->fFlags & STRUCTURE_MULTI ) != 0 );
-			ppTile = (DB_STRUCTURE_TILE **) MemAlloc( sizeof( DB_STRUCTURE_TILE ) * ubNumberOfTiles );
+			ppTile = (DB_STRUCTURE_TILE **) MemAlloc( sizeof( DB_STRUCTURE_TILE* ) * ubNumberOfTiles );
 
 			// Lesh: CTD was in next line once
-			memcpy( ppTile, pBaseStructure->pDBStructureRef->ppTile, sizeof( DB_STRUCTURE_TILE ) * ubNumberOfTiles );
+			memcpy( ppTile, pBaseStructure->pDBStructureRef->ppTile, sizeof( DB_STRUCTURE_TILE* ) * ubNumberOfTiles );
 
 			if ( bMultiStructSpecialFlag == -1 )
 			{

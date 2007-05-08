@@ -1579,7 +1579,7 @@ void ExecuteCopyCommand()
 			ubEnd = gubStartHilite;
 		}
 		ubCount = (UINT8)(ubEnd - ubStart);
-		szClipboard = (UINT16*)MemAlloc( ( ubCount + 1 ) * 2 );
+		szClipboard = (UINT16*)MemAlloc( ( ubCount + 1 ) * sizeof(CHAR16) );
 		Assert( szClipboard );
 		for( ubCount = ubStart; ubCount < ubEnd; ubCount++ )
 		{

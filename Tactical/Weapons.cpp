@@ -1512,7 +1512,7 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 	UINT16							usItemNum;
 	BOOLEAN							fBuckshot;
 	UINT8								ubVolume;
-	INT8								zBurstString[50];
+	INT8								zBurstString[512];
 	UINT8								ubDirection;
 	INT16								sNewGridNo;
 	UINT8								ubMerc;

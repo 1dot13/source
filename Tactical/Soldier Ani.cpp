@@ -2485,7 +2485,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
           // ATE: Here, reduce again if creaturequeen tentical attack...
           if ( pSoldier->usAnimState == QUEEN_SWIPE )
           {
-					  DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Reducing attacker busy count for end of queen swipe" ) );
+					  DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Reducing attacker busy count for end of queen swipe\n" ) );
 					  ReduceAttackBusyCount( (UINT8) pSoldier->ubID, FALSE );
           }
 					break;

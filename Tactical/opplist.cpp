@@ -1561,7 +1561,7 @@ void HandleManNoLongerSeen( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent, INT
 {
 	// if neither side is neutral AND
 	// if this soldier is an opponent (fights for different side)
-	if (!CONSIDERED_NEUTRAL( pOpponent, pSoldier ) && !CONSIDERED_NEUTRAL( pSoldier, pOpponent ) && (pSoldier->bSide != pOpponent->bSide))
+	if (pSoldier->bActive && pOpponent->bActive && !CONSIDERED_NEUTRAL( pOpponent, pSoldier ) && !CONSIDERED_NEUTRAL( pSoldier, pOpponent ) && (pSoldier->bSide != pOpponent->bSide))
 	{
 		RemoveOneOpponent(pSoldier);
 	}
