@@ -12322,11 +12322,10 @@ void HandleNewDestConfirmation( INT16 sMapX, INT16 sMapY )
 		// tell player the route was CONFIRMED
 		// NOTE: We don't this this for the helicopter any more, since it clashes with Skyrider's own confirmation msg
 		MapScreenMessage( FONT_MCOLOR_LTYELLOW, MSG_MAP_UI_POSITION_MIDDLE, pMapPlotStrings[ 1 ] );
+
+		// wake up anybody who needs to be awake to travel
+		WakeUpAnySleepingSelectedMercsOnFootOrDriving();
 	}
-
-
-	// wake up anybody who needs to be awake to travel
-	WakeUpAnySleepingSelectedMercsOnFootOrDriving();
 }
 
 

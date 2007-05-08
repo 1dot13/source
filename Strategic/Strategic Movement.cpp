@@ -2638,12 +2638,19 @@ void RemovePGroup( GROUP *pGroup )
 	
 	uniqueIDMask[ index ] -= mask;
 
+	if (gpBattleGroup == pGroup) {
+		gpBattleGroup = NULL;
+	}
+	
 	MemFree( pGroup );
 	pGroup = NULL;
 }
 
 void RemoveAllGroups()
 {
+    // Since we are removing all groups, clear the gpBattleGroup
+	gpBattleGroup = NULL;
+
 	gfRemovingAllGroups = TRUE;
 	while( gpGroupList )
 	{
@@ -3253,14 +3260,14 @@ BOOLEAN PlayersBetweenTheseSectors( INT16 sSource, INT16 sDest, INT32 *iCountEnt
 
 	if( gpBattleGroup )
 	{
-		Assert( gfPreBattleInterfaceActive );
+//		Assert( gfPreBattleInterfaceActive );
 		sBattleSector = (INT16)SECTOR( gpBattleGroup->ubSectorX, gpBattleGroup->ubSectorY );
 	}
 
 	// debug only
 	if ( gfDisplayPotentialRetreatPaths == TRUE )
 	{
-		Assert( gfPreBattleInterfaceActive );
+//		Assert( gfPreBattleInterfaceActive );
 	}
 
 
