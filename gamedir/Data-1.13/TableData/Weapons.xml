@@ -8497,8 +8497,8 @@
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
-		<sSound>439</sSound>
-		<sBurstSound>82</sBurstSound>
+		<sSound>145</sSound>
+		<sBurstSound>8</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>102</sReloadSound>
 		<sLocknLoadSound>108</sLocknLoadSound>

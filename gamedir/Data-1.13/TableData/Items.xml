@@ -23382,7 +23382,7 @@
 		<szLongItemName>SCAR-WP Conversion Kit</szLongItemName>
 		<szItemDesc>This kit contains the necessary parts to convert your SCAR-H to the 7.62x39mm caliber.</szItemDesc>
 		<szBRName>SCAR-WP Conversion Kit</szBRName>
-		<szBRDesc>If you need to convert your SCAR-H to the Russian 7.92x39mm caliber, here are the necessary parts: A new CQC-barrel, bolt, and triggergroup with magazine well.</szBRDesc>
+		<szBRDesc>If you need to convert your SCAR-H to the Russian 7.62x39mm caliber, here are the necessary parts: A new CQC-barrel, bolt, and triggergroup with magazine well.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>588</ubGraphicNum>
@@ -23652,7 +23652,6 @@
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<BR_ROF>0</BR_ROF>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1054</uiIndex>
@@ -23681,7 +23680,6 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<BR_ROF>0</BR_ROF>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1055</uiIndex>
@@ -23709,6 +23707,5 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<BR_ROF>0</BR_ROF>
 	</ITEM>
 </ITEMLIST>
