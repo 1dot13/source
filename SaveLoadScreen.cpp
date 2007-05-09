@@ -175,7 +175,7 @@ UINT32		guiBackGroundAddOns;
 
 
 // The string that will contain the game desc text
-wchar_t		gzGameDescTextField[ SIZE_OF_SAVE_GAME_DESC ] = {0} ; 
+CHAR16		gzGameDescTextField[ SIZE_OF_SAVE_GAME_DESC ] = {0} ; 
 
 
 BOOLEAN		gfUserInTextInputMode = FALSE;
@@ -1114,7 +1114,7 @@ void SaveLoadGameNumber( INT8 bSaveGameID )
 }
 
 
-BOOLEAN DoSaveLoadMessageBoxWithRect( UINT8 ubStyle, wchar_t *zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
+BOOLEAN DoSaveLoadMessageBoxWithRect( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
 {
 	// do message box and return
   giSaveLoadMessageBox = DoMessageBox(  ubStyle,  zString,  uiExitScreen, ( UINT8 ) ( usFlags| MSG_BOX_FLAG_USE_CENTERING_RECT ),  ReturnCallback,  pCenteringRect );
@@ -1123,8 +1123,7 @@ BOOLEAN DoSaveLoadMessageBoxWithRect( UINT8 ubStyle, wchar_t *zString, UINT32 ui
 	return( ( giSaveLoadMessageBox != -1 ) );
 }
 
-template <typename string2>
-BOOLEAN	DoSaveLoadMessageBox( UINT8 ubStyle, string2 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+BOOLEAN	DoSaveLoadMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
   SGPRect CenteringRect= {0, 0, SCREEN_WIDTH-1, SCREEN_HEIGHT-1 };
   
@@ -2051,7 +2050,7 @@ void DeleteSaveGameNumber( UINT8 ubSaveGameSlotID )
 
 void DisplayOnScreenNumber( BOOLEAN fErase )
 {
-	wchar_t		zTempString[16];
+	CHAR16		zTempString[16];
 	UINT16		usPosX = 6;
 	UINT16		usPosY;
 	INT8			bLoopNum;

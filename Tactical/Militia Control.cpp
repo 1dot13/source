@@ -233,7 +233,7 @@ void HandleMilitiaPromotions( void )
 	{
     // ATE: Problems here with bringing up message box...
 
-		// wchar_t str[ 512 ];
+		// CHAR16 str[ 512 ];
 		// BuildMilitiaPromotionsString( str );
 		// DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 	}

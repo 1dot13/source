@@ -31,14 +31,14 @@ int giClipXMax=0;
 int giClipYMin=0;
 int giClipYMax=0;
 
-void DrawHorizontalRun(char **ScreenPtr, int XAdvance, int RunLength,
+void DrawHorizontalRun(UINT8 **ScreenPtr, int XAdvance, int RunLength,
                        int Color, int ScreenWidth);
-void DrawVerticalRun(char **ScreenPtr, int XAdvance, int RunLength,
+void DrawVerticalRun(UINT8 **ScreenPtr, int XAdvance, int RunLength,
                        int Color, int ScreenWidth);
 
-void DrawHorizontalRun8(char **ScreenPtr, int XAdvance,
+void DrawHorizontalRun8(UINT8 **ScreenPtr, int XAdvance,
    int RunLength, int Color, int ScreenWidth);
-void DrawVerticalRun8(char **ScreenPtr, int XAdvance,
+void DrawVerticalRun8(UINT8 **ScreenPtr, int XAdvance,
    int RunLength, int Color, int ScreenWidth);
 
 
@@ -147,14 +147,7 @@ BOOL Clip2D( int *ix0, int *iy0, int *ix1, int *iy1 )
 	return( visible );
 }
 
-// (jonathanl) to save me having to cast all the previous code
 void LineDraw( BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, short Color, UINT8 *ScreenPtr)
-{
-	LineDraw( fClip,  XStart,  YStart,  XEnd,  YEnd,  Color, (char *)ScreenPtr);
-}
-
-/* Draws a line between the specified endpoints in color Color. */
-void LineDraw( BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, short Color, char *ScreenPtr)
 {
 	int Temp, AdjUp, AdjDown, ErrorTerm, XAdvance, XDelta, YDelta;
 	int WholeStep, InitialPixelCount, FinalPixelCount, i, RunLength;
@@ -357,7 +350,7 @@ void LineDraw( BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, short Col
 }
 
 //Draws a pixel in the specified color
-void PixelDraw( BOOLEAN fClip, INT32 xp, INT32 yp, INT16 sColor, INT8 *pScreen )
+void PixelDraw( BOOLEAN fClip, INT32 xp, INT32 yp, INT16 sColor, UINT8 *pScreen )
 {
 	INT8 col2 = sColor >> 8;
 	INT8 col1 = sColor & 0x00ff;
@@ -377,13 +370,13 @@ void PixelDraw( BOOLEAN fClip, INT32 xp, INT32 yp, INT16 sColor, INT8 *pScreen )
 
 /* Draws a horizontal run of pixels, then advances the bitmap pointer to
    the first pixel of the next run. */
-void DrawHorizontalRun(char **ScreenPtr, int XAdvance,
+void DrawHorizontalRun(UINT8 **ScreenPtr, int XAdvance,
    int RunLength, int Color, int ScreenWidth)
 {
 	int i;
-	char *WorkingScreenPtr = *ScreenPtr;
-	char col2 = Color>>8;
-	char col1 = Color & 0x00FF;
+	UINT8 *WorkingScreenPtr = *ScreenPtr;
+	UINT8 col2 = Color>>8;
+	UINT8 col1 = Color & 0x00FF;
 
 	for (i=0; i<RunLength; i++)
 	{
@@ -398,13 +391,13 @@ void DrawHorizontalRun(char **ScreenPtr, int XAdvance,
 
 /* Draws a vertical run of pixels, then advances the bitmap pointer to
    the first pixel of the next run. */
-void DrawVerticalRun(char **ScreenPtr, int XAdvance,
+void DrawVerticalRun(UINT8 **ScreenPtr, int XAdvance,
    int RunLength, int Color, int ScreenWidth)
 {
 	int i;
-	char *WorkingScreenPtr = *ScreenPtr;
-	char col2 = Color>>8;
-	char col1 = Color & 0x00FF;
+	UINT8 *WorkingScreenPtr = *ScreenPtr;
+	UINT8 col2 = Color>>8;
+	UINT8 col1 = Color & 0x00FF;
 
 	for (i=0; i<RunLength; i++)
 	{
@@ -419,9 +412,7 @@ void DrawVerticalRun(char **ScreenPtr, int XAdvance,
 
 
 /* Draws a rectangle between the specified endpoints in color Color. */
-template void RectangleDraw<unsigned char *>(BOOL, int, int, int, int, short, unsigned char *);
-template <typename string7>
-void RectangleDraw( BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, short Color, string7 ScreenPtr)
+void RectangleDraw( BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, short Color, UINT8 *ScreenPtr)
 {
   LineDraw( fClip, XStart, YStart, XEnd,   YStart, Color, ScreenPtr);
   LineDraw( fClip, XStart, YEnd,   XEnd,   YEnd,   Color, ScreenPtr);
@@ -438,24 +429,22 @@ void RectangleDraw( BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, shor
 ***********************************************************************************/
 
 /* Draws a rectangle between the specified endpoints in color Color. */
-template void RectangleDraw8<unsigned char *>(BOOL, int, int ,int ,int, short, unsigned char *);
-template <typename string7>
-void RectangleDraw8( BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, short Color, string7 ScreenPtr)
+void RectangleDraw8( BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, short Color, UINT8 *ScreenPtr)
 {
-  LineDraw8( fClip, XStart, YStart, XEnd,   YStart, Color, (char *)ScreenPtr);
-  LineDraw8( fClip, XStart, YEnd,   XEnd,   YEnd,   Color, (char *)ScreenPtr);
-  LineDraw8( fClip, XStart, YStart, XStart, YEnd,   Color, (char *)ScreenPtr);
-  LineDraw8( fClip, XEnd,   YStart, XEnd,   YEnd,   Color, (char *)ScreenPtr);
+  LineDraw8( fClip, XStart, YStart, XEnd,   YStart, Color, ScreenPtr);
+  LineDraw8( fClip, XStart, YEnd,   XEnd,   YEnd,   Color, ScreenPtr);
+  LineDraw8( fClip, XStart, YStart, XStart, YEnd,   Color, ScreenPtr);
+  LineDraw8( fClip, XEnd,   YStart, XEnd,   YEnd,   Color, ScreenPtr);
 }
 
 /* Draws a line between the specified endpoints in color Color. */
-void LineDraw8( BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, short Color, char *ScreenPtr)
+void LineDraw8( BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, short Color, UINT8 *ScreenPtr)
 {
 	int Temp, AdjUp, AdjDown, ErrorTerm, XAdvance, XDelta, YDelta;
 	int WholeStep, InitialPixelCount, FinalPixelCount, i, RunLength;
 	int ScreenWidth = giImageWidth;
-	char col2 = Color>>8;
-	char col1 = Color & 0x00FF;
+	UINT8 col2 = Color>>8;
+	UINT8 col1 = Color & 0x00FF;
 
 	if ( fClip )
 	{
@@ -651,13 +640,13 @@ void LineDraw8( BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, short Co
 
 /* Draws a horizontal run of pixels, then advances the bitmap pointer to
    the first pixel of the next run. */
-void DrawHorizontalRun8(char **ScreenPtr, int XAdvance,
+void DrawHorizontalRun8(UINT8 **ScreenPtr, int XAdvance,
    int RunLength, int Color, int ScreenWidth)
 {
 	int i;
-	char *WorkingScreenPtr = *ScreenPtr;
-	char col2 = Color>>8;
-	char col1 = Color & 0x00FF;
+	UINT8 *WorkingScreenPtr = *ScreenPtr;
+	UINT8 col2 = Color>>8;
+	UINT8 col1 = Color & 0x00FF;
 
 	for (i=0; i<RunLength; i++)
 	{
@@ -671,13 +660,13 @@ void DrawHorizontalRun8(char **ScreenPtr, int XAdvance,
 
 /* Draws a vertical run of pixels, then advances the bitmap pointer to
    the first pixel of the next run. */
-void DrawVerticalRun8(char **ScreenPtr, int XAdvance,
+void DrawVerticalRun8(UINT8 **ScreenPtr, int XAdvance,
    int RunLength, int Color, int ScreenWidth)
 {
 	int i;
-	char *WorkingScreenPtr = *ScreenPtr;
-	char col2 = Color>>8;
-	char col1 = Color & 0x00FF;
+	UINT8 *WorkingScreenPtr = *ScreenPtr;
+	UINT8 col2 = Color>>8;
+	UINT8 col1 = Color & 0x00FF;
 
 	for (i=0; i<RunLength; i++)
 	{

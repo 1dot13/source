@@ -357,13 +357,13 @@ UINT32									guiTimerLastUpdate = 0;
 UINT32									guiTimerCursorDelay = 0;
 
 
-INT16			gzLocation[ 20 ];
+CHAR16			gzLocation[ 20 ];
 BOOLEAN		gfLocation = FALSE;
 
-INT16			gzIntTileLocation[ 20 ];
+CHAR16			gzIntTileLocation[ 20 ];
 BOOLEAN		gfUIIntTileLocation;
 
-INT16			gzIntTileLocation2[ 20 ];
+CHAR16			gzIntTileLocation2[ 20 ];
 BOOLEAN		gfUIIntTileLocation2;
 
 MOUSE_REGION	gDisableRegion;
@@ -2554,7 +2554,7 @@ UINT32 UIHandleCAMercShoot( UI_EVENT *pUIEvent )
 				// If this is one of our own guys.....pop up requiester...
 				if ( ( pTSoldier->bTeam == gbPlayerNum || pTSoldier->bTeam == MILITIA_TEAM ) && Item[ pSoldier->inv[ HANDPOS ].usItem ].usItemClass != IC_MEDKIT && !Item[pSoldier->inv[ HANDPOS ].usItem].gascan && gTacticalStatus.ubLastRequesterTargetID != pTSoldier->ubProfile && ( pTSoldier->ubID != pSoldier->ubID ) )
 				{
-					wchar_t	zStr[200];
+					CHAR16	zStr[200];
 
 					gpRequesterMerc			  = pSoldier;
 					gpRequesterTargetMerc = pTSoldier;
@@ -2562,7 +2562,7 @@ UINT32 UIHandleCAMercShoot( UI_EVENT *pUIEvent )
 
 					fDidRequester = TRUE;
 
-					swprintf( (wchar_t *)zStr, (wchar_t *)TacticalStr[ ATTACK_OWN_GUY_PROMPT ], pTSoldier->name );
+					swprintf( zStr, TacticalStr[ ATTACK_OWN_GUY_PROMPT ], pTSoldier->name );
 
 					DoMessageBox( MSG_BOX_BASIC_STYLE, zStr, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, AttackRequesterCallback, NULL );
 

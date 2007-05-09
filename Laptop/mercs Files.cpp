@@ -506,7 +506,7 @@ BOOLEAN DisplayMercFace( UINT8 ubMercID)
 
 void LoadAndDisplayMercBio( UINT8 ubMercID )
 {
-	wchar_t	sText[400];
+	CHAR16	sText[400];
 	UINT32	uiStartLoc = 0;
 
 	//load and display the merc bio
@@ -528,7 +528,7 @@ void LoadAndDisplayMercBio( UINT8 ubMercID )
 void DisplayMercsStats( UINT8 ubMercID )
 {
 	UINT16 usPosY, usPosX;
-	wchar_t sString[128];
+	CHAR16 sString[128];
 
 	usPosY = MERC_HEALTH_Y;
 

@@ -3895,7 +3895,7 @@ BOOLEAN HandleCheckForExitArrowsInput( BOOLEAN fAdjustConfirm )
 		}
 		else if( gubLoneMercAttemptingToAbandonEPCs )
 		{
-			wchar_t str[256];
+			CHAR16 str[256];
 			if( gubLoneMercAttemptingToAbandonEPCs == 1 )
 			{ //Use the singular version of the string
 				if( gMercProfiles[ MercPtrs[ gusSelectedSoldier ]->ubProfile ].bSex == MALE )
@@ -4208,7 +4208,7 @@ void RefreshSoldier()
 	}
 
 	if ( GetMouseMapPos( (INT16 *)&usMapPos ) )
-		sprintf( (char *)gDebugStr, "%d %d %d %d %d %d %d %d", gubWorldMovementCosts[ usMapPos ][ 0 ][ 0 ],
+		sprintf( gDebugStr, "%d %d %d %d %d %d %d %d", gubWorldMovementCosts[ usMapPos ][ 0 ][ 0 ],
 			gubWorldMovementCosts[ usMapPos ][ 1 ][gsInterfaceLevel],
 			gubWorldMovementCosts[ usMapPos ][ 2 ][gsInterfaceLevel],
 			gubWorldMovementCosts[ usMapPos ][ 3 ][gsInterfaceLevel],

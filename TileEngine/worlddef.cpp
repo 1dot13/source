@@ -78,10 +78,10 @@
 
 #ifdef JA2EDITOR
 	extern BOOLEAN gfErrorCatch;
-	extern UINT16 gzErrorCatchString[256];
+	extern CHAR16 gzErrorCatchString[256];
 #endif
 
-UINT8 gubFilename[200];
+CHAR8 gubFilename[200];
 
 // TEMP
 BOOLEAN					gfForceLoadPlayers = FALSE;
@@ -119,7 +119,7 @@ BOOLEAN IsRoofVisibleForWireframe( INT16 sMapPos );
 
 INT8 IsHiddenTileMarkerThere( INT16 sGridNo );
 extern void SetInterfaceHeightLevel( );
-extern void GetRootName( INT8 *pDestStr, INT8 *pSrcStr );
+extern void GetRootName( STR8 pDestStr, const STR8 pSrcStr );
 
 
 void SaveMapLights( HWFILE hfile );
@@ -350,7 +350,7 @@ BOOLEAN LoadTileSurfaces( char ppTileSurfaceFilenames[][32], UINT8 ubTilesetID )
 	else
 	{
 	  for (uiLoop = 0; uiLoop < NUMBEROFTILETYPES; uiLoop++)
-			strcpy( TileSurfaceFilenames[uiLoop], ppTileSurfaceFilenames[uiLoop] );//(char *)(ppTileSurfaceFilenames + (65 * uiLoop)) );
+			strcpy( TileSurfaceFilenames[uiLoop], ppTileSurfaceFilenames[uiLoop] );//(ppTileSurfaceFilenames + (65 * uiLoop)) );
 	}
 
 
@@ -430,7 +430,7 @@ BOOLEAN LoadTileSurfaces( char ppTileSurfaceFilenames[][32], UINT8 ubTilesetID )
 					// ATE: If here, don't load default surface if already loaded...
 					if ( !gbDefaultSurfaceUsed[ uiLoop ] )
 					{
-						strcpy( TileSurfaceFilenames[uiLoop], gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[uiLoop] );//(char *)(ppTileSurfaceFilenames + (65 * uiLoop)) );
+						strcpy( TileSurfaceFilenames[uiLoop], gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[uiLoop] );//(ppTileSurfaceFilenames + (65 * uiLoop)) );
 						if (AddTileSurface( gTilesets[ TLS_GENERIC_1 ].TileSurfaceFilenames[uiLoop], uiLoop, TLS_GENERIC_1, FALSE ) == FALSE)
 						{
 							DestroyTileSurfaces(  );
@@ -449,7 +449,7 @@ BOOLEAN LoadTileSurfaces( char ppTileSurfaceFilenames[][32], UINT8 ubTilesetID )
 	return( TRUE );
 }
 
-BOOLEAN AddTileSurface( char * cFilename, UINT32 ubType, UINT8 ubTilesetID, BOOLEAN fGetFromRoot )
+BOOLEAN AddTileSurface( STR8  cFilename, UINT32 ubType, UINT8 ubTilesetID, BOOLEAN fGetFromRoot )
 {
 	// Add tile surface
 	PTILE_IMAGERY  TileSurf;	
@@ -581,7 +581,7 @@ void BuildTileShadeTables(  )
 				{
           fForceRebuildForSlot = FALSE;
 
-      		GetRootName( (INT8 *)cRootFile, (INT8 *)TileSurfaceFilenames[ uiLoop ] );
+      		GetRootName( cRootFile, TileSurfaceFilenames[ uiLoop ] );
 
           if ( strcmp( cRootFile, "grass2" ) == 0 )
           {
@@ -1621,7 +1621,7 @@ void CompileWorldMovementCosts( )
 
 
 // SAVING CODE
-BOOLEAN SaveWorld( UINT8 * puiFilename )
+BOOLEAN SaveWorld( const STR8 puiFilename )
 {
 #ifdef JA2EDITOR
 	INT32			cnt;
@@ -2115,7 +2115,7 @@ BOOLEAN SaveWorld( UINT8 * puiFilename )
 
 	FileClose( hfile );
 
-	sprintf( (char *)gubFilename, (char *)puiFilename );
+	sprintf( gubFilename, puiFilename );
 #endif //JA2EDITOR
 
 	return( TRUE );
@@ -2220,7 +2220,7 @@ void InitLoadedWorld( )
 extern double MasterStart, MasterEnd;
 extern BOOLEAN gfUpdatingNow;
 
-BOOLEAN EvaluateWorld( UINT8 * pSector, UINT8 ubLevel )
+BOOLEAN EvaluateWorld( STR8 pSector, UINT8 ubLevel )
 {
 	FLOAT	dMajorMapVersion;
 	SUMMARYFILE *pSummary;
@@ -2233,20 +2233,20 @@ BOOLEAN EvaluateWorld( UINT8 * pSector, UINT8 ubLevel )
 	INT32 cnt;
 	INT32 i;
 	INT32 iTilesetID;
-	wchar_t str[40];
+	CHAR16 str[40];
 	UINT8	bCounts[ WORLD_MAX ][8];
 	UINT8 ubCombine;
-	UINT8 szDirFilename[ 50 ];
-	UINT8 szFilename[ 40 ];
+	CHAR8 szDirFilename[ 50 ];
+	CHAR8 szFilename[ 40 ];
 	UINT8 ubMinorMapVersion;
 
 
 	//Make sure the file exists... if not, then return false
-	sprintf( (char *)szFilename, (char *)pSector );
+	sprintf( szFilename, pSector );
 	if( ubLevel % 4  )
 	{
-		UINT8 str[4];
-		sprintf( (char *)str, "_b%d", ubLevel % 4 );
+		CHAR8 str[4];
+		sprintf( str, "_b%d", ubLevel % 4 );
 		strcat( szFilename, str );
 	}
 	if( ubLevel >= 4 )
@@ -2254,17 +2254,17 @@ BOOLEAN EvaluateWorld( UINT8 * pSector, UINT8 ubLevel )
 		strcat( szFilename, "_a" );
 	}
 	strcat( szFilename, ".dat" );
-	sprintf( (char *)szDirFilename, "MAPS\\%s", szFilename );
+	sprintf( szDirFilename, "MAPS\\%s", szFilename );
 
 	if( gfMajorUpdate )
 	{
 		if( !LoadWorld( szFilename ) ) //error
 			return FALSE;
-		FileClearAttributes( (STR)szDirFilename );
+		FileClearAttributes( szDirFilename );
 		SaveWorld( szFilename );
 	}
 
-	hfile = FileOpen( (STR)szDirFilename, FILE_ACCESS_READ, FALSE );
+	hfile = FileOpen( szDirFilename, FILE_ACCESS_READ, FALSE );
 	if( !hfile )
 		return FALSE;
 	
@@ -2622,7 +2622,7 @@ BOOLEAN EvaluateWorld( UINT8 * pSector, UINT8 ubLevel )
 extern UINT8 GetCurrentSummaryVersion();
 extern void LoadShadeTablesFromTextFile();
 
-BOOLEAN LoadWorld( UINT8 *	puiFilename )
+BOOLEAN LoadWorld( const STR8	puiFilename )
 {
 	HWFILE					hfile;
 	FLOAT						dMajorMapVersion;
@@ -3164,13 +3164,13 @@ BOOLEAN LoadWorld( UINT8 *	puiFilename )
 
 	// SAVE FILENAME
 	strcpy( gzLastLoadedFile, puiFilename	);
-	LoadRadarScreenBitmap( (CHAR8 *)puiFilename );
+	LoadRadarScreenBitmap( puiFilename );
 
 	RenderProgressBar( 0, 80 );
 	
 	gfWorldLoaded = TRUE;
 
-	sprintf( (char *)gubFilename, (char *)puiFilename );
+	sprintf( gubFilename, puiFilename );
 
 	//Remove this rather large chunk of memory from the system now!
 	MemFree( pBufferHead );
@@ -3399,7 +3399,7 @@ void TrashWorld( void )
 
 	//gfBlitBattleSectorLocator = FALSE;
 	gfWorldLoaded = FALSE;
-	sprintf( (char *)gubFilename, "none" );
+	sprintf( gubFilename, "none" );
 }
 
 
@@ -3966,14 +3966,14 @@ void ReloadTileset( UINT8 ubID )
 	giCurrentTilesetID = ubID;
 
 	// Save Map
-	SaveWorld( (UINT8 *)TEMP_FILE_FOR_TILESET_CHANGE );
+	SaveWorld( TEMP_FILE_FOR_TILESET_CHANGE );
 
 	//IMPORTANT:  If this is not set, the LoadTileset() will assume that
 	//it is loading the same tileset and ignore it...
 	giCurrentTilesetID = iCurrTilesetID;
 
 	// Load Map with new tileset
-	LoadWorld( (UINT8 *)TEMP_FILE_FOR_TILESET_CHANGE );
+	LoadWorld( TEMP_FILE_FOR_TILESET_CHANGE );
 
 	// Delete file
 	sprintf( aFilename, "MAPS\\%s", TEMP_FILE_FOR_TILESET_CHANGE );
@@ -4056,7 +4056,7 @@ void LoadMapLights( INT8 **hBuffer )
 	UINT8 ubNumColors;
 	UINT16 usNumLights;
 	INT32 cnt;
-	INT8	str[30];
+	CHAR8	str[30];
 	UINT8 ubStrLen;
 	LIGHT_SPRITE	TmpLight;
 	INT32 iLSprite;
@@ -4108,7 +4108,7 @@ void LoadMapLights( INT8 **hBuffer )
 		
 		str[ ubStrLen ] = 0;
 		
-		iLSprite = LightSpriteCreate( (STR)str, TmpLight.uiLightType );
+		iLSprite = LightSpriteCreate( str, TmpLight.uiLightType );
 		//if this fails, then we will ignore the light.
 		// ATE: Don't add ANY lights of mapscreen util is on
 		if( iLSprite != -1 && guiCurrentScreen != MAPUTILITY_SCREEN )

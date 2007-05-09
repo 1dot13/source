@@ -103,7 +103,7 @@ BOOLEAN DeleteMutex(UINT32 uiMutexIndex)
   return TRUE;
 }
 
-BOOLEAN EnterMutex(UINT32 uiMutexIndex, INT32 nLine, char *szFilename)
+BOOLEAN EnterMutex(UINT32 uiMutexIndex, INT32 nLine, STR8 szFilename)
 {
   switch (WaitForSingleObject(MutexTable[uiMutexIndex], INFINITE))
   {
@@ -118,7 +118,7 @@ BOOLEAN EnterMutex(UINT32 uiMutexIndex, INT32 nLine, char *szFilename)
   }
 }
 
-BOOLEAN EnterMutexWithTimeout(UINT32 uiMutexIndex, UINT32 uiTimeout, INT32 nLine, char *szFilename)
+BOOLEAN EnterMutexWithTimeout(UINT32 uiMutexIndex, UINT32 uiTimeout, INT32 nLine, STR8 szFilename)
 {
   switch (WaitForSingleObject(MutexTable[uiMutexIndex], uiTimeout))
   {
@@ -132,7 +132,7 @@ BOOLEAN EnterMutexWithTimeout(UINT32 uiMutexIndex, UINT32 uiTimeout, INT32 nLine
   return TRUE;
 }
 
-BOOLEAN LeaveMutex(UINT32 uiMutexIndex, INT32 nLine, char *szFilename)
+BOOLEAN LeaveMutex(UINT32 uiMutexIndex, INT32 nLine, STR8 szFilename)
 {
   if (ReleaseMutex(MutexTable[uiMutexIndex]) == FALSE)
   {
@@ -201,19 +201,19 @@ BOOLEAN DeleteMutex(UINT32 uiMutexIndex)
   return TRUE;
 }
 
-BOOLEAN EnterMutex(UINT32 uiMutexIndex, INT32 nLine, char *szFilename)
+BOOLEAN EnterMutex(UINT32 uiMutexIndex, INT32 nLine, STR8 szFilename)
 {
   EnterCriticalSection(&MutexTable[uiMutexIndex]);
   return TRUE;
 }
 
-BOOLEAN EnterMutexWithTimeout(UINT32 uiMutexIndex, UINT32 uiTimeout, INT32 nLine, char *szFilename)
+BOOLEAN EnterMutexWithTimeout(UINT32 uiMutexIndex, UINT32 uiTimeout, INT32 nLine, STR8 szFilename)
 {
   EnterCriticalSection(&MutexTable[uiMutexIndex]);
   return TRUE;
 }
 
-BOOLEAN LeaveMutex(UINT32 uiMutexIndex, INT32 nLine, char *szFilename)
+BOOLEAN LeaveMutex(UINT32 uiMutexIndex, INT32 nLine, STR8 szFilename)
 {
   LeaveCriticalSection(&MutexTable[uiMutexIndex]);
     

@@ -48,7 +48,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	
 	UINT32			maxArraySize;
 	UINT32			curIndex;	
@@ -58,7 +58,7 @@ struct
 typedef soundParseData;
 
 static void XMLCALL 
-soundStartElementHandle(void *userData, const char *name, const char **atts)
+soundStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	soundParseData * pData = (soundParseData *)userData;
 
@@ -86,7 +86,7 @@ soundStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-soundCharacterDataHandle(void *userData, const char *str, int len)
+soundCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	soundParseData * pData = (soundParseData *)userData;
 
@@ -99,7 +99,7 @@ soundCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-soundEndElementHandle(void *userData, const char *name)
+soundEndElementHandle(void *userData, const XML_Char *name)
 {
 	soundParseData * pData = (soundParseData *)userData;
 
@@ -212,7 +212,7 @@ BOOLEAN WriteSoundArray()
 		{
 			FilePrintf(hFile,"\t<SOUND>");
 
-			char * szRemainder = szSoundEffects[cnt]; //the remaining string to be output (for making valid XML)
+			STR8  szRemainder = szSoundEffects[cnt]; //the remaining string to be output (for making valid XML)
 
 			while(szRemainder[0] != '\0')
 			{

@@ -1149,14 +1149,14 @@ void ActivateSoldierPopup( SOLDIERTYPE *pSoldier, UINT8 ubPopupType, INT16 xp, I
 
 
 
-INT32 DoMapMessageBoxWithRect( UINT8 ubStyle, wchar_t *zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
+INT32 DoMapMessageBoxWithRect( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
 {	// reset the highlighted line
 	giHighLine = -1;
   return DoMessageBox( ubStyle, zString, uiExitScreen, ( UINT16 ) ( usFlags | MSG_BOX_FLAG_USE_CENTERING_RECT ), ReturnCallback, pCenteringRect );
 }
 
 
-INT32 DoMapMessageBox( UINT8 ubStyle,  wchar_t * zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+INT32 DoMapMessageBox( UINT8 ubStyle,  STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
 	// WANNE 2
   SGPRect CenteringRect= {0, 0, SCREEN_WIDTH, INV_INTERFACE_START_Y };
@@ -2821,9 +2821,9 @@ void DisplayUserDefineHelpTextRegions( FASTHELPREGION *pRegion )
 
 
 
-extern void DisplayHelpTokenizedString( STR16 pStringA, INT16 sX, INT16 sY );
-extern INT16 GetNumberOfLinesInHeight( STR16 pStringA );
-extern INT16 GetWidthOfString( STR16 pStringA );
+extern void DisplayHelpTokenizedString( const STR16 pStringA, INT16 sX, INT16 sY );
+extern INT16 GetNumberOfLinesInHeight( const STR16 pStringA );
+extern INT16 GetWidthOfString( const STR16 pStringA );
 
 void DisplaySoldierToolTip( FASTHELPREGION *pRegion )
 {

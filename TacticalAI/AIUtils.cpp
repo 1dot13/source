@@ -493,7 +493,7 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 			if (ptsNeeded > pSoldier->bActionPoints)
 			{
 			/*
-				sprintf((CHAR *)tempstr,"AI ERROR: %s has insufficient points for attack action %d at grid %d",
+				sprintf(tempstr,"AI ERROR: %s has insufficient points for attack action %d at grid %d",
 							pSoldier->name,pSoldier->bAction,pSoldier->usActionData);
 				PopMessage(tempstr);
 				*/
@@ -1587,7 +1587,7 @@ INT16 ClosestReachableFriendInTrouble(SOLDIERTYPE *pSoldier, BOOLEAN * pfClimbin
 		// if we can get there
 		if (sPathCost != 0)
 		{
-			//sprintf((CHAR *)tempstr,"Path cost to friend %s's location is %d",pFriend->name,pathCost);
+			//sprintf(tempstr,"Path cost to friend %s's location is %d",pFriend->name,pathCost);
 			//PopMessage(tempstr);
 
 			if (sPathCost < sShortestPath)
@@ -1911,7 +1911,7 @@ INT8 CalcMorale(SOLDIERTYPE *pSoldier)
 
    sOppThreatValue = (iPercent * CalcManThreatValue(pOpponent,pSoldier->sGridNo,FALSE,pSoldier)) / 100;
 
-   //sprintf((CHAR *)tempstr,"Known opponent %s, opplist status %d, percent %d, threat = %d",
+   //sprintf(tempstr,"Known opponent %s, opplist status %d, percent %d, threat = %d",
    //           ExtMen[pOpponent->ubID].name,ubMostRecentOpplistValue,ubPercent,sOppThreatValue);
    //PopMessage(tempstr);
 
@@ -1967,7 +1967,7 @@ INT8 CalcMorale(SOLDIERTYPE *pSoldier)
 
      sFrndThreatValue = (iPercent * CalcManThreatValue(pFriend,pOpponent->sGridNo,FALSE,pSoldier)) / 100;
 
-     //sprintf((CHAR *)tempstr,"Known by friend %s, opplist status %d, percent %d, threat = %d",
+     //sprintf(tempstr,"Known by friend %s, opplist status %d, percent %d, threat = %d",
      //         ExtMen[pFriend->ubID].name,pFriend->bOppList[pOpponent->ubID],ubPercent,sFrndThreatValue);
      //PopMessage(tempstr);
 
@@ -2087,7 +2087,7 @@ INT8 CalcMorale(SOLDIERTYPE *pSoldier)
 
 #ifdef DEBUGDECISIONS
 		STR tempstr;
-		 sprintf((CHAR *) tempstr, "Morale = %d (category %d)\n",
+		 sprintf( tempstr, "Morale = %d (category %d)\n",
 		pSoldier->bMorale,bMoraleCategory);
 	DebugAI (tempstr);
 #endif
@@ -2210,14 +2210,14 @@ INT32 CalcManThreatValue( SOLDIERTYPE *pEnemy, INT16 sMyGrid, UINT8 ubReduceForC
 		iThreatValue = 1;
 	}
 
-	//sprintf((CHAR *)tempstr,"%s's iThreatValue = ",pEnemy->name);
+	//sprintf(tempstr,"%s's iThreatValue = ",pEnemy->name);
 	//NumMessage(tempstr,iThreatValue);
 
 #ifdef BETAVERSION	// unnecessary for real release
 	// NOTE: maximum is about 200 for a healthy Mike type with a mortar!
 	if (iThreatValue > 250)
 	{
-		sprintf((CHAR *)tempstr,"CalcManThreatValue: WARNING - %d has a very high threat value of %d",pEnemy->ubID,iThreatValue);
+		sprintf(tempstr,"CalcManThreatValue: WARNING - %d has a very high threat value of %d",pEnemy->ubID,iThreatValue);
 
 #ifdef RECORDNET
 		fprintf(NetDebugFile,"\t%s\n",tempstr);
@@ -2289,7 +2289,7 @@ INT16 RoamingRange(SOLDIERTYPE *pSoldier, INT16 * pusFromGridNo)
 													return(MAX_ROAMING_RANGE);
 		default:
 #ifdef BETAVERSION
-			sprintf((CHAR *)tempstr,"%s has invalid orders = %d",pSoldier->name,pSoldier->bOrders);
+			sprintf(tempstr,"%s has invalid orders = %d",pSoldier->name,pSoldier->bOrders);
 			PopMessage(tempstr);
 #endif
 			return(0);
@@ -2517,27 +2517,27 @@ BOOLEAN ArmySeesOpponents( void )
 #ifdef DEBUGDECISIONS
 void AIPopMessage ( STR16 str )
 {
-	DebugAI((STR)str);
+	DebugAI(str);
 }
 
-void AIPopMessage ( const char* str )
+void AIPopMessage ( const STR8  str )
 {
 	STR tempstr;
-	sprintf((CHAR *) tempstr,"%s", str);
+	sprintf( tempstr,"%s", str);
 	DebugAI(tempstr);
 }
 
-void AINumMessage(const char* str, INT32 num)
+void AINumMessage(const STR8  str, INT32 num)
 {
 	STR tempstr;
-	sprintf((CHAR *) tempstr,"%s %d", str, num);
+	sprintf( tempstr,"%s %d", str, num);
 	DebugAI(tempstr);
 }
 
-void AINameMessage(SOLDIERTYPE * pSoldier,const char* str,INT32 num)
+void AINameMessage(SOLDIERTYPE * pSoldier,const STR8  str,INT32 num)
 {
 	STR tempstr;
-	sprintf((CHAR *) tempstr,"%d %s %d",pSoldier->name , str, num);
+	sprintf( tempstr,"%d %s %d",pSoldier->name , str, num);
 	DebugAI( tempstr );
 }
 #endif

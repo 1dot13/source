@@ -161,7 +161,7 @@ extern BOOLEAN gfSurrendered;
 #define         START_DEMO_SCENE                3
 #define   NUM_RANDOM_SCENES   4
 
-INT8 gDebugStr[128];
+CHAR8 gDebugStr[128];
 
 #ifdef NETWORKED
 extern  BYTE                    gfAmIHost;

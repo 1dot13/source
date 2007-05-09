@@ -1654,7 +1654,7 @@ void RenderAutoResolve()
 	INT32 xp, yp;
 	SOLDIERCELL *pCell = NULL;
 	INT32 index = 0;
-	wchar_t str[100];
+	CHAR16 str[100];
 	UINT8 bTownId = 0;
 	UINT8 ubGood, ubBad;
 	
@@ -3293,8 +3293,8 @@ void RenderSoldierCellHealth( SOLDIERCELL *pCell )
 {
 	INT32 cnt, cntStart;
 	INT32 xp, yp;
-	wchar_t *pStr;
-	wchar_t str[20];
+	STR16 pStr;
+	CHAR16 str[20];
 	UINT8	 *pDestBuf, *pSrcBuf;
 	UINT32 uiSrcPitchBYTES, uiDestPitchBYTES;
 	UINT16 usColor;

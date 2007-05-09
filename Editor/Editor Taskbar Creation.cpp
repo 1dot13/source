@@ -48,8 +48,8 @@ void InitEditorItemStatsButtons()
 
 void InitEditorMercsToolbar()
 {
-	INT16 TempString[30];
-	UINT16 *FaceDirs[8] = {L"north",L"northeast",L"east",L"southeast",L"south",L"southwest",L"west",L"northwest"};
+	CHAR16 TempString[30];
+	STR16 FaceDirs[8] = {L"north",L"northeast",L"east",L"southeast",L"south",L"southwest",L"west",L"northwest"};
 	INT32 x;
 
 	iEditorButton[ MERCS_PLAYERTOGGLE ] = 
@@ -256,8 +256,8 @@ void InitEditorMercsToolbar()
 		iScreenWidthOffset + 360, 2 * iScreenHeightOffset + 395, 30, 30, BUTTON_TOGGLE, MSYS_PRIORITY_NORMAL + 1, DEFAULT_MOVE_CALLBACK, MercsDirectionSetCallback );
 	for ( x = 0; x < 8; x++ )
 	{ 
-		swprintf( (wchar_t *)TempString, (wchar_t *)L"Set merc to face %s", FaceDirs[x] );
-		SetButtonFastHelpText( iEditorButton[ FIRST_MERCS_DIRECTION_BUTTON + x ], (UINT16 *) TempString );
+		swprintf( TempString, L"Set merc to face %s", FaceDirs[x] );
+		SetButtonFastHelpText( iEditorButton[ FIRST_MERCS_DIRECTION_BUTTON + x ], TempString );
 		MSYS_SetBtnUserData( iEditorButton[ FIRST_MERCS_DIRECTION_BUTTON + x ], 0, x);
 	}
 

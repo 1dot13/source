@@ -42,13 +42,13 @@ const int StackColumns = 8;		// Number of columns in stack dump.
 
 
 //ppp
-void		ErrorLog(HWFILE LogFile, char* Format, ...);
+void		ErrorLog(HWFILE LogFile, STR8  Format, ...);
 STR			GetExceptionString( DWORD uiExceptionCode );
 void		DisplayRegisters( HWFILE hFile, CONTEXT	*pContext );
 BOOLEAN GetAndDisplayModuleAndSystemInfo( HWFILE hFile, CONTEXT *pContext );
 BOOLEAN DisplayStack( HWFILE hFile, CONTEXT *pContext );
 void		RecordModuleList(HWFILE hFile );
-void		PrintTime(char *output, FILETIME TimeToPrint);
+void		PrintTime(STR8 output, FILETIME TimeToPrint);
 static	void ShowModuleInfo(HWFILE hFile, HINSTANCE ModuleHandle);
 
 
@@ -197,7 +197,7 @@ INT32 RecordExceptionInfo( EXCEPTION_POINTERS *pExceptInfo )
 
 
 
-void ErrorLog( HWFILE hFile, char* Format, ...)
+void ErrorLog( HWFILE hFile, STR8  Format, ...)
 {
 	char buffer[2000];	// wvsprintf never prints more than one K.
 	UINT32	uiNumBytesWritten=0;
@@ -359,8 +359,8 @@ BOOLEAN DisplayStack( HWFILE hFile, CONTEXT	*pContext  )
 	int Count = 0;
 	char	buffer[1000] = "";
 	const int safetyzone = 50;
-	char*	nearend = buffer + sizeof(buffer) - safetyzone;
-	char*	output = buffer;
+	STR8 	nearend = buffer + sizeof(buffer) - safetyzone;
+	STR8 	output = buffer;
 
 	// Time to print part or all of the stack to the error log. This allows
 	// us to figure out the call stack, parameters, local variables, etc.
@@ -391,7 +391,7 @@ BOOLEAN DisplayStack( HWFILE hFile, CONTEXT	*pContext  )
 
 		while (pStack + 1 <= pStackTop)
 		{
-			char *Suffix = " ";
+			STR8 Suffix = " ";
 
 			if ((Count % StackColumns) == 0)
 				output += wsprintf(output, "%08x: ", pStack);
@@ -428,7 +428,7 @@ BOOLEAN DisplayStack( HWFILE hFile, CONTEXT	*pContext  )
 // Print the specified FILETIME to output in a human readable format,
 // without using the C run time.
 
-void PrintTime(char *output, FILETIME TimeToPrint)
+void PrintTime(STR8 output, FILETIME TimeToPrint)
 {
 	WORD Date, Time;
 	if (FileTimeToLocalFileTime(&TimeToPrint, &TimeToPrint) &&
@@ -521,7 +521,7 @@ static void ShowModuleInfo(HWFILE hFile, HINSTANCE ModuleHandle)
 			IMAGE_DOS_HEADER *DosHeader = (IMAGE_DOS_HEADER*)ModuleHandle;
 		    if (IMAGE_DOS_SIGNATURE != DosHeader->e_magic)
 	    	    return;
-			IMAGE_NT_HEADERS *NTHeader = (IMAGE_NT_HEADERS*)((char *)DosHeader
+			IMAGE_NT_HEADERS *NTHeader = (IMAGE_NT_HEADERS*)((STR8 )DosHeader
 						+ DosHeader->e_lfanew);
 		    if (IMAGE_NT_SIGNATURE != NTHeader->Signature)
 	    	    return;

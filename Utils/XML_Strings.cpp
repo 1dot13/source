@@ -48,7 +48,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	
 	UINT32			maxArraySize;
 	UINT32			curIndex;	
@@ -58,7 +58,7 @@ struct
 typedef stringParseData;
 
 static void XMLCALL 
-stringStartElementHandle(void *userData, const char *name, const char **atts)
+stringStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	stringParseData * pData = (stringParseData *)userData;
 
@@ -86,7 +86,7 @@ stringStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-stringCharacterDataHandle(void *userData, const char *str, int len)
+stringCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	stringParseData * pData = (stringParseData *)userData;
 
@@ -99,7 +99,7 @@ stringCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-stringEndElementHandle(void *userData, const char *name)
+stringEndElementHandle(void *userData, const XML_Char *name)
 {
 	stringParseData * pData = (stringParseData *)userData;
 
@@ -115,7 +115,7 @@ stringEndElementHandle(void *userData, const char *name)
 
 			if(pData->curIndex < pData->maxArraySize)
 			{
-				strcpy(AmmoCaliber[pData->curIndex],pData->szCharData);
+				swprintf(AmmoCaliber[pData->curIndex], L"%S", pData->szCharData);
 			}
 		}
 
@@ -207,17 +207,17 @@ BOOLEAN WriteStringArray()
 		{
 			FilePrintf(hFile,"\t<STRING>");
 
-			wchar_t * szRemainder = AmmoCaliber[cnt]; //the remaining string to be output (for making valid XML)
+			STR16 szRemainder = AmmoCaliber[cnt]; //the remaining string to be output (for making valid XML)
 
 			while(szRemainder[0] != '\0')
 			{
-				UINT32 uiCharLoc = strcspn(szRemainder,"&<>\'\"\0");
-				UINT16 invChar = szRemainder[uiCharLoc];
+				UINT32 uiCharLoc = wcscspn(szRemainder,L"&<>\'\"\0");
+				CHAR16 invChar = szRemainder[uiCharLoc];
 				
 				if(uiCharLoc)
 				{
 					szRemainder[uiCharLoc] = '\0';
-					FilePrintf(hFile,"%s",szRemainder);
+					FilePrintf(hFile,"%S",szRemainder);
 					szRemainder[uiCharLoc] = invChar;
 				}
 

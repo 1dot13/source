@@ -32,7 +32,7 @@ typedef struct
 typedef struct
 {
 	ROAMING_PARSE_STAGE	curElement;
-	INT8			szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8			szCharData[MAX_CHAR_DATA_LENGTH+1];
 	RoamingInfo		curRoamingInfo;
 	UINT32			uiSectorCount;
 	UINT32			currentDepth;
@@ -41,7 +41,7 @@ typedef struct
 
 
 static void XMLCALL
-RoamingStartElementHandle(void *userData, const char *name, const char **atts)
+RoamingStartElementHandle(void *userData, const XML_Char *name, const char **atts)
 {
 	RoamingParseData * pData = (RoamingParseData *) userData;
 
@@ -69,7 +69,7 @@ RoamingStartElementHandle(void *userData, const char *name, const char **atts)
 
 
 static void XMLCALL
-RoamingCharacterDataHandle(void *userData, const char *str, int len)
+RoamingCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	RoamingParseData * pData = (RoamingParseData *) userData;
 
@@ -79,7 +79,7 @@ RoamingCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-RoamingEndElementHandle(void *userData, const char *name)
+RoamingEndElementHandle(void *userData, const XML_Char *name)
 {
 	RoamingParseData * pData = (RoamingParseData *) userData;
 

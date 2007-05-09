@@ -382,7 +382,7 @@ extern UINT8	gubContractLength; // symbol already declared globally in Merc Cont
 BOOLEAN		gfBuyEquipment;
 INT32			giContractAmount=0;
 INT32			giMercFaceIndex;
-wchar_t		gsTalkingMercText[ TEXT_POPUP_STRING_SIZE ];
+CHAR16		gsTalkingMercText[ TEXT_POPUP_STRING_SIZE ];
 UINT32		guiTimeThatMercStartedTalking;
 UINT32		guiLastHandleMercTime;
 BOOLEAN		gfFirstTimeInContactScreen;
@@ -881,7 +881,7 @@ BOOLEAN RenderAIMMembers()
   HVOBJECT	hPriceHandle;
   HVOBJECT	hWeaponBoxHandle;
 	UINT16		x, uiPosX;
-	wchar_t		wTemp[50];
+	CHAR16		wTemp[50];
 
 	DrawAimDefaults();
 
@@ -979,7 +979,7 @@ BOOLEAN RenderAIMMembers()
 
 BOOLEAN DrawNumeralsToScreen(INT32 iNumber, INT8 bWidth, UINT16 usLocX, UINT16 usLocY, UINT32 ulFont, UINT8 ubColor)
 {
-	wchar_t		sStr[10];
+	CHAR16		sStr[10];
 
 	swprintf(sStr, L"%d", iNumber); 
 
@@ -990,7 +990,7 @@ BOOLEAN DrawNumeralsToScreen(INT32 iNumber, INT8 bWidth, UINT16 usLocX, UINT16 u
 
 BOOLEAN DrawMoneyToScreen(INT32 iNumber, INT8 bWidth, UINT16 usLocX, UINT16 usLocY, UINT32 ulFont, UINT8 ubColor)
 {
-	wchar_t		sStr[10];
+	CHAR16		sStr[10];
 
 	swprintf(sStr, L"%d",iNumber);
 	InsertCommasForDollarFigure( sStr );
@@ -1045,8 +1045,8 @@ void SelectFaceMovementRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 BOOLEAN	UpdateMercInfo(void)
 {
 	//UINT16					PosY = 300;
-  wchar_t					MercInfoString[ SIZE_MERC_BIO_INFO ];
-  wchar_t					AdditionalInfoString[ SIZE_MERC_BIO_INFO ];
+  CHAR16					MercInfoString[ SIZE_MERC_BIO_INFO ];
+  CHAR16					AdditionalInfoString[ SIZE_MERC_BIO_INFO ];
 
 	//Display the salaries
 	DrawMoneyToScreen(gMercProfiles[gbCurrentSoldier].sSalary, FEE_WIDTH, FEE_X, HEALTH_Y, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT	);
@@ -1056,8 +1056,8 @@ BOOLEAN	UpdateMercInfo(void)
 	//if medical deposit is required
 	if( gMercProfiles[gbCurrentSoldier].bMedicalDeposit )
 	{
-		wchar_t	zTemp[40];
-		wchar_t	sMedicalString[40];
+		CHAR16	zTemp[40];
+		CHAR16	sMedicalString[40];
 
 		// Display the medical cost
 		swprintf( zTemp, L"%d", gMercProfiles[ gbCurrentSoldier ].sMedicalDepositAmount ); 
@@ -1210,7 +1210,7 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 	HVOBJECT		hVObject;
 	UINT32			usHeight, usWidth;
   ETRLEObject	*pTrav;
-	wchar_t			gzItemName[ SIZE_ITEM_NAME ];
+	CHAR16			gzItemName[ SIZE_ITEM_NAME ];
 	UINT8				ubItemCount=0;
 //	UINT16			gzTempItemName[ SIZE_ITEM_INFO ];
 
@@ -1250,7 +1250,7 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 			//if there are more then 1 piece of equipment in the current slot, display how many there are
 			if( gMercProfiles[ubMercID].bInvNumber[ i ] > 1 )
 			{
-				wchar_t zTempStr[ 32 ];
+				CHAR16 zTempStr[ 32 ];
 //				UINT16	usWidthOfNumber;
 
 				swprintf( zTempStr, L"x%d", gMercProfiles[ ubMercID ].bInvNumber[ i ] );
@@ -1818,7 +1818,7 @@ INT8 AimMemberHireMerc()
 
 BOOLEAN DisplayVideoConferencingDisplay()
 {
-	wchar_t		sMercName[128];
+	CHAR16		sMercName[128];
 
 	if( ( gubVideoConferencingMode == AIM_VIDEO_NOT_DISPLAYED_MODE ) || ( gubVideoConferencingMode == AIM_VIDEO_POPUP_MODE ) )
 		return(FALSE);
@@ -1955,8 +1955,8 @@ void DisplaySelectLights(BOOLEAN fContractDown, BOOLEAN fBuyEquipDown)
 
 UINT32 DisplayMercChargeAmount()
 {
-	wchar_t		wTemp[50];
-	wchar_t		wDollarTemp[50];
+	CHAR16		wTemp[50];
+	CHAR16		wDollarTemp[50];
 	HVOBJECT hImageHandle;
 
 
@@ -2021,7 +2021,7 @@ BOOLEAN InitCreateDeleteAimPopUpBox(UINT8 ubFlag, STR16 sString1, STR16 sString2
   VOBJECT_DESC  VObjectDesc;
   HVOBJECT			hPopupBoxHandle;
 	static UINT16				usPopUpBoxPosX, usPopUpBoxPosY;
-	static wchar_t				sPopUpString1[400], sPopUpString2[400];
+	static CHAR16				sPopUpString1[400], sPopUpString2[400];
 	static BOOLEAN		fPopUpBoxActive = FALSE;;
 
 	switch( ubFlag )
@@ -2432,7 +2432,7 @@ BOOLEAN DisplayTalkingMercFaceForVideoPopUp(INT32	iFaceIndex)
 	return(fIsTheMercTalking);
 }
 
-void DisplayTextForMercFaceVideoPopUp(wchar_t * pString)
+void DisplayTextForMercFaceVideoPopUp(STR16 pString)
 {
 
 #ifdef TAIWANESE

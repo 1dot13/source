@@ -74,7 +74,7 @@ extern void GetSoldierAboveGuyPositions( SOLDIERTYPE *pSoldier, INT16 *psX, INT1
 //	SANMONA_ARMS_GROUP,
 //	ANGELS_GROUP,
 //	NUM_CIV_GROUPS
-UINT16 gszCivGroupNames[ NUM_CIV_GROUPS ][ 20 ] = 
+CHAR16 gszCivGroupNames[ NUM_CIV_GROUPS ][ 20 ] = 
 {
 	L"NONE",
 	L"REBEL",
@@ -112,7 +112,7 @@ UINT16 gszCivGroupNames[ NUM_CIV_GROUPS ][ 20 ] =
 //	SCHEDULE_ACTION_ENTERSECTOR,
 //	SCHEDULE_ACTION_STAYINSECTOR,
 //  SCHEDULE_ACTION_SLEEP,
-UINT16 gszScheduleActions[ NUM_SCHEDULE_ACTIONS ][20] = 
+CHAR16 gszScheduleActions[ NUM_SCHEDULE_ACTIONS ][20] = 
 {
 	L"No action",
 	L"Lock door",
@@ -185,7 +185,7 @@ void SetupTextInputForMercSchedule();
 void ExtractAndUpdateMercAttributes();
 void ExtractAndUpdateMercProfile();
 void ExtractAndUpdateMercSchedule();
-void CalcStringForValue( wchar_t *str, INT32 iValue, UINT32 uiMax );
+void CalcStringForValue( STR16 str, INT32 iValue, UINT32 uiMax );
 void ChangeBodyType( INT8 bOffset );  //+1 or -1 only
 
 //internal merc variables
@@ -264,21 +264,21 @@ BOOLEAN gfShowCivilians = TRUE;
 
 INT16 sCurBaseDiff = DEFAULT_DIFF;
 BOOLEAN fAskForBaseDifficulty = TRUE;
-UINT16 *zDiffNames[NUM_DIFF_LVLS] = { L"Wimp", L"Easy", L"Average", L"Tough", L"Steroid Users Only" };
+STR16 zDiffNames[NUM_DIFF_LVLS] = { L"Wimp", L"Easy", L"Average", L"Tough", L"Steroid Users Only" };
 INT16 sBaseStat[NUM_DIFF_LVLS] = { 50, 60, 70, 80, 90 };
 INT16 sBaseExpLvl[NUM_DIFF_LVLS] = { 1, 3, 5, 7, 9 };
 
-UINT16 *EditMercStat[12] = { L"Max Health",L"Cur Health",L"Strength",
+STR16 EditMercStat[12] = { L"Max Health",L"Cur Health",L"Strength",
 														 L"Agility",L"Dexterity",L"Charisma",
 														 L"Wisdom",L"Marksmanship",L"Explosives",
 														 L"Medical",L"Scientific",L"Exp Level" };
 
 #define NUM_MERC_ORDERS 8
-UINT16 *EditMercOrders[8] = { L"Stationary",L"On Guard",L"Close Patrol",
+STR16 EditMercOrders[8] = { L"Stationary",L"On Guard",L"Close Patrol",
 															L"Far Patrol",L"Point Patrol",L"On Call",
 															L"Seek Enemy", L"Random Point Patrol"};
 
-UINT16 *EditMercAttitudes[6] = { L"Defensive",L"Brave Loner",L"Brave Buddy",
+STR16 EditMercAttitudes[6] = { L"Defensive",L"Brave Loner",L"Brave Buddy",
 																	L"Cunning Loner",L"Cunning Buddy",
 																	L"Aggressive" };
 
@@ -772,7 +772,7 @@ void DisplayEditMercWindow( void )
 	INT32 iXPos, iYPos, iHeight, iWidth;
 	UINT16 usFillColorBack, usFillColorDark, usFillColorLight, usFillColorTextBk;
 	INT32 x, iXOff;
-	INT16 TempString[30];
+	CHAR16 TempString[30];
 	SOLDIERTYPE *pSoldier;
 	INT8 iEditStat[12];
 
@@ -852,7 +852,7 @@ void DisplayEditMercWindow( void )
 		ColorFillVideoSurfaceArea(FRAME_BUFFER, iXPos + 117, iYPos + 111 + (20 * x), iXPos + 116 + 30, iYPos + 111 + (20 * x) + 19, usFillColorLight );
 		ColorFillVideoSurfaceArea(FRAME_BUFFER, iXPos + 117, iYPos + 111 + (20 * x), iXPos + 116 + 29, iYPos + 111 + (20 * x) + 18, usFillColorTextBk );
 		
-		swprintf( (wchar_t *)TempString, (wchar_t *)L"%d", iEditStat[x] );
+		swprintf( TempString, L"%d", iEditStat[x] );
 		iXOff = (30 - StringPixLength( TempString, FONT12POINT1 )) / 2;
 		gprintf( iXPos + 118 + iXOff, iYPos + 114 + (20 * x), L"%s", TempString );
 	}
@@ -1719,7 +1719,7 @@ void DeleteSelectedMerc()
 
 void SetupTextInputForMercProfile()
 {
-	wchar_t str[4];
+	CHAR16 str[4];
 	INT16 sNum;
 
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
@@ -1735,7 +1735,7 @@ void SetupTextInputForMercProfile()
 
 void SetupTextInputForMercAttributes()
 {
-	wchar_t str[4];
+	CHAR16 str[4];
 
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
 
@@ -1773,7 +1773,7 @@ void SetupTextInputForMercAttributes()
 //In the merc editing, all detailed placement values for generated attributes are set to -1.  
 //When making a generated attribute static, we then set the value to its applicable value.
 //This function is similar to the itoa function except that -1 is converted to a null string.
-void CalcStringForValue( wchar_t *str, INT32 iValue, UINT32 uiMax )
+void CalcStringForValue( STR16 str, INT32 iValue, UINT32 uiMax )
 {
 	if( iValue < 0 )			//a blank string is determined by a negative value.
 		str[0] = '\0';
@@ -2388,7 +2388,7 @@ void SetMercEditingMode( UINT8 ubNewMode )
 
 void DisplayBodyTypeInfo()
 {
-	wchar_t str[20];
+	CHAR16 str[20];
 	switch( gpSelected->pBasicPlacement->bBodyType )
 	{
 		case RANDOM:							swprintf( str, L"Random" );					break;
@@ -2534,7 +2534,7 @@ void UpdateMercsInfo()
 			SetFontForeground( FONT_YELLOW );
 			SetFontShadow( FONT_NEARBLACK );
 			{ //scope trick
-				UINT16 tempStr[500];
+				CHAR16 tempStr[500];
 				swprintf( tempStr, L"%s%s%s%s%s%d.",
 					L"By specifying a profile index, all of the information will be extracted from the profile ",
 					L"and override any values that you have edited.  It will also disable the editing features ", 
@@ -2583,8 +2583,8 @@ void UpdateMercsInfo()
 			mprintf( iScreenWidthOffset + 172, 2 * iScreenHeightOffset + 439, L"4)" );
 			if( gubScheduleInstructions )
 			{
-				wchar_t str[255];
-				UINT16 keyword[10] = L"";
+				CHAR16 str[255];
+				CHAR16 keyword[10] = L"";
 				ColorFillVideoSurfaceArea( FRAME_BUFFER, iScreenWidthOffset + 431, 2 * iScreenHeightOffset + 388, iScreenWidthOffset + 590, 2 * iScreenHeightOffset + 450, Get16BPPColor( FROMRGB( 32, 45, 72 ) ) );
 				switch( gCurrSchedule.ubAction[ gubCurrentScheduleActionIndex ] )
 				{
@@ -2657,7 +2657,7 @@ void RenderSelectedMercsInventory()
 	UINT8 *pSrc, *pDst;
 	INT32 xp, yp;
 	UINT32 uiSrcPitchBYTES, uiDstPitchBYTES;
-	UINT16 pItemName[100];
+	CHAR16 pItemName[100];
 	UINT8 ubFontColor;
 	if( gsSelectedMercID == -1 )
 		return;
@@ -3110,9 +3110,9 @@ void RenderMercStrings()
 	SOLDIERTYPE								 *pSoldier;
 	INT16 sXPos, sYPos;
 	INT16 sX, sY;
-	UINT16 *pStr;
+	STR16 pStr;
 	SOLDIERINITNODE *curr;
-	wchar_t str[50];
+	CHAR16 str[50];
 
 	curr = gSoldierInitHead;
 	while( curr )
@@ -3306,7 +3306,7 @@ void CancelCurrentScheduleAction()
 
 void RegisterCurrentScheduleAction( INT32 iMapIndex )
 {
-	wchar_t str[6];
+	CHAR16 str[6];
 	MarkWorldDirty();
 	swprintf( str, L"%d", iMapIndex );
 	if( gfUseScheduleData2 )
@@ -3498,7 +3498,7 @@ void RenderCurrentSchedule()
 	INT16 sXMapPos, sYMapPos;
 	INT16 sScreenX, sScreenY;
 	INT16 sX, sY;
-	wchar_t str[ 3 ];
+	CHAR16 str[ 3 ];
 	for( i = 0; i < 8; i++ )
 	{
 		if( i % 2 )
@@ -3542,7 +3542,7 @@ void UpdateScheduleInfo()
 {
 	INT32 i;
 	SCHEDULENODE *pSchedule;
-	wchar_t str[6];
+	CHAR16 str[6];
 	if( gpSelected->pSoldier->ubScheduleID )
 	{
 		pSchedule = GetSchedule( gpSelected->pSoldier->ubScheduleID );

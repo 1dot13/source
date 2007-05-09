@@ -48,7 +48,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 
 	UINT16			curMerge[6];
 	UINT32			maxArraySize;
@@ -59,7 +59,7 @@ struct
 typedef mergeParseData;
 
 static void XMLCALL 
-mergeStartElementHandle(void *userData, const char *name, const char **atts)
+mergeStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	mergeParseData * pData = (mergeParseData *)userData;
 
@@ -103,7 +103,7 @@ mergeStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-mergeCharacterDataHandle(void *userData, const char *str, int len)
+mergeCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	mergeParseData * pData = (mergeParseData *)userData;
 
@@ -116,7 +116,7 @@ mergeCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-mergeEndElementHandle(void *userData, const char *name)
+mergeEndElementHandle(void *userData, const XML_Char *name)
 {
 	mergeParseData * pData = (mergeParseData *)userData;
 

@@ -420,11 +420,11 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 
 				if ( (gTacticalStatus.uiFlags & LOADING_SAVED_GAME) && guiSaveGameVersion < 78 )
 				{
-					INT8 pMapName[ 128 ];
+					CHAR8 pMapName[ 128 ];
 
 					// KILL IT!!! KILL KIT!!!! IT IS CORRUPTED!!!
-					GetMapTempFileName( SF_CIV_PRESERVED_TEMP_FILE_EXISTS, (STR)pMapName, sMapX, sMapY, 0 );
-					FileDelete( (STR)pMapName );
+					GetMapTempFileName( SF_CIV_PRESERVED_TEMP_FILE_EXISTS, pMapName, sMapX, sMapY, 0 );
+					FileDelete( pMapName );
 
 					// turn off the flag
 					SectorInfo[ SECTOR( sMapX,sMapY) ].uiFlags &= (~SF_CIV_PRESERVED_TEMP_FILE_EXISTS);
@@ -514,11 +514,11 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 				return FALSE;
 			if ( (gTacticalStatus.uiFlags & LOADING_SAVED_GAME) && guiSaveGameVersion < 78 )
 			{
-				INT8 pMapName[ 128 ];
+				CHAR8 pMapName[ 128 ];
 
 				// KILL IT!!! KILL KIT!!!! IT IS CORRUPTED!!!
-				GetMapTempFileName( SF_CIV_PRESERVED_TEMP_FILE_EXISTS, (STR)pMapName, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
-				FileDelete( (STR)pMapName );
+				GetMapTempFileName( SF_CIV_PRESERVED_TEMP_FILE_EXISTS, pMapName, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ );
+				FileDelete( pMapName );
 
 				// turn off the flag
 				TempNode->uiFlags &= (~SF_CIV_PRESERVED_TEMP_FILE_EXISTS);
@@ -2981,51 +2981,51 @@ void GetMapTempFileName( UINT32 uiType, STR pMapName, INT16 sMapX, INT16 sMapY, 
 	switch( uiType )
 	{
 		case SF_ITEM_TEMP_FILE_EXISTS:
-			sprintf( (char *)pMapName, "%s\\i_%s", MAPS_DIR, zTempName);
+			sprintf( pMapName, "%s\\i_%s", MAPS_DIR, zTempName);
 			break;
 
 		case SF_ROTTING_CORPSE_TEMP_FILE_EXISTS:
-			sprintf( (char *)pMapName, "%s\\r_%s", MAPS_DIR, zTempName);
+			sprintf( pMapName, "%s\\r_%s", MAPS_DIR, zTempName);
 			break;
 
 		case SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS:
-			sprintf( (char *)pMapName, "%s\\m_%s", MAPS_DIR, zTempName);
+			sprintf( pMapName, "%s\\m_%s", MAPS_DIR, zTempName);
 			break;
 
 		case SF_DOOR_TABLE_TEMP_FILES_EXISTS:
-			sprintf( (char *)pMapName, "%s\\d_%s", MAPS_DIR, zTempName);
+			sprintf( pMapName, "%s\\d_%s", MAPS_DIR, zTempName);
 			break;
 
 		case SF_REVEALED_STATUS_TEMP_FILE_EXISTS:
-			sprintf( (char *)pMapName, "%s\\v_%s", MAPS_DIR, zTempName);
+			sprintf( pMapName, "%s\\v_%s", MAPS_DIR, zTempName);
 			break;
 
 		case SF_DOOR_STATUS_TEMP_FILE_EXISTS:
-			sprintf( (char *)pMapName, "%s\\ds_%s", MAPS_DIR, zTempName);
+			sprintf( pMapName, "%s\\ds_%s", MAPS_DIR, zTempName);
 			break;
 
 		case SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS:
-			sprintf( (char *)pMapName, "%s\\e_%s", MAPS_DIR, zTempName);
+			sprintf( pMapName, "%s\\e_%s", MAPS_DIR, zTempName);
 			break;
 
 		case SF_CIV_PRESERVED_TEMP_FILE_EXISTS:
 			// NB save game version 0 is "saving game"
 			if ( (gTacticalStatus.uiFlags & LOADING_SAVED_GAME) && guiSaveGameVersion != 0 && guiSaveGameVersion < 78 )
 			{
-				sprintf( (char *)pMapName, "%s\\c_%s", MAPS_DIR, zTempName);
+				sprintf( pMapName, "%s\\c_%s", MAPS_DIR, zTempName);
 			}
 			else
 			{
-				sprintf( (char *)pMapName, "%s\\cc_%s", MAPS_DIR, zTempName);
+				sprintf( pMapName, "%s\\cc_%s", MAPS_DIR, zTempName);
 			}
 			break;
 
 		case SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS:
-			sprintf( (char *)pMapName, "%s\\sm_%s", MAPS_DIR, zTempName);
+			sprintf( pMapName, "%s\\sm_%s", MAPS_DIR, zTempName);
 			break;
 
 		case SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS:
-			sprintf( (char *)pMapName, "%s\\l_%s", MAPS_DIR, zTempName);
+			sprintf( pMapName, "%s\\l_%s", MAPS_DIR, zTempName);
 			break;
 
 		default:

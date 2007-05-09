@@ -964,7 +964,7 @@ void LoadAllExternalText( void )
 	LoadAllItemNames();
 }
 
-wchar_t* GetWeightUnitString( void )
+STR16 GetWeightUnitString( void )
 {
 	if ( gGameSettings.fOptions[ TOPTION_USE_METRIC_SYSTEM ] ) // metric
 	{

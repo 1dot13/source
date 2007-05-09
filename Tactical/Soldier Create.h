@@ -109,7 +109,7 @@ typedef struct
 	
 	//Kris:  Additions November 16, 1997 (padding down to 129 from 150)
 	BOOLEAN						fVisible;
-	wchar_t						name[ 10 ];
+	CHAR16						name[ 10 ];
 
 	UINT8							ubSoldierClass;	//army, administrator, elite
 

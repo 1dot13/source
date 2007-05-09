@@ -189,7 +189,7 @@ void GameInitInsuranceContract()
 
 void EnterLaptopInitInsuranceContract()
 {
-	wchar_t		zTextField[14];
+	CHAR16		zTextField[14];
 
 	swprintf( zTextField, L"%d", 0 );
 	SetInputFieldStringWith16BitString( 1, zTextField );
@@ -328,7 +328,7 @@ void HandleInsuranceContract()
 void RenderInsuranceContract()
 {
   HVOBJECT	hPixHandle;
-	wchar_t		sText[800];
+	CHAR16		sText[800];
 	UINT8			ubCount=0;
 	INT16			sMercID;
 	INT16			sNextMercID;
@@ -501,7 +501,7 @@ BOOLEAN DisplayOrderGrid( UINT8 ubGridNumber, UINT8 ubMercID )
 	UINT32	uiInsMercFaceImage;
 	INT32		iCostOfContract=0;
 	char			sTemp[100];
-	wchar_t		sText[800];
+	CHAR16		sText[800];
 	BOOLEAN		fDisplayMercContractStateTextColorInRed = FALSE;
 
 	SOLDIERTYPE	*pSoldier;
@@ -1619,7 +1619,7 @@ void PurchaseOrExtendInsuranceForSoldier( SOLDIERTYPE *pSoldier, UINT32 uiInsura
 		//if the player doesnt have enough money, tell him
 		if( LaptopSaveInfo.iCurrentBalance < iAmountOfMoneyTransfer )
 		{
-			wchar_t		sText[800];
+			CHAR16		sText[800];
 
 			GetInsuranceText( INS_MLTI_NOT_ENOUGH_FUNDS, sText );
 			if( guiCurrentScreen == LAPTOP_SCREEN )

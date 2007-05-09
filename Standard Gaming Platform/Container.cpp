@@ -76,8 +76,8 @@ typedef struct OrdHeaderTag
 	{
 		UINT32 me;
 		long you;
-		char *k;
-		char *p;
+		STR8 k;
+		STR8 p;
 
 	} TEST;
 

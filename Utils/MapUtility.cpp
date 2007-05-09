@@ -66,7 +66,7 @@ UINT32	MapUtilScreenHandle( )
 	static FDLG_LIST *FListNode;
 	static INT16 sFiles = 0, sCurFile = 0;
 	static FDLG_LIST *FileList = NULL;
-	INT8		zFilename[ 260 ], zFilename2[ 260 ];
+	CHAR8		zFilename[ 260 ], zFilename2[ 260 ];
 	VSURFACE_DESC		vs_desc;
 	UINT16					usWidth;
 	UINT16					usHeight;
@@ -157,10 +157,10 @@ UINT32	MapUtilScreenHandle( )
 		return( MAPUTILITY_SCREEN );
 	}
 
-	sprintf( (char *)zFilename, "%s", FListNode->FileInfo.zFileName );
+	sprintf( zFilename, "%s", FListNode->FileInfo.zFileName );
 
 	// OK, load maps and do overhead shrinkage of them...
-	if ( !LoadWorld( (UINT8 *)zFilename ) )
+	if ( !LoadWorld( zFilename ) )
 	{
 		return( ERROR_SCREEN );
 	}
@@ -313,7 +313,7 @@ UINT32	MapUtilScreenHandle( )
 		}
 	}
 
-	sprintf( (char *)zFilename2, "RADARMAPS\\%s.STI", zFilename );
+	sprintf( zFilename2, "RADARMAPS\\%s.STI", zFilename );
 	WriteSTIFile( (INT8 *)pDataPtr, pPalette, MINIMAP_X_SIZE, MINIMAP_Y_SIZE, (STR) zFilename2, CONVERT_ETRLE_COMPRESS, 0 );
 
 	UnLockVideoSurface(gi8BitMiniMap);

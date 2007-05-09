@@ -199,8 +199,8 @@ UINT8	gubFlowerDestDropDownMode;
 UINT8	gubCurrentlySelectedFlowerLocation;
 
 
-wchar_t		gsSentimentTextField[ FLOWER_ORDER_PERSONEL_SENTIMENT_NUM_CHARS ] = {0} ; 
-wchar_t		gsNameTextField[ FLOWER_ORDER_NAME_FIELD_NUM_CHARS ] = {0};
+CHAR16		gsSentimentTextField[ FLOWER_ORDER_PERSONEL_SENTIMENT_NUM_CHARS ] = {0} ; 
+CHAR16		gsNameTextField[ FLOWER_ORDER_NAME_FIELD_NUM_CHARS ] = {0};
 
 
 //buttons
@@ -508,7 +508,7 @@ void RenderFloristOrderForm()
 {
   HVOBJECT hPixHandle;
 	UINT16 usPosX;
-	wchar_t		sTemp[ 640 ];
+	CHAR16		sTemp[ 640 ];
 	UINT32	uiStartLoc=0;
 
 	DisplayFloristDefaults();
@@ -874,8 +874,8 @@ void DisplayFlowerDynamicItems()
 {
 	UINT32	uiStartLoc=0;
 	UINT16	usPosX;
-	wchar_t	sTemp[ 640 ];
-//	wchar_t	sText[ 640 ];
+	CHAR16	sTemp[ 640 ];
+//	CHAR16	sText[ 640 ];
 	UINT16	usPrice;
 /*
 	//display the card saying
@@ -1200,8 +1200,8 @@ void FlowerOrderDisplayShippingLocationCity()
 void InitFlowerOrderTextInputBoxes()
 {
 	UINT32	uiStartLoc=0;
-	wchar_t	sTemp[ 640 ];
-	wchar_t	sText[ 640 ];
+	CHAR16	sTemp[ 640 ];
+	CHAR16	sText[ 640 ];
 
 	
 	InitTextInputMode();

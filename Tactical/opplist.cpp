@@ -4313,7 +4313,7 @@ void DebugSoldierPage3( )
 
 }
 
-void AppendAttachmentCode( UINT16 usItem, wchar_t *str )
+void AppendAttachmentCode( UINT16 usItem, STR16 str )
 {
 	switch( usItem )
 	{
@@ -4334,7 +4334,7 @@ void AppendAttachmentCode( UINT16 usItem, wchar_t *str )
 
 void WriteQuantityAndAttachments( OBJECTTYPE *pObject, INT32 yp )
 {
-	wchar_t szAttach[30];
+	CHAR16 szAttach[30];
 	BOOLEAN fAttachments;
 	//100%  Qty: 2  Attach:
 	//100%  Qty: 2  
@@ -4360,8 +4360,8 @@ void WriteQuantityAndAttachments( OBJECTTYPE *pObject, INT32 yp )
 	{ //ammo
 		if( pObject->ubNumberOfObjects > 1 )
 		{
-			wchar_t str[50];
-			wchar_t temp[5];
+			CHAR16 str[50];
+			CHAR16 temp[5];
 			UINT8 i;
 			swprintf( str, L"Clips:  %d  (%d", pObject->ubNumberOfObjects, pObject->bStatus[0] );
 			for( i = 1; i < pObject->ubNumberOfObjects; i++ )
@@ -4400,8 +4400,8 @@ void DebugSoldierPage4( )
 {
 	SOLDIERTYPE				*pSoldier;
 	UINT32						uiMercFlags;
-	wchar_t szOrders[20];
-	wchar_t szAttitude[20];
+	CHAR16 szOrders[20];
+	CHAR16 szAttitude[20];
 	UINT16						usSoldierIndex;
 	UINT8							ubLine;
 

@@ -74,7 +74,7 @@ BOOLEAN InitTileCache(  )
 				sprintf( gpTileCacheStructInfo[ cnt ].Filename, "TILECACHE\\%s", FileInfo.zFileName );
 
 				// Get root name
-				GetRootName( (INT8 *)gpTileCacheStructInfo[ cnt ].zRootName, (INT8 *)gpTileCacheStructInfo[ cnt ].Filename );
+				GetRootName( gpTileCacheStructInfo[ cnt ].zRootName, gpTileCacheStructInfo[ cnt ].Filename );
 
 				// Load struc data....
 				gpTileCacheStructInfo[ cnt ].pStructureFileRef = LoadStructureFile( gpTileCacheStructInfo[ cnt ].Filename );
@@ -125,7 +125,7 @@ void DeleteTileCache( )
 	guiCurTileCacheSize = 0;
 }
 
-INT16 FindCacheStructDataIndex( INT8 * cFilename )
+INT16 FindCacheStructDataIndex( STR8 cFilename )
 {
 	UINT32 cnt;
 	
@@ -140,7 +140,7 @@ INT16 FindCacheStructDataIndex( INT8 * cFilename )
 	return( -1 );
 }
 
-INT32 GetCachedTile( INT8 * cFilename )
+INT32 GetCachedTile( const STR8 cFilename )
 {
 	UINT32			cnt;
 	UINT32			ubLowestIndex = 0;
@@ -189,7 +189,7 @@ INT32 GetCachedTile( INT8 * cFilename )
 		if ( gpTileCache[ cnt ].pImagery == NULL )
 		{
 			// Insert here
-			gpTileCache[ cnt ].pImagery = LoadTileSurface( (char *)cFilename );
+			gpTileCache[ cnt ].pImagery = LoadTileSurface( cFilename );
 
 			if ( gpTileCache[ cnt ].pImagery == NULL )
 			{
@@ -200,9 +200,9 @@ INT32 GetCachedTile( INT8 * cFilename )
 			gpTileCache[ cnt ].sHits = 1;
 
 			// Get root name
-			GetRootName( (INT8 *)gpTileCache[ cnt ].zRootName, cFilename );
+			GetRootName( gpTileCache[ cnt ].zRootName, cFilename );
 
-			gpTileCache[ cnt ].sStructRefID = FindCacheStructDataIndex( (INT8 *)gpTileCache[ cnt ].zRootName );
+			gpTileCache[ cnt ].sStructRefID = FindCacheStructDataIndex( gpTileCache[ cnt ].zRootName );
 
 			// ATE: Add z-strip info
 			if ( gpTileCache[ cnt ].sStructRefID != -1 )
@@ -296,7 +296,7 @@ STRUCTURE_FILE_REF *GetCachedTileStructureRef( INT32 iIndex )
 }
 
 
-STRUCTURE_FILE_REF *GetCachedTileStructureRefFromFilename( INT8 *cFilename )
+STRUCTURE_FILE_REF *GetCachedTileStructureRefFromFilename( const STR8 cFilename )
 {
 	INT16 sStructDataIndex;
 
@@ -350,7 +350,7 @@ void CheckForAndDeleteTileCacheStructInfo( LEVELNODE *pNode, UINT16 usIndex )
 	}
 }
 
-void GetRootName( INT8 * pDestStr, INT8 * pSrcStr )
+void GetRootName( STR8 pDestStr, const STR8 pSrcStr )
 {
 	// Remove path and extension
 	CHAR8		cTempFilename[ 120 ];
@@ -370,7 +370,7 @@ void GetRootName( INT8 * pDestStr, INT8 * pSrcStr )
 	}
 
 	// Now remove extension...
-	cEndOfName = strchr( (char *)pDestStr, '.' );
+	cEndOfName = strchr( pDestStr, '.' );
 	if (cEndOfName != NULL)
 	{
 		*cEndOfName = '\0';

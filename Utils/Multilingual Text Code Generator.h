@@ -2,7 +2,7 @@
 
 //If special command line argument is used, then the utility will kick in
 //and activate the special code generator.
-BOOLEAN ProcessIfMultilingualCmdLineArgDetected( UINT8 *str );
+BOOLEAN ProcessIfMultilingualCmdLineArgDetected( STR8 str );
 
 #else
 

@@ -146,7 +146,7 @@ void CancelOpenDoorMenu( );
 
 void HandleInterfaceBackgrounds( );
 
-void BeginOverlayMessage( UINT32 uiFont, wchar_t *pFontString, ... );
+void BeginOverlayMessage( UINT32 uiFont, STR16 pFontString, ... );
 void EndOverlayMessage( );
 
 
@@ -177,12 +177,12 @@ void DirtyMercPanelInterface( SOLDIERTYPE *pSoldier, UINT8 ubDirtyLevel );
 
 
 void EndUIMessage( );
-void BeginUIMessage( wchar_t *pFontString, ... );
-void InternalBeginUIMessage( BOOLEAN fUseSkullIcon, wchar_t *pFontString, ... );
+void BeginUIMessage( STR16 pFontString, ... );
+void InternalBeginUIMessage( BOOLEAN fUseSkullIcon, STR16 pFontString, ... );
 
 
 // map screen version, for centering over the map area
-void BeginMapUIMessage( UINT8 fPosition, wchar_t *pFontString, ... );
+void BeginMapUIMessage( UINT8 fPosition, STR16 pFontString, ... );
 
 
 extern UINT16	gusUIOldSelectedSoldier;
@@ -204,7 +204,7 @@ enum MESSAGE_TYPES
 
 void HandleTopMessages( );
 
-BOOLEAN AddTopMessage( UINT8 ubType, wchar_t * pzString );
+BOOLEAN AddTopMessage( UINT8 ubType, STR16 pzString );
 
 BOOLEAN InTopMessageBarAnimation( );
 void EndTopMessage( );
@@ -213,7 +213,7 @@ void PauseRT( BOOLEAN fPause );
 
 void InitEnemyUIBar( UINT8 ubNumEnemies, UINT8 ubDoneEnemies );
 
-wchar_t *GetSoldierHealthString( SOLDIERTYPE *pSoldier );
+STR16 GetSoldierHealthString( SOLDIERTYPE *pSoldier );
 
 
 void GetLaunchItemParamsFromUI( );

@@ -49,7 +49,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	ARMOUR_DROPS	curArmourDrop;
 	ARMOUR_DROPS *	curArray;
 
@@ -61,7 +61,7 @@ struct
 typedef armourDropParseData;
 
 static void XMLCALL 
-armourDropStartElementHandle(void *userData, const char *name, const char **atts)
+armourDropStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	armourDropParseData * pData = (armourDropParseData *)userData;
 
@@ -102,7 +102,7 @@ armourDropStartElementHandle(void *userData, const char *name, const char **atts
 }
 
 static void XMLCALL
-armourDropCharacterDataHandle(void *userData, const char *str, int len)
+armourDropCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	armourDropParseData * pData = (armourDropParseData *)userData;
 
@@ -115,7 +115,7 @@ armourDropCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-armourDropEndElementHandle(void *userData, const char *name)
+armourDropEndElementHandle(void *userData, const XML_Char *name)
 {	
 	armourDropParseData * pData = (armourDropParseData *)userData;
 

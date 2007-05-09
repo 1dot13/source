@@ -1750,7 +1750,7 @@ BOOLEAN SoldierToSoldierLineOfSightTimingTest( SOLDIERTYPE * pStartSoldier, SOLD
 	#ifdef _DEBUG
 		fprintf(OutFile, "DEBUG: " );
 	#endif
-	  fprintf(OutFile, (const char *)String( "Time for %d calls is %d milliseconds\n", uiLoopLimit, uiEndTime - uiStartTime));
+	  fprintf(OutFile, String( "Time for %d calls is %d milliseconds\n", uiLoopLimit, uiEndTime - uiStartTime));
 		fclose(OutFile);
 	}
 	return( TRUE );

@@ -48,11 +48,11 @@ typedef signed short    INT16;
 typedef float           FLOAT;
 typedef double          DOUBLE;
 // strings
-typedef char			      CHAR8;
+typedef char					CHAR8;
 typedef wchar_t					CHAR16;
-typedef char *			    STR;
-typedef char *					STR8;
-typedef wchar_t *				STR16;
+typedef CHAR8 * 				STR;
+typedef CHAR8 *					STR8;
+typedef CHAR16 *				STR16;
 // flags (individual bits used)
 typedef unsigned char		FLAGS8;
 typedef unsigned short	FLAGS16;

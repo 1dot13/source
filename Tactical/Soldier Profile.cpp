@@ -213,17 +213,17 @@ BOOLEAN LoadMercProfiles(void)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"LoadMercProfiles");
 //	FILE *fptr;
 	HWFILE fptr;
-	char *pFileName = "BINARYDATA\\Prof.dat";
+	STR8 pFileName = "BINARYDATA\\Prof.dat";
 
-	char *pFileName1_Normal = "BINARYDATA\\Prof_Novice_NormalGuns.dat";
-	char *pFileName2_Normal = "BINARYDATA\\Prof_Experienced_NormalGuns.dat";
-	char *pFileName3_Normal = "BINARYDATA\\Prof_Expert_NormalGuns.dat";
-	char *pFileName4_Normal = "BINARYDATA\\Prof_Insane_NormalGuns.dat";
+	STR8 pFileName1_Normal = "BINARYDATA\\Prof_Novice_NormalGuns.dat";
+	STR8 pFileName2_Normal = "BINARYDATA\\Prof_Experienced_NormalGuns.dat";
+	STR8 pFileName3_Normal = "BINARYDATA\\Prof_Expert_NormalGuns.dat";
+	STR8 pFileName4_Normal = "BINARYDATA\\Prof_Insane_NormalGuns.dat";
 
-	char *pFileName1_Tons = "BINARYDATA\\Prof_Novice_TonsOfGuns.dat";
-	char *pFileName2_Tons = "BINARYDATA\\Prof_Experienced_TonsOfGuns.dat";
-	char *pFileName3_Tons = "BINARYDATA\\Prof_Expert_TonsOfGuns.dat";
-	char *pFileName4_Tons = "BINARYDATA\\Prof_Insane_TonsOfGuns.dat";
+	STR8 pFileName1_Tons = "BINARYDATA\\Prof_Novice_TonsOfGuns.dat";
+	STR8 pFileName2_Tons = "BINARYDATA\\Prof_Experienced_TonsOfGuns.dat";
+	STR8 pFileName3_Tons = "BINARYDATA\\Prof_Expert_TonsOfGuns.dat";
+	STR8 pFileName4_Tons = "BINARYDATA\\Prof_Insane_TonsOfGuns.dat";
 
 	UINT32 uiLoop, uiLoop2;//, uiLoop3;
 	UINT16 usItem;//, usNewGun, usAmmo, usNewAmmo;

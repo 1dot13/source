@@ -40,7 +40,7 @@ INT32 giSciFiCheckboxButton = -1;
 INT32 giAlarmTriggerButton = -1;
 INT32 giOwnershipGroupButton = -1;
 
-UINT16 gszActionItemDesc[ NUM_ACTIONITEMS ][ 30 ] = 
+CHAR16 gszActionItemDesc[ NUM_ACTIONITEMS ][ 30 ] = 
 {
 	L"Klaxon Mine",
 	L"Flare Mine",
@@ -78,7 +78,7 @@ UINT16 gszActionItemDesc[ NUM_ACTIONITEMS ][ 30 ] =
 	L"Big teargas",
 };
 
-UINT16* GetActionItemName( OBJECTTYPE *pItem )
+const STR16 GetActionItemName( OBJECTTYPE *pItem )
 {
 	if( !pItem || pItem->usItem != ACTION_ITEM )
 		return NULL;
@@ -642,7 +642,7 @@ void RemoveGameTypeFlags()
 
 void SetupGunGUI()
 {
-	wchar_t str[20];
+	CHAR16 str[20];
 	INT16 yp;
 	memset( gfAttachment, 0, NUM_ATTACHMENT_BUTTONS );
 	swprintf( str, L"%d", gpItem->bGunStatus );
@@ -788,7 +788,7 @@ void ExtractAndUpdateGunGUI()
 
 void SetupAmmoGUI()
 {
-	wchar_t str[20];
+	CHAR16 str[20];
 	swprintf( str, L"%d", gpItem->ubNumberOfObjects );
 	AddTextInputField( iScreenWidthOffset + 485, 2 * iScreenHeightOffset + 380, 25, 15, MSYS_PRIORITY_NORMAL, str, 1, INPUTTYPE_NUMERICSTRICT );
 	swprintf( str, L"%d", gpItem->bTrap );
@@ -833,7 +833,7 @@ void ExtractAndUpdateAmmoGUI()
 
 void SetupArmourGUI()
 {
-	wchar_t str[20];
+	CHAR16 str[20];
 	swprintf( str, L"%d", gpItem->bStatus[0] );
 	AddTextInputField( iScreenWidthOffset + 485, 2 * iScreenHeightOffset + 380, 25, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	swprintf( str, L"%d", gpItem->bTrap );
@@ -894,7 +894,7 @@ void ExtractAndUpdateArmourGUI()
 
 void SetupEquipGUI()
 {
-	wchar_t str[20];
+	CHAR16 str[20];
 	swprintf( str, L"%d", gpItem->bStatus[0] );
 	AddTextInputField( iScreenWidthOffset + 485, 2 * iScreenHeightOffset + 380, 25, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	swprintf( str, L"%d", gpItem->bTrap );
@@ -938,7 +938,7 @@ void ExtractAndUpdateEquipGUI()
 
 void SetupExplosivesGUI()
 {
-	wchar_t str[20];
+	CHAR16 str[20];
 	INT16 yp;
 	swprintf( str, L"%d", gpItem->bStatus[0] );
 	AddTextInputField( iScreenWidthOffset + 485, 2 * iScreenHeightOffset + 380, 25, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
@@ -1020,7 +1020,7 @@ void ExtractAndUpdateExplosivesGUI()
 
 void SetupMoneyGUI()
 {
-	wchar_t str[20];
+	CHAR16 str[20];
 	swprintf( str, L"%d", gpItem->uiMoneyAmount );
 	AddTextInputField( iScreenWidthOffset + 485, 2 * iScreenHeightOffset + 380, 45, 15, MSYS_PRIORITY_NORMAL, str, 5, INPUTTYPE_NUMERICSTRICT );
 	if( gpEditingItemPool )
@@ -1058,7 +1058,7 @@ void RemoveMoneyGUI()
 
 void SetupOwnershipGUI()
 {
-	wchar_t str[20];
+	CHAR16 str[20];
 	swprintf( str, L"%d", gpItem->ubOwnerProfile );
 	AddTextInputField( iScreenWidthOffset + 485, 2 * iScreenHeightOffset + 380, 25, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	giOwnershipGroupButton = 
@@ -1104,7 +1104,7 @@ void RemoveOwnershipGUI()
 
 void SetupKeysGUI()
 {
-	wchar_t str[20];
+	CHAR16 str[20];
 	if( gpEditingItemPool )
 	{
 		swprintf( str, L"%d", 100 - gWorldItems[ gpEditingItemPool->iItemIndex ].ubNonExistChance );
@@ -1130,8 +1130,8 @@ void RemoveKeysGUI()
 
 void SetupActionItemsGUI()
 {
-	wchar_t str[4];
-	UINT16 *pStr;
+	CHAR16 str[4];
+	STR16 pStr;
 	swprintf( str, L"%d", gpItem->bStatus[0] );
 	AddTextInputField( iScreenWidthOffset + 485, 2 * iScreenHeightOffset + 365, 25, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	swprintf( str, L"%d", gpItem->bTrap );
@@ -1197,7 +1197,7 @@ void AlarmTriggerCheckboxCallback( GUI_BUTTON *btn, INT32 reason )
 
 void SetupTriggersGUI()
 {
-	wchar_t str[4];
+	CHAR16 str[4];
 	swprintf( str, L"%d", gpItem->bTrap );
 	AddTextInputField( iScreenWidthOffset + 485, 2 * iScreenHeightOffset + 365, 25, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 	swprintf( str, L"%d", gpItem->ubTolerance );

@@ -321,7 +321,7 @@ enum BoxingStates
 //			 add new groups.  Try to abbreviate the team name as much as possible.  The text is in 
 //			 EditorMercs.c
 #ifdef JA2EDITOR
-	extern UINT16 gszCivGroupNames[ NUM_CIV_GROUPS ][ 20 ];
+	extern CHAR16 gszCivGroupNames[ NUM_CIV_GROUPS ][ 20 ];
 #endif
 //
 //-----------------------------------------------

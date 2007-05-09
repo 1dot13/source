@@ -30,7 +30,7 @@
 
 BOOLEAN SetPcxPalette( PcxObject *pCurrentPcxObject, HIMAGE hImage );
 BOOLEAN BlitPcxToBuffer( PcxObject *pCurrentPcxObject, UINT8 *pBuffer, UINT16 usBufferWidth, UINT16 usBufferHeight, UINT16 usX, UINT16 usY, BOOLEAN fTransp);
-PcxObject *LoadPcx(UINT8 *pFilename);
+PcxObject *LoadPcx(STR8 pFilename);
 
 
 BOOLEAN LoadPCXFileToImage( HIMAGE hImage, UINT16 fContents )
@@ -38,7 +38,7 @@ BOOLEAN LoadPCXFileToImage( HIMAGE hImage, UINT16 fContents )
 	PcxObject *pPcxObject;
 
 	// First Load a PCX Image
-	pPcxObject = LoadPcx( (UINT8 *)hImage->ImageFile );
+	pPcxObject = LoadPcx( hImage->ImageFile );
 
 	if ( pPcxObject == NULL )
 	{
@@ -81,7 +81,7 @@ BOOLEAN LoadPCXFileToImage( HIMAGE hImage, UINT16 fContents )
 }
 
 
-PcxObject *LoadPcx(UINT8 *pFilename)
+PcxObject *LoadPcx(STR8 pFilename)
 { 
   PcxHeader  Header;
   PcxObject *pCurrentPcxObject;
@@ -90,7 +90,7 @@ PcxObject *LoadPcx(UINT8 *pFilename)
   UINT8     *pPcxBuffer;
   
   // Open and read in the file
-  if ((hFileHandle = FileOpen((STR)pFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE)) == 0)
+  if ((hFileHandle = FileOpen(pFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE)) == 0)
   { // damn we failed to open the file
     return NULL;
   }

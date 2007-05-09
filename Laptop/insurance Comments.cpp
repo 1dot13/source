@@ -101,7 +101,7 @@ void HandleInsuranceComments()
 void RenderInsuranceComments()
 {
 //  HVOBJECT hPixHandle;
-	wchar_t		sText[800];
+	CHAR16		sText[800];
 	UINT16	usPosX, usPosY;
 
 	SetFontShadow( INS_FONT_SHADOW );
@@ -190,7 +190,7 @@ void SelectInsuranceCommentLinkRegionCallBack(MOUSE_REGION * pRegion, INT32 iRea
 
 BOOLEAN DisplayComment( UINT8 ubCommentorsName, UINT8 ubComment, UINT16 usPosY )
 {
-	wchar_t		sText[800];
+	CHAR16		sText[800];
   HVOBJECT	hPixHandle;
 	UINT16		sNumPixels=0;
 

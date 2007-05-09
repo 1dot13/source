@@ -48,7 +48,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 
 	UINT16			curAttachment[3];
 	UINT32			maxArraySize;
@@ -59,7 +59,7 @@ struct
 typedef attachmentParseData;
 
 static void XMLCALL 
-attachmentStartElementHandle(void *userData, const char *name, const char **atts)
+attachmentStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	attachmentParseData * pData = (attachmentParseData *)userData;
 
@@ -100,7 +100,7 @@ attachmentStartElementHandle(void *userData, const char *name, const char **atts
 }
 
 static void XMLCALL
-attachmentCharacterDataHandle(void *userData, const char *str, int len)
+attachmentCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	attachmentParseData * pData = (attachmentParseData *)userData;
 
@@ -113,7 +113,7 @@ attachmentCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-attachmentEndElementHandle(void *userData, const char *name)
+attachmentEndElementHandle(void *userData, const XML_Char *name)
 {
 	attachmentParseData * pData = (attachmentParseData *)userData;
 

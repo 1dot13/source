@@ -1030,10 +1030,10 @@ void BullsEyeOrChopperSelectionPopupCallback( UINT8 ubExitValue );
 
 void WakeUpAnySleepingSelectedMercsOnFootOrDriving( void );
 
-void GetMapscreenMercAssignmentString( SOLDIERTYPE *pSoldier, wchar_t sString[] );
-void GetMapscreenMercLocationString( SOLDIERTYPE *pSoldier, wchar_t sString[] );
-void GetMapscreenMercDestinationString( SOLDIERTYPE *pSoldier, wchar_t sString[] );
-void GetMapscreenMercDepartureString( SOLDIERTYPE *pSoldier, wchar_t sString[], UINT8 *pubFontColor );
+void GetMapscreenMercAssignmentString( SOLDIERTYPE *pSoldier, CHAR16 sString[] );
+void GetMapscreenMercLocationString( SOLDIERTYPE *pSoldier, CHAR16 sString[] );
+void GetMapscreenMercDestinationString( SOLDIERTYPE *pSoldier, CHAR16 sString[] );
+void GetMapscreenMercDepartureString( SOLDIERTYPE *pSoldier, CHAR16 sString[], UINT8 *pubFontColor );
 
 void InitPreviousPaths( void );
 void RememberPreviousPathForAllSelectedChars( void );
@@ -1539,8 +1539,8 @@ void DrawPay(INT16 sCharNumber)
 {
 	// will draw the pay
 	INT32 uiSalary;
-	wchar_t sString[7];
-	UINT16 usX, usY;
+	CHAR16 sString[7];
+	INT16 usX, usY;
 	INT16 usMercProfileID;
 
 
@@ -1631,8 +1631,8 @@ void DrawCharBars( void )
 void DrawCharStats( INT16 sCharNum )
 {
 	// will draw the characters stats, max life, strength, dex, and skills
-	wchar_t sString[9];
-	UINT16 usX, usY;
+	CHAR16 sString[9];
+	INT16 usX, usY;
 	//HVOBJECT hCrossHandle;
 	SOLDIERTYPE *pSoldier = NULL;
 
@@ -1884,8 +1884,8 @@ void DrawCharStats( INT16 sCharNum )
 void DrawCharHealth( INT16 sCharNum )
 {
 	UINT32 uiHealthPercent = 0;
-	wchar_t sString[9];
-	UINT16 usX, usY;
+	CHAR16 sString[9];
+	INT16 usX, usY;
 	SOLDIERTYPE *pSoldier = NULL;
 
 
@@ -1978,8 +1978,8 @@ void DrawCharHealth( INT16 sCharNum )
 // "character" refers to hired people AND vehicles
 void DrawCharacterInfo(INT16 sCharNumber)
 {
-	wchar_t sString[80];
-	UINT16 usX, usY;
+	CHAR16 sString[80];
+	INT16 usX, usY;
 	INT16 usMercProfileID;
 	INT32 iTimeRemaining=0;
 	INT8 bMorale =0;
@@ -4172,7 +4172,7 @@ void SetDayAlternate(STR16 pStringA, ...)
  // this sets the clock counter, unwind loop
  UINT16 uiX=0;
  UINT16 uiY=0;
- wchar_t String[80]; 
+ CHAR16 String[80]; 
  va_list argptr;
 
 	va_start(argptr, pStringA);						// Set up variable argument pointer
@@ -4206,7 +4206,7 @@ void SetHourAlternate(STR16 pStringA, ...)
  // this sets the clock counter, unwind loop
  UINT16 uiX=0;
  UINT16 uiY=0;
- wchar_t String[80]; 
+ CHAR16 String[80]; 
  va_list argptr;
 
 	va_start(argptr, pStringA);						// Set up variable argument pointer
@@ -4242,7 +4242,7 @@ void SetClockHour(STR16 pStringA, ...)
  // this sets the clock counter, unwind loop
  UINT16 uiX=0;
  UINT16 uiY=0;
- wchar_t String[80]; 
+ CHAR16 String[80]; 
  va_list argptr;
 
 	va_start(argptr, pStringA);						// Set up variable argument pointer
@@ -4271,7 +4271,7 @@ void SetClockHour(STR16 pStringA, ...)
 void SetClockMin(STR16 pStringA, ...)
 {
  // this sets the clock counter, unwind loop
- wchar_t String[10];
+ CHAR16 String[10];
  va_list argptr;
 
  va_start(argptr, pStringA);					// Set up variable argument pointer
@@ -4299,8 +4299,8 @@ void SetClockMin(STR16 pStringA, ...)
 // WANNE 2 <change 2>
 void DrawName(STR16 pName, INT16 sRowIndex, INT32 iFont)
 {
-	UINT16 usX=0;
-	UINT16 usY=0;
+	INT16 usX=0;
+	INT16 usY=0;
 
 	// mercs
 	if( sRowIndex < FIRST_VEHICLE )
@@ -4322,9 +4322,9 @@ void DrawName(STR16 pName, INT16 sRowIndex, INT32 iFont)
 
 void DrawAssignment(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 {
-	UINT16 usX=0;
-	UINT16 usY=0;
-	wchar_t sString[32];
+	INT16 usX=0;
+	INT16 usY=0;
+	CHAR16 sString[32];
 
 
 	GetMapscreenMercAssignmentString( MercPtrs[ gCharactersList[ sCharNumber ].usSolID ], sString );
@@ -4356,9 +4356,9 @@ void DrawAssignment(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 
 void DrawLocation(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 {
-	UINT16 usX=0;
-	UINT16 usY=0;
-	wchar_t sString[32];
+	INT16 usX=0;
+	INT16 usY=0;
+	CHAR16 sString[32];
 
 	GetMapscreenMercLocationString( MercPtrs[ gCharactersList[ sCharNumber ].usSolID ], sString );
 
@@ -4384,9 +4384,9 @@ void DrawLocation(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 
 void DrawDestination(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 {
-	UINT16 usX=0;
-	UINT16 usY=0;
-	wchar_t sString[32];
+	INT16 usX=0;
+	INT16 usY=0;
+	CHAR16 sString[32];
 
 	GetMapscreenMercDestinationString( MercPtrs[ gCharactersList[ sCharNumber ].usSolID ], sString );
 
@@ -4415,9 +4415,9 @@ void DrawDestination(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 
 void DrawTimeRemaining( INT16 sCharNumber, INT32 iFont, UINT8 ubFontColor )
 {
-	UINT16 usX=0;
-	UINT16 usY=0;
-	wchar_t sString[32];
+	INT16 usX=0;
+	INT16 usY=0;
+	CHAR16 sString[32];
 
 
 	GetMapscreenMercDepartureString( MercPtrs[ gCharactersList[ sCharNumber ].usSolID ], sString, &ubFontColor );
@@ -6622,13 +6622,13 @@ void PollRightButtonInMapView( UINT32 *puiNewEvent )
 
 
 
-void PopupText( wchar_t *pFontString, ...  )
+void PopupText( STR16 pFontString, ...  )
 {
 	UINT8	 *pDestBuf;
 	UINT32 uiDestPitchBYTES;
 	va_list argptr;
 	INT16 sX, sY;
-	wchar_t	PopupString[512];
+	CHAR16	PopupString[512];
 
 	va_start(argptr, pFontString);       	// Set up variable argument pointer
 	vswprintf(PopupString, pFontString, argptr);	// process gprintf string (get output str)
@@ -6752,7 +6752,7 @@ void BltCharInvPanel()
 	HVOBJECT hCharListHandle;
 	SOLDIERTYPE	*pSoldier;
 	CHAR16 sString[ 32 ];
-	UINT16 usX, usY;
+	INT16 usX, usY;
 	INT32 iCounter = 0;
 
 
@@ -10876,8 +10876,8 @@ void TellPlayerWhyHeCantCompressTime( void )
 	{
 		if( OnlyHostileCivsInSector() )
 		{
-			wchar_t str[ 256 ];
-			wchar_t pSectorString[ 128 ];
+			CHAR16 str[ 256 ];
+			CHAR16 pSectorString[ 128 ];
 			GetSectorIDString( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, pSectorString, TRUE );
 			swprintf( str, gzLateLocalizedString[ 27 ], pSectorString );
 			DoMapMessageBox( MSG_BOX_BASIC_STYLE, str, MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
@@ -12601,14 +12601,14 @@ void HandlePostAutoresolveMessages()
 	}
 	else if( gbMilitiaPromotions )
 	{
-		wchar_t str[ 512 ];
+		CHAR16 str[ 512 ];
 		BuildMilitiaPromotionsString( str );
 		DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 	}
 }
 
 
-void GetMapscreenMercAssignmentString( SOLDIERTYPE *pSoldier, wchar_t sString[] )
+void GetMapscreenMercAssignmentString( SOLDIERTYPE *pSoldier, CHAR16 sString[] )
 {
 	if( pSoldier->bAssignment != VEHICLE )
 	{
@@ -12621,9 +12621,9 @@ void GetMapscreenMercAssignmentString( SOLDIERTYPE *pSoldier, wchar_t sString[] 
 }
 
 
-void GetMapscreenMercLocationString( SOLDIERTYPE *pSoldier, wchar_t sString[] )
+void GetMapscreenMercLocationString( SOLDIERTYPE *pSoldier, CHAR16 sString[] )
 {
-	wchar_t pTempString[32];
+	CHAR16 pTempString[32];
 
 
 	if( pSoldier->bAssignment == IN_TRANSIT )
@@ -12657,7 +12657,7 @@ void GetMapscreenMercLocationString( SOLDIERTYPE *pSoldier, wchar_t sString[] )
 }
 
 
-void GetMapscreenMercDestinationString( SOLDIERTYPE *pSoldier, wchar_t sString[] )
+void GetMapscreenMercDestinationString( SOLDIERTYPE *pSoldier, CHAR16 sString[] )
 {
 	INT32 iSectorX, iSectorY;
 	INT16 sSector=0;
@@ -12715,7 +12715,7 @@ void GetMapscreenMercDestinationString( SOLDIERTYPE *pSoldier, wchar_t sString[]
 }
 
 
-void GetMapscreenMercDepartureString( SOLDIERTYPE *pSoldier, wchar_t sString[], UINT8 *pubFontColor )
+void GetMapscreenMercDepartureString( SOLDIERTYPE *pSoldier, CHAR16 sString[], UINT8 *pubFontColor )
 {
 	INT32 iMinsRemaining = 0;
 	INT32 iDaysRemaining = 0;

@@ -8,14 +8,14 @@
 #define STRING_LENGTH 255
 
 extern STR16 pCreditsJA2113[];
-extern wchar_t ShortItemNames[MAXITEMS][80];
-extern wchar_t ItemNames[MAXITEMS][80];
-extern wchar_t AmmoCaliber[MAXITEMS][20];
-extern wchar_t BobbyRayAmmoCaliber[MAXITEMS][20];
-extern wchar_t WeaponType[MAXITEMS][30];
+extern CHAR16 ShortItemNames[MAXITEMS][80];
+extern CHAR16 ItemNames[MAXITEMS][80];
+extern CHAR16 AmmoCaliber[MAXITEMS][20];
+extern CHAR16 BobbyRayAmmoCaliber[MAXITEMS][20];
+extern CHAR16 WeaponType[MAXITEMS][30];
 
-extern wchar_t Message[][STRING_LENGTH];
-extern wchar_t TeamTurnString[][STRING_LENGTH];
+extern CHAR16 Message[][STRING_LENGTH];
+extern CHAR16 TeamTurnString[][STRING_LENGTH];
 extern STR16 pMilitiaControlMenuStrings[]; //lal
 //extern STR16 pTalkToAllMenuStrings[];
 extern STR16 pAssignMenuStrings[];
@@ -261,7 +261,7 @@ enum
 };
 extern STR16 pMessageStrings[];
 
-extern wchar_t ItemPickupHelpPopup[][40];
+extern CHAR16 ItemPickupHelpPopup[][40];
 
 enum
 {
@@ -383,20 +383,20 @@ enum
 #define MED_STRING_LENGTH				80
 #define	SMALL_STRING_LENGTH			20
 
-extern wchar_t TacticalStr[][MED_STRING_LENGTH];
-extern wchar_t LargeTacticalStr[][ LARGE_STRING_LENGTH ];
+extern CHAR16 TacticalStr[][MED_STRING_LENGTH];
+extern CHAR16 LargeTacticalStr[][ LARGE_STRING_LENGTH ];
 
 
-extern wchar_t		zDialogActions[][ SMALL_STRING_LENGTH ];
-extern wchar_t		zDealerStrings[][ SMALL_STRING_LENGTH ];
-extern wchar_t		zTalkMenuStrings[][ SMALL_STRING_LENGTH ];
+extern CHAR16		zDialogActions[][ SMALL_STRING_LENGTH ];
+extern CHAR16		zDealerStrings[][ SMALL_STRING_LENGTH ];
+extern CHAR16		zTalkMenuStrings[][ SMALL_STRING_LENGTH ];
 extern STR16		gzMoneyAmounts[6];
-extern wchar_t		gzProsLabel[10];
-extern wchar_t		gzConsLabel[10];
-extern wchar_t		gMoneyStatsDesc[][ 13 ];
-extern wchar_t		gWeaponStatsDesc[][ 14 ];
+extern CHAR16		gzProsLabel[10];
+extern CHAR16		gzConsLabel[10];
+extern CHAR16		gMoneyStatsDesc[][ 13 ];
+extern CHAR16		gWeaponStatsDesc[][ 14 ];
 extern STR16		sKeyDescriptionStrings[2];
-extern wchar_t		zHealthStr[][13];
+extern CHAR16		zHealthStr[][13];
 extern STR16		zVehicleName[ 6 ];
 
 enum
@@ -1523,7 +1523,7 @@ STR16	gzCreditNameTitle[];
 STR16	gzCreditNameFunny[];
 
 
-extern wchar_t * GetWeightUnitString( void );
+extern STR16 GetWeightUnitString( void );
 FLOAT GetWeightBasedOnMetricOption( UINT32 uiObjectWeight );
 
 

@@ -96,7 +96,7 @@ typedef struct
 
 QUOTE_SYSTEM_STRUCT	gCivQuoteData;
 
-INT16		gzCivQuote[ 320 ];
+CHAR16	gzCivQuote[ 320 ];
 UINT16	gusCivQuoteBoxWidth;
 UINT16	gusCivQuoteBoxHeight;
 
@@ -113,9 +113,9 @@ void CopyNumEntriesIntoQuoteStruct( )
 }
 
 
-BOOLEAN GetCivQuoteText( UINT8 ubCivQuoteID, UINT8 ubEntryID, INT16 *zQuote )
+BOOLEAN GetCivQuoteText( UINT8 ubCivQuoteID, UINT8 ubEntryID, STR16 zQuote )
 {
-	UINT8 zFileName[164];
+	CHAR8 zFileName[164];
 
 	// Build filename....
 	if ( ubCivQuoteID == CIV_QUOTE_HINT )
@@ -123,22 +123,22 @@ BOOLEAN GetCivQuoteText( UINT8 ubCivQuoteID, UINT8 ubEntryID, INT16 *zQuote )
     if ( gbWorldSectorZ > 0 )
     {
 		  //sprintf( zFileName, "NPCData\\miners.edt" );
-  		sprintf( (char *)zFileName,"NPCDATA\\CIV%02d.edt", CIV_QUOTE_MINERS_NOT_FOR_PLAYER );
+  		sprintf( zFileName,"NPCDATA\\CIV%02d.edt", CIV_QUOTE_MINERS_NOT_FOR_PLAYER );
     }
     else
     {
-		  sprintf( (char *)zFileName, "NPCData\\%c%d.edt", 'A' + (gWorldSectorY - 1) , gWorldSectorX );
+		  sprintf( zFileName, "NPCData\\%c%d.edt", 'A' + (gWorldSectorY - 1) , gWorldSectorX );
     }
 	}
 	else
 	{
-		sprintf( (char *)zFileName,"NPCDATA\\CIV%02d.edt",ubCivQuoteID );
+		sprintf( zFileName,"NPCDATA\\CIV%02d.edt",ubCivQuoteID );
 	}
 
-	CHECKF( FileExists( (STR)zFileName ) );
+	CHECKF( FileExists( zFileName ) );
 
 	// Get data...
-	LoadEncryptedDataFromFile( (STR)zFileName, (STR16)zQuote, ubEntryID * 320, 320 );
+	LoadEncryptedDataFromFile( zFileName, zQuote, ubEntryID * 320, 320 );
 
 	if( zQuote[0] == 0 ) 
 	{
@@ -333,7 +333,7 @@ void QuoteOverlayClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 void BeginCivQuote( SOLDIERTYPE *pCiv, UINT8 ubCivQuoteID, UINT8 ubEntryID, INT16 sX, INT16 sY )
 {
 	VIDEO_OVERLAY_DESC		VideoOverlayDesc;
-	INT16									zQuote[ 320 ];
+	CHAR16									zQuote[ 320 ];
 
 	// OK, do we have another on?
 	if ( gCivQuoteData.bActive )
@@ -349,9 +349,9 @@ void BeginCivQuote( SOLDIERTYPE *pCiv, UINT8 ubCivQuoteID, UINT8 ubEntryID, INT1
 	}
 
 #ifdef TAIWANESE
-	swprintf( (wchar_t *)gzCivQuote, (wchar_t *)L"%s", zQuote );
+	swprintf( gzCivQuote, L"%s", zQuote );
 #else
-	swprintf( (wchar_t *)gzCivQuote, (wchar_t *)L"\"%s\"", zQuote );
+	swprintf( gzCivQuote, L"\"%s\"", zQuote );
 #endif
 
 
@@ -366,7 +366,7 @@ void BeginCivQuote( SOLDIERTYPE *pCiv, UINT8 ubCivQuoteID, UINT8 ubEntryID, INT1
 	// Prepare text box
   SET_USE_WINFONTS( TRUE );
   SET_WINFONT( giSubTitleWinFont ); 	
-	gCivQuoteData.iDialogueBox = PrepareMercPopupBox( gCivQuoteData.iDialogueBox , BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER, (STR16)gzCivQuote, DIALOGUE_DEFAULT_WIDTH, 0, 0, 0, &gusCivQuoteBoxWidth, &gusCivQuoteBoxHeight );
+	gCivQuoteData.iDialogueBox = PrepareMercPopupBox( gCivQuoteData.iDialogueBox , BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER, gzCivQuote, DIALOGUE_DEFAULT_WIDTH, 0, 0, 0, &gusCivQuoteBoxWidth, &gusCivQuoteBoxHeight );
   SET_USE_WINFONTS( FALSE );
 
 	// OK, find center for box......
@@ -421,7 +421,7 @@ void BeginCivQuote( SOLDIERTYPE *pCiv, UINT8 ubCivQuoteID, UINT8 ubEntryID, INT1
 
 	gCivQuoteData.uiTimeOfCreation = GetJA2Clock( );
 
-	gCivQuoteData.uiDelayTime = FindDelayForString( (STR16)gzCivQuote ) + 500;
+	gCivQuoteData.uiDelayTime = FindDelayForString( gzCivQuote ) + 500;
 	
 	gCivQuoteData.pCiv = pCiv;
 

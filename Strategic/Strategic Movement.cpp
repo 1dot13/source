@@ -698,7 +698,7 @@ GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmin
 
 #ifdef JA2BETAVERSION
 	{
-		wchar_t str[ 512 ];
+		CHAR16 str[ 512 ];
 		if( PlayerMercsInSector( pNew->ubSectorX, pNew->ubSectorY, 0 ) || CountAllMilitiaInSector( pNew->ubSectorX, pNew->ubSectorY ) )
 		{
 			swprintf( str, L"Attempting to send enemy troops from player occupied location.  "
@@ -1150,7 +1150,7 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 
 				if( GetTownIdForSector( pGroup->ubSectorX, pGroup->ubSectorY ) == BLANK_SECTOR)
 				{
-//					wchar_t str[ 256 ];
+//					CHAR16 str[ 256 ];
 //					UINT16 uiSectorC = L'A' + pGroup->ubSectorY - 1;
 //					swprintf( str, gpStrategicString[ STR_DIALOG_ENEMIES_ATTACK_MILITIA ], uiSectorC, pGroup->ubSectorX );
 //					DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, TriggerPrebattleInterface );
@@ -1159,8 +1159,8 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 			}
 			else
 			{
-				wchar_t str[ 256 ];
-				wchar_t pSectorStr[ 128 ];
+				CHAR16 str[ 256 ];
+				CHAR16 pSectorStr[ 128 ];
 				GetSectorIDString( pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubSectorZ , pSectorStr, TRUE );
 				swprintf( str, gpStrategicString[ STR_DIALOG_ENEMIES_ATTACK_UNCONCIOUSMERCS ], pSectorStr );
 				DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, TriggerPrebattleInterface );
@@ -2228,8 +2228,8 @@ BOOLEAN PossibleToCoordinateSimultaneousGroupArrivals( GROUP *pFirstGroup )
 
 	if( ubNumNearbyGroups )
 	{ //postpone the battle until the user answers the dialog.
-		wchar_t str[255];
-		wchar_t *pStr, *pEnemyType;
+		CHAR16 str[255];
+		STR16 pStr, pEnemyType;
 		InterruptTime();
 		PauseGame();
 		LockPauseState( 13 );
@@ -4495,7 +4495,7 @@ void AddFuelToVehicle( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVehicle )
 	if( !Item[pItem->usItem].gascan )
 	{
 		#ifdef JA2BETAVERSION
-			wchar_t str[ 100 ];
+			CHAR16 str[ 100 ];
 			swprintf( str, L"%s is supposed to have gas can in hand.  ATE:0", pSoldier->name );
 			DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 		#endif
@@ -4526,7 +4526,7 @@ void AddFuelToVehicle( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVehicle )
 
 void ReportVehicleOutOfGas( INT32 iVehicleID, UINT8 ubSectorX, UINT8 ubSectorY )
 {
-	wchar_t str[255];
+	CHAR16 str[255];
 	//Report that the vehicle that just arrived is out of gas.
 	swprintf( str, gzLateLocalizedString[ 5 ], 
 		pVehicleStrings[ pVehicleList[ iVehicleID ].ubVehicleType ],
@@ -4754,8 +4754,8 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 
 void NotifyPlayerOfBloodcatBattle( UINT8 ubSectorX, UINT8 ubSectorY )
 {
-	wchar_t str[ 256 ];
-	wchar_t zTempString[ 128 ];
+	CHAR16 str[ 256 ];
+	CHAR16 zTempString[ 128 ];
 	if( gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE )
 	{
 		GetSectorIDString( ubSectorX, ubSectorY, 0, zTempString, TRUE );
@@ -5156,7 +5156,7 @@ void ValidateGroups( GROUP *pGroup )
 	if( !pGroup->fPlayer && !pGroup->ubGroupSize )
 	{
 		//report error
-		wchar_t str[ 512 ];
+		CHAR16 str[ 512 ];
 		if( pGroup->ubSectorIDOfLastReassignment == 255 )
 		{
 			swprintf( str, L"Enemy group found with 0 troops in it.  This is illegal and group will be deleted."

@@ -60,10 +60,8 @@ typedef struct finance *FinanceUnitPtr;
 extern FinanceUnitPtr pFinanceListHead;
 //extern INT32 iCurrentBalance;
 UINT32 AddTransactionToPlayersBook(UINT8 ubCode, UINT8 ubSecondCode, UINT32 uiDate, INT32 iAmount);
-template <typename string1>
-void InsertDollarSignInToString( string1 pString );
-template <typename string1>
-void InsertCommasForDollarFigure( string1 pString );
+void InsertDollarSignInToString( STR16 pString );
+void InsertCommasForDollarFigure( STR16 pString );
 INT32 GetTodaysDaysIncome( void );
 INT32 GetProjectedTotalDailyIncome( void );
 

@@ -49,7 +49,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	INVTYPE		curItem;
 	INVTYPE *	curArray;
 	UINT32			maxArraySize;
@@ -62,7 +62,7 @@ typedef itemParseData;
 BOOLEAN localizedTextOnly;
 
 static void XMLCALL 
-itemStartElementHandle(void *userData, const char *name, const char **atts)
+itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	itemParseData * pData = (itemParseData *)userData;
 
@@ -227,7 +227,7 @@ itemStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-itemCharacterDataHandle(void *userData, const char *str, int len)
+itemCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	itemParseData * pData = (itemParseData *)userData;
 
@@ -240,7 +240,7 @@ itemCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-itemEndElementHandle(void *userData, const char *name)
+itemEndElementHandle(void *userData, const XML_Char *name)
 {
 	itemParseData * pData = (itemParseData *)userData;
 	char temp;
@@ -1054,10 +1054,10 @@ BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion )
 
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("done reading item stats"));
-	//wchar_t	str[512];
+	//CHAR16	str[512];
 	//for (int i = 0; i < MAXITEMS; i++)
 	//{
-	//	swprintf(str,(STR16) Item[i].szLongItemName);
+	//	swprintf(str, Item[i].szLongItemName);
 	//	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("ReadInItemStats: long item name: %s", str));
 	//}
 
@@ -1076,8 +1076,8 @@ BOOLEAN WriteItemStats()
 	
 	{
 		UINT32 cnt;
-		wchar_t str[100];
-		wchar_t strDesc[500];
+		CHAR16 str[100];
+		CHAR16 strDesc[500];
 
 		FilePrintf(hFile,"<ITEMLIST>\r\n");
 		for(cnt = 0;cnt < 351;cnt++)//just do the old limit for now
@@ -1085,7 +1085,7 @@ BOOLEAN WriteItemStats()
 			LoadShortNameItemInfo( (UINT16)cnt, str );
 
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"writeitemstats: itemname");
-			wchar_t * szRemainder = str; //the remaining string to be output (for making valid XML)
+			STR16 szRemainder = str; //the remaining string to be output (for making valid XML)
 
 			FilePrintf(hFile,"\t<ITEM>\r\n");
 			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n",									cnt);
@@ -1093,13 +1093,13 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<szItemName>");
 			while(szRemainder[0] != '\0')
 			{
-				UINT32 uiCharLoc = strcspn(szRemainder,"&<>\'\"\0");
-				wchar_t invChar = szRemainder[uiCharLoc];
+				UINT32 uiCharLoc = wcscspn(szRemainder, L"&<>\'\"\0");
+				CHAR16 invChar = szRemainder[uiCharLoc];
 				
 				if(uiCharLoc)
 				{
 					szRemainder[uiCharLoc] = '\0';
-					FilePrintf(hFile,"%s",szRemainder);
+					FilePrintf(hFile,"%S",szRemainder);
 					szRemainder[uiCharLoc] = invChar;
 				}
 
@@ -1145,13 +1145,13 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<szLongItemName>");
 			while(szRemainder[0] != '\0')
 			{
-				UINT32 uiCharLoc = strcspn(szRemainder,"&<>\'\"\0");
-				wchar_t invChar = szRemainder[uiCharLoc];
+				UINT32 uiCharLoc = wcscspn(szRemainder, L"&<>\'\"\0");
+				CHAR16 invChar = szRemainder[uiCharLoc];
 				
 				if(uiCharLoc)
 				{
 					szRemainder[uiCharLoc] = '\0';
-					FilePrintf(hFile,"%s",szRemainder);
+					FilePrintf(hFile,"%S",szRemainder);
 					szRemainder[uiCharLoc] = invChar;
 				}
 
@@ -1196,8 +1196,8 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<szItemDesc>");
 			while(szRemainder[0] != '\0')
 			{
-				UINT32 uiCharLoc = strcspn(szRemainder,"&<>\'\"\0");
-				wchar_t invChar = szRemainder[uiCharLoc];
+				UINT32 uiCharLoc = wcscspn(szRemainder, L"&<>\'\"\0");
+				CHAR16 invChar = szRemainder[uiCharLoc];
 				
 				//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"writeitemstats: characters set");
 	
@@ -1206,7 +1206,7 @@ BOOLEAN WriteItemStats()
 					//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("writeitemstats: setting remainder[%d] to \0",uiCharLoc));
 					szRemainder[uiCharLoc] = '\0';
 					//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("writeitemstats: printing '%s' to file",szRemainder));
-					FilePrintf(hFile,"%s",szRemainder);
+					FilePrintf(hFile,"%S",szRemainder);
 					//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("writeitemstats: setting remainder[%d] to %d",uiCharLoc,invChar));
 					szRemainder[uiCharLoc] = invChar;
 				}
@@ -1248,7 +1248,7 @@ BOOLEAN WriteItemStats()
 			//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"writeitemstats: end tag printed");
 
 
-			//wchar_t	sText[400];
+			//CHAR16	sText[400];
 			//UINT32	uiStartLoc=0;
 
 //#define		BOBBYR_ITEM_DESC_NAME_SIZE				160
@@ -1267,13 +1267,13 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<szBRName>");
 			while(szRemainder[0] != '\0')
 			{
-				UINT32 uiCharLoc = strcspn(szRemainder,"&<>\'\"\0");
-				wchar_t invChar = szRemainder[uiCharLoc];
+				UINT32 uiCharLoc = wcscspn(szRemainder,L"&<>\'\"\0");
+				CHAR16 invChar = szRemainder[uiCharLoc];
 				
 				if(uiCharLoc)
 				{
 					szRemainder[uiCharLoc] = '\0';
-					FilePrintf(hFile,"%s",szRemainder);
+					FilePrintf(hFile,"%S",szRemainder);
 					szRemainder[uiCharLoc] = invChar;
 				}
 
@@ -1323,13 +1323,13 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<szBRDesc>");
 			while(szRemainder[0] != '\0')
 			{
-				UINT32 uiCharLoc = strcspn(szRemainder,"&<>\'\"\0");
-				wchar_t invChar = szRemainder[uiCharLoc];
+				UINT32 uiCharLoc = wcscspn(szRemainder,L"&<>\'\"\0");
+				CHAR16 invChar = szRemainder[uiCharLoc];
 				
 				if(uiCharLoc)
 				{
 					szRemainder[uiCharLoc] = '\0';
-					FilePrintf(hFile,"%s",szRemainder);
+					FilePrintf(hFile,"%S",szRemainder);
 					szRemainder[uiCharLoc] = invChar;
 				}
 

@@ -816,7 +816,7 @@ BOOLEAN DisplayFormattedText( void )
 	INT32 iHeight=0;
 	INT32 iOffSet=0;
 	INT32 iMessageCode;
-	wchar_t sString[2048];
+	CHAR16 sString[2048];
   HVOBJECT hHandle;
   UINT32 uiFirstTempPicture;
 	UINT32 uiSecondTempPicture;
@@ -1013,7 +1013,7 @@ BOOLEAN DisplayFormattedText( void )
 BOOLEAN HandleSpecialFiles( UINT8 ubFormat )
 {
 	INT32 iCounter = 0;
-  wchar_t sString[2048];
+  CHAR16 sString[2048];
 	FileStringPtr pTempString = NULL ;
 	FileStringPtr pLocatorString = NULL;
 	INT32 iTotalYPosition = 0;
@@ -1640,7 +1640,7 @@ BOOLEAN HandleSpecialTerroristFile( INT32 iFileNumber, STR sPictureName )
 {
 
 	INT32 iCounter = 0;
-  wchar_t sString[2048];
+  CHAR16 sString[2048];
 	FileStringPtr pTempString = NULL ;
 	FileStringPtr pLocatorString = NULL;
 	INT32 iTotalYPosition = 0;

@@ -1312,8 +1312,8 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter)
 	UINT16	PosY, usTextPosY;
 	UINT16		ubFirstIndex=0;
 	UINT16	usItemIndex;
-	wchar_t	sDollarTemp[60];
-	wchar_t	sTemp[60];
+	CHAR16	sDollarTemp[60];
+	CHAR16	sTemp[60];
 	INT16		pItemNumbers[ BOBBYR_NUM_WEAPONS_ON_PAGE ];
 	BOOLEAN		bAddItem = FALSE;
 
@@ -1809,7 +1809,7 @@ BOOLEAN DisplayMiscInfo(UINT16 usIndex, UINT16 usTextPosY, BOOLEAN fUsed, UINT16
 
 UINT16 DisplayCostAndQty(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight, UINT16 usBobbyIndex, BOOLEAN fUsed)
 {
-	wchar_t	sTemp[20];
+	CHAR16	sTemp[20];
 //	UINT8	ubPurchaseNumber;
 
 	//
@@ -1871,7 +1871,7 @@ UINT16 DisplayCostAndQty(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight, UIN
 
 UINT16 DisplayRof(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 {
-	wchar_t	sTemp[20];
+	CHAR16	sTemp[20];
 
 	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_ROF], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
@@ -1888,7 +1888,7 @@ UINT16 DisplayRof(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 
 UINT16 DisplayDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 {
-	wchar_t	sTemp[20];
+	CHAR16	sTemp[20];
 	UINT16 gunDamage = 0;
 	
 	if ( Item[ usIndex ].usItemClass == IC_GUN || Item[ usIndex ].usItemClass == IC_LAUNCHER )
@@ -1910,7 +1910,7 @@ UINT16 DisplayDamage(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 
 UINT16 DisplayRange(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 {
-	wchar_t	sTemp[20];
+	CHAR16	sTemp[20];
 
 	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_RANGE], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	swprintf(sTemp, L"%3d %s", Weapon[ usIndex ].usRange, pMessageStrings[ MSG_METER_ABBREVIATION ] );
@@ -1921,7 +1921,7 @@ UINT16 DisplayRange(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 
 UINT16 DisplayMagazine(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 {
-	wchar_t	sTemp[20];
+	CHAR16	sTemp[20];
 
 	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_MAGAZINE], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	swprintf(sTemp, L"%3d %s", Weapon[usIndex].ubMagSize, pMessageStrings[ MSG_ROUNDS_ABBREVIATION ] );
@@ -1963,7 +1963,7 @@ UINT16 DisplayCaliber(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 
 UINT16 DisplayWeight(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 {
-	wchar_t	sTemp[20];
+	CHAR16	sTemp[20];
 
 	//display the 'weight' string
 	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_WEIGHT], BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, 0, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
@@ -1977,8 +1977,8 @@ UINT16 DisplayWeight(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 
 void DisplayItemNameAndInfo(UINT16 usPosY, UINT16 usIndex, UINT16 usBobbyIndex, BOOLEAN fUsed)
 {
-	wchar_t	sText[400];
-	wchar_t	sTemp[20];
+	CHAR16	sText[400];
+	CHAR16	sTemp[20];
 	UINT32	uiStartLoc=0;
 
 	UINT8	ubPurchaseNumber;
@@ -2280,7 +2280,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 	UINT8	i;
 	CHAR16	zItemName[ SIZE_ITEM_NAME ];
 	UINT8	ubItemCount=0;
-	wchar_t	pStr[ 250 ]; 
+	CHAR16	pStr[ 250 ]; 
 
 	if( gfBigImageMouseRegionCreated )
 		return;
@@ -2308,11 +2308,11 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			//	INT16 apStr2[20];
 			//	UINT8 ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, pObject );
 
-			//	swprintf( (wchar_t *)apStr, L"%d", ubAttackAPs );
+			//	swprintf( apStr, L"%d", ubAttackAPs );
 
 			//	if (GetShotsPerBurst(pObject) > 0)
 			//	{
-			//		swprintf( (wchar_t *)apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, pObject ) );
+			//		swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, pObject ) );
 			//		wcscat( apStr, apStr2 );
 			//	}
 			//	else
@@ -2322,7 +2322,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 
 			//	if (GetAutofireShotsPerFiveAPs(pObject) > 0)
 			//	{
-			//		swprintf( (wchar_t *)apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, pObject, 3 ) );
+			//		swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, pObject, 3 ) );
 			//		wcscat( apStr, apStr2 );
 			//	}
 			//	else
@@ -2332,7 +2332,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			//}
 			//else
 			//{
-			//	swprintf( (wchar_t *)apStr, L"" );
+			//	swprintf( apStr, L"" );
 			//}
 
 			//Info for weapons
@@ -2340,7 +2340,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			{
 				UINT16 gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
 
-				swprintf( (wchar_t *)pStr, L"%s (%s)\n%s %d\n%s %d\n%s %d\n%s %s\n%s %1.1f %s", 
+				swprintf( pStr, L"%s (%s)\n%s %d\n%s %d\n%s %d\n%s %s\n%s %1.1f %s", 
 					ItemNames[ pItemNumbers[ i ] ], 
 					AmmoCaliber[ Weapon[ pItemNumbers[ i ] ].ubCalibre ], 
 					gWeaponStatsDesc[ 9 ],					//Accuracy String
@@ -2370,11 +2370,11 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			//	INT16 apStr2[20];
 			//	UINT8 ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, pObject );
 
-			//	swprintf( (wchar_t *)apStr, L"%d", ubAttackAPs );
+			//	swprintf( apStr, L"%d", ubAttackAPs );
 
 			//	if (GetShotsPerBurst(pObject) > 0)
 			//	{
-			//		swprintf( (wchar_t *)apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, pObject ) );
+			//		swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, pObject ) );
 			//		wcscat( apStr, apStr2 );
 			//	}
 			//	else
@@ -2384,7 +2384,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 
 			//	if (GetAutofireShotsPerFiveAPs(pObject) > 0)
 			//	{
-			//		swprintf( (wchar_t *)apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, pObject, 3 ) );
+			//		swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, pObject, 3 ) );
 			//		wcscat( apStr, apStr2 );
 			//	}
 			//	else
@@ -2394,7 +2394,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			//}
 			//else
 			//{
-			//	swprintf( (wchar_t *)apStr, L"" );
+			//	swprintf( apStr, L"" );
 			//}
 
 			//Info for weapons
@@ -2402,7 +2402,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			{
 				UINT16 gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
 
-				swprintf( (wchar_t *)pStr, L"%s\n%s %d\n%s %d\n%s %d\n%s %s\n%s %1.1f %s", 
+				swprintf( pStr, L"%s\n%s %d\n%s %d\n%s %d\n%s %s\n%s %1.1f %s", 
 					ItemNames[ pItemNumbers[ i ] ], 
 					gWeaponStatsDesc[ 9 ],					//Accuracy String
 					Weapon[ pItemNumbers[ i ] ].bAccuracy,	//Accuracy
@@ -2426,7 +2426,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			{
 				UINT16 meleeDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubMeleeDamageMultiplier );
 
-				swprintf( (wchar_t *)pStr, L"%s\n%s %d\n%s %s\n%s %1.1f %s", 
+				swprintf( pStr, L"%s\n%s %d\n%s %s\n%s %1.1f %s", 
 					ItemNames[ pItemNumbers[ i ] ], 
 					gWeaponStatsDesc[ 11 ],					//Damage String
 					meleeDamage,							//Melee damage
@@ -2442,7 +2442,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 
 		case IC_AMMO:
 			{
-				swprintf( (wchar_t *)pStr, L"%s\n%s %1.1f %s", 				
+				swprintf( pStr, L"%s\n%s %1.1f %s", 				
 					ItemNames[ pItemNumbers[ i ] ],	//Item long name
 					gWeaponStatsDesc[ 12 ],			//Weight String
 					fWeight,						//Weight
@@ -2450,7 +2450,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 					);
 
 				//Lal: do not delete, commented out for next version
-				//swprintf( (wchar_t *)pStr, L"%s %s %s %d [%d rnds]\n%s %1.1f %s", 				
+				//swprintf( pStr, L"%s %s %s %d [%d rnds]\n%s %1.1f %s", 				
 				//	AmmoCaliber[ Magazine[ Item[usItem].ubClassIndex ].ubCalibre ],			//Ammo calibre
 				//	AmmoTypes[Magazine[ Item[usItem].ubClassIndex ].ubAmmoType].ammoName,	//Ammo type
 				//	MagNames[Magazine[ Item[usItem].ubClassIndex ].ubMagType],				//Magazine type
@@ -2467,7 +2467,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 				if( ubItemCount != 0 )
 				{				
 					swprintf( zItemName, L"\n%s %d %s",BobbyRText[BOBBYR_GUNS_NUM_GUNS_THAT_USE_AMMO_1], ubItemCount, BobbyRText[BOBBYR_GUNS_NUM_GUNS_THAT_USE_AMMO_2] );
-					wcscat( (wchar_t *) pStr, zItemName );
+					wcscat(  pStr, zItemName );
 				}
 			}
 			break;
@@ -2480,7 +2480,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 				UINT16 explDamage = (UINT16)( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubDamage + ( (double) Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
 				UINT16 explStunDamage = (UINT16)( Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubStunDamage + ( (double) Explosive[Item[ pItemNumbers[ i ] ].ubClassIndex].ubStunDamage / 100) * gGameExternalOptions.ubExplosivesDamageMultiplier );
 
-				swprintf( (wchar_t *)pStr, L"%s\n%s %d\n%s %d\n%s %1.1f %s", 
+				swprintf( pStr, L"%s\n%s %d\n%s %d\n%s %1.1f %s", 
 					ItemNames[ pItemNumbers[ i ] ], 
 					gWeaponStatsDesc[ 11 ],		//Damage String
 					explDamage,					//Expl damage
@@ -2518,7 +2518,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 					break;
 				}
 
-				swprintf( (wchar_t *)pStr, L"%s\n%s %d%% (%d)\n%s %d%%\n%s %1.1f %s", 				
+				swprintf( pStr, L"%s\n%s %d%% (%d)\n%s %d%%\n%s %1.1f %s", 				
 					ItemNames[ pItemNumbers[ i ] ],									//Item long name
 					pInvPanelTitleStrings[ 4 ],										//Protection string
 					iProtection,													//Protection rating in % based on best armor
@@ -2539,7 +2539,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 		default:
 			// The final, and typical case, is that of an item with a percent status
 			{
-				swprintf( (wchar_t *)pStr, L"%s\n%s %1.1f %s", 
+				swprintf( pStr, L"%s\n%s %1.1f %s", 
 					ItemNames[ pItemNumbers[ i ] ],	//Item long name
 					gWeaponStatsDesc[ 12 ],			//Weight String
 					fWeight,						//Weight

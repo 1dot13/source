@@ -43,7 +43,7 @@ extern INT32		giProfileCount;
 														_RPT3(_CRT_WARN, "*** PROFILE REPORT: %d executions took %dms, average of %.2fms per iteration.\n", guiExecutions, guiProfileTime, (FLOAT)guiProfileTime/guiExecutions); 
 
 extern void			_Null(void);
-extern	UINT8		*String(const char *String, ...);
+extern	STR8		String(const STR8 String, ...);
 
 
 
@@ -64,13 +64,12 @@ extern	UINT8		*String(const char *String, ...);
 //Assert( pointer, "This pointer is null and you tried to access it in function A ");  
 //It'll make debugging a little simpler.  In anal cases, you could build the string first, then assert 
 //with it.
-template <typename type1, typename type2>
-extern void _FailMessage(type1 pString, UINT32 uiLineNum, type2 pSourceFile );
+extern void _FailMessage(STR8 pString, UINT32 uiLineNum, STR8 pSourceFile );
 
 #define Assert(a)										(a) ? _Null() : _FailMessage( NULL, __LINE__, __FILE__ )
 #define AssertMsg(a,b)							(a) ? _Null() : _FailMessage(    b, __LINE__, __FILE__ )
 
-extern UINT8			gubAssertString[128];
+extern CHAR8			gubAssertString[128];
 
 
 #else 
@@ -84,7 +83,7 @@ extern UINT8			gubAssertString[128];
 
 // Kaiden: Added this for Map Editor
 #ifdef JA2BETAVERSION
-	extern UINT8			gubAssertString[128];
+	extern CHAR8			gubAssertString[128];
 #endif
 	
 // Moved these out of the defines - debug mgr always initialized
@@ -130,11 +129,10 @@ extern BOOLEAN		gfDebugTopics[MAX_TOPICS_ALLOTED];
 #endif
 
 // public interface to debug methods:
-template <typename type4>
-extern void DbgMessageReal(UINT16 uiTopicId, UINT8 uiCommand, UINT8 uiDebugLevel, type4 strMessage);
+extern void DbgMessageReal(UINT16 uiTopicId, UINT8 uiCommand, UINT8 uiDebugLevel, STR8 strMessage);
 
 extern	BOOLEAN	DbgSetDebugLevel(UINT16 TopicId, UINT8 uiDebugLevel);
-extern	void		DbgFailedAssertion( BOOLEAN fExpression, char *szFile, int nLine );
+extern	void		DbgFailedAssertion( BOOLEAN fExpression, STR8 szFile, int nLine );
 #if _MSC_VER <= 1200
 	extern	void		_FailMessage(UINT8 *pString, UINT32 uiLineNum, UINT8 *pSourceFile );
 #endif

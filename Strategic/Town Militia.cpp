@@ -657,7 +657,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia2");
 	return;
 }
 
-void DoContinueMilitiaTrainingMessageBox( INT16 sSectorX, INT16 sSectorY, wchar_t *str, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+void DoContinueMilitiaTrainingMessageBox( INT16 sSectorX, INT16 sSectorY, const STR16 str, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
 	if( sSectorX <= 10 && sSectorY >= 6 && sSectorY <= 11 )
 	{
@@ -725,12 +725,12 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Militia3");
 			// wilderness SAM site
 			GetSectorIDString( sSectorX, sSectorY, 0, sStringB, TRUE );
 			void (*tempFptr)(INT16 , INT16 , INT8  , CHAR16 *, BOOLEAN) = GetSectorIDString;
-			swprintf( (wchar_t *)sString, (wchar_t *)pMilitiaConfirmStrings[ 10 ], sStringB, tempFptr, iMinLoyaltyToTrain );
+			swprintf( sString, pMilitiaConfirmStrings[ 10 ], sStringB, tempFptr, iMinLoyaltyToTrain );
 		}
 		else
 		{
 			// town
-			swprintf( (wchar_t *)sString, (wchar_t *)pMilitiaConfirmStrings[ 10 ], pTownNames[ bTownId ], iMinLoyaltyToTrain );
+			swprintf( sString, pMilitiaConfirmStrings[ 10 ], pTownNames[ bTownId ], iMinLoyaltyToTrain );
 		}
 		DoContinueMilitiaTrainingMessageBox( sSectorX, sSectorY, sString, MSG_BOX_FLAG_OK, CantTrainMilitiaOkBoxCallback );
 		return;
@@ -1456,9 +1456,9 @@ BOOLEAN MilitiaTrainingAllowedInTown( INT8 bTownId )
 	return( gfMilitiaAllowedInTown[bTownId] );
 }
 
-void BuildMilitiaPromotionsString( wchar_t *str )
+void BuildMilitiaPromotionsString( STR16 str )
 {
-	wchar_t pStr[256];
+	CHAR16 pStr[256];
 	BOOLEAN fAddSpace = FALSE;
 	swprintf( str, L"" );
 

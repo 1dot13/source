@@ -74,8 +74,8 @@ typedef struct VSURFACE_NODE
   struct VSURFACE_NODE *next, *prev;
 
 	#ifdef SGP_VIDEO_DEBUGGING
-		UINT8									*pName;
-		UINT8									*pCode;
+		STR8									pName;
+		STR8									pCode;
 	#endif
 
 }VSURFACE_NODE;
@@ -2506,42 +2506,42 @@ void CheckValidVSurfaceIndex( UINT32 uiIndex )
 
 	if( fAssertError )
 	{
-		UINT8 str[60];
+		CHAR8 str[60];
 		switch( gubVSDebugCode )
 		{
 			case DEBUGSTR_SETVIDEOSURFACETRANSPARENCY:
-				sprintf( (char *)str, "SetVideoSurfaceTransparency" );
+				sprintf( str, "SetVideoSurfaceTransparency" );
 				break;
 			case DEBUGSTR_ADDVIDEOSURFACEREGION:
-				sprintf( (char *)str, "AddVideoSurfaceRegion" );
+				sprintf( str, "AddVideoSurfaceRegion" );
 				break;
 			case DEBUGSTR_GETVIDEOSURFACEDESCRIPTION:
-				sprintf( (char *)str, "GetVideoSurfaceDescription" );
+				sprintf( str, "GetVideoSurfaceDescription" );
 				break;
 			case DEBUGSTR_BLTVIDEOSURFACE_DST:
-				sprintf( (char *)str, "BltVideoSurface (dest)" );
+				sprintf( str, "BltVideoSurface (dest)" );
 				break;
 			case DEBUGSTR_BLTVIDEOSURFACE_SRC:
-				sprintf( (char *)str, "BltVideoSurface (src)" );
+				sprintf( str, "BltVideoSurface (src)" );
 				break;
 			case DEBUGSTR_COLORFILLVIDEOSURFACEAREA:
-				sprintf( (char *)str, "ColorFillVideoSurfaceArea" );
+				sprintf( str, "ColorFillVideoSurfaceArea" );
 				break;
 			case DEBUGSTR_SHADOWVIDEOSURFACERECT:
-				sprintf( (char *)str, "ShadowVideoSurfaceRect" );
+				sprintf( str, "ShadowVideoSurfaceRect" );
 				break;
 			case DEBUGSTR_BLTSTRETCHVIDEOSURFACE_DST:
-				sprintf( (char *)str, "BltStretchVideoSurface (dest)" );
+				sprintf( str, "BltStretchVideoSurface (dest)" );
 				break;
 			case DEBUGSTR_BLTSTRETCHVIDEOSURFACE_SRC:
-				sprintf( (char *)str, "BltStretchVideoSurface (src)" );
+				sprintf( str, "BltStretchVideoSurface (src)" );
 				break;
 			case DEBUGSTR_DELETEVIDEOSURFACEFROMINDEX:
-				sprintf( (char *)str, "DeleteVideoSurfaceFromIndex" );
+				sprintf( str, "DeleteVideoSurfaceFromIndex" );
 				break;
 			case DEBUGSTR_NONE:
 			default:
-				sprintf( (char *)str, "GetVideoSurface" );
+				sprintf( str, "GetVideoSurface" );
 				break;
 		}
 		if( uiIndex == 0xffffffff )
@@ -2559,16 +2559,16 @@ void CheckValidVSurfaceIndex( UINT32 uiIndex )
 #ifdef SGP_VIDEO_DEBUGGING
 typedef struct DUMPFILENAME
 {
-	UINT8 str[256];
+	CHAR8 str[256];
 }DUMPFILENAME;
-void DumpVSurfaceInfoIntoFile( UINT8 *filename, BOOLEAN fAppend )
+void DumpVSurfaceInfoIntoFile( const STR8 filename, BOOLEAN fAppend )
 {
 	VSURFACE_NODE *curr;
 	FILE *fp;
 	DUMPFILENAME *pName, *pCode;
 	UINT32 *puiCounter;
-	UINT8 tempName[ 256 ];
-	UINT8 tempCode[ 256 ];
+	CHAR8 tempName[ 256 ];
+	CHAR8 tempCode[ 256 ];
 	UINT32 i, uiUniqueID;
 	BOOLEAN fFound;
 	if( !guiVSurfaceSize )
@@ -2578,11 +2578,11 @@ void DumpVSurfaceInfoIntoFile( UINT8 *filename, BOOLEAN fAppend )
 
 	if( fAppend )
 	{
-		fp = fopen( (const char *)filename, "a" );
+		fp = fopen( filename, "a" );
 	}
 	else
 	{
-		fp = fopen( (const char *)filename, "w" );
+		fp = fopen( filename, "w" );
 	}
 	Assert( fp );
 
@@ -2640,11 +2640,10 @@ void DumpVSurfaceInfoIntoFile( UINT8 *filename, BOOLEAN fAppend )
 }
 
 //Debug wrapper for adding vsurfaces
-template <typename type4>
-BOOLEAN _AddAndRecordVSurface( VSURFACE_DESC *VSurfaceDesc, UINT32 *uiIndex, UINT32 uiLineNum, type4 pSourceFile )
+BOOLEAN _AddAndRecordVSurface( VSURFACE_DESC *VSurfaceDesc, UINT32 *uiIndex, UINT32 uiLineNum, const STR8 pSourceFile )
 {
 	UINT16 usLength;
-	UINT8 str[256];
+	CHAR8 str[256];
 	if( !AddStandardVideoSurface( VSurfaceDesc, uiIndex ) )
 	{
 		return FALSE;
@@ -2652,14 +2651,14 @@ BOOLEAN _AddAndRecordVSurface( VSURFACE_DESC *VSurfaceDesc, UINT32 *uiIndex, UIN
 
 	//record the filename of the vsurface (some are created via memory though)
 	usLength = strlen( VSurfaceDesc->ImageFile ) + 1;
-	gpVSurfaceTail->pName = (UINT8*)MemAlloc( usLength );
+	gpVSurfaceTail->pName = (STR8)MemAlloc( usLength );
 	memset( gpVSurfaceTail->pName, 0, usLength );
 	strcpy( gpVSurfaceTail->pName, VSurfaceDesc->ImageFile );
 
 	//record the code location of the calling creating function.
-	sprintf( (char *) str, "%s -- line(%d)", pSourceFile, uiLineNum );
+	sprintf( str, "%s -- line(%d)", pSourceFile, uiLineNum );
 	usLength = strlen( str ) + 1;
-	gpVSurfaceTail->pCode = (UINT8*)MemAlloc( usLength );
+	gpVSurfaceTail->pCode = (STR8)MemAlloc( usLength );
 	memset( gpVSurfaceTail->pCode, 0, usLength );
 	strcpy( gpVSurfaceTail->pCode, str );
 

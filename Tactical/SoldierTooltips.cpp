@@ -417,13 +417,13 @@ void DrawMouseTooltip()
 	UINT16 usRectColor2 =	Get16BPPColor( FROMRGB( 227, 198, 88 ) );
 	static INT32 iX, iY, iW, iH;
 	
-	extern INT16 GetWidthOfString(STR16);
-	extern INT16 GetNumberOfLinesInHeight(STR16);
-	extern void DisplayHelpTokenizedString(STR16,INT16,INT16);
+	extern INT16 GetWidthOfString(const STR16);
+	extern INT16 GetNumberOfLinesInHeight(const STR16);
+	extern void DisplayHelpTokenizedString(const STR16,INT16,INT16);
 	extern BOOLEAN initTooltipBuffer();
 	extern PTR LockTooltipBuffer(UINT32*);
 	extern void UnlockTooltipBuffer();
-	extern void DisplayTooltipString( STR16 pStringA, INT16 sX, INT16 sY );
+	extern void DisplayTooltipString( const STR16 pStringA, INT16 sX, INT16 sY );
 	extern void j_log(PTR,...);
 
 	iX = mouseTT.iX;iY = mouseTT.iY;

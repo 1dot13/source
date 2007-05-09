@@ -48,7 +48,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 
 	UINT16			curLaunchable[2];
 	UINT32			maxArraySize;
@@ -59,7 +59,7 @@ struct
 typedef launchableParseData;
 
 static void XMLCALL 
-launchableStartElementHandle(void *userData, const char *name, const char **atts)
+launchableStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	launchableParseData * pData = (launchableParseData *)userData;
 
@@ -99,7 +99,7 @@ launchableStartElementHandle(void *userData, const char *name, const char **atts
 }
 
 static void XMLCALL
-launchableCharacterDataHandle(void *userData, const char *str, int len)
+launchableCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	launchableParseData * pData = (launchableParseData *)userData;
 
@@ -112,7 +112,7 @@ launchableCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-launchableEndElementHandle(void *userData, const char *name)
+launchableEndElementHandle(void *userData, const XML_Char *name)
 {
 	launchableParseData * pData = (launchableParseData *)userData;
 

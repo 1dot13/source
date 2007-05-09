@@ -216,7 +216,7 @@ INT8 CreatureDecideActionGreen( SOLDIERTYPE * pSoldier )
 			{
 	#ifdef DEBUGDECISIONS
 				STR16 tempstr;
-				sprintf((CHAR *)tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->usActionData);
+				sprintf(tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->usActionData);
 				AIPopMessage(tempstr);
 	#endif
 
@@ -285,7 +285,7 @@ INT8 CreatureDecideActionGreen( SOLDIERTYPE * pSoldier )
 			{
 	#ifdef DEBUGDECISIONS
 			STR16 tempstr;
-			sprintf((CHAR *)tempstr,"%s - RANDOM PATROL to grid %d",pSoldier->name,pSoldier->usActionData);
+			sprintf(tempstr,"%s - RANDOM PATROL to grid %d",pSoldier->name,pSoldier->usActionData);
 			 AIPopMessage(tempstr);
 	#endif
 
@@ -347,7 +347,7 @@ INT8 CreatureDecideActionGreen( SOLDIERTYPE * pSoldier )
 				if (RandomFriendWithin(pSoldier))
 				{
 		#ifdef DEBUGDECISIONS
-				 sprintf((CHAR *)tempstr,"%s - SEEK FRIEND at grid %d",pSoldier->name,pSoldier->usActionData);
+				 sprintf(tempstr,"%s - SEEK FRIEND at grid %d",pSoldier->name,pSoldier->usActionData);
 				 AIPopMessage(tempstr);
 		#endif
 
@@ -403,7 +403,7 @@ INT8 CreatureDecideActionGreen( SOLDIERTYPE * pSoldier )
 
 	#ifdef DEBUGDECISIONS
 				STR16 tempstr;
-				sprintf((CHAR *)tempstr,"%s - TURNS to face direction %d",pSoldier->name,pSoldier->usActionData);
+				sprintf(tempstr,"%s - TURNS to face direction %d",pSoldier->name,pSoldier->usActionData);
 				AIPopMessage(tempstr);
 	#endif
 
@@ -495,7 +495,7 @@ INT8 CreatureDecideActionYellow( SOLDIERTYPE * pSoldier )
 				pSoldier->usActionData = ubNoiseDir;
 	#ifdef DEBUGDECISIONS
 				STR16 tempstr;
-				sprintf((CHAR *)tempstr,"%s - TURNS TOWARDS NOISE to face direction %d",pSoldier->name,pSoldier->usActionData);
+				sprintf(tempstr,"%s - TURNS TOWARDS NOISE to face direction %d",pSoldier->name,pSoldier->usActionData);
 				AIPopMessage(tempstr);
 	#endif
 				//if ( InternalIsValidStance( pSoldier, (INT8) pSoldier->usActionData, ANIM_STAND ) )
@@ -564,7 +564,7 @@ INT8 CreatureDecideActionYellow( SOLDIERTYPE * pSoldier )
 			{
 	#ifdef DEBUGDECISIONS
 				STR16 tempstr;
-				sprintf((CHAR *)tempstr,"%s - INVESTIGATING NOISE at grid %d, moving to %d",
+				sprintf(tempstr,"%s - INVESTIGATING NOISE at grid %d, moving to %d",
 					pSoldier->name,sNoiseGridNo,pSoldier->usActionData);
 				AIPopMessage(tempstr);
 	#endif
@@ -643,7 +643,7 @@ INT8 CreatureDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
     {
 #ifdef DEBUGDECISIONS
 	STR16 tempstr;
-		sprintf((CHAR *)tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->usActionData);
+		sprintf(tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->usActionData);
      AIPopMessage(tempstr);
 #endif
 
@@ -689,7 +689,7 @@ INT8 CreatureDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
   {
 #ifdef DEBUGDECISIONS
 	STR16 tempstr;
-	  sprintf((CHAR *)tempstr,"%s RESTS (STATUS RED), breath = %d",pSoldier->name,pSoldier->bBreath);
+	  sprintf(tempstr,"%s RESTS (STATUS RED), breath = %d",pSoldier->name,pSoldier->bBreath);
    AIPopMessage(tempstr);
 #endif
 
@@ -765,7 +765,7 @@ INT8 CreatureDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				{
 					#ifdef DEBUGDECISIONS
 					STR16 tempstr;
-					sprintf((CHAR *)tempstr,"%s - SEEKING FRIEND at %d, MOVING to %d",
+					sprintf(tempstr,"%s - SEEKING FRIEND at %d, MOVING to %d",
 						pSoldier->name,sClosestFriend,pSoldier->usActionData);
 						AIPopMessage(tempstr);
 					#endif
@@ -792,7 +792,7 @@ INT8 CreatureDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				#ifdef DEBUGDECISIONS
 					// do it!
 					STR16 tempstr;
-					sprintf((CHAR *)tempstr,"%s - SEEKING OPPONENT at grid %d, MOVING to %d",
+					sprintf(tempstr,"%s - SEEKING OPPONENT at grid %d, MOVING to %d",
 					pSoldier->name,sClosestDisturbance,pSoldier->usActionData);
 					AIPopMessage(tempstr);
 				#endif
@@ -868,7 +868,7 @@ INT8 CreatureDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 
 		#ifdef DEBUGDECISIONS
 					STR16 tempstr;
-					 sprintf((CHAR *)tempstr,"%s - TURNS TOWARDS CLOSEST ENEMY to face direction %d",pSoldier->name,pSoldier->usActionData);
+					 sprintf(tempstr,"%s - TURNS TOWARDS CLOSEST ENEMY to face direction %d",pSoldier->name,pSoldier->usActionData);
 					 AIPopMessage(tempstr);
 		#endif
 
@@ -1013,7 +1013,7 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
       {
 #ifdef DEBUGDECISIONS
 		STR16 tempstr;
-		  sprintf((CHAR *)tempstr,"%s - GASSED or LOW ON BREATH (%d), RUNNING AWAY to grid %d",pSoldier->name,pSoldier->bBreath,pSoldier->usActionData);
+		  sprintf(tempstr,"%s - GASSED or LOW ON BREATH (%d), RUNNING AWAY to grid %d",pSoldier->name,pSoldier->bBreath,pSoldier->usActionData);
        AIPopMessage(tempstr);
 #endif
 
@@ -1037,7 +1037,7 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
     {
 #ifdef DEBUGDECISIONS
 		STR16 tempstr;
-		sprintf((CHAR *)tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->usActionData);
+		sprintf(tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->usActionData);
      AIPopMessage(tempstr);
 #endif
 
@@ -1246,7 +1246,7 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 		// get the minimum cost to attack with this knife
 		ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,DONTADDTURNCOST);
 
-		//sprintf((CHAR *)tempstr,"%s - ubMinAPCost = %d",pSoldier->name,ubMinAPCost);
+		//sprintf(tempstr,"%s - ubMinAPCost = %d",pSoldier->name,ubMinAPCost);
 		//PopMessage(tempstr);
 
 		// if we can afford the minimum AP cost to stab with this knife weapon
@@ -1347,7 +1347,7 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 
 #ifdef DEBUGDECISIONS
 		STR tempstr;
-		sprintf((CHAR *) tempstr, "%d(%s) %s %d(%s) at gridno %d (%d APs aim)\n",
+		sprintf( tempstr, "%d(%s) %s %d(%s) at gridno %d (%d APs aim)\n",
 			pSoldier->ubID,pSoldier->name,
 			(ubBestAttackAction == AI_ACTION_FIRE_GUN)?"SHOOTS":((ubBestAttackAction == AI_ACTION_TOSS_PROJECTILE)?"TOSSES AT":"STABS"),
 			BestAttack.ubOpponent,ExtMen[BestAttack.ubOpponent].name,
@@ -1411,7 +1411,7 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 
 					#ifdef DEBUGDECISIONS
 					STR16 tempstr;
-					 sprintf((CHAR *)tempstr,"%s - TURNS to face CLOSEST OPPONENT in direction %d",pSoldier->name,pSoldier->usActionData);
+					 sprintf(tempstr,"%s - TURNS to face CLOSEST OPPONENT in direction %d",pSoldier->name,pSoldier->usActionData);
 					 AIPopMessage(tempstr);
 					#endif
 
@@ -1491,7 +1491,7 @@ INT8 CreatureDecideAction( SOLDIERTYPE *pSoldier )
 
 #ifdef DEBUGDECISIONS
 	STR tempstr;
-	sprintf((CHAR *) tempstr, "DecideAction: selected action %d, actionData %d\n\n",bAction,pSoldier->usActionData );
+	sprintf( tempstr, "DecideAction: selected action %d, actionData %d\n\n",bAction,pSoldier->usActionData );
 	DebugAI(tempstr);
 #endif
 
@@ -1631,7 +1631,7 @@ void CreatureDecideAlertStatus( SOLDIERTYPE *pSoldier )
 //		if (!pSoldier->human)
 //		{
 			STR16 tempstr;
-			sprintf((CHAR *)tempstr,"%s's Alert Status changed from %d to %d",
+			sprintf(tempstr,"%s's Alert Status changed from %d to %d",
 				pSoldier->name ,bOldStatus,pSoldier->bAlertStatus);
 			AIPopMessage(tempstr);
 //		}

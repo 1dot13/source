@@ -115,7 +115,7 @@ extern BOOLEAN	FileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UINT32 *
 extern BOOLEAN	FileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, UINT32 *puiBytesWritten );
 extern BOOLEAN	FileLoad( STR filename, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiBytesRead );
 
-extern BOOLEAN _cdecl FilePrintf( HWFILE hFile, char * strFormatted, ... );
+extern BOOLEAN _cdecl FilePrintf( HWFILE hFile, STR8  strFormatted, ... );
 
 extern BOOLEAN	FileSeek( HWFILE, UINT32 uiDistance, UINT8 uiHow );
 extern INT32	FileGetPos( HWFILE );

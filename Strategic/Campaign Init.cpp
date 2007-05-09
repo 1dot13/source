@@ -57,7 +57,7 @@ typedef enum
 typedef struct
 {
 	ALTSECTORS_PARSE_STAGE	curElement;
-	INT8					szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8					szCharData[MAX_CHAR_DATA_LENGTH+1];
 	UINT32					uiRowNumber;
 	
 	UINT32					currentDepth;
@@ -65,7 +65,7 @@ typedef struct
 } altSectorsParseData;
 
 static void XMLCALL
-altSectorsStartElementHandle(void *userData, const char *name, const char **atts)
+altSectorsStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	altSectorsParseData * pData = (altSectorsParseData *) userData;
 
@@ -96,7 +96,7 @@ altSectorsStartElementHandle(void *userData, const char *name, const char **atts
 }
 
 static void XMLCALL
-altSectorsCharacterDataHandle(void *userData, const char *str, int len)
+altSectorsCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	altSectorsParseData * pData = (altSectorsParseData *) userData;
 
@@ -106,7 +106,7 @@ altSectorsCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-altSectorsEndElementHandle(void *userData, const char *name)
+altSectorsEndElementHandle(void *userData, const XML_Char *name)
 {
 	altSectorsParseData * pData = (altSectorsParseData *) userData;
 
@@ -118,7 +118,7 @@ altSectorsEndElementHandle(void *userData, const char *name)
 		}
 		else if(strcmp(name, "ROW") == 0 && pData->curElement == ALTSECTORS_ELEMENT_ROW)
 		{
-			INT8 * curBuffer = pData->szCharData + strspn((const char *)pData->szCharData," \t\n\r");
+			STR8 curBuffer = pData->szCharData + strspn(pData->szCharData," \t\n\r");
 			UINT32 curCellIndex = 0;
 			UINT32 curNumber;
 
@@ -126,13 +126,13 @@ altSectorsEndElementHandle(void *userData, const char *name)
 
 			while(curBuffer[0] != '\0')
 			{
-				sscanf( (const char *)curBuffer,"%d",&curNumber);
+				sscanf( curBuffer,"%d",&curNumber);
 
 				RandomSector[curCellIndex+16*(pData->uiRowNumber - 1)] = curNumber;
 
 				curCellIndex++;
 				curBuffer += strcspn(curBuffer," \t\n\r\0");
-				curBuffer += strspn((const char *)curBuffer," \t\n\r");
+				curBuffer += strspn(curBuffer," \t\n\r");
 			}
 		}
 		pData->maxReadDepth--;

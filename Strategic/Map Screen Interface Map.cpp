@@ -6872,7 +6872,7 @@ void ShowItemsOnMap( void )
 {
 	INT16 sMapX, sMapY;
 	INT16 sXCorner, sYCorner;
-	UINT16 usXPos, usYPos;
+	INT16 usXPos, usYPos;
 	UINT32 uiItemCnt;
 	CHAR16 sString[ 10 ];
 

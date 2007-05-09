@@ -211,7 +211,7 @@ extern BOOLEAN		gUITargetReady;
 extern BOOLEAN		gUITargetShotWaiting;
 extern UINT16		gsUITargetShotGridNo;
 
-extern INT16		gzLocation[ 20 ];
+extern CHAR16		gzLocation[ 20 ];
 extern BOOLEAN		gfUIBodyHitLocation;
 
 extern UINT8		gsBulletCount;
@@ -222,10 +222,10 @@ extern BOOLEAN		gfUIAutofireBulletCount;
 extern BOOLEAN		gfUICtHBar;
 extern UINT8		gbCtH;
 
-extern INT16		gzIntTileLocation[ 20 ];
+extern CHAR16		gzIntTileLocation[ 20 ];
 extern BOOLEAN		gfUIIntTileLocation;
 
-extern INT16		gzIntTileLocation2[ 20 ];
+extern CHAR16		gzIntTileLocation2[ 20 ];
 extern BOOLEAN		gfUIIntTileLocation2;
 
 extern BOOLEAN		gfUIWaitingForUserSpeechAdvance;

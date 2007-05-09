@@ -546,7 +546,7 @@ INT8 DecideActionBoxerEnteringRing(SOLDIERTYPE *pSoldier)
 					pSoldier->usActionData = ubDesiredMercDir;
 
 					#ifdef DEBUGDECISIONS
-					sprintf((CHAR *)tempstr,"%s - TURNS TOWARDS CLOSEST PC to face direction %d",pSoldier->name,pSoldier->usActionData);
+					sprintf(tempstr,"%s - TURNS TOWARDS CLOSEST PC to face direction %d",pSoldier->name,pSoldier->usActionData);
 					AIPopMessage(tempstr);
 					#endif
 
@@ -606,7 +606,7 @@ INT8 DecideActionNamedNPC( SOLDIERTYPE * pSoldier )
 				pSoldier->usActionData = ubDesiredMercDir;
 
 				#ifdef DEBUGDECISIONS
-				sprintf((CHAR *)tempstr,"%s - TURNS TOWARDS CLOSEST PC to face direction %d",pSoldier->name,pSoldier->usActionData);
+				sprintf(tempstr,"%s - TURNS TOWARDS CLOSEST PC to face direction %d",pSoldier->name,pSoldier->usActionData);
 				AIPopMessage(tempstr);
 				#endif
 
@@ -885,7 +885,7 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
    if (pSoldier->usActionData != NOWHERE)
     {
 #ifdef DEBUGDECISIONS
-     sprintf((CHAR *)tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->usActionData);
+			sprintf(tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->usActionData);
      AIPopMessage(tempstr);
 #endif
 
@@ -1050,7 +1050,7 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
 			if (pSoldier->usActionData != NOWHERE)
 				{
 		#ifdef DEBUGDECISIONS
-				sprintf((CHAR *)tempstr,"%s - RANDOM PATROL to grid %d",pSoldier->name,pSoldier->usActionData);
+				sprintf(tempstr,"%s - RANDOM PATROL to grid %d",pSoldier->name,pSoldier->usActionData);
 				AIPopMessage(tempstr);
 		#endif
 					
@@ -1114,7 +1114,7 @@ BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP
 					{	  
 
 					#ifdef DEBUGDECISIONS
-							sprintf((CHAR *)tempstr,"%s - SEEK FRIEND at grid %d",pSoldier->name,pSoldier->usActionData);
+					sprintf(tempstr,"%s - SEEK FRIEND at grid %d",pSoldier->name,pSoldier->usActionData);
 							AIPopMessage(tempstr);
 					#endif
 
@@ -1230,7 +1230,7 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionGreen: Snipers like to raise 
 
 
 	#ifdef DEBUGDECISIONS
-			 sprintf((CHAR *)tempstr,"%s - TURNS to face direction %d",pSoldier->name,pSoldier->usActionData);
+				sprintf(tempstr,"%s - TURNS to face direction %d",pSoldier->name,pSoldier->usActionData);
 			 AIPopMessage(tempstr);
 	#endif
 
@@ -1353,7 +1353,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			{
 			 pSoldier->usActionData = ubNoiseDir;
 	#ifdef DEBUGDECISIONS
-			 sprintf((CHAR *)tempstr,"%s - TURNS TOWARDS NOISE to face direction %d",pSoldier->name,pSoldier->usActionData);
+				sprintf(tempstr,"%s - TURNS TOWARDS NOISE to face direction %d",pSoldier->name,pSoldier->usActionData);
 			 AIPopMessage(tempstr);
 	#endif
 			if ( pSoldier->bOrders == SNIPER )
@@ -1576,7 +1576,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 if (pSoldier->usActionData != NOWHERE)
 				{
 		#ifdef DEBUGDECISIONS
-				 sprintf((CHAR *)tempstr,"%s - INVESTIGATING NOISE at grid %d, moving to %d",
+					sprintf(tempstr,"%s - INVESTIGATING NOISE at grid %d, moving to %d",
 					pSoldier->name,sNoiseGridNo,pSoldier->usActionData);
 				 AIPopMessage(tempstr);
 		#endif
@@ -1716,7 +1716,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 			 if (pSoldier->usActionData != NOWHERE)
 				{
 	#ifdef DEBUGDECISIONS
-				 sprintf((CHAR *)tempstr,"%s - SEEKING FRIEND at %d, MOVING to %d",
+					sprintf(tempstr,"%s - SEEKING FRIEND at %d, MOVING to %d",
 					pSoldier->name,sClosestFriend,pSoldier->usActionData);
 				 AIPopMessage(tempstr);
 	#endif
@@ -1812,7 +1812,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 				if (pSoldier->usActionData != NOWHERE)
 				{
 		#ifdef DEBUGDECISIONS
-					sprintf((CHAR *)tempstr,"%s - TAKING COVER at grid %d",pSoldier->name,pSoldier->usActionData);
+					sprintf(tempstr,"%s - TAKING COVER at grid %d",pSoldier->name,pSoldier->usActionData);
 					AIPopMessage(tempstr);
 		#endif
 
@@ -1849,7 +1849,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
  if (!fCivilian && !PTR_CROUCHED && IsValidStance( pSoldier, ANIM_CROUCH ) )
   {
 #ifdef DEBUGDECISIONS
-   sprintf((CHAR *)tempstr,"%s CROUCHES (STATUS YELLOW)",pSoldier->name);
+		sprintf(tempstr,"%s CROUCHES (STATUS YELLOW)",pSoldier->name);
    AIPopMessage(tempstr);
 #endif
 
@@ -1974,7 +1974,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
    if (pSoldier->usActionData != NOWHERE)
     {
 #ifdef DEBUGDECISIONS
-     sprintf((CHAR *)tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->usActionData);
+			sprintf(tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->usActionData);
      AIPopMessage(tempstr);
 #endif
 
@@ -2377,7 +2377,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: crouch and rest if running out
    if (!fCivilian && !PTR_CROUCHED && IsValidStance( pSoldier, ANIM_CROUCH ) && gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE)
     {
 #ifdef DEBUGDECISIONS
-     sprintf((CHAR *)tempstr,"%s CROUCHES, NEEDING REST (STATUS RED), breath = %d",pSoldier->name,pSoldier->bBreath);
+			sprintf(tempstr,"%s CROUCHES, NEEDING REST (STATUS RED), breath = %d",pSoldier->name,pSoldier->bBreath);
      AIPopMessage(tempstr);
 #endif
 
@@ -2390,7 +2390,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: crouch and rest if running out
     }
 
 #ifdef DEBUGDECISIONS
-   sprintf((CHAR *)tempstr,"%s RESTS (STATUS RED), breath = %d",pSoldier->name,pSoldier->bBreath);
+		sprintf(tempstr,"%s RESTS (STATUS RED), breath = %d",pSoldier->name,pSoldier->bBreath);
    AIPopMessage(tempstr);
 #endif
 
@@ -2418,7 +2418,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: calculate morale");
    if (pSoldier->usActionData != NOWHERE)
     {
 #ifdef DEBUGDECISIONS
-     sprintf((CHAR *)tempstr,"%s RUNNING AWAY to grid %d",pSoldier->name,pSoldier->usActionData);
+			sprintf(tempstr,"%s RUNNING AWAY to grid %d",pSoldier->name,pSoldier->usActionData);
      AIPopMessage(tempstr);
 #endif
 
@@ -2724,7 +2724,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 							{
 							#ifdef DEBUGDECISIONS
 								// do it!
-								sprintf((CHAR *)tempstr,"%s - SEEKING OPPONENT at grid %d, MOVING to %d",
+							sprintf(tempstr,"%s - SEEKING OPPONENT at grid %d, MOVING to %d",
 								pSoldier->name,sClosestDisturbance,pSoldier->usActionData);
 								AIPopMessage(tempstr);
 							#endif						
@@ -2934,7 +2934,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 						 if (pSoldier->usActionData != NOWHERE)
 							{
 								#ifdef DEBUGDECISIONS
-										 sprintf((CHAR *)tempstr,"%s - SEEKING FRIEND at %d, MOVING to %d",
+							sprintf(tempstr,"%s - SEEKING FRIEND at %d, MOVING to %d",
 											pSoldier->name,sClosestFriend,pSoldier->usActionData);
 										 AIPopMessage(tempstr);
 								#endif
@@ -3055,7 +3055,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 				 if (pSoldier->usActionData != NOWHERE)
 					{
 		#ifdef DEBUGDECISIONS
-					 sprintf((CHAR *)tempstr,"%s RUNNING AWAY to grid %d",pSoldier->name,pSoldier->usActionData);
+					sprintf(tempstr,"%s RUNNING AWAY to grid %d",pSoldier->name,pSoldier->usActionData);
 					 AIPopMessage(tempstr);
 		#endif
 
@@ -3080,7 +3080,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 					{
 
 		#ifdef DEBUGDECISIONS
-				 sprintf((CHAR *)tempstr,"%s CROUCHES (STATUS RED)",pSoldier->name);
+						sprintf(tempstr,"%s CROUCHES (STATUS RED)",pSoldier->name);
 				 AIPopMessage(tempstr);
 		#endif
 
@@ -3145,7 +3145,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 				 pSoldier->usActionData = ubOpponentDir;
 
 	#ifdef DEBUGDECISIONS
-				 sprintf((CHAR *)tempstr,"%s - TURNS TOWARDS CLOSEST ENEMY to face direction %d",pSoldier->name,pSoldier->usActionData);
+					sprintf(tempstr,"%s - TURNS TOWARDS CLOSEST ENEMY to face direction %d",pSoldier->name,pSoldier->usActionData);
 				 AIPopMessage(tempstr);
 	#endif
 				if ( pSoldier->bOrders == SNIPER )
@@ -3195,7 +3195,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 					pSoldier->usActionData = ubOpponentDir;
 
 					#ifdef DEBUGDECISIONS
-					sprintf((CHAR *)tempstr,"%s - TURNS TOWARDS CLOSEST ENEMY to face direction %d",pSoldier->name,pSoldier->usActionData);
+					sprintf(tempstr,"%s - TURNS TOWARDS CLOSEST ENEMY to face direction %d",pSoldier->name,pSoldier->usActionData);
 					AIPopMessage(tempstr);
 					#endif
 
@@ -3306,7 +3306,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: radio red alert?");
 			{
 	
 				#ifdef DEBUGDECISIONS
-				sprintf((CHAR *)tempstr,"%s CROUCHES (STATUS RED)",pSoldier->name );
+				sprintf(tempstr,"%s CROUCHES (STATUS RED)",pSoldier->name );
 				AIPopMessage(tempstr);
 				#endif
 
@@ -3525,7 +3525,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 				if (pSoldier->usActionData != NOWHERE)
 				{
 					#ifdef DEBUGDECISIONS
-						sprintf((CHAR *)tempstr,"%s - GASSED or LOW ON BREATH (%d), RUNNING AWAY to grid %d",pSoldier->name,pSoldier->bBreath,pSoldier->usActionData);
+					sprintf(tempstr,"%s - GASSED or LOW ON BREATH (%d), RUNNING AWAY to grid %d",pSoldier->name,pSoldier->bBreath,pSoldier->usActionData);
 						AIPopMessage(tempstr);
 					#endif
 
@@ -3559,7 +3559,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
    if (pSoldier->usActionData != NOWHERE)
     {
 #ifdef DEBUGDECISIONS
-     sprintf((CHAR *)tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->usActionData);
+			sprintf(tempstr,"%s - SEEKING NEAREST UNGASSED LAND at grid %d",pSoldier->name,pSoldier->usActionData);
      AIPopMessage(tempstr);
 #endif
 
@@ -3574,7 +3574,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
    if (pSoldier->usActionData != NOWHERE)
     {
 #ifdef DEBUGDECISIONS
-     sprintf((CHAR *)tempstr,"%s - NO LAND NEAR, RUNNING AWAY to grid %d",pSoldier->name,pSoldier->usActionData);
+			sprintf(tempstr,"%s - NO LAND NEAR, RUNNING AWAY to grid %d",pSoldier->name,pSoldier->usActionData);
      AIPopMessage(tempstr);
 #endif
 
@@ -4168,7 +4168,7 @@ bCanAttack = FALSE;
 
 #ifdef DEBUGDECISIONS
 	STR tempstr="";
-	sprintf((CHAR *) tempstr, "%s - CHOICE: iOffense = %d, iDefense = %d\n",
+		sprintf( tempstr, "%s - CHOICE: iOffense = %d, iDefense = %d\n",
 				   pSoldier->name,iOffense,iDefense);
 	DebugAI( tempstr );
 #endif
@@ -4237,7 +4237,7 @@ bCanAttack = FALSE;
 							pSoldier->usActionData = bDirection;
 
 							#ifdef DEBUGDECISIONS
-								sprintf((CHAR *)tempstr,"%s - TURNS to face CLOSEST OPPONENT in direction %d",pSoldier->name,pSoldier->usActionData);
+							sprintf(tempstr,"%s - TURNS to face CLOSEST OPPONENT in direction %d",pSoldier->name,pSoldier->usActionData);
 								AIPopMessage(tempstr);
 							#endif
 
@@ -4491,7 +4491,7 @@ bCanAttack = FALSE;
 
 			#ifdef DEBUGDECISIONS
 					STR tempstr="";
-					sprintf((CHAR *) tempstr,
+			sprintf( tempstr,
 					 "%d(%s) %s %d(%s) at gridno %d (%d APs aim)\n",
 						pSoldier->ubID,pSoldier->name,
 						(ubBestAttackAction == AI_ACTION_FIRE_GUN)?"SHOOTS":((ubBestAttackAction == AI_ACTION_TOSS_PROJECTILE)?"TOSSES AT":"STABS"),
@@ -4597,7 +4597,7 @@ bCanAttack = FALSE;
   {
 #ifdef DEBUGDECISIONS
 		STR tempstr="";
-		sprintf ((CHAR *) tempstr,"%s - TAKING COVER at gridno %d (%d%% better)\n",
+		sprintf ( tempstr,"%s - TAKING COVER at gridno %d (%d%% better)\n",
    		pSoldier->name,sBestCover,iCoverPercentBetter);
 		DebugAI( tempstr ) ;
 #endif
@@ -4624,7 +4624,7 @@ bCanAttack = FALSE;
      if (pSoldier->usActionData != NOWHERE)
      {
 #ifdef DEBUGDECISIONS
-       sprintf((CHAR *)tempstr,"%s - RUNNING AWAY to grid %d",pSoldier->name,pSoldier->usActionData);
+				sprintf(tempstr,"%s - RUNNING AWAY to grid %d",pSoldier->name,pSoldier->usActionData);
        AIPopMessage(tempstr);
 #endif
 
@@ -4704,7 +4704,7 @@ bCanAttack = FALSE;
 									pSoldier->usNextActionData = pSoldier->usActionData;
 									pSoldier->usActionData = bDirection;
 									#ifdef DEBUGDECISIONS
-										sprintf((CHAR *)tempstr,"%s - TURNS to face CLOSEST OPPONENT in direction %d",pSoldier->name,pSoldier->usActionData);
+									sprintf(tempstr,"%s - TURNS to face CLOSEST OPPONENT in direction %d",pSoldier->name,pSoldier->usActionData);
 										AIPopMessage(tempstr);
 									#endif
 									return(AI_ACTION_CHANGE_FACING);
@@ -4758,7 +4758,7 @@ bCanAttack = FALSE;
 				 pSoldier->usActionData = bDirection;
 
 	#ifdef DEBUGDECISIONS
-				 sprintf((CHAR *)tempstr,"%s - TURNS to face CLOSEST OPPONENT in direction %d",pSoldier->name,pSoldier->usActionData);
+				 sprintf(tempstr,"%s - TURNS to face CLOSEST OPPONENT in direction %d",pSoldier->name,pSoldier->usActionData);
 				 AIPopMessage(tempstr);
 	#endif
 
@@ -4996,8 +4996,8 @@ INT8 DecideAction(SOLDIERTYPE *pSoldier)
  
 
 #ifdef DEBUGDECISIONS
-	sprintf((CHAR *) tempstr,"DecideAction: selected action %d, actionData %d\n\n",bAction,pSoldier->usActionData);
-	DebugAI((STR) tempstr );
+	sprintf( tempstr,"DecideAction: selected action %d, actionData %d\n\n",bAction,pSoldier->usActionData);
+	DebugAI( tempstr );
 #endif
 
 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideAction done");
@@ -5015,7 +5015,7 @@ INT8 DecideActionEscort(SOLDIERTYPE *pSoldier)
 	if (pSoldier->usActionData != NOWHERE && (pSoldier->sGridNo != pSoldier->usActionData))
 	{
 	#ifdef DEBUGDECISIONS
-		sprintf((CHAR *)tempstr,"%s - ESCORTED NPC GOING to grid %d",pSoldier->name,pSoldier->usActionData);
+		sprintf(tempstr,"%s - ESCORTED NPC GOING to grid %d",pSoldier->name,pSoldier->usActionData);
 		AIPopMessage(tempstr);
 	#endif
 
@@ -5180,7 +5180,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 
 	#ifdef DEBUGDECISIONS
 			// don't report status changes for human-controlled mercs
-				sprintf((CHAR *)tempstr,"%s's Alert Status changed from %d to %d",
+			sprintf(tempstr,"%s's Alert Status changed from %d to %d",
 					pSoldier->name,bOldStatus,pSoldier->bAlertStatus);
 				AIPopMessage(tempstr);
 	#endif

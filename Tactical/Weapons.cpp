@@ -283,7 +283,7 @@ EXPLOSIVETYPE Explosive[MAXITEMS+1];// =
 //};
 
 
-INT8 gzBurstSndStrings[MAXITEMS*2][128];// =
+CHAR8 gzBurstSndStrings[MAXITEMS*2][128];// =
 //{
 //	"",													// NOAMMO
 //	"",													// 38
@@ -328,7 +328,7 @@ struct
 {
 	WEP_PARSE_STAGE	curElement;
 
-	INT8			szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8			szCharData[MAX_CHAR_DATA_LENGTH+1];
 	WEAPONTYPE		curWeapon;
 	WEAPONTYPE *	curWeaponList;
 	UINT32			maxWeapons;
@@ -340,7 +340,7 @@ typedef weaponParseData;
 
 
 static void XMLCALL
-weaponStartElementHandle(void *userData, const char *name, const char **atts)
+weaponStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	weaponParseData * pData = (weaponParseData *)userData;
 
@@ -412,7 +412,7 @@ weaponStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-weaponCharacterDataHandle(void *userData, const char *str, int len)
+weaponCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	weaponParseData * pData = (weaponParseData *)userData;
 
@@ -425,7 +425,7 @@ weaponCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-weaponEndElementHandle(void *userData, const char *name)
+weaponEndElementHandle(void *userData, const XML_Char *name)
 {
 	weaponParseData * pData = (weaponParseData *)userData;
 
@@ -702,7 +702,7 @@ BOOLEAN ReadInWeaponStats(STR fileName)
 		FilePrintf(hFile,"<WEAPONLIST>\r\n");
 		for(cnt = 0;cnt < MAXITEMS;cnt++)
 		{
-			INT8 * szRemainder = Weapon[cnt].szWeaponName; //the remaining string to be output (for making valid XML)
+			STR8 szRemainder = Weapon[cnt].szWeaponName; //the remaining string to be output (for making valid XML)
 
 			FilePrintf(hFile,"\t<WEAPON>\r\n");
 			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n",									Weapon[cnt].uiIndex);
@@ -711,7 +711,7 @@ BOOLEAN ReadInWeaponStats(STR fileName)
 			while(szRemainder[0] != '\0')
 			{
 				UINT32 uiCharLoc = strcspn(szRemainder,"&<>\'\"\0");
-				INT8 invChar = szRemainder[uiCharLoc];
+				CHAR8 invChar = szRemainder[uiCharLoc];
 				
 				if(uiCharLoc)
 				{
@@ -805,7 +805,7 @@ BOOLEAN WriteWeaponStats()
 		FilePrintf(hFile,"<WEAPONLIST>\r\n");
 		for(cnt = 0;cnt < MAXITEMS;cnt++)
 		{
-			INT8 * szRemainder = Weapon[cnt].szWeaponName; //the remaining string to be output (for making valid XML)
+			CHAR8 * szRemainder = Weapon[cnt].szWeaponName; //the remaining string to be output (for making valid XML)
 
 			FilePrintf(hFile,"\t<WEAPON>\r\n");
 			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n",									cnt);//Weapon[cnt].uiIndex);
@@ -1512,7 +1512,7 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 	UINT16							usItemNum;
 	BOOLEAN							fBuckshot;
 	UINT8								ubVolume;
-	INT8								zBurstString[512];
+	CHAR8								zBurstString[512];
 	UINT8								ubDirection;
 	INT16								sNewGridNo;
 	UINT8								ubMerc;
@@ -1538,21 +1538,21 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 				if( noisefactor < MAX_PERCENT_NOISE_VOLUME_FOR_SILENCED_SOUND || Weapon[ usItemNum ].ubAttackVolume <= 10 )
 				{
 					// Pick sound file baed on how many bullets we are going to fire...
-					sprintf( (char *)zBurstString, (const char*)gzBurstSndStrings[ Weapon[ usItemNum ].sSilencedBurstSound ], pSoldier->bBulletsLeft );
+					sprintf( zBurstString, gzBurstSndStrings[ Weapon[ usItemNum ].sSilencedBurstSound ], pSoldier->bBulletsLeft );
 
 					// Try playing sound...
-					pSoldier->iBurstSoundID = PlayJA2SampleFromFile( (STR8) zBurstString, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
+					pSoldier->iBurstSoundID = PlayJA2SampleFromFile( zBurstString, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
 				}
 				else
 				{
 					// Pick sound file baed on how many bullets we are going to fire...
                     // Lesh: changed next line
-					sprintf( (char *)zBurstString, (const char*)gzBurstSndStrings[ Weapon[ usItemNum ].sBurstSound ], pSoldier->bBulletsLeft );
+					sprintf( zBurstString, gzBurstSndStrings[ Weapon[ usItemNum ].sBurstSound ], pSoldier->bBulletsLeft );
 
 					INT8 volume = HIGHVOLUME;
 					if ( noisefactor < 100 ) volume = (volume * noisefactor) / 100;
 					// Try playing sound...
-					pSoldier->iBurstSoundID = PlayJA2SampleFromFile( (STR8) zBurstString, RATE_11025, SoundVolume( (INT8) volume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
+					pSoldier->iBurstSoundID = PlayJA2SampleFromFile(  zBurstString, RATE_11025, SoundVolume( (INT8) volume, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
 				}
 
 				/*

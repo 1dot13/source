@@ -125,7 +125,7 @@ void DisplayFrameRate( );
 void HandleTitleScreenAnimation();
 
 //External Globals
-extern UINT8					gubFilename[ 200 ];
+extern CHAR8					gubFilename[ 200 ];
 extern UINT32				guiCurrentScreen;
 
 typedef void (*RENDER_HOOK)( void );	

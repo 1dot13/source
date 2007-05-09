@@ -48,7 +48,7 @@
 //===========================================================================
 
 BOOLEAN gfErrorCatch = FALSE;
-UINT16 gzErrorCatchString[ 256 ] = L"";
+CHAR16 gzErrorCatchString[ 256 ] = L"";
 INT32	giErrorCatchMessageBox = 0;
 
 extern void RemoveMercsInSector();
@@ -86,7 +86,7 @@ INT32 iCurrFileShown;
 INT32	iLastFileClicked;
 INT32 iLastClickTime;
 
-UINT16 gzFilename[31];
+CHAR16 gzFilename[31];
 
 FDLG_LIST *FileList = NULL;
 
@@ -101,7 +101,7 @@ BOOLEAN gfIllegalName;
 BOOLEAN gfDeleteFile;
 BOOLEAN gfNoFiles;
 
-UINT16 zOrigName[60];
+CHAR16 zOrigName[60];
 GETFILESTRUCT FileInfo;
 
 BOOLEAN fEnteringLoadSaveScreen = TRUE;
@@ -371,7 +371,7 @@ UINT32 LoadSaveScreenHandle(void)
 			sprintf( gszCurrFilename, "MAPS\\%S", gzFilename );
 			if( GetFileFirst(gszCurrFilename, &FileInfo) )
 			{
-				wchar_t str[40];
+				CHAR16 str[40];
 				if( FileInfo.uiFileAttribs & (FILE_IS_READONLY|FILE_IS_HIDDEN|FILE_IS_SYSTEM) )
 				{
 					swprintf( str, L" Delete READ-ONLY file %s? ", gzFilename );
@@ -434,7 +434,7 @@ UINT32 LoadSaveScreenHandle(void)
 }
 
 
-void CreateFileDialog( UINT16 *zTitle )
+void CreateFileDialog( STR16 zTitle )
 {
 
 	iFDlgState = DIALOG_NONE;
@@ -511,7 +511,7 @@ void FileDialogModeCallback( UINT8 ubID, BOOLEAN fEntering )
 			if( iCurrFileShown == (x-iTopFileShown) )
 			{
 				FListNode->FileInfo.zFileName[30] = 0;
-				SetInputFieldStringWith8BitString( 0, (UINT8 *)FListNode->FileInfo.zFileName );
+				SetInputFieldStringWith8BitString( 0, FListNode->FileInfo.zFileName );
 				return;
 			}
 			FListNode = FListNode->pNext;
@@ -721,7 +721,7 @@ void SetTopFileToLetter( UINT16 usLetter )
 		iTopFileShown = x;
 		if( iTopFileShown > iTotalFiles - 7 )
 			iTopFileShown = iTotalFiles - 7;
-		SetInputFieldStringWith8BitString( 0, (UINT8 *)prev->FileInfo.zFileName );
+		SetInputFieldStringWith8BitString( 0, prev->FileInfo.zFileName );
 	}
 }
 
@@ -814,16 +814,16 @@ void HandleMainKeyEvents( InputAtom *pEvent )
 		}
 		if( curr )	
 		{
-			SetInputFieldStringWith8BitString( 0, (UINT8 *)curr->FileInfo.zFileName );
+			SetInputFieldStringWith8BitString( 0, curr->FileInfo.zFileName );
 			swprintf( gzFilename, L"%S", curr->FileInfo.zFileName );
 		}
 	}
 }
 
 //editor doesn't care about the z value.  It uses it's own methods.
-void SetGlobalSectorValues( UINT16 *szFilename )
+void SetGlobalSectorValues( STR16 szFilename )
 {
-	UINT16 *pStr;
+	STR16 pStr;
 	if( ValidCoordinate() )
 	{
 		//convert the coordinate string into into the actual global sector coordinates.
@@ -869,7 +869,7 @@ void InitErrorCatchDialog()
 UINT32 ProcessFileIO()
 {
 	INT16 usStartX, usStartY;
-	UINT8 ubNewFilename[50];
+	CHAR8 ubNewFilename[50];
 	switch( gbCurrentFileIOStatus )
 	{
 		case INITIATE_MAP_SAVE:	//draw save message 
@@ -889,7 +889,7 @@ UINT32 ProcessFileIO()
 			gbCurrentFileIOStatus = SAVING_MAP;
 			return LOADSAVE_SCREEN;
 		case SAVING_MAP: //save map
-			sprintf( (char *)ubNewFilename, "%S", gzFilename );
+			sprintf( ubNewFilename, "%S", gzFilename );
 			RaiseWorldLand();
 			if( gfShowPits )
 				RemoveAllPits();
@@ -934,7 +934,7 @@ UINT32 ProcessFileIO()
 			return LOADSAVE_SCREEN;
 		case LOADING_MAP: //load map
 			DisableUndo();
-			sprintf( (char *)ubNewFilename, "%S", gzFilename );
+			sprintf( ubNewFilename, "%S", gzFilename );
 			
 			RemoveMercsInSector( );
 
@@ -1097,7 +1097,7 @@ BOOLEAN ValidCoordinate()
 
 BOOLEAN ValidFilename()
 {
-	UINT16 *pDest;
+	STR16 pDest;
 	if( gzFilename[0] != '\0' )// ; <----- I really think they didn't mean this!! (jonathanl)
 	{
 		pDest = wcsstr( gzFilename, L".dat" );
@@ -1109,7 +1109,7 @@ BOOLEAN ValidFilename()
 	return FALSE;
 }
 
-BOOLEAN ExternalLoadMap( UINT16 *szFilename )
+BOOLEAN ExternalLoadMap( STR16 szFilename )
 {
 	Assert( szFilename );
 	if( !wcslen( szFilename ) )
@@ -1127,7 +1127,7 @@ BOOLEAN ExternalLoadMap( UINT16 *szFilename )
 	return FALSE;
 }
 
-BOOLEAN ExternalSaveMap( UINT16 *szFilename )
+BOOLEAN ExternalSaveMap( STR16 szFilename )
 {
 	Assert( szFilename );
 	if( !wcslen( szFilename ) )

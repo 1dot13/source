@@ -277,7 +277,7 @@ typedef struct
 	UINT16		fFlags;
 
 	UINT32	uiIndex; // added
-	INT8	szItemName[80]; //+1 for the null terminator //added
+	CHAR8	szItemName[80]; //+1 for the null terminator //added
 
 	BOOLEAN damageable;
 	BOOLEAN repairable;
@@ -297,10 +297,10 @@ typedef struct
 	BOOLEAN electronic;
 	BOOLEAN inseparable;
 
-	INT8 szLongItemName[80];
-	INT8 szItemDesc[400];
-	INT8 szBRName[80];
-	INT8 szBRDesc[400];
+	CHAR8 szLongItemName[80];
+	CHAR8 szItemDesc[400];
+	CHAR8 szBRName[80];
+	CHAR8 szBRDesc[400];
 
 	//TODO: quest items, boosters, money
 

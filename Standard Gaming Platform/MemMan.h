@@ -63,9 +63,9 @@ extern void		ShutdownMemoryManager( void );
 	#define		MemAlloc( size )			MemAllocXDebug( (size), __FILE__, __LINE__, NULL )
 	#define		MemFree( ptr )				MemFreeXDebug( (ptr), __FILE__, __LINE__, NULL )
 	#define		MemRealloc( ptr, size )	MemReallocXDebug( (ptr), (size), __FILE__, __LINE__, NULL )
-	extern PTR		MemAllocXDebug( UINT32 size, const char *szCodeString, INT32 iLineNum, void *pSpecial );
-	extern void		MemFreeXDebug( PTR ptr, const char *szCodeString, INT32 iLineNum, void *pSpecial );
-	extern PTR		MemReallocXDebug( PTR ptr, UINT32 size, const char *szCodeString, INT32 iLineNum, void *pSpecial );
+	extern PTR		MemAllocXDebug( UINT32 size, const STR8 szCodeString, INT32 iLineNum, void *pSpecial );
+	extern void		MemFreeXDebug( PTR ptr, const STR8 szCodeString, INT32 iLineNum, void *pSpecial );
+	extern PTR		MemReallocXDebug( PTR ptr, UINT32 size, const STR8 szCodeString, INT32 iLineNum, void *pSpecial );
 #else
 	#ifdef _DEBUG
 		//This is another debug feature.  Not as sophistocated, but definately not the pig the extreme system is.
@@ -73,9 +73,9 @@ extern void		ShutdownMemoryManager( void );
 		#define		MemAlloc( size )			MemAllocReal( (size), __FILE__, __LINE__ )
 		#define		MemFree( ptr )				MemFreeReal( (ptr), __FILE__, __LINE__ )
 		#define		MemRealloc( ptr, size )	MemReallocReal( (ptr), (size), __FILE__, __LINE__ )
-		extern PTR		MemAllocReal( UINT32 size, const char *, INT32 );
-		extern void		MemFreeReal( PTR ptr, const char *, INT32  );
-		extern PTR		MemReallocReal( PTR ptr, UINT32 size, const char *, INT32 );
+		extern PTR		MemAllocReal( UINT32 size, const STR8 , INT32 );
+		extern void		MemFreeReal( PTR ptr, const STR8 , INT32  );
+		extern PTR		MemReallocReal( PTR ptr, UINT32 size, const STR8 , INT32 );
 	#else
 		//Release build verison
 		#include <malloc.h>

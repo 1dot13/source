@@ -404,7 +404,7 @@ INT32 PrepareMercPopupBox(  INT32 iBoxId, UINT8 ubBackgroundIndex, UINT8 ubBorde
 		usTextWidth = usWidth - ( MERC_TEXT_POPUP_WINDOW_TEXT_OFFSET_X  ) * 2 + 1 - usMarginX;
 	}
 
-	usNumberVerticalPixels = IanWrappedStringHeight(0,0, usTextWidth, 2, TEXT_POPUP_FONT, MERC_TEXT_COLOR, (STR16) pString, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+	usNumberVerticalPixels = IanWrappedStringHeight(0,0, usTextWidth, 2, TEXT_POPUP_FONT, MERC_TEXT_COLOR,  pString, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 	usNumberOfLines = usNumberVerticalPixels / TEXT_POPUP_GAP_BN_LINES;
 

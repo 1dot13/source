@@ -590,7 +590,7 @@ void DisplayHiddenTurnbased( SOLDIERTYPE * pActingSoldier )
 	//JA2Gold: use function to make sure flags turned off everywhere else
 	//pActingSoldier->uiStatusFlags |= SOLDIER_UNDERAICONTROL;
 	SetSoldierAsUnderAiControl( pActingSoldier );
-	DebugAI( (STR)String( "Giving AI control to %d", pActingSoldier->ubID ) );
+	DebugAI( String( "Giving AI control to %d", pActingSoldier->ubID ) );
 	pActingSoldier->fTurnInProgress = TRUE;
 	gTacticalStatus.uiTimeSinceMercAIStart = GetJA2Clock();
 
@@ -675,7 +675,7 @@ void StartInterrupt( void )
 	if (pSoldier->bTeam == OUR_TEAM)
 	{
 		// start interrupts for everyone on our side at once
-		INT16		sTemp[ 255 ];
+		CHAR16		sTemp[ 255 ];
 		UINT8		ubInterrupters = 0;
 		INT32		iSquad, iCounter;
 
@@ -716,7 +716,7 @@ void StartInterrupt( void )
 						// flush... display string, then clear it (we could have 20 names!)
 						// add comma to end, we know we have another person after this...
 						wcscat( sTemp, L", " );
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, (STR16) sTemp );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE,  sTemp );
 						wcscpy( sTemp, L"" );
 						ubInterrupters = 1;
 					}
@@ -730,7 +730,7 @@ void StartInterrupt( void )
 			}
 		}
 
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, (STR16) sTemp );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE,  sTemp );
 
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("INTERRUPT: starting interrupt for %d", ubFirstInterrupter ) );
 		// gusSelectedSoldier should become the topmost guy on the interrupt list
@@ -1717,7 +1717,7 @@ void AddToIntList( UINT8 ubID, BOOLEAN fGainControl, BOOLEAN fCommunicate )
 		// turn off AI control flag if they lost control
 		if (Menptr[ubID].uiStatusFlags & SOLDIER_UNDERAICONTROL)
 		{
-			DebugAI( (STR)String( "Taking away AI control from %d", ubID ) );
+			DebugAI( String( "Taking away AI control from %d", ubID ) );
 			Menptr[ubID].uiStatusFlags &= (~SOLDIER_UNDERAICONTROL);
 		}
 	}

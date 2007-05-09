@@ -691,7 +691,7 @@ void DrawRecordsBackGround( void )
 void DrawRecordsColumnHeadersText( void )
 {
   // write the headers text for each column
-  UINT16 usX, usY;
+  INT16 usX, usY;
  
 	// font stuff
 	SetFont(FINANCE_TEXT_FONT);
@@ -728,9 +728,9 @@ void DrawRecordsText( void )
   // draws the text of the records
   FinanceUnitPtr pCurFinance=pCurrentFinance;
   FinanceUnitPtr pTempFinance=pFinanceListHead;
-	wchar_t sString[512];
+	CHAR16 sString[512];
   INT32 iCounter=0;
-	UINT16 usX, usY;
+	INT16 usX, usY;
   INT32 iBalance=0;
 
   // setup the font stuff
@@ -885,7 +885,7 @@ void InvalidateLapTopScreen( void )
 void DrawSummaryText( void )
 {
 	INT16 usX, usY;
-  wchar_t pString[100];
+  CHAR16 pString[100];
 	INT32 iBalance = 0;
 
 
@@ -1514,7 +1514,7 @@ void ProcessTransactionString(STR16 pString, FinanceUnitPtr pFinance)
 			break;
 		case( TRAIN_TOWN_MILITIA ):
 			{
-				wchar_t str[ 128 ];
+				CHAR16 str[ 128 ];
 				UINT8 ubSectorX;
 				UINT8 ubSectorY;
 				ubSectorX = (UINT8)SECTORX( pFinance->ubSecondCode );
@@ -1550,7 +1550,7 @@ void DisplayFinancePageNumberAndDateRange( void )
 	INT32 iCounter=0;
   UINT32 uiLastDate;
 	FinanceUnitPtr pTempFinance=pFinanceListHead;
-  wchar_t sString[50];
+  CHAR16 sString[50];
 
 
   // setup the font stuff
@@ -1916,9 +1916,7 @@ BOOLEAN LoadInRecords( UINT32 uiPage )
 	return( TRUE );
 }
 
-template void InsertCommasForDollarFigure<short *>(short *);
-template <typename string1>
-void InsertCommasForDollarFigure( string1 pString )
+void InsertCommasForDollarFigure( STR16 pString )
 {
   INT16 sCounter =0;
   INT16 sZeroCount =0;
@@ -1984,9 +1982,7 @@ void InsertCommasForDollarFigure( string1 pString )
 
 }
 
-template void InsertDollarSignInToString<short *>(short *);
-template <typename string1>
-void InsertDollarSignInToString( string1 pString )
+void InsertDollarSignInToString( STR16 pString )
 {
 	// run to end of string, copy everything in string 2 places right, insert a space at pString[ 1 ] and a L'$' at pString[ 0 ]
 	

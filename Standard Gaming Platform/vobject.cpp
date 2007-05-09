@@ -71,8 +71,8 @@ typedef struct VOBJECT_NODE
   struct VOBJECT_NODE *next, *prev;
 
 	#ifdef SGP_VIDEO_DEBUGGING
-		UINT8									*pName;
-		UINT8									*pCode;
+		STR8									pName;
+		STR8									pCode;
 	#endif
 
 }VOBJECT_NODE;
@@ -1436,45 +1436,45 @@ void CheckValidVObjectIndex( UINT32 uiIndex )
 
 	if( fAssertError )
 	{
-		UINT8 str[60];
+		CHAR8 str[60];
 		switch( gubVODebugCode )
 		{
 			case DEBUGSTR_SETVIDEOOBJECTTRANSPARENCY:
-				sprintf( (char *)str, "SetVideoObjectTransparency" );
+				sprintf( str, "SetVideoObjectTransparency" );
 				break;
 			case DEBUGSTR_BLTVIDEOOBJECTFROMINDEX:
-				sprintf( (char *)str, "BltVideoObjectFromIndex" );
+				sprintf( str, "BltVideoObjectFromIndex" );
 				break;
 			case DEBUGSTR_SETOBJECTHANDLESHADE:
-				sprintf( (char *)str, "SetObjectHandleShade" );
+				sprintf( str, "SetObjectHandleShade" );
 				break;
 			case DEBUGSTR_GETVIDEOOBJECTETRLESUBREGIONPROPERTIES:
-				sprintf( (char *)str, "GetVideoObjectETRLESubRegionProperties" );
+				sprintf( str, "GetVideoObjectETRLESubRegionProperties" );
 				break;
 			case DEBUGSTR_GETVIDEOOBJECTETRLEPROPERTIESFROMINDEX:
-				sprintf( (char *)str, "GetVideoObjectETRLEPropertiesFromIndex" );
+				sprintf( str, "GetVideoObjectETRLEPropertiesFromIndex" );
 				break;
 			case DEBUGSTR_SETVIDEOOBJECTPALETTE8BPP:
-				sprintf( (char *)str, "SetVideoObjectPalette8BPP" );
+				sprintf( str, "SetVideoObjectPalette8BPP" );
 				break;
 			case DEBUGSTR_GETVIDEOOBJECTPALETTE16BPP:
-				sprintf( (char *)str, "GetVideoObjectPalette16BPP" );
+				sprintf( str, "GetVideoObjectPalette16BPP" );
 				break;
 			case DEBUGSTR_COPYVIDEOOBJECTPALETTE16BPP:
-				sprintf( (char *)str, "CopyVideoObjectPalette16BPP" );
+				sprintf( str, "CopyVideoObjectPalette16BPP" );
 				break;
 			case DEBUGSTR_BLTVIDEOOBJECTOUTLINEFROMINDEX:
-				sprintf( (char *)str, "BltVideoObjectOutlineFromIndex" );
+				sprintf( str, "BltVideoObjectOutlineFromIndex" );
 				break;
 			case DEBUGSTR_BLTVIDEOOBJECTOUTLINESHADOWFROMINDEX:
-				sprintf( (char *)str, "BltVideoObjectOutlineShadowFromIndex" );
+				sprintf( str, "BltVideoObjectOutlineShadowFromIndex" );
 				break;
 			case DEBUGSTR_DELETEVIDEOOBJECTFROMINDEX:
-				sprintf( (char *)str, "DeleteVideoObjectFromIndex" );
+				sprintf( str, "DeleteVideoObjectFromIndex" );
 				break;
 			case DEBUGSTR_NONE:
 			default:
-				sprintf( (char *)str, "GetVideoObject" );
+				sprintf( str, "GetVideoObject" );
 				break;
 		}
 	}
@@ -1485,17 +1485,17 @@ void CheckValidVObjectIndex( UINT32 uiIndex )
 
 typedef struct DUMPFILENAME
 {
-	UINT8 str[256];
+	CHAR8 str[256];
 }DUMPFILENAME;
 
-void DumpVObjectInfoIntoFile( UINT8 *filename, BOOLEAN fAppend )
+void DumpVObjectInfoIntoFile( const STR8 filename, BOOLEAN fAppend )
 {
 	VOBJECT_NODE *curr;
 	FILE *fp;
 	DUMPFILENAME *pName, *pCode;
 	UINT32 *puiCounter;
-	UINT8 tempName[ 256 ];
-	UINT8 tempCode[ 256 ];
+	CHAR8 tempName[ 256 ];
+	CHAR8 tempCode[ 256 ];
 	UINT32 i, uiUniqueID;
 	BOOLEAN fFound;
 	if( !guiVObjectSize )
@@ -1505,11 +1505,11 @@ void DumpVObjectInfoIntoFile( UINT8 *filename, BOOLEAN fAppend )
 
 	if( fAppend )
 	{
-		fp = fopen( (const char *)filename, "a" );
+		fp = fopen( filename, "a" );
 	}
 	else
 	{
-		fp = fopen( (const char *)filename, "w" );
+		fp = fopen( filename, "w" );
 	}
 	Assert( fp );
 
@@ -1567,13 +1567,10 @@ void DumpVObjectInfoIntoFile( UINT8 *filename, BOOLEAN fAppend )
 }
 
 //Debug wrapper for adding vObjects
-template BOOLEAN _AddAndRecordVObject<char const *>(VOBJECT_DESC *, UINT32 *, UINT32, char const *);
-template BOOLEAN _AddAndRecordVObject<char *>(VOBJECT_DESC *, UINT32 *, UINT32, char *);
-template <typename type4>
-BOOLEAN _AddAndRecordVObject( VOBJECT_DESC *VObjectDesc, UINT32 *uiIndex, UINT32 uiLineNum, type4 pSourceFile )
+BOOLEAN _AddAndRecordVObject( VOBJECT_DESC *VObjectDesc, UINT32 *uiIndex, UINT32 uiLineNum, const STR8 pSourceFile )
 {
 	UINT16 usLength;
-	UINT8 str[256];
+	CHAR8 str[256];
 	if( !AddStandardVideoObject( VObjectDesc, uiIndex ) )
 	{
 		return FALSE;
@@ -1581,27 +1578,24 @@ BOOLEAN _AddAndRecordVObject( VOBJECT_DESC *VObjectDesc, UINT32 *uiIndex, UINT32
 
 	//record the filename of the vObject (some are created via memory though)
 	usLength = strlen( VObjectDesc->ImageFile ) + 1;
-	gpVObjectTail->pName = (UINT8*)MemAlloc( usLength );
+	gpVObjectTail->pName = (STR8)MemAlloc( usLength );
 	memset( gpVObjectTail->pName, 0, usLength );
 	strcpy( gpVObjectTail->pName, VObjectDesc->ImageFile );
 
 	//record the code location of the calling creating function.
-	sprintf( (char *)str, "%s -- line(%d)", pSourceFile, uiLineNum );
+	sprintf( str, "%s -- line(%d)", pSourceFile, uiLineNum );
 	usLength = strlen( str ) + 1;
-	gpVObjectTail->pCode = (UINT8*)MemAlloc( usLength );
+	gpVObjectTail->pCode = (STR8)MemAlloc( usLength );
 	memset( gpVObjectTail->pCode, 0, usLength );
 	strcpy( gpVObjectTail->pCode, str );
 
 	return TRUE;
 }
 
-template void PerformVideoInfoDumpIntoFile<char *>(char *, BOOLEAN);
-template void PerformVideoInfoDumpIntoFile<char const *>(char const *, BOOLEAN);
-template <typename string1>
-void PerformVideoInfoDumpIntoFile( string1 filename, BOOLEAN fAppend )
+void PerformVideoInfoDumpIntoFile( const STR8 filename, BOOLEAN fAppend )
 {
-	DumpVObjectInfoIntoFile( (UINT8 *)filename, fAppend );
-	DumpVSurfaceInfoIntoFile( (UINT8 *)filename, TRUE );
+	DumpVObjectInfoIntoFile( filename, fAppend );
+	DumpVSurfaceInfoIntoFile( filename, TRUE );
 }
 
 #endif

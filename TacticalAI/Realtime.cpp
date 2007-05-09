@@ -29,8 +29,8 @@ INT8 RTPlayerDecideAction( SOLDIERTYPE * pSoldier )
 
 	#ifdef DEBUGDECISIONS
 		STR tempstr;
-		sprintf((CHAR *)tempstr,"DecideAction: selected action %d, actionData %d\n\n",bAction,pSoldier->usActionData);
-		DebugAI((STR) tempstr );
+		sprintf(tempstr,"DecideAction: selected action %d, actionData %d\n\n",bAction,pSoldier->usActionData);
+		DebugAI( tempstr );
 	#endif
 
 	return(bAction);

@@ -36,7 +36,7 @@ typedef struct
 {
 	GARRISON_PARSE_STAGE	curElement;
 
-	INT8					szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8					szCharData[MAX_CHAR_DATA_LENGTH+1];
 	garrisonInfo			curGarrisonInfo;
 	UINT32					uiGarrisonCount;
 	
@@ -45,7 +45,7 @@ typedef struct
 } garrisonParseData;
 
 static void XMLCALL
-garrisonStartElementHandle(void *userData, const char *name, const char **atts)
+garrisonStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	garrisonParseData * pData = (garrisonParseData *) userData;
 
@@ -82,7 +82,7 @@ garrisonStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-garrisonCharacterDataHandle(void *userData, const char *str, int len)
+garrisonCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	garrisonParseData * pData = (garrisonParseData *) userData;
 
@@ -92,7 +92,7 @@ garrisonCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-garrisonEndElementHandle(void *userData, const char *name)
+garrisonEndElementHandle(void *userData, const XML_Char *name)
 {
 	garrisonParseData * pData = (garrisonParseData *) userData;
 
@@ -261,7 +261,7 @@ typedef struct
 {
 	PATROL_PARSE_STAGE		curElement;
 
-	INT8					szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8					szCharData[MAX_CHAR_DATA_LENGTH+1];
 	patrolInfo				curPatrolInfo;
 	UINT32					uiPatrolCount;
 	
@@ -270,7 +270,7 @@ typedef struct
 } patrolParseData;
 
 static void XMLCALL
-patrolStartElementHandle(void *userData, const char *name, const char **atts)
+patrolStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	patrolParseData * pData = (patrolParseData *) userData;
 
@@ -332,7 +332,7 @@ patrolStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-patrolCharacterDataHandle(void *userData, const char *str, int len)
+patrolCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	patrolParseData * pData = (patrolParseData *) userData;
 
@@ -342,7 +342,7 @@ patrolCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-patrolEndElementHandle(void *userData, const char *name)
+patrolEndElementHandle(void *userData, const XML_Char *name)
 {
 	patrolParseData * pData = (patrolParseData *) userData;
 
@@ -626,7 +626,7 @@ typedef struct
 {
 	COMPOSITION_PARSE_STAGE	curElement;
 
-	INT8					szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8					szCharData[MAX_CHAR_DATA_LENGTH+1];
 	compositionInfo			curCompositionInfo;
 	INT32					iHighestIndex;
 	
@@ -635,7 +635,7 @@ typedef struct
 } compositionParseData;
 
 static void XMLCALL
-compositionStartElementHandle(void *userData, const char *name, const char **atts)
+compositionStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	compositionParseData * pData = (compositionParseData *) userData;
 
@@ -697,7 +697,7 @@ compositionStartElementHandle(void *userData, const char *name, const char **att
 }
 
 static void XMLCALL
-compositionCharacterDataHandle(void *userData, const char *str, int len)
+compositionCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	compositionParseData * pData = (compositionParseData *) userData;
 
@@ -707,7 +707,7 @@ compositionCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-compositionEndElementHandle(void *userData, const char *name)
+compositionEndElementHandle(void *userData, const XML_Char *name)
 {
 	compositionParseData * pData = (compositionParseData *) userData;
 

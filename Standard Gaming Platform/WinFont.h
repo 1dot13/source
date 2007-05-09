@@ -11,11 +11,11 @@ void  DeleteWinFont( INT32 iFont );
 void SetWinFontBackColor( INT32 iFont, COLORVAL *pColor );
 void SetWinFontForeColor( INT32 iFont, COLORVAL *pColor );
 
-void PrintWinFont( UINT32 uiDestBuf, INT32 iFont, INT32 x, INT32 y, wchar_t *pFontString, ...);
+void PrintWinFont( UINT32 uiDestBuf, INT32 iFont, INT32 x, INT32 y, STR16 pFontString, ...);
 
-INT16 WinFontStringPixLength( wchar_t *string, INT32 iFont );
-INT16 GetWinFontHeight( wchar_t *string, INT32 iFont );
-UINT32	WinFont_mprintf( INT32 iFont, INT32 x, INT32 y, wchar_t *pFontString, ...);
+INT16 WinFontStringPixLength( STR16  string, INT32 iFont );
+INT16 GetWinFontHeight( STR16 string, INT32 iFont );
+UINT32	WinFont_mprintf( INT32 iFont, INT32 x, INT32 y, STR16 pFontString, ...);
 
 BOOLEAN DoesWinFontExistOnSystem( STR16 pTypeFaceName, INT32 iCharSet );
 

@@ -14,7 +14,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 
 	EXPLOSION_DATA  expData;
 	UINT32			maxArraySize;
@@ -25,7 +25,7 @@ struct
 typedef explosionDataParseData;
 
 static void XMLCALL 
-explosionDataStartElementHandle(void *userData, const char *name, const char **atts)
+explosionDataStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	explosionDataParseData * pData = (explosionDataParseData *)userData;
 
@@ -69,7 +69,7 @@ explosionDataStartElementHandle(void *userData, const char *name, const char **a
 }
 
 static void XMLCALL
-explosionDataCharacterDataHandle(void *userData, const char *str, int len)
+explosionDataCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	explosionDataParseData * pData = (explosionDataParseData *)userData;
 
@@ -82,7 +82,7 @@ explosionDataCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-explosionDataEndElementHandle(void *userData, const char *name)
+explosionDataEndElementHandle(void *userData, const XML_Char *name)
 {
 	explosionDataParseData * pData = (explosionDataParseData *)userData;
 

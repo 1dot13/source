@@ -48,7 +48,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	
 	UINT32			maxArraySize;
 	UINT32			curIndex;	
@@ -58,7 +58,7 @@ struct
 typedef burstSoundParseData;
 
 static void XMLCALL 
-burstSoundStartElementHandle(void *userData, const char *name, const char **atts)
+burstSoundStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	burstSoundParseData * pData = (burstSoundParseData *)userData;
 
@@ -86,7 +86,7 @@ burstSoundStartElementHandle(void *userData, const char *name, const char **atts
 }
 
 static void XMLCALL
-burstSoundCharacterDataHandle(void *userData, const char *str, int len)
+burstSoundCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	burstSoundParseData * pData = (burstSoundParseData *)userData;
 
@@ -99,7 +99,7 @@ burstSoundCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-burstSoundEndElementHandle(void *userData, const char *name)
+burstSoundEndElementHandle(void *userData, const XML_Char *name)
 {
 	burstSoundParseData * pData = (burstSoundParseData *)userData;
 
@@ -212,7 +212,7 @@ BOOLEAN WriteBurstSoundArray()
 		{
 			FilePrintf(hFile,"\t<SOUND>");
 
-			INT8 * szRemainder = gzBurstSndStrings[cnt]; //the remaining string to be output (for making valid XML)
+			STR8 szRemainder = gzBurstSndStrings[cnt]; //the remaining string to be output (for making valid XML)
 
 			while(szRemainder[0] != '\0')
 			{

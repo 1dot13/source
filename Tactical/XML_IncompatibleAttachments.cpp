@@ -48,7 +48,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 
 	UINT16			curIncompatibleAttachment[2];
 	UINT32			maxArraySize;
@@ -59,7 +59,7 @@ struct
 typedef incompatibleattachmentParseData;
 
 static void XMLCALL 
-incompatibleattachmentStartElementHandle(void *userData, const char *name, const char **atts)
+incompatibleattachmentStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	incompatibleattachmentParseData * pData = (incompatibleattachmentParseData *)userData;
 
@@ -99,7 +99,7 @@ incompatibleattachmentStartElementHandle(void *userData, const char *name, const
 }
 
 static void XMLCALL
-incompatibleattachmentCharacterDataHandle(void *userData, const char *str, int len)
+incompatibleattachmentCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	incompatibleattachmentParseData * pData = (incompatibleattachmentParseData *)userData;
 
@@ -112,7 +112,7 @@ incompatibleattachmentCharacterDataHandle(void *userData, const char *str, int l
 
 
 static void XMLCALL
-incompatibleattachmentEndElementHandle(void *userData, const char *name)
+incompatibleattachmentEndElementHandle(void *userData, const XML_Char *name)
 {
 	incompatibleattachmentParseData * pData = (incompatibleattachmentParseData *)userData;
 

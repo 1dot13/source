@@ -284,7 +284,7 @@ void RenderAimArchives()
 	UINT16		usPosX, usPosY,x,y,i=0;
 	UINT8			ubNumRows=0;
 	UINT32			uiStartLoc=0;
-	wchar_t			sText[400];
+	CHAR16			sText[400];
 
 	
 	DrawAimDefaults();
@@ -486,8 +486,8 @@ void DisplayAlumniOldMercPopUp()
 	HVOBJECT	hFaceHandle;
 //	WRAPPED_STRING *pFirstWrappedString, *pTempWrappedString;
 	UINT16	usHeight = GetFontHeight(AIM_ALUMNI_POPUP_FONT);
-	wchar_t	sName[AIM_ALUMNI_NAME_SIZE];
-	wchar_t	sDesc[AIM_ALUMNI_DECRIPTION_SIZE];
+	CHAR16	sName[AIM_ALUMNI_NAME_SIZE];
+	CHAR16	sDesc[AIM_ALUMNI_DECRIPTION_SIZE];
 	UINT32		uiStartLoc;
 	UINT16	usStringPixLength;
 

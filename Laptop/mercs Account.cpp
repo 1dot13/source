@@ -351,7 +351,7 @@ void HandleMercsAccount()
 
 void RenderMercsAccount()
 {
-	wchar_t		sText[100];
+	CHAR16		sText[100];
   HVOBJECT hPixHandle;
 
 	DrawMecBackGround();
@@ -470,7 +470,7 @@ void DisplayHiredMercs()
 {
 	UINT16	usPosY;
 	UINT32	uiContractCharge;	
-	wchar_t	sTemp[20];
+	CHAR16	sTemp[20];
 	UINT8	i, usMercID;
 	UINT8	ubFontColor;
 	UINT8 usMercIDStart;

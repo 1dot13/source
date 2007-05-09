@@ -153,7 +153,7 @@ void HandleAimFacialIndex()
 BOOLEAN RenderAimFacialIndex()
 {
 	UINT16		usPosX, usPosY, x,y;
-	wchar_t		sString[150];
+	CHAR16		sString[150];
 	UINT8			i;
 
 	DrawAimDefaults();

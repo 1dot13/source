@@ -459,7 +459,7 @@ BOOLEAN DrawAimPolicyMenu()
 	UINT16			i, usPosY;
 	UINT16			usHeight;
 	UINT32			uiStartLoc=0;
-	wchar_t			sText[400];
+	CHAR16			sText[400];
   HVOBJECT		hContentButtonHandle;
 	UINT8				ubLocInFile[]=		
 								{	DEFINITIONS,
@@ -558,7 +558,7 @@ void SelectPolicyTocMenuRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 
 BOOLEAN  DisplayAimPolicyTitleText(void)
 {
-	wchar_t	sText[400];
+	CHAR16	sText[400];
 	UINT32	uiStartLoc = 0;
 
 	//Load anfd display title
@@ -576,7 +576,7 @@ BOOLEAN  DisplayAimPolicyTitleText(void)
 
 BOOLEAN  DisplayAimPolicyStatement(void)
 {
-	wchar_t	sText[400];
+	CHAR16	sText[400];
 	UINT32	uiStartLoc = 0;
 	UINT16	usNumPixels;
 
@@ -651,7 +651,7 @@ BOOLEAN ExitAgreementButton(void)
 
 BOOLEAN  DisplayAimPolicyTitle(UINT16 usPosY, UINT8	ubPageNum, FLOAT fNumber)
 {
-	wchar_t	sText[400];
+	CHAR16	sText[400];
 	UINT32	uiStartLoc = 0;
 
 	//Load and display title
@@ -665,8 +665,8 @@ BOOLEAN  DisplayAimPolicyTitle(UINT16 usPosY, UINT8	ubPageNum, FLOAT fNumber)
 
 UINT16 DisplayAimPolicyParagraph(UINT16 usPosY, UINT8	ubPageNum, FLOAT fNumber)
 {
-	wchar_t	sText[400];
-	wchar_t	sTemp[20];
+	CHAR16	sText[400];
+	CHAR16	sTemp[20];
 	UINT32	uiStartLoc=0;
 	UINT16	usNumPixels;
 
@@ -688,8 +688,8 @@ UINT16 DisplayAimPolicyParagraph(UINT16 usPosY, UINT8	ubPageNum, FLOAT fNumber)
 
 UINT16 DisplayAimPolicySubParagraph(UINT16 usPosY, UINT8	ubPageNum, FLOAT fNumber)
 {
-	wchar_t	sText[400];
-	wchar_t	sTemp[20];
+	CHAR16	sText[400];
+	CHAR16	sTemp[20];
 	UINT32	uiStartLoc=0;
 	UINT16	usNumPixels;
 

@@ -123,7 +123,7 @@ void AdvanceToNextDay();
 void UpdateClock();
 
 
-extern wchar_t gswzWorldTimeStr[ 20 ]; //Day 99, 23:55
+extern CHAR16 gswzWorldTimeStr[ 20 ]; //Day 99, 23:55
 
 extern	UINT32			guiDay;
 extern	UINT32			guiHour;

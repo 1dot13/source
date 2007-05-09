@@ -170,7 +170,7 @@ void HandleAimHistory()
 
 void RenderAimHistory()
 {
-	wchar_t	sText[400];
+	CHAR16	sText[400];
 	UINT32	uiStartLoc=0;
 	UINT16	usPosY;
 
@@ -359,7 +359,7 @@ void SelectHistoryMenuButtonsRegionCallBack(MOUSE_REGION * pRegion, INT32 iReaso
 
 BOOLEAN DisplayAimHistoryParagraph(UINT8	ubPageNum, UINT8 ubNumParagraphs)
 {
-	wchar_t	sText[400];
+	CHAR16	sText[400];
 	UINT32	uiStartLoc=0;
 	UINT16	usPosY=0;
 	UINT16	usNumPixels=0;
@@ -408,7 +408,7 @@ BOOLEAN InitTocMenu()
 	UINT16			usHeight;
 	UINT16			usWidth=0;
 	UINT32			uiStartLoc=0;
-	wchar_t			sText[400];
+	CHAR16			sText[400];
 	UINT8				ubLocInFile[]=
 								{IN_THE_BEGINNING,
 								 THE_ISLAND_METAVIRA,

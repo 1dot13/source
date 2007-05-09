@@ -54,7 +54,7 @@ enum{
 	BETA,
 	RELEASE
 };
-UINT16 gszVersionType[5][10] = { L"Pre-Alpha", L"Alpha", L"Demo", L"Beta", L"Release" };
+CHAR16 gszVersionType[5][10] = { L"Pre-Alpha", L"Alpha", L"Demo", L"Beta", L"Release" };
 #define GLOBAL_SUMMARY_STATE			RELEASE
 
 //Regular masks
@@ -85,7 +85,7 @@ BOOLEAN gfMustForceUpdateAllMaps = FALSE;
 UINT16 gusNumberOfMapsToBeForceUpdated = 0;
 BOOLEAN gfMajorUpdate = FALSE;
 
-void LoadSummary( UINT8 *pSector, UINT8 ubLevel, FLOAT dMajorMapVersion );
+void LoadSummary( STR8 pSector, UINT8 ubLevel, FLOAT dMajorMapVersion );
 void RegenerateSummaryInfoForAllOutdatedMaps();
 
 void SetupItemDetailsMode( BOOLEAN fAllowRecursion );
@@ -214,9 +214,9 @@ extern INT16 gsSelSectorY; // symbol already declared globally in AI Viewer.cpp 
 //summary is going to be persistant or not.
 UINT32 giInitTimer;
 
-UINT16 gszFilename[40];
-UINT16 gszTempFilename[21];
-UINT16 gszDisplayName[21];
+CHAR16 gszFilename[40];
+CHAR16 gszTempFilename[21];
+CHAR16 gszDisplayName[21];
 
 void CalculateOverrideStatus();
 
@@ -499,7 +499,7 @@ void DestroySummaryWindow()
 
 void RenderSectorInformation()
 {
-	//wchar_t str[ 100 ];
+	//CHAR16 str[ 100 ];
 	MAPCREATE_STRUCT *m;
 	SUMMARYFILE *s;
 	UINT8 ePoints = 0;
@@ -677,7 +677,7 @@ void RenderItemDetails()
 	FLOAT dAvgExistChance, dAvgStatus;
 	OBJECTTYPE *pItem;
 	INT32 index, i;
-	wchar_t str[100];
+	CHAR16 str[100];
 	UINT32 uiQuantity, uiExistChance, uiStatus;
 	UINT32 uiTriggerQuantity[8], uiActionQuantity[8], uiTriggerExistChance[8], uiActionExistChance[8];
 	UINT32 xp, yp;
@@ -1025,7 +1025,7 @@ void RenderSummaryWindow()
 		SetFontShadow( FONT_NEARBLACK );
 		if( gfGlobalSummaryExists )
 		{
-			wchar_t str[100];
+			CHAR16 str[100];
 			BOOLEAN fSectorSummaryExists = FALSE;
 			if( gusNumEntriesWithOutdatedOrNoSummaryInfo && !gfOutdatedDenied )
 			{
@@ -1379,7 +1379,7 @@ void RenderSummaryWindow()
 		}
 		for( x = 1; x <= 16; x++ )
 		{
-			wchar_t str[3];
+			CHAR16 str[3];
 			swprintf( str, L"%d", x );
 			mprintf( MAP_LEFT+x*13-(13+StringPixLength( str, SMALLCOMPFONT ))/2, MAP_TOP-8, str );
 		}
@@ -1402,7 +1402,7 @@ void RenderSummaryWindow()
 		if( gfRenderProgress )
 		{
 			UINT8 ubNumUndergroundLevels;
-			wchar_t str[2];
+			CHAR16 str[2];
 			for( y = 0; y < 16; y++ ) 
 			{
 				ClipRect.iTop = MAP_TOP + y*13;
@@ -1526,11 +1526,11 @@ void RenderSummaryWindow()
 	}
 }
 
-void UpdateSectorSummary( UINT16 *gszFilename, BOOLEAN fUpdate )
+void UpdateSectorSummary( STR16 gszFilename, BOOLEAN fUpdate )
 {
-	wchar_t str[50];
-	UINT8 szCoord[40];
-	UINT16 *ptr;
+	CHAR16 str[50];
+	CHAR8 szCoord[40];
+	STR16 ptr;
 	INT16 x, y;
 
 	gfRenderSummary = TRUE;
@@ -1637,7 +1637,7 @@ void UpdateSectorSummary( UINT16 *gszFilename, BOOLEAN fUpdate )
 			CreateProgressBar( 0, iScreenWidthOffset + 250, iScreenHeightOffset + 200, iScreenWidthOffset + 390, iScreenHeightOffset + 210 );
 		}
 
-		sprintf( (char *)szCoord, "%S", gszFilename );
+		sprintf( szCoord, "%S", gszFilename );
 		if( gsSectorX > 9 )
 			szCoord[3] = '\0';
 		else
@@ -2088,8 +2088,8 @@ void SummaryLoadMapCallback( GUI_BUTTON *btn, INT32 reason )
 {
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-		UINT16 *ptr;
-		wchar_t str[ 50 ];
+		STR16 ptr;
+		CHAR16 str[ 50 ];
 		gfRenderSummary = TRUE;
 		
 		SetFont( FONT10ARIAL );
@@ -2145,9 +2145,9 @@ void SummarySaveMapCallback( GUI_BUTTON *btn, INT32 reason )
 		{
 			if( gubOverrideStatus == READONLY )
 			{
-				UINT8 filename[40];
-				sprintf( (char *)filename, "MAPS\\%S", gszDisplayName );
-				FileClearAttributes( (STR)filename );
+				CHAR8 filename[40];
+				sprintf( filename, "MAPS\\%S", gszDisplayName );
+				FileClearAttributes( filename );
 			}	
 			if(	ExternalSaveMap( gszDisplayName ) )
 			{
@@ -2232,8 +2232,8 @@ void LoadGlobalSummary()
 	UINT32 uiNumBytesRead;
 	FLOAT	dMajorVersion;
   INT32 x,y;
-	UINT8 szFilename[40];
-	UINT8 szSector[6];
+	CHAR8 szFilename[40];
+	CHAR8 szSector[6];
 
 	OutputDebugString( "Executing LoadGlobalSummary()...\n" );
 
@@ -2269,12 +2269,12 @@ void LoadGlobalSummary()
 		for( x = 0; x < 16; x++ )
 		{
 			gbSectorLevels[x][y] = 0;
-			sprintf( (char *)szSector, "%c%d", 'A' + y, x + 1 );
+			sprintf( szSector, "%c%d", 'A' + y, x + 1 );
 
 			//main ground level
-			sprintf( (char *)szFilename, "%c%d.dat", 'A' + y, x + 1 );
+			sprintf( szFilename, "%c%d.dat", 'A' + y, x + 1 );
 			SetFileManCurrentDirectory( MapsDir );
-			hfile = FileOpen( (STR)szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			SetFileManCurrentDirectory( DevInfoDir );
 			if( hfile )
 			{
@@ -2285,13 +2285,13 @@ void LoadGlobalSummary()
 			}
 			else
 			{
-				sprintf( (char *)szFilename, "%s.sum", szSector );
-				FileDelete( (STR)szFilename );
+				sprintf( szFilename, "%s.sum", szSector );
+				FileDelete( szFilename );
 			}
 			//main B1 level
-			sprintf( (char *)szFilename, "%c%d_b1.dat", 'A' + y, x + 1 );
+			sprintf( szFilename, "%c%d_b1.dat", 'A' + y, x + 1 );
 			SetFileManCurrentDirectory( MapsDir );
-			hfile = FileOpen( (STR)szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			SetFileManCurrentDirectory( DevInfoDir );
 			if( hfile )
 			{
@@ -2302,13 +2302,13 @@ void LoadGlobalSummary()
 			}
 			else
 			{
-				sprintf( (char *)szFilename, "%s_b1.sum", szSector );
-				FileDelete( (STR)szFilename );
+				sprintf( szFilename, "%s_b1.sum", szSector );
+				FileDelete( szFilename );
 			}
 			//main B2 level
-			sprintf( (char *)szFilename, "%c%d_b2.dat", 'A' + y, x + 1 );
+			sprintf( szFilename, "%c%d_b2.dat", 'A' + y, x + 1 );
 			SetFileManCurrentDirectory( MapsDir );
-			hfile = FileOpen( (STR)szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			SetFileManCurrentDirectory( DevInfoDir );
 			if( hfile )
 			{
@@ -2319,13 +2319,13 @@ void LoadGlobalSummary()
 			}
 			else
 			{
-				sprintf( (char *)szFilename, "%s_b2.sum", szSector );
-				FileDelete( (STR)szFilename );
+				sprintf( szFilename, "%s_b2.sum", szSector );
+				FileDelete( szFilename );
 			}
 			//main B3 level
-			sprintf( (char *)szFilename, "%c%d_b3.dat", 'A' + y, x + 1 );
+			sprintf( szFilename, "%c%d_b3.dat", 'A' + y, x + 1 );
 			SetFileManCurrentDirectory( MapsDir );
-			hfile = FileOpen( (STR)szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			SetFileManCurrentDirectory( DevInfoDir );
 			if( hfile )
 			{
@@ -2336,13 +2336,13 @@ void LoadGlobalSummary()
 			}
 			else
 			{
-				sprintf( (char *)szFilename, "%s_b3.sum", szSector );
-				FileDelete( (STR)szFilename );
+				sprintf( szFilename, "%s_b3.sum", szSector );
+				FileDelete( szFilename );
 			}
 			//alternate ground level
-			sprintf( (char *)szFilename, "%c%d_a.dat", 'A' + y, x + 1 );
+			sprintf( szFilename, "%c%d_a.dat", 'A' + y, x + 1 );
 			SetFileManCurrentDirectory( MapsDir );
-			hfile = FileOpen( (STR)szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			SetFileManCurrentDirectory( DevInfoDir );
 			if( hfile )
 			{
@@ -2353,13 +2353,13 @@ void LoadGlobalSummary()
 			}
 			else
 			{
-				sprintf( (char *)szFilename, "%s_a.sum", szSector );
-				FileDelete( (STR)szFilename );
+				sprintf( szFilename, "%s_a.sum", szSector );
+				FileDelete( szFilename );
 			}
 			//alternate B1 level
-			sprintf( (char *)szFilename, "%c%d_b1_a.dat", 'A' + y, x + 1 );
+			sprintf( szFilename, "%c%d_b1_a.dat", 'A' + y, x + 1 );
 			SetFileManCurrentDirectory( MapsDir );
-			hfile = FileOpen( (STR)szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			SetFileManCurrentDirectory( DevInfoDir );
 			if( hfile )
 			{
@@ -2370,13 +2370,13 @@ void LoadGlobalSummary()
 			}
 			else
 			{
-				sprintf( (char *)szFilename, "%s_b1_a.sum", szSector );
-				FileDelete( (STR)szFilename );
+				sprintf( szFilename, "%s_b1_a.sum", szSector );
+				FileDelete( szFilename );
 			}
 			//alternate B2 level
-			sprintf( (char *)szFilename, "%c%d_b2_a.dat", 'A' + y, x + 1 );
+			sprintf( szFilename, "%c%d_b2_a.dat", 'A' + y, x + 1 );
 			SetFileManCurrentDirectory( MapsDir );
-			hfile = FileOpen( (STR)szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			SetFileManCurrentDirectory( DevInfoDir );
 			if( hfile )
 			{
@@ -2387,13 +2387,13 @@ void LoadGlobalSummary()
 			}
 			else
 			{
-				sprintf( (char *)szFilename, "%s_b2_a.sum", szSector );
-				FileDelete( (STR)szFilename );
+				sprintf( szFilename, "%s_b2_a.sum", szSector );
+				FileDelete( szFilename );
 			}
 			//alternate B3 level
-			sprintf( (char *)szFilename, "%c%d_b3_a.dat", 'A' + y, x + 1 );
+			sprintf( szFilename, "%c%d_b3_a.dat", 'A' + y, x + 1 );
 			SetFileManCurrentDirectory( MapsDir );
-			hfile = FileOpen( (STR)szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+			hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 			SetFileManCurrentDirectory( DevInfoDir );
 			if( hfile )
 			{
@@ -2404,8 +2404,8 @@ void LoadGlobalSummary()
 			}
 			else
 			{
-				sprintf( (char *)szFilename, "%s_b3_a.sum", szSector );
-				FileDelete( (STR)szFilename );
+				sprintf( szFilename, "%s_b3_a.sum", szSector );
+				FileDelete( szFilename );
 			}
 		}
 		OutputDebugString( (LPCSTR)String("Sector Row %c complete... \n", y + 'A') );
@@ -2462,7 +2462,7 @@ void GenerateSummaryList()
 	//SetFileManCurrentDirectory( Dir );
 }
 
-void WriteSectorSummaryUpdate( UINT8 *puiFilename, UINT8 ubLevel, SUMMARYFILE *pSummaryFileInfo )
+void WriteSectorSummaryUpdate( STR8 puiFilename, UINT8 ubLevel, SUMMARYFILE *pSummaryFileInfo )
 {
 	FILE *fp;
 	STRING512			DataDir;
@@ -2486,7 +2486,7 @@ void WriteSectorSummaryUpdate( UINT8 *puiFilename, UINT8 ubLevel, SUMMARYFILE *p
 	sprintf( ptr, ".sum" );
 
 	//write the summary information
-	fp = fopen( (const char *)puiFilename, "wb" );
+	fp = fopen( puiFilename, "wb" );
 	Assert( fp );
 	fwrite( pSummaryFileInfo, 1, sizeof( SUMMARYFILE ), fp );
 	fclose( fp );
@@ -2546,17 +2546,17 @@ void SummaryNewCaveLevelCallback( GUI_BUTTON *btn, INT32 reason )
 	}
 }
 
-void LoadSummary( UINT8 *pSector, UINT8 ubLevel, FLOAT dMajorMapVersion )
+void LoadSummary( STR8 pSector, UINT8 ubLevel, FLOAT dMajorMapVersion )
 {
-	UINT8 filename[40];
+	CHAR8 filename[40];
 	SUMMARYFILE temp;
 	INT32 x, y;
 	FILE *fp;
-	sprintf( (char *)filename, (const char *)pSector );
+	sprintf( filename, pSector );
 	if( ubLevel % 4 )
 	{
-		UINT8 str[4];
-		sprintf( (char *)str, "_b%d", ubLevel % 4 );
+		CHAR8 str[4];
+		sprintf( str, "_b%d", ubLevel % 4 );
 		strcat( filename, str );
 	}
 	if( ubLevel >= 4 )
@@ -2565,7 +2565,7 @@ void LoadSummary( UINT8 *pSector, UINT8 ubLevel, FLOAT dMajorMapVersion )
 	}
 	strcat( filename, ".sum" );
 
-	fp = fopen( (const char *)filename, "rb" );
+	fp = fopen( filename, "rb" );
 	if( !fp )
 	{
 		gusNumEntriesWithOutdatedOrNoSummaryInfo++;
@@ -2620,11 +2620,11 @@ void UpdateMasterProgress()
 	}
 }
 
-void ReportError( UINT8 *pSector, UINT8 ubLevel )
+void ReportError( STR8 pSector, UINT8 ubLevel )
 {
 	static INT32 yp = iScreenHeightOffset + 180;
-	wchar_t str[40];
-	UINT16 temp[10];
+	CHAR16 str[40];
+	CHAR16 temp[10];
 
 	//Make sure the file exists... if not, then return false
 	swprintf( str, L"%S", pSector );
@@ -2642,7 +2642,7 @@ void ReportError( UINT8 *pSector, UINT8 ubLevel )
 void RegenerateSummaryInfoForAllOutdatedMaps()
 {
 	INT32 x, y;
-	UINT8 str[40];
+	CHAR8 str[40];
 	SUMMARYFILE *pSF;
 	//CreateProgressBar( 0, 20, 120, 300, 132 ); //slave (individual)
 	//CreateProgressBar( 1, 20, 100, 300, 112 ); //master (total)
@@ -2659,7 +2659,7 @@ void RegenerateSummaryInfoForAllOutdatedMaps()
 
 	for( y = 0; y < 16; y++ ) for( x = 0; x < 16; x++ )
 	{
-		sprintf( (char *)str, "%c%d", y + 'A', x + 1 );
+		sprintf( str, "%c%d", y + 'A', x + 1 );
 		if( gbSectorLevels[x][y] & GROUND_LEVEL_MASK )
 		{
 			pSF = gpSectorSummary[x][y][0];
@@ -2726,7 +2726,7 @@ void SummaryUpdateCallback( GUI_BUTTON *btn, INT32 reason )
 {
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-		UINT8 str[40];
+		CHAR8 str[40];
 		CreateProgressBar( 0, iScreenWidthOffset + 20, iScreenHeightOffset + 100, iScreenWidthOffset + 300, iScreenHeightOffset + 112 ); //slave (individual)
 		DefineProgressBarPanel( 0, 65, 79, 94, iScreenWidthOffset + 10, iScreenHeightOffset + 80, iScreenWidthOffset + 310, iScreenHeightOffset + 132 );
 		SetProgressBarTitle( 0, L"Generating map summary", BLOCKFONT2, FONT_RED, FONT_NEARBLACK );
@@ -2738,7 +2738,7 @@ void SummaryUpdateCallback( GUI_BUTTON *btn, INT32 reason )
 			gpCurrentSectorSummary = NULL;
 		}
 
-		sprintf( (char *)str, "%c%d", gsSelSectorY + 'A' - 1, gsSelSectorX );
+		sprintf( str, "%c%d", gsSelSectorY + 'A' - 1, gsSelSectorX );
 		EvaluateWorld( str, (UINT8)giCurrLevel );
 
 		gpSectorSummary[ gsSelSectorX ][ gsSelSectorY ][ giCurrLevel ] = gpCurrentSectorSummary;
@@ -2751,7 +2751,7 @@ void SummaryUpdateCallback( GUI_BUTTON *btn, INT32 reason )
 
 void ExtractTempFilename()
 {
-	wchar_t str[40];
+	CHAR16 str[40];
 	Get16BitStringFromField( 1, str );
 	if( wcscmp( gszTempFilename, str ) )
 	{
@@ -2766,8 +2766,8 @@ void ExtractTempFilename()
 void ApologizeOverrideAndForceUpdateEverything()
 {
 	INT32 x, y;
-	wchar_t str[ 50 ];
-	UINT8 name[50];
+	CHAR16 str[ 50 ];
+	CHAR8 name[50];
 	SUMMARYFILE *pSF;
 	//Create one huge assed button
 	gfMajorUpdate = TRUE;
@@ -2801,7 +2801,7 @@ void ApologizeOverrideAndForceUpdateEverything()
 
 	for( y = 0; y < 16; y++ ) for( x = 0; x < 16; x++ )
 	{
-		sprintf( (char *)name, "%c%d", y + 'A', x + 1 );
+		sprintf( name, "%c%d", y + 'A', x + 1 );
 		if( gbSectorLevels[x][y] & GROUND_LEVEL_MASK )
 		{
 			pSF = gpSectorSummary[x][y][0];
@@ -2884,7 +2884,7 @@ void ApologizeOverrideAndForceUpdateEverything()
 		}
 	}
 
-	EvaluateWorld( (UINT8 *)"p3_m.dat", 0 );
+	EvaluateWorld( "p3_m.dat", 0 );
 
 	RemoveProgressBar( 2 );
 	gfUpdatingNow = FALSE;
@@ -2901,7 +2901,7 @@ void SetupItemDetailsMode( BOOLEAN fAllowRecursion )
 	HWFILE hfile;
 	UINT32 uiNumBytesRead;
 	UINT32 uiNumItems;
-	UINT8 szFilename[40];
+	CHAR8 szFilename[40];
 	BASIC_SOLDIERCREATE_STRUCT basic;
 	SOLDIERCREATE_STRUCT priority;
 	INT32 i, j;
@@ -2937,8 +2937,8 @@ void SetupItemDetailsMode( BOOLEAN fAllowRecursion )
 		gpCurrentSectorSummary = gpSectorSummary[ gsSelSectorX - 1 ][ gsSelSectorY - 1 ][ giCurrLevel ];
 	}
 	//Open the original map for the sector
-	sprintf( (char *)szFilename, "MAPS\\%S", gszFilename );
-	hfile = FileOpen( (STR)szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+	sprintf( szFilename, "MAPS\\%S", gszFilename );
+	hfile = FileOpen( szFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 	if( !hfile )
 	{ //The file couldn't be found!
 		return;

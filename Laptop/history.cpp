@@ -768,7 +768,7 @@ void ClearHistoryList( void )
 void DisplayHistoryListHeaders( void )
 {
   // this procedure will display the headers to each column in History
-  UINT16 usX, usY;
+  INT16 usX, usY;
 
 	// font stuff
 	SetFont(HISTORY_TEXT_FONT);
@@ -823,9 +823,9 @@ void DrawHistoryRecordsText( void )
   // draws the text of the records
   HistoryUnitPtr pCurHistory=pHistoryListHead;
   HistoryUnitPtr pTempHistory=pHistoryListHead;
-	wchar_t sString[512];
+	CHAR16 sString[512];
   INT32 iCounter=0;
-	UINT16 usX, usY;
+	INT16 usX, usY;
   INT32 iBalance=0;
 	INT16 sX =0, sY =0;
 
@@ -945,7 +945,7 @@ void DisplayPageNumberAndDateRange( void )
 	INT32 iCounter=0;
   UINT32 uiLastDate;
 	HistoryUnitPtr pTempHistory=pHistoryListHead;
-  wchar_t sString[50];
+  CHAR16 sString[50];
 
 
 

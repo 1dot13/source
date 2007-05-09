@@ -23,9 +23,8 @@ UINT32	SaveLoadScreenShutdown( void );
 UINT32	SaveLoadScreenHandle( void );
 UINT32	SaveLoadScreenInit( void );
 
-template <typename string2>
 //Kaiden : Trying to get Editor to work
-extern BOOLEAN		DoSaveLoadMessageBox( UINT8 ubStyle, string2 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback );
+extern BOOLEAN		DoSaveLoadMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback );
 
 BOOLEAN		InitSaveGameArray();
 

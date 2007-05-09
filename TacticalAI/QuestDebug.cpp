@@ -38,7 +38,7 @@ UINT8	gubNPCDebugOutPutLevel = QD_OUTPUT_LEVEL_ALL;
 //set the current output mode for either the NPC or the quest output
 void ToggleQuestDebugModes( UINT8 ubType )
 {
-	wchar_t	sType[16];
+	CHAR16	sType[16];
 	UINT8 ubLevel;
 
 	if( ubType == QD_NPC_MSG )

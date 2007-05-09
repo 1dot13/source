@@ -106,7 +106,7 @@ UINT32		SoundGetFreeChannel(void);
 UINT32		SoundGetUniqueID(void);
 
 // Callbacks
-void * F_CALLBACKAPI    SoundFileOpen (const CHAR8 *pName);
+void * F_CALLBACKAPI    SoundFileOpen (const STR8 pName);
 void F_CALLBACKAPI      SoundFileClose(void *uiHandle);
 INT F_CALLBACKAPI       SoundFileRead (void *pBuffer, INT iSize, void *uiHandle);
 INT F_CALLBACKAPI       SoundFileSeek (void *uiHandle, INT iPos, signed char cMode);
@@ -1459,7 +1459,7 @@ UINT32 uiSoundID;
     FSOUND_Stream_SetBufferSize(STREAM_BUFFER_LEN);
 
     // Creating stream
-    pSoundList[uiChannel].hStream=FSOUND_Stream_Open((char *)pSampleList[uiSample].pData, FSOUND_LOADMEMORY|FSOUND_LOOP_NORMAL|FSOUND_2D, 0, pSampleList[uiSample].uiSize);
+    pSoundList[uiChannel].hStream=FSOUND_Stream_Open((STR8) pSampleList[uiSample].pData, FSOUND_LOADMEMORY|FSOUND_LOOP_NORMAL|FSOUND_2D, 0, pSampleList[uiSample].uiSize);
 	if(pSoundList[uiChannel].hStream==NULL)
 	{
         SoundLog((CHAR8 *)String(" ERROR in SoundStartSample(): %s", FMOD_ErrorString(FSOUND_GetError()) ));
@@ -1630,9 +1630,9 @@ UINT32 uiSoundID;
 // ------------------------
 // Callbacks implementation
 // ========================
-static void * F_CALLBACKAPI SoundFileOpen(const CHAR8 *pName)
+static void * F_CALLBACKAPI SoundFileOpen(const STR8 pName)
 {
-    return((void*)FileOpen((STR)pName, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE));
+    return((void*)FileOpen(pName, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE));
 }
 
 static void F_CALLBACKAPI SoundFileClose(void *uiHandle)

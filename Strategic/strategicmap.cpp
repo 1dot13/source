@@ -369,7 +369,7 @@ typedef struct
 {
 	SAMSITE_PARSE_STAGE	curElement;
 
-	INT8					szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8					szCharData[MAX_CHAR_DATA_LENGTH+1];
 	samInfo					curSamInfo;
 	UINT32					uiRowNumber;
 	UINT32					uiHighestIndex;
@@ -379,7 +379,7 @@ typedef struct
 } samsiteParseData;
 
 static void XMLCALL
-samsiteStartElementHandle(void *userData, const char *name, const char **atts)
+samsiteStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	samsiteParseData * pData = (samsiteParseData *) userData;
 
@@ -481,7 +481,7 @@ samsiteStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-samsiteCharacterDataHandle(void *userData, const char *str, int len)
+samsiteCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	samsiteParseData * pData = (samsiteParseData *) userData;
 
@@ -491,7 +491,7 @@ samsiteCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-samsiteEndElementHandle(void *userData, const char *name)
+samsiteEndElementHandle(void *userData, const XML_Char *name)
 {
 	samsiteParseData * pData = (samsiteParseData *) userData;
 
@@ -507,7 +507,7 @@ samsiteEndElementHandle(void *userData, const char *name)
 		}
 		else if(strcmp(name, "MAP_ROW") == 0 && pData->curElement == SAMSITE_ELEMENT_MAP_ROW)
 		{
-			INT8 * curBuffer = pData->szCharData + strspn((const char *)pData->szCharData," \t\n\r");
+			STR8 curBuffer = pData->szCharData + strspn(pData->szCharData," \t\n\r");
 			UINT32 curCellIndex = 0;
 			UINT32 curNumber;
 
@@ -515,13 +515,13 @@ samsiteEndElementHandle(void *userData, const char *name)
 
 			while(curBuffer[0] != '\0')
 			{
-				sscanf( (const char *)curBuffer,"%d",&curNumber);
+				sscanf( curBuffer,"%d",&curNumber);
 
 				ubSAMControlledSectors[pData->uiRowNumber][curCellIndex] = curNumber;
 
 				curCellIndex++;
 				curBuffer += strcspn(curBuffer," \t\n\r\0");
-				curBuffer += strspn((const char *)curBuffer," \t\n\r");
+				curBuffer += strspn(curBuffer," \t\n\r");
 			}
 		}
 		else if(strcmp(name, "SAMLIST") == 0 && pData->curElement == SAMSITE_ELEMENT_SAMLIST)
@@ -784,7 +784,7 @@ typedef struct
 {
 	CITYTABLE_PARSE_STAGE	curElement;
 
-	INT8					szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8					szCharData[MAX_CHAR_DATA_LENGTH+1];
 	cityInfo				curCityInfo;
 	UINT32					uiRowNumber;
 	UINT32					uiHighestIndex;
@@ -794,7 +794,7 @@ typedef struct
 } citytableParseData;
 
 static void XMLCALL
-citytableStartElementHandle(void *userData, const char *name, const char **atts)
+citytableStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	citytableParseData * pData = (citytableParseData *) userData;
 
@@ -910,7 +910,7 @@ citytableStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-citytableCharacterDataHandle(void *userData, const char *str, int len)
+citytableCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	citytableParseData * pData = (citytableParseData *) userData;
 
@@ -920,7 +920,7 @@ citytableCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-citytableEndElementHandle(void *userData, const char *name)
+citytableEndElementHandle(void *userData, const XML_Char *name)
 {
 	citytableParseData * pData = (citytableParseData *) userData;
 
@@ -936,7 +936,7 @@ citytableEndElementHandle(void *userData, const char *name)
 		}
 		else if(strcmp(name, "CITY_TABLE_ROW") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITYTABLEROW)
 		{
-			INT8 * curBuffer = pData->szCharData + strspn((const char *)pData->szCharData," \t\n\r");
+			STR8 curBuffer = pData->szCharData + strspn(pData->szCharData," \t\n\r");
 			UINT32 curCellIndex = 0;
 			UINT32 curNumber;
 
@@ -944,13 +944,13 @@ citytableEndElementHandle(void *userData, const char *name)
 
 			while(curBuffer[0] != '\0')
 			{
-				sscanf( (const char *)curBuffer,"%d",&curNumber);
+				sscanf( curBuffer,"%d",&curNumber);
 
 				StrategicMap[curCellIndex+MAP_WORLD_X*pData->uiRowNumber].bNameId = curNumber;
 
 				curCellIndex++;
 				curBuffer += strcspn(curBuffer," \t\n\r\0");
-				curBuffer += strspn((const char *)curBuffer," \t\n\r");
+				curBuffer += strspn(curBuffer," \t\n\r");
 			}
 		}
 		else if(strcmp(name, "CITYLIST") == 0 && pData->curElement == CITYTABLE_ELEMENT_CITYLIST)
@@ -989,7 +989,7 @@ citytableEndElementHandle(void *userData, const char *name)
 		}
 		else if(strcmp(name, "townName") == 0 && pData->curElement == CITYTABLE_ELEMENT_NAME)
 		{
-			strncpy(pData->curCityInfo.cityName, (const char *) pData->szCharData, MAX_TOWN_NAME_LENGHT - 1);
+			strncpy(pData->curCityInfo.cityName, pData->szCharData, MAX_TOWN_NAME_LENGHT - 1);
 			pData->curCityInfo.cityName[MAX_TOWN_NAME_LENGHT - 1] = 0;
 
 			pData->curElement = CITYTABLE_ELEMENT_CITY;
@@ -1313,7 +1313,7 @@ void EndLoadScreen( )
 #ifdef JA2TESTVERSION
 	//Report the time it took to load the map.  This is temporary until we are satisfied with the time
 	//it takes to load the map.
-	wchar_t str[60];
+	CHAR16 str[60];
 	FILE *fp;
 	UINT32 uiSeconds;
 	UINT32 uiHundreths;
@@ -1926,10 +1926,10 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 
 BOOLEAN MapExists( UINT8 * szFilename )
 {
-	UINT8 str[50];
+	CHAR8 str[50];
 	HWFILE fp;
-	sprintf( (char *)str, "MAPS\\%s", szFilename );
-	fp = FileOpen( (STR)str, FILE_ACCESS_READ, FALSE );
+	sprintf( str, "MAPS\\%s", szFilename );
+	fp = FileOpen( str, FILE_ACCESS_READ, FALSE );
 	if( !fp )
 		return FALSE;
 	FileClose( fp );
@@ -2366,7 +2366,7 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY , INT8 bSectorZ )
 	//	swprintf( str, L"Loading map:  %S", bFilename );
 	//	SetProgressBarTitle( 0, str, FONT12POINT1, FONT_BLACK, FONT_BLACK );
 	//#endif
-	if( !LoadWorld((UINT8 *) bFilename ) )
+	if( !LoadWorld(bFilename ) )
 	{
 		return( FALSE );
 	}
@@ -2617,8 +2617,8 @@ void UpdateMercInSector( SOLDIERTYPE *pSoldier, INT16 sSectorX, INT16 sSectorY, 
 					pSoldier->sInsertionGridNo = SearchForClosestPrimaryMapEdgepoint( pSoldier->sPendingActionData2, (UINT8)pSoldier->usStrategicInsertionData );
 					#ifdef JA2BETAVERSION
 					{
-						UINT8 str[256];
-						sprintf( (char *)str, "%S's primary insertion gridno is %d using %d as initial search gridno and %d insertion code.", 
+						CHAR8 str[256];
+						sprintf( str, "%S's primary insertion gridno is %d using %d as initial search gridno and %d insertion code.", 
 													pSoldier->name, pSoldier->sInsertionGridNo, pSoldier->sPendingActionData2, pSoldier->usStrategicInsertionData );
 						DebugMsg( TOPIC_JA2, DBG_LEVEL_3, str );	
 					}
@@ -2634,8 +2634,8 @@ void UpdateMercInSector( SOLDIERTYPE *pSoldier, INT16 sSectorX, INT16 sSectorY, 
 					pSoldier->sInsertionGridNo = SearchForClosestSecondaryMapEdgepoint( pSoldier->sPendingActionData2, (UINT8)pSoldier->usStrategicInsertionData );
 					#ifdef JA2BETAVERSION
 					{
-						UINT8 str[256];
-						sprintf( (char *)str, "%S's isolated insertion gridno is %d using %d as initial search gridno and %d insertion code.", 
+						CHAR8 str[256];
+						sprintf( str, "%S's isolated insertion gridno is %d using %d as initial search gridno and %d insertion code.", 
 													pSoldier->name, pSoldier->sInsertionGridNo, pSoldier->sPendingActionData2, pSoldier->usStrategicInsertionData );
 						DebugMsg( TOPIC_JA2, DBG_LEVEL_3, str );	
 					}
@@ -2677,8 +2677,8 @@ void UpdateMercInSector( SOLDIERTYPE *pSoldier, INT16 sSectorX, INT16 sSectorY, 
 			if( fError )
 			{ //strategic insertion failed because it expected to find an entry point.  This is likely 
 				//a missing part of the map or possible fault in strategic movement costs, traversal logic, etc.
-				wchar_t szEntry[10];
-				wchar_t szSector[10];
+				CHAR16 szEntry[10];
+				CHAR16 szSector[10];
 				INT16 sGridNo;
 				GetLoadedSectorString( szSector );
 				if( gMapInformation.sNorthGridNo != -1 )
@@ -2767,27 +2767,27 @@ void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , CHAR16 *
 			bMineIndex = GetIdOfMineForSector( sSectorX, sSectorY, bSectorZ );
 			if( bMineIndex != -1 )
 			{
-				swprintf( (wchar_t *)zString, (wchar_t *)L"%c%d: %s %s", 'A' + sSectorY - 1, sSectorX, pTownNames[ GetTownAssociatedWithMine( bMineIndex ) ], pwMineStrings[ 0 ] );
+				swprintf( zString, L"%c%d: %s %s", 'A' + sSectorY - 1, sSectorX, pTownNames[ GetTownAssociatedWithMine( bMineIndex ) ], pwMineStrings[ 0 ] );
 			}
 			else switch( SECTOR( sSectorX, sSectorY ) )
 			{
 				case SEC_A10:
-					swprintf( (wchar_t *)zString, (wchar_t *)L"A10: %s", pLandTypeStrings[ REBEL_HIDEOUT ] );
+					swprintf( zString, L"A10: %s", pLandTypeStrings[ REBEL_HIDEOUT ] );
 					break;
 				case SEC_J9:
-					swprintf( (wchar_t *)zString,(wchar_t *) L"J9: %s", pLandTypeStrings[ TIXA_DUNGEON ] );
+					swprintf( zString, L"J9: %s", pLandTypeStrings[ TIXA_DUNGEON ] );
 					break;
 				case SEC_K4:
-					swprintf( (wchar_t *)zString, (wchar_t *)L"K4: %s", pLandTypeStrings[ ORTA_BASEMENT ] );
+					swprintf( zString, L"K4: %s", pLandTypeStrings[ ORTA_BASEMENT ] );
 					break;
 				case SEC_O3:
-					swprintf( (wchar_t *)zString,(wchar_t *) L"O3: %s", pLandTypeStrings[ TUNNEL ] );
+					swprintf( zString, L"O3: %s", pLandTypeStrings[ TUNNEL ] );
 					break;
 				case SEC_P3:
-					swprintf( (wchar_t *)zString, (wchar_t *)L"P3: %s", pLandTypeStrings[ SHELTER ] );
+					swprintf( zString, L"P3: %s", pLandTypeStrings[ SHELTER ] );
 					break;
 				default:
-					swprintf( (wchar_t *)zString, (wchar_t *)L"%c%d: %s", 'A' + sSectorY - 1, sSectorX, pLandTypeStrings[ CREATURE_LAIR ] );
+					swprintf( zString, L"%c%d: %s", 'A' + sSectorY - 1, sSectorX, pLandTypeStrings[ CREATURE_LAIR ] );
 					break;
 			}
 		}
@@ -2802,7 +2802,7 @@ void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , CHAR16 *
 		ubSectorID = (UINT8)SECTOR( sSectorX, sSectorY );
 		pSector = &SectorInfo[ ubSectorID ];
 		ubLandType = pSector->ubTraversability[ 4 ];
-		swprintf( (wchar_t *)zString, (wchar_t *)L"%c%d: ", 'A' + sSectorY - 1, sSectorX );
+		swprintf( zString, L"%c%d: ", 'A' + sSectorY - 1, sSectorX );
 
 		if ( bTownNameID == BLANK_SECTOR )
 		{
@@ -3850,8 +3850,8 @@ void DoneFadeOutAdjacentSector( )
 				else
 				{
 					#ifdef JA2BETAVERSION
-						UINT8 str[256];
-						sprintf( (char *)str, "%S's gridno is NOWHERE, and is attempting to walk into sector.", curr->pSoldier->name );
+						CHAR8 str[256];
+						sprintf( str, "%S's gridno is NOWHERE, and is attempting to walk into sector.", curr->pSoldier->name );
 						DebugMsg( TOPIC_JA2, DBG_LEVEL_3, str );	
 					#endif
 				}
@@ -5253,7 +5253,7 @@ INT16 PickGridNoToWalkIn( SOLDIERTYPE *pSoldier, UINT8 ubInsertionDirection, UIN
 }
 
 
-void GetLoadedSectorString( wchar_t *pString )
+void GetLoadedSectorString( STR16 pString )
 {
 	if( !gfWorldLoaded )
 	{

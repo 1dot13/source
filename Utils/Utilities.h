@@ -15,7 +15,7 @@ BOOLEAN DisplayPaletteRep( PaletteRepID aPalRep, UINT8 ubXPos, UINT8 ubYPos, UIN
 
 void FilenameForBPP(STR pFilename, STR pDestination);
 
-BOOLEAN	 WrapString( wchar_t *pStr, wchar_t *pStr2, UINT16 usWidth, INT32 uiFont );
+BOOLEAN	 WrapString( STR16 pStr, STR16 pStr2, UINT16 usWidth, INT32 uiFont );
 
 BOOLEAN IfWinNT(void);
 BOOLEAN IfWin95(void);
@@ -26,11 +26,11 @@ BOOLEAN HandleJA2CDCheck( );
 BOOLEAN HandleJA2CDCheckTwo( );
 
 // WANNE: This method replaces characters in a given text with new characters
-char *Replace(char *string, char *oldpiece, char *newpiece);
+STR8 Replace(STR8 string, STR8 oldpiece, STR8 newpiece);
 
 // WANNE: This method calls the replace method and replaces all german specific characters
 // WANNE: Not used!
-//char *ReplaceGermanSpecialCharacters(char *text);
+//STR8 ReplaceGermanSpecialCharacters(STR8 text);
 
 
 // Snap: integer division that rounds the result to the nearest integer

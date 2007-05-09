@@ -359,7 +359,7 @@ void DeleteFlowerButtons()
 
 BOOLEAN DisplayFloralDescriptions()
 {
-	wchar_t		sTemp[ 640 ];
+	CHAR16		sTemp[ 640 ];
 	UINT32	uiStartLoc=0, i;
 	UINT16	usPosY, usPrice;
 

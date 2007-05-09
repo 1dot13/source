@@ -26,15 +26,15 @@ WRAPPED_STRING *LineWrapForSingleCharWords(UINT32 ulFont, UINT16 usLineWidthPixe
 {
 	WRAPPED_STRING FirstWrappedString;
 	WRAPPED_STRING *pWrappedString = NULL;
-	wchar_t					TempString[1024];
-//	wchar_t         pNullString[2];
+	CHAR16					TempString[1024];
+//	CHAR16         pNullString[2];
 	INT16						usCurIndex, usEndIndex, usDestIndex;
-  wchar_t					DestString[1024];
+  CHAR16					DestString[1024];
 	va_list					argptr;
 	BOOLEAN					fDone = FALSE;
 	UINT16					usCurrentWidthPixels=0;
 //	UINT16					usCurrentLineWidthPixels=0;
-	wchar_t					OneChar[2];
+	CHAR16					OneChar[2];
   BOOLEAN					fNewLine=FALSE;
 //	BOOLEAN					fTheStringIsToLong=FALSE;
 //	INT32 iCounter=0;
@@ -84,7 +84,7 @@ WRAPPED_STRING *LineWrapForSingleCharWords(UINT32 ulFont, UINT16 usLineWidthPixe
 
 			//allocate memory for the string
 			pWrappedString->pNextWrappedString = (WRAPPED_STRING *) MemAlloc( sizeof(WRAPPED_STRING) );
-			pWrappedString->pNextWrappedString->sString = (STR16) MemAlloc( (wcslen(DestString) +2 )* 2 );
+			pWrappedString->pNextWrappedString->sString = (STR16) MemAlloc( (wcslen(DestString) +2 )* sizeof(CHAR16) );
 			if( pWrappedString->pNextWrappedString->sString == NULL)
 				return (NULL);
 
@@ -113,7 +113,7 @@ WRAPPED_STRING *LineWrapForSingleCharWords(UINT32 ulFont, UINT16 usLineWidthPixe
 
 			//allocate memory for the string
 			pWrappedString->pNextWrappedString = (WRAPPED_STRING *) MemAlloc(sizeof(WRAPPED_STRING));
-			pWrappedString->pNextWrappedString->sString = (STR16) MemAlloc((wcslen(DestString) +2 )* 2 );
+			pWrappedString->pNextWrappedString->sString = (STR16) MemAlloc((wcslen(DestString) +2 )* sizeof(CHAR16) );
 
 			//Copy the string into the new struct
 			wcscpy(pWrappedString->pNextWrappedString->sString, DestString);
@@ -143,16 +143,16 @@ WRAPPED_STRING *LineWrap(UINT32 ulFont, UINT16 usLineWidthPixels, UINT16 *pusLin
 {
 	WRAPPED_STRING FirstWrappedString;
 	WRAPPED_STRING *pWrappedString = NULL;
-	wchar_t					TempString[1024];
-	wchar_t         pNullString[2];
+	CHAR16					TempString[1024];
+	CHAR16         pNullString[2];
 	INT16					usCurIndex, usEndIndex, usDestIndex;
 	STR16						pCurrentStringLoc;
-  wchar_t					DestString[1024];
+  CHAR16					DestString[1024];
 	va_list					argptr;
 	BOOLEAN					fDone = FALSE;
 	UINT16					usCurrentWidthPixels=0;
 	UINT16					usCurrentLineWidthPixels=0;
-	wchar_t					OneChar[2];
+	CHAR16					OneChar[2];
   BOOLEAN					fNewLine=FALSE;
 	BOOLEAN					fTheStringIsToLong=FALSE;
 	INT32 iCounter=0;
@@ -212,7 +212,7 @@ WRAPPED_STRING *LineWrap(UINT32 ulFont, UINT16 usLineWidthPixels, UINT16 *pusLin
 
 			//allocate memory for the string
 			pWrappedString->pNextWrappedString = (WRAPPED_STRING *) MemAlloc( sizeof(WRAPPED_STRING) );
-			pWrappedString->pNextWrappedString->sString = (STR16) MemAlloc( (wcslen(DestString) +2 )* 2 );
+			pWrappedString->pNextWrappedString->sString = (STR16) MemAlloc( (wcslen(DestString) +2 )* sizeof(CHAR16) );
 			if( pWrappedString->pNextWrappedString->sString == NULL)
 			{
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LineWrap: done"));
@@ -263,7 +263,7 @@ WRAPPED_STRING *LineWrap(UINT32 ulFont, UINT16 usLineWidthPixels, UINT16 *pusLin
 			{
 				//allocate memory for the string
 				pWrappedString->pNextWrappedString = (WRAPPED_STRING *) MemAlloc( sizeof(WRAPPED_STRING) );
-				pWrappedString->pNextWrappedString->sString = (STR16) MemAlloc( (wcslen(DestString) +2 )* 2 );
+				pWrappedString->pNextWrappedString->sString = (STR16) MemAlloc( (wcslen(DestString) +2 )* sizeof(CHAR16) );
 				if( pWrappedString->pNextWrappedString->sString == NULL)
 				{
 					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LineWrap: done"));
@@ -304,7 +304,7 @@ WRAPPED_STRING *LineWrap(UINT32 ulFont, UINT16 usLineWidthPixels, UINT16 *pusLin
 
 					//allocate memory for the string
 					pWrappedString->pNextWrappedString = (WRAPPED_STRING *) MemAlloc( sizeof(WRAPPED_STRING) );
-					pWrappedString->pNextWrappedString->sString = (STR16) MemAlloc( (wcslen(DestString) + 2) * 2 );
+					pWrappedString->pNextWrappedString->sString = (STR16) MemAlloc( (wcslen(DestString) + 2) * sizeof(CHAR16) );
 					if( pWrappedString->pNextWrappedString->sString == NULL)
 						return (NULL);
 
@@ -318,7 +318,7 @@ WRAPPED_STRING *LineWrap(UINT32 ulFont, UINT16 usLineWidthPixels, UINT16 *pusLin
 
 					 //allocate memory for the string
 					 pWrappedString->pNextWrappedString = (WRAPPED_STRING *) MemAlloc(sizeof(WRAPPED_STRING));
-					 pWrappedString->pNextWrappedString->sString = (STR16) MemAlloc((wcslen(pNullString) +2 )* 2 );
+					 pWrappedString->pNextWrappedString->sString = (STR16) MemAlloc((wcslen(pNullString) +2 )* sizeof(CHAR16) );
 					 wcscpy(pWrappedString->pNextWrappedString->sString, pNullString);
 					 pWrappedString->pNextWrappedString->pNextWrappedString = NULL;
 					}
@@ -381,11 +381,11 @@ UINT16 DisplayWrappedString(UINT16 usPosX, UINT16 usPosY, UINT16 usWidth, UINT8 
 	//If we are to a Single char for a word ( like in Taiwan )
 	if( gfUseSingleCharWordsForWordWrap )
 	{
-		pFirstWrappedString = LineWrapForSingleCharWords(uiFont, usWidth, &usLineWidthIfWordIsWiderThenWidth, (STR16) pString);
+		pFirstWrappedString = LineWrapForSingleCharWords(uiFont, usWidth, &usLineWidthIfWordIsWiderThenWidth,  pString);
 	}
 	else
 	{
-		pFirstWrappedString = LineWrap(uiFont, usWidth, &usLineWidthIfWordIsWiderThenWidth, (STR16) pString);
+		pFirstWrappedString = LineWrap(uiFont, usWidth, &usLineWidthIfWordIsWiderThenWidth,  pString);
 	}
 
 	//if an error occured and a word was bigger then the width passed in, reset the width
@@ -1963,9 +1963,9 @@ FileStringPtr GetFirstStringOnThisPage( FileStringPtr RecordList, UINT32 uiFont,
 
 BOOLEAN ReduceStringLength( STR16 pString, UINT32 uiWidthToFitIn, UINT32 uiFont )
 {
-	wchar_t			OneChar[2];
-	UINT16			zTemp[ 1024 ];
-	wchar_t			zStrDots[16];
+	CHAR16			OneChar[2];
+	CHAR16			zTemp[ 1024 ];
+	CHAR16			zStrDots[16];
 	UINT32			uiDotWidth;
 	UINT32			uiTempStringPixWidth=0;
 	UINT32			uiStringPixWidth;
@@ -2026,7 +2026,7 @@ BOOLEAN ReduceStringLength( STR16 pString, UINT32 uiWidthToFitIn, UINT32 uiFont 
 
 
 	//combine the temp string and the '...' to form the finished string
-	swprintf( (wchar_t *)pString, (wchar_t *)L"%s%s", zTemp, zStrDots );
+	swprintf( pString, L"%s%s", zTemp, zStrDots );
 
 	return( TRUE );
 }

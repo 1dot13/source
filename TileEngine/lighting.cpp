@@ -212,7 +212,7 @@ void LoadShadeTablesFromTextFile()
 	FILE *fp;
 	INT32 i, j;
 	INT32 num;
-	UINT8 str[10];
+	CHAR8 str[10];
 	if( gfLoadShadeTablesFromTextFile )
 	{
 		fp = fopen( "ShadeTables.txt", "r" );
@@ -224,7 +224,7 @@ void LoadShadeTablesFromTextFile()
 				for( j = 0; j < 3; j++ )
 				{
 					fscanf( fp, "%s", str );
-					sscanf( (const char *)str, "%d", &num );
+					sscanf( str, "%d", &num );
 					gusShadeLevels[i][j] = (UINT16)num;
 				}
 			}
@@ -2088,7 +2088,7 @@ INT16 iCountY, iCountX;
 INT32 LightCreateOmni(UINT8 ubIntensity, INT16 iRadius)
 {
 INT32 iLight;
-UINT8 usName[14];
+CHAR8 usName[14];
 
 	iLight=LightGetFree();
 	if(iLight!=(-1))
@@ -2096,7 +2096,7 @@ UINT8 usName[14];
 		LightGenerateElliptical(iLight, ubIntensity, (INT16)(iRadius*DISTANCE_SCALE), (INT16)(iRadius*DISTANCE_SCALE));
 	}
 
-	sprintf((char *)usName, "LTO%d.LHT", iRadius);
+	sprintf(usName, "LTO%d.LHT", iRadius);
 	pLightNames[iLight]= (STR) MemAlloc(strlen(usName)+1);
 	strcpy(pLightNames[iLight], usName);
 
@@ -2112,7 +2112,7 @@ UINT8 usName[14];
 INT32 LightCreateSquare(UINT8 ubIntensity, INT16 iRadius1, INT16 iRadius2)
 {
 INT32 iLight;
-UINT8 usName[14];
+CHAR8 usName[14];
 
 	iLight=LightGetFree();
 	if(iLight!=(-1))
@@ -2120,7 +2120,7 @@ UINT8 usName[14];
 		LightGenerateSquare(iLight, ubIntensity, (INT16)(iRadius1*DISTANCE_SCALE), (INT16)(iRadius2*DISTANCE_SCALE));
 	}
 
-	sprintf((char *)usName, "LTS%d-%d.LHT", iRadius1, iRadius2);
+	sprintf(usName, "LTS%d-%d.LHT", iRadius1, iRadius2);
 	pLightNames[iLight]= (STR) MemAlloc(strlen(usName)+1);
 	strcpy(pLightNames[iLight], usName);
 
@@ -2136,13 +2136,13 @@ UINT8 usName[14];
 INT32 LightCreateElliptical(UINT8 ubIntensity, INT16 iRadius1, INT16 iRadius2)
 {
 INT32 iLight;
-UINT8 usName[14];
+CHAR8 usName[14];
 
 	iLight=LightGetFree();
 	if(iLight!=(-1))
 		LightGenerateElliptical(iLight, ubIntensity, (INT16)(iRadius1*DISTANCE_SCALE), (INT16)(iRadius2*DISTANCE_SCALE));
 
-	sprintf((char *) usName, "LTE%d-%d.LHT", iRadius1, iRadius2);
+	sprintf(usName, "LTE%d-%d.LHT", iRadius1, iRadius2);
 	pLightNames[iLight]= (STR) MemAlloc(strlen(usName)+1);
 	strcpy(pLightNames[iLight], usName);
 
@@ -3226,7 +3226,7 @@ INT32 iSprite;
 		LightSprites[iSprite].iOldY=WORLD_ROWS+1;
 		LightSprites[iSprite].uiLightType=uiLightType;
 
-		if((LightSprites[iSprite].iTemplate=LightLoadCachedTemplate((STR) pName))==(-1))
+		if((LightSprites[iSprite].iTemplate=LightLoadCachedTemplate( pName))==(-1))
 			return(-1);
 
 		LightSprites[iSprite].uiFlags|=LIGHT_SPR_ACTIVE;

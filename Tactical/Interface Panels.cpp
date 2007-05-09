@@ -1524,14 +1524,14 @@ BOOLEAN InitializeSMPanel(  )
 
 BOOLEAN CreateSMPanelButtons( )
 {
-UINT8 ubString[48];
+CHAR8 ubString[48];
 
 	giSMStealthImages = -1;
 	giSMStealthButton = -1;
 	gfUIStanceDifferent = TRUE;
 	gfAllDisabled	= FALSE;
 
-	FilenameForBPP("INTERFACE\\inventory_buttons.sti", (STR)ubString);
+	FilenameForBPP("INTERFACE\\inventory_buttons.sti", ubString);
 	// Load button Graphics
 	iSMPanelImages[ STANCEUP_IMAGES  ]			= LoadButtonImage(ubString,-1,0,-1,10,-1 );
 
@@ -1555,11 +1555,11 @@ UINT8 ubString[48];
 	iBurstButtonImages[ WM_ATTACHED_GL_AUTO ]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ], -1, 17, -1, -1, -1 );
 	
 
-	FilenameForBPP("INTERFACE\\invadd-ons.sti", (STR)ubString);
+	FilenameForBPP("INTERFACE\\invadd-ons.sti", ubString);
 	// Load button Graphics
 	iSMPanelImages[ STANCE_IMAGES  ]				= LoadButtonImage(ubString,0,0,-1,2,-1 );
 
-	FilenameForBPP("INTERFACE\\inventory_buttons_2.sti", (STR)ubString);
+	FilenameForBPP("INTERFACE\\inventory_buttons_2.sti", ubString);
 	// Load button Graphics
 	iSMPanelImages[ DONE_IMAGES  ]					= LoadButtonImage(ubString,-1,1,-1,3,-1 );
 	iSMPanelImages[ MAPSCREEN_IMAGES  ]			= UseLoadedButtonImage( iSMPanelImages[ DONE_IMAGES  ] ,-1,0,-1,2,-1 );
@@ -1822,10 +1822,10 @@ BOOLEAN ShutdownSMPanel( )
 void RenderSMPanel( BOOLEAN *pfDirty )
 {
 	INT16 sFontX, sFontY;
-	UINT16	usX, usY;
-	wchar_t sString[9];
+	INT16	usX, usY;
+	CHAR16 sString[9];
 	UINT32	cnt;
-	static INT16 pStr[ 200 ], pMoraleStr[ 20 ];
+	static CHAR16 pStr[ 200 ], pMoraleStr[ 20 ];
 
 	if ( gubSelectSMPanelToMerc != NOBODY )
 	{
@@ -2078,18 +2078,18 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 		{
       if ( gpSMCurrentMerc->uiStatusFlags & SOLDIER_VEHICLE )
       {
-			  swprintf( (wchar_t *)pStr, TacticalStr[ VEHICLE_VITAL_STATS_POPUPTEXT ], gpSMCurrentMerc->bLife, gpSMCurrentMerc->bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax );
+			  swprintf( pStr, TacticalStr[ VEHICLE_VITAL_STATS_POPUPTEXT ], gpSMCurrentMerc->bLife, gpSMCurrentMerc->bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax );
 			  SetRegionFastHelpText( &(gSM_SELMERCBarsRegion), pStr );
       }
       else if ( gpSMCurrentMerc->uiStatusFlags & SOLDIER_ROBOT )
       {
-			  swprintf( (wchar_t *)pStr, gzLateLocalizedString[ 16 ], gpSMCurrentMerc->bLife, gpSMCurrentMerc->bLifeMax );
+			  swprintf( pStr, gzLateLocalizedString[ 16 ], gpSMCurrentMerc->bLife, gpSMCurrentMerc->bLifeMax );
 			  SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
       }
       else
       {
-			  GetMoraleString( gpSMCurrentMerc, (STR16)pMoraleStr );
-			  swprintf( (wchar_t *)pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], gpSMCurrentMerc->bLife, gpSMCurrentMerc->bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax, pMoraleStr );
+			  GetMoraleString( gpSMCurrentMerc, pMoraleStr );
+			  swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], gpSMCurrentMerc->bLife, gpSMCurrentMerc->bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax, pMoraleStr );
 			  SetRegionFastHelpText( &(gSM_SELMERCBarsRegion), pStr );
       }
 		}
@@ -3795,7 +3795,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 	INT16 sFontX, sFontY;
 	UINT32				cnt, posIndex;
 	SOLDIERTYPE		*pSoldier;
-	static				wchar_t		pStr[ 200 ], pMoraleStr[ 20 ];
+	static				CHAR16		pStr[ 200 ], pMoraleStr[ 20 ];
 
 	// WANNE 2 <new>
 	if ( fDirty == DIRTYLEVEL2 )
@@ -3845,7 +3845,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 					pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
 
 					//OK, for each item, set dirty text if applicable!
-					swprintf( (wchar_t *)pStr, TacticalStr[ DRIVER_POPUPTEXT ], pVehicle->bLife, pVehicle->bLifeMax, pVehicle->bBreath, pVehicle->bBreathMax );
+					swprintf( pStr, TacticalStr[ DRIVER_POPUPTEXT ], pVehicle->bLife, pVehicle->bLifeMax, pVehicle->bBreath, pVehicle->bBreathMax );
 					SetRegionFastHelpText( &(gTEAM_FirstHandInv[ cnt ]), pStr );					
 				}
 				// Add text for first hand popup
@@ -3958,18 +3958,18 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 				  {
             if ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
             {
-			        swprintf( (wchar_t *)pStr, TacticalStr[ VEHICLE_VITAL_STATS_POPUPTEXT ], pSoldier->bLife, pSoldier->bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax );
+			        swprintf( pStr, TacticalStr[ VEHICLE_VITAL_STATS_POPUPTEXT ], pSoldier->bLife, pSoldier->bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax );
 			        SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
             }
             else if ( pSoldier->uiStatusFlags & SOLDIER_ROBOT )
             {
-			        swprintf( (wchar_t *)pStr, gzLateLocalizedString[ 16 ], pSoldier->bLife, pSoldier->bLifeMax );
+			        swprintf( pStr, gzLateLocalizedString[ 16 ], pSoldier->bLife, pSoldier->bLifeMax );
 			        SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
             }
             else
             {
-					    GetMoraleString( pSoldier, (STR16)pMoraleStr );
-					    swprintf( (wchar_t *)pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], pSoldier->bLife, pSoldier->bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr );
+					    GetMoraleString( pSoldier, pMoraleStr );
+					    swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], pSoldier->bLife, pSoldier->bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr );
 					    SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
             }
 				  }
@@ -4070,9 +4070,9 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 
 BOOLEAN CreateTEAMPanelButtons( )
 {
-UINT8	ubString[48];
+CHAR8	ubString[48];
 
-	FilenameForBPP("INTERFACE\\bottom_bar_buttons.sti", (STR)ubString);
+	FilenameForBPP("INTERFACE\\bottom_bar_buttons.sti", ubString);
 
 	// Load button Graphics
 	iTEAMPanelImages[ ENDTURN_IMAGES  ]			= LoadButtonImage(ubString,-1,0,-1, 3,-1 );

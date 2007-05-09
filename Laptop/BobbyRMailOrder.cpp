@@ -774,7 +774,7 @@ void BtnBobbyRAcceptOrderCallback(GUI_BUTTON *btn,INT32 reason)
 			}
 			else
 			{
-				wchar_t	zTemp[ 128 ];
+				CHAR16	zTemp[ 128 ];
 
 				//if the city is Drassen, and the airport sector is player controlled
 				if( gbSelectedCity == BR_DRASSEN && !StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( SEC_B13 ) ].fEnemyControlled )
@@ -902,15 +902,15 @@ void BtnBobbyRAcceptOrderCallback(GUI_BUTTON *btn,INT32 reason)
 void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16 usGridY, BobbyRayPurchaseStruct *pBobbyRayPurchase, BOOLEAN fJustDisplayTitles, INT32 iOrderNum )
 {
 	UINT16	i,j;
-	wchar_t	sText[400];
-	wchar_t	sBack[400];
-	wchar_t	sTemp[20];
+	CHAR16	sText[400];
+	CHAR16	sBack[400];
+	CHAR16	sTemp[20];
 	UINT16	usPosY;
 	UINT32	uiStartLoc=0;
 	UINT32	uiTotal;
 	UINT16	usStringLength;
 	UINT16	usPixLength;
-	wchar_t	OneChar[2];
+	CHAR16	OneChar[2];
 	INT32		iGrandTotal;
 	INT32		iSubTotal;
 
@@ -1056,7 +1056,7 @@ void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16
 
 void DisplayShippingCosts( BOOLEAN fCalledFromOrderPage, INT32 iSubTotal, UINT16 usGridX, UINT16 usGridY, INT32 iOrderNum )
 {
-	wchar_t	sTemp[20];
+	CHAR16	sTemp[20];
 	HVOBJECT hPixHandle;
 	INT32	iShippingCost = 0;
 //	INT32 iTotal;
@@ -1584,7 +1584,7 @@ void DrawSelectedCity( UINT8 ubCityNumber )
 
 void DisplayShippingLocationCity()
 {
-	wchar_t	sTemp[40];
+	CHAR16	sTemp[40];
 	UINT16 usPosY;
 
 	//display the name on the title bar

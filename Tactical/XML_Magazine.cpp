@@ -49,7 +49,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	MAGTYPE		curMagazine;
 	MAGTYPE *	curArray;
 	UINT32			maxArraySize;
@@ -60,7 +60,7 @@ struct
 typedef magazineParseData;
 
 static void XMLCALL 
-magazineStartElementHandle(void *userData, const char *name, const char **atts)
+magazineStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	magazineParseData * pData = (magazineParseData *)userData;
 
@@ -101,7 +101,7 @@ magazineStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-magazineCharacterDataHandle(void *userData, const char *str, int len)
+magazineCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	magazineParseData * pData = (magazineParseData *)userData;
 
@@ -114,7 +114,7 @@ magazineCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-magazineEndElementHandle(void *userData, const char *name)
+magazineEndElementHandle(void *userData, const XML_Char *name)
 {
 	magazineParseData * pData = (magazineParseData *)userData;
 

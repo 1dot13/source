@@ -29,15 +29,15 @@ BOOLEAN PerformTimeLimitedCheck();
  * Modified this routine to eliminate recursion and to avoid infinite
  * expansion of string when newpiece contains oldpiece.  --Byron
 */ 
-//char *Replace(char *string, char *oldpiece, char *newpiece) 
+//STR8 Replace(STR8 string, STR8 oldpiece, STR8 newpiece) 
 //{ 
 //   int str_index, newstr_index, oldpiece_index, end, 
 //
 //      new_len, old_len, cpy_len; 
-//   char *c; 
+//   STR8 c; 
 //   static char newstring[MAXLINE]; 
 //
-//   if ((c = (char *) strstr(string, oldpiece)) == NULL) 
+//   if ((c =  strstr(string, oldpiece)) == NULL) 
 //
 //      return string; 
 //
@@ -64,7 +64,7 @@ BOOLEAN PerformTimeLimitedCheck();
 //      str_index    += old_len;
 //
 //      //Check for another pattern match
-//      if((c = (char *) strstr(string+str_index, oldpiece)) != NULL)
+//      if((c =  strstr(string+str_index, oldpiece)) != NULL)
 //         oldpiece_index = c - string;
 //
 //
@@ -76,7 +76,7 @@ BOOLEAN PerformTimeLimitedCheck();
 //} 
 
 // WANNE: Replaces german  specific characters
-//char *ReplaceGermanSpecialCharacters(char *text)
+//STR8 ReplaceGermanSpecialCharacters(STR8 text)
 //{
 //    // ä
 //    text = Replace(text, "Ã¤", "ä");
@@ -101,7 +101,7 @@ BOOLEAN PerformTimeLimitedCheck();
 //#define	TIME_LIMITED_VERSION
 void FilenameForBPP(STR pFilename, STR pDestination)
 {
-UINT8 Drive[128], Dir[128], Name[128], Ext[128];
+CHAR8 Drive[128], Dir[128], Name[128], Ext[128];
 
 	if(GETPIXELDEPTH()==16)
 	{
@@ -110,7 +110,7 @@ UINT8 Drive[128], Dir[128], Name[128], Ext[128];
 	}
 	else
 	{
-		_splitpath(pFilename, (char *)Drive, (char *)Dir, (char *)Name, (char *)Ext);
+		_splitpath(pFilename, Drive, Dir, Name, Ext);
 	
 		strcat(Name, "_8");
 
@@ -197,10 +197,11 @@ BOOLEAN DisplayPaletteRep( PaletteRepID aPalRep, UINT8 ubXPos, UINT8 ubYPos, UIN
 }
 
 
-BOOLEAN	 WrapString( wchar_t *pStr, wchar_t *pStr2, UINT16 usWidth, INT32 uiFont )
+BOOLEAN	 WrapString( STR16 pStr, STR16 pStr2, UINT16 usWidth, INT32 uiFont )
 {
 	UINT32 Cur, uiLet, uiNewLet, uiHyphenLet;
-	wchar_t *curletter,transletter;
+	STR16 curletter;
+	INT16 transletter;
 	BOOLEAN	fLineSplit = FALSE;
 	HVOBJECT	hFont;
 
@@ -246,7 +247,7 @@ BOOLEAN	 WrapString( wchar_t *pStr, wchar_t *pStr2, UINT16 usWidth, INT32 uiFont
 			if( !fLineSplit)
 			{
 				//We completed the check for a space, but failed, so use the hyphen method.
-				swprintf( (wchar_t *)pStr2, (wchar_t *)L"-%s", &(pStr[uiHyphenLet]) );
+				swprintf( pStr2, L"-%s", &(pStr[uiHyphenLet]) );
 				pStr[uiHyphenLet] = (INT16)'/0';
 				fLineSplit = TRUE;  //hyphen method
 				break;
@@ -298,7 +299,7 @@ void HandleLimitedNumExecutions( )
 {
 	// Get system directory
   HWFILE     hFileHandle;
-	UINT8	ubSysDir[ 512 ];
+	CHAR8	ubSysDir[ 512 ];
 	INT8	bNumRuns;
 
 	GetSystemDirectory( (LPSTR) ubSysDir, sizeof( ubSysDir ) );

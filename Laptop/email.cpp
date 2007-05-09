@@ -657,10 +657,10 @@ void RenderEmail( void )
 
 void AddEmailWithSpecialData(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iFirstData, UINT32 uiSecondData )
 {
-	wchar_t pSubject[320];
+	CHAR16 pSubject[320];
 	//MessagePtr pMessageList;
 	//MessagePtr pMessage;
-	//wchar_t pMessageString[320];
+	//CHAR16 pMessageString[320];
 	INT32 iPosition=0;
 	INT32 iCounter=1;
 	Email	FakeEmail;
@@ -692,10 +692,10 @@ void AddEmailWithSpecialData(INT32 iMessageOffset, INT32 iMessageLength, UINT8 u
 
 void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition)
 {
-	wchar_t pSubject[320];
+	CHAR16 pSubject[320];
 	//MessagePtr pMessageList;
 	//MessagePtr pMessage;
-	//wchar_t pMessageString[320];
+	//CHAR16 pMessageString[320];
 	INT32 iPosition=0;
 	INT32 iCounter=1;
 
@@ -719,10 +719,10 @@ void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 
 
 void AddPreReadEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate)
 {
-	wchar_t pSubject[320];
+	CHAR16 pSubject[320];
 	//MessagePtr pMessageList;
 	//MessagePtr pMessage;
-	//wchar_t pMessageString[320];
+	//CHAR16 pMessageString[320];
 	INT32 iPosition=0;
 	INT32 iCounter=1;
 
@@ -786,7 +786,7 @@ void AddEmailMessage(INT32 iMessageOffset, INT32 iMessageLength,STR16 pSubject, 
   //pTempEmail->pText[iCounter]=NULL;
 
 	// copy subject
-	pTempEmail->pSubject = (STR16) MemAlloc( 128 * 2 );
+	pTempEmail->pSubject = (STR16) MemAlloc( 128 * sizeof(CHAR16) );
 	memset( pTempEmail->pSubject, 0, sizeof( CHAR16 ) * 128 );
 	wcscpy(pTempEmail->pSubject,pSubject);
   
@@ -1224,7 +1224,7 @@ void SwapMessages(INT32 iIdA, INT32 iIdB)
  EmailPtr pA=pEmailList;
  EmailPtr pB=pEmailList;
  EmailPtr pTemp= (EmailPtr) MemAlloc(sizeof(Email) );
- pTemp->pSubject = (STR16) MemAlloc( 128 * 2 );
+ pTemp->pSubject = (STR16) MemAlloc( 128 * sizeof(CHAR16) );
 
  memset( pTemp->pSubject, 0, sizeof( CHAR16 ) * 128 );
 
@@ -1347,7 +1347,7 @@ void DrawLetterIcon(INT32 iCounter, BOOLEAN fRead)
 
 void DrawSubject(INT32 iCounter, STR16 pSubject, BOOLEAN fRead)
 {
-	wchar_t pTempSubject[320];
+	CHAR16 pTempSubject[320];
 
 
 	// draw subject line of mail being viewed in viewer
@@ -1419,7 +1419,7 @@ void DrawSender(INT32 iCounter, UINT8 ubSender, BOOLEAN fRead)
 
 void DrawDate(INT32 iCounter, INT32 iDate, BOOLEAN fRead)
 { 
-	wchar_t sString[20];
+	CHAR16 sString[20];
 
 	SetFontShadow(NO_SHADOW);
   SetFontForeground( FONT_BLACK );
@@ -1711,8 +1711,8 @@ INT32 DisplayEmailMessage(EmailPtr pMail)
 	INT32 iCnt=0;
 	INT32 iHeight=0;
 	INT32 iCounter=1;
-//	wchar_t pString[MAIL_STRING_SIZE/2 + 1];
-	wchar_t pString[MAIL_STRING_SIZE];
+//	CHAR16 pString[MAIL_STRING_SIZE/2 + 1];
+	CHAR16 pString[MAIL_STRING_SIZE];
 	INT32 iOffSet=0;
 	INT32 iHeightTemp=0;
   INT32 iHeightSoFar = 0;
@@ -2938,8 +2938,8 @@ void DisplayEmailMessageSubjectDateFromLines( EmailPtr pMail , INT32 iViewerY)
 {
 	// this procedure will draw the title/headers to From, Subject, Date fields in the display
 	// message box
-  UINT16 usX, usY;
-  wchar_t sString[100];
+  INT16 usX, usY;
+  CHAR16 sString[100];
 
 	// font stuff	
 	SetFont(MESSAGE_FONT);
@@ -3333,8 +3333,8 @@ void HandleIMPCharProfileResultsMessage( void)
 	INT32 iCnt=0;
 	INT32 iHeight=0;
 	INT32 iCounter=0;
-//	wchar_t pString[MAIL_STRING_SIZE/2 + 1];
-	wchar_t pString[MAIL_STRING_SIZE];
+//	CHAR16 pString[MAIL_STRING_SIZE/2 + 1];
+	CHAR16 pString[MAIL_STRING_SIZE];
 	INT32 iOffSet=0;
 	INT32 iViewerY=0;
 	INT32 iHeightTemp=0;
@@ -3370,7 +3370,7 @@ void HandleIMPCharProfileResultsMessage( void)
 			// have to place players name into string for first record
 			if( iCounter == 0)
 			{
-				wchar_t	zTemp[512];
+				CHAR16	zTemp[512];
 
 				iCurrentIMPSlot = giCurrentIMPSlot;
 
@@ -4995,8 +4995,8 @@ void ModifyInsuranceEmails( UINT16 usMessageId, INT32 *iResults, EmailPtr pMail,
 {
 	INT32 iHeight=0;
 	RecordPtr pTempRecord;
-//	wchar_t pString[MAIL_STRING_SIZE/2 + 1];
-	wchar_t pString[MAIL_STRING_SIZE];
+//	CHAR16 pString[MAIL_STRING_SIZE/2 + 1];
+	CHAR16 pString[MAIL_STRING_SIZE];
 	UINT8	ubCnt;
 
 
@@ -5030,8 +5030,8 @@ void ModifyInsuranceEmails( UINT16 usMessageId, INT32 *iResults, EmailPtr pMail,
 
 BOOLEAN ReplaceMercNameAndAmountWithProperData( CHAR16 *pFinishedString, EmailPtr pMail )
 {
-//	wchar_t		pTempString[MAIL_STRING_SIZE/2 + 1];
-	wchar_t		pTempString[MAIL_STRING_SIZE];
+//	CHAR16		pTempString[MAIL_STRING_SIZE/2 + 1];
+	CHAR16		pTempString[MAIL_STRING_SIZE];
 	INT32			iLength=0;
 	INT32			iCurLocInSourceString=0;
 	INT32			iLengthOfSourceString = wcslen( pFinishedString );		//Get the length of the source string

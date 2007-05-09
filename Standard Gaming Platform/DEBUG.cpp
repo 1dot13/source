@@ -68,10 +68,10 @@ INT32		giProfileCount;
 // they are required for the String() function, which is NOT a 
 // debug-mode only function, it's used in release-mode as well! -- DB
  
-UINT8 gubAssertString[128];
+CHAR8 gubAssertString[128];
 
 #define MAX_MSG_LENGTH2 512
-UINT8		gbTmpDebugString[8][MAX_MSG_LENGTH2];
+CHAR8		gbTmpDebugString[8][MAX_MSG_LENGTH2];
 UINT8		gubStringIndex = 0;
 
 #ifdef __cplusplus
@@ -357,9 +357,7 @@ void DbgClearAllTopics( void )
 //		xxnov96:HJH		-> creation
 //
 //**************************************************************************
-template void DbgMessageReal<unsigned char *>(UINT16, UINT8, UINT8, unsigned char *);
-template <typename type4>
-void DbgMessageReal(UINT16 uiTopicId, UINT8 uiCommand, UINT8 uiDebugLevel, type4 strMessage)
+void DbgMessageReal(UINT16 uiTopicId, UINT8 uiCommand, UINT8 uiDebugLevel, STR8 strMessage)
 {
 #ifndef _NO_DEBUG_TXT
   FILE      *OutFile;
@@ -368,7 +366,7 @@ void DbgMessageReal(UINT16 uiTopicId, UINT8 uiCommand, UINT8 uiDebugLevel, type4
 	// Check for a registered topic ID
 	if ( uiTopicId < MAX_TOPICS_ALLOTED )//&& gfDebugTopics[uiTopicId] )
 	{
-		OutputDebugString ( (LPCSTR) strMessage );
+		OutputDebugString ( strMessage );
 		OutputDebugString ( "\n" );
 
 //add _NO_DEBUG_TXT to your SGP preprocessor definitions to avoid this f**king huge file from 
@@ -417,7 +415,7 @@ BOOLEAN DbgSetDebugLevel(UINT16 uiTopicId, UINT8 uiDebugLevel)
 //
 //**************************************************************************
 
-void DbgFailedAssertion( BOOLEAN fExpression, char *szFile, int nLine )
+void DbgFailedAssertion( BOOLEAN fExpression, STR8 szFile, int nLine )
 {
 #ifndef _NO_DEBUG_TXT
   FILE *OutFile;
@@ -454,7 +452,7 @@ void			_DebugRecordToDebugger(BOOLEAN gfState)
 
 void			_DebugMessage(UINT8 *pString, UINT32 uiLineNum, UINT8 *pSourceFile)
 {
-	UINT8 ubOutputString[512];
+	CHAR8 ubOutputString[512];
 #ifndef _NO_DEBUG_TXT
 	FILE *DebugFile;
 #endif
@@ -463,7 +461,7 @@ void			_DebugMessage(UINT8 *pString, UINT32 uiLineNum, UINT8 *pSourceFile)
 	// Build the output string
 	//
 
-	sprintf( (char *) ubOutputString, "{ %ld } %s [Line %d in %s]\n", GetTickCount(), pString, uiLineNum, pSourceFile );
+	sprintf( ubOutputString, "{ %ld } %s [Line %d in %s]\n", GetTickCount(), pString, uiLineNum, pSourceFile );
 
 	//
 	// Output to debugger
@@ -483,7 +481,7 @@ void			_DebugMessage(UINT8 *pString, UINT32 uiLineNum, UINT8 *pSourceFile)
 	{
 		if ((DebugFile = fopen( gpcDebugLogFileName, "a+t" )) != NULL)
 		{
-			fputs( (const char *)ubOutputString, DebugFile );
+			fputs( ubOutputString, DebugFile );
 			fclose( DebugFile );
 		}
 	}
@@ -501,34 +499,24 @@ void _Null(void)
 extern HVOBJECT FontObjs[25];
 
 #ifdef JA2 //JAGGED ALLIANCE 2 VERSION ONLY
-template void _FailMessage<char *, char const *>(char *, unsigned int, char const *);
-template void _FailMessage<char const *, char const *>(char const *, unsigned int, char const *);
-template void _FailMessage<int, char const *>(int, unsigned int, char const *);
-template void _FailMessage<int, char *>(int, unsigned int, char *);
-template void _FailMessage<char *, char *>(char *, unsigned int, char *);
-#if _MSC_VER <= 1200
-	template void _FailMessage<char *, char *>(unsigned char *, unsigned int, char *);
-#endif
-template void _FailMessage<unsigned char *, char const *>(unsigned char *, unsigned int, char const *);
-template <typename type1, typename type2>
-void _FailMessage( type1 pString, UINT32 uiLineNum, type2 pSourceFile )
+void _FailMessage( STR8 pString, UINT32 uiLineNum, STR8 pSourceFile )
 { 
-	UINT8 ubOutputString[512];
+	CHAR8 ubOutputString[512];
 #ifndef _NO_DEBUG_TXT
 	MSG Message;
 	FILE *DebugFile;
 #endif
 	BOOLEAN fDone = FALSE;
 	//Build the output strings
-	sprintf( (char *)ubOutputString, "{ %ld } Assertion Failure [Line %d in %s]\n", GetTickCount(), uiLineNum, pSourceFile );
+	sprintf( ubOutputString, "{ %ld } Assertion Failure [Line %d in %s]\n", GetTickCount(), uiLineNum, pSourceFile );
 	if( pString )
-		sprintf( (char *)gubAssertString, (const char *)pString );	
+		sprintf( gubAssertString, pString );	
 	else
-		sprintf( (char *)gubAssertString, "" );
+		sprintf( gubAssertString, "" );
 
 	//Output to debugger
 	if (gfRecordToDebugger)
-		OutputDebugString( (LPCSTR)ubOutputString );
+		OutputDebugString( ubOutputString );
 	
 	//Record to file if required
 #ifndef _NO_DEBUG_TXT
@@ -536,7 +524,7 @@ void _FailMessage( type1 pString, UINT32 uiLineNum, type2 pSourceFile )
 	{
 		if ((DebugFile = fopen( gpcDebugLogFileName, "a+t" )) != NULL)
 		{
-			fputs( (const char *)ubOutputString, DebugFile );
+			fputs( ubOutputString, DebugFile );
 			fclose( DebugFile );
 		}
 	}
@@ -555,7 +543,7 @@ void _FailMessage( type1 pString, UINT32 uiLineNum, type2 pSourceFile )
 	//NASTY HACK, THE GAME IS GOING TO DIE ANYWAY, SO WHO CARES WHAT WE DO.
 	//This will actually bring up a screen that prints out the assert message
 	//until the user hits esc or alt-x.
-	sprintf( (char *)gubErrorText, "Assertion Failure -- Line %d in %s", uiLineNum, pSourceFile );
+	sprintf( gubErrorText, "Assertion Failure -- Line %d in %s", uiLineNum, pSourceFile );
 	SetPendingNewScreen( ERROR_SCREEN );
 	SetCurrentScreen( ERROR_SCREEN );
 	while (gfProgramIsRunning)
@@ -582,9 +570,9 @@ void _FailMessage( type1 pString, UINT32 uiLineNum, type2 pSourceFile )
 
 #else //NOT JAGGED ALLIANCE 2
 
-void _FailMessage(UINT8 *pString, UINT32 uiLineNum, UINT8 *pSourceFile)
+void _FailMessage(STR8 pString, UINT32 uiLineNum, STR8 pSourceFile)
 {
-	UINT8 ubOutputString[512];
+	CHAR8 ubOutputString[512];
 	BOOLEAN fDone = FALSE;
 
 #ifndef _NO_DEBUG_TXT
@@ -632,7 +620,7 @@ void		DbgShutdown(void) {};
 
 // This is NOT a _DEBUG only function! It is also needed in
 // release mode builds. -- DB
-UINT8 *String(const char *String, ...)
+STR8 String(const STR8 String, ...)
 {
 
   va_list  ArgPtr;
@@ -647,7 +635,7 @@ UINT8 *String(const char *String, ...)
   }
 
   va_start(ArgPtr, String);
-  vsprintf((char *) gbTmpDebugString[usIndex], String, ArgPtr);
+  vsprintf( gbTmpDebugString[usIndex], String, ArgPtr);
   va_end(ArgPtr);
 
   return gbTmpDebugString[usIndex];

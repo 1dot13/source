@@ -359,7 +359,7 @@ BOOLEAN InternalInitTalkingMenu( UINT8 ubCharacterNum, INT16 sX, INT16 sY )
 	UINT16						usHeight;
   VOBJECT_DESC			VObjectDesc;
 	INT16							sCenterYVal, sCenterXVal;
-	UINT8							ubString[48];
+	CHAR8							ubString[48];
 
 
 	// disable scroll messages
@@ -500,7 +500,7 @@ BOOLEAN InternalInitTalkingMenu( UINT8 ubCharacterNum, INT16 sX, INT16 sY )
   gFacesData[ iFaceIndex ].uiFlags |= FACE_INACTIVE_HANDLED_ELSEWHERE;
 
 	// Load buttons, create button
-	sprintf( (char *)ubString, "INTERFACE\\talkbox2.sti" );
+	sprintf( ubString, "INTERFACE\\talkbox2.sti" );
 	gTalkPanel.iButtonImages			= LoadButtonImage( ubString, -1,3,-1,4,-1 );
 
 
@@ -766,7 +766,7 @@ void RenderTalkingMenu( )
 
       SET_USE_WINFONTS( TRUE );
       SET_WINFONT( giSubTitleWinFont ); 
-			iInterfaceDialogueBox = PrepareMercPopupBox( iInterfaceDialogueBox,BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER, (STR16) gTalkPanel.zQuoteStr, TALK_PANEL_DEFAULT_SUBTITLE_WIDTH, 0, 0, 0, &usTextBoxWidth, &usTextBoxHeight );
+			iInterfaceDialogueBox = PrepareMercPopupBox( iInterfaceDialogueBox,BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER,  gTalkPanel.zQuoteStr, TALK_PANEL_DEFAULT_SUBTITLE_WIDTH, 0, 0, 0, &usTextBoxWidth, &usTextBoxHeight );
       SET_USE_WINFONTS( FALSE );
 
 			gTalkPanel.fSetupSubTitles = FALSE;
@@ -4378,7 +4378,7 @@ BOOLEAN PlayerTeamHasTwoSpotsLeft( )
 void StartDialogueMessageBox( UINT8 ubProfileID, UINT16 usMessageBoxType )
 {
 	INT32			iTemp;
-	wchar_t		zTemp[256], zTemp2[256];
+	CHAR16		zTemp[256], zTemp2[256];
 
 	gusDialogueMessageBoxType = usMessageBoxType;
 	switch( gusDialogueMessageBoxType )

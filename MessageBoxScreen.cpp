@@ -74,12 +74,7 @@ extern STR16 pUpdatePanelButtons[];
 CHAR16		gzUserDefinedButton1[ 128 ];
 CHAR16		gzUserDefinedButton2[ 128 ];
 
-template INT32 DoMessageBox<unsigned short *>(UINT8, unsigned short *, UINT32, UINT16, MSGBOX_CALLBACK, SGPRect *);
-template INT32 DoMessageBox<unsigned short const*>(UINT8, unsigned short const*, UINT32, UINT16, MSGBOX_CALLBACK, SGPRect *);
-template INT32 DoMessageBox<wchar_t *>(UINT8, wchar_t *, UINT32, UINT16, MSGBOX_CALLBACK, SGPRect *);
-template INT32 DoMessageBox<wchar_t const*>(UINT8, wchar_t const*, UINT32, UINT16, MSGBOX_CALLBACK, SGPRect *);
-template <typename string2>
-INT32 DoMessageBox( UINT8 ubStyle, string2 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
+INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
 {
 	VSURFACE_DESC		vs_desc;
 	UINT16	usTextBoxWidth;
@@ -217,7 +212,7 @@ INT32 DoMessageBox( UINT8 ubStyle, string2 zString, UINT32 uiExitScreen, UINT16 
 	gMsgBox.bHandled			= 0;
 
 	// Init message box
-	gMsgBox.iBoxId = PrepareMercPopupBox( iId, ubMercBoxBackground, ubMercBoxBorder, (STR16)zString, MSGBOX_DEFAULT_WIDTH, 40, 10, 30, &usTextBoxWidth, &usTextBoxHeight );
+	gMsgBox.iBoxId = PrepareMercPopupBox( iId, ubMercBoxBackground, ubMercBoxBorder, zString, MSGBOX_DEFAULT_WIDTH, 40, 10, 30, &usTextBoxWidth, &usTextBoxHeight );
 
 	if( gMsgBox.iBoxId == -1 )
 	{
@@ -1198,33 +1193,28 @@ UINT32	MessageBoxScreenShutdown(  )
 
 
 // a basic box that don't care what screen we came from
-template void DoScreenIndependantMessageBox<wchar_t *>(wchar_t *, UINT16, MSGBOX_CALLBACK);
-template void DoScreenIndependantMessageBox<wchar_t const *>(wchar_t const *, UINT16, MSGBOX_CALLBACK);
-template void DoScreenIndependantMessageBox<unsigned short *>(unsigned short *, UINT16, MSGBOX_CALLBACK);
-template void DoScreenIndependantMessageBox<unsigned short const *>(unsigned short const *, UINT16, MSGBOX_CALLBACK);
-template <typename string1>
-void DoScreenIndependantMessageBox( string1 zString, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+void DoScreenIndependantMessageBox( const STR16 zString, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
 	SGPRect CenteringRect= {0, 0, SCREEN_WIDTH, INV_INTERFACE_START_Y };
-	DoScreenIndependantMessageBoxWithRect( (wchar_t *) zString, usFlags, ReturnCallback, &CenteringRect );
+	DoScreenIndependantMessageBoxWithRect(  zString, usFlags, ReturnCallback, &CenteringRect );
 }
 
 // a basic box that don't care what screen we came from
-void DoUpperScreenIndependantMessageBox( wchar_t *zString, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+void DoUpperScreenIndependantMessageBox( const STR16 zString, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
 	SGPRect CenteringRect= {0, 0, SCREEN_WIDTH, INV_INTERFACE_START_Y / 2 };
 	DoScreenIndependantMessageBoxWithRect( zString, usFlags, ReturnCallback, &CenteringRect );
 }
 
 // a basic box that don't care what screen we came from
-void DoLowerScreenIndependantMessageBox( wchar_t * zString, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+void DoLowerScreenIndependantMessageBox( STR16 zString, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
 	SGPRect CenteringRect= {0, INV_INTERFACE_START_Y / 2, SCREEN_WIDTH, INV_INTERFACE_START_Y };
 	DoScreenIndependantMessageBoxWithRect( zString, usFlags, ReturnCallback, &CenteringRect );
 }
 
 
-void DoScreenIndependantMessageBoxWithRect( wchar_t *zString, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
+void DoScreenIndependantMessageBoxWithRect( const STR16 zString, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
 {
 
 	/// which screen are we in?

@@ -746,17 +746,17 @@ BOOLEAN CopyExternBackgroundRect( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 s
 // to the video buffer.
 //    
 //*****************************************************************************
-UINT16 gprintfdirty(INT16 x, INT16 y, wchar_t * pFontString, ...)
+UINT16 gprintfdirty(INT16 x, INT16 y, STR16 pFontString, ...)
 {
 va_list argptr;
-wchar_t	string[512];
+CHAR16	string[512];
 UINT16 uiStringLength, uiStringHeight;
 INT32 iBack;
 
 	Assert(pFontString!=NULL);
 
 	va_start(argptr, pFontString);       	// Set up variable argument pointer
-	vswprintf(string, (wchar_t *)pFontString, argptr);	// process gprintf string (get output str)
+	vswprintf(string, pFontString, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
 
   if ( USE_WINFONTS( ) )
@@ -783,16 +783,16 @@ INT32 iBack;
 	return(uiStringLength);
 }
 
-UINT16 gprintfinvalidate(INT16 x, INT16 y, wchar_t * pFontString, ...)
+UINT16 gprintfinvalidate(INT16 x, INT16 y, STR16 pFontString, ...)
 {
 va_list argptr;
-wchar_t	string[512];
+CHAR16	string[512];
 UINT16 uiStringLength, uiStringHeight;
 
 	Assert(pFontString!=NULL);
 
 	va_start(argptr, pFontString);       	// Set up variable argument pointer
-	vswprintf(string, (wchar_t *)pFontString, argptr);	// process gprintf string (get output str)
+	vswprintf(string, pFontString, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
 
 	uiStringLength=StringPixLength(string, FontDefault);
@@ -805,18 +805,16 @@ UINT16 uiStringLength, uiStringHeight;
 	return(uiStringLength);
 }
 
-// explicit instantiating work around MSVC not supporting export templated functions/classes (jonathanl)
-
-UINT16 gprintfRestore(INT16 x, INT16 y, wchar_t * pFontString, ...)
+UINT16 gprintfRestore(INT16 x, INT16 y, STR16 pFontString, ...)
 {
 va_list argptr;
-wchar_t	string[512];
+CHAR16	string[512];
 UINT16 uiStringLength, uiStringHeight;
 
 	Assert(pFontString!=NULL);
 
 	va_start(argptr, pFontString);       	// Set up variable argument pointer
-	vswprintf(string, (wchar_t *)pFontString, argptr);	// process gprintf string (get output str)
+	vswprintf(string, pFontString, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
 
 	uiStringLength=StringPixLength(string, FontDefault);

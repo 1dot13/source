@@ -540,7 +540,7 @@ void SelectAimLogoRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 
 BOOLEAN DisplayAimSlogan()
 {
-	wchar_t	sSlogan[400];
+	CHAR16	sSlogan[400];
 
 	LoadEncryptedDataFromFile(AIMHISTORYFILE, sSlogan, 0, AIM_HISTORY_LINE_SIZE);
 	//Display Aim Text under the logo
@@ -553,7 +553,7 @@ BOOLEAN DisplayAimSlogan()
 
 BOOLEAN DisplayAimCopyright()
 {
-	wchar_t	sSlogan[400];
+	CHAR16	sSlogan[400];
 	UINT32	uiStartLoc=0;
 
 	//Load and Display the copyright notice 
@@ -854,7 +854,7 @@ BOOLEAN	DrawWarningBox( BOOLEAN fInit, BOOLEAN fRedraw )
 
 	if( fInit || fRedraw)
 	{
-		wchar_t			sText[400];
+		CHAR16			sText[400];
 		UINT32	uiStartLoc=0;
 		UINT16	usLocY = AIM_WARNING_TEXT_Y + (GetFontHeight(AIM_WARNING_FONT) + 2) * 2;
 		HVOBJECT hWarningHandle;

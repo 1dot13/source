@@ -73,12 +73,12 @@ enum
 #define LCG_FOREIGNNEWFILE					"_NewGermanText.c"
 
 //Given a file pointer, searches for the next DB string
-UINT32 CountDoubleByteStringsInFile( UINT8 * filename );
+UINT32 CountDoubleByteStringsInFile( STR8 filename );
 
 
 //One function does it all.  First looks for the cmd line arg, and if it matches
 //the above define, searches for the files, and processes them automatically.
-BOOLEAN ProcessIfMultilingualCmdLineArgDetected( UINT8 *str )
+BOOLEAN ProcessIfMultilingualCmdLineArgDetected( STR8 str )
 {
 	STRING512			ExecDir;
 	STRING512			CurrDir;
@@ -86,7 +86,7 @@ BOOLEAN ProcessIfMultilingualCmdLineArgDetected( UINT8 *str )
 	UINT32 uiEnglishStrings, uiForeignStrings;
 
 	//check if command line argument matches the LCG's
-	if( strcmp( (const char *)str, LCG_COMMANDLINEARGUMENT ) )
+	if( strcmp( str, LCG_COMMANDLINEARGUMENT ) )
 	{ //string is different, so return
 		return FALSE;
 	}
@@ -122,10 +122,10 @@ BOOLEAN ProcessIfMultilingualCmdLineArgDetected( UINT8 *str )
 	//Begin file preparation checks...
 
 	//STEP1:  Read the English master file and count the number of DB strings that exist
-	uiEnglishStrings = CountDoubleByteStringsInFile( (UINT8 *)LCG_ENGLISHMASTERFILE );
+	uiEnglishStrings = CountDoubleByteStringsInFile( LCG_ENGLISHMASTERFILE );
 
 	//STEP2:  Read the Foreigh master file and count the number of DB strings that exist
-	uiForeignStrings = CountDoubleByteStringsInFile( (UINT8 *)LCG_FOREIGNMASTERFILE );
+	uiForeignStrings = CountDoubleByteStringsInFile( LCG_FOREIGNMASTERFILE );
 
 	//Make sure they match, otherwise, we can't continue.
 	if( uiEnglishStrings != uiForeignStrings )
@@ -140,13 +140,13 @@ BOOLEAN ProcessIfMultilingualCmdLineArgDetected( UINT8 *str )
 	return TRUE;
 }
 
-UINT32 CountDoubleByteStringsInFile( UINT8 * filename )
+UINT32 CountDoubleByteStringsInFile( STR8 filename )
 {
 	FILE *fp = NULL;
 	UINT32 uiNumStrings = 0;
 
 	//open file
-	fp = fopen( (const char *)filename, "r" );
+	fp = fopen( filename, "r" );
 	if( !fp )
 	{
 		return 0;

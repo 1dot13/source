@@ -60,7 +60,7 @@ extern BOOLEAN              GetRGBDistribution(void);
 extern BOOLEAN              GetPrimaryRGBDistributionMasks(UINT32 *RedBitMask, UINT32 *GreenBitMask, UINT32 *BblueBitMask);
 extern BOOLEAN							SetMouseCursorFromObject(UINT32 uiVideoObjectHandle, UINT16 usVideoObjectSubIndex, UINT16 usOffsetX, UINT16 usOffsetY );
 extern BOOLEAN              HideMouseCursor(void);
-extern BOOLEAN              LoadCursorFile(PTR pFilename);
+extern BOOLEAN              LoadCursorFile(STR8 pFilename);
 extern BOOLEAN							SetCurrentCursor(UINT16 usVideoObjectSubIndex,  UINT16 usOffsetX, UINT16 usOffsetY );
 extern void                 StartFrameBufferRender(void);
 extern void                 EndFrameBufferRender(void);
@@ -85,8 +85,7 @@ void InvalidateRegionEx(INT32 iLeft, INT32 iTop, INT32 iRight, INT32 iBottom, UI
 void RefreshScreen(void *DummyVariable);
 
 
-template <typename string1>
-void FatalError( string1 pError, ...);
+void FatalError( const STR8 pError, ...);
 
 
 extern SGPPaletteEntry			gSgpPalette[256];

@@ -48,8 +48,8 @@
 //
 //*******************************
 
-typedef void ( *DROP_DOWN_DISPLAY_CALLBACK )	(STR16);
-typedef void ( *DROP_DOWN_SELECT_CALLBACK )	(STR16);
+typedef void ( *DROP_DOWN_DISPLAY_CALLBACK )	;
+typedef void ( *DROP_DOWN_SELECT_CALLBACK )	;
 
 #define	QUEST_DEBUG_FILE											"QuestDebugRecordLog.txt"
 
@@ -438,7 +438,7 @@ INT16				gsQdsEnteringGridNo	=0;
 
 UINT8				gubTextEntryAction = QD_DROP_DOWN_NO_ACTION;
 BOOLEAN			gfTextEntryActive = FALSE;
-//wchar_t			gzTextEntryReturnString[ 16 ];
+//CHAR16			gzTextEntryReturnString[ 16 ];
 
 BOOLEAN			gfUseLocalNPCs = FALSE;
 
@@ -626,7 +626,7 @@ void			ChangeFactState( INT32 iNumber );
 void			DisplayCurrentGridNo();
 void			EnableQDSButtons();
 
-BOOLEAN			DoQDSMessageBox( UINT8 ubStyle, wchar_t * zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
+BOOLEAN			DoQDSMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
 void			IncrementActiveDropDownBox( INT16 sIncrementValue );
 INT16			IsMercInTheSector( UINT16 usMercID );
 void			RefreshAllNPCInventory();
@@ -837,7 +837,7 @@ BOOLEAN	EnterQuestDebugSystem()
 {
 	UINT8	i;
 	UINT16 usPosX, usPosY;
-	wchar_t	zName[ 128 ];
+	CHAR16	zName[ 128 ];
 //	UINT16	usListBoxFontHeight = GetFontHeight( QUEST_DBS_FONT_LISTBOX_TEXT ) + 2;
 
 
@@ -1038,7 +1038,7 @@ BOOLEAN	EnterQuestDebugSystem()
 
 	if( giHaveSelectedNPC != -1 )
 	{
-		wchar_t	zItemDesc[ SIZE_ITEM_INFO ];
+		CHAR16	zItemDesc[ SIZE_ITEM_INFO ];
 
 		if( gfUseLocalNPCs )
 			swprintf( zItemDesc, L"%d - %s", gubCurrentNpcInSector[ giHaveSelectedNPC ],  gMercProfiles[ gubCurrentNpcInSector[ giHaveSelectedNPC ] ].zNickname );
@@ -1053,8 +1053,8 @@ BOOLEAN	EnterQuestDebugSystem()
 
 	if( giHaveSelectedItem != -1 )
 	{
-		wchar_t	zItemName[ SIZE_ITEM_NAME ];
-		wchar_t	zItemDesc[ SIZE_ITEM_INFO ];
+		CHAR16	zItemName[ SIZE_ITEM_NAME ];
+		CHAR16	zItemDesc[ SIZE_ITEM_INFO ];
 
 		wcscpy( zItemName, ShortItemNames[ giHaveSelectedItem ] );
 
@@ -1580,7 +1580,7 @@ void DisplayQuestList()
 {
 	UINT16	usLoop1, usCount;
 	UINT16	usTextHeight = GetFontHeight( QUEST_DBS_FONT_DYNAMIC_TEXT ) + 2;
-	wchar_t	sTemp[15];
+	CHAR16	sTemp[15];
 	UINT16	usPosY;
 
 	usPosY = QUEST_DBS_FIRST_COL_NUMBER_Y + QUEST_DBS_LIST_TEXT_OFFSET;	//&& (usCount < QUEST_DBS_MAX_DISPLAYED_ENTRIES )
@@ -1609,7 +1609,7 @@ void DisplayFactList()
 {
 	UINT16	usLoop1, usCount;
 	UINT16	usTextHeight = GetFontHeight( QUEST_DBS_FONT_DYNAMIC_TEXT ) + 2;
-	wchar_t	sTemp[512];
+	CHAR16	sTemp[512];
 	UINT16	usPosY;
 
 	usPosY = QUEST_DBS_SECOND_COL_NUMBER_Y + QUEST_DBS_LIST_TEXT_OFFSET + QUEST_DBS_FACT_LIST_OFFSET;	//
@@ -1952,10 +1952,10 @@ void DisplaySelectedNPC()
 {
 	UINT16	i;
 	UINT16	usPosX, usPosY;
-	UINT16  usLocationX = 0, usLocationY = 0;
+	INT16  usLocationX = 0, usLocationY = 0;
 	UINT16	usFontHeight = GetFontHeight( QUEST_DBS_FONT_LISTBOX_TEXT ) + 2;
 	CHAR16  sTempString[ 64 ];
-	wchar_t	zButtonName[ 256 ];
+	CHAR16	zButtonName[ 256 ];
 
 
 
@@ -2045,10 +2045,10 @@ void DisplaySelectedItem()
 	UINT16	i;
 	UINT16	usPosX, usPosY;
 	UINT16	usFontHeight = GetFontHeight( QUEST_DBS_FONT_LISTBOX_TEXT ) + 2;
-	wchar_t	zItemName[ SIZE_ITEM_NAME ];
-//	wchar_t	zItemDesc[ SIZE_ITEM_INFO ];
+	CHAR16	zItemName[ SIZE_ITEM_NAME ];
+//	CHAR16	zItemDesc[ SIZE_ITEM_INFO ];
 	
-	wchar_t	zButtonName[ 256 ];
+	CHAR16	zButtonName[ 256 ];
 
 
 	usPosX = gpActiveListBox->usScrollPosX;
@@ -2443,8 +2443,8 @@ void BtnQuestDebugAddItemToLocationButtonCallback(GUI_BUTTON *btn,INT32 reason)
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
 		CHAR16	zTemp[512];
-		UINT16	zItemName[ SIZE_ITEM_NAME ];
-//		UINT16	zItemDesc[ SIZE_ITEM_INFO ];
+		CHAR16	zItemName[ SIZE_ITEM_NAME ];
+//		CHAR16	zItemDesc[ SIZE_ITEM_INFO ];
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
 //		if ( !LoadItemInfo( gItemListBox.sCurSelectedItem, zItemName, zItemDesc ) )
@@ -2592,7 +2592,7 @@ void BtnQuestDebugNPCLogButtonButtonCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-		wchar_t	zName[ 128 ];
+		CHAR16	zName[ 128 ];
 	
 //		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
@@ -2707,7 +2707,7 @@ void BtnQuestDebugStartMercTalkingButtonButtonCallback(GUI_BUTTON *btn,INT32 rea
 BOOLEAN	CreateDestroyDisplayTextEntryBox( UINT8 ubAction, STR16 pString, TEXT_ENTRY_CALLBACK EntryCallBack )
 {
 	static BOOLEAN	fMouseRegionCreated = FALSE;
-	static wchar_t	zString[ 256 ];
+	static CHAR16	zString[ 256 ];
 	static TEXT_ENTRY_CALLBACK TextEntryCallback;
 
 	switch( ubAction )
@@ -2753,7 +2753,7 @@ BOOLEAN	CreateDestroyDisplayTextEntryBox( UINT8 ubAction, STR16 pString, TEXT_EN
 		case QD_DROP_DOWN_CANCEL:
 		case QD_DROP_DOWN_DESTROY:
 		{
-			wchar_t	zText[ 32 ];
+			CHAR16	zText[ 32 ];
 			INT32		iTextEntryNumber;
 
 			if( !fMouseRegionCreated )
@@ -2875,7 +2875,7 @@ void ScrollQuestListRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
-		wchar_t	String[ 512 ];
+		CHAR16	String[ 512 ];
 
 		gubCurQuestSelected = (UINT8)MSYS_GetRegionUserData( pRegion, 0 );
 
@@ -2899,7 +2899,7 @@ void ScrollFactListRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
-		wchar_t	String[ 512 ];
+		CHAR16	String[ 512 ];
 
 		gusCurFactSelected = (UINT8)MSYS_GetRegionUserData( pRegion, 0 ) + gusFactAtTopOfList;
 
@@ -2922,8 +2922,8 @@ void ScrollFactListRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 void InitQuestDebugTextInputBoxes()
 {
 	UINT32	uiStartLoc=0;
-	wchar_t	sTemp[ 640 ];
-//	wchar_t	sText[ 640 ];
+	CHAR16	sTemp[ 640 ];
+//	CHAR16	sText[ 640 ];
 
 	
 	InitTextInputMode();
@@ -3120,8 +3120,8 @@ void CreateDestroyDisplayNPCInventoryPopup( UINT8 ubAction )
 
 		case QD_DROP_DOWN_DISPLAY:
 		{
-			wchar_t	zItemName[ SIZE_ITEM_NAME ];
-//			wchar_t	zItemDesc[ SIZE_ITEM_INFO ];
+			CHAR16	zItemName[ SIZE_ITEM_NAME ];
+//			CHAR16	zItemDesc[ SIZE_ITEM_INFO ];
 			UINT16	usFontHeight = GetFontHeight( QUEST_DBS_FONT_LISTBOX_TEXT ) + 2;
 
 
@@ -3565,7 +3565,7 @@ void EnableQDSButtons()
 */
 }
 
-BOOLEAN		DoQDSMessageBox( UINT8 ubStyle, wchar_t * zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback )
+BOOLEAN		DoQDSMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback )
 {
   SGPRect pCenteringRect= {0, 0, 639, 479 };
   

@@ -364,7 +364,7 @@ UINT32		guiSmallSoldiersFace[ MAX_CHARACTER_COUNT ];
 UINT8			gubNumberMercsInArray;
 
 //The subutitled text for what the merc is saying
-wchar_t		gsShopKeeperTalkingText[ SKI_SUBTITLE_TEXT_SIZE ];
+CHAR16		gsShopKeeperTalkingText[ SKI_SUBTITLE_TEXT_SIZE ];
 
 UINT16		gusPositionOfSubTitlesX=0;
 
@@ -652,9 +652,9 @@ void			DisplayTheSkiDropItemToGroundString();
 
 UINT32		EvaluateInvSlot( INVENTORY_IN_SLOT *pInvSlot );
 
-void			BuildItemHelpTextString( wchar_t sString[], INVENTORY_IN_SLOT *pInv, UINT8 ubScreenArea );
-void			BuildRepairTimeString( wchar_t sString[], UINT32 uiTimeInMinutesToFixItem );
-void			BuildDoneWhenTimeString( wchar_t sString[], UINT8 ubArmsDealer, UINT16 usItemIndex, UINT8 ubElement );
+void			BuildItemHelpTextString( CHAR16 sString[], INVENTORY_IN_SLOT *pInv, UINT8 ubScreenArea );
+void			BuildRepairTimeString( CHAR16 sString[], UINT32 uiTimeInMinutesToFixItem );
+void			BuildDoneWhenTimeString( CHAR16 sString[], UINT8 ubArmsDealer, UINT16 usItemIndex, UINT8 ubElement );
 
 void DisableAllDealersInventorySlots( void );
 void EnableAllDealersInventorySlots( void );
@@ -776,7 +776,7 @@ UINT32	ShopKeeperScreenHandle()
 	{
 		// tell player there's not enough room in the player's offer area
 		// ARM: message is delayed because we need the mouse restriction to be in place BEFORE it comes up so it gets lifted/restored
-		DoSkiMessageBox( MSG_BOX_BASIC_STYLE, (STR16)SKI_Text[ SKI_TEXT_NO_MORE_ROOM_IN_PLAYER_OFFER_AREA ], SHOPKEEPER_SCREEN, MSG_BOX_FLAG_OK, NULL );
+		DoSkiMessageBox( MSG_BOX_BASIC_STYLE, SKI_Text[ SKI_TEXT_NO_MORE_ROOM_IN_PLAYER_OFFER_AREA ], SHOPKEEPER_SCREEN, MSG_BOX_FLAG_OK, NULL );
 
 		gfDisplayNoRoomMsg = FALSE;
 	}
@@ -3788,7 +3788,7 @@ void PerformTransaction( UINT32 uiMoneyFromPlayersAccount )
 			if( CountNumberOfItemsInTheArmsDealersOfferArea( ) > uiAvailablePlayerOfferSlots )
 			{
 				// tell player there's not enough room in the player's offer area
-				DoSkiMessageBox( MSG_BOX_BASIC_STYLE, (STR16)SKI_Text[ SKI_TEXT_NO_MORE_ROOM_IN_PLAYER_OFFER_AREA ], SHOPKEEPER_SCREEN, MSG_BOX_FLAG_OK, NULL );
+				DoSkiMessageBox( MSG_BOX_BASIC_STYLE, SKI_Text[ SKI_TEXT_NO_MORE_ROOM_IN_PLAYER_OFFER_AREA ], SHOPKEEPER_SCREEN, MSG_BOX_FLAG_OK, NULL );
 
 				return;
 			}
@@ -7659,7 +7659,7 @@ UINT32 EvaluateInvSlot( INVENTORY_IN_SLOT *pInvSlot )
 #define REPAIR_MINUTES_INTERVAL	15
 
 
-void BuildRepairTimeString( wchar_t sString[], UINT32 uiTimeInMinutesToFixItem )
+void BuildRepairTimeString( CHAR16 sString[], UINT32 uiTimeInMinutesToFixItem )
 {
 	UINT16	usNumberOfHoursToFixItem = 0;
 
@@ -7705,7 +7705,7 @@ void BuildRepairTimeString( wchar_t sString[], UINT32 uiTimeInMinutesToFixItem )
 
 
 
-void BuildDoneWhenTimeString( wchar_t sString[], UINT8 ubArmsDealer, UINT16 usItemIndex, UINT8 ubElement )
+void BuildDoneWhenTimeString( CHAR16 sString[], UINT8 ubArmsDealer, UINT16 usItemIndex, UINT8 ubElement )
 {
 	UINT32 uiDoneTime;
 	UINT32 uiDay, uiHour, uiMin;
@@ -7752,7 +7752,7 @@ void BuildDoneWhenTimeString( wchar_t sString[], UINT8 ubArmsDealer, UINT16 usIt
 }
 
 
-void BuildItemHelpTextString( wchar_t sString[], INVENTORY_IN_SLOT *pInv, UINT8 ubScreenArea )
+void BuildItemHelpTextString( CHAR16 sString[], INVENTORY_IN_SLOT *pInv, UINT8 ubScreenArea )
 {
 	CHAR16 zHelpText[ 512 ];
 	CHAR16 zRepairTime[ 64 ];

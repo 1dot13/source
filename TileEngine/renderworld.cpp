@@ -52,7 +52,7 @@
 #include "Render Z.cpp"
 ///////////////////////////
 
-extern	INT8	gDebugStr[128];
+extern	CHAR8	gDebugStr[128];
 extern	BOOLEAN fLandLayerDirty	= TRUE;
 
 extern	INT16	gsVIEWPORT_START_X;		
@@ -4052,7 +4052,7 @@ BOOLEAN ApplyScrolling( INT16 sTempRenderCenterX, INT16 sTempRenderCenterY, BOOL
 		fOutBottom = TRUE;
 	}
 
-	sprintf( (char *)gDebugStr, "Angles: %d %d %d %d", (int)at1, (int)at2, (int)at3, (int)at4 );
+	sprintf( gDebugStr, "Angles: %d %d %d %d", (int)at1, (int)at2, (int)at3, (int)at4 );
 
 	if ( !fOutRight && !fOutLeft && !fOutTop && !fOutBottom )
 	{
@@ -4166,7 +4166,7 @@ BOOLEAN ApplyScrolling( INT16 sTempRenderCenterX, INT16 sTempRenderCenterY, BOOL
 	{
 		if ( !fCheckOnly )
 		{
-				sprintf( (char *)gDebugStr, "Center: %d %d ", (int)gsRenderCenterX, (int)gsRenderCenterY );
+				sprintf( gDebugStr, "Center: %d %d ", (int)gsRenderCenterX, (int)gsRenderCenterY );
 
 				//Makesure it's a multiple of 5
 				sMult = sTempRenderCenterX / CELL_X_SIZE;

@@ -282,7 +282,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		// ExtMen[pOpponent->ubID].haveStats = TRUE;
 		 //NumMessage("chance to Hit = ",ubChanceToHit);
 
-		 //sprintf((CHAR *)tempstr,"Vs. %s, at AimTime %d, ubChanceToHit = %d",ExtMen[pOpponent->ubID].name,ubAimTime,ubChanceToHit);
+		 //sprintf(tempstr,"Vs. %s, at AimTime %d, ubChanceToHit = %d",ExtMen[pOpponent->ubID].name,ubAimTime,ubChanceToHit);
 		 //PopMessage(tempstr);
 
 		 iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
@@ -1133,7 +1133,7 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 					pBestThrow->ubAPCost            = ubMinAPcost + ubMaxPossibleAimTime;
 					pBestThrow->bTargetLevel				= bOpponentLevel[ubLoop];
 
-					//sprintf((CHAR *)tempstr,"new best THROW AttackValue = %d at grid #%d",iAttackValue/100000,gridno);
+					//sprintf(tempstr,"new best THROW AttackValue = %d at grid #%d",iAttackValue/100000,gridno);
 					//PopMessage(tempstr);
 				}
 			}
@@ -1296,7 +1296,7 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
        ubChanceToHit = MAXCHANCETOHIT;
      //NumMessage("chance to Hit = ",ubChanceToHit);
 
-     //sprintf((CHAR *)tempstr,"Vs. %s, at AimTime %d, ubChanceToHit = %d",ExtMen[pOpponent->ubID].name,ubAimTime,ubChanceToHit);
+     //sprintf(tempstr,"Vs. %s, at AimTime %d, ubChanceToHit = %d",ExtMen[pOpponent->ubID].name,ubAimTime,ubChanceToHit);
      //PopMessage(tempstr);
 
 	 if (ubRawAPCost < 1)
@@ -1472,7 +1472,7 @@ void CalcTentacleAttack(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab )
        ubChanceToHit = MAXCHANCETOHIT;
      //NumMessage("chance to Hit = ",ubChanceToHit);
 
-     //sprintf((CHAR *)tempstr,"Vs. %s, at AimTime %d, ubChanceToHit = %d",ExtMen[pOpponent->ubID].name,ubAimTime,ubChanceToHit);
+     //sprintf(tempstr,"Vs. %s, at AimTime %d, ubChanceToHit = %d",ExtMen[pOpponent->ubID].name,ubAimTime,ubChanceToHit);
      //PopMessage(tempstr);
 
 	if (ubRawAPCost < 1)
@@ -2014,7 +2014,7 @@ INT8 CanNPCAttack(SOLDIERTYPE *pSoldier)
 	{
 		//LocateMember(pSoldier->ubID,SETLOCATOR); // locate to this NPC, don't center
 		STR16 tempstr;
-		sprintf((CHAR *)tempstr,"%s can't attack! (not OKToAttack, Reason code = %d)",pSoldier->name,bCanAttack);
+		sprintf(tempstr,"%s can't attack! (not OKToAttack, Reason code = %d)",pSoldier->name,bCanAttack);
 		AIPopMessage(tempstr);
 	}
 #endif

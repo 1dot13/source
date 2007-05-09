@@ -49,7 +49,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	DEALER_POSSIBLE_INV		curInventory;
 	DEALER_POSSIBLE_INV *	curArray;
 	UINT32			maxArraySize;
@@ -60,7 +60,7 @@ struct
 typedef inventoryParseData;
 
 static void XMLCALL 
-inventoryStartElementHandle(void *userData, const char *name, const char **atts)
+inventoryStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	inventoryParseData * pData = (inventoryParseData *)userData;
 
@@ -100,7 +100,7 @@ inventoryStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-inventoryCharacterDataHandle(void *userData, const char *str, int len)
+inventoryCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	inventoryParseData * pData = (inventoryParseData *)userData;
 
@@ -113,7 +113,7 @@ inventoryCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-inventoryEndElementHandle(void *userData, const char *name)
+inventoryEndElementHandle(void *userData, const XML_Char *name)
 {
 	inventoryParseData * pData = (inventoryParseData *)userData;
 

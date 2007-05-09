@@ -299,9 +299,9 @@ BOOLEAN LoadSoldiersFromMap( INT8 **hBuffer )
 	}
 	if( fCowInSector )
 	{
-		UINT8 str[ 40 ];
-		sprintf( (char *)str, "Sounds\\\\cowmoo%d.wav", Random( 3 ) + 1 );
-		PlayJA2SampleFromFile( (STR8) str, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
+		CHAR8 str[ 40 ];
+		sprintf( str, "Sounds\\\\cowmoo%d.wav", Random( 3 ) + 1 );
+		PlayJA2SampleFromFile(  str, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
 	}
 	return TRUE;
 }
@@ -1865,7 +1865,7 @@ void AddSoldierInitListBloodcats()
 				ubSectorID != SEC_I16 && ubSectorID != SEC_N5 )
 		{
 			#ifdef JA2BETAVERSION
-				wchar_t str[200];
+				CHAR16 str[200];
 				swprintf( str, L"Table specifies that there are %d bloodcat placements in sector %c%d, but the map actually has %d bloodcat placements. Map value takes precedence. KM,LC:1",
 									pSector->bBloodCatPlacements, gWorldSectorY + 'A' - 1, gWorldSectorX, bBloodCatPlacements );
 				DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
@@ -2101,7 +2101,7 @@ BOOLEAN ValidateSoldierInitLinks( UINT8 ubCode )
 {
 	SOLDIERINITNODE *curr;
 	UINT32 uiNumInvalids = 0;
-	wchar_t str[512];
+	CHAR16 str[512];
 	curr = gSoldierInitHead;
 	while( curr )
 	{

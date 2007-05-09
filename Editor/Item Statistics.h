@@ -81,9 +81,9 @@ enum
 	ACTIONITEM_BIG_TEAR_GAS,
 	NUM_ACTIONITEMS
 };
-extern UINT16 gszActionItemDesc[ NUM_ACTIONITEMS ][ 30 ];
+extern CHAR16 gszActionItemDesc[ NUM_ACTIONITEMS ][ 30 ];
 //Returns a pointer to one of the above string array.
-extern UINT16* GetActionItemName( OBJECTTYPE *pItem );
+extern const STR16 GetActionItemName( OBJECTTYPE *pItem );
 //Called by the popup menu, when a selection is made.
 extern void UpdateActionItem( INT8 bActionItemIndex );
 //Changes an action item into the type specified by the ACTIONITEM enumeration.

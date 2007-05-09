@@ -70,7 +70,7 @@
 #define GUI_BTN_EXTERNAL_VOBJ			2
 
 
-UINT8		str[128];
+CHAR8		str[128];
 
 //Kris:  December 2, 1997
 //Special internal debugging utilities that will ensure that you don't attempt to delete
@@ -108,7 +108,7 @@ void AssertFailIfIdenticalButtonAttributesFound( GUI_BUTTON *b )
 		//if we get this far, it is reasonably safe to assume that the newly created
 		//button already exists.  Placing a break point on the following assert will
 		//allow the coder to easily isolate the case!
-		sprintf( (char *)str, "Attempting to create a button that has already been created (existing buttonID %d).", c->IDNum );
+		sprintf( str, "Attempting to create a button that has already been created (existing buttonID %d).", c->IDNum );
 		AssertMsg( 0, str );
 	}
 }
@@ -203,10 +203,7 @@ INT32 FindFreeButtonSlot(void)
 //
 //	Load images for use with QuickButtons.
 //
-template INT32 LoadButtonImage<unsigned char *>(unsigned char *, INT32, INT32, INT32, INT32, INT32);
-template INT32 LoadButtonImage<char *>(char *, INT32, INT32, INT32, INT32, INT32);
-template <typename type1>
-INT32 LoadButtonImage(type1 filename, INT32 Grayed, INT32 OffNormal, INT32 OffHilite, INT32 OnNormal, INT32 OnHilite)
+INT32 LoadButtonImage(const STR8 filename, INT32 Grayed, INT32 OffNormal, INT32 OffHilite, INT32 OnNormal, INT32 OnHilite)
 {
 	VOBJECT_DESC	vo_desc;
 	UINT32				UseSlot;
@@ -594,7 +591,7 @@ void UnloadButtonImage(INT32 Index)
 
 	if( Index < 0 || Index >= MAX_BUTTON_PICS )
 	{
-		sprintf( (char *)str, "Attempting to UnloadButtonImage with out of range index %d.", Index );
+		sprintf( str, "Attempting to UnloadButtonImage with out of range index %d.", Index );
 		AssertMsg( 0, str );
 	}
 
@@ -662,7 +659,7 @@ BOOLEAN EnableButton( INT32 iButtonID )
 
 	if( iButtonID < 0 || iButtonID >= MAX_BUTTONS )
 	{
-		sprintf( (char *)str, "Attempting to EnableButton with out of range buttonID %d.", iButtonID );
+		sprintf( str, "Attempting to EnableButton with out of range buttonID %d.", iButtonID );
 		AssertMsg( 0, str );
 	}
 
@@ -700,7 +697,7 @@ BOOLEAN DisableButton(INT32 iButtonID )
 
 	if( iButtonID < 0 || iButtonID >= MAX_BUTTONS )
 	{
-		sprintf( (char *)str, "Attempting to DisableButton with out of range buttonID %d.", iButtonID );
+		sprintf( str, "Attempting to DisableButton with out of range buttonID %d.", iButtonID );
 		AssertMsg( 0, str );
 	}
 
@@ -876,10 +873,7 @@ INT16 FindFreeIconSlot(void)
 //
 //	Loads an image file for use as a button icon.
 //
-template INT16 LoadGenericButtonIcon<char *>(char *);
-template INT16 LoadGenericButtonIcon<char const *>(char const *);
-template <typename string1>
-INT16 LoadGenericButtonIcon(string1 filename)
+INT16 LoadGenericButtonIcon(const STR8 filename)
 {
 	INT16 ImgSlot;
 	VOBJECT_DESC	vo_desc;
@@ -916,7 +910,7 @@ BOOLEAN UnloadGenericButtonIcon(INT16 GenImg)
 {
 	if( GenImg < 0 || GenImg >= MAX_BUTTON_ICONS  )
 	{
-		sprintf( (char *)str, "Attempting to UnloadGenericButtonIcon with out of range index %d.", GenImg );
+		sprintf( str, "Attempting to UnloadGenericButtonIcon with out of range index %d.", GenImg );
 		AssertMsg( 0, str );
 	}
 
@@ -947,7 +941,7 @@ BOOLEAN UnloadGenericButtonImage(INT16 GenImg)
 	BOOLEAN fDeletedSomething = FALSE;
 	if( GenImg < 0 || GenImg >= MAX_GENERIC_PICS  )
 	{
-		sprintf( (char *)str, "Attempting to UnloadGenericButtonImage with out of range index %d.", GenImg );
+		sprintf( str, "Attempting to UnloadGenericButtonImage with out of range index %d.", GenImg );
 		AssertMsg( 0, str );
 	}
 
@@ -1016,7 +1010,7 @@ BOOLEAN UnloadGenericButtonImage(INT16 GenImg)
 //
 //	Loads the image files required for displaying a generic button.
 //
-INT16 LoadGenericButtonImages(UINT8 *GrayName,UINT8 *OffNormName,UINT8 *OffHiliteName,UINT8 *OnNormName,UINT8 *OnHiliteName,UINT8 *BkGrndName,INT16 Index,INT16 OffsetX, INT16 OffsetY)
+INT16 LoadGenericButtonImages(STR8 GrayName,STR8 OffNormName,STR8 OffHiliteName,STR8 OnNormName,STR8 OnHiliteName, STR8 BkGrndName,INT16 Index,INT16 OffsetX, INT16 OffsetY)
 {
 	INT16 ImgSlot;
 	VOBJECT_DESC	vo_desc;
@@ -1294,7 +1288,7 @@ void RemoveButton(INT32 iButtonID)
 
 	if( iButtonID < 0 || iButtonID >= MAX_BUTTONS )
 	{
-		sprintf( (char *)str, "Attempting to RemoveButton with out of range buttonID %d.", iButtonID );
+		sprintf( str, "Attempting to RemoveButton with out of range buttonID %d.", iButtonID );
 		AssertMsg( 0, str );
 	}
 
@@ -1390,7 +1384,7 @@ void ResizeButton(INT32 iButtonID,INT16 w, INT16 h)
 
 	if( iButtonID < 0 || iButtonID >= MAX_BUTTONS )
 	{
-		sprintf( (char *)str, "Attempting to resize button with out of range buttonID %d.", iButtonID );
+		sprintf( str, "Attempting to resize button with out of range buttonID %d.", iButtonID );
 		AssertMsg( 0, str );
 	}
 
@@ -1404,7 +1398,7 @@ void ResizeButton(INT32 iButtonID,INT16 w, INT16 h)
 
 	if( !b )
 	{
-		sprintf( (char *)str, "Attempting to resize deleted button with buttonID %d", iButtonID );
+		sprintf( str, "Attempting to resize deleted button with buttonID %d", iButtonID );
 		AssertMsg( 0, str );
 	}
 
@@ -1449,7 +1443,7 @@ void SetButtonPosition( INT32 iButtonID ,INT16 x, INT16 y)
 
 	if( iButtonID < 0 || iButtonID >= MAX_BUTTONS )
 	{
-		sprintf( (char *)str, "Attempting to set button position with out of range buttonID %d.", iButtonID );
+		sprintf( str, "Attempting to set button position with out of range buttonID %d.", iButtonID );
 		AssertMsg( 0, str );
 	}
 
@@ -1457,7 +1451,7 @@ void SetButtonPosition( INT32 iButtonID ,INT16 x, INT16 y)
 
 	if( !b )
 	{
-		sprintf( (char *)str, "Attempting to set button position with buttonID %d", iButtonID );
+		sprintf( str, "Attempting to set button position with buttonID %d", iButtonID );
 		AssertMsg( 0, str );
 	}
 
@@ -1502,13 +1496,13 @@ INT32 SetButtonIcon( INT32 iButtonID, INT16 Icon, INT16 IconIndex )
 
 	if( iButtonID < 0 || iButtonID >= MAX_BUTTONS )
 	{
-		sprintf( (char *)str, "Attempting to set button icon with out of range buttonID %d.", iButtonID );
+		sprintf( str, "Attempting to set button icon with out of range buttonID %d.", iButtonID );
 		AssertMsg( 0, str );
 		return -1;
 	}
 	if( Icon < 0 || Icon >= MAX_BUTTON_ICONS )
 	{
-		sprintf( (char *)str, "Attempting to set button[%d] icon with out of range icon index %d.", iButtonID, Icon );
+		sprintf( str, "Attempting to set button[%d] icon with out of range icon index %d.", iButtonID, Icon );
 		AssertMsg( 0, str );
 		return -1;
 	}
@@ -1517,7 +1511,7 @@ INT32 SetButtonIcon( INT32 iButtonID, INT16 Icon, INT16 IconIndex )
 
 	if( !b )
 	{
-		sprintf( (char *)str, "Attempting to set deleted button icon with buttonID %d", iButtonID );
+		sprintf( str, "Attempting to set deleted button icon with buttonID %d", iButtonID );
 		AssertMsg( 0, str );
 		return -1;
 	}
@@ -1552,12 +1546,12 @@ INT32 CreateIconButton(INT16 Icon,INT16 IconIndex,INT16 GenImg,INT16 xloc,INT16 
 
 	if( xloc < 0 || yloc < 0 )
 	{
-		sprintf( (char *)str, "Attempting to CreateIconButton with invalid position of %d,%d", xloc, yloc );
+		sprintf( str, "Attempting to CreateIconButton with invalid position of %d,%d", xloc, yloc );
 		AssertMsg( 0, str );
 	}
 	if( GenImg < -1 || GenImg >= MAX_GENERIC_PICS )
 	{
-		sprintf( (char *)str, "Attempting to CreateIconButton with out of range iconID %d.", GenImg );
+		sprintf( str, "Attempting to CreateIconButton with out of range iconID %d.", GenImg );
 		AssertMsg( 0, str );
 	}
 
@@ -1672,7 +1666,7 @@ INT32 CreateIconButton(INT16 Icon,INT16 IconIndex,INT16 GenImg,INT16 xloc,INT16 
 }
 
 //Creates a generic button with text on it.
-INT32 CreateTextButton(wchar_t *string, UINT32 uiFont, INT16 sForeColor, INT16 sShadowColor, INT16 GenImg, INT16 xloc, INT16 yloc, INT16 w, INT16 h, INT32 Type, INT16 Priority,GUI_CALLBACK MoveCallback, GUI_CALLBACK ClickCallback)
+INT32 CreateTextButton(STR16 string, UINT32 uiFont, INT16 sForeColor, INT16 sShadowColor, INT16 GenImg, INT16 xloc, INT16 yloc, INT16 w, INT16 h, INT32 Type, INT16 Priority,GUI_CALLBACK MoveCallback, GUI_CALLBACK ClickCallback)
 {
 	GUI_BUTTON *b;
 	INT32	ButtonNum;
@@ -1680,12 +1674,12 @@ INT32 CreateTextButton(wchar_t *string, UINT32 uiFont, INT16 sForeColor, INT16 s
 
 	if( xloc < 0 || yloc < 0 )
 	{
-		sprintf( (char *)str, "Attempting to CreateTextButton with invalid position of %d,%d", xloc, yloc );
+		sprintf( str, "Attempting to CreateTextButton with invalid position of %d,%d", xloc, yloc );
 		AssertMsg( 0, str );
 	}
 	if( GenImg < -1 || GenImg >= MAX_GENERIC_PICS )
 	{
-		sprintf( (char *)str, "Attempting to CreateTextButton with out of range iconID %d.", GenImg );
+		sprintf( str, "Attempting to CreateTextButton with out of range iconID %d.", GenImg );
 		AssertMsg( 0, str );
 	}
 
@@ -1716,7 +1710,7 @@ INT32 CreateTextButton(wchar_t *string, UINT32 uiFont, INT16 sForeColor, INT16 s
 	b->string = NULL;
 	if ( string && wcslen( string ) )
 	{
-		b->string = (wchar_t*)MemAlloc( (wcslen(string)+1)*sizeof(wchar_t) );
+		b->string = (STR16) MemAlloc( (wcslen(string)+1)*sizeof(CHAR16) );
 		AssertMsg( b->string, "Out of memory error:  Couldn't allocate string in CreateTextButton." );
 		wcscpy( b->string, string );
 	}
@@ -1821,7 +1815,7 @@ INT32 CreateHotSpot(INT16 xloc, INT16 yloc, INT16 Width, INT16 Height,INT16 Prio
 
 	if( xloc < 0 || yloc < 0 || Width < 0 || Height < 0 )
 	{
-		sprintf( (char *)str, "Attempting to CreateHotSpot with invalid coordinates: %d,%d, width: %d, and height: %d.",
+		sprintf( str, "Attempting to CreateHotSpot with invalid coordinates: %d,%d, width: %d, and height: %d.",
 			xloc, yloc, Width, Height );
 		AssertMsg( 0, str );
 	}
@@ -1928,12 +1922,12 @@ INT32 QuickCreateButton(UINT32 Image,INT16 xloc,INT16 yloc,INT32 Type,INT16 Prio
 
 	if( xloc < 0 || yloc < 0 )
 	{
-		sprintf( (char *)str, "Attempting to QuickCreateButton with invalid position of %d,%d", xloc, yloc );
+		sprintf( str, "Attempting to QuickCreateButton with invalid position of %d,%d", xloc, yloc );
 		AssertMsg( 0, str );
 	}
 	if( Image < 0 || Image >= MAX_BUTTON_PICS )
 	{
-		sprintf( (char *)str, "Attempting to QuickCreateButton with out of range ImageID %d.", Image );
+		sprintf( str, "Attempting to QuickCreateButton with out of range ImageID %d.", Image );
 		AssertMsg( 0, str );
 	}
 
@@ -2063,43 +2057,29 @@ INT32 QuickCreateButton(UINT32 Image,INT16 xloc,INT16 yloc,INT32 Type,INT16 Prio
 //loading, and deleting of the image.  The size of the image determines the size of the button.  It also uses
 //the default move callback which emulates Win95.  Finally, it sets the priority to normal.  The function you
 //choose also determines the type of button (toggle, notoggle, or newtoggle)
-template INT32 CreateEasyNoToggleButton<char *>(INT32, INT32, char *, GUI_CALLBACK);
-template INT32 CreateEasyNoToggleButton<char const *>(INT32, INT32, char const *, GUI_CALLBACK);
-template <typename string3>
-INT32 CreateEasyNoToggleButton ( INT32 x, INT32 y, string3 filename, GUI_CALLBACK ClickCallback )
+INT32 CreateEasyNoToggleButton ( INT32 x, INT32 y, const STR8 filename, GUI_CALLBACK ClickCallback )
 {
 	return CreateSimpleButton( x, y, filename, BUTTON_NO_TOGGLE, MSYS_PRIORITY_NORMAL, ClickCallback );
 }
 
-template INT32 CreateEasyToggleButton<char *>(INT32, INT32, char *, GUI_CALLBACK);
-template INT32 CreateEasyToggleButton<char const *>(INT32, INT32, char const *, GUI_CALLBACK);
-template <typename string3>
-INT32 CreateEasyToggleButton   ( INT32 x, INT32 y, string3 filename, GUI_CALLBACK ClickCallback )
+INT32 CreateEasyToggleButton   ( INT32 x, INT32 y, const STR8 filename, GUI_CALLBACK ClickCallback )
 {
 	return CreateSimpleButton( x, y, filename, BUTTON_TOGGLE, MSYS_PRIORITY_NORMAL, ClickCallback );
 }
 
-template INT32 CreateEasyNewToggleButton<char const *>(INT32, INT32, char const *, GUI_CALLBACK);
-template INT32 CreateEasyNewToggleButton<short *>(INT32, INT32, short *, GUI_CALLBACK);
-template <typename string3>
-INT32 CreateEasyNewToggleButton( INT32 x, INT32 y, string3 filename, GUI_CALLBACK ClickCallback )
+INT32 CreateEasyNewToggleButton( INT32 x, INT32 y, const STR8 filename, GUI_CALLBACK ClickCallback )
 {
 	return CreateSimpleButton( x, y, filename, BUTTON_NEWTOGGLE, MSYS_PRIORITY_NORMAL, ClickCallback );
 }
 
 //Same as above, but accepts specify toggle type
-template INT32 CreateEasyButton<short *>(INT32, INT32, short *, INT32, GUI_CALLBACK);
-template <typename string3>
-INT32 CreateEasyButton( INT32 x, INT32 y, string3 filename, INT32 Type, GUI_CALLBACK ClickCallback)
+INT32 CreateEasyButton( INT32 x, INT32 y, const STR8 filename, INT32 Type, GUI_CALLBACK ClickCallback)
 {
 	return CreateSimpleButton( x, y, filename, Type, MSYS_PRIORITY_NORMAL, ClickCallback );
 }
 
 //Same as above, but accepts priority specification.
-template INT32 CreateSimpleButton<char *>(INT32, INT32, char *, INT32, INT16, GUI_CALLBACK);
-template INT32 CreateSimpleButton<char const *>(INT32, INT32, char const *, INT32, INT16, GUI_CALLBACK);
-template <typename string3>
-INT32 CreateSimpleButton( INT32 x, INT32 y, string3 filename, INT32 Type, INT16 Priority, GUI_CALLBACK ClickCallback )
+INT32 CreateSimpleButton( INT32 x, INT32 y, const STR8 filename, INT32 Type, INT16 Priority, GUI_CALLBACK ClickCallback )
 {
 	INT32 ButPic,ButNum;
 
@@ -2123,13 +2103,7 @@ INT32 CreateSimpleButton( INT32 x, INT32 y, string3 filename, INT32 Type, INT16 
 	return( ButNum );
 }
 
-template INT32 CreateIconAndTextButton<wchar_t const *>(INT32, wchar_t const *, UINT32, INT16, INT16, INT16, INT16, INT8, INT16, INT16, INT32, INT16, GUI_CALLBACK, GUI_CALLBACK);
-template INT32 CreateIconAndTextButton<wchar_t *>(INT32, wchar_t *, UINT32, INT16, INT16, INT16, INT16, INT8, INT16, INT16, INT32, INT16, GUI_CALLBACK, GUI_CALLBACK);
-template INT32 CreateIconAndTextButton<unsigned short const *>(INT32, unsigned short const *, UINT32, INT16, INT16, INT16, INT16, INT8, INT16, INT16, INT32, INT16, GUI_CALLBACK, GUI_CALLBACK);
-template INT32 CreateIconAndTextButton<unsigned short *>(INT32, unsigned short *, UINT32, INT16, INT16, INT16, INT16, INT8, INT16, INT16, INT32, INT16, GUI_CALLBACK, GUI_CALLBACK);
-template INT32 CreateIconAndTextButton<short *>(INT32, short *, UINT32, INT16, INT16, INT16, INT16, INT8, INT16, INT16, INT32, INT16, GUI_CALLBACK, GUI_CALLBACK);
-template <typename string2>
-INT32 CreateIconAndTextButton( INT32 Image, string2 string, UINT32 uiFont,
+INT32 CreateIconAndTextButton( INT32 Image, const STR16 string, UINT32 uiFont,
 															 INT16 sForeColor, INT16 sShadowColor,
 															 INT16 sForeColorDown, INT16 sShadowColorDown,
 															 INT8 bJustification,
@@ -2142,12 +2116,12 @@ INT32 CreateIconAndTextButton( INT32 Image, string2 string, UINT32 uiFont,
 
 	if( xloc < 0 || yloc < 0 )
 	{
-		sprintf( (char *)str, "Attempting to CreateIconAndTextButton with invalid position of %d,%d", xloc, yloc );
+		sprintf( str, "Attempting to CreateIconAndTextButton with invalid position of %d,%d", xloc, yloc );
 		AssertMsg( 0, str );
 	}
 	if( Image < 0 || Image >= MAX_BUTTON_PICS )
 	{
-		sprintf( (char *)str, "Attemting to CreateIconAndTextButton with out of range ImageID %d.", Image );
+		sprintf( str, "Attemting to CreateIconAndTextButton with out of range ImageID %d.", Image );
 		AssertMsg( 0, str );
 	}
 
@@ -2192,7 +2166,7 @@ INT32 CreateIconAndTextButton( INT32 Image, string2 string, UINT32 uiFont,
 	b->string = NULL;
 	if ( string  )
 	{
-		b->string = (wchar_t*)MemAlloc( (wcslen((wchar_t *)string)+1)*sizeof(wchar_t) );
+		b->string = (STR16) MemAlloc( (wcslen(string)+1)*sizeof(CHAR16) );
 		AssertMsg( b->string, "Out of memory error:  Couldn't allocate string in CreateIconAndTextButton." );
 		wcscpy( b->string, string );
 	}
@@ -2265,7 +2239,7 @@ INT32 CreateIconAndTextButton( INT32 Image, string2 string, UINT32 uiFont,
 }
 
 //New functions
-void SpecifyButtonText( INT32 iButtonID, wchar_t * string )
+void SpecifyButtonText( INT32 iButtonID, STR16 string )
 {
 	GUI_BUTTON *b;
 
@@ -2282,7 +2256,7 @@ void SpecifyButtonText( INT32 iButtonID, wchar_t * string )
 	if( string && wcslen( string ) )
 	{
 		//allocate memory for the new string
-		b->string = (wchar_t*)MemAlloc( (wcslen(string)+1)*sizeof(wchar_t) );
+		b->string = (STR16) MemAlloc( (wcslen(string)+1)*sizeof(CHAR16) );
 		Assert( b->string );
 		//copy the string to the button
 		wcscpy( b->string, string );
@@ -2362,7 +2336,7 @@ void SpecifyButtonTextJustification( INT32 iButtonID, INT8 bJustification )
 	b->uiFlags |= BUTTON_DIRTY ;
 }
 
-void SpecifyFullButtonTextAttributes( INT32 iButtonID, wchar_t *string, INT32 uiFont,
+void SpecifyFullButtonTextAttributes( INT32 iButtonID, STR16 string, INT32 uiFont,
 																			INT16 sForeColor, INT16 sShadowColor,
 																			INT16 sForeColorDown, INT16 sShadowColorDown, INT8 bJustification )
 {
@@ -2385,7 +2359,7 @@ void SpecifyFullButtonTextAttributes( INT32 iButtonID, wchar_t *string, INT32 ui
 	b->uiFlags |= BUTTON_DIRTY ;
 }
 
-void SpecifyGeneralButtonTextAttributes( INT32 iButtonID, wchar_t *string, INT32 uiFont,
+void SpecifyGeneralButtonTextAttributes( INT32 iButtonID, STR16 string, INT32 uiFont,
 																			INT16 sForeColor, INT16 sShadowColor )
 {
 	GUI_BUTTON *b;
@@ -2542,7 +2516,7 @@ void AllowDisabledButtonFastHelp( INT32 iButtonID, BOOLEAN fAllow )
 //
 //	Set the text that will be displayed as the FastHelp
 //
-void SetButtonFastHelpText(INT32 iButton, wchar_t * Text)
+void SetButtonFastHelpText(INT32 iButton, STR16 Text)
 {
 	GUI_BUTTON *b;
 	if(iButton<0 || iButton>MAX_BUTTONS)
@@ -2579,7 +2553,7 @@ void QuickButtonCallbackMMove(MOUSE_REGION *reg,INT32 reason)
 
 	iButtonID = MSYS_GetRegionUserData(reg,0);
 
-	sprintf( (char *)str, "QuickButtonCallbackMMove: Mouse Region #%d (%d,%d to %d,%d) has invalid buttonID %d",
+	sprintf( str, "QuickButtonCallbackMMove: Mouse Region #%d (%d,%d to %d,%d) has invalid buttonID %d",
 						reg->IDNumber, reg->RegionTopLeftX, reg->RegionTopLeftY, reg->RegionBottomRightX, reg->RegionBottomRightY, iButtonID );
 
 	AssertMsg( iButtonID >= 0, str );
@@ -2684,7 +2658,7 @@ void QuickButtonCallbackMButn( MOUSE_REGION *reg, INT32 reason )
 
 	iButtonID = MSYS_GetRegionUserData(reg,0);
 
-	sprintf( (char *)str, "QuickButtonCallbackMButn: Mouse Region #%d (%d,%d to %d,%d) has invalid buttonID %d",
+	sprintf( str, "QuickButtonCallbackMButn: Mouse Region #%d (%d,%d to %d,%d) has invalid buttonID %d",
 						reg->IDNumber, reg->RegionTopLeftX, reg->RegionTopLeftY, reg->RegionBottomRightX, reg->RegionBottomRightY, iButtonID );
 
 	AssertMsg( iButtonID >= 0, str );
@@ -3949,7 +3923,7 @@ BOOLEAN SetDialogAttributes( CreateDlgInfo *pDlgInfo, INT32 iAttrib, ... )
 {
 	va_list arg;
 	INT32 iFont,iFontOptions;
-	wchar_t *zString;
+	STR16 zString;
 	INT32 iX,iY,iW,iH;
 	INT32 iIndex;
 	HVOBJECT hVObj;
@@ -4000,7 +3974,7 @@ BOOLEAN SetDialogAttributes( CreateDlgInfo *pDlgInfo, INT32 iAttrib, ... )
 			iFont = va_arg( arg, INT32 );
 			pDlgInfo->iTextFont = iFont;
 
-			zString = (wchar_t *)va_arg( arg, UINT32 );
+			zString = va_arg( arg, STR16 );
 
 			if ( pDlgInfo->zDlgText != NULL )
 				MemFree( pDlgInfo->zDlgText );
@@ -4096,15 +4070,7 @@ void DrawDialogBox( INT32 iDlgBox )
 
 
 
-// Kaiden: Added for VC6 compatibility
-
-#if _MSC_VER <= 1200 
-	template INT32 CreateCheckBoxButton<char const *>(INT16, INT16, char *, INT16, GUI_CALLBACK);
-#endif
-
-template INT32 CreateCheckBoxButton<char const *>(INT16, INT16, char const *, INT16, GUI_CALLBACK);
-template <typename string3>
-INT32 CreateCheckBoxButton( INT16 x, INT16 y, string3 filename, INT16 Priority, GUI_CALLBACK ClickCallback )
+INT32 CreateCheckBoxButton( INT16 x, INT16 y, const STR8 filename, INT16 Priority, GUI_CALLBACK ClickCallback )
 {
 	GUI_BUTTON *b;
 	INT32 ButPic, iButtonID;

@@ -23,7 +23,7 @@ TILE_IMAGERY				*gTileSurfaceArray[ NUMBEROFTILETYPES ];
 UINT8								gbDefaultSurfaceUsed[ NUMBEROFTILETYPES ];
 UINT8								gbSameAsDefaultSurfaceUsed[ NUMBEROFTILETYPES ];
 
-TILE_IMAGERY *LoadTileSurface(  char * cFilename )
+TILE_IMAGERY *LoadTileSurface(  STR8  cFilename )
 {
 	// Add tile surface
 	PTILE_IMAGERY  pTileSurf = NULL;	
@@ -158,14 +158,14 @@ void DeleteTileSurface( PTILE_IMAGERY	pTileSurf )
 }
 
 
-extern void GetRootName( INT8 *pDestStr, INT8 *pSrcStr );
+extern void GetRootName( STR8 pDestStr, const STR8 pSrcStr );
 
 
-void SetRaisedObjectFlag( char *cFilename, TILE_IMAGERY *pTileSurf )
+void SetRaisedObjectFlag( STR8 cFilename, TILE_IMAGERY *pTileSurf )
 {
 	INT32 cnt = 0;
 	CHAR8	cRootFile[ 128 ];
-	UINT8 ubRaisedObjectFiles[][80] =
+	CHAR8 ubRaisedObjectFiles[][80] =
 	{
 		"bones",
 		"bones2",
@@ -185,7 +185,7 @@ void SetRaisedObjectFlag( char *cFilename, TILE_IMAGERY *pTileSurf )
 	// set global value...
 	if ( ( pTileSurf->fType >= DEBRISWOOD && pTileSurf->fType <= DEBRISWEEDS ) || pTileSurf->fType == DEBRIS2MISC || pTileSurf->fType == ANOTHERDEBRIS )
 	{
-		GetRootName( (INT8 *)cRootFile, (INT8 *)cFilename );
+		GetRootName( cRootFile, cFilename );
 		while( ubRaisedObjectFiles[ cnt ][ 0 ] != '1' )
 		{
 			if ( _stricmp( ubRaisedObjectFiles[ cnt ], cRootFile ) == 0 )

@@ -20,7 +20,7 @@
 	#include "Sound Control.h"
 #endif
 
-UINT16 *szClipboard;
+STR16 szClipboard;
 BOOLEAN gfNoScroll = FALSE;
 
 //The internal callback functions assigned to each text field.
@@ -32,7 +32,7 @@ void AddChar( UINT32 uiKey );
 void RemoveChar( UINT8 ubArrayIndex );
 void DeleteHilitedText();
 
-void DoublePercentileCharacterFromStringIntoString( wchar_t *pSrcString, wchar_t *pDstString );
+void DoublePercentileCharacterFromStringIntoString( STR16 pSrcString, STR16 pDstString );
 
 //All exclusive input types are handled in this function.
 void HandleExclusiveInput( UINT32 uiKey );
@@ -63,7 +63,7 @@ typedef struct TEXTINPUTNODE{
 	UINT8 ubID;
 	UINT16 usInputType;
 	UINT8 ubMaxChars;
-	wchar_t *szString;
+	STR16 szString;
 	UINT8 ubStrLen;
 	BOOLEAN fEnabled;
 	BOOLEAN fUserField;
@@ -141,7 +141,7 @@ UINT8 gubStartHilite = 0;
 UINT8 gubEndHilite = 0;
 
 //allow the user to cut, copy, and paste just like windows.
-UINT16 gszClipboardString[256];
+CHAR16 gszClipboardString[256];
 
 //Simply initiates that you wish to begin inputting text.  This should only apply to screen
 //initializations that contain fields that edit text.  It also verifies and clears any existing
@@ -238,7 +238,7 @@ void KillAllTextInputModes()
 //of calls to this function dictate the TAB order from traversing from one field to the next.  This
 //function adds mouse regions and processes them for you, as well as deleting them when you are done.
 void AddTextInputField( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight, INT8 bPriority, 
-											  wchar_t *szInitText, UINT8 ubMaxChars, UINT16 usInputType )
+											  STR16 szInitText, UINT8 ubMaxChars, UINT16 usInputType )
 {
 	TEXTINPUTNODE *pNode;
 	pNode = (TEXTINPUTNODE*)MemAlloc(sizeof(TEXTINPUTNODE));
@@ -266,7 +266,7 @@ void AddTextInputField( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight, IN
 	if( usInputType == INPUTTYPE_EXCLUSIVE_24HOURCLOCK )
 		ubMaxChars = 6;
 	//Allocate and copy the string.
-	pNode->szString = (wchar_t*)MemAlloc( (ubMaxChars+1)*sizeof(wchar_t) );
+	pNode->szString = (STR16) MemAlloc( (ubMaxChars+1)*sizeof(CHAR16) );
 	Assert( pNode->szString );
 	if( szInitText )
 	{
@@ -383,7 +383,7 @@ INT16 GetActiveFieldID()
 //This is a useful call made from an external user input field.  Using the previous file dialog example, this
 //call would be made when the user selected a different filename in the list via clicking or scrolling with
 //the arrows, or even using alpha chars to jump to the appropriate filename.
-void SetInputFieldStringWith16BitString( UINT8 ubField, wchar_t *szNewText )
+void SetInputFieldStringWith16BitString( UINT8 ubField, const STR16 szNewText )
 {
 	TEXTINPUTNODE *curr;
   curr = gpTextInputHead;
@@ -412,7 +412,7 @@ void SetInputFieldStringWith16BitString( UINT8 ubField, wchar_t *szNewText )
 	}
 }
 
-void SetInputFieldStringWith8BitString( UINT8 ubField, UINT8 * szNewText )
+void SetInputFieldStringWith8BitString( UINT8 ubField, const STR8 szNewText )
 {
 	TEXTINPUTNODE *curr;
   curr = gpTextInputHead;
@@ -442,7 +442,7 @@ void SetInputFieldStringWith8BitString( UINT8 ubField, UINT8 * szNewText )
 }
 
 //Allows external functions to access the strings within the fields at anytime.
-void Get8BitStringFromField( UINT8 ubField, UINT8 *szString )
+void Get8BitStringFromField( UINT8 ubField, STR8 szString )
 {
 	TEXTINPUTNODE *curr;
   curr = gpTextInputHead;
@@ -450,7 +450,7 @@ void Get8BitStringFromField( UINT8 ubField, UINT8 *szString )
 	{
 		if( curr->ubID == ubField )
 		{
-			sprintf( (char *)szString, "%S", curr->szString );
+			sprintf( szString, "%S", curr->szString );
 			return;
 		}
 		curr = curr->next;
@@ -458,7 +458,7 @@ void Get8BitStringFromField( UINT8 ubField, UINT8 *szString )
 	szString[0] = '\0';
 }
 
-void Get16BitStringFromField( UINT8 ubField, wchar_t *szString )
+void Get16BitStringFromField( UINT8 ubField, STR16 szString )
 {
 	TEXTINPUTNODE *curr;
   curr = gpTextInputHead;
@@ -478,8 +478,8 @@ void Get16BitStringFromField( UINT8 ubField, wchar_t *szString )
 //returns -1 if blank or invalid.  Only works for positive numbers.
 INT32 GetNumericStrictValueFromField( UINT8 ubField )
 {
-	wchar_t *ptr;
-	wchar_t str[20];
+	STR16 ptr;
+	CHAR16 str[20];
 	INT32 total;
 	Get16BitStringFromField( ubField, str );
 	//Blank string, so return -1
@@ -1242,7 +1242,7 @@ void RenderActiveTextField()
 {
 	UINT32 uiCursorXPos;
 	UINT16 usOffset;
-	wchar_t str[ 256 ];
+	CHAR16 str[ 256 ];
 	if( !gpActive || !gpActive->szString )
 		return;
 
@@ -1320,7 +1320,7 @@ void RenderInactiveTextField( UINT8 ubID )
 {
 	UINT16 usOffset;
 	TEXTINPUTNODE* pNode, *curr;
-	wchar_t str[ 256 ];
+	CHAR16 str[ 256 ];
 	curr = gpTextInputHead;
 	pNode = NULL;
 	while( curr )
@@ -1348,7 +1348,7 @@ void RenderInactiveTextField( UINT8 ubID )
 void RenderInactiveTextFieldNode( TEXTINPUTNODE *pNode )
 {
 	UINT16 usOffset;
-	wchar_t str[ 256 ];
+	CHAR16 str[ 256 ];
 	if( !pNode || !pNode->szString )
 		return;
 	SaveFontSettings();
@@ -1579,7 +1579,7 @@ void ExecuteCopyCommand()
 			ubEnd = gubStartHilite;
 		}
 		ubCount = (UINT8)(ubEnd - ubStart);
-		szClipboard = (UINT16*)MemAlloc( ( ubCount + 1 ) * sizeof(CHAR16) );
+		szClipboard = (STR16)MemAlloc( ( ubCount + 1 ) * sizeof(CHAR16) );
 		Assert( szClipboard );
 		for( ubCount = ubStart; ubCount < ubEnd; ubCount++ )
 		{
@@ -1747,7 +1747,7 @@ void SetExclusive24HourTimeValue( UINT8 ubField, UINT16 usTime )
 	}
 }
 
-void DoublePercentileCharacterFromStringIntoString( wchar_t *pSrcString, wchar_t *pDstString )
+void DoublePercentileCharacterFromStringIntoString( STR16 pSrcString, STR16 pDstString )
 {
 	INT32 iSrcIndex = 0, iDstIndex = 0;
 	while( pSrcString[ iSrcIndex ] != 0 )

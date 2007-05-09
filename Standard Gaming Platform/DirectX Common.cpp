@@ -20,7 +20,7 @@ void  DirectXZeroMem ( void* pMemory, int nSize )
 }
 
 
-void DirectXAttempt ( INT32 iErrorCode, INT32 nLine, char *szFilename )
+void DirectXAttempt ( INT32 iErrorCode, INT32 nLine, STR8 szFilename )
 {
 #ifdef _DEBUG
 	if ( iErrorCode != DD_OK )
@@ -31,7 +31,7 @@ void DirectXAttempt ( INT32 iErrorCode, INT32 nLine, char *szFilename )
 #endif
 }
 
-char*	DirectXErrorDescription ( INT32 iDXReturn )
+STR8 	DirectXErrorDescription ( INT32 iDXReturn )
 {
     switch( iDXReturn ) 
     {

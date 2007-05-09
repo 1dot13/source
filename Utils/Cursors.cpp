@@ -1303,7 +1303,7 @@ void BltJA2CursorData( )
 
 void DrawMouseText( )
 {
-	INT16 pStr[ 512 ];
+	CHAR16 pStr[ 512 ];
 	INT16 sX, sY;
 	static BOOLEAN fShow = FALSE;
 	static BOOLEAN fHoldInvalid = TRUE;
@@ -1342,11 +1342,11 @@ void DrawMouseText( )
 		else
 			SetFontForeground( FONT_MCOLOR_LTYELLOW );
 
-		swprintf( (wchar_t *)pStr, (wchar_t *)L"%d", gsBulletCount );
+		swprintf( pStr, L"%d", gsBulletCount );
 		FindFontCenterCoordinates( 0, 0, gsCurMouseWidth, gsCurMouseHeight, pStr, TINYFONT1, &sX, &sY );
 		mprintf( sX, sY - 10 - GetFontHeight(TINYFONT1), pStr );
 
-		swprintf( (wchar_t *)pStr, (wchar_t *)L"%d", gsTotalBulletCount );
+		swprintf( pStr, L"%d", gsTotalBulletCount );
 		FindFontCenterCoordinates( 0, 0, gsCurMouseWidth, gsCurMouseHeight, pStr, TINYFONT1, &sX, &sY );
 		mprintf( sX, sY + 7 + GetFontHeight(TINYFONT1), pStr );
 
@@ -1428,7 +1428,7 @@ void DrawMouseText( )
 				// Set dest for gprintf to be different
 			SetFontDestBuffer( MOUSE_BUFFER , 0, 0, 64, 64, FALSE );
 
-			swprintf( (wchar_t *)pStr, (wchar_t *)L"%d", gsCurrentActionPoints );
+			swprintf( pStr, L"%d", gsCurrentActionPoints );
 
 			if ( gfUIDisplayActionPointsCenter )
 			{

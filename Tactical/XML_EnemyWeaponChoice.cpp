@@ -49,7 +49,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	ARMY_GUN_CHOICE_TYPE		curExtendedArmyGunChoices;
 	ARMY_GUN_CHOICE_TYPE *	curArray;
 	UINT32			maxArraySize;
@@ -60,7 +60,7 @@ struct
 typedef extendedarmygunchoicesParseData;
 
 static void XMLCALL 
-extendedarmygunchoicesStartElementHandle(void *userData, const char *name, const char **atts)
+extendedarmygunchoicesStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	extendedarmygunchoicesParseData * pData = (extendedarmygunchoicesParseData *)userData;
 
@@ -149,7 +149,7 @@ extendedarmygunchoicesStartElementHandle(void *userData, const char *name, const
 }
 
 static void XMLCALL
-extendedarmygunchoicesCharacterDataHandle(void *userData, const char *str, int len)
+extendedarmygunchoicesCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	extendedarmygunchoicesParseData * pData = (extendedarmygunchoicesParseData *)userData;
 
@@ -162,7 +162,7 @@ extendedarmygunchoicesCharacterDataHandle(void *userData, const char *str, int l
 
 
 static void XMLCALL
-extendedarmygunchoicesEndElementHandle(void *userData, const char *name)
+extendedarmygunchoicesEndElementHandle(void *userData, const XML_Char *name)
 {
 	extendedarmygunchoicesParseData * pData = (extendedarmygunchoicesParseData *)userData;
 

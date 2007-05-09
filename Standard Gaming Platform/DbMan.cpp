@@ -975,10 +975,10 @@ BOOLEAN LoadBucket( CHAR cFirstLetter )
 
 	CHECKF(uiNumEntries);
 
-	gdb.bucket.pstrFilenames = (CHAR *)MemAlloc( uiNumEntries * FILENAME_LENGTH);
+	gdb.bucket.pstrFilenames = (STR8)MemAlloc( uiNumEntries * FILENAME_LENGTH);
 	CHECKF(gdb.bucket.pstrFilenames);
 
-	gdb.bucket.pstrDatabasenames = (CHAR *)MemAlloc( uiNumEntries * FILENAME_LENGTH);
+	gdb.bucket.pstrDatabasenames = (STR8)MemAlloc( uiNumEntries * FILENAME_LENGTH);
 	if ( !gdb.bucket.pstrDatabasenames )
 	{
 		MemFree(gdb.bucket.pstrFilenames);

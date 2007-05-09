@@ -240,7 +240,7 @@ void ShutdownMemoryManager( void )
  
 #ifdef _DEBUG
 
-PTR MemAllocReal( UINT32 uiSize, const char *pcFile, INT32 iLine )
+PTR MemAllocReal( UINT32 uiSize, const STR8 pcFile, INT32 iLine )
 {
 	PTR	ptr;
 
@@ -273,7 +273,7 @@ PTR MemAllocReal( UINT32 uiSize, const char *pcFile, INT32 iLine )
 }
 
 
-void MemFreeReal( PTR ptr, const char *pcFile, INT32 iLine )
+void MemFreeReal( PTR ptr, const STR8 pcFile, INT32 iLine )
 {
 	UINT32 uiSize;
 
@@ -303,7 +303,7 @@ void MemFreeReal( PTR ptr, const char *pcFile, INT32 iLine )
 }
 
 
-PTR MemReallocReal( PTR ptr, UINT32 uiSize, const char *pcFile, INT32 iLine )
+PTR MemReallocReal( PTR ptr, UINT32 uiSize, const STR8 pcFile, INT32 iLine )
 {
 	PTR	ptrNew;
 	UINT32 uiOldSize;
@@ -491,7 +491,7 @@ BOOLEAN MemCheckPool( void )
 
 #ifdef EXTREME_MEMORY_DEBUGGING
 
-PTR MemAllocXDebug( UINT32 size, const char *szCodeString, INT32 iLineNum, void *pSpecial )
+PTR MemAllocXDebug( UINT32 size, const STR8 szCodeString, INT32 iLineNum, void *pSpecial )
 {
 	PTR	ptr;
 	UINT16 usLength;
@@ -552,7 +552,7 @@ PTR MemAllocXDebug( UINT32 size, const char *szCodeString, INT32 iLineNum, void 
 	return( ptr );
 }
 
-void MemFreeXDebug( PTR ptr, const char *szCodeString, INT32 iLineNum, void *pSpecial )
+void MemFreeXDebug( PTR ptr, const STR8 szCodeString, INT32 iLineNum, void *pSpecial )
 {
 	MEMORY_NODE *curr;
 
@@ -597,7 +597,7 @@ void MemFreeXDebug( PTR ptr, const char *szCodeString, INT32 iLineNum, void *pSp
   }
 }
 
-PTR	MemReallocXDebug( PTR ptr, UINT32 size, const char *szCodeString, INT32 iLineNum, void *pSpecial )
+PTR	MemReallocXDebug( PTR ptr, UINT32 size, const STR8 szCodeString, INT32 iLineNum, void *pSpecial )
 {
 	MEMORY_NODE *curr;
 	PTR	ptrNew;

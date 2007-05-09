@@ -48,7 +48,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 
 	UINT32			maxArraySize;
 	UINT32			curIndex;	
@@ -58,7 +58,7 @@ struct
 typedef ammoParseData;
 
 static void XMLCALL 
-ammoStartElementHandle(void *userData, const char *name, const char **atts)
+ammoStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	ammoParseData * pData = (ammoParseData *)userData;
 
@@ -94,7 +94,7 @@ ammoStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-ammoCharacterDataHandle(void *userData, const char *str, int len)
+ammoCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	ammoParseData * pData = (ammoParseData *)userData;
 
@@ -107,7 +107,7 @@ ammoCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-ammoEndElementHandle(void *userData, const char *name)
+ammoEndElementHandle(void *userData, const XML_Char *name)
 {	
 	char temp;
 	ammoParseData * pData = (ammoParseData *)userData;
@@ -239,18 +239,18 @@ BOOLEAN WriteAmmoStats()
 		{
 			FilePrintf(hFile,"\t<AMMO>\r\n");
 
-			wchar_t * szRemainder = AmmoCaliber[cnt]; //the remaining string to be output (for making valid XML)
+			STR16 szRemainder = AmmoCaliber[cnt]; //the remaining string to be output (for making valid XML)
 
 			FilePrintf(hFile,"\t\t<AmmoCaliber>");
 			while(szRemainder[0] != '\0')
 			{
-				UINT32 uiCharLoc = strcspn(szRemainder,"&<>\'\"\0");
-				UINT16 invChar = szRemainder[uiCharLoc];
+				UINT32 uiCharLoc = wcscspn(szRemainder,L"&<>\'\"\0");
+				CHAR16 invChar = szRemainder[uiCharLoc];
 				
 				if(uiCharLoc)
 				{
 					szRemainder[uiCharLoc] = '\0';
-					FilePrintf(hFile,"%s",szRemainder);
+					FilePrintf(hFile,"%S",szRemainder);
 					szRemainder[uiCharLoc] = invChar;
 				}
 
@@ -292,13 +292,13 @@ BOOLEAN WriteAmmoStats()
 			FilePrintf(hFile,"\t\t<BRCaliber>");
 			while(szRemainder[0] != '\0')
 			{
-				UINT32 uiCharLoc = strcspn(szRemainder,"&<>\'\"\0");
-				UINT16 invChar = szRemainder[uiCharLoc];
+				UINT32 uiCharLoc = wcscspn(szRemainder,L"&<>\'\"\0");
+				CHAR16 invChar = szRemainder[uiCharLoc];
 				
 				if(uiCharLoc)
 				{
 					szRemainder[uiCharLoc] = '\0';
-					FilePrintf(hFile,"%s",szRemainder);
+					FilePrintf(hFile,"%S",szRemainder);
 					szRemainder[uiCharLoc] = invChar;
 				}
 

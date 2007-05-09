@@ -77,7 +77,7 @@ ANITILE *CreateAnimationTile( ANITILE_PARAMS *pAniParams )
 	{
 		if ( ( uiFlags & ANITILE_CACHEDTILE ) )
 		{
-			iCachedTile = GetCachedTile( (INT8 *)pAniParams->zCachedFile );
+			iCachedTile = GetCachedTile( pAniParams->zCachedFile );
 
 			if ( iCachedTile == -1 )
 			{

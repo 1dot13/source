@@ -6,7 +6,7 @@
 // Kaiden: INI reading function definitions:
 
 
-CIniReader::CIniReader(const char* szFileName)
+CIniReader::CIniReader(const STR8  szFileName)
 {
 	// Snap: Look for the INI file in the custom Data directory.
 	// If not there, leave at default location.
@@ -19,13 +19,13 @@ CIniReader::CIniReader(const char* szFileName)
 }
 
 
-int CIniReader::ReadInteger(const char* szSection, const char* szKey, int iDefaultValue)
+int CIniReader::ReadInteger(const STR8  szSection, const STR8  szKey, int iDefaultValue)
 {
 	return GetPrivateProfileInt(szSection,  szKey, iDefaultValue, m_szFileName); 
 }
 
 
-int CIniReader::ReadInteger(const char* szSection, const char* szKey, int iDefaultValue, int iMinValue, int iMaxValue)
+int CIniReader::ReadInteger(const STR8  szSection, const STR8  szKey, int iDefaultValue, int iMinValue, int iMaxValue)
 {
 	int i = GetPrivateProfileInt(szSection,  szKey, iDefaultValue, m_szFileName); 
 	if (i < iMinValue)
@@ -35,11 +35,11 @@ int CIniReader::ReadInteger(const char* szSection, const char* szKey, int iDefau
 	return i;
 }
 
-	int ReadInteger(const char* szSection, const char* szKey, int iDefaultValue, int iMinValue, int iMaxValue);
+	int ReadInteger(const STR8  szSection, const STR8  szKey, int iDefaultValue, int iMinValue, int iMaxValue);
 
 
 
-float CIniReader::ReadFloat(const char* szSection, const char* szKey, float fltDefaultValue)
+float CIniReader::ReadFloat(const STR8  szSection, const STR8  szKey, float fltDefaultValue)
 {
  char szResult[255];
  char szDefault[255];
@@ -51,7 +51,7 @@ float CIniReader::ReadFloat(const char* szSection, const char* szKey, float fltD
 }
 
 
-bool CIniReader::ReadBoolean(const char* szSection, const char* szKey, bool bolDefaultValue)
+bool CIniReader::ReadBoolean(const STR8  szSection, const STR8  szKey, bool bolDefaultValue)
 {
  char szResult[255];
  char szDefault[255];
@@ -63,9 +63,9 @@ bool CIniReader::ReadBoolean(const char* szSection, const char* szKey, bool bolD
 }
 
 
-char* CIniReader::ReadString(const char* szSection, const char* szKey, const char* szDefaultValue)
+STR8  CIniReader::ReadString(const STR8  szSection, const STR8  szKey, const STR8  szDefaultValue)
 {
- char* szResult = new char[255];
+ STR8  szResult = new char[255];
  memset(szResult, 0x00, 255);
  GetPrivateProfileString(szSection,  szKey, szDefaultValue, szResult, 255, m_szFileName); 
  return szResult;

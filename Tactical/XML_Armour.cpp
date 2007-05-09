@@ -49,7 +49,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	ARMOURTYPE		curArmour;
 	ARMOURTYPE *	curArray;
 	UINT32			maxArraySize;
@@ -60,7 +60,7 @@ struct
 typedef armourParseData;
 
 static void XMLCALL 
-armourStartElementHandle(void *userData, const char *name, const char **atts)
+armourStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	armourParseData * pData = (armourParseData *)userData;
 
@@ -102,7 +102,7 @@ armourStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-armourCharacterDataHandle(void *userData, const char *str, int len)
+armourCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	armourParseData * pData = (armourParseData *)userData;
 
@@ -115,7 +115,7 @@ armourCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-armourEndElementHandle(void *userData, const char *name)
+armourEndElementHandle(void *userData, const XML_Char *name)
 {
 	armourParseData * pData = (armourParseData *)userData;
 

@@ -139,7 +139,7 @@ int TryToResumeMovement(SOLDIERTYPE *pSoldier, INT16 sGridno)
 	{
 #ifdef DEBUGDECISIONS
 		STR tempstr;
-		sprintf((CHAR *)tempstr, "%d CONTINUES MOVEMENT to gridno %d...\n", pSoldier->ubID,sGridno );
+		sprintf(tempstr, "%d CONTINUES MOVEMENT to gridno %d...\n", pSoldier->ubID,sGridno );
 		DebugAI( tempstr );
 #endif
 
@@ -158,7 +158,7 @@ int TryToResumeMovement(SOLDIERTYPE *pSoldier, INT16 sGridno)
 		else
 		{
 #ifdef BETAVERSION
-			sprintf((CHAR *)tempstr,"TryToResumeMovement: ERROR - NewDest failed for %s, action CANCELED",pSoldier->name);
+			sprintf(tempstr,"TryToResumeMovement: ERROR - NewDest failed for %s, action CANCELED",pSoldier->name);
 
 #ifdef RECORDNET
 			fprintf(NetDebugFile,"\n\t%s\n",tempstr);
@@ -179,7 +179,7 @@ int TryToResumeMovement(SOLDIERTYPE *pSoldier, INT16 sGridno)
 		// legally if another soldier gets in the way between turns
 
 #ifdef BETAVERSION
-		sprintf((CHAR *)tempstr,"TryToResumeMovement: %d can't continue to gridno %d, no longer legal!",pSoldier->ubID,gridno);
+		sprintf(tempstr,"TryToResumeMovement: %d can't continue to gridno %d, no longer legal!",pSoldier->ubID,gridno);
 
 #ifdef RECORDNET
 		fprintf(NetDebugFile,"\n\t%s\n",tempstr);
@@ -247,7 +247,7 @@ INT16 NextPatrolPoint(SOLDIERTYPE *pSoldier)
  if ((pSoldier->bPatrolCnt < 1) || (pSoldier->bPatrolCnt >= MAXPATROLGRIDS))
   {
 #ifdef BETAVERSION
-   sprintf((CHAR *)tempstr,"NextPatrolPoint: ERROR: Invalid patrol count = %d for %s",pSoldier->bPatrolCnt,pSoldier->name);
+   sprintf(tempstr,"NextPatrolPoint: ERROR: Invalid patrol count = %d for %s",pSoldier->bPatrolCnt,pSoldier->name);
    PopMessage(tempstr);
 #endif
 
@@ -337,7 +337,7 @@ INT8 PointPatrolAI(SOLDIERTYPE *pSoldier)
 
  // passed all tests - start moving towards next patrol point
 #ifdef DEBUGDECISIONS
- sprintf((CHAR *)tempstr,"%s - POINT PATROL to grid %d",pSoldier->name,pSoldier->usActionData);
+ sprintf(tempstr,"%s - POINT PATROL to grid %d",pSoldier->name,pSoldier->usActionData);
  AIPopMessage(tempstr);
 #endif
 
@@ -427,7 +427,7 @@ INT8 RandomPointPatrolAI(SOLDIERTYPE *pSoldier)
 
 	// passed all tests - start moving towards next patrol point
 #ifdef DEBUGDECISIONS
-	sprintf((CHAR *)tempstr,"%s - POINT PATROL to grid %d",pSoldier->name,pSoldier->usActionData);
+	sprintf(tempstr,"%s - POINT PATROL to grid %d",pSoldier->name,pSoldier->usActionData);
 	AIPopMessage(tempstr);
 #endif
 
@@ -486,7 +486,7 @@ INT16 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT16 sDesGrid, IN
 	}
 
 #ifdef DEBUGDECISIONS
-	sprintf((CHAR *)tempstr,"%s wants to go towards %d (has range %d)",pSoldier->name,sDesGrid,usMaxDist);
+	sprintf(tempstr,"%s wants to go towards %d (has range %d)",pSoldier->name,sDesGrid,usMaxDist);
 	AIPopMessage(tempstr);
 #endif
 
@@ -532,7 +532,7 @@ INT16 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT16 sDesGrid, IN
 	if (!LegalNPCDestination(pSoldier,sDesGrid,ENSURE_PATH,NOWATER,fPathFlags))
 	{
 #ifdef DEBUGDECISIONS
-		AIPopMessage((STR16)"destination Grid # itself not valid, looking around it");
+		AIPopMessage("destination Grid # itself not valid, looking around it");
 #endif
 		if ( CREATURE_OR_BLOODCAT( pSoldier ) )
 		{
@@ -625,7 +625,7 @@ INT16 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT16 sDesGrid, IN
    if (sTempDest == sGoToGrid)
     {
 #ifdef BETAVERSION
-     sprintf((CHAR *)tempstr,"GoAsFarAsPossibleTowards: ERROR - gridno along valid route is invalid!  guynum %d, sTempDest = %d",pSoldier->ubID,sTempDest);
+     sprintf(tempstr,"GoAsFarAsPossibleTowards: ERROR - gridno along valid route is invalid!  guynum %d, sTempDest = %d",pSoldier->ubID,sTempDest);
 
 #ifdef RECORDNET
      fprintf(NetDebugFile,"\n\t%s\n",tempstr);
@@ -733,7 +733,7 @@ INT16 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT16 sDesGrid, IN
  if (sGoToGrid == pSoldier->sGridNo)
   {
 #ifdef DEBUGDECISIONS
-   sprintf((CHAR *)tempstr,"%s will go NOWHERE, path doesn't meet criteria",pSoldier->name);
+   sprintf(tempstr,"%s will go NOWHERE, path doesn't meet criteria",pSoldier->name);
    AIPopMessage(tempstr);
 #endif
 
@@ -859,13 +859,13 @@ void HaltMoveForSoldierOutOfPoints(SOLDIERTYPE *pSoldier)
 	AdjustNoAPToFinishMove( pSoldier, TRUE );
 
 	// We'll keep his action intact though...
-	DebugAI( (STR)String("NO AP TO FINISH MOVE for %d (%d APs left)",pSoldier->ubID, pSoldier->bActionPoints) );
+	DebugAI( String("NO AP TO FINISH MOVE for %d (%d APs left)",pSoldier->ubID, pSoldier->bActionPoints) );
 
 	// if this dude is under AI right now, then pass the baton to someone else
 	if (pSoldier->uiStatusFlags & SOLDIER_UNDERAICONTROL)
 	{
 		#ifdef TESTAICONTROL
-			DebugAI( (STR)String("Ending turn for %d because out of APs for movement", pSoldier->ubID ) );
+			DebugAI( String("Ending turn for %d because out of APs for movement", pSoldier->ubID ) );
 		#endif
 
 		EndAIGuysTurn(pSoldier);

@@ -428,10 +428,10 @@ void EnableEditorTaskbar(void)
 //A specialized mprint function that'll restore the editor panel underneath the
 //string before rendering the string.  This is obviously only useful for drawing text
 //in the editor taskbar.
-void mprintfEditor(INT16 x, INT16 y, UINT16 *pFontString, ...)
+void mprintfEditor(INT16 x, INT16 y, STR16 pFontString, ...)
 {
 	va_list argptr;
-	wchar_t	string[512];
+	CHAR16	string[512];
 	UINT16 uiStringLength, uiStringHeight;
 
 	Assert( pFontString != NULL );
@@ -475,7 +475,7 @@ void ClearTaskbarRegion( INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom )
 //This is a new function which duplicates the older "yellow info boxes" that
 //are common throughout the editor.  This draws the yellow box with the indentation
 //look.
-void DrawEditorInfoBox( wchar_t *str, UINT32 uiFont, UINT16 x, UINT16 y, UINT16 w, UINT16 h )
+void DrawEditorInfoBox( STR16 str, UINT32 uiFont, UINT16 x, UINT16 y, UINT16 w, UINT16 h )
 {
 	UINT16 usFillColorDark, usFillColorLight, usFillColorBack;
 	UINT16 x2, y2;
@@ -694,7 +694,7 @@ void RenderMapEntryPointsAndLights()
 	}
 }
 
-void BuildTriggerName( OBJECTTYPE *pItem, UINT16 *szItemName )
+void BuildTriggerName( OBJECTTYPE *pItem, STR16 szItemName )
 {
 	if( pItem->usItem == SWITCH )
 	{
@@ -727,7 +727,7 @@ void RenderDoorLockInfo()
 {
 	INT16 i, xp, yp;
 	INT16 sScreenX, sScreenY;
-	wchar_t str[ 50 ];
+	CHAR16 str[ 50 ];
 	for( i = 0; i < gubNumDoors; i++ )
 	{
 		GetGridNoScreenPos( DoorTable[ i ].sGridNo, 0, &sScreenX, &sScreenY );
@@ -781,7 +781,7 @@ void RenderSelectedItemBlownUp()
 	HVOBJECT hVObject;
 	INT16 sScreenX, sScreenY, xp, yp;
 	ITEM_POOL	*pItemPool;
-	UINT16 szItemName[ SIZE_ITEM_NAME ];
+	CHAR16 szItemName[ SIZE_ITEM_NAME ];
 	INT32 i;
 	INT16 sWidth, sHeight, sOffsetX, sOffsetY;
 
@@ -826,7 +826,7 @@ void RenderSelectedItemBlownUp()
 
 	if( gpItem->usItem == ACTION_ITEM )
 	{
-		UINT16 *pStr;
+		STR16 pStr;
 		pStr = GetActionItemName( gpItem );
 		xp = sScreenX - (StringPixLength( pStr, FONT10ARIALBOLD ) - 40) / 2;
 		yp += 10;
@@ -865,7 +865,7 @@ void RenderSelectedItemBlownUp()
 
 void RenderEditorInfo( )
 {
-	wchar_t					FPSText[ 50 ];
+	CHAR16					FPSText[ 50 ];
 	static INT32		iSpewWarning = 0;
 	INT16						iMapIndex;
 

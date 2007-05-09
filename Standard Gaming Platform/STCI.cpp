@@ -287,11 +287,11 @@ BOOLEAN STCILoadIndexed( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHead
 		if (FileSeek( hFile, pHeader->uiStoredSize, FILE_SEEK_FROM_CURRENT) == FALSE)
 		{
 			DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, "Problem seeking past image data!" );
-				FileClose( hFile );
+			FileClose( hFile );
 			return( FALSE );	
 		}
 	}
-		
+
 	if (fContents & IMAGE_APPDATA && pHeader->uiAppDataSize > 0)
 	{
 		// load application-specific data

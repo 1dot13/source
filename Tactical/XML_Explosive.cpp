@@ -49,7 +49,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	EXPLOSIVETYPE		curExplosive;
 	EXPLOSIVETYPE *	curArray;
 	UINT32			maxArraySize;
@@ -60,7 +60,7 @@ struct
 typedef explosiveParseData;
 
 static void XMLCALL 
-explosiveStartElementHandle(void *userData, const char *name, const char **atts)
+explosiveStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	explosiveParseData * pData = (explosiveParseData *)userData;
 
@@ -107,7 +107,7 @@ explosiveStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-explosiveCharacterDataHandle(void *userData, const char *str, int len)
+explosiveCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	explosiveParseData * pData = (explosiveParseData *)userData;
 
@@ -120,7 +120,7 @@ explosiveCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-explosiveEndElementHandle(void *userData, const char *name)
+explosiveEndElementHandle(void *userData, const XML_Char *name)
 {
 	explosiveParseData * pData = (explosiveParseData *)userData;
 

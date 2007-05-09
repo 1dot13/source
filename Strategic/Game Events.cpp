@@ -14,7 +14,7 @@
 
 #ifdef JA2TESTVERSION
 	
-UINT16 gEventName[NUMBER_OF_EVENT_TYPES_PLUS_ONE][40]={
+CHAR16 gEventName[NUMBER_OF_EVENT_TYPES_PLUS_ONE][40]={
 	//1234567890123456789012345678901234567890 (increase size of array if necessary)
 	L"Null",
 	L"ChangeLightValue",

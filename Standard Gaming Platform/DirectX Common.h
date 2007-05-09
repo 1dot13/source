@@ -8,9 +8,9 @@ extern "C" {
 #endif
 
 	// local functions
-	char*	DirectXErrorDescription ( INT32 iDXReturn );
-	void  DirectXAttempt ( INT32 iErrorCode, INT32 nLine, char *szFilename );
-	void  DirectXAssert ( BOOLEAN fValue, INT32 nLine, char *szFilename );
+	STR8 	DirectXErrorDescription ( INT32 iDXReturn );
+	void  DirectXAttempt ( INT32 iErrorCode, INT32 nLine, STR8 szFilename );
+	void  DirectXAssert ( BOOLEAN fValue, INT32 nLine, STR8 szFilename );
 	void  DirectXZeroMem ( void* pMemory, int nSize );
 
 	#undef	ATTEMPT

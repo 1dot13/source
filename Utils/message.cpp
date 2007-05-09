@@ -234,7 +234,7 @@ BOOLEAN CreateStringVideoOverlay( ScrollStringStPtr pStringSt, UINT16 usX, UINT1
 	VideoOverlayDesc.ubFontFore  = (unsigned char)pStringSt->usColor;
 	VideoOverlayDesc.sX					 = VideoOverlayDesc.sLeft;
 	VideoOverlayDesc.sY					 = VideoOverlayDesc.sTop;
-	swprintf( (wchar_t *)VideoOverlayDesc.pzText, (wchar_t *)pStringSt->pString16 );
+	swprintf( VideoOverlayDesc.pzText, pStringSt->pString16 );
 	VideoOverlayDesc.BltCallback = BlitString;
 	pStringSt->iVideoOverlay =  RegisterVideoOverlay( ( VOVERLAY_DIRTYBYTEXT ), &VideoOverlayDesc );
 
@@ -575,7 +575,7 @@ void ScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ...)
 {
 	//__try
 	//{
-		wchar_t	DestString[512];
+		CHAR16	DestString[512];
 		va_list argptr;
 
 		if( fDisableJustForIan == TRUE )
@@ -707,12 +707,12 @@ void TacticalScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 	UINT16 usStringLength=0;
 	UINT16 usCurrentSPosition=0;
 	UINT16 usCurrentLookup=0;
-	//wchar_t *pString;
+	//STR16pString;
 	BOOLEAN fLastLine=FALSE;
   va_list argptr;
 
-  wchar_t	DestString[512];//, DestStringA[ 512 ];
-	//wchar_t *pStringBuffer;
+  CHAR16	DestString[512];//, DestStringA[ 512 ];
+	//STR16pStringBuffer;
   BOOLEAN fMultiLine=FALSE;
   ScrollStringStPtr pTempStringSt=NULL;
   WRAPPED_STRING *pStringWrapper=NULL;
@@ -860,11 +860,11 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 	UINT16 usStringLength=0;
 	UINT16 usCurrentSPosition=0;
 	UINT16 usCurrentLookup=0;
-	//wchar_t *pString;
+	//STR16pString;
 	BOOLEAN fLastLine=FALSE;
   va_list argptr;
-  wchar_t	DestString[512], DestStringA[ 512 ];
-	//wchar_t *pStringBuffer;
+  CHAR16	DestString[512], DestStringA[ 512 ];
+	//STR16pStringBuffer;
   BOOLEAN fMultiLine=FALSE;
   WRAPPED_STRING *pStringWrapper=NULL;
   WRAPPED_STRING *pStringWrapperHead=NULL;

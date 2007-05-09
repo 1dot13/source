@@ -1777,7 +1777,7 @@ void RefreshScreen(void *DummyVariable)
     LPDIRECTDRAWSURFACE2   pTmpBuffer;
     DDSURFACEDESC          SurfaceDescription;
     FILE                  *OutputFile;
-    UINT8                  FileName[64];
+    CHAR8                  FileName[64];
     INT32                  iIndex;
 		STRING512			DataDir;
 		STRING512			         ExecDir;
@@ -1835,11 +1835,11 @@ void RefreshScreen(void *DummyVariable)
 
 	do
 	{
-		sprintf((char *) FileName, "SCREEN%03d.TGA", guiPrintFrameBufferIndex++);
+		sprintf( FileName, "SCREEN%03d.TGA", guiPrintFrameBufferIndex++);
 	}
-	while( (_access( (const char *)FileName, 0 )) != -1 );
+	while( (_access( FileName, 0 )) != -1 );
 
-    if ((OutputFile = fopen((const char *) FileName, "wb")) != NULL)
+    if ((OutputFile = fopen( FileName, "wb")) != NULL)
     {
       fprintf(OutputFile, "%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c", 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, LOBYTE(SCREEN_WIDTH), HIBYTE(SCREEN_WIDTH), LOBYTE(SCREEN_HEIGHT), HIBYTE(SCREEN_HEIGHT), 0x10, 0);
 
@@ -2789,7 +2789,7 @@ BOOLEAN HideMouseCursor(void)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-BOOLEAN LoadCursorFile(PTR pFilename)
+BOOLEAN LoadCursorFile(STR8 pFilename)
 {
   VOBJECT_DESC VideoObjectDescription;
 
@@ -2944,14 +2944,7 @@ HRESULT       ReturnCode;
 }
 
 
-//Kaiden - Added for VC6 Compatibility
-#if _MSC_VER <= 1200
-	template void FatalError<char const *>(char *, ...);
-#endif
- 
-template void FatalError<char const *>(char const *, ...);
-template <typename string1>
-void FatalError( string1 pError, ...)
+void FatalError( const STR8 pError, ...)
 {
 	va_list argptr;
 

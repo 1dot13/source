@@ -49,7 +49,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	IMP_ITEM_CHOICE_TYPE		curIMPItemChoices;
 	IMP_ITEM_CHOICE_TYPE *	curArray;
 	UINT32			maxArraySize;
@@ -60,7 +60,7 @@ struct
 typedef IMPitemchoicesParseData;
 
 static void XMLCALL 
-IMPitemchoicesStartElementHandle(void *userData, const char *name, const char **atts)
+IMPitemchoicesStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	IMPitemchoicesParseData * pData = (IMPitemchoicesParseData *)userData;
 
@@ -150,7 +150,7 @@ IMPitemchoicesStartElementHandle(void *userData, const char *name, const char **
 }
 
 static void XMLCALL
-IMPitemchoicesCharacterDataHandle(void *userData, const char *str, int len)
+IMPitemchoicesCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	IMPitemchoicesParseData * pData = (IMPitemchoicesParseData *)userData;
 
@@ -163,7 +163,7 @@ IMPitemchoicesCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-IMPitemchoicesEndElementHandle(void *userData, const char *name)
+IMPitemchoicesEndElementHandle(void *userData, const XML_Char *name)
 {
 	IMPitemchoicesParseData * pData = (IMPitemchoicesParseData *)userData;
 

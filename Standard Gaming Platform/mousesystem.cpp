@@ -67,9 +67,9 @@ UINT32				guiRegionLastLButtonDownTime = 0;
 extern void ReleaseAnchorMode();  //private function used here (implemented in Button System.c)
 
 // number of lines in height help text will be
-INT16 GetNumberOfLinesInHeight( STR16 pStringA );
-INT16 GetWidthOfString( STR16 pStringA );
-void DisplayHelpTokenizedString( STR16 pStringA, INT16 sX, INT16 sY );
+INT16 GetNumberOfLinesInHeight( const STR16 pStringA );
+INT16 GetWidthOfString( const STR16 pStringA );
+void DisplayHelpTokenizedString( const STR16 pStringA, INT16 sX, INT16 sY );
 
 
 
@@ -1098,12 +1098,12 @@ void MSYS_SetRegionUserData(MOUSE_REGION *region,INT32 index,INT32 userdata)
 {
 	if(index < 0 || index > 3)
 	{
-		UINT8 str[80];
+		CHAR8 str[80];
 		#ifdef MOUSESYSTEM_DEBUGGING
 		if( gfIgnoreShutdownAssertions )
 		#endif
 			return;
-		sprintf( (char *)str, "Attempting MSYS_SetRegionUserData() with out of range index %d.", index );
+		sprintf( str, "Attempting MSYS_SetRegionUserData() with out of range index %d.", index );
 		AssertMsg( 0, str );
 	}
 	region->UserData[index]=userdata;
@@ -1120,12 +1120,12 @@ INT32 MSYS_GetRegionUserData(MOUSE_REGION *region,INT32 index)
 {
 	if(index < 0 || index > 3)
 	{
-		UINT8 str[80];
+		CHAR8 str[80];
 		#ifdef MOUSESYSTEM_DEBUGGING
 		if( gfIgnoreShutdownAssertions )
 		#endif
 			return 0;
-		sprintf( (char *)str, "Attempting MSYS_GetRegionUserData() with out of range index %d", index );
+		sprintf( str, "Attempting MSYS_GetRegionUserData() with out of range index %d", index );
 		AssertMsg( 0, str );
 	}
 	return(region->UserData[index]);
@@ -1234,13 +1234,7 @@ void RefreshMouseRegions( )
 
 }
 
-template void SetRegionFastHelpText<wchar_t *>(MOUSE_REGION *, wchar_t *);
-template void SetRegionFastHelpText<wchar_t const*>(MOUSE_REGION *, wchar_t const*);
-template void SetRegionFastHelpText<short *>(MOUSE_REGION *, short *);
-template void SetRegionFastHelpText<unsigned short *>(MOUSE_REGION *, unsigned short *);
-template void SetRegionFastHelpText<unsigned short const*>(MOUSE_REGION *, unsigned short const*);
-template <typename type2>
-void SetRegionFastHelpText( MOUSE_REGION *region, type2 szText )
+void SetRegionFastHelpText( MOUSE_REGION *region, const STR16 szText )
 {
 	Assert( region );
 
@@ -1255,11 +1249,11 @@ void SetRegionFastHelpText( MOUSE_REGION *region, type2 szText )
 		//AssertMsg( 0, String( "Attempting to set fast help text, \"%S\" to an inactive region.", szText ) );
 	}
 
-	if( !szText || !wcslen( (wchar_t *)szText ) )
+	if( !szText || !wcslen( szText ) )
 		return; //blank (or clear)
 
 	// Allocate memory for the button's FastHelp text string...
-	region->FastHelpText = (wchar_t*)MemAlloc( (wcslen( (wchar_t *)szText ) + 1) * sizeof(wchar_t) );
+	region->FastHelpText = (STR16) MemAlloc( (wcslen( szText ) + 1) * sizeof(CHAR16) );
 	Assert( region->FastHelpText );
 
 	wcscpy( region->FastHelpText, szText );
@@ -1287,7 +1281,7 @@ void SetRegionFastHelpText( MOUSE_REGION *region, type2 szText )
 	//region->FastHelpTimer = gsFastHelpDelay;
 }
 
-INT16 GetNumberOfLinesInHeight( STR16 pStringA )
+INT16 GetNumberOfLinesInHeight( const STR16 pStringA )
 {
 	STR16 pToken;
 	INT16 sCounter = 0;
@@ -1370,7 +1364,7 @@ void DisplayFastHelp( MOUSE_REGION *region )
 }
 
 
-INT16 GetWidthOfString( STR16 pStringA )
+INT16 GetWidthOfString( const STR16 pStringA )
 {
 	CHAR16 pString[ 512 ];
 	STR16 pToken;
@@ -1394,7 +1388,7 @@ INT16 GetWidthOfString( STR16 pStringA )
 
 }
 
-void DisplayHelpTokenizedString( STR16 pStringA, INT16 sX, INT16 sY )
+void DisplayHelpTokenizedString( const STR16 pStringA, INT16 sX, INT16 sY )
 {
 	STR16 pToken;
 	INT32 iCounter = 0, i;
@@ -1485,7 +1479,7 @@ void RenderFastHelp()
 
 // **********Wiz8 Versions**************************************************************************
 
-INT16 GetWidthOfString( STR16 pStringA )
+INT16 GetWidthOfString( const STR16 pStringA )
 {
 	CHAR16 pString[ 512 ];
 	STR16 pToken;
@@ -1539,7 +1533,7 @@ void DisplayFastHelp( MOUSE_REGION *region )
 	}
 }
 
-void DisplayHelpTokenizedString( STR16 pStringA, INT16 sX, INT16 sY )
+void DisplayHelpTokenizedString( const STR16 pStringA, INT16 sX, INT16 sY )
 {
 	STR16 pToken;
 	INT32 iCounter = 0, i;

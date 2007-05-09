@@ -182,7 +182,7 @@ void HandleInsuranceInfo()
 
 void RenderInsuranceInfo()
 {
-	wchar_t		sText[800];
+	CHAR16		sText[800];
 	UINT16 usNewLineOffset = 0;
 	UINT16		usPosX;
 
@@ -332,7 +332,7 @@ void SelectInsuranceInfoHomeLinkRegionCallBack(MOUSE_REGION * pRegion, INT32 iRe
 
 void DisplaySubmitClaimPage()
 {
-	wchar_t		sText[800];
+	CHAR16		sText[800];
 	UINT16 usNewLineOffset = 0;
 	UINT16	usPosX;
 
@@ -371,7 +371,7 @@ void DisplaySubmitClaimPage()
 
 void DisplayPremiumPage()
 {
-	wchar_t		sText[800];
+	CHAR16		sText[800];
 	UINT16 usNewLineOffset = 0;
   HVOBJECT hPixHandle;
 
@@ -417,7 +417,7 @@ void DisplayPremiumPage()
 
 void DisplayRenewingPremiumPage()
 {
-	wchar_t		sText[800];
+	CHAR16		sText[800];
 	UINT16 usNewLineOffset = 0;
 //  HVOBJECT hPixHandle;
 
@@ -456,7 +456,7 @@ void DisplayRenewingPremiumPage()
 
 void DisplayCancelationPagePage()
 {
-	wchar_t		sText[800];
+	CHAR16		sText[800];
 	UINT16 usNewLineOffset = 0;
 
 	usNewLineOffset = INS_INFO_FIRST_PARAGRAPH_Y;
@@ -513,7 +513,7 @@ void ChangingInsuranceInfoSubPage( UINT8 ubSubPageNumber )
 
 void DisplayInfoTocPage()
 {
-	wchar_t		sText[800];
+	CHAR16		sText[800];
 	UINT16 usNewLineOffset = 0;
   HVOBJECT hPixHandle;
 	UINT16		usPosY;

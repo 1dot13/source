@@ -49,7 +49,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	AMMO_DROPS	curAmmoDrop;
 	AMMO_DROPS *	curArray;
 
@@ -61,7 +61,7 @@ struct
 typedef ammoDropParseData;
 
 static void XMLCALL 
-ammoDropStartElementHandle(void *userData, const char *name, const char **atts)
+ammoDropStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	ammoDropParseData * pData = (ammoDropParseData *)userData;
 
@@ -102,7 +102,7 @@ ammoDropStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-ammoDropCharacterDataHandle(void *userData, const char *str, int len)
+ammoDropCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	ammoDropParseData * pData = (ammoDropParseData *)userData;
 
@@ -115,7 +115,7 @@ ammoDropCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-ammoDropEndElementHandle(void *userData, const char *name)
+ammoDropEndElementHandle(void *userData, const XML_Char *name)
 {	
 	ammoDropParseData * pData = (ammoDropParseData *)userData;
 

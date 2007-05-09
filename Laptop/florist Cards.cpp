@@ -133,7 +133,7 @@ void RenderFloristCards()
 {
 	UINT8	i,j, ubCount;
 	UINT16	usPosX, usPosY;
-	wchar_t		sTemp[ 640 ];
+	CHAR16		sTemp[ 640 ];
 	UINT32	uiStartLoc=0;
   HVOBJECT hPixHandle;
 	UINT16		usHeightOffset;

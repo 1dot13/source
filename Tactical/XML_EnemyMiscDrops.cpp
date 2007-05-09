@@ -49,7 +49,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	MISC_DROPS	curMiscDrop;
 	MISC_DROPS *	curArray;
 
@@ -61,7 +61,7 @@ struct
 typedef miscDropParseData;
 
 static void XMLCALL 
-miscDropStartElementHandle(void *userData, const char *name, const char **atts)
+miscDropStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	miscDropParseData * pData = (miscDropParseData *)userData;
 
@@ -102,7 +102,7 @@ miscDropStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-miscDropCharacterDataHandle(void *userData, const char *str, int len)
+miscDropCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	miscDropParseData * pData = (miscDropParseData *)userData;
 
@@ -115,7 +115,7 @@ miscDropCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-miscDropEndElementHandle(void *userData, const char *name)
+miscDropEndElementHandle(void *userData, const XML_Char *name)
 {	
 	miscDropParseData * pData = (miscDropParseData *)userData;
 

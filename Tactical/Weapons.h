@@ -259,7 +259,7 @@ typedef struct
  UINT8	bBurstAP;										// Snap: Burst AP cost replaces bBaseAutofireCost
  UINT8	bAutofireShotsPerFiveAP;
 
- INT8	szWeaponName[MAX_WEAPON_NAME_LENGTH+1]; //+1 for the null terminator
+ CHAR8	szWeaponName[MAX_WEAPON_NAME_LENGTH+1]; //+1 for the null terminator
  UINT32	uiIndex;
 
  BOOLEAN swapClips;
@@ -311,7 +311,7 @@ extern WEAPONTYPE Weapon[ MAXITEMS ];
 extern ARMOURTYPE Armour[MAXITEMS+1];
 extern MAGTYPE Magazine[MAXITEMS+1];
 extern EXPLOSIVETYPE Explosive[MAXITEMS+1];
-extern INT8 gzBurstSndStrings[MAXITEMS*2][128];   // Lesh: changed this
+extern CHAR8 gzBurstSndStrings[MAXITEMS*2][128];   // Lesh: changed this
 extern AMMOTYPE AmmoTypes[MAXITEMS];
 
 extern BOOLEAN ReadInWeaponStats(STR fileName);

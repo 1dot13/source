@@ -22,11 +22,11 @@ typedef enum
 typedef struct
 {
 	SMCTABLE_PARSE_STAGE	curElement;
-	INT8					szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8					szCharData[MAX_CHAR_DATA_LENGTH+1];
 	UINT32					currentDepth;
 	UINT32					maxReadDepth;
 
-	//INT8					szCustomShortname[MAX_SECTORNAME_LENGTH+1];
+	//CHAR8					szCustomShortname[MAX_SECTORNAME_LENGTH+1];
 	UINT32					uiRowNumber;
 	UINT32                  uiColNumber;
 	UINT32					travRating;
@@ -41,7 +41,7 @@ typedef struct
 /** Process the opening tag in this expat callback.
  */
 static void XMLCALL
-smctableStartElementHandle(void *userData, const char *name, const char **atts)
+smctableStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	smctableParseData * pData = (smctableParseData *) userData;
 	//FILE *outfile = fopen("smc.log", "at");
@@ -120,7 +120,7 @@ smctableStartElementHandle(void *userData, const char *name, const char **atts)
 /** Process any text content in this callback.
  */
 static void XMLCALL
-smctableCharacterDataHandle(void *userData, const char *str, int len)
+smctableCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	smctableParseData * pData = (smctableParseData *) userData;
 
@@ -131,7 +131,7 @@ smctableCharacterDataHandle(void *userData, const char *str, int len)
 /** Process the closing tag in this expat callback.
  */
 static void XMLCALL
-smctableEndElementHandle(void *userData, const char *name)
+smctableEndElementHandle(void *userData, const XML_Char *name)
 {
 	smctableParseData * pData = (smctableParseData *) userData;
 

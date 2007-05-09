@@ -268,7 +268,7 @@ INT8 PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove)
 			if (pSoldier->bActionPoints >= AP_USE_REMOTE)
 			{
 #ifdef TESTVERSION
-				sprintf((CHAR *)tempstr,"TEST MSG: %s - ACTIVATING his DETONATOR!",pSoldier->name);
+				sprintf(tempstr,"TEST MSG: %s - ACTIVATING his DETONATOR!",pSoldier->name);
 				PopMessage(tempstr);
 #endif
 				// blow up all the PANIC bombs!
@@ -346,7 +346,7 @@ INT8 PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove)
 						pSoldier->usActionData = sPanicTriggerGridNo;
 
 #ifdef TESTVERSION
-						sprintf((CHAR *)tempstr,"TEST MSG: %s - PULLS PANIC TRIGGER at grid %d",
+						sprintf(tempstr,"TEST MSG: %s - PULLS PANIC TRIGGER at grid %d",
 						pSoldier->name,pSoldier->usActionData);
 						PopMessage(tempstr);
 #endif
@@ -372,7 +372,7 @@ INT8 PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove)
 							pSoldier->bPathStored = TRUE;
 
 #ifdef DEBUGDECISIONS
-							sprintf((CHAR *)tempstr,"%s - GETTING CLOSER to PANIC TRIGGER at grid %d (Trigger at %d)", pSoldier->name,pSoldier->usActionData,sPanicTriggerGridNo);
+							sprintf(tempstr,"%s - GETTING CLOSER to PANIC TRIGGER at grid %d (Trigger at %d)", pSoldier->name,pSoldier->usActionData,sPanicTriggerGridNo);
 							AIPopMessage(tempstr);
 #endif
 

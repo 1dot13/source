@@ -232,7 +232,7 @@ BOOLEAN	FileExists( STR strFilename )
 {
 	// First check to see if it's in a library (most files should be there)
 	if ( gFileDataBase.fInitialized &&
-		   CheckIfFileExistInLibrary( (STR) strFilename ) ) return TRUE;
+		   CheckIfFileExistInLibrary(  strFilename ) ) return TRUE;
 
 	// ... then check if it's in the custom Data directory
 	if ( gCustomDataCat.FindFile(strFilename) ) return TRUE;
@@ -427,7 +427,7 @@ HWFILE FileOpen( STR strFilename, UINT32 uiOptions, BOOLEAN fDeleteOnClose )
 		else
 		{
 			//If the file is in the library, get a handle to it.
-			hLibFile = OpenFileFromLibrary( (STR) strFilename );
+			hLibFile = OpenFileFromLibrary(  strFilename );
 
 			//tried to open a file that wasnt in the database
 			if( !hLibFile )
@@ -777,9 +777,9 @@ BOOLEAN FileLoad( STR strFilename, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiB
 //		9 Feb 98	DEF - modified to work with the library system
 //
 //**************************************************************************
-BOOLEAN _cdecl FilePrintf( HWFILE hFile, char * strFormatted, ... )
+BOOLEAN _cdecl FilePrintf( HWFILE hFile, STR8  strFormatted, ... )
 {
-	UINT8		strToSend[80];
+	CHAR8		strToSend[80];
 	va_list	argptr;
 	BOOLEAN fRetVal = FALSE;
 
@@ -792,7 +792,7 @@ BOOLEAN _cdecl FilePrintf( HWFILE hFile, char * strFormatted, ... )
 	if( sLibraryID == REAL_FILE_LIBRARY_ID )
 	{
 		va_start(argptr, strFormatted);
-		vsprintf( (char *)strToSend, (char *)strFormatted, argptr );
+		vsprintf( strToSend, strFormatted, argptr );
 		va_end(argptr);
 		
 		fRetVal = FileWrite( hFile, strToSend, strlen(strToSend), NULL );
@@ -1226,7 +1226,7 @@ void BuildFileDirectory( void )
 	//
 	gfs.uiNumFilesInDirectory = iNumFiles;
 
-	gfs.pcFileNames = (CHAR *)MemAlloc( iNumFiles * FILENAME_LENGTH );
+	gfs.pcFileNames = (STR8)MemAlloc( iNumFiles * FILENAME_LENGTH );
 
 	if ( gfs.pcFileNames )
 	{

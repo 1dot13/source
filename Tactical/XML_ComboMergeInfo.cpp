@@ -49,7 +49,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	ComboMergeInfoStruct		curAttachmentComboMerge;
 	ComboMergeInfoStruct *	curArray;
 	UINT32			maxArraySize;
@@ -60,7 +60,7 @@ struct
 typedef attachmentcombomergeParseData;
 
 static void XMLCALL 
-attachmentcombomergeStartElementHandle(void *userData, const char *name, const char **atts)
+attachmentcombomergeStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	attachmentcombomergeParseData * pData = (attachmentcombomergeParseData *)userData;
 
@@ -102,7 +102,7 @@ attachmentcombomergeStartElementHandle(void *userData, const char *name, const c
 }
 
 static void XMLCALL
-attachmentcombomergeCharacterDataHandle(void *userData, const char *str, int len)
+attachmentcombomergeCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	attachmentcombomergeParseData * pData = (attachmentcombomergeParseData *)userData;
 
@@ -115,7 +115,7 @@ attachmentcombomergeCharacterDataHandle(void *userData, const char *str, int len
 
 
 static void XMLCALL
-attachmentcombomergeEndElementHandle(void *userData, const char *name)
+attachmentcombomergeEndElementHandle(void *userData, const XML_Char *name)
 {
 	attachmentcombomergeParseData * pData = (attachmentcombomergeParseData *)userData;
 

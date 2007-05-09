@@ -148,7 +148,7 @@ void HandleInsurance()
 
 void RenderInsurance()
 {
-	wchar_t		sText[800];
+	CHAR16		sText[800];
   HVOBJECT hPixHandle;
 
 	DisplayInsuranceDefaults();

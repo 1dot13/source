@@ -49,7 +49,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	WEAPON_DROPS	curWeaponDrop;
 	WEAPON_DROPS *	curArray;
 
@@ -61,7 +61,7 @@ struct
 typedef weaponDropParseData;
 
 static void XMLCALL 
-weaponDropStartElementHandle(void *userData, const char *name, const char **atts)
+weaponDropStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	weaponDropParseData * pData = (weaponDropParseData *)userData;
 
@@ -102,7 +102,7 @@ weaponDropStartElementHandle(void *userData, const char *name, const char **atts
 }
 
 static void XMLCALL
-weaponDropCharacterDataHandle(void *userData, const char *str, int len)
+weaponDropCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	weaponDropParseData * pData = (weaponDropParseData *)userData;
 
@@ -115,7 +115,7 @@ weaponDropCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-weaponDropEndElementHandle(void *userData, const char *name)
+weaponDropEndElementHandle(void *userData, const XML_Char *name)
 {	
 	weaponDropParseData * pData = (weaponDropParseData *)userData;
 

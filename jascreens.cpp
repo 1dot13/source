@@ -151,12 +151,12 @@ void DisplayFrameRate( )
 	{
 		// FRAME RATE
 		memset( &VideoOverlayDesc, 0, sizeof( VideoOverlayDesc ) );
-		swprintf( (wchar_t *)VideoOverlayDesc.pzText, (wchar_t *)L"%ld", __min( uiFPS, 1000 ) );
+		swprintf( VideoOverlayDesc.pzText, L"%ld", __min( uiFPS, 1000 ) );
 		VideoOverlayDesc.uiFlags    = VOVERLAY_DESC_TEXT;
 		UpdateVideoOverlay( &VideoOverlayDesc, giFPSOverlay, FALSE );
 
 		// TIMER COUNTER		
-		swprintf( (wchar_t *)VideoOverlayDesc.pzText, (wchar_t *)L"%ld", __min( giTimerDiag, 1000 ) );
+		swprintf( VideoOverlayDesc.pzText, L"%ld", __min( giTimerDiag, 1000 ) );
 		VideoOverlayDesc.uiFlags    = VOVERLAY_DESC_TEXT;
 		UpdateVideoOverlay( &VideoOverlayDesc, giCounterPeriodOverlay, FALSE );
 		
@@ -266,7 +266,7 @@ UINT32 ErrorScreenHandle(void)
   InputAtom  InputEvent;
 	static BOOLEAN	fFirstTime = FALSE;
 #ifdef JA2BETAVERSION
-	wchar_t str[256];
+	CHAR16 str[256];
 #endif
 
 	// For quick setting of new video stuff / to be changed

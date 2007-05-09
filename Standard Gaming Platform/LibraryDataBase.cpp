@@ -539,7 +539,7 @@ BOOLEAN	GetFileHeaderFromLibrary( INT16 sLibraryID, STR pstrFileName, FileHeader
 	gsCurrentLibrary = sLibraryID;
 
 	 /* try to find the filename using a binary search algorithm: */
-	 ppFileHeader = (FileHeaderStruct **) bsearch( (char *) &sFileNameWithPath, (FileHeaderStruct *) gFileDataBase.pLibraries[ sLibraryID ].pFileHeader, gFileDataBase.pLibraries[ sLibraryID ].usNumberOfEntries,
+	 ppFileHeader = (FileHeaderStruct **) bsearch(  &sFileNameWithPath, (FileHeaderStruct *) gFileDataBase.pLibraries[ sLibraryID ].pFileHeader, gFileDataBase.pLibraries[ sLibraryID ].usNumberOfEntries,
 															sizeof( FileHeaderStruct ), (int (*)(const void*, const void*))CompareFileNames );
 
 	 if( ppFileHeader )

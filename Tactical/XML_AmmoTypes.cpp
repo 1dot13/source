@@ -49,7 +49,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	AMMOTYPE		curAmmoType;
 	AMMOTYPE *	curArray;
 	UINT32			maxArraySize;
@@ -60,7 +60,7 @@ struct
 typedef ammotypeParseData;
 
 static void XMLCALL 
-ammotypeStartElementHandle(void *userData, const char *name, const char **atts)
+ammotypeStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	ammotypeParseData * pData = (ammotypeParseData *)userData;
 
@@ -126,7 +126,7 @@ ammotypeStartElementHandle(void *userData, const char *name, const char **atts)
 }
 
 static void XMLCALL
-ammotypeCharacterDataHandle(void *userData, const char *str, int len)
+ammotypeCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	ammotypeParseData * pData = (ammotypeParseData *)userData;
 
@@ -139,7 +139,7 @@ ammotypeCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-ammotypeEndElementHandle(void *userData, const char *name)
+ammotypeEndElementHandle(void *userData, const XML_Char *name)
 {
 	ammotypeParseData * pData = (ammotypeParseData *)userData;
 
@@ -191,22 +191,22 @@ ammotypeEndElementHandle(void *userData, const char *name)
 		else if(strcmp(name, "armourImpactReductionMultiplier") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAmmoType.armourImpactReductionMultiplier  = (INT32) atol((char *)pData->szCharData);
+			pData->curAmmoType.armourImpactReductionMultiplier  = (INT32) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "afterArmourDamageMultiplier") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAmmoType.afterArmourDamageMultiplier  = (INT32) atol((char *)pData->szCharData);
+			pData->curAmmoType.afterArmourDamageMultiplier  = (INT32) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "beforeArmourDamageMultiplier") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAmmoType.beforeArmourDamageMultiplier  = (INT32) atol((char *)pData->szCharData);
+			pData->curAmmoType.beforeArmourDamageMultiplier  = (INT32) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "multipleBulletDamageMultiplier") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAmmoType.multipleBulletDamageMultiplier  = (INT32) atol((char *)pData->szCharData);
+			pData->curAmmoType.multipleBulletDamageMultiplier  = (INT32) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "structureImpactReductionDivisor") == 0)
 		{
@@ -216,22 +216,22 @@ ammotypeEndElementHandle(void *userData, const char *name)
 		else if(strcmp(name, "armourImpactReductionDivisor") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAmmoType.armourImpactReductionDivisor  = (INT32) atol((char *)pData->szCharData);
+			pData->curAmmoType.armourImpactReductionDivisor  = (INT32) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "afterArmourDamageDivisor") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAmmoType.afterArmourDamageDivisor  = (INT32) atol((char *)pData->szCharData);
+			pData->curAmmoType.afterArmourDamageDivisor  = (INT32) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "beforeArmourDamageDivisor") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAmmoType.beforeArmourDamageDivisor  = (INT32) atol((char *)pData->szCharData);
+			pData->curAmmoType.beforeArmourDamageDivisor  = (INT32) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "multipleBulletDamageDivisor") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAmmoType.multipleBulletDamageDivisor  = (INT32) atol((char *)pData->szCharData);
+			pData->curAmmoType.multipleBulletDamageDivisor  = (INT32) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "lockBustingPower") == 0)
 		{

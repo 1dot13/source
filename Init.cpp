@@ -509,7 +509,7 @@ UINT32 InitializeJA2(void)
 #endif
 	
 #ifdef JA2BETAVERSION
-	if( ProcessIfMultilingualCmdLineArgDetected( (UINT8 *)gzCommandLine ) )
+	if( ProcessIfMultilingualCmdLineArgDetected( gzCommandLine ) )
 	{ //If the multilingual text code generator has activated, quit now.
 		gfProgramIsRunning = FALSE;
 		return( INIT_SCREEN );
@@ -539,7 +539,7 @@ UINT32 InitializeJA2(void)
 		{
 			OutputDebugString( "Beginning JA2 using -EDITORAUTO commandline argument...\n" );
 			//For editor purposes, need to know the default map file.
-			sprintf( (char *)gubFilename, "none");
+			sprintf( gubFilename, "none");
 			//also set the sector
 			gWorldSectorX = 0;
 			gWorldSectorY = 0;
@@ -553,7 +553,7 @@ UINT32 InitializeJA2(void)
 		{
 			OutputDebugString( "Beginning JA2 using -EDITOR commandline argument...\n" );
 			//For editor purposes, need to know the default map file.
-			sprintf( (char *)gubFilename, "none");
+			sprintf( gubFilename, "none");
 			//also set the sector
 			gWorldSectorX = 0;
 			gWorldSectorY = 0;

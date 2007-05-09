@@ -326,7 +326,7 @@ UINT32  AniEditScreenHandle(void)
 }
 
 
-UINT16 GetAnimStateFromName( INT8 *zName )
+UINT16 GetAnimStateFromName( STR8 zName )
 {
 	INT32 cnt;
 
@@ -346,11 +346,11 @@ UINT16 GetAnimStateFromName( INT8 *zName )
 void BuildListFile( )
 {
 	FILE *infoFile;
-	char currFilename[128];
+	CHAR8 currFilename[128];
 	int numEntries = 0;
 	int	cnt;
 	UINT16 usState;
-	wchar_t zError[128];
+	CHAR16 zError[128];
 	
 
 	//Verify the existance of the header text file.
@@ -383,7 +383,7 @@ void BuildListFile( )
 		currFilename[ strlen( currFilename ) -1 ] = '\0';
 		currFilename[ strlen( currFilename ) -1 ] = '\0';
 
-		usState = GetAnimStateFromName( (INT8 *)currFilename );
+		usState = GetAnimStateFromName( currFilename );
 
 		if ( usState != 5555 )
 		{
@@ -393,7 +393,7 @@ void BuildListFile( )
 		}
 		else
 		{
-			swprintf( (wchar_t *)zError, (wchar_t *)L"Animation str %S is not known: ", currFilename );
+			swprintf( zError, L"Animation str %S is not known: ", currFilename );
 			DoMessageBox( MSG_BOX_BASIC_STYLE, zError, ANIEDIT_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, NULL, NULL );
 			fclose( infoFile );
 			return;

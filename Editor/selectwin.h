@@ -86,7 +86,7 @@ typedef struct
 		};
 		struct
 		{
-			wchar_t *	pString;
+			STR16	pString;
 		};
 	};
 }

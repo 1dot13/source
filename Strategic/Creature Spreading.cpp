@@ -407,7 +407,7 @@ void InitCreatureQuest()
 		default:
 			#ifdef JA2BETAVERSION
 			{
-				wchar_t str[512];
+				CHAR16 str[512];
 				swprintf( str, L"Creature quest never chose a lair and won't infect any mines.  Infectible mines = %d, iRandom = %d.  "
 											 L"This isn't a bug if you are not receiving income from any mines.", iNumMinesInfectible, iOrigRandom );
 				DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );

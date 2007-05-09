@@ -48,7 +48,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 
 	UINT16			curCompatibleFaceItem[2];
 	UINT32			maxArraySize;
@@ -59,7 +59,7 @@ struct
 typedef compatiblefaceitemParseData;
 
 static void XMLCALL 
-compatiblefaceitemStartElementHandle(void *userData, const char *name, const char **atts)
+compatiblefaceitemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	compatiblefaceitemParseData * pData = (compatiblefaceitemParseData *)userData;
 
@@ -99,7 +99,7 @@ compatiblefaceitemStartElementHandle(void *userData, const char *name, const cha
 }
 
 static void XMLCALL
-compatiblefaceitemCharacterDataHandle(void *userData, const char *str, int len)
+compatiblefaceitemCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	compatiblefaceitemParseData * pData = (compatiblefaceitemParseData *)userData;
 
@@ -112,7 +112,7 @@ compatiblefaceitemCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-compatiblefaceitemEndElementHandle(void *userData, const char *name)
+compatiblefaceitemEndElementHandle(void *userData, const XML_Char *name)
 {
 	compatiblefaceitemParseData * pData = (compatiblefaceitemParseData *)userData;
 

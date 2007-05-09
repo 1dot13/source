@@ -449,7 +449,7 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 	ANITILE_PARAMS		AniParams;
 	UINT8							ubLevelID;
 	STRUCTURE_FILE_REF * pStructureFileRef = NULL;
-	INT8						zFilename[150];
+	CHAR8						zFilename[150];
 	DB_STRUCTURE_REF	 *pDBStructureRef;
 	UINT8									ubLoop;
 	INT16							sTileGridNo;
@@ -607,7 +607,7 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 
 	// Get root filename... this removes path and extension
 	// USed to find struct data fo rthis corpse...
-	GetRootName( zFilename, (INT8 *) AniParams.zCachedFile );
+	GetRootName( zFilename, AniParams.zCachedFile );
 
 	// Add structure data.....
 	CheckForAndAddTileCacheStructInfo( pCorpse->pAniTile->pLevelNode, pCorpse->def.sGridNo, ( UINT16 ) ( pCorpse->iCachedTileID ), GetCorpseStructIndex( pCorpseDef, TRUE ) );
@@ -1574,7 +1574,7 @@ INT16 FindNearestAvailableGridNoForCorpse( ROTTING_CORPSE_DEFINITION *pDef, INT8
 	UINT8 ubSaveNPCAPBudget;
 	UINT8 ubSaveNPCDistLimit;
 	STRUCTURE_FILE_REF * pStructureFileRef = NULL;
-	INT8						zFilename[150];
+	CHAR8						zFilename[150];
 	UINT8						ubBestDirection=0;
 	BOOLEAN	fSetDirection   = FALSE;
 
@@ -1582,7 +1582,7 @@ INT16 FindNearestAvailableGridNoForCorpse( ROTTING_CORPSE_DEFINITION *pDef, INT8
 
 	// Get root filename... this removes path and extension
 	// USed to find struct data fo rthis corpse...
-	GetRootName( zFilename, (INT8 *) zCorpseFilenames[pDef->ubType ] );
+	GetRootName( zFilename, zCorpseFilenames[pDef->ubType ] );
 
 	pStructureFileRef = GetCachedTileStructureRefFromFilename( zFilename );
 

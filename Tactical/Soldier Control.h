@@ -378,7 +378,7 @@ typedef struct
 	INT8												bScientific;  
 	// traits	
 	INT16												sWeightCarriedAtTurnStart;
-	wchar_t											name[ 10 ];
+	CHAR16											name[ 10 ];
 	
 	INT8												bVisible;			// to render or not to render...
 

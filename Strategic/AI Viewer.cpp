@@ -213,7 +213,7 @@ extern void Ensure_RepairedGarrisonGroup( GARRISON_GROUP **ppGarrison, INT32 *pG
 
 
 
-UINT16 gwGroupTypeString[ NUM_ENEMY_INTENTIONS ][ 20 ] =
+CHAR16 gwGroupTypeString[ NUM_ENEMY_INTENTIONS ][ 20 ] =
 {
 	L"RETREAT",
 	L"ASSAULT",
@@ -223,7 +223,7 @@ UINT16 gwGroupTypeString[ NUM_ENEMY_INTENTIONS ][ 20 ] =
 };
 
 
-void StringFromValue( wchar_t *str, INT32 iValue, UINT32 uiMax )
+void StringFromValue( STR16 str, INT32 iValue, UINT32 uiMax )
 {
 	if( iValue < 0 )			//a blank string is determined by a negative value.
 		str[0] = '\0';
@@ -236,7 +236,7 @@ void StringFromValue( wchar_t *str, INT32 iValue, UINT32 uiMax )
 BOOLEAN CreateAIViewer()
 {
   VOBJECT_DESC    VObjectDesc;
-	wchar_t str[6];
+	CHAR16 str[6];
 
 	//Kaiden: Loading INI file to read Values...
 	// Here's another one of those INI reads
@@ -447,7 +447,7 @@ void RenderStationaryGroups()
 	HVOBJECT hVObject;
 	SECTORINFO *pSector;
 	INT32 x, y, xp, yp;
-	wchar_t str[20];
+	CHAR16 str[20];
 	INT32 iSector = 0;
 	UINT8 ubIconColor;
 	UINT8 ubGroupSize = 0;
@@ -851,7 +851,7 @@ void RenderViewer()
 		}
 		for( x = 1; x <= 16; x++ )
 		{
-			wchar_t str[3];
+			CHAR16 str[3];
 			if( x == gsSelSectorX )
 				SetFontForeground( FONT_RED );
 			else if( x == gsHiSectorX )
@@ -1478,7 +1478,7 @@ enum
 	TABLE_ENEMY_RANKS
 };
 
-UINT16 EnemyRankString[ TABLE_ENEMY_RANKS ][ 10 ] =
+CHAR16 EnemyRankString[ TABLE_ENEMY_RANKS ][ 10 ] =
 {
 	L"Adm",
 	L"Trp",
@@ -1502,7 +1502,7 @@ enum
 	POP_TABLE_ENEMY_TYPES
 };
 
-UINT16 EnemyTypeString[ POP_TABLE_ENEMY_TYPES ][ 10 ] =
+CHAR16 EnemyTypeString[ POP_TABLE_ENEMY_TYPES ][ 10 ] =
 {
 	L"Pool",
 	L"Garr",
@@ -1529,8 +1529,8 @@ void PrintEnemyPopTable()
 	UINT8		ubEnemyType;
 	SECTORINFO *pSector;
 	GROUP *pGroup;
-	UINT16 wPrintSpec[ 10 ];
-	UINT16 wTempString [10 ];
+	CHAR16 wPrintSpec[ 10 ];
+	CHAR16 wTempString [10 ];
 
 
 	memset( &usEnemyPopTable, 0, sizeof ( usEnemyPopTable ) );
@@ -1684,7 +1684,7 @@ enum
 	KILLED_TABLE_ROWS
 };
 
-UINT16 EnemiesKilledString[ KILLED_TABLE_ROWS ][ 10 ] =
+CHAR16 EnemiesKilledString[ KILLED_TABLE_ROWS ][ 10 ] =
 {
 	L"Tact",
 	L"Auto",
@@ -1703,8 +1703,8 @@ void PrintEnemiesKilledTable()
 	UINT16 usEnemiesKilledTable[ TABLE_ENEMY_RANKS ][ KILLED_TABLE_ROWS ];
 	UINT8	ubEnemyRank;
 	UINT8 ubKillType;
-	UINT16 wPrintSpec[ 10 ];
-	UINT16 wTempString [10 ];
+	CHAR16 wPrintSpec[ 10 ];
+	CHAR16 wTempString [10 ];
 
 
 	memset( &usEnemiesKilledTable, 0, sizeof ( usEnemiesKilledTable ) );
@@ -1873,8 +1873,8 @@ void PrintDetailedEnemiesInSectorInfo( INT32 iScreenX, INT32 iScreenY, UINT8 ubS
 	INT32 iDesired, iSurplus;
 	UINT8 ubGroupCnt = 0;
 	UINT8 ubSectorID;
-	UINT16 wString[ 120 ];
-	UINT16 wSubString[ 120 ];
+	CHAR16 wString[ 120 ];
+	CHAR16 wSubString[ 120 ];
 	INT16 iGarrisonIndex;
 	INT16 iPatrolIndex;
 	WAYPOINT *pFinalWaypoint;

@@ -1381,7 +1381,7 @@ BOOLEAN DrawBoxText(UINT32 uiCounter)
 {
  UINT32 uiCount=0;
  INT16 uX, uY;
- wchar_t sString[100];
+ CHAR16 sString[100];
 
  
 	if ( ( uiCounter < 0 ) || ( uiCounter >= MAX_POPUP_BOX_COUNT ) )

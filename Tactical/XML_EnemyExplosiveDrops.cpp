@@ -49,7 +49,7 @@ struct
 {
 	PARSE_STAGE	curElement;
 
-	INT8		szCharData[MAX_CHAR_DATA_LENGTH+1];
+	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 	EXPLOSIVE_DROPS	curExplosiveDrop;
 	EXPLOSIVE_DROPS *	curArray;
 
@@ -61,7 +61,7 @@ struct
 typedef explosiveDropParseData;
 
 static void XMLCALL 
-explosiveDropStartElementHandle(void *userData, const char *name, const char **atts)
+explosiveDropStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	explosiveDropParseData * pData = (explosiveDropParseData *)userData;
 
@@ -102,7 +102,7 @@ explosiveDropStartElementHandle(void *userData, const char *name, const char **a
 }
 
 static void XMLCALL
-explosiveDropCharacterDataHandle(void *userData, const char *str, int len)
+explosiveDropCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	explosiveDropParseData * pData = (explosiveDropParseData *)userData;
 
@@ -115,7 +115,7 @@ explosiveDropCharacterDataHandle(void *userData, const char *str, int len)
 
 
 static void XMLCALL
-explosiveDropEndElementHandle(void *userData, const char *name)
+explosiveDropEndElementHandle(void *userData, const XML_Char *name)
 {	
 	explosiveDropParseData * pData = (explosiveDropParseData *)userData;
 

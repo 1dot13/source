@@ -787,7 +787,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 						// ATE; Reduce it due to animation being stopped...
 						DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - Burst animation ended") );
-						ReduceAttackBusyCount( (UINT8) pSoldier->ubID, FALSE );
+						ReduceAttackBusyCount( pSoldier->ubID, FALSE );
 
 
 						if ( CheckForImproperFireGunEnd( pSoldier ) )
@@ -1630,21 +1630,21 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
                                 if ( Random( 100 ) < 10 )
                                 {
 													        // Play sound
-													        PlayJA2SampleFromFile( (STR8) pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
+													        PlayJA2SampleFromFile(  pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
                                 }
                               }
                               else
                               {
 
 													      // Play sound
-													      PlayJA2SampleFromFile( (STR8)pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
+													      PlayJA2SampleFromFile( pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
                               }
                             }
                           }
                           else
                           {
 													  // Play sound
-													  PlayJA2SampleFromFile( (STR8)pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
+													  PlayJA2SampleFromFile( pAnimDef->zSoundFile, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
                           }
 												}
 												else
@@ -2480,13 +2480,13 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 					// code: freeup attcker
 					DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Reducing attacker busy count..., CODE FROM ANIMATION %s ( %d )", gAnimControl[ pSoldier->usAnimState ].zAnimStr, pSoldier->usAnimState ) );
-					ReduceAttackBusyCount( (UINT8) pSoldier->ubID, FALSE );
+					ReduceAttackBusyCount( pSoldier->ubID, FALSE );
 
           // ATE: Here, reduce again if creaturequeen tentical attack...
           if ( pSoldier->usAnimState == QUEEN_SWIPE )
           {
 					  DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Reducing attacker busy count for end of queen swipe\n" ) );
-					  ReduceAttackBusyCount( (UINT8) pSoldier->ubID, FALSE );
+					  ReduceAttackBusyCount( pSoldier->ubID, FALSE );
           }
 					break;
 
