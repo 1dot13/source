@@ -3,13 +3,12 @@
 
 #include "Language Defines.h"
 
-// Remove comment to build Beta version & Editor
-//#define	JA2BETAVERSION
+// Remove comment to build Beta version (with lot of debug infos) including the Editor
+#define	JA2BETAVERSION
 
 // Normal test version
 //#define JA2TESTVERSION
 
-// Remove comment to build the editor!
 //#define JA2EDITOR
 
 //#ifdef _DEBUG
