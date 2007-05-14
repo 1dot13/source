@@ -449,6 +449,10 @@ INT16 gsBottomLeftWorldX, gsBottomLeftWorldY;
 INT16 gsBottomRightWorldX, gsBottomRightWorldY;
 BOOLEAN gfIgnoreScrolling = FALSE;
 
+// WANNE: If we are talking?
+// This check is used, to prevent scrolling in small maps (e.g: Rebel Basement) in higher resolution (1024x768) [2007-05-14]
+BOOLEAN gfDialogControl = FALSE;
+
 BOOLEAN	gfIgnoreScrollDueToCenterAdjust = FALSE;
 
 // GLOBAL SCROLLING PARAMS
@@ -752,9 +756,13 @@ UINT32 GetRenderFlags(void)
 void RenderSetShadows(BOOLEAN fShadows)
 {
 	if(fShadows)
+	{
 		gRenderFlags|=RENDER_FLAG_SHADOWS;
+	}
 	else
+	{
 		gRenderFlags&=(~RENDER_FLAG_SHADOWS);
+	}
 }
 
 
@@ -2850,7 +2858,6 @@ UINT32 cnt = 0;
 
 	gRenderFlags&=(~(RENDER_FLAG_FULL|RENDER_FLAG_MARKED|RENDER_FLAG_ROOMIDS|RENDER_FLAG_CHECKZ));
 
-
 	if ( gTacticalStatus.uiFlags & SHOW_Z_BUFFER )
 	{
 		// COPY Z BUFFER TO FRAME BUFFER
@@ -3914,6 +3921,8 @@ void InitRenderParams( UINT8 ubRestrictionID )
 
 }
 
+// WANNE: Scrolling: Only scroll, if the map is larger than the radar map
+// For example: Do not allow scrolling in Rebel Basement.
 // Appy? HEahehahehahehae.....
 BOOLEAN ApplyScrolling( INT16 sTempRenderCenterX, INT16 sTempRenderCenterY, BOOLEAN fForceAdjust, BOOLEAN fCheckOnly )
 {
@@ -3943,13 +3952,22 @@ BOOLEAN ApplyScrolling( INT16 sTempRenderCenterX, INT16 sTempRenderCenterY, BOOL
 	INT16 sNewScreenX, sNewScreenY;
 	INT16	sMult;
 
+	// WANNE:
+	INT16 sRadarTLX, sRadarTLY;
+	INT16 sRadarBRX, sRadarBRY;
+	INT16 sRadarCX, sRadarCY;
+	INT16 sHeight, sWidth, sX, sY;
+	INT16			gsRadarY;
+	BOOLEAN			fAllowScrollingHorizontal = FALSE;
+	BOOLEAN			fAllowScrollingVertical = FALSE;
+
 
 	//Makesure it's a multiple of 5
 	sMult = sTempRenderCenterX / CELL_X_SIZE;
 	sTempRenderCenterX = ( sMult * CELL_X_SIZE ) + ( CELL_X_SIZE / 2 );
 
 	//Makesure it's a multiple of 5
-	sMult = sTempRenderCenterY / CELL_X_SIZE;
+	sMult = sTempRenderCenterY / CELL_Y_SIZE;
 	sTempRenderCenterY = ( sMult * CELL_Y_SIZE ) + ( CELL_Y_SIZE / 2 );
 
 	
@@ -3986,218 +4004,277 @@ BOOLEAN ApplyScrolling( INT16 sTempRenderCenterX, INT16 sTempRenderCenterY, BOOL
 	sBottomRightWorldX = sScreenCenterX  + sX_S;
 	sBottomRightWorldY = sScreenCenterY  + sY_S;
 
-	// Get angles
-	// TOP LEFT CORNER FIRST
-	dOpp = sTopLeftWorldY - gsTLY;
-	dAdj = sTopLeftWorldX - gsTLX;
 
-	dAngle = (double)atan2( dAdj, dOpp );
-	at1 = dAngle * 180 / PI;			
+	// WANNE: Scrolling bugfix, if we are talking in a small tactical map (e.g: Rebel Basement) in high resolution (1024x768)[2007-05-14]
+	// Determine radar coordinates
+	sRadarCX	= (INT16)( gsCX * gdScaleX );
+	sRadarCY	= (INT16)( gsCY * gdScaleY );
 
-	if ( dAngle < 0 )
+	if( guiCurrentScreen == MAP_SCREEN )
 	{
-		fOutLeft = TRUE;
+		gsRadarY = RADAR_WINDOW_STRAT_Y;
 	}
-	else	if ( dAngle > PI/2 )
+	else if ( gsCurInterfacePanel == SM_PANEL )
 	{
-		fOutTop = TRUE;
+		gsRadarY = RADAR_WINDOW_TM_Y;
 	}
-
-	// TOP RIGHT CORNER
-	dOpp = sTopRightWorldY - gsTRY;
-	dAdj = gsTRX - sTopRightWorldX;
-
-	dAngle = (double)atan2( dAdj, dOpp );
-	at2 = dAngle * 180 / PI;			
-
-	if ( dAngle < 0 )
+	else
 	{
-		fOutRight = TRUE;
-	}
-	else if ( dAngle > PI/2 )
-	{
-		fOutTop = TRUE;
+		gsRadarY = RADAR_WINDOW_TM_Y;
 	}
 
 
-	// BOTTOM LEFT CORNER
-	dOpp = gsBLY - sBottomLeftWorldY;
-	dAdj = sBottomLeftWorldX - gsBLX;
+	sWidth		= ( RADAR_WINDOW_WIDTH );
+	sHeight		= ( RADAR_WINDOW_HEIGHT );
+	sX				= RADAR_WINDOW_X;
+	sY				= gsRadarY;
 
-	dAngle = (double)atan2( dAdj, dOpp );
-	at3 = dAngle * 180 / PI;			
 
-	if ( dAngle < 0 )
+	sRadarTLX = (INT16)( ( sTopLeftWorldX * gdScaleX ) - sRadarCX  + sX + ( sWidth /2 ) );
+	sRadarTLY = (INT16)( ( sTopLeftWorldY * gdScaleY ) - sRadarCY + gsRadarY + ( sHeight /2 ) ); 
+	sRadarBRX = (INT16)( ( sBottomRightWorldX * gdScaleX ) - sRadarCX + sX + ( sWidth /2 ) );
+	sRadarBRY = (INT16)( ( sBottomRightWorldY * gdScaleY ) - sRadarCY + gsRadarY + ( sHeight /2 ) );
+
+	// WANNE: Scrolling bugfix, if we are talking in a small tactical map (e.g: Rebel Basement) in high resolution (1024x768)[2007-05-14]
+	if ((sRadarBRX - sRadarTLX) <= RADAR_WINDOW_WIDTH)
 	{
-		fOutLeft = TRUE;
-	}
-	else if ( dAngle > PI/2 )
-	{
-		fOutBottom = TRUE;
-	}
-
-	// BOTTOM RIGHT CORNER
-	dOpp = gsBRY - sBottomRightWorldY;
-	dAdj = gsBRX - sBottomRightWorldX;
-
-	dAngle = (double)atan2( dAdj, dOpp );
-	at4 = dAngle * 180 / PI;			
-
-	if ( dAngle < 0 )
-	{
-		fOutRight = TRUE;
-	}
-	else if ( dAngle > PI/2 )
-	{
-		fOutBottom = TRUE;
+		fAllowScrollingHorizontal = TRUE;
 	}
 
-	sprintf( gDebugStr, "Angles: %d %d %d %d", (int)at1, (int)at2, (int)at3, (int)at4 );
-
-	if ( !fOutRight && !fOutLeft && !fOutTop && !fOutBottom )
+	if ((sRadarBRY - sRadarTLY) <= RADAR_WINDOW_HEIGHT)
 	{
-		fScrollGood = TRUE;
+		fAllowScrollingVertical = TRUE;
 	}
 
-	// If in editor, anything goes
-	if ( gfEditMode && _KeyDown( SHIFT ) )
+	if ((fAllowScrollingHorizontal == FALSE || fAllowScrollingVertical == FALSE) && (gfDialogControl == TRUE))
 	{
-		fScrollGood = TRUE;
+		gfDialogControl = FALSE;
+		return (FALSE);
 	}
 
-	// Reset some UI flags
-	gfUIShowExitEast								= FALSE;
-	gfUIShowExitWest								= FALSE;
-	gfUIShowExitNorth								= FALSE;
-	gfUIShowExitSouth								= FALSE;
+	// WANNE: Scrolling bugfix for small maps in high resolution (eg: Rebel Basement)
+	//if ((fAllowScrollingHorizontal || fAllowScrollingVertical) && gfDialogControl)
+	//{
 
+		// Get angles
+		// TOP LEFT CORNER FIRST
+		dOpp = sTopLeftWorldY - gsTLY;
+		dAdj = sTopLeftWorldX - gsTLX;
 
-	if ( !fScrollGood )
-	{
-		// Force adjustment, if true
-		if ( fForceAdjust )
+		dAngle = (double)atan2( dAdj, dOpp );
+		at1 = dAngle * 180 / PI;			
+
+		if ( dAngle < 0 )
 		{
-			if ( fOutTop )
-			{
-				// Adjust screen coordinates on the Y!
-				CorrectRenderCenter( sScreenCenterX, (INT16)(gsTLY + sY_S ), &sNewScreenX, &sNewScreenY );
-				FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
-
-				sTempRenderCenterX = sTempPosX_W;
-				sTempRenderCenterY = sTempPosY_W;
-				fScrollGood = TRUE;
-			}
-
-			if ( fOutBottom )
-			{
-				// OK, Ajust this since we get rounding errors in our two different calculations.
-				CorrectRenderCenter( sScreenCenterX, (INT16)(gsBLY - sY_S - 50 ), &sNewScreenX, &sNewScreenY );
-				FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
-
-				sTempRenderCenterX = sTempPosX_W;
-				sTempRenderCenterY = sTempPosY_W;
-				fScrollGood = TRUE;
-			}
-						
-			if ( fOutLeft )
-			{
-				CorrectRenderCenter( (INT16)( gsTLX + sX_S ) , sScreenCenterY , &sNewScreenX, &sNewScreenY );
-				FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
-
-				sTempRenderCenterX = sTempPosX_W;
-				sTempRenderCenterY = sTempPosY_W;
-				fScrollGood = TRUE;
-			}
-
-			if ( fOutRight )
-			{
-				CorrectRenderCenter( (INT16)( gsTRX - sX_S ) , sScreenCenterY , &sNewScreenX, &sNewScreenY );
-				FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
-
-				sTempRenderCenterX = sTempPosX_W;
-				sTempRenderCenterY = sTempPosY_W;
-				fScrollGood = TRUE;
-			}
-
+			fOutLeft = TRUE;
 		}
-		else
+		else	if ( dAngle > PI/2 )
 		{
-			if ( fOutRight )
-			{
-				// Check where our cursor is!
-				if ( gusMouseXPos >= SCREEN_WIDTH - 1 )
-				{
-					gfUIShowExitEast = TRUE;
-				}
-			}
-
-			if ( fOutLeft )
-			{
-				// Check where our cursor is!
-				if ( gusMouseXPos == 0 )
-				{
-					gfUIShowExitWest = TRUE;
-				}
-			}
-
-			if ( fOutTop )
-			{
-				// Check where our cursor is!
-				if ( gusMouseYPos == 0 )
-				{
-					gfUIShowExitNorth = TRUE;
-				}
-			}
-
-			if ( fOutBottom )
-			{
-				// Check where our cursor is!
-				if ( gusMouseYPos >= SCREEN_HEIGHT - 1 )
-				{
-					gfUIShowExitSouth = TRUE;
-				}
-			}
-
-		}
-	}
-
-
-	if ( fScrollGood )
-	{
-		if ( !fCheckOnly )
-		{
-				sprintf( gDebugStr, "Center: %d %d ", (int)gsRenderCenterX, (int)gsRenderCenterY );
-
-				//Makesure it's a multiple of 5
-				sMult = sTempRenderCenterX / CELL_X_SIZE;
-				gsRenderCenterX = ( sMult * CELL_X_SIZE ) + ( CELL_X_SIZE / 2 );
-
-				//Makesure it's a multiple of 5
-				sMult = sTempRenderCenterY / CELL_X_SIZE;
-				gsRenderCenterY = ( sMult * CELL_Y_SIZE ) + ( CELL_Y_SIZE / 2 );
-
-				//gsRenderCenterX = sTempRenderCenterX;
-				//gsRenderCenterY = sTempRenderCenterY;
-
-				gsTopLeftWorldX = sTopLeftWorldX - gsTLX;
-				gsTopLeftWorldY = sTopLeftWorldY - gsTLY;
-
-				gsTopRightWorldX = sTopRightWorldX - gsTLX;
-				gsTopRightWorldY = sTopRightWorldY - gsTLY;
-				
-				gsBottomLeftWorldX = sBottomLeftWorldX - gsTLX;
-				gsBottomLeftWorldY = sBottomLeftWorldY - gsTLY;
-
-				gsBottomRightWorldX = sBottomRightWorldX - gsTLX;
-				gsBottomRightWorldY = sBottomRightWorldY - gsTLY;
-
-        SetPositionSndsVolumeAndPanning( );
+			fOutTop = TRUE;
 		}
 
-		return( TRUE );
-	}
+		// TOP RIGHT CORNER
+		dOpp = sTopRightWorldY - gsTRY;
+		dAdj = gsTRX - sTopRightWorldX;
 
-	return( FALSE );
+		dAngle = (double)atan2( dAdj, dOpp );
+		at2 = dAngle * 180 / PI;			
+
+		if ( dAngle < 0 )
+		{
+			fOutRight = TRUE;
+		}
+		else if ( dAngle > PI/2 )
+		{
+			fOutTop = TRUE;
+		}
+
+
+		// BOTTOM LEFT CORNER
+		dOpp = gsBLY - sBottomLeftWorldY;
+		dAdj = sBottomLeftWorldX - gsBLX;
+
+		dAngle = (double)atan2( dAdj, dOpp );
+		at3 = dAngle * 180 / PI;			
+
+		if ( dAngle < 0 )
+		{
+			fOutLeft = TRUE;
+		}
+		else if ( dAngle > PI/2 )
+		{
+			fOutBottom = TRUE;
+		}
+
+		// BOTTOM RIGHT CORNER
+		dOpp = gsBRY - sBottomRightWorldY;
+		dAdj = gsBRX - sBottomRightWorldX;
+
+		dAngle = (double)atan2( dAdj, dOpp );
+		at4 = dAngle * 180 / PI;			
+
+		if ( dAngle < 0 )
+		{
+			fOutRight = TRUE;
+		}
+		else if ( dAngle > PI/2 )
+		{
+			fOutBottom = TRUE;
+		}
+
+		sprintf( gDebugStr, "Angles: %d %d %d %d", (int)at1, (int)at2, (int)at3, (int)at4 );
+
+		if ( !fOutRight && !fOutLeft && !fOutTop && !fOutBottom )
+		{
+			fScrollGood = TRUE;
+		}
+
+		// If in editor, anything goes
+		if ( gfEditMode && _KeyDown( SHIFT ) )
+		{
+			fScrollGood = TRUE;
+		}
+
+		// Reset some UI flags
+		gfUIShowExitEast								= FALSE;
+		gfUIShowExitWest								= FALSE;
+		gfUIShowExitNorth								= FALSE;
+		gfUIShowExitSouth								= FALSE;
+
+
+		if ( !fScrollGood )
+		{
+			// Force adjustment, if true
+			if ( fForceAdjust )
+			{
+				if ( fOutTop )
+				{
+					// WANNE: Test
+					// Adjust screen coordinates on the Y!
+					CorrectRenderCenter( sScreenCenterX, (INT16)(gsTLY + sY_S ), &sNewScreenX, &sNewScreenY );
+					FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
+
+					sTempRenderCenterX = sTempPosX_W;
+					sTempRenderCenterY = sTempPosY_W;
+
+					fScrollGood = TRUE;
+				}
+
+				if ( fOutBottom )
+				{
+					// OK, Ajust this since we get rounding errors in our two different calculations.
+					CorrectRenderCenter( sScreenCenterX, (INT16)(gsBLY - sY_S - 50 ), &sNewScreenX, &sNewScreenY );
+					FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
+
+					sTempRenderCenterX = sTempPosX_W;
+					sTempRenderCenterY = sTempPosY_W;
+					fScrollGood = TRUE;
+				}
+							
+				if ( fOutLeft )
+				{
+					CorrectRenderCenter( (INT16)( gsTLX + sX_S ) , sScreenCenterY , &sNewScreenX, &sNewScreenY );
+					FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
+
+					sTempRenderCenterX = sTempPosX_W;
+					sTempRenderCenterY = sTempPosY_W;
+
+					fScrollGood = TRUE;
+				}
+
+				if ( fOutRight )
+				{
+					CorrectRenderCenter( (INT16)( gsTRX - sX_S ) , sScreenCenterY , &sNewScreenX, &sNewScreenY );
+					FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
+
+					sTempRenderCenterX = sTempPosX_W;
+					sTempRenderCenterY = sTempPosY_W;
+					fScrollGood = TRUE;
+				}
+
+			}
+			else
+			{
+				if ( fOutRight )
+				{
+					// Check where our cursor is!
+					if ( gusMouseXPos >= SCREEN_WIDTH - 1 )
+					{
+						gfUIShowExitEast = TRUE;
+					}
+				}
+
+				if ( fOutLeft )
+				{
+					// Check where our cursor is!
+					if ( gusMouseXPos == 0 )
+					{
+						gfUIShowExitWest = TRUE;
+					}
+				}
+
+				if ( fOutTop )
+				{
+					// Check where our cursor is!
+					if ( gusMouseYPos == 0 )
+					{
+						gfUIShowExitNorth = TRUE;
+					}
+				}
+
+				if ( fOutBottom )
+				{
+					// Check where our cursor is!
+					if ( gusMouseYPos >= SCREEN_HEIGHT - 1 )
+					{
+						gfUIShowExitSouth = TRUE;
+					}
+				}
+
+			}
+		}
+
+
+		if ( fScrollGood )
+		{
+			if ( !fCheckOnly )
+			{
+					sprintf( gDebugStr, "Center: %d %d ", (int)gsRenderCenterX, (int)gsRenderCenterY );
+
+					//Makesure it's a multiple of 5
+					sMult = sTempRenderCenterX / CELL_X_SIZE;
+
+					gsRenderCenterX = ( sMult * CELL_X_SIZE ) + ( CELL_X_SIZE / 2 );
+
+					//Makesure it's a multiple of 5
+					sMult = sTempRenderCenterY / CELL_Y_SIZE;
+
+					gsRenderCenterY = ( sMult * CELL_Y_SIZE ) + ( CELL_Y_SIZE / 2 );
+
+					//gsRenderCenterX = sTempRenderCenterX;
+					//gsRenderCenterY = sTempRenderCenterY;
+
+					
+					gsTopLeftWorldX = sTopLeftWorldX - gsTLX;
+					gsTopRightWorldX = sTopRightWorldX - gsTLX;
+					gsBottomLeftWorldX = sBottomLeftWorldX - gsTLX;
+					gsBottomRightWorldX = sBottomRightWorldX - gsTLX;
+					
+					gsTopLeftWorldY = sTopLeftWorldY - gsTLY;
+					gsTopRightWorldY = sTopRightWorldY - gsTLY;
+					gsBottomLeftWorldY = sBottomLeftWorldY - gsTLY;
+					gsBottomRightWorldY = sBottomRightWorldY - gsTLY;
+
+				SetPositionSndsVolumeAndPanning( );
+			}
+
+			return( TRUE );
+		}
+
+		return( FALSE );
+	//}
+
+	//return ( FALSE );
 }
 
 

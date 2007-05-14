@@ -60,6 +60,11 @@ INT16			sSelectedSquadLine = -1;
 
 BOOLEAN		gfRadarCurrentGuyFlash = FALSE;
 
+// WANNE: Are we allowed to scroll in radar map? 
+// (E.g: It is not allowed to scroll, if the whole tactical map fits in the radar map) [2007-05-14]
+BOOLEAN		fAllowRadarMovementHor = TRUE;
+BOOLEAN		fAllowRadarMovementVer = TRUE;
+
 
 MOUSE_REGION gRadarRegionSquadList[ NUMBER_OF_SQUADS ];
 
@@ -205,14 +210,23 @@ void RadarRegionMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		if ( pRegion->ButtonState & MSYS_LEFT_BUTTON )
 		{
-			// Use relative coordinates to set center of viewport
-			sRadarX = pRegion->RelativeXPos - ( RADAR_WINDOW_WIDTH / 2 );				
-			sRadarY = pRegion->RelativeYPos - ( RADAR_WINDOW_HEIGHT / 2 );
+			// WANNE: If the tactical map fits in the whole radar map, disable scrolling in radar map. [2007-05-14]
+			if (fAllowRadarMovementHor)
+				// Use relative coordinates to set center of viewport
+				sRadarX = pRegion->RelativeXPos - ( RADAR_WINDOW_WIDTH / 2 );	
+			else
+				sRadarX = 0;
 
-			AdjustWorldCenterFromRadarCoords( sRadarX, sRadarY );
+			if (fAllowRadarMovementVer)
+				sRadarY = pRegion->RelativeYPos - ( RADAR_WINDOW_HEIGHT / 2 );
+			else
+				sRadarY = 0;
 
-			SetRenderFlags(RENDER_FLAG_FULL);
-
+			if (fAllowRadarMovementHor || fAllowRadarMovementVer)
+			{
+				AdjustWorldCenterFromRadarCoords( sRadarX, sRadarY );
+				SetRenderFlags(RENDER_FLAG_FULL);
+			}
 		}
 	}
 }
@@ -231,11 +245,25 @@ void RadarRegionButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		if ( !InOverheadMap( ) )
 		{
-			// Use relative coordinates to set center of viewport
-			sRadarX = pRegion->RelativeXPos - ( RADAR_WINDOW_WIDTH / 2 );				
-			sRadarY = pRegion->RelativeYPos - ( RADAR_WINDOW_HEIGHT / 2 );
+			// WANNE: If the tactical map fits in the whole radar map, disable scrolling in radar map. [2007-05-14]
+			if (fAllowRadarMovementHor)
+				// Use relative coordinates to set center of viewport
+				sRadarX = pRegion->RelativeXPos - ( RADAR_WINDOW_WIDTH / 2 );	
+			else
+				sRadarX = 0;
 
-			AdjustWorldCenterFromRadarCoords( sRadarX, sRadarY );
+			if (fAllowRadarMovementVer)
+				sRadarY = pRegion->RelativeYPos - ( RADAR_WINDOW_HEIGHT / 2 );
+			else
+				sRadarY = 0;
+
+			if (fAllowRadarMovementHor || fAllowRadarMovementVer)
+			{
+				AdjustWorldCenterFromRadarCoords( sRadarX, sRadarY );
+				
+				// WANNE: is this used?
+				SetRenderFlags(RENDER_FLAG_FULL);
+			}
 		}
 		else
 		{
@@ -246,13 +274,11 @@ void RadarRegionButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		if ( !InOverheadMap( ) )
 		{
-			// WANNE 2 <wenn wir im strategy screen sind, darf keine overhead map angezeigt werden!!>
 			if (fDisplayOverheadMap == TRUE)
 				GoIntoOverheadMap( );
 		}
 		else
 		{
-			// WANNE 2 <wenn wir im strategy screen sind, darf keine overhead map angezeigt werden!!>
 			if (fDisplayOverheadMap == TRUE)
 				KillOverheadMap();
 		}
@@ -373,15 +399,41 @@ void RenderRadarScreen( )
 	sRadarBRX = (INT16)( ( sBottomRightWorldX * gdScaleX ) - sRadarCX + sX + ( sWidth /2 ) );
 	sRadarBRY = (INT16)( ( sBottomRightWorldY * gdScaleY ) - sRadarCY + gsRadarY + ( sHeight /2 ) );
 
+	// WANNE: Check if the tactical map fits in the whole radar map. If so, disable scrolling in radar map. [2007-05-14]
+	fAllowRadarMovementHor = TRUE;
+	fAllowRadarMovementVer = TRUE;
+	if ((sRadarBRX - sRadarTLX) > RADAR_WINDOW_WIDTH)
+	{
+		fAllowRadarMovementHor = FALSE;
+	}
+
+	if ((sRadarBRY - sRadarTLY) > RADAR_WINDOW_HEIGHT)
+	{
+		fAllowRadarMovementVer = FALSE;
+	}
+
+
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 	
-
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, RADAR_WINDOW_X, gsRadarY, ( RADAR_WINDOW_X + RADAR_WINDOW_WIDTH - 1 ), ( gsRadarY + RADAR_WINDOW_HEIGHT - 1 ) );
 
 	if( !( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 	{
 		if(gbPixelDepth==16)
 		{
+			// WANNE: Correct radar rectangle size if it is too large to fit in radar screen [2007-05-14]
+			if (fAllowRadarMovementHor == FALSE)
+			{
+				sRadarTLX = RADAR_WINDOW_X;
+				sRadarBRX = RADAR_WINDOW_X + RADAR_WINDOW_WIDTH;
+			}
+
+			if (fAllowRadarMovementVer == FALSE)
+			{
+				sRadarTLY = RADAR_WINDOW_TM_Y;
+				sRadarBRY = RADAR_WINDOW_TM_Y + RADAR_WINDOW_HEIGHT;
+			}
+
 			usLineColor = Get16BPPColor( FROMRGB( 0, 255, 0 ) );
 			RectangleDraw( TRUE, sRadarTLX, sRadarTLY, sRadarBRX, sRadarBRY - 1, usLineColor, pDestBuf );
 		}

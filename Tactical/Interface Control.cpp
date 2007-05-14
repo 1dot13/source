@@ -145,6 +145,7 @@ void HandlePausedTacticalRender( void )
 	if( gfPausedTacticalRenderFlags )
 	{
 		gRenderFlags|=gfPausedTacticalRenderFlags;
+
 		gfPausedTacticalRenderFlags = FALSE;
 	}
 

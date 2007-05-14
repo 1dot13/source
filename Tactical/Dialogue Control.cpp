@@ -2285,7 +2285,11 @@ void HandleDialogueEnd( FACETYPE *pFace )
 					
 				}
 
+				// WANNE: This check is used, to prevent scrolling in small maps (e.g: Rebel Basement) in higher resolution (1024x768) [2007-05-14]
+				gfDialogControl = TRUE;
+
 				SetRenderFlags( RENDER_FLAG_FULL );
+
 				gTalkPanel.fRenderSubTitlesNow = FALSE;
 
 				// Delete subtitle box

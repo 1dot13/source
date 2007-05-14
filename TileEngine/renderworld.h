@@ -112,6 +112,10 @@ extern INT16 gsBottomLeftWorldY;
 extern INT16 gsBottomRightWorldX;
 extern INT16 gsBottomRightWorldY;
 
+// WANNE: If we are talking?
+// This check is used, to prevent scrolling in small maps (e.g: Rebel Basement) in higher resolution (1024x768) [2007-05-14]
+extern BOOLEAN gfDialogControl;
+
 
 extern SGPRect	gSelectRegion;
 extern SGPPoint	gSelectAnchor;

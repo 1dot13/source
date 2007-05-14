@@ -598,7 +598,9 @@ void DeleteTalkingMenu( )
 	// Set cursor back to normal mode...
 	guiPendingOverrideEvent = A_CHANGE_TO_MOVE;	
 
-	// Rerender world
+	// WANNE: This check is used, to prevent scrolling in small maps (e.g: Rebel Basement) in higher resolution (1024x768) [2007-05-14]
+	gfDialogControl = TRUE;
+
 	SetRenderFlags( RENDER_FLAG_FULL );
 
 	gfInTalkPanel = FALSE;
