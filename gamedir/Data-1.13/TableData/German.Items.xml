@@ -3616,11 +3616,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>454</uiIndex>
-		<szItemName>7.62x51 US-G</szItemName>
-		<szLongItemName>7.62x51mm Magazin, US-Glaser</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>7.62x51 Mag US-G #5</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>.50 BMG Mag</szItemName>
+		<szLongItemName>.50 BMG Magazin</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.50 BMG Magazin</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>455</uiIndex>
@@ -6344,19 +6344,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>795</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 795</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>M468</szItemName>
+		<szLongItemName>Barrett M468</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Barrett M468</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>796</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 796</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>M4A3</szItemName>
+		<szLongItemName>Bushmaster M4A3</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Bushmaster M4A3</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>797</uiIndex>
@@ -8425,5 +8425,69 @@
 		<szItemDesc>Das ist ein Messer!</szItemDesc>
 		<szBRName>SABRE-Messer</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1056</uiIndex>
+		<szItemName>5.56x45 HS</szItemName>
+		<szLongItemName>5.56x45mm Magazin, Hohlspitz</szLongItemName>
+		<szItemDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szItemDesc>
+		<szBRName>5.56x45 Mag HS</szBRName>
+		<szBRDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1057</uiIndex>
+		<szItemName>5.56x45 Mag</szItemName>
+		<szLongItemName>5.56x45mm Magazin</szLongItemName>
+		<szItemDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szItemDesc>
+		<szBRName>5.56x45 Mag</szBRName>
+		<szBRDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1058</uiIndex>
+		<szItemName>5.56x45 G</szItemName>
+		<szLongItemName>5.56x45mm Magazin, Glaser</szLongItemName>
+		<szItemDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szItemDesc>
+		<szBRName>5.56x45 Mag Glaser</szBRName>
+		<szBRDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1059</uiIndex>
+		<szItemName>5.56x45 LS</szItemName>
+		<szLongItemName>5.56x45mm Magazin, Leuchtspur</szLongItemName>
+		<szItemDesc>Mit dieser Leuchtspurmunition sollte das Zielen und Treffen im Burstmodus kein Problem mehr sein.</szItemDesc>
+		<szBRName>5.56x45 Mag LS</szBRName>
+		<szBRDesc>Mit dieser Leuchtspurmunition sollte das Zielen und Treffen im Burstmodus kein Problem mehr sein.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1060</uiIndex>
+		<szItemName>5.56x45 Match</szItemName>
+		<szLongItemName>5.56x45mm Magazin, Match</szLongItemName>
+		<szItemDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 120m.</szItemDesc>
+		<szBRName>5.56x45 Mag Match</szBRName>
+		<szBRDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 120m.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1061</uiIndex>
+		<szItemName>5.56x45 US-HS</szItemName>
+		<szLongItemName>5.56x45mm Magazin, US-HS</szLongItemName>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
+		<szBRName>5.56x45 Mag US-HS</szBRName>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1062</uiIndex>
+		<szItemName>5.56x45 US</szItemName>
+		<szLongItemName>5.56x45mm Magazin, Unterschall</szLongItemName>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
+		<szBRName>5.56x45 Mag US</szBRName>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1063</uiIndex>
+		<szItemName>1st Resp. Kit</szItemName>
+		<szLongItemName>Ersthelfer-Tasche</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Ersthelfer-Tasche</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 </ITEMLIST>

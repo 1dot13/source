@@ -3634,11 +3634,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>454</uiIndex>
-		<szItemName>7.62x51mm 5 G C</szItemName>
-		<szLongItemName>7.62x51mm Mag, 5 Glaser Cold</szLongItemName>
-		<szItemDesc>If 5 rounds of Glaser Safety ammo fail to make your point, the conversation wasn't worth having to begin with. These bullets have been cold-loaded for quieter stopping power.</szItemDesc>
-		<szBRName>7.62x51mm 5 Glaser Cold</szBRName>
-		<szBRDesc>Five rounds of frangible fun. All of the man-stopping power, none of the over-penetration.  These bullets have been cold-loaded for silent hunting.</szBRDesc>
+		<szItemName>.50 Mag, 5</szItemName>
+		<szLongItemName>.50 Magazine, 5</szLongItemName>
+		<szItemDesc>An 5 round magazine of .50 caliber (Browning) bullets.</szItemDesc>
+		<szBRName>.50 Mag, 5</szBRName>
+		<szBRDesc>An 5 round magazine of .50 caliber (Browning) bullets.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>455</uiIndex>
@@ -6362,19 +6362,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>795</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 795</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>M468</szItemName>
+		<szLongItemName>Barrett M468</szLongItemName>
+		<szItemDesc>Barrett's entry into the 6.8mm SPC rifle market. A strong and sturdy rifle.</szItemDesc>
+		<szBRName>Barrett M468</szBRName>
+		<szBRDesc>Not what you usually expect when you hear 'Barrett', but rest assured that this 6.8mm SPC rifle has the usual high quality and precision of any other Barrett rifle.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>796</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 796</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>M4A3</szItemName>
+		<szLongItemName>Bushmaster M4A3</szLongItemName>
+		<szItemDesc>The Bushmaster M4A3, chambered for the new 6.8mm SPC round.</szItemDesc>
+		<szBRName>Bushmaster M4A3</szBRName>
+		<szBRDesc>Bushmaster's famous M4A3, now in 6.8mm SPC. As an added bonus, this is the military/LE full-auto variant.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>797</uiIndex>
@@ -8387,5 +8387,69 @@
 		<szItemDesc>Now that's a knife!</szItemDesc>
 		<szBRName>Sabre</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1056</uiIndex>
+		<szItemName>5.56mm Mag 42 HP</szItemName>
+		<szLongItemName>5.56x45mm Mag, 42 HP</szLongItemName>
+		<szItemDesc>This 42-round magazine of 5.56 Remington hollow point ammo is a variation of the civilian .223 hunting round. Like the .223, it is designed to maximize nerve shock and blood loss.</szItemDesc>
+		<szBRName>5.56x45mm Mag, 42 HP</szBRName>
+		<szBRDesc>This is the economical choice for target shooting, hunting, or stopping potential long-range muggings. These 42 rounds of 50 grain .223 JHP can save your life and your pocket book.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1057</uiIndex>
+		<szItemName>5.56mm Mag 42</szItemName>
+		<szLongItemName>5.56x45mm Mag, 42</szLongItemName>
+		<szItemDesc>These 42 rounds of NATO standard light armor piercing ammunition have the ability to tumble within its target to create a much larger wound than what is normally expected from a such small bullet.</szItemDesc>
+		<szBRName>5.56x45mm Mag, 42</szBRName>
+		<szBRDesc>This 42-round magazine is filled with our NATO standard 5.56mm. This round's steel penetrator makes it possible to beat all but the best in today's body armor.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1058</uiIndex>
+		<szItemName>5.56mm Mag 42 G</szItemName>
+		<szLongItemName>5.56x45mm Mag, 42 Glaser</szLongItemName>
+		<szItemDesc>If 42 rounds of Glaser Safety ammo fail to make your point, the conversation wasn't worth having to begin with.</szItemDesc>
+		<szBRName>5.56x45mm Mag, 42 Glaser</szBRName>
+		<szBRDesc>Forty-two rounds of frangible fun. All of the man-stopping power, none of the over-penetration.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1059</uiIndex>
+		<szItemName>5.56mm Mag 42 T</szItemName>
+		<szLongItemName>5.56x45mm Mag, 42 Tracer</szLongItemName>
+		<szItemDesc>Burst fire dosen't have to be a guessing game anymore with 30 rounds of tracer ammo.</szItemDesc>
+		<szBRName>5.56x45mm Mag, 42 Tracer</szBRName>
+		<szBRDesc>Tracer ammo ensures putting those shots on target when it counts.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1060</uiIndex>
+		<szItemName>5.56mm Mag 42 M</szItemName>
+		<szLongItemName>5.56x45mm Mag, 42 Match</szLongItemName>
+		<szItemDesc>This match grade ammo will add extra range to your 5.56mm assault rifle.</szItemDesc>
+		<szBRName>5.56x45mm Mag, 42 Match</szBRName>
+		<szBRDesc>Close only counts with horseshoes and hand-grenades, for an extra edge load up on match ammuntion.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1061</uiIndex>
+		<szItemName>5.56mm Mag 42 HP C</szItemName>
+		<szLongItemName>5.56x45mm Mag, 42 HP Cold</szLongItemName>
+		<szItemDesc>Added expansion in a quiet 42 round package.</szItemDesc>
+		<szBRName>5.56x45mm Mag, 42 HP Cold</szBRName>
+		<szBRDesc>Extra punch minus the noise with this 5.56mm ammo.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1062</uiIndex>
+		<szItemName>5.56mm Mag 42 C</szItemName>
+		<szLongItemName>5.56x45mm Mag, 42 Cold</szLongItemName>
+		<szItemDesc>Pump em' full of holes without waking up the countryside. Cold loaded ammo is 40% quieter than standard ball rounds.</szItemDesc>
+		<szBRName>5.56x45mm Mag, 42 Cold</szBRName>
+		<szBRDesc>This 42-round magazine of ammunition will leave your enemies as cold as the rounds themselves, and is as silent as an Artic wind. </szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1063</uiIndex>
+		<szItemName>1st Resp. Kit</szItemName>
+		<szLongItemName>First Response Kit</szLongItemName>
+		<szItemDesc>This kit can be used to store all kinds of medical equipment like boosters, canteen, and first aid kit.</szItemDesc>
+		<szBRName>First Response Kit</szBRName>
+		<szBRDesc>Handy compact kit for medical equipment. Comes with a regeneration booster.</szBRDesc>
 	</ITEM>
 </ITEMLIST>
