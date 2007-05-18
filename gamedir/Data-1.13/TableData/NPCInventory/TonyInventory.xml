@@ -786,6 +786,11 @@
 		<ubOptimalNumber>3</ubOptimalNumber>
 	</INVENTORY>
 	<INVENTORY>
+		<uiIndex>157</uiIndex>
+		<sItemIndex>128</sItemIndex>
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
 		<uiIndex>158</uiIndex>
 		<sItemIndex>129</sItemIndex>
 		<ubOptimalNumber>0</ubOptimalNumber>
