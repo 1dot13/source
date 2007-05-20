@@ -23934,4 +23934,2062 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<DefaultAttachment>235</DefaultAttachment>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1064</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1064</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1065</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1065</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1066</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1066</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1067</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1067</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1068</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1068</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1069</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1069</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1070</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1070</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1071</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1071</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1072</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1072</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1073</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1073</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1074</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1074</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1075</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1075</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1076</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1076</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1077</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1077</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1078</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1078</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1079</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1079</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1080</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1080</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1081</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1081</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1082</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1082</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1083</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1083</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1084</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1084</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1085</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1085</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1086</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1086</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1087</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1087</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1088</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1088</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1089</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1089</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1090</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1090</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1091</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1091</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1092</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1092</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1093</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1093</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1094</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1094</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1095</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1095</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1096</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1096</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1097</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1097</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1098</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1098</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1099</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1099</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1100</uiIndex>
+		<szItemName>SO-18 Helmet</szItemName>
+		<szLongItemName>Treated Stealth Ops Helmet</szLongItemName>
+		<szItemDesc>This helmet will protect you from small caliber rounds effectively, providing maximal stealth. For those really quiet operatives only.  Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Stealth Ops Helmet</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>128</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>646</ubGraphicNum>
+		<ubWeight>11</ubWeight>
+		<usPrice>900</usPrice>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<SciFi>1</SciFi>
+		<StealthBonus>10</StealthBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1101</uiIndex>
+		<szItemName>SO-18 Vest</szItemName>
+		<szLongItemName>Treated Stealth Ops Vest</szLongItemName>
+		<szItemDesc>With this vest an operative will remain uncovered for the most time, but vulnerable to large caliber weapons. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Stealth Ops Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>129</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>644</ubGraphicNum>
+		<ubWeight>37</ubWeight>
+		<usPrice>2200</usPrice>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<SciFi>1</SciFi>
+		<StealthBonus>25</StealthBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1102</uiIndex>
+		<szItemName>SO-18 Leggings</szItemName>
+		<szLongItemName>Treated Stealth Ops Leggings</szLongItemName>
+		<szItemDesc>No need to learn ninjutsu. An operative wearing these leggings will become ninja right away. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Stealth Ops Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>130</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>645</ubGraphicNum>
+		<ubWeight>44</ubWeight>
+		<usPrice>1800</usPrice>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<SciFi>1</SciFi>
+		<StealthBonus>15</StealthBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1103</uiIndex>
+		<szItemName>Recon Kev.-18 Vest</szItemName>
+		<szLongItemName>Treated Recon Kevlar Vest</szLongItemName>
+		<szItemDesc>This camouflaged kevlar vest is the best solution for any recon activity. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Recon Kevlar Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>131</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>640</ubGraphicNum>
+		<ubWeight>39</ubWeight>
+		<usPrice>1700</usPrice>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-1</AimBonus>
+		<CamoBonus>25</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1104</uiIndex>
+		<szItemName>Recon T. Guard. Vest</szItemName>
+		<szLongItemName>Treated Recon Guardian Vest</szLongItemName>
+		<szItemDesc>This camouflaged guardian vest is the best solution for any recon activity. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Recon Guardian Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>132</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>639</ubGraphicNum>
+		<ubWeight>39</ubWeight>
+		<usPrice>2300</usPrice>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-2</AimBonus>
+		<CamoBonus>25</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1105</uiIndex>
+		<szItemName>Recon Tw.-18 Vest</szItemName>
+		<szLongItemName>Treated Recon Twaron Vest</szLongItemName>
+		<szItemDesc>This camouflaged twaron vest is the best solution for any recon activity. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Recon Twaron Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>133</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>642</ubGraphicNum>
+		<ubWeight>32</ubWeight>
+		<usPrice>2000</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-2</AimBonus>
+		<CamoBonus>25</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1106</uiIndex>
+		<szItemName>Recon Kev.-18 Leggings</szItemName>
+		<szLongItemName>Treated Recon Kevlar Leggings</szLongItemName>
+		<szItemDesc>Comfortable and camouflaged, these kevlar leggings are made for reconnaissance in the first place. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Recon Kevlar Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>134</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>641</ubGraphicNum>
+		<ubWeight>45</ubWeight>
+		<usPrice>1400</usPrice>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<CamoBonus>20</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1107</uiIndex>
+		<szItemName>Recon Tw.-18 Leggings</szItemName>
+		<szLongItemName>Treated Recon Twaron Leggings</szLongItemName>
+		<szItemDesc>Comfortable and camouflaged, these twaron leggings are made for reconnaissance in the first place. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Recon Twaron Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>135</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>643</ubGraphicNum>
+		<ubWeight>36</ubWeight>
+		<usPrice>1700</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<CamoBonus>20</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1108</uiIndex>
+		<szItemName>Medic Kev.-18 Vest</szItemName>
+		<szLongItemName>Treated Medic Kevlar Vest</szLongItemName>
+		<szItemDesc>Such vests are usually worn by field medics, since they provide some extra space for the equipment they use. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Medic Kevlar Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>136</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>633</ubGraphicNum>
+		<ubWeight>41</ubWeight>
+		<usPrice>1700</usPrice>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-2</AimBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1109</uiIndex>
+		<szItemName>Medic T. Guard. Vest</szItemName>
+		<szLongItemName>Treated Medic Guardian Vest</szLongItemName>
+		<szItemDesc>Such vests are usually worn by field medics, since they provide some extra space for the equipment they use. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Medic Guardian Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>137</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>632</ubGraphicNum>
+		<ubWeight>41</ubWeight>
+		<usPrice>2300</usPrice>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1110</uiIndex>
+		<szItemName>Medic Tw.-18 Vest</szItemName>
+		<szLongItemName>Treated Medic Twaron Vest</szLongItemName>
+		<szItemDesc>Such vests are usually worn by field medics, since they provide some extra space for the equipment they use. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Medic Twaron Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>138</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>637</ubGraphicNum>
+		<ubWeight>34</ubWeight>
+		<usPrice>2000</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1111</uiIndex>
+		<szItemName>Medic Spec.-18 Vest</szItemName>
+		<szLongItemName>Treated Medic Spectra Vest</szLongItemName>
+		<szItemDesc>Such vests are usually worn by field medics, since they provide some extra space for the equipment they use. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Medic Spectra Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>139</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>635</ubGraphicNum>
+		<ubWeight>41</ubWeight>
+		<usPrice>3200</usPrice>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-4</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1112</uiIndex>
+		<szItemName>Medic Dyn.-18 Vest</szItemName>
+		<szLongItemName>Treated Medic Dyneema Vest</szLongItemName>
+		<szItemDesc>Such vests are usually worn by field medics, since they provide some extra space for the equipment they use.</szItemDesc>
+		<szBRName>Treated Medic Dyneema Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>140</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>630</ubGraphicNum>
+		<ubWeight>29</ubWeight>
+		<usPrice>3200</usPrice>
+		<bReliability>3</bReliability>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1113</uiIndex>
+		<szItemName>Medic Kev.-18 Legg.</szItemName>
+		<szLongItemName>Treated Medic Kevlar Leggings</szLongItemName>
+		<szItemDesc>Nothing like an useful place for First Aid Kit, Canteen or Condoms. With these leggings you'll get it. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Medic Kevlar Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>141</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>634</ubGraphicNum>
+		<ubWeight>48</ubWeight>
+		<usPrice>1400</usPrice>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1114</uiIndex>
+		<szItemName>Medic Tw.-18 Legg.</szItemName>
+		<szLongItemName>Treated Medic Twaron Leggings</szLongItemName>
+		<szItemDesc>Nothing like an useful place for First Aid Kit, Canteen or Condoms. With these leggings you'll get it. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Medic Twaron Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>142</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>638</ubGraphicNum>
+		<ubWeight>39</ubWeight>
+		<usPrice>1700</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1115</uiIndex>
+		<szItemName>Medic Spec.-18 Legg.</szItemName>
+		<szLongItemName>Treated Medic Spectra Leggings</szLongItemName>
+		<szItemDesc>Nothing like an useful place for First Aid Kit, Canteen or Condoms. With these leggings you'll get it. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Medic Spectra Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>143</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>636</ubGraphicNum>
+		<ubWeight>48</ubWeight>
+		<usPrice>2900</usPrice>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-2</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1116</uiIndex>
+		<szItemName>Medic Dyn.-18 Legg.</szItemName>
+		<szLongItemName>Treated Medic Dyneema Leggings</szLongItemName>
+		<szItemDesc>Nothing like an useful place for First Aid Kit, Canteen or Condoms. With these leggings you'll get it.</szItemDesc>
+		<szBRName>Treated Medic Dyneema Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>144</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>631</ubGraphicNum>
+		<ubWeight>39</ubWeight>
+		<usPrice>2900</usPrice>
+		<bReliability>3</bReliability>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1117</uiIndex>
+		<szItemName>Mech. Kev.-18 Vest</szItemName>
+		<szLongItemName>Treated Mechanic Kevlar Vest</szLongItemName>
+		<szItemDesc>For all mechanic and demolitions freaks such upgraded vest is a fulfilled dream. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Mechanic Kevlar Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>145</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>624</ubGraphicNum>
+		<ubWeight>41</ubWeight>
+		<usPrice>1700</usPrice>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-2</AimBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1118</uiIndex>
+		<szItemName>Mech. T. Guard. Vest</szItemName>
+		<szLongItemName>Treated Mechanic Guardian Vest</szLongItemName>
+		<szItemDesc>For all mechanic and demolitions freaks such upgraded vest is a fulfilled dream. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Mechanic Guardian Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>146</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>623</ubGraphicNum>
+		<ubWeight>41</ubWeight>
+		<usPrice>2300</usPrice>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1119</uiIndex>
+		<szItemName>Mech. Tw.-18 Vest</szItemName>
+		<szLongItemName>Treated Mechanic Twaron Vest</szLongItemName>
+		<szItemDesc>For all mechanic and demolitions freaks such upgraded vest is a fulfilled dream. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Mechanic Twaron Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>147</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>628</ubGraphicNum>
+		<ubWeight>34</ubWeight>
+		<usPrice>2000</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1120</uiIndex>
+		<szItemName>Mech. Spec.-18 Vest</szItemName>
+		<szLongItemName>Treated Mechanic Spectra Vest</szLongItemName>
+		<szItemDesc>For all mechanic and demolitions freaks such upgraded vest is a fulfilled dream. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Mechanic Spectra Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>148</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>626</ubGraphicNum>
+		<ubWeight>41</ubWeight>
+		<usPrice>3200</usPrice>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-4</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1121</uiIndex>
+		<szItemName>Mech. Dyn.-18 Vest</szItemName>
+		<szLongItemName>Treated Mechanic Dyneema Vest</szLongItemName>
+		<szItemDesc>For all mechanic and demolitions freaks such upgraded vest is a fulfilled dream.</szItemDesc>
+		<szBRName>Treated Mechanic Dyneema Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>149</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>621</ubGraphicNum>
+		<ubWeight>29</ubWeight>
+		<usPrice>3200</usPrice>
+		<bReliability>3</bReliability>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1122</uiIndex>
+		<szItemName>Mech. Kev.-18 Legg.</szItemName>
+		<szLongItemName>Treated Mechanic Kevlar Leggings</szLongItemName>
+		<szItemDesc>Special leggings upgraded to serve mechanic and demolitions operatives better than the standard ones. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Mechanic Kevlar Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>150</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>625</ubGraphicNum>
+		<ubWeight>48</ubWeight>
+		<usPrice>1400</usPrice>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1123</uiIndex>
+		<szItemName>Mech. Tw.-18 Legg.</szItemName>
+		<szLongItemName>Treated Mechanic Twaron Leggings</szLongItemName>
+		<szItemDesc>Special leggings upgraded to serve mechanic and demolitions operatives better than the standard ones. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Mechanic Twaron Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>151</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>620</ubGraphicNum>
+		<ubWeight>39</ubWeight>
+		<usPrice>1700</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1124</uiIndex>
+		<szItemName>Mech. Spec.-18 Legg.</szItemName>
+		<szLongItemName>Treated Mechanic Spectra Leggings</szLongItemName>
+		<szItemDesc>Special leggings upgraded to serve mechanic and demolitions operatives better than the standard ones. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Mechanic Spectra Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>152</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>627</ubGraphicNum>
+		<ubWeight>48</ubWeight>
+		<usPrice>2900</usPrice>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-2</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1125</uiIndex>
+		<szItemName>Mech. Dyn.-18 Legg.</szItemName>
+		<szLongItemName>Treated Mechanic Dyneema Leggings</szLongItemName>
+		<szItemDesc>Special leggings upgraded to serve mechanic and demolitions operatives better than the standard ones.</szItemDesc>
+		<szBRName>Treated Mechanic Dyneema Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>153</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>622</ubGraphicNum>
+		<ubWeight>39</ubWeight>
+		<usPrice>2900</usPrice>
+		<bReliability>3</bReliability>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1126</uiIndex>
+		<szItemName>FO Kevlar-18 Vest</szItemName>
+		<szLongItemName>Treated Field Operative Kevlar Vest</szLongItemName>
+		<szItemDesc>This vest seems to be upgraded for purposes of longer field operations and missions. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Field Operative Kevlar Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>154</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>616</ubGraphicNum>
+		<ubWeight>41</ubWeight>
+		<usPrice>1700</usPrice>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-2</AimBonus>
+		<CamoBonus>25</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1127</uiIndex>
+		<szItemName>FO T. Guardian Vest</szItemName>
+		<szLongItemName>Treated Field Operative Guardian Vest</szLongItemName>
+		<szItemDesc>This vest seems to be upgraded for purposes of longer field operations and missions. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Field Operative Guardian Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>155</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>614</ubGraphicNum>
+		<ubWeight>41</ubWeight>
+		<usPrice>2300</usPrice>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>25</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1128</uiIndex>
+		<szItemName>FO Twaron-18 Vest</szItemName>
+		<szLongItemName>Treated Field Operative Twaron Vest</szLongItemName>
+		<szItemDesc>This vest seems to be upgraded for purposes of longer field operations and missions. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Field Operative Twaron Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>156</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>619</ubGraphicNum>
+		<ubWeight>34</ubWeight>
+		<usPrice>2000</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>25</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1129</uiIndex>
+		<szItemName>FO Spectra-18 Vest</szItemName>
+		<szLongItemName>Treated Field Operative Spectra Vest</szLongItemName>
+		<szItemDesc>This vest seems to be upgraded for purposes of longer field operations and missions. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Field Operative Spectra Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>157</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>617</ubGraphicNum>
+		<ubWeight>41</ubWeight>
+		<usPrice>3200</usPrice>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-4</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>25</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1130</uiIndex>
+		<szItemName>FO Dyneema-18 Vest</szItemName>
+		<szLongItemName>Treated Field Operative Dyneema Vest</szLongItemName>
+		<szItemDesc>This vest seems to be upgraded for purposes of longer field operations and missions.</szItemDesc>
+		<szBRName>Treated Field Operative Dyneema Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>158</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>612</ubGraphicNum>
+		<ubWeight>29</ubWeight>
+		<usPrice>3200</usPrice>
+		<bReliability>3</bReliability>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<CamoBonus>25</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1131</uiIndex>
+		<szItemName>FO Kevlar-18 Legg.</szItemName>
+		<szLongItemName>Treated Field Ops Kevlar Leggings</szLongItemName>
+		<szItemDesc>For a person spending too much time on a field duty, these upgraded leggings are definitely his best friend. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Field Ops Kevlar Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>159</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>615</ubGraphicNum>
+		<ubWeight>48</ubWeight>
+		<usPrice>1400</usPrice>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>20</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1132</uiIndex>
+		<szItemName>FO Twaron-18 Legg.</szItemName>
+		<szLongItemName>Treated Field Ops Twaron Leggings</szLongItemName>
+		<szItemDesc>For a person spending too much time on a field duty, these upgraded leggings are definitely his best friend. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Field Ops Twaron Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>160</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>620</ubGraphicNum>
+		<ubWeight>39</ubWeight>
+		<usPrice>1700</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>20</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1133</uiIndex>
+		<szItemName>FO Spectra-18 Legg.</szItemName>
+		<szLongItemName>Treated Field Ops Spectra Leggings</szLongItemName>
+		<szItemDesc>For a person spending too much time on a field duty, these upgraded leggings are definitely his best friend. Treated with C-18 for added protection.</szItemDesc>
+		<szBRName>Treated Field Ops Spectra Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>161</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>618</ubGraphicNum>
+		<ubWeight>48</ubWeight>
+		<usPrice>2900</usPrice>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-2</APBonus>
+		<CamoBonus>20</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1134</uiIndex>
+		<szItemName>FO Dyneema-18 Legg.</szItemName>
+		<szLongItemName>Treated Field Ops Dyneema Leggings</szLongItemName>
+		<szItemDesc>For a person spending too much time on a field duty, these upgraded leggings are definitely his best friend.</szItemDesc>
+		<szBRName>Treated Field Ops Dyneema Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>162</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>613</ubGraphicNum>
+		<ubWeight>39</ubWeight>
+		<usPrice>2900</usPrice>
+		<bReliability>3</bReliability>
+		<bRepairEase>-4</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>20</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1135</uiIndex>
+		<szItemName>C. SO Helmet</szItemName>
+		<szLongItemName>Coated Stealth Ops Helmet</szLongItemName>
+		<szItemDesc>This helmet will protect you from small caliber rounds effectively, providing maximal stealth. For those really quiet operatives only. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Stealth Ops Helmet</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>163</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>681</ubGraphicNum>
+		<ubWeight>9</ubWeight>
+		<usPrice>1000</usPrice>
+		<bReliability>1</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<SciFi>1</SciFi>
+		<StealthBonus>10</StealthBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1136</uiIndex>
+		<szItemName>C. SO Vest</szItemName>
+		<szLongItemName>Coated Stealth Ops Vest</szLongItemName>
+		<szItemDesc>With this vest an operative will remain uncovered for the most time, but vulnerable to large caliber weapons. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Stealth Ops Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>164</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>679</ubGraphicNum>
+		<ubWeight>31</ubWeight>
+		<usPrice>2400</usPrice>
+		<bReliability>1</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<SciFi>1</SciFi>
+		<StealthBonus>25</StealthBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1137</uiIndex>
+		<szItemName>C. SO Leggings</szItemName>
+		<szLongItemName>Coated Stealth Ops Leggings</szLongItemName>
+		<szItemDesc>No need to learn ninjutsu. An operative wearing these leggings will become ninja right away. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Stealth Ops Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>165</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>680</ubGraphicNum>
+		<ubWeight>36</ubWeight>
+		<usPrice>2000</usPrice>
+		<bReliability>1</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<SciFi>1</SciFi>
+		<StealthBonus>15</StealthBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1138</uiIndex>
+		<szItemName>Recon C. Kev. Vest</szItemName>
+		<szLongItemName>Coated Recon Kevlar Vest</szLongItemName>
+		<szItemDesc>This camouflaged kevlar vest is the best solution for any recon activity. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Recon Kevlar Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>166</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>675</ubGraphicNum>
+		<ubWeight>33</ubWeight>
+		<usPrice>1900</usPrice>
+		<bReliability>1</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-1</AimBonus>
+		<CamoBonus>25</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1139</uiIndex>
+		<szItemName>Recon C. Guard. Vest</szItemName>
+		<szLongItemName>Coated Recon Guardian Vest</szLongItemName>
+		<szItemDesc>This camouflaged guardian vest is the best solution for any recon activity. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Recon Guardian Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>167</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>674</ubGraphicNum>
+		<ubWeight>33</ubWeight>
+		<usPrice>2500</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-2</AimBonus>
+		<CamoBonus>25</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1140</uiIndex>
+		<szItemName>Recon C. Tw. Vest</szItemName>
+		<szLongItemName>Coated Recon Twaron Vest</szLongItemName>
+		<szItemDesc>This camouflaged twaron vest is the best solution for any recon activity. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Recon Twaron Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>168</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>677</ubGraphicNum>
+		<ubWeight>26</ubWeight>
+		<usPrice>2200</usPrice>
+		<bReliability>2</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-2</AimBonus>
+		<CamoBonus>25</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1141</uiIndex>
+		<szItemName>Recon C. Kev. Leggings</szItemName>
+		<szLongItemName>Coated Recon Kevlar Leggings</szLongItemName>
+		<szItemDesc>Comfortable and camouflaged, these kevlar leggings are made for reconnaissance in the first place. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Recon Kevlar Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>169</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>676</ubGraphicNum>
+		<ubWeight>38</ubWeight>
+		<usPrice>1600</usPrice>
+		<bReliability>1</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<CamoBonus>20</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1142</uiIndex>
+		<szItemName>Recon C. Tw. Leggings</szItemName>
+		<szLongItemName>Coated Recon Twaron Leggings</szLongItemName>
+		<szItemDesc>Comfortable and camouflaged, these twaron leggings are made for reconnaissance in the first place. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Recon Twaron Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>170</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>678</ubGraphicNum>
+		<ubWeight>29</ubWeight>
+		<usPrice>1900</usPrice>
+		<bReliability>2</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<CamoBonus>20</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1143</uiIndex>
+		<szItemName>Medic C. Kev. Vest</szItemName>
+		<szLongItemName>Coated Medic Kevlar Vest</szLongItemName>
+		<szItemDesc>Such vests are usually worn by field medics, since they provide some extra space for the equipment they use. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Medic Kevlar Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>171</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>668</ubGraphicNum>
+		<ubWeight>35</ubWeight>
+		<usPrice>1900</usPrice>
+		<bReliability>1</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-2</AimBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1144</uiIndex>
+		<szItemName>Medic C. Guard. Vest</szItemName>
+		<szLongItemName>Coated Medic Guardian Vest</szLongItemName>
+		<szItemDesc>Such vests are usually worn by field medics, since they provide some extra space for the equipment they use. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Medic Guardian Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>172</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>667</ubGraphicNum>
+		<ubWeight>35</ubWeight>
+		<usPrice>2500</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1145</uiIndex>
+		<szItemName>Medic C. Tw. Vest</szItemName>
+		<szLongItemName>Coated Medic Twaron Vest</szLongItemName>
+		<szItemDesc>Such vests are usually worn by field medics, since they provide some extra space for the equipment they use. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Medic Twaron Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>173</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>672</ubGraphicNum>
+		<ubWeight>28</ubWeight>
+		<usPrice>2200</usPrice>
+		<bReliability>2</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1146</uiIndex>
+		<szItemName>Medic C. Spec. Vest</szItemName>
+		<szLongItemName>Coated Medic Spectra Vest</szLongItemName>
+		<szItemDesc>Such vests are usually worn by field medics, since they provide some extra space for the equipment they use. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Medic Spectra Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>174</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>670</ubGraphicNum>
+		<ubWeight>35</ubWeight>
+		<usPrice>3400</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-4</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1147</uiIndex>
+		<szItemName>Medic C. Dyn. Vest</szItemName>
+		<szLongItemName>Coated Medic Dyneema Vest</szLongItemName>
+		<szItemDesc>Such vests are usually worn by field medics, since they provide some extra space for the equipment they use.</szItemDesc>
+		<szBRName>Coated Medic Dyneema Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>175</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>665</ubGraphicNum>
+		<ubWeight>23</ubWeight>
+		<usPrice>3400</usPrice>
+		<bReliability>4</bReliability>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1148</uiIndex>
+		<szItemName>Medic C. Kev. Legg.</szItemName>
+		<szLongItemName>Coated Medic Kevlar Leggings</szLongItemName>
+		<szItemDesc>Nothing like an useful place for First Aid Kit, Canteen or Condoms. With these leggings you'll get it. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Medic Kevlar Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>176</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>669</ubGraphicNum>
+		<ubWeight>40</ubWeight>
+		<usPrice>1600</usPrice>
+		<bReliability>1</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1149</uiIndex>
+		<szItemName>Medic C. Tw. Legg.</szItemName>
+		<szLongItemName>Coated Medic Twaron Leggings</szLongItemName>
+		<szItemDesc>Nothing like an useful place for First Aid Kit, Canteen or Condoms. With these leggings you'll get it. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Medic Twaron Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>177</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>673</ubGraphicNum>
+		<ubWeight>31</ubWeight>
+		<usPrice>1900</usPrice>
+		<bReliability>2</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1150</uiIndex>
+		<szItemName>Medic C. Spec. Legg.</szItemName>
+		<szLongItemName>Coated Medic Spectra Leggings</szLongItemName>
+		<szItemDesc>Nothing like an useful place for First Aid Kit, Canteen or Condoms. With these leggings you'll get it. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Medic Spectra Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>178</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>671</ubGraphicNum>
+		<ubWeight>40</ubWeight>
+		<usPrice>3100</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-2</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1151</uiIndex>
+		<szItemName>Medic C. Dyn. Legg.</szItemName>
+		<szLongItemName>Coated Medic Dyneema Leggings</szLongItemName>
+		<szItemDesc>Nothing like an useful place for First Aid Kit, Canteen or Condoms. With these leggings you'll get it.</szItemDesc>
+		<szBRName>Coated Medic Dyneema Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>179</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>666</ubGraphicNum>
+		<ubWeight>31</ubWeight>
+		<usPrice>3100</usPrice>
+		<bReliability>4</bReliability>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1152</uiIndex>
+		<szItemName>Mech. C. Kev. Vest</szItemName>
+		<szLongItemName>Coated Mechanic Kevlar Vest</szLongItemName>
+		<szItemDesc>For all mechanic and demolitions freaks such upgraded vest is a fulfilled dream. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Mechanic Kevlar Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>180</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>659</ubGraphicNum>
+		<ubWeight>35</ubWeight>
+		<usPrice>1900</usPrice>
+		<bReliability>1</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-2</AimBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1153</uiIndex>
+		<szItemName>Mech. C. Guard. Vest</szItemName>
+		<szLongItemName>Coated Mechanic Guardian Vest</szLongItemName>
+		<szItemDesc>For all mechanic and demolitions freaks such upgraded vest is a fulfilled dream. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Mechanic Guardian Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>181</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>658</ubGraphicNum>
+		<ubWeight>35</ubWeight>
+		<usPrice>2500</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1154</uiIndex>
+		<szItemName>Mech. C. Tw. Vest</szItemName>
+		<szLongItemName>Coated Mechanic Twaron Vest</szLongItemName>
+		<szItemDesc>For all mechanic and demolitions freaks such upgraded vest is a fulfilled dream. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Mechanic Twaron Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>182</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>663</ubGraphicNum>
+		<ubWeight>28</ubWeight>
+		<usPrice>2200</usPrice>
+		<bReliability>2</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1155</uiIndex>
+		<szItemName>Mech. C. Spec. Vest</szItemName>
+		<szLongItemName>Coated Mechanic Spectra Vest</szLongItemName>
+		<szItemDesc>For all mechanic and demolitions freaks such upgraded vest is a fulfilled dream. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Mechanic Spectra Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>183</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>661</ubGraphicNum>
+		<ubWeight>35</ubWeight>
+		<usPrice>3400</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-4</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1156</uiIndex>
+		<szItemName>Mech. C. Dyn. Vest</szItemName>
+		<szLongItemName>Coated Mechanic Dyneema Vest</szLongItemName>
+		<szItemDesc>For all mechanic and demolitions freaks such upgraded vest is a fulfilled dream.</szItemDesc>
+		<szBRName>Coated Mechanic Dyneema Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>184</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>656</ubGraphicNum>
+		<ubWeight>23</ubWeight>
+		<usPrice>3400</usPrice>
+		<bReliability>4</bReliability>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1157</uiIndex>
+		<szItemName>Mech. C. Kev. Legg.</szItemName>
+		<szLongItemName>Coated Mechanic Kevlar Leggings</szLongItemName>
+		<szItemDesc>Special leggings upgraded to serve mechanic and demolitions operatives better than the standard ones. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Mechanic Kevlar Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>185</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>660</ubGraphicNum>
+		<ubWeight>40</ubWeight>
+		<usPrice>1600</usPrice>
+		<bReliability>1</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1158</uiIndex>
+		<szItemName>Mech. C. Tw. Legg.</szItemName>
+		<szLongItemName>Coated Mechanic Twaron Leggings</szLongItemName>
+		<szItemDesc>Special leggings upgraded to serve mechanic and demolitions operatives better than the standard ones. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Mechanic Twaron Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>186</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>664</ubGraphicNum>
+		<ubWeight>31</ubWeight>
+		<usPrice>1900</usPrice>
+		<bReliability>2</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1159</uiIndex>
+		<szItemName>Mech. C. Spec. Legg.</szItemName>
+		<szLongItemName>Coated Mechanic Spectra Leggings</szLongItemName>
+		<szItemDesc>Special leggings upgraded to serve mechanic and demolitions operatives better than the standard ones. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Mechanic Spectra Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>187</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>662</ubGraphicNum>
+		<ubWeight>40</ubWeight>
+		<usPrice>3100</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-2</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1160</uiIndex>
+		<szItemName>Mech. C. Dyn. Legg.</szItemName>
+		<szLongItemName>Coated Mechanic Dyneema Leggings</szLongItemName>
+		<szItemDesc>Special leggings upgraded to serve mechanic and demolitions operatives better than the standard ones.</szItemDesc>
+		<szBRName>Coated Mechanic Dyneema Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>188</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>657</ubGraphicNum>
+		<ubWeight>31</ubWeight>
+		<usPrice>3100</usPrice>
+		<bReliability>4</bReliability>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>10</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1161</uiIndex>
+		<szItemName>FO C. Kevlar Vest</szItemName>
+		<szLongItemName>Coated Field Operative Kevlar Vest</szLongItemName>
+		<szItemDesc>This vest seems to be upgraded for purposes of longer field operations and missions. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Field Operative Kevlar Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>189</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>650</ubGraphicNum>
+		<ubWeight>35</ubWeight>
+		<usPrice>1900</usPrice>
+		<bReliability>1</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-2</AimBonus>
+		<CamoBonus>25</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1162</uiIndex>
+		<szItemName>FO C. Guardian Vest</szItemName>
+		<szLongItemName>Coated Field Operative Guardian Vest</szLongItemName>
+		<szItemDesc>This vest seems to be upgraded for purposes of longer field operations and missions. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Field Operative Guardian Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>190</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>649</ubGraphicNum>
+		<ubWeight>35</ubWeight>
+		<usPrice>2500</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>25</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1163</uiIndex>
+		<szItemName>FO C. Twaron Vest</szItemName>
+		<szLongItemName>Coated Field Operative Twaron Vest</szLongItemName>
+		<szItemDesc>This vest seems to be upgraded for purposes of longer field operations and missions. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Field Operative Twaron Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>191</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>654</ubGraphicNum>
+		<ubWeight>28</ubWeight>
+		<usPrice>2200</usPrice>
+		<bReliability>2</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>25</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1164</uiIndex>
+		<szItemName>FO C. Spectra Vest</szItemName>
+		<szLongItemName>Coated Field Operative Spectra Vest</szLongItemName>
+		<szItemDesc>This vest seems to be upgraded for purposes of longer field operations and missions. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Field Operative Spectra Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>192</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>652</ubGraphicNum>
+		<ubWeight>35</ubWeight>
+		<usPrice>3400</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-4</AimBonus>
+		<APBonus>-1</APBonus>
+		<CamoBonus>25</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1165</uiIndex>
+		<szItemName>FO C. Dyneema Vest</szItemName>
+		<szLongItemName>Coated Field Operative Dyneema Vest</szLongItemName>
+		<szItemDesc>This vest seems to be upgraded for purposes of longer field operations and missions.</szItemDesc>
+		<szBRName>Coated Field Operative Dyneema Vest</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>193</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>647</ubGraphicNum>
+		<ubWeight>23</ubWeight>
+		<usPrice>3400</usPrice>
+		<bReliability>4</bReliability>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<AimBonus>-3</AimBonus>
+		<CamoBonus>25</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1166</uiIndex>
+		<szItemName>FO C. Kevlar Legg.</szItemName>
+		<szLongItemName>Coated Field Ops Kevlar Leggings</szLongItemName>
+		<szItemDesc>For a person spending too much time on a field duty, these upgraded leggings are definitely his best friend. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Field Ops Kevlar Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>194</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>651</ubGraphicNum>
+		<ubWeight>40</ubWeight>
+		<usPrice>1600</usPrice>
+		<bReliability>1</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>20</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1167</uiIndex>
+		<szItemName>FO C. Twaron Legg.</szItemName>
+		<szLongItemName>Coated Field Ops Twaron Leggings</szLongItemName>
+		<szItemDesc>For a person spending too much time on a field duty, these upgraded leggings are definitely his best friend. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Field Ops Twaron Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>195</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>655</ubGraphicNum>
+		<ubWeight>31</ubWeight>
+		<usPrice>1900</usPrice>
+		<bReliability>2</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>20</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1168</uiIndex>
+		<szItemName>FO C. Spectra Legg.</szItemName>
+		<szLongItemName>Coated Field Ops Spectra Leggings</szLongItemName>
+		<szItemDesc>For a person spending too much time on a field duty, these upgraded leggings are definitely his best friend. Coated with Royal Jelly for added protection.</szItemDesc>
+		<szBRName>Coated Field Ops Spectra Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>196</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>653</ubGraphicNum>
+		<ubWeight>40</ubWeight>
+		<usPrice>3100</usPrice>
+		<bReliability>1</bReliability>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-2</APBonus>
+		<CamoBonus>20</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1169</uiIndex>
+		<szItemName>FO C. Dyneema Legg.</szItemName>
+		<szLongItemName>Coated Field Ops Dyneema Leggings</szLongItemName>
+		<szItemDesc>For a person spending too much time on a field duty, these upgraded leggings are definitely his best friend.</szItemDesc>
+		<szBRName>Coated Field Ops Dyneema Leggings</szBRName>
+		<szBRDesc>None</szBRDesc>
+		<usItemClass>2048</usItemClass>
+		<ubClassIndex>197</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>648</ubGraphicNum>
+		<ubWeight>31</ubWeight>
+		<usPrice>3100</usPrice>
+		<bReliability>4</bReliability>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+		<APBonus>-1</APBonus>
+		<CamoBonus>20</CamoBonus>
+	</ITEM>
 </ITEMLIST>

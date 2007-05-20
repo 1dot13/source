@@ -3597,6 +3597,7 @@
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>26</ubImpact>
 		<ubDeadliness>16</ubDeadliness>
+		<bAccuracy>1</bAccuracy>
 		<ubMagSize>14</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
