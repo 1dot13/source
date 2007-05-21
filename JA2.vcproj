@@ -43,7 +43,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libexpatMT.lib mss32.lib winmm.lib smackw32.lib fmodvc.lib"
-				OutputFile="C:\Games\Jagged Alliance 2\ja2_debug_687_en.exe"
+				OutputFile="C:\Games\Jagged Alliance 2\ja2_debug_888_en.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories=".\..\..\Standard Gaming Platform\"
@@ -546,7 +546,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libexpatMT.lib winmm.lib smackw32.lib mss32.lib fmodvc.lib"
-				OutputFile="C:\Games\Jagged Alliance 2\JA2 v1.13.872_DE.exe"
+				OutputFile="C:\Games\Jagged Alliance 2\ja2_release_888.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories=".\..\..\Standard Gaming Platform\"
