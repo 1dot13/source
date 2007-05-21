@@ -3,6 +3,7 @@
 
 #include "armsdealerinvinit.h"
 #include "EnemyItemDrops.h"
+#include "Loading Screen.h"
 
 enum
 {
@@ -70,7 +71,7 @@ typedef PARSE_STAGE;
 #define MOVEMENTCOSTFILENAME                    "Map\\MovementCosts.xml"
 #define ALTSECTORSFILENAME                      "Map\\AltSectors.xml"
 #define SAMSITESFILENAME                        "Map\\SamSites.xml"
-#define ROAMINGMILITIAFILENAME									"Map\\RestrictedRoamingMilitia.xml"
+#define ROAMINGMILITIAFILENAME					"Map\\RestrictedRoamingMilitia.xml"
 
 
 #define GARRISONFILENAME                        "Army\\GarrisonGroups.xml"
@@ -83,6 +84,9 @@ typedef PARSE_STAGE;
 #define ENEMYEXPLOSIVEDROPSFILENAME             "EnemyExplosiveDrops.xml"
 #define ENEMYARMOURDROPSFILENAME                "EnemyArmourDrops.xml"
 #define ENEMYMISCDROPSFILENAME                  "EnemyMiscDrops.xml"
+
+// WANNE: Sector loadscreens [2007-05-18]
+#define SECTORLOADSCREENSFILENAME				"Map\\SectorLoadscreens.xml"
 
 
 extern BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion);
@@ -153,6 +157,10 @@ extern BOOLEAN ReadInEnemyArmourDropsStats(ARMOUR_DROPS *pEnemyArmourDrops, STR 
 extern BOOLEAN WriteEnemyArmourDropsStats(ARMOUR_DROPS *pEnemyArmourDrops, STR fileName);
 extern BOOLEAN ReadInEnemyMiscDropsStats(MISC_DROPS *pEnemyMiscDrops, STR fileName);
 extern BOOLEAN WriteEnemyMiscDropsStats(MISC_DROPS *pEnemyMiscDrops, STR fileName);
+
+// WANNE: Sector Loadscreens [2007-05-18]
+extern BOOLEAN ReadInSectorLoadscreensStats(SECTOR_LOADSCREENS *pSectorLoadscreens, STR fileName);
+extern BOOLEAN WriteSectorLoadscreensStats(SECTOR_LOADSCREENS *pSectorLoadscreens, STR fileName);
 
 // Lesh: burst sounds and explosion info
 extern BOOLEAN ReadInBurstSoundArray(STR fileName);

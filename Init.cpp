@@ -119,7 +119,23 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		return FALSE;
 
 	// WANNE: Enemy drops - end
-	
+
+	// WANNE: Sector Loadscreens [2007-05-18]
+	strcpy(fileName, directoryName);
+	strcat(fileName, SECTORLOADSCREENSFILENAME);
+
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInSectorLoadscreensStats(gSectorLoadscreens, fileName))
+			return FALSE;
+	}
+	else
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("File does not exist, fileName = %s", fileName));
+		// Reset ini-option
+		gGameExternalOptions.gfUseExternalLoadscreens = FALSE;
+	}
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, AMMOTYPESFILENAME);

@@ -347,6 +347,9 @@ typedef struct
 	// WANNE
 	INT32 ubEnemiesItemDrop;
 
+	// WANNE: External sector loadscreens [2007-05-19]
+	BOOLEAN	gfUseExternalLoadscreens;
+
 	BOOLEAN gfUseAutoSave;
 
 	//Merc Assignment settings

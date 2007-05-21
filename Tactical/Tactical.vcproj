@@ -5619,6 +5619,9 @@
 				RelativePath=".\XML_Merge.cpp">
 			</File>
 			<File
+				RelativePath=".\XML_SectorLoadscreens.cpp">
+			</File>
+			<File
 				RelativePath=".\XML_Sounds.cpp">
 			</File>
 			<File

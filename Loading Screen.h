@@ -48,6 +48,11 @@ enum
 	LOADINGSCREEN_NIGHTMINE,
 	LOADINGSCREEN_DAYBALIME,
 	LOADINGSCREEN_NIGHTBALIME,
+	DAY,
+	NIGHT,
+	HELI,
+	DAY_ALT,
+	NIGHT_ALT
 };
 
 
@@ -61,5 +66,24 @@ UINT8 GetLoadScreenID( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 //sets up the loadscreen with specified ID, and draws it to the FRAME_BUFFER, 
 //and refreshing the screen with it.
 void DisplayLoadScreenWithID( UINT8 ubLoadScreenID );
+
+#define MAX_SECTOR_LOADSCREENS		257	// 16x16 + Start Sector
+#define MAX_LOCATION_CHARS			10
+#define MAX_IMAGE_FORMAT_CHARS		5
+#define MAX_IMAGE_PATH_CHARS		80
+
+typedef struct
+{
+	UINT32		uiIndex;
+	CHAR8		szLocation[MAX_LOCATION_CHARS];
+	BOOLEAN		RandomAltSector;
+	CHAR8		szImageFormat[MAX_IMAGE_FORMAT_CHARS];
+	CHAR8		szDay[MAX_IMAGE_PATH_CHARS];
+	CHAR8		szNight[MAX_IMAGE_PATH_CHARS];
+	CHAR8		szDayAlt[MAX_IMAGE_PATH_CHARS];
+	CHAR8		szNightAlt[MAX_IMAGE_PATH_CHARS];
+} SECTOR_LOADSCREENS;
+
+extern SECTOR_LOADSCREENS gSectorLoadscreens[MAX_SECTOR_LOADSCREENS];
 
 #endif
