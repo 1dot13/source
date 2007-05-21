@@ -3437,6 +3437,9 @@ void EVENT_SoldierGotHit( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDa
 		case SHOOT_ROCKET:
 		case SHOOT_MORTAR:
 		case THROW_ITEM:
+		// <SB> crouch throwing
+		case THROW_ITEM_CROUCHED:
+		// <SB> crouch throwing
 		case LOB_ITEM:
 			
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - ATTACK ANIMATION %s ENDED BY HIT ANIMATION, Now %d", gAnimControl[ pSoldier->usAnimState ].zAnimStr, gTacticalStatus.ubAttackBusyCount ) );

@@ -529,6 +529,10 @@ enum AnimationStates
 	CRIPPLE_END_OPEN_LOCKED_DOOR,
   LOCKPICK_CROUCHED,
 
+  //<SB> crouch throwing
+	THROW_ITEM_CROUCHED,
+  //</SB>
+
 	NUMANIMATIONSTATES
 
 };

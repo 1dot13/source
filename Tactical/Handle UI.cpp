@@ -6109,6 +6109,9 @@ BOOLEAN SelectedGuyInBusyAnimation( )
 
 		if ( pSoldier->usAnimState == LOB_ITEM || 
 				 pSoldier->usAnimState == THROW_ITEM ||
+				 //<SB> crouch throwing
+				 pSoldier->usAnimState == THROW_ITEM_CROUCHED ||
+				 //<SB> crouch throwing
 				 pSoldier->usAnimState == PICKUP_ITEM ||
 				 pSoldier->usAnimState == DROP_ITEM ||
 				 pSoldier->usAnimState == OPEN_DOOR ||

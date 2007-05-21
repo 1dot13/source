@@ -502,6 +502,12 @@ typedef enum
 
 	BODYEXPLODE,
 
+	//<SB> crouch throwing
+	RGMCRTHROW, 
+	BGMCRTHROW, 
+	RGFCRTHROW, 
+//</SB>
+
 	NUMANIMATIONSURFACETYPES
 
 } AnimationSurfaceTypes;

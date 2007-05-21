@@ -32,6 +32,11 @@ typedef struct
 
 } ANIMSUBTYPE;
 
+
+//<SB> crouch throwing
+static UINT16 CrouchedThrowAnimationScript[MAX_FRAMES_PER_ANIM] = { 1,2,3,4,5,6,7,8,9,460,10,11,12,13,14,442,603,999,0,0,0,0 };
+//</SB>
+
 ANI_SPEED_DEF gubAnimCrawlSpeeds[ TOTALBODYTYPES ];
 //Block for anim file
 UINT16	gusAnimInst[ MAX_ANIMATIONS ][ MAX_FRAMES_PER_ANIM ];
@@ -915,6 +920,10 @@ ANIMCONTROLTYPE		gAnimControl[ NUMANIMATIONSTATES ] =
 
 	//CROUCH PICK LOCK
 	"CROUCH PICK LOCK"							, 0,			70,			(FLOAT)0, ANIM_STATIONARY | ANIM_TURNING | ANIM_FASTTURN | ANIM_NORESTART | ANIM_LOWER_WEAPON | ANIM_LIGHT_EFFORT,		ANIM_CROUCH,   ANIM_CROUCH, -1,
+
+	//<SB> crouch throwing
+	"THROW ITEM CROUCHED",	0,	80,	(FLOAT)0,	ANIM_STATIONARY  | ANIM_NOMOVE_MARKER | ANIM_NONINTERRUPT | ANIM_MIN_EFFORT,	ANIM_CROUCH,	ANIM_CROUCH, -1,
+	//</SB
 };
 
 ANI_SPEED_DEF gubAnimWalkSpeeds[ TOTALBODYTYPES ] =
@@ -1293,7 +1302,10 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ REGMALE ][ JUMP_OVER_BLOCKING_PERSON ]			= RGMJUMPOVER;
 	gubAnimSurfaceIndex[ REGMALE ][ REFUEL_VEHICLE ]								= RGMMEDIC;
 	gubAnimSurfaceIndex[ REGMALE ][ LOCKPICK_CROUCHED ]					  	= RGMMEDIC;
-
+	
+	//<SB> crouch throwing
+	gubAnimSurfaceIndex[ REGMALE ][ THROW_ITEM_CROUCHED ]										= RGMCRTHROW;
+	//</SB>
 
 	gubAnimSurfaceMidWaterSubIndex[ REGMALE ][ STANDING][0]									= RGMWATER_R_STD;
 	gubAnimSurfaceMidWaterSubIndex[ REGMALE ][ WALKING ][0]									= RGMWATER_R_WALK;
@@ -1649,6 +1661,9 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ BIGMALE ][ REFUEL_VEHICLE ]								= BGMMEDIC;
 	gubAnimSurfaceIndex[ BIGMALE ][ LOCKPICK_CROUCHED ]					  	= BGMMEDIC;
 
+	//<SB> crouch throwing
+	gubAnimSurfaceIndex[ BIGMALE ][ THROW_ITEM_CROUCHED ]										= BGMCRTHROW;
+	//</SB>
 
 	gubAnimSurfaceItemSubIndex[ BIGMALE ][ STANDING ]						= BGMPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ BIGMALE ][ WALKING ]							= BGMNOTHING_WALK;
@@ -2014,6 +2029,9 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ STOCKYMALE ][ REFUEL_VEHICLE ]								= RGMMEDIC;
 	gubAnimSurfaceIndex[ STOCKYMALE ][ LOCKPICK_CROUCHED ]					  = RGMMEDIC;
 
+	//<SB> crouch throwing
+	gubAnimSurfaceIndex[ STOCKYMALE ][ THROW_ITEM_CROUCHED ]										= RGMCRTHROW;
+	//</SB>
 
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ STANDING ]						= RGMPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ STOCKYMALE ][ WALKING ]						= RGMNOTHING_WALK;
@@ -2366,6 +2384,9 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ REGFEMALE ][ REFUEL_VEHICLE ]								= RGFMEDIC;
 	gubAnimSurfaceIndex[ REGFEMALE ][ LOCKPICK_CROUCHED ]					    = RGFMEDIC;
 
+	//<SB> crouch throwing
+	gubAnimSurfaceIndex[ REGFEMALE ][ THROW_ITEM_CROUCHED ]										= RGFCRTHROW;
+	//</SB>
 
 	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ STANDING ]						= RGFPISTOLBREATH;
 	gubAnimSurfaceItemSubIndex[ REGFEMALE ][ WALKING ]							= RGFNOTHING_WALK;
@@ -3025,6 +3046,10 @@ BOOLEAN LoadAnimationStateInstructions( )
 		}
 
 		FileClose( hFile );
+
+		//<SB> crouch throwing
+		memcpy(gusAnimInst[ THROW_ITEM_CROUCHED ],CrouchedThrowAnimationScript,sizeof(CrouchedThrowAnimationScript)); 
+		//<SB> crouch throwing
 
 		return( TRUE );
 }
