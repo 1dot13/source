@@ -5116,20 +5116,29 @@ BOOLEAN HandleItemPointerClick( UINT16 usMapPos )
 						  // Stop merc first....
 						  EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->bDirection );
 
-						  // If we are standing only...
-						  if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND && !MercInWater( pSoldier ) )
+						  // WANNE: Also turn merc if he is crouched and he passes an item
+						  if ( !MercInWater( pSoldier ) )
 						  {
 							  // Turn to face, then do animation....
 							  EVENT_SetSoldierDesiredDirection( pSoldier, ubFacingDirection );
 							  pSoldier->fTurningUntilDone	 = TRUE;
-							  pSoldier->usPendingAnimation = PASS_OBJECT;
-              }
 
-						  if ( gAnimControl[ gpItemPointerSoldier->usAnimState ].ubEndHeight == ANIM_STAND && !MercInWater( gpItemPointerSoldier ) )
+							 if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND)
+							 {
+								pSoldier->usPendingAnimation = PASS_OBJECT;
+							 }
+						 }
+
+						  // WANNE: Also turn merc if he is crouched and he received the passed item
+						  if ( !MercInWater( gpItemPointerSoldier ) )
 						  {
 							  EVENT_SetSoldierDesiredDirection( gpItemPointerSoldier, gOppositeDirection[ ubFacingDirection ] );
 							  gpItemPointerSoldier->fTurningUntilDone	 = TRUE;
-							  gpItemPointerSoldier->usPendingAnimation = PASS_OBJECT;
+
+							  if (gAnimControl[ gpItemPointerSoldier->usAnimState ].ubEndHeight == ANIM_STAND)
+							  {
+								gpItemPointerSoldier->usPendingAnimation = PASS_OBJECT;
+							  }
 						  }
 					  }
 	
