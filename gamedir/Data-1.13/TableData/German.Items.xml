@@ -6368,26 +6368,26 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>798</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szItemName>Luger P-08</szItemName>
+		<szLongItemName>P-08 Parabellum</szLongItemName>
 		<szItemDesc>Index 798</szItemDesc>
-		<szBRName>Nothing</szBRName>
+		<szBRName>P-08 Parabellum</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>799</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szItemName>P226 SAS</szItemName>
+		<szLongItemName>SIG P226 SAS</szLongItemName>
 		<szItemDesc>Index 799</szItemDesc>
-		<szBRName>Nothing</szBRName>
+		<szBRName>SIG P226 SAS</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>800</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szItemName>P226 SAS .40</szItemName>
+		<szLongItemName>SIG P226 SAS .40</szLongItemName>
 		<szItemDesc>Index 800</szItemDesc>
-		<szBRName>Nothing</szBRName>
+		<szBRName>SIG P226 SAS .40</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8492,6 +8492,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1064</uiIndex>
+		<szItemName>P239 SAS</szItemName>
+		<szLongItemName>SIG P239 SAS</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SIG P239 SAS</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1065</uiIndex>

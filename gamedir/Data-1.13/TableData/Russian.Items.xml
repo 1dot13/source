@@ -2418,10 +2418,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>302</uiIndex>
-		<szItemName>Steel Helmet</szItemName>
-		<szLongItemName>Steel Helmet</szLongItemName>
+		<szItemName>Camo St. Helm</szItemName>
+		<szLongItemName>Camo Steel Helmet</szLongItemName>
 		<szItemDesc>This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has been painted with camouflage.</szItemDesc>
-		<szBRName>Steel Helmet</szBRName>
+		<szBRName>Camo Steel Helmet</szBRName>
 		<szBRDesc>Comfortable and extremely practical. This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has a padded leather and nylon suspension, with an adjustable chin strap.  Provides limited camouflage.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6386,26 +6386,26 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>798</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 798</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Luger P-08</szItemName>
+		<szLongItemName>P-08 Parabellum</szLongItemName>
+		<szItemDesc>Standard sidearm of the German Army during WW-II. It is also known as the "Luger".</szItemDesc>
+		<szBRName>P-08 Parabellum</szBRName>
+		<szBRDesc>A somewhat complicated pistol for the serious gun collector. Be careful when taking it apart. Call us for spare parts.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>799</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 799</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>P226 SAS</szItemName>
+		<szLongItemName>SIG P226 SAS</szLongItemName>
+		<szItemDesc>The reduced snag version of the P226 pistol.</szItemDesc>
+		<szBRName>SIG P226 SAS</szBRName>
+		<szBRDesc>Reliability and ease of use are key features of this swiss made handgun. Improved with the SIG-Anti-Snag system.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>800</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szItemName>P226 SAS .40</szItemName>
+		<szLongItemName>SIG P226 SAS .40</szLongItemName>
 		<szItemDesc>Index 800</szItemDesc>
-		<szBRName>Nothing</szBRName>
+		<szBRName>SIG P226 SAS .40</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8454,6 +8454,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1064</uiIndex>
+		<szItemName>P239 SAS</szItemName>
+		<szLongItemName>SIG P239 SAS</szLongItemName>
+		<szItemDesc>Even more compact than the P228, this gun is easily concealed.</szItemDesc>
+		<szBRName>SIG P239 SAS</szBRName>
+		<szBRDesc>Want something more compact than a P228? The P239 SAS makes for easy concealed carrying with SIG's reduced snag dsign.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1065</uiIndex>

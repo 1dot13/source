@@ -6451,10 +6451,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>302</uiIndex>
-		<szItemName>Steel Helmet</szItemName>
-		<szLongItemName>Steel Helmet</szLongItemName>
+		<szItemName>Camo St. Helm</szItemName>
+		<szLongItemName>Camo Steel Helmet</szLongItemName>
 		<szItemDesc>This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has been painted with camouflage.</szItemDesc>
-		<szBRName>Steel Helmet</szBRName>
+		<szBRName>Camo Steel Helmet</szBRName>
 		<szBRDesc>Comfortable and extremely practical. This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has a padded leather and nylon suspension, with an adjustable chin strap.  Provides limited camouflage.</szBRDesc>
 		<usItemClass>2048</usItemClass>
 		<ubClassIndex>54</ubClassIndex>
@@ -7146,10 +7146,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>336</uiIndex>
-		<szItemName>SIG P226</szItemName>
-		<szLongItemName>SIG P226</szLongItemName>
+		<szItemName>SIG P226R</szItemName>
+		<szLongItemName>SIG P226R</szLongItemName>
 		<szItemDesc>A runner-up in the US Military's bid to replace the venerable Colt 1911, this compact and reliable handgun is still a favorite among armed forces.</szItemDesc>
-		<szBRName>SIG P226</szBRName>
+		<szBRName>SIG P226R</szBRName>
 		<szBRDesc>Reliability and ease of use are key features of this swiss made handgun.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>336</ubClassIndex>
@@ -13415,9 +13415,9 @@
 	<ITEM>
 		<uiIndex>626</uiIndex>
 		<szItemName>Bizon</szItemName>
-		<szLongItemName>Bizon PP-27</szLongItemName>
+		<szLongItemName>Bizon PP-19</szLongItemName>
 		<szItemDesc>Also known as the 2-07, this Bizon SMG is chambered to accept 7.62 Tokarev box magazines.</szItemDesc>
-		<szBRName>Bizon PP-27</szBRName>
+		<szBRName>Bizon PP-19</szBRName>
 		<szBRDesc>Variety is the spice of life, try out the SMG in its 7.62 Tk variant.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>626</ubClassIndex>
@@ -16001,11 +16001,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>717</uiIndex>
-		<szItemName>P226 .40</szItemName>
-		<szLongItemName>SIG P226 .40</szLongItemName>
-		<szItemDesc>The SIG P226 first appeared in 1983, and is the official sidearm of the US Navy SEALs.  This particular pistol has been re-chambered for a .40 S&amp;W round.</szItemDesc>
-		<szBRName>SIG P226 .40</szBRName>
-		<szBRDesc>The SIG P226 first appeared in 1983, and is the official sidearm of the US Navy SEALs.  This variant has been re-chambered for the .40 S&amp;W round.</szBRDesc>
+		<szItemName>P226R .40</szItemName>
+		<szLongItemName>SIG P226R .40</szLongItemName>
+		<szItemDesc>The SIG P226 first appeared in 1983, and is the official sidearm of the US Navy SEALs. This particular pistol has been re-chambered for a .40 S&amp;W round and has a Picatinny Rail.</szItemDesc>
+		<szBRName>SIG P226R .40</szBRName>
+		<szBRDesc>The SIG P226 first appeared in 1983, and is the official sidearm of the US Navy SEALs. This variant has been re-chambered for the .40 S&amp;W round and has a Picatinny Rail.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>717</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -16029,11 +16029,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>718</uiIndex>
-		<szItemName>P228</szItemName>
-		<szLongItemName>SIG P228</szLongItemName>
-		<szItemDesc>This Swiss-made 9mm handgun is the chosen sidearm of several of the world's elite forces, among them Britain's SAS and the FBI's Hostage Rescue Team.</szItemDesc>
-		<szBRName>SIG P228</szBRName>
-		<szBRDesc>This Swiss-made 9mm handgun is the chosen sidearm of several of the world's elite forces, among them Britain's SAS and the FBI's Hostage Rescue Team.</szBRDesc>
+		<szItemName>P229R</szItemName>
+		<szLongItemName>SIG P229R</szLongItemName>
+		<szItemDesc>A modernized version of the P228 with a short rail.</szItemDesc>
+		<szBRName>SIG P229R</szBRName>
+		<szBRDesc>This is a modernized version of the P228. It is available in several different calibers (this is the 9x19mm version) and has a short Picatinny Rail in front of the triggerguard.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>718</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -18297,36 +18297,83 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>798</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 798</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Luger P-08</szItemName>
+		<szLongItemName>P-08 Parabellum</szLongItemName>
+		<szItemDesc>Standard sidearm of the German Army during WW-II. It is also known as the "Luger".</szItemDesc>
+		<szBRName>P-08 Parabellum</szBRName>
+		<szBRDesc>A somewhat complicated pistol for the serious gun collector. Be careful when taking it apart. Call us for spare parts.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>798</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>309</ubGraphicNum>
+		<ubWeight>8</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<usPrice>690</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>36</BR_ROF>
 	</ITEM>
 	<ITEM>
 		<uiIndex>799</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 799</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>P226 SAS</szItemName>
+		<szLongItemName>SIG P226 SAS</szLongItemName>
+		<szItemDesc>The reduced snag version of the P226 pistol.</szItemDesc>
+		<szBRName>SIG P226 SAS</szBRName>
+		<szBRDesc>Reliability and ease of use are key features of this swiss made handgun. Improved with the SIG-Anti-Snag system.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>799</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>311</ubGraphicNum>
+		<ubWeight>9</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<usPrice>680</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bReliability>2</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>36</BR_ROF>
 	</ITEM>
 	<ITEM>
 		<uiIndex>800</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 800</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>P226 SAS .40</szItemName>
+		<szLongItemName>SIG P226 SAS .40</szLongItemName>
+		<szItemDesc>A version of the P226, chambered in .40 S&amp;W, with rounded edges to reduce snag and facilitate easier concealed carry.</szItemDesc>
+		<szBRName>SIG P226 SAS .40</szBRName>
+		<szBRDesc>A stainless steel slide and the SIG-Anti-Snag system (for easier concealed carrying) are improvements over the standard version.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>800</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>312</ubGraphicNum>
+		<ubWeight>9</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<usPrice>870</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bReliability>2</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>36</BR_ROF>
 	</ITEM>
 	<ITEM>
 		<uiIndex>801</uiIndex>
@@ -23936,14 +23983,29 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1064</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1064</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>P239 SAS</szItemName>
+		<szLongItemName>SIG P239 SAS</szLongItemName>
+		<szItemDesc>Even more compact than the P228, this gun is easily concealed.</szItemDesc>
+		<szBRName>SIG P239 SAS</szBRName>
+		<szBRDesc>Want something more compact than a P228? The P239 SAS makes for easy concealed carrying with SIG's reduced snag dsign.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1064</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>310</ubGraphicNum>
+		<ubWeight>9</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<usPrice>600</usPrice>
+		<ubCoolness>1</ubCoolness>
+		<bReliability>2</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>36</BR_ROF>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1065</uiIndex>

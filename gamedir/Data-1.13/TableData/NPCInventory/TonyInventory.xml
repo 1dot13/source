@@ -3520,4 +3520,24 @@
 		<sItemIndex>796</sItemIndex>
 		<ubOptimalNumber>0</ubOptimalNumber>
 	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>704</uiIndex>
+		<sItemIndex>798</sItemIndex>
+		<ubOptimalNumber>1</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>705</uiIndex>
+		<sItemIndex>799</sItemIndex>
+		<ubOptimalNumber>1</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>706</uiIndex>
+		<sItemIndex>800</sItemIndex>
+		<ubOptimalNumber>1</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>707</uiIndex>
+		<sItemIndex>1064</sItemIndex>
+		<ubOptimalNumber>1</ubOptimalNumber>
+	</INVENTORY>
 </INVENTORYLIST>

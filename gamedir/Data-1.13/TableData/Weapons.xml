@@ -2073,7 +2073,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>336</uiIndex>
-		<szWeaponName>SIG P226</szWeaponName>
+		<szWeaponName>SIG P226R</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
@@ -3426,7 +3426,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>626</uiIndex>
-		<szWeaponName>Bizon PP-27</szWeaponName>
+		<szWeaponName>Bizon PP-19</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>20</ubCalibre>
@@ -6285,7 +6285,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>717</uiIndex>
-		<szWeaponName>SIG P226 .40</szWeaponName>
+		<szWeaponName>SIG P226R .40</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>23</ubCalibre>
@@ -6312,7 +6312,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>718</uiIndex>
-		<szWeaponName>SIG P228</szWeaponName>
+		<szWeaponName>SIG P229R</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
@@ -8776,6 +8776,89 @@
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
+		<uiIndex>798</uiIndex>
+		<szWeaponName>P-08 Parabellum</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubShotsPer4Turns>18</ubShotsPer4Turns>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>23</ubImpact>
+		<ubDeadliness>15</ubDeadliness>
+		<ubMagSize>8</ubMagSize>
+		<usRange>100</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>72</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>371</sSound>
+		<sBurstSound>1</sBurstSound>
+		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<APsToReload>2</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>799</uiIndex>
+		<szWeaponName>SIG P226 SAS</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubShotsPer4Turns>18</ubShotsPer4Turns>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>23</ubImpact>
+		<ubDeadliness>15</ubDeadliness>
+		<ubMagSize>15</ubMagSize>
+		<usRange>110</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>367</sSound>
+		<sBurstSound>1</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<APsToReload>2</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>800</uiIndex>
+		<szWeaponName>SIG P226 SAS .40</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>23</ubCalibre>
+		<ubShotsPer4Turns>18</ubShotsPer4Turns>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>25</ubImpact>
+		<ubDeadliness>17</ubDeadliness>
+		<ubMagSize>14</ubMagSize>
+		<usRange>110</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>60</ubAttackVolume>
+		<ubHitVolume>5</ubHitVolume>
+		<sSound>302</sSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<APsToReload>2</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
 		<uiIndex>901</uiIndex>
 		<szWeaponName>Commando Mortar</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
@@ -9261,5 +9344,33 @@
 		<usReloadDelay>200</usReloadDelay>
 		<ubAttackVolume>2</ubAttackVolume>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1064</uiIndex>
+		<szWeaponName>SIG P239 SAS</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubShotsPer4Turns>18</ubShotsPer4Turns>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>22</ubImpact>
+		<ubDeadliness>13</ubDeadliness>
+		<ubMagSize>8</ubMagSize>
+		<usRange>90</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>55</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>367</sSound>
+		<sBurstSound>1</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<APsToReload>2</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>6</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 </WEAPONLIST>
