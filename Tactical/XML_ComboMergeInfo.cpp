@@ -193,6 +193,7 @@ BOOLEAN ReadInAttachmentComboMergeStats(STR fileName)
 	if ( !FileRead( hFile, lpcBuffer, uiFSize, &uiBytesRead ) )
 	{
 		MemFree(lpcBuffer);
+	  	FileClose( hFile );  /* added, Sgt. Kolja */
 		return( FALSE );
 	}
 
@@ -220,6 +221,7 @@ BOOLEAN ReadInAttachmentComboMergeStats(STR fileName)
 		LiveMessage(errorBuf);
 
 		MemFree(lpcBuffer);
+	  	XML_ParserFree(parser); /* added, Sgt. Kolja */
 		return FALSE;
 	}
 

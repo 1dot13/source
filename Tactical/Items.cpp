@@ -6556,8 +6556,16 @@ INT16 GetRateOfFireBonus( OBJECTTYPE * pObj )
 	INT8	bLoop;
 	INT16 bns=0;
 
+  if( (MAXITEMS <= pObj->usItem) || (MAXITEMS <= pObj->usGunAmmoItem) )
+    {
+   	DebugMsg(TOPIC_JA2, DBG_LEVEL_1, String("GetRateOfFireBonus would crash: pObj->usItem=%d or pObj->usGunAmmoItem=%d ist higher than max %d", pObj->usItem, pObj->usGunAmmoItem, MAXITEMS ));
+  	ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"GetRateOfFireBonus would crash: pObj->usItem=%d or pObj->usGunAmmoItem=%d ist higher than max %d", pObj->usItem, pObj->usGunAmmoItem, MAXITEMS );
+    AssertMsg( 0, "GetRateOfFireBonus would crash" );
+    return 0; /* cannot calculate Bonus, this only happens sometimes in FULLSCREEN */
+    }
+
 	bns = BonusReduceMore( Item[pObj->usItem].rateoffirebonus, pObj->bStatus[0] );
-	bns += Item[pObj->usGunAmmoItem].rateoffirebonus ;
+	bns += Item[pObj->usGunAmmoItem].rateoffirebonus;
 
 	for (bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
 	{
