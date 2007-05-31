@@ -1884,4 +1884,10 @@
 		<ubMagSize>24</ubMagSize>
 		<ubAmmoType>3</ubAmmoType>
 	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>314</uiIndex>
+		<ubCalibre>46</ubCalibre>
+		<ubMagSize>8</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
 </MAGAZINELIST>

@@ -9818,14 +9818,23 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>462</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 921</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>.30-06 AP</szItemName>
+		<szLongItemName>.30-06 AP Clip</szLongItemName>
+		<szItemDesc>A clip holding 8 rounds of FMJ ammo in the venerable .30-06 caliber.</szItemDesc>
+		<szBRName>.30-06 AP Clip</szBRName>
+		<szBRDesc>If you happen to have a M1 Garand around, here's some ammo for it.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>314</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>682</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<usPrice>30</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>5</BR_NewInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>463</uiIndex>
@@ -14441,10 +14450,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>662</uiIndex>
-		<szItemName>HK 416</szItemName>
-		<szLongItemName>HK 416</szLongItemName>
+		<szItemName>HK 416 14"</szItemName>
+		<szLongItemName>HK 416 14"</szLongItemName>
 		<szItemDesc>Combine the best features of the G36 and the M4 with Hecker &amp; Koch's HK416.</szItemDesc>
-		<szBRName>HK 416</szBRName>
+		<szBRName>HK 416 14"</szBRName>
 		<szBRDesc>After fixing England's SA80, now Heckler &amp; Koch wants to improve America's M4. The HK416 is available in both an upgrade kit for M4s or as a complete weapon with a HK made lower receiver.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>662</ubClassIndex>
@@ -14468,7 +14477,6 @@
 		<BR_ROF>900</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
-		<DefaultAttachment>1011</DefaultAttachment>
 	</ITEM>
 	<ITEM>
 		<uiIndex>663</uiIndex>
@@ -23746,7 +23754,6 @@
 		<ubPerPocket>6</ubPerPocket>
 		<usPrice>75</usPrice>
 		<ubCoolness>3</ubCoolness>
-		<bReliability>-1</bReliability>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -23754,6 +23761,8 @@
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
+		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
@@ -23987,7 +23996,7 @@
 		<szLongItemName>SIG P239 SAS</szLongItemName>
 		<szItemDesc>Even more compact than the P228, this gun is easily concealed.</szItemDesc>
 		<szBRName>SIG P239 SAS</szBRName>
-		<szBRDesc>Want something more compact than a P228? The P239 SAS makes for easy concealed carrying with SIG's reduced snag dsign.</szBRDesc>
+		<szBRDesc>Want something more compact than a P228? The P239 SAS makes for easy concealed carrying with SIG's reduced snag design.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>1064</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -24009,47 +24018,114 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1065</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1065</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>AUG-A3</szItemName>
+		<szLongItemName>Steyr AUG-A3</szLongItemName>
+		<szItemDesc>A new version of the AUG, this one is chambered for the 6.8mm SPC caliber and comes with Picatinny rails.</szItemDesc>
+		<szBRName>Steyr AUG-A3</szBRName>
+		<szBRDesc>This latest version of the famous Steyr AUG has rails instead of a fixed optical sight and foregrip. Chambered in the new 6.8x43mm SPC caliber.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1065</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>320</ubGraphicNum>
+		<ubWeight>38</ubWeight>
+		<usPrice>3000</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>750</BR_ROF>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1066</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1066</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>HK 416 10"</szItemName>
+		<szLongItemName>HK 416 10"</szLongItemName>
+		<szItemDesc>A shorter version of the standard HK 416.</szItemDesc>
+		<szBRName>HK 416 10"</szBRName>
+		<szBRDesc>This is just a HK 416 with a shorter barrel, for those who often do CQB.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1066</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>315</ubGraphicNum>
+		<ubWeight>33</ubWeight>
+		<usPrice>2900</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<bReliability>2</bReliability>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>900</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1067</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1067</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>M12</szItemName>
+		<szLongItemName>Beretta M12</szLongItemName>
+		<szItemDesc>Long in use with the Italian Police, this is an easy to use SMG.</szItemDesc>
+		<szBRName>Beretta M12</szBRName>
+		<szBRDesc>The built-in foregrip on this older Beretta SMG lets you handle the gun easily even if the folding stock has not been deployed.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1067</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>321</ubGraphicNum>
+		<ubWeight>30</ubWeight>
+		<usPrice>1450</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bReliability>-1</bReliability>
+		<bRepairEase>1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>4</BR_NewInventory>
+		<BR_UsedInventory>2</BR_UsedInventory>
+		<BR_ROF>550</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<BurstToHitBonus>5</BurstToHitBonus>
+		<AutoFireToHitBonus>5</AutoFireToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1068</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1068</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>40mm Gren.P.</szItemName>
+		<szLongItemName>40mm Grenade Panel</szLongItemName>
+		<szItemDesc>A panel with four individual pockets to store up to four 40mm grenades.</szItemDesc>
+		<szBRName>40mm Grenade Panel</szBRName>
+		<szBRDesc>Four pockets mounted on a panel that can be clipped to your load bearing equipment. The long adjustable straps let you store 40mm grenades on any length.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>685</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<usPrice>180</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<bRepairEase>3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1069</uiIndex>

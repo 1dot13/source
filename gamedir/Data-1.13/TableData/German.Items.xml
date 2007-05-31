@@ -3680,11 +3680,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>462</uiIndex>
-		<szItemName>7.62x51 US-G</szItemName>
-		<szLongItemName>7.62x51mm Magazin, US-Glaser</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>7.62x51 Mag US-G #10</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>.30-06 AP</szItemName>
+		<szLongItemName>.30-06 AP Clip</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.30-06 AP Clip</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>463</uiIndex>
@@ -8404,27 +8404,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1053</uiIndex>
-		<szItemName>W-Messer</szItemName>
-		<szLongItemName>Wurfmesser</szLongItemName>
-		<szItemDesc>Das genau ausbalancierte Wurfmesser mit Stahlklinge gibt dem Ausdruck vom 'sanften Tod' eine neue Bedeutung.</szItemDesc>
-		<szBRName>Wurfmesser</szBRName>
-		<szBRDesc>Das genau ausbalancierte Wurfmesser mit Stahlklinge gibt dem Ausdruck vom 'sanften Tod' eine neue Bedeutung.</szBRDesc>
+		<szItemName>Shuriken</szItemName>
+		<szLongItemName>Shuriken</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Shuriken</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1054</uiIndex>
-		<szItemName>Tonfa</szItemName>
-		<szLongItemName>Schlagstock</szLongItemName>
-		<szItemDesc>TONFA/RMS/PEMS, ein Schlagstock der zu Grundausstattung von Sicherheitskräften gehört.</szItemDesc>
-		<szBRName>Schlagstock</szBRName>
-		<szBRDesc>Diese aus dem japanischen Tonfa abgeleitete Waffe (RMS-Rettungsmehrzweckstock) ist ausschließlich der Militärpolizei (Feldjäger) vorbehalten.</szBRDesc>
+		<szItemName>Nunchaku</szItemName>
+		<szLongItemName>Nunchaku</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Nunchaku</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1055</uiIndex>
-		<szItemName>SABRE-Messer</szItemName>
-		<szLongItemName>SABRE-Messer</szLongItemName>
-		<szItemDesc>Das ist ein Messer!</szItemDesc>
-		<szBRName>SABRE-Messer</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Katana</szItemName>
+		<szLongItemName>Katana</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Katana</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1056</uiIndex>
@@ -8500,15 +8500,35 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1065</uiIndex>
+		<szItemName>AUG-A3</szItemName>
+		<szLongItemName>Steyr AUG-A3</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Steyr AUG-A3</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1066</uiIndex>
+		<szItemName>HK 416 10"</szItemName>
+		<szLongItemName>HK 416 10"</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>HK 416 10"</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1067</uiIndex>
+		<szItemName>M12</szItemName>
+		<szLongItemName>Beretta M12</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Beretta M12</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1068</uiIndex>
+		<szItemName>40mm Gran.P.</szItemName>
+		<szLongItemName>40mm Gran.P.</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>40mm Gran.P.</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1069</uiIndex>

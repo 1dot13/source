@@ -220,4 +220,19 @@
 		<AmmoCaliber>5.56x45mm SCF</AmmoCaliber>
 		<BRCaliber>5.56mm SCF</BRCaliber>
 	</AMMO>
+	<AMMO>
+		<uiIndex>44</uiIndex>
+		<AmmoCaliber>.41 AE</AmmoCaliber>
+		<BRCaliber>.41 AE</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>45</uiIndex>
+		<AmmoCaliber>.30 car</AmmoCaliber>
+		<BRCaliber>.30 car</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>46</uiIndex>
+		<AmmoCaliber>.30-06</AmmoCaliber>
+		<BRCaliber>.30-06</BRCaliber>
+	</AMMO>
 </AMMOLIST>

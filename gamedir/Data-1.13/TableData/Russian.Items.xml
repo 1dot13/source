@@ -3698,11 +3698,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>462</uiIndex>
-		<szItemName>7.62x51mm 10 G C</szItemName>
-		<szLongItemName>7.62x51mm Mag, 10 Glaser Cold</szLongItemName>
-		<szItemDesc>If 10 rounds of Glaser Safety ammo fail to make your point, the conversation wasn't worth having to begin with. These bullets have been cold-loaded for quieter stopping power.</szItemDesc>
-		<szBRName>7.62x51mm 10 Glaser Cold</szBRName>
-		<szBRDesc>Ten rounds of frangible fun. All of the man-stopping power, none of the over-penetration.  These bullets have been cold-loaded for silent hunting.</szBRDesc>
+		<szItemName>.30-06 AP</szItemName>
+		<szLongItemName>.30-06 AP Clip</szLongItemName>
+		<szItemDesc>A clip holding 8 rounds of FMJ ammo in the venerable .30-06 caliber.</szItemDesc>
+		<szBRName>.30-06 AP Clip</szBRName>
+		<szBRDesc>If you happen to have a M1 Garand around, here's some ammo for it.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>463</uiIndex>
@@ -8366,27 +8366,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1053</uiIndex>
-		<szItemName>Throw. Knife</szItemName>
-		<szLongItemName>Throwing Knife</szLongItemName>
-		<szItemDesc>This finely balanced steel throwing knife brings new meaning to the expression killing them softly. Or, in this case, silently.</szItemDesc>
-		<szBRName>Throwing Knife</szBRName>
-		<szBRDesc>Polish up on your throwing skills with this double-edged chrome-plated high carbon steel blade. This slim little knife is a perfect choice for both novice and experienced throwers.</szBRDesc>
+		<szItemName>Shuriken</szItemName>
+		<szLongItemName>Shuriken</szLongItemName>
+		<szItemDesc>The most renowned silent, fast projectile weapon of Ninpo Taijutsu.</szItemDesc>
+		<szBRName>Shuriken</szBRName>
+		<szBRDesc>Silent, swift, and effective with razor-sharp edges.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1054</uiIndex>
-		<szItemName>Nightstick</szItemName>
-		<szLongItemName>Nightstick</szLongItemName>
-		<szItemDesc>Long, hard and good for a serious beating.</szItemDesc>
-		<szBRName>Nightstick</szBRName>
-		<szBRDesc>Go Rodney-King on someone's ass with this police nightstick.</szBRDesc>
+		<szItemName>Nunchaku</szItemName>
+		<szLongItemName>Nunchaku</szLongItemName>
+		<szItemDesc>In the right hands this is one of the most dangerous and compact weapons in martial arts.</szItemDesc>
+		<szBRName>Nunchaku</szBRName>
+		<szBRDesc>This is one of the favoured weapons of Ninpo Taijutsu.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1055</uiIndex>
-		<szItemName>Sabre</szItemName>
-		<szLongItemName>Sabre</szLongItemName>
-		<szItemDesc>Now that's a knife!</szItemDesc>
-		<szBRName>Sabre</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Katana</szItemName>
+		<szLongItemName>Katana</szLongItemName>
+		<szItemDesc>This is the pride of the samurai.</szItemDesc>
+		<szBRName>Katana</szBRName>
+		<szBRDesc>This is a rare Japanese masterpiece, decorated with dragons. It can chop through bamboo like a hot knife through butter!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1056</uiIndex>
@@ -8462,15 +8462,35 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1065</uiIndex>
+		<szItemName>AUG-A3</szItemName>
+		<szLongItemName>Steyr AUG-A3</szLongItemName>
+		<szItemDesc>A new version of the AUG, this one is chambered for the 6.8mm SPC caliber and comes with Picatinny rails.</szItemDesc>
+		<szBRName>Steyr AUG-A3</szBRName>
+		<szBRDesc>This latest version of the famous Steyr AUG has rails instead of a fixed optical sight and foregrip. Chambered in the new 6.8x43mm SPC caliber.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1066</uiIndex>
+		<szItemName>HK 416 10"</szItemName>
+		<szLongItemName>HK 416 10"</szLongItemName>
+		<szItemDesc>A shorter version of the standard HK 416.</szItemDesc>
+		<szBRName>HK 416 10"</szBRName>
+		<szBRDesc>This is just a HK 416 with a shorter barrel, for those who often do CQB.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1067</uiIndex>
+		<szItemName>M12</szItemName>
+		<szLongItemName>Beretta M12</szLongItemName>
+		<szItemDesc>Long in use with the Italian Police, this is an easy to use SMG.</szItemDesc>
+		<szBRName>Beretta M12</szBRName>
+		<szBRDesc>The built-in foregrip on this older Beretta SMG lets you handle the gun easily even if the folding stock has not been deployed.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1068</uiIndex>
+		<szItemName>40mm Gren.P.</szItemName>
+		<szLongItemName>40mm Grenade Panel</szLongItemName>
+		<szItemDesc>A panel with four individual pockets to store up to four 40mm grenades.</szItemDesc>
+		<szBRName>40mm Grenade Panel</szBRName>
+		<szBRDesc>Four pockets mounted on a panel that can be clipped to your load bearing equipment. The long adjustable straps let you store 40mm grenades on any length.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1069</uiIndex>
