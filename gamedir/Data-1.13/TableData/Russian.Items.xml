@@ -8494,12 +8494,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1069</uiIndex>
+		<szItemName>Galatz</szItemName>
+		<szLongItemName>Galil Sniper</szLongItemName>
+		<szItemDesc>A sniperized version of the Galil assault rifle. More like a DMR than a real sniper rifle.</szItemDesc>
+		<szBRName>Galil Sniper</szBRName>
+		<szBRDesc>This has been a normal Galil, until someone decided to make a sniper rifle from it.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1070</uiIndex>
+		<szItemName>HK 416 16"</szItemName>
+		<szLongItemName>HK 416 16"</szLongItemName>
+		<szItemDesc>This has a barrel that is slightly longer than on the standard HK 416.</szItemDesc>
+		<szBRName>HK 416 16"</szBRName>
+		<szBRDesc>If you want more range than a standard 416 has, take this one.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1071</uiIndex>
+		<szItemName>Owen .45</szItemName>
+		<szLongItemName>Owen .45</szLongItemName>
+		<szItemDesc>A rather simple and fullauto-only SMG.</szItemDesc>
+		<szBRName>Owen .45</szBRName>
+		<szBRDesc>Adopted by the Australian army who considered it to be more reliable than the Thompson SMG. Top-feeding magazine precludes alternative sights, though.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1072</uiIndex>

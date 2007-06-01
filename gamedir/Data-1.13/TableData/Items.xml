@@ -24129,36 +24129,94 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1069</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1069</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Galatz</szItemName>
+		<szLongItemName>Galil Sniper</szLongItemName>
+		<szItemDesc>A sniperized version of the Galil assault rifle. More like a DMR than a real sniper rifle.</szItemDesc>
+		<szBRName>Galil Sniper</szBRName>
+		<szBRDesc>This has been a normal Galil, until someone decided to make a sniper rifle from it.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1069</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>307</ubGraphicNum>
+		<ubWeight>60</ubWeight>
+		<usPrice>7240</usPrice>
+		<ubCoolness>7</ubCoolness>
+		<bReliability>1</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>1</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>24</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
+		<DefaultAttachment>1007</DefaultAttachment>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1070</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1070</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>HK 416 16"</szItemName>
+		<szLongItemName>HK 416 16"</szLongItemName>
+		<szItemDesc>This has a barrel that is slightly longer than on the standard HK 416.</szItemDesc>
+		<szBRName>HK 416 16"</szBRName>
+		<szBRDesc>If you want more range than a standard 416 has, take this one.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1070</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>317</ubGraphicNum>
+		<ubWeight>36</ubWeight>
+		<usPrice>3240</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bReliability>2</bReliability>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>900</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1071</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1071</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Owen .45</szItemName>
+		<szLongItemName>Owen .45</szLongItemName>
+		<szItemDesc>A rather simple and fullauto-only SMG.</szItemDesc>
+		<szBRName>Owen .45</szBRName>
+		<szBRDesc>Adopted by the Australian army who considered it to be more reliable than the Thompson SMG. Top-feeding magazine precludes alternative sights, though.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1071</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>313</ubGraphicNum>
+		<ubWeight>42</ubWeight>
+		<usPrice>1520</usPrice>
+		<ubCoolness>4</ubCoolness>
+		<bReliability>3</bReliability>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>700</BR_ROF>
+		<BurstToHitBonus>5</BurstToHitBonus>
+		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1072</uiIndex>

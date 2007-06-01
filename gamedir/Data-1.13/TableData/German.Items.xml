@@ -8532,12 +8532,25 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1069</uiIndex>
+		<szItemName>Galatz</szItemName>
+		<szLongItemName>Galil Sniper</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Galil Sniper</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1070</uiIndex>
+		<szItemName>HK 416 16"</szItemName>
+		<szLongItemName>HK 416 16"</szLongItemName>
+		<szBRName>HK 416 16"</szBRName>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1071</uiIndex>
+		<szItemName>Owen .45</szItemName>
+		<szLongItemName>Owen .45</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Owen .45</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1072</uiIndex>
