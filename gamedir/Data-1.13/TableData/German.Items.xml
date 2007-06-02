@@ -3618,9 +3618,9 @@
 		<uiIndex>454</uiIndex>
 		<szItemName>.50 BMG Mag</szItemName>
 		<szLongItemName>.50 BMG Magazin</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>11 Schuss 12.7x99mm panzerbrechender Munition können alle Fragen des Lebens und Sterbens beantworten.</szItemDesc>
 		<szBRName>.50 BMG Magazin</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Diese Magazin ist für die Gewehre aus Barretts M82 Serie geeignet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>455</uiIndex>
@@ -3680,11 +3680,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>462</uiIndex>
-		<szItemName>.30-06 AP</szItemName>
-		<szLongItemName>.30-06 AP Clip</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>.30-06 AP Clip</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>7.62x51 US-G</szItemName>
+		<szLongItemName>7.62x51mm Magazin, US-Glaser</szLongItemName>
+		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
+		<szBRName>7.62x51 Mag US-G #10</szBRName>
+		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>463</uiIndex>
@@ -3826,25 +3826,25 @@
 		<uiIndex>480</uiIndex>
 		<szItemName>5.56 SCF mag</szItemName>
 		<szLongItemName>5.56x45mm SCF mag</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Die 24 Flechettes aus diesem Magazin werden ihren Feinden vor allem schnell das Licht ausknipsen.</szItemDesc>
 		<szBRName>5.56x45mm SCF mag</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Dieses sehr leichte Magazin enthält 24 SChuss für Steyrs berühmt-berüchtigtes ACR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>481</uiIndex>
 		<szItemName>6.8x43mm SPC mag HP</szItemName>
 		<szLongItemName>6.8x43mm SPC mag HP</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Alles bleibt besser - jetzt auch in Hohlspitz.</szItemDesc>
 		<szBRName>6.8x43mm SPC mag HP</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Diese zukunftsträchtige 6.8 SPC Hohlspitzmunition ist am zivilen Markt sehr beliebt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>482</uiIndex>
 		<szItemName>6.8 SPC mag</szItemName>
 		<szLongItemName>6.8x43mm SPC mag</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Alles bleibt besser. Diese Patronen vereinbaren die Vorteile von mehreren anderen Kalibern.</szItemDesc>
 		<szBRName>6.8x43mm SPC mag</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Diese zukunftsträchtige Munition wurde in Zusammenarbeit mit amerikanischen Spezialeinheiten entwickelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>483</uiIndex>
@@ -4008,11 +4008,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>503</uiIndex>
-		<szItemName>12.7x99 Mag</szItemName>
-		<szLongItemName>12.7x99mm Magazin</szLongItemName>
-		<szItemDesc>Diese Magazin enthält Patronen im Kaliber 12.7x99mm für großkalibrige Scharfschützengewehre.</szItemDesc>
-		<szBRName>12.7x99 Magazin #5</szBRName>
-		<szBRDesc>Diese Magazin enthält Patronen im Kaliber 12.7x99mm für großkalibrige Scharfschützengewehre.</szBRDesc>
+		<szItemName>12.7x108 Mag</szItemName>
+		<szLongItemName>12.7x108mm Magazin</szLongItemName>
+		<szItemDesc>Diese Magazin enthält Patronen im Kaliber 12.7x108mm für großkalibrige Scharfschützengewehre.</szItemDesc>
+		<szBRName>12.7x108 Magazin #5</szBRName>
+		<szBRDesc>Diese Magazin enthält Patronen im Kaliber 12.7x108mm für großkalibrige Scharfschützengewehre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>504</uiIndex>
@@ -6298,96 +6298,104 @@
 		<uiIndex>789</uiIndex>
 		<szItemName>Steyr ACR</szItemName>
 		<szLongItemName>Steyr ACR</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Aüßerlich mag Steyrs Advanced Combat Rifle dem AUG ähnlich sein; dennoch schickt es den Tod mit einer phänomenalen Geschwindigkeit von 1450m/s ab.</szItemDesc>
 		<szBRName>Steyr ACR</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Wenn Sie stets auf Nummer sichergehen wollen, ist das ACR genau das richtige Gewehr für Sie.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>790</uiIndex>
 		<szItemName>SCAR-WP CQC</szItemName>
 		<szLongItemName>FN SCAR-WP CQC</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Dieses kompakte Sturmgewehr verwendt russische Munition und erleichtert dadurch Kommando-Operation fernab der eigenen Versorgungslinien.</szItemDesc>
 		<szBRName>FN SCAR-WP CQC</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Dieses kompakte Sturmgewehr verwendt russische Munition und erleichtert dadurch Kommando-Operation fernab der eigenen Versorgungslinien.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>791</uiIndex>
 		<szItemName>SCAR-WP SV</szItemName>
 		<szLongItemName>FN SCAR-WP SV</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Die SCAR Familie hat ein neues Mitglied: die Präzisionsversion in 7.62x39mm.</szItemDesc>
 		<szBRName>FN SCAR-WP SV</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Die SCAR Familie hat ein neues Mitglied: die Präzisionsversion in 7.62x39mm.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>792</uiIndex>
 		<szItemName>SCAR-68 CQC</szItemName>
 		<szLongItemName>FN SCAR-68 CQC</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Wenn sie im städtischen Kampf ordentlich aufmischen wollen, dann ist das genau das richtige Werkzeug.</szItemDesc>
 		<szBRName>FN SCAR-68 CQC</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Dieses kompakte Sturmgewehr der SCAR-Serie verwendet die vielversprechende 6.8SPC Munition.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>793</uiIndex>
 		<szItemName>SCAR-68 SV</szItemName>
 		<szLongItemName>FN SCAR-68 SV</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Dieses Gewehr wird Ihnen in allen Situationen gute Dienste leisten.</szItemDesc>
 		<szBRName>FN SCAR-68 SV</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Dieses Sturmgewehr der SCAR-Serie verwendet die vielversprechende 6.8SPC Munition.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>794</uiIndex>
 		<szItemName>MP5/40A3</szItemName>
 		<szLongItemName>HK MP5/40A3</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Diese MP5 schließt die Marktlücke zwischen 9mm und .45ACP mit Pravour und hoher Feuerrate.</szItemDesc>
 		<szBRName>HK MP5/40A3</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Der Klassiker unter den SMGs ist jetzt auch im weit verbreiteten .40SW erhältlich.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>795</uiIndex>
 		<szItemName>M468</szItemName>
 		<szLongItemName>Barrett M468</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Das erste Sturmgewehr aus dem Hause Barrett. Bitte anschnallen und Sitze in aufrechte Position bringen.</szItemDesc>
 		<szBRName>Barrett M468</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Wir denken, dass Ronny Barretts kleinste Schöpfung nicht weniger tödlich als seine großen Brüder sind. ÜBerzeugen Sie sich selbst.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>796</uiIndex>
 		<szItemName>M4A3</szItemName>
 		<szLongItemName>Bushmaster M4A3</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Der Wolf im Schafspelz wäre eine passende Metapher.</szItemDesc>
 		<szBRName>Bushmaster M4A3</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Bushmasters M4 im 6.8 SPC Kaliber punktet in jeder Hinsicht.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>795</uiIndex>
+		<szItemName>M468</szItemName>
+		<szLongItemName>Barrett M468</szLongItemName>
+		<szItemDesc>Das erste Sturmgewehr aus dem Hause Barrett. Bitte anschnallen und Sitze in aufrechte Position bringen.</szItemDesc>
+		<szBRName>Barrett M468</szBRName>
+		<szBRDesc>Wir denken, dass Ronny Barretts kleinste Schöpfung nicht weniger tödlich als seine großen Brüder ist. ÜBerzeugen Sie sich selbst.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>797</uiIndex>
+		<szItemName>Robarms XCR-1</szItemName>
+		<szLongItemName>Robarms XCR-1</szLongItemName>
+		<szItemDesc>Robarms XCR-1 ist ein AR15 im 6.8SPC Kaliber.</szItemDesc>
+		<szBRName>Robarms XCR-1</szBRName>
+		<szBRDesc>Robarms XCR-1 ist ein AR15 im 6.8SPC Kaliber.</szBRDesc>
+	</ITEM>
+         <ITEM>
+		<uiIndex>798</uiIndex>
 		<szItemName>Nada</szItemName>
 		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 797</szItemDesc>
+		<szItemDesc>Index 798</szItemDesc>
 		<szBRName>Nothing</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>798</uiIndex>
-		<szItemName>Luger P-08</szItemName>
-		<szLongItemName>P-08 Parabellum</szLongItemName>
-		<szItemDesc>Index 798</szItemDesc>
-		<szBRName>P-08 Parabellum</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-	</ITEM>
-	<ITEM>
 		<uiIndex>799</uiIndex>
-		<szItemName>P226 SAS</szItemName>
-		<szLongItemName>SIG P226 SAS</szLongItemName>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
 		<szItemDesc>Index 799</szItemDesc>
-		<szBRName>SIG P226 SAS</szBRName>
+		<szBRName>Nothing</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>800</uiIndex>
-		<szItemName>P226 SAS .40</szItemName>
-		<szLongItemName>SIG P226 SAS .40</szLongItemName>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
 		<szItemDesc>Index 800</szItemDesc>
-		<szBRName>SIG P226 SAS .40</szBRName>
+		<szBRName>Nothing</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8246,7 +8254,7 @@
 		<uiIndex>1033</uiIndex>
 		<szItemName>CQC .308 Lauf</szItemName>
 		<szLongItemName>SCAR-H CQC Lauf</szLongItemName>
-		<szItemDesc>mit diesem Austausch-Lauf im Kaliber .308 Winchester (7,62mm) bauen Sie jedes SCAR zu einer SCAR-H CQC "Close Quarter Combat" Kommandoversion um.</szItemDesc>
+		<szItemDesc>Mit diesem Austausch-Lauf im Kaliber .308 Winchester (7,62mm) bauen Sie jedes SCAR zu einer SCAR-H CQC "Close Quarter Combat" Kommandoversion um.</szItemDesc>
 		<szBRName>SCAR-H CQC Lauf</szBRName>
 		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
 	</ITEM>
@@ -8262,39 +8270,39 @@
 		<uiIndex>1035</uiIndex>
 		<szItemName>CK 68 CQC</szItemName>
 		<szLongItemName>SCAR-68 Conversion Kit</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Verwandeln sie ihr SCAR-L in ein SCAR-68. Sie werden es nicht bereuen.</szItemDesc>
 		<szBRName>SCAR-68 Conversion Kit</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Verwandeln sie ihr SCAR-L in ein SCAR-68. Sie werden es nicht bereuen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1036</uiIndex>
 		<szItemName>CK 68 SV</szItemName>
 		<szLongItemName>SCAR-68 Conversion Kit SV</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Verwandeln sie ihr SCAR-L in ein SCAR-68 mit Präzisionslauf. Sie werden es erst recht nicht bereuen.</szItemDesc>
 		<szBRName>SCAR-68 Conversion Kit SV</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Verwandeln sie ihr SCAR-L in ein SCAR-68 mit Präzisionslauf. Sie werden es nicht bereuen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1037</uiIndex>
 		<szItemName>CK L CQC</szItemName>
 		<szLongItemName>SCAR-L Conversion Kit</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Dieses Kit wir ihr SCAR auf das Kaliber 5.56x45mm anpassen.</szItemDesc>
 		<szBRName>SCAR-L Conversion Kit</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Das Kit adaptiert Ihr SCAR für das 5.56x45mm Nato-Standard Kaliber.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1038</uiIndex>
 		<szItemName>CK L SV</szItemName>
 		<szLongItemName>SCAR-L Conversion Kit SV</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Mit diesem Kit verwandelt man ein SCAR in die 5.56x45mm Präzisions-Version.</szItemDesc>
 		<szBRName>SCAR-L Conversion Kit SV</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Mit diesem Kit verwandelt man ein SCAR in die 5.56x45mm Präzisions-Version.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1039</uiIndex>
 		<szItemName>CQC 6.8 Lauf</szItemName>
 		<szLongItemName>SCAR-68 CQC Lauf</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Ein kurzer 6.8mm Lauf für das SCAR wird sich im Nahkampf als praktisch erweisen.</szItemDesc>
 		<szBRName>SCAR-68 CQC Lauf</szBRName>
 		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
 	</ITEM>
@@ -8302,47 +8310,47 @@
 		<uiIndex>1040</uiIndex>
 		<szItemName>SV 6.8 Lauf</szItemName>
 		<szLongItemName>SCAR-68 SV Lauf</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Dieser lange 6.8mm Lauf für das SCAR punktet mit großer Reichweite und hoher Präzision.</szItemDesc>
 		<szBRName>SCAR-68 SV Lauf</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Dieser lange 6.8mm Lauf für das SCAR punktet mit großer Reichweite und hoher Präzision.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1041</uiIndex>
 		<szItemName>CK WP CQC</szItemName>
 		<szLongItemName>SCAR-WP Conversion Kit</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Dieses Kit passt ein SCAR auf 7.62x39mm Munition an.</szItemDesc>
 		<szBRName>SCAR-WP Conversion Kit</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Dieses Kit passt ein SCAR auf 7.62x39mm Munition an.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1042</uiIndex>
 		<szItemName>CK WP SV</szItemName>
 		<szLongItemName>SCAR-WP Conversion Kit SV</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Dieses Kit passt ein SCAR auf 7.62x39mm Munition an.</szItemDesc>
 		<szBRName>SCAR-WP Conversion Kit SV</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Dieses Kit passt ein SCAR auf 7.62x39mm Munition an.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1043</uiIndex>
 		<szItemName>CK H CQC</szItemName>
 		<szLongItemName>SCAR-H Conversion Kit</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Wenn Ihnen Ihr SCAR noch immer zu schwach sein sollte, dann brauchen Sie dieses Kit.</szItemDesc>
 		<szBRName>SCAR-H Conversion Kit</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Wenn Ihnen Ihr SCAR noch immer zu schwach sein sollte, dann brauchen Sie dieses Kit.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1044</uiIndex>
 		<szItemName>CK H SV</szItemName>
 		<szLongItemName>SCAR-H Conversion Kit SV</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Wenn Ihnen Ihr SCAR noch immer zu schwach sein sollte, dann brauchen Sie dieses Kit.</szItemDesc>
 		<szBRName>SCAR-H Conversion Kit SV</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Wenn Ihnen Ihr SCAR noch immer zu schwach sein sollte, dann brauchen Sie dieses Kit.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1045</uiIndex>
 		<szItemName>CQC WP Lauf</szItemName>
 		<szLongItemName>SCAR-WP CQC Lauf</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Dieser Lauf macht aus einem SCAR-WP-SV eine CQC-Version.</szItemDesc>
 		<szBRName>SCAR-WP CQC Lauf</szBRName>
 		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
 	</ITEM>
@@ -8350,9 +8358,9 @@
 		<uiIndex>1046</uiIndex>
 		<szItemName>SV WP Lauf</szItemName>
 		<szLongItemName>SCAR-WP SV Lauf</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Dieser Lauf macht aus einem SCAR-WP-CQC eine Präzisions-Version.</szItemDesc>
 		<szBRName>SCAR-WP SV Lauf</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Dieser Lauf macht aus einem SCAR-WP-CQC eine Präzisions-Version.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1047</uiIndex>
@@ -8486,9 +8494,9 @@
 		<uiIndex>1063</uiIndex>
 		<szItemName>1st Resp. Kit</szItemName>
 		<szLongItemName>Ersthelfer-Tasche</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Diese Tasche ist überraschenderweise für Ersthelfer geeignet. Wer hätte das gedacht?</szItemDesc>
 		<szBRName>Ersthelfer-Tasche</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Diese praktische Tasche sollten Sie immer dabeihaben.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1064</uiIndex>
@@ -8542,7 +8550,9 @@
 		<uiIndex>1070</uiIndex>
 		<szItemName>HK 416 16"</szItemName>
 		<szLongItemName>HK 416 16"</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
 		<szBRName>HK 416 16"</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1071</uiIndex>

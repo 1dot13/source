@@ -19567,6 +19567,11 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1012</attachmentIndex>
+		<itemIndex>1069</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1012</attachmentIndex>
 		<itemIndex>1070</itemIndex>
 		<APCost>5</APCost>
 	</ATTACHMENT>
