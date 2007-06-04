@@ -68,23 +68,23 @@ extern BOOLEAN fMapScreenBottomDirty;
 
 //These contain all of the information about the game time, rate of time, etc.
 //All of these get saved and loaded.
-INT32				giTimeCompressMode			=	TIME_COMPRESS_X0;
-UINT8				gubClockResolution			= 1;
-BOOLEAN			gfGamePaused						= TRUE;
-BOOLEAN			gfTimeInterrupt					= FALSE;
-BOOLEAN			gfTimeInterruptPause    = FALSE;
-BOOLEAN			fSuperCompression				= FALSE;
-UINT32			guiGameClock						= STARTING_TIME;
+INT32			giTimeCompressMode			=	TIME_COMPRESS_X0;
+UINT8			gubClockResolution			= 1;
+BOOLEAN			gfGamePaused				= TRUE;
+BOOLEAN			gfTimeInterrupt				= FALSE;
+BOOLEAN			gfTimeInterruptPause		= FALSE;
+BOOLEAN			fSuperCompression			= FALSE;
+UINT32			guiGameClock				= gGameExternalOptions.iGameStartingTime;
 UINT32			guiPreviousGameClock = 0;		// used only for error-checking purposes
 UINT32			guiGameSecondsPerRealSecond;
 UINT32			guiTimesThisSecondProcessed = 0;
-INT32			  iPausedPopUpBox = -1;
+INT32			iPausedPopUpBox = -1;
 UINT32			guiDay;
 UINT32			guiHour;
 UINT32			guiMin;
 CHAR16			gswzWorldTimeStr[20];
-INT32				giTimeCompressSpeeds[ NUM_TIME_COMPRESS_SPEEDS ] = { 0, 1, 5 * 60, 30 * 60, 60 * 60 };
-UINT16      usPausedActualWidth;
+INT32			giTimeCompressSpeeds[ NUM_TIME_COMPRESS_SPEEDS ] = { 0, 1, 5 * 60, 30 * 60, 60 * 60 };
+UINT16			usPausedActualWidth;
 UINT16			usPausedActualHeight;
 UINT32			guiTimeOfLastEventQuery = 0;
 BOOLEAN			gfLockPauseState = FALSE;
@@ -95,7 +95,7 @@ UINT32			guiLockPauseStateLastReasonId = 0;
 //***When adding new saved time variables, make sure you remove the appropriate amount from the paddingbytes and
 //   more IMPORTANTLY, add appropriate code in Save/LoadGameClock()!
 #define			TIME_PADDINGBYTES		20
-UINT8				gubUnusedTimePadding[TIME_PADDINGBYTES];
+UINT8			gubUnusedTimePadding[TIME_PADDINGBYTES];
 
 
 
@@ -106,8 +106,8 @@ extern			UINT32		guiEnvDay;
 
 void InitNewGameClock( )
 {
-	guiGameClock = STARTING_TIME;
-	guiPreviousGameClock = STARTING_TIME;
+	guiGameClock = gGameExternalOptions.iGameStartingTime;
+	guiPreviousGameClock = gGameExternalOptions.iGameStartingTime;
 	guiDay = ( guiGameClock / NUM_SEC_IN_DAY );
 	guiHour = ( guiGameClock - ( guiDay * NUM_SEC_IN_DAY ) ) / NUM_SEC_IN_HOUR;
 	guiMin	= ( guiGameClock - ( ( guiDay * NUM_SEC_IN_DAY ) + ( guiHour * NUM_SEC_IN_HOUR ) ) ) / NUM_SEC_IN_MIN;

@@ -143,6 +143,9 @@ typedef struct
 	INT32	iStartingCashExpert;
 	INT32	iStartingCashInsane;
 
+	UINT32 iGameStartingTime; //Lalien: game starting time	
+	UINT32 iFirstArrivalDelay; 
+
 	BOOLEAN fSellAll;
 	INT16 iPriceModifier;
 

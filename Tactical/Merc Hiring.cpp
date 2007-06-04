@@ -183,7 +183,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 	if( DidGameJustStart() )
 	{
 		// Set time of initial merc arrival in minutes
-		pHireMerc->uiTimeTillMercArrives = ( STARTING_TIME + FIRST_ARRIVAL_DELAY ) / NUM_SEC_IN_MIN;
+		pHireMerc->uiTimeTillMercArrives = ( gGameExternalOptions.iGameStartingTime + gGameExternalOptions.iFirstArrivalDelay ) / NUM_SEC_IN_MIN;
 
 		// Set insertion for first time in chopper
 		pHireMerc->ubInsertionCode				= INSERTION_CODE_CHOPPER;

@@ -1096,7 +1096,7 @@ void InitHelicopterEntranceByMercs( void )
 		AIR_RAID_DEFINITION	AirRaidDef;
 
 		// Update clock ahead from STARTING_TIME to make mercs arrive!
-		WarpGameTime( FIRST_ARRIVAL_DELAY, WARPTIME_PROCESS_EVENTS_NORMALLY );
+		WarpGameTime( gGameExternalOptions.iFirstArrivalDelay, WARPTIME_PROCESS_EVENTS_NORMALLY );
 
 		AirRaidDef.sSectorX		= 9;
 		AirRaidDef.sSectorY		= 1;

@@ -95,9 +95,9 @@ enum
 //dereferenced with the above enumerations to provide the actual time compression rate.
 extern INT32 giTimeCompressSpeeds[ NUM_TIME_COMPRESS_SPEEDS ];
 
-
-#define			STARTING_TIME						( ( 1 * NUM_SEC_IN_HOUR ) + ( 0 * NUM_SEC_IN_MIN ) + NUM_SEC_IN_DAY )		// 1am
-#define			FIRST_ARRIVAL_DELAY			( ( 6 * NUM_SEC_IN_HOUR ) + ( 0 * NUM_SEC_IN_MIN ) )		// 7am ( 6hours later)
+//Lalien: externalized game starting time
+//#define			STARTING_TIME				( ( 1 * NUM_SEC_IN_HOUR ) + ( 0 * NUM_SEC_IN_MIN ) + NUM_SEC_IN_DAY )		// 1am
+//#define			FIRST_ARRIVAL_DELAY			( ( 6 * NUM_SEC_IN_HOUR ) + ( 0 * NUM_SEC_IN_MIN ) )		// 7am ( 6hours later)
 
 #define WORLDTIMESTR	gswzWorldTimeStr
 
