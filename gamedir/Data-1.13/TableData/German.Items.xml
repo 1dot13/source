@@ -6359,14 +6359,6 @@
 		<szBRDesc>Bushmasters M4 im 6.8 SPC Kaliber punktet in jeder Hinsicht.</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>795</uiIndex>
-		<szItemName>M468</szItemName>
-		<szLongItemName>Barrett M468</szLongItemName>
-		<szItemDesc>Das erste Sturmgewehr aus dem Hause Barrett. Bitte anschnallen und Sitze in aufrechte Position bringen.</szItemDesc>
-		<szBRName>Barrett M468</szBRName>
-		<szBRDesc>Wir denken, dass Ronny Barretts kleinste Schöpfung nicht weniger tödlich als seine großen Brüder ist. ÜBerzeugen Sie sich selbst.</szBRDesc>
-	</ITEM>
-	<ITEM>
 		<uiIndex>797</uiIndex>
 		<szItemName>Robarms XCR-1</szItemName>
 		<szLongItemName>Robarms XCR-1</szLongItemName>
