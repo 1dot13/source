@@ -3728,11 +3728,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>468</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 468</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.30 car HP</szItemName>
+		<szLongItemName>.30 car HP mag</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.30 car HP mag</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>469</uiIndex>
@@ -3776,11 +3776,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>474</uiIndex>
-		<szItemName>7.62x51 US-G</szItemName>
-		<szLongItemName>7.62x51mm Gurt, US-Glaser</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>7.62x51 Gurt US-G #100</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>.30 car AP</szItemName>
+		<szLongItemName>.30 car AP mag</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.30 car AP mag</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>475</uiIndex>
@@ -6366,7 +6366,7 @@
 		<szBRName>Robarms XCR-1</szBRName>
 		<szBRDesc>Robarms XCR-1 ist ein AR15 im 6.8SPC Kaliber.</szBRDesc>
 	</ITEM>
-         <ITEM>
+	<ITEM>
 		<uiIndex>798</uiIndex>
 		<szItemName>Nada</szItemName>
 		<szLongItemName>Nothing</szLongItemName>
@@ -7426,17 +7426,17 @@
 		<uiIndex>930</uiIndex>
 		<szItemName>Nada</szItemName>
 		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 930</szItemDesc>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
 		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>931</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 931</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>4.6mm mag AET</szItemName>
+		<szLongItemName>4.6x30mm mag AET</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>4.6x30mm mag AET</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>932</uiIndex>
@@ -8556,15 +8556,35 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1072</uiIndex>
+		<szItemName>HK 416 20"</szItemName>
+		<szLongItemName>HK 416 20"</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>HK 416 20"</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1073</uiIndex>
+		<szItemName>HK UCP</szItemName>
+		<szLongItemName>HK UCP</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>HK UCP</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1074</uiIndex>
+		<szItemName>HEZI SM-1</szItemName>
+		<szLongItemName>HEZI SM-1</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>HEZI SM-1</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1075</uiIndex>
+		<szItemName>MG3</szItemName>
+		<szLongItemName>Rheinmetall MG3</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Rheinmetall MG3</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1076</uiIndex>

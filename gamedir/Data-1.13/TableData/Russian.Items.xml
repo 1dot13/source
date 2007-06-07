@@ -3746,11 +3746,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>468</uiIndex>
-		<szItemName>7.62x51mm 20 G C</szItemName>
-		<szLongItemName>7.62x51mm Mag, 20 Glaser Cold</szLongItemName>
-		<szItemDesc>If 20 rounds of Glaser Safety ammo fail to make your point, the conversation wasn't worth having to begin with. These bullets have been cold-loaded for quieter stopping power.</szItemDesc>
-		<szBRName>7.62x51mm 20 Glaser Cold</szBRName>
-		<szBRDesc>Twenty rounds of frangible fun. All of the man-stopping power, none of the over-penetration.  These bullets have been cold-loaded for silent hunting.</szBRDesc>
+		<szItemName>.30 car HP</szItemName>
+		<szLongItemName>.30 car HP mag</szLongItemName>
+		<szItemDesc>A 30-round M1 magazine with hollowpoint ammo.</szItemDesc>
+		<szBRName>.30 car HP mag</szBRName>
+		<szBRDesc>Hollowpoint rounds for the old M1 Carbine.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>469</uiIndex>
@@ -3794,11 +3794,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>474</uiIndex>
-		<szItemName>7.62x51mm Belt G C</szItemName>
-		<szLongItemName>7.62x51mm Belt, Glaser Cold</szLongItemName>
-		<szItemDesc>If 100 rounds of Glaser Safety ammo fail to make your point, the conversation wasn't worth having to begin with. These bullets have been cold-loaded for quieter stopping power.</szItemDesc>
-		<szBRName>7.62x51mm Belt Glaser Cold</szBRName>
-		<szBRDesc>One hundred rounds of frangible fun. All of the man-stopping power, none of the over-penetration.  These bullets have been cold-loaded for silent hunting.</szBRDesc>
+		<szItemName>.30 car AP</szItemName>
+		<szLongItemName>.30 car AP mag</szLongItemName>
+		<szItemDesc>A 30-round M1 magazine with AP ammo.</szItemDesc>
+		<szBRName>.30 car AP mag</szBRName>
+		<szBRDesc>Full Metal Jacket ammo for the old M1 Carbine.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>475</uiIndex>
@@ -7444,17 +7444,17 @@
 		<uiIndex>930</uiIndex>
 		<szItemName>Nada</szItemName>
 		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 930</szItemDesc>
+		<szItemDesc>Ammo for the HK UCP pistol.</szItemDesc>
 		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRDesc>20 rounds of armor piercing 4.6mm ammo, usable for both the HK MP7 and the HK UCP.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>931</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 931</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>4.6mm mag AET</szItemName>
+		<szLongItemName>4.6x30mm mag AET</szLongItemName>
+		<szItemDesc>20 rounds of AET ammo for the HK UCP pistol.</szItemDesc>
+		<szBRName>4.6x30mm mag AET</szBRName>
+		<szBRDesc>A magazine with Advanced Energy Transfer ammo for the HK UCP prototype pistol.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>932</uiIndex>
@@ -8518,15 +8518,35 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1072</uiIndex>
+		<szItemName>HK 416 20"</szItemName>
+		<szLongItemName>HK 416 20"</szLongItemName>
+		<szItemDesc>The DMR variant of the HK 416.</szItemDesc>
+		<szBRName>HK 416 20"</szBRName>
+		<szBRDesc>A Designated Marksman Rifle based on the Heckler &amp; Koch 416.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1073</uiIndex>
+		<szItemName>HK UCP</szItemName>
+		<szLongItemName>HK UCP</szLongItemName>
+		<szItemDesc>This is Heckler &amp; Koch's competitor to FN's FiveseveN.</szItemDesc>
+		<szBRName>HK UCP</szBRName>
+		<szBRDesc>The companion pistol to the HK MP7 PDW. These are pre-production models that may deviate from serial production.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1074</uiIndex>
+		<szItemName>HEZI SM-1</szItemName>
+		<szLongItemName>HEZI SM-1</szLongItemName>
+		<szItemDesc>Actually a M1 Carbine in a new dress.</szItemDesc>
+		<szBRName>HEZI SM-1</szBRName>
+		<szBRDesc>A very new weapon for an old caliber, the HEZI is quite effective for its odd shape.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1075</uiIndex>
+		<szItemName>MG3</szItemName>
+		<szLongItemName>Rheinmetall MG3</szLongItemName>
+		<szItemDesc>When the Germans build up the Bundeswehr they took the MG42, renamed it MG3, and took down the firing rate somewhat. Because, it was still the best GPMG of the world at that time. In use in several other countries as well.</szItemDesc>
+		<szBRName>Rheinmetall MG3</szBRName>
+		<szBRDesc>Despite various nicknames, this is a dead serious gun. With attachment points for both a bipod or a tripod, an Anti-Air sight, and very easily replaced barrels, you can see why this is THE General Purpose Machine Gun.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1076</uiIndex>
