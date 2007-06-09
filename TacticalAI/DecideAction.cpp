@@ -1,7 +1,6 @@
-#ifdef PRECOMPILEDHEADERS
-	#include "AI All.h"
-  #include "strategic status.h"
-#else
+//#ifdef PRECOMPILEDHEADERS
+//	#include "AI All.h"
+//#else
 	#include "ai.h"
 	#include "AIInternals.h"
 	#include "Isometric utils.h"
@@ -20,8 +19,20 @@
 	#include "pathai.h"
 	#include "Render Fun.h"
 	#include "Boxing.h"
+	#include "strategic status.h"
+	#include "Soldier Profile.h"
+	#include "Soldier macros.h"
+	#include "los.h"
+	#include "Buildings.h"
+	#include "strategicmap.h"
+	#include "Quests.h"
+	#include "soldier ani.h"
+	#include "Map Screen Interface Map.h"
+	#include "GameSettings.h"
+	#include "rotting corpses.h"
+	#include "Dialogue Control.h"
 //	#include "Air Raid.h"
-#endif
+//#endif
 
 extern BOOLEAN InternalIsValidStance( SOLDIERTYPE *pSoldier, INT8 bDirection, INT8 bNewStance );
 extern BOOLEAN gfHiddenInterrupt;
@@ -2168,13 +2179,15 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
     }
    else		// toss/throw/launch not possible
     {
+     // WDS - Fix problem when there is no "best thrown" weapon (i.e., BestThrow.bWeaponIn == NO_SLOT)
      // if this dude has a longe-range weapon on him (longer than normal
      // sight range), and there's at least one other team-mate around, and
      // spotters haven't already been called for, then DO SO!
  
-     if ( ( CalcMaxTossRange( pSoldier, pSoldier->inv[BestThrow.bWeaponIn].usItem, TRUE ) > MaxDistanceVisible() ) &&
-				 (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) &&
-				 (gTacticalStatus.ubSpottersCalledForBy == NOBODY))
+     if ( (BestThrow.bWeaponIn != NO_SLOT) &&
+		  (CalcMaxTossRange( pSoldier, pSoldier->inv[BestThrow.bWeaponIn].usItem, TRUE ) > MaxDistanceVisible() ) &&
+		  (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) &&
+		  (gTacticalStatus.ubSpottersCalledForBy == NOBODY))
       {
        // then call for spotters!  Uses up the rest of his turn (whatever
        // that may be), but from now on, BLACK AI NPC may radio sightings!
@@ -2220,22 +2233,25 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
  
 		 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: sniper shot not possible");
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: weapon in slot #%d",BestShot.bWeaponIn));
-		OBJECTTYPE * gun = &pSoldier->inv[BestShot.bWeaponIn];
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: men in sector %d, ubspotters called by %d, nobody %d",gTacticalStatus.Team[pSoldier->bTeam].bMenInSector,gTacticalStatus.ubSpottersCalledForBy,NOBODY ));
-		if ( ( ( IsScoped(gun) && GunRange(gun) > MaxDistanceVisible() ) || pSoldier->bOrders == SNIPER ) &&
-				 (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) &&
-				 (gTacticalStatus.ubSpottersCalledForBy == NOBODY))
+		// WDS - Fix problem when there is no "best shot" weapon (i.e., BestShot.bWeaponIn == NO_SLOT)
+		if (BestShot.bWeaponIn != NO_SLOT) {
+			OBJECTTYPE * gun = &pSoldier->inv[BestShot.bWeaponIn];
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: men in sector %d, ubspotters called by %d, nobody %d",gTacticalStatus.Team[pSoldier->bTeam].bMenInSector,gTacticalStatus.ubSpottersCalledForBy,NOBODY ));
+			if ( ( ( IsScoped(gun) && GunRange(gun) > MaxDistanceVisible() ) || pSoldier->bOrders == SNIPER ) &&
+					 (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) &&
+					 (gTacticalStatus.ubSpottersCalledForBy == NOBODY))
 
-		{
-	       // then call for spotters!  Uses up the rest of his turn (whatever
-		   // that may be), but from now on, BLACK AI NPC may radio sightings!
-			gTacticalStatus.ubSpottersCalledForBy = pSoldier->ubID;
-			pSoldier->bActionPoints = 0;
+			{
+		       // then call for spotters!  Uses up the rest of his turn (whatever
+			   // that may be), but from now on, BLACK AI NPC may radio sightings!
+				gTacticalStatus.ubSpottersCalledForBy = pSoldier->ubID;
+				pSoldier->bActionPoints = 0;
 
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: calling for sniper spotters");
+				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: calling for sniper spotters");
 
-			pSoldier->usActionData = NOWHERE;
-			return(AI_ACTION_NONE);
+				pSoldier->usActionData = NOWHERE;
+				return(AI_ACTION_NONE);
+			}
 		}
     }
 
