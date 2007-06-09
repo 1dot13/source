@@ -14,6 +14,9 @@
 	#include "Creature Spreading.h"
 	#include "Strategic AI.h"
 	#include "XML.h"
+	#include "expat.h"
+	#include "Debug Control.h"
+	#include "Tactical Save.h"
 #endif
 
 extern BOOLEAN InitStrategicMovementCosts();

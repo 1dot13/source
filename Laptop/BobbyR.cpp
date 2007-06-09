@@ -17,7 +17,10 @@
 	#include "Random.h"
 	#include "Text.h"
 	#include "Multi Language Graphic Utils.h"
-	#include "Utility.h"
+//	#include "Utility.h"
+	#include "armsdealerinvinit.h"
+	#include "GameSettings.h"
+	#include "message.h"
 #endif
 
 

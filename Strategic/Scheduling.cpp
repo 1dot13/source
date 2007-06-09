@@ -22,6 +22,12 @@
 	#include "Structure Wrap.h"
 	#include "jascreens.h"
 	#include "strategicmap.h"
+	#include "worldman.h"
+	#include "Animation Control.h"
+	#include "Soldier Add.h"
+	#include "Soldier Profile.h"
+	#include "soldier profile type.h"
+	#include "Quests.h"
 #endif
 
 #ifdef JA2EDITOR

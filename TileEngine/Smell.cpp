@@ -10,6 +10,9 @@
 	#include "gamesettings.h"
 	#include "message.h"
 	#include "Isometric utils.h"
+	#include "Map Information.h"
+	#include "Game Clock.h"
+	#include "Overhead.h"
 #endif
 
 /*

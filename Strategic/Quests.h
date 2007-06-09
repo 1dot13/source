@@ -2,6 +2,7 @@
 #define __QUESTS_H
 
 #include "FileMan.h"
+#include "strategicmap.h"
 
 //  Quest.ubStatus values
 #define QUESTNOTSTARTED					0

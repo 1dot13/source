@@ -97,6 +97,19 @@
 	#include "Player Command.h"
 	#include "Multi Language Graphic Utils.h"
 	#include "HelpScreen.h"
+	#include "Soldier macros.h"
+	#include "Map Information.h"
+	#include "cheats.h"
+	#include "Strategic Town Loyalty.h"
+	#include "GameSettings.h"
+	#include "_Ja25EnglishText.h"
+	#include "Militia Control.h"
+	#include "Tactical Save.h"
+	#include "Explosion Control.h"
+	#include "Creature Spreading.h"
+	#include "email.h"
+	#include "Strategic Status.h"
+	#include "Soldier Create.h"
 #endif
 
 

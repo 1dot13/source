@@ -79,7 +79,7 @@ extern  REAL_OBJECT			ObjectSlots[ NUM_OBJECT_SLOTS ];
 
 
 // OBJECT LIST STUFF
-INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, real yPos, real zPos, real xForce, real yForce, real zForce, UINT8 ubOwner, UINT8 ubActionCode, UINT32 uiActionData );
+INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, real yPos, real zPos, real xForce, real yForce, real zForce, UINT8 ubOwner, UINT8 ubActionCode, UINT32 uiActionData, BOOLEAN fTestObject );
 BOOLEAN		RemoveObjectSlot( INT32 iObject );
 void RemoveAllPhysicsObjects( );
 

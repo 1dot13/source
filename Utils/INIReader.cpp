@@ -1,3 +1,4 @@
+#include "builddefines.h"
 #include "IniReader.h"
 #include "FileMan.h"
 #include <stdio.h>

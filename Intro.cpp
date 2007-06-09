@@ -22,6 +22,14 @@
 	#include "Line.h"
 	#include "Intro.h"
 	#include "Cinematics.h"
+	#include "mainmenuscreen.h"
+	#include "Music Control.h"
+	#include "LibraryDataBase.h"
+	#include "english.h"
+	#include "Game Init.h"
+	#include "Soldier Profile.h"
+	#include "soldier profile type.h"
+	#include "MessageBoxScreen.h"
 #endif
 
 extern STR16	gzIntroScreen[];

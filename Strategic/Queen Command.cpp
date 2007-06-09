@@ -26,6 +26,23 @@
 	#include "Soldier Ani.h"
 	#include "Strategic AI.h"
 	#include "GameSettings.h"
+	#include "MessageBoxScreen.h"
+	#include "screenids.h"
+	#include "Strategic Town Loyalty.h"
+	#include "Soldier Profile.h"
+	#include "Quests.h"
+	#include "jascreens.h"
+	#include "Auto Resolve.h"
+	#include "Game Event Hook.h"
+	#include "Animation Data.h"
+	#include "Game Clock.h"
+	#include "renderworld.h"
+	#include "Town Militia.h"
+	#include "Dialogue Control.h"
+	#include "Campaign Init.h"
+	#include "meanwhile.h"
+	#include "Soldier macros.h"
+	#include "Morale.h"	
 #endif
 
 #ifdef JA2BETAVERSION

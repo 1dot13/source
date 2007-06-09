@@ -1,3 +1,4 @@
+#include "builddefines.h"
 
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
@@ -21,6 +22,10 @@
 	#include "renderworld.h"
 	#include "explosion control.h"
 	#include "Random.h"
+	#include "Game Clock.h"
+	#include "opplist.h"
+	#include "Campaign Types.h"
+	#include "Tactical Save.h"
 #endif
 
 #include "SaveLoadGame.h"

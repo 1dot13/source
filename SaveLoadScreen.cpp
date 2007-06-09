@@ -35,6 +35,7 @@
 	#include	"Message.h"
 	#include	"Map Screen Interface.h"
 	#include "Multi Language Graphic Utils.h"
+	#include "Campaign Types.h"
 #endif
 
 #include "Campaign Init.h"

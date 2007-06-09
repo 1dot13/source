@@ -17,6 +17,8 @@
 	#include "Game clock.h"
 	#include "english.h"
 	#include "Text.h"
+	#include "LaptopSave.h"
+	#include "Random.h"
 #endif
 
 #include "meanwhile.h"

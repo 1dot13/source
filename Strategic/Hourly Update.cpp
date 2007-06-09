@@ -9,6 +9,15 @@
 	#include "Morale.h"
 	#include "Quests.h"
 	#include "Game Clock.h"
+	#include "Overhead.h"
+	#include "Boxing.h"
+	#include "jascreens.h"
+	#include "screenids.h"
+	#include "Items.h"
+	#include "Random.h"
+	#include "finances.h"
+	#include "history.h"
+	#include "Dialogue Control.h"
 #endif
 
 void HourlyQuestUpdate( void );

@@ -42,6 +42,9 @@
 	#include "PreBattle Interface.h"
 	#include "Auto Resolve.h"
 	#include "Morale.h"
+	#include "ai.h"
+	#include "Strategic Mines.h"
+	#include "math.h"
 #endif
 
 

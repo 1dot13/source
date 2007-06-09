@@ -46,6 +46,9 @@
 	#include "spread burst.h"
 	#include "squads.h"
 	#include "line.h"
+	#include "Militia Control.h"
+	#include "Map Screen Interface.h"
+	#include "civ quotes.h"
 #endif
 
 /*  I deleted here declaration of clock coords for tactical screen i will declare them

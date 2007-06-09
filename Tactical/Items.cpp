@@ -36,6 +36,20 @@
 	#include "Interface Control.h"
 	#include "ShopKeeper Interface.h"
 	#include "Cursors.h"
+
+	#include "GameSettings.h"
+	#include "environment.h"
+	#include "Auto Resolve.h"
+	#include "Interface Items.h"
+	#include "Campaign Types.h"
+	#include "history.h"
+	#include "Game Clock.h"
+	#include "strategicmap.h"
+	#include "Inventory Choosing.h"
+	#include "Soldier macros.h"
+	#include "Smell.h"
+	#include "lighting.h"
+	#include "utilities.h"
 #endif
 
 #define ANY_MAGSIZE 255
@@ -1607,7 +1621,8 @@ INT8 FindThrowableGrenade( SOLDIERTYPE * pSoldier )
 	
 	for (bLoop = 0; bLoop < NUM_INV_SLOTS; bLoop++)
 	{
-		if ( (Item[ pSoldier->inv[ bLoop ].usItem ].usItemClass & IC_GRENADE) && !GLGrenadeInSlot( pSoldier, bLoop ) )
+		if ( (Item[ pSoldier->inv[ bLoop ].usItem ].usItemClass & IC_GRENADE) && // Try this check instead, to avoid tossing RPG rounds     !GLGrenadeInSlot( pSoldier, bLoop ) &&
+			GetLauncherFromLaunchable( pSoldier->inv[ bLoop ].usItem) == NOTHING )
 		{
 			return( bLoop );
 		}
@@ -6565,7 +6580,7 @@ INT16 GetRateOfFireBonus( OBJECTTYPE * pObj )
     }
 
 	bns = BonusReduceMore( Item[pObj->usItem].rateoffirebonus, pObj->bStatus[0] );
-	bns += Item[pObj->usGunAmmoItem].rateoffirebonus;
+	bns += Item[pObj->usGunAmmoItem].rateoffirebonus ;
 
 	for (bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
 	{

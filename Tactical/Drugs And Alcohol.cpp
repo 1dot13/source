@@ -10,6 +10,9 @@
 	#include "morale.h"
 	#include "points.h"
 	#include "message.h"
+#include "Random.h"
+#include "Text.h"
+#include "Interface.h"
 #endif
 
 UINT8 ubDrugTravelRate[]			= { 4,	2 };

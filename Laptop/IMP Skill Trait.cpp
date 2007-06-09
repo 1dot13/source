@@ -3,6 +3,22 @@
 	#include "IMP Skill Trait.h"
 	#include "_Ja25Englishtext.h"
 #else
+	#include "IMP Skill Trait.h"
+	#include "Button System.h"
+	#include "utilities.h"
+	#include "Debug.h"
+	#include "Text.h"
+	#include "Font Control.h"
+	#include "font.h"
+	#include "laptop.h"
+	#include "cursors.h"
+	#include "IMP MainPage.h"
+	#include "IMPVideoObjects.h"
+	#include "_Ja25EnglishText.h"
+	#include "wordwrap.h"
+	#include "CharProfile.h"
+	#include "soldier profile type.h"
+	#include "IMP Compile Character.h"
 #endif
 
 

@@ -3,6 +3,7 @@
 	#include "PreBattle Interface.h"
   #include "creature spreading.h"
 #else
+	#include "builddefines.h"
 	#include <stdio.h>
 	#include "Button System.h"
 	#include "mousesystem.h"
@@ -24,6 +25,16 @@
 	#include "input.h"
 	#include "english.h"
 	#include "text.h"
+	#include "Strategic Movement.h"
+	#include "Squads.h"
+	#include "Assignments.h"
+	#include "Soldier macros.h"
+	#include "Map Screen Interface Map.h"
+	#include "PreBattle Interface.h"
+	#include "strategic.h"
+	#include "MessageBoxScreen.h"
+	#include "Quests.h"
+	#include "Creature Spreading.h"
 #endif
 
 BOOLEAN		gfInSectorExitMenu = FALSE;

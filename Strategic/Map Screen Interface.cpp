@@ -38,6 +38,22 @@
 	#include "WordWrap.h"
 	#include "interface control.h"
 	#include "GameSettings.h"
+	#include "Campaign Types.h"
+	#include "Map Screen Interface Map Inventory.h"
+	#include "strategic.h"
+	#include "Keys.h"
+	#include "Soldier macros.h"
+	#include "Militia Control.h"
+	#include "Random.h"
+	#include "Cursor Control.h"
+	#include "renderworld.h"
+	#include "Game Init.h"
+	#include "Strategic Mines.h"
+	#include "finances.h"
+	#include "strategic.h"
+	#include "Air Raid.h"
+	#include "Queen Command.h"
+	#include "Render Fun.h"
 #endif
 
 // inventory pool position on screen

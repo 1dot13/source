@@ -1,3 +1,5 @@
+#include "builddefines.h"
+
 // WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
@@ -88,6 +90,21 @@
 	#include "render dirty.h"
 	#include "Debug Control.h"
 	#include "expat.h"
+	#include "Loading Screen.h"
+	#include "Queen Command.h"
+	#include "Enemy Soldier Save.h"
+	#include "Boxing.h"
+	#include "NPC.h"
+	#include "Strategic Event Handler.h"
+	#include "MessageBoxScreen.h"
+	#include "interface dialogue.h"
+	#include "Map Screen Interface.h"
+	#include "history.h"
+	#include "Bullets.h"
+	#include "physics.h"
+	#include "Explosion Control.h"
+	#include "Auto Resolve.h"
+	#include "cursors.h"
 #endif
 
 #include "SaveLoadGame.h"
@@ -2746,7 +2763,7 @@ void UpdateMercInSector( SOLDIERTYPE *pSoldier, INT16 sSectorX, INT16 sSectorY, 
 }
 
 // Get sector ID string makes a string like 'A9 - OMERTA', or just J11 if no town....
-void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , CHAR16 * zString, BOOLEAN fDetailed )
+void GetSectorIDString( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ , STR16 zString, BOOLEAN fDetailed )
 {
 	SECTORINFO *pSector = NULL;
 	UNDERGROUND_SECTORINFO *pUnderground;

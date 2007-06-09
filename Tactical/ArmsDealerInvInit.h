@@ -1,6 +1,7 @@
 #ifndef _ARMS_DEALER_INV_INIT__H_
 #define	_ARMS_DEALER_INV_INIT__H_
 
+#include "Item Types.h"
 
 #define		LAST_DEALER_ITEM					0//-1
 #define		NO_DEALER_ITEM						0

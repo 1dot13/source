@@ -31,10 +31,22 @@
 	#include "Weapons.h"
 	#include "meanwhile.h"
 
-#ifdef JA2TESTVERSION
-	#include	"Quest Debug System.h"
-	#include	"QuestText.h"
+	#ifdef JA2TESTVERSION
+		#include	"Quest Debug System.h"
+		#include	"QuestText.h"
 	#endif
+
+	#include "SkillCheck.h"
+	#include "Render Fun.h"
+	#include "Text.h"
+	#include "finances.h"
+	#include "Arms Dealer Init.h"
+	#include "Interface Items.h"
+	#include "opplist.h"
+	#include "Animation Control.h"
+	#include "Scheduling.h"
+	#include "Tactical Save.h"
+	#include "Campaign Types.h"
 #endif
 
 #define NUM_CIVQUOTE_SECTORS 20

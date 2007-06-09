@@ -31,6 +31,8 @@
 	#include "Game Event Hook.h"
 	#include "LaptopSave.h"
 	#include "strategic.h"
+	#include "weapons.h"
+	#include "Random.h"
 #endif
 
 #define IMP_FILENAME_SUFFIX ".dat"

@@ -40,6 +40,10 @@
 	#include "Merc Contract.h"
 	#include "Strategic Merc Handler.h"
 	#include "Language Defines.h"
+	#include "Assignments.h"
+	#include "Sound Control.h"
+	#include "Quests.h"
+	#include "strategicmap.h"
 #endif
 
 #include "Strategic Town Loyalty.h"

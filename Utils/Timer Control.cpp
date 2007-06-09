@@ -14,6 +14,7 @@
 	#include "handle items.h"
 	#include "worlddef.h"
 	#include "renderworld.h"
+	#include "interface control.h"
 #endif
 
 #ifndef WIN32_LEAN_AND_MEAN

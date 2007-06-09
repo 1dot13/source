@@ -27,6 +27,10 @@
 	#include "GameSettings.h"
 	#include "Arms Dealer Init.h"
 	#include "GameSettings.h"
+	#include "Random.h"
+	#include "Assignments.h"
+	#include "strategic.h"
+	#include "Strategic Event Handler.h"
 #endif
 
 #include "BobbyRMailOrder.h"

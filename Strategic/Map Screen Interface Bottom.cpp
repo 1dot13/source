@@ -36,6 +36,20 @@
 	#include "LaptopSave.h"
 	#include "Sound Control.h"
 	#include "Interface Items.h"
+	#include "wordwrap.h"
+	#include "meanwhile.h"
+	#include "Dialogue Control.h"
+	#include "Map Screen Helicopter.h"
+	#include "Map Screen Interface TownMine Info.h"
+	#include "Merc Contract.h"
+	#include "Map Screen Interface Map Inventory.h"
+	#include "Explosion Control.h"
+	#include "Creature Spreading.h"
+	#include "Assignments.h"
+	#include "Soldier macros.h"
+	#include "GameSettings.h"
+	#include "_Ja25EnglishText.h"
+	#include "SaveLoadScreen.h"
 #endif
 
 

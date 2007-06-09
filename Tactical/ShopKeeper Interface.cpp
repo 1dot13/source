@@ -45,6 +45,13 @@
 	#include "MessageBoxScreen.h"
 	#include "LINE.H"
 	#include "Drugs and Alcohol.h"
+	#include "Map Screen Interface.h"
+	#include "Soldier macros.h"
+	#include "armsdealerinvinit.h"
+	#include "opplist.h"
+	#include "los.h"
+	#include "NPC.h"
+	#include "Soldier Create.h"
 #endif
 
 #include "BuildDefines.h"
@@ -2618,8 +2625,8 @@ UINT32 DisplayInvSlot( UINT8 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT1
 	usHeight				= (UINT32)pTrav->usHeight;
 	usWidth					= (UINT32)pTrav->usWidth;
 
-	sCenX = usPosX + 7 + (INT16)( abs( SKI_INV_WIDTH - 3.0 - usWidth ) / 2 ) - pTrav->sOffsetX;
-	sCenY = usPosY + (INT16)( abs( SKI_INV_HEIGHT - (double)usHeight ) / 2 ) - pTrav->sOffsetY;
+	sCenX = usPosX + 7 + (INT16)( abs( SKI_INV_WIDTH - 3 - usWidth ) / 2 ) - pTrav->sOffsetX;
+	sCenY = usPosY + (INT16)( abs( SKI_INV_HEIGHT - usHeight ) / 2 ) - pTrav->sOffsetY;
 
 
 	//Restore the background region

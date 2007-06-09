@@ -2,6 +2,7 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
+	#include "builddefines.h"
 	#include <stdio.h>
 	#include <stdarg.h>
 	#include <time.h> 
@@ -70,6 +71,8 @@
 	#include "LaptopSave.h"
 	#include "Cursor Control.h"
 	#include "MessageBoxScreen.h"
+	#include "wordwrap.h"
+	#include "Boxing.h"
 #endif
 
 /* 

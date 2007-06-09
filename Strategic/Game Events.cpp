@@ -1,6 +1,7 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 #else
+	#include "builddefines.h"
 	#include <stdio.h>
 	#include "types.h"
 	#include "Game Events.h"

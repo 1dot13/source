@@ -11,6 +11,7 @@
 	#include "vsurface_private.h"
 	#include "wcheck.h"
 	#include "Font Control.h"
+	#include "WinFont.h"
 #endif
 
 INT32          giCurWinFont = 0;

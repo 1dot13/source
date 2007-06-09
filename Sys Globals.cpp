@@ -1,6 +1,7 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "JA2 All.h"
 #else
+	#include "builddefines.h"
 	#include <stdarg.h>
 	#include <stdio.h>
 	#include <wchar.h>

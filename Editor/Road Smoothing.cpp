@@ -13,6 +13,7 @@
 	#include "tiledat.h"
 	#include "worlddef.h"
 	#include "worldman.h"
+	#include "Editor Undo.h"
 #endif
 
 

@@ -1,6 +1,7 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
+	#include "builddefines.h"
 	#include <stdio.h>
 	#include <string.h>
 	#include "wcheck.h"
@@ -29,6 +30,14 @@
 	#include "english.h"
 	#include "cursors.h"
 	#include "cursor control.h"
+	#include "Merc Hiring.h"
+	#include "Font Control.h"
+	#include "message.h"
+	#include "Text.h"
+	#include "strategic turns.h"
+	#include "ai.h"
+	#include "Dialogue Control.h"
+	#include "Music Control.h"
 #endif
 
 #define		MAX_MERC_IN_HELI		20

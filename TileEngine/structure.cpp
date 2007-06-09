@@ -36,6 +36,10 @@
 	#include "sound control.h"
 
 	#include "Buildings.h"
+
+	#include "Random.h"
+
+	#include "Tile Animation.h"
 #endif
 
 #ifdef COUNT_PATHS
@@ -1650,7 +1654,8 @@ void DebugStructurePage1( void )
 	STRUCTURE *		pStructure;
 	STRUCTURE *		pBase;
 	//LEVELNODE *		pLand;
-	INT16					sGridNo, sDesiredLevel;
+	UINT16					usGridNo;
+	INT16					sDesiredLevel;
 	INT8					bHeight, bDens0, bDens1, bDens2, bDens3;
 	INT8					bStructures;
 
@@ -1665,7 +1670,7 @@ void DebugStructurePage1( void )
 
 	SetFont( LARGEFONT1 );
 	gprintf( 0, 0, L"DEBUG STRUCTURES PAGE 1 OF 1" );
-	if (GetMouseMapPos( &sGridNo ) == FALSE)
+	if (GetMouseMapPos( &usGridNo ) == FALSE)
 	{
 		return;
 		//gprintf( 0, LINE_HEIGHT * 1, L"No structure selected" );
@@ -1680,14 +1685,14 @@ void DebugStructurePage1( void )
 		sDesiredLevel = STRUCTURE_ON_ROOF;
 	}
 
-	gprintf( 320, 0, L"Building %d", gubBuildingInfo[ sGridNo ] );
+	gprintf( 320, 0, L"Building %d", gubBuildingInfo[ usGridNo ] );
 	/*
-	pLand = gpWorldLevelData[sGridNo].pLandHead;
+	pLand = gpWorldLevelData[usGridNo].pLandHead;
 	gprintf( 320, 0, L"Fake light %d", pLand->ubFakeShadeLevel );
-	gprintf( 320, LINE_HEIGHT, L"Real light: ground %d roof %d", LightTrueLevel( sGridNo, 0 ), LightTrueLevel( sGridNo, 1 ) );
+	gprintf( 320, LINE_HEIGHT, L"Real light: ground %d roof %d", LightTrueLevel( usGridNo, 0 ), LightTrueLevel( usGridNo, 1 ) );
 	*/
 
-	pStructure = gpWorldLevelData[sGridNo].pStructureHead;
+	pStructure = gpWorldLevelData[usGridNo].pStructureHead;
 	while (pStructure != NULL)
 	{
 		if (pStructure->sCubeOffset == sDesiredLevel)
@@ -1762,7 +1767,7 @@ void DebugStructurePage1( void )
 		gprintf( 0, LINE_HEIGHT * 4, L"Structure ID %d", pStructure->usStructureID );
 		#endif
 
-		pStructure = gpWorldLevelData[sGridNo].pStructureHead;
+		pStructure = gpWorldLevelData[usGridNo].pStructureHead;
 		for ( bStructures = 0; pStructure != NULL; pStructure = pStructure->pNext)
 		{
 			bStructures++;
@@ -1797,18 +1802,18 @@ void DebugStructurePage1( void )
 		}
 	#endif
 	gprintf( 0, LINE_HEIGHT * 13, L"N %d NE %d E %d SE %d",
-		gubWorldMovementCosts[ sGridNo ][ NORTH ][ gsInterfaceLevel ],
-		gubWorldMovementCosts[ sGridNo ][ NORTHEAST ][ gsInterfaceLevel ],
-		gubWorldMovementCosts[ sGridNo ][ EAST ][ gsInterfaceLevel ],
-		gubWorldMovementCosts[ sGridNo ][ SOUTHEAST ][ gsInterfaceLevel ] );
+		gubWorldMovementCosts[ usGridNo ][ NORTH ][ gsInterfaceLevel ],
+		gubWorldMovementCosts[ usGridNo ][ NORTHEAST ][ gsInterfaceLevel ],
+		gubWorldMovementCosts[ usGridNo ][ EAST ][ gsInterfaceLevel ],
+		gubWorldMovementCosts[ usGridNo ][ SOUTHEAST ][ gsInterfaceLevel ] );
 	gprintf( 0, LINE_HEIGHT * 14, L"S %d SW %d W %d NW %d",
-		gubWorldMovementCosts[ sGridNo ][ SOUTH ][ gsInterfaceLevel ],
-		gubWorldMovementCosts[ sGridNo ][ SOUTHWEST ][ gsInterfaceLevel ],
-		gubWorldMovementCosts[ sGridNo ][ WEST ][ gsInterfaceLevel ],
-		gubWorldMovementCosts[ sGridNo ][ NORTHWEST ][ gsInterfaceLevel ] );
+		gubWorldMovementCosts[ usGridNo ][ SOUTH ][ gsInterfaceLevel ],
+		gubWorldMovementCosts[ usGridNo ][ SOUTHWEST ][ gsInterfaceLevel ],
+		gubWorldMovementCosts[ usGridNo ][ WEST ][ gsInterfaceLevel ],
+		gubWorldMovementCosts[ usGridNo ][ NORTHWEST ][ gsInterfaceLevel ] );
 	gprintf( 0, LINE_HEIGHT * 15, L"Ground smell %d strength %d",
-		SMELL_TYPE( gpWorldLevelData[ sGridNo ].ubSmellInfo ),
-		SMELL_STRENGTH( gpWorldLevelData[ sGridNo ].ubSmellInfo ) );
+		SMELL_TYPE( gpWorldLevelData[ usGridNo ].ubSmellInfo ),
+		SMELL_STRENGTH( gpWorldLevelData[ usGridNo ].ubSmellInfo ) );
 
 	#ifdef COUNT_PATHS
 	if (guiTotalPathChecks > 0)
@@ -1823,7 +1828,7 @@ void DebugStructurePage1( void )
 	}
 	#else
 	gprintf( 0, LINE_HEIGHT * 16, 
-		L"Adj soldiers %d", gpWorldLevelData[sGridNo].ubAdjacentSoldierCnt );
+		L"Adj soldiers %d", gpWorldLevelData[usGridNo].ubAdjacentSoldierCnt );
 	#endif
 }
 

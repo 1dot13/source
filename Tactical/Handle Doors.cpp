@@ -2,6 +2,7 @@
 	#include "Tactical All.h"
 	#include "language defines.h"
 #else
+	#include "builddefines.h"
 	#include <stdio.h>
 	#include <stdarg.h>
 	#include <time.h>
@@ -23,6 +24,16 @@
 	#include "message.h"
 	#include "text.h"
 	#include "random.h"
+	#include "SkillCheck.h"
+	#include "Dialogue Control.h"
+	#include "strategicmap.h"
+	#include "Quests.h"
+	#include "Render Fun.h"
+	#include "Map Screen Interface Map.h"
+	#include "Soldier Profile.h"
+	#include "Isometric Utils.h"
+	#include "ai.h"
+	#include "Soldier macros.h"
 #endif
 
 BOOLEAN gfSetPerceivedDoorState = FALSE;

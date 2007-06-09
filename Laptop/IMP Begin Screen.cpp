@@ -29,6 +29,7 @@
 	#include "strategic.h"
 	#include "Game Clock.h"
 	#include "text.h"
+	#include "LaptopSave.h"
 #endif
 
 #define FULL_NAME_CURSOR_Y LAPTOP_SCREEN_WEB_UL_Y + 138

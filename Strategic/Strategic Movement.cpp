@@ -1,6 +1,7 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 #else
+	#include "builddefines.h"
 	#include <stdlib.h>
 	#include <memory.h>
 	#include "Strategic Movement.h"
@@ -37,6 +38,15 @@
 	#include "Player Command.h"
 	#include "Strategic AI.h"
 	#include "Town Militia.h"
+	#include "Music Control.h"
+	#include "Campaign.h"
+	#include "Isometric Utils.h"
+	#include "meanwhile.h"
+	#include "Inventory Choosing.h"
+	#include "Map Screen Interface Border.h"
+	#include "Auto Resolve.h"
+	#include "GameSettings.h"
+	#include "Quests.h"
 #endif
 
 #include "MilitiaSquads.h"

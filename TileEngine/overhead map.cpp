@@ -1,3 +1,5 @@
+#include "builddefines.h"
+
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
 #else
@@ -31,6 +33,12 @@
 	#include "world items.h"
 	#include "environment.h"
 	#include "message.h"
+	#include "faces.h"
+	#include "Squads.h"
+	#include "Interactive Tiles.h"
+	#include "gameloop.h"
+	#include "sysutil.h"
+	#include "tile surface.h"
 #endif
 
 

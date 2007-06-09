@@ -3,6 +3,8 @@
 
 #pragma message("GENERATED PCH FOR JA2 PROJECT.")
 
+#include "builddefines.h"
+
 #include <time.h> 
 #include <stdio.h>
 #include <stdarg.h>

@@ -42,6 +42,17 @@
 	#ifdef DEBUG_INTERRUPTS
 		#include "debug.h"
 	#endif
+	#include "render dirty.h"
+	#include "GameSettings.h"
+	#include "screenids.h"
+	#include "vsurface.h"
+	#include "math.h"
+	#include "merctextbox.h"
+	#include "Video.h"
+	#include "local.h"
+	#include "line.h"
+	#include "overhead map.h"
+	#include "interface dialogue.h"
 #endif
 
 #include "Rain.h"

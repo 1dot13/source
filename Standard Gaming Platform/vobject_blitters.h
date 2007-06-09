@@ -5,9 +5,11 @@
 #include "vsurface.h"
 #include "vobject.h"
 
+/*
 #ifdef __cplusplus
 extern "C" {
 #endif
+*/
 
 extern SGPRect		ClippingRect;
 extern UINT32			guiTranslucentMask;
@@ -186,9 +188,9 @@ BOOLEAN Blt8BPPDataTo16BPPBufferTransZPixelateObscured( UINT16 *pBuffer, UINT32 
 BOOLEAN FillRect8BPP(UINT8 *pBuffer, UINT32 uiDestPitchBYTES, INT32 x1, INT32 y1, INT32 x2, INT32 y2, UINT8 color);
 BOOLEAN FillRect16BPP(UINT16 *pBuffer, UINT32 uiDestPitchBYTES, INT32 x1, INT32 y1, INT32 x2, INT32 y2, UINT16 color);
 
-
+/*
 #ifdef __cplusplus
 }
 #endif
-
+*/
 #endif

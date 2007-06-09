@@ -1,6 +1,7 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
+	#include "builddefines.h"
 	#include "math.h"
 	#include <stdio.h>
 	#include <errno.h>
@@ -25,6 +26,8 @@
 	#include "random.h"
 	#include "GameSettings.h"
 	#include "FileMan.h"
+	#include "lighting.h"
+	#include "Buildings.h"
 #endif
 
 
@@ -98,6 +101,9 @@ INT32	CreateBullet( UINT8 ubFirerID, BOOLEAN fFake, UINT16 usFlags,UINT16 fromIt
 	else
 	{
 		pBullet->fReal = TRUE;
+//		gBullets[ iBullet ].pFirer->bBulletsLeft++;
+		gTacticalStatus.ubAttackBusyCount++;
+		DebugAttackBusy( String( "Creating a new bullet for %d.  ABC now %d\n", ubFirerID, gTacticalStatus.ubAttackBusyCount) );
 	}
 
 	return( iBulletIndex );
@@ -174,28 +180,32 @@ void RemoveBullet( INT32 iBullet )
 		gBullets[ iBullet ].fToDelete = TRUE;
 
 		// decrement reference to bullet in the firer
-		gBullets[ iBullet ].pFirer->bBulletsLeft--;
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Ending bullet, bullets left %d", gBullets[ iBullet ].pFirer->bBulletsLeft ) );
+//		gBullets[ iBullet ].pFirer->bBulletsLeft--;
+//		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Ending bullet, bullets left %d", gBullets[ iBullet ].pFirer->bBulletsLeft ) );
+//		DebugAttackBusy( String( "Deleting a bullet for %d.  Total count now %d\n", gBullets[ iBullet].ubFirerID, gBullets[ iBullet ].pFirer->bBulletsLeft) );
+		// Nah, just decrement the attack busy count and be done with it
+		DebugAttackBusy( String( "Deleting a bullet for %d.\n", gBullets[ iBullet].ubFirerID ) );
+		ReduceAttackBusyCount( );
 
-		if ( gBullets[ iBullet ].usFlags & ( BULLET_FLAG_KNIFE ) )
+		// if ( gBullets[ iBullet ].usFlags & ( BULLET_FLAG_KNIFE ) )
+		// {
+		// Delete ani tile
+		if ( gBullets[ iBullet ].pAniTile != NULL )
 		{
-			// Delete ani tile
-			if ( gBullets[ iBullet ].pAniTile != NULL )
-			{
-				DeleteAniTile( gBullets[ iBullet ].pAniTile );
-				gBullets[ iBullet ].pAniTile = NULL;
-			}
-
-			// Delete shadow
-			if ( gBullets[ iBullet ].usFlags & ( BULLET_FLAG_KNIFE ) )
-			{
-				if ( gBullets[ iBullet ].pShadowAniTile != NULL )
-				{
-					DeleteAniTile( gBullets[ iBullet ].pShadowAniTile );
-					gBullets[ iBullet ].pShadowAniTile = NULL;
-				}
-			}
+			DeleteAniTile( gBullets[ iBullet ].pAniTile );
+			gBullets[ iBullet ].pAniTile = NULL;
 		}
+
+		// Delete shadow
+		// if ( gBullets[ iBullet ].usFlags & ( BULLET_FLAG_KNIFE ) )
+		// {
+		if ( gBullets[ iBullet ].pShadowAniTile != NULL )
+		{
+			DeleteAniTile( gBullets[ iBullet ].pShadowAniTile );
+			gBullets[ iBullet ].pShadowAniTile = NULL;
+		}
+//	}
+//		}
 	}
 	else
 	{
@@ -429,15 +439,29 @@ void AddMissileTrail( BULLET *pBullet, FIXEDPT qCurrX, FIXEDPT qCurrY, FIXEDPT q
 	//else if ( pBullet->usFlags & ( BULLET_FLAG_TRACER ) )
 	else if (fTracer == TRUE)
 	{
+		INT16 sXPos, sYPos;
+
 		strcpy( AniParams.zCachedFile, "TILECACHE\\BULLET_TRACER.STI" );
 		AniParams.uiFlags |= ANITILE_LIGHT;
-		/*if ( pBullet->pFirer->bLevel > 0 ) // if firer on roof then
+		AniParams.sDelay							= 10000; // Test this out
+
+		if (!pBullet->pAniTile)
+		{
+			pBullet->pAniTile = CreateAnimationTile( &AniParams );
+		}
+
+		ConvertGridNoToCenterCellXY( pBullet->sGridNo, &sXPos, &sYPos );
+		LightSpritePosition( pBullet->pAniTile->lightSprite, (INT16)(sXPos/CELL_X_SIZE), (INT16)(sYPos/CELL_Y_SIZE));
+
+		if ( pBullet->pFirer->bLevel > 0 ) // if firer on roof then
 		{
 			if ( FindBuilding(AniParams.sGridNo) != NULL ) // if this spot is still within the building's grid area
 			{
-				AniParams.uiFlags &= ~ANITILE_LIGHT;
+				LightSpritePower( pBullet->pAniTile->lightSprite, FALSE);
 			}
-		}*/
+		}
+
+		return;
 	}
 
 	CreateAnimationTile( &AniParams );

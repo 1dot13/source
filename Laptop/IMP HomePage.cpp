@@ -20,6 +20,12 @@
 	#include "LaptopSave.h"
 	#include "line.h"
 	#include "english.h"
+	#include "Merc Hiring.h"
+	#include "Text.h"
+	#include "GameSettings.h"
+	#include "IMP MainPage.h"
+	#include "IMP Confirm.h"
+	#include "Game Clock.h"
 #endif
 
 void GetPlayerKeyBoardInputForIMPHomePage( void );

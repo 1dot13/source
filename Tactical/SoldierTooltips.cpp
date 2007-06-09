@@ -1,4 +1,26 @@
+#ifdef PRECOMPILEDHEADERS
 #include "Tactical All.h"
+#else
+#include "Types.h"
+#include "Windows.h"
+#include "Soldier Control.h"
+#include "Input.h"
+#include "english.h"
+#include "Isometric Utils.h"
+#include "GameSettings.h"
+#include "Overhead.h"
+#include "Game Clock.h"
+#include "Text.h"
+#include "lighting.h"
+#include "Interface.h"
+#include "weapons.h"
+#include "renderworld.h"
+#include "Font Control.h"
+#include "font.h"
+#include "local.h"
+#include "vsurface.h"
+#include "line.h"
+#endif
 
 struct MOUSETT 
 {	
@@ -35,7 +57,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		MOUSETT		*pRegion = &mouseTT;
 		CHAR16		pStrInfo[ sizeof( pRegion->FastHelpText ) ];
 		int			iNVG = 0;
-		INT16		sSoldierGridNo;
+		UINT16		usSoldierGridNo;
 		BOOLEAN		fDisplayBigSlotItem	= FALSE;
 		BOOLEAN		fMercIsUsingScope	= FALSE;
 		UINT16		iCarriedRL = 0;
@@ -46,12 +68,12 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		fDrawTooltip = TRUE;
 
 		// get the gridno the cursor is at
-		GetMouseMapPos( &sSoldierGridNo );
+		GetMouseMapPos( &usSoldierGridNo );
 
 		// get the distance to enemy's tile from the selected merc
 		if ( gusSelectedSoldier != NOBODY )
 		{		
-			iRangeToTarget = GetRangeInCellCoordsFromGridNoDiff( MercPtrs[ gusSelectedSoldier ]->sGridNo, sSoldierGridNo ) / 10;
+			iRangeToTarget = GetRangeInCellCoordsFromGridNoDiff( MercPtrs[ gusSelectedSoldier ]->sGridNo, usSoldierGridNo ) / 10;
 		}
 		// WANNE: If we want to show the tooltip of milita and no merc is present in the sector
 		else
@@ -129,9 +151,9 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		{
 			// display "debug" info
 			if ( gGameExternalOptions.fEnableSoldierTooltipLocation )
-				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_LOCATION], pStrInfo, sSoldierGridNo );
+				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_LOCATION], pStrInfo, usSoldierGridNo );
 			if ( gGameExternalOptions.fEnableSoldierTooltipBrightness )
-				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_BRIGHTNESS], pStrInfo, SHADE_MIN - LightTrueLevel( sSoldierGridNo, gsInterfaceLevel ), SHADE_MIN );
+				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_BRIGHTNESS], pStrInfo, SHADE_MIN - LightTrueLevel( usSoldierGridNo, gsInterfaceLevel ), SHADE_MIN );
 			if ( gGameExternalOptions.fEnableSoldierTooltipRangeToTarget )
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_RANGE_TO_TARGET], pStrInfo, iRangeToTarget );
 			if ( gGameExternalOptions.fEnableSoldierTooltipID )

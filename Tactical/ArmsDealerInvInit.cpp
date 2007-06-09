@@ -6,6 +6,14 @@
 	#include "Item Types.h"
 	#include "Arms Dealer Init.h"
 	#include "DEbug.h"
+	#include "weapons.h"
+	#include "Campaign.h"
+	#include "GameSettings.h"
+	#include "AIInternals.h"
+	#include "LaptopSave.h"
+	#include "bobbyr.h"
+	#include "Random.h"
+	#include "Shopkeeper Interface.h"
 #endif
 
 

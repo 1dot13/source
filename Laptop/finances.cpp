@@ -15,6 +15,8 @@
 	#include "Text.h"
 	#include "Strategic Mines.h"
 	#include "LaptopSave.h"
+	#include "Campaign Types.h"
+	#include "strategicmap.h"
 #endif
 
 // the global defines

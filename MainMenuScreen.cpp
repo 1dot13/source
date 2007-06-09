@@ -31,6 +31,7 @@
 	#include "text.h"
 	#include "Multi Language Graphic Utils.h"
 	#include "Encrypted File.h"
+	#include "ja2 splash.h"
 #endif
 
 #define	MAINMENU_TEXT_FILE						"LoadScreens\\MainMenu.edt"

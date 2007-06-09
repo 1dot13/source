@@ -20,6 +20,7 @@
 	#include "Sys Globals.h"
 	#include "quests.h"
 	#include "SaveLoadMap.h"
+	#include "Text.h"
 #endif
 
 BOOLEAN gfLoadingExitGrids = FALSE;

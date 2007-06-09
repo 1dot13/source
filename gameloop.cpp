@@ -4,6 +4,7 @@
 	#include "Prebattle Interface.h"
 #else
 	#include <stdio.h>
+	#include <time.h>
 	#include "sgp.h"
 	#include "Gameloop.h"
 	#include "Screens.h"
@@ -27,7 +28,11 @@
 	#include "fade screen.h"
 	#include "text.h"
 	#include "HelpScreen.h"
+	#include "PreBattle Interface.h"
 #endif
+
+#include "Console.h"
+#include "Lua Interpreter.h"
 
 // rain
 #include "Rain.h" 
@@ -88,6 +93,7 @@ BOOLEAN InitializeGame(void)
 
 	giStartingMemValue = MemGetFree( );
 
+	InitializeLua();
 
 	ClearAllDebugTopics();
 	RegisterJA2DebugTopic( TOPIC_JA2OPPLIST, "Reg" );
@@ -161,6 +167,8 @@ void ShutdownGame(void)
 
 	//Deletes all the Temp files in the Maps\Temp directory
 	InitTacticalSave( FALSE );
+
+	ShutdownLua( );
 }
 
  

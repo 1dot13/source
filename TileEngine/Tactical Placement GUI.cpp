@@ -1,3 +1,5 @@
+#include "builddefines.h"
+
 // WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
@@ -40,6 +42,7 @@
 	#include "assignments.h"
 	#include "text.h"
 	#include "WordWrap.h"
+	#include "Game Clock.h"
 #endif
 
 typedef struct MERCPLACEMENT

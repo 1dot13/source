@@ -23,6 +23,8 @@
 	#include "Speck Quotes.h"
 	#include "mercs Account.h"
 	#include "Soldier Profile.h"
+	#include "Game Event Hook.h"
+	#include "Quests.h"
 #endif
 
 #define		MERC_TEXT_FONT									FONT12ARIAL

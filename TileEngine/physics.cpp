@@ -1,33 +1,37 @@
+#include "builddefines.h"
+
 #ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
+#include "TileEngine All.h"
 #else
-	#include "physics.h"
-	#include "wcheck.h"
-	#include "timer control.h"
-	#include "isometric utils.h"
-	#include "los.h"
-	#include "worldman.h"
-	#include "event pump.h"
-	#include "Sound Control.h"
-	#include "soldier control.h"
-	#include "interface.h"
-	#include "interface items.h"
-	#include "weapons.h"
-	#include "explosion control.h"
-	#include "Debug Control.h"
-	#include "tile animation.h"
-	#include "message.h"
-	#include "weapons.h"
-	#include "structure wrap.h"
-	#include "physics.h"
-	#include "overhead.h"
-	#include "animation control.h"
-	#include "text.h"
-	#include "Random.h"
-	#include "lighteffects.h"
-	#include "opplist.h"
-	#include "World Items.h"
-	#include "environment.h"
+#include "physics.h"
+#include "wcheck.h"
+#include "timer control.h"
+#include "isometric utils.h"
+#include "los.h"
+#include "worldman.h"
+#include "event pump.h"
+#include "Sound Control.h"
+#include "soldier control.h"
+#include "interface.h"
+#include "interface items.h"
+#include "weapons.h"
+#include "explosion control.h"
+#include "Debug Control.h"
+#include "tile animation.h"
+#include "message.h"
+#include "weapons.h"
+#include "structure wrap.h"
+#include "physics.h"
+#include "overhead.h"
+#include "animation control.h"
+#include "text.h"
+#include "Random.h"
+#include "lighteffects.h"
+#include "opplist.h"
+#include "World Items.h"
+#include "environment.h"
+#include "GameSettings.h"
+#include "Buildings.h"
 #endif
 
 #include "Campaign.h"
@@ -52,7 +56,7 @@
 #define	GET_OBJECT_LEVEL( z )						( (INT8)( ( z + 10 ) / HEIGHT_UNITS ) )
 //#define	OBJECT_DETONATE_ON_IMPACT( o )	( ( o->Obj.usItem == MORTAR_SHELL ) ) // && ( o->ubActionCode == THROW_ARM_ITEM || pObject->fTestObject ) )
 #define	OBJECT_DETONATE_ON_IMPACT( o )	( ( Item[o->Obj.usItem].usItemClass == IC_BOMB ) ) // && ( o->ubActionCode == THROW_ARM_ITEM || pObject->fTestObject ) )
-	
+
 
 #define	MAX_INTEGRATIONS				8
 
@@ -146,11 +150,11 @@ void RecountObjectSlots(void)
 		}
 	}
 
-  guiNumObjectSlots = 0;
+	guiNumObjectSlots = 0;
 }
 
 
-INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, real yPos, real zPos, real xForce, real yForce, real zForce, UINT8 ubOwner, UINT8 ubActionCode, UINT32 uiActionData )
+INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, real yPos, real zPos, real xForce, real yForce, real zForce, UINT8 ubOwner, UINT8 ubActionCode, UINT32 uiActionData, BOOLEAN fTestObject )
 {
 	INT32			iObjectIndex;
 	FLOAT			mass;
@@ -185,7 +189,7 @@ INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, r
 	pObject->fAllocated		= TRUE;
 	pObject->fAlive					= TRUE;
 	pObject->fApplyFriction  = FALSE;
-  pObject->iSoundID        = NO_SAMPLE;
+	pObject->iSoundID        = NO_SAMPLE;
 
 	// Set values
 	pObject->OneOverMass = 1 / mass;
@@ -193,11 +197,12 @@ INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, r
 	pObject->Position.y	= yPos;
 	pObject->Position.z	= zPos;
 	pObject->fVisible		= TRUE;
+	pObject->fTestObject    = fTestObject;
 	pObject->ubOwner    = ubOwner;
 	pObject->ubActionCode = ubActionCode;
 	pObject->uiActionData = uiActionData;
 	pObject->fDropItem		= TRUE;
-  pObject->ubLastTargetTakenDamage = NOBODY;
+	pObject->ubLastTargetTakenDamage = NOBODY;
 
 	pObject->fFirstTimeMoved = TRUE;
 
@@ -207,7 +212,7 @@ INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, r
 
 	pObject->InitialForce = VDivScalar( &(pObject->InitialForce), (float)TIME_MULTI );
 	pObject->InitialForce = VMultScalar( &(pObject->InitialForce), 1.5 );
-		
+
 
 	// Calculate gridNo
 	pObject->sGridNo = MAPROWCOLTOPOS( ( (INT16)yPos / CELL_Y_SIZE ), ( (INT16)xPos / CELL_X_SIZE ) );
@@ -223,6 +228,13 @@ INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, r
 	}
 
 	PhysicsDebugMsg( String( "NewPhysics Object")  );
+
+	// If this is a real object being created, then increase the ABC
+	if (!fTestObject)
+	{
+		gTacticalStatus.ubAttackBusyCount++;
+		DebugAttackBusy( String( "@@@@@@@ Increasing attacker busy count..., PHYSICS OBJECT effect started.  Now %d\n", gTacticalStatus.ubAttackBusyCount) );
+	}
 
 	return( iObjectIndex );
 }
@@ -290,11 +302,11 @@ void SimulateObject( REAL_OBJECT *pObject, real deltaT )
 
 	if ( !PhysicsUpdateLife( pObject, (float)deltaT ) )
 	{
-//		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"SimulateObject: don't update life, returning");
+		//		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"SimulateObject: don't update life, returning");
 		return;
 	}
 
-//	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"SimulateObject: check life");
+	//	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"SimulateObject: check life");
 	if ( pObject->fAlive )
 	{
 		CurrentTime = 0;
@@ -306,14 +318,14 @@ void SimulateObject( REAL_OBJECT *pObject, real deltaT )
 
 		if ( !PhysicsComputeForces( pObject ) )
 		{
-//			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"SimulateObject: couldn't compute forces");
+			//			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"SimulateObject: couldn't compute forces");
 			return;
 		}
 
 		while( CurrentTime < TargetTime )
 		{
-//MADD TO KAIDEN: HERE IS THE PROBLEM:  For some reason fEndThisObject is never set to true
-//			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("SimulateObject: in loop while CurrentTime < TargetTime: %d < %d",CurrentTime,TargetTime));
+			//MADD TO KAIDEN: HERE IS THE PROBLEM:  For some reason fEndThisObject is never set to true
+			//			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("SimulateObject: in loop while CurrentTime < TargetTime: %d < %d",CurrentTime,TargetTime));
 
 			if ( !PhysicsIntegrate( pObject, DeltaTime ) )
 			{
@@ -451,10 +463,10 @@ BOOLEAN	PhysicsUpdateLife( REAL_OBJECT *pObject, real DeltaTime )
 
 		if ( !pObject->fTestObject )
 		{
-      if ( pObject->iSoundID != NO_SAMPLE )
-      {
-        SoundStop( pObject->iSoundID );
-      }
+			if ( pObject->iSoundID != NO_SAMPLE )
+			{
+				SoundStop( pObject->iSoundID );
+			}
 
 			if ( pObject->ubActionCode == THROW_ARM_ITEM && !pObject->fInWater )
 			{
@@ -463,7 +475,7 @@ BOOLEAN	PhysicsUpdateLife( REAL_OBJECT *pObject, real DeltaTime )
 			else
 			{
 				// If we are in water, and we are a sinkable item...
-//				if ( !pObject->fInWater || !( Item[ pObject->Obj.usItem ].fFlags & ITEM_SINKS ) )
+				//				if ( !pObject->fInWater || !( Item[ pObject->Obj.usItem ].fFlags & ITEM_SINKS ) )
 				if ( !pObject->fInWater || !( Item[ pObject->Obj.usItem ].sinks  ) )
 				{
 					if ( pObject->fDropItem )
@@ -475,7 +487,7 @@ BOOLEAN	PhysicsUpdateLife( REAL_OBJECT *pObject, real DeltaTime )
 						}
 
 						// ATE: Yet another hack here, to make sure things don't fall through roofs
-					  if ( pObject->ubLastTargetTakenDamage != NOBODY )
+						if ( pObject->ubLastTargetTakenDamage != NOBODY )
 						{
 							SOLDIERTYPE *pSoldier;
 
@@ -509,7 +521,8 @@ BOOLEAN	PhysicsUpdateLife( REAL_OBJECT *pObject, real DeltaTime )
 			}
 
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Reducing attacker busy count..., PHYSICS OBJECT DONE effect gone off") );
-			ReduceAttackBusyCount( pObject->ubOwner, FALSE );
+			DebugAttackBusy( "@@@@@@@ PHYSICS OBJECT effect finished\n" );
+			ReduceAttackBusyCount( );
 
 			// ATE: Handle end of animation...
 			if ( pObject->fCatchAnimOn )
@@ -524,17 +537,17 @@ BOOLEAN	PhysicsUpdateLife( REAL_OBJECT *pObject, real DeltaTime )
 				// Catch anim.....
 				switch( gAnimControl[ pSoldier->usAnimState ].ubHeight )
 				{
-					case ANIM_STAND:
+				case ANIM_STAND:
 
-						pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
-						EVENT_InitNewSoldierAnim( pSoldier, END_CATCH, 0 , FALSE );
-						break;
+					pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
+					EVENT_InitNewSoldierAnim( pSoldier, END_CATCH, 0 , FALSE );
+					break;
 
-					case ANIM_CROUCH:
+				case ANIM_CROUCH:
 
-						pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
-						EVENT_InitNewSoldierAnim( pSoldier, END_CROUCH_CATCH, 0 , FALSE );
-						break;
+					pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
+					EVENT_InitNewSoldierAnim( pSoldier, END_CROUCH_CATCH, 0 , FALSE );
+					break;
 				}
 
 				PlayJA2Sample( CATCH_OBJECT, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
@@ -570,27 +583,28 @@ BOOLEAN	PhysicsIntegrate( REAL_OBJECT *pObject, real DeltaTime )
 	vTemp = VMultScalar( &(pObject->Force), ( DeltaTime * pObject->OneOverMass ) );
 	pObject->Velocity = VAdd( &(pObject->Velocity), &vTemp );
 
-  if ( pObject->fPotentialForDebug )
-  {
-	  PhysicsDebugMsg( String( "Object %d: Force		%f %f %f", pObject->iID, pObject->Force.x, pObject->Force.y, pObject->Force.z ) );
-	  PhysicsDebugMsg( String( "Object %d: Velocity %f %f %f", pObject->iID, pObject->Velocity.x, pObject->Velocity.y, pObject->Velocity.z ) );
-	  PhysicsDebugMsg( String( "Object %d: Position %f %f %f", pObject->iID, pObject->Position.x, pObject->Position.y, pObject->Position.z ) );
-	  PhysicsDebugMsg( String( "Object %d: Delta Pos %f %f %f", pObject->iID, (pObject->OldPosition.x - pObject->Position.x ), (pObject->OldPosition.y - pObject->Position.y ), ( pObject->OldPosition.z - pObject->Position.z ) ) );
-  }
+	if ( pObject->fPotentialForDebug )
+	{
+		PhysicsDebugMsg( String( "Object %d: Force		%f %f %f", pObject->iID, pObject->Force.x, pObject->Force.y, pObject->Force.z ) );
+		PhysicsDebugMsg( String( "Object %d: Velocity %f %f %f", pObject->iID, pObject->Velocity.x, pObject->Velocity.y, pObject->Velocity.z ) );
+		PhysicsDebugMsg( String( "Object %d: Position %f %f %f", pObject->iID, pObject->Position.x, pObject->Position.y, pObject->Position.z ) );
+		PhysicsDebugMsg( String( "Object %d: Delta Pos %f %f %f", pObject->iID, (pObject->OldPosition.x - pObject->Position.x ), (pObject->OldPosition.y - pObject->Position.y ), ( pObject->OldPosition.z - pObject->Position.z ) ) );
+	}
 
-//  if ( pObject->Obj.usItem == MORTAR_SHELL && !pObject->fTestObject && pObject->ubActionCode == THROW_ARM_ITEM )
-//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 524, usItemClass=%d",Item[pObject->Obj.usItem].usItemClass));	
-  if ( Item[pObject->Obj.usItem].usItemClass == IC_BOMB && !pObject->fTestObject && pObject->ubActionCode == THROW_ARM_ITEM )
-  {
-     // Start soud if we have reached our max height
-    if ( pObject->OldVelocity.z >= 0 && pObject->Velocity.z < 0 )
-    {
-      if ( pObject->iSoundID == NO_SAMPLE )
-      {
-        pObject->iSoundID =	PlayJA2Sample( MORTAR_WHISTLE, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );			
-      }
-    }
-  }
+	//  if ( pObject->Obj.usItem == MORTAR_SHELL && !pObject->fTestObject && pObject->ubActionCode == THROW_ARM_ITEM )
+	//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 524, usItemClass=%d",Item[pObject->Obj.usItem].usItemClass));	
+
+	if ( Item[pObject->Obj.usItem].usItemClass == IC_BOMB && !pObject->fTestObject && pObject->ubActionCode == THROW_ARM_ITEM )
+	{
+		// Start soud if we have reached our max height
+		if ( pObject->OldVelocity.z >= 0 && pObject->Velocity.z < 0 )
+		{
+			if ( pObject->iSoundID == NO_SAMPLE )
+			{
+				pObject->iSoundID =	PlayJA2Sample( MORTAR_WHISTLE, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );			
+			}
+		}
+	}
 
 	return( TRUE );
 }
@@ -609,7 +623,7 @@ BOOLEAN	PhysicsHandleCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID, rea
 		dDeltaZ = pObject->Position.z - pObject->OldPosition.z; 
 
 		if ( dDeltaX <= EPSILONV && dDeltaX >= -EPSILONV && 
-				 dDeltaY <= EPSILONV && dDeltaY >= -EPSILONV ) 
+			dDeltaY <= EPSILONV && dDeltaY >= -EPSILONV ) 
 		{
 			pObject->sConsecutiveZeroVelocityCollisions++;
 		}
@@ -651,11 +665,11 @@ BOOLEAN	PhysicsHandleCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID, rea
 		//otherwise, continue falling downwards!
 
 		// TO STOP?
-		
+
 		// Check for delta position values
 		if ( dDeltaZ <= EPSILONP && dDeltaZ >= -EPSILONP && 
-				 dDeltaY <= EPSILONP && dDeltaY >= -EPSILONP && 
-				 dDeltaX <= EPSILONP && dDeltaX >= -EPSILONP ) 
+			dDeltaY <= EPSILONP && dDeltaY >= -EPSILONP && 
+			dDeltaX <= EPSILONP && dDeltaX >= -EPSILONP ) 
 		{
 			//pObject->fAlive = FALSE;
 			//return( FALSE );
@@ -674,12 +688,12 @@ BOOLEAN	PhysicsHandleCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID, rea
 
 		// Check for -ve velocity still...
 		/*if ( pObject->Velocity.z <= EPSILONV && pObject->Velocity.z >= -EPSILONV && 
-				 pObject->Velocity.y <= EPSILONV && pObject->Velocity.y >= -EPSILONV && 
-				 pObject->Velocity.x <= EPSILONV && pObject->Velocity.x >= -EPSILONV ) 
+		pObject->Velocity.y <= EPSILONV && pObject->Velocity.y >= -EPSILONV && 
+		pObject->Velocity.x <= EPSILONV && pObject->Velocity.x >= -EPSILONV ) 
 		{
-			PhysicsDeleteObject( pObject );
-			pObject->fAlive = FALSE;
-			return( FALSE );
+		PhysicsDeleteObject( pObject );
+		pObject->fAlive = FALSE;
+		return( FALSE );
 		}*/
 	}
 
@@ -782,123 +796,123 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 	if ( pObject->fTestObject == TEST_OBJECT_NOTWALLROOF_COLLISIONS )
 	{
 		// So we don't collide with ourselves.....
-    if ( iCollisionCode != COLLISION_WATER && iCollisionCode != COLLISION_GROUND && iCollisionCode != COLLISION_NONE &&
-			   iCollisionCode != COLLISION_ROOF && iCollisionCode != COLLISION_INTERIOR_ROOF &&
-		     iCollisionCode != COLLISION_WALL_SOUTHEAST && iCollisionCode != COLLISION_WALL_SOUTHWEST &&
-			   iCollisionCode != COLLISION_WALL_NORTHEAST && iCollisionCode != COLLISION_WALL_NORTHWEST )
-	  {
-		  if ( pObject->fFirstTimeMoved || pObject->sFirstGridNo == pObject->sGridNo )
-		  {
-			  iCollisionCode = COLLISION_NONE;
-		  }
+		if ( iCollisionCode != COLLISION_WATER && iCollisionCode != COLLISION_GROUND && iCollisionCode != COLLISION_NONE &&
+			iCollisionCode != COLLISION_ROOF && iCollisionCode != COLLISION_INTERIOR_ROOF &&
+			iCollisionCode != COLLISION_WALL_SOUTHEAST && iCollisionCode != COLLISION_WALL_SOUTHWEST &&
+			iCollisionCode != COLLISION_WALL_NORTHEAST && iCollisionCode != COLLISION_WALL_NORTHWEST )
+		{
+			if ( pObject->fFirstTimeMoved || pObject->sFirstGridNo == pObject->sGridNo )
+			{
+				iCollisionCode = COLLISION_NONE;
+			}
 
-		  // If we are NOT a wall or window, ignore....
-		  if ( pObject->uiNumTilesMoved < 4 )
-		  {
-			  switch( iCollisionCode )
-			  {
-				  case COLLISION_MERC:
-				  case COLLISION_STRUCTURE:
-				  case COLLISION_STRUCTURE_Z:
+			// If we are NOT a wall or window, ignore....
+			if ( pObject->uiNumTilesMoved < 4 )
+			{
+				switch( iCollisionCode )
+				{
+				case COLLISION_MERC:
+				case COLLISION_STRUCTURE:
+				case COLLISION_STRUCTURE_Z:
 
-					  // Set to no collision ( we shot past )
-					  iCollisionCode = COLLISION_NONE;
-					  break;
-			  }
-		  }
-    }
+					// Set to no collision ( we shot past )
+					iCollisionCode = COLLISION_NONE;
+					break;
+				}
+			}
+		}
 
 
 		switch( iCollisionCode )
 		{
 			// End test with any collision NOT a wall, roof...
-			case COLLISION_STRUCTURE:
-			case COLLISION_STRUCTURE_Z:
+		case COLLISION_STRUCTURE:
+		case COLLISION_STRUCTURE_Z:
 
-				// OK, if it's mercs... don't stop
-				if ( usStructureID >= INVALID_STRUCTURE_ID )
-				{
-					pObject->fTestEndedWithCollision = TRUE;
-
-					if ( !pObject->fEndedWithCollisionPositionSet )
-					{
-						pObject->fEndedWithCollisionPositionSet = TRUE;					
-						pObject->EndedWithCollisionPosition = VSetEqual( &(pObject->Position) );
-					}
-					iCollisionCode = COLLISION_NONE;
-				}
-				else
-				{
-					if ( !pObject->fEndedWithCollisionPositionSet )
-					{
-						pObject->fEndedWithCollisionPositionSet = TRUE;					
-						pObject->EndedWithCollisionPosition = VSetEqual( &(pObject->Position) );
-					}
-				}
-				break;
-
-			case COLLISION_ROOF:
+			// OK, if it's mercs... don't stop
+			if ( usStructureID >= INVALID_STRUCTURE_ID )
+			{
+				pObject->fTestEndedWithCollision = TRUE;
 
 				if ( !pObject->fEndedWithCollisionPositionSet )
 				{
 					pObject->fEndedWithCollisionPositionSet = TRUE;					
 					pObject->EndedWithCollisionPosition = VSetEqual( &(pObject->Position) );
 				}
-				break;
+				iCollisionCode = COLLISION_NONE;
+			}
+			else
+			{
+				if ( !pObject->fEndedWithCollisionPositionSet )
+				{
+					pObject->fEndedWithCollisionPositionSet = TRUE;					
+					pObject->EndedWithCollisionPosition = VSetEqual( &(pObject->Position) );
+				}
+			}
+			break;
 
-			case COLLISION_WATER:
-			case COLLISION_GROUND:
-			case COLLISION_MERC:
-			case COLLISION_INTERIOR_ROOF:			
-			case COLLISION_NONE:
-			case COLLISION_WINDOW_SOUTHEAST:
-			case COLLISION_WINDOW_SOUTHWEST:
-			case COLLISION_WINDOW_NORTHEAST:
-			case COLLISION_WINDOW_NORTHWEST:
+		case COLLISION_ROOF:
 
-				// Here we just keep going.. 
-				break;
+			if ( !pObject->fEndedWithCollisionPositionSet )
+			{
+				pObject->fEndedWithCollisionPositionSet = TRUE;					
+				pObject->EndedWithCollisionPosition = VSetEqual( &(pObject->Position) );
+			}
+			break;
 
-			default:
-				
-				// THis is for walls, windows, etc
-				// here, we set test ended with collision, but keep going...
-				pObject->fTestEndedWithCollision = TRUE;
-				break;
-		 }
+		case COLLISION_WATER:
+		case COLLISION_GROUND:
+		case COLLISION_MERC:
+		case COLLISION_INTERIOR_ROOF:			
+		case COLLISION_NONE:
+		case COLLISION_WINDOW_SOUTHEAST:
+		case COLLISION_WINDOW_SOUTHWEST:
+		case COLLISION_WINDOW_NORTHEAST:
+		case COLLISION_WINDOW_NORTHWEST:
+
+			// Here we just keep going.. 
+			break;
+
+		default:
+
+			// THis is for walls, windows, etc
+			// here, we set test ended with collision, but keep going...
+			pObject->fTestEndedWithCollision = TRUE;
+			break;
+		}
 	}
 
 
 	if ( pObject->fTestObject != TEST_OBJECT_NOTWALLROOF_COLLISIONS )
 	{
-    if ( iCollisionCode != COLLISION_WATER && iCollisionCode != COLLISION_GROUND && iCollisionCode != COLLISION_NONE &&
-			   iCollisionCode != COLLISION_ROOF && iCollisionCode != COLLISION_INTERIOR_ROOF &&
-		     iCollisionCode != COLLISION_WALL_SOUTHEAST && iCollisionCode != COLLISION_WALL_SOUTHWEST &&
-			   iCollisionCode != COLLISION_WALL_NORTHEAST && iCollisionCode != COLLISION_WALL_NORTHWEST )
-	  {
-		  // So we don't collide with ourselves.....
-		  if ( pObject->fFirstTimeMoved || pObject->sFirstGridNo == pObject->sGridNo )
-		  {
-			  iCollisionCode = COLLISION_NONE;
-		  }
+		if ( iCollisionCode != COLLISION_WATER && iCollisionCode != COLLISION_GROUND && iCollisionCode != COLLISION_NONE &&
+			iCollisionCode != COLLISION_ROOF && iCollisionCode != COLLISION_INTERIOR_ROOF &&
+			iCollisionCode != COLLISION_WALL_SOUTHEAST && iCollisionCode != COLLISION_WALL_SOUTHWEST &&
+			iCollisionCode != COLLISION_WALL_NORTHEAST && iCollisionCode != COLLISION_WALL_NORTHWEST )
+		{
+			// So we don't collide with ourselves.....
+			if ( pObject->fFirstTimeMoved || pObject->sFirstGridNo == pObject->sGridNo )
+			{
+				iCollisionCode = COLLISION_NONE;
+			}
 
-		  // If we are NOT a wall or window, ignore....
-		  if ( pObject->uiNumTilesMoved < 4 )
-		  {
-			  switch( iCollisionCode )
-			  {
-				  case COLLISION_MERC:
-				  case COLLISION_STRUCTURE:
-				  case COLLISION_STRUCTURE_Z:
+			// If we are NOT a wall or window, ignore....
+			if ( pObject->uiNumTilesMoved < 4 )
+			{
+				switch( iCollisionCode )
+				{
+				case COLLISION_MERC:
+				case COLLISION_STRUCTURE:
+				case COLLISION_STRUCTURE_Z:
 
-					  // Set to no collision ( we shot past )
-					  iCollisionCode = COLLISION_NONE;
-					  break;
-			  }
-		  }
+					// Set to no collision ( we shot past )
+					iCollisionCode = COLLISION_NONE;
+					break;
+				}
+			}
 
-	  }
-  }
+		}
+	}
 
 	*piCollisionID = iCollisionCode;
 
@@ -927,7 +941,7 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 				ObjectHitWindow( sGridNo, usStructureID, FALSE, TRUE );
 			}
 			*piCollisionID = COLLISION_NONE;
-      return( FALSE );
+			return( FALSE );
 		}
 
 		// ATE: IF detonate on impact, stop now!
@@ -1002,6 +1016,8 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 
 					if ( pObject->ubActionCode == THROW_ARM_ITEM )
 					{
+						gTacticalStatus.ubAttackBusyCount++;
+						DebugAttackBusy( String( "Incrementing attack busy because of delayed water explosion. Now %d\n", gTacticalStatus.ubAttackBusyCount ) );
 						AniParams.ubKeyFrame1					= 11;
 						AniParams.uiKeyFrame1Code			= ANI_KEYFRAME_CHAIN_WATER_EXPLOSION;
 						AniParams.uiUserData					= pObject->Obj.usItem;
@@ -1038,7 +1054,7 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 		//{
 		//	vTemp.x = 0;	
 		//	vTemp.y = 0;	
-	//		vTemp.z = 1;	
+		//		vTemp.z = 1;	
 
 		//	pObject->fApplyFriction = TRUE;
 		//	pObject->AppliedMu			= (float)(0.54 * TIME_MULTI );
@@ -1055,7 +1071,7 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 				return( FALSE );
 			}
 
-      CheckForObjectHittingMerc( pObject, usStructureID );
+			CheckForObjectHittingMerc( pObject, usStructureID );
 
 			vTemp.x = 0;	
 			vTemp.y = 0;	
@@ -1090,13 +1106,13 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 				return( FALSE );
 			}
 
-      CheckForObjectHittingMerc( pObject, usStructureID );
+			CheckForObjectHittingMerc( pObject, usStructureID );
 
 			vIncident.x = dDeltaX;
 			vIncident.y = dDeltaY;
 			vIncident.z = 0;
 			// Nomralize
-			
+
 			vIncident = VGetNormal( &vIncident );
 
 			//vTemp.x = -1;	
@@ -1113,24 +1129,24 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 
 		if ( fDoCollision )
 		{
-				pObject->CollisionNormal.x		= vTemp.x;
-				pObject->CollisionNormal.y		= vTemp.y;
-				pObject->CollisionNormal.z		= vTemp.z;
-				pObject->CollisionElasticity  = dElasity;
-				pObject->iOldCollisionCode  = iCollisionCode;
+			pObject->CollisionNormal.x		= vTemp.x;
+			pObject->CollisionNormal.y		= vTemp.y;
+			pObject->CollisionNormal.z		= vTemp.z;
+			pObject->CollisionElasticity  = dElasity;
+			pObject->iOldCollisionCode  = iCollisionCode;
 
-				// Save collision velocity
-				pObject->CollisionVelocity = VSetEqual( &(pObject->OldVelocity) );
+			// Save collision velocity
+			pObject->CollisionVelocity = VSetEqual( &(pObject->OldVelocity) );
 
-        if ( pObject->fPotentialForDebug )
-        {
-				  PhysicsDebugMsg( String( "Object %d: Collision %d", pObject->iID, iCollisionCode ) );
-				  PhysicsDebugMsg( String( "Object %d: Collision Normal %f %f %f", pObject->iID, vTemp.x, vTemp.y, vTemp.z ) );
-				  PhysicsDebugMsg( String( "Object %d: Collision OldPos %f %f %f", pObject->iID, pObject->Position.x, pObject->Position.y, pObject->Position.z ) );
-				  PhysicsDebugMsg( String( "Object %d: Collision Velocity %f %f %f", pObject->iID, pObject->CollisionVelocity.x, pObject->CollisionVelocity.y, pObject->CollisionVelocity.z ) );
-        }
+			if ( pObject->fPotentialForDebug )
+			{
+				PhysicsDebugMsg( String( "Object %d: Collision %d", pObject->iID, iCollisionCode ) );
+				PhysicsDebugMsg( String( "Object %d: Collision Normal %f %f %f", pObject->iID, vTemp.x, vTemp.y, vTemp.z ) );
+				PhysicsDebugMsg( String( "Object %d: Collision OldPos %f %f %f", pObject->iID, pObject->Position.x, pObject->Position.y, pObject->Position.z ) );
+				PhysicsDebugMsg( String( "Object %d: Collision Velocity %f %f %f", pObject->iID, pObject->CollisionVelocity.x, pObject->CollisionVelocity.y, pObject->CollisionVelocity.z ) );
+			}
 
-				pObject->fColliding = TRUE;
+			pObject->fColliding = TRUE;
 
 		}
 		else
@@ -1150,7 +1166,7 @@ void PhysicsResolveCollision( REAL_OBJECT *pObject, vector_3 *pVelocity, vector_
 {
 	real ImpulseNumerator, Impulse; 
 	vector_3			vTemp;
-		
+
 	ImpulseNumerator = -1 * CoefficientOfRestitution * VDotProduct( pVelocity , pNormal );
 
 	Impulse = ImpulseNumerator;
@@ -1165,10 +1181,10 @@ BOOLEAN PhysicsMoveObject( REAL_OBJECT *pObject )
 {
 	LEVELNODE *pNode;
 	INT16			sNewGridNo, sTileIndex;
-  ETRLEObject		*pTrav;
+	ETRLEObject		*pTrav;
 	HVOBJECT			hVObject;
 
-	
+
 	//Determine new gridno
 	sNewGridNo = MAPROWCOLTOPOS( ( (INT16)pObject->Position.y / CELL_Y_SIZE ), ( (INT16)pObject->Position.x / CELL_X_SIZE ) );
 
@@ -1199,8 +1215,9 @@ BOOLEAN PhysicsMoveObject( REAL_OBJECT *pObject )
 		if ( pObject->fVisible )
 		{
 			// Add smoke trails...
-//			if ( pObject->Obj.usItem == MORTAR_SHELL && pObject->uiNumTilesMoved > 2 && pObject->ubActionCode == THROW_ARM_ITEM )
-			//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1147"));	
+			//			if ( pObject->Obj.usItem == MORTAR_SHELL && pObject->uiNumTilesMoved > 2 && pObject->ubActionCode == THROW_ARM_ITEM )
+			//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1147"));	
+
 			if ( Item[pObject->Obj.usItem].usItemClass == IC_BOMB && pObject->uiNumTilesMoved > 2 && pObject->ubActionCode == THROW_ARM_ITEM )
 			{
 				if ( sNewGridNo != pObject->sGridNo )
@@ -1223,45 +1240,45 @@ BOOLEAN PhysicsMoveObject( REAL_OBJECT *pObject )
 			}
 			else if ( pObject->uiNumTilesMoved > 0 )
 			{
-        if ( sNewGridNo != pObject->sGridNo )
-        {
-				  // We're at a new gridno!
-				  if ( pObject->pNode != NULL )
-				  {	
-					  RemoveStructFromLevelNode( pObject->sLevelNodeGridNo, pObject->pNode );
-				  }
+				if ( sNewGridNo != pObject->sGridNo )
+				{
+					// We're at a new gridno!
+					if ( pObject->pNode != NULL )
+					{	
+						RemoveStructFromLevelNode( pObject->sLevelNodeGridNo, pObject->pNode );
+					}
 
-				  // We're at a new gridno!
-				  if ( pObject->pShadow != NULL )
-				  {	
-					  RemoveShadowFromLevelNode( pObject->sLevelNodeGridNo, pObject->pShadow );
-				  }
+					// We're at a new gridno!
+					if ( pObject->pShadow != NULL )
+					{	
+						RemoveShadowFromLevelNode( pObject->sLevelNodeGridNo, pObject->pShadow );
+					}
 
-				  // Now get graphic index
-				  sTileIndex = GetTileGraphicForItem( &(Item[ pObject->Obj.usItem ] ) );
-				  //sTileIndex = BULLETTILE1;
+					// Now get graphic index
+					sTileIndex = GetTileGraphicForItem( &(Item[ pObject->Obj.usItem ] ) );
+					//sTileIndex = BULLETTILE1;
 
-				  // Set new gridno, add
-				  pNode = AddStructToTail( sNewGridNo, sTileIndex );
-				  pNode->ubShadeLevel=DEFAULT_SHADE_LEVEL;
-				  pNode->ubNaturalShadeLevel=DEFAULT_SHADE_LEVEL;
-				  pNode->uiFlags |= ( LEVELNODE_USEABSOLUTEPOS | LEVELNODE_IGNOREHEIGHT | LEVELNODE_PHYSICSOBJECT | LEVELNODE_DYNAMIC );
+					// Set new gridno, add
+					pNode = AddStructToTail( sNewGridNo, sTileIndex );
+					pNode->ubShadeLevel=DEFAULT_SHADE_LEVEL;
+					pNode->ubNaturalShadeLevel=DEFAULT_SHADE_LEVEL;
+					pNode->uiFlags |= ( LEVELNODE_USEABSOLUTEPOS | LEVELNODE_IGNOREHEIGHT | LEVELNODE_PHYSICSOBJECT | LEVELNODE_DYNAMIC );
 
-				  // Set levelnode
-				  pObject->pNode = pNode;
+					// Set levelnode
+					pObject->pNode = pNode;
 
-				  // Add shadow
-				  AddShadowToHead( sNewGridNo, sTileIndex );
-				  pNode = gpWorldLevelData[ sNewGridNo ].pShadowHead;
-				  pNode->ubShadeLevel=DEFAULT_SHADE_LEVEL;
-				  pNode->ubNaturalShadeLevel=DEFAULT_SHADE_LEVEL;
-				  pNode->uiFlags |= ( LEVELNODE_USEABSOLUTEPOS | LEVELNODE_IGNOREHEIGHT | LEVELNODE_PHYSICSOBJECT | LEVELNODE_DYNAMIC );
+					// Add shadow
+					AddShadowToHead( sNewGridNo, sTileIndex );
+					pNode = gpWorldLevelData[ sNewGridNo ].pShadowHead;
+					pNode->ubShadeLevel=DEFAULT_SHADE_LEVEL;
+					pNode->ubNaturalShadeLevel=DEFAULT_SHADE_LEVEL;
+					pNode->uiFlags |= ( LEVELNODE_USEABSOLUTEPOS | LEVELNODE_IGNOREHEIGHT | LEVELNODE_PHYSICSOBJECT | LEVELNODE_DYNAMIC );
 
-				  // Set levelnode
-				  pObject->pShadow = pNode;
+					// Set levelnode
+					pObject->pShadow = pNode;
 
-          pObject->sLevelNodeGridNo = sNewGridNo;
-        }
+					pObject->sLevelNodeGridNo = sNewGridNo;
+				}
 			}
 		}
 		else
@@ -1282,23 +1299,24 @@ BOOLEAN PhysicsMoveObject( REAL_OBJECT *pObject )
 			pObject->pShadow  = NULL;
 		}
 
-    if ( sNewGridNo != pObject->sGridNo )
-    {
-		  pObject->uiNumTilesMoved++;
-    }
+		if ( sNewGridNo != pObject->sGridNo )
+		{
+			pObject->uiNumTilesMoved++;
+		}
 
 		pObject->sGridNo = sNewGridNo;
 
-    if ( pObject->fPotentialForDebug )
-    {
-	    PhysicsDebugMsg( String( "Object %d: uiNumTilesMoved: %d", pObject->iID, pObject->uiNumTilesMoved ) );
-    }
+		if ( pObject->fPotentialForDebug )
+		{
+			PhysicsDebugMsg( String( "Object %d: uiNumTilesMoved: %d", pObject->iID, pObject->uiNumTilesMoved ) );
+		}
 	}
 
 	if ( pObject->fVisible )
 	{
-//		if ( pObject->Obj.usItem != MORTAR_SHELL || pObject->ubActionCode != THROW_ARM_ITEM )
-		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1238"));	
+		//		if ( pObject->Obj.usItem != MORTAR_SHELL || pObject->ubActionCode != THROW_ARM_ITEM )
+		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1238"));	
+
 		if ( !(Item[pObject->Obj.usItem].usItemClass == IC_BOMB) || pObject->ubActionCode != THROW_ARM_ITEM )
 		{
 			if ( pObject->pNode != NULL )
@@ -1330,7 +1348,7 @@ BOOLEAN PhysicsMoveObject( REAL_OBJECT *pObject )
 {
 	LEVELNODE *pNode;
 	INT16			sNewGridNo;
-	
+
 	//Determine new gridno
 	sNewGridNo = MAPROWCOLTOPOS( ( pObject->Position.y / CELL_Y_SIZE ), ( pObject->Position.x / CELL_X_SIZE ) );
 
@@ -1432,7 +1450,7 @@ vector_3 FindBestForceForTrajectory( INT16 sSrcGridNo, INT16 sGridNo,INT16 sStar
 
 		// What's the diff?
 		dTestDiff = dTestRange - dRange;
-	
+
 		// How have we done?
 		// < 5% off...
 		if ( fabs( ( dTestDiff / dRange ) ) < .01 )
@@ -1568,7 +1586,7 @@ real FindBestAngleForTrajectory( INT16 sSrcGridNo, INT16 sGridNo,INT16 sStartZ, 
 
 		// What's the diff?
 		dTestDiff = dTestRange - dRange;
-	
+
 		// How have we done?
 		// < 5% off...
 		if ( fabs( (FLOAT)( dTestDiff / dRange ) ) < .05 )
@@ -1678,7 +1696,7 @@ FLOAT CalculateObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vector_3 *vP
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalculateObjectTrajectory: createphysicalobject");
 	// OK, create a physics object....
-	iID = CreatePhysicalObject( pItem, -1, vPosition->x, vPosition->y, vPosition->z, vForce->x, vForce->y, vForce->z, NOBODY, NO_THROW_ACTION, 0 );
+	iID = CreatePhysicalObject( pItem, -1, vPosition->x, vPosition->y, vPosition->z, vForce->x, vForce->y, vForce->z, NOBODY, NO_THROW_ACTION, 0, TEST_OBJECT_NO_COLLISIONS );
 
 	if ( iID == -1 )
 	{
@@ -1699,7 +1717,7 @@ FLOAT CalculateObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vector_3 *vP
 	while( pObject->fAlive )
 	{
 		//cnt = cnt + 1;
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalculateObjectTrajectory: calling simulateobject - this object never fucking dies!!!!");
+		//		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalculateObjectTrajectory: calling simulateobject - this object never fucking dies!!!!");
 		SimulateObject( pObject, (float)DELTA_T );
 	}
 
@@ -1720,7 +1738,7 @@ FLOAT CalculateObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vector_3 *vP
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalculateObjectTrajectory: done");
 	return( (FLOAT)sqrt( ( dDiffX * dDiffX ) + ( dDiffY * dDiffY ) ) );
-	
+
 }
 
 
@@ -1730,7 +1748,7 @@ INT32 ChanceToGetThroughObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vec
 	REAL_OBJECT *pObject;
 
 	// OK, create a physics object....
-	iID = CreatePhysicalObject( pItem, -1, vPosition->x, vPosition->y, vPosition->z, vForce->x, vForce->y, vForce->z, NOBODY, NO_THROW_ACTION, 0 );
+	iID = CreatePhysicalObject( pItem, -1, vPosition->x, vPosition->y, vPosition->z, vForce->x, vForce->y, vForce->z, NOBODY, NO_THROW_ACTION, 0, TEST_OBJECT_NOTWALLROOF_COLLISIONS );
 
 	if ( iID == -1 )
 	{
@@ -1744,7 +1762,7 @@ INT32 ChanceToGetThroughObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vec
 	pObject->fTestPositionNotSet = TRUE;
 	pObject->TestZTarget = sTargetZ;
 	pObject->fVisible		 = FALSE;
-  //pObject->fPotentialForDebug = TRUE;
+	//pObject->fPotentialForDebug = TRUE;
 
 	// Alrighty, move this beast until it dies....
 	while( pObject->fAlive )
@@ -1755,20 +1773,20 @@ INT32 ChanceToGetThroughObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vec
 
 	if ( psNewGridNo != NULL )
 	{
-    // Calculate gridno from last position
+		// Calculate gridno from last position
 
-    // If NOT from UI, use exact collision position
+		// If NOT from UI, use exact collision position
 		// JA25 comment from CJC:  testing breaklights, we ran into a situation where EndedWithCollisionPosition was not
 		// set due to breaklight stopping on flat ground.  It makes sense that if EndedWithCollisionPosition is
 		// unset, at least the Position value is of SOME use...
-    if ( fFromUI || (pObject->EndedWithCollisionPosition.x == 0.0f && pObject->EndedWithCollisionPosition.y == 0.0f) )
-    {
-		  (*psNewGridNo) = MAPROWCOLTOPOS( ( (INT16)pObject->Position.y / CELL_Y_SIZE ), ( (INT16)pObject->Position.x / CELL_X_SIZE ) );
-    }
-    else
-    {
-		  (*psNewGridNo) = MAPROWCOLTOPOS( ( (INT16)pObject->EndedWithCollisionPosition.y / CELL_Y_SIZE ), ( (INT16)pObject->EndedWithCollisionPosition.x / CELL_X_SIZE ) );
-    }
+		if ( fFromUI || (pObject->EndedWithCollisionPosition.x == 0.0f && pObject->EndedWithCollisionPosition.y == 0.0f) )
+		{
+			(*psNewGridNo) = MAPROWCOLTOPOS( ( (INT16)pObject->Position.y / CELL_Y_SIZE ), ( (INT16)pObject->Position.x / CELL_X_SIZE ) );
+		}
+		else
+		{
+			(*psNewGridNo) = MAPROWCOLTOPOS( ( (INT16)pObject->EndedWithCollisionPosition.y / CELL_Y_SIZE ), ( (INT16)pObject->EndedWithCollisionPosition.x / CELL_X_SIZE ) );
+		}
 
 		(*pbLevel) = GET_OBJECT_LEVEL( pObject->EndedWithCollisionPosition.z - CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ (*psNewGridNo) ].sHeight ) );
 	}
@@ -1781,7 +1799,7 @@ INT32 ChanceToGetThroughObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vec
 		return( 0 );
 	}
 	return( 100 );
-	
+
 }
 
 
@@ -1823,17 +1841,17 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 	// Are we armed, and are we throwing a LAUNCHABLE?
 
 	usLauncher = GetLauncherFromLaunchable( pItem->usItem );
-DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1741"));	
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1741"));	
 	if ( fArmed && ( Item[usLauncher].mortar || Item[pItem->usItem].mortar ) )
 	{
-		 // Start at 0....
-		 sStartZ = ( pSoldier->bLevel * 256 );
-		 fMortar = TRUE;
-		 sMinRange = MIN_MORTAR_RANGE;
-		 //fLauncher = TRUE;
+		// Start at 0....
+		sStartZ = ( pSoldier->bLevel * 256 );
+		fMortar = TRUE;
+		sMinRange = MIN_MORTAR_RANGE;
+		//fLauncher = TRUE;
 	}
-DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1750"));	
-	
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1750"));	
+
 	if ( fArmed && ( Item[usLauncher].grenadelauncher || Item[pItem->usItem].grenadelauncher ) )
 	{
 		// OK, look at target level and decide angle to use...
@@ -1903,10 +1921,10 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1750"));
 
 	if ( sInterGridNo != NOWHERE )
 	{
-		 // IF so, adjust target height, gridno....
-		 ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Through a window!" );
+		// IF so, adjust target height, gridno....
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Through a window!" );
 
-		 fThroughIntermediateGridNo = TRUE;
+		fThroughIntermediateGridNo = TRUE;
 	}
 
 	if ( !fLauncher )
@@ -1954,7 +1972,7 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1750"));
 		{
 			dMagForce		=	(float)( dMagForce * 1.25 );
 		}
-		
+
 		FindTrajectory( pSoldier->sGridNo, sGridNo, sStartZ, sEndZ, dMagForce, dDegrees, pItem, psFinalGridNo );
 
 		if ( ubLevel == 1 && !fThroughIntermediateGridNo )
@@ -1965,12 +1983,12 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1750"));
 				dMagForce		=	(float)( dMagForce * 0.85 );
 
 				// Yep, try to get angle...
-				 dNewDegrees = FindBestAngleForTrajectory( pSoldier->sGridNo, sGridNo, GET_SOLDIER_THROW_HEIGHT( pSoldier->bLevel ), 150, dMagForce, pItem, psFinalGridNo );		
+				dNewDegrees = FindBestAngleForTrajectory( pSoldier->sGridNo, sGridNo, GET_SOLDIER_THROW_HEIGHT( pSoldier->bLevel ), 150, dMagForce, pItem, psFinalGridNo );		
 
-				 if ( dNewDegrees != 0 )
-				 {
-						dDegrees = dNewDegrees;
-				 }
+				if ( dNewDegrees != 0 )
+				{
+					dDegrees = dNewDegrees;
+				}
 			}
 		}
 
@@ -2032,10 +2050,10 @@ BOOLEAN CalculateLaunchItemChanceToGetThrough( SOLDIERTYPE *pSoldier, OBJECTTYPE
 		return( FALSE );
 	}
 
-  if ( !fFromUI && (*psFinalGridNo) != sGridNo )
-  {
-    return( FALSE );
-  }
+	if ( !fFromUI && (*psFinalGridNo) != sGridNo )
+	{
+		return( FALSE );
+	}
 
 	return( TRUE );
 }
@@ -2069,7 +2087,7 @@ FLOAT CalculateSoldierMaxForce( SOLDIERTYPE *pSoldier, FLOAT dDegrees , OBJECTTY
 
 	INT32 uiMaxRange;
 	FLOAT	dMagForce;
-	
+
 	dDegrees = (FLOAT)( PI/4 );
 
 	uiMaxRange = CalcMaxTossRange( pSoldier, pItem->usItem, fArmed );
@@ -2094,10 +2112,10 @@ void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT16 sGridNo, UI
 	BOOLEAN			fArmed = FALSE;
 	UINT16			usLauncher;
 	INT16				sStartZ;
-  INT8        bMinMissRadius, bMaxMissRadius, bMaxRadius;
-  FLOAT       fScale;
+	INT8        bMinMissRadius, bMaxMissRadius, bMaxRadius;
+	FLOAT       fScale;
 
-  	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalculateLaunchItemParamsForThrow");
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalculateLaunchItemParamsForThrow");
 
 	// Set target ID if anyone
 	pSoldier->ubTargetID = WhoIsThere2( sGridNo, ubLevel );
@@ -2113,10 +2131,10 @@ void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT16 sGridNo, UI
 		bMissBy = 0;
 	}
 
-  //if ( 0 )
+	//if ( 0 )
 	if ( bMissBy > 0 )
 	{
-		 // Max the miss variance
+		// Max the miss variance
 		if ( bMissBy > MAX_MISS_BY )
 		{
 			bMissBy = MAX_MISS_BY;
@@ -2133,43 +2151,43 @@ void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT16 sGridNo, UI
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Throw miss by: %d", bMissBy );
 #endif
 
-    // Default to max radius...
-    bMaxRadius = 5;
+		// Default to max radius...
+		bMaxRadius = 5;
 
-    // scale if pyth spaces away is too far
-    if ( PythSpacesAway( sGridNo, pSoldier->sGridNo ) < ( (float)bMaxRadius / (float)1.5 ) )
-    {
-      bMaxRadius = PythSpacesAway( sGridNo, pSoldier->sGridNo ) / 2;
-    }
-
-
-    // Get radius
-    fScale = ( (float)bMissBy / (float) MAX_MISS_BY );
-
-    bMaxMissRadius = (INT8)( bMaxRadius * fScale );
-
-    // Limit max radius...
-    if ( bMaxMissRadius > 4 )
-    {
-      bMaxMissRadius = 4;
-    }
+		// scale if pyth spaces away is too far
+		if ( PythSpacesAway( sGridNo, pSoldier->sGridNo ) < ( (float)bMaxRadius / (float)1.5 ) )
+		{
+			bMaxRadius = PythSpacesAway( sGridNo, pSoldier->sGridNo ) / 2;
+		}
 
 
-    bMinMissRadius = bMaxMissRadius - 1;
+		// Get radius
+		fScale = ( (float)bMissBy / (float) MAX_MISS_BY );
 
-    if ( bMinMissRadius < 2 )
-    {
-      bMinMissRadius = 2;
-    }
+		bMaxMissRadius = (INT8)( bMaxRadius * fScale );
 
-    if ( bMaxMissRadius < bMinMissRadius )
-    {
-      bMaxMissRadius = bMinMissRadius;
-    }
+		// Limit max radius...
+		if ( bMaxMissRadius > 4 )
+		{
+			bMaxMissRadius = 4;
+		}
 
-    sGridNo = RandomGridFromRadius( sGridNo, bMinMissRadius, bMaxMissRadius );
+
+		bMinMissRadius = bMaxMissRadius - 1;
+
+		if ( bMinMissRadius < 2 )
+		{
+			bMinMissRadius = 2;
+		}
+
+		if ( bMaxMissRadius < bMinMissRadius )
+		{
+			bMaxMissRadius = bMinMissRadius;
+		}
+
+		sGridNo = RandomGridFromRadius( sGridNo, bMinMissRadius, bMaxMissRadius );
 	}
-  
+
 	// Get basic launch params...
 	CalculateLaunchItemBasicParams( pSoldier, pItem, sGridNo, ubLevel, sEndZ, &dForce, &dDegrees, &sFinalGridNo, fArmed );
 
@@ -2207,11 +2225,12 @@ void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT16 sGridNo, UI
 
 	sStartZ = GET_SOLDIER_THROW_HEIGHT( pSoldier->bLevel );
 	usLauncher = GetLauncherFromLaunchable( pItem->usItem );
-DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 2103"));	
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 2103"));	
+
 	if ( fArmed && Item[usLauncher].mortar )
 	{
-		 // Start at 0....
-		 sStartZ = ( pSoldier->bLevel * 256 ) + 50;
+		// Start at 0....
+		sStartZ = ( pSoldier->bLevel * 256 ) + 50;
 	}
 
 	pSoldier->pThrowParams->dZ = (float)sStartZ;
@@ -2225,7 +2244,7 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 2103"));
 	// Dirty interface
 	DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 
-  	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalculateLaunchItemParamsForThrow done");
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalculateLaunchItemParamsForThrow done");
 }
 
 
@@ -2258,7 +2277,7 @@ BOOLEAN CheckForCatcher( REAL_OBJECT *pObject, UINT16 usStructureID )
 void CheckForObjectHittingMerc( REAL_OBJECT *pObject, UINT16 usStructureID )
 {
 	SOLDIERTYPE *pSoldier;
-  INT16       sDamage, sBreath;
+	INT16       sDamage, sBreath;
 
 	// Do we want to catch?
 	if ( pObject->fTestObject ==  NO_TEST_OBJECT )
@@ -2266,17 +2285,17 @@ void CheckForObjectHittingMerc( REAL_OBJECT *pObject, UINT16 usStructureID )
 		// Is it a guy?
 		if ( usStructureID < INVALID_STRUCTURE_ID )
 		{
-      if ( pObject->ubLastTargetTakenDamage != (UINT8)usStructureID )
-      {
-			  pSoldier = MercPtrs[ usStructureID ];
+			if ( pObject->ubLastTargetTakenDamage != (UINT8)usStructureID )
+			{
+				pSoldier = MercPtrs[ usStructureID ];
 
-        sDamage = 1;
-        sBreath = 0;
+				sDamage = 1;
+				sBreath = 0;
 
-        EVENT_SoldierGotHit( pSoldier, NOTHING, sDamage, sBreath, pSoldier->bDirection, 0, pObject->ubOwner, FIRE_WEAPON_TOSSED_OBJECT_SPECIAL, 0, 0, NOWHERE );
+				EVENT_SoldierGotHit( pSoldier, NOTHING, sDamage, sBreath, pSoldier->bDirection, 0, pObject->ubOwner, FIRE_WEAPON_TOSSED_OBJECT_SPECIAL, 0, 0, NOWHERE );
 
-        pObject->ubLastTargetTakenDamage = (UINT8)( usStructureID );
-      }
+				pObject->ubLastTargetTakenDamage = (UINT8)( usStructureID );
+			}
 		}
 	}
 }
@@ -2300,10 +2319,10 @@ BOOLEAN CheckForCatchObject( REAL_OBJECT *pObject )
 
 			if ( uiSpacesAway < 4 && !pObject->fAttemptedCatch )
 			{
-				 if ( pSoldier->usAnimState != CATCH_STANDING && 
-							pSoldier->usAnimState != CATCH_CROUCHED && 
-							pSoldier->usAnimState != LOWER_RIFLE )							
-				 {
+				if ( pSoldier->usAnimState != CATCH_STANDING && 
+					pSoldier->usAnimState != CATCH_CROUCHED && 
+					pSoldier->usAnimState != LOWER_RIFLE )							
+				{
 					if ( gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_STAND )
 					{
 						EVENT_InitNewSoldierAnim( pSoldier, CATCH_STANDING, 0 , FALSE );
@@ -2314,7 +2333,7 @@ BOOLEAN CheckForCatchObject( REAL_OBJECT *pObject )
 					}
 
 					pObject->fCatchAnimOn = TRUE;
-				 }
+				}
 			}
 
 			pObject->fAttemptedCatch = TRUE;
@@ -2375,17 +2394,17 @@ BOOLEAN DoCatchObject( REAL_OBJECT *pObject )
 	// Catch anim.....
 	switch( gAnimControl[ pSoldier->usAnimState ].ubHeight )
 	{
-		case ANIM_STAND:
+	case ANIM_STAND:
 
-			pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
-			EVENT_InitNewSoldierAnim( pSoldier, END_CATCH, 0 , FALSE );
-			break;
+		pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
+		EVENT_InitNewSoldierAnim( pSoldier, END_CATCH, 0 , FALSE );
+		break;
 
-		case ANIM_CROUCH:
+	case ANIM_CROUCH:
 
-			pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
-			EVENT_InitNewSoldierAnim( pSoldier, END_CROUCH_CATCH, 0 , FALSE );
-			break;
+		pSoldier->usPendingAnimation = NO_PENDING_ANIMATION;
+		EVENT_InitNewSoldierAnim( pSoldier, END_CROUCH_CATCH, 0 , FALSE );
+		break;
 	}
 
 	PlayJA2Sample( CATCH_OBJECT, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
@@ -2433,16 +2452,17 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 	// get OBJECTTYPE
 	pObj = &(pObject->Obj);
 
-  // ATE: Make sure number of objects is 1...
-  pObj->ubNumberOfObjects = 1;
+	// ATE: Make sure number of objects is 1...
+	pObj->ubNumberOfObjects = 1;
 
 	if ( Item[ pObj->usItem ].usItemClass & IC_GRENADE )
 	{
 		fCheckForDuds = TRUE;
 	}
 
-//	if ( pObj->usItem == MORTAR_SHELL )
-DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 2337"));	
+	//	if ( pObj->usItem == MORTAR_SHELL )
+	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 2337"));	
+
 	if (Item[ pObj->usItem ].usItemClass == IC_BOMB)
 	{
 		fCheckForDuds = TRUE;
@@ -2456,21 +2476,21 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 2337"));
 	if ( fCheckForDuds )
 	{
 		// If we landed on anything other than the floor, always! go off...
-	#ifdef TESTDUDEXPLOSIVES 
+#ifdef TESTDUDEXPLOSIVES 
 		if ( sZ != 0 || pObject->fInWater )
-	#else
+#else
 		if ( sZ != 0 || pObject->fInWater || ( pObj->bStatus[0] >= USABLE && ( PreRandom( 100 ) < (UINT32) pObj->bStatus[0] + PreRandom( 50 ) ) ) )
-	#endif
+#endif
 		{
 			fDoImpact = TRUE;
 		}
 		else	// didn't go off!
 		{
-	#ifdef TESTDUDEXPLOSIVES 
+#ifdef TESTDUDEXPLOSIVES 
 			if ( 1 )		
-	#else
+#else
 			if ( pObj->bStatus[0] >= USABLE && PreRandom(100) < (UINT32) pObj->bStatus[0] + PreRandom( 50 ) )
-	#endif
+#endif
 			{
 				iTrapped = PreRandom( 4 ) + 2;
 			}
@@ -2520,23 +2540,23 @@ DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 2337"));
 			else
 			{
 				// Add a light effect...
-				
+
 				NewLightEffect( pObject->sGridNo, (UINT8)Explosive[Item[pObject->Obj.usItem].ubClassIndex].ubDuration , (UINT8)Explosive[Item[pObject->Obj.usItem].ubClassIndex].ubStartRadius );
 			}
 		}
 		else if ( Item[ pObject->Obj.usItem ].usItemClass & IC_GRENADE  )
 		{
-/* ARM: Removed.  Rewards even missed throws, and pulling a pin doesn't really teach anything about explosives
+			/* ARM: Removed.  Rewards even missed throws, and pulling a pin doesn't really teach anything about explosives
 			if ( MercPtrs[ pObject->ubOwner ]->bTeam == gbPlayerNum && gTacticalStatus.uiFlags & INCOMBAT )
 			{
-				// tossed grenade, not a dud, so grant xp
-				// EXPLOSIVES GAIN (10):  Tossing grenade
-        if ( pObject->ubOwner != NOBODY )
-        {
-				  StatChange( MercPtrs[ pObject->ubOwner ], EXPLODEAMT, 10, FALSE );
-        }
+			// tossed grenade, not a dud, so grant xp
+			// EXPLOSIVES GAIN (10):  Tossing grenade
+			if ( pObject->ubOwner != NOBODY )
+			{
+			StatChange( MercPtrs[ pObject->ubOwner ], EXPLODEAMT, 10, FALSE );
 			}
-*/
+			}
+			*/
 
 			IgniteExplosion( pObject->ubOwner, (INT16)pObject->Position.x, (INT16)pObject->Position.y, sZ, pObject->sGridNo, pObject->Obj.usItem, GET_OBJECT_LEVEL( pObject->Position.z - CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ pObject->sGridNo ].sHeight ) ) );
 		}
@@ -2638,42 +2658,42 @@ UINT16 RandomGridFromRadius( INT16 sSweetGridNo, INT8 ubMinRadius, INT8 ubMaxRad
 	BOOLEAN	fFound = FALSE;
 	UINT32		cnt = 0;
 
-  if ( ubMaxRadius == 0 || ubMinRadius == 0 )
-  {
-    return( sSweetGridNo );
-  }
+	if ( ubMaxRadius == 0 || ubMinRadius == 0 )
+	{
+		return( sSweetGridNo );
+	}
 
 	do
 	{
 		sX = (UINT16)PreRandom( ubMaxRadius );
 		sY = (UINT16)PreRandom( ubMaxRadius );
 
-    if ( ( sX < ubMinRadius || sY < ubMinRadius ) && ubMaxRadius != ubMinRadius )
-    {
-      continue;
-    }
+		if ( ( sX < ubMinRadius || sY < ubMinRadius ) && ubMaxRadius != ubMinRadius )
+		{
+			continue;
+		}
 
-    if ( PreRandom( 2 ) == 0 )
-    {
-      sX = sX * -1;
-    }
+		if ( PreRandom( 2 ) == 0 )
+		{
+			sX = sX * -1;
+		}
 
-    if ( PreRandom( 2 ) == 0 )
-    {
-      sY = sY * -1;
-    }
+		if ( PreRandom( 2 ) == 0 )
+		{
+			sY = sY * -1;
+		}
 
 		leftmost = ( ( sSweetGridNo + ( WORLD_COLS * sY ) )/ WORLD_COLS ) * WORLD_COLS;
 
 		sGridNo = sSweetGridNo + ( WORLD_COLS * sY ) + sX;
 
-    if ( sGridNo == sSweetGridNo )
-    {
-      continue;
-    }
+		if ( sGridNo == sSweetGridNo )
+		{
+			continue;
+		}
 
 		if ( sGridNo >=0 && sGridNo < WORLD_MAX && 
-				 sGridNo >= leftmost && sGridNo < ( leftmost + WORLD_COLS ) )				
+			sGridNo >= leftmost && sGridNo < ( leftmost + WORLD_COLS ) )				
 		{
 			fFound = TRUE;
 		}

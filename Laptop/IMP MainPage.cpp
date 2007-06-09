@@ -21,6 +21,9 @@
 	#include "LaptopSave.h"
 	#include "IMP Compile Character.h"
 	#include "IMP Portraits.h"
+	#include "soldier profile type.h"
+	#include "GameSettings.h"
+	#include "Soldier Profile.h"
 #endif
 
 

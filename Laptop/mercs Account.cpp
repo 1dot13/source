@@ -19,6 +19,7 @@
 	#include "LaptopSave.h"
 	#include "Text.h"
 	#include "Speck Quotes.h"
+	#include "Multi Language Graphic Utils.h"
 #endif
 
 #define		MERC_ACCOUNT_TEXT_FONT				FONT14ARIAL

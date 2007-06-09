@@ -17,6 +17,7 @@
 	#include "Exit Grids.h"
 	#include "Message.h"
 	#include "GameSettings.h"
+	#include "Smell.h"
 #endif
 
 #define			NUM_REVEALED_BYTES			3200

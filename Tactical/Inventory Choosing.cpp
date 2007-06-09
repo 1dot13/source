@@ -10,6 +10,13 @@
 	#include "Strategic Status.h"
 	#include "Campaign.h"
 	#include "GameSettings.h"
+	#include "AIInternals.h"
+	#include "strategicmap.h"
+	#include "Auto Resolve.h"
+	#include "Map Screen Interface Map.h"
+	#include "EnemyItemDrops.h"
+	#include "strategic.h"
+	#include "Game Clock.h"
 #endif
 
 /*
@@ -558,6 +565,11 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 				case IC_LAUNCHER:
 					pItem->ubGunState |= GS_CARTRIDGE_IN_CHAMBER;
 					fGrenadeLauncher = FALSE;
+					if (fMortar || fRPG)
+					{
+						bGrenadeClass = 0;
+						bGrenades = 0;
+					}
 					fMortar = FALSE;
 					fRPG = FALSE;
 					break;

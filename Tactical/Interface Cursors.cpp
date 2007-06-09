@@ -21,6 +21,7 @@
 	#include "sys globals.h"
 	#include "overhead.h"
 	#include "interface items.h"
+	#include "GameSettings.h"
 #endif
 
 #define DISPLAY_AP_INDEX					MOCKFLOOR1
@@ -262,7 +263,7 @@ BOOLEAN DrawUICursor( )
 		return( TRUE );
 	}
 
-	if (GetMouseMapPos( (INT16 *)&usMapPos) )
+	if (GetMouseMapPos( &usMapPos) )
 	{
 		gusCurMousePos = usMapPos;
 

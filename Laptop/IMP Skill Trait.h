@@ -1,6 +1,8 @@
 #ifndef __IMP_SKILL_TRAIT__H_
 #define __IMP_SKILL_TRAIT__H_
 
+#include "Types.h"
+
 void EnterIMPSkillTrait( void );
 void RenderIMPSkillTrait( void );
 void ExitIMPSkillTrait( void );

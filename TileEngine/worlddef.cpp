@@ -1,3 +1,5 @@
+#include "builddefines.h"
+
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
 	#include "PreBattle Interface.h"
@@ -58,6 +60,11 @@
 	#include "pits.h"
 	#include "Game Clock.h"
 	#include "Buildings.h"
+	#include "strategicmap.h"
+	#include "overhead map.h"
+	#include "SmokeEffects.h"
+	#include "LightEffects.h"
+	#include "meanwhile.h"
 #endif
 
 #define  SET_MOVEMENTCOST( a, b, c, d )				( ( gubWorldMovementCosts[ a ][ b ][ c ] < d ) ? ( gubWorldMovementCosts[ a ][ b ][ c ] = d ) : 0 );

@@ -19,6 +19,8 @@
 	#include "AimMembers.h"
 	#include "Random.h"
 	#include "Text.h"
+	#include "LaptopSave.h"
+	#include "finances.h"
 #endif
 
 //static EmailPtr pEmailList; 

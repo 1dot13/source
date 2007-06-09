@@ -50,8 +50,7 @@ INT32 OutOfBounds(INT16 sGridno, INT16 sProposedGridno);
 BOOLEAN GetMouseCell( INT32 *piMouseMapPos );
 BOOLEAN GetMouseXY( INT16 *psMouseX, INT16 *psMouseY );
 BOOLEAN GetMouseWorldCoords( INT16 *psMouseX, INT16 *psMouseY );
-BOOLEAN GetMouseMapPos( UINT16	*psMapPos ); // (jonathanl) to save me having to cast all the previous code
-BOOLEAN GetMouseMapPos( INT16	*psMapPos );
+BOOLEAN GetMouseMapPos( UINT16	*psMapPos );
 BOOLEAN GetMouseWorldCoordsInCenter( INT16 *psMouseX, INT16 *psMouseY );
 BOOLEAN GetMouseXYWithRemainder( INT16 *psMouseX, INT16 *psMouseY, INT16 *psCellX, INT16 *psCellY );
 

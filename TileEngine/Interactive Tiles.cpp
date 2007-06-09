@@ -1,3 +1,5 @@
+#include "builddefines.h"
+
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
 #else
@@ -33,6 +35,11 @@
 	#include "handle items.h"
 	#include "message.h"
 	#include "handle ui.h"
+	#include "NPC.h"
+	#include "Explosion Control.h"
+	#include "Text.h"
+	#include "GameSettings.h"
+	#include "environment.h"
 #endif
 
 #define		MAX_INTTILE_STACK							10

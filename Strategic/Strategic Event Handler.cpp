@@ -27,6 +27,10 @@
 	#include "Renderworld.h"
 	#include "Soldier Profile.h"
 	#include "email.h"
+	#include "strategic.h"
+	#include "structure wrap.h"
+	#include "GameSettings.h"
+	#include "history.h"
 #endif
 #include "BobbyRMailOrder.h"
 

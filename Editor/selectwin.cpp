@@ -20,11 +20,12 @@
 	#include "Editor Taskbar Utils.h"
 #endif
 
+#include "vobject_blitters.h"
 
 extern BOOLEAN gfOverheadMapDirty;
 
-extern void SetClippingRect(SGPRect *clip);
-extern void GetClippingRect(SGPRect *clip);
+//extern void SetClippingRect(SGPRect *clip);
+//extern void GetClippingRect(SGPRect *clip);
 
 
 extern INT32 iEditorToolbar;

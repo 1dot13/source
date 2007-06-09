@@ -19,6 +19,29 @@
 	#include "interface.h"
 	#include "end game.h"
 	#include "Intro.h"
+	#include "Exit Grids.h"
+	#include "strategicmap.h"
+	#include "Quests.h"
+	#include "SaveLoadMap.h"
+	#include "Sound Control.h"
+	#include "renderworld.h"
+	#include "Isometric Utils.h"
+	#include "Music Control.h"
+	#include "Soldier macros.h"
+	#include "qarray.h"
+	#include "los.h"
+	#include "Strategic AI.h"
+	#include "Squads.h"
+	#include "PreBattle Interface.h"
+	#include "Strategic Movement.h"
+	#include "strategic.h"
+	#include "Morale.h"
+	#include "Queen Command.h"
+	#include "Strategic Town Loyalty.h"
+	#include "Player Command.h"
+	#include "Campaign Types.h"
+	#include "Tactical Save.h"
+	#include "screenids.h"
 #endif
 
 INT16 sStatueGridNos[] = { 13829, 13830, 13669, 13670 };
@@ -415,7 +438,8 @@ void BeginHandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT16 sGridNo, INT
 			// HELLO!  THESE ARE CREATURES!  THEY CAN'T BE NEUTRAL!
 			//if ( !pTeamSoldier->bNeutral && (pTeamSoldier->bSide != gbPlayerNum ) )
 			{
-	    		gTacticalStatus.ubAttackBusyCount++;
+//	    		gTacticalStatus.ubAttackBusyCount++;
+				DebugAttackBusy( "Killing off a queen ally.\n");
 				EVENT_SoldierGotHit( pTeamSoldier, 0, 10000, 0, pTeamSoldier->bDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pTeamSoldier->bAimShotLocation, 0, NOWHERE );
 			}
 		}

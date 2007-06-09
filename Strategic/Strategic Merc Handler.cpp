@@ -36,6 +36,10 @@
 	#include "screenids.h"
 	#include "gameloop.h"
 	#include "jascreens.h"
+	#include "Soldier macros.h"
+	#include "finances.h"
+	#include "GameSettings.h"
+	#include "Quests.h"
 #endif
 
 

@@ -41,6 +41,12 @@
 	#ifdef DEBUG_INTERRUPTS
 		#include "debug.h"
 	#endif
+	#include "renderworld.h"
+	#include "rotting corpses.h"
+	#include "Squads.h"
+	#include "Soldier macros.h"
+	#include "Soldier Profile.h"
+	#include "NPC.h"
 #endif
 
 #include "Reinforcement.h"
@@ -196,6 +202,10 @@ void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 				{
 					DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("StartPlayerTeamTurn: SelectNextAvailSoldier"));
 					SelectNextAvailSoldier( MercPtrs[ gusSelectedSoldier ] );
+				}
+				else
+				{
+					SelectSoldier( gusSelectedSoldier, FALSE, FALSE);
 				}
 
 				// Slide to selected guy...

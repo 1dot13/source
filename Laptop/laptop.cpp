@@ -79,6 +79,11 @@
 	#include "Multi Language Graphic Utils.h"
 	#include "BrokenLink.h"
 	#include "BobbyRShipments.h"
+	#include "Dialogue Control.h"
+	#include "helpscreen.h"
+	#include "cheats.h"
+	#include "Strategic Status.h"
+	#include "Arms Dealer Init.h"
 #endif
 
 

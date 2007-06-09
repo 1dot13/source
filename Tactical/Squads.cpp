@@ -14,6 +14,10 @@
 	#include "Vehicles.h"
 	#include "Map Screen Helicopter.h"
 	#include "Soldier Profile.h"
+	#include "Debug.h"
+	#include "jascreens.h"
+	#include "screenids.h"
+	#include "Soldier macros.h"
 #endif
 
 

@@ -1,6 +1,8 @@
 #ifndef __CIV_QUOTES_H
 #define __CIV_QUOTES_H
 
+#include "Soldier Control.h"
+
 #define			CIV_TYPE_NA									0	
 #define			CIV_TYPE_ADULT							1
 #define			CIV_TYPE_KID								2	

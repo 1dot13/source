@@ -24,6 +24,14 @@
 	#include "HelpScreen.h"
 	#include "HelpScreenText.h"
 	#include "Line.h"
+	#include "Game Clock.h"
+	#include "GameSettings.h"
+	#include "laptop.h"
+	#include "Text Input.h"
+	#include "english.h"
+	#include "renderworld.h"
+	#include "Game Init.h"
+	#include "Overhead.h"
 #endif
 
 extern INT16 gsVIEWPORT_END_Y;

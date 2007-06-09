@@ -21,6 +21,7 @@
 	//tactical
 	#include "Soldier Create.h"
 	#include "overhead types.h"
+	#include "local.h"
 #endif
 
 //Category tabs of the editor buttons

@@ -1,31 +1,34 @@
 #ifdef PRECOMPILEDHEADERS
-	#include "TileEngine All.h"
+#include "TileEngine All.h"
 #else
-	#include "worlddef.h"
-	#include <stdio.h>
-	#include <string.h>
-	#include "wcheck.h"
-	#include "stdlib.h"
-	#include "time.h"
-	#include "video.h"
-	#include "debug.h"
-	#include "smooth.h"
-	#include "worldman.h"
-	#include "lighting.h"
-	#include "renderworld.h"
-	#include "overhead.h"
-	#include "ai.h"
-	#include "Sound Control.h"
-	#include "animation control.h"
-	#include "isometric utils.h"
-	#include "Font Control.h"
-	#include "message.h"
-	#include "tile animation.h"
-	#include "tile cache.h"
-	#include "explosion control.h"
-	#include "weapons.h"
-	#include "Keys.h"
-	#include "bullets.h"
+#include "worlddef.h"
+#include <stdio.h>
+#include <string.h>
+#include "wcheck.h"
+#include "stdlib.h"
+#include "time.h"
+#include "video.h"
+#include "debug.h"
+#include "smooth.h"
+#include "worldman.h"
+#include "lighting.h"
+#include "renderworld.h"
+#include "overhead.h"
+#include "ai.h"
+#include "Sound Control.h"
+#include "animation control.h"
+#include "isometric utils.h"
+#include "Font Control.h"
+#include "message.h"
+#include "tile animation.h"
+#include "tile cache.h"
+#include "explosion control.h"
+#include "weapons.h"
+#include "Keys.h"
+#include "bullets.h"
+#include "LightEffects.h"
+#include "rotting corpses.h"
+#include "SmokeEffects.h"
 #endif
 
 
@@ -61,7 +64,7 @@ ANITILE *CreateAnimationTile( ANITILE_PARAMS *pAniParams )
 	sX					= pAniParams->sX;
 	sY					= pAniParams->sY;
 	sZ					= pAniParams->sZ;
-	
+
 
 	pAniNode = pAniTileHead;
 
@@ -90,44 +93,44 @@ ANITILE *CreateAnimationTile( ANITILE_PARAMS *pAniParams )
 		// ALLOCATE NEW TILE
 		switch( ubLevel )
 		{
-			case ANI_STRUCT_LEVEL:
-			
-				pNode = ForceStructToTail( sGridNo, usTileIndex );
-				break;
+		case ANI_STRUCT_LEVEL:
 
-			case ANI_SHADOW_LEVEL:
-			
-				AddShadowToHead( sGridNo, usTileIndex );
-				pNode = gpWorldLevelData[ sGridNo ].pShadowHead;
-				break;
+			pNode = ForceStructToTail( sGridNo, usTileIndex );
+			break;
 
-			case ANI_OBJECT_LEVEL:
-			
-				AddObjectToHead( sGridNo, usTileIndex );
-				pNode = gpWorldLevelData[ sGridNo ].pObjectHead;
-				break;
+		case ANI_SHADOW_LEVEL:
 
-			case ANI_ROOF_LEVEL:
-			
-				AddRoofToHead( sGridNo, usTileIndex );
-				pNode = gpWorldLevelData[ sGridNo ].pRoofHead;
-				break;
+			AddShadowToHead( sGridNo, usTileIndex );
+			pNode = gpWorldLevelData[ sGridNo ].pShadowHead;
+			break;
 
-			case ANI_ONROOF_LEVEL:
-			
-				AddOnRoofToHead( sGridNo, usTileIndex );
-				pNode = gpWorldLevelData[ sGridNo ].pOnRoofHead;
-				break;
+		case ANI_OBJECT_LEVEL:
 
-			case ANI_TOPMOST_LEVEL:
-			
-				AddTopmostToHead( sGridNo, usTileIndex );
-				pNode = gpWorldLevelData[ sGridNo ].pTopmostHead;
-				break;
+			AddObjectToHead( sGridNo, usTileIndex );
+			pNode = gpWorldLevelData[ sGridNo ].pObjectHead;
+			break;
 
-			default:
+		case ANI_ROOF_LEVEL:
 
-				return( NULL );
+			AddRoofToHead( sGridNo, usTileIndex );
+			pNode = gpWorldLevelData[ sGridNo ].pRoofHead;
+			break;
+
+		case ANI_ONROOF_LEVEL:
+
+			AddOnRoofToHead( sGridNo, usTileIndex );
+			pNode = gpWorldLevelData[ sGridNo ].pOnRoofHead;
+			break;
+
+		case ANI_TOPMOST_LEVEL:
+
+			AddTopmostToHead( sGridNo, usTileIndex );
+			pNode = gpWorldLevelData[ sGridNo ].pTopmostHead;
+			break;
+
+		default:
+
+			return( NULL );
 		}
 
 		// SET NEW TILE VALUES
@@ -174,38 +177,38 @@ ANITILE *CreateAnimationTile( ANITILE_PARAMS *pAniParams )
 
 	}
 
-		
+
 	switch( ubLevel )
 	{
-		case ANI_STRUCT_LEVEL:
-		
-			ResetSpecificLayerOptimizing( TILES_DYNAMIC_STRUCTURES );
-			break;
+	case ANI_STRUCT_LEVEL:
 
-		case ANI_SHADOW_LEVEL:
-		
-			ResetSpecificLayerOptimizing( TILES_DYNAMIC_SHADOWS );
-			break;
+		ResetSpecificLayerOptimizing( TILES_DYNAMIC_STRUCTURES );
+		break;
 
-		case ANI_OBJECT_LEVEL:
+	case ANI_SHADOW_LEVEL:
 
-			ResetSpecificLayerOptimizing( TILES_DYNAMIC_OBJECTS );
-			break;
+		ResetSpecificLayerOptimizing( TILES_DYNAMIC_SHADOWS );
+		break;
 
-		case ANI_ROOF_LEVEL:
+	case ANI_OBJECT_LEVEL:
 
-			ResetSpecificLayerOptimizing( TILES_DYNAMIC_ROOF );
-			break;
+		ResetSpecificLayerOptimizing( TILES_DYNAMIC_OBJECTS );
+		break;
 
-		case ANI_ONROOF_LEVEL:
+	case ANI_ROOF_LEVEL:
 
-			ResetSpecificLayerOptimizing( TILES_DYNAMIC_ONROOF );
-			break;
+		ResetSpecificLayerOptimizing( TILES_DYNAMIC_ROOF );
+		break;
 
-		case ANI_TOPMOST_LEVEL:
+	case ANI_ONROOF_LEVEL:
 
-			ResetSpecificLayerOptimizing( TILES_DYNAMIC_TOPMOST );
-			break;
+		ResetSpecificLayerOptimizing( TILES_DYNAMIC_ONROOF );
+		break;
+
+	case ANI_TOPMOST_LEVEL:
+
+		ResetSpecificLayerOptimizing( TILES_DYNAMIC_TOPMOST );
+		break;
 
 	}
 
@@ -237,7 +240,7 @@ ANITILE *CreateAnimationTile( ANITILE_PARAMS *pAniParams )
 		pNewAniNode->pLevelNode->uiFlags |= ( LEVELNODE_LASTDYNAMIC | LEVELNODE_UPDATESAVEBUFFERONCE );
 		pNewAniNode->pLevelNode->uiFlags &= (~LEVELNODE_DYNAMIC );
 	}
-	
+
 	if ( ( uiFlags & ANITILE_OPTIMIZEFORSMOKEEFFECT ) )
 	{
 		pNewAniNode->pLevelNode->uiFlags |= LEVELNODE_NOWRITEZ;
@@ -349,35 +352,35 @@ void DeleteAniTile( ANITILE *pAniTile )
 				// Delete memory assosiated with item
 				switch( pAniNode->ubLevelID )
 				{
-					case ANI_STRUCT_LEVEL:
-						
-						RemoveStructFromLevelNode( pAniNode->sGridNo, pAniNode->pLevelNode );
-						break;
+				case ANI_STRUCT_LEVEL:
 
-					case ANI_SHADOW_LEVEL:
-						
-						RemoveShadowFromLevelNode( pAniNode->sGridNo, pAniNode->pLevelNode );
-						break;
+					RemoveStructFromLevelNode( pAniNode->sGridNo, pAniNode->pLevelNode );
+					break;
 
-					case ANI_OBJECT_LEVEL:
-						
-						RemoveObject( pAniNode->sGridNo, pAniNode->usTileIndex );
-						break;
+				case ANI_SHADOW_LEVEL:
 
-					case ANI_ROOF_LEVEL:
-						
-						RemoveRoof( pAniNode->sGridNo, pAniNode->usTileIndex );
-						break;
+					RemoveShadowFromLevelNode( pAniNode->sGridNo, pAniNode->pLevelNode );
+					break;
 
-					case ANI_ONROOF_LEVEL:
-						
-						RemoveOnRoof( pAniNode->sGridNo, pAniNode->usTileIndex );
-						break;
+				case ANI_OBJECT_LEVEL:
 
-					case ANI_TOPMOST_LEVEL:
-						
-						RemoveTopmostFromLevelNode( pAniNode->sGridNo, pAniNode->pLevelNode );
-						break;
+					RemoveObject( pAniNode->sGridNo, pAniNode->usTileIndex );
+					break;
+
+				case ANI_ROOF_LEVEL:
+
+					RemoveRoof( pAniNode->sGridNo, pAniNode->usTileIndex );
+					break;
+
+				case ANI_ONROOF_LEVEL:
+
+					RemoveOnRoof( pAniNode->sGridNo, pAniNode->usTileIndex );
+					break;
+
+				case ANI_TOPMOST_LEVEL:
+
+					RemoveTopmostFromLevelNode( pAniNode->sGridNo, pAniNode->pLevelNode );
+					break;
 
 				}
 				if ( pAniNode->uiFlags & ANITILE_LIGHT && pAniNode->lightSprite >= 0 )
@@ -404,9 +407,10 @@ void DeleteAniTile( ANITILE *pAniTile )
 						gTacticalStatus.uiFlags &= (~DISALLOW_SIGHT);
 					}
 
-          // Freeup attacker from explosion
-		      DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Reducing attacker busy count..., EXPLOSION effect gone off") );
-		      ReduceAttackBusyCount( (UINT8)pAniNode->ubUserData2, FALSE );
+					// Freeup attacker from explosion
+					DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Reducing attacker busy count..., EXPLOSION effect gone off") );
+					DebugAttackBusy( "@@@@@@@ EXPLOSION effect finished.\n");
+					ReduceAttackBusyCount( );
 
 				}
 
@@ -416,10 +420,10 @@ void DeleteAniTile( ANITILE *pAniTile )
 					// First delete the bullet!
 					RemoveBullet( pAniNode->uiUserData3 );
 					
-					DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - miss finished animation") );
-					FreeUpAttacker( (UINT8) pAniNode->ubAttackerMissed );					
+					// 0verhaul:  Removed because it's handled by RemoveBullet.
+					// DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - miss finished animation") );
+					// FreeUpAttacker( (UINT8) pAniNode->ubAttackerMissed );					
 				}
-
 			}
 			else
 			{
@@ -431,7 +435,7 @@ void DeleteAniTile( ANITILE *pAniTile )
 
 				// OK, set our frame data back to zero....
 				pAniNode->pLevelNode->sCurrentFrame = 0;
-				
+
 				// Set some flags to write to Z / update save buffer
 				// pAniNode->pLevelNode->uiFlags |=( LEVELNODE_LASTDYNAMIC | LEVELNODE_UPDATESAVEBUFFERONCE );
 				pAniNode->pLevelNode->uiFlags &= ~( LEVELNODE_DYNAMIC | LEVELNODE_USEZ | LEVELNODE_ANIMATION );
@@ -544,6 +548,8 @@ void UpdateAniTiles( )
 						case ANI_KEYFRAME_CHAIN_WATER_EXPLOSION:
 
 							IgniteExplosion( pNode->ubUserData2, pNode->pLevelNode->sRelativeX, pNode->pLevelNode->sRelativeY, 0, pNode->sGridNo, (UINT16)( pNode->uiUserData ), 0 );
+							DebugAttackBusy( "Reducing attack busy from water explosion delay.\n");
+							ReduceAttackBusyCount( );
 							break;
 
 						case ANI_KEYFRAME_DO_SOUND:
@@ -801,39 +807,39 @@ ANITILE *GetCachedAniTileOfType( INT16 sGridNo, UINT8 ubLevelID, UINT32 uiFlags 
 
 	switch( ubLevelID )
 	{
-		case ANI_STRUCT_LEVEL:
-			
-			pNode = gpWorldLevelData[ sGridNo ].pStructHead;
-			break;
+	case ANI_STRUCT_LEVEL:
 
-		case ANI_SHADOW_LEVEL:
-			
-			pNode = gpWorldLevelData[ sGridNo ].pShadowHead;
-			break;
+		pNode = gpWorldLevelData[ sGridNo ].pStructHead;
+		break;
 
-		case ANI_OBJECT_LEVEL:
-			
-			pNode = gpWorldLevelData[ sGridNo ].pObjectHead;
-			break;
+	case ANI_SHADOW_LEVEL:
 
-		case ANI_ROOF_LEVEL:
-			
-			pNode = gpWorldLevelData[ sGridNo ].pRoofHead;
-			break;
+		pNode = gpWorldLevelData[ sGridNo ].pShadowHead;
+		break;
 
-		case ANI_ONROOF_LEVEL:
-			
-			pNode = gpWorldLevelData[ sGridNo ].pOnRoofHead;
-			break;
+	case ANI_OBJECT_LEVEL:
 
-		case ANI_TOPMOST_LEVEL:
-			
-			pNode = gpWorldLevelData[ sGridNo ].pTopmostHead;
-			break;
+		pNode = gpWorldLevelData[ sGridNo ].pObjectHead;
+		break;
 
-		default:
+	case ANI_ROOF_LEVEL:
 
-			return( NULL );
+		pNode = gpWorldLevelData[ sGridNo ].pRoofHead;
+		break;
+
+	case ANI_ONROOF_LEVEL:
+
+		pNode = gpWorldLevelData[ sGridNo ].pOnRoofHead;
+		break;
+
+	case ANI_TOPMOST_LEVEL:
+
+		pNode = gpWorldLevelData[ sGridNo ].pTopmostHead;
+		break;
+
+	default:
+
+		return( NULL );
 	}
 
 	while( pNode != NULL )
@@ -894,7 +900,7 @@ void PauseAllAniTilesOfType( UINT32 uiType, BOOLEAN fPause )
 
 		if ( pNode->uiFlags & uiType )
 		{
-      PauseAniTile( pNode, fPause );
+			PauseAniTile( pNode, fPause );
 		}
 
 	}

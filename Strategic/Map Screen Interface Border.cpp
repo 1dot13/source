@@ -23,6 +23,7 @@
 	#include "Campaign Types.h"
 	#include "Strategic Town Loyalty.h"
 	#include "strategicmap.h"
+	#include "Assignments.h"
 #endif
 
 

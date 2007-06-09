@@ -24,6 +24,7 @@
 	#include "IMPVideoObjects.h"
 	#include "IMP Confirm.h"
 	#include "messageboxscreen.h"
+	#include "LaptopSave.h"
 #endif
 
 

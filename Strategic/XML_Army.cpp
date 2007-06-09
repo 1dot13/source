@@ -1,9 +1,15 @@
+#include "builddefines.h"
+
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "XML.h"
 #else
 	#include <stdio.h>
 	#include "XML.h"
+	#include "Strategic AI.h"
+	#include "expat.h"
+	#include "Campaign Types.h"
+	#include "Debug Control.h"
 #endif
 
 #define MAX_CHAR_DATA_LENGTH			500

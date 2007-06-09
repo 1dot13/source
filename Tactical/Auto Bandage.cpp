@@ -339,7 +339,7 @@ BOOLEAN CreateAutoBandageString( void )
 		uiDoctorNameStringLength += wcslen( Message[STR_ARE_APPLYING_FIRST_AID] );
 	}
 
-	sAutoBandageString = (STR16) MemRealloc( sAutoBandageString, uiDoctorNameStringLength * sizeof( CHAR16 ) );
+	sAutoBandageString =  (STR16) MemRealloc( sAutoBandageString, uiDoctorNameStringLength * sizeof( CHAR16 ) );
 	if (!sAutoBandageString)
 	{
 		return( FALSE );
@@ -352,7 +352,7 @@ BOOLEAN CreateAutoBandageString( void )
 	else
 	{
 		// make a temporary string to hold most of the doctors names joined by commas
-		sTemp = (STR16) MemAlloc( uiDoctorNameStringLength * sizeof( CHAR16 ) );
+		sTemp =  (STR16) MemAlloc( uiDoctorNameStringLength * sizeof( CHAR16 ) );
 	//	sTemp = MemAlloc( 1000 );
 		if (!sTemp)
 		{

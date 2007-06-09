@@ -4,6 +4,16 @@
 #else
 	#include "laptop.h"
 	#include "BobbyRShipments.h"
+	#include "bobbyr.h"
+	#include "utilities.h"
+	#include "WCheck.h"
+	#include "Text.h"
+	#include "BobbyRGuns.h"
+	#include "cursors.h"
+	#include "BobbyRMailOrder.h"
+	#include "wordwrap.h"
+	#include "strategic.h"
+	#include "strategicmap.h"
 #endif
 
 

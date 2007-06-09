@@ -3,6 +3,7 @@
 
 #pragma message("GENERATED PCH FOR STRATEGIC PROJECT.")
 
+#include "builddefines.h"
 #include <stdio.h>
 #include "types.h"
 #include "english.h"

@@ -1,3 +1,5 @@
+#include "builddefines.h"
+
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "GameSettings.h"
@@ -22,6 +24,11 @@
 	#include "Soldier Create.h"
 	#include "Dialogue Control.h"
 	#include "GameSettings.h"
+	#include "Queen Command.h"
+	#include "PreBattle Interface.h"
+	#include "Map Screen Interface Border.h"
+	#include "interface control.h"
+	#include "Map Screen Interface Map.h"
 #endif
 
 #include "MilitiaSquads.h"

@@ -31,6 +31,23 @@
 	#include "debug.h"
 	#include "Random.h"
 	#include "quests.h"
+	#include "Animated ProgressBar.h"
+	#include "Text.h"
+	#include "meanwhile.h"
+	#include "Enemy Soldier Save.h"
+	#include "SmokeEffects.h"
+	#include "LightEffects.h"
+	#include "PATHAI.H"
+	#include "GameVersion.h"
+	#include "strategic.h"
+	#include "Map Screen Interface Map.h"
+	#include "Strategic Status.h"
+	#include "Soldier macros.h"
+	#include "sgp.h"
+	#include "MessageBoxScreen.h"
+	#include "screenids.h"
+	#include "Queen Command.h"
+	#include "Map Screen Interface Map Inventory.h"
 #endif
 
 BOOLEAN gfWasInMeanwhile = FALSE;
@@ -1741,13 +1758,113 @@ BOOLEAN LoadRottingCorpsesFromTempCorpseFile( INT16 sMapX, INT16 sMapY, INT8 bMa
 }
 
 
+// Rewritten to load the temp file once, update with the list, and then write it.  This was getting insane as items piled up in sectors.
+// A few dozen read, update, writes was okay but a few hundred is pushing it.
 
-
-BOOLEAN AddWorldItemsToUnLoadedSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT16 sGridNo, UINT32 uiNumberOfItems, WORLDITEM *pWorldItem, BOOLEAN fOverWrite )
+BOOLEAN AddWorldItemsToUnLoadedSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT16 sGridNo, UINT32 uiNumberOfItemsToAdd, WORLDITEM *pWorldItem, BOOLEAN fOverWrite )
 {
 	UINT32 uiLoop;
 	BOOLEAN fLoop=fOverWrite;
+	UINT32 uiLastItemPos;
+	UINT32 uiNumberOfItems;
+	WORLDITEM *pWorldItems;
 
+	if( !GetNumberOfWorldItemsFromTempItemFile( sMapX, sMapY, bMapZ, &uiNumberOfItems, TRUE ) )
+	{
+		//Errror getting the numbers of the items from the sector
+		return( FALSE );
+	}
+
+	//Allocate memory for the item
+	pWorldItems = (WORLDITEM *) MemAlloc( sizeof( WORLDITEM ) * uiNumberOfItems );
+	if( pWorldItems == NULL )
+	{
+		//Error Allocating memory for the temp item array
+		return( FALSE );
+	}
+
+	//Clear the memory
+	memset( pWorldItems, 0, sizeof( WORLDITEM ) * uiNumberOfItems );
+
+	//Load in the sectors Item Info
+	if( !LoadWorldItemsFromTempItemFile( sMapX, sMapY, bMapZ, pWorldItems ) )
+	{
+		//error reading in the items from the Item mod file 
+		MemFree( pWorldItems );
+		return( FALSE );
+	}
+
+
+	//if we are to replace the entire file
+	if( fOverWrite )
+	{
+		//first loop through and mark all entries that they dont exists
+		for( UINT32 cnt=0; cnt<uiNumberOfItems; cnt++)
+			pWorldItems[ cnt ].fExists = FALSE;
+
+		//Now delete the item temp file
+		DeleteTempItemMapFile( sMapX, sMapY, bMapZ );
+	}
+
+	uiLastItemPos = 0;
+
+	//loop through all the objects to add
+	for( uiLoop=0; uiLoop < uiNumberOfItemsToAdd; uiLoop++)
+	{
+		//Loop through the array to see if there is a free spot to add an item to it
+		for( ; uiLastItemPos < uiNumberOfItems; uiLastItemPos++)
+		{
+			if( pWorldItems[ uiLastItemPos ].fExists == FALSE )
+			{
+				//We have found a free spot, break
+				break;
+			}
+		}
+
+		if( uiLastItemPos == ( uiNumberOfItems ) )
+		{
+			//Error, there wasnt a free spot.  Reallocate memory for the array
+			pWorldItems = (WORLDITEM *) MemRealloc( pWorldItems, sizeof( WORLDITEM ) * (uiNumberOfItems + 1 ) );
+			if( pWorldItems == NULL )
+			{
+				//error realloctin memory
+				return( FALSE );
+			}
+
+			//Increment the total number of item in the array
+			uiNumberOfItems++;
+		}
+
+		pWorldItems[ uiLastItemPos ].fExists = TRUE;
+		pWorldItems[ uiLastItemPos ].sGridNo = pWorldItem[ uiLoop ].sGridNo;
+		pWorldItems[ uiLastItemPos ].ubLevel = pWorldItem[ uiLoop ].ubLevel;
+		pWorldItems[ uiLastItemPos ].usFlags = pWorldItem[ uiLoop ].usFlags;
+		pWorldItems[ uiLastItemPos ].bVisible = pWorldItem[ uiLoop ].bVisible;
+		pWorldItems[ uiLastItemPos ].bRenderZHeightAboveLevel = pWorldItem[ uiLoop ].bRenderZHeightAboveLevel;
+
+
+		//Check
+		if( pWorldItem[ uiLoop ].sGridNo == NOWHERE && !( pWorldItems[ uiLastItemPos ].usFlags & WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT ) )
+		{
+			pWorldItems[ uiLastItemPos ].usFlags |= WORLD_ITEM_GRIDNO_NOT_SET_USE_ENTRY_POINT;
+
+			// Display warning.....
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Error: Trying to add item ( %d: %s ) to invalid gridno in unloaded sector. Please Report.", pWorldItems[ uiLoop ].o.usItem, ItemNames[pWorldItems[ uiLoop ].o.usItem] );
+		}
+
+		
+		memcpy( &(pWorldItems[ uiLastItemPos ].o), &pWorldItem[ uiLoop ].o, sizeof( OBJECTTYPE ) );
+	}
+
+	//Save the Items to the the file
+	SaveWorldItemsToTempItemFile( sMapX, sMapY, bMapZ, uiNumberOfItems, pWorldItems );
+
+
+	//Free the memory used to load in the item array
+	MemFree( pWorldItems );
+
+#if 0
+// The old excruciatingly inefficient code
 	for( uiLoop=0; uiLoop<uiNumberOfItems; uiLoop++)
 	{
 		//If the item exists
@@ -1758,6 +1875,7 @@ BOOLEAN AddWorldItemsToUnLoadedSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT
 			fLoop = FALSE;
 		}
 	}
+#endif
 
 	return( TRUE );
 }

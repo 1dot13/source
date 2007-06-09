@@ -1,7 +1,11 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "JA2 All.h"
 #else
-	//add includes here!
+#include "Types.h"
+#include "vsurface.h"
+#include "mainmenuscreen.h"
+#include "Video.h"
+#include "Timer Control.h"
 #endif
 
 UINT32 guiSplashFrameFade = 10;

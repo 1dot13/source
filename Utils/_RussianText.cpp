@@ -1,4 +1,7 @@
+#ifdef PRECOMPILEDHEADERS
 #include "Utils All.h"
+#else
+#endif
 #include "Language Defines.h"
 
 #ifdef RUSSIAN

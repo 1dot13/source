@@ -3,6 +3,7 @@
 	#include "BuildDefines.h"
 	
 #else
+	#include "builddefines.h"
 	#include <stdio.h>
 	#include <string.h>
 	#include "wcheck.h"
@@ -72,6 +73,18 @@
 	#include "render dirty.h"
 	#include "GameSettings.h"
 	#include "los.h"
+	#include "Campaign Types.h"
+	#include "Queen Command.h"
+	#include "Options Screen.h"
+	#include "SaveLoadGame.h"
+	#include "Spread Burst.h"
+	#include "ai.h"
+	#include "Game Clock.h"
+	#include "civ quotes.h"
+	#include "Militia Control.h"
+	#include "qarray.h"
+	#include "environment.h"
+	#include "Map Information.h"
 #endif
 
 
@@ -1028,7 +1041,7 @@ UINT32 UIHandleExit( UI_EVENT *pUIEvent )
 UINT32 UIHandleNewMerc( UI_EVENT *pUIEvent )
 {
 	 static UINT8				ubTemp = 3;
-	 INT16							usMapPos;
+	 UINT16							usMapPos;
    static INT32       iSoldierCount=0;     
 	 MERC_HIRE_STRUCT HireMercStruct;
 	 INT8		bReturnCode;
@@ -1223,8 +1236,8 @@ UINT32 UIHandleTestHit( UI_EVENT *pUIEvent )
 			}
 		}
 
-		gTacticalStatus.ubAttackBusyCount++;
-        
+		// gTacticalStatus.ubAttackBusyCount++;
+		DebugAttackBusy( "Testing a hit.\n" );
 		 EVENT_SoldierGotHit( pSoldier, 1, bDamage, 10, pSoldier->bDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pSoldier->bAimShotLocation, 0, NOWHERE );
 		// callahan update end - put everything as it was
 	}

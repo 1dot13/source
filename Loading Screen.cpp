@@ -2,6 +2,19 @@
 	#include "JA2 All.h"
 	#include "Loading Screen.h"
 	#include "INIReader.h"
+#else
+	#include "vsurface.h"
+	#include "mapscreen.h"
+	#include "Loading Screen.h"
+	#include "Campaign Types.h"
+	#include "Game Clock.h"
+	#include "GameSettings.h"
+	#include "Random.h"
+	#include "Debug.h"
+	#include "local.h"
+	#include "Font Control.h"
+	#include "font.h"
+	#include "render dirty.h"
 #endif
 
 extern HVSURFACE ghFrameBuffer;
@@ -35,7 +48,6 @@ BOOLEAN bShowSmallImage = FALSE;
 
 SECTOR_LOADSCREENS gSectorLoadscreens[MAX_SECTOR_LOADSCREENS];
 
-
 //returns the UINT8 ID for the specified sector.
 UINT8 GetLoadScreenID( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
@@ -44,8 +56,6 @@ UINT8 GetLoadScreenID( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 	BOOLEAN fNight = FALSE;
 
 	ubSectorID = SECTOR( sSectorX, sSectorY );
-	
-
 	if( NightTime() ) //before 5AM or after 9PM
 	{
 		fNight = TRUE;
@@ -568,138 +578,13 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 	HVSURFACE			hVSurface;
 	UINT32				uiLoadScreen;
 	STRING512			smallImage;
-	BOOLEAN				fExternalLS = FALSE;
 
 	bShowSmallImage = FALSE;
 
 	vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
 
-	if (gGameExternalOptions.gfUseExternalLoadscreens)
-	{
-		if ((ubLoadScreenID == HELI || ubLoadScreenID == DAY || ubLoadScreenID == DAY_ALT ||
-			ubLoadScreenID == NIGHT || ubLoadScreenID == NIGHT_ALT) && szSector != NULL)
-		{
-			fExternalLS = TRUE;
-		}
-		else
-		{
-			fExternalLS = FALSE;
-		}
-	}
-	else
-	{
-		if ((ubLoadScreenID == HELI || ubLoadScreenID == DAY || ubLoadScreenID == DAY_ALT ||
-			ubLoadScreenID == NIGHT || ubLoadScreenID == NIGHT_ALT) && szSector != NULL)
-		{
-			fExternalLS = TRUE;
-		}
-		else
-		{
-			fExternalLS = FALSE;
-		}
-	}
-
-	if (fExternalLS)
-	{
-		// Get the image path
-		char szImagePath[80];
-		char szImageFormat[5];
-		char szFullImagePath[80];
-
-		// Start screen
-		if (ubLoadScreenID == HELI)
-		{
-			strncpy(szImagePath, gSectorLoadscreens[0].szDay, 80);
-
-			strncpy(szImageFormat, ".", MAX_IMAGE_FORMAT_CHARS);
-			strcat(szImageFormat, gSectorLoadscreens[0].szImageFormat);
-		}
-		else
-		{
-			for (int i = 1; i < MAX_SECTOR_LOADSCREENS; i++)
-			{
-				// We found the sector
-				if (strcmp(gSectorLoadscreens[i].szLocation, szSector) == 0)
-				{
-					strncpy(szImageFormat, ".", MAX_IMAGE_FORMAT_CHARS);
-
-					strcat(szImageFormat, gSectorLoadscreens[i].szImageFormat);
-
-					BOOLEAN fAlternate = gSectorLoadscreens[i].RandomAltSector;
-
-					if (fAlternate)
-					{
-						// Day
-						if (ubLoadScreenID == DAY)
-						{
-							if( Random( 2 ) )
-							{
-								ubLoadScreenID = DAY;
-							}
-							else
-							{
-								ubLoadScreenID = DAY_ALT;
-							}
-						}
-						// Night
-						else
-						{
-							if( Random( 2 ) )
-							{
-								ubLoadScreenID = NIGHT;
-							}
-							else
-							{
-								ubLoadScreenID = NIGHT_ALT;
-							}
-						}
-					}
-
 					switch (ubLoadScreenID)
 					{
-						case DAY:
-							strncpy(szImagePath, gSectorLoadscreens[i].szDay, MAX_IMAGE_PATH_CHARS);
-							break;
-						case DAY_ALT:
-							strncpy(szImagePath, gSectorLoadscreens[i].szDayAlt, MAX_IMAGE_PATH_CHARS);
-							break;
-						case NIGHT:
-							strncpy(szImagePath, gSectorLoadscreens[i].szNight, MAX_IMAGE_PATH_CHARS);
-							break;
-						case NIGHT_ALT:
-							strncpy(szImagePath, gSectorLoadscreens[i].szNightAlt, MAX_IMAGE_PATH_CHARS);
-							break;
-					}
-					break;
-				}
-			}
-		}
-
-		// Small image: 640x480
-		strncpy(szFullImagePath, szImagePath, 80);
-		strcat(szFullImagePath, szImageFormat);
-		strcpy(smallImage,szFullImagePath);
-
-		// Actual image, depending on the resolution
-		if (iResolution == 1)
-		{
-			strncpy(szFullImagePath, szImagePath, 80);
-			strcat(szFullImagePath, "_800x600");
-			strcat(szFullImagePath, szImageFormat);
-		}
-		else if (iResolution == 2)
-		{
-			strncpy(szFullImagePath, szImagePath, 80);
-			strcat(szFullImagePath, "_1024x768");
-			strcat(szFullImagePath, szImageFormat);
-		}
-
-		strcpy(vs_desc.ImageFile,szFullImagePath);
-	}
-	else
-	{
-		switch( ubLoadScreenID )
-		{
 			case LOADINGSCREEN_NOTHING:
 				strcpy(smallImage, "LOADSCREENS\\LS_Heli.sti");
 				if (iResolution == 0)
@@ -715,7 +600,6 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 					strcpy(vs_desc.ImageFile, "LOADSCREENS\\LS_Heli_1024x768.sti");
 				}
 				break;
-				
 			case LOADINGSCREEN_DAYGENERIC:
 				strcpy(smallImage, "LOADSCREENS\\LS_DayGeneric.sti");
 				if (iResolution == 0)
@@ -970,11 +854,8 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 				}
 				
 				break;
-				
 			case LOADINGSCREEN_HELI:
-				
 				strcpy(smallImage, "LOADSCREENS\\LS_Heli.sti");
-				
 				if (iResolution == 0)
 				{
 					strcpy(vs_desc.ImageFile, "LOADSCREENS\\LS_Heli.sti");
@@ -989,7 +870,6 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 				}
 				
 				break;
-				
 			case LOADINGSCREEN_BASEMENT:
 				strcpy(smallImage, "LOADSCREENS\\LS_Basement.sti");
 				if (iResolution == 0)
@@ -1404,9 +1284,6 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 					strcpy(vs_desc.ImageFile, "LOADSCREENS\\LS_Heli_1024x768.sti");
 				}
 				break;
-
-				/* WANNE: Sir tech made - END */
-		}	// Switch - END
 	}	
 
 	// Sti loadscreen (big image) is not available

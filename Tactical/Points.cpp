@@ -24,6 +24,14 @@
 	#include "SkillCheck.h"
 	#include "wcheck.h"
 	#include "Soldier Profile.h"
+	#include "Soldier macros.h"
+	#include "Random.h"
+	#include "Campaign.h"
+	#include "drugs and alcohol.h"
+	#include "GameSettings.h"
+	#include "worldman.h"
+	#include "math.h"
+	#include "Interface Items.h"
 #endif
 
 //rain
@@ -823,28 +831,23 @@ INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 		fAnimTypeFound = TRUE;
 	}
 
-	if ( gAnimControl[ usAnimState ].uiFlags & ANIM_NO_EFFORT )
-	{
-		sBreathPerAP = BP_PER_AP_NO_EFFORT;
-		fAnimTypeFound = TRUE;
-	}
-
-	if ( gAnimControl[ usAnimState ].uiFlags & ANIM_MIN_EFFORT )
-	{
-		sBreathPerAP = BP_PER_AP_MIN_EFFORT;
-		fAnimTypeFound = TRUE;
-	}
-
-	if ( gAnimControl[ usAnimState ].uiFlags & ANIM_LIGHT_EFFORT )
-	{
-		sBreathPerAP = BP_PER_AP_LT_EFFORT;
-		fAnimTypeFound = TRUE;
-	}
-
-	if ( gAnimControl[ usAnimState ].uiFlags & ANIM_MODERATE_EFFORT )
-	{
-		sBreathPerAP = BP_PER_AP_MOD_EFFORT;
-		fAnimTypeFound = TRUE;
+	switch ( EFFORT( gAnimControl[ usAnimState ].uiFlags) ) {
+		case 0: // No effort
+			sBreathPerAP = BP_PER_AP_NO_EFFORT;
+			fAnimTypeFound = TRUE;
+			break;
+		case 1: // Minimal effort
+			sBreathPerAP = BP_PER_AP_MIN_EFFORT;
+			fAnimTypeFound = TRUE;
+			break;
+		case 2: // Light effort
+			sBreathPerAP = BP_PER_AP_LT_EFFORT;
+			fAnimTypeFound = TRUE;
+			break;
+		case 3: // Moderate effort
+			sBreathPerAP = BP_PER_AP_MOD_EFFORT;
+			fAnimTypeFound = TRUE;
+			break;
 	}
 
 	if ( !fAnimTypeFound )
@@ -1089,7 +1092,7 @@ UINT8 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 	return( (INT8)sAPCost );
 }
 
-UINT8 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT16 sGridno, UINT8 ubAddTurningCost)
+UINT8 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT16 sGridno, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost)
 {
 	UINT16						sAPCost = 0;
 	UINT32						uiItemClass;
@@ -1119,7 +1122,7 @@ UINT8 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT16 sGridno, UINT8 ubAddTurningCos
 	
 	if ( uiItemClass == IC_BLADE || uiItemClass == IC_GUN || uiItemClass == IC_LAUNCHER || uiItemClass == IC_TENTACLES || uiItemClass == IC_THROWING_KNIFE )
 	{
-		sAPCost = MinAPsToShootOrStab( pSoldier, sGridno, ubAddTurningCost );
+		sAPCost = MinAPsToShootOrStab( pSoldier, sGridno, ubAddTurningCost, ubForceRaiseGunCost );
 	}
 	else if ( uiItemClass & ( IC_GRENADE | IC_THROWN ) )
 	{
@@ -1237,7 +1240,7 @@ void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT16 sGridNo
 	(*pfChargeRaise )  = fAddingRaiseGunCost;
 }
 
-UINT8 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost)
+UINT8 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost)
 {
 	UINT32	uiMercFlags;
 	UINT16	usTargID;
@@ -1263,6 +1266,10 @@ UINT8 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurni
 
 	GetAPChargeForShootOrStabWRTGunRaises( pSoldier, sGridNo, ubAddTurningCost, &fAddingTurningCost, &fAddingRaiseGunCost );
 
+	if (ubForceRaiseGunCost)
+	{
+		fAddingRaiseGunCost = TRUE;
+	}
 
 	if ( Item[ usItem ].usItemClass == IC_THROWING_KNIFE )
 	{
@@ -1306,7 +1313,7 @@ UINT8 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurni
 	}
 
 	// if attacking a new target (or if the specific target is uncertain)
-	if (( sGridNo != pSoldier->sLastTarget ) && !Item[usItem].rocketlauncher )
+	if (ubForceRaiseGunCost || (( sGridNo != pSoldier->sLastTarget ) && !Item[usItem].rocketlauncher ))
 	{
 		bAPCost += AP_CHANGE_TARGET;
 	}

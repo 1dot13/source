@@ -5,6 +5,31 @@
 	#include "opplist.h"
 	#include "_Ja25Englishtext.h"
 	//#include "Ja25 Strategic Ai.h"
+#else
+#include "builddefines.h"
+#include "Types.h"
+#include "Isometric Utils.h"
+#include "Soldier Control.h"
+#include "Overhead.h"
+#include "displaycover.h"
+#include "Font Control.h"
+#include "_Ja25EnglishText.h"
+#include "message.h"
+#include "GameSettings.h"
+#include "renderworld.h"
+#include "Interface.h"
+#include "Debug.h"
+#include "PATHAI.H"
+#include "worldman.h"
+#include "opplist.h"
+#include "los.h"
+#include "weapons.h"
+#include "Game Clock.h"
+#include "Animation Control.h"
+#include "lighting.h"
+#include "Text.h"
+#include "strategicmap.h"
+#include "Render Fun.h"
 #endif
 
 //*******  Local Defines **************************************************
@@ -79,10 +104,10 @@ BOOLEAN IsTheRoofVisible( INT16 sGridNo );
 
 void DisplayCoverOfSelectedGridNo( )
 {
-	INT16 sGridNo;
+	UINT16 usGridNo;
 	INT8	bStance;
 
-	GetMouseMapPos( &sGridNo );
+	GetMouseMapPos( &usGridNo );
 
 	//Only allowed in if there is someone selected
 	if( gusSelectedSoldier == NOBODY )
@@ -91,12 +116,12 @@ void DisplayCoverOfSelectedGridNo( )
 	}
 
 	//if the cursor is in a the tactical map
-	if( sGridNo != NOWHERE && sGridNo != 0 )
+	if( usGridNo != NOWHERE && usGridNo != 0 )
 	{
 		bStance = GetCurrentMercForDisplayCoverStance();
 
 		//if the gridno is different then the last one that was displayed
-		if( sGridNo != gsLastCoverGridNo || 
+		if( usGridNo != gsLastCoverGridNo || 
 				gbLastStance != bStance || 
 				MercPtrs[ gusSelectedSoldier ]->sGridNo != gsLastSoldierGridNo )
 		{
@@ -126,11 +151,11 @@ void DisplayCoverOfSelectedGridNo( )
 			}
 
 			gbLastStance = bStance;
-			gsLastCoverGridNo = sGridNo;
+			gsLastCoverGridNo = usGridNo;
 			gsLastSoldierGridNo = MercPtrs[ gusSelectedSoldier ]->sGridNo;
 
 			//Fill the array of gridno and cover values
-			CalculateCoverInRadiusAroundGridno( sGridNo, gGameSettings.ubSizeOfDisplayCover );
+			CalculateCoverInRadiusAroundGridno( usGridNo, gGameSettings.ubSizeOfDisplayCover );
 
 			//Add the graphics to each gridno
 			AddCoverTileToEachGridNo();
@@ -641,10 +666,10 @@ void DisplayRangeToTarget( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo )
 
 void DisplayGridNoVisibleToSoldierGrid( )
 {
-	INT16 sGridNo;
+	UINT16 usGridNo;
 //	INT8	bStance;
 
-	GetMouseMapPos( &sGridNo );
+	GetMouseMapPos( &usGridNo );
 
 	//Only allowed in if there is someone selected
 	if( gusSelectedSoldier == NOBODY )
@@ -653,10 +678,10 @@ void DisplayGridNoVisibleToSoldierGrid( )
 	}
 
 	//if the cursor is in a the tactical map
-	if( sGridNo != NOWHERE && sGridNo != 0 )
+	if( usGridNo != NOWHERE && usGridNo != 0 )
 	{
 		//if the gridno is different then the last one that was displayed
-		if( sGridNo != gsLastVisibleToSoldierGridNo || MercPtrs[ gusSelectedSoldier ]->sGridNo != gsLastSoldierGridNo )
+		if( usGridNo != gsLastVisibleToSoldierGridNo || MercPtrs[ gusSelectedSoldier ]->sGridNo != gsLastSoldierGridNo )
 		{
 			//if the cover is currently being displayed
 			if( gsLastVisibleToSoldierGridNo != NOWHERE || gsLastSoldierGridNo != NOWHERE )
@@ -680,12 +705,12 @@ void DisplayGridNoVisibleToSoldierGrid( )
 				//gJa25SaveStruct.uiDisplayLosCounter++;
 			}
 
-			gsLastVisibleToSoldierGridNo = sGridNo;
+			gsLastVisibleToSoldierGridNo = usGridNo;
 			gsLastSoldierGridNo = MercPtrs[ gusSelectedSoldier ]->sGridNo;
 
 
 			//Fill the array of gridno and cover values
-			CalculateVisibleToSoldierAroundGridno( sGridNo, gGameSettings.ubSizeOfLOS );
+			CalculateVisibleToSoldierAroundGridno( usGridNo, gGameSettings.ubSizeOfLOS );
 
 			//Add the graphics to each gridno
 			AddVisibleToSoldierToEachGridNo();

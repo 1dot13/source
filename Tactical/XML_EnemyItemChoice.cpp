@@ -43,6 +43,7 @@
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
+	#include "Inventory Choosing.h"
 #endif
 
 struct

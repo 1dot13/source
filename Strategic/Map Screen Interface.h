@@ -5,7 +5,7 @@
 #include "Types.h"
 #include "Soldier Control.h"
 #include "MessageBoxScreen.h"
-
+#include "Font Control.h"
 
 
 typedef struct FASTHELPREGION {

@@ -37,6 +37,7 @@
 	#include "english.h"
 	#include "World Items.h"
 	#include "text.h"
+	#include "Soldier Create.h"
 #endif
 
 extern BOOLEAN gfOverheadMapDirty;

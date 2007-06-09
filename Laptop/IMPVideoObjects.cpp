@@ -11,6 +11,8 @@
 	#include "cursors.h"
 	#include "IMP HomePage.h"
 	#include "laptop.h"
+	#include "Multi Language Graphic Utils.h"
+	#include "IMP Attribute Selection.h"
 #endif
 
 // globals 

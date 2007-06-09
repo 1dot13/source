@@ -26,6 +26,14 @@
 	#include "english.h"
 	#include "Multi Language Graphic Utils.h"
 	#include "GameSettings.h"
+	#include "Radar Screen.h"
+	#include "message.h"
+	#include "weapons.h"
+	#include "finances.h"
+	#include "Game Clock.h"
+	#include "Sound Control.h"
+	#include "interface panels.h"
+	#include "wordwrap.h"
 #endif
 
 #include "ShopKeeper Interface.h"

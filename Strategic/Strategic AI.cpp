@@ -3,6 +3,7 @@
 	#include "Strategic All.h"
 	#include "GameSettings.h"
 #else
+	#include "builddefines.h"
 	#include <stdio.h>
 	#include "types.h"
 	#include "Strategic Movement.h"
@@ -20,6 +21,22 @@
 	#include "strategic.h"
 	#include "Explosion Control.h"
 	#include "Town Militia.h"
+	#include "Overhead.h"
+	#include "Squads.h"
+	#include "jascreens.h"
+	#include "screenids.h"
+	#include "MessageBoxScreen.h"
+	#include "Quests.h"
+	#include "Player Command.h"
+	#include "Campaign.h"
+	#include "Campaign Init.h"
+	#include "Game Init.h"
+	#include "PreBattle Interface.h"
+	#include "Quests.h"
+	#include "Soldier Profile.h"
+	#include "Scheduling.h"
+	#include "Map Information.h"
+	#include "interface dialogue.h"
 #endif
 
 #define SAI_VERSION		29

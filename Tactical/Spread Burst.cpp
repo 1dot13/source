@@ -16,6 +16,7 @@
 	#include "render dirty.h"
 	#include "interface.h"
 	#include "spread burst.h"
+	#include "points.h"
 #endif
 
 

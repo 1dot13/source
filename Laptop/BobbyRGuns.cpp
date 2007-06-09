@@ -18,6 +18,7 @@
 	#include "Overhead.h"
 	#include "Text.h"
 	#include "Weapons.h"
+	#include "GameSettings.h"
 #endif
 
 

@@ -1,3 +1,5 @@
+#include "builddefines.h"
+
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 #else
@@ -37,6 +39,7 @@
 	#include	"Interface Dialogue.h"
 	#include  "SysUtil.h"
 	#include  "Message.h"
+	#include "Random.h"
 #endif
 
 //#ifdef JA2BETAVERSION
@@ -433,7 +436,7 @@ SCROLL_BOX	gItemListBox;				// The Npc Scroll box
 
 SCROLL_BOX	*gpActiveListBox;		// Only 1 scroll box is active at a time, this is set to it.
 
-INT16				gsQdsEnteringGridNo	=0;
+UINT16				gusQdsEnteringGridNo	=0;
 
 
 UINT8				gubTextEntryAction = QD_DROP_DOWN_NO_ACTION;
@@ -1246,11 +1249,11 @@ void		RenderQuestDebugSystem()
 
 void DisplayCurrentGridNo()
 {
-	if( gsQdsEnteringGridNo != 0 )
+	if( gusQdsEnteringGridNo != 0 )
 	{
 		CHAR16	zTemp[512];
 
-		swprintf( zTemp, L"%s:  %d", QuestDebugText[ QUEST_DBS_CURRENT_GRIDNO ], gsQdsEnteringGridNo );
+		swprintf( zTemp, L"%s:  %d", QuestDebugText[ QUEST_DBS_CURRENT_GRIDNO ], gusQdsEnteringGridNo );
 		DrawTextToScreen( zTemp, QUEST_DBS_NPC_CURRENT_GRIDNO_X, QUEST_DBS_NPC_CURRENT_GRIDNO_Y, QUEST_DBS_NUMBER_COL_WIDTH, QUEST_DBS_FONT_DYNAMIC_TEXT, QUEST_DBS_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);			
 	}
 }
@@ -2688,7 +2691,7 @@ void BtnQuestDebugStartMercTalkingButtonButtonCallback(GUI_BUTTON *btn,INT32 rea
 //		DoQDSMessageBox( MSG_BOX_BASIC_STYLE, zTemp, QUEST_DEBUG_SCREEN, MSG_BOX_FLAG_OK, NULL );
 
 		//set the initial value
-		gsQdsEnteringGridNo = 0;
+		gusQdsEnteringGridNo = 0;
 
 		TextEntryBox( QuestDebugText[ QUEST_DBS_START_MERC_TALKING_FROM ], StartMercTalkingFromQuoteNum );
 
@@ -2943,7 +2946,7 @@ void InitQuestDebugTextInputBoxes()
 	}
 */
 
-	swprintf( sTemp, L"%d", gsQdsEnteringGridNo );
+	swprintf( sTemp, L"%d", gusQdsEnteringGridNo );
 
 	//Text entry field
 	AddTextInputField( QUEST_DBS_TEB_X+QUEST_DBS_TEB_WIDTH/2-30, QUEST_DBS_TEB_Y+65, 60, 15, MSYS_PRIORITY_HIGH+60, sTemp, QUEST_DBS_TEXT_FIELD_WIDTH, INPUTTYPE_NUMERICSTRICT );
@@ -2986,7 +2989,7 @@ void AddNPCToGridNo( INT32 iGridNo )
 	//Add all the npc in the current sectory the npc array
 	AddNPCsInSectorToArray();
 
-	gsQdsEnteringGridNo = (INT16)iGridNo;
+	gusQdsEnteringGridNo = (INT16)iGridNo;
 }
 
 
@@ -2995,7 +2998,7 @@ void AddItemToGridNo( INT32 iGridNo )
 {
 	OBJECTTYPE		Object;
 
-	gsQdsEnteringGridNo = (INT16)iGridNo;
+	gusQdsEnteringGridNo = (INT16)iGridNo;
 
 
 	if( Item[ gItemListBox.sCurSelectedItem ].usItemClass == IC_KEY )
@@ -3023,7 +3026,7 @@ void AddKeyToGridNo( INT32 iKeyID )
 		CreateKeyObject( &Object, 1, (UINT8)iKeyID );
 
 		//add the item to the world
-		AddItemToPool( gsQdsEnteringGridNo, &Object, -1, 0, 0, 0 );
+		AddItemToPool( gusQdsEnteringGridNo, &Object, -1, 0, 0, 0 );
 	}
 	else
 		gfAddKeyNextPass = TRUE;

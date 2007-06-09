@@ -43,6 +43,7 @@
 	#include "expat.h"
 	#include "XML.h"
 	#include "utilities.h"
+	#include "store inventory.h"
 #endif
 
 struct

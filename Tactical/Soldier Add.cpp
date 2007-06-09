@@ -18,6 +18,9 @@
 	#include "fov.h"
 	#include "pathai.h"
 	#include "Random.h"
+	#include "Render Fun.h"
+	#include "meanwhile.h"
+	#include "Exit Grids.h"
 #endif
 
 // Adds a soldier to a world gridno and set's direction

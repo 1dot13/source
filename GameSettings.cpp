@@ -20,6 +20,18 @@
 	#include	"Language Defines.h"
 	#include "HelpScreen.h"
 	#include "INIReader.h"
+	#include "Shade Table Util.h"
+	#include "soldier profile type.h"
+	#include "Random.h"
+	#include "SaveLoadGame.h"
+	#include "sgp.h"
+	#include "screenids.h"
+	#include "Font Control.h"
+	#include "message.h"
+	#include "Campaign.h"
+	#include "meanwhile.h"
+	#include "strategicmap.h"
+	#include "Queen Command.h"
 #endif
 
 #include	"Text.h"
@@ -471,7 +483,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iStartingCashExperienced	= iniReader.ReadInteger("JA2 Gameplay Settings", "EXPERIENCED_CASH",35000);
 	gGameExternalOptions.iStartingCashExpert		= iniReader.ReadInteger("JA2 Gameplay Settings", "EXPERT_CASH",30000);
 	gGameExternalOptions.iStartingCashInsane		= iniReader.ReadInteger("JA2 Gameplay Settings", "INSANE_CASH",15000);
-	
+
 	//Lalien: Game starting time
 	gGameExternalOptions.iGameStartingTime			= iniReader.ReadInteger("JA2 Gameplay Settings", "GAME_STARTING_TIME", 3600);	
 	gGameExternalOptions.iFirstArrivalDelay			= iniReader.ReadInteger("JA2 Gameplay Settings", "FIRST_ARRIVAL_DELAY", 21600);

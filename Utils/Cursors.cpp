@@ -2,6 +2,7 @@
 	#include "Utils All.h"
 	#include "interface items.h"
 #else
+	#include "builddefines.h"
 	#include <wchar.h>
 	#include "sgp.h"
 	#include "cursors.h"
@@ -14,6 +15,7 @@
 	#include "interface.h"
 	#include "overhead.h"
 	#include "Cursor Control.h"
+	#include "Sound Control.h"
 #endif
 
 //aim

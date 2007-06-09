@@ -26,6 +26,7 @@
 	#include "english.h"
 	#include "Map Screen Interface.h"
 	#include "Game Event Hook.h"
+	#include "Strategic AI.h"
 #endif
 
 

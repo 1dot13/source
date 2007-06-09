@@ -42,7 +42,7 @@
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
-	#include "SectorLoadscreens.h"
+//	#include "SectorLoadscreens.h"
 #endif
 
 struct

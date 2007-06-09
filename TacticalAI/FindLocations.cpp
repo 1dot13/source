@@ -23,6 +23,11 @@
 		#include "renderworld.h"
 		#include "video.h"
 	#endif
+	#include "worldman.h"
+	#include "strategicmap.h"
+	#include "environment.h"
+	#include "lighting.h"
+		#include "Buildings.h"
 #endif
 
 #include "PathAIDebug.h"

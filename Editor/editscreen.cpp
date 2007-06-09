@@ -73,6 +73,7 @@
 	#include "Inventory Choosing.h"
 	#include "Music Control.h"
 	#include "Soldier Profile.h"
+	#include "GameSettings.h"
 #endif
 
 

@@ -63,6 +63,7 @@
 	#include "popupmenu.h"
 	#include "Scheduling.h"
 	#include "Timer Control.h"
+	#include "message.h"
 #endif
 
 extern void GetSoldierAboveGuyPositions( SOLDIERTYPE *pSoldier, INT16 *psX, INT16 *psY, BOOLEAN fRadio );

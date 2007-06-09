@@ -1,4 +1,13 @@
+#ifdef PRECOMPILEDHEADERS
 #include "Utils All.h"
+#else
+#include "builddefines.h"
+#include "stdio.h"
+#include "Windows.h"
+#include "Types.h"
+#include "Multi Language Graphic Utils.h"
+#endif
+
 #include "Language Defines.h"
 
 BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
@@ -244,7 +253,7 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 		#elif defined( POLISH )
 		  sprintf( zLanguage, "POLISH" );
 		#elif defined( RUSSIAN )
-		  sprintf( (char*)zLanguage, "RUSSIAN" );
+		  sprintf( zLanguage, "RUSSIAN" );
 		#elif defined( SPANISH )
 		  sprintf( zLanguage, "SPANISH" );
 		#elif defined( TAIWANESE )

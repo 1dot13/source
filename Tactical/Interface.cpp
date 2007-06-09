@@ -1,6 +1,7 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
+	#include "builddefines.h"
 	#include <stdio.h>
 	#include <stdarg.h>
 	#include <time.h> 
@@ -53,6 +54,8 @@
 	#include "Vehicles.h"
 	#include "messageboxscreen.h"
 	#include "gamesettings.h"
+	#include "Squads.h"
+	#include "message.h"
 #endif
 
 //const UINT32 INTERFACE_START_X			= 0;
@@ -1497,7 +1500,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 
 	GetSoldier( &pSoldier, usSoldierID );
 
-	if ( pSoldier->bVisible == -1 && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS) )
+	if ( !pSoldier || (pSoldier->bVisible == -1 && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS) ) )
 	{
 		return;
 	}

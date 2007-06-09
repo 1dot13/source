@@ -23,6 +23,7 @@
 	#include "opplist.h"
 	#include "Random.h"
 	#include "strategicmap.h"
+	#include "GameSettings.h"
 #endif
 
 //effects whether or not time of day effects the lighting.  Underground

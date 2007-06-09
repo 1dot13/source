@@ -1,6 +1,7 @@
 #ifndef __SOLDER_PROFILE_TYPE_H
 #define __SOLDER_PROFILE_TYPE_H
 
+#include "overhead types.h"
 
 #define NUM_PROFILES		170
 #define FIRST_RPC 57

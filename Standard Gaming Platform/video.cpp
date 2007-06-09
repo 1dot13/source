@@ -1,6 +1,5 @@
 #ifdef JA2_PRECOMPILED_HEADERS
 	#include "JA2 SGP ALL.H"
-	#include "resource.h"
 #elif defined( WIZ8_PRECOMPILED_HEADERS )
 	#include "WIZ8 SGP ALL.H"
 #else
@@ -9,6 +8,7 @@
 	#include "vobject_blitters.h"
 	#include "sgp.h"
 	#include <stdio.h>
+	#include <io.h>
 	#include "renderworld.h"
 	#include "Render Dirty.h"
 	#include "Isometric utils.h"
@@ -16,7 +16,11 @@
 	#include "impTGA.h"
 	#include "timer control.h"
 	#include "Fileman.h"
+	#include "Input.h"
+	#include "GameSettings.h"
 #endif
+
+#include "resource.h"
 
 #ifndef _MT
 	#define _MT

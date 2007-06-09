@@ -2,7 +2,7 @@
 #define _GAMESCREEN_H
 
 
-
+#include "fade screen.h"
 
 #define		ARE_IN_FADE_IN( )		( gfFadeIn || gfFadeInitialized )
 

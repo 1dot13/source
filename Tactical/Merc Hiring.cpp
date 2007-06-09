@@ -2,6 +2,7 @@
 	#include "Tactical All.h"
 	#include "strategic.h"
 #else
+	#include "builddefines.h"
 	#include <stdio.h>
 	#include <string.h>
 	#include "wcheck.h"
@@ -51,6 +52,12 @@
 	#include "jascreens.h"
 	#include "text.h"
 	#include "Merc Contract.h"
+	#include "LaptopSave.h"
+	#include "personnel.h"
+	#include "Auto Resolve.h"
+	#include "Map Screen Interface Bottom.h"
+	#include "Quests.h"
+	#include "GameSettings.h"
 #endif
 
 #define	MIN_FLIGHT_PREP_TIME	6

@@ -793,7 +793,7 @@ typedef struct
 	UINT32											uiChangeMechanicalTime;
 
 	UINT32											uiUniqueSoldierIdValue; // the unique value every instance of a soldier gets - 1 is the first valid value
-	INT8												bBeingAttackedCount;		// Being attacked counter
+	INT8												bBeingAttackedCount;		// Being attacked counter is obsolete and can be renamed and used as something else
 
 	INT8												bNewItemCount[ NUM_INV_SLOTS ];
 	INT8												bNewItemCycleCount[ NUM_INV_SLOTS ];
@@ -1096,7 +1096,8 @@ UINT8 atan8FromAngle( DOUBLE dAngle );
 INT8 CalcActionPoints(SOLDIERTYPE *pSold );
 BOOLEAN IsActionInterruptable( SOLDIERTYPE *pSoldier );
 INT16 GetDirectionToGridNoFromGridNo( INT16 sGridNoDest, INT16 sGridNoSrc );
-void ReleaseSoldiersAttacker( SOLDIERTYPE *pSoldier );
+// This function is now obsolete.  Call ReduceAttackBusyCount instead.
+// void ReleaseSoldiersAttacker( SOLDIERTYPE *pSoldier );
 BOOLEAN MercInWater( SOLDIERTYPE *pSoldier );
 UINT16 GetNewSoldierStateFromNewStance( SOLDIERTYPE *pSoldier, UINT8 ubDesiredStance );
 UINT16 GetMoveStateBasedOnStance( SOLDIERTYPE *pSoldier, UINT8 ubStanceHeight );

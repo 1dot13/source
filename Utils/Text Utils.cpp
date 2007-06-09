@@ -4,6 +4,7 @@
 	#include "Language Defines.h"
 	#include "text.h"
 	#include "Fileman.h"
+	#include "GameSettings.h"
 #endif
 
 BOOLEAN LoadItemInfo(UINT16 ubIndex, STR16 pNameString, STR16 pInfoString )

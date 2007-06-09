@@ -1,6 +1,7 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
 #else
+	#include "builddefines.h"
 	#include <math.h>
 	#include <stdio.h>
 	#include <stdarg.h>

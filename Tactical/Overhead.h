@@ -304,7 +304,7 @@ void CycleThroughKnownEnemies( );
 
 BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen );
 
-SOLDIERTYPE * FreeUpAttacker( UINT8 ubID );
+SOLDIERTYPE * FreeUpAttacker( );
 
 BOOLEAN PlayerTeamFull( );
 
@@ -314,7 +314,7 @@ void ResetAllMercSpeeds( );
 
 BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLEAN fInitialMove, UINT16 usAnimState );
 
-SOLDIERTYPE * ReduceAttackBusyCount( UINT8 ubID, BOOLEAN fCalledByAttacker );
+SOLDIERTYPE * ReduceAttackBusyCount( );
 
 void CommonEnterCombatModeCode( );
 

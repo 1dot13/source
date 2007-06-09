@@ -15,6 +15,8 @@
 	#include "strategicmap.h"
 	#include "QuestText.h"
 	#include "text.h"
+	#include "message.h"
+	#include "LaptopSave.h"
 #endif
 
 

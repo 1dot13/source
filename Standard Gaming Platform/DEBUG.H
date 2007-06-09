@@ -169,6 +169,13 @@ extern	void		_DebugMessage(UINT8 *pSourceFile, UINT32 uiLineNum, UINT8 *pString)
 //*******************************************************************************************
 #endif
 
+
+#ifdef DEBUG_ATTACKBUSY
+#define DebugAttackBusy(x) OutputDebugString( x)
+#else
+#define DebugAttackBusy(x)
+#endif
+
 /*
 #ifdef __cplusplus
 }

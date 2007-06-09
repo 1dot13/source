@@ -28,6 +28,16 @@
 	#include "Squads.h"
 	#include "Player Command.h"
 	#include "Sound Control.h"
+	#include "GameSettings.h"
+	#include "meanwhile.h"
+	#include "Map Screen Interface Border.h"
+	#include "Strategic Event Handler.h"
+	#include "Overhead.h"
+	#include "Soldier Create.h"
+	#include "renderworld.h"
+	#include "soundman.h"
+	#include "Isometric Utils.h"
+	#include "Scheduling.h"
 #endif
 
 

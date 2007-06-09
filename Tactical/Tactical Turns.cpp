@@ -28,6 +28,9 @@
 	#include "lighteffects.h"
 	#include "campaign.h"
 	#include "Soldier macros.h"
+	#include "strategicmap.h"
+	#include "Random.h"
+	#include "Explosion Control.h"
 #endif
 
 #include "Reinforcement.h"

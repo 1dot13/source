@@ -20,6 +20,9 @@
 	#include "squads.h"
 	#include "Soldier Create.h"
 	#include "Dialogue Control.h"
+	#include "Queen Command.h"
+	#include "GameSettings.h"
+	#include "Soldier Init List.h"
 #endif
 
 #include "Reinforcement.h"

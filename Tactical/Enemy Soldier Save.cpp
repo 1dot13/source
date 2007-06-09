@@ -2,6 +2,7 @@
 	#include "Tactical All.h"
 	#include "Enemy Soldier Save.h"
 #else
+	#include "builddefines.h"
 	#include <stdio.h>
 	#include <memory.h>
 
@@ -27,6 +28,11 @@
 	#include "Animation Data.h"
 	#include "message.h"
 	#include "Font Control.h"
+	#include "Campaign Types.h"
+	#include "Tactical Save.h"
+	#include "Game Clock.h"
+	#include "Queen Command.h"
+	#include "Scheduling.h"
 #endif
 
 BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *pNode );

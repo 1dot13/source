@@ -20,6 +20,11 @@
 	#include "squads.h"
 	#include "Soldier Create.h"
 	#include "Dialogue Control.h"
+	#include "GameSettings.h"
+	#include "Queen Command.h"
+	#include "math.h"
+	#include "Auto Resolve.h"
+	#include "Vehicles.h"
 #endif
 
 #include "MilitiaSquads.h"

@@ -21,6 +21,21 @@
 	#include "assignments.h"
 	#include "strategic.h"
 	#include "text.h"
+	#include "interface control.h"
+	#include "Interface Items.h"
+	#include "Map Information.h"
+	#include "Map Screen Interface Map.h"
+	#include "Map Screen Interface.h"
+	#include "Music Control.h"
+	#include "Interface.h"
+	#include "Game Events.h"
+	#include "GameSettings.h"
+	#include "Strategic AI.h"
+	#include "interface dialogue.h"
+	#include "Quests.h"
+	#include "Campaign Types.h"
+	#include "Squads.h"
+	#include "Random.h"
 #endif
 
 #define MAX_MEANWHILE_PROFILES	10

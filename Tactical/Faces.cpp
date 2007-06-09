@@ -1,6 +1,7 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
+	#include "builddefines.h"
 	#include "math.h"
 	#include <stdio.h>
 	#include <errno.h>
@@ -32,6 +33,10 @@
 	#include "interface.h"
 	#include "Quests.h" 
 	#include "animation control.h"
+	#include "drugs and alcohol.h"
+	#include "Interface Items.h"
+	#include "meanwhile.h"
+	#include "Map Screen Interface.h"
 #endif
 
 // Defines

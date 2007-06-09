@@ -1,6 +1,7 @@
 #ifndef _EXCEPTION_HANDLING__H_
 #define _EXCEPTION_HANDLING__H_
 
+#include <Windows.h>
 
 //uncomment this line if you want Exceptions to be handled
 #ifdef JA2

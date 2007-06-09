@@ -15,6 +15,7 @@
 	#include "weapons.h"
 	#include "Animation Control.h"
 	#include "opplist.h"
+	#include "Tactical Save.h"
 #endif
 
 #ifdef NETWORKED

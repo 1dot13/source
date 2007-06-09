@@ -56,6 +56,13 @@
 	#include "math.h"
 	#include "SkillCheck.h"
 	#include "Strategic Pathing.h"
+	#include "Game Event Hook.h"
+	#include "Strategic Event Handler.h"
+	#include "Map Information.h"
+	#include "Strategic Status.h"
+	#include "history.h"
+	#include "Map Screen Interface Map Inventory.h"
+	#include "interface dialogue.h"
 #endif
 
 #include "MilitiaSquads.h"

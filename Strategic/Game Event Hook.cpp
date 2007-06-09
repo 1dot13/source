@@ -37,6 +37,13 @@
 	#include "Strategic AI.h"
 	#include "Merc Contract.h"
 	#include "Strategic Status.h"
+	#include "INIReader.h"
+	#include "GameSettings.h"
+	#include "english.h"
+	#include "Input.h"
+	#include "Soldier Profile.h"
+	#include "laptop.h"
+	#include "Campaign.h"
 #endif
 
 #ifdef JA2BETAVERSION

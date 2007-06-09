@@ -333,13 +333,18 @@ BOOLEAN GetMouseWorldCoordsInCenter( INT16 *psMouseX, INT16 *psMouseY )
 	return( TRUE );
 }
 
+#if 0
+// 0verhaul
+// I did that (or actually uncasted a bunch of stuff and re-typed others to correct them), so 
+// no worries
 // (jonathanl) to save me having to cast all the previous code
 BOOLEAN GetMouseMapPos( UINT16	*psMapPos )
 {
 	return  GetMouseMapPos( (INT16 *)psMapPos );
 }
+#endif
 
-BOOLEAN GetMouseMapPos( INT16	*psMapPos )
+BOOLEAN GetMouseMapPos( UINT16	*pusMapPos )
 {
 	 INT16				sWorldX, sWorldY;
 	 static				INT16	  sSameCursorPos;
@@ -348,7 +353,7 @@ BOOLEAN GetMouseMapPos( INT16	*psMapPos )
 	 // Check if this is the same frame as before, return already calculated value if so!
 	 if ( uiOldFrameNumber == guiGameCycleCounter && !guiForceRefreshMousePositionCalculation )
 	 {
-		 ( *psMapPos ) = sSameCursorPos;
+		 ( *pusMapPos ) = sSameCursorPos;
 
 		 if ( sSameCursorPos == 0 )
 		 {	
@@ -363,14 +368,14 @@ BOOLEAN GetMouseMapPos( INT16	*psMapPos )
 
 	 if ( GetMouseXY( &sWorldX, &sWorldY ) )
 	 {
-			*psMapPos = MAPROWCOLTOPOS( sWorldY, sWorldX );
-			sSameCursorPos = (*psMapPos);
+			*pusMapPos = MAPROWCOLTOPOS( sWorldY, sWorldX );
+			sSameCursorPos = (*pusMapPos);
 			return( TRUE );
 	 }
 	 else
 	 {
-		  *psMapPos = 0;
-			sSameCursorPos = (*psMapPos);
+		  *pusMapPos = 0;
+			sSameCursorPos = (*pusMapPos);
 			return( FALSE );
 	 }
 

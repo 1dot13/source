@@ -19,9 +19,10 @@
 	#include "input.h"
 	#include "line.h"
 	#include "Text.h"
-	#include "Strategic.h"
 	#include "Campaign Types.h"
 	#include "Multi Language Graphic Utils.h"
+	#include "strategic.h"
+	#include "strategicmap.h"
 #endif
 
 

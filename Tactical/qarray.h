@@ -1,6 +1,7 @@
 #ifndef __Q_ARRAY_H
 #define __Q_ARRAY_H
 
+#include "soldier profile type.h"
 
 extern	BOOLEAN QuoteExp_HeadShotOnly[NUM_PROFILES];
 extern	BOOLEAN QuoteExp_TeamSpecific[NUM_PROFILES];

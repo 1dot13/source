@@ -15,6 +15,7 @@
 	#include "edit_sys.h"
 	#include "pathai.h"
 	#include "tile surface.h"
+	#include "Tactical Save.h"
 #endif
 
 //#include "editscreen.h"
@@ -1206,11 +1207,11 @@ BOOLEAN AnyLowerLand( UINT32 iMapIndex, UINT32 uiSrcType, UINT8 *pubLastLevel )
 
 BOOLEAN GetWallOrientation( UINT16 usIndex, UINT16 *pusWallOrientation )
 {
-  	TILE_ELEMENT		TileElem;
+  TILE_ELEMENT		TileElem;
 
   	*pusWallOrientation = 0xffff;
   
-	CHECKF( usIndex != NO_TILE );
+  CHECKF( usIndex != NO_TILE );
 	CHECKF( usIndex < NUMBEROFTILES ); //lal bugfix
 
 	// Get tile element

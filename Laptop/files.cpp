@@ -1,6 +1,7 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Laptop All.h"
 #else
+	#include "builddefines.h"
 	#include <stdio.h>
 	#include "laptop.h"
 	#include "files.h"

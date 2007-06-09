@@ -3,6 +3,7 @@
 	#include "Tactical All.h"
 	#include "PreBattle Interface.h"
 #else
+	#include "builddefines.h"
 	#include <stdio.h>
 	#include "sgp.h"
 	#include "soldier control.h"
@@ -64,6 +65,18 @@
 	#include "Soldier create.h"
 	#include "SkillCheck.h"
 	#include "Sound Control.h"
+	#include "opplist.h"
+	#include "PreBattle Interface.h"
+	#include "history.h"
+	#include "Keys.h"
+	#include "Morale.h"
+	#include "personnel.h"
+	#include "Map Screen Interface.h"
+	#include "Queen Command.h"
+	#include "Campaign.h"
+	#include "BobbyRMailOrder.h"
+	#include "end game.h"
+	#include "Map Screen Helicopter.h"
 #endif
 
 INT16	sBasementEnterGridNos[ ] = { 13362, 13363, 13364, 13365, 13525, 13524 };

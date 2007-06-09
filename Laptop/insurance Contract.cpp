@@ -24,6 +24,7 @@
 	#include "Random.h"
 	#include "Strategic Status.h"
 	#include "Assignments.h"
+	#include "Map Screen Interface.h"
 #endif
 
 #define		INS_CTRCT_ORDER_GRID_WIDTH					132

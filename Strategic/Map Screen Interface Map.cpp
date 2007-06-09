@@ -41,6 +41,9 @@
 	#include "Town Militia.h"
 	#include "Militia Control.h"
 	#include "GameSettings.h"
+	#include "Tactical Save.h"
+	#include "Map Information.h"
+	#include "Air Raid.h"
 #endif
 
 // zoom x and y coords for map scrolling

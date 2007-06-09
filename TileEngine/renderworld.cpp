@@ -1,3 +1,5 @@
+#include "builddefines.h"
+
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
 #else
@@ -45,6 +47,7 @@
 	#include "world items.h"
 	#include "GameSettings.h"
 	#include "interface control.h"
+	#include "Sound Control.h"
 #endif
 
 ///////////////////////////
@@ -494,7 +497,7 @@ UINT32		gRenderFlags=0;
  *  any questions? joker
  */
 SGPRect		gClippingRect;//			= { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - INTERFACE_HEIGHT};
-SGPRect		gOldClipRect;
+SGPRect		gOldClipRect = { 0, 0, 1024, 768 }; // 0verhaul:  This MUST mirror the gDirtyClipRect init, otherwise funkiness with video overlays will happen
 INT16		gsRenderCenterX;
 INT16		gsRenderCenterY;
 INT16		gsRenderWorldOffsetX	= 0;  //lal was -1 : bugfix for merc screen position in tactical on high resolution
@@ -762,7 +765,7 @@ void RenderSetShadows(BOOLEAN fShadows)
 	else
 	{
 		gRenderFlags&=(~RENDER_FLAG_SHADOWS);
-	}
+}
 }
 
 
@@ -4056,222 +4059,222 @@ BOOLEAN ApplyScrolling( INT16 sTempRenderCenterX, INT16 sTempRenderCenterY, BOOL
 	//if ((fAllowScrollingHorizontal || fAllowScrollingVertical) && gfDialogControl)
 	//{
 
-		// Get angles
-		// TOP LEFT CORNER FIRST
-		dOpp = sTopLeftWorldY - gsTLY;
-		dAdj = sTopLeftWorldX - gsTLX;
+	// Get angles
+	// TOP LEFT CORNER FIRST
+	dOpp = sTopLeftWorldY - gsTLY;
+	dAdj = sTopLeftWorldX - gsTLX;
 
-		dAngle = (double)atan2( dAdj, dOpp );
-		at1 = dAngle * 180 / PI;			
+	dAngle = (double)atan2( dAdj, dOpp );
+	at1 = dAngle * 180 / PI;			
 
-		if ( dAngle < 0 )
+	if ( dAngle < 0 )
+	{
+		fOutLeft = TRUE;
+	}
+	else	if ( dAngle > PI/2 )
+	{
+		fOutTop = TRUE;
+	}
+
+	// TOP RIGHT CORNER
+	dOpp = sTopRightWorldY - gsTRY;
+	dAdj = gsTRX - sTopRightWorldX;
+
+	dAngle = (double)atan2( dAdj, dOpp );
+	at2 = dAngle * 180 / PI;			
+
+	if ( dAngle < 0 )
+	{
+		fOutRight = TRUE;
+	}
+	else if ( dAngle > PI/2 )
+	{
+		fOutTop = TRUE;
+	}
+
+
+	// BOTTOM LEFT CORNER
+	dOpp = gsBLY - sBottomLeftWorldY;
+	dAdj = sBottomLeftWorldX - gsBLX;
+
+	dAngle = (double)atan2( dAdj, dOpp );
+	at3 = dAngle * 180 / PI;			
+
+	if ( dAngle < 0 )
+	{
+		fOutLeft = TRUE;
+	}
+	else if ( dAngle > PI/2 )
+	{
+		fOutBottom = TRUE;
+	}
+
+	// BOTTOM RIGHT CORNER
+	dOpp = gsBRY - sBottomRightWorldY;
+	dAdj = gsBRX - sBottomRightWorldX;
+
+	dAngle = (double)atan2( dAdj, dOpp );
+	at4 = dAngle * 180 / PI;			
+
+	if ( dAngle < 0 )
+	{
+		fOutRight = TRUE;
+	}
+	else if ( dAngle > PI/2 )
+	{
+		fOutBottom = TRUE;
+	}
+
+	sprintf( gDebugStr, "Angles: %d %d %d %d", (int)at1, (int)at2, (int)at3, (int)at4 );
+
+	if ( !fOutRight && !fOutLeft && !fOutTop && !fOutBottom )
+	{
+		fScrollGood = TRUE;
+	}
+
+	// If in editor, anything goes
+	if ( gfEditMode && _KeyDown( SHIFT ) )
+	{
+		fScrollGood = TRUE;
+	}
+
+	// Reset some UI flags
+	gfUIShowExitEast								= FALSE;
+	gfUIShowExitWest								= FALSE;
+	gfUIShowExitNorth								= FALSE;
+	gfUIShowExitSouth								= FALSE;
+
+
+	if ( !fScrollGood )
+	{
+		// Force adjustment, if true
+		if ( fForceAdjust )
 		{
-			fOutLeft = TRUE;
-		}
-		else	if ( dAngle > PI/2 )
-		{
-			fOutTop = TRUE;
-		}
-
-		// TOP RIGHT CORNER
-		dOpp = sTopRightWorldY - gsTRY;
-		dAdj = gsTRX - sTopRightWorldX;
-
-		dAngle = (double)atan2( dAdj, dOpp );
-		at2 = dAngle * 180 / PI;			
-
-		if ( dAngle < 0 )
-		{
-			fOutRight = TRUE;
-		}
-		else if ( dAngle > PI/2 )
-		{
-			fOutTop = TRUE;
-		}
-
-
-		// BOTTOM LEFT CORNER
-		dOpp = gsBLY - sBottomLeftWorldY;
-		dAdj = sBottomLeftWorldX - gsBLX;
-
-		dAngle = (double)atan2( dAdj, dOpp );
-		at3 = dAngle * 180 / PI;			
-
-		if ( dAngle < 0 )
-		{
-			fOutLeft = TRUE;
-		}
-		else if ( dAngle > PI/2 )
-		{
-			fOutBottom = TRUE;
-		}
-
-		// BOTTOM RIGHT CORNER
-		dOpp = gsBRY - sBottomRightWorldY;
-		dAdj = gsBRX - sBottomRightWorldX;
-
-		dAngle = (double)atan2( dAdj, dOpp );
-		at4 = dAngle * 180 / PI;			
-
-		if ( dAngle < 0 )
-		{
-			fOutRight = TRUE;
-		}
-		else if ( dAngle > PI/2 )
-		{
-			fOutBottom = TRUE;
-		}
-
-		sprintf( gDebugStr, "Angles: %d %d %d %d", (int)at1, (int)at2, (int)at3, (int)at4 );
-
-		if ( !fOutRight && !fOutLeft && !fOutTop && !fOutBottom )
-		{
-			fScrollGood = TRUE;
-		}
-
-		// If in editor, anything goes
-		if ( gfEditMode && _KeyDown( SHIFT ) )
-		{
-			fScrollGood = TRUE;
-		}
-
-		// Reset some UI flags
-		gfUIShowExitEast								= FALSE;
-		gfUIShowExitWest								= FALSE;
-		gfUIShowExitNorth								= FALSE;
-		gfUIShowExitSouth								= FALSE;
-
-
-		if ( !fScrollGood )
-		{
-			// Force adjustment, if true
-			if ( fForceAdjust )
+			if ( fOutTop )
 			{
-				if ( fOutTop )
-				{
 					// WANNE: Test
-					// Adjust screen coordinates on the Y!
-					CorrectRenderCenter( sScreenCenterX, (INT16)(gsTLY + sY_S ), &sNewScreenX, &sNewScreenY );
-					FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
+				// Adjust screen coordinates on the Y!
+				CorrectRenderCenter( sScreenCenterX, (INT16)(gsTLY + sY_S ), &sNewScreenX, &sNewScreenY );
+				FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
 
-					sTempRenderCenterX = sTempPosX_W;
-					sTempRenderCenterY = sTempPosY_W;
+				sTempRenderCenterX = sTempPosX_W;
+				sTempRenderCenterY = sTempPosY_W;
 
-					fScrollGood = TRUE;
-				}
-
-				if ( fOutBottom )
-				{
-					// OK, Ajust this since we get rounding errors in our two different calculations.
-					CorrectRenderCenter( sScreenCenterX, (INT16)(gsBLY - sY_S - 50 ), &sNewScreenX, &sNewScreenY );
-					FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
-
-					sTempRenderCenterX = sTempPosX_W;
-					sTempRenderCenterY = sTempPosY_W;
-					fScrollGood = TRUE;
-				}
-							
-				if ( fOutLeft )
-				{
-					CorrectRenderCenter( (INT16)( gsTLX + sX_S ) , sScreenCenterY , &sNewScreenX, &sNewScreenY );
-					FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
-
-					sTempRenderCenterX = sTempPosX_W;
-					sTempRenderCenterY = sTempPosY_W;
-
-					fScrollGood = TRUE;
-				}
-
-				if ( fOutRight )
-				{
-					CorrectRenderCenter( (INT16)( gsTRX - sX_S ) , sScreenCenterY , &sNewScreenX, &sNewScreenY );
-					FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
-
-					sTempRenderCenterX = sTempPosX_W;
-					sTempRenderCenterY = sTempPosY_W;
-					fScrollGood = TRUE;
-				}
-
+				fScrollGood = TRUE;
 			}
-			else
+
+			if ( fOutBottom )
 			{
-				if ( fOutRight )
-				{
-					// Check where our cursor is!
-					if ( gusMouseXPos >= SCREEN_WIDTH - 1 )
-					{
-						gfUIShowExitEast = TRUE;
-					}
-				}
+				// OK, Ajust this since we get rounding errors in our two different calculations.
+				CorrectRenderCenter( sScreenCenterX, (INT16)(gsBLY - sY_S - 50 ), &sNewScreenX, &sNewScreenY );
+				FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
 
-				if ( fOutLeft )
-				{
-					// Check where our cursor is!
-					if ( gusMouseXPos == 0 )
-					{
-						gfUIShowExitWest = TRUE;
-					}
-				}
-
-				if ( fOutTop )
-				{
-					// Check where our cursor is!
-					if ( gusMouseYPos == 0 )
-					{
-						gfUIShowExitNorth = TRUE;
-					}
-				}
-
-				if ( fOutBottom )
-				{
-					// Check where our cursor is!
-					if ( gusMouseYPos >= SCREEN_HEIGHT - 1 )
-					{
-						gfUIShowExitSouth = TRUE;
-					}
-				}
-
+				sTempRenderCenterX = sTempPosX_W;
+				sTempRenderCenterY = sTempPosY_W;
+				fScrollGood = TRUE;
 			}
+						
+			if ( fOutLeft )
+			{
+				CorrectRenderCenter( (INT16)( gsTLX + sX_S ) , sScreenCenterY , &sNewScreenX, &sNewScreenY );
+				FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
+
+				sTempRenderCenterX = sTempPosX_W;
+				sTempRenderCenterY = sTempPosY_W;
+
+				fScrollGood = TRUE;
+			}
+
+			if ( fOutRight )
+			{
+				CorrectRenderCenter( (INT16)( gsTRX - sX_S ) , sScreenCenterY , &sNewScreenX, &sNewScreenY );
+				FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );
+
+				sTempRenderCenterX = sTempPosX_W;
+				sTempRenderCenterY = sTempPosY_W;
+				fScrollGood = TRUE;
+			}
+
 		}
-
-
-		if ( fScrollGood )
+		else
 		{
-			if ( !fCheckOnly )
+			if ( fOutRight )
 			{
-					sprintf( gDebugStr, "Center: %d %d ", (int)gsRenderCenterX, (int)gsRenderCenterY );
+				// Check where our cursor is!
+				if ( gusMouseXPos >= SCREEN_WIDTH - 1 )
+				{
+					gfUIShowExitEast = TRUE;
+				}
+			}
 
-					//Makesure it's a multiple of 5
-					sMult = sTempRenderCenterX / CELL_X_SIZE;
+			if ( fOutLeft )
+			{
+				// Check where our cursor is!
+				if ( gusMouseXPos == 0 )
+				{
+					gfUIShowExitWest = TRUE;
+				}
+			}
 
-					gsRenderCenterX = ( sMult * CELL_X_SIZE ) + ( CELL_X_SIZE / 2 );
+			if ( fOutTop )
+			{
+				// Check where our cursor is!
+				if ( gusMouseYPos == 0 )
+				{
+					gfUIShowExitNorth = TRUE;
+				}
+			}
 
-					//Makesure it's a multiple of 5
+			if ( fOutBottom )
+			{
+				// Check where our cursor is!
+				if ( gusMouseYPos >= SCREEN_HEIGHT - 1 )
+				{
+					gfUIShowExitSouth = TRUE;
+				}
+			}
+
+		}
+	}
+
+
+	if ( fScrollGood )
+	{
+		if ( !fCheckOnly )
+		{
+				sprintf( gDebugStr, "Center: %d %d ", (int)gsRenderCenterX, (int)gsRenderCenterY );
+
+				//Makesure it's a multiple of 5
+				sMult = sTempRenderCenterX / CELL_X_SIZE;
+
+				gsRenderCenterX = ( sMult * CELL_X_SIZE ) + ( CELL_X_SIZE / 2 );
+
+				//Makesure it's a multiple of 5
 					sMult = sTempRenderCenterY / CELL_Y_SIZE;
 
-					gsRenderCenterY = ( sMult * CELL_Y_SIZE ) + ( CELL_Y_SIZE / 2 );
+				gsRenderCenterY = ( sMult * CELL_Y_SIZE ) + ( CELL_Y_SIZE / 2 );
 
-					//gsRenderCenterX = sTempRenderCenterX;
-					//gsRenderCenterY = sTempRenderCenterY;
+				//gsRenderCenterX = sTempRenderCenterX;
+				//gsRenderCenterY = sTempRenderCenterY;
 
 					
-					gsTopLeftWorldX = sTopLeftWorldX - gsTLX;
+				gsTopLeftWorldX = sTopLeftWorldX - gsTLX;
 					gsTopRightWorldX = sTopRightWorldX - gsTLX;
 					gsBottomLeftWorldX = sBottomLeftWorldX - gsTLX;
 					gsBottomRightWorldX = sBottomRightWorldX - gsTLX;
 					
-					gsTopLeftWorldY = sTopLeftWorldY - gsTLY;
-					gsTopRightWorldY = sTopRightWorldY - gsTLY;
-					gsBottomLeftWorldY = sBottomLeftWorldY - gsTLY;
-					gsBottomRightWorldY = sBottomRightWorldY - gsTLY;
+				gsTopLeftWorldY = sTopLeftWorldY - gsTLY;
+				gsTopRightWorldY = sTopRightWorldY - gsTLY;
+				gsBottomLeftWorldY = sBottomLeftWorldY - gsTLY;
+				gsBottomRightWorldY = sBottomRightWorldY - gsTLY;
 
-				SetPositionSndsVolumeAndPanning( );
-			}
-
-			return( TRUE );
+        SetPositionSndsVolumeAndPanning( );
 		}
 
-		return( FALSE );
+		return( TRUE );
+	}
+
+	return( FALSE );
 	//}
 
 	//return ( FALSE );

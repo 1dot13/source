@@ -1,6 +1,7 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
+	#include "builddefines.h"
 	#include <stdio.h>
 	#include <memory.h>
 
@@ -26,6 +27,24 @@
 	#include "Animation Data.h"
 	#include "message.h"
 	#include "Font Control.h"
+	#include "Sound Control.h"
+	#include "Quests.h"
+	#include "Render Fun.h"
+	#include "meanwhile.h"
+	#include "Map Screen Interface Map.h"
+	#include "mapscreen.h"
+	#include "Debug Control.h"
+	#include "Inventory Choosing.h"
+	#include "Strategic AI.h"
+	#include "strategic.h"
+	#include "Campaign Types.h"
+	#include "ai.h"
+	#include "NPC.h"
+	#include "Scheduling.h"
+	#include "opplist.h"
+	#include "MessageBoxScreen.h"
+	#include "screenids.h"
+	#include "SaveLoadScreen.h"
 #endif
 
 #include "Map Edgepoints.h"

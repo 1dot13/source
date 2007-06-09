@@ -19,6 +19,9 @@
 	#include "Sound Control.h"
 	#include "IMP Text System.h"
 	#include "text.h"
+	#include "soldier profile type.h"
+	#include "GameSettings.h"
+	#include "LaptopSave.h"
 #endif
 
 INT32 iCurrentVoice = 0;

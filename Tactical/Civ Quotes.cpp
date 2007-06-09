@@ -1,6 +1,38 @@
 // WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
+#else
+#include "builddefines.h"
+#include <stdio.h>
+#include "Types.h"
+#include "civ quotes.h"
+#include "mousesystem.h"
+#include "strategicmap.h"
+#include "WCheck.h"
+#include "FileMan.h"
+#include "encrypted file.h"
+#include "MessageBoxScreen.h"
+#include "Queen Command.h"
+#include "Overhead.h"
+#include "render dirty.h"
+#include "merctextbox.h"
+#include "ai.h"
+#include "Text.h"
+#include "screenids.h"
+#include "Animation Data.h"
+#include "Video.h"
+#include "Font Control.h"
+#include "message.h"
+#include "local.h"
+#include "renderworld.h"
+#include "Interface.h"
+#include "cursors.h"
+#include "Dialogue Control.h"
+#include "Quests.h"
+#include "Strategic Town Loyalty.h"
+#include "NPC.h"
+#include "Strategic Mines.h"
+#include "Random.h"
 #endif
 
 

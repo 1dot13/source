@@ -2,7 +2,12 @@
 	#include "Laptop All.h"
 	#include "BrokenLink.h"
 #else
-
+	#include "Types.h"
+	#include "font.h"
+	#include "laptop.h"
+	#include "Font Control.h"
+	#include "Text.h"
+	#include "wordwrap.h"
 #endif
 
 #define		BROKEN_LINK__FONT									FONT12ARIAL

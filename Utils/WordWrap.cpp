@@ -7,6 +7,7 @@
 	#include "Render Dirty.h"
 	#include "Font Control.h"
 	#include "Stdio.h"
+	#include "WinFont.h"
 #endif
 
 

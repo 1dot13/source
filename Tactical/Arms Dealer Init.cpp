@@ -14,6 +14,8 @@
 	#include "Message.h"
 	#include "soldier profile.h"
 	#include "Handle Items.h"
+	#include "Quests.h"
+	#include "Scheduling.h"
 #endif
 
 

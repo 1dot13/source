@@ -4,6 +4,7 @@
 	#include "Strategic All.h"
 	#include "INIReader.h"
 #else
+	#include "builddefines.h"
 	#include <stdio.h>
 	#include "types.h"
 	#include "english.h"
@@ -33,6 +34,11 @@
 	#include "Creature Spreading.h"
 	#include "message.h"
 	#include "Game Init.h"
+	#include "Strategic AI.h"
+	#include "Campaign.h"
+	#include "Auto Resolve.h"
+	#include "Strategic Status.h"
+	#include "wordwrap.h"
 #endif
 
 #ifdef JA2BETAVERSION

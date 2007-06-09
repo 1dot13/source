@@ -47,6 +47,19 @@
 	#include "npc.h"
 	#include "Init.h"
 	#include "GameSettings.h"
+	#include "opplist.h"
+	#include "interface dialogue.h"
+	#include "Map Screen Interface Border.h"
+	#include "Map Screen Helicopter.h"
+	#include "Vehicles.h"
+	#include "Map Screen Interface Map.h"
+	#include "PreBattle Interface.h"
+	#include "Arms Dealer Init.h"
+	#include "bobbyr.h"
+	#include "helpscreen.h"
+	#include "Air Raid.h"
+	#include "Interface.h"
+	#include "cheats.h"
 #endif
 
 // Temp function

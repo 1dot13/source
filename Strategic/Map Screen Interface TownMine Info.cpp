@@ -24,6 +24,8 @@
 	#include "video.h"
 	#include "Town Militia.h"
 	#include "HelpScreen.h"
+	#include "Map Screen Helicopter.h"
+	#include "Tactical Save.h"
 #endif
 
 

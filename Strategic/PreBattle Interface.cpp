@@ -1,6 +1,7 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 #else
+	#include "builddefines.h"
 	#include <stdio.h>
 	#include "PreBattle Interface.h"
 	#include "Button System.h"
@@ -32,6 +33,17 @@
 	#include "Random.h"
 	#include "Creature Spreading.h"
 	#include "Multi Language Graphic Utils.h"
+	#include "Map Screen Helicopter.h"
+	#include "Quests.h"
+	#include "Map Screen Interface Border.h"
+	#include "Strategic Status.h"
+	#include "interface control.h"
+	#include "Strategic Town Loyalty.h"
+	#include "Squads.h"
+	#include "Assignments.h"
+	#include "Soldier macros.h"
+	#include "history.h"
+	#include "Cheats.h"
 #endif
 
 extern void InitializeTacticalStatusAtBattleStart();

@@ -31,6 +31,8 @@
 	#include "text.h"
 	#include "Morale.h"
 	#include "Map screen helicopter.h"
+	#include "structure wrap.h"
+	#include "meanwhile.h"
 #endif
 
 #define		SCRIPT_DELAY													10
@@ -548,7 +550,7 @@ void AirRaidLookForDive( )
 			if ( giNumGridNosMovedThisTurn == 0 )
 			{
 				// Free up attacker...
-				FreeUpAttacker( gpRaidSoldier->ubID );
+				ReduceAttackBusyCount( );
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Tried to free up attacker AIR RAID NO DIVE, attack count now %d", gTacticalStatus.ubAttackBusyCount) );
 			}
 		}
@@ -643,6 +645,7 @@ void BeginDive( )
 	// Increment attacker bust count....
 	gTacticalStatus.ubAttackBusyCount++;
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Starting attack BEGIN DIVE %d", gTacticalStatus.ubAttackBusyCount) );
+	DebugAttackBusy( String("!!!!!!! Starting attack BEGIN DIVE %d", gTacticalStatus.ubAttackBusyCount) );
 
 	// Pick location...
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("BeginDive: pick location"));
@@ -822,7 +825,7 @@ void DoDive(  )
 						//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Starting attack AIR RAID ( fire gun ), attack count now %d", gTacticalStatus.ubAttackBusyCount) );
 
 						// INcrement bullet fired...
-						gpRaidSoldier->bBulletsLeft++;
+						// gpRaidSoldier->bBulletsLeft++;
 					}
 
 					// For now use first position....
@@ -857,7 +860,7 @@ void DoDive(  )
 						//DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Starting attack AIR RAID ( second one ), attack count now %d", gTacticalStatus.ubAttackBusyCount) );
 
 						// INcrement bullet fired...
-						gpRaidSoldier->bBulletsLeft++;
+						// gpRaidSoldier->bBulletsLeft++;
 
 					}
 
@@ -872,7 +875,7 @@ void DoDive(  )
 				if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
 				{
 					// Free up attacker...
-					FreeUpAttacker( gpRaidSoldier->ubID );
+					ReduceAttackBusyCount( );
 					DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Tried to free up attacker AIR RAID DIVE DONE FOR THIS TURN, attack count now %d", gTacticalStatus.ubAttackBusyCount) );
 				}
 			}
@@ -999,6 +1002,7 @@ void DoBombing(  )
 							// Increase attacker busy...
 							gTacticalStatus.ubAttackBusyCount++;
 							DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Starting attack AIR RAID ( bombs away ), attack count now %d", gTacticalStatus.ubAttackBusyCount) );
+							DebugAttackBusy( String("!!!!!!! Starting attack AIR RAID ( bombs away ), attack count now %d", gTacticalStatus.ubAttackBusyCount) );
 						}
 
 						// Drop bombs...
@@ -1013,7 +1017,7 @@ void DoBombing(  )
 					if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
 					{
 						// Free up attacker...
-						FreeUpAttacker( gpRaidSoldier->ubID );
+						ReduceAttackBusyCount( );
 						DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Tried to free up attacker AIR RAID BOMB ATTACK DONE FOR THIS TURN, attack count now %d", gTacticalStatus.ubAttackBusyCount) );
 					}
 				}
@@ -1192,7 +1196,7 @@ void HandleAirRaid( )
 					if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
 					{
 						// Free up attacker...
-						FreeUpAttacker( gpRaidSoldier->ubID );
+						ReduceAttackBusyCount( );
 						DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Tried to free up attacker AIR RAID ENDING DIVE, attack count now %d", gTacticalStatus.ubAttackBusyCount) );
 					}
 
@@ -1207,7 +1211,7 @@ void HandleAirRaid( )
 					if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
 					{
 						// Free up attacker...
-						FreeUpAttacker( gpRaidSoldier->ubID );
+						ReduceAttackBusyCount( );
 						DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Tried to free up attacker AIR RAID ENDING DIVE, attack count now %d", gTacticalStatus.ubAttackBusyCount) );
 					}
 
@@ -1279,6 +1283,7 @@ BOOLEAN HandleAirRaidEndTurn( UINT8 ubTeam )
 	// Increment attacker bust count....
 	gTacticalStatus.ubAttackBusyCount++;
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Starting attack AIR RAID, attack count now %d", gTacticalStatus.ubAttackBusyCount) );
+	DebugAttackBusy( String("!!!!!!! Starting attack AIR RAID, attack count now %d\n", gTacticalStatus.ubAttackBusyCount) );
 
 	AddTopMessage( AIR_RAID_TURN_MESSAGE, TacticalStr[ AIR_RAID_TURN_STR ] );
 

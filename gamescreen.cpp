@@ -3,6 +3,7 @@
 	#include "HelpScreen.h"
 	#include "PreBattle Interface.h"
 #else
+	#include "builddefines.h"
 	#include <stdio.h>
 	#include <stdarg.h>
 	#include <time.h> 
@@ -78,6 +79,13 @@
 	#include "strategic ai.h"
 	#include "HelpScreen.h"
 	#include "PreBattle Interface.h"
+	#include "Sound Control.h"
+	#include "MessageBoxScreen.h"
+	#include "Text.h"
+	#include "GameSettings.h"
+	#include "Random.h"
+	#include "editscreen.h"
+	#include "Scheduling.h"
 #endif
 
 

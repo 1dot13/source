@@ -3,6 +3,7 @@
 
 
 #include "Vehicles.h"
+#include "mapscreen.h"
 
 // functions
 void DrawMapIndexBigMap( BOOLEAN fSelectedCursorIsYellow );

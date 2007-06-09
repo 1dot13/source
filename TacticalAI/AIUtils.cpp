@@ -17,6 +17,12 @@
 	#include "Points.h"
 	#include "GameSettings.h"
 	#include "Buildings.h"
+	#include "Soldier macros.h"
+	#include "Render Fun.h"
+	#include "strategicmap.h"
+	#include "environment.h"
+	#include "lighting.h"
+	#include "Soldier Create.h"
 #endif
 
 //
@@ -173,7 +179,7 @@ UINT8 ShootingStanceChange( SOLDIERTYPE * pSoldier, ATTACKTYPE * pAttack, INT8 b
 	
 	UINT16	usRealAnimState, usBestAnimState;
 	INT8		bBestStanceDiff=-1;
-	INT8		bLoop, bStanceNum, bStanceDiff, bAPsAfterAttack;
+	INT8		bLoop, bStanceNum, bStanceDiff, bAPsAfterAttack, bCurAimTime;
 	UINT32	uiChanceOfDamage, uiBestChanceOfDamage, uiCurrChanceOfDamage;
 	UINT32	uiStanceBonus, uiMinimumStanceBonusPerChange = 20 - 3 * pAttack->ubAimTime;
 	INT32		iRange;
@@ -181,7 +187,7 @@ UINT8 ShootingStanceChange( SOLDIERTYPE * pSoldier, ATTACKTYPE * pAttack, INT8 b
 	bStanceNum = 0;
 	uiCurrChanceOfDamage = 0;
 
-	bAPsAfterAttack = pSoldier->bActionPoints - pAttack->ubAPCost - GetAPsToReadyWeapon( pSoldier, pSoldier->usAnimState );
+	bAPsAfterAttack = pSoldier->bActionPoints - MinAPsToAttack( pSoldier, pAttack->sTarget, ADDTURNCOST, 1);
 	if (bAPsAfterAttack < AP_CROUCH)
 	{
 		return( 0 );
@@ -241,7 +247,15 @@ UINT8 ShootingStanceChange( SOLDIERTYPE * pSoldier, ATTACKTYPE * pAttack, INT8 b
 				break;
 		}
 
-		uiChanceOfDamage = SoldierToLocationChanceToGetThrough( pSoldier, pAttack->sTarget, pSoldier->bTargetLevel, pSoldier->bTargetCubeLevel, pAttack->ubOpponent ) * CalcChanceToHitGun( pSoldier, pAttack->sTarget, pAttack->ubAimTime, AIM_SHOT_TORSO ) / 100;
+		// Hack:  Assumes the cost to reach the target stance from the current stance is the same as going back.  Probably true.
+		bCurAimTime = __min( bAPsAfterAttack - GetAPsToChangeStance( pSoldier, bStanceNum), pAttack->ubAimTime);
+		// If can't fire at all from this stance, don't bother with the chances of hitting
+		if (bCurAimTime < 0)
+		{
+			continue;
+		}
+
+		uiChanceOfDamage = SoldierToLocationChanceToGetThrough( pSoldier, pAttack->sTarget, pSoldier->bTargetLevel, pSoldier->bTargetCubeLevel, pAttack->ubOpponent ) * CalcChanceToHitGun( pSoldier, pAttack->sTarget, bCurAimTime, AIM_SHOT_TORSO ) / 100;
 		if (uiChanceOfDamage > 0)
 		{
 			uiStanceBonus = 0;

@@ -50,6 +50,9 @@
 	#include "EditorMercs.h"
 	#include "soldier tile.h"
 	#include "soldier find.h"
+	#include "Vehicles.h"
+	#include "GameSettings.h"
+	#include "ui cursors.h"
 #endif
 
 
@@ -93,13 +96,13 @@ extern								UINT32	guiUITargetSoldierId;
 
 BOOLEAN FindSoldierFromMouse( UINT16 *pusSoldierIndex, UINT32 *pMercFlags )
 {
-	INT16							sMapPos;
+	UINT16							usMapPos;
 	
 	*pMercFlags = 0;
 
-	 if ( GetMouseMapPos( &sMapPos ) )
+	 if ( GetMouseMapPos( &usMapPos ) )
 	 {
-			 if ( FindSoldier( sMapPos, pusSoldierIndex, pMercFlags ,FINDSOLDIERSAMELEVEL( gsInterfaceLevel ) ) )
+			 if ( FindSoldier( usMapPos, pusSoldierIndex, pMercFlags ,FINDSOLDIERSAMELEVEL( gsInterfaceLevel ) ) )
 			 {					
 				 return( TRUE );
 			 }
@@ -110,13 +113,13 @@ BOOLEAN FindSoldierFromMouse( UINT16 *pusSoldierIndex, UINT32 *pMercFlags )
 
 BOOLEAN SelectiveFindSoldierFromMouse( UINT16 *pusSoldierIndex, UINT32 *pMercFlags )
 {
-	INT16							sMapPos;
+	UINT16							usMapPos;
 	
 	*pMercFlags = 0;
 
-	 if ( GetMouseMapPos( &sMapPos ) )
+	 if ( GetMouseMapPos( &usMapPos ) )
 	 {
-			 if ( FindSoldier( sMapPos, pusSoldierIndex, pMercFlags , FINDSOLDIERSAMELEVEL( gsInterfaceLevel ) ) )
+			 if ( FindSoldier( usMapPos, pusSoldierIndex, pMercFlags , FINDSOLDIERSAMELEVEL( gsInterfaceLevel ) ) )
 			 {					
 				 return( TRUE );
 			 }

@@ -8,6 +8,8 @@
 	#include "Debug.h"
 	#include "LaptopSave.h"
 	#include "ShopKeeper Interface.h"
+	#include "armsdealerinvinit.h"
+	#include "GameSettings.h"
 #endif
 
 

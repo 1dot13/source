@@ -2,6 +2,7 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
+	#include "builddefines.h"
 	#include <wchar.h>
 	#include <stdio.h>
 	#include <string.h>
@@ -22,6 +23,19 @@
 	#include "Sys Globals.h"
 	#include "Text.h"
 	#include "GameSettings.h"
+	#include "Assignments.h"
+	#include "Interface.h"
+	#include "Game Event Hook.h"
+	#include "Overhead.h"
+	#include "meanwhile.h"
+	#include "Quests.h"
+	#include "Squads.h"
+	#include "Soldier macros.h"
+	#include "strategic.h"
+	#include "strategicmap.h"
+	#include "Town Militia.h"
+	#include "Campaign Types.h"
+	#include "Tactical Save.h"
 #endif
 
 #include "email.h"

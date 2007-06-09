@@ -9,6 +9,8 @@
 	#include "overhead.h"
 	#include "isometric utils.h"
 	#include "renderworld.h"
+	#include "GameSettings.h"
+	#include "math.h"
 #endif
 
 #define	SOUND_FAR_VOLUME_MOD    25
