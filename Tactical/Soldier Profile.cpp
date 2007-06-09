@@ -17,7 +17,7 @@
 	#include "Isometric Utils.h"
 	#include "Event Pump.h"
 	#include "Timer Control.h"
-	#include "Render Fun.h" 
+	#include "Render Fun.h"
 	#include "Render Dirty.h"
 	#include "mousesystem.h"
 	#include "interface.h"
@@ -63,8 +63,8 @@
 BOOLEAN	gfPotentialTeamChangeDuringDeath = FALSE;
 
 
-#define		MIN_BLINK_FREQ					3000		
-#define		MIN_EXPRESSION_FREQ			2000		
+#define		MIN_BLINK_FREQ					3000
+#define		MIN_EXPRESSION_FREQ			2000
 
 #define		SET_PROFILE_GAINS2			500, 500, 500, 500, 500, 500, 500, 500, 500
 
@@ -122,7 +122,7 @@ UINT8	gubNumTerrorists = 0;
 
 #define NUM_TERRORIST_POSSIBLE_LOCATIONS 5
 
-INT16	gsTerroristSector[NUM_TERRORISTS][NUM_TERRORIST_POSSIBLE_LOCATIONS][2] = 
+INT16	gsTerroristSector[NUM_TERRORISTS][NUM_TERRORIST_POSSIBLE_LOCATIONS][2] =
 {
 	// Elgin... preplaced
 	{
@@ -133,7 +133,7 @@ INT16	gsTerroristSector[NUM_TERRORISTS][NUM_TERRORIST_POSSIBLE_LOCATIONS][2] =
 		{ 0, 0 }
 	},
 	// Slay
-	{ 
+	{
 		{ 9,	MAP_ROW_F },
 		{ 14,	MAP_ROW_I },
 		{ 1,	MAP_ROW_G },
@@ -190,7 +190,7 @@ UINT8 gubAssassins[NUM_ASSASSINS] =
 
 #define NUM_ASSASSIN_POSSIBLE_TOWNS 5
 
-INT8 gbAssassinTown[NUM_ASSASSINS][NUM_ASSASSIN_POSSIBLE_TOWNS] = 
+INT8 gbAssassinTown[NUM_ASSASSINS][NUM_ASSASSIN_POSSIBLE_TOWNS] =
 {
 	// Jim
 	{ CAMBRIA, DRASSEN, ALMA, BALIME, GRUMM },
@@ -282,7 +282,7 @@ BOOLEAN LoadMercProfiles(void)
 			return(FALSE);
 		}
 
-		
+
 		//if the Dialogue exists for the merc, allow the merc to be hired
 		if( DialogueDataFileExistsForProfile( (UINT8)uiLoop, 0, FALSE, NULL ) )
 		{
@@ -368,7 +368,7 @@ BOOLEAN LoadMercProfiles(void)
 
 		// OK, if we are a created slot, this will get overriden at some time..
 
-		//add up the items the merc has for the usOptionalGearCost 
+		//add up the items the merc has for the usOptionalGearCost
 		gMercProfiles[ uiLoop ].usOptionalGearCost = 0;
 		for ( uiLoop2 = 0; uiLoop2< NUM_INV_SLOTS; uiLoop2++ )
 		{
@@ -376,7 +376,7 @@ BOOLEAN LoadMercProfiles(void)
 			{
 				//get the item
 				usItem = gMercProfiles[ uiLoop ].inv[ uiLoop2 ];
-			
+
 				//add the cost
 				gMercProfiles[ uiLoop ].usOptionalGearCost += Item[ usItem ].usPrice;
 			}
@@ -431,7 +431,7 @@ void DecideActiveTerrorists( void )
 	UINT32	uiChance, uiLocationChoice;
 	BOOLEAN	fFoundSpot;
 	INT16		sTerroristPlacement[MAX_ADDITIONAL_TERRORISTS][2] = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
-	
+
 	#ifdef CRIPPLED_VERSION
 		return;
 	#endif
@@ -559,7 +559,7 @@ void MakeRemainingTerroristsTougher( void )
 
 	switch( gGameOptions.ubDifficultyLevel )
 	{
-		case DIF_LEVEL_MEDIUM:			
+		case DIF_LEVEL_MEDIUM:
 			ubRemainingDifficulty = (ubRemainingDifficulty * 13) / 10;
 			break;
 		case DIF_LEVEL_HARD:
@@ -603,7 +603,7 @@ void MakeRemainingTerroristsTougher( void )
 	}
 	else
 	{
-		// LAW and hand grenade 
+		// LAW and hand grenade
 		usOldItem = NOTHING;
 		usNewItem = HAND_GRENADE;
 	}
@@ -654,7 +654,7 @@ void DecideOnAssassin( void )
 		{
 			// check this merc to see if the town is a possibility
 			for ( ubLoop2 = 0; ubLoop2 < NUM_ASSASSIN_POSSIBLE_TOWNS; ubLoop2++ )
-			{			
+			{
 				if ( gbAssassinTown[ ubLoop ][ ubLoop2 ] == ubTown )
 				{
 					ubAssassinPossibility[ ubAssassinsPossible ] = gubAssassins[ ubLoop ];
@@ -671,7 +671,7 @@ void DecideOnAssassin( void )
 		gMercProfiles[ ubLoop ].sSectorY = gWorldSectorY;
 		AddStrategicEvent( EVENT_REMOVE_ASSASSIN, GetWorldTotalMin() + 60 * ( 3 + Random( 3 ) ), ubLoop );
 	}
-	
+
 }
 
 void MakeRemainingAssassinsTougher( void )
@@ -693,7 +693,7 @@ void MakeRemainingAssassinsTougher( void )
 
 	switch( gGameOptions.ubDifficultyLevel )
 	{
-		case DIF_LEVEL_MEDIUM:			
+		case DIF_LEVEL_MEDIUM:
 			ubRemainingDifficulty = (ubRemainingDifficulty * 13) / 10;
 			break;
 		case DIF_LEVEL_HARD:
@@ -737,7 +737,7 @@ void MakeRemainingAssassinsTougher( void )
 	}
 	else
 	{
-		// LAW and hand grenade 
+		// LAW and hand grenade
 		usOldItem = NOTHING;
 		usNewItem = HAND_GRENADE;
 	}
@@ -973,7 +973,7 @@ SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 				}
 			}
 		}
-		
+
 
 		// Set insertion gridNo
 		pNewSoldier->sInsertionGridNo								= sOldGridNo;
@@ -983,7 +983,7 @@ SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 			HandleCheckForDeathCommonCode( pSoldier );
 		}
 
-		if ( gfWorldLoaded &&  pSoldier->bInSector 
+		if ( gfWorldLoaded &&  pSoldier->bInSector
 		//pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ
 		 )
 		{
@@ -994,7 +994,7 @@ SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 		// fix up the event queue...
 	//	ChangeSoldierIDInQueuedEvents( ubOldID, uiOldUniqueId, pNewSoldier->ubID, pNewSoldier->uiUniqueSoldierIdValue );
 
-		if ( pNewSoldier->ubProfile != NO_PROFILE )		
+		if ( pNewSoldier->ubProfile != NO_PROFILE )
 		{
 			if ( ubTeam == gbPlayerNum )
 			{
@@ -1077,7 +1077,7 @@ BOOLEAN RecruitRPC( UINT8 ubCharNum )
 				if ( bSlot != SECONDHANDPOS && pNewSoldier->inv[ SECONDHANDPOS ].usItem != NOTHING )
 				{
 					// need to move second hand item out first
-					AutoPlaceObject( pNewSoldier, &(pNewSoldier->inv[ SECONDHANDPOS ]), FALSE );					
+					AutoPlaceObject( pNewSoldier, &(pNewSoldier->inv[ SECONDHANDPOS ]), FALSE );
 				}
 			}
 			// swap item to hand
@@ -1259,8 +1259,8 @@ INT8 WhichHated( UINT8 ubCharNum, UINT8 ubHated )
 
 BOOLEAN IsProfileATerrorist( UINT8 ubProfile )
 {
-	if ( ubProfile == 83 || ubProfile == 111 || 
-			 ubProfile == 64 || ubProfile == 112 || 
+	if ( ubProfile == 83 || ubProfile == 111 ||
+			 ubProfile == 64 || ubProfile == 112 ||
 			 ubProfile == 82 || ubProfile == 110 )
 	{
 		return( TRUE );
@@ -1273,8 +1273,8 @@ BOOLEAN IsProfileATerrorist( UINT8 ubProfile )
 
 BOOLEAN IsProfileAHeadMiner( UINT8 ubProfile )
 {
-	if ( ubProfile == 106 || ubProfile == 148 || 
-			 ubProfile == 156 || ubProfile == 157 || 
+	if ( ubProfile == 106 || ubProfile == 148 ||
+			 ubProfile == 156 || ubProfile == 157 ||
 			 ubProfile == 158 )
 	{
 		return( TRUE );
@@ -1405,7 +1405,7 @@ SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier )
 		// I don't think so!
 		return( pSoldier );
 	}
-	
+
 	pNewProfile = &gMercProfiles[ ubDestProfile ];
 	pNewProfile->ubMiscFlags2 = gMercProfiles[ ubSrcProfile ].ubMiscFlags2;
 	pNewProfile->ubMiscFlags = gMercProfiles[ ubSrcProfile ].ubMiscFlags;
@@ -1464,7 +1464,7 @@ SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier )
 	*/
 
 	memcpy( pNewProfile->bInvStatus, gMercProfiles[ ubSrcProfile ].bInvStatus , sizeof( UINT8) * 19 );
-	memcpy( pNewProfile->bInvStatus, gMercProfiles[ ubSrcProfile ].bInvStatus , sizeof( UINT8) * 19 );
+	memcpy( pNewProfile->bInvNumber, gMercProfiles[ ubSrcProfile ].bInvNumber , sizeof( UINT8) * 19 );
 	memcpy( pNewProfile->inv , gMercProfiles[ ubSrcProfile ].inv , sizeof( UINT16 ) * 19 );
 	memcpy( pNewProfile->bMercTownReputation , gMercProfiles[ ubSrcProfile ].bMercTownReputation , sizeof( UINT8 ) * 20 );
 
@@ -1474,8 +1474,8 @@ SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier )
 	pSoldier->ubProfile = ubDestProfile;
 
 	// create new face
-	pSoldier->iFaceIndex = InitSoldierFace( pSoldier ); 
-	
+	pSoldier->iFaceIndex = InitSoldierFace( pSoldier );
+
 	// replace profile in group
 	ReplaceSoldierProfileInPlayerGroup( pSoldier->ubGroupID, ubSrcProfile, ubDestProfile );
 
@@ -1542,9 +1542,9 @@ BOOLEAN DoesNPCOwnBuilding( SOLDIERTYPE *pSoldier, INT16 sGridNo )
 
 BOOLEAN IsProfileIdAnAimOrMERCMerc( UINT8 ubProfileID )
 {
-	
-	if( ubProfileID < BIFF || 
-			( ubProfileID >= BIFF && ubProfileID <= BUBBA ) || 
+
+	if( ubProfileID < BIFF ||
+			( ubProfileID >= BIFF && ubProfileID <= BUBBA ) ||
 			ubProfileID >= GASTON )
 	{
 		return( TRUE );
