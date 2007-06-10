@@ -23,7 +23,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;.\Standard Gaming Platform&quot;;.\TileEngine;.\Tactical;.\Utils;.\TacticalAI;.\Editor;.\Strategic;.\laptop;.\"
+				AdditionalIncludeDirectories="&quot;.\Standard Gaming Platform&quot;;.\TileEngine;.\Tactical;.\Utils;.\TacticalAI;.\Editor;.\Strategic;.\laptop;.\lua;.\"
 				PreprocessorDefinitions="CALLBACKTIMER;PRECOMPILEDHEADERS;_DEBUG;WIN32;_WINDOWS;JA2;_VTUNE_PROFILING;XML_STATIC;CINTERFACE"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
@@ -42,11 +42,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libexpatMT.lib mss32.lib winmm.lib smackw32.lib fmodvc.lib"
+				AdditionalDependencies="libexpatMT.lib mss32.lib winmm.lib smackw32.lib fmodvc.lib lua51_vs2003.lib"
 				OutputFile="C:\Games\Jagged Alliance 2\ja2_debug_911_en.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories=".\..\..\Standard Gaming Platform\"
+				AdditionalLibraryDirectories="&quot;.\..\..\Standard Gaming Platform\&quot;"
 				IgnoreDefaultLibraryNames="libcmt"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Debug/ja2_cvs.pdb"

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include <Lua Interpreter.h>
+#include "Lua Interpreter.h"
 #include "lwstring.h"
 
 #include "Overhead.h"

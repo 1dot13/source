@@ -287,7 +287,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\;..\Tactical;..\Utils;..\tacticalai;..\Editor;..\strategic;..\Laptop;.\"
+				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\;..\Tactical;..\Utils;..\tacticalai;..\Editor;..\strategic;..\lua;..\Laptop;.\"
 				PreprocessorDefinitions="CALLBACKTIMER;PRECOMPILEDHEADERS;_DEBUG;WIN32;_WINDOWS;JA2;_VTUNE_PROFILING;XML_STATIC;CINTERFACE"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
