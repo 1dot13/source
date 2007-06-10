@@ -2625,8 +2625,8 @@ UINT32 DisplayInvSlot( UINT8 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT1
 	usHeight				= (UINT32)pTrav->usHeight;
 	usWidth					= (UINT32)pTrav->usWidth;
 
-	sCenX = usPosX + 7 + (INT16)( abs( SKI_INV_WIDTH - 3 - usWidth ) / 2 ) - pTrav->sOffsetX;
-	sCenY = usPosY + (INT16)( abs( SKI_INV_HEIGHT - usHeight ) / 2 ) - pTrav->sOffsetY;
+	sCenX = usPosX + 7 + (INT16)( abs( SKI_INV_WIDTH - 3.0 - usWidth ) / 2 ) - pTrav->sOffsetX;
+	sCenY = usPosY + (INT16)( abs( SKI_INV_HEIGHT - (double)usHeight ) / 2 ) - pTrav->sOffsetY;
 
 
 	//Restore the background region
