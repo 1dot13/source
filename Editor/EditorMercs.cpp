@@ -1972,8 +1972,8 @@ void InitDetailedPlacementForMerc()
 {
 	Assert( !gpSelected->pDetailedPlacement );
 
-	gpSelected->pDetailedPlacement = (SOLDIERCREATE_STRUCT*)MemAlloc(sizeof(SOLDIERCREATE_STRUCT));
-
+        // WDS - Clean up inventory handling
+	gpSelected->pDetailedPlacement = new (MemAlloc(SIZEOF_SOLDIERCREATE_STRUCT)) SOLDIERCREATE_STRUCT;
 	Assert( gpSelected->pDetailedPlacement );
 	
 	gpSelected->pBasicPlacement->fDetailedPlacement = TRUE;
@@ -3604,7 +3604,8 @@ void CopyMercPlacement( INT32 iMapIndex )
 	memcpy( &gSaveBufferBasicPlacement, gpSelected->pBasicPlacement, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
 	if( gSaveBufferBasicPlacement.fDetailedPlacement )
 	{
-		memcpy( &gSaveBufferDetailedPlacement, gpSelected->pDetailedPlacement, sizeof( SOLDIERCREATE_STRUCT ) );
+                // WDS - Clean up inventory handling
+		gSaveBufferDetailedPlacement = *gpSelected->pDetailedPlacement;
 	}
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Placement copied." );
 }
@@ -3667,7 +3668,8 @@ void PasteMercPlacement( INT32 iMapIndex )
 		//Generate detailed placement information given the temp placement information.
 		if( gTempBasicPlacement.fDetailedPlacement )
 		{
-			memcpy( &gTempDetailedPlacement, &gSaveBufferDetailedPlacement, sizeof( SOLDIERCREATE_STRUCT ) );
+                        // WDS - Clean up inventory handling
+			gTempDetailedPlacement = *gSaveBufferDetailedPlacement
 		}
 		else
 		{
@@ -3684,7 +3686,8 @@ void PasteMercPlacement( INT32 iMapIndex )
 		}
 		else
 		{
-			memcpy( &tempDetailedPlacement, &gTempDetailedPlacement, sizeof( SOLDIERCREATE_STRUCT ) );
+                        // WDS - Clean up inventory handling
+			tempDetailedPlacement = gTempDetailedPlacement;
 		}
 
 		//Create the soldier, but don't place it yet.
@@ -3703,14 +3706,16 @@ void PasteMercPlacement( INT32 iMapIndex )
 				//allocate memory for new static detailed placement
 				gTempBasicPlacement.fDetailedPlacement = TRUE;
 				gTempBasicPlacement.fPriorityExistance = gSaveBufferBasicPlacement.fPriorityExistance;
-				pNode->pDetailedPlacement = (SOLDIERCREATE_STRUCT*)MemAlloc( sizeof( SOLDIERCREATE_STRUCT ) );
+                                // WDS - Clean up inventory handling
+				pNode->pDetailedPlacement = new (MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT )) SOLDIERCREATE_STRUCT;
 				if( !pNode->pDetailedPlacement )
 				{
 					AssertMsg( 0, "Failed to allocate memory for new detailed placement in PasteMercPlacement." );
 					return;
 				}
 				//copy the file information from temp var to node in list.
-				memcpy( pNode->pDetailedPlacement, &gSaveBufferDetailedPlacement, sizeof( SOLDIERCREATE_STRUCT ) );
+                                // WDS - Clean up inventory handling
+				*pNode->pDetailedPlacement = gSaveBufferDetailedPlacement;
 			}
 			
 			//Add the soldier to physically appear on the map now.

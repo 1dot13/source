@@ -2998,8 +2998,9 @@ void SetupItemDetailsMode( BOOLEAN fAllowRecursion )
 		}
 		if( basic.fDetailedPlacement )
 		{ //skip static priority placement 
-			FileRead( hfile, &priority, sizeof( SOLDIERCREATE_STRUCT ), &uiNumBytesRead );
-			if( uiNumBytesRead != sizeof( SOLDIERCREATE_STRUCT ) )
+                        // WDS - Clean up inventory handling
+			FileRead( hfile, &priority, SIZEOF_SOLDIERCREATE_STRUCT, &uiNumBytesRead );
+			if( uiNumBytesRead != SIZEOF_SOLDIERCREATE_STRUCT )
 			{ //Invalid situation.
 				FileClose( hfile );
 				return;
@@ -3062,8 +3063,9 @@ void SetupItemDetailsMode( BOOLEAN fAllowRecursion )
 		}
 		if( basic.fDetailedPlacement )
 		{ //skip static priority placement 
-			FileRead( hfile, &priority, sizeof( SOLDIERCREATE_STRUCT ), &uiNumBytesRead );
-			if( uiNumBytesRead != sizeof( SOLDIERCREATE_STRUCT ) )
+                        // WDS - Clean up inventory handling
+			FileRead( hfile, &priority, SIZEOF_SOLDIERCREATE_STRUCT, &uiNumBytesRead );
+			if( uiNumBytesRead != SIZEOF_SOLDIERCREATE_STRUCT )
 			{ //Invalid situation.
 				FileClose( hfile );
 				return;
