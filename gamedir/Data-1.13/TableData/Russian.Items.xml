@@ -7570,19 +7570,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>946</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 946</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>ISM-V-IR</szItemName>
+		<szLongItemName>ISM-V-IR</szLongItemName>
+		<szItemDesc>A combination of a red-dot sight with an aiming laser (including IR).</szItemDesc>
+		<szBRName>ISM-V-IR</szBRName>
+		<szBRDesc>If you do not want your gun overcrowded with attachments, here is a combination of a red-dot sight with an IR-laser sight. Precludes mounting of scopes, though.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>947</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 947</szItemDesc>
+		<szItemName>Grippod</szItemName>
+		<szLongItemName>Grippod</szLongItemName>
+		<szItemDesc>This Grippod fits on the lower Picatinny Rail of a lot of modern rifles. Its bipod is not as sturdy as a dedicated one, though.</szItemDesc>
 		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRDesc>Your bipod is getting in the way so you can't mount a foregrip? Here's the solution! The Grippod drops two legs out of its bottom at the push of a button.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>948</uiIndex>

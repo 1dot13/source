@@ -4747,10 +4747,10 @@
 		<Electronic>1</Electronic>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<NightVisionRangeBonus>8</NightVisionRangeBonus>
-		<DayVisionRangeBonus>-16</DayVisionRangeBonus>
-		<CaveVisionRangeBonus>8</CaveVisionRangeBonus>
-		<BrightLightVisionRangeBonus>-32</BrightLightVisionRangeBonus>
+		<NightVisionRangeBonus>10</NightVisionRangeBonus>
+		<DayVisionRangeBonus>-20</DayVisionRangeBonus>
+		<CaveVisionRangeBonus>10</CaveVisionRangeBonus>
+		<BrightLightVisionRangeBonus>-40</BrightLightVisionRangeBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>212</uiIndex>
@@ -4772,10 +4772,10 @@
 		<Attachment>1</Attachment>
 		<BR_NewInventory>5</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<NightVisionRangeBonus>-8</NightVisionRangeBonus>
-		<DayVisionRangeBonus>8</DayVisionRangeBonus>
-		<CaveVisionRangeBonus>-16</CaveVisionRangeBonus>
-		<BrightLightVisionRangeBonus>16</BrightLightVisionRangeBonus>
+		<NightVisionRangeBonus>-10</NightVisionRangeBonus>
+		<DayVisionRangeBonus>10</DayVisionRangeBonus>
+		<CaveVisionRangeBonus>-20</CaveVisionRangeBonus>
+		<BrightLightVisionRangeBonus>20</BrightLightVisionRangeBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>213</uiIndex>
@@ -5399,10 +5399,10 @@
 		<Electronic>1</Electronic>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<NightVisionRangeBonus>16</NightVisionRangeBonus>
-		<DayVisionRangeBonus>-16</DayVisionRangeBonus>
-		<CaveVisionRangeBonus>16</CaveVisionRangeBonus>
-		<BrightLightVisionRangeBonus>-32</BrightLightVisionRangeBonus>
+		<NightVisionRangeBonus>20</NightVisionRangeBonus>
+		<DayVisionRangeBonus>-20</DayVisionRangeBonus>
+		<CaveVisionRangeBonus>20</CaveVisionRangeBonus>
+		<BrightLightVisionRangeBonus>-40</BrightLightVisionRangeBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>247</uiIndex>
@@ -14139,9 +14139,8 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>750</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
-		<BurstToHitBonus>5</BurstToHitBonus>
-		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
+		<DefaultAttachment>1011</DefaultAttachment>
 	</ITEM>
 	<ITEM>
 		<uiIndex>651</uiIndex>
@@ -16277,7 +16276,7 @@
 		<szLongItemName>Steyr AUG HBAR</szLongItemName>
 		<szItemDesc>A heavier barrel and integral bipod transform the AUG into a hardy squad automatic. </szItemDesc>
 		<szBRName>Steyr AUG HBAR</szBRName>
-		<szBRDesc>Otherwise very similar to the AUG, the HBAR features a heavier barrel and integral bipod.</szBRDesc>
+		<szBRDesc>Otherwise very similar to the AUG, the HBAR features a heavier barrel, integral bipod and can use larger magazines.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>726</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -16297,7 +16296,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>680</BR_ROF>
-		<Bipod>10</Bipod>
+		<Bipod>7</Bipod>
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<DefaultAttachment>1029</DefaultAttachment>
@@ -21422,22 +21421,25 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>946</uiIndex>
-		<szItemName>ISM-V</szItemName>
-		<szLongItemName>ISM-V</szLongItemName>
-		<szItemDesc>A combination of a red-dot sight with an aiming laser.</szItemDesc>
-		<szBRName>ISM-V</szBRName>
-		<szBRDesc>If you do not want your gun overcrowded with attachments, here is a combination of a red-dot sight with a laser sight. precludes mounting of scopes, though.</szBRDesc>
+		<szItemName>ISM-V-IR</szItemName>
+		<szLongItemName>ISM-V-IR</szLongItemName>
+		<szItemDesc>A combination of a red-dot sight with an aiming laser (including IR).</szItemDesc>
+		<szBRName>ISM-V-IR</szBRName>
+		<szBRDesc>If you do not want your gun overcrowded with attachments, here is a combination of a red-dot sight with an IR-laser sight. Precludes mounting of scopes, though.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>156</ubGraphicNum>
-		<ubWeight>2</ubWeight>
+		<ubGraphicNum>694</ubGraphicNum>
+		<ubWeight>3</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
-		<usPrice>1800</usPrice>
+		<usPrice>3000</usPrice>
+		<ubCoolness>9</ubCoolness>
 		<bRepairEase>-4</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
 		<Electronic>1</Electronic>
@@ -21446,8 +21448,8 @@
 		<ToHitBonus>20</ToHitBonus>
 		<BestLaserRange>150</BestLaserRange>
 		<PercentAPReduction>20</PercentAPReduction>
-		<NightVisionRangeBonus>15</NightVisionRangeBonus>
-		<CaveVisionRangeBonus>9</CaveVisionRangeBonus>
+		<NightVisionRangeBonus>20</NightVisionRangeBonus>
+		<CaveVisionRangeBonus>20</CaveVisionRangeBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>947</uiIndex>
@@ -21458,14 +21460,17 @@
 		<szBRDesc>Your bipod is getting in the way so you can't mount a foregrip? Here's the solution! The Grippod drops two legs out of its bottom at the push of a button.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>69</ubGraphicNum>
+		<ubGraphicNum>693</ubGraphicNum>
 		<ubWeight>4</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>500</usPrice>
+		<ubCoolness>7</ubCoolness>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<Attachment>1</Attachment>
+		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<Bipod>7</Bipod>
@@ -21549,8 +21554,8 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<ToHitBonus>20</ToHitBonus>
 		<BestLaserRange>300</BestLaserRange>
-		<NightVisionRangeBonus>25</NightVisionRangeBonus>
-		<CaveVisionRangeBonus>10</CaveVisionRangeBonus>
+		<NightVisionRangeBonus>30</NightVisionRangeBonus>
+		<CaveVisionRangeBonus>20</CaveVisionRangeBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>951</uiIndex>
@@ -22782,7 +22787,7 @@
 		<ToHitBonus>20</ToHitBonus>
 		<BestLaserRange>100</BestLaserRange>
 		<NightVisionRangeBonus>10</NightVisionRangeBonus>
-		<CaveVisionRangeBonus>8</CaveVisionRangeBonus>
+		<CaveVisionRangeBonus>10</CaveVisionRangeBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1006</uiIndex>
@@ -23176,10 +23181,10 @@
 		<Electronic>1</Electronic>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<NightVisionRangeBonus>24</NightVisionRangeBonus>
-		<DayVisionRangeBonus>-16</DayVisionRangeBonus>
-		<CaveVisionRangeBonus>24</CaveVisionRangeBonus>
-		<BrightLightVisionRangeBonus>-32</BrightLightVisionRangeBonus>
+		<NightVisionRangeBonus>30</NightVisionRangeBonus>
+		<DayVisionRangeBonus>-20</DayVisionRangeBonus>
+		<CaveVisionRangeBonus>30</CaveVisionRangeBonus>
+		<BrightLightVisionRangeBonus>-40</BrightLightVisionRangeBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1025</uiIndex>
@@ -23205,10 +23210,10 @@
 		<Electronic>1</Electronic>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<NightVisionRangeBonus>32</NightVisionRangeBonus>
-		<DayVisionRangeBonus>-16</DayVisionRangeBonus>
-		<CaveVisionRangeBonus>32</CaveVisionRangeBonus>
-		<BrightLightVisionRangeBonus>-32</BrightLightVisionRangeBonus>
+		<NightVisionRangeBonus>40</NightVisionRangeBonus>
+		<DayVisionRangeBonus>-20</DayVisionRangeBonus>
+		<CaveVisionRangeBonus>40</CaveVisionRangeBonus>
+		<BrightLightVisionRangeBonus>-40</BrightLightVisionRangeBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1026</uiIndex>
@@ -24544,58 +24549,103 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1089</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1089</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>TAC-1C</szItemName>
+		<szLongItemName>TT Utility Vest</szLongItemName>
+		<szItemDesc>A vest with two larger pockets for carrying some big things.</szItemDesc>
+		<szBRName>TT Utility Vest</szBRName>
+		<szBRDesc>The Tactical Tailor Utility Vest is for those who are not primary combat soldiers, but have other duties as well.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>699</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<usPrice>140</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1090</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1090</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>LBE Gear</szItemName>
+		<szLongItemName>LBE Gear</szLongItemName>
+		<szItemDesc>Several pouches mounted onto a harness.</szItemDesc>
+		<szBRName>LBE Gear</szBRName>
+		<szBRDesc>Load Bearing Equipment lets you carry your equipment into battle.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>698</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<usPrice>80</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1091</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1091</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Holster</szItemName>
+		<szLongItemName>Holster</szLongItemName>
+		<szItemDesc>A tactical holster that rides on the upper thigh, it has a pocket for a spare magazine.</szItemDesc>
+		<szBRName>Holster</szBRName>
+		<szBRDesc>The Eagle SAS Tactical Holster carries a medium pistol and a spare magazine.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>695</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<usPrice>75</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1092</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1092</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Holster Rig</szItemName>
+		<szLongItemName>Holster Rig</szLongItemName>
+		<szItemDesc>A leg rig outfitted with a medium pistol holster and a triple pistol mag pouch.</szItemDesc>
+		<szBRName>Holster Rig</szBRName>
+		<szBRDesc>This Tactical Tailor Leg Rig can carry a pistol and three magazines.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>696</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<usPrice>110</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1093</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1093</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>MP Holster</szItemName>
+		<szLongItemName>MP Holster</szLongItemName>
+		<szItemDesc>A leg rig for large pistols or small machinepistols. Can carry an additional magazine.</szItemDesc>
+		<szBRName>MP Holster</szBRName>
+		<szBRDesc>With this Holster you can strap a small machinepistol or large pistol to your upper thigh. Has a pocket for an additional mag.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>697</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<usPrice>130</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1094</uiIndex>
