@@ -2873,21 +2873,22 @@ BOOLEAN SaveMercProfiles( HWFILE hFile )
 {
 	UINT16	cnt;
 	UINT32	uiNumBytesWritten=0;
-	UINT32	uiSaveSize = sizeof( MERCPROFILESTRUCT );
 
-	//Lopp through all the profiles to save
+	// WDS - Clean up inventory handling
+	//Loop through all the profiles to save
 	for( cnt=0; cnt< NUM_PROFILES; cnt++)
 	{
 		gMercProfiles[ cnt ].uiProfileChecksum = ProfileChecksum( &(gMercProfiles[ cnt ]) );
+		gMercProfiles[ cnt ].CopyNewInventoryToOld();
 		if ( guiSavedGameVersion < 87 )
 		{
-			JA2EncryptedFileWrite( hFile, &gMercProfiles[cnt], uiSaveSize, &uiNumBytesWritten );
+			JA2EncryptedFileWrite( hFile, &gMercProfiles[cnt], SIZEOF_MERCPROFILESTRUCT_POD, &uiNumBytesWritten );
 		}
 		else
 		{
-			NewJA2EncryptedFileWrite( hFile, &gMercProfiles[cnt], uiSaveSize, &uiNumBytesWritten );
+			NewJA2EncryptedFileWrite( hFile, &gMercProfiles[cnt], SIZEOF_MERCPROFILESTRUCT_POD, &uiNumBytesWritten );
 		}
-		if( uiNumBytesWritten != uiSaveSize )
+		if( uiNumBytesWritten != SIZEOF_MERCPROFILESTRUCT_POD )
 		{
 			return(FALSE);
 		}
@@ -2903,21 +2904,24 @@ BOOLEAN	LoadSavedMercProfiles( HWFILE hFile )
 	UINT16	cnt;
 	UINT32	uiNumBytesRead=0;
 
-	//Lopp through all the profiles to Load
+	// WDS - Clean up inventory handling
+	//Loop through all the profiles to Load
 	for( cnt=0; cnt< NUM_PROFILES; cnt++)
 	{
+		gMercProfiles[cnt].initialize();
 		if ( guiSaveGameVersion < 87 )
 		{
-			JA2EncryptedFileRead( hFile, &gMercProfiles[cnt], sizeof( MERCPROFILESTRUCT ), &uiNumBytesRead );
+			JA2EncryptedFileRead( hFile, &gMercProfiles[cnt], SIZEOF_MERCPROFILESTRUCT_POD, &uiNumBytesRead );
 		}
 		else
 		{
-			NewJA2EncryptedFileRead( hFile, &gMercProfiles[cnt], sizeof( MERCPROFILESTRUCT ), &uiNumBytesRead );
+			NewJA2EncryptedFileRead( hFile, &gMercProfiles[cnt], SIZEOF_MERCPROFILESTRUCT_POD, &uiNumBytesRead );
 		}
-		if( uiNumBytesRead != sizeof( MERCPROFILESTRUCT ) )
+		if( uiNumBytesRead != SIZEOF_MERCPROFILESTRUCT_POD )
 		{
 			return(FALSE);
 		}
+		gMercProfiles[ cnt ].CopyOldInventoryToNew();
 		if ( gMercProfiles[ cnt ].uiProfileChecksum != ProfileChecksum( &(gMercProfiles[ cnt ]) ) )
 		{
 			return( FALSE );
@@ -2957,7 +2961,8 @@ BOOLEAN SaveSoldierStructure( HWFILE hFile )
 	UINT8		ubOne = 1;
 	UINT8		ubZero = 0;
 
-	UINT32	uiSaveSize = sizeof( SOLDIERTYPE );
+	// WDS - Clean up inventory handling
+	UINT32	uiSaveSize = SIZEOF_SOLDIERTYPE_POD; //SIZEOF_SOLDIERTYPE;
 
 
 
@@ -2988,6 +2993,8 @@ BOOLEAN SaveSoldierStructure( HWFILE hFile )
 			// calculate checksum for soldier
 			Menptr[ cnt ].uiMercChecksum = MercChecksum( &(Menptr[ cnt ]) );
 			// Save the soldier structure
+	                // WDS - Clean up inventory handling
+			Menptr[cnt].CopyNewInventoryToOld();
 			if ( guiSavedGameVersion < 87 )
 			{
 				JA2EncryptedFileWrite( hFile, &Menptr[ cnt ], uiSaveSize, &uiNumBytesWritten );
@@ -3056,7 +3063,8 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 	UINT16	cnt;
 	UINT32	uiNumBytesRead=0;
 	SOLDIERTYPE SavedSoldierInfo;
-	UINT32	uiSaveSize = sizeof( SOLDIERTYPE );
+	// WDS - Clean up inventory handling
+	UINT32	uiSaveSize = SIZEOF_SOLDIERTYPE_POD; //SIZEOF_SOLDIERTYPE;
 	UINT8		ubId;
 	UINT8		ubOne = 1;
 	UINT8		ubActive = 1;
@@ -3099,6 +3107,8 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 		else
 		{
 			//Read in the saved soldier info into a Temp structure
+	                // WDS - Clean up inventory handling
+			SavedSoldierInfo.initialize();
 			if ( guiSaveGameVersion < 87 )
 			{
 				JA2EncryptedFileRead( hFile, &SavedSoldierInfo, uiSaveSize, &uiNumBytesRead );
@@ -3107,6 +3117,7 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 			{
 				NewJA2EncryptedFileRead( hFile, &SavedSoldierInfo, uiSaveSize, &uiNumBytesRead );
 			}
+			SavedSoldierInfo.CopyOldInventoryToNew();
 			if( uiNumBytesRead != uiSaveSize )
 			{
 				return(FALSE);
@@ -3141,8 +3152,10 @@ BOOLEAN LoadSoldierStructure( HWFILE hFile )
 	//	continue;
 
 
+                       	// WDS - Clean up inventory handling
 			//Create the new merc
-			memset( &CreateStruct, 0, sizeof( SOLDIERCREATE_STRUCT ) );
+			//memset( &CreateStruct, 0, SIZEOF_SOLDIERCREATE_STRUCT );
+			CreateStruct.initialize();
 			CreateStruct.bTeam								= SavedSoldierInfo.bTeam;
 			CreateStruct.ubProfile						= SavedSoldierInfo.ubProfile;
 			CreateStruct.fUseExistingSoldier	= TRUE;
@@ -3813,8 +3826,10 @@ BOOLEAN CopySavedSoldierInfoToNewSoldier( SOLDIERTYPE *pDestSourceInfo, SOLDIERT
 {
 
 
+	// WDS - Clean up inventory handling
 	//Copy the old soldier information over to the new structure
-	memcpy( pDestSourceInfo, pSourceInfo, sizeof( SOLDIERTYPE ) );
+//	memcpy( pDestSourceInfo, pSourceInfo, SIZEOF_SOLDIERTYPE );
+	*pDestSourceInfo = *pSourceInfo;
 
 	
 	return( TRUE );
