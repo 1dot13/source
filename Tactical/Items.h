@@ -12,6 +12,8 @@
 
 extern UINT8 SlotToPocket[7];
 
+// WDS - Clean up inventory handling
+class SOLDIERTYPE;
 extern BOOLEAN WeaponInHand( SOLDIERTYPE * pSoldier );
 
 extern INT8 FindObj( SOLDIERTYPE * pSoldier, UINT16 usItem );

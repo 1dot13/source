@@ -2050,7 +2050,9 @@ void GlobalReachableTest( INT16 sStartGridNo )
 	SOLDIERTYPE s;
 	INT32 iCurrentGridNo =0;
 
-	memset( &s, 0, sizeof( SOLDIERTYPE ) );
+        // WDS - Clean up inventory handling
+	//memset( &s, 0, SIZEOF_SOLDIERTYPE );
+	s.initialize();
 	s.sGridNo = sStartGridNo;
 	s.bLevel = 0;
 	s.bTeam = 1;
@@ -2072,7 +2074,9 @@ void LocalReachableTest( INT16 sStartGridNo, INT8 bRadius )
 	INT32 iCurrentGridNo = 0;
 	INT32	iX, iY;
 
-	memset( &s, 0, sizeof( SOLDIERTYPE ) );
+        // WDS - Clean up inventory handling
+	//memset( &s, 0, SIZEOF_SOLDIERTYPE );
+	s.initialize();
 	s.sGridNo = sStartGridNo;
 
 	//if we are moving on the gorund level
@@ -2113,7 +2117,9 @@ void GlobalItemsReachableTest( INT16 sStartGridNo1, INT16 sStartGridNo2 )
 	SOLDIERTYPE s;
 	INT32 iCurrentGridNo =0;
 
-	memset( &s, 0, sizeof( SOLDIERTYPE ) );
+        // WDS - Clean up inventory handling
+	//memset( &s, 0, SIZEOF_SOLDIERTYPE );
+	s.initialize();
 	s.sGridNo = sStartGridNo1;
 	s.bLevel = 0;
 	s.bTeam = 1;
@@ -2139,7 +2145,9 @@ void RoofReachableTest( INT16 sStartGridNo, UINT8 ubBuildingID )
 	SOLDIERTYPE s;
 	INT16 sGridNo;
 
-	memset( &s, 0, sizeof( SOLDIERTYPE ) );
+        // WDS - Clean up inventory handling
+	//memset( &s, 0, SIZEOF_SOLDIERTYPE );
+	s.initialize();
 	s.sGridNo = sStartGridNo;
 	s.bLevel = 1;
 	s.bTeam = 1;

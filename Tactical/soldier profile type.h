@@ -2,6 +2,7 @@
 #define __SOLDER_PROFILE_TYPE_H
 
 #include "overhead types.h"
+#include "Soldier Control.h"
 
 #define NUM_PROFILES		170
 #define FIRST_RPC 57
@@ -160,8 +161,38 @@ typedef enum{
 #define BUDDY_OPINION +25
 #define HATED_OPINION -25
 
-typedef struct	
-{
+// WDS - Clean up inventory handling
+//typedef struct	
+class MERCPROFILESTRUCT {
+public:
+	// Constructor
+	MERCPROFILESTRUCT();
+	// Copy Constructor
+	MERCPROFILESTRUCT(const MERCPROFILESTRUCT&);
+	// Assignment operator
+    MERCPROFILESTRUCT& operator=(const MERCPROFILESTRUCT&);
+	// Destructor
+	~MERCPROFILESTRUCT();
+
+	// Initialize the mercenary profile.  
+	//  Use this instead of the old method of calling memset.
+	//  Note that the constructor does this automatically.
+	void initialize();
+
+	// Clear out the mercenary profile's invetory
+	//  Use this instead of the old method of calling memset.
+	//  Note that the constructor does this automatically.
+	void clearInventory();
+
+	// Ugly temporary solution
+	void CopyOldInventoryToNew();
+	void CopyNewInventoryToOld();
+
+	// Note: Place all non-POD items at the end (after endOfPOD)
+	// The format of this structure affects what is written into and read from various
+	// files (maps, save files, etc.).  If you change it then that code will not work 
+	// properly until it is all fixed and the files updated.
+public:
 	CHAR16	zName[ NAME_LENGTH ];
 	CHAR16	zNickname[ NICKNAME_LENGTH ];
 	UINT32	uiAttnSound;
@@ -268,8 +299,10 @@ typedef struct
 	UINT8	bResigned;
 	UINT8	bActive;
 
-	UINT8	bInvStatus[19];
-	UINT8 bInvNumber[19];
+private:
+	UINT8	DO_NOT_USE_bInvStatus[OldInventory::NUM_INV_SLOTS];
+	UINT8   DO_NOT_USE_bInvNumber[OldInventory::NUM_INV_SLOTS];
+public:
 	UINT16 usApproachFactor[4];
 
 	INT8	bMainGunAttractiveness;
@@ -282,7 +315,9 @@ typedef struct
 
 	UINT8	ubInvUndroppable;
 	UINT8	ubRoomRangeStart[2];
-	UINT16 inv[19];
+private:
+	UINT16 DO_NOT_USE_inv[OldInventory::NUM_INV_SLOTS];
+public:
 	INT8 bMercTownReputation[ 20 ];
 
 	UINT16 usStatChangeChances[ 12 ];		// used strictly for balancing, never shown!
@@ -358,7 +393,21 @@ typedef struct
 
 	UINT32	uiTotalCostToDate;			// The total amount of money that has been paid to the merc for their salary
 	UINT8		ubBuffer[4];
-} MERCPROFILESTRUCT;
+
+	//
+	// New and OO stuff goes after here.  Above this point any changes will goof up reading from files.
+	//
+	//char ef1;		// Extra filler to get "offsetof(endOfPOD)" to match SIZEOF(oldstruct)
+
+	char endOfPOD;	// marker for end of POD (plain old data)
+
+	vector<int>	inv;
+	vector<int>	bInvStatus;
+	vector<int>	bInvNumber;
+}; // MERCPROFILESTRUCT;
+
+#define SIZEOF_MERCPROFILESTRUCT_POD offsetof( MERCPROFILESTRUCT, endOfPOD )
+#define SIZEOF_MERCPROFILESTRUCT sizeof( MERCPROFILESTRUCT )
 
 #define TIME_BETWEEN_HATED_COMPLAINTS 24
 

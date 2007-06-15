@@ -236,8 +236,9 @@ BOOLEAN SaveSoldiersToMap( HWFILE fp )
 		{
 			if( !curr->pDetailedPlacement )
 				return FALSE;
-			FileWrite( fp, curr->pDetailedPlacement, sizeof( SOLDIERCREATE_STRUCT ), &uiBytesWritten );
-
+                        // WDS - Clean up inventory handling
+			curr->pDetailedPlacement->CopyNewInventoryToOld();
+			FileWrite( fp, curr->pDetailedPlacement, SIZEOF_SOLDIERCREATE_STRUCT_POD /*SIZEOF_SOLDIERCREATE_STRUCT*/, &uiBytesWritten );
 		}
 		curr = curr->next;
 	}
@@ -293,17 +294,21 @@ BOOLEAN LoadSoldiersFromMap( INT8 **hBuffer )
 		}
 		if( tempBasicPlacement.fDetailedPlacement )
 		{ //Add the static detailed placement information in the same newly created node as the basic placement.
+            // WDS - Clean up inventory handling
+			tempDetailedPlacement.initialize();
 			//read static detailed placement from file
-			LOADDATA( &tempDetailedPlacement, *hBuffer, sizeof( SOLDIERCREATE_STRUCT ) );
+			LOADDATA( &tempDetailedPlacement, *hBuffer, SIZEOF_SOLDIERCREATE_STRUCT_POD );
+			tempDetailedPlacement.CopyOldInventoryToNew();
 			//allocate memory for new static detailed placement
-			pNode->pDetailedPlacement = (SOLDIERCREATE_STRUCT*)MemAlloc( sizeof( SOLDIERCREATE_STRUCT ) );
+			pNode->pDetailedPlacement = new (MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT )) SOLDIERCREATE_STRUCT;//(SOLDIERCREATE_STRUCT*)MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT );
 			if( !pNode->pDetailedPlacement )
 			{
 				AssertMsg( 0, "Failed to allocate memory for new detailed placement in LoadSoldiersFromMap." );
 				return FALSE;
 			}
 			//copy the file information from temp var to node in list.
-			memcpy( pNode->pDetailedPlacement, &tempDetailedPlacement, sizeof( SOLDIERCREATE_STRUCT ) );
+			//memcpy( pNode->pDetailedPlacement, &tempDetailedPlacement, SIZEOF_SOLDIERCREATE_STRUCT );
+			*pNode->pDetailedPlacement = tempDetailedPlacement;
 
 			if( tempDetailedPlacement.ubProfile != NO_PROFILE )
 			{
@@ -527,8 +532,10 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr )
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddPlacementToWorld"));
 	// First check if this guy has a profile and if so check his location such that it matches!
+	// WDS - Clean up inventory handling
 	// Get profile from placement info
-	memset( &tempDetailedPlacement, 0, sizeof( SOLDIERCREATE_STRUCT ) );
+	//memset( &tempDetailedPlacement, 0, SIZEOF_SOLDIERCREATE_STRUCT );
+	tempDetailedPlacement.initialize();
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddPlacementToWorld: decide on placement"));
 	if( curr->pDetailedPlacement )

@@ -275,13 +275,14 @@ BOOLEAN LoadMercProfiles(void)
 
 	for(uiLoop=0; uiLoop< NUM_PROFILES; uiLoop++)
 	{
-		if( JA2EncryptedFileRead( fptr, &gMercProfiles[uiLoop], sizeof( MERCPROFILESTRUCT ), &uiNumBytesRead )  != 1)
+	        // WDS - Clean up inventory handling
+		if( JA2EncryptedFileRead( fptr, &gMercProfiles[uiLoop], SIZEOF_MERCPROFILESTRUCT_POD, &uiNumBytesRead )  != 1)
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("FAILED to Read Merc Profiles from File %d %s",uiLoop, pFileName) );
 			FileClose( fptr );
 			return(FALSE);
 		}
-
+		gMercProfiles[ uiLoop ].CopyOldInventoryToNew();
 
 		//if the Dialogue exists for the merc, allow the merc to be hired
 		if( DialogueDataFileExistsForProfile( (UINT8)uiLoop, 0, FALSE, NULL ) )
@@ -904,8 +905,9 @@ SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 	// Remove him from the game!
 	InternalTacticalRemoveSoldier( ubID, FALSE );
 
+	// WDS - Clean up inventory handling
 	// Create a new one!
-	memset( &MercCreateStruct, 0, sizeof( MercCreateStruct ) );
+	MercCreateStruct.initialize();
 	MercCreateStruct.bTeam							= ubTeam;
 	MercCreateStruct.ubProfile					= pSoldier->ubProfile;
 	MercCreateStruct.bBodyType					= pSoldier->ubBodyType;
@@ -1463,9 +1465,10 @@ SOLDIERTYPE * SwapLarrysProfiles( SOLDIERTYPE * pSoldier )
 	pNewProfile->bExplosivesDelta = gMercProfiles[ ubSrcProfile ].bExplosivesDelta;
 	*/
 
-	memcpy( pNewProfile->bInvStatus, gMercProfiles[ ubSrcProfile ].bInvStatus , sizeof( UINT8) * 19 );
-	memcpy( pNewProfile->bInvNumber, gMercProfiles[ ubSrcProfile ].bInvNumber , sizeof( UINT8) * 19 );
-	memcpy( pNewProfile->inv , gMercProfiles[ ubSrcProfile ].inv , sizeof( UINT16 ) * 19 );
+	// WDS - Clean up inventory handling
+	pNewProfile->bInvStatus = gMercProfiles[ ubSrcProfile ].bInvStatus;
+	pNewProfile->bInvNumber = gMercProfiles[ ubSrcProfile ].bInvNumber;
+	pNewProfile->inv = gMercProfiles[ ubSrcProfile ].inv;
 	memcpy( pNewProfile->bMercTownReputation , gMercProfiles[ ubSrcProfile ].bMercTownReputation , sizeof( UINT8 ) * 20 );
 
 	// remove face

@@ -62,6 +62,8 @@
 #include "soldier macros.h"
 #include "render dirty.h"
 #include "Militia Control.h"
+#include "render dirty.h"
+#include "Militia Control.h"
 #endif
 
 

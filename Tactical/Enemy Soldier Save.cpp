@@ -259,14 +259,17 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 
 	for( i = 0; i < slots; i++ )
 	{
-		FileRead( hfile, &tempDetailedPlacement, sizeof( SOLDIERCREATE_STRUCT ), &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( SOLDIERCREATE_STRUCT ) )
+                // WDS - Clean up inventory handling
+		FileRead( hfile, &tempDetailedPlacement, SIZEOF_SOLDIERCREATE_STRUCT_POD, &uiNumBytesRead );
+		if( uiNumBytesRead != SIZEOF_SOLDIERCREATE_STRUCT_POD)
 		{
 			#ifdef JA2TESTVERSION
 				sprintf( zReason, "EnemySoldier -- EOF while reading tempDetailedPlacment %d.  KM", i );
 			#endif
 			goto FAIL_LOAD;
 		}
+		tempDetailedPlacement.CopyOldInventoryToNew();
+
 		curr = gSoldierInitHead;
 		while( curr )
 		{	
@@ -279,10 +282,11 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 						curr->pBasicPlacement->fPriorityExistance = TRUE;
 						if( !curr->pDetailedPlacement )
 						{ //need to upgrade the placement to detailed placement
-							curr->pDetailedPlacement = (SOLDIERCREATE_STRUCT*)MemAlloc( sizeof( SOLDIERCREATE_STRUCT ) );
+							curr->pDetailedPlacement = new (MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT )) SOLDIERCREATE_STRUCT; //(SOLDIERCREATE_STRUCT*)MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT );
 						}
 						//now replace the map pristine placement info with the temp map file version..
-						memcpy( curr->pDetailedPlacement, &tempDetailedPlacement, sizeof( SOLDIERCREATE_STRUCT ) );
+						//memcpy( curr->pDetailedPlacement, &tempDetailedPlacement, SIZEOF_SOLDIERCREATE_STRUCT );
+						*curr->pDetailedPlacement = tempDetailedPlacement;
 						
 						curr->pBasicPlacement->fPriorityExistance	=	TRUE;
 						curr->pBasicPlacement->bDirection					= curr->pDetailedPlacement->bDirection;
@@ -470,8 +474,10 @@ BOOLEAN SaveEnemySoldiersToTempFile( INT16 sSectorX, INT16 sSectorY, INT8 bSecto
 					if( !curr->pDetailedPlacement )
 					{ //need to upgrade the placement to detailed placement
 						curr->pBasicPlacement->fDetailedPlacement = TRUE;
-						curr->pDetailedPlacement = (SOLDIERCREATE_STRUCT*)MemAlloc( sizeof( SOLDIERCREATE_STRUCT ) );
-						memset( curr->pDetailedPlacement, 0, sizeof( SOLDIERCREATE_STRUCT ) );
+                                                // WDS - Clean up inventory handling
+						curr->pDetailedPlacement = new (MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT )) SOLDIERCREATE_STRUCT; //(SOLDIERCREATE_STRUCT*)MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT );
+						//memset( curr->pDetailedPlacement, 0, SIZEOF_SOLDIERCREATE_STRUCT );
+						curr->pDetailedPlacement->initialize();
 					}
 
 					//Copy over the data of the soldier.
@@ -542,7 +548,9 @@ BOOLEAN SaveEnemySoldiersToTempFile( INT16 sSectorX, INT16 sSectorY, INT8 bSecto
 					sprintf( curr->pDetailedPlacement->MiscPal,		pSoldier->MiscPal );
 
 					//copy soldier's inventory
-					memcpy( curr->pDetailedPlacement->Inv, pSoldier->inv, sizeof( OBJECTTYPE ) * NUM_INV_SLOTS );	
+                                        // WDS - Clean up inventory handling
+					//memcpy( curr->pDetailedPlacement->Inv, pSoldier->inv, sizeof( OBJECTTYPE ) * NUM_INV_SLOTS );	
+					curr->pDetailedPlacement->Inv = pSoldier->inv;	
 				}
 
 				//DONE, now increment the counter, so we know how many there are.
@@ -693,8 +701,10 @@ BOOLEAN SaveEnemySoldiersToTempFile( INT16 sSectorX, INT16 sSectorY, INT8 bSecto
 			}
 			if( curr && curr->pSoldier == pSoldier && pSoldier->ubProfile == NO_PROFILE )
 			{ //found a match.  
-				FileWrite( hfile, curr->pDetailedPlacement, sizeof( SOLDIERCREATE_STRUCT ), &uiNumBytesWritten );
-				if( uiNumBytesWritten != sizeof( SOLDIERCREATE_STRUCT ) )
+                                // WDS - Clean up inventory handling
+				curr->pDetailedPlacement->CopyNewInventoryToOld();
+				FileWrite( hfile, curr->pDetailedPlacement, SIZEOF_SOLDIERCREATE_STRUCT_POD, &uiNumBytesWritten );
+				if( uiNumBytesWritten != SIZEOF_SOLDIERCREATE_STRUCT_POD)
 				{
 					goto FAIL_SAVE;
 				}
@@ -979,14 +989,16 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 
 	for( i = 0; i < slots; i++ )
 	{
-		FileRead( hfile, &tempDetailedPlacement, sizeof( SOLDIERCREATE_STRUCT ), &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( SOLDIERCREATE_STRUCT ) )
+                // WDS - Clean up inventory handling
+		FileRead( hfile, &tempDetailedPlacement, SIZEOF_SOLDIERCREATE_STRUCT_POD, &uiNumBytesRead );
+		if( uiNumBytesRead != SIZEOF_SOLDIERCREATE_STRUCT_POD)
 		{
 			#ifdef JA2TESTVERSION
 				sprintf( zReason, "EnemySoldier -- EOF while reading tempDetailedPlacment %d.  KM", i );
 			#endif
 			goto FAIL_LOAD;
 		}
+		tempDetailedPlacement.CopyOldInventoryToNew();
 		curr = gSoldierInitHead;
 		while( curr )
 		{	
@@ -997,10 +1009,11 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 					curr->pBasicPlacement->fPriorityExistance = TRUE;
 					if( !curr->pDetailedPlacement )
 					{ //need to upgrade the placement to detailed placement
-						curr->pDetailedPlacement = (SOLDIERCREATE_STRUCT*)MemAlloc( sizeof( SOLDIERCREATE_STRUCT ) );
+						curr->pDetailedPlacement = new (MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT )) SOLDIERCREATE_STRUCT; //(SOLDIERCREATE_STRUCT*)MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT );
 					}
 					//now replace the map pristine placement info with the temp map file version..
-					memcpy( curr->pDetailedPlacement, &tempDetailedPlacement, sizeof( SOLDIERCREATE_STRUCT ) );
+					//memcpy( curr->pDetailedPlacement, &tempDetailedPlacement, SIZEOF_SOLDIERCREATE_STRUCT );
+					*curr->pDetailedPlacement = tempDetailedPlacement;
 					
 					curr->pBasicPlacement->fPriorityExistance	=	TRUE;
 					curr->pBasicPlacement->bDirection					= curr->pDetailedPlacement->bDirection;
@@ -1332,14 +1345,16 @@ BOOLEAN NewWayOfLoadingCiviliansFromTempFile()
 
 	for( i = 0; i < slots; i++ )
 	{
-		FileRead( hfile, &tempDetailedPlacement, sizeof( SOLDIERCREATE_STRUCT ), &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( SOLDIERCREATE_STRUCT ) )
+                // WDS - Clean up inventory handling
+		FileRead( hfile, &tempDetailedPlacement, SIZEOF_SOLDIERCREATE_STRUCT_POD, &uiNumBytesRead );
+		if( uiNumBytesRead != SIZEOF_SOLDIERCREATE_STRUCT_POD)
 		{
 			#ifdef JA2TESTVERSION
 				sprintf( zReason, "Civilian -- EOF while reading tempDetailedPlacment %d.  KM", i );
 			#endif
 			goto FAIL_LOAD;
 		}
+		tempDetailedPlacement.CopyOldInventoryToNew();
 		curr = gSoldierInitHead;
 		while( curr )
 		{	
@@ -1354,10 +1369,11 @@ BOOLEAN NewWayOfLoadingCiviliansFromTempFile()
 						if( !curr->pDetailedPlacement )
 						{
 							//need to upgrade the placement to detailed placement
-							curr->pDetailedPlacement = (SOLDIERCREATE_STRUCT*)MemAlloc( sizeof( SOLDIERCREATE_STRUCT ) );
+							curr->pDetailedPlacement = new (MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT )) SOLDIERCREATE_STRUCT;
 						}
 						//now replace the map pristine placement info with the temp map file version..
-						memcpy( curr->pDetailedPlacement, &tempDetailedPlacement, sizeof( SOLDIERCREATE_STRUCT ) );
+						//memcpy( curr->pDetailedPlacement, &tempDetailedPlacement, SIZEOF_SOLDIERCREATE_STRUCT );
+						*curr->pDetailedPlacement = tempDetailedPlacement;
 						
 						curr->pBasicPlacement->fPriorityExistance	=	TRUE;
 						curr->pBasicPlacement->bDirection					= curr->pDetailedPlacement->bDirection;
@@ -1565,8 +1581,10 @@ BOOLEAN NewWayOfSavingEnemyAndCivliansToTempFile( INT16 sSectorX, INT16 sSectorY
 						if( !curr->pDetailedPlacement )
 						{ //need to upgrade the placement to detailed placement
 							curr->pBasicPlacement->fDetailedPlacement = TRUE;
-							curr->pDetailedPlacement = (SOLDIERCREATE_STRUCT*)MemAlloc( sizeof( SOLDIERCREATE_STRUCT ) );
-							memset( curr->pDetailedPlacement, 0, sizeof( SOLDIERCREATE_STRUCT ) );
+                                                        // WDS - Clean up inventory handling
+							curr->pDetailedPlacement = new (MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT )) SOLDIERCREATE_STRUCT;
+							curr->pDetailedPlacement->initialize();
+							//memset( curr->pDetailedPlacement, 0, SIZEOF_SOLDIERCREATE_STRUCT );
 						}
 
 						//Copy over the data of the soldier.
@@ -1625,7 +1643,9 @@ BOOLEAN NewWayOfSavingEnemyAndCivliansToTempFile( INT16 sSectorX, INT16 sSectorY
 						sprintf( curr->pDetailedPlacement->MiscPal,		pSoldier->MiscPal );
 
 						//copy soldier's inventory
-						memcpy( curr->pDetailedPlacement->Inv, pSoldier->inv, sizeof( OBJECTTYPE ) * NUM_INV_SLOTS );	
+                                                // WDS - Clean up inventory handling
+						//memcpy( curr->pDetailedPlacement->Inv, pSoldier->inv, sizeof( OBJECTTYPE ) * NUM_INV_SLOTS );	
+						curr->pDetailedPlacement->Inv = pSoldier->inv;	
 					}
 				}
 
@@ -1759,8 +1779,10 @@ BOOLEAN NewWayOfSavingEnemyAndCivliansToTempFile( INT16 sSectorX, INT16 sSectorY
 			if( curr && curr->pSoldier == pSoldier && pSoldier->ubProfile == NO_PROFILE )
 			{
 				//found a match.  
-				FileWrite( hfile, curr->pDetailedPlacement, sizeof( SOLDIERCREATE_STRUCT ), &uiNumBytesWritten );
-				if( uiNumBytesWritten != sizeof( SOLDIERCREATE_STRUCT ) )
+                                // WDS - Clean up inventory handling
+				curr->pDetailedPlacement->CopyNewInventoryToOld();
+				FileWrite( hfile, curr->pDetailedPlacement, SIZEOF_SOLDIERCREATE_STRUCT_POD, &uiNumBytesWritten );
+				if( uiNumBytesWritten != SIZEOF_SOLDIERCREATE_STRUCT_POD )
 				{
 					goto FAIL_SAVE;
 				}
@@ -1996,14 +2018,16 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 
 	for( i = 0; i < slots; i++ )
 	{
-		FileRead( hfile, &tempDetailedPlacement, sizeof( SOLDIERCREATE_STRUCT ), &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( SOLDIERCREATE_STRUCT ) )
+                // WDS - Clean up inventory handling
+		FileRead( hfile, &tempDetailedPlacement, SIZEOF_SOLDIERCREATE_STRUCT_POD, &uiNumBytesRead );
+		if( uiNumBytesRead != SIZEOF_SOLDIERCREATE_STRUCT_POD)
 		{
 			#ifdef JA2TESTVERSION
 				sprintf( zReason, "Check EnemySoldier -- EOF while reading tempDetailedPlacment %d.  KM", i );
 			#endif
 			goto FAIL_LOAD;
 		}
+		tempDetailedPlacement.CopyOldInventoryToNew();
 
 		//increment the current type of soldier
 		switch( tempDetailedPlacement.ubSoldierClass )
@@ -2038,13 +2062,15 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 			{
 				if( curr->pBasicPlacement->bTeam == tempDetailedPlacement.bTeam )
 				{
+                                        // WDS - Clean up inventory handling
 					curr->pBasicPlacement->fPriorityExistance = TRUE;
 					if( !curr->pDetailedPlacement )
 					{ //need to upgrade the placement to detailed placement
-						curr->pDetailedPlacement = (SOLDIERCREATE_STRUCT*)MemAlloc( sizeof( SOLDIERCREATE_STRUCT ) );
+						curr->pDetailedPlacement = new (MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT )) SOLDIERCREATE_STRUCT;
 					}
 					//now replace the map pristine placement info with the temp map file version..
-					memcpy( curr->pDetailedPlacement, &tempDetailedPlacement, sizeof( SOLDIERCREATE_STRUCT ) );
+//					memcpy( curr->pDetailedPlacement, &tempDetailedPlacement, SIZEOF_SOLDIERCREATE_STRUCT );
+					*curr->pDetailedPlacement = tempDetailedPlacement;
 					
 					curr->pBasicPlacement->fPriorityExistance	=	TRUE;
 					curr->pBasicPlacement->bDirection					= curr->pDetailedPlacement->bDirection;

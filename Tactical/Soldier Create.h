@@ -8,6 +8,12 @@
 #include "Item Types.h"
 #include "soldier control.h"
 
+// WDS - Clean up inventory handling
+#include <vector>
+#include <iterator>
+
+using namespace std;
+
 #define		SOLDIER_CREATE_AUTO_TEAM			-1
 
 //Kris: 
@@ -51,8 +57,37 @@ typedef struct
 	INT8 PADDINGSLOTS[ 14 ];
 } BASIC_SOLDIERCREATE_STRUCT; //50 bytes
 
-typedef struct
+// WDS - Clean up inventory handling
+//typedef struct
+class SOLDIERCREATE_STRUCT
 {
+public:
+	// Constructor
+	SOLDIERCREATE_STRUCT();
+	// Copy Constructor
+	SOLDIERCREATE_STRUCT(const SOLDIERCREATE_STRUCT&);
+	// Assignment operator
+    SOLDIERCREATE_STRUCT& operator=(const SOLDIERCREATE_STRUCT&);
+	// Destructor
+	~SOLDIERCREATE_STRUCT();
+
+	// Initialize the soldier.  
+	//  Use this instead of the old method of calling memset!
+	//  Note that the constructor does this automatically.
+	void initialize();
+
+	// Ugly temporary solution
+	//
+	// Note!  These two functions should ONLY be used either just before saving to a
+	// file (NewToOld) or after loading a file (OldToNew).
+	void CopyOldInventoryToNew();
+	void CopyNewInventoryToOld();
+
+	// Note: Place all non-POD items at the end (after endOfPOD)
+	// The format of this structure affects what is written into and read from various
+	// files (maps, save files, etc.).  If you change it then that code will not work 
+	// properly until it is all fixed and the files updated.
+public:
 	//Bulletproofing so static detailed placements aren't used to tactically create soldiers.
 	//Used by editor for validation purposes.
 	BOOLEAN						fStatic;  
@@ -93,8 +128,10 @@ typedef struct
 	INT8							bMorale;
 	INT8							bAIMorale;
 
+private:
 	//Inventory
-	OBJECTTYPE				Inv[ NUM_INV_SLOTS ];	
+	OBJECTTYPE				DO_NOT_USE_Inv[ OldInventory::NUM_INV_SLOTS ];	
+public:
 	
 	//Palette information for soldiers.
 	PaletteRepID			HeadPal;	
@@ -130,8 +167,18 @@ typedef struct
 
 	INT8 bPadding[115];
 
+	//
+	// New and OO stuff goes after here.  Above this point any changes will goof up reading from files.
+	//
+	char ef1,ef2;	// Extra filler to get "offsetof(endOfPOD)" to match SIZEOF(oldstruct)
 
-} SOLDIERCREATE_STRUCT;
+	char endOfPOD;	// marker for end of POD (plain old data)
+
+	Inventory				Inv;
+}; // SOLDIERCREATE_STRUCT;
+
+#define SIZEOF_SOLDIERCREATE_STRUCT_POD offsetof( SOLDIERCREATE_STRUCT, endOfPOD )
+#define SIZEOF_SOLDIERCREATE_STRUCT sizeof( SOLDIERCREATE_STRUCT )
 
 
 //Original functions currently used throughout the game.

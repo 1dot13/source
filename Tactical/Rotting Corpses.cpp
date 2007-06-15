@@ -1068,8 +1068,10 @@ void AddCrowToCorpse( ROTTING_CORPSE *pCorpse )
 		return;
 	}
 
+        // WDS - Clean up inventory handling
 	// Put him flying over corpse pisition
-	memset( &MercCreateStruct, 0, sizeof( MercCreateStruct ) );
+//	memset( &MercCreateStruct, 0, sizeof( MercCreateStruct ) );
+	MercCreateStruct.initialize();
 	MercCreateStruct.ubProfile		= NO_PROFILE;
 	MercCreateStruct.sSectorX			= gWorldSectorX;
 	MercCreateStruct.sSectorY			= gWorldSectorY;
@@ -1612,9 +1614,11 @@ INT16 FindNearestAvailableGridNoForCorpse( ROTTING_CORPSE_DEFINITION *pDef, INT8
 	gubNPCAPBudget = 0;
 	gubNPCDistLimit = ubRadius;
 
+        // WDS - Clean up inventory handling
 	//create dummy soldier, and use the pathing to determine which nearby slots are
 	//reachable.
-	memset( &soldier, 0, sizeof( SOLDIERTYPE ) );
+	//memset( &soldier, 0, SIZEOF_SOLDIERTYPE );
+	soldier.initialize();
 	soldier.bTeam = 1;
 	soldier.sGridNo = sSweetGridNo;
 

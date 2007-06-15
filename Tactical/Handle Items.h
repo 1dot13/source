@@ -1,9 +1,9 @@
 #ifndef __HANDLE_ITEMS_H
 #define __HANDLE_ITEMS_H
 
-#include "Soldier Control.h"
 #include "World Items.h"
 #include "structure.h"
+#include "Soldier Control.h"
 
 #define ITEM_HANDLE_OK													1
 #define ITEM_HANDLE_RELOADING										-1
@@ -46,6 +46,10 @@
 typedef void ( *ITEM_POOL_LOCATOR_HOOK )( void );	
 
 
+// WDS - Clean up inventory handling
+struct WORLDITEM;
+struct LEVELNODE;
+
 typedef struct TAG_ITEM_POOL
 {	
 	struct TAG_ITEM_POOL	*pNext;
@@ -59,7 +63,7 @@ typedef struct TAG_ITEM_POOL
 	UINT8				ubLevel;
 	UINT16			usFlags;
 	INT8				bRenderZHeightAboveLevel;
-	struct TAG_level_node	*pLevelNode;
+	LEVELNODE		*pLevelNode;
 
 } ITEM_POOL;
 
@@ -76,7 +80,8 @@ typedef struct
 
 } ITEM_POOL_LOCATOR;
 
-
+// WDS - Clean up inventory handling
+class SOLDIERTYPE;
 INT32 HandleItem( SOLDIERTYPE *pSoldier, UINT16 usGridNo, INT8 bLevel, UINT16 usHandItem, BOOLEAN fFromUI );
 void SoldierPickupItem( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT16 sGridNo, INT8 bZLevel );
 void HandleSoldierPickupItem( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT16 sGridNo, INT8 bZLevel );

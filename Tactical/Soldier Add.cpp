@@ -72,9 +72,11 @@ UINT16 FindGridNoFromSweetSpot( SOLDIERTYPE *pSoldier, INT16 sSweetGridNo, INT8 
 	gubNPCAPBudget = 0;
 	gubNPCDistLimit = ubRadius;
 
+        // WDS - Clean up inventory handling
 	//create dummy soldier, and use the pathing to determine which nearby slots are
 	//reachable.
-	memset( &soldier, 0, sizeof( SOLDIERTYPE ) );
+	//memset( &soldier, 0, SIZEOF_SOLDIERTYPE );
+	soldier.initialize();
 	soldier.bLevel = 0;
 	soldier.bTeam = 1;
 	soldier.sGridNo = sSweetGridNo;
@@ -174,9 +176,11 @@ UINT16 FindGridNoFromSweetSpotThroughPeople( SOLDIERTYPE *pSoldier, INT16 sSweet
 	gubNPCAPBudget = 0;
 	gubNPCDistLimit = ubRadius;
 
+        // WDS - Clean up inventory handling
 	//create dummy soldier, and use the pathing to determine which nearby slots are
 	//reachable.
-	memset( &soldier, 0, sizeof( SOLDIERTYPE ) );
+	//memset( &soldier, 0, SIZEOF_SOLDIERTYPE );
+	soldier.initialize();
 	soldier.bLevel = 0;
 	soldier.bTeam = pSoldier->bTeam;
 	soldier.sGridNo = sSweetGridNo;
@@ -275,9 +279,11 @@ UINT16 FindGridNoFromSweetSpotWithStructData( SOLDIERTYPE *pSoldier, UINT16 usAn
 	gubNPCAPBudget = 0;
 	gubNPCDistLimit = ubRadius;
 
+        // WDS - Clean up inventory handling
 	//create dummy soldier, and use the pathing to determine which nearby slots are
 	//reachable.
-	memset( &soldier, 0, sizeof( SOLDIERTYPE ) );
+	//memset( &soldier, 0, SIZEOF_SOLDIERTYPE );
+	soldier.initialize();
 	soldier.bLevel = 0;
 	soldier.bTeam = 1;
 	soldier.sGridNo = sSweetGridNo;
@@ -438,9 +444,11 @@ UINT16 FindGridNoFromSweetSpotWithStructDataUsingGivenDirectionFirst( SOLDIERTYP
 	gubNPCAPBudget = 0;
 	gubNPCDistLimit = ubRadius;
 
+        // WDS - Clean up inventory handling
 	//create dummy soldier, and use the pathing to determine which nearby slots are
 	//reachable.
-	memset( &soldier, 0, sizeof( SOLDIERTYPE ) );
+	//memset( &soldier, 0, SIZEOF_SOLDIERTYPE );
+	soldier.initialize();
 	soldier.bLevel = 0;
 	soldier.bTeam = 1;
 	soldier.sGridNo = sSweetGridNo;
@@ -617,9 +625,11 @@ UINT16 FindGridNoFromSweetSpotWithStructDataFromSoldier( SOLDIERTYPE *pSoldier, 
 	gubNPCAPBudget = 0;
 	gubNPCDistLimit = ubRadius;
 
+        // WDS - Clean up inventory handling
 	//create dummy soldier, and use the pathing to determine which nearby slots are
 	//reachable.
-	memset( &soldier, 0, sizeof( SOLDIERTYPE ) );
+	//memset( &soldier, 0, SIZEOF_SOLDIERTYPE );
+	soldier.initialize();
 	soldier.bLevel = 0;
 	soldier.bTeam = 1;
 	soldier.sGridNo = sSweetGridNo;
@@ -948,9 +958,11 @@ UINT16 FindRandomGridNoFromSweetSpot( SOLDIERTYPE *pSoldier, INT16 sSweetGridNo,
 	gubNPCAPBudget = 0;
 	gubNPCDistLimit = ubRadius;
 
+        // WDS - Clean up inventory handling
 	//create dummy soldier, and use the pathing to determine which nearby slots are
 	//reachable.
-	memset( &soldier, 0, sizeof( SOLDIERTYPE ) );
+	//memset( &soldier, 0, SIZEOF_SOLDIERTYPE );
+	soldier.initialize();
 	soldier.bLevel = 0;
 	soldier.bTeam = 1;
 	soldier.sGridNo = sSweetGridNo;

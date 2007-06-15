@@ -2897,12 +2897,12 @@ BOOLEAN DetermineArmsDealersSellingInventory( )
 		if ( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
 			// sort this list by object category, and by ascending price within each category
-			qsort( gpTempDealersInventory, guiNextFreeInvSlot, sizeof( INVENTORY_IN_SLOT ), RepairmanItemQsortCompare );
+			qsort( (void*)gpTempDealersInventory, (size_t)guiNextFreeInvSlot, sizeof( INVENTORY_IN_SLOT ), RepairmanItemQsortCompare );
 		}
 		else
 		{
 			// sort this list by object category, and by ascending price within each category
-			qsort( gpTempDealersInventory, guiNextFreeInvSlot, sizeof( INVENTORY_IN_SLOT ), ArmsDealerItemQsortCompare );
+			qsort( (void*)gpTempDealersInventory, (size_t)guiNextFreeInvSlot, sizeof( INVENTORY_IN_SLOT ), ArmsDealerItemQsortCompare );
 		}
 	}
 

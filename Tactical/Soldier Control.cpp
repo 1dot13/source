@@ -226,6 +226,498 @@ BATTLESNDS_STRUCT	 gBattleSndsData[] =
 	"enem",			0,				1,			1,		1,		0,
 };
 
+// WDS - Clean up inventory handling
+// ----------------------------------------
+// New inventory handling code.
+// ----------------------------------------
+
+Inventory::Inventory() {
+	slotCnt = NUM_INV_SLOTS;
+	inv.reserve(slotCnt);
+	for (int idx=0; idx < slotCnt; ++idx) {
+		OBJECTTYPE *filler = new OBJECTTYPE;	// Use MEMALLOC?
+		inv.push_back(*filler);
+	}
+	clear();
+	Assert (inv.size() == slotCnt);
+};
+
+Inventory::Inventory(int slotCount) {
+	slotCnt = slotCount;
+	inv.reserve(slotCnt);
+	for (int idx=0; idx < slotCnt; ++idx) {
+		OBJECTTYPE *filler = new OBJECTTYPE;	// Use MEMALLOC?
+		inv.push_back(*filler);
+	}
+	clear();
+	Assert (inv.size() == slotCnt);
+};
+
+Inventory::Inventory(const Inventory& src) {
+	inv.reserve(slotCnt);
+	Assert (src.inv.size() == slotCnt);
+	inv = src.inv;
+	Assert (inv.size() == slotCnt);
+}
+
+int Inventory::size() const {
+	Assert (inv.size() == slotCnt);
+	return slotCnt;
+}
+
+
+// Assignment operator
+Inventory& Inventory::operator=(const Inventory& src)
+{
+	// This IF is just for setting breakpoints when trying to figure out inventory item problems.  Remove it later
+	if ((src.inv.size() != slotCnt) ||
+		(inv.size() != slotCnt)) {
+		int i = 0; // Set BP here if following asserts throw
+	}
+	Assert (src.inv.size() == slotCnt);
+	Assert (inv.size() == slotCnt);
+	if (this != &src) {
+		if (inv.size() == 0) {
+			inv.reserve(slotCnt);
+			for (int idx=0; idx < slotCnt; ++idx) {
+				inv.push_back(src.inv[idx]);
+			}
+		} else {
+			clear();
+			for (int idx=0; idx < slotCnt; ++idx) {
+				inv[idx] = src.inv[idx];
+			}
+		}
+    }
+    return *this;
+}
+
+Inventory::~Inventory() {
+};
+
+
+OBJECTTYPE& Inventory::operator [] (int idx) {
+	// This IF is just from setting breakpoints when trying to figure out inventory item problems.  Remove it later
+	if ((idx < 0) ||
+		(idx >= slotCnt) ||
+		(inv.size() != slotCnt)) {
+		int i = inv.size();  // Set BP here if following asserts throw
+	}
+	Assert(idx >= 0);
+	Assert(idx < slotCnt);
+	Assert(inv.size() == slotCnt);
+	return inv[idx];
+};
+
+void Inventory::clear() {
+	Assert (inv.size() == slotCnt);
+	for (int idx=0; idx < slotCnt; ++idx) {
+		memset(&inv[idx], 0, sizeof(OBJECTTYPE));
+	}
+};
+
+// ----------------------------------------
+
+SOLDIERTYPE::SOLDIERTYPE() {
+	bNewItemCount.reserve(inv.size());
+	bNewItemCycleCount.reserve(inv.size());
+	for (int idx=0; idx < (int)inv.size(); ++idx) {
+		bNewItemCount.push_back(0);
+		bNewItemCycleCount.push_back(0);
+	}
+	initialize();
+
+	Assert(bNewItemCount.size() == inv.size());
+	Assert(bNewItemCycleCount.size() == inv.size());
+
+	// The following are based on the "old" SOLDIERTYPE struct
+	// Remove these later
+	Assert(SIZEOF_SOLDIERTYPE_POD == 2344);
+	Assert(offsetof( SOLDIERTYPE, bFiller ) == 2305);
+}
+
+// Copy Constructor
+SOLDIERTYPE::SOLDIERTYPE(const SOLDIERTYPE& src) {
+	memcpy(this, &src, SIZEOF_SOLDIERTYPE_POD);
+	inv = src.inv;
+	bNewItemCount = src.bNewItemCount;
+	bNewItemCycleCount = src.bNewItemCycleCount;
+
+	Assert(bNewItemCount.size() == inv.size());
+	Assert(bNewItemCycleCount.size() == inv.size());
+}
+
+// Assignment operator
+SOLDIERTYPE& SOLDIERTYPE::operator=(const SOLDIERTYPE& src)
+{
+    if (this != &src) {
+		memcpy(this, &src, SIZEOF_SOLDIERTYPE_POD);
+		inv = src.inv;
+		bNewItemCount = src.bNewItemCount;
+		bNewItemCycleCount = src.bNewItemCycleCount;
+    }
+    return *this;
+}
+
+// Destructor
+SOLDIERTYPE::~SOLDIERTYPE() {
+}
+
+// Initialize the soldier.  
+//  Use this instead of the old method of calling memset!
+//  Note that the constructor does this automatically.
+void SOLDIERTYPE::initialize() {
+	memset( this, 0, SIZEOF_SOLDIERTYPE_POD);
+	inv.clear();
+	for (int idx=0; idx < (int)inv.size(); ++idx) {
+		bNewItemCount[idx] = 0;
+		bNewItemCycleCount[idx] = 0;
+	}
+
+	Assert(bNewItemCount.size() == inv.size());
+	Assert(bNewItemCycleCount.size() == inv.size());
+}
+
+
+// Ugly temporary solution
+//
+// These two functions map the "old" style inventory (fixed array of ) to the new (a flexibly sized vector).
+// If you change names or eliminate some positions or such you need to change these.
+// Eventually the need for these functions will disappear.
+
+void SOLDIERTYPE::CopyOldInventoryToNew() {
+	// Do not use a loop in case the new inventory slots are arranged differently than the old
+	inv[HELMETPOS] = DO_NOT_USE_Inv[OldInventory::HELMETPOS];
+	inv[VESTPOS] = DO_NOT_USE_Inv[OldInventory::VESTPOS];
+	inv[LEGPOS] = DO_NOT_USE_Inv[OldInventory::LEGPOS];
+	inv[HEAD1POS] = DO_NOT_USE_Inv[OldInventory::HEAD1POS];
+	inv[HEAD2POS] = DO_NOT_USE_Inv[OldInventory::HEAD2POS];
+	inv[HANDPOS] = DO_NOT_USE_Inv[OldInventory::HANDPOS];
+	inv[SECONDHANDPOS] = DO_NOT_USE_Inv[OldInventory::SECONDHANDPOS];
+	inv[BIGPOCK1POS] = DO_NOT_USE_Inv[OldInventory::BIGPOCK1POS];
+	inv[BIGPOCK2POS] = DO_NOT_USE_Inv[OldInventory::BIGPOCK2POS];
+	inv[BIGPOCK3POS] = DO_NOT_USE_Inv[OldInventory::BIGPOCK3POS];
+	inv[BIGPOCK4POS] = DO_NOT_USE_Inv[OldInventory::BIGPOCK4POS];
+	inv[SMALLPOCK1POS] = DO_NOT_USE_Inv[OldInventory::SMALLPOCK1POS];
+	inv[SMALLPOCK2POS] = DO_NOT_USE_Inv[OldInventory::SMALLPOCK2POS];
+	inv[SMALLPOCK3POS] = DO_NOT_USE_Inv[OldInventory::SMALLPOCK3POS];
+	inv[SMALLPOCK4POS] = DO_NOT_USE_Inv[OldInventory::SMALLPOCK4POS];
+	inv[SMALLPOCK5POS] = DO_NOT_USE_Inv[OldInventory::SMALLPOCK5POS];
+	inv[SMALLPOCK6POS] = DO_NOT_USE_Inv[OldInventory::SMALLPOCK6POS];
+	inv[SMALLPOCK7POS] = DO_NOT_USE_Inv[OldInventory::SMALLPOCK7POS];
+	inv[SMALLPOCK8POS] = DO_NOT_USE_Inv[OldInventory::SMALLPOCK8POS];
+
+	bNewItemCount[OldInventory::HELMETPOS] = DO_NOT_USE_bNewItemCount[HELMETPOS];
+	bNewItemCount[OldInventory::VESTPOS] = DO_NOT_USE_bNewItemCount[VESTPOS];
+	bNewItemCount[OldInventory::LEGPOS] = DO_NOT_USE_bNewItemCount[LEGPOS];
+	bNewItemCount[OldInventory::HEAD1POS] = DO_NOT_USE_bNewItemCount[HEAD1POS];
+	bNewItemCount[OldInventory::HEAD2POS] = DO_NOT_USE_bNewItemCount[HEAD2POS];
+	bNewItemCount[OldInventory::HANDPOS] = DO_NOT_USE_bNewItemCount[HANDPOS];
+	bNewItemCount[OldInventory::SECONDHANDPOS] = DO_NOT_USE_bNewItemCount[SECONDHANDPOS];
+	bNewItemCount[OldInventory::BIGPOCK1POS] = DO_NOT_USE_bNewItemCount[BIGPOCK1POS];
+	bNewItemCount[OldInventory::BIGPOCK2POS] = DO_NOT_USE_bNewItemCount[BIGPOCK2POS];
+	bNewItemCount[OldInventory::BIGPOCK3POS] = DO_NOT_USE_bNewItemCount[BIGPOCK3POS];
+	bNewItemCount[OldInventory::BIGPOCK4POS] = DO_NOT_USE_bNewItemCount[BIGPOCK4POS];
+	bNewItemCount[OldInventory::SMALLPOCK1POS] = DO_NOT_USE_bNewItemCount[SMALLPOCK1POS];
+	bNewItemCount[OldInventory::SMALLPOCK2POS] = DO_NOT_USE_bNewItemCount[SMALLPOCK2POS];
+	bNewItemCount[OldInventory::SMALLPOCK3POS] = DO_NOT_USE_bNewItemCount[SMALLPOCK3POS];
+	bNewItemCount[OldInventory::SMALLPOCK4POS] = DO_NOT_USE_bNewItemCount[SMALLPOCK4POS];
+	bNewItemCount[OldInventory::SMALLPOCK5POS] = DO_NOT_USE_bNewItemCount[SMALLPOCK5POS];
+	bNewItemCount[OldInventory::SMALLPOCK6POS] = DO_NOT_USE_bNewItemCount[SMALLPOCK6POS];
+	bNewItemCount[OldInventory::SMALLPOCK7POS] = DO_NOT_USE_bNewItemCount[SMALLPOCK7POS];
+	bNewItemCount[OldInventory::SMALLPOCK8POS] = DO_NOT_USE_bNewItemCount[SMALLPOCK8POS];
+
+	bNewItemCycleCount[OldInventory::HELMETPOS] = DO_NOT_USE_bNewItemCycleCount[HELMETPOS];
+	bNewItemCycleCount[OldInventory::VESTPOS] = DO_NOT_USE_bNewItemCycleCount[VESTPOS];
+	bNewItemCycleCount[OldInventory::LEGPOS] = DO_NOT_USE_bNewItemCycleCount[LEGPOS];
+	bNewItemCycleCount[OldInventory::HEAD1POS] = DO_NOT_USE_bNewItemCycleCount[HEAD1POS];
+	bNewItemCycleCount[OldInventory::HEAD2POS] = DO_NOT_USE_bNewItemCycleCount[HEAD2POS];
+	bNewItemCycleCount[OldInventory::HANDPOS] = DO_NOT_USE_bNewItemCycleCount[HANDPOS];
+	bNewItemCycleCount[OldInventory::SECONDHANDPOS] = DO_NOT_USE_bNewItemCycleCount[SECONDHANDPOS];
+	bNewItemCycleCount[OldInventory::BIGPOCK1POS] = DO_NOT_USE_bNewItemCycleCount[BIGPOCK1POS];
+	bNewItemCycleCount[OldInventory::BIGPOCK2POS] = DO_NOT_USE_bNewItemCycleCount[BIGPOCK2POS];
+	bNewItemCycleCount[OldInventory::BIGPOCK3POS] = DO_NOT_USE_bNewItemCycleCount[BIGPOCK3POS];
+	bNewItemCycleCount[OldInventory::BIGPOCK4POS] = DO_NOT_USE_bNewItemCycleCount[BIGPOCK4POS];
+	bNewItemCycleCount[OldInventory::SMALLPOCK1POS] = DO_NOT_USE_bNewItemCycleCount[SMALLPOCK1POS];
+	bNewItemCycleCount[OldInventory::SMALLPOCK2POS] = DO_NOT_USE_bNewItemCycleCount[SMALLPOCK2POS];
+	bNewItemCycleCount[OldInventory::SMALLPOCK3POS] = DO_NOT_USE_bNewItemCycleCount[SMALLPOCK3POS];
+	bNewItemCycleCount[OldInventory::SMALLPOCK4POS] = DO_NOT_USE_bNewItemCycleCount[SMALLPOCK4POS];
+	bNewItemCycleCount[OldInventory::SMALLPOCK5POS] = DO_NOT_USE_bNewItemCycleCount[SMALLPOCK5POS];
+	bNewItemCycleCount[OldInventory::SMALLPOCK6POS] = DO_NOT_USE_bNewItemCycleCount[SMALLPOCK6POS];
+	bNewItemCycleCount[OldInventory::SMALLPOCK7POS] = DO_NOT_USE_bNewItemCycleCount[SMALLPOCK7POS];
+	bNewItemCycleCount[OldInventory::SMALLPOCK8POS] = DO_NOT_USE_bNewItemCycleCount[SMALLPOCK8POS];
+}
+void SOLDIERTYPE::CopyNewInventoryToOld() {
+	// Do not use a loop in case the new inventory slots are arranged differently than the old
+	DO_NOT_USE_Inv[OldInventory::HELMETPOS] = inv[HELMETPOS];
+	DO_NOT_USE_Inv[OldInventory::VESTPOS] = inv[VESTPOS];
+	DO_NOT_USE_Inv[OldInventory::LEGPOS] = inv[LEGPOS];
+	DO_NOT_USE_Inv[OldInventory::HEAD1POS] = inv[HEAD1POS];
+	DO_NOT_USE_Inv[OldInventory::HEAD2POS] = inv[HEAD2POS];
+	DO_NOT_USE_Inv[OldInventory::HANDPOS] = inv[HANDPOS];
+	DO_NOT_USE_Inv[OldInventory::SECONDHANDPOS] = inv[SECONDHANDPOS];
+	DO_NOT_USE_Inv[OldInventory::BIGPOCK1POS] = inv[BIGPOCK1POS];
+	DO_NOT_USE_Inv[OldInventory::BIGPOCK2POS] = inv[BIGPOCK2POS];
+	DO_NOT_USE_Inv[OldInventory::BIGPOCK3POS] = inv[BIGPOCK3POS];
+	DO_NOT_USE_Inv[OldInventory::BIGPOCK4POS] = inv[BIGPOCK4POS];
+	DO_NOT_USE_Inv[OldInventory::SMALLPOCK1POS] = inv[SMALLPOCK1POS];
+	DO_NOT_USE_Inv[OldInventory::SMALLPOCK2POS] = inv[SMALLPOCK2POS];
+	DO_NOT_USE_Inv[OldInventory::SMALLPOCK3POS] = inv[SMALLPOCK3POS];
+	DO_NOT_USE_Inv[OldInventory::SMALLPOCK4POS] = inv[SMALLPOCK4POS];
+	DO_NOT_USE_Inv[OldInventory::SMALLPOCK5POS] = inv[SMALLPOCK5POS];
+	DO_NOT_USE_Inv[OldInventory::SMALLPOCK6POS] = inv[SMALLPOCK6POS];
+	DO_NOT_USE_Inv[OldInventory::SMALLPOCK7POS] = inv[SMALLPOCK7POS];
+	DO_NOT_USE_Inv[OldInventory::SMALLPOCK8POS] = inv[SMALLPOCK8POS];
+
+	DO_NOT_USE_bNewItemCount[OldInventory::HELMETPOS] = bNewItemCount[HELMETPOS];
+	DO_NOT_USE_bNewItemCount[OldInventory::VESTPOS] = bNewItemCount[VESTPOS];
+	DO_NOT_USE_bNewItemCount[OldInventory::LEGPOS] = bNewItemCount[LEGPOS];
+	DO_NOT_USE_bNewItemCount[OldInventory::HEAD1POS] = bNewItemCount[HEAD1POS];
+	DO_NOT_USE_bNewItemCount[OldInventory::HEAD2POS] = bNewItemCount[HEAD2POS];
+	DO_NOT_USE_bNewItemCount[OldInventory::HANDPOS] = bNewItemCount[HANDPOS];
+	DO_NOT_USE_bNewItemCount[OldInventory::SECONDHANDPOS] = bNewItemCount[SECONDHANDPOS];
+	DO_NOT_USE_bNewItemCount[OldInventory::BIGPOCK1POS] = bNewItemCount[BIGPOCK1POS];
+	DO_NOT_USE_bNewItemCount[OldInventory::BIGPOCK2POS] = bNewItemCount[BIGPOCK2POS];
+	DO_NOT_USE_bNewItemCount[OldInventory::BIGPOCK3POS] = bNewItemCount[BIGPOCK3POS];
+	DO_NOT_USE_bNewItemCount[OldInventory::BIGPOCK4POS] = bNewItemCount[BIGPOCK4POS];
+	DO_NOT_USE_bNewItemCount[OldInventory::SMALLPOCK1POS] = bNewItemCount[SMALLPOCK1POS];
+	DO_NOT_USE_bNewItemCount[OldInventory::SMALLPOCK2POS] = bNewItemCount[SMALLPOCK2POS];
+	DO_NOT_USE_bNewItemCount[OldInventory::SMALLPOCK3POS] = bNewItemCount[SMALLPOCK3POS];
+	DO_NOT_USE_bNewItemCount[OldInventory::SMALLPOCK4POS] = bNewItemCount[SMALLPOCK4POS];
+	DO_NOT_USE_bNewItemCount[OldInventory::SMALLPOCK5POS] = bNewItemCount[SMALLPOCK5POS];
+	DO_NOT_USE_bNewItemCount[OldInventory::SMALLPOCK6POS] = bNewItemCount[SMALLPOCK6POS];
+	DO_NOT_USE_bNewItemCount[OldInventory::SMALLPOCK7POS] = bNewItemCount[SMALLPOCK7POS];
+	DO_NOT_USE_bNewItemCount[OldInventory::SMALLPOCK8POS] = bNewItemCount[SMALLPOCK8POS];
+
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::HELMETPOS] = bNewItemCycleCount[HELMETPOS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::VESTPOS] = bNewItemCycleCount[VESTPOS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::LEGPOS] = bNewItemCycleCount[LEGPOS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::HEAD1POS] = bNewItemCycleCount[HEAD1POS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::HEAD2POS] = bNewItemCycleCount[HEAD2POS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::HANDPOS] = bNewItemCycleCount[HANDPOS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::SECONDHANDPOS] = bNewItemCycleCount[SECONDHANDPOS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::BIGPOCK1POS] = bNewItemCycleCount[BIGPOCK1POS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::BIGPOCK2POS] = bNewItemCycleCount[BIGPOCK2POS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::BIGPOCK3POS] = bNewItemCycleCount[BIGPOCK3POS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::BIGPOCK4POS] = bNewItemCycleCount[BIGPOCK4POS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::SMALLPOCK1POS] = bNewItemCycleCount[SMALLPOCK1POS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::SMALLPOCK2POS] = bNewItemCycleCount[SMALLPOCK2POS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::SMALLPOCK3POS] = bNewItemCycleCount[SMALLPOCK3POS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::SMALLPOCK4POS] = bNewItemCycleCount[SMALLPOCK4POS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::SMALLPOCK5POS] = bNewItemCycleCount[SMALLPOCK5POS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::SMALLPOCK6POS] = bNewItemCycleCount[SMALLPOCK6POS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::SMALLPOCK7POS] = bNewItemCycleCount[SMALLPOCK7POS];
+	DO_NOT_USE_bNewItemCycleCount[OldInventory::SMALLPOCK8POS] = bNewItemCycleCount[SMALLPOCK8POS];
+}
+
+// ----------------------------------------
+
+MERCPROFILESTRUCT::MERCPROFILESTRUCT() {
+	inv.reserve(NUM_INV_SLOTS);
+	bInvStatus.reserve(NUM_INV_SLOTS);
+	bInvNumber.reserve(NUM_INV_SLOTS);
+	for (int idx=0; idx < NUM_INV_SLOTS; ++idx) {
+		inv.push_back(0);
+		bInvStatus.push_back(0);
+		bInvNumber.push_back(0);
+	}
+	initialize();
+
+	Assert(inv.size() == NUM_INV_SLOTS);
+	Assert(bInvStatus.size() == NUM_INV_SLOTS);
+	Assert(bInvStatus.size() == NUM_INV_SLOTS);
+
+	// The following are based on the "old" MERCPROFILESTRUCT struct
+	// Remove these later
+	Assert(SIZEOF_MERCPROFILESTRUCT_POD == 0x2cc); //sizeof(OLD_MERCPROFILESTRUCT));
+}
+
+// Copy Constructor
+MERCPROFILESTRUCT::MERCPROFILESTRUCT(const MERCPROFILESTRUCT& src) {
+	memcpy(this, &src, SIZEOF_MERCPROFILESTRUCT_POD);
+	inv = src.inv;
+	bInvStatus = src.bInvStatus;
+	bInvNumber = src.bInvNumber;
+
+	Assert(inv.size() == NUM_INV_SLOTS);
+	Assert(bInvStatus.size() == NUM_INV_SLOTS);
+	Assert(bInvStatus.size() == NUM_INV_SLOTS);
+}
+
+// Assignment operator
+MERCPROFILESTRUCT& MERCPROFILESTRUCT::operator=(const MERCPROFILESTRUCT& src)
+{
+    if (this != &src) {
+		memcpy(this, &src, SIZEOF_MERCPROFILESTRUCT_POD);
+		inv = src.inv;
+		bInvStatus = src.bInvStatus;
+		bInvNumber = src.bInvNumber;
+    }
+ 	Assert(inv.size() == NUM_INV_SLOTS);
+	Assert(bInvStatus.size() == NUM_INV_SLOTS);
+	Assert(bInvStatus.size() == NUM_INV_SLOTS);
+	return *this;
+}
+
+// Destructor
+MERCPROFILESTRUCT::~MERCPROFILESTRUCT() {
+}
+
+// Initialize the soldier.  
+//  Use this instead of the old method of calling memset!
+//  Note that the constructor does this automatically.
+void MERCPROFILESTRUCT::initialize() {
+	memset( this, 0, SIZEOF_MERCPROFILESTRUCT_POD);
+	clearInventory();
+	Assert(inv.size() == NUM_INV_SLOTS);
+	Assert(bInvStatus.size() == NUM_INV_SLOTS);
+	Assert(bInvStatus.size() == NUM_INV_SLOTS);
+}
+
+// Initialize the soldier.  
+//  Use this instead of the old method of calling memset!
+//  Note that the constructor does this automatically.
+void MERCPROFILESTRUCT::clearInventory() {
+	for (int idx=0; idx < (int)inv.size(); ++idx) {
+		inv[idx] = 0;
+		bInvStatus[idx] = 0;
+		bInvNumber[idx] = 0;
+	}
+	Assert(inv.size() == NUM_INV_SLOTS);
+	Assert(bInvStatus.size() == NUM_INV_SLOTS);
+	Assert(bInvStatus.size() == NUM_INV_SLOTS);
+}
+
+// Ugly temporary solution
+//
+// These two functions map the "old" style inventory (fixed array of ) to the new (a flexibly sized vector).
+// If you change names or eliminate some positions or such you need to change these.
+// Eventually the need for these functions will disappear.
+
+void MERCPROFILESTRUCT::CopyOldInventoryToNew() {
+	// Do not use a loop in case the new inventory slots are arranged differently than the old
+	inv[HELMETPOS] = DO_NOT_USE_inv[OldInventory::HELMETPOS];
+	inv[VESTPOS] = DO_NOT_USE_inv[OldInventory::VESTPOS];
+	inv[LEGPOS] = DO_NOT_USE_inv[OldInventory::LEGPOS];
+	inv[HEAD1POS] = DO_NOT_USE_inv[OldInventory::HEAD1POS];
+	inv[HEAD2POS] = DO_NOT_USE_inv[OldInventory::HEAD2POS];
+	inv[HANDPOS] = DO_NOT_USE_inv[OldInventory::HANDPOS];
+	inv[SECONDHANDPOS] = DO_NOT_USE_inv[OldInventory::SECONDHANDPOS];
+	inv[BIGPOCK1POS] = DO_NOT_USE_inv[OldInventory::BIGPOCK1POS];
+	inv[BIGPOCK2POS] = DO_NOT_USE_inv[OldInventory::BIGPOCK2POS];
+	inv[BIGPOCK3POS] = DO_NOT_USE_inv[OldInventory::BIGPOCK3POS];
+	inv[BIGPOCK4POS] = DO_NOT_USE_inv[OldInventory::BIGPOCK4POS];
+	inv[SMALLPOCK1POS] = DO_NOT_USE_inv[OldInventory::SMALLPOCK1POS];
+	inv[SMALLPOCK2POS] = DO_NOT_USE_inv[OldInventory::SMALLPOCK2POS];
+	inv[SMALLPOCK3POS] = DO_NOT_USE_inv[OldInventory::SMALLPOCK3POS];
+	inv[SMALLPOCK4POS] = DO_NOT_USE_inv[OldInventory::SMALLPOCK4POS];
+	inv[SMALLPOCK5POS] = DO_NOT_USE_inv[OldInventory::SMALLPOCK5POS];
+	inv[SMALLPOCK6POS] = DO_NOT_USE_inv[OldInventory::SMALLPOCK6POS];
+	inv[SMALLPOCK7POS] = DO_NOT_USE_inv[OldInventory::SMALLPOCK7POS];
+	inv[SMALLPOCK8POS] = DO_NOT_USE_inv[OldInventory::SMALLPOCK8POS];
+
+	bInvStatus[OldInventory::HELMETPOS] = DO_NOT_USE_bInvStatus[HELMETPOS];
+	bInvStatus[OldInventory::VESTPOS] = DO_NOT_USE_bInvStatus[VESTPOS];
+	bInvStatus[OldInventory::LEGPOS] = DO_NOT_USE_bInvStatus[LEGPOS];
+	bInvStatus[OldInventory::HEAD1POS] = DO_NOT_USE_bInvStatus[HEAD1POS];
+	bInvStatus[OldInventory::HEAD2POS] = DO_NOT_USE_bInvStatus[HEAD2POS];
+	bInvStatus[OldInventory::HANDPOS] = DO_NOT_USE_bInvStatus[HANDPOS];
+	bInvStatus[OldInventory::SECONDHANDPOS] = DO_NOT_USE_bInvStatus[SECONDHANDPOS];
+	bInvStatus[OldInventory::BIGPOCK1POS] = DO_NOT_USE_bInvStatus[BIGPOCK1POS];
+	bInvStatus[OldInventory::BIGPOCK2POS] = DO_NOT_USE_bInvStatus[BIGPOCK2POS];
+	bInvStatus[OldInventory::BIGPOCK3POS] = DO_NOT_USE_bInvStatus[BIGPOCK3POS];
+	bInvStatus[OldInventory::BIGPOCK4POS] = DO_NOT_USE_bInvStatus[BIGPOCK4POS];
+	bInvStatus[OldInventory::SMALLPOCK1POS] = DO_NOT_USE_bInvStatus[SMALLPOCK1POS];
+	bInvStatus[OldInventory::SMALLPOCK2POS] = DO_NOT_USE_bInvStatus[SMALLPOCK2POS];
+	bInvStatus[OldInventory::SMALLPOCK3POS] = DO_NOT_USE_bInvStatus[SMALLPOCK3POS];
+	bInvStatus[OldInventory::SMALLPOCK4POS] = DO_NOT_USE_bInvStatus[SMALLPOCK4POS];
+	bInvStatus[OldInventory::SMALLPOCK5POS] = DO_NOT_USE_bInvStatus[SMALLPOCK5POS];
+	bInvStatus[OldInventory::SMALLPOCK6POS] = DO_NOT_USE_bInvStatus[SMALLPOCK6POS];
+	bInvStatus[OldInventory::SMALLPOCK7POS] = DO_NOT_USE_bInvStatus[SMALLPOCK7POS];
+	bInvStatus[OldInventory::SMALLPOCK8POS] = DO_NOT_USE_bInvStatus[SMALLPOCK8POS];
+
+	bInvNumber[OldInventory::HELMETPOS] = DO_NOT_USE_bInvNumber[HELMETPOS];
+	bInvNumber[OldInventory::VESTPOS] = DO_NOT_USE_bInvNumber[VESTPOS];
+	bInvNumber[OldInventory::LEGPOS] = DO_NOT_USE_bInvNumber[LEGPOS];
+	bInvNumber[OldInventory::HEAD1POS] = DO_NOT_USE_bInvNumber[HEAD1POS];
+	bInvNumber[OldInventory::HEAD2POS] = DO_NOT_USE_bInvNumber[HEAD2POS];
+	bInvNumber[OldInventory::HANDPOS] = DO_NOT_USE_bInvNumber[HANDPOS];
+	bInvNumber[OldInventory::SECONDHANDPOS] = DO_NOT_USE_bInvNumber[SECONDHANDPOS];
+	bInvNumber[OldInventory::BIGPOCK1POS] = DO_NOT_USE_bInvNumber[BIGPOCK1POS];
+	bInvNumber[OldInventory::BIGPOCK2POS] = DO_NOT_USE_bInvNumber[BIGPOCK2POS];
+	bInvNumber[OldInventory::BIGPOCK3POS] = DO_NOT_USE_bInvNumber[BIGPOCK3POS];
+	bInvNumber[OldInventory::BIGPOCK4POS] = DO_NOT_USE_bInvNumber[BIGPOCK4POS];
+	bInvNumber[OldInventory::SMALLPOCK1POS] = DO_NOT_USE_bInvNumber[SMALLPOCK1POS];
+	bInvNumber[OldInventory::SMALLPOCK2POS] = DO_NOT_USE_bInvNumber[SMALLPOCK2POS];
+	bInvNumber[OldInventory::SMALLPOCK3POS] = DO_NOT_USE_bInvNumber[SMALLPOCK3POS];
+	bInvNumber[OldInventory::SMALLPOCK4POS] = DO_NOT_USE_bInvNumber[SMALLPOCK4POS];
+	bInvNumber[OldInventory::SMALLPOCK5POS] = DO_NOT_USE_bInvNumber[SMALLPOCK5POS];
+	bInvNumber[OldInventory::SMALLPOCK6POS] = DO_NOT_USE_bInvNumber[SMALLPOCK6POS];
+	bInvNumber[OldInventory::SMALLPOCK7POS] = DO_NOT_USE_bInvNumber[SMALLPOCK7POS];
+	bInvNumber[OldInventory::SMALLPOCK8POS] = DO_NOT_USE_bInvNumber[SMALLPOCK8POS];
+}
+void MERCPROFILESTRUCT::CopyNewInventoryToOld() {
+	// Do not use a loop in case the new inventory slots are arranged differently than the old
+	DO_NOT_USE_inv[OldInventory::HELMETPOS] = inv[HELMETPOS];
+	DO_NOT_USE_inv[OldInventory::VESTPOS] = inv[VESTPOS];
+	DO_NOT_USE_inv[OldInventory::LEGPOS] = inv[LEGPOS];
+	DO_NOT_USE_inv[OldInventory::HEAD1POS] = inv[HEAD1POS];
+	DO_NOT_USE_inv[OldInventory::HEAD2POS] = inv[HEAD2POS];
+	DO_NOT_USE_inv[OldInventory::HANDPOS] = inv[HANDPOS];
+	DO_NOT_USE_inv[OldInventory::SECONDHANDPOS] = inv[SECONDHANDPOS];
+	DO_NOT_USE_inv[OldInventory::BIGPOCK1POS] = inv[BIGPOCK1POS];
+	DO_NOT_USE_inv[OldInventory::BIGPOCK2POS] = inv[BIGPOCK2POS];
+	DO_NOT_USE_inv[OldInventory::BIGPOCK3POS] = inv[BIGPOCK3POS];
+	DO_NOT_USE_inv[OldInventory::BIGPOCK4POS] = inv[BIGPOCK4POS];
+	DO_NOT_USE_inv[OldInventory::SMALLPOCK1POS] = inv[SMALLPOCK1POS];
+	DO_NOT_USE_inv[OldInventory::SMALLPOCK2POS] = inv[SMALLPOCK2POS];
+	DO_NOT_USE_inv[OldInventory::SMALLPOCK3POS] = inv[SMALLPOCK3POS];
+	DO_NOT_USE_inv[OldInventory::SMALLPOCK4POS] = inv[SMALLPOCK4POS];
+	DO_NOT_USE_inv[OldInventory::SMALLPOCK5POS] = inv[SMALLPOCK5POS];
+	DO_NOT_USE_inv[OldInventory::SMALLPOCK6POS] = inv[SMALLPOCK6POS];
+	DO_NOT_USE_inv[OldInventory::SMALLPOCK7POS] = inv[SMALLPOCK7POS];
+	DO_NOT_USE_inv[OldInventory::SMALLPOCK8POS] = inv[SMALLPOCK8POS];
+
+	DO_NOT_USE_bInvStatus[OldInventory::HELMETPOS] = bInvStatus[HELMETPOS];
+	DO_NOT_USE_bInvStatus[OldInventory::VESTPOS] = bInvStatus[VESTPOS];
+	DO_NOT_USE_bInvStatus[OldInventory::LEGPOS] = bInvStatus[LEGPOS];
+	DO_NOT_USE_bInvStatus[OldInventory::HEAD1POS] = bInvStatus[HEAD1POS];
+	DO_NOT_USE_bInvStatus[OldInventory::HEAD2POS] = bInvStatus[HEAD2POS];
+	DO_NOT_USE_bInvStatus[OldInventory::HANDPOS] = bInvStatus[HANDPOS];
+	DO_NOT_USE_bInvStatus[OldInventory::SECONDHANDPOS] = bInvStatus[SECONDHANDPOS];
+	DO_NOT_USE_bInvStatus[OldInventory::BIGPOCK1POS] = bInvStatus[BIGPOCK1POS];
+	DO_NOT_USE_bInvStatus[OldInventory::BIGPOCK2POS] = bInvStatus[BIGPOCK2POS];
+	DO_NOT_USE_bInvStatus[OldInventory::BIGPOCK3POS] = bInvStatus[BIGPOCK3POS];
+	DO_NOT_USE_bInvStatus[OldInventory::BIGPOCK4POS] = bInvStatus[BIGPOCK4POS];
+	DO_NOT_USE_bInvStatus[OldInventory::SMALLPOCK1POS] = bInvStatus[SMALLPOCK1POS];
+	DO_NOT_USE_bInvStatus[OldInventory::SMALLPOCK2POS] = bInvStatus[SMALLPOCK2POS];
+	DO_NOT_USE_bInvStatus[OldInventory::SMALLPOCK3POS] = bInvStatus[SMALLPOCK3POS];
+	DO_NOT_USE_bInvStatus[OldInventory::SMALLPOCK4POS] = bInvStatus[SMALLPOCK4POS];
+	DO_NOT_USE_bInvStatus[OldInventory::SMALLPOCK5POS] = bInvStatus[SMALLPOCK5POS];
+	DO_NOT_USE_bInvStatus[OldInventory::SMALLPOCK6POS] = bInvStatus[SMALLPOCK6POS];
+	DO_NOT_USE_bInvStatus[OldInventory::SMALLPOCK7POS] = bInvStatus[SMALLPOCK7POS];
+	DO_NOT_USE_bInvStatus[OldInventory::SMALLPOCK8POS] = bInvStatus[SMALLPOCK8POS];
+
+	DO_NOT_USE_bInvNumber[OldInventory::HELMETPOS] = bInvNumber[HELMETPOS];
+	DO_NOT_USE_bInvNumber[OldInventory::VESTPOS] = bInvNumber[VESTPOS];
+	DO_NOT_USE_bInvNumber[OldInventory::LEGPOS] = bInvNumber[LEGPOS];
+	DO_NOT_USE_bInvNumber[OldInventory::HEAD1POS] = bInvNumber[HEAD1POS];
+	DO_NOT_USE_bInvNumber[OldInventory::HEAD2POS] = bInvNumber[HEAD2POS];
+	DO_NOT_USE_bInvNumber[OldInventory::HANDPOS] = bInvNumber[HANDPOS];
+	DO_NOT_USE_bInvNumber[OldInventory::SECONDHANDPOS] = bInvNumber[SECONDHANDPOS];
+	DO_NOT_USE_bInvNumber[OldInventory::BIGPOCK1POS] = bInvNumber[BIGPOCK1POS];
+	DO_NOT_USE_bInvNumber[OldInventory::BIGPOCK2POS] = bInvNumber[BIGPOCK2POS];
+	DO_NOT_USE_bInvNumber[OldInventory::BIGPOCK3POS] = bInvNumber[BIGPOCK3POS];
+	DO_NOT_USE_bInvNumber[OldInventory::BIGPOCK4POS] = bInvNumber[BIGPOCK4POS];
+	DO_NOT_USE_bInvNumber[OldInventory::SMALLPOCK1POS] = bInvNumber[SMALLPOCK1POS];
+	DO_NOT_USE_bInvNumber[OldInventory::SMALLPOCK2POS] = bInvNumber[SMALLPOCK2POS];
+	DO_NOT_USE_bInvNumber[OldInventory::SMALLPOCK3POS] = bInvNumber[SMALLPOCK3POS];
+	DO_NOT_USE_bInvNumber[OldInventory::SMALLPOCK4POS] = bInvNumber[SMALLPOCK4POS];
+	DO_NOT_USE_bInvNumber[OldInventory::SMALLPOCK5POS] = bInvNumber[SMALLPOCK5POS];
+	DO_NOT_USE_bInvNumber[OldInventory::SMALLPOCK6POS] = bInvNumber[SMALLPOCK6POS];
+	DO_NOT_USE_bInvNumber[OldInventory::SMALLPOCK7POS] = bInvNumber[SMALLPOCK7POS];
+	DO_NOT_USE_bInvNumber[OldInventory::SMALLPOCK8POS] = bInvNumber[SMALLPOCK8POS];
+}
 
 
 BOOLEAN IsValidSecondHandShot( SOLDIERTYPE *pSoldier );

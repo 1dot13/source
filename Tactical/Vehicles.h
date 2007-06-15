@@ -49,6 +49,8 @@ enum{
 
 extern INT16 sVehicleOrigArmorValues[ NUMBER_OF_TYPES_OF_VEHICLES][ NUMBER_OF_INTERNAL_HIT_LOCATIONS_IN_VEHICLE];
 
+// WDS - Clean up inventory handling
+#define MAXPASSENGERS 10
 // struct for vehicles
 typedef struct
 {
@@ -60,7 +62,7 @@ typedef struct
  INT16     sSectorZ;
  BOOLEAN fBetweenSectors;  // between sectors?
  INT16		 sGridNo;   // location in tactical
- SOLDIERTYPE *pPassengers[ 10 ];
+ SOLDIERTYPE *pPassengers[ MAXPASSENGERS ];
  UINT8		 ubDriver;
  INT16		 sInternalHitLocations[ NUMBER_OF_EXTERNAL_HIT_LOCATIONS_ON_VEHICLE ];
  INT16		 sArmourType;

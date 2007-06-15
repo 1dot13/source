@@ -4683,7 +4683,8 @@ void CreatePlayerControlledMonster()
 		SOLDIERCREATE_STRUCT		MercCreateStruct;
 		INT8							iNewIndex;
 
-		memset( &MercCreateStruct, 0, sizeof( MercCreateStruct ) );
+                // WDS - Clean up inventory handling
+		MercCreateStruct.initialize();
 		MercCreateStruct.ubProfile		= NO_PROFILE;
 		MercCreateStruct.sSectorX			= gWorldSectorX;
 		MercCreateStruct.sSectorY			= gWorldSectorY;

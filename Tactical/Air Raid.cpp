@@ -288,7 +288,9 @@ BOOLEAN BeginAirRaid( )
 		gfAirRaidHasHadTurn = FALSE;
 
 		gpRaidSoldier = MercPtrs[ MAX_NUM_SOLDIERS - 1 ];
-		memset( gpRaidSoldier, 0, sizeof( SOLDIERTYPE ) );
+                // WDS - Clean up inventory handling
+		//memset( gpRaidSoldier, 0, SIZEOF_SOLDIERTYPE );
+		gpRaidSoldier->initialize();
 		gpRaidSoldier->bLevel = 0;
 		gpRaidSoldier->bTeam = 1;
 		gpRaidSoldier->bSide = 1;

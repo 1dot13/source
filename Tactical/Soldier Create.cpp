@@ -65,6 +65,92 @@
 #define MAX_PALACE_DISTANCE		20
 
 
+// WDS - Clean up inventory handling
+SOLDIERCREATE_STRUCT::SOLDIERCREATE_STRUCT() {
+	initialize();
+}
+
+// Copy Constructor
+SOLDIERCREATE_STRUCT::SOLDIERCREATE_STRUCT(const SOLDIERCREATE_STRUCT& src) {
+	memcpy(this, &src, SIZEOF_SOLDIERCREATE_STRUCT_POD);
+	this->Inv = src.Inv;
+}
+
+// Assignment operator
+SOLDIERCREATE_STRUCT& SOLDIERCREATE_STRUCT::operator=(const SOLDIERCREATE_STRUCT& src)
+{
+    if (this != &src) {
+		memcpy(this, &src, SIZEOF_SOLDIERCREATE_STRUCT_POD);
+		this->Inv = src.Inv;
+    }
+    return *this;
+}
+
+// Destructor
+SOLDIERCREATE_STRUCT::~SOLDIERCREATE_STRUCT() {
+}
+
+// Initialize the soldier.  
+//  Use this instead of the old method of calling memset!
+//  Note that the constructor does this automatically.
+void SOLDIERCREATE_STRUCT::initialize() {
+	memset( this, 0, SIZEOF_SOLDIERCREATE_STRUCT_POD);	
+	Inv.clear();
+}
+
+
+// Ugly temporary solution
+//
+// These two functions map the "old" style inventory (fixed array of ) to the new (a flexibly sized vector).
+// If you change names or eliminate some positions or such you need to change these.
+// Eventually the need for these functions will disappear.
+
+void SOLDIERCREATE_STRUCT::CopyOldInventoryToNew() {
+	// Do not use a loop in case the new inventory slots are arranged differently than the old
+	Inv[HELMETPOS] = DO_NOT_USE_Inv[OldInventory::HELMETPOS];
+	Inv[VESTPOS] = DO_NOT_USE_Inv[OldInventory::VESTPOS];
+	Inv[LEGPOS] = DO_NOT_USE_Inv[OldInventory::LEGPOS];
+	Inv[HEAD1POS] = DO_NOT_USE_Inv[OldInventory::HEAD1POS];
+	Inv[HEAD2POS] = DO_NOT_USE_Inv[OldInventory::HEAD2POS];
+	Inv[HANDPOS] = DO_NOT_USE_Inv[OldInventory::HANDPOS];
+	Inv[SECONDHANDPOS] = DO_NOT_USE_Inv[OldInventory::SECONDHANDPOS];
+	Inv[BIGPOCK1POS] = DO_NOT_USE_Inv[OldInventory::BIGPOCK1POS];
+	Inv[BIGPOCK2POS] = DO_NOT_USE_Inv[OldInventory::BIGPOCK2POS];
+	Inv[BIGPOCK3POS] = DO_NOT_USE_Inv[OldInventory::BIGPOCK3POS];
+	Inv[BIGPOCK4POS] = DO_NOT_USE_Inv[OldInventory::BIGPOCK4POS];
+	Inv[SMALLPOCK1POS] = DO_NOT_USE_Inv[OldInventory::SMALLPOCK1POS];
+	Inv[SMALLPOCK2POS] = DO_NOT_USE_Inv[OldInventory::SMALLPOCK2POS];
+	Inv[SMALLPOCK3POS] = DO_NOT_USE_Inv[OldInventory::SMALLPOCK3POS];
+	Inv[SMALLPOCK4POS] = DO_NOT_USE_Inv[OldInventory::SMALLPOCK4POS];
+	Inv[SMALLPOCK5POS] = DO_NOT_USE_Inv[OldInventory::SMALLPOCK5POS];
+	Inv[SMALLPOCK6POS] = DO_NOT_USE_Inv[OldInventory::SMALLPOCK6POS];
+	Inv[SMALLPOCK7POS] = DO_NOT_USE_Inv[OldInventory::SMALLPOCK7POS];
+	Inv[SMALLPOCK8POS] = DO_NOT_USE_Inv[OldInventory::SMALLPOCK8POS];
+}
+void SOLDIERCREATE_STRUCT::CopyNewInventoryToOld() {
+	// Do not use a loop in case the new inventory slots are arranged differently than the old
+	DO_NOT_USE_Inv[OldInventory::HELMETPOS] = Inv[HELMETPOS];
+	DO_NOT_USE_Inv[OldInventory::VESTPOS] = Inv[VESTPOS];
+	DO_NOT_USE_Inv[OldInventory::LEGPOS] = Inv[LEGPOS];
+	DO_NOT_USE_Inv[OldInventory::HEAD1POS] = Inv[HEAD1POS];
+	DO_NOT_USE_Inv[OldInventory::HEAD2POS] = Inv[HEAD2POS];
+	DO_NOT_USE_Inv[OldInventory::HANDPOS] = Inv[HANDPOS];
+	DO_NOT_USE_Inv[OldInventory::SECONDHANDPOS] = Inv[SECONDHANDPOS];
+	DO_NOT_USE_Inv[OldInventory::BIGPOCK1POS] = Inv[BIGPOCK1POS];
+	DO_NOT_USE_Inv[OldInventory::BIGPOCK2POS] = Inv[BIGPOCK2POS];
+	DO_NOT_USE_Inv[OldInventory::BIGPOCK3POS] = Inv[BIGPOCK3POS];
+	DO_NOT_USE_Inv[OldInventory::BIGPOCK4POS] = Inv[BIGPOCK4POS];
+	DO_NOT_USE_Inv[OldInventory::SMALLPOCK1POS] = Inv[SMALLPOCK1POS];
+	DO_NOT_USE_Inv[OldInventory::SMALLPOCK2POS] = Inv[SMALLPOCK2POS];
+	DO_NOT_USE_Inv[OldInventory::SMALLPOCK3POS] = Inv[SMALLPOCK3POS];
+	DO_NOT_USE_Inv[OldInventory::SMALLPOCK4POS] = Inv[SMALLPOCK4POS];
+	DO_NOT_USE_Inv[OldInventory::SMALLPOCK5POS] = Inv[SMALLPOCK5POS];
+	DO_NOT_USE_Inv[OldInventory::SMALLPOCK6POS] = Inv[SMALLPOCK6POS];
+	DO_NOT_USE_Inv[OldInventory::SMALLPOCK7POS] = Inv[SMALLPOCK7POS];
+	DO_NOT_USE_Inv[OldInventory::SMALLPOCK8POS] = Inv[SMALLPOCK8POS];
+}
+
+
 //Private functions used within TacticalCreateStruct()
 void InitSoldierStruct( SOLDIERTYPE *pSoldier );
 BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruct );
@@ -591,8 +677,10 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 
 		if( guiCurrentScreen != AUTORESOLVE_SCREEN )
 		{
+                        // WDS - Clean up inventory handling
 			// Copy into merc struct
-			memcpy( MercPtrs[ Soldier.ubID ], &Soldier, sizeof( SOLDIERTYPE ) );
+			//memcpy( MercPtrs[ Soldier.ubID ], &Soldier, SIZEOF_SOLDIERTYPE );
+			*MercPtrs[ Soldier.ubID ] = Soldier;
 			// Alrighty then, we are set to create the merc, stuff after here can fail!
 			CHECKF( CreateSoldierCommon( Soldier.ubBodyType, MercPtrs[ Soldier.ubID ], Soldier.ubID, STANDING ) != FALSE );
 		}
@@ -615,8 +703,10 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
       Soldier.bNeutral = TRUE;
     }
 
+                // WDS - Clean up inventory handling
 		// Copy into merc struct
-		memcpy( MercPtrs[ Soldier.ubID ], &Soldier, sizeof( SOLDIERTYPE ) );
+		//memcpy( MercPtrs[ Soldier.ubID ], &Soldier, SIZEOF_SOLDIERTYPE );
+		*MercPtrs[ Soldier.ubID ] = Soldier;
 
 		// Alrighty then, we are set to create the merc, stuff after here can fail!
 		CHECKF( CreateSoldierCommon( Soldier.ubBodyType, MercPtrs[ Soldier.ubID ], Soldier.ubID, Menptr[ Soldier.ubID ].usAnimState ) != FALSE );
@@ -660,10 +750,12 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		SOLDIERTYPE *pSoldier;
 		UINT8 ubSectorID;
 		ubSectorID = GetAutoResolveSectorID();
-		pSoldier = (SOLDIERTYPE*)MemAlloc( sizeof( SOLDIERTYPE ) );
+                // WDS - Clean up inventory handling
+		pSoldier = new (MemAlloc( SIZEOF_SOLDIERTYPE )) SOLDIERTYPE; //(SOLDIERTYPE*)MemAlloc( SIZEOF_SOLDIERTYPE );
 		if( !pSoldier )
 			return NULL;
-		memcpy( pSoldier, &Soldier, sizeof( SOLDIERTYPE ) );
+		//memcpy( pSoldier, &Soldier, SIZEOF_SOLDIERTYPE );
+		*pSoldier = Soldier;
 		pSoldier->ubID = 255;
 		pSoldier->sSectorX = (INT16)SECTORX( ubSectorID );
 		pSoldier->sSectorY = (INT16)SECTORY( ubSectorID );
@@ -1176,8 +1268,10 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 	//Generate colors for soldier based on the body type.
 	GeneratePaletteForSoldier( pSoldier, pCreateStruct->ubSoldierClass );
 
+	// WDS - Clean up inventory handling
 	// Copy item info over
-	memcpy( pSoldier->inv, pCreateStruct->Inv, sizeof( OBJECTTYPE ) * NUM_INV_SLOTS );	
+//	memcpy( pSoldier->inv, pCreateStruct->Inv, sizeof( OBJECTTYPE ) * NUM_INV_SLOTS );	
+	pSoldier->inv = pCreateStruct->Inv;
 
 	return( TRUE );
 }
@@ -1185,8 +1279,10 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 
 void InitSoldierStruct( SOLDIERTYPE *pSoldier )
 {
+	// WDS - Clean up inventory handling
 	// Memset values
-	memset( pSoldier, 0, sizeof( SOLDIERTYPE ) );
+	//memset( pSoldier, 0, SIZEOF_SOLDIERTYPE );
+	pSoldier->initialize();
 
 	// Set default values
 	pSoldier->bVisible							= -1;
@@ -1743,7 +1839,9 @@ void CreateStaticDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT 
 	INT32 i;
 	if( !spp || !bp )
 		return;
-	memset( spp, 0, sizeof( SOLDIERCREATE_STRUCT ) );
+	// WDS - Clean up inventory handling
+	//memset( spp, 0, SIZEOF_SOLDIERCREATE_STRUCT );
+	spp->initialize();
 	spp->fStatic								= TRUE;
 	spp->ubProfile							= NO_PROFILE;
 	spp->sInsertionGridNo				= bp->usStartingGridNo;
@@ -1817,7 +1915,9 @@ void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo(
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo"));
 
-	memset( pp, 0, sizeof( SOLDIERCREATE_STRUCT ) );
+	// WDS - Clean up inventory handling
+	//memset( pp, 0, SIZEOF_SOLDIERCREATE_STRUCT );
+	pp->initialize();
 	pp->fOnRoof = spp->fOnRoof = bp->fOnRoof;
 	pp->fStatic = FALSE;
 	pp->ubSoldierClass = bp->ubSoldierClass;
@@ -1968,8 +2068,10 @@ void UpdateSoldierWithStaticDetailedInformation( SOLDIERTYPE *s, SOLDIERCREATE_S
 
 	s->ubScheduleID		=	spp->ubScheduleID;
 
+	// WDS - Clean up inventory handling
 	//Copy over the current inventory list.
-	memcpy( s->inv, spp->Inv, sizeof( OBJECTTYPE ) * NUM_INV_SLOTS );
+//	memcpy( s->inv, spp->Inv, sizeof( OBJECTTYPE ) * NUM_INV_SLOTS );
+	s->inv = spp->Inv;
 }
 
 //In the case of setting a profile ID in order to extract a soldier from the profile array, we
@@ -2100,11 +2202,13 @@ SOLDIERTYPE* ReserveTacticalSoldierForAutoresolve( UINT8 ubSoldierClass )
 				//reserve this soldier
 				MercPtrs[ i ]->sGridNo = NOWHERE;
 
+                             	// WDS - Clean up inventory handling
 				//Allocate and copy the soldier
-				pSoldier = (SOLDIERTYPE*)MemAlloc( sizeof( SOLDIERTYPE ) );
+				pSoldier = new (MemAlloc( SIZEOF_SOLDIERTYPE )) SOLDIERTYPE; //(SOLDIERTYPE*)MemAlloc( SIZEOF_SOLDIERTYPE );
 				if( !pSoldier )
 					return NULL;
-				memcpy( pSoldier, MercPtrs[ i ], sizeof( SOLDIERTYPE ) );
+//				memcpy( pSoldier, MercPtrs[ i ], SIZEOF_SOLDIERTYPE );
+				*pSoldier = *MercPtrs[i];
 
 				//Assign a bogus ID, then return it
 				pSoldier->ubID = 255;
@@ -2130,7 +2234,9 @@ SOLDIERTYPE* TacticalCreateAdministrator()
 	}
 
 	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
-	memset( &pp, 0, sizeof( SOLDIERCREATE_STRUCT ) );
+	// WDS - Clean up inventory handling
+	//memset( &pp, 0, SIZEOF_SOLDIERCREATE_STRUCT );
+	pp.initialize();
 	RandomizeRelativeLevel( &( bp.bRelativeAttributeLevel ), SOLDIER_CLASS_ADMINISTRATOR );
 	RandomizeRelativeLevel( &( bp.bRelativeEquipmentLevel ), SOLDIER_CLASS_ADMINISTRATOR );
 	bp.bTeam = ENEMY_TEAM;
@@ -2164,7 +2270,9 @@ SOLDIERTYPE* TacticalCreateArmyTroop()
 	}
 
 	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
-	memset( &pp, 0, sizeof( SOLDIERCREATE_STRUCT ) );
+	// WDS - Clean up inventory handling
+	//memset( &pp, 0, SIZEOF_SOLDIERCREATE_STRUCT );
+	pp.initialize();
 	RandomizeRelativeLevel( &( bp.bRelativeAttributeLevel ), SOLDIER_CLASS_ARMY );
 	RandomizeRelativeLevel( &( bp.bRelativeEquipmentLevel ), SOLDIER_CLASS_ARMY );
 	bp.bTeam = ENEMY_TEAM;
@@ -2199,7 +2307,9 @@ SOLDIERTYPE* TacticalCreateEliteEnemy()
 	}
 
 	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
-	memset( &pp, 0, sizeof( SOLDIERCREATE_STRUCT ) );
+	// WDS - Clean up inventory handling
+	//memset( &pp, 0, SIZEOF_SOLDIERCREATE_STRUCT );
+	pp.initialize();
 
 	RandomizeRelativeLevel( &( bp.bRelativeAttributeLevel ), SOLDIER_CLASS_ELITE );
 	RandomizeRelativeLevel( &( bp.bRelativeEquipmentLevel ), SOLDIER_CLASS_ELITE );
@@ -2247,11 +2357,13 @@ SOLDIERTYPE* ReserveTacticalMilitiaSoldierForAutoresolve( UINT8 ubSoldierClass )
 				//reserve this soldier
 				MercPtrs[ i ]->sGridNo = NOWHERE;
 
+                            	// WDS - Clean up inventory handling
 				//Allocate and copy the soldier
-				pSoldier = (SOLDIERTYPE*)MemAlloc( sizeof( SOLDIERTYPE ) );
+				pSoldier = new (MemAlloc( SIZEOF_SOLDIERTYPE )) SOLDIERTYPE; //(SOLDIERTYPE*)MemAlloc( SIZEOF_SOLDIERTYPE );
 				if( !pSoldier )
 					return NULL;
-				memcpy( pSoldier, MercPtrs[ i ], sizeof( SOLDIERTYPE ) );
+//				memcpy( pSoldier, MercPtrs[ i ], SIZEOF_SOLDIERTYPE );
+				*pSoldier = *MercPtrs[i];
 
 				//Assign a bogus ID, then return it
 				pSoldier->ubID = 255;
@@ -2277,7 +2389,10 @@ SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass )
 	}
 
 	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
-	memset( &pp, 0, sizeof( SOLDIERCREATE_STRUCT ) );
+	// WDS - Clean up inventory handling
+	//memset( &pp, 0, SIZEOF_SOLDIERCREATE_STRUCT );
+	pp.initialize();
+
 	RandomizeRelativeLevel( &( bp.bRelativeAttributeLevel ), ubMilitiaClass );
 	RandomizeRelativeLevel( &( bp.bRelativeEquipmentLevel ), ubMilitiaClass );
 	bp.bTeam = MILITIA_TEAM;
@@ -2306,7 +2421,10 @@ SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType )
 	}
 
 	memset( &bp, 0, sizeof( BASIC_SOLDIERCREATE_STRUCT ) );
-	memset( &pp, 0, sizeof( SOLDIERCREATE_STRUCT ) );
+	// WDS - Clean up inventory handling
+	//memset( &pp, 0, SIZEOF_SOLDIERCREATE_STRUCT );
+	pp.initialize();
+
 	RandomizeRelativeLevel( &( bp.bRelativeAttributeLevel ), SOLDIER_CLASS_CREATURE );
 	RandomizeRelativeLevel( &( bp.bRelativeEquipmentLevel ), SOLDIER_CLASS_CREATURE );
 	bp.bTeam = CREATURE_TEAM;
@@ -2472,7 +2590,8 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 		{
 			// do some special coding to put stuff in the profile in better-looking
 			// spots
-			memset( pSoldier->inv, 0, NUM_INV_SLOTS * sizeof( OBJECTTYPE ) );
+			// WDS - Clean up inventory handling
+//			memset( pSoldier->inv, 0, NUM_INV_SLOTS * sizeof( OBJECTTYPE ) );
 			for ( cnt = 0; cnt < NUM_INV_SLOTS; cnt++ )
 			{
 				if ( pProfile->inv[ cnt ] != NOTHING )

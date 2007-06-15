@@ -5243,7 +5243,9 @@ INT16 FindNearestAvailableGridNoForItem( INT16 sSweetGridNo, INT8 ubRadius )
 
 	//create dummy soldier, and use the pathing to determine which nearby slots are
 	//reachable.
-	memset( &soldier, 0, sizeof( SOLDIERTYPE ) );
+        // WDS - Clean up inventory handling
+	//memset( &soldier, 0, SIZEOF_SOLDIERTYPE );
+	soldier.initialize();
 	soldier.bTeam = 1;
 	soldier.sGridNo = sSweetGridNo;
 
@@ -5359,7 +5361,8 @@ UINT8 StealItems(SOLDIERTYPE* pSoldier,SOLDIERTYPE* pOpponent, UINT8* ubIndexRet
 	{
 		fStealItem = FALSE;
 
-		pObject=pOpponent->inv+i;
+                // WDS - Clean up inventory handling
+		pObject=&pOpponent->inv[i];
 		if (pObject->usItem!=0)
 		{
 			// Is the enemy collapsed
@@ -5473,8 +5476,10 @@ void SoldierStealItemFromSoldier( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 			cnt++;
 			if ( fPickup )
 			{
+                                // WDS - Clean up inventory handling
 				// Make copy of item
-				memcpy( &Object, pOpponent->inv+pTempItemPool->iItemIndex, sizeof( OBJECTTYPE ) );
+//				memcpy( &Object, pOpponent->inv+pTempItemPool->iItemIndex, sizeof( OBJECTTYPE ) );
+				Object = pOpponent->inv[pTempItemPool->iItemIndex];
 				if ( ItemIsCool( &Object ) )
 				{
 					fShouldSayCoolQuote = TRUE;
@@ -5483,7 +5488,7 @@ void SoldierStealItemFromSoldier( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
 				{
 					AddItemToPool( pSoldier->sGridNo, &Object, 1, pSoldier->bLevel, 0, -1 );
 				}
-				DeleteObj(pOpponent->inv+pTempItemPool->iItemIndex);
+				DeleteObj(&pOpponent->inv[pTempItemPool->iItemIndex]);
 			}
 			pTempItemPool = pTempItemPool->pNext;
 		}

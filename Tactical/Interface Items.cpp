@@ -6502,7 +6502,8 @@ void SetupPickupPage( INT8 bPage )
 		{
 			gItemPickupMenu.ItemPoolSlots[ cnt - iStart ] = pTempItemPool;
 
-			pObject = (gfStealing)? gpOpponent->inv+pTempItemPool->iItemIndex
+			// WDS - Clean up inventory handling
+			pObject = (gfStealing)? &gpOpponent->inv[pTempItemPool->iItemIndex]
 				:&(gWorldItems[ pTempItemPool->iItemIndex ].o );
 
 		  sValue = pObject->bStatus[ 0 ];
@@ -6679,7 +6680,8 @@ void RenderItemPickupMenu( )
 			if ( gItemPickupMenu.ItemPoolSlots[ cnt ] != NULL )
 			{
 				// Get item to render
-				pObject = (gfStealing)? gpOpponent->inv+ gItemPickupMenu.ItemPoolSlots[ cnt ]->iItemIndex
+                                // WDS - Clean up inventory handling
+				pObject = (gfStealing)? &gpOpponent->inv[gItemPickupMenu.ItemPoolSlots[ cnt ]->iItemIndex]
 					:&(gWorldItems[ gItemPickupMenu.ItemPoolSlots[ cnt ]->iItemIndex ].o );
 				pItem = &( Item[ pObject->usItem ] );
 

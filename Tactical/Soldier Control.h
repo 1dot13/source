@@ -11,6 +11,13 @@
 #include "vobject.h"
 #include "Overhead Types.h"
 #include "Item Types.h"
+#include "worlddef.h"
+
+// WDS - Clean up inventory handling
+#include <vector>
+#include <iterator>
+
+using namespace std;
 
  
 // TEMP VALUES FOR NAMES
@@ -274,6 +281,35 @@ enum {
 	NUM_INV_SLOTS,
 };
 
+// WDS - Clean up inventory handling
+// NOTE NOTE NOTE!  Leave this alone until it is no longer needed.  It must match the
+// original definition so old files can be read.
+namespace OldInventory {
+enum {
+	HELMETPOS = 0,
+	VESTPOS,
+	LEGPOS,
+	HEAD1POS,
+	HEAD2POS,
+	HANDPOS,
+	SECONDHANDPOS,
+	BIGPOCK1POS,
+	BIGPOCK2POS,
+	BIGPOCK3POS,
+	BIGPOCK4POS,
+	SMALLPOCK1POS,
+	SMALLPOCK2POS,
+	SMALLPOCK3POS,
+	SMALLPOCK4POS,
+	SMALLPOCK5POS,
+	SMALLPOCK6POS,
+	SMALLPOCK7POS,
+	SMALLPOCK8POS, // = 18, so 19 pockets needed
+
+	NUM_INV_SLOTS,
+};
+};
+
 //used for color codes, but also shows the enemy type for debugging purposes
 enum
 {
@@ -335,8 +371,66 @@ enum
 };
 
 
-typedef struct
+// WDS - Clean up inventory handling
+struct LEVELNODE;
+
+class Inventory {
+public:
+	// Constructors
+	// Create an inventory with a fixed maximum number of slots
+	Inventory();					// Uses NUM_INV_SLOTS for slotCount
+	Inventory(int slotCount);
+
+	// Copy Constructor
+	Inventory(const Inventory&);
+
+	// Assignment operator
+    Inventory& operator=(const Inventory&);
+
+	// Destructor
+	~Inventory();
+
+	// Index operator
+	OBJECTTYPE& operator [] (int idx);
+
+	// Removes all items from the inventory
+	void clear();
+
+	// How any slots are there in this inventory?
+	int size() const;
+
+private:
+	vector<OBJECTTYPE> inv;
+	int slotCnt;
+};
+
+//typedef struct
+class SOLDIERTYPE
 {
+public:
+	// Constructor
+	SOLDIERTYPE();
+	// Copy Constructor
+	SOLDIERTYPE(const SOLDIERTYPE&);
+	// Assignment operator
+    SOLDIERTYPE& operator=(const SOLDIERTYPE&);
+	// Destructor
+	~SOLDIERTYPE();
+
+	// Initialize the soldier.  
+	//  Use this instead of the old method of calling memset.
+	//  Note that the constructor does this automatically.
+	void initialize();
+
+	// Ugly temporary solution
+	void CopyOldInventoryToNew();
+	void CopyNewInventoryToOld();
+
+	// Note: Place all non-POD items at the end (after endOfPOD)
+	// The format of this structure affects what is written into and read from various
+	// files (maps, save files, etc.).  If you change it then that code will not work 
+	// properly until it is all fixed and the files updated.
+public:
 	// ID
 	UINT8												ubID;
 	UINT8												bReserved1;
@@ -348,7 +442,9 @@ typedef struct
 
 	UINT32											uiStatusFlags;
 
-	OBJECTTYPE									inv[ NUM_INV_SLOTS ];
+private:
+	OBJECTTYPE									DO_NOT_USE_Inv[ OldInventory::NUM_INV_SLOTS ];
+public:
 	OBJECTTYPE									*pTempObject;
 	KEY_ON_RING									*pKeyRing;
 
@@ -536,9 +632,9 @@ typedef struct
 	THROW_PARAMS								*pThrowParams;
 	BOOLEAN											fTurningFromPronePosition;
 	INT8												bReverse;
-	struct TAG_level_node				*pLevelNode;
-	struct TAG_level_node				*pExternShadowLevelNode;
-	struct TAG_level_node				*pRoofUILevelNode;
+	LEVELNODE				*pLevelNode;
+	LEVELNODE				*pExternShadowLevelNode;
+	LEVELNODE				*pRoofUILevelNode;
 
 	// WALKING STUFF
 	INT8												bDesiredDirection;
@@ -793,10 +889,12 @@ typedef struct
 	UINT32											uiChangeMechanicalTime;
 
 	UINT32											uiUniqueSoldierIdValue; // the unique value every instance of a soldier gets - 1 is the first valid value
-	INT8												bBeingAttackedCount;		// Being attacked counter is obsolete and can be renamed and used as something else
+	INT8											UNUSED1; // This is unused at present and can be used for something else
 
-	INT8												bNewItemCount[ NUM_INV_SLOTS ];
-	INT8												bNewItemCycleCount[ NUM_INV_SLOTS ];
+private:
+	INT8											DO_NOT_USE_bNewItemCount[ OldInventory::NUM_INV_SLOTS ];
+	INT8											DO_NOT_USE_bNewItemCycleCount[ OldInventory::NUM_INV_SLOTS ];
+public:
 	BOOLEAN											fCheckForNewlyAddedItems;
 	INT8												bEndDoorOpenCode;
 
@@ -953,10 +1051,24 @@ typedef struct
 
 	INT8	snowCamo;	
 	INT8	wornSnowCamo;
-	
+
 	UINT8					bFiller[ 36 ];
 
-} SOLDIERTYPE;	
+	//
+	// New and OO stuff goes after here.  Above this point any changes will goof up reading from files.
+	//
+	char ef1,ef2,ef3;	// Extra filler to get "offsetof(endOfPOD)" to match SIZEOF(oldstruct)
+
+	char endOfPOD;	// marker for end of POD (plain old data)
+
+	Inventory inv;
+
+	vector<int>	bNewItemCount;
+	vector<int> bNewItemCycleCount;
+}; // SOLDIERTYPE;	
+
+#define SIZEOF_SOLDIERTYPE_POD offsetof( SOLDIERTYPE, endOfPOD )
+#define SIZEOF_SOLDIERTYPE sizeof( SOLDIERTYPE )
 
 #define HEALTH_INCREASE			0x0001
 #define STRENGTH_INCREASE		0x0002
