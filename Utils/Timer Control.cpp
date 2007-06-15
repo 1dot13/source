@@ -8,7 +8,6 @@
 	#include "wcheck.h"
 	#include "stdlib.h"
 	#include "debug.h"
-	#include "Soldier Control.h"
 	#include "Timer Control.h"
 	#include "overhead.h"
 	#include "handle items.h"

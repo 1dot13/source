@@ -8,7 +8,6 @@
 	#include "gamescreen.h"
 	#include "jascreens.h"
 	#include "Creature Spreading.h"
-	#include "soldier control.h"
 	#include "overhead.h"
 	#include "timer control.h"
 	#include "strategicmap.h"

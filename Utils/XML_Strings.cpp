@@ -1,10 +1,9 @@
-#ifdef PRECOMPILEDHEADERS
+#ifdef JA2_PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
 	#include "sgp.h"
 	#include "overhead types.h"
 	#include "Sound Control.h"
-	#include "Soldier Control.h"
 	#include "overhead.h"
 	#include "Event Pump.h"
 	#include "weapons.h"
@@ -24,7 +23,6 @@
 	#include "campaign.h"
 	#include "items.h"
 	#include "text.h"
-	#include "Soldier Profile.h"
 	#include "tile animation.h"
 	#include "Dialogue Control.h"
 	#include "SkillCheck.h"

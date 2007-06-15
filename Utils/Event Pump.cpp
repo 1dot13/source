@@ -9,7 +9,6 @@
 	#include "wcheck.h"
 	#include "Event Pump.h"
 	#include "Timer.h"
-	#include "Soldier Control.h"
 	#include "Sound Control.h"
 	#include "Overhead.h"
 	#include "weapons.h"
