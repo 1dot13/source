@@ -1695,8 +1695,9 @@ BOOLEAN SaveWorld( const STR8 puiFilename )
 	// Write tileset ID
 	FileWrite( hfile, &giCurrentTilesetID, sizeof( INT32 ), &uiBytesWritten );
 	
+	// WDS - Clean up inventory handling
 	// Write SOLDIER CONTROL SIZE
-	uiSoldierSize = sizeof( SOLDIERTYPE );
+	uiSoldierSize = SIZEOF_SOLDIERTYPE_POD; //SIZEOF_SOLDIERTYPE;
 	FileWrite( hfile, &uiSoldierSize, sizeof( INT32 ), &uiBytesWritten );
 
 
@@ -2477,7 +2478,9 @@ BOOLEAN EvaluateWorld( STR8 pSector, UINT8 ubLevel )
 			}
 			if( basic.fDetailedPlacement )
 			{ //skip static priority placement 
-				LOADDATA( &priority, pBuffer, sizeof( SOLDIERCREATE_STRUCT ) );
+	                        // WDS - Clean up inventory handling
+				LOADDATA( &priority, pBuffer, SIZEOF_SOLDIERCREATE_STRUCT_POD); //SIZEOF_SOLDIERCREATE_STRUCT );
+				priority.CopyOldDataToNew();
 				if( priority.ubProfile != NO_PROFILE )
 					pTeam->ubProfile++;
 				else

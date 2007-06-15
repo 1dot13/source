@@ -256,9 +256,11 @@ UINT16 FindGridNoFromSweetSpotCloseToExitGrid( SOLDIERTYPE *pSoldier, INT16 sSwe
 	gubNPCAPBudget = 0;
 	gubNPCDistLimit = ubRadius;
 
+	// WDS - Clean up inventory handling
 	//create dummy soldier, and use the pathing to determine which nearby slots are
 	//reachable.
-	memset( &soldier, 0, sizeof( SOLDIERTYPE ) );
+//	memset( &soldier, 0, SIZEOF_SOLDIERTYPE );
+	soldier.initialize();
 	soldier.bLevel = 0;
 	soldier.bTeam = 1;
 	soldier.sGridNo = pSoldier->sGridNo;

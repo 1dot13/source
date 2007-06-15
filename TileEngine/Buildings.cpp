@@ -59,8 +59,10 @@ BUILDING * GenerateBuilding( INT16 sDesiredSpot )
 		return( NULL );
 	}
 
+	// WDS - Clean up inventory handling
 	// set up fake soldier for location testing
-	memset( &FakeSoldier, 0, sizeof( SOLDIERTYPE ) );
+//	memset( &FakeSoldier, 0, SIZEOF_SOLDIERTYPE );
+	FakeSoldier.initialize();
 	FakeSoldier.sGridNo = sDesiredSpot;
 	FakeSoldier.bLevel = 1;
 	FakeSoldier.bTeam = 1;

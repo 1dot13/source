@@ -104,9 +104,10 @@
 #define ANY_SMOKE_EFFECT		( MAPELEMENT_EXT_CREATUREGAS | MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS | MAPELEMENT_EXT_BURNABLEGAS )
 
 
-typedef struct TAG_level_node
+// WDS - Clean up inventory handling
+struct LEVELNODE
 {
-	struct TAG_level_node				*pNext;
+	struct LEVELNODE				*pNext;
 	UINT32											uiFlags;							// flags struct
 
 	UINT8												ubSumLights;					// LIGHTING INFO
@@ -114,7 +115,7 @@ typedef struct TAG_level_node
 
 	union 
 	{
-		struct TAG_level_node				*pPrevNode;					// FOR LAND, GOING BACKWARDS POINTER
+		struct LEVELNODE				*pPrevNode;					// FOR LAND, GOING BACKWARDS POINTER
 		STRUCTURE										*pStructureData;		// STRUCTURE DATA
 		INT32												iPhysicsObjectID;		// ID FOR PHYSICS ITEM
 		INT32												uiAPCost;						// FOR AP DISPLAY
@@ -173,7 +174,7 @@ typedef struct TAG_level_node
  	UINT8													ubNaturalShadeLevel;		// LIGHTING INFO
 	UINT8													ubFakeShadeLevel;				// LIGHTING INFO
 
-} LEVELNODE;
+}; // LEVELNODE;
 
  
 #define		LAND_START_INDEX									1
