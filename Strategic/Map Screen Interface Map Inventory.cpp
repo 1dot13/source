@@ -19,7 +19,6 @@
 	#include "Text.h"
 	#include "Font Control.h"
 	#include "strategicmap.h"
-	#include "World Items.h"
 	#include "Tactical Save.h"
 	#include "Soldier Control.h"
 	#include "Overhead.h"

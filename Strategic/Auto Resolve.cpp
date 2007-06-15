@@ -3431,7 +3431,8 @@ void CreateTempPlayerMerc()
 	UINT8							ubID;
 
 	//Init the merc create structure with basic information
-	memset( &MercCreateStruct, 0, sizeof( MercCreateStruct ) );
+        // WDS - Clean up inventory handling
+	//memset( &MercCreateStruct, 0, sizeof( MercCreateStruct ) );	
 	MercCreateStruct.bTeam									= SOLDIER_CREATE_AUTO_TEAM;
 	MercCreateStruct.ubProfile							= GetUnusedMercProfileID();
 	MercCreateStruct.sSectorX								= gpAR->ubSectorX;
