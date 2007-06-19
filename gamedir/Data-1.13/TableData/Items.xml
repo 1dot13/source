@@ -10166,7 +10166,7 @@
 		<ubClassIndex>312</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>544</ubGraphicNum>
-		<ubWeight>1</ubWeight>
+		<ubWeight>4</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>240</usPrice>
 		<ubCoolness>10</ubCoolness>
@@ -24450,106 +24450,187 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1080</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1080</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>40mm Gren.P.</szItemName>
+		<szLongItemName>40mm Grenade Panel</szLongItemName>
+		<szItemDesc>A panel with four individual pockets to store up to four 40mm grenades.</szItemDesc>
+		<szBRName>40mm Grenade Panel</szBRName>
+		<szBRDesc>A quadruple pouch mounted on a leg rig. The long adjustable straps let you store 40mm grenades on any length.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>685</ubGraphicNum>
+		<ubWeight>4</ubWeight>
+		<usPrice>180</usPrice>
+		<bRepairEase>3</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1081</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1081</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Double Mag</szItemName>
+		<szLongItemName>Double Mag Pouch</szLongItemName>
+		<szItemDesc>A double pouch that can carry two long non-standard mags.</szItemDesc>
+		<szBRName>Double Mag Pouch</szBRName>
+		<szBRDesc>A pouch for carrying two longer magazines (like P90-mags) strapped to the upper thigh.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>707</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<usPrice>60</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1082</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1082</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>SAW Pouch</szItemName>
+		<szLongItemName>SAW Pouch</szLongItemName>
+		<szItemDesc>A large pouch that can carry an ammo box.</szItemDesc>
+		<szBRName>SAW Pouch</szBRName>
+		<szBRDesc>This pouch is designed to hold the ammo box for your machinegun. Mounted onto a leg rig.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>706</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<usPrice>75</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1083</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1083</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Blackhawk</szItemName>
+		<szLongItemName>Blackhawk Vest</szLongItemName>
+		<szItemDesc>A vest that is designed to carry magazines mostly.</szItemDesc>
+		<szBRName>Blackhawk Vest</szBRName>
+		<szBRDesc>A tactical vest that can carry an assortment of AR and pistol magazines.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>705</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<usPrice>100</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1084</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1084</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Police Vest</szItemName>
+		<szLongItemName>Hongkong Police Vest</szLongItemName>
+		<szItemDesc>A versatile vest with pockets of different sizes, 4 of them designed especially for 40mm grenades.</szItemDesc>
+		<szBRName>Hongkong Police Vest</szBRName>
+		<szBRDesc>Your dedicated grenadier will love this vest, with its four 40mm grenade pockets. Although it's a police vest, you need not necessarily load only tear gas...</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>704</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<usPrice>135</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1085</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1085</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Fleckt. Vest</szItemName>
+		<szLongItemName>German Flecktarn Vest</szLongItemName>
+		<szItemDesc>A German assault vest.</szItemDesc>
+		<szBRName>German Flecktarn Vest</szBRName>
+		<szBRDesc>A German assault vest. What you can't see on the picture is the large pocket at the left side, near the back of the vest.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>703</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<usPrice>120</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1086</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1086</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Ru.106 Vest</szItemName>
+		<szLongItemName>Russian 106 Vest</szLongItemName>
+		<szItemDesc>A very versatile vest.</szItemDesc>
+		<szBRName>Russian 106 Vest</szBRName>
+		<szBRDesc>The high number of pockets of various sizes lets you carry a lot of different things. Russian ingenuity at its best.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>702</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<usPrice>145</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1087</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1087</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Ru.107 Vest</szItemName>
+		<szLongItemName>Russian 107 Vest</szLongItemName>
+		<szItemDesc>A vest with mostly AR magazine pockets.</szItemDesc>
+		<szBRName>Russian 107 Vest</szBRName>
+		<szBRDesc>This is a vest for the primary combat soldier, who needs lots of rifle magazines.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>701</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<usPrice>130</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1088</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1088</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>RM22SF Vest</szItemName>
+		<szLongItemName>Russian RM22SF Vest</szLongItemName>
+		<szItemDesc>.</szItemDesc>
+		<szBRName>Russian RM22SF Vest</szBRName>
+		<szBRDesc>Designed for carrying magazines, grenades, and a few other things, this is the Russian special forces vest.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>700</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<usPrice>140</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1089</uiIndex>
-		<szItemName>TAC-1C</szItemName>
+		<szItemName>TAC-1C Vest</szItemName>
 		<szLongItemName>TT Utility Vest</szLongItemName>
 		<szItemDesc>A vest with two larger pockets for carrying some big things.</szItemDesc>
 		<szBRName>TT Utility Vest</szBRName>

@@ -9635,7 +9635,7 @@
 		<uiIndex>1074</uiIndex>
 		<szWeaponName>HEZI SM-1</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
-		<ubWeaponType>6</ubWeaponType>
+		<ubWeaponType>4</ubWeaponType>
 		<ubCalibre>45</ubCalibre>
 		<ubReadyTime>2</ubReadyTime>
 		<ubShotsPer4Turns>14</ubShotsPer4Turns>
