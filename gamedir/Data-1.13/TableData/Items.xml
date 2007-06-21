@@ -7458,7 +7458,7 @@
 		<szLongItemName>AK-47</szLongItemName>
 		<szItemDesc>Often copied, but never truly duplicated, Mikhail Kalishnikov's gift to the world has kept on giving for more than half a century of armed conflict.</szItemDesc>
 		<szBRName>AK-47</szBRName>
-		<szBRDesc>Universally known and respected among assault rifles.  Get yours today!</szBRDesc>
+		<szBRDesc>Universally known and respected amongst assault rifles.  Get yours today!</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>347</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -12744,7 +12744,7 @@
 		<szLongItemName>AEK-971</szLongItemName>
 		<szItemDesc>A relatively recent Russian manufactured AK variant.  This model fires 5.45mm rounds.</szItemDesc>
 		<szBRName>AEK-971</szBRName>
-		<szBRDesc>Reckoned to be 15-20 percent more accurate than the AK-74 by some shooters, give this new assualt rifle a try.  This model fires 5.45mm rounds.</szBRDesc>
+		<szBRDesc>Reckoned to be 15-20% more accurate than the AK-74 by some shooters. Discerning mercenaries should give this assault rifle a try.  This model fires 5.45mm rounds.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>602</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -12774,7 +12774,7 @@
 		<szLongItemName>AEK-973</szLongItemName>
 		<szItemDesc>A relatively recent Russian manufactured AK variant.  This model fires 7.62mm WP rounds.</szItemDesc>
 		<szBRName>AEK-973</szBRName>
-		<szBRDesc>Reckoned to be 15-20 percent more accurate than the AK-74 by some shooters, give this new assualt rifle a try.  This model fires 7.62mm WP rounds.</szBRDesc>
+		<szBRDesc>Reckoned to be 15-20% more accurate than the AK-74 by some shooters. Give this new assault rifle a try.  This model fires 7.62mm WP rounds.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>603</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -16357,6 +16357,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>26</BR_ROF>
+		<Bipod>10</Bipod>
 		<PercentAPReduction>-7</PercentAPReduction>
 		<DefaultAttachment>1007</DefaultAttachment>
 	</ITEM>
@@ -16967,6 +16968,7 @@
 		<BR_ROF>750</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
+		<DefaultAttachment>946</DefaultAttachment>
 	</ITEM>
 	<ITEM>
 		<uiIndex>750</uiIndex>
@@ -16997,6 +16999,7 @@
 		<BR_ROF>750</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
+		<DefaultAttachment>946</DefaultAttachment>
 	</ITEM>
 	<ITEM>
 		<uiIndex>751</uiIndex>
@@ -17057,6 +17060,7 @@
 		<BR_ROF>750</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
+		<DefaultAttachment>946</DefaultAttachment>
 	</ITEM>
 	<ITEM>
 		<uiIndex>753</uiIndex>
@@ -17207,6 +17211,8 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>660</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>758</uiIndex>
@@ -24204,7 +24210,7 @@
 		<szLongItemName>Galil Sniper</szLongItemName>
 		<szItemDesc>A sniperized version of the Galil assault rifle. More like a DMR than a real sniper rifle.</szItemDesc>
 		<szBRName>Galil Sniper</szBRName>
-		<szBRDesc>This has been a normal Galil, until someone decided to make a sniper rifle from it.</szBRDesc>
+		<szBRDesc>This was a standard Galil, until someone decided to make a sniper rifle from it.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>1069</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -24439,14 +24445,23 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1079</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1079</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>TAC-1A Vest</szItemName>
+		<szLongItemName>TT Assault Vest</szLongItemName>
+		<szItemDesc>A vest designed for carrying quite some of the most important consumables on a battlefield: ammo.</szItemDesc>
+		<szBRName>TT Assault Vest</szBRName>
+		<szBRDesc>The Tactical Tailor Assault Vest is for primary combat soldiers, and can carry 12 AR magazines, or whatever you need .</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>708</ubGraphicNum>
+		<ubWeight>1</ubWeight>
+		<usPrice>140</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1080</uiIndex>
