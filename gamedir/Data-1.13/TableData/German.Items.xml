@@ -59,9 +59,9 @@
 	<ITEM>
 		<uiIndex>7</uiIndex>
 		<szItemName>Desert Eagle .357</szItemName>
-		<szLongItemName>I.M.I. Desert Eagle Mark XIX</szLongItemName>
+		<szLongItemName>I.M.I. Desert Eagle Mark VII</szLongItemName>
 		<szItemDesc>Das Modell ist in den Kalibern .357Mag., .44Mag., .50AE und .440Cor-Bon erhältlich und wird von MAGNUM RESEARCH in den USA hergestellt.</szItemDesc>
-		<szBRName>Desert Eagle .357</szBRName>
+		<szBRName>Desert Eagle Mk. VII</szBRName>
 		<szBRDesc>Diese Pistole wurde 1980 von I.M.I. in Israel entwickelt. Ziel war es eine halbautomatische Handfeuerwaffe zu entwickeln, die mit einem Magnum-Kaliber ausgestattet ist. Seit 1985 wird sie von MAGNUM RESEARCH (USA) weiterentwickelt und hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -930,16 +930,16 @@
 		<uiIndex>116</uiIndex>
 		<szItemName>.50 BMG Mag</szItemName>
 		<szLongItemName>.50 BMG Magazin</szLongItemName>
-		<szItemDesc>Dieses Magazin im Kaliber .50 BMG (12.7x99mm) ist passend für das Barrett M82A2.</szItemDesc>
+		<szItemDesc>Dieses 11-schüssige Magazin enthält Patronen im Kaliber .50 BMG (12.7x99mm) und ist passend für das Barrett M82A2.</szItemDesc>
 		<szBRName>.50 BMG Magazin #11</szBRName>
-		<szBRDesc>Dieses Magazin im Kaliber .50 BMG (12.7x99mm) ist passend für das Barrett M82A2.</szBRDesc>
+		<szBRDesc>Dieses 11-schüssige Magazin enthält Patronen im Kaliber .50 BMG (12.7x99mm) und ist passend für das Barrett M82A2.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>117</uiIndex>
 		<szItemName>9x39 Mag</szItemName>
 		<szLongItemName>9x39mm Magazin, PB</szLongItemName>
-		<szItemDesc>Die Unterschall-Munition im stärkeren Kaliber 9x39mm wird von einer Reihe neuerer russischer Waffen verwendet. Darunter AS Val, VSS Vintorez und SR-3 Vikhr.</szItemDesc>
-		<szBRName>9x39 Magazin #20</szBRName>
+		<szItemDesc>Diese Munition im stärkeren Kaliber 9x39mm wird von einer Reihe neuerer russischer Waffen verwendet. Darunter AS Val, VSS Vintorez und SR-3 Vikhr.</szItemDesc>
+		<szBRName>9x39 Mag, PB #20</szBRName>
 		<szBRDesc>Diese Munition im stärkeren Kaliber 9x39mm wird von einer Reihe russischer Waffen verwendet. Darunter AS Val, VSS Vintorez und SR-3 Vikhr. Optimiert für Einsatz mit 9mm Schalldämpfern</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1280,9 +1280,9 @@
 		<uiIndex>160</uiIndex>
 		<szItemName>Gran.Holster</szItemName>
 		<szLongItemName>Granatenholster</szLongItemName>
-		<szItemDesc>Vier Holster, jedes für einen Granatentyp, sind auf einem Träger montiert, der an das Gurtzeug oder das Koppel gehängt werden kann.</szItemDesc>
+		<szItemDesc>Dieses Granat-Holster mit vier einzelnen Taschen ist auf einem Träger befestigt der an das Gurtzeug oder Koppel gehängt werden kann.</szItemDesc>
 		<szBRName>Granatenholster</szBRName>
-		<szBRDesc>Vier Holster, jedes für einen Granatentyp, sind auf einem Träger montiert, der an das Gurtzeug oder das Koppel gehängt werden kann.</szBRDesc>
+		<szBRDesc>Dieses Granat-Holster mit vier einzelnen Taschen ist auf einem Träger befestigt der an das Gurtzeug oder Koppel gehängt werden kann.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>161</uiIndex>
@@ -1602,7 +1602,7 @@
 		<szLongItemName>7x50 Fernglas</szLongItemName>
 		<szItemDesc>Ein hochwertiges 7x50 Fernglas, made in Austria. Entspiegelte, beschichtete Linsen aus Glas. Outdoor geeignet</szItemDesc>
 		<szBRName>7x50 Fernglas</szBRName>
-		<szBRDesc>Ein hochwertiges 7x50 Fernglas von Svarovski. Mit einer Schutzumhüllung aus Neopren.</szBRDesc>
+		<szBRDesc>Ein hochwertiges 7x50 Fernglas von SWAROVSKI. Mit einer Schutzumhüllung aus Neopren.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>201</uiIndex>
@@ -1654,11 +1654,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>207</uiIndex>
-		<szItemName>SD</szItemName>
-		<szLongItemName>Schalldämpfer</szLongItemName>
+		<szItemName>kl. SD</szItemName>
+		<szLongItemName>Pistolen-Schalldämpfer</szLongItemName>
 		<szItemDesc>Dieser leichte und kompakte Schalldämpfer ermöglicht aufgrund seines Designs eine unkomplizierte Anbringung an den meisten Pistolen und MPs. Um eine maximale Wirkung zu erzielen, sollte speziele Unterschall-Mun. verwendet werden.</szItemDesc>
-		<szBRName>Schalldämpfer</szBRName>
-		<szBRDesc>Dieser kompakte Schalldämpfer paßt an die meisten Pistolen und MPs. Er durchschießt keine Filz- oder Gummischeiben und ist daher nahezu wartungsfrei. Bitte Unterschall-Munition mitbestellen!</szBRDesc>
+		<szBRName>kl. Schalldämpfer</szBRName>
+		<szBRDesc>Dieser leichte und kompakte Schalldämpfer ermöglicht aufgrund seines Designs eine unkomplizierte Anbringung an den meisten Pistolen und MPs. Bitte vergessen Sie nicht die passende Unterschall-Munition mit zu bestellen!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>208</uiIndex>
@@ -1950,10 +1950,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>245</uiIndex>
-		<szItemName>Alkohol</szItemName>
-		<szLongItemName>Flasche mit Alkohol</szLongItemName>
-		<szItemDesc>Aus Pflanzenresten fraglicher Herkunft wird dieser arulcanische Fusel destilliert. Brennt besser, als er schmeckt. Zum Mixen von Molotov-Coctails geeignet.</szItemDesc>
-		<szBRName>Flasche mit Alkohol</szBRName>
+		<szItemName>Vodka</szItemName>
+		<szLongItemName>Russian Standard</szLongItemName>
+		<szItemDesc>Dieser hochprozentige Vodka ist seit 2006 Marktführer im Premiumsegment in Russland. Wie kommt diese Flasche nur nach Arulco? Vielleicht ein Geschenk von Ivan &amp; Igor ...</szItemDesc>
+		<szBRName>Vodka</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2040,16 +2040,16 @@
 		<uiIndex>256</uiIndex>
 		<szItemName>Bier</szItemName>
 		<szLongItemName>Radeberger Pilsner</szLongItemName>
-		<szItemDesc>Wen kümmert es bei 4.9 Prozent Alkoholgehalt noch, wo das Zeug herkommt? Mit diesem Eisbier kann man jeden Russen unter den Tisch saufen.</szItemDesc>
+		<szItemDesc>Wen kümmert es bei 4.9 Prozent Alkohol noch, wo das Zeug herkommt? Mit diesem Eisbier kann man jeden Arulcaner unter den Tisch saufen.</szItemDesc>
 		<szBRName>Bier</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>257</uiIndex>
-		<szItemName>Porno</szItemName>
-		<szLongItemName>Porno Magazin</szLongItemName>
-		<szItemDesc>Die COUPE 10/2006 enthält ein hochinteressantes Poster von den Darstellerinnen aus der Serie 'The L-Word' und diverse Artikel, für die sich kein Schwein interessiert.</szItemDesc>
-		<szBRName>Porno Magazin</szBRName>
+		<szItemName>Coupe</szItemName>
+		<szLongItemName>Coupe Magazin</szLongItemName>
+		<szItemDesc>Die COUPE 7/2007 enthält ein hochinteressantes Poster von den Darstellerinnen aus der 'Real Coyote Show' und diverse Artikel für die sich kein Schwein interessiert.</szItemDesc>
+		<szBRName>Coupe</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2357,7 +2357,7 @@
 		<uiIndex>296</uiIndex>
 		<szItemName>T-Shirt</szItemName>
 		<szLongItemName>T-Shirt</szLongItemName>
-		<szItemDesc>Ein 'Deidranna'-Shirt tragen zu müssen, ist eine weitere Erniedrigung der Arulcaner. In unbeobachtetet Momenten zerschneiden sie diese Shirts gerne zu Putzlappen.</szItemDesc>
+		<szItemDesc>Echt geile Aufschrift - du mich auch!</szItemDesc>
 		<szBRName>T-Shirt</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2672,11 +2672,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>336</uiIndex>
-		<szItemName>SIG P226</szItemName>
-		<szLongItemName>SIG P226 X-Five</szLongItemName>
-		<szItemDesc>Die neue Version der P226 X-Five Special Operation wurde speziell für den Polizei-Einsatz entwickelt und konzipiert.</szItemDesc>
-		<szBRName>SIG P226 X-Five</szBRName>
-		<szBRDesc>Die neue Version der P226 X-Five Special Operation wurde speziell für den Polizei-Einsatz entwickelt und konzipiert.</szBRDesc>
+		<szItemName>P226</szItemName>
+		<szLongItemName>SIG-Sauer P226 X-Five</szLongItemName>
+		<szItemDesc>Dank der Verwendung bester Materialien und der bewährten SIG-SAUER Verarbeitung sind die X-FIVE Modelle sicher, präzise und zuverlässig.</szItemDesc>
+		<szBRName>SIG-Sauer P226 X-Five</szBRName>
+		<szBRDesc>Die neue Behördenversion der P226 X-Five Special Operation wurde entwickelt, konzipiert und konstruiert für den besonderen Einsatz von Special Forces und SWAT-Teams. Sie zählt zu den hochwertigsten Dienstpistolen überhaupt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>337</uiIndex>
@@ -3618,9 +3618,9 @@
 		<uiIndex>454</uiIndex>
 		<szItemName>.50 BMG Mag</szItemName>
 		<szLongItemName>.50 BMG Magazin</szLongItemName>
-		<szItemDesc>11 Schuss 12.7x99mm panzerbrechender Munition können alle Fragen des Lebens und Sterbens beantworten.</szItemDesc>
-		<szBRName>.50 BMG Magazin</szBRName>
-		<szBRDesc>Diese Magazin ist für die Gewehre aus Barretts M82 Serie geeignet.</szBRDesc>
+		<szItemDesc>Dieses 5-schüssige Magazin enthält Patronen im Kaliber .50 BMG (12.7x99mm) und ist passend für das Barrett M82A2.</szItemDesc>
+		<szBRName>.50 BMG Magazin #5</szBRName>
+		<szBRDesc>Dieses 5-schüssige Magazin enthält Patronen im Kaliber .50 BMG (12.7x99mm) und ist passend für das Barrett M82A2.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>455</uiIndex>
@@ -3680,11 +3680,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>462</uiIndex>
-		<szItemName>7.62x51 US-G</szItemName>
-		<szLongItemName>7.62x51mm Magazin, US-Glaser</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>7.62x51 Mag US-G #10</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>.30-06 Clip</szItemName>
+		<szLongItemName>.30-06 Munitions-Clip</szLongItemName>
+		<szItemDesc>Dieser Munitions-Clip ist passend für den berühmten M1 Garand und diverse Jagdgewehre. Ohne Zweifel kann die .30-06 Springfield als die gängigste Jagdpatrone der Welt bezeichnet werden.</szItemDesc>
+		<szBRName>.30-06 Clip #8</szBRName>
+		<szBRDesc>Dieser Munitions-Clip ist passend für den berühmten M1 Garand und diverse Jagdgewehre. Ohne Zweifel kann die .30-06 Springfield als die gängigste Jagdpatrone der Welt bezeichnet werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>463</uiIndex>
@@ -3728,11 +3728,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>468</uiIndex>
-		<szItemName>.30 car HP</szItemName>
-		<szLongItemName>.30 car HP mag</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>.30 car HP mag</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>.30 Mag HS</szItemName>
+		<szLongItemName>.30 Carbine Magazin, HS</szLongItemName>
+		<szItemDesc>Dieses Magazin ist passend für den M1 Carbine. In den 40er Jahren entwickelte WINCHESTER die Patrone im Kaliber .30 Carbine (7.62x33mm) für das gleichnamige Gewehr.</szItemDesc>
+		<szBRName>.30 Mag HS</szBRName>
+		<szBRDesc>Dieses Magazin ist passend für den M1 Carbine. In den 40er Jahren entwickelte WINCHESTER die Patrone im Kaliber .30 Carbine (7.62x33mm) für das gleichnamige Gewehr.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>469</uiIndex>
@@ -3776,16 +3776,16 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>474</uiIndex>
-		<szItemName>.30 car AP</szItemName>
-		<szLongItemName>.30 car AP mag</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>.30 car AP mag</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>.30 Mag PB</szItemName>
+		<szLongItemName>.30 Carbine Magazin, PB</szLongItemName>
+		<szItemDesc>Dieses Magazin ist passend für den M1 Carbine. In den 40er Jahren entwickelte WINCHESTER die Patrone im Kaliber .30 Carbine (7.62x33mm) für das gleichnamige Gewehr.</szItemDesc>
+		<szBRName>.30 Mag PB</szBRName>
+		<szBRDesc>Dieses Magazin ist passend für den M1 Carbine. In den 40er Jahren entwickelte WINCHESTER die Patrone im Kaliber .30 Carbine (7.62x33mm) für das gleichnamige Gewehr.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>475</uiIndex>
 		<szItemName>.300 WM Mag HS</szItemName>
-		<szLongItemName>.300 Win. Mag. Magazin, HS</szLongItemName>
+		<szLongItemName>.300 WM Magazin, HS</szLongItemName>
 		<szItemDesc>Bei der Entwicklung der CDP-Jagdpatrone von BLASER (7.62x67mm) waren eine höchstmögliche Schockwirkung und minimale Wildbretzerstörung die primären Ziele. Sie ist in ihren Eigenschaften der .308 Winchester Patrone weit überlegen.</szItemDesc>
 		<szBRName>.300 WM Mag HS #5</szBRName>
 		<szBRDesc>Bei der Entwicklung der CDP-Jagdpatrone von BLASER (7.62x67mm) waren eine höchst- mögliche Schockwirkung und minimale Wildbret- zerstörung die primären Ziele. Sie ist in ihren Eigenschaften der .308 Winchester Patrone weit überlegen.</szBRDesc>
@@ -3793,7 +3793,7 @@
 	<ITEM>
 		<uiIndex>476</uiIndex>
 		<szItemName>.300 WM Mag PB</szItemName>
-		<szLongItemName>.300 Win. Mag. Magazin, PB</szLongItemName>
+		<szLongItemName>.300 WM Magazin, PB</szLongItemName>
 		<szItemDesc>Die neue SWISS-P Patrone (7.62x67mm) von RUAG-Ammotec besitzt einen Wolframkarbidkern und durchdringt Schutzwesten und Panzerglas selbst auf große Entfernungen mit hoher Präzision. Sie ist in ihren Eigenschaften der 7.62x51mm Patrone weit überlegen.</szItemDesc>
 		<szBRName>.300 WM Mag PB #5</szBRName>
 		<szBRDesc>Die neue SWISS-P Patrone (7.62x67mm) von RUAG-Ammotec besitzt einen Wolframkarbidkern und durchdringt Schutzwesten und Panzerglas selbst auf große Entfernungen mit hoher Präzision. Sie ist in ihren Eigenschaften der 7.62x51mm Patrone weit überlegen.</szBRDesc>
@@ -3816,35 +3816,35 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>479</uiIndex>
-		<szItemName>12.7mm Mag US</szItemName>
-		<szLongItemName>12.7mm Magazin Unterschall</szLongItemName>
-		<szItemDesc>Sie möchten im Großkaliber feuern ohne ein Geräusch zu machen? Dann nehmen Sie diese gekürzten 12.7mm Patronen, sie passen in das russische VSSK.</szItemDesc>
-		<szBRName>12.7mm Magazin US #5</szBRName>
-		<szBRDesc>Sie möchten im Großkaliber feuern ohne ein Geräusch zu machen? Dann nehmen Sie diese gekürzten 12.7mm Patronen, sie passen in das russische VSSK.</szBRDesc>
+		<szItemName>12.7x97 US</szItemName>
+		<szLongItemName>12.7x97mm Magazin, Unterschall</szLongItemName>
+		<szItemDesc>Dieses 5-schüssige Magazin enthält gekürzte Patronen im Kaliber 12.7x97mm für großkalibrige Scharfschützengewehre, z.B. das russische VSSK.</szItemDesc>
+		<szBRName>12.7x97 Mag US #5</szBRName>
+		<szBRDesc>Dieses 5-schüssige Magazin enthält gekürzte Patronen im Kaliber 12.7x97mm für großkalibrige Scharfschützengewehre, z.B. das russische VSSK.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>480</uiIndex>
-		<szItemName>5.56 SCF mag</szItemName>
-		<szLongItemName>5.56x45mm SCF mag</szLongItemName>
-		<szItemDesc>Die 24 Flechettes aus diesem Magazin werden ihren Feinden vor allem schnell das Licht ausknipsen.</szItemDesc>
-		<szBRName>5.56x45mm SCF mag</szBRName>
-		<szBRDesc>Dieses sehr leichte Magazin enthält 24 SChuss für Steyrs berühmt-berüchtigtes ACR.</szBRDesc>
+		<szItemName>5.56x45 Mag SCF</szItemName>
+		<szLongItemName>5.56x45mm SCF Magazin</szLongItemName>
+		<szItemDesc>Diese einzigartigen Patronen enthalten ca. 20 nagelähnliche Stahl- und Wolframpfeile. Entwickelt wurde diese Munition um Scharfschützen aus Bäumen herauszuholen.</szItemDesc>
+		<szBRName>5.56x45 SCF #24</szBRName>
+		<szBRDesc>Diese einzigartigen Patronen enthalten ca. 20 nagelähnliche Stahl- und Wolframpfeile. Entwickelt wurde diese Munition um Scharfschützen aus Bäumen herauszuholen. Dieses sehr leichte Magazin enthält 24 Schuss für Steyrs berühmt-berüchtigtes ACR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>481</uiIndex>
-		<szItemName>6.8x43mm SPC mag HP</szItemName>
-		<szLongItemName>6.8x43mm SPC mag HP</szLongItemName>
-		<szItemDesc>Alles bleibt besser - jetzt auch in Hohlspitz.</szItemDesc>
-		<szBRName>6.8x43mm SPC mag HP</szBRName>
-		<szBRDesc>Diese zukunftsträchtige 6.8 SPC Hohlspitzmunition ist am zivilen Markt sehr beliebt.</szBRDesc>
+		<szItemName>6.8mm SPC HS</szItemName>
+		<szLongItemName>6.8mm Remington SPC Magazin, HS</szLongItemName>
+		<szItemDesc>Um die Durchschlagskraft des M4 zu steigern, wurde von Mitgliedern der US-Army Marksmanship Unit diese neue Patrone im Kaliber 6.8x43mm SPC entwickelt. Heute fertigt REMINGTON die Patrone mit HS- und PB-Geschossen.</szItemDesc>
+		<szBRName>6.8mm SPC Magazin HS</szBRName>
+		<szBRDesc>Um die Durchschlagskraft des M4 zu steigern, wurde von Mitgliedern der US-Army Marksmanship Unit diese neue Patrone im Kaliber 6.8x43mm SPC entwickelt. Heute fertigt REMINGTON die Patrone mit HS- und PB-Geschossen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>482</uiIndex>
-		<szItemName>6.8 SPC mag</szItemName>
-		<szLongItemName>6.8x43mm SPC mag</szLongItemName>
-		<szItemDesc>Alles bleibt besser. Diese Patronen vereinbaren die Vorteile von mehreren anderen Kalibern.</szItemDesc>
-		<szBRName>6.8x43mm SPC mag</szBRName>
-		<szBRDesc>Diese zukunftsträchtige Munition wurde in Zusammenarbeit mit amerikanischen Spezialeinheiten entwickelt.</szBRDesc>
+		<szItemName>6.8mm SPC</szItemName>
+		<szLongItemName>6.8mm Remington SPC Magazin</szLongItemName>
+		<szItemDesc>Um die Durchschlagskraft des M4 zu steigern, wurde von Mitgliedern der US-Army Marksmanship Unit diese neue Patrone im Kaliber 6.8x43mm SPC entwickelt. Heute fertigt REMINGTON die Patrone mit HS- und PB-Geschossen.</szItemDesc>
+		<szBRName>6.8mm SPC Magazin</szBRName>
+		<szBRDesc>Um die Durchschlagskraft des M4 zu steigern, wurde von Mitgliedern der US-Army Marksmanship Unit diese neue Patrone im Kaliber 6.8x43mm SPC entwickelt. Heute fertigt REMINGTON die Patrone mit HS- und PB-Geschossen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>483</uiIndex>
@@ -3889,9 +3889,9 @@
 	<ITEM>
 		<uiIndex>488</uiIndex>
 		<szItemName>4.6x30 Mag PB</szItemName>
-		<szLongItemName>4.6x30mm MP-Magazin, PB</szLongItemName>
+		<szLongItemName>4.6x30mm Magazin, PB</szLongItemName>
 		<szItemDesc>Diese Spezialmunition wird nur von der HK MP7 verwendet. Das Geschoss ist ungefähr so groß wie ein Gewehrprojektil und hat die gleiche Durchschlagskraft! Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szItemDesc>
-		<szBRName>4.6x30 Mag PB #40</szBRName>
+		<szBRName>4.6x30 Mag PB</szBRName>
 		<szBRDesc>Diese Spezialmunition wird nur von der HK MP7 verwendet. Das Geschoss ist ungefähr so groß wie ein Gewehrprojektil und hat die gleiche Durchschlagskraft! Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4010,9 +4010,9 @@
 		<uiIndex>503</uiIndex>
 		<szItemName>12.7x108 Mag</szItemName>
 		<szLongItemName>12.7x108mm Magazin</szLongItemName>
-		<szItemDesc>Diese Magazin enthält Patronen im Kaliber 12.7x108mm für großkalibrige Scharfschützengewehre.</szItemDesc>
+		<szItemDesc>Dieses 5-schüssige Magazin enthält russische Patronen im Kaliber 12.7x108mm für großkalibrige Scharfschützengewehre.</szItemDesc>
 		<szBRName>12.7x108 Magazin #5</szBRName>
-		<szBRDesc>Diese Magazin enthält Patronen im Kaliber 12.7x108mm für großkalibrige Scharfschützengewehre.</szBRDesc>
+		<szBRDesc>Dieses 5-schüssige Magazin enthält russische Patronen im Kaliber 12.7x108mm für großkalibrige Scharfschützengewehre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>504</uiIndex>
@@ -4161,10 +4161,10 @@
 	<ITEM>
 		<uiIndex>522</uiIndex>
 		<szItemName>.338 LM Mag</szItemName>
-		<szLongItemName>.338 Lapua Mag. Magazin</szLongItemName>
-		<szItemDesc>Die ultrastarke .338 Lapua Magnum Patrone garantiert, dass Ihre Ziele da umfallen wo sie sich gerade befinden. Die beste Wahl für Großwildjagd und Scharfschützen!</szItemDesc>
-		<szBRName>.338 Lapua Mag #10</szBRName>
-		<szBRDesc>Die ultrastarke .338 Lapua Magnum Patrone garantiert, dass Ihre Ziele da umfallen wo sie sich gerade befinden. Die beste Wahl für Großwildjagd und Scharfschützen!</szBRDesc>
+		<szLongItemName>.338 Lapua Magazin</szLongItemName>
+		<szItemDesc>Die ultrastarke .338 Lapua Magnum Patrone garantiert, dass Ihre Ziele da umfallen wo sie sich gerade befinden. Die beste Wahl für Großwildjäger und Scharfschützen!</szItemDesc>
+		<szBRName>.338 LM Magazin #10</szBRName>
+		<szBRDesc>Die ultrastarke .338 Lapua Magnum Patrone garantiert, dass Ihre Ziele da umfallen wo sie sich gerade befinden. Die beste Wahl für Großwildjäger und Scharfschützen!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>523</uiIndex>
@@ -4233,31 +4233,31 @@
 	<ITEM>
 		<uiIndex>531</uiIndex>
 		<szItemName>10mm Mag</szItemName>
-		<szLongItemName>10mm AUTO MP-Magazin</szLongItemName>
+		<szLongItemName>10mm AUTO Magazin</szLongItemName>
 		<szItemDesc>Diese BUFFALO BORE VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
-		<szBRName>10mm Mag #30</szBRName>
+		<szBRName>10mm Mag</szBRName>
 		<szBRDesc>Diese BUFFALO BORE Vollmantel-Rundkopf Projektile im Kaliber 10x25mm, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>532</uiIndex>
 		<szItemName>10mm Mag HS</szItemName>
-		<szLongItemName>10mm AUTO MP-Magazin, HS</szLongItemName>
-		<szItemDesc>Die BUFFALO BORE Gold Dot Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefern kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szItemDesc>
+		<szLongItemName>10mm AUTO Magazin, HS</szLongItemName>
+		<szItemDesc>Die BUFFALO BORE Gold Dot Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie bieten kontrollierte Expansion, hohen Energietransfer und große Mannstoppwirkung. Ideal für den Personenschutz, da ein Durchschlagen mehrerer Ziele ausgeschlossen ist!</szItemDesc>
 		<szBRName>10mm Mag HS</szBRName>
-		<szBRDesc>Die BUFFALO BORE Gold Dot Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefern kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die BUFFALO BORE Gold Dot Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie bieten kontrollierte Expansion, hohen Energietransfer und große Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>533</uiIndex>
 		<szItemName>10mm Mag PB</szItemName>
-		<szLongItemName>10mm AUTO MP-Magazin, PB</szLongItemName>
-		<szItemDesc>Diese weiterentwickelten BUFFALO BORE Patronen wurden als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
+		<szLongItemName>10mm AUTO Magazin, PB</szLongItemName>
+		<szItemDesc>Diese weiterentwickelten BUFFALO BORE Patronen wurden als FBI-Munition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
 		<szBRName>10mm Mag PB</szBRName>
-		<szBRDesc>Diese weiterentwickelten BUFFALO BORE Patronen wurden als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szBRDesc>
+		<szBRDesc>Diese weiterentwickelten BUFFALO BORE Patronen wurden als FBI-Munition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen. Wir verkaufen diese Munition nur an Soldaten und Polizeibeamte!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>534</uiIndex>
 		<szItemName>10mm Mag DPX</szItemName>
-		<szLongItemName>10mm AUTO MP-Magazin, DPX</szLongItemName>
+		<szLongItemName>10mm AUTO Magazin, DPX</szLongItemName>
 		<szItemDesc>Wenn Sie Ihrer Waffe maximale Durchschlagskraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szItemDesc>
 		<szBRName>10mm Mag DPX</szBRName>
 		<szBRDesc>Wenn Sie Ihrer Waffe maximale Durchschlagskraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szBRDesc>
@@ -4265,7 +4265,7 @@
 	<ITEM>
 		<uiIndex>535</uiIndex>
 		<szItemName>10mm Mag G</szItemName>
-		<szLongItemName>10mm AUTO MP-Magazin, Glaser</szLongItemName>
+		<szLongItemName>10mm AUTO Magazin, Glaser</szLongItemName>
 		<szItemDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szItemDesc>
 		<szBRName>10mm Mag Glaser</szBRName>
 		<szBRDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szBRDesc>
@@ -4273,7 +4273,7 @@
 	<ITEM>
 		<uiIndex>536</uiIndex>
 		<szItemName>10mm Mag M</szItemName>
-		<szLongItemName>10mm AUTO MP-Magazin, Match</szLongItemName>
+		<szLongItemName>10mm AUTO Magazin, Match</szLongItemName>
 		<szItemDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 70m.</szItemDesc>
 		<szBRName>10mm Mag Match</szBRName>
 		<szBRDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 70m.</szBRDesc>
@@ -4281,7 +4281,7 @@
 	<ITEM>
 		<uiIndex>537</uiIndex>
 		<szItemName>10mm Mag DU</szItemName>
-		<szLongItemName>10mm AUTO MP-Magazin, DU</szLongItemName>
+		<szLongItemName>10mm AUTO Magazin, DU</szLongItemName>
 		<szItemDesc>Aufgrund der verwendeten Legierung entfalten diese panzerbrechenden Geschosse eine große Durchschlagskraft. Das Projektil enthält Uran-235 und setzt beim Einschlagen einen radioaktiven Staub frei welcher sehr tödlich ist.</szItemDesc>
 		<szBRName>10mm Mag DU</szBRName>
 		<szBRDesc>Aufgrund der verwendeten Legierung entfalten diese panzerbrechenden Geschosse eine große Durchschlagskraft. Das Projektil enthält Uran-235 und setzt beim Einschlagen einen radioaktiven Staub frei welcher sehr tödlich ist.</szBRDesc>
@@ -4369,9 +4369,9 @@
 	<ITEM>
 		<uiIndex>548</uiIndex>
 		<szItemName>4.6x30 Mag DPX</szItemName>
-		<szLongItemName>4.6x30mm MP-Magazin, DPX</szLongItemName>
+		<szLongItemName>4.6x30mm Magazin, DPX</szLongItemName>
 		<szItemDesc>Wenn Sie Ihrer Waffe maximale Durchschlagskraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szItemDesc>
-		<szBRName>4.6x30 Mag DPX #40</szBRName>
+		<szBRName>4.6x30 Mag DPX</szBRName>
 		<szBRDesc>Wenn Sie Ihrer Waffe maximale Durchschlags- kraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4521,7 +4521,7 @@
 	<ITEM>
 		<uiIndex>567</uiIndex>
 		<szItemName>.45 WM Mag</szItemName>
-		<szLongItemName>.45 Win.Mag. Magazin</szLongItemName>
+		<szLongItemName>.45 WM Magazin</szLongItemName>
 		<szItemDesc>In 1979 stellte WINCHESTER passend zur neuen Magnum-Pistole 'Wildey' diese Patrone her. Sie basiert auf der .45ACP Hülse, welche um 7,62mm verlängert wurde.</szItemDesc>
 		<szBRName>.45 WM Mag #6</szBRName>
 		<szBRDesc>In 1979 stellte WINCHESTER passend zur neuen Magnum-Pistole 'Wildey' diese Patrone her. Sie basiert auf der .45ACP Hülse, welche um 7,62mm verlängert wurde. In Nordamerika wird das starke Kaliber weiterhin für die Jagd mit Kurzwaffen verwendet.</szBRDesc>
@@ -4529,7 +4529,7 @@
 	<ITEM>
 		<uiIndex>568</uiIndex>
 		<szItemName>.45 WM Mag HS</szItemName>
-		<szLongItemName>.45 Win.Mag. Magazin, HS</szLongItemName>
+		<szLongItemName>.45 WM Magazin, HS</szLongItemName>
 		<szItemDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone.</szItemDesc>
 		<szBRName>.45 WM Mag HS #6</szBRName>
 		<szBRDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone.</szBRDesc>
@@ -4537,7 +4537,7 @@
 	<ITEM>
 		<uiIndex>569</uiIndex>
 		<szItemName>.45 WM Mag PB</szItemName>
-		<szLongItemName>.45 Win.Mag. Magazin, PB</szLongItemName>
+		<szLongItemName>.45 WM Magazin, PB</szLongItemName>
 		<szItemDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone.</szItemDesc>
 		<szBRName>.45 WM Mag PB #6</szBRName>
 		<szBRDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone.</szBRDesc>
@@ -4673,50 +4673,50 @@
 	<ITEM>
 		<uiIndex>586</uiIndex>
 		<szItemName>10mm Mag</szItemName>
-		<szLongItemName>10mm Mag</szLongItemName>
-		<szItemDesc>Ein Pistolenmagazin mit 8 Schuß der starken 10mm Flachkopf- Munition von NORMA.</szItemDesc>
-		<szBRName>10mm Mag</szBRName>
-		<szBRDesc>Dieses 8-schüssige Pistolenmagazin enthält die kraftvolle NORMA 10mm x 25 Munition.</szBRDesc>
+		<szLongItemName>10mm AUTO Magazin</szLongItemName>
+		<szItemDesc>Diese BUFFALO BORE Vollmantel-Rundkopf Projektile im Kaliber 10x25mm, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden.</szItemDesc>
+		<szBRName>10mm Mag #8</szBRName>
+		<szBRDesc>Diese BUFFALO BORE Vollmantel-Rundkopf Projektile im Kaliber 10x25mm, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>587</uiIndex>
-		<szItemName>10mm Mag HP</szItemName>
-		<szLongItemName>10mm Mag HP</szLongItemName>
-		<szItemDesc>Ein Pistolenmagazin mit 8 Schuß 10mm Munition mit eingekerbtem Kupferkopf. Das Projektil gehört zur Familie der Holspitz-Geschosse, da es sich im Weichziel schnell deformiert.</szItemDesc>
-		<szBRName>10mm Mag HP</szBRName>
-		<szBRDesc>Dieses 8-schüssige Pistolenmagazin enthält die Holspitz- Variante der kraftvollen 10mm x 25 FBI Munition. Ideal für den Personenschutz, da ein Durchschlagen mehrerer Ziele ausgeschlossen ist!</szBRDesc>
+		<szItemName>10mm Mag HS</szItemName>
+		<szLongItemName>10mm AUTO Magazin, HS</szLongItemName>
+		<szItemDesc>Die BUFFALO BORE Gold Dot Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie bieten kontrollierte Expansion, hohen Energietransfer und große Mannstoppwirkung. Ideal für den Personenschutz, da ein Durchschlagen mehrerer Ziele ausgeschlossen ist!</szItemDesc>
+		<szBRName>10mm Mag HS #8</szBRName>
+		<szBRDesc>Die BUFFALO BORE Gold Dot Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie bieten kontrollierte Expansion, hohen Energietransfer und große Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>588</uiIndex>
-		<szItemName>10mm Mag AP</szItemName>
-		<szLongItemName>10mm Mag AP</szLongItemName>
-		<szItemDesc>Ein Pistolenmagazin mit 8 Schuß 10mm 'Armor Piercing' Munition. Diese Patrone gehört zur Standardausrüstung einige FBI-Einheiten.</szItemDesc>
-		<szBRName>10mm Mag AP</szBRName>
-		<szBRDesc>Dieses 8-schüssige Pistolenmagazin enthält die 'Armor Piercing'- Variante der kraftvollen 10mm x 25 FBI Munition. Nur für Militär- und Polizeikräfte erlaubt!</szBRDesc>
+		<szItemName>10mm Mag PB</szItemName>
+		<szLongItemName>10mm AUTO Magazin, PB</szLongItemName>
+		<szItemDesc>Diese weiterentwickelten BUFFALO BORE Patronen wurden als FBI-Munition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
+		<szBRName>10mm Mag PB</szBRName>
+		<szBRDesc>Diese weiterentwickelten BUFFALO BORE Patronen wurden als FBI-Munition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen. Wir verkaufen diese Munition nur an Soldaten und Polizeibeamte!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>589</uiIndex>
-		<szItemName>10mm Mag AET</szItemName>
-		<szLongItemName>10mm Mag AET</szLongItemName>
-		<szItemDesc>Ein Pistolenmagazin mit 8 Schuß 10mm 'AET' Hochengergie- Munition. Diese Munition hilft Ihnen auch dort noch, wo AP Geschsse versagen.</szItemDesc>
-		<szBRName>10mm Mag AET</szBRName>
-		<szBRDesc>Dieses 8-schüssige  Pistolenmagazin enthält 10mm x 25 'AET' Munition. Hinter einer Rundkopf-Plastikhülle verbirgt sich ein 'Reverse Ogive' Geschoß mit ungeahnter Durchlagswirkung.</szBRDesc>
+		<szItemName>10mm Mag DPX</szItemName>
+		<szLongItemName>10mm AUTO Magazin, DPX</szLongItemName>
+		<szItemDesc>Wenn Sie Ihrer Waffe maximale Durchschlagskraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szItemDesc>
+		<szBRName>10mm Mag DPX</szBRName>
+		<szBRDesc>Wenn Sie Ihrer Waffe maximale Durchschlagskraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>590</uiIndex>
 		<szItemName>10mm Mag G</szItemName>
-		<szLongItemName>10mm Mag Glaser</szLongItemName>
-		<szItemDesc>Ein Pistolenmagazin mit 8 Schuß 10mm Glaser- Mannstop- Munition. Diese Munition gibt ihre gesamte Energie sehr schnell im Weichziel ab.</szItemDesc>
+		<szLongItemName>10mm AUTO Magazin Glaser</szLongItemName>
+		<szItemDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szItemDesc>
 		<szBRName>10mm Mag Glaser</szBRName>
-		<szBRDesc>Dieses 8-schüssige Pistolenmagazin enthält 10mm x 25 Glaser Munition. Es gibt nichts Besseres gegen ungeschützte Ziele.</szBRDesc>
+		<szBRDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>591</uiIndex>
 		<szItemName>10mm Mag M</szItemName>
-		<szLongItemName>10mm Mag Match</szLongItemName>
-		<szItemDesc>Ein Pistolenmagazin mit 8 Schuß Match- Munition im Kaliber 10mm. Schießt weiter und präziser.</szItemDesc>
+		<szLongItemName>10mm AUTO Magazin, Match</szLongItemName>
+		<szItemDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 70m.</szItemDesc>
 		<szBRName>10mm Mag Match</szBRName>
-		<szBRDesc>Dieses 8-schüssige Pistolenmagazin enthält 10mm x 25 Munition in perfekt abgestimmter Match-Laborierung. Gehört laut internen FBI-Berichten nicht in Frauenhände.</szBRDesc>
+		<szBRDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 70m.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>592</uiIndex>
@@ -4776,11 +4776,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>599</uiIndex>
-		<szItemName>SABRE-Messer</szItemName>
-		<szLongItemName>SABRE-Messer</szLongItemName>
-		<szItemDesc>Das ist ein Messer!</szItemDesc>
-		<szBRName>SABRE-Messer</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Säbel</szItemName>
+		<szLongItemName>Säbel</szLongItemName>
+		<szItemDesc>Mit diesem Säbel in der Hand sind Sie der Fluch der Karibik oder von Arulco.</szItemDesc>
+		<szBRName>Säbel</szBRName>
+		<szBRDesc>Mit diesem säbel in der Hand sind Sie der Fluch der Karibik oder von Arulco.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>600</uiIndex>
@@ -5081,9 +5081,9 @@
 	<ITEM>
 		<uiIndex>637</uiIndex>
 		<szItemName>Desert Eagle .44</szItemName>
-		<szLongItemName>I.M.I. Desert Eagle Mark XIX</szLongItemName>
+		<szLongItemName>I.M.I. Desert Eagle Mark VII</szLongItemName>
 		<szItemDesc>Das Modell ist in den Kalibern .357Mag., .44Mag., .50AE und .440Cor-Bon erhältlich und wird von MAGNUM RESEARCH in den USA hergestellt.</szItemDesc>
-		<szBRName>Desert Eagle .44</szBRName>
+		<szBRName>Desert Eagle Mk. VII</szBRName>
 		<szBRDesc>Diese Pistole wurde 1980 von I.M.I. in Israel entwickelt. Ziel war es eine halbautomatische Handfeuerwaffe zu entwickeln, die mit einem Magnum-Kaliber ausgestattet ist. Seit 1985 wird sie von MAGNUM RESEARCH (USA) weiterentwickelt und hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -5091,7 +5091,7 @@
 		<szItemName>Desert Eagle .50AE</szItemName>
 		<szLongItemName>I.M.I. Desert Eagle Mark XIX</szLongItemName>
 		<szItemDesc>Das Modell ist in den Kalibern .357Mag., .44Mag., .50AE und .440Cor-Bon erhältlich und wird von MAGNUM RESEARCH in den USA hergestellt.</szItemDesc>
-		<szBRName>Desert Eagle .50AE</szBRName>
+		<szBRName>Desert Eagle Mk. XIX</szBRName>
 		<szBRDesc>Diese Pistole wurde 1980 von I.M.I. in Israel entwickelt. Ziel war es eine halbautomatische Handfeuerwaffe zu entwickeln, die mit einem Magnum-Kaliber ausgestattet ist. Seit 1985 wird sie von MAGNUM RESEARCH (USA) weiterentwickelt und hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -5194,17 +5194,17 @@
 		<uiIndex>651</uiIndex>
 		<szItemName>FN SCAR-H</szItemName>
 		<szLongItemName>FN SCAR-H</szLongItemName>
-		<szItemDesc>Das ist FN's neueste Enwicklung im Bereich der Sturmgewehre. Hier die CQC-Ausführung für den Nahkampf im Kaliber 7.62mm NATO.</szItemDesc>
+		<szItemDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, hier die CQC-Ausführung für den Nahkampf.</szItemDesc>
 		<szBRName>FN SCAR-H</szBRName>
-		<szBRDesc>Das ist FN's neueste Enwicklung im Bereich der Sturmgewehre. Hier das Modell SCAR-Heavy als 'Close Qarter Combat' Ausführung für den Nahkampf im Kaliber 7.62mm NATO.</szBRDesc>
+		<szBRDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, welche zu 90% baugleich sind. Hier das Modell SCAR-Heavy als 'Close Qarter Combat' Ausführung für den Nahkampf.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>652</uiIndex>
 		<szItemName>FN SCAR-L</szItemName>
 		<szLongItemName>FN SCAR-L</szLongItemName>
-		<szItemDesc>Das ist FN's neueste Enwicklung im Bereich der Sturmgewehre. Hier die CQC-Ausführung für den Nahkampf im Kaliber 5.56mm NATO.</szItemDesc>
+		<szItemDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, hier die CQC-Ausführung für den Nahkampf.</szItemDesc>
 		<szBRName>FN SCAR-L</szBRName>
-		<szBRDesc>Das ist FN's neueste Enwicklung im Bereich der Sturmgewehre. Hier das Modell SCAR-Light als 'Close Qarter Combat' Ausführung für den Nahkampf im Kaliber 5.56mm NATO.</szBRDesc>
+		<szBRDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, welche zu 90% baugleich sind. Hier das Modell SCAR-Light als 'Close Qarter Combat' Ausführung für den Nahkampf.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>653</uiIndex>
@@ -5225,7 +5225,7 @@
 	<ITEM>
 		<uiIndex>655</uiIndex>
 		<szItemName>Galil AR</szItemName>
-		<szLongItemName>Galil AR</szLongItemName>
+		<szLongItemName>I.M.I. Galil AR</szLongItemName>
 		<szItemDesc>Dieses israelische Sturmgewehr wurde nach Plänen des Valmet M76 entwickelt.</szItemDesc>
 		<szBRName>I.M.I. Galil AR</szBRName>
 		<szBRDesc>Dieses israelische Sturmgewehr wurde nach Plänen des Valmet M76 entwickelt und stellt somit ein Klon eines Klons einer AK-47 dar, verwendet jedoch NATO Patronen M855.</szBRDesc>
@@ -5233,7 +5233,7 @@
 	<ITEM>
 		<uiIndex>656</uiIndex>
 		<szItemName>Galil SAR</szItemName>
-		<szLongItemName>Galil SAR</szLongItemName>
+		<szLongItemName>I.M.I. Galil SAR</szLongItemName>
 		<szItemDesc>Das ist die kompaktere Variante des Galil AR, bestens geeignet für Fallschirmjäger.</szItemDesc>
 		<szBRName>I.M.I. Galil SAR</szBRName>
 		<szBRDesc>Das ist die kompaktere Variante des Galil AR, bestens geeignet für Fallschirmjäger.</szBRDesc>
@@ -5280,11 +5280,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>662</uiIndex>
-		<szItemName>HK416</szItemName>
-		<szLongItemName>HK416</szLongItemName>
-		<szItemDesc>Das HK416 Sturmgewehr ist eine weiterentwickelte Variante des AR-15/M16 und soll die Jahrzehnte alten M16- und M4-Systeme des US-Militärs ersetzen.</szItemDesc>
-		<szBRName>HK416</szBRName>
-		<szBRDesc>Das HK416 Sturmgewehr ist eine weiterentwickelte Variante des AR-15/M16 und die Antwort auf die beiden gescheiterten Projekte XM29 und XM8. Es soll die Jahrzehnte alten M16- und M4-Systeme des US-Militärs ersetzen.</szBRDesc>
+		<szItemName>HK416 14"</szItemName>
+		<szLongItemName>HK416 14"</szLongItemName>
+		<szItemDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung des AR-15/M16 und kombiniert die besten Eigenschaften von HK's G36 und Colt's M4.</szItemDesc>
+		<szBRName>HK416 14"</szBRName>
+		<szBRDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung des AR-15/M16 und die Antwort auf die beiden gescheiterten Projekte XM29 und XM8. Es soll die Jahrzehnte alten M16- und M4-Systeme ersetzen. Seit Anfang 2007 wird es in Norwegen als Standardwaffe verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>663</uiIndex>
@@ -5372,7 +5372,7 @@
 		<szLongItemName>HK MP7A1</szLongItemName>
 		<szItemDesc>Die MP7 ist eine perfekte 3 in 1 Lösung: Pistole, MP und Sturmgewehr. Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szItemDesc>
 		<szBRName>HK MP7A1</szBRName>
-		<szBRDesc>Die MP7 vereint die Vorteile einer Pistole, MP und Sturmgewehres in sich. Seit 2002 kommt sie in der Bundeswehr zum Einsatz und erfreut sich schon jetzt großer Beliebtheit. Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szBRDesc>
+		<szBRDesc>Die MP7 vereint die Vorteile von Pistole, MP und Sturmgewehr. Seit 2002 kommt sie in der Bundeswehr zum Einsatz und erfreut sich schon jetzt großer Beliebtheit. Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>674</uiIndex>
@@ -5562,9 +5562,9 @@
 		<uiIndex>697</uiIndex>
 		<szItemName>OSV-96</szItemName>
 		<szLongItemName>OSV-96</szLongItemName>
-		<szItemDesc>Dieses russische Monster von knapp 2m Länge ist ein Großkaliber-Scharfschützengewehr.</szItemDesc>
+		<szItemDesc>Dieses russische Monster von knapp zwei Metern Länge ist ein großkalibriges Scharfschützengewehr.</szItemDesc>
 		<szBRName>OSV-96</szBRName>
-		<szBRDesc>Dieses russische Monster von knapp 2m Länge ist ein Großkaliber-Scharfschützengewehr.</szBRDesc>
+		<szBRDesc>Dieses russische Monster von knapp zwei Metern Länge ist ein großkalibriges Scharfschützengewehr.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>698</uiIndex>
@@ -5712,7 +5712,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>716</uiIndex>
-		<szItemName>SIG P210</szItemName>
+		<szItemName>P210</szItemName>
 		<szLongItemName>SIG P210</szLongItemName>
 		<szItemDesc>Diese schweizerische Armeepistole von 1949 erfreut sich großer Beliebtheit bei Söldnern und Waffensammlern.</szItemDesc>
 		<szBRName>SIG P210</szBRName>
@@ -5720,27 +5720,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>717</uiIndex>
-		<szItemName>SIG P226 .40 S&amp;W</szItemName>
-		<szLongItemName>SIG P226 X-Five</szLongItemName>
-		<szItemDesc>Die neue Behördenversion der P226 X-Five wurde entwickelt, konzipiert und konstruiert für den besonderen Einsatz von Polizei-Einheiten.</szItemDesc>
-		<szBRName>SIG P226 X-Five</szBRName>
-		<szBRDesc>Die neue Behördenversion der P226 X-Five Special Operation wurde entwickelt, konzipiert und konstruiert für den besonderen Einsatz von SWAT-Teams. Sie zählt zu den hochwertigsten Dienstpistolen überhaupt.</szBRDesc>
+		<szItemName>P226 .40S&amp;W</szItemName>
+		<szLongItemName>SIG-Sauer P226 X-Five</szLongItemName>
+		<szItemDesc>Dank der Verwendung bester Materialien und der bewährten SIG-SAUER Verarbeitung sind die X-FIVE Modelle sicher, präzise und zuverlässig.</szItemDesc>
+		<szBRName>SIG-Sauer P226 X-Five</szBRName>
+		<szBRDesc>Die neue Behördenversion der P226 X-Five Special Operation wurde entwickelt, konzipiert und konstruiert für den besonderen Einsatz von Special Forces und SWAT-Teams. Sie zählt zu den hochwertigsten Dienstpistolen überhaupt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>718</uiIndex>
-		<szItemName>SIG P228</szItemName>
-		<szLongItemName>SIG P228</szLongItemName>
-		<szItemDesc>Die Kompaktversion der P226 verfügt über die gleichen Eigenschaften wie ihre große Schwester, hervorragende Präzision und sichere Funktion.</szItemDesc>
-		<szBRName>SIG P228</szBRName>
-		<szBRDesc>Die Kompaktversion der P226 verfügt über die gleichen Eigenschaften wie ihre große Schwester, hervorragende Präzision, sichere Funktion und erstklassige Verarbeitung.</szBRDesc>
+		<szItemName>P229</szItemName>
+		<szLongItemName>SIG-Sauer P229</szLongItemName>
+		<szItemDesc>Die P229 kann mit einem neuartigen DAO Abzugsystem ausgestattet werden. Sie verfügt auch über die Picatinny-Schiene am Griffstück.</szItemDesc>
+		<szBRName>SIG-Sauer P229</szBRName>
+		<szBRDesc>Die P229 kann mit dem neuen DAK-Abzugssystem mit einzigartig leichtgängiger Abzugscharakteristik und konstant geringem Abzugsgewicht ausgestattet werden. Die Reduzierung des Abzugsgewichtes bei maximaler Sicherheit kommt vor allem weiblichen Beamten zu gute.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>719</uiIndex>
-		<szItemName>SIG Pro SPC</szItemName>
-		<szLongItemName>SIG Pro SPC</szLongItemName>
-		<szItemDesc>Die SIG Pro SPC wurde nach den härtesten Testverfahren für Polizeipistolen zertifiziert.</szItemDesc>
-		<szBRName>SIG Pro SPC</szBRName>
-		<szBRDesc>Die SIG Pro SPC wurde nach den härtesten Testverfahren für Polizeipistolen zertifiziert. - trotz kompakter Abmessung hohe Magazinkapazität - modular aufgebaute Pistole - Schiene zum Anbringen von Laser-/ Lichtmodulen</szBRDesc>
+		<szItemName>SPC 2022</szItemName>
+		<szLongItemName>SIG-Sauer SPC 2022</szLongItemName>
+		<szItemDesc>Die SIG Pro SPC wurde nach den härtesten Testverfahren für Polizeipistolen zertifiziert. Sie ist eine der zuverlässigsten Handfeuerwaffen weltweit.</szItemDesc>
+		<szBRName>SIG-Sauer SPC 2022</szBRName>
+		<szBRDesc>Die SIG Pro SPC wurde nach den härtesten Testverfahren für Polizeipistolen zertifiziert. Sie ist eine der zuverlässigsten Handfeuerwaffen weltweit. Sie verfügt zukünftig über die Picatinny-Schiene am Griffstück.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>720</uiIndex>
@@ -5810,21 +5810,21 @@
 		<uiIndex>728</uiIndex>
 		<szItemName>Scout Tactical</szItemName>
 		<szLongItemName>Steyr Scout Tactical</szLongItemName>
-		<szItemDesc>Das Steyr Scout ist nicht wirklich ein Survival-Gewehr, es ist mehr eine Universal-Jagdbüchse. Das Scout ist kurz gehalten, hat einen glasfaserverstärkten Kunststoff-Schaft und ein integriertes Zweibein.</szItemDesc>
+		<szItemDesc>Das Steyr Scout ist nicht wirklich ein Survival-Gewehr, es ist mehr eine Universal- Jagdbüchse. Das Scout ist kurz gehalten, hat einen glasfaserverstärkten Kunststoffschaft und ein integriertes Zweibein.</szItemDesc>
 		<szBRName>Steyr Scout Tactical</szBRName>
-		<szBRDesc>Sie suchen nach einem leichten, kompakten sehr genauen SSG? Dann suchen Sie nicht weiter. Das Scout Tactical ist genau was Sie suchen.</szBRDesc>
+		<szBRDesc>Das Steyr Scout ist nicht wirklich ein Survival-Gewehr, es ist mehr eine Universal- Jagdbüchse. Das Scout ist kurz gehalten, hat einen glasfaserverstärkten Kunststoffschaft und ein integriertes Zweibein.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>729</uiIndex>
-		<szItemName>Steyr SSG-P1</szItemName>
+		<szItemName>SSG-P1</szItemName>
 		<szLongItemName>Steyr SSG-P1</szLongItemName>
-		<szItemDesc>Egal ob Sie Hirsche oder andere Scharfschützen jagen, das SSG-P1 wird Sie dabei unterstützen.</szItemDesc>
+		<szItemDesc>Egal ob Sie auf die Pirsch gehen um Damwild, Schwarzwild oder andere Scharfschützen zu jagen, das SSG-P1 wird Sie dabei unterstützen.</szItemDesc>
 		<szBRName>Steyr SSG-P1</szBRName>
-		<szBRDesc>Egal ob Sie Hirsche oder andere Scharfschützen jagen, das SSG-P1 wird Sie dabei unterstützen.</szBRDesc>
+		<szBRDesc>Egal ob Sie auf die Pirsch gehen um Damwild, Schwarzwild oder andere Scharfschützen zu jagen, das SSG-P1 wird Sie dabei unterstützen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>730</uiIndex>
-		<szItemName>Steyr TMP</szItemName>
+		<szItemName>TMP</szItemName>
 		<szLongItemName>Steyr TMP</szLongItemName>
 		<szItemDesc>Die Taktische Maschinenpistole von STEYR dient hauptsächlich der Selbstverteidigung. Sie hat die Feuerkraft einer MP und Gewicht und Größe einer Pistole.</szItemDesc>
 		<szBRName>Steyr TMP</szBRName>
@@ -5840,11 +5840,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>732</uiIndex>
-		<szItemName>SUPER-SHORTY</szItemName>
-		<szLongItemName>SUPER-SHORTY</szLongItemName>
-		<szItemDesc>Die SUPER-SHORTY basiert auf der Remington M870 und wird von Polizei- und Spezialeinheiten der USA eingesetzt.</szItemDesc>
-		<szBRName>SUPER-SHORTY</szBRName>
-		<szBRDesc>Die SUPER-SHORTY basiert auf der Remington M870 und wird von Polizei- und Spezialeinheiten der USA eingesetzt.</szBRDesc>
+		<szItemName>Super-Shorty</szItemName>
+		<szLongItemName>Serbu Super-Shorty</szLongItemName>
+		<szItemDesc>Die SERBU Super-Shorty basiert auf der Remington M870 und wird von Polizei- und Spezialeinheiten in den USA eingesetzt.</szItemDesc>
+		<szBRName>Serbu Super-Shorty</szBRName>
+		<szBRDesc>Die SERBU Super-Shorty basiert auf der Remington M870 und wird von Polizei- und Spezialeinheiten in den USA eingesetzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>733</uiIndex>
@@ -5946,7 +5946,7 @@
 		<uiIndex>745</uiIndex>
 		<szItemName>VSK-94</szItemName>
 		<szLongItemName>VSK-94</szLongItemName>
-		<szItemDesc>Diese schallgedämpfte Waffe kann Ihr bester Freund werden wenn geräuschlose Feuerkraft gefragt ist.</szItemDesc>
+		<szItemDesc>Eine preisgünstigere und weniger qualitative Variante des VSS Vintorez, trotzdem kann diese schallgedämpfte Waffe Ihr bester Freund werden.</szItemDesc>
 		<szBRName>VSK-94</szBRName>
 		<szBRDesc>Eine preisgünstigere und weniger qualitative Variante des VSS Vintorez Präzisionsgewehres. Diese schallgedämpfte Waffe kann Ihr bester Freund werden wenn geräuschlose Feuerkraft gefragt ist.</szBRDesc>
 	</ITEM>
@@ -6161,9 +6161,9 @@
 	<ITEM>
 		<uiIndex>772</uiIndex>
 		<szItemName>FA Model 83 </szItemName>
-		<szLongItemName>Freedom Arms Model 83 Premier Grade</szLongItemName>
+		<szLongItemName>Freedom Arms M83 Premier Grade</szLongItemName>
 		<szItemDesc>FREEDOM ARMS in Wyoming (USA) baut mit dem .454 Casull Revolver die passende Waffe zur Patrone. Er gilt als stärkster Revolver der Welt.</szItemDesc>
-		<szBRName>FA Model 83</szBRName>
+		<szBRName>Freedom Arms M83</szBRName>
 		<szBRDesc>FREEDOM ARMS in Wyoming (USA) baut mit dem .454 Casull Revolver die passende Waffe zur Patrone. Er gilt als stärkster Revolver der Welt und wird von Großwildjägern bevorzugt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6192,11 +6192,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>776</uiIndex>
-		<szItemName>Karabiner 98K</szItemName>
-		<szLongItemName>Mauser Karabiner 98K</szLongItemName>
-		<szItemDesc>Bis heute wurden ca. 100 Mio. System 98 hergestellt. Heute ist der Karabiner 98K Exerzierwaffe beim Wachbataillon der Bundeswehr in Berlin.</szItemDesc>
-		<szBRName>Mauser Karabiner</szBRName>
-		<szBRDesc>Der Karabiner 98K ist eine Weiterentwicklung des Karabiners 'Modell 1898'. In den beiden Weltkriegen war es die wichtigste Waffe der dt. Truppen. Großwildjäger in Afrika verhalfen dem 98er zu einem ähnlich traurigen Ruhm wie die beiden Weltkriege.</szBRDesc>
+		<szItemName>Karabiner 98k</szItemName>
+		<szLongItemName>Mauser Karabiner 98k</szLongItemName>
+		<szItemDesc>Dieser Karabiner ist die auf 60cm Lauflänge gekürzte Variante des Gewehr 98. Bis heute wurden weltweit ca. 100 Mio. Stück Modell 98 gefertigt.</szItemDesc>
+		<szBRName>Mauser Karabiner 98k</szBRName>
+		<szBRDesc>Dieser Karabiner ist die auf 60cm Lauflänge gekürzte Variante des Gewehr 98. In den 60er Jahren verhalfen Großwildjäger in Indien und Afrika dem Gewehr 98 zu seinem legendären Ruhm. Bestellen Sie noch heute die limitierte Jubiläums-Edition von 1998 bei uns!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>777</uiIndex>
@@ -6258,9 +6258,9 @@
 		<uiIndex>784</uiIndex>
 		<szItemName>Mauser M-03</szItemName>
 		<szLongItemName>Mauser M-03</szLongItemName>
-		<szItemDesc>ein präzises Jagdgewehr auch für den Geldbeutel des Jungjägers. Ausführung 'Solid' 8x57IS mit 600mm Lauf.</szItemDesc>
+		<szItemDesc>Diese präzise Jagdrepetierbüchse in der Ausführung 'Solid' nutzt das original Kaliber 8x57IS und brilliert auf weite Distanzen aber auch in Drückjagdsituationen.</szItemDesc>
 		<szBRName>Mauser M-03</szBRName>
-		<szBRDesc>Die M03 ist ein präzises Jagdgewehr, prädestiniert für den weiten Schuß. Hergestellt in in: .308 Win, .30-06, 8,5x63, 8x57IS, 9,3x62, .300 Win.Mag., .25-06 Remington, ist sie zur Zeit bei BR nur in 8x57IS (=7.92x57mm) lieferbar.</szBRDesc>
+		<szBRDesc>Diese präzise Jagdrepetierbüchse in der Ausführung 'Solid' nutzt das original Kaliber 8x57IS und brilliert auf weite Distanzen aber auch in Drückjagdsituationen. Besondere Merkmale sind ihre dicke Laufkontur und das mitgelieferte Zielfernrohr.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>785</uiIndex>
@@ -6282,57 +6282,57 @@
 		<uiIndex>787</uiIndex>
 		<szItemName>SCAR-H SV</szItemName>
 		<szLongItemName>FN SCAR-H SV</szLongItemName>
-		<szItemDesc>Für die SOCOM-Ausschreibung 'Special forces Combat Assault Rifle (SCAR)' entwickelte FN Herstal u.a. diese "Sniper Variant" im Kaliber 7,62 (SCAR-H).</szItemDesc>
+		<szItemDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, hier die Präzisionsausführung für den Scharfschützen.</szItemDesc>
 		<szBRName>FN SCAR-H SV</szBRName>
-		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
+		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>788</uiIndex>
 		<szItemName>SCAR-L SV</szItemName>
 		<szLongItemName>FN SCAR-L SV</szLongItemName>
-		<szItemDesc>Für die SOCOM-Ausschreibung 'Special forces Combat Assault Rifle (SCAR)' entwickelte FN Herstal u.a. diese "Sniper Variant" im Kaliber 5,56mm (SCAR-L).</szItemDesc>
+		<szItemDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, hier die Präzisionsausführung für den Scharfschützen.</szItemDesc>
 		<szBRName>FN SCAR-L SV</szBRName>
-		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
+		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>789</uiIndex>
 		<szItemName>Steyr ACR</szItemName>
 		<szLongItemName>Steyr ACR</szLongItemName>
-		<szItemDesc>Aüßerlich mag Steyrs Advanced Combat Rifle dem AUG ähnlich sein; dennoch schickt es den Tod mit einer phänomenalen Geschwindigkeit von 1450m/s ab.</szItemDesc>
+		<szItemDesc>Dieser Prototyp einer neuen Generation von Sturmgewehren verschießt stabilisierte Dartpfeile mit einer phänomenalen Geschwindigkeit von 1450m/s.</szItemDesc>
 		<szBRName>Steyr ACR</szBRName>
-		<szBRDesc>Wenn Sie stets auf Nummer sichergehen wollen, ist das ACR genau das richtige Gewehr für Sie.</szBRDesc>
+		<szBRDesc>Dieser Prototyp einer neuen Generation von Sturmgewehren verschießt stabilisierte Dartpfeile mit einer phänomenalen Geschwindigkeit von 1450m/s.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>790</uiIndex>
 		<szItemName>SCAR-WP CQC</szItemName>
 		<szLongItemName>FN SCAR-WP CQC</szLongItemName>
-		<szItemDesc>Dieses kompakte Sturmgewehr verwendt russische Munition und erleichtert dadurch Kommando-Operation fernab der eigenen Versorgungslinien.</szItemDesc>
+		<szItemDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, hier die CQC-Ausführung für den Nahkampf.</szItemDesc>
 		<szBRName>FN SCAR-WP CQC</szBRName>
-		<szBRDesc>Dieses kompakte Sturmgewehr verwendt russische Munition und erleichtert dadurch Kommando-Operation fernab der eigenen Versorgungslinien.</szBRDesc>
+		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>791</uiIndex>
 		<szItemName>SCAR-WP SV</szItemName>
 		<szLongItemName>FN SCAR-WP SV</szLongItemName>
-		<szItemDesc>Die SCAR Familie hat ein neues Mitglied: die Präzisionsversion in 7.62x39mm.</szItemDesc>
+		<szItemDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, hier die Präzisionsausführung für den Scharfschützen.</szItemDesc>
 		<szBRName>FN SCAR-WP SV</szBRName>
-		<szBRDesc>Die SCAR Familie hat ein neues Mitglied: die Präzisionsversion in 7.62x39mm.</szBRDesc>
+		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>792</uiIndex>
 		<szItemName>SCAR-68 CQC</szItemName>
 		<szLongItemName>FN SCAR-68 CQC</szLongItemName>
-		<szItemDesc>Wenn sie im städtischen Kampf ordentlich aufmischen wollen, dann ist das genau das richtige Werkzeug.</szItemDesc>
+		<szItemDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, hier die CQC-Ausführung für den Nahkampf.</szItemDesc>
 		<szBRName>FN SCAR-68 CQC</szBRName>
-		<szBRDesc>Dieses kompakte Sturmgewehr der SCAR-Serie verwendet die vielversprechende 6.8SPC Munition.</szBRDesc>
+		<szBRDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, welche zu 90% baugleich sind. Hier das Modell SCAR-Light als 'Close Qarter Combat' Ausführung für den Nahkampf.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>793</uiIndex>
 		<szItemName>SCAR-68 SV</szItemName>
 		<szLongItemName>FN SCAR-68 SV</szLongItemName>
-		<szItemDesc>Dieses Gewehr wird Ihnen in allen Situationen gute Dienste leisten.</szItemDesc>
+		<szItemDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, hier die Präzisionsausführung für den Scharfschützen.</szItemDesc>
 		<szBRName>FN SCAR-68 SV</szBRName>
-		<szBRDesc>Dieses Sturmgewehr der SCAR-Serie verwendet die vielversprechende 6.8SPC Munition.</szBRDesc>
+		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>794</uiIndex>
@@ -6360,35 +6360,35 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>797</uiIndex>
-		<szItemName>Robarms XCR-1</szItemName>
+		<szItemName>XCR-1</szItemName>
 		<szLongItemName>Robarms XCR-1</szLongItemName>
-		<szItemDesc>Robarms XCR-1 ist ein AR15 im 6.8SPC Kaliber.</szItemDesc>
+		<szItemDesc>Das Robarms XCR-1 ist eine weitere Variante des AR15, hier im Kaliber 6.8mm Remington SPC mit klappbarer Schulterstütze.</szItemDesc>
 		<szBRName>Robarms XCR-1</szBRName>
-		<szBRDesc>Robarms XCR-1 ist ein AR15 im 6.8SPC Kaliber.</szBRDesc>
+		<szBRDesc>Das Robarms XCR-1 ist eine weitere Variante des AR15, hier im Kaliber 6.8mm Remington SPC mit klappbarer Schulterstütze.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>798</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 798</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Luger P08</szItemName>
+		<szLongItemName>Luger P08</szLongItemName>
+		<szItemDesc>Die Pistole 08 war aufwendig in der Herstellung und empfindlich gegenüber Verschmutzungen. Deshalb wurde sie im 2. Weltkrieg durch die Walther P38 ersetzt.</szItemDesc>
+		<szBRName>Luger P08</szBRName>
+		<szBRDesc>Die Parabellumpistole Modell 1900 im Kaliber 7.65mm wurde ständig von Georg Luger verbessert. Das neue Modell im Kaliber 9mm Para wurde im Jahre 1908 von der dt. Reichswehr als P08 eingeführt. Sie wurde von DWM in Erfurt, Suhl und Oberndorf gefertigt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>799</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 799</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>P226</szItemName>
+		<szLongItemName>SIG-Sauer P226</szLongItemName>
+		<szItemDesc>Das DAO Abzugssystem ist besonders sicher, da nach jedem Schuss die Waffe automatisch entspannt ist. Schnelle Schussbereitschaft ist trotzdem garantiert.</szItemDesc>
+		<szBRName>SIG-Sauer P226</szBRName>
+		<szBRDesc>Die P226 in Stainless Steel mit DAO Abzugssystem ist besonders sicher, da nach jedem Schuss die Waffe automatisch entspannt ist. Schnelle Schussbereitschaft ist trotzdem garantiert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>800</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 800</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>P226 .40S&amp;W</szItemName>
+		<szLongItemName>SIG-Sauer P226</szLongItemName>
+		<szItemDesc>Das DAO Abzugssystem ist besonders sicher, da nach jedem Schuss die Waffe automatisch entspannt ist. Schnelle Schussbereitschaft ist trotzdem garantiert.</szItemDesc>
+		<szBRName>SIG-Sauer P226</szBRName>
+		<szBRDesc>Die P226 in Stainless Steel mit DAO Abzugssystem ist besonders sicher, da nach jedem Schuss die Waffe automatisch entspannt ist. Schnelle Schussbereitschaft ist trotzdem garantiert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>801</uiIndex>
@@ -7424,19 +7424,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>930</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>4.6x30 Mag PB</szItemName>
+		<szLongItemName>4.6x30mm Magazin, PB</szLongItemName>
+		<szItemDesc>Diese Spezialmunition wird von der HK UCP &amp; MP7 verwendet. Das Geschoss ist ungefähr so groß wie ein Gewehrprojektil und hat die gleiche Durchschlagskraft! Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szItemDesc>
+		<szBRName>4.6x30 Mag PB #20</szBRName>
+		<szBRDesc>Diese Spezialmunition wird von der HK UCP &amp; MP7 verwendet. Das Geschoss ist ungefähr so groß wie ein Gewehrprojektil und hat die gleiche Durchschlagskraft! Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>931</uiIndex>
-		<szItemName>4.6mm mag AET</szItemName>
-		<szLongItemName>4.6x30mm mag AET</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>4.6x30mm mag AET</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>4.6x30 Mag DPX</szItemName>
+		<szLongItemName>4.6x30mm Magazin DPX</szLongItemName>
+		<szItemDesc>Wenn Sie Ihrer Waffe maximale Durchschlagskraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szItemDesc>
+		<szBRName>4.6x30 Mag DPX #20</szBRName>
+		<szBRDesc>Wenn Sie Ihrer Waffe maximale Durchschlagskraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>932</uiIndex>
@@ -7554,41 +7554,41 @@
 		<uiIndex>946</uiIndex>
 		<szItemName>ISM-V-IR</szItemName>
 		<szLongItemName>ISM-V-IR</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Diese Visiereinrichtung kombiniert ein Rotpunktvisier und ein IR-Lasermodul. Bitte beachten Sie das kein Zielfernrohr an der Waffe angebracht werden.</szItemDesc>
 		<szBRName>ISM-V-IR</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Wenn Sie Ihre Waffe nicht mit Zubehör überfrachten möchten sollten Sie hier zugreifen! Diese Visiereinrichtung kombiniert ein Rotpunktvisier und ein IR-Lasermodul. Bitte beachten Sie das kein Zielfernrohr an der Waffe angebracht werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>947</uiIndex>
-		<szItemName>Grippod</szItemName>
-		<szLongItemName>Grippod</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>Grippod</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>Handgriff</szItemName>
+		<szLongItemName>Handgriff inkl. Zweibein</szLongItemName>
+		<szItemDesc>Der Handgriff wird auf Knopfdruck zum Zweibein, absolut stabil gebaut und sehr griffig.</szItemDesc>
+		<szBRName>Handgriff inkl. Zweibein</szBRName>
+		<szBRDesc>Der Handgriff wird auf Knopfdruck zum Zweibein, absolut stabil gebaut und sehr griffig.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>948</uiIndex>
 		<szItemName>Laser (alt)</szItemName>
 		<szLongItemName>Alter Laserpointer</szLongItemName>
-		<szItemDesc>Dieser Laserpointer alter Bauart wiegt genug, um selbst als Waffe (Keule) zu dienen. Paßt an ältere H&amp;K Gewehre.</szItemDesc>
+		<szItemDesc>Dieser Laserpointer alter Bauart wiegt genug, um selbst als Waffe (Keule) zu dienen. Passt an ältere HK-Gewehre.</szItemDesc>
 		<szBRName>Alter Laserpointer</szBRName>
-		<szBRDesc>Inzwischen schwer aufzutreiben, weist die Sicherheitswarnung dieses älteren Modells (nicht in die Augen leuchten!) auf seine effektive Reichweite hin. Paßt an ältere H&amp;K Gewehre.</szBRDesc>
+		<szBRDesc>Inzwischen schwer aufzutreiben, weist die Sicherheitswarnung dieses älteren Modells (nicht in die Augen leuchten!) auf seine effektive Reichweite hin. Passt an ältere HK-Gewehre.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>949</uiIndex>
-		<szItemName>Laser</szItemName>
-		<szLongItemName>Laserpointer</szLongItemName>
-		<szItemDesc>Dieses LAM (Laser Aiming Module) paß an alle modernen Montageschinen. Es ist zwar groß und schwerer, hat aber eine größe Reichweite als Laser, die am unteren Handschutz montiert werden.</szItemDesc>
-		<szBRName>Laserpointer</szBRName>
-		<szBRDesc>Dieses LAM (Laser Aiming Module) paßt an alle moderne Montageschinen. Es ist zwar groß und schwerer, hat aber eine größe Reichweite als Laser, die am unteren Handschutz montiert werden.</szBRDesc>
+		<szItemName>LAM</szItemName>
+		<szLongItemName>Gewehr-LAM</szLongItemName>
+		<szItemDesc>Dieses moderne Lasermodul wurde für die Montage auf RIS-Schienen entwickelt. Es ist jedoch größer und schwerer als Pistolen-LAMs, hat dafür aber auch eine größere Reichweite.</szItemDesc>
+		<szBRName>Gewehr-LAM</szBRName>
+		<szBRDesc>Dieses moderne Lasermodul wurde für die Montage auf RIS-Schienen entwickelt. Es ist jedoch größer und schwerer als Pistolen-LAMs, hat dafür aber auch eine größere Reichweite.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>950</uiIndex>
-		<szItemName>Laser-Lampe</szItemName>
-		<szLongItemName>Laserpointer m. Blendlicht</szLongItemName>
-		<szItemDesc>Diese Kombination von Laserpointer und taktischer Lampe paßt an alle moderne Montageschinen.</szItemDesc>
-		<szBRName>Laserpointer m. Blendlicht</szBRName>
-		<szBRDesc>Diese Kombination von Laserpointer und taktischer Lampe paßt an alle moderne Montageschinen.</szBRDesc>
+		<szItemName>LAM+Lampe</szItemName>
+		<szLongItemName>Gewehr-LAM mit Blendlicht</szLongItemName>
+		<szItemDesc>Diese Kombination aus LAM und taktischer Lampe kann an alle modernen Sturmgewehre mit RIS-Schienen montiert werden.</szItemDesc>
+		<szBRName>Gewehr-LAM mit Blendlicht</szBRName>
+		<szBRDesc>Diese Kombination aus LAM und taktischer Lampe kann an alle modernen Sturmgewehre mit RIS-Schienen montiert werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>951</uiIndex>
@@ -7970,9 +7970,9 @@
 		<uiIndex>998</uiIndex>
 		<szItemName>Kobra</szItemName>
 		<szLongItemName>Kobra Reflexvisier</szLongItemName>
-		<szItemDesc>Dieses russische Reflexvisier kann auf die meisten Gewehre der AK-Modellreihe montiert werden und ermöglicht ein schnelles zielen im Nahkampf.</szItemDesc>
-		<szBRName>Kobra</szBRName>
-		<szBRDesc>Dieses russische Reflexvisier kann auf die meisten Gewehre der AK-Modellreihe montiert werden und ermöglicht ein schnelles zielen im Nahkampf.</szBRDesc>
+		<szItemDesc>Dieses russische Reflexvisier ermöglicht dem Schützen ein schnelles Zielen, wobei beide Augen geöffnet bleiben. Es kann auf die meisten Gewehre der AK-Modellreihe montiert werden.</szItemDesc>
+		<szBRName>Kobra Reflexvisier</szBRName>
+		<szBRDesc>Beim Reflexvisier (Kollimatorvisier) wird oberhalb des Visiers Sonnenlicht eingefangen und in das Visier als roter Punkt eingespiegelt. Der Schütze hat beim Schießen mit diesem Visier beide Augen geöffnet, das ermöglicht ein größeres Sichtfeld und schnellere Reaktionen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>999</uiIndex>
@@ -7980,7 +7980,7 @@
 		<szLongItemName>PSO-1 Zielfernrohr 4x24</szLongItemName>
 		<szItemDesc>Dieses russische 4x24 Zielfernrohr kann auf die meisten Gewehre der AK-Modellreihen und einige SWD-Klone montiert werden.</szItemDesc>
 		<szBRName>PSO-1</szBRName>
-		<szBRDesc>Dieses russische 4x24 Zielfernrohr kann an alle Gewehre mit Kalaschnikow-Systemkasten (AK, AEK, Saiga u.s.w.) montiert werden. </szBRDesc>
+		<szBRDesc>Dieses russische 4x24 Zielfernrohr kann an alle Gewehre mit Kalaschnikow-Systemkasten (AK, AEK, Saiga usw.) montiert werden. </szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1000</uiIndex>
@@ -7988,7 +7988,7 @@
 		<szLongItemName>PSO-P Zielfernrohr 8x42</szLongItemName>
 		<szItemDesc>Dieses verbesserte russische 8x42 Zielfernrohr kann an die meisten Gewehre der AK-Modellreihe sowie an alle SWD Scharfschützengewehre montiert werden.</szItemDesc>
 		<szBRName>PSO-P</szBRName>
-		<szBRDesc>Dieses verbesserte russische 8x42 Zielfernrohr kann an die meisten Gewehre des ehem. Ostblocks montiert werden. Es ist mit 'SWD Side Mounting Rail' oder 'Russian Small Arms Mounting Rail' lieferbar, paßt jedoch nicht an Picatinny Rails</szBRDesc>
+		<szBRDesc>Dieses verbesserte russische 8x42 Zielfernrohr kann an die meisten Gewehre des ehem. Ostblocks montiert werden. Es ist mit 'Side Mounting Rail' oder 'Russian Small Arms Mounting Rail' lieferbar, passt jedoch nicht an Picatinny Rails</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1001</uiIndex>
@@ -8026,9 +8026,9 @@
 		<uiIndex>1005</uiIndex>
 		<szItemName>LAM-200</szItemName>
 		<szLongItemName>Insight LAM-200</szLongItemName>
-		<szItemDesc>Der Laserpointer LAM-200 von INSIGHT stellt eine einzigartige Kombination aus sichtbarem Laser, IR-Licht und einer weißen Lichtquelle zur Verfügung.</szItemDesc>
+		<szItemDesc>Das Lasermodul LAM-200 von INSIGHT kombiniert einen sichtbarem Laser, IR-Laser, eine taktische Lampe und eine IR-Lichtquelle welche Voraussetzung für Nachteinsätze ist.</szItemDesc>
 		<szBRName>Insight LAM-200</szBRName>
-		<szBRDesc>Der Laserpointer LAM-200 von INSIGHT stellt eine einzigartige Kombination aus sichtbarem Laser, IR-Licht und einer weißen Lichtquelle zur Verfügung.</szBRDesc>
+		<szBRDesc>Das Lasermodul LAM-200 von INSIGHT kombiniert einen sichtbarem Laser, IR-Laser, eine taktische Lampe und eine IR-Lichtquelle welche Voraussetzung für Nachteinsätze ist.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1006</uiIndex>
@@ -8036,7 +8036,7 @@
 		<szLongItemName>DOCTER Reflexvisier</szLongItemName>
 		<szItemDesc>Das neue DOCTER Rotpunktvisier ermöglicht dem Schützen ein schnelles Zielen, wobei beide Augen geöffnet bleiben.</szItemDesc>
 		<szBRName>DOCTER Reflexvisier</szBRName>
-		<szBRDesc>Beim Reflexvisier (Kollimatorvisier, Rotpunkt- visier) wird oberhalb des Visiers Sonnenlicht eingefangen und in das Visier als roter Punkt eingespiegelt. Der Schütze hat beim Schießen mit diesem Visier beide Augen geöffnet, das ermöglicht ein größeres Sichtfeld und schnellere Reaktionen.</szBRDesc>
+		<szBRDesc>Beim Reflexvisier (Rotpunktvisier) wird oberhalb des Visiers Sonnenlicht eingefangen und in das Visier als roter Punkt eingespiegelt. Der Schütze hat beim Schießen mit diesem Visier beide Augen geöffnet, das ermöglicht ein größeres Sichtfeld und schnellere Reaktionen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1007</uiIndex>
@@ -8229,134 +8229,134 @@
 	<ITEM>
 		<uiIndex>1031</uiIndex>
 		<szItemName>CQC .223 Lauf</szItemName>
-		<szLongItemName>SCAR-L CQC Lauf</szLongItemName>
-		<szItemDesc>mit diesem Austausch-Lauf im Kal. .223 Rem (5.56 NATO) bauen Sie jedes SCAR zu einer SCAR-L CQC "Close Quarter Combat" Kommandoversion um</szItemDesc>
-		<szBRName>SCAR-L CQC Lauf</szBRName>
-		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
+		<szLongItemName>SCAR-L CQC .223 Lauf</szLongItemName>
+		<szItemDesc>Modifizieren Sie Ihr FN SCAR-L mit diesem kurzen Wechsel-Lauf und Sie erhalten die CQC-Variante. Bestens geeignet für den Nah- und Häuserkampf.</szItemDesc>
+		<szBRName>SCAR-L CQC .223 Lauf</szBRName>
+		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1032</uiIndex>
 		<szItemName>SV .223 Lauf</szItemName>
-		<szLongItemName>SCAR-L SV Lauf</szLongItemName>
-		<szItemDesc>mit diesem extrem langen Austausch-Lauf im Kal. .223 Rem (5.56 NATO) bauen Sie jedes SCAR zu einem SCAR-L SV "Sniper Variant" Präzisionsgewehr um.</szItemDesc>
-		<szBRName>SCAR-L SV Lauf</szBRName>
-		<szBRDesc>mit diesem extrem langen Austausch-Lauf im Kal. .223 Rem (5.56 NATO) bauen Sie jedes SCAR zu einem SCAR-L SV "Sniper Variant" Präzisionsgewehr um.</szBRDesc>
+		<szLongItemName>SCAR-L SV .223 Lauf</szLongItemName>
+		<szItemDesc>Modifizieren Sie Ihr FN SCAR-L mit diesem langen Wechsel-Lauf und Sie erhalten ein 'Sniper Variant' Präzisionsgewehr. Bestens geeignet für den ambitionierten Scharfschützen.</szItemDesc>
+		<szBRName>SCAR-L SV .223 Lauf</szBRName>
+		<szBRDesc>Modifizieren Sie Ihr FN SCAR-L mit diesem langen Wechsel-Lauf und Sie erhalten ein 'Sniper Variant' Präzisionsgewehr. Bestens geeignet für den ambitionierten Scharfschützen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1033</uiIndex>
 		<szItemName>CQC .308 Lauf</szItemName>
-		<szLongItemName>SCAR-H CQC Lauf</szLongItemName>
-		<szItemDesc>Mit diesem Austausch-Lauf im Kaliber .308 Winchester (7,62mm) bauen Sie jedes SCAR zu einer SCAR-H CQC "Close Quarter Combat" Kommandoversion um.</szItemDesc>
-		<szBRName>SCAR-H CQC Lauf</szBRName>
+		<szLongItemName>SCAR-H CQC .308 Lauf</szLongItemName>
+		<szItemDesc>Modifizieren Sie Ihr FN SCAR-H mit diesem kurzen Wechsel-Lauf und Sie erhalten die CQC-Variante. Bestens geeignet für den Nah- und Häuserkampf.</szItemDesc>
+		<szBRName>SCAR-H CQC .308 Lauf</szBRName>
 		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1034</uiIndex>
 		<szItemName>SV .308 Lauf</szItemName>
-		<szLongItemName>SCAR-H SV Lauf</szLongItemName>
-		<szItemDesc>mit diesem extrem langen Austausch-Lauf im Kaliber .308 Winchester (7,62mm)  bauen Sie jedes SCAR zu einem SCAR-H SV "Sniper Variant" Präzisionsgewehr um.</szItemDesc>
-		<szBRName>SCAR-H SV Lauf</szBRName>
-		<szBRDesc>mit diesem extrem langen Austausch-Lauf im Kaliber .308 Winchester (7,62mm)  bauen Sie jedes SCAR zu einem SCAR-H SV "Sniper Variant" Präzisionsgewehr um.</szBRDesc>
+		<szLongItemName>SCAR-H SV .308 Lauf</szLongItemName>
+		<szItemDesc>Modifizieren Sie Ihr FN SCAR-H mit diesem langen Wechsel-Lauf und Sie erhalten ein 'Sniper Variant' Präzisionsgewehr. Bestens geeignet für den ambitionierten Scharfschützen.</szItemDesc>
+		<szBRName>SCAR-H SV .308 Lauf</szBRName>
+		<szBRDesc>Modifizieren Sie Ihr FN SCAR-H mit diesem langen Wechsel-Lauf und Sie erhalten ein 'Sniper Variant' Präzisionsgewehr. Bestens geeignet für den ambitionierten Scharfschützen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1035</uiIndex>
-		<szItemName>CK 68 CQC</szItemName>
-		<szLongItemName>SCAR-68 Conversion Kit</szLongItemName>
-		<szItemDesc>Verwandeln sie ihr SCAR-L in ein SCAR-68. Sie werden es nicht bereuen.</szItemDesc>
-		<szBRName>SCAR-68 Conversion Kit</szBRName>
-		<szBRDesc>Verwandeln sie ihr SCAR-L in ein SCAR-68. Sie werden es nicht bereuen.</szBRDesc>
+		<szItemName>Kit 68 CQC</szItemName>
+		<szLongItemName>Kit SCAR-68 CQC</szLongItemName>
+		<szItemDesc>Dieses Kit enthält alle notwendigen Teile um Ihr SCAR-L in das Kaliber 6.8mm Remington SPC zu konvertieren. Mit diesem kurzen Wechsel-Lauf erhalten Sie die CQC-Variante, bestens geeignet für den Nah- und Häuserkampf.</szItemDesc>
+		<szBRName>Kit SCAR-68 CQC</szBRName>
+		<szBRDesc>Dieses Kit enthält alle notwendigen Teile um Ihr SCAR-L in das Kaliber 6.8mm Remington SPC zu konvertieren. Mit diesem kurzen Wechsel-Lauf erhalten Sie die CQC-Variante, bestens geeignet für den Nah- und Häuserkampf.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1036</uiIndex>
-		<szItemName>CK 68 SV</szItemName>
-		<szLongItemName>SCAR-68 Conversion Kit SV</szLongItemName>
-		<szItemDesc>Verwandeln sie ihr SCAR-L in ein SCAR-68 mit Präzisionslauf. Sie werden es erst recht nicht bereuen.</szItemDesc>
-		<szBRName>SCAR-68 Conversion Kit SV</szBRName>
-		<szBRDesc>Verwandeln sie ihr SCAR-L in ein SCAR-68 mit Präzisionslauf. Sie werden es nicht bereuen.</szBRDesc>
+		<szItemName>Kit 68 SV</szItemName>
+		<szLongItemName>Kit SCAR-68 SV</szLongItemName>
+		<szItemDesc>Dieses Kit enthält alle notwendigen Teile um Ihr SCAR-L in das Kaliber 6.8mm Remington SPC zu konvertieren. Mit diesem langen Wechsel-Lauf erhalten Sie ein 'Sniper Variant' Präzisionsgewehr, bestens geeignet für den ambitionierten Scharfschützen.</szItemDesc>
+		<szBRName>Kit SCAR-68 SV</szBRName>
+		<szBRDesc>Dieses Kit enthält alle notwendigen Teile um Ihr SCAR-L in das Kaliber 6.8mm Remington SPC zu konvertieren. Mit diesem langen Wechsel-Lauf erhalten Sie ein 'Sniper Variant' Präzisionsgewehr, bestens geeignet für den ambitionierten Scharfschützen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1037</uiIndex>
-		<szItemName>CK L CQC</szItemName>
-		<szLongItemName>SCAR-L Conversion Kit</szLongItemName>
-		<szItemDesc>Dieses Kit wir ihr SCAR auf das Kaliber 5.56x45mm anpassen.</szItemDesc>
-		<szBRName>SCAR-L Conversion Kit</szBRName>
-		<szBRDesc>Das Kit adaptiert Ihr SCAR für das 5.56x45mm Nato-Standard Kaliber.</szBRDesc>
+		<szItemName>Kit L CQC</szItemName>
+		<szLongItemName>Kit SCAR-L CQC</szLongItemName>
+		<szItemDesc>Dieses Kit enthält alle notwendigen Teile um Ihr SCAR-L in das Kaliber 5.56mm NATO zu konvertieren. Mit diesem kurzen Wechsel-Lauf erhalten Sie die CQC-Variante, bestens geeignet für den Nah- und Häuserkampf.</szItemDesc>
+		<szBRName>Kit SCAR-L CQC</szBRName>
+		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1038</uiIndex>
-		<szItemName>CK L SV</szItemName>
-		<szLongItemName>SCAR-L Conversion Kit SV</szLongItemName>
-		<szItemDesc>Mit diesem Kit verwandelt man ein SCAR in die 5.56x45mm Präzisions-Version.</szItemDesc>
-		<szBRName>SCAR-L Conversion Kit SV</szBRName>
-		<szBRDesc>Mit diesem Kit verwandelt man ein SCAR in die 5.56x45mm Präzisions-Version.</szBRDesc>
+		<szItemName>Kit L SV</szItemName>
+		<szLongItemName>Kit SCAR-L SV</szLongItemName>
+		<szItemDesc>Dieses Kit enthält alle notwendigen Teile um Ihr SCAR-L in das Kaliber 5.56mm NATO zu konvertieren. Mit diesem langen Wechsel-Lauf erhalten Sie ein 'Sniper Variant' Präzisionsgewehr, bestens geeignet für den ambitionierten Scharfschützen.</szItemDesc>
+		<szBRName>Kit SCAR-L SV</szBRName>
+		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1039</uiIndex>
-		<szItemName>CQC 6.8 Lauf</szItemName>
+		<szItemName>CQC 68 Lauf</szItemName>
 		<szLongItemName>SCAR-68 CQC Lauf</szLongItemName>
-		<szItemDesc>Ein kurzer 6.8mm Lauf für das SCAR wird sich im Nahkampf als praktisch erweisen.</szItemDesc>
+		<szItemDesc>Modifizieren Sie Ihr FN SCAR-68 mit diesem kurzen Wechsel-Lauf und Sie erhalten die CQC-Variante. Bestens geeignet für den Nah- und Häuserkampf.</szItemDesc>
 		<szBRName>SCAR-68 CQC Lauf</szBRName>
-		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
+		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1040</uiIndex>
-		<szItemName>SV 6.8 Lauf</szItemName>
+		<szItemName>SV 68 Lauf</szItemName>
 		<szLongItemName>SCAR-68 SV Lauf</szLongItemName>
-		<szItemDesc>Dieser lange 6.8mm Lauf für das SCAR punktet mit großer Reichweite und hoher Präzision.</szItemDesc>
+		<szItemDesc>Modifizieren Sie Ihr FN SCAR-68 mit diesem langen Wechsel-Lauf und Sie erhalten ein 'Sniper Variant' Präzisionsgewehr. Bestens geeignet für den ambitionierten Scharfschützen.</szItemDesc>
 		<szBRName>SCAR-68 SV Lauf</szBRName>
-		<szBRDesc>Dieser lange 6.8mm Lauf für das SCAR punktet mit großer Reichweite und hoher Präzision.</szBRDesc>
+		<szBRDesc>Modifizieren Sie Ihr FN SCAR-68 mit diesem langen Wechsel-Lauf und Sie erhalten ein 'Sniper Variant' Präzisionsgewehr. Bestens geeignet für den ambitionierten Scharfschützen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1041</uiIndex>
-		<szItemName>CK WP CQC</szItemName>
-		<szLongItemName>SCAR-WP Conversion Kit</szLongItemName>
-		<szItemDesc>Dieses Kit passt ein SCAR auf 7.62x39mm Munition an.</szItemDesc>
-		<szBRName>SCAR-WP Conversion Kit</szBRName>
-		<szBRDesc>Dieses Kit passt ein SCAR auf 7.62x39mm Munition an.</szBRDesc>
+		<szItemName>Kit WP CQC</szItemName>
+		<szLongItemName>Kit SCAR-WP CQC</szLongItemName>
+		<szItemDesc>Dieses Kit enthält alle notwendigen Teile um Ihr SCAR-H in das Kaliber 7.62x39mm zu konvertieren. Mit diesem kurzen Wechsel-Lauf erhalten Sie die CQC-Variante, bestens geeignet für den Nah- und Häuserkampf.</szItemDesc>
+		<szBRName>Kit SCAR-WP CQC</szBRName>
+		<szBRDesc>Dieses Kit enthält alle notwendigen Teile um Ihr SCAR-H in das Kaliber 7.62x39mm zu konvertieren. Mit diesem kurzen Wechsel-Lauf erhalten Sie die CQC-Variante, bestens geeignet für den Nah- und Häuserkampf.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1042</uiIndex>
-		<szItemName>CK WP SV</szItemName>
-		<szLongItemName>SCAR-WP Conversion Kit SV</szLongItemName>
-		<szItemDesc>Dieses Kit passt ein SCAR auf 7.62x39mm Munition an.</szItemDesc>
-		<szBRName>SCAR-WP Conversion Kit SV</szBRName>
-		<szBRDesc>Dieses Kit passt ein SCAR auf 7.62x39mm Munition an.</szBRDesc>
+		<szItemName>Kit WP SV</szItemName>
+		<szLongItemName>Kit SCAR-WP SV</szLongItemName>
+		<szItemDesc>Dieses Kit enthält alle notwendigen Teile um Ihr SCAR-H in das Kaliber 7.62x39mm zu konvertieren. Mit diesem langen Wechsel-Lauf erhalten Sie ein 'Sniper Variant' Präzisionsgewehr, bestens geeignet für den ambitionierten Scharfschützen.</szItemDesc>
+		<szBRName>Kit SCAR-WP SV</szBRName>
+		<szBRDesc>Dieses Kit enthält alle notwendigen Teile um Ihr SCAR-H in das Kaliber 7.62x39mm zu konvertieren. Mit diesem langen Wechsel-Lauf erhalten Sie ein 'Sniper Variant' Präzisionsgewehr, bestens geeignet für den ambitionierten Scharfschützen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1043</uiIndex>
-		<szItemName>CK H CQC</szItemName>
-		<szLongItemName>SCAR-H Conversion Kit</szLongItemName>
-		<szItemDesc>Wenn Ihnen Ihr SCAR noch immer zu schwach sein sollte, dann brauchen Sie dieses Kit.</szItemDesc>
-		<szBRName>SCAR-H Conversion Kit</szBRName>
-		<szBRDesc>Wenn Ihnen Ihr SCAR noch immer zu schwach sein sollte, dann brauchen Sie dieses Kit.</szBRDesc>
+		<szItemName>Kit H CQC</szItemName>
+		<szLongItemName>Kit SCAR-H CQC</szLongItemName>
+		<szItemDesc>Dieses Kit enthält alle notwendigen Teile um Ihr SCAR-H in das Kaliber 7.62mm NATO zu konvertieren. Mit diesem kurzen Wechsel-Lauf erhalten Sie die CQC-Variante, bestens geeignet für den Nah- und Häuserkampf.</szItemDesc>
+		<szBRName>Kit SCAR-H CQC</szBRName>
+		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1044</uiIndex>
-		<szItemName>CK H SV</szItemName>
-		<szLongItemName>SCAR-H Conversion Kit SV</szLongItemName>
-		<szItemDesc>Wenn Ihnen Ihr SCAR noch immer zu schwach sein sollte, dann brauchen Sie dieses Kit.</szItemDesc>
-		<szBRName>SCAR-H Conversion Kit SV</szBRName>
-		<szBRDesc>Wenn Ihnen Ihr SCAR noch immer zu schwach sein sollte, dann brauchen Sie dieses Kit.</szBRDesc>
+		<szItemName>Kit H SV</szItemName>
+		<szLongItemName>Kit SCAR-H SV</szLongItemName>
+		<szItemDesc>Dieses Kit enthält alle notwendigen Teile um Ihr SCAR-H in das Kaliber 7.62mm NATO zu konvertieren. Mit diesem langen Wechsel-Lauf erhalten Sie ein 'Sniper Variant' Präzisionsgewehr, bestens geeignet für den ambitionierten Scharfschützen.</szItemDesc>
+		<szBRName>Kit SCAR-H SV</szBRName>
+		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1045</uiIndex>
 		<szItemName>CQC WP Lauf</szItemName>
 		<szLongItemName>SCAR-WP CQC Lauf</szLongItemName>
-		<szItemDesc>Dieser Lauf macht aus einem SCAR-WP-SV eine CQC-Version.</szItemDesc>
+		<szItemDesc>Modifizieren Sie Ihr FN SCAR-WP mit diesem kurzen Wechsel-Lauf und Sie erhalten die CQC-Variante. Bestens geeignet für den Nah- und Häuserkampf.</szItemDesc>
 		<szBRName>SCAR-WP CQC Lauf</szBRName>
-		<szBRDesc>Kein Verkauf durch BR</szBRDesc>
+		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1046</uiIndex>
 		<szItemName>SV WP Lauf</szItemName>
 		<szLongItemName>SCAR-WP SV Lauf</szLongItemName>
-		<szItemDesc>Dieser Lauf macht aus einem SCAR-WP-CQC eine Präzisions-Version.</szItemDesc>
+		<szItemDesc>Modifizieren Sie Ihr FN SCAR-WP mit diesem langen Wechsel-Lauf und Sie erhalten ein 'Sniper Variant' Präzisionsgewehr. Bestens geeignet für den ambitionierten Scharfschützen.</szItemDesc>
 		<szBRName>SCAR-WP SV Lauf</szBRName>
-		<szBRDesc>Dieser Lauf macht aus einem SCAR-WP-CQC eine Präzisions-Version.</szBRDesc>
+		<szBRDesc>Modifizieren Sie Ihr FN SCAR-WP mit diesem langen Wechsel-Lauf und Sie erhalten ein 'Sniper Variant' Präzisionsgewehr. Bestens geeignet für den ambitionierten Scharfschützen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1047</uiIndex>
-		<szItemName>.40 SMG Mag</szItemName>
+		<szItemName>.40 Mag</szItemName>
 		<szLongItemName>.40 S&amp;W Magazin</szLongItemName>
 		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>.40 Mag</szBRName>
@@ -8364,67 +8364,67 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1048</uiIndex>
-		<szItemName>.40 SMG Mag HS</szItemName>
+		<szItemName>.40 Mag HS</szItemName>
 		<szLongItemName>.40 S&amp;W Magazin, HS</szLongItemName>
 		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szItemDesc>
-		<szBRName>.40 Mag HS #14</szBRName>
+		<szBRName>.40 Mag HS</szBRName>
 		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1049</uiIndex>
-		<szItemName>.40 SMG Mag PB</szItemName>
+		<szItemName>.40 Mag PB</szItemName>
 		<szLongItemName>.40 S&amp;W Magazin, PB</szLongItemName>
 		<szItemDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
-		<szBRName>.40 Mag PB #14</szBRName>
+		<szBRName>.40 Mag PB</szBRName>
 		<szBRDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen. Diese Patrone wurde jedoch auch von Kriminellen entdeckt und als 'Cop-Killer' berühmt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1050</uiIndex>
-		<szItemName>.40 SMG Mag DPX</szItemName>
+		<szItemName>.40 Mag DPX</szItemName>
 		<szLongItemName>.40 S&amp;W Magazin, DPX</szLongItemName>
 		<szItemDesc>Wenn Sie Ihrer Waffe maximale Durchschlagskraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szItemDesc>
-		<szBRName>.40 Mag DPX #14</szBRName>
+		<szBRName>.40 Mag DPX</szBRName>
 		<szBRDesc>Wenn Sie Ihrer Waffe maximale Durchschlagskraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1051</uiIndex>
-		<szItemName>.40 SMG Mag G</szItemName>
-		<szLongItemName>.40 S&amp;W SMG Magazin, Glaser</szLongItemName>
+		<szItemName>.40 Mag G</szItemName>
+		<szLongItemName>.40 S&amp;W Magazin, Glaser</szLongItemName>
 		<szItemDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szItemDesc>
-		<szBRName>.40 Mag Glaser #14</szBRName>
+		<szBRName>.40 Mag Glaser</szBRName>
 		<szBRDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1052</uiIndex>
-		<szItemName>.40 SMG Mag M</szItemName>
+		<szItemName>.40 Mag M</szItemName>
 		<szLongItemName>.40 S&amp;W Magazin, Match</szLongItemName>
 		<szItemDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 70m.</szItemDesc>
-		<szBRName>.40 Mag Match #14</szBRName>
+		<szBRName>.40 Mag Match</szBRName>
 		<szBRDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 70m.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1053</uiIndex>
-		<szItemName>Shuriken</szItemName>
-		<szLongItemName>Shuriken</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>Shuriken</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>Wurfstern</szItemName>
+		<szLongItemName>Shuriken/ Wurfstern</szLongItemName>
+		<szItemDesc>Shuriken können in der Hand eines geübten Werfers zu einer durchaus gefährlichen Waffe werden. Die Wurfentfernung beträgt je nach Beschaffenheit des Geschosses und der Fähigkeit des Werfenden einige Meter.</szItemDesc>
+		<szBRName>Wurfstern</szBRName>
+		<szBRDesc>Shuriken können in der Hand eines geübten Werfers zu einer durchaus gefährlichen Waffe werden. Die Wurfentfernung beträgt je nach Beschaffenheit des Geschosses und der Fähigkeit des Werfenden einige Meter.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1054</uiIndex>
 		<szItemName>Nunchaku</szItemName>
 		<szLongItemName>Nunchaku</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>In den richtigen Händen ist das Nunchaku eine der gefährlichsten und kompaktesten Waffen des asiatischen Kampfsports. Weltweit wurde es durch die meisterhafte Handhabung von Bruce Lee bekannt.</szItemDesc>
 		<szBRName>Nunchaku</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>In den richtigen Händen ist das Nunchaku eine der gefährlichsten und kompaktesten Waffen des asiatischen Kampfsports. Weltweit wurde es durch die meisterhafte Handhabung von Bruce Lee bekannt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1055</uiIndex>
-		<szItemName>Katana</szItemName>
-		<szLongItemName>Katana</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>Katana</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>Schwert</szItemName>
+		<szLongItemName>Samurai-Schwert</szLongItemName>
+		<szItemDesc>Dieses Schwert ist der Stolz eines jeden Samurai.</szItemDesc>
+		<szBRName>Samurai-Schwert</szBRName>
+		<szBRDesc>Dieses Schwert ist ein seltenes Meisterstück fernöstlicher Handwerkskunst, verziert mit Drachen. Es zerteilt einen Bambusstab wie ein heißes Messer ein Stück Butter.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1056</uiIndex>
@@ -8484,7 +8484,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1063</uiIndex>
-		<szItemName>1st Resp. Kit</szItemName>
+		<szItemName>EH-Tasche</szItemName>
 		<szLongItemName>Ersthelfer-Tasche</szLongItemName>
 		<szItemDesc>Diese Tasche ist überraschenderweise für Ersthelfer geeignet. Wer hätte das gedacht?</szItemDesc>
 		<szBRName>Ersthelfer-Tasche</szBRName>
@@ -8492,27 +8492,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1064</uiIndex>
-		<szItemName>P239 SAS</szItemName>
-		<szLongItemName>SIG P239 SAS</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>SIG P239 SAS</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>P239</szItemName>
+		<szLongItemName>SIG-Sauer P239</szLongItemName>
+		<szItemDesc>Small Size in den Abmessungen, Full Size in ihrer Leistung als Dienstpistole. Das Kraftpaket bietet hervorragendes Handling und perfekte Kontrolle im Schuss.</szItemDesc>
+		<szBRName>SIG-Sauer P239</szBRName>
+		<szBRDesc>Small Size in den Abmessungen, Full Size in ihrer Leistung als Dienstpistole. Das Kraftpaket in den starken Kalibern 9mm, .40 S&amp;W und .357SIG zeichnet sich durch hervorragendes Handling und perfekte Kontrolle im Schuss aus.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1065</uiIndex>
 		<szItemName>AUG-A3</szItemName>
 		<szLongItemName>Steyr AUG-A3</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Die neuste Version des berühmten Steyr AUG besitzt Picatinny-Schienen an Stelle eines festen Visiers und Handgriff.</szItemDesc>
 		<szBRName>Steyr AUG-A3</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Die neuste Version des berühmten Steyr AUG besitzt Picatinny-Schienen an Stelle eines festen Visiers und Handgriff. Es ist erstmals auch im neuen Kaliber 6.8mm Remington SPC erhältlich.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1066</uiIndex>
-		<szItemName>HK 416 10"</szItemName>
-		<szLongItemName>HK 416 10"</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>HK 416 10"</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>HK416 10"</szItemName>
+		<szLongItemName>HK416 10"</szLongItemName>
+		<szItemDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung des AR-15/M16 und kombiniert die besten Eigenschaften von HK's G36 und Colt's M4.</szItemDesc>
+		<szBRName>HK416 10"</szBRName>
+		<szBRDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung des AR-15/M16 und die Antwort auf die beiden gescheiterten Projekte XM29 und XM8. Es soll die Jahrzehnte alten M16- und M4-Systeme ersetzen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1067</uiIndex>
@@ -8524,43 +8524,43 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1068</uiIndex>
-		<szItemName>40mm Gran.P.</szItemName>
-		<szLongItemName>40mm Gran.P.</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>40mm Gran.P.</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>40mm G-Holster</szItemName>
+		<szLongItemName>40mm Granat-Holster</szLongItemName>
+		<szItemDesc>Dieses Granat-Holster bietet Stauraum für vier 40mm Granaten und kann am Feldanzug oder Koppel befestigt werden.</szItemDesc>
+		<szBRName>40mm Granat-Holster</szBRName>
+		<szBRDesc>Dieses Granat-Holster bietet Stauraum für vier 40mm Granaten und kann am Feldanzug oder Koppel befestigt werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1069</uiIndex>
 		<szItemName>Galatz</szItemName>
-		<szLongItemName>Galil Sniper</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>Galil Sniper</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szLongItemName>I.M.I. Galil Sniper</szLongItemName>
+		<szItemDesc>Das I.M.I. Galatz (Galil Sniper) ist ein Scharfschützengewehr das Mitte der 1980er in Israel entwickelt wurde. Es ist eine modifizierte Version des Galil AR im Kaliber 7.62x51mm NATO.</szItemDesc>
+		<szBRName>I.M.I. Galil Sniper</szBRName>
+		<szBRDesc>Das I.M.I. Galatz (Galil Sniper) ist ein Scharfschützengewehr das Mitte der 1980er in Israel entwickelt wurde. Es ist eine modifizierte Version des Galil AR im Kaliber 7.62x51mm NATO.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1070</uiIndex>
-		<szItemName>HK 416 16"</szItemName>
-		<szLongItemName>HK 416 16"</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>HK 416 16"</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>HK416 16"</szItemName>
+		<szLongItemName>HK416 16"</szLongItemName>
+		<szItemDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung des AR-15/M16 und kombiniert die besten Eigenschaften von HK's G36 und Colt's M4.</szItemDesc>
+		<szBRName>HK416 16"</szBRName>
+		<szBRDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung des AR-15/M16 und die Antwort auf die beiden gescheiterten Projekte XM29 und XM8. Es soll die Jahrzehnte alten M16- und M4-Systeme ersetzen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1071</uiIndex>
 		<szItemName>Owen .45</szItemName>
 		<szLongItemName>Owen .45</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Eine eher einfache, vollautomatische Maschinenpistole aus Down Under.</szItemDesc>
 		<szBRName>Owen .45</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Das australische Militär befand diese MP als zuverlässiger verglichen mit der Thompson. Aufgrund der Magazinzuführung von oben, ist es nicht möglich alternative Visiere zu befestigen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1072</uiIndex>
-		<szItemName>HK 416 20"</szItemName>
-		<szLongItemName>HK 416 20"</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>HK 416 20"</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>HK416 20"</szItemName>
+		<szLongItemName>HK416 20"</szLongItemName>
+		<szItemDesc>Die Match-Variante des HK416 mit 20"-Lauf eignet sich hervorragend für den ambitionierten Schützen.</szItemDesc>
+		<szBRName>HK416 20"</szBRName>
+		<szBRDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung des AR-15/M16 und soll die Jahrzehnte alten M16- und M4-Systeme ersetzen. Die Match- Variante des HK416 mit 20"-Lauf eignet sich hervorragend für den ambitionierten Schützen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1073</uiIndex>
@@ -8574,17 +8574,17 @@
 		<uiIndex>1074</uiIndex>
 		<szItemName>HEZI SM-1</szItemName>
 		<szLongItemName>HEZI SM-1</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Diese neue israelische Waffe im Bullpup-Design, ist nichts anderes als ein M1 Karabiner im neuen Gewand.</szItemDesc>
 		<szBRName>HEZI SM-1</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Diese neue israelische Waffe im Bullpup-Design, ist nichts anderes als ein M1 Karabiner im neuen Gewand.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1075</uiIndex>
 		<szItemName>MG3</szItemName>
 		<szLongItemName>Rheinmetall MG3</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Als die Bundeswehr gegründet wurde, nahm man das MG42, benannte es in MG3 um und verringerte die Feuerrate. Es war damals das beste Mehrzweck-MG der Welt.</szItemDesc>
 		<szBRName>Rheinmetall MG3</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Dieses MG aus dem 2. Weltkrieg bietet Befestigungspunkte für ein Zwei- oder Dreibein, ein Luftkampfvisier und leicht zu wechselnde Läufe. Es wird nicht umsonst als das beste Mehrzweck-MG der damaligen Zeit bezeichnet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1076</uiIndex>
@@ -8597,66 +8597,171 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1079</uiIndex>
+		<szItemName>TAC-1A Weste</szItemName>
+		<szLongItemName>TAC-1A Weste</szLongItemName>
+		<szItemDesc>Diese Weste ermöglicht es Ihnen immer soviel Munition am Mann zu haben wie Sie gerade benötigen - bis zu 12x 5.56mm-Magazine.</szItemDesc>
+		<szBRName>TAC-1A Weste</szBRName>
+		<szBRDesc>Diese Weste ermöglicht es Ihnen immer soviel Munition am Mann zu haben wie Sie gerade benötigen - bis zu 12x 5.56mm-Magazine.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1080</uiIndex>
+		<szItemName>40mm G-Holster</szItemName>
+		<szLongItemName>40mm Granat-Holster</szLongItemName>
+		<szItemDesc>Dieses Granat-Holster bietet Stauraum für vier 40mm Granaten und kann am Feldanzug oder Koppel befestigt werden.</szItemDesc>
+		<szBRName>40mm Granat-Holster</szBRName>
+		<szBRDesc>Dieses Granat-Holster bietet Stauraum für vier 40mm Granaten und kann am Feldanzug oder Koppel befestigt werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1081</uiIndex>
+		<szItemName>Mag-Holster</szItemName>
+		<szLongItemName>Doppelmagazin-Holster</szLongItemName>
+		<szItemDesc>Dieses Holster bietet Stauraum für zwei extra-lange Magazine (z.B. FN-P90).</szItemDesc>
+		<szBRName>Doppelmagazin-Holster</szBRName>
+		<szBRDesc>Dieses Holster bietet Stauraum für zwei extra-lange Magazine (z.B. FN-P90).</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1082</uiIndex>
+		<szItemName>Tasche</szItemName>
+		<szLongItemName>Segeltuch-Tasche</szLongItemName>
+		<szItemDesc>Eine große Tasche die viel Platz bietet um eine Munitionskiste zu verstauen.</szItemDesc>
+		<szBRName>Segeltuch-Tasche</szBRName>
+		<szBRDesc>Eine große Tasche die viel Platz bietet um eine Munitionskiste zu verstauen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1083</uiIndex>
+		<szItemName>Blackhawk</szItemName>
+		<szLongItemName>Blakhawk Weste</szLongItemName>
+		<szItemDesc>Diese spezielle Weste wurde entwickelt um eine Vielzahl von Magazinen zu tragen. Damit sollte Ihnen nie die Munition ausgehen!</szItemDesc>
+		<szBRName>Blackhawk Weste</szBRName>
+		<szBRDesc>Diese spezielle Weste wurde entwickelt um eine Vielzahl von Magazinen zu tragen. Damit sollte Ihnen nie die Munition ausgehen!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1084</uiIndex>
+		<szItemName>Polizei-Weste</szItemName>
+		<szLongItemName>Hongkong Polizei-Weste</szLongItemName>
+		<szItemDesc>Diese Weste mit unterschiedlich großen Taschen kann vielseitig genutzt werden. Vier davon sind für 40mm Granaten geeignet.</szItemDesc>
+		<szBRName>Hongkong Polizei-Weste</szBRName>
+		<szBRDesc>Diese Weste mit unterschiedlich großen Taschen kann vielseitig genutzt werden. Vier davon sind für 40mm Granaten geeignet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1085</uiIndex>
+		<szItemName>Bw-Weste</szItemName>
+		<szLongItemName>Bundeswehr-Weste</szLongItemName>
+		<szItemDesc>Diese fabrikneue Bundeswehr-Weste im Flecktarn-Muster besitzt auf der linken Seite eine große Tasche.</szItemDesc>
+		<szBRName>Bundeswehr-Weste</szBRName>
+		<szBRDesc>Diese fabrikneue Bundeswehr-Weste im Flecktarn-Muster besitzt auf der linken Seite eine große Tasche.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1086</uiIndex>
+		<szItemName>106 Weste</szItemName>
+		<szLongItemName>Russische 106 Weste</szLongItemName>
+		<szItemDesc>Diese russische Weste kann vielseitig genutzt werden.</szItemDesc>
+		<szBRName>Russische 106 Weste</szBRName>
+		<szBRDesc>Diese russische Weste kann vielseitig genutzt werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1087</uiIndex>
+		<szItemName>107 Weste</szItemName>
+		<szLongItemName>Russische 107 Weste</szLongItemName>
+		<szItemDesc>Diese spezielle Weste wurde entwickelt um eine Vielzahl von Magazinen zu tragen. Damit sollte Ihnen nie die Munition ausgehen!</szItemDesc>
+		<szBRName>Russische 107 Weste</szBRName>
+		<szBRDesc>Diese spezielle Weste wurde entwickelt um eine Vielzahl von Magazinen zu tragen. Damit sollte Ihnen nie die Munition ausgehen!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1088</uiIndex>
+		<szItemName>RM22SF Weste</szItemName>
+		<szLongItemName>Russische RM22SF Weste</szLongItemName>
+		<szItemDesc>Diese spezielle Weste wurde für russische Spezialeinheiten entwickelt um Magazine und Granaten am Mann zu tragen.</szItemDesc>
+		<szBRName>Russische RM22SF Weste</szBRName>
+		<szBRDesc>Diese spezielle Weste wurde für russische Spezialeinheiten entwickelt um Magazine und Granaten am Mann zu tragen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1089</uiIndex>
+		<szItemName>TAC-1C Weste</szItemName>
+		<szLongItemName>TAC-1C Weste</szLongItemName>
+		<szItemDesc>Diese Weste besitzt zwei große Taschen, da passt viel hinein.</szItemDesc>
+		<szBRName>TAC-1C Weste</szBRName>
+		<szBRDesc>Diese Weste besitzt zwei große Taschen, da passt viel hinein.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1090</uiIndex>
+		<szItemName>Gürteltasche</szItemName>
+		<szLongItemName>Gürteltasche</szLongItemName>
+		<szItemDesc>Mit dieser Gürteltasche haben Sie das wichtigste Equipment am Mann und sind für den nächsten Kampfeinsatz bestens gerüstet.</szItemDesc>
+		<szBRName>Gürteltasche</szBRName>
+		<szBRDesc>Mit dieser Gürteltasche haben Sie das wichtigste Equipment am Mann und sind für den nächsten Kampfeinsatz bestens gerüstet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1091</uiIndex>
+		<szItemName>Holster</szItemName>
+		<szLongItemName>Pistolen-Holster</szLongItemName>
+		<szItemDesc>Das Eagle SAS Tactical Holster wird am Oberschenkel befestigt. Es kann eine mittlere Pistole sowie ein Reservemagazin verstaut werden.</szItemDesc>
+		<szBRName>Pistolen-Holster</szBRName>
+		<szBRDesc>Das Eagle SAS Tactical Holster wird am Oberschenkel befestigt. Es kann eine mittlere Pistole sowie ein Reservemagazin verstaut werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1092</uiIndex>
+		<szItemName>Beintasche</szItemName>
+		<szLongItemName>Beintasche</szLongItemName>
+		<szItemDesc>Diese Beintasche ist mit einem Pistolen-Holster und einer 3-fachen Magazintasche ausgestattet.</szItemDesc>
+		<szBRName>Beintasche</szBRName>
+		<szBRDesc>Diese Beintasche ist mit einem Pistolen-Holster und einer 3-fachen Magazintasche ausgestattet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1093</uiIndex>
+		<szItemName>MP-Holster</szItemName>
+		<szLongItemName>MP-Holster</szLongItemName>
+		<szItemDesc>Dieses MP-Holster wird am Oberschenkel befestigt. Es kann eine mittlere MP oder große Pistole sowie ein Reservemagazin verstaut werden.</szItemDesc>
+		<szBRName>MP-Holster</szBRName>
+		<szBRDesc>Dieses MP-Holster wird am Oberschenkel befestigt. Es kann eine mittlere MP oder große Pistole sowie ein Reservemagazin verstaut werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1094</uiIndex>
+		<szItemName>TIMS Rucksack</szItemName>
+		<szLongItemName>TIMS Rucksack</szLongItemName>
+		<szItemDesc>Dieser Rucksack gehört zum TIMS-Set, bestehend aus Rucksack und Kampftasche. Wenn Sie große Gegenstände durch das Gelände schleppen wollen, werden Sie einen Rucksack wie diesen benötigen.</szItemDesc>
+		<szBRName>TIMS Rucksack</szBRName>
+		<szBRDesc>Dieser Rucksack gehört zum TIMS-Set, bestehend aus Rucksack und Kampftasche. Wenn Sie große Gegenstände durch das Gelände schleppen wollen, werden Sie einen Rucksack wie diesen benötigen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1095</uiIndex>
+		<szItemName>ARUC Rucksack</szItemName>
+		<szLongItemName>ARUCK Rucksack</szLongItemName>
+		<szItemDesc>Dieser Rucksack hat zusätzlich zwei äußere Taschen.</szItemDesc>
+		<szBRName>ARUC Rucksack</szBRName>
+		<szBRDesc>Dieser Rucksack hat zusätzlich zwei äußere Taschen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1096</uiIndex>
+		<szItemName>MALICE3</szItemName>
+		<szLongItemName>MALICE3 Rucksack</szLongItemName>
+		<szItemDesc>Dieser Rucksack hat zusätzliche äußere Taschen.</szItemDesc>
+		<szBRName>MALICE3 Rucksack</szBRName>
+		<szBRDesc>Dieser Rucksack hat zusätzliche äußere Taschen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1097</uiIndex>
+		<szItemName>TIMS</szItemName>
+		<szLongItemName>TIMS Kampftasche</szLongItemName>
+		<szItemDesc>Diese Kampftasche gehört zum TIMS-Set, bestehend aus Rucksack und Kampftasche.</szItemDesc>
+		<szBRName>TIMS Kampftasche</szBRName>
+		<szBRDesc>Diese Kampftasche gehört zum TIMS-Set, bestehend aus Rucksack und Kampftasche.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1098</uiIndex>
+		<szItemName>TAC 3-Day</szItemName>
+		<szLongItemName>TAC 3-Day Kampftasche</szLongItemName>
+		<szItemDesc>Diese Kampftasche hat eine zusätzliche äußere Tasche.</szItemDesc>
+		<szBRName>TAC 3-Day</szBRName>
+		<szBRDesc>Diese Kampftasche hat eine zusätzliche äußere Tasche.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1099</uiIndex>
+		<szItemName>Kampftasche</szItemName>
+		<szLongItemName>Blackhawk Kampftasche</szLongItemName>
+		<szItemDesc>Diese Kampftasche bietet vielfältige Verstaumöglichkeiten.</szItemDesc>
+		<szBRName>Blackhawk Kampftasche</szBRName>
+		<szBRDesc>Diese Kampftasche bietet vielfältige Verstaumöglichkeiten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1100</uiIndex>

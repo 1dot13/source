@@ -8,7 +8,7 @@
 	<AMMO>
 		<uiIndex>1</uiIndex>
 		<AmmoCaliber>.38 Special</AmmoCaliber>
-		<BRCaliber>.38 Special</BRCaliber>
+		<BRCaliber>.38 Spc</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>2</uiIndex>
@@ -23,7 +23,7 @@
 	<AMMO>
 		<uiIndex>4</uiIndex>
 		<AmmoCaliber>.357 Magnum</AmmoCaliber>
-		<BRCaliber>.357 Mag.</BRCaliber>
+		<BRCaliber>.357 Mag</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>5</uiIndex>
@@ -107,8 +107,8 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>21</uiIndex>
-		<AmmoCaliber>12.7x99mm</AmmoCaliber>
-		<BRCaliber>12.7x99mm</BRCaliber>
+		<AmmoCaliber>12.7x108mm</AmmoCaliber>
+		<BRCaliber>12.7x108mm</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>22</uiIndex>
@@ -127,13 +127,13 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>25</uiIndex>
-		<AmmoCaliber>.338 Lapua Mag.</AmmoCaliber>
-		<BRCaliber>.338 Lapua</BRCaliber>
+		<AmmoCaliber>.338 Lapua Mag</AmmoCaliber>
+		<BRCaliber>.338 LM</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>26</uiIndex>
 		<AmmoCaliber>.44 Magnum</AmmoCaliber>
-		<BRCaliber>.44 Mag.</BRCaliber>
+		<BRCaliber>.44 Mag</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>27</uiIndex>
@@ -187,7 +187,7 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>37</uiIndex>
-		<AmmoCaliber>.45 Win. Mag.</AmmoCaliber>
+		<AmmoCaliber>.45 Win Mag</AmmoCaliber>
 		<BRCaliber>.45 WM</BRCaliber>
 	</AMMO>
 	<AMMO>
@@ -197,7 +197,7 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>39</uiIndex>
-		<AmmoCaliber>.300 Win. Mag.</AmmoCaliber>
+		<AmmoCaliber>.300 Win Mag</AmmoCaliber>
 		<BRCaliber>.300 WM</BRCaliber>
 	</AMMO>
 	<AMMO>
@@ -207,7 +207,32 @@
 	</AMMO>
 	<AMMO>
 		<uiIndex>41</uiIndex>
-		<AmmoCaliber>12.7mm Subsonic</AmmoCaliber>
-		<BRCaliber>12.7mm Sub.</BRCaliber>
+		<AmmoCaliber>12.7x97mm Sub.</AmmoCaliber>
+		<BRCaliber>12.7x97mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>42</uiIndex>
+		<AmmoCaliber>6.8x43mm SPC</AmmoCaliber>
+		<BRCaliber>6.8mm Rem SPC</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>43</uiIndex>
+		<AmmoCaliber>5.56x45mm SCF</AmmoCaliber>
+		<BRCaliber>5.56mm SCF</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>44</uiIndex>
+		<AmmoCaliber>.41 AE</AmmoCaliber>
+		<BRCaliber>.41 AE</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>45</uiIndex>
+		<AmmoCaliber>.30 Carbine</AmmoCaliber>
+		<BRCaliber>.30 Car</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>46</uiIndex>
+		<AmmoCaliber>.30-06 Sprg</AmmoCaliber>
+		<BRCaliber>.30-06</BRCaliber>
 	</AMMO>
 </AMMOLIST>
