@@ -14699,9 +14699,9 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>800</BR_ROF>
-		<Bipod>10</Bipod>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
+		<DefaultAttachment>209</DefaultAttachment>
 	</ITEM>
 	<ITEM>
 		<uiIndex>670</uiIndex>
@@ -15219,6 +15219,7 @@
 		<BR_ROF>650</BR_ROF>
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
+		<DefaultAttachment>1011</DefaultAttachment>
 	</ITEM>
 	<ITEM>
 		<uiIndex>688</uiIndex>
@@ -16164,9 +16165,9 @@
 		<uiIndex>722</uiIndex>
 		<szItemName>Springfield XD</szItemName>
 		<szLongItemName>Springfield XD</szLongItemName>
-		<szItemDesc>A big, reliable pistol.  A Croatian design for use in harsh environments.</szItemDesc>
+		<szItemDesc>A reliable pistol of Croatian design, the XD is for use in harsh environments.</szItemDesc>
 		<szBRName>Springfield XD</szBRName>
-		<szBRDesc>A big, reliable pistol.  A Croatian design for use in harsh environments.  Testimonial from Hamous of Metavira: "Me like big gun!"</szBRDesc>
+		<szBRDesc>A quite reliable pistol, this is a Croatian design for use in harsh environments. Testimonial from Hamous of Metavira: "Me like that gun!"</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>722</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -16176,7 +16177,7 @@
 		<usPrice>890</usPrice>
 		<ubCoolness>2</ubCoolness>
 		<bReliability>2</bReliability>
-		<bRepairEase>-2</bRepairEase>
+		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -16681,7 +16682,7 @@
 		<szLongItemName>Ultimax</szLongItemName>
 		<szItemDesc>Designed and produced in Singapore, the Ultimax 100 LMG line fires either drum or box magazines of 5.56mm ammo.</szItemDesc>
 		<szBRName>Ultimax</szBRName>
-		<szBRDesc>Reliable and comparatively light-weight, our ST Kinetics' Ultimaxes have been modified to accept 5.56mm Beta C-Mags.</szBRDesc>
+		<szBRDesc>Reliable and comparatively light-weight, our ST Kinetics' Ultimaxes have been modified to accept 5.56mm Beta C-Mags. Comes with integral bipod and foregrip.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>740</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -16702,6 +16703,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>540</BR_ROF>
+		<Bipod>7</Bipod>
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 	</ITEM>
