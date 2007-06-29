@@ -963,6 +963,7 @@ void HandleShadingOfLinesForMilitiaControlMenu( void )
 		UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_HOLD );
 		UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_RETREAT );
 		UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_COMETOME );
+		UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_SPREAD );
 		UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_GETDOWN );
 		UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_TAKE_COVER );
 		//UnShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_TAKE_ITEMS );
@@ -973,6 +974,7 @@ void HandleShadingOfLinesForMilitiaControlMenu( void )
 		ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_HOLD );
 		ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_RETREAT );
 		ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_COMETOME );
+		ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_SPREAD );
 		ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_GETDOWN );
 		ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_TAKE_COVER );
 		//ShadeStringInBox( ghMilitiaControlBox, MILCON_MENU_ALL_TAKE_ITEMS );
@@ -1590,6 +1592,59 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 					}
 					break;
 				
+
+				case( MILCON_MENU_ALL_SPREAD ):
+					{
+						UINT8 cnt;
+						INT16 sActionGridNo;
+						SOLDIERTYPE *pTeamSoldier;
+
+						cnt = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
+
+						for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; cnt++, pTeamSoldier++)
+						{
+							if ( (pTeamSoldier->bActive) && (pTeamSoldier->bInSector) && (pTeamSoldier->bLife >= OKLIFE) )
+							{
+
+								// See if we can get there
+								sActionGridNo =  RandDestWithinRange( pTeamSoldier );
+								if ( sActionGridNo != -1 )
+								{
+									// SEND PENDING ACTION
+									pTeamSoldier->sPendingActionData2  = sActionGridNo;
+									//pTeamSoldier->bPendingActionData3  = ubDirection;
+									pTeamSoldier->ubPendingActionAnimCount = 0;
+									pTeamSoldier->usUIMovementMode = RUNNING;
+
+									// CHECK IF WE ARE AT THIS GRIDNO NOW
+									if ( pTeamSoldier->sGridNo != sActionGridNo )
+									{
+										// WALK UP TO DEST FIRST
+										SendGetNewSoldierPathEvent( pTeamSoldier, sActionGridNo, pTeamSoldier->usUIMovementMode );
+									}
+								}
+
+							}
+						}
+
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
+						{
+							DeductPoints( pSoldier, AP_TALK, 0 );
+							StatChange( pSoldier, LDRAMT, 1, FALSE );
+						}
+
+						// stop showing menu
+						fShowMilitiaControlMenu = FALSE;
+						giAssignHighLine = -1;
+
+						// set dirty flag
+						fTeamPanelDirty = TRUE;
+						fMapScreenBottomDirty = TRUE;
+					}
+					break;
+
+
+
 				case( MILCON_MENU_ALL_GETDOWN ):
 					{
 						UINT8 cnt;
