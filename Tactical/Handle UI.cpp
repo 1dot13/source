@@ -475,7 +475,7 @@ void PreventFromTheFreezingBug(SOLDIERTYPE* pSoldier)
 {
 	gfUIInterfaceSetBusy = FALSE;
 	UnSetUIBusy( pSoldier->ubID );
-	gTacticalStatus.ubAttackBusyCount = 0;
+//	gTacticalStatus.ubAttackBusyCount = 0; // 0verhaul:  I know commenting this may not be a good idea, but then neither is this kludgy routine.
 	guiPendingOverrideEvent = LU_ENDUILOCK;
 	UIHandleLUIEndLock( NULL );
 }
@@ -5817,7 +5817,7 @@ void SetUIBusy( UINT8 ubID )
 
 void UnSetUIBusy( UINT8 ubID )
 {
-	if ( (gTacticalStatus.uiFlags & INCOMBAT ) && ( gTacticalStatus.uiFlags & TURNBASED ) && ( gTacticalStatus.ubCurrentTeam == gbPlayerNum ) )
+	if ( gfUserTurnRegionActive && (gTacticalStatus.uiFlags & INCOMBAT ) && ( gTacticalStatus.uiFlags & TURNBASED ) && ( gTacticalStatus.ubCurrentTeam == gbPlayerNum ) )
 	{
 		if ( !gTacticalStatus.fUnLockUIAfterHiddenInterrupt )
 		{

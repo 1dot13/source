@@ -23,7 +23,7 @@
 //
 // 3) call DecompressFini() with the decompression pointer when you're done
 
-PTR DecompressInit( BYTE * pCompressedData, UINT32 uiDataSize );
+PTR DecompressInit( PTR pCompressedData, UINT32 uiDataSize );
 UINT32 Decompress( PTR pDecompPtr, BYTE * pBuffer, UINT32 uiBufferLen );
 void DecompressFini( PTR pDecompPtr );
 

@@ -313,9 +313,10 @@ BOOLEAN CheckOnBoxers( void )
 			// WANNE: Safty check!
 			if (ubID < TOTAL_SOLDIERS)
 			{
-				if ( FindObjClass( MercPtrs[ ubID ], IC_WEAPON ) == NO_SLOT )
+				if ( FindObjClass( MercPtrs[ ubID ], IC_WEAPON ) == NO_SLOT &&
+					IS_MERC_BODY_TYPE( MercPtrs[ ubID ] ) )
 				{	
-					// no weapon so this guy is a boxer
+					// no weapon and not a civilian so this guy is a boxer
 					gubBoxerID[ uiLoop ] = ubID;
 				}
 			}

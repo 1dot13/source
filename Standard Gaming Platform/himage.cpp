@@ -346,7 +346,7 @@ BOOLEAN Copy8BPPCompressedImageTo8BPPBuffer( HIMAGE hImage, BYTE *pDestBuf, UINT
 	CHECKF( pDecompPtr );
 
 	// Allocate memory for one scanline
-	pScanLine = MemAlloc( hImage->usWidth );
+	pScanLine = (UINT8*) MemAlloc( hImage->usWidth );
 	CHECKF( pScanLine );
 
 	// go past all the scanlines we don't need to process

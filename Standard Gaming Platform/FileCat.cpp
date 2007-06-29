@@ -73,6 +73,8 @@ size_t TFileCat::RemoveDir(std::string dir, bool pathIncludesRoot)
 void TFileCat::TraverseDir(std::string dir, int depth)
 {
 	using std::string;
+	static string dot( ".");
+	static string dotdot( "..");
 
 	if (!dir.empty()) dir += '\\';
 
@@ -82,7 +84,7 @@ void TFileCat::TraverseDir(std::string dir, int depth)
 	unsigned attrib;
 
 	while ( readDir.NextFile(fileName, attrib) ) {
-		if (string(".") == fileName || string("..") == fileName) continue;
+		if (dot == fileName || dotdot == fileName) continue;
 
 		string fullPath = dir + fileName;
 

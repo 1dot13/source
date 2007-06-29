@@ -45,7 +45,8 @@ LPDIRECTSOUNDBUFFER     lpSoundEffects[NUM_SOUND_EFFECTS];
 
 
 
-char szSoundEffects[NUM_SOUND_EFFECTS][255] =
+//char szSoundEffects[NUM_SOUND_EFFECTS][255] =
+char szSoundEffects[MAX_SAMPLES][255] =
 {
     "SHOOT1",
 		"MISS1",

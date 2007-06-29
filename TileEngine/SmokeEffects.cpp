@@ -185,7 +185,8 @@ INT32 NewSmokeEffect( INT16 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner )
 	pSmoke->uiTimeOfLastUpdate			= GetWorldTotalSeconds( );
 
 	// Are we indoors?
-	if ( GetTerrainType( sGridNo ) == FLAT_FLOOR )
+	// 0verhaul: Are we on the floor level?
+	if ( GetTerrainType( sGridNo ) == FLAT_FLOOR && bLevel)
 	{
 		pSmoke->bFlags |= SMOKE_EFFECT_INDOORS;
 	}
@@ -579,7 +580,7 @@ void DecaySmokeEffects( UINT32 uiTime )
 			else
 			{
 				// damage anyone standing in cloud
-				SpreadEffect( pSmoke->sGridNo, pSmoke->ubRadius, pSmoke->usItem, pSmoke->ubOwner, REDO_SPREAD_EFFECT, 0, cnt );
+				SpreadEffect( pSmoke->sGridNo, pSmoke->ubRadius, pSmoke->usItem, pSmoke->ubOwner, REDO_SPREAD_EFFECT, bLevel, cnt );
 			}
     }
   }

@@ -2805,6 +2805,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 											action = AI_ACTION_FLANK_RIGHT ;
 										break;
 									}
+
+									if (action == AI_ACTION_SEEK_OPPONENT) {
+										return action;
+									}
 								}
 								else
 									return AI_ACTION_SEEK_OPPONENT ;
@@ -4602,9 +4606,13 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 			if ( sClosestOpponent != NOWHERE )
 			{
 				// temporarily make boxer have orders of CLOSEPATROL rather than STATIONARY
+				// And make him patrol the ring, not his usual place
 				// so he has a good roaming range
+				USHORT tgrd = pSoldier->usPatrolGrid[0];
+				pSoldier->usPatrolGrid[0] = pSoldier->sGridNo;
 				pSoldier->bOrders = CLOSEPATROL;
 				pSoldier->usActionData = GoAsFarAsPossibleTowards( pSoldier, sClosestOpponent, AI_ACTION_GET_CLOSER );
+				pSoldier->usPatrolGrid[0] = tgrd;
 				pSoldier->bOrders = STATIONARY;
 				if ( pSoldier->usActionData != NOWHERE )
 				{

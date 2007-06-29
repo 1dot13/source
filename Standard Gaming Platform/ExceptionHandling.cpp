@@ -7,6 +7,7 @@
 	#include <stdlib.h>
 	#include <malloc.h>
 	#include <stdio.h>
+	#include "FileMan.h"
 #endif
 
 #include "ExceptionHandling.h"

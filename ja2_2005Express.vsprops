@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="ja2_2005Express"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="..\Utils;..\TileEngine;..\TacticalAI;..\Tactical;..\Strategic;&quot;..\Standard Gaming Platform&quot;;..\Res;..\lua;..\Laptop;..\Editor;..\;$(NOINHERIT)"
+		PreprocessorDefinitions="JA2;CINTERFACE;XML_STATIC"
+		Detect64BitPortabilityProblems="false"
+	/>
+</VisualStudioPropertySheet>

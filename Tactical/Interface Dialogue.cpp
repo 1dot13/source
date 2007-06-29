@@ -77,6 +77,7 @@
 	#include "BobbyRMailOrder.h"
 	#include "end game.h"
 	#include "Map Screen Helicopter.h"
+	#include "Cheats.h"
 #endif
 
 INT16	sBasementEnterGridNos[ ] = { 13362, 13363, 13364, 13365, 13525, 13524 };

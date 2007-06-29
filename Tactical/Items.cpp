@@ -2617,6 +2617,8 @@ BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo
 	INT8			bReloadType;
 	UINT16			usNewAmmoItem;
 
+	bAPs = 0;
+
 	if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
 	{
 		bAPs = GetAPsToReloadGunWithAmmo( pGun, pAmmo );

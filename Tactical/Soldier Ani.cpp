@@ -1475,13 +1475,14 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 			case 485:
 
 				// CODE: Try steal.....
+//				UnSetUIBusy( pSoldier->ubID);
 				UseHandToHand( pSoldier, pSoldier->sPendingActionData2, TRUE );
 				//jackaians:
 				//if we are not waiting for the pickup menu to be displayed
-				if (guiPendingOverrideEvent != G_GETTINGITEM)
-				{
-					PreventFromTheFreezingBug(pSoldier);
-				}
+//				if (guiPendingOverrideEvent != G_GETTINGITEM)
+//				{
+//					PreventFromTheFreezingBug(pSoldier);
+//				}
 				break;
 
 			case 486:

@@ -2051,6 +2051,7 @@ void GetRayStopInfo( UINT32 uiNewSpot, UINT8 ubDir, INT8 bLevel, BOOLEAN fSmokeE
 	}
 
 	// ATE: For smoke, don't let it go over roof....
+	// 0verhaul:  Why not?
 	if ( fSmokeEffect )
 	{
 		if ( bLevel )

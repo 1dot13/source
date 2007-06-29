@@ -5439,6 +5439,7 @@ UINT8 StealItems(SOLDIERTYPE* pSoldier,SOLDIERTYPE* pOpponent, UINT8* ubIndexRet
 
 	InitializeStealItemPickupMenu( pSoldier, pOpponent, pItemPool, ubCount);
 	guiPendingOverrideEvent = G_GETTINGITEM;
+	HandleTacticalUI(); // 0verhaul:  Added to keep this event from going out of style before it is acted on
 	return( ubCount );
 }
 

@@ -2791,6 +2791,10 @@ void QuickButtonCallbackMButn( MOUSE_REGION *reg, INT32 reason )
 	{
 		StateAfter = (b->uiFlags & BUTTON_CLICKED_ON) ? (TRUE) : (FALSE);
 	}
+	else
+	{
+		StateAfter = !( reason & MSYS_CALLBACK_REASON_LBUTTON_UP );
+	}
 
 	// Play sounds for this enabled button (disabled sounds have already been done)
 	if( b->ubSoundSchemeID && b->uiFlags & BUTTON_ENABLED )
