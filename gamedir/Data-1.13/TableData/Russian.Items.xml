@@ -4298,11 +4298,9 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>537</uiIndex>
-		<szItemName>10mm Mag DU</szItemName>
-		<szLongItemName>10mm Magazine, Depleted Uranium</szLongItemName>
-		<szItemDesc>ade from depleted radioactive matter, these bullets will blast through armor with resultant fallout damage.</szItemDesc>
-		<szBRName>10mm Mag D-U</szBRName>
-		<szBRDesc>If a bad case of lead poisoning dosen't slow the target down, radiation poisoning surely will.</szBRDesc>
+		<szItemName>Nothing</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szBRName>Nothing</szBRName>
 	</ITEM>
 	<ITEM>
 		<uiIndex>538</uiIndex>
@@ -4738,11 +4736,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>592</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 592</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Sniper Supp.</szItemName>
+		<szLongItemName>Sniper Suppressor</szLongItemName>
+		<szItemDesc>A large sound suppressor that can be fitted to some sniper rifles.</szItemDesc>
+		<szBRName>Sniper Suppressor</szBRName>
+		<szBRDesc>A very large sound suppressor that can be fitted to some sniper rifles. Suppression of highpowered rounds comes at the price of high weight, though.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>593</uiIndex>
@@ -5378,11 +5376,9 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>672</uiIndex>
-		<szItemName>MP5/10SD6</szItemName>
-		<szLongItemName>HK MP5/10SD6</szLongItemName>
-		<szItemDesc>This MP510/A5 variant features an integral silencer, a feature that in the past has been exclusively the territory of the 9mm version.</szItemDesc>
-		<szBRName>HK MP5/10SD6</szBRName>
-		<szBRDesc>What's even better than a 9mm MP5 that nobody can hear shooting in full auto? A 10mm MP5 that nobody can hear shooting in full auto! Get yours today.</szBRDesc>
+		<szItemName>OTs 39</szItemName>
+		<szLongItemName>OTs 39</szLongItemName>
+		<szBRName>OTs 39</szBRName>
 	</ITEM>
 	<ITEM>
 		<uiIndex>673</uiIndex>
@@ -8550,9 +8546,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1076</uiIndex>
+		<szItemName>Shrike</szItemName>
+		<szLongItemName>Ares M4 Shrike</szLongItemName>
+		<szItemDesc>The LMG version of the M4 assault rifle.</szItemDesc>
+		<szBRName>Ares M4 Shrike</szBRName>
+		<szBRDesc>Ares changed the M4 assault rifle to a LMG with a completely new upper receiver. Comes with a foregrip for better control during fullauto.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1077</uiIndex>
+		<szItemName>HK 417</szItemName>
+		<szLongItemName>HK 417</szLongItemName>
+		<szItemDesc>The 7.62x51mm version of the HK 416.</szItemDesc>
+		<szBRName>HK 417</szBRName>
+		<szBRDesc>This is the 7.62x51mm version of Heckler &amp; Koch's new HK 416.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1078</uiIndex>

@@ -61,6 +61,10 @@
 		<incompatibleattachmentIndex>1012</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
 	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>207</itemIndex>
+		<incompatibleattachmentIndex>592</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>208</itemIndex>
 		<incompatibleattachmentIndex>998</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
@@ -198,6 +202,26 @@
 	</INCOMPATIBLEATTACHMENT>
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>310</itemIndex>
+		<incompatibleattachmentIndex>1012</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>310</itemIndex>
+		<incompatibleattachmentIndex>592</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>592</itemIndex>
+		<incompatibleattachmentIndex>1003</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>592</itemIndex>
+		<incompatibleattachmentIndex>310</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>592</itemIndex>
+		<incompatibleattachmentIndex>207</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>592</itemIndex>
 		<incompatibleattachmentIndex>1012</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
 	<INCOMPATIBLEATTACHMENT>
@@ -889,6 +913,10 @@
 		<incompatibleattachmentIndex>1012</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
 	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1003</itemIndex>
+		<incompatibleattachmentIndex>592</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1004</itemIndex>
 		<incompatibleattachmentIndex>208</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
@@ -1119,6 +1147,10 @@
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1012</itemIndex>
 		<incompatibleattachmentIndex>1003</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1012</itemIndex>
+		<incompatibleattachmentIndex>592</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1029</itemIndex>

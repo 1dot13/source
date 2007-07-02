@@ -4280,11 +4280,9 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>537</uiIndex>
-		<szItemName>10mm Mag DU</szItemName>
-		<szLongItemName>10mm AUTO Magazin, DU</szLongItemName>
-		<szItemDesc>Aufgrund der verwendeten Legierung entfalten diese panzerbrechenden Geschosse eine große Durchschlagskraft. Das Projektil enthält Uran-235 und setzt beim Einschlagen einen radioaktiven Staub frei welcher sehr tödlich ist.</szItemDesc>
-		<szBRName>10mm Mag DU</szBRName>
-		<szBRDesc>Aufgrund der verwendeten Legierung entfalten diese panzerbrechenden Geschosse eine große Durchschlagskraft. Das Projektil enthält Uran-235 und setzt beim Einschlagen einen radioaktiven Staub frei welcher sehr tödlich ist.</szBRDesc>
+		<szItemName>Nothing</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szBRName>Nothing</szBRName>
 	</ITEM>
 	<ITEM>
 		<uiIndex>538</uiIndex>
@@ -4720,10 +4718,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>592</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szItemName>Sniper Supp.</szItemName>
+		<szLongItemName>Sniper Suppressor</szLongItemName>
 		<szItemDesc>Index 592</szItemDesc>
-		<szBRName>Nothing</szBRName>
+		<szBRName>Sniper Suppressor</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -5360,11 +5358,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>672</uiIndex>
-		<szItemName>HK MP5/10SD3</szItemName>
-		<szLongItemName>HK MP5/10SD3</szLongItemName>
-		<szItemDesc>Diese mit einem Schalldämpfer ausgerüstete MP5/10A3 vereint eine hohe Durchschlagskraft mit einer beeindruckenden Lautlosigkeit.</szItemDesc>
-		<szBRName>HK MP5/10SD3</szBRName>
-		<szBRDesc>Diese Variante der MP5 im Kaliber 10x25mm stellt einen Kompromiss zwischen Kontrollierbarkeit und gesteigerter Feuerkraft dar. Sie ist mit einem Schalldämpfer ausgerüstete und vereint eine hohe Durchschlagskraft mit einer beeindruckenden Lautlosigkeit.</szBRDesc>
+		<szItemName>OTs 39</szItemName>
+		<szLongItemName>OTs 39</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>OTs 39</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>673</uiIndex>
@@ -8588,9 +8586,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1076</uiIndex>
+		<szItemName>Shrike</szItemName>
+		<szLongItemName>Ares M4 Shrike</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Ares M4 Shrike</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1077</uiIndex>
+		<szItemName>HK 417</szItemName>
+		<szLongItemName>HK 417</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>HK 417</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1078</uiIndex>
@@ -8630,7 +8638,7 @@
 	<ITEM>
 		<uiIndex>1083</uiIndex>
 		<szItemName>Blackhawk</szItemName>
-		<szLongItemName>Blakhawk Weste</szLongItemName>
+		<szLongItemName>Blackhawk Weste</szLongItemName>
 		<szItemDesc>Diese spezielle Weste wurde entwickelt um eine Vielzahl von Magazinen zu tragen. Damit sollte Ihnen nie die Munition ausgehen!</szItemDesc>
 		<szBRName>Blackhawk Weste</szBRName>
 		<szBRDesc>Diese spezielle Weste wurde entwickelt um eine Vielzahl von Magazinen zu tragen. Damit sollte Ihnen nie die Munition ausgehen!</szBRDesc>

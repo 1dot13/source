@@ -555,6 +555,8 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>750</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>17</uiIndex>
@@ -4642,6 +4644,7 @@
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
+		<Sinks>1</Sinks>
 		<Attachment>1</Attachment>
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
@@ -9824,7 +9827,7 @@
 		<szBRName>.30-06 AP Clip</szBRName>
 		<szBRDesc>If you happen to have a M1 Garand around, here's some ammo for it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>318</ubClassIndex>
+		<ubClassIndex>317</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>682</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -9950,7 +9953,7 @@
 		<szBRName>.30 car HP mag</szBRName>
 		<szBRDesc>Hollowpoint rounds for the old M1 Carbine.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>316</ubClassIndex>
+		<ubClassIndex>315</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>683</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -10063,7 +10066,7 @@
 		<szBRName>.30 car AP mag</szBRName>
 		<szBRDesc>Full Metal Jacket ammo for the old M1 Carbine.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>317</ubClassIndex>
+		<ubClassIndex>316</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>684</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -10083,7 +10086,7 @@
 		<szBRName>.300 WM Mag HP</szBRName>
 		<szBRDesc>The .300 Winchester Magnum can be considered a standard hunting round, especially with expanding hollowpoint bullets.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>308</ubClassIndex>
+		<ubClassIndex>307</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>540</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -10103,7 +10106,7 @@
 		<szBRName>.300 WM Mag AP</szBRName>
 		<szBRDesc>The .300 Winchester Magnum can be considered a standard hunting round, though these bullets are for the deer with Kevlar vest.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>309</ubClassIndex>
+		<ubClassIndex>308</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>541</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -10123,7 +10126,7 @@
 		<szBRName>7.92x57mm 5 HP</szBRName>
 		<szBRDesc>Own a vintage Mauser Gewehr 98 or Karabiner 98k? We have the ammo for your old pal!</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>310</ubClassIndex>
+		<ubClassIndex>309</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>542</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -10143,7 +10146,7 @@
 		<szBRName>7.92x57mm 5 AP</szBRName>
 		<szBRDesc>Our AP ammo for your old Mauser Gewehr 98 or Kar 98k.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>311</ubClassIndex>
+		<ubClassIndex>310</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>543</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -10163,7 +10166,7 @@
 		<szBRName>12.7x97mm Subsonic</szBRName>
 		<szBRDesc>Want to fire a .50 cal round without making noise? These babies are cutdown 12.7mm rounds to fit the Russian VSSK.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>312</ubClassIndex>
+		<ubClassIndex>311</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>544</ubGraphicNum>
 		<ubWeight>4</ubWeight>
@@ -10184,7 +10187,7 @@
 		<szBRName>5.56x45mm SCF mag</szBRName>
 		<szBRDesc>Newly developed flechette ammo that goes together with the newly developed Steyr Advanced Combat Rifle.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>315</ubClassIndex>
+		<ubClassIndex>314</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>580</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -10204,7 +10207,7 @@
 		<szBRName>6.8x43mm SPC mag HP</szBRName>
 		<szBRDesc>The 6.8x43mm Special Purpose Cartridge was developed under participation of the special operations comunity, who wanted a round that should be more lethal than the 5.56x45mm. Now they got it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>313</ubClassIndex>
+		<ubClassIndex>312</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>582</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -10224,7 +10227,7 @@
 		<szBRName>6.8x43mm SPC mag</szBRName>
 		<szBRDesc>The new 6.8x43mm SPC special forces ammo. More range and effect than the standard NATO-5.56mm round.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>314</ubClassIndex>
+		<ubClassIndex>313</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>583</ubGraphicNum>
 		<ubWeight>5</ubWeight>
@@ -11328,15 +11331,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>537</uiIndex>
-		<szItemName>10mm Mag DU</szItemName>
-		<szLongItemName>10mm Magazine, Depleted Uranium</szLongItemName>
-		<szItemDesc>made from depleted radioactive matter, these bullets will blast through armor with resultant fallout damage.</szItemDesc>
-		<szBRName>10mm Mag D-U</szBRName>
-		<szBRDesc>If a bad case of lead poisoning doesn't slow the target down, radiation poisoning surely will.</szBRDesc>
-		<usItemClass>1024</usItemClass>
-		<ubClassIndex>284</ubClassIndex>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>438</ubGraphicNum>
+		<szItemName>Nothing</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szBRName>Nothing</szBRName>
+		<usItemClass>1</usItemClass>
 		<ubWeight>6</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>5040</usPrice>
@@ -11355,7 +11353,7 @@
 		<szBRName>12.3mm Loader</szBRName>
 		<szBRDesc>Owing its dimensions to the 32 gauge shotgun shell, the 12.3mm is a weighty round for a weighty handgun.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>285</ubClassIndex>
+		<ubClassIndex>284</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>462</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -11375,7 +11373,7 @@
 		<szBRName>9x21mm Mag</szBRName>
 		<szBRDesc>According to its press, 9x21mm's tungsten core enables it to penetrate armored targets from 100 meters away.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>287</ubClassIndex>
+		<ubClassIndex>286</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>362</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11395,7 +11393,7 @@
 		<szBRName>7.62x37mm Mag</szBRName>
 		<szBRDesc>Designed so snipers punch through helmets, not the sound barrier.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>288</ubClassIndex>
+		<ubClassIndex>287</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>409</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11416,7 +11414,7 @@
 		<szBRName>7.62x37mm Mag D-U</szBRName>
 		<szBRDesc>Deliver a tactical nuclear strike on the smallest possible scale from your silenced sniper rifle.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>289</ubClassIndex>
+		<ubClassIndex>288</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>437</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11459,7 +11457,7 @@
 		<szBRName>5.45x18mm Mag HP</szBRName>
 		<szBRDesc>HP bullets augment the stopping power of this small-bore cartridge.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>291</ubClassIndex>
+		<ubClassIndex>289</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>294</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -11479,7 +11477,7 @@
 		<szBRName>9mm Metal Storm Mag</szBRName>
 		<szBRDesc>Dispensing with mechanical loading and firing, Metal Storm's stacked electronically fired ammunition promises reliable mass firepower at low weight. This bundle is configured for 72 rounds across 6 barrels, in 9mm.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>292</ubClassIndex>
+		<ubClassIndex>291</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>463</ubGraphicNum>
 		<ubWeight>19</ubWeight>
@@ -11541,7 +11539,7 @@
 		<szBRName>.50 Action Express Mag</szBRName>
 		<szBRDesc>Magzine size, accuracy and controlability are a fair trade off for stopping power and coolness, right?  Because if you're going to use a overpriced, impractical and unreliable handgun instead of a perfectly good rifle, you'll need ammunition for it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>294</ubClassIndex>
+		<ubClassIndex>293</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>175</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11711,7 +11709,7 @@
 		<szBRName>.50 Beowulf 7</szBRName>
 		<szBRDesc>7 rounds of the highpowered .50 Beowulf ammo, just the thing for stopping vehicles.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>307</ubClassIndex>
+		<ubClassIndex>306</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>515</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11734,7 +11732,7 @@
 		<szBRName>.50 Beowulf 7 HP</szBRName>
 		<szBRDesc>A clip of 7 Hollow Point rounds, perfect for harassing big pussycats.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>306</ubClassIndex>
+		<ubClassIndex>305</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>516</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11757,7 +11755,7 @@
 		<szBRName>.50 Beowulf 4</szBRName>
 		<szBRDesc>not for sale at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>305</ubClassIndex>
+		<ubClassIndex>304</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>517</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -11779,7 +11777,7 @@
 		<szBRName>.50 Beowulf 4 HP</szBRName>
 		<szBRDesc>not for sale at BR</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>304</ubClassIndex>
+		<ubClassIndex>303</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>518</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -11911,7 +11909,7 @@
 		<szBRName>12.3mm Loader FL</szBRName>
 		<szBRDesc>Open up with a shower of armour piercing metal shards and your opponents will be cut down to size.. Literally.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>286</ubClassIndex>
+		<ubClassIndex>285</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>523</ubGraphicNum>
 		<ubWeight>3</ubWeight>
@@ -11974,7 +11972,7 @@
 		<szBRName>.45 WinMag Mag</szBRName>
 		<szBRDesc>Standard ammo for some of the big-bore pistols.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>301</ubClassIndex>
+		<ubClassIndex>300</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>528</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -11994,7 +11992,7 @@
 		<szBRName>.45 WinMag Mag HP</szBRName>
 		<szBRDesc>If you're a hunter, then you'll need this for your sidearm if your prey is not as dead as you believed on first sight...</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>302</ubClassIndex>
+		<ubClassIndex>301</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>529</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12014,7 +12012,7 @@
 		<szBRName>.45 WinMag Mag AP</szBRName>
 		<szBRDesc>Armor piercing ammo for the Wildey pistol and other .45 WinMag pistols.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>303</ubClassIndex>
+		<ubClassIndex>302</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>530</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12034,7 +12032,7 @@
 		<szBRName>.454 C S-Load</szBRName>
 		<szBRDesc>.454 Casull is a round developed for some truly large revolvers.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>298</ubClassIndex>
+		<ubClassIndex>297</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>531</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12054,7 +12052,7 @@
 		<szBRName>.454 C S-Load HP</szBRName>
 		<szBRDesc>.454 Casull Hollow Point ammunition, if you use your revolver for hunting.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>299</ubClassIndex>
+		<ubClassIndex>298</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>532</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12074,7 +12072,7 @@
 		<szBRName>.454 C S-Load AP</szBRName>
 		<szBRDesc>.454 Casull Armor Piercers meet any need for self-defense ammo.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>300</ubClassIndex>
+		<ubClassIndex>299</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>533</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12094,7 +12092,7 @@
 		<szBRName>.454 C Cartridge</szBRName>
 		<szBRDesc>A single .454 Casull cartridge.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>295</ubClassIndex>
+		<ubClassIndex>294</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>534</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -12114,7 +12112,7 @@
 		<szBRName>.454 C Cartridge HP</szBRName>
 		<szBRDesc>.454 Casull Hollow Point ammunition, for hunting game large enough not to be splattered by it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>296</ubClassIndex>
+		<ubClassIndex>295</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>535</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -12134,7 +12132,7 @@
 		<szBRName>.454 C Cartridge AP</szBRName>
 		<szBRDesc>A .454 Casull Armor Piercer, if you want to shock the rangemaster at your next silhouette-training.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>297</ubClassIndex>
+		<ubClassIndex>296</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>536</ubGraphicNum>
 		<ubWeight>1</ubWeight>
@@ -12272,7 +12270,7 @@
 		<szBRName>.50 Action Express Mag HP</szBRName>
 		<szBRDesc>Hollowpoint bullets for your .50 AE handcannon. Probably better used for target-practice, if you shoot anything living with these, there will not be much left of it.</szBRDesc>
 		<usItemClass>1024</usItemClass>
-		<ubClassIndex>293</ubClassIndex>
+		<ubClassIndex>292</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>557</ubGraphicNum>
 		<ubWeight>2</ubWeight>
@@ -12470,14 +12468,30 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>592</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 592</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Sniper Supp.</szItemName>
+		<szLongItemName>Sniper Suppressor</szLongItemName>
+		<szItemDesc>A large sound suppressor that can be fitted to some sniper rifles.</szItemDesc>
+		<szBRName>Sniper Suppressor</szBRName>
+		<szBRDesc>A very large sound suppressor that can be fitted to some sniper rifles. Suppression of highpowered rounds comes at the price of high weight, though.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>710</ubGraphicNum>
+		<ubWeight>15</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<usPrice>1200</usPrice>
+		<ubCoolness>6</ubCoolness>
+		<bReliability>-1</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>1</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<PercentNoiseReduction>57</PercentNoiseReduction>
+		<HideMuzzleFlash>1</HideMuzzleFlash>
 	</ITEM>
 	<ITEM>
 		<uiIndex>593</uiIndex>
@@ -14697,9 +14711,9 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>800</BR_ROF>
+		<Bipod>10</Bipod>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
-		<DefaultAttachment>209</DefaultAttachment>
 	</ITEM>
 	<ITEM>
 		<uiIndex>670</uiIndex>
@@ -14758,18 +14772,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>672</uiIndex>
-		<szItemName>MP5/10SD3</szItemName>
-		<szLongItemName>HK MP5/10SD3</szLongItemName>
-		<szItemDesc>This MP5/10A3 variant features an integral silencer, a feature that in the past has been exclusively the territory of the 9mm version.</szItemDesc>
-		<szBRName>HK MP5/10SD3</szBRName>
-		<szBRDesc>What's even better than a 9mm MP5 that nobody can hear shooting in full auto? A 10mm MP5 that nobody can hear shooting in full auto! Get yours today.</szBRDesc>
+		<szItemName>OTs 39</szItemName>
+		<szLongItemName>OTs 39</szLongItemName>
+		<szItemDesc>A modern SMG for the old Tokarev round.</szItemDesc>
+		<szBRName>OTs 39</szBRName>
+		<szBRDesc>The latest and most modern SMG for the 7.62x25mm round. Comes with integrated folding stock and lasersight in the forward handguard.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>672</ubClassIndex>
 		<ubCursor>3</ubCursor>
-		<ubGraphicNum>106</ubGraphicNum>
-		<ubWeight>35</ubWeight>
-		<usPrice>2080</usPrice>
-		<bRepairEase>-3</bRepairEase>
+		<ubGraphicNum>323</ubGraphicNum>
+		<ubWeight>18</ubWeight>
+		<usPrice>1240</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
@@ -14778,12 +14793,11 @@
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>4</BR_NewInventory>
+		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<BR_ROF>800</BR_ROF>
-		<PercentNoiseReduction>90</PercentNoiseReduction>
-		<HideMuzzleFlash>1</HideMuzzleFlash>
-		<ToHitBonus>-1</ToHitBonus>
+		<BR_ROF>620</BR_ROF>
+		<ToHitBonus>19</ToHitBonus>
+		<BestLaserRange>90</BestLaserRange>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 	<ITEM>
@@ -15585,6 +15599,7 @@
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>242</ubGraphicNum>
 		<ubWeight>19</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
 		<usPrice>1140</usPrice>
 		<ubCoolness>3</ubCoolness>
 		<bRepairEase>-1</bRepairEase>
@@ -20712,7 +20727,8 @@
 		<usItemClass>16</usItemClass>
 		<ubClassIndex>906</ubClassIndex>
 		<ubCursor>20</ubCursor>
-		<ubGraphicNum>75</ubGraphicNum>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>709</ubGraphicNum>
 		<ubWeight>53</ubWeight>
 		<usPrice>5000</usPrice>
 		<ubCoolness>8</ubCoolness>
@@ -22948,11 +22964,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1012</uiIndex>
-		<szItemName>Rifle Supp.</szItemName>
-		<szLongItemName>Rifle Suppressor</szLongItemName>
-		<szItemDesc>A large sound suppressor that can be fitted to most carbines and assault rifles.  While it will reduce the muzzle noise and flash, it's still far from silent.</szItemDesc>
-		<szBRName>Rifle Suppressor</szBRName>
-		<szBRDesc>A large sound suppressor that can be fitted to most carbines and assault rifles.  Caution: This item is not 100 percent effective on its own.  Use it in conjunction with cold-loaded or subsonic ammunition to achieve a greatly reduced muzzle volume.</szBRDesc>
+		<szItemName>AR Supp.</szItemName>
+		<szLongItemName>AR Suppressor</szLongItemName>
+		<szItemDesc>A large sound suppressor that can be fitted to most carbines and assault rifles. While it will reduce the muzzle noise and flash, it's still far from silent.</szItemDesc>
+		<szBRName>AR Suppressor</szBRName>
+		<szBRDesc>A large sound suppressor that can be fitted to most carbines and assault rifles. Caution: This item is not 100 percent effective on its own. Use it in conjunction with cold-loaded or subsonic ammunition to achieve a greatly reduced muzzle volume.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>180</ubGraphicNum>
@@ -22965,6 +22981,7 @@
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<Metal>1</Metal>
+		<Sinks>1</Sinks>
 		<Attachment>1</Attachment>
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
@@ -24410,25 +24427,62 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1076</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1076</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Shrike</szItemName>
+		<szLongItemName>Ares M4 Shrike</szLongItemName>
+		<szItemDesc>The LMG version of the M4 assault rifle.</szItemDesc>
+		<szBRName>Ares M4 Shrike</szBRName>
+		<szBRDesc>Ares changed the M4 assault rifle to a LMG with a completely new upper receiver. Comes with a foregrip for better control during fullauto.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1076</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>319</ubGraphicNum>
+		<ubWeight>34</ubWeight>
+		<usPrice>5430</usPrice>
+		<ubCoolness>6</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>1000</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
+		<DefaultAttachment>1011</DefaultAttachment>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1077</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1077</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>HK 417</szItemName>
+		<szLongItemName>HK 417</szLongItemName>
+		<szItemDesc>The 7.62x51mm version of the HK 416.</szItemDesc>
+		<szBRName>HK 417</szBRName>
+		<szBRDesc>This is the 7.62x51mm version of Heckler &amp; Koch's new HK 416.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1077</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>325</ubGraphicNum>
+		<ubWeight>41</ubWeight>
+		<usPrice>3630</usPrice>
+		<ubCoolness>6</ubCoolness>
+		<bReliability>2</bReliability>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>1</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>600</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1078</uiIndex>
