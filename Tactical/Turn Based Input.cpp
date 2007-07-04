@@ -3259,7 +3259,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 										// Search for ammo in sector
 										for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; uiLoop++ )												
 										{
-											if ( gWorldItems[ uiLoop ].fExists)  //item exists && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE)
+											if ( (gWorldItems[ uiLoop ].fExists) && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE) )//item exists
 											{
 												if ( ( Item[ gWorldItems[ uiLoop ].o.usItem ].usItemClass & IC_AMMO ) ) // the item is ammo
 												{

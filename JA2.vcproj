@@ -545,7 +545,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libexpatMT.lib winmm.lib smackw32.lib mss32.lib fmodvc.lib lua51.lib"
-				OutputFile="D:\games\Jagged Alliance 2 v1.13\JA2 v1.13.1021_EN.exe"
+				OutputFile="D:\games\Jagged Alliance 2 v1.13\JA2 v1.13.1024_EN.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreDefaultLibraryNames=""
