@@ -8,7 +8,7 @@
 	<AMMO>
 		<uiIndex>1</uiIndex>
 		<AmmoCaliber>.38 Special</AmmoCaliber>
-		<BRCaliber>.38 Spc</BRCaliber>
+		<BRCaliber>.38 Special</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>2</uiIndex>
@@ -213,7 +213,7 @@
 	<AMMO>
 		<uiIndex>42</uiIndex>
 		<AmmoCaliber>6.8x43mm SPC</AmmoCaliber>
-		<BRCaliber>6.8mm Rem SPC</BRCaliber>
+		<BRCaliber>6.8mm SPC</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>43</uiIndex>
@@ -228,11 +228,11 @@
 	<AMMO>
 		<uiIndex>45</uiIndex>
 		<AmmoCaliber>.30 Carbine</AmmoCaliber>
-		<BRCaliber>.30 Car</BRCaliber>
+		<BRCaliber>.30 Carbine</BRCaliber>
 	</AMMO>
 	<AMMO>
 		<uiIndex>46</uiIndex>
 		<AmmoCaliber>.30-06 Sprg</AmmoCaliber>
-		<BRCaliber>.30-06</BRCaliber>
+		<BRCaliber>.30-06 Sprg</BRCaliber>
 	</AMMO>
 </AMMOLIST>

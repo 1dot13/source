@@ -36,9 +36,9 @@
 		<uiIndex>4</uiIndex>
 		<szItemName>Beretta 93R</szItemName>
 		<szLongItemName>Beretta 93R</szLongItemName>
-		<szItemDesc>Die Schwester der 92F wird als leichte MP klassifiziert und könnte sich bei einem Schußwechsel als Ihre beste Freundin erweisen.</szItemDesc>
+		<szItemDesc>Die Schwester der 92F wird als leichte MP klassifiziert und könnte sich bei einem Schusswechsel als Ihre beste Freundin erweisen.</szItemDesc>
 		<szBRName>Beretta 93R</szBRName>
-		<szBRDesc>Die Schwester der 92F wird als leichte Maschinenpistole klassifiziert und könnte sich bei einem Schußwechsel als Ihre beste Freundin erweisen. Feuermodus: S-3</szBRDesc>
+		<szBRDesc>Die Schwester der 92F wird als leichte Maschinenpistole klassifiziert und könnte sich bei einem Schusswechsel als Ihre beste Freundin erweisen. Feuermodus: S-3</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>5</uiIndex>
@@ -68,9 +68,9 @@
 		<uiIndex>8</uiIndex>
 		<szItemName>M1911A1</szItemName>
 		<szLongItemName>Colt M1911A1 Government</szLongItemName>
-		<szItemDesc>Der COLT M1911A1 war bis 1985 die Seitenwaffe für Offiziere der US-Army. Danach wurde er durch die 9mm Beretta schrittweise ersetzt.</szItemDesc>
+		<szItemDesc>Die Pistole M1911A1 war von 1911-85 die Seitenwaffe für Offiziere der US-Army. Sie wurde durch die Beretta 92FS im Kaliber 9mm ersetzt.</szItemDesc>
 		<szBRName>Colt M1911A1</szBRName>
-		<szBRDesc>Der COLT M1911A1 war bis 1985 die Seitenwaffe für Offiziere der US-Army. Danach wurde er durch die 9mm Beretta schrittweise ersetzt.</szBRDesc>
+		<szBRDesc>Diese weltberühmte Pistole wurde nach zahl- reichen Tests 1911 von der US-Army übernommen. In 1985 wurde sie durch die Beretta 92FS ersetzt, jedoch änderte das nichts an ihrer Beliebtheit und so wird sie auch heute noch von Spezialeinheiten verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>9</uiIndex>
@@ -86,7 +86,7 @@
 		<szLongItemName>Ingram MAC-10</szLongItemName>
 		<szItemDesc>Die MAC-10 kam 1970 auf den Markt. Sie schießt nur Dauerfeuer und war für den Einsatz in Spezialeinheiten gedacht. Ihr größter Konkurrent war die HK MP5.</szItemDesc>
 		<szBRName>Ingram MAC-10</szBRName>
-		<szBRDesc>Das 'Military Armament Corporation Model 10' wurde 1964 von G. Ingram entwickelt und schnell Standardwaffe bei Spezialeinheiten des USMC. Inzwischen wird sie von Ingrams eigener Firma gefertigt. Sie kann mit einem Geräuschunterdrücker ausgestattet werden.</szBRDesc>
+		<szBRDesc>Das 'Military Armament Corporation Model 10' wurde 1964 von G. Ingram entwickelt und schnell Standardwaffe bei Spezialeinheiten des U.S.M.C. Inzwischen wird sie von Ingrams eigener Firma gefertigt. Sie kann mit einem Geräuschunterdrücker ausgestattet werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>11</uiIndex>
@@ -100,9 +100,9 @@
 		<uiIndex>12</uiIndex>
 		<szItemName>M4 Commando</szItemName>
 		<szLongItemName>Colt M4 Commando</szLongItemName>
-		<szItemDesc>Diese Waffe wird aufgrund ihrer Eigenschaften wie einfache Handhabung, Zuverlässigkeit und hohe Feuerkraft oft einer MP vorgezogen.</szItemDesc>
+		<szItemDesc>Das M4 Commando mit 11.5" Lauf ist eine Weiterentwickklung des XM177 und COLT's kompaktestes 5.56mm Modell.</szItemDesc>
 		<szBRName>Colt M4 Commando</szBRName>
-		<szBRDesc>Das M4 Commando ist COLT's kompaktestes 5.56mm Modell und besitzt einen S-F Feuermodus. Diese Waffe wird aufgrund ihrer Eigenschaften wie einfache Handhabung, Zuverlässigkeit und hohe Feuerkraft oft einer MP vorgezogen.</szBRDesc>
+		<szBRDesc>Das M4 Commando mit 11.5" Lauf ist eine Weiterentwickklung des XM177 und COLT's kompaktestes 5.56mm Modell. Seit 1997 wird es von den US Army Rangers verwendet. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>13</uiIndex>
@@ -118,7 +118,7 @@
 		<szLongItemName>Kalaschnikow AKS-74U</szLongItemName>
 		<szItemDesc>Die Russen entwickelten diese schwere MP für Besatzungen von Panzern und anderen Fahrzeugen.</szItemDesc>
 		<szBRName>Kalaschnikow AKS-74U</szBRName>
-		<szBRDesc>Die Russen entwickelten diese schwere MP für Panzernbesatzungen. Sie musste kurz genug sein, um beim Ein- und Aussteigen nicht hinderlich zu sein. Feuermosud: S-F</szBRDesc>
+		<szBRDesc>Die Russen entwickelten diese schwere MP für Panzernbesatzungen. Sie musste kurz genug sein, um beim Ein- und Aussteigen nicht hinderlich zu sein. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>15</uiIndex>
@@ -146,11 +146,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>18</uiIndex>
-		<szItemName>SWD</szItemName>
-		<szLongItemName>Dragunow SWD</szLongItemName>
-		<szItemDesc>Das SWD ist ein leichtes, sehr genaues Scharfschützengewehr. Es wurde im Jahre 1963 in der russischen Armee eingeführt.</szItemDesc>
-		<szBRName>Dragunow SWD</szBRName>
-		<szBRDesc>Das SWD (Snaiperskaja Wintowka Dragunowa, lateinisch transliteriert auch 'SVD') ist ein Scharfschützengewehr. Es wurde erstmals 1963 an die russische Armee ausgeliefert. Heute noch wird es in modifizierter Form von IZHMASH hergestellt.</szBRDesc>
+		<szItemName>SVD</szItemName>
+		<szLongItemName>Dragunow SVD</szLongItemName>
+		<szItemDesc>Das SVD ist ein leichtes, sehr genaues Präzisionsgewehr. Es wurde im Jahre 1963 in der russischen Armee eingeführt.</szItemDesc>
+		<szBRName>Dragunow SVD</szBRName>
+		<szBRDesc>Das SVD (Snaiperskaja Vintowka Dragunova) ist ein Präzisionsgewehr. Es wurde erstmals 1963 an die russische Armee ausgeliefert. Heute noch wird es in modifizierter Form von IZHMASH hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>19</uiIndex>
@@ -158,7 +158,7 @@
 		<szLongItemName>Remington M24 SWS</szLongItemName>
 		<szItemDesc>Das M24 SWS gilt aufgrund seiner hohen Präzision als Maßstab für Scharfschützengewehre.</szItemDesc>
 		<szBRName>Remington M24 SWS</szBRName>
-		<szBRDesc>Das M24 SWS gilt aufgrund seiner hohen Präzision als Maßstab für Scharfschützengewehre. Während eines Einsatzes im Irak, konnte ein Schütze mit diesem Gewehr ein Ziel auf 1.250m vernichten.</szBRDesc>
+		<szBRDesc>Das M24 SWS gilt aufgrund seiner hohen Präzision als Maßstab für Scharfschützengewehre. Während eines Einsatzes im Irak, konnte ein Schütze mit diesem Gewehr ein Ziel auf 1.250m erfolgreich bekämpfen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>20</uiIndex>
@@ -172,9 +172,9 @@
 		<uiIndex>21</uiIndex>
 		<szItemName>HK G41A2</szItemName>
 		<szLongItemName>HK G41A2</szLongItemName>
-		<szItemDesc>Das G41 sollte neben dem G11 zum Standardgewehr der Bundeswehr werden. Aufgrund der polit. Veränderungen 1989 kam es jedoch nicht dazu.</szItemDesc>
+		<szItemDesc>Das G41 sollte neben dem G11 zum Standardgewehr der Bundeswehr werden. Aufgrund der politischen Veränderungen 1989 kam es jedoch nicht dazu.</szItemDesc>
 		<szBRName>HK G41A2</szBRName>
-		<szBRDesc>Das G41 ist ein hervorragendes Sturmgewehr, es besitzt eine S-3-F Abzugsgruppe und sollte viele M16-Schützen abwerben. Aufgrund des hohen Preises ging es jedoch nie in Serie. Wir von BR konnten einige Exemplare bekommen - kaufen Sie jetzt!</szBRDesc>
+		<szBRDesc>Das G41 ist ein hervorragendes Sturmgewehr, es besitzt eine S-3-F Abzugsgruppe und sollte viele M16-Schützen abwerben. Aufgrund des hohen Preises ging es jedoch nie in Serie. Wir von BR konnten einige Exemplare auftreiben - greifen Sie zu!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>22</uiIndex>
@@ -187,10 +187,10 @@
 	<ITEM>
 		<uiIndex>23</uiIndex>
 		<szItemName>C7A2</szItemName>
-		<szLongItemName>Colt Canada C7A2</szLongItemName>
-		<szItemDesc>Dieses Sturmgewehr ist eine weitere Variante aus der AR-15/M16 Modellreihe. Diese Version des AR-15-Systems ist der Traum eines jeden Söldners.</szItemDesc>
-		<szBRName>Colt Canada C7A2</szBRName>
-		<szBRDesc>Dieses Sturmgewehr ist eine weitere Variante aus der AR-15/M16 Modellreihe. Es wird von der kanadischen Armee eingesetzt. Diese Version des AR-15-Systems ist der Traum eines jeden Söldners.</szBRDesc>
+		<szLongItemName>Diemaco C7A2</szLongItemName>
+		<szItemDesc>Dieses Sturmgewehr ist eine verbesserte Version des M16 und wird von DIEMACO/ COLT CANADA hergestellt.</szItemDesc>
+		<szBRName>Diemaco C7A2</szBRName>
+		<szBRDesc>Dieses Sturmgewehr ist eine verbesserte Version des M16 und wird von DIEMACO/ COLT CANADA hergestellt. Diese Version des M16-Systems ist der Traum eines jeden Söldners. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>24</uiIndex>
@@ -204,17 +204,17 @@
 		<uiIndex>25</uiIndex>
 		<szItemName>AK-74</szItemName>
 		<szLongItemName>Kalaschnikow AK-74</szLongItemName>
-		<szItemDesc>Das Kalaschnikow-Sturmgewehr AK-74 ist eine Weiterentwicklung der Baureihe.</szItemDesc>
+		<szItemDesc>Für die Weiterentwicklung der AK-Baureihe wurde eigens die Patrone M74 im neuen Kaliber 5.45x39mm entwickelt.</szItemDesc>
 		<szBRName>Kalaschnikow AK-74</szBRName>
-		<szBRDesc>Das Kalaschnikow-Sturmgewehr AK-74 ist eine Weiterentwicklung der Baureihe. Hauptsächlicher Unterschied besteht im Wechsel des Kalibers von 7.62x39 auf 5.45x39mm. Es besitzt eine S-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Für die Weiterentwicklung der AK-Baureihe wurde eigens die Patrone M74 im neuen Kaliber 5.45x39mm entwickelt. Die etwas geringere Durchschlagskraft wird durch eine höhere Geschwindigkeit, welche größere Wunden verursacht, kompensiert. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>26</uiIndex>
 		<szItemName>AKM</szItemName>
 		<szLongItemName>Kalaschnikow AKM</szLongItemName>
-		<szItemDesc>Die überarbeitete Variante des AK-47 wurde ab 1960 als AKM verkauft. Es ist weltweit sehr beliebt, besonders bei einfachen Söldnern.</szItemDesc>
+		<szItemDesc>Die überarbeitete Variante des AK-47 wurde ab 1960 als AKM exportiert. Es ist weltweit sehr beliebt, besonders in Ländern der dritten Welt und bei einfachen Söldnern.</szItemDesc>
 		<szBRName>Kalaschnikow AKM</szBRName>
-		<szBRDesc>Die überarbeitete Variante des AK-47 wurde ab 1960 als AKM verkauft. Es ist weltweit sehr beliebt, besonders in Ländern der dritten Welt und bei einfachen Söldnern.</szBRDesc>
+		<szBRDesc>Die überarbeitete Variante des AK-47 wurde ab 1960 als AKM exportiert. Es ist weltweit sehr beliebt, besonders in Ländern der dritten Welt und bei einfachen Söldnern.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>27</uiIndex>
@@ -228,9 +228,9 @@
 		<uiIndex>28</uiIndex>
 		<szItemName>FN-FAL</szItemName>
 		<szLongItemName>FN-FAL</szLongItemName>
-		<szItemDesc>Dieses belgische Sturmgewehr ist weit verbreitet und bekannt für seinen enormen Rückstoß.</szItemDesc>
+		<szItemDesc>Dieses belgische Sturmgewehr ist weit verbreitet und für seinen starken Rückstoß bekannt.</szItemDesc>
 		<szBRName>FN-FAL</szBRName>
-		<szBRDesc>Dieses belgische Sturmgewehr ist weit verbreitet. Wegen des harten Rückstoßes im Vollautomatik-Modus, wird es oft nur im Halbautomatik-Modus verwendet.</szBRDesc>
+		<szBRDesc>Dieses belgische Sturmgewehr ist weit verbreitet. Aufgrund des starken Rückstoßes im Dauerfeuer wird es oft nur im Halbautomatik Modus verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>29</uiIndex>
@@ -292,9 +292,9 @@
 		<uiIndex>36</uiIndex>
 		<szItemName>HK21E</szItemName>
 		<szLongItemName>HK21E</szLongItemName>
-		<szItemDesc>Das Universal-Maschinengewehr HK21E funktioniert nach dem gleichen, zuverlässigen Prinzip wie das Sturmgewehr HK G3.</szItemDesc>
+		<szItemDesc>Das Universal-Maschinengewehr HK21E funktioniert nach dem gleichen, zuverlässigen Prinzip wie das Sturmgewehr G3.</szItemDesc>
 		<szBRName>HK21E</szBRName>
-		<szBRDesc>Das Universal-Maschinengewehr HK21E funktioniert nach dem gleichen, zuverlässigen Prinzip wie das Sturmgewehr HK G3. Aufgrund der hohen Kadenz von 850 Schuss/Minute erzielt der Schütze mehr Trefferlagen im Ziel. Feuermodus: S-3-F</szBRDesc>
+		<szBRDesc>Das Universal-Maschinengewehr HK21E funktioniert nach dem gleichen, zuverlässigen Prinzip wie das Sturmgewehr G3. Aufgrund der hohen Kadenz von 850 Schuss/min erzielt der Schütze mehr Trefferlagen im Ziel. Feuermodus: S-3-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>37</uiIndex>
@@ -540,25 +540,25 @@
 		<uiIndex>67</uiIndex>
 		<szItemName>M-950</szItemName>
 		<szLongItemName>Calico M-950</szLongItemName>
-		<szItemDesc>Diese halbautomatische Pistole verfügt über das bekannte, gigantische CALICO 50-Schuß-Helix Magazin.</szItemDesc>
+		<szItemDesc>Diese halb-automatische Pistole verfügt über das bekannte 50-schüssige Helix-Magazin.</szItemDesc>
 		<szBRName>Calico M-950</szBRName>
-		<szBRDesc>Das gigantische CALICO 50-Schuß-Helix Magazin verleiht dieser halbautomatischen und erstaunlich schlanken Pistole einen geringen Rückstoß.</szBRDesc>
+		<szBRDesc>Das gigantische 50-schüssige Helix-Magazin verleiht dieser halb-automatischen und erstaunlich schlanken Pistole einen geringen Rückstoß.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>68</uiIndex>
 		<szItemName>M-900</szItemName>
 		<szLongItemName>Calico M-900 Karabiner</szLongItemName>
-		<szItemDesc>Ein halbautomatischer Karabiner mit riesigem Magazin für 50 Schuß der preiswerten 9mm Para Munition.</szItemDesc>
+		<szItemDesc>Ein halb-automatischer Karabiner mit riesigem 50-schüssigen Magazin der preiswerten 9mm Munition.</szItemDesc>
 		<szBRName>Calico M-900</szBRName>
-		<szBRDesc>Nahezu baugleich zur M-950 Pistole wurde mittels Kunststoffkolben und hartverchromten, extrem langen Lauf ein Karabiner mit erstaunlicher Schußleistung geschaffen.</szBRDesc>
+		<szBRDesc>Nahezu baugleich zur M-950 Pistole wurde mittels Kunststoffschaft und hartverchromten, extra langen Lauf ein Karabiner mit erstaunlicher Schussleistung geschaffen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>69</uiIndex>
 		<szItemName>M-960A</szItemName>
 		<szLongItemName>Calico M-960A</szLongItemName>
-		<szItemDesc>Erst der vollautomatische Betrieb würdigt die Kapazität des CALICO-Helix-Magazins richtig.</szItemDesc>
+		<szItemDesc>Erst der vollautomatische Betrieb würdigt die Kapazität des CALICO-Helix-Magazins.</szItemDesc>
 		<szBRName>Calico M-960A</szBRName>
-		<szBRDesc>Diese Maschinenpistole liegt aufgrund ihres gigantischen 50-Schuß-Magazins sehr ruhig in der Hand. Die MP-Version besitzt eine S-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Diese Maschinenpistole liegt aufgrund ihres gigantischen 50-Schuss-Magazins sehr ruhig in der Hand. Die MP-Version besitzt eine S-F Abzugsgruppe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>70</uiIndex>
@@ -602,41 +602,41 @@
 		<uiIndex>75</uiIndex>
 		<szItemName>9x19 HS</szItemName>
 		<szLongItemName>9x19mm Magazin, HS</szLongItemName>
-		<szItemDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe und erreicht damit eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>9x19 Mag HS #15</szBRName>
-		<szBRDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe und erreicht damit eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>76</uiIndex>
 		<szItemName>9x19 HS</szItemName>
 		<szLongItemName>9x19mm MP-Mag, Hohlspitz</szLongItemName>
-		<szItemDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe und erreicht damit eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>9x19 Mag HS</szBRName>
-		<szBRDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe und erreicht damit eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>77</uiIndex>
-		<szItemName>.38 Spc SL</szItemName>
-		<szLongItemName>.38 Special Schnelllader</szLongItemName>
+		<szItemName>.38 SL</szItemName>
+		<szLongItemName>.38 Spc Schnelllader</szLongItemName>
 		<szItemDesc>Diese FIOCCHI Blei-Rundkopf Projektile deformieren sich leicht und tendieren zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte als auch ungeschützte Gegner. </szItemDesc>
 		<szBRName>.38 Spc SL #6</szBRName>
 		<szBRDesc>Diese FIOCCHI Blei-Rundkopf Projektile deformieren sich leicht und tendieren zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte als auch ungeschützte Gegner. </szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>78</uiIndex>
-		<szItemName>.38 Spc SL, PB</szItemName>
-		<szLongItemName>.38 Special Schnelllader, PB</szLongItemName>
+		<szItemName>.38 SL PB</szItemName>
+		<szLongItemName>.38 Spc Schnelllader, PB</szLongItemName>
 		<szItemDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
 		<szBRName>.38 Spc SL PB #6</szBRName>
 		<szBRDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen. Diese Patrone wurde jedoch auch von Kriminellen entdeckt und als 'Cop-Killer' berühmt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>79</uiIndex>
-		<szItemName>.38 Spc SL HS</szItemName>
-		<szLongItemName>.38 Special Schnelllader, HS</szLongItemName>
-		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion und große Mannstoppwirkung.</szItemDesc>
+		<szItemName>.38 SL HS</szItemName>
+		<szLongItemName>.38 Spc Schnelllader, HS</szLongItemName>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>.38 Spc SL HS #6</szBRName>
-		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>80</uiIndex>
@@ -674,17 +674,17 @@
 		<uiIndex>84</uiIndex>
 		<szItemName>.45 Mag HS</szItemName>
 		<szLongItemName>.45 Magazin, HS</szLongItemName>
-		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion und große Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>.45 Mag HS #7</szBRName>
-		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>85</uiIndex>
 		<szItemName>.45 Mag HS</szItemName>
 		<szLongItemName>.45 MP-Magazin, HS</szLongItemName>
-		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion und große Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>.45 Mag HS</szBRName>
-		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>86</uiIndex>
@@ -722,17 +722,17 @@
 		<uiIndex>90</uiIndex>
 		<szItemName>.357 SL HS</szItemName>
 		<szLongItemName>.357 Schnelllader, HS</szLongItemName>
-		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion und große Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>.357 SL HS #6</szBRName>
-		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>91</uiIndex>
 		<szItemName>.357 Mag HS</szItemName>
 		<szLongItemName>.357 Magazin, HS</szLongItemName>
-		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>.357 Mag HS #9</szBRName>
-		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>92</uiIndex>
@@ -746,9 +746,9 @@
 		<uiIndex>93</uiIndex>
 		<szItemName>5.45x39 HS</szItemName>
 		<szLongItemName>5.45x39mm Magazin, Hohlspitz</szLongItemName>
-		<szItemDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Sie verformen sich beim Aufprall pilzförmig und expandieren, dies verursacht große Wunden.</szItemDesc>
+		<szItemDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>5.45x39 Mag HS</szBRName>
-		<szBRDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Sie verformen sich beim Aufprall pilzförmig und expandieren, dies verursacht große Wunden.</szBRDesc>
+		<szBRDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>94</uiIndex>
@@ -786,17 +786,17 @@
 		<uiIndex>98</uiIndex>
 		<szItemName>7.62x39 HS</szItemName>
 		<szLongItemName>7.62x39mm Magazin, Hohlspitz</szLongItemName>
-		<szItemDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Sie verformen sich beim Aufprall pilzförmig und expandieren, dies verursacht große Wunden.</szItemDesc>
+		<szItemDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>7.62x39 Mag HS #10</szBRName>
-		<szBRDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Sie verformen sich beim Aufprall pilzförmig und expandieren, dies verursacht große Wunden.</szBRDesc>
+		<szBRDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>99</uiIndex>
 		<szItemName>7.62x39 HS</szItemName>
 		<szLongItemName>7.62x39mm Magazin, Hohlspitz</szLongItemName>
-		<szItemDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Sie verformen sich beim Aufprall pilzförmig und expandieren, dies verursacht große Wunden.</szItemDesc>
+		<szItemDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>7.62x39 Mag HS</szBRName>
-		<szBRDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Sie verformen sich beim Aufprall pilzförmig und expandieren, dies verursacht große Wunden.</szBRDesc>
+		<szBRDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>100</uiIndex>
@@ -832,18 +832,18 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>104</uiIndex>
-		<szItemName>4.73x33 Mag</szItemName>
-		<szLongItemName>4.73x33mm Magazin</szLongItemName>
+		<szItemName>4.73x33 Mag XPB</szItemName>
+		<szLongItemName>4.73x33mm Magazin, XPB</szLongItemName>
 		<szItemDesc>Die von DYNAMIT NOBEL entwickelte hülsenlose Munition durchschlägt Kevlarwesten ohne Probleme. Um eine hohe Zielwirkung und geringe Umfeldgefährdung zu erreichen, gibt das Projektil seine Energie schnell ab und taumelt im Zielmedium.</szItemDesc>
-		<szBRName>4.73x33 Mag</szBRName>
+		<szBRName>4.73x33 Mag XPB</szBRName>
 		<szBRDesc>Die von DYNAMIT NOBEL entwickelte hülsenlose Munition durchschlägt Kevlarwesten ohne Probleme. Um eine hohe Zielwirkung und geringe Umfeldgefährdung zu erreichen, gibt das Projektil seine Energie schnell ab und taumelt im Zielmedium.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>105</uiIndex>
-		<szItemName>5.7x28 PB</szItemName>
-		<szLongItemName>5.7x28mm Magazin, PB</szLongItemName>
+		<szItemName>5.7x28 XPB</szItemName>
+		<szLongItemName>5.7x28mm Magazin, XPB</szLongItemName>
 		<szItemDesc>Die SS190 Patronen durchschlagen Kevlarwesten wie sie von der Polizei verwendet werden. Für eine hohe Zielwirkung und geringe Umfeldgefährdung ist das Projektil so ausgelegt, dass es seine Energie schnell abgibt und im Zielmedium taumelt.</szItemDesc>
-		<szBRName>5.7x28 Mag PB #50</szBRName>
+		<szBRName>5.7x28 Mag XPB #50</szBRName>
 		<szBRDesc>Die SS190 Patronen durchschlagen Kevlarwesten wie sie von der Polizei verwendet werden. Für eine hohe Zielwirkung und geringe Umfeldgefährdung ist das Projektil so ausgelegt, dass es seine Energie schnell abgibt und im Zielmedium taumelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -872,10 +872,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>109</uiIndex>
-		<szItemName>18.5x76 FLG</szItemName>
-		<szLongItemName>CAWS Magazin, FLG</szLongItemName>
+		<szItemName>18.5x76 Mag XPB</szItemName>
+		<szLongItemName>CAWS Magazin, XPB</szLongItemName>
 		<szItemDesc>Die REMINGTON Core-Lokt Ultra Slugs werden gern von Polizei und Militär verwendet. Ihre Geschosse durchlagen mehrschichtige Schutzwesten ohne Probleme, besitzen eine sehr hohe Präzision und steigern die Reichweite Ihrer Waffe um 50m.</szItemDesc>
-		<szBRName>18.5x76 Mag FLG #10</szBRName>
+		<szBRName>18.5x76 Mag XPB #10</szBRName>
 		<szBRDesc>Die REMINGTON Core-Lokt Ultra Slugs werden gern von Polizei und Militär verwendet. Ihre Geschosse durchlagen mehrschichtige Schutzwesten ohne Probleme, besitzen eine sehr hohe Präzision und steigern die Reichweite Ihrer Waffe um 50m.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -929,17 +929,17 @@
 	<ITEM>
 		<uiIndex>116</uiIndex>
 		<szItemName>.50 BMG Mag</szItemName>
-		<szLongItemName>.50 BMG Magazin</szLongItemName>
+		<szLongItemName>.50 BMG Magazin, XPB</szLongItemName>
 		<szItemDesc>Dieses 11-schüssige Magazin enthält Patronen im Kaliber .50 BMG (12.7x99mm) und ist passend für das Barrett M82A2.</szItemDesc>
 		<szBRName>.50 BMG Magazin #11</szBRName>
 		<szBRDesc>Dieses 11-schüssige Magazin enthält Patronen im Kaliber .50 BMG (12.7x99mm) und ist passend für das Barrett M82A2.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>117</uiIndex>
-		<szItemName>9x39 Mag</szItemName>
-		<szLongItemName>9x39mm Magazin, PB</szLongItemName>
+		<szItemName>9x39 Mag XPB</szItemName>
+		<szLongItemName>9x39mm Magazin, XPB</szLongItemName>
 		<szItemDesc>Diese Munition im stärkeren Kaliber 9x39mm wird von einer Reihe neuerer russischer Waffen verwendet. Darunter AS Val, VSS Vintorez und SR-3 Vikhr.</szItemDesc>
-		<szBRName>9x39 Mag, PB #20</szBRName>
+		<szBRName>9x39 Mag, XPB #20</szBRName>
 		<szBRDesc>Diese Munition im stärkeren Kaliber 9x39mm wird von einer Reihe russischer Waffen verwendet. Darunter AS Val, VSS Vintorez und SR-3 Vikhr. Optimiert für Einsatz mit 9mm Schalldämpfern</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -962,9 +962,9 @@
 		<uiIndex>120</uiIndex>
 		<szItemName>9x19 HS</szItemName>
 		<szLongItemName>9x19mm Magazin, HS</szLongItemName>
-		<szItemDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe und erreicht damit eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>9x19 Mag HS #50</szBRName>
-		<szBRDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe und erreicht damit eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>121</uiIndex>
@@ -978,9 +978,9 @@
 		<uiIndex>122</uiIndex>
 		<szItemName>5.45x39 HS</szItemName>
 		<szLongItemName>5.45x39mm RPK-Magazin, Hohlspitz</szLongItemName>
-		<szItemDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Sie verformen sich beim Aufprall pilzförmig und expandieren, dies verursacht große Wunden.</szItemDesc>
+		<szItemDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>5.45x39 Mag HS #75</szBRName>
-		<szBRDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Sie verformen sich beim Aufprall pilzförmig und expandieren, dies verursacht große Wunden.</szBRDesc>
+		<szBRDesc>Mit diesen HS-Patronen von WOLF 'Made in Russia' können Sie Feinde mit leichtem Körperschutz eliminieren. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>123</uiIndex>
@@ -1042,9 +1042,9 @@
 		<uiIndex>130</uiIndex>
 		<szItemName>7.62x25 HS</szItemName>
 		<szLongItemName>7.62x25mm MP-Magazin, HS</szLongItemName>
-		<szItemDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>7.62x25 Mag HS</szBRName>
-		<szBRDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>131</uiIndex>
@@ -1654,10 +1654,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>207</uiIndex>
-		<szItemName>kl. SD</szItemName>
-		<szLongItemName>Pistolen-Schalldämpfer</szLongItemName>
-		<szItemDesc>Dieser leichte und kompakte Schalldämpfer ermöglicht aufgrund seines Designs eine unkomplizierte Anbringung an den meisten Pistolen und MPs. Um eine maximale Wirkung zu erzielen, sollte speziele Unterschall-Mun. verwendet werden.</szItemDesc>
-		<szBRName>kl. Schalldämpfer</szBRName>
+		<szItemName>SD-1</szItemName>
+		<szLongItemName>KAC Schalldämpfer-1</szLongItemName>
+		<szItemDesc>Dieser leichte und kompakte Schalldämpfer ermöglicht aufgrund seines Designs eine unkomplizierte Anbringung an den meisten Pistolen und MPs. Bitte verwenden Sie speziele Unterschall-Munition.</szItemDesc>
+		<szBRName>KAC SD-1</szBRName>
 		<szBRDesc>Dieser leichte und kompakte Schalldämpfer ermöglicht aufgrund seines Designs eine unkomplizierte Anbringung an den meisten Pistolen und MPs. Bitte vergessen Sie nicht die passende Unterschall-Munition mit zu bestellen!</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2219,10 +2219,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>279</uiIndex>
-		<szItemName>5.7x28 PB</szItemName>
-		<szLongItemName>5.7x28mm Magazin, PB</szLongItemName>
+		<szItemName>5.7x28 Mag XPB</szItemName>
+		<szLongItemName>5.7x28mm Magazin, XPB</szLongItemName>
 		<szItemDesc>Die SS190 Patronen durchschlagen Kevlarwesten wie sie von der Polizei verwendet werden. Für eine hohe Zielwirkung und geringe Umfeldgefährdung ist das Projektil so ausgelegt, dass es seine Energie schnell abgibt und im Zielmedium taumelt.</szItemDesc>
-		<szBRName>5.7x28 Mag PB #20</szBRName>
+		<szBRName>5.7x28 Mag XPB #20</szBRName>
 		<szBRDesc>Die SS190 Patronen durchschlagen Kevlarwesten wie sie von der Polizei verwendet werden. Für eine hohe Zielwirkung und geringe Umfeldgefährdung ist das Projektil so ausgelegt, dass es seine Energie schnell abgibt und im Zielmedium taumelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2634,9 +2634,9 @@
 		<uiIndex>331</uiIndex>
 		<szItemName>L85A2</szItemName>
 		<szLongItemName>Enfield L85A2</szLongItemName>
-		<szItemDesc>Das Enfield L85A2 (SA80) ist die Infanteriewaffe der britischen Armee. Diese Variante wurde von HK modifiziert um die Zuverlässigkeit zu erhöhen.</szItemDesc>
+		<szItemDesc>Das Enfield L85A2 ist die Infanteriewaffe der britischen Armee. Diese Modell wurde von HK überarbeitet und weiter verbessert.</szItemDesc>
 		<szBRName>Enfield L85A2</szBRName>
-		<szBRDesc>Das Enfield L85A2 (auch als SA80 bekannt) ist die Standardwaffe der britischen Armee. Diese Variante wurde von HK überarbeitet um die Zuverlässigkeit zu erhöhen. Es besitzt eine S-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Das Enfield L85A2 (auch als SA80 bekannt) ist die Infanteriewaffe der britischen Armee. Aufgrund der Überarbeitung durch HECKLER &amp; KOCH konnte die Zuverlässigkeit weiter erhöht werden. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>332</uiIndex>
@@ -2658,25 +2658,25 @@
 		<uiIndex>334</uiIndex>
 		<szItemName>HK PSG1</szItemName>
 		<szLongItemName>HK PSG1</szLongItemName>
-		<szItemDesc>Das PSG1 ist ein halbautomatisches Präzisionsscharfschützengewehr. Es wird von Spezialeinheiten der Polizei eingesetzt.</szItemDesc>
+		<szItemDesc>Das PSG1 ist ein halbautomatisches Polizei-Scharfschützengewehr. Es wird von Spezialeinheiten der Polizei verwendet.</szItemDesc>
 		<szBRName>HK PSG1</szBRName>
-		<szBRDesc>Das PSG1 ist ein halbautomatisches Präzisions- Scharfschützengewehr. Es wird von Spezial- einheiten der Polizei und SWAT-Teams in den USA eingesetzt.</szBRDesc>
+		<szBRDesc>Das PSG1 ist ein halbautomatisches Polizei- Scharfschützengewehr. Es wird von Spezial- einheiten wie dem Los Angeles S.W.A.T., der deutschen GSG-9 und den SEKs verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>335</uiIndex>
-		<szItemName>Light Fifty</szItemName>
+		<szItemName>M82A2</szItemName>
 		<szLongItemName>Barrett M82A2</szLongItemName>
-		<szItemDesc>Das M82A2 Light Fifty wurde 1983 als das erste großkalibrige Scharfschützengewehr vorgestellt und hat seitdem weltweite Beachtung gefunden.</szItemDesc>
+		<szItemDesc>Das BARRETT 'Light Fifty' wurde 1983 als das erste großkalibrige Scharfschützengewehr vorgestellt und hat seitdem weltweite Beachtung gefunden.</szItemDesc>
 		<szBRName>Barrett M82A2</szBRName>
-		<szBRDesc>Das Barrett M82A2 Light Fifty wurde 1983 als das erste großkalibrige Scharfschützengewehr vorgestellt. Nach erfolgreichen Einsätzen (Irak, Bosnien, Afghanistan) hat es die US-Army im August 2003 als neues Scharfschützengewehr M107 offiziell in Dienst gestellt.</szBRDesc>
+		<szBRDesc>Das BARRETT 'Light Fifty' wurde 1983 als das erste großkalibrige Scharfschützengewehr vorgestellt. Nach erfolgreichen Einsätzen (Irak, Bosnien, Afghanistan) hat es die US-Army im August 2003 als neues Scharfschützengewehr M107 offiziell in Dienst gestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>336</uiIndex>
-		<szItemName>P226</szItemName>
-		<szLongItemName>SIG-Sauer P226 X-Five</szLongItemName>
-		<szItemDesc>Dank der Verwendung bester Materialien und der bewährten SIG-SAUER Verarbeitung sind die X-FIVE Modelle sicher, präzise und zuverlässig.</szItemDesc>
-		<szBRName>SIG-Sauer P226 X-Five</szBRName>
-		<szBRDesc>Die neue Behördenversion der P226 X-Five Special Operation wurde entwickelt, konzipiert und konstruiert für den besonderen Einsatz von Special Forces und SWAT-Teams. Sie zählt zu den hochwertigsten Dienstpistolen überhaupt.</szBRDesc>
+		<szItemName>P226R</szItemName>
+		<szLongItemName>SIG-Sauer P226R</szLongItemName>
+		<szItemDesc>Zuverlässigkeit und leichtes Handling sind die Stärken der P226R. Sie besitzt den neuen DAK-Trigger mit einzigartiger Abzugscharakteristik.</szItemDesc>
+		<szBRName>SIG-Sauer P226R</szBRName>
+		<szBRDesc>Zuverlässigkeit und leichtes Handling sind die Stärken der P226R. Sie besitzt den neuen DAK-Trigger mit einzigartiger Abzugscharakteristik und konstantem Abzugsgewicht sowie eine Picatinny-Schiene am Griffstück.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>337</uiIndex>
@@ -2730,9 +2730,9 @@
 		<uiIndex>343</uiIndex>
 		<szItemName>HK MP5N</szItemName>
 		<szLongItemName>HK MP5N</szLongItemName>
-		<szItemDesc>Die HK MP5 Navy wurde ursprünglich für die U.S. Navy SEALs entwickelt. Seit ihrer Einführung hat sie sich unter härtesten Einsatzbedingungen bewährt.</szItemDesc>
+		<szItemDesc>Die HK MP5 Navy wurde ursprünglich für die US Navy SEALs entwickelt. Seit ihrer Einführung hat sie sich unter härtesten Einsatzbedingungen bewährt.</szItemDesc>
 		<szBRName>HK MP5N</szBRName>
-		<szBRDesc>Die HK MP5 Navy wurde ursprünglich für die U.S. Navy SEALs entwickelt. Seit ihrer Einführung hat sie sich unter härtesten Einsatzbedingungen bewährt. Feuermodus: S-F</szBRDesc>
+		<szBRDesc>Die HK MP5 Navy wurde ursprünglich für die US Navy SEALs entwickelt. Seit ihrer Einführung hat sie sich unter härtesten Einsatzbedingungen bewährt. An der Laufmündung kann ein Schall- dämpfer aufgeschraubt werden. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>344</uiIndex>
@@ -2746,25 +2746,25 @@
 		<uiIndex>345</uiIndex>
 		<szItemName>Uzi</szItemName>
 		<szLongItemName>I.M.I. Uzi</szLongItemName>
-		<szItemDesc>Die Uzi ist neben der MP5 die wohl bekannteste Maschinenpistole weltweit. Sie wird seit über 50 Jahren hergestellt.</szItemDesc>
+		<szItemDesc>Die Uzi ist neben der MP5 die wohl bekannteste Maschinenpistole der Welt. Sie wird seit über 50 Jahren hergestellt.</szItemDesc>
 		<szBRName>I.M.I. Uzi</szBRName>
-		<szBRDesc>Die Uzi ist neben der MP5 die wohl bekannteste Maschinenpistole weltweit. Sie wird seit über 50 Jahren vom staatlichen Rüstungskonzern ISRAEL MILITARY INDUSTRIES hergestellt und in alle Welt verkauft. Feuermodus: S-F</szBRDesc>
+		<szBRDesc>Die Uzi ist neben der MP5 die wohl bekannteste Maschinenpistole der Welt. Sie wird seit über 50 Jahren vom staatlichen Rüstungskonzern ISRAEL MILITARY INDUSTRIES hergestellt und in alle Welt verkauft. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>346</uiIndex>
 		<szItemName>M635</szItemName>
 		<szLongItemName>Colt M635</szLongItemName>
-		<szItemDesc>Diese Waffe ist eine MP-Variante des Commando im Kaliber 9x19mm. In den USA wird es oft von Poizei und Spezialeinheiten eingesetzt.</szItemDesc>
+		<szItemDesc>Diese leichte und kompakte MP hat einen 10.5" Lauf und basiert auf dem weltberühmten M16A2/A4 Sturmgewehr. Sie wird u.a. vom SWAT-Team verwendet.</szItemDesc>
 		<szBRName>Colt M635</szBRName>
-		<szBRDesc>Diese Waffe ist eine MP-Variante des COLT Commando im Kaliber 9x19mm. Sie besitzt eine S-F Abzugsgruppe und wird in den USA oft von Poizei und Spezialeinheiten eingesetzt.</szBRDesc>
+		<szBRDesc>Diese leichte und kompakte MP hat einen 10.5" Lauf und basiert auf dem weltberühmten M16A2/A4 Sturmgewehr. Der geringe Rückstoß garantiert eine hohe Schussgenauigkeit, besonders im Dauerfeuer und erleichtert das Schießtraining. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>347</uiIndex>
 		<szItemName>AK-47</szItemName>
 		<szLongItemName>Kalaschnikow AK-47</szLongItemName>
-		<szItemDesc>Das Kalaschnikow Sturmgewehr wurde erstmals 1949 vom sowjetischen Militär eingesetzt. Seitdem hat seine weltweite Beliebtheit stark zugenommen.</szItemDesc>
+		<szItemDesc>Seit 1949 war das AK-47 die Infanteriewaffe der Sowjetarmee. In den 80er Jahren wurde es durch das neu entwickelte AK-74 ersetzt.</szItemDesc>
 		<szBRName>Kalaschnikow AK-47</szBRName>
-		<szBRDesc>Das Kalaschnikow Sturmgewehr wurde erstmals 1949 vom sowjetischen Militär eingesetzt. Seitdem hat seine weltweite Beliebtheit stark zugenommen, vor allem wegen der einfachen Bedienung und der robusten Bauweise. Feuermodus: S-F</szBRDesc>
+		<szBRDesc>Seit 1949 war das AK-47 die Infanteriewaffe der Sowjetarmee. In den 80er Jahren wurde es durch das neu entwickelte AK-74 ersetzt. Seitdem hat seine Beliebtheit weltweit stark zugenommen. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>348</uiIndex>
@@ -2792,8 +2792,8 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>351</uiIndex>
-		<szItemName>.38 Spc SL G</szItemName>
-		<szLongItemName>.38 Special Schnelllader, Glaser</szLongItemName>
+		<szItemName>.38 SL G</szItemName>
+		<szLongItemName>.38 Spc Schnelllader, Glaser</szLongItemName>
 		<szItemDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szItemDesc>
 		<szBRName>.38 Spc SL Glaser #6</szBRName>
 		<szBRDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szBRDesc>
@@ -2810,9 +2810,9 @@
 		<uiIndex>353</uiIndex>
 		<szItemName>9x19 HS</szItemName>
 		<szLongItemName>9x19mm Magazin, HS</szLongItemName>
-		<szItemDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe und erreicht damit eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>9x19 Mag HS #8</szBRName>
-		<szBRDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe und erreicht damit eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>354</uiIndex>
@@ -3090,9 +3090,9 @@
 		<uiIndex>388</uiIndex>
 		<szItemName>9x19 HS</szItemName>
 		<szLongItemName>9x19mm Beta-C Magazin, HS</szLongItemName>
-		<szItemDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe und erreicht damit eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>9x19 C-Mag HS #100</szBRName>
-		<szBRDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe und erreicht damit eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>389</uiIndex>
@@ -3202,9 +3202,9 @@
 		<uiIndex>402</uiIndex>
 		<szItemName>.45 Mag HS</szItemName>
 		<szLongItemName>.45 Hi-Cap Magazin, HS</szLongItemName>
-		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>.45 Mag HS #14</szBRName>
-		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>403</uiIndex>
@@ -3386,9 +3386,9 @@
 		<uiIndex>425</uiIndex>
 		<szItemName>5.56x45 Match</szItemName>
 		<szLongItemName>5.56x45mm Magazin, Match</szLongItemName>
-		<szItemDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 120m.</szItemDesc>
+		<szItemDesc>Professionelle Schützen verwenden für kurzläufige Waffen im Kaliber 5.56mm die Mk.262 Patrone mit ihrem 77gr. SIERRA MatchKing Projektil. Diese Patrone wird aufgrund ihrer hervorragenden ballistischen Eigenschaften (+120m) bevorzugt.</szItemDesc>
 		<szBRName>5.56x45 Mag Match #10</szBRName>
-		<szBRDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 120m.</szBRDesc>
+		<szBRDesc>Professionelle Schützen verwenden für kurzläufige Waffen im Kaliber 5.56mm die Mk.262 Patrone mit ihrem 77gr. SIERRA MatchKing Projektil. Diese Patrone wird aufgrund ihrer hervorragenden ballistischen Eigenschaften (+120m) bevorzugt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>426</uiIndex>
@@ -3434,9 +3434,9 @@
 		<uiIndex>431</uiIndex>
 		<szItemName>5.56x45 Match</szItemName>
 		<szLongItemName>5.56x45mm Magazin, Match</szLongItemName>
-		<szItemDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 120m.</szItemDesc>
+		<szItemDesc>Professionelle Schützen verwenden für kurzläufige Waffen im Kaliber 5.56mm die Mk.262 Patrone mit ihrem 77gr. SIERRA MatchKing Projektil. Diese Patrone wird aufgrund ihrer hervorragenden ballistischen Eigenschaften (+120m) bevorzugt.</szItemDesc>
 		<szBRName>5.56x45 Mag Match</szBRName>
-		<szBRDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 120m.</szBRDesc>
+		<szBRDesc>Professionelle Schützen verwenden für kurzläufige Waffen im Kaliber 5.56mm die Mk.262 Patrone mit ihrem 77gr. SIERRA MatchKing Projektil. Diese Patrone wird aufgrund ihrer hervorragenden ballistischen Eigenschaften (+120m) bevorzugt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>432</uiIndex>
@@ -3498,9 +3498,9 @@
 		<uiIndex>439</uiIndex>
 		<szItemName>5.56x45 Match</szItemName>
 		<szLongItemName>5.56x45mm Beta-C Magazin, Match</szLongItemName>
-		<szItemDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 120m.</szItemDesc>
+		<szItemDesc>Professionelle Schützen verwenden für kurzläufige Waffen im Kaliber 5.56mm die Mk.262 Patrone mit ihrem 77gr. SIERRA MatchKing Projektil. Diese Patrone wird aufgrund ihrer hervorragenden ballistischen Eigenschaften (+120m) bevorzugt.</szItemDesc>
 		<szBRName>5.56x45 C-Mag M #100</szBRName>
-		<szBRDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 120m.</szBRDesc>
+		<szBRDesc>Professionelle Schützen verwenden für kurzläufige Waffen im Kaliber 5.56mm die Mk.262 Patrone mit ihrem 77gr. SIERRA MatchKing Projektil. Diese Patrone wird aufgrund ihrer hervorragenden ballistischen Eigenschaften (+120m) bevorzugt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>440</uiIndex>
@@ -3546,9 +3546,9 @@
 		<uiIndex>445</uiIndex>
 		<szItemName>5.56x45 Match</szItemName>
 		<szLongItemName>5.56x45mm Gurt, Match</szLongItemName>
-		<szItemDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 120m.</szItemDesc>
+		<szItemDesc>Professionelle Schützen verwenden für kurzläufige Waffen im Kaliber 5.56mm die Mk.262 Patrone mit ihrem 77gr. SIERRA MatchKing Projektil. Diese Patrone wird aufgrund ihrer hervorragenden ballistischen Eigenschaften (+120m) bevorzugt.</szItemDesc>
 		<szBRName>5.56x45 Gurt Match #200</szBRName>
-		<szBRDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 120m.</szBRDesc>
+		<szBRDesc>Professionelle Schützen verwenden für kurzläufige Waffen im Kaliber 5.56mm die Mk.262 Patrone mit ihrem 77gr. SIERRA MatchKing Projektil. Diese Patrone wird aufgrund ihrer hervorragenden ballistischen Eigenschaften (+120m) bevorzugt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>446</uiIndex>
@@ -3617,7 +3617,7 @@
 	<ITEM>
 		<uiIndex>454</uiIndex>
 		<szItemName>.50 BMG Mag</szItemName>
-		<szLongItemName>.50 BMG Magazin</szLongItemName>
+		<szLongItemName>.50 BMG Magazin, XPB</szLongItemName>
 		<szItemDesc>Dieses 5-schüssige Magazin enthält Patronen im Kaliber .50 BMG (12.7x99mm) und ist passend für das Barrett M82A2.</szItemDesc>
 		<szBRName>.50 BMG Magazin #5</szBRName>
 		<szBRDesc>Dieses 5-schüssige Magazin enthält Patronen im Kaliber .50 BMG (12.7x99mm) und ist passend für das Barrett M82A2.</szBRDesc>
@@ -3681,10 +3681,10 @@
 	<ITEM>
 		<uiIndex>462</uiIndex>
 		<szItemName>.30-06 Clip</szItemName>
-		<szLongItemName>.30-06 Munitions-Clip</szLongItemName>
-		<szItemDesc>Dieser Munitions-Clip ist passend für den berühmten M1 Garand und diverse Jagdgewehre. Ohne Zweifel kann die .30-06 Springfield als die gängigste Jagdpatrone der Welt bezeichnet werden.</szItemDesc>
+		<szLongItemName>.30-06 Springfield Munitions-Clip</szLongItemName>
+		<szItemDesc>Dieser Munitions-Clip ist passend für diverse Jagdgewehre und den berühmten M1 Garand. Ohne Zweifel kann die .30-06 Springfield (7.62x63mm) als die gängigste Jagdpatrone der Welt bezeichnet werden.</szItemDesc>
 		<szBRName>.30-06 Clip #8</szBRName>
-		<szBRDesc>Dieser Munitions-Clip ist passend für den berühmten M1 Garand und diverse Jagdgewehre. Ohne Zweifel kann die .30-06 Springfield als die gängigste Jagdpatrone der Welt bezeichnet werden.</szBRDesc>
+		<szBRDesc>Dieser Munitions-Clip ist passend für diverse Jagdgewehre und den berühmten M1 Garand. Ohne Zweifel kann die .30-06 Springfield (7.62x63mm) als die gängigste Jagdpatrone der Welt bezeichnet werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>463</uiIndex>
@@ -3730,9 +3730,9 @@
 		<uiIndex>468</uiIndex>
 		<szItemName>.30 Mag HS</szItemName>
 		<szLongItemName>.30 Carbine Magazin, HS</szLongItemName>
-		<szItemDesc>Dieses Magazin ist passend für den M1 Carbine. In den 40er Jahren entwickelte WINCHESTER die Patrone im Kaliber .30 Carbine (7.62x33mm) für das gleichnamige Gewehr.</szItemDesc>
+		<szItemDesc>Dieses Magazin ist passend für den M1 Carbine. In den 40er Jahren entwickelte WINCHESTER diese Patrone im Kaliber .30 Carbine (7.62x33mm) für das gleichnamige Gewehr.</szItemDesc>
 		<szBRName>.30 Mag HS</szBRName>
-		<szBRDesc>Dieses Magazin ist passend für den M1 Carbine. In den 40er Jahren entwickelte WINCHESTER die Patrone im Kaliber .30 Carbine (7.62x33mm) für das gleichnamige Gewehr.</szBRDesc>
+		<szBRDesc>Dieses Magazin ist passend für den M1 Carbine. In den 40er Jahren entwickelte WINCHESTER diese Patrone im Kaliber .30 Carbine (7.62x33mm) für das gleichnamige Gewehr.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>469</uiIndex>
@@ -3778,9 +3778,9 @@
 		<uiIndex>474</uiIndex>
 		<szItemName>.30 Mag PB</szItemName>
 		<szLongItemName>.30 Carbine Magazin, PB</szLongItemName>
-		<szItemDesc>Dieses Magazin ist passend für den M1 Carbine. In den 40er Jahren entwickelte WINCHESTER die Patrone im Kaliber .30 Carbine (7.62x33mm) für das gleichnamige Gewehr.</szItemDesc>
+		<szItemDesc>Dieses Magazin ist passend für den M1 Carbine. In den 40er Jahren entwickelte WINCHESTER diese Patrone im Kaliber .30 Carbine (7.62x33mm) für das gleichnamige Gewehr.</szItemDesc>
 		<szBRName>.30 Mag PB</szBRName>
-		<szBRDesc>Dieses Magazin ist passend für den M1 Carbine. In den 40er Jahren entwickelte WINCHESTER die Patrone im Kaliber .30 Carbine (7.62x33mm) für das gleichnamige Gewehr.</szBRDesc>
+		<szBRDesc>Dieses Magazin ist passend für den M1 Carbine. In den 40er Jahren entwickelte WINCHESTER diese Patrone im Kaliber .30 Carbine (7.62x33mm) für das gleichnamige Gewehr.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>475</uiIndex>
@@ -3816,35 +3816,35 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>479</uiIndex>
-		<szItemName>12.7x97 US</szItemName>
-		<szLongItemName>12.7x97mm Magazin, Unterschall</szLongItemName>
+		<szItemName>12.7x97 XPB-US</szItemName>
+		<szLongItemName>12.7x97mm Magazin, XPB-Unterschall</szLongItemName>
 		<szItemDesc>Dieses 5-schüssige Magazin enthält gekürzte Patronen im Kaliber 12.7x97mm für großkalibrige Scharfschützengewehre, z.B. das russische VSSK.</szItemDesc>
-		<szBRName>12.7x97 Mag US #5</szBRName>
+		<szBRName>12.7x97 XPB-US #5</szBRName>
 		<szBRDesc>Dieses 5-schüssige Magazin enthält gekürzte Patronen im Kaliber 12.7x97mm für großkalibrige Scharfschützengewehre, z.B. das russische VSSK.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>480</uiIndex>
 		<szItemName>5.56x45 Mag SCF</szItemName>
 		<szLongItemName>5.56x45mm SCF Magazin</szLongItemName>
-		<szItemDesc>Diese einzigartigen Patronen enthalten ca. 20 nagelähnliche Stahl- und Wolframpfeile. Entwickelt wurde diese Munition um Scharfschützen aus Bäumen herauszuholen.</szItemDesc>
+		<szItemDesc>Diese einzigartigen Patronen enthalten ca. 20 nagelähnliche Stahl- und Wolframpfeile und sind extra-panzerbrechend.</szItemDesc>
 		<szBRName>5.56x45 SCF #24</szBRName>
-		<szBRDesc>Diese einzigartigen Patronen enthalten ca. 20 nagelähnliche Stahl- und Wolframpfeile. Entwickelt wurde diese Munition um Scharfschützen aus Bäumen herauszuholen. Dieses sehr leichte Magazin enthält 24 Schuss für Steyrs berühmt-berüchtigtes ACR.</szBRDesc>
+		<szBRDesc>Diese einzigartigen Patronen enthalten ca. 20 nagelähnliche Stahl- und Wolframpfeile und sind extra-panzerbrechend. Dieses sehr leichte Magazin enthält 24 Schuss für Steyrs berühmt-berüchtigtes ACR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>481</uiIndex>
-		<szItemName>6.8mm SPC HS</szItemName>
-		<szLongItemName>6.8mm Remington SPC Magazin, HS</szLongItemName>
-		<szItemDesc>Um die Durchschlagskraft des M4 zu steigern, wurde von Mitgliedern der US-Army Marksmanship Unit diese neue Patrone im Kaliber 6.8x43mm SPC entwickelt. Heute fertigt REMINGTON die Patrone mit HS- und PB-Geschossen.</szItemDesc>
+		<szItemName>6.8mm Mag HS</szItemName>
+		<szLongItemName>6.8x43mm SPC Magazin, HS</szLongItemName>
+		<szItemDesc>Um die Durchschlagskraft des M4 zu steigern, wurde von Mitgliedern der US-Army Marksmanship Unit in Zusammenarbeit mit REMINGTON diese neue Patrone im Kaliber 6.8x43mm SPC entwickelt. Heute wird die Patrone mit HS- und PB-Geschossen hergestellt.</szItemDesc>
 		<szBRName>6.8mm SPC Magazin HS</szBRName>
-		<szBRDesc>Um die Durchschlagskraft des M4 zu steigern, wurde von Mitgliedern der US-Army Marksmanship Unit diese neue Patrone im Kaliber 6.8x43mm SPC entwickelt. Heute fertigt REMINGTON die Patrone mit HS- und PB-Geschossen.</szBRDesc>
+		<szBRDesc>Um die Durchschlagskraft des M4 zu steigern, wurde von Mitgliedern der US-Army Marksmanship Unit in Zusammenarbeit mit REMINGTON diese neue Patrone im Kaliber 6.8x43mm SPC entwickelt. Heute wird die Patrone mit HS- und PB-Geschossen hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>482</uiIndex>
-		<szItemName>6.8mm SPC</szItemName>
-		<szLongItemName>6.8mm Remington SPC Magazin</szLongItemName>
-		<szItemDesc>Um die Durchschlagskraft des M4 zu steigern, wurde von Mitgliedern der US-Army Marksmanship Unit diese neue Patrone im Kaliber 6.8x43mm SPC entwickelt. Heute fertigt REMINGTON die Patrone mit HS- und PB-Geschossen.</szItemDesc>
-		<szBRName>6.8mm SPC Magazin</szBRName>
-		<szBRDesc>Um die Durchschlagskraft des M4 zu steigern, wurde von Mitgliedern der US-Army Marksmanship Unit diese neue Patrone im Kaliber 6.8x43mm SPC entwickelt. Heute fertigt REMINGTON die Patrone mit HS- und PB-Geschossen.</szBRDesc>
+		<szItemName>6.8mm Mag</szItemName>
+		<szLongItemName>6.8x43mm SPC Magazin</szLongItemName>
+		<szItemDesc>Um die Durchschlagskraft des M4 zu steigern, wurde von Mitgliedern der US-Army Marksmanship Unit in Zusammenarbeit mit REMINGTON diese neue Patrone im Kaliber 6.8x43mm SPC entwickelt. Heute wird die Patrone mit HS- und PB-Geschossen hergestellt.</szItemDesc>
+		<szBRName>6.8x43mm SPC Magazin</szBRName>
+		<szBRDesc>Um die Durchschlagskraft des M4 zu steigern, wurde von Mitgliedern der US-Army Marksmanship Unit in Zusammenarbeit mit REMINGTON diese neue Patrone im Kaliber 6.8x43mm SPC entwickelt. Heute wird die Patrone mit HS- und PB-Geschossen hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>483</uiIndex>
@@ -3864,10 +3864,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>485</uiIndex>
-		<szItemName>4.73x33 Mag</szItemName>
-		<szLongItemName>4.73x33mm Magazin</szLongItemName>
+		<szItemName>4.73x33 Mag XPB</szItemName>
+		<szLongItemName>4.73x33mm Magazin, XPB</szLongItemName>
 		<szItemDesc>Die von DYNAMIT NOBEL entwickelte hülsenlose Munition durchschlägt Kevlarwesten ohne Probleme. Um eine hohe Zielwirkung und geringe Umfeldgefährdung zu erreichen, gibt das Projektil seine Energie schnell ab und taumelt im Zielmedium.</szItemDesc>
-		<szBRName>4.73x33 Mag #20</szBRName>
+		<szBRName>4.73x33 Mag XPB #20</szBRName>
 		<szBRDesc>Die von DYNAMIT NOBEL entwickelte hülsenlose Munition durchschlägt Kevlarwesten ohne Probleme. Um eine hohe Zielwirkung und geringe Umfeldgefährdung zu erreichen, gibt das Projektil seine Energie schnell ab und taumelt im Zielmedium.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -3888,10 +3888,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>488</uiIndex>
-		<szItemName>4.6x30 Mag PB</szItemName>
-		<szLongItemName>4.6x30mm Magazin, PB</szLongItemName>
+		<szItemName>4.6x30 Mag XPB</szItemName>
+		<szLongItemName>4.6x30mm Magazin, XPB</szLongItemName>
 		<szItemDesc>Diese Spezialmunition wird nur von der HK MP7 verwendet. Das Geschoss ist ungefähr so groß wie ein Gewehrprojektil und hat die gleiche Durchschlagskraft! Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szItemDesc>
-		<szBRName>4.6x30 Mag PB</szBRName>
+		<szBRName>4.6x30 Mag XPB</szBRName>
 		<szBRDesc>Diese Spezialmunition wird nur von der HK MP7 verwendet. Das Geschoss ist ungefähr so groß wie ein Gewehrprojektil und hat die gleiche Durchschlagskraft! Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -3906,9 +3906,9 @@
 		<uiIndex>490</uiIndex>
 		<szItemName>7.62x25 HS</szItemName>
 		<szLongItemName>7.62x25mm Magazin, Hohlspitz</szLongItemName>
-		<szItemDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>7.62x25 Mag HS #8</szBRName>
-		<szBRDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>491</uiIndex>
@@ -3954,9 +3954,9 @@
 		<uiIndex>496</uiIndex>
 		<szItemName>7.62x25 HS</szItemName>
 		<szLongItemName>7.62x25mm Bizon Mag, Hohlspitz</szLongItemName>
-		<szItemDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>7.62x25 Biz.Mag HS</szBRName>
-		<szBRDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>497</uiIndex>
@@ -3986,9 +3986,9 @@
 		<uiIndex>500</uiIndex>
 		<szItemName>7.62x25 HS</szItemName>
 		<szLongItemName>7.62x25mm Trommel, Hohlspitz</szLongItemName>
-		<szItemDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>7.62x25 Trommel HS #100</szBRName>
-		<szBRDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die PMC Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>501</uiIndex>
@@ -4008,10 +4008,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>503</uiIndex>
-		<szItemName>12.7x108 Mag</szItemName>
-		<szLongItemName>12.7x108mm Magazin</szLongItemName>
+		<szItemName>12.7x108 Mag XPB</szItemName>
+		<szLongItemName>12.7x108mm Magazin, XPB</szLongItemName>
 		<szItemDesc>Dieses 5-schüssige Magazin enthält russische Patronen im Kaliber 12.7x108mm für großkalibrige Scharfschützengewehre.</szItemDesc>
-		<szBRName>12.7x108 Magazin #5</szBRName>
+		<szBRName>12.7x108 Mag XPB #5</szBRName>
 		<szBRDesc>Dieses 5-schüssige Magazin enthält russische Patronen im Kaliber 12.7x108mm für großkalibrige Scharfschützengewehre.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4026,9 +4026,9 @@
 		<uiIndex>505</uiIndex>
 		<szItemName>9x18 HS</szItemName>
 		<szLongItemName>9x18mm Magazin, HS</szLongItemName>
-		<szItemDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>9x18 Mag HS #8</szBRName>
-		<szBRDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>506</uiIndex>
@@ -4058,9 +4058,9 @@
 		<uiIndex>509</uiIndex>
 		<szItemName>9x18 HS</szItemName>
 		<szLongItemName>9x18mm MP-Mag, HS</szLongItemName>
-		<szItemDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>9x18 Mag HS #20</szBRName>
-		<szBRDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>510</uiIndex>
@@ -4074,9 +4074,9 @@
 		<uiIndex>511</uiIndex>
 		<szItemName>9x18 HS</szItemName>
 		<szLongItemName>9x18mm MP-Mag, HS</szLongItemName>
-		<szItemDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>9x18 Mag HS</szBRName>
-		<szBRDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die PMC Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>512</uiIndex>
@@ -4090,9 +4090,9 @@
 		<uiIndex>513</uiIndex>
 		<szItemName>.40 Mag HS</szItemName>
 		<szLongItemName>.40 S&amp;W Magazin, HS</szLongItemName>
-		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>.40 Mag HS #14</szBRName>
-		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>514</uiIndex>
@@ -4161,10 +4161,10 @@
 	<ITEM>
 		<uiIndex>522</uiIndex>
 		<szItemName>.338 LM Mag</szItemName>
-		<szLongItemName>.338 Lapua Magazin</szLongItemName>
-		<szItemDesc>Die ultrastarke .338 Lapua Magnum Patrone garantiert, dass Ihre Ziele da umfallen wo sie sich gerade befinden. Die beste Wahl für Großwildjäger und Scharfschützen!</szItemDesc>
+		<szLongItemName>.338 Lapua Magazin, XPB</szLongItemName>
+		<szItemDesc>Die ultrastarke .338 Lapua Magnum Patrone garantiert, dass Ihre Ziele da umfallen wo sie sich gerade befinden. Die erste Wahl für Großwildjäger und Scharfschützen!</szItemDesc>
 		<szBRName>.338 LM Magazin #10</szBRName>
-		<szBRDesc>Die ultrastarke .338 Lapua Magnum Patrone garantiert, dass Ihre Ziele da umfallen wo sie sich gerade befinden. Die beste Wahl für Großwildjäger und Scharfschützen!</szBRDesc>
+		<szBRDesc>Die ultrastarke .338 Lapua Magnum Patrone garantiert, dass Ihre Ziele da umfallen wo sie sich gerade befinden. Die erste Wahl für Großwildjäger und Scharfschützen!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>523</uiIndex>
@@ -4178,9 +4178,9 @@
 		<uiIndex>524</uiIndex>
 		<szItemName>.44 SL HS</szItemName>
 		<szLongItemName>.44 Schnelllader, HS</szLongItemName>
-		<szItemDesc>Die PMC Starfire Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefern kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die PMC Starfire Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>.44 SL HS #6</szBRName>
-		<szBRDesc>Die PMC Starfire Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefern kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die PMC Starfire Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>525</uiIndex>
@@ -4210,9 +4210,9 @@
 		<uiIndex>528</uiIndex>
 		<szItemName>.44 Mag HS</szItemName>
 		<szLongItemName>.44 Magazin, HS</szLongItemName>
-		<szItemDesc>Die PMC Starfire Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefern kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die PMC Starfire Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>.44 Mag HS #8</szBRName>
-		<szBRDesc>Die PMC Starfire Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefern kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die PMC Starfire Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>529</uiIndex>
@@ -4242,9 +4242,9 @@
 		<uiIndex>532</uiIndex>
 		<szItemName>10mm Mag HS</szItemName>
 		<szLongItemName>10mm AUTO Magazin, HS</szLongItemName>
-		<szItemDesc>Die BUFFALO BORE Gold Dot Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie bieten kontrollierte Expansion, hohen Energietransfer und große Mannstoppwirkung. Ideal für den Personenschutz, da ein Durchschlagen mehrerer Ziele ausgeschlossen ist!</szItemDesc>
+		<szItemDesc>Die BUFFALO BORE Gold Dot Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>10mm Mag HS</szBRName>
-		<szBRDesc>Die BUFFALO BORE Gold Dot Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie bieten kontrollierte Expansion, hohen Energietransfer und große Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die BUFFALO BORE Gold Dot Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>533</uiIndex>
@@ -4280,9 +4280,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>537</uiIndex>
-		<szItemName>Nothing</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szBRName>Nothing</szBRName>
+		<szItemName>10mm Mag DU</szItemName>
+		<szLongItemName>10mm AUTO Magazin, DU</szLongItemName>
+		<szItemDesc>Aufgrund der verwendeten Legierung entfalten diese panzerbrechenden Geschosse eine große Durchschlagskraft. Das Projektil enthält Uran-235 und setzt beim Einschlagen einen radioaktiven Staub frei welcher sehr tödlich ist.</szItemDesc>
+		<szBRName>10mm Mag DU</szBRName>
+		<szBRDesc>Aufgrund der verwendeten Legierung entfalten diese panzerbrechenden Geschosse eine große Durchschlagskraft. Das Projektil enthält Uran-235 und setzt beim Einschlagen einen radioaktiven Staub frei welcher sehr tödlich ist.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>538</uiIndex>
@@ -4294,18 +4296,18 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>539</uiIndex>
-		<szItemName>9x21 Mag</szItemName>
-		<szLongItemName>9x21mm Magazin</szLongItemName>
+		<szItemName>9x21 Mag XPB</szItemName>
+		<szLongItemName>9x21mm Magazin, XPB</szLongItemName>
 		<szItemDesc>Diese russische Munition im Kaliber 9x21mm wurde eigens für die Pistole SR-1 Gyurza entwickelt um 30 Schichten Kevlar + 2.8mm Titan auf 100m zu durchschlagen.</szItemDesc>
-		<szBRName>9x21 Magazin</szBRName>
+		<szBRName>9x21 Mag XPB</szBRName>
 		<szBRDesc>Diese Munition im Kaliber 9x21mm wurde eigens für die Pistole SR-1 Gyurza entwickelt um 30 Schichten Kevlar + 2.8mm Titan auf 100m zu durchschlagen. Diese fabrikneuen, teflonbeschichteten Patronen wurden von FIOCCHI gefertigt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>540</uiIndex>
-		<szItemName>7.62x37 Mag</szItemName>
-		<szLongItemName>7.62x37mm Magazin, PB</szLongItemName>
+		<szItemName>7.62x37 Mag XPB</szItemName>
+		<szLongItemName>7.62x37mm Magazin, XPB</szLongItemName>
 		<szItemDesc>Dieses Magazin enthält Patronen im Kaliber 7.62x37mm. Sie sind besonders für schallgedämpfte Scharfschützengewehre wie das HK SL9SD geeignet.</szItemDesc>
-		<szBRName>7.62x37 Mag #10</szBRName>
+		<szBRName>7.62x37 Mag XPB #10</szBRName>
 		<szBRDesc>Dieses Magazin enthält Patronen im Kaliber 7.62x37mm. Sie sind besonders für schall- gedämpfte Scharfschützengewehre wie das HK SL9SD geeignet.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -4328,14 +4330,14 @@
 		<uiIndex>543</uiIndex>
 		<szItemName>5.45x18 HS</szItemName>
 		<szLongItemName>5.45x18mm Magazin, HS</szLongItemName>
-		<szItemDesc>Dieses Magazin enthält HS-Patronen für die PSM Pistole. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung bei ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Dieses 8-schüssige Magazin enthält HS-Patronen für die PSM Pistole. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung bei ungeschützte Gegner.</szItemDesc>
 		<szBRName>5.45x18 Mag HS #8</szBRName>
-		<szBRDesc>Dieses Magazin enthält HS-Patronen für die PSM Pistole. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung bei ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Dieses 8-schüssige Magazin enthält HS-Patronen für die PSM Pistole. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung bei ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>544</uiIndex>
 		<szItemName>9mm MS Mag</szItemName>
-		<szLongItemName>9mm Metal Storm Magazin, PB</szLongItemName>
+		<szLongItemName>9mm Metal Storm Magazin, XPB</szLongItemName>
 		<szItemDesc>METAL STORM's elektronisch gezündete Munition verspricht zuverlässige Feuerkraft bei geringem Gewicht. Dieses Magazin ist mit 72 Schuss in 6 Läufen konfiguriert.</szItemDesc>
 		<szBRName>9mm MS Mag #72</szBRName>
 		<szBRDesc>METAL STORM's elektronisch gezündete Munition verspricht zuverlässige Feuerkraft bei geringem Gewicht. Dieses Magazin ist mit 72 Schuss in 6 Läufen konfiguriert.</szBRDesc>
@@ -4432,9 +4434,9 @@
 		<uiIndex>556</uiIndex>
 		<szItemName>.50 Beo Mag HS</szItemName>
 		<szLongItemName>.50 Beowulf Magazin, Hohlspitz</szLongItemName>
-		<szItemDesc>Dieses Magazin von ALEXANDER ARMS enthält 325gr. HS-Patronen im Kaliber .50 Beowulf für das gleichnamige Gewehr. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe und erreicht damit eine ausgezeichnete Stoppwirkung.</szItemDesc>
+		<szItemDesc>Dieses Magazin von ALEXANDER ARMS enthält 325gr. HS-Patronen im Kaliber .50 Beowulf für das gleichnamige Gewehr. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>.50 Beo Magazin HS #7</szBRName>
-		<szBRDesc>Dieses Magazin von ALEXANDER ARMS enthält 325gr. HS-Patronen im Kaliber .50 Beowulf für das gleichnamige Gewehr. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe und erreicht damit eine ausgezeichnete Stoppwirkung.</szBRDesc>
+		<szBRDesc>Dieses Magazin von ALEXANDER ARMS enthält 325gr. HS-Patronen im Kaliber .50 Beowulf für das gleichnamige Gewehr. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>557</uiIndex>
@@ -4448,9 +4450,9 @@
 		<uiIndex>558</uiIndex>
 		<szItemName>.50 Beo Mag HS</szItemName>
 		<szLongItemName>.50 Beowulf Magazin, Hohlspitz</szLongItemName>
-		<szItemDesc>Dieses Magazin ist eine Einzelanfertigung von ALEXANDER ARMS und enthält 325gr. HS-Patronen im Kaliber .50 Beowulf. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe und erreicht damit eine ausgezeichnete Stoppwirkung.</szItemDesc>
+		<szItemDesc>Dieses Magazin ist eine Einzelanfertigung von ALEXANDER ARMS und enthält 325gr. HS-Patronen im Kaliber .50 Beowulf. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>.50 Beo Magazin HS #4</szBRName>
-		<szBRDesc>not for sale at BR</szBRDesc>
+		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>559</uiIndex>
@@ -4528,9 +4530,9 @@
 		<uiIndex>568</uiIndex>
 		<szItemName>.45 WM Mag HS</szItemName>
 		<szLongItemName>.45 WM Magazin, HS</szLongItemName>
-		<szItemDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone.</szItemDesc>
+		<szItemDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone und garantiert eine ausgezeichnete Mannstoppwirkung bei ungeschützte Gegner.</szItemDesc>
 		<szBRName>.45 WM Mag HS #6</szBRName>
-		<szBRDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone.</szBRDesc>
+		<szBRDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone und garantiert eine ausgezeichnete Mannstoppwirkung bei ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>569</uiIndex>
@@ -4592,25 +4594,25 @@
 		<uiIndex>576</uiIndex>
 		<szItemName>.45 Tr.</szItemName>
 		<szLongItemName>.45 MP-Trommel</szLongItemName>
-		<szItemDesc>Das passende Trommel-Magazin für die THOMPSON M1928 enthält FIOCCHI VMR-Projektile. Sie deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Das passende Trommel-Magazin für die M1928 enthält FIOCCHI VMR-Projektile. Sie deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>.45 Trommel #50</szBRName>
-		<szBRDesc>Das passende Trommel-Magazin für die THOMPSON M1928 enthält FIOCCHI VMR-Projektile. Sie deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Das passende Trommel-Magazin für die M1928 enthält FIOCCHI VMR-Projektile. Sie deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>577</uiIndex>
 		<szItemName>.45 Tr. HS</szItemName>
 		<szLongItemName>.45 MP-Trommel, Hohlspitz</szLongItemName>
-		<szItemDesc>Das passende Trommel-Magazin für die THOMPSON M1928 enthält FEDERAL Hydra-Shok Patronen. Sie kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion und große Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Das passende Trommel-Magazin für die M1928 enthält FEDERAL Hydra-Shok Patronen. Sie kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss.</szItemDesc>
 		<szBRName>.45 Trommel HS</szBRName>
-		<szBRDesc>Das passende Trommel-Magazin für die THOMPSON M1928 enthält FEDERAL Hydra-Shok Patronen. Sie kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion und große Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Das passende Trommel-Magazin für die M1928 enthält FEDERAL Hydra-Shok Patronen. Sie kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>578</uiIndex>
 		<szItemName>.45 Tr. PB</szItemName>
 		<szLongItemName>.45 MP-Trommel, PB</szLongItemName>
-		<szItemDesc>Das passende Trommel-Magazin für die THOMPSON M1928 enthält teflonbeschichteten KTW Patronen. Sie wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
+		<szItemDesc>Das passende Trommel-Magazin für die M1928 enthält teflonbeschichteten KTW Patronen. Sie wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
 		<szBRName>.45 Trommel PB</szBRName>
-		<szBRDesc>Das passende Trommel-Magazin für die THOMPSON M1928 enthält teflonbeschichteten KTW Patronen. Sie wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szBRDesc>
+		<szBRDesc>Das passende Trommel-Magazin für die M1928 enthält teflonbeschichteten KTW Patronen. Sie wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>579</uiIndex>
@@ -4624,9 +4626,9 @@
 		<uiIndex>580</uiIndex>
 		<szItemName>.45 Tr. G</szItemName>
 		<szLongItemName>.45 MP-Trommel, Glaser</szLongItemName>
-		<szItemDesc>Das passende Trommel-Magazin für die THOMPSON M1928 enthält GLASER Blue Top Patronen. Sie enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Das passende Trommel-Magazin für die M1928 enthält GLASER Blue Top Patronen. Sie enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst.</szItemDesc>
 		<szBRName>.45 Trommel Glaser</szBRName>
-		<szBRDesc>Das passende Trommel-Magazin für die THOMPSON M1928 enthält GLASER Blue Top Patronen. Sie enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Das passende Trommel-Magazin für die M1928 enthält GLASER Blue Top Patronen. Sie enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>581</uiIndex>
@@ -4680,9 +4682,9 @@
 		<uiIndex>587</uiIndex>
 		<szItemName>10mm Mag HS</szItemName>
 		<szLongItemName>10mm AUTO Magazin, HS</szLongItemName>
-		<szItemDesc>Die BUFFALO BORE Gold Dot Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie bieten kontrollierte Expansion, hohen Energietransfer und große Mannstoppwirkung. Ideal für den Personenschutz, da ein Durchschlagen mehrerer Ziele ausgeschlossen ist!</szItemDesc>
+		<szItemDesc>Die BUFFALO BORE Gold Dot Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>10mm Mag HS #8</szBRName>
-		<szBRDesc>Die BUFFALO BORE Gold Dot Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie bieten kontrollierte Expansion, hohen Energietransfer und große Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die BUFFALO BORE Gold Dot Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>588</uiIndex>
@@ -4718,11 +4720,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>592</uiIndex>
-		<szItemName>Sniper Supp.</szItemName>
-		<szLongItemName>Sniper Suppressor</szLongItemName>
-		<szItemDesc>Index 592</szItemDesc>
-		<szBRName>Sniper Suppressor</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>SD-3</szItemName>
+		<szLongItemName>KAC Schalldämpfer-3</szLongItemName>
+		<szItemDesc>Dieser große Schalldämpfer kann an Präzisionsgewehre (7.62mm, 5.45mm, 5.56mm) angebracht werden. Um eine maximale Wirkung zu erzielen, verwenden Sie bitte spezielle Unterschall-Munition.</szItemDesc>
+		<szBRName>KAC SD-3</szBRName>
+		<szBRDesc>Dieser große Schalldämpfer kann an Präzisionsgewehre (7.62mm, 5.45mm, 5.56mm) angebracht werden. Um eine maximale Wirkung zu erzielen, verwenden Sie bitte spezielle Unterschall-Munition.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>593</uiIndex>
@@ -4792,41 +4794,41 @@
 		<uiIndex>601</uiIndex>
 		<szItemName>AEK-919K</szItemName>
 		<szLongItemName>AEK-919K Kashtan</szLongItemName>
-		<szItemDesc>Diese kompakte und solide MP wurde Mitte der 90er Jahre entwickelt. Sie wird heute von russischen Spezialeinheiten und der Polizei eingesetzt.</szItemDesc>
+		<szItemDesc>Diese kompakte und solide MP wurde Mitte der 90er Jahre entwickelt. Sie wird heute von russischen Spezialeinheiten und der Polizei benutzt.</szItemDesc>
 		<szBRName>AEK-919K Kashtan</szBRName>
-		<szBRDesc>Diese kompakte und solide MP wurde Mitte der 90er Jahre entwickelt. Sie wird heute von russischen Spezialeinheiten und der Polizei eingesetzt.</szBRDesc>
+		<szBRDesc>Diese kompakte und solide MP wurde Mitte der 90er Jahre entwickelt. Sie wird heute von russischen Spezialeinheiten und der Polizei benutzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>602</uiIndex>
 		<szItemName>AEK-971</szItemName>
 		<szLongItemName>AEK-971</szLongItemName>
-		<szItemDesc>Man sagt, daß einige Schützen mit diesem Gewehr bis zu 20 Prozent zielsicherer sind als mit dem AK-74. Für Patrone 'M74'</szItemDesc>
+		<szItemDesc>Man sagt, dass einige Schützen mit diesem Gewehr bis zu 20% zielsicherer sind als mit dem AK-74. Dieses Modell ist für die Patrone M74 ausgelegt.</szItemDesc>
 		<szBRName>AEK-971</szBRName>
-		<szBRDesc>Der dem AN-94N vergleichbare Rückstoßausgleicher bewirkt eine höhere Treffsicherheit gegenüber dem AK-74. Die Vorteile gegenüber dem AN-94 sind geringeres Gewicht, höhere Zuverlässigkeit und bessere Kontrollierbarkeit im Feuerstoß.</szBRDesc>
+		<szBRDesc>Der dem AN-94N vergleichbare Rückstoß- ausgleicher bewirkt eine höhere Treffsicherheit gegenüber dem AK-74. Die Vorteile gegenüber dem AN-94 sind geringeres Gewicht, höhere Zuverlässigkeit und bessere Kontrollierbarkeit im Feuerstoß.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>603</uiIndex>
 		<szItemName>AEK-973</szItemName>
 		<szLongItemName>AEK-973</szLongItemName>
-		<szItemDesc>Man sagt, daß einige Schützen mit diesem Gewehr bis zu 20 Prozent zielsicherer sind als mit dem AK-74. Für Patrone 'M43' und 'M67'</szItemDesc>
+		<szItemDesc>Man sagt, daß einige Schützen mit diesem Gewehr bis zu 20% zielsicherer sind als mit dem AK-74. Dieses Modell ist für die Patronen M43 und M67 ausgelegt.</szItemDesc>
 		<szBRName>AEK-973</szBRName>
-		<szBRDesc>Der dem AN-94N vergleichbare Rückstoßausgleicher bewirkt eine höhere Treffsicherheit gegenüber dem AK-74 - obwohl hier nur die 7.62x39mm Patrone zum Einsatz kommt. Probieren Sie es aus!</szBRDesc>
+		<szBRDesc>Der dem AN-94N vergleichbare Rückstoß- ausgleicher bewirkt eine höhere Treffsicherheit gegenüber dem AK-74. Die Vorteile gegenüber dem AN-94 sind geringeres Gewicht, höhere Zuverlässigkeit und bessere Kontrollierbarkeit im Feuerstoß.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>604</uiIndex>
 		<szItemName>Agram 2000</szItemName>
 		<szLongItemName>Agram 2000</szLongItemName>
-		<szItemDesc>Diese MP hat ein gutes Design und hohe Zielgenauigkeit. Das macht sie nicht nur bei der Polizei sondern auch bei der Mafia beliebt.</szItemDesc>
+		<szItemDesc>Diese MP hat ein hervorragendes Design und eine hohe Zielgenauigkeit. Das macht sie nicht nur bei der Polizei des ehem. Ostblocks sondern auch bei der Mafia sehr beliebt.</szItemDesc>
 		<szBRName>Agram 2000</szBRName>
-		<szBRDesc>Diese MP hat ein gutes Design und hohe Zielgenauigkeit. Das macht sie nicht nur bei der Polizei des ehem. Ostblocks sondern auch bei der Mafia beliebt.</szBRDesc>
+		<szBRDesc>Diese MP hat ein hervorragendes Design und eine hohe Zielgenauigkeit. Das macht sie nicht nur bei der Polizei des ehem. Ostblocks sondern auch bei der Mafia sehr beliebt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>605</uiIndex>
 		<szItemName>AICW</szItemName>
 		<szLongItemName>Metal Storm AICW</szLongItemName>
-		<szItemDesc>Die Australier haben die Gewichtprobleme bei dieser Mischung aus Sturmgewehr und Mehrschuss-Granatwerfer behoben. </szItemDesc>
+		<szItemDesc>Die Australier haben die Gewichtsprobleme bei dieser Mischung aus Sturmgewehr und Mehrschuss-Granatwerfer behoben. </szItemDesc>
 		<szBRName>Metal Storm AICW</szBRName>
-		<szBRDesc>Die Australier haben die Gewichtprobleme bei dieser Mischung aus Sturmgewehr und Mehrschuss-Granatwerfer behoben. Obwohl der METAL STORM Granatwerfer sehr kompakt ist, feuert er die bewährten 40mm Granaten.</szBRDesc>
+		<szBRDesc>Die Australier haben die Gewichtsprobleme bei dieser Mischung aus Sturmgewehr und Mehrschuss-Granatwerfer behoben. Obwohl der METAL STORM Granatwerfer sehr kompakt ist, feuert er die bewährten 40mm Granaten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>606</uiIndex>
@@ -4834,71 +4836,71 @@
 		<szLongItemName>Kalaschnikow AK-102</szLongItemName>
 		<szItemDesc>Wenngleich nicht so kompakt wie das AKS-74U, bietet dieses Sturmgewehr mit Klappschaft eine höhere Präzison.</szItemDesc>
 		<szBRName>Kalaschnikow AK-102</szBRName>
-		<szBRDesc>Wenngleich nicht so kompakt wie das AKS-74U, bietet dieses Sturmgewehr mit Klappschaft Vorteile durch eine höhere Präzison aufgrund des längeren Laufes. Verwendet NATO 5.56mm Munition.</szBRDesc>
+		<szBRDesc>Wenngleich nicht so kompakt wie das AKS-74U, bietet dieses Sturmgewehr mit seinem etwas längeren Lauf eine höhere Präzison. Es nutzt die 5.56mm NATO Munition und wurde für den Export in westl. Länder entwickelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>607</uiIndex>
 		<szItemName>AK-103</szItemName>
 		<szLongItemName>Kalaschnikow AK-103</szLongItemName>
-		<szItemDesc>Stärker als sein Vorgänger AK-74, Ist dieser vollautomatische Karabiner eher als modernisiertes AK-47/M zu sehen.</szItemDesc>
+		<szItemDesc>Stärker als sein Vorgänger AK-74, ist dieses vollautomatische Sturmgewehr eher als modernisiertes AK-47/M zu sehen.</szItemDesc>
 		<szBRName>Kalaschnikow AK-103</szBRName>
-		<szBRDesc>Als Kombination von AK-74, AK-101 und der Patrone 'M67' ist dieses Sturmgewehr stärker und leichter als sein Vorgänger AK-74. Es ermöglicht viele Anbauten und ist wartungsfreundlicher.</szBRDesc>
+		<szBRDesc>Stärker als sein Vorgänger AK-74, ist dieses vollautomatische Sturmgewehr eher als modernisiertes AK-47/M zu sehen. Es ermöglicht viele Anbauten und ist sehr wartungsfreundlich.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>608</uiIndex>
 		<szItemName>AK-104</szItemName>
 		<szLongItemName>Kalaschnikow AK-104</szLongItemName>
-		<szItemDesc>Das AK-104 ist ein gekürztes AK-103 für Besatzungen von Schützenpanzern und für Fallschirmjäger.</szItemDesc>
+		<szItemDesc>Die leicht gekürzte Variante des AK-103 ermöglicht viele Anbauten und ist sehr wartungsfreundlich.</szItemDesc>
 		<szBRName>Kalaschnikow AK-104</szBRName>
-		<szBRDesc>Das AK-104 ist ein gekürztes AK-103 für Besatzungen von Schützenpanzern und für Fallschirmjäger. Verwendet die Patrone 'M67' (7.62mm)</szBRDesc>
+		<szBRDesc>Die leicht gekürzte Variante des AK-103 ermöglicht viele Anbauten und ist sehr wartungsfreundlich. Wir exportieren von IZHEVSK direkt zum regionalen Konflikt Ihrer Wahl - ohne Aufpreis!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>609</uiIndex>
 		<szItemName>AK-105</szItemName>
 		<szLongItemName>Kalaschnikow AK-105</szLongItemName>
-		<szItemDesc>Ein weiterer Klon aus der AK-100 Baureihe. Es ist baugleich zum AK-104, nur verwendet es die Patrone 'M74' (5.45mm)</szItemDesc>
+		<szItemDesc>Ein weiterer Klon aus der AK-100 Baureihe. Es ist baugleich zum AK-104, nur verwendet es die Patrone M74 im Kaliber 5.45x39mm.</szItemDesc>
 		<szBRName>Kalaschnikow AK-105</szBRName>
-		<szBRDesc>Ein weiterer Klon aus der AK-100 Baureihe. Es ist baugleich zum AK-104, nur verwendet es die Patrone 'M74' (5.45mm).</szBRDesc>
+		<szBRDesc>Ein weiterer Klon aus der AK-100 Baureihe. Es ist baugleich zum AK-104, nur verwendet es die Patrone M74 im Kaliber 5.45x39mm.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>610</uiIndex>
 		<szItemName>AK-107</szItemName>
 		<szLongItemName>Kalaschnikow AK-107</szLongItemName>
-		<szItemDesc>Erstmals verwendet auch Kalaschnikow das BARS System in einer Waffe für die Patrone 5.45 x 39.</szItemDesc>
+		<szItemDesc>Das neue Alexandrow-Kalaschnikow AK-107 besitzt eine synchronisierte Automatik, welchen einen Gegenimpuls zum Rückstoß erzeugt (BARS).</szItemDesc>
 		<szBRName>Kalaschnikow AK-107</szBRName>
-		<szBRDesc>Wenn Sie jemanden vom Dolvich-Klan anheuern, geben Sie ihm nur das Original! AK-74 + BARS Rückstoßverminderung = AK-107.</szBRDesc>
+		<szBRDesc>Das neue Alexandrow-Kalaschnikow AK-107 besitzt eine synchronisierte Automatik, welchen einen Gegenimpuls zum Rückstoß erzeugt (BAR-System). Dadurch wird der Rückstoß stark verringert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>611</uiIndex>
 		<szItemName>AK-108</szItemName>
 		<szLongItemName>Kalaschnikow AK-108</szLongItemName>
-		<szItemDesc>Erstmals verwendet auch Kalaschnikow das BARS System in einer Waffe für die Patrone 5.56 x 45.</szItemDesc>
+		<szItemDesc>Das neue Alexandrow-Kalaschnikow AK-108 besitzt eine synchronisierte Automatik, welchen einen Gegenimpuls zum Rückstoß erzeugt (BARS).</szItemDesc>
 		<szBRName>Kalaschnikow AK-108</szBRName>
-		<szBRDesc>Wenngleich die Jungs vom Dolvich-Klan das Original bevorzugen, werden sie auch das AK-108 lieben! AK-74 + BARS Rückstoßverminderung + weit verfügbare M855 Patrone = AK-108.</szBRDesc>
+		<szBRDesc>Das neue Alexandrow-Kalaschnikow AK-108 besitzt eine synchronisierte Automatik, welchen einen Gegenimpuls zum Rückstoß erzeugt (BAR-System). Dadurch wird der Rückstoß stark verringert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>612</uiIndex>
 		<szItemName>AKMS</szItemName>
 		<szLongItemName>Kalaschnikow AKMS</szLongItemName>
-		<szItemDesc>Diese Version des AK-M kommt mit einer umklappbaren Schulterstütze. Aufgrund der kompakte Größe ist sie ideal für Fallschirmjäger.</szItemDesc>
+		<szItemDesc>Diese Version des AKM besitzt eine klappbare Schulterstütze. Aufgrund der kompakte Abmessungen ist sie ideal für Fallschirmjäger und Fahrzeugbesatzungen.</szItemDesc>
 		<szBRName>Kalaschnikow AKMS</szBRName>
-		<szBRDesc>Diese Version des AK-M (7.62) kommt mit einer umklappbaren Schulterstütze. Aufgrund der kompakte Größe ist sie ideal für Fallschirmjäger und Fahrzeugbesatzungen.</szBRDesc>
+		<szBRDesc>Diese Version des AKM besitzt eine klappbare Schulterstütze. Aufgrund der kompakte Abmessungen ist sie ideal für Fallschirmjäger und Fahrzeugbesatzungen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>613</uiIndex>
 		<szItemName>AKS-47</szItemName>
 		<szLongItemName>Kalaschnikow AKS-47</szLongItemName>
-		<szItemDesc>Das ist Michael Kalaschnikows Geschenk für die Welt, um bewaffnete Konflikte seit mehr als 50 Jahren zu lösen.</szItemDesc>
+		<szItemDesc>Diese Version des AKS-47 besitzt eine klappbare Schulterstütze. Aufgrund der kompakte Abmessungen ist sie ideal für Fallschirmjäger und Fahrzeugbesatzungen.</szItemDesc>
 		<szBRName>Kalaschnikow AKS-47</szBRName>
-		<szBRDesc>Während das AKSU-System ultrakompakt ist, bietet das AKS zwar eine abklappbare Schulterstütze, aber höhere Präzision, da der Lauf nicht gekürzt wurde.</szBRDesc>
+		<szBRDesc>Diese Version des AKS-47 besitzt eine klappbare Schulterstütze. Aufgrund der kompakte Abmessungen ist sie ideal für Fallschirmjäger und Fahrzeugbesatzungen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>614</uiIndex>
 		<szItemName>AKS-74</szItemName>
 		<szLongItemName>Kalaschnikow AKS-74</szLongItemName>
-		<szItemDesc>Nachfolger des AKS-47, verwendet dieses Sturmgewehr 5.45mm Munition. Es ist bekannt für seine Lautstärke und Mündungsfeuer.</szItemDesc>
+		<szItemDesc>Der Nachfolger des AKS-47 ist für seine Lautstärke und das große Mündungsfeuer bekannt.</szItemDesc>
 		<szBRName>Kalaschnikow AKS-74</szBRName>
-		<szBRDesc>Nachfolger des AKS-47, verwendet dieses Sturmgewehr 5.45mm Munition. Es ist bekannt für seine Lautstärke und großes Mündungsfeuer.</szBRDesc>
+		<szBRDesc>Der Nachfolger des AKS-47 ist für seine Lautstärke und das große Mündungsfeuer bekannt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>615</uiIndex>
@@ -4906,15 +4908,15 @@
 		<szLongItemName>AMD-65M</szLongItemName>
 		<szItemDesc>Eine ungarische Variante der AKMS. Normalerweise mit Klappschaft und zusätzlichem vorderen Handgriff, verfügt diese Exportversion über einen Holzkolben.</szItemDesc>
 		<szBRName>AMD-65M</szBRName>
-		<szBRDesc>Diese ungarische Variante der AKMS verfügt normalerweise über einen Klappschaft und einen zusätzlichen vorderen Handgriff. Dieses Modell wurde jedoch mit einem festen Kolben für den Export für die Pakistanische Armee ausgerüstet.</szBRDesc>
+		<szBRDesc>Diese ungarische Variante der AKMS verfügt normalerweise über einen Klappschaft und einen zusätzlichen vorderen Handgriff. Dieses Modell wurde jedoch mit einem festen Kolben für den Export ausgerüstet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>616</uiIndex>
 		<szItemName>AN-94</szItemName>
 		<szLongItemName>AN-94 Abakan</szLongItemName>
-		<szItemDesc>Das AN-94 Abakan konkurriert direkt mit den technisch vergleichbaren Modellen AEK-971 und 973, ist aber aufwändiger zu warten und teurer.</szItemDesc>
+		<szItemDesc>Das AN-94 Abakan konkurriert mit den technisch vergleichbaren Modellen AEK-971/973, ist jedoch aufwändiger zu warten und teurer in der Beschaffung.</szItemDesc>
 		<szBRName>AN-94 Abakan</szBRName>
-		<szBRDesc>Das von IZHMASH entwickelte und hergestellte AN-94 Abakan verfügt ebenfalls über einen gegenläufigen Rückstoßkompensator. Es hat eine höhere Kadenz als die AEKs und ist effektiver gegen Körperschutz. Feuermodus: S-2-F</szBRDesc>
+		<szBRDesc>Das von IZHMASH entwickelte und hergestellte AN-94 Abakan konkurriert mit den techn. vergleichbaren Modellen AEK-971/973. Es ist aufwändiger zu warten jedoch effektiver gegen Körperschutz. Feuermodus: S-2-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>617</uiIndex>
@@ -4928,7 +4930,7 @@
 		<uiIndex>618</uiIndex>
 		<szItemName>AWM</szItemName>
 		<szLongItemName>Accuracy Int. AWM</szLongItemName>
-		<szItemDesc>Entwickelt für extremste Kampfentfernungen im arktischen Klima, ist das AWM die beste Wahl für die Bekämpung von Zielen in großer Entfernung.</szItemDesc>
+		<szItemDesc>Entwickelt für extremste Kampfentfernungen im arktischen Klima, ist das AWM erste Wahl für die Bekämpung von weit entfernten Zielen.</szItemDesc>
 		<szBRName>Accuracy Int. AWM</szBRName>
 		<szBRDesc>Dieses Präzisionsgewehr ist absolut Schussgenau, benötigt keinerlei Nachjustierung und ist wartungsfrei. Es feuert die ultrastarke .338 Lapua Magnum Patrone und hat eine bemerkenswerte Leistung, die nur noch von ihrem noch bemerkenswerteren Preis übertroffen wird.</szBRDesc>
 	</ITEM>
@@ -4938,15 +4940,15 @@
 		<szLongItemName>Barrett M82B1K-PDW</szLongItemName>
 		<szItemDesc>Ursprünglich als Internet-Spoof abgetan, kam ein Büchsenmacher mit sehr viel Erfahrung auf die Idee das M82A2 mit einer Metallsäge zu kürzen.</szItemDesc>
 		<szBRName>Barrett M82B1K-PDW</szBRName>
-		<szBRDesc>Warum wollen Sie sich mit einem mickrigen M16 oder einer oft überbewerteten 'Die Kugel bleibt eh in der Tür stecken' HK MP5 in den Weg stellen? Warum nehmen Sie nicht eine Waffe, die nicht nur den Kerl der sich hinter der Tür versteckt sondern auch die Zwei die zum Fenster raus sind erwischt?!</szBRDesc>
+		<szBRDesc>Warum wollen Sie sich mit einem mickrigen M16 oder einer oft überbewerteten HK MP5 in den Weg stellen? Warum nehmen Sie nicht eine Waffe, die nicht nur den Kerl der sich hinter der Tür versteckt sondern auch die Zwei die zum Fenster raus sind erwischt?!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>620</uiIndex>
-		<szItemName>Barrett M98</szItemName>
+		<szItemName>M98</szItemName>
 		<szLongItemName>Barrett M98</szLongItemName>
-		<szItemDesc>Dieses sehr präzise Gewehr ist eher selten anzutreffen und verschießt die ultrastarke .338 Lapua Magnum Patrone.</szItemDesc>
+		<szItemDesc>Das M98 ist ein weitreichendes, halb-autom. Präzisionsgewehr und verwendet die ultrastarke .338 Lapua Magnum Patrone. Es wurde 1998 vorgestellt.</szItemDesc>
 		<szBRName>Barrett M98</szBRName>
-		<szBRDesc>Dieses sehr präzise Gewehr ist eher selten anzutreffen und verschießt die ultrastarke .338 Lapua Magnum Patrone. Es kann auch zur Großwildjagd in Afrika eingesetzt werden.</szBRDesc>
+		<szBRDesc>Das M98 ist ein weitreichendes, halb-autom. Präzisionsgewehr und verwendet die ultrastarke .338 Lapua Magnum Patrone. Es wurde 1998 auf der SHOT Show in Las Vegas vorgestellt. Der verwendete Fiberglas-Schaft garantiert ein geringes Gewicht.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>621</uiIndex>
@@ -4968,9 +4970,9 @@
 		<uiIndex>623</uiIndex>
 		<szItemName>Brigadier</szItemName>
 		<szLongItemName>Beretta 96FS Brigadier</szLongItemName>
-		<szItemDesc>Diese Variante der Beretta 92 wurde auf das Kaliber .40 S&amp;W umgebaut und hat einen neu designten Schlitten.</szItemDesc>
+		<szItemDesc>Diese Variante der Beretta 92 wurde in das Kaliber .40 S&amp;W konvertiert und hat einen neu designten Schlitten.</szItemDesc>
 		<szBRName>Beretta 96FS Brigadier</szBRName>
-		<szBRDesc>Diese Variante der Beretta 92 wurde auf das Kaliber .40 S&amp;W umgebaut und hat einen neu designten Schlitten.</szBRDesc>
+		<szBRDesc>Diese Variante der Beretta 92 wurde in das Kaliber .40 S&amp;W konvertiert und hat einen neu designten Schlitten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>624</uiIndex>
@@ -4984,9 +4986,9 @@
 		<uiIndex>625</uiIndex>
 		<szItemName>M501</szItemName>
 		<szLongItemName>Beretta M501</szLongItemName>
-		<szItemDesc>Ein solides Scharfschützengewehr aus den 80er Jahren. Drücken Sie einfach den Abzug und sagen Sie 'Ciao'.</szItemDesc>
+		<szItemDesc>Ein solides Präzisionsgewehr aus den 80er Jahren. Drücken Sie einfach den Abzug und sagen Sie 'Ciao'.</szItemDesc>
 		<szBRName>Beretta M501</szBRName>
-		<szBRDesc>Ein solides Scharfschützengewehr aus den 80er Jahren. Drücken Sie einfach den Abzug und sagen Sie 'Ciao'.</szBRDesc>
+		<szBRDesc>Ein solides Präzisionsgewehr aus den 80er Jahren. Drücken Sie einfach den Abzug und sagen Sie 'Ciao'.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>626</uiIndex>
@@ -5022,35 +5024,35 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>630</uiIndex>
-		<szItemName>KAC SR-25M</szItemName>
+		<szItemName>SR-25M</szItemName>
 		<szLongItemName>KAC SR-25M</szLongItemName>
-		<szItemDesc>Die Match-Variante der AR-10 Modellreihe besitzt einen 24" Lauf, ist absolut präzise und wird von KNIGHT's ARMAMENT COMPANY gefertigt.</szItemDesc>
+		<szItemDesc>Die auf dem AR-10 Sturmgewehr basierende Match-Version mit 24-Zoll-Lauf ist absolut präzise. High-Quality von KNIGHT's ARMAMENT COMPANY.</szItemDesc>
 		<szBRName>KAC SR-25M</szBRName>
-		<szBRDesc>Die auf der AR-10 Modellreihe basierende Match- Variante mit 24" Lauf wurde von Eugene Stoner entwickelt. Dieses präzise und feuerstarke Gewehr wird von KNIGHT's ARMAMENT COMPANY gefertigt. Seit 2005 wird es von der US-Army und vom U.S.M.C. eingesetzt.</szBRDesc>
+		<szBRDesc>Die auf dem AR-10 Sturmgewehr basierende Match-Version mit 24-Zoll-Lauf wurde von Eugene Stoner entwickelt. Dieses präzise Gewehr wird von KNIGHT's ARMAMENT COMPANY gefertigt. Seit 2005 wird es von der US-Army und vom U.S.M.C. verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>631</uiIndex>
 		<szItemName>M1911A1 Hi-Cap</szItemName>
-		<szLongItemName>Colt M1911A1 Covernment Hi-Cap</szLongItemName>
-		<szItemDesc>Der COLT M1911A1 Hi-Cap war ein Versuch, die Einführung der Beretta 96 aufzuhalten, indem das zu kleine 7-Schuß-Magazin durch ein zweireihiges 14-Schuß-Magazin ausgetauscht wurde.</szItemDesc>
+		<szLongItemName>Colt M1911A1 Government Hi-Cap</szLongItemName>
+		<szItemDesc>Die Pistole COLT Government ist aufgrund ihrer Zuverlässigkeit &amp; Feuerkraft auch heute noch sehr beliebt, hier die verbesserte Ausführung mit 14-Schuss-Magazin.</szItemDesc>
 		<szBRName>Colt M1911A1 Hi-Cap</szBRName>
-		<szBRDesc>Ziehen Sie etwa 15 Schuß 9mm Para der Wirkung von 14 Schuß .45ACP vor? Nein? Wir auch nicht! Kaufen Sie diese verbesserte Pistole COLT M1911A1 Hi-Cap. Vergessen Sie die Beretta 96F. Richtige Männer brauchen FEUERKRAFT!</szBRDesc>
+		<szBRDesc>Sie favorisieren das Kaliber .45ACP? Dann greifen Sie zur COLT Government 'Hi-Capacity' mit 14-Schuss-Magazin! Diese weltberühmte Pistole ist aufgrund ihrer Zuverlässigkeit &amp; Feuerkraft auch heute noch sehr beliebt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>632</uiIndex>
 		<szItemName>M16A4</szItemName>
 		<szLongItemName>Colt M16A4</szLongItemName>
-		<szItemDesc>Das Sturmgewehr der US-Army in seiner vierten Generation. Nach anfänglichen Problemen, hat es sich zu einer brauchbaren Waffe entwickelt.</szItemDesc>
+		<szItemDesc>Seit 1994 ersetzt das neueste M16-Modell die Versionen A1/A2 des U.S.M.C. und der US-Army. Die US-Soldaten nennen es 'The Black Rifle'.</szItemDesc>
 		<szBRName>Colt M16A4</szBRName>
-		<szBRDesc>Das Sturmgewehr der US-Army in seiner vierten Generation. Über 8 Mio. Stück wurden bisher weltweit verkauft. Es besitzt eine S-3 Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Seit 1994 ersetzt 'The Black Rifle' in seiner 4. Generation die Versionen A1/A2 des U.S.M.C. und der US-Army. Wichtigste Neuerungen sind ein Flat-Top-Receiver, ein S-3 Abzug und eine Picatinny-Schiene welche die Zubehörmontage erleichtert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>633</uiIndex>
 		<szItemName>M4A1</szItemName>
 		<szLongItemName>Colt M4A1 Karabiner</szLongItemName>
-		<szItemDesc>Der M4-Karabiner ist unter allen Einsatzbedingungen eine sehr genaue und effektive Waffe. Die Waffe ist für Söldner und Einzelkämpfer bestens geeignet.</szItemDesc>
+		<szItemDesc>Der M4-Karabiner mit 14.5" Lauf ist zuverlässig, sehr präzise und höchst effektiv. Er wird von Infanteriesoldaten, Spezialeinheiten und Einzelkämpfern favorisiert.</szItemDesc>
 		<szBRName>Colt M4A1 Karabiner</szBRName>
-		<szBRDesc>Der M4-Karabiner ist unter allen Einsatz- bedingungen eine sehr genaue und effektive Waffe. Die Waffe hat eine S-F Abzugsgruppe und ist für Söldner und Einzelkämpfer bestens geeignet.</szBRDesc>
+		<szBRDesc>Der M4-Karabiner mit 14.5" Lauf ist eine Weiterentwicklung des XM177, sehr präzise und höchst effektiv. Er wird von Infanteriesoldaten, Spezialeinheiten und Einzelkämpfern favorisiert - klein, leicht &amp; tödlich! Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>634</uiIndex>
@@ -5094,11 +5096,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>639</uiIndex>
-		<szItemName>AMP DSR-1</szItemName>
+		<szItemName>DSR-1</szItemName>
 		<szLongItemName>AMP DSR-1</szLongItemName>
 		<szItemDesc>Mit Aluminiumhandschutz und futuristischen Design ist das eine der coolsten Waffen die es gibt. Auf dem Gehäuse steht 'Made in Germany'.</szItemDesc>
 		<szBRName>AMP DSR-1</szBRName>
-		<szBRDesc>Mit freien beweglichen Lauf, Aluminium- handschutz und futuristischen Design ist das eine der coolsten Waffen die wir jemals gesehen haben. Auf dem Gehäuse steht 'Made in Germany' - wer hätte das gedacht?!</szBRDesc>
+		<szBRDesc>Mit freien beweglichen Lauf, Alu-Handschutz und futuristischen Design ist das eine der coolsten Waffen die wir jemals gesehen haben. Auf dem Gehäuse steht 'Made in Germany' - wer hätte das gedacht?!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>640</uiIndex>
@@ -5134,19 +5136,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>644</uiIndex>
-		<szItemName>FN HS-35</szItemName>
-		<szLongItemName>FN Browning HS-35</szLongItemName>
-		<szItemDesc>Ursprünglich 1925 entworfen wurde sie erst 1935 in Dienst gestellt. Sie war die einzige Seitenwaffe die für beiden Seiten eingesetzt wurde.</szItemDesc>
-		<szBRName>FN Browning HS-35</szBRName>
-		<szBRDesc>Ursprünglich 1925 entworfen wurde sie erst 1935 in Dienst gestellt. Sie war die einzige Seitenwaffe die für beiden Seiten eingesetzt wurde. Die neueste Variante der HP 35 wird heute vom belgischen Militär verwendet.</szBRDesc>
+		<szItemName>FN HP-35</szItemName>
+		<szLongItemName>FN Browning HP-35</szLongItemName>
+		<szItemDesc>Ursprünglich 1925 entworfen, wurde diese Pistole erst 1935 von Belgiens Armee in Dienst gestellt.</szItemDesc>
+		<szBRName>FN Browning HP-35</szBRName>
+		<szBRDesc>Ursprünglich 1925 entworfen, wurde diese Pistole erst 1935 von Belgiens Armee in Dienst gestellt. Sie war die einzige Seitenwaffe die von beiden Seiten im 2. Weltkrieg eingesetzt wurde. Die neueste Variante der HP-35 wird heute vom belgischen Militär verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>645</uiIndex>
 		<szItemName>FN BDA9</szItemName>
 		<szLongItemName>FN BDA9</szLongItemName>
-		<szItemDesc>Die FN BDA9 ist die 9mm Variante der verlässlichen Browning High Power.</szItemDesc>
+		<szItemDesc>Die FN BDA9 ist die 9mm Version der zuverlässigen Browning High-Power.</szItemDesc>
 		<szBRName>FN BDA9</szBRName>
-		<szBRDesc>Die FN BDA9 ist die 9mm Variante der verlässlichen Browning High Power.</szBRDesc>
+		<szBRDesc>Die FN BDA9 ist die 9mm Version der zuverlässigen Browning High-Power.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>646</uiIndex>
@@ -5226,7 +5228,7 @@
 		<szLongItemName>I.M.I. Galil AR</szLongItemName>
 		<szItemDesc>Dieses israelische Sturmgewehr wurde nach Plänen des Valmet M76 entwickelt.</szItemDesc>
 		<szBRName>I.M.I. Galil AR</szBRName>
-		<szBRDesc>Dieses israelische Sturmgewehr wurde nach Plänen des Valmet M76 entwickelt und stellt somit ein Klon eines Klons einer AK-47 dar, verwendet jedoch NATO Patronen M855.</szBRDesc>
+		<szBRDesc>Dieses israelische Sturmgewehr wurde nach Plänen des Valmet M76 entwickelt und ist somit die Kopie einer Kopie eines AK-47. Es verwendet jedoch M855 NATO-Patronen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>656</uiIndex>
@@ -5272,17 +5274,17 @@
 		<uiIndex>661</uiIndex>
 		<szItemName>HK23E</szItemName>
 		<szLongItemName>HK23E</szLongItemName>
-		<szItemDesc>Das Universal-Maschinengewehr HK23E funktioniert nach dem gleichen, zuverlässigen Prinzip wie das Sturmgewehr HK G3.</szItemDesc>
+		<szItemDesc>Das Universal-Maschinengewehr HK23E funktioniert nach dem gleichen, zuverlässigen Prinzip wie das Sturmgewehr G3.</szItemDesc>
 		<szBRName>HK23E</szBRName>
-		<szBRDesc>Das Universal-Maschinengewehr HK23E funktioniert nach dem gleichen, zuverlässigen Prinzip wie das Sturmgewehr HK G3. Aufgrund der hohen Kadenz von 850 Schuss/Minute erzielt der Schütze mehr Trefferlagen im Ziel. Feuermodus: S-3-F</szBRDesc>
+		<szBRDesc>Das Universal-Maschinengewehr HK23E funktioniert nach dem gleichen, zuverlässigen Prinzip wie das Sturmgewehr G3. Aufgrund der hohen Kadenz von 850 Schuss/min erzielt der Schütze mehr Trefferlagen im Ziel. Feuermodus: S-3-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>662</uiIndex>
 		<szItemName>HK416 14"</szItemName>
 		<szLongItemName>HK416 14"</szLongItemName>
-		<szItemDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung des AR-15/M16 und kombiniert die besten Eigenschaften von HK's G36 und Colt's M4.</szItemDesc>
+		<szItemDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung der M16/M4-Systeme und kombiniert die besten Eigenschaften von HK's G36 und COLT's M16/M4.</szItemDesc>
 		<szBRName>HK416 14"</szBRName>
-		<szBRDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung des AR-15/M16 und die Antwort auf die beiden gescheiterten Projekte XM29 und XM8. Es soll die Jahrzehnte alten M16- und M4-Systeme ersetzen. Seit Anfang 2007 wird es in Norwegen als Standardwaffe verwendet.</szBRDesc>
+		<szBRDesc>Nachdem das britische SA80/L85A1 erfolgreich von HECKLER &amp; KOCH modernisiert wurden, entschied man sich die Jahrzehnte alten M16/M4- Systeme des US-Militärs ebenfalls zu verbessern. Als erstes Land stellte es Norwegen Anfang 2007 offiziell in Dienst.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>663</uiIndex>
@@ -5297,24 +5299,24 @@
 		<szItemName>HK G36C</szItemName>
 		<szLongItemName>HK G36 Compakt</szLongItemName>
 		<szItemDesc>Das kleinste Modell aus der G36-Baureihe, ideal für Polizei und Anti-Terroreinheiten.</szItemDesc>
-		<szBRName>HK G36C</szBRName>
-		<szBRDesc>Für Einsatzwecke insbesondere im Bereich der Polizei müssen selbst bei kompakten Gewehren Zugeständnisse gemacht werden. Aus diesem Grund taten die Designer bei H&amp;K alles daran, Gewicht und Größe weiter zu minimieren. Feuermodus: S-2-F</szBRDesc>
+		<szBRName>HK G36 Compact</szBRName>
+		<szBRDesc>Für spezifische Einsatzwecke, insbesondere im Bereich der Polizei, müssen selbst bei kompakten Gewehren Zugeständnisse im Handling gemacht werden. H&amp;K war sich dessen bewusst und konnte Größe und Gewicht des G36K weiter reduzieren. Feuermodus: S-2-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>665</uiIndex>
-		<szItemName>HK G36E</szItemName>
-		<szLongItemName>HK G36E</szLongItemName>
-		<szItemDesc>Offizielle Bekanntgabe: Das G36E wird im einheitlichen Kaliber 5.56x45mm zur neuen Standardwaffe der spanischen Armee.</szItemDesc>
-		<szBRName>HK G36E</szBRName>
-		<szBRDesc>Offizielle Bekanntgabe: Das G36E wird im einheitlichen Kaliber 5.56x45mm zur neuen Standardwaffe der spanischen Armee. Feuermodus: S-2-F</szBRDesc>
+		<szItemName>HK G36 Tac</szItemName>
+		<szLongItemName>HK G36 Tactical</szLongItemName>
+		<szItemDesc>Das G36 'Tactical' wird im Vergleich zur herkömmlichen Export-Version mit einer Picatinny-Schiene ausgestattet.</szItemDesc>
+		<szBRName>HK G36 Tactical</szBRName>
+		<szBRDesc>Das G36 'Tactical' wurde als neue Infanteriewaffe von der spanischen Armee übernommen. Im Vergleich zur herkömmlichen Export-Version wird es mit einer Picatinny-Schiene ausgestattet. Feuermodus: S-2-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>666</uiIndex>
-		<szItemName>HK G36KE</szItemName>
-		<szLongItemName>HK G36KE</szLongItemName>
-		<szItemDesc>Das G36K (Export) ist das neuste Sturmgewehr der Baureihe. Durch seine kompakte Bauweise ist es vor allem im Nahkampf von Vorteil.</szItemDesc>
-		<szBRName>HK G36KE</szBRName>
-		<szBRDesc>Das G36K (Export) ist das neuste Sturmgewehr der Baureihe. Durch seine kompakte Bauweise ist es vor allem im Nahkampf von Vorteil. Feuermodus: S-F</szBRDesc>
+		<szItemName>HK G36K Tac</szItemName>
+		<szLongItemName>HK G36K Tactical</szLongItemName>
+		<szItemDesc>Das G36 'Kurz' mit integriertem Reflexvisier ist eine kompakte Version des G36 mit einem kürzeren Lauf und verkürztem Handschutz.</szItemDesc>
+		<szBRName>HK G36K Tactical</szBRName>
+		<szBRDesc>Das G36 'Kurz' mit integriertem Reflexvisier ist eine kompakte Version des G36 mit einem kürzeren Lauf und verkürztem Handschutz. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>667</uiIndex>
@@ -5344,9 +5346,9 @@
 		<uiIndex>670</uiIndex>
 		<szItemName>HK Mk.23</szItemName>
 		<szLongItemName>HK Mark 23 SOCOM</szLongItemName>
-		<szItemDesc>Die Mk.23 garantiert dem Schützen absolute Matchpräzision, dennoch erfüllt sie die strengsten Einsatzanforderungen, die jemals an eine Dienstwaffe gestellt wurden.</szItemDesc>
+		<szItemDesc>Die Mark 23 garantiert dem Schützen absolute Matchpräzision, dennoch erfüllt sie alle Anforderungen die an eine Dienstwaffe gestellt werden.</szItemDesc>
 		<szBRName>HK Mk.23 SOCOM</szBRName>
-		<szBRDesc>Die Mk.23 garantiert dem Schützen absolute Matchpräzision, dennoch erfüllt sie die strengsten Einsatzanforderungen, die jemals an eine Dienstwaffe gestellt wurden. Die extreme Präzision und Zuverlässigkeit machen sie zu einer sehr beliebten Dienstwaffe.</szBRDesc>
+		<szBRDesc>Die Mk.23 garantiert dem Schützen absolute Matchpräzision, dennoch erfüllt sie die strengsten Anforderungen, die jemals an eine Dienstwaffe gestellt wurden. Die hohe Präzision und Zuverlässigkeit machen sie zu einer sehr beliebten Dienstwaffe.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>671</uiIndex>
@@ -5354,21 +5356,21 @@
 		<szLongItemName>HK MP5/10A3</szLongItemName>
 		<szItemDesc>Diese Variante der MP5 im Kaliber 10x25mm stellt einen Kompromiss zwischen Kontrollierbarkeit und gesteigerter Feuerkraft dar.</szItemDesc>
 		<szBRName>HK MP5/10A3</szBRName>
-		<szBRDesc>Diese Variante der MP5 im Kaliber 10x25mm stellt einen Kompromiss zwischen Kontrollierbarkeit und gesteigerter Feuerkraft dar. Der größere Rückstoß wird durch die erhöhte Durchschlagskraft des schwereren Kalibers wieder ausgeglichen.</szBRDesc>
+		<szBRDesc>Diese Variante der MP5 im Kaliber 10x25mm stellt einen Kompromiss zwischen Kontrollier- barkeit und gesteigerter Feuerkraft dar. Der stärkere Rückstoß wird durch die größere Durchschlagskraft ausgeglichen - erste Wahl im Nahkampf.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>672</uiIndex>
-		<szItemName>OTs 39</szItemName>
-		<szLongItemName>OTs 39</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>OTs 39</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>OTs-39</szItemName>
+		<szLongItemName>Groza OTs-39</szLongItemName>
+		<szItemDesc>Das neueste MP-Modell für das Kaliber 7.62x25mm besitzt eine klappbare Schulterstütze sowie ein im Handschutz integriertes Lasermodul.</szItemDesc>
+		<szBRName>Groza OTs-39</szBRName>
+		<szBRDesc>Das neueste MP-Modell für das Kaliber 7.62x25mm besitzt eine klappbare Schulterstütze sowie ein im Handschutz integriertes Lasermodul.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>673</uiIndex>
 		<szItemName>HK MP7A1</szItemName>
 		<szLongItemName>HK MP7A1</szLongItemName>
-		<szItemDesc>Die MP7 ist eine perfekte 3 in 1 Lösung: Pistole, MP und Sturmgewehr. Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szItemDesc>
+		<szItemDesc>Die MP7 vereint die Vorteile von Pistole, MP und Sturmgewehr. Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szItemDesc>
 		<szBRName>HK MP7A1</szBRName>
 		<szBRDesc>Die MP7 vereint die Vorteile von Pistole, MP und Sturmgewehr. Seit 2002 kommt sie in der Bundeswehr zum Einsatz und erfreut sich schon jetzt großer Beliebtheit. Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szBRDesc>
 	</ITEM>
@@ -5394,15 +5396,15 @@
 		<szLongItemName>HK SL9SD</szLongItemName>
 		<szItemDesc>Das HECKLER &amp; KOCH SL9SD ist die schallgedämpfte Variante des SL8. Es eignet sich hervorragend für Scharfschützen.</szItemDesc>
 		<szBRName>HK SL9SD</szBRName>
-		<szBRDesc>Das HECKLER &amp; KOCH SL9SD ist die schallgedämpfte Variante des SL8. Es eignet sich hervorragend für Scharfschützen.</szBRDesc>
+		<szBRDesc>Das HECKLER &amp; KOCH SL9SD ist die schall- gedämpfte Variante des SL8. Es eignet sich hervorragend für Scharfschützen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>677</uiIndex>
 		<szItemName>HK UMP45</szItemName>
 		<szLongItemName>HK UMP45</szLongItemName>
-		<szItemDesc>Die UMP kombiniert hervorragende Leistung mit einfacher Handhabung und hohem Sicherheits- standard.</szItemDesc>
+		<szItemDesc>Die UMP kombiniert hervorragende Leistung mit einfacher Handhabung und hohem Sicherheitsstandard.</szItemDesc>
 		<szBRName>HK UMP45</szBRName>
-		<szBRDesc>Die UMP kombiniert hervorragende Leistung mit einfacher Handhabung und hohem Sicherheitsstandard. Das macht diese MP zu einer perfekten Waffe für militärische und polizeiliche Zwecke.</szBRDesc>
+		<szBRDesc>Die UMP kombiniert hervorragende Leistung mit einfacher Handhabung und hohem Sicherheits- standard. Das macht diese MP zu einer perfekten Waffe für militärische und polizeiliche Zwecke.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>678</uiIndex>
@@ -5448,9 +5450,9 @@
 		<uiIndex>683</uiIndex>
 		<szItemName>M1 Garand</szItemName>
 		<szLongItemName>Springfield M1 Garand</szLongItemName>
-		<szItemDesc>Der M1 Garand ist ein präzises und zuverlässiges Selbstladegewehr und war von 1936-57 das Standardgewehr der US-Army.</szItemDesc>
+		<szItemDesc>Der M1 Garand ist ein präzises und zuverlässiges Selbstladegewehr, es war von 1936-57 das Standardgewehr der US-Army.</szItemDesc>
 		<szBRName>M1 Garand</szBRName>
-		<szBRDesc>Dieser neue M1 Garand wird nach Originalplänen exclusiv von SPRINGFIELD gefertigt und mit einem echten Walnussschaft und lebenslanger Garantie geliefert. Dieses präzise und sehr zuverlässige Gewehr ist hervorragend für die Jagd geeignet.</szBRDesc>
+		<szBRDesc>Dieser neue M1 Garand wurde nach Originalplänen exclusiv von SPRINGFIELD gefertigt und mit einem echten Walnussschaft und lebenslanger Garantie geliefert. Dieses präzise und sehr zuverlässige Gewehr ist hervorragend für die Jagd geeignet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>684</uiIndex>
@@ -5474,7 +5476,7 @@
 		<szLongItemName>Metal Storm Surf Zone Weapon</szLongItemName>
 		<szItemDesc>Egal ob Dschungel oder Wüste, METAL STORM's Surf Zone ist immer zuverlässig. Sorgen Sie nur dafür das ein Elektroniker in der Nähe ist.</szItemDesc>
 		<szBRName>Surf Zone Weapon</szBRName>
-		<szBRDesc>Die neuste Waffe von METAL STORM: Funktionssicherheit in trockener/ nasser Umgebung - 6 Läufe - 72 Schuss - keine Mechanik - keine Fehlfunktion</szBRDesc>
+		<szBRDesc>Die neuste Waffe von METAL STORM: Funktionssicherheit in trockener/nasser Umgebung, 6 Läufe, 72 Schuss, keine Mechanik, keine Fehlfunktion!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>687</uiIndex>
@@ -5494,19 +5496,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>689</uiIndex>
-		<szItemName>Makarow PM</szItemName>
-		<szLongItemName>Makarow PM</szLongItemName>
-		<szItemDesc>Die PM basiert auf der Walther PP und wurde 1951 Ordonnanzwaffe der Roten Armee und ersetzte die Tokarew. Aus heutiger Sicht ist sie recht schwer und ungenau, aber robust und zuverlässig.</szItemDesc>
-		<szBRName>Makarow PM</szBRName>
-		<szBRDesc>Diese weltberühmte Pistole wurde von IMZ in Russland sowie in Bulgarien, China und der DDR hergestellt. Die qualitativ besten Makarows wurden in Suhl (Thüringen) gefertigt.</szBRDesc>
+		<szItemName>Makarov PM</szItemName>
+		<szLongItemName>Makarov PM</szLongItemName>
+		<szItemDesc>Die PM basiert auf der Walther PP und wurde 1951 Ordonnanzwaffe der Sowjetarmee und ersetzte die Tokarew. Aus heutiger Sicht ist sie recht schwer und ungenau, aber robust und zuverlässig.</szItemDesc>
+		<szBRName>Makarov PM</szBRName>
+		<szBRDesc>Diese weltberühmte Pistole wurde von IMZ in Russland sowie in Lizenz in anderen Ländern wie Bulgarien, China und der DDR hergestellt. Die qualitativ hochwertigsten Makarovs wurden in Suhl (Thüringen) gefertigt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>690</uiIndex>
-		<szItemName>Makarow PMM</szItemName>
-		<szLongItemName>Makarow PMM</szLongItemName>
-		<szItemDesc>Diese überarbeitete Variante der Makarow PM ging 1994 in Serie.</szItemDesc>
-		<szBRName>Makarow PMM</szBRName>
-		<szBRDesc>Diese überarbeitete Variante der Makarow PM ging 1994 in Serie.</szBRDesc>
+		<szItemName>Makarov PMM</szItemName>
+		<szLongItemName>Makarov PMM</szLongItemName>
+		<szItemDesc>Die überarbeitete Variante der Makarov PM ging 1994 in Serie. Wichtigste Neuerung ist die gesteigerte Magazinkapazität.</szItemDesc>
+		<szBRName>Makarov PMM</szBRName>
+		<szBRDesc>Die überarbeitete Variante der Makarov PM ging 1994 in Serie. Wichtigste Neuerung ist die gesteigerte Magazinkapazität.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>691</uiIndex>
@@ -5536,9 +5538,9 @@
 		<uiIndex>694</uiIndex>
 		<szItemName>MP-133</szItemName>
 		<szLongItemName>Baikal MP-133</szLongItemName>
-		<szItemDesc>Seit Jahren entwickelt und produziert BAIKAL exzellente Schrotflinten.</szItemDesc>
+		<szItemDesc>Seit Jahren entwickelt und produziert BAIKAL exzellente Schrotflinten. Dieses Modell eignet sich hervorragend für die Jagd und Polizei.</szItemDesc>
 		<szBRName>Baikal MP-133</szBRName>
-		<szBRDesc>Seit Jahren entwickelt und produziert BAIKAL exzellente Schrotflinten. Dieses Modell eignet sich hervorragend für die Jagd, Polizeibehörden und Selbstverteidigung.</szBRDesc>
+		<szBRDesc>Seit Jahren entwickelt und produziert BAIKAL exzellente Schrotflinten. Dieses Modell eignet sich hervorragend für die Jagd, Polizei und Selbstverteidigung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>695</uiIndex>
@@ -5696,49 +5698,49 @@
 		<uiIndex>714</uiIndex>
 		<szItemName>SG551</szItemName>
 		<szLongItemName>SIG SG551 SWAT</szLongItemName>
-		<szItemDesc>Das SG551 SWAT ist eine verkürzte Ausführung des SG550. Es eignet sich hervorragend für den Häuserkampf.</szItemDesc>
+		<szItemDesc>Das SG551 'SWAT' ist eine verkürzte Ausführung des SG550. Es eignet sich hervorragend für den Häuserkampf.</szItemDesc>
 		<szBRName>SIG SG551 SWAT</szBRName>
-		<szBRDesc>Das SG551 SWAT ist eine verkürzte Ausführung des SG550. Aufgrund der integrierten Trijicon ACOG Visiereinrichtung und des Mündungs- feuerdämpfers eignet es sich hervorragend für den Häuserkampf.</szBRDesc>
+		<szBRDesc>Das SG551 'SWAT' ist eine verkürzte Ausführung des SG550. Aufgrund der integrierten Trijicon ACOG Visiereinrichtung und des Mündungs- feuerdämpfers eignet es sich hervorragend für den Häuserkampf.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>715</uiIndex>
 		<szItemName>SG552</szItemName>
 		<szLongItemName>SIG SG552 Commando</szLongItemName>
-		<szItemDesc>Das SG552 Commando ist eine weitere verkürzte Variante und dient als Alternative für Einheiten die eine kompakte Waffe im Kaliber 5.56mm benötigen.</szItemDesc>
+		<szItemDesc>Das SG552 'Commando' ist eine weitere verkürzte Ausführung des SG550. Es eignet sich hervorragend für den Häuserkampf.</szItemDesc>
 		<szBRName>SIG SG552 Commando</szBRName>
-		<szBRDesc>Das SG552 Commando ist eine weitere verkürzte Variante und dient als Alternative für Einheiten die eine kompakte Waffe im Kaliber 5.56mm benötigen. Es wird komplett mit einer Trijicon ACOG Visiereinrichtung, Mündungsfeuer- dämpfer und Zweibein geliefert.</szBRDesc>
+		<szBRDesc>Das SG552 'Commando' ist eine weitere verkürzte Ausführung des SG550. Aufgrund der integrierten Trijicon ACOG Visiereinrichtung und des Mündungsfeuerdämpfers eignet es sich hervorragend für den Häuserkampf.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>716</uiIndex>
 		<szItemName>P210</szItemName>
 		<szLongItemName>SIG P210</szLongItemName>
-		<szItemDesc>Diese schweizerische Armeepistole von 1949 erfreut sich großer Beliebtheit bei Söldnern und Waffensammlern.</szItemDesc>
+		<szItemDesc>Diese Armeepistole von 1949 kommt aus der Schweiz und erfreut sich großer Beliebtheit bei Söldnern und Waffensammlern.</szItemDesc>
 		<szBRName>SIG P210</szBRName>
-		<szBRDesc>Die SIG P210 wurde von der Schweizerischen Industrie Gesellschaft (SIG) zwischen 1938-45 entwickelt. In 1949 wurde sie von der Schweizer Armee als Dienstpistole übernommen.</szBRDesc>
+		<szBRDesc>Die SIG P210 wurde von der Schweizer Industriegesellschaft (SIG) zwischen 1938-45 entwickelt. In 1949 wurde sie von der Schweizer Armee als Dienstpistole übernommen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>717</uiIndex>
-		<szItemName>P226 .40S&amp;W</szItemName>
-		<szLongItemName>SIG-Sauer P226 X-Five</szLongItemName>
-		<szItemDesc>Dank der Verwendung bester Materialien und der bewährten SIG-SAUER Verarbeitung sind die X-FIVE Modelle sicher, präzise und zuverlässig.</szItemDesc>
-		<szBRName>SIG-Sauer P226 X-Five</szBRName>
-		<szBRDesc>Die neue Behördenversion der P226 X-Five Special Operation wurde entwickelt, konzipiert und konstruiert für den besonderen Einsatz von Special Forces und SWAT-Teams. Sie zählt zu den hochwertigsten Dienstpistolen überhaupt.</szBRDesc>
+		<szItemName>P226R</szItemName>
+		<szLongItemName>SIG-Sauer P226R Tactical</szLongItemName>
+		<szItemDesc>Die P226R Tactical gilt als Maßstab für militärische Handfeuerwaffen und wird von den US Navy SEALs und den legendären Texas Rangers eingesetzt.</szItemDesc>
+		<szBRName>SIG-Sauer P226R Tactical</szBRName>
+		<szBRDesc>Die P226R Tactical besitzt einen verlängerten Gewindelauf und eine Picatinny-Schiene. Sie gilt als Maßstab für militärische Handfeuerwaffen und wird von den US Navy SEALs und den legendären Texas Rangers eingesetzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>718</uiIndex>
-		<szItemName>P229</szItemName>
-		<szLongItemName>SIG-Sauer P229</szLongItemName>
-		<szItemDesc>Die P229 kann mit einem neuartigen DAO Abzugsystem ausgestattet werden. Sie verfügt auch über die Picatinny-Schiene am Griffstück.</szItemDesc>
-		<szBRName>SIG-Sauer P229</szBRName>
-		<szBRDesc>Die P229 kann mit dem neuen DAK-Abzugssystem mit einzigartig leichtgängiger Abzugscharakteristik und konstant geringem Abzugsgewicht ausgestattet werden. Die Reduzierung des Abzugsgewichtes bei maximaler Sicherheit kommt vor allem weiblichen Beamten zu gute.</szBRDesc>
+		<szItemName>P229R</szItemName>
+		<szLongItemName>SIG-Sauer P229R</szLongItemName>
+		<szItemDesc>Zuverlässigkeit und leichtes Handling sind die Stärken der P226R. Sie besitzt den neuen DAK-Trigger mit einzigartiger Abzugscharakteristik.</szItemDesc>
+		<szBRName>SIG-Sauer P229R</szBRName>
+		<szBRDesc>Zuverlässigkeit und leichtes Handling sind die Stärken der P226R. Sie besitzt den neuen DAK-Trigger mit einzigartiger Abzugscharakteristik und konstantem Abzugsgewicht sowie eine Picatinny-Schiene am Griffstück.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>719</uiIndex>
-		<szItemName>SPC 2022</szItemName>
-		<szLongItemName>SIG-Sauer SPC 2022</szLongItemName>
-		<szItemDesc>Die SIG Pro SPC wurde nach den härtesten Testverfahren für Polizeipistolen zertifiziert. Sie ist eine der zuverlässigsten Handfeuerwaffen weltweit.</szItemDesc>
-		<szBRName>SIG-Sauer SPC 2022</szBRName>
-		<szBRDesc>Die SIG Pro SPC wurde nach den härtesten Testverfahren für Polizeipistolen zertifiziert. Sie ist eine der zuverlässigsten Handfeuerwaffen weltweit. Sie verfügt zukünftig über die Picatinny-Schiene am Griffstück.</szBRDesc>
+		<szItemName>SIG Pro SPC</szItemName>
+		<szLongItemName>SIG Pro SPC</szLongItemName>
+		<szItemDesc>Die SIG Pro SPC wurde nach den härtesten Testverfahren für Polizeipistolen zertifiziert. Sie ist eine der zuverlässigsten Dienstwaffen weltweit.</szItemDesc>
+		<szBRName>SIG Pro SPC</szBRName>
+		<szBRDesc>Die SIG Pro SPC wurde nach den härtesten Testverfahren für Polizeipistolen zertifiziert. Sie ist eine der zuverlässigsten Dienstwaffen weltweit und verfügt zukünftig über eine Picatinny-Schiene am Griffstück.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>720</uiIndex>
@@ -5752,9 +5754,9 @@
 		<uiIndex>721</uiIndex>
 		<szItemName>Sphinx 3000</szItemName>
 		<szLongItemName>Sphinx 3000</szLongItemName>
-		<szItemDesc>Die Sphinx 3000 wurde von Grund auf als Ganzmetall- Pistole entwickelt. Alle Hauptbestandteile werden mittels modernster CNC Maschinen aus dem Vollen gefräst.</szItemDesc>
+		<szItemDesc>Die Sphinx 3000 ist wie alles was aus der Schweiz kommt hervorragend verarbeitet, zuverlässig, präzise ... und sehr teuer!</szItemDesc>
 		<szBRName>Sphinx 3000</szBRName>
-		<szBRDesc>Die Sphinx 3000 wurde von Grund auf als Ganzmetall- Pistole entwickelt. Alle Hauptbestandteile werden mittels modernster CNC Maschinen aus dem Vollen gefräst.</szBRDesc>
+		<szBRDesc>Die Sphinx 3000 steht für eine hohe Verarbei- tungsqualität, Zuverlässigkeit und Top-Präzision. Da alle Hauptbestandteile mittels modernster CNC-Maschinen aus dem Vollen gefräst wurden (Ganz-Stahl-Pistole) ist sie nahezu unzerstörbar. Jedoch ist sie alles andere als billig!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>722</uiIndex>
@@ -5766,11 +5768,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>723</uiIndex>
-		<szItemName>SR-1 Gyurza</szItemName>
-		<szLongItemName>SR-1 Gyurza</szLongItemName>
-		<szItemDesc>Das von dieser Pistole verwendete Kaliber wurde speziell entwickelt um 30 Schichten Kevlar + 2.8mm Titan auf 100m zu durchschlagen.</szItemDesc>
-		<szBRName>SR-1 Gyurza</szBRName>
-		<szBRDesc>Die SR-1 basiert auf der Makarow und hat das stärkere Kaliber 9x21mm welches speziell entwickelt wurden um Kevlar+Titanplatten auf 100m zu durchschlagen. Obwohl für lange Zeit vergessenen, ist sie heute die bevorzugte Seitenwaffe der russischen Offiziere.</szBRDesc>
+		<szItemName>SR-1 Vektor</szItemName>
+		<szLongItemName>SR-1 Gyurza/Vektor</szLongItemName>
+		<szItemDesc>Das von der SR-1 'Gyurza/Vektor' verwendete Kaliber wurde speziell entwickelt um 30 Schichten Kevlar + 2.8mm Titan auf 100m zu durchschlagen.</szItemDesc>
+		<szBRName>SR-1 Vektor</szBRName>
+		<szBRDesc>Die SR-1 basiert auf der Makarov, hat jedoch das stärkere Kaliber 9x21mm welches speziell entwickelt wurden um Kevlar+Titanplatten auf 100m zu durchschlagen. Obwohl für lange Zeit vergessenen, ist sie heute die bevorzugte Seitenwaffe der russischen Offiziere und des FSB.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>724</uiIndex>
@@ -5800,9 +5802,9 @@
 		<uiIndex>727</uiIndex>
 		<szItemName>AUG Para</szItemName>
 		<szLongItemName>Steyr AUG Para</szLongItemName>
-		<szItemDesc>Eine gekürzte Variante des AUG im Kaliber 9mm.</szItemDesc>
+		<szItemDesc>Die MP-Version von STEYR basiert auf dem AUG. Wichtigste Änderung ist ein neuer gekürzter 9mm Lauf.</szItemDesc>
 		<szBRName>Steyr AUG Para</szBRName>
-		<szBRDesc>Eine gekürzte Variante des AUG im Kaliber 9mm.</szBRDesc>
+		<szBRDesc>Die MP-Version von STEYR basiert auf dem AUG. Wichtigste Änderung ist ein neuer gekürzter 9mm Lauf.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>728</uiIndex>
@@ -5848,25 +5850,25 @@
 		<uiIndex>733</uiIndex>
 		<szItemName>SV-98</szItemName>
 		<szLongItemName>SV-98</szLongItemName>
-		<szItemDesc>Im Jahre 1998 wurde das neue Scharfschützengewehr SV-98 an die russische Armee ausgeliefert. Es ersetzt die in die Jahre gekommene Dragunow.</szItemDesc>
+		<szItemDesc>Im Jahre 1998 wurde das neue Präzisionsgewehr SV-98 an die russische Armee ausgeliefert. Es ersetzt das in die Jahre gekommene Dragunov.</szItemDesc>
 		<szBRName>SV-98</szBRName>
-		<szBRDesc>Im Jahre 1998 wurde das neue Scharfschützengewehr SV-98 an die russische Armee ausgeliefert. Es ersetzt das in die Jahre gekommene Dragunow SWD.</szBRDesc>
+		<szBRDesc>Im Jahre 1998 wurde das neue Präzisions- gewehr SV-98 an die russische Armee ausgeliefert. Es ersetzt das in die Jahre gekommene Dragunov SVD.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>734</uiIndex>
-		<szItemName>SWDS</szItemName>
-		<szLongItemName>Dragunow SWDS</szLongItemName>
-		<szItemDesc>Das SWDS ist ein leichtes, sehr genaues Scharfschützengewehr. Diese Variante besitzt eine klappbare Schulterstütze.</szItemDesc>
-		<szBRName>Dragunow SWDS</szBRName>
-		<szBRDesc>Das SWD (Snaiperskaja Wintowka Dragunowa, lateinisch transliteriert auch 'SVD') wurde zu einem leichteren Modell SWDS modernisiert. Wie auch das 1963 eingeführte Original ist es ein sehr genaues, halbautomatisches Scharfschützengewehr.</szBRDesc>
+		<szItemName>SVDS</szItemName>
+		<szLongItemName>Dragunow SVDS</szLongItemName>
+		<szItemDesc>Das SVDS ist ein leichtes, sehr genaues Präzisionsgewehr. Diese Variante besitzt eine klappbare Schulterstütze.</szItemDesc>
+		<szBRName>Dragunow SVDS</szBRName>
+		<szBRDesc>Das SVD (Snaiperskaja Vintowka Dragunova) wurde leicht modifiziert und hat eine klappbare Schulterstütze. Wie auch das 1963 eingeführte Original ist es ein sehr genaues, halb-automatisches Präzisionsgewehr.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>735</uiIndex>
-		<szItemName>SWU</szItemName>
-		<szLongItemName>Dragunow SWU-A</szLongItemName>
-		<szItemDesc>Dieses Gewehr ist eine Bullpup- Variante des SWD und hat eine geringere Reichweite.</szItemDesc>
-		<szBRName>Dragunow SWU-A</szBRName>
-		<szBRDesc>Dieses Gewehr (Snaiperskaja Wintowka Ukorochennaja - Awtomat) ist eine kompaktere (Bullpup) Variante des SWD. Es hat auch eine geringere Reichweite und ist etwas leiser da es einen MF-Dämpfer sowie einen Schallunterdrücker besitzt.</szBRDesc>
+		<szItemName>SVU</szItemName>
+		<szLongItemName>Dragunov SVU</szLongItemName>
+		<szItemDesc>Dieses Gewehr ist eine Bullpup-Variante des SVD und hat eine geringere Reichweite.</szItemDesc>
+		<szBRName>Dragunov SVU</szBRName>
+		<szBRDesc>Dieses Gewehr (Snaiperskaja Vintowka Ukorochenaja) ist eine kompaktere (Bullpup) Variante des SVD. Es hat auch eine geringere Reichweite und ist etwas leiser da es einen MF-Dämpfer sowie einen Schallunterdrücker besitzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>736</uiIndex>
@@ -5890,7 +5892,7 @@
 		<szLongItemName>Tokarew TT-33</szLongItemName>
 		<szItemDesc>Die Tokarew ist eine Pistole der Roten Armee und Nachfolgerin des früheren Nagant-Revolver, mit ihr sollten auch einige Pistolen ersetzt werden.</szItemDesc>
 		<szBRName>Tokarew TT-33</szBRName>
-		<szBRDesc>Die Tokarew ist eine Pistole der Roten Armee und Nachfolgerin des früheren Nagant-Revolver, mit ihr sollten auch einige Pistolen ersetzt werden. Die TT-33 war bis 1951 Ordonanzpistole der Roten Armee, dann wurde sie durch die Makarow PM ersetzt.</szBRDesc>
+		<szBRDesc>Die Tokarew ist eine Pistole der Roten Armee und Nachfolgerin des früheren Nagant-Revolver, mit ihr sollten auch einige Pistolen ersetzt werden. Die TT-33 war bis 1951 Ordonanzpistole der Sowjetarmee, dann wurde sie durch die Makarov PM ersetzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>739</uiIndex>
@@ -5920,17 +5922,17 @@
 		<uiIndex>742</uiIndex>
 		<szItemName>M76</szItemName>
 		<szLongItemName>Valmet M76</szLongItemName>
-		<szItemDesc>Das Valmet M76, hergestellt aus hochwertigem Stahl und Kunststoff, zählt zu den Besten AK-47 Kopien weltweit.</szItemDesc>
+		<szItemDesc>Das finnische M76 Sturmgewehr, hergestellt aus hochwertigem Stahl und Kunststoff, zählt weltweit zu den besten AK-47 Kopien.</szItemDesc>
 		<szBRName>Valmet M76</szBRName>
-		<szBRDesc>Das Valmet M76, hergestellt aus hochwertigem Stahl und Kunststoff, zählt zu den Besten AK-47 Kopien weltweit.</szBRDesc>
+		<szBRDesc>Das finnische M76 Sturmgewehr, hergestellt aus hochwertigem Stahl und Kunststoff, zählt weltweit zu den besten AK-47 Kopien.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>743</uiIndex>
 		<szItemName>M82</szItemName>
 		<szLongItemName>Valmet M82</szLongItemName>
-		<szItemDesc>Diese finnische MP basiert auf dem Design der AKM-Baureihe, hat jedoch das 5.56mm Kaliber.</szItemDesc>
+		<szItemDesc>Dieses finnische Sturmgewehr basiert technisch auf der AK-Baureihe, hat jedoch das 5.56mm Kaliber.</szItemDesc>
 		<szBRName>Valmet M82</szBRName>
-		<szBRDesc>Diese finnische MP basiert auf dem Design der AKM-Baureihe, hat jedoch das 5.56mm Kaliber.</szBRDesc>
+		<szBRDesc>Dieses finnische Sturmgewehr basiert technisch auf der AK-Baureihe, hat jedoch das 5.56mm Kaliber.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>744</uiIndex>
@@ -5978,7 +5980,7 @@
 		<szLongItemName>HK XM8 Automatic</szLongItemName>
 		<szItemDesc>Wichtige Kriterien bei der Enwicklung dieser Waffe waren geringes Gewicht, Zuverlässigkeit, hohe Durchschlagskraft und Flexibilität beim Zubehör.</szItemDesc>
 		<szBRName>HK XM8 Automatic</szBRName>
-		<szBRDesc>Diese modular aufgebaute Waffe ist ein Gemeinschaftsprojekt der Firmen GENERAL DYNAMICS und HECKLER &amp; KOCH. Wichtige Kriterien bei der Enwicklung waren geringes Gewicht, Zuverlässigkeit, hohe Durchschlags- kraft und Flexibilität beim Zubehör.</szBRDesc>
+		<szBRDesc>Diese modular aufgebaute Waffe ist ein Gemeinschaftsprojekt der Firmen GENERAL DYNAMICS und HECKLER &amp; KOCH. Wichtige Kriterien bei der Enwicklung waren geringes Gewicht, Zuverlässigkeit, hohe Durchschlagskraft und Flexibilität beim Zubehör.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>750</uiIndex>
@@ -5986,7 +5988,7 @@
 		<szLongItemName>HK XM8 Baseline Karabiner</szLongItemName>
 		<szItemDesc>Wichtige Kriterien bei der Enwicklung dieser Waffe waren geringes Gewicht, Zuverlässigkeit, hohe Durchschlagskraft und Flexibilität beim Zubehör.</szItemDesc>
 		<szBRName>HK XM8 Baseline</szBRName>
-		<szBRDesc>Diese modular aufgebaute Waffe ist ein Gemeinschaftsprojekt der Firmen GENERAL DYNAMICS und HECKLER &amp; KOCH. Wichtige Kriterien bei der Enwicklung waren geringes Gewicht, Zuverlässigkeit, hohe Durchschlags- kraft und Flexibilität beim Zubehör.</szBRDesc>
+		<szBRDesc>Diese modular aufgebaute Waffe ist ein Gemeinschaftsprojekt der Firmen GENERAL DYNAMICS und HECKLER &amp; KOCH. Wichtige Kriterien bei der Enwicklung waren geringes Gewicht, Zuverlässigkeit, hohe Durchschlagskraft und Flexibilität beim Zubehör.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>751</uiIndex>
@@ -5994,7 +5996,7 @@
 		<szLongItemName>HK XM8 Compact Karabiner</szLongItemName>
 		<szItemDesc>Wichtige Kriterien bei der Enwicklung dieser Waffe waren geringes Gewicht, Zuverlässigkeit, hohe Durchschlagskraft und Flexibilität beim Zubehör.</szItemDesc>
 		<szBRName>HK XM8 Compact</szBRName>
-		<szBRDesc>Diese modular aufgebaute Waffe ist ein Gemeinschaftsprojekt der Firmen GENERAL DYNAMICS und HECKLER &amp; KOCH. Wichtige Kriterien bei der Enwicklung waren geringes Gewicht, Zuverlässigkeit, hohe Durchschlags- kraft und Flexibilität beim Zubehör.</szBRDesc>
+		<szBRDesc>Diese modular aufgebaute Waffe ist ein Gemeinschaftsprojekt der Firmen GENERAL DYNAMICS und HECKLER &amp; KOCH. Wichtige Kriterien bei der Enwicklung waren geringes Gewicht, Zuverlässigkeit, hohe Durchschlagskraft und Flexibilität beim Zubehör.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>752</uiIndex>
@@ -6014,27 +6016,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>754</uiIndex>
-		<szItemName>MP-233</szItemName>
-		<szLongItemName>Baikal MP-233</szLongItemName>
-		<szItemDesc>Das neueste Modell der Sport- und Jagdwaffenreihe aus dem Hause BAIKAL verbindet Tradition &amp; Fortschritt in einzigartiger Weise.</szItemDesc>
-		<szBRName>Baikal MP-233</szBRName>
+		<szItemName>MP-233B</szItemName>
+		<szLongItemName>Baikal MP-233B</szLongItemName>
+		<szItemDesc>Diese doppelläufige Flinte ist das neueste Modell der Sport- und Jagdwaffenreihe aus dem Hause BAIKAL.</szItemDesc>
+		<szBRName>Baikal MP-233B</szBRName>
 		<szBRDesc>Diese doppelläufige Flinte ist das neueste Modell der Sport- und Jagdwaffenreihe aus dem Hause BAIKAL. Sie kann an die individuellen Anforderungen des Schützen agepasst werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>755</uiIndex>
 		<szItemName>HK G36</szItemName>
 		<szLongItemName>HK G36</szLongItemName>
-		<szItemDesc>Das G36 wurde nach umfangreichen Erprobungen ab Jahresende 1997 als neue Infanteriewaffe in der Bundeswehr eingeführt. Es wird serienmäßig mit einem Reflexvisier geliefert.</szItemDesc>
+		<szItemDesc>Das G36 mit integriertem Reflexvisier wurde nach umfangreichen Erprobungen Ende 1997 als neue Infanteriewaffe von der Bundeswehr übernommen.</szItemDesc>
 		<szBRName>HK G36</szBRName>
-		<szBRDesc>Das G36 wurde nach umfangreichen Erprobungen ab Jahresende 1997 als neue Infanteriewaffe in der Bundeswehr eingeführt. Es wird serienmäßig mit einem Reflexvisier geliefert und besitzt eine S-2-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Das von HECKLER &amp; KOCH neu entwickelte Sturmgewehr G36 mit integriertem Reflexvisier wurde nach umfangreichen Erprobungen Ende 1997 als neue Infanteriewaffe von der Bundeswehr übernommen. Feuermodus: S-2-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>756</uiIndex>
 		<szItemName>HK G36K</szItemName>
 		<szLongItemName>HK G36 Kurz</szLongItemName>
-		<szItemDesc>Bei dieser Waffe kommen durchweg modernste Materialien wie glasfaserverstärkter Kunststoff zum Einsatz. Sie wird serienmäßig mit einem Reflexvisier geliefert.</szItemDesc>
+		<szItemDesc>Das G36 'Kurz' mit integriertem Reflexvisier ist eine kompakte Version des G36 mit einem kürzeren Lauf und verkürztem Handschutz.</szItemDesc>
 		<szBRName>HK G36 Kurz</szBRName>
-		<szBRDesc>Bei dieser Waffe kommen durchweg modernste Materialien wie glasfaserverstärkter Kunststoff zum Einsatz. Sie wird serienmäßig mit einem Reflexvisier geliefert und besitzt eine S-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Das G36 'Kurz' mit integriertem Reflexvisier ist eine kompakte Version des G36 mit einem kürzeren Lauf und verkürztem Handschutz. Es wurde in Zusammenarbeit mit Fallschirmjägern der Bundeswehr entwickelt. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>757</uiIndex>
@@ -6064,9 +6066,9 @@
 		<uiIndex>760</uiIndex>
 		<szItemName>.50 Beowulf</szItemName>
 		<szLongItemName>Alexander Arms .50 Beowulf</szLongItemName>
-		<szItemDesc>Das Kaliber .50 Beowulf Overmatch Plus Gewehr wird in den USA hergestellt und basiert auf dem AR-15/M16 System.</szItemDesc>
+		<szItemDesc>Das Kaliber .50 Beowulf Overmatch Plus Gewehr mit hartverchromten 16.5" Lauf garantiert eine hohe Zielgenauigkeit und große Durchschlagskraft.</szItemDesc>
 		<szBRName>.50 Beowulf</szBRName>
-		<szBRDesc>Das Kaliber .50 Beowulf Overmatch Plus Gewehr wird in den USA hergestellt und basiert auf dem AR-15/M16 System. Es besitzt nur Einzelfeuer, garantiert aber eine hohe Zielgenauigkeit &amp; Durchschlagskraft.</szBRDesc>
+		<szBRDesc>Das Kaliber .50 Beowulf Overmatch Plus Gewehr mit hartverchromten 16.5" Lauf wird in den USA hergestellt und basiert auf dem AR-15-System. Es besitzt nur Einzelfeuer, garantiert aber eine hohe Zielgenauigkeit und große Durchschlagskraft.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>761</uiIndex>
@@ -6080,33 +6082,33 @@
 		<uiIndex>762</uiIndex>
 		<szItemName>M16A1</szItemName>
 		<szLongItemName>Colt AR-15/M16A1</szLongItemName>
-		<szItemDesc>Dieses Sturmgewehr wurde Anfang der 60er Jahre von Eugene Stoner bei ARMALITE entwickelt und später von COLT verbessert und produziert.</szItemDesc>
+		<szItemDesc>Das in den 60er Jahren von Eugene Stoner bei ARMALITE entwickelte AR-15 mit 20-Zoll-Lauf war aufgrund seiner Störanfälligkeit wenig beliebt.</szItemDesc>
 		<szBRName>Colt AR-15/M16A1</szBRName>
-		<szBRDesc>Dieses Sturmgewehr wurde Anfang der 60er Jahre von Eugene Stoner bei ARMALITE entwickelt. Aus finanz. Gründen ging das Patent an COLT, hier wurde die Waffe weiter entwickelt. Ab 1963 wurde sie an die US-Army ausgeliefert - leider war das Gewehr sehr störanfällig.</szBRDesc>
+		<szBRDesc>Das AR-15 mit 20-Zoll-Lauf wurde in den 60er Jahren von Eugene Stoner bei ARMALITE entwickelt. Trotz der vielen Nachbesserungen durch COLT hat es seinen schlechten Ruf nie ganz verloren. Ende 1967 wurde es offiziell als M16A1 bei der US-Army eingeführt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>763</uiIndex>
 		<szItemName>XM177-E1</szItemName>
-		<szLongItemName>Colt XM177-E1</szLongItemName>
-		<szItemDesc>Die erste Kurzversion des M16-Sturmgewehres. Aufgrund seiner kompakten Bauweise wurde es von Special Forces in Vietnam favorisiert.</szItemDesc>
+		<szLongItemName>Colt XM177-E1 Commando</szLongItemName>
+		<szItemDesc>Das XM177-E1 Commando mit 10-Zoll-Lauf ist die 2. Generation des CAR-15 Commando und wurde ab 1966 an US Special Forces in Vietnam geliefert.</szItemDesc>
 		<szBRName>Colt XM177-E1</szBRName>
-		<szBRDesc>Anfangs zeigte das CAR-15 einige Probleme. Es war zu laut und das Mündungsfeuer war enorm. COLT konnte das Problem teilweise lösen und verwendete einen neuen, längeren Mündungsfeuerdämpfer. Dieses neue Modell wurde offiziell als XM177-E1 bezeichnet.</szBRDesc>
+		<szBRDesc>Das XM177-E1 Commando mit 10-Zoll-Lauf ist die 2. Generation des CAR-15 Commando, der ersten Karabinerversion des M16. Das starke Mündungsfeuer und die enorme Lautstärke konnten durch einen neu entwickelten MF-Dämpfer reduziert werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>764</uiIndex>
 		<szItemName>CMMG 7.3"</szItemName>
 		<szLongItemName>CMMG 7.3"</szLongItemName>
-		<szItemDesc>Diese sehr große Pistole basiert ebenfalls auf dem bekannten AR-15/M16 System und wird von CMMG (USA) gefertigt.</szItemDesc>
+		<szItemDesc>Diese sehr große Pistole mit 7.3" lauf basiert ebenfalls auf dem bekannten AR-15-System und wird von CMMG in den USA gefertigt.</szItemDesc>
 		<szBRName>CMMG 7.3"</szBRName>
-		<szBRDesc>Diese sehr große Pistole mit 7.3" Lauf basiert ebenfalls auf dem bekannten AR-15/M16 System. Sie werden die Desert Eagle und andere Großkaliber- Revolver vergessen, wenn Sie einmal mit ihr geschossen haben - versprochen!</szBRDesc>
+		<szBRDesc>Diese sehr große Pistole mit 7.3" Lauf basiert ebenfalls auf dem bekannten AR-15-System und wird von CMMG in den USA gefertigt. Sie werden die 'Desert Eagle' und andere Großkaliber-Revolver vergessen, wenn Sie einmal mit ihr geschossen haben - versprochen!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>765</uiIndex>
 		<szItemName>OA-93 6.5"</szItemName>
 		<szLongItemName>Olympic Arms 93 6.5"</szLongItemName>
-		<szItemDesc>Diese sehr große Pistole basiert ebenfalls auf dem bekannten AR-15/M16 System und wird seit mehr als 10 Jahren von OLYMPIC ARMS (USA) gefertigt.</szItemDesc>
+		<szItemDesc>Diese sehr große Pistole basiert ebenfalls auf dem bekannten AR-15-System und wird seit mehr als 10 Jahren von OLYMPIC ARMS (USA) gefertigt.</szItemDesc>
 		<szBRName>OA-93 6.5"</szBRName>
-		<szBRDesc>Diese sehr große Pistole mit 6.5" Lauf basiert ebenfalls auf dem bekannten AR-15/M16 System und wird seit mehr als 10 Jahren von OLYMPIC ARMS (USA) gefertigt.</szBRDesc>
+		<szBRDesc>Diese sehr große Pistole mit 6.5" Lauf basiert ebenfalls auf dem bekannten AR-15-System und wird seit mehr als 10 Jahren von OLYMPIC ARMS (USA) gefertigt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>766</uiIndex>
@@ -6120,32 +6122,32 @@
 		<uiIndex>767</uiIndex>
 		<szItemName>Grizzly Mk. I</szItemName>
 		<szLongItemName>L.A.R. Grizzly Mark I</szLongItemName>
-		<szItemDesc>Im Jahre 1984 konzipierte L.A.R. eine vergrößerte Selbstladepistole auf dem bewährten M1911A1 System.</szItemDesc>
+		<szItemDesc>In 1984 entwickelte L.A.R. eine auf dem bewährten M1911-System basierende vergrößerte Selbstladepistole im Kaliber .45 Winchester Magnum.</szItemDesc>
 		<szBRName>L.A.R. Grizzly Mk. I</szBRName>
-		<szBRDesc>Im Jahre 1984 konzipierte L.A.R. eine vergrößerte Selbstladepistole auf dem bewährten M1911A1 System. Sie nutzt die Patrone im Kaliber .45WM, die seinerzeit für die WILDEY entwickelt wurde. Sie hat einen 6.5" Lauf und wird brüniert geliefert.</szBRDesc>
+		<szBRDesc>In 1984 entwickelte L.A.R. eine auf dem bewährten M1911-System basierende vergrößerte Selbstladepistole. Sie nutzt die Patrone im Kaliber .45WM, die seinerzeit für die 'Wildey' entwickelt wurde. Sie hat einen 6.5" Lauf und wird brüniert geliefert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>768</uiIndex>
 		<szItemName>Wildey Survivor</szItemName>
 		<szLongItemName>Wildey Survivor</szLongItemName>
-		<szItemDesc>Die Wildey Magnum Pistole wurde durch den Film 'Death Wish 3' mit Charles Bronson weltberühmt. Sie ist in verschiedenen Magnum-Kalibern erhältlich.</szItemDesc>
+		<szItemDesc>Wildey J. Moore entwickelte in den 70er Jahren diese Pistole im Kaliber .475 Magnum als Jagdwaffe zum Schutz für Jäger.</szItemDesc>
 		<szBRName>Wildey Survivor</szBRName>
-		<szBRDesc>Die Wildey Magnum Pistole wurde durch den Film 'Death Wish 3' mit Charles Bronson weltberühmt. Sie ist in verschiedenen Magnum-Kalibern erhältlich.</szBRDesc>
+		<szBRDesc>Wildey J. Moore entwickelte in den 70er Jahren diese Pistole im Kaliber .475 Magnum als Jagdwaffe zum Schutz für Jäger. Sie wurde weltweit durch den Film 'Death Wish 3' mit Charles Bronson berühmt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>769</uiIndex>
 		<szItemName>C7CT</szItemName>
-		<szLongItemName>Colt Canada C7CT</szLongItemName>
-		<szItemDesc>Das C7 Custom Tactical ist die Scharfschützen- Ausführung des C7A2. Es wird vorwiegend von Spezialeinheiten verwendet.</szItemDesc>
-		<szBRName>Colt Canada C7CT</szBRName>
-		<szBRDesc>Das C7 Custom Tactical ist die Scharfschützen- Ausführung des C7A2. Es wird vorwiegend von Spezialeinheiten verwendet.</szBRDesc>
+		<szLongItemName>Diemaco C7CT</szLongItemName>
+		<szItemDesc>Das C7 'Custom Tactical' mit integriertem Zweibein und Schalldämpfer ist die Präzisions-Ausführung des C7A2.</szItemDesc>
+		<szBRName>Diemaco C7CT</szBRName>
+		<szBRDesc>Das von DIEMACO/ COLT CANADA gefertigte C7 'Custom Tactical' mit integriertem Zweibein und Schalldämpfer ist die Präzisions-Ausführung des C7A2. Lieferung inkl. robustem Zielfernrohr.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>770</uiIndex>
 		<szItemName>Contender</szItemName>
 		<szLongItemName>Thompson Contender Encore</szLongItemName>
 		<szItemDesc>Das Optimum in Sachen Einzellader Pistolen. Hervorragende Verarbeitung und großartige Präzision.</szItemDesc>
-		<szBRName>Contender</szBRName>
+		<szBRName>Thompson Contender</szBRName>
 		<szBRDesc>Das Optimum in Sachen Einzellader Pistolen. Hervorragende Verarbeitung und großartige Präzision.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6176,9 +6178,9 @@
 		<uiIndex>774</uiIndex>
 		<szItemName>VSSK</szItemName>
 		<szLongItemName>VSSK Vychlop</szLongItemName>
-		<szItemDesc>Dieses russische SSG ist neu auf dem Markt und wird komplett mit Zielfernrohr, Schalldämpfer und Zweibein geliefert. Es feuert Unterschall-Munition.</szItemDesc>
+		<szItemDesc>Dieses russische SSG ist neu auf dem Markt und wurde komplett mit Zielfernrohr, Schalldämpfer und Zweibein geliefert.</szItemDesc>
 		<szBRName>VSSK Vychlop</szBRName>
-		<szBRDesc>Dieses russische SSG ist neu auf dem Markt und wird komplett mit Zielfernrohr, Schalldämpfer und Zweibein geliefert. Es feuert Unterschall- Munition.</szBRDesc>
+		<szBRDesc>Dieses russische Präzisionsgewehr ist neu auf dem Markt und wird komplett mit Zielfernrohr, Schalldämpfer und Zweibein geliefert. Es feuert Unterschall-Munition.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>775</uiIndex>
@@ -6192,17 +6194,17 @@
 		<uiIndex>776</uiIndex>
 		<szItemName>Karabiner 98k</szItemName>
 		<szLongItemName>Mauser Karabiner 98k</szLongItemName>
-		<szItemDesc>Dieser Karabiner ist die auf 60cm Lauflänge gekürzte Variante des Gewehr 98. Bis heute wurden weltweit ca. 100 Mio. Stück Modell 98 gefertigt.</szItemDesc>
+		<szItemDesc>Dieser Karabiner ist die auf 600mm Lauflänge gekürzte Variante des Gewehr 98. Bis heute wurden weltweit ca. 100 Mio. Stück Modell 98 gefertigt.</szItemDesc>
 		<szBRName>Mauser Karabiner 98k</szBRName>
-		<szBRDesc>Dieser Karabiner ist die auf 60cm Lauflänge gekürzte Variante des Gewehr 98. In den 60er Jahren verhalfen Großwildjäger in Indien und Afrika dem Gewehr 98 zu seinem legendären Ruhm. Bestellen Sie noch heute die limitierte Jubiläums-Edition von 1998 bei uns!</szBRDesc>
+		<szBRDesc>Dieser Karabiner ist die auf 600mm Lauflänge gekürzte Variante des Gewehr 98. In den 60er Jahren verhalfen Großwildjäger in Indien und Afrika dem Gewehr 98 zu seinem legendären Ruhm. Bestellen Sie noch heute die limitierte Jubiläums-Edition von 1998 bei uns!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>777</uiIndex>
 		<szItemName>Benelli R-1</szItemName>
 		<szLongItemName>Benelli R-1</szLongItemName>
-		<szItemDesc>Das neue BENELLI Jagdgewehr R-1 hat einen 24" Lauf und nutzt 'ComfortTech' um den Rückstoß zu dämpfen.</szItemDesc>
+		<szItemDesc>Das neue BENELLI Jagdgewehr R-1 hat einen 24-Zoll-Lauf Lauf und nutzt 'ComfortTech' um den Rückstoß zu dämpfen.</szItemDesc>
 		<szBRName>Benelli R-1</szBRName>
-		<szBRDesc>Das neue BENELLI Jagdgewehr R-1 hat einen 24" Lauf und nutzt 'ComfortTech' um den Rückstoß zu dämpfen. Mit keinem anderen Gewehr können Sie den zweiten Schuss schneller abgeben.</szBRDesc>
+		<szBRDesc>Das neue BENELLI Jagdgewehr R-1 hat einen 24-Zoll-Lauf und nutzt 'ComfortTech' um den Rückstoß zu dämpfen. Mit keinem anderen Gewehr können Sie den zweiten Schuss schneller abgeben.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>778</uiIndex>
@@ -6210,7 +6212,7 @@
 		<szLongItemName>Blaser R93 LRS2</szLongItemName>
 		<szItemDesc>Mit dem neu entwickelten Radialbundverschluss erfolgt das Repetieren extrem schnell und geradlinig ohne Drehbewegung im Verschluss.</szItemDesc>
 		<szBRName>Blaser R93 LRS2</szBRName>
-		<szBRDesc>Die BLASER R93 LRS2 ist die neueste und vollendete Interpretation des R93 Matchgewehrs für Profischützen. Alle Elemente sind auf absolute Stabilität und Zuverlässigkeit ausgerichtet. High-End Präzision, auch mit Standard-Munition, war die Maxime bei der Konstruktion.</szBRDesc>
+		<szBRDesc>Die R93 LRS2 von BLASER ist die neueste Interpretation des R93 Matchgewehres für Profischützen. Alle Elemente sind auf absolute Stabilität und Zuverlässigkeit ausgelegt, Top-Präzision, auch mit Standard-Munition, war die Maxime bei der Konstruktion.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>779</uiIndex>
@@ -6264,17 +6266,17 @@
 		<uiIndex>785</uiIndex>
 		<szItemName>AKMSU</szItemName>
 		<szLongItemName>AKMSU</szLongItemName>
-		<szItemDesc>Das AKMSU ist ein AK/M + abklappbare Schulterstütze + gekürzter Lauf.</szItemDesc>
+		<szItemDesc>Das AKMSU ist eine kompaktere Variante des AKMS. Es besitzt einen drastisch gekürzten Lauf, einen Daumenlochgriff und eine klappbare Schulterstütze.</szItemDesc>
 		<szBRName>AKMSU</szBRName>
-		<szBRDesc>Das AKMSU ist ein AK/M + abklappbare Schulterstütze + gekürzter Lauf. Diese Varianten kommt zusätzlich mit einem vorderen Daumenlochgriff daher.</szBRDesc>
+		<szBRDesc>Das AKMSU ist eine kompaktere Variante des AKMS. Es besitzt einen drastisch gekürzten Lauf, einen Daumenlochgriff und eine klappbare Schulterstütze. Es wurde entsprechend den Bedürfnissen von Fallschirmjägern und Spezialeinheiten entwickelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>786</uiIndex>
-		<szItemName>Elite 10mm</szItemName>
+		<szItemName>Delta Elite</szItemName>
 		<szLongItemName>Colt Delta Elite</szLongItemName>
-		<szItemDesc>Die Delta Elite basiert auf der Pistole Colt M1911A1, wurde jedoch angepaßt für das Kaliber 10 mm Auto. Sie ist im Design und in der Funktionsweise der M1911 ähnlich. Die Patrone ist  jedoch wesentlich kraftvoller als die .45ACP.</szItemDesc>
+		<szItemDesc>Die Delta Elite basiert auf der Pistole M1911A1, wurde jedoch in das Kaliber 10mm AUTO konvertiert. Sie ist in Design &amp; Funktionsweise der M1911 ähnlich, jedoch wesentlich kraftvoller.</szItemDesc>
 		<szBRName>Colt Delta Elite</szBRName>
-		<szBRDesc>Die Delta Elite war die erste erfolgreiche Pistole, die das 10 mm Auto Kaliber nutzt, nachdem die krankgesagte Bren Ten an dieser Patrone scheiterte. FBI Mitarbeiterinnen beschwerten sich auch bei der Elite über den zu harten Rückschlag.</szBRDesc>
+		<szBRDesc>Die Delta Elite basiert auf der Pistole M1911A1, wurde jedoch in das Kaliber 10mm AUTO konvertiert. Sie war die erste erfolgreiche Pistole, die das 10mm AUTO Kaliber nutzt, nachdem die krankgesagte Bren-Ten daran scheiterte.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>787</uiIndex>
@@ -6336,57 +6338,57 @@
 		<uiIndex>794</uiIndex>
 		<szItemName>MP5/40A3</szItemName>
 		<szLongItemName>HK MP5/40A3</szLongItemName>
-		<szItemDesc>Diese MP5 schließt die Marktlücke zwischen 9mm und .45ACP mit Pravour und hoher Feuerrate.</szItemDesc>
+		<szItemDesc>Die HK MP5/40A3 schließt die Marktlücke zwischen 9mm und .45ACP mit Pravour und hoher Feuerkraft.</szItemDesc>
 		<szBRName>HK MP5/40A3</szBRName>
-		<szBRDesc>Der Klassiker unter den SMGs ist jetzt auch im weit verbreiteten .40SW erhältlich.</szBRDesc>
+		<szBRDesc>Der Klassiker unter den MPs ist ab sofort auch im weit verbreiteten Kaliber .40S&amp;W erhältlich. Sie schließt die Marktlücke zwischen 9mm und .45ACP mit Pravour und hoher Feuerkraft.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>795</uiIndex>
 		<szItemName>M468</szItemName>
 		<szLongItemName>Barrett M468</szLongItemName>
-		<szItemDesc>Das erste Sturmgewehr aus dem Hause Barrett. Bitte anschnallen und Sitze in aufrechte Position bringen.</szItemDesc>
+		<szItemDesc>Das neue Sturmgewehr M468 von BARRETT mit hartverchromten 16-Zoll-Lauf im neuen Kaliber 6.8mm SPC garantiert hohe Präzision und Langlebigkeit.</szItemDesc>
 		<szBRName>Barrett M468</szBRName>
-		<szBRDesc>Wir denken, dass Ronny Barretts kleinste Schöpfung nicht weniger tödlich als seine großen Brüder sind. ÜBerzeugen Sie sich selbst.</szBRDesc>
+		<szBRDesc>Vielleicht nicht gerade das was Sie erwarten wenn Sie den Namen BARRETT hören, aber wir versichern Ihnen, dass dieses Gewehr die gewohnt hohe Qualität &amp; Präzision wie alle anderen Barrett-Gewehre aufweist.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>796</uiIndex>
 		<szItemName>M4A3</szItemName>
 		<szLongItemName>Bushmaster M4A3</szLongItemName>
-		<szItemDesc>Der Wolf im Schafspelz wäre eine passende Metapher.</szItemDesc>
+		<szItemDesc>Das neue Sturmgewehr M4A3 von BUSHMASTER mit hartverchromten 16-Zoll-Lauf im neuen Kaliber 6.8mm SPC garantiert hohe Präzision und Langlebigkeit.</szItemDesc>
 		<szBRName>Bushmaster M4A3</szBRName>
-		<szBRDesc>Bushmasters M4 im 6.8 SPC Kaliber punktet in jeder Hinsicht.</szBRDesc>
+		<szBRDesc>Das neue Sturmgewehr M4A3 von BUSHMASTER mit hartverchromten 16-Zoll-Lauf im neuen Kaliber 6.8mm SPC garantiert hohe Präzision und Langlebigkeit. Als extra Zugabe erhalten Sie von uns die Militär-/Polizei-Variante mit Dauerfeuer-Abzugsgruppe - ohne Aufpreis!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>797</uiIndex>
 		<szItemName>XCR-1</szItemName>
 		<szLongItemName>Robarms XCR-1</szLongItemName>
-		<szItemDesc>Das Robarms XCR-1 ist eine weitere Variante des AR15, hier im Kaliber 6.8mm Remington SPC mit klappbarer Schulterstütze.</szItemDesc>
+		<szItemDesc>Das Robarms XCR-1 ist eine weitere Variante des AR15, hier im Kaliber 6.8mm SPC mit klappbarer Schulterstütze.</szItemDesc>
 		<szBRName>Robarms XCR-1</szBRName>
-		<szBRDesc>Das Robarms XCR-1 ist eine weitere Variante des AR15, hier im Kaliber 6.8mm Remington SPC mit klappbarer Schulterstütze.</szBRDesc>
+		<szBRDesc>Das Robarms XCR-1 ist eine weitere Variante des AR15, hier im Kaliber 6.8mm SPC mit klappbarer Schulterstütze.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>798</uiIndex>
 		<szItemName>Luger P08</szItemName>
-		<szLongItemName>Luger P08</szLongItemName>
-		<szItemDesc>Die Pistole 08 war aufwendig in der Herstellung und empfindlich gegenüber Verschmutzungen. Deshalb wurde sie im 2. Weltkrieg durch die Walther P38 ersetzt.</szItemDesc>
-		<szBRName>Luger P08</szBRName>
-		<szBRDesc>Die Parabellumpistole Modell 1900 im Kaliber 7.65mm wurde ständig von Georg Luger verbessert. Das neue Modell im Kaliber 9mm Para wurde im Jahre 1908 von der dt. Reichswehr als P08 eingeführt. Sie wurde von DWM in Erfurt, Suhl und Oberndorf gefertigt.</szBRDesc>
+		<szLongItemName>Parabellum P08</szLongItemName>
+		<szItemDesc>Die Luger P 08 war als Dienstwaffe eher ungeeignet, da sie zu empfindlich und kompliziert war. Sie wurde im 2. Weltkrieg durch die Walther P38 ersetzt.</szItemDesc>
+		<szBRName>Parabellum P08</szBRName>
+		<szBRDesc>Das dt. kaiserliche Heer stellte 1908 eine von Luger weiterentwickelte Version der 'Parabellum Model 1900' als 'Pistole 08' in Dienst. Diese weltberühmte Waffe wurde von DWM in Berlin und Erfurt, SIMSON in Suhl und MAUSER in Oberndorf hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>799</uiIndex>
-		<szItemName>P226</szItemName>
-		<szLongItemName>SIG-Sauer P226</szLongItemName>
-		<szItemDesc>Das DAO Abzugssystem ist besonders sicher, da nach jedem Schuss die Waffe automatisch entspannt ist. Schnelle Schussbereitschaft ist trotzdem garantiert.</szItemDesc>
-		<szBRName>SIG-Sauer P226</szBRName>
-		<szBRDesc>Die P226 in Stainless Steel mit DAO Abzugssystem ist besonders sicher, da nach jedem Schuss die Waffe automatisch entspannt ist. Schnelle Schussbereitschaft ist trotzdem garantiert.</szBRDesc>
+		<szItemName>P226 SAS</szItemName>
+		<szLongItemName>SIG-Sauer P226 SAS</szLongItemName>
+		<szItemDesc>Diese Version der P226 im Kaliber 9x19mm hat abgerundete Kanten, es wird so ein verstecktes Tragen unter der Kleidung erleichtert.</szItemDesc>
+		<szBRName>SIG-Sauer P226 SAS</szBRName>
+		<szBRDesc>Zuverlässigkeit und leichtes Handling sind die Stärken der P226 SAS. Ein Edelstahl-Schlitten und das SIG Anti-Snag System (für verstecktes Tragen) sind die Verbesserungen gegenüber der Standard-Version.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>800</uiIndex>
-		<szItemName>P226 .40S&amp;W</szItemName>
-		<szLongItemName>SIG-Sauer P226</szLongItemName>
-		<szItemDesc>Das DAO Abzugssystem ist besonders sicher, da nach jedem Schuss die Waffe automatisch entspannt ist. Schnelle Schussbereitschaft ist trotzdem garantiert.</szItemDesc>
-		<szBRName>SIG-Sauer P226</szBRName>
-		<szBRDesc>Die P226 in Stainless Steel mit DAO Abzugssystem ist besonders sicher, da nach jedem Schuss die Waffe automatisch entspannt ist. Schnelle Schussbereitschaft ist trotzdem garantiert.</szBRDesc>
+		<szItemName>P226 SAS</szItemName>
+		<szLongItemName>SIG-Sauer P226 SAS</szLongItemName>
+		<szItemDesc>Diese Version der P226 im Kaliber .40 S&amp;W hat abgerundete Kanten, es wird so ein verstecktes Tragen unter der Kleidung erleichtert.</szItemDesc>
+		<szBRName>SIG-Sauer P226 SAS</szBRName>
+		<szBRDesc>Zuverlässigkeit und leichtes Handling sind die Stärken der P226 SAS. Ein Edelstahl-Schlitten und das SIG Anti-Snag System (für verstecktes Tragen) sind die Verbesserungen gegenüber der Standard-Version.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>801</uiIndex>
@@ -7422,10 +7424,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>930</uiIndex>
-		<szItemName>4.6x30 Mag PB</szItemName>
-		<szLongItemName>4.6x30mm Magazin, PB</szLongItemName>
+		<szItemName>4.6x30 Mag XPB</szItemName>
+		<szLongItemName>4.6x30mm Magazin, XPB</szLongItemName>
 		<szItemDesc>Diese Spezialmunition wird von der HK UCP &amp; MP7 verwendet. Das Geschoss ist ungefähr so groß wie ein Gewehrprojektil und hat die gleiche Durchschlagskraft! Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szItemDesc>
-		<szBRName>4.6x30 Mag PB #20</szBRName>
+		<szBRName>4.6x30 Mag XPB #20</szBRName>
 		<szBRDesc>Diese Spezialmunition wird von der HK UCP &amp; MP7 verwendet. Das Geschoss ist ungefähr so groß wie ein Gewehrprojektil und hat die gleiche Durchschlagskraft! Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8077,11 +8079,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1012</uiIndex>
-		<szItemName>gr. SD</szItemName>
-		<szLongItemName>gr. Schalldämpfer</szLongItemName>
-		<szItemDesc>Dieser große Schalldämpfer kann an den meisten Scharfschützen- und Sturmgewehren angebracht werden. Um eine maximale Wirkung zu erzielen, sollte speziele Unterschall-Mun. verwendet werden.</szItemDesc>
-		<szBRName>gr. Schalldämpfer</szBRName>
-		<szBRDesc>Dieser große Schalldämpfer kann an den meisten Scharfschützen- und Sturmgewehren angebracht werden. Um eine maximale Wirkung zu erzielen, sollte speziele Unterschall-Mun. verwendet werden.</szBRDesc>
+		<szItemName>SD-2</szItemName>
+		<szLongItemName>KAC Schalldämpfer-2</szLongItemName>
+		<szItemDesc>Dieser große Schalldämpfer kann an MPs und Sturmgewehre (7.62mm, 5.45mm, 5.56mm, 6.8mm) angebracht werden. Verwenden Sie speziele Unterschall-Munition!</szItemDesc>
+		<szBRName>KAC SD-2</szBRName>
+		<szBRDesc>Dieser große Schalldämpfer kann an MPs und Sturmgewehre (7.62mm, 5.45mm, 5.56mm, 6.8mm) angebracht werden. Um eine maximale Wirkung zu erzielen, verwenden Sie bitte spezielle Unterschall-Munition.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1013</uiIndex>
@@ -8364,9 +8366,9 @@
 		<uiIndex>1048</uiIndex>
 		<szItemName>.40 Mag HS</szItemName>
 		<szLongItemName>.40 S&amp;W Magazin, HS</szLongItemName>
-		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szItemDesc>
+		<szItemDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>.40 Mag HS</szBRName>
-		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Sie liefert kontrollierte Expansion für leistungsfähigen Energietransfer und großer Mannstoppwirkung.</szBRDesc>
+		<szBRDesc>Die FEDERAL Hydra-Shok Patronen kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1049</uiIndex>
@@ -8437,7 +8439,7 @@
 		<szItemName>5.56x45 Mag</szItemName>
 		<szLongItemName>5.56x45mm Magazin</szLongItemName>
 		<szItemDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szItemDesc>
-		<szBRName>5.56x45 Mag</szBRName>
+		<szBRName>5.56x45 Mag #42</szBRName>
 		<szBRDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8460,9 +8462,9 @@
 		<uiIndex>1060</uiIndex>
 		<szItemName>5.56x45 Match</szItemName>
 		<szLongItemName>5.56x45mm Magazin, Match</szLongItemName>
-		<szItemDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 120m.</szItemDesc>
+		<szItemDesc>Professionelle Schützen verwenden für kurzläufige Waffen im Kaliber 5.56mm die Mk.262 Patrone mit ihrem 77gr. SIERRA MatchKing Projektil. Diese Patrone wird aufgrund ihrer hervorragenden ballistischen Eigenschaften (+120m) bevorzugt.</szItemDesc>
 		<szBRName>5.56x45 Mag Match</szBRName>
-		<szBRDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 120m.</szBRDesc>
+		<szBRDesc>Professionelle Schützen verwenden für kurzläufige Waffen im Kaliber 5.56mm die Mk.262 Patrone mit ihrem 77gr. SIERRA MatchKing Projektil. Diese Patrone wird aufgrund ihrer hervorragenden ballistischen Eigenschaften (+120m) bevorzugt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1061</uiIndex>
@@ -8490,11 +8492,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1064</uiIndex>
-		<szItemName>P239</szItemName>
-		<szLongItemName>SIG-Sauer P239</szLongItemName>
-		<szItemDesc>Small Size in den Abmessungen, Full Size in ihrer Leistung als Dienstpistole. Das Kraftpaket bietet hervorragendes Handling und perfekte Kontrolle im Schuss.</szItemDesc>
-		<szBRName>SIG-Sauer P239</szBRName>
-		<szBRDesc>Small Size in den Abmessungen, Full Size in ihrer Leistung als Dienstpistole. Das Kraftpaket in den starken Kalibern 9mm, .40 S&amp;W und .357SIG zeichnet sich durch hervorragendes Handling und perfekte Kontrolle im Schuss aus.</szBRDesc>
+		<szItemName>P239 SAS</szItemName>
+		<szLongItemName>SIG-Sauer P239 SAS</szLongItemName>
+		<szItemDesc>Diese Version der P226 im Kaliber 9x19mm hat abgerundete Kanten, es wird so ein verstecktes Tragen unter der Kleidung erleichtert.</szItemDesc>
+		<szBRName>SIG-Sauer P239 SAS</szBRName>
+		<szBRDesc>Diese Pistole ist kompakter als die P229, Zuverlässigkeit und leichtes Handling sind ihre Stärken. Ein Edelstahl-Schlitten und das SIG Anti-Snag System (für verstecktes Tragen) sind die Verbesserungen gegenüber der Standard-Version.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1065</uiIndex>
@@ -8502,23 +8504,23 @@
 		<szLongItemName>Steyr AUG-A3</szLongItemName>
 		<szItemDesc>Die neuste Version des berühmten Steyr AUG besitzt Picatinny-Schienen an Stelle eines festen Visiers und Handgriff.</szItemDesc>
 		<szBRName>Steyr AUG-A3</szBRName>
-		<szBRDesc>Die neuste Version des berühmten Steyr AUG besitzt Picatinny-Schienen an Stelle eines festen Visiers und Handgriff. Es ist erstmals auch im neuen Kaliber 6.8mm Remington SPC erhältlich.</szBRDesc>
+		<szBRDesc>Die neuste Version des berühmten Steyr AUG besitzt Picatinny-Schienen an Stelle eines festen Visiers und Handgriff. Es ist erstmals auch im neuen Kaliber 6.8x43mm SPC erhältlich.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1066</uiIndex>
 		<szItemName>HK416 10"</szItemName>
 		<szLongItemName>HK416 10"</szLongItemName>
-		<szItemDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung des AR-15/M16 und kombiniert die besten Eigenschaften von HK's G36 und Colt's M4.</szItemDesc>
+		<szItemDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung der M16/M4-Systeme und kombiniert die besten Eigenschaften von HK's G36 und COLT's M16/M4.</szItemDesc>
 		<szBRName>HK416 10"</szBRName>
-		<szBRDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung des AR-15/M16 und die Antwort auf die beiden gescheiterten Projekte XM29 und XM8. Es soll die Jahrzehnte alten M16- und M4-Systeme ersetzen.</szBRDesc>
+		<szBRDesc>Nachdem das britische SA80/L85A1 erfolgreich von HECKLER &amp; KOCH modernisiert wurde, entschied man sich die Jahrzehnte alten M16/M4- Systeme des US-Militärs ebenfalls zu verbessern. Das HK416 ist das vielversprechende Ergebnis.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1067</uiIndex>
-		<szItemName>M12</szItemName>
+		<szItemName>Beretta M12</szItemName>
 		<szLongItemName>Beretta M12</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Aufgrund ihres integrierten vorderen Handgriffs ist diese MP leicht zu handhaben. Sie wurde lange Zeit von der italienischen Polizei benutzt.</szItemDesc>
 		<szBRName>Beretta M12</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Seit 1961 wurde diese MP von Italiens Polizei und Militär benutzt. Da sie sehr zuverlässig und robust ist wurde sie auch von anderen Staaten übernommen. Aufgrund ihres integrierten vorderen Handgriffs ist diese MP leicht zu handhaben.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1068</uiIndex>
@@ -8532,17 +8534,17 @@
 		<uiIndex>1069</uiIndex>
 		<szItemName>Galatz</szItemName>
 		<szLongItemName>I.M.I. Galil Sniper</szLongItemName>
-		<szItemDesc>Das I.M.I. Galatz (Galil Sniper) ist ein Scharfschützengewehr das Mitte der 1980er in Israel entwickelt wurde. Es ist eine modifizierte Version des Galil AR im Kaliber 7.62x51mm NATO.</szItemDesc>
+		<szItemDesc>Das I.M.I. Galatz (Galil Sniper) ist ein Präzisionsgewehr das Mitte der 80er Jahre in Israel entwickelt wurde.</szItemDesc>
 		<szBRName>I.M.I. Galil Sniper</szBRName>
-		<szBRDesc>Das I.M.I. Galatz (Galil Sniper) ist ein Scharfschützengewehr das Mitte der 1980er in Israel entwickelt wurde. Es ist eine modifizierte Version des Galil AR im Kaliber 7.62x51mm NATO.</szBRDesc>
+		<szBRDesc>Das I.M.I. Galatz (Galil Sniper) ist ein Präzisions- gewehr das Mitte der 80er Jahre in Israel entwickelt wurde. Es ist eine modifizierte Version des Galil AR im Kaliber 7.62x51mm NATO.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1070</uiIndex>
 		<szItemName>HK416 16"</szItemName>
 		<szLongItemName>HK416 16"</szLongItemName>
-		<szItemDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung des AR-15/M16 und kombiniert die besten Eigenschaften von HK's G36 und Colt's M4.</szItemDesc>
+		<szItemDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung der M16/M4-Systeme und kombiniert die besten Eigenschaften von HK's G36 und COLT's M16/M4.</szItemDesc>
 		<szBRName>HK416 16"</szBRName>
-		<szBRDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung des AR-15/M16 und die Antwort auf die beiden gescheiterten Projekte XM29 und XM8. Es soll die Jahrzehnte alten M16- und M4-Systeme ersetzen.</szBRDesc>
+		<szBRDesc>Nachdem das britische SA80/L85A1 erfolgreich von HECKLER &amp; KOCH modernisiert wurde, entschied man sich die Jahrzehnte alten M16/M4- Systeme des US-Militärs ebenfalls zu verbessern. Das HK416 ist das vielversprechende Ergebnis.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1071</uiIndex>
@@ -8556,25 +8558,25 @@
 		<uiIndex>1072</uiIndex>
 		<szItemName>HK416 20"</szItemName>
 		<szLongItemName>HK416 20"</szLongItemName>
-		<szItemDesc>Die Match-Variante des HK416 mit 20"-Lauf eignet sich hervorragend für den ambitionierten Schützen.</szItemDesc>
+		<szItemDesc>Die Match-Variante des HK416 mit 20-Zoll-Lauf eignet sich hervorragend für den ambitionierten Schützen.</szItemDesc>
 		<szBRName>HK416 20"</szBRName>
-		<szBRDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung des AR-15/M16 und soll die Jahrzehnte alten M16- und M4-Systeme ersetzen. Die Match- Variante des HK416 mit 20"-Lauf eignet sich hervorragend für den ambitionierten Schützen.</szBRDesc>
+		<szBRDesc>Nachdem das britische SA80/L85A1 erfolgreich von HECKLER &amp; KOCH modernisiert wurde, entschied man sich die Jahrzehnte alten M16/M4- Systeme des US-Militärs ebenfalls zu verbessern. Hier die Match-Version mit 20-Zoll-Lauf für den ambitionierten Schützen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1073</uiIndex>
 		<szItemName>HK UCP</szItemName>
 		<szLongItemName>HK UCP</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Die UCP steht im direkten Wettbewerb mit der FN Five-seveN und soll nach erfolgreichen Tests die zukünftige Seitenwaffe der Bundeswehr werden.</szItemDesc>
 		<szBRName>HK UCP</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Die UCP wird im Auftrag der Bundeswehr als zukünftige Seitenwaffe entwickelt. Wir von BR können Ihnen erste Vorserienmodelle liefern. Vorsorglich weisen wir darauf hin, dass die Pistolen in ihrer Ausstattung von der späteren Serienfertigung abweichen können.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1074</uiIndex>
 		<szItemName>HEZI SM-1</szItemName>
 		<szLongItemName>HEZI SM-1</szLongItemName>
-		<szItemDesc>Diese neue israelische Waffe im Bullpup-Design, ist nichts anderes als ein M1 Karabiner im neuen Gewand.</szItemDesc>
+		<szItemDesc>Diese neue israelische Waffe im Bullpup-Design, ist nichts anderes als ein M1 Carbine im neuen Gewand.</szItemDesc>
 		<szBRName>HEZI SM-1</szBRName>
-		<szBRDesc>Diese neue israelische Waffe im Bullpup-Design, ist nichts anderes als ein M1 Karabiner im neuen Gewand.</szBRDesc>
+		<szBRDesc>Diese neue israelische Waffe im Bullpup-Design, ist nichts anderes als ein M1 Carbine im neuen Gewand.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1075</uiIndex>
@@ -8588,17 +8590,17 @@
 		<uiIndex>1076</uiIndex>
 		<szItemName>Shrike</szItemName>
 		<szLongItemName>Ares M4 Shrike</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Das M4 Sturmgewehr wurde durch ARES zu einem leichten Maschinengewehr aufgerüstet. Viel Spaß!</szItemDesc>
 		<szBRName>Ares M4 Shrike</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Das M4 Sturmgewehr wurde durch ARES zu einem leichten Maschinengewehr aufgerüstet. Aufgrund des integrierten vorderen Handgriffs lässt es sich im Dauerfeuer besser kontrollieren.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1077</uiIndex>
-		<szItemName>HK 417</szItemName>
-		<szLongItemName>HK 417</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>HK 417</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>HK417 12"</szItemName>
+		<szLongItemName>HK417 12"</szLongItemName>
+		<szItemDesc>Das HK417 Sturmgewehr ist eine Weiterentwicklung der M16/M4-Systeme und kombiniert die besten Eigenschaften von HK's G36 und COLT's M16/M4.</szItemDesc>
+		<szBRName>HK417 12"</szBRName>
+		<szBRDesc>Nachdem das britische SA80/L85A1 erfolgreich von HECKLER &amp; KOCH modernisiert wurde, entschied man sich die Jahrzehnte alten M16/M4- Systeme des US-Militärs ebenfalls zu verbessern. Das HK417 ist das vielversprechende Ergebnis.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1078</uiIndex>
@@ -8648,7 +8650,7 @@
 		<szItemName>Polizei-Weste</szItemName>
 		<szLongItemName>Hongkong Polizei-Weste</szLongItemName>
 		<szItemDesc>Diese Weste mit unterschiedlich großen Taschen kann vielseitig genutzt werden. Vier davon sind für 40mm Granaten geeignet.</szItemDesc>
-		<szBRName>Hongkong Polizei-Weste</szBRName>
+		<szBRName>HK Polizei-Weste</szBRName>
 		<szBRDesc>Diese Weste mit unterschiedlich großen Taschen kann vielseitig genutzt werden. Vier davon sind für 40mm Granaten geeignet.</szBRDesc>
 	</ITEM>
 	<ITEM>
