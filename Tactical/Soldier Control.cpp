@@ -7029,7 +7029,17 @@ void BeginSoldierClimbFence( SOLDIERTYPE *pSoldier )
 {
 	INT8							bDirection;
 
-	if ( FindFenceJumpDirection( pSoldier, pSoldier->sGridNo, pSoldier->bDirection, &bDirection ) )
+	// Make sure we hop the correct fence to follow our path!
+	if (pSoldier->usPathIndex < pSoldier->usPathDataSize)
+	{
+		bDirection = (INT8) pSoldier->usPathingData[ pSoldier->usPathIndex];
+	}
+	else
+	{
+		bDirection = pSoldier->bDirection;
+	}
+
+	if ( FindFenceJumpDirection( pSoldier, pSoldier->sGridNo, bDirection, &bDirection ) )
 	{
 		pSoldier->sTempNewGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, (UINT16)DirectionInc(bDirection ) );
 		pSoldier->fDontChargeTurningAPs = TRUE;

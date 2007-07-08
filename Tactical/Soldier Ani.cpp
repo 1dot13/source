@@ -626,6 +626,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				// Only in realtime...
 				//if ( !( gTacticalStatus.uiFlags & INCOMBAT ) )
 				// This has to be here to make guys continue along fence path
+#if 0
 				if ( pSoldier->sGridNo == pSoldier->sFinalDestination )
 				{
 					if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != gAnimControl[ pSoldier->usUIMovementMode ].ubEndHeight )
@@ -637,20 +638,15 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					}
 					else
 					{
-						SoldierGotoStationaryStance( pSoldier );
+						//SoldierGotoStationaryStance( pSoldier );
 
 						// Set UI Busy
 						UnSetUIBusy( pSoldier->ubID );
 
-						// 0verhaul
-						// I hate this kludgy stuff.  We need to simplify the animation system so that things can be centralized
-						// and handled properly.
-						pSoldier->usPathIndex++;
-						// Kludge done
-
-						return( TRUE );
+						//return( TRUE );
 					}
 				}
+#endif
 				break;
 
 			case 445:
