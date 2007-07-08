@@ -641,6 +641,13 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 						// Set UI Busy
 						UnSetUIBusy( pSoldier->ubID );
+
+						// 0verhaul
+						// I hate this kludgy stuff.  We need to simplify the animation system so that things can be centralized
+						// and handled properly.
+						pSoldier->usPathIndex++;
+						// Kludge done
+
 						return( TRUE );
 					}
 				}
