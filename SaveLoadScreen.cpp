@@ -845,6 +845,7 @@ void		GetSaveLoadScreenUserInput()
 	static BOOLEAN	fWasCtrlHeldDownLastFrame = FALSE;
 
 	GetCursorPos(&MousePos);
+    ScreenToClient(ghWindow, &MousePos); // In window coords!
 
 	//if we are going to be instantly leaving the screen, dont draw the numbers
 	if( gfLoadGameUponEntry )

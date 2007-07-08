@@ -555,7 +555,7 @@ void MSYS_DeleteRegionFromList(MOUSE_REGION *region)
 //======================================================================================================
 //	MSYS_UpdateMouseRegion
 //
-//	Searches the list for the highest priority region and updates it's info. It also dispatches
+//	Searches the list for the highest priority region and updates its info. It also dispatches
 //	the callback functions
 //
 void MSYS_UpdateMouseRegion(void)

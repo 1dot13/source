@@ -912,8 +912,8 @@ BOOLEAN CheckIfGameCdromIsInCDromDrive()
       // ATE: These are ness. due to reference counting
       // in showcursor(). I'm not about to go digging in low level stuff at this
       // point in the game development, so keep these here, as this works...
-      ShowCursor(TRUE);
-      ShowCursor(TRUE);
+//      ShowCursor(TRUE);
+//      ShowCursor(TRUE);
       ShutdownWithErrorBox( sString );
 
       //DoTester( );

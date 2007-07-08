@@ -1613,6 +1613,7 @@ void HandleIMPQuizKeyBoard( void )
 	BOOLEAN fSkipFrame = FALSE;
 
 	GetCursorPos(&MousePos);
+    ScreenToClient(ghWindow, &MousePos); // In window coords!
 
   while( ( DequeueEvent(&InputEvent) == TRUE )  )
   {

@@ -20,7 +20,7 @@
 			OutputDirectory="C:\Program Files\Jagged Alliance 2 1.13"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets=".\ja2_2005Express.vsprops"
+			InheritedPropertySheets=".\ja2_2005Express.vsprops;.\ja2_2005ExpressDebug.vsprops"
 			UseOfMFC="0"
 			CharacterSet="0"
 			>
@@ -371,10 +371,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Res\resource.h"
-				>
-			</File>
-			<File
 				RelativePath=".\SaveLoadGame.h"
 				>
 			</File>
@@ -405,11 +401,35 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath=".\Console\Console.rc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCResourceCompilerTool"
+						AdditionalIncludeDirectories=".\Res"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCResourceCompilerTool"
+						AdditionalIncludeDirectories=".\Res"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\Res\ja2.rc"
 				>
 			</File>
 			<File
 				RelativePath=".\Res\jagged3.ico"
+				>
+			</File>
+			<File
+				RelativePath=".\Res\resource.h"
 				>
 			</File>
 		</Filter>

@@ -3170,7 +3170,13 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve3");
 					}
 					break;
 				case '{':
-					if( CHEATER_CHEAT_LEVEL() )
+					if (_KeyDown( ALT) )
+					{
+					}
+					else if (_KeyDown( CTRL) )
+					{
+					}
+					else if( CHEATER_CHEAT_LEVEL() )
 					{
 						gpAR->ubMercs = 0;
 						fResetAutoResolve = TRUE;

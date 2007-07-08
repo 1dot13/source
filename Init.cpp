@@ -712,8 +712,8 @@ void HandleLaserLockResult( BOOLEAN fSuccess )
 
 		sprintf( zString, "%S", gzLateLocalizedString[56] );
 
-    ShowCursor(TRUE);
-    ShowCursor(TRUE);
+//    ShowCursor(TRUE);
+//    ShowCursor(TRUE);
 		ShutdownWithErrorBox( zString );
 	}
 }

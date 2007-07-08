@@ -107,8 +107,8 @@ extern void DequeueAllKeyBoardEvents();
 
 extern BOOLEAN   gfKeyState[256];    // TRUE = Pressed, FALSE = Not Pressed
 
-extern UINT16    gusMouseXPos;       // X position of the mouse on screen
-extern UINT16    gusMouseYPos;       // y position of the mouse on screen
+extern INT16    gusMouseXPos;        // X position of the mouse on screen
+extern INT16    gusMouseYPos;        // y position of the mouse on screen
 extern BOOLEAN   gfLeftButtonState;  // TRUE = Pressed, FALSE = Not Pressed
 extern BOOLEAN   gfRightButtonState; // TRUE = Pressed, FALSE = Not Pressed
 

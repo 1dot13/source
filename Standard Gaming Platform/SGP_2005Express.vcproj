@@ -20,7 +20,7 @@
 			OutputDirectory="Debug"
 			IntermediateDirectory="Debug"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_2005Express.vsprops"
+			InheritedPropertySheets="..\ja2_2005Express.vsprops;..\ja2_2005ExpressDebug.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"

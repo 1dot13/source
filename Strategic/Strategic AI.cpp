@@ -4558,9 +4558,9 @@ void InvestigateSector( UINT8 ubSectorID )
 					}
 					else if( pSector->ubNumElites )
 					{
-						pSector->ubNumTroops--;
+						pSector->ubNumElites--;
 						ubNumToSend--;
-						ubTroops[i]++;
+						ubElites[i]++;
 						ubTotal++;
 					}
 					else

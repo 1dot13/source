@@ -5883,6 +5883,7 @@ void HandleSliderBarClickCallback( MOUSE_REGION *pRegion, INT32 iReason )
 
 		// find the x,y on the slider bar
 	  GetCursorPos(&MousePos);
+      ScreenToClient(ghWindow, &MousePos); // In window coords!
 
 		// get the subregion sizes
 		sSizeOfEachSubRegion = ( INT16 )( ( INT32 )( Y_SIZE_OF_PERSONNEL_SCROLL_REGION - SIZE_OF_PERSONNEL_CURSOR ) / ( INT32 )( iNumberOfItems  ) );
@@ -6736,6 +6737,7 @@ void HandlePersonnelKeyboard( void )
 	POINT  MousePos;
 
 	GetCursorPos(&MousePos);
+    ScreenToClient(ghWindow, &MousePos); // In window coords!
 
   while (DequeueEvent(&InputEvent) == TRUE)
   {

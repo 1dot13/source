@@ -2726,6 +2726,9 @@ BOOLEAN LoadSavedGame( UINT8 ubSavedGameID )
 	if ( (gTacticalStatus.uiFlags & INCOMBAT) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Setting attack busy count to 0 from load" ) );
+#ifdef DEBUG_ATTACKBUSY
+		OutputDebugString( "Resetting attack busy due to load game.\n");
+#endif
 		gTacticalStatus.ubAttackBusyCount = 0;
 	}
 	
@@ -2850,6 +2853,9 @@ BOOLEAN LoadSavedGame( UINT8 ubSavedGameID )
 		// fix lingering attack busy count problem on loading saved game by resetting a.b.c
 		// if we're not in combat.
 		gTacticalStatus.ubAttackBusyCount = 0;
+#ifdef DEBUG_ATTACKBUSY
+		OutputDebugString( "Resetting attack busy due to game load.\n");
+#endif
 	}
 
 	// fix squads

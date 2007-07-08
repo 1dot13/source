@@ -1053,6 +1053,7 @@ void MapScreenMessageScrollBarCallBack( MOUSE_REGION *pRegion, INT32 iReason )
 		{
 			// where is the mouse?
 			GetCursorPos( &MousePos );
+            ScreenToClient(ghWindow, &MousePos); // In window coords!
 
 			ubMouseYOffset = (UINT8) MousePos.y - MESSAGE_SCROLL_AREA_START_Y;
 
@@ -1774,7 +1775,7 @@ void HandleExitsFromMapScreen( void )
 					break;
 
 				case MAP_EXIT_TO_TACTICAL:
-					SetCurrentWorldSector( sSelMapX, sSelMapY, ( UINT8 )iCurrentMapSectorZ );
+					SetCurrentWorldSector( sSelMapX, sSelMapY, ( INT8 )iCurrentMapSectorZ );
 					break;
 
 				case MAP_EXIT_TO_OPTIONS:

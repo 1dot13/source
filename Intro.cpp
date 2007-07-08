@@ -276,6 +276,7 @@ void		GetIntroScreenUserInput()
 
 
 	GetCursorPos(&MousePos);
+    ScreenToClient(ghWindow, &MousePos); // In window coords!
 
 	while( DequeueEvent( &Event ) )
 	{

@@ -792,6 +792,7 @@ void		GetOptionsScreenUserInput()
 	POINT  MousePos;
 
 	GetCursorPos(&MousePos);
+    ScreenToClient(ghWindow, &MousePos); // In window coords!
 
 	while( DequeueEvent( &Event ) )
 	{

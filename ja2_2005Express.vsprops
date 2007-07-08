@@ -6,7 +6,7 @@
 	>
 	<Tool
 		Name="VCCLCompilerTool"
-		AdditionalIncludeDirectories="..\Utils;..\TileEngine;..\TacticalAI;..\Tactical;..\Strategic;&quot;..\Standard Gaming Platform&quot;;..\Res;..\lua;..\Laptop;..\Editor;..\;$(NOINHERIT)"
+		AdditionalIncludeDirectories="..\Utils;..\TileEngine;..\TacticalAI;..\Tactical;..\Strategic;&quot;..\Standard Gaming Platform&quot;;..\Res;..\lua;..\Laptop;..\Editor;..\;..\Console;$(NOINHERIT)"
 		PreprocessorDefinitions="JA2;CINTERFACE;XML_STATIC"
 		Detect64BitPortabilityProblems="false"
 	/>

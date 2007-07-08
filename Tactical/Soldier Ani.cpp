@@ -2106,6 +2106,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 							if ( pSoldier->usPathIndex == pSoldier->usPathDataSize )
 							{
+pSoldier->usPathIndex = pSoldier->usPathDataSize;
 								// Stop, don't do anything.....
 							}
 							else

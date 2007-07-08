@@ -1419,6 +1419,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 	BOOLEAN						fGoodCheatLevelKey = FALSE;
 
 	GetCursorPos(&MousePos);
+    ScreenToClient(ghWindow, &MousePos); // In window coords!
 
 	GetMouseMapPos( &usMapPos );
 
@@ -1578,6 +1579,9 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 							// Decrease global busy  counter...
 							gTacticalStatus.ubAttackBusyCount = 0;
+#ifdef DEBUG_ATTACKBUSY
+							OutputDebugString( "Resetting attack busy due to keyboard interrupt.\n");
+#endif
 
 							guiPendingOverrideEvent = LU_ENDUILOCK;
 							UIHandleLUIEndLock( NULL );
@@ -2875,6 +2879,14 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 #endif
 
 			case 'l':
+				if (fAlt )
+				{
+
+				}
+				else if (fCtrl)
+				{
+				}
+				else
 				/*
 				if( fAlt )
 				{
@@ -5207,6 +5219,9 @@ void EscapeUILock( )
 
 	// Decrease global busy  counter...
 	gTacticalStatus.ubAttackBusyCount = 0;
+#ifdef DEBUG_ATTACKBUSY
+	OutputDebugString( "Resetting attack busy due to escape of UI lock.\n");
+#endif
 
 	guiPendingOverrideEvent = LU_ENDUILOCK;
 	UIHandleLUIEndLock( NULL );

@@ -4674,6 +4674,7 @@ UINT32 HandleMapUI( )
 								 sX = ( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[bSelectedDestChar].usSolID]  ) % MAP_WORLD_X );
 								 sY = ( GetLastSectorIdInCharactersPath( &Menptr[gCharactersList[bSelectedDestChar].usSolID]  ) / MAP_WORLD_X );
 								 GetCursorPos(&MousePos);
+								 ScreenToClient(ghWindow, &MousePos); // In window coords!
 								 RestoreBackgroundForMapGrid( sX, sY );
 								// fMapPanelDirty = TRUE;
 							 }
@@ -4976,6 +4977,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 //		while( DequeueSpecificEvent( &InputEvent, KEY_DOWN ) )		// doesn't work for some reason
   {
 		GetCursorPos(&MousePos);
+	    ScreenToClient(ghWindow, &MousePos); // In window coords!
 
 		// HOOK INTO MOUSE HOOKS
 		switch(InputEvent.usEvent)
@@ -5354,7 +5356,10 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 
 				case '\\':
 					#ifdef JA2TESTVERSION
-						if( fCtrl )
+						if (fAlt)
+						{
+						}
+						else if( fCtrl )
 						{
 							DumpItemsList();
 						}
@@ -6261,6 +6266,7 @@ BOOLEAN GetMouseMapXY( INT16 *psMapWorldX, INT16 *psMapWorldY )
 
 
 	GetCursorPos(&MousePos);
+    ScreenToClient(ghWindow, &MousePos); // In window coords!
 
   if(fZoomFlag)
 	{
@@ -8504,6 +8510,7 @@ BOOLEAN IsCursorWithInRegion(INT16 sLeft, INT16 sRight, INT16 sTop, INT16 sBotto
 
 	// get cursor position
 	GetCursorPos(&MousePos);
+    ScreenToClient(ghWindow, &MousePos); // In window coords!
 
 	// is it within region?
 

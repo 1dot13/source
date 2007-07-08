@@ -3,6 +3,7 @@
 // Used by ja2.rc
 //
 #define IDI_ICON1                       113
+#define IDI_ICON2                       115
 
 // Next default values for new objects
 // 
@@ -16,8 +17,12 @@
 #endif
 
 
-
-
+#define ID_ABOUT						116
+#define IDD_ABOUT						117
+#define ID_COPY							118
+#define ID_PASTE						119
+#define ID_EXIT_CONSOLE					120
+#define IDR_POPUP_MENU					130
  
 
 

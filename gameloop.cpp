@@ -31,7 +31,7 @@
 	#include "PreBattle Interface.h"
 #endif
 
-#include "Console.h"
+//#include "Console.h"
 #include "Lua Interpreter.h"
 
 // rain
@@ -190,7 +190,8 @@ void GameLoop(void)
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: get mouse position");
 	GetCursorPos(&MousePos);
-	
+    ScreenToClient(ghWindow, &MousePos); // In window coords!
+
 	// Hook into mouse stuff for MOVEMENT MESSAGES
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: get mouse hook");
 	MouseSystemHook(MOUSE_POS, (UINT16)MousePos.x ,(UINT16)MousePos.y ,_LeftButtonDown, _RightButtonDown);
@@ -352,6 +353,7 @@ void GameLoop(void)
 	}
 #endif
 
+#if 0
 	if( gGameSettings.fOptions[ TOPTION_LOW_CPU_USAGE ] == TRUE )
 	{
 		// decrease CPU load patch from MTX (http://www.ja-galaxy-forum.com/board/ubbthreads.php/ubb/showflat/Number/102405/page/1#Post102405)
@@ -367,6 +369,7 @@ void GameLoop(void)
 		if( sleeptime > 0 )
 			Sleep(sleeptime);
 	}
+#endif
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop done");
 } 

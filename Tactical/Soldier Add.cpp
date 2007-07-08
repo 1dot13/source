@@ -1163,7 +1163,15 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 			{
 				sGridNo = FindGridNoFromSweetSpotWithStructDataUsingGivenDirectionFirst( pSoldier, STANDING, pSoldier->sInsertionGridNo, 12, &ubCalculatedDirection, FALSE, pSoldier->ubInsertionDirection );
         // ATE: Override insertion direction
-				pSoldier->ubInsertionDirection = ubCalculatedDirection;
+				if (sGridNo == NOWHERE)
+				{
+					// Well, we gotta place this soldier/vehicle somewhere.  Just use the first position for now
+					sGridNo = pSoldier->sGridNo = pSoldier->sInsertionGridNo;
+				}
+				else
+				{
+					pSoldier->ubInsertionDirection = ubCalculatedDirection;
+				}
 			}
 			else
 			{
