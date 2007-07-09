@@ -5690,7 +5690,11 @@ UINT8 GetDamage ( OBJECTTYPE *pObj )
 	}
 	else
 	{
-		UINT8 ubDamage = Weapon[ pObj->usItem ].ubImpact + GetDamageBonus(pObj);
+		UINT8 ubDamage = Weapon[ pObj->usItem ].ubImpact;
+		if (Item[ pObj->usItem ].ubPerPocket == 0)
+		{
+			ubDamage += GetDamageBonus(pObj);
+		}
 		return min(255, (UINT8)( (ubDamage) + ( (double)ubDamage / 100) * gGameExternalOptions.ubGunDamageMultiplier ) );
 	}
 }
