@@ -121,17 +121,49 @@ extern BOOLEAN SoldierCanAffordNewStance( SOLDIERTYPE *pSoldier, UINT8 ubDesired
 void ResetMilitia()
 {
 	BOOLEAN fBattleInProgress = FALSE;
+	UINT8 ubNumGreen = 0;
+	UINT8 ubNumReg = 0;
+	UINT8 ubNumVet = 0;
+	UINT32 cnt;
 
 	if ( gWorldSectorX !=0 && gWorldSectorY != 0 && NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) )
 		fBattleInProgress = TRUE;
 
-//	if( ( gfStrategicMilitiaChangesMade && !fBattleInProgress ) || gTacticalStatus.uiFlags & LOADING_SAVED_GAME || gfMSResetMilitia )
-	if( gfStrategicMilitiaChangesMade || gTacticalStatus.uiFlags & LOADING_SAVED_GAME || gfMSResetMilitia )
+	// 0verhaul:  Instead of relying on the "changes made" flag, which isn't even saved in a saved game and therefore not
+	// reliable, we'll just do this the hard way, by taking inventory.
+	gfStrategicMilitiaChangesMade = FALSE;
+	for (cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID; cnt <= gTacticalStatus.Team[MILITIA_TEAM].bLastID; cnt++)
 	{
-		gfStrategicMilitiaChangesMade = FALSE;
-		
-		if( !gfMSResetMilitia )
-			RemoveMilitiaFromTactical();
+		if (!MercPtrs[cnt]->bActive)
+		{
+			continue;
+		}
+
+		switch (MercPtrs[cnt]->ubSoldierClass)
+		{
+		case SOLDIER_CLASS_GREEN_MILITIA: ubNumGreen++; break;
+		case SOLDIER_CLASS_REG_MILITIA: ubNumReg++; break;
+		case SOLDIER_CLASS_ELITE_MILITIA: ubNumVet++; break;
+		default: ;
+		}
+	}
+	if (MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, GREEN_MILITIA) != ubNumGreen ||
+		MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, REGULAR_MILITIA) != ubNumReg ||
+		MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, ELITE_MILITIA) != ubNumVet)
+	{
+		RemoveMilitiaFromTactical();
+		ubNumGreen = MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, GREEN_MILITIA);
+		ubNumReg = MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, REGULAR_MILITIA);
+		ubNumVet = MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, ELITE_MILITIA);
+
+		AddSoldierInitListMilitia( ubNumGreen, ubNumReg, ubNumVet );
+	}
+
+//	if( ( gfStrategicMilitiaChangesMade && !fBattleInProgress ) || gTacticalStatus.uiFlags & LOADING_SAVED_GAME || gfMSResetMilitia )
+	if(gfMSResetMilitia )
+	{
+//		if( !gfMSResetMilitia )
+//			RemoveMilitiaFromTactical();
 		PrepareMilitiaForTactical();
 		gfMSResetMilitia = FALSE;
 	}
@@ -177,23 +209,35 @@ void PrepareMilitiaForTactical()
 	ubElites = pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
 	
 	if(guiDirNumber)
+	{
 		for( x = 0 ; x < guiDirNumber ; ++x )
 		{
-//			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld,%ld,%ld", gpAttackDirs[ x ][ 0 ], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2], gpAttackDirs[ x ][3] );
+			//			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld,%ld,%ld", gpAttackDirs[ x ][ 0 ], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2], gpAttackDirs[ x ][3] );
 			if( gfMSResetMilitia )
 			{
 				if( gpAttackDirs[ x ][ 3 ] != INSERTION_CODE_CENTER )
+				{
 					AddSoldierInitListMilitiaOnEdge( gpAttackDirs[ x ][ 3 ], gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
+				}
 			}
 			else
+			{
 				if( gpAttackDirs[ x ][ 3 ] == INSERTION_CODE_CENTER )
+				{
 					AddSoldierInitListMilitia( gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
+				}
 				else
+				{
 					AddSoldierInitListMilitiaOnEdge( gpAttackDirs[ x ][ 3 ], gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
-
+				}
+			}
 		}
-		else AddSoldierInitListMilitia( ubGreen, ubRegs, ubElites );
-	
+	}
+	else 
+	{
+		AddSoldierInitListMilitia( ubGreen, ubRegs, ubElites );
+	}
+
 //	for( i = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID; i <= gTacticalStatus.Team[ MILITIA_TEAM ].bLastID; i++ )
 //	{
 //		if( MercPtrs[ i ]->bInSector )
