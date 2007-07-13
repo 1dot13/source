@@ -2959,6 +2959,39 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				}
 				break;
 
+			case 'M':
+				if( fAlt )
+				{
+
+				}
+				else if( fCtrl )
+				{
+
+				}
+				else
+				{
+					if ( !(gTacticalStatus.fEnemyInSector) )
+					{
+						HandleAllReachAbleItemsInTheSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+
+						SOLDIERTYPE *pSoldier;
+						if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
+						{
+
+							for ( UINT32 uiLoop = 0; uiLoop < guiNumWorldItems; uiLoop++ ) //for all items in sector
+							{
+								if ( (gWorldItems[ uiLoop ].fExists) && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE) && (gWorldItems[ uiLoop ].sGridNo != pSoldier->sGridNo) )//item exists and is reachable
+								{									
+									MoveItemPools(gWorldItems[ uiLoop ].sGridNo, pSoldier->sGridNo);
+									NotifySoldiersToLookforItems( );
+								}
+							}
+						}
+					}
+				}
+				break;
+
+
 			case PGDN:
 
 				if ( CHEATER_CHEAT_LEVEL( ) )

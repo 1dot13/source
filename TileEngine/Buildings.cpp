@@ -411,7 +411,7 @@ void GenerateBuildings( void )
 	UINT32	uiLoop;
 
 	// init building structures and variables
-	memset( &gubBuildingInfo, 0, WORLD_MAX * sizeof( UINT8 ) );
+	memset( gubBuildingInfo, 0, WORLD_MAX * sizeof( UINT8 ) );
 	memset( &gBuildings, 0, MAX_BUILDINGS * sizeof( BUILDING ) );
 	gubNumberOfBuildings = 0;
 
