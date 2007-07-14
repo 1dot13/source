@@ -45,6 +45,7 @@
 	#include "MessageBoxScreen.h"
 	#include "screenids.h"
 	#include "SaveLoadScreen.h"
+	#include "Rotting Corpses.h"
 #endif
 
 #include "Map Edgepoints.h"
@@ -536,6 +537,24 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr )
 	// Get profile from placement info
 	//memset( &tempDetailedPlacement, 0, SIZEOF_SOLDIERCREATE_STRUCT );
 	tempDetailedPlacement.initialize();
+
+	if (curr->pBasicPlacement->bBodyType == TANK_NW ||
+		curr->pBasicPlacement->bBodyType == TANK_NE)
+	{
+		while (1)
+		{
+			ROTTING_CORPSE *pCorpse = GetCorpseAtGridNo( curr->pBasicPlacement->usStartingGridNo, 0); // I assume we don't find tanks on the roof
+			if (pCorpse)
+			{
+				// Assume this is a dead tank and have the replacement tank haul it away
+				RemoveCorpse( pCorpse->iID);
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddPlacementToWorld: decide on placement"));
 	if( curr->pDetailedPlacement )

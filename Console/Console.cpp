@@ -917,26 +917,21 @@ void Console::OnChar(WORD myChar) {
 
 	if (myChar == 8)
 	{
-		if (Input.length() > 0)
+		int l = Input.length();
+		if (l > 0)
 		{
-			wchar_t last = Input[ Input.length() - 1];
+			wchar_t last = Input[ l - 1];
+			if (last == '\n')
+			{
+				return;
+			}
 
 			text[0] = 8;
 			text[1] = L' ';
 			text[2] = 8;
 			text[3] = 0;
 
-			Input.resize( Input.length() - 1);
-
-			if (last == '\n')
-			{
-				int cx = Input.rfind( '\n') + 1;
-				cx = Input.length() - cx;
-				SendTextToConsole( text);
-				m_csbiCursor.dwCursorPosition.X = cx;
-				
-				return;
-			}
+			Input.resize( l - 1);
 		}
 		else
 		{
