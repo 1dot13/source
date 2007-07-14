@@ -244,9 +244,10 @@ Console::Console(LPCTSTR pszConfigFile, LPCTSTR pszShellCmdLine, LPCTSTR pszCons
 	::SetStdHandle( STD_OUTPUT_HANDLE, myOut);
 	::SetStdHandle( STD_ERROR_HANDLE, myOut);
 
-	int hConHandle = _open_osfhandle((long)myOut, _O_WTEXT);
+	int hConHandle = _open_osfhandle((long)myOut, _O_BINARY); //_O_WTEXT);
  	FILE *fp = _fdopen( hConHandle, "w" );
 	*stdout = *fp;
+	*stderr = *fp;
 	setvbuf( stdout, NULL, _IONBF, 0 );
 	
 	// create text monitor thread
@@ -282,8 +283,10 @@ Console::~Console() {
 /////////////////////////////////////////////////////////////////////////////
 // creates and shows Console window
 
-BOOL Console::Create(TCHAR* pszConfigPath) {
+BOOL Console::Create(HWND notify) {
 	
+	m_notifyhWnd = notify;
+
 	if (m_hWnd)
 	{
 		::ShowWindow( m_hWnd, SW_SHOW);
@@ -727,7 +730,6 @@ void Console::OnLButtonDown(UINT uiFlags, POINTS points) {
 		}
 	}
 #endif
-	wcout << "Test" << endl;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -947,6 +949,9 @@ void Console::OnChar(WORD myChar) {
 		text[1] = '\r';
 		text[2] = 0;
 		Input += '\n';
+		SendTextToConsole( text);
+		SendMessage( m_notifyhWnd, WM_INPUTREADY, 0, (LPARAM) &Input);
+		return;
 	}
 	else
 	{
@@ -4534,13 +4539,16 @@ DWORD Console::MonitorThread() {
 /////////////////////////////////////////////////////////////////////////////
 void Console::AddOutput() {
 	DWORD bytesRead;
-	wchar_t buf[801];
+	char buf[801];
+	wchar_t wbuf[801];
+
 	::ReadFile( m_hStdOut, buf, sizeof(buf)/sizeof(wchar_t)-1, &bytesRead, NULL);
 	if (bytesRead == 0) {
 		return;
 	}
-	buf[bytesRead/sizeof(wchar_t)] = 0;
-	SendTextToConsole( buf);
+	buf[bytesRead] = 0;
+	MultiByteToWideChar( CP_UTF8, 0, buf, -1, wbuf, sizeof(wbuf)/sizeof(wbuf[0]));
+	SendTextToConsole( wbuf);
 }
 
 /////////////////////////////////////////////////////////////////////////////

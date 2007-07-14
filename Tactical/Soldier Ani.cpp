@@ -2109,8 +2109,16 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 
 							if ( pSoldier->usPathIndex == pSoldier->usPathDataSize )
 							{
-pSoldier->usPathIndex = pSoldier->usPathDataSize;
 								// Stop, don't do anything.....
+								// 0verhaul:  Only if not at the final destination
+								// Another reason for rebuilding the animation system.  This should be part of a common
+								// path continuation code so that any other bug fixes won't need to be duplicated in other areas.
+								if ( pSoldier->sGridNo != pSoldier->sFinalDestination)
+								{
+									if ( !EVENT_InternalGetNewSoldierPath( pSoldier, pSoldier->sFinalDestination, pSoldier->usUIMovementMode, 2, FALSE ) )
+									{
+									}
+								}
 							}
 							else
 							{

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <iostream>
 #include "Lua Interpreter.h"
 #include "lwstring.h"
 
@@ -317,14 +318,35 @@ void InitializeLua( )
 	lua_setglobal( L, "Soldiers" );
 }
 
-void EvalLua (STR8 buff) {
+int EvalLua (const wchar_t* buff) {
 	int error;
-	error = luaL_loadbuffer(L, buff, strlen(buff), "line") ||
+	int newlen;
+	STR8 newstr = NULL;
+
+	// Since we get wide chars coming in, we need to convert to UTF8
+	newlen = WideCharToMultiByte( CP_UTF8, 0, buff, -1, newstr, 0, NULL, NULL);
+	newstr = (STR8) MemAlloc( newlen);
+	WideCharToMultiByte( CP_UTF8, 0, buff, -1, newstr, newlen, NULL, NULL);
+
+	error = luaL_loadbuffer(L, newstr, newlen-1, "line") ||
 		lua_pcall(L, 0, 0, 0);
+
+	MemFree( newstr);
+
 	if (error) {
-		fprintf(stderr, "%s", lua_tostring(L, -1));
+		const char *error = lua_tostring(L, -1);
+		int len = strlen( error);
+		if (len >= 7 && !strcmp( error + len - 7, "'<eof>'"))
+		{
+			lua_pop(L, 1);  /* pop error message from the stack */
+			return FALSE;
+		}
+		cout << lua_tostring(L, -1) << endl;
 		lua_pop(L, 1);  /* pop error message from the stack */
+		return TRUE;
 	}
+
+	return TRUE;
 }
 
 void ShutdownLua( ) {

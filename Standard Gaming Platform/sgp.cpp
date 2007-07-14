@@ -38,11 +38,14 @@
 	#include "zmouse.h"
 
 
+#include <iostream>
+
 #include "ExceptionHandling.h"
 
 #include "dbt.h"
 #include "INIReader.h"
 #include "Console.h"
+#include "Lua Interpreter.h"
 
 #ifdef JA2
 	#include "BuildDefines.h"
@@ -454,7 +457,25 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 			if (wParam == '\\' &&
 				lParam && KF_ALTDOWN)
 			{
-				g_Console.Create(NULL);
+				g_Console.Create(ghWindow);
+				cout << "LUA console ready" << endl;
+				cout << "> ";
+			}
+			break;
+
+		case WM_INPUTREADY:
+			{
+				wstring *tstr = (wstring*) lParam;
+				if (EvalLua( tstr->c_str()))
+				{
+					tstr->erase();
+				}
+				else
+				{
+					cout << ">";
+				}
+
+				cout << "> ";
 			}
 			break;
     default

@@ -14,6 +14,6 @@ typedef struct {
 } LuaAttrib;
 
 void InitializeLua( );
-void EvalLua (STR8 buff) ;
+int EvalLua (const wchar_t* buff) ; // The return value is whether to clear the input line, not whether the call succeeded.
 void ShutdownLua( );
 

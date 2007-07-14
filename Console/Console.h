@@ -130,7 +130,7 @@ class Console {
 	public:
 
 		// creates and shows Console window
-		BOOL Create(TCHAR* pszConfigPath);
+		BOOL Create(HWND notify);
 
 	private:
 
@@ -440,6 +440,8 @@ class Console {
 
 		// Console window handle
 		HWND	m_hWnd;
+
+		HWND    m_notifyhWnd;
 
 		// console colors
 		COLORREF	m_arrConsoleColors[16];
