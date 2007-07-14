@@ -177,7 +177,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\;..\Lua;..\TileEngine;..\Tactical;..\Utils;..\strategic;.\"
+				AdditionalIncludeDirectories=".\;..\;..\Lua;..\TileEngine;..\Tactical;..\Utils;..\Strategic;..\Console;..\Res"
 				PreprocessorDefinitions="NO_ZLIB;JA2_PRECOMPILED_HEADERS;NO_ZLIB_COMPRESSION;NDEBUG;WIN32;_WINDOWS;JA2;XML_STATIC;CINTERFACE"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"

@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="lua"
-	ProjectGUID="{095CC13E-F2F8-4070-AC7A-70926A0ADF37}"
+	Name="Console"
+	ProjectGUID="{286FCC0E-C6E1-4E29-8642-588D7358966F}"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -12,27 +12,32 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="Debug"
+			OutputDirectory=".\Debug"
+			IntermediateDirectory=".\Debug"
 			ConfigurationType="4"
-			CharacterSet="2">
+			CharacterSet="0">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\;..\Tactical;..\Utils;..\tacticalai;..\Editor;..\strategic;.\"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
-				MinimalRebuild="TRUE"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				AdditionalIncludeDirectories=".\;..\;&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\Tactical;..\Utils;..\TacticalAI;..\Editor;..\lua;..\Strategic"
+				PreprocessorDefinitions="PRECOMPILEDHEADERS;_DEBUG;WIN32;_WINDOWS;JA2;_VTUNE_PROFILING;XML_STATIC;CINTERFACE"
+				MinimalRebuild="FALSE"
+				BasicRuntimeChecks="0"
+				RuntimeLibrary="5"
 				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\Debug/Console.pch"
+				AssemblerListingLocation=".\Debug/"
+				ObjectFile=".\Debug/"
+				ProgramDataBaseFileName=".\Debug/"
+				BrowseInformation="1"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
+				Detect64BitPortabilityProblems="FALSE"
+				DebugInformationFormat="1"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/lua.lib"/>
+				OutputFile=".\Debug\Console.lib"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
@@ -60,21 +65,19 @@
 			CharacterSet="0">
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
 				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="1"
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="3"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories=".\;..\;&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\Tactical;..\Utils;..\TacticalAI;..\Editor;..\Strategic;..\Res"
-				PreprocessorDefinitions="PRECOMPILEDHEADERS;NDEBUG;WIN32;_WINDOWS;JA2;XML_STATIC;CINTERFACE"
+				AdditionalIncludeDirectories=".\;..\;&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\Tactical;..\Utils;..\TacticalAI;..\Editor;..\Strategic;..\Console;..\Res;&quot;C:\Programme\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\Include\&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderThrough="lua.hpp"
-				PrecompiledHeaderFile=".\Release/Lua.pch"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\Release/Console.pch"
 				AssemblerListingLocation=".\Release/"
 				ObjectFile=".\Release/"
 				ProgramDataBaseFileName=".\Release/"
@@ -86,7 +89,8 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/lua.lib"/>
+				AdditionalDependencies="comctl32.lib"
+				OutputFile=".\Release\Console.lib"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
@@ -111,39 +115,56 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Quelldateien"
+			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
-				RelativePath=".\lua.cpp">
+				RelativePath=".\Console.cpp">
 			</File>
 			<File
-				RelativePath=".\lwstring.cpp">
+				RelativePath=".\Cursors.cpp">
+			</File>
+			<File
+				RelativePath=".\Dialogs.cpp">
+			</File>
+			<File
+				RelativePath=".\FileStream.cpp">
 			</File>
 		</Filter>
 		<Filter
-			Name="Headerdateien"
+			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath=".\lauxlib.h">
+				RelativePath=".\ComBSTROut.h">
 			</File>
 			<File
-				RelativePath=".\Lua Interpreter.h">
+				RelativePath=".\ComVariantOut.h">
 			</File>
 			<File
-				RelativePath=".\lua.h">
+				RelativePath=".\Console.h">
 			</File>
 			<File
-				RelativePath=".\luaconf.h">
+				RelativePath=".\Cursors.h">
 			</File>
 			<File
-				RelativePath=".\lualib.h">
+				RelativePath=".\Dialogs.h">
 			</File>
 			<File
-				RelativePath=".\lwstring.h">
+				RelativePath=".\FileStream.h">
 			</File>
 		</Filter>
+		<Filter
+			Name="Resource Files"
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+			<File
+				RelativePath=".\console.ico">
+			</File>
+		</Filter>
+		<File
+			RelativePath=".\ReadMe.txt">
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

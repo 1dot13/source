@@ -218,6 +218,9 @@ extern void StackObjs( OBJECTTYPE * pSourceObj, OBJECTTYPE * pTargetObj, UINT8 u
 extern void MAPEndItemPointer( );
 extern	BOOLEAN GetCurrentBattleSectorXYZAndReturnTRUEIfThereIsABattle( INT16 *psSectorX, INT16 *psSectorY, INT16 *psSectorZ );
 
+void DeleteAllItemsInInventoryPool();
+void DeleteItemsOfType( UINT16 usItemType );
+INT32 SellItemsOfType( UINT16 usItemType );
 
 // load the background panel graphics for inventory
 BOOLEAN LoadInventoryPoolGraphic( void )
@@ -1411,6 +1414,7 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 	BOOLEAN fSELLALL = gGameExternalOptions.fSellAll;
 	INT16 iPriceModifier = gGameExternalOptions.iPriceModifier;
 
+
 	// If not null return
 	if ( gpItemPointer != NULL )
 	{
@@ -1438,8 +1442,16 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 
 		if ( _KeyDown ( CTRL ))
 		{
+			INT16 usDesiredItemType = gItemPointer.usItem;
+
 			gpItemPointer = NULL;
 			fMapInventoryItem = FALSE;
+
+			if ( _KeyDown ( 89 )) //Lalien: delete all items of this type on Ctrl+Y 
+			{
+				DeleteItemsOfType( usDesiredItemType );
+			}
+
 			if ( fShowMapInventoryPool )
 				HandleButtonStatesWhileMapInventoryActive();
 		}
@@ -1447,6 +1459,7 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 		{
 
 			INT32 iPrice = 0;
+			INT16 usDesiredItemType = gItemPointer.usItem;
 			
 			if( gItemPointer.ubNumberOfObjects > 1)
 			{
@@ -1478,13 +1491,20 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 			if( iPriceModifier < 1) iPriceModifier = 1;
 
 			iPrice = (INT32) (iPrice / iPriceModifier);			
-			
-			AddTransactionToPlayersBook( SOLD_ITEMS, 0, GetWorldTotalMin(), iPrice );
+						
 		    PlayJA2Sample( COMPUTER_BEEP2_IN, RATE_11025, 15, 1, MIDDLEPAN );			              
 			gpItemPointer = NULL;
 			fMapInventoryItem = FALSE;
+
+			if ( _KeyDown ( 89 )) //Lalien: sell all items of this type on Alt+Y 
+			{
+				iPrice = iPrice + SellItemsOfType( usDesiredItemType );
+			}
+
+			AddTransactionToPlayersBook( SOLD_ITEMS, 0, GetWorldTotalMin(), iPrice );
+
 			if ( fShowMapInventoryPool )
-				HandleButtonStatesWhileMapInventoryActive();
+				HandleButtonStatesWhileMapInventoryActive();		
 
 		}
 		else
@@ -2282,4 +2302,85 @@ BOOLEAN CanPlayerUseSectorInventory( SOLDIERTYPE *pSelectedSoldier )
 	}
 
 	return( TRUE );
+}
+
+void DeleteAllItemsInInventoryPool()
+{
+	INT32 iNumber;
+
+	for( iNumber = 0 ; iNumber <  iTotalNumberOfSlots ; ++iNumber)
+	{
+		DeleteObj( &pInventoryPoolList [ iNumber ].o );
+	}
+
+	fMapPanelDirty = TRUE;
+
+	ClearUpTempUnSeenList( );
+	SaveSeenAndUnseenItems();
+	DestroyStash();
+	BuildStashForSelectedSector( sSelMapX, sSelMapY, iCurrentMapSectorZ);
+}
+
+
+void DeleteItemsOfType( UINT16 usItemType )
+{
+	INT32 iNumber;
+
+	for( iNumber = 0 ; iNumber <  iTotalNumberOfSlots ; ++iNumber)
+	{
+		if ( pInventoryPoolList [ iNumber ].o.usItem == usItemType )
+		{
+			DeleteObj( &pInventoryPoolList [ iNumber ].o );
+		}
+	}
+
+}
+
+
+INT32 SellItemsOfType( UINT16 usItemType )
+{
+	INT32 iNumber;
+	INT32 iPrice = 0;
+	INT16 iPriceModifier = gGameExternalOptions.iPriceModifier;
+
+	for( iNumber = 0 ; iNumber <  iTotalNumberOfSlots ; ++iNumber)
+	{
+		if ( pInventoryPoolList[ iNumber ].o.usItem == usItemType )
+		{
+			if( pInventoryPoolList[ iNumber ].o.ubNumberOfObjects > 1)
+			{
+				if( Item[ pInventoryPoolList[ iNumber ].o.usItem ].usItemClass == IC_AMMO )
+				{
+					for (INT8 bLoop = 0; bLoop < pInventoryPoolList [ iNumber ].o.ubNumberOfObjects; bLoop++)
+					{
+						iPrice += (INT32)( Item[pInventoryPoolList[ iNumber ].o.usItem].usPrice * (float) pInventoryPoolList[ iNumber ].o.ubShotsLeft[bLoop] / Magazine[ Item[pInventoryPoolList[ iNumber ].o.usItem].ubClassIndex ].ubMagSize );
+					}					
+				}
+				else
+				{
+					for (INT8 bLoop = 0; bLoop < pInventoryPoolList[ iNumber ].o.ubNumberOfObjects; bLoop++)
+					{
+						iPrice += (INT32)( Item[pInventoryPoolList[ iNumber ].o.usItem].usPrice * (float)pInventoryPoolList[ iNumber ].o.bStatus[bLoop] / 100 );
+					}
+				}
+			}
+			else
+			{
+				iPrice = ( Item[pInventoryPoolList[ iNumber ].o.usItem].usPrice * pInventoryPoolList[ iNumber ].o.bStatus[0] / 100 );
+
+				for (INT8 bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
+				{
+					iPrice += (INT32) ( Item[pInventoryPoolList[ iNumber ].o.usAttachItem[bLoop]].usPrice * (float)pInventoryPoolList[ iNumber ].o.bAttachStatus[bLoop] / 100);
+				}
+			}
+			
+			if( iPriceModifier < 1) iPriceModifier = 1;
+
+			iPrice = (INT32) (iPrice / iPriceModifier);			
+
+
+			DeleteObj( &pInventoryPoolList [ iNumber ].o );
+		}
+	}
+	return iPrice;
 }
