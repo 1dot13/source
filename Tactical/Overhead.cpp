@@ -2052,7 +2052,14 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
 				EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->bDirection );
 				(*pfKeepMoving) = FALSE;
 
-				gpWorldLevelData[ sMineGridNo ].uiFlags |= MAPELEMENT_ENEMY_MINE_PRESENT;
+				if (pSoldier->bSide != 0)
+				{
+					gpWorldLevelData[ sMineGridNo ].uiFlags |= MAPELEMENT_ENEMY_MINE_PRESENT;
+				}
+				else
+				{
+					gpWorldLevelData[ sMineGridNo ].uiFlags |= MAPELEMENT_PLAYER_MINE_PRESENT;
+				}
 
 				// better stop and reconsider what to do...
 				SetNewSituation( pSoldier );

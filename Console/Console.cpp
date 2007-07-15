@@ -4135,9 +4135,13 @@ void Console::SendTextToConsole(const wchar_t *pszText) {
 	
 	if (!pszText || (wcslen(pszText) == 0)) return;
 
-	BOOL c_state = m_pCursor->GetState();
-	m_pCursor->SetState(FALSE);
-	DrawCursor();
+	BOOL c_state = FALSE;
+	if (m_pCursor)
+	{
+		c_state = (m_pCursor != NULL && m_pCursor->GetState());
+		m_pCursor->SetState(FALSE);
+		DrawCursor();
+	}
 
 	int idx = m_csbiCursor.dwCursorPosition.X + m_csbiCursor.dwCursorPosition.Y * m_dwColumns;
 
@@ -4215,7 +4219,10 @@ void Console::SendTextToConsole(const wchar_t *pszText) {
 	::InvalidateRect( m_hWnd, &rectInval, TRUE);
 	::SetTimer(m_hWnd, TIMER_REPAINT_CHANGE, m_dwChangeRepaintInt, NULL);
 
-	m_pCursor->SetState(c_state);
+	if (m_pCursor)
+	{
+		m_pCursor->SetState(c_state);
+	}
 
 #if 0
 	HANDLE hStdIn = ::CreateFile(_T("CONIN$"), GENERIC_WRITE | GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, 0);
