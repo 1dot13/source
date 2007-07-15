@@ -46,7 +46,7 @@
 				OutputFile="C:\Games\Jagged Alliance 2\ja2_debug_1020_en.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				IgnoreDefaultLibraryNames="libcmt"
+				IgnoreDefaultLibraryNames="libcmt;LIBCD"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Debug/ja2_cvs.pdb"
 				GenerateMapFile="TRUE"
