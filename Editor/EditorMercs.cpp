@@ -2975,7 +2975,7 @@ void UpdateMercItemSlots()
 	{
 		if( gpSelected->pDetailedPlacement->ubProfile != NO_PROFILE )
 		{
-			memcpy( gpSelected->pDetailedPlacement->Inv, gpSelected->pSoldier->inv, sizeof( OBJECTTYPE ) * NUM_INV_SLOTS );
+			memcpy( &gpSelected->pDetailedPlacement->Inv, &gpSelected->pSoldier->inv, sizeof( OBJECTTYPE ) * NUM_INV_SLOTS );
 		}
 		for( x = 0; x < 9; x++ )
 		{
@@ -3669,7 +3669,8 @@ void PasteMercPlacement( INT32 iMapIndex )
 		if( gTempBasicPlacement.fDetailedPlacement )
 		{
                         // WDS - Clean up inventory handling
-			gTempDetailedPlacement = *gSaveBufferDetailedPlacement
+			// WANNE: Removed the following line, didn't compile
+			//gTempDetailedPlacement = *gSaveBufferDetailedPlacement;
 		}
 		else
 		{
