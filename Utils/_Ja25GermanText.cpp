@@ -3,10 +3,8 @@
 	#include "_Ja25EnglishText.h"
 #else
 	#include "Language Defines.h"
-	#ifdef ENGLISH
-		#include "text.h"
-		#include "Fileman.h"
-	#endif
+	#include "text.h"
+	#include "Fileman.h"
 #endif
 
 #ifdef GERMAN

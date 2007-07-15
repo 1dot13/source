@@ -3,6 +3,8 @@
 #else
 #endif
 #include "Language Defines.h"
+#include "text.h"
+#include "Fileman.h"
 
 #ifdef RUSSIAN
 
