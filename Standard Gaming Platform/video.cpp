@@ -285,6 +285,11 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
   }
 
   //
+  // Okay, now hide the cursor for the window.
+  //
+  SetCursor( NULL);
+
+  //
   // Excellent. Now we record the hWindow variable for posterity (not)
   //
 
@@ -1041,8 +1046,8 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
  	GetCurrentVideoSettings( &usWidth, &usHeight, &ubBitDepth );
 	usHeight=(gsVIEWPORT_WINDOW_END_Y - gsVIEWPORT_WINDOW_START_Y );
 
-	pSource = gpFrameBuffer;
-	pDest = gpFrameBuffer;
+//	pSource = gpFrameBuffer;
+//	pDest = gpFrameBuffer;
 
 ///zmiany
 	StripRegions[ 0 ].left   = gsVIEWPORT_START_X ;
@@ -1428,6 +1433,14 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 #endif
 
 
+#if 0
+	StripRegions[ 0 ].left   = gsVIEWPORT_START_X ;
+	StripRegions[ 0 ].right  = gsVIEWPORT_END_X	;
+	StripRegions[ 0 ].top    = gsVIEWPORT_WINDOW_START_Y ;
+	StripRegions[ 0 ].bottom = gsVIEWPORT_WINDOW_END_Y ;
+	usNumStrips = 1;
+#endif
+
 		for ( cnt = 0; cnt < usNumStrips; cnt++ )
 		{
 			//RenderStaticWorld();
@@ -1436,7 +1449,6 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 			// Optimize Redundent tiles too!
 			//ExamineZBufferRect( (INT16)StripRegions[ cnt ].left, (INT16)StripRegions[ cnt ].top, (INT16)StripRegions[ cnt ].right, (INT16)StripRegions[ cnt ].bottom );
 
-#if 0
 			do
 			{
 				ReturnCode = IDirectDrawSurface2_SGPBltFast(pDest, StripRegions[ cnt ].left, StripRegions[ cnt ].top, gpFrameBuffer, (LPRECT)&( StripRegions[ cnt ] ), DDBLTFAST_NOCOLORKEY);
@@ -1450,7 +1462,6 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 					break;
 				}
 			} while (ReturnCode != DD_OK);
-#endif
 		}
 
 		sShiftX = 0;
@@ -1708,13 +1719,14 @@ void RefreshScreen(void *DummyVariable)
 		// Either Method (1) or (2)
 		//
 		{
+#if 0
 			if ( gfRenderScroll )
 			{
 				ScrollJA2Background( guiScrollDirection, gsScrollXIncrement, gsScrollYIncrement, gpPrimarySurface, gpBackBuffer, TRUE, PREVIOUS_MOUSE_DATA );
 //				ScrollJA2Background( guiScrollDirection, gsScrollXIncrement, gsScrollYIncrement, gpBackBuffer, gpBackBuffer, TRUE, PREVIOUS_MOUSE_DATA );
 				gfForceFullScreenRefresh = TRUE;
 			}
-
+#endif
 			if (gfForceFullScreenRefresh == TRUE)
 			{
 				//
@@ -1803,6 +1815,12 @@ void RefreshScreen(void *DummyVariable)
 			}
 						
 		}
+		if ( gfRenderScroll )
+		{
+//			ScrollJA2Background( guiScrollDirection, gsScrollXIncrement, gsScrollYIncrement, gpPrimarySurface, gpBackBuffer, TRUE, PREVIOUS_MOUSE_DATA );
+			ScrollJA2Background( guiScrollDirection, gsScrollXIncrement, gsScrollYIncrement, gpBackBuffer, gpBackBuffer, TRUE, PREVIOUS_MOUSE_DATA );
+		}
+
 		gfIgnoreScrollDueToCenterAdjust = FALSE;
 	
  
