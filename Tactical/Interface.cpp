@@ -1863,7 +1863,10 @@ void BeginOverlayMessage( UINT32 uiFont, STR16 pFontString, ... )
 
 	if ( giPopupSlideMessageOverlay == -1  )
 	{
-		// Set Overlay
+		// WDS - bug fix: VideoOverlayDesc must be initialized! - 07/16/2007
+		memset( &VideoOverlayDesc, 0, sizeof( VIDEO_OVERLAY_DESC ) );
+
+	    // Set Overlay
 		VideoOverlayDesc.sLeft			 = ( SCREEN_WIDTH - gusOverlayPopupBoxWidth ) / 2;
 		VideoOverlayDesc.sTop				 = 100;
 		VideoOverlayDesc.sRight			 = VideoOverlayDesc.sLeft + gusOverlayPopupBoxWidth;
@@ -2856,6 +2859,9 @@ void BeginMapUIMessage( UINT8 ubPosition, STR16 pFontString, ... )
 
 	if ( giUIMessageOverlay == -1  )
 	{
+		// WDS - bug fix: VideoOverlayDesc must be initialized! - 07/16/2007
+		memset( &VideoOverlayDesc, 0, sizeof( VIDEO_OVERLAY_DESC ) );
+
 		// Set Overlay
 		VideoOverlayDesc.sLeft	 = 20 + MAP_VIEW_START_X + ( MAP_VIEW_WIDTH - gusUIMessageWidth ) / 2;
 

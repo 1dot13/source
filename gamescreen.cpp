@@ -164,6 +164,9 @@ UINT32 MainGameScreenInit(void)
 
 	SetRenderFlags(RENDER_FLAG_FULL);
 
+	// WDS - bug fix: VideoOverlayDesc must be initialized! - 07/16/2007
+	memset( &VideoOverlayDesc, 0, sizeof( VIDEO_OVERLAY_DESC ) );
+
 	// Init Video Overlays
 	// FIRST, FRAMERATE
 	VideoOverlayDesc.sLeft			 = 0;

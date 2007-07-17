@@ -226,6 +226,9 @@ BOOLEAN CreateStringVideoOverlay( ScrollStringStPtr pStringSt, UINT16 usX, UINT1
 {
 	VIDEO_OVERLAY_DESC		VideoOverlayDesc;
 
+	// WDS - bug fix: VideoOverlayDesc must be initialized! - 07/16/2007
+	memset( &VideoOverlayDesc, 0, sizeof( VIDEO_OVERLAY_DESC ) );
+
 	// SET VIDEO OVERLAY
 	VideoOverlayDesc.sLeft			 = usX;
 	VideoOverlayDesc.sTop				 = usY;
