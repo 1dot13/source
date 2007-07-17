@@ -1078,6 +1078,16 @@ void HandleRenderInvSlots( SOLDIERTYPE *pSoldier, UINT8 fDirtyLevel )
 		{
 			if ( fDirtyLevel == DIRTYLEVEL2 )
 			{
+#       if defined( _DEBUG ) /* Sergeant_Kolja, to be removed later again */
+        if( pSoldier->inv[ cnt ].ubGunAmmoType >= MAXITEMS )
+        {
+         	DebugMsg(TOPIC_JA2, DBG_LEVEL_1, String("pObject (%s) corrupted! GetHelpTextForItem() can crash.", (pSoldier->inv[ cnt ].usItem<MAXITEMS) ? Item[pSoldier->inv[ cnt ].usItem].szItemName : "???" ));
+    	    ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"pObject (%S) corrupted! GetHelpTextForItem() can crash.",    (pSoldier->inv[ cnt ].usItem<MAXITEMS) ? Item[pSoldier->inv[ cnt ].usItem].szItemName : "???" );
+          DebugBreak();
+          AssertMsg( 0, "pObject corrupted! GetHelpTextForItem() can crash." );
+        }
+#       endif
+
 				GetHelpTextForItem( pStr, &( pSoldier->inv[ cnt ] ), pSoldier );
 
 				SetRegionFastHelpText( &(gSMInvRegion[ cnt ]), pStr );
@@ -7421,6 +7431,24 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 			return;
 		}
 	}
+
+/* 2007-05-27, Sergeant_Kolja: code temporarily added for tracking the 
+   6 Shuriken bug plus the 
+   SKI Tony inventory crash.
+   Remove when fixed!
+ */
+# if defined( _DEBUG )
+  if ( (pObject->ubGunAmmoType >= MAXITEMS) || 
+       ((usItem == 1053) && (pObject->ubGunAmmoType != 0  )) /* shuriken: 1053 */
+     )
+  {
+    DebugMsg(TOPIC_JA2, DBG_LEVEL_1, String( "corrupted pObject (%s) found in GetHelpTextForItem()", (usItem<MAXITEMS) ? Item[usItem].szItemName : "???" ));
+  	ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"corrupted pObject (%S) found in GetHelpTextForItem()"    , (usItem<MAXITEMS) ? Item[usItem].szItemName : "???" );
+    DebugBreak();
+    AssertMsg( 0, "GetHelpTextForItem() would crash" );
+  }
+#endif
+    
 
 	if ( usItem != NOTHING )
 	{
