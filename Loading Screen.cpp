@@ -616,6 +616,11 @@ void DisplayLoadScreenWithID( UINT8 ubLoadScreenID )
 		char szImageFormat[5];
 		char szFullImagePath[80];
 
+		// WDS - Fix: Init strings 7/16/2007
+		szImagePath[0] = 0;
+		szImageFormat[0] = 0;
+		szFullImagePath[0] = 0;
+
 		// Start screen
 		if (ubLoadScreenID == HELI)
 		{
