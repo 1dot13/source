@@ -2238,7 +2238,11 @@ UINT8 CalculateObjectWeight( OBJECTTYPE *pObject )
 		// add in weight of ammo
 		if (Item[ pObject->usItem ].usItemClass == IC_GUN && pObject->ubGunShotsLeft > 0)
 		{
-			if( gGameExternalOptions.fAmmoDynamicWeight == TRUE )
+      if( 0==pObject->usGunAmmoItem ) /* Sergeant_Kolja: 2007-06-11, Fix for Creature Spit. This has no Ammo, so the old code calculated accidentally -1.6 resulting in 0xFFFF */
+        {
+        	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "'no ammo weight' FIX for Creatures\r\n" );
+        }
+      else if( gGameExternalOptions.fAmmoDynamicWeight == TRUE )
 			{
 				//Pulmu:
 				//Temporary calculation for minWeight
@@ -3122,31 +3126,50 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier )
 INT8 GetAttachmentComboMerge( OBJECTTYPE * pObj )
 {
 	INT8		bIndex = 0;
-	INT8		bAttachLoop, bAttachPos;
+	INT8		bAttachLoop, bAttachPos = -1;
 
-	while( AttachmentComboMerge[ bIndex ].usItem != NOTHING )
+	/* check the whole Array of possible Attachements, while there are still entries ... */
+  while( AttachmentComboMerge[ bIndex ].usItem != NOTHING )
 	{
-		if ( pObj->usItem == AttachmentComboMerge[ bIndex ].usItem )
+		/* if we found our current Object as "basic hand" item, then 
+     * we have found at least ONE entry of our item (may be there are more)
+     */
+    if ( pObj->usItem == AttachmentComboMerge[ bIndex ].usItem )
 		{
 			// search for all the appropriate attachments 
+      /* every ComboMerge must have at least one attachments Field */
 			for ( bAttachLoop = 0; bAttachLoop < 2; bAttachLoop++ )
 			{
-				if ( AttachmentComboMerge[ bIndex ].usAttachment[ bAttachLoop ] == NOTHING )
+				/* if the none of both Fields contains anything, do not merge */
+        if ( AttachmentComboMerge[ bIndex ].usAttachment[ bAttachLoop ] == NOTHING )
 				{
 					continue;
 				}
 
 				bAttachPos = FindAttachment( pObj, AttachmentComboMerge[ bIndex ].usAttachment[ bAttachLoop ] );
+        /* 2007-05-27, Sgt_Kolja: 
+         * do not return, but break the inner loop moved away, otherwise 
+         * we can only have ONE attachmentCombo per basic item. F.I. if we want
+         * to make a Dart gun from Dart pistol by adding (a buttstock and) wheter a
+         * steel tube /or/ a Gun Barrel Extender, the old code wouldn't work for
+         * the Gun Barel Extender, since it would never been tested.
+         */
 				if ( bAttachPos == -1 )
 				{
-					// didn't find something required
-					return( -1 );
+          // didn't find something required
+					//return( -1 );
+          break;
 				}
 			}
-			// found everything required!
-			return( bIndex );
-		}
+			// found everything required?
+      /* 2007-05-27, Sgt_Kolja: Not-found-condition moved from above, otherwise we can only have ONE attachmentCombo per basic item */
+      if ( bAttachPos != -1 )
+      {
+			  return( bIndex );
+      }
+    } /* end-if-this-is-our-item */
 
+    /* try next Attachment Order */
 		bIndex++;
 	}
 
