@@ -2070,6 +2070,9 @@ void HandleExternNPCSpeechFace( INT32 iIndex )
 	// Set flag to say WE control when to set inactive!
 	gFacesData[ iFaceIndex ].uiFlags |= FACE_INACTIVE_HANDLED_ELSEWHERE;
 
+	// WDS - bug fix: VideoOverlayDesc must be initialized! - 07/16/2007
+	memset( &VideoOverlayDesc, 0, sizeof( VIDEO_OVERLAY_DESC ) );
+
 	if ( guiCurrentScreen != MAP_SCREEN )
 	{
 		// Setup video overlay!
