@@ -777,9 +777,15 @@ BOOLEAN FileLoad( STR strFilename, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiB
 //		9 Feb 98	DEF - modified to work with the library system
 //
 //**************************************************************************
+
+#ifndef DIM
+# define DIM(x) (sizeof(x)/sizeof(x[0]))  /* made StringLen Save, Sergeant_Kolja, 2007-06-10 */
+#endif
+
+
 BOOLEAN _cdecl FilePrintf( HWFILE hFile, STR8  strFormatted, ... )
 {
-	CHAR8		strToSend[80];
+	CHAR8		strToSend[160]; /* itemdescription of item 0 will NOT fit if only 80 Chars per Line!, Sergeant_Kolja, 2007-06-10 */
 	va_list	argptr;
 	BOOLEAN fRetVal = FALSE;
 
@@ -792,7 +798,8 @@ BOOLEAN _cdecl FilePrintf( HWFILE hFile, STR8  strFormatted, ... )
 	if( sLibraryID == REAL_FILE_LIBRARY_ID )
 	{
 		va_start(argptr, strFormatted);
-		vsprintf( strToSend, strFormatted, argptr );
+		_vsnprintf( strToSend, DIM(strToSend), strFormatted, argptr ); /* made StringLen Save, Sergeant_Kolja, 2007-06-10 */
+        strToSend[ DIM(strToSend)-1 ] = 0;
 		va_end(argptr);
 		
 		fRetVal = FileWrite( hFile, strToSend, strlen(strToSend), NULL );
