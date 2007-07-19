@@ -474,7 +474,7 @@ void HandleDelayedItemsArrival( UINT32 uiReason )
 	{
 		// sector is loaded!
 		// just move the hidden item pool
-		MoveItemPools( sStartGridNo, BOBBYR_SHIPPING_DEST_GRIDNO );
+		MoveItemPools( sStartGridNo, BOBBYR_SHIPPING_DEST_GRIDNO, 0, 0 );
 	}
 	else
 	{
