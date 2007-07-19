@@ -2314,6 +2314,12 @@
 			Name="Resource Files">
 			<File
 				RelativePath=".\Console\Console.rc">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						AdditionalIncludeDirectories="Res;.\Res"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="Res\ja2.rc">
