@@ -248,7 +248,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		// calc next attack's minimum shooting cost (excludes readying & turning)
 		ubRawAPCost = MinAPsToShootOrStab(pSoldier,pOpponent->sGridNo,FALSE);
 
-		if (pOpponent->sGridNo != pSoldier->sLastTarget)
+		if (pOpponent->sGridNo == pSoldier->sLastTarget)
 		{
 			// raw AP cost calculation included cost of changing target!
 			ubRawAPCost -= AP_CHANGE_TARGET;
@@ -1266,8 +1266,6 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 		// if opponent doesn't see the attacker
 		if (pOpponent->bOppList[pSoldier->ubID] != SEEN_CURRENTLY)
 		{
-			fSurpriseStab = TRUE;
-
 			// and he's only one space away from attacker
 			if (SpacesAway(pSoldier->sGridNo,pOpponent->sGridNo) == 1)
 			{
