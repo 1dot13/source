@@ -152,6 +152,11 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY )
 			if(pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA])--pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];else
 				if(pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA])--pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
 
+	// Update the militia if the current sector is affected
+	if (gfStrategicMilitiaChangesMade)
+	{
+		ResetMilitia();
+	}
 }
 
 // Creates militia at destination sector and removes it from starting sector
@@ -176,6 +181,11 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 		{--pTSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];++pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];}else
 		if(pTSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA])
 		{--pTSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];++pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];}
+
+	if (gfStrategicMilitiaChangesMade)
+	{
+		ResetMilitia();
+	}
 }
 
 BOOLEAN MoveOneBestMilitiaMan(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY)
@@ -481,6 +491,11 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 			return;
 
 		CreateMilitiaSquads( sMapX, sMapY );
+
+		if (gfStrategicMilitiaChangesMade)
+		{
+			ResetMilitia();
+		}
 	}
 
 
@@ -530,12 +545,8 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 
 					MoveMilitiaSquad( sMapX, sMapY,  SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ), FALSE );
 					AddToBlockMoveList( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );
-
-					if ( gWorldSectorX == SECTORX( pMoveDir[ iRandomRes ][0] ) && 
-							gWorldSectorY == SECTORY( pMoveDir[ iRandomRes ][0] ) && 
-							!gbWorldSectorZ )
+					if ( gfStrategicMilitiaChangesMade)
 					{
-						gfStrategicMilitiaChangesMade = TRUE;
 						ResetMilitia();
 					}
 
@@ -723,6 +734,12 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 		}
 	}
 
+	if (gfStrategicMilitiaChangesMade)
+	{
+		RemoveMilitiaFromTactical();
+		PrepareMilitiaForTactical();
+		gfStrategicMilitiaChangesMade = FALSE;
+	}
 }
 
 void MSCallBack( UINT8 ubResult )

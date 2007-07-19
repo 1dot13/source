@@ -1753,7 +1753,16 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			// Check for helicopter being on the ground in this sector...
 			HandleHelicopterOnGroundGraphic( );
 
-			ResetMilitia();
+			// 0verhaul:  Okay, it is apparent that the enemies are not reset incorrectly.  So I will now try to add symmetry
+			// between enemy placement and militia placement.  The enemies do have one advantage here, though:  If a sector
+			// is in enemy hands, then their sector is not actually loaded.  At least not normally.  Perhaps it would be useful
+			// to lose a battle with one group of mercs, then bring in another group without changing to another sector to see
+			// if enemy integrity holds.  But this would require the enemies to come up with reinforcements inbetween the battles
+			// to really test out.
+			//
+			// Anyway, for now I will remove this call from here.  The objective is to add militia any time we could add enemies
+			// except for the case of training new militia.  But that case can be handled each time militia training finishes.
+//			ResetMilitia();
 			AllTeamsLookForAll( TRUE );
 			return( TRUE );
 		}
@@ -3367,7 +3376,7 @@ void AllMercsWalkedToExitGrid()
 			pPlayer = pPlayer->next;
 		}
 
-		SetGroupSectorValue( (UINT8)gsAdjacentSectorX, (UINT8)gsAdjacentSectorY, gbAdjacentSectorZ, gpAdjacentGroup->ubGroupID );
+		SetGroupSectorValue( gsAdjacentSectorX, gsAdjacentSectorY, (INT16) gbAdjacentSectorZ, gpAdjacentGroup->ubGroupID );
 		AttemptToMergeSeparatedGroups( gpAdjacentGroup, FALSE );
 
 		SetDefaultSquadOnSectorEntry( TRUE );
@@ -3412,7 +3421,7 @@ void AllMercsWalkedToExitGrid()
 
 			pPlayer = pPlayer->next;
 		}
-		SetGroupSectorValue( gsAdjacentSectorX, gsAdjacentSectorY, gbAdjacentSectorZ, gpAdjacentGroup->ubGroupID );
+		SetGroupSectorValue( gsAdjacentSectorX, gsAdjacentSectorY, (INT16) gbAdjacentSectorZ, gpAdjacentGroup->ubGroupID );
 		AttemptToMergeSeparatedGroups( gpAdjacentGroup, FALSE );
 
 		gFadeOutDoneCallback = DoneFadeOutExitGridSector;

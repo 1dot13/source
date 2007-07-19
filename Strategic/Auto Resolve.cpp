@@ -85,7 +85,9 @@ INT32 giMaxEnemiesToRender = 40;
 INT32 giMaxMilitiaToRender = 20;//Changes depending on merc amount
 
 extern UINT8 gubReinforcementMinEnemyStaticGroupSize;
+extern BOOLEAN gfStrategicMilitiaChangesMade;
 
+extern void ResetMilitia();
 extern BOOLEAN AutoReload( SOLDIERTYPE *pSoldier );
 extern HVSURFACE ghFrameBuffer;
 BOOLEAN gfTransferTacticalOppositionToAutoResolve = FALSE;
@@ -2469,6 +2471,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 		UnloadButtonImage( gpAR->iButtonImage[ i ] );
 		RemoveButton( gpAR->iButton[ i ] );
 	}
+
 	if( fDeleteForGood )
 	{ //Warp the game time accordingly
 
@@ -2501,6 +2504,11 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 		gubSectorIDOfCreatureAttack = 0;
 	}
 	//VtPauseSampling();
+
+	if (gfStrategicMilitiaChangesMade)
+	{
+		ResetMilitia();
+	}
 }
 
 void PauseButtonCallback( GUI_BUTTON *btn, INT32 reason )

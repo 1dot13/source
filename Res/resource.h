@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Developer Studio generated include file.
-// Used by ja2.rc
+// Used by ja2.rc and console.rc
 //
 #define IDI_ICON1                       113
 #define IDI_ICON2                       115

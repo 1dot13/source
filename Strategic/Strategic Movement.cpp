@@ -51,6 +51,8 @@
 
 #include "MilitiaSquads.h"
 
+extern UINT32		guiLastTacticalRealTime;
+
 // the delay for a group about to arrive
 #define ABOUT_TO_ARRIVE_DELAY 5
 
@@ -1075,6 +1077,7 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 		if( NumEnemiesInSector( pGroup->ubSectorX, pGroup->ubSectorY ) )
 		{
 			fBattlePending = TRUE;
+			StopTimeCompression();
 		}
 
 		if( pGroup->uiFlags & GROUPFLAG_HIGH_POTENTIAL_FOR_AMBUSH && fBattlePending )
@@ -1089,6 +1092,7 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 		{
 			fBloodCatAmbush = TRUE;
 			fBattlePending = TRUE;
+			StopTimeCompression();
 		}
 
 		if( fBattlePending && (!fBloodCatAmbush || gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE) )
@@ -1118,7 +1122,7 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 	}
 
 	if( fBattlePending )
-	{	//A battle is pending, but the player's could be all unconcious or dead.
+	{	//A battle is pending, but the players could be all unconcious or dead.
 		//Go through every group until we find at least one concious merc.  The looping will determine
 		//if there are any live mercs and/or concious ones.  If there are no concious mercs, but alive ones,
 		//then we will go straight to autoresolve, where the enemy will likely annihilate them or capture them.
@@ -1127,6 +1131,8 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 		#ifdef JA2BETAVERSION
 			ValidateGroups( pGroup );
 		#endif
+
+		StopTimeCompression();
 
 		if( gubNumGroupsArrivedSimultaneously )
 		{ //Because this is a battle case, clear all the group flags 
@@ -1970,7 +1976,7 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 	if ( !fGroupDestroyed )
 	{
 		//Determine if a battle should start.
-		//if a battle does start, or get's delayed, then we will keep the group in memory including
+		//if a battle does start, or gets delayed, then we will keep the group in memory including
 		//all waypoints, until after the battle is resolved.  At that point, we will continue the processing.
 		if( fCheckForBattle && !CheckConditionsForBattle( pGroup ) && !gfWaitingForInput )
 		{
@@ -2706,6 +2712,8 @@ void SetGroupSectorValue( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, UINT8 
 	}
 
 	CheckAndHandleUnloadingOfCurrentWorld();
+
+	SetSectorFlag( sSectorX, sSectorY, (UINT8) sSectorZ, SF_ALREADY_VISITED);
 }
 
 void SetEnemyGroupSector( GROUP *pGroup, UINT8 ubSectorID )

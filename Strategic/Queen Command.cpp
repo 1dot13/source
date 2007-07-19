@@ -1132,8 +1132,9 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 	}
 }
 
+//Well, not so rarely with mobile reinforcements!
 //Rarely, there will be more enemies than supported by the engine.  In this case, these
-//soldier's are waiting for a slot to be free so that they can enter the battle.  This
+//soldiers are waiting for a slot to be free so that they can enter the battle.  This
 //essentially allows for an infinite number of troops, though only 32 at a time can fight.
 //This is also called whenever an enemy group's reinforcements arrive because the code is
 //identical, though it is highly likely that they will all be successfully added on the first call.
@@ -1303,6 +1304,13 @@ void AddPossiblePendingEnemiesToBattle()
 				//Add the number of each type of troop and place them in the appropriate positions
 				AddEnemiesToBattle( pGroup, ubStrategicInsertionCode, ubNumAdmins, ubNumTroops, ubNumElites, FALSE );
 				gfPendingEnemies = TRUE;
+			}
+
+			// If there are still more to contribute, then move the remaining back to the sector they came from.
+			if (ubNumAvailable)
+			{
+				pGroup->ubSectorX = pGroup->ubPrevX;
+				pGroup->ubSectorY = pGroup->ubPrevY;
 			}
 		}
 		pGroup = pGroup->next;

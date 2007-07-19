@@ -119,7 +119,7 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 
 
 	// force tactical to update militia status
-	gfStrategicMilitiaChangesMade = TRUE;
+	gfStrategicMilitiaChangesMade = FALSE;
 
 	// ok, so what do we do with all this training?  Well, in order of decreasing priority:
 	// 1) If there's room in training sector, create new GREEN militia guys there
@@ -148,6 +148,11 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 			{
 				// great! Create a new GREEN militia guy in the training sector
 				StrategicAddMilitiaToSector(sMapX, sMapY, GREEN_MILITIA, 1);
+
+				if (sMapX == gWorldSectorX && sMapY == gWorldSectorY)
+				{
+					gfStrategicMilitiaChangesMade = TRUE;
+				}
 			}
 			else
 			{
@@ -166,6 +171,11 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 							// great! Create a new GREEN militia guy in the neighbouring sector
 							StrategicAddMilitiaToSector(sNeighbourX, sNeighbourY, GREEN_MILITIA, 1);
 
+							if (sNeighbourX == gWorldSectorX && sNeighbourY == gWorldSectorY)
+							{
+								gfStrategicMilitiaChangesMade = TRUE;
+							}
+
 							fFoundOne = TRUE;
 							break;
 						}
@@ -183,6 +193,10 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 						// great! Promote a GREEN militia guy in the training sector to a REGULAR
 						StrategicPromoteMilitiaInSector(sMapX, sMapY, GREEN_MILITIA, 1);
 						fFoundOne = TRUE;
+						if (sMapX == gWorldSectorX && sMapY == gWorldSectorY)
+						{
+							gfStrategicMilitiaChangesMade = TRUE;
+						}
 					}
 					else
 					{
@@ -199,6 +213,11 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 								{
 									// great! Promote a GREEN militia guy in the neighbouring sector to a REGULAR
 									StrategicPromoteMilitiaInSector(sNeighbourX, sNeighbourY, GREEN_MILITIA, 1);
+
+									if (sNeighbourX == gWorldSectorX && sNeighbourY == gWorldSectorY)
+									{
+										gfStrategicMilitiaChangesMade = TRUE;
+									}
 
 									fFoundOne = TRUE;
 									break;
@@ -217,6 +236,12 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 							{
 								// great! Promote a REGULAR militia guy in the training sector to a VETERAN
 								StrategicPromoteMilitiaInSector(sMapX, sMapY, REGULAR_MILITIA, 1);
+
+								if (sMapX == gWorldSectorX && sMapY == gWorldSectorY)
+								{
+									gfStrategicMilitiaChangesMade = TRUE;
+								}
+
 								fFoundOne = TRUE;
 							}
 							else
@@ -234,6 +259,11 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 										{
 											// great! Promote a Regular militia guy in the neighbouring sector to a Veteran
 											StrategicPromoteMilitiaInSector(sNeighbourX, sNeighbourY, REGULAR_MILITIA, 1);
+
+											if (sNeighbourX == gWorldSectorX && sNeighbourY == gWorldSectorY)
+											{
+												gfStrategicMilitiaChangesMade = TRUE;
+											}
 
 											fFoundOne = TRUE;
 											break;
@@ -258,6 +288,10 @@ void TownMilitiaTrainingCompleted( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMa
 			ubMilitiaTrained++;
 		}
 
+		if (gfStrategicMilitiaChangesMade)
+		{
+			ResetMilitia();
+		}
 
 		// if anyone actually got trained
 		if (ubMilitiaTrained > 0)
@@ -333,6 +367,11 @@ void StrategicAddMilitiaToSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UINT8 u
 
 	pSectorInfo->ubNumberOfCivsAtLevel[ ubRank ] += ubHowMany;
 
+	if (ubHowMany && sMapX == gWorldSectorX && sMapY == gWorldSectorY )
+	{
+		gfStrategicMilitiaChangesMade = TRUE;
+	}
+
 	// update the screen display
 	fMapPanelDirty = TRUE;
 }
@@ -354,6 +393,11 @@ void StrategicPromoteMilitiaInSector(INT16 sMapX, INT16 sMapY, UINT8 ubCurrentRa
 	pSectorInfo->ubNumberOfCivsAtLevel[ ubCurrentRank     ] -= ubHowMany;
 	pSectorInfo->ubNumberOfCivsAtLevel[ ubCurrentRank + 1 ] += ubHowMany;
 
+	if (ubHowMany && sMapX == gWorldSectorX && sMapY == gWorldSectorY )
+	{
+		gfStrategicMilitiaChangesMade = TRUE;
+	}
+
 	// update the screen display
 	fMapPanelDirty = TRUE;
 }
@@ -373,6 +417,11 @@ void StrategicRemoveMilitiaFromSector(INT16 sMapX, INT16 sMapY, UINT8 ubRank, UI
 	}
 
 	pSectorInfo->ubNumberOfCivsAtLevel[ ubRank ] -= ubHowMany;
+
+	if (ubHowMany && sMapX == gWorldSectorX && sMapY == gWorldSectorY )
+	{
+		gfStrategicMilitiaChangesMade = TRUE;
+	}
 
 	// update the screen display
 	fMapPanelDirty = TRUE;

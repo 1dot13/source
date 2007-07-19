@@ -1430,6 +1430,7 @@ BOOLEAN TacticalRemoveSoldierPointer( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveVehi
 		{
 			DeleteSoldier( pSoldier );
 		}
+
 		MemFree( pSoldier );
 	}
 

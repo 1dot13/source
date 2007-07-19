@@ -911,6 +911,8 @@ void KillPreBattleInterface()
 	{
 		ShowButton( giCharInfoButton[ 1 ] );
 	}
+
+	gfPersistantPBI = FALSE; // If killing the PBI, it must not be persistant anymore!
 }
 
 

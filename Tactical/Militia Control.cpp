@@ -126,47 +126,66 @@ void ResetMilitia()
 	UINT8 ubNumVet = 0;
 	UINT32 cnt;
 
-	if ( gWorldSectorX !=0 && gWorldSectorY != 0 && NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) )
-		fBattleInProgress = TRUE;
+//	if ( gWorldSectorX !=0 && gWorldSectorY != 0 && NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) )
+//		fBattleInProgress = TRUE;
 
 	// 0verhaul:  Instead of relying on the "changes made" flag, which isn't even saved in a saved game and therefore not
 	// reliable, we'll just do this the hard way, by taking inventory.
-	gfStrategicMilitiaChangesMade = FALSE;
-	for (cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID; cnt <= gTacticalStatus.Team[MILITIA_TEAM].bLastID; cnt++)
+//	gfStrategicMilitiaChangesMade = FALSE;
+//	for (cnt = gTacticalStatus.Team[MILITIA_TEAM].bFirstID; cnt <= gTacticalStatus.Team[MILITIA_TEAM].bLastID; cnt++)
+//	{
+//		if (!MercPtrs[cnt]->bActive)
+//		{
+//			continue;
+//		}
+//
+//		switch (MercPtrs[cnt]->ubSoldierClass)
+//		{
+//		case SOLDIER_CLASS_GREEN_MILITIA: ubNumGreen++; break;
+//		case SOLDIER_CLASS_REG_MILITIA: ubNumReg++; break;
+//		case SOLDIER_CLASS_ELITE_MILITIA: ubNumVet++; break;
+//		default: ;
+//		}
+//	}
+//	if (MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, GREEN_MILITIA) != ubNumGreen ||
+//		MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, REGULAR_MILITIA) != ubNumReg ||
+//		MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, ELITE_MILITIA) != ubNumVet)
+//	{
+//		gfStrategicMilitiaChangesMade = TRUE;
+//	}
+//
+	if (gfStrategicMilitiaChangesMade)
 	{
-		if (!MercPtrs[cnt]->bActive)
-		{
-			continue;
-		}
+		// I truly hope that we remove such inane control methods from the soldier create code when we break the merc slot barrier
+		// Hacks like this really depress me.
+		UINT32 cs = guiCurrentScreen;
+		// Make sure we aren't on the AUTORESOLVE screen for this.  Even if we are.  We are removing and creating soldiers for 
+		// tactical here, not autoresolve.  In my opinion the CreateSoldierXXX and TacticalRemoveSoldierXXX functions should take 
+		// a flag for autoresolve if different initialization or destruction is desired.
+		guiCurrentScreen = GAME_SCREEN;
 
-		switch (MercPtrs[cnt]->ubSoldierClass)
-		{
-		case SOLDIER_CLASS_GREEN_MILITIA: ubNumGreen++; break;
-		case SOLDIER_CLASS_REG_MILITIA: ubNumReg++; break;
-		case SOLDIER_CLASS_ELITE_MILITIA: ubNumVet++; break;
-		default: ;
-		}
-	}
-	if (MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, GREEN_MILITIA) != ubNumGreen ||
-		MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, REGULAR_MILITIA) != ubNumReg ||
-		MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, ELITE_MILITIA) != ubNumVet)
-	{
+
 		RemoveMilitiaFromTactical();
 		ubNumGreen = MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, GREEN_MILITIA);
 		ubNumReg = MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, REGULAR_MILITIA);
 		ubNumVet = MilitiaInSectorOfRank(gWorldSectorX, gWorldSectorY, ELITE_MILITIA);
 
 		AddSoldierInitListMilitia( ubNumGreen, ubNumReg, ubNumVet );
+
+		// Now restore the original screen setting so the game doesn't go wacky.
+		guiCurrentScreen = cs;
+
+		gfStrategicMilitiaChangesMade = FALSE;
 	}
 
 //	if( ( gfStrategicMilitiaChangesMade && !fBattleInProgress ) || gTacticalStatus.uiFlags & LOADING_SAVED_GAME || gfMSResetMilitia )
-	if(gfMSResetMilitia )
-	{
+//	if(gfMSResetMilitia )
+//	{
 //		if( !gfMSResetMilitia )
 //			RemoveMilitiaFromTactical();
-		PrepareMilitiaForTactical();
-		gfMSResetMilitia = FALSE;
-	}
+//		PrepareMilitiaForTactical();
+//		gfMSResetMilitia = FALSE;
+//	}
 }
 
 void RemoveMilitiaFromTactical()
@@ -212,17 +231,22 @@ void PrepareMilitiaForTactical()
 	{
 		for( x = 0 ; x < guiDirNumber ; ++x )
 		{
+#if 0
 			//			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld,%ld,%ld", gpAttackDirs[ x ][ 0 ], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2], gpAttackDirs[ x ][3] );
 			if( gfMSResetMilitia )
 			{
 				if( gpAttackDirs[ x ][ 3 ] != INSERTION_CODE_CENTER )
 				{
 					AddSoldierInitListMilitiaOnEdge( gpAttackDirs[ x ][ 3 ], gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
+					ubGreen -= gpAttackDirs[ x ][0];
+					ubRegs -= gpAttackDirs[ x ][1];
+					ubElites -= gpAttackDirs[ x ][2];
 				}
 			}
 			else
 			{
-				if( gpAttackDirs[ x ][ 3 ] == INSERTION_CODE_CENTER )
+#endif
+			if( gpAttackDirs[ x ][ 3 ] == INSERTION_CODE_CENTER )
 				{
 					AddSoldierInitListMilitia( gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
 				}
@@ -230,7 +254,7 @@ void PrepareMilitiaForTactical()
 				{
 					AddSoldierInitListMilitiaOnEdge( gpAttackDirs[ x ][ 3 ], gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
 				}
-			}
+//			}
 		}
 	}
 	else 
@@ -247,6 +271,7 @@ void PrepareMilitiaForTactical()
 //		}
 //	}
 	guiDirNumber = 0;
+	memset( gpAttackDirs, 0, sizeof( gpAttackDirs));
 }
 
 void HandleMilitiaPromotions( void )
@@ -301,6 +326,11 @@ void HandleMilitiaPromotions( void )
 		// CHAR16 str[ 512 ];
 		// BuildMilitiaPromotionsString( str );
 		// DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
+	}
+
+	if (gfStrategicMilitiaChangesMade)
+	{
+		ResetMilitia();
 	}
 }
 

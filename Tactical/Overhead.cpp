@@ -3423,8 +3423,10 @@ void HandleNPCTeamMemberDeath( SOLDIERTYPE *pSoldierOld )
 
 		if (bMilitiaRank != -1)
 		{
+			BOOLEAN NeedReset = gfStrategicMilitiaChangesMade;
 			// remove this militia from the strategic records
 			StrategicRemoveMilitiaFromSector( gWorldSectorX, gWorldSectorY, bMilitiaRank, 1 );
+			gfStrategicMilitiaChangesMade = NeedReset;
 		}
 
 		// If the militia's killer is known

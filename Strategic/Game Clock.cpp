@@ -702,7 +702,7 @@ void PauseTimeForInterupt()
 }
 
 //USING CLOCK RESOLUTION
-//Note, that changing the clock resolution doesn't effect the amount of game time that passes per
+//Note, that changing the clock resolution doesn't affect the amount of game time that passes per
 //real second, but how many times per second the clock is updated.  This rate will break up the actual
 //time slices per second into smaller chunks.  This is useful for animating strategic movement under
 //fast time compression, so objects don't warp around.
