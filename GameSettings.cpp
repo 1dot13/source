@@ -32,6 +32,7 @@
 	#include "meanwhile.h"
 	#include "strategicmap.h"
 	#include "Queen Command.h"
+	#include "Game Clock.h"
 #endif
 
 #include	"Text.h"
@@ -485,8 +486,19 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iStartingCashInsane		= iniReader.ReadInteger("JA2 Gameplay Settings", "INSANE_CASH",15000);
 
 	//Lalien: Game starting time
-	gGameExternalOptions.iGameStartingTime			= iniReader.ReadInteger("JA2 Gameplay Settings", "GAME_STARTING_TIME", 3600);	
-	gGameExternalOptions.iFirstArrivalDelay			= iniReader.ReadInteger("JA2 Gameplay Settings", "FIRST_ARRIVAL_DELAY", 21600);
+	gGameExternalOptions.iGameStartingTime			= iniReader.ReadInteger("JA2 Gameplay Settings", "GAME_STARTING_TIME", NUM_SEC_IN_HOUR);
+	
+	// WANNE: Check for invalid starting time
+	if (gGameExternalOptions.iGameStartingTime < 0 || gGameExternalOptions.iGameStartingTime >= NUM_SEC_IN_DAY)
+	{
+		gGameExternalOptions.iGameStartingTime = NUM_SEC_IN_HOUR + NUM_SEC_IN_DAY;
+	}
+	else
+	{
+		gGameExternalOptions.iGameStartingTime += NUM_SEC_IN_DAY;
+	}
+
+	gGameExternalOptions.iFirstArrivalDelay			= iniReader.ReadInteger("JA2 Gameplay Settings", "FIRST_ARRIVAL_DELAY", 6 * NUM_SEC_IN_HOUR);
 	
 	//################# Settings valid on game start only end ##################
 
