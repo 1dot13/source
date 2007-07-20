@@ -7,6 +7,7 @@
 #include "Video.h"
 #include "Timer Control.h"
 #include "Multi Language Graphic Utils.h"
+#include <stdio.h>
 #endif
 
 UINT32 guiSplashFrameFade = 10;
