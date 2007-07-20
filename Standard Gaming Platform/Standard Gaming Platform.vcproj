@@ -330,7 +330,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Build;..\TileEngine;..\Tactical;..\Utils;..\lua;..\strategic;..\Console;..\;.\"
+				AdditionalIncludeDirectories="..\Res;..\Build;..\TileEngine;..\Tactical;..\Utils;..\lua;..\strategic;..\Console;..\;.\"
 				PreprocessorDefinitions="JA2_PRECOMPILED_HEADERS;NO_ZLIB_COMPRESSION;_DEBUG;WIN32;_WINDOWS;JA2;_VTUNE_PROFILING;XML_STATIC;CINTERFACE"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
