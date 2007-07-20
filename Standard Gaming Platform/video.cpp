@@ -2239,6 +2239,12 @@ void RefreshScreen(void *DummyVariable)
 				NULL);
 			if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
 			{
+				// Prevent the minimizing bug
+				if (ReturnCode == DDERR_INVALIDRECT)
+				{
+					return;
+				}
+
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
 				if (ReturnCode == DDERR_SURFACELOST)
@@ -2266,6 +2272,12 @@ void RefreshScreen(void *DummyVariable)
 
 			if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
 			{
+				// Prevent the minimizing bug
+				if (ReturnCode == DDERR_INVALIDRECT)
+				{
+					return;
+				}
+
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
 				if (ReturnCode == DDERR_SURFACELOST)

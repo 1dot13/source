@@ -690,6 +690,24 @@ GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmin
 	pNew->pEnemyGroup = (ENEMYGROUP*)MemAlloc( sizeof( ENEMYGROUP ) );
 	AssertMsg( pNew->pEnemyGroup, "MemAlloc failure during enemy group creation." );
 	memset( pNew->pEnemyGroup, 0, sizeof( ENEMYGROUP ) );
+
+	// Make sure group is not bigger than allowed!
+	while (ubNumAdmins + ubNumTroops + ubNumElites > gGameExternalOptions.iMaxEnemyGroupSize)
+	{
+		if (ubNumTroops)
+		{
+			ubNumTroops--;
+		}
+		else if (ubNumAdmins)
+		{
+			ubNumAdmins--;
+		}
+		else
+		{
+			ubNumElites--;
+		}
+	}
+
 	pNew->pWaypoints = NULL;
 	pNew->ubSectorX = (UINT8)SECTORX( uiSector );
 	pNew->ubSectorY = (UINT8)SECTORY( uiSector );
@@ -702,7 +720,7 @@ GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmin
 	pNew->pEnemyGroup->ubNumAdmins = ubNumAdmins;
 	pNew->pEnemyGroup->ubNumTroops = ubNumTroops;
 	pNew->pEnemyGroup->ubNumElites = ubNumElites;
-	pNew->ubGroupSize = (UINT8)(ubNumTroops + ubNumElites);
+	pNew->ubGroupSize = (UINT8)(ubNumAdmins + ubNumTroops + ubNumElites);
 	pNew->ubTransportationMask = FOOT;
 	pNew->fVehicle = FALSE;
 	pNew->ubCreatedSectorID = pNew->ubOriginalSector;

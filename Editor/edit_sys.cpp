@@ -1171,6 +1171,13 @@ void RaiseWorldLand( )
 
 		while( pStruct )
 		{
+			// Skip cached tiles
+			if (pStruct->usIndex >= NUMBEROFTILES)
+			{
+				pStruct = pStruct->pNext;
+				continue;
+			}
+
 			pTileElement = &(gTileDatabase[ pStruct->usIndex ]);
 			if (pTileElement->fType==FIRSTCLIFF)
 			{	

@@ -13,8 +13,6 @@
 
 //#define DEBUG_ATTACKBUSY
 
-//#define LUACONSOLE
-
 #define ROBOT_ALWAYS_READY
 
 //#ifdef _DEBUG
