@@ -2424,6 +2424,8 @@ BOOLEAN NewWayOfLoadingBobbyRMailOrdersToSaveGameFile( HWFILE hFile )
 	{
 		//Allocate memory for the list
 		gpNewBobbyrShipments = (NewBobbyRayOrderStruct *) MemAlloc( sizeof( NewBobbyRayOrderStruct ) * giNumberOfNewBobbyRShipment );
+		memset(gpNewBobbyrShipments, 0, (sizeof( NewBobbyRayOrderStruct ) * giNumberOfNewBobbyRShipment) );
+
 		if( gpNewBobbyrShipments == NULL )
 		{
 			Assert(0);

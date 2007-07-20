@@ -348,6 +348,7 @@ BOOLEAN Copy8BPPCompressedImageTo8BPPBuffer( HIMAGE hImage, BYTE *pDestBuf, UINT
 	// Allocate memory for one scanline
 	pScanLine = (UINT8*) MemAlloc( hImage->usWidth );
 	CHECKF( pScanLine );
+	memset( pScanLine, 0, hImage->usWidth );
 
 	// go past all the scanlines we don't need to process
 	for (uiCnt = 0; uiCnt < (UINT32) srcRect->iTop; uiCnt++)
@@ -436,6 +437,7 @@ BOOLEAN Copy8BPPCompressedImageTo16BPPBuffer( HIMAGE hImage, BYTE *pDestBuf, UIN
 	// Allocate memory for one scanline
 	pScanLine = MemAlloc( hImage->usWidth );
 	CHECKF( pScanLine );
+	memset( pScanLine, 0, hImage->usWidth );
 
 	// go past all the scanlines we don't need to process
 	for (uiLine = 0; uiLine < (UINT32) srcRect->iTop; uiLine++)
@@ -650,6 +652,7 @@ UINT16 *Create16BPPPalette( SGPPaletteEntry *pPalette )
 	Assert( pPalette != NULL );
 
 	p16BPPPalette = (UINT16 *) MemAlloc( sizeof( UINT16 ) * 256 );
+	memset( p16BPPPalette, 0, sizeof( UINT16 ) * 256 );
 
 	for ( cnt = 0; cnt < 256; cnt++ )
 	{
@@ -723,6 +726,7 @@ UINT16 *Create16BPPPaletteShaded( SGPPaletteEntry *pPalette, UINT32 rscale, UINT
 	Assert( pPalette != NULL );
 
 	p16BPPPalette = (UINT16 *) MemAlloc( sizeof( UINT16 ) * 256 );
+	memset( p16BPPPalette, 0, sizeof( UINT16 ) * 256 );
 
 	for ( cnt = 0; cnt < 256; cnt++ )
 	{
@@ -870,21 +874,24 @@ UINT32 GetRGBColor( UINT16 Value16BPP )
 SGPPaletteEntry *ConvertRGBToPaletteEntry(UINT8 sbStart, UINT8 sbEnd, UINT8 *pOldPalette)
 {
 	UINT16 Index;
-  SGPPaletteEntry *pPalEntry;
+	SGPPaletteEntry *pPalEntry;
 	SGPPaletteEntry *pInitEntry;
 
 	pPalEntry = (SGPPaletteEntry *)MemAlloc(sizeof(SGPPaletteEntry) * 256);
+	memset( pPalEntry, 0, sizeof(SGPPaletteEntry) * 256 );
 	pInitEntry = pPalEntry;
-  DbgMessage(TOPIC_HIMAGE, DBG_LEVEL_0, "Converting RGB palette to SGPPaletteEntry");   
-  for(Index=0; Index <= (sbEnd-sbStart);Index++)
-  {
-    pPalEntry->peRed = *(pOldPalette + (Index*3));
-	  pPalEntry->peGreen = *(pOldPalette + (Index*3) + 1);
- 	  pPalEntry->peBlue = *(pOldPalette + (Index*3) + 2);
-    pPalEntry->peFlags = 0;
-	  pPalEntry++;
-  }
-  return pInitEntry;
+
+	DbgMessage(TOPIC_HIMAGE, DBG_LEVEL_0, "Converting RGB palette to SGPPaletteEntry");   
+	
+	for(Index=0; Index <= (sbEnd-sbStart);Index++)
+	{
+		pPalEntry->peRed = *(pOldPalette + (Index*3));
+		pPalEntry->peGreen = *(pOldPalette + (Index*3) + 1);
+		pPalEntry->peBlue = *(pOldPalette + (Index*3) + 2);
+		pPalEntry->peFlags = 0;
+		pPalEntry++;
+	}
+	return pInitEntry;
 } 
 
 BOOLEAN GetETRLEImageData( HIMAGE hImage, ETRLEData *pBuffer )
@@ -899,6 +906,7 @@ BOOLEAN GetETRLEImageData( HIMAGE hImage, ETRLEData *pBuffer )
 	// Create buffer for objects
 	pBuffer->pETRLEObject = (ETRLEObject *) MemAlloc( sizeof( ETRLEObject ) * pBuffer->usNumberOfObjects );
 	CHECKF( pBuffer->pETRLEObject != NULL );
+	memset( pBuffer->pETRLEObject, 0, sizeof( ETRLEObject ) * pBuffer->usNumberOfObjects );
 
 	// Copy into buffer
 	memcpy( pBuffer->pETRLEObject, hImage->pETRLEObject, sizeof( ETRLEObject ) * pBuffer->usNumberOfObjects );
@@ -906,6 +914,7 @@ BOOLEAN GetETRLEImageData( HIMAGE hImage, ETRLEData *pBuffer )
 	// Allocate memory for pixel data
 	pBuffer->pPixData = MemAlloc( hImage->uiSizePixData );
 	CHECKF( pBuffer->pPixData != NULL );
+	memset( pBuffer->pPixData, 0, hImage->uiSizePixData );
 
 	pBuffer->uiSizePixData = hImage->uiSizePixData;
 

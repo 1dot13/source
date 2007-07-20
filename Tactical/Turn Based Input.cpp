@@ -2982,7 +2982,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							{
 								if ( (gWorldItems[ uiLoop ].bVisible == TRUE) && (gWorldItems[ uiLoop ].fExists) && (gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_REACHABLE) && !(gWorldItems[ uiLoop ].usFlags & WORLD_ITEM_ARMED_BOMB) && (gWorldItems[ uiLoop ].sGridNo != pSoldier->sGridNo) )//item exists and is reachable and is not already on soldiers tile
 								{									
-									MoveItemPools(gWorldItems[ uiLoop ].sGridNo, pSoldier->sGridNo, gWorldItems[ uiLoop ].ubLevel, pSoldier->bLevel);									
+									MoveItemPools(gWorldItems[ uiLoop ].sGridNo, pSoldier->sGridNo, gWorldItems[ uiLoop ].ubLevel, pSoldier->bLevel);
 								}
 							}
 							

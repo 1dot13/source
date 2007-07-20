@@ -1578,6 +1578,8 @@ INT32 CreateIconButton(INT16 Icon,INT16 IconIndex,INT16 GenImg,INT16 xloc,INT16 
 		return(-1);
 	}
 
+	memset(b, 0, sizeof(GUI_BUTTON));
+
 	// Init the values in the struct
 	b->uiFlags = BUTTON_DIRTY;
 	b->uiOldFlags = 0;
@@ -1705,6 +1707,8 @@ INT32 CreateTextButton(STR16 string, UINT32 uiFont, INT16 sForeColor, INT16 sSha
 		DbgMessage(TOPIC_BUTTON_HANDLER,DBG_LEVEL_0,"CreateTextButton: Can't alloc mem for button struct");
 		return(-1);
 	}
+
+	memset(b, 0, sizeof(GUI_BUTTON));
 
 	// Allocate memory for the button's text string...
 	b->string = NULL;
@@ -1836,6 +1840,8 @@ INT32 CreateHotSpot(INT16 xloc, INT16 yloc, INT16 Width, INT16 Height,INT16 Prio
 		return(-1);
 	}
 
+	memset(b, 0, sizeof(GUI_BUTTON));
+
 	// Init the structure values
 	b->uiFlags = 0;
 	b->uiOldFlags = 0;
@@ -1954,6 +1960,8 @@ INT32 QuickCreateButton(UINT32 Image,INT16 xloc,INT16 yloc,INT32 Type,INT16 Prio
 		DbgMessage(TOPIC_BUTTON_HANDLER,DBG_LEVEL_0,"QuickCreateButton: Can't alloc mem for button struct");
 		return(-1);
 	}
+
+	memset(b, 0, sizeof(GUI_BUTTON));
 
 	// Set the values for this buttn
 	b->uiFlags = BUTTON_DIRTY;
@@ -2148,6 +2156,8 @@ INT32 CreateIconAndTextButton( INT32 Image, const STR16 string, UINT32 uiFont,
 		DbgMessage(TOPIC_BUTTON_HANDLER,DBG_LEVEL_0,"QuickCreateButton: Can't alloc mem for button struct");
 		return(-1);
 	}
+
+	memset(b, 0, sizeof(GUI_BUTTON));
 
 	// Set the values for this button
 	b->uiFlags = BUTTON_DIRTY;

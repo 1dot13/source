@@ -3495,7 +3495,7 @@ BOOLEAN LoadFilesFromSavedGame( STR pSrcFileName, HWFILE hFile )
 		FileClose( hSrcFile );
 		return( FALSE );
 	}
-
+	memset( pData, 0, uiFileSize);
 
 	// Read into the buffer
 	FileRead( hFile, pData, uiFileSize, &uiNumBytesRead );
@@ -5409,6 +5409,8 @@ void HandleOldBobbyRMailOrders()
 			Assert(0);
 			return;
 		}
+		
+		memset( gpNewBobbyrShipments, 0, (sizeof( NewBobbyRayOrderStruct )* LaptopSaveInfo.usNumberOfBobbyRayOrderUsed) );
 
 		giNumberOfNewBobbyRShipment = LaptopSaveInfo.usNumberOfBobbyRayOrderUsed;
 

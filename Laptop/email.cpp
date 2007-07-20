@@ -777,6 +777,7 @@ void AddEmailMessage(INT32 iMessageOffset, INT32 iMessageLength,STR16 pSubject, 
 
 	// add new element onto list
   pTempEmail = (EmailPtr) MemAlloc(sizeof(Email));
+  memset( pTempEmail, 0, sizeof(Email) );
 	// add in strings
 	//while(pMessage !=NULL)
 	//{

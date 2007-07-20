@@ -1283,6 +1283,8 @@ FontTranslationTable *CreateEnglishTransTable(  )
 	UINT16	*temp;
 
   pTable = (FontTranslationTable *)MemAlloc(sizeof(FontTranslationTable));
+  memset(pTable, 0, sizeof(FontTranslationTable) );
+
 	#ifdef JA2
 		// ha ha, we have more than Wizardry now (again)
 		pTable->usNumberOfSymbols = 255;
