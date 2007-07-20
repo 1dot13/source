@@ -1069,7 +1069,7 @@ void MapscreenMarkButtonsDirty();
 extern BOOLEAN CanRedistributeMilitiaInSector( INT16 sClickedSectorX, INT16 sClickedSectorY, INT8 bClickedTownId );
 
 extern INT32 GetNumberOfMercsInUpdateList( void );
-
+void DeleteAllItemsInInventoryPool();
 
 #ifdef JA2TESTVERSION
 void TestDumpStatChanges( void );
@@ -5212,6 +5212,13 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					break;
 
 				case DEL:
+					// show the inventory pool?
+					if( fShowMapInventoryPool && _KeyDown( CTRL ) )
+					{
+						DeleteAllItemsInInventoryPool();
+						break;
+					}
+
 					// down one sublevel
 					GoDownOneLevelInMap( );
 					break;
