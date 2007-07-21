@@ -345,6 +345,9 @@ void RenderSoldierCellBars( SOLDIERCELL *pCell );
 	extern void GetRandomCalls( UINT32 *puiRandoms, UINT32 *puiPreRandoms );
 #endif
 
+void GenerateDirectionInfos( INT16 sMapX, INT16 sMapY, UINT8* uiDirNumber, UINT16 pMoveDir[4][3], BOOLEAN fWithCities, BOOLEAN fForBattle, BOOLEAN fOnlyCitySectors );
+
+
 //Dynamic globals -- to conserve memory, all global variables are allocated upon entry
 //and deleted before we leave.
 AUTORESOLVE_STRUCT *gpAR = NULL;
