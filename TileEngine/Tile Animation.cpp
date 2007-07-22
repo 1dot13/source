@@ -71,6 +71,8 @@ ANITILE *CreateAnimationTile( ANITILE_PARAMS *pAniParams )
 	// Allocate head
 	pNewAniNode = (ANITILE *) MemAlloc( sizeof( ANITILE ) );
 
+	memset( pNewAniNode, 0, sizeof( ANITILE ) );
+
 	if ( (uiFlags & ANITILE_EXISTINGTILE  ) )
 	{
 		pNewAniNode->pLevelNode						= pGivenNode;

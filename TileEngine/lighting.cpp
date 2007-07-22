@@ -3266,6 +3266,11 @@ BOOLEAN LightSpriteFake(INT32 iSprite)
 ********************************************************************************/
 BOOLEAN LightSpriteDestroy(INT32 iSprite)
 {
+	if ( (iSprite >= MAX_LIGHT_SPRITES ) || (iSprite < 0) )
+	{
+		return FALSE;
+	}
+
 	if(LightSprites[iSprite].uiFlags&LIGHT_SPR_ACTIVE)
 	{
 		if(LightSprites[iSprite].uiFlags&LIGHT_SPR_ERASE)
@@ -3377,6 +3382,11 @@ BOOLEAN fRenderLights=FALSE;
 ********************************************************************************/
 BOOLEAN LightSpritePosition(INT32 iSprite, INT16 iX, INT16 iY)
 {
+	if ( (iSprite >= MAX_LIGHT_SPRITES ) || (iSprite < 0) )
+	{
+		return FALSE;
+	}
+
 	if(LightSprites[iSprite].uiFlags&LIGHT_SPR_ACTIVE)
 	{
 		if((LightSprites[iSprite].iX==iX) && (LightSprites[iSprite].iY==iY))
@@ -3468,6 +3478,11 @@ BOOLEAN LightSpriteRoofStatus(INT32 iSprite, BOOLEAN fOnRoof)
 ********************************************************************************/
 BOOLEAN LightSpritePower(INT32 iSprite, BOOLEAN fOn)
 {
+	if ( (iSprite >= MAX_LIGHT_SPRITES ) || (iSprite < 0) )
+	{
+		return FALSE;
+	}
+
 	if(fOn)
 	{
 		//LightSprites[iSprite].uiFlags|=(LIGHT_SPR_ON|LIGHT_SPR_REDRAW);

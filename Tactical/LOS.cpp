@@ -4148,7 +4148,7 @@ void MoveBullet( INT32 iBullet )
 				{
 					iAdjGridNo = iGridNo + DirIncrementer[bDir];
 
-					if ( gubWorldMovementCosts[ iAdjGridNo ][ sDesiredLevel ][ bDir ] < TRAVELCOST_BLOCKED)
+					if ( gubWorldMovementCosts[ iAdjGridNo ][ bDir ][ sDesiredLevel ] < TRAVELCOST_BLOCKED)
 					{
 						ubTargetID = WhoIsThere2( (INT16) iAdjGridNo, (INT8) sDesiredLevel );
 						if (ubTargetID != NOBODY)

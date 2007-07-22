@@ -1066,7 +1066,7 @@ void RenderInvBodyPanel( SOLDIERTYPE *pSoldier, INT16 sX, INT16 sY )
 void HandleRenderInvSlots( SOLDIERTYPE *pSoldier, UINT8 fDirtyLevel )
 {
 	INT32									cnt;
-	static CHAR16					pStr[ 150 ]; 
+	static CHAR16					pStr[ 512 ]; 
 
 	if ( InItemDescriptionBox( ) || InItemStackPopup( ) || InKeyRingPopup( ) )
 	{

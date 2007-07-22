@@ -235,7 +235,11 @@ Inventory::Inventory() {
 	slotCnt = NUM_INV_SLOTS;
 	inv.reserve(slotCnt);
 	for (int idx=0; idx < slotCnt; ++idx) {
-		OBJECTTYPE *filler = new OBJECTTYPE;	// Use MEMALLOC?
+		//OBJECTTYPE *filler = new OBJECTTYPE;	// Use MEMALLOC?
+		OBJECTTYPE *filler = NULL;
+		filler = (OBJECTTYPE*)MemAlloc( sizeof( OBJECTTYPE ) );
+		memset( filler, 0, sizeof( OBJECTTYPE ) );
+
 		inv.push_back(*filler);
 	}
 	clear();
@@ -246,7 +250,11 @@ Inventory::Inventory(int slotCount) {
 	slotCnt = slotCount;
 	inv.reserve(slotCnt);
 	for (int idx=0; idx < slotCnt; ++idx) {
-		OBJECTTYPE *filler = new OBJECTTYPE;	// Use MEMALLOC?
+		//OBJECTTYPE *filler = new OBJECTTYPE;	// Use MEMALLOC?
+		OBJECTTYPE *filler = NULL;
+		filler = (OBJECTTYPE*)MemAlloc( sizeof( OBJECTTYPE ) );
+		memset( filler, 0, sizeof( OBJECTTYPE ) );
+
 		inv.push_back(*filler);
 	}
 	clear();
