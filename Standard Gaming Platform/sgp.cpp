@@ -848,8 +848,8 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,  HINSTANCE hPrevInstance, LPSTR p
 
   FastDebugMsg("Running Game");
 
-  // 0verhaul:  Roughly 60 frames per second.  The original "low cpu" code did 30, but that is really slow
-  SetTimer( ghWindow, uiTimer, 16, NULL);
+  // 0verhaul:  Use the smallest available timer to make sure all animation updates happen at the speed they're supposed to
+  SetTimer( ghWindow, uiTimer, 1, NULL);
 
   // At this point the SGP is set up, which means all I/O, Memory, tools, etc... are available. All we need to do is 
   // attend to the gaming mechanics themselves

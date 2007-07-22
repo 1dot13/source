@@ -16,7 +16,7 @@
 
 // Because we're in a library, define SGP_DEBUG here - the client may not always
 // use the code to write text, because the header switches on the define
-#define SGP_DEBUG
+//#define SGP_DEBUG
 //#undef _DEBUG
 
 // WDS:  Note:  To compile with VS2005 in release mode you might have to not define SGP_DEBUG and
@@ -487,7 +487,14 @@ void			_DebugMessage(UINT8 *pString, UINT32 uiLineNum, UINT8 *pSourceFile)
 	}
 #endif
 }
+#else
+BOOLEAN	DbgInitialize(void) { return true; };
+void		DbgShutdown(void) {};
+#endif
 
+
+
+#if defined ( _DEBUG ) || defined ( FORCE_ASSERTS_ON )
 
 
 //////////////////////////////////////////////////////////////////////
@@ -504,7 +511,7 @@ void _FailMessage( STR8 pString, UINT32 uiLineNum, STR8 pSourceFile )
 	CHAR8 ubOutputString[512];
 #ifndef _NO_DEBUG_TXT
 	MSG Message;
-	FILE *DebugFile;
+//	FILE *DebugFile;
 #endif
 	BOOLEAN fDone = FALSE;
 	//Build the output strings
@@ -520,6 +527,7 @@ void _FailMessage( STR8 pString, UINT32 uiLineNum, STR8 pSourceFile )
 	
 	//Record to file if required
 #ifndef _NO_DEBUG_TXT
+#if 0
 	if (gfRecordToFile)
 	{
 		if ((DebugFile = fopen( gpcDebugLogFileName, "a+t" )) != NULL)
@@ -528,7 +536,10 @@ void _FailMessage( STR8 pString, UINT32 uiLineNum, STR8 pSourceFile )
 			fclose( DebugFile );
 		}
 	}
-	
+#endif
+	// 0verhaul:  Replacement for the above.  More consistent.
+	DbgMessage( TOPIC_GAME, DBG_LEVEL_1, ubOutputString);
+
 #if 0
 	if( !FontObjs[0] )
 	{ //Font manager hasn't yet been initialized so use the windows error system
@@ -613,9 +624,6 @@ void _FailMessage(STR8 pString, UINT32 uiLineNum, STR8 pSourceFile)
 
 #endif
 
-#else
-BOOLEAN	DbgInitialize(void) { return true; };
-void		DbgShutdown(void) {};
 #endif
 
 // This is NOT a _DEBUG only function! It is also needed in
