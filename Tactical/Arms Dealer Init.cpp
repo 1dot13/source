@@ -109,7 +109,7 @@ void		ArmsDealerGetsFreshStock( UINT8 ubArmsDealer, UINT16 usItemIndex, UINT8 ub
 BOOLEAN ItemContainsLiquid( UINT16 usItemIndex );
 UINT8		DetermineDealerItemCondition( UINT8 ubArmsDealer, UINT16 usItemIndex );
 
-BOOLEAN IsItemInfoSpecial( SPECIAL_ITEM_INFO *pSpclItemInfo );
+BOOLEAN IsItemInfoSpecial( SPECIAL_ITEM_INFO *pSpclItemInfo, UINT16 usItemIndex );
 
 BOOLEAN DoesItemAppearInDealerInventoryList( UINT8 ubArmsDealer, UINT16 usItemIndex, BOOLEAN fPurchaseFromPlayer );
 
@@ -1034,7 +1034,7 @@ INT16 GetSpecialItemFromArmsDealerInventory( UINT8 ubArmsDealer, UINT16 usItemIn
 	UINT8 ubElement;
 
 	// this function won't find perfect items!
-	Assert( IsItemInfoSpecial( pSpclItemInfo ) );
+	Assert( IsItemInfoSpecial( pSpclItemInfo, usItemIndex ) );
 
 	for( ubElement = 0; ubElement < gArmsDealersInventory[ ubArmsDealer ][ usItemIndex ].ubElementsAlloced; ubElement++ )
 	{
@@ -1674,9 +1674,8 @@ void AddItemToArmsDealerInventory( UINT8 ubArmsDealer, UINT16 usItemIndex, SPECI
 		return;
 	}
 
-
 	// decide whether this item is "special" or not
-	if ( IsItemInfoSpecial( pSpclItemInfo ) )
+	if ( IsItemInfoSpecial( pSpclItemInfo, usItemIndex ) )
 	{
 		// Anything that's used/damaged or imprinted is store as a special item in the SpecialItem array,
 		// exactly one item per element.  We (re)allocate memory dynamically as necessary to hold the additional items.
@@ -1684,7 +1683,7 @@ void AddItemToArmsDealerInventory( UINT8 ubArmsDealer, UINT16 usItemIndex, SPECI
 		do
 		{
 			// search for an already allocated, empty element in the special item array
-			fFoundOne = FALSE;
+ 			fFoundOne = FALSE;
 			for ( ubElement = 0; ubElement < gArmsDealersInventory[ ubArmsDealer ][ usItemIndex ].ubElementsAlloced; ubElement++ )
 			{
 				if ( !( gArmsDealersInventory[ ubArmsDealer ][ usItemIndex ].SpecialItem[ ubElement ].fActive ) )
@@ -1744,7 +1743,7 @@ void AddSpecialItemToArmsDealerInventoryAtElement( UINT8 ubArmsDealer, UINT16 us
 	Assert( gArmsDealersInventory[ ubArmsDealer ][ usItemIndex ].ubTotalItems < 255 );
 	Assert( ubElement < gArmsDealersInventory[ ubArmsDealer ][ usItemIndex ].ubElementsAlloced );
 	Assert( gArmsDealersInventory[ ubArmsDealer ][ usItemIndex ].SpecialItem[ ubElement ].fActive == FALSE );
-	Assert( IsItemInfoSpecial( pSpclItemInfo ) );
+	Assert( IsItemInfoSpecial( pSpclItemInfo , usItemIndex) );
 
 
 	//Store the special values in that element, and make it active
@@ -1757,13 +1756,36 @@ void AddSpecialItemToArmsDealerInventoryAtElement( UINT8 ubArmsDealer, UINT16 us
 }
 
 
+// WDS bug fix (07/24/2007) - Items with default attachments have to be handled specially
+
+BOOLEAN SpecialItemInfoIsIdentical (SPECIAL_ITEM_INFO& baseItem, SPECIAL_ITEM_INFO& actualItem, UINT16 usItemIndex)
+{
+	BOOLEAN firstAttachmentIsDefault = 
+		((actualItem.usAttachment[ 0 ] == Item [ usItemIndex ].defaultattachment) &&
+		 (actualItem.bAttachmentStatus[0] == 100));
+	for (int idx=0; idx < MAX_ATTACHMENTS; ++idx) {
+		if ((idx != 0) || (!firstAttachmentIsDefault)) {
+			if (baseItem.usAttachment[idx] != actualItem.usAttachment[idx])
+				return FALSE;
+			if (baseItem.bAttachmentStatus[idx] != actualItem.bAttachmentStatus[idx])
+				return FALSE;
+		}
+	}
+	if (baseItem.bItemCondition != actualItem.bItemCondition)
+		return FALSE;
+	if (baseItem.ubImprintID != actualItem.ubImprintID)
+		return FALSE;
+
+	return TRUE;
+}
+
+
 
 // removes ubHowMany items of usItemIndex with the matching Info from dealer ubArmsDealer
 void RemoveItemFromArmsDealerInventory( UINT8 ubArmsDealer, UINT16 usItemIndex, SPECIAL_ITEM_INFO *pSpclItemInfo, UINT8 ubHowMany )
 {
 	DEALER_SPECIAL_ITEM *pSpecialItem;
 	UINT8 ubElement;
-
 
 	Assert( ubHowMany <= gArmsDealersInventory[ ubArmsDealer ][ usItemIndex ].ubTotalItems );
 
@@ -1774,7 +1796,7 @@ void RemoveItemFromArmsDealerInventory( UINT8 ubArmsDealer, UINT16 usItemIndex, 
 
 
 	// decide whether this item is "special" or not
-	if ( IsItemInfoSpecial( pSpclItemInfo ) )
+	if ( IsItemInfoSpecial( pSpclItemInfo, usItemIndex ) )
 	{
 		// look through the elements, trying to find special items matching the specifications
 		for ( ubElement = 0; ubElement < gArmsDealersInventory[ ubArmsDealer ][ usItemIndex ].ubElementsAlloced; ubElement++ )
@@ -1785,7 +1807,8 @@ void RemoveItemFromArmsDealerInventory( UINT8 ubArmsDealer, UINT16 usItemIndex, 
 			if ( pSpecialItem->fActive )
 			{
 				// and its contents are exactly what we're looking for
-				if( memcmp( &(gArmsDealersInventory[ ubArmsDealer ][ usItemIndex ].SpecialItem[ ubElement ].Info), pSpclItemInfo, sizeof( SPECIAL_ITEM_INFO ) ) == 0 )
+//				if( memcmp( &(gArmsDealersInventory[ ubArmsDealer ][ usItemIndex ].SpecialItem[ ubElement ].Info), pSpclItemInfo, sizeof( SPECIAL_ITEM_INFO ) ) == 0 )
+				if( SpecialItemInfoIsIdentical( gArmsDealersInventory[ ubArmsDealer ][ usItemIndex ].SpecialItem[ ubElement ].Info, *pSpclItemInfo, usItemIndex))
 				{
 					// Got one!  Remove it
 					RemoveSpecialItemFromArmsDealerInventoryAtElement( ubArmsDealer, usItemIndex, ubElement );
@@ -2022,7 +2045,6 @@ void MakeObjectOutOfDealerItems( UINT16 usItemIndex, SPECIAL_ITEM_INFO *pSpclIte
 {
 	INT8 bItemCondition;
 	UINT8 ubCnt;
-
 
 	bItemCondition = pSpclItemInfo->bItemCondition;
 
@@ -2445,10 +2467,9 @@ void SetSpecialItemInfoFromObject( SPECIAL_ITEM_INFO *pSpclItemInfo, OBJECTTYPE 
 
 
 
-BOOLEAN IsItemInfoSpecial( SPECIAL_ITEM_INFO *pSpclItemInfo )
+BOOLEAN IsItemInfoSpecial( SPECIAL_ITEM_INFO *pSpclItemInfo, UINT16 usItemIndex )
 {
 	UINT8 ubCnt;
-
 
 	// being damaged / in repairs makes an item special
 	if ( pSpclItemInfo->bItemCondition != 100 )
@@ -2463,11 +2484,18 @@ BOOLEAN IsItemInfoSpecial( SPECIAL_ITEM_INFO *pSpclItemInfo )
 	}
 
 	// having an attachment makes an item special
+	// ...unless it is a default attachment (WDS fix 07/24/2007)
+	BOOLEAN firstAttachmentIsDefault = 
+		((pSpclItemInfo->usAttachment[ 0 ] == Item [ usItemIndex ].defaultattachment) &&
+		 (pSpclItemInfo->bAttachmentStatus[0] == 100));
+
 	for ( ubCnt = 0; ubCnt < MAX_ATTACHMENTS; ubCnt++ )
 	{
-		if ( pSpclItemInfo->usAttachment[ ubCnt ] != NONE )
-		{
-			return(TRUE);
+		if ((ubCnt != 0) || (!firstAttachmentIsDefault)) {
+			if ( (pSpclItemInfo->usAttachment[ ubCnt ] != NONE) )
+			{
+				return(TRUE);
+			}
 		}
 	}
 
