@@ -430,11 +430,16 @@ void SetSaveLoadExitScreen( UINT32 uiScreen )
 
 	SetPendingNewScreen( uiScreen );
 
+#if 0
+	// 0verhaul:  This is a repeat of the previous line, but with a different variable set.
+	// None of it really makes sense.  Why would a quicksave be different from a regular one?
+	// Why should ctrl+L act differently than alt+L?
 	if( gfDoingQuickLoad )
 	{
 		fFirstTimeInGameScreen = TRUE;
 		SetPendingNewScreen( uiScreen );
 	}
+#endif
 
 	ExitSaveLoadScreen();
 

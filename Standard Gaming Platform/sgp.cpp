@@ -791,6 +791,9 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,  HINSTANCE hPrevInstance, LPSTR p
 	//EmergencyExitButtonInit();
 	//end rain
 
+#ifdef _DEBUG
+	_CrtSetDbgFlag( _CRTDBG_CHECK_ALWAYS_DF | _CRTDBG_DELAY_FREE_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
 
 	ghInstance = hInstance;
 

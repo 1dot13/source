@@ -2444,7 +2444,7 @@ void InitiateGroupMovementToNextSector( GROUP *pGroup )
 	{
 		AssertMsg( 0, String("Group %d (%s) attempting illegal move from %c%d to %c%d (%s).", 
 				pGroup->ubGroupID, ( pGroup->fPlayer ) ? "Player" : "AI",
-				pGroup->ubSectorY+'A', pGroup->ubSectorX, pGroup->ubNextY+'A', pGroup->ubNextX,
+				pGroup->ubSectorY+'A'-1, pGroup->ubSectorX, pGroup->ubNextY+'A'-1, pGroup->ubNextX,
 				gszTerrain[SectorInfo[ubSector].ubTraversability[ubDirection]] ) );
 	}
 

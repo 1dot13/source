@@ -232,15 +232,14 @@ BATTLESNDS_STRUCT	 gBattleSndsData[] =
 // ----------------------------------------
 
 Inventory::Inventory() {
+	OBJECTTYPE filler;
+	memset( &filler, 0, sizeof( OBJECTTYPE ) );
 	slotCnt = NUM_INV_SLOTS;
 	inv.reserve(slotCnt);
 	for (int idx=0; idx < slotCnt; ++idx) {
 		//OBJECTTYPE *filler = new OBJECTTYPE;	// Use MEMALLOC?
-		OBJECTTYPE *filler = NULL;
-		filler = (OBJECTTYPE*)MemAlloc( sizeof( OBJECTTYPE ) );
-		memset( filler, 0, sizeof( OBJECTTYPE ) );
 
-		inv.push_back(*filler);
+		inv.push_back(filler);
 	}
 	clear();
 	Assert (inv.size() == slotCnt);
