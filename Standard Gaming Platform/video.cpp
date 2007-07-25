@@ -1041,10 +1041,12 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 	INT32					 cnt;
 	INT16					 sShiftX, sShiftY;
 	INT32					 uiCountY;
+	UINT32					 uiDestPitchBYTES;
 
 
 	GetCurrentVideoSettings( &usWidth, &usHeight, &ubBitDepth );
 	usHeight=(gsVIEWPORT_WINDOW_END_Y - gsVIEWPORT_WINDOW_START_Y );
+	uiDestPitchBYTES = (usWidth * ubBitDepth) / 8;
 
 	//	pSource = gpFrameBuffer;
 	//	pDest = gpFrameBuffer;
@@ -1093,10 +1095,10 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 		// memset z-buffer
 		for(uiCountY = gsVIEWPORT_WINDOW_START_Y; uiCountY < gsVIEWPORT_WINDOW_END_Y; uiCountY++)
 		{
-			memset((UINT8 *)gpZBuffer+(uiCountY*2280), 0, 
+			memset((UINT8 *)gpZBuffer+(uiCountY*uiDestPitchBYTES), 0, 
 				sScrollXIncrement*2); 
 
-		}	
+		}
 
 		StripRegions[ 0 ].right =(INT16)(gsVIEWPORT_START_X+sScrollXIncrement);
 		usMouseXPos += sScrollXIncrement;
@@ -1134,7 +1136,7 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 		// memset z-buffer
 		for(uiCountY= gsVIEWPORT_WINDOW_START_Y; uiCountY < gsVIEWPORT_WINDOW_END_Y; uiCountY++)
 		{
-			memset((UINT8 *)gpZBuffer+(uiCountY*2280) + ( ( gsVIEWPORT_END_X - sScrollXIncrement ) * 2 ), 0, 
+			memset((UINT8 *)gpZBuffer+(uiCountY*uiDestPitchBYTES) + ( ( gsVIEWPORT_END_X - sScrollXIncrement ) * 2 ), 0, 
 				sScrollXIncrement*2); 
 		}	
 
@@ -1176,8 +1178,8 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 
 		for(uiCountY=sScrollYIncrement-1+gsVIEWPORT_WINDOW_START_Y; uiCountY >= gsVIEWPORT_WINDOW_START_Y; uiCountY--)
 		{
-			memset((UINT8 *)gpZBuffer+(uiCountY*2280), 0, 
-				2280);
+			memset((UINT8 *)gpZBuffer+(uiCountY*uiDestPitchBYTES), 0, 
+				uiDestPitchBYTES);
 		}	
 
 		//for(uiCountY=usHeight-1; uiCountY >= sScrollYIncrement; uiCountY--)
@@ -1217,8 +1219,8 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 		// Zero out z
 		for(uiCountY=(gsVIEWPORT_WINDOW_END_Y - sScrollYIncrement ); uiCountY < gsVIEWPORT_WINDOW_END_Y; uiCountY++)
 		{
-			memset((UINT8 *)gpZBuffer+(uiCountY*2280), 0,
-				2280);
+			memset((UINT8 *)gpZBuffer+(uiCountY*uiDestPitchBYTES), 0,
+				uiDestPitchBYTES);
 		}
 
 		//for(uiCountY=0; uiCountY < (usHeight-sScrollYIncrement); uiCountY++)
@@ -1259,14 +1261,14 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 		// memset z-buffer
 		for(uiCountY=gsVIEWPORT_WINDOW_START_Y; uiCountY < gsVIEWPORT_WINDOW_END_Y; uiCountY++)
 		{
-			memset((UINT8 *)gpZBuffer+(uiCountY*2280), 0, 
+			memset((UINT8 *)gpZBuffer+(uiCountY*uiDestPitchBYTES), 0, 
 				sScrollXIncrement*2); 
 
 		}	
 		for(uiCountY=gsVIEWPORT_WINDOW_START_Y + sScrollYIncrement-1; uiCountY >= gsVIEWPORT_WINDOW_START_Y; uiCountY--)
 		{
-			memset((UINT8 *)gpZBuffer+(uiCountY*2280), 0, 
-				2280);
+			memset((UINT8 *)gpZBuffer+(uiCountY*uiDestPitchBYTES), 0, 
+				uiDestPitchBYTES);
 		}	
 
 
@@ -1304,13 +1306,13 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 		// memset z-buffer
 		for(uiCountY=gsVIEWPORT_WINDOW_START_Y; uiCountY < gsVIEWPORT_WINDOW_END_Y; uiCountY++)
 		{
-			memset((UINT8 *)gpZBuffer+(uiCountY*2280) + ( ( gsVIEWPORT_END_X - sScrollXIncrement ) * 2 ), 0, 
+			memset((UINT8 *)gpZBuffer+(uiCountY*uiDestPitchBYTES) + ( ( gsVIEWPORT_END_X - sScrollXIncrement ) * 2 ), 0, 
 				sScrollXIncrement*2); 
 		}	
 		for(uiCountY=gsVIEWPORT_WINDOW_START_Y + sScrollYIncrement-1; uiCountY >= gsVIEWPORT_WINDOW_START_Y; uiCountY--)
 		{
-			memset((UINT8 *)gpZBuffer+(uiCountY*2280), 0, 
-				2280);
+			memset((UINT8 *)gpZBuffer+(uiCountY*uiDestPitchBYTES), 0, 
+				uiDestPitchBYTES);
 		}	
 
 
@@ -1348,14 +1350,14 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 		// memset z-buffer
 		for(uiCountY=gsVIEWPORT_WINDOW_START_Y; uiCountY < gsVIEWPORT_WINDOW_END_Y; uiCountY++)
 		{
-			memset((UINT8 *)gpZBuffer+(uiCountY*2280), 0, 
+			memset((UINT8 *)gpZBuffer+(uiCountY*uiDestPitchBYTES), 0, 
 				sScrollXIncrement*2); 
 
 		}	
 		for(uiCountY=(gsVIEWPORT_WINDOW_END_Y - sScrollYIncrement); uiCountY < gsVIEWPORT_WINDOW_END_Y; uiCountY++)
 		{
-			memset((UINT8 *)gpZBuffer+(uiCountY*2280), 0,
-				2280);
+			memset((UINT8 *)gpZBuffer+(uiCountY*uiDestPitchBYTES), 0,
+				uiDestPitchBYTES);
 		}
 
 
@@ -1395,13 +1397,13 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 		// memset z-buffer
 		for(uiCountY=gsVIEWPORT_WINDOW_START_Y; uiCountY < gsVIEWPORT_WINDOW_END_Y; uiCountY++)
 		{
-			memset((UINT8 *)gpZBuffer+(uiCountY*2280) + ( ( gsVIEWPORT_END_X - sScrollXIncrement ) * 2 ), 0, 
+			memset((UINT8 *)gpZBuffer+(uiCountY*uiDestPitchBYTES) + ( ( gsVIEWPORT_END_X - sScrollXIncrement ) * 2 ), 0, 
 				sScrollXIncrement*2); 
 		}	
 		for(uiCountY=(gsVIEWPORT_WINDOW_END_Y - sScrollYIncrement); uiCountY < gsVIEWPORT_WINDOW_END_Y; uiCountY++)
 		{
-			memset((UINT8 *)gpZBuffer+(uiCountY*2280), 0,
-				2280);
+			memset((UINT8 *)gpZBuffer+(uiCountY*uiDestPitchBYTES), 0,
+				uiDestPitchBYTES);
 		}
 
 

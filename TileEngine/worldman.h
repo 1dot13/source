@@ -144,7 +144,7 @@ void WorldHideTrees( );
 void WorldShowTrees( );
 
 
-BOOLEAN IsTileRedundent( UINT16 *pZBuffer, UINT16 usZValue, HVOBJECT hSrcVObject, INT32 iX, INT32 iY, UINT16 usIndex );
+BOOLEAN IsTileRedundent( UINT32 uiDestPitchBYTES, UINT16 *pZBuffer, UINT16 usZValue, HVOBJECT hSrcVObject, INT32 iX, INT32 iY, UINT16 usIndex );
 
 //this is found in editscreen.c
 //Andrew, you had worldman.c checked out at the time, so I stuck it here.
