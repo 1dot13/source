@@ -1743,6 +1743,12 @@ void RefreshScreen(void *DummyVariable)
 					ReturnCode = IDirectDrawSurface2_SGPBltFast(gpBackBuffer, 0, 0, gpFrameBuffer, (LPRECT)&Region, DDBLTFAST_NOCOLORKEY);
 					if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
 					{
+						// Prevent the assertion error lockup
+						if (ReturnCode == DDERR_INVALIDRECT)
+						{
+							break;
+						}
+
 						DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
 						if (ReturnCode == DDERR_SURFACELOST)
@@ -2133,6 +2139,12 @@ void RefreshScreen(void *DummyVariable)
 					ReturnCode = IDirectDrawSurface2_SGPBltFast(gMouseCursorBackground[CURRENT_MOUSE_DATA].pSurface, gMouseCursorBackground[CURRENT_MOUSE_DATA].usLeft, gMouseCursorBackground[CURRENT_MOUSE_DATA].usTop, gpBackBuffer, &Region, DDBLTFAST_NOCOLORKEY);
 					if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
 					{
+						// Prevent the assertion failure lockup
+						if (ReturnCode == DDERR_INVALIDRECT)
+						{
+							break;
+						}
+
 						DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 					}
 
@@ -2156,6 +2168,12 @@ void RefreshScreen(void *DummyVariable)
 					ReturnCode = IDirectDrawSurface2_SGPBltFast(gpBackBuffer, gMouseCursorBackground[CURRENT_MOUSE_DATA].usMouseXPos, gMouseCursorBackground[CURRENT_MOUSE_DATA].usMouseYPos, gpMouseCursor, &Region, DDBLTFAST_SRCCOLORKEY);
 					if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
 					{
+						// Prevent the assertion failure lockup
+						if (ReturnCode == DDERR_INVALIDRECT)
+						{
+							break;
+						}
+
 						DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 					}
 

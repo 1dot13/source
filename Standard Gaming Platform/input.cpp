@@ -1613,9 +1613,15 @@ void DequeueAllKeyBoardEvents()
 
 
 	//dequeue all the events waiting in the windows queue
-	while( PeekMessage( &KeyMessage, ghWindow, WM_KEYFIRST, WM_KEYLAST, PM_REMOVE ) );
+	//Give them proper processing like the old window hook method used to.
+	while( PeekMessage( &KeyMessage, ghWindow, WM_KEYFIRST, WM_KEYLAST, PM_REMOVE ) )
+	{
+		TranslateMessage( &KeyMessage);
+		DispatchMessage( &KeyMessage);
+	}
 
-	//Deque all the events waiting in the SGP queue
+	//Now deque all the events waiting in the SGP queue
+	//Including those that were just posted in the code above
 	while (DequeueEvent(&InputEvent) == TRUE)
   {
 		//dont do anything
