@@ -25,6 +25,7 @@
 	#include "math.h"
 	#include "Auto Resolve.h"
 	#include "Vehicles.h"
+	#include "Soldier Init List.h"
 #endif
 
 #include "MilitiaSquads.h"
@@ -737,9 +738,41 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 	if (gfStrategicMilitiaChangesMade)
 	{
 		RemoveMilitiaFromTactical();
-		PrepareMilitiaForTactical();
+		//PrepareMilitiaForTactical();
+
+		for( x = 0 ; x < guiDirNumber ; ++x )
+		{
+#if 0
+			//			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld,%ld,%ld", gpAttackDirs[ x ][ 0 ], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2], gpAttackDirs[ x ][3] );
+			if( gfMSResetMilitia )
+			{
+				if( gpAttackDirs[ x ][ 3 ] != INSERTION_CODE_CENTER )
+				{
+					AddSoldierInitListMilitiaOnEdge( gpAttackDirs[ x ][ 3 ], gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
+					ubGreen -= gpAttackDirs[ x ][0];
+					ubRegs -= gpAttackDirs[ x ][1];
+					ubElites -= gpAttackDirs[ x ][2];
+				}
+			}
+			else
+			{
+#endif
+			if( gpAttackDirs[ x ][ 3 ] == INSERTION_CODE_CENTER )
+				{
+					AddSoldierInitListMilitia( gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
+				}
+				else
+				{
+					AddSoldierInitListMilitiaOnEdge( gpAttackDirs[ x ][ 3 ], gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
+				}
+//			}
+		}
+
 		gfStrategicMilitiaChangesMade = FALSE;
 	}
+
+	guiDirNumber = 0;
+	memset( gpAttackDirs, 0, sizeof( gpAttackDirs));
 }
 
 void MSCallBack( UINT8 ubResult )

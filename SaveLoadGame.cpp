@@ -605,7 +605,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	//Save the current sectors open temp files to the disk
 	if( !SaveCurrentSectorsInformationToTempItemFile() )
 	{
-		ScreenMsg( FONT_MCOLOR_WHITE, MSG_TESTVERSION, L"ERROR in SaveCurrentSectorsInformationToTempItemFile()");
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR in SaveCurrentSectorsInformationToTempItemFile()");
 		goto FAILED_TO_SAVE;
 	}
 
@@ -645,6 +645,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	{
 		if( !FileDelete( zSaveGameName ) )
 		{
+			ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR deleting old save");
 			goto FAILED_TO_SAVE;
 		}
 	}
@@ -653,6 +654,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	hFile = FileOpen( zSaveGameName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 	if( !hFile )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR creating new save");
 		goto FAILED_TO_SAVE;
 	}
 
@@ -781,6 +783,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	FileWrite( hFile, &SaveGameHeader, sizeof( SAVED_GAME_HEADER ), &uiNumBytesWritten );
 	if( uiNumBytesWritten != sizeof( SAVED_GAME_HEADER ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing save game header");
 		goto FAILED_TO_SAVE;
 	}
 
@@ -795,6 +798,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	//
 	if( !SaveTacticalStatusToSavedGame( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing tactical status");
 		goto FAILED_TO_SAVE;
 	}
 
@@ -809,6 +813,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	// save the game clock info
 	if( !SaveGameClock( hFile, fPausedStateBeforeSaving, fLockPauseStateBeforeSaving ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing game clock");
 		goto FAILED_TO_SAVE;
 	}
 
@@ -822,6 +827,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	// save the strategic events
 	if( !SaveStrategicEventsToSavedGame( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing strategic events");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -832,6 +838,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveLaptopInfoToSavedGame( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing laptop info");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -843,6 +850,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	//
 	if( !SaveMercProfiles( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing merc profiles");
 		goto FAILED_TO_SAVE;
 	}
 
@@ -858,6 +866,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	//
 	if( !SaveSoldierStructure( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing soldier structure");
 		goto FAILED_TO_SAVE;
 	}
 
@@ -869,6 +878,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	//Save the Finaces Data file 
 	if( !SaveFilesToSavedGame( FINANCES_DATA_FILE, hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing finances");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -880,6 +890,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	//Save the history file
 	if( !SaveFilesToSavedGame( HISTORY_DATA_FILE, hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing history");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -891,6 +902,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	//Save the Laptop File file
 	if( !SaveFilesToSavedGame( FILES_DAT_FILE, hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing laptop files");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -903,6 +915,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	//Save email stuff to save file
 	if( !SaveEmailToSavedGame( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing email");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -914,6 +927,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	//Save the strategic information
 	if( !SaveStrategicInfoToSavedFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing strategic info");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -926,6 +940,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	//save the underground information
 	if( !SaveUnderGroundSectorInfoToSaveGame( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing underground info");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -938,6 +953,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	//save the squad info
 	if( !SaveSquadInfoToSavedGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing squad info");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -949,6 +965,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveStrategicMovementGroupsToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing strategic movements");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -962,6 +979,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	//Save all the map temp files from the maps\temp directory into the saved game file
 	if( !SaveMapTempFilesToSavedGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing map temp files");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -974,6 +992,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveQuestInfoToSavedGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing quest info");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -985,6 +1004,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveOppListInfoToSavedGame( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing opplist");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -997,6 +1017,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveMapScreenMessagesToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing map screen messages");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1009,6 +1030,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveNPCInfoToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing NPC info");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1021,6 +1043,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveKeyTableToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing key table");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1032,6 +1055,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveTempNpcQuoteArrayToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing NPC quotes");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1044,6 +1068,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SavePreRandomNumbersToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing pre random numbers");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1056,6 +1081,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveSmokeEffectsToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing smoke effects");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1065,6 +1091,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveArmsDealerInventoryToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing arms dealer inventory");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1076,6 +1103,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveGeneralInfo( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR general info");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1086,6 +1114,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveMineStatusToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing mine status");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1097,6 +1126,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveStrategicTownLoyaltyToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing town loyalty");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1107,6 +1137,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveVehicleInformationToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing vehicle info");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1117,6 +1148,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveBulletStructureToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing bullet structure");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1127,6 +1159,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SavePhysicsTableToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing physics table");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1139,6 +1172,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveAirRaidInfoToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing air raid info");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1148,6 +1182,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveTeamTurnsToTheSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing team turns");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1158,6 +1193,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveExplosionTableToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing explosions");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1168,6 +1204,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveCreatureDirectives( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing creature directives");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1177,6 +1214,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveStrategicStatusToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing strategic status");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1187,6 +1225,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveStrategicAI( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing strategic AI");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1196,6 +1235,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveLightEffectsToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing light effects");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1205,6 +1245,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveWatchedLocsToSavedGame( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing watched locs");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1213,6 +1254,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveItemCursorToSavedGame( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing item cursor");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1221,6 +1263,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveCivQuotesToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing civ quotes");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1229,6 +1272,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if( !SaveBackupNPCInfoToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing backup NPC info");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1237,6 +1281,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if ( !SaveMeanwhileDefsFromSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing meanwhiles");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1247,6 +1292,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 
 	if ( !SaveSchedules( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing schedules");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1256,6 +1302,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 		// Save extra vehicle info
 	if ( !NewSaveVehicleMovementInfoToSavedGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing vehicle movement info");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1267,6 +1314,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	// Save contract renewal sequence stuff
 	if ( !SaveContractRenewalDataToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing contract renewal");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1277,6 +1325,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	// Save leave list stuff
 	if ( !SaveLeaveItemList( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing leave items list");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1287,6 +1336,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	//do the new way of saving bobbyr mail order items
 	if( !NewWayOfSavingBobbyRMailOrdersToSaveGameFile( hFile ) )
 	{
+		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR writing mail orders");
 		goto FAILED_TO_SAVE;
 	}
 	#ifdef JA2BETAVERSION
@@ -1365,7 +1415,10 @@ FAILED_TO_SAVE:
 	}
 
 	//Delete the failed attempt at saving
+#if 0
+	// 0verhaul:  Temporarily disabled to try to troubleshoot save game problems
 	DeleteSaveGameNumber( ubSaveGameID );
+#endif
 
 	//Put out an error message
 	ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, zSaveLoadText[SLG_SAVE_GAME_ERROR] );

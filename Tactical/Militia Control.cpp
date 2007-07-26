@@ -227,6 +227,7 @@ void PrepareMilitiaForTactical()
 	ubRegs = pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
 	ubElites = pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
 	
+#if 0
 	if(guiDirNumber)
 	{
 		for( x = 0 ; x < guiDirNumber ; ++x )
@@ -258,6 +259,7 @@ void PrepareMilitiaForTactical()
 		}
 	}
 	else 
+#endif
 	{
 		AddSoldierInitListMilitia( ubGreen, ubRegs, ubElites );
 	}
@@ -270,8 +272,6 @@ void PrepareMilitiaForTactical()
 ////			MercPtrs[ i ]->bAttitude = AGGRESSIVE;
 //		}
 //	}
-	guiDirNumber = 0;
-	memset( gpAttackDirs, 0, sizeof( gpAttackDirs));
 }
 
 void HandleMilitiaPromotions( void )
