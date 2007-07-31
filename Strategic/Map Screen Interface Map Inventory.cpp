@@ -220,7 +220,7 @@ extern	BOOLEAN GetCurrentBattleSectorXYZAndReturnTRUEIfThereIsABattle( INT16 *ps
 
 void DeleteAllItemsInInventoryPool();
 void DeleteItemsOfType( UINT16 usItemType );
-INT32 SellItemsOfType( UINT16 usItemType );
+INT32 SellItem( OBJECTTYPE& object );
 
 // load the background panel graphics for inventory
 BOOLEAN LoadInventoryPoolGraphic( void )
@@ -1457,48 +1457,26 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 		}
 		else if ( _KeyDown ( ALT ) && fSELLALL)
 		{
-
-			INT32 iPrice = 0;
-			INT16 usDesiredItemType = gItemPointer.usItem;
-			
-			if( gItemPointer.ubNumberOfObjects > 1)
-			{
-				if( Item[ gpItemPointer->usItem ].usItemClass == IC_AMMO )
-				{
-					for (INT8 bLoop = 0; bLoop < gItemPointer.ubNumberOfObjects; bLoop++)
-					{
-						iPrice += (INT32)( Item[gpItemPointer->usItem].usPrice * (float) gpItemPointer->ubShotsLeft[bLoop] / Magazine[ Item[gpItemPointer->usItem].ubClassIndex ].ubMagSize );
-					}					
-				}
-				else
-				{
-					for (INT8 bLoop = 0; bLoop < gItemPointer.ubNumberOfObjects; bLoop++)
-					{
-						iPrice += (INT32)( Item[gpItemPointer->usItem].usPrice * (float)gpItemPointer->bStatus[bLoop] / 100 );
-					}
-				}
-			}
-			else
-			{
-				iPrice = ( Item[gpItemPointer->usItem].usPrice * gpItemPointer->bStatus[0] / 100 );
-
-				for (INT8 bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
-				{
-					iPrice += (INT32) ( Item[gpItemPointer->usAttachItem[bLoop]].usPrice * (float)gpItemPointer->bAttachStatus[bLoop] / 100);
-				}
-			}
-			
-			if( iPriceModifier < 1) iPriceModifier = 1;
-
-			iPrice = (INT32) (iPrice / iPriceModifier);			
-						
+			INT32 iPrice = SellItem( gItemPointer );
 		    PlayJA2Sample( COMPUTER_BEEP2_IN, RATE_11025, 15, 1, MIDDLEPAN );			              
 			gpItemPointer = NULL;
 			fMapInventoryItem = FALSE;
-
 			if ( _KeyDown ( 89 )) //Lalien: sell all items of this type on Alt+Y 
 			{
-				iPrice = iPrice + SellItemsOfType( usDesiredItemType );
+				for( UINT32 iNumber = 0 ; iNumber <  pInventoryPoolList.size() ; ++iNumber)
+				{
+					if ( pInventoryPoolList[ iNumber ].o.usItem == gItemPointer.usItem )
+					{
+						iPrice += SellItem( pInventoryPoolList[ iNumber ].o );
+						DeleteObj( &pInventoryPoolList [ iNumber ].o );
+					}
+				}
+			}
+
+			//ADB you can sell items for 0, but that's not fair
+			//and it's not easy to stop the sale so make the price 1
+			if (iPrice == 0) {
+				iPrice = 1;
 			}
 
 			AddTransactionToPlayersBook( SOLD_ITEMS, 0, GetWorldTotalMin(), iPrice );
@@ -2337,50 +2315,39 @@ void DeleteItemsOfType( UINT16 usItemType )
 }
 
 
-INT32 SellItemsOfType( UINT16 usItemType )
+INT32 SellItem( OBJECTTYPE& object )
 {
-	INT32 iNumber;
 	INT32 iPrice = 0;
 	INT16 iPriceModifier = gGameExternalOptions.iPriceModifier;
+	UINT16 usItemType = object.usItem;
+	UINT16 itemPrice = Item[usItemType].usPrice;
 
-	for( iNumber = 0 ; iNumber <  iTotalNumberOfSlots ; ++iNumber)
+	if( Item[ usItemType ].usItemClass == IC_AMMO )
 	{
-		if ( pInventoryPoolList[ iNumber ].o.usItem == usItemType )
+		//we are selling ammo
+		UINT8 magSize = Magazine[ Item[ usItemType ].ubClassIndex ].ubMagSize;
+		for (INT8 bLoop = 0; bLoop < object.ubNumberOfObjects; bLoop++)
 		{
-			if( pInventoryPoolList[ iNumber ].o.ubNumberOfObjects > 1)
-			{
-				if( Item[ pInventoryPoolList[ iNumber ].o.usItem ].usItemClass == IC_AMMO )
-				{
-					for (INT8 bLoop = 0; bLoop < pInventoryPoolList [ iNumber ].o.ubNumberOfObjects; bLoop++)
-					{
-						iPrice += (INT32)( Item[pInventoryPoolList[ iNumber ].o.usItem].usPrice * (float) pInventoryPoolList[ iNumber ].o.ubShotsLeft[bLoop] / Magazine[ Item[pInventoryPoolList[ iNumber ].o.usItem].ubClassIndex ].ubMagSize );
-					}					
-				}
-				else
-				{
-					for (INT8 bLoop = 0; bLoop < pInventoryPoolList[ iNumber ].o.ubNumberOfObjects; bLoop++)
-					{
-						iPrice += (INT32)( Item[pInventoryPoolList[ iNumber ].o.usItem].usPrice * (float)pInventoryPoolList[ iNumber ].o.bStatus[bLoop] / 100 );
-					}
-				}
-			}
-			else
-			{
-				iPrice = ( Item[pInventoryPoolList[ iNumber ].o.usItem].usPrice * pInventoryPoolList[ iNumber ].o.bStatus[0] / 100 );
-
-				for (INT8 bLoop = 0; bLoop < MAX_ATTACHMENTS; bLoop++)
-				{
-					iPrice += (INT32) ( Item[pInventoryPoolList[ iNumber ].o.usAttachItem[bLoop]].usPrice * (float)pInventoryPoolList[ iNumber ].o.bAttachStatus[bLoop] / 100);
-				}
-			}
-			
-			if( iPriceModifier < 1) iPriceModifier = 1;
-
-			iPrice = (INT32) (iPrice / iPriceModifier);			
-
-
-			DeleteObj( &pInventoryPoolList [ iNumber ].o );
+			iPrice += (INT32)( itemPrice * (float) object.ubShotsLeft[bLoop] / magSize );
 		}
 	}
+	else
+	{
+		//we are selling a gun or something - it could be stacked or single, and each one could have attachments
+		for (INT8 bLoop = 0; bLoop < object.ubNumberOfObjects; bLoop++)
+		{
+			iPrice += ( itemPrice * object.bStatus[bLoop] / 100 );
+
+			for (INT8 numAttachments = 0; numAttachments < MAX_ATTACHMENTS; numAttachments++)
+			{
+				iPrice += (INT32) ( Item[object.usAttachItem[numAttachments]].usPrice * (float)object.bAttachStatus[numAttachments] / 100);
+			}
+		}					
+	}
+
+	if( iPriceModifier > 1) {
+		iPrice /= iPriceModifier;
+	}
+
 	return iPrice;
 }
