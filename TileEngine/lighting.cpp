@@ -3048,9 +3048,9 @@ BOOLEAN LightSave(INT32 iLight, STR pFilename)
 ***************************************************************************************/
 INT32 LightLoad(STR pFilename)
 {
-HWFILE hFile;
-LIGHT_NODE *pNewLight=NULL, *pLastLight=NULL;
-INT32 iLight;
+	HWFILE hFile;
+	LIGHT_NODE *pNewLight=NULL, *pLastLight=NULL;
+	INT32 iLight;
 
 	if((iLight=LightGetFree())==(-1))
 		return(-1);
@@ -3198,7 +3198,7 @@ BOOLEAN LightSetColors(SGPPaletteEntry *pPal, UINT8 ubNumColors)
 ********************************************************************************/
 INT32 LightSpriteGetFree(void)
 {
-INT32 iCount;
+	INT32 iCount;
 
 	for(iCount=0; iCount < MAX_LIGHT_SPRITES; iCount++)
 	{
@@ -3218,11 +3218,12 @@ INT32 iCount;
 ********************************************************************************/
 INT32 LightSpriteCreate(STR pName, UINT32 uiLightType)
 {
-INT32 iSprite;
+	INT32 iSprite;
 
 	if((iSprite=LightSpriteGetFree())!=(-1))
 	{
 		memset(&LightSprites[iSprite], 0, sizeof(LIGHT_SPRITE));
+
 		LightSprites[iSprite].iX=WORLD_COLS+1;
 		LightSprites[iSprite].iY=WORLD_ROWS+1;
 		LightSprites[iSprite].iOldX=WORLD_COLS+1;
@@ -3247,6 +3248,11 @@ INT32 iSprite;
 ********************************************************************************/
 BOOLEAN LightSpriteFake(INT32 iSprite)
 {
+	if ( (iSprite >= MAX_LIGHT_SPRITES ) || (iSprite < 0) )
+	{
+		return FALSE;
+	}
+
 	if(LightSprites[iSprite].uiFlags&LIGHT_SPR_ACTIVE)
 	{
 		LightSprites[iSprite].uiFlags|=MERC_LIGHT;
@@ -3431,6 +3437,11 @@ BOOLEAN LightSpritePosition(INT32 iSprite, INT16 iX, INT16 iY)
 ********************************************************************************/
 BOOLEAN LightSpriteRoofStatus(INT32 iSprite, BOOLEAN fOnRoof)
 {
+	if ( (iSprite >= MAX_LIGHT_SPRITES ) || (iSprite < 0) )
+	{
+		return FALSE;
+	}
+
 	if(fOnRoof && (LightSprites[iSprite].uiFlags&LIGHT_SPR_ONROOF))
 		return(FALSE);
 	
