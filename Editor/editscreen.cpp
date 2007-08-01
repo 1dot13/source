@@ -803,7 +803,7 @@ void ShowCurrentDrawingMode( void )
 	NewRect.iLeft = iScreenWidthOffset + 0;
 	NewRect.iTop = 2 * iScreenHeightOffset + 400;
 	NewRect.iRight = iScreenWidthOffset + 100;
-	NewRect.iBottom = 2 * iScreenWidthOffset + 458;
+	NewRect.iBottom = 2 * iScreenHeightOffset + 458;
 
 	GetClippingRect(&ClipRect);
 	SetClippingRect(&NewRect);

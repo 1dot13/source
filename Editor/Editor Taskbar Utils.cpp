@@ -679,6 +679,14 @@ void RenderMapEntryPointsAndLights()
 	{
 		if( LightSprites[ i ].uiFlags & LIGHT_SPR_ACTIVE )
 		{
+			// Check for light out of bounds.  This actually happens in Drassen.
+			if (LightSprites[ i ].iY < 0 || LightSprites[ i ].iY > WORLD_ROWS ||
+				LightSprites[ i ].iX < 0 || LightSprites[ i ].iX > WORLD_COLS)
+			{
+				LightSprites[ i ].uiFlags &= (~LIGHT_SPR_ACTIVE);
+				continue;
+			}
+
 			sGridNo = LightSprites[ i ].iY * WORLD_COLS + LightSprites[ i ].iX;
 			GetGridNoScreenPos( sGridNo, 0, &sScreenX, &sScreenY );
 			if( sScreenY >= (- 50) && sScreenY < (2 * iScreenHeightOffset + 300) && sScreenX >= (- 40)  && sScreenX < SCREEN_WIDTH )

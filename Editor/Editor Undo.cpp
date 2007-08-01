@@ -591,6 +591,8 @@ BOOLEAN ExecuteUndoList( void )
 	{
 		iUndoMapIndex = gpTileUndoStack->pData->iMapIndex;
 
+		fExitGrid = ExitGridAtGridNo( (UINT16)iUndoMapIndex );
+
 		// Find which map tile we are to "undo"
 		if( gpTileUndoStack->pData->fLightSaved )
 		{ //We saved a light, so delete that light
@@ -609,7 +611,6 @@ BOOLEAN ExecuteUndoList( void )
 		else
 		{	// We execute the undo command node by simply swapping the contents
 			// of the undo's MAP_ELEMENT with the world's element.
-			fExitGrid = ExitGridAtGridNo( (UINT16)iUndoMapIndex );
 			SwapMapElementWithWorld( iUndoMapIndex, gpTileUndoStack->pData->pMapTile );
 
 			// copy the room number information back 

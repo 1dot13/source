@@ -25,7 +25,6 @@
 	#include "math.h"
 	#include "Auto Resolve.h"
 	#include "Vehicles.h"
-	#include "Soldier Init List.h"
 #endif
 
 #include "MilitiaSquads.h"
@@ -691,7 +690,7 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 	BOOLEAN fMoreTroopsLeft[4] = {FALSE,FALSE,FALSE,FALSE};
 	BOOLEAN fFirstLoop = TRUE;
-	BOOLEAN fMilitiaAlreadyBeen = CountMilitia(pSectorInfo )>0 && gWorldSectorX == sMapX && gWorldSectorY == sMapY && gbWorldSectorZ == 0;
+	BOOLEAN fMilitiaMoved = FALSE;
 
 	guiDirNumber = 0;
 
@@ -715,7 +714,7 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 
 		if( fMoreTroopsLeft[ x ] )
 		{
-			if( fMilitiaAlreadyBeen )gfMSResetMilitia = TRUE;
+			fMilitiaMoved = TRUE;
 
 			gpAttackDirs[ x + 1 ][0] += pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA] - uiNumGreen;
 			gpAttackDirs[ x + 1 ][1] += pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA] - uiNumReg;
@@ -735,50 +734,18 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 		}
 	}
 
-	if (gfStrategicMilitiaChangesMade)
-	{
-		RemoveMilitiaFromTactical();
-		//PrepareMilitiaForTactical();
-
-		for( x = 0 ; x < guiDirNumber ; ++x )
-		{
-#if 0
-			//			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld,%ld,%ld", gpAttackDirs[ x ][ 0 ], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2], gpAttackDirs[ x ][3] );
-			if( gfMSResetMilitia )
-			{
-				if( gpAttackDirs[ x ][ 3 ] != INSERTION_CODE_CENTER )
-				{
-					AddSoldierInitListMilitiaOnEdge( gpAttackDirs[ x ][ 3 ], gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
-					ubGreen -= gpAttackDirs[ x ][0];
-					ubRegs -= gpAttackDirs[ x ][1];
-					ubElites -= gpAttackDirs[ x ][2];
-				}
-			}
-			else
-			{
-#endif
-			if( gpAttackDirs[ x ][ 3 ] == INSERTION_CODE_CENTER )
-				{
-					AddSoldierInitListMilitia( gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
-				}
-				else
-				{
-					AddSoldierInitListMilitiaOnEdge( gpAttackDirs[ x ][ 3 ], gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
-				}
-//			}
-		}
-
-		gfStrategicMilitiaChangesMade = FALSE;
-	}
-
-	guiDirNumber = 0;
-	memset( gpAttackDirs, 0, sizeof( gpAttackDirs));
+	// If militia have been moved here, no reason to reset--just add them.  If militia have not moved, then no strategic
+	// changes were made.  Either case, this flag should be false.
+	gfStrategicMilitiaChangesMade = FALSE;
 }
 
 void MSCallBack( UINT8 ubResult )
 {
 	if( ubResult == MSG_BOX_RETURN_YES )
+	{
+		gTacticalStatus.uiFlags |= WANT_MILITIA_REINFORCEMENTS;
 		DoMilitiaHelpFromAdjacentSectors( sMSMapX, 	sMSMapY );
+	}
 }
 
 BOOLEAN IsThereMilitiaInAdjacentSector( INT16 sMapX, INT16 sMapY )
@@ -802,13 +769,20 @@ void MilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 {
 	sMSMapX = sMapX;
 	sMSMapY = sMapY;
+	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 
 	if( !gGameExternalOptions.gfAllowMilitiaGroups )
 		return;
 
-	if( CountAllMilitiaInSector( sMapX, sMapY ) ) MSCallBack( MSG_BOX_RETURN_YES );
+	gTacticalStatus.uiFlags &= (~WANT_MILITIA_REINFORCEMENTS);
 
-	if( IsThereMilitiaInAdjacentSector( sMapX, sMapY ) && CountAllMilitiaInSector( sMapX, sMapY ) < gGameExternalOptions.guiMaxMilitiaSquadSizeBattle )
+	guiDirNumber = 0;
+
+//	if( CountAllMilitiaInSector( sMapX, sMapY ) ) MSCallBack( MSG_BOX_RETURN_YES );
+
+	// This is no longer a question of simply whether to have a full militia count, but also whether we want
+	// reinforcements.  So if there are any available, always ask.
+	if( IsThereMilitiaInAdjacentSector( sMapX, sMapY ) ) // && CountAllMilitiaInSector( sMapX, sMapY ) < gGameExternalOptions.guiMaxMilitiaSquadSizeBattle )
 		DoScreenIndependantMessageBox( gzCWStrings[0], MSG_BOX_FLAG_YESNO, MSCallBack );
 }
 

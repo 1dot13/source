@@ -210,7 +210,7 @@ void RemoveMilitiaFromTactical()
 	}
 }
 
-void PrepareMilitiaForTactical()
+void PrepareMilitiaForTactical( BOOLEAN fPrepareAll)
 {
 	SECTORINFO *pSector;
 	INT32 x;
@@ -227,10 +227,14 @@ void PrepareMilitiaForTactical()
 	ubRegs = pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
 	ubElites = pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
 	
-#if 0
 	if(guiDirNumber)
 	{
-		for( x = 0 ; x < guiDirNumber ; ++x )
+		if (fPrepareAll)
+		{
+			AddSoldierInitListMilitia( gpAttackDirs[ 0 ][0], gpAttackDirs[ 0 ][1], gpAttackDirs[ 0 ][2] );
+		}
+		// If the sector is already loaded, don't add the existing militia
+		for( x = 1; x < guiDirNumber ; ++x )
 		{
 #if 0
 			//			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld,%ld,%ld", gpAttackDirs[ x ][ 0 ], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2], gpAttackDirs[ x ][3] );
@@ -247,19 +251,12 @@ void PrepareMilitiaForTactical()
 			else
 			{
 #endif
-			if( gpAttackDirs[ x ][ 3 ] == INSERTION_CODE_CENTER )
-				{
-					AddSoldierInitListMilitia( gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
-				}
-				else
-				{
-					AddSoldierInitListMilitiaOnEdge( gpAttackDirs[ x ][ 3 ], gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
-				}
-//			}
+			AddSoldierInitListMilitiaOnEdge( gpAttackDirs[ x ][ 3 ], gpAttackDirs[ x ][0], gpAttackDirs[ x ][1], gpAttackDirs[ x ][2] );
 		}
+
+		guiDirNumber = 0;
 	}
-	else 
-#endif
+	else if (fPrepareAll)
 	{
 		AddSoldierInitListMilitia( ubGreen, ubRegs, ubElites );
 	}

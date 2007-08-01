@@ -1534,7 +1534,11 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			{
 				if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
 				{
-					LeaveTacticalScreen( GAME_SCREEN );
+					gfSaveGame = FALSE;
+					gfCameDirectlyFromGame = TRUE;
+
+					guiPreviousOptionScreen = GAME_SCREEN;
+					LeaveTacticalScreen( SAVE_LOAD_SCREEN );
 					DoQuickLoad();
 				}
 			}

@@ -52,6 +52,7 @@
 #define			NOHIDE_REDUNDENCY										0x000010000
 #define			DEBUGCLIFFS													0x000020000
 #define			INCOMBAT														0x000040000
+#define			WANT_MILITIA_REINFORCEMENTS										0x000080000
 #define			ACTIVE															0x000100000
 #define			SHOW_Z_BUFFER												0x000200000
 #define			SLOW_ANIMATION											0x000400000

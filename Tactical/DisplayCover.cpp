@@ -35,8 +35,8 @@
 //*******  Local Defines **************************************************
 
 
-#define		DC_MAX_COVER_RANGE					42 //31
-#define		DC__SOLDIER_VISIBLE_RANGE			42 //31
+#define		DC_MAX_COVER_RANGE					43 //31
+#define		DC__SOLDIER_VISIBLE_RANGE			43 //31
 
 #define		DC__MIN_SIZE						4
 #define		DC__MAX_SIZE						21 //11
@@ -338,15 +338,15 @@ void CalculateCoverInRadiusAroundGridno( INT16 sTargetGridNo, INT8	bSearchRange 
 
 	pSoldier = GetCurrentMercForDisplayCover();
 
-	sCounterX = sCounterY = 0;
+//	sCounterX = sCounterY = 0;
 
 	//Determine the stance to use
 	bStance = GetCurrentMercForDisplayCoverStance();
 
 	//loop through all the gridnos that we are interested in
-	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
+	for (sCounterY = 0, sCounterX = 0, sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++, sCounterY++, sCounterX = 0)
 	{
-		for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
+		for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++, sCounterX++)
 		{
 			sGridNo = sTargetGridNo + sXOffset + (MAXCOL * sYOffset);
 
@@ -381,7 +381,7 @@ void CalculateCoverInRadiusAroundGridno( INT16 sTargetGridNo, INT8	bSearchRange 
 			if ( !(gpWorldLevelData[sGridNo].uiFlags & MAPELEMENT_REACHABLE) )
 			{
 				//skip to the next gridno
-				sCounterX++;
+//				sCounterX++;
 				continue;
 			}
 
@@ -403,10 +403,10 @@ void CalculateCoverInRadiusAroundGridno( INT16 sTargetGridNo, INT8	bSearchRange 
 //			gCoverRadius[ sCounterX ][ sCounterY ].fRoof = fRoof;
 
 
-			sCounterX++;
+//			sCounterX++;
 		}
-		sCounterY++;
-		sCounterX = 0;
+//		sCounterY++;
+//		sCounterX = 0;
 	}
 }
 

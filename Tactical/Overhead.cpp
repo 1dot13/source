@@ -6255,7 +6255,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 			}
 
 			HandleMilitiaStatusInCurrentMapBeforeLoadingNewMap();
-			gfStrategicMilitiaChangesMade = TRUE;
+			//gfStrategicMilitiaChangesMade = TRUE;
 
 
 			// Loop through all militia and restore them to peaceful status
@@ -7677,8 +7677,6 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 
 	DequeueAllDemandGameEvents( TRUE );
 
-	CheckForEndOfBattle( FALSE );
-
 	// if we're in realtime, turn off the attacker's muzzle flash at this point
 	if ( !(gTacticalStatus.uiFlags & INCOMBAT) && pSoldier )
 	{
@@ -7737,6 +7735,8 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 			}
 		}
 	}
+
+	CheckForEndOfBattle( FALSE );
 
 	return( pTarget );
 }

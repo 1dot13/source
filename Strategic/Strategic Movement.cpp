@@ -3216,7 +3216,7 @@ void HandleArrivalOfReinforcements( GROUP *pGroup )
 
 	if( pGroup->fPlayer )
 	{ //We don't have to worry about filling up the player slots, because it is impossible
-		//to have more player's in the game then the number of slots available for the player.
+		//to have more players in the game than the number of slots available for the player.
 		PLAYERGROUP *pPlayer;
 		UINT8 ubStrategicInsertionCode;
 		//First, determine which entrypoint to use, based on the travel direction of the group.

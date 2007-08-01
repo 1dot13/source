@@ -1196,6 +1196,8 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("113/UC Warning! Tried to detect the light level when character %ls[%d] looks at a location outside of the valid map (gridno %d). Assigning default %d",
 				pSoldier->name, pSoldier->ubID, pSoldier->sGridNo, ubAmbientLightLevel));
 		}
+
+		bLightLevel = ubAmbientLightLevel;
 	}
 	else
 	{

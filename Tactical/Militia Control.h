@@ -6,7 +6,7 @@
 #include "mousesystem.h"
 #include "Strategic Movement.h"
 
-void PrepareMilitiaForTactical();
+void PrepareMilitiaForTactical(BOOLEAN fPrepareAll);
 void RemoveMilitiaFromTactical();
 void ResetMilitia();
 void HandleMilitiaPromotions();
