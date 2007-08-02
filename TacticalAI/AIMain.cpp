@@ -1213,6 +1213,12 @@ void ActionDone(SOLDIERTYPE *pSoldier)
 		// although NewDest isn't called.  A newSit. could cancel it before then!
 		pSoldier->bPathStored = FALSE;
 	}
+
+	if (pSoldier->uiStatusFlags & SOLDIER_DEAD)
+	{
+		// The last action killed the soldier (stepped on a mine, detonated a LAW too close, etc)
+		EndAIGuysTurn( pSoldier);
+	}
 }
 
 
