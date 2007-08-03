@@ -766,7 +766,34 @@ void UnusedAPsToBreath(SOLDIERTYPE *pSold)
 			// adjust for carried weight
 			sBreathPerAP = sBreathPerAP * 100 / BreathPointAdjustmentForCarriedWeight( pSold );
 		
-			sBreathChange = (AP_MAXIMUM - sUnusedAPs) * sBreathPerAP;
+			if ( pSold->bTeam != CIV_TEAM && pSold->bTeam != gbPlayerNum)
+			{
+				switch( gGameOptions.ubDifficultyLevel )
+				{
+					case DIF_LEVEL_EASY:
+						sBreathChange = ((AP_MAXIMUM + gGameExternalOptions.iEasyAPBonus)- sUnusedAPs) * sBreathPerAP;
+						break;
+
+					case DIF_LEVEL_MEDIUM:
+						sBreathChange = ((AP_MAXIMUM + gGameExternalOptions.iExperiencedAPBonus)-sUnusedAPs) * sBreathPerAP;
+						break;
+
+					case DIF_LEVEL_HARD:
+						sBreathChange = ((AP_MAXIMUM + gGameExternalOptions.iExpertAPBonus)- sUnusedAPs) * sBreathPerAP;
+						break;
+
+					case DIF_LEVEL_INSANE:
+						sBreathChange = ((AP_MAXIMUM + gGameExternalOptions.iInsaneAPBonus)- sUnusedAPs) * sBreathPerAP;
+						break;
+
+					default:
+						sBreathChange = (AP_MAXIMUM - sUnusedAPs) * sBreathPerAP;
+				}
+			}
+			else
+			{
+				sBreathChange = ((AP_MAXIMUM + gGameExternalOptions.iPlayerAPBonus)- sUnusedAPs) * sBreathPerAP;
+			}
 		}
 		else
 		{
