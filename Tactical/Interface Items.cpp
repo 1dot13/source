@@ -7433,13 +7433,11 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 	}
 
 /* 2007-05-27, Sergeant_Kolja: code temporarily added for tracking the 
-   6 Shuriken bug plus the 
    SKI Tony inventory crash.
    Remove when fixed!
  */
 # if defined( _DEBUG )
-  if ( (pObject->ubGunAmmoType >= MAXITEMS) || 
-       ((usItem == 1053) && (pObject->ubGunAmmoType != 0  )) /* shuriken: 1053 */
+  if ( (pObject->ubGunAmmoType >= MAXITEMS) 
      )
   {
     DebugMsg(TOPIC_JA2, DBG_LEVEL_1, String( "corrupted pObject (%s) found in GetHelpTextForItem()", (usItem<MAXITEMS) ? Item[usItem].szItemName : "???" ));

@@ -5061,15 +5061,18 @@ BOOLEAN EVENT_InternalGetNewSoldierPath( SOLDIERTYPE *pSoldier, UINT16 sDestGrid
 	}
 
 	// we can use the soldier's level here because we don't have pathing across levels right now...
+#if 0
+	// Uhhmmmm, the name of this function has "NEWPath" in it.
 	if (pSoldier->bPathStored)
 	{
 		fContinue = TRUE;
 	}
 	else
 	{
+#endif
 		iDest = FindBestPath( pSoldier, sDestGridNo, pSoldier->bLevel, usMovementAnim, COPYROUTE, fFlags );
 		fContinue = (iDest != 0);
-	}
+//	}
 
 	// Only if we can get a path here
 	if ( fContinue )

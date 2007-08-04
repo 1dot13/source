@@ -50,6 +50,7 @@
 #endif
 
 #include "Reinforcement.h"
+#include "MilitiaSquads.h"
 
 //The sector information required for the strategic AI.  Contains the number of enemy troops,
 //as well as intentions, etc.
@@ -442,11 +443,41 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	if( gbWorldSectorZ > 0 )
 		return PrepareEnemyForUndergroundBattle();
 
-	if( gpBattleGroup && !gpBattleGroup->fPlayer )
-	{ //The enemy has instigated the battle which means they are the ones entering the conflict.
+	// Reinforcement groups?  Bring it on!  That is, if this is an enemy invasion.
+	if( gGameExternalOptions.gfAllowReinforcements &&
+		!( (GetTownIdForSector( gWorldSectorX, gWorldSectorY ) == OMERTA )&&( gGameOptions.ubDifficultyLevel != DIF_LEVEL_INSANE ) ) &&
+		gpBattleGroup && !gpBattleGroup->fPlayer )
+	{
+		UINT16 pusMoveDir[4][3];
+		UINT8 ubDirNumber = 0, ubIndex;
+		GROUP *pGroup;
+		SECTORINFO *pThisSector;
+
+		//The enemy has instigated the battle which means they are the ones entering the conflict.
 		//The player was actually in the sector first, and the enemy doesn't use reinforced placements
 		HandleArrivalOfReinforcements( gpBattleGroup );
-		//It is possible that other enemy groups have also arrived.  Add them in the same manner.
+
+		// They arrived in multiple groups, so here they come
+		pThisSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
+
+		GenerateDirectionInfos( gWorldSectorX, gWorldSectorY, &ubDirNumber, pusMoveDir, 
+			( GetTownIdForSector( gWorldSectorX, gWorldSectorY ) != BLANK_SECTOR ? TRUE : FALSE ), TRUE, IS_ONLY_IN_CITIES );
+
+		for( ubIndex = 0; ubIndex < ubDirNumber; ubIndex++ )
+		{
+			while ( NumMobileEnemiesInSector( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) && GetEnemyGroupInSector( SECTORX( pusMoveDir[ ubIndex][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) )
+			{
+				pGroup = GetEnemyGroupInSector( SECTORX( pusMoveDir[ ubIndex][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) );
+
+				pGroup->ubPrevX = pGroup->ubSectorX;
+				pGroup->ubPrevY = pGroup->ubSectorY;
+
+				pGroup->ubSectorX = pGroup->ubNextX = (UINT8)gWorldSectorX;
+				pGroup->ubSectorY = pGroup->ubNextY = (UINT8)gWorldSectorY;
+			}
+		}
+
+		//It is now possible that other enemy groups have also arrived.  Add them in the same manner.
 		pGroup = gpGroupList;
 		while( pGroup )
 		{
@@ -461,6 +492,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			}
 			pGroup = pGroup->next;
 		}
+
 		ValidateEnemiesHaveWeapons();
 		return ( ( BOOLEAN) ( gpBattleGroup->ubGroupSize > 0 ) );
 	}
@@ -546,6 +578,11 @@ BOOLEAN PrepareEnemyForSectorBattle()
 				ubTotalAdmins, ubTotalTroops, ubTotalElites );
 		#endif
 	}
+#if 0
+	// 0verhaul:  Not here.  First this gives reinforcement groups the unfair advantage of being already placed.
+	// Second, this particular loop is also used to reset strategic player groups in the sector so that they
+	// can be given movement orders (why here though?), but would quit early if the enemy slots are filled.
+
 	//Subtract the total number of stationary enemies from the available slots, as stationary forces take
 	//precendence in combat.  The mobile forces that could also be in the same sector are considered later if
 	//all the slots fill up.
@@ -553,9 +590,12 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	//Now, process all of the groups and search for both enemy and player groups in the sector.
 	//For enemy groups, we fill up the slots until we have none left or all of the groups have been 
 	//processed.
-	pGroup = gpGroupList;
-	while( pGroup && sNumSlots )
+#endif
+	for( pGroup = gpGroupList;
+		 pGroup;
+		 pGroup = pGroup->next)
 	{
+#if 0
 		if( !pGroup->fPlayer && !pGroup->fVehicle &&  
 				 pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY && !gbWorldSectorZ )
 		{ //Process enemy group in sector.
@@ -601,6 +641,8 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			//NOTE:
 			//no provisions for profile troop leader or retreat groups yet.
 		}
+#endif
+
 		if( pGroup->fPlayer && !pGroup->fVehicle && !pGroup->fBetweenSectors &&
 				pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY && !gbWorldSectorZ )
 		{ //TEMP:  The player path needs to get destroyed, otherwise, it'll be impossible to move the
@@ -609,14 +651,12 @@ BOOLEAN PrepareEnemyForSectorBattle()
 			// no one in the group any more continue loop
 			if( pGroup->pPlayerList == NULL )
 			{
-				pGroup = pGroup->next;
 				continue;
 			}
 
 			// clear the movt for this grunt and his buddies
 			RemoveGroupWaypoints( pGroup->ubGroupID );
 		}
-		pGroup = pGroup->next;
 	}
 
 	//if there are no troops in the current groups, then we're done.
@@ -627,6 +667,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 
 	AddSoldierInitListEnemyDefenceSoldiers( ubTotalAdmins, ubTotalTroops, ubTotalElites );
 
+#if 0
 	//Now, we have to go through all of the enemies in the new map, and assign their respective groups if
 	//in a mobile group, but only for the ones that were assigned from the 
 	sNumSlots = 32 - ubStationaryEnemies;
@@ -687,6 +728,7 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		}
 		pGroup = pGroup->next;
 	}
+#endif
 
 	ValidateEnemiesHaveWeapons();
 
@@ -1142,10 +1184,13 @@ void AddPossiblePendingEnemiesToBattle()
 {
 	UINT8 ubSlots, ubNumAvailable;
 	UINT8 ubNumElites, ubNumTroops, ubNumAdmins;
+	UINT8 ubNumGroupsInSector;
+	UINT8 ubGroupIndex;
 	GROUP *pGroup;
 	SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
+	GROUP **pGroupInSectorList;
 	static UINT8 ubPredefinedInsertionCode = 255;
-	
+
 	// check if no world is loaded
 	if ( !gWorldSectorX && !gWorldSectorY && (gbWorldSectorZ == -1) )
 		return;
@@ -1153,15 +1198,43 @@ void AddPossiblePendingEnemiesToBattle()
 	if( ( !PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, 0 ) && !CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY ) )
 		|| !NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) ) return;
 
-/*	if( !gfPendingEnemies )
-	{ //Optimization.  No point in checking if we know that there aren't any more enemies that can
-		//be added to this battle.  This changes whenever a new enemy group arrives at the scene.
-		return;
-	}*/
 	ubSlots = NumFreeEnemySlots();
 	if( !ubSlots )
 	{ //no available slots to add enemies to.  Try again later...
 		return;
+	}
+
+	if( !gfPendingEnemies )
+	{
+		//Optimization.  No point in checking for group reinforcements if we know that there aren't any more enemies that can
+		//be added to this battle.  This changes whenever a new enemy group arrives at the scene.
+
+		while (ubSlots)
+		{
+			UINT8 ubInsertionCode = 255;
+
+			if( gTacticalStatus.Team[ ENEMY_TEAM ].bAwareOfOpposition == TRUE )
+				ubInsertionCode = DoReinforcementAsPendingEnemy( gWorldSectorX, gWorldSectorY );
+
+			if (ubInsertionCode == 255)
+			{
+				break;
+			}
+
+			AddEnemiesToBattle( pGroup, ubInsertionCode, 
+				pSector->ubNumAdmins - pSector->ubAdminsInBattle, 
+				pSector->ubNumTroops - pSector->ubTroopsInBattle,
+				pSector->ubNumElites - pSector->ubElitesInBattle, 
+				FALSE );
+
+			pSector->ubAdminsInBattle = pSector->ubNumAdmins;
+			pSector->ubTroopsInBattle = pSector->ubNumTroops;
+			pSector->ubElitesInBattle = pSector->ubNumElites;
+
+			// Assume we added one since there are supposedly more available and room for them
+			ubSlots--;
+		}
+		return;		
 	}
 
 	if( pSector->ubNumElites + pSector->ubNumTroops + pSector->ubNumAdmins )
@@ -1170,7 +1243,10 @@ void AddPossiblePendingEnemiesToBattle()
 
 		ubNumAvailable = pSector->ubNumElites + pSector->ubNumTroops + pSector->ubNumAdmins - pSector->ubElitesInBattle - pSector->ubTroopsInBattle - pSector->ubAdminsInBattle;
 		while( ubNumAvailable && ubSlots )
-		{ //This group has enemies waiting for a chance to enter the battle.
+		{
+			// So they just magically appear out of nowhere from the edge?
+
+			//This group has enemies waiting for a chance to enter the battle.
 			if( pSector->ubElitesInBattle < pSector->ubNumElites )
 			{ //Add an elite troop
 				pSector->ubElitesInBattle++;
@@ -1239,94 +1315,97 @@ void AddPossiblePendingEnemiesToBattle()
 
 	ubPredefinedInsertionCode = 255;
 
-	pGroup = gpGroupList;
-	while( pGroup && ubSlots )
+	// Figure out which groups are in the sector, so we can have reinforcements arrive at random
+	for (ubNumGroupsInSector = 0, pGroup = gpGroupList; pGroup; pGroup = pGroup->next)
 	{
 		if( !pGroup->fPlayer && !pGroup->fVehicle && pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY && !gbWorldSectorZ )
-		{ //This enemy group is currently in the sector.
-			ubNumElites = ubNumTroops = ubNumAdmins = 0;
-			ubNumAvailable = pGroup->ubGroupSize - pGroup->pEnemyGroup->ubElitesInBattle - pGroup->pEnemyGroup->ubTroopsInBattle - pGroup->pEnemyGroup->ubAdminsInBattle;
-			while( ubNumAvailable && ubSlots )
-			{ //This group has enemies waiting for a chance to enter the battle.
-				if( pGroup->pEnemyGroup->ubElitesInBattle < pGroup->pEnemyGroup->ubNumElites )
-				{ //Add an elite troop
-					pGroup->pEnemyGroup->ubElitesInBattle++;
-					ubNumAvailable--;
-					ubSlots--;
-					ubNumElites++;
-				}
-				else if( pGroup->pEnemyGroup->ubTroopsInBattle < pGroup->pEnemyGroup->ubNumTroops )
-				{ //Add a regular troop.
-					pGroup->pEnemyGroup->ubTroopsInBattle++;
-					ubNumAvailable--;
-					ubSlots--;
-					ubNumTroops++;
-				}
-				else if( pGroup->pEnemyGroup->ubAdminsInBattle < pGroup->pEnemyGroup->ubNumAdmins )
-				{ //Add an admin troop
-					pGroup->pEnemyGroup->ubAdminsInBattle++;
-					ubNumAvailable--;
-					ubSlots--;
-					ubNumAdmins++;
-				}
-				else
-				{
-					AssertMsg( 0, "AddPossiblePendingEnemiesToBattle():  Logic Error -- by Kris" );
-				}
-			}
-			if( ubNumAdmins || ubNumTroops || ubNumElites )
-			{ //This group has contributed forces, then add them now, because different
-				//groups appear on different sides of the map.
-				UINT8 ubStrategicInsertionCode=0;
-				//First, determine which entrypoint to use, based on the travel direction of the group.
-				if( pGroup->ubPrevX && pGroup->ubPrevY )
-				{
-					if( pGroup->ubSectorX < pGroup->ubPrevX )
-						ubStrategicInsertionCode = INSERTION_CODE_EAST;
-					else if( pGroup->ubSectorX > pGroup->ubPrevX )
-						ubStrategicInsertionCode = INSERTION_CODE_WEST;
-					else if( pGroup->ubSectorY < pGroup->ubPrevY )
-						ubStrategicInsertionCode = INSERTION_CODE_SOUTH;
-					else if( pGroup->ubSectorY > pGroup->ubPrevY )
-						ubStrategicInsertionCode = INSERTION_CODE_NORTH;
-				}
-				else if( pGroup->ubNextX && pGroup->ubNextY )
-				{
-					if( pGroup->ubSectorX < pGroup->ubNextX )
-						ubStrategicInsertionCode = INSERTION_CODE_EAST;
-					else if( pGroup->ubSectorX > pGroup->ubNextX )
-						ubStrategicInsertionCode = INSERTION_CODE_WEST;
-					else if( pGroup->ubSectorY < pGroup->ubNextY )
-						ubStrategicInsertionCode = INSERTION_CODE_SOUTH;
-					else if( pGroup->ubSectorY > pGroup->ubNextY )
-						ubStrategicInsertionCode = INSERTION_CODE_NORTH;
-				}
-				//Add the number of each type of troop and place them in the appropriate positions
-				AddEnemiesToBattle( pGroup, ubStrategicInsertionCode, ubNumAdmins, ubNumTroops, ubNumElites, FALSE );
-				gfPendingEnemies = TRUE;
-			}
-
-			// If there are still more to contribute, then move the remaining back to the sector they came from.
-			if (ubNumAvailable)
-			{
-				pGroup->ubSectorX = pGroup->ubPrevX;
-				pGroup->ubSectorY = pGroup->ubPrevY;
-			}
-		}
-		pGroup = pGroup->next;
+			ubNumGroupsInSector++;
 	}
+
+	pGroupInSectorList = (GROUP**) MemAlloc( ubNumGroupsInSector * sizeof( GROUP*));
+	for (ubNumGroupsInSector = 0, pGroup = gpGroupList; pGroup; pGroup = pGroup->next)
+	{
+		if( !pGroup->fPlayer && !pGroup->fVehicle && pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY && !gbWorldSectorZ )
+		{
+			pGroupInSectorList[ ubNumGroupsInSector++] = pGroup;
+		}
+	}
+
+	while( ubSlots && ubNumGroupsInSector )
+	{
+		UINT8 ubInsertionCode = 255;
+
+		ubGroupIndex = Random( ubNumGroupsInSector);
+		pGroup = pGroupInSectorList[ ubGroupIndex];
+
+		ubNumAvailable = pGroup->ubGroupSize - pGroup->pEnemyGroup->ubElitesInBattle - pGroup->pEnemyGroup->ubTroopsInBattle - pGroup->pEnemyGroup->ubAdminsInBattle;
+		if (!ubNumAvailable)
+		{
+			// Looks like we picked an empty group.  Make a note of it
+			pGroupInSectorList[ ubGroupIndex] = pGroupInSectorList[ --ubNumGroupsInSector ];
+			continue;
+		}
+
+		if( pGroup->ubPrevX && pGroup->ubPrevY )
+		{
+			if( pGroup->ubSectorX < pGroup->ubPrevX )
+				ubInsertionCode = INSERTION_CODE_EAST;
+			else if( pGroup->ubSectorX > pGroup->ubPrevX )
+				ubInsertionCode = INSERTION_CODE_WEST;
+			else if( pGroup->ubSectorY < pGroup->ubPrevY )
+				ubInsertionCode = INSERTION_CODE_SOUTH;
+			else if( pGroup->ubSectorY > pGroup->ubPrevY )
+				ubInsertionCode = INSERTION_CODE_NORTH;
+			else
+				Assert(0);
+		}
+		else if( pGroup->ubNextX && pGroup->ubNextY )
+		{
+			if( pGroup->ubSectorX < pGroup->ubNextX )
+				ubInsertionCode = INSERTION_CODE_EAST;
+			else if( pGroup->ubSectorX > pGroup->ubNextX )
+				ubInsertionCode = INSERTION_CODE_WEST;
+			else if( pGroup->ubSectorY < pGroup->ubNextY )
+				ubInsertionCode = INSERTION_CODE_SOUTH;
+			else if( pGroup->ubSectorY > pGroup->ubNextY )
+				ubInsertionCode = INSERTION_CODE_NORTH;
+			else
+				Assert(0);
+		}
+		else
+			// The group has no movement orders.  Where did it come from?
+			Assert(0);
+
+		if( pGroup->pEnemyGroup->ubElitesInBattle < pGroup->pEnemyGroup->ubNumElites )
+		{ //Add an elite troop
+			pGroup->pEnemyGroup->ubElitesInBattle++;
+			ubSlots--;
+			AddEnemiesToBattle( pGroup, ubInsertionCode, 0, 0, 1, FALSE );
+		}
+		else if( pGroup->pEnemyGroup->ubTroopsInBattle < pGroup->pEnemyGroup->ubNumTroops )
+		{ //Add a regular troop.
+			pGroup->pEnemyGroup->ubTroopsInBattle++;
+			ubSlots--;
+			AddEnemiesToBattle( pGroup, ubInsertionCode, 0, 1, 0, FALSE );
+		}
+		else if( pGroup->pEnemyGroup->ubAdminsInBattle < pGroup->pEnemyGroup->ubNumAdmins )
+		{ //Add an admin troop
+			pGroup->pEnemyGroup->ubAdminsInBattle++;
+			ubSlots--;
+			AddEnemiesToBattle( pGroup, ubInsertionCode, 1, 0, 0, FALSE );
+		}
+		else
+		{
+			AssertMsg( 0, "AddPossiblePendingEnemiesToBattle():  Logic Error -- by Kris" );
+		}
+	}
+
+	MemFree( pGroupInSectorList);
+
 	if( ubSlots )
 	{ //After going through the process, we have finished with some free slots and no more enemies to add.
     //So, we can turn off the flag, as this check is no longer needed.
 		gfPendingEnemies = FALSE;
-		
-		if( gTacticalStatus.Team[ ENEMY_TEAM ].bAwareOfOpposition == TRUE )
-			ubPredefinedInsertionCode = DoReinforcementAsPendingEnemy( gWorldSectorX, gWorldSectorY );
-		else 
-			ubPredefinedInsertionCode = 255;
-
-		if( ubPredefinedInsertionCode != 255 )
-			AddPossiblePendingEnemiesToBattle();
 	}
 }
 
