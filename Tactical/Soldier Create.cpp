@@ -540,7 +540,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			if( guiCurrentScreen != AUTORESOLVE_SCREEN )
 			{
 				// also, if an army guy has camouflage, roll to determine whether they start camouflaged
-				if ( Soldier.bTeam == ENEMY_TEAM )
+				if ( ( Soldier.bTeam == ENEMY_TEAM ) || ( Soldier.bTeam == MILITIA_TEAM ) )
 				{
 					i = FindCamoKit ( &Soldier );
 
