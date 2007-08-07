@@ -285,6 +285,8 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 		for(;;)
 	{
 		ubIndex = Random(ubDirNumber);
+#if 0
+// This should be handled in AddPossiblePendingEnemiesToBattle
 		if( NumMobileEnemiesInSector( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) && GetEnemyGroupInSector( SECTORX( pusMoveDir[ ubIndex][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) )
 		{
 			UINT8 numElite;
@@ -329,6 +331,7 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 				return (UINT8)pusMoveDir[ ubIndex ][ 2 ];
 			}
 		}
+#endif
 
 		if( NumEnemiesInSector( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) > gubReinforcementMinEnemyStaticGroupSize )
 		{
@@ -347,6 +350,16 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 				(pThisSector->ubNumAdmins)++;
 				(pSector->ubNumAdmins)--;
 			}
+
+			AddEnemiesToBattle( NULL, (UINT8)pusMoveDir[ ubIndex ][ 2 ], 
+				pThisSector->ubNumAdmins - pThisSector->ubAdminsInBattle, 
+				pThisSector->ubNumTroops - pThisSector->ubTroopsInBattle,
+				pThisSector->ubNumElites - pThisSector->ubElitesInBattle, 
+				FALSE );
+
+			pThisSector->ubAdminsInBattle = pThisSector->ubNumAdmins;
+			pThisSector->ubTroopsInBattle = pThisSector->ubNumTroops;
+			pThisSector->ubElitesInBattle = pThisSector->ubNumElites;
 
 			return (UINT8)pusMoveDir[ ubIndex ][ 2 ];
 		}

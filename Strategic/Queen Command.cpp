@@ -1221,16 +1221,6 @@ void AddPossiblePendingEnemiesToBattle()
 				break;
 			}
 
-			AddEnemiesToBattle( pGroup, ubInsertionCode, 
-				pSector->ubNumAdmins - pSector->ubAdminsInBattle, 
-				pSector->ubNumTroops - pSector->ubTroopsInBattle,
-				pSector->ubNumElites - pSector->ubElitesInBattle, 
-				FALSE );
-
-			pSector->ubAdminsInBattle = pSector->ubNumAdmins;
-			pSector->ubTroopsInBattle = pSector->ubNumTroops;
-			pSector->ubElitesInBattle = pSector->ubNumElites;
-
 			// Assume we added one since there are supposedly more available and room for them
 			ubSlots--;
 		}
