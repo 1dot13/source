@@ -2307,7 +2307,7 @@ BOOLEAN AddNewBobbyRShipment( BobbyRayPurchaseStruct *pPurchaseStruct, UINT8 ubD
 	else
 		gpNewBobbyrShipments[ iFoundSpot ].fDisplayedInShipmentPage = FALSE;
 
-	//get the apckage weight, if the weight is "below" the minimum, use the minimum
+	//get the package weight, if the weight is "below" the minimum, use the minimum
 	if(  uiPackageWeight < MIN_SHIPPING_WEIGHT )
 	{
 		gpNewBobbyrShipments[ iFoundSpot ].uiPackageWeight = MIN_SHIPPING_WEIGHT;

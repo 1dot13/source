@@ -342,6 +342,8 @@ void BobbyRayPurchaseEventCallback( UINT8 ubOrderID )
 		SetFactFalse( FACT_PABLOS_STOLE_FROM_LATEST_SHIPMENT );
 	}
 
+	SetFactFalse( FACT_PLAYER_FOUND_ITEMS_MISSING );
+
 	SetFactFalse( FACT_LARGE_SIZED_OLD_SHIPMENT_WAITING );
 
 	if ( CheckFact( FACT_NEXT_PACKAGE_CAN_BE_DELAYED, 0 ) )

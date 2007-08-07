@@ -1601,8 +1601,6 @@ void SimulateMouseMovement( UINT32 uiNewXPos, UINT32 uiNewYPos )
 	newmouse.y = uiNewYPos;
 	ClientToScreen( ghWindow, &newmouse);
 	SetCursorPos( newmouse.x, newmouse.y);
-
-	// Does this generate a mouse move message?  I'll first try without
 }
 
 

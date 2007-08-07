@@ -252,8 +252,10 @@ void HandleStructChangeFromGridNo( SOLDIERTYPE *pSoldier, INT16 sGridNo )
 		{
 			if ( sGridNo == BOBBYR_SHIPPING_DEST_GRIDNO && gWorldSectorX == BOBBYR_SHIPPING_DEST_SECTOR_X && gWorldSectorY == BOBBYR_SHIPPING_DEST_SECTOR_Y && gbWorldSectorZ == BOBBYR_SHIPPING_DEST_SECTOR_Z && CheckFact( FACT_PABLOS_STOLE_FROM_LATEST_SHIPMENT, 0 ) && !(CheckFact( FACT_PLAYER_FOUND_ITEMS_MISSING, 0) ) )
 			{
-				SayQuoteFromNearbyMercInSector( BOBBYR_SHIPPING_DEST_GRIDNO, 3, QUOTE_STUFF_MISSING_DRASSEN );
-        fDidMissingQuote = TRUE;
+			SetFactFalse( 38); // Reset whether we punched Pablo lately
+			SetFactFalse( FACT_PABLO_RETURNED_GOODS);
+			SayQuoteFromNearbyMercInSector( BOBBYR_SHIPPING_DEST_GRIDNO, 3, QUOTE_STUFF_MISSING_DRASSEN );
+	        fDidMissingQuote = TRUE;
 			}
 		}
 		else if ( pSoldier->bTeam == CIV_TEAM )

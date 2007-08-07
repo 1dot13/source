@@ -7224,6 +7224,10 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
 		else if (pTarget->ubProfile == PABLO && pTarget->bLife >= OKLIFE && CheckFact( FACT_PABLO_PUNISHED_BY_PLAYER, 0 ) && !CheckFact( 38, 0 ) )
 		{
 			TriggerNPCRecord( PABLO, 3 );
+			// Nailed Pablo.  So reset the fact that he stole from the last shipment since he's supposed to be returning
+			// the goods now.
+			SetFactFalse( FACT_PABLOS_STOLE_FROM_LATEST_SHIPMENT);
+			SetFactFalse( FACT_PLAYER_FOUND_ITEMS_MISSING);
 		}
 		else
 		{

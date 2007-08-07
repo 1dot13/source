@@ -2263,7 +2263,11 @@ BOOLEAN OKToAddMercToWorld( SOLDIERTYPE *pSoldier, INT8 bDirection )
 	STRUCTURE_FILE_REF			*pStructFileRef;
 	UINT16 usOKToAddStructID;
 
-  //if ( pSoldier->uiStatusFlags & SOLDIER_MULTITILE )
+	// 0verhaul:  Reinserting this check.  If a soldier is sitting or standing on a grid and another soldier is lying prone
+	// across that grid but has the structure, this call will not allow the current soldier to turn.  Since we are talking
+	// about the soldier whose turn it is, this is not a good thing because it will lead to deadlock.
+	if ( pSoldier->uiStatusFlags & SOLDIER_MULTITILE ||
+		pSoldier->usAnimState == CRAWLING)
 	{
 		// Get surface data
  		usAnimSurface = GetSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
