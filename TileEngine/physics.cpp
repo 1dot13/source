@@ -1712,7 +1712,6 @@ FLOAT CalculateObjectTrajectory( INT16 sTargetZ, OBJECTTYPE *pItem, vector_3 *vP
 	pObject->fTestPositionNotSet = TRUE;
 	pObject->fVisible		 = FALSE;
 
-	// WANNE 2
 	// Alrighty, move this beast until it dies....
 	while( pObject->fAlive )
 	{

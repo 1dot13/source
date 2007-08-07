@@ -123,7 +123,6 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	if(!ReadInEnemyArmourDropsStats(gEnemyArmourDrops, fileName))
 		return FALSE;
-
 	// WANNE: Enemy drops - end
 	
 	// WANNE: Sector Loadscreens [2007-05-18]

@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Laptop All.h"
 	#include "HelpScreen.h"
@@ -272,7 +271,6 @@ extern BOOLEAN fFirstTimeInGameScreen;
 #define		LAPTOP__NEW_EMAIL_ICON_X						iScreenWidthOffset + 67
 #define		LAPTOP__NEW_EMAIL_ICON_Y						LAPTOP__NEW_FILE_ICON_Y
 
-// WANNE
 INT32 guiCurrentGunFilterMode;
 INT32 guiPrevGunFilterMode;
 
@@ -375,8 +373,6 @@ static BOOLEAN fNewWWW=TRUE;
 //Used to store the site to go to after the 'rain delay' message
 extern	UINT32										guiRainLoop;
 
-
-// WANNE 2
 INT32	giRainDelayInternetSite=-1;
 
 
@@ -877,7 +873,7 @@ INT32 EnterLaptop()
 	// Stop ambients...
 	StopAmbients( );
 
-	// WANNE 2: disabled rain sound when laptop is displayed
+	// WANNE: disabled rain sound when laptop is displayed
 	////if its raining, start the rain showers
 	//if( IsItRaining() )
 	//{
@@ -1041,7 +1037,7 @@ void ExitLaptop()
 	// Start ambients...
 	BuildDayAmbientSounds( );
 
-	// WANNE 2: disabled rain sound when laptop is displayed
+	// WANNE: disabled rain sound when laptop is displayed
 	//if its raining, start the rain showers
 	//if( IsItRaining() )
 	//{
@@ -1813,7 +1809,6 @@ void HandleLapTopHandles()
 
 extern BOOLEAN gfPrintFrameBuffer;
 
-// WANNE 2 <change laptop zooming>
 UINT32 LaptopScreenHandle()
 {
 	INT16 sYOffset = 0;
@@ -1884,7 +1879,7 @@ UINT32 LaptopScreenHandle()
 		DstRect.iRight = iScreenWidthOffset + 640;				//640
 		DstRect.iBottom = iScreenHeightOffset + 480;				//480
 		iLaptopMonitorCenterX = SCREEN_WIDTH - 184 + 19 + sXOffset;
-		iLaptopMonitorCenterY = SCREEN_HEIGHT - 70 + 16 + sYOffset;		// WANNE 2
+		iLaptopMonitorCenterY = SCREEN_HEIGHT - 70 + 16 + sYOffset;
 		uiTimeRange = 1000;
 		iPercentage = iRealPercentage = 0;
 		uiStartTime = GetJA2Clock();
@@ -1897,7 +1892,6 @@ UINT32 LaptopScreenHandle()
 
 		PlayJA2SampleFromFile( "SOUNDS\\Laptop power up (8-11).wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 		
-		// WANNE 2 with laptop zooming
 		while( iRealPercentage < 100  )
 		{
 			// Lesh: restore mapscreen so laptop zooming won't leave "graphical trail
@@ -1935,10 +1929,8 @@ UINT32 LaptopScreenHandle()
 			
 			BltStretchVideoSurface( FRAME_BUFFER, guiSAVEBUFFER, iScreenWidthOffset, iScreenHeightOffset, 0, &DstRect, &SrcRect2 );
 
-			 //WANNE 2
 			InvalidateScreen();
 			
-			 //WANNE 2
 			RefreshScreen( NULL );
 		}
 
@@ -2010,7 +2002,6 @@ UINT32 LaptopScreenHandle()
 		fPausedReDrawScreenFlag = FALSE;
 	}
 	
-	// WANNE 2 <redraw>
   if( fReDrawScreenFlag )
 	{
    RenderLapTopImage();
@@ -2139,7 +2130,6 @@ UINT32 LaptopScreenHandle()
 	// render frame rate
 	DisplayFrameRate( );
 	
-	// WANNE 2 <redraw>
 	// invalidate screen if redrawn
 	if( fReDrawScreenFlag == TRUE )
 	{
@@ -2550,7 +2540,6 @@ BOOLEAN LeaveLapTopScreen( void )
 
 			PlayJA2SampleFromFile( "SOUNDS\\Laptop power down (8-11).wav", RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 
-			// WANNE 2
 			while( iRealPercentage > 0  )
 			{
 				BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset,
@@ -3633,7 +3622,7 @@ void BookmarkCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 void GoToWebPage(INT32 iPageId )
 { 
 
-	// WANNE 2: disabled rain sound when laptop is displayed
+	// WANNE: disabled rain sound when laptop is displayed
 	////if it is raining, popup a warning first saying connection time may be slow
 	//if( IsItRaining() )
 	//{
@@ -5288,7 +5277,7 @@ BOOLEAN DrawDeskTopBackground( void )
 	SGPRect clip;
 
 	 // set clipping region
-	 // WANNE (if i change this values to SCREEN_WIDTH, ... than an exception is thrown in the vobject_blitters.cpp)
+	 // WANNE: If i change this values to SCREEN_WIDTH, ... than an exception is thrown in the vobject_blitters.cpp)
 	 // -> no changes to clip structure
 	 clip.iLeft = 0;					
 	 clip.iRight = 506;			
@@ -6422,7 +6411,6 @@ BOOLEAN IsItRaining()
 
 void		InternetRainDelayMessageBoxCallBack( UINT8 bExitValue )
 {
-	// WANNE 2
 	//GoToWebPage(	giRainDelayInternetSite );
 
 	//Set to -2 so we dont due the message for this occurence of laptop

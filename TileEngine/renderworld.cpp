@@ -3965,7 +3965,6 @@ BOOLEAN ApplyScrolling( INT16 sTempRenderCenterX, INT16 sTempRenderCenterY, BOOL
 	INT16 sNewScreenX, sNewScreenY;
 	INT16	sMult;
 
-	// WANNE:
 	INT16 sRadarTLX, sRadarTLY;
 	INT16 sRadarBRX, sRadarBRY;
 	INT16 sRadarCX, sRadarCY;
@@ -4162,7 +4161,6 @@ BOOLEAN ApplyScrolling( INT16 sTempRenderCenterX, INT16 sTempRenderCenterY, BOOL
 		{
 			if ( fOutTop )
 			{
-					// WANNE: Test
 				// Adjust screen coordinates on the Y!
 				CorrectRenderCenter( sScreenCenterX, (INT16)(gsTLY + sY_S ), &sNewScreenX, &sNewScreenY );
 				FromScreenToCellCoordinates( sNewScreenX, sNewScreenY , &sTempPosX_W, &sTempPosY_W );

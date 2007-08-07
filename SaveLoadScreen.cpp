@@ -455,7 +455,7 @@ BOOLEAN		EnterSaveLoadScreen()
 	UINT16 usPosX = SLG_FIRST_SAVED_SPOT_X;
 	UINT16 usPosY = SLG_FIRST_SAVED_SPOT_Y;
 	
-	// WANNE <do not draw the background black>
+	// WANNE: Do not draw the background black
 	// Black background
 	//ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0 );
 
@@ -647,7 +647,6 @@ Removed so that the user can click on it and get displayed a message that the qu
 						memset( &SaveGameHeader, 0, sizeof( SAVED_GAME_HEADER ) );
 						gbSaveGameSelectedLocation[ gbSelectedSaveLocation ] = SLG_UNSELECTED_SLOT_GRAPHICS_NUMBER;
 						
-						// WANNE: NEW
 						if (gbSelectedSaveLocation != SAVE__END_TURN_NUM)
 						{
 							gbSaveGameArray[ gbSelectedSaveLocation ] = FALSE;

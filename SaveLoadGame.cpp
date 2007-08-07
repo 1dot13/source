@@ -3654,12 +3654,7 @@ BOOLEAN SaveEmailToSavedGame( HWFILE hFile )
 		SavedEmail.iFourthData = pEmail->iFourthData;
 		SavedEmail.uiFifthData = pEmail->uiFifthData;
 		SavedEmail.uiSixData = pEmail->uiSixData;
-		
-
-		// WANNE - SAVEGAME-STRUCTURE: Remove the comment, until we have bigger changes in the savegame structure
-		// BECAUSE A NEW GAME MUST BE STARTED! 
 		SavedEmail.iCurrentIMPPosition = pEmail->iCurrentIMPPosition;
-
 
 		// write the email header to the saved game file
 		FileWrite( hFile, &SavedEmail, sizeof( SavedEmailStruct ), &uiNumBytesWritten );
@@ -3760,9 +3755,6 @@ BOOLEAN LoadEmailFromSavedGame( HWFILE hFile )
 		pTempEmail->iFourthData = SavedEmail.iFourthData;
 		pTempEmail->uiFifthData = SavedEmail.uiFifthData;
 		pTempEmail->uiSixData = SavedEmail.uiSixData;
-		
-		// WANNE - SAVEGAME-STRUCTURE: Remove the comment, until we have bigger changes in the savegame structure
-		// BECAUSE A NEW GAME MUST BE STARTED! 
 		pTempEmail->iCurrentIMPPosition = SavedEmail.iCurrentIMPPosition;
 
 		//add the current email in

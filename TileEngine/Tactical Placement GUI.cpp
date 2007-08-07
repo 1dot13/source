@@ -1,6 +1,5 @@
 #include "builddefines.h"
 
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "TileEngine All.h"
 	#include "PreBattle Interface.h"
@@ -558,7 +557,6 @@ void RenderTacticalPlacementGUI()
 		InvalidateRegion( iOffsetHorizontal, iOffsetVertical, iOffsetHorizontal + 640, iOffsetVertical + 320 );
 		if( gbCursorMercID == -1 )
 		{
-			// WANNE 2
 			gTPClipRect.iLeft	= gfWest	? iOffsetHorizontal + 30	: iOffsetHorizontal;
 			gTPClipRect.iTop	= gfNorth	? iOffsetVertical + 30 + 3		: iOffsetVertical + 3;
 			gTPClipRect.iRight	= gfEast	? iOffsetHorizontal + 610	: iOffsetHorizontal + 634; // 636
@@ -568,7 +566,6 @@ void RenderTacticalPlacementGUI()
 		{
 			gTPClipRect.iLeft		= iOffsetHorizontal;
 			gTPClipRect.iTop		= iOffsetVertical + 3;
-			// WANNE 2
 			//gTPClipRect.iRight		= iOffsetHorizontal + 640;
 			gTPClipRect.iRight		= iOffsetHorizontal + 634;  // 635
 			gTPClipRect.iBottom		= iOffsetVertical + 320;

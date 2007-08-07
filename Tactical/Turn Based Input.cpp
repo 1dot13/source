@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 #include "Tactical All.h"
 #include "Language Defines.h"
@@ -2833,7 +2832,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 			case INSERT:
 
-				// WANNE 2: commented this out, because the interface panel is not correctly redrawn!
+				// WANNE: Commented this out, because the interface panel is not correctly redrawn!
 				// I do not know the bug ;(
 				//GoIntoOverheadMap();
 				break;

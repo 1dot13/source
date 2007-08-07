@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "GameSettings.h"
@@ -83,7 +82,6 @@ INT32 iZoomY = 0;
 #define MAP_HELICOPTER_ETA_POPUP_WIDTH			120
 #define MAP_HELICOPTER_ETA_POPUP_HEIGHT			68
 
-// WANNE 2
 #define MAP_LEVEL_STRING_X						(SCREEN_WIDTH - 208)		//432
 #define MAP_LEVEL_STRING_Y						(SCREEN_HEIGHT - 175)		//305
 
@@ -99,9 +97,8 @@ INT32 iZoomY = 0;
 
 //Map Location index regions
 
-// WANNE 2 <change THIS>
 
-// WANNE 2 (The numbers above the map)
+// WANNE: The numbers above the map
 // x start of hort index
 #define MAP_HORT_INDEX_X						(MAP_BORDER_X + MAP_BORDER_X_OFFSET + 31)//(SCREEN_WIDTH - 348)	//292	
 // y position of hort index
@@ -110,7 +107,7 @@ INT32 iZoomY = 0;
 #define MAP_HORT_HEIGHT							GetFontHeight(MAP_FONT)
 
 
-// WANNE 2 (the letters on the left side of the map)
+// WANNE: The letters on the left side of the map)
 // vert index start x
 #define MAP_VERT_INDEX_X						(MAP_BORDER_X + MAP_BORDER_X_OFFSET + 13)		//(SCREEN_WIDTH - 367) // 273
 // vert index start y
@@ -422,7 +419,6 @@ INT16 gpSamSectorY[ MAX_NUMBER_OF_SAMS ];
 
 extern BOOLEAN fSamSiteFoundOrig[ MAX_NUMBER_OF_SAMS ];
 
-// WANNE 2 (reinitialization in "DrawMap()")
 // map region
 SGPRect MapScreenRect={	(MAP_VIEW_START_X+MAP_GRID_X - 2),	( MAP_VIEW_START_Y+MAP_GRID_Y - 1), MAP_VIEW_START_X + MAP_VIEW_WIDTH - 1 + MAP_GRID_X , MAP_VIEW_START_Y+MAP_VIEW_HEIGHT-10+MAP_GRID_Y};
 
@@ -689,7 +685,6 @@ UINT32 DrawMap( void )
   INT16 cnt, cnt2;
 	INT32 iCounter = 0;
 
-	// WANNE 2 <initialization>
 	//MAP_VIEW_START_X = (SCREEN_WIDTH - 370);
 	//MAP_VIEW_START_Y = 10;
 
@@ -899,7 +894,6 @@ UINT32 DrawMap( void )
 
 	DisplayLevelString( );
 
-	// WANNE 2 <incommented>
 	RestoreClipRegionToFullScreen( );
 
 	return( TRUE );
@@ -3984,7 +3978,6 @@ void RestoreClipRegionToFullScreenForRectangle( UINT32 uiDestPitchBYTES )
 	// clip blits to map view region
 	//SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, 640, 480 );
 
-	// WANNE 2
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
 	return;
@@ -4495,7 +4488,6 @@ void DisplayPositionOfHelicopter( void )
 			}
 */
 
-			// WANNE 2
 			AssertMsg( ( minX >= 0 ) && ( minX < SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid minX = %d", minX ) );
 			AssertMsg( ( maxX >= 0 ) && ( maxX < SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid maxX = %d", maxX ) );
 			AssertMsg( ( minY >= 0 ) && ( minY < SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid minY = %d", minY ) );
@@ -4518,8 +4510,6 @@ void DisplayPositionOfHelicopter( void )
 				y += 3;
 			}
 
-
-			// WANNE 2
 			AssertMsg( ( x >= 0 ) && ( x < (UINT32)SCREEN_WIDTH ), String( "DisplayPositionOfHelicopter: Invalid x = %d.  At %d,%d.  Next %d,%d.  Min/Max X = %d/%d",
 							x, pGroup->ubSectorX, pGroup->ubSectorY, pGroup->ubNextX, pGroup->ubNextY, minX, maxX ) );
 
@@ -4565,8 +4555,6 @@ void DisplayDestinationOfHelicopter( void )
 	UINT32 x,y;
 	HVOBJECT hHandle;
 
-
-	// WANNE 2
 	AssertMsg( ( sOldMapX >= 0 ) && ( sOldMapX < SCREEN_WIDTH ), String( "DisplayDestinationOfHelicopter: Invalid sOldMapX = %d", sOldMapX ) );
 	AssertMsg( ( sOldMapY >= 0 ) && ( sOldMapY < SCREEN_HEIGHT ), String( "DisplayDestinationOfHelicopter: Invalid sOldMapY = %d", sOldMapY ) );
 
@@ -4588,7 +4576,6 @@ void DisplayDestinationOfHelicopter( void )
 		x = MAP_VIEW_START_X + ( MAP_GRID_X * sMapX ) + 1;
 		y = MAP_VIEW_START_Y + ( MAP_GRID_Y * sMapY ) + 3;
 
-		// WANNE 2
 		AssertMsg( ( x >= 0 ) && ( x < (UINT32)SCREEN_WIDTH ), String( "DisplayDestinationOfHelicopter: Invalid x = %d.  Dest %d,%d", x, sMapX, sMapY ) );
 		AssertMsg( ( y >= 0 ) && ( y < (UINT32)SCREEN_HEIGHT ), String( "DisplayDestinationOfHelicopter: Invalid y = %d.  Dest %d,%d", y, sMapX, sMapY ) );
 
@@ -5034,7 +5021,6 @@ void DisplayLevelString( void )
 	SetFontBackground( FONT_BLACK );
 	swprintf( sString, L"%s %d", sMapLevelString[ 0 ], iCurrentMapSectorZ );
 	
-	// WANNE 2
 	mprintf(  MAP_LEVEL_STRING_X, MAP_LEVEL_STRING_Y, sString  );
 
 	SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );

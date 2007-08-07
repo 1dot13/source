@@ -1,4 +1,3 @@
-// WANNE: EDITOR done
 #include "BuildDefines.h"
 
 #ifdef JA2EDITOR

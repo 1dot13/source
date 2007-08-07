@@ -3983,7 +3983,7 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, UINT16 usMapPos, UINT32 uiFlags 
 		{
 			sAPCost += MinAPsToAttack( pSoldier, sAdjustedGridNo, TRUE );
 
-			// WANNE: Turn around APs were missing!
+			// WANNE: Turn around APs were missing, I think ....
 			//sAPCost += APsToTurnAround(pSoldier, sAdjustedGridNo);
 
 			sAPCost += UIPlotPath( pSoldier, sGotLocation, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);

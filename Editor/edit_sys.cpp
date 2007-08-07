@@ -1,4 +1,3 @@
-// WANNE: EDTIOR: no changes
 #ifdef PRECOMPILEDHEADERS
 	#include "Editor All.h"
 #else

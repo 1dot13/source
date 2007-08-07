@@ -2286,7 +2286,6 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, BOOLEAN fStea
 						}
 						DeleteObj( &(pTargetSoldier->inv[ubIndexRet]) );
 
-						// WANNE: NEW
 						// The item that the enemy holds in his hand before the stealing
 						usNewItem = pTargetSoldier->inv[HANDPOS].usItem;
 
@@ -3715,7 +3714,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 	if (pSoldier->bShock)
 		iChance -= (pSoldier->bShock * AIM_PENALTY_PER_SHOCK);
 
-	// WANNE NEW: Changed this, because RPGs are not in the calculation, only guns
+	// WANNE: Changed this, because RPGs are not in the calculation, only guns
 	//if ( Item[ usInHand ].usItemClass == IC_GUN )
 	if ( Item[ usInHand ].usItemClass == IC_GUN || Item[ usInHand ].usItemClass == IC_LAUNCHER)
 	{

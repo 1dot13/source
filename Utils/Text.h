@@ -333,8 +333,8 @@ enum
 	STR_ACCURATE,
 	STR_INACCURATE,
 	STR_NO_SEMI_AUTO,
-	STR_NO_MORE_ITEMS_TO_STEAL,	// WANNE
-	STR_NO_MORE_ITEM_IN_HAND,	// WANNE
+	STR_NO_MORE_ITEMS_TO_STEAL,
+	STR_NO_MORE_ITEM_IN_HAND,
 };
 
 // WANNE: Tooltips
@@ -795,7 +795,6 @@ enum
 };
 extern		STR16			BobbyROrderFormText[];
 
-// WANNE
 enum
 {
 	// Guns
@@ -878,8 +877,6 @@ enum
 };
 
 extern		STR16			BobbyRText[];
-
-// WANNE
 extern		STR16			BobbyRFilter[];
 
 

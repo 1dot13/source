@@ -10,7 +10,6 @@ void NextProfilingMode( void );
 void ShadeUnSelectableButtons( void );
 BOOLEAN IsIMPSlotFree(INT32 iIMPId);
 
-// WANNE NEW
 INT32 GetFreeIMPSlot(INT32 iIMPId, INT32 iDefaultIMPId);
 
 // WDS: Allow flexible numbers of IMPs of each sex

@@ -347,7 +347,7 @@ void HandleTextEvent( UINT32 uiKey )
 	    if( uiKey >= 'A' && uiKey <= 'Z' || 
 					uiKey >= 'a' && uiKey <= 'z' ||
 					uiKey >= '0' && uiKey <= '9' ||
-					uiKey == '_' || uiKey == '.' || uiKey ==' ') // WANNE NEW: added ' '
+					uiKey == '_' || uiKey == '.' || uiKey ==' ')
 			{ 
 				// if the current string position is at max or great, do nothing
         if( iStringPos >= 8 )

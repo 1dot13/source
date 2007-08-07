@@ -248,7 +248,6 @@ sectorLoadscreensEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			
-			// WANNE
 			if(MAX_IMAGE_PATH_CHARS >= strlen(pData->szCharData))
 				strcpy(pData->curSectorLoadscreens.szNightAlt,pData->szCharData);
 			else

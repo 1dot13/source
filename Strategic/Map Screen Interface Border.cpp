@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 #else
@@ -109,7 +108,6 @@ void LevelMarkerBtnCallback(MOUSE_REGION * pRegion, INT32 iReason );
 
 void CommonBtnCallbackBtnDownChecks( void );
 
-// WANNE 2
 void DrawTextOnMapBorder( void );
 
 
@@ -122,7 +120,6 @@ void BtnLowerLevelBtnCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnRaiseLevelBtnCallback(GUI_BUTTON *btn,INT32 reason);
 */
 
-// WANNE 2
 void DrawTextOnMapBorder( void )
 {
 	INT16 sX = 0, sY = 0;
@@ -220,13 +217,11 @@ void RenderMapBorder( void )
 	GetVideoObject(&hHandle, guiMapBorder ); 
 	BltVideoObject( guiSAVEBUFFER , hHandle, 0, MAP_BORDER_X, MAP_BORDER_Y, VO_BLT_SRCTRANSPARENCY,NULL );
 
-	// WANNE 2
 	if (iResolution == 1 || iResolution == 2)
 	{
 		DrawTextOnMapBorder();
 	}
 
-	// WANNE Invalidate!!
 	RestoreExternBackgroundRect( MAP_BORDER_X, MAP_BORDER_Y, SCREEN_WIDTH - MAP_BORDER_X, SCREEN_HEIGHT );
 		
 	// show the level marker
@@ -291,7 +286,6 @@ void RenderMapBorderEtaPopUp( void )
 	// get and blt ETA box
 	GetVideoObject(&hHandle, guiMapBorderEtaPopUp ); 
 
-	// WANNE 2 <change ETA position>
 	/*BltVideoObject( FRAME_BUFFER , hHandle, 0, MAP_BORDER_X + 215, 291, VO_BLT_SRCTRANSPARENCY,NULL );
 		
 	InvalidateRegion( MAP_BORDER_X + 215, 291, MAP_BORDER_X + 215 + 100 , 310);*/
@@ -339,8 +333,6 @@ BOOLEAN CreateButtonsForMapBorder( void )
 	SetButtonFastHelpText( guiMapBorderScrollButtons[ 3 ], pMapScreenBorderButtonHelpText[ 9 ] );
 */
 
-
-	// WANNE 2
 	// towns
 	giMapBorderButtonsImage[ MAP_BORDER_TOWN_BTN ] = LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,5,-1,14,-1 );
   giMapBorderButtons[ MAP_BORDER_TOWN_BTN ] = QuickCreateButton( giMapBorderButtonsImage[ MAP_BORDER_TOWN_BTN ], MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2 - 152), (SCREEN_HEIGHT - 160),
@@ -1182,7 +1174,6 @@ void DisplayCurrentLevelMarker( void )
 	GetVideoObject(&hHandle, guiLEVELMARKER ); 
 	BltVideoObject( guiSAVEBUFFER , hHandle, 0,	MAP_LEVEL_MARKER_X + 1, MAP_LEVEL_MARKER_Y + ( MAP_LEVEL_MARKER_DELTA * ( INT16 )iCurrentMapSectorZ ), VO_BLT_SRCTRANSPARENCY,NULL );
 
-	// WANNE 2
 	RestoreExternBackgroundRect(MAP_LEVEL_MARKER_X + 1, MAP_LEVEL_MARKER_Y + ( MAP_LEVEL_MARKER_DELTA * ( INT16 )iCurrentMapSectorZ ), 55, 9);
 
 

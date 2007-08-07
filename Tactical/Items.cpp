@@ -7709,7 +7709,7 @@ void ApplyEquipmentBonuses(SOLDIERTYPE * pSoldier)
 		if ( pSoldier->bInSector)
 			CreateSoldierPalettes( pSoldier );
 	}
-	// WANNE: IRA: Madd, I commented this, because this leads to IRAs INVISIBLE BUG!
+	// WANNE: Madd, I commented this, because this leads to IRAs INVISIBLE BUG!
 	// We should only call the CreateSoldierPalettes if oldCamo != newCamo. See above!
 	//Madd: do this regardless of camo.  This will need to be called to do custom part colours and new overlays anyway.
 	//if ( pSoldier->bInSector)

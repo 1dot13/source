@@ -308,8 +308,8 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"accurate",
 	L"inaccurate",
 	L"no semi auto",
-	L"The enemy has no more items to steal!",	// WANNE
-	L"The enemy has no item in its hand!", //WANNE
+	L"The enemy has no more items to steal!",
+	L"The enemy has no item in its hand!",
 };
 
 
@@ -1961,7 +1961,7 @@ STR16 pMapErrorString[] =
 	L"чтобы двигаться, нужен эскорт.Обеспечьте ее эскортом.", // for a female
 	L"Наемник еще не прибыл в Арулько!",
 	L"Кажется,сначала нужно уладить все проблемы с контрактом.",
-	L"Cannot give a movement order. Air raid is going on.",		// WANNE 2
+	L"Cannot give a movement order. Air raid is going on.",
 //11-15
 	L"Приказ двигаться? Тут же битва идет!",
 	L"Вы наткнулись на засаду Кошки-Убийцы в секторе %s!",
@@ -2597,7 +2597,6 @@ STR16			MercAccountText[] =
 	L"Вы уверены, что хотите подтвердить выплату %s?",		//the %s is a string that contains the dollar amount ( ex. "$150" )
 };
 
-// WANNE:
 // Merc Account Page buttons
 STR16			MercAccountPageText[] = 
 {
@@ -2814,7 +2813,6 @@ STR16			BobbyROrderFormText[] =
 };
 
 
-// WANNE
 STR16			BobbyRFilter[] =
 {
 	// Guns
@@ -3417,7 +3415,6 @@ STR16		zMarksMapScreenText[] =
 	L"%s:много ополченцев.",
 	L"У наемн.конечн.контракт.", 
   L"Контракт наемн.не застрахован",
-	// WANNE 2
 	L"Map Overview",		// 24
 };
 

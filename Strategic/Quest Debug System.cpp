@@ -1241,7 +1241,6 @@ void		RenderQuestDebugSystem()
 	
   MarkButtonsDirty( );
 
-	// WANNE NEW:
 	//InvalidateRegion( 0, 0, 640, 480 );
   InvalidateRegion( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 }

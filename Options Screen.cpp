@@ -277,7 +277,6 @@ UINT32	OptionsScreenHandle()
 
 	HandleOptionsScreen();
 
-	// WANNE 2 <redraw>
 	if( gfRedrawOptionsScreen )
 	{
 		RenderOptionsScreen();
@@ -334,7 +333,7 @@ BOOLEAN		EnterOptionsScreen()
 	UINT8	cnt;
 	UINT16	usTextWidth, usTextHeight;
 
-	// WANNE <do not draw the blackground back>
+	// WANNE: Do not draw the blackground back
 	//ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0 );
 	
 	//Default this to off
@@ -774,7 +773,6 @@ void			RenderOptionsScreen()
 	//Display the Music text
 	DisplayWrappedString( OPT_MUSIC_TEXT_X, OPT_MUSIC_TEXT_Y, OPT_SLIDER_TEXT_WIDTH, 2, OPT_SLIDER_FONT, OPT_MAIN_COLOR, zOptionsText[ OPT_MUSIC ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );	
 	
-	// WANNE <I think this is not used>
 	InvalidateRegion( OPTIONS__TOP_LEFT_X, OPTIONS__TOP_LEFT_Y, OPTIONS__BOTTOM_RIGHT_X, OPTIONS__BOTTOM_RIGHT_Y);
 }
 

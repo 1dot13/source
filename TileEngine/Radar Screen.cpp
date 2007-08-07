@@ -266,7 +266,6 @@ void RadarRegionButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			{
 				AdjustWorldCenterFromRadarCoords( sRadarX, sRadarY );
 				
-				// WANNE: is this used?
 				SetRenderFlags(RENDER_FLAG_FULL);
 			}
 		}

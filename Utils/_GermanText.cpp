@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
 #else
@@ -305,7 +304,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"ungenau",
 	L"kein Einzelschuss",
 	L"Der Feind besitzt keine Gegenstände mehr zum Stehlen!",
-	L"Der Feind hat keinen Gegenstand in seiner Hand!", //WANNE
+	L"Der Feind hat keinen Gegenstand in seiner Hand!",
 };
 
 CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT] =
@@ -1888,7 +1887,7 @@ STR16 pMapErrorString[] =
 	L"braucht eine Eskorte. Plazieren Sie sie in einem Trupp mit Eskorte.", // for a female
 	L"Söldner ist noch nicht in Arulco!",
 	L"Erst mal Vertrag aushandeln!",
-	L"Marschbefehl ist nicht möglich. Luftangriffe finden statt.",		// WANNE 2
+	L"Marschbefehl ist nicht möglich. Luftangriffe finden statt.",
 //11-15
 	L"Marschbefehl? Hier tobt ein Kampf!",
 	L"Sie sind von Bloodcats umstellt in Sektor %s!",
@@ -2488,7 +2487,6 @@ STR16 MercAccountText[] =
 	L"Zahlung von %s wirklich genehmigen?",		//the %s is a string that contains the dollar amount ( ex. "$150" )
 };
 
-// WANNE:
 // Merc Account Page buttons
 STR16			MercAccountPageText[] = 
 {
@@ -2678,7 +2676,6 @@ STR16 BobbyROrderFormText[] =
 	L"Lieferungen",	
 };
 
-// WANNE
 STR16			BobbyRFilter[] =
 {
 	// Guns
@@ -3227,7 +3224,6 @@ STR16 zMarksMapScreenText[] =
 	L"%s ist voller Milizen.",
 	L"Söldner hat begrenzten Vertrag.", 
 	L"Vertrag des Söldners ist nicht versichert",
-	// WANNE 2
 	L"Kartenübersicht",		// 24
 };
 

@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
@@ -25,7 +24,6 @@ INT8 EffectiveStrength( SOLDIERTYPE * pSoldier )
 	// plus 1/2 strength scaled according to how hurt we are
   bBandaged = pSoldier->bLifeMax - pSoldier->bLife - pSoldier->bBleeding;
 
-	// WANNE 2
 	if (pSoldier->bStrength > 0)
 	{
 		iEffStrength = pSoldier->bStrength / 2;

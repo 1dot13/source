@@ -239,7 +239,6 @@ UINT32 guiEmailIndicator;
 UINT32 guiEmailMessage;
 UINT32 guiMAILDIVIDER;
 
-// WANNE 10:
 INT16 giCurrentIMPSlot = PLAYER_GENERATED_CHARACTER_ID;
 
 
@@ -800,7 +799,6 @@ void AddEmailMessage(INT32 iMessageOffset, INT32 iMessageLength,STR16 pSubject, 
 	// null out last byte of subject
   pTempEmail->pSubject[wcslen(pSubject)+1]=0;
 	
-	// WANNE 10:
     pTempEmail->iCurrentIMPPosition = iCurrentIMPPosition;
 	
 	// set date and sender, Id
@@ -1740,7 +1738,6 @@ INT32 DisplayEmailMessage(EmailPtr pMail)
 	// we KNOW the player is going to "read" this, so mark it as so
 	pMail->fRead=TRUE;
 
-	// WANNE 10
 	giCurrentIMPSlot = pMail->iCurrentIMPPosition;
 	
 	// draw text for title bar
@@ -3475,7 +3472,6 @@ void HandleIMPCharProfileResultsMessage( void)
 		}
 
 			// personality itself
-		// WANNE 10:
 		switch( gMercProfiles[ iCurrentIMPSlot ].bAttitude )
 		{
 			// normal as can be

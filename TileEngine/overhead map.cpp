@@ -558,7 +558,6 @@ void GoIntoOverheadMap( )
 
 	gfInOverheadMap = TRUE;
 
-	// WANNE 2 NEW
 	//RestoreExternBackgroundRect( INTERFACE_START_X, INTERFACE_START_Y, SCREEN_WIDTH, INTERFACE_HEIGHT );
 
 	// Overview map should be centered in the middle of the tactical screen.
@@ -652,7 +651,7 @@ void HandleOverheadUI( )
 		{
 			// OK, selected guy is here...
 
-			// WANNE <incomment>
+			// WANNE: Commented these lines out.
 			//gprintfdirty( gusMouseXPos, gusMouseYPos, MercPtrs[ ubID ]->name );
 			//mprintf( gusMouseXPos, gusMouseYPos, MercPtrs[ ubID ]->name );
 
@@ -1638,8 +1637,7 @@ void GetOverheadScreenXYFromGridNo( INT16 sGridNo, INT16 *psScreenX, INT16 *psSc
   //*psScreenY -= gpWorldLevelData[ sGridNo ].sHeight / 5;
 }
 
-// WANNE
-// Fixed bug from sir tech, which occured on smaller maps ;-)
+// WANNE: Fixed bug from sir tech, which occured on smaller maps ;-)
 BOOLEAN GetOverheadMouseGridNo( INT16 *psGridNo )
 {
 	UINT32 uiCellX, uiCellY;
@@ -1694,8 +1692,7 @@ BOOLEAN GetOverheadMouseGridNo( INT16 *psGridNo )
 }
 
 
-// WANNE
-// Fixed bug from sir tech which occured on smaller maps ;-)
+// WANNE: Fixed bug from sir tech which occured on smaller maps ;-)
 BOOLEAN GetOverheadMouseGridNoForFullSoldiersGridNo( INT16 *psGridNo )
 {
 	UINT32 uiCellX, uiCellY;

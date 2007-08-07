@@ -1,4 +1,4 @@
-// WANNE 2 <changed some lines> SCROLL BUTTONS CODE IS OUTCOMMENTED (search for // WANNE 2 <scroll>)
+// WANNE: SCROLL BUTTONS CODE IS OUTCOMMENTED (search for // WANNE: <scroll>)
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "HelpScreen.h"
@@ -201,7 +201,6 @@
 #define     INV_BODY_X 71
 #define     INV_BODY_Y 116
 
-// WANNE 2 <change 2>
 #define     NAME_X						4	
 #define     NAME_WIDTH					55 - NAME_X
 
@@ -216,13 +215,11 @@
 #define     TIME_REMAINING_X			215
 #define     TIME_REMAINING_WIDTH		243 - TIME_REMAINING_X
 
-// WANNE 2
 #define     CLOCK_Y_START			(MAP_BORDER_Y_OFFSET + 298) // 298
 
 #define     DEST_PLOT_X				(MAP_BORDER_X_OFFSET + 463)		//463
 #define     DEST_PLOT_Y				(MAP_BORDER_Y_OFFSET + 345)		//345
 
-// WANNE 2
 #define     CLOCK_ETA_X				(MAP_BORDER_X_OFFSET + 484)		//463 - 15 + 6 + 30
 #define     CLOCK_HOUR_X_START		(MAP_BORDER_X_OFFSET + 518)		//463 + 25 + 30
 #define     CLOCK_MIN_X_START		(MAP_BORDER_X_OFFSET + 538)		//463 + 45 + 30
@@ -334,7 +331,7 @@
 //#define	TM_INV_WIDTH								58
 //#define	TM_INV_HEIGHT								23
 
-// WANNE 2 (the position of the clock in the strategy screen)
+// WANNE: The position of the clock in the strategy screen
 //#define CLOCK_X		(SCREEN_WIDTH - 86)					//554
 //#define CLOCK_Y		(SCREEN_HEIGHT - 21)				//459
 
@@ -456,7 +453,6 @@ RGBCOLOR GlowColorsC[]={
 //	{223,125},
 //};
 
-// WANNE 2 <change 2>
 SGPPoint gMapSortButtons[ MAX_SORT_METHODS ]={
 	{5,113},
 	{61,113},
@@ -497,7 +493,7 @@ INV_REGION_DESC gSCamoXY =
 };
 
 
-// WANNE 2 <scroll>
+// WANNE: <scroll>
 // buttons images
 //UINT32 guiMapMercsScrollButtonsImage[ 2 ];
 //UINT32 guiMapMercsScrollButtons[ 2 ];
@@ -509,7 +505,7 @@ INV_REGION_DESC gSCamoXY =
 
 extern UINT16 usVehicleY;
 
-// WANNE 2 <scroll>
+// WANNE: <scroll>
 // button enums
 //enum{
 //	MAP_SCROLL_MERCS_UP =0,
@@ -524,7 +520,7 @@ extern UINT16 usVehicleY;
 
 // GLOBAL VARIABLES (OURS)
 
-// WANNE 2 <scroll>
+// WANNE: <scroll>
 //void CreateButtonsForScrolling(void);
 //void DeleteButtonsForScrolling(void);
 
@@ -1227,7 +1223,6 @@ void ContractListRegionBoxGlow( UINT16 usCount )
 		iColorNum--;
 
 
-	// WANNE 2
 	if( usCount >= FIRST_VEHICLE )
 	{
 		usVehicleCount = usCount - FIRST_VEHICLE;
@@ -1243,7 +1238,6 @@ void ContractListRegionBoxGlow( UINT16 usCount )
 	// y start position of box
 	//usY=(Y_OFFSET*usCount-1)+(Y_START+(usCount*Y_SIZE) + sYAdd );	
 
-	// WANNE 2 <this is not correct!!>
 	//usY=(Y_OFFSET*usCount-1)+(sYStart+(usCount*Y_SIZE));	
 
 	// glow contract box
@@ -2525,7 +2519,6 @@ void DisplayGroundEta( void )
 	SetFontForeground( FONT_LTGREEN );
 	SetFontBackground( FONT_BLACK );
 
-	// WANNE 2 <change ETA position>
 	mprintf( CLOCK_ETA_X, CLOCK_Y_START, pEtaString[ 0 ] ); 
 
 	// if less than one day
@@ -2601,7 +2594,6 @@ void HighLightAssignLine()
 			//usY=Y_START+(giHighLine*GetFontHeight((MAP_SCREEN_FONT)));
 			usY=(Y_OFFSET*usCount-1)+(Y_START+(usCount*Y_SIZE));
 			
-			// WANNE 2
 			if( usCount >= FIRST_VEHICLE )
 			{
 				usVehicleCount = usCount - FIRST_VEHICLE;
@@ -2685,7 +2677,6 @@ void HighLightDestLine()
 			usX=DEST_ETA_X-4;
 			usY=(Y_OFFSET*usCount-1)+(Y_START+(usCount*Y_SIZE));
 			
-			// WANNE 2
 			if( usCount >= FIRST_VEHICLE )
 			{
 				usVehicleCont = usCount - FIRST_VEHICLE;
@@ -2775,7 +2766,6 @@ void HighLightSleepLine()
 
 			usY=(Y_OFFSET*usCount-1)+(Y_START+(usCount*Y_SIZE));
 			
-			// WANNE 2
 			if( usCount >= FIRST_VEHICLE )
 			{
 				usVehicleCount = usCount - FIRST_VEHICLE;
@@ -3121,7 +3111,7 @@ UINT32 MapScreenHandle(void)
 		return( MAP_SCREEN );
 	}
 
-	// WANNE 2 <scroll>
+	// WANNE: <scroll>
 	/*if (fShowInventoryFlag == TRUE)
 	{
 		DeleteButtonsForScrolling();
@@ -3250,7 +3240,6 @@ UINT32 MapScreenHandle(void)
 		 /*strcpy(vs_desc.ImageFile, "INTERFACE\\playlist3.pcx");
 		 CHECKF(AddVideoSurface( &vs_desc, &guiCHARLIST ));*/
 		
-		 // WANNE 2
 		 VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 		 if (iResolution == 0)
 		 {
@@ -3479,8 +3468,6 @@ UINT32 MapScreenHandle(void)
 		
 		// create mouse region for pause clock
 		CreateMouseRegionForPauseOfClock( CLOCK_REGION_START_X, CLOCK_REGION_START_Y );
-
-		// WANNE 2
 
 		if (iResolution == 0)
 		{
@@ -3924,7 +3911,7 @@ UINT32 MapScreenHandle(void)
 	RenderItemDescriptionBox( );
 
 	// render clock
-	// WANNE 2 <renders the clock in the strategy screen>
+	// WANNE: Renders the clock in the strategy screen
 	RenderClock(CLOCK_X, CLOCK_Y);
 
 	#ifdef JA2TESTVERSION
@@ -4308,8 +4295,6 @@ void SetClockMin(STR16 pStringA, ...)
 	mprintf( CLOCK_MIN_X_START-5, CLOCK_Y_START, String );
 }
 
-
-// WANNE 2 <change 2>
 void DrawName(STR16 pName, INT16 sRowIndex, INT32 iFont)
 {
 	INT16 usX=0;
@@ -4348,7 +4333,6 @@ void DrawAssignment(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 	}
 	else
 	{
-		// WANNE 2
 		sRowIndex = sRowIndex - FIRST_VEHICLE;
 		//FindFontCenterCoordinates((short)ASSIGN_X + 1, (short)(Y_START+(sRowIndex*Y_SIZE) + 6), (short)ASSIGN_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
 		FindFontCenterCoordinates((short)ASSIGN_X + 1, (short)(usVehicleY+(sRowIndex*Y_SIZE)), (short)ASSIGN_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
@@ -4382,7 +4366,6 @@ void DrawLocation(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 	}
 	else
 	{
-		// WANNE 2
 		//FindFontCenterCoordinates((short)LOC_X + 1, (short)(Y_START+(sRowIndex*Y_SIZE) + 6), (short)LOC_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
 		sRowIndex = sRowIndex - FIRST_VEHICLE;
 		FindFontCenterCoordinates((short)LOC_X + 1, (short)(usVehicleY+(sRowIndex*Y_SIZE)), (short)LOC_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
@@ -4414,7 +4397,6 @@ void DrawDestination(INT16 sCharNumber, INT16 sRowIndex, INT32 iFont)
 	}
 	else
 	{
-		// WANNE 2
 		sRowIndex = sRowIndex - FIRST_VEHICLE;
 		//FindFontCenterCoordinates((short)DEST_ETA_X + 1, (short)(Y_START+(sRowIndex*Y_SIZE) + 6 ), (short)DEST_ETA_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
 		FindFontCenterCoordinates((short)DEST_ETA_X + 1, (short)(usVehicleY+(sRowIndex*Y_SIZE)), (short)DEST_ETA_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
@@ -4450,7 +4432,6 @@ void DrawTimeRemaining( INT16 sCharNumber, INT32 iFont, UINT8 ubFontColor )
 	}
 	else
 	{
-		// WANNE 2
 		sCharNumber = sCharNumber - FIRST_VEHICLE;
 		//FindFontCenterCoordinates((short)TIME_REMAINING_X + 1, (short)(Y_START+(sCharNumber*Y_SIZE) + 6 ), (short)TIME_REMAINING_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
 		FindFontCenterCoordinates((short)TIME_REMAINING_X + 1, (short)(usVehicleY+(sCharNumber*Y_SIZE)), (short)TIME_REMAINING_WIDTH, (short)Y_SIZE, sString, (long)iFont, &usX, &usY);
@@ -6096,7 +6077,7 @@ void EndMapScreen( BOOLEAN fDuringFade )
 
 	DeleteMouseRegionsForLevelMarkers( );
 
-	// WANNE 2 <scroll>
+	// WANNE: <scroll>
 	//DeleteButtonsForScrolling();
 
 	if( fShowMapInventoryPool == FALSE )
@@ -7566,7 +7547,7 @@ void BlitBackgroundToSaveBuffer( void )
 	}
 	else if( gfPreBattleInterfaceActive )
 	{
-		// WANNE 2 <scroll>
+		// WANNE: <scroll>
 		//DeleteButtonsForScrolling();
 
 		ForceButtonUnDirty( giMapContractButton );
@@ -7579,7 +7560,6 @@ void BlitBackgroundToSaveBuffer( void )
 	RenderMapScreenInterfaceBottom( );
 }
 
-// WANNE 2
 void CreateMouseRegionsForTeamList( void )
 {
 	// will create mouse regions for assignments, path plotting, character info selection
@@ -7606,7 +7586,6 @@ void CreateMouseRegionsForTeamList( void )
 			//sYAdd = 0;
 		}
 
-		// WANNE 2
 		// name region
 		MSYS_DefineRegion( &gTeamListNameRegion[ sCounter ] , NAME_X, ( INT16 )( sYStart + ( sOffsetCounter ) * ( Y_SIZE + 2 )), NAME_X + NAME_WIDTH, ( INT16 )( (sYStart + 10) + ( sOffsetCounter + 1 ) * ( Y_SIZE + 2 )), MSYS_PRIORITY_NORMAL,
 							 MSYS_NO_CURSOR, TeamListInfoRegionMvtCallBack, TeamListInfoRegionBtnCallBack ); 
@@ -8683,7 +8662,6 @@ void RenderMapRegionBackground( void )
 
 	MapscreenMarkButtonsDirty();
 
-	// WANNE 2
 	//RestoreExternBackgroundRect( 261, 0, 379, 359 );
 
 	RestoreExternBackgroundRect( 261, 0, SCREEN_WIDTH - 261, SCREEN_HEIGHT - 121 );
@@ -8757,7 +8735,6 @@ void RenderTeamRegionBackground( void )
 	
 	// restore background for area
 	
-	// WANNE 2
 	RestoreExternBackgroundRect( 0, 107, 261, SCREEN_HEIGHT - 106 - 121 );
 
 	MapscreenMarkButtonsDirty();
@@ -10379,7 +10356,6 @@ BOOLEAN HandlePreloadOfMapGraphics( void )
 	/*strcpy(vs_desc.ImageFile, "INTERFACE\\playlist3.pcx");
 	CHECKF(AddVideoSurface( &vs_desc, &guiCHARLIST ));*/
 
-	// WANNE 2
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	if (iResolution == 0)
 	{
@@ -10702,32 +10678,32 @@ void NextInventoryMapBtnCallback( GUI_BUTTON *btn, INT32 reason )
 	}	
 }
 
-// WANNE 2 <scroll>
+// WANNE: <scroll>
 //void BtnMercsUpMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
 //{
-//	// WANNE 2 -> see Map Screen Interface Bottom Line 766 (BtnMessageUpMapScreenCallback)
+//	// WANNE: See Map Screen Interface Bottom Line 766 (BtnMessageUpMapScreenCallback)
 //	int i = 10;
 //}
 //
 //void BtnMercsDownMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
 //{
-//	// WANNE 2 -> see Map Screen Interface Bottom Line 766 (BtnMessageUpMapScreenCallback)
+//	// WANNE: See Map Screen Interface Bottom Line 766 (BtnMessageUpMapScreenCallback)
 //	int i = 10;
 //}
 //
 //void BtnVehicleUpMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
 //{
-//	// WANNE 2 -> see Map Screen Interface Bottom Line 766 (BtnMessageUpMapScreenCallback)
+//	// WANNE: See Map Screen Interface Bottom Line 766 (BtnMessageUpMapScreenCallback)
 //	int i = 10;
 //}
 //
 //void BtnVehicleDownMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
 //{
-//	// WANNE 2 -> see Map Screen Interface Bottom Line 766 (BtnMessageUpMapScreenCallback)
+//	// WANNE: See Map Screen Interface Bottom Line 766 (BtnMessageUpMapScreenCallback)
 //	int i = 10;
 //}
 
-// WANNE 2 <scroll>
+// WANNE: <scroll>
 //void DeleteButtonsForScrolling(void)
 //{
 //	if (fScrollButtonsInitialized == TRUE)
@@ -10747,7 +10723,7 @@ void NextInventoryMapBtnCallback( GUI_BUTTON *btn, INT32 reason )
 //	}
 //}
 
-// WANNE 2 <scroll>
+// WANNE: <scroll>
 // Create the scrolling arrows
 //void CreateButtonsForScrolling( void )
 //{
@@ -11380,7 +11356,6 @@ void DisplayIconsForMercsAsleep( void )
 			pSoldier = MercPtrs[ gCharactersList[ iCounter ].usSolID ];
 			if( pSoldier->bActive && pSoldier->fMercAsleep && CanChangeSleepStatusForSoldier( pSoldier ) )
 			{
-				// WANNE 2
 				//BltVideoObject( guiSAVEBUFFER , hHandle, 0, 125, ( INT16 )( Y_START+(iCounter * ( Y_SIZE + 2 ) ) ) , VO_BLT_SRCTRANSPARENCY,NULL );
 				BltVideoObject( guiSAVEBUFFER , hHandle, 0, SLEEP_X + 2, ( INT16 )( Y_START+(iCounter * ( Y_SIZE + 2 ) ) ) , VO_BLT_SRCTRANSPARENCY,NULL );
 			}
@@ -11398,7 +11373,6 @@ void CheckForAndRenderNewMailOverlay()
 	{
 		if( GetJA2Clock() % 1000 < 667 )
 		{
-			// WANNE 2
 			if( ButtonList[ guiMapBottomExitButtons[ MAP_EXIT_TO_LAPTOP ] ]->uiFlags & BUTTON_CLICKED_ON )
 			{ //button is down, so offset the icon
 				//BltVideoObjectFromIndex( FRAME_BUFFER, guiNewMailIcons, 1, 465, 418, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -11406,7 +11380,6 @@ void CheckForAndRenderNewMailOverlay()
 				//InvalidateRegion( 465, 418, 480, 428 );
 				InvalidateRegion( (SCREEN_WIDTH - 175), (SCREEN_HEIGHT - 62), (SCREEN_WIDTH - 160), (SCREEN_HEIGHT - 52 ));
 			}
-			// WANNE 2
 			else
 			{	//button is up, so draw the icon normally
 				//BltVideoObjectFromIndex( FRAME_BUFFER, guiNewMailIcons, 0, 464, 417, VO_BLT_SRCTRANSPARENCY, NULL );

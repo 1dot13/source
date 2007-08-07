@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
@@ -57,18 +56,13 @@
 
 #include "Rain.h"
 
-// WANNE 2
 // Shop Keeper Interface
 #define SKI_X_OFFSET						(((SCREEN_WIDTH - 536) / 2))
 #define SKI_Y_OFFSET						((((SCREEN_HEIGHT - 140) - 340) / 2))
 
-// WANNE 2
 // Overhead Map
 #define OM_X_OFFSET							0
 #define OM_Y_OFFSET							0
-
-
-
 
 #define RAIN_UPDATE_RATE 60
 #define PERCENT_OF_DROPS_GOING_TO_THE_EDGE_OF_SCREEN 0.25f
@@ -535,7 +529,6 @@ void RenderRain()
 
 	if( InOverheadMap() )
 	{
-		// WANNE 2
 		ColorFillVideoSurfaceArea( guiRainRenderSurface, OM_X_OFFSET, OM_Y_OFFSET, SCREEN_WIDTH, SCREEN_HEIGHT - 120, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 		return;
 	}

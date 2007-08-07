@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "GameSettings.h"
@@ -40,7 +39,6 @@
 
 extern BOOLEAN SaveWorldItemsToTempItemFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ, UINT32 uiNumberOfItems, WORLDITEM *pData );
 
-// WANNE 2
 #define MAP_INV_X_OFFSET							(((SCREEN_WIDTH - 261) - 380) / 2)
 //#define MAP_INV_Y_OFFSET					(((SCREEN_HEIGHT - 121) - 
 
@@ -92,7 +90,6 @@ extern BOOLEAN SaveWorldItemsToTempItemFile( INT16 sMapX, INT16 sMapY, INT8 bMap
 #define MAP_INVEN_SLOT_HEIGHT 32 
 #define MAP_INVEN_SLOT_IMAGE_HEIGHT 24 
 
-// WANNE 2
 // Number of inventory slots in 1024x768
 #define MAP_INVENTORY_POOL_MAX_SLOTS 170
 
@@ -129,7 +126,6 @@ UINT32 uiNumberOfUnSeenItems = 0;
 
 
 // the inventory slots
-// WANNE 2 <new>
 //MOUSE_REGION MapInventoryPoolSlots[ MAP_INVENTORY_POOL_SLOT_COUNT ];
 MOUSE_REGION MapInventoryPoolSlots[ MAP_INVENTORY_POOL_MAX_SLOTS ];
 
@@ -230,7 +226,6 @@ BOOLEAN LoadInventoryPoolGraphic( void )
 	// load the file
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 
-	// WANNE 2
 	if (iResolution == 0)
 	{
 		MAP_INV_SLOT_COLS = 8;
@@ -313,7 +308,6 @@ void BlitInventoryPoolGraphic( void )
 	// which buttons will be active and which ones not
 	HandleButtonStatesWhileMapInventoryActive( );
 
-	// WANNE 2
 	// Invalidate
 	RestoreExternBackgroundRect(MAP_BORDER_X, MAP_BORDER_Y, SCREEN_WIDTH - MAP_BORDER_X, SCREEN_HEIGHT - 121);
 
@@ -730,11 +724,6 @@ void CreateMapInventoryPoolSlots( void )
 	INT16 sXA = 0, sYA = 0;
 	INT16 sULX = 0, sULY = 0;
 	INT16 sBRX = 0, sBRY = 0;
-
-	// WANNE 2
-	//MSYS_DefineRegion( &MapInventoryPoolMask, 
-	//		MAP_INVENTORY_POOL_SLOT_START_X, 0, 640, 360,
-	//		MSYS_PRIORITY_HIGH, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MapInvenPoolScreenMaskCallback);
 
 	MSYS_DefineRegion( &MapInventoryPoolMask, 
 			MAP_INVENTORY_POOL_SLOT_START_X, 0, SCREEN_WIDTH - MAP_INVENTORY_POOL_SLOT_START_X, SCREEN_HEIGHT - 120,
@@ -1835,7 +1824,6 @@ void DrawNumberOfIventoryPoolItems( void )
 
 void CreateMapInventoryPoolDoneButton( void )
 {
-	// WANNE 2
 	// create done button
 	guiMapInvenButtonImage[ 2 ]=  LoadButtonImage( "INTERFACE\\done_button.sti" , -1, 0, -1, 1, -1 );
 	guiMapInvenButton[ 2 ] = QuickCreateButton( guiMapInvenButtonImage[ 2 ], MAP_INV_X_OFFSET + 587 , (SCREEN_HEIGHT - 147),
@@ -1923,7 +1911,6 @@ void DrawTextOnMapInventoryBackground( void )
 	//usStringHeight = DisplayWrappedString( 369, 342, 65, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 1 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED | DONT_DISPLAY_TEXT );
 	//DisplayWrappedString( 369, (UINT16)(342 - (usStringHeight / 2) ), 65, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 1 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED );
 
-	// WANNE 2
 	//Calculate the height of the string, as it needs to be vertically centered.
 	usStringHeight = DisplayWrappedString( MAP_INV_X_OFFSET + 268, (SCREEN_HEIGHT - 138), 53, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 0 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED | DONT_DISPLAY_TEXT );
 	DisplayWrappedString( MAP_INV_X_OFFSET + 268, (UINT16)((SCREEN_HEIGHT - 138) - (usStringHeight / 2) ), 53, 1, MAP_IVEN_FONT, FONT_BEIGE, pMapInventoryStrings[ 0 ], FONT_BLACK, FALSE, RIGHT_JUSTIFIED );

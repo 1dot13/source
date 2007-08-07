@@ -1,6 +1,5 @@
 #include "builddefines.h"
 
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 	#include "Loading Screen.h"
@@ -1232,7 +1231,7 @@ UINT32 UndergroundTacticalTraversalTime( INT8 bExitDirection )
 	return 0xffffffff;
 }
 
-// WANNE 2 <zooming>
+// WANNE: Zooming Animation of the laptop in strategic screen
 void BeginLoadScreen( void )
 {
 	SGPRect SrcRect, DstRect;

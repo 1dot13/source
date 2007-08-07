@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
 	#include "Game Clock.h"
@@ -38,7 +37,7 @@ typedef struct
 } StringSaveStruct;
 
 
-// WANNE These lines defines the message position in tactical screen.
+// WANNE: These lines defines the message position in tactical screen.
 #define MAX_LINE_COUNT 6
 #define X_START 2
 #define MAX_AGE 10000
@@ -1088,8 +1087,6 @@ void DisplayStringsInMapScreenMessageList( void )
 	INT16 sY;
 	UINT16 usSpacing;
 
-
-	// WANNE 2
 	//SetFontDestBuffer( FRAME_BUFFER, 17, 360 + 6, 407, 360 + 101, FALSE );
 
 	SetFontDestBuffer( FRAME_BUFFER, 17, (SCREEN_HEIGHT - 114), 407, (SCREEN_HEIGHT - 114) + 101, FALSE );
@@ -1100,7 +1097,6 @@ void DisplayStringsInMapScreenMessageList( void )
 
 	ubCurrentStringIndex = gubCurrentMapMessageString;
 
-	// WANNE 2
 	//sY = 377;
 	sY = (SCREEN_HEIGHT - 103);
 

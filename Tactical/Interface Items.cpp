@@ -2440,8 +2440,6 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 		FilenameForBPP("INTERFACE\\infobox.sti", ubString);
 		 sForeColour = ITEMDESC_AMMO_FORE;
 
-		// TODO: WANNE: Make own sti for the ammo types and an own for the interface
-		// For now, they are together in interface\infobox.sti
 		giItemDescAmmoButtonImages	= LoadButtonImage(ubString,AmmoTypes[pObject->ubGunAmmoType].grayed,AmmoTypes[pObject->ubGunAmmoType].offNormal,-1,AmmoTypes[pObject->ubGunAmmoType].onNormal,-1 );
 
 		//switch( pObject->ubGunAmmoType )
@@ -8041,7 +8039,6 @@ BOOLEAN InitializeStealItemPickupMenu( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOppo
 		}
 
 		// CHECK FOR LEFT/RIGHT
-		// WANNE 2
 		if ( ( sX + gItemPickupMenu.sWidth ) > SCREEN_WIDTH )
 		{
 			sX = SCREEN_WIDTH - gItemPickupMenu.sWidth - ITEMPICK_START_X_OFFSET;
@@ -8063,7 +8060,6 @@ BOOLEAN InitializeStealItemPickupMenu( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOppo
 		}
 
 		// Check for bottom
-		// WANNE 2
 		if ( ( sY + gItemPickupMenu.sHeight ) > (SCREEN_HEIGHT - INV_INTERFACE_HEIGHT) )
 		{
 			sY = (SCREEN_HEIGHT - INV_INTERFACE_HEIGHT) - gItemPickupMenu.sHeight;
@@ -8095,7 +8091,6 @@ BOOLEAN InitializeStealItemPickupMenu( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOppo
 	/*MSYS_DefineRegion( &(gItemPickupMenu.BackRegion ), (INT16)( 532 ), (INT16)( 367 ), (INT16)( 640 ),(INT16)( 480 ), MSYS_PRIORITY_HIGHEST,
 						 CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK ); */
 
-	// WANNE 2
 	// Build a mouse region here that is over any others.....
 	MSYS_DefineRegion( &(gItemPickupMenu.BackRegion ), (INT16)( iScreenWidthOffset + 532 ), (INT16)( iScreenHeightOffset + 367 ), (INT16)( SCREEN_WIDTH ),(INT16)( SCREEN_HEIGHT ), MSYS_PRIORITY_HIGHEST,
 						 CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK ); 

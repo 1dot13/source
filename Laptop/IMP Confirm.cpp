@@ -227,7 +227,6 @@ BOOLEAN AddCharacterToPlayersTeam( void )
 
 	memset(&HireMercStruct, 0, sizeof(MERC_HIRE_STRUCT));
 
-	// WANNE NEW: Any changes here. I don't think so
 	HireMercStruct.ubProfileID = ( UINT8 )( LaptopSaveInfo.iIMPIndex ) ;
 
 	if( fLoadingCharacterForPreviousImpProfile == FALSE )

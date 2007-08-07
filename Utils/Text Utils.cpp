@@ -760,7 +760,6 @@ BOOLEAN LoadShortNameItemInfo(UINT16 ubIndex, STR16 pNameString )
 	{
 		int j = -1;
 
-		// WANNE:
 		for (int i=0;i<80;i++)
 		{
 			j++;

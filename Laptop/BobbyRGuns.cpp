@@ -136,7 +136,6 @@ BobbyRayPurchaseStruct BobbyRayPurchases[ MAX_PURCHASE_AMOUNT ];
 //UINT8	usNumberOfBobbyRayOrderItems = 0;
 //UINT8	usNumberOfBobbyRayOrderUsed = 0;
 
-// WANNE
 #define		FILTER_BUTTONS_GUN_START_X				BOBBYR_PREVIOUS_BUTTON_X
 #define		FILTER_BUTTONS_AMMO_START_X				FILTER_BUTTONS_GUN_START_X
 #define		FILTER_BUTTONS_USED_START_X				FILTER_BUTTONS_GUN_START_X	//FILTER_BUTTONS_GUN_START_X + 122
@@ -144,7 +143,6 @@ BobbyRayPurchaseStruct BobbyRayPurchases[ MAX_PURCHASE_AMOUNT ];
 #define		FILTER_BUTTONS_MISC_START_X				FILTER_BUTTONS_GUN_START_X
 #define		FILTER_BUTTONS_Y						BOBBYR_PREVIOUS_BUTTON_Y + 25
 
-// WANNE
 // The number of filter buttons which category uses
 #define		NUMBER_GUNS_FILTER_BUTTONS			9
 #define		NUMBER_AMMO_FILTER_BUTTONS			8
@@ -152,25 +150,20 @@ BobbyRayPurchaseStruct BobbyRayPurchases[ MAX_PURCHASE_AMOUNT ];
 #define		NUMBER_MISC_FILTER_BUTTONS			9
 #define		NUMBER_USED_FILTER_BUTTONS			3
 
-// WANNE
 #define		BOBBYR_GUNS_FILTER_BUTTON_GAP			BOBBYR_CATALOGUE_BUTTON_GAP - 1
 #define		BOBBYR_AMMO_FILTER_BUTTON_GAP			BOBBYR_CATALOGUE_BUTTON_GAP - 1
 #define		BOBBYR_USED_FILTER_BUTTON_GAP			BOBBYR_CATALOGUE_BUTTON_GAP - 1
 #define		BOBBYR_ARMOUR_FILTER_BUTTON_GAP			BOBBYR_CATALOGUE_BUTTON_GAP - 1
 #define		BOBBYR_MISC_FILTER_BUTTON_GAP			BOBBYR_CATALOGUE_BUTTON_GAP - 1
 
-// WANNE
 UINT32	guiBobbyRFilterGuns[ NUMBER_GUNS_FILTER_BUTTONS ];
 UINT32	guiBobbyRFilterAmmo[ NUMBER_AMMO_FILTER_BUTTONS ];
 UINT32	guiBobbyRFilterArmor[ NUMBER_ARMOUR_FILTER_BUTTONS ];
 UINT32	guiBobbyRFilterMisc[ NUMBER_MISC_FILTER_BUTTONS ];
 UINT32	guiBobbyRFilterUsed[ NUMBER_USED_FILTER_BUTTONS ];
 
-// WANNE
 INT32		guiBobbyRFilterImage;
-	
 
-// WANNE
 void BtnBobbyRFilterGunsCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnBobbyRFilterAmmoCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnBobbyRFilterUsedCallback(GUI_BUTTON *btn,INT32 reason);
@@ -179,7 +172,6 @@ void BtnBobbyRFilterMiscCallback(GUI_BUTTON *btn,INT32 reason);
 
 BOOLEAN IsAmmoMatchinWeaponType(UINT16 usItemIndex, UINT8 ubWeaponType);
 
-// WANNE
 INT8			ubFilterGunsButtonValues[] = {
 							BOBBYR_FILTER_GUNS_HEAVY,
 							BOBBYR_FILTER_GUNS_PISTOL,
@@ -191,7 +183,6 @@ INT8			ubFilterGunsButtonValues[] = {
 							BOBBYR_FILTER_GUNS_LMG,
 							BOBBYR_FILTER_GUNS_SHOTGUN};
 
-// WANNE
 INT8			ubFilterAmmoButtonValues[] = {
 							BOBBYR_FILTER_AMMO_PISTOL,
 							BOBBYR_FILTER_AMMO_M_PISTOL,
@@ -326,7 +317,6 @@ void GameInitBobbyRGuns()
 {
 	guiTempCurrentMode=0;
 
-	// WANNE
 	guiPrevGunFilterMode = -1;
 	guiPrevAmmoFilterMode = -1;
 	guiPrevUsedFilterMode = -1;
@@ -392,7 +382,6 @@ void ExitBobbyRGuns()
 	DeleteBobbyBrTitle();
 	DeleteBobbyMenuBar();
 
-	// WANNE
 	DeleteBobbyRGunsFilter();
 
 	DeleteMouseRegionForBigImage();
@@ -411,7 +400,7 @@ void RenderBobbyRGuns()
 
 	WebPageTileBackground(BOBBYR_NUM_HORIZONTAL_TILES, BOBBYR_NUM_VERTICAL_TILES, BOBBYR_BACKGROUND_WIDTH, BOBBYR_BACKGROUND_HEIGHT, guiGunBackground);
 
-	// WANNE
+	// WANNE: Do not display the title
 	//Display title at top of page
 	//DisplayBobbyRBrTitle();
 
@@ -497,7 +486,6 @@ void SelectTitleImageLinkRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	}
 }
 
-// WANNE
 BOOLEAN InitBobbyRGunsFilterBar()
 {
 	UINT8	i;
@@ -784,7 +772,6 @@ BOOLEAN InitBobbyMenuBar(  )
 	return(TRUE);
 }
 
-// WANNE
 BOOLEAN DeleteBobbyRGunsFilter()
 {
 	UINT8	i;
@@ -841,7 +828,6 @@ BOOLEAN DeleteBobbyRArmourFilter()
 	return (TRUE);
 }
 
-// WANNE
 BOOLEAN DeleteBobbyRMiscFilter()
 {
 	UINT8	i;
@@ -880,7 +866,6 @@ BOOLEAN DeleteBobbyMenuBar()
 	return(TRUE);
 }
 
-// WANNE
 void BtnBobbyRPageMenuCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	UINT32		bNewValue;
@@ -958,7 +943,6 @@ void BtnBobbyRPageMenuCallback(GUI_BUTTON *btn,INT32 reason)
 } 
 
 
-// WANNE
 void BtnBobbyRFilterGunsCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	UINT32		bNewValue;
@@ -1141,7 +1125,7 @@ void BtnBobbyRFilterUsedCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 } 
 
-// WANNE
+
 void BtnBobbyRFilterArmourCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	UINT32		bNewValue;
@@ -1193,7 +1177,6 @@ void BtnBobbyRFilterArmourCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 } 
 
-// WANNE
 void BtnBobbyRFilterMiscCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	UINT32		bNewValue;
@@ -1247,7 +1230,6 @@ void BtnBobbyRFilterMiscCallback(GUI_BUTTON *btn,INT32 reason)
 
 		SetFirstLastPagesForNew(IC_BOBBY_MISC, guiCurrentMiscFilterMode);
 		
-		// WANNE: TODO
 		UpdateMiscFilterButtons();
 		
 		DeleteMouseRegionForBigImage();
@@ -1305,7 +1287,6 @@ void BtnBobbyRNextPreviousPageCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 } 
 
-// WANNE
 BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter)
 {
 	UINT16	i;
@@ -2082,7 +2063,6 @@ void CalculateFirstAndLastIndexs()
 }
 */
 
-// WANNE: Filter
 //Loops through Bobby Rays Inventory to find the first and last index 
 void SetFirstLastPagesForNew( UINT32 uiClassMask, INT32 iFilter )
 {
@@ -2179,7 +2159,6 @@ void SetFirstLastPagesForNew( UINT32 uiClassMask, INT32 iFilter )
 		gubNumPages += 1;
 }
 
-// WANNE
 //Loops through Bobby Rays Used Inventory to find the first and last index 
 void SetFirstLastPagesForUsed(INT32 iFilter)
 {
@@ -2802,7 +2781,6 @@ void BtnBobbyRHomeButtonCallback(GUI_BUTTON *btn,INT32 reason)
 } 
 
 
-// WANNE
 void UpdateButtonText(UINT32	uiCurPage)
 {
 	switch( uiCurPage )
@@ -2864,7 +2842,6 @@ void UpdateButtonText(UINT32	uiCurPage)
 	}
 }
 
-// WANNE
 void UpdateAmmoFilterButtons(INT32 iNewButton, INT32 iOldButton)
 {
 	if (iNewButton != iOldButton)
@@ -3064,7 +3041,6 @@ void DisableBobbyRButtons()
 */
 }
 
-// WANNE
 void CalcFirstIndexForPage( STORE_INVENTORY *pInv, UINT32	uiItemClass )
 {
 	UINT16	i;

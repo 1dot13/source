@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 #else
@@ -52,8 +51,6 @@
 	#include "SaveLoadScreen.h"
 #endif
 
-
-// WANNE 2
 #define MAP_BOTTOM_X							0
 #define MAP_BOTTOM_Y							(SCREEN_HEIGHT - 121)	//359
 
@@ -282,11 +279,8 @@ void RenderMapScreenInterfaceBottom( void )
 	HVOBJECT hHandle;
 	CHAR8 bFilename[ 32 ];
 	
-	// WANNE 2
 	fDisplayOverheadMap = FALSE;
 
-
-	// WANNE 2 <redraw>
 	// render whole panel
 	if( fMapScreenBottomDirty == TRUE )
 	{
@@ -312,7 +306,6 @@ void RenderMapScreenInterfaceBottom( void )
 		// dirty buttons
 		MarkButtonsDirty( );
 
-		// WANNE 2
 		// invalidate region
 		RestoreExternBackgroundRect( MAP_BOTTOM_X, MAP_BOTTOM_Y, SCREEN_WIDTH, SCREEN_HEIGHT - MAP_BOTTOM_Y );
 
@@ -593,7 +586,6 @@ void DrawNameOfLoadedSector( void )
 	GetSectorIDString( sSelMapX, sSelMapY, ( INT8 )( iCurrentMapSectorZ ),sString, TRUE );
 	ReduceStringLength( sString, 80, COMPFONT );
 
-	// WANNE 2
 	//VarFindFontCenterCoordinates( 548, 426, 80, 16, COMPFONT, &sFontX, &sFontY, sString );
 	VarFindFontCenterCoordinates( (SCREEN_WIDTH - 92), (SCREEN_HEIGHT - 55), 80, 16, COMPFONT, &sFontX, &sFontY, sString );
 	mprintf( sFontX, sFontY, L"%s", sString );
@@ -939,7 +931,6 @@ void DisplayCompressMode( void )
 	}
 
 	//RestoreExternBackgroundRect( 489, 456, 522 - 489, 467 - 454 );
-	// WANNE 2
 	RestoreExternBackgroundRect( (SCREEN_WIDTH - 151), (SCREEN_HEIGHT - 24), 63, 13 );
 
 	SetFontDestBuffer( FRAME_BUFFER, 0,0,SCREEN_WIDTH,SCREEN_HEIGHT, FALSE );
@@ -967,7 +958,6 @@ void DisplayCompressMode( void )
 	SetFontForeground( usColor );
 	SetFontBackground( FONT_BLACK );
   
-	// WANNE 2
 	//FindFontCenterCoordinates( 489, 456, 522 - 489, 467 - 454, sString, COMPFONT, &sX, &sY );
 	FindFontCenterCoordinates( (SCREEN_WIDTH - 151), (SCREEN_HEIGHT - 24), 33, 13, sString, COMPFONT, &sX, &sY );
 	mprintf( sX, sY, sString );
@@ -982,7 +972,6 @@ void CreateCompressModePause( void )
 	/*MSYS_DefineRegion( &gMapPauseRegion, 487, 456, 522, 467, MSYS_PRIORITY_HIGH,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressModeClickCallback );*/
 
-	// WANNE 2
 	MSYS_DefineRegion( &gMapPauseRegion, (SCREEN_WIDTH - 153), (SCREEN_HEIGHT - 24), (SCREEN_WIDTH - 118), (SCREEN_HEIGHT - 13), MSYS_PRIORITY_HIGH,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressModeClickCallback );
 
@@ -1399,7 +1388,6 @@ void DisplayCurrentBalanceTitleForMapBottom( void )
 
 	swprintf( sString, L"%s", pMapScreenBottomText[ 0 ] );
 
-	// WANNE 2
 	// center it
 	VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 107),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
 	//VarFindFontCenterCoordinates( 359, 387 - 14,  437 - 359, 10,  COMPFONT, &sFontX, &sFontY, sString );
@@ -1409,7 +1397,6 @@ void DisplayCurrentBalanceTitleForMapBottom( void )
 
 	swprintf( sString, L"%s", zMarksMapScreenText[ 2 ] );
 
-	// WANNE 2
 	// center it
 	//VarFindFontCenterCoordinates( 359, 433 - 14,  437 - 359, 10,  COMPFONT, &sFontX, &sFontY, sString );
 	VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 61),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
@@ -1443,7 +1430,6 @@ void DisplayCurrentBalanceForMapBottom( void )
 	InsertCommasForDollarFigure( sString );
 	InsertDollarSignInToString( sString );
 
-	// WANNE 2
 	// center it
 	VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 91),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
 	
@@ -1486,7 +1472,6 @@ void CreateDestroyMouseRegionMasksForTimeCompressionButtons( void )
 		//MSYS_DefineRegion( &gTimeCompressionMask[ 2 ], 487, 456, 522, 467, MSYS_PRIORITY_HIGHEST - 1,
 		//					MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback );
 
-		// WANNE 2
 		// mask over compress more button
 		MSYS_DefineRegion( &gTimeCompressionMask[ 0 ], (SCREEN_WIDTH - 112), (SCREEN_HEIGHT - 24), (SCREEN_WIDTH - 112) + 13, (SCREEN_HEIGHT - 24) + 14, MSYS_PRIORITY_HIGHEST - 1,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, CompressMaskClickCallback );
@@ -1557,7 +1542,6 @@ void DisplayProjectedDailyMineIncome( void )
 	InsertDollarSignInToString( sString );
 
 	// center it
-	// WANNE 2
 	VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 45),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
 	
 	// print it
@@ -1768,7 +1752,6 @@ void HandleExitsFromMapScreen( void )
 					if( gfExtraBuffer )
 					{ //Then initiate the transition animation from the mapscreen to laptop...
 						
-						// WANNE 2
 						BlitBufferToBuffer( FRAME_BUFFER, guiEXTRABUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 						gfStartMapScreenToLaptopTransition = TRUE;
 					}

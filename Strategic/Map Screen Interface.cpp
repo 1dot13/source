@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
 #else
@@ -66,7 +65,6 @@
 // number of LINKED LISTS for sets of leave items (each slot holds an unlimited # of items)
 #define NUM_LEAVE_LIST_SLOTS 20
 
-// WANNE 2 <change 2>
 #define SELECTED_CHAR_ARROW_X			1	//8
 
 #define SIZE_OF_UPDATE_BOX 20
@@ -107,7 +105,6 @@ enum{
 	OTHER_REGION,
 };
 
-// WANNE 2
 UINT16 usVehicleY = 0;
 
 // waiting list for update box
@@ -1174,7 +1171,6 @@ INT32 DoMapMessageBoxWithRect( UINT8 ubStyle, const STR16 zString, UINT32 uiExit
 
 INT32 DoMapMessageBox( UINT8 ubStyle,  STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
-	// WANNE 2
   SGPRect CenteringRect= {0, 0, SCREEN_WIDTH, INV_INTERFACE_START_Y };
 
 	// reset the highlighted line
@@ -1330,7 +1326,6 @@ void HandleDisplayOfSelectedMercArrows( void )
 	
 	if( bSelectedInfoChar >= FIRST_VEHICLE )
 	{
-		// WANNE 2 <fixed>
 		usVehicleCount = bSelectedInfoChar - FIRST_VEHICLE;
 		sYPosition = usVehicleY+( usVehicleCount * ( Y_SIZE + 2) ) - 1;;
 	}
@@ -1352,7 +1347,6 @@ void HandleDisplayOfSelectedMercArrows( void )
 				
 				if( ubCount >= FIRST_VEHICLE )
 				{
-					// WANNE 2 <fixed>
 					usVehicleCount = ubCount - FIRST_VEHICLE;
 					sYPosition = usVehicleY+( usVehicleCount * ( Y_SIZE + 2) ) - 1;;
 				}
@@ -4939,7 +4933,6 @@ void DisplaySoldierUpdateBox( )
 
 	iUpdatePanelHeight = ( iNumberHigh + 1 ) * TACT_HEIGHT_OF_UPDATE_PANEL_BLOCKS;
 
-	// WANNE 2
 	iX = (MAP_BORDER_X + ((SCREEN_WIDTH - MAP_BORDER_X) / 2)) - (iUpdatePanelWidth / 2);
 	iY = (MAP_BORDER_Y + ((SCREEN_HEIGHT - 121) / 2)) - (iUpdatePanelHeight / 2);
 
@@ -5040,7 +5033,6 @@ void DisplaySoldierUpdateBox( )
 	}
 
 
-	// WANNE 2
 	//Display the reason for the update box
 	if( fFourWideMode ) 
 	{
@@ -5064,7 +5056,6 @@ void DisplaySoldierUpdateBox( )
 }
 
 
-// WANNE 2
 void CreateDestroyUpdatePanelButtons(INT32 iX, INT32 iY, BOOLEAN fFourWideMode )
 {
 	static BOOLEAN fCreated = FALSE;

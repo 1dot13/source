@@ -62,7 +62,6 @@ void ExitBobbyRAmmo()
 	DeleteVideoObjectFromIndex(guiAmmoGrid);
 	DeleteBobbyMenuBar();
 
-	// WANNE
 	DeleteBobbyRAmmoFilter();
 
 	DeleteBobbyBrTitle();
@@ -92,7 +91,6 @@ void RenderBobbyRAmmo()
 	DisplayItemInfo(IC_AMMO, guiCurrentAmmoFilterMode);
 	UpdateButtonText(guiCurrentLaptopMode);
 	
-	// WANNE
 	UpdateAmmoFilterButtons(guiCurrentAmmoFilterMode, guiPrevAmmoFilterMode);
 
 	MarkButtonsDirty( );

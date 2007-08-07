@@ -1654,7 +1654,6 @@ INT32 CreateIconButton(INT16 Icon,INT16 IconIndex,INT16 GenImg,INT16 xloc,INT16 
 	b->BackRect = -1;
 #endif
 
-	// WANNE 2
 	// Add button to the button list
 	#ifdef BUTTONSYSTEM_DEBUGGING
 	AssertFailIfIdenticalButtonAttributesFound( b );

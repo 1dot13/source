@@ -1,4 +1,3 @@
-// WANNE: EDITOR: done
 #ifdef PRECOMPILEDHEADERS
 	#include "Editor All.h"
 #else
@@ -886,7 +885,6 @@ void RenderItemDetails()
 				{
 					xp += 170;
 
-					// WANNE: EDITOR?
 					yp = (iScreenHeightOffset + 20);
 
 					if( xp >= (UINT32)(iScreenWidthOffset + 300 ))

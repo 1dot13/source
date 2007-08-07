@@ -1,4 +1,3 @@
-// WANNE: EDITOR: done
 #ifdef PRECOMPILEDHEADERS
 	#include "Editor All.h"
 #else
@@ -794,7 +793,6 @@ void DisplayEditMercWindow( void )
 	usFillColorLight = Get16BPPColor(FROMRGB(136, 138, 135));
 	usFillColorTextBk = Get16BPPColor(FROMRGB(250, 240, 188));
 
-	// WANNE: EDITOR?????????
 	iWidth = 266;
 	iHeight = 360;
 	iYPos = iScreenHeightOffset + 0;
@@ -1246,7 +1244,6 @@ void ShowEditMercColorSet( UINT8 ubPaletteRep, INT16 sSet )
 
 	sUnitSize = 128 / (INT16)(ubSize);
 
-	// WANNE: EDITOR?
 	sTop = 2 * iScreenHeightOffset + 364 + (sSet * 24);
 	sBottom = sTop + 20;
 	sLeft = iScreenWidthOffset + 230;
@@ -1334,7 +1331,6 @@ void DisplayWayPoints(void)
 		// Bring it down a touch
 		sScreenY += 5;
 
-		// WANNE: EDITOR?
 		if( sScreenY <= (2 * iScreenHeightOffset + 355 ))
 		{
 			// Shown it on screen!
@@ -1360,7 +1356,6 @@ void CreateEditMercWindow( void )
 	INT32 x;
 	SOLDIERTYPE *pSoldier;
 
-	// WANNE: EDITOR?
 	iWidth = 266;
 	iHeight = 360;
 	iYPos = iScreenHeightOffset + 0;
@@ -2795,7 +2790,6 @@ void AddNewItemToSelectedMercsInventory( BOOLEAN fCreate )
 	uiSrcID = guiMercTempBuffer;
 	uiDstID = guiMercInvPanelBuffers[ gbCurrSelect ];
 
-	// WANNE: EDITOR?
 	//build the rects
 	iDstWidth = gbCurrSelect < 3 ? MERCINV_SMSLOT_WIDTH : MERCINV_LGSLOT_WIDTH;
 	iDstHeight = MERCINV_SLOT_HEIGHT;

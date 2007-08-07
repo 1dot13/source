@@ -165,7 +165,6 @@ void FixVoiceRange()
 }
 
 
-// WANNE NEW
 void IncrementVoice( void )
 {
 	INT32 iIMPIndex = -1;
@@ -413,7 +412,6 @@ void BtnIMPVoicesDoneCallback(GUI_BUTTON *btn,INT32 reason)
 */
 			// set voice id, to grab character slot
       
-			// WANNE 10:
 			// WDS: Allow flexible numbers of IMPs of each sex
 			LaptopSaveInfo.iIMPIndex = gGameExternalOptions.iaIMPSlots[iCurrentVoice];
 

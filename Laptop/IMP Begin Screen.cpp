@@ -407,24 +407,6 @@ void BtnIMPBeginScreenDoneCallback(GUI_BUTTON *btn,INT32 reason)
 				}
 			}
 
-			// Check if we can create an imp with the selected gender
-			// WANNE NEW
-			/*if (bProceed == TRUE)
-			{
-				if( FEMALE_GENDER_SELECT  == ubTextEnterMode )
-				{
-				    bGenderFlag = IMP_FEMALE;
-				}
-			    else if( MALE_GENDER_SELECT  == ubTextEnterMode  )
-				{
-					bGenderFlag = IMP_MALE;
-				}
-				else
-				{
-					bProceed = FALSE;
-				}
-			}*/
-
 			// Data is valid
 			if (bProceed == TRUE)
 			{

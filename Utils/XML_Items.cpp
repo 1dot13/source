@@ -74,7 +74,6 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 		{
 			pData->curElement = ELEMENT_LIST;
 
-			// WANNE
 			if ( !localizedTextOnly )
 				memset(pData->curArray,0,sizeof(INVTYPE)*pData->maxArraySize);
 
@@ -84,7 +83,6 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 		{
 			pData->curElement = ELEMENT;
 
-			// WANNE
 			if ( !localizedTextOnly )
 				memset(&pData->curItem,0,sizeof(INVTYPE));
 
@@ -288,7 +286,6 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			//	pData->curItem.szItemName[MAX_CHAR_DATA_LENGTH] = '\0';
 			//}
 
-			// WANNE
 			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
 				strcpy(pData->curItem.szItemName,pData->szCharData);
 			else
@@ -309,7 +306,6 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"itemEndElementHandle: longitemname");
 			pData->curElement = ELEMENT;
 
-			// WANNE
 			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
 			{
 				strcpy(pData->curItem.szLongItemName,pData->szCharData);
@@ -341,7 +337,6 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"itemEndElementHandle: itemdesc");
 			pData->curElement = ELEMENT;
 
-			// WANNE
 			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
 				strcpy(pData->curItem.szItemDesc,pData->szCharData);
 			else
@@ -362,7 +357,6 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"itemEndElementHandle: brname");
 			pData->curElement = ELEMENT;
 
-			// WANNE
 			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
 				strcpy(pData->curItem.szBRName,pData->szCharData);
 			else
@@ -383,7 +377,6 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"itemEndElementHandle: brdesc");
 			pData->curElement = ELEMENT;
 
-			// WANNE
 			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
 				strcpy(pData->curItem.szBRDesc,pData->szCharData);
 			else

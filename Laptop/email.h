@@ -194,8 +194,6 @@ typedef struct
 	BOOLEAN fRead;
 	BOOLEAN fNew;
 
-	// WANNE - SAVEGAME-STRUCTURE: Remove the comment, until we have bigger changes in the savegame structure
-	// BECAUSE A NEW GAME MUST BE STARTED! 
 	INT32		iCurrentIMPPosition;
 
 } SavedEmailStruct;

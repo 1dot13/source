@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 // MAXIMUM NUMBER OF ENEMIES: 32
 #ifdef PRECOMPILEDHEADERS
 	#include "Strategic All.h"
@@ -965,7 +964,6 @@ void CalculateSoldierCells( BOOLEAN fReset )
 	}
 	gpAR->uiTimeSlice = gpAR->uiTimeSlice * gpAR->ubTimeModifierPercentage / 100;
 	
-	// WANNE 2
 	iTop = iScreenHeightOffset + (240 - gpAR->sHeight/2);
 	if( iTop > (iScreenHeightOffset + 120) )
 		iTop -= 40;
@@ -1228,7 +1226,6 @@ void BuildInterfaceBuffer()
 	INT32						x,y;
 
 	//Setup the blitting clip regions, so we don't draw outside of the region (for excess panelling)
-	// WANNE 2
 	gpAR->Rect.iLeft		= iScreenWidthOffset + (320 - gpAR->sWidth/2);
 	gpAR->Rect.iRight		= gpAR->Rect.iLeft + gpAR->sWidth;
 	gpAR->Rect.iTop			= iScreenHeightOffset + (240 - gpAR->sHeight/2);
@@ -1811,7 +1808,6 @@ void RenderAutoResolve()
 
 	if( gpAR->fPendingSurrender )
 	{
-		// WANNE 2
 		DisplayWrappedString( (UINT16)(gpAR->sCenterStartX+16), (UINT16)(iScreenHeightOffset + 230+gpAR->bVerticalOffset), 108, 2,
 			(UINT8)FONT10ARIAL, FONT_YELLOW, gpStrategicString[ STR_ENEMY_SURRENDER_OFFER ], FONT_BLACK, FALSE, LEFT_JUSTIFIED );
 	}
@@ -1932,7 +1928,6 @@ void RenderAutoResolve()
 					break;
 			}
 			//Render the results of the battle.
-			// WANNE 2
 			SetFont( BLOCKFONT2 );
 			xp = gpAR->sCenterStartX + 12;
 			yp = iScreenHeightOffset + 218 + gpAR->bVerticalOffset;
@@ -1948,7 +1943,6 @@ void RenderAutoResolve()
 				gpAR->uiTotalElapsedBattleTimeInMilliseconds/60000,
 				(gpAR->uiTotalElapsedBattleTimeInMilliseconds%60000)/1000 );
 			xp = gpAR->sCenterStartX + 70 - StringPixLength( str, FONT10ARIAL )/2;
-			// WANNE 2
 			yp = iScreenHeightOffset + 290 + gpAR->bVerticalOffset;
 			SetFontForeground( FONT_YELLOW );
 			mprintf( xp, yp, str );
@@ -2275,7 +2269,6 @@ void CreateAutoResolveInterface()
 
 	gpAR->bVerticalOffset = (240 - gpAR->sHeight/2) > 120 ? -40 : 0;
 	
-	// WANNE 2
 	//Create the buttons -- subject to relocation
 	gpAR->iButton[ PLAY_BUTTON ] = 
 		QuickCreateButton( gpAR->iButtonImage[ PLAY_BUTTON ] , (INT16)(gpAR->sCenterStartX+11), (INT16)(iScreenHeightOffset + 240+gpAR->bVerticalOffset), BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
@@ -3106,7 +3099,6 @@ void CalculateRowsAndColumns()
 	else
 		gpAR->sWidth = 146 + 55 * (max( max( gpAR->ubMercCols, gpAR->ubCivCols ), 2 ) + max( gpAR->ubEnemyCols, 2 ));
 
-	// WANNE 2
 	//gpAR->sCenterStartX = 323 - gpAR->sWidth/2 + max( max( gpAR->ubMercCols, 2), max( gpAR->ubCivCols, 2 ) ) *55;
 	gpAR->sCenterStartX = iScreenWidthOffset + (323 - gpAR->sWidth/2 + max( max( gpAR->ubMercCols, 2), max( gpAR->ubCivCols, 2 ) ) *55);
 	

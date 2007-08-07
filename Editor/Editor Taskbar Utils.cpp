@@ -1,4 +1,3 @@
-// WANNE: EDITOR?
 #ifdef PRECOMPILEDHEADERS
 	#include "Editor All.h"
 #else
@@ -447,7 +446,6 @@ void mprintfEditor(INT16 x, INT16 y, STR16 pFontString, ...)
 	mprintf( x, y, string );
 }
 
-// WANNE: EDITOR continue
 void ClearTaskbarRegion( INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom )
 {
 	ColorFillVideoSurfaceArea( ButtonDestBuffer, sLeft, sTop, sRight, sBottom, gusEditorTaskbarColor );
@@ -730,7 +728,6 @@ void BuildTriggerName( OBJECTTYPE *pItem, STR16 szItemName )
 	}
 }
 
-// WANNE: EDITOR?
 void RenderDoorLockInfo()
 {
 	INT16 i, xp, yp;
@@ -782,7 +779,6 @@ void RenderDoorLockInfo()
 	}
 }
 
-	// WANNE: EDITOR?
 void RenderSelectedItemBlownUp()
 {
 	UINT32 uiVideoObjectIndex;
@@ -899,7 +895,7 @@ void RenderEditorInfo( )
 			break;
 		case TASK_TERRAIN:
 
-			// WANNE: EDITOR: comment this two lines, because we always get an exception here!
+			// WANNE: Comment this two lines, because we always get an exception here.
 			//if( gusSelectionType == LINESELECTION )
 			//	swprintf( wszSelType[LINESELECTION], L"Width: %d", gusSelectionWidth );
 			
@@ -915,7 +911,7 @@ void RenderEditorInfo( )
 			UpdateBuildingsInfo();
 
 
-			// WANNE: EDITOR: comment this two lines, because we always get an exception here!
+			// WANNE: Comment this two lines, because we always get an exception here.
 			//if( gusSelectionType == LINESELECTION )
 			//	swprintf( wszSelType[LINESELECTION], L"%d", gusSelectionWidth );
 			
@@ -926,7 +922,7 @@ void RenderEditorInfo( )
 			break;
 		case TASK_MAPINFO:
 			UpdateMapInfo();
-			// WANNE: EDITOR: comment this two lines, because we always get an exception here!
+			// WANNE: EDITOR: Comment this two lines, because we always get an exception here!
 			//if( gusSelectionType == LINESELECTION )
 			//	swprintf( wszSelType[LINESELECTION], L"Width: %d", gusSelectionWidth );
 			
@@ -991,7 +987,6 @@ void ProcessEditorRendering()
 
 
 	if( fSaveBuffer )
-		// WANNE: EDITOR?
 		BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 2 * iScreenHeightOffset + 360, SCREEN_WIDTH, 120 );
 
 	//Make sure this is TRUE at all times.

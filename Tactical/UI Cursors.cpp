@@ -314,7 +314,7 @@ UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, UINT16 usMapPo
 }
 
 
-// WANNE 4: Zeigt den Schusscursor, wenn dieser auf einem Gegner steht
+// WANNE: Shows the target cursor over the enemy soldier
 UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLEAN fShowAPs, BOOLEAN fRecalc, UINT32 uiCursorFlags )
 {
 	UINT8							switchVal;
@@ -418,14 +418,14 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLE
 			}
 			else
 			{
-				// WANNE 4: Wie oft erhöht?
+				// WANNE: How oft increased?
 				bFutureAim = (INT8)( pSoldier->bShownAimTime + 1 );
 
 				if ( bFutureAim <= maxAimLevels )
 				{
 					if (reverse == 0)
 					{
-						// WANNE 4: Aktuelle AP Kosten fürs ziehlen
+						// WANNE: Current AP costs for targeting
 						sAPCosts = MinAPsToAttack( pSoldier, usMapPos, TRUE ) + ( bFutureAim  );
 
 						//gsCurrentActionPoints = sAPCosts;
@@ -951,7 +951,7 @@ UINT8 HandleActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos, BOOLE
 
 
 
-// WANNE 4: Zeigt den Schusscursor, wenn dieser auf keinem Gegner steht
+// WANNE: Shows the target cursor if we are not hovering over an enemy soldier
 UINT8 HandleNonActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos , BOOLEAN fShowAPs, BOOLEAN fRecalc, UINT32 uiCursorFlags  )
 {
   UINT16				usInHand;

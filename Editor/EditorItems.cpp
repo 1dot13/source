@@ -1,4 +1,3 @@
-// WANNE: EDITOR?
 #ifdef PRECOMPILEDHEADERS
 	#include "Editor All.h"
 #else
@@ -207,7 +206,6 @@ void EntryInitEditorItemsInfo()
 	}
 }
 
-// WANNE: EDITOR?
 void InitEditorItemsInfo(UINT32 uiItemType)
 {
 	VSURFACE_DESC		vs_desc;
@@ -311,7 +309,6 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 	//every pair of items (odd rounded up) requires 60 pixels for width.
 	//the minimum buffer size is 420.  Height is always 80 pixels.
 
-	// WANNE: EDITOR?
 	eInfo.sWidth = (eInfo.sNumItems > 12) ? ((eInfo.sNumItems+1)/2)*60 : SCREEN_HEIGHT - 120;
 	eInfo.sHeight = 80;
 	// Create item buffer
@@ -377,7 +374,6 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 			BltVideoObjectOutlineFromIndex( eInfo.uiBuffer, uiVideoObjectIndex, item->ubGraphicNum, sStart, y+2, 0, FALSE );
 			//cycle through the various slot positions (0,0), (0,40), (60,0), (60,40), (120,0)...
 			
-			// WANNE: EDITOR?
 			if( y == 0 )
 			{
 				y = 40;
@@ -512,7 +508,6 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 					}
 				}
 
-				// WANNE: EDITOR?
 				DisplayWrappedString(x, (UINT16)(y+25), 60, 2, SMALLCOMPFONT, FONT_WHITE, pStr, FONT_BLACK, TRUE, CENTER_JUSTIFIED );
 
 				//Calculate the center position of the graphic in a 60 pixel wide area.
@@ -525,7 +520,6 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 					BltVideoObjectOutlineFromIndex( eInfo.uiBuffer, uiVideoObjectIndex, item->ubGraphicNum, sStart, y+2, 0, FALSE );
 				}
 
-				// WANNE: EDITOR?
 				//cycle through the various slot positions (0,0), (0,40), (60,0), (60,40), (120,0)...
 				if( y == 0 )
 				{
@@ -578,7 +572,6 @@ void RenderEditorItemsInfo()
 		return;
 	}
 
-	// WANNE: EDITOR?
 	if( gusMouseXPos < (iScreenWidthOffset + 110) || gusMouseXPos > (iScreenWidthOffset + 480) || gusMouseYPos < (2 * iScreenHeightOffset + 360) || gusMouseYPos > (2 * iScreenHeightOffset + 440) )
 	{ //Mouse has moved out of the items display region -- so nothing can be highlighted.
 		eInfo.sHilitedItemIndex = -1;
@@ -729,7 +722,6 @@ void HandleItemsPanel( UINT16 usScreenX, UINT16 usScreenY, INT8 bEvent )
 	//Add the converted mouse's XPos into a relative index;
 	//Calc:  starting from 110, for every 60 pixels, add 2 to the index
 	
-	// WANNE: EDITOR????
 	sIndex += ((usScreenX-110-iScreenWidthOffset)/60) * 2;
 	switch( bEvent )
 	{

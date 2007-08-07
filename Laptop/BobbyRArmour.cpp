@@ -23,7 +23,6 @@ void GameInitBobbyRArmour()
 
 }
 
-// WANNE
 BOOLEAN EnterBobbyRArmour()
 {
   VOBJECT_DESC    VObjectDesc;
@@ -47,7 +46,7 @@ BOOLEAN EnterBobbyRArmour()
 
 	//Draw menu bar
 	InitBobbyMenuBar( );
-	// WANNE
+
 	InitBobbyRArmourFilterBar();
 
 	RenderBobbyRArmour( );
@@ -61,7 +60,6 @@ void ExitBobbyRArmour()
 	DeleteVideoObjectFromIndex(guiArmourGrid);
 	DeleteBobbyMenuBar();
 
-	// WANNE
 	DeleteBobbyRArmourFilter();
 
 	DeleteBobbyBrTitle();

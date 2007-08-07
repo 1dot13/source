@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "JA2 All.h"
 #else
@@ -26,7 +25,6 @@ int SCREEN_HEIGHT;
 int iScreenWidthOffset;
 int iScreenHeightOffset;
 
-// WANNE 2
 BOOLEAN fDisplayOverheadMap;
 
 Screens GameScreens[MAX_SCREENS] =

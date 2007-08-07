@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
@@ -87,7 +86,6 @@ SKIRGBCOLOR SkiGlowColorsA[]={
 //
 ///////////////////////////////////////////
 
-// WANNE 2
 #define		SKI_INTERFACE_WIDTH								536
 #define		SKI_INTERFACE_HEIGHT							340
 
@@ -843,7 +841,6 @@ BOOLEAN EnterShopKeeperInterface()
 	//Clear out all the save background rects
 	EmptyBackgroundRects( );
 
-	// WANNE 2
 	ShadowVideoSurfaceRect( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - INV_INTERFACE_HEIGHT );
 
 	if( gfExitSKIDueToMessageBox )
@@ -1497,9 +1494,7 @@ void RestoreTacticalBackGround()
 
 	GetVideoSurface( &hDestVSurface, guiRENDERBUFFER );
 	GetVideoSurface( &hSrcVSurface, guiCornerWhereTacticalIsStillSeenImage );
-
 	
-	// WANNE 2
 	// Top
 	SrcRect.iLeft = SKI_TACTICAL_BACKGROUND_START_X; //0;
 	SrcRect.iTop = SKI_TACTICAL_BACKGROUND_START_Y; //0;
@@ -1508,7 +1503,7 @@ void RestoreTacticalBackGround()
 
 	BltVSurfaceUsingDD( hDestVSurface, hSrcVSurface, VO_BLT_SRCTRANSPARENCY, SKI_TACTICAL_BACKGROUND_START_X, SKI_TACTICAL_BACKGROUND_START_Y, (RECT*)&SrcRect );
 
-	// WANNE 2
+	// WANNE: I think it is not used.
 	//InvalidateRegion( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 }
 
@@ -6364,7 +6359,6 @@ void InitShopKeeperItemDescBox( OBJECTTYPE *pObject, UINT8 ubPocket, UINT8 ubFro
 
 			sPosY = SKI_ARMS_DEALERS_INV_START_Y + ( ( SKI_INV_OFFSET_Y * ubSelectedInvSlot / SKI_NUM_ARMS_DEALERS_INV_COLS ) + 1 ) - ( 128 / 2 ) + SKI_INV_SLOT_HEIGHT / 2;
 
-			// WANNE 2
 			//if the start position + the height of the box is off the screen, reposition
 			if( sPosY < (0 + SCREEN_Y_OFFSET) )
 				sPosY = 0 + SCREEN_Y_OFFSET;
@@ -6435,7 +6429,7 @@ void StartSKIDescriptionBox( void )
 
 	//if the current merc is too far away, dont shade the SM panel because it is already shaded
 	
-	// WANNE 2: Do not shade the background
+	// WANNE: Do not shade the background
 	if( gfSMDisableForItems )
 		DrawHatchOnInventory( FRAME_BUFFER, SCREEN_X_OFFSET, SCREEN_Y_OFFSET, SKI_INTERFACE_WIDTH, SKI_INTERFACE_HEIGHT );
 	else
@@ -7518,7 +7512,7 @@ void DelayRepairsInProgressBy( UINT32 uiMinutesDelayed )
 //Mouse Call back for the Arms delaers face
 void SelectArmsDealersDropItemToGroundRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
-	// WANNE 2: not needed to drop the item to the ground -> on the right side of the shopkeeper screen!
+	// WANNE: Not needed to drop the item to the ground -> on the right side of the shopkeeper screen!
 	/*
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
@@ -7595,7 +7589,7 @@ void DisplayTheSkiDropItemToGroundString()
 	//get the height of the displayed text
 	usHeight = DisplayWrappedString( SKI_DROP_ITEM_TO_GROUND_START_X, SKI_DROP_ITEM_TO_GROUND_TEXT_START_Y, (UINT16)(SCREEN_WIDTH-SKI_DROP_ITEM_TO_GROUND_START_X), 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[ SKI_TEXT_DROP_ITEM_TO_GROUND ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED | DONT_DISPLAY_TEXT );
 
-	// WANNE 2 - not needed to show the string
+	// WANNE: Not needed to show the string
 	//display the 'drop item to ground' text
 	//DisplayWrappedString( SKI_DROP_ITEM_TO_GROUND_START_X, (UINT16)(SKI_DROP_ITEM_TO_GROUND_TEXT_START_Y-usHeight), (UINT16)(SCREEN_WIDTH-SKI_DROP_ITEM_TO_GROUND_START_X), 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[ SKI_TEXT_DROP_ITEM_TO_GROUND ], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED | INVALIDATE_TEXT );
 }

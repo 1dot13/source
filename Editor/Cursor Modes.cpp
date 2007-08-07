@@ -1,4 +1,3 @@
-// WANNE: EDITOR: no changes
 #ifdef PRECOMPILEDHEADERS
 	#include "Editor All.h"
 #else
@@ -341,7 +340,6 @@ BOOLEAN HandleAreaSelection()
 
 void ValidateSelectionRegionBoundaries()
 {
-	// WANNE: EDITOR?
 	gSelectRegion.iLeft		= max( min( 159, gSelectRegion.iLeft )	, 0 );
 	gSelectRegion.iRight	= max( min( 159, gSelectRegion.iRight  ), 0 );
 	gSelectRegion.iTop		= max( min( 159, gSelectRegion.iTop	 )	, 0 );

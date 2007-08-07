@@ -1107,7 +1107,6 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMo
 					}
 				}
 			}
-			// WANNE: - END
 
 			//how much is admission to the next tile
 			if ( gfPathAroundObstacles )

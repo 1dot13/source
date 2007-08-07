@@ -1,4 +1,3 @@
-// WANNE 2 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "JA2 All.h"
 	#include "Credits.h"
@@ -1074,7 +1073,6 @@ BOOLEAN DisplayCreditNode( CRDT_NODE	*pCurrent )
 		//if the surface is at the bottom of the screen
 		if( pCurrent->sOldPosY + pCurrent->sHeightOfString > CRDT_START_POS_Y )
 		{
-			// WANNE 2
 			INT16 sHeight = SCREEN_HEIGHT - pCurrent->sOldPosY;
 			//INT16	sHeight = 480 - pCurrent->sOldPosY;
 			RestoreExternBackgroundRect( pCurrent->sOldPosX, pCurrent->sOldPosY, CRDT_WIDTH_OF_TEXT_AREA, sHeight );

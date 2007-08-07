@@ -1,4 +1,3 @@
-// WANNE 3 <changed some lines>
 #ifdef PRECOMPILEDHEADERS
 	#include "Laptop All.h"
 #else
@@ -179,7 +178,6 @@ void BtnAccountNextPageButtonCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 } 
 
-// WANNE 3
 INT32 GetNumberOfHiredMercs()
 {
 	UINT8 usMercID;
@@ -217,7 +215,6 @@ void GameInitMercsAccount()
 
 BOOLEAN EnterMercsAccount()
 {
-	// WANNE 3 - BEGIN
 	UINT8 mercOverPage = 0;
 
 	iCurrentAccountPage = 0;
@@ -234,7 +231,6 @@ BOOLEAN EnterMercsAccount()
 	if (iTotalAccountPages == 0)
 		iTotalAccountPages++;
 
-	// WANNE 3 - END
 
   VOBJECT_DESC    VObjectDesc;
 
@@ -743,8 +739,6 @@ UINT32	CalculateHowMuchPlayerOwesSpeck()
 	UINT32			uiContractCharge=0;
 	UINT16			usMercID;
 
-
-	// WANNE 2
 	for(i=0; i<TOTAL_NUMBER_OF_MERCS; i++)
 	{
 		//if it larry Roach burn advance.  ( cause larry is in twice, a sober larry and a stoned larry )
