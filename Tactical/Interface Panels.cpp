@@ -1405,6 +1405,8 @@ BOOLEAN InitializeSMPanel(  )
  *  any questions? joker
  */
 //	InitializeSMPanelCoords( );
+
+  fDisplayOverheadMap = TRUE;
 	
 	// failing the CHECKF after this will cause you to lose your mouse
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
