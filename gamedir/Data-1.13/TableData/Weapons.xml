@@ -958,7 +958,7 @@
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>15</ubShotsPer4Turns>
 		<ubShotsPerBurst>3</ubShotsPerBurst>
-		<ubBurstPenalty>6</ubBurstPenalty>
+		<ubBurstPenalty>3</ubBurstPenalty>
 		<ubBulletSpeed>23</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
 		<ubDeadliness>37</ubDeadliness>
