@@ -492,7 +492,7 @@
 		<uiIndex>61</uiIndex>
 		<szItemName>Pfeilpistole</szItemName>
 		<szLongItemName>Pfeilpistole</szLongItemName>
-		<szItemDesc>Mit dieser Druckluft betriebenen Pfeilpistole legen Sie Großwild jeder Art schlafen, ohne die ganze Herde in Aufruhr zu versetzen.</szItemDesc>
+		<szItemDesc>Mit dieser druckluftbetriebenen Pfeilpistole legen Sie Großwild jeder Art schlafen, ohne die ganze Herde in Aufruhr zu versetzen.</szItemDesc>
 		<szBRName>Pfeilpistole</szBRName>
 		<szBRDesc>Ein stummer Vertreter in der lärmenden Gruppe der Schußwaffen. Hiermit können Sie den Job erledigen, ohne den Sensenmann aufzuwecken. Mit Prüfsiegel verschiedener Veterinär-Vereinigungen und zoologischer Gärten.</szBRDesc>
 	</ITEM>
@@ -578,9 +578,9 @@
 		<uiIndex>72</uiIndex>
 		<szItemName>9x19 Mag</szItemName>
 		<szLongItemName>9x19mm MP-Mag</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>9x19 Mag</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>73</uiIndex>
@@ -618,9 +618,9 @@
 		<uiIndex>77</uiIndex>
 		<szItemName>.38 SL</szItemName>
 		<szLongItemName>.38 Spc Schnelllader</szLongItemName>
-		<szItemDesc>Diese FIOCCHI Blei-Rundkopf Projektile deformieren sich leicht und tendieren zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte als auch ungeschützte Gegner. </szItemDesc>
+		<szItemDesc>Diese FIOCCHI Blei-Rundkopf Projektile deformieren sich leicht und tendieren zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte als auch ungeschützte Gegner. </szItemDesc>
 		<szBRName>.38 Spc SL #6</szBRName>
-		<szBRDesc>Diese FIOCCHI Blei-Rundkopf Projektile deformieren sich leicht und tendieren zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte als auch ungeschützte Gegner. </szBRDesc>
+		<szBRDesc>Diese FIOCCHI Blei-Rundkopf Projektile deformieren sich leicht und tendieren zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte als auch ungeschützte Gegner. </szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>78</uiIndex>
@@ -642,17 +642,17 @@
 		<uiIndex>80</uiIndex>
 		<szItemName>.45 Mag</szItemName>
 		<szLongItemName>.45 Magazin</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>.45 Mag #7</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>81</uiIndex>
 		<szItemName>.45 Mag</szItemName>
 		<szLongItemName>.45 MP-Magazin</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>.45 Mag</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>82</uiIndex>
@@ -690,17 +690,17 @@
 		<uiIndex>86</uiIndex>
 		<szItemName>.357 SL</szItemName>
 		<szLongItemName>.357 Schnelllader</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>.357 SL #6</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>87</uiIndex>
 		<szItemName>.357 Mag</szItemName>
 		<szLongItemName>.357 Magazin</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>.357 Mag #9</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>88</uiIndex>
@@ -946,9 +946,9 @@
 		<uiIndex>118</uiIndex>
 		<szItemName>9x19 Mag</szItemName>
 		<szLongItemName>9x19mm Magazin</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>9x19 Mag #50</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Dieses 50-Schuss-Magazin ist für die CALICO-Modelle geeignet.</szBRDesc>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Dieses 50-Schuss-Magazin ist für die CALICO-Modelle geeignet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>119</uiIndex>
@@ -1034,9 +1034,9 @@
 		<uiIndex>129</uiIndex>
 		<szItemName>7.62x25 Mag</szItemName>
 		<szLongItemName>7.62x25mm MP-Magazin</szLongItemName>
-		<szItemDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>7.62x25 Mag #30</szBRName>
-		<szBRDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>130</uiIndex>
@@ -2524,7 +2524,7 @@
 		<uiIndex>317</uiIndex>
 		<szItemName>Display</szItemName>
 		<szLongItemName>Display</szLongItemName>
-		<szItemDesc>Dieses komische Ding mit den Kupferdrähten war wohl mal das Quartz-Display von einem LameBoy.</szItemDesc>
+		<szItemDesc>Dieses komische Ding mit den Kupferdrähten war wohl mal das LC-Display von einem LameBoy.</szItemDesc>
 		<szBRName>Display</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2802,9 +2802,9 @@
 		<uiIndex>352</uiIndex>
 		<szItemName>9x19 Mag</szItemName>
 		<szLongItemName>9x19mm Magazin</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>9x19 Mag #8</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>353</uiIndex>
@@ -3082,9 +3082,9 @@
 		<uiIndex>387</uiIndex>
 		<szItemName>9x19 C-Mag</szItemName>
 		<szLongItemName>9x19mm Beta-C Magazin</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>9x19 C-Mag #100</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>388</uiIndex>
@@ -3194,9 +3194,9 @@
 		<uiIndex>401</uiIndex>
 		<szItemName>.45 Mag</szItemName>
 		<szLongItemName>.45 Hi-Cap Magazin</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>.45 Mag #14</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>402</uiIndex>
@@ -3898,9 +3898,9 @@
 		<uiIndex>489</uiIndex>
 		<szItemName>7.62x25 Mag</szItemName>
 		<szLongItemName>7.62x25mm Magazin</szLongItemName>
-		<szItemDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>7.62x25 Mag #8</szBRName>
-		<szBRDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>490</uiIndex>
@@ -3946,9 +3946,9 @@
 		<uiIndex>495</uiIndex>
 		<szItemName>7.62x25 Biz.Mag</szItemName>
 		<szLongItemName>7.62x25mm Bizon Magazin</szLongItemName>
-		<szItemDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>7.62x25 Biz.Mag #45</szBRName>
-		<szBRDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>496</uiIndex>
@@ -3978,9 +3978,9 @@
 		<uiIndex>499</uiIndex>
 		<szItemName>7.62x25 Tr.</szItemName>
 		<szLongItemName>7.62x25mm Trommel</szLongItemName>
-		<szItemDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>7.62x25 Trommel #100</szBRName>
-		<szBRDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>500</uiIndex>
@@ -4018,9 +4018,9 @@
 		<uiIndex>504</uiIndex>
 		<szItemName>9x18 Mag</szItemName>
 		<szLongItemName>9x18mm Magazin</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>9x18 Mag #8</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>505</uiIndex>
@@ -4034,9 +4034,9 @@
 		<uiIndex>506</uiIndex>
 		<szItemName>9x18 Mag</szItemName>
 		<szLongItemName>9x18mm Magazin</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>9x18 Mag #12</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>507</uiIndex>
@@ -4050,9 +4050,9 @@
 		<uiIndex>508</uiIndex>
 		<szItemName>9x18 Mag</szItemName>
 		<szLongItemName>9x18mm MP-Mag</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>9x18 Mag #20</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>509</uiIndex>
@@ -4066,9 +4066,9 @@
 		<uiIndex>510</uiIndex>
 		<szItemName>9x18 Mag</szItemName>
 		<szLongItemName>9x18mm MP-Mag</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>9x18 Mag</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>511</uiIndex>
@@ -4082,9 +4082,9 @@
 		<uiIndex>512</uiIndex>
 		<szItemName>.40 Mag</szItemName>
 		<szLongItemName>.40 S&amp;W Magazin</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>.40 Mag #14</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>513</uiIndex>
@@ -4170,9 +4170,9 @@
 		<uiIndex>523</uiIndex>
 		<szItemName>.44 SL</szItemName>
 		<szLongItemName>.44 Schnelllader</szLongItemName>
-		<szItemDesc>Diese PMC Vollmantel-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese PMC Vollmantel-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>.44 SL #6</szBRName>
-		<szBRDesc>Diese PMC Vollmantel-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese PMC Vollmantel-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>524</uiIndex>
@@ -4202,9 +4202,9 @@
 		<uiIndex>527</uiIndex>
 		<szItemName>.44 Mag</szItemName>
 		<szLongItemName>.44 Magazin</szLongItemName>
-		<szItemDesc>Diese PMC Vollmantel-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese PMC Vollmantel-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>.44 Mag #8</szBRName>
-		<szBRDesc>Diese PMC Vollmantel-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese PMC Vollmantel-Rundkopf Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>528</uiIndex>
@@ -4234,9 +4234,9 @@
 		<uiIndex>531</uiIndex>
 		<szItemName>10mm Mag</szItemName>
 		<szLongItemName>10mm AUTO Magazin</szLongItemName>
-		<szItemDesc>Diese BUFFALO BORE VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese BUFFALO BORE VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>10mm Mag</szBRName>
-		<szBRDesc>Diese BUFFALO BORE Vollmantel-Rundkopf Projektile im Kaliber 10x25mm, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden.</szBRDesc>
+		<szBRDesc>Diese BUFFALO BORE Vollmantel-Rundkopf Projektile im Kaliber 10x25mm, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>532</uiIndex>
@@ -4322,9 +4322,9 @@
 		<uiIndex>542</uiIndex>
 		<szItemName>5.45x18 Mag</szItemName>
 		<szLongItemName>5.45x18mm Magazin</szLongItemName>
-		<szItemDesc>Dieses Magazin enthält VMR-Patronen für die PSM Pistole. Sie deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Dieses Magazin enthält VMR-Patronen für die PSM Pistole. Sie deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>5.45x18 Mag #8</szBRName>
-		<szBRDesc>Dieses Magazin enthält VMR-Patronen für die PSM Pistole. Sie deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Dieses Magazin enthält VMR-Patronen für die PSM Pistole. Sie deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>543</uiIndex>
@@ -4426,9 +4426,9 @@
 		<uiIndex>555</uiIndex>
 		<szItemName>.50 Beo Mag</szItemName>
 		<szLongItemName>.50 Beowulf Magazin</szLongItemName>
-		<szItemDesc>Dieses Magazin von ALEXANDER ARMS enthält 334gr. FMJ-Patronen im Kaliber .50 Beowulf für das gleichnamige Gewehr. Die VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden.</szItemDesc>
+		<szItemDesc>Dieses Magazin von ALEXANDER ARMS enthält 334gr. FMJ-Patronen im Kaliber .50 Beowulf für das gleichnamige Gewehr. Die VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden.</szItemDesc>
 		<szBRName>.50 Beo Magazin #7</szBRName>
-		<szBRDesc>Dieses Magazin von ALEXANDER ARMS enthält 334gr. FMJ-Patronen im Kaliber .50 Beowulf für das gleichnamige Gewehr. Die VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden.</szBRDesc>
+		<szBRDesc>Dieses Magazin von ALEXANDER ARMS enthält 334gr. FMJ-Patronen im Kaliber .50 Beowulf für das gleichnamige Gewehr. Die VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>556</uiIndex>
@@ -4442,7 +4442,7 @@
 		<uiIndex>557</uiIndex>
 		<szItemName>.50 Beo Mag</szItemName>
 		<szLongItemName>.50 Beowulf Magazin</szLongItemName>
-		<szItemDesc>Dieses Magazin ist eine Einzelanfertigung von ALEXANDER ARMS und enthält 334gr. FMJ-Patronen im Kaliber .50 Beowulf. Die VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden.</szItemDesc>
+		<szItemDesc>Dieses Magazin ist eine Einzelanfertigung von ALEXANDER ARMS und enthält 334gr. FMJ-Patronen im Kaliber .50 Beowulf. Die VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden.</szItemDesc>
 		<szBRName>.50 Beo Magazin #4</szBRName>
 		<szBRDesc>not for sale at BR</szBRDesc>
 	</ITEM>
@@ -4594,9 +4594,9 @@
 		<uiIndex>576</uiIndex>
 		<szItemName>.45 Tr.</szItemName>
 		<szLongItemName>.45 MP-Trommel</szLongItemName>
-		<szItemDesc>Das passende Trommel-Magazin für die M1928 enthält FIOCCHI VMR-Projektile. Sie deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Das passende Trommel-Magazin für die M1928 enthält FIOCCHI VMR-Projektile. Sie deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>.45 Trommel #50</szBRName>
-		<szBRDesc>Das passende Trommel-Magazin für die M1928 enthält FIOCCHI VMR-Projektile. Sie deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Das passende Trommel-Magazin für die M1928 enthält FIOCCHI VMR-Projektile. Sie deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>577</uiIndex>
@@ -4674,9 +4674,9 @@
 		<uiIndex>586</uiIndex>
 		<szItemName>10mm Mag</szItemName>
 		<szLongItemName>10mm AUTO Magazin</szLongItemName>
-		<szItemDesc>Diese BUFFALO BORE Vollmantel-Rundkopf Projektile im Kaliber 10x25mm, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden.</szItemDesc>
+		<szItemDesc>Diese BUFFALO BORE Vollmantel-Rundkopf Projektile im Kaliber 10x25mm, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden.</szItemDesc>
 		<szBRName>10mm Mag #8</szBRName>
-		<szBRDesc>Diese BUFFALO BORE Vollmantel-Rundkopf Projektile im Kaliber 10x25mm, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden.</szBRDesc>
+		<szBRDesc>Diese BUFFALO BORE Vollmantel-Rundkopf Projektile im Kaliber 10x25mm, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>587</uiIndex>
@@ -4866,17 +4866,17 @@
 		<uiIndex>610</uiIndex>
 		<szItemName>AK-107</szItemName>
 		<szLongItemName>Kalaschnikow AK-107</szLongItemName>
-		<szItemDesc>Das neue Alexandrow-Kalaschnikow AK-107 besitzt eine synchronisierte Automatik, welchen einen Gegenimpuls zum Rückstoß erzeugt (BARS).</szItemDesc>
+		<szItemDesc>Das neue Alexandrow-Kalaschnikow AK-107 besitzt eine synchronisierte Automatik, welche einen Gegenimpuls zum Rückstoß erzeugt (BARS).</szItemDesc>
 		<szBRName>Kalaschnikow AK-107</szBRName>
-		<szBRDesc>Das neue Alexandrow-Kalaschnikow AK-107 besitzt eine synchronisierte Automatik, welchen einen Gegenimpuls zum Rückstoß erzeugt (BAR-System). Dadurch wird der Rückstoß stark verringert.</szBRDesc>
+		<szBRDesc>Das neue Alexandrow-Kalaschnikow AK-107 besitzt eine synchronisierte Automatik, welche einen Gegenimpuls zum Rückstoß erzeugt (BAR-System). Dadurch wird der Rückstoß stark verringert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>611</uiIndex>
 		<szItemName>AK-108</szItemName>
 		<szLongItemName>Kalaschnikow AK-108</szLongItemName>
-		<szItemDesc>Das neue Alexandrow-Kalaschnikow AK-108 besitzt eine synchronisierte Automatik, welchen einen Gegenimpuls zum Rückstoß erzeugt (BARS).</szItemDesc>
+		<szItemDesc>Das neue Alexandrow-Kalaschnikow AK-108 besitzt eine synchronisierte Automatik, welche einen Gegenimpuls zum Rückstoß erzeugt (BARS).</szItemDesc>
 		<szBRName>Kalaschnikow AK-108</szBRName>
-		<szBRDesc>Das neue Alexandrow-Kalaschnikow AK-108 besitzt eine synchronisierte Automatik, welchen einen Gegenimpuls zum Rückstoß erzeugt (BAR-System). Dadurch wird der Rückstoß stark verringert.</szBRDesc>
+		<szBRDesc>Das neue Alexandrow-Kalaschnikow AK-108 besitzt eine synchronisierte Automatik, welche einen Gegenimpuls zum Rückstoß erzeugt (BAR-System). Dadurch wird der Rückstoß stark verringert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>612</uiIndex>
@@ -5210,7 +5210,7 @@
 		<uiIndex>653</uiIndex>
 		<szItemName>FN FNC</szItemName>
 		<szLongItemName>FN FNC</szLongItemName>
-		<szItemDesc>Dieses belgische Waffe stellt einen Mix aus AK-47 und M16 dar.</szItemDesc>
+		<szItemDesc>Diese belgische Waffe stellt einen Mix aus AK-47 und M16 dar.</szItemDesc>
 		<szBRName>FN FNC</szBRName>
 		<szBRDesc>Diese belgische Waffe stellt einen Mix aus AK-47 und M16 dar.</szBRDesc>
 	</ITEM>
@@ -5474,7 +5474,7 @@
 		<uiIndex>686</uiIndex>
 		<szItemName>SZW</szItemName>
 		<szLongItemName>Metal Storm Surf Zone Weapon</szLongItemName>
-		<szItemDesc>Egal ob Dschungel oder Wüste, METAL STORM's Surf Zone ist immer zuverlässig. Sorgen Sie nur dafür das ein Elektroniker in der Nähe ist.</szItemDesc>
+		<szItemDesc>Egal ob Dschungel oder Wüste, METAL STORM's Surf Zone ist immer zuverlässig. Sorgen Sie nur dafür, dass ein Elektroniker in der Nähe ist.</szItemDesc>
 		<szBRName>Surf Zone Weapon</szBRName>
 		<szBRDesc>Die neuste Waffe von METAL STORM: Funktionssicherheit in trockener/nasser Umgebung, 6 Läufe, 72 Schuss, keine Mechanik, keine Fehlfunktion!</szBRDesc>
 	</ITEM>
@@ -5754,7 +5754,7 @@
 		<uiIndex>721</uiIndex>
 		<szItemName>Sphinx 3000</szItemName>
 		<szLongItemName>Sphinx 3000</szLongItemName>
-		<szItemDesc>Die Sphinx 3000 ist wie alles was aus der Schweiz kommt hervorragend verarbeitet, zuverlässig, präzise ... und sehr teuer!</szItemDesc>
+		<szItemDesc>Die Sphinx 3000 ist, wie alles was aus der Schweiz kommt, hervorragend verarbeitet, zuverlässig, präzise ... und sehr teuer!</szItemDesc>
 		<szBRName>Sphinx 3000</szBRName>
 		<szBRDesc>Die Sphinx 3000 steht für eine hohe Verarbei- tungsqualität, Zuverlässigkeit und Top-Präzision. Da alle Hauptbestandteile mittels modernster CNC-Maschinen aus dem Vollen gefräst wurden (Ganz-Stahl-Pistole) ist sie nahezu unzerstörbar. Jedoch ist sie alles andere als billig!</szBRDesc>
 	</ITEM>
@@ -6697,24 +6697,24 @@
 	<ITEM>
 		<uiIndex>839</uiIndex>
 		<szItemName>SO-Helm</szItemName>
-		<szLongItemName>Stealth-Ops Helm</szLongItemName>
-		<szItemDesc>Mit diesem Helm werden Sie die meiste Zeit unentdeckt bleiben. Er schützt Sie auch ausreichend vor Geschosse kleineren Kalibers.</szItemDesc>
+		<szLongItemName>Stealth Ops Helm</szLongItemName>
+		<szItemDesc>Mit diesem Helm werden Sie die meiste Zeit unentdeckt bleiben. Er schützt Sie auch ausreichend vor Geschossen kleineren Kalibers.</szItemDesc>
 		<szBRName>Stealth Ops Helm</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>840</uiIndex>
 		<szItemName>SO-Weste</szItemName>
-		<szLongItemName>Stealth-Ops Weste</szLongItemName>
-		<szItemDesc>Mit dieser Weste werden Sie die meiste Zeit unentdeckt bleiben. Jedoch bietet sie keinen ausreichenden Schutz vor Geschosse größeren Kalibers.</szItemDesc>
+		<szLongItemName>Stealth Ops Weste</szLongItemName>
+		<szItemDesc>Mit dieser Weste werden Sie die meiste Zeit unentdeckt bleiben. Jedoch bietet sie keinen ausreichenden Schutz vor Geschossen größeren Kalibers.</szItemDesc>
 		<szBRName>Stealth Ops Weste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>841</uiIndex>
 		<szItemName>SO-Hose</szItemName>
-		<szLongItemName>Stealth-Ops Hose</szLongItemName>
-		<szItemDesc>Mit dieser Hose werden Sie die meiste Zeit unentdeckt bleiben. Jedoch bietet sie keinen ausreichenden Schutz vor Geschosse größeren Kalibers.</szItemDesc>
+		<szLongItemName>Stealth Ops Hose</szLongItemName>
+		<szItemDesc>Mit dieser Hose werden Sie die meiste Zeit unentdeckt bleiben. Jedoch bietet sie keinen ausreichenden Schutz vor Geschossen größeren Kalibers.</szItemDesc>
 		<szBRName>Stealth Ops Hose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6977,26 +6977,26 @@
 	<ITEM>
 		<uiIndex>874</uiIndex>
 		<szItemName>SO-Helm Kit</szItemName>
-		<szLongItemName>Stealth-Ops Helm Upgrade Kit</szLongItemName>
-		<szItemDesc>Dieses universelle Upgrade Kit kann verwendet werden um jeden gewöhnlichen Kevlarhelm in einen stealth ops Helm zu verwandeln.</szItemDesc>
-		<szBRName>Stealth-Ops Helm Kit</szBRName>
-		<szBRDesc>Dieses universelle Upgrade Kit kann verwendet werden um jeden gewöhnlichen Kevlarhelm in einen Stealth-Ops Helm zu verwandeln.</szBRDesc>
+		<szLongItemName>Stealth Ops Helm Upgrade Kit</szLongItemName>
+		<szItemDesc>Dieses universelle Upgrade Kit kann verwendet werden um jeden gewöhnlichen Kevlarhelm in einen Stealth Ops Helm zu verwandeln.</szItemDesc>
+		<szBRName>Stealth Ops Helm Kit</szBRName>
+		<szBRDesc>Dieses universelle Upgrade Kit kann verwendet werden um jeden gewöhnlichen Kevlarhelm in einen Stealth Ops Helm zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>875</uiIndex>
 		<szItemName>SO-Weste Kit</szItemName>
-		<szLongItemName>Stealth-Ops Weste Upgrade Kit</szLongItemName>
+		<szLongItemName>Stealth Ops Weste Upgrade Kit</szLongItemName>
 		<szItemDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine state-of-the-art Stealth Ops Ausrüstung zu verwandeln.</szItemDesc>
-		<szBRName>Stealth-Ops Weste Kit</szBRName>
-		<szBRDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine state-of-the-art Stealth-Ops Ausrüstung zu verwandeln.</szBRDesc>
+		<szBRName>Stealth Ops Weste Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine state-of-the-art Stealth Ops Ausrüstung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>876</uiIndex>
 		<szItemName>SO-Hose Kit</szItemName>
-		<szLongItemName>Stealth-Ops Hose Upgrade Kit</szLongItemName>
+		<szLongItemName>Stealth Ops Hose Upgrade Kit</szLongItemName>
 		<szItemDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine state-of-the-art Stealth Ops Ausrüstung zu verwandeln.</szItemDesc>
-		<szBRName>Stealth-Ops Hose Kit</szBRName>
-		<szBRDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine state-of-the-art Stealth-Ops Ausrüstung zu verwandeln.</szBRDesc>
+		<szBRName>Stealth Ops Hose Kit</szBRName>
+		<szBRDesc>Dieses Upgrade Kit enthält alle benötigten Komponenten und Werkzeuge um Ihre gewöhnliche Ausrüstung in eine state-of-the-art Stealth Ops Ausrüstung zu verwandeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>877</uiIndex>
@@ -8358,9 +8358,9 @@
 		<uiIndex>1047</uiIndex>
 		<szItemName>.40 Mag</szItemName>
 		<szLongItemName>.40 S&amp;W Magazin</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>.40 Mag</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1048</uiIndex>
