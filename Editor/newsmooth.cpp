@@ -217,6 +217,9 @@ UINT16 GetCaveTileIndexFromPerimeterValue( UINT8 ubTotal )
 		case 0xff:
 			usIndex = 60 + (UINT16)Random( 6 );
 			break;
+		default:
+			AssertMsg(0, "Invalid total given");
+			return 0xffff;
 	}
 	GetTileIndexFromTypeSubIndex( usType, usIndex, &usTileIndex );
 	return usTileIndex;
@@ -447,6 +450,7 @@ void BuildWallPiece( UINT32 iMapIndex, UINT8 ubWallPiece, UINT16 usWallType )
 	switch( ubWallPiece )
 	{
 		case EXTERIOR_TOP:
+			ubWallClass = EXTERIOR_L;
 			iMapIndex -= WORLD_COLS;
 			//exterior bottom left corner generated
 			if ( !gfBasement && GetVerticalWall( iMapIndex - 1) && !GetVerticalWall( iMapIndex + WORLD_COLS - 1) )
@@ -464,7 +468,6 @@ void BuildWallPiece( UINT32 iMapIndex, UINT8 ubWallPiece, UINT16 usWallType )
 				GetTileIndexFromTypeSubIndex( usWallType, sIndex, &usTileIndex );
 				ReplaceStructIndex( iMapIndex, pStruct->usIndex, usTileIndex );
 			}
-			ubWallClass = EXTERIOR_L;
 			if( !gfBasement )
 			{
 				//All exterior_l walls have shadows.
@@ -483,8 +486,8 @@ void BuildWallPiece( UINT32 iMapIndex, UINT8 ubWallPiece, UINT16 usWallType )
 			}
 			break;
 		case EXTERIOR_LEFT:
-			iMapIndex--;
 			ubWallClass = EXTERIOR_R;
+			iMapIndex--;
 			if( GetHorizontalWall( iMapIndex ) )
 			{	//Special case where placing the new wall will generate a corner.  This piece
 				//becomes an exterior bottomend, but nothing else is effected.
@@ -510,8 +513,8 @@ void BuildWallPiece( UINT32 iMapIndex, UINT8 ubWallPiece, UINT16 usWallType )
 			}
 			break;
 		case INTERIOR_TOP:
-			iMapIndex -= WORLD_COLS;
 			ubWallClass = INTERIOR_L;
+			iMapIndex -= WORLD_COLS;
 			//check for a lower left corner.
 			if( pStruct = GetVerticalWall( iMapIndex + WORLD_COLS - 1 ) )
 			{	//Replace the piece with an extended piece.
@@ -554,8 +557,8 @@ void BuildWallPiece( UINT32 iMapIndex, UINT8 ubWallPiece, UINT16 usWallType )
 			}
 			break;
 		case INTERIOR_LEFT:
-			iMapIndex--;
 			ubWallClass = INTERIOR_R;
+			iMapIndex--;
 			if( GetHorizontalWall( iMapIndex ) )
 			{
 				ubWallClass = INTERIOR_BOTTOMEND;
@@ -595,6 +598,10 @@ void BuildWallPiece( UINT32 iMapIndex, UINT8 ubWallPiece, UINT16 usWallType )
 				AddExclusiveShadow( iMapIndex, usTileIndex );
 			}
 			break;
+		default:
+			AssertMsg( 0, "Invalid wall piece");
+			return;
+
 	}
 	sIndex = PickAWallPiece( ubWallClass );
 	GetTileIndexFromTypeSubIndex( usWallType, sIndex, &usTileIndex );
@@ -980,6 +987,8 @@ void AddBuildingSectionToWorld( SGPRect *pSelectRegion )
 	//change the floor for say a kitchen which might have a different floor type.
 	usWallType = GetRandomIndexByRange( FIRSTWALL, LASTWALL );
 	usFloorType = GetRandomIndexByRange( FIRSTFLOOR, LASTFLOOR );
+	usRoofType = 0xffff;
+
 	if( usWallType == 0xffff && usFloorType != 0xffff )
 	{ //allow user to place floors
 		for( y = top; y <= bottom; y++ ) for( x = left; x <= right; x++ )

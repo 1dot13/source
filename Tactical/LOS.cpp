@@ -3576,6 +3576,8 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 
 	ddOrigHorizAngle = atan2( dDeltaY, dDeltaX );	
 	ddOrigVerticAngle = atan2( dDeltaZ, (d2DDistance * 2.56f) );
+	ddAdjustedHorizAngle = ddOrigHorizAngle;
+	ddAdjustedVerticAngle = ddOrigVerticAngle;
 
 	ubShots = 1;
 	fTracer = FALSE;

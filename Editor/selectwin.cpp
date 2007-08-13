@@ -346,6 +346,10 @@ void CreateJA2SelectionWindow( INT16 sWhat )
 			pSelList = SelRoom;
 			pNumSelList = &iNumRoomsSelected;
 			break;
+		default:
+			// If none of these, don't create anything!
+			AssertMsg( 0, "Unknown window creation type");
+			return;
 	}
 
 	BuildDisplayWindow( pDSpec, usNSpecs, &pDispList, &SelWinStartPoint, &SelWinEndPoint, 
@@ -1086,21 +1090,19 @@ void DisplaySelectionWindowGraphicalInformation()
 //
 void AddToSelectionList( DisplayList *pNode )
 {
-	INT32 iIndex, iUseIndex;
-	BOOLEAN fDone;
+	INT32 iIndex, iUseIndex = -1;
 
-	fDone = FALSE;
-	for (iIndex = 0; iIndex < (*pNumSelList) && !fDone; iIndex++ )
+	for (iIndex = 0; iIndex < (*pNumSelList); iIndex++ )
 	{
 		if ( pNode->uiObjIndx == pSelList[ iIndex ].uiObject &&
 				 pNode->uiIndex == pSelList[ iIndex ].usIndex )
 		{
-			fDone = TRUE;
 			iUseIndex = iIndex;
+			break;
 		}
 	}	
-	
-	if ( fDone )
+
+	if ( iUseIndex >= 0 )
 	{
 		// Was already in the list, so bump up the count
 		pSelList[ iUseIndex ].sCount++;
@@ -1158,26 +1160,25 @@ BOOLEAN ClearSelectionList( void )
 //
 BOOLEAN RemoveFromSelectionList( DisplayList *pNode )
 {
-	INT32 iIndex, iUseIndex;
-	BOOLEAN fDone, fRemoved;
+	INT32 iIndex, iUseIndex = -1;
+	BOOLEAN fRemoved;
 
 	// Abort if no entries in list (pretend we removed a node)
 	if ( (*pNumSelList) <= 0 )
 		return( TRUE );
 
 	fRemoved = FALSE;
-	fDone = FALSE;
-	for (iIndex = 0; iIndex < (*pNumSelList) && !fDone; iIndex++ )
+	for (iIndex = 0; iIndex < (*pNumSelList); iIndex++ )
 	{
 		if ( pNode->uiObjIndx == pSelList[ iIndex ].uiObject &&
 				 pNode->uiIndex == pSelList[ iIndex ].usIndex )
 		{
-			fDone = TRUE;
 			iUseIndex = iIndex;
+			break;
 		}
 	}	
 	
-	if ( fDone )
+	if ( iUseIndex >= 0 )
 	{
 		// Was already in the list, so bump up the count
 		pSelList[ iUseIndex ].sCount--;
@@ -1613,7 +1614,7 @@ BOOLEAN DisplayWindowFunc( DisplayList *pNode, INT16 iTopCutOff, INT16 iBottomCu
 	fReturnVal = FALSE;
 	if (DisplayWindowFunc(pNode->pNext, iTopCutOff, iBottomCutOff, pUpperLeft, fFlags))
 	{
-		iCurrY = pUpperLeft->iY + pNode->iY - iTopCutOff;
+		iCurrY = (INT16) pUpperLeft->iY + pNode->iY - iTopCutOff;
 
 		if ( iCurrY > iBottomCutOff )
 			return(TRUE);

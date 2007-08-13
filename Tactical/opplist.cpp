@@ -5066,7 +5066,7 @@ void ProcessNoise(UINT8 ubNoiseMaker, INT16 sGridNo, INT8 bLevel, UINT8 ubTerrTy
 	INT8 bCheckTerrain = FALSE;
 	UINT8 ubSourceTerrType, ubSource;
 	INT8 bTellPlayer = FALSE, bHeard, bSeen;
-	UINT8 ubHeardLoudestBy, ubNoiseDir, ubLoudestNoiseDir;
+	UINT8 ubHeardLoudestBy = NOBODY, ubNoiseDir = 0xff, ubLoudestNoiseDir = 0xff;
 
 
 #ifdef RECORDOPPLIST

@@ -1079,6 +1079,11 @@ INT32 GetFreeIMPSlot(INT32 iIMPId, INT32 iDefaultIMPId)
 			iStart = GetFirstMaleSlot();
 			iEnd = GetLastMaleSlot();
 		}
+		else
+		{
+			AssertMsg( 0, "Merc neither male nor female");
+			return -1;
+		}
 
 		// Find a free imp slot
 		for (i = iStart; i <= iEnd; ++i)

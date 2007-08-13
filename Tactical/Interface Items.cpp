@@ -2009,7 +2009,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 {
 	UINT16								uiStringLength;
 	INVTYPE								*pItem;
-  ETRLEObject						*pTrav;
+	ETRLEObject						*pTrav;
 	UINT32								usHeight, usWidth;
 	INT16									sCenX, sCenY, sNewY, sNewX;
 	HVOBJECT							hVObject;
@@ -2050,7 +2050,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 
 		// Shadow area
 		if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( uiBuffer, GetInterfaceGraphicForItem( pItem ), pItem->ubGraphicNum, sCenX - 2, sCenY + 2 );
-		
+
 		BltVideoObjectOutlineFromIndex( uiBuffer, GetInterfaceGraphicForItem( pItem ), pItem->ubGraphicNum, sCenX, sCenY, sOutlineColor, fOutline );
 
 
@@ -2106,7 +2106,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				//		SetFontForeground( FONT_MCOLOR_DKGRAY );
 				//		break;
 				//}
-	
+
 
 				swprintf( pStr, L"%d", pObject->ubGunShotsLeft );
 				if ( uiBuffer == guiSAVEBUFFER )
@@ -2234,7 +2234,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				}
 				mprintf( sNewX, sNewY, pStr );
 				gprintfinvalidate( sNewX, sNewY, pStr );
-				
+
 			}
 
 
@@ -2266,6 +2266,10 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 			sFontY = sY + 1;
 			gprintfinvalidate( sFontX, sFontY, pStr );
 
+			// Squelch the compiler warnings
+			sFontX2 = sX;
+			sFontY2 = sY;
+
 			if ( fLineSplit )
 			{
 				VarFindFontCenterCoordinates( sX, sY, sWidth, sHeight , ITEM_FONT, &sFontX2, &sFontY2, pStr2 );
@@ -2273,25 +2277,24 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				gprintfinvalidate( sFontX2, sFontY2, pStr2 );
 			}
 
-		}
-
-		if ( *pubHighlightCounter == 2 )
-		{
-			mprintf( sFontX, sFontY, pStr );
-
-			if ( fLineSplit )
+			if ( *pubHighlightCounter == 2 )
 			{
-				mprintf( sFontX2, sFontY2, pStr2 );
+				mprintf( sFontX, sFontY, pStr );
+
+				if ( fLineSplit )
+				{
+					mprintf( sFontX2, sFontY2, pStr2 );
+				}
 			}
-		}
-		else if ( *pubHighlightCounter == 1 )
-		{
-			*pubHighlightCounter = 0;
-			gprintfRestore( sFontX, sFontY, pStr );
-
-			if ( fLineSplit )
+			else if ( *pubHighlightCounter == 1 )
 			{
-				gprintfRestore( sFontX2, sFontY2, pStr2 );
+				*pubHighlightCounter = 0;
+				gprintfRestore( sFontX, sFontY, pStr );
+
+				if ( fLineSplit )
+				{
+					gprintfRestore( sFontX2, sFontY2, pStr2 );
+				}
 			}
 		}
 	}
@@ -4117,7 +4120,7 @@ void DeleteItemDescriptionBox( )
 {
 	INT32 cnt, cnt2;
 	BOOLEAN	fFound, fAllFound;
-	UINT8 ubAPCost;
+	UINT8 ubAPCost = 0;
 
 	if( gfInItemDescBox == FALSE )
 	{

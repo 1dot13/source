@@ -125,6 +125,9 @@ void InitPopupMenu( INT32 iButtonID, UINT8 ubPopupMenuID, UINT8 ubDirection )
 			usX = button->Area.RegionBottomRightX;
 			usY = button->Area.RegionBottomRightY;
 			break;
+		default:
+			AssertMsg(0, "Invalid direction given");
+			return;
 	}
 
 	//Decipher the popupMenuID

@@ -446,7 +446,7 @@ UINT16 DeleteWrappedString(WRAPPED_STRING *pWrappedString)
 
 BOOLEAN DrawTextToScreen(STR16 pStr, UINT16 usLocX, UINT16 usLocY, UINT16 usWidth, UINT32 ulFont, UINT8 ubColor, UINT8 ubBackGroundColor, BOOLEAN fDirty, UINT32 ulFlags)
 {
-	UINT16	usPosX, usPosY;
+	UINT16	usPosX = 0, usPosY = 0;
 	UINT16	usFontHeight=0;
 	UINT16	usStringWidth=0;
 

@@ -1827,7 +1827,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 	INT16 sFontX, sFontY;
 	INT16	usX, usY;
 	CHAR16 sString[9];
-	UINT32	cnt;
+	UINT32	cnt = 0xff000000; // Give a value that ought to crash it if this is really undefined for the robot
 	static CHAR16 pStr[ 200 ], pMoraleStr[ 20 ];
 
 	if ( gubSelectSMPanelToMerc != NOBODY )

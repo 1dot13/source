@@ -1233,13 +1233,17 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 						INT16 sNoiseGridNo = MostImportantNoiseHeard(pSoldier,&iNoiseValue, &fClimb, &fReachable);
 						UINT8 ubNoiseDir;
 
-						if (sNoiseGridNo != NOWHERE)
-							ubNoiseDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sNoiseGridNo),CenterY(sNoiseGridNo));
-
-						if ( sNoiseGridNo != NOWHERE && pSoldier->bDirection != ubNoiseDir )
-							pSoldier->usActionData = ubNoiseDir;
-						else
+						if (sNoiseGridNo == NOWHERE || 
+							(ubNoiseDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sNoiseGridNo),CenterY(sNoiseGridNo))
+							) == pSoldier->bDirection )
+						
+						{
 							pSoldier->usActionData = (UINT16)PreRandom(8);
+						}
+						else
+						{
+							pSoldier->usActionData = ubNoiseDir;
+						}
 					}
 				} while (pSoldier->usActionData == pSoldier->bDirection);
 
@@ -1997,7 +2001,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		}
 	}
 
-	if ( fCivilian && !( pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV ) )
+	if ( fCivilian && !( pSoldier->ubBodyType == COW || pSoldier->ubBodyType == CRIPPLECIV ) &&
+		gTacticalStatus.bBoxingState == NOT_BOXING)
 	{
 		if ( FindAIUsableObjClass( pSoldier, IC_WEAPON ) == ITEM_NOT_FOUND )
 		{
@@ -3425,9 +3430,9 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 #endif
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("DecideActionBlack: soldier = %d, orders = %d, attitude = %d",pSoldier->ubID,pSoldier->bOrders,pSoldier->bAttitude));
 
-	ATTACKTYPE BestShot,BestThrow,BestStab,BestAttack;
+	ATTACKTYPE BestShot = {},BestThrow = {},BestStab = {},BestAttack = {};
 	BOOLEAN fCivilian = (PTR_CIVILIAN && (pSoldier->ubCivilianGroup == NON_CIV_GROUP || pSoldier->bNeutral || (pSoldier->ubBodyType >= FATCIV && pSoldier->ubBodyType <= CRIPPLECIV) ) );
-	UINT8	ubBestStance, ubStanceCost;
+	UINT8	ubBestStance = 1, ubStanceCost;
 	BOOLEAN fChangeStanceFirst; // before firing
 	BOOLEAN fClimb;
 	UINT8	ubBurstAPs;
@@ -4128,6 +4133,8 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 
 	// if soldier has enough APs left to move at least 1 square's worth,
 	// and either he can't attack any more, or his attack did wound someone
+	iCoverPercentBetter = 0;
+
 	if ( (ubCanMove && !SkipCoverCheck && !gfHiddenInterrupt &&
 		((ubBestAttackAction == AI_ACTION_NONE) || pSoldier->bLastAttackHit) &&
 		(pSoldier->bTeam != gbPlayerNum || pSoldier->fAIFlags & AI_RTP_OPTION_CAN_SEEK_COVER) &&
@@ -5253,6 +5260,12 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 				}
 			}
 		}
+	}
+	else if (gTacticalStatus.bBoxingState == DISQUALIFIED ||
+		gTacticalStatus.bBoxingState == WON_ROUND ||
+		gTacticalStatus.bBoxingState == LOST_ROUND)
+	{
+		pSoldier->bAlertStatus = STATUS_GREEN;
 	}
 
 }

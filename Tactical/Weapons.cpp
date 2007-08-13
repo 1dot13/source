@@ -3005,7 +3005,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT8 bWeaponStatus, UINT
 	UINT32					uiMissVolume = MIDVOLUME;
 	BOOLEAN					fHitSameStructureAsBefore;
 	BULLET *				pBullet;
-	SOLDIERTYPE *		pAttacker;
+	SOLDIERTYPE *		pAttacker = NULL;
 	
 	pBullet = GetBulletPtr( iBullet );
 

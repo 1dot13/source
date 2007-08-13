@@ -524,7 +524,7 @@ void SortSoldierInitList()
 
 }
 
-BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr )
+BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 {
 	UINT8 ubProfile;
 	SOLDIERCREATE_STRUCT tempDetailedPlacement;
@@ -723,6 +723,12 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr )
 	{
 		curr->pSoldier = pSoldier;
 		curr->ubSoldierID = ubID;
+		if (pGroup)
+		{
+			pSoldier->ubGroupID = pGroup->ubGroupID;
+			pSoldier->pGroup = pGroup;
+		}
+
 		AddSoldierToSectorNoCalculateDirection( ubID );
 
 		if( pSoldier->bActive && pSoldier->bInSector && pSoldier->bTeam == ENEMY_TEAM && !pSoldier->inv[ HANDPOS ].usItem )

@@ -548,6 +548,7 @@ void MapInfoEntryPointsCallback( GUI_BUTTON *btn, INT32 reason )
 						case MAPINFO_SOUTH_POINT:			sGridNo = gMapInformation.sSouthGridNo;			break;
 						case MAPINFO_CENTER_POINT:		sGridNo = gMapInformation.sCenterGridNo;		break;
 						case MAPINFO_ISOLATED_POINT:	sGridNo = gMapInformation.sIsolatedGridNo;	break;
+						default: AssertMsg( 0, "Invalid mapinfo point"); sGridNo = -1; break;
 					}
 					if( sGridNo != -1 )
 					{

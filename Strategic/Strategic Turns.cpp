@@ -78,6 +78,9 @@ void HandleStrategicTurn( )
 		}
 		else
 		{
+			// If none of these conditions are true, then don't do an end of turn
+			uiCheckTime = 0xffffffff;
+
 			if ( giTimeCompressMode == TIME_COMPRESS_X1 || giTimeCompressMode == 0 )
 			{
 				uiCheckTime = NUM_REAL_SEC_PER_TACTICAL_TURN;

@@ -1745,7 +1745,7 @@ void PutNonSquadMercsInPlayerGroupOnSquads( GROUP *pGroup, BOOLEAN fExitVehicles
 	PLAYERGROUP *pPlayer, *pNextPlayer;
 	SOLDIERTYPE *pSoldier;
 	INT8 bUniqueVehicleSquad = -1;
-	BOOLEAN fSuccess;
+	BOOLEAN fSuccess = FALSE;
 
 
 	if ( pGroup->fVehicle )

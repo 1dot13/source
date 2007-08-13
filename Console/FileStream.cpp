@@ -68,7 +68,7 @@ HRESULT CreateFileStream(
 						hTemplateFile);
 
 	if (hFile == INVALID_HANDLE_VALUE) {
-		DWORD a = ::GetLastError();
+//		DWORD a = ::GetLastError();
 		ppStream = NULL;
 		return E_FAIL;
 	}

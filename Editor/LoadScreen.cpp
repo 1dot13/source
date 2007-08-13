@@ -1067,31 +1067,13 @@ BOOLEAN ExtractFilenameFromFields()
 
 BOOLEAN ValidCoordinate()
 {
-	if( gzFilename[0] >= 'A' && gzFilename[0] <= 'P' ||
-		gzFilename[0] >= 'a' && gzFilename[0] <='p' )
-	{
-		UINT16 usTotal;
-		if( gzFilename[1] == '1' && gzFilename[2] >= '0' && gzFilename[2] <= '6' )
-		{
-			usTotal = ( gzFilename[1] - 0x30 ) * 10 + ( gzFilename[2] - 0x30 );
-		}
-		else if( gzFilename[1] >= '1' && gzFilename[1] <= '9')
-		{
-			if( gzFilename[2] < '0' || gzFilename[2] > '9' )
-			{
-				usTotal = ( gzFilename[1] - 0x30 );
-			}
-			else
-			{
-				return FALSE;
-			}
-		}
-		if( usTotal >= 1 && usTotal <= 16 )
-		{
-			return TRUE;
-		}
-	}
-	return FALSE;
+    CHAR16 sectorY = 0; 
+	UINT16 sectorX = 0;
+	swscanf( gzFilename, L"%c%2hd", &sectorY, &sectorX);
+
+	sectorY = towupper( sectorY);
+	return ( sectorY >= 'A' && sectorY <= 'P' &&
+		sectorX >= 1 && sectorX <= 16);
 }
 
 BOOLEAN ValidFilename()

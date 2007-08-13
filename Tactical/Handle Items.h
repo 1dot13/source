@@ -82,7 +82,7 @@ typedef struct
 
 // WDS - Clean up inventory handling
 class SOLDIERTYPE;
-INT32 HandleItem( SOLDIERTYPE *pSoldier, UINT16 usGridNo, INT8 bLevel, UINT16 usHandItem, BOOLEAN fFromUI );
+INT32 HandleItem( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT16 usHandItem, BOOLEAN fFromUI );
 void SoldierPickupItem( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT16 sGridNo, INT8 bZLevel );
 void HandleSoldierPickupItem( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT16 sGridNo, INT8 bZLevel );
 void HandleFlashingItems( );

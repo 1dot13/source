@@ -35,7 +35,7 @@
 	#include "Scheduling.h"
 #endif
 
-BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *pNode );
+BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *pNode, GROUP *pGroup = NULL );
 
 BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( UINT8 *pubNumElites, UINT8 *pubNumRegulars, UINT8 *pubNumAdmins, UINT8 *pubNumCreatures );
 

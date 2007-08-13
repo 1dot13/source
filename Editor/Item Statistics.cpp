@@ -1256,7 +1256,7 @@ void ToggleAttachment( GUI_BUTTON *btn, INT32 reason )
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
 		INT32 i;
-		UINT16 usAttachment;
+		UINT16 usAttachment = 0;
 		OBJECTTYPE temp;
 		for( i = 0; i < NUM_ATTACHMENT_BUTTONS; i++ )
 		{	//Loop through and find the button that was just modified
@@ -1268,6 +1268,7 @@ void ToggleAttachment( GUI_BUTTON *btn, INT32 reason )
 				case 3:	usAttachment = BIPOD;						break;
 				case 4: usAttachment = DUCKBILL;				break;
 				case 5: usAttachment = UNDER_GLAUNCHER;	break;
+				default: Assert(0); continue;
 			}
 			if( guiAttachmentButton[ i ] != -1 && btn == ButtonList[ guiAttachmentButton[ i ] ] )
 			{	//Found it, now check the state of the button.
@@ -1515,7 +1516,7 @@ void UpdateActionItem( INT8 bActionItemIndex )
 void ReEvaluateAttachmentStatii()
 {
 	INT32 i;
-	UINT16 usAttachment;
+	UINT16 usAttachment = 0;
 	for( i = 0; i < NUM_ATTACHMENT_BUTTONS; i++ )
 	{
 		if( guiAttachmentButton[ i ] != -1 && !( ButtonList[ guiAttachmentButton[ i ] ]->uiFlags & BUTTON_CLICKED_ON ) )
@@ -1528,6 +1529,7 @@ void ReEvaluateAttachmentStatii()
 				case 3:	usAttachment = BIPOD;						break;
 				case 4: usAttachment = DUCKBILL;				break;
 				case 5: usAttachment = UNDER_GLAUNCHER;	break;
+				default: Assert(0); continue;
 			}
 			if( ValidItemAttachment( gpItem, usAttachment, TRUE ) )
 				EnableButton( guiAttachmentButton[ i ] );

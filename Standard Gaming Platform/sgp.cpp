@@ -856,6 +856,8 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,  HINSTANCE hPrevInstance, LPSTR p
 
   // At this point the SGP is set up, which means all I/O, Memory, tools, etc... are available. All we need to do is 
   // attend to the gaming mechanics themselves
+  Message.wParam = 0;
+
   while (gfProgramIsRunning)
   {
 //    if (PeekMessage(&Message, NULL, 0, 0, PM_NOREMOVE))

@@ -1182,9 +1182,7 @@ void EditMercIncDifficultyCallback(GUI_BUTTON *btn,INT32 reason)
 //
 void ShowEditMercPalettes( SOLDIERTYPE *pSoldier )
 {
-	UINT8  ubPaletteRep;
-	if( !pSoldier )
-		ubPaletteRep = 0xff;
+	UINT8  ubPaletteRep = 0xff;
 
 	if( pSoldier )
 	{
@@ -2020,7 +2018,13 @@ void ChangeBodyType( INT8 bOffset )  //+1 or -1 only
 			pbArray = bCivArray;
 			iMax = MAX_CIVTYPES;
 			break;
+		default:
+			AssertMsg( 0, "Unknown team");
+			return;
 	}
+
+	iIndex = -1;
+
 	//find the matching bodytype index within the array.
 	for( x = 0; x < iMax; x++ )
 	{
@@ -3423,7 +3427,7 @@ void UpdateScheduleAction( UINT8 ubNewAction )
 // 0:1A, 1:1B, 2:2A, 3:2B, ...
 void FindScheduleGridNo( UINT8 ubScheduleData )
 {
-	INT32 iMapIndex;
+	INT32 iMapIndex = 0xffff;
 	switch( ubScheduleData )
 	{
 		case 0: //1a
@@ -3452,6 +3456,7 @@ void FindScheduleGridNo( UINT8 ubScheduleData )
 			break;
 		default:
 			AssertMsg( 0, "FindScheduleGridNo passed incorrect dataID." );
+			return;
 	}
 	if( iMapIndex != 0xffff )
 	{

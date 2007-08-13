@@ -727,9 +727,9 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 	INT32					iCollisionCode = COLLISION_NONE;
 	BOOLEAN				fDoCollision = FALSE;
 	FLOAT					dElasity = 1;
-	UINT16				usStructureID;
-	FLOAT					dNormalX, dNormalY, dNormalZ;
-	INT16					sGridNo;
+	UINT16				usStructureID = -1;
+	FLOAT					dNormalX = 0.0, dNormalY = 0.0, dNormalZ = 1.0;
+	INT16					sGridNo = NOWHERE;
 
 	// Checkf for collisions
 	dX = pObject->Position.x;
@@ -2652,7 +2652,7 @@ BOOLEAN	LoadPhysicsTableFromSavedGameFile( HWFILE hFile )
 UINT16 RandomGridFromRadius( INT16 sSweetGridNo, INT8 ubMinRadius, INT8 ubMaxRadius )
 {
 	INT16		sX, sY;
-	INT16		sGridNo;
+	INT16		sGridNo = NOWHERE;
 	INT32					leftmost;
 	BOOLEAN	fFound = FALSE;
 	UINT32		cnt = 0;

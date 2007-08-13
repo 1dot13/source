@@ -622,7 +622,7 @@ void AddCreaturesToBattle( UINT8 ubNumYoungMales, UINT8 ubNumYoungFemales, UINT8
 {
 	INT32 iRandom;
 	SOLDIERTYPE *pSoldier;
-	MAPEDGEPOINTINFO MapEdgepointInfo;
+	MAPEDGEPOINTINFO MapEdgepointInfo = { };
 	UINT8 bDesiredDirection=0;
 	UINT8 ubCurrSlot = 0;
 

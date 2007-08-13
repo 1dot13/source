@@ -869,7 +869,7 @@ INT16 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 	INT16		*psLastLoc, *pusNoiseGridNo;
 	INT8		*pbLastLevel;
 	INT16		sGridNo=-1;
-	INT8		bLevel, bClosestLevel;
+	INT8		bLevel, bClosestLevel = -1;
 	BOOLEAN	fClimbingNecessary, fClosestClimbingNecessary = FALSE;
 	INT32		iPathCost;
 	INT16		sClosestDisturbance = NOWHERE;

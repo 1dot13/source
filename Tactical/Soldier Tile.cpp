@@ -73,7 +73,7 @@ void OutputDebugInfoForTurnBasedNextTileWaiting( SOLDIERTYPE * pSoldier )
 	if ( (gTacticalStatus.uiFlags & INCOMBAT) && (pSoldier->usPathDataSize > 0) )
 	{
 		UINT32	uiLoop;
-		UINT16	usTemp;
+		UINT16	usTemp = NOWHERE;
 		UINT16	usNewGridNo;
 
 		usNewGridNo = NewGridNo( pSoldier->sGridNo, DirectionInc( (UINT8)pSoldier->usPathingData[ pSoldier->usPathIndex ] ) );

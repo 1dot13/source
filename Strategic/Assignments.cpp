@@ -3950,7 +3950,7 @@ INT16 GetSoldierStudentPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, BOOLEAN fAtG
 	INT8	bSkill = 0;
 
 	INT16 sBestTrainingPts, sTrainingPtsDueToInstructor;
-	UINT16	usMaxTrainerPts, usBestMaxTrainerPts;
+	UINT16	usMaxTrainerPts, usBestMaxTrainerPts = 0;
 	UINT32	uiCnt;
 	SOLDIERTYPE * pTrainer;
 
@@ -8106,7 +8106,7 @@ void HandleShadingOfLinesForSquadMenu( void )
 	UINT32 uiCounter;
 	SOLDIERTYPE *pSoldier = NULL;
 	UINT32 uiMaxSquad;
-	INT8 bResult;
+	INT8 bResult = 0;
 
 
 	if ( ( fShowSquadMenu == FALSE ) || ( ghSquadBox == -1 ) )

@@ -3075,7 +3075,7 @@ void JumpIntoAdjacentSector( UINT8 ubTacticalDirection, UINT8 ubJumpCode, INT16 
 	SOLDIERTYPE *pValidSoldier = NULL;
 	GROUP *pGroup;
 	UINT32 uiTraverseTime=0;
-	UINT8 ubDirection;
+	UINT8 ubDirection = 0xff;
 	EXITGRID ExitGrid;
 	INT8 bPrevAssignment;
 	UINT8 ubPrevGroupID;

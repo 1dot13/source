@@ -451,8 +451,8 @@ HRESULT BltFastDDSurfaceUsingSoftware( LPDIRECTDRAWSURFACE2 pDestSurface, INT32 
 HRESULT BltDDSurfaceUsingSoftware( LPDIRECTDRAWSURFACE2 pDestSurface, LPRECT pDestRect, LPDIRECTDRAWSURFACE2 pSrcSurface, LPRECT pSrcRect, UINT32 uiFlags, LPDDBLTFX pDDBltFx )
 {
 	DDSURFACEDESC SurfaceDescription;
-	UINT32 uiDestPitchBYTES, uiSrcPitchBYTES;
-	UINT8	 *pDestBuf, *pSrcBuf;
+	UINT32 uiDestPitchBYTES, uiSrcPitchBYTES = 0;
+	UINT8	 *pDestBuf, *pSrcBuf = NULL;
   HRESULT       ReturnCode;
   DDCOLORKEY    ColorKey;
 	UINT16				us16BPPColorKey;

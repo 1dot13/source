@@ -532,7 +532,7 @@ void HandleDialogue( )
 		}
 	}
 
-	// OK, check if we are still taking
+	// OK, check if we are still talking
 	if ( gpCurrentTalkingFace != NULL )
 	{
 		if ( gpCurrentTalkingFace->fTalking )

@@ -3280,7 +3280,7 @@ void DrawIconOnButton(GUI_BUTTON *b)
 	INT32 IconW,IconH;
 	SGPRect NewClip,OldClip;
 	ETRLEObject		*pTrav;
-	HVOBJECT	hvObject;
+	HVOBJECT	hvObject = NULL;
 
 	// If there's an actual icon on this button, try to show it.
 	if(b->iIconID >= 0)

@@ -2064,7 +2064,7 @@ INT32 GetPreviousDaysBalance( void )
 	UINT8 ubSecondCode;
 	UINT32 uiDate;
 	INT32 iAmount;
-	INT32 iBalanceToDate;
+	INT32 iBalanceToDate = 0;
   BOOLEAN fGoneTooFar= FALSE;
 	INT32 iFileSize = 0;
 
@@ -2157,7 +2157,7 @@ INT32 GetTodaysBalance( void )
 	UINT8 ubSecondCode;
 	UINT32 uiDate;
 	INT32 iAmount;
-	INT32 iBalanceToDate;
+	INT32 iBalanceToDate = 0;
   BOOLEAN fGoneTooFar= FALSE;
 
 	

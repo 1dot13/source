@@ -180,7 +180,7 @@ UINT16	LarryItems[ NUM_LARRY_ITEMS ][ 3 ] =
 void HourlyLarryUpdate( void )
 {
 	SOLDIERTYPE *			pSoldier;
-	INT8							bSlot, bBoozeSlot;
+	INT8							bSlot = NO_SLOT, bBoozeSlot;
 	INT8							bLarryItemLoop;
 	UINT16						usTemptation = 0;
 	UINT16						usCashAmount;

@@ -3111,7 +3111,7 @@ void RebuildAllSoldierShadeTables( )
 void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier )
 {
 	INT32                    cnt;
-	INT32                    iNewSelectedSoldier;
+	INT32                    iNewSelectedSoldier = -1;
 	SOLDIERTYPE             *pTeamSoldier;
 	BOOLEAN                 fMissionFailed = TRUE;
 	INT8										bBuddyIndex;
@@ -8340,6 +8340,9 @@ void DoCreatureTensionQuote( SOLDIERTYPE *pSoldier )
 			fCanDoQuote = FALSE;
 		}
 		break;
+	default:
+		AssertMsg(0, "Invalid quote");
+		return;
 	}
 
 	if ( fCanDoQuote )

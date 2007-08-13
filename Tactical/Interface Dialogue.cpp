@@ -3597,7 +3597,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 			case NPC_ACTION_START_DOCTORING:
 				{
 					
-					// reset fact he is expecting money fromt he player
+					// reset fact he is expecting money fromt the player
 					SetFactFalse( FACT_VINCE_EXPECTING_MONEY );
 
 					// check fact

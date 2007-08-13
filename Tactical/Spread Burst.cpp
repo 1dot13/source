@@ -121,7 +121,7 @@ void AccumulateBurstLocation( INT16 sGridNo )
 
 void PickBurstLocations( SOLDIERTYPE *pSoldier )
 {
-	UINT8		ubShotsPerBurst;
+	UINT8		ubShotsPerBurst = 0;
 	FLOAT		dAccululator = 0;
 	FLOAT		dStep = 0;
 	INT32		cnt;

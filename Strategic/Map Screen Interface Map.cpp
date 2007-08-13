@@ -6387,6 +6387,9 @@ void HandleLowerLevelMapBlit( void )
 		case( 3 ):	
 			GetVideoObject( &hHandle, guiSubLevel3 );
 			break;
+		default:
+			AssertMsg( 0, "Invalid underground sector level");
+			return;
 	}
 
 	// handle the blt of the sublevel

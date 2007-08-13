@@ -1059,7 +1059,7 @@ void HandleShadingOfLinesForMilitiaControlMenu( void )
 BOOLEAN CheckIfRadioIsEquipped( void )
 {
 	SOLDIERTYPE *pSoldier = NULL;
-	INT8 bSlot;
+	INT8 bSlot = NO_SLOT;
 
 	// do we have a radio ?
 	//pSoldier = GetSelectedAssignSoldier( FALSE ); //do not use

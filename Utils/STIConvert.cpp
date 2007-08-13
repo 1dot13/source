@@ -115,7 +115,7 @@ void WriteSTIFile( INT8 *pData, SGPPaletteEntry *pPalette, INT16 sWidth, INT16 s
 	SGPPaletteEntry *		pSGPPaletteEntry;
 	STCIPaletteElement	STCIPaletteEntry;
 
-	STCISubImage *			pSubImageBuffer;
+	STCISubImage *			pSubImageBuffer = NULL;
 	UINT16							usNumberOfSubImages;
 	UINT32							uiSubImageBufferSize=0;
 
