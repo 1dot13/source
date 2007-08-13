@@ -120,7 +120,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 	<SECTOR>
 		<uiIndex>10</uiIndex>
 		<szLocation>A10</szLocation>
-		<RandomAltSector>1</RandomAltSector>
+		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayOmerta</szDay>
 		<szNight>Loadscreens\LS_NightOmerta</szNight>
@@ -410,7 +410,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt>Loadscreens\LS_NightTown2</szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>38</uiIndex>
+		<uiIndex>39</uiIndex>
 		<szLocation>C7</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -420,7 +420,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>39</uiIndex>
+		<uiIndex>40</uiIndex>
 		<szLocation>C8</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -430,7 +430,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>40</uiIndex>
+		<uiIndex>41</uiIndex>
 		<szLocation>C9</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -440,7 +440,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>41</uiIndex>
+		<uiIndex>42</uiIndex>
 		<szLocation>C10</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -450,7 +450,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>42</uiIndex>
+		<uiIndex>43</uiIndex>
 		<szLocation>C11</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -460,7 +460,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>43</uiIndex>
+		<uiIndex>44</uiIndex>
 		<szLocation>C12</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -470,7 +470,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>44</uiIndex>
+		<uiIndex>45</uiIndex>
 		<szLocation>C13</szLocation>
 		<RandomAltSector>1</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -480,7 +480,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt>Loadscreens\LS_NightTown1</szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>45</uiIndex>
+		<uiIndex>46</uiIndex>
 		<szLocation>C14</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -490,7 +490,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>46</uiIndex>
+		<uiIndex>47</uiIndex>
 		<szLocation>C15</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -500,7 +500,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>47</uiIndex>
+		<uiIndex>48</uiIndex>
 		<szLocation>C16</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -511,7 +511,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 	</SECTOR>
 	<!-- Row D -->
 	<SECTOR>
-		<uiIndex>48</uiIndex>
+		<uiIndex>49</uiIndex>
 		<szLocation>D1</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat></szImageFormat>
@@ -521,7 +521,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>49</uiIndex>
+		<uiIndex>50</uiIndex>
 		<szLocation>D2</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -531,7 +531,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>50</uiIndex>
+		<uiIndex>51</uiIndex>
 		<szLocation>D3</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -541,17 +541,17 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>51</uiIndex>
+		<uiIndex>52</uiIndex>
 		<szLocation>D4</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
-		<szDay>Loadscreens\LS_DayMine</szDay>
+		<szDay>Loascreens\LS_DayMine</szDay>
 		<szNight>Loadscreens\LS_NightMine</szNight>
 		<szDayAlt></szDayAlt>
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>52</uiIndex>
+		<uiIndex>53</uiIndex>
 		<szLocation>D5</szLocation>
 		<RandomAltSector>1</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -561,7 +561,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt>Loadscreens\LS_NightTown1</szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>53</uiIndex>
+		<uiIndex>54</uiIndex>
 		<szLocation>D6</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -571,7 +571,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>54</uiIndex>
+		<uiIndex>55</uiIndex>
 		<szLocation>D7</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -581,7 +581,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>55</uiIndex>
+		<uiIndex>56</uiIndex>
 		<szLocation>D8</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -591,7 +591,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>56</uiIndex>
+		<uiIndex>57</uiIndex>
 		<szLocation>D9</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -601,7 +601,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>57</uiIndex>
+		<uiIndex>58</uiIndex>
 		<szLocation>D10</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -611,7 +611,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>58</uiIndex>
+		<uiIndex>59</uiIndex>
 		<szLocation>D11</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -621,7 +621,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>59</uiIndex>
+		<uiIndex>60</uiIndex>
 		<szLocation>D12</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -631,7 +631,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>60</uiIndex>
+		<uiIndex>61</uiIndex>
 		<szLocation>D13</szLocation>
 		<RandomAltSector>1</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -641,7 +641,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt>Loadscreens\LS_NightTown1</szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>61</uiIndex>
+		<uiIndex>62</uiIndex>
 		<szLocation>D14</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -651,7 +651,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>62</uiIndex>
+		<uiIndex>63</uiIndex>
 		<szLocation>D15</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -661,7 +661,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>63</uiIndex>
+		<uiIndex>64</uiIndex>
 		<szLocation>D16</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -672,7 +672,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 	</SECTOR>
 	<!-- Row E -->
 	<SECTOR>
-		<uiIndex>64</uiIndex>
+		<uiIndex>65</uiIndex>
 		<szLocation>E1</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat></szImageFormat>
@@ -682,7 +682,7 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>65</uiIndex>
+		<uiIndex>66</uiIndex>
 		<szLocation>E2</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
@@ -692,18 +692,8 @@ INFO: Hight resolution loadscreens must be postfixed in the filesystem with _800
 		<szNightAlt></szNightAlt>
 	</SECTOR>
 	<SECTOR>
-		<uiIndex>66</uiIndex>
-		<szLocation>E3</szLocation>
-		<RandomAltSector>0</RandomAltSector>
-		<szImageFormat>STI</szImageFormat>
-		<szDay>Loadscreens\LS_DayWild</szDay>
-		<szNight>Loadscreens\LS_NightWild</szNight>
-		<szDayAlt></szDayAlt>
-		<szNightAlt></szNightAlt>
-	</SECTOR>
-	<SECTOR>
 		<uiIndex>67</uiIndex>
-		<szLocation>E4</szLocation>
+		<szLocation>E3</szLocation>
 		<RandomAltSector>0</RandomAltSector>
 		<szImageFormat>STI</szImageFormat>
 		<szDay>Loadscreens\LS_DayWild</szDay>
