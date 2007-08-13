@@ -2937,7 +2937,9 @@ void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 s
 
 	MakeNoise( ubAttackerID, pTargetSoldier->sGridNo, pTargetSoldier->bLevel, gpWorldLevelData[pTargetSoldier->sGridNo].ubTerrainID, Weapon[ usWeaponIndex ].ubHitVolume, NOISE_BULLET_IMPACT );
 
-	if ( EXPLOSIVE_GUN( usWeaponIndex ) )
+	// CALLAHAN START BUGFIX
+	if ( EXPLOSIVE_GUN( usWeaponIndex ) || AmmoTypes[pSoldier->inv[pSoldier->ubAttackingHand ].ubGunAmmoType].explosionSize > 1)
+	// CALLAHAN END BUGFIX
 	{
 		// Reduce attacker count!
 		//TODO: Madd --- I don't think this code will ever get called for the HE ammo -- the EXPLOSIVE_GUN check filters out regular guns 
