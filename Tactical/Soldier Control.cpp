@@ -231,6 +231,7 @@ BATTLESNDS_STRUCT	 gBattleSndsData[] =
 // New inventory handling code.
 // ----------------------------------------
 
+#if 0
 Inventory::Inventory() {
 	OBJECTTYPE filler;
 	memset( &filler, 0, sizeof( OBJECTTYPE ) );
@@ -244,9 +245,13 @@ Inventory::Inventory() {
 	clear();
 	Assert (inv.size() == slotCnt);
 };
+#endif
 
-Inventory::Inventory(int slotCount) {
-	slotCnt = slotCount;
+Inventory::Inventory(int slotCount ) :
+	inv(slotCount),
+	slotCnt( slotCount) {
+#if 0
+		slotCnt = slotCount;
 	inv.reserve(slotCnt);
 	for (int idx=0; idx < slotCnt; ++idx) {
 		//OBJECTTYPE *filler = new OBJECTTYPE;	// Use MEMALLOC?
@@ -256,14 +261,19 @@ Inventory::Inventory(int slotCount) {
 
 		inv.push_back(*filler);
 	}
-	clear();
+#endif
+	initialize();
 	Assert (inv.size() == slotCnt);
 };
 
 Inventory::Inventory(const Inventory& src) {
-	inv.reserve(slotCnt);
-	Assert (src.inv.size() == slotCnt);
+	// 0verhaul:  I do not think the reservation is necessary or advisable.
+	//inv.reserve(slotCnt);
+	//Assert (src.inv.size() == slotCnt);
 	inv = src.inv;
+	// 0verhaul:  Must copy the new slot count or a class created with a different count assigned to this one
+	// will fail the assertion(s).
+	slotCnt = src.slotCnt;
 	Assert (inv.size() == slotCnt);
 }
 
@@ -281,9 +291,12 @@ Inventory& Inventory::operator=(const Inventory& src)
 		(inv.size() != slotCnt)) {
 			int i = 0; // Set BP here if following asserts throw
 	}
-	Assert (src.inv.size() == slotCnt);
+	Assert (src.inv.size() == src.slotCnt);
 	Assert (inv.size() == slotCnt);
 	if (this != &src) {
+		slotCnt = src.slotCnt;
+		inv = src.inv;
+#if 0
 		if (inv.size() == 0) {
 			inv.reserve(slotCnt);
 			for (int idx=0; idx < slotCnt; ++idx) {
@@ -295,6 +308,7 @@ Inventory& Inventory::operator=(const Inventory& src)
 				inv[idx] = src.inv[idx];
 			}
 		}
+#endif
 	}
 	return *this;
 }
@@ -316,7 +330,7 @@ OBJECTTYPE& Inventory::operator [] (int idx) {
 	return inv[idx];
 };
 
-void Inventory::clear() {
+void Inventory::initialize() {
 	Assert (inv.size() == slotCnt);
 	for (int idx=0; idx < slotCnt; ++idx) {
 		memset(&inv[idx], 0, sizeof(OBJECTTYPE));
@@ -325,13 +339,19 @@ void Inventory::clear() {
 
 // ----------------------------------------
 
-SOLDIERTYPE::SOLDIERTYPE() {
+SOLDIERTYPE::SOLDIERTYPE() :
+inv(),
+bNewItemCount(inv.size()),
+bNewItemCycleCount(inv.size())
+{
+#if 0
 	bNewItemCount.reserve(inv.size());
 	bNewItemCycleCount.reserve(inv.size());
 	for (int idx=0; idx < (int)inv.size(); ++idx) {
 		bNewItemCount.push_back(0);
 		bNewItemCycleCount.push_back(0);
 	}
+#endif
 	initialize();
 
 	Assert(bNewItemCount.size() == inv.size());
@@ -375,7 +395,7 @@ SOLDIERTYPE::~SOLDIERTYPE() {
 //  Note that the constructor does this automatically.
 void SOLDIERTYPE::initialize() {
 	memset( this, 0, SIZEOF_SOLDIERTYPE_POD);
-	inv.clear();
+	inv.initialize();
 	for (int idx=0; idx < (int)inv.size(); ++idx) {
 		bNewItemCount[idx] = 0;
 		bNewItemCycleCount[idx] = 0;
@@ -519,7 +539,12 @@ void SOLDIERTYPE::CopyNewInventoryToOld() {
 
 // ----------------------------------------
 
-MERCPROFILESTRUCT::MERCPROFILESTRUCT() {
+MERCPROFILESTRUCT::MERCPROFILESTRUCT() :
+inv(NUM_INV_SLOTS),
+bInvStatus(inv.size()),
+bInvNumber(inv.size())
+{
+#if 0
 	inv.reserve(NUM_INV_SLOTS);
 	bInvStatus.reserve(NUM_INV_SLOTS);
 	bInvNumber.reserve(NUM_INV_SLOTS);
@@ -528,6 +553,7 @@ MERCPROFILESTRUCT::MERCPROFILESTRUCT() {
 		bInvStatus.push_back(0);
 		bInvNumber.push_back(0);
 	}
+#endif
 	initialize();
 
 	Assert(inv.size() == NUM_INV_SLOTS);
@@ -585,11 +611,12 @@ void MERCPROFILESTRUCT::initialize() {
 //  Use this instead of the old method of calling memset!
 //  Note that the constructor does this automatically.
 void MERCPROFILESTRUCT::clearInventory() {
-	for (int idx=0; idx < (int)inv.size(); ++idx) {
+	for (vector<int>::size_type idx=0; idx < inv.size(); ++idx) {
 		inv[idx] = 0;
 		bInvStatus[idx] = 0;
 		bInvNumber[idx] = 0;
 	}
+
 	Assert(inv.size() == NUM_INV_SLOTS);
 	Assert(bInvStatus.size() == NUM_INV_SLOTS);
 	Assert(bInvStatus.size() == NUM_INV_SLOTS);

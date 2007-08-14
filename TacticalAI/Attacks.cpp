@@ -251,7 +251,8 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		if (pOpponent->sGridNo == pSoldier->sLastTarget)
 		{
 			// raw AP cost calculation included cost of changing target!
-			ubRawAPCost -= AP_CHANGE_TARGET;
+			// Not unless we really needed to change targets!
+			//ubRawAPCost -= AP_CHANGE_TARGET;
 		}
 
 		iBestHitRate = 0;                     // reset best hit rate to minimum
@@ -309,6 +310,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		{
 			ubAimTime = AP_MIN_AIM_ATTACK;
 			ubChanceToHit = (UINT8) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,ubAimTime, AIM_SHOT_TORSO);
+			Assert( ubRawAPCost > 0);
 			iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
 
 			iBestHitRate = iHitRate;

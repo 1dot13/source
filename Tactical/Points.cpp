@@ -1203,7 +1203,7 @@ UINT8 BaseAPsToShootOrStab( INT8 bAPs, INT8 bAimSkill, OBJECTTYPE * pObj )
 	// Their info is an array of item status, not weapon info, and they don't repeat
 	// fire anyway.
 	rof = Weapon[ pObj->usItem ].ubShotsPer4Turns;
-	if (Item[ pObj->usItem ].ubPerPocket == 0)
+	if (Item[ pObj->usItem ].ubPerPocket <= 1)
 	{
 		rof += GetRateOfFireBonus(pObj);
 	}
@@ -1217,7 +1217,7 @@ UINT8 BaseAPsToShootOrStab( INT8 bAPs, INT8 bAimSkill, OBJECTTYPE * pObj )
 
 	// Snap: Refactored the formula to reduce the number of integer divisions
 	Top = 8 * bAPs;
-	if (Item[ pObj->usItem ].ubPerPocket == 0)
+	if (Item[ pObj->usItem ].ubPerPocket <= 1)
 	{
 		Top *= ( 100 - GetPercentAPReduction(pObj) );
 	}

@@ -378,8 +378,9 @@ class Inventory {
 public:
 	// Constructors
 	// Create an inventory with a fixed maximum number of slots
-	Inventory();					// Uses NUM_INV_SLOTS for slotCount
-	Inventory(int slotCount);
+	//Inventory();					// Uses NUM_INV_SLOTS for slotCount
+	 // Just make NUM_INV_SLOTS the default.  That way there's one routine to control them all
+	Inventory(int slotCount = NUM_INV_SLOTS);
 
 	// Copy Constructor
 	Inventory(const Inventory&);
@@ -393,8 +394,8 @@ public:
 	// Index operator
 	OBJECTTYPE& operator [] (int idx);
 
-	// Removes all items from the inventory
-	void clear();
+	// Resets all items in the inventory to empty
+	void initialize();
 
 	// How any slots are there in this inventory?
 	int size() const;

@@ -2605,7 +2605,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 			}
 			else
 			{
-				// OK, set cancle code!
+				// OK, set cancel code!
 				gOpenDoorMenu.fMenuHandled = 2;
 			}
 		}
