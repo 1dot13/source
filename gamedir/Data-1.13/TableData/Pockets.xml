@@ -159,12 +159,12 @@
 		<ItemCapacityPerSize.24>3</ItemCapacityPerSize.24>
 		<ItemCapacityPerSize.25>3</ItemCapacityPerSize.25>
 		<ItemCapacityPerSize.26>2</ItemCapacityPerSize.26>
-		<ItemCapacityPerSize.27>1</ItemCapacityPerSize.27>
+		<ItemCapacityPerSize.27>2</ItemCapacityPerSize.27>
 		<ItemCapacityPerSize.28>1</ItemCapacityPerSize.28>
 		<ItemCapacityPerSize.29>1</ItemCapacityPerSize.29>
 		<ItemCapacityPerSize.30>1</ItemCapacityPerSize.30>
 		<ItemCapacityPerSize.31>0</ItemCapacityPerSize.31>
-		<ItemCapacityPerSize.32>0</ItemCapacityPerSize.32>
+		<ItemCapacityPerSize.32>1</ItemCapacityPerSize.32>
 		<ItemCapacityPerSize.33>0</ItemCapacityPerSize.33>
 		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
 	</POCKET>
@@ -206,7 +206,7 @@
 		<ItemCapacityPerSize.29>0</ItemCapacityPerSize.29>
 		<ItemCapacityPerSize.30>0</ItemCapacityPerSize.30>
 		<ItemCapacityPerSize.31>0</ItemCapacityPerSize.31>
-		<ItemCapacityPerSize.32>0</ItemCapacityPerSize.32>
+		<ItemCapacityPerSize.32>1</ItemCapacityPerSize.32>
 		<ItemCapacityPerSize.33>0</ItemCapacityPerSize.33>
 		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
 	</POCKET>
