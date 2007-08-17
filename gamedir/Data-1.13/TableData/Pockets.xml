@@ -47,7 +47,7 @@
 		<pName>Gun Sling</pName>
 		<pSilhouette>5</pSilhouette>
 		<pType>0</pType>
-		<pRestriction>2</pRestriction>
+		<pRestriction>0</pRestriction>
 		<ItemCapacityPerSize.0>0</ItemCapacityPerSize.0>
 		<ItemCapacityPerSize.1>0</ItemCapacityPerSize.1>
 		<ItemCapacityPerSize.2>0</ItemCapacityPerSize.2>
@@ -358,7 +358,7 @@
 		<ItemCapacityPerSize.13>0</ItemCapacityPerSize.13>
 		<ItemCapacityPerSize.14>0</ItemCapacityPerSize.14>
 		<ItemCapacityPerSize.15>0</ItemCapacityPerSize.15>
-		<ItemCapacityPerSize.16>0</ItemCapacityPerSize.16>
+		<ItemCapacityPerSize.16>1</ItemCapacityPerSize.16>
 		<ItemCapacityPerSize.17>0</ItemCapacityPerSize.17>
 		<ItemCapacityPerSize.18>0</ItemCapacityPerSize.18>
 		<ItemCapacityPerSize.19>0</ItemCapacityPerSize.19>
