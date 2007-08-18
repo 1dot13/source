@@ -704,27 +704,27 @@ void BuildTriggerName( OBJECTTYPE *pItem, STR16 szItemName )
 {
 	if( pItem->usItem == SWITCH )
 	{
-		if( pItem->bFrequency == PANIC_FREQUENCY )
+		if( pItem->ItemData.Trigger.BombTrigger.bFrequency == PANIC_FREQUENCY )
 			swprintf( szItemName, L"Panic Trigger1" );
-		else if( pItem->bFrequency == PANIC_FREQUENCY_2 )
+		else if( pItem->ItemData.Trigger.BombTrigger.bFrequency == PANIC_FREQUENCY_2 )
 			swprintf( szItemName, L"Panic Trigger2" );
-		else if( pItem->bFrequency == PANIC_FREQUENCY_3 )
+		else if( pItem->ItemData.Trigger.BombTrigger.bFrequency == PANIC_FREQUENCY_3 )
 			swprintf( szItemName, L"Panic Trigger3" );
 		else
-			swprintf( szItemName, L"Trigger%d", pItem->bFrequency - 50 );
+			swprintf( szItemName, L"Trigger%d", pItem->ItemData.Trigger.BombTrigger.bFrequency - 50 );
 	}
 	else
 	{ //action item
-		if( pItem->bDetonatorType == BOMB_PRESSURE )
+		if( pItem->ItemData.Trigger.bDetonatorType == BOMB_PRESSURE )
 			swprintf( szItemName, L"Pressure Action" );
-		else if( pItem->bFrequency == PANIC_FREQUENCY )
+		else if( pItem->ItemData.Trigger.BombTrigger.bFrequency == PANIC_FREQUENCY )
 			swprintf( szItemName, L"Panic Action1" );
-		else if( pItem->bFrequency == PANIC_FREQUENCY_2 )
+		else if( pItem->ItemData.Trigger.BombTrigger.bFrequency == PANIC_FREQUENCY_2 )
 			swprintf( szItemName, L"Panic Action2" );
-		else if( pItem->bFrequency == PANIC_FREQUENCY_3 )
+		else if( pItem->ItemData.Trigger.BombTrigger.bFrequency == PANIC_FREQUENCY_3 )
 			swprintf( szItemName, L"Panic Action3" );
 		else
-			swprintf( szItemName, L"Action%d", pItem->bFrequency - 50 );
+			swprintf( szItemName, L"Action%d", pItem->ItemData.Trigger.BombTrigger.bFrequency - 50 );
 	}
 }
 
@@ -818,7 +818,7 @@ void RenderSelectedItemBlownUp()
 	}
 	else if( Item[ gpItem->usItem ].usItemClass == IC_KEY )
 	{
-		swprintf( szItemName, L"%S", LockTable[ gpItem->ubKeyID ].ubEditorName );
+		swprintf( szItemName, L"%S", LockTable[ gpItem->ItemData.Key.ubKeyID ].ubEditorName );
 	}
 	else
 	{

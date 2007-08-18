@@ -142,7 +142,7 @@ void HandleBulletSpecialFlags( INT32 iBulletIndex )
 			else if ( pBullet->usFlags & ( BULLET_FLAG_KNIFE ) )
 			{
 				strcpy( AniParams.zCachedFile, "TILECACHE\\KNIFING.STI" );
-				pBullet->ubItemStatus = pBullet->pFirer->inv[ HANDPOS ].bStatus[0];
+				pBullet->ubItemStatus = pBullet->pFirer->inv[ HANDPOS ].ItemData.Generic.bStatus[0];
 			}
 
 			// Get direction to use for this guy....

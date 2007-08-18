@@ -4392,36 +4392,36 @@ void WriteQuantityAndAttachments( OBJECTTYPE *pObject, INT32 yp )
 			CHAR16 str[50];
 			CHAR16 temp[5];
 			UINT8 i;
-			swprintf( str, L"Clips:  %d  (%d", pObject->ubNumberOfObjects, pObject->bStatus[0] );
+			swprintf( str, L"Clips:  %d  (%d", pObject->ubNumberOfObjects, pObject->ItemData.Generic.bStatus[0] );
 			for( i = 1; i < pObject->ubNumberOfObjects; i++ )
 			{
-				swprintf( temp, L", %d", pObject->bStatus[0] );
+				swprintf( temp, L", %d", pObject->ItemData.Generic.bStatus[0] );
 				wcscat( str, temp );
 			}
 			wcscat( str, L")" );
 			gprintf( 320, yp, str ); 
 		}
 		else
-			gprintf( 320, yp, L"%d rounds", pObject->bStatus[0] );
+			gprintf( 320, yp, L"%d rounds", pObject->ItemData.Generic.bStatus[0] );
 		return;
 	}
 	if( pObject->ubNumberOfObjects > 1 && fAttachments )
 	{ //everything
 		gprintf( 320, yp, L"%d%%  Qty:  %d  %s", 
-			pObject->bStatus[0], pObject->ubNumberOfObjects, szAttach );
+			pObject->ItemData.Generic.bStatus[0], pObject->ubNumberOfObjects, szAttach );
 	}
 	else if( pObject->ubNumberOfObjects > 1 )
 	{ //condition and quantity
 		gprintf( 320, yp, L"%d%%  Qty:  %d  ", 
-			pObject->bStatus[0], pObject->ubNumberOfObjects );
+			pObject->ItemData.Generic.bStatus[0], pObject->ubNumberOfObjects );
 	}
 	else if( fAttachments )
 	{ //condition and attachments
-		gprintf( 320, yp, L"%d%%  %s", pObject->bStatus[0], szAttach );
+		gprintf( 320, yp, L"%d%%  %s", pObject->ItemData.Generic.bStatus[0], szAttach );
 	}
 	else
 	{ //condition
-		gprintf( 320, yp, L"%d%%", pObject->bStatus[0] );
+		gprintf( 320, yp, L"%d%%", pObject->ItemData.Generic.bStatus[0] );
 	}
 }
 

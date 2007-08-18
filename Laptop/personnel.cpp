@@ -2543,12 +2543,12 @@ void RenderInventoryForCharacter( INT32 iId, INT32 iSlot )
 						for( cnt = 0; cnt < pSoldier->inv[ ubCounter ].ubNumberOfObjects; cnt++ )
 						{
 							// get total ammo
-							iTotalAmmo+= pSoldier->inv[ ubCounter ].ubShotsLeft[cnt];
+							iTotalAmmo+= pSoldier->inv[ ubCounter ].ItemData.Ammo.ubShotsLeft[cnt];
 						}
 					}
 					else
 					{
-							iTotalAmmo= pSoldier->inv[ ubCounter ].ubShotsLeft[ 0 ];
+							iTotalAmmo= pSoldier->inv[ ubCounter ].ItemData.Ammo.ubShotsLeft[ 0 ];
 					} 
 
 					swprintf( sString, L"%d/%d", iTotalAmmo, ( pSoldier->inv[ ubCounter ].ubNumberOfObjects * Magazine[ Item[pSoldier->inv[ ubCounter ].usItem ].ubClassIndex ].ubMagSize ) );
@@ -2557,7 +2557,7 @@ void RenderInventoryForCharacter( INT32 iId, INT32 iSlot )
 				}
 				else
 				{
-						swprintf( sString, L"%2d%%%%", pSoldier->inv[ ubCounter ].bStatus[0] );
+						swprintf( sString, L"%2d%%%%", pSoldier->inv[ ubCounter ].ItemData.Generic.bStatus[0] );
 						FindFontRightCoordinates( ( INT16 )( PosX + 65 ), ( INT16 ) ( PosY + 15 ), ( INT16 ) ( 171 - 75 ), 
 							( INT16 )( GetFontHeight( FONT10ARIAL ) ), sString, FONT10ARIAL, &sX, &sY );
 						
@@ -6439,7 +6439,7 @@ INT32 GetFundsOnMerc( SOLDIERTYPE *pSoldier )
 	{
 		if ( Item[ pSoldier->inv[ iCurrentPocket ] .usItem ].usItemClass == IC_MONEY )
 		{
-			iCurrentAmount += pSoldier->inv[ iCurrentPocket ].uiMoneyAmount; 
+			iCurrentAmount += pSoldier->inv[ iCurrentPocket ].ItemData.Money.uiMoneyAmount; 
 		}
 	}
 
@@ -6468,15 +6468,15 @@ BOOLEAN TransferFundsFromMercToBank( SOLDIERTYPE *pSoldier, INT32 iCurrentBalanc
 		{
 
 			// is there more left to go, or does this pocket finish it off?
-			if( pSoldier->inv[ iCurrentPocket ].uiMoneyAmount > ( UINT32 )iAmountLeftToTake )
+			if( pSoldier->inv[ iCurrentPocket ].ItemData.Money.uiMoneyAmount > ( UINT32 )iAmountLeftToTake )
 			{
-				pSoldier->inv[ iCurrentPocket ].uiMoneyAmount -= iAmountLeftToTake;
+				pSoldier->inv[ iCurrentPocket ].ItemData.Money.uiMoneyAmount -= iAmountLeftToTake;
 				iAmountLeftToTake = 0;
 			}
 			else
 			{
-				iAmountLeftToTake  -= pSoldier->inv[ iCurrentPocket ].uiMoneyAmount;  
-				pSoldier->inv[ iCurrentPocket ].uiMoneyAmount = 0;
+				iAmountLeftToTake  -= pSoldier->inv[ iCurrentPocket ].ItemData.Money.uiMoneyAmount;  
+				pSoldier->inv[ iCurrentPocket ].ItemData.Money.uiMoneyAmount = 0;
 
 				//Remove the item out off the merc
 				RemoveObjectFromSlot( pSoldier, (INT8)iCurrentPocket, &ObjectToRemove );
@@ -6529,9 +6529,9 @@ BOOLEAN TransferFundsFromBankToMerc( SOLDIERTYPE *pSoldier, INT32 iCurrentBalanc
 	// set up money object
 	pMoneyObject.usItem = MONEY;
 	pMoneyObject.ubNumberOfObjects = 1;
-	pMoneyObject.bMoneyStatus = 100;
-	pMoneyObject.	bStatus[0] = 100;	
-	pMoneyObject.uiMoneyAmount = iCurrentBalance;
+	pMoneyObject.ItemData.Money.bMoneyStatus = 100;
+	//pMoneyObject.ItemData.Generic.bStatus[0] = 100;	// Isn't this the same as the previous line?
+	pMoneyObject.ItemData.Money.uiMoneyAmount = iCurrentBalance;
 	
 
 	// now auto place money object

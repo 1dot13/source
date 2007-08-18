@@ -14,6 +14,8 @@
 	#include "worldman.h"
 #endif
 
+#include "AIInternals.h"
+
 #define ROOF_LOCATION_CHANCE 8
 
 UINT8						gubBuildingInfo[ WORLD_MAX ];
@@ -440,7 +442,7 @@ void GenerateBuildings( void )
 	}
 }
 
-INT16 FindClosestClimbPoint( INT16 sStartGridNo, INT16 sDesiredGridNo, BOOLEAN fClimbUp )
+INT16 FindClosestClimbPoint( SOLDIERTYPE *pSoldier, INT16 sStartGridNo, INT16 sDesiredGridNo, BOOLEAN fClimbUp )
 {
 	BUILDING *	pBuilding;
 	UINT8				ubNumClimbSpots;
@@ -468,7 +470,8 @@ INT16 FindClosestClimbPoint( INT16 sStartGridNo, INT16 sDesiredGridNo, BOOLEAN f
 	for ( ubLoop = 0; ubLoop < ubNumClimbSpots; ubLoop++ )
 	{
 		if ( (WhoIsThere2( pBuilding->sUpClimbSpots[ ubLoop ], 0 ) == NOBODY)
-			&& (WhoIsThere2( pBuilding->sDownClimbSpots[ ubLoop ], 1 ) == NOBODY) )
+			&& (WhoIsThere2( pBuilding->sDownClimbSpots[ ubLoop ], 1 ) == NOBODY) &&
+			(!pSoldier || !InGas( pSoldier, psClimbSpots[ ubLoop] ) ) )
 		{
 			sDistance = PythSpacesAway( sStartGridNo, psClimbSpots[ ubLoop ] );
 			if (sDistance < sClosestDistance )

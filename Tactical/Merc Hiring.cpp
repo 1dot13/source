@@ -138,7 +138,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 			memset( &Object, 0, sizeof( OBJECTTYPE ) );
 			Object.usItem						= LETTER;
 			Object.ubNumberOfObjects = 1;
-			Object.bStatus[0]				= 100;
+			Object.ItemData.Generic.bStatus[0]				= 100;
 			// Give it 
 			fReturn = AutoPlaceObject( MercPtrs[iNewIndex], &Object, FALSE );
 			Assert( fReturn );

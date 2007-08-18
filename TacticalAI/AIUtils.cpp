@@ -101,7 +101,7 @@ INT8 OKToAttack(SOLDIERTYPE * pSoldier, int target)
 				return(NOSHOOT_NOLOAD);
 			}
 		}
-		else if (pSoldier->inv[HANDPOS].ubGunShotsLeft == 0 /*SB*/ || !(pSoldier->inv[HANDPOS].ubGunState & GS_CARTRIDGE_IN_CHAMBER))		
+		else if (pSoldier->inv[HANDPOS].ItemData.Gun.ubGunShotsLeft == 0 /*SB*/ || !(pSoldier->inv[HANDPOS].ItemData.Gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER))		
 		{
 			return(NOSHOOT_NOAMMO);
 		}
@@ -1354,7 +1354,7 @@ INT16 FindClosestClimbPointAvailableToAI( SOLDIERTYPE * pSoldier, INT16 sStartGr
 	// since climbing necessary involves going an extra tile, we compare against 1 less than the roam range... 
 	// or add 1 to the distance to the climb point
 
-	sGridNo = FindClosestClimbPoint( sStartGridNo, sDesiredGridNo, fClimbUp );
+	sGridNo = FindClosestClimbPoint( pSoldier, sStartGridNo, sDesiredGridNo, fClimbUp );
 
 
 	if ( PythSpacesAway( sRoamingOrigin, sGridNo ) + 1 > sRoamingRange )

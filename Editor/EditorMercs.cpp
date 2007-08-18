@@ -2767,7 +2767,7 @@ void AddNewItemToSelectedMercsInventory( BOOLEAN fCreate )
 
 		//randomize the status on non-ammo items.
 		if( !(Item[ gpSelected->pDetailedPlacement->Inv[ gbMercSlotTypes[ gbCurrSelect ] ].usItem ].usItemClass & IC_AMMO) )
-			gpSelected->pDetailedPlacement->Inv[ gbMercSlotTypes[ gbCurrSelect ] ].bStatus[0] = (INT8)(80 + Random( 21 ));
+			gpSelected->pDetailedPlacement->Inv[ gbMercSlotTypes[ gbCurrSelect ] ].ItemData.Generic.bStatus[0] = (INT8)(80 + Random( 21 ));
 
 		if( gusMercsNewItemIndex )
 		{

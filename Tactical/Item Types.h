@@ -84,21 +84,21 @@ typedef struct
 			INT8		bGunAmmoStatus; // only for "attached ammo" - grenades, mortar shells
 			UINT8		ubGunState; // SB manual recharge
 			UINT8		ubGunUnused[MAX_OBJECTS_PER_SLOT - 6];
-		};
+		} Gun;
 		struct
 		{
 			UINT8		ubShotsLeft[MAX_OBJECTS_PER_SLOT];
-		};
+		} Ammo;
 		struct
 		{
 			INT8		bStatus[MAX_OBJECTS_PER_SLOT];
-		};		
+		} Generic;		
 		struct
 		{
 			INT8		bMoneyStatus;
 			UINT32	uiMoneyAmount;
 			UINT8		ubMoneyUnused[MAX_OBJECTS_PER_SLOT - 5];
-		};
+		} Money;
 		struct
 		{ // this is used by placed bombs, switches, and the action item
 			INT8		bBombStatus;			// % status
@@ -106,42 +106,42 @@ typedef struct
 			UINT16	usBombItem;				// the usItem of the bomb.
 			union
 			{
-				struct
-				{
+				//struct
+				//{
 					INT8		bDelay;				// >=0 values used only
-				};
-				struct
-				{
+				//};
+				//struct
+				//{
 					INT8		bFrequency;		// >=0 values used only
-				};
-			};
+				//};
+			} BombTrigger;
 			UINT8 ubBombOwner; // side which placed the bomb
 			UINT8	bActionValue;// this is used by the ACTION_ITEM fake item
 			union
 			{
-				struct
-				{
+				//struct
+				//{
 					UINT8 ubTolerance; // tolerance value for panic triggers
-				};
-				struct 
-				{
+				//};
+				//struct 
+				//{
 					UINT8 ubLocationID; // location value for remote non-bomb (special!) triggers
-				};
-			};		
-		};
+				//};
+			} Area;
+		} Trigger;
 		struct
 		{
 			INT8 bKeyStatus[ 6 ];
 			UINT8 ubKeyID;
 			UINT8 ubKeyUnused[1];
-		};
+		} Key;
 		struct
 		{
 			UINT8 ubOwnerProfile;
 			UINT8 ubOwnerCivGroup;
 			UINT8 ubOwnershipUnused[6];
-		};
-	};
+		} Owner;
+	} ItemData;
   // attached objects
 	UINT16	usAttachItem[MAX_ATTACHMENTS];
 	INT8		bAttachStatus[MAX_ATTACHMENTS];

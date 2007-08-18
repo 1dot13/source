@@ -1516,7 +1516,7 @@ BOOLEAN GetObjFromInventoryStashSlot( OBJECTTYPE *pInventorySlot, OBJECTTYPE *pI
 		pItemPtr->usItem = pInventorySlot->usItem;
 
 		// find first unempty slot
-		pItemPtr->bStatus[0] = pInventorySlot->bStatus[0];
+		pItemPtr->ItemData.Generic.bStatus[0] = pInventorySlot->ItemData.Generic.bStatus[0];
 		pItemPtr->ubNumberOfObjects = 1;
 		pItemPtr->ubWeight = CalculateObjectWeight( pItemPtr );
 		RemoveObjFrom( pInventorySlot, 0 );
@@ -1573,7 +1573,7 @@ BOOLEAN PlaceObjectInInventoryStash( OBJECTTYPE *pInventorySlot, OBJECTTYPE *pIt
 			// in the InSlot copy, zero out all the objects we didn't drop
 			for (ubLoop = ubNumberToDrop; ubLoop < pItemPtr->ubNumberOfObjects; ubLoop++)
 			{
-				pInventorySlot->bStatus[ubLoop] = 0;
+				pInventorySlot->ItemData.Generic.bStatus[ubLoop] = 0;
 			}
 		}
 		pInventorySlot->ubNumberOfObjects = ubNumberToDrop;
@@ -1594,8 +1594,8 @@ BOOLEAN PlaceObjectInInventoryStash( OBJECTTYPE *pInventorySlot, OBJECTTYPE *pIt
 			{
 				// always allow money to be combined!
 				// average out the status values using a weighted average...
-				pInventorySlot->bStatus[0] = (INT8) ( ( (UINT32)pInventorySlot->bMoneyStatus * pInventorySlot->uiMoneyAmount + (UINT32)pItemPtr->bMoneyStatus * pItemPtr->uiMoneyAmount )/ (pInventorySlot->uiMoneyAmount + pItemPtr->uiMoneyAmount) );
-				pInventorySlot->uiMoneyAmount += pItemPtr->uiMoneyAmount;
+				pInventorySlot->ItemData.Generic.bStatus[0] = (INT8) ( ( (UINT32)pInventorySlot->ItemData.Money.bMoneyStatus * pInventorySlot->ItemData.Money.uiMoneyAmount + (UINT32)pItemPtr->ItemData.Money.bMoneyStatus * pItemPtr->ItemData.Money.uiMoneyAmount )/ (pInventorySlot->ItemData.Money.uiMoneyAmount + pItemPtr->ItemData.Money.uiMoneyAmount) );
+				pInventorySlot->ItemData.Money.uiMoneyAmount += pItemPtr->ItemData.Money.uiMoneyAmount;
 
 				DeleteObj( pItemPtr );
 			}
@@ -1654,7 +1654,7 @@ BOOLEAN AutoPlaceObjectInInventoryStash( OBJECTTYPE *pItemPtr )
 		// in the InSlot copy, zero out all the objects we didn't drop
 		for (ubLoop = ubNumberToDrop; ubLoop < pItemPtr->ubNumberOfObjects; ubLoop++)
 		{
-			pInventorySlot->bStatus[ubLoop] = 0;
+			pInventorySlot->ItemData.Generic.bStatus[ubLoop] = 0;
 		}
 	}
 	pInventorySlot->ubNumberOfObjects = ubNumberToDrop;
@@ -2238,8 +2238,8 @@ INT32 MapScreenSectorInventoryCompare( const void *pNum1, const void *pNum2)
 	usItem1Index = pFirst->o.usItem;
 	usItem2Index = pSecond->o.usItem;
 
-	ubItem1Quality = pFirst->o.bStatus[ 0 ];
-	ubItem2Quality = pSecond->o.bStatus[ 0 ];
+	ubItem1Quality = pFirst->o.ItemData.Generic.bStatus[ 0 ];
+	ubItem2Quality = pSecond->o.ItemData.Generic.bStatus[ 0 ];
 
 	return( CompareItemsForSorting( usItem1Index, usItem2Index, ubItem1Quality, ubItem2Quality ) );
 }
@@ -2282,6 +2282,10 @@ void DeleteAllItemsInInventoryPool()
 
 	ClearUpTempUnSeenList( );
 	SaveSeenAndUnseenItems();
+
+	iCurrentInventoryPoolPage = 0;
+	iLastInventoryPoolPage = 0;
+
 	DestroyStash();
 	BuildStashForSelectedSector( sSelMapX, sSelMapY, iCurrentMapSectorZ);
 }
@@ -2315,7 +2319,7 @@ INT32 SellItem( OBJECTTYPE& object )
 		UINT8 magSize = Magazine[ Item[ usItemType ].ubClassIndex ].ubMagSize;
 		for (INT8 bLoop = 0; bLoop < object.ubNumberOfObjects; bLoop++)
 		{
-			iPrice += (INT32)( itemPrice * (float) object.ubShotsLeft[bLoop] / magSize );
+			iPrice += (INT32)( itemPrice * (float) object.ItemData.Ammo.ubShotsLeft[bLoop] / magSize );
 		}
 	}
 	else
@@ -2323,7 +2327,7 @@ INT32 SellItem( OBJECTTYPE& object )
 		//we are selling a gun or something - it could be stacked or single, and each one could have attachments
 		for (INT8 bLoop = 0; bLoop < object.ubNumberOfObjects; bLoop++)
 		{
-			iPrice += ( itemPrice * object.bStatus[bLoop] / 100 );
+			iPrice += ( itemPrice * object.ItemData.Generic.bStatus[bLoop] / 100 );
 
 			for (INT8 numAttachments = 0; numAttachments < MAX_ATTACHMENTS; numAttachments++)
 			{

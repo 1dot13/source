@@ -144,7 +144,7 @@ void PickBurstLocations( SOLDIERTYPE *pSoldier )
 				pSoldier->bDoAutofire++;
 				sAPCosts = CalcTotalAPsToAttack( pSoldier, gsBurstLocations[0].sGridNo, TRUE, 0);
 			}
-			while(EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) && pSoldier->inv[ pSoldier->ubAttackingHand ].ubGunShotsLeft >= pSoldier->bDoAutofire && gbNumBurstLocations >= pSoldier->bDoAutofire);
+			while(EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) && pSoldier->inv[ pSoldier->ubAttackingHand ].ItemData.Gun.ubGunShotsLeft >= pSoldier->bDoAutofire && gbNumBurstLocations >= pSoldier->bDoAutofire);
 			pSoldier->bDoAutofire--;
 
 			ubShotsPerBurst = __min(pSoldier->bDoAutofire,MAX_BURST_SPREAD_TARGETS);

@@ -1626,7 +1626,7 @@ BOOLEAN EnoughAmmo( SOLDIERTYPE *pSoldier, BOOLEAN fDisplay, INT8 bInvPos )
 			}
 			else if (Item[ pSoldier->inv[ bInvPos ].usItem ].usItemClass == IC_GUN)
 			{
-				if ( pSoldier->inv[ bInvPos ].ubGunShotsLeft == 0 )
+				if ( pSoldier->inv[ bInvPos ].ItemData.Gun.ubGunShotsLeft == 0 )
 				{
 					if ( fDisplay )
 					{
@@ -1638,7 +1638,7 @@ BOOLEAN EnoughAmmo( SOLDIERTYPE *pSoldier, BOOLEAN fDisplay, INT8 bInvPos )
 				//<SB> manual recharge
 				if( pSoldier->bTeam == OUR_TEAM )
 				{
-					if ( !(	pSoldier->inv[ bInvPos ].ubGunState & GS_CARTRIDGE_IN_CHAMBER ) )
+					if ( !(	pSoldier->inv[ bInvPos ].ItemData.Gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER ) )
 					{
 						return( FALSE );
 					}
@@ -1677,11 +1677,11 @@ void DeductAmmo( SOLDIERTYPE *pSoldier, INT8 bInvPos )
 			if ( pSoldier->usAttackingWeapon == pObj->usItem)
 			{
 				// OK, let's see, don't overrun...
-				if ( pObj->ubGunShotsLeft != 0 )
+				if ( pObj->ItemData.Gun.ubGunShotsLeft != 0 )
 				{
-					pObj->ubGunShotsLeft--;
+					pObj->ItemData.Gun.ubGunShotsLeft--;
 					//Pulmu: Update weight after firing gun to account for bullets fired
-					if( gGameExternalOptions.fAmmoDynamicWeight == TRUE && pObj->ubGunShotsLeft > 0)
+					if( gGameExternalOptions.fAmmoDynamicWeight == TRUE && pObj->ItemData.Gun.ubGunShotsLeft > 0)
 					{
 						pSoldier->inv[HANDPOS].ubWeight = CalculateObjectWeight( &(pSoldier->inv[HANDPOS]));
 					}
@@ -1823,7 +1823,7 @@ INT8 GetAPsToAutoReload( SOLDIERTYPE * pSoldier )
 	pObj = &(pSoldier->inv[HANDPOS]);
 
 	//<SB> manual recharge
-	if (pObj->ubGunShotsLeft && !(pObj->ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
+	if (pObj->ItemData.Gun.ubGunShotsLeft && !(pObj->ItemData.Gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
 	{
 		return Weapon[Item[(pObj)->usItem].ubClassIndex].APsToReloadManually;
 	}

@@ -764,7 +764,7 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 		for( ubObjectInPocketCounter = 0; ubObjectInPocketCounter < ubItemsInPocket; ubObjectInPocketCounter++ )
 		{
 			// jammed gun?
-			if ( ( Item[ pSoldier -> inv[ bPocket ].usItem ].usItemClass == IC_GUN ) && ( pSoldier -> inv[ bPocket ].bGunAmmoStatus < 0 ) )
+			if ( ( Item[ pSoldier -> inv[ bPocket ].usItem ].usItemClass == IC_GUN ) && ( pSoldier -> inv[ bPocket ].ItemData.Gun.bGunAmmoStatus < 0 ) )
 			{
 				return( TRUE );
 			}
@@ -782,7 +782,7 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 		for( ubObjectInPocketCounter = 0; ubObjectInPocketCounter < ubItemsInPocket; ubObjectInPocketCounter++ )
 		{
 			// if it's repairable and NEEDS repairing
-			if ( IsItemRepairable( pObj->usItem, pObj->bStatus[ubObjectInPocketCounter] ) )
+			if ( IsItemRepairable( pObj->usItem, pObj->ItemData.Generic.bStatus[ubObjectInPocketCounter] ) )
 			{
 				return( TRUE );
 			}				
@@ -818,7 +818,7 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 				for ( bPocket = HANDPOS; bPocket <= SMALLPOCK8POS; bPocket++ )
 				{
 					// the object a weapon? and jammed?
-					if ( ( Item[ pOtherSoldier->inv[ bPocket ].usItem ].usItemClass == IC_GUN ) && ( pOtherSoldier->inv[ bPocket ].bGunAmmoStatus < 0 ) )
+					if ( ( Item[ pOtherSoldier->inv[ bPocket ].usItem ].usItemClass == IC_GUN ) && ( pOtherSoldier->inv[ bPocket ].ItemData.Gun.bGunAmmoStatus < 0 ) )
 					{
 						return( TRUE );
 					}
@@ -2981,7 +2981,7 @@ INT8 FindRepairableItemOnOtherSoldier( SOLDIERTYPE * pSoldier, UINT8 ubPassType 
 		pObj = &( pSoldier->inv[ bSlotToCheck ] );
 		for ( bLoop2 = 0; bLoop2 < pSoldier->inv[ bSlotToCheck ].ubNumberOfObjects; bLoop2++ )
 		{
-			if ( IsItemRepairable( pObj->usItem, pObj->bStatus[bLoop2] ) )
+			if ( IsItemRepairable( pObj->usItem, pObj->ItemData.Generic.bStatus[bLoop2] ) )
 			{
 				return( bSlotToCheck );
 			}
@@ -3074,16 +3074,16 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 	for ( ubLoop = 0; ubLoop < ubItemsInPocket; ubLoop++ )
 	{
 		// if it's repairable and NEEDS repairing
-		if ( IsItemRepairable( pObj->usItem, pObj->bStatus[ubLoop] ) )
+		if ( IsItemRepairable( pObj->usItem, pObj->ItemData.Generic.bStatus[ubLoop] ) )
 		{
 			// repairable, try to repair it
 
 			//void DoActualRepair( SOLDIERTYPE * pSoldier, UINT16 usItem, INT8 * pbStatus, UINT8 * pubRepairPtsLeft )
-			DoActualRepair( pSoldier, pObj->usItem, &(pObj->bStatus[ ubLoop ]), pubRepairPtsLeft );
+			DoActualRepair( pSoldier, pObj->usItem, &(pObj->ItemData.Generic.bStatus[ ubLoop ]), pubRepairPtsLeft );
 
 			fSomethingWasRepaired = TRUE;
 
-			if ( pObj->bStatus[ ubLoop ] == 100 )
+			if ( pObj->ItemData.Generic.bStatus[ ubLoop ] == 100 )
 			{
 				// report it as fixed
 				if ( pSoldier == pOwner )
@@ -11545,13 +11545,13 @@ BOOLEAN UnjamGunsOnSoldier( SOLDIERTYPE *pOwnerSoldier, SOLDIERTYPE *pRepairSold
 	for (bPocket = HANDPOS; bPocket <= SMALLPOCK8POS; bPocket++)
 	{
 		// the object a weapon? and jammed?
-		if ( ( Item[ pOwnerSoldier->inv[ bPocket ].usItem ].usItemClass == IC_GUN ) && ( pOwnerSoldier->inv[ bPocket ].bGunAmmoStatus < 0 ) )
+		if ( ( Item[ pOwnerSoldier->inv[ bPocket ].usItem ].usItemClass == IC_GUN ) && ( pOwnerSoldier->inv[ bPocket ].ItemData.Gun.bGunAmmoStatus < 0 ) )
 		{
 			if ( *pubRepairPtsLeft >= gGameExternalOptions.ubRepairCostPerJam )
 			{
 				*pubRepairPtsLeft -= gGameExternalOptions.ubRepairCostPerJam;
 
-				pOwnerSoldier->inv [ bPocket ].bGunAmmoStatus *= -1;
+				pOwnerSoldier->inv [ bPocket ].ItemData.Gun.bGunAmmoStatus *= -1;
 
 				// MECHANICAL/DEXTERITY GAIN: Unjammed a gun
 				StatChange( pRepairSoldier, MECHANAMT, 5, FALSE );

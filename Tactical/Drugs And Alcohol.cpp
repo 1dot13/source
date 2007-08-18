@@ -178,12 +178,12 @@ BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject )
 		if ( ubDrugType == DRUG_TYPE_REGENERATION )
 		{
 			// each use of a regen booster over 1, each day, reduces the effect
-			bRegenPointsGained = REGEN_POINTS_PER_BOOSTER * pObject->bStatus[0] / 100;
+			bRegenPointsGained = REGEN_POINTS_PER_BOOSTER * pObject->ItemData.Generic.bStatus[0] / 100;
 			// are there fractional %s left over?
-			if ( ( pObject->bStatus[0] % (100 / REGEN_POINTS_PER_BOOSTER ) ) != 0 )
+			if ( ( pObject->ItemData.Generic.bStatus[0] % (100 / REGEN_POINTS_PER_BOOSTER ) ) != 0 )
 			{
 				// chance of an extra point
-				if ( PreRandom( 100 / REGEN_POINTS_PER_BOOSTER ) < (UINT32) ( pObject->bStatus[0] % (100 / REGEN_POINTS_PER_BOOSTER ) ) )
+				if ( PreRandom( 100 / REGEN_POINTS_PER_BOOSTER ) < (UINT32) ( pObject->ItemData.Generic.bStatus[0] % (100 / REGEN_POINTS_PER_BOOSTER ) ) )
 				{
 					bRegenPointsGained++;
 				}

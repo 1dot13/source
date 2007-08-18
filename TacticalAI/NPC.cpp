@@ -823,7 +823,7 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 		case MONEY:
 		case SILVER:
 		case GOLD:
-			if (pObj->uiMoneyAmount < LARGE_AMOUNT_MONEY)
+			if (pObj->ItemData.Money.uiMoneyAmount < LARGE_AMOUNT_MONEY)
 			{
 				SetFactTrue( FACT_SMALL_AMOUNT_OF_MONEY );
 			}
@@ -841,7 +841,7 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 			break;
 	}
 
-	if (pObj->bStatus[0] < 50)
+	if (pObj->ItemData.Generic.bStatus[0] < 50)
 	{
 		SetFactTrue( FACT_ITEM_POOR_CONDITION );
 	}
@@ -865,14 +865,14 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 					case DARREN:
 						if (usItemToConsider == MONEY && pNPCQuoteInfo->sActionData == NPC_ACTION_DARREN_GIVEN_CASH)
 						{
-							if (pObj->uiMoneyAmount < 1000)
+							if (pObj->ItemData.Money.uiMoneyAmount < 1000)
 							{
 								// refuse, bet too low - record 15
 								(*ppResultQuoteInfo) = &pNPCQuoteInfoArray[15];
 								(*pubQuoteNum)       = 15;
 								return( (*ppResultQuoteInfo)->ubOpinionRequired );
 							}
-							else if (pObj->uiMoneyAmount > 5000)
+							else if (pObj->ItemData.Money.uiMoneyAmount > 5000)
 							{
 								// refuse, bet too high - record 16
 								(*ppResultQuoteInfo) = &pNPCQuoteInfoArray[16];
@@ -896,7 +896,7 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 								*/
 
 								// record amount of bet
-								gMercProfiles[ DARREN ].iBalance = pObj->uiMoneyAmount;
+								gMercProfiles[ DARREN ].iBalance = pObj->ItemData.Money.uiMoneyAmount;
 								SetFactFalse( FACT_DARREN_EXPECTING_MONEY );
 
 								// if never fought before, use record 17
@@ -943,14 +943,14 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 					case ANGEL: 
 						if (usItemToConsider == MONEY && pNPCQuoteInfo->sActionData == NPC_ACTION_ANGEL_GIVEN_CASH)
 						{
-							if (pObj->uiMoneyAmount < Item[LEATHER_JACKET_W_KEVLAR].usPrice)
+							if (pObj->ItemData.Money.uiMoneyAmount < Item[LEATHER_JACKET_W_KEVLAR].usPrice)
 							{
 								// refuse, bet too low - record 8
 								(*ppResultQuoteInfo) = &pNPCQuoteInfoArray[8];
 								(*pubQuoteNum)       = 8;
 								return( (*ppResultQuoteInfo)->ubOpinionRequired );
 							}
-							else if (pObj->uiMoneyAmount > Item[LEATHER_JACKET_W_KEVLAR].usPrice)
+							else if (pObj->ItemData.Money.uiMoneyAmount > Item[LEATHER_JACKET_W_KEVLAR].usPrice)
 							{
 								// refuse, bet too high - record 9
 								(*ppResultQuoteInfo) = &pNPCQuoteInfoArray[9];
@@ -976,13 +976,13 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 								(*pubQuoteNum)       = 5;
 								return( (*ppResultQuoteInfo)->ubOpinionRequired );							
 							}
-							switch( pObj->uiMoneyAmount )
+							switch( pObj->ItemData.Money.uiMoneyAmount )
 							{
 								case 100:
 								case 200: // Carla
 									if ( CheckFact( FACT_CARLA_AVAILABLE, 0 ) )
 									{
-										gMercProfiles[ MADAME ].bNPCData += (INT8) (pObj->uiMoneyAmount / 100);
+										gMercProfiles[ MADAME ].bNPCData += (INT8) (pObj->ItemData.Money.uiMoneyAmount / 100);
 										TriggerNPCRecord( MADAME, 16 );
 									}
 									else
@@ -997,7 +997,7 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 								case 1000: // Cindy
 									if ( CheckFact( FACT_CINDY_AVAILABLE, 0 ) )
 									{
-										gMercProfiles[ MADAME ].bNPCData += (INT8) (pObj->uiMoneyAmount / 500);
+										gMercProfiles[ MADAME ].bNPCData += (INT8) (pObj->ItemData.Money.uiMoneyAmount / 500);
 										TriggerNPCRecord( MADAME, 17 );
 									}
 									else
@@ -1012,7 +1012,7 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 								case 600: // Bambi
 									if ( CheckFact( FACT_BAMBI_AVAILABLE, 0 ) )
 									{
-										gMercProfiles[ MADAME ].bNPCData += (INT8) (pObj->uiMoneyAmount / 300);
+										gMercProfiles[ MADAME ].bNPCData += (INT8) (pObj->ItemData.Money.uiMoneyAmount / 300);
 										TriggerNPCRecord( MADAME, 18 );
 									}
 									else
@@ -1027,7 +1027,7 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 								case 800: // Maria?									
 									if ( gubQuest[ QUEST_RESCUE_MARIA ] == QUESTINPROGRESS )
 									{
-										gMercProfiles[ MADAME ].bNPCData += (INT8) (pObj->uiMoneyAmount / 400);
+										gMercProfiles[ MADAME ].bNPCData += (INT8) (pObj->ItemData.Money.uiMoneyAmount / 400);
 										TriggerNPCRecord( MADAME, 19 );
 										break;
 									}
@@ -1072,8 +1072,8 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 								if ( CheckFact( FACT_VINCE_EXPECTING_MONEY, ubNPC ) == FALSE && gMercProfiles[ ubNPC ].iBalance < 0 && pNPCQuoteInfo->sActionData != NPC_ACTION_DONT_ACCEPT_ITEM )
 								{
 									// increment balance
-									gMercProfiles[ ubNPC ].iBalance += (INT32) pObj->uiMoneyAmount;
-									gMercProfiles[ ubNPC ].uiTotalCostToDate += pObj->uiMoneyAmount;
+									gMercProfiles[ ubNPC ].iBalance += (INT32) pObj->ItemData.Money.uiMoneyAmount;
+									gMercProfiles[ ubNPC ].uiTotalCostToDate += pObj->ItemData.Money.uiMoneyAmount;
 									if ( gMercProfiles[ ubNPC ].iBalance > 0 )
 									{
 										gMercProfiles[ ubNPC ].iBalance = 0;
@@ -1096,7 +1096,7 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 								else
 								{
 									// handle the player giving NPC some money
-									HandleNPCBeingGivenMoneyByPlayer( ubNPC, pObj->uiMoneyAmount, pubQuoteNum );
+									HandleNPCBeingGivenMoneyByPlayer( ubNPC, pObj->ItemData.Money.uiMoneyAmount, pubQuoteNum );
 									(*ppResultQuoteInfo) = &pNPCQuoteInfoArray[ *pubQuoteNum ];
 									return( (*ppResultQuoteInfo)->ubOpinionRequired );
 								}
@@ -1104,7 +1104,7 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 							else
 							{
 								// handle the player giving NPC some money
-								HandleNPCBeingGivenMoneyByPlayer( ubNPC, pObj->uiMoneyAmount, pubQuoteNum );
+								HandleNPCBeingGivenMoneyByPlayer( ubNPC, pObj->ItemData.Money.uiMoneyAmount, pubQuoteNum );
 								(*ppResultQuoteInfo) = &pNPCQuoteInfoArray[ *pubQuoteNum ];
 								return( (*ppResultQuoteInfo)->ubOpinionRequired );
 							}
@@ -1113,7 +1113,7 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 					case KINGPIN:
 						if ( usItemToConsider == MONEY && gubQuest[ QUEST_KINGPIN_MONEY ] == QUESTINPROGRESS )
 						{
-							HandleNPCBeingGivenMoneyByPlayer( ubNPC, pObj->uiMoneyAmount, pubQuoteNum );
+							HandleNPCBeingGivenMoneyByPlayer( ubNPC, pObj->ItemData.Money.uiMoneyAmount, pubQuoteNum );
 							(*ppResultQuoteInfo) = &pNPCQuoteInfoArray[ *pubQuoteNum ];
 							return( (*ppResultQuoteInfo)->ubOpinionRequired );
 						}
@@ -1124,8 +1124,8 @@ UINT8 NPCConsiderReceivingItemFromMerc( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * 
 							if ( gMercProfiles[ ubNPC ].iBalance < 0 && pNPCQuoteInfo->sActionData != NPC_ACTION_DONT_ACCEPT_ITEM )
 							{
 								// increment balance
-								gMercProfiles[ ubNPC ].iBalance += (INT32) pObj->uiMoneyAmount;
-								gMercProfiles[ ubNPC ].uiTotalCostToDate += pObj->uiMoneyAmount;
+								gMercProfiles[ ubNPC ].iBalance += (INT32) pObj->ItemData.Money.uiMoneyAmount;
+								gMercProfiles[ ubNPC ].uiTotalCostToDate += pObj->ItemData.Money.uiMoneyAmount;
 								if ( gMercProfiles[ ubNPC ].iBalance > 0 )
 								{
 									gMercProfiles[ ubNPC ].iBalance = 0;

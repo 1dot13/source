@@ -5661,7 +5661,7 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				//usOldItemIndex = gpSMCurrentMerc->inv[ uiHandPos ].usItem;
 				//usNewItemIndex = gpItemPointer->usItem;
 
-				if ( gpItemPopupSoldier->pKeyRing[ uiKeyRing ].ubKeyID == INVALID_KEY_NUMBER || gpItemPopupSoldier->pKeyRing[ uiKeyRing ].ubKeyID == gpItemPointer->ubKeyID)
+				if ( gpItemPopupSoldier->pKeyRing[ uiKeyRing ].ubKeyID == INVALID_KEY_NUMBER || gpItemPopupSoldier->pKeyRing[ uiKeyRing ].ubKeyID == gpItemPointer->ItemData.Key.ubKeyID)
 				{
 					// Try to place here
 					if ( ( iNumberOfKeysTaken = AddKeysToSlot( gpItemPopupSoldier, ( INT8 )uiKeyRing, gpItemPointer ) ) )
@@ -5904,7 +5904,7 @@ void SMInvMoneyButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		    guiPendingOverrideEvent = A_CHANGE_TO_MOVE;
 		    HandleTacticalUI( );
 
-				swprintf( zMoney, L"%d", gpItemPointer->uiMoneyAmount );
+				swprintf( zMoney, L"%d", gpItemPointer->ItemData.Money.uiMoneyAmount );
 
 				InsertCommasForDollarFigure( zMoney );
 				InsertDollarSignInToString( zMoney );
@@ -5949,7 +5949,7 @@ void ConfirmationToDepositMoneyToPlayersAccount( UINT8 ubExitValue )
 	if ( ubExitValue == MSG_BOX_RETURN_YES )
 	{
 		//add the money to the players account
-		AddTransactionToPlayersBook( MERC_DEPOSITED_MONEY_TO_PLAYER_ACCOUNT, gpSMCurrentMerc->ubProfile, GetWorldTotalMin(), gpItemPointer->uiMoneyAmount );
+		AddTransactionToPlayersBook( MERC_DEPOSITED_MONEY_TO_PLAYER_ACCOUNT, gpSMCurrentMerc->ubProfile, GetWorldTotalMin(), gpItemPointer->ItemData.Money.uiMoneyAmount );
 
 		// dirty shopkeeper
 		gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;

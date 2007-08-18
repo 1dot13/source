@@ -984,7 +984,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 					pSoldier->usActionData = FindClosestClimbPoint(pSoldier, fUp );
 					// Added the check here because sniper militia who are locked inside of a building without keys
 					// will still have a >100% chance to want to climb, which means an infinite loop.  In fact, any
-					// time a move is desired, there is also probably be a need to check for a path.
+					// time a move is desired, there probably also will be a need to check for a path.
 					if ( pSoldier->usActionData != NOWHERE &&
 						LegalNPCDestination(pSoldier,pSoldier->usActionData,ENSURE_PATH,WATEROK, 0 ))
 					{
@@ -1525,8 +1525,11 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 		return AI_ACTION_SEEK_NOISE ;
 	}
 
-
-	if ( !( pSoldier->bTeam == CIV_TEAM && pSoldier->ubProfile != NO_PROFILE && pSoldier->ubProfile != ELDIN ) )
+	// Hmmm, I don't think this check is doing what is intended.  But then I see no comment about what is intended.
+	// However, civilians with no profile (and likely no weapons) do not need to be seeking out noises.  Most don't
+	// even have the body type for it (can't climb or jump).
+	//if ( !( pSoldier->bTeam == CIV_TEAM && pSoldier->ubProfile != NO_PROFILE && pSoldier->ubProfile != ELDIN ) )
+	if ( pSoldier->bTeam != CIV_TEAM || ( pSoldier->ubProfile != NO_PROFILE && pSoldier->ubProfile != ELDIN ) )
 	{
 		// IF WE ARE MILITIA/CIV IN REALTIME, CLOSE TO NOISE, AND CAN SEE THE SPOT WHERE THE NOISE CAME FROM, FORGET IT
 		if ( fReachable && !fClimb && !gfTurnBasedAI && (pSoldier->bTeam == MILITIA_TEAM || pSoldier->bTeam == CIV_TEAM )&& PythSpacesAway( pSoldier->sGridNo, sNoiseGridNo ) < 5 )
@@ -1619,7 +1622,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 						}
 						else
 						{
-							pSoldier->usActionData = FindClosestClimbPoint(pSoldier->sGridNo , sNoiseGridNo , fUp );
+							pSoldier->usActionData = FindClosestClimbPoint(pSoldier, pSoldier->sGridNo , sNoiseGridNo , fUp );
 							if ( pSoldier->usActionData != NOWHERE )
 							{
 								return( AI_ACTION_MOVE_TO_CLIMB  );
@@ -1759,7 +1762,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 						}
 						else
 						{
-							pSoldier->usActionData = FindClosestClimbPoint(pSoldier->sGridNo , sClosestFriend , fUp );
+							pSoldier->usActionData = FindClosestClimbPoint(pSoldier, pSoldier->sGridNo , sClosestFriend , fUp );
 							if ( pSoldier->usActionData != NOWHERE )
 							{
 								return( AI_ACTION_MOVE_TO_CLIMB  );
@@ -2293,7 +2296,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				ubBurstAPs = CalcAPsToAutofire( CalcActionPoints( pSoldier ), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire );
 			}
 			while(	pSoldier->bActionPoints >= BestShot.ubAPCost + ubBurstAPs &&
-				pSoldier->inv[ pSoldier->ubAttackingHand ].ubGunShotsLeft >= pSoldier->bDoAutofire &&
+				pSoldier->inv[ pSoldier->ubAttackingHand ].ItemData.Gun.ubGunShotsLeft >= pSoldier->bDoAutofire &&
 				GetAutoPenalty(&pSoldier->inv[ pSoldier->ubAttackingHand ], gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)*pSoldier->bDoAutofire <= 80 );
 
 
@@ -2779,7 +2782,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 								}
 								else
 								{
-									pSoldier->usActionData = FindClosestClimbPoint(pSoldier->sGridNo , sClosestDisturbance , fUp );
+									pSoldier->usActionData = FindClosestClimbPoint(pSoldier, pSoldier->sGridNo , sClosestDisturbance , fUp );
 									if ( pSoldier->usActionData != NOWHERE )
 									{
 										return( AI_ACTION_MOVE_TO_CLIMB  );
@@ -2993,7 +2996,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 								}
 								else
 								{
-									pSoldier->usActionData = FindClosestClimbPoint(pSoldier->sGridNo , sClosestFriend , fUp );
+									pSoldier->usActionData = FindClosestClimbPoint(pSoldier, pSoldier->sGridNo , sClosestFriend , fUp );
 									if ( pSoldier->usActionData != NOWHERE )
 									{
 										return( AI_ACTION_MOVE_TO_CLIMB  );
@@ -3796,7 +3799,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 			}
 
 			// now it better be a gun, or the guy can't shoot (but has other attack(s))
-			if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN && pSoldier->inv[HANDPOS].bGunStatus >= USABLE)
+			if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN && pSoldier->inv[HANDPOS].ItemData.Gun.bGunStatus >= USABLE)
 			{
 				// get the minimum cost to attack the same target with this gun
 				ubMinAPCost = MinAPsToAttack(pSoldier,pSoldier->sLastTarget,ADDTURNCOST);
@@ -4319,7 +4322,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 
 			if (IsGunBurstCapable( pSoldier, BestAttack.bWeaponIn, FALSE ) &&
 				!(Menptr[BestShot.ubOpponent].bLife < OKLIFE) && // don't burst at downed targets
-				pSoldier->inv[BestAttack.bWeaponIn].ubGunShotsLeft > 1 &&
+				pSoldier->inv[BestAttack.bWeaponIn].ItemData.Gun.ubGunShotsLeft > 1 &&
 				(pSoldier->bTeam != gbPlayerNum || pSoldier->bRTPCombat == RTP_COMBAT_AGGRESSIVE) )
 			{
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack: ENOUGH APs TO BURST, RANDOM CHANCE OF DOING SO");
@@ -4347,7 +4350,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 						case ATTACKSLAYONLY:iChance += 30; break;
 						}
 
-						if ( pSoldier->inv[BestAttack.bWeaponIn].ubGunShotsLeft > 50 )
+						if ( pSoldier->inv[BestAttack.bWeaponIn].ItemData.Gun.ubGunShotsLeft > 50 )
 							iChance += 20;
 
 						// increase chance based on proximity and difficulty of enemy
@@ -4382,7 +4385,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 
 			if (IsGunAutofireCapable( pSoldier, BestAttack.bWeaponIn ) &&
 				!(Menptr[BestShot.ubOpponent].bLife < OKLIFE) && // don't burst at downed targets
-				(( pSoldier->inv[BestAttack.bWeaponIn].ubGunShotsLeft > 1 &&
+				(( pSoldier->inv[BestAttack.bWeaponIn].ItemData.Gun.ubGunShotsLeft > 1 &&
 				BestAttack.ubAimTime != BURSTING ) || Weapon[pSoldier->inv[BestAttack.bWeaponIn].usItem].NoSemiAuto) )
 			{
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack: ENOUGH APs TO AUTOFIRE, RANDOM CHANCE OF DOING SO");
@@ -4393,7 +4396,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 					ubBurstAPs = CalcAPsToAutofire( CalcActionPoints( pSoldier ), &(pSoldier->inv[BestAttack.bWeaponIn]), pSoldier->bDoAutofire );
 				}
 				while(	pSoldier->bActionPoints >= BestAttack.ubAPCost + ubBurstAPs &&
-					pSoldier->inv[ pSoldier->ubAttackingHand ].ubGunShotsLeft >= pSoldier->bDoAutofire &&
+					pSoldier->inv[ pSoldier->ubAttackingHand ].ItemData.Gun.ubGunShotsLeft >= pSoldier->bDoAutofire &&
 					GetAutoPenalty(&pSoldier->inv[ BestAttack.bWeaponIn ], gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)*pSoldier->bDoAutofire <= 80);
 
 
@@ -4425,7 +4428,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 							}
 
 
-							if ( pSoldier->inv[BestAttack.bWeaponIn].ubGunShotsLeft > 50 )
+							if ( pSoldier->inv[BestAttack.bWeaponIn].ItemData.Gun.ubGunShotsLeft > 50 )
 								iChance += 30;
 
 							if ( bInGas )

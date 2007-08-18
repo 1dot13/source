@@ -5230,7 +5230,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 								SOLDIERTYPE *pSoldier = MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ];
 								if ( pSoldier->inv[ HANDPOS ].usItem != 0 )
 								{
-									pSoldier->inv[ HANDPOS ].bStatus[ 0 ] = 2;
+									pSoldier->inv[ HANDPOS ].ItemData.Generic.bStatus[ 0 ] = 2;
 								}
 							}
 						}

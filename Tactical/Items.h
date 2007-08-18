@@ -60,6 +60,7 @@ extern UINT16 DefaultMagazine( UINT16 usItem );
 UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard );
 UINT16 RandomMagazine( OBJECTTYPE * pGun, UINT8 ubPercentStandard );
 extern BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo );
+extern BOOLEAN UnloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun); 
 
 UINT8 ItemSlotLimit( UINT16 usItem, INT8 bSlot );
 

@@ -2587,13 +2587,13 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							if (( Item[ gWorldItems[ uiLoop ].o.usItem ].usItemClass == IC_GUN ) && (gGameExternalOptions.gfShiftFUnloadWeapons == TRUE) )//item is a gun and unloading is allowed
 							{										
 								//Remove magazine 
-								if ( (gWorldItems[ uiLoop ].o.usGunAmmoItem != NONE) && (gWorldItems[ uiLoop ].o.ubGunShotsLeft > 0) )
+								if ( (gWorldItems[ uiLoop ].o.ItemData.Gun.usGunAmmoItem != NONE) && (gWorldItems[ uiLoop ].o.ItemData.Gun.ubGunShotsLeft > 0) )
 								{
 									OBJECTTYPE newObj; //Create object
-									CreateItem(gWorldItems[ uiLoop ].o.usGunAmmoItem, 100, &newObj);
-									newObj.ubShotsLeft[0] = gWorldItems[ uiLoop ].o.ubGunShotsLeft;
-									gWorldItems[ uiLoop ].o.ubGunShotsLeft = 0;
-									gWorldItems[ uiLoop ].o.usGunAmmoItem = NONE;
+									CreateItem(gWorldItems[ uiLoop ].o.ItemData.Gun.usGunAmmoItem, 100, &newObj);
+									newObj.ItemData.Ammo.ubShotsLeft[0] = gWorldItems[ uiLoop ].o.ItemData.Gun.ubGunShotsLeft;
+									gWorldItems[ uiLoop ].o.ItemData.Gun.ubGunShotsLeft = 0;
+									gWorldItems[ uiLoop ].o.ItemData.Gun.usGunAmmoItem = NONE;
 
 									// put it on the ground
 									AddItemToPool( gWorldItems[ uiLoop ].sGridNo, &newObj, 1, gWorldItems[ uiLoop ].ubLevel, 0 , -1 );
@@ -3103,10 +3103,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 											tempStatus = pObj->bAttachStatus[bSlot3];
 											// Replace helmet attachment with face slot
 											pObj->usAttachItem[bSlot3] = pTeamSoldier->inv[bSlot1].usItem;
-											pObj->bAttachStatus[bSlot3] = pTeamSoldier->inv[bSlot1].bStatus[0];
+											pObj->bAttachStatus[bSlot3] = pTeamSoldier->inv[bSlot1].ItemData.Generic.bStatus[0];
 											// Replace face slot with helmet attachment from temp
 											pTeamSoldier->inv[bSlot1].usItem = tempItem;
-											pTeamSoldier->inv[bSlot1].bStatus[0] = tempStatus;
+											pTeamSoldier->inv[bSlot1].ItemData.Generic.bStatus[0] = tempStatus;
 										}
 										else if ( bSlot2 != ITEM_NOT_FOUND )
 										{
@@ -3146,10 +3146,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 											tempStatus = pObj->bAttachStatus[bSlot3];
 											// Replace helmet attachment with face slot
 											pObj->usAttachItem[bSlot3] = pTeamSoldier->inv[bSlot1].usItem;
-											pObj->bAttachStatus[bSlot3] = pTeamSoldier->inv[bSlot1].bStatus[0];
+											pObj->bAttachStatus[bSlot3] = pTeamSoldier->inv[bSlot1].ItemData.Generic.bStatus[0];
 											// Replace face slot with helmet attachment from temp
 											pTeamSoldier->inv[bSlot1].usItem = tempItem;
-											pTeamSoldier->inv[bSlot1].bStatus[0] = tempStatus;
+											pTeamSoldier->inv[bSlot1].ItemData.Generic.bStatus[0] = tempStatus;
 										}
 										else if ( bSlot2 != ITEM_NOT_FOUND )
 										{
@@ -3302,7 +3302,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 								{	
 									pGun  = &(pTeamSoldier->inv[bLoop2]);
 									//if magazine is not full
-									if ( pGun->ubGunShotsLeft < GetMagSize( pGun )  )
+									if ( pGun->ItemData.Gun.ubGunShotsLeft < GetMagSize( pGun )  )
 									{
 
 										// Search for ammo in sector
@@ -3317,12 +3317,12 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 													if ( CompatibleAmmoForGun( pAmmo, pGun ) ) // can use the ammo with this gun
 													{
 														// same ammo type in gun and magazine   
-														if ( Magazine[Item[pGun->usGunAmmoItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
+														if ( Magazine[Item[pGun->ItemData.Gun.usGunAmmoItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
 														{
 															ReloadGun( pTeamSoldier, pGun, pAmmo );
 														}
 
-														if (pAmmo->ubShotsLeft[0] == 0)
+														if (pAmmo->ItemData.Ammo.ubShotsLeft[0] == 0)
 														{														
 															RemoveItemFromPool( gWorldItems[ uiLoop ].sGridNo, uiLoop, gWorldItems[ uiLoop ].ubLevel );
 														}
@@ -3353,7 +3353,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 									pGun  = &(pTeamSoldier->inv[HANDPOS]);
 
 									//magazine is not full
-									if ( pGun->ubGunShotsLeft < GetMagSize( pGun )  )
+									if ( pGun->ItemData.Gun.ubGunShotsLeft < GetMagSize( pGun )  )
 									{
 										AutoReload( pTeamSoldier );		
 									}
@@ -3367,7 +3367,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 										{	
 											pGun  = &(pTeamSoldier->inv[bLoop2]);
 											//if magazine is not full
-											if ( pGun->ubGunShotsLeft < GetMagSize( pGun )  )
+											if ( pGun->ItemData.Gun.ubGunShotsLeft < GetMagSize( pGun )  )
 											{
 
 												// Search for ammo in soldier inventory
@@ -3380,7 +3380,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 														if ( CompatibleAmmoForGun( pAmmo, pGun ) ) // can use the ammo with this gun
 														{
 															// same ammo type in gun and magazine   
-															if ( Magazine[Item[pGun->usGunAmmoItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
+															if ( Magazine[Item[pGun->ItemData.Gun.usGunAmmoItem].ubClassIndex].ubAmmoType == Magazine[Item[pAmmo->usItem].ubClassIndex].ubAmmoType )
 															{
 																ReloadGun( pTeamSoldier, pGun, pAmmo );
 
@@ -4689,7 +4689,7 @@ void GrenadeTest1()
 	{
 		OBJECTTYPE		Object;
 		Object.usItem = MUSTARD_GRENADE;
-		Object.bStatus[ 0 ] = 100;
+		Object.ItemData.Generic.bStatus[ 0 ] = 100;
 		Object.ubNumberOfObjects = 1;
 		CreatePhysicalObject( &Object, 60,  (FLOAT)(sX * CELL_X_SIZE), (FLOAT)(sY * CELL_Y_SIZE ), 256, -20, 20, 158, NOBODY, THROW_ARM_ITEM, 0, FALSE );
 	}
@@ -4703,7 +4703,7 @@ void GrenadeTest2()
 	{
 		OBJECTTYPE		Object;
 		Object.usItem = HAND_GRENADE;
-		Object.bStatus[ 0 ] = 100;
+		Object.ItemData.Generic.bStatus[ 0 ] = 100;
 		Object.ubNumberOfObjects = 1;
 		CreatePhysicalObject( &Object, 60,  (FLOAT)(sX * CELL_X_SIZE), (FLOAT)(sY * CELL_Y_SIZE ), 256, 0, -30, 158, NOBODY, THROW_ARM_ITEM, 0, FALSE );
 	}
@@ -4717,7 +4717,7 @@ void GrenadeTest3()
 	{
 		OBJECTTYPE		Object;
 		Object.usItem = HAND_GRENADE;
-		Object.bStatus[ 0 ] = 100;
+		Object.ItemData.Generic.bStatus[ 0 ] = 100;
 		Object.ubNumberOfObjects = 1;
 		CreatePhysicalObject( &Object, 60,  (FLOAT)(sX * CELL_X_SIZE), (FLOAT)(sY * CELL_Y_SIZE ), 256, -10, 10, 158, NOBODY, THROW_ARM_ITEM, 0, FALSE );
 	}

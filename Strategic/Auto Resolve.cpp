@@ -3931,15 +3931,15 @@ BOOLEAN FireAShot( SOLDIERCELL *pAttacker )
 				PlayAutoResolveSample( Weapon[ pItem->usItem ].sSound, RATE_11025, 50, 1, MIDDLEPAN );			
 				return TRUE;
 			}
-			if( !pItem->ubGunShotsLeft )
+			if( !pItem->ItemData.Gun.ubGunShotsLeft )
 			{
 				AutoReload( pSoldier );
-				if ( pItem->ubGunShotsLeft && Weapon[ pItem->usItem ].sLocknLoadSound )
+				if ( pItem->ItemData.Gun.ubGunShotsLeft && Weapon[ pItem->usItem ].sLocknLoadSound )
 				{
 					PlayAutoResolveSample( Weapon[ pItem->usItem ].sLocknLoadSound, RATE_11025, 50, 1, MIDDLEPAN );
 				}
 			}
-			if( pItem->ubGunShotsLeft )
+			if( pItem->ItemData.Gun.ubGunShotsLeft )
 			{
 				PlayAutoResolveSample( Weapon[ pItem->usItem ].sSound, RATE_11025, 50, 1, MIDDLEPAN );			
 				if( pAttacker->uiFlags & CELL_MERC )
@@ -3949,7 +3949,7 @@ BOOLEAN FireAShot( SOLDIERCELL *pAttacker )
 
 					StatChange( pAttacker->pSoldier, MARKAMT, 3, FALSE );
 				}
-				pItem->ubGunShotsLeft--;
+				pItem->ItemData.Gun.ubGunShotsLeft--;
 				return TRUE;
 			}
 		}
@@ -3986,7 +3986,7 @@ BOOLEAN TargetHasLoadedGun( SOLDIERTYPE *pSoldier )
 			{
 				return TRUE;
 			}
-			if( pItem->ubGunShotsLeft )
+			if( pItem->ItemData.Gun.ubGunShotsLeft )
 			{
 				return TRUE;
 			}

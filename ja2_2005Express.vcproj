@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="ja2_2005Express"
 	ProjectGUID="{F44669E7-74AC-444B-B75F-F16F4B9F0265}"
 	RootNamespace="ja2_2005Express"
@@ -146,6 +146,8 @@
 				OutputFile="$(OutDir)\ja2_rel_1202.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
+				GenerateMapFile="true"
+				MapFileName="$(TargetDir)$(TargetName).map"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"

@@ -354,7 +354,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			}
 		}
 
-		// Copy the items over for thew soldier, only if we have a valid profile id!
+		// Copy the items over for the soldier, only if we have a valid profile id!
 		if ( pCreateStruct->ubProfile != NO_PROFILE )
 			CopyProfileItems( &Soldier, pCreateStruct );
 
@@ -2712,12 +2712,12 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 					if ( uiMoneyLeft > uiMoneyLimitInSlot )
 					{
 						// fill pocket with money
-						pSoldier->inv[ bSlot ].uiMoneyAmount = uiMoneyLimitInSlot;			
+						pSoldier->inv[ bSlot ].ItemData.Money.uiMoneyAmount = uiMoneyLimitInSlot;			
 						uiMoneyLeft -= uiMoneyLimitInSlot;			
 					}
 					else
 					{
-						pSoldier->inv[ bSlot ].uiMoneyAmount = uiMoneyLeft;
+						pSoldier->inv[ bSlot ].ItemData.Money.uiMoneyAmount = uiMoneyLeft;
 						// done!
 						break;
 					}

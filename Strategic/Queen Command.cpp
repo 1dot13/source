@@ -1218,7 +1218,10 @@ void AddPossiblePendingEnemiesToBattle()
 			// Assume we added one since there are supposedly more available and room for them
 			ubSlots--;
 		}
-		return;		
+
+		// It's probable that the "pending enemies" flag isn't working right.  So we'll go ahead and continue into
+		// the group insertion code from here.
+		//return;		
 	}
 
 	if( pSector->ubNumElites + pSector->ubNumTroops + pSector->ubNumAdmins )

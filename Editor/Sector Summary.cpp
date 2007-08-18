@@ -715,21 +715,21 @@ void RenderItemDetails()
 								gubSummaryItemMode == ITEMMODE_REAL && !(gpWorldItemsSummaryArray[ i ].usFlags & WORLD_ITEM_SCIFI_ONLY) )
 						{
 							pItem = &gpWorldItemsSummaryArray[ i ].o;
-							if( !pItem->bFrequency )
+							if( !pItem->ItemData.Trigger.BombTrigger.bFrequency )
 								bFreqIndex = 7;
-							else if( pItem->bFrequency == PANIC_FREQUENCY )
+							else if( pItem->ItemData.Trigger.BombTrigger.bFrequency == PANIC_FREQUENCY )
 								bFreqIndex = 0;
-							else if( pItem->bFrequency == PANIC_FREQUENCY_2 )
+							else if( pItem->ItemData.Trigger.BombTrigger.bFrequency == PANIC_FREQUENCY_2 )
 								bFreqIndex = 1;
-							else if( pItem->bFrequency == PANIC_FREQUENCY_3 )
+							else if( pItem->ItemData.Trigger.BombTrigger.bFrequency == PANIC_FREQUENCY_3 )
 								bFreqIndex = 2;
-							else if( pItem->bFrequency == FIRST_MAP_PLACED_FREQUENCY + 1 )
+							else if( pItem->ItemData.Trigger.BombTrigger.bFrequency == FIRST_MAP_PLACED_FREQUENCY + 1 )
 								bFreqIndex = 3;
-							else if( pItem->bFrequency == FIRST_MAP_PLACED_FREQUENCY + 2 )
+							else if( pItem->ItemData.Trigger.BombTrigger.bFrequency == FIRST_MAP_PLACED_FREQUENCY + 2 )
 								bFreqIndex = 4;
-							else if( pItem->bFrequency == FIRST_MAP_PLACED_FREQUENCY + 3 )
+							else if( pItem->ItemData.Trigger.BombTrigger.bFrequency == FIRST_MAP_PLACED_FREQUENCY + 3 )
 								bFreqIndex = 5;
-							else if( pItem->bFrequency == FIRST_MAP_PLACED_FREQUENCY + 4 )
+							else if( pItem->ItemData.Trigger.BombTrigger.bFrequency == FIRST_MAP_PLACED_FREQUENCY + 4 )
 								bFreqIndex = 6;
 							else
 								continue;
@@ -754,7 +754,7 @@ void RenderItemDetails()
 					{
 						pItem = &gpWorldItemsSummaryArray[ i ].o;
 						uiExistChance += (100 - gpWorldItemsSummaryArray[ i ].ubNonExistChance) * pItem->ubNumberOfObjects;
-						uiStatus += pItem->bStatus[0];
+						uiStatus += pItem->ItemData.Generic.bStatus[0];
 						uiQuantity += pItem->ubNumberOfObjects;
 					}
 				}
@@ -862,7 +862,7 @@ void RenderItemDetails()
 				{
 					pItem = &gpPEnemyItemsSummaryArray[ i ];
 					uiExistChance += 100 * pItem->ubNumberOfObjects;
-					uiStatus += pItem->bStatus[0];
+					uiStatus += pItem->ItemData.Generic.bStatus[0];
 					uiQuantity += pItem->ubNumberOfObjects;
 				}
 			}
@@ -934,7 +934,7 @@ void RenderItemDetails()
 				{
 					pItem = &gpNEnemyItemsSummaryArray[ i ];
 					uiExistChance += 100 * pItem->ubNumberOfObjects;
-					uiStatus += pItem->bStatus[0];
+					uiStatus += pItem->ItemData.Generic.bStatus[0];
 					uiQuantity += pItem->ubNumberOfObjects;
 				}
 			}

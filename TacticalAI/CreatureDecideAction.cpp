@@ -1117,9 +1117,9 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 
 	if (bWeaponIn != NO_SLOT)
 	{
-		if (Item[pSoldier->inv[bWeaponIn].usItem].usItemClass == IC_GUN && pSoldier->inv[bWeaponIn].bGunStatus >= USABLE)
+		if (Item[pSoldier->inv[bWeaponIn].usItem].usItemClass == IC_GUN && pSoldier->inv[bWeaponIn].ItemData.Gun.bGunStatus >= USABLE)
 		{
-			if (pSoldier->inv[bWeaponIn].ubGunShotsLeft > 0)
+			if (pSoldier->inv[bWeaponIn].ItemData.Gun.ubGunShotsLeft > 0)
 			{
 				bSpitIn = bWeaponIn;
 				// if it's in another pocket, swap it into his hand temporarily
