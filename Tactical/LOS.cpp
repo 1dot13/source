@@ -767,11 +767,12 @@ INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX,
 		iDistance += 1;
 	}
 
-	if ( iDistance > iSightLimit)
-	{
+	//ADB remove this check since I might have a scope that allows me to see past this arbitrary limit
+	//if ( iDistance > iSightLimit)
+	//{
 		// out of visual range
-		return( 0 );
-	}
+	//	return( 0 );
+	//}
 
 	ddHorizAngle = atan2( dDeltaY, dDeltaX );
 
