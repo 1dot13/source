@@ -89,7 +89,7 @@
 		<pName>Knife</pName>
 		<pSilhouette>11</pSilhouette>
 		<pType>0</pType>
-		<pRestriction>4</pRestriction>
+		<pRestriction>0</pRestriction>
 		<ItemCapacityPerSize.0>0</ItemCapacityPerSize.0>
 		<ItemCapacityPerSize.1>0</ItemCapacityPerSize.1>
 		<ItemCapacityPerSize.2>0</ItemCapacityPerSize.2>
@@ -128,7 +128,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>3</pIndex>
-		<pName>GeneralLarge</pName>
+		<pName>General Large</pName>
 		<pSilhouette>7</pSilhouette>
 		<pType>0</pType>
 		<pRestriction>0</pRestriction>
@@ -170,7 +170,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>4</pIndex>
-		<pName>CombatPack</pName>
+		<pName>Combat Pack</pName>
 		<pSilhouette>6</pSilhouette>
 		<pType>0</pType>
 		<pRestriction>0</pRestriction>
@@ -338,7 +338,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>8</pIndex>
-		<pName>Large Cylinder Pocket</pName>
+		<pName>Lg.Mag.Pocket</pName>
 		<pSilhouette>19</pSilhouette>
 		<pType>0</pType>
 		<pRestriction>1024</pRestriction>
