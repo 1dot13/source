@@ -3650,11 +3650,10 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 	}
 
 	// 0verhaul:  Changed to take expanded range from shooting at different levels into account
-	sDistVis = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, pSoldier->bTargetLevel, pSoldier );
-
-	// give some leeway to allow people to spot for each other... 
-	// use distance limitation for LOS routine of 2 x maximum distance EVER visible, so that we get accurate
-	// calculations out to around 50 tiles.  Because we multiply max distance by 2, we must divide by 2 later
+	//ADB this change does nothing - either way it is random - we don't know what level we are shooting to, which is
+	//what the last parameter is, and the soldier's current level is as good a guess as ground level.
+	//so if you really want to fix this, pass in a value
+	sDistVis = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, pSoldier->bTargetLevel );
 
 	// CJC August 13 2002:  Wow, this has been wrong the whole time.  bTargetCubeLevel seems to be generally set to 2 -
 	// but if a character is shooting at an enemy in a particular spot, then we should be using the target position on the body.
@@ -3663,20 +3662,20 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 	// If the start soldier has a body part they are aiming at, and know about the person in the tile, then use that height instead
 	iSightRange = -1;
 
+	// give some leeway to allow people to spot for each other...
+	//so make the range to calculate the bullet at 255+
 	ubTargetID = WhoIsThere2( sGridNo, pSoldier->bTargetLevel );
 	// best to use team knowledge as well, in case of spotting for someone else
 	// 0verhaul:  Why not use the distance visible as the max for line of sight testing?
+	//ADB because A) the bullet can travel farther than I can see and B) I might have a spotter
 	if (ubTargetID != NOBODY && pSoldier->bOppList[ubTargetID] == SEEN_CURRENTLY || gbPublicOpplist[pSoldier->bTeam][ubTargetID] == SEEN_CURRENTLY)
 	{
-		iSightRange = SoldierToBodyPartLineOfSightTest( pSoldier, sGridNo, pSoldier->bTargetLevel, pSoldier->bAimShotLocation, (UINT8) sDistVis /*(MaxDistanceVisible() * 2) */, TRUE );	
+		iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, 255, pSoldier->bAimShotLocation );	
 	}
-	
 	if (iSightRange == -1) // didn't do a bodypart-based test
 	{
-		iSightRange = SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pSoldier->bTargetLevel, pSoldier->bTargetCubeLevel, (UINT8) sDistVis /* (MaxDistanceVisible() * 2) */, TRUE );
+		iSightRange = SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pSoldier->bTargetLevel, pSoldier->bTargetCubeLevel, TRUE, 255 );
 	}
-	
-	iSightRange *= 2;
 
 	if ( iSightRange > (sDistVis * CELL_X_SIZE) )
 	{
@@ -3846,11 +3845,11 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 	}
 	//iChance -= 20 * iRange / iMaxRange;
 
-	if ( TANK( pSoldier ) && ( iRange / CELL_X_SIZE < MaxDistanceVisible() ) )
+	if ( TANK( pSoldier ) && ( iRange / CELL_X_SIZE < MaxNormalDistanceVisible() ) )
 	{
 		// tank; penalize at close range!
 		// 2 percent per tile closer than max visible distance
-		iChance -= 2 * ( MaxDistanceVisible() - (iRange / CELL_X_SIZE) );
+		iChance -= 2 * ( MaxNormalDistanceVisible() - (iRange / CELL_X_SIZE) );
 	}
 
 	if (iSightRange == 0)

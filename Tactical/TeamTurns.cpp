@@ -1511,11 +1511,11 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 		// this soldier is moving, so give them a bonus for crawling or swatting at long distances
 		if ( !gbSeenOpponents[ ubOpponentID ][ pSoldier->ubID ] )
 		{
-			if (pSoldier->usAnimState == SWATTING && ubDistance > (MaxDistanceVisible() / 2) ) // more than 1/2 sight distance
+			if (pSoldier->usAnimState == SWATTING && ubDistance > (MaxNormalDistanceVisible() / 2) ) // more than 1/2 sight distance
 			{
 				iPoints++;
 			}
-			else if (pSoldier->usAnimState == CRAWLING && ubDistance > (MaxDistanceVisible() / 4) ) // more than 1/4 sight distance
+			else if (pSoldier->usAnimState == CRAWLING && ubDistance > (MaxNormalDistanceVisible() / 4) ) // more than 1/4 sight distance
 			{
 				iPoints += ubDistance / STRAIGHT;
 			}
@@ -1889,7 +1889,7 @@ void ResolveInterruptsVs( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType)
 						if ( ubInterruptType == NOISEINTERRUPT )
 						{
 							// don't grant noise interrupts at greater than max. visible distance 
-							if ( PythSpacesAway( pSoldier->sGridNo, pOpponent->sGridNo ) > MaxDistanceVisible() )
+							if ( PythSpacesAway( pSoldier->sGridNo, pOpponent->sGridNo ) > MaxNormalDistanceVisible() )
 							{
 								pOpponent->bInterruptDuelPts = NO_INTERRUPT;
 

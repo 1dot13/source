@@ -2781,7 +2781,6 @@ void ManChecksOnFriends(SOLDIERTYPE *pSoldier)
 {
 	UINT32 uiLoop;
 	SOLDIERTYPE *pFriend;
-	INT16 sDistVisible;
 
 	// THIS ROUTINE SHOULD ONLY BE CALLED FOR SOLDIERS ON STATUS GREEN or YELLOW
 
@@ -2803,45 +2802,40 @@ void ManChecksOnFriends(SOLDIERTYPE *pSoldier)
 		if (pFriend->ubID == pSoldier->ubID)
 			continue;  // next merc
 
-		sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, pFriend->sGridNo, pFriend->bLevel, pFriend );
 		// if we can see far enough to see this friend
-		if (PythSpacesAway(pSoldier->sGridNo,pFriend->sGridNo) <= sDistVisible)
+		// and can trace a line of sight to his x,y coordinates
+		if (SoldierToSoldierLineOfSightTest(pSoldier, pFriend, TRUE))
 		{
-			// and can trace a line of sight to his x,y coordinates
-			//if (1) //*** SoldierToSoldierLineOfSightTest(pSoldier,pFriend,STRAIGHT,TRUE))
-			if (SoldierToSoldierLineOfSightTest(pSoldier, pFriend, (UINT8)sDistVisible, TRUE))
+			// if my friend is in battle or something is clearly happening there
+			if ((pFriend->bAlertStatus >= STATUS_RED) || pFriend->bUnderFire || (pFriend->bLife < OKLIFE))
 			{
-				// if my friend is in battle or something is clearly happening there
-				if ((pFriend->bAlertStatus >= STATUS_RED) || pFriend->bUnderFire || (pFriend->bLife < OKLIFE))
-				{
 #ifdef DEBUGDECISIONS
-					STR16 tempstr;
-					sprintf(tempstr,"%s sees %s on alert, goes to RED ALERT!",pSoldier->name,pFriend->name );
-					AIPopMessage(tempstr);
+				STR16 tempstr;
+				sprintf(tempstr,"%s sees %s on alert, goes to RED ALERT!",pSoldier->name,pFriend->name );
+				AIPopMessage(tempstr);
 #endif
 
-					pSoldier->bAlertStatus = STATUS_RED;
-					CheckForChangingOrders(pSoldier);
-					SetNewSituation( pSoldier );
-					break;         // don't bother checking on any other friends
-				}
-				else
+				pSoldier->bAlertStatus = STATUS_RED;
+				CheckForChangingOrders(pSoldier);
+				SetNewSituation( pSoldier );
+				break;         // don't bother checking on any other friends
+			}
+			else
+			{
+				// if he seems suspicious or acts like he thought he heard something
+				// and I'm still on status GREEN
+				if ((pFriend->bAlertStatus == STATUS_YELLOW) &&
+					(pSoldier->bAlertStatus < STATUS_YELLOW))
 				{
-					// if he seems suspicious or acts like he thought he heard something
-					// and I'm still on status GREEN
-					if ((pFriend->bAlertStatus == STATUS_YELLOW) &&
-						(pSoldier->bAlertStatus < STATUS_YELLOW))
-					{
 #ifdef TESTVERSION
-						sprintf(tempstr,"TEST MSG: %s sees %s listening, goes to YELLOW ALERT!",pSoldier->name,ExtMen[pFriend->ubID].name);
-						PopMessage(tempstr);
+					sprintf(tempstr,"TEST MSG: %s sees %s listening, goes to YELLOW ALERT!",pSoldier->name,ExtMen[pFriend->ubID].name);
+					PopMessage(tempstr);
 #endif
-						pSoldier->bAlertStatus = STATUS_YELLOW;    // also get suspicious
-						SetNewSituation( pSoldier );
-						pSoldier->sNoiseGridno = pFriend->sGridNo;  // pretend FRIEND made noise
-						pSoldier->ubNoiseVolume = 3;                // remember this for 3 turns
-						// keep check other friends, too, in case any are already on RED
-					}
+					pSoldier->bAlertStatus = STATUS_YELLOW;    // also get suspicious
+					SetNewSituation( pSoldier );
+					pSoldier->sNoiseGridno = pFriend->sGridNo;  // pretend FRIEND made noise
+					pSoldier->ubNoiseVolume = 3;                // remember this for 3 turns
+					// keep check other friends, too, in case any are already on RED
 				}
 			}
 		}

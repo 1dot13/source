@@ -640,7 +640,7 @@ BOOLEAN ResolveHitOnWall( STRUCTURE * pStructure, INT32 iGridNo, INT8 bLOSIndexX
 * - stops at other obstacles
 *
 */
-INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, UINT8 ubTileSightLimit, UINT8 ubTreeSightReduction, INT8 bAware, INT32 bCamouflage, BOOLEAN fSmell, INT16 * psWindowGridNo )
+INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, int iTileSightLimit, UINT8 ubTreeSightReduction, INT8 bAware, INT32 bCamouflage, BOOLEAN fSmell, INT16 * psWindowGridNo )
 {
 	// Parameters...
 	// the X,Y,Z triplets should be obvious
@@ -693,9 +693,6 @@ INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX,
 	FLOAT		dDistance;
 
 	INT32		iDistance;
-	INT32		iSightLimit = ubTileSightLimit * CELL_X_SIZE;
-	INT32		iAdjSightLimit = iSightLimit;
-
 	INT32		iLoop;
 
 	MAP_ELEMENT *		pMapElement;
@@ -723,6 +720,13 @@ INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX,
 		return( 0 );
 	}
 
+	//ADB see notes at bottom as to why there is this 255 here
+	INT32		iSightLimit = iTileSightLimit * CELL_X_SIZE;
+	if (iTileSightLimit >= 255) {
+		iSightLimit = (iTileSightLimit - 255) * CELL_X_SIZE;
+	}
+	//for the CTGT calculation, clamp it to the average distance
+	INT32		iAdjSightLimit = iSightLimit;
 	if (iSightLimit == 0)
 	{
 		// blind!
@@ -767,11 +771,9 @@ INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX,
 		iDistance += 1;
 	}
 
-	//ADB remove this check since I might have a scope that allows me to see past this arbitrary limit
-	//Lalien: just removing this check removes visibility limit completly
-	if ( iDistance > iSightLimit)
+	if ( iDistance > iTileSightLimit * CELL_X_SIZE)
 	{
-		//out of visual range
+		// out of visual range
 		return( 0 );
 	}
 
@@ -1361,12 +1363,42 @@ INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX,
 #ifdef LOS_DEBUG
 	gLOSTestResults.fLOSClear = TRUE;
 #endif
+	//ADB this was the original code and comments:
 	// this somewhat complicated formula does the following:
 	// it starts with the distance to the target
 	// it adds the difference between the original and adjusted sight limit, = the amount of cover
 	// it then scales the value based on the difference between the original sight limit and the 
 	//   very maximum possible in best lighting conditions
-	return( (iDistance + (iSightLimit - iAdjSightLimit)) * (MaxDistanceVisible() * CELL_X_SIZE) / iSightLimit );
+	//return( (iDistance + (iSightLimit - iAdjSightLimit)) * (MaxDistanceVisible() * CELL_X_SIZE) / iSightLimit );
+
+	//in the original code, iSightLimit could vary depending exactly on what I can see
+	//so assuming there was no cover, the returned value is altered exactly on iSightLimit
+	//if my sight is low, then the function returns a value higher than MaxNormalDistanceVisible
+	//this simulates a target farther away and harder to hit
+	//if my sight is higher than the max distance, via sniper scope etc, then the function returns a lower value
+	//this makes the target seem like it is closer and easier to hit
+
+
+	//ADB this is the new code
+	//the problem with the new code is there needs to be a way to calculate a line
+	//without stopping when my eyes stop, but also including my sight limit!
+	//so iTileSightLimit has 255 added to it if the line is supposed to be infinite
+
+	int scalar = iSightLimit;
+	if (iTileSightLimit >= 255) {
+		//I know I am doing a CTGT calc, so don't get carried away
+		//just because I can see 999 tiles doesn't mean I can shoot it!
+		//this preserves the original intent of the scalar, but makes it less likely iAdjSightLimit
+		//is less than zero, which if it were the function would return, which we don't want if our sight is good
+		scalar = min(MaxNormalDistanceVisible() * CELL_X_SIZE, iSightLimit);
+	}
+	else {
+		//I know that my sight could be over the average distance, but I am not going to clamp it
+		//because I do not think the actual value matters, and if it does,
+		//then using the real value is closer to the original intent
+		//AFAIK all instances that aren't CTGT just use this as a boolean test
+	}
+	return( (iDistance + (iSightLimit - iAdjSightLimit)) * (MaxNormalDistanceVisible() * CELL_X_SIZE) / scalar );
 }
 
 BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * pdZPos )
@@ -1555,7 +1587,7 @@ BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * p
 	return( TRUE );
 }
 
-INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, UINT8 ubTileSightLimit, INT8 bAware )
+INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, INT8 bAware, int iTileSightLimit, UINT8 ubAimLocation )
 {
 	FLOAT			dStartZPos, dEndZPos;
 	BOOLEAN		fOk;
@@ -1563,7 +1595,7 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 	INT16			bEffectiveCamo;
 	INT16			bEffectiveStealth;
 	UINT8			ubTreeReduction;
-	INT32 iTemp;
+	UINT8			ubPosType;
 
 	// TO ADD: if target is camouflaged and in cover, reduce sight distance by 30%
 	// TO ADD: if in tear gas, reduce sight limit to 2 tiles
@@ -1599,7 +1631,27 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 	}
 	else
 	{
-		fOk = CalculateSoldierZPos( pEndSoldier, LOS_POS, &dEndZPos );
+		switch( ubAimLocation ) 
+		{
+		case AIM_SHOT_HEAD:
+			ubPosType = HEAD_TARGET_POS;
+			break;
+		case AIM_SHOT_TORSO:
+			ubPosType = TORSO_TARGET_POS;
+			break;
+		case AIM_SHOT_LEGS:
+			ubPosType = LEGS_TARGET_POS;
+			break;
+		default:
+			ubPosType = TARGET_POS;
+			break;
+		}
+
+		fOk = CalculateSoldierZPos( pEndSoldier, ubPosType, &dEndZPos );
+		if (!fOk)
+		{
+			return( FALSE );
+		}
 		CHECKF( fOk );
 		fSmell = HasThermalOptics( pStartSoldier);
 	}
@@ -1647,34 +1699,32 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 
 		if ( gAnimControl[ pEndSoldier->usAnimState ].ubEndHeight < ANIM_STAND )
 		{
-			iTemp = ubTileSightLimit;
 			// reduce visibility by up to a third for camouflage!
 			switch( pEndSoldier->bOverTerrainType )
 			{
 			case LOW_GRASS:
 			case HIGH_GRASS:  // jungle camo bonus
-				iTemp -= iTemp * (jungle * bEffectiveCamo / 3 / totalCamo) / 100;
+				iTileSightLimit -= iTileSightLimit * (jungle * bEffectiveCamo / 3 / totalCamo) / 100;
 				break;
 			case FLAT_FLOOR: // flat floor = indoors
 			case PAVED_ROAD: // urban camo bonus
-				iTemp -= iTemp * (urban * bEffectiveCamo / 3 / totalCamo) / 100;
+				iTileSightLimit -= iTileSightLimit * (urban * bEffectiveCamo / 3 / totalCamo) / 100;
 				break;
 			case DIRT_ROAD:  // desert camo bonus
 			case TRAIN_TRACKS:
-				iTemp -= iTemp * (desert * bEffectiveCamo / 3 / totalCamo) / 100;
+				iTileSightLimit -= iTileSightLimit * (desert * bEffectiveCamo / 3 / totalCamo) / 100;
 				break;
 				//case ??? :  // snow camo bonus
-				//	iTemp -= iTemp * (snow * bEffectiveCamo / 3 / totalCamo) / 100;
+				//	iTileSightLimit -= iTileSightLimit * (snow * bEffectiveCamo / 3 / totalCamo) / 100;
 				//	break;
 			case FLAT_GROUND:  
 				//in this case both desert and jungle can work:
-				iTemp -= iTemp * (jungle * bEffectiveCamo / 3 / totalCamo) / 100;
-				iTemp -= iTemp * (desert * bEffectiveCamo / 3 / totalCamo) / 100;
+				iTileSightLimit -= iTileSightLimit * (jungle * bEffectiveCamo / 3 / totalCamo) / 100;
+				iTileSightLimit -= iTileSightLimit * (desert * bEffectiveCamo / 3 / totalCamo) / 100;
 				break;
 			default:
 				break;
 			}
-			ubTileSightLimit = (UINT8) iTemp;
 		}
 	}
 	else
@@ -1693,9 +1743,7 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 
 		// reduce visibility by up to a third for Stealth!
 		// stance and terrain don't matter
-		iTemp = ubTileSightLimit;
-		iTemp -= iTemp * (bEffectiveStealth / 3) / 100;
-		ubTileSightLimit = (UINT8) iTemp;
+		iTileSightLimit -= iTileSightLimit * (bEffectiveStealth / 3) / 100;
 	}
 	else
 	{
@@ -1711,7 +1759,14 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 		ubTreeReduction = gubTreeSightReduction[ gAnimControl[pEndSoldier->usAnimState].ubEndHeight ];
 	}
 
-	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) CenterX( pEndSoldier->sGridNo ), (FLOAT) CenterY( pEndSoldier->sGridNo ), dEndZPos, ubTileSightLimit, ubTreeReduction, bAware, bEffectiveCamo + bEffectiveStealth, fSmell, NULL ) );
+	if (iTileSightLimit == -1) {
+		iTileSightLimit = pStartSoldier->GetMaxDistanceVisible( pEndSoldier->sGridNo, pEndSoldier->bLevel );
+	}
+	else if (iTileSightLimit == 255) {
+		iTileSightLimit = 255 + pStartSoldier->GetMaxDistanceVisible( pEndSoldier->sGridNo, pEndSoldier->bLevel );
+	}
+
+	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) CenterX( pEndSoldier->sGridNo ), (FLOAT) CenterY( pEndSoldier->sGridNo ), dEndZPos, iTileSightLimit, ubTreeReduction, bAware, bEffectiveCamo + bEffectiveStealth, fSmell, NULL ) );
 }
 
 INT16 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT16 sEndGridNo )
@@ -1741,43 +1796,18 @@ INT16 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT16 sEndGridNo
 	return( sWindowGridNo );
 }
 
-BOOLEAN SoldierToSoldierLineOfSightTimingTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, UINT8 ubTileSightLimit, INT8 bAware )
-{
-	UINT32		uiLoopLimit = 100000;
-	UINT32		uiLoop;
-	UINT32		uiStartTime, uiEndTime;
-
-	FILE      *OutFile;
-
-	uiStartTime = GetJA2Clock();
-	for (uiLoop = 0; uiLoop < uiLoopLimit; uiLoop++)
-	{
-		SoldierToSoldierLineOfSightTest( pStartSoldier, pEndSoldier, ubTileSightLimit, bAware );
-	}
-	uiEndTime = GetJA2Clock();
-	if ((OutFile = fopen("Timing.txt", "a+t")) != NULL)
-	{ 
-#ifdef _DEBUG
-		fprintf(OutFile, "DEBUG: " );
-#endif
-		fprintf(OutFile, String( "Time for %d calls is %d milliseconds\n", uiLoopLimit, uiEndTime - uiStartTime));
-		fclose(OutFile);
-	}
-	return( TRUE );
-}
-
-INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, INT8 bLevel, INT8 bCubeLevel, UINT8 ubTileSightLimit, INT8 bAware )
+INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, INT8 bLevel, INT8 bCubeLevel, INT8 bAware, int iTileSightLimit )
 {
 	FLOAT						dStartZPos, dEndZPos;
 	INT16						sXPos, sYPos;
 	UINT8						ubTargetID;
-	SOLDIERTYPE *		pTarget;
 	BOOLEAN					fOk;
 
 	CHECKF( pStartSoldier );
 
 	fOk = CalculateSoldierZPos( pStartSoldier, LOS_POS, &dStartZPos );
 	CHECKF( fOk );
+
 
 	if (bCubeLevel > 0)
 	{
@@ -1789,9 +1819,8 @@ INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGr
 		ubTargetID = WhoIsThere2( sGridNo, bLevel );
 		if (ubTargetID != NOBODY)
 		{
-			pTarget = MercPtrs[ubTargetID];
 			// there's a merc there; do a soldier-to-soldier test
-			return( SoldierToSoldierLineOfSightTest( pStartSoldier, pTarget, ubTileSightLimit, bAware) );
+			return( SoldierToSoldierLineOfSightTest( pStartSoldier, MercPtrs[ubTargetID], bAware, iTileSightLimit) );
 		}
 		// else... assume standing height
 		dEndZPos = STANDING_LOS_POS + bLevel * HEIGHT_UNITS;
@@ -1803,61 +1832,17 @@ INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGr
 	sXPos = sXPos * CELL_X_SIZE + (CELL_X_SIZE / 2);
 	sYPos = sYPos * CELL_Y_SIZE + (CELL_Y_SIZE / 2);
 
-	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, ubTileSightLimit, gubTreeSightReduction[ANIM_STAND], bAware, 0, HasThermalOptics( pStartSoldier), NULL ) );
+	if (iTileSightLimit == -1) {
+		iTileSightLimit = pStartSoldier->GetMaxDistanceVisible( sGridNo, bLevel );
+	}
+	else if (iTileSightLimit == 255) {
+		iTileSightLimit = 255 + pStartSoldier->GetMaxDistanceVisible( sGridNo, bLevel );
+	}
+
+	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, iTileSightLimit, gubTreeSightReduction[ANIM_STAND], bAware, 0, HasThermalOptics( pStartSoldier), NULL ) );
 }
 
-INT32 SoldierToBodyPartLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, INT8 bLevel, UINT8 ubAimLocation, UINT8 ubTileSightLimit, INT8 bAware )
-{
-	SOLDIERTYPE * pEndSoldier;
-	UINT8 ubTargetID;
-	FLOAT			dStartZPos, dEndZPos;
-	INT16			sXPos, sYPos;
-	BOOLEAN		fOk;
-	UINT8			ubPosType;
-
-	// CJC August 13, 2002: for this routine to work there MUST be a target at the location specified
-	ubTargetID = WhoIsThere2( sGridNo, bLevel );
-	if (ubTargetID == NOBODY)
-	{
-		return( 0 );
-	}
-	pEndSoldier = MercPtrs[ubTargetID];
-
-	CHECKF( pStartSoldier );
-
-	fOk = CalculateSoldierZPos( pStartSoldier, LOS_POS, &dStartZPos );
-	CHECKF( fOk );
-
-	switch( ubAimLocation ) 
-	{
-	case AIM_SHOT_HEAD:
-		ubPosType = HEAD_TARGET_POS;
-		break;
-	case AIM_SHOT_TORSO:
-		ubPosType = TORSO_TARGET_POS;
-		break;
-	case AIM_SHOT_LEGS:
-		ubPosType = LEGS_TARGET_POS;
-		break;
-	default:
-		ubPosType = TARGET_POS;
-		break;
-	}
-
-	fOk = CalculateSoldierZPos( pEndSoldier, ubPosType, &dEndZPos );
-	if (!fOk)
-	{
-		return( FALSE );
-	}
-
-	ConvertGridNoToXY( sGridNo, &sXPos, &sYPos );
-	sXPos = sXPos * CELL_X_SIZE + (CELL_X_SIZE / 2);
-	sYPos = sYPos * CELL_Y_SIZE + (CELL_Y_SIZE / 2);
-
-	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, ubTileSightLimit, gubTreeSightReduction[ANIM_STAND], bAware, 0, HasThermalOptics( pStartSoldier), NULL ) );
-}
-
-INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, INT8 bLevel, INT8 bStance, UINT8 ubTileSightLimit, INT8 bAware )
+INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, INT8 bLevel, INT8 bStance, INT8 bAware, int iTileSightLimit )
 {
 	FLOAT						dStartZPos, dEndZPos;
 	INT16						sXPos, sYPos;
@@ -1894,15 +1879,17 @@ INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16
 	sXPos = sXPos * CELL_X_SIZE + (CELL_X_SIZE / 2);
 	sYPos = sYPos * CELL_Y_SIZE + (CELL_Y_SIZE / 2);
 
-	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, ubTileSightLimit, gubTreeSightReduction[ANIM_STAND], bAware, 0, HasThermalOptics( pStartSoldier), NULL ) );
+	if (iTileSightLimit == -1) {
+		iTileSightLimit = pStartSoldier->GetMaxDistanceVisible( sGridNo, bLevel );
+	}
+	else if (iTileSightLimit == 255) {
+		iTileSightLimit = 255 + pStartSoldier->GetMaxDistanceVisible( sGridNo, bLevel );
+	}
+
+	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, iTileSightLimit, gubTreeSightReduction[ANIM_STAND], bAware, 0, HasThermalOptics( pStartSoldier), NULL ) );
 }
 
-INT32 SoldierToLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, UINT8 ubTileSightLimit, INT8 bAware )
-{
-	return( SoldierTo3DLocationLineOfSightTest( pStartSoldier, sGridNo, 0, 0, ubTileSightLimit, bAware ) );
-}
-
-INT32 LocationToLocationLineOfSightTest( INT16 sStartGridNo, INT8 bStartLevel, INT16 sEndGridNo, INT8 bEndLevel, UINT8 ubTileSightLimit, INT8 bAware )
+INT32 LocationToLocationLineOfSightTest( INT16 sStartGridNo, INT8 bStartLevel, INT16 sEndGridNo, INT8 bEndLevel, INT8 bAware, int iTileSightLimit )
 {
 	FLOAT						dStartZPos, dEndZPos;
 	INT16						sStartXPos, sStartYPos, sEndXPos, sEndYPos;
@@ -1911,7 +1898,7 @@ INT32 LocationToLocationLineOfSightTest( INT16 sStartGridNo, INT8 bStartLevel, I
 	ubStartID = WhoIsThere2( sStartGridNo, bStartLevel );
 	if ( ubStartID != NOBODY )
 	{
-		return( SoldierTo3DLocationLineOfSightTest( MercPtrs[ ubStartID ], sEndGridNo, bEndLevel, 0, ubTileSightLimit, bAware ) );
+		return( SoldierTo3DLocationLineOfSightTest( MercPtrs[ ubStartID ], sEndGridNo, bEndLevel, 0, bAware, iTileSightLimit ) );
 	}
 
 	// else... assume standing heights
@@ -1931,7 +1918,13 @@ INT32 LocationToLocationLineOfSightTest( INT16 sStartGridNo, INT8 bStartLevel, I
 	sEndXPos = sEndXPos * CELL_X_SIZE + (CELL_X_SIZE / 2);
 	sEndYPos = sEndYPos * CELL_Y_SIZE + (CELL_Y_SIZE / 2);
 
-	return( LineOfSightTest( (FLOAT)sStartXPos, (FLOAT)sStartYPos, dStartZPos, (FLOAT) sEndXPos, (FLOAT) sEndYPos, dEndZPos, ubTileSightLimit, gubTreeSightReduction[ANIM_STAND], bAware, 0, FALSE, NULL ) );
+	if (iTileSightLimit == -1) {
+		iTileSightLimit = MaxNormalDistanceVisible();
+	}
+	else if (iTileSightLimit == 255) {
+		iTileSightLimit = 255 + MaxNormalDistanceVisible();
+	}
+	return( LineOfSightTest( (FLOAT)sStartXPos, (FLOAT)sStartYPos, dStartZPos, (FLOAT) sEndXPos, (FLOAT) sEndYPos, dEndZPos, iTileSightLimit, gubTreeSightReduction[ANIM_STAND], bAware, 0, FALSE, NULL ) );
 }
 
 /*

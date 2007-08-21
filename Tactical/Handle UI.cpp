@@ -4744,7 +4744,6 @@ UINT32 UIHandleTOnTerrain( UI_EVENT *pUIEvent )
 	UINT16						usMapPos;
 	BOOLEAN						fValidTalkableGuy = FALSE;
 	INT16							sTargetGridNo;
-	INT16							sDistVisible;
 
 	// Get soldier
 	if ( !GetSoldier( &pSoldier, gusSelectedSoldier )  )
@@ -4783,11 +4782,6 @@ UINT32 UIHandleTOnTerrain( UI_EVENT *pUIEvent )
 	uiRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, sTargetGridNo );
 
 
-	//ATE: Check if we have good LOS
-	// is he close enough to see that gridno if he turns his head?
-	sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sTargetGridNo, pSoldier->bLevel, pSoldier );
-
-
 	if ( uiRange <= NPC_TALK_RADIUS )
 	{
 		if ( fValidTalkableGuy )
@@ -4814,7 +4808,7 @@ UINT32 UIHandleTOnTerrain( UI_EVENT *pUIEvent )
 
 	if ( fValidTalkableGuy )
 	{
-		if ( !SoldierTo3DLocationLineOfSightTest( pSoldier, sTargetGridNo,  pSoldier->bLevel, 3, (UINT8) sDistVisible, TRUE ) )
+		if ( !SoldierTo3DLocationLineOfSightTest( pSoldier, sTargetGridNo,  pSoldier->bLevel, 3, TRUE ) )
 		{
 			//. ATE: Make range far, so we alternate cursors...
 			guiNewUICursor = TALK_OUT_RANGE_A_UICURSOR;		
@@ -5573,7 +5567,6 @@ BOOLEAN HandleTalkInit(  )
 	UINT8							ubNewDirection;
 	UINT8							ubQuoteNum;
 	UINT8							ubDiceRoll;
-	INT16							sDistVisible;
 	INT16							sActionGridNo;
 	UINT8							ubDirection;
 	UINT8							commandRange; //lal
@@ -5601,12 +5594,8 @@ BOOLEAN HandleTalkInit(  )
 			{
 				if ( !(( pTSoldier->bTeam == MILITIA_TEAM ) && ( CheckIfRadioIsEquipped() )) ) //lal 
 				{
-					//ATE: Check if we have good LOS
-					// is he close enough to see that gridno if he turns his head?
-					sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, pTSoldier->sGridNo, pTSoldier->bLevel, pTSoldier );
-
 					// Check LOS!
-					if ( !SoldierTo3DLocationLineOfSightTest( pSoldier, pTSoldier->sGridNo,  pTSoldier->bLevel, 3, (UINT8) sDistVisible, TRUE ) )
+					if ( !SoldierTo3DLocationLineOfSightTest( pSoldier, pTSoldier->sGridNo,  pTSoldier->bLevel, 3, TRUE ) )
 					{
 						if ( pTSoldier->ubProfile != NO_PROFILE )
 						{
@@ -6290,10 +6279,7 @@ BOOLEAN ValidQuickExchangePosition( )
 				{
 					if ( PythSpacesAway( pSoldier->sGridNo, pOverSoldier->sGridNo ) == 1 )
 					{
-						// Check if we have LOS to them....
-						sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, pOverSoldier->sGridNo, pOverSoldier->bLevel, pOverSoldier );
-
-						if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pOverSoldier->sGridNo,  pOverSoldier->bLevel, (UINT8)3, (UINT8) sDistVisible, TRUE ) )
+						if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pOverSoldier->sGridNo,  pOverSoldier->bLevel, 3, TRUE ) )
 						{
 							// ATE:
 							// Check that the path is good!

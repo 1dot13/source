@@ -1298,7 +1298,6 @@ BOOLEAN AllMercsLookForDoor( INT16 sGridNo, BOOLEAN fUpdateValue )
 	INT32                    cnt, cnt2;
 	INT8										 bDirs[ 8 ] = { NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST };
 	SOLDIERTYPE							 *pSoldier;
-	INT16										 sDistVisible;	
 	DOOR_STATUS							 *pDoorStatus;
 	INT16											usNewGridNo;
 
@@ -1319,14 +1318,25 @@ BOOLEAN AllMercsLookForDoor( INT16 sGridNo, BOOLEAN fUpdateValue )
 		// ATE: Ok, lets check for some basic things here!
 		if ( pSoldier->bLife >= OKLIFE && pSoldier->sGridNo != NOWHERE && pSoldier->bActive && pSoldier->bInSector )
 		{
-			// is he close enough to see that gridno if he turns his head?
-			sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, 0, pSoldier );
-			
-			if (PythSpacesAway( pSoldier->sGridNo, sGridNo ) <= sDistVisible )
+			// and we can trace a line of sight to his x,y coordinates?
+			// (taking into account we are definitely aware of this guy now)
+			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, 0, 0, TRUE ) )
 			{
+				// Update status...
+				if ( fUpdateValue )
+				{
+					InternalUpdateDoorsPerceivedValue( pDoorStatus );
+				}
+				return( TRUE );
+			}
+
+			// Now try other adjacent gridnos...
+			for ( cnt2 = 0; cnt2 < 8; cnt2++ )
+			{
+				usNewGridNo = NewGridNo( sGridNo, DirectionInc( bDirs[ cnt2 ] ) );
 				// and we can trace a line of sight to his x,y coordinates?
 				// (taking into account we are definitely aware of this guy now)
-				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, 0, 0, (UINT8) sDistVisible, TRUE ) )
+				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, usNewGridNo, 0, 0, TRUE ) )
 				{
 					// Update status...
 					if ( fUpdateValue )
@@ -1335,28 +1345,6 @@ BOOLEAN AllMercsLookForDoor( INT16 sGridNo, BOOLEAN fUpdateValue )
 					}
 					return( TRUE );
 				}
-			}
-
-			// Now try other adjacent gridnos...
-			for ( cnt2 = 0; cnt2 < 8; cnt2++ )
-			{
-					usNewGridNo = NewGridNo( sGridNo, DirectionInc( bDirs[ cnt2 ] ) );
-					sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, usNewGridNo, 0, pSoldier );
-				
-					if (PythSpacesAway( pSoldier->sGridNo, usNewGridNo ) <= sDistVisible )
-					{
-						// and we can trace a line of sight to his x,y coordinates?
-						// (taking into account we are definitely aware of this guy now)
-						if ( SoldierTo3DLocationLineOfSightTest( pSoldier, usNewGridNo, 0, 0, (UINT8) sDistVisible, TRUE ) )
-						{
-							// Update status...
-							if ( fUpdateValue )
-							{
-								InternalUpdateDoorsPerceivedValue( pDoorStatus );
-							}
-							return( TRUE );
-						}
-					}
 			}
 		}
 	}
@@ -1368,7 +1356,6 @@ BOOLEAN AllMercsLookForDoor( INT16 sGridNo, BOOLEAN fUpdateValue )
 BOOLEAN MercLooksForDoors( SOLDIERTYPE *pSoldier, BOOLEAN fUpdateValue )
 {
 	INT32                    cnt, cnt2;
-	INT16										 sDistVisible;	
 	INT16										 sGridNo;
 	DOOR_STATUS							 *pDoorStatus;
 	INT8										 bDirs[ 8 ] = { NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST };
@@ -1387,53 +1374,41 @@ BOOLEAN MercLooksForDoors( SOLDIERTYPE *pSoldier, BOOLEAN fUpdateValue )
 		}
 
 		sGridNo = pDoorStatus->sGridNo;
-
-		// is he close enough to see that gridno if he turns his head?
-		sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, 0, pSoldier );
-		
-		if ( PythSpacesAway( pSoldier->sGridNo, sGridNo ) <= sDistVisible )
+		// and we can trace a line of sight to his x,y coordinates?
+		// (taking into account we are definitely aware of this guy now)
+		if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, 0, 0, TRUE ) )
 		{
+			// OK, here... update perceived value....
+			if ( fUpdateValue )
+			{
+				InternalUpdateDoorsPerceivedValue( pDoorStatus );
+
+				// Update graphic....
+				InternalUpdateDoorGraphicFromStatus( pDoorStatus, TRUE, TRUE );
+			}
+			return( TRUE );
+		}
+
+		// Now try other adjacent gridnos...
+		for ( cnt2 = 0; cnt2 < 8; cnt2++ )
+		{
+			usNewGridNo = NewGridNo( sGridNo, DirectionInc( bDirs[ cnt2 ] ) );
 			// and we can trace a line of sight to his x,y coordinates?
 			// (taking into account we are definitely aware of this guy now)
-			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, 0, 0, (UINT8) sDistVisible, TRUE ) )
+			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, usNewGridNo, 0, 0, TRUE ) )
 			{
-				// OK, here... update perceived value....
+				// Update status...
 				if ( fUpdateValue )
 				{
 					InternalUpdateDoorsPerceivedValue( pDoorStatus );
 
 					// Update graphic....
 					InternalUpdateDoorGraphicFromStatus( pDoorStatus, TRUE, TRUE );
+
 				}
 				return( TRUE );
 			}
 		}
-
-		// Now try other adjacent gridnos...
-		for ( cnt2 = 0; cnt2 < 8; cnt2++ )
-		{
-			  usNewGridNo = NewGridNo( sGridNo, DirectionInc( bDirs[ cnt2 ] ) );
-			
-				if (PythSpacesAway( pSoldier->sGridNo, usNewGridNo ) <= sDistVisible )
-				{
-					// and we can trace a line of sight to his x,y coordinates?
-					// (taking into account we are definitely aware of this guy now)
-					if ( SoldierTo3DLocationLineOfSightTest( pSoldier, usNewGridNo, 0, 0, (UINT8) sDistVisible, TRUE ) )
-					{
-						// Update status...
-						if ( fUpdateValue )
-						{
-							InternalUpdateDoorsPerceivedValue( pDoorStatus );
-
-							// Update graphic....
-							InternalUpdateDoorGraphicFromStatus( pDoorStatus, TRUE, TRUE );
-
-						}
-						return( TRUE );
-					}
-				}
-		}
-
 	}
 
 	return( FALSE );

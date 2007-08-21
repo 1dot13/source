@@ -7070,7 +7070,6 @@ BOOLEAN CanMercInteractWithSelectedShopkeeper( SOLDIERTYPE *pSoldier )
 	SOLDIERTYPE *pShopkeeper;
 	INT16			sDestGridNo;
 	INT8			bDestLevel;
-	INT16			sDistVisible;
 	UINT32		uiRange;
 
 
@@ -7092,12 +7091,8 @@ BOOLEAN CanMercInteractWithSelectedShopkeeper( SOLDIERTYPE *pSoldier )
 	{
 		sDestGridNo = pShopkeeper->sGridNo;
 		bDestLevel	= pShopkeeper->bLevel;
-
-		// is he close enough to see that gridno if he turns his head?
-		sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sDestGridNo, bDestLevel, pSoldier );
-
 		// If he has LOS...
-		if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sDestGridNo, bDestLevel, 3, (UINT8) sDistVisible, TRUE ) )
+		if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sDestGridNo, bDestLevel, 3, TRUE ) )
 		{
 			// Get range to shopkeeper
 			uiRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, sDestGridNo );

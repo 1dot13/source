@@ -779,13 +779,13 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 		}
 
 		// killer seen by civ?
-		if ( SoldierToSoldierLineOfSightTest( pCivSoldier, MercPtrs[ pSoldier->ubAttackerID ], gGameExternalOptions.ubStraightSightRange, TRUE ) != 0 )
+		if ( SoldierToSoldierLineOfSightTest( pCivSoldier, MercPtrs[ pSoldier->ubAttackerID ], TRUE, gGameExternalOptions.ubStraightSightRange ) != 0 )
 		{
 			bSeenState |= 1;
 		}
 
 		// victim seen by civ?
-		if( SoldierToSoldierLineOfSightTest( pCivSoldier, pSoldier, gGameExternalOptions.ubStraightSightRange, TRUE ) != 0 )
+		if( SoldierToSoldierLineOfSightTest( pCivSoldier, pSoldier, TRUE, gGameExternalOptions.ubStraightSightRange ) != 0 )
 		{
 			bSeenState |= 2;
 		}

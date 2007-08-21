@@ -3418,7 +3418,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					{
 						if ( INFORMATION_CHEAT_LEVEL( ) )
 						{
-							DoChrisTest( MercPtrs[ gusSelectedSoldier ] );
 						}
 					}
 					else

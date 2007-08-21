@@ -537,7 +537,6 @@ INT8 GetUIApsToDisplay( SOLDIERTYPE *pSoldier )
 void CheckForDisabledForGiveItem( )
 {
 	INT16			sDist;
-	INT16			sDistVisible;
 	INT16			sDestGridNo;
 	INT8			bDestLevel;
 	INT32			cnt;
@@ -566,10 +565,8 @@ void CheckForDisabledForGiveItem( )
 			{
 				sDist = PythSpacesAway( gpSMCurrentMerc->sGridNo, pSoldier->sGridNo );
 
-				sDistVisible = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->bLevel, gpSMCurrentMerc );
-
 				// Check LOS....
-				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, gpSMCurrentMerc->sGridNo,  gpSMCurrentMerc->bLevel, 3, (UINT8) sDistVisible, TRUE ) )
+				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, gpSMCurrentMerc->sGridNo,  gpSMCurrentMerc->bLevel, 3, TRUE ) )
 				{
 					if ( sDist <= PASSING_ITEM_DISTANCE_NOTOKLIFE )
 					{
@@ -600,11 +597,8 @@ void CheckForDisabledForGiveItem( )
 				// Get distance....
 				sDist = PythSpacesAway( MercPtrs[ ubSrcSoldier ]->sGridNo, sDestGridNo );
 
-				// is he close enough to see that gridno if he turns his head?
-				sDistVisible = DistanceVisible( MercPtrs[ ubSrcSoldier ], DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sDestGridNo, bDestLevel, MercPtrs[ ubSrcSoldier ] );
-
 				// Check LOS....
-				if ( SoldierTo3DLocationLineOfSightTest( MercPtrs[ ubSrcSoldier ], sDestGridNo,  bDestLevel, 3, (UINT8) sDistVisible, TRUE )  )
+				if ( SoldierTo3DLocationLineOfSightTest( MercPtrs[ ubSrcSoldier ], sDestGridNo,  bDestLevel, 3, TRUE )  )
 				{
 					// UNCONSCIOUS GUYS ONLY 1 tile AWAY
 					if ( MercPtrs[ gusSMCurrentMerc ]->bLife < CONSCIOUSNESS )
