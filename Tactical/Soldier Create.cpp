@@ -2383,7 +2383,10 @@ SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass )
 	UINT8 ubID;
 	SOLDIERTYPE * pSoldier;
 
-	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
+	if (gpBattleGroup->ubSectorZ == gbWorldSectorZ &&
+		gpBattleGroup->ubSectorX == gWorldSectorX &&
+		gpBattleGroup->ubSectorY == gWorldSectorY &&
+		guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
 	{
 		pSoldier = ReserveTacticalMilitiaSoldierForAutoresolve( ubMilitiaClass );
 		if( pSoldier ) return pSoldier;		

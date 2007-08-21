@@ -630,7 +630,7 @@ void GoIntoOverheadMap( )
 			DisableTacticalTeamPanelButtons( TRUE );
 		}
 
-		EmptyBackgroundRects( );
+	EmptyBackgroundRects( );
 	}
 
 }
@@ -760,6 +760,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 		//ColorFillVideoSurfaceArea( FRAME_BUFFER, sStartPointX_S, sStartPointY_S, sEndXS,	sEndYS, 0 );
 
 		ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0 );
+		fInterfacePanelDirty = DIRTYLEVEL2;
 
 		InvalidateScreen( );
 		gfOverheadMapDirty = FALSE;
