@@ -4014,7 +4014,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 	// add camo effects
 
 #if 0
-	if ((victim = WhoIsThere(sGridNo)) < NOBODY)
+	if ((victim = WhoIsThere(sGridNo)) < TOTAL_SOLDIERS)
 	 {
 
 		// if victim is 5 or more tiles away and camouflaged, reduce

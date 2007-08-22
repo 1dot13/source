@@ -1853,7 +1853,7 @@ BOOLEAN ExpAffect( INT16 sBombGridNo, INT16 sGridNo, UINT32 uiDist, UINT16 usIte
 		}
 		else
 		{
-			if ( ( ubPerson = WhoIsThere2(sGridNo, bLevel ) ) >= NOBODY )
+			if ( ( ubPerson = WhoIsThere2(sGridNo, bLevel ) ) >= TOTAL_SOLDIERS )
 			{
 				return( fRecompileMovementCosts );
 			}

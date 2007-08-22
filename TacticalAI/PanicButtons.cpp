@@ -157,7 +157,7 @@ void MakeClosestEnemyChosenOne()
 	}
 
 	// if we found have an eligible enemy, make him our "chosen one"
-	if (ubClosestEnemy < NOBODY)
+	if (ubClosestEnemy < TOTAL_SOLDIERS)
 	{
 		gTacticalStatus.ubTheChosenOne = ubClosestEnemy;       // flag him as the chosen one
 
