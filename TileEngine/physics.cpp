@@ -2010,6 +2010,12 @@ BOOLEAN CalculateLaunchItemChanceToGetThrough( SOLDIERTYPE *pSoldier, OBJECTTYPE
 	vector_3		vForce, vPosition, vDirNormal;
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalculateLaunchItemChanceToGetThrough");
+
+	if ( pSoldier->sGridNo == sGridNo )
+	{
+		printf("Warning! Soldier #%d attempted to launch item at himself\n", pSoldier->ubID);
+		return FALSE;
+	}
 	// Ge7t basic launch params...
 	CalculateLaunchItemBasicParams( pSoldier, pItem, sGridNo, ubLevel, sEndZ, &dForce, &dDegrees, psFinalGridNo, fArmed );
 
