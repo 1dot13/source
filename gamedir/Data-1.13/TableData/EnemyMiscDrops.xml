@@ -49,6 +49,12 @@
 		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
+		<uiIndex>8</uiIndex>
+		<usItemClass>16384</usItemClass>
+		<ubEnemyDropRate>0</ubEnemyDropRate>
+		<ubMilitiaDropRate>0</ubMilitiaDropRate>
+	</DROPITEM>
+	<DROPITEM>
 		<uiIndex>9</uiIndex>
 		<usItemClass>32768</usItemClass>
 		<ubEnemyDropRate>15</ubEnemyDropRate>
