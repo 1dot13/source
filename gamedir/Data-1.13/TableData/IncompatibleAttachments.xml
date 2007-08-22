@@ -689,6 +689,10 @@
 		<incompatibleattachmentIndex>950</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
 	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>946</itemIndex>
+		<incompatibleattachmentIndex>998</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>947</itemIndex>
 		<incompatibleattachmentIndex>209</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
@@ -839,6 +843,10 @@
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>998</itemIndex>
 		<incompatibleattachmentIndex>948</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>998</itemIndex>
+		<incompatibleattachmentIndex>946</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>999</itemIndex>

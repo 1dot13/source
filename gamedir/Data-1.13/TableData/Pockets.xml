@@ -311,7 +311,7 @@
 		<ItemCapacityPerSize.8>0</ItemCapacityPerSize.8>
 		<ItemCapacityPerSize.9>0</ItemCapacityPerSize.9>
 		<ItemCapacityPerSize.10>8</ItemCapacityPerSize.10>
-		<ItemCapacityPerSize.11>7</ItemCapacityPerSize.11>
+		<ItemCapacityPerSize.11>6</ItemCapacityPerSize.11>
 		<ItemCapacityPerSize.12>6</ItemCapacityPerSize.12>
 		<ItemCapacityPerSize.13>5</ItemCapacityPerSize.13>
 		<ItemCapacityPerSize.14>4</ItemCapacityPerSize.14>
@@ -395,7 +395,7 @@
 		<ItemCapacityPerSize.8>0</ItemCapacityPerSize.8>
 		<ItemCapacityPerSize.9>0</ItemCapacityPerSize.9>
 		<ItemCapacityPerSize.10>8</ItemCapacityPerSize.10>
-		<ItemCapacityPerSize.11>8</ItemCapacityPerSize.11>
+		<ItemCapacityPerSize.11>6</ItemCapacityPerSize.11>
 		<ItemCapacityPerSize.12>6</ItemCapacityPerSize.12>
 		<ItemCapacityPerSize.13>4</ItemCapacityPerSize.13>
 		<ItemCapacityPerSize.14>3</ItemCapacityPerSize.14>
@@ -422,7 +422,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>10</pIndex>
-		<pName>PistolHolster</pName>
+		<pName>Pistol Holster</pName>
 		<pSilhouette>13</pSilhouette>
 		<pType>0</pType>
 		<pRestriction>2</pRestriction>
@@ -485,7 +485,7 @@
 		<ItemCapacityPerSize.14>0</ItemCapacityPerSize.14>
 		<ItemCapacityPerSize.15>0</ItemCapacityPerSize.15>
 		<ItemCapacityPerSize.16>1</ItemCapacityPerSize.16>
-		<ItemCapacityPerSize.17>1</ItemCapacityPerSize.17>
+		<ItemCapacityPerSize.17>0</ItemCapacityPerSize.17>
 		<ItemCapacityPerSize.18>0</ItemCapacityPerSize.18>
 		<ItemCapacityPerSize.19>0</ItemCapacityPerSize.19>
 		<ItemCapacityPerSize.20>0</ItemCapacityPerSize.20>
@@ -646,7 +646,7 @@
 		<ItemCapacityPerSize.7>0</ItemCapacityPerSize.7>
 		<ItemCapacityPerSize.8>0</ItemCapacityPerSize.8>
 		<ItemCapacityPerSize.9>0</ItemCapacityPerSize.9>
-		<ItemCapacityPerSize.10>2</ItemCapacityPerSize.10>
+		<ItemCapacityPerSize.10>3</ItemCapacityPerSize.10>
 		<ItemCapacityPerSize.11>2</ItemCapacityPerSize.11>
 		<ItemCapacityPerSize.12>2</ItemCapacityPerSize.12>
 		<ItemCapacityPerSize.13>1</ItemCapacityPerSize.13>
@@ -691,11 +691,11 @@
 		<ItemCapacityPerSize.10>5</ItemCapacityPerSize.10>
 		<ItemCapacityPerSize.11>3</ItemCapacityPerSize.11>
 		<ItemCapacityPerSize.12>3</ItemCapacityPerSize.12>
-		<ItemCapacityPerSize.13>3</ItemCapacityPerSize.13>
+		<ItemCapacityPerSize.13>2</ItemCapacityPerSize.13>
 		<ItemCapacityPerSize.14>2</ItemCapacityPerSize.14>
 		<ItemCapacityPerSize.15>2</ItemCapacityPerSize.15>
 		<ItemCapacityPerSize.16>2</ItemCapacityPerSize.16>
-		<ItemCapacityPerSize.17>2</ItemCapacityPerSize.17>
+		<ItemCapacityPerSize.17>1</ItemCapacityPerSize.17>
 		<ItemCapacityPerSize.18>0</ItemCapacityPerSize.18>
 		<ItemCapacityPerSize.19>0</ItemCapacityPerSize.19>
 		<ItemCapacityPerSize.20>0</ItemCapacityPerSize.20>
