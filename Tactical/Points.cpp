@@ -31,6 +31,7 @@
 #include "GameSettings.h"
 #include "worldman.h"
 #include "math.h"
+#include "Map Information.h"
 #include "Interface Items.h"
 #endif
 
