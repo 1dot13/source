@@ -225,7 +225,7 @@ INT8 TileIsClear( SOLDIERTYPE *pSoldier, INT8 bDirection,  INT16 sGridNo, INT8 b
 	ubPerson = WhoIsThere2( sGridNo, bLevel );
 
 
-	if ( ubPerson != NO_SOLDIER )
+	if ( ubPerson != NOBODY )
 	{
 		// If this us?
 		if ( ubPerson != pSoldier->ubID )

@@ -30,7 +30,7 @@ extern INT8		gbWorldSectorZ;
 
 // SAM definitions
 extern UINT8	NUMBER_OF_SAMS;
-#define MAX_NUMBER_OF_SAMS	50	//4 
+#define MAX_NUMBER_OF_SAMS	50 //4 //50
 
 extern INT16 pSamList[ MAX_NUMBER_OF_SAMS ];
 extern INT16 pSamGridNoAList[ MAX_NUMBER_OF_SAMS ];

@@ -124,7 +124,7 @@ MOUSE_REGION	gMenuOverlayRegion;
 
 MOUSE_REGION    gBottomPanalRegion;
 
-UINT16				gusOldSelectedSoldier		= NO_SOLDIER;
+UINT16				gusOldSelectedSoldier		= NOBODY;
 
 // OVerlay ID
 INT32					giPopupSlideMessageOverlay = -1;
@@ -1284,7 +1284,7 @@ void GetArrowsBackground( )
 		return;
 	}
 
-	if ( gusSelectedSoldier != NO_SOLDIER )
+	if ( gusSelectedSoldier != NOBODY )
 	{
 		// Get selected soldier
 		GetSoldier( &pSoldier, gusSelectedSoldier );

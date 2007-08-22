@@ -1977,7 +1977,7 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 		if ( ubLevel == 1 && !fThroughIntermediateGridNo )
 		{
 			// Is there a guy here...?
-			if ( WhoIsThere2( sGridNo, ubLevel ) != NO_SOLDIER )
+			if ( WhoIsThere2( sGridNo, ubLevel ) != NOBODY )
 			{
 				dMagForce		=	(float)( dMagForce * 0.85 );
 

@@ -821,7 +821,7 @@ BOOLEAN SetCurrentSquad( INT32 iCurrentSquad, BOOLEAN fForce )
 	}
 
 	// check if the currently selected guy is on this squad, if not, get the first one on the new squad
-	if ( gusSelectedSoldier != NO_SOLDIER )
+	if ( gusSelectedSoldier != NOBODY )
 	{
 		if( Menptr[ gusSelectedSoldier ].bAssignment != iCurrentTacticalSquad )
 		{

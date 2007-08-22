@@ -5326,7 +5326,7 @@ UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife
 	}
 
 
-	if ( ( gusSelectedSoldier != NO_SOLDIER ) && ( gGameSettings.fOptions[ TOPTION_SPACE_SELECTS_NEXT_SQUAD ] ) )
+	if ( ( gusSelectedSoldier != NOBODY ) && ( gGameSettings.fOptions[ TOPTION_SPACE_SELECTS_NEXT_SQUAD ] ) )
 	{ 
 		// only allow if nothing in hand and if in SM panel, the Change Squad button must be enabled
 		if ( ( ( gsCurInterfacePanel != TEAM_PANEL ) || ( ButtonList[ iTEAMPanelButtons[ CHANGE_SQUAD_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )

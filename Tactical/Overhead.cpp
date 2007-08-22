@@ -228,7 +228,7 @@ UINT32                   guiNumAwaySlots = 0;
 UINT8                            gbPlayerNum = 0;
 
 // Global for current selected soldier
-UINT16                                                                  gusSelectedSoldier = NO_SOLDIER;
+UINT16                                                                  gusSelectedSoldier = NOBODY;
 INT8                                                                            gbShowEnemies = FALSE;
 
 BOOLEAN                                                                 gfMovingAnimation = FALSE;
@@ -2780,7 +2780,7 @@ void SelectNextAvailSoldier( SOLDIERTYPE *pSoldier )
 	}
 	else
 	{
-		gusSelectedSoldier = NO_SOLDIER;
+		gusSelectedSoldier = NOBODY;
 		// Change UI mode to reflact that we are selected
 		guiPendingOverrideEvent = I_ON_TERRAIN;
 	}
@@ -2851,7 +2851,7 @@ void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fF
 	}
 
 	// Unselect old selected guy
-	if ( gusSelectedSoldier != NO_SOLDIER )
+	if ( gusSelectedSoldier != NOBODY )
 	{
 		// Get guy
 		pOldSoldier = MercPtrs[ gusSelectedSoldier ];
@@ -3213,7 +3213,7 @@ void HandlePlayerTeamMemberDeath( SOLDIERTYPE *pSoldier )
 		}
 		else
 		{
-			gusSelectedSoldier = NO_SOLDIER;
+			gusSelectedSoldier = NOBODY;
 			// Change UI mode to reflact that we are selected
 			guiPendingOverrideEvent = I_ON_TERRAIN;
 		}
@@ -4237,7 +4237,7 @@ INT16 NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT16 sGridNo, BOOLEAN fPeop
 		return( TRUE );
 	}
 
-	if (fPeopleToo && ( bPerson = WhoIsThere2( sGridNo, bLevel ) ) != NO_SOLDIER )
+	if (fPeopleToo && ( bPerson = WhoIsThere2( sGridNo, bLevel ) ) != NOBODY )
 	{
 		// we could be multitiled... if the person there is us, and the gridno is not
 		// our base gridno, skip past these checks
@@ -4361,7 +4361,7 @@ INT16 NewOKDestinationAndDirection( SOLDIERTYPE * pCurrSoldier, INT16 sGridNo, I
 	INT16         sDesiredLevel;
 	BOOLEAN				fOKCheckStruct;
 
-	if (fPeopleToo && ( bPerson = WhoIsThere2( sGridNo, bLevel ) ) != NO_SOLDIER )
+	if (fPeopleToo && ( bPerson = WhoIsThere2( sGridNo, bLevel ) ) != NOBODY )
 	{
 		// we could be multitiled... if the person there is us, and the gridno is not
 		// our base gridno, skip past these checks
@@ -4508,7 +4508,7 @@ BOOLEAN IsLocationSittable( INT32 iMapIndex, BOOLEAN fOnRoof )
 {
 	STRUCTURE *pStructure;
 	INT16 sDesiredLevel;
-	if( WhoIsThere2( (INT16)iMapIndex, 0 ) != NO_SOLDIER )
+	if( WhoIsThere2( (INT16)iMapIndex, 0 ) != NOBODY )
 		return FALSE;
 	//Locations on roofs without a roof is not possible, so
 	//we convert the onroof intention to ground.

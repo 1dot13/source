@@ -1305,7 +1305,7 @@ void InitSoldierStruct( SOLDIERTYPE *pSoldier )
 	pSoldier->ubDesiredHeight				= NO_DESIRED_HEIGHT;
 	pSoldier->bViewRange						= NORMAL_VIEW_RANGE;
 	pSoldier->bInSector							= FALSE;
-	pSoldier->sGridNo								= NO_MAP_POS;
+	pSoldier->sGridNo								= NOWHERE;
 	pSoldier->iMuzFlash							= -1;
 	pSoldier->usPendingAnimation		= NO_PENDING_ANIMATION;
 	pSoldier->usPendingAnimation2		= NO_PENDING_ANIMATION;

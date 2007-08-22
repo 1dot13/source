@@ -441,7 +441,7 @@ BOOLEAN		gfUICanBeginAllMoveCycle					= FALSE;		// GEts set so we know that the 
 
 INT16			gsSelectedGridNo								= 0;
 INT16			gsSelectedLevel									= I_GROUND_LEVEL;
-INT16			gsSelectedGuy										= NO_SOLDIER;
+INT16			gsSelectedGuy										= NOBODY;
 
 BOOLEAN		gfUIDisplayDamage								= FALSE;
 INT8			gbDamage												= 0;
@@ -1424,7 +1424,7 @@ UINT32 UIHandleMOnTerrain( UI_EVENT *pUIEvent )
 		// DO SOME CURSOR POSITION FLAGS SETTING
 		GetCursorMovementFlags( &uiCursorFlags );
 
-		if ( gusSelectedSoldier != NO_SOLDIER )
+		if ( gusSelectedSoldier != NOBODY )
 		{
 			// Get Soldier Pointer
 			GetSoldier( &pSoldier, gusSelectedSoldier );
@@ -1441,7 +1441,7 @@ UINT32 UIHandleMOnTerrain( UI_EVENT *pUIEvent )
 				// Show reg. cursor
 				// GO INTO IDLE MODE
 				// guiPendingOverrideEvent = I_CHANGE_TO_IDLE;
-				// gusSelectedSoldier = NO_SOLDIER;	
+				// gusSelectedSoldier = NOBODY;	
 				ubID = FindNextActiveAndAliveMerc( pSoldier, FALSE, FALSE ); 
 
 				if ( ubID != NOBODY )
@@ -1450,7 +1450,7 @@ UINT32 UIHandleMOnTerrain( UI_EVENT *pUIEvent )
 				}
 				else
 				{
-					gusSelectedSoldier = NO_SOLDIER;
+					gusSelectedSoldier = NOBODY;
 					// Change UI mode to reflact that we are selected
 					guiPendingOverrideEvent = I_ON_TERRAIN;
 				}
@@ -1832,7 +1832,7 @@ UINT32 UIHandleCMoveMerc( UI_EVENT *pUIEvent )
 	INT16							sIntTileGridNo;
 	BOOLEAN						fOldFastMove;
 
-	if ( gusSelectedSoldier != NO_SOLDIER )
+	if ( gusSelectedSoldier != NOBODY )
 	{
 		fAllMove = gfUIAllMoveOn;
 		gfUIAllMoveOn = FALSE;
@@ -2543,7 +2543,7 @@ UINT32 UIHandleCAMercShoot( UI_EVENT *pUIEvent )
 	SOLDIERTYPE				*pSoldier, *pTSoldier = NULL;
 	BOOLEAN						fDidRequester = FALSE;
 
-	if ( gusSelectedSoldier != NO_SOLDIER )
+	if ( gusSelectedSoldier != NOBODY )
 	{
 
 		if( !GetMouseMapPos( &usMapPos) )
@@ -2684,7 +2684,7 @@ UINT32 UIHandlePADJAdjustStance( UI_EVENT *pUIEvent )
 
 	gfIgnoreScrolling = FALSE;
 
-	if ( gusSelectedSoldier != NO_SOLDIER && gbAdjustStanceDiff != 0 )
+	if ( gusSelectedSoldier != NOBODY && gbAdjustStanceDiff != 0 )
 	{
 		// Get soldier
 		if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
@@ -2858,7 +2858,7 @@ BOOLEAN SelectedMercCanAffordAttack( )
 	UINT8							ubItemCursor;
 	UINT16						usInHand;
 
-	if ( gusSelectedSoldier != NO_SOLDIER )
+	if ( gusSelectedSoldier != NOBODY )
 	{
 
 		if( !GetMouseMapPos( &usMapPos) )

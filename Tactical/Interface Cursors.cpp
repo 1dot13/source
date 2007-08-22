@@ -509,7 +509,7 @@ void DrawSnappingCursor( )
 	SOLDIERTYPE								 *pSoldier;
 	static BOOLEAN		fShowAP = TRUE;
 
-	if ( gusSelectedSoldier != NO_SOLDIER )
+	if ( gusSelectedSoldier != NOBODY )
 	{
 			GetSoldier( &pSoldier, gusSelectedSoldier );
 

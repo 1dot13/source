@@ -195,7 +195,7 @@ void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 		// Are we in combat already?
 		if ( gTacticalStatus.uiFlags & INCOMBAT )
 		{		
-			if ( gusSelectedSoldier != NO_SOLDIER )
+			if ( gusSelectedSoldier != NOBODY )
 			{
 				// Check if this guy is able to be selected....
 				if ( MercPtrs[ gusSelectedSoldier ]->bLife < OKLIFE )
@@ -209,7 +209,7 @@ void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 				}
 
 				// Slide to selected guy...
-				if ( gusSelectedSoldier != NO_SOLDIER )
+				if ( gusSelectedSoldier != NOBODY )
 				{
 					SlideTo( NOWHERE, gusSelectedSoldier, NOBODY ,SETLOCATOR);
 
@@ -1018,7 +1018,7 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 				guiPendingOverrideEvent = LU_ENDUILOCK;
 				HandleTacticalUI( );
 
-				if ( gusSelectedSoldier != NO_SOLDIER )
+				if ( gusSelectedSoldier != NOBODY )
 				{
 					SlideTo( NOWHERE, gusSelectedSoldier, NOBODY ,SETLOCATOR);
 
