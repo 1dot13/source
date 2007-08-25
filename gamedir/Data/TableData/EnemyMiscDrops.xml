@@ -79,18 +79,10 @@ Attribute Field Reference:
 		<ubEnemyDropRate>15</ubEnemyDropRate>
 		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
-	<!-- IC_APPLIABLE -->
-	<!-- Unused -->
-	<DROPITEM>
-		<uiIndex>8</uiIndex>
-		<usItemClass>16384</usItemClass>
-		<ubEnemyDropRate>0</ubEnemyDropRate>
-		<ubMilitiaDropRate>0</ubMilitiaDropRate>
-	</DROPITEM>
 	<!-- IC_FACE -->
 	<!-- Gas masks, googles, ... -->
 	<DROPITEM>
-		<uiIndex>9</uiIndex>
+		<uiIndex>8</uiIndex>
 		<usItemClass>32768</usItemClass>
 		<ubEnemyDropRate>15</ubEnemyDropRate>
 		<ubMilitiaDropRate>2</ubMilitiaDropRate>
@@ -98,7 +90,7 @@ Attribute Field Reference:
 	<!-- IC_KEY -->
 	<!-- Keys -->
 	<DROPITEM>
-		<uiIndex>10</uiIndex>
+		<uiIndex>9</uiIndex>
 		<usItemClass>65536</usItemClass>
 		<ubEnemyDropRate>50</ubEnemyDropRate>
 		<ubMilitiaDropRate>2</ubMilitiaDropRate>
@@ -106,7 +98,7 @@ Attribute Field Reference:
 	<!-- IC_MISC -->
 	<!-- Most attachments -->
 	<DROPITEM>
-		<uiIndex>11</uiIndex>
+		<uiIndex>10</uiIndex>
 		<usItemClass>268435456</usItemClass>
 		<ubEnemyDropRate>15</ubEnemyDropRate>
 		<ubMilitiaDropRate>2</ubMilitiaDropRate>
@@ -114,7 +106,7 @@ Attribute Field Reference:
 	<!-- IC_Money -->
 	<!-- Money -->
 	<DROPITEM>
-		<uiIndex>12</uiIndex>
+		<uiIndex>11</uiIndex>
 		<usItemClass>536870912</usItemClass>
 		<ubEnemyDropRate>15</ubEnemyDropRate>
 		<ubMilitiaDropRate>2</ubMilitiaDropRate>
