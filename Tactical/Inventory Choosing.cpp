@@ -1730,7 +1730,7 @@ void ChooseFaceGearForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp )
 					if ( usItem > 0 )
 					{
 						CreateItem( usItem, (INT8)(70+Random(31)), &(pp->Inv[ HEAD1POS ]) );
-						pp->Inv[ HEAD2POS ].fFlags |= OBJECT_UNDROPPABLE;
+						pp->Inv[ HEAD1POS ].fFlags |= OBJECT_UNDROPPABLE;
 					}
 				}
 			}
@@ -2070,10 +2070,10 @@ if ( gGameSettings.fOptions[TOPTION_DROP_ALL] )
 {
 	ENEMYAMMODROPRATE = 100;      
 	ENEMYGRENADEDROPRATE = 100;   
-	ENEMYEQUIPDROPRATE = 50;      
+	ENEMYEQUIPDROPRATE = 100;	// WANNE: Changed from 50 to 100, because DROP ALL should mean DROP ALL!   
 	MILITIAAMMODROPRATE = 100;      
 	MILITIAGRENADEDROPRATE = 100;	
-	MILITIAEQUIPDROPRATE = 50;     
+	MILITIAEQUIPDROPRATE = 100;   // WANNE: Changed from 50 to 100, because DROP ALL should mean DROP ALL!  
 }
 else
 {
