@@ -2804,7 +2804,7 @@ void ManChecksOnFriends(SOLDIERTYPE *pSoldier)
 
 		// if we can see far enough to see this friend
 		// and can trace a line of sight to his x,y coordinates
-		if (SoldierToSoldierLineOfSightTest(pSoldier, pFriend, TRUE))
+		if (SoldierToSoldierLineOfSightTest(pSoldier, pFriend, TRUE, CALC_FROM_ALL_DIRS))
 		{
 			// if my friend is in battle or something is clearly happening there
 			if ((pFriend->bAlertStatus >= STATUS_RED) || pFriend->bUnderFire || (pFriend->bLife < OKLIFE))

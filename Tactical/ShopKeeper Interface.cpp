@@ -7092,7 +7092,7 @@ BOOLEAN CanMercInteractWithSelectedShopkeeper( SOLDIERTYPE *pSoldier )
 		sDestGridNo = pShopkeeper->sGridNo;
 		bDestLevel	= pShopkeeper->bLevel;
 		// If he has LOS...
-		if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sDestGridNo, bDestLevel, 3, TRUE ) )
+		if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sDestGridNo, bDestLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 		{
 			// Get range to shopkeeper
 			uiRange = GetRangeFromGridNoDiff( pSoldier->sGridNo, sDestGridNo );

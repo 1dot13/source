@@ -5028,7 +5028,7 @@ void TestPotentialOwner( SOLDIERTYPE * pSoldier )
 {
 	if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->bLife >= OKLIFE )
 	{
-		if ( SoldierToSoldierLineOfSightTest( pSoldier, gpTempSoldier, TRUE ) )
+		if ( SoldierToSoldierLineOfSightTest( pSoldier, gpTempSoldier, TRUE, CALC_FROM_ALL_DIRS ) )
 		{
 			MakeNPCGrumpyForMinorOffense( pSoldier, gpTempSoldier );
 		}

@@ -3322,7 +3322,7 @@ void SetSoldierGridNo( SOLDIERTYPE *pSoldier, INT16 sNewGridNo, BOOLEAN fForceRe
 							// if we SEE this particular oppponent, and he DOESN'T see us... and he COULD see us...
 							if ( (pSoldier->bOppList[ cnt ] == SEEN_CURRENTLY) &&
 								pEnemy->bOppList[ pSoldier->ubID ] != SEEN_CURRENTLY && 
-								PythSpacesAway( pSoldier->sGridNo, pEnemy->sGridNo ) < DistanceVisible( pEnemy, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, pSoldier->sGridNo, pSoldier->bLevel ) )
+								PythSpacesAway( pSoldier->sGridNo, pEnemy->sGridNo ) < pEnemy->GetMaxDistanceVisible(pSoldier->sGridNo, pSoldier->bLevel ) )
 							{
 								// AGILITY (5):  Soldier snuck 1 square past unaware enemy
 								StatChange( pSoldier, AGILAMT, 5, FALSE );

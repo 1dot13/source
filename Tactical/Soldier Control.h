@@ -427,7 +427,7 @@ public:
 	void CopyOldInventoryToNew();
 	void CopyNewInventoryToOld();
 
-	INT16	GetMaxDistanceVisible(INT16 sGridNo = -1, INT8 bLevel = -1);
+	INT16	GetMaxDistanceVisible(INT16 sGridNo = -1, INT8 bLevel = -1, int calcAsType = -1);
 
 	// Note: Place all non-POD items at the end (after endOfPOD)
 	// The format of this structure affects what is written into and read from various

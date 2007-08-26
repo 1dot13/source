@@ -6557,6 +6557,8 @@ INT16 GetVisionRangeBonus( SOLDIERTYPE * pSoldier )
 	UINT16 usItem;
 	INVTYPE *pItem;
 
+	//ADB and AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
+	bool usingGunScope = WeaponReady(pSoldier);
 	for (int i = HELMETPOS; i < BIGPOCK1POS; i++)
 	{
 		// Okay, it's time for some optimization here too
@@ -6570,7 +6572,7 @@ INT16 GetVisionRangeBonus( SOLDIERTYPE * pSoldier )
 			continue;
 		}
 
-		if (!IsWeapon(usItem) || (IsWeapon(usItem) && WeaponReady(pSoldier) ) )
+		if (!IsWeapon(usItem) || (IsWeapon(usItem) && usingGunScope == true) )
 		{
 			bns += BonusReduceMore( pItem->visionrangebonus,	pObj->ItemData.Generic.bStatus[0] );
 		}
@@ -6578,7 +6580,7 @@ INT16 GetVisionRangeBonus( SOLDIERTYPE * pSoldier )
 
 	// Snap: check only attachments on a raised weapon!
 	//AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
-	if ( WeaponReady(pSoldier) || gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIRE )
+	if ( usingGunScope == true )
 	{
 		pObj = &( pSoldier->inv[HANDPOS]);
 
@@ -6612,6 +6614,8 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	UINT16 usItem;
 	INVTYPE *pItem;
 
+	//ADB and AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
+	bool usingGunScope = WeaponReady(pSoldier);
 	for (int i = HELMETPOS; i < BIGPOCK1POS; i++)
 	{
 		// More optimization
@@ -6625,7 +6629,7 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 			continue;
 		}
 
-		if (!IsWeapon(usItem) || (IsWeapon(usItem) && WeaponReady(pSoldier) ) )
+		if (!IsWeapon(usItem) || (IsWeapon(usItem) && usingGunScope == true ) )
 		{
 			bns += BonusReduceMore(
 				NightBonusScale( pItem->nightvisionrangebonus, bLightLevel ),
@@ -6634,7 +6638,7 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	}
 
 	// Snap: check only attachments on a raised weapon!
-	if ( WeaponReady(pSoldier) )
+	if ( usingGunScope == true )
 	{
 		pObj = &( pSoldier->inv[HANDPOS]);
 
@@ -6656,6 +6660,8 @@ INT16 GetCaveVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	UINT16 usItem;
 	INVTYPE *pItem;
 
+	//ADB and AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
+	bool usingGunScope = WeaponReady(pSoldier);
 	for (int i = 0; i < BIGPOCK1POS; i++)
 	{
 		// More optimization
@@ -6670,7 +6676,7 @@ INT16 GetCaveVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 			continue;
 		}
 
-		if (!IsWeapon(usItem) || (IsWeapon(usItem) && WeaponReady(pSoldier) ) )
+		if (!IsWeapon(usItem) || (IsWeapon(usItem) && usingGunScope == true ) )
 		{
 			bns += BonusReduceMore(
 				NightBonusScale( pItem->cavevisionrangebonus, bLightLevel ),
@@ -6679,7 +6685,7 @@ INT16 GetCaveVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	}
 
 	// Snap: check only attachments on a raised weapon!
-	if ( WeaponReady(pSoldier) )
+	if ( usingGunScope == true )
 	{
 		pObj = &( pSoldier->inv[HANDPOS]);
 
@@ -6703,6 +6709,8 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 
 	// Snap: Scale the bonus with the light level
 
+	//ADB and AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
+	bool usingGunScope = WeaponReady(pSoldier);
 	for (int i = 0; i < BIGPOCK1POS; i++)
 	{
 		// More optimization
@@ -6717,7 +6725,7 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 			continue;
 		}
 
-		if (!IsWeapon(usItem) || (IsWeapon(usItem) && WeaponReady(pSoldier) ) )
+		if (!IsWeapon(usItem) || (IsWeapon(usItem) && usingGunScope == true ) )
 		{
 			bns += BonusReduceMore( idiv( pItem->dayvisionrangebonus
 				* (NORMAL_LIGHTLEVEL_NIGHT - bLightLevel), NORMAL_LIGHTLEVEL_NIGHT ),
@@ -6726,7 +6734,7 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	}
 
 	// Snap: check only attachments on a raised weapon!
-	if ( WeaponReady(pSoldier) )
+	if ( usingGunScope == true )
 	{
 		pObj = &( pSoldier->inv[HANDPOS]);
 
@@ -6750,6 +6758,8 @@ INT16 GetBrightLightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel 
 
 	// Snap: Scale the bonus with the light level
 
+	//ADB and AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
+	bool usingGunScope = WeaponReady(pSoldier);
 	for (int i = 0; i < BIGPOCK1POS; i++)
 	{
 		// More optimization
@@ -6764,7 +6774,7 @@ INT16 GetBrightLightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel 
 			continue;
 		}
 
-		if (!IsWeapon(usItem) || (IsWeapon(usItem) && WeaponReady(pSoldier) ) )
+		if (!IsWeapon(usItem) || (IsWeapon(usItem) && usingGunScope == true ) )
 		{
 			bns += BonusReduceMore( idiv( pItem->brightlightvisionrangebonus
 				* (NORMAL_LIGHTLEVEL_DAY - bLightLevel), NORMAL_LIGHTLEVEL_DAY ),
@@ -6773,7 +6783,7 @@ INT16 GetBrightLightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel 
 	}
 
 	// Snap: check only attachments on a raised weapon!
-	if ( WeaponReady(pSoldier) )
+	if ( usingGunScope == true )
 	{
 		pObj = &( pSoldier->inv[HANDPOS]);
 
@@ -6840,8 +6850,9 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 		}
 	}
 
+	bool usingGunScope = WeaponReady(pSoldier);
 	// Snap: check only attachments on a raised weapon!
-	if ( WeaponReady(pSoldier) )
+	if ( usingGunScope == true )
 	{
 		OBJECTTYPE *pInv = &(pSoldier->inv[HANDPOS]);
 		usItem = pInv->usItem;
@@ -6866,6 +6877,7 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 BOOLEAN HasThermalOptics( SOLDIERTYPE * pSoldier )
 {
 
+	bool usingGunScope = WeaponReady(pSoldier);
 	for (int i = 0; i < BIGPOCK1POS; i++)
 	{
 		if ( (i == HANDPOS || i == SECONDHANDPOS) && 
@@ -6874,7 +6886,7 @@ BOOLEAN HasThermalOptics( SOLDIERTYPE * pSoldier )
 			continue;
 		}
 
-		if (!IsWeapon(pSoldier->inv[i].usItem) || (IsWeapon(pSoldier->inv[i].usItem) && WeaponReady(pSoldier) ) )
+		if (!IsWeapon(pSoldier->inv[i].usItem) || (IsWeapon(pSoldier->inv[i].usItem) && usingGunScope == true) )
 		{
 			if (Item[pSoldier->inv[i].usItem].thermaloptics)
 				return TRUE;
@@ -6882,7 +6894,7 @@ BOOLEAN HasThermalOptics( SOLDIERTYPE * pSoldier )
 	}
 
 	// Snap: check only attachments on a raised weapon!
-	if ( WeaponReady(pSoldier) )
+	if ( usingGunScope == true )
 	{
 		for (int i=0; i < MAX_ATTACHMENTS; i++)
 		{

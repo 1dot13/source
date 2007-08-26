@@ -4808,7 +4808,7 @@ UINT32 UIHandleTOnTerrain( UI_EVENT *pUIEvent )
 
 	if ( fValidTalkableGuy )
 	{
-		if ( !SoldierTo3DLocationLineOfSightTest( pSoldier, sTargetGridNo,  pSoldier->bLevel, 3, TRUE ) )
+		if ( !SoldierTo3DLocationLineOfSightTest( pSoldier, sTargetGridNo,  pSoldier->bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 		{
 			//. ATE: Make range far, so we alternate cursors...
 			guiNewUICursor = TALK_OUT_RANGE_A_UICURSOR;		
@@ -5595,7 +5595,7 @@ BOOLEAN HandleTalkInit(  )
 				if ( !(( pTSoldier->bTeam == MILITIA_TEAM ) && ( CheckIfRadioIsEquipped() )) ) //lal 
 				{
 					// Check LOS!
-					if ( !SoldierTo3DLocationLineOfSightTest( pSoldier, pTSoldier->sGridNo,  pTSoldier->bLevel, 3, TRUE ) )
+					if ( !SoldierTo3DLocationLineOfSightTest( pSoldier, pTSoldier->sGridNo,  pTSoldier->bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 					{
 						if ( pTSoldier->ubProfile != NO_PROFILE )
 						{
@@ -6279,7 +6279,7 @@ BOOLEAN ValidQuickExchangePosition( )
 				{
 					if ( PythSpacesAway( pSoldier->sGridNo, pOverSoldier->sGridNo ) == 1 )
 					{
-						if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pOverSoldier->sGridNo,  pOverSoldier->bLevel, 3, TRUE ) )
+						if ( SoldierTo3DLocationLineOfSightTest( pSoldier, pOverSoldier->sGridNo,  pOverSoldier->bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 						{
 							// ATE:
 							// Check that the path is good!

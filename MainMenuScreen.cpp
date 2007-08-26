@@ -611,7 +611,7 @@ BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate )
 			#ifndef _DEBUG
 				//load up some info from the 'mainmenu.edt' file.  This makes sure the file is present.  The file is
 				// 'marked' with a code that identifies the testers
-				iStartLoc = MAINMENU_RECORD_SIZE * cnt;
+				INT32 iStartLoc = MAINMENU_RECORD_SIZE * cnt;
 				if( !LoadEncryptedDataFromFile(MAINMENU_TEXT_FILE, zText, iStartLoc, MAINMENU_RECORD_SIZE ) )
 				{
 					//the file was not able to be loaded properly

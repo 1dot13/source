@@ -566,7 +566,7 @@ void CheckForDisabledForGiveItem( )
 				sDist = PythSpacesAway( gpSMCurrentMerc->sGridNo, pSoldier->sGridNo );
 
 				// Check LOS....
-				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, gpSMCurrentMerc->sGridNo,  gpSMCurrentMerc->bLevel, 3, TRUE ) )
+				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, gpSMCurrentMerc->sGridNo,  gpSMCurrentMerc->bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 				{
 					if ( sDist <= PASSING_ITEM_DISTANCE_NOTOKLIFE )
 					{
@@ -598,7 +598,7 @@ void CheckForDisabledForGiveItem( )
 				sDist = PythSpacesAway( MercPtrs[ ubSrcSoldier ]->sGridNo, sDestGridNo );
 
 				// Check LOS....
-				if ( SoldierTo3DLocationLineOfSightTest( MercPtrs[ ubSrcSoldier ], sDestGridNo,  bDestLevel, 3, TRUE )  )
+				if ( SoldierTo3DLocationLineOfSightTest( MercPtrs[ ubSrcSoldier ], sDestGridNo,  bDestLevel, 3, TRUE, CALC_FROM_ALL_DIRS )  )
 				{
 					// UNCONSCIOUS GUYS ONLY 1 tile AWAY
 					if ( MercPtrs[ gusSMCurrentMerc ]->bLife < CONSCIOUSNESS )

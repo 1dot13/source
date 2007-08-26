@@ -1034,7 +1034,7 @@ INT16 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK, 
 		bLevel = *pbNoiseLevel;
 
 		// if we are not NEAR the noise gridno...
-		if ( pSoldier->bLevel != bLevel || PythSpacesAway( pSoldier->sGridNo, sGridNo ) >= 6 || SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, bLevel, 0, FALSE ) == 0 )
+		if ( pSoldier->bLevel != bLevel || PythSpacesAway( pSoldier->sGridNo, sGridNo ) >= 6 || SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, bLevel, 0, FALSE, NO_DISTANCE_LIMIT ) == 0 )
 		// if we are NOT there (at the noise gridno)
 		//	if (sGridNo != pSoldier->sGridNo)
 		{

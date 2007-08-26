@@ -3649,11 +3649,21 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 		iChance -= iPenalty;
 	}
 
+	//ADB we need to calculate the distance visible and SoldierTo...LOSTests that we want to
+	//calculate it when firing, so the scope can be accounted for when the weapon is raised
+	//I consider this a hack to change the global, but passing a var alllll the way down to GetVisionBonus was worse
+	//if anyone wants to change it go for it, I don't know what usAnimState should be set
+
+	//store old flag
+	UINT32 oldFlag = gAnimControl[ pSoldier->usAnimState ].uiFlags;
+	//add the necessary bits to the flag
+	gAnimControl[ pSoldier->usAnimState ].uiFlags |= (ANIM_FIREREADY | ANIM_FIRE);
+
 	// 0verhaul:  Changed to take expanded range from shooting at different levels into account
 	//ADB this change does nothing - either way it is random - we don't know what level we are shooting to, which is
 	//what the last parameter is, and the soldier's current level is as good a guess as ground level.
 	//so if you really want to fix this, pass in a value
-	sDistVis = DistanceVisible( pSoldier, DIRECTION_IRRELEVANT, DIRECTION_IRRELEVANT, sGridNo, pSoldier->bTargetLevel );
+	sDistVis = pSoldier->GetMaxDistanceVisible(sGridNo, pSoldier->bTargetLevel, CALC_FROM_ALL_DIRS );
 
 	// CJC August 13 2002:  Wow, this has been wrong the whole time.  bTargetCubeLevel seems to be generally set to 2 -
 	// but if a character is shooting at an enemy in a particular spot, then we should be using the target position on the body.
@@ -3668,14 +3678,19 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime
 	// best to use team knowledge as well, in case of spotting for someone else
 	// 0verhaul:  Why not use the distance visible as the max for line of sight testing?
 	//ADB because A) the bullet can travel farther than I can see and B) I might have a spotter
+
+	//We are firing a gun, and so the gun will be pointed and the scope will be used, even if it isn't now, so don't forget that we are in a firing animation
 	if (ubTargetID != NOBODY && pSoldier->bOppList[ubTargetID] == SEEN_CURRENTLY || gbPublicOpplist[pSoldier->bTeam][ubTargetID] == SEEN_CURRENTLY)
 	{
-		iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, 255, pSoldier->bAimShotLocation );	
+		iSightRange = SoldierToSoldierLineOfSightTest( pSoldier, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pSoldier->bAimShotLocation );	
 	}
 	if (iSightRange == -1) // didn't do a bodypart-based test
 	{
-		iSightRange = SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pSoldier->bTargetLevel, pSoldier->bTargetCubeLevel, TRUE, 255 );
+		iSightRange = SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pSoldier->bTargetLevel, pSoldier->bTargetCubeLevel, TRUE, NO_DISTANCE_LIMIT );
 	}
+
+	//restore old flag
+	gAnimControl[ pSoldier->usAnimState ].uiFlags = oldFlag;
 
 	if ( iSightRange > (sDistVis * CELL_X_SIZE) )
 	{

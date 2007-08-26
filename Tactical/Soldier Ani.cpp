@@ -2958,14 +2958,14 @@ void SayBuddyWitnessedQuoteFromKill( SOLDIERTYPE *pKillerSoldier, INT16 sGridNo,
 
 				// TO LOS check to killed
 				// Can we see location of killer?
-				if ( SoldierTo3DLocationLineOfSightTest( pTeamSoldier, pKillerSoldier->sGridNo,  pKillerSoldier->bLevel, (UINT8)3, TRUE ) == 0 )
+				if ( SoldierTo3DLocationLineOfSightTest( pTeamSoldier, pKillerSoldier->sGridNo,  pKillerSoldier->bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) == 0 )
 				{
 					continue;
 				}
 
 
 				// Can we see location of killed?
-				if ( SoldierTo3DLocationLineOfSightTest( pTeamSoldier, sGridNo,  bLevel, (UINT8)3, TRUE ) == 0 )
+				if ( SoldierTo3DLocationLineOfSightTest( pTeamSoldier, sGridNo,  bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) == 0 )
 				{
 					continue;
 				}
@@ -3023,7 +3023,7 @@ void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier
 	gfLastMercTalkedAboutKillingID = pKilledSoldier->ubID;
 
 	// Can we see location?
-	fCanWeSeeLocation = ( SoldierTo3DLocationLineOfSightTest( pKillerSoldier, sGridNo,  bLevel, (UINT8)3, TRUE ) != 0 );
+	fCanWeSeeLocation = ( SoldierTo3DLocationLineOfSightTest( pKillerSoldier, sGridNo,  bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) != 0 );
 
 
 	// Are we killing mike?
@@ -3084,7 +3084,7 @@ void HandleKilledQuote( SOLDIERTYPE *pKilledSoldier, SOLDIERTYPE *pKillerSoldier
 						if ( OK_INSECTOR_MERC( pTeamSoldier ) && !( pTeamSoldier->uiStatusFlags & SOLDIER_GASSED ) && !AM_AN_EPC( pTeamSoldier ) )
 						{
 							// Can we see location?
-							if ( SoldierTo3DLocationLineOfSightTest( pTeamSoldier, sGridNo,  bLevel, 3, TRUE ) )
+							if ( SoldierTo3DLocationLineOfSightTest( pTeamSoldier, sGridNo,  bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 							{
 								ubMercsInSector[ ubNumMercs ] = (UINT8)cnt;
 								ubNumMercs++;

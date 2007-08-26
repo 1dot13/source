@@ -5100,7 +5100,7 @@ BOOLEAN HandleItemPointerClick( UINT16 usMapPos )
 					}
 
 					// Check LOS....
-					if ( !SoldierTo3DLocationLineOfSightTest( pSoldier, gpItemPointerSoldier->sGridNo,  gpItemPointerSoldier->bLevel, 3, TRUE ) )
+					if ( !SoldierTo3DLocationLineOfSightTest( pSoldier, gpItemPointerSoldier->sGridNo,  gpItemPointerSoldier->bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 					{
 						return( FALSE );
 					}

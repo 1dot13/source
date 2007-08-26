@@ -1279,7 +1279,7 @@ void AllMercsOnTeamLookForCorpse( ROTTING_CORPSE *pCorpse, INT8 bTeam )
 		{
 			// and we can trace a line of sight to his x,y coordinates?
 			// (taking into account we are definitely aware of this guy now)
-			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pCorpse->def.bLevel, 3, TRUE ) )
+			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 			{
 				 MakeCorpseVisible( pSoldier, pCorpse );
 				 return;
@@ -1335,7 +1335,7 @@ void MercLooksForCorpses( SOLDIERTYPE *pSoldier )
 				sGridNo = pCorpse->def.sGridNo;
 				// and we can trace a line of sight to his x,y coordinates?
 				// (taking into account we are definitely aware of this guy now)
-				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pCorpse->def.bLevel, 3, TRUE ) )
+				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sGridNo, pCorpse->def.bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 				{
 					TacticalCharacterDialogue( pSoldier, QUOTE_HEADSHOT );			
 

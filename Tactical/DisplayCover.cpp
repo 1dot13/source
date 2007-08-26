@@ -458,7 +458,7 @@ INT8	CalcCoverForGridNoBasedOnTeamKnownEnemies( SOLDIERTYPE *pSoldier, INT16 sTa
 		}
 
 		// if actual LOS check fails, then chance to hit is 0, ignore this guy
-		if( SoldierToVirtualSoldierLineOfSightTest( pOpponent, sTargetGridNo, pSoldier->bLevel, bStance, TRUE ) == 0 )
+		if( SoldierToVirtualSoldierLineOfSightTest( pOpponent, sTargetGridNo, pSoldier->bLevel, bStance, TRUE, CALC_FROM_WANTED_DIR ) == 0 )
 		{
 			continue;
 		}
@@ -954,7 +954,7 @@ INT8 CalcIfSoldierCanSeeGridNo( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, BOOL
 	}
 
     // Lesh: changed 2-nd parameter in DistanceVisible function call
-	usSightLimit = DistanceVisible( pSoldier, (SoldierHasLimitedVision(pSoldier) ? pSoldier->bDesiredDirection : DIRECTION_IRRELEVANT), DIRECTION_IRRELEVANT, sTargetGridNo, fRoof );
+	usSightLimit = pSoldier->GetMaxDistanceVisible(sTargetGridNo, fRoof, CALC_FROM_WANTED_DIR);
 
 
 	//
