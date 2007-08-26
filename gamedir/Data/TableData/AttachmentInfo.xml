@@ -103,27 +103,20 @@ SKILL CHECKS:
 	</ATTACHMENTINFO>
 	<ATTACHMENTINFO>
 		<uiIndex>10</uiIndex>
-		<usItem>224</usItem> <!-- Remote Det. -->
-		<uiItemClass>512</uiItemClass>
-		<bAttachmentSkillCheck>4</bAttachmentSkillCheck>
-		<bAttachmentSkillCheckMod>-10</bAttachmentSkillCheckMod>
-	</ATTACHMENTINFO>
-	<ATTACHMENTINFO>
-		<uiIndex>11</uiIndex>
 		<usItem>319</usItem> <!-- X-ray Tube -->
 		<uiItemClass>1</uiItemClass>
 		<bAttachmentSkillCheck>14</bAttachmentSkillCheck>
 		<bAttachmentSkillCheckMod>-15</bAttachmentSkillCheckMod>
 	</ATTACHMENTINFO>
 	<ATTACHMENTINFO>
-		<uiIndex>12</uiIndex>
+		<uiIndex>11</uiIndex>
 		<usItem>316</usItem> <!-- Copper Wire -->
 		<uiItemClass>1</uiItemClass>
 		<bAttachmentSkillCheck>14</bAttachmentSkillCheck>
 		<bAttachmentSkillCheckMod>20</bAttachmentSkillCheckMod>
 	</ATTACHMENTINFO>
 	<ATTACHMENTINFO>
-		<uiIndex>13</uiIndex>
+		<uiIndex>12</uiIndex>
 		<usItem>183</usItem> <!-- Ceramic Plates -->
 		<uiItemClass>2048</uiItemClass>
 		<bAttachmentSkillCheck>0</bAttachmentSkillCheck>
