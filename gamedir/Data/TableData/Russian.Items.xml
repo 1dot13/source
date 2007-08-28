@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -1657,10 +1658,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>207</uiIndex>
-		<szItemName>Silencer</szItemName>
-		<szLongItemName>Small Caliber Silencer</szLongItemName>
+		<szItemName>Pistol Supp.</szItemName>
+		<szLongItemName>Pistol Suppressor</szLongItemName>
 		<szItemDesc>The light, compact design of this silencer can be fitted easily to most handguns and sub-machine guns.</szItemDesc>
-		<szBRName>Small Caliber Silencer</szBRName>
+		<szBRName>Pistol Suppressor</szBRName>
 		<szBRDesc>This is the ideal silencer for both indoor and outdoor missions that have to be kept quiet. Its light and compact design can be fitted easily to most handguns and sub-machine guns.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2233,139 +2234,139 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>279</uiIndex>
-		<szItemName>5.7mm Mag 20</szItemName>
-		<szLongItemName>5.7x28mm Mag, 20</szLongItemName>
-		<szItemDesc>This magazine contains 20 rounds of 5.7mm ammunition. This polymer pistol round performs remarkably well against both armored and unarmored opponents.</szItemDesc>
-		<szBRName>5.7x28mm Mag 20</szBRName>
-		<szBRDesc>5.7mm somersaults through flesh and bone leaving major wound cavities.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 279</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>280</uiIndex>
-		<szItemName>5.7mm Mag 20 HP</szItemName>
-		<szLongItemName>5.7x28mm Mag, 20 HP</szLongItemName>
-		<szItemDesc>These 20 rounds of 5.7mm hollow point ammunition have enhanced injury inflicting capabilities over the basic 5.7 and have retained most of its armor piercing capabilities.</szItemDesc>
-		<szBRName>5.7x28mm Mag 20 HP</szBRName>
-		<szBRDesc>These 20 rounds of 5.7mm hollow point ammunition have enhanced injury inflicting capabilities over the basic 5.7 and have retained most of its armor piercing capabilities.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 280</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>281</uiIndex>
-		<szItemName>Black Cap</szItemName>
-		<szLongItemName>Black Cap</szLongItemName>
-		<szItemDesc>A black commando-type tuque.</szItemDesc>
-		<szBRName>Black Cap</szBRName>
-		<szBRDesc>On Sale: 1/2 Price!  For a limited time only, you can purchase this fine Commando Tuque, made from the finest cotton, for 50 percent off!</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 281</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>282</uiIndex>
-		<szItemName>Zylon Combat Pants</szItemName>
-		<szLongItemName>Zylon Combat Pants</szLongItemName>
-		<szItemDesc>This is the standard issue body armour of the US military.  What were they thinking?  This stuff wears out way too fast.</szItemDesc>
-		<szBRName>Zylon Combat Pants</szBRName>
-		<szBRDesc>Stronger than kevlar, this is the body armour worn by US Marines in Iraq.  Provides limited camouflage.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 282</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>283</uiIndex>
-		<szItemName>Zylon Combat Vest</szItemName>
-		<szLongItemName>Zylon Combat Vest</szLongItemName>
-		<szItemDesc>This is the standard issue body armour of the US military.  What were they thinking?  This stuff wears out way too fast.</szItemDesc>
-		<szBRName>Zylon Combat Vest</szBRName>
-		<szBRDesc>Stronger than kevlar, this is the body armour worn by US Marines in Iraq.  Provides limited camouflage.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 283</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>284</uiIndex>
-		<szItemName>Uniform</szItemName>
-		<szLongItemName>Field Uniform</szLongItemName>
-		<szItemDesc>This is the standard issue body armour of the US military.  What were they thinking?  This stuff wears out way too fast.</szItemDesc>
-		<szBRName>Field Uniform</szBRName>
-		<szBRDesc>Officer's fatigues.  Stronger than kevlar, this is the body armour worn by US Marines in Iraq.  Provides limited camouflage.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 284</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>285</uiIndex>
-		<szItemName>Hat</szItemName>
-		<szLongItemName>Hat</szLongItemName>
-		<szItemDesc>A nice hat to wear when your helmet gets too hot.  Provides limited camouflage.</szItemDesc>
-		<szBRName>Hat</szBRName>
-		<szBRDesc>As seen on TV!  This is the same hat that "Wild Bill" wore on the GI Joe Saturday morning cartoon.  Ok, so it's not the same hat.  But's its still a nice hat.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 285</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>286</uiIndex>
-		<szItemName>Uniform</szItemName>
-		<szLongItemName>Dress Uniform</szLongItemName>
-		<szItemDesc>If you ever need to go to a formal dinner party while you're here in Arulco, you could wear this.  Or not.</szItemDesc>
-		<szBRName>Dress Uniform</szBRName>
-		<szBRDesc>Formal attire of the US Marine Corps.  Warning!  This is not a viable combat vestement.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 286</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>287</uiIndex>
-		<szItemName>Hat</szItemName>
-		<szLongItemName>Officer's Hat</szLongItemName>
-		<szItemDesc>This is an officer's hat.  From the looks of it, it's probably from the US.</szItemDesc>
-		<szBRName>Officer's Hat</szBRName>
-		<szBRDesc>A marine officer's hat.  Comes with free beer-hat.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 287</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>288</uiIndex>
-		<szItemName>Beret</szItemName>
-		<szLongItemName>Red Beret</szLongItemName>
-		<szItemDesc>Parlay voo francais?  This beret may not be French, but it sure looks gay.</szItemDesc>
-		<szBRName>Red Beret</szBRName>
-		<szBRDesc>Start your own special forces team!</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 288</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>289</uiIndex>
-		<szItemName>Cap</szItemName>
-		<szLongItemName>Russian Cap</szLongItemName>
-		<szItemDesc>Wow, nice hat!</szItemDesc>
-		<szBRName>Russian Cap</szBRName>
-		<szBRDesc>A Soviet guard's hat.  Available in brown and red.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 289</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>290</uiIndex>
-		<szItemName>Hat</szItemName>
-		<szLongItemName>Fur Hat</szLongItemName>
-		<szItemDesc>For those cold Russian winters, you need the best in head warming fur hats.  So why would you need it in Arulco?</szItemDesc>
-		<szBRName>Fur Hat</szBRName>
-		<szBRDesc>For those cold Russian winters, you need the best in head warming fur hats.  Comes with free ear muffs.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 290</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>291</uiIndex>
-		<szItemName>Coat</szItemName>
-		<szLongItemName>Officer's Coat</szLongItemName>
-		<szItemDesc>While this coat looks like it'll hold up fine against the rain, it doesn't look like it'll do much against bullets.</szItemDesc>
-		<szBRName>Officer's Coat</szBRName>
-		<szBRDesc>A Soviet officer's coat.  Available with and without pocket lint.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 291</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>292</uiIndex>
-		<szItemName>Hat</szItemName>
-		<szLongItemName>Officer's Hat</szLongItemName>
-		<szItemDesc>This is an officer's hat.  From the looks of it, it's probably from the former Soviet Union.</szItemDesc>
-		<szBRName>Officer's Hat</szBRName>
-		<szBRDesc>A Soviet officer's hat.  Available with and without lice.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 292</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>293</uiIndex>
-		<szItemName>SWAT Helmet</szItemName>
-		<szLongItemName>SWAT Helmet</szLongItemName>
-		<szItemDesc>This helmet comes with eye protection, and feels very sturdy.</szItemDesc>
-		<szBRName>SWAT Helmet</szBRName>
-		<szBRDesc>Standard issue SWAT armour.  Strong, resilient and flexible.  An excellent choice for situations which require light armour and high mobility.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 293</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>294</uiIndex>
-		<szItemName>SWAT Pants</szItemName>
-		<szLongItemName>SWAT Leggings</szLongItemName>
-		<szItemDesc>Standard issue SWAT armoured leggings.  Sturdier than standard kevlar due to extra integrated plating, but still provide excellent mobility.</szItemDesc>
-		<szBRName>SWAT Leggings</szBRName>
-		<szBRDesc>Standard issue SWAT armour.  Strong, resilient and flexible.  An excellent choice for situations which require light armour and high mobility.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 294</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>295</uiIndex>
-		<szItemName>SWAT Vest</szItemName>
-		<szLongItemName>SWAT Vest</szLongItemName>
-		<szItemDesc>Standard issue SWAT armoured vest.  Sturdier than standard kevlar due to extra integrated plating, but still provides excellent mobility.</szItemDesc>
-		<szBRName>SWAT Vest</szBRName>
-		<szBRDesc>Standard issue SWAT armour.  Strong, resilient and flexible.  An excellent choice for situations which require light armour and high mobility.</szBRDesc>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 295</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>296</uiIndex>
@@ -2417,10 +2418,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>302</uiIndex>
-		<szItemName>Steel Helmet</szItemName>
-		<szLongItemName>Steel Helmet</szLongItemName>
+		<szItemName>Camo St. Helm</szItemName>
+		<szLongItemName>Camo Steel Helmet</szLongItemName>
 		<szItemDesc>This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has been painted with camouflage.</szItemDesc>
-		<szBRName>Steel Helmet</szBRName>
+		<szBRName>Camo Steel Helmet</szBRName>
 		<szBRDesc>Comfortable and extremely practical. This steel helmet provides protection from small firearms, shrapnel and other projectiles. It has a padded leather and nylon suspension, with an adjustable chin strap.  Provides limited camouflage.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2625,186 +2626,66 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>328</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
+		<szItemName>5.56mm Mag 10</szItemName>
+		<szLongItemName>5.56x45mm Mag, 10</szLongItemName>
+		<szItemDesc>Call it 5.56 or .223, it still puts neat holes and ugly wound channels in the opposition.</szItemDesc>
+		<szBRName>5.56x45mm Mag 10</szBRName>
+		<szBRDesc>Call it 5.56 or .223, it still puts neat holes and ugly wound channels in the opposition.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>329</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
+		<szItemName>5.56mm Mag 10 HP</szItemName>
+		<szLongItemName>5.56x45mm Mag, 10 HP</szLongItemName>
+		<szItemDesc>Banned for military use by conventions and agreements.  (We won't tell them if you won't.)</szItemDesc>
+		<szBRName>5.56x45mm Mag 10 HP</szBRName>
+		<szBRDesc>Banned for military use by conventions and agreements.  (We won't tell them if you won't.)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>330</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
+		<szItemName>Micro-Uzi</szItemName>
+		<szLongItemName>Micro-Uzi</szLongItemName>
+		<szItemDesc>The name says it all, it's an Uzi. First there was the Mini-Uzi, now the Micro-Uzi. One can only wonder when the Pocket-Uzi will roll-off the Israeli assembly line.</szItemDesc>
+		<szBRName>Micro-Uzi</szBRName>
+		<szBRDesc>The name says it all, it's an Uzi. First there was the Mini-Uzi, now the Micro-Uzi. One can only wonder when the Pocket-Uzi will roll-off the Israeli assembly line.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>331</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
+		<szItemName>L85A2</szItemName>
+		<szLongItemName>Enfield L85A2</szLongItemName>
+		<szItemDesc>This British weapon was actually made in Nottingham, not Enfield, where computer controlled tools were finally able to eliminate all of its serious defects.</szItemDesc>
+		<szBRName>Enfield L85A2</szBRName>
+		<szBRDesc>This British weapon was actually made in Nottingham, not Enfield, where computer controlled tools were finally able to eliminate all of its serious defects.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>332</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
+		<szItemName>TAR 21</szItemName>
+		<szLongItemName>Tavor TAR 21</szLongItemName>
+		<szItemDesc>This new Israeli high-tech machine gun will bullpup your socks off. Weighing only 5.5 pounds empty, this weapon of death can fire off 900 5.56mm bullets a minute.</szItemDesc>
+		<szBRName>Tavor TAR 21</szBRName>
+		<szBRDesc>This new Israeli high-tech machine gun will bullpup your socks off. Weighing only 5.5 pounds empty, this weapon of death can fire off 900 5.56mm bullets a minute.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>333</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
+		<szItemName>VSS</szItemName>
+		<szLongItemName>VSS Vintorez</szLongItemName>
+		<szItemDesc>This silent sniper rifle from Russia fires heavy 9mm bullets at subsonic speeds and apparently can pierce all types of body armor at over 400 meters.</szItemDesc>
+		<szBRName>VSS Vintorez</szBRName>
+		<szBRDesc>This silent sniper rifle from Russia fires heavy 9mm bullets at subsonic speeds and apparently can pierce all types of body armor at over 400 meters.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>334</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
+		<szItemName>PSG1</szItemName>
+		<szLongItemName>HK PSG1</szLongItemName>
+		<szItemDesc>This German made weapon exemplifies the country's reputation for precision and is a sniper's weapon of choice.</szItemDesc>
+		<szBRName>HK PSG1</szBRName>
+		<szBRDesc>This German made weapon exemplifies the country's reputation for precision and is a sniper's weapon of choice.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>335</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-	</ITEM>
-	<ITEM>
-		<uiIndex>336</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-	</ITEM>
-	<ITEM>
-		<uiIndex>337</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-	</ITEM>
-	<ITEM>
-		<uiIndex>338</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-	</ITEM>
-	<ITEM>
-		<uiIndex>339</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-	</ITEM>
-	<ITEM>
-		<uiIndex>340</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-	</ITEM>
-	<ITEM>
-		<uiIndex>341</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-	</ITEM>
-	<ITEM>
-		<uiIndex>342</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-	</ITEM>
-	<ITEM>
-		<uiIndex>343</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-	</ITEM>
-	<ITEM>
-		<uiIndex>344</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-	</ITEM>
-	<ITEM>
-		<uiIndex>345</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-	</ITEM>
-	<ITEM>
-		<uiIndex>346</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-	</ITEM>
-	<ITEM>
-		<uiIndex>347</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-	</ITEM>
-	<ITEM>
-		<uiIndex>348</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-	</ITEM>
-	<ITEM>
-		<uiIndex>349</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
-	</ITEM>
-	<ITEM>
-		<uiIndex>350</uiIndex>
-		<szItemName>&apos;small name&apos;</szItemName>
-		<szLongItemName></szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName></szBRName>
-		<szBRDesc></szBRDesc>
+		<szItemName>M82A2</szItemName>
+		<szLongItemName>Barrett M82A2</szLongItemName>
+		<szItemDesc>This modified M82A2's bullpup layout places the action and barrel further back in the stock, retaining its barrel length while shortening its overall size.</szItemDesc>
+		<szBRName>Barrett M82A2</szBRName>
+		<szBRDesc>This modified M82A2's bullpup layout places the action and barrel further back in the stock, retaining its barrel length while shortening its overall size.</szBRDesc>
 	</ITEM>
 </ITEMLIST>

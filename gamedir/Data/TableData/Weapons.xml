@@ -1,382 +1,8 @@
-<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by Mikel Bech (MDSI) -->
-<!-- 	this a comment, all of the text between the angled brackets is ignored
-	This file is made to be read with a text editor where 1tab=8spaces
-
-Attribute Field Reference:
-
-uiIndex			- the weapon index, number the weapons sequentially starting at 1 and ending at 5000 - this number should match the ubClassIndex for the weapon in Items.xml
-szWeaponName		- The weapon name, 20 characters maximun
-ubWeaponClass=3 	- the weapon class, look below for a listing
-ubWeaponType=5 		- exact weapon type, look below for a listing
-ubCalibre=10 		- what calibre of ammo the the gun uses, look below for a listing (also dictates the burst sound)
-ubReadyTime=5 		- How many APs are spend to get this weapon into the "ready" state
-ubShotsPer4Turns=11 	- the weapon's rate of fire for single shots
-ubShotsPerBurst=0 	- the number of bullets this weapon shoots per burst
-ubBurstPenalty=0 	- the % chance to hit that is deducted for each shot of the burst (later shots in the burst are lass accurate)
-ubBulletSpeed=21 	- how fast bullets fly out of the gun (aethtetic consideration only)
-ubImpact=36 		- this has an effect on how much damage the bullets do
-ubDeadliness=32 	- this is the "scare" value of the gun.  AI & NPCs use this.
-bAccuracy=0 		- this is not used anywhere
-ubMagSize=10 		- Number of bullets that can be loaded into the gun
-usRange=750 		- weapon's maximum range
-usReloadDelay=200 	- not used anywhere right now, but could be used to specify the reload speed in RT
-ubAttackVolume=80 	- how much "noise" the weapon makes
-ubHitVolume=8 		- how much "noise" the bullet makes when it hits something
-sSound=133 		- the sound that's used for single shot (and burst if the burst sound is missing)
-sBurstSound=154 	- the "default" burst sound.  This is not used anymore. However, set it to something other than 0 if you want to hear bursts
-sReloadSound=102 	- the sound of reloading
-sLocknLoadSound=108 	- this sound in used in AutoResolve and sometimes for rifles in tactical
-bBurstAP		- The AP cost of burst
-bAutofireShotsPerFiveAP - this is the number of shots you can fire using this weapon using 5 APs (ie. 25 = 5 shots per AP)
-
-Weapon Classes:
-
-0 - NOGUNCLASS
-1 - HANDGUNCLASS
-2 - SMGCLASS
-3 - RIFLECLASS
-4 - MGCLASS
-5 - SHOTGUNCLASS
-6 - KNIFECLASS
-7 - MONSTERCLASS
-
-
-Weapon Type:
-
-0 - NOT_GUN
-1 - GUN_PISTOL
-2 - GUN_M_PISTOL
-3 - GUN_SMG
-4 - GUN_RIFLE
-5 - GUN_SN_RIFLE
-6 - GUN_AS_RIFLE
-7 - GUN_LMG
-8 - GUN_SHOTGUN
-
-
-Calibre/Ammo Types:
-
-0 - NOAMMO
-1 - AMMO38
-2 - AMMO9
-3 - AMMO45
-4 - AMMO357
-5 - AMMO12G
-6 - AMMOCAWS
-7 - AMMO545
-8 - AMMO556
-9 - AMMO762N
-10 - AMMO762W
-11 - AMMO47
-12 - AMMO57
-13 - AMMOMONST
-14 - AMMOROCKET
-15 - AMMODART
-16 - AMMOFLAME
-17 - AMMO50
-18 - AMMO9H
-
-
-Sound Indices: (change 'em in sounds.xml)
-
-000 - "SOUNDS\\RICOCHET 01.WAV"
-001 - "SOUNDS\\RICOCHET 02.WAV"
-002 - "SOUNDS\\RICOCHET 01.WAV"
-003 - "SOUNDS\\RICOCHET 02.WAV"
-004 - "SOUNDS\\RICOCHET 01.WAV"
-005 - "SOUNDS\\RICOCHET 02.WAV"
-006 - "SOUNDS\\RICOCHET 01.WAV"
-007 - "SOUNDS\\RICOCHET 02.WAV"
-008 - "SOUNDS\\DIRT IMPACT 01.WAV"
-009 - "SOUNDS\\DIRT IMPACT 01.WAV"
-010 - "SOUNDS\\KNIFE HIT GROUND.WAV"
-011 - "SOUNDS\\FALL TO KNEES 01.WAV"
-012 - "SOUNDS\\FALL TO KNEES 02.WAV"
-013 - "SOUNDS\\KNEES TO DIRT 01.WAV"
-014 - "SOUNDS\\KNEES TO DIRT 02.WAV"
-015 - "SOUNDS\\KNEES TO DIRT 03.WAV"
-016 - "SOUNDS\\HEAVY FALL 01.WAV"
-017 - "SOUNDS\\BODY_SPLAT.WAV"
-018 - "SOUNDS\\GLASS_BREAK1.WAV"
-019 - "SOUNDS\\GLASS_BREAK2.WAV"
-020 - "SOUNDS\\DOOR OPEN 01.WAV"
-021 - "SOUNDS\\DOOR OPEN 02.WAV"
-022 - "SOUNDS\\DOOR OPEN 03.WAV"
-023 - "SOUNDS\\DOOR CLOSE 01.WAV"
-024 - "SOUNDS\\DOOR CLOSE 02.WAV"
-025 - "SOUNDS\\UNLOCK LOCK.WAV"
-026 - "SOUNDS\\KICKIN LOCK.WAV"
-027 - "SOUNDS\\BREAK LOCK.WAV"
-028 - "SOUNDS\\PICKING LOCK.WAV"
-029 - "SOUNDS\\GARAGE DOOR OPEN.WAV"
-030 - "SOUNDS\\GARAGE DOOR CLOSE.WAV"
-031 - "SOUNDS\\ELEVATOR DOOR OPEN.WAV"
-032 - "SOUNDS\\ELEVATOR DOOR CLOSE.WAV"
-033 - "SOUNDS\\HIGH TECH DOOR OPEN.WAV"
-034 - "SOUNDS\\HIGH TECH DOOR CLOSE.WAV"
-035 - "SOUNDS\\CURTAINS DOOR OPEN.WAV"
-036 - "SOUNDS\\CURTAINS DOOR CLOSE.WAV"
-037 - "SOUNDS\\METAL DOOR OPEN.WAV"
-038 - "SOUNDS\\METAL DOOR CLOSE.WAV"
-039 - "SOUNDS\\ftp gravel 01.WAV"
-040 - "SOUNDS\\ftp gravel 02.WAV"
-041 - "SOUNDS\\ftp gravel 03.WAV"
-042 - "SOUNDS\\ftp gravel 04.WAV"
-043 - "SOUNDS\\ftp gritty 01.WAV"
-044 - "SOUNDS\\ftp gritty 02.WAV"
-045 - "SOUNDS\\ftp gritty 03.WAV"
-046 - "SOUNDS\\ftp gritty 04.WAV"
-047 - "SOUNDS\\ftp leaves 01.WAV"
-048 - "SOUNDS\\ftp leaves 02.WAV"
-049 - "SOUNDS\\ftp leaves 03.WAV"
-050 - "SOUNDS\\ftp leaves 04.WAV"
-051 - "SOUNDS\\CRAWLING 01.WAV"
-052 - "SOUNDS\\CRAWLING 02.WAV"
-053 - "SOUNDS\\CRAWLING 03.WAV"
-054 - "SOUNDS\\CRAWLING 04.WAV"
-055 - "SOUNDS\\BEEP2.WAV"
-056 - "SOUNDS\\ENDTURN.WAV"
-057 - "SOUNDS\\JA2 DEATH HIT.WAV"
-058 - "SOUNDS\\DOORCR_B.WAV"
-059 - "SOUNDS\\HEAD EXPLODING 01.WAV"
-060 - "SOUNDS\\BODY EXPLODING.WAV"
-061 - "SOUNDS\\EXPLODE1.WAV"
-062 - "SOUNDS\\CROW EXPLODING.WAV"
-063 - "SOUNDS\\SMALL EXPLOSION 01.WAV"
-064 - "SOUNDS\\HELI1.WAV"
-065 - "SOUNDS\\BULLET IMPACT 01.WAV"
-066 - "SOUNDS\\BULLET IMPACT 02.WAV"
-067 - "SOUNDS\\BULLET IMPACT 02.WAV"
-068 - "STSOUNDS\\BLAH.WAV"										// CREATURE ATTACK
-069 - "SOUNDS\\STEP INTO WATER.WAV"
-070 - "SOUNDS\\SPLASH FROM SHALLOW TO DEEP.WAV"
-071 - "SOUNDS\\COW HIT.WAV"										// COW HIT
-072 - "SOUNDS\\COW DIE.WAV"										// COW DIE
-073 - "SOUNDS\\LINE 02 FX.WAV"
-074 - "SOUNDS\\LINE 01 FX.WAV"
-075 - "SOUNDS\\LINE 03 FX.WAV"
-076 - "SOUNDS\\CAVE COLLAPSING.WAV"									// CAVE_COLLAPSE
-077 - "SOUNDS\\RAID WHISTLE.WAV"									// RAID
-078 - "SOUNDS\\RAID AMBIENT.WAV"
-079 - "SOUNDS\\RAID DIVE.WAV"
-080 - "SOUNDS\\RAID DIVE.WAV"
-081 - "SOUNDS\\RAID WHISTLE.WAV"									// RAID
-082 - "SOUNDS\\DRIVING 01.WAV"										// DRIVING
-083 - "SOUNDS\\ENGINE START.WAV"									// ON
-084 - "SOUNDS\\ENGINE OFF.WAV"										// OFF
-085 - "SOUNDS\\INTO VEHICLE.WAV"									// INTO
-086 - "SOUNDS\\WEAPONS\\DRY FIRE 1.WAV"									// Dry fire sound ( for gun jam )
-087 - "SOUNDS\\WOOD IMPACT 01A.WAV"									// S_WOOD_IMPACT1
-088 - "SOUNDS\\WOOD IMPACT 01B.WAV"
-089 - "SOUNDS\\WOOD IMPACT 01A.WAV"
-090 - "SOUNDS\\PORCELAIN IMPACT.WAV"
-091 - "SOUNDS\\TIRE IMPACT 01.WAV"
-092 - "SOUNDS\\STONE IMPACT 01.WAV"
-093 - "SOUNDS\\WATER IMPACT 01.WAV"
-094 - "SOUNDS\\VEG IMPACT 01.WAV"
-095 - "SOUNDS\\METAL HIT 01.WAV"									// S_METAL_HIT1	
-096 - "SOUNDS\\METAL HIT 01.WAV"															
-097 - "SOUNDS\\METAL HIT 01.WAV"															
-098 - "SOUNDS\\SLAP_IMPACT.WAV"
-099 - "SOUNDS\\WEAPONS\\REVOLVER RELOAD.WAV"								// REVOLVER 
-100 - "SOUNDS\\WEAPONS\\PISTOL RELOAD.WAV"								// PISTOL
-101 - "SOUNDS\\WEAPONS\\SMG RELOAD.WAV"									// SMG
-102 - "SOUNDS\\WEAPONS\\RIFLE RELOAD.WAV"								// RIFLE
-103 - "SOUNDS\\WEAPONS\\SHOTGUN RELOAD.WAV"								// SHOTGUN
-104 - "SOUNDS\\WEAPONS\\LMG RELOAD.WAV"									// LMG
-105 - "SOUNDS\\WEAPONS\\REVOLVER LNL.WAV"								// REVOLVER 
-106 - "SOUNDS\\WEAPONS\\PISTOL LNL.WAV"									// PISTOL
-107 - "SOUNDS\\WEAPONS\\SMG LNL.WAV"									// SMG
-108 - "SOUNDS\\WEAPONS\\RIFLE LNL.WAV"									// RIFLE
-109 - "SOUNDS\\WEAPONS\\SHOTGUN LNL.WAV"								// SHOTGUN
-110 - "SOUNDS\\WEAPONS\\LMG LNL.WAV"									// LMG
-111 - "SOUNDS\\WEAPONS\\SMALL ROCKET LAUNCHER.WAV"							// SMALL ROCKET LUANCHER
-112 - "SOUNDS\\WEAPONS\\MORTAR FIRE 01.WAV"								// GRENADE LAUNCHER
-113 - "SOUNDS\\WEAPONS\\MORTAR FIRE 01.WAV"								// UNDERSLUNG GRENADE LAUNCHER
-114 - "SOUNDS\\WEAPONS\\ROCKET LAUNCHER.WAV"										
-115 - "SOUNDS\\WEAPONS\\MORTAR FIRE 01.WAV"
-116 - "SOUNDS\\WEAPONS\\9mm SINGLE SHOT.WAV"								//	S_GLOCK17			9mm
-117 - "SOUNDS\\WEAPONS\\9mm SINGLE SHOT.WAV"								//	S_GLOCK18			9mm
-118 - "SOUNDS\\WEAPONS\\9mm SINGLE SHOT.WAV"								//	S_BERETTA92			9mm
-119 - "SOUNDS\\WEAPONS\\9mm SINGLE SHOT.WAV"								//	S_BERETTA93			9mm
-120 - "SOUNDS\\WEAPONS\\38 CALIBER.WAV"									//	S_SWSPECIAL			.38
-121 - "SOUNDS\\WEAPONS\\357 SINGLE SHOT.WAV"								//	S_BARRACUDA			.357
-122 - "SOUNDS\\WEAPONS\\357 SINGLE SHOT.WAV"								//	S_DESERTEAGLE			.357
-123 - "SOUNDS\\WEAPONS\\45 CALIBER SINGLE SHOT.WAV"							//	S_M1911				.45
-124 - "SOUNDS\\WEAPONS\\9mm SINGLE SHOT.WAV"								//	S_MP5K				9mm
-125 - "SOUNDS\\WEAPONS\\45 CALIBER SINGLE SHOT.WAV"							//	S_MAC10				.45
-126 - "SOUNDS\\WEAPONS\\45 CALIBER SINGLE SHOT.WAV"							//	S_THOMPSON			.45
-127 - "SOUNDS\\WEAPONS\\5,56 SINGLE SHOT.WAV"								//	S_COMMANDO			5.56
-128 - "SOUNDS\\WEAPONS\\5,56 SINGLE SHOT.WAV"								//	S_MP53				5.56?
-129 - "SOUNDS\\WEAPONS\\5,45 SINGLE SHOT.WAV"								//	S_AKSU74			5.45
-130 - "SOUNDS\\WEAPONS\\5,7 SINGLE SHOT.WAV"								//	S_P90				5.7
-131 - "SOUNDS\\WEAPONS\\7,62 WP SINGLE SHOT.WAV"							//	S_TYPE85			7.62 WP
-132 - "SOUNDS\\WEAPONS\\7,62 WP SINGLE SHOT.WAV"							//	S_SKS				7.62 WP
-133 - "SOUNDS\\WEAPONS\\7,62 WP SINGLE SHOT.WAV"							//	S_DRAGUNOV			7.62 WP
-134 - "SOUNDS\\WEAPONS\\7,62 NATO SINGLE SHOT.WAV"							//	S_M24				7.62 NATO
-135 - "SOUNDS\\WEAPONS\\5,56 SINGLE SHOT.WAV"								//	S_AUG				5.56mm
-136 - "SOUNDS\\WEAPONS\\5,56 SINGLE SHOT.WAV"								//	S_G41				5.56mm
-137 - "SOUNDS\\WEAPONS\\5,56 SINGLE SHOT.WAV"								//	S_RUGERMINI			5.56mm
-138 - "SOUNDS\\WEAPONS\\5,56 SINGLE SHOT.WAV"								//	S_C7				5.56mm
-139 - "SOUNDS\\WEAPONS\\5,56 SINGLE SHOT.WAV"								//	S_FAMAS				5.56mm
-140 - "SOUNDS\\WEAPONS\\5,45 SINGLE SHOT.WAV"								//	S_AK74				5.45mm
-141 - "SOUNDS\\WEAPONS\\7,62 WP SINGLE SHOT.WAV"							//	S_AKM				7.62mm WP
-142 - "SOUNDS\\WEAPONS\\7,62 NATO SINGLE SHOT.WAV"							//	S_M14				7.62mm NATO
-143 - "SOUNDS\\WEAPONS\\7,62 NATO SINGLE SHOT.WAV"							//	S_FNFAL				7.62mm NATO
-144 - "SOUNDS\\WEAPONS\\7,62 NATO SINGLE SHOT.WAV"							//	S_G3A3				7.62mm NATO
-145 - "SOUNDS\\WEAPONS\\4,7 SINGLE SHOT.WAV"								//	S_G11				4.7mm
-146 - "SOUNDS\\WEAPONS\\SHOTGUN SINGLE SHOT.WAV"							//	S_M870				SHOTGUN
-147 - "SOUNDS\\WEAPONS\\SHOTGUN SINGLE SHOT.WAV"							//	S_SPAS				SHOTGUN
-148 - "SOUNDS\\WEAPONS\\SHOTGUN SINGLE SHOT.WAV"							//	S_CAWS				SHOTGUN
-149 - "SOUNDS\\WEAPONS\\5,56 SINGLE SHOT.WAV"								//	S_FNMINI			5.56mm
-150 - "SOUNDS\\WEAPONS\\5,45 SINGLE SHOT.WAV"								//	S_RPK74				5.45mm
-151 - "SOUNDS\\WEAPONS\\7,62 WP SINGLE SHOT.WAV"							//	S_21E				7.62mm
-152 - "SOUNDS\\WEAPONS\\KNIFE THROW SWOOSH.WAV"								//	KNIFE THROW
-153 - "SOUNDS\\WEAPONS\\TANK_CANNON.WAV"
-154 - "SOUNDS\\WEAPONS\\BURSTTYPE1.WAV"
-155 - "SOUNDS\\WEAPONS\\AUTOMAG SINGLE.WAV"
-156 - "SOUNDS\\WEAPONS\\SILENCER 02.WAV"
-157 - "SOUNDS\\WEAPONS\\SILENCER 03.WAV"
-158 - "SOUNDS\\SWOOSH 01.WAV"
-159 - "SOUNDS\\SWOOSH 03.WAV"
-160 - "SOUNDS\\SWOOSH 05.WAV"
-161 - "SOUNDS\\SWOOSH 06.WAV"
-162 - "SOUNDS\\SWOOSH 11.WAV"
-163 - "SOUNDS\\SWOOSH 14.WAV"
-164 - "SOUNDS\\ADULT FALL 01.WAV"
-165 - "SOUNDS\\ADULT STEP 01.WAV"
-166 - "SOUNDS\\ADULT STEP 02.WAV"
-167 - "SOUNDS\\ADULT SWIPE 01.WAV"
-168 - "SOUNDS\\Eating_Flesh 01.WAV"
-169 - "SOUNDS\\ADULT CRIPPLED.WAV"
-170 - "SOUNDS\\ADULT DYING PART 1.WAV"
-171 - "SOUNDS\\ADULT DYING PART 2.WAV"
-172 - "SOUNDS\\ADULT LUNGE 01.WAV"
-173 - "SOUNDS\\ADULT SMELLS THREAT.WAV"
-174 - "SOUNDS\\ADULT SMELLS PREY.WAV"
-175 - "SOUNDS\\ADULT SPIT.WAV"
-176 - "SOUNDS\\BABY DYING 01.WAV"
-177 - "SOUNDS\\BABY DRAGGING 01.WAV"
-178 - "SOUNDS\\BABY SHRIEK 01.WAV"
-179 - "SOUNDS\\BABY SPITTING 01.WAV"
-180 - "SOUNDS\\LARVAE MOVEMENT 01.WAV"
-181 - "SOUNDS\\LARVAE RUPTURE 01.WAV"
-182 - "SOUNDS\\QUEEN SHRIEK 01.WAV"
-183 - "SOUNDS\\QUEEN DYING 01.WAV"
-184 - "SOUNDS\\QUEEN ENRAGED ATTACK.WAV"
-185 - "SOUNDS\\QUEEN RUPTURING.WAV"
-186 - "SOUNDS\\QUEEN CRIPPLED.WAV"
-187 - "SOUNDS\\QUEEN SMELLS THREAT.WAV"
-188 - "SOUNDS\\QUEEN WHIP ATTACK.WAV"
-189 - "SOUNDS\\ROCK HIT 01.WAV"
-190 - "SOUNDS\\ROCK HIT 02.WAV"
-191 - "SOUNDS\\SCRATCH.WAV"
-192 - "SOUNDS\\ARMPIT.WAV"
-193 - "SOUNDS\\CRACKING BACK.WAV"
-194 - "SOUNDS\\WEAPONS\\Auto Resolve Composite 02 (8-22).wav"						//  The FF sound in autoresolve interface
-195 - "SOUNDS\\Email Alert 01.wav"
-196 - "SOUNDS\\Entering Text 02.wav"
-197 - "SOUNDS\\Removing Text 02.wav"
-198 - "SOUNDS\\Computer Beep 01 In.wav"
-199 - "SOUNDS\\Computer Beep 01 Out.wav"
-200 - "SOUNDS\\Computer Switch 01 In.wav"
-201 - "SOUNDS\\Computer Switch 01 Out.wav"
-202 - "SOUNDS\\Very Small Switch 01 In.wav"
-203 - "SOUNDS\\Very Small Switch 01 Out.wav"
-204 - "SOUNDS\\Very Small Switch 02 In.wav"
-205 - "SOUNDS\\Very Small Switch 02 Out.wav"
-206 - "SOUNDS\\Small Switch 01 In.wav"
-207 - "SOUNDS\\Small Switch 01 Out.wav"
-208 - "SOUNDS\\Small Switch 02 In.wav"
-209 - "SOUNDS\\Small Switch 02 Out.wav"
-210 - "SOUNDS\\Small Switch 03 In.wav"
-211 - "SOUNDS\\Small Switch 03 Out.wav"
-212 - "SOUNDS\\Big Switch 03 In.wav"
-213 - "SOUNDS\\Big Switch 03 Out.wav"
-214 - "SOUNDS\\Alarm.wav"
-215 - "SOUNDS\\Fight Bell.wav"
-216 - "SOUNDS\\Helicopter Crash Sequence.wav"
-217 - "SOUNDS\\Attachment.wav"
-218 - "SOUNDS\\Ceramic Armour Insert.wav"
-219 - "SOUNDS\\Detonator Beep.wav"
-220 - "SOUNDS\\Grab Roof.wav"
-221 - "SOUNDS\\Land On Roof.wav"
-222 - "SOUNDS\\Branch Snap 01.wav"
-223 - "SOUNDS\\Branch Snap 02.wav"
-224 - "SOUNDS\\Indoor Bump 01.wav"
-225 - "SOUNDS\\Fridge Door Open.wav"
-226 - "SOUNDS\\Fridge Door Close.wav"
-227 - "SOUNDS\\Fire 03 Loop.wav"
-228 - "SOUNDS\\GLASS_CRACK.wav"
-229 - "SOUNDS\\SPIT RICOCHET.WAV"
-230 - "SOUNDS\\TIGER HIT.WAV"
-231 - "SOUNDS\\bloodcat dying 02.WAV"
-232 - "SOUNDS\\SLAP.WAV"
-233 - "SOUNDS\\ROBOT BEEP.WAV"
-234 - "SOUNDS\\ELECTRICITY.WAV"
-235 - "SOUNDS\\SWIMMING 01.WAV"
-236 - "SOUNDS\\SWIMMING 02.WAV"
-237 - "SOUNDS\\KEY FAILURE.WAV"
-238 - "SOUNDS\\target cursor.WAV"
-239 - "SOUNDS\\statue open.WAV"
-240 - "SOUNDS\\remote activate.WAV"
-241 - "SOUNDS\\wirecutters.WAV"
-242 - "SOUNDS\\drink from canteen.WAV"
-243 - "SOUNDS\\bloodcat attack.wav"
-244 - "SOUNDS\\bloodcat loud roar.wav"
-245 - "SOUNDS\\robot greeting.wav"
-246 - "SOUNDS\\robot death.wav"
-247 - "SOUNDS\\gas grenade explode.WAV"
-248 - "SOUNDS\\air escaping.WAV"
-249 - "SOUNDS\\drawer open.WAV"
-250 - "SOUNDS\\drawer close.WAV"
-251 - "SOUNDS\\locker door open.WAV"
-252 - "SOUNDS\\locker door close.WAV"
-253 - "SOUNDS\\wooden box open.WAV"
-254 - "SOUNDS\\wooden box close.WAV"
-255 - "SOUNDS\\robot stop moving.WAV"
-256 - "SOUNDS\\water movement 01.wav"
-257 - "SOUNDS\\water movement 02.wav"
-258 - "SOUNDS\\water movement 03.wav"
-259 - "SOUNDS\\water movement 04.wav"
-260 - "SOUNDS\\PRONE TO CROUCH.WAV"
-261 - "SOUNDS\\CROUCH TO PRONE.WAV"
-262 - "SOUNDS\\CROUCH TO STAND.WAV"
-263 - "SOUNDS\\STAND TO CROUCH.WAV"
-264 - "SOUNDS\\picking something up.WAV"
-265 - "SOUNDS\\cow falling.wav"
-266 - "SOUNDS\\bloodcat_growl_01.wav"
-267 - "SOUNDS\\bloodcat_growl_02.wav"
-268 - "SOUNDS\\bloodcat_growl_03.wav"
-269 - "SOUNDS\\bloodcat_growl_04.wav"
-270 - "SOUNDS\\spit ricochet.wav"
-271 - "SOUNDS\\ADULT crippled.WAV"
-272 - "SOUNDS\\death disintegration.wav"
-273 - "SOUNDS\\Queen Ambience.wav"
-274 - "SOUNDS\\Alien Impact.wav"
-275 - "SOUNDS\\crow pecking flesh 01.wav"
-276 - "SOUNDS\\crow fly.wav"
-277 - "SOUNDS\\slap 02.wav"
-278 - "SOUNDS\\setting up mortar.wav"
-279 - "SOUNDS\\mortar whistle.wav"
-280 - "SOUNDS\\load mortar.wav"
-281 - "SOUNDS\\tank turret a.wav"
-282 - "SOUNDS\\tank turret b.wav"
-283 - "SOUNDS\\cow falling b.wav"
-284 - "SOUNDS\\stab into flesh.wav"
-285 - "SOUNDS\\explosion 10.wav"
-286 - "SOUNDS\\explosion 12.wav"
-287 - "SOUNDS\\drink from canteen male.WAV"
-288 - "SOUNDS\\x ray activated.WAV"
-289 - "SOUNDS\\catch object.wav"
-290 - "SOUNDS\\fence open.wav" 
-291 - "SOUNDS\\WEAPONS\\50CAL.WAV" // Barrett 
-292 - "SOUNDS\\WEAPONS\\VALSILENT.WAV" // Val Silent
--->
+﻿<?xml version="1.0" encoding="utf-8"?>
 <WEAPONLIST>
 	<WEAPON>
 		<uiIndex>0</uiIndex>
-		<szWeaponName>nothing</szWeaponName>
+		<szWeaponName>Nothing</szWeaponName>
 		<ubWeaponClass>0</ubWeaponClass>
 		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>0</ubCalibre>
@@ -416,14 +42,10 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>21</ubBulletSpeed>
-		<ubImpact>23</ubImpact>
+		<ubImpact>25</ubImpact>
 		<ubDeadliness>16</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
 		<ubMagSize>15</ubMagSize>
 		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -437,13 +59,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>156</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>2</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -452,14 +70,11 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>21</ubBulletSpeed>
-		<ubImpact>23</ubImpact>
+		<ubImpact>25</ubImpact>
 		<ubDeadliness>16</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
 		<ubMagSize>15</ubMagSize>
 		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -478,8 +93,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>9</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -488,14 +101,10 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>21</ubBulletSpeed>
-		<ubImpact>23</ubImpact>
+		<ubImpact>25</ubImpact>
 		<ubDeadliness>15</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
 		<ubMagSize>15</ubMagSize>
 		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -509,13 +118,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>156</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>2</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -524,12 +129,11 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
 		<ubShotsPerBurst>3</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>21</ubBulletSpeed>
-		<ubImpact>24</ubImpact>
+		<ubImpact>25</ubImpact>
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
 		<ubMagSize>15</ubMagSize>
@@ -545,13 +149,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>156</SilencedSound>
 		<bBurstAP>2</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>2</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -560,12 +160,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>1</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>15</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>20</ubBulletSpeed>
-		<ubImpact>23</ubImpact>
+		<ubImpact>25</ubImpact>
 		<ubDeadliness>14</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
 		<ubMagSize>6</ubMagSize>
@@ -575,19 +172,13 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubAttackVolume>45</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>399</sSound>
-		<sBurstSound>0</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>156</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
-		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>480</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -596,12 +187,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>4</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>13</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>20</ubBulletSpeed>
-		<ubImpact>25</ubImpact>
+		<ubImpact>26</ubImpact>
 		<ubDeadliness>16</ubDeadliness>
 		<bAccuracy>2</bAccuracy>
 		<ubMagSize>6</ubMagSize>
@@ -611,19 +199,13 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>423</sSound>
-		<sBurstSound>0</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>5</APsToReload>
-		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>480</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -632,14 +214,10 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>4</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>11</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>26</ubImpact>
 		<ubDeadliness>16</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
 		<ubMagSize>9</ubMagSize>
 		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -647,19 +225,14 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>422</sSound>
-		<sBurstSound>0</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -668,14 +241,10 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>3</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>15</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>21</ubBulletSpeed>
-		<ubImpact>26</ubImpact>
+		<ubImpact>27</ubImpact>
 		<ubDeadliness>16</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
 		<ubMagSize>7</ubMagSize>
 		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -689,13 +258,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>2</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -709,7 +274,7 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubShotsPerBurst>3</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>23</ubImpact>
+		<ubImpact>25</ubImpact>
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
@@ -730,8 +295,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>9</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -742,10 +305,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>3</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
 		<ubShotsPer4Turns>15</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>11</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>26</ubImpact>
+		<ubImpact>27</ubImpact>
 		<ubDeadliness>19</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
@@ -767,7 +329,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>11</AutoPenalty>
 		<NoSemiAuto>1</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -778,10 +339,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>3</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>13</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>10</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>27</ubImpact>
+		<ubImpact>28</ubImpact>
 		<ubDeadliness>21</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
@@ -802,8 +362,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>10</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -814,7 +372,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>2</ubReadyTime>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
@@ -825,7 +382,7 @@ Sound Indices: (change 'em in sounds.xml)
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
+		<ubHitVolume>7</ubHitVolume>
 		<sSound>339</sSound>
 		<sBurstSound>25</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
@@ -838,8 +395,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -853,7 +408,7 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubShotsPerBurst>3</ubShotsPerBurst>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>28</ubImpact>
+		<ubImpact>29</ubImpact>
 		<ubDeadliness>26</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
@@ -874,8 +429,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -886,10 +439,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>7</ubCalibre>
 		<ubReadyTime>2</ubReadyTime>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>27</ubImpact>
+		<ubImpact>28</ubImpact>
 		<ubDeadliness>25</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
@@ -910,8 +462,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>7</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -922,10 +472,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>12</ubCalibre>
 		<ubReadyTime>2</ubReadyTime>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>28</ubImpact>
+		<ubImpact>27</ubImpact>
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>50</ubMagSize>
@@ -946,8 +495,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>7</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -956,12 +503,10 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubWeaponClass>2</ubWeaponClass>
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>20</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>24</ubImpact>
+		<ubImpact>25</ubImpact>
 		<ubDeadliness>16</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
@@ -982,8 +527,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -994,12 +537,10 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>10</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>12</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>31</ubImpact>
+		<ubImpact>33</ubImpact>
 		<ubDeadliness>22</ubDeadliness>
-		<bAccuracy>1</bAccuracy>
+		<bAccuracy>3</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>370</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -1013,13 +554,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1030,12 +567,10 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>24</ubCalibre>
 		<ubReadyTime>4</ubReadyTime>
 		<ubShotsPer4Turns>11</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>49</ubDeadliness>
-		<bAccuracy>5</bAccuracy>
+		<bAccuracy>7</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>790</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -1049,13 +584,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1066,8 +597,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>9</ubCalibre>
 		<ubReadyTime>5</ubReadyTime>
 		<ubShotsPer4Turns>13</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>38</ubImpact>
 		<ubDeadliness>46</ubDeadliness>
@@ -1085,12 +614,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>10</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>7</APsToReloadManually>
 		<ManualReloadSound>477</ManualReloadSound>
 	</WEAPON>
@@ -1102,7 +628,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>15</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
@@ -1126,8 +651,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1162,8 +685,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1174,8 +695,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>2</ubReadyTime>
 		<ubShotsPer4Turns>14</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
 		<ubDeadliness>22</ubDeadliness>
@@ -1193,13 +712,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1210,7 +725,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>15</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
@@ -1234,8 +748,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1270,8 +782,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1282,7 +792,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>7</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>15</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
@@ -1306,8 +815,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>7</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1318,10 +825,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>10</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>13</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>8</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>30</ubImpact>
+		<ubImpact>32</ubImpact>
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
@@ -1342,8 +848,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1354,10 +858,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>9</ubCalibre>
 		<ubReadyTime>4</ubReadyTime>
 		<ubShotsPer4Turns>13</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>35</ubImpact>
+		<ubImpact>37</ubImpact>
 		<ubDeadliness>39</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
@@ -1378,8 +881,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>13</MaxDistForMessyDeath>
 		<AutoPenalty>9</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1390,10 +891,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>9</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>13</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>35</ubImpact>
+		<ubImpact>37</ubImpact>
 		<ubDeadliness>40</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
@@ -1414,8 +914,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>12</MaxDistForMessyDeath>
 		<AutoPenalty>9</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1424,12 +922,11 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>9</ubCalibre>
-		<ubReadyTime>5</ubReadyTime>
+		<ubReadyTime>4</ubReadyTime>
 		<ubShotsPer4Turns>11</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>34</ubImpact>
+		<ubImpact>36</ubImpact>
 		<ubDeadliness>37</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
@@ -1450,8 +947,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>11</MaxDistForMessyDeath>
 		<AutoPenalty>9</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1463,7 +958,7 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>15</ubShotsPer4Turns>
 		<ubShotsPerBurst>3</ubShotsPerBurst>
-		<ubBurstPenalty>6</ubBurstPenalty>
+		<ubBurstPenalty>3</ubBurstPenalty>
 		<ubBulletSpeed>23</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
 		<ubDeadliness>37</ubDeadliness>
@@ -1486,8 +981,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
 		<AutoPenalty>7</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1498,10 +991,8 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>11</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>41</ubImpact>
+		<ubImpact>38</ubImpact>
 		<ubDeadliness>28</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
 		<ubMagSize>7</ubMagSize>
@@ -1517,12 +1008,8 @@ Sound Indices: (change 'em in sounds.xml)
 		<sLocknLoadSound>109</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>18</APsToReload>
-		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
 		<APsToReloadManually>3</APsToReloadManually>
 		<ManualReloadSound>481</ManualReloadSound>
 	</WEAPON>
@@ -1534,10 +1021,8 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>5</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>12</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>40</ubImpact>
+		<ubImpact>38</ubImpact>
 		<ubDeadliness>28</ubDeadliness>
 		<bAccuracy>-1</bAccuracy>
 		<ubMagSize>7</ubMagSize>
@@ -1553,13 +1038,8 @@ Sound Indices: (change 'em in sounds.xml)
 		<sLocknLoadSound>109</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
-		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>481</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1570,10 +1050,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>6</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>9</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>13</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>50</ubImpact>
+		<ubImpact>48</ubImpact>
 		<ubDeadliness>59</ubDeadliness>
 		<bAccuracy>-2</bAccuracy>
 		<ubMagSize>10</ubMagSize>
@@ -1594,8 +1073,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>13</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>481</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1606,7 +1083,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>8</ubCalibre>
 		<ubReadyTime>5</ubReadyTime>
 		<ubShotsPer4Turns>13</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>30</ubImpact>
@@ -1631,7 +1107,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>7</AutoPenalty>
 		<NoSemiAuto>1</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1642,13 +1117,12 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>7</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>15</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>31</ubImpact>
 		<ubDeadliness>44</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
-		<ubMagSize>75</ubMagSize>
+		<ubMagSize>45</ubMagSize>
 		<usRange>400</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
@@ -1667,7 +1141,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
 		<AutoPenalty>7</AutoPenalty>
 		<NoSemiAuto>1</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -1681,7 +1154,7 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubShotsPerBurst>3</ubShotsPerBurst>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>35</ubImpact>
+		<ubImpact>37</ubImpact>
 		<ubDeadliness>54</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>100</ubMagSize>
@@ -1702,132 +1175,48 @@ Sound Indices: (change 'em in sounds.xml)
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>13</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>37</uiIndex>
 		<szWeaponName>Combat Knife</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>14</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
-		<ubBulletSpeed>0</ubBulletSpeed>
 		<ubImpact>17</ubImpact>
 		<ubDeadliness>5</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>0</ubMagSize>
-		<usRange>0</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
 		<ubAttackVolume>2</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
-		<sSound>0</sSound>
-		<sBurstSound>0</sBurstSound>
-		<sSilencedBurstSound>0</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
-		<SilencedSound>0</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>0</APsToReload>
-		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>38</uiIndex>
 		<szWeaponName>Throwing Knife</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>14</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
-		<ubBulletSpeed>0</ubBulletSpeed>
 		<ubImpact>15</ubImpact>
 		<ubDeadliness>4</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>0</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
 		<ubAttackVolume>2</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
 		<sSound>152</sSound>
-		<sBurstSound>0</sBurstSound>
-		<sSilencedBurstSound>0</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
-		<SilencedSound>0</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>0</APsToReload>
-		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>39</uiIndex>
-		<szWeaponName>rock</szWeaponName>
-		<ubWeaponClass>0</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
-		<ubShotsPer4Turns>0</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
-		<ubBulletSpeed>0</ubBulletSpeed>
-		<ubImpact>0</ubImpact>
-		<ubDeadliness>0</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>0</ubMagSize>
-		<usRange>0</usRange>
-		<usReloadDelay>0</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
-		<ubAttackVolume>0</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
-		<sSound>0</sSound>
-		<sBurstSound>0</sBurstSound>
-		<sSilencedBurstSound>0</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
+		<szWeaponName>A Rock</szWeaponName>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>40</uiIndex>
 		<szWeaponName>M79 Grenade Launcher</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
 		<ubReadyTime>4</ubReadyTime>
 		<ubShotsPer4Turns>6</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>30</ubBulletSpeed>
-		<ubImpact>0</ubImpact>
 		<ubDeadliness>35</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
 		<ubMagSize>1</ubMagSize>
 		<usRange>350</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -1835,35 +1224,20 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubAttackVolume>20</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>402</sSound>
-		<sBurstSound>0</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>41</uiIndex>
 		<szWeaponName>M224 Mortar</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>5</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>30</ubBulletSpeed>
-		<ubImpact>0</ubImpact>
 		<ubDeadliness>100</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
 		<ubMagSize>1</ubMagSize>
 		<usRange>1500</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -1871,251 +1245,105 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubAttackVolume>20</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>115</sSound>
-		<sBurstSound>0</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>30</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>42</uiIndex>
-		<szWeaponName>another rock</szWeaponName>
-		<ubWeaponClass>0</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
-		<ubShotsPer4Turns>0</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
-		<ubBulletSpeed>0</ubBulletSpeed>
-		<ubImpact>0</ubImpact>
-		<ubDeadliness>0</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>0</ubMagSize>
-		<usRange>0</usRange>
-		<usReloadDelay>0</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
-		<ubAttackVolume>0</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
-		<sSound>0</sSound>
-		<sBurstSound>0</sBurstSound>
-		<sSilencedBurstSound>0</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
+		<szWeaponName>Another Rock</szWeaponName>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>43</uiIndex>
-		<szWeaponName>yng male claws</szWeaponName>
+		<szWeaponName>Young Male Claws</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>10</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
-		<ubBulletSpeed>0</ubBulletSpeed>
 		<ubImpact>14</ubImpact>
 		<ubDeadliness>1</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>0</ubMagSize>
 		<usRange>10</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
 		<ubAttackVolume>2</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
-		<sSound>0</sSound>
-		<sBurstSound>0</sBurstSound>
-		<sSilencedBurstSound>0</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>44</uiIndex>
-		<szWeaponName>yng fem claws</szWeaponName>
+		<szWeaponName>Adult Male Claws</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>10</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
-		<ubBulletSpeed>0</ubBulletSpeed>
 		<ubImpact>18</ubImpact>
 		<ubDeadliness>1</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>0</ubMagSize>
 		<usRange>10</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
 		<ubAttackVolume>2</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
-		<sSound>0</sSound>
-		<sBurstSound>0</sBurstSound>
-		<sSilencedBurstSound>0</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>45</uiIndex>
-		<szWeaponName>old male claws</szWeaponName>
+		<szWeaponName>Young Female Claws</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>10</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
-		<ubBulletSpeed>0</ubBulletSpeed>
 		<ubImpact>20</ubImpact>
 		<ubDeadliness>1</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>0</ubMagSize>
 		<usRange>10</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
 		<ubAttackVolume>2</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
-		<sSound>0</sSound>
-		<sBurstSound>0</sBurstSound>
-		<sSilencedBurstSound>0</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>46</uiIndex>
-		<szWeaponName>old fem claws</szWeaponName>
+		<szWeaponName>Adult Female Creature Claws</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>10</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
-		<ubBulletSpeed>0</ubBulletSpeed>
 		<ubImpact>24</ubImpact>
 		<ubDeadliness>1</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>0</ubMagSize>
 		<usRange>10</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
 		<ubAttackVolume>2</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
-		<sSound>0</sSound>
-		<sBurstSound>0</sBurstSound>
-		<sSilencedBurstSound>0</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>47</uiIndex>
-		<szWeaponName>queen tentacles</szWeaponName>
+		<szWeaponName>Queen Tentacle</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>10</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
-		<ubBulletSpeed>0</ubBulletSpeed>
 		<ubImpact>20</ubImpact>
 		<ubDeadliness>1</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>0</ubMagSize>
 		<usRange>70</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
 		<ubAttackVolume>2</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
-		<sSound>0</sSound>
-		<sBurstSound>0</sBurstSound>
-		<sSilencedBurstSound>0</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>48</uiIndex>
-		<szWeaponName>queen spit</szWeaponName>
+		<szWeaponName>Queen Creature Spit</szWeaponName>
 		<ubWeaponClass>7</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>13</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>10</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>250</ubBulletSpeed>
 		<ubImpact>20</ubImpact>
 		<ubDeadliness>1</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
 		<ubMagSize>50</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -2123,71 +1351,31 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubAttackVolume>10</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>175</sSound>
-		<sBurstSound>0</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>49</uiIndex>
 		<szWeaponName>Knuckle Dusters</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>15</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
-		<ubBulletSpeed>0</ubBulletSpeed>
 		<ubImpact>14</ubImpact>
 		<ubDeadliness>1</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>0</ubMagSize>
-		<usRange>0</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
-		<ubAttackVolume>0</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
-		<sSound>0</sSound>
-		<sBurstSound>0</sBurstSound>
-		<sSilencedBurstSound>0</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
-		<SilencedSound>0</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>0</APsToReload>
-		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>50</uiIndex>
 		<szWeaponName>Talon Grenade Launcher</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>6</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>30</ubBulletSpeed>
-		<ubImpact>0</ubImpact>
 		<ubDeadliness>50</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
 		<ubMagSize>1</ubMagSize>
 		<usRange>300</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -2195,31 +1383,18 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubAttackVolume>20</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>113</sSound>
-		<sBurstSound>0</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>8</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>51</uiIndex>
 		<szWeaponName>M72A4 LAW</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>5</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>30</ubBulletSpeed>
 		<ubImpact>80</ubImpact>
 		<ubDeadliness>80</ubDeadliness>
@@ -2231,128 +1406,52 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>428</sSound>
-		<sBurstSound>0</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>0</APsToReload>
-		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>52</uiIndex>
-		<szWeaponName>bloodcat claws</szWeaponName>
+		<szWeaponName>Bloodcat Claws</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>14</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
-		<ubBulletSpeed>0</ubBulletSpeed>
 		<ubImpact>12</ubImpact>
 		<ubDeadliness>1</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>0</ubMagSize>
 		<usRange>10</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
 		<ubAttackVolume>2</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
-		<sSound>0</sSound>
-		<sBurstSound>0</sBurstSound>
-		<sSilencedBurstSound>0</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>53</uiIndex>
-		<szWeaponName>bloodcat bite</szWeaponName>
+		<szWeaponName>Bloodcat Bite</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>10</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
-		<ubBulletSpeed>0</ubBulletSpeed>
 		<ubImpact>24</ubImpact>
 		<ubDeadliness>1</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>0</ubMagSize>
 		<usRange>10</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
 		<ubAttackVolume>2</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
-		<sSound>0</sSound>
-		<sBurstSound>0</sBurstSound>
-		<sSilencedBurstSound>0</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>54</uiIndex>
 		<szWeaponName>Machete</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>11</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
-		<ubBulletSpeed>0</ubBulletSpeed>
 		<ubImpact>25</ubImpact>
 		<ubDeadliness>6</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>0</ubMagSize>
-		<usRange>0</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
 		<ubAttackVolume>2</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
-		<sSound>0</sSound>
-		<sBurstSound>0</sBurstSound>
-		<sSilencedBurstSound>0</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
-		<SilencedSound>0</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>0</APsToReload>
-		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>55</uiIndex>
@@ -2362,8 +1461,6 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>14</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>15</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>40</ubImpact>
 		<ubDeadliness>57</ubDeadliness>
@@ -2381,13 +1478,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>8</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>9</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -2396,14 +1489,10 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>38</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>10</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>21</ubBulletSpeed>
-		<ubImpact>32</ubImpact>
+		<ubImpact>30</ubImpact>
 		<ubDeadliness>20</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
 		<ubMagSize>4</ubMagSize>
 		<usRange>140</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -2417,29 +1506,20 @@ Sound Indices: (change 'em in sounds.xml)
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>2</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>57</uiIndex>
-		<szWeaponName>infant spit</szWeaponName>
+		<szWeaponName>Infant Spit</szWeaponName>
 		<ubWeaponClass>7</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>13</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>13</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>250</ubBulletSpeed>
 		<ubImpact>12</ubImpact>
 		<ubDeadliness>1</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
 		<ubMagSize>5</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -2447,35 +1527,22 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubAttackVolume>10</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>175</sSound>
-		<sBurstSound>0</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>58</uiIndex>
-		<szWeaponName>yng male spit</szWeaponName>
+		<szWeaponName>Young Male Spit</szWeaponName>
 		<ubWeaponClass>7</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>13</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>10</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>250</ubBulletSpeed>
 		<ubImpact>16</ubImpact>
 		<ubDeadliness>1</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
 		<ubMagSize>10</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -2483,35 +1550,22 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubAttackVolume>10</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>175</sSound>
-		<sBurstSound>0</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>59</uiIndex>
-		<szWeaponName>old male spit</szWeaponName>
+		<szWeaponName>Old Male Spit</szWeaponName>
 		<ubWeaponClass>7</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>13</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>10</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>250</ubBulletSpeed>
 		<ubImpact>20</ubImpact>
 		<ubDeadliness>1</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
 		<ubMagSize>20</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -2519,35 +1573,22 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubAttackVolume>10</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>175</sSound>
-		<sBurstSound>0</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>60</uiIndex>
-		<szWeaponName>tank cannon</szWeaponName>
+		<szWeaponName>Tank Cannon</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
 		<ubCalibre>14</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>8</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>30</ubBulletSpeed>
 		<ubImpact>80</ubImpact>
 		<ubDeadliness>80</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
 		<ubMagSize>1</ubMagSize>
 		<usRange>800</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -2555,20 +1596,12 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubAttackVolume>90</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>153</sSound>
-		<sBurstSound>0</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>61</uiIndex>
@@ -2576,71 +1609,36 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>15</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>2</ubImpact>
 		<ubDeadliness>2</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
 		<ubMagSize>1</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
-		<ubAttackVolume>0</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
-		<sSound>0</sSound>
-		<sBurstSound>0</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>62</uiIndex>
 		<szWeaponName>Bloody Throwing Knife</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>14</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
-		<ubBulletSpeed>0</ubBulletSpeed>
 		<ubImpact>15</ubImpact>
 		<ubDeadliness>4</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>0</ubMagSize>
 		<usRange>200</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
 		<ubAttackVolume>2</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
 		<sSound>152</sSound>
-		<sBurstSound>0</sBurstSound>
-		<sSilencedBurstSound>0</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
-		<SilencedSound>0</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>0</APsToReload>
-		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>63</uiIndex>
@@ -2650,69 +1648,33 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubCalibre>16</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>10</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>60</ubImpact>
 		<ubDeadliness>47</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>0</ubMagSize>
 		<usRange>180</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>40</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>427</sSound>
-		<sBurstSound>0</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>103</sReloadSound>
 		<sLocknLoadSound>109</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>64</uiIndex>
 		<szWeaponName>Crowbar</szWeaponName>
 		<ubWeaponClass>6</ubWeaponClass>
-		<ubWeaponType>0</ubWeaponType>
-		<ubCalibre>0</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>10</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
-		<ubBulletSpeed>0</ubBulletSpeed>
 		<ubImpact>22</ubImpact>
 		<ubDeadliness>4</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
-		<ubMagSize>0</ubMagSize>
-		<usRange>0</usRange>
 		<usReloadDelay>200</usReloadDelay>
-		<BurstAniDelay>0</BurstAniDelay>
-		<ubAttackVolume>0</ubAttackVolume>
-		<ubHitVolume>0</ubHitVolume>
-		<sSound>0</sSound>
-		<sBurstSound>0</sBurstSound>
-		<sSilencedBurstSound>0</sSilencedBurstSound>
-		<sReloadSound>0</sReloadSound>
-		<sLocknLoadSound>0</sLocknLoadSound>
-		<SilencedSound>0</SilencedSound>
-		<bBurstAP>0</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
-		<APsToReload>0</APsToReload>
-		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
-		<ManualReloadSound>0</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>65</uiIndex>
@@ -2741,13 +1703,9 @@ Sound Indices: (change 'em in sounds.xml)
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>8</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>9</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
@@ -2756,14 +1714,10 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>4</ubCalibre>
-		<ubReadyTime>0</ubReadyTime>
 		<ubShotsPer4Turns>11</ubShotsPer4Turns>
-		<ubShotsPerBurst>0</ubShotsPerBurst>
-		<ubBurstPenalty>0</ubBurstPenalty>
 		<ubBulletSpeed>20</ubBulletSpeed>
 		<ubImpact>27</ubImpact>
 		<ubDeadliness>17</ubDeadliness>
-		<bAccuracy>0</bAccuracy>
 		<ubMagSize>6</ubMagSize>
 		<usRange>170</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -2771,19 +1725,350 @@ Sound Indices: (change 'em in sounds.xml)
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>423</sSound>
-		<sBurstSound>0</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
-		<bAutofireShotsPerFiveAP>0</bAutofireShotsPerFiveAP>
 		<APsToReload>5</APsToReload>
-		<SwapClips>0</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
-		<AutoPenalty>0</AutoPenalty>
-		<NoSemiAuto>0</NoSemiAuto>
-		<APsToReloadManually>0</APsToReloadManually>
 		<ManualReloadSound>480</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>67</uiIndex>
+		<szWeaponName>Calico M-950</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubShotsPer4Turns>18</ubShotsPer4Turns>
+		<ubBulletSpeed>21</ubBulletSpeed>
+		<ubImpact>27</ubImpact>
+		<ubDeadliness>18</ubDeadliness>
+		<bAccuracy>-2</bAccuracy>
+		<ubMagSize>50</ubMagSize>
+		<usRange>150</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>369</sSound>
+		<sBurstSound>55</sBurstSound>
+		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sReloadSound>100</sReloadSound>
+		<sLocknLoadSound>106</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<APsToReload>6</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>68</uiIndex>
+		<szWeaponName>Calico M-900</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>4</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>14</ubShotsPer4Turns>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>27</ubImpact>
+		<ubDeadliness>17</ubDeadliness>
+		<bAccuracy>3</bAccuracy>
+		<ubMagSize>50</ubMagSize>
+		<usRange>230</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>369</sSound>
+		<sBurstSound>55</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<APsToReload>6</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>69</uiIndex>
+		<szWeaponName>Calico M-960A</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>1</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubBurstPenalty>9</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>27</ubImpact>
+		<ubDeadliness>24</ubDeadliness>
+		<bAccuracy>4</bAccuracy>
+		<ubMagSize>50</ubMagSize>
+		<usRange>210</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>40</BurstAniDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>369</sSound>
+		<sBurstSound>55</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
+		<APsToReload>6</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>9</AutoPenalty>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>297</uiIndex>
+		<szWeaponName>Retractable Baton</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>16</ubShotsPer4Turns>
+		<ubImpact>15</ubImpact>
+		<ubDeadliness>4</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>298</uiIndex>
+		<szWeaponName>Nightstick</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubImpact>16</ubImpact>
+		<ubDeadliness>5</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>299</uiIndex>
+		<szWeaponName>Utility Knife</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubImpact>10</ubImpact>
+		<ubDeadliness>4</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>300</uiIndex>
+		<szWeaponName>Light Knife</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>18</ubShotsPer4Turns>
+		<ubImpact>13</ubImpact>
+		<ubDeadliness>4</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>301</uiIndex>
+		<szWeaponName>Exacto Knife</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>22</ubShotsPer4Turns>
+		<ubImpact>9</ubImpact>
+		<ubDeadliness>2</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<ubAttackVolume>2</ubAttackVolume>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>330</uiIndex>
+		<szWeaponName>Micro-Uzi</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubShotsPer4Turns>18</ubShotsPer4Turns>
+		<ubBurstPenalty>10</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>25</ubImpact>
+		<ubDeadliness>15</ubDeadliness>
+		<bAccuracy>1</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>130</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>24</BurstAniDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>372</sSound>
+		<sBurstSound>58</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>2</bBurstAP>
+		<bAutofireShotsPerFiveAP>6</bAutofireShotsPerFiveAP>
+		<APsToReload>2</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>10</AutoPenalty>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>331</uiIndex>
+		<szWeaponName>Enfield L85A2</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubBurstPenalty>7</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>30</ubDeadliness>
+		<bAccuracy>4</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>380</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>46</BurstAniDelay>
+		<ubAttackVolume>77</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>343</sSound>
+		<sBurstSound>35</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<AutoPenalty>7</AutoPenalty>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>332</uiIndex>
+		<szWeaponName>Tavor TAR 21</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>6</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>30</ubDeadliness>
+		<bAccuracy>4</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>370</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>33</BurstAniDelay>
+		<ubAttackVolume>75</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>344</sSound>
+		<sBurstSound>36</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>8</AutoPenalty>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>333</uiIndex>
+		<szWeaponName>VSS Vintorez</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>5</ubWeaponType>
+		<ubCalibre>18</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
+		<ubBurstPenalty>11</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>32</ubImpact>
+		<ubDeadliness>42</ubDeadliness>
+		<bAccuracy>7</bAccuracy>
+		<ubMagSize>20</ubMagSize>
+		<usRange>400</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>34</BurstAniDelay>
+		<ubAttackVolume>60</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>385</sSound>
+		<sBurstSound>70</sBurstSound>
+		<sSilencedBurstSound>71</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>386</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>6</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<AutoPenalty>11</AutoPenalty>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>334</uiIndex>
+		<szWeaponName>HK PSG1</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>5</ubWeaponType>
+		<ubCalibre>9</ubCalibre>
+		<ubReadyTime>5</ubReadyTime>
+		<ubShotsPer4Turns>12</ubShotsPer4Turns>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>39</ubImpact>
+		<ubDeadliness>50</ubDeadliness>
+		<bAccuracy>6</bAccuracy>
+		<ubMagSize>20</ubMagSize>
+		<usRange>800</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>320</sSound>
+		<sBurstSound>6</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>16</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>335</uiIndex>
+		<szWeaponName>Barrett M82A2</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>5</ubWeaponType>
+		<ubCalibre>17</ubCalibre>
+		<ubReadyTime>6</ubReadyTime>
+		<ubShotsPer4Turns>6</ubShotsPer4Turns>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>51</ubImpact>
+		<ubDeadliness>74</ubDeadliness>
+		<bAccuracy>9</bAccuracy>
+		<ubMagSize>11</ubMagSize>
+		<usRange>1000</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>100</ubAttackVolume>
+		<ubHitVolume>10</ubHitVolume>
+		<sSound>419</sSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<APsToReload>8</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>20</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 </WEAPONLIST>
