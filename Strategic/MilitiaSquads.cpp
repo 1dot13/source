@@ -25,6 +25,7 @@
 	#include "math.h"
 	#include "Auto Resolve.h"
 	#include "Vehicles.h"
+	#include "Tactical Save.h"
 #endif
 
 #include "MilitiaSquads.h"
@@ -506,6 +507,7 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 		{
 			if( GetWorldHour() % 2 )return;
 
+			memset(pMoveDir, 0, sizeof(pMoveDir));
 			GenerateDirectionInfos( sMapX, sMapY, &uiDirNumber, pMoveDir, FALSE, FALSE, FALSE );
 
 			if( uiDirNumber )
@@ -543,32 +545,39 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 								return;
 						}
 
-					MoveMilitiaSquad( sMapX, sMapY,  SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ), FALSE );
-					AddToBlockMoveList( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );
+					// WDS bug fix for moving militia
+					int targetX = SECTORX( pMoveDir[ iRandomRes ][0] );
+					int targetY = SECTORY( pMoveDir[ iRandomRes ][0] );
+					Assert(targetX >= 0 && targetX < MAP_WORLD_X);
+					Assert(targetY >= 0 && targetY < MAP_WORLD_Y);
+					MoveMilitiaSquad( sMapX, sMapY,  targetX, targetY, FALSE );
+					AddToBlockMoveList( targetX, targetY );
 					if ( gfStrategicMilitiaChangesMade)
 					{
 						ResetMilitia();
 					}
 
-					if( NumEnemiesInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) )
+					if( NumEnemiesInSector( targetX, targetY ) )
 					{
-		/*				GROUP* pEnemyGroup = GetGroup( GetEnemyGroupIdInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) );
+						extern GROUP *gpBattleGroup;
+						gpBattleGroup = GetGroup( GetEnemyGroupIdInSector( targetX, targetY ) );
+		/*				GROUP* pEnemyGroup = GetGroup( GetEnemyGroupIdInSector( targetX, targetY ) );
 				
 						if(pEnemyGroup && pEnemyGroup->ubGroupID)
 						{
-							//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Attacking from %ld,%ld to %ld,%ld - enemy's group id %ld", sMapX, sMapY, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0], pEnemyGroup->ubGroupID ));
+							//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Attacking from %ld,%ld to %ld,%ld - enemy's group id %ld", sMapX, sMapY, targetX, SECTORY( pMoveDir[ iRandomRes ][0], pEnemyGroup->ubGroupID ));
 							//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Arrival 1, Arrival 2");
 
 							pEnemyGroup->ubPrevX = sMapX;
 							pEnemyGroup->ubPrevY = sMapY;
 
-							pEnemyGroup->ubNextX = SECTORX( pMoveDir[ iRandomRes ][0] );
-							pEnemyGroup->ubNextY = SECTORY( pMoveDir[ iRandomRes ][0] );
+							pEnemyGroup->ubNextX = targetX;
+							pEnemyGroup->ubNextY = targetY;
 		*/					
 							gfMSBattle = TRUE;
 			
 			//				GroupArrivedAtSector( pEnemyGroup->ubGroupID , TRUE, FALSE );
-							EnterAutoResolveMode( SECTORX( pMoveDir[ iRandomRes ][0] ),  SECTORY( pMoveDir[ iRandomRes ][0] ) );
+							EnterAutoResolveMode( targetX,  targetY );
 		//				}
 					}
 			}

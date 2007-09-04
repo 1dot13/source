@@ -1957,6 +1957,10 @@ static void ARCreateMilitia( UINT8 mclass, INT32 i, INT16 sX, INT16 sY)
 	// reset counter of how many mortars this team has rolled
 	ResetMortarsOnTeamCount();
 
+	if( !gpBattleGroup ) {
+		AssertMsg(0, "No battle group set while creating militia");
+	}
+
 	if( mclass == SOLDIER_CLASS_ELITE_MILITIA )
 	{
 		gpCivs[i].pSoldier = TacticalCreateMilitia( SOLDIER_CLASS_ELITE_MILITIA );
