@@ -8983,4 +8983,49 @@
 	<ITEM>
 		<uiIndex>1169</uiIndex>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1170</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1171</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1172</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1173</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1174</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1175</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1176</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1177</uiIndex>
+		<szItemName>Spectre</szItemName>
+		<szLongItemName>Spectre M4</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Spectre M4</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1178</uiIndex>
+		<szItemName>MAT-49</szItemName>
+		<szLongItemName>MAT-49</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>MAT-49</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1179</uiIndex>
+		<szItemName>SIG MP41</szItemName>
+		<szLongItemName>SIG MP41</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SIG MP41</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
 </ITEMLIST>

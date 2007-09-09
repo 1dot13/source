@@ -11420,7 +11420,6 @@
 		<ubWeight>2</ubWeight>
 		<ubPerPocket>6</ubPerPocket>
 		<usPrice>4000</usPrice>
-		<ubCoolness>8</ubCoolness>
 		<bReliability>-6</bReliability>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -13986,9 +13985,9 @@
 		<uiIndex>645</uiIndex>
 		<szItemName>BDA 9</szItemName>
 		<szLongItemName>FN BDA 9</szLongItemName>
-		<szItemDesc>The FN BDA 9 is the 9mm Parabellum version of the tried and true Browning High Power semiautomatic pistol.</szItemDesc>
+		<szItemDesc>The FN BDA 9 is the double-action version of the tried and true Browning High Power semiautomatic pistol.</szItemDesc>
 		<szBRName>FN BDA 9</szBRName>
-		<szBRDesc>The FN BDA 9 is the 9mm Parabellum version of the tried and true Browning High Power semiautomatic pistol.</szBRDesc>
+		<szBRDesc>The FN BDA 9 is the double-action version of the tried and true Browning High Power semiautomatic pistol.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>645</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -26576,5 +26575,234 @@
 		<BigGunList>1</BigGunList>
 		<APBonus>-1</APBonus>
 		<CamoBonus>20</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1170</uiIndex>
+		<szItemName>AR-Gren.</szItemName>
+		<szLongItemName>AR-Mag / Grenade Pouch</szLongItemName>
+		<szItemDesc>A combination of a double AR-Mag pouch with three grenade pouches.</szItemDesc>
+		<szBRName>AR-Mag / Grenade Pouch</szBRName>
+		<szBRDesc>This leg rig mounts a double AR-magazine pouch and three individual grenade pouches. Great for your primary combat soldiers.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>706</ubGraphicNum>
+		<ubWeight>8</ubWeight>
+		<usPrice>85</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1171</uiIndex>
+		<szItemName>AR-Util.</szItemName>
+		<szLongItemName>AR-Mag / Utility Pouch</szLongItemName>
+		<szItemDesc>A combination of a double AR-Mag pouch and a utility pouch.</szItemDesc>
+		<szBRName>AR-Mag / Utility Pouch</szBRName>
+		<szBRDesc>A double AR-magazine pouch and a larger utility pouch mounted together on a leg rig, this is useful for carrying larger things like explosives.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>706</ubGraphicNum>
+		<ubWeight>8</ubWeight>
+		<usPrice>80</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1172</uiIndex>
+		<szItemName>Cant.-Util.</szItemName>
+		<szLongItemName>Canteen / Utility Pouch</szLongItemName>
+		<szItemDesc>Here a utility pouch was combined with a canteen pouch.</szItemDesc>
+		<szBRName>Canteen / Utility Pouch</szBRName>
+		<szBRDesc>This leg rig has a utility pouch mounted besides a canteen pouch.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>706</ubGraphicNum>
+		<ubWeight>8</ubWeight>
+		<usPrice>85</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1173</uiIndex>
+		<szItemName>Util.-Gren.</szItemName>
+		<szLongItemName>Utility / Grenade Pouch</szLongItemName>
+		<szItemDesc>A combination of a utility pouch with three grenade pouches.</szItemDesc>
+		<szBRName>Utility / Grenade Pouch</szBRName>
+		<szBRDesc>Here we have a utility pouch combined with three individual grenade pouches.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>706</ubGraphicNum>
+		<ubWeight>9</ubWeight>
+		<usPrice>85</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1174</uiIndex>
+		<szItemName>L.Mag-Util.</szItemName>
+		<szLongItemName>Large Mag / Utility Pouch</szLongItemName>
+		<szItemDesc>This combo has a utility pouch with two pouches for oddly shaped magazines.</szItemDesc>
+		<szBRName>Large Mag / Utility Pouch</szBRName>
+		<szBRDesc>This leg rig offers a utility pouch together with two large mag pouches for those extremely long P90 or G11 magazines (or similar odd magazines).</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>706</ubGraphicNum>
+		<ubWeight>8</ubWeight>
+		<usPrice>85</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1175</uiIndex>
+		<szItemName>L.Mag-Gren.</szItemName>
+		<szLongItemName>Large Mag / Grenade Pouch</szLongItemName>
+		<szItemDesc>A combination of two large magazine pouches with two grenade pouches.</szItemDesc>
+		<szBRName>Large Mag / Grenade Pouch</szBRName>
+		<szBRDesc>This leg rig mounts two large magazine pouches combined with two individual grenade pouches.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>706</ubGraphicNum>
+		<ubWeight>7</ubWeight>
+		<usPrice>85</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1176</uiIndex>
+		<szItemName>Hunter Vest</szItemName>
+		<szLongItemName>Hunter Vest</szLongItemName>
+		<szItemDesc>A vest as it is often used by hunters and photographers.</szItemDesc>
+		<szBRName>Hunter Vest</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>698</ubGraphicNum>
+		<ubWeight>8</ubWeight>
+		<usPrice>90</usPrice>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1177</uiIndex>
+		<szItemName>Spectre</szItemName>
+		<szLongItemName>Spectre M4</szLongItemName>
+		<szItemDesc>An ugly SMG developed with reliability as its main focus (besides spitting lead).</szItemDesc>
+		<szBRName>Spectre M4</szBRName>
+		<szBRDesc>This Italian SMG is very reliable due to some very interesting design features, like forcing air around the barrel with every shot to keep it cool.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1177</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>328</ubGraphicNum>
+		<ubWeight>29</ubWeight>
+		<usPrice>1350</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bReliability>3</bReliability>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>850</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<BurstToHitBonus>5</BurstToHitBonus>
+		<AutoFireToHitBonus>5</AutoFireToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1178</uiIndex>
+		<szItemName>MAT-49</szItemName>
+		<szLongItemName>MAT-49</szLongItemName>
+		<szItemDesc>An older French SMG that can be folded down to a small package.</szItemDesc>
+		<szBRName>MAT-49</szBRName>
+		<szBRDesc>This is a fullauto-only French Army SMG, unlike the police versions that have semiauto, too. The magazine well can be folded along the barrel for easy storage and acts as a foregrip.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1178</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>329</ubGraphicNum>
+		<ubWeight>36</ubWeight>
+		<usPrice>1460</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bRepairEase>1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>600</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<BurstToHitBonus>5</BurstToHitBonus>
+		<AutoFireToHitBonus>5</AutoFireToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1179</uiIndex>
+		<szItemName>SIG MP41</szItemName>
+		<szLongItemName>SIG MP41</szLongItemName>
+		<szItemDesc>Old but sturdy Swiss craftsmanship.</szItemDesc>
+		<szBRName>SIG MP41</szBRName>
+		<szBRDesc>This old Swiss SMG is fullauto-only and quite heavy, but its range is up to par with modern SMGs.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1179</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>327</ubGraphicNum>
+		<ubWeight>44</ubWeight>
+		<usPrice>1110</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bReliability>2</bReliability>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>850</BR_ROF>
 	</ITEM>
 </ITEMLIST>

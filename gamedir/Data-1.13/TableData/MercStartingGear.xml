@@ -1985,7 +1985,7 @@
 		<mHelmet>176</mHelmet>
 		<mVest>161</mVest>
 		<mLeg>0</mLeg>
-		<mWeapon>9</mWeapon>
+		<mWeapon>1179</mWeapon>
 		<mBig0>72</mBig0>
 		<mBig1>0</mBig1>
 		<mBig2>0</mBig2>
@@ -1998,9 +1998,9 @@
 		<mSmall5>0</mSmall5>
 		<mSmall6>0</mSmall6>
 		<mSmall7>0</mSmall7>
-		<lVest>0</lVest>
+		<lVest>1090</lVest>
 		<lLeftThigh>0</lLeftThigh>
-		<lRightThigh>1093</lRightThigh>
+		<lRightThigh>0</lRightThigh>
 		<lCPack>0</lCPack>
 		<lBPack>0</lBPack>
 		<mHelmetStatus>99</mHelmetStatus>
@@ -2019,9 +2019,9 @@
 		<mSmall5Status>0</mSmall5Status>
 		<mSmall6Status>0</mSmall6Status>
 		<mSmall7Status>0</mSmall7Status>
-		<lVestStatus>0</lVestStatus>
+		<lVestStatus>99</lVestStatus>
 		<lLeftThighStatus>0</lLeftThighStatus>
-		<lRightThighStatus>100</lRightThighStatus>
+		<lRightThighStatus>0</lRightThighStatus>
 		<lCPackStatus>0</lCPackStatus>
 		<lBPackStatus>0</lBPackStatus>
 		<mBig0Quantity>3</mBig0Quantity>
@@ -2117,8 +2117,8 @@
 		<mHelmet>0</mHelmet>
 		<mVest>161</mVest>
 		<mLeg>0</mLeg>
-		<mWeapon>4</mWeapon>
-		<mBig0>71</mBig0>
+		<mWeapon>1178</mWeapon>
+		<mBig0>72</mBig0>
 		<mBig1>37</mBig1>
 		<mBig2>0</mBig2>
 		<mBig3>0</mBig3>
@@ -2130,9 +2130,9 @@
 		<mSmall5>0</mSmall5>
 		<mSmall6>0</mSmall6>
 		<mSmall7>0</mSmall7>
-		<lVest>0</lVest>
+		<lVest>1090</lVest>
 		<lLeftThigh>0</lLeftThigh>
-		<lRightThigh>1093</lRightThigh>
+		<lRightThigh>0</lRightThigh>
 		<lCPack>0</lCPack>
 		<lBPack>0</lBPack>
 		<mHelmetStatus>0</mHelmetStatus>
@@ -2151,9 +2151,9 @@
 		<mSmall5Status>0</mSmall5Status>
 		<mSmall6Status>0</mSmall6Status>
 		<mSmall7Status>0</mSmall7Status>
-		<lVestStatus>0</lVestStatus>
+		<lVestStatus>94</lVestStatus>
 		<lLeftThighStatus>0</lLeftThighStatus>
-		<lRightThighStatus>100</lRightThighStatus>
+		<lRightThighStatus>0</lRightThighStatus>
 		<lCPackStatus>0</lCPackStatus>
 		<lBPackStatus>0</lBPackStatus>
 		<mBig0Quantity>3</mBig0Quantity>
@@ -2724,7 +2724,7 @@
 		<mSmall5>0</mSmall5>
 		<mSmall6>0</mSmall6>
 		<mSmall7>0</mSmall7>
-		<lVest>0</lVest>
+		<lVest>1176</lVest>
 		<lLeftThigh>0</lLeftThigh>
 		<lRightThigh>0</lRightThigh>
 		<lCPack>0</lCPack>
@@ -2745,7 +2745,7 @@
 		<mSmall5Status>0</mSmall5Status>
 		<mSmall6Status>0</mSmall6Status>
 		<mSmall7Status>0</mSmall7Status>
-		<lVestStatus>0</lVestStatus>
+		<lVestStatus>52</lVestStatus>
 		<lLeftThighStatus>0</lLeftThighStatus>
 		<lRightThighStatus>0</lRightThighStatus>
 		<lCPackStatus>0</lCPackStatus>
@@ -2922,7 +2922,7 @@
 		<mSmall5>0</mSmall5>
 		<mSmall6>0</mSmall6>
 		<mSmall7>0</mSmall7>
-		<lVest>0</lVest>
+		<lVest>1176</lVest>
 		<lLeftThigh>0</lLeftThigh>
 		<lRightThigh>0</lRightThigh>
 		<lCPack>0</lCPack>
@@ -2943,7 +2943,7 @@
 		<mSmall5Status>0</mSmall5Status>
 		<mSmall6Status>0</mSmall6Status>
 		<mSmall7Status>0</mSmall7Status>
-		<lVestStatus>0</lVestStatus>
+		<lVestStatus>84</lVestStatus>
 		<lLeftThighStatus>0</lLeftThighStatus>
 		<lRightThighStatus>0</lRightThighStatus>
 		<lCPackStatus>0</lCPackStatus>
@@ -2988,7 +2988,7 @@
 		<mSmall5>0</mSmall5>
 		<mSmall6>0</mSmall6>
 		<mSmall7>0</mSmall7>
-		<lVest>0</lVest>
+		<lVest>1176</lVest>
 		<lLeftThigh>0</lLeftThigh>
 		<lRightThigh>0</lRightThigh>
 		<lCPack>0</lCPack>
@@ -3009,7 +3009,7 @@
 		<mSmall5Status>0</mSmall5Status>
 		<mSmall6Status>0</mSmall6Status>
 		<mSmall7Status>0</mSmall7Status>
-		<lVestStatus>0</lVestStatus>
+		<lVestStatus>67</lVestStatus>
 		<lLeftThighStatus>0</lLeftThighStatus>
 		<lRightThighStatus>0</lRightThighStatus>
 		<lCPackStatus>0</lCPackStatus>
@@ -4176,7 +4176,7 @@
 		<mSmall5>0</mSmall5>
 		<mSmall6>0</mSmall6>
 		<mSmall7>0</mSmall7>
-		<lVest>0</lVest>
+		<lVest>1176</lVest>
 		<lLeftThigh>0</lLeftThigh>
 		<lRightThigh>0</lRightThigh>
 		<lCPack>0</lCPack>
@@ -4197,7 +4197,7 @@
 		<mSmall5Status>0</mSmall5Status>
 		<mSmall6Status>0</mSmall6Status>
 		<mSmall7Status>0</mSmall7Status>
-		<lVestStatus>0</lVestStatus>
+		<lVestStatus>76</lVestStatus>
 		<lLeftThighStatus>0</lLeftThighStatus>
 		<lRightThighStatus>0</lRightThighStatus>
 		<lCPackStatus>0</lCPackStatus>
@@ -4572,7 +4572,7 @@
 		<mSmall5>0</mSmall5>
 		<mSmall6>0</mSmall6>
 		<mSmall7>0</mSmall7>
-		<lVest>0</lVest>
+		<lVest>1176</lVest>
 		<lLeftThigh>0</lLeftThigh>
 		<lRightThigh>0</lRightThigh>
 		<lCPack>1098</lCPack>
@@ -4593,7 +4593,7 @@
 		<mSmall5Status>0</mSmall5Status>
 		<mSmall6Status>0</mSmall6Status>
 		<mSmall7Status>0</mSmall7Status>
-		<lVestStatus>0</lVestStatus>
+		<lVestStatus>98</lVestStatus>
 		<lLeftThighStatus>0</lLeftThighStatus>
 		<lRightThighStatus>0</lRightThighStatus>
 		<lCPackStatus>100</lCPackStatus>
@@ -9181,8 +9181,8 @@
 		<mLeg>0</mLeg>
 		<mWeapon>0</mWeapon>
 		<mBig0>275</mBig0>
-		<mBig1>1099</mBig1>
-		<mBig2>1092</mBig2>
+		<mBig1>1176</mBig1>
+		<mBig2>0</mBig2>
 		<mBig3>0</mBig3>
 		<mSmall0>0</mSmall0>
 		<mSmall1>0</mSmall1>
@@ -9202,8 +9202,8 @@
 		<mLegStatus>0</mLegStatus>
 		<mWeaponStatus>0</mWeaponStatus>
 		<mBig0Status>100</mBig0Status>
-		<mBig1Status>62</mBig1Status>
-		<mBig2Status>86</mBig2Status>
+		<mBig1Status>89</mBig1Status>
+		<mBig2Status>0</mBig2Status>
 		<mBig3Status>0</mBig3Status>
 		<mSmall0Status>0</mSmall0Status>
 		<mSmall1Status>0</mSmall1Status>

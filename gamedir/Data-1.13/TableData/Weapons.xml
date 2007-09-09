@@ -267,7 +267,7 @@
 		<uiIndex>9</uiIndex>
 		<szWeaponName>HK MP5KA4</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
-		<ubWeaponType>3</ubWeaponType>
+		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
 		<ubShotsPer4Turns>15</ubShotsPer4Turns>
@@ -301,7 +301,7 @@
 		<uiIndex>10</uiIndex>
 		<szWeaponName>Ingram M10</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
-		<ubWeaponType>3</ubWeaponType>
+		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>3</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
 		<ubShotsPer4Turns>15</ubShotsPer4Turns>
@@ -1885,7 +1885,7 @@
 		<uiIndex>330</uiIndex>
 		<szWeaponName>Micro-Uzi</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
-		<ubWeaponType>3</ubWeaponType>
+		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
 		<ubBurstPenalty>10</ubBurstPenalty>
@@ -2631,7 +2631,7 @@
 		<uiIndex>601</uiIndex>
 		<szWeaponName>AEK-919K "Kashtan"</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
-		<ubWeaponType>3</ubWeaponType>
+		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>22</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
@@ -2730,7 +2730,7 @@
 		<uiIndex>604</uiIndex>
 		<szWeaponName>Agram 2000</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
-		<ubWeaponType>3</ubWeaponType>
+		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
@@ -3886,7 +3886,7 @@
 		<uiIndex>641</uiIndex>
 		<szWeaponName>FAMAE Mini SAF</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
-		<ubWeaponType>3</ubWeaponType>
+		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
@@ -4921,7 +4921,7 @@
 		<uiIndex>673</uiIndex>
 		<szWeaponName>HK MP7A1</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
-		<ubWeaponType>3</ubWeaponType>
+		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>19</ubCalibre>
 		<ubShotsPer4Turns>22</ubShotsPer4Turns>
 		<ubBurstPenalty>8</ubBurstPenalty>
@@ -5385,7 +5385,7 @@
 		<uiIndex>688</uiIndex>
 		<szWeaponName>Ingram M11/9</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
-		<ubWeaponType>3</ubWeaponType>
+		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
 		<ubBurstPenalty>9</ubBurstPenalty>
@@ -5505,7 +5505,7 @@
 		<uiIndex>692</uiIndex>
 		<szWeaponName>Mini-Uzi</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
-		<ubWeaponType>3</ubWeaponType>
+		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubReadyTime>1</ubReadyTime>
 		<ubShotsPer4Turns>15</ubShotsPer4Turns>
@@ -5784,7 +5784,7 @@
 		<uiIndex>701</uiIndex>
 		<szWeaponName>PP-93</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
-		<ubWeaponType>3</ubWeaponType>
+		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>22</ubCalibre>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
 		<ubBurstPenalty>8</ubBurstPenalty>
@@ -6368,7 +6368,7 @@
 		<uiIndex>720</uiIndex>
 		<szWeaponName>Skorpion vz.82</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
-		<ubWeaponType>3</ubWeaponType>
+		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>22</ubCalibre>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
 		<ubBurstPenalty>8</ubBurstPenalty>
@@ -6677,7 +6677,7 @@
 		<uiIndex>730</uiIndex>
 		<szWeaponName>Steyr TMP</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
-		<ubWeaponType>3</ubWeaponType>
+		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
 		<ubBurstPenalty>9</ubBurstPenalty>
@@ -9757,6 +9757,107 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>9</AutoPenalty>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1177</uiIndex>
+		<szWeaponName>Spectre M4</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>2</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>25</ubImpact>
+		<ubDeadliness>18</ubDeadliness>
+		<bAccuracy>5</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>130</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>63</BurstAniDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>374</sSound>
+		<sBurstSound>60</sBurstSound>
+		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>376</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>8</AutoPenalty>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1178</uiIndex>
+		<szWeaponName>MAT-49</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>26</ubImpact>
+		<ubDeadliness>19</ubDeadliness>
+		<bAccuracy>5</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>180</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>63</BurstAniDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>373</sSound>
+		<sBurstSound>64</sBurstSound>
+		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>376</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>8</AutoPenalty>
+		<NoSemiAuto>1</NoSemiAuto>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1179</uiIndex>
+		<szWeaponName>SIG MP41</szWeaponName>
+		<ubWeaponClass>2</ubWeaponClass>
+		<ubWeaponType>3</ubWeaponType>
+		<ubCalibre>2</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubBurstPenalty>8</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>26</ubImpact>
+		<ubDeadliness>19</ubDeadliness>
+		<bAccuracy>6</bAccuracy>
+		<ubMagSize>30</ubMagSize>
+		<usRange>190</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>63</BurstAniDelay>
+		<ubAttackVolume>50</ubAttackVolume>
+		<ubHitVolume>3</ubHitVolume>
+		<sSound>373</sSound>
+		<sBurstSound>64</sBurstSound>
+		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sReloadSound>101</sReloadSound>
+		<sLocknLoadSound>107</sLocknLoadSound>
+		<SilencedSound>376</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>8</AutoPenalty>
+		<NoSemiAuto>1</NoSemiAuto>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 </WEAPONLIST>
