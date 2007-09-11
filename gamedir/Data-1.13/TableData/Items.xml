@@ -22556,14 +22556,14 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>995</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 995</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
+		<szItemName>Very Small Creature Gas</szItemName>
+		<szLongItemName>Very Small Creature Gas</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Very Small Creature Gas</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<ubClassIndex>73</ubClassIndex>
 		<NotBuyable>1</NotBuyable>
-		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>996</uiIndex>

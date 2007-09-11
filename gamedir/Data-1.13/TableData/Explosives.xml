@@ -876,4 +876,16 @@
 		<ubDuration>2</ubDuration>
 		<ubStartRadius>0</ubStartRadius>
 	</EXPLOSIVE>
+	<EXPLOSIVE>
+		<uiIndex>73</uiIndex>
+		<ubType>7</ubType>
+		<ubDamage>0</ubDamage>
+		<ubStunDamage>0</ubStunDamage>
+		<ubRadius>0</ubRadius>
+		<ubVolume>0</ubVolume>
+		<ubVolatility>0</ubVolatility>
+		<ubAnimationID>0</ubAnimationID>
+		<ubDuration>2</ubDuration>
+		<ubStartRadius>0</ubStartRadius>
+	</EXPLOSIVE>
 </EXPLOSIVELIST>

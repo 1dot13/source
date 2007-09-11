@@ -1352,7 +1352,7 @@
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>175</sSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<SilencedSound>157</SilencedSound>
+		<SilencedSound>175</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
@@ -1528,7 +1528,7 @@
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>175</sSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<SilencedSound>157</SilencedSound>
+		<SilencedSound>175</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
@@ -1551,7 +1551,7 @@
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>175</sSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<SilencedSound>157</SilencedSound>
+		<SilencedSound>175</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
@@ -1574,7 +1574,7 @@
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>175</sSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<SilencedSound>157</SilencedSound>
+		<SilencedSound>175</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
