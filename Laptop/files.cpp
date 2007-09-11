@@ -1292,6 +1292,7 @@ void ClearFileStringList( void )
 	{
 		pDeleteFileString = pFileString;
 		pFileString = pFileString -> Next;
+		MemFree( pDeleteFileString->pString);
 		MemFree( pDeleteFileString );
 	}
 

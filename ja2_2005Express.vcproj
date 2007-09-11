@@ -346,6 +346,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\JA2Prototypes.h"
+				>
+			</File>
+			<File
 				RelativePath=".\jascreens.h"
 				>
 			</File>

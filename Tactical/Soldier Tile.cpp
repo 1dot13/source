@@ -166,7 +166,7 @@ void SetFinalTile( SOLDIERTYPE *pSoldier, INT16 sGridNo, BOOLEAN fGivenUp )
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ NO_PATH_FOR_MERC ], pSoldier->name );
   }
 
-	EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->bDirection );
+	EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection );
 
 }
 
@@ -427,7 +427,7 @@ BOOLEAN HandleNextTile( SOLDIERTYPE *pSoldier, INT8 bDirection, INT16 sGridNo, I
 							OutputDebugInfoForTurnBasedNextTileWaiting( pSoldier );
 						}
 					#endif
-					EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->bDirection );
+					EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection );
 					// Restore...
 					pSoldier->sFinalDestination = sOldFinalDest;
 
@@ -449,7 +449,7 @@ BOOLEAN HandleNextTile( SOLDIERTYPE *pSoldier, INT8 bDirection, INT16 sGridNo, I
 							OutputDebugInfoForTurnBasedNextTileWaiting( pSoldier );
 						}
 					#endif
-					EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->bDirection );
+					EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection );
 					// Restore...
 					pSoldier->sFinalDestination = sOldFinalDest;
 					
@@ -471,7 +471,7 @@ BOOLEAN HandleNextTile( SOLDIERTYPE *pSoldier, INT8 bDirection, INT16 sGridNo, I
 			bOverTerrainType = GetTerrainType( sGridNo );
 
 			// Check if we are going into water!
-			if ( bOverTerrainType == LOW_WATER || bOverTerrainType == MED_WATER || bOverTerrainType == DEEP_WATER )
+			if ( TERRAIN_IS_WATER( bOverTerrainType) )
 			{
 				// Check if we are of prone or crawl height and change stance accordingly....
 				switch( gAnimControl[ pSoldier->usAnimState ].ubHeight )

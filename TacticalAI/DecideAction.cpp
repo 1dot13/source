@@ -550,7 +550,7 @@ INT8 DecideActionBoxerEnteringRing(SOLDIERTYPE *pSoldier)
 				ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sDesiredMercLoc),CenterY(sDesiredMercLoc));
 
 				// if not already facing in that direction,
-				if ( pSoldier->bDirection != ubDesiredMercDir && InternalIsValidStance( pSoldier, ubDesiredMercDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
+				if ( pSoldier->ubDirection != ubDesiredMercDir && InternalIsValidStance( pSoldier, ubDesiredMercDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
 				{
 
 					pSoldier->usActionData = ubDesiredMercDir;
@@ -610,7 +610,7 @@ INT8 DecideActionNamedNPC( SOLDIERTYPE * pSoldier )
 			ubDesiredMercDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sDesiredMercLoc),CenterY(sDesiredMercLoc));
 
 			// if not already facing in that direction,
-			if (pSoldier->bDirection != ubDesiredMercDir && InternalIsValidStance( pSoldier, ubDesiredMercDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
+			if (pSoldier->ubDirection != ubDesiredMercDir && InternalIsValidStance( pSoldier, ubDesiredMercDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
 			{
 
 				pSoldier->usActionData = ubDesiredMercDir;
@@ -754,7 +754,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 			ubRingDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(CENTER_OF_RING),CenterY(CENTER_OF_RING));
 			if ( gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints )
 			{
-				if ( pSoldier->bDirection != ubRingDir )
+				if ( pSoldier->ubDirection != ubRingDir )
 				{
 					pSoldier->usActionData = ubRingDir;
 					return( AI_ACTION_CHANGE_FACING );
@@ -1220,7 +1220,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 					// if man has a LEGAL dominant facing, and isn't facing it, he will turn
 					// back towards that facing 50% of the time here (normally just enemies)
 					if ((pSoldier->bDominantDir >= 0) && (pSoldier->bDominantDir <= 8) &&
-						(pSoldier->bDirection != pSoldier->bDominantDir) && PreRandom(2) && pSoldier->bOrders != SNIPER )
+						(pSoldier->ubDirection != pSoldier->bDominantDir) && PreRandom(2) && pSoldier->bOrders != SNIPER )
 					{
 						pSoldier->usActionData = pSoldier->bDominantDir;
 					}
@@ -1234,7 +1234,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 
 						if (sNoiseGridNo == NOWHERE || 
 							(ubNoiseDir = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sNoiseGridNo),CenterY(sNoiseGridNo))
-							) == pSoldier->bDirection )
+							) == pSoldier->ubDirection )
 						
 						{
 							pSoldier->usActionData = (UINT16)PreRandom(8);
@@ -1244,7 +1244,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 							pSoldier->usActionData = ubNoiseDir;
 						}
 					}
-				} while (pSoldier->usActionData == pSoldier->bDirection);
+				} while (pSoldier->usActionData == pSoldier->ubDirection);
 
 
 #ifdef DEBUGDECISIONS
@@ -1355,7 +1355,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 	// and the noise source is close enough that it could possibly be seen
 	if ( !gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints )
 	{
-		if ((pSoldier->bDirection != ubNoiseDir) && PythSpacesAway(pSoldier->sGridNo,sNoiseGridNo) <= pSoldier->GetMaxDistanceVisible(sNoiseGridNo) )
+		if ((pSoldier->ubDirection != ubNoiseDir) && PythSpacesAway(pSoldier->sGridNo,sNoiseGridNo) <= pSoldier->GetMaxDistanceVisible(sNoiseGridNo) )
 		{
 			// set base chance according to orders
 			if ((pSoldier->bOrders == STATIONARY) || (pSoldier->bOrders == ONGUARD) )
@@ -2154,10 +2154,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 			// if firing mortar make sure we have room
 			if ( Item[pSoldier->inv[ BestThrow.bWeaponIn ].usItem].mortar )
 			{
-				ubOpponentDir = (UINT8)GetDirectionFromGridNo( BestThrow.sTarget, pSoldier );
+				ubOpponentDir = GetDirectionFromGridNo( BestThrow.sTarget, pSoldier );
 
 				// Get new gridno!
-				sCheckGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, (UINT16)DirectionInc( ubOpponentDir ) );
+				sCheckGridNo = NewGridNo( pSoldier->sGridNo, DirectionInc( ubOpponentDir ) );
 
 				if ( OKFallDirection( pSoldier, sCheckGridNo, pSoldier->bLevel, ubOpponentDir, pSoldier->usAnimState ) )
 				{
@@ -2181,10 +2181,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 					BestThrow.ubPossible = FALSE;
 
 					// try behind us, see if there's room to move back
-					sCheckGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, (UINT16)DirectionInc( gOppositeDirection[ ubOpponentDir ] ) );
+					sCheckGridNo = NewGridNo( pSoldier->sGridNo, DirectionInc( gOppositeDirection[ ubOpponentDir ] ) );
 					if ( OKFallDirection( pSoldier, sCheckGridNo, pSoldier->bLevel, gOppositeDirection[ ubOpponentDir ], pSoldier->usAnimState ) )
 					{
-						pSoldier->usActionData = sCheckGridNo;
+						pSoldier->usActionData = (UINT16) sCheckGridNo;
 
 						return( AI_ACTION_GET_CLOSER );
 					}
@@ -2909,7 +2909,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 
 						// if soldier is not already facing in that direction,
 						// and the opponent is close enough that he could possibly be seen
-						if ( pSoldier->bDirection != ubOpponentDir && InternalIsValidStance( pSoldier, ubOpponentDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
+						if ( pSoldier->ubDirection != ubOpponentDir && InternalIsValidStance( pSoldier, ubOpponentDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
 						{
 							// turn
 							pSoldier->usActionData = ubOpponentDir;
@@ -3162,7 +3162,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 			// note, have to change this to use the level returned from ClosestKnownOpponent
 			sDistVisible = pSoldier->GetMaxDistanceVisible(sClosestOpponent, 0, CALC_FROM_ALL_DIRS );
 
-			if ((pSoldier->bDirection != ubOpponentDir) && (PythSpacesAway(pSoldier->sGridNo,sClosestOpponent) <= sDistVisible))
+			if ((pSoldier->ubDirection != ubOpponentDir) && (PythSpacesAway(pSoldier->sGridNo,sClosestOpponent) <= sDistVisible))
 			{
 				// set base chance according to orders
 				if ((pSoldier->bOrders == STATIONARY) || (pSoldier->bOrders == ONGUARD))
@@ -3197,7 +3197,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 					return(AI_ACTION_CHANGE_FACING);
 				}
 			}
-			else if ( pSoldier->bDirection == ubOpponentDir && pSoldier->bOrders == SNIPER )
+			else if ( pSoldier->ubDirection == ubOpponentDir && pSoldier->bOrders == SNIPER )
 			{
 				if (!gfTurnBasedAI || GetAPsToReadyWeapon( pSoldier, READY_RIFLE_CROUCH ) <= pSoldier->bActionPoints)
 				{
@@ -3216,7 +3216,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 			if ( sClosestDisturbance != NOWHERE )
 			{
 				ubOpponentDir = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( sClosestDisturbance ), CenterY( sClosestDisturbance ) );
-				if ( pSoldier->bDirection == ubOpponentDir )
+				if ( pSoldier->ubDirection == ubOpponentDir )
 				{
 					ubOpponentDir = (UINT8) PreRandom( NUM_WORLD_DIRECTIONS );
 				}
@@ -3226,7 +3226,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				ubOpponentDir = (UINT8) PreRandom( NUM_WORLD_DIRECTIONS );
 			}
 
-			if ( (pSoldier->bDirection != ubOpponentDir) )
+			if ( (pSoldier->ubDirection != ubOpponentDir) )
 			{
 				if ( (pSoldier->bActionPoints == pSoldier->bInitialActionPoints || (INT16)PreRandom(100) < 60) && InternalIsValidStance( pSoldier, ubOpponentDir, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
 				{
@@ -3365,7 +3365,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 		if ( sClosestDisturbance != NOWHERE )
 		{
 			ubOpponentDir = atan8( CenterX( pSoldier->sGridNo ), CenterY( pSoldier->sGridNo ), CenterX( sClosestDisturbance ), CenterY( sClosestDisturbance ) );
-			if ( pSoldier->bDirection != ubOpponentDir )
+			if ( pSoldier->ubDirection != ubOpponentDir )
 			{
 				if ( !gfTurnBasedAI || GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints )
 				{
@@ -4277,7 +4277,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 					if (ubBestStance != 0)
 					{
 						// change stance first!
-						if ( pSoldier->bDirection != bDirection && InternalIsValidStance( pSoldier, bDirection, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
+						if ( pSoldier->ubDirection != bDirection && InternalIsValidStance( pSoldier, bDirection, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
 						{
 							// we're not facing towards him, so turn first!
 							pSoldier->usActionData = bDirection;
@@ -4632,7 +4632,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 				if ( pSoldier->usActionData != NOWHERE )
 				{
 					// truncate path to 1 step
-					pSoldier->usActionData = pSoldier->sGridNo + DirectionInc( pSoldier->usPathingData[0] );
+					pSoldier->usActionData = pSoldier->sGridNo + DirectionInc( (UINT8) pSoldier->usPathingData[0] );
 					pSoldier->sFinalDestination = pSoldier->usActionData;
 					pSoldier->bNextAction = AI_ACTION_END_TURN;
 					return( AI_ACTION_GET_CLOSER );
@@ -4749,7 +4749,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 							bDirection = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
 
 							// if we're not facing towards him
-							if (pSoldier->bDirection != bDirection)
+							if (pSoldier->ubDirection != bDirection)
 							{
 								if ( InternalIsValidStance( pSoldier, bDirection, (INT8) pSoldier->usActionData) )
 								{
@@ -4807,7 +4807,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 				bDirection = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
 
 				// if we're not facing towards him
-				if ( pSoldier->bDirection != bDirection && InternalIsValidStance( pSoldier, bDirection, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
+				if ( pSoldier->ubDirection != bDirection && InternalIsValidStance( pSoldier, bDirection, gAnimControl[ pSoldier->usAnimState ].ubEndHeight ) )
 				{
 					pSoldier->usActionData = bDirection;
 

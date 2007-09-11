@@ -917,8 +917,8 @@ BOOLEAN CanCharacterRepairButDoesntHaveARepairkit( SOLDIERTYPE *pSoldier )
 // check that character is alive, oklife, has repair skill, and equipment, etc.
 BOOLEAN CanCharacterRepair( SOLDIERTYPE *pSoldier )
 {
-	INT8 bPocket = 0;
-	BOOLEAN fToolKitFound = FALSE;
+	//INT8 bPocket = 0;
+	//BOOLEAN fToolKitFound = FALSE;
 
 	if ( !BasicCanCharacterAssignment( pSoldier, TRUE ) )
 	{
@@ -1565,8 +1565,8 @@ BOOLEAN CanCharacterPractise( SOLDIERTYPE *pSoldier )
 
 BOOLEAN CanCharacterTrainTeammates( SOLDIERTYPE *pSoldier )
 {
-	INT32 cnt = 0;
-	SOLDIERTYPE *pTeamSoldier = NULL;
+	//INT32 cnt = 0;
+	//SOLDIERTYPE *pTeamSoldier = NULL;
 
 	// can character train at all
 	if( CanCharacterPractise( pSoldier ) == FALSE )
@@ -1588,7 +1588,7 @@ BOOLEAN CanCharacterTrainTeammates( SOLDIERTYPE *pSoldier )
 
 BOOLEAN CanCharacterBeTrainedByOther( SOLDIERTYPE *pSoldier )
 {
-	INT32 iCounter = 0;
+	//INT32 iCounter = 0;
 
 	// can character train at all
 	if( CanCharacterPractise( pSoldier ) == FALSE )
@@ -2047,8 +2047,8 @@ UINT8 FindNumberInSectorWithAssignment( INT16 sX, INT16 sY, INT8 bAssignment )
 {
 	// run thought list of characters find number with this assignment
 	SOLDIERTYPE *pSoldier, *pTeamSoldier;
-  INT32 cnt=0;
-	INT32 iCounter=0;
+	INT32 cnt=0;
+	//INT32 iCounter=0;
 	INT8 bNumberOfPeople = 0;
 	
 	// set psoldier as first in merc ptrs
@@ -2137,11 +2137,11 @@ UINT16 CalculateHealingPointsForDoctor(SOLDIERTYPE *pDoctor, UINT16 *pusMaxPts, 
 	}
 
 	// calculate effective doctoring rate (adjusted for drugs, alcohol, etc.)
-	usHealPts = ( EffectiveMedical( pDoctor ) * (( EffectiveDexterity( pDoctor ) + EffectiveWisdom( pDoctor ) ) / 2) * (100 + ( 5 * EffectiveExpLevel( pDoctor) ) ) ) / gGameExternalOptions.ubDoctoringRateDivisor;
+	usHealPts = (UINT16) (( EffectiveMedical( pDoctor ) * (( EffectiveDexterity( pDoctor ) + EffectiveWisdom( pDoctor ) ) / 2) * (100 + ( 5 * EffectiveExpLevel( pDoctor) ) ) ) / gGameExternalOptions.ubDoctoringRateDivisor);
 
 	// calculate normal doctoring rate - what it would be if his stats were "normal" (ignoring drugs, fatigue, equipment condition)
 	// and equipment was not a hindrance
-	*pusMaxPts = ( pDoctor -> bMedical * (( pDoctor -> bDexterity + pDoctor -> bWisdom ) / 2 ) * (100 + ( 5 * pDoctor->bExpLevel) ) ) / gGameExternalOptions.ubDoctoringRateDivisor;
+	*pusMaxPts = (UINT16) (( pDoctor -> bMedical * (( pDoctor -> bDexterity + pDoctor -> bWisdom ) / 2 ) * (100 + ( 5 * pDoctor->bExpLevel) ) ) / gGameExternalOptions.ubDoctoringRateDivisor);
 
 	// adjust for fatigue
 	ReducePointsForFatigue( pDoctor, &usHealPts );
@@ -2196,11 +2196,11 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 	}
 
 	// calculate effective repair rate (adjusted for drugs, alcohol, etc.)
-	usRepairPts = (EffectiveMechanical( pSoldier ) * EffectiveDexterity( pSoldier ) * (100 + ( 5 * EffectiveExpLevel( pSoldier) ) ) ) / ( gGameExternalOptions.ubRepairRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay );
+	usRepairPts = (UINT16) ((EffectiveMechanical( pSoldier ) * EffectiveDexterity( pSoldier ) * (100 + ( 5 * EffectiveExpLevel( pSoldier) ) ) ) / ( gGameExternalOptions.ubRepairRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay ));
 
 	// calculate normal repair rate - what it would be if his stats were "normal" (ignoring drugs, fatigue, equipment condition)
 	// and equipment was not a hindrance
-	*pusMaxPts = ( pSoldier -> bMechanical * pSoldier -> bDexterity * (100 + ( 5 * pSoldier->bExpLevel) ) ) / ( gGameExternalOptions.ubRepairRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay );
+	*pusMaxPts = (UINT16) (( pSoldier -> bMechanical * pSoldier -> bDexterity * (100 + ( 5 * pSoldier->bExpLevel) ) ) / ( gGameExternalOptions.ubRepairRateDivisor * gGameExternalOptions.ubAssignmentUnitsPerDay ));
 
 
 	// adjust for fatigue
@@ -2275,7 +2275,7 @@ void HandleDoctorsInSector( INT16 sX, INT16 sY, INT8 bZ )
 {
 	SOLDIERTYPE *pSoldier, *pTeamSoldier;
   INT32 cnt=0;
-	INT32 iCounter=0;
+	//INT32 iCounter=0;
 
 	// set psoldier as first in merc ptrs
 	pSoldier = MercPtrs[0];	

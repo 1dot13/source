@@ -124,7 +124,7 @@ void ResetMilitia()
 	UINT8 ubNumGreen = 0;
 	UINT8 ubNumReg = 0;
 	UINT8 ubNumVet = 0;
-	UINT32 cnt;
+	//UINT32 cnt;
 
 //	if ( gWorldSectorX !=0 && gWorldSectorY != 0 && NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) )
 //		fBattleInProgress = TRUE;
@@ -1096,7 +1096,7 @@ BOOLEAN CheckIfRadioIsEquipped( void )
 //sFacingDir = GetDirectionFromXY( sXPos, sYPos, pTMilitiaSoldier );
 //SendSoldierSetDesiredDirectionEvent( pTMilitiaSoldier, sFacingDir );
 //SendSoldierSetDesiredDirectionEvent( pTMilitiaSoldier, gOppositeDirection[ sFacingDir ] );
-//EVENT_StopMerc( pTMilitiaSoldier, pTMilitiaSoldier->sGridNo, pTMilitiaSoldier->bDirection );
+//EVENT_StopMerc( pTMilitiaSoldier, pTMilitiaSoldier->sGridNo, pTMilitiaSoldier->ubDirection );
 
 //SendChangeSoldierStanceEvent( pTMilitiaSoldier, ANIM_PRONE );
 //SendChangeSoldierStanceEvent( pTMilitiaSoldier, ANIM_CROUCH );

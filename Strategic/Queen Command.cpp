@@ -443,54 +443,58 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	if( gbWorldSectorZ > 0 )
 		return PrepareEnemyForUndergroundBattle();
 
-	// Reinforcement groups?  Bring it on!  That is, if this is an enemy invasion.
-	if( gGameExternalOptions.gfAllowReinforcements &&
-		!( (GetTownIdForSector( gWorldSectorX, gWorldSectorY ) == OMERTA )&&( gGameOptions.ubDifficultyLevel != DIF_LEVEL_INSANE ) ) &&
-		gpBattleGroup && !gpBattleGroup->fPlayer )
+	// Add the invading group
+	if (gpBattleGroup && !gpBattleGroup->fPlayer )
 	{
-		UINT16 pusMoveDir[4][3];
-		UINT8 ubDirNumber = 0, ubIndex;
-		GROUP *pGroup;
-		SECTORINFO *pThisSector;
-
 		//The enemy has instigated the battle which means they are the ones entering the conflict.
 		//The player was actually in the sector first, and the enemy doesn't use reinforced placements
 		HandleArrivalOfReinforcements( gpBattleGroup );
 
-		// They arrived in multiple groups, so here they come
-		pThisSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
-
-		GenerateDirectionInfos( gWorldSectorX, gWorldSectorY, &ubDirNumber, pusMoveDir, 
-			( GetTownIdForSector( gWorldSectorX, gWorldSectorY ) != BLANK_SECTOR ? TRUE : FALSE ), TRUE, IS_ONLY_IN_CITIES );
-
-		for( ubIndex = 0; ubIndex < ubDirNumber; ubIndex++ )
+		// Reinforcement groups?  Bring it on!
+		if( gGameExternalOptions.gfAllowReinforcements &&
+			!( (GetTownIdForSector( gWorldSectorX, gWorldSectorY ) == OMERTA )&&( gGameOptions.ubDifficultyLevel != DIF_LEVEL_INSANE ) ) )
 		{
-			while ( NumMobileEnemiesInSector( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) && GetEnemyGroupInSector( SECTORX( pusMoveDir[ ubIndex][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) )
+			UINT16 pusMoveDir[4][3];
+			UINT8 ubDirNumber = 0, ubIndex;
+			GROUP *pGroup;
+			SECTORINFO *pThisSector;
+
+			// They arrived in multiple groups, so here they come
+			pThisSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
+
+			GenerateDirectionInfos( gWorldSectorX, gWorldSectorY, &ubDirNumber, pusMoveDir, 
+				( GetTownIdForSector( gWorldSectorX, gWorldSectorY ) != BLANK_SECTOR ? TRUE : FALSE ), TRUE, IS_ONLY_IN_CITIES );
+
+			for( ubIndex = 0; ubIndex < ubDirNumber; ubIndex++ )
 			{
-				pGroup = GetEnemyGroupInSector( SECTORX( pusMoveDir[ ubIndex][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) );
+				while ( NumMobileEnemiesInSector( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) && GetEnemyGroupInSector( SECTORX( pusMoveDir[ ubIndex][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) ) )
+				{
+					pGroup = GetEnemyGroupInSector( SECTORX( pusMoveDir[ ubIndex][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ) );
 
-				pGroup->ubPrevX = pGroup->ubSectorX;
-				pGroup->ubPrevY = pGroup->ubSectorY;
+					pGroup->ubPrevX = pGroup->ubSectorX;
+					pGroup->ubPrevY = pGroup->ubSectorY;
 
-				pGroup->ubSectorX = pGroup->ubNextX = (UINT8)gWorldSectorX;
-				pGroup->ubSectorY = pGroup->ubNextY = (UINT8)gWorldSectorY;
+					pGroup->ubSectorX = pGroup->ubNextX = (UINT8)gWorldSectorX;
+					pGroup->ubSectorY = pGroup->ubNextY = (UINT8)gWorldSectorY;
+				}
 			}
-		}
 
-		//It is now possible that other enemy groups have also arrived.  Add them in the same manner.
-		pGroup = gpGroupList;
-		while( pGroup )
-		{
-			if( pGroup != gpBattleGroup && !pGroup->fPlayer && !pGroup->fVehicle &&
-				  pGroup->ubSectorX == gpBattleGroup->ubSectorX &&
+			//It is now possible that other enemy groups have also arrived.  Add them in the same manner.
+			pGroup = gpGroupList;
+			while( pGroup )
+			{
+				if( pGroup != gpBattleGroup && !pGroup->fPlayer && !pGroup->fVehicle &&
+					pGroup->ubSectorX == gpBattleGroup->ubSectorX &&
 					pGroup->ubSectorY == gpBattleGroup->ubSectorY &&
 					!pGroup->pEnemyGroup->ubAdminsInBattle &&
 					!pGroup->pEnemyGroup->ubTroopsInBattle &&
 					!pGroup->pEnemyGroup->ubElitesInBattle )
-			{
-				HandleArrivalOfReinforcements( pGroup );
+				{
+					HandleArrivalOfReinforcements( pGroup );
+				}
+				pGroup = pGroup->next;
 			}
-			pGroup = pGroup->next;
+
 		}
 
 		ValidateEnemiesHaveWeapons();
@@ -670,24 +674,29 @@ BOOLEAN PrepareEnemyForSectorBattle()
 	pGroup = gpGroupList;
 	while( pGroup && sNumSlots )
 	{
-		i = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; 
-		pSoldier = &Menptr[ i ];
-		if( !pGroup->fPlayer && !pGroup->fVehicle && pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY && !gbWorldSectorZ )
+		if( !pGroup->fPlayer && !pGroup->fVehicle &&  
+				 pGroup->ubSectorX == gWorldSectorX && pGroup->ubSectorY == gWorldSectorY && !gbWorldSectorZ )
 		{
-			num = pGroup->ubGroupSize;
 			ubNumAdmins = pGroup->pEnemyGroup->ubAdminsInBattle;
 			ubNumTroops = pGroup->pEnemyGroup->ubTroopsInBattle;
 			ubNumElites = pGroup->pEnemyGroup->ubElitesInBattle;
-			while( num && sNumSlots && i <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID )
+			num = ubNumAdmins + ubNumTroops + ubNumElites;
+
+			for (i= gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; 
+				i<= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID && num;
+				i++)
 			{
-				while( !pSoldier->bActive || pSoldier->ubGroupID )
+				// At this point we should not have added more soldiers than are in slots
+				Assert( sNumSlots);
+
+				pSoldier = &Menptr[ i ];
+				
+				// Skip inactive and already grouped soldiers
+				if (!pSoldier->bActive || pSoldier->ubGroupID)
 				{
-					pSoldier = &Menptr[ ++i ];
-					if( i > gTacticalStatus.Team[ ENEMY_TEAM ].bLastID )
-					{
-						AssertMsg( 0, "Failed to assign battle counters for enemies properly. Please send save. KM:0." );
-					}
+					continue;
 				}
+
 				switch( pSoldier->ubSoldierClass )
 				{
 					case SOLDIER_CLASS_ADMINISTRATOR:
@@ -718,8 +727,9 @@ BOOLEAN PrepareEnemyForSectorBattle()
 						}
 						break;
 				}
-				pSoldier = &Menptr[ ++i ];
 			}
+
+			Assert( ubNumElites + ubNumTroops + ubNumAdmins + num == 0);
 		}
 		pGroup = pGroup->next;
 	}

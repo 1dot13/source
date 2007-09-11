@@ -708,6 +708,11 @@ void LoadGameExternalOptions()
 }
 
 
+void FreeGameExternalOptions()
+{
+	MemFree( gGameExternalOptions.iaIMPSlots);
+}
+
 BOOLEAN GetCDLocation( )
 {
 	UINT32	uiStrngLength = 0;

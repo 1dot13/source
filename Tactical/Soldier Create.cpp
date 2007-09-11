@@ -414,10 +414,10 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		Soldier.sSectorX							= pCreateStruct->sSectorX;
 		Soldier.sSectorY							= pCreateStruct->sSectorY;
 		Soldier.bSectorZ							= pCreateStruct->bSectorZ;
-		Soldier.ubInsertionDirection	= pCreateStruct->bDirection;
-		Soldier.bDesiredDirection			= pCreateStruct->bDirection;
-		Soldier.bDominantDir					= pCreateStruct->bDirection;
-		Soldier.bDirection						= pCreateStruct->bDirection;
+		Soldier.ubInsertionDirection	= pCreateStruct->ubDirection;
+		Soldier.bDesiredDirection			= pCreateStruct->ubDirection;
+		Soldier.bDominantDir					= pCreateStruct->ubDirection;
+		Soldier.ubDirection						= pCreateStruct->ubDirection;
 
 		Soldier.sInsertionGridNo			= pCreateStruct->sInsertionGridNo;
 		Soldier.bOldLife							= Soldier.bLifeMax;
@@ -812,7 +812,7 @@ BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STR
 
 	pSoldier->bOrders								= pCreateStruct->bOrders;
 	pSoldier->bAttitude							= pCreateStruct->bAttitude;
-	pSoldier->bDirection						= pCreateStruct->bDirection;
+	pSoldier->ubDirection						= pCreateStruct->ubDirection;
 	pSoldier->bPatrolCnt						= pCreateStruct->bPatrolCnt;
 	memcpy( pSoldier->usPatrolGrid, pCreateStruct->sPatrolGrid, sizeof( INT16 ) * MAXPATROLGRIDS );
 	
@@ -1642,7 +1642,7 @@ void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, B
 	//Pass over mandatory information specified from the basic placement
 	pp->bOrders = bp->bOrders;
 	pp->bAttitude = bp->bAttitude;
-	pp->bDirection = bp->bDirection;
+	pp->ubDirection = bp->ubDirection;
 
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CreateDetailedPlacementGivenBasicPlacementInfo: determine soldier's class"));
@@ -1861,7 +1861,7 @@ void CreateStaticDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT 
 	//Pass over mandatory information specified from the basic placement
 	spp->bOrders = bp->bOrders;
 	spp->bAttitude = bp->bAttitude;
-	spp->bDirection = bp->bDirection;
+	spp->ubDirection = bp->ubDirection;
 
 	//Only creatures have mandatory body types specified.
 	if( spp->bTeam == CREATURE_TEAM )
@@ -1929,7 +1929,7 @@ void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo(
 		// Copy over team
 		pp->bTeam = bp->bTeam;
 
-		pp->bDirection						= bp->bDirection;
+		pp->ubDirection						= bp->ubDirection;
 		pp->sInsertionGridNo			= bp->usStartingGridNo;
 
 		//ATE: Copy over sector coordinates from profile to create struct
@@ -1941,7 +1941,7 @@ void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo(
 
 		pp->bOrders								= bp->bOrders;
 		pp->bAttitude							= bp->bAttitude;
-		pp->bDirection						= bp->bDirection;
+		pp->ubDirection						= bp->ubDirection;
 		pp->bPatrolCnt						= bp->bPatrolCnt;
 		memcpy( pp->sPatrolGrid, bp->sPatrolGrid, sizeof( INT16 ) * MAXPATROLGRIDS );
 		pp->fHasKeys							= bp->fHasKeys;
@@ -2383,7 +2383,8 @@ SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass )
 	UINT8 ubID;
 	SOLDIERTYPE * pSoldier;
 
-	if (gpBattleGroup->ubSectorZ == gbWorldSectorZ &&
+	if (gpBattleGroup &&
+		gpBattleGroup->ubSectorZ == gbWorldSectorZ &&
 		gpBattleGroup->ubSectorX == gWorldSectorX &&
 		gpBattleGroup->ubSectorY == gWorldSectorY &&
 		guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )

@@ -622,7 +622,8 @@ void MSYS_UpdateMouseRegion(void)
 #endif
 			}
 
-			MSYS_CurrRegion->FastHelpTimer = gsFastHelpDelay;
+			if (MSYS_CurrRegion)
+				MSYS_CurrRegion->FastHelpTimer = gsFastHelpDelay;
 
 			// Force a callbacks to happen on previous region to indicate that
 			// the mouse has left the old region

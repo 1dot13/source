@@ -412,7 +412,7 @@ UINT16 GetCorpseStructIndex( ROTTING_CORPSE_DEFINITION *pCorpseDef, BOOLEAN fFor
     case HUMMER_DEAD:
 
 			// OK , these have 2 directions....
-			bDirection = gb2DirectionsFrom8[ pCorpseDef->bDirection ];
+			bDirection = gb2DirectionsFrom8[ pCorpseDef->ubDirection ];
       if ( fForImage )
       {
 			  bDirection = gOneCDirection[ bDirection ];
@@ -427,7 +427,7 @@ UINT16 GetCorpseStructIndex( ROTTING_CORPSE_DEFINITION *pCorpseDef, BOOLEAN fFor
 		case FMERC_FALLF:
 
 			// OK , these have 4 directions....
-			bDirection = gb4DirectionsFrom8[ pCorpseDef->bDirection ];
+			bDirection = gb4DirectionsFrom8[ pCorpseDef->ubDirection ];
 
 //      if ( fForImage )
 //      {
@@ -438,7 +438,7 @@ UINT16 GetCorpseStructIndex( ROTTING_CORPSE_DEFINITION *pCorpseDef, BOOLEAN fFor
 		default:
 			
 			// Uses 8
-			bDirection =  pCorpseDef->bDirection;
+			bDirection =  pCorpseDef->ubDirection;
 
       if ( fForImage )
       {
@@ -541,7 +541,7 @@ INT32	AddRottingCorpse( ROTTING_CORPSE_DEFINITION *pCorpseDef )
 	AniParams.sX									= CenterX( pCorpse->def.sGridNo );
 	AniParams.sY									= CenterY( pCorpse->def.sGridNo );
 	AniParams.sZ									= (INT16)pCorpse->def.sHeightAdjustment;
-	AniParams.uiUserData3					= pCorpse->def.bDirection;
+	AniParams.uiUserData3					= pCorpse->def.ubDirection;
 	
 
 	if ( !gGameSettings.fOptions[ TOPTION_BLOOD_N_GORE ] )
@@ -847,7 +847,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 	// Determine corpse type!
 	ubType = (UINT8)gubAnimSurfaceCorpseID[ pSoldier->ubBodyType][ pSoldier->usAnimState ];
 
-	Corpse.bDirection	= pSoldier->bDirection;
+	Corpse.ubDirection	= pSoldier->ubDirection;
 
 	// If we are a vehicle.... only use 1 direction....
 	if ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
@@ -856,17 +856,17 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 
     if ( pSoldier->ubBodyType != ICECREAMTRUCK && pSoldier->ubBodyType != HUMVEE )
     {
-      Corpse.bDirection = 7;
+      Corpse.ubDirection = 7;
     }
     else
     {
-      Corpse.bDirection = gb2DirectionsFrom8[ Corpse.bDirection ];
+      Corpse.ubDirection = gb2DirectionsFrom8[ Corpse.ubDirection ];
     }
 	}
 
   if ( ubType == QUEEN_MONSTER_DEAD || ubType == BURNT_DEAD || ubType == EXPLODE_DEAD )
   {
-    Corpse.bDirection = 7;
+    Corpse.ubDirection = 7;
   }
 	
 
@@ -1077,7 +1077,7 @@ void AddCrowToCorpse( ROTTING_CORPSE *pCorpse )
 	MercCreateStruct.sSectorY			= gWorldSectorY;
 	MercCreateStruct.bSectorZ			= gbWorldSectorZ;
 	MercCreateStruct.bBodyType		= bBodyType;
-	MercCreateStruct.bDirection					= SOUTH;
+	MercCreateStruct.ubDirection					= SOUTH;
 	MercCreateStruct.bTeam							= CIV_TEAM;
 	MercCreateStruct.sInsertionGridNo		= pCorpse->def.sGridNo;
 	RandomizeNewSoldierStats( &MercCreateStruct );
@@ -1693,7 +1693,7 @@ INT16 FindNearestAvailableGridNoForCorpse( ROTTING_CORPSE_DEFINITION *pDef, INT8
 	{
 		if ( fSetDirection )
 		{
-			pDef->bDirection = ubBestDirection;
+			pDef->ubDirection = ubBestDirection;
 		}
 
 		return sLowestGridNo;

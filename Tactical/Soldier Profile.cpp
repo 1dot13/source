@@ -915,7 +915,7 @@ SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 	MercCreateStruct.sSectorY						= pSoldier->sSectorY;
 	MercCreateStruct.bSectorZ						= pSoldier->bSectorZ;
 	MercCreateStruct.sInsertionGridNo		= pSoldier->sGridNo;
-	MercCreateStruct.bDirection					= pSoldier->bDirection;
+	MercCreateStruct.ubDirection					= pSoldier->ubDirection;
 
 	if ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
 	{

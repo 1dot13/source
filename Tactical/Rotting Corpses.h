@@ -99,7 +99,7 @@ typedef struct
 	PaletteRepID								VestPal;	
 	PaletteRepID								SkinPal;	
 
-	INT8												bDirection;
+	UINT8												ubDirection;
 	UINT32											uiTimeOfDeath;
 
 	UINT16											usFlags;

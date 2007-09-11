@@ -1083,6 +1083,12 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 			ReturnCode = IDirectDrawSurface2_SGPBltFast(pDest, sScrollXIncrement, gsVIEWPORT_WINDOW_START_Y, pSource, (LPRECT)&Region, DDBLTFAST_NOCOLORKEY);
 			if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
 			{
+				// Prevent the assertion failure lockup
+				if (ReturnCode == DDERR_INVALIDRECT)
+				{
+					break;
+				}
+
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
 				if (ReturnCode == DDERR_SURFACELOST)
@@ -1124,6 +1130,12 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 			ReturnCode = IDirectDrawSurface2_SGPBltFast(pDest, 0, gsVIEWPORT_WINDOW_START_Y, pSource, (LPRECT)&Region, DDBLTFAST_NOCOLORKEY);
 			if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
 			{
+				// Prevent the assertion failure lockup
+				if (ReturnCode == DDERR_INVALIDRECT)
+				{
+					break;
+				}
+
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
 				if (ReturnCode == DDERR_SURFACELOST)
@@ -1166,6 +1178,12 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 			ReturnCode = IDirectDrawSurface2_SGPBltFast(pDest, 0, gsVIEWPORT_WINDOW_START_Y + sScrollYIncrement, pSource, (LPRECT)&Region, DDBLTFAST_NOCOLORKEY);
 			if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
 			{
+				// Prevent the assertion failure lockup
+				if (ReturnCode == DDERR_INVALIDRECT)
+				{
+					break;
+				}
+
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
 				if (ReturnCode == DDERR_SURFACELOST)
@@ -1207,6 +1225,12 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 			ReturnCode = IDirectDrawSurface2_SGPBltFast(pDest, 0, gsVIEWPORT_WINDOW_START_Y, pSource, (LPRECT)&Region, DDBLTFAST_NOCOLORKEY);
 			if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
 			{
+				// Prevent the assertion failure lockup
+				if (ReturnCode == DDERR_INVALIDRECT)
+				{
+					break;
+				}
+
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
 				if (ReturnCode == DDERR_SURFACELOST)
@@ -1249,6 +1273,12 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 			ReturnCode = IDirectDrawSurface2_SGPBltFast(pDest, sScrollXIncrement, gsVIEWPORT_WINDOW_START_Y + sScrollYIncrement, pSource, (LPRECT)&Region, DDBLTFAST_NOCOLORKEY);
 			if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
 			{
+				// Prevent the assertion failure lockup
+				if (ReturnCode == DDERR_INVALIDRECT)
+				{
+					break;
+				}
+
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
 				if (ReturnCode == DDERR_SURFACELOST)
@@ -1294,6 +1324,12 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 			ReturnCode = IDirectDrawSurface2_SGPBltFast(pDest, 0, gsVIEWPORT_WINDOW_START_Y + sScrollYIncrement, pSource, (LPRECT)&Region, DDBLTFAST_NOCOLORKEY);
 			if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
 			{
+				// Prevent the assertion failure lockup
+				if (ReturnCode == DDERR_INVALIDRECT)
+				{
+					break;
+				}
+
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
 				if (ReturnCode == DDERR_SURFACELOST)
@@ -1338,6 +1374,12 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 			ReturnCode = IDirectDrawSurface2_SGPBltFast(pDest, sScrollXIncrement, gsVIEWPORT_WINDOW_START_Y, pSource, (LPRECT)&Region, DDBLTFAST_NOCOLORKEY);
 			if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
 			{
+				// Prevent the assertion failure lockup
+				if (ReturnCode == DDERR_INVALIDRECT)
+				{
+					break;
+				}
+
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
 				if (ReturnCode == DDERR_SURFACELOST)
@@ -1385,6 +1427,12 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 			ReturnCode = IDirectDrawSurface2_SGPBltFast(pDest, 0, gsVIEWPORT_WINDOW_START_Y, pSource, (LPRECT)&Region, DDBLTFAST_NOCOLORKEY);
 			if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
 			{
+				// Prevent the assertion failure lockup
+				if (ReturnCode == DDERR_INVALIDRECT)
+				{
+					break;
+				}
+
 				DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 
 				if (ReturnCode == DDERR_SURFACELOST)
@@ -1456,6 +1504,12 @@ void ScrollJA2Background(UINT32 uiDirection, INT16 sScrollXIncrement, INT16 sScr
 				ReturnCode = IDirectDrawSurface2_SGPBltFast(pDest, StripRegions[ cnt ].left, StripRegions[ cnt ].top, gpFrameBuffer, (LPRECT)&( StripRegions[ cnt ] ), DDBLTFAST_NOCOLORKEY);
 				if ((ReturnCode != DD_OK)&&(ReturnCode != DDERR_WASSTILLDRAWING))
 				{
+					// Prevent the assertion failure lockup
+					if (ReturnCode == DDERR_INVALIDRECT)
+					{
+						break;
+					}
+
 					DirectXAttempt ( ReturnCode, __LINE__, __FILE__ );
 				}
 

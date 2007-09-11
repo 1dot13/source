@@ -4844,6 +4844,7 @@ BOOLEAN CreateGun( UINT16 usItem, INT8 bStatus, OBJECTTYPE * pObj )
 	{
 		pObj->ItemData.Gun.ubGunShotsLeft = GetMagSize(pObj);
 		pObj->ItemData.Gun.ubGunAmmoType = AMMO_MONSTER;
+		pObj->ItemData.Gun.ubGunState |= GS_CARTRIDGE_IN_CHAMBER; // 0verhaul:  Monsters don't have to reload!
 	}
 	else if ( EXPLOSIVE_GUN( usItem ) )
 	{
@@ -5701,7 +5702,7 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 	INT8		bLoop, bDamage, bDieSize;
 	UINT32	uiRoll;
 
-	if ( pSoldier->bOverTerrainType == DEEP_WATER )
+	if ( MercInDeepWater( pSoldier) )
 	{
 		for ( bLoop = 0; bLoop < NUM_INV_SLOTS; bLoop++ )
 		{
@@ -5733,7 +5734,7 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 	{
 		// reduce camouflage by 2% per tile of deep water
 		// and 1% for medium water
-		if ( pSoldier->bOverTerrainType == DEEP_WATER )
+		if ( MercInDeepWater( pSoldier) )
 			pSoldier->bCamo = __max( 0, pSoldier->bCamo - 2 );
 		else
 			pSoldier->bCamo = __max( 0, pSoldier->bCamo - 1 );
@@ -5746,7 +5747,7 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 	{
 		// reduce camouflage by 2% per tile of deep water
 		// and 1% for medium water
-		if ( pSoldier->bOverTerrainType == DEEP_WATER )
+		if ( MercInDeepWater( pSoldier) )
 			pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 2 );
 		else
 			pSoldier->urbanCamo = __max( 0, pSoldier->urbanCamo - 1 );
@@ -5759,7 +5760,7 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 	{
 		// reduce camouflage by 2% per tile of deep water
 		// and 1% for medium water
-		if ( pSoldier->bOverTerrainType == DEEP_WATER )
+		if ( MercInDeepWater( pSoldier) )
 			pSoldier->desertCamo = __max( 0, pSoldier->desertCamo - 2 );
 		else
 			pSoldier->desertCamo = __max( 0, pSoldier->desertCamo - 1 );
@@ -5772,7 +5773,7 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 	{
 		// reduce camouflage by 2% per tile of deep water
 		// and 1% for medium water
-		if ( pSoldier->bOverTerrainType == DEEP_WATER )
+		if ( MercInDeepWater( pSoldier) )
 			pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 2 );
 		else
 			pSoldier->snowCamo = __max( 0, pSoldier->snowCamo - 1 );
@@ -5798,7 +5799,7 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 
 	if ( pSoldier->bTeam == gbPlayerNum && pSoldier->bMonsterSmell > 0 )
 	{
-		if ( pSoldier->bOverTerrainType == DEEP_WATER )
+		if ( MercInDeepWater( pSoldier) )
 		{
 			bDieSize = 10;
 		}
@@ -6557,8 +6558,6 @@ INT16 GetVisionRangeBonus( SOLDIERTYPE * pSoldier )
 	UINT16 usItem;
 	INVTYPE *pItem;
 
-	//ADB and AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
-	bool usingGunScope = WeaponReady(pSoldier);
 	for (int i = HELMETPOS; i < BIGPOCK1POS; i++)
 	{
 		// Okay, it's time for some optimization here too
@@ -6572,15 +6571,16 @@ INT16 GetVisionRangeBonus( SOLDIERTYPE * pSoldier )
 			continue;
 		}
 
-		if (!IsWeapon(usItem) || (IsWeapon(usItem) && usingGunScope == true) )
+		if (!IsWeapon(usItem) || (IsWeapon(usItem) && WeaponReady(pSoldier) ) )
 		{
 			bns += BonusReduceMore( pItem->visionrangebonus,	pObj->ItemData.Generic.bStatus[0] );
 		}
 	}
 
-	// Snap: check only attachments on a raised weapon!
+	// Snap: check only attachments on a readied weapon!
+	// 0verhaul:  Moved this bug fix into WeaponReady so that all CTH modifier functions may benefit from this fix
 	//AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
-	if ( usingGunScope == true )
+	if ( WeaponReady(pSoldier) )
 	{
 		pObj = &( pSoldier->inv[HANDPOS]);
 
@@ -6614,8 +6614,6 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	UINT16 usItem;
 	INVTYPE *pItem;
 
-	//ADB and AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
-	bool usingGunScope = WeaponReady(pSoldier);
 	for (int i = HELMETPOS; i < BIGPOCK1POS; i++)
 	{
 		// More optimization
@@ -6629,7 +6627,7 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 			continue;
 		}
 
-		if (!IsWeapon(usItem) || (IsWeapon(usItem) && usingGunScope == true ) )
+		if (!IsWeapon(usItem) || (IsWeapon(usItem) && WeaponReady(pSoldier) ) )
 		{
 			bns += BonusReduceMore(
 				NightBonusScale( pItem->nightvisionrangebonus, bLightLevel ),
@@ -6638,7 +6636,7 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	}
 
 	// Snap: check only attachments on a raised weapon!
-	if ( usingGunScope == true )
+	if ( WeaponReady(pSoldier) )
 	{
 		pObj = &( pSoldier->inv[HANDPOS]);
 
@@ -6660,8 +6658,6 @@ INT16 GetCaveVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	UINT16 usItem;
 	INVTYPE *pItem;
 
-	//ADB and AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
-	bool usingGunScope = WeaponReady(pSoldier);
 	for (int i = 0; i < BIGPOCK1POS; i++)
 	{
 		// More optimization
@@ -6676,7 +6672,7 @@ INT16 GetCaveVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 			continue;
 		}
 
-		if (!IsWeapon(usItem) || (IsWeapon(usItem) && usingGunScope == true ) )
+		if (!IsWeapon(usItem) || (IsWeapon(usItem) && WeaponReady(pSoldier) ) )
 		{
 			bns += BonusReduceMore(
 				NightBonusScale( pItem->cavevisionrangebonus, bLightLevel ),
@@ -6685,7 +6681,7 @@ INT16 GetCaveVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	}
 
 	// Snap: check only attachments on a raised weapon!
-	if ( usingGunScope == true )
+	if ( WeaponReady(pSoldier) )
 	{
 		pObj = &( pSoldier->inv[HANDPOS]);
 
@@ -6709,8 +6705,6 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 
 	// Snap: Scale the bonus with the light level
 
-	//ADB and AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
-	bool usingGunScope = WeaponReady(pSoldier);
 	for (int i = 0; i < BIGPOCK1POS; i++)
 	{
 		// More optimization
@@ -6725,7 +6719,7 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 			continue;
 		}
 
-		if (!IsWeapon(usItem) || (IsWeapon(usItem) && usingGunScope == true ) )
+		if (!IsWeapon(usItem) || (IsWeapon(usItem) && WeaponReady(pSoldier) ) )
 		{
 			bns += BonusReduceMore( idiv( pItem->dayvisionrangebonus
 				* (NORMAL_LIGHTLEVEL_NIGHT - bLightLevel), NORMAL_LIGHTLEVEL_NIGHT ),
@@ -6734,7 +6728,7 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	}
 
 	// Snap: check only attachments on a raised weapon!
-	if ( usingGunScope == true )
+	if ( WeaponReady(pSoldier) )
 	{
 		pObj = &( pSoldier->inv[HANDPOS]);
 
@@ -6758,8 +6752,6 @@ INT16 GetBrightLightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel 
 
 	// Snap: Scale the bonus with the light level
 
-	//ADB and AXP 28.03.2007: CtH bug fix: We also want to check on a firing weapon, "raised" alone is not enough ;)
-	bool usingGunScope = WeaponReady(pSoldier);
 	for (int i = 0; i < BIGPOCK1POS; i++)
 	{
 		// More optimization
@@ -6774,7 +6766,7 @@ INT16 GetBrightLightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel 
 			continue;
 		}
 
-		if (!IsWeapon(usItem) || (IsWeapon(usItem) && usingGunScope == true ) )
+		if (!IsWeapon(usItem) || (IsWeapon(usItem) && WeaponReady(pSoldier) ) )
 		{
 			bns += BonusReduceMore( idiv( pItem->brightlightvisionrangebonus
 				* (NORMAL_LIGHTLEVEL_DAY - bLightLevel), NORMAL_LIGHTLEVEL_DAY ),
@@ -6783,7 +6775,7 @@ INT16 GetBrightLightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel 
 	}
 
 	// Snap: check only attachments on a raised weapon!
-	if ( usingGunScope == true )
+	if ( WeaponReady(pSoldier) )
 	{
 		pObj = &( pSoldier->inv[HANDPOS]);
 
@@ -6850,9 +6842,8 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 		}
 	}
 
-	bool usingGunScope = WeaponReady(pSoldier);
 	// Snap: check only attachments on a raised weapon!
-	if ( usingGunScope == true )
+	if ( WeaponReady(pSoldier) )
 	{
 		OBJECTTYPE *pInv = &(pSoldier->inv[HANDPOS]);
 		usItem = pInv->usItem;
@@ -6877,7 +6868,6 @@ UINT8 GetPercentTunnelVision( SOLDIERTYPE * pSoldier )
 BOOLEAN HasThermalOptics( SOLDIERTYPE * pSoldier )
 {
 
-	bool usingGunScope = WeaponReady(pSoldier);
 	for (int i = 0; i < BIGPOCK1POS; i++)
 	{
 		if ( (i == HANDPOS || i == SECONDHANDPOS) && 
@@ -6886,7 +6876,7 @@ BOOLEAN HasThermalOptics( SOLDIERTYPE * pSoldier )
 			continue;
 		}
 
-		if (!IsWeapon(pSoldier->inv[i].usItem) || (IsWeapon(pSoldier->inv[i].usItem) && usingGunScope == true) )
+		if (!IsWeapon(pSoldier->inv[i].usItem) || (IsWeapon(pSoldier->inv[i].usItem) && WeaponReady(pSoldier) ) )
 		{
 			if (Item[pSoldier->inv[i].usItem].thermaloptics)
 				return TRUE;
@@ -6894,7 +6884,7 @@ BOOLEAN HasThermalOptics( SOLDIERTYPE * pSoldier )
 	}
 
 	// Snap: check only attachments on a raised weapon!
-	if ( usingGunScope == true )
+	if ( WeaponReady(pSoldier) )
 	{
 		for (int i=0; i < MAX_ATTACHMENTS; i++)
 		{

@@ -1410,12 +1410,12 @@ BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * p
 		// Crow always as prone...
 		ubHeight = ANIM_PRONE;
 	}
-	else if (pSoldier->bOverTerrainType == DEEP_WATER)
+	else if ( MercInDeepWater( pSoldier) )
 	{
 		// treat as prone
 		ubHeight = ANIM_PRONE;
 	}
-	else if ( pSoldier->bOverTerrainType == LOW_WATER || pSoldier->bOverTerrainType == MED_WATER )
+	else if ( MercInShallowWater(pSoldier) )
 	{
 		// treat as crouched
 		ubHeight = ANIM_CROUCH;
@@ -2020,7 +2020,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 			if ( (pTarget->ubBodyType >= ADULTFEMALEMONSTER) && (pTarget->ubBodyType <=	YAM_MONSTER) )
 			{
 				ubAttackDirection = (UINT8) GetDirectionToGridNoFromGridNo( pBullet->pFirer->sGridNo, pTarget->sGridNo );
-				if ( ubAttackDirection == pTarget->bDirection || ubAttackDirection == gOneCCDirection[ pTarget->bDirection ] || ubAttackDirection == gOneCDirection[ pTarget->bDirection ] )
+				if ( ubAttackDirection == pTarget->ubDirection || ubAttackDirection == gOneCCDirection[ pTarget->ubDirection ] || ubAttackDirection == gOneCDirection[ pTarget->ubDirection ] )
 				{
 					// may hit weak spot!
 					if (0) // check fact
@@ -2043,7 +2043,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 		if (ubHitLocation == AIM_SHOT_RANDOM) // i.e. if not set yet
 		{
 
-			if (pTarget->bOverTerrainType == DEEP_WATER)
+			if (MercInDeepWater( pTarget) )
 			{
 				// automatic head hit!
 				ubHitLocation = AIM_SHOT_HEAD;
@@ -2054,7 +2054,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 				{
 				case ANIM_STAND:
 					// Fall through to crouch if in shallow or medium water
-					if ( pTarget->bOverTerrainType != LOW_WATER && pTarget->bOverTerrainType != MED_WATER )
+					if ( !MercInShallowWater( pTarget) )
 					{
 						dZPosRelToMerc = FixedToFloat( pBullet->qCurrZ ) - CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[pBullet->sGridNo].sHeight );
 						if ( dZPosRelToMerc > HEIGHT_UNITS )
@@ -2110,7 +2110,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 			ubAttackDirection = (UINT8) GetDirectionToGridNoFromGridNo( pBullet->pFirer->sGridNo, pTarget->sGridNo );
 			ubOppositeDirection = gOppositeDirection[ ubAttackDirection ];
 
-			if ( ! ( ubOppositeDirection == pTarget->bDirection || ubAttackDirection == gOneCCDirection[ pTarget->bDirection ] || ubAttackDirection == gOneCDirection[ pTarget->bDirection ] ) )
+			if ( ! ( ubOppositeDirection == pTarget->ubDirection || ubAttackDirection == gOneCCDirection[ pTarget->ubDirection ] || ubAttackDirection == gOneCDirection[ pTarget->ubDirection ] ) )
 			{
 				// lucky bastard was facing away!
 			}
@@ -4724,7 +4724,7 @@ INT32	CheckForCollision( FLOAT dX, FLOAT dY, FLOAT dZ, FLOAT dDeltaX, FLOAT dDel
 	if (iCurrAboveLevelZ < 0)
 	{
 		// ground is in the way!	
-		if ( pMapElement->ubTerrainID == DEEP_WATER || pMapElement->ubTerrainID == LOW_WATER || pMapElement->ubTerrainID == MED_WATER )
+		if ( TERRAIN_IS_WATER( pMapElement->ubTerrainID) )
 		{
 			return ( COLLISION_WATER );
 		}
@@ -4764,7 +4764,7 @@ INT32	CheckForCollision( FLOAT dX, FLOAT dY, FLOAT dZ, FLOAT dDeltaX, FLOAT dDel
 		if ( dZ < iLandHeight)
 		{
 			// ground is in the way!	
-			if ( pMapElement->ubTerrainID == DEEP_WATER || pMapElement->ubTerrainID == LOW_WATER || pMapElement->ubTerrainID == MED_WATER  )
+			if ( TERRAIN_IS_WATER( pMapElement->ubTerrainID) )
 			{
 				return ( COLLISION_WATER );
 			}

@@ -438,6 +438,7 @@ BOOLEAN	SaveGameSettings();
 BOOLEAN LoadGameSettings();
 // Snap: Read options from an INI file in the default of custom Data directory
 void LoadGameExternalOptions();
+void FreeGameExternalOptions();
 
 void InitGameOptions();
 

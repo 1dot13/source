@@ -495,7 +495,9 @@ PathStPtr BuildAStrategicPath(PathStPtr pPath , INT16 iStartSectorNum, INT16 iEn
  INT32 iOldDelta = 0;
  iCurrentSectorNum=iStartSectorNum;
  
-
+ if(iEndSectorNum < MAP_WORLD_X-1)
+	 return NULL;
+ 
  if (pNode==NULL)
  {
 	 // start new path list
@@ -513,9 +515,6 @@ PathStPtr BuildAStrategicPath(PathStPtr pPath , INT16 iStartSectorNum, INT16 iEn
 	 pHeadOfPathList = pNode;
  }
 
- if(iEndSectorNum < MAP_WORLD_X-1)
-	 return NULL;
- 
  iPathLength=((INT32)FindStratPath(((INT16)iStartSectorNum),((INT16)iEndSectorNum), sMvtGroupNumber, fTacticalTraversal ));
  while(iPathLength > iCount)
  {
@@ -885,6 +884,7 @@ PathStPtr ClearStrategicPathList( PathStPtr pHeadOfPath, INT16 sMvtGroup )
 
 		// move to next node
 		pNode = pNode -> pNext;
+		pNode->pPrev = NULL;
 
 		// delete delete node
 		MemFree( pDeleteNode );

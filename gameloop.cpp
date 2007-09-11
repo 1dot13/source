@@ -169,6 +169,8 @@ void ShutdownGame(void)
 	InitTacticalSave( FALSE );
 
 	ShutdownLua( );
+
+	FreeGameExternalOptions();
 }
 
  

@@ -831,6 +831,8 @@ void KillTacticalPlacementGUI()
 		ScreenMsg( FONT_RED, MSG_ERROR, L"Substituted different entry side due to invalid entry points or map edgepoints.  KM, LC : 1" );
 	}
 	#endif
+
+	MemFree( gMercPlacement);
 }
 
 void ChooseRandomEdgepoints()
@@ -1178,7 +1180,7 @@ void PutDownMercPiece( INT32 iPlacement )
 		ConvertGridNoToCellXY( sGridNo, &sCellX, &sCellY );
 		EVENT_SetSoldierPosition( pSoldier, (FLOAT)sCellX, (FLOAT)sCellY );
 		EVENT_SetSoldierDirection( pSoldier, ubDirection );
-		pSoldier->ubInsertionDirection = pSoldier->bDirection;
+		pSoldier->ubInsertionDirection = pSoldier->ubDirection;
 		gMercPlacement[ iPlacement ].fPlaced = TRUE;
 		gMercPlacement[ iPlacement ].pSoldier->bInSector = TRUE;
 	}

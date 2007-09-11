@@ -359,14 +359,16 @@ void InternalDropBlood( INT16 sGridNo, INT8 bLevel, UINT8 ubType, UINT8 ubStreng
 	MAP_ELEMENT *		pMapElement;
 	UINT8						ubOldStrength=0;
 	UINT8						ubNewStrength=0;
+	UINT8	bOverTerrainType;
 		
 	/*
 	 * Dropping some blood;
 	 * We can check the type of blood by consulting the type in the smell byte
 	 */
 
+	bOverTerrainType = GetTerrainType( sGridNo);
 	// If we are in water...
-	if ( GetTerrainType( sGridNo ) == DEEP_WATER || GetTerrainType( sGridNo ) == LOW_WATER || GetTerrainType( sGridNo ) == MED_WATER )
+	if ( TERRAIN_IS_WATER( bOverTerrainType) )
 	{
 		return;
 	}

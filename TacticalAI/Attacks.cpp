@@ -399,7 +399,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 BOOLEAN CloseEnoughForGrenadeToss( INT16 sGridNo, INT16 sGridNo2 )
 {
 	INT16	sTempGridNo;
-	INT8	bDirection;
+	UINT8	ubDirection;
 	INT16	sXPos, sYPos, sXPos2, sYPos2;
 	UINT8	ubMovementCost;
 
@@ -407,10 +407,10 @@ BOOLEAN CloseEnoughForGrenadeToss( INT16 sGridNo, INT16 sGridNo2 )
 	{
 		// checking the same space; if there is a closed door next to location in ANY direction then forget it
 		// (could be the player closed a door on us)
-		for (bDirection = 0; bDirection < NUM_WORLD_DIRECTIONS; bDirection++)
+		for (ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ubDirection++)
 		{
-			sTempGridNo = NewGridNo( sGridNo, DirectionInc( bDirection ) );
-			ubMovementCost = gubWorldMovementCosts[ sTempGridNo ][ bDirection ][ 0 ];
+			sTempGridNo = NewGridNo( sGridNo, DirectionInc( ubDirection ) );
+			ubMovementCost = gubWorldMovementCosts[ sTempGridNo ][ ubDirection ][ 0 ];
 			if ( IS_TRAVELCOST_DOOR( ubMovementCost ) )
 			{
 				ubMovementCost = DoorTravelCost( NULL, sTempGridNo, ubMovementCost, FALSE, NULL );
@@ -437,14 +437,14 @@ BOOLEAN CloseEnoughForGrenadeToss( INT16 sGridNo, INT16 sGridNo2 )
 		sYPos = CenterY( sGridNo );
 		sXPos2 = CenterX( sGridNo2 );
 		sYPos2 = CenterY( sGridNo2 );
-		bDirection = atan8( sXPos, sYPos, sXPos2, sYPos2 );
+		ubDirection = atan8( sXPos, sYPos, sXPos2, sYPos2 );
 
 		// For each step of the loop, we are checking for door or obstacle movement costs.  If we
 		// find we're blocked, then this is no good for grenade tossing!
 		do
 		{
-			sTempGridNo = NewGridNo( sTempGridNo, DirectionInc( bDirection ) );
-			ubMovementCost = gubWorldMovementCosts[ sTempGridNo ][ bDirection ][ 0 ];
+			sTempGridNo = NewGridNo( sTempGridNo, DirectionInc( ubDirection ) );
+			ubMovementCost = gubWorldMovementCosts[ sTempGridNo ][ ubDirection ][ 0 ];
 			if ( IS_TRAVELCOST_DOOR( ubMovementCost ) )
 			{
 				ubMovementCost = DoorTravelCost( NULL, sTempGridNo, ubMovementCost, FALSE, NULL );
@@ -1575,6 +1575,8 @@ INT32 EstimateShotDamage(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ub
 	INT32 iTotalProt;
 	INT8 bPlatePos;
 	UINT8	ubAmmoType;
+	UINT16 usItem;
+	OBJECTTYPE *pObj;
 
 	/*
 	if ( pOpponent->uiStatusFlags & SOLDIER_VEHICLE )
@@ -1584,19 +1586,22 @@ INT32 EstimateShotDamage(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ub
 	}
 	*/
 
-	if ( Item[ pSoldier->inv[pSoldier->ubAttackingHand].usItem ].usItemClass & IC_THROWING_KNIFE )
+	pObj = &(pSoldier->inv[pSoldier->ubAttackingHand]);
+	usItem = pObj->usItem;
+
+	if ( Item[ usItem ].usItemClass & IC_THROWING_KNIFE )
 	{
 		ubAmmoType = AMMO_KNIFE;
 	}
 	else
 	{
-		ubAmmoType = pSoldier->inv[pSoldier->ubAttackingHand].ItemData.Gun.ubGunAmmoType;
+		ubAmmoType = pObj->ItemData.Gun.ubGunAmmoType;
 	}
 
 	// calculate distance to target, obtain his gun's maximum range rating
 
 	iRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, pOpponent->sGridNo );
-	iMaxRange = Weapon[pSoldier->inv[HANDPOS].usItem].usRange;
+	iMaxRange = Weapon[usItem].usRange;
 
 	// bullet loses speed and penetrating power, 50% loss per maximum range
 	iPowerLost = ((50 * iRange) / iMaxRange);
@@ -1604,7 +1609,7 @@ INT32 EstimateShotDamage(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ub
 	// up to 50% extra impact for making particularly accurate successful shots
 	ubBonus = ubChanceToHit / 4;       // /4 is really /2 and /2 again
 
-	iDamage = ((GetDamage(&pSoldier->inv[HANDPOS])) * (100 - iPowerLost + ubBonus) / 100) ;
+	iDamage = ((GetDamage(pObj)) * (100 - iPowerLost + ubBonus) / 100) ;
 
 	//NumMessage("Pre-protection damage: ",damage);
 
@@ -1679,7 +1684,7 @@ INT32 EstimateShotDamage(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ub
 	{
 		// cheat and emphasize shots
 		//iDamage = (iDamage * 15) / 10;
-		switch( pSoldier->inv[pSoldier->ubAttackingHand].usItem )
+		switch( usItem )
 		{
 			// explosive damage is 100-200% that of the rated, so multiply by 3/2s here
 		case CREATURE_QUEEN_SPIT: //TODO: Madd - remove the hardcoding here

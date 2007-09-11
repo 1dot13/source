@@ -2152,7 +2152,7 @@ OBJECTTYPE* InternalAddItemToPool( INT16 *psGridNo, OBJECTTYPE *pObject, INT8 bV
 	// IF SO, DONT'T ADD!
 	bTerrainID = GetTerrainType( *psGridNo );
 
-	if ( bTerrainID == DEEP_WATER || bTerrainID == LOW_WATER || bTerrainID == MED_WATER )
+	if ( TERRAIN_IS_WATER( bTerrainID) )
 	{
 		//		if ( Item[ pObject->usItem ].fFlags & ITEM_SINKS )
 		if ( Item[ pObject->usItem ].sinks  )

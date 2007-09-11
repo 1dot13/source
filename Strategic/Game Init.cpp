@@ -352,6 +352,7 @@ void ShutdownStrategicLayer()
 	TrashUndergroundSectorInfo();
 	DeleteCreatureDirectives();
 	KillStrategicAI();
+	ClearTacticalMessageQueue();
 }
 
 BOOLEAN InitNewGame( BOOLEAN fReset )

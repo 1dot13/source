@@ -848,6 +848,7 @@ UINT32  MainGameScreenHandle(void)
 
 	if ( gfScrollPending  )
 	{
+		DeleteVideoOverlaysArea( );
 		AllocateVideoOverlaysArea( );
 		SaveVideoOverlaysArea( FRAME_BUFFER );
 		ExecuteVideoOverlays( );

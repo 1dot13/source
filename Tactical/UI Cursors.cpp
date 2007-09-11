@@ -2347,7 +2347,7 @@ UINT8 GetActionModeCursor( SOLDIERTYPE *pSoldier )
 	}
 
 	// Now check our terrain to see if we cannot do the action now...
-	if ( pSoldier->bOverTerrainType == DEEP_WATER )
+	if ( WaterTooDeepForAttacks( pSoldier->sGridNo) )
 	{
 		ubCursor = INVALIDCURS;
 	}

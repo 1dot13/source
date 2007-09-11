@@ -528,7 +528,7 @@ void AddMercToWorld( INT32 iMapIndex )
 		gTempBasicPlacement.bAttitude = gbDefaultAttitude;
 		gTempBasicPlacement.bRelativeAttributeLevel = gbDefaultRelativeAttributeLevel; 
 		gTempBasicPlacement.bRelativeEquipmentLevel = gbDefaultRelativeEquipmentLevel; 
-		gTempBasicPlacement.bDirection = gbDefaultDirection;
+		gTempBasicPlacement.ubDirection = gbDefaultDirection;
 
 		//Generate detailed placement information given the temp placement information.
 		CreateDetailedPlacementGivenBasicPlacementInfo( &gTempDetailedPlacement, &gTempBasicPlacement );
@@ -645,7 +645,7 @@ void ResetAllMercPositions()
 		//	EVENT_SetSoldierPosition( gpSelected->pSoldier, (FLOAT)(sCellX + 5), (FLOAT)(sCellY + 5) );
 		//	if( gpSelected->pBasicPlacement->fOnRoof )
 		//		SetSoldierHeight( gpSelected->pSoldier, 58.0 );
-		//	SetMercDirection( gpSelected->pBasicPlacement->bDirection );
+		//	SetMercDirection( gpSelected->pBasicPlacement->ubDirection );
 		//}
 		curr = curr->next;
 	}
@@ -1451,7 +1451,7 @@ void SetMercDirection( INT8 bDirection )
 	ClickEditorButton( FIRST_MERCS_DIRECTION_BUTTON + bDirection );
 
 	gbDefaultDirection = bDirection;
-	gpSelected->pBasicPlacement->bDirection = bDirection;
+	gpSelected->pBasicPlacement->ubDirection = bDirection;
 
 	// ATE: Changed these to call functions....
 	EVENT_SetSoldierDirection( gpSelected->pSoldier, bDirection );
@@ -1676,7 +1676,7 @@ void IndicateSelectedMerc( INT16 sID )
 	//assigns the soldier with the same orders/attitude.
 	SetMercOrders( gpSelected->pSoldier->bOrders );
 	SetMercAttitude( gpSelected->pSoldier->bAttitude );
-	SetMercDirection( gpSelected->pSoldier->bDirection );
+	SetMercDirection( gpSelected->pSoldier->ubDirection );
 	if( gpSelected->pBasicPlacement->fPriorityExistance )
 		ClickEditorButton( MERCS_PRIORITYEXISTANCE_CHECKBOX );
 	else

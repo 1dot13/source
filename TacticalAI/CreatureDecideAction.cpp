@@ -391,7 +391,7 @@ INT8 CreatureDecideActionGreen( SOLDIERTYPE * pSoldier )
 					// if man has a LEGAL dominant facing, and isn't facing it, he will turn
 					// back towards that facing 50% of the time here (normally just enemies)
 					if ((pSoldier->bDominantDir >= 0) && (pSoldier->bDominantDir <= 8) &&
-						(pSoldier->bDirection != pSoldier->bDominantDir) && PreRandom(2))
+						(pSoldier->ubDirection != pSoldier->bDominantDir) && PreRandom(2))
 					{
 						pSoldier->usActionData = pSoldier->bDominantDir;
 					}
@@ -399,7 +399,7 @@ INT8 CreatureDecideActionGreen( SOLDIERTYPE * pSoldier )
 					{
 						pSoldier->usActionData = (UINT16)PreRandom(8); 
 					}
-				} while (pSoldier->usActionData == pSoldier->bDirection);
+				} while (pSoldier->usActionData == pSoldier->ubDirection);
 
 	#ifdef DEBUGDECISIONS
 				STR16 tempstr;
@@ -479,7 +479,7 @@ INT8 CreatureDecideActionYellow( SOLDIERTYPE * pSoldier )
 
 		// if soldier is not already facing in that direction,
 		// and the noise source is close enough that it could possibly be seen
-		if ((GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints) && (pSoldier->bDirection != ubNoiseDir) && PythSpacesAway(pSoldier->sGridNo,sNoiseGridNo) <= STRAIGHT)
+		if ((GetAPsToLook( pSoldier ) <= pSoldier->bActionPoints) && (pSoldier->ubDirection != ubNoiseDir) && PythSpacesAway(pSoldier->sGridNo,sNoiseGridNo) <= STRAIGHT)
 		{
 			// set base chance according to orders
 			if ((pSoldier->bOrders == STATIONARY) || (pSoldier->bOrders == ONGUARD))
@@ -850,7 +850,7 @@ INT8 CreatureDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 			 // note, have to change this to use the level returned from ClosestKnownOpponent
 			 sDistVisible = pSoldier->GetMaxDistanceVisible(sClosestOpponent, 0 );
 
-			 if ((pSoldier->bDirection != ubOpponentDir) && (PythSpacesAway(pSoldier->sGridNo,sClosestOpponent) <= sDistVisible))
+			 if ((pSoldier->ubDirection != ubOpponentDir) && (PythSpacesAway(pSoldier->sGridNo,sClosestOpponent) <= sDistVisible))
 				{
 				 // set base chance according to orders
 				 if ((pSoldier->bOrders == STATIONARY) || (pSoldier->bOrders == ONGUARD))
@@ -1405,7 +1405,7 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 				 bDirection = atan8(CenterX(pSoldier->sGridNo),CenterY(pSoldier->sGridNo),CenterX(sClosestOpponent),CenterY(sClosestOpponent));
 
 				 // if we're not facing towards him
-				 if (pSoldier->bDirection != bDirection && ValidCreatureTurn( pSoldier, bDirection ) )
+				 if (pSoldier->ubDirection != bDirection && ValidCreatureTurn( pSoldier, bDirection ) )
 				 {
 					 pSoldier->usActionData = bDirection;
 
@@ -1699,7 +1699,7 @@ INT8 CrowDecideActionGreen( SOLDIERTYPE * pSoldier )
 			  // Change facing
 			  sFacingDir = GetDirectionFromGridNo( sCorpseGridNo, pSoldier );
 
-				if ( sFacingDir != pSoldier->bDirection )
+				if ( sFacingDir != pSoldier->ubDirection )
 				{
 					 pSoldier->usActionData = sFacingDir;
 			     return(AI_ACTION_CHANGE_FACING);

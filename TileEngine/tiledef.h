@@ -108,20 +108,20 @@ typedef struct
 	UINT8								bZOffsetY;
 
 	// This union contains different data based on tile type
-	union 
-	{
+//	union 
+//	{
 		// Land and overlay type
-		struct
-		{
+//		struct
+//		{
 			 INT16					sOffsetHeight;	
 			 UINT16					usWallOrientation;
 			 UINT8					ubFullTile;	
 
 			 // For animated tiles
 			 TILE_ANIMATION_DATA	*pAnimData;
-		};
+//		};
 
-	};
+//	};
 
 	// Reserved for added room and 32-byte boundaries
 	BYTE													bReserved[ 3 ];
@@ -139,6 +139,10 @@ typedef struct
 }	land_undo_struct;
 
 
+#define TERRAIN_IS_WATER(x) ((x) == LOW_WATER || (x) == MED_WATER || (x) == DEEP_WATER)
+#define TERRAIN_IS_SHALLOW_WATER(x) ((x) == LOW_WATER || (x) == MED_WATER)
+#define TERRAIN_IS_HIGH_WATER(x) ((x) == MED_WATER || (x) == DEEP_WATER)
+#define TERRAIN_IS_DEEP_WATER(x) ((x) == DEEP_WATER)
 
 // Globals used
 extern TILE_ELEMENT		gTileDatabase[ NUMBEROFTILES ];

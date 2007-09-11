@@ -2779,7 +2779,7 @@ BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, S
 	SET_PALETTEREP_ID ( Corpse.SkinPal,		pSoldier->SkinPal );
 	SET_PALETTEREP_ID ( Corpse.PantsPal,   pSoldier->PantsPal );
 
-	Corpse.bDirection	= pSoldier->bDirection;
+	Corpse.ubDirection	= pSoldier->ubDirection;
 
 	// Set time of death
 	Corpse.uiTimeOfDeath = GetWorldTotalMin( );

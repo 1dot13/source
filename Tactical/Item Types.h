@@ -586,10 +586,10 @@ typedef enum
 	BIG_TEAR_GAS,
 	SMALL_CREATURE_GAS,
 	LARGE_CREATURE_GAS,
-  VERY_SMALL_CREATURE_GAS,
+	VERY_SMALL_CREATURE_GAS=995, // Renumbered because the original 160 was lost
 
 	// armor
-	FLAK_JACKET,						//= FIRST_ARMOUR, ( We're out of space! )
+	FLAK_JACKET=161,					//= FIRST_ARMOUR, ( We're out of space! )
 	FLAK_JACKET_18,
 	FLAK_JACKET_Y,
 	KEVLAR_VEST,

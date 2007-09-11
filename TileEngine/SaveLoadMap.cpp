@@ -1145,6 +1145,7 @@ BOOLEAN ChangeStatusOfOpenableStructInUnloadedSector( UINT16 usSectorX, UINT16 u
 	if( uiNumBytesRead != uiFileSize )
 	{
 		FileClose( hFile );
+		MemFree( pTempArrayOfMaps);
 		return( FALSE );
 	}
 
@@ -1180,6 +1181,7 @@ BOOLEAN ChangeStatusOfOpenableStructInUnloadedSector( UINT16 usSectorX, UINT16 u
 	if( hFile == 0 )
 	{
 		//Error opening map modification file,
+		MemFree( pTempArrayOfMaps);
 		return( FALSE );
 	}
 
@@ -1188,10 +1190,13 @@ BOOLEAN ChangeStatusOfOpenableStructInUnloadedSector( UINT16 usSectorX, UINT16 u
 	if( uiNumBytesWritten != uiFileSize )
 	{
 		FileClose( hFile );
+		MemFree( pTempArrayOfMaps);
 		return( FALSE );
 	}
 
 	FileClose( hFile );
+
+	MemFree( pTempArrayOfMaps);
 
 	return( TRUE );
 }

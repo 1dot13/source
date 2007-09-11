@@ -133,7 +133,8 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 		FreeConsole();
 		return 0L;
 	}
-	
+	BOOL visible = IsWindowVisible(hWindow);
+
 	if(gfIgnoreMessages)
 		return(DefWindowProc(hWindow, Message, wParam, lParam));
 
@@ -159,11 +160,29 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 #ifdef JA2
     case WM_MOVE:
 //        if( 1==iScreenMode )
-//          {
+          {
           GetClientRect(hWindow, &rcWindow);
           ClientToScreen(hWindow, (LPPOINT)&rcWindow);
           ClientToScreen(hWindow, (LPPOINT)&rcWindow+1);
-//          }
+			int xPos = (int)(short) LOWORD(lParam); 
+			int yPos = (int)(short) HIWORD(lParam);
+			BOOL needchange = FALSE;
+			if (xPos < 0)
+			{
+				xPos = 0;
+				needchange = TRUE;
+			}
+			if (yPos < 0)
+			{
+				yPos = 0;
+				needchange = TRUE;
+			}
+			if (needchange)
+			{
+				SetWindowPos( hWindow, NULL, xPos, yPos, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_SHOWWINDOW);
+			}
+
+          }
         break;
 	case WM_GETMINMAXINFO:
 		{
@@ -792,7 +811,10 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,  HINSTANCE hPrevInstance, LPSTR p
 	//end rain
 
 #ifdef _DEBUG
-	_CrtSetDbgFlag( _CRTDBG_CHECK_ALWAYS_DF | _CRTDBG_DELAY_FREE_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	// Use this one ONLY if you're having memory corruption issues that can be repeated in a short time
+	// Otherwise it will just run out of memory.
+	//_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_DELAY_FREE_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_ALWAYS_DF);
+	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_EVERY_1024_DF);
 #endif
 
 	ghInstance = hInstance;

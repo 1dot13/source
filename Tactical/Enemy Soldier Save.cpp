@@ -289,7 +289,7 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 						*curr->pDetailedPlacement = tempDetailedPlacement;
 						
 						curr->pBasicPlacement->fPriorityExistance	=	TRUE;
-						curr->pBasicPlacement->bDirection					= curr->pDetailedPlacement->bDirection;
+						curr->pBasicPlacement->ubDirection					= curr->pDetailedPlacement->ubDirection;
 						curr->pBasicPlacement->bOrders						= curr->pDetailedPlacement->bOrders;
 						curr->pBasicPlacement->bAttitude					= curr->pDetailedPlacement->bAttitude;
 						curr->pBasicPlacement->bBodyType					= curr->pDetailedPlacement->bBodyType;
@@ -332,7 +332,7 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 							curr->pDetailedPlacement->sSectorX							* 7		-
 							curr->pDetailedPlacement->ubSoldierClass				* 4		+
 							curr->pDetailedPlacement->bTeam									* 7		+
-							curr->pDetailedPlacement->bDirection						* 5		+
+							curr->pDetailedPlacement->ubDirection						* 5		+
 							curr->pDetailedPlacement->fOnRoof								* 17	+ 
 							curr->pDetailedPlacement->sInsertionGridNo			* 1		+ 
 							3;
@@ -519,7 +519,7 @@ BOOLEAN SaveEnemySoldiersToTempFile( INT16 sSectorX, INT16 sSectorY, INT8 bSecto
 					curr->pDetailedPlacement->bSectorZ							= pSoldier->bSectorZ;
 					curr->pDetailedPlacement->ubSoldierClass				= pSoldier->ubSoldierClass;
 					curr->pDetailedPlacement->bTeam									= pSoldier->bTeam;
-					curr->pDetailedPlacement->bDirection						= pSoldier->bDirection;
+					curr->pDetailedPlacement->ubDirection						= pSoldier->ubDirection;
 
 					//we don't want the player to think that all the enemies start in the exact position when we 
 					//left the map, so randomize the start locations either current position or original position.
@@ -729,7 +729,7 @@ BOOLEAN SaveEnemySoldiersToTempFile( INT16 sSectorX, INT16 sSectorY, INT8 bSecto
 					curr->pDetailedPlacement->sSectorX							* 7		-
 					curr->pDetailedPlacement->ubSoldierClass				* 4		+
 					curr->pDetailedPlacement->bTeam									* 7		+
-					curr->pDetailedPlacement->bDirection						* 5		+
+					curr->pDetailedPlacement->ubDirection						* 5		+
 					curr->pDetailedPlacement->fOnRoof								* 17	+ 
 					curr->pDetailedPlacement->sInsertionGridNo			* 1		+ 
 					3;
@@ -1016,7 +1016,7 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 					*curr->pDetailedPlacement = tempDetailedPlacement;
 					
 					curr->pBasicPlacement->fPriorityExistance	=	TRUE;
-					curr->pBasicPlacement->bDirection					= curr->pDetailedPlacement->bDirection;
+					curr->pBasicPlacement->ubDirection					= curr->pDetailedPlacement->ubDirection;
 					curr->pBasicPlacement->bOrders						= curr->pDetailedPlacement->bOrders;
 					curr->pBasicPlacement->bAttitude					= curr->pDetailedPlacement->bAttitude;
 					curr->pBasicPlacement->bBodyType					= curr->pDetailedPlacement->bBodyType;
@@ -1059,7 +1059,7 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 						curr->pDetailedPlacement->sSectorX							* 7		-
 						curr->pDetailedPlacement->ubSoldierClass				* 4		+
 						curr->pDetailedPlacement->bTeam									* 7		+
-						curr->pDetailedPlacement->bDirection						* 5		+
+						curr->pDetailedPlacement->ubDirection						* 5		+
 						curr->pDetailedPlacement->fOnRoof								* 17	+ 
 						curr->pDetailedPlacement->sInsertionGridNo			* 1		+ 
 						3;
@@ -1376,7 +1376,7 @@ BOOLEAN NewWayOfLoadingCiviliansFromTempFile()
 						*curr->pDetailedPlacement = tempDetailedPlacement;
 						
 						curr->pBasicPlacement->fPriorityExistance	=	TRUE;
-						curr->pBasicPlacement->bDirection					= curr->pDetailedPlacement->bDirection;
+						curr->pBasicPlacement->ubDirection					= curr->pDetailedPlacement->ubDirection;
 						curr->pBasicPlacement->bOrders						= curr->pDetailedPlacement->bOrders;
 						curr->pBasicPlacement->bAttitude					= curr->pDetailedPlacement->bAttitude;
 						curr->pBasicPlacement->bBodyType					= curr->pDetailedPlacement->bBodyType;
@@ -1419,7 +1419,7 @@ BOOLEAN NewWayOfLoadingCiviliansFromTempFile()
 							curr->pDetailedPlacement->sSectorX							* 7		-
 							curr->pDetailedPlacement->ubSoldierClass				* 4		+
 							curr->pDetailedPlacement->bTeam									* 7		+
-							curr->pDetailedPlacement->bDirection						* 5		+
+							curr->pDetailedPlacement->ubDirection						* 5		+
 							curr->pDetailedPlacement->fOnRoof								* 17	+ 
 							curr->pDetailedPlacement->sInsertionGridNo			* 1		+ 
 							3;
@@ -1614,7 +1614,7 @@ BOOLEAN NewWayOfSavingEnemyAndCivliansToTempFile( INT16 sSectorX, INT16 sSectorY
 						curr->pDetailedPlacement->bSectorZ							= pSoldier->bSectorZ;
 						curr->pDetailedPlacement->ubSoldierClass				= pSoldier->ubSoldierClass;
 						curr->pDetailedPlacement->bTeam									= pSoldier->bTeam;
-						curr->pDetailedPlacement->bDirection						= pSoldier->bDirection;
+						curr->pDetailedPlacement->ubDirection						= pSoldier->ubDirection;
 
 						//we don't want the player to think that all the enemies start in the exact position when we 
 						//left the map, so randomize the start locations either current position or original position.
@@ -1807,7 +1807,7 @@ BOOLEAN NewWayOfSavingEnemyAndCivliansToTempFile( INT16 sSectorX, INT16 sSectorY
 					curr->pDetailedPlacement->sSectorX							* 7		-
 					curr->pDetailedPlacement->ubSoldierClass				* 4		+
 					curr->pDetailedPlacement->bTeam									* 7		+
-					curr->pDetailedPlacement->bDirection						* 5		+
+					curr->pDetailedPlacement->ubDirection						* 5		+
 					curr->pDetailedPlacement->fOnRoof								* 17	+ 
 					curr->pDetailedPlacement->sInsertionGridNo			* 1		+ 
 					3;
@@ -2073,7 +2073,7 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 					*curr->pDetailedPlacement = tempDetailedPlacement;
 					
 					curr->pBasicPlacement->fPriorityExistance	=	TRUE;
-					curr->pBasicPlacement->bDirection					= curr->pDetailedPlacement->bDirection;
+					curr->pBasicPlacement->ubDirection					= curr->pDetailedPlacement->ubDirection;
 					curr->pBasicPlacement->bOrders						= curr->pDetailedPlacement->bOrders;
 					curr->pBasicPlacement->bAttitude					= curr->pDetailedPlacement->bAttitude;
 					curr->pBasicPlacement->bBodyType					= curr->pDetailedPlacement->bBodyType;
@@ -2116,7 +2116,7 @@ BOOLEAN CountNumberOfElitesRegularsAdminsAndCreaturesFromEnemySoldiersTempFile( 
 						curr->pDetailedPlacement->sSectorX							* 7		-
 						curr->pDetailedPlacement->ubSoldierClass				* 4		+
 						curr->pDetailedPlacement->bTeam									* 7		+
-						curr->pDetailedPlacement->bDirection						* 5		+
+						curr->pDetailedPlacement->ubDirection						* 5		+
 						curr->pDetailedPlacement->fOnRoof								* 17	+ 
 						curr->pDetailedPlacement->sInsertionGridNo			* 1		+ 
 						3;

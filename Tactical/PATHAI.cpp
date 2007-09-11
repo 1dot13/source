@@ -2384,11 +2384,11 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMo
 		{
 		if (fReverse)
 		{
-		iLastDir = gOppositeDirection[s->bDirection];
+		iLastDir = gOppositeDirection[s->ubDirection];
 		}
 		else
 		{
-		iLastDir = s->bDirection;
+		iLastDir = s->ubDirection;
 		}
 		// start prev-to-last dir at same as current (could cause a problem)
 		iPrevToLastDir = iLastDir;
@@ -2442,7 +2442,7 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMo
 		{
 			if (trailTreeNdx < 2)
 			{
-				iLastDir = s->bDirection;
+				iLastDir = s->ubDirection;
 			}
 			else if ( trailTree[pCurrPtr->sPathNdx].fFlags & STEP_BACKWARDS )
 			{
@@ -3866,7 +3866,7 @@ INT16 PlotPath( SOLDIERTYPE *pSold, INT16 sDestGridno, INT8 bCopyRoute, INT8 bPl
 			usMovementModeToUseForAPs = usMovementMode;
 
 			// ATE - MAKE MOVEMENT ALWAYS WALK IF IN WATER
-			if ( gpWorldLevelData[ sTempGrid ].ubTerrainID == DEEP_WATER || gpWorldLevelData[ sTempGrid ].ubTerrainID == MED_WATER || gpWorldLevelData[ sTempGrid ].ubTerrainID == LOW_WATER )
+			if ( TERRAIN_IS_WATER( gpWorldLevelData[ sTempGrid ].ubTerrainID) )
 			{
 				usMovementModeToUseForAPs = WALKING;
 			}

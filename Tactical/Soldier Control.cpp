@@ -839,7 +839,7 @@ UINT16 *CreateEnemyGreyGlow16BPPPalette( SGPPaletteEntry *pPalette, UINT32 rscal
 void SoldierBleed( SOLDIERTYPE *pSoldier, BOOLEAN fBandagedBleed );
 INT32 CheckBleeding( SOLDIERTYPE *pSoldier );
 
-void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT16	usNewDirection, BOOLEAN fInitalMove, UINT16 usAnimState );
+void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNewDirection, BOOLEAN fInitalMove, UINT16 usAnimState );
 
 #ifdef JA2BETAVERSION
 extern void ValidatePlayersAreInOneGroupOnly();
@@ -961,7 +961,7 @@ void HandleCrowShadowNewGridNo( SOLDIERTYPE *pSoldier )
 				AniParams.sZ									= 0;
 				strcpy( AniParams.zCachedFile, "TILECACHE\\FLY_SHDW.STI" );
 
-				AniParams.uiUserData3					= pSoldier->bDirection;
+				AniParams.uiUserData3					= pSoldier->ubDirection;
 
 				pSoldier->pAniTile = CreateAnimationTile( &AniParams );
 
@@ -996,7 +996,7 @@ void HandleCrowShadowNewDirection( SOLDIERTYPE *pSoldier )
 		{
 			if ( pSoldier->pAniTile != NULL )
 			{
-				pSoldier->pAniTile->uiUserData3	= pSoldier->bDirection;
+				pSoldier->pAniTile->uiUserData3	= pSoldier->ubDirection;
 			}
 		}
 	}
@@ -2181,7 +2181,7 @@ BOOLEAN EVENT_InitNewSoldierAnim( SOLDIERTYPE *pSoldier, UINT16 usNewState, UINT
 			if ( usNewState == WALKING || usNewState == RUNNING || usNewState == SWATTING )
 			{
 				// CHECK FOR SIDEWAYS!
-				if ( pSoldier->bDirection == gPurpendicularDirection[ pSoldier->bDirection ][ pSoldier->usPathingData[ pSoldier->usPathIndex ] ] )
+				if ( pSoldier->ubDirection == gPurpendicularDirection[ pSoldier->ubDirection ][ pSoldier->usPathingData[ pSoldier->usPathIndex ] ] )
 				{
 					// We are perpendicular!
 					usNewState = SIDE_STEP;
@@ -2220,7 +2220,7 @@ BOOLEAN EVENT_InitNewSoldierAnim( SOLDIERTYPE *pSoldier, UINT16 usNewState, UINT
 		}
 
 		// If we are in water.....and trying to run, change to run
-		if ( pSoldier->bOverTerrainType == LOW_WATER || pSoldier->bOverTerrainType == MED_WATER )
+		if ( MercInWater( pSoldier) )
 		{
 			// Check animation
 			// Change to walking
@@ -2638,14 +2638,14 @@ BOOLEAN EVENT_InitNewSoldierAnim( SOLDIERTYPE *pSoldier, UINT16 usNewState, UINT
 
 				DeductPoints( pSoldier, AP_JUMP_OVER, BP_JUMP_OVER );				
 
-				usNewGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, DirectionInc( pSoldier->bDirection ) );
-				usNewGridNo = NewGridNo( (UINT16)usNewGridNo, DirectionInc( pSoldier->bDirection ) );
+				usNewGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, DirectionInc( pSoldier->ubDirection ) );
+				usNewGridNo = NewGridNo( (UINT16)usNewGridNo, DirectionInc( pSoldier->ubDirection ) );
 
 				pSoldier->usPathDataSize = 0;
 				pSoldier->usPathIndex    = 0;
-				pSoldier->usPathingData[ pSoldier->usPathDataSize ] = pSoldier->bDirection;
+				pSoldier->usPathingData[ pSoldier->usPathDataSize ] = pSoldier->ubDirection;
 				pSoldier->usPathDataSize++;
-				pSoldier->usPathingData[ pSoldier->usPathDataSize ] = pSoldier->bDirection;
+				pSoldier->usPathingData[ pSoldier->usPathDataSize ] = pSoldier->ubDirection;
 				pSoldier->usPathDataSize++;
 				pSoldier->sFinalDestination = usNewGridNo;
 				// Set direction
@@ -3243,7 +3243,7 @@ void SetSoldierGridNo( SOLDIERTYPE *pSoldier, INT16 sNewGridNo, BOOLEAN fForceRe
 
 
 			// OK, If we were not in deep water but we are now, handle deep animations!
-			if ( pSoldier->bOverTerrainType == DEEP_WATER && pSoldier->bOldOverTerrainType != DEEP_WATER )
+			if ( TERRAIN_IS_DEEP_WATER( pSoldier->bOverTerrainType) && !TERRAIN_IS_DEEP_WATER( pSoldier->bOldOverTerrainType) )
 			{
 				// Based on our current animation, change!
 				switch( pSoldier->usAnimState )
@@ -3263,13 +3263,13 @@ void SetSoldierGridNo( SOLDIERTYPE *pSoldier, INT16 sNewGridNo, BOOLEAN fForceRe
 			}
 
 			// Damage water if in deep water....
-			if ( pSoldier->bOverTerrainType == MED_WATER || pSoldier->bOverTerrainType == DEEP_WATER )
+			if ( MercInHighWater( pSoldier) )
 			{
 				WaterDamage( pSoldier );
 			}
 
 			// OK, If we were in deep water but we are NOT now, handle mid animations!
-			if ( pSoldier->bOverTerrainType != DEEP_WATER && pSoldier->bOldOverTerrainType == DEEP_WATER )
+			if ( !TERRAIN_IS_DEEP_WATER( pSoldier->bOverTerrainType) && TERRAIN_IS_DEEP_WATER( pSoldier->bOldOverTerrainType) )
 			{
 				// Make transition from low to deep
 				EVENT_InitNewSoldierAnim( pSoldier, DEEP_TO_LOW_WATER, 0 , FALSE );
@@ -3791,7 +3791,7 @@ void SelectFallAnimation( SOLDIERTYPE *pSoldier )
 
 BOOLEAN SoldierReadyWeapon( SOLDIERTYPE *pSoldier )
 {
-	return( InternalSoldierReadyWeapon( pSoldier, (INT8)pSoldier->bDirection, FALSE ) );
+	return( InternalSoldierReadyWeapon( pSoldier, (INT8)pSoldier->ubDirection, FALSE ) );
 }
 
 BOOLEAN SoldierReadyWeapon( SOLDIERTYPE *pSoldier, INT16 sTargetXPos, INT16 sTargetYPos, BOOLEAN fEndReady )
@@ -3839,7 +3839,7 @@ BOOLEAN InternalSoldierReadyWeapon( SOLDIERTYPE *pSoldier, UINT8 sFacingDir, BOO
 		EVENT_InternalSetSoldierDesiredDirection( pSoldier, sFacingDir, FALSE, usAnimState );
 
 		// Check if facing dir is different from ours and change direction if so!
-		//if ( sFacingDir != pSoldier->bDirection )
+		//if ( sFacingDir != pSoldier->ubDirection )
 		//{
 		//	DeductPoints( pSoldier, AP_CHANGE_FACING, 0 );
 		//}//
@@ -3859,7 +3859,7 @@ UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady )
 		return( INVALID_ANIMATION );
 	}
 
-	if ( pSoldier->bOverTerrainType == DEEP_WATER )
+	if ( MercInDeepWater( pSoldier) )
 	{
 		return( INVALID_ANIMATION );
 	}
@@ -4490,12 +4490,12 @@ void EVENT_SoldierGotHit( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sDa
 	}
 
 	// If here, we are a merc, check if we are in water
-	if ( pSoldier->bOverTerrainType == LOW_WATER )
+	if ( MercInShallowWater( pSoldier) )
 	{
 		EVENT_InitNewSoldierAnim( pSoldier, WATER_HIT, 0 , FALSE );
 		return;		
 	}
-	if ( pSoldier->bOverTerrainType == DEEP_WATER )
+	if ( MercInDeepWater( pSoldier) )
 	{
 		EVENT_InitNewSoldierAnim( pSoldier, DEEP_WATER_HIT, 0 , FALSE );
 		return;		
@@ -4573,7 +4573,7 @@ void DoGenericHit( SOLDIERTYPE *pSoldier, UINT8 ubSpecial, INT16 bDirection )
 		{
 			//SetSoldierDesiredDirection( pSoldier, bDirection );
 			EVENT_SetSoldierDirection( pSoldier, (INT8)bDirection );
-			EVENT_SetSoldierDesiredDirection( pSoldier, pSoldier->bDirection );
+			EVENT_SetSoldierDesiredDirection( pSoldier, pSoldier->ubDirection );
 
 			EVENT_InitNewSoldierAnim( pSoldier, STANDING_BURST_HIT, 0 , FALSE );
 		}
@@ -4623,14 +4623,14 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 				{
 					if (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= MAX_DISTANCE_FOR_MESSY_DEATH || (SpacesAway( pSoldier->sGridNo, Menptr[ubAttackerID].sGridNo ) <= MAX_BARRETT_DISTANCE_FOR_MESSY_DEATH && usWeaponIndex == BARRETT ))
 					{
-						usNewGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, (INT8)( DirectionInc( pSoldier->bDirection ) ) );
+						usNewGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, (INT8)( DirectionInc( pSoldier->ubDirection ) ) );
 
 						// CHECK OK DESTINATION!
-						if ( OKFallDirection( pSoldier, usNewGridNo, pSoldier->bLevel, pSoldier->bDirection, JFK_HITDEATH ) )
+						if ( OKFallDirection( pSoldier, usNewGridNo, pSoldier->bLevel, pSoldier->ubDirection, JFK_HITDEATH ) )
 						{
-							usNewGridNo = NewGridNo( (UINT16)usNewGridNo, (INT8)( DirectionInc( pSoldier->bDirection ) ) );
+							usNewGridNo = NewGridNo( (UINT16)usNewGridNo, (INT8)( DirectionInc( pSoldier->ubDirection ) ) );
 
-							if ( OKFallDirection( pSoldier, usNewGridNo, pSoldier->bLevel, pSoldier->bDirection, pSoldier->usAnimState ) )
+							if ( OKFallDirection( pSoldier, usNewGridNo, pSoldier->bLevel, pSoldier->ubDirection, pSoldier->usAnimState ) )
 							{
 								fHeadHit = TRUE;
 							}
@@ -4646,9 +4646,9 @@ void SoldierGotHitGunFire( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 sD
 					{
 
 						// possibly play torso explosion anim!
-						if (pSoldier->bDirection == bDirection)
+						if (pSoldier->ubDirection == bDirection)
 						{
-							usNewGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, DirectionInc( gOppositeDirection[ pSoldier->bDirection ] ) );
+							usNewGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, DirectionInc( gOppositeDirection[ pSoldier->ubDirection ] ) );
 
 							if ( OKFallDirection( pSoldier, usNewGridNo, pSoldier->bLevel, gOppositeDirection[ bDirection ], FLYBACK_HIT ) )
 							{
@@ -4824,7 +4824,7 @@ void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 
 				if ( OKFallDirection( pSoldier, sNewGridNo, pSoldier->bLevel, gOppositeDirection[ bDirection ], FLYBACK_HIT ) )
 				{
 					EVENT_SetSoldierDirection( pSoldier, (INT8)bDirection );
-					EVENT_SetSoldierDesiredDirection( pSoldier, pSoldier->bDirection );
+					EVENT_SetSoldierDesiredDirection( pSoldier, pSoldier->ubDirection );
 					ChangeToFallbackAnimation( pSoldier, (INT8)bDirection );
 				}
 				else
@@ -4855,7 +4855,7 @@ void SoldierGotHitExplosion( SOLDIERTYPE *pSoldier, UINT16 usWeaponIndex, INT16 
 		}
 
 		EVENT_SetSoldierDirection( pSoldier, (INT8)bDirection );
-		EVENT_SetSoldierDesiredDirection( pSoldier, pSoldier->bDirection );
+		EVENT_SetSoldierDesiredDirection( pSoldier, pSoldier->ubDirection );
 
 		// Check behind us!
 		sNewGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, DirectionInc( gOppositeDirection[ bDirection ] ) );
@@ -5067,7 +5067,7 @@ BOOLEAN EVENT_InternalGetNewSoldierPath( SOLDIERTYPE *pSoldier, UINT16 sDestGrid
 
 			usMoveAnimState = pSoldier->usUIMovementMode;
 
-			if ( pSoldier->bOverTerrainType == DEEP_WATER )
+			if ( MercInDeepWater( pSoldier) )
 			{
 				usMoveAnimState = DEEP_WATER_SWIM;
 			}
@@ -5120,7 +5120,7 @@ BOOLEAN EVENT_InternalGetNewSoldierPath( SOLDIERTYPE *pSoldier, UINT16 sDestGrid
 
 		// If true, we're OK, if not, WAIT for a guy to pass!
 		// If we are in deep water, we can only swim!
-		if ( pSoldier->bOverTerrainType == DEEP_WATER )
+		if ( MercInDeepWater( pSoldier) )
 		{
 			usMoveAnimState = DEEP_WATER_SWIM;
 		}
@@ -5168,7 +5168,7 @@ void StopSoldier( SOLDIERTYPE *pSoldier )
 	if ( !( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_STATIONARY ) )
 	{
 		//SoldierGotoStationaryStance( pSoldier );
-		EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->bDirection );
+		EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection );
 	}
 
 	// Set desination
@@ -5196,7 +5196,7 @@ void SoldierGotoStationaryStance( SOLDIERTYPE *pSoldier )
 	}
 
 	// Check if we are in deep water!
-	if ( pSoldier->bOverTerrainType == DEEP_WATER )
+	if ( MercInDeepWater( pSoldier) )
 	{
 		// IN deep water, tred!
 		EVENT_InitNewSoldierAnim( pSoldier, DEEP_WATER_TRED, 0 , FALSE );
@@ -5258,6 +5258,12 @@ void ChangeSoldierStance( SOLDIERTYPE *pSoldier, UINT8 ubDesiredStance )
 		return;
 	}
 
+	if (!IsValidStance( pSoldier, ubDesiredStance))
+	{
+		AssertMsg( 0, "Attempted to set soldier to an invalid stance.");
+		return;
+	}
+
 	// Set UI Busy
 	SetUIBusy( pSoldier->ubID );
 
@@ -5285,22 +5291,22 @@ void ChangeSoldierStance( SOLDIERTYPE *pSoldier, UINT8 ubDesiredStance )
 	}
 }
 
-void EVENT_InternalSetSoldierDestination( SOLDIERTYPE *pSoldier, UINT16	usNewDirection, BOOLEAN fFromMove, UINT16 usAnimState )
+void EVENT_InternalSetSoldierDestination( SOLDIERTYPE *pSoldier, UINT8	ubNewDirection, BOOLEAN fFromMove, UINT16 usAnimState )
 {
-	UINT16	usNewGridNo;
+	INT16	sNewGridNo;
 	INT16		sXPos, sYPos;
 
 	// Get dest gridno, convert to center coords
-	usNewGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, DirectionInc( usNewDirection ) );
+	sNewGridNo = NewGridNo( pSoldier->sGridNo, DirectionInc( ubNewDirection ) );
 
-	ConvertMapPosToWorldTileCenter( usNewGridNo, &sXPos, &sYPos );
+	ConvertMapPosToWorldTileCenter( sNewGridNo, &sXPos, &sYPos );
 
 	// Save new dest gridno, x, y
-	pSoldier->sDestination = usNewGridNo;
+	pSoldier->sDestination = sNewGridNo;
 	pSoldier->sDestXPos = sXPos;
 	pSoldier->sDestYPos = sYPos;
 
-	pSoldier->bMovementDirection = (INT8)usNewDirection;
+	pSoldier->bMovementDirection = (INT8)ubNewDirection;
 
 
 	// OK, ATE: If we are side_stepping, calculate a NEW desired direction....
@@ -5309,17 +5315,17 @@ void EVENT_InternalSetSoldierDestination( SOLDIERTYPE *pSoldier, UINT16	usNewDir
 		UINT8 ubPerpDirection;
 
 		// Get a new desired direction, 
-		ubPerpDirection = gPurpendicularDirection[ pSoldier->bDirection ][ usNewDirection ];
+		ubPerpDirection = gPurpendicularDirection[ pSoldier->ubDirection ][ ubNewDirection ];
 
 		// CHange actual and desired direction....
 		EVENT_SetSoldierDirection( pSoldier, ubPerpDirection );
-		pSoldier->bDesiredDirection = pSoldier->bDirection;
+		pSoldier->bDesiredDirection = pSoldier->ubDirection;
 	}
 	else
 	{
 		if ( !( gAnimControl[ usAnimState ].uiFlags & ANIM_SPECIALMOVE ) )
 		{
-			EVENT_InternalSetSoldierDesiredDirection( pSoldier, usNewDirection, fFromMove, usAnimState );
+			EVENT_InternalSetSoldierDesiredDirection( pSoldier, ubNewDirection, fFromMove, usAnimState );
 		}
 	}
 }
@@ -5409,17 +5415,17 @@ INT8 MultiTiledTurnDirection( SOLDIERTYPE * pSoldier, INT8 bStartDirection, INT8
 
 
 
-void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT16	usNewDirection, BOOLEAN fInitalMove, UINT16 usAnimState )
+void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNewDirection, BOOLEAN fInitalMove, UINT16 usAnimState )
 {
 	//if ( usAnimState == WALK_BACKWARDS )
 	if ( pSoldier->bReverse && usAnimState != SIDE_STEP )
 	{
 		// OK, check if we are going to go in the exact opposite than our facing....
-		usNewDirection = gOppositeDirection[ usNewDirection ];
+		ubNewDirection = gOppositeDirection[ ubNewDirection ];
 	}
 
 
-	pSoldier->bDesiredDirection = (INT8)usNewDirection;
+	pSoldier->bDesiredDirection = (INT8)ubNewDirection;
 
 	// If we are prone, goto crouched first!
 	// ONly if we are stationary, and only if directions are differnet!
@@ -5434,7 +5440,7 @@ void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT16	usN
 		AdjustNoAPToFinishMove( pSoldier, FALSE );
 	}
 
-	if ( pSoldier->bDesiredDirection != pSoldier->bDirection )
+	if ( pSoldier->bDesiredDirection != pSoldier->ubDirection )
 	{
 		if ( gAnimControl[ usAnimState ].uiFlags & ( ANIM_BREATH | ANIM_OK_CHARGE_AP_FOR_TURN | ANIM_FIREREADY ) && !fInitalMove && !pSoldier->fDontChargeTurningAPs )
 		{
@@ -5492,7 +5498,7 @@ void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT16	usN
 	// Set desired direction for the extended directions...
 	pSoldier->ubHiResDesiredDirection = ubExtDirection[ pSoldier->bDesiredDirection ];
 
-	if ( pSoldier->bDesiredDirection != pSoldier->bDirection )
+	if ( pSoldier->bDesiredDirection != pSoldier->ubDirection )
 	{
 		if ( pSoldier->uiStatusFlags & ( SOLDIER_VEHICLE ) || CREATURE_OR_BLOODCAT( pSoldier ) )
 		{
@@ -5509,20 +5515,20 @@ void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT16	usN
 	{
 		if ( pSoldier->uiStatusFlags & SOLDIER_MULTITILE )
 		{
-			pSoldier->bTurningIncrement = (INT8) MultiTiledTurnDirection( pSoldier, pSoldier->bDirection, pSoldier->bDesiredDirection );
+			pSoldier->bTurningIncrement = (INT8) MultiTiledTurnDirection( pSoldier, pSoldier->ubDirection, pSoldier->bDesiredDirection );
 		}
 		else
 		{
-			pSoldier->bTurningIncrement = (INT8) QuickestDirection( pSoldier->bDirection, pSoldier->bDesiredDirection );
+			pSoldier->bTurningIncrement = (INT8) QuickestDirection( pSoldier->ubDirection, pSoldier->bDesiredDirection );
 		}
 	}
 
 }
 
 
-void EVENT_SetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT16	usNewDirection )
+void EVENT_SetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNewDirection )
 {
-	EVENT_InternalSetSoldierDesiredDirection( pSoldier, usNewDirection, FALSE, pSoldier->usAnimState );
+	EVENT_InternalSetSoldierDesiredDirection( pSoldier, ubNewDirection, FALSE, pSoldier->usAnimState );
 }
 
 
@@ -5531,10 +5537,10 @@ void EVENT_SetSoldierDirection( SOLDIERTYPE *pSoldier, UINT16	usNewDirection )
 	// Remove old location data
 	HandleAnimationProfile( pSoldier, pSoldier->usAnimState, TRUE );
 
-	pSoldier->bDirection = (INT8)usNewDirection;
+	pSoldier->ubDirection = (INT8)usNewDirection;
 
 	// Updated extended direction.....
-	pSoldier->ubHiResDirection = ubExtDirection[ pSoldier->bDirection ];
+	pSoldier->ubHiResDirection = ubExtDirection[ pSoldier->ubDirection ];
 
 	// Add new stuff
 	HandleAnimationProfile( pSoldier, pSoldier->usAnimState, FALSE );
@@ -5809,7 +5815,7 @@ BOOLEAN ConvertAniCodeToAniFrame( SOLDIERTYPE *pSoldier, UINT16 usAniFrame )
 	CHECKF( usAnimSurface != INVALID_ANIMATION_SURFACE );
 
 	// COnvert world direction into sprite direction
-	ubTempDir = gOneCDirection[ pSoldier->bDirection ];
+	ubTempDir = gOneCDirection[ pSoldier->ubDirection ];
 
 	//If we are only one frame, ignore what the script is telling us!
 	if ( gAnimSurfaceDatabase[ usAnimSurface ].ubFlags & ANIM_DATA_FLAG_NOFRAMES )
@@ -5834,22 +5840,22 @@ BOOLEAN ConvertAniCodeToAniFrame( SOLDIERTYPE *pSoldier, UINT16 usAniFrame )
 	// Check # of directions /surface, adjust if ness.
 	else if ( gAnimSurfaceDatabase[ usAnimSurface ].uiNumDirections == 3 )
 	{
-		if ( pSoldier->bDirection == NORTHWEST )
+		if ( pSoldier->ubDirection == NORTHWEST )
 		{
 			ubTempDir = 1;
 		}
-		if ( pSoldier->bDirection == WEST )
+		if ( pSoldier->ubDirection == WEST )
 		{
 			ubTempDir = 0;
 		}
-		if ( pSoldier->bDirection == EAST )
+		if ( pSoldier->ubDirection == EAST )
 		{
 			ubTempDir = 2;
 		}
 	}
 	else if ( gAnimSurfaceDatabase[ usAnimSurface ].uiNumDirections == 2 )
 	{
-		ubTempDir = gDirectionFrom8to2[ pSoldier->bDirection ];
+		ubTempDir = gDirectionFrom8to2[ pSoldier->ubDirection ];
 	}
 
 	pSoldier->usAniFrame = usAniFrame + (UINT16) ( ( gAnimSurfaceDatabase[ usAnimSurface ].uiNumFramesPerDir * ubTempDir ) ); 
@@ -5892,7 +5898,7 @@ void TurnSoldier( SOLDIERTYPE *pSoldier)
 		if ( pSoldier->bDesiredDirection > 7 || pSoldier->bDesiredDirection < 0)
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("TurnSoldier() Warinig: Invalid desired direction for non-vehicle unit") );
-			pSoldier->bDesiredDirection = pSoldier->bDirection;
+			pSoldier->bDesiredDirection = pSoldier->ubDirection;
 		}
 	}
 	// Lesh: patch ended
@@ -5914,7 +5920,7 @@ void TurnSoldier( SOLDIERTYPE *pSoldier)
 
 	if ( pSoldier->fTurningToShoot )
 	{
-		if ( pSoldier->bDirection == pSoldier->bDesiredDirection )
+		if ( pSoldier->ubDirection == pSoldier->bDesiredDirection )
 		{
 			if ( ( (gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIREREADY ) && !pSoldier->fTurningFromPronePosition ) || pSoldier->ubBodyType == ROBOTNOWEAPON || pSoldier->ubBodyType == TANK_NW || pSoldier->ubBodyType == TANK_NE  )
 			{
@@ -5946,7 +5952,7 @@ void TurnSoldier( SOLDIERTYPE *pSoldier)
 
 	if ( pSoldier->fTurningToFall )
 	{
-		if ( pSoldier->bDirection == pSoldier->bDesiredDirection )
+		if ( pSoldier->ubDirection == pSoldier->bDesiredDirection )
 		{
 			SelectFallAnimation( pSoldier );
 			pSoldier->fTurningToFall = FALSE;
@@ -5955,7 +5961,7 @@ void TurnSoldier( SOLDIERTYPE *pSoldier)
 
 	if ( pSoldier->fTurningUntilDone && ( pSoldier->ubPendingStanceChange != NO_PENDING_STANCE ) )
 	{
-		if ( pSoldier->bDirection == pSoldier->bDesiredDirection )
+		if ( pSoldier->ubDirection == pSoldier->bDesiredDirection )
 		{
 			SendChangeSoldierStanceEvent( pSoldier, pSoldier->ubPendingStanceChange );
 			pSoldier->ubPendingStanceChange = NO_PENDING_STANCE;
@@ -5965,7 +5971,7 @@ void TurnSoldier( SOLDIERTYPE *pSoldier)
 
 	if ( pSoldier->fTurningUntilDone && ( pSoldier->usPendingAnimation != NO_PENDING_ANIMATION ) )
 	{
-		if ( pSoldier->bDirection == pSoldier->bDesiredDirection )
+		if ( pSoldier->ubDirection == pSoldier->bDesiredDirection )
 		{
 			UINT16 usPendingAnimation;
 
@@ -5978,7 +5984,7 @@ void TurnSoldier( SOLDIERTYPE *pSoldier)
 	}
 
 	// Don't do anything if we are at dest direction!
-	if ( pSoldier->bDirection == pSoldier->bDesiredDirection )
+	if ( pSoldier->ubDirection == pSoldier->bDesiredDirection )
 	{
 		if ( pSoldier->ubBodyType == TANK_NW || pSoldier->ubBodyType == TANK_NE )
 		{
@@ -6124,8 +6130,8 @@ void TurnSoldier( SOLDIERTYPE *pSoldier)
 	else
 	{
 		// Get new direction
-		//sDirection = pSoldier->bDirection + QuickestDirection( pSoldier->bDirection, pSoldier->bDesiredDirection );
-		sDirection = pSoldier->bDirection + pSoldier->bTurningIncrement;
+		//sDirection = pSoldier->ubDirection + QuickestDirection( pSoldier->ubDirection, pSoldier->bDesiredDirection );
+		sDirection = pSoldier->ubDirection + pSoldier->bTurningIncrement;
 		if (sDirection > 7)
 		{
 			sDirection = 0;
@@ -6180,7 +6186,7 @@ void TurnSoldier( SOLDIERTYPE *pSoldier)
 		// If we are a creature, or multi-tiled, cancel AI action.....?
 		else if ( pSoldier->uiStatusFlags & SOLDIER_MULTITILE )
 		{
-			pSoldier->bDesiredDirection = pSoldier->bDirection;
+			pSoldier->bDesiredDirection = pSoldier->ubDirection;
 		}
 
 	} 
@@ -6972,7 +6978,7 @@ void MoveMercFacingDirection( SOLDIERTYPE *pSoldier, BOOLEAN fReverse, FLOAT dMo
 	FLOAT					dAngle = (FLOAT)0;
 
 	// Determine which direction we are in 
-	switch( pSoldier->bDirection )
+	switch( pSoldier->ubDirection )
 	{
 	case NORTH:
 		dAngle = (FLOAT)( -1 * PI );
@@ -7024,7 +7030,7 @@ void BeginSoldierClimbUpRoof( SOLDIERTYPE *pSoldier )
 	UINT8							ubWhoIsThere;
 
 
-	if ( FindHeigherLevel( pSoldier, pSoldier->sGridNo, pSoldier->bDirection, &bNewDirection ) && ( pSoldier->bLevel == 0 ) )
+	if ( FindHeigherLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &bNewDirection ) && ( pSoldier->bLevel == 0 ) )
 	{
 		if ( EnoughPoints( pSoldier, GetAPsToClimbRoof( pSoldier, FALSE ), 0, TRUE ) )
 		{
@@ -7074,7 +7080,7 @@ void BeginSoldierClimbFence( SOLDIERTYPE *pSoldier )
 	}
 	else
 	{
-		bDirection = pSoldier->bDirection;
+		bDirection = pSoldier->ubDirection;
 	}
 
 	if ( FindFenceJumpDirection( pSoldier, pSoldier->sGridNo, bDirection, &bDirection ) )
@@ -8215,7 +8221,7 @@ BOOLEAN CheckSoldierHitRoof( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 
-	if ( FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->bDirection, &bNewDirection ) && ( pSoldier->bLevel > 0 ) )
+	if ( FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &bNewDirection ) && ( pSoldier->bLevel > 0 ) )
 	{
 		// ONly if standing!
 		if ( gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_STAND )
@@ -8237,11 +8243,11 @@ BOOLEAN CheckSoldierHitRoof( SOLDIERTYPE *pSoldier )
 			}
 
 			// Are wee near enough to fall forwards....
-			if ( pSoldier->bDirection == gOneCDirection[ bNewDirection ] ||
-				pSoldier->bDirection == gTwoCDirection[ bNewDirection ] ||
-				pSoldier->bDirection == bNewDirection ||
-				pSoldier->bDirection == gOneCCDirection[ bNewDirection ] ||
-				pSoldier->bDirection == gTwoCCDirection[ bNewDirection ] )
+			if ( pSoldier->ubDirection == gOneCDirection[ bNewDirection ] ||
+				pSoldier->ubDirection == gTwoCDirection[ bNewDirection ] ||
+				pSoldier->ubDirection == bNewDirection ||
+				pSoldier->ubDirection == gOneCCDirection[ bNewDirection ] ||
+				pSoldier->ubDirection == gTwoCCDirection[ bNewDirection ] )
 			{
 				// Do backwards...
 				fDoForwards = FALSE;
@@ -8290,7 +8296,7 @@ void BeginSoldierClimbDownRoof( SOLDIERTYPE *pSoldier )
 	UINT8	ubWhoIsThere;
 
 
-	if ( FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->bDirection, &bNewDirection ) && ( pSoldier->bLevel > 0 ) )
+	if ( FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &bNewDirection ) && ( pSoldier->bLevel > 0 ) )
 	{
 		if ( EnoughPoints( pSoldier, GetAPsToClimbRoof( pSoldier, TRUE ), 0, TRUE ) )
 		{
@@ -8334,7 +8340,7 @@ INT8							bNewDirection;
 UINT8	ubWhoIsThere;
 
 
-if ( FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->bDirection, &bNewDirection ) && ( pSoldier->bLevel > 0 ) )
+if ( FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &bNewDirection ) && ( pSoldier->bLevel > 0 ) )
 {
 if ( EnoughPoints( pSoldier, GetAPsToClimbRoof( pSoldier, TRUE ), 0, TRUE ) )
 {
@@ -8487,7 +8493,7 @@ void MoveMerc( SOLDIERTYPE *pSoldier, FLOAT dMovementChange, FLOAT dAngle, BOOLE
 
 }
 
-INT16 GetDirectionFromGridNo( INT16 sGridNo, SOLDIERTYPE *pSoldier )
+UINT8 GetDirectionFromGridNo( INT16 sGridNo, SOLDIERTYPE *pSoldier )
 {
 	INT16 sXPos, sYPos;
 
@@ -8508,7 +8514,7 @@ INT16 GetDirectionToGridNoFromGridNo( INT16 sGridNoDest, INT16 sGridNoSrc )
 
 }
 
-INT16 GetDirectionFromXY( INT16 sXPos, INT16 sYPos, SOLDIERTYPE *pSoldier )
+UINT8 GetDirectionFromXY( INT16 sXPos, INT16 sYPos, SOLDIERTYPE *pSoldier )
 {
 	INT16 sXPos2, sYPos2;
 
@@ -8812,7 +8818,7 @@ void AdjustForFastTurnAnimation( SOLDIERTYPE *pSoldier )
 	// ATE: Mod: Only fastturn for OUR guys!
 	if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FASTTURN && pSoldier->bTeam == gbPlayerNum && !( pSoldier->uiStatusFlags & SOLDIER_TURNINGFROMHIT ) )
 	{
-		if ( pSoldier->bDirection != pSoldier->bDesiredDirection )
+		if ( pSoldier->ubDirection != pSoldier->bDesiredDirection )
 		{
 			pSoldier->sAniDelay = FAST_TURN_ANIM_SPEED;
 		}
@@ -8989,7 +8995,7 @@ void ReleaseSoldiersAttacker( SOLDIERTYPE *pSoldier )
 BOOLEAN MercInWater( SOLDIERTYPE *pSoldier )
 {
 	// Our water texture , for now is of a given type
-	if ( pSoldier->bOverTerrainType == LOW_WATER || pSoldier->bOverTerrainType == MED_WATER || pSoldier->bOverTerrainType == DEEP_WATER )
+	if ( TERRAIN_IS_WATER( pSoldier->bOverTerrainType))
 	{
 		return( TRUE );
 	}
@@ -8998,6 +9004,47 @@ BOOLEAN MercInWater( SOLDIERTYPE *pSoldier )
 		return( FALSE );
 	}
 }
+
+BOOLEAN MercInShallowWater( SOLDIERTYPE *pSoldier )
+{
+	// Our water texture , for now is of a given type
+	if ( TERRAIN_IS_SHALLOW_WATER( pSoldier->bOverTerrainType))
+	{
+		return( TRUE );
+	}
+	else
+	{
+		return( FALSE );
+	}
+}
+
+
+BOOLEAN MercInDeepWater( SOLDIERTYPE *pSoldier )
+{
+	// Our water texture , for now is of a given type
+	if ( TERRAIN_IS_DEEP_WATER( pSoldier->bOverTerrainType))
+	{
+		return( TRUE );
+	}
+	else
+	{
+		return( FALSE );
+	}
+}
+
+BOOLEAN MercInHighWater( SOLDIERTYPE *pSoldier )
+{
+	// Our water texture , for now is of a given type
+	if ( TERRAIN_IS_HIGH_WATER( pSoldier->bOverTerrainType))
+	{
+		return( TRUE );
+	}
+	else
+	{
+		return( FALSE );
+	}
+}
+
 
 
 void RevivePlayerTeam( )
@@ -9083,7 +9130,7 @@ void HandleAnimationProfile( SOLDIERTYPE *pSoldier, UINT16	usAnimState, BOOLEAN 
 		pProfile = &(gpAnimProfiles[ bProfileID ] );
 
 		// Get direction
-		pProfileDir = &( pProfile->Dirs[ pSoldier->bDirection ] );
+		pProfileDir = &( pProfile->Dirs[ pSoldier->ubDirection ] );
 
 		// Loop tiles and set accordingly into world
 		for( iTileCount = 0; iTileCount < pProfileDir->ubNumTiles; iTileCount++ )
@@ -9180,7 +9227,7 @@ BOOLEAN GetProfileFlagsFromGridno( SOLDIERTYPE *pSoldier, UINT16 usAnimState, UI
 		pProfile = &(gpAnimProfiles[ bProfileID ] );
 
 		// Get direction
-		pProfileDir = &( pProfile->Dirs[ pSoldier->bDirection ] );
+		pProfileDir = &( pProfile->Dirs[ pSoldier->ubDirection ] );
 
 		// Loop tiles and set accordingly into world
 		for( iTileCount = 0; iTileCount < pProfileDir->ubNumTiles; iTileCount++ )
@@ -9214,7 +9261,7 @@ void EVENT_SoldierBeginGiveItem( SOLDIERTYPE *pSoldier )
 	{
 		// CHANGE DIRECTION AND GOTO ANIMATION NOW
 		pSoldier->bDesiredDirection = pSoldier->bPendingActionData3;
-		pSoldier->bDirection = pSoldier->bPendingActionData3;			
+		pSoldier->ubDirection = pSoldier->bPendingActionData3;			
 
 		// begin animation
 		EVENT_InitNewSoldierAnim( pSoldier, GIVE_ITEM, 0 , FALSE );
@@ -9330,7 +9377,7 @@ void EVENT_SoldierBeginBladeAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 
 					if ( !( pTSoldier->uiStatusFlags & ( SOLDIER_MONSTER | SOLDIER_ANIMAL | SOLDIER_VEHICLE ) ) )
 					{
 						// OK, stop merc....
-						EVENT_StopMerc( pTSoldier, pTSoldier->sGridNo, pTSoldier->bDirection );
+						EVENT_StopMerc( pTSoldier, pTSoldier->sGridNo, pTSoldier->ubDirection );
 
 						if ( pTSoldier->bTeam != gbPlayerNum )
 						{
@@ -9487,7 +9534,7 @@ void EVENT_SoldierBeginPunchAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 
 				if ( !( pTSoldier->uiStatusFlags & ( SOLDIER_MONSTER | SOLDIER_ANIMAL | SOLDIER_VEHICLE ) ) )
 				{
 					// OK, stop merc....
-					EVENT_StopMerc( pTSoldier, pTSoldier->sGridNo, pTSoldier->bDirection );
+					EVENT_StopMerc( pTSoldier, pTSoldier->sGridNo, pTSoldier->ubDirection );
 
 					if ( pTSoldier->bTeam != gbPlayerNum )
 					{
@@ -10004,7 +10051,7 @@ void HaultSoldierFromSighting( SOLDIERTYPE *pSoldier, BOOLEAN fFromSightingEnemy
 	//EV_S_STOP_MERC				SStopMerc;
 
 	//SStopMerc.sGridNo					= pSoldier->sGridNo;
-	//SStopMerc.bDirection			= pSoldier->bDirection;
+	//SStopMerc.bDirection			= pSoldier->ubDirection;
 	//SStopMerc.usSoldierID			= pSoldier->ubID;
 	//AddGameEvent( S_STOP_MERC, 0, &SStopMerc );
 
@@ -10065,7 +10112,7 @@ void HaultSoldierFromSighting( SOLDIERTYPE *pSoldier, BOOLEAN fFromSightingEnemy
 
 	if ( !( gTacticalStatus.uiFlags & INCOMBAT ) )
 	{
-		EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->bDirection );
+		EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection );
 	}
 	else
 	{
@@ -10595,7 +10642,7 @@ BOOLEAN InternalIsValidStance( SOLDIERTYPE *pSoldier, INT8 bDirection, INT8 bNew
 
 BOOLEAN IsValidStance( SOLDIERTYPE *pSoldier, INT8 bNewStance )
 {
-	return( InternalIsValidStance( pSoldier, pSoldier->bDirection, bNewStance ) );
+	return( InternalIsValidStance( pSoldier, pSoldier->ubDirection, bNewStance ) );
 }
 
 
@@ -10915,11 +10962,11 @@ void SoldierCollapse( SOLDIERTYPE *pSoldier )
 	{
 	case ANIM_STAND:
 
-		if ( pSoldier->bOverTerrainType == DEEP_WATER )
+		if ( MercInDeepWater( pSoldier) )
 		{
 			EVENT_InitNewSoldierAnim( pSoldier, DEEP_WATER_DIE, 0, FALSE );			
 		}
-		else if ( pSoldier->bOverTerrainType == LOW_WATER )
+		else if ( MercInShallowWater( pSoldier) )
 		{
 			EVENT_InitNewSoldierAnim( pSoldier, WATER_DIE, 0, FALSE );			
 		}
@@ -11218,7 +11265,7 @@ void PickPickupAnimation( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT16 sGridNo
 
 						default:
 
-							bDirection = pSoldier->bDirection;
+							bDirection = pSoldier->ubDirection;
 							break;
 						}
 
@@ -11486,13 +11533,33 @@ void ResetSoldierChangeStatTimer( SOLDIERTYPE *pSoldier )
 }
 
 
-void ChangeToFlybackAnimation( SOLDIERTYPE *pSoldier, INT8 bDirection )
+void ChangeToFlybackAnimation( SOLDIERTYPE *pSoldier, UINT8 ubDirection )
 {
-	UINT16 usNewGridNo;
+	INT16 sNewGridNo;
+	UINT8 ubOppositeDir;
+	INT16 sDirectionInc;
+
+	ubOppositeDir = gOppositeDirection[ ubDirection ];
+	sDirectionInc = DirectionInc( ubOppositeDir);
 
 	// Get dest gridno, convert to center coords
-	usNewGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, DirectionInc( gOppositeDirection[ bDirection ] ) );
-	usNewGridNo = NewGridNo( (UINT16)usNewGridNo, DirectionInc( gOppositeDirection[ bDirection ] ) );
+	sNewGridNo = NewGridNo( pSoldier->sGridNo, sDirectionInc );
+	if ( gubWorldMovementCosts[ sNewGridNo ][ ubOppositeDir ][ pSoldier->bLevel ] >= TRAVELCOST_BLOCKED )
+	{
+		// No room to fly back.  Pretend we hit the wall and fall forward instead
+		BeginTyingToFall( pSoldier );
+		ChangeSoldierState( pSoldier, FALLFORWARD_FROMHIT_STAND, 0, FALSE );
+		return;
+	}
+
+	sNewGridNo = NewGridNo( sNewGridNo, sDirectionInc );
+	if ( gubWorldMovementCosts[ sNewGridNo ][ ubOppositeDir ][ pSoldier->bLevel ] >= TRAVELCOST_BLOCKED )
+	{
+		// No room to fly back.  Fall back instead
+		BeginTyingToFall( pSoldier );
+		ChangeSoldierState( pSoldier, FALLBACK_HIT_STAND, 0, FALSE );
+	}
+
 
 	// Remove any previous actions
 	pSoldier->ubPendingAction		 = NO_PENDING_ACTION;
@@ -11500,23 +11567,38 @@ void ChangeToFlybackAnimation( SOLDIERTYPE *pSoldier, INT8 bDirection )
 	// Set path....
 	pSoldier->usPathDataSize = 0;
 	pSoldier->usPathIndex    = 0;
-	pSoldier->usPathingData[ pSoldier->usPathDataSize ] = gOppositeDirection[ pSoldier->bDirection ];
+	pSoldier->usPathingData[ pSoldier->usPathDataSize ] = ubOppositeDir;
 	pSoldier->usPathDataSize++;
-	pSoldier->usPathingData[ pSoldier->usPathDataSize ] = gOppositeDirection[ pSoldier->bDirection ];
+	pSoldier->usPathingData[ pSoldier->usPathDataSize ] = ubOppositeDir;
 	pSoldier->usPathDataSize++;
-	pSoldier->sFinalDestination = usNewGridNo;
+	pSoldier->sFinalDestination = sNewGridNo;
 	EVENT_InternalSetSoldierDestination( pSoldier, pSoldier->usPathingData[ pSoldier->usPathIndex ], FALSE, FLYBACK_HIT );
 
 	// Get a new direction based on direction
 	EVENT_InitNewSoldierAnim( pSoldier, FLYBACK_HIT, 0 , FALSE );
 }
 
-void ChangeToFallbackAnimation( SOLDIERTYPE *pSoldier, INT8 bDirection )
+void ChangeToFallbackAnimation( SOLDIERTYPE *pSoldier, UINT8 ubDirection )
 {
-	UINT16 usNewGridNo;
+	INT16 sNewGridNo;
+	UINT8 ubOppositeDir;
+	INT16 sDirection;
+
+	ubOppositeDir = gOppositeDirection[ ubDirection ];
+	sDirection = DirectionInc( ubOppositeDir);
 
 	// Get dest gridno, convert to center coords
-	usNewGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, DirectionInc( gOppositeDirection[ bDirection ] ) );
+	sNewGridNo = NewGridNo( pSoldier->sGridNo, sDirection );
+	if ( gubWorldMovementCosts[ sNewGridNo ][ ubOppositeDir ][ pSoldier->bLevel ] >= TRAVELCOST_BLOCKED )
+	{
+		// No room to fly back.  Pretend we hit the wall and fall forward instead
+		BeginTyingToFall( pSoldier );
+		ChangeSoldierState( pSoldier, FALLFORWARD_FROMHIT_STAND, 0, FALSE );
+		return;
+	}
+
+	// Get dest gridno, convert to center coords
+	//sNewGridNo = NewGridNo( sNewGridNo, sDirection );
 	//usNewGridNo = NewGridNo( (UINT16)usNewGridNo, (UINT16)(-1 * DirectionInc( bDirection ) ) );
 
 	// Remove any previous actions
@@ -11525,10 +11607,11 @@ void ChangeToFallbackAnimation( SOLDIERTYPE *pSoldier, INT8 bDirection )
 	// Set path....
 	pSoldier->usPathDataSize = 0;
 	pSoldier->usPathIndex    = 0;
-	pSoldier->usPathingData[ pSoldier->usPathDataSize ] = gOppositeDirection[ pSoldier->bDirection ];
+	pSoldier->usPathingData[ pSoldier->usPathDataSize ] = ubOppositeDir;
 	pSoldier->usPathDataSize++;
-	pSoldier->sFinalDestination = usNewGridNo;
-	EVENT_InternalSetSoldierDestination( pSoldier, pSoldier->usPathingData[ pSoldier->usPathIndex ], FALSE, FALLBACK_HIT_STAND );
+	pSoldier->sFinalDestination = sNewGridNo;
+	//pSoldier->sFinalDestination = pSoldier->sGridNo;
+	EVENT_InternalSetSoldierDestination( pSoldier, ubOppositeDir, FALSE, FALLBACK_HIT_STAND );
 
 	// Get a new direction based on direction
 	EVENT_InitNewSoldierAnim( pSoldier, FALLBACK_HIT_STAND, 0 , FALSE );
@@ -11664,7 +11747,7 @@ BOOLEAN PlayerSoldierStartTalking( SOLDIERTYPE *pSoldier, UINT8 ubTargetID, BOOL
 		SendSoldierSetDesiredDirectionEvent( pTSoldier, gOppositeDirection[ sFacingDir ] );
 
 		// Stop our guys...
-		EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->bDirection );
+		EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection );
 	}
 
 	pTMilitiaSoldier = pTSoldier; //lal
@@ -12051,12 +12134,12 @@ void InternalPlaySoldierFootstepSound( SOLDIERTYPE * pSoldier )
 				{
 					ubSoundBase = WALK_LEFT_ROAD;
 				}
-				else if ( pSoldier->bOverTerrainType == LOW_WATER || pSoldier->bOverTerrainType == MED_WATER )
+				else if ( MercInShallowWater( pSoldier) )
 				{
 					ubSoundBase = WATER_WALK1_IN;
 					ubRandomMax = 2;
 				}
-				else if ( pSoldier->bOverTerrainType == DEEP_WATER )
+				else if ( MercInDeepWater( pSoldier) )
 				{
 					ubSoundBase = SWIM_1;
 					ubRandomMax = 2;
@@ -12208,7 +12291,7 @@ void DebugValidateSoldierData( )
 
 void BeginTyingToFall( SOLDIERTYPE *pSoldier )
 {
-	pSoldier->bStartFallDir = pSoldier->bDirection;
+	pSoldier->bStartFallDir = pSoldier->ubDirection;
 	pSoldier->fTryingToFall = TRUE;
 
 	// Randomize direction 

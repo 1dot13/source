@@ -1166,7 +1166,7 @@ void ChooseMapEdgepoints( MAPEDGEPOINTINFO *pMapEdgepointInfo, UINT8 ubStrategic
 	psArray = psTempArray;
 	for (i = 0; i < usArraySize; i++)
 	{
-		if (GetTerrainType(psArray[ i ]) == MED_WATER || GetTerrainType(psArray[ i ]) == DEEP_WATER)
+		if (TERRAIN_IS_HIGH_WATER( GetTerrainType(psArray[ i ]) ) )
 		{
 			if (i == usArraySize - 1)
 			{

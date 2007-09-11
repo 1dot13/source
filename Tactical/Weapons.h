@@ -162,7 +162,7 @@ typedef struct
 	BOOLEAN antiTank;
 	BOOLEAN dart;
 	BOOLEAN knife;
-	BOOLEAN monsterSpit;
+	UINT16  monsterSpit;
 	BOOLEAN ignoreArmour;
 	BOOLEAN acidic;
 	INT16	lockBustingPower;

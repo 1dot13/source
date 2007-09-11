@@ -1552,7 +1552,7 @@ void AddCorpsesToBloodcatLair( INT16 sSectorX, INT16 sSectorY )
 	SET_PALETTEREP_ID ( Corpse.PantsPal,  "GREENPANTS" );
 
 
-	Corpse.bDirection	= (INT8)Random(8);
+	Corpse.ubDirection	= (UINT8)Random(8);
 
 	// Set time of death
   // Make sure they will be rotting!

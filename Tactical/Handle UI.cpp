@@ -85,6 +85,7 @@
 #include "qarray.h"
 #include "environment.h"
 #include "Map Information.h"
+#include "Soldier Control.h"
 #endif
 
 
@@ -245,8 +246,6 @@ void SetConfirmMovementModeCursor( SOLDIERTYPE *pSoldier, BOOLEAN fFromMove );
 void SetUIbasedOnStance( SOLDIERTYPE *pSoldier, INT8 bNewStance );
 INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, UINT16 usMapPos, UINT32 uiFlags );
 INT8 UIHandleInteractiveTilesAndItemsOnTerrain( SOLDIERTYPE *pSoldier, INT16 usMapPos, BOOLEAN fUseOKCursor, BOOLEAN fItemsOnlyIfOnIntTiles );
-
-extern void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT16	usNewDirection, BOOLEAN fInitalMove, UINT16 usAnimState );
 
 extern BOOLEAN	gfExitDebugScreen;
 extern INT8		gCurDebugPage;
@@ -1238,7 +1237,7 @@ UINT32 UIHandleTestHit( UI_EVENT *pUIEvent )
 
 		// gTacticalStatus.ubAttackBusyCount++;
 		DebugAttackBusy( "Testing a hit.\n" );
-		EVENT_SoldierGotHit( pSoldier, 1, bDamage, 10, pSoldier->bDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pSoldier->bAimShotLocation, 0, NOWHERE );
+		EVENT_SoldierGotHit( pSoldier, 1, bDamage, 10, pSoldier->ubDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pSoldier->bAimShotLocation, 0, NOWHERE );
 		// callahan update end - put everything as it was
 	}
 	return( GAME_SCREEN );
@@ -2136,7 +2135,7 @@ UINT32 UIHandleMAdjustStanceMode( UI_EVENT *pUIEvent )
 			// IF we are on a basic level...(temp)
 			if ( pSoldier->bLevel == 0 )
 			{
-				if ( FindHeigherLevel( pSoldier, pSoldier->sGridNo, pSoldier->bDirection, &bNewDirection ) )
+				if ( FindHeigherLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &bNewDirection ) )
 				{
 					ubNearHeigherLevel = TRUE;
 				}
@@ -2145,7 +2144,7 @@ UINT32 UIHandleMAdjustStanceMode( UI_EVENT *pUIEvent )
 			// IF we are higher...
 			if ( pSoldier->bLevel > 0 )
 			{
-				if ( FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->bDirection, &bNewDirection ) )
+				if ( FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &bNewDirection ) )
 				{
 					ubNearLowerLevel = TRUE;
 				}
@@ -3000,7 +2999,7 @@ void GetMercClimbDirection( UINT8 ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoU
 	if ( pSoldier->bLevel == 0 )
 	{
 		// See if we are not in a building!
-		if ( FindHeigherLevel( pSoldier, pSoldier->sGridNo, pSoldier->bDirection, &bNewDirection ) )
+		if ( FindHeigherLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &bNewDirection ) )
 		{
 			*pfGoUp = TRUE;
 		}
@@ -3009,7 +3008,7 @@ void GetMercClimbDirection( UINT8 ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoU
 	// IF we are higher...
 	if ( pSoldier->bLevel > 0 )
 	{
-		if ( FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->bDirection, &bNewDirection ) )
+		if ( FindLowerLevel( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &bNewDirection ) )
 		{
 			*pfGoDown = TRUE;
 		}
@@ -4571,7 +4570,7 @@ UINT32 UIHandleLCOnTerrain( UI_EVENT *pUIEvent )
 	sFacingDir = GetDirectionFromXY( sXPos, sYPos, pSoldier );
 
 	// Set # of APs
-	if ( sFacingDir != pSoldier->bDirection )
+	if ( sFacingDir != pSoldier->ubDirection )
 	{
 		gsCurrentActionPoints = GetAPsToLook( pSoldier );
 		gfUIHandleShowMoveGrid = FALSE;
@@ -4627,7 +4626,7 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 	// Get direction from mouse pos
 	sFacingDir = GetDirectionFromXY( sXPos, sYPos, pSoldier );
 
-	if ( sFacingDir != pSoldier->bDirection )
+	if ( sFacingDir != pSoldier->ubDirection )
 	{
 		sAPCost = GetAPsToLook( pSoldier );
 
@@ -5341,7 +5340,7 @@ UINT32 UIHandleJumpOver( UI_EVENT *pUIEvent )
 {
 	SOLDIERTYPE *pSoldier;
 	UINT16			usMapPos;
-	INT8				bDirection;
+	UINT8				ubDirection;
 
 	// Here, first get map screen
 	if ( !GetSoldier( &pSoldier, gusSelectedSoldier )  )
@@ -5366,11 +5365,11 @@ UINT32 UIHandleJumpOver( UI_EVENT *pUIEvent )
 	pSoldier->ubPendingAction		 = NO_PENDING_ACTION;
 
 	// Get direction to goto....
-	bDirection = (INT8)GetDirectionFromGridNo( usMapPos, pSoldier );
+	ubDirection = GetDirectionFromGridNo( usMapPos, pSoldier );
 
 
 	pSoldier->fDontChargeTurningAPs = TRUE;
-	EVENT_InternalSetSoldierDesiredDirection( pSoldier, bDirection, FALSE, pSoldier->usAnimState );
+	EVENT_SetSoldierDesiredDirection( pSoldier, ubDirection);
 	pSoldier->fTurningUntilDone = TRUE;
 	// ATE: Reset flag to go back to prone...
 	//pSoldier->fTurningFromPronePosition = TURNING_FROM_PRONE_OFF;

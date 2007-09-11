@@ -2368,7 +2368,9 @@ void StripEnemyDetailedPlacementsIfSectorWasPlayerLiberated()
 		{
 			if( curr->pBasicPlacement->bTeam == ENEMY_TEAM )
 			{
-				MemFree( curr->pDetailedPlacement );
+				// pDetailedPlacement has been C++'d
+				//MemFree( curr->pDetailedPlacement );
+				delete curr->pDetailedPlacement;
 				curr->pDetailedPlacement = NULL;
 				curr->pBasicPlacement->fDetailedPlacement = FALSE;
 				curr->pBasicPlacement->fPriorityExistance = FALSE;

@@ -2358,7 +2358,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 							BeginSoldierClimbUpRoof( pjSoldier );
 						}
 
-						if ( FindFenceJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->bDirection, &bDirection ) )
+						if ( FindFenceJumpDirection( pjSoldier, pjSoldier->sGridNo, pjSoldier->ubDirection, &bDirection ) )
 						{
 							BeginSoldierClimbFence( pjSoldier );
 						}
@@ -4392,7 +4392,7 @@ void TeleportSelectedSoldier()
 			{
 				SetSoldierHeight( pSoldier, 0 );
 				TeleportSoldier( pSoldier, usMapPos, FALSE );
-				EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->bDirection );
+				EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection );
 			}
 			else
 			{
@@ -4402,7 +4402,7 @@ void TeleportSelectedSoldier()
 					SetSoldierHeight( pSoldier, 50.0 );
 
 					TeleportSoldier( pSoldier, usMapPos, TRUE );
-					EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->bDirection );
+					EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection );
 				}
 			}
 		}
@@ -4519,7 +4519,7 @@ void ObliterateSector()
 			//	CreateAnimationTile( &AniParams );
 			//PlayJA2Sample( EXPLOSION_1, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
 
-			EVENT_SoldierGotHit( pTSoldier, 0, 400, 0, pTSoldier->bDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pTSoldier->bAimShotLocation, 0, NOWHERE );
+			EVENT_SoldierGotHit( pTSoldier, 0, 400, 0, pTSoldier->ubDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pTSoldier->bAimShotLocation, 0, NOWHERE );
 		}
 	}
 }
@@ -4544,7 +4544,7 @@ void JumpFence()
 	INT8							bDirection;
 	if ( GetSoldier( &pSoldier, gusSelectedSoldier ) )
 	{
-		if ( FindFenceJumpDirection( pSoldier, pSoldier->sGridNo, pSoldier->bDirection, &bDirection ) )
+		if ( FindFenceJumpDirection( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection, &bDirection ) )
 		{
 			BeginSoldierClimbFence( pSoldier );
 		}
@@ -4568,7 +4568,7 @@ void CreateNextCivType()
 		MercCreateStruct.sSectorY			= gWorldSectorY;
 		MercCreateStruct.bSectorZ			= gbWorldSectorZ;
 		MercCreateStruct.bBodyType		= bBodyType;
-		MercCreateStruct.bDirection = SOUTH;
+		MercCreateStruct.ubDirection = SOUTH;
 
 		bBodyType++;
 

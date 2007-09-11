@@ -456,7 +456,8 @@ void AutoBandage( BOOLEAN fStart )
 		cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
 		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++,pSoldier++)
 		{
-			if ( pSoldier->bActive  )
+			// 0verhaul:  Make sure the merc is also in the sector before making him stand up!
+			if ( pSoldier->bActive && pSoldier->bInSector )
 			{
 				ActionDone( pSoldier );
 				if ( pSoldier->bSlotItemTakenFrom != NO_SLOT )
@@ -523,7 +524,12 @@ void AutoBandage( BOOLEAN fStart )
 			DoScreenIndependantMessageBox(pDoctorWarningString[ 1 ], MSG_BOX_FLAG_OK, NULL );
 			gfAutoBandageFailed = FALSE;
 		}
+
+		// Memory cleanup!
+		MemFree( sAutoBandageString);
+		sAutoBandageString = NULL;
 	}
+
 	guiAutoBandageSeconds = 0;
 
 	ResetAllMercSpeeds( );

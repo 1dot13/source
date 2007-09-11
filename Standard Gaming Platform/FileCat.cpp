@@ -75,6 +75,7 @@ void TFileCat::TraverseDir(std::string dir, int depth)
 	using std::string;
 	static string dot( ".");
 	static string dotdot( "..");
+	static string svn( ".svn");
 
 	if (!dir.empty()) dir += '\\';
 
@@ -84,7 +85,7 @@ void TFileCat::TraverseDir(std::string dir, int depth)
 	unsigned attrib;
 
 	while ( readDir.NextFile(fileName, attrib) ) {
-		if (dot == fileName || dotdot == fileName) continue;
+		if (dot == fileName || dotdot == fileName || svn == fileName) continue;
 
 		string fullPath = dir + fileName;
 

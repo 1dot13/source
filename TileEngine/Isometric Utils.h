@@ -42,7 +42,7 @@ void ConvertGridNoToCenterCellXY( INT16 sGridNo, INT16 *sXPos, INT16 *sYPos );
 
 // GRID NO MANIPULATION FUNCTIONS
 INT16 NewGridNo(INT16 sGridno, INT16 sDirInc);
-INT16 DirectionInc(INT16 sDirection);
+INT16 DirectionInc(UINT8 ubDirection);
 INT32 OutOfBounds(INT16 sGridno, INT16 sProposedGridno);
 
  
