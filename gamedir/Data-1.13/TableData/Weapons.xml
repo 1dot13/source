@@ -5547,7 +5547,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>10</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>500</usRange>
+		<usRange>600</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>90</ubAttackVolume>

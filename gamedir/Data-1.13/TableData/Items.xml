@@ -5768,12 +5768,13 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>270</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 270</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
+		<szItemName>Very Small Creature Gas</szItemName>
+		<szLongItemName>Very Small Creature Gas</szLongItemName>
+		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szBRName>Very Small Creature Gas</szBRName>
+		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<usItemClass>512</usItemClass>
+		<ubClassIndex>73</ubClassIndex>
 		<NotBuyable>1</NotBuyable>
 	</ITEM>
 	<ITEM>
@@ -17169,7 +17170,7 @@
 		<szLongItemName>HK G36K</szLongItemName>
 		<szItemDesc>The G36K is the carbine version of the G36.  This non-export comes standard with a built-in reflex scope.</szItemDesc>
 		<szBRName>HK G36K</szBRName>
-		<szBRDesc>The G36 is a conventional gas operated, selective fire rifle, made from mostly modern materials and using mostly modern technologies.  The G36K is the carbine version, and comes standard with a built-in reflex scope.</szBRDesc>
+		<szBRDesc>The G36 is a conventional gas operated, selective fire rifle, made from mostly modern materials and using mostly modern technologies. The G36K is the carbine version, and comes standard with a built-in reflex scope.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>756</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -17283,7 +17284,7 @@
 		<uiIndex>760</uiIndex>
 		<szItemName>.50 Beo</szItemName>
 		<szLongItemName>.50 Beowulf Rifle</szLongItemName>
-		<szItemDesc>A rifle to fire a really oversized pistol round.</szItemDesc>
+		<szItemDesc>Designed to slay "monsters" in a single blow, the .50 Beowulf rifle from Alexander Arms will make you a legend in your own time; heroic deeds are just moments away - let the ballads begin.</szItemDesc>
 		<szBRName>.50 Beowulf Rifle</szBRName>
 		<szBRDesc>Use what the U.S Coast Guard uses: they know what they're doing.</szBRDesc>
 		<usItemClass>2</usItemClass>
@@ -22556,14 +22557,14 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>995</uiIndex>
-		<szItemName>Very Small Creature Gas</szItemName>
-		<szLongItemName>Very Small Creature Gas</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
-		<szBRName>Very Small Creature Gas</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
-		<usItemClass>512</usItemClass>
-		<ubClassIndex>73</ubClassIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 995</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
 		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 	<ITEM>
 		<uiIndex>996</uiIndex>
