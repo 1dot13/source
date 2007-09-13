@@ -871,7 +871,7 @@ void AStarPathfinder::ExecuteAStarLogic()
 	if (fContinuousTurnNeeded) {
 		GridNode parent = GetAStarParent(ParentNode);
 		if (parent != GridNode(-1,-1)) {
-			lastDir = pSoldier->bDirection;
+			lastDir = pSoldier->ubDirection;
 		}
 		else if ( GetLoopState(parent) == false ) {
 			lastDir = GetDirection(parent);
