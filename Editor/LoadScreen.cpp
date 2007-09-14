@@ -281,7 +281,7 @@ UINT32 ProcessLoadSaveScreenMessageBoxResult()
 		RemoveFileDialog();
 		return EDIT_SCREEN ;
 	}
-	Assert( 0 );
+//	Assert( 0 );
 	return LOADSAVE_SCREEN;
 }
 

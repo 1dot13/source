@@ -2075,6 +2075,7 @@ void ChangeBodyType( INT8 bOffset )  //+1 or -1 only
 				break;
 		}
 		SetSoldierAnimationSurface( gpSelected->pSoldier, gpSelected->pSoldier->usAnimState );
+		ConvertAniCodeToAniFrame( gpSelected->pSoldier, 0 );
 	}
 	//Update the placement's info as well.
 	gpSelected->pBasicPlacement->bBodyType = (INT8)iIndex;
@@ -2973,7 +2974,9 @@ void UpdateMercItemSlots()
 	{
 		if( gpSelected->pDetailedPlacement->ubProfile != NO_PROFILE )
 		{
-			memcpy( &gpSelected->pDetailedPlacement->Inv, &gpSelected->pSoldier->inv, sizeof( OBJECTTYPE ) * NUM_INV_SLOTS );
+			// 0verhaul:  Inventory is now a C++ class.  Bad memcpy!  No biscuit!
+			//memcpy( &gpSelected->pDetailedPlacement->Inv, &gpSelected->pSoldier->inv, sizeof( OBJECTTYPE ) * NUM_INV_SLOTS );
+			gpSelected->pDetailedPlacement->Inv = gpSelected->pSoldier->inv;
 		}
 		for( x = 0; x < 9; x++ )
 		{

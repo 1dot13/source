@@ -4,6 +4,7 @@ LibraryInitHeader gGameLibaries[ ] =
 		//Library Name					Can be	Init at start
 //													on cd
 	{ "Data.slf",							FALSE, TRUE },
+	{ "Editor.slf",                     FALSE, FALSE },
 	{ "Ambient.slf",					FALSE, TRUE },
 	{ "Anims.slf",						FALSE, TRUE },
 	{ "BattleSnds.slf",				FALSE, TRUE },
