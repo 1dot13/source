@@ -14567,11 +14567,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>665</uiIndex>
-		<szItemName>G36 Tac</szItemName>
-		<szLongItemName>HK G36 Tactical</szLongItemName>
-		<szItemDesc>The G36 Tactical is a conventional gas operated, selective fire rifle, made from mostly modern materials and using mostly modern technologies.</szItemDesc>
-		<szBRName>HK G36 Tactical</szBRName>
-		<szBRDesc>The G36 Tactical is a conventional gas operated, selective fire rifle, using mostly modern materials and technologies. Unlike the 'E'-version, the 'Tactical' is outfitted with the Picatinny-sightrail of the G36C.</szBRDesc>
+		<szItemName>G36 RAS</szItemName>
+		<szLongItemName>HK G36 RAS</szLongItemName>
+		<szItemDesc>The G36 RAS is a conventional gas operated, selective fire rifle, made from mostly modern materials and using mostly modern technologies.</szItemDesc>
+		<szBRName>HK G36 RAS</szBRName>
+		<szBRDesc>The G36 is a conventional gas operated, selective fire rifle, using mostly modern materials and technologies. Unlike the 'E'-version, the 'RAS' is outfitted with the Picatinny rails.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>665</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -14597,11 +14597,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>666</uiIndex>
-		<szItemName>G36K Tac</szItemName>
-		<szLongItemName>HK G36K Tactical</szLongItemName>
-		<szItemDesc>The G36 Tactical is a conventional gas operated, selective fire rifle, using mostly modern materials and technologies.  The G36K Tactical is the carbine version.</szItemDesc>
-		<szBRName>HK G36K Tactical</szBRName>
-		<szBRDesc>The G36 Tactical is a conventional gas operated, selective fire rifle, using mostly modern materials and technologies.  The G36K Tactical is the carbine version.</szBRDesc>
+		<szItemName>G36K RAS</szItemName>
+		<szLongItemName>HK G36K RAS</szLongItemName>
+		<szItemDesc>The G36 RAS is a conventional gas operated, selective fire rifle, using mostly modern materials and technologies.  The G36K RAS is the carbine version.</szItemDesc>
+		<szBRName>HK G36K RAS</szBRName>
+		<szBRDesc>The G36 is a conventional gas operated, selective fire rifle, using mostly modern materials and technologies.  The G36K RAS is the carbine version, equipped with Picatinny rails.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>666</ubClassIndex>
 		<ubCursor>3</ubCursor>

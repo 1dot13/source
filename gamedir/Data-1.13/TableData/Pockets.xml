@@ -128,7 +128,7 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>3</pIndex>
-		<pName>General Large</pName>
+		<pName>Vehicle</pName>
 		<pSilhouette>7</pSilhouette>
 		<pType>0</pType>
 		<pRestriction>0</pRestriction>
@@ -146,6 +146,48 @@
 		<ItemCapacityPerSize.11>8</ItemCapacityPerSize.11>
 		<ItemCapacityPerSize.12>8</ItemCapacityPerSize.12>
 		<ItemCapacityPerSize.13>8</ItemCapacityPerSize.13>
+		<ItemCapacityPerSize.14>8</ItemCapacityPerSize.14>
+		<ItemCapacityPerSize.15>8</ItemCapacityPerSize.15>
+		<ItemCapacityPerSize.16>7</ItemCapacityPerSize.16>
+		<ItemCapacityPerSize.17>6</ItemCapacityPerSize.17>
+		<ItemCapacityPerSize.18>5</ItemCapacityPerSize.18>
+		<ItemCapacityPerSize.19>7</ItemCapacityPerSize.19>
+		<ItemCapacityPerSize.20>6</ItemCapacityPerSize.20>
+		<ItemCapacityPerSize.21>5</ItemCapacityPerSize.21>
+		<ItemCapacityPerSize.22>4</ItemCapacityPerSize.22>
+		<ItemCapacityPerSize.23>6</ItemCapacityPerSize.23>
+		<ItemCapacityPerSize.24>5</ItemCapacityPerSize.24>
+		<ItemCapacityPerSize.25>4</ItemCapacityPerSize.25>
+		<ItemCapacityPerSize.26>3</ItemCapacityPerSize.26>
+		<ItemCapacityPerSize.27>5</ItemCapacityPerSize.27>
+		<ItemCapacityPerSize.28>4</ItemCapacityPerSize.28>
+		<ItemCapacityPerSize.29>3</ItemCapacityPerSize.29>
+		<ItemCapacityPerSize.30>2</ItemCapacityPerSize.30>
+		<ItemCapacityPerSize.31>3</ItemCapacityPerSize.31>
+		<ItemCapacityPerSize.32>2</ItemCapacityPerSize.32>
+		<ItemCapacityPerSize.33>1</ItemCapacityPerSize.33>
+		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
+	</POCKET>
+	<POCKET>
+		<pIndex>4</pIndex>
+		<pName>General Large</pName>
+		<pSilhouette>7</pSilhouette>
+		<pType>0</pType>
+		<pRestriction>0</pRestriction>
+		<ItemCapacityPerSize.0>1</ItemCapacityPerSize.0>
+		<ItemCapacityPerSize.1>1</ItemCapacityPerSize.1>
+		<ItemCapacityPerSize.2>1</ItemCapacityPerSize.2>
+		<ItemCapacityPerSize.3>1</ItemCapacityPerSize.3>
+		<ItemCapacityPerSize.4>1</ItemCapacityPerSize.4>
+		<ItemCapacityPerSize.5>1</ItemCapacityPerSize.5>
+		<ItemCapacityPerSize.6>1</ItemCapacityPerSize.6>
+		<ItemCapacityPerSize.7>1</ItemCapacityPerSize.7>
+		<ItemCapacityPerSize.8>1</ItemCapacityPerSize.8>
+		<ItemCapacityPerSize.9>1</ItemCapacityPerSize.9>
+		<ItemCapacityPerSize.10>14</ItemCapacityPerSize.10>
+		<ItemCapacityPerSize.11>8</ItemCapacityPerSize.11>
+		<ItemCapacityPerSize.12>10</ItemCapacityPerSize.12>
+		<ItemCapacityPerSize.13>10</ItemCapacityPerSize.13>
 		<ItemCapacityPerSize.14>8</ItemCapacityPerSize.14>
 		<ItemCapacityPerSize.15>6</ItemCapacityPerSize.15>
 		<ItemCapacityPerSize.16>7</ItemCapacityPerSize.16>
@@ -169,7 +211,7 @@
 		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
 	</POCKET>
 	<POCKET>
-		<pIndex>4</pIndex>
+		<pIndex>5</pIndex>
 		<pName>Combat Pack</pName>
 		<pSilhouette>6</pSilhouette>
 		<pType>0</pType>
@@ -184,7 +226,7 @@
 		<ItemCapacityPerSize.7>1</ItemCapacityPerSize.7>
 		<ItemCapacityPerSize.8>0</ItemCapacityPerSize.8>
 		<ItemCapacityPerSize.9>0</ItemCapacityPerSize.9>
-		<ItemCapacityPerSize.10>8</ItemCapacityPerSize.10>
+		<ItemCapacityPerSize.10>10</ItemCapacityPerSize.10>
 		<ItemCapacityPerSize.11>7</ItemCapacityPerSize.11>
 		<ItemCapacityPerSize.12>7</ItemCapacityPerSize.12>
 		<ItemCapacityPerSize.13>6</ItemCapacityPerSize.13>
@@ -211,7 +253,7 @@
 		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
 	</POCKET>
 	<POCKET>
-		<pIndex>5</pIndex>
+		<pIndex>6</pIndex>
 		<pName>Medium General</pName>
 		<pSilhouette>8</pSilhouette>
 		<pType>0</pType>
@@ -253,7 +295,7 @@
 		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
 	</POCKET>
 	<POCKET>
-		<pIndex>6</pIndex>
+		<pIndex>7</pIndex>
 		<pName>SMG Holster</pName>
 		<pSilhouette>9</pSilhouette>
 		<pType>0</pType>
@@ -295,7 +337,7 @@
 		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
 	</POCKET>
 	<POCKET>
-		<pIndex>7</pIndex>
+		<pIndex>8</pIndex>
 		<pName>TNT Pocket</pName>
 		<pSilhouette>10</pSilhouette>
 		<pType>0</pType>
@@ -337,7 +379,7 @@
 		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
 	</POCKET>
 	<POCKET>
-		<pIndex>8</pIndex>
+		<pIndex>9</pIndex>
 		<pName>Lg.Mag.Pocket</pName>
 		<pSilhouette>19</pSilhouette>
 		<pType>0</pType>
@@ -379,7 +421,7 @@
 		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
 	</POCKET>
 	<POCKET>
-		<pIndex>9</pIndex>
+		<pIndex>10</pIndex>
 		<pName>AR Mag</pName>
 		<pSilhouette>18</pSilhouette>
 		<pType>0</pType>
@@ -421,7 +463,7 @@
 		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
 	</POCKET>
 	<POCKET>
-		<pIndex>10</pIndex>
+		<pIndex>11</pIndex>
 		<pName>Pistol Holster</pName>
 		<pSilhouette>13</pSilhouette>
 		<pType>0</pType>
@@ -463,7 +505,7 @@
 		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
 	</POCKET>
 	<POCKET>
-		<pIndex>11</pIndex>
+		<pIndex>12</pIndex>
 		<pName>SMG Mag</pName>
 		<pSilhouette>17</pSilhouette>
 		<pType>0</pType>
@@ -505,7 +547,7 @@
 		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
 	</POCKET>
 	<POCKET>
-		<pIndex>12</pIndex>
+		<pIndex>13</pIndex>
 		<pName>Rifle Grenade</pName>
 		<pSilhouette>14</pSilhouette>
 		<pType>0</pType>
@@ -547,7 +589,7 @@
 		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
 	</POCKET>
 	<POCKET>
-		<pIndex>13</pIndex>
+		<pIndex>14</pIndex>
 		<pName>Grenade</pName>
 		<pSilhouette>15</pSilhouette>
 		<pType>0</pType>
@@ -589,7 +631,7 @@
 		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
 	</POCKET>
 	<POCKET>
-		<pIndex>14</pIndex>
+		<pIndex>15</pIndex>
 		<pName>Pistol Mag</pName>
 		<pSilhouette>16</pSilhouette>
 		<pType>0</pType>
@@ -631,7 +673,7 @@
 		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
 	</POCKET>
 	<POCKET>
-		<pIndex>15</pIndex>
+		<pIndex>16</pIndex>
 		<pName>Tiny General</pName>
 		<pSilhouette>20</pSilhouette>
 		<pType>0</pType>
@@ -673,7 +715,7 @@
 		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
 	</POCKET>
 	<POCKET>
-		<pIndex>16</pIndex>
+		<pIndex>17</pIndex>
 		<pName>Small General</pName>
 		<pSilhouette>12</pSilhouette>
 		<pType>0</pType>
@@ -715,7 +757,7 @@
 		<ItemCapacityPerSize.34>0</ItemCapacityPerSize.34>
 	</POCKET>
 	<POCKET>
-		<pIndex>17</pIndex>
+		<pIndex>18</pIndex>
 		<pName>Belt Clip</pName>
 		<pSilhouette>21</pSilhouette>
 		<pType>0</pType>
