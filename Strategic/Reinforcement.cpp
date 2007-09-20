@@ -247,7 +247,7 @@ UINT8 DoReinforcementAsPendingEnemy( INT16 sMapX, INT16 sMapY )
 	UINT16 pusMoveDir[4][3];
 	UINT8 ubDirNumber = 0, ubIndex;
 	GROUP *pGroup;
-	ENEMYGROUP *pEnemyGroup;
+	//ENEMYGROUP *pEnemyGroup;
 	SECTORINFO *pThisSector, *pSector;
 
 	if( !gGameExternalOptions.gfAllowReinforcements )

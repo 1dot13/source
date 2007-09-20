@@ -623,7 +623,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT16 usHa
 	//TRY PUNCHING
 	if ( Item[ usHandItem ].usItemClass == IC_PUNCH )
 	{
-		INT16	sCnt;
+		//INT16	sCnt;
 		INT16	sSpot;	
 		UINT8		ubGuyThere;
 		INT16		sGotLocation = NOWHERE;
@@ -631,7 +631,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT16 usHa
 		sAdjustedGridNo = NOWHERE;
 		ubDirection = 0xff;
 
-		for ( sCnt = 0; sCnt < NUM_WORLD_DIRECTIONS; sCnt++ )
+		for ( INT8 sCnt = 0; sCnt < NUM_WORLD_DIRECTIONS; sCnt++ )
 		{
 			sSpot = NewGridNo( pSoldier->sGridNo, DirectionInc( sCnt ) );
 
