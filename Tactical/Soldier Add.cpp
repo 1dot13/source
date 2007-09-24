@@ -1092,10 +1092,11 @@ UINT16 FindRandomGridNoFromSweetSpotExcludingSweetSpot( SOLDIERTYPE *pSoldier, I
 
 BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOOLEAN fUseAnimation, UINT16 usAnimState, UINT16 usAnimCode )
 {
-	UINT8					ubDirection, ubCalculatedDirection;
-	SOLDIERTYPE		*pSoldier;
-	INT16					sGridNo;
-	INT16					sExitGridNo;
+	UINT8					ubDirection = 0;
+	UINT8					ubCalculatedDirection = 0;
+	SOLDIERTYPE				*pSoldier = 0;
+	INT16					sGridNo = 0;
+	INT16					sExitGridNo = 0;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("InternalAddSoldierToSector"));
 
