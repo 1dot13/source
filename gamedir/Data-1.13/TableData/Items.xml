@@ -4637,7 +4637,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>52</ubGraphicNum>
-		<ubWeight>5</ubWeight>
+		<ubWeight>3</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>750</usPrice>
 		<ubCoolness>4</ubCoolness>
@@ -4661,7 +4661,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>171</ubGraphicNum>
-		<ubWeight>10</ubWeight>
+		<ubWeight>5</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>1000</usPrice>
 		<ubCoolness>7</ubCoolness>
@@ -5273,7 +5273,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>51</ubGraphicNum>
-		<ubWeight>4</ubWeight>
+		<ubWeight>1</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>1500</usPrice>
 		<ubCoolness>7</ubCoolness>
@@ -5348,7 +5348,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>90</ubGraphicNum>
-		<ubWeight>9</ubWeight>
+		<ubWeight>6</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>100</usPrice>
 		<ubCoolness>2</ubCoolness>
@@ -6563,7 +6563,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>2</ubGraphicType>
 		<ubGraphicNum>33</ubGraphicNum>
-		<ubWeight>4</ubWeight>
+		<ubWeight>1</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>100</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -6625,7 +6625,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>134</ubGraphicNum>
-		<ubWeight>6</ubWeight>
+		<ubWeight>5</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
 		<usPrice>75</usPrice>
 		<ubCoolness>4</ubCoolness>
@@ -12476,7 +12476,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>710</ubGraphicNum>
-		<ubWeight>15</ubWeight>
+		<ubWeight>8</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>1200</usPrice>
 		<ubCoolness>6</ubCoolness>
@@ -21481,7 +21481,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>693</ubGraphicNum>
-		<ubWeight>4</ubWeight>
+		<ubWeight>3</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>500</usPrice>
 		<ubCoolness>7</ubCoolness>
@@ -21533,7 +21533,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>565</ubGraphicNum>
-		<ubWeight>4</ubWeight>
+		<ubWeight>3</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
 		<usPrice>1500</usPrice>
 		<ubCoolness>7</ubCoolness>
@@ -21559,7 +21559,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>566</ubGraphicNum>
-		<ubWeight>6</ubWeight>
+		<ubWeight>4</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
 		<usPrice>2500</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -22737,7 +22737,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>149</ubGraphicNum>
-		<ubWeight>4</ubWeight>
+		<ubWeight>2</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>200</usPrice>
 		<ubCoolness>2</ubCoolness>
@@ -22760,7 +22760,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>155</ubGraphicNum>
-		<ubWeight>4</ubWeight>
+		<ubWeight>3</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>1600</usPrice>
 		<ubCoolness>8</ubCoolness>
@@ -22819,7 +22819,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>156</ubGraphicNum>
-		<ubWeight>2</ubWeight>
+		<ubWeight>1</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>1400</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -22845,7 +22845,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>76</ubGraphicNum>
-		<ubWeight>6</ubWeight>
+		<ubWeight>4</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>600</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -22972,7 +22972,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>180</ubGraphicNum>
-		<ubWeight>7</ubWeight>
+		<ubWeight>6</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>1000</usPrice>
 		<ubCoolness>6</ubCoolness>

@@ -53,8 +53,6 @@
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>371</sSound>
-		<sBurstSound>1</sBurstSound>
-		<sSilencedBurstSound>62</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>156</SilencedSound>
@@ -83,7 +81,7 @@
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>371</sSound>
 		<sBurstSound>57</sBurstSound>
-		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>156</SilencedSound>
@@ -144,7 +142,7 @@
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>368</sSound>
 		<sBurstSound>54</sBurstSound>
-		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>156</SilencedSound>
@@ -171,8 +169,7 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
-		<sSound>399</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sSound>459</sSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>156</SilencedSound>
@@ -199,7 +196,6 @@
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>423</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -225,7 +221,6 @@
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>422</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -252,8 +247,6 @@
 		<ubAttackVolume>55</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>413</sSound>
-		<sBurstSound>2</sBurstSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -488,7 +481,7 @@
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>101</sReloadSound>
 		<sLocknLoadSound>107</sLocknLoadSound>
-		<SilencedSound>156</SilencedSound>
+		<SilencedSound>157</SilencedSound>
 		<bBurstAP>3</bBurstAP>
 		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
 		<APsToReload>6</APsToReload>
@@ -707,7 +700,6 @@
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>323</sSound>
 		<sBurstSound>5</sBurstSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>102</sReloadSound>
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -1352,7 +1344,7 @@
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>175</sSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<SilencedSound>157</SilencedSound>
+		<SilencedSound>175</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
@@ -1499,9 +1491,7 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
-		<sSound>438</sSound>
-		<sBurstSound>6</sBurstSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sSound>420</sSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -1528,7 +1518,7 @@
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>175</sSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<SilencedSound>157</SilencedSound>
+		<SilencedSound>175</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
@@ -1551,7 +1541,7 @@
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>175</sSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<SilencedSound>157</SilencedSound>
+		<SilencedSound>175</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
@@ -1574,7 +1564,7 @@
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>175</sSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
-		<SilencedSound>157</SilencedSound>
+		<SilencedSound>175</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
 		<SwapClips>1</SwapClips>
@@ -1725,7 +1715,6 @@
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>423</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -2031,8 +2020,6 @@
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>320</sSound>
-		<sBurstSound>6</sBurstSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>102</sReloadSound>
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -2061,7 +2048,6 @@
 		<ubAttackVolume>100</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>419</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>102</sReloadSound>
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -2117,11 +2103,9 @@
 		<ubAttackVolume>45</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>293</sSound>
-		<sBurstSound>20</sBurstSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
-		<SilencedSound>156</SilencedSound>
+		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>2</APsToReload>
 		<SwapClips>1</SwapClips>
@@ -2326,8 +2310,8 @@
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
-		<sSound>374</sSound>
-		<sBurstSound>60</sBurstSound>
+		<sSound>376</sSound>
+		<sBurstSound>62</sBurstSound>
 		<sSilencedBurstSound>62</sSilencedBurstSound>
 		<sReloadSound>101</sReloadSound>
 		<sLocknLoadSound>107</sLocknLoadSound>
@@ -3237,8 +3221,7 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
-		<sSound>291</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sSound>419</sSound>
 		<sReloadSound>102</sReloadSound>
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -3267,7 +3250,6 @@
 		<ubAttackVolume>100</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>440</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>102</sReloadSound>
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -3322,10 +3304,9 @@
 		<ubAttackVolume>51</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>367</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
-		<SilencedSound>157</SilencedSound>
+		<SilencedSound>156</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>2</APsToReload>
 		<SwapClips>1</SwapClips>
@@ -3349,8 +3330,6 @@
 		<ubAttackVolume>51</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>302</sSound>
-		<sBurstSound>15</sBurstSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -3412,8 +3391,6 @@
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>314</sSound>
-		<sBurstSound>6</sBurstSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>102</sReloadSound>
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -3605,8 +3582,6 @@
 		<ubAttackVolume>55</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>413</sSound>
-		<sBurstSound>2</sBurstSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -3785,7 +3760,6 @@
 		<ubAttackVolume>54</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>410</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -3812,7 +3786,6 @@
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>10</ubHitVolume>
 		<sSound>420</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -4449,11 +4422,9 @@
 		<ubAttackVolume>72</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>371</sSound>
-		<sBurstSound>1</sBurstSound>
-		<sSilencedBurstSound>62</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
-		<SilencedSound>157</SilencedSound>
+		<SilencedSound>156</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>2</APsToReload>
 		<SwapClips>1</SwapClips>
@@ -4612,7 +4583,7 @@
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>445</sSound>
 		<sBurstSound>18</sBurstSound>
-		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -4873,10 +4844,10 @@
 		<ubHitVolume>7</ubHitVolume>
 		<sSound>387</sSound>
 		<sBurstSound>15</sBurstSound>
-		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>101</sReloadSound>
 		<sLocknLoadSound>107</sLocknLoadSound>
-		<SilencedSound>376</SilencedSound>
+		<SilencedSound>157</SilencedSound>
 		<bBurstAP>3</bBurstAP>
 		<bAutofireShotsPerFiveAP>4</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
@@ -4968,8 +4939,6 @@
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>317</sSound>
-		<sBurstSound>6</sBurstSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>102</sReloadSound>
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -5025,8 +4994,7 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
-		<sSound>134</sSound>
-		<sSilencedBurstSound>71</sSilencedBurstSound>
+		<sSound>308</sSound>
 		<sReloadSound>102</sReloadSound>
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>309</SilencedSound>
@@ -5547,7 +5515,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>10</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>500</usRange>
+		<usRange>600</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>90</ubAttackVolume>
@@ -5991,7 +5959,6 @@
 		<ubAttackVolume>54</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>409</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -6870,7 +6837,6 @@
 		<ubAttackVolume>54</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>409</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -6958,7 +6924,6 @@
 		<ubAttackVolume>70</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
 		<sSound>389</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -7209,8 +7174,7 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>54</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
-		<sSound>409</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sSound>411</sSound>
 		<sReloadSound>102</sReloadSound>
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -7617,11 +7581,10 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
-		<sSound>420</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sSound>291</sSound>
 		<sReloadSound>102</sReloadSound>
 		<sLocknLoadSound>108</sLocknLoadSound>
-		<SilencedSound>156</SilencedSound>
+		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
@@ -7647,12 +7610,12 @@
 		<BurstAniDelay>63</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
-		<sSound>374</sSound>
-		<sBurstSound>60</sBurstSound>
-		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sSound>375</sSound>
+		<sBurstSound>61</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>101</sReloadSound>
 		<sLocknLoadSound>107</sLocknLoadSound>
-		<SilencedSound>376</SilencedSound>
+		<SilencedSound>156</SilencedSound>
 		<bBurstAP>4</bBurstAP>
 		<bAutofireShotsPerFiveAP>2</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
@@ -7803,8 +7766,7 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
-		<sSound>420</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sSound>410</sSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -7830,8 +7792,7 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
-		<sSound>420</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sSound>417</sSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -7858,8 +7819,7 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
-		<sSound>420</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sSound>417</sSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -7917,8 +7877,7 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
-		<sSound>423</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sSound>426</sSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -7943,8 +7902,7 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>65</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
-		<sSound>423</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sSound>426</sSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -7969,8 +7927,7 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
 		<ubHitVolume>5</ubHitVolume>
-		<sSound>423</sSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sSound>426</sSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -8088,9 +8045,7 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
-		<sSound>322</sSound>
-		<sBurstSound>6</sBurstSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sSound>486</sSound>
 		<sReloadSound>102</sReloadSound>
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -8308,12 +8263,10 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
-		<sSound>371</sSound>
-		<sBurstSound>1</sBurstSound>
-		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sSound>377</sSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
-		<SilencedSound>157</SilencedSound>
+		<SilencedSound>156</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>2</APsToReload>
 		<SwapClips>1</SwapClips>
@@ -8338,9 +8291,7 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
-		<sSound>322</sSound>
-		<sBurstSound>6</sBurstSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sSound>486</sSound>
 		<sReloadSound>102</sReloadSound>
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -8401,8 +8352,6 @@
 		<ubAttackVolume>74</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>388</sSound>
-		<sBurstSound>15</sBurstSound>
-		<sSilencedBurstSound>62</sSilencedBurstSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -8789,12 +8738,10 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
-		<sSound>371</sSound>
-		<sBurstSound>1</sBurstSound>
-		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sSound>377</sSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
-		<SilencedSound>157</SilencedSound>
+		<SilencedSound>156</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>2</APsToReload>
 		<SwapClips>1</SwapClips>
@@ -9458,10 +9405,10 @@
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>374</sSound>
 		<sBurstSound>60</sBurstSound>
-		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>101</sReloadSound>
 		<sLocknLoadSound>107</sLocknLoadSound>
-		<SilencedSound>376</SilencedSound>
+		<SilencedSound>156</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
@@ -9617,12 +9564,10 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
-		<sSound>293</sSound>
-		<sBurstSound>20</sBurstSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sSound>326</sSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
-		<SilencedSound>156</SilencedSound>
+		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>2</APsToReload>
 		<SwapClips>1</SwapClips>
@@ -9678,9 +9623,8 @@
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>9</ubHitVolume>
-		<sSound>349</sSound>
-		<sBurstSound>41</sBurstSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sSound>488</sSound>
+		<sBurstSound>113</sBurstSound>
 		<sReloadSound>104</sReloadSound>
 		<sLocknLoadSound>110</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -9813,10 +9757,10 @@
 		<ubHitVolume>3</ubHitVolume>
 		<sSound>373</sSound>
 		<sBurstSound>64</sBurstSound>
-		<sSilencedBurstSound>62</sSilencedBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>101</sReloadSound>
 		<sLocknLoadSound>107</sLocknLoadSound>
-		<SilencedSound>376</SilencedSound>
+		<SilencedSound>156</SilencedSound>
 		<bBurstAP>3</bBurstAP>
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
 		<APsToReload>4</APsToReload>
