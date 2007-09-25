@@ -577,10 +577,12 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMo
 	iOriginationX = iOriginationY = 0;
 	iOrigination = (INT32) s->sGridNo;
 
-	if (sDestination == NOWHERE)
-	{
-		return 0; // There is no path to nowhere, because everywhere you can go is somewhere!
-	}
+//WDS FIX
+// This code is WRONG.  sDestination=NOWHERE is used to test locations for picking up of ites from the strategic screen.
+//	if (sDestination == NOWHERE)
+//	{
+//		return 0; // There is no path to nowhere, because everywhere you can go is somewhere!
+//	}
 	if (iOrigination < 0 || iOrigination > WORLD_MAX)
 	{
 #ifdef JA2BETAVERSION
