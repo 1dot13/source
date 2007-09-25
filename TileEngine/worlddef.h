@@ -20,6 +20,27 @@
 #define WORLD_BASE_HEIGHT			0
 #define WORLD_CLIFF_HEIGHT		80
  
+ //ADB I'm tired of seeing a 5 digit number when looking at something's gridno.
+//I need to see an x and y.	I created this class for the AStar,
+//but moved it here as you can convert a regular INT16 gridno to a GridNode then print it out for debugging.
+//Don't switch between the 2 types too often, IntToGridNode is especially slow
+class GridNode
+{
+public:
+	GridNode	() {x = -1; y = -1;};
+	GridNode	(INT16 const loc) {this->x = loc % WORLD_COLS; this->y = loc / WORLD_COLS;};
+	GridNode	(int x, int y) {GridNode::x = x; GridNode::y = y;};
+	GridNode	operator + (const GridNode& point) const {return GridNode(this->x + point.x, this->y + point.y);};
+	bool		operator == (const GridNode& point) const {return this->x == point.x && this->y == point.y;};
+	bool		operator != (const GridNode& point) const {return !(*this == point);};
+	INT16		GridNodeToInt() {return (this->x + this->y * WORLD_COLS);};
+	void		IntToGridNode(INT16 const loc) {this->x = loc % WORLD_COLS; this->y = loc / WORLD_COLS;};
+	bool		isInWorld() {return (this->x < WORLD_COLS && this->x >= 0 &&
+									this->y < WORLD_ROWS && this->y >= 0);};
+	int			x;
+	int			y;
+};
+
 //A macro that actually memcpy's over data and increments the pointer automatically
 //based on the size.  Works like a FileRead except with a buffer instead of a file pointer.
 //Used by LoadWorld() and child functions.

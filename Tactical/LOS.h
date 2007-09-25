@@ -65,8 +65,8 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 #define CALC_FROM_WANTED_DIR -2
 #define NO_DISTANCE_LIMIT -3
 
-INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, INT8 bAware, int iTileSightLimit = CALC_FROM_ALL_DIRS, UINT8 ubAimLocation = LOS_POS );
-INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, INT8 bLevel, INT8 bCubeLevel, INT8 bAware, int ubSightLimit = CALC_FROM_ALL_DIRS );
+INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, INT8 bAware, int iTileSightLimit = CALC_FROM_ALL_DIRS, UINT8 ubAimLocation = LOS_POS, bool adjustForSight = true );
+INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, INT8 bLevel, INT8 bCubeLevel, INT8 bAware, int ubSightLimit = CALC_FROM_ALL_DIRS, bool adjustForSight = true );
 INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, INT8 bLevel, INT8 bStance, INT8 bAware, int iTileSightLimit = CALC_FROM_ALL_DIRS );
 UINT8 SoldierToSoldierChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier );
 UINT8 SoldierToSoldierBodyPartChanceToGetThrough( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, UINT8 ubAimLocation );

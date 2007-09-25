@@ -640,7 +640,7 @@ BOOLEAN ResolveHitOnWall( STRUCTURE * pStructure, INT32 iGridNo, INT8 bLOSIndexX
 * - stops at other obstacles
 *
 */
-INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, int iTileSightLimit, UINT8 ubTreeSightReduction, INT8 bAware, INT32 bCamouflage, BOOLEAN fSmell, INT16 * psWindowGridNo )
+INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, int iTileSightLimit, UINT8 ubTreeSightReduction, INT8 bAware, INT32 bCamouflage, BOOLEAN fSmell, INT16 * psWindowGridNo, bool adjustForSight = true )
 {
 	// Parameters...
 	// the X,Y,Z triplets should be obvious
@@ -1384,21 +1384,21 @@ INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX,
 	//without stopping when my eyes stop, but also including my sight limit!
 	//so iTileSightLimit has 255 added to it if the line is supposed to be infinite
 
-	int scalar = iSightLimit;
-	if (iTileSightLimit >= 255) {
+	int distanceWithCover = (iDistance + (iSightLimit - iAdjSightLimit));
+	if (adjustForSight == false) {
 		//I know I am doing a CTGT calc, so don't get carried away
 		//just because I can see 999 tiles doesn't mean I can shoot it!
 		//this preserves the original intent of the scalar, but makes it less likely iAdjSightLimit
 		//is less than zero, which if it were the function would return, which we don't want if our sight is good
-		scalar = min(MaxNormalDistanceVisible() * CELL_X_SIZE, iSightLimit);
+		return distanceWithCover;
 	}
-	else {
-		//I know that my sight could be over the average distance, but I am not going to clamp it
-		//because I do not think the actual value matters, and if it does,
-		//then using the real value is closer to the original intent
-		//AFAIK all instances that aren't CTGT just use this as a boolean test
-	}
-	return( (iDistance + (iSightLimit - iAdjSightLimit)) * (MaxNormalDistanceVisible() * CELL_X_SIZE) / scalar );
+
+	
+	//I know that my sight could be over the average distance, but I am not going to clamp it
+	//because I do not think the actual value matters, and if it does,
+	//then using the real value is closer to the original intent
+	//AFAIK all instances that aren't CTGT just use this as a boolean test
+	return( distanceWithCover * (MaxNormalDistanceVisible() * CELL_X_SIZE) / iSightLimit );
 }
 
 BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * pdZPos )
@@ -1587,7 +1587,7 @@ BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * p
 	return( TRUE );
 }
 
-INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, INT8 bAware, int iTileSightLimit, UINT8 ubAimLocation )
+INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE * pEndSoldier, INT8 bAware, int iTileSightLimit, UINT8 ubAimLocation, bool adjustForSight )
 {
 	FLOAT			dStartZPos, dEndZPos;
 	BOOLEAN		fOk;
@@ -1766,7 +1766,7 @@ INT32 SoldierToSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, SOLDIERTYPE 
 		iTileSightLimit = 255 + pStartSoldier->GetMaxDistanceVisible( pEndSoldier->sGridNo, pEndSoldier->bLevel, CALC_FROM_ALL_DIRS );
 	}
 
-	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) CenterX( pEndSoldier->sGridNo ), (FLOAT) CenterY( pEndSoldier->sGridNo ), dEndZPos, iTileSightLimit, ubTreeReduction, bAware, bEffectiveCamo + bEffectiveStealth, fSmell, NULL ) );
+	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) CenterX( pEndSoldier->sGridNo ), (FLOAT) CenterY( pEndSoldier->sGridNo ), dEndZPos, iTileSightLimit, ubTreeReduction, bAware, bEffectiveCamo + bEffectiveStealth, fSmell, NULL, adjustForSight ) );
 }
 
 INT16 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT16 sEndGridNo )
@@ -1797,7 +1797,7 @@ INT16 SoldierToLocationWindowTest( SOLDIERTYPE * pStartSoldier, INT16 sEndGridNo
 	return( sWindowGridNo );
 }
 
-INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, INT8 bLevel, INT8 bCubeLevel, INT8 bAware, int iTileSightLimit )
+INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, INT8 bLevel, INT8 bCubeLevel, INT8 bAware, int iTileSightLimit, bool adjustForSight )
 {
 	FLOAT						dStartZPos, dEndZPos;
 	INT16						sXPos, sYPos;
@@ -1821,7 +1821,7 @@ INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGr
 		if (ubTargetID != NOBODY)
 		{
 			// there's a merc there; do a soldier-to-soldier test
-			return( SoldierToSoldierLineOfSightTest( pStartSoldier, MercPtrs[ubTargetID], bAware, iTileSightLimit) );
+			return( SoldierToSoldierLineOfSightTest( pStartSoldier, MercPtrs[ubTargetID], bAware, iTileSightLimit, LOS_POS, adjustForSight) );
 		}
 		// else... assume standing height
 		dEndZPos = STANDING_LOS_POS + bLevel * HEIGHT_UNITS;
@@ -1840,7 +1840,7 @@ INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGr
 		iTileSightLimit = 255 + pStartSoldier->GetMaxDistanceVisible( sGridNo, bLevel, CALC_FROM_ALL_DIRS );
 	}
 
-	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, iTileSightLimit, gubTreeSightReduction[ANIM_STAND], bAware, 0, HasThermalOptics( pStartSoldier), NULL ) );
+	return( LineOfSightTest( (FLOAT) CenterX( pStartSoldier->sGridNo ), (FLOAT) CenterY( pStartSoldier->sGridNo ), dStartZPos, (FLOAT) sXPos, (FLOAT) sYPos, dEndZPos, iTileSightLimit, gubTreeSightReduction[ANIM_STAND], bAware, 0, HasThermalOptics( pStartSoldier), NULL, adjustForSight ) );
 }
 
 INT32 SoldierToVirtualSoldierLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT16 sGridNo, INT8 bLevel, INT8 bStance, INT8 bAware, int iTileSightLimit )
