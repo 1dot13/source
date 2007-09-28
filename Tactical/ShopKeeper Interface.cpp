@@ -51,6 +51,8 @@
 	#include "los.h"
 	#include "NPC.h"
 	#include "Soldier Create.h"
+	#include "PATHAI.h"
+	#include "Points.h"
 #endif
 
 #include "BuildDefines.h"
@@ -707,6 +709,8 @@ UINT32	ShopKeeperScreenHandle()
 		{
 			gfSKIScreenExit = TRUE;
 			EnterTacticalScreen( );
+			//ADB if we fail, unpause the game
+			UnPauseGame();
 
 			return( SHOPKEEPER_SCREEN );
 		}
@@ -817,7 +821,62 @@ BOOLEAN EnterShopKeeperInterface()
 	UINT8						ubCnt;
 	CHAR8						zTemp[32];
 	VSURFACE_DESC		vs_desc;
-	SOLDIERTYPE			*pSoldier;
+
+	//ADB if we are here, we must be able to talk with an extended ear (CheckIfRadioIsEquipped())
+	//but if we are physically too far away, we don't have extended arms!
+
+	SOLDIERTYPE* pSoldier = MercPtrs[ gusSelectedSoldier ];
+	SOLDIERTYPE* pShopkeeper = FindSoldierByProfileID( ArmsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID, FALSE );
+	if ( GetRangeFromGridNoDiff( pSoldier->sGridNo, pShopkeeper->sGridNo ) > NPC_TALK_RADIUS )
+	{
+		//so now we know we are too far away to trade, so instead of just quitting,
+		//either post a message or run to the guy like HandleTalkInit does
+		if( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )	
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, L"Unable to interact with shopkeeper during combat" );
+			return( FALSE );
+		}
+		else
+		{
+			// First calculate APs and validate...
+			// Check AP cost...
+			if ( !EnoughPoints( pSoldier, AP_TALK, 0, TRUE ) )
+			{
+				return( FALSE );
+			}
+
+			// First get an adjacent gridno....
+			UINT8 ubDirection;
+			INT16 sActionGridNo =  FindAdjacentGridEx( pSoldier, pShopkeeper->sGridNo, &ubDirection, NULL, FALSE, TRUE );
+
+			if ( sActionGridNo == -1 )
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ NO_PATH ] );
+				return( FALSE );
+			}
+
+			if ( UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints ) == 0 )
+			{
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ NO_PATH ] );
+				return( FALSE );
+			}
+
+			// Walk up and talk to buddy....
+			gfNPCCircularDistLimit = TRUE;
+			INT16 sGoodGridNo = FindGridNoFromSweetSpotWithStructData( pSoldier, pSoldier->usUIMovementMode, pShopkeeper->sGridNo, (NPC_TALK_RADIUS-1), &ubDirection, TRUE );
+			gfNPCCircularDistLimit = FALSE;
+
+			// Now walkup to talk....
+			pSoldier->ubPendingAction = MERC_TALK;
+			pSoldier->uiPendingActionData1 = pShopkeeper->ubID;
+			pSoldier->ubPendingActionAnimCount = 0;
+
+			// WALK UP TO DEST FIRST
+			EVENT_InternalGetNewSoldierPath( pSoldier, sGoodGridNo, pSoldier->usUIMovementMode , TRUE , pSoldier->fNoAPToFinishMove );					
+
+			return( FALSE );
+		}
+	}
 
 
 	// make sure current merc is close enough and eligible to talk to the shopkeeper.
