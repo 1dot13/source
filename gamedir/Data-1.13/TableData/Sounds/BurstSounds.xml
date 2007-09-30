@@ -1,6 +1,4 @@
-<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
-<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Tobias Ruh (privat) -->
-<SOUNDLIST>
+﻿<SOUNDLIST>
 	<SOUND>NOSOUND</SOUND>
 	<SOUND>SOUNDS\WEAPONS\9mm Burst %d.wav</SOUND>
 	<SOUND>SOUNDS\WEAPONS\45 Caliber Burst %d.wav</SOUND>
@@ -65,8 +63,8 @@
 	<SOUND>SOUNDS\WEAPONS\9x19\9mm MP5K Burst %d.ogg</SOUND>
 	<SOUND>SOUNDS\WEAPONS\9x19\9mm MP5SD Burst %d.ogg</SOUND>
 	<SOUND>SOUNDS\WEAPONS\9x19\9mm Sterling Burst %d.ogg</SOUND>
-	<SOUND>SOUNDS\WEAPONS\9x19\9mm Uzi Burst %d.ogg</SOUND>
-	<SOUND>SOUNDS\WEAPONS\9x18\9mmPM Stechkin Burst %d.ogg</SOUND>
+	<SOUND>SOUNDS\WEAPONS\9x19\9mm UZI Burst %d.ogg</SOUND>
+	<SOUND>SOUNDS\WEAPONS\9x18\9mmPM STECHKIN Burst %d.ogg</SOUND>
 	<SOUND>SOUNDS\WEAPONS\9x39\9x39 Groza Burst %d.ogg</SOUND>
 	<SOUND>SOUNDS\WEAPONS\9x39\9x39 GrozaSD Burst %d.ogg</SOUND>
 	<SOUND>SOUNDS\WEAPONS\9x39\9x39 SR3 Burst %d.ogg</SOUND>
@@ -118,4 +116,11 @@
 	<SOUND>SOUNDS\WEAPONS\792x57\7,92 MG42 1200 Burst %d.ogg</SOUND>
 	<SOUND>SOUNDS\WEAPONS\792x57\7,92 FG42 Burst %d.ogg</SOUND>
 	<SOUND>SOUNDS\WEAPONS\792x33\7,92K Stg44 Burst %d.ogg</SOUND>
+	<SOUND>SOUNDS\WEAPONS\9x18\9mmPM STECHKIN SD Burst %d.ogg</SOUND>
+	<SOUND>SOUNDS\WEAPONS\762x51\7,62 NATO MG3 Burst %d.ogg</SOUND>
+	<SOUND>SOUNDS\WEAPONS\762x39\7,62 WP XCR Burst %d.ogg</SOUND>
+	<SOUND>SOUNDS\WEAPONS\68x43SPC\6,8 XCR Burst %d.ogg</SOUND>
+	<SOUND>SOUNDS\WEAPONS\556\5,56 XCR Burst %d.ogg</SOUND>
+	<SOUND>SOUNDS\WEAPONS\50\50 BEOWULF Burst %d.ogg</SOUND>
+	<SOUND>SOUNDS\WEAPONS\30M1\30M1 M2 Burst %d.ogg</SOUND>
 </SOUNDLIST>
