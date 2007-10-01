@@ -21481,7 +21481,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>693</ubGraphicNum>
-		<ubWeight>3</ubWeight>
+		<ubWeight>2</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>500</usPrice>
 		<ubCoolness>7</ubCoolness>
@@ -22598,7 +22598,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>556</ubGraphicNum>
-		<ubWeight>2</ubWeight>
+		<ubWeight>4</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>900</usPrice>
 		<ubCoolness>8</ubCoolness>
@@ -22624,7 +22624,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>554</ubGraphicNum>
-		<ubWeight>4</ubWeight>
+		<ubWeight>6</ubWeight>
 		<ubPerPocket>3</ubPerPocket>
 		<usPrice>500</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -22653,7 +22653,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>555</ubGraphicNum>
-		<ubWeight>6</ubWeight>
+		<ubWeight>10</ubWeight>
 		<ubPerPocket>3</ubPerPocket>
 		<usPrice>800</usPrice>
 		<ubCoolness>6</ubCoolness>
@@ -22760,7 +22760,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>155</ubGraphicNum>
-		<ubWeight>3</ubWeight>
+		<ubWeight>5</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>1600</usPrice>
 		<ubCoolness>8</ubCoolness>
@@ -22819,7 +22819,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>156</ubGraphicNum>
-		<ubWeight>1</ubWeight>
+		<ubWeight>0</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>1400</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -23245,7 +23245,7 @@
 		<szBRDesc>For the unhappy trigger-happy folks out there, we are proud to present the ACME Trigger Group!  Marksmanship skill too low?  Tired of firing too many bullets in autofire?  Simply attach the ACME Trigger Group to your favourite assault rifle and enjoy simple and effective 3-round burst fire.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicNum>160</ubGraphicNum>
-		<ubWeight>2</ubWeight>
+		<ubWeight>0</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>850</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -23346,7 +23346,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>545</ubGraphicNum>
-		<ubWeight>3</ubWeight>
+		<ubWeight>4</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>500</usPrice>
 		<ubCoolness>6</ubCoolness>
@@ -26844,7 +26844,7 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>722</ubGraphicNum>
-		<ubWeight>3</ubWeight>
+		<ubWeight>11</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>520</usPrice>
 		<ubCoolness>4</ubCoolness>
