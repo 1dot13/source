@@ -8881,4 +8881,44 @@
 		<szBRName>SIG MP41</szBRName>
 		<szBRDesc>This old Swiss SMG is fullauto-only and quite heavy, but its range is up to par with modern SMGs.</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1180</uiIndex>
+		<szItemName>ZF-42</szItemName>
+		<szLongItemName>ZF-42 Scope</szLongItemName>
+		<szItemDesc>German scope for the Gewehr 98 and the Karabiner 98k.</szItemDesc>
+		<szBRName>ZF-42 Scope</szBRName>
+		<szBRDesc>This vintage scope will fit the German Mauser WW-II rifles.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1181</uiIndex>
+		<szItemName>No.32 Scope</szItemName>
+		<szLongItemName>No.32 Scope</szLongItemName>
+		<szItemDesc>British scope used during WW-II.</szItemDesc>
+		<szBRName>No.32 Scope</szBRName>
+		<szBRDesc>A WW-II era scope of British manufacture, this was also used by other allied forces during that war.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1182</uiIndex>
+		<szItemName>PEM</szItemName>
+		<szLongItemName>PEM Scope</szLongItemName>
+		<szItemDesc>Russian WW-II era scope.</szItemDesc>
+		<szBRName>PEM Scope</szBRName>
+		<szBRDesc>Simply THE scope to mount onto the Mosin-Nagant rifle.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1183</uiIndex>
+		<szItemName>Match Sights</szItemName>
+		<szLongItemName>Match Sights</szLongItemName>
+		<szItemDesc>These match sights have been made for precision during competition shooting.</szItemDesc>
+		<szBRName>Match Sights</szBRName>
+		<szBRDesc>Fully adjustable iron sights to go with a Colt 1911, Glock, HK USP, or SIG pistol.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1184</uiIndex>
+		<szItemName>Camo Shirt</szItemName>
+		<szLongItemName>Underarmor Shirt</szLongItemName>
+		<szItemDesc>This shirt is designed to go under a ballistic vest, therefore DPM is only on the visible parts.</szItemDesc>
+		<szBRName>Underarmor Shirt</szBRName>
+		<szBRDesc>There's no need to have a fully camoed shirt when you wear a ballistic vest over it anyway, so this shirt was designed for use with those vests.</szBRDesc>
+	</ITEM>
 </ITEMLIST>

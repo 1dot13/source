@@ -1485,7 +1485,7 @@
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
 		<ubHitVolume>7</ubHitVolume>
-		<sSound>438</sSound>
+		<sSound>291</sSound>
 		<sReloadSound>100</sReloadSound>
 		<sLocknLoadSound>106</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -2053,7 +2053,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>336</uiIndex>
-		<szWeaponName>SIG P226R</szWeaponName>
+		<szWeaponName>SIG-Sauer P226R</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
@@ -6099,7 +6099,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>713</uiIndex>
-		<szWeaponName>SIG SG550</szWeaponName>
+		<szWeaponName>Swiss Arms SG550</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
@@ -6132,7 +6132,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>714</uiIndex>
-		<szWeaponName>SIG SG551 SWAT</szWeaponName>
+		<szWeaponName>Swiss Arms SG551 SWAT</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
@@ -6165,7 +6165,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>715</uiIndex>
-		<szWeaponName>SIG SG552 Commando</szWeaponName>
+		<szWeaponName>Swiss Arms SG552 Commando</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
@@ -6226,7 +6226,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>717</uiIndex>
-		<szWeaponName>SIG P226R .40</szWeaponName>
+		<szWeaponName>SIG-Sauer P226R .40</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>23</ubCalibre>
@@ -6252,7 +6252,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>718</uiIndex>
-		<szWeaponName>SIG P229R</szWeaponName>
+		<szWeaponName>SIG-Sauer P229R</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
@@ -6280,7 +6280,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>719</uiIndex>
-		<szWeaponName>SIG Pro</szWeaponName>
+		<szWeaponName>SIG Pro SPC</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>23</ubCalibre>
@@ -7118,8 +7118,6 @@
 		<ubAttackVolume>85</ubAttackVolume>
 		<ubHitVolume>8</ubHitVolume>
 		<sSound>347</sSound>
-		<sBurstSound>6</sBurstSound>
-		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>102</sReloadSound>
 		<sLocknLoadSound>108</sLocknLoadSound>
 		<SilencedSound>157</SilencedSound>
@@ -7582,8 +7580,8 @@
 		<BurstAniDelay>63</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
-		<sSound>370</sSound>
-		<sBurstSound>56</sBurstSound>
+		<sSound>473</sSound>
+		<sBurstSound>106</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>101</sReloadSound>
 		<sLocknLoadSound>107</sLocknLoadSound>
@@ -8117,7 +8115,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>780</uiIndex>
-		<szWeaponName>SA-24</szWeaponName>
+		<szWeaponName>SA vz.24</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>20</ubCalibre>
@@ -8717,7 +8715,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>799</uiIndex>
-		<szWeaponName>SIG P226 SAS</szWeaponName>
+		<szWeaponName>SIG-Sauer P226 SAS</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
@@ -8745,7 +8743,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>800</uiIndex>
-		<szWeaponName>SIG P226 SAS .40</szWeaponName>
+		<szWeaponName>SIG-Sauer P226 SAS .40</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>23</ubCalibre>
@@ -9258,7 +9256,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1064</uiIndex>
-		<szWeaponName>SIG P239 SAS</szWeaponName>
+		<szWeaponName>SIG-Sauer P239 SAS</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
@@ -9736,7 +9734,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1179</uiIndex>
-		<szWeaponName>SIG MP41</szWeaponName>
+		<szWeaponName>SIG MP41/44</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
@@ -9753,8 +9751,8 @@
 		<BurstAniDelay>63</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
 		<ubHitVolume>3</ubHitVolume>
-		<sSound>307</sSound>
-		<sBurstSound>124</sBurstSound>
+		<sSound>370</sSound>
+		<sBurstSound>56</sBurstSound>
 		<sSilencedBurstSound>111</sSilencedBurstSound>
 		<sReloadSound>101</sReloadSound>
 		<sLocknLoadSound>107</sLocknLoadSound>

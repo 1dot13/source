@@ -100,9 +100,9 @@
 		<uiIndex>12</uiIndex>
 		<szItemName>M4 Commando</szItemName>
 		<szLongItemName>Colt M4 Commando</szLongItemName>
-		<szItemDesc>Das M4 Commando mit 11.5" Lauf ist eine Weiterentwickklung des XM177 und COLT's kompaktestes 5.56mm Modell.</szItemDesc>
+		<szItemDesc>Das M4 Commando mit 11.5"-Lauf ist eine Weiterentwickklung des XM177 und COLT's kompaktestes 5.56mm Modell.</szItemDesc>
 		<szBRName>Colt M4 Commando</szBRName>
-		<szBRDesc>Das M4 Commando mit 11.5" Lauf ist eine Weiterentwickklung des XM177 und COLT's kompaktestes 5.56mm Modell. Seit 1997 wird es von den US Army Rangers verwendet. Feuermodus: S-F</szBRDesc>
+		<szBRDesc>Das M4 Commando mit 11.5"-Lauf ist eine Weiterentwickklung des XM177 und COLT's kompaktestes 5.56mm Modell. Seit 1997 wird es von US Army Rangers verwendet. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>13</uiIndex>
@@ -2754,9 +2754,9 @@
 		<uiIndex>346</uiIndex>
 		<szItemName>M635</szItemName>
 		<szLongItemName>Colt M635</szLongItemName>
-		<szItemDesc>Diese leichte und kompakte MP hat einen 10.5" Lauf und basiert auf dem weltberühmten M16A2/A4 Sturmgewehr. Sie wird u.a. vom SWAT-Team verwendet.</szItemDesc>
+		<szItemDesc>Diese leichte und kompakte MP hat einen 10.5"-Lauf und basiert auf dem weltberühmten M16A2/A4 Sturmgewehr. Sie wird u.a. vom SWAT-Team verwendet.</szItemDesc>
 		<szBRName>Colt M635</szBRName>
-		<szBRDesc>Diese leichte und kompakte MP hat einen 10.5" Lauf und basiert auf dem weltberühmten M16A2/A4 Sturmgewehr. Der geringe Rückstoß garantiert eine hohe Schussgenauigkeit, besonders im Dauerfeuer und erleichtert das Schießtraining. Feuermodus: S-F</szBRDesc>
+		<szBRDesc>Diese leichte und kompakte MP hat einen 10.5"-Lauf und basiert auf dem weltberühmten M16A2/A4 Sturmgewehr. Der geringe Rückstoß garantiert eine hohe Schussgenauigkeit, besonders im Dauerfeuer und erleichtert das Schießtraining. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>347</uiIndex>
@@ -4426,32 +4426,32 @@
 		<uiIndex>555</uiIndex>
 		<szItemName>.50 Beo Mag</szItemName>
 		<szLongItemName>.50 Beowulf Magazin</szLongItemName>
-		<szItemDesc>Dieses Magazin von ALEXANDER ARMS enthält 334gr. FMJ-Patronen im Kaliber .50 Beowulf für das gleichnamige Gewehr. Die VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden.</szItemDesc>
-		<szBRName>.50 Beo Magazin #7</szBRName>
-		<szBRDesc>Dieses Magazin von ALEXANDER ARMS enthält 334gr. FMJ-Patronen im Kaliber .50 Beowulf für das gleichnamige Gewehr. Die VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden.</szBRDesc>
+		<szItemDesc>Diese Patronen im Kaliber .50 Beowulf (12.5x42RB) werden von ALEXANDER ARMS für das gleichnamige Gewehr gefertigt. Die 334 gr. VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden.</szItemDesc>
+		<szBRName>.50 Beowulf #7</szBRName>
+		<szBRDesc>Diese Patronen im Kaliber .50 Beowulf (12.5x42RB) werden von ALEXANDER ARMS für das gleichnamige Gewehr gefertigt. Die 334 gr. VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>556</uiIndex>
 		<szItemName>.50 Beo Mag HS</szItemName>
 		<szLongItemName>.50 Beowulf Magazin, Hohlspitz</szLongItemName>
-		<szItemDesc>Dieses Magazin von ALEXANDER ARMS enthält 325gr. HS-Patronen im Kaliber .50 Beowulf für das gleichnamige Gewehr. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
-		<szBRName>.50 Beo Magazin HS #7</szBRName>
-		<szBRDesc>Dieses Magazin von ALEXANDER ARMS enthält 325gr. HS-Patronen im Kaliber .50 Beowulf für das gleichnamige Gewehr. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+		<szItemDesc>Diese HS-Patronen im Kaliber .50 Beowulf (12.5x42RB) werden von ALEXANDER ARMS für das gleichnamige Gewehr gefertigt. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szBRName>.50 Beowulf HS #7</szBRName>
+		<szBRDesc>Diese HS-Patronen im Kaliber .50 Beowulf (12.5x42RB) werden von ALEXANDER ARMS für das gleichnamige Gewehr gefertigt. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>557</uiIndex>
 		<szItemName>.50 Beo Mag</szItemName>
 		<szLongItemName>.50 Beowulf Magazin</szLongItemName>
-		<szItemDesc>Dieses Magazin ist eine Einzelanfertigung von ALEXANDER ARMS und enthält 334gr. FMJ-Patronen im Kaliber .50 Beowulf. Die VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden.</szItemDesc>
-		<szBRName>.50 Beo Magazin #4</szBRName>
+		<szItemDesc>Diese Patronen im Kaliber .50 Beowulf (12.5x42RB) werden von ALEXANDER ARMS gefertigt. Die 334 gr. VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden.</szItemDesc>
+		<szBRName>.50 Beowulf #4</szBRName>
 		<szBRDesc>not for sale at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>558</uiIndex>
 		<szItemName>.50 Beo Mag HS</szItemName>
 		<szLongItemName>.50 Beowulf Magazin, Hohlspitz</szLongItemName>
-		<szItemDesc>Dieses Magazin ist eine Einzelanfertigung von ALEXANDER ARMS und enthält 325gr. HS-Patronen im Kaliber .50 Beowulf. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
-		<szBRName>.50 Beo Magazin HS #4</szBRName>
+		<szItemDesc>Diese HS-Patronen im Kaliber .50 Beowulf (12.5x42RB) werden von ALEXANDER ARMS  gefertigt. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
+		<szBRName>.50 Beowulf HS #4</szBRName>
 		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -5050,9 +5050,9 @@
 		<uiIndex>633</uiIndex>
 		<szItemName>M4A1</szItemName>
 		<szLongItemName>Colt M4A1 Karabiner</szLongItemName>
-		<szItemDesc>Der M4-Karabiner mit 14.5" Lauf ist zuverlässig, sehr präzise und höchst effektiv. Er wird von Infanteriesoldaten, Spezialeinheiten und Einzelkämpfern favorisiert.</szItemDesc>
+		<szItemDesc>Der M4-Karabiner mit 14.5"-Lauf ist zuverlässig, sehr präzise und höchst effektiv. Er wird von Infanteriesoldaten, Spezialeinheiten und Einzelkämpfern favorisiert.</szItemDesc>
 		<szBRName>Colt M4A1 Karabiner</szBRName>
-		<szBRDesc>Der M4-Karabiner mit 14.5" Lauf ist eine Weiterentwicklung des XM177, sehr präzise und höchst effektiv. Er wird von Infanteriesoldaten, Spezialeinheiten und Einzelkämpfern favorisiert - klein, leicht &amp; tödlich! Feuermodus: S-F</szBRDesc>
+		<szBRDesc>Der M4-Karabiner mit 14.5"-Lauf ist eine Weiterentwicklung des XM177, sehr präzise und höchst effektiv. Seit 1997 wird er von US Army Rangers, FBI und SWAT verwendet. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>634</uiIndex>
@@ -5344,11 +5344,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>670</uiIndex>
-		<szItemName>HK Mk.23</szItemName>
-		<szLongItemName>HK Mark 23 SOCOM</szLongItemName>
-		<szItemDesc>Die Mark 23 garantiert dem Schützen absolute Matchpräzision, dennoch erfüllt sie alle Anforderungen die an eine Dienstwaffe gestellt werden.</szItemDesc>
-		<szBRName>HK Mk.23 SOCOM</szBRName>
-		<szBRDesc>Die Mk.23 garantiert dem Schützen absolute Matchpräzision, dennoch erfüllt sie die strengsten Anforderungen, die jemals an eine Dienstwaffe gestellt wurden. Die hohe Präzision und Zuverlässigkeit machen sie zu einer sehr beliebten Dienstwaffe.</szBRDesc>
+		<szItemName>HK MK23</szItemName>
+		<szLongItemName>HK Mark 23</szLongItemName>
+		<szItemDesc>Die MK23 garantiert dem Schützen absolute Matchpräzision, dennoch erfüllt sie die strengsten Einsatzanforderungen, die jemals an eine Dienstwaffe gestellt wurden.</szItemDesc>
+		<szBRName>HK Mark 23</szBRName>
+		<szBRDesc>Die MK23 garantiert dem Schützen absolute Matchpräzision. Nach härtesten Vergleichserprobungen wurde sie im Mai 1996 unter der Bezeichnung MK23 USSOCOM als Dienstpistole eingeführt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>671</uiIndex>
@@ -5356,7 +5356,7 @@
 		<szLongItemName>HK MP5/10A3</szLongItemName>
 		<szItemDesc>Diese Variante der MP5 im Kaliber 10x25mm stellt einen Kompromiss zwischen Kontrollierbarkeit und gesteigerter Feuerkraft dar.</szItemDesc>
 		<szBRName>HK MP5/10A3</szBRName>
-		<szBRDesc>Diese Variante der MP5 im Kaliber 10x25mm stellt einen Kompromiss zwischen Kontrollier- barkeit und gesteigerter Feuerkraft dar. Der stärkere Rückstoß wird durch die größere Durchschlagskraft ausgeglichen - erste Wahl im Nahkampf.</szBRDesc>
+		<szBRDesc>Diese Variante der MP5 im Kaliber 10x25mm stellt einen Kompromiss zwischen Kontrollier- barkeit und gesteigerter Feuerkraft dar. Der stärkere Rückstoß wird durch die größere Durchschlagskraft ausgeglichen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>672</uiIndex>
@@ -5600,11 +5600,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>702</uiIndex>
-		<szItemName>PPSh-41</szItemName>
-		<szLongItemName>PPSh-41</szLongItemName>
-		<szItemDesc>Diese russische MP wurde in den 40er Jahren entwickelt und löste teilweise den Nagant Karabiner ab.</szItemDesc>
-		<szBRName>PPSh-41</szBRName>
-		<szBRDesc>Diese russische MP wurde in den 40er Jahren entwickelt und löste teilweise den Nagant Karabiner ab. Aufgrund ihrer großen Reichweite und Feuerrate fand sie große Beachtung, besonders bei deutschen Soldaten.</szBRDesc>
+		<szItemName>PPSch-41</szItemName>
+		<szLongItemName>PPSch-41</szLongItemName>
+		<szItemDesc>Diese russische MP wurde in den 40er-Jahren entwickelt und löste teilweise den Nagant Karabiner ab.</szItemDesc>
+		<szBRName>PPSch-41</szBRName>
+		<szBRDesc>Diese russische MP wurde in den 40er-Jahren entwickelt und löste teilweise den Nagant Karabiner ab. Aufgrund ihrer großen Reichweite und Feuerrate fand sie große Beachtung, besonders bei deutschen Soldaten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>703</uiIndex>
@@ -5689,25 +5689,25 @@
 	<ITEM>
 		<uiIndex>713</uiIndex>
 		<szItemName>SG550</szItemName>
-		<szLongItemName>SIG SG550</szLongItemName>
-		<szItemDesc>Das SIG SG550 wurde in den 80er Jahren entwickelt, als die Schweizer Armee ein neues Sturmgewehr benötigte.</szItemDesc>
-		<szBRName>SIG SG550</szBRName>
-		<szBRDesc>Das SIG SG550 wurde in den 80er Jahren entwickelt, als die Schweizer Armee ein neues Sturmgewehr benötigte. Es handelt sich dabei um eine Weiterentwicklung des bereits in den Diensten der Schweizer Armee stehenden SIG540.</szBRDesc>
+		<szLongItemName>Swiss Arms SG550</szLongItemName>
+		<szItemDesc>Das SG550 wurde in den 80er Jahren entwickelt, als die Schweizer Armee ein neues Sturmgewehr benötigte.</szItemDesc>
+		<szBRName>Swiss Arms SG550</szBRName>
+		<szBRDesc>Das SG550 wurde in den 80er Jahren entwickelt, als die Schweizer Armee ein neues Sturmgewehr benötigte. Es handelt sich dabei um eine Weiterentwicklung des bereits in den Diensten der Schweizer Armee stehenden SIG540.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>714</uiIndex>
 		<szItemName>SG551</szItemName>
-		<szLongItemName>SIG SG551 SWAT</szLongItemName>
+		<szLongItemName>Swiss Arms SG551 SWAT</szLongItemName>
 		<szItemDesc>Das SG551 'SWAT' ist eine verkürzte Ausführung des SG550. Es eignet sich hervorragend für den Häuserkampf.</szItemDesc>
-		<szBRName>SIG SG551 SWAT</szBRName>
+		<szBRName>Swiss Arms SG551 SWAT</szBRName>
 		<szBRDesc>Das SG551 'SWAT' ist eine verkürzte Ausführung des SG550. Aufgrund der integrierten Trijicon ACOG Visiereinrichtung und des Mündungs- feuerdämpfers eignet es sich hervorragend für den Häuserkampf.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>715</uiIndex>
 		<szItemName>SG552</szItemName>
-		<szLongItemName>SIG SG552 Commando</szLongItemName>
+		<szLongItemName>Swiss Arms SG552 Commando</szLongItemName>
 		<szItemDesc>Das SG552 'Commando' ist eine weitere verkürzte Ausführung des SG550. Es eignet sich hervorragend für den Häuserkampf.</szItemDesc>
-		<szBRName>SIG SG552 Commando</szBRName>
+		<szBRName>Swiss Arms SG552 Commando</szBRName>
 		<szBRDesc>Das SG552 'Commando' ist eine weitere verkürzte Ausführung des SG550. Aufgrund der integrierten Trijicon ACOG Visiereinrichtung und des Mündungsfeuerdämpfers eignet es sich hervorragend für den Häuserkampf.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6082,25 +6082,25 @@
 		<uiIndex>762</uiIndex>
 		<szItemName>M16A1</szItemName>
 		<szLongItemName>Colt AR-15/M16A1</szLongItemName>
-		<szItemDesc>Das in den 60er Jahren von Eugene Stoner bei ARMALITE entwickelte AR-15 mit 20-Zoll-Lauf war aufgrund seiner Störanfälligkeit wenig beliebt.</szItemDesc>
+		<szItemDesc>Das in den 60er Jahren von Eugene Stoner bei ARMALITE entwickelte AR-15 mit 20"-Lauf war aufgrund seiner Störanfälligkeit wenig beliebt.</szItemDesc>
 		<szBRName>Colt AR-15/M16A1</szBRName>
-		<szBRDesc>Das AR-15 mit 20-Zoll-Lauf wurde in den 60er Jahren von Eugene Stoner bei ARMALITE entwickelt. Trotz der vielen Nachbesserungen durch COLT hat es seinen schlechten Ruf nie ganz verloren. Ende 1967 wurde es offiziell als M16A1 bei der US-Army eingeführt.</szBRDesc>
+		<szBRDesc>Das AR-15 mit 20"-Lauf wurde in den 60er Jahren von Eugene Stoner bei ARMALITE entwickelt. Trotz der vielen Nachbesserungen durch COLT hat es seinen schlechten Ruf nie ganz verloren. Ende 1967 wurde es offiziell als M16A1 bei der US-Army eingeführt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>763</uiIndex>
 		<szItemName>XM177-E1</szItemName>
 		<szLongItemName>Colt XM177-E1 Commando</szLongItemName>
-		<szItemDesc>Das XM177-E1 Commando mit 10-Zoll-Lauf ist die 2. Generation des CAR-15 Commando und wurde ab 1966 an US Special Forces in Vietnam geliefert.</szItemDesc>
+		<szItemDesc>Das XM177-E1 Commando mit 10"-Lauf ist die 2. Generation des CAR-15 Commando und wurde ab 1966 von US Special Forces in Vietnam eingesetzt.</szItemDesc>
 		<szBRName>Colt XM177-E1</szBRName>
-		<szBRDesc>Das XM177-E1 Commando mit 10-Zoll-Lauf ist die 2. Generation des CAR-15 Commando, der ersten Karabinerversion des M16. Das starke Mündungsfeuer und die enorme Lautstärke konnten durch einen neu entwickelten MF-Dämpfer reduziert werden.</szBRDesc>
+		<szBRDesc>Das XM177-E1 Commando mit 10"-Lauf ist die 2. Generation des CAR-15 Commando, der ersten Karabinerversion des M16. Das starke Mündungsfeuer und die enorme Lautstärke konnten durch einen neu entwickelten MF-Dämpfer reduziert werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>764</uiIndex>
 		<szItemName>CMMG 7.3"</szItemName>
 		<szLongItemName>CMMG 7.3"</szLongItemName>
-		<szItemDesc>Diese sehr große Pistole mit 7.3" lauf basiert ebenfalls auf dem bekannten AR-15-System und wird von CMMG in den USA gefertigt.</szItemDesc>
+		<szItemDesc>Diese sehr große Pistole mit 7.3"-Lauf basiert ebenfalls auf dem bekannten AR-15-System und wird von CMMG in den USA gefertigt.</szItemDesc>
 		<szBRName>CMMG 7.3"</szBRName>
-		<szBRDesc>Diese sehr große Pistole mit 7.3" Lauf basiert ebenfalls auf dem bekannten AR-15-System und wird von CMMG in den USA gefertigt. Sie werden die 'Desert Eagle' und andere Großkaliber-Revolver vergessen, wenn Sie einmal mit ihr geschossen haben - versprochen!</szBRDesc>
+		<szBRDesc>Diese sehr große Pistole mit 7.3"-Lauf basiert ebenfalls auf dem bekannten AR-15-System und wird von CMMG in den USA gefertigt. Sie werden die 'Desert Eagle' und andere Großkaliber-Revolver vergessen, wenn Sie einmal mit ihr geschossen haben - versprochen!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>765</uiIndex>
@@ -6192,11 +6192,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>776</uiIndex>
-		<szItemName>Karabiner 98k</szItemName>
-		<szLongItemName>Mauser Karabiner 98k</szLongItemName>
-		<szItemDesc>Dieser Karabiner ist die auf 600mm Lauflänge gekürzte Variante des Gewehr 98. Bis heute wurden weltweit ca. 100 Mio. Stück Modell 98 gefertigt.</szItemDesc>
+		<szItemName>K 98k</szItemName>
+		<szLongItemName>Mauser Karabiner 98 kurz</szLongItemName>
+		<szItemDesc>Der Karabiner 98k mit 600mm-Lauf ist eine gekürzte Variante des Gewehr 98. Bis heute wurden weltweit ca. 100 Mio. Stück Modell 98 gefertigt.</szItemDesc>
 		<szBRName>Mauser Karabiner 98k</szBRName>
-		<szBRDesc>Dieser Karabiner ist die auf 600mm Lauflänge gekürzte Variante des Gewehr 98. In den 60er Jahren verhalfen Großwildjäger in Indien und Afrika dem Gewehr 98 zu seinem legendären Ruhm. Bestellen Sie noch heute die limitierte Jubiläums-Edition von 1998 bei uns!</szBRDesc>
+		<szBRDesc>Der Karabiner 98k mit 600mm-Lauf ist eine gekürzte Variante des Gewehr 98 und war ab 1935 die Standardwaffe der dt. Soldaten. Heute ist der K 98k im Original-Kaliber 8x57IS eine beliebte Jagdbüchse.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>777</uiIndex>
@@ -6224,10 +6224,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>780</uiIndex>
-		<szItemName>SA-24</szItemName>
-		<szLongItemName>SA-24</szLongItemName>
+		<szItemName>SA vz.24</szItemName>
+		<szLongItemName>SA vz.24</szLongItemName>
 		<szItemDesc>Diese tschechische MP wurde von 1949-68 produziert und vornehmlich in Ostblockländer geliefert.</szItemDesc>
-		<szBRName>SA-24</szBRName>
+		<szBRName>SA vz.24</szBRName>
 		<szBRDesc>Diese ältere tschechische MP verschießt Patronen im russischen Kaliber 7.62x25mm. Es wird behauptet, dass auch die 7.63mm Mauser Pistolen Patrone verwendet werden kann.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6258,9 +6258,9 @@
 		<uiIndex>784</uiIndex>
 		<szItemName>Mauser M-03</szItemName>
 		<szLongItemName>Mauser M-03</szLongItemName>
-		<szItemDesc>Diese präzise Jagdrepetierbüchse in der Ausführung 'Solid' nutzt das original Kaliber 8x57IS und brilliert auf weite Distanzen aber auch in Drückjagdsituationen.</szItemDesc>
+		<szItemDesc>Diese präzise Jagdrepetierbüchse in der Ausführung 'Solid' nutzt das Original-Kaliber 8x57IS und brilliert auf weite Distanzen aber auch in Drückjagdsituationen.</szItemDesc>
 		<szBRName>Mauser M-03</szBRName>
-		<szBRDesc>Diese präzise Jagdrepetierbüchse in der Ausführung 'Solid' nutzt das original Kaliber 8x57IS und brilliert auf weite Distanzen aber auch in Drückjagdsituationen. Besondere Merkmale sind ihre dicke Laufkontur und das mitgelieferte Zielfernrohr.</szBRDesc>
+		<szBRDesc>Diese präzise Jagdrepetierbüchse in der Ausführung 'Solid' nutzt das Original-Kaliber 8x57IS und brilliert auf weite Distanzen aber auch in Drückjagdsituationen. Besondere Merkmale sind ihre dicke Laufkontur und das mitgelieferte Zielfernrohr.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>785</uiIndex>
@@ -6346,9 +6346,9 @@
 		<uiIndex>795</uiIndex>
 		<szItemName>M468</szItemName>
 		<szLongItemName>Barrett M468</szLongItemName>
-		<szItemDesc>Das neue Sturmgewehr M468 von BARRETT mit hartverchromten 16-Zoll-Lauf im neuen Kaliber 6.8mm SPC garantiert hohe Präzision und Langlebigkeit.</szItemDesc>
+		<szItemDesc>Das neue Sturmgewehr M468 von BARRETT mit hartverchromten 16-Zoll-Lauf im Kaliber 6.8mm SPC garantiert hohe Präzision und Langlebigkeit.</szItemDesc>
 		<szBRName>Barrett M468</szBRName>
-		<szBRDesc>Vielleicht nicht gerade das was Sie erwarten wenn Sie den Namen BARRETT hören, aber wir versichern Ihnen, dass dieses Gewehr die gewohnt hohe Qualität &amp; Präzision wie alle anderen Barrett-Gewehre aufweist.</szBRDesc>
+		<szBRDesc>Das M468 ist die neueste Entwicklung aus dem Hause BARRET. Hierbei handelt es sich um ein modifiziertes M4 mit größerer Reichweite, Durchschlagskraft und Mannstoppwirkung im Vergleich zum üblichen Kaliber.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>796</uiIndex>
@@ -6364,7 +6364,7 @@
 		<szLongItemName>Robarms XCR-1</szLongItemName>
 		<szItemDesc>Das Robarms XCR-1 ist eine weitere Variante des AR15, hier im Kaliber 6.8mm SPC mit klappbarer Schulterstütze.</szItemDesc>
 		<szBRName>Robarms XCR-1</szBRName>
-		<szBRDesc>Das Robarms XCR-1 ist eine weitere Variante des AR15, hier im Kaliber 6.8mm SPC mit klappbarer Schulterstütze.</szBRDesc>
+		<szBRDesc>Das Robarms XCR-1 ist eine weitere Variante des AR15, hier im Kaliber 6.8x43mm Remington SPC mit klappbarer Schulterstütze.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>798</uiIndex>
@@ -8582,17 +8582,17 @@
 		<uiIndex>1075</uiIndex>
 		<szItemName>MG3</szItemName>
 		<szLongItemName>Rheinmetall MG3</szLongItemName>
-		<szItemDesc>Als die Bundeswehr gegründet wurde, nahm man das MG42, benannte es in MG3 um und verringerte die Feuerrate. Es war damals das beste Mehrzweck-MG der Welt.</szItemDesc>
+		<szItemDesc>Als die Bundeswehr gegründet wurde, nahm man das MG42, benannte es in MG3 um und verringerte die Feuerrate. Es galt seinerzeit als das beste Mehrzweck-MG.</szItemDesc>
 		<szBRName>Rheinmetall MG3</szBRName>
-		<szBRDesc>Dieses MG aus dem 2. Weltkrieg bietet Befestigungspunkte für ein Zwei- oder Dreibein, ein Luftkampfvisier und leicht zu wechselnde Läufe. Es wird nicht umsonst als das beste Mehrzweck-MG der damaligen Zeit bezeichnet.</szBRDesc>
+		<szBRDesc>Dieses MG aus dem 2. Weltkrieg hat Befestigungspunkte für ein Zwei- oder Dreibein, ein Luftkampfvisier und leicht zu wechselnde Läufe. Es galt seinerzeit als das beste Mehrzweck-MG.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1076</uiIndex>
 		<szItemName>Shrike</szItemName>
 		<szLongItemName>Ares M4 Shrike</szLongItemName>
-		<szItemDesc>Das M4 Sturmgewehr wurde durch ARES zu einem leichten Maschinengewehr aufgerüstet. Viel Spaß!</szItemDesc>
+		<szItemDesc>Das von ARES modifizierte M4 Sturmgewehr kann als LMG bezeichnet werden.</szItemDesc>
 		<szBRName>Ares M4 Shrike</szBRName>
-		<szBRDesc>Das M4 Sturmgewehr wurde durch ARES zu einem leichten Maschinengewehr aufgerüstet. Aufgrund des integrierten vorderen Handgriffs lässt es sich im Dauerfeuer besser kontrollieren.</szBRDesc>
+		<szBRDesc>Das von ARES modifizierte M4 Sturmgewehr kann als LMG bezeichnet werden. Aufgrund des integrierten vorderen Handgriffs lässt es sich im Dauerfeuer besser kontrollieren.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1077</uiIndex>
@@ -9016,16 +9016,56 @@
 		<uiIndex>1178</uiIndex>
 		<szItemName>MAT-49</szItemName>
 		<szLongItemName>MAT-49</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Diese franz. MP aus den 50er-Jahren wurde aufgrund ihrer kompakten Maße bevorzugt von Luftlandetruppen verwendet.</szItemDesc>
 		<szBRName>MAT-49</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Diese franz. MP aus den 50er-Jahren wurde aufgrund ihrer kompakten Maße bevorzugt von Luftlandetruppen verwendet. Die Schulterstütze kann eingeschoben, der Haltegriff mit Magazin zum Transport unter den Lauf geklappt werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1179</uiIndex>
-		<szItemName>SIG MP41</szItemName>
-		<szLongItemName>SIG MP41</szLongItemName>
+		<szItemName>SIG MP41/44</szItemName>
+		<szLongItemName>SIG MP41/44</szLongItemName>
+		<szItemDesc>Diese schweizer MP aus den 30er-Jahren besitzt nur Dauerfeuer und ist recht schwer, aber ihre Reichweite ist vergleichbar mit modernen MPs.</szItemDesc>
+		<szBRName>SIG MP41/44</szBRName>
+		<szBRDesc>Die MP41/44 auch als 'LMG 25 Pistole' bekannt wurde Anfang der 20er-Jahre von Oberst Adolf Fürrer, dem damaligen Direktor der Waffenfabrik Bern, entwickelt. Zwischen 1924-1946 wurden insgesamt 23.045 Stück hergestellt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1180</uiIndex>
+		<szItemName>ZF-42</szItemName>
+		<szLongItemName>ZF-42 Scope</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>SIG MP41</szBRName>
+		<szBRName>ZF-42 Scope</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1181</uiIndex>
+		<szItemName>No.32 Scope</szItemName>
+		<szLongItemName>No.32 Scope</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>No.32 Scope</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1182</uiIndex>
+		<szItemName>PEM</szItemName>
+		<szLongItemName>PEM Scope</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>PEM Scope</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1183</uiIndex>
+		<szItemName>Match Sights</szItemName>
+		<szLongItemName>Match Sights</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Match Sights</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1184</uiIndex>
+		<szItemName>Camo Shirt</szItemName>
+		<szLongItemName>Underarmor Shirt</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Underarmor Shirt</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 </ITEMLIST>
