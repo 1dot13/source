@@ -1264,6 +1264,7 @@ void InitStrategicAI()
 					gArmyComp[ i ].bAdminPercentage = 0;
 				}
 			}
+			break;
 		case DIF_LEVEL_INSANE:
 			for( i = 0; i < NUM_ARMY_COMPOSITIONS; i++ )
 			{
