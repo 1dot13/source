@@ -2053,7 +2053,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>336</uiIndex>
-		<szWeaponName>SIG-Sauer P226R</szWeaponName>
+		<szWeaponName>SIG P226R</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
@@ -4718,7 +4718,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>668</uiIndex>
-		<szWeaponName>HK MG36E</szWeaponName>
+		<szWeaponName>HK MG36 RAS</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>7</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
@@ -4744,7 +4744,7 @@
 		<SilencedSound>156</SilencedSound>
 		<bBurstAP>3</bBurstAP>
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
-		<APsToReload>2</APsToReload>
+		<APsToReload>6</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>7</AutoPenalty>
@@ -6099,7 +6099,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>713</uiIndex>
-		<szWeaponName>Swiss Arms SG550</szWeaponName>
+		<szWeaponName>SIG SG550</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
@@ -6132,7 +6132,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>714</uiIndex>
-		<szWeaponName>Swiss Arms SG551 SWAT</szWeaponName>
+		<szWeaponName>SIG SG551 SWAT</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
@@ -6165,7 +6165,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>715</uiIndex>
-		<szWeaponName>Swiss Arms SG552 Commando</szWeaponName>
+		<szWeaponName>SIG SG552 Commando</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>8</ubCalibre>
@@ -6226,7 +6226,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>717</uiIndex>
-		<szWeaponName>SIG-Sauer P226R .40</szWeaponName>
+		<szWeaponName>SIG P226R .40</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>23</ubCalibre>
@@ -6252,7 +6252,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>718</uiIndex>
-		<szWeaponName>SIG-Sauer P229R</szWeaponName>
+		<szWeaponName>SIG P229R</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
@@ -6280,7 +6280,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>719</uiIndex>
-		<szWeaponName>SIG Pro SPC</szWeaponName>
+		<szWeaponName>SIG Pro</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>23</ubCalibre>
@@ -8115,7 +8115,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>780</uiIndex>
-		<szWeaponName>SA vz.24</szWeaponName>
+		<szWeaponName>SA-24</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>20</ubCalibre>
@@ -8715,7 +8715,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>799</uiIndex>
-		<szWeaponName>SIG-Sauer P226 SAS</szWeaponName>
+		<szWeaponName>SIG P226 SAS</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
@@ -8743,7 +8743,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>800</uiIndex>
-		<szWeaponName>SIG-Sauer P226 SAS .40</szWeaponName>
+		<szWeaponName>SIG P226 SAS .40</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>23</ubCalibre>
@@ -9256,7 +9256,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1064</uiIndex>
-		<szWeaponName>SIG-Sauer P239 SAS</szWeaponName>
+		<szWeaponName>SIG P239 SAS</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
@@ -9763,6 +9763,74 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<AutoPenalty>8</AutoPenalty>
+		<NoSemiAuto>1</NoSemiAuto>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1187</uiIndex>
+		<szWeaponName>HK MG36</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>7</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>4</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubShotsPerBurst>3</ubShotsPerBurst>
+		<ubBurstPenalty>7</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>35</ubDeadliness>
+		<bAccuracy>5</bAccuracy>
+		<ubMagSize>100</ubMagSize>
+		<usRange>370</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>40</BurstAniDelay>
+		<ubAttackVolume>75</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>482</sSound>
+		<sBurstSound>107</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>3</bBurstAP>
+		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
+		<APsToReload>6</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>7</AutoPenalty>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1188</uiIndex>
+		<szWeaponName>CETME Ameli</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>7</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>5</ubReadyTime>
+		<ubShotsPer4Turns>15</ubShotsPer4Turns>
+		<ubBurstPenalty>7</ubBurstPenalty>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>30</ubImpact>
+		<ubDeadliness>35</ubDeadliness>
+		<bAccuracy>5</bAccuracy>
+		<ubMagSize>200</ubMagSize>
+		<usRange>360</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>40</BurstAniDelay>
+		<ubAttackVolume>78</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>345</sSound>
+		<sBurstSound>37</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>104</sReloadSound>
+		<sLocknLoadSound>110</sLocknLoadSound>
+		<SilencedSound>156</SilencedSound>
+		<bBurstAP>2</bBurstAP>
+		<bAutofireShotsPerFiveAP>5</bAutofireShotsPerFiveAP>
+		<APsToReload>6</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<AutoPenalty>7</AutoPenalty>
 		<NoSemiAuto>1</NoSemiAuto>
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>

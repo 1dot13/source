@@ -4677,7 +4677,10 @@
 		<MinRangeForAimBonus>70</MinRangeForAimBonus>
 		<PercentAPReduction>-9</PercentAPReduction>
 		<DamageBonus>2</DamageBonus>
-		<VisionRangeBonus>90</VisionRangeBonus>
+		<NightVisionRangeBonus>45</NightVisionRangeBonus>
+		<DayVisionRangeBonus>90</DayVisionRangeBonus>
+		<CaveVisionRangeBonus>15</CaveVisionRangeBonus>
+		<BrightLightVisionRangeBonus>90</BrightLightVisionRangeBonus>
 		<PercentTunnelVision>90</PercentTunnelVision>
 	</ITEM>
 	<ITEM>
@@ -14571,7 +14574,7 @@
 		<szLongItemName>HK G36 RAS</szLongItemName>
 		<szItemDesc>The G36 RAS is a conventional gas operated, selective fire rifle, made from mostly modern materials and using mostly modern technologies.</szItemDesc>
 		<szBRName>HK G36 RAS</szBRName>
-		<szBRDesc>The G36 is a conventional gas operated, selective fire rifle, using mostly modern materials and technologies. Unlike the 'E'-version, the 'RAS' is outfitted with the Picatinny rails.</szBRDesc>
+		<szBRDesc>The G36 is a conventional gas operated, selective fire rifle, using mostly modern materials and technologies. Unlike the 'E'-version, the 'RAS' is outfitted with Picatinny rails.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>665</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -14656,15 +14659,15 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>668</uiIndex>
-		<szItemName>MG36E</szItemName>
-		<szLongItemName>HK MG36E</szLongItemName>
+		<szItemName>MG36 RAS</szItemName>
+		<szLongItemName>HK MG36 RAS</szLongItemName>
 		<szItemDesc>Not as bulky or heavy as other LMG's, this gun still has a rate of fire that will frappe an enemy in no time.</szItemDesc>
-		<szBRName>HK MG36E</szBRName>
-		<szBRDesc>HK has blessed us with their new versatile, multi-role squad machine gun. Great for cutting down men and trees alike.</szBRDesc>
+		<szBRName>HK MG36 RAS</szBRName>
+		<szBRDesc>HK has blessed us with their new versatile, multi-role squad machine gun. This version is outfitted with Picatinny rails.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>668</ubClassIndex>
 		<ubCursor>3</ubCursor>
-		<ubGraphicNum>156</ubGraphicNum>
+		<ubGraphicNum>334</ubGraphicNum>
 		<ubWeight>35</ubWeight>
 		<usPrice>4080</usPrice>
 		<ubCoolness>7</ubCoolness>
@@ -22640,7 +22643,10 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>12</AimBonus>
 		<MinRangeForAimBonus>45</MinRangeForAimBonus>
-		<VisionRangeBonus>40</VisionRangeBonus>
+		<NightVisionRangeBonus>20</NightVisionRangeBonus>
+		<DayVisionRangeBonus>40</DayVisionRangeBonus>
+		<CaveVisionRangeBonus>10</CaveVisionRangeBonus>
+		<BrightLightVisionRangeBonus>40</BrightLightVisionRangeBonus>
 		<PercentTunnelVision>30</PercentTunnelVision>
 	</ITEM>
 	<ITEM>
@@ -22670,7 +22676,10 @@
 		<AimBonus>17</AimBonus>
 		<MinRangeForAimBonus>70</MinRangeForAimBonus>
 		<DamageBonus>1</DamageBonus>
-		<VisionRangeBonus>70</VisionRangeBonus>
+		<NightVisionRangeBonus>35</NightVisionRangeBonus>
+		<DayVisionRangeBonus>70</DayVisionRangeBonus>
+		<CaveVisionRangeBonus>10</CaveVisionRangeBonus>
+		<BrightLightVisionRangeBonus>70</BrightLightVisionRangeBonus>
 		<PercentTunnelVision>80</PercentTunnelVision>
 	</ITEM>
 	<ITEM>
@@ -22777,7 +22786,9 @@
 		<AimBonus>10</AimBonus>
 		<MinRangeForAimBonus>20</MinRangeForAimBonus>
 		<PercentAPReduction>20</PercentAPReduction>
-		<VisionRangeBonus>20</VisionRangeBonus>
+		<NightVisionRangeBonus>10</NightVisionRangeBonus>
+		<DayVisionRangeBonus>20</DayVisionRangeBonus>
+		<BrightLightVisionRangeBonus>20</BrightLightVisionRangeBonus>
 		<PercentTunnelVision>20</PercentTunnelVision>
 	</ITEM>
 	<ITEM>
@@ -22819,7 +22830,6 @@
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>156</ubGraphicNum>
-		<ubWeight>0</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>1400</usPrice>
 		<ubCoolness>9</ubCoolness>
@@ -22860,7 +22870,10 @@
 		<AimBonus>15</AimBonus>
 		<MinRangeForAimBonus>45</MinRangeForAimBonus>
 		<DamageBonus>1</DamageBonus>
-		<VisionRangeBonus>50</VisionRangeBonus>
+		<NightVisionRangeBonus>25</NightVisionRangeBonus>
+		<DayVisionRangeBonus>50</DayVisionRangeBonus>
+		<CaveVisionRangeBonus>10</CaveVisionRangeBonus>
+		<BrightLightVisionRangeBonus>50</BrightLightVisionRangeBonus>
 		<PercentTunnelVision>70</PercentTunnelVision>
 	</ITEM>
 	<ITEM>
@@ -23245,7 +23258,6 @@
 		<szBRDesc>For the unhappy trigger-happy folks out there, we are proud to present the ACME Trigger Group!  Marksmanship skill too low?  Tired of firing too many bullets in autofire?  Simply attach the ACME Trigger Group to your favourite assault rifle and enjoy simple and effective 3-round burst fire.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicNum>160</ubGraphicNum>
-		<ubWeight>0</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>850</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -23333,7 +23345,9 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>5</AimBonus>
 		<MinRangeForAimBonus>10</MinRangeForAimBonus>
-		<VisionRangeBonus>10</VisionRangeBonus>
+		<NightVisionRangeBonus>5</NightVisionRangeBonus>
+		<DayVisionRangeBonus>10</DayVisionRangeBonus>
+		<BrightLightVisionRangeBonus>10</BrightLightVisionRangeBonus>
 		<PercentTunnelVision>10</PercentTunnelVision>
 	</ITEM>
 	<ITEM>
@@ -23362,7 +23376,9 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>10</AimBonus>
 		<MinRangeForAimBonus>20</MinRangeForAimBonus>
-		<VisionRangeBonus>20</VisionRangeBonus>
+		<NightVisionRangeBonus>10</NightVisionRangeBonus>
+		<DayVisionRangeBonus>20</DayVisionRangeBonus>
+		<BrightLightVisionRangeBonus>20</BrightLightVisionRangeBonus>
 		<PercentTunnelVision>20</PercentTunnelVision>
 	</ITEM>
 	<ITEM>
@@ -26831,7 +26847,8 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>10</AimBonus>
 		<MinRangeForAimBonus>20</MinRangeForAimBonus>
-		<VisionRangeBonus>20</VisionRangeBonus>
+		<DayVisionRangeBonus>20</DayVisionRangeBonus>
+		<BrightLightVisionRangeBonus>20</BrightLightVisionRangeBonus>
 		<PercentTunnelVision>20</PercentTunnelVision>
 	</ITEM>
 	<ITEM>
@@ -26859,7 +26876,8 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>11</AimBonus>
 		<MinRangeForAimBonus>20</MinRangeForAimBonus>
-		<VisionRangeBonus>20</VisionRangeBonus>
+		<DayVisionRangeBonus>20</DayVisionRangeBonus>
+		<BrightLightVisionRangeBonus>20</BrightLightVisionRangeBonus>
 		<PercentTunnelVision>20</PercentTunnelVision>
 	</ITEM>
 	<ITEM>
@@ -26887,7 +26905,8 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>9</AimBonus>
 		<MinRangeForAimBonus>20</MinRangeForAimBonus>
-		<VisionRangeBonus>20</VisionRangeBonus>
+		<DayVisionRangeBonus>20</DayVisionRangeBonus>
+		<BrightLightVisionRangeBonus>20</BrightLightVisionRangeBonus>
 		<PercentTunnelVision>20</PercentTunnelVision>
 	</ITEM>
 	<ITEM>
@@ -26901,7 +26920,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>724</ubGraphicNum>
 		<ubPerPocket>4</ubPerPocket>
-		<usPrice>1</usPrice>
+		<usPrice>300</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -26933,5 +26952,110 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<CamoBonus>5</CamoBonus>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1185</uiIndex>
+		<szItemName>Rails</szItemName>
+		<szLongItemName>G36 Rail-Kit</szLongItemName>
+		<szItemDesc>A set of forward Picatinny Rails and a rail to replace the carrying grip</szItemDesc>
+		<szBRName>G36 Rail-Kit</szBRName>
+		<szBRDesc>Change your G36/G36K/MG36 to a more versatile gun with this set of Picatinny Rails.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicNum>335</ubGraphicNum>
+		<ubWeight>8</ubWeight>
+		<usPrice>750</usPrice>
+		<ubCoolness>6</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>1</BR_NewInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1186</uiIndex>
+		<szItemName>Carry Grip</szItemName>
+		<szLongItemName>G36 Grip/Optics</szLongItemName>
+		<szItemDesc>A carrying grip with integrated optics and a standard handguard.</szItemDesc>
+		<szBRName>G36 Grip/Optics</szBRName>
+		<szBRDesc>The G36 standard equipment: Handguard and Carry Grip with mounted dual optics.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicNum>336</ubGraphicNum>
+		<ubWeight>8</ubWeight>
+		<usPrice>1500</usPrice>
+		<ubCoolness>6</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>1</BR_NewInventory>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1187</uiIndex>
+		<szItemName>MG36</szItemName>
+		<szLongItemName>HK MG36</szLongItemName>
+		<szItemDesc>Not as bulky or heavy as other LMG's, this gun still has a rate of fire that will frappe an enemy in no time.</szItemDesc>
+		<szBRName>HK MG36</szBRName>
+		<szBRDesc>HK has blessed us with their new versatile, multi-role squad machine gun. This version has the Bundeswehr grip with integrated optics.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1187</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>333</ubGraphicNum>
+		<ubWeight>35</ubWeight>
+		<usPrice>6080</usPrice>
+		<ubCoolness>7</ubCoolness>
+		<bReliability>3</bReliability>
+		<bRepairEase>-1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>750</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<AimBonus>10</AimBonus>
+		<MinRangeForAimBonus>20</MinRangeForAimBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
+		<PercentAPReduction>20</PercentAPReduction>
+		<VisionRangeBonus>25</VisionRangeBonus>
+		<PercentTunnelVision>20</PercentTunnelVision>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1188</uiIndex>
+		<szItemName>Ameli</szItemName>
+		<szLongItemName>CETME Ameli</szLongItemName>
+		<szItemDesc>Designed by the Compania de Estudios Tecnicus de Materiales Especiales, the Ameli looks as if it was derived from the MG42, but its mechanism is quite different.</szItemDesc>
+		<szBRName>CETME Ameli</szBRName>
+		<szBRDesc>The Ameli we have in stock are the 'light-bolt'-versions with a higher rate of fire than the 'heavy-bolt'-model. Comes with bipod.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1188</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>326</ubGraphicNum>
+		<ubWeight>63</ubWeight>
+		<usPrice>5370</usPrice>
+		<ubCoolness>6</ubCoolness>
+		<bReliability>1</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>1200</BR_ROF>
+		<DefaultAttachment>209</DefaultAttachment>
 	</ITEM>
 </ITEMLIST>

@@ -9068,4 +9068,26 @@
 		<szBRName>Underarmor Shirt</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1185</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1186</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1187</uiIndex>
+		<szItemName>MG36</szItemName>
+		<szLongItemName>HK MG36</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>HK MG36</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1188</uiIndex>
+		<szItemName>Ameli</szItemName>
+		<szLongItemName>CETME Ameli</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>CETME Ameli</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
 </ITEMLIST>

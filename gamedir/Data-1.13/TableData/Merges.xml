@@ -3432,4 +3432,52 @@
 		<mergeType>6</mergeType>
 		<APCost>5</APCost>
 	</MERGE>
+	<MERGE>
+		<firstItemIndex>1185</firstItemIndex>
+		<secondItemIndex>755</secondItemIndex>
+		<firstResultingItemIndex>665</firstResultingItemIndex>
+		<secondResultingItemIndex>1186</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>20</APCost>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1185</firstItemIndex>
+		<secondItemIndex>756</secondItemIndex>
+		<firstResultingItemIndex>666</firstResultingItemIndex>
+		<secondResultingItemIndex>1186</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>20</APCost>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1185</firstItemIndex>
+		<secondItemIndex>1187</secondItemIndex>
+		<firstResultingItemIndex>668</firstResultingItemIndex>
+		<secondResultingItemIndex>1186</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>20</APCost>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1186</firstItemIndex>
+		<secondItemIndex>665</secondItemIndex>
+		<firstResultingItemIndex>755</firstResultingItemIndex>
+		<secondResultingItemIndex>1185</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>20</APCost>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1186</firstItemIndex>
+		<secondItemIndex>666</secondItemIndex>
+		<firstResultingItemIndex>756</firstResultingItemIndex>
+		<secondResultingItemIndex>1185</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>20</APCost>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>1186</firstItemIndex>
+		<secondItemIndex>668</secondItemIndex>
+		<firstResultingItemIndex>1187</firstResultingItemIndex>
+		<secondResultingItemIndex>1185</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>20</APCost>
+	</MERGE>
 </MERGELIST>
