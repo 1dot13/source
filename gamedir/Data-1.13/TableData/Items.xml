@@ -21560,8 +21560,8 @@
 		<szBRName>Rifle LAM-Flashlight</szBRName>
 		<szBRDesc>This Laser Aiming Module and tactical flashlight combination is meant to fit on modern rifle rail interface systems.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>566</ubGraphicNum>
+		<ubGraphicType>0</ubGraphicType>
+		<ubGraphicNum>341</ubGraphicNum>
 		<ubWeight>4</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
 		<usPrice>2500</usPrice>
