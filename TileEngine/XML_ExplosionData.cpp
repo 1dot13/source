@@ -24,10 +24,10 @@ struct
 	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 
 	EXPLOSION_DATA  expData;
-	UINT32			maxArraySize;
-	UINT32			curIndex;	
-	UINT32			currentDepth;
-	UINT32			maxReadDepth;
+	INT32			maxArraySize;
+	INT32			curIndex;	
+	INT32			currentDepth;
+	INT32			maxReadDepth;
 }
 typedef explosionDataParseData;
 

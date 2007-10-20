@@ -68,8 +68,8 @@ UINT32 iTPButtons[ NUM_TP_BUTTONS ];
 extern BOOLEAN gfOverheadMapDirty;
 extern BOOLEAN GetOverheadMouseGridNo( INT16 *psGridNo );
 
-extern int iOffsetHorizontal;
-extern int iOffsetVertical;
+extern UINT16 iOffsetHorizontal;
+extern UINT16 iOffsetVertical;
 
 UINT8	gubDefaultButton = CLEAR_BUTTON;
 BOOLEAN gfTacticalPlacementGUIActive = FALSE;

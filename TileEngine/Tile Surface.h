@@ -7,7 +7,7 @@ extern TILE_IMAGERY		*gTileSurfaceArray[ NUMBEROFTILETYPES ];
 extern UINT8			gbDefaultSurfaceUsed[ NUMBEROFTILETYPES ];
 extern UINT8			gbSameAsDefaultSurfaceUsed[ NUMBEROFTILETYPES ];
 
-TILE_IMAGERY *LoadTileSurface(  char * cFilename );
+TILE_IMAGERY *LoadTileSurface(  STR8 cFilename );
 
 void DeleteTileSurface( PTILE_IMAGERY	pTileSurf );
 

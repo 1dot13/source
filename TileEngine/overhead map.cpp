@@ -91,8 +91,8 @@ INT16							gsStartRestrictedX, gsStartRestrictedY;
 BOOLEAN						gfOverItemPool = FALSE;
 INT16							gsOveritemPoolGridNo;
 
-int iOffsetHorizontal;	// Horizontal start postion of the overview map
-int	iOffsetVertical;	// Vertical start position of the overview map	
+UINT16 iOffsetHorizontal;	// Horizontal start postion of the overview map
+UINT16 iOffsetVertical;	// Vertical start position of the overview map	
 
 
 void HandleOverheadUI( );

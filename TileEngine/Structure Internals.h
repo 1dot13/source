@@ -174,10 +174,10 @@ typedef struct TAG_STRUCTURE
 			UINT8											ubHitPoints;
 			UINT8											ubLockStrength;
 		};
-		struct
-		{
+		//struct
+		//{
 			INT16											sBaseGridNo;
-		};
+		//};
 	}; // 2 bytes
 	INT16													sCubeOffset;// height of bottom of object in profile "cubes"
 	UINT32												fFlags; // need to have something to indicate base tile/not
@@ -216,14 +216,14 @@ typedef struct TAG_STRUCTURE_FILE_HEADER
 	CHAR8		szId[4];
 	union
 	{
-		struct
-		{
+		//struct
+		//{
 			UINT16	usNumberOfStructures;
-		};
-		struct
-		{
+		//};
+		//struct
+		//{
 			UINT16	usNumberOfImages;
-		};
+		//};
 	};
 	UINT16	usNumberOfStructuresStored;
 	UINT16	usStructureDataSize;

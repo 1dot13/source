@@ -500,8 +500,8 @@ void UpdateExplosionFrame( INT32 iIndex, INT16 sCurrentFrame )
 		if ( gExplosionData[iIndex].iLightID != -1 )
 		{
 			INT16 iX, iY;
-			iX = gExplosionData[iIndex].Params.sX/CELL_X_SIZE + Random(3) - 1;
-			iY = gExplosionData[iIndex].Params.sY/CELL_Y_SIZE + Random(3) - 1;
+			iX = (INT16) (gExplosionData[iIndex].Params.sX/CELL_X_SIZE + Random(3) - 1);
+			iY = (INT16) (gExplosionData[iIndex].Params.sY/CELL_Y_SIZE + Random(3) - 1);
 			LightSpritePosition( gExplosionData[iIndex].iLightID, iX, iY);
 		}
 	}
@@ -1523,12 +1523,14 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 
 					if ( sWoundAmt > 1 )
 					{
-						pSoldier->inv[ bPosOfMask ].ItemData.Generic.bStatus[0] -= (INT8) Random( 4 );
+						pSoldier->inv[ bPosOfMask ].ItemData.Generic.bStatus[0] =
+							pSoldier->inv[ bPosOfMask ].ItemData.Generic.bStatus[0] - (INT8) Random( 4 );
 						sWoundAmt = ( sWoundAmt * ( 100 -  pSoldier->inv[ bPosOfMask ].ItemData.Generic.bStatus[0] ) ) / 100;
 					}
 					else if ( sWoundAmt == 1 )
 					{
-						pSoldier->inv[ bPosOfMask ].ItemData.Generic.bStatus[0] -= (INT8) Random( 2 );
+						pSoldier->inv[ bPosOfMask ].ItemData.Generic.bStatus[0] =
+							pSoldier->inv[ bPosOfMask ].ItemData.Generic.bStatus[0] - (INT8) Random( 2 );
 					}
 				}
 			}
@@ -1539,12 +1541,14 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 				{
 					if ( sWoundAmt == 1 )
 					{
-						pSoldier->inv[ bPosOfMask ].ItemData.Generic.bStatus[0] -= (INT8) Random( 2 );
+						pSoldier->inv[ bPosOfMask ].ItemData.Generic.bStatus[0] =
+							pSoldier->inv[ bPosOfMask ].ItemData.Generic.bStatus[0] - (INT8) Random( 2 );
 					}
 					else
 					{
 						// use up gas mask
-						pSoldier->inv[ bPosOfMask ].ItemData.Generic.bStatus[0] -= (INT8) Random( 4 );
+						pSoldier->inv[ bPosOfMask ].ItemData.Generic.bStatus[0] =
+							pSoldier->inv[ bPosOfMask ].ItemData.Generic.bStatus[0] - (INT8) Random( 4 );
 					}
 				}
 				sWoundAmt = 0;     
@@ -1593,7 +1597,7 @@ BOOLEAN DishOutGasDamage( SOLDIERTYPE * pSoldier, EXPLOSIVETYPE * pExplosive, IN
 
 BOOLEAN ExpAffect( INT16 sBombGridNo, INT16 sGridNo, UINT32 uiDist, UINT16 usItem, UINT8 ubOwner,  INT16 sSubsequent, BOOLEAN *pfMercHit, INT8 bLevel, INT32 iSmokeEffectID )
 {
-	INT16 sWoundAmt = 0,sBreathAmt = 0, sNewWoundAmt = 0, sNewBreathAmt = 0, sStructDmgAmt;
+	INT16 sWoundAmt = 0,sBreathAmt = 0, /* sNewWoundAmt = 0, sNewBreathAmt = 0, */ sStructDmgAmt;
 	UINT8 ubPerson;
 	SOLDIERTYPE *pSoldier;
 	EXPLOSIVETYPE *pExplosive;
@@ -1701,8 +1705,8 @@ BOOLEAN ExpAffect( INT16 sBombGridNo, INT16 sGridNo, UINT32 uiDist, UINT16 usIte
 		else if (uiDist < pExplosive->ubRadius)
 		{
 			// if radius is 5, go down by 5ths ~ 20%
-			sWoundAmt -= (INT16)  (sWoundAmt * uiDist / pExplosive->ubRadius );
-			sBreathAmt -= (INT16) (sBreathAmt * uiDist / pExplosive->ubRadius );
+			sWoundAmt = sWoundAmt - (INT16)  (sWoundAmt * uiDist / pExplosive->ubRadius );
+			sBreathAmt = sBreathAmt - (INT16) (sBreathAmt * uiDist / pExplosive->ubRadius );
 		}
 		else
 		{
@@ -3400,7 +3404,7 @@ BOOLEAN SaveExplosionTableToSaveGameFile( HWFILE hFile )
 BOOLEAN LoadExplosionTableFromSavedGameFile( HWFILE hFile )
 {
 	UINT32 uiNumBytesRead;
-	UINT32 uiExplosionCount=0;
+	//UINT32 uiExplosionCount=0;
 	UINT32 uiCnt;
 
 
@@ -3508,7 +3512,8 @@ void UpdateAndDamageSAMIfFound( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, 
 
 	if ( StrategicMap[ sSectorNo ].bSAMCondition >= ubDamage )
 	{
-		StrategicMap[ sSectorNo ].bSAMCondition -= ubDamage;
+		StrategicMap[ sSectorNo ].bSAMCondition =
+			StrategicMap[ sSectorNo ].bSAMCondition - ubDamage;
 	}
 	else
 	{

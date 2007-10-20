@@ -701,6 +701,9 @@ void EnvBeginRainStorm( UINT8 ubIntensity )
 	  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Starting Rain...."  );
   #endif
 
+	  // First turn off whatever rain it is, then turn on the requested rain
+	  guiEnvWeather &= ~(WEATHER_FORECAST_THUNDERSHOWERS | WEATHER_FORECAST_SHOWERS);
+
 	  if ( ubIntensity == 1 )
 	  {
 		  // Turn on rain storms

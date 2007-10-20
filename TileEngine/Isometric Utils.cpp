@@ -186,6 +186,9 @@ UINT8 gPurpendicularDirection[ NUM_WORLD_DIRECTIONS ][ NUM_WORLD_DIRECTIONS ] =
 };
 
 
+GridNode::MapXY_t GridNode::MapXY;
+static GridNode::MapXY_t *pMapXY = GridNode::initGridNodes(); // A hack to initialize the MapXY grid
+
 void FromCellToScreenCoordinates( INT16 sCellX, INT16 sCellY, INT16 *psScreenX, INT16 *psScreenY )
 {
 	*psScreenX = ( 2 * sCellX ) - ( 2 * sCellY );
@@ -457,8 +460,8 @@ void GetWorldXYAbsoluteScreenXY( INT32 sWorldCellX, INT32 sWorldCellY, INT16 *ps
 	INT16 sDistToCenterY, sDistToCenterX;
 	
 	// Find the diustance from render center to true world center
-	sDistToCenterX = ( sWorldCellX * CELL_X_SIZE ) - gCenterWorldX;
-	sDistToCenterY = ( sWorldCellY * CELL_Y_SIZE ) - gCenterWorldY;
+	sDistToCenterX = (INT16) ( ( sWorldCellX * CELL_X_SIZE ) - gCenterWorldX);
+	sDistToCenterY = (INT16) ( ( sWorldCellY * CELL_Y_SIZE ) - gCenterWorldY);
 	
 
 	// From render center in world coords, convert to render center in "screen" coords
@@ -551,7 +554,7 @@ INT16 NewGridNo(INT16 sGridno, INT16 sDirInc)
 
 INT16 DirectionInc(UINT8 ubDirection)
 {
- if ((ubDirection < 0) || (ubDirection > 7))
+ if (ubDirection > 7)
   {
 
 //#ifdef BETAVERSION
@@ -559,7 +562,7 @@ INT16 DirectionInc(UINT8 ubDirection)
 //#endif
 
    //direction = random(8);	// replace garbage with random direction
-	 ubDirection = 1;
+	 ubDirection = 0;
   }
 
  
@@ -653,7 +656,7 @@ BOOLEAN IsPointInScreenRectWithRelative( INT16 sXPos, INT16 sYPos, SGPRect *pRec
 {
 	if ( (sXPos >= pRect->iLeft) && (sXPos <= pRect->iRight) && (sYPos >= pRect->iTop) && (sYPos <= pRect->iBottom) )
 	{
-		(*sXRel) = pRect->iLeft - sXPos;
+		(*sXRel) = (INT16) pRect->iLeft - sXPos;
 		(*sYRel) = sYPos - (INT16)pRect->iTop;
 
 		return( TRUE );
@@ -669,8 +672,8 @@ INT16 PythSpacesAway(INT16 sOrigin, INT16 sDest)
 {
 	INT16 sRows,sCols,sResult;
 
-	sRows = abs((sOrigin / MAXCOL) - (sDest / MAXCOL));
-	sCols = abs((sOrigin % MAXROW) - (sDest % MAXROW));
+	sRows = (INT16) abs((sOrigin / MAXCOL) - (sDest / MAXCOL));
+	sCols = (INT16) abs((sOrigin % MAXROW) - (sDest % MAXROW));
 
  
 	// apply Pythagoras's theorem for right-handed triangle:
@@ -685,8 +688,8 @@ INT16 SpacesAway(INT16 sOrigin, INT16 sDest)
 {
  INT16 sRows,sCols;
 
- sRows = abs((sOrigin / MAXCOL) - (sDest / MAXCOL));
- sCols = abs((sOrigin % MAXROW) - (sDest % MAXROW));
+ sRows = (INT16) abs((sOrigin / MAXCOL) - (sDest / MAXCOL));
+ sCols = (INT16) abs((sOrigin % MAXROW) - (sDest % MAXROW));
 
 	return( __max( sRows, sCols ) );
 }
@@ -696,8 +699,8 @@ INT16 CardinalSpacesAway(INT16 sOrigin, INT16 sDest)
 {
  INT16 sRows,sCols;
 
- sRows = abs((sOrigin / MAXCOL) - (sDest / MAXCOL));
- sCols = abs((sOrigin % MAXROW) - (sDest % MAXROW));
+ sRows = (INT16) abs((sOrigin / MAXCOL) - (sDest / MAXCOL));
+ sCols = (INT16) abs((sOrigin % MAXROW) - (sDest % MAXROW));
 
 	return( (INT16)( sRows + sCols ) );
 }
@@ -853,7 +856,7 @@ INT16 QuickestDirection(INT16 origin, INT16 dest)
  else
   if (origin > dest)
    {
-    v1 = abs(origin - dest);
+    v1 = (INT16) abs(origin - dest);
     v2 = (8 - origin) + dest;
     if (v1 > v2)
        return(1);
@@ -862,7 +865,7 @@ INT16 QuickestDirection(INT16 origin, INT16 dest)
    }
   else
    {
-    v1 = abs(origin - dest);
+    v1 = (INT16) abs(origin - dest);
     v2 = (8 - dest) + origin;
     if (v1 > v2)
        return(-1);
@@ -884,7 +887,7 @@ INT16 ExtQuickestDirection(INT16 origin, INT16 dest)
  else
   if (origin > dest)
    {
-    v1 = abs(origin - dest);
+    v1 = (INT16) abs(origin - dest);
     v2 = (32 - origin) + dest;
     if (v1 > v2)
        return(1);
@@ -893,7 +896,7 @@ INT16 ExtQuickestDirection(INT16 origin, INT16 dest)
    }
   else
    {
-    v1 = abs(origin - dest);
+    v1 = (INT16) abs(origin - dest);
     v2 = (32 - dest) + origin;
     if (v1 > v2)
        return(-1);

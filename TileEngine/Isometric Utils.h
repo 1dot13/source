@@ -33,7 +33,7 @@ extern UINT8 gPurpendicularDirection[ NUM_WORLD_DIRECTIONS ][ NUM_WORLD_DIRECTIO
 //                                                |Check for map bounds------------------------------------------|   |Invalid-|   |Valid-------------------|
 #define MAPROWCOLTOPOS( r, c )									( ( (r < 0) || (r >= WORLD_ROWS) || (c < 0) || (c >= WORLD_COLS) ) ? ( 0xffff ) : ( (r) * WORLD_COLS + (c) ) )
 
-#define GETWORLDINDEXFROMWORLDCOORDS( r, c )		( (INT16) ( r / CELL_X_SIZE ) ) * WORLD_COLS + ( (INT16) ( c / CELL_Y_SIZE ) ) 
+#define GETWORLDINDEXFROMWORLDCOORDS( y, x )		( (INT16) ( x / CELL_X_SIZE ) ) + WORLD_COLS * ( (INT16) ( y / CELL_Y_SIZE ) ) 
 
 void ConvertGridNoToXY( INT16 sGridNo, INT16 *sXPos, INT16 *sYPos );
 void ConvertGridNoToCellXY( INT16 sGridNo, INT16 *sXPos, INT16 *sYPos );
@@ -111,5 +111,25 @@ INT16 RandomGridNo();
 
 extern UINT32 guiForceRefreshMousePositionCalculation;
 
+
+//ADB I'm tired of seeing a 5 digit number when looking at something's gridno.
+//I need to see an x and y.	I created this class for the AStar,
+//but moved it here as you can convert a regular INT16 gridno to a GridNode then print it out for debugging.
+//Don't switch between the 2 types too often, IntToGridNode is especially slow
+//0verhaul:  It's not good to give the computer extra work just for readability's sake.  So this should be a 
+//good compromise.  Possibly even more useful.  Just add a watch variable for GridNode.MapXY[ mygridvar ] and
+//see its X,Y in the watch window.
+
+class GridNode
+{
+public:
+	typedef GridNode MapXY_t[WORLD_MAX];
+	static MapXY_t MapXY;
+
+	INT16		x;
+	INT16		y;
+
+	static MapXY_t *initGridNodes() { for (INT16 i=0; i<WORLD_MAX; i++){ConvertGridNoToXY(i, &MapXY[i].x, &MapXY[i].y); } return &MapXY; };
+};
 
 #endif

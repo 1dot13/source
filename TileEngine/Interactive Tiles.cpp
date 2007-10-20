@@ -219,7 +219,7 @@ BOOLEAN SoldierHandleInteractiveObject( SOLDIERTYPE *pSoldier )
 void HandleStructChangeFromGridNo( SOLDIERTYPE *pSoldier, INT16 sGridNo )
 {
 	STRUCTURE			*pStructure, *pNewStructure;
-	INT16					sAPCost = 0, sBPCost = 0;
+	//INT16					sAPCost = 0, sBPCost = 0;
 	ITEM_POOL			*pItemPool;
   BOOLEAN       fDidMissingQuote = FALSE;
 
@@ -472,9 +472,9 @@ void GetLevelNodeScreenRect( LEVELNODE *pNode, SGPRect *pRect, INT16 sXPos, INT1
 		sScreenY = ( ( gsVIEWPORT_END_Y - gsVIEWPORT_START_Y ) /2 ) + (INT16)sTempY_S;
 
 		// Adjust for offset position on screen
-		sScreenX -= gsRenderWorldOffsetX;
-		sScreenY -= gsRenderWorldOffsetY;
-		sScreenY -=	gpWorldLevelData[ sGridNo ].sHeight;
+		sScreenX = sScreenX - gsRenderWorldOffsetX;
+		sScreenY = sScreenY - gsRenderWorldOffsetY;
+		sScreenY = sScreenY - gpWorldLevelData[ sGridNo ].sHeight;
 
 		// Adjust based on interface level
 		if ( gsInterfaceLevel > 0 )
@@ -483,7 +483,7 @@ void GetLevelNodeScreenRect( LEVELNODE *pNode, SGPRect *pRect, INT16 sXPos, INT1
 		}
 
 		// Adjust for render height
-		sScreenY += gsRenderHeight;
+		sScreenY = sScreenY + gsRenderHeight;
 
 
 
