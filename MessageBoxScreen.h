@@ -71,6 +71,7 @@ typedef struct
 	INT8							bHandled;
 	INT32							iBoxId;
 
+	BOOLEAN						fWasPaused;
 } MESSAGE_BOX_STRUCT;
 
 

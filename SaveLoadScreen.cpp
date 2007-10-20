@@ -1813,7 +1813,7 @@ void SelectedSaveRegionMovementCallBack(MOUSE_REGION * pRegion, INT32 reason )
 
 void InitSaveLoadScreenTextInputBoxes()
 {
-	UINT32	uiStartLoc=0;
+	//UINT32	uiStartLoc=0;
 	UINT16	usPosY;
 	SAVED_GAME_HEADER SaveGameHeader;
 	

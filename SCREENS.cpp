@@ -19,11 +19,11 @@ int iScreenMode = 0;	/* 0 for Fullscreen */
 #endif
 BOOL bScreenModeCmdLine = FALSE;
 
-int SCREEN_WIDTH;
-int SCREEN_HEIGHT;
+UINT16 SCREEN_WIDTH;
+UINT16 SCREEN_HEIGHT;
 
-int iScreenWidthOffset;
-int iScreenHeightOffset;
+INT16 iScreenWidthOffset;
+INT16 iScreenHeightOffset;
 
 BOOLEAN fDisplayOverheadMap;
 

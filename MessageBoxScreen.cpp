@@ -629,11 +629,17 @@ INT32 DoMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UIN
 
 	}
 
-	InterruptTime();
-	PauseGame();
-	LockPauseState( 1 );
-	// Pause timers as well....
-	PauseTime( TRUE );
+#if 0
+	gMsgBox.fWasPaused = GamePaused();
+	if (!gMsgBox.fWasPaused)
+	{
+		InterruptTime();
+		PauseGame();
+		LockPauseState( 1 );
+		// Pause timers as well....
+		PauseTime( TRUE );
+	}
+#endif
 
   // Save mouse restriction region...
   GetRestrictedClipCursor( &gOldCursorLimitRectangle );
@@ -867,11 +873,16 @@ UINT32	ExitMsgBox( INT8 ubExitCode )
 	// Delete button images
 	UnloadButtonImage( gMsgBox.iButtonImages );
 
-	// Unpause game....
-	UnLockPauseState();
-	UnPauseGame();
-	// UnPause timers as well....
-	PauseTime( FALSE );
+#if 0
+	if (!gMsgBox.fWasPaused)
+	{
+		// Unpause game....
+		UnLockPauseState();
+		UnPauseGame();
+		// UnPause timers as well....
+		PauseTime( FALSE );
+	}
+#endif
 
   // Restore mouse restriction region...
   RestrictMouseCursor( &gOldCursorLimitRectangle );

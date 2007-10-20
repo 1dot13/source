@@ -513,7 +513,7 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	HWFILE	hFile=0;
 	SAVED_GAME_HEADER SaveGameHeader;
 	CHAR8		zSaveGameName[ MAX_PATH ];
-	UINT32	uiSizeOfGeneralInfo = sizeof( GENERAL_SAVE_INFO );
+	//UINT32	uiSizeOfGeneralInfo = sizeof( GENERAL_SAVE_INFO );
 	//UINT8		saveDir[100];
 	BOOLEAN	fPausedStateBeforeSaving = gfGamePaused;
 	BOOLEAN	fLockPauseStateBeforeSaving = gfLockPauseState;
@@ -1454,7 +1454,7 @@ BOOLEAN LoadSavedGame( UINT8 ubSavedGameID )
 	INT16 sLoadSectorY;
 	INT8 bLoadSectorZ;
 	CHAR8		zSaveGameName[ MAX_PATH ];
-	UINT32	uiSizeOfGeneralInfo = sizeof( GENERAL_SAVE_INFO );
+	//UINT32	uiSizeOfGeneralInfo = sizeof( GENERAL_SAVE_INFO );
 
 	UINT32 uiRelStartPerc;
 	UINT32 uiRelEndPerc;
@@ -3594,7 +3594,7 @@ BOOLEAN SaveEmailToSavedGame( HWFILE hFile )
 	UINT32	uiNumOfEmails=0;
 	UINT32		uiSizeOfEmails=0;
 	EmailPtr	pEmail = pEmailList;
-	EmailPtr pTempEmail = NULL;
+	//EmailPtr pTempEmail = NULL;
 	UINT32	cnt;
 	UINT32	uiStringLength=0;
 	UINT32	uiNumBytesWritten=0;
@@ -4281,7 +4281,11 @@ BOOLEAN LoadMercPathToSoldierStruct( HWFILE hFile, UINT8	ubID )
 		//Allocate memory for the new node
 		pTemp = (PathStPtr) MemAlloc( sizeof( PathSt ) );
 		if( pTemp == NULL )
+		{
+			pTempPath = MoveToBeginningOfPathList( pTempPath );
+			ClearStrategicPathList( pTempPath, -1 );
 			return( FALSE );
+		}
 		memset( pTemp, 0 , sizeof( PathSt ) );
 
 
@@ -4289,6 +4293,9 @@ BOOLEAN LoadMercPathToSoldierStruct( HWFILE hFile, UINT8	ubID )
 		FileRead( hFile, pTemp, sizeof( PathSt ), &uiNumBytesRead );
 		if( uiNumBytesRead != sizeof( PathSt ) )
 		{
+			MemFree( pTemp);
+			pTempPath = MoveToBeginningOfPathList( pTempPath );
+			ClearStrategicPathList( pTempPath, -1 );
 			return(FALSE);
 		}
 
@@ -5109,7 +5116,7 @@ void GetBestPossibleSectorXYZValues( INT16 *psSectorX, INT16 *psSectorY, INT8 *p
 		INT16					sSoldierCnt;
 		SOLDIERTYPE		*pSoldier;
 		INT16					bLastTeamID;
-		INT8					bCount=0;
+		//INT8					bCount=0;
 		BOOLEAN				fFoundAMerc=FALSE;
 
 		// Set locator to first merc

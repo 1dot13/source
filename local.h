@@ -25,12 +25,12 @@
  #define WINDOWED_MODE
 #endif
 
-extern int  SCREEN_WIDTH;
-extern int  SCREEN_HEIGHT;
+extern UINT16  SCREEN_WIDTH;
+extern UINT16  SCREEN_HEIGHT;
 
 extern int iResolution;			// Resolution id from the ini file
-extern int iScreenWidthOffset;
-extern int iScreenHeightOffset;
+extern INT16 iScreenWidthOffset;
+extern INT16 iScreenHeightOffset;
 
 extern BOOLEAN fDisplayOverheadMap;
 

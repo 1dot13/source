@@ -256,6 +256,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\profiler.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\SaveLoadGame.cpp"
 				>
 			</File>
@@ -375,6 +379,10 @@
 			</File>
 			<File
 				RelativePath=".\Options Screen.h"
+				>
+			</File>
+			<File
+				RelativePath=".\profiler.h"
 				>
 			</File>
 			<File
