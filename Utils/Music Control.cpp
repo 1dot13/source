@@ -416,11 +416,11 @@ BOOLEAN StartMusicBasedOnMode( )
 	{
 		fFirstTime = FALSE;
 
-		bNothingModeSong = NOTHING_A_MUSIC + (INT8)Random( 4 );
+		bNothingModeSong = (INT8) (NOTHING_A_MUSIC + Random( 4 ));
 
-		bEnemyModeSong = TENSOR_A_MUSIC + (INT8)Random( 3 );
+		bEnemyModeSong = (INT8) (TENSOR_A_MUSIC + Random( 3 ));
 
-		bBattleModeSong = BATTLE_A_MUSIC + (INT8)Random( 2 );
+		bBattleModeSong = (INT8) (BATTLE_A_MUSIC + Random( 2 ));
 
 	}
 
@@ -451,7 +451,7 @@ BOOLEAN StartMusicBasedOnMode( )
 			else
 			{
 				MusicPlay( bNothingModeSong );
-				bNothingModeSong = NOTHING_A_MUSIC + (INT8)Random( 4 );
+				bNothingModeSong = (INT8) (NOTHING_A_MUSIC + Random( 4 ) );
 			}
 			break;
 
@@ -465,7 +465,7 @@ BOOLEAN StartMusicBasedOnMode( )
 			else
 			{
 				MusicPlay( bEnemyModeSong );
-				bEnemyModeSong = TENSOR_A_MUSIC + (INT8)Random( 3 );
+				bEnemyModeSong = (INT8) (TENSOR_A_MUSIC + Random( 3 ));
 			}
 			break;
 
@@ -480,7 +480,7 @@ BOOLEAN StartMusicBasedOnMode( )
 			{
 				MusicPlay( bBattleModeSong );
 			}
-			bBattleModeSong = BATTLE_A_MUSIC + (INT8)Random( 2 );
+			bBattleModeSong = (INT8) (BATTLE_A_MUSIC + Random( 2 ));
 			break;
 
 		case MUSIC_TACTICAL_VICTORY:

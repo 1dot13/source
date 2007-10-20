@@ -499,9 +499,8 @@ BOOLEAN HandleJA2CDCheckTwo( )
 		return( TRUE );
 	}
 
-#endif
-
 	return( FALSE );
+#endif
 }
 
 

@@ -164,7 +164,7 @@ BOOLEAN ReadInStringArray()
 	
 	memset(&pData,0,sizeof(pData));
 	pData.maxArraySize = MAXITEMS; 
-	pData.curIndex = -1;
+	pData.curIndex = 0xffffffff;
 
 	XML_SetUserData(parser, &pData);
 

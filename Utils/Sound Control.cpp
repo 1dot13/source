@@ -680,7 +680,7 @@ INT32 SoundDir( INT16 sGridNo )
 
 	sDif = sMiddleX - sScreenX;
 
-	if ( ( sAbsDif = abs( sDif ) ) > 64 )
+	if ( ( sAbsDif = (INT16) abs( sDif ) ) > 64 )
     {
 		// OK, NOT the middle.
 		// Is it outside the screen?
@@ -735,8 +735,8 @@ INT32 SoundVolume( INT8 bInitialVolume, INT16 sGridNo )
 	sDifX = sMiddleX - sScreenX;
 	sDifY = sMiddleY - sScreenY;
 
-	sAbsDifX = abs( sDifX );
-	sAbsDifY = abs( sDifY );
+	sAbsDifX = (INT16) abs( sDifX );
+	sAbsDifY = (INT16) abs( sDifY );
 
 	if ( sAbsDifX  > 64 || sAbsDifY > 64 )
     {
@@ -968,7 +968,7 @@ void SetPositionSndsInActive( )
 }
 
 // == Lesh slightly changed this function ============
-INT32 PositionSoundDir( INT16 sGridNo )
+UINT8 PositionSoundDir( INT16 sGridNo )
 {
 	INT16 sWorldX, sWorldY;
 	INT16 sScreenX, sScreenY;
@@ -991,7 +991,7 @@ INT32 PositionSoundDir( INT16 sGridNo )
 
 	sDif = sMiddleX - sScreenX;
 
-	if ( ( sAbsDif = abs( sDif ) ) > 64 )
+	if ( ( sAbsDif = (INT16) abs( sDif ) ) > 64 )
   {
 		// OK, NOT the middle.
 		 
@@ -1022,7 +1022,7 @@ INT32 PositionSoundDir( INT16 sGridNo )
 }
 
 
-INT32 PositionSoundVolume( INT8 bInitialVolume, INT16 sGridNo )
+INT8 PositionSoundVolume( INT8 bInitialVolume, INT16 sGridNo )
 {
 	INT16 sWorldX, sWorldY;
 	INT16 sScreenX, sScreenY;
@@ -1050,8 +1050,8 @@ INT32 PositionSoundVolume( INT8 bInitialVolume, INT16 sGridNo )
 	sDifX = sMiddleX - sScreenX;
 	sDifY = sMiddleY - sScreenY;
 
-	sAbsDifX = abs( sDifX );
-	sAbsDifY = abs( sDifY );
+	sAbsDifX = (INT16) abs( sDifX );
+	sAbsDifY = (INT16) abs( sDifY );
 
   sMaxDistX = (INT16)( ( gsBottomRightWorldX - gsTopLeftWorldX ) * 1.5 );
   sMaxDistY = (INT16)( ( gsBottomRightWorldY - gsTopLeftWorldY ) * 1.5 );
@@ -1078,7 +1078,8 @@ void SetPositionSndsVolumeAndPanning( )
 {
   UINT32 cnt;
 	POSITIONSND *pPositionSnd;
-  INT8        bVolume, bPan;
+  INT8        bVolume;
+  UINT8		  ubPan;
   SOLDIERTYPE *pSoldier;
 
   for ( cnt = 0; cnt < guiNumPositionSnds; cnt++ )
@@ -1119,9 +1120,9 @@ void SetPositionSndsVolumeAndPanning( )
 
             SoundSetVolume( pPositionSnd->iSoundSampleID, bVolume );
 
-            bPan = PositionSoundDir( pPositionSnd->sGridNo );
+            ubPan = PositionSoundDir( pPositionSnd->sGridNo );
 
-            SoundSetPan( pPositionSnd->iSoundSampleID, bPan );
+            SoundSetPan( pPositionSnd->iSoundSampleID, ubPan );
          }
       }
     }

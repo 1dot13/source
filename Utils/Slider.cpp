@@ -155,9 +155,9 @@ INT32	AddSlider( UINT8 ubStyle, UINT16 usCursor, UINT16 usPosX, UINT16 usPosY, U
 {
 	SLIDER *pTemp = NULL;
 	SLIDER *pNewSlider = NULL;
-	INT32		iNewID=0;
-	UINT32	cnt=0;
-	UINT16	usIncrementWidth=0;
+	//INT32		iNewID=0;
+	//UINT32	cnt=0;
+	//UINT16	usIncrementWidth=0;
 
 	AssertMsg( gfSliderInited, "Trying to Add a Slider Bar when the Slider System was never inited");
 

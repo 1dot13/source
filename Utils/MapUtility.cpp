@@ -36,8 +36,8 @@ HVSURFACE	ghvSurface;
 
 extern BOOLEAN gfOverheadMapDirty;
 
-extern int iOffsetHorizontal;
-extern int iOffsetVertical;
+extern UINT16 iOffsetHorizontal;
+extern UINT16 iOffsetVertical;
 
 // Utililty file for sub-sampling/creating our radar screen maps
 // Loops though our maps directory and reads all .map files, subsamples an area, color

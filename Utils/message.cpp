@@ -352,7 +352,7 @@ void ClearDisplayedListOfTacticalStrings( void )
 
 void ScrollString( )
 {
-	ScrollStringStPtr pStringSt = pStringS;
+	//ScrollStringStPtr pStringSt = pStringS;
 	UINT32 suiTimer=0;
 	UINT32 cnt;
   INT32 iNumberOfNewStrings = 0; // the count of new strings, so we can update position by WIDTH_BETWEEN_NEW_STRINGS pixels in the y
@@ -360,7 +360,7 @@ void ScrollString( )
 	INT32 iMaxAge = 0;
 	BOOLEAN fDitchLastMessage = FALSE;
 
-	INT32 iMsgYStart = SCREEN_HEIGHT - 150;
+	INT16 iMsgYStart = SCREEN_HEIGHT - 150;
 
 	// UPDATE TIMER
 	suiTimer=GetJA2Clock();
@@ -704,18 +704,18 @@ void TacticalScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 	
 	ScrollStringStPtr pStringSt;
 	UINT32 uiFont = TINYFONT1;
-	UINT16 usPosition=0;
-	UINT16 usCount=0;
-	UINT16 usStringLength=0;
-	UINT16 usCurrentSPosition=0;
-	UINT16 usCurrentLookup=0;
+	//UINT16 usPosition=0;
+	//UINT16 usCount=0;
+	//UINT16 usStringLength=0;
+	//UINT16 usCurrentSPosition=0;
+	//UINT16 usCurrentLookup=0;
 	//STR16pString;
-	BOOLEAN fLastLine=FALSE;
+	//BOOLEAN fLastLine=FALSE;
   va_list argptr;
 
   CHAR16	DestString[512];//, DestStringA[ 512 ];
 	//STR16pStringBuffer;
-  BOOLEAN fMultiLine=FALSE;
+  //BOOLEAN fMultiLine=FALSE;
   ScrollStringStPtr pTempStringSt=NULL;
   WRAPPED_STRING *pStringWrapper=NULL;
   WRAPPED_STRING *pStringWrapperHead=NULL;
@@ -857,17 +857,17 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 	 
 	ScrollStringStPtr pStringSt;
 	UINT32 uiFont = MAP_SCREEN_MESSAGE_FONT;
-	UINT16 usPosition=0;
-	UINT16 usCount=0;
-	UINT16 usStringLength=0;
-	UINT16 usCurrentSPosition=0;
-	UINT16 usCurrentLookup=0;
+	//UINT16 usPosition=0;
+	//UINT16 usCount=0;
+	//UINT16 usStringLength=0;
+	//UINT16 usCurrentSPosition=0;
+	//UINT16 usCurrentLookup=0;
 	//STR16pString;
-	BOOLEAN fLastLine=FALSE;
+	//BOOLEAN fLastLine=FALSE;
   va_list argptr;
   CHAR16	DestString[512], DestStringA[ 512 ];
 	//STR16pStringBuffer;
-  BOOLEAN fMultiLine=FALSE;
+  //BOOLEAN fMultiLine=FALSE;
   WRAPPED_STRING *pStringWrapper=NULL;
   WRAPPED_STRING *pStringWrapperHead=NULL;
   BOOLEAN fNewString = FALSE;
@@ -1033,7 +1033,7 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 // add string to the map screen message list
 void AddStringToMapScreenMessageList( STR16 pString, UINT16 usColor, UINT32 uiFont, BOOLEAN fStartOfNewString, UINT8 ubPriority )
 {
-	UINT8 ubSlotIndex = 0;
+	//UINT8 ubSlotIndex = 0;
   ScrollStringStPtr pStringSt = NULL;
 
 
@@ -1122,7 +1122,7 @@ void DisplayStringsInMapScreenMessageList( void )
 		// print this line
 		mprintf_coded( 20, sY, gMapScreenMessageList[ ubCurrentStringIndex ]->pString16 );
 
-		sY += usSpacing;
+		sY = sY + usSpacing;
 
 		// next message index to print (may wrap around)
 		ubCurrentStringIndex = ( ubCurrentStringIndex + 1 ) % 256;

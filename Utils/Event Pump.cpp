@@ -884,7 +884,7 @@ BOOLEAN  DequeAllGameEvents( BOOLEAN fExecute )
 BOOLEAN DequeueAllDemandGameEvents( BOOLEAN fExecute )
 {
 	EVENT					*pEvent;
-	BOOLEAN				fCompleteLoop = FALSE;
+	//BOOLEAN				fCompleteLoop = FALSE;
 
 	// Dequeue all events on the demand queue (only)
 	
@@ -977,7 +977,7 @@ BOOLEAN ExecuteGameEvent( EVENT *pEvent )
 
 				// Call soldier function
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Event Pump: Change Dest");
-				EVENT_SetSoldierDestination( pSoldier, SChangeDest.usNewDestination );
+				EVENT_SetSoldierDestination( pSoldier, (UINT8) SChangeDest.usNewDestination );
 				break;
 
 			case S_SETPOSITION:
@@ -1113,7 +1113,7 @@ BOOLEAN ExecuteGameEvent( EVENT *pEvent )
 
 				// Call soldier function
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Event Pump: SetDesiredDirection: Dir( %d )", SSetDesiredDirection.usDesiredDirection)  );
-				EVENT_SetSoldierDesiredDirection( pSoldier, SSetDesiredDirection.usDesiredDirection );
+				EVENT_SetSoldierDesiredDirection( pSoldier, (UINT8) SSetDesiredDirection.usDesiredDirection );
 				break;
 
 
