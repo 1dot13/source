@@ -2020,7 +2020,9 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					//	ReduceAttackBusyCount( pSoldier->ubSuppressorID, FALSE );
 					// }
 
-					if ( pSoldier->usPendingAnimation == NO_PENDING_ANIMATION && ( pSoldier->fTurningFromPronePosition != 3 ) && ( pSoldier->fTurningFromPronePosition != 1 ) )
+					if ( pSoldier->usPendingAnimation == NO_PENDING_ANIMATION && 
+						( pSoldier->bTurningFromPronePosition != TURNING_FROM_PRONE_ENDING_UP_FROM_MOVE ) && 
+						( pSoldier->bTurningFromPronePosition != TURNING_FROM_PRONE_ON ) )
 					{
 						if ( gTacticalStatus.ubAttackBusyCount == 0 )
 						{
@@ -2033,7 +2035,10 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					// Check to see if we have changed stance and need to update visibility
 					if ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_STANCECHANGEANIM)
 					{
-						if ( pSoldier->usPendingAnimation == NO_PENDING_ANIMATION && gTacticalStatus.ubAttackBusyCount == 0 && pSoldier->fTurningFromPronePosition != 3 && pSoldier->fTurningFromPronePosition != 1 )
+						if ( pSoldier->usPendingAnimation == NO_PENDING_ANIMATION && 
+							gTacticalStatus.ubAttackBusyCount == 0 && 
+							pSoldier->bTurningFromPronePosition != TURNING_FROM_PRONE_ENDING_UP_FROM_MOVE && 
+							pSoldier->bTurningFromPronePosition != TURNING_FROM_PRONE_ON )
 						{
 							HandleSight(pSoldier,SIGHT_LOOK | SIGHT_RADIO | SIGHT_INTERRUPT );
 						}
@@ -2057,7 +2062,12 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					}
 
 					// Have we finished opening doors?
-					if ( pSoldier->usAnimState == END_OPEN_DOOR || pSoldier->usAnimState == END_OPEN_DOOR_CROUCHED || pSoldier->usAnimState == CRIPPLE_CLOSE_DOOR || pSoldier->usAnimState == CRIPPLE_END_OPEN_DOOR )
+					// 0verhaul:  Added additional check:  Are we told to stop at this point, maybe due to being interrupted?
+					if ( !pSoldier->fNoAPToFinishMove &&
+						(pSoldier->usAnimState == END_OPEN_DOOR || 
+						pSoldier->usAnimState == END_OPEN_DOOR_CROUCHED || 
+						pSoldier->usAnimState == CRIPPLE_CLOSE_DOOR || 
+						pSoldier->usAnimState == CRIPPLE_END_OPEN_DOOR ) )
 					{
 						// Are we told to continue movement...?
 						if ( pSoldier->bEndDoorOpenCode == 1 )
@@ -3565,7 +3575,7 @@ void CheckForAndHandleSoldierIncompacitated( SOLDIERTYPE *pSoldier )
 				return;
 			}
 		}
-		else if ( pSoldier->usAnimState == GENERIC_HIT_CROUCH )
+		else if ( pSoldier->usAnimState == GENERIC_HIT_CROUCH || pSoldier->usAnimState == CIV_COWER_HIT)
 		{
 			ChangeSoldierState( pSoldier, FALLFORWARD_FROMHIT_CROUCH, 0 , FALSE);
 			BeginTyingToFall( pSoldier );

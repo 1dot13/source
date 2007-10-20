@@ -150,7 +150,7 @@ void PickBurstLocations( SOLDIERTYPE *pSoldier )
 			ubShotsPerBurst = pSoldier->bDoAutofire;
 		}
 		else if ( gbNumBurstLocations > 0 )
-			ubShotsPerBurst = pSoldier->bDoAutofire / gbNumBurstLocations;
+			ubShotsPerBurst = pSoldier->bDoAutofire; // / gbNumBurstLocations;
 
 	}
 	else
@@ -163,8 +163,15 @@ void PickBurstLocations( SOLDIERTYPE *pSoldier )
 
 	ubShotsPerBurst = __min( ubShotsPerBurst, MAX_BURST_SPREAD_TARGETS);
 
+	if (ubShotsPerBurst == 1)
+	{
+		pSoldier->fDoSpread = FALSE;
+		return;
+	}
+
 	// Use # gridnos accululated and # burst shots to determine accululator
-	dStep = gbNumBurstLocations / (FLOAT)ubShotsPerBurst;
+	// Calculate it so that the actual last chosen shot location is the last spread point
+	dStep = (gbNumBurstLocations-1) / (FLOAT)(ubShotsPerBurst-1);
 
 	//Loop through our shots!
 	for ( cnt = 0; cnt < ubShotsPerBurst; cnt++ )

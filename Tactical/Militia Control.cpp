@@ -231,7 +231,10 @@ void PrepareMilitiaForTactical( BOOLEAN fPrepareAll)
 	ubGreen = pSector->ubNumberOfCivsAtLevel[ GREEN_MILITIA ];
 	ubRegs = pSector->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ];
 	ubElites = pSector->ubNumberOfCivsAtLevel[ ELITE_MILITIA ];
-	
+
+	// Prevent militia from just waiting on the border
+	gTacticalStatus.Team[MILITIA_TEAM].bAwareOfOpposition = (pSector->uiFlags & SF_PLAYER_KNOWS_ENEMIES_ARE_HERE) != 0;
+
 	if(guiDirNumber)
 	{
 		if (fPrepareAll)

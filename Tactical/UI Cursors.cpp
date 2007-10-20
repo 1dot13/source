@@ -201,7 +201,8 @@ UINT8	GetProperItemCursor( UINT8 ubSoldierID, UINT16 ubItemIndex, UINT16 usMapPo
 				if ( fRecalc && gfUIFullTargetFound )
 				{
 						// ATE: Check for ammo
-						if ( IsValidTargetMerc( (UINT8)gusUIFullTargetID ) && EnoughAmmo( pSoldier, FALSE, HANDPOS ) )
+						if ( IsValidTargetMerc( (UINT8)gusUIFullTargetID ) && EnoughAmmo( pSoldier, FALSE, HANDPOS ) &&
+							(!IsValidSecondHandShotForReloadingPurposes( pSoldier) || EnoughAmmo( pSoldier, FALSE, SECONDHANDPOS) ) )
 						{
 							 // IF it's an ememy, goto confirm action mode
 							 if ( ( guiUIFullTargetFlags & ENEMY_MERC ) && ( guiUIFullTargetFlags & VISIBLE_MERC ) && !( guiUIFullTargetFlags & DEAD_MERC ) && !gfCannotGetThrough )
@@ -972,7 +973,7 @@ UINT8 HandleNonActivatedTargetCursor( SOLDIERTYPE *pSoldier, UINT16 usMapPos , B
 		}	
 
 		// Check for enough ammo...
-		if ( !EnoughAmmo( pSoldier, FALSE, HANDPOS ) )
+		if ( !EnoughAmmo( pSoldier, FALSE, HANDPOS ) || (IsValidSecondHandShotForReloadingPurposes( pSoldier) && !EnoughAmmo( pSoldier, FALSE, SECONDHANDPOS) ) )
 		{
 			// Check if ANY ammo exists.....
 			if ( FindAmmoToReload( pSoldier, HANDPOS, NO_SLOT ) == NO_SLOT )

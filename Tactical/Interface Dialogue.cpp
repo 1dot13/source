@@ -1166,7 +1166,7 @@ BOOLEAN HandleTalkingMenuEscape( BOOLEAN fCanDelete , BOOLEAN fFromEscKey )
 		{
 			ShutupaYoFace( gTalkPanel.iFaceIndex );
 		}
-		// Else if our queue is empty, delete emnu
+		// Else if our queue is empty, delete menu
 		else 
 		{
 			if ( DialogueQueueIsEmpty( ) && fCanDelete )
@@ -2225,7 +2225,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				bItemIn = FindAIUsableObjClass( pSoldier, IC_GUN );
 				if (bItemIn != NO_SLOT && bItemIn != HANDPOS)
 				{
-					SwapObjs( &(pSoldier->inv[HANDPOS]), &(pSoldier->inv[bItemIn]) );
+					SwapObjs( pSoldier, HANDPOS, bItemIn );
 					sGridNo = pSoldier->sGridNo + DirectionInc( pSoldier->ubDirection );
 					SoldierReadyWeapon( pSoldier, (INT16) (sGridNo % WORLD_COLS), (INT16) (sGridNo / WORLD_COLS), FALSE ); 
 				}
@@ -3114,7 +3114,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 							if (bMoneySlot < bEmptySlot)
 							{
 								// move main stash to later in inventory!
-								SwapObjs( &(pSoldier->inv[ bEmptySlot ] ), &(pSoldier->inv[ bMoneySlot ] ) );
+								SwapObjs( pSoldier, bEmptySlot, bMoneySlot );
 								SoldierGiveItem( pSoldier, pSoldier2, &(pSoldier->inv[ bMoneySlot ] ), bMoneySlot );
 							}
 							else

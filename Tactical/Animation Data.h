@@ -565,8 +565,8 @@ void ClearAnimationSurfacesUsageHistory( UINT16 usSoldierID );
 void DeleteAnimationProfiles( );
 BOOLEAN LoadAnimationProfiles( );
 
-STRUCTURE_FILE_REF	*GetAnimationStructureRef( UINT16 usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState );
-STRUCTURE_FILE_REF	*GetDefaultStructureRef( UINT16 usSoldierID );
+STRUCTURE_FILE_REF	*GetAnimationStructureRef( UINT8 usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState );
+STRUCTURE_FILE_REF	*GetDefaultStructureRef( UINT8 usSoldierID );
 
 // Profile data
 extern ANIM_PROF	*gpAnimProfiles;

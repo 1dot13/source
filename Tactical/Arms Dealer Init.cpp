@@ -198,8 +198,8 @@ void ShutDownArmsDealers()
 		//loop through all the item types
 		for( usItemIndex = 1; usItemIndex < MAXITEMS; usItemIndex++ )
 		{
-			if ( Item[usItemIndex].usItemClass  == 0 )
-				break;
+			//if ( Item[usItemIndex].usItemClass  == 0 )
+			//	break;
 			if( gArmsDealersInventory[ ubArmsDealer ][ usItemIndex ].ubElementsAlloced > 0 )
 			{
 				FreeSpecialItemArray( &gArmsDealersInventory[ ubArmsDealer ][ usItemIndex ] );
@@ -294,8 +294,8 @@ BOOLEAN LoadArmsDealerInventoryFromSavedGameFile( HWFILE hFile, BOOLEAN fInclude
 		//loop through this dealer's individual items
 		for(usItemIndex = 1; usItemIndex < MAXITEMS; usItemIndex++ )
 		{
-			if ( Item[usItemIndex].usItemClass  == 0 )
-				break;
+			//if ( Item[usItemIndex].usItemClass  == 0 )
+			//	break;
 			//if there are any elements allocated for this item, load them
 			if( gArmsDealersInventory[ubArmsDealer][usItemIndex].ubElementsAlloced > 0 )
 			{

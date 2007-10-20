@@ -2663,6 +2663,8 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ FATCIV ][ GENERIC_HIT_DEATHTWITCHNB ]										= FATMANDIE;
 	gubAnimSurfaceIndex[ FATCIV ][ GENERIC_HIT_DEATHTWITCHB ]											= FATMANDIE;
 	gubAnimSurfaceIndex[ FATCIV ][ FALLFORWARD_FROMHIT_STAND ]										= FATMANDIE;
+	gubAnimSurfaceIndex[ FATCIV ][ FALLFORWARD_FROMHIT_CROUCH ]										= FATMANDIE;
+	gubAnimSurfaceIndex[ FATCIV ][ ENDFALLFORWARD_FROMHIT_CROUCH ]										= FATMANDIE;
 	gubAnimSurfaceIndex[ FATCIV ][ FALLFORWARD_HITDEATH_STOP ]										= FATMANDIE;
 	gubAnimSurfaceIndex[ FATCIV ][ STAND_FALLFORWARD_STOP ]												= FATMANDIE;
 	gubAnimSurfaceIndex[ FATCIV ][ GENERIC_HIT_DEATH ]														= FATMANDIE;
@@ -2699,6 +2701,8 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ MANCIV ][ GENERIC_HIT_DEATHTWITCHNB ]										= MANCIVDIE;
 	gubAnimSurfaceIndex[ MANCIV ][ GENERIC_HIT_DEATHTWITCHB ]											= MANCIVDIE;
 	gubAnimSurfaceIndex[ MANCIV ][ FALLFORWARD_FROMHIT_STAND ]										= MANCIVDIE;
+	gubAnimSurfaceIndex[ MANCIV ][ FALLFORWARD_FROMHIT_CROUCH ]										= MANCIVDIE;
+	gubAnimSurfaceIndex[ MANCIV ][ ENDFALLFORWARD_FROMHIT_CROUCH ]										= MANCIVDIE;
 	gubAnimSurfaceIndex[ MANCIV ][ FALLFORWARD_HITDEATH_STOP ]										= MANCIVDIE;
 	gubAnimSurfaceIndex[ MANCIV ][ STAND_FALLFORWARD_STOP ]												= MANCIVDIE;
 	gubAnimSurfaceIndex[ MANCIV ][ GENERIC_HIT_DEATH ]														= MANCIVDIE;
@@ -2734,6 +2738,8 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ MINICIV ][ GENERIC_HIT_DEATHTWITCHNB ]										= MINICIVDIE;
 	gubAnimSurfaceIndex[ MINICIV ][ GENERIC_HIT_DEATHTWITCHB ]										= MINICIVDIE;
 	gubAnimSurfaceIndex[ MINICIV ][ FALLFORWARD_FROMHIT_STAND ]										= MINICIVDIE;
+	gubAnimSurfaceIndex[ MINICIV ][ FALLFORWARD_FROMHIT_CROUCH ]									= MINICIVDIE;
+	gubAnimSurfaceIndex[ MINICIV ][ ENDFALLFORWARD_FROMHIT_CROUCH ]									= MINICIVDIE;
 	gubAnimSurfaceIndex[ MINICIV ][ FALLFORWARD_HITDEATH_STOP ]										= MINICIVDIE;
 	gubAnimSurfaceIndex[ MINICIV ][ STAND_FALLFORWARD_STOP ]											= MINICIVDIE;
 	gubAnimSurfaceIndex[ MINICIV ][ GENERIC_HIT_DEATH ]														= MINICIVDIE;
@@ -2771,6 +2777,8 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ DRESSCIV ][ GENERIC_HIT_DEATHTWITCHNB ]									= DRESSCIVDIE;
 	gubAnimSurfaceIndex[ DRESSCIV ][ GENERIC_HIT_DEATHTWITCHB ]										= DRESSCIVDIE;
 	gubAnimSurfaceIndex[ DRESSCIV ][ FALLFORWARD_FROMHIT_STAND ]									= DRESSCIVDIE;
+	gubAnimSurfaceIndex[ DRESSCIV ][ FALLFORWARD_FROMHIT_CROUCH ]									= DRESSCIVDIE;
+	gubAnimSurfaceIndex[ DRESSCIV ][ ENDFALLFORWARD_FROMHIT_CROUCH ]									= DRESSCIVDIE;
 	gubAnimSurfaceIndex[ DRESSCIV ][ FALLFORWARD_HITDEATH_STOP ]									= DRESSCIVDIE;
 	gubAnimSurfaceIndex[ DRESSCIV ][ STAND_FALLFORWARD_STOP ]											= DRESSCIVDIE;
 	gubAnimSurfaceIndex[ DRESSCIV ][ GENERIC_HIT_DEATH ]													= DRESSCIVDIE;
@@ -2798,6 +2806,8 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ HATKIDCIV ][ GENERIC_HIT_DEATHTWITCHNB ]									= HATKIDCIVDIE;
 	gubAnimSurfaceIndex[ HATKIDCIV ][ GENERIC_HIT_DEATHTWITCHB ]									= HATKIDCIVDIE;
 	gubAnimSurfaceIndex[ HATKIDCIV ][ FALLFORWARD_FROMHIT_STAND ]									= HATKIDCIVDIE;
+	gubAnimSurfaceIndex[ HATKIDCIV ][ FALLFORWARD_FROMHIT_CROUCH ]									= HATKIDCIVDIE;
+	gubAnimSurfaceIndex[ HATKIDCIV ][ ENDFALLFORWARD_FROMHIT_CROUCH ]									= HATKIDCIVDIE;
 	gubAnimSurfaceIndex[ HATKIDCIV ][ FALLFORWARD_HITDEATH_STOP ]									= HATKIDCIVDIE;
 	gubAnimSurfaceIndex[ HATKIDCIV ][ STAND_FALLFORWARD_STOP ]										= HATKIDCIVDIE;
 	gubAnimSurfaceIndex[ HATKIDCIV ][ GENERIC_HIT_DEATH ]													= HATKIDCIVDIE;
@@ -2839,6 +2849,8 @@ void	InitAnimationSurfacesPerBodytype( )
 	gubAnimSurfaceIndex[ KIDCIV ][ GENERIC_HIT_DEATHTWITCHNB ]										= KIDCIVDIE;
 	gubAnimSurfaceIndex[ KIDCIV ][ GENERIC_HIT_DEATHTWITCHB ]											= KIDCIVDIE;
 	gubAnimSurfaceIndex[ KIDCIV ][ FALLFORWARD_FROMHIT_STAND ]										= KIDCIVDIE;
+	gubAnimSurfaceIndex[ KIDCIV ][ FALLFORWARD_FROMHIT_CROUCH ]										= KIDCIVDIE;
+	gubAnimSurfaceIndex[ KIDCIV ][ ENDFALLFORWARD_FROMHIT_CROUCH ]										= KIDCIVDIE;
 	gubAnimSurfaceIndex[ KIDCIV ][ FALLFORWARD_HITDEATH_STOP ]										= KIDCIVDIE;
 	gubAnimSurfaceIndex[ KIDCIV ][ STAND_FALLFORWARD_STOP ]												= KIDCIVDIE;
 	gubAnimSurfaceIndex[ KIDCIV ][ GENERIC_HIT_DEATH ]														= KIDCIVDIE;

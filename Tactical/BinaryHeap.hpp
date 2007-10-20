@@ -14,8 +14,7 @@ public:
 	HEAP<KEY, T>(T data, int key) {HEAP::data = data; HEAP::key = key; return;};
 
 	bool operator==(HEAP<KEY, T> &compare) {
-		if (this->key == compare.key && this->data == compare.data) return true;
-		else return false;
+		return (this->key == compare.key && this->data == compare.data);
 	}
 };
 
@@ -54,13 +53,15 @@ private:
 
 
 public:
+	typedef HEAP<KEY, T> CBinaryHeap_t;
+
 	void clear ()
 	{
 		heapCount = 1;
 		return;
 	}
 
-	CBinaryHeap(int size)
+	CBinaryHeap(int size=WORLD_MAX)
 	{
 		if (size <= 0) {
 			size = WORLD_MAX;
@@ -72,21 +73,12 @@ public:
 		return;
 	}
 
-	CBinaryHeap()
-	{
-		//size must be maxSize + 1, because 1 element is unused.
-		BinaryHeap = new HEAP<KEY, T>[WORLD_MAX+1];
-		maxSize = WORLD_MAX;
-		heapCount = 1;
-		return;
-	}
-
 	~CBinaryHeap()
 	{
 		delete BinaryHeap;
 	}
 
-	HEAP<KEY, T> removeElement(const T data)
+	CBinaryHeap_t removeElement(const T data)
 	{
 		HEAP<KEY, T> returnHeap;
 		int index = findData(data);
@@ -98,7 +90,7 @@ public:
 		return (returnHeap);
 	}
 
-	HEAP<KEY, T> removeElement(const T data, const KEY key)
+	CBinaryHeap_t removeElement(const T data, const KEY key)
 	{
 		HEAP<KEY, T> returnHeap;
 		int index = findData(data, key);
@@ -250,7 +242,7 @@ insert:
 	}*/
 	}
 
-	HEAP<KEY, T> popTopHeap(int& returnSize)
+	CBinaryHeap_t popTopHeap(int& returnSize)
 	{
 		returnSize = heapCount-1;
 		if (heapCount != 1) {
@@ -259,7 +251,7 @@ insert:
 		return (BinaryHeap[0]);
 	}
 
-	HEAP<KEY, T> popTopHeap()
+	CBinaryHeap_t popTopHeap()
 	{
 		HEAP<KEY, T> returnHeap;
 		if (heapCount != 1) {
@@ -295,12 +287,12 @@ insert:
 		return (returnHeap);
 	}
 
-	HEAP<KEY, T> peekTopHeap() const
+	CBinaryHeap_t peekTopHeap() const
 	{
 		return (BinaryHeap[(heapCount != 1)]);
 	}
 
-	HEAP<KEY, T> peekElement(int index) const
+	CBinaryHeap_t peekElement(int index) const
 	{
 		if (index < heapCount) {
 			return (BinaryHeap[index]);
@@ -352,7 +344,7 @@ insert:
 private:
 	int				heapCount;
 	int				maxSize;
-	HEAP<KEY, T>*	BinaryHeap;
+	CBinaryHeap_t*	BinaryHeap;
 };
 
 #endif

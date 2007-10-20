@@ -4409,8 +4409,8 @@ void WriteQuantityAndAttachments( OBJECTTYPE *pObject, INT32 yp )
 	{ //ammo
 		if( pObject->ubNumberOfObjects > 1 )
 		{
-			CHAR16 str[50];
-			CHAR16 temp[5];
+			CHAR16 str[100];
+			CHAR16 temp[10];
 			UINT8 i;
 			swprintf( str, L"Clips:  %d  (%d", pObject->ubNumberOfObjects, pObject->ItemData.Generic.bStatus[0] );
 			for( i = 1; i < pObject->ubNumberOfObjects; i++ )

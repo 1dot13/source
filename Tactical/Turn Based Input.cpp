@@ -3110,7 +3110,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 										}
 										else if ( bSlot2 != ITEM_NOT_FOUND )
 										{
-										SwapObjs( &(pTeamSoldier->inv[bSlot1]), &(pTeamSoldier->inv[bSlot2] ) );
+										SwapObjs( pTeamSoldier, bSlot1, bSlot2 );
 									}
 									break;
 								}
@@ -3153,7 +3153,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 										}
 										else if ( bSlot2 != ITEM_NOT_FOUND )
 										{
-										SwapObjs( &(pTeamSoldier->inv[bSlot1]), &(pTeamSoldier->inv[bSlot2] ) );
+										SwapObjs( pTeamSoldier, bSlot1, bSlot2 );
 									}
 									break;
 								}

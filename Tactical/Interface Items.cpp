@@ -610,7 +610,7 @@ void GenerateProsString( STR16 zItemPros, OBJECTTYPE * pObject, UINT32 uiPixLimi
 	ubWeight = Item[ usItem ].ubWeight;
 	if (Item[ usItem ].usItemClass == IC_GUN)
 	{
-		ubWeight += Item[ pObject->ItemData.Gun.usGunAmmoItem ].ubWeight;
+		ubWeight = ubWeight + Item[ pObject->ItemData.Gun.usGunAmmoItem ].ubWeight;
 	}
 
 	if (Weapon[usItem].bAccuracy >= EXCEPTIONAL_ACCURACY )
@@ -753,7 +753,7 @@ void GenerateConsString( STR16 zItemCons, OBJECTTYPE * pObject, UINT32 uiPixLimi
 	ubWeight = Item[ usItem ].ubWeight;
 	if (Item[ usItem ].usItemClass == IC_GUN)
 	{
-		ubWeight += Item[ pObject->ItemData.Gun.usGunAmmoItem ].ubWeight;
+		ubWeight = ubWeight + Item[ pObject->ItemData.Gun.usGunAmmoItem ].ubWeight;
 	}
 
 	if (ubWeight >= BAD_WEIGHT)
@@ -2389,6 +2389,14 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 	INT16	usX, usY;
 	INT16		sForeColour;
 	INT16 sProsConsIndent;
+
+	// ADB: Make sure the current object isn't money if there's something in hand
+	if (Item[ pObject->usItem].usItemClass & IC_MONEY && gpItemPointer != NULL && gpItemPointer->usItem != 0) {
+		//ADB oops, money splits and puts a new item on the cursor, which would replace what's already on the cursor!
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Unable to split money due to having an item on your cursor." );
+		return FALSE;
+	}
+
 
 	//Set the current screen
 	guiCurrentItemDescriptionScreen = guiCurrentScreen;
@@ -5539,7 +5547,7 @@ BOOLEAN InitKeyRingPopup( SOLDIERTYPE *pSoldier, INT16 sInvX, INT16 sInvY, INT16
 	HVOBJECT		hVObject;
 	INT32				cnt;
 	UINT16			usPopupWidth, usPopupHeight;
-	UINT8				ubSlotSimilarToKeySlot = 10;
+	//UINT8				ubSlotSimilarToKeySlot = 10;
 	INT16				sKeyRingItemWidth = 0;
 	INT16				sOffSetY = 0, sOffSetX = 0;
 

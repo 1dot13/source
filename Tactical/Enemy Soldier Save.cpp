@@ -1369,7 +1369,7 @@ BOOLEAN NewWayOfLoadingCiviliansFromTempFile()
 						if( !curr->pDetailedPlacement )
 						{
 							//need to upgrade the placement to detailed placement
-							curr->pDetailedPlacement = new (MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT )) SOLDIERCREATE_STRUCT;
+							curr->pDetailedPlacement = new SOLDIERCREATE_STRUCT;
 						}
 						//now replace the map pristine placement info with the temp map file version..
 						//memcpy( curr->pDetailedPlacement, &tempDetailedPlacement, SIZEOF_SOLDIERCREATE_STRUCT );
@@ -1558,7 +1558,7 @@ BOOLEAN NewWayOfSavingEnemyAndCivliansToTempFile( INT16 sSectorX, INT16 sSectorY
 
 	//STEP ONE:  Prep the soldiers for saving...
 
-	//modify the map's soldier init list to reflect the changes to the member's still alive...
+	//modify the map's soldier init list to reflect the changes to the members still alive...
 	for( i = gTacticalStatus.Team[ ubStartID ].bFirstID; i <= gTacticalStatus.Team[ ubEndID ].bLastID; i++ )
 	{
 		pSoldier = MercPtrs[ i ];

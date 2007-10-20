@@ -1198,7 +1198,7 @@ BOOLEAN LoadCurrentSectorsInformationFromTempItemsFile()
 	}
 
 
-	//if the save is an older version, use theold way of oading it up
+	//if the save is an older version, use the old way of loading it up
 	if( guiSavedGameVersion < 57 )
 	{
 		if( DoesTempFileExistsForMap( SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS, gWorldSectorX, gWorldSectorY, gbWorldSectorZ ) )

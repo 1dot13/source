@@ -799,7 +799,7 @@ INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX,
 	fCheckForRoof = FALSE;
 
 	// figure out starting and ending cubes	
-	iGridNo = GETWORLDINDEXFROMWORLDCOORDS( (INT32)dStartX, (INT32)dStartY );
+	iGridNo = GETWORLDINDEXFROMWORLDCOORDS( (INT32)dStartY, (INT32)dStartX );
 	qCurrZ = FloatToFixed( dStartZ );
 	qLandHeight = INT32_TO_FIXEDPT( CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ iGridNo ].sHeight ) );
 	iCurrAboveLevelZ = FIXEDPT_TO_INT32( qCurrZ - qLandHeight );
@@ -835,7 +835,7 @@ INT32 LineOfSightTest( FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX,
 		}
 	}
 
-	iGridNo = GETWORLDINDEXFROMWORLDCOORDS( (INT32)dEndX, (INT32)dEndY );
+	iGridNo = GETWORLDINDEXFROMWORLDCOORDS( (INT32)dEndY, (INT32)dEndX );
 	qCurrZ = FloatToFixed( dEndZ );
 	qLandHeight = INT32_TO_FIXEDPT( CONVERT_PIXELS_TO_HEIGHTUNITS( gpWorldLevelData[ iGridNo ].sHeight ) );
 	iCurrAboveLevelZ = FIXEDPT_TO_INT32( qCurrZ - qLandHeight );

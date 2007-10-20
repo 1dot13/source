@@ -3386,7 +3386,7 @@ void UIHandleSoldierStanceChange( UINT8 ubSoldierID, INT8	bNewStance )
 	// IF turn-based - adjust stance now!
 	if ( gTacticalStatus.uiFlags & TURNBASED && ( gTacticalStatus.uiFlags & INCOMBAT ) )
 	{
-		pSoldier->fTurningFromPronePosition = FALSE;
+		pSoldier->bTurningFromPronePosition = TURNING_FROM_PRONE_OFF;
 
 		// Check if we have enough APS
 		if ( SoldierCanAffordNewStance( pSoldier, bNewStance ) )
@@ -3420,13 +3420,16 @@ void UIHandleSoldierStanceChange( UINT8 ubSoldierID, INT8	bNewStance )
 
 			// LOCK VARIBLE FOR NO UPDATE INDEX...
 			pSoldier->usUIMovementMode =  GetMoveStateBasedOnStance( pSoldier, bNewStance );
+			pSoldier->ubDesiredHeight = NO_DESIRED_HEIGHT;
 
+#if 0
 			if ( pSoldier->usUIMovementMode == CRAWLING && gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_PRONE )
 			{
 				pSoldier->usDontUpdateNewGridNoOnMoveAnimChange = LOCKED_NO_NEWGRIDNO;
 				pSoldier->bPathStored = FALSE;
 			}
 			else
+#endif
 			{
 				pSoldier->usDontUpdateNewGridNoOnMoveAnimChange = 1;
 			}
@@ -6319,7 +6322,7 @@ BOOLEAN ValidQuickExchangePosition( )
 BOOLEAN IsValidJumpLocation( SOLDIERTYPE *pSoldier, INT16 sGridNo, BOOLEAN fCheckForPath )
 {
 	INT16 sFourGrids[4], sDistance=0, sSpot, sIntSpot;
-	INT8 sDirs[4] = { NORTH, EAST, SOUTH, WEST };
+	static const UINT8 sDirs[4] = { NORTH, EAST, SOUTH, WEST };
 	//INT32 cnt;
 	UINT8	ubGuyThere;
 	UINT8 ubMovementCost;

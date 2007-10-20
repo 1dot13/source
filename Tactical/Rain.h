@@ -3,5 +3,6 @@
 
 BOOLEAN IsItAllowedToRenderRain();
 void RenderRain();
+void ResetRain();
 
 #endif

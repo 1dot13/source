@@ -1817,7 +1817,7 @@ void GetBloodFromCorpse( SOLDIERTYPE *pSoldier )
 {
 	ROTTING_CORPSE *pCorpse;
 	INT8						bObjSlot;
-	OBJECTTYPE			Object;
+	OBJECTTYPE			Object = {};
 
 	// OK, get corpse
 	pCorpse = &( gRottingCorpse[ pSoldier->uiPendingActionData4 ] );
@@ -1847,7 +1847,7 @@ void GetBloodFromCorpse( SOLDIERTYPE *pSoldier )
 
 	if ( bObjSlot != NO_SLOT )
 	{
-		SwapObjs( &(pSoldier->inv[ bObjSlot ] ), &Object );
+		SwapObjs( pSoldier, bObjSlot, &Object );
 	}
 }
 

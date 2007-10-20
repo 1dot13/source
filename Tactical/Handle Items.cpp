@@ -284,6 +284,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT16 usHa
 	// Check HAND ITEM
 	if ( Item[ usHandItem ].usItemClass == IC_GUN || Item[ usHandItem ].usItemClass == IC_THROWING_KNIFE )
 	{
+
 		// WEAPONS
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleItem: checking for fingerprintID, item id = %d,id required = %d, imprint id = %d, soldier id = %d",usHandItem,Item[usHandItem].fingerprintid,pSoldier->inv[ pSoldier->ubAttackingHand ].ubImprintID,pSoldier->ubProfile));
 		if ( Item[usHandItem].fingerprintid )
@@ -545,6 +546,8 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT16 usHa
 
 			if ( Item[ usHandItem ].usItemClass != IC_THROWING_KNIFE )
 			{
+				pSoldier->ubAttackingHand = HANDPOS;
+				pSoldier->usAttackingWeapon = usHandItem;
 				// If doing spread, set down the first gridno.....
 				if ( pSoldier->fDoSpread )
 				{
@@ -2144,7 +2147,11 @@ OBJECTTYPE* InternalAddItemToPool( INT16 *psGridNo, OBJECTTYPE *pObject, INT8 bV
 
 		(*psGridNo) = sNewGridNo = gMapInformation.sCenterGridNo;
 
-		//return( NULL );
+		// If no center grid number exists, shrug it off
+		if (sNewGridNo == -1)
+		{
+			return( NULL );
+		}
 	}
 
 	// CHECK IF THIS ITEM IS IN DEEP WATER....

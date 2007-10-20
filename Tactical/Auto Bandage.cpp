@@ -463,10 +463,10 @@ void AutoBandage( BOOLEAN fStart )
 				if ( pSoldier->bSlotItemTakenFrom != NO_SLOT )
 				{
 					// swap our old hand item back to the main hand
-					SwapObjs( &( pSoldier->inv[ HANDPOS ] ), &( pSoldier->inv[ pSoldier->bSlotItemTakenFrom ] ) );
+					SwapObjs( pSoldier, HANDPOS, pSoldier->bSlotItemTakenFrom );
 				}
 
-				// ATE: Mkae everyone stand up!
+				// ATE: Make everyone stand up!
 				if ( pSoldier->bLife >= OKLIFE && !pSoldier->bCollapsed )
 				{
 					if ( gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_STAND )

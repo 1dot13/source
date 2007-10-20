@@ -2378,6 +2378,26 @@ void SwapObjs( OBJECTTYPE * pObj1, OBJECTTYPE * pObj2 )
 */
 }
 
+//ADB these 2 functions were created because the code calls SwapObjs all over the place
+//but never handles the effects of that swap!
+void SwapObjs(SOLDIERTYPE* pSoldier, int leftSlot, int rightSlot)
+{
+	PERFORMANCE_MARKER
+	SwapObjs(&pSoldier->inv[ leftSlot ], &pSoldier->inv[ rightSlot ]);
+
+	//old usItem for the left slot is now stored in the right slot, and vice versa
+	HandleTacticalEffectsOfEquipmentChange(pSoldier, leftSlot, pSoldier->inv[ rightSlot ].usItem, pSoldier->inv[ leftSlot ].usItem);
+	HandleTacticalEffectsOfEquipmentChange(pSoldier, rightSlot, pSoldier->inv[ leftSlot ].usItem, pSoldier->inv[ rightSlot ].usItem);
+}
+
+void SwapObjs(SOLDIERTYPE* pSoldier, int slot, OBJECTTYPE* pObject)
+{
+	PERFORMANCE_MARKER
+	SwapObjs(&pSoldier->inv[ slot ], pObject);
+
+	HandleTacticalEffectsOfEquipmentChange(pSoldier, slot, pObject->usItem, pSoldier->inv[ slot ].usItem);
+}
+
 void RemoveObjFrom( OBJECTTYPE * pObj, UINT8 ubRemoveIndex )
 {
 	// remove 1 object from an OBJECTTYPE, starting at index bRemoveIndex
@@ -3922,7 +3942,7 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 				if (pSoldier->inv[SECONDHANDPOS].usItem != 0)
 				{
 					// swap what WAS in the second hand into the cursor
-					SwapObjs( pObj, &(pSoldier->inv[SECONDHANDPOS]));
+					SwapObjs( pSoldier, SECONDHANDPOS, pObj);
 				}
 			}
 		 }
@@ -3932,7 +3952,8 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 	{
 		// replacement/reloading/merging/stacking	
 		// keys have an additional check for key ID being the same
-		if ( (pObj->usItem == pInSlot->usItem) && ( Item[ pObj->usItem ].usItemClass != IC_KEY || pObj->ItemData.Key.ubKeyID == pInSlot->ItemData.Key.ubKeyID ) )
+		if ( (pObj->usItem == pInSlot->usItem) && 
+			( Item[ pObj->usItem ].usItemClass != IC_KEY || pObj->ItemData.Key.ubKeyID == pInSlot->ItemData.Key.ubKeyID ) )
 		{
 			if (Item[ pObj->usItem ].usItemClass == IC_MONEY)
 			{
@@ -3967,7 +3988,7 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 				if (pObj->ubNumberOfObjects <= 1)
 				{
 					// swapping
-					SwapObjs( pObj, pInSlot );
+					SwapObjs( pSoldier, bPos, pObj );
 				}
 				else
 				{
@@ -4031,13 +4052,13 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 				}
 				else
 				{
-					SwapObjs( pObj, pInSlot );	
+					SwapObjs( pSoldier, bPos, pObj );	
 				}
 			}
 			else if (pObj->ubNumberOfObjects <= __max( ubSlotLimit, 1 ) )
 			{
 				// swapping
-				SwapObjs( pObj, pInSlot );
+				SwapObjs( pSoldier, bPos, pObj );	
 			}
 			else
 			{
@@ -5647,7 +5668,7 @@ void SwapHandItems( SOLDIERTYPE * pSoldier )
 	if (pSoldier->inv[HANDPOS].usItem == NOTHING || pSoldier->inv[SECONDHANDPOS].usItem == NOTHING)
 	{
 		// whatever is in the second hand can be swapped to the main hand!
-		SwapObjs( &(pSoldier->inv[HANDPOS]), &(pSoldier->inv[SECONDHANDPOS]) );
+		SwapObjs( pSoldier, HANDPOS, SECONDHANDPOS );
 		DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 	}
 	else
@@ -5662,7 +5683,7 @@ void SwapHandItems( SOLDIERTYPE * pSoldier )
 			}
 			// the main hand is now empty so a swap is going to work...
 		}
-		SwapObjs( &(pSoldier->inv[HANDPOS]), &(pSoldier->inv[SECONDHANDPOS]) );
+		SwapObjs( pSoldier, HANDPOS, SECONDHANDPOS );
 		DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 	}
 }
@@ -5679,7 +5700,7 @@ void SwapOutHandItem( SOLDIERTYPE * pSoldier )
 		if (pSoldier->inv[SECONDHANDPOS].usItem == NOTHING)
 		{
 			// just swap the hand item to the second hand
-			SwapObjs( &(pSoldier->inv[HANDPOS]), &(pSoldier->inv[SECONDHANDPOS]) );
+			SwapObjs( pSoldier, HANDPOS, SECONDHANDPOS );
 			DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 			return;
 		}
