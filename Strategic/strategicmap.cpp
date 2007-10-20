@@ -4871,7 +4871,7 @@ void AdjustSoldierPathToGoOffEdge( SOLDIERTYPE *pSoldier, INT16 sEndGridNo, UINT
 
 		for (iLoop = 0; iLoop < pSoldier->usPathDataSize; iLoop++)
 		{
-			sTempGridNo += (INT16)DirectionInc( pSoldier->usPathingData[ iLoop ] );
+			sTempGridNo += DirectionInc( (UINT8) pSoldier->usPathingData[ iLoop ] );
 		}
 
 		if (sTempGridNo == sEndGridNo)

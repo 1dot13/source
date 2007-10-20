@@ -5491,7 +5491,7 @@ void MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier )
 		{
 			if( Item[pSoldier -> inv[ bPocket ].usItem].toolkit )
 			{
-				SwapObjs( &pSoldier -> inv[ HANDPOS ], &pSoldier -> inv[ bPocket ] );
+				SwapObjs( pSoldier, HANDPOS, bPocket );
 				break;
 			}
 		}
@@ -5519,7 +5519,7 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier )
 		if ( Item[pSoldier -> inv[ bPocket ].usItem].medicalkit )
 		{
 			fCharacterInfoPanelDirty = TRUE;
-			SwapObjs( &pSoldier -> inv[ HANDPOS ], &pSoldier -> inv[ bPocket ] );
+			SwapObjs( pSoldier, HANDPOS, bPocket );
 			return(TRUE);
 		}
 	}
@@ -5539,14 +5539,14 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier )
 			if( ( Item[ pSoldier -> inv[ HANDPOS ].usItem ].twohanded  ) && ( bPocket >= SMALLPOCK1POS ) )
 			{
 				// first move from hand to second hand
-				SwapObjs( &pSoldier -> inv[ HANDPOS ], &pSoldier -> inv[ SECONDHANDPOS ] );
+				SwapObjs( pSoldier, HANDPOS, SECONDHANDPOS );
 
 				// dirty mapscreen and squad panels
 				fCharacterInfoPanelDirty = TRUE;
 				fInterfacePanelDirty = DIRTYLEVEL2;
 			}
 			
-			SwapObjs( &pSoldier -> inv[ HANDPOS ], &pSoldier -> inv[ bPocket ] );
+			SwapObjs( pSoldier, HANDPOS, bPocket );
 			
 
 			return(TRUE);
@@ -7084,6 +7084,8 @@ void ContractMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
         }
         else
         {
+			// The game should be unpaused when this message box disappears
+			UnPauseGame();
   			  DoMapMessageBox( MSG_BOX_BASIC_STYLE, gzLateLocalizedString[ 48 ], MAP_SCREEN, MSG_BOX_FLAG_YESNO, MercDismissConfirmCallBack );
         }
 

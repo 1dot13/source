@@ -4,9 +4,9 @@
 #include "types.h"
 
 //Macro to convert sector coordinates (1-16,1-16) to 0-255
-#define SECTOR(x,y)			((y-1)*16+x-1)
-#define SECTORX(SectorID)	((SectorID % 16) + 1)
-#define SECTORY(SectorID)	((SectorID / 16) + 1)
+#define SECTOR(x,y)			(UINT8)((y-1)*16+x-1)
+#define SECTORX(SectorID)	(UINT8)((SectorID % 16) + 1)
+#define SECTORY(SectorID)	(UINT8)((SectorID / 16) + 1)
 
 //Sector enumerations
 //

@@ -415,6 +415,7 @@ void ClearMapControlledFlags( void )
 			SectorInfo[ SECTOR( iCounterA, iCounterB ) ].fPlayer[ 0 ] = TRUE;
 		}
 	}
+	UpdateAirspaceControl( );
 }
 #endif
 

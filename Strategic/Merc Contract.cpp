@@ -980,8 +980,12 @@ BOOLEAN StrategicRemoveMerc( SOLDIERTYPE *pSoldier )
 		wcsncpy( gMercProfiles[ pSoldier->ubProfile ].zName, L"", 1 );
 	}
 
-  // ATE: update team panels....
-  UpdateTeamPanelAssignments( );
+	// ATE: update team panels....
+	UpdateTeamPanelAssignments( );
+
+	// And unpause the @#$@#$ interface
+	UnLockPauseState();
+	UnPauseGame();
 
 	return( TRUE );
 }
