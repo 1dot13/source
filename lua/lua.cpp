@@ -2,19 +2,13 @@
 #include <string.h>
 #include <iostream>
 #include "Lua Interpreter.h"
-#include "lwstring.h"
 
-#include "Overhead.h"
-#include "Isometric Utils.h"
-#include "soldier tile.h"
-#include "Soldier Profile.h"
-#include "ai.h"
+#include <Windows.h>
+#include "MemMan.h"
 
 lua_State *L;
 
 #define ARRAY_INDEX " idx"  // The space is intentional to make this an out-of-band field
-
-#define SOLDIER_CLASS "ja2_SoldierClass"
 
 void CreateLuaType( lua_State *L, STR8 TypeName, luaL_Reg *LuaAccessors )
 {
@@ -123,6 +117,7 @@ luaL_Reg ClassList[] = {
 void CreateLuaClass( lua_State *L, STR8 ClassName, LuaAttrib *Attribs )
 {
 	luaL_Reg *i;
+	LuaAttrib *idx;
 
 	luaL_newmetatable( L, ClassName );
 	for (i = ClassList; i->name; i++)
@@ -131,6 +126,16 @@ void CreateLuaClass( lua_State *L, STR8 ClassName, LuaAttrib *Attribs )
 		lua_pushlightuserdata( L, Attribs);
 		lua_pushcclosure( L, i->func, 1);
 		lua_rawset( L, -3);
+	}
+
+	for (idx=Attribs; idx->name; idx++)
+	{
+		if (idx->staticcall)
+		{
+			lua_pushstring( L, idx->name);
+			lua_pushcfunction( L, idx->staticcall);
+			lua_rawset( L, -3 );
+		}
 	}
 }
 
@@ -170,166 +175,8 @@ void NewLuaObject( lua_State *L, STR8 ClsName, void *Ptr )
 
 
 
-static int LuaGetMercPtr( lua_State *L)
-{
-	int v = lua_tointeger( L, 2 );
-	luaL_argcheck( L, (v >= 0 && v < TOTAL_SOLDIERS), 2, "The soldier index is out of range");
-	if (MercPtrs[ v ] )
-	{
-		NewLuaObject( L, "ja2_SoldierClass", MercPtrs[ v ] );
-	}
-	else
-	{
-		lua_pushnil( L );
-	}
-	
-	return 1;
-}
-
-static luaL_Reg SoldierList[] = {
-	{ "__index", LuaGetMercPtr, },
-	{ NULL, },
-};
 
 
-
-
-int LuaGetSoldierName( lua_State *L )
-{
-	SOLDIERTYPE **ppSoldier = (SOLDIERTYPE**) lua_touserdata( L, 1 );
-	SOLDIERTYPE *pSoldier = *ppSoldier;
-	if (!pSoldier)
-	{
-		lua_pushnil( L );
-	}
-	else
-	{
-		luaWS_newstr( L, pSoldier->name);
-	}
-	return 1;
-}
-
-int LuaGetSoldierFullName( lua_State *L )
-{
-	SOLDIERTYPE **ppSoldier = (SOLDIERTYPE**) lua_touserdata( L, 1 );
-	SOLDIERTYPE *pSoldier = *ppSoldier;
-	if (!pSoldier)
-	{
-		lua_pushnil( L );
-	}
-	else
-	{
-		if (pSoldier->ubProfile < NUM_PROFILES)
-		{
-			luaWS_newstr( L, gMercProfiles[pSoldier->ubProfile].zName );
-		}
-		else
-		{
-			return LuaGetSoldierName( L);
-		}
-	}
-	return 1;
-}
-
-int LuaGetSoldierGrid( lua_State *L )
-{
-	SOLDIERTYPE **ppSoldier = (SOLDIERTYPE**) lua_touserdata( L, 1 );
-	SOLDIERTYPE *pSoldier = *ppSoldier;
-	if (!pSoldier)
-	{
-		lua_pushnil( L );
-	}
-	else
-	{
-		lua_pushinteger( L, pSoldier->sGridNo);
-	}
-	return 1;
-}
-
-int LuaSetSoldierGrid( lua_State *L )
-{
-	SOLDIERTYPE **ppSoldier = (SOLDIERTYPE**) lua_touserdata( L, 1 );
-	SOLDIERTYPE *pSoldier = *ppSoldier;
-	int newgrid = luaL_checkinteger( L, 3);
-	luaL_argcheck( L, newgrid > 0 && newgrid <= NOWHERE, 2, "The grid number must be on screen!" );
-	TeleportSoldier( pSoldier, newgrid, TRUE);
-	return 0;
-}
-
-int LuaGetSoldierAPs( lua_State *L )
-{
-	SOLDIERTYPE **ppSoldier = (SOLDIERTYPE**) lua_touserdata( L, 1 );
-	SOLDIERTYPE *pSoldier = *ppSoldier;
-	if (!pSoldier)
-	{
-		lua_pushnil( L );
-	}
-	else
-	{
-		lua_pushinteger( L, pSoldier->bActionPoints);
-	}
-	return 1;
-}
-
-int LuaSetSoldierAPs( lua_State *L )
-{
-	SOLDIERTYPE **ppSoldier = (SOLDIERTYPE**) lua_touserdata( L, 1 );
-	SOLDIERTYPE *pSoldier = *ppSoldier;
-	int newaps = luaL_checkinteger( L, 3);
-	luaL_argcheck( L, newaps > 0 && newaps < 256, 2, "The grid number must be on screen!" );
-	pSoldier->bActionPoints = (INT8) newaps;
-	return 0;
-}
-
-int LuaSoldierWalkTo( lua_State *L )
-{
-	SOLDIERTYPE **ppSoldier = (SOLDIERTYPE**) luaL_checkudata( L, 1, SOLDIER_CLASS );
-	SOLDIERTYPE *pSoldier = *ppSoldier;
-	int newgrid = luaL_checkinteger( L, 2);
-	luaL_argcheck( L, newgrid > 0 && newgrid <= NOWHERE, 2, "The grid number must be on screen!" );
-	pSoldier->bAction = AI_ACTION_WALK;
-	pSoldier->usActionData = newgrid;
-	pSoldier->bPathStored = FALSE;
-	pSoldier->bActionInProgress = ExecuteAction( pSoldier);
-	return 0;
-}
-
-int LuaSoldierRunTo( lua_State *L )
-{
-	SOLDIERTYPE **ppSoldier = (SOLDIERTYPE**) luaL_checkudata( L, 1, SOLDIER_CLASS );
-	SOLDIERTYPE *pSoldier = *ppSoldier;
-	int newgrid = luaL_checkinteger( L, 2);
-	luaL_argcheck( L, newgrid > 0 && newgrid <= NOWHERE, 2, "The grid number must be on screen!" );
-	pSoldier->bAction = AI_ACTION_RUN;
-	pSoldier->usActionData = newgrid;
-	pSoldier->bPathStored = FALSE;
-	pSoldier->bActionInProgress = ExecuteAction( pSoldier);
-	return 0;
-}
-
-int LuaSoldierChangeStance( lua_State *L )
-{
-	SOLDIERTYPE **ppSoldier = (SOLDIERTYPE**) luaL_checkudata( L, 1, SOLDIER_CLASS );
-	SOLDIERTYPE *pSoldier = *ppSoldier;
-	int newstance = luaL_checkinteger( L, 2);
-	ChangeSoldierStance( pSoldier, (UINT8) newstance);
-	return 0;
-}
-
-LuaAttrib Soldier[] = {
-	{ "name", LuaGetSoldierName, },
-	{ "fullname", LuaGetSoldierFullName, },
-	{ "grid", LuaGetSoldierGrid, LuaSetSoldierGrid },
-	{ "APs", LuaGetSoldierAPs, LuaSetSoldierAPs },
-	{ "walkto", NULL, NULL, LuaSoldierWalkTo },
-	{ "runto", NULL, NULL, LuaSoldierRunTo },
-	{ "changestance", NULL, NULL, LuaSoldierChangeStance },
-	{ NULL, },
-};
-
-
-
-extern luaL_Reg WStringMethods[];
 
 void InitializeLua( )
 {
@@ -345,15 +192,10 @@ void InitializeLua( )
 	CreateLuaType( L, "wstring", WStringMethods);
 	lua_setglobal( L, "wstring"); // We also want this class to be known to the script
 
-	// Create a soldier type
-	CreateLuaClass( L, SOLDIER_CLASS, Soldier );
-	lua_setglobal( L, SOLDIER_CLASS); // We also want this class to be known to the script
-
-	// Create a soldier list type and create its object
-	CreateLuaType( L, "ja2_SoldierListClass", SoldierList);
-	CreateLuaObject( L, NULL );
-	// Give this new object a name
-	lua_setglobal( L, "Soldiers" );
+	// Set up the game info
+	LuaTacticalSetup( L);
+	LuaStrategicSetup( L);
+	LuaEnvironmentSetup( L);
 }
 
 int EvalLua (const wchar_t* buff) {
@@ -379,7 +221,7 @@ int EvalLua (const wchar_t* buff) {
 			lua_pop(L, 1);  /* pop error message from the stack */
 			return FALSE;
 		}
-		cout << lua_tostring(L, -1) << endl;
+		printf( "%s\n", lua_tostring(L, -1));
 		lua_pop(L, 1);  /* pop error message from the stack */
 		return TRUE;
 	}
