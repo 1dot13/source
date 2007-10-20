@@ -73,6 +73,7 @@
 	#include "Music Control.h"
 	#include "Soldier Profile.h"
 	#include "GameSettings.h"
+	#include "Summary Info.h"
 #endif
 
 
@@ -304,6 +305,9 @@ BOOLEAN EditModeInit( void )
 			InitJA2SelectionWindow();
 		fFirstTimeInEditModeInit = FALSE;
 	}
+
+	// Clear the summary info array
+	ClearSummaryInfo();
 
 	//Initialize editor specific stuff for each Taskbar.
 	EntryInitEditorTerrainInfo();
@@ -557,6 +561,9 @@ BOOLEAN EditModeShutdown( void )
 
 	HideExitGrids();
 
+	// Clear the summary info array
+	ClearSummaryInfo();
+
 	UnPauseGame();
 
 	return TRUE;
@@ -581,7 +588,7 @@ void SetBackgroundTexture( )
 		usIndex = (UINT16)(rand( ) % 10 );
 
 		// Adjust for type
-		usIndex += gTileTypeStartIndex[ gCurrentBackground ];
+		usIndex = usIndex + gTileTypeStartIndex[ gCurrentBackground ];
 
 		// Set land index
 		if( TypeRangeExistsInLandLayer( cnt, FIRSTFLOOR, LASTFLOOR, &Dummy ) )
@@ -1557,7 +1564,7 @@ void HandleKeyboardShortcuts( )
 								RemoveAllRoofsOfTypeRange( i, FIRSTTEXTURE, LASTITEM );	
 								RemoveAllOnRoofsOfTypeRange( i, FIRSTTEXTURE, LASTITEM );
 								RemoveAllShadowsOfTypeRange( i, FIRSTROOF, LASTSLANTROOF );
-								usRoofIndex = 9 + ( rand() % 3 );
+								usRoofIndex = (UINT16) (9 + ( rand() % 3 ));
 								GetTileIndexFromTypeSubIndex( usRoofType, usRoofIndex, &usTileIndex );
 								AddRoofToHead( i, usTileIndex );
 							}
@@ -3141,7 +3148,7 @@ void EnsureStatusOfEditorButtons()
 
 void HandleMouseClicksInGameScreen()
 {
-	EXITGRID dummy={0,0,0,0};
+	//EXITGRID dummy={0,0,0,0};
 	INT16 sX, sY;
 	BOOLEAN fPrevState;
 	if( !GetMouseXY( &sGridX, &sGridY ) )
