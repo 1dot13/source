@@ -226,5 +226,5 @@ void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN s
 
 INT16 FindBestCoverNearTheGridNo(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubSearchRadius );
 
-INT8 FindDirectionForClimbing( INT16 sGridNo );
+INT8 FindDirectionForClimbing( INT16 sGridNo, INT8 bLevel);
 

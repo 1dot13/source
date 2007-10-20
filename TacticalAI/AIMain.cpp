@@ -130,7 +130,7 @@ BOOLEAN InitAI( void )
 #ifdef _DEBUG
 	if (gfDisplayCoverValues)
 	{
-		memset( gsCoverValue, 0x7F, sizeof( INT16 ) * WORLD_MAX );
+		//memset( gsCoverValue, 0x7F, sizeof( INT16 ) * WORLD_MAX );
 	}
 #endif
 
@@ -411,6 +411,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 		if ( gTacticalStatus.ubAttackBusyCount > 0 )
 		{
 			fProcessNewSituation = FALSE;
+#if 0
 			// HACK!!
 			if ( pSoldier->bAction == AI_ACTION_FIRE_GUN )
 			{
@@ -432,6 +433,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 					fProcessNewSituation = TRUE;
 				}
 			}
+#endif
 		}		
 		else
 		{
@@ -2076,6 +2078,8 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 	case AI_ACTION_CHANGE_FACING:         // turn this way & that to look
 		// as long as we don't see anyone new, cover won't have changed
 		// if we see someone new, it will cause a new situation & remove this
+		// 0verhaul:  If turning and not moving, set the final destination to the current position
+		pSoldier->sFinalDestination = pSoldier->sGridNo;
 		SkipCoverCheck = TRUE;
 
 #ifdef DEBUGDECISIONS
@@ -2850,14 +2854,14 @@ void SetNewSituation( SOLDIERTYPE * pSoldier )
 		if ( pSoldier->ubQuoteRecord == 0 && !gTacticalStatus.fAutoBandageMode && !(pSoldier->bNeutral && gTacticalStatus.uiFlags & ENGAGED_IN_CONV) )
 		{
 			// allow new situation to be set
-			if (gTacticalStatus.ubAttackBusyCount > 0)
-			{
-				DebugAttackBusy( "@#!%  NOT setting NewSituation because still busy attacking.\n" );
-			}
-			else
+			//if (gTacticalStatus.ubAttackBusyCount > 0)
+			//{
+			//	DebugAttackBusy( "@#!%  NOT setting NewSituation because still busy attacking.\n" );
+			//}
+			//else
 			{
 				// 0verhaul:  Let's see if we can do without this.
-				// pSoldier->bNewSituation = IS_NEW_SITUATION;
+				pSoldier->bNewSituation = IS_NEW_SITUATION;
 			}
 
 			if ( gTacticalStatus.ubAttackBusyCount != 0 )

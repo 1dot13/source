@@ -101,7 +101,11 @@ INT8 OKToAttack(SOLDIERTYPE * pSoldier, int target)
 				return(NOSHOOT_NOLOAD);
 			}
 		}
-		else if (pSoldier->inv[HANDPOS].ItemData.Gun.ubGunShotsLeft == 0 /*SB*/ || !(pSoldier->inv[HANDPOS].ItemData.Gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER))		
+		else if (pSoldier->inv[HANDPOS].ItemData.Gun.ubGunShotsLeft == 0 /*SB*/ || 
+			!(pSoldier->inv[HANDPOS].ItemData.Gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER) ||
+			(IsValidSecondHandShotForReloadingPurposes( pSoldier) && 
+			(pSoldier->inv[SECONDHANDPOS].ItemData.Gun.ubGunShotsLeft == 0 || 
+			!(pSoldier->inv[SECONDHANDPOS].ItemData.Gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER))))
 		{
 			return(NOSHOOT_NOAMMO);
 		}
@@ -448,7 +452,7 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 {
 	INT8	bMinPointsNeeded = 0;
 	INT8 bAPForStandUp = 0;
-	INT8 bAPToLookAtWall = ( FindDirectionForClimbing( pSoldier->sGridNo ) == pSoldier->ubDirection ) ? 0 : 1;
+	INT8 bAPToLookAtWall = ( FindDirectionForClimbing( pSoldier->sGridNo, pSoldier->bLevel ) == pSoldier->ubDirection ) ? 0 : 1;
 
 	//NumMessage("AffordableAction - Guy#",pSoldier->ubID);
 
@@ -2315,7 +2319,9 @@ void RearrangePocket(SOLDIERTYPE *pSoldier, INT8 bPocket1, INT8 bPocket2, UINT8 
 {
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"RearrangePocket");
 	// NB there's no such thing as a temporary swap for now...
-	SwapObjs( &(pSoldier->inv[bPocket1]), &(pSoldier->inv[bPocket2]) );
+	//SwapObjs( &(pSoldier->inv[bPocket1]), &(pSoldier->inv[bPocket2]) );
+	SwapObjs( pSoldier, bPocket1, bPocket2 );
+
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"RearrangePocket done");
 }
 

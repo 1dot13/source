@@ -429,7 +429,7 @@ INT8 DecideAutoBandage( SOLDIERTYPE * pSoldier )
 		{
 			pSoldier->bSlotItemTakenFrom = bSlot;
 
-			SwapObjs( &(pSoldier->inv[HANDPOS]), &(pSoldier->inv[bSlot]) );
+			SwapObjs( pSoldier, HANDPOS, bSlot );
 			/*
 			memset( &TempObj, 0, sizeof( OBJECTTYPE ) );
 			// move the med kit out to temp obj
@@ -452,7 +452,7 @@ INT8 DecideAutoBandage( SOLDIERTYPE * pSoldier )
 		{
 			pSoldier->bSlotItemTakenFrom = bSlot;
 
-			SwapObjs( &(pSoldier->inv[HANDPOS]), &(pSoldier->inv[bSlot]) );
+			SwapObjs( pSoldier, HANDPOS, bSlot );
 		}
 		return( pSoldier->bAction );
 	}
