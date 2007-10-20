@@ -113,14 +113,14 @@ typedef struct
 	UINT32				fCreateFlags;						// Specifies creation flags like from file or not
 	union
 	{
-		struct
-		{
+		//struct
+		//{
 			SGPFILENAME		ImageFile;							// Filename of image data to use
-		};
-		struct
-		{
+		//};
+		//struct
+		//{
 			HIMAGE				hImage;
-		};
+		//};
 	};
 	UINT8					ubBitDepth;							// BPP, ignored if given from file
 } VOBJECT_DESC;

@@ -46,9 +46,9 @@
 #define BUTTON_INIT						1
 #define BUTTON_WAS_CLICKED		2
 
-//effects how the button is rendered.
+//affects how the button is rendered.
 #define BUTTON_TYPES						( BUTTON_QUICK | BUTTON_GENERIC | BUTTON_HOT_SPOT | BUTTON_CHECKBOX )
-//effects how the button is processed
+//affects how the button is processed
 #define BUTTON_TYPE_MASK				(BUTTON_NO_TOGGLE| BUTTON_ALLOW_DISABLED_CALLBACK | BUTTON_CHECKBOX | BUTTON_IGNORE_CLICKS )
 
 //button flags

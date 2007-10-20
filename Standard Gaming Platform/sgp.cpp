@@ -162,6 +162,9 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 //        if( 1==iScreenMode )
           {
           GetClientRect(hWindow, &rcWindow);
+		  // Go ahead and clamp the client width and height
+		  rcWindow.right = SCREEN_WIDTH;
+		  rcWindow.bottom = SCREEN_HEIGHT;
           ClientToScreen(hWindow, (LPPOINT)&rcWindow);
           ClientToScreen(hWindow, (LPPOINT)&rcWindow+1);
 			int xPos = (int)(short) LOWORD(lParam); 

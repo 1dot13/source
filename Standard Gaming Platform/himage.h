@@ -105,23 +105,23 @@ typedef struct
 	// data strucutre of the compresssed format, once developed.
 	union 
 	{
-		struct
-		{
+		//struct
+		//{
 			PTR		pImageData;
-		};
-		struct
-		{
+		//};
+		//struct
+		//{
 			PTR		pCompressedImageData;
-		};
-		struct 
-		{
+		//};
+		//struct 
+		//{
 			UINT8						*p8BPPData;
-		};
-		struct
-		{
+		//};
+		//struct
+		//{
 		
 			UINT16 *p16BPPData;
-		};
+		//};
 		struct
 		{
 			UINT8 *					pPixData8;
