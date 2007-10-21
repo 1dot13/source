@@ -5279,7 +5279,7 @@ void HandleTeamServices( UINT8 ubTeamNum )
 							}
 							if ( bSlot != NO_SLOT )
 							{
-								SwapObjs( pTeamSoldier, HANDPOS, bSlot );
+								SwapObjs( pTeamSoldier, HANDPOS, bSlot, TRUE );
 							}
 							else
 							{
@@ -5366,7 +5366,7 @@ void HandlePlayerServices( SOLDIERTYPE *pTeamSoldier )
 
 						if ( bSlot != NO_SLOT )
 						{
-							SwapObjs( pTeamSoldier, HANDPOS, bSlot );
+							SwapObjs( pTeamSoldier, HANDPOS, bSlot, TRUE );
 						}
 						else
 						{

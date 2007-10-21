@@ -2319,8 +2319,10 @@ void RearrangePocket(SOLDIERTYPE *pSoldier, INT8 bPocket1, INT8 bPocket2, UINT8 
 {
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"RearrangePocket");
 	// NB there's no such thing as a temporary swap for now...
+	// 0verhaul:  There is now!  If not permanent, don't lose weapon ready status because the
+	// weapon will be restored after the trial situation is finished.
 	//SwapObjs( &(pSoldier->inv[bPocket1]), &(pSoldier->inv[bPocket2]) );
-	SwapObjs( pSoldier, bPocket1, bPocket2 );
+	SwapObjs( pSoldier, bPocket1, bPocket2, bPermanent );
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"RearrangePocket done");
 }

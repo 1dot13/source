@@ -35,8 +35,8 @@ extern INT8 FindUsableObj( SOLDIERTYPE * pSoldier, UINT16 usItem );
 extern void DeleteObj(OBJECTTYPE * pObj );
 extern void CopyObj( OBJECTTYPE * pSourceObj, OBJECTTYPE * pTargetObj );
 extern void SwapObjs( OBJECTTYPE * pObj1, OBJECTTYPE * pObj2 );
-extern void SwapObjs(SOLDIERTYPE* pSoldier, int leftSlot, int rightSlot);
-extern void SwapObjs(SOLDIERTYPE* pSoldier, int slot, OBJECTTYPE* pObject);
+extern void SwapObjs(SOLDIERTYPE* pSoldier, int leftSlot, int rightSlot, BOOLEAN fPermanent);
+extern void SwapObjs(SOLDIERTYPE* pSoldier, int slot, OBJECTTYPE* pObject, BOOLEAN fPermanent);
 
 extern void SwapWithinObj( OBJECTTYPE * pObj, UINT8 ubIndex1, UINT8 ubIndex2 );
 extern void RemoveObjFrom( OBJECTTYPE * pObj, UINT8 ubRemoveIndex );

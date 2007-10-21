@@ -463,7 +463,7 @@ void AutoBandage( BOOLEAN fStart )
 				if ( pSoldier->bSlotItemTakenFrom != NO_SLOT )
 				{
 					// swap our old hand item back to the main hand
-					SwapObjs( pSoldier, HANDPOS, pSoldier->bSlotItemTakenFrom );
+					SwapObjs( pSoldier, HANDPOS, pSoldier->bSlotItemTakenFrom, TRUE );
 				}
 
 				// ATE: Make everyone stand up!

@@ -1847,7 +1847,7 @@ void GetBloodFromCorpse( SOLDIERTYPE *pSoldier )
 
 	if ( bObjSlot != NO_SLOT )
 	{
-		SwapObjs( pSoldier, bObjSlot, &Object );
+		SwapObjs( pSoldier, bObjSlot, &Object, TRUE );
 	}
 }
 

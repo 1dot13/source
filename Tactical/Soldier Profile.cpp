@@ -1084,7 +1084,7 @@ BOOLEAN RecruitRPC( UINT8 ubCharNum )
 				}
 			}
 			// swap item to hand
-			SwapObjs( pNewSoldier, bSlot, HANDPOS );
+			SwapObjs( pNewSoldier, bSlot, HANDPOS, TRUE );
 		}
 	}
 

@@ -1196,7 +1196,7 @@ BOOLEAN HandleTalkingMenuEscape( BOOLEAN fCanDelete , BOOLEAN fFromEscKey )
 void HandleTalkingMenuBackspace( void )
 {
 	FACETYPE				*pFace;
-	BOOLEAN					fTalking = FALSE;
+	//BOOLEAN					fTalking = FALSE;
 
 	if ( !gfInTalkPanel )
 	{
@@ -2225,7 +2225,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				bItemIn = FindAIUsableObjClass( pSoldier, IC_GUN );
 				if (bItemIn != NO_SLOT && bItemIn != HANDPOS)
 				{
-					SwapObjs( pSoldier, HANDPOS, bItemIn );
+					SwapObjs( pSoldier, HANDPOS, bItemIn, TRUE );
 					sGridNo = pSoldier->sGridNo + DirectionInc( pSoldier->ubDirection );
 					SoldierReadyWeapon( pSoldier, (INT16) (sGridNo % WORLD_COLS), (INT16) (sGridNo / WORLD_COLS), FALSE ); 
 				}
@@ -3114,7 +3114,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 							if (bMoneySlot < bEmptySlot)
 							{
 								// move main stash to later in inventory!
-								SwapObjs( pSoldier, bEmptySlot, bMoneySlot );
+								SwapObjs( pSoldier, bEmptySlot, bMoneySlot, TRUE );
 								SoldierGiveItem( pSoldier, pSoldier2, &(pSoldier->inv[ bMoneySlot ] ), bMoneySlot );
 							}
 							else

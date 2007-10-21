@@ -5491,7 +5491,7 @@ void MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier )
 		{
 			if( Item[pSoldier -> inv[ bPocket ].usItem].toolkit )
 			{
-				SwapObjs( pSoldier, HANDPOS, bPocket );
+				SwapObjs( pSoldier, HANDPOS, bPocket, TRUE );
 				break;
 			}
 		}
@@ -5519,7 +5519,7 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier )
 		if ( Item[pSoldier -> inv[ bPocket ].usItem].medicalkit )
 		{
 			fCharacterInfoPanelDirty = TRUE;
-			SwapObjs( pSoldier, HANDPOS, bPocket );
+			SwapObjs( pSoldier, HANDPOS, bPocket, TRUE );
 			return(TRUE);
 		}
 	}
@@ -5539,14 +5539,14 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier )
 			if( ( Item[ pSoldier -> inv[ HANDPOS ].usItem ].twohanded  ) && ( bPocket >= SMALLPOCK1POS ) )
 			{
 				// first move from hand to second hand
-				SwapObjs( pSoldier, HANDPOS, SECONDHANDPOS );
+				SwapObjs( pSoldier, HANDPOS, SECONDHANDPOS, TRUE );
 
 				// dirty mapscreen and squad panels
 				fCharacterInfoPanelDirty = TRUE;
 				fInterfacePanelDirty = DIRTYLEVEL2;
 			}
 			
-			SwapObjs( pSoldier, HANDPOS, bPocket );
+			SwapObjs( pSoldier, HANDPOS, bPocket, TRUE );
 			
 
 			return(TRUE);
