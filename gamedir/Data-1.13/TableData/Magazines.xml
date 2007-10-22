@@ -1908,4 +1908,16 @@
 		<ubMagSize>8</ubMagSize>
 		<ubAmmoType>2</ubAmmoType>
 	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>318</uiIndex>
+		<ubCalibre>47</ubCalibre>
+		<ubMagSize>30</ubMagSize>
+		<ubAmmoType>1</ubAmmoType>
+	</MAGAZINE>
+	<MAGAZINE>
+		<uiIndex>319</uiIndex>
+		<ubCalibre>47</ubCalibre>
+		<ubMagSize>30</ubMagSize>
+		<ubAmmoType>2</ubAmmoType>
+	</MAGAZINE>
 </MAGAZINELIST>

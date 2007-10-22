@@ -7440,19 +7440,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>932</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 932</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>6x35mm HP</szItemName>
+		<szLongItemName>6x35mm HP</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>6x35mm HP</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>933</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 933</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>6x35mm AP</szItemName>
+		<szLongItemName>6x35mm AP</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>6x35mm AP</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>934</uiIndex>
@@ -9088,6 +9088,41 @@
 		<szLongItemName>CETME Ameli</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
 		<szBRName>CETME Ameli</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1189</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1190</uiIndex>
+		<szItemName>KAC PDW</szItemName>
+		<szLongItemName>KAC PDW</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>KAC PDW</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1191</uiIndex>
+		<szItemName>Magpul PDR</szItemName>
+		<szLongItemName>Magpul PDR</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Magpul PDR</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1192</uiIndex>
+		<szItemName>Automag V</szItemName>
+		<szLongItemName>Automag V</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Automag V</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1193</uiIndex>
+		<szItemName>M1 Carbine</szItemName>
+		<szLongItemName>M1 Carbine</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>M1 Carbine</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 </ITEMLIST>

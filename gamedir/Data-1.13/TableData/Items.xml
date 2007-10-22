@@ -21290,25 +21290,43 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>932</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 932</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>6x35mm HP</szItemName>
+		<szLongItemName>6x35mm HP</szLongItemName>
+		<szItemDesc>30 rounds of hollowpoint ammo for 6x35mm PDW-class guns.</szItemDesc>
+		<szBRName>6x35mm HP</szBRName>
+		<szBRDesc>Here's what you need for your shiny new 6x35mm PDW: 30 rounds tipped with hollowpoint bullets for anti-personnel work.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>318</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>713</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<usPrice>180</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>933</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 933</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>6x35mm AP</szItemName>
+		<szLongItemName>6x35mm AP</szLongItemName>
+		<szItemDesc>30 rounds of FMJ ammo for 6x35mm guns.</szItemDesc>
+		<szBRName>6x35mm AP</szBRName>
+		<szBRDesc>30 full metal jacket rounds for 6x35mm personal defense weapons, if hollowpoints won't do it any longer.</szBRDesc>
+		<usItemClass>1024</usItemClass>
+		<ubClassIndex>319</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>712</ubGraphicNum>
+		<ubWeight>3</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<usPrice>240</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
 	</ITEM>
 	<ITEM>
 		<uiIndex>934</uiIndex>
@@ -21560,7 +21578,6 @@
 		<szBRName>Rifle LAM-Flashlight</szBRName>
 		<szBRDesc>This Laser Aiming Module and tactical flashlight combination is meant to fit on modern rifle rail interface systems.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
-		<ubGraphicType>0</ubGraphicType>
 		<ubGraphicNum>341</ubGraphicNum>
 		<ubWeight>4</ubWeight>
 		<ubPerPocket>2</ubPerPocket>
@@ -27057,5 +27074,125 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>1200</BR_ROF>
 		<DefaultAttachment>209</DefaultAttachment>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1189</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1189</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1190</uiIndex>
+		<szItemName>KAC PDW</szItemName>
+		<szLongItemName>KAC PDW</szLongItemName>
+		<szItemDesc>Almost as light as some heavier pistols, this is the ideal sidearm for the modern Private Military Contractor.</szItemDesc>
+		<szBRName>KAC PDW</szBRName>
+		<szBRDesc>A new PDW on the market, this little beauty was made by the Knight Armament Corporation and fires the new 6x35mm round.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1190</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>338</ubGraphicNum>
+		<ubWeight>20</ubWeight>
+		<usPrice>1780</usPrice>
+		<ubCoolness>6</ubCoolness>
+		<bReliability>1</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>1</BR_NewInventory>
+		<BR_ROF>600</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1191</uiIndex>
+		<szItemName>Magpul PDR</szItemName>
+		<szLongItemName>Magpul PDR</szLongItemName>
+		<szItemDesc>Yet another new 6x35mm PDW, and a very effective one.</szItemDesc>
+		<szBRName>Magpul PDR</szBRName>
+		<szBRDesc>Just out of prototype stage, this new PDW is chambered for 6x35mm ammo. The SciFi-look belittles its effectiveness, though.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1191</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>339</ubGraphicNum>
+		<ubWeight>18</ubWeight>
+		<usPrice>2160</usPrice>
+		<ubCoolness>8</ubCoolness>
+		<bReliability>1</bReliability>
+		<bRepairEase>-2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>1</BR_NewInventory>
+		<BR_ROF>600</BR_ROF>
+		<DefaultAttachment>1011</DefaultAttachment>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1192</uiIndex>
+		<szItemName>Automag V</szItemName>
+		<szLongItemName>Automag V</szLongItemName>
+		<szItemDesc>This Automag is chambered for the .50 AE caliber.</szItemDesc>
+		<szBRName>Automag V</szBRName>
+		<szBRDesc>The .50 Action Express version of Galena's line of Automag pistols.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1192</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>340</ubGraphicNum>
+		<ubWeight>14</ubWeight>
+		<usPrice>780</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>20</BR_ROF>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1193</uiIndex>
+		<szItemName>M1 Carbine</szItemName>
+		<szLongItemName>M1 Carbine</szLongItemName>
+		<szItemDesc>Intended to replace the pistol as the sidearm, this gun was more often used as a light rifle during WW-II.</szItemDesc>
+		<szBRName>M1 Carbine</szBRName>
+		<szBRDesc>The good old M1 Carbine, still on the market for WW-II enthusiasts and gun collectors.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1193</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>330</ubGraphicNum>
+		<ubWeight>24</ubWeight>
+		<usPrice>1310</usPrice>
+		<ubCoolness>3</ubCoolness>
+		<bReliability>2</bReliability>
+		<bRepairEase>1</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>60</BR_ROF>
 	</ITEM>
 </ITEMLIST>

@@ -3,7 +3,7 @@
 	<ENEMYGUNCHOICES>
 		<uiIndex>0</uiIndex>
 		<name>0%</name>
-		<ubChoices>14</ubChoices>
+		<ubChoices>15</ubChoices>
 		<bItemNo1>689</bItemNo1>
 		<bItemNo2>690</bItemNo2>
 		<bItemNo3>635</bItemNo3>
@@ -18,7 +18,7 @@
 		<bItemNo12>5</bItemNo12>
 		<bItemNo13>720</bItemNo13>
 		<bItemNo14>759</bItemNo14>
-		<bItemNo15>0</bItemNo15>
+		<bItemNo15>798</bItemNo15>
 		<bItemNo16>0</bItemNo16>
 		<bItemNo17>0</bItemNo17>
 		<bItemNo18>0</bItemNo18>
@@ -113,7 +113,7 @@
 	<ENEMYGUNCHOICES>
 		<uiIndex>2</uiIndex>
 		<name>20%</name>
-		<ubChoices>19</ubChoices>
+		<ubChoices>20</ubChoices>
 		<bItemNo1>694</bItemNo1>
 		<bItemNo2>2</bItemNo2>
 		<bItemNo3>22</bItemNo3>
@@ -133,7 +133,7 @@
 		<bItemNo17>773</bItemNo17>
 		<bItemNo18>775</bItemNo18>
 		<bItemNo19>780</bItemNo19>
-		<bItemNo20>0</bItemNo20>
+		<bItemNo20>1193</bItemNo20>
 		<bItemNo21>0</bItemNo21>
 		<bItemNo22>0</bItemNo22>
 		<bItemNo23>0</bItemNo23>

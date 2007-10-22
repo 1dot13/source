@@ -7454,19 +7454,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>932</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 932</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>6x35mm HP</szItemName>
+		<szLongItemName>6x35mm HP</szLongItemName>
+		<szItemDesc>30 rounds of hollowpoint ammo for 6x35mm PDW-class guns.</szItemDesc>
+		<szBRName>6x35mm HP</szBRName>
+		<szBRDesc>Here's what you need for your shiny new 6x35mm PDW: 30 rounds tipped with hollowpoint bullets for anti-personnel work.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>933</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 933</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>6x35mm AP</szItemName>
+		<szLongItemName>6x35mm AP</szLongItemName>
+		<szItemDesc>30 rounds of FMJ ammo for 6x35mm guns.</szItemDesc>
+		<szBRName>6x35mm AP</szBRName>
+		<szBRDesc>30 full metal jacket rounds for 6x35mm personal defense weapons, if hollowpoints won't do it any longer.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>934</uiIndex>
@@ -8942,5 +8942,40 @@
 		<szItemDesc>Designed by the Compania de Estudios Tecnicus de Materiales Especiales, the Ameli looks as if it was derived from the MG42, but its mechanism is quite different.</szItemDesc>
 		<szBRName>CETME Ameli</szBRName>
 		<szBRDesc>The Ameli we have in stock are the 'light-bolt'-versions with a higher rate of fire than the 'heavy-bolt'-model. Comes with bipod.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1189</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1190</uiIndex>
+		<szItemName>KAC PDW</szItemName>
+		<szLongItemName>KAC PDW</szLongItemName>
+		<szItemDesc>Almost as light as some heavier pistols, this is the ideal sidearm for the modern Private Military Contractor.</szItemDesc>
+		<szBRName>KAC PDW</szBRName>
+		<szBRDesc>A new PDW on the market, this little beauty was made by the Knight Armament Corporation and fires the new 6x35mm round.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1191</uiIndex>
+		<szItemName>Magpul PDR</szItemName>
+		<szLongItemName>Magpul PDR</szLongItemName>
+		<szItemDesc>Yet another new 6x35mm PDW, and a very effective one.</szItemDesc>
+		<szBRName>Magpul PDR</szBRName>
+		<szBRDesc>Just out of prototype stage, this new PDW is chambered for 6x35mm ammo. The SciFi-look belittles its effectiveness, though.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1192</uiIndex>
+		<szItemName>Automag V</szItemName>
+		<szLongItemName>Automag V</szLongItemName>
+		<szItemDesc>This Automag is chambered for the .50 AE caliber.</szItemDesc>
+		<szBRName>Automag V</szBRName>
+		<szBRDesc>The .50 Action Express version of Galena's line of Automag pistols.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1193</uiIndex>
+		<szItemName>M1 Carbine</szItemName>
+		<szLongItemName>M1 Carbine</szLongItemName>
+		<szItemDesc>Intended to replace the pistol as the sidearm, this gun was more often used as a light rifle during WW-II.</szItemDesc>
+		<szBRName>M1 Carbine</szBRName>
+		<szBRDesc>The good old M1 Carbine, still on the market for WW-II enthusiasts and gun collectors.</szBRDesc>
 	</ITEM>
 </ITEMLIST>
