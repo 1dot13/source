@@ -1396,8 +1396,14 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 									// OK, pick a larger direction to goto....
 									pSoldier->uiStatusFlags |= SOLDIER_TURNINGFROMHIT;
 									// This becomes an attack busy situation
-									gTacticalStatus.ubAttackBusyCount++;
-									DebugAttackBusy( String( "Soldier turning from a hit.  Increasing attack busy.  Now %d\n", gTacticalStatus.ubAttackBusyCount ) );
+									// 0verhaul:  There is an attack busy problem with this.  The soldier could be in mid-turn
+									// when another bullet is fired (auto-fire or dual-wield, for instance), and the soldier is
+									// knocked down in the middle of the turn.  In such a case, the attack busy does not get
+									// cancelled.  So if we indeed need to keep the attack busy (which may not be the case),
+									// we will need to find a more reliable method.  For now, I'm going to cancel out the
+									// ABC adjustment here and we'll see if there needs to be something in its place.
+									//gTacticalStatus.ubAttackBusyCount++;
+									DebugAttackBusy( String( "Soldier turning from a hit.  Not Increasing attack busy.  Now %d\n", gTacticalStatus.ubAttackBusyCount ) );
 
 									// Pick evenly between both
 									if ( Random( 50 ) < 25 )

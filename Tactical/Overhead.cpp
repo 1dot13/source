@@ -7724,7 +7724,12 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 		if ( pSoldier )
 		{
 			pSoldier->bNumPelletsHitBy = 0;
-			pSoldier->fGettingHit = FALSE;
+			if ( !( pSoldier->uiStatusFlags & SOLDIER_TURNINGFROMHIT ) )
+			{
+				// 0verhaul:  This is an ugly hack.  I don't like it, but until I figure out a better solution
+				// for turning from a hit, it's the only way to not stop a soldier in mid-turn.
+				pSoldier->fGettingHit = FALSE;
+			}
 
 			if (pSoldier->ubAttackerID != NOBODY )
 			{

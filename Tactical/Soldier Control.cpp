@@ -6095,8 +6095,9 @@ void TurnSoldier( SOLDIERTYPE *pSoldier)
 				// Release attacker
 				// DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Releasesoldierattacker, turning from hit animation ended") );
 				// ReleaseSoldiersAttacker( pSoldier );
-				DebugAttackBusy( "Finished turning from hit.  Reducing attack busy.\n");
-				ReduceAttackBusyCount( );
+				// 0verhaul:  Since I disabled the turn from hit ABC increase, I need to disable the turn from hit decrease too.
+				DebugAttackBusy( "Finished turning from hit.  Not Reducing attack busy.\n");
+				//ReduceAttackBusyCount( );
 
 				//FREEUP GETTING HIT FLAG
 				// pSoldier->fGettingHit = FALSE;
