@@ -386,6 +386,13 @@ void InteractWithOpenableStruct( SOLDIERTYPE *pSoldier, STRUCTURE *pStructure, U
 			// Pull Up Menu
       if ( !fTrapsFound )
       {
+		  // In autobandage mode, assuming no traps are found, try to automatically unlock the door.  If we can't, then we can't
+		  if (gTacticalStatus.fAutoBandageMode)
+		  {
+			  AttemptToUnlockDoor( pSoldier, pDoor);
+			  return;
+		  }
+
 			  InitDoorOpenMenu( pSoldier, pStructure, ubDirection, FALSE );
       }
       else

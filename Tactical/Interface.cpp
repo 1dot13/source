@@ -2161,6 +2161,12 @@ BOOLEAN InitDoorOpenMenu( SOLDIERTYPE *pSoldier, STRUCTURE *pStructure, UINT8 ub
 	INT16 sHeight, sWidth;
 	INT16	sScreenX, sScreenY;
 
+	// Can't bring up this menu if in autobandage mode
+	if (gTacticalStatus.fAutoBandageMode)
+	{
+		return FALSE;
+	}
+
 	// Erase other menus....
 	EraseInterfaceMenus( TRUE );
 

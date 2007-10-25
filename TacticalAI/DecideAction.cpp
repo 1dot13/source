@@ -1528,7 +1528,19 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 	// However, civilians with no profile (and likely no weapons) do not need to be seeking out noises.  Most don't
 	// even have the body type for it (can't climb or jump).
 	//if ( !( pSoldier->bTeam == CIV_TEAM && pSoldier->ubProfile != NO_PROFILE && pSoldier->ubProfile != ELDIN ) )
-	if ( pSoldier->bTeam != CIV_TEAM || ( pSoldier->ubProfile != NO_PROFILE && pSoldier->ubProfile != ELDIN ) )
+	//if ( pSoldier->bTeam != CIV_TEAM || ( !pSoldier->bNeutral && pSoldier->ubProfile != ELDIN ) )
+	// ADB: Eldin is the only neutral civilian who should be seeking out noises.  As the museum curator, he can be
+	// available to talk to.  As the night watchman, he needs to look for thieves.
+	bool onCivTeam = (pSoldier->bTeam == CIV_TEAM);
+	bool isNamedCiv = (pSoldier->ubProfile != NO_PROFILE);
+	bool isEldin = (pSoldier->ubProfile == ELDIN);//logically flipped from the original, isNotEldin == false is confusing
+	// For purpose of seeking noise, cowardly civs are neutral, even if attacked by your thugs
+	bool isNeutral = pSoldier->bNeutral || pSoldier->uiStatusFlags & SOLDIER_COWERING; 
+	if (
+		(onCivTeam == false) || //true #1
+		(onCivTeam == true && isNamedCiv == true && isNeutral == false) || //true #2
+		(onCivTeam == true && isEldin == true)//true #3
+		)
 	{
 		// IF WE ARE MILITIA/CIV IN REALTIME, CLOSE TO NOISE, AND CAN SEE THE SPOT WHERE THE NOISE CAME FROM, FORGET IT
 		if ( fReachable && !fClimb && !gfTurnBasedAI && (pSoldier->bTeam == MILITIA_TEAM || pSoldier->bTeam == CIV_TEAM )&& PythSpacesAway( pSoldier->sGridNo, sNoiseGridNo ) < 5 )
