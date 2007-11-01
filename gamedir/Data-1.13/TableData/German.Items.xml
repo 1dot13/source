@@ -100,9 +100,9 @@
 		<uiIndex>12</uiIndex>
 		<szItemName>M4 Commando</szItemName>
 		<szLongItemName>Colt M4 Commando</szLongItemName>
-		<szItemDesc>Das M4 Commando mit 11.5"-Lauf ist eine Weiterentwickklung des XM177 und COLT's kompaktestes 5.56mm Modell.</szItemDesc>
+		<szItemDesc>Das M4 Commando mit 11.5" Lauf ist eine Weiterentwickklung des XM177 und COLT's kompaktestes 5.56mm Modell.</szItemDesc>
 		<szBRName>Colt M4 Commando</szBRName>
-		<szBRDesc>Das M4 Commando mit 11.5"-Lauf ist eine Weiterentwickklung des XM177 und COLT's kompaktestes 5.56mm Modell. Seit 1997 wird es von US Army Rangers verwendet. Feuermodus: S-F</szBRDesc>
+		<szBRDesc>Das M4 Commando mit 11.5" Lauf ist eine Weiterentwickklung des XM177 und COLT's kompaktestes 5.56mm Modell. Seit 1997 wird es von US Army Rangers verwendet. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>13</uiIndex>
@@ -170,11 +170,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>21</uiIndex>
-		<szItemName>HK G41A2</szItemName>
+		<szItemName>G41A2</szItemName>
 		<szLongItemName>HK G41A2</szLongItemName>
-		<szItemDesc>Das G41 sollte neben dem G11 zum Standardgewehr der Bundeswehr werden. Aufgrund der politischen Veränderungen 1989 kam es jedoch nicht dazu.</szItemDesc>
+		<szItemDesc>Das G41 sollte neben dem G11 zum Standardgewehr der Bundeswehr werden. Aufgrund der politischen Veränderungen 1989 kam es jedoch nicht mehr dazu.</szItemDesc>
 		<szBRName>HK G41A2</szBRName>
-		<szBRDesc>Das G41 ist ein hervorragendes Sturmgewehr, es besitzt eine S-3-F Abzugsgruppe und sollte viele M16-Schützen abwerben. Aufgrund des hohen Preises ging es jedoch nie in Serie. Wir von BR konnten einige Exemplare auftreiben - greifen Sie zu!</szBRDesc>
+		<szBRDesc>Das G41 ist ein hervorragendes Sturmgewehr, es besitzt eine S-3-F Abzugsgruppe und sollte viele M16-Schützen abwerben. Aufgrund der hohen Herstellungskosten ging es jedoch nie in Serie.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>22</uiIndex>
@@ -204,17 +204,17 @@
 		<uiIndex>25</uiIndex>
 		<szItemName>AK-74</szItemName>
 		<szLongItemName>Kalaschnikow AK-74</szLongItemName>
-		<szItemDesc>Für die Weiterentwicklung der AK-Baureihe wurde eigens die Patrone M74 im neuen Kaliber 5.45x39mm entwickelt.</szItemDesc>
+		<szItemDesc>Das ab 1974 bei der Sowjetarmee eingeführte Sturmgewehr im neuen Kaliber 5.45x39mm ist eine Weiterentwicklung der AK-Baureihe.</szItemDesc>
 		<szBRName>Kalaschnikow AK-74</szBRName>
-		<szBRDesc>Für die Weiterentwicklung der AK-Baureihe wurde eigens die Patrone M74 im neuen Kaliber 5.45x39mm entwickelt. Die etwas geringere Durchschlagskraft wird durch eine höhere Geschwindigkeit, welche größere Wunden verursacht, kompensiert. Feuermodus: S-F</szBRDesc>
+		<szBRDesc>Das ab 1974 bei der Sowjetarmee eingeführte Sturmgewehr im neuen Kaliber 5.45x39mm ist eine Weiterentwicklung der AK-Baureihe. Das Geschoss hat eine etwas geringere Durchschlagskraft verursacht aber größere Wunden. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>26</uiIndex>
 		<szItemName>AKM</szItemName>
 		<szLongItemName>Kalaschnikow AKM</szLongItemName>
-		<szItemDesc>Die überarbeitete Variante des AK-47 wurde ab 1960 als AKM exportiert. Es ist weltweit sehr beliebt, besonders in Ländern der dritten Welt und bei einfachen Söldnern.</szItemDesc>
+		<szItemDesc>Das 1959 eingeführte AKM, im Blechprägeverfahren hergestellt, ist eine überarbeitete und verbesserte Variante des AK-47.</szItemDesc>
 		<szBRName>Kalaschnikow AKM</szBRName>
-		<szBRDesc>Die überarbeitete Variante des AK-47 wurde ab 1960 als AKM exportiert. Es ist weltweit sehr beliebt, besonders in Ländern der dritten Welt und bei einfachen Söldnern.</szBRDesc>
+		<szBRDesc>Das 1959 eingeführte AKM, im Blechprägeverfahren hergestellt, ist eine überarbeitete und verbesserte Variante des AK-47. Aufgrund seiner legendären Zuverlässigkeit ist es heute noch bei einfachen Söldnern sehr beliebt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>27</uiIndex>
@@ -234,15 +234,15 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>29</uiIndex>
-		<szItemName>HK G3A3</szItemName>
+		<szItemName>G3A3</szItemName>
 		<szLongItemName>HK G3A3</szLongItemName>
-		<szItemDesc>Das G3A3 besitzt eine S-F Abzugsgruppe und war bis Ende der 90er Jahre das Sturmgewehr der Bundeswehr. Es wurde ab 1997 schrittweise durch das G36 ersetzt.</szItemDesc>
+		<szItemDesc>Das sehr zuverlässige G3A3 ist ein Rückstoßlader und war bis 1997 das Sturmgewehr der Bundeswehr.</szItemDesc>
 		<szBRName>HK G3A3</szBRName>
-		<szBRDesc>Das G3A3 besitzt eine S-F Abzugsgruppe und war bis Ende der 90er Jahre das Sturmgewehr der Bundeswehr. Es wurde ab 1997 schrittweise durch das G36 ersetzt.</szBRDesc>
+		<szBRDesc>Das G3A3 ist ein Rückstoßlader und basiert auf dem StG45 von MAUSER. Aufgrund seiner Zuverlässigkeit wurde es ein weltweiter Exportschlager. Der Rückstoß ist fast genauso legendär wie die Durchschlagskraft! Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>30</uiIndex>
-		<szItemName>HK G11</szItemName>
+		<szItemName>G11</szItemName>
 		<szLongItemName>HK G11</szLongItemName>
 		<szItemDesc>Das G11 sollte neben dem G41 zum Standardgewehr der Bundeswehr werden. Aufgrund der polit. Veränderungen 1989 kam es jedoch nicht dazu.</szItemDesc>
 		<szBRName>HK G11</szBRName>
@@ -252,9 +252,9 @@
 		<uiIndex>31</uiIndex>
 		<szItemName>M870P</szItemName>
 		<szLongItemName>Remington M870P</szLongItemName>
-		<szItemDesc>Diese traditionelle Polizeischrotflinte ist eine der vielseitigsten Waffen überhaupt. Sie eignet sich zum Jagen und zur Grundstücksverteidigung.</szItemDesc>
+		<szItemDesc>Diese legendäre Polizeischrotflinte ist eine der vielseitigsten Waffen überhaupt. Sie eignet sich zum Jagen, zur Grundstücksverteidigung und zum Schlösser knacken.</szItemDesc>
 		<szBRName>Remington M870P</szBRName>
-		<szBRDesc>Diese traditionelle Polizeischrotflinte ist eine der vielseitigsten Waffen überhaupt. Sie eignet sich zum Jagen, zur Grundstücksverteidigung und zum Schlösser knacken.</szBRDesc>
+		<szBRDesc>Diese legendäre Polizeischrotflinte ist eine der vielseitigsten Waffen überhaupt. Sie eignet sich zum Jagen, zur Grundstücksverteidigung und zum Schlösser knacken.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>32</uiIndex>
@@ -276,9 +276,9 @@
 		<uiIndex>34</uiIndex>
 		<szItemName>M249 SAW</szItemName>
 		<szLongItemName>FN Minimi</szLongItemName>
-		<szItemDesc>Das M249 wurde Anfang der 80er Jahre entwickelt um den Teams eine präzise dauerfeuerfähige Waffe zu geben.</szItemDesc>
+		<szItemDesc>Das M249 wurde Anfang der 80er-Jahre entwickelt um den Teams eine präzise dauerfeuerfähige Waffe zu geben.</szItemDesc>
 		<szBRName>FN Minimi</szBRName>
-		<szBRDesc>Das M249 SAW wurde Anfang der 80er Jahre entwickelt, um den Teams auf Zugebene eine präzise dauerfeuerfähige Waffe zu geben - sie schießt nur Dauerfeuer. In 1982 wurde das MG offiziell bei der US-Army eingeführt.</szBRDesc>
+		<szBRDesc>Dieses MG wurde Anfang der 80er-Jahre entwickelt, um den Teams auf Zugebene eine präzise, dauerfeuerfähige Waffe zu geben. In 1982 wurde es offiziell bei der US-Army als M249 SAW eingeführt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>35</uiIndex>
@@ -404,17 +404,17 @@
 		<uiIndex>50</uiIndex>
 		<szItemName>Talon</szItemName>
 		<szLongItemName>Talon Granatwerfer</szLongItemName>
-		<szItemDesc>Mit diesem amerikanischen Granatwerfer schleudern Sie Ihre Feinde direkt in die wartenden Klauen des Todes.</szItemDesc>
-		<szBRName>Talon</szBRName>
-		<szBRDesc>Mit diesem amerikanischen Granatwerfer schleudern Sie Ihre Feinde direkt in die wartenden Klauen des Todes.</szBRDesc>
+		<szItemDesc>Der Talon Granatwerfer kann Dank eines Adapters an viele Sturmgewehre montiert werden und so die Feuerkraft des damit ausgerüsteten Soldaten massiv erhöhen.</szItemDesc>
+		<szBRName>Talon Granatwerfer</szBRName>
+		<szBRDesc>Der Talon Granatwerfer kann Dank eines Adapters an viele Sturmgewehre montiert werden und so die Feuerkraft des damit ausgerüsteten Soldaten massiv erhöhen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>51</uiIndex>
 		<szItemName>LAW</szItemName>
 		<szLongItemName>M72A4 LAW</szLongItemName>
-		<szItemDesc>Diese leichte Panzerabwehrwaffe wird von der Schulter abgefeuert und kann bis zu 30cm Panzerung durchschlagen.</szItemDesc>
+		<szItemDesc>Diese leichte Panzerabwehrwaffe wird von der Schulter abgefeuert und kann bis zu 30cm starke Panzerung durchschlagen.</szItemDesc>
 		<szBRName>M72A4 LAW</szBRName>
-		<szBRDesc>Diese leichte Panzerabwehrwaffe wird von der Schulter abgefeuert und kann bis zu 30cm Panzerung durchschlagen. Eine Einwegwaffe mit unglaublicher Zerstörungskraft!</szBRDesc>
+		<szBRDesc>Diese leichte Panzerabwehrwaffe wird von der Schulter abgefeuert und kann bis zu 30cm starke Panzerung durchschlagen. Eine Einwegwaffe mit unglaublicher Zerstörungskraft!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>52</uiIndex>
@@ -452,9 +452,9 @@
 		<uiIndex>56</uiIndex>
 		<szItemName>Automag III</szItemName>
 		<szLongItemName>AMT Automag III</szLongItemName>
-		<szItemDesc>Die Automag III wurde Anfang der 90er Jahre auf den Markt gebracht. Sie hat einen 6.5" Lauf und wird ausschließlich in Edelstahl gefertigt.</szItemDesc>
+		<szItemDesc>Diese aus Edelstahl gefertigte Automag III besitzt einen 6.5" Lauf. Sie wurde stark modifiziert und feuert Gewehr-Patronen im Kaliber .50 Beowulf (12.5x42RB).</szItemDesc>
 		<szBRName>AMT Automag III</szBRName>
-		<szBRDesc>Die Automag III wurde von Harry Sanford entwickelt und Anfang der 90er Jahre auf den Markt gebracht. Sie hat einen 6.5" Lauf und wird ausschließlich in Edelstahl gefertigt.</szBRDesc>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>57</uiIndex>
@@ -1089,34 +1089,34 @@
 	<ITEM>
 		<uiIndex>136</uiIndex>
 		<szItemName>RDX</szItemName>
-		<szLongItemName>Glas mit RDX Kristallen</szLongItemName>
-		<szItemDesc>Ein mit Cyklonitkristallen gefülltes Gefäß ist wirkungsvoller als TNT und leichter zur Detonation zu bringen. Der einzige Nachteil ist ihre Instabilität. Sie explodieren bei der kleinsten Erschütterung.</szItemDesc>
+		<szLongItemName>RDX Kristalle</szLongItemName>
+		<szItemDesc>Hexogen (auch Cyclonit, T4 und RDX) ist ein hochbrisanter, giftiger Sprengstoff der während des Zweiten Weltkriegs in großen Mengen hergestellt wurde. Der einzige Nachteil ist die Instabilität der Cyclonit-Kristalle, sie explodieren bei der kleinsten Erschütterung.</szItemDesc>
 		<szBRName>RDX Kristalle</szBRName>
-		<szBRDesc>Ein mit Cyklonitkristallen gefülltes Gefäß ist wirkungsvoller als TNT und leichter zur Detonation zu bringen. Der einzige Nachteil ist ihre Instabilität. Sie explodieren bei der kleinsten Erschütterung.</szBRDesc>
+		<szBRDesc>Hexogen (auch Cyclonit, T4 und RDX) ist ein hochbrisanter, giftiger Sprengstoff der während des Zweiten Weltkriegs in großen Mengen hergestellt wurde. Heute ist er der wichtigste, praktisch angewendete militärische Explosivstoff.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>137</uiIndex>
 		<szItemName>TNT</szItemName>
 		<szLongItemName>TNT</szLongItemName>
-		<szItemDesc>Nach Dynamit ist Tri-Nitro-Toluol der älteste und meistgenutzte Sprengstoff der Welt. Die Stangen sind äußerst stabil, in Strohpappe eingerollt, und beinhalten eine Ladung von gut 100g Gewicht.</szItemDesc>
+		<szItemDesc>Nach Dynamit ist Tri-Nitro-Toluol der älteste und meistgenutzte Sprengstoff der Welt. Die Stangen sind äußerst stabil, in Pappe eingerollt und beinhalten eine Ladung von 100g Gewicht.</szItemDesc>
 		<szBRName>TNT</szBRName>
-		<szBRDesc>Nach Dynamit ist Tri-Nitro-Toluol der älteste und meistgenutzte Sprengstoff der Welt. Die Stangen sind äußerst stabil, in Strohpappe eingerollt, und beinhalten eine Ladung von gut 100g Gewicht.</szBRDesc>
+		<szBRDesc>Nach Dynamit ist Tri-Nitro-Toluol der älteste und meistgenutzte Sprengstoff der Welt. Die Stangen sind äußerst stabil, in Pappe eingerollt und beinhalten eine Ladung von 100g Gewicht.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>138</uiIndex>
 		<szItemName>HMX</szItemName>
 		<szLongItemName>HMX</szLongItemName>
-		<szItemDesc>HMX ist eine Mischung aus TNT und Cyklonit im Gewichtsverhältnis 50:50. Nicht so wirkungsvoll wie reines Cyklonit, aber viel stabiler.</szItemDesc>
+		<szItemDesc>HMX ist eine Mischung aus TNT und RDX im Gewichtsverhältnis von 50:50. Es ist nicht so wirkungsvoll wie reines RDX aber viel stabiler.</szItemDesc>
 		<szBRName>HMX</szBRName>
-		<szBRDesc>HMX ist eine Mischung aus TNT und Cyklonit im Gewichtsverhältnis 50:50. Nicht so wirkungsvoll wie reines Cyklonit, aber viel stabiler.</szBRDesc>
+		<szBRDesc>HMX ist eine Mischung aus TNT und RDX im Gewichtsverhältnis von 50:50. Es ist nicht so wirkungsvoll wie reines RDX aber viel stabiler.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>139</uiIndex>
-		<szItemName>C1</szItemName>
-		<szLongItemName>C1</szLongItemName>
-		<szItemDesc>C1 ist eine Lösung aus Cyklonit und einer kleinen Menge Mineralöl. Durch diese Mischung wird die Sprengkraft von Cyklonit beibehalten, während die Stabilität erhöht wird.</szItemDesc>
-		<szBRName>C1</szBRName>
-		<szBRDesc>C1 ist eine Lösung aus Cyklonit und einer kleinen Menge Mineralöl. Durch diese Mischung wird die Sprengkraft von Cyklonit beibehalten, während die Stabilität erhöht wird.</szBRDesc>
+		<szItemName>C-1</szItemName>
+		<szLongItemName>C-1</szLongItemName>
+		<szItemDesc>C-1 ist eine Mischung aus RDX und einer kleinen Menge Mineralöl. Diese Kombination hat die gleiche Sprengkraft wie reines RDX, wird aber nicht ausversehen vor Ihren Augen explodieren.</szItemDesc>
+		<szBRName>C-1</szBRName>
+		<szBRDesc>C-1 ist eine Mischung aus RDX und einer kleinen Menge Mineralöl. Diese Kombination hat die gleiche Sprengkraft wie reines RDX, wird aber nicht ausversehen vor Ihren Augen explodieren.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>140</uiIndex>
@@ -1136,11 +1136,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>142</uiIndex>
-		<szItemName>C4</szItemName>
-		<szLongItemName>C4</szLongItemName>
-		<szItemDesc>C4 ist ein weißer Plastiksprengstoff, wirkungsvoller als TNT. Dieser mit Plastik überzogene Block hat eine mit einer Gewindekappe versehene Vertiefung an beiden Enden. Im Gegensatz zu C1 ist C4 geruchlos.</szItemDesc>
-		<szBRName>C4</szBRName>
-		<szBRDesc>C4 ist ein weißer Plastiksprengstoff, wirkungsvoller als TNT. Dieser mit Plastik überzogene Block hat eine mit einer Gewindekappe versehene Vertiefung an beiden Enden. Im Gegensatz zu C1 ist C4 geruchlos.</szBRDesc>
+		<szItemName>C-4</szItemName>
+		<szLongItemName>C-4</szLongItemName>
+		<szItemDesc>C-4 ist ein weißer, handhabungssicherer, sehr effektiver plastischer Sprengstoff und wirkungsvoller als TNT. C-4 besteht aus 91% Hexogen, 2,1% Polyisobuten, 5,3% DOS und 1,6% Mineralöl. Im Vergleich zu C-1 ist C-4 geruchlos.</szItemDesc>
+		<szBRName>C-4</szBRName>
+		<szBRDesc>C-4 ist ein weißer, handhabungssicherer, sehr effektiver plastischer Sprengstoff und wirkungsvoller als TNT. C-4 besteht aus 91% Hexogen, 2,1% Polyisobuten, 5,3% DOS und 1,6% Mineralöl. Im Vergleich zu C-1 ist C-4 geruchlos.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>143</uiIndex>
@@ -2039,8 +2039,8 @@
 	<ITEM>
 		<uiIndex>256</uiIndex>
 		<szItemName>Bier</szItemName>
-		<szLongItemName>Radeberger Pilsner</szLongItemName>
-		<szItemDesc>Wen kümmert es bei 4.9 Prozent Alkohol noch, wo das Zeug herkommt? Mit diesem Eisbier kann man jeden Arulcaner unter den Tisch saufen.</szItemDesc>
+		<szLongItemName>Bier</szLongItemName>
+		<szItemDesc>Wen kümmert es bei 6.9% alc. wo das Zeug herkommt? Mit diesem Eisbier kann man jeden Arulcaner unter den Tisch saufen.</szItemDesc>
 		<szBRName>Bier</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
@@ -2656,7 +2656,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>334</uiIndex>
-		<szItemName>HK PSG1</szItemName>
+		<szItemName>PSG1</szItemName>
 		<szLongItemName>HK PSG1</szLongItemName>
 		<szItemDesc>Das PSG1 ist ein halbautomatisches Polizei-Scharfschützengewehr. Es wird von Spezialeinheiten der Polizei verwendet.</szItemDesc>
 		<szBRName>HK PSG1</szBRName>
@@ -2720,7 +2720,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>342</uiIndex>
-		<szItemName>HK MP5A4</szItemName>
+		<szItemName>MP5A4</szItemName>
 		<szLongItemName>HK MP5A4</szLongItemName>
 		<szItemDesc>Die MP5A4 wird von Sicherheitskräften und SWAT-Teams in aller Welt bevorzugt. Sie ist bekannt für ihre Zuverlässigkeit und Präzision.</szItemDesc>
 		<szBRName>HK MP5A4</szBRName>
@@ -2728,7 +2728,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>343</uiIndex>
-		<szItemName>HK MP5N</szItemName>
+		<szItemName>MP5N</szItemName>
 		<szLongItemName>HK MP5N</szLongItemName>
 		<szItemDesc>Die HK MP5 Navy wurde ursprünglich für die US Navy SEALs entwickelt. Seit ihrer Einführung hat sie sich unter härtesten Einsatzbedingungen bewährt.</szItemDesc>
 		<szBRName>HK MP5N</szBRName>
@@ -2736,7 +2736,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>344</uiIndex>
-		<szItemName>HK MP5SD5</szItemName>
+		<szItemName>MP5SD5</szItemName>
 		<szLongItemName>HK MP5SD5</szLongItemName>
 		<szItemDesc>Die HK MP5SD wird von vielen Spezialeinheiten verwendet. Ihr Alu-Schalldämpfer ist so wirksam, dass man nur das Klicken des Abzugs hört.</szItemDesc>
 		<szBRName>HK MP5SD5</szBRName>
@@ -2754,21 +2754,21 @@
 		<uiIndex>346</uiIndex>
 		<szItemName>M635</szItemName>
 		<szLongItemName>Colt M635</szLongItemName>
-		<szItemDesc>Diese leichte und kompakte MP hat einen 10.5"-Lauf und basiert auf dem weltberühmten M16A2/A4 Sturmgewehr. Sie wird u.a. vom SWAT-Team verwendet.</szItemDesc>
+		<szItemDesc>Diese leichte und kompakte MP hat einen 10.5" Lauf und basiert auf dem weltberühmten AR-15-System.</szItemDesc>
 		<szBRName>Colt M635</szBRName>
-		<szBRDesc>Diese leichte und kompakte MP hat einen 10.5"-Lauf und basiert auf dem weltberühmten M16A2/A4 Sturmgewehr. Der geringe Rückstoß garantiert eine hohe Schussgenauigkeit, besonders im Dauerfeuer und erleichtert das Schießtraining. Feuermodus: S-F</szBRDesc>
+		<szBRDesc>Diese leichte und kompakte MP hat einen 10.5" Lauf und basiert auf dem weltberühmten AR-15-System. Der geringe Rückstoß garantiert eine hohe Schussgenauigkeit, besonders im Dauerfeuer und erleichtert das Schießtraining. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>347</uiIndex>
 		<szItemName>AK-47</szItemName>
 		<szLongItemName>Kalaschnikow AK-47</szLongItemName>
-		<szItemDesc>Seit 1949 war das AK-47 die Infanteriewaffe der Sowjetarmee. In den 80er Jahren wurde es durch das neu entwickelte AK-74 ersetzt.</szItemDesc>
+		<szItemDesc>Das AK-47 wurde zwischen 1944-47 in Anlehnung an das StG44 entwickelt. Es war lange Zeit die Standardwaffe der Sowjetarmee und vieler Ostblockstaaten.</szItemDesc>
 		<szBRName>Kalaschnikow AK-47</szBRName>
-		<szBRDesc>Seit 1949 war das AK-47 die Infanteriewaffe der Sowjetarmee. In den 80er Jahren wurde es durch das neu entwickelte AK-74 ersetzt. Seitdem hat seine Beliebtheit weltweit stark zugenommen. Feuermodus: S-F</szBRDesc>
+		<szBRDesc>Die Zuverlässigkeit des Kalaschnikow Sturmgewehrs ist legendär. Aufgrund einer ausgeklügelten Konstruktion wird eine hohe Funktionssicherheit erreicht. Diese Waffe wurde weltweit in fast allen Konflikten eingesetzt. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>348</uiIndex>
-		<szItemName>HK SL8</szItemName>
+		<szItemName>SL8</szItemName>
 		<szLongItemName>HK SL8</szLongItemName>
 		<szItemDesc>Die zivile Variante des HK G36 ist genau richtig für den ambitionierten Sportschützen. Es besitzt einen schwereren Lauf und ist etwas präziser.</szItemDesc>
 		<szBRName>HK SL8</szBRName>
@@ -3730,9 +3730,9 @@
 		<uiIndex>468</uiIndex>
 		<szItemName>.30 Mag HS</szItemName>
 		<szLongItemName>.30 Carbine Magazin, HS</szLongItemName>
-		<szItemDesc>Dieses Magazin ist passend für den M1 Carbine. In den 40er Jahren entwickelte WINCHESTER diese Patrone im Kaliber .30 Carbine (7.62x33mm) für das gleichnamige Gewehr.</szItemDesc>
+		<szItemDesc>In den 40er Jahren entwickelte WINCHESTER diese neue Patrone im Kaliber .30 Carbine (7.62x33mm) für den M1 Karabiner. Die von uns angebotenen Magazine können auch für das deutsche StG44 verwendet werden.</szItemDesc>
 		<szBRName>.30 Mag HS</szBRName>
-		<szBRDesc>Dieses Magazin ist passend für den M1 Carbine. In den 40er Jahren entwickelte WINCHESTER diese Patrone im Kaliber .30 Carbine (7.62x33mm) für das gleichnamige Gewehr.</szBRDesc>
+		<szBRDesc>In den 40er Jahren entwickelte WINCHESTER diese neue Patrone im Kaliber .30 Carbine (7.62x33mm) für den M1 Karabiner. Die von uns angebotenen Magazine können auch für das deutsche StG44 verwendet werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>469</uiIndex>
@@ -3778,9 +3778,9 @@
 		<uiIndex>474</uiIndex>
 		<szItemName>.30 Mag PB</szItemName>
 		<szLongItemName>.30 Carbine Magazin, PB</szLongItemName>
-		<szItemDesc>Dieses Magazin ist passend für den M1 Carbine. In den 40er Jahren entwickelte WINCHESTER diese Patrone im Kaliber .30 Carbine (7.62x33mm) für das gleichnamige Gewehr.</szItemDesc>
+		<szItemDesc>In den 40er Jahren entwickelte WINCHESTER diese neue Patrone im Kaliber .30 Carbine (7.62x33mm) für den M1 Karabiner. Die von uns angebotenen Magazine können auch für das deutsche StG44 verwendet werden.</szItemDesc>
 		<szBRName>.30 Mag PB</szBRName>
-		<szBRDesc>Dieses Magazin ist passend für den M1 Carbine. In den 40er Jahren entwickelte WINCHESTER diese Patrone im Kaliber .30 Carbine (7.62x33mm) für das gleichnamige Gewehr.</szBRDesc>
+		<szBRDesc>In den 40er Jahren entwickelte WINCHESTER diese neue Patrone im Kaliber .30 Carbine (7.62x33mm) für den M1 Karabiner. Die von uns angebotenen Magazine können auch für das deutsche StG44 verwendet werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>475</uiIndex>
@@ -4834,33 +4834,33 @@
 		<uiIndex>606</uiIndex>
 		<szItemName>AK-102</szItemName>
 		<szLongItemName>Kalaschnikow AK-102</szLongItemName>
-		<szItemDesc>Wenngleich nicht so kompakt wie das AKS-74U, bietet dieses Sturmgewehr mit Klappschaft eine höhere Präzison.</szItemDesc>
+		<szItemDesc>Das AK-102 ist die gekürzte Exportversion des AK-101 im NATO-Kaliber 5.56x45mm.</szItemDesc>
 		<szBRName>Kalaschnikow AK-102</szBRName>
-		<szBRDesc>Wenngleich nicht so kompakt wie das AKS-74U, bietet dieses Sturmgewehr mit seinem etwas längeren Lauf eine höhere Präzison. Es nutzt die 5.56mm NATO Munition und wurde für den Export in westl. Länder entwickelt.</szBRDesc>
+		<szBRDesc>Das AK-102 ist die gekürzte Exportversion des AK-101 im NATO-Kaliber 5.56x45mm.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>607</uiIndex>
 		<szItemName>AK-103</szItemName>
 		<szLongItemName>Kalaschnikow AK-103</szLongItemName>
-		<szItemDesc>Stärker als sein Vorgänger AK-74, ist dieses vollautomatische Sturmgewehr eher als modernisiertes AK-47/M zu sehen.</szItemDesc>
+		<szItemDesc>Das AK-103 ist eine Weiterentwicklung des AKM was auf vorhandenes Interesse der russischen Armee für die Patrone M43 schließen lässt.</szItemDesc>
 		<szBRName>Kalaschnikow AK-103</szBRName>
-		<szBRDesc>Stärker als sein Vorgänger AK-74, ist dieses vollautomatische Sturmgewehr eher als modernisiertes AK-47/M zu sehen. Es ermöglicht viele Anbauten und ist sehr wartungsfreundlich.</szBRDesc>
+		<szBRDesc>Das AK-103 ist eine Weiterentwicklung des AKM was auf vorhandenes Interesse der russischen Armee für die Patrone M43 schließen lässt. Es ermöglicht viele Anbauten und ist sehr wartungsfreundlich.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>608</uiIndex>
 		<szItemName>AK-104</szItemName>
 		<szLongItemName>Kalaschnikow AK-104</szLongItemName>
-		<szItemDesc>Die leicht gekürzte Variante des AK-103 ermöglicht viele Anbauten und ist sehr wartungsfreundlich.</szItemDesc>
+		<szItemDesc>Das AK-104 ist die gekürzte Variante des AK-103, es ermöglicht viele Anbauten und ist sehr wartungsfreundlich.</szItemDesc>
 		<szBRName>Kalaschnikow AK-104</szBRName>
-		<szBRDesc>Die leicht gekürzte Variante des AK-103 ermöglicht viele Anbauten und ist sehr wartungsfreundlich. Wir exportieren von IZHEVSK direkt zum regionalen Konflikt Ihrer Wahl - ohne Aufpreis!</szBRDesc>
+		<szBRDesc>Das AK-104 ist die gekürzte Variante des AK-103, es ermöglicht viele Anbauten und ist sehr wartungsfreundlich. Wir exportieren von IZHEVSK direkt zum regionalen Konflikt Ihrer Wahl.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>609</uiIndex>
 		<szItemName>AK-105</szItemName>
 		<szLongItemName>Kalaschnikow AK-105</szLongItemName>
-		<szItemDesc>Ein weiterer Klon aus der AK-100 Baureihe. Es ist baugleich zum AK-104, nur verwendet es die Patrone M74 im Kaliber 5.45x39mm.</szItemDesc>
+		<szItemDesc>Das AK-105 ist baugleich zum AK-104, nur verwendet es die Patrone M74. Es soll das nicht mehr hergestellte AKS-74U ablösen.</szItemDesc>
 		<szBRName>Kalaschnikow AK-105</szBRName>
-		<szBRDesc>Ein weiterer Klon aus der AK-100 Baureihe. Es ist baugleich zum AK-104, nur verwendet es die Patrone M74 im Kaliber 5.45x39mm.</szBRDesc>
+		<szBRDesc>Das AK-105 ist baugleich zum AK-104, nur verwendet es die Patrone M74. Es soll das nicht mehr hergestellte AKS-74U ablösen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>610</uiIndex>
@@ -5288,59 +5288,59 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>663</uiIndex>
-		<szItemName>HK G11-PDW</szItemName>
+		<szItemName>G11-PDW</szItemName>
 		<szLongItemName>HK G11-PDW</szLongItemName>
 		<szItemDesc>Die kleinere Variante des G11 ist als Selbstverteidigungswaffe gedacht.</szItemDesc>
 		<szBRName>HK G11-PDW</szBRName>
-		<szBRDesc>SONDERANGEBOT: Wir von BR konnten einige Exemplare der G11-PDW auftreiben. Kaufen Sie jetzt - nur für kurze Zeit!</szBRDesc>
+		<szBRDesc>Wir von BR konnten einige Exemplare der G11-PDW auftreiben. Kaufen Sie jetzt - nur für kurze Zeit!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>664</uiIndex>
-		<szItemName>HK G36C</szItemName>
-		<szLongItemName>HK G36 Compakt</szLongItemName>
-		<szItemDesc>Das kleinste Modell aus der G36-Baureihe, ideal für Polizei und Anti-Terroreinheiten.</szItemDesc>
-		<szBRName>HK G36 Compact</szBRName>
-		<szBRDesc>Für spezifische Einsatzwecke, insbesondere im Bereich der Polizei, müssen selbst bei kompakten Gewehren Zugeständnisse im Handling gemacht werden. H&amp;K war sich dessen bewusst und konnte Größe und Gewicht des G36K weiter reduzieren. Feuermodus: S-2-F</szBRDesc>
+		<szItemName>G36C</szItemName>
+		<szLongItemName>HK G36C</szLongItemName>
+		<szItemDesc>Das G36 'Compact' ist das kleinste Modell aus der G36-Baureihe, ideal für Polizei und Anti-Terroreinheiten.</szItemDesc>
+		<szBRName>HK G36C</szBRName>
+		<szBRDesc>Das G36 'Compact' ist ein neues modulares Waffensystem von HECKLER &amp; KOCH. Da wesentliche Bauteile aus GfK mit Einlagen aus Stainless Steel bestehen konnte das Gewicht gering gehalten werden. Feuermodus: S-2-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>665</uiIndex>
-		<szItemName>HK G36 Tac</szItemName>
-		<szLongItemName>HK G36 Tactical</szLongItemName>
-		<szItemDesc>Das G36 'Tactical' wird im Vergleich zur herkömmlichen Export-Version mit einer Picatinny-Schiene ausgestattet.</szItemDesc>
-		<szBRName>HK G36 Tactical</szBRName>
-		<szBRDesc>Das G36 'Tactical' wurde als neue Infanteriewaffe von der spanischen Armee übernommen. Im Vergleich zur herkömmlichen Export-Version wird es mit einer Picatinny-Schiene ausgestattet. Feuermodus: S-2-F</szBRDesc>
+		<szItemName>G36 RAS</szItemName>
+		<szLongItemName>HK G36 RAS</szLongItemName>
+		<szItemDesc>Das G36 RAS wird im Vergleich zur herkömmlichen Version mit Reflexvisier mit einer Picatinny-Schiene ausgestattet.</szItemDesc>
+		<szBRName>HK G36 RAS</szBRName>
+		<szBRDesc>Das G36 RAS ist ein neues modulares Waffensystem von HECKLER &amp; KOCH. Es wird im Vergleich zur herkömmlichen Version mit Reflexvisier mit einer Picatinny-Schiene ausgestattet. Feuermodus: S-2-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>666</uiIndex>
-		<szItemName>HK G36K Tac</szItemName>
-		<szLongItemName>HK G36K Tactical</szLongItemName>
-		<szItemDesc>Das G36 'Kurz' mit integriertem Reflexvisier ist eine kompakte Version des G36 mit einem kürzeren Lauf und verkürztem Handschutz.</szItemDesc>
-		<szBRName>HK G36K Tactical</szBRName>
-		<szBRDesc>Das G36 'Kurz' mit integriertem Reflexvisier ist eine kompakte Version des G36 mit einem kürzeren Lauf und verkürztem Handschutz. Feuermodus: S-F</szBRDesc>
+		<szItemName>G36K RAS</szItemName>
+		<szLongItemName>HK G36K RAS</szLongItemName>
+		<szItemDesc>Das G36 'Kurz' RAS mit Picatinny-Schiene ist eine kompakte Version des G36 mit einem verkürzten Lauf und Handschutz.</szItemDesc>
+		<szBRName>HK G36K RAS</szBRName>
+		<szBRDesc>Das G36 'Kurz' RAS ist ein neues modulares Waffensystem von HECKLER &amp; KOCH. Diese kompakte Variante mit Picatinny-Schiene besitzt einen verkürzten Lauf und  Handschutz. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>667</uiIndex>
-		<szItemName>HK G3KA4</szItemName>
+		<szItemName>G3KA4</szItemName>
 		<szLongItemName>HK G3KA4</szLongItemName>
 		<szItemDesc>Diese Variante des G3 besitzt einen auf 315mm verkürzten Lauf und eine ausziehbare Schulterstütze.</szItemDesc>
 		<szBRName>HK G3KA4</szBRName>
-		<szBRDesc>Diese Variante des G3 besitzt einen auf 315mm verkürzten Lauf, eine ausziehbare Schulterstütze sowie eine S-F Abzugsgruppe.</szBRDesc>
+		<szBRDesc>Diese Variante des G3 besitzt einen auf 315mm verkürzten Lauf, eine ausziehbare Schulterstütze sowie eine S-F Abzugsgruppe. Der Rückstoß ist fast genauso legendär wie die Durchschlagskraft!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>668</uiIndex>
-		<szItemName>HK MG36E</szItemName>
-		<szLongItemName>HK MG36E</szLongItemName>
+		<szItemName>MG36 RAS</szItemName>
+		<szLongItemName>HK MG36 RAS</szLongItemName>
 		<szItemDesc>Das neue Maschinengewehr auf Basis des G36 dient als 'Light Support Weapon' für die Infanterie.</szItemDesc>
-		<szBRName>HK MG36E</szBRName>
+		<szBRName>HK MG36 RAS</szBRName>
 		<szBRDesc>Das neue Maschinengewehr auf Basis des G36 dient als 'Light Support Weapon' für die Infanterie.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>669</uiIndex>
-		<szItemName>HK MG43</szItemName>
-		<szLongItemName>HK MG43 (MG4)</szLongItemName>
-		<szItemDesc>Bei der Entwicklung des HK MG43 wurde auf minimales Gewicht, maximale Sicherheit und leichte Handhabung Wert gelegt.</szItemDesc>
+		<szItemName>MG43</szItemName>
+		<szLongItemName>HK MG43</szLongItemName>
+		<szItemDesc>Bei der Entwicklung wurde auf minimales Gewicht, maximale Sicherheit und leichte Handhabung Wert gelegt.</szItemDesc>
 		<szBRName>HK MG43</szBRName>
-		<szBRDesc>HK's neuestes MG wurde erstmals 2001 in London vorgestellt. Es hat Gurtzuführung, ein integriertes Zweibein und RIS-Schienen erlauben vielfältige Anbaumöglichkeiten. Seit 2006 wird es als MG4 an die Bundeswehr geliefert und ersetzt das in die Jahre gekommene MG3.</szBRDesc>
+		<szBRDesc>Das MG43 ist ein Gasdrucklader und wurde erstmals 2001 in London vorgestellt. Es hat Gurtzuführung, ein integriertes Zweibein und RIS-Schienen. Seit 2006 wird es als MG4 an die Bundeswehr geliefert und ersetzt das in die Jahre gekommene MG3.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>670</uiIndex>
@@ -5352,7 +5352,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>671</uiIndex>
-		<szItemName>HK MP5/10A3</szItemName>
+		<szItemName>MP5/10A3</szItemName>
 		<szLongItemName>HK MP5/10A3</szLongItemName>
 		<szItemDesc>Diese Variante der MP5 im Kaliber 10x25mm stellt einen Kompromiss zwischen Kontrollierbarkeit und gesteigerter Feuerkraft dar.</szItemDesc>
 		<szBRName>HK MP5/10A3</szBRName>
@@ -5368,7 +5368,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>673</uiIndex>
-		<szItemName>HK MP7A1</szItemName>
+		<szItemName>MP7A1</szItemName>
 		<szLongItemName>HK MP7A1</szLongItemName>
 		<szItemDesc>Die MP7 vereint die Vorteile von Pistole, MP und Sturmgewehr. Sie durchschlägt CRISAT-Schutz (20 Schichten Kevlar + 1.6mm Titan) auf 200m Entfernung.</szItemDesc>
 		<szBRName>HK MP7A1</szBRName>
@@ -5376,7 +5376,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>674</uiIndex>
-		<szItemName>HK MSG90A1</szItemName>
+		<szItemName>MSG90A1</szItemName>
 		<szLongItemName>HK MSG90A1</szLongItemName>
 		<szItemDesc>Das MSG90 wurde von HECKLER &amp; KOCH als militärische Alternative zum PSG1 entwickelt. Als Zubehör kann ein Schalldämpfer angebracht werden.</szItemDesc>
 		<szBRName>HK MSG90A1</szBRName>
@@ -5392,7 +5392,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>676</uiIndex>
-		<szItemName>HK SL9SD</szItemName>
+		<szItemName>SL9SD</szItemName>
 		<szLongItemName>HK SL9SD</szLongItemName>
 		<szItemDesc>Das HECKLER &amp; KOCH SL9SD ist die schallgedämpfte Variante des SL8. Es eignet sich hervorragend für Scharfschützen.</szItemDesc>
 		<szBRName>HK SL9SD</szBRName>
@@ -5400,7 +5400,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>677</uiIndex>
-		<szItemName>HK UMP45</szItemName>
+		<szItemName>UMP45</szItemName>
 		<szLongItemName>HK UMP45</szLongItemName>
 		<szItemDesc>Die UMP kombiniert hervorragende Leistung mit einfacher Handhabung und hohem Sicherheitsstandard.</szItemDesc>
 		<szBRName>HK UMP45</szBRName>
@@ -5450,9 +5450,9 @@
 		<uiIndex>683</uiIndex>
 		<szItemName>M1 Garand</szItemName>
 		<szLongItemName>Springfield M1 Garand</szLongItemName>
-		<szItemDesc>Der M1 Garand ist ein präzises und zuverlässiges Selbstladegewehr, es war von 1936-57 das Standardgewehr der US-Army.</szItemDesc>
+		<szItemDesc>Das M1 Garand ist ein präzises und zuverlässiges Selbstladegewehr und war von 1936-1957 das Standardgewehr der US-Army.</szItemDesc>
 		<szBRName>M1 Garand</szBRName>
-		<szBRDesc>Dieser neue M1 Garand wurde nach Originalplänen exclusiv von SPRINGFIELD gefertigt und mit einem echten Walnussschaft und lebenslanger Garantie geliefert. Dieses präzise und sehr zuverlässige Gewehr ist hervorragend für die Jagd geeignet.</szBRDesc>
+		<szBRDesc>Das M1 Garand ist ein präzises und zuverlässiges Selbstladegewehr im Kaliber .30-06 (7.62x63mm) und war von 1936-1957 das Standardgewehr der US-Army.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>684</uiIndex>
@@ -5482,7 +5482,7 @@
 		<uiIndex>687</uiIndex>
 		<szItemName>M60E3</szItemName>
 		<szLongItemName>Saco Defense M60E3</szLongItemName>
-		<szItemDesc>Das M60E3 ist eine leichtere und verbesserte Version des legendären M60 Maschinengewehr der US-Army.</szItemDesc>
+		<szItemDesc>Das M60E3 ist eine leichtere und verbesserte Variante des legendären M60.</szItemDesc>
 		<szBRName>Saco Defense M60E3</szBRName>
 		<szBRDesc>Das M60E3 ist ein Gasdrucklader mit Gurtzuführung und wurde 1986 in Dienst gestellt. Es ist eine leichtere und verbesserte Variante des legendären M60.</szBRDesc>
 	</ITEM>
@@ -5496,19 +5496,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>689</uiIndex>
-		<szItemName>Makarov PM</szItemName>
-		<szLongItemName>Makarov PM</szLongItemName>
+		<szItemName>Makarow PM</szItemName>
+		<szLongItemName>Makarow PM</szLongItemName>
 		<szItemDesc>Die PM basiert auf der Walther PP und wurde 1951 Ordonnanzwaffe der Sowjetarmee und ersetzte die Tokarew. Aus heutiger Sicht ist sie recht schwer und ungenau, aber robust und zuverlässig.</szItemDesc>
-		<szBRName>Makarov PM</szBRName>
-		<szBRDesc>Diese weltberühmte Pistole wurde von IMZ in Russland sowie in Lizenz in anderen Ländern wie Bulgarien, China und der DDR hergestellt. Die qualitativ hochwertigsten Makarovs wurden in Suhl (Thüringen) gefertigt.</szBRDesc>
+		<szBRName>Makarow PM</szBRName>
+		<szBRDesc>Diese weltberühmte Pistole wurde von IMZ in Russland sowie in Lizenz in anderen Ländern wie Bulgarien, China und der DDR hergestellt. Die qualitativ hochwertigsten Makarows wurden in Suhl (Thüringen) gefertigt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>690</uiIndex>
-		<szItemName>Makarov PMM</szItemName>
-		<szLongItemName>Makarov PMM</szLongItemName>
-		<szItemDesc>Die überarbeitete Variante der Makarov PM ging 1994 in Serie. Wichtigste Neuerung ist die gesteigerte Magazinkapazität.</szItemDesc>
-		<szBRName>Makarov PMM</szBRName>
-		<szBRDesc>Die überarbeitete Variante der Makarov PM ging 1994 in Serie. Wichtigste Neuerung ist die gesteigerte Magazinkapazität.</szBRDesc>
+		<szItemName>Makarow PMM</szItemName>
+		<szLongItemName>Makarow PMM</szLongItemName>
+		<szItemDesc>Die überarbeitete Variante der Makarow PM ging 1994 in Serie. Wichtigste Neuerung ist die gesteigerte Magazinkapazität.</szItemDesc>
+		<szBRName>Makarow PMM</szBRName>
+		<szBRDesc>Die überarbeitete Variante der Makarow PM ging 1994 in Serie. Wichtigste Neuerung ist die gesteigerte Magazinkapazität.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>691</uiIndex>
@@ -5530,9 +5530,9 @@
 		<uiIndex>693</uiIndex>
 		<szItemName>Mosin-Nagant</szItemName>
 		<szLongItemName>Mosin-Nagant M1891/30</szLongItemName>
-		<szItemDesc>Dieses russ. Sturmgewehr war bis Ende der 40er Jahre im Dienst. Einen TV-Auftritt hatte es im Film 'Duell - Enemy at the Gates'.</szItemDesc>
+		<szItemDesc>Dieses russische Gewehr war von 1891 bis Ende der 40er Jahre die Standardwaffe der Roten Armee. Einen TV-Auftritt hatte es im Film 'Duell - Enemy at the Gates'.</szItemDesc>
 		<szBRName>Mosin-Nagant M1891/30</szBRName>
-		<szBRDesc>Seit 1883 gab es Überlegungen, welches Gewehr in der russischen Armee eingeführt werden sollte. Nach Tests entschied man sich für das Gewehr von Mosin, das leicht nach dem Vorbild Nagants modifiziert wurde.</szBRDesc>
+		<szBRDesc>Seit 1883 gab es Überlegungen für ein neues Gewehr, nach zahlreichen Tests entschied man sich für das Gewehr von Mosin, das leicht nach dem Vorbild Nagants modifiziert wurde.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>694</uiIndex>
@@ -5600,11 +5600,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>702</uiIndex>
-		<szItemName>PPSch-41</szItemName>
-		<szLongItemName>PPSch-41</szLongItemName>
-		<szItemDesc>Diese russische MP wurde in den 40er-Jahren entwickelt und löste teilweise den Nagant Karabiner ab.</szItemDesc>
-		<szBRName>PPSch-41</szBRName>
-		<szBRDesc>Diese russische MP wurde in den 40er-Jahren entwickelt und löste teilweise den Nagant Karabiner ab. Aufgrund ihrer großen Reichweite und Feuerrate fand sie große Beachtung, besonders bei deutschen Soldaten.</szBRDesc>
+		<szItemName>PPSh-41</szItemName>
+		<szLongItemName>PPSh-41</szLongItemName>
+		<szItemDesc>Diese russische MP wurde in den 40er Jahren entwickelt und löste teilweise den Nagant Karabiner ab.</szItemDesc>
+		<szBRName>PPSh-41</szBRName>
+		<szBRDesc>Diese russische MP wurde in den 40er Jahren entwickelt und löste teilweise den Nagant Karabiner ab. Aufgrund ihrer großen Reichweite und Feuerrate fand sie große Beachtung, besonders bei deutschen Soldaten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>703</uiIndex>
@@ -5892,7 +5892,7 @@
 		<szLongItemName>Tokarew TT-33</szLongItemName>
 		<szItemDesc>Die Tokarew ist eine Pistole der Roten Armee und Nachfolgerin des früheren Nagant-Revolver, mit ihr sollten auch einige Pistolen ersetzt werden.</szItemDesc>
 		<szBRName>Tokarew TT-33</szBRName>
-		<szBRDesc>Die Tokarew ist eine Pistole der Roten Armee und Nachfolgerin des früheren Nagant-Revolver, mit ihr sollten auch einige Pistolen ersetzt werden. Die TT-33 war bis 1951 Ordonanzpistole der Sowjetarmee, dann wurde sie durch die Makarov PM ersetzt.</szBRDesc>
+		<szBRDesc>Die Tokarew ist eine Pistole der Roten Armee und Nachfolgerin des früheren Nagant-Revolver, mit ihr sollten auch einige Pistolen ersetzt werden. Die TT-33 war bis 1951 Ordonanzpistole der Sowjetarmee, dann wurde sie durch die Makarow PM ersetzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>739</uiIndex>
@@ -6024,19 +6024,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>755</uiIndex>
-		<szItemName>HK G36</szItemName>
+		<szItemName>G36</szItemName>
 		<szLongItemName>HK G36</szLongItemName>
-		<szItemDesc>Das G36 mit integriertem Reflexvisier wurde nach umfangreichen Erprobungen Ende 1997 als neue Infanteriewaffe von der Bundeswehr übernommen.</szItemDesc>
+		<szItemDesc>Das G36 mit integriertem Reflexvisier wurde nach umfangreichen Erprobungen im Dezember 1997 als neue Infanteriewaffe von der Bundeswehr übernommen.</szItemDesc>
 		<szBRName>HK G36</szBRName>
-		<szBRDesc>Das von HECKLER &amp; KOCH neu entwickelte Sturmgewehr G36 mit integriertem Reflexvisier wurde nach umfangreichen Erprobungen Ende 1997 als neue Infanteriewaffe von der Bundeswehr übernommen. Feuermodus: S-2-F</szBRDesc>
+		<szBRDesc>Das G36 ist ein neues modulares Waffensystem von HECKLER &amp; KOCH. Da wesentliche Bauteile aus GfK mit Einlagen aus Stainless Steel bestehen konnte das Gewicht gering gehalten werden. Feuermodus: S-2-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>756</uiIndex>
-		<szItemName>HK G36K</szItemName>
-		<szLongItemName>HK G36 Kurz</szLongItemName>
-		<szItemDesc>Das G36 'Kurz' mit integriertem Reflexvisier ist eine kompakte Version des G36 mit einem kürzeren Lauf und verkürztem Handschutz.</szItemDesc>
+		<szItemName>G36K</szItemName>
+		<szLongItemName>HK G36K</szLongItemName>
+		<szItemDesc>Das G36 'Kurz' mit integriertem Reflexvisier ist eine kompakte Version des G36 mit einem verkürzten Lauf und Handschutz.</szItemDesc>
 		<szBRName>HK G36 Kurz</szBRName>
-		<szBRDesc>Das G36 'Kurz' mit integriertem Reflexvisier ist eine kompakte Version des G36 mit einem kürzeren Lauf und verkürztem Handschutz. Es wurde in Zusammenarbeit mit Fallschirmjägern der Bundeswehr entwickelt. Feuermodus: S-F</szBRDesc>
+		<szBRDesc>Das G36 'Kurz' ist ein neues modulares Waffensystem von HECKLER &amp; KOCH. Diese kompakte Variante mit integriertem Reflexvisier besitzt einen verkürzten Lauf und  Handschutz. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>757</uiIndex>
@@ -6066,9 +6066,9 @@
 		<uiIndex>760</uiIndex>
 		<szItemName>.50 Beowulf</szItemName>
 		<szLongItemName>Alexander Arms .50 Beowulf</szLongItemName>
-		<szItemDesc>Das Kaliber .50 Beowulf Overmatch Plus Gewehr mit hartverchromten 16.5" Lauf garantiert eine hohe Zielgenauigkeit und große Durchschlagskraft.</szItemDesc>
+		<szItemDesc>Das Kaliber .50 Beowulf Overmatch Plus Gewehr (12.5x42RB) von ALEXANDER ARMS hat einen hartverchromten 16.5" Lauf und basiert auf dem AR-15-System.</szItemDesc>
 		<szBRName>.50 Beowulf</szBRName>
-		<szBRDesc>Das Kaliber .50 Beowulf Overmatch Plus Gewehr mit hartverchromten 16.5" Lauf wird in den USA hergestellt und basiert auf dem AR-15-System. Es besitzt nur Einzelfeuer, garantiert aber eine hohe Zielgenauigkeit und große Durchschlagskraft.</szBRDesc>
+		<szBRDesc>Mit diesem Gewehr von ALEXANDER ARMS im Kaliber .50 Beowulf (12.5x42RB) werden Sie zu einer Legende! Es hat einen hartverchromten 16.5" Lauf basiert auf dem AR-15-System.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>761</uiIndex>
@@ -6114,7 +6114,7 @@
 		<uiIndex>766</uiIndex>
 		<szItemName>Automag IV</szItemName>
 		<szLongItemName>AMT Automag IV</szLongItemName>
-		<szItemDesc>Die Automag IV wurde 1991 auf den Markt gebracht. Sie hat einen 6.5" Lauf und wird ausschließlich in Edelstahl gefertigt.</szItemDesc>
+		<szItemDesc>Die Automag IV wurde von Harry Sanford entwickelt und 1991 auf den Markt gebracht. Sie hat einen 6.5" Lauf und wird ausschließlich in Edelstahl gefertigt.</szItemDesc>
 		<szBRName>AMT Automag IV</szBRName>
 		<szBRDesc>Die Automag IV wurde von Harry Sanford entwickelt und 1991 auf den Markt gebracht. Sie hat einen 6.5" Lauf und wird ausschließlich in Edelstahl gefertigt.</szBRDesc>
 	</ITEM>
@@ -6192,11 +6192,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>776</uiIndex>
-		<szItemName>K 98k</szItemName>
-		<szLongItemName>Mauser Karabiner 98 kurz</szLongItemName>
-		<szItemDesc>Der Karabiner 98k mit 600mm-Lauf ist eine gekürzte Variante des Gewehr 98. Bis heute wurden weltweit ca. 100 Mio. Stück Modell 98 gefertigt.</szItemDesc>
+		<szItemName>Karabiner 98k</szItemName>
+		<szLongItemName>Mauser Karabiner 98k</szLongItemName>
+		<szItemDesc>Der Karabiner 98k mit 600mm Lauf (8x57IS) ist eine zuverlässige und beliebte Jagdbüchse. Bis heute wurden weltweit mehr als 100 Mio. Stück Modell 98 hergestellt.</szItemDesc>
 		<szBRName>Mauser Karabiner 98k</szBRName>
-		<szBRDesc>Der Karabiner 98k mit 600mm-Lauf ist eine gekürzte Variante des Gewehr 98 und war ab 1935 die Standardwaffe der dt. Soldaten. Heute ist der K 98k im Original-Kaliber 8x57IS eine beliebte Jagdbüchse.</szBRDesc>
+		<szBRDesc>Diese weiterentwickelte Variante des Gewehr 98 mit 600mm Lauf war ab 1935 die Standardwaffe der Wehrmacht. Bis zum Kriegsende wurden über 12 Mio. Karabiner 98k hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>777</uiIndex>
@@ -6256,7 +6256,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>784</uiIndex>
-		<szItemName>Mauser M-03</szItemName>
+		<szItemName>M-03</szItemName>
 		<szLongItemName>Mauser M-03</szLongItemName>
 		<szItemDesc>Diese präzise Jagdrepetierbüchse in der Ausführung 'Solid' nutzt das Original-Kaliber 8x57IS und brilliert auf weite Distanzen aber auch in Drückjagdsituationen.</szItemDesc>
 		<szBRName>Mauser M-03</szBRName>
@@ -6370,9 +6370,9 @@
 		<uiIndex>798</uiIndex>
 		<szItemName>Luger P08</szItemName>
 		<szLongItemName>Parabellum P08</szLongItemName>
-		<szItemDesc>Die Luger P 08 war als Dienstwaffe eher ungeeignet, da sie zu empfindlich und kompliziert war. Sie wurde im 2. Weltkrieg durch die Walther P38 ersetzt.</szItemDesc>
+		<szItemDesc>Die Luger P08 war als Dienstwaffe eher ungeeignet, da sie zu empfindlich und kompliziert war. Sie wurde im Zweiten Weltkrieg durch die Walther P38 ersetzt.</szItemDesc>
 		<szBRName>Parabellum P08</szBRName>
-		<szBRDesc>Das dt. kaiserliche Heer stellte 1908 eine von Luger weiterentwickelte Version der 'Parabellum Model 1900' als 'Pistole 08' in Dienst. Diese weltberühmte Waffe wurde von DWM in Berlin und Erfurt, SIMSON in Suhl und MAUSER in Oberndorf hergestellt.</szBRDesc>
+		<szBRDesc>Das kaiserliche Heer stellte 1908 eine von Luger weiterentwickelte Version der 'Parabellum Model 1900' als 'Pistole 08' in Dienst. Diese weltberühmte Waffe wurde von DWM in Berlin/Erfurt, SIMSON in Suhl und MAUSER in Oberndorf hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>799</uiIndex>
@@ -7202,9 +7202,9 @@
 		<uiIndex>902</uiIndex>
 		<szItemName>M203PI</szItemName>
 		<szLongItemName>Colt M203PI Granatwerfer</szLongItemName>
-		<szItemDesc>Das Modell M203PI kann Dank eines Adapters auch an weitere Strumgewehre montiert werden und so die Feuerkraft des damit ausgerüsteten Infanteristen massiv erhöhen.</szItemDesc>
+		<szItemDesc>Das Modell M203PI kann Dank eines Adapters auch an andere Sturmgewehre montiert werden und so die Feuerkraft des damit ausgerüsteten Soldaten massiv erhöhen.</szItemDesc>
 		<szBRName>Colt M203PI</szBRName>
-		<szBRDesc>Das Modell M203PI kann Dank eines Adapters auch an weitere Strumgewehre montiert werden und so die Feuerkraft des damit ausgerüsteten Infanteristen massiv erhöhen.</szBRDesc>
+		<szBRDesc>Das Modell M203PI kann Dank eines Adapters auch an andere Sturmgewehre montiert werden und so die Feuerkraft des damit ausgerüsteten Soldaten massiv erhöhen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>903</uiIndex>
@@ -7266,9 +7266,9 @@
 		<uiIndex>910</uiIndex>
 		<szItemName>FN-F2000</szItemName>
 		<szLongItemName>FN-F2000 Granatwerfer</szLongItemName>
-		<szItemDesc>Das F2000 ist eine belgische Waffe im Bullpup- Design. Die Entwicklung begann 1995 und die Waffe sollte eine Alternative zum OICW werden.</szItemDesc>
+		<szItemDesc>Das F2000 ist eine belgische Waffe im Bullpup- Design. Die Entwicklung begann 1995 und sollte eine Alternative zum OICW werden.</szItemDesc>
 		<szBRName>FN-F2000 Granatwerfer</szBRName>
-		<szBRDesc>Das F2000 ist eine Waffe des belgischen Herstellers FABRIQUE NATIONALE im Bullpup-Design. Die Entwicklung begann 1995 und die Waffe sollte eine Alternative zum OICW werden.</szBRDesc>
+		<szBRDesc>Das F2000 ist eine Waffe des belgischen Herstellers FABRIQUE NATIONALE im Bullpup-Design. Die Entwicklung begann 1995 und sollte eine Alternative zum OICW werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>911</uiIndex>
@@ -7441,18 +7441,18 @@
 	<ITEM>
 		<uiIndex>932</uiIndex>
 		<szItemName>6x35mm HP</szItemName>
-		<szLongItemName>6x35mm HP</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>6x35mm HP</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szLongItemName>6x35mm Magazin HS</szLongItemName>
+		<szItemDesc>Um die Durchschlagskraft von PDWs zu steigern, wurde von KNIGHT'S ARMAMENT COMPANY diese neue Patrone im Kaliber 6x35mm entwickelt. Verschiedene Patrone mit HS- und PB-Geschossen sind erhältlich.</szItemDesc>
+		<szBRName>6x35mm Magazin HS</szBRName>
+		<szBRDesc>Um die Durchschlagskraft von PDWs zu steigern, wurde von KNIGHT'S ARMAMENT COMPANY diese neue Patrone im Kaliber 6x35mm entwickelt. Verschiedene Patrone mit HS- und PB-Geschossen sind erhältlich.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>933</uiIndex>
-		<szItemName>6x35mm AP</szItemName>
-		<szLongItemName>6x35mm AP</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>6x35mm AP</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>6x35mm Mag</szItemName>
+		<szLongItemName>6x35mm Magazin, PB</szLongItemName>
+		<szItemDesc>Um die Durchschlagskraft von PDWs zu steigern, wurde von KNIGHT'S ARMAMENT COMPANY diese neue Patrone im Kaliber 6x35mm entwickelt. Verschiedene Patrone mit HS- und PB-Geschossen sind erhältlich.</szItemDesc>
+		<szBRName>6x35mm Magazin PB</szBRName>
+		<szBRDesc>Um die Durchschlagskraft von PDWs zu steigern, wurde von KNIGHT'S ARMAMENT COMPANY diese neue Patrone im Kaliber 6x35mm entwickelt. Verschiedene Patrone mit HS- und PB-Geschossen sind erhältlich.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>934</uiIndex>
@@ -7816,11 +7816,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>979</uiIndex>
-		<szItemName>Molotov</szItemName>
-		<szLongItemName>Molotov-Cocktail</szLongItemName>
-		<szItemDesc>Dieser Cocktail ist noch tödlicher als zussischer Vodka.</szItemDesc>
-		<szBRName>Molotov-Cocktail</szBRName>
-		<szBRDesc> Dieser Cocktail ist noch tödlicher als zussischer Vodka.</szBRDesc>
+		<szItemName>Brandflasche</szItemName>
+		<szLongItemName>Molotow-Cocktail</szLongItemName>
+		<szItemDesc>Dieser Molotow-Cocktail besteht aus einer Glasflasche gefüllt mit einer brennbaren Flüssigkeit (2/3 Benzin + 1/3 Diesel oder Öl) sowie einem brennenden Zünder.</szItemDesc>
+		<szBRName>Molotow-Cocktail</szBRName>
+		<szBRDesc>Finnland setzte im 2. Weltkrieg Molotow-Cocktails erfolgreich gegen russische Panzer ein und ging dazu über die Brandflaschen industriell herzustellen. Es wurden insgesamt 450.000 Stück produziert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>980</uiIndex>
@@ -8582,9 +8582,9 @@
 		<uiIndex>1075</uiIndex>
 		<szItemName>MG3</szItemName>
 		<szLongItemName>Rheinmetall MG3</szLongItemName>
-		<szItemDesc>Als die Bundeswehr gegründet wurde, nahm man das MG42, benannte es in MG3 um und verringerte die Feuerrate. Es galt seinerzeit als das beste Mehrzweck-MG.</szItemDesc>
+		<szItemDesc>Seit 1968 wird das MG3 von RHEINMETALL hergestellt. Es war lange Zeit das Standard-MG der Bundeswehr und ist heute noch ein Export-Schlager.</szItemDesc>
 		<szBRName>Rheinmetall MG3</szBRName>
-		<szBRDesc>Dieses MG aus dem 2. Weltkrieg hat Befestigungspunkte für ein Zwei- oder Dreibein, ein Luftkampfvisier und leicht zu wechselnde Läufe. Es galt seinerzeit als das beste Mehrzweck-MG.</szBRDesc>
+		<szBRDesc>Dieser deutsche Exportschlager von RHEINMETALL wird seit 1968 hergestellt und basiert auf dem berühmten MG-42. Es besitzt nur Dauerfeuer und wird mit Zweibein und Luftkampfvisier geliefert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1076</uiIndex>
@@ -8598,9 +8598,9 @@
 		<uiIndex>1077</uiIndex>
 		<szItemName>HK417 12"</szItemName>
 		<szLongItemName>HK417 12"</szLongItemName>
-		<szItemDesc>Das HK417 Sturmgewehr ist eine Weiterentwicklung der M16/M4-Systeme und kombiniert die besten Eigenschaften von HK's G36 und COLT's M16/M4.</szItemDesc>
+		<szItemDesc>Das HK417 Sturmgewehr ist ein Gasdrucklader und stellt eine Weiterentwicklung des M16/M4-Systems dar. Es kombiniert die besten Eigenschaften von G36 und M16/M4.</szItemDesc>
 		<szBRName>HK417 12"</szBRName>
-		<szBRDesc>Nachdem das britische SA80/L85A1 erfolgreich von HECKLER &amp; KOCH modernisiert wurde, entschied man sich die Jahrzehnte alten M16/M4- Systeme des US-Militärs ebenfalls zu verbessern. Das HK417 ist das vielversprechende Ergebnis.</szBRDesc>
+		<szBRDesc>Das HK417 Sturmgewehr ist ein Gasdrucklader mit kaltgehämmerten 12"-Lauf und stellt eine Weiterentwicklung des M16/M4-Systems dar. Es kombiniert die besten Eigenschaften von G36 und M16/M4.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1078</uiIndex>
@@ -9003,6 +9003,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1176</uiIndex>
+		<szItemName>Jägerweste</szItemName>
+		<szLongItemName>Jägerweste</szLongItemName>
+		<szItemDesc>Diese vielseitige Weste gehört zur Standardausrüstung eines guten Jägers.</szItemDesc>
+		<szBRName>Jägerweste</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1177</uiIndex>
@@ -9031,64 +9036,74 @@
 	<ITEM>
 		<uiIndex>1180</uiIndex>
 		<szItemName>ZF-42</szItemName>
-		<szLongItemName>ZF-42 Scope</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>ZF-42 Scope</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szLongItemName>ZF-42</szLongItemName>
+		<szItemDesc>Dieses Zielfernrohr aus deutscher Fertigung ist passend für das MAUSER Gewehr 98 und den Karabiner 98k.</szItemDesc>
+		<szBRName>ZF-42</szBRName>
+		<szBRDesc>Bobby Ray's konnte für Sie dieses seltene Zielfernrohr aus deutscher Fertigung ergattern, es ist passend für das MAUSER Gewehr 98 und den Karabiner 98k.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1181</uiIndex>
-		<szItemName>No.32 Scope</szItemName>
-		<szLongItemName>No.32 Scope</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>No.32 Scope</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>No.32 ZF</szItemName>
+		<szLongItemName>No.32 Zielfernrohr</szLongItemName>
+		<szItemDesc>Dieses Zielfernrohr aus britischer Fertigung ist passend für alliierte Waffen aus dem Zweiten Weltkrieg.</szItemDesc>
+		<szBRName>No.32 Zielfernrohr</szBRName>
+		<szBRDesc>Dieses Zielfernrohr aus britischer Fertigung ist passend für alliierte Waffen aus dem Zweiten Weltkrieg. Es kann einige Zeit dauern, bis sie mit ihm Fleck schießen, doch danach werden sie es nicht mehr missen wollen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1182</uiIndex>
-		<szItemName>PEM</szItemName>
-		<szLongItemName>PEM Scope</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>PEM Scope</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>PEM ZF</szItemName>
+		<szLongItemName>PEM Zielfernrohr</szLongItemName>
+		<szItemDesc>Das 4x PE/PEM Zielfernrohr ist eine russsiche Kopie eines ZEISS-Designs und wurde von 1931-42 gefertigt. Es ist passend für das Mosin-Nagant Gewehr.</szItemDesc>
+		<szBRName>PEM Zielfernrohr</szBRName>
+		<szBRDesc>Das 4x PE/PEM Zielfernrohr ist eine russsiche Kopie eines ZEISS-Designs und wurde von 1931-42 gefertigt. Es ist passend für das Mosin-Nagant Gewehr und wurde oft von russsichen Scharfschützen verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1183</uiIndex>
-		<szItemName>Match Sights</szItemName>
-		<szLongItemName>Match Sights</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>Match Sights</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>Match-Visier</szItemName>
+		<szLongItemName>Match-Visier</szLongItemName>
+		<szItemDesc>Dieses profesionelle Match-Visier bietet höchste Präzision bei allen Wettkampf- Bedingungen. Es ist passend für Colt M1911, Glock, HK und SIG Pistolen.</szItemDesc>
+		<szBRName>Match-Visier</szBRName>
+		<szBRDesc>Sie sehen bei Dämmerung nicht Kimme &amp; Korn? Dann ist diese professionelle, offene Visierung genau das Richtige für Ihre Handfeuerwaffe! Erhältlich für Colt M1911, Glock, HK USP sowie diverse SIG Pistolen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1184</uiIndex>
-		<szItemName>Camo Shirt</szItemName>
-		<szLongItemName>Underarmor Shirt</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>Underarmor Shirt</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>Tarn-Shirt</szItemName>
+		<szLongItemName>Tarn-Shirt</szLongItemName>
+		<szItemDesc>Professionelle Söldner tragen grundsätzlich eine kugelsichere Weste. Warum also ein vollständig bedrucktes Tarn-Shirt tragen wenn ohnehin nur die Ärmel sichtbar sind? Tarnbonus: 5%</szItemDesc>
+		<szBRName>Tarn-Shirt</szBRName>
+		<szBRDesc>Professionelle Söldner tragen grundsätzlich eine kugelsichere Weste. Warum also ein vollständig bedrucktes Tarn-Shirt tragen wenn ohnehin nur die Ärmel sichtbar sind? Tarnbonus: 5%</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1185</uiIndex>
+		<szItemName>G36 RAS-Kit</szItemName>
+		<szLongItemName>G36 RAS-Kit</szLongItemName>
+		<szItemDesc>Mit diesem 'Rail Adapter System' wird Ihr geliebtes G36, G36K, MG36 zu einer vielseitig einsetzbaren Waffe. Die Picatinny-Schienen ermöglichen die Montage von weiterem Zubehör.</szItemDesc>
+		<szBRName>G36 RAS-Kit</szBRName>
+		<szBRDesc>Mit diesem 'Rail Adapter System' wird Ihr geliebtes G36, G36K, MG36 zu einer vielseitig einsetzbaren Waffe. Die Picatinny-Schienen ermöglichen die Montage von weiterem Zubehör.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1186</uiIndex>
+		<szItemName>G36 Kit</szItemName>
+		<szLongItemName>G36 Griff/Optik-Kit</szLongItemName>
+		<szItemDesc>Die G36 Standard-Ausrüstung: vorderer Handschutz und Tragegriff mit integrierter Zieloptik.</szItemDesc>
+		<szBRName>G36 Griff/Optik-Kit</szBRName>
+		<szBRDesc>Die G36 Standard-Ausrüstung: vorderer Handschutz und Tragegriff mit integrierter Zieloptik.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1187</uiIndex>
 		<szItemName>MG36</szItemName>
 		<szLongItemName>HK MG36</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Das neue Maschinengewehr auf Basis des G36 dient als 'Light Support Weapon' für die Infanterie.</szItemDesc>
 		<szBRName>HK MG36</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Das neue Maschinengewehr auf Basis des G36 dient als 'Light Support Weapon' für die Infanterie.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1188</uiIndex>
 		<szItemName>Ameli</szItemName>
 		<szLongItemName>CETME Ameli</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Dieses spanische MG sieht aus wie ein geschrumpftes MG3, besitzt jedoch einen anderen Mechanismus.</szItemDesc>
 		<szBRName>CETME Ameli</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Dieses spanische MG sieht aus wie ein geschrumpftes MG3, besitzt jedoch einen anderen Mechanismus. Es befindet sich seit 1982 bei der spanischen Armee im Einsatz und wird seit August 2007 durch das HK MG43 ersetzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1189</uiIndex>
@@ -9097,32 +9112,32 @@
 		<uiIndex>1190</uiIndex>
 		<szItemName>KAC PDW</szItemName>
 		<szLongItemName>KAC PDW</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Diese PDW hat eine 8" Lauf und ist nicht schwerer als eine große Pistole. Sie stellt die ideale Bewaffnung für Militärpolizei und private Sicherheitskräfte dar.</szItemDesc>
 		<szBRName>KAC PDW</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Die 2006 vorgestellte Neuentwicklung von KNIGHT'S ARMANT COMPANY (USA) besitzt einen 8" Lauf und feuert eine optimierte Patrone für kurze Waffenläufe im Kaliber 6x35mm. Bestellen Sie noch heute Ihr Exemplar zum Testen!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1191</uiIndex>
-		<szItemName>Magpul PDR</szItemName>
-		<szLongItemName>Magpul PDR</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>Magpul PDR</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>MagPul PDR</szItemName>
+		<szLongItemName>MagPul PDR</szLongItemName>
+		<szItemDesc>Das von MagPul (USA) vorgestellte 'Personal Defence Rifle' im Kaliber 6x35mm steht im direkten Wettbewerb zu den Waffen KAC PDW, HK MP7 und FN-P90.</szItemDesc>
+		<szBRName>MagPul PDR</szBRName>
+		<szBRDesc>Das von MagPul (USA) vorgestellte 'Personal Defence Rifle' im Kaliber 6x35mm steht im direkten Wettbewerb zu den Waffen KAC PDW, HK MP7 und FN-P90.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1192</uiIndex>
 		<szItemName>Automag V</szItemName>
-		<szLongItemName>Automag V</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>Automag V</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szLongItemName>AMT Automag V</szLongItemName>
+		<szItemDesc>Die Automag V wurde von Harry Sanford Ende der 90er Jahre entwickelt und auf den Markt gebracht. Sie hat einen 6.5" Lauf und wird wie alle Automag's ausschließlich in Edelstahl gefertigt.</szItemDesc>
+		<szBRName>AMT Automag V</szBRName>
+		<szBRDesc>Die Automag V wurde von Harry Sanford Ende der 90er Jahre entwickelt und auf den Markt gebracht. Sie gilt als die ergonomischste und leichteste, halbautomatische Pistole im Kaliber .50 Action Express.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1193</uiIndex>
 		<szItemName>M1 Carbine</szItemName>
 		<szLongItemName>M1 Carbine</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Ursprünglich sollte der M1 Karabiner die Pistole als Seitenwaffe ersetzen, jedoch wurde er im Zweiten Weltkrieg oft als 'leichtes' Gewehr eingesetzt.</szItemDesc>
 		<szBRName>M1 Carbine</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Ursprünglich sollte der M1 Karabiner die Pistole als Seitenwaffe ersetzen, jedoch wurde er im Zweiten Weltkrieg oft als 'leichtes' Gewehr eingesetzt. Zwischen 1942-60 wurden über 6,25 Mio. Stück produziert.</szBRDesc>
 	</ITEM>
 </ITEMLIST>
