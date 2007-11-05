@@ -8985,12 +8985,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1170</uiIndex>
+		<szItemName>AR-Gren.</szItemName>
+		<szLongItemName>AR-Mag / Grenade Pouch</szLongItemName>
+		<szItemDesc>Beschreibung erw´ünscht</szItemDesc>
+		<szBRName>AR-Mag / Grenade Pouch</szBRName>
+		<szBRDesc>Beschreibung erw´ünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1171</uiIndex>
+		<szItemName>AR-Util.</szItemName>
+		<szLongItemName>AR-Mag / Utility Pouch</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>AR-Mag / Utility Pouch</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1172</uiIndex>
+		<szItemName>Cant.-Util.</szItemName>
+		<szLongItemName>Canteen / Utility Pouch</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Canteen / Utility Pouch</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1173</uiIndex>
@@ -9107,6 +9122,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1189</uiIndex>
+		<szItemName>Flare</szItemName>
+		<szLongItemName>Emergency Flare</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Emergency Flare</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1190</uiIndex>
@@ -9139,5 +9159,21 @@
 		<szItemDesc>Ursprünglich sollte der M1 Karabiner die Pistole als Seitenwaffe ersetzen, jedoch wurde er im Zweiten Weltkrieg oft als 'leichtes' Gewehr eingesetzt.</szItemDesc>
 		<szBRName>M1 Carbine</szBRName>
 		<szBRDesc>Ursprünglich sollte der M1 Karabiner die Pistole als Seitenwaffe ersetzen, jedoch wurde er im Zweiten Weltkrieg oft als 'leichtes' Gewehr eingesetzt. Zwischen 1942-60 wurden über 6,25 Mio. Stück produziert.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1194</uiIndex>
+		<szItemName>Python</szItemName>
+		<szLongItemName>Colt Python</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Colt Python</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1195</uiIndex>
+		<szItemName>MC51</szItemName>
+		<szLongItemName>FR Ordnance MC51</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>FR Ordnance MC51</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 </ITEMLIST>

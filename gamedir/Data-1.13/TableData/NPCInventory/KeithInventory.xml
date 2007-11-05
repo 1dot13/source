@@ -320,4 +320,9 @@
 		<sItemIndex>1063</sItemIndex>
 		<ubOptimalNumber>0</ubOptimalNumber>
 	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>64</uiIndex>
+		<sItemIndex>1189</sItemIndex>
+		<ubOptimalNumber>2</ubOptimalNumber>
+	</INVENTORY>
 </INVENTORYLIST>

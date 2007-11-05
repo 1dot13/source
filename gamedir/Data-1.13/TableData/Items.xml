@@ -26619,7 +26619,7 @@
 		<szBRDesc>This leg rig mounts a double AR-magazine pouch and three individual grenade pouches. Great for your primary combat soldiers.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>706</ubGraphicNum>
+		<ubGraphicNum>714</ubGraphicNum>
 		<ubWeight>8</ubWeight>
 		<usPrice>85</usPrice>
 		<bRepairEase>2</bRepairEase>
@@ -26639,7 +26639,7 @@
 		<szBRDesc>A double AR-magazine pouch and a larger utility pouch mounted together on a leg rig, this is useful for carrying larger things like explosives.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>706</ubGraphicNum>
+		<ubGraphicNum>715</ubGraphicNum>
 		<ubWeight>8</ubWeight>
 		<usPrice>80</usPrice>
 		<bRepairEase>2</bRepairEase>
@@ -26659,7 +26659,7 @@
 		<szBRDesc>This leg rig has a utility pouch mounted besides a canteen pouch.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>706</ubGraphicNum>
+		<ubGraphicNum>716</ubGraphicNum>
 		<ubWeight>8</ubWeight>
 		<usPrice>85</usPrice>
 		<bRepairEase>2</bRepairEase>
@@ -26739,7 +26739,7 @@
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
-		<ubGraphicNum>698</ubGraphicNum>
+		<ubGraphicNum>711</ubGraphicNum>
 		<ubWeight>8</ubWeight>
 		<usPrice>90</usPrice>
 		<bRepairEase>2</bRepairEase>
@@ -27077,14 +27077,26 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1189</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 1189</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
-		<usItemClass>1</usItemClass>
-		<NotBuyable>1</NotBuyable>
+		<szItemName>Flare</szItemName>
+		<szLongItemName>Emergency Flare</szLongItemName>
+		<szItemDesc>A flare normally used for emergency purposes.</szItemDesc>
+		<szBRName>Emergency Flare</szBRName>
+		<szBRDesc>Brighter than chemical lightsticks, but also comparatively short-lived, these flares can light up the night for you.</szBRDesc>
+		<usItemClass>256</usItemClass>
+		<ubClassIndex>74</ubClassIndex>
+		<ubCursor>6</ubCursor>
+		<ubGraphicType>2</ubGraphicType>
+		<ubGraphicNum>71</ubGraphicNum>
+		<ubWeight>2</ubWeight>
+		<ubPerPocket>4</ubPerPocket>
+		<usPrice>50</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<ShowStatus>1</ShowStatus>
 		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<Flare>1</Flare>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1190</uiIndex>
@@ -27194,5 +27206,62 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>60</BR_ROF>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1194</uiIndex>
+		<szItemName>Python</szItemName>
+		<szLongItemName>Colt Python</szLongItemName>
+		<szItemDesc>A very sturdy revolver, the Python has a reputation for accuracy.</szItemDesc>
+		<szBRName>Colt Python</szBRName>
+		<szBRDesc>The first 'modern' revolver after WW-II, it was made in several versions.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1194</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>332</ubGraphicNum>
+		<ubWeight>12</ubWeight>
+		<ubPerPocket>1</ubPerPocket>
+		<usPrice>1</usPrice>
+		<ubCoolness>2</ubCoolness>
+		<bReliability>4</bReliability>
+		<bRepairEase>2</bRepairEase>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>5</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>26</BR_ROF>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1195</uiIndex>
+		<szItemName>MC51</szItemName>
+		<szLongItemName>FR Ordnance MC51</szLongItemName>
+		<szItemDesc>Despite having stopping power in a small package, this was a not so popular gun, due to high maintenace requirements and low controllability in fullauto fire.</szItemDesc>
+		<szBRName>FR Ordnance MC51</szBRName>
+		<szBRDesc>An even shorter version of the G3KA4 battle rifle, this was made in Great Britain for the SAS. We were able to get some of the rare rails for this gun.</szBRDesc>
+		<usItemClass>2</usItemClass>
+		<ubClassIndex>1195</ubClassIndex>
+		<ubCursor>3</ubCursor>
+		<ubGraphicNum>342</ubGraphicNum>
+		<ubWeight>37</ubWeight>
+		<usPrice>1</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bReliability>-2</bReliability>
+		<Damageable>1</Damageable>
+		<Repairable>1</Repairable>
+		<WaterDamages>1</WaterDamages>
+		<Metal>1</Metal>
+		<Sinks>1</Sinks>
+		<ShowStatus>1</ShowStatus>
+		<TwoHanded>1</TwoHanded>
+		<BigGunList>1</BigGunList>
+		<BR_NewInventory>3</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
+		<BR_ROF>600</BR_ROF>
+		<ToHitBonus>-1</ToHitBonus>
+		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
 	</ITEM>
 </ITEMLIST>

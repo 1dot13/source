@@ -132,11 +132,11 @@
 		<pSilhouette>7</pSilhouette>
 		<pType>0</pType>
 		<pRestriction>0</pRestriction>
-		<ItemCapacityPerSize.0>1</ItemCapacityPerSize.0>
-		<ItemCapacityPerSize.1>1</ItemCapacityPerSize.1>
-		<ItemCapacityPerSize.2>1</ItemCapacityPerSize.2>
-		<ItemCapacityPerSize.3>1</ItemCapacityPerSize.3>
-		<ItemCapacityPerSize.4>1</ItemCapacityPerSize.4>
+		<ItemCapacityPerSize.0>3</ItemCapacityPerSize.0>
+		<ItemCapacityPerSize.1>3</ItemCapacityPerSize.1>
+		<ItemCapacityPerSize.2>3</ItemCapacityPerSize.2>
+		<ItemCapacityPerSize.3>2</ItemCapacityPerSize.3>
+		<ItemCapacityPerSize.4>2</ItemCapacityPerSize.4>
 		<ItemCapacityPerSize.5>1</ItemCapacityPerSize.5>
 		<ItemCapacityPerSize.6>1</ItemCapacityPerSize.6>
 		<ItemCapacityPerSize.7>1</ItemCapacityPerSize.7>
@@ -174,9 +174,9 @@
 		<pSilhouette>7</pSilhouette>
 		<pType>0</pType>
 		<pRestriction>0</pRestriction>
-		<ItemCapacityPerSize.0>1</ItemCapacityPerSize.0>
-		<ItemCapacityPerSize.1>1</ItemCapacityPerSize.1>
-		<ItemCapacityPerSize.2>1</ItemCapacityPerSize.2>
+		<ItemCapacityPerSize.0>3</ItemCapacityPerSize.0>
+		<ItemCapacityPerSize.1>3</ItemCapacityPerSize.1>
+		<ItemCapacityPerSize.2>3</ItemCapacityPerSize.2>
 		<ItemCapacityPerSize.3>1</ItemCapacityPerSize.3>
 		<ItemCapacityPerSize.4>1</ItemCapacityPerSize.4>
 		<ItemCapacityPerSize.5>1</ItemCapacityPerSize.5>
@@ -216,9 +216,9 @@
 		<pSilhouette>6</pSilhouette>
 		<pType>0</pType>
 		<pRestriction>0</pRestriction>
-		<ItemCapacityPerSize.0>1</ItemCapacityPerSize.0>
-		<ItemCapacityPerSize.1>1</ItemCapacityPerSize.1>
-		<ItemCapacityPerSize.2>1</ItemCapacityPerSize.2>
+		<ItemCapacityPerSize.0>2</ItemCapacityPerSize.0>
+		<ItemCapacityPerSize.1>2</ItemCapacityPerSize.1>
+		<ItemCapacityPerSize.2>2</ItemCapacityPerSize.2>
 		<ItemCapacityPerSize.3>1</ItemCapacityPerSize.3>
 		<ItemCapacityPerSize.4>1</ItemCapacityPerSize.4>
 		<ItemCapacityPerSize.5>1</ItemCapacityPerSize.5>
