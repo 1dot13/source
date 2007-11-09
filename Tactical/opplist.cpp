@@ -1251,6 +1251,7 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 	// let tanks see and be seen further (at night)
 	if ( (TANK( pSoldier ) && sDistVisible > 0) || (pSubject && TANK( pSubject ) ) )
 	{
+#if 0
 		if ( TANK(pSoldier) && sDistVisible > 0 && pSubject)
 		{
 			sDistVisible = __max( sDistVisible + 5, pSubject->GetMaxDistanceVisible(pSoldier->sGridNo, pSoldier->bLevel) );
@@ -1258,6 +1259,11 @@ INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir,
 		else {
 			sDistVisible = __max( sDistVisible + 5, pSoldier->GetMaxDistanceVisible() );
 		}
+#endif
+		// 0verhaul:  This bit of code 1) seems to have no real reason to exist (MaxDistVisible just calls this function anyway), 
+		// and 2) causes infinite recursion because MaxDistVisible just calls this function, which comes right back here.  Just
+		// add 5 to sDistVisible and go on.
+		sDistVisible = sDistVisible + 5;
 	}
 
 	if ( gpWorldLevelData[ pSoldier->sGridNo ].ubExtFlags[ bLevel ] & (MAPELEMENT_EXT_TEARGAS | MAPELEMENT_EXT_MUSTARDGAS) )
@@ -4495,6 +4501,7 @@ void DebugSoldierPage4( )
 				case FARPATROL:		swprintf( szOrders, L"FAR PATROL" );			break;
 				case POINTPATROL:	swprintf( szOrders, L"POINT PATROL" );		break;
 				case RNDPTPATROL:	swprintf( szOrders, L"RND PT PATROL" );		break;
+				case SNIPER:		swprintf( szOrders, L"SNIPER" );		break;
 				default:					swprintf( szOrders, L"UNKNOWN" );					break;
 			}
 			switch( pSoldier->bAttitude )
