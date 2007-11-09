@@ -751,7 +751,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		UINT8 ubSectorID;
 		ubSectorID = GetAutoResolveSectorID();
                 // WDS - Clean up inventory handling
-		pSoldier = new (MemAlloc( SIZEOF_SOLDIERTYPE )) SOLDIERTYPE; //(SOLDIERTYPE*)MemAlloc( SIZEOF_SOLDIERTYPE );
+		pSoldier = new SOLDIERTYPE; //(SOLDIERTYPE*)MemAlloc( SIZEOF_SOLDIERTYPE );
 		if( !pSoldier )
 			return NULL;
 		//memcpy( pSoldier, &Soldier, SIZEOF_SOLDIERTYPE );
@@ -2205,7 +2205,7 @@ SOLDIERTYPE* ReserveTacticalSoldierForAutoresolve( UINT8 ubSoldierClass )
 
                              	// WDS - Clean up inventory handling
 				//Allocate and copy the soldier
-				pSoldier = new (MemAlloc( SIZEOF_SOLDIERTYPE )) SOLDIERTYPE; //(SOLDIERTYPE*)MemAlloc( SIZEOF_SOLDIERTYPE );
+				pSoldier = new SOLDIERTYPE; //(SOLDIERTYPE*)MemAlloc( SIZEOF_SOLDIERTYPE );
 				if( !pSoldier )
 					return NULL;
 //				memcpy( pSoldier, MercPtrs[ i ], SIZEOF_SOLDIERTYPE );
@@ -2360,7 +2360,7 @@ SOLDIERTYPE* ReserveTacticalMilitiaSoldierForAutoresolve( UINT8 ubSoldierClass )
 
                             	// WDS - Clean up inventory handling
 				//Allocate and copy the soldier
-				pSoldier = new (MemAlloc( SIZEOF_SOLDIERTYPE )) SOLDIERTYPE; //(SOLDIERTYPE*)MemAlloc( SIZEOF_SOLDIERTYPE );
+				pSoldier = new SOLDIERTYPE; //(SOLDIERTYPE*)MemAlloc( SIZEOF_SOLDIERTYPE );
 				if( !pSoldier )
 					return NULL;
 //				memcpy( pSoldier, MercPtrs[ i ], SIZEOF_SOLDIERTYPE );

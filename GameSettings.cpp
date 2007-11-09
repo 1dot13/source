@@ -389,8 +389,8 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iStartAttribute		= iniReader.ReadInteger("JA2 Laptop Settings","START_ATTRIBUTE",55);
 
 	//gGameExternalOptions.fPers_att				= iniReader.ReadBoolean("JA2 Laptop Settings","USE_RANDOM_PERSONALITY",FALSE);
-	gGameExternalOptions.iCustomPersonality		= iniReader.ReadInteger("JA2 Laptop Settings","CUSTOM_PERSONALITY",0);
-	gGameExternalOptions.iCustomAttitude		= iniReader.ReadInteger("JA2 Laptop Settings","CUSTOM_ATTITUDE",0);
+	gGameExternalOptions.iCustomPersonality		= (INT8) iniReader.ReadInteger("JA2 Laptop Settings","CUSTOM_PERSONALITY",0);
+	gGameExternalOptions.iCustomAttitude		= (INT8) iniReader.ReadInteger("JA2 Laptop Settings","CUSTOM_ATTITUDE",0);
 
 	//Merc settings
 	gGameExternalOptions.fMercDayOne			= iniReader.ReadBoolean("JA2 Laptop Settings","MERC_AVAILABLE_DAY_ONE",FALSE);
@@ -404,7 +404,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.giInsaneMercDeaths	          = iniReader.ReadInteger("JA2 Laptop Settings","INSANE_MERC_DEATHS",4);
 
 	//################# System Settings #################
-	gGameExternalOptions.gubDeadLockDelay = iniReader.ReadInteger("JA2 System Settings","DEAD_LOCK_DELAY",15);
+	gGameExternalOptions.gubDeadLockDelay = (UINT8) iniReader.ReadInteger("JA2 System Settings","DEAD_LOCK_DELAY",15);
 	gGameExternalOptions.gfEnableEmergencyButton_SkipStrategicEvents = iniReader.ReadBoolean("JA2 System Settings","ENABLE_EMERGENCY_BUTTON_NUMLOCK_TO_SKIP_STRATEGIC_EVENTS",0);
 
 	
@@ -433,11 +433,11 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fAllowTacticalMilitiaCommand	= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_TACTICAL_MILITIA_COMMAND",0);
 
 	// Enemy AP settings
-	gGameExternalOptions.iEasyAPBonus					= iniReader.ReadInteger("JA2 Tactical Settings","NOVICE_AP_BONUS",0);
-	gGameExternalOptions.iExperiencedAPBonus			= iniReader.ReadInteger("JA2 Tactical Settings","EXPERIENCED_AP_BONUS",0);
-	gGameExternalOptions.iExpertAPBonus					= iniReader.ReadInteger("JA2 Tactical Settings","EXPERT_AP_BONUS",0);
-	gGameExternalOptions.iInsaneAPBonus					= iniReader.ReadInteger("JA2 Tactical Settings","INSANE_AP_BONUS",0);
-	gGameExternalOptions.iPlayerAPBonus					= iniReader.ReadInteger("JA2 Tactical Settings","PLAYER_AP_BONUS",0);
+	gGameExternalOptions.iEasyAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","NOVICE_AP_BONUS",0);
+	gGameExternalOptions.iExperiencedAPBonus			= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","EXPERIENCED_AP_BONUS",0);
+	gGameExternalOptions.iExpertAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","EXPERT_AP_BONUS",0);
+	gGameExternalOptions.iInsaneAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","INSANE_AP_BONUS",0);
+	gGameExternalOptions.iPlayerAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","PLAYER_AP_BONUS",0);
 
 	// Sight range
 	gGameExternalOptions.ubStraightSightRange				= iniReader.ReadInteger("JA2 Tactical Settings","BASE_SIGHT_RANGE",13);
@@ -451,7 +451,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.gfAllowSoldierToolTips		= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_SOLDIER_TOOL_TIPS",0);
 
 	// ShadoWarrior: Tooltip changes (start)
-	gGameExternalOptions.ubSoldierTooltipDetailLevel		= iniReader.ReadInteger("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DETAIL_LEVEL", 1);
+	gGameExternalOptions.ubSoldierTooltipDetailLevel		= (UINT8) iniReader.ReadInteger("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DETAIL_LEVEL", 1);
 
 	gGameExternalOptions.fEnableDynamicSoldierTooltips		= iniReader.ReadBoolean("JA2 Tactical Settings", "DYNAMIC_SOLDIER_TOOLTIPS", TRUE);
 	gGameExternalOptions.fEnableSoldierTooltipLocation		= iniReader.ReadBoolean("JA2 Tactical Settings", "SOLDIER_TOOLTIP_DISPLAY_LOCATION", TRUE);
@@ -531,7 +531,7 @@ void LoadGameExternalOptions()
 
 
 	gGameExternalOptions.fSellAll					= iniReader.ReadBoolean("JA2 Gameplay Settings","CAN_SELL_ALT_LMB",FALSE);
-	gGameExternalOptions.iPriceModifier				= iniReader.ReadInteger("JA2 Gameplay Settings","PRICE_MODIFIER",10);
+	gGameExternalOptions.iPriceModifier				= (INT16) iniReader.ReadInteger("JA2 Gameplay Settings","PRICE_MODIFIER",10);
 
 
 	// WDS - Option to turn off stealing
@@ -582,10 +582,10 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iPercentElitesBonusExpert			= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_ELITE_BONUS",25);
 	gGameExternalOptions.iPercentElitesBonusInsane			= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_ELITE_BONUS",50);
 
-	gGameExternalOptions.ubMinEnemyGroupSizeNovice			= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_MIN_ENEMY_GROUP_SIZE",3);
-	gGameExternalOptions.ubMinEnemyGroupSizeExperienced		= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_MIN_ENEMY_GROUP_SIZE",4);
-	gGameExternalOptions.ubMinEnemyGroupSizeExpert			= iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_MIN_ENEMY_GROUP_SIZE",6);
-	gGameExternalOptions.ubMinEnemyGroupSizeInsane			= iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_MIN_ENEMY_GROUP_SIZE",12);
+	gGameExternalOptions.ubMinEnemyGroupSizeNovice			= (UINT8) iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_MIN_ENEMY_GROUP_SIZE",3);
+	gGameExternalOptions.ubMinEnemyGroupSizeExperienced		= (UINT8) iniReader.ReadInteger("JA2 Gameplay Settings","EXPERIENCED_MIN_ENEMY_GROUP_SIZE",4);
+	gGameExternalOptions.ubMinEnemyGroupSizeExpert			= (UINT8) iniReader.ReadInteger("JA2 Gameplay Settings","EXPERT_MIN_ENEMY_GROUP_SIZE",6);
+	gGameExternalOptions.ubMinEnemyGroupSizeInsane			= (UINT8) iniReader.ReadInteger("JA2 Gameplay Settings","INSANE_MIN_ENEMY_GROUP_SIZE",12);
 
 	gGameExternalOptions.ubEasyEnemyStartingAlertLevel		= iniReader.ReadInteger("JA2 Gameplay Settings","NOVICE_ENEMY_STARTING_ALERT_LEVEL", 5);
 	gGameExternalOptions.ubNormalEnemyStartingAlertLevel	= iniReader.ReadInteger("JA2 Gameplay Settings","NORMAL_ENEMY_STARTING_ALERT_LEVEL", 20);
@@ -717,7 +717,7 @@ BOOLEAN GetCDLocation( )
 {
 	UINT32	uiStrngLength = 0;
 	CHAR8		zCdLocation[ SGPFILENAME_LEN ];
-	UINT32	uiDriveType=0;
+	//UINT32	uiDriveType=0;
 	UINT32	uiRetVal=0;
 
 	//Do a crude check to make sure the Ja2.ini file is the right on
@@ -889,7 +889,7 @@ BOOLEAN CheckIfGameCdromIsInCDromDrive()
 	CHAR8		zCdFile[ SGPFILENAME_LEN ];
 
 	CHAR8		zCdromRootDrive[512];
-	BOOLEAN	fFailed = FALSE;
+	//BOOLEAN	fFailed = FALSE;
 	UINT32	uiVolumeReturnValue;
 	UINT32	uiLastError = ERROR_SUCCESS;
 

@@ -924,7 +924,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 	// CLIMB A BUILDING
 	////////////////////////////////////////////////////////////////////////////
 
-	if (!fCivilian)
+	if (!fCivilian && pSoldier->bLastAction != AI_ACTION_CLIMB_ROOF)
 	{
 		iChance = 10 + pSoldier->bBypassToGreen;
 
@@ -965,30 +965,40 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 		// reduce chance if breath is down
 		//iChance -= (100 - pSoldier->bBreath);         // don't care
 
+		// This is the chance that we want to be on the roof.  If already there, invert the chance to see if we want back
+		// down
+		if (pSoldier->bLevel > 0)
+		{
+			iChance = 100 - iChance;
+		}
+
 		if ((INT16) PreRandom(100) < iChance)
 		{
+			BOOLEAN fUp = FALSE;
 			if ( pSoldier->bLevel == 0 )
 			{
-				BOOLEAN fUp = TRUE;
-				if (pSoldier->bLevel > 0 )
-					fUp = FALSE;
+				fUp = TRUE;
+			}
+			else if (pSoldier->bLevel > 0 )
+			{
+				fUp = FALSE;
+			}
 
-				if ( CanClimbFromHere ( pSoldier, fUp ) )
+			if ( CanClimbFromHere ( pSoldier, fUp ) )
+			{
+				DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d is climbing roof",pSoldier->ubID) );
+				return( AI_ACTION_CLIMB_ROOF );
+			}
+			else
+			{
+				pSoldier->usActionData = FindClosestClimbPoint(pSoldier, fUp );
+				// Added the check here because sniper militia who are locked inside of a building without keys
+				// will still have a >100% chance to want to climb, which means an infinite loop.  In fact, any
+				// time a move is desired, there probably also will be a need to check for a path.
+				if ( pSoldier->usActionData != NOWHERE &&
+					LegalNPCDestination(pSoldier,pSoldier->usActionData,ENSURE_PATH,WATEROK, 0 ))
 				{
-					DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d is climbing roof",pSoldier->ubID) );
-					return( AI_ACTION_CLIMB_ROOF );
-				}
-				else
-				{
-					pSoldier->usActionData = FindClosestClimbPoint(pSoldier, fUp );
-					// Added the check here because sniper militia who are locked inside of a building without keys
-					// will still have a >100% chance to want to climb, which means an infinite loop.  In fact, any
-					// time a move is desired, there probably also will be a need to check for a path.
-					if ( pSoldier->usActionData != NOWHERE &&
-						LegalNPCDestination(pSoldier,pSoldier->usActionData,ENSURE_PATH,WATEROK, 0 ))
-					{
-						return( AI_ACTION_MOVE_TO_CLIMB  );
-					}
+					return( AI_ACTION_MOVE_TO_CLIMB  );
 				}
 			}
 		}

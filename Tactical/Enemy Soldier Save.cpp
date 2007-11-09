@@ -282,7 +282,7 @@ BOOLEAN LoadEnemySoldiersFromTempFile()
 						curr->pBasicPlacement->fPriorityExistance = TRUE;
 						if( !curr->pDetailedPlacement )
 						{ //need to upgrade the placement to detailed placement
-							curr->pDetailedPlacement = new (MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT )) SOLDIERCREATE_STRUCT; //(SOLDIERCREATE_STRUCT*)MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT );
+							curr->pDetailedPlacement = new SOLDIERCREATE_STRUCT; //(SOLDIERCREATE_STRUCT*)MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT );
 						}
 						//now replace the map pristine placement info with the temp map file version..
 						//memcpy( curr->pDetailedPlacement, &tempDetailedPlacement, SIZEOF_SOLDIERCREATE_STRUCT );
@@ -475,7 +475,7 @@ BOOLEAN SaveEnemySoldiersToTempFile( INT16 sSectorX, INT16 sSectorY, INT8 bSecto
 					{ //need to upgrade the placement to detailed placement
 						curr->pBasicPlacement->fDetailedPlacement = TRUE;
                                                 // WDS - Clean up inventory handling
-						curr->pDetailedPlacement = new (MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT )) SOLDIERCREATE_STRUCT; //(SOLDIERCREATE_STRUCT*)MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT );
+						curr->pDetailedPlacement = new SOLDIERCREATE_STRUCT; //(SOLDIERCREATE_STRUCT*)MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT );
 						//memset( curr->pDetailedPlacement, 0, SIZEOF_SOLDIERCREATE_STRUCT );
 						curr->pDetailedPlacement->initialize();
 					}
@@ -1009,7 +1009,7 @@ BOOLEAN NewWayOfLoadingEnemySoldiersFromTempFile()
 					curr->pBasicPlacement->fPriorityExistance = TRUE;
 					if( !curr->pDetailedPlacement )
 					{ //need to upgrade the placement to detailed placement
-						curr->pDetailedPlacement = new (MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT )) SOLDIERCREATE_STRUCT; //(SOLDIERCREATE_STRUCT*)MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT );
+						curr->pDetailedPlacement = new SOLDIERCREATE_STRUCT; //(SOLDIERCREATE_STRUCT*)MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT );
 					}
 					//now replace the map pristine placement info with the temp map file version..
 					//memcpy( curr->pDetailedPlacement, &tempDetailedPlacement, SIZEOF_SOLDIERCREATE_STRUCT );
@@ -1582,7 +1582,7 @@ BOOLEAN NewWayOfSavingEnemyAndCivliansToTempFile( INT16 sSectorX, INT16 sSectorY
 						{ //need to upgrade the placement to detailed placement
 							curr->pBasicPlacement->fDetailedPlacement = TRUE;
                                                         // WDS - Clean up inventory handling
-							curr->pDetailedPlacement = new (MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT )) SOLDIERCREATE_STRUCT;
+							curr->pDetailedPlacement = new SOLDIERCREATE_STRUCT;
 							curr->pDetailedPlacement->initialize();
 							//memset( curr->pDetailedPlacement, 0, SIZEOF_SOLDIERCREATE_STRUCT );
 						}

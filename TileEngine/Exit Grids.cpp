@@ -299,8 +299,6 @@ UINT16 FindGridNoFromSweetSpotCloseToExitGrid( SOLDIERTYPE *pSoldier, INT16 sSwe
 	//(use the fake soldier and the pathing settings)
 	FindBestPath( &soldier, NOWHERE, 0, WALKING, COPYREACHABLE, PATH_THROUGH_PEOPLE );
 	
-	gfPlotPathToExitGrid = FALSE;
-
 	uiLowestRange = 999999;	
 
 	for( cnt1 = sBottom; cnt1 <= sTop; cnt1++ )
@@ -337,6 +335,8 @@ UINT16 FindGridNoFromSweetSpotCloseToExitGrid( SOLDIERTYPE *pSoldier, INT16 sSwe
 			}
 		}
 	}
+
+	gfPlotPathToExitGrid = FALSE;
 	gubNPCAPBudget = ubSaveNPCAPBudget;
 	gubNPCDistLimit = ubSaveNPCDistLimit;
 

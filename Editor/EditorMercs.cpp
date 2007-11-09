@@ -1966,7 +1966,7 @@ void InitDetailedPlacementForMerc()
 	Assert( !gpSelected->pDetailedPlacement );
 
         // WDS - Clean up inventory handling
-	gpSelected->pDetailedPlacement = new (MemAlloc(SIZEOF_SOLDIERCREATE_STRUCT)) SOLDIERCREATE_STRUCT;
+	gpSelected->pDetailedPlacement = new SOLDIERCREATE_STRUCT;
 	Assert( gpSelected->pDetailedPlacement );
 	
 	gpSelected->pBasicPlacement->fDetailedPlacement = TRUE;
@@ -3710,7 +3710,7 @@ void PasteMercPlacement( INT32 iMapIndex )
 				gTempBasicPlacement.fDetailedPlacement = TRUE;
 				gTempBasicPlacement.fPriorityExistance = gSaveBufferBasicPlacement.fPriorityExistance;
                                 // WDS - Clean up inventory handling
-				pNode->pDetailedPlacement = new (MemAlloc( SIZEOF_SOLDIERCREATE_STRUCT )) SOLDIERCREATE_STRUCT;
+				pNode->pDetailedPlacement = new SOLDIERCREATE_STRUCT;
 				if( !pNode->pDetailedPlacement )
 				{
 					AssertMsg( 0, "Failed to allocate memory for new detailed placement in PasteMercPlacement." );

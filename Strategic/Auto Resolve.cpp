@@ -1958,7 +1958,7 @@ static void ARCreateMilitia( UINT8 mclass, INT32 i, INT16 sX, INT16 sY)
 	ResetMortarsOnTeamCount();
 
 	if( !gpBattleGroup ) {
-		AssertMsg(0, "No battle group set while creating militia");
+		//AssertMsg(0, "No battle group set while creating militia");
 	}
 
 	if( mclass == SOLDIER_CLASS_ELITE_MILITIA )

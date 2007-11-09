@@ -978,33 +978,50 @@ void ChooseGrenadesForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bGrena
 		return;
 
 	// special mortar shell handling
-	if (bGrenadeClass == MORTAR_GRENADE_CLASS && itemMortar > 0 )
+	if (bGrenadeClass == MORTAR_GRENADE_CLASS)
 	{
-		usItem = PickARandomLaunchable ( itemMortar );
-		if ( usItem > 0 )
+		// 0verhaul:  itemMortar can be 0 if the previous function
+		// 1) failed to find a Mortar that the soldier would want to use (due to XML prefs)
+		// 2) randomly chose not to supply a Mortar (always possible, even if choices exist).
+		// Since we should not go beyond this point in the case where Mortar Rounds are desired,
+		// return here in any case
+		if (itemMortar > 0 )
 		{
-			CreateItems( usItem, (INT8) (80 + Random(21)), bGrenades, &Object );
-			Object.fFlags |= OBJECT_UNDROPPABLE;
-			PlaceObjectInSoldierCreateStruct( pp, &Object );
-
-			return;
-		}
-	}
-
-	// special rpg rocket handling
-	if (bGrenadeClass == RPG_GRENADE_CLASS && itemRPG > 0 )
-	{
-		usItem = PickARandomLaunchable ( itemRPG );
-		if ( usItem > 0 )
-		{
-			for ( int i = 0; i < bGrenades; i++ )
+			usItem = PickARandomLaunchable ( itemMortar );
+			if ( usItem > 0 )
 			{
-				CreateItem( usItem, (INT8) (70 + Random(31)), &Object ); 
+				CreateItems( usItem, (INT8) (80 + Random(21)), bGrenades, &Object );
 				Object.fFlags |= OBJECT_UNDROPPABLE;
 				PlaceObjectInSoldierCreateStruct( pp, &Object );
 			}
-			return;
 		}
+
+		return;
+	}
+
+	// special rpg rocket handling
+	if (bGrenadeClass == RPG_GRENADE_CLASS)
+	{
+		// 0verhaul:  itemRPG can be 0 if the previous function
+		// 1) failed to find an RPG that the soldier would want to use (due to XML prefs)
+		// 2) randomly chose not to supply an RPG (always possible, even if choices exist).
+		// Since we should not go beyond this point in the case where RPG grenades are desired,
+		// return here in any case
+		if (itemRPG > 0 )
+		{
+			usItem = PickARandomLaunchable ( itemRPG );
+			if ( usItem > 0 )
+			{
+				for ( int i = 0; i < bGrenades; i++ )
+				{
+					CreateItem( usItem, (INT8) (70 + Random(31)), &Object ); 
+					Object.fFlags |= OBJECT_UNDROPPABLE;
+					PlaceObjectInSoldierCreateStruct( pp, &Object );
+				}
+
+			}
+		}
+		return;
 	}
 
 	Assert( bGrenadeClass <= 11 );

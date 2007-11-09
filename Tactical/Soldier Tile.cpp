@@ -516,6 +516,12 @@ BOOLEAN HandleNextTileWaiting( SOLDIERTYPE *pSoldier )
 		{
 			RESETTIMECOUNTER( pSoldier->NextTileCounter, NEXT_TILE_CHECK_DELAY );
 
+			// ATE: Allow path to exit grid!
+			if ( pSoldier->ubWaitActionToDo == 1 && gubWaitingForAllMercsToExitCode == WAIT_FOR_MERCS_TO_WALK_TO_GRIDNO )
+			{
+				gfPlotPathToExitGrid = TRUE;
+			}
+
 			// Get direction from gridno...
 			bCauseDirection = (INT8)GetDirectionToGridNoFromGridNo( pSoldier->sGridNo, pSoldier->sDelayedMovementCauseGridNo );
 
@@ -534,6 +540,7 @@ BOOLEAN HandleNextTileWaiting( SOLDIERTYPE *pSoldier )
 					SetFinalTile( pSoldier, pSoldier->sGridNo, TRUE );
 					pSoldier->fDelayedMovement = FALSE;
 				}
+				gfPlotPathToExitGrid = FALSE;
 				return( TRUE );
 			}
 
@@ -595,15 +602,7 @@ BOOLEAN HandleNextTileWaiting( SOLDIERTYPE *pSoldier )
 					sCheckGridNo = pSoldier->sFinalDestination;
 				}
 
-				// Try another path to destination
-				// ATE: Allow path to exit grid!
-				if ( pSoldier->ubWaitActionToDo == 1 && gubWaitingForAllMercsToExitCode == WAIT_FOR_MERCS_TO_WALK_TO_GRIDNO )
-				{
-					gfPlotPathToExitGrid = TRUE;
-				}
-
 				sCost = (INT16) FindBestPath( pSoldier, sCheckGridNo, pSoldier->bLevel, pSoldier->usUIMovementMode, NO_COPYROUTE, fFlags );
-				gfPlotPathToExitGrid = FALSE;
 				
 				// Can we get there
 				if ( sCost > 0 )
@@ -617,14 +616,7 @@ BOOLEAN HandleNextTileWaiting( SOLDIERTYPE *pSoldier )
 					{
 						// Try to path around everyone except dest person
 
-						if ( pSoldier->ubWaitActionToDo == 1 && gubWaitingForAllMercsToExitCode == WAIT_FOR_MERCS_TO_WALK_TO_GRIDNO )
-						{
-							gfPlotPathToExitGrid = TRUE;
-						}
-
 						sCost = (INT16) FindBestPath( pSoldier, sCheckGridNo, pSoldier->bLevel, pSoldier->usUIMovementMode, NO_COPYROUTE, PATH_IGNORE_PERSON_AT_DEST );
-
-						gfPlotPathToExitGrid = FALSE;
 
 						// Is the next tile in this new path blocked too?
 						sNewGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, DirectionInc( (UINT8)guiPathingData[ 0 ] ) );
@@ -633,6 +625,7 @@ BOOLEAN HandleNextTileWaiting( SOLDIERTYPE *pSoldier )
 
 						// now working with a path which does not go through people				
 						pSoldier->ubDelayedMovementFlags &= (~DELAYED_MOVEMENT_FLAG_PATH_THROUGH_PEOPLE);
+
 					}
 					else
 					{
@@ -646,12 +639,6 @@ BOOLEAN HandleNextTileWaiting( SOLDIERTYPE *pSoldier )
 					// Are we clear?
 					if ( bPathBlocked == MOVE_TILE_CLEAR )
 					{
-						// Go for it path!
-						if ( pSoldier->ubWaitActionToDo == 1 && gubWaitingForAllMercsToExitCode == WAIT_FOR_MERCS_TO_WALK_TO_GRIDNO )
-						{
-							gfPlotPathToExitGrid = TRUE;
-						}
-
 						//pSoldier->fDelayedMovement = FALSE;
 						// ATE: THis will get set in EENT_GetNewSoldierPath....
 						pSoldier->usActionData = sCheckGridNo;
@@ -659,8 +646,8 @@ BOOLEAN HandleNextTileWaiting( SOLDIERTYPE *pSoldier )
 						pSoldier->bPathStored = FALSE;
 
 						EVENT_GetNewSoldierPath( pSoldier, sCheckGridNo, pSoldier->usUIMovementMode );
-						gfPlotPathToExitGrid = FALSE;
 
+						gfPlotPathToExitGrid = FALSE;
 						return( TRUE );
 					}
 				}
@@ -707,6 +694,7 @@ BOOLEAN HandleNextTileWaiting( SOLDIERTYPE *pSoldier )
 								NPCReachedDestination( pSoldier, FALSE );
 								pSoldier->bNextAction = AI_ACTION_WAIT;
 								pSoldier->usNextActionData = 500;
+								gfPlotPathToExitGrid = FALSE;
 								return( TRUE );
 							}
 						}
@@ -743,6 +731,8 @@ BOOLEAN HandleNextTileWaiting( SOLDIERTYPE *pSoldier )
 			}
 		}
 	}
+
+	gfPlotPathToExitGrid = FALSE;
 	return( TRUE );
 }
 

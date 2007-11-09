@@ -68,6 +68,7 @@ extern void		ShutdownMemoryManager( void );
 	extern PTR		MemReallocXDebug( PTR ptr, UINT32 size, const STR8 szCodeString, INT32 iLineNum, void *pSpecial );
 #else
 	#ifdef _DEBUG
+		#include <crtdbg.h>
 		//This is another debug feature.  Not as sophistocated, but definately not the pig the extreme system is.
 		//This system reports all memory allocations/deallocations in the debug output.
 		#define		MemAlloc( size )			MemAllocReal( (size), __FILE__, __LINE__ )
@@ -76,6 +77,10 @@ extern void		ShutdownMemoryManager( void );
 		extern PTR		MemAllocReal( UINT32 size, const STR8 , INT32 );
 		extern void		MemFreeReal( PTR ptr, const STR8 , INT32  );
 		extern PTR		MemReallocReal( PTR ptr, UINT32 size, const STR8 , INT32 );
+		//void* ::operator new( size_t sz, const char* file, int line);
+		//void* ::operator new[]( size_t sz, const char *file, int line);
+		#define NEW new
+		#define new NEW(_NORMAL_BLOCK, __FILE__, __LINE__)
 	#else
 		//Release build verison
 		#include <malloc.h>

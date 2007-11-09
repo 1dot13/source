@@ -182,6 +182,11 @@ void ProcessTacticalSchedule( UINT8 ubScheduleID )
 		#endif
 		return;
 	}
+	if (pSchedule->ubSoldierID == 0)
+	{
+		ScreenMsg( FONT_RED, MSG_INTERFACE, L"Schedule callback:  Illegal soldier ID of %d.", pSchedule->ubSoldierID );
+		return;
+	}
 
 	//Validate the existance of the soldier.
 	pSoldier = MercPtrs[ pSchedule->ubSoldierID ];
@@ -660,6 +665,11 @@ void AutoProcessSchedule( SCHEDULENODE *pSchedule, INT32 index )
 	}
 		
 	pSoldier = MercPtrs[ pSchedule->ubSoldierID ];
+
+	if (pSoldier->ubID == 0)
+	{
+		ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"Soldier %s moved to away slot by schedule ID %d!", pSoldier->name, pSchedule->ubScheduleID );
+	}
 
 	#ifdef JA2EDITOR
 		if ( pSoldier->ubProfile != NO_PROFILE )

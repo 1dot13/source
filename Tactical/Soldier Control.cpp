@@ -3000,7 +3000,10 @@ void InternalSetSoldierHeight( SOLDIERTYPE *pSoldier, FLOAT dNewHeight, BOOLEAN 
 		return;
 	}
 
-	if ( pSoldier->sHeightAdjustment > 0 )
+	// 0verhaul:  Changed this to half the wall height.  During a climb up, a soldier's height increases to about 8, then falls
+	// to near 0 before being set to 50 at the end.  The animation offsets should probably be changed to make this unnecessary
+	// but this is good enough to keep him from bouncing between level 1 and level 0 (and also triggering weird sight bugs).
+	if ( pSoldier->sHeightAdjustment > 25 )
 	{
 		pSoldier->bLevel = SECOND_LEVEL;
 
@@ -6084,6 +6087,7 @@ void TurnSoldier( SOLDIERTYPE *pSoldier)
 				else
 				{
 					pSoldier->uiStatusFlags &= (~SOLDIER_TURNINGFROMHIT );
+					pSoldier->fGettingHit = FALSE;
 				}
 			}
 			else if ( pSoldier->fGettingHit == 2 )
@@ -6100,7 +6104,7 @@ void TurnSoldier( SOLDIERTYPE *pSoldier)
 				//ReduceAttackBusyCount( );
 
 				//FREEUP GETTING HIT FLAG
-				// pSoldier->fGettingHit = FALSE;
+				pSoldier->fGettingHit = FALSE;
 			}
 		}
 
@@ -11598,6 +11602,11 @@ void ChangeToFlybackAnimation( SOLDIERTYPE *pSoldier, UINT8 ubDirection )
 	// Remove any previous actions
 	pSoldier->ubPendingAction		 = NO_PENDING_ACTION;
 
+	// Since we're manually setting our path, we have to reset these @#$@# flags too.  Otherwise we don't reach the
+	// destination a lot of the time
+	pSoldier->fPastXDest = 0;
+	pSoldier->fPastYDest = 0;
+
 	// Set path....
 	pSoldier->usPathDataSize = 0;
 	pSoldier->usPathIndex    = 0;
@@ -11637,6 +11646,11 @@ void ChangeToFallbackAnimation( SOLDIERTYPE *pSoldier, UINT8 ubDirection )
 
 	// Remove any previous actions
 	pSoldier->ubPendingAction		 = NO_PENDING_ACTION;
+
+	// Since we're manually setting our path, we have to reset these @#$@# flags too.  Otherwise we don't reach the
+	// destination a lot of the time
+	pSoldier->fPastXDest = 0;
+	pSoldier->fPastYDest = 0;
 
 	// Set path....
 	pSoldier->usPathDataSize = 0;
