@@ -1728,19 +1728,20 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 		{
 			// Lesh: patch to allow playback ogg speech files
 			// build name of wav file (characternum + quotenum)
-			#ifdef RUSSIAN
-				sprintf( zFileName,"NPC_SPEECH\\g_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
-				if ( !FileExists( zFileName ) )
-				{
-					sprintf( zFileName,"NPC_SPEECH\\g_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
-				}
-			#else
+//SB: curiously, there are no g_%03d_%03d audio files in all russian versions
+//			#ifdef RUSSIAN
+//				sprintf( zFileName,"NPC_SPEECH\\g_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
+//				if ( !FileExists( zFileName ) )
+//				{
+//					sprintf( zFileName,"NPC_SPEECH\\g_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+//				}
+//			#else
 				sprintf( zFileName,"NPC_SPEECH\\d_%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
 				if ( !FileExists( zFileName ) )
 				{
 					sprintf( zFileName,"NPC_SPEECH\\d_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
 				}
-			#endif
+//			#endif
 		}
 		else
 		{
@@ -1795,6 +1796,16 @@ CHAR8 *GetDialogueDataFilename( UINT8 ubCharacterNum, UINT16 usQuoteNum, BOOLEAN
 					if ( !FileExists( zFileName ) )
 					{
 						sprintf( zFileName,"SPEECH\\r_%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+//<SB> Also check for Russian Gold sound files (identical to international ones)
+						if(! FileExists( zFileName ) )
+						{
+							sprintf( zFileName,"SPEECH\\%03d_%03d.ogg",ubCharacterNum,usQuoteNum );
+							if ( !FileExists( zFileName ) )
+							{
+								sprintf( zFileName,"SPEECH\\%03d_%03d.wav",ubCharacterNum,usQuoteNum );
+							}
+						}
+//</SB>
 					}
 				}
 				else

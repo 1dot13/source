@@ -4207,6 +4207,13 @@ STR16 gzTooltipStrings[] =
 	L"|Armor: %s\n", 
 };
 
-
+STR16 New113Message[] =
+{
+	L"Storm started.",
+	L"Storm ended.",
+	L"Rain started.",
+	L"Rain ended.",
+	L"Watch out for snipers...",
+};
 
 #endif //DUTCH

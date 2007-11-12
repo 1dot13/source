@@ -13,56 +13,57 @@
 
 STR16	zNewTacticalMessages[]=
 {
-	L"Range to target: %d tiles, Brightness: %d/%d",
-	L"Attaching the transmitter to your laptop computer.",
-	L"You cannot afford to hire %s",
-	L"For a limited time, the above fee covers the cost of the entire mission and includes the equipment listed below.",
-	L"Hire %s now and take advantage of our unprecedented 'one fee covers all' pricing.  Also included in this unbelievable offer is the mercenary's personal equipment at no charge.",
-	L"Fee",
-	L"There is someone else in the sector...",
-	L"Gun Range: %d tiles, Chance to hit: %d percent",
-	L"Display Cover",
-	L"Line of Sight",
-	L"New Recruits cannot arrive there.",
-	L"Since your laptop has no transmitter, you won't be able to hire new team members.  Perhaps this would be a good time to load a saved game or start over!",
-	L"%s hears the sound of crumpling metal coming from underneath Jerry's body.  It sounds disturbingly like your laptop antenna being crushed.",  //the %s is the name of a merc.  @@@  Modified
-	L"After scanning the note left behind by Deputy Commander Morris, %s senses an oppurtinity.  The note contains the coordinates for launching missiles against different towns in Arulco.  It also gives the coodinates of the origin - the missile facility.",
-	L"Noticing the control panel, %s figures the numbers can be reveresed, so that the missile might destroy this very facility.  %s needs to find an escape route.  The elevator appears to offer the fastest solution...",
-	L"This is an IRON MAN game and you cannot save when enemies are around.",	//	@@@  new text
-	L"(Cannot save during combat)", //@@@@ new text
-	L"The current campaign name is greater than 30 characters.",							// @@@ new text
-	L"The current campaign cannot be found.",																	// @@@ new text
-	L"Campaign: Default ( %S )",																							// @@@ new text
-	L"Campaign: %S",																													// @@@ new text
-	L"You have selected the campaign %S. This campaign is a player-modified version of the original Unfinished Business campaign. Are you sure you wish to play the %S campaign?",			// @@@ new text
-	L"In order to use the editor, please select a campaign other than the default.",		///@@new
+	L"Расстояние до цели: %d ед.",
+	L"Передатчик подключен к вашему ноутбуку.",
+	L"Вы не можете нанять %s",
+	L"Предложение действует ограниченное время и покрывает стоимость найма на всю миссию, плюс вы так же получите оборудование, перечисленное ниже.",
+	L"Наемник %s - наше невероятное суперпредложение 'одна плата за все'. Вы также бесплатно получите его персональную экипировку.",
+	L"Гонорар",
+	L"В секторе кто-то есть...",
+	L"Дальнобойность: %d ед, расстояние до цели: %d ед",
+	L"Показать укрытия",
+	L"Линия прицела",
+	L"Новые наемники не могут высадится здесь.",
+	L"Так как ваш ноутбук лишился антенны, то вы не сможете нанять новых наемников. Возможно, сейчас вам стоит загрузить одну из сохраненных игр, или начать игру заново!",
+	L"%s слышит металлический хруст под телом Джерри. Похоже этот чмо сломал антенну вашего ноутбука.",  //the %s is the name of a merc.  @@@  Modified
+	L"После прочтения записей, оставленных помощником командира Морриса, %s видит, что не все еще потеряно. В записке содержатся координаты городов Арулько для запуска по ним ракет. Кроме того, там также указаны координаты самой ракетной базы.",
+	L"Изучив панель управления, %s понимает что координаты цели можно измененить, и тогда ракета уничтожит эту базу.  %s не собирается умирать, а значит нужно быстрее отсюда выбираться.  Похоже что самый быстрый способ это лифт...",
+	L"В начале игры вы выбрали режим \"Стальная воля\" и теперь не можете записываться во время боя.",	//	@@@  new text
+	L"(Нельзя сохраняться во время боя)", //@@@@ new text
+	L"Текущая кампания длиннее 30 символов.",							// @@@ new text
+	L"Текущая кампания не найдена.",																	// @@@ new text
+	L"Кампания: По умолчанию ( %S )",																							// @@@ new text
+	L"Кампания: %S",																													// @@@ new text
+	L"Вы выбрали кампанию %S. Эта кампания является модификацией оригинальной кампании Unfinished Business. Вы уверены, что хотите играть кампанию %S?",			// @@@ new text
+	L"Чтобы воспользоваться редактором, смените кампанию по умолчанию на другую.",		///@@new
 };
+
 
 //these strings match up with the defines in IMP Skill trait.cpp
 STR16 gzIMPSkillTraitsText[]=
 {
-	L"Lock picking",
-	L"Hand to hand combat",
-	L"Electronics",
-	L"Night operations",
-	L"Throwing",
-	L"Teaching",
-	L"Heavy Weapons",
-	L"Auto Weapons",
-	L"Stealth",
-	L"Ambidextrous",
-	L"Knifing",
-	L"Rooftop Sniping",
-	L"Camouflage",
-	L"Martial Arts",
+	L"Взлом замков",
+	L"Рукопашный бой",
+	L"Электроника",
+	L"Ночные операции",
+	L"Метание",
+	L"Инструктор",
+	L"Тяжелое оружие",
+	L"Авт. оружие",
+	L"Скрытность",
+	L"Стрельба с двух рук",
+	L"Холодное оружие",
+	L"Стрельба с крыш",
+	L"Камуфляж",
+	L"Боевые искуства",
 
-	L"None",
-	L"I.M.P. Specialties",
+	L"Нет",
+	L"Специализация I.M.P.",
 };
 //@@@:  New string as of March 3, 2000.
 STR16	gzIronManModeWarningText[]=
 {
-	L"You have chosen IRON MAN mode. This setting makes the game considerably more challenging as you will not be able to save your game when in a sector occupied by enemies. This setting will affect the entire course of the game.  Are you sure want to play in IRON MAN mode?",
+	L"Вы выбрали режим \"Стальная воля\". Проходить игру станет гораздо сложнее, так как вы не сможете сохранять игру, когда ваши наемники будут находиться в одном секторе с противником. Во время игры этот режим нельзя будет отключить. Вы уверены, что желаете играть в режиме \"Стальная воля\"?",
 };
 
 

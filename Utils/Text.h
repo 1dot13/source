@@ -1524,8 +1524,22 @@ extern STR16 GetWeightUnitString( void );
 FLOAT GetWeightBasedOnMetricOption( UINT32 uiObjectWeight );
 
 
+//SB: new 1.13 messages
+extern STR16 New113Message[];
 
-
-
+enum
+{
+	MSG113_STORM_STARTED,
+	MSG113_STORM_ENDED,
+	MSG113_RAIN_STARTED,
+	MSG113_RAIN_ENDED,
+	MSG113_WATHCHOUTFORSNIPERS,
+	MSG113_SUPPRESSIONFIRE,
+	MSG113_BRST,
+	MSG113_AUTO,
+	MSG113_GL,
+	MSG113_GL_BRST,
+	MSG113_GL_AUTO,
+};
 
 #endif

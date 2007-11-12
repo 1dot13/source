@@ -176,7 +176,16 @@ NPCQuoteInfo * LoadQuoteFile( UINT8 ubNPC )
 	}
 	
 	FileClose( hFile );
-
+//<SB> check for Russian script & make a runtime conversion of it to International :D
+// just offset ptr 4 bytes backward
+	if( *(DWORD*)pFileData == 0x00350039 )
+	{
+		NPCQuoteInfo * pEnglishScript = (NPCQuoteInfo *) MemAlloc( uiFileSize );
+		memcpy( pEnglishScript, ((char*)pFileData)+4, uiFileSize-4 );
+		MemFree( pFileData );
+		return( pEnglishScript );
+	}
+//</SB>
 	return( pFileData );
 }
 

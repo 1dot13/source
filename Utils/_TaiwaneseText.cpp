@@ -3958,7 +3958,19 @@ STR16 gzLateLocalizedString[] =
 	
 };
 
-
-
+STR16 New113Message[] =
+{
+	L"Storm started.",
+	L"Storm ended.",
+	L"Rain started.",
+	L"Rain ended.",
+	L"Watch out for snipers...",
+	L"Suppression fire!",	
+	L"BRST",
+	L"AUTO",
+	L"GL",
+	L"GL BRST",
+	L"GL AUTO",
+};
 
 #endif //TAIWANESE

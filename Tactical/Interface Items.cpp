@@ -2199,27 +2199,27 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObjec
 				sNewY = sY + 13; // rather arbitrary
 				if ( pSoldier->bWeaponMode == WM_BURST )
 				{
-					swprintf( pStr, L"BRST" );
+					swprintf( pStr, New113Message[MSG113_BRST] );
 					SetFontForeground( FONT_RED );
 				}
 				else if(pSoldier->bWeaponMode == WM_AUTOFIRE)
 				{
-					swprintf( pStr, L"AUTO" );
+					swprintf( pStr, New113Message[MSG113_AUTO] );
 					SetFontForeground( FONT_RED );
 				}
 				else if(pSoldier->bWeaponMode == WM_ATTACHED_GL)
 				{
-					swprintf( pStr, L"GL" );
+					swprintf( pStr, New113Message[MSG113_GL] );
 					SetFontForeground( FONT_YELLOW );
 				}
 				else if(pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST)
 				{
-					swprintf( pStr, L"GL BRST" );
+					swprintf( pStr, New113Message[MSG113_GL_BRST] );
 					SetFontForeground( FONT_YELLOW );
 				}
 				else if(pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO)
 				{
-					swprintf( pStr, L"GL AUTO" );
+					swprintf( pStr, New113Message[MSG113_GL_AUTO] );
 					SetFontForeground( FONT_YELLOW );
 				}
 

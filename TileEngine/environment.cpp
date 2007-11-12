@@ -26,6 +26,8 @@
 	#include "GameSettings.h"
 #endif
 
+#include "Text.h"
+
 //effects whether or not time of day effects the lighting.  Underground
 //maps have an ambient light level that is saved in the map, and doesn't change.
 BOOLEAN			gfBasement = FALSE;
@@ -708,12 +710,12 @@ void EnvBeginRainStorm( UINT8 ubIntensity )
 	  {
 		  // Turn on rain storms
 		  guiEnvWeather	|= WEATHER_FORECAST_THUNDERSHOWERS;
-		  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Storm started." );
+		  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_STORM_STARTED] );
 	  }
 	  else
 	  {
 		  guiEnvWeather	|= WEATHER_FORECAST_SHOWERS;
-  		  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Rain started." );
+		  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RAIN_STARTED] );
 	  }
   }
 
@@ -729,11 +731,11 @@ void EnvEndRainStorm( )
 
 	  if ( guiEnvWeather & WEATHER_FORECAST_THUNDERSHOWERS )
 	  {
-		  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Storm ended." );
+		  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_STORM_ENDED] );
 	  }
 	  else
 	  {
-  		  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Rain ended." );
+  		  ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_RAIN_ENDED] );
 	  }
 
 
