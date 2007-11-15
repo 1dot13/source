@@ -50,11 +50,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>6</uiIndex>
-		<szItemName>Barracuda</szItemName>
-		<szLongItemName>FN Barracuda</szLongItemName>
+		<szItemName>Barracuda .357</szItemName>
+		<szLongItemName>FN Barracuda .357</szLongItemName>
 		<szItemDesc>Dieser belgische Revolver, die Lieblingswaffe von Dirty Harrys kleinem Bruder, steckt im Halfter von vielen amerikanischen Polizisten.</szItemDesc>
-		<szBRName>FN Barracuda</szBRName>
-		<szBRDesc>Dieser .357 Magnum Revolver ist eine gute Wahl für Angriff &amp; Verteidigung. Bei zahlreichen Tests stellte sich heraus, dass sowohl Frauen als auch Männer mit diesem Revolver besser umgehen können als mit anderen Handfeuerwaffen.</szBRDesc>
+		<szBRName>FN Barracuda .357</szBRName>
+		<szBRDesc>Dieser belgische Revolver ist eine gute Wahl für Angriff &amp; Verteidigung. Bei zahlreichen Tests stellte sich heraus, dass sowohl Frauen als auch Männer mit diesem Revolver besser umgehen können als mit anderen Handfeuerwaffen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>7</uiIndex>
@@ -62,7 +62,7 @@
 		<szLongItemName>I.M.I. Desert Eagle Mark VII</szLongItemName>
 		<szItemDesc>Das Modell ist in den Kalibern .357Mag., .44Mag., .50AE und .440Cor-Bon erhältlich und wird von MAGNUM RESEARCH in den USA hergestellt.</szItemDesc>
 		<szBRName>Desert Eagle Mk. VII</szBRName>
-		<szBRDesc>Diese Pistole wurde 1980 von I.M.I. in Israel entwickelt. Ziel war es eine halbautomatische Handfeuerwaffe zu entwickeln, die mit einem Magnum-Kaliber ausgestattet ist. Seit 1985 wird sie von MAGNUM RESEARCH (USA) weiterentwickelt und hergestellt.</szBRDesc>
+		<szBRDesc>Diese Pistole wurde 1980 von I.M.I. in Israel entwickelt. Ziel war es eine halbautomatische Handfeuerwaffe zu entwickeln, die mit einem Magnum-Kaliber ausgestattet ist. Seit 1985 wird sie von MAGNUM RESEARCH (USA) weiter- entwickelt und hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>8</uiIndex>
@@ -100,9 +100,9 @@
 		<uiIndex>12</uiIndex>
 		<szItemName>M4 Commando</szItemName>
 		<szLongItemName>Colt M4 Commando</szLongItemName>
-		<szItemDesc>Das M4 Commando mit 11.5" Lauf ist eine Weiterentwickklung des XM177 und COLT's kompaktestes 5.56mm Modell.</szItemDesc>
+		<szItemDesc>Das M4 Commando mit 11.5"-Lauf ist eine Weiterentwickklung des XM177 und COLT's kompaktestes 5.56mm Modell.</szItemDesc>
 		<szBRName>Colt M4 Commando</szBRName>
-		<szBRDesc>Das M4 Commando mit 11.5" Lauf ist eine Weiterentwickklung des XM177 und COLT's kompaktestes 5.56mm Modell. Seit 1997 wird es von US Army Rangers verwendet. Feuermodus: S-F</szBRDesc>
+		<szBRDesc>Das M4 Commando mit 11.5-Zoll-Lauf ist eine Weiterentwickklung des XM177 und COLT's kompaktestes 5.56mm Modell. Seit 1997 wird es von US Army Rangers verwendet. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>13</uiIndex>
@@ -182,7 +182,7 @@
 		<szLongItemName>Ruger Mini-14</szLongItemName>
 		<szItemDesc>Das Mini-14 wird als eines der besten amerik. Jagdgewehre betrachtet. Daher ist es auch perfekt für den paramilitärischen Einsatz geeignet.</szItemDesc>
 		<szBRName>Ruger Mini-14</szBRName>
-		<szBRDesc>Das Mini-14 wird als eines der besten amerik. Jagdgewehre betrachtet. Daher ist es auch perfekt für den paramilitärischen Einsatz geeignet. Aufgrund des geringen Rückstoßes, erhöht es die Zielgenauigkeit enorm.</szBRDesc>
+		<szBRDesc>Das Mini-14 wird als eines der besten amerik. Jagdgewehre betrachtet. Daher ist es auch perfekt für den paramilitärischen Einsatz geeignet. Die Treffsicherheit wird aufgrund des geringen Rückstoßes enorm erhöht.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>23</uiIndex>
@@ -236,9 +236,9 @@
 		<uiIndex>29</uiIndex>
 		<szItemName>G3A3</szItemName>
 		<szLongItemName>HK G3A3</szLongItemName>
-		<szItemDesc>Das sehr zuverlässige G3A3 ist ein Rückstoßlader und war bis 1997 das Sturmgewehr der Bundeswehr.</szItemDesc>
+		<szItemDesc>Das sehr zuverlässige G3A3 ist ein Rückstoßlader und war bis 1997 das Standardgewehr der Bundeswehr.</szItemDesc>
 		<szBRName>HK G3A3</szBRName>
-		<szBRDesc>Das G3A3 ist ein Rückstoßlader und basiert auf dem StG45 von MAUSER. Aufgrund seiner Zuverlässigkeit wurde es ein weltweiter Exportschlager. Der Rückstoß ist fast genauso legendär wie die Durchschlagskraft! Feuermodus: S-F</szBRDesc>
+		<szBRDesc>Das G3A3 ist ein Rückstoßlader und basiert technisch auf dem StG45 von MAUSER. Aufgrund seiner Zuverlässigkeit wurde es mit über 10 Mio. verkauften Stück ein weltweiter Exportschlager. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>30</uiIndex>
@@ -250,19 +250,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>31</uiIndex>
-		<szItemName>M870P</szItemName>
-		<szLongItemName>Remington M870P</szLongItemName>
-		<szItemDesc>Diese legendäre Polizeischrotflinte ist eine der vielseitigsten Waffen überhaupt. Sie eignet sich zum Jagen, zur Grundstücksverteidigung und zum Schlösser knacken.</szItemDesc>
-		<szBRName>Remington M870P</szBRName>
-		<szBRDesc>Diese legendäre Polizeischrotflinte ist eine der vielseitigsten Waffen überhaupt. Sie eignet sich zum Jagen, zur Grundstücksverteidigung und zum Schlösser knacken.</szBRDesc>
+		<szItemName>M870</szItemName>
+		<szLongItemName>Remington M870 Express</szLongItemName>
+		<szItemDesc>Diese legendäre Vorderschaftrepetierflinte ist seit 1950 auf dem Markt und mit mehr als 9,0 Mio. verkauften Exemplaren die meistverkaufte Flinte der USA.</szItemDesc>
+		<szBRName>Remington M870 Express</szBRName>
+		<szBRDesc>Diese legendäre Vorderschaftrepetierflinte ist seit 1950 auf dem Markt und mit mehr als 9,0 Mio. verkauften Exemplaren die meistverkaufte Flinte der USA. Seit den 70er Jahren wird sie sowohl von der Polizei als auch vom US-Militär benutzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>32</uiIndex>
 		<szItemName>SPAS-15</szItemName>
 		<szLongItemName>Franchi SPAS-15</szLongItemName>
-		<szItemDesc>Die SPAS-15 erschien erstmals 1988 und wurde speziell für militärische Zwecke entwickelt.</szItemDesc>
+		<szItemDesc>Die 1988 auf den Markt gekommene italienische SPAS-15 ist eine Selbstladeflinte mit Magazinzufuhr. Sie wurde speziell für Sicherheitskräfte entwickelt.</szItemDesc>
 		<szBRName>Franchi SPAS-15</szBRName>
-		<szBRDesc>Die SPAS-15 erschien erstmals 1988 und wurde speziell für militärische Zwecke entwickelt. Die halbautomatische Flinte, kann durch drücken eines Knopfes auf manuellen Pump-Action Modus umgestellt werden.</szBRDesc>
+		<szBRDesc>Die 1988 auf den Markt gekommene italienische SPAS-15 ist eine gasdruckbetriebene Selbstladeflinte mit Magazinzufuhr. Sie wurde speziell für Sicherheitskräfte die eine zuverlässige und vielseitige Waffe mit großer Feuerkraft benötigen entwickelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>33</uiIndex>
@@ -530,11 +530,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>66</uiIndex>
-		<szItemName>EMF Hartford</szItemName>
+		<szItemName>Hartford .357</szItemName>
 		<szLongItemName>EMF Hartford 1873 Cavalry</szLongItemName>
-		<szItemDesc>Dieser 6-schüssige .357 Magnum Revolver besitzt einen modifizierten 7.5" Lauf sowie einen verzierten Griff.</szItemDesc>
+		<szItemDesc>Dieser 6-schüssige .357 Magnum Revolver besitzt einen modifizierten 10-Zoll-Lauf sowie einen verzierten Griff.</szItemDesc>
 		<szBRName>EMF Hartford 1873</szBRName>
-		<szBRDesc>Dieser 6-schüssige .357 Magnum Revolver besitzt einen modifizierten 7.5" Lauf sowie einen verzierten Griff.</szBRDesc>
+		<szBRDesc>Dieser 6-schüssige .357 Magnum Revolver besitzt einen modifizierten 10-Zoll-Lauf sowie einen verzierten Griff.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>67</uiIndex>
@@ -1463,9 +1463,9 @@
 	<ITEM>
 		<uiIndex>183</uiIndex>
 		<szItemName>Traumaplatten</szItemName>
-		<szLongItemName>Traumaplatten Keramik, SK: IV (NIJ)</szLongItemName>
+		<szLongItemName>Traumaplatten Keramik</szLongItemName>
 		<szItemDesc>Diese harten Keramikplatten können in die Brust- und Rückenteile der meisten Westen eingesetzt werden. Sie nehmen den meisten Standardkalibern die Wucht des Aufpralls und bieten so zusätzlichen Schutz. Schutzklasse: IV (NIJ)</szItemDesc>
-		<szBRName>Traumaplatten, SK: IV</szBRName>
+		<szBRName>Traumaplatten Keramik</szBRName>
 		<szBRDesc>Diese harten Keramikplatten können in die Brust- und Rückenteile der meisten Westen eingesetzt werden. Sie nehmen den meisten Standardkalibern die Wucht des Aufpralls und bieten so zusätzlichen Schutz. Schutzklasse: IV (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1694,11 +1694,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>212</uiIndex>
-		<szItemName>Sonnenbrille</szItemName>
-		<szLongItemName>Sonnenbrille</szLongItemName>
-		<szItemDesc>Dieser paramilitärische Augenschutz hat eine Dreifach-Linse: Eine innere Antibeschlag-Azetatlinse, eine getönte mittlere Linse als Blendschutz und eine bruchfeste äußere Linse.</szItemDesc>
-		<szBRName>Sonnenbrille</szBRName>
-		<szBRDesc>Dieser paramilitärische Augenschutz hat eine Dreifach-Linse: Eine innere Antibeschlag-Azetatlinse, eine getönte mittlere Linse als Blendschutz und eine bruchfeste äußere Linse.</szBRDesc>
+		<szItemName>Schutzbrille</szItemName>
+		<szLongItemName>Schutzbrille</szLongItemName>
+		<szItemDesc>Diese Bügelbrille von UVEX besitzt braun getönte, bruchfeste Gläser mit UV-Schutz sowie vier Komfortkissen für guten, druckfreien und bequemen Sitz. Sie bietet jedem Schützen perfekten Augenschutz.</szItemDesc>
+		<szBRName>Schutzbrille</szBRName>
+		<szBRDesc>Diese Bügelbrille von UVEX besitzt braun getönte, bruchfeste Gläser mit UV-Schutz sowie vier Komfortkissen für guten, druckfreien und bequemen Sitz. Sie bietet jedem Schützen perfekten Augenschutz.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>213</uiIndex>
@@ -2243,35 +2243,35 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>282</uiIndex>
-		<szItemName>Zylon Kampfhose</szItemName>
-		<szLongItemName>Zylon Kampfhose</szLongItemName>
-		<szItemDesc>Diese Schutzkleidung wird von US-Marines in Afghanistan, Irak und Afrika getragen. Sie ist stärker als Kevlar und bietet etwas Tarnung. Schutzklasse: II-A (NIJ)</szItemDesc>
-		<szBRName>Zylon Kampfhose</szBRName>
-		<szBRDesc>Diese Schutzkleidung wird von US-Marines in Afghanistan, Irak und Afrika getragen. Sie ist stärker als Kevlar und bietet etwas Tarnung. Schutzklasse: II-A (NIJ)</szBRDesc>
+		<szItemName>ACU Hose</szItemName>
+		<szLongItemName>ACU Kampfhose</szLongItemName>
+		<szItemDesc>Seit 2005 ist die 'Army Combat Uniform' der derzeitige Kampfanzug der US-Army. Anders als bei vorherigen Tarnmustern nutzt die ACU eine Universaltarnung für alle Regionen und Jahreszeiten. Das Digitaltarnmuster enthält verschiedene Grau-, Beige- und Grüntöne.</szItemDesc>
+		<szBRName>ACU Kampfhose</szBRName>
+		<szBRDesc>Seit 2005 ist die 'Army Combat Uniform' der derzeitige Kampfanzug der US-Army. Anders als bei vorherigen Tarnmustern nutzt die ACU eine Universaltarnung für alle Regionen und Jahreszeiten. Das Digitaltarnmuster enthält verschiedene Grau-, Beige- und Grüntöne.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>283</uiIndex>
-		<szItemName>Zylon Kampfweste</szItemName>
-		<szLongItemName>Zylon Kampfweste</szLongItemName>
-		<szItemDesc>Diese Schutzkleidung wird von US-Marines in Afghanistan, Irak und Afrika getragen. Sie ist stärker als Kevlar und bietet etwas Tarnung. Schutzklasse: II-A (NIJ)</szItemDesc>
-		<szBRName>Zylon Kampfweste</szBRName>
-		<szBRDesc>Diese Schutzkleidung wird von US-Marines in Afghanistan, Irak und Afrika getragen. Sie ist stärker als Kevlar und bietet etwas Tarnung. Schutzklasse: II-A (NIJ)</szBRDesc>
+		<szItemName>ACU Weste</szItemName>
+		<szLongItemName>ACU Kampfweste</szLongItemName>
+		<szItemDesc>Seit 2005 ist die 'Army Combat Uniform' der derzeitige Kampfanzug der US-Army. Anders als bei vorherigen Tarnmustern nutzt die ACU eine Universaltarnung für alle Regionen und Jahreszeiten. Das Digitaltarnmuster enthält verschiedene Grau-, Beige- und Grüntöne.</szItemDesc>
+		<szBRName>ACU Kampfweste</szBRName>
+		<szBRDesc>Seit 2005 ist die 'Army Combat Uniform' der derzeitige Kampfanzug der US-Army. Anders als bei vorherigen Tarnmustern nutzt die ACU eine Universaltarnung für alle Regionen und Jahreszeiten. Das Digitaltarnmuster enthält verschiedene Grau-, Beige- und Grüntöne.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>284</uiIndex>
 		<szItemName>Feldanzug</szItemName>
 		<szLongItemName>Feldanzug BDU</szLongItemName>
-		<szItemDesc>Dieser Feldanzug (Battle Dress Uniform) ist die Standardkleidung der US-Soldaten. Er ist stärker als Kevlar und bietet etwas Tarnung. Schutzklasse: II-A (NIJ)</szItemDesc>
+		<szItemDesc>Die 'Battle Dress Uniform' war von 1981-2005 der Standard- Feldanzug der US-Soldaten. Das verwendete Woodland-Musters bietet etwas Tarnung.</szItemDesc>
 		<szBRName>Feldanzug BDU</szBRName>
-		<szBRDesc>Dieser Feldanzug (Battle Dress Uniform) ist die Standardkleidung der US-Soldaten. Er ist stärker als Kevlar und bietet etwas Tarnung. Schutzklasse: II-A (NIJ)</szBRDesc>
+		<szBRDesc>Die 'Battle Dress Uniform' war von 1981-2005 der Standard- Feldanzug der US-Soldaten. Das verwendete Woodland-Musters bietet etwas Tarnung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>285</uiIndex>
-		<szItemName>Hut</szItemName>
-		<szLongItemName>Buschhut</szLongItemName>
-		<szItemDesc>Sollte es Ihnen einmal zu heiß unter Ihrem Helm werden, können Sie diesen netten Hut tragen. Mit ihm sind Sie auch ein wenig getarnt.</szItemDesc>
-		<szBRName>Buschhut</szBRName>
-		<szBRDesc>Sollte es Ihnen einmal zu heiß unter Ihrem Helm werden, können Sie diesen netten Hut tragen. Mit ihm sind Sie auch ein wenig getarnt.</szBRDesc>
+		<szItemName>ACU Hut</szItemName>
+		<szLongItemName>ACU Buschhut</szLongItemName>
+		<szItemDesc>Sollte es Ihnen einmal zu heiß unter Ihrem Helm werden können Sie diesen Buschhut tragen. Es ist farblich auf den neuen ACU Kampfanzug abgestimmt.</szItemDesc>
+		<szBRName>ACU Buschhut</szBRName>
+		<szBRDesc>Sollte es Ihnen einmal zu heiß unter Ihrem Helm werden können Sie diesen netten Hut tragen. Es ist farblich auf den neuen ACU Kampfanzug abgestimmt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>286</uiIndex>
@@ -2404,7 +2404,7 @@
 	<ITEM>
 		<uiIndex>302</uiIndex>
 		<szItemName>Stahlhelm</szItemName>
-		<szLongItemName>Stahlhelm</szLongItemName>
+		<szLongItemName>Stahlhelm mit Tarnmuster</szLongItemName>
 		<szItemDesc>Dieser Stahlhelm ist eine Sonderanfertigung und in Tarnfarbe erhältlich.</szItemDesc>
 		<szBRName>Stahlhelm</szBRName>
 		<szBRDesc>Dieser Stahlhelm ist eine Sonderanfertigung und in Tarnfarbe erhältlich.</szBRDesc>
@@ -2714,9 +2714,9 @@
 		<uiIndex>341</uiIndex>
 		<szItemName>M3 Convertible</szItemName>
 		<szLongItemName>Benelli M3 Convertible</szLongItemName>
-		<szItemDesc>Diese Schrotflinte wurde von BENELLI mit Blick auf die besonderen Anforderungen von Polizei und Antiterror-Einheiten entwickelt.</szItemDesc>
+		<szItemDesc>Die M3 Convertible ist eine rückstoßbetriebene Selbstladeflinte und wurde mit Blick auf die besonderen Anforderungen von Sicherheitskräften entwickelt.</szItemDesc>
 		<szBRName>Benelli M3 Convertible</szBRName>
-		<szBRDesc>Diese Schrotflinte wurde von BENELLI mit Blick auf die besonderen Anforderungen von Polizei und Antiterror-Einheiten entwickelt.</szBRDesc>
+		<szBRDesc>Die M3 Convertible ist eine rückstoßbetriebene Selbstladeflinte und kann bei Bedarf auf konventionellen Repetiermodus (Pump-Action) umgeschaltet werden. Sie wurde mit Blick auf die besonderen Anforderungen von Polizei und Antiterror-Einheiten entwickelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>342</uiIndex>
@@ -3081,89 +3081,89 @@
 	<ITEM>
 		<uiIndex>387</uiIndex>
 		<szItemName>9x19 C-Mag</szItemName>
-		<szLongItemName>9x19mm Beta-C Magazin</szLongItemName>
-		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
-		<szBRName>9x19 C-Mag #100</szBRName>
-		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szLongItemName>9x19mm Beta C-Mag</szLongItemName>
+		<szItemDesc>Das 'Century' Magazin wird von The BETA Company (USA) hergestellt und fasst 100 Patronen. Mit diesem Magazin können Sie auf einfache Weise die Feuerkraft Ihrer Waffe erhöhen.</szItemDesc>
+		<szBRName>9x19 Beta C-Mag</szBRName>
+		<szBRDesc>Das 'Century' Magazin wird von The BETA Company (USA) hergestellt und fasst 100 Patronen. Mit diesem Magazin können Sie auf einfache Weise die Feuerkraft Ihrer Waffe erhöhen. Für eine zuverlässige Funktion beachten Sie bitte die Pflege-Hinweise!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>388</uiIndex>
 		<szItemName>9x19 HS</szItemName>
-		<szLongItemName>9x19mm Beta-C Magazin, HS</szLongItemName>
-		<szItemDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
-		<szBRName>9x19 C-Mag HS #100</szBRName>
-		<szBRDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
+		<szLongItemName>9x19mm Beta C-Mag, Hohlspitz</szLongItemName>
+		<szItemDesc>Das 'Century' Magazin wird von The BETA Company (USA) hergestellt und fasst 100 Patronen. Mit diesem Magazin können Sie auf einfache Weise die Feuerkraft Ihrer Waffe erhöhen.</szItemDesc>
+		<szBRName>9x19 C-Mag HS</szBRName>
+		<szBRDesc>Das 'Century' Magazin wird von The BETA Company (USA) hergestellt und fasst 100 Patronen. Mit diesem Magazin können Sie auf einfache Weise die Feuerkraft Ihrer Waffe erhöhen. Für eine zuverlässige Funktion beachten Sie bitte die Pflege-Hinweise!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>389</uiIndex>
 		<szItemName>9x19 PB</szItemName>
-		<szLongItemName>9x19mm Beta-C Magazin, PB</szLongItemName>
-		<szItemDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen. Diese Patrone war lange Zeit unbekannt, wurde jedoch auch von Kriminellen entdeckt.</szItemDesc>
-		<szBRName>9x19 C-Mag PB #100</szBRName>
-		<szBRDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen. Diese Patrone wurde jedoch auch von Kriminellen entdeckt und als 'Cop-Killer' berühmt.</szBRDesc>
+		<szLongItemName>9x19mm Beta C-Mag, PB</szLongItemName>
+		<szItemDesc>Das 'Century' Magazin wird von The BETA Company (USA) hergestellt und fasst 100 Patronen. Mit diesem Magazin können Sie auf einfache Weise die Feuerkraft Ihrer Waffe erhöhen.</szItemDesc>
+		<szBRName>9x19 C-Mag PB</szBRName>
+		<szBRDesc>Das 'Century' Magazin wird von The BETA Company (USA) hergestellt und fasst 100 Patronen. Mit diesem Magazin können Sie auf einfache Weise die Feuerkraft Ihrer Waffe erhöhen. Für eine zuverlässige Funktion beachten Sie bitte die Pflege-Hinweise!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>390</uiIndex>
 		<szItemName>9x19 DPX</szItemName>
-		<szLongItemName>9x19mm Beta-C Magazin, DPX</szLongItemName>
+		<szLongItemName>9x19mm Beta C-Mag, DPX</szLongItemName>
 		<szItemDesc>Wenn Sie Ihrer Waffe maximale Durchschlagskraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Autoscheiben/-türen und Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szItemDesc>
-		<szBRName>9x19 C-Mag DPX #100</szBRName>
+		<szBRName>9x19 C-Mag DPX</szBRName>
 		<szBRDesc>Wenn Sie Ihrer Waffe maximale Durchschlagskraft verleihen wollen, dann nehmen Sie COR-BON's DP-X Patrone. Sie vereint die Vorteile von PB- und HS-Geschossen und durchdringt Autoscheiben/-türen und Schutzwesten ohne Probleme. ACHTUNG: Ihre Waffe hat erhöhten Verschleiß!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>391</uiIndex>
 		<szItemName>9x19 G</szItemName>
-		<szLongItemName>9x19mm Beta-C Magazin, Glaser</szLongItemName>
+		<szLongItemName>9x19mm Beta C-Mag, Glaser</szLongItemName>
 		<szItemDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szItemDesc>
-		<szBRName>9x19 C-Mag Glaser #100</szBRName>
+		<szBRName>9x19 C-Mag Glaser</szBRName>
 		<szBRDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>392</uiIndex>
 		<szItemName>9x19 LS</szItemName>
-		<szLongItemName>9x19mm Beta-C Magazin, LS</szLongItemName>
+		<szLongItemName>9x19mm Beta C-Mag, LS</szLongItemName>
 		<szItemDesc>Mit dieser Leuchtspurmunition sollte das Zielen und Treffen im Burstmodus kein Problem mehr sein.</szItemDesc>
-		<szBRName>9x19 C-Mag LS #100</szBRName>
+		<szBRName>9x19 C-Mag LS</szBRName>
 		<szBRDesc>Mit dieser Leuchtspurmunition sollte das Zielen und Treffen im Burstmodus kein Problem mehr sein.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>393</uiIndex>
 		<szItemName>9x19 Match</szItemName>
-		<szLongItemName>9x19mm Beta-C Magazin, Match</szLongItemName>
+		<szLongItemName>9x19mm Beta C-Mag, Match</szLongItemName>
 		<szItemDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 70m.</szItemDesc>
-		<szBRName>9x19 C-Mag Match #100</szBRName>
+		<szBRName>9x19 C-Mag Match</szBRName>
 		<szBRDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 70m.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>394</uiIndex>
 		<szItemName>9x19 US</szItemName>
-		<szLongItemName>9x19mm Beta-C Magazin, Unterschall</szLongItemName>
+		<szLongItemName>9x19mm Beta C-Mag, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>9x19 C-Mag US #100</szBRName>
+		<szBRName>9x19 C-Mag US</szBRName>
 		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>395</uiIndex>
 		<szItemName>9x19 US-HS</szItemName>
-		<szLongItemName>9x19mm Beta-C Magazin, US-HS</szLongItemName>
+		<szLongItemName>9x19mm Beta C-Mag, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>9x19 Mag US-HS #100</szBRName>
+		<szBRName>9x19 C-Mag US-HS</szBRName>
 		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>396</uiIndex>
 		<szItemName>9x19 US-PB</szItemName>
-		<szLongItemName>9x19mm Beta-C Magazin, US-PB</szLongItemName>
+		<szLongItemName>9x19mm Beta C-Mag, US-PB</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>9x19 C-Mag US-PB #100</szBRName>
+		<szBRName>9x19 C-Mag US-PB</szBRName>
 		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>397</uiIndex>
 		<szItemName>9x19 US-G</szItemName>
-		<szLongItemName>9x19mm Beta-C Magazin, US-Glaser </szLongItemName>
+		<szLongItemName>9x19mm Beta C-Mag, US-Glaser </szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>9x19 C-Mag US-G #100</szBRName>
+		<szBRName>9x19 C-Mag US-G</szBRName>
 		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -3465,65 +3465,65 @@
 	<ITEM>
 		<uiIndex>435</uiIndex>
 		<szItemName>5.56x45 HS</szItemName>
-		<szLongItemName>5.56x45mm Beta-C Magazin, Hohlspitz</szLongItemName>
+		<szLongItemName>5.56x45mm Beta C-Mag, Hohlspitz</szLongItemName>
 		<szItemDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szItemDesc>
-		<szBRName>5.56x45 C-Mag HS #100</szBRName>
+		<szBRName>5.56x45 C-Mag HS</szBRName>
 		<szBRDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>436</uiIndex>
 		<szItemName>5.56x45 C-Mag</szItemName>
-		<szLongItemName>5.56x45mm Beta-C Magazin</szLongItemName>
-		<szItemDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szItemDesc>
-		<szBRName>5.56x45 C-Mag #100</szBRName>
-		<szBRDesc>Seit über 20 Jahren fertigt MEN (Dtl.) Munition im neuen NATO-Kaliber. Neben der Weichkernpatrone (HS) für ungeschützte Gegner ist auch eine Hartkernpatrone (PB) mit einem Wolframkarbidkern und hervorragender Durchschlagsleistung im Lieferprogramm.</szBRDesc>
+		<szLongItemName>5.56x45mm Beta C-Mag</szLongItemName>
+		<szItemDesc>Das 'Century' Magazin wird von The BETA Company (USA) hergestellt und fasst 100 Patronen. Mit diesem Magazin können Sie auf einfache Weise die Feuerkraft Ihrer Waffe erhöhen.</szItemDesc>
+		<szBRName>5.56x45 Beta C-Mag</szBRName>
+		<szBRDesc>Das 'Century' Magazin wird von The BETA Company (USA) hergestellt und fasst 100 Patronen. Mit diesem Magazin können Sie auf einfache Weise die Feuerkraft Ihrer Waffe erhöhen. Für eine zuverlässige Funktion beachten Sie bitte die Pflege-Hinweise!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>437</uiIndex>
 		<szItemName>5.56x45 G</szItemName>
-		<szLongItemName>5.56x45mm Beta-C Magazin, Glaser</szLongItemName>
+		<szLongItemName>5.56x45mm Beta C-Mag, Glaser</szLongItemName>
 		<szItemDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szItemDesc>
-		<szBRName>5.56x45 C-Mag G #100</szBRName>
+		<szBRName>5.56x45 C-Mag G</szBRName>
 		<szBRDesc>Die GLASER Blue Top Patronen enthalten in einem Kunststoffmantel feinen Stahlschrot, der sich beim Auftreffen auf das Ziel ausbreitet und sofort beim Gegner einen Schockzustand und Trauma auslöst. Man erreicht eine sehr hohe Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>438</uiIndex>
 		<szItemName>5.56x45 LS</szItemName>
-		<szLongItemName>5.56x45mm Beta-C Magazin, Leuchtspur</szLongItemName>
+		<szLongItemName>5.56x45mm Beta C-Mag, Leuchtspur</szLongItemName>
 		<szItemDesc>Mit dieser Leuchtspurmunition sollte das Zielen und Treffen im Burstmodus kein Problem mehr sein.</szItemDesc>
-		<szBRName>5.56x45 C-Mag LS #100</szBRName>
-		<szBRDesc> Mit dieser Leuchtspurmunition sollte das Zielen und Treffen im Burstmodus kein Problem mehr sein.</szBRDesc>
+		<szBRName>5.56x45 C-Mag LS</szBRName>
+		<szBRDesc>Mit dieser Leuchtspurmunition sollte das Zielen und Treffen im Burstmodus kein Problem mehr sein.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>439</uiIndex>
 		<szItemName>5.56x45 Match</szItemName>
-		<szLongItemName>5.56x45mm Beta-C Magazin, Match</szLongItemName>
+		<szLongItemName>5.56x45mm Beta C-Mag, Match</szLongItemName>
 		<szItemDesc>Professionelle Schützen verwenden für kurzläufige Waffen im Kaliber 5.56mm die Mk.262 Patrone mit ihrem 77gr. SIERRA MatchKing Projektil. Diese Patrone wird aufgrund ihrer hervorragenden ballistischen Eigenschaften (+120m) bevorzugt.</szItemDesc>
-		<szBRName>5.56x45 C-Mag M #100</szBRName>
+		<szBRName>5.56x45 C-Mag M</szBRName>
 		<szBRDesc>Professionelle Schützen verwenden für kurzläufige Waffen im Kaliber 5.56mm die Mk.262 Patrone mit ihrem 77gr. SIERRA MatchKing Projektil. Diese Patrone wird aufgrund ihrer hervorragenden ballistischen Eigenschaften (+120m) bevorzugt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>440</uiIndex>
 		<szItemName>5.56x45 US-HS</szItemName>
-		<szLongItemName>5.56x45mm Beta-C Magazin, US-HS</szLongItemName>
+		<szLongItemName>5.56x45mm Beta C-Mag, US-HS</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>5.56x45 C-Mag US-HS #100</szBRName>
+		<szBRName>5.56x45 C-Mag US-HS</szBRName>
 		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>441</uiIndex>
 		<szItemName>5.56x45 US</szItemName>
-		<szLongItemName>5.56x45mm Beta-C Magazin, Unterschall</szLongItemName>
+		<szLongItemName>5.56x45mm Beta C-Mag, Unterschall</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>5.56x45 C-Mag US #100</szBRName>
+		<szBRName>5.56x45 C-Mag US</szBRName>
 		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>442</uiIndex>
 		<szItemName>5.56x45 US-G</szItemName>
-		<szLongItemName>5.56x45mm Beta-C Magazin, US-Glaser</szLongItemName>
+		<szLongItemName>5.56x45mm Beta C-Mag, US-Glaser</szLongItemName>
 		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>5.56x45 C-Mag US-G #100</szBRName>
+		<szBRName>5.56x45 C-Mag US-G</szBRName>
 		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -3681,10 +3681,10 @@
 	<ITEM>
 		<uiIndex>462</uiIndex>
 		<szItemName>.30-06 Clip</szItemName>
-		<szLongItemName>.30-06 Springfield Munitions-Clip</szLongItemName>
-		<szItemDesc>Dieser Munitions-Clip ist passend für diverse Jagdgewehre und den berühmten M1 Garand. Ohne Zweifel kann die .30-06 Springfield (7.62x63mm) als die gängigste Jagdpatrone der Welt bezeichnet werden.</szItemDesc>
+		<szLongItemName>.30-06 Munitions-Clip</szLongItemName>
+		<szItemDesc>Dieser Munitions-Clip enthält 8 Patronen mit VMR-Projektile und ist passend für diverse Jagdgewehre sowie den berühmten M1 Garand. Ohne Zweifel kann die .30-06 Springfield (7.62x63mm) als die gängigste Jagdpatrone der Welt bezeichnet werden.</szItemDesc>
 		<szBRName>.30-06 Clip #8</szBRName>
-		<szBRDesc>Dieser Munitions-Clip ist passend für diverse Jagdgewehre und den berühmten M1 Garand. Ohne Zweifel kann die .30-06 Springfield (7.62x63mm) als die gängigste Jagdpatrone der Welt bezeichnet werden.</szBRDesc>
+		<szBRDesc>Dieser Munitions-Clip enthält 8 Patronen mit VMR-Projektile und ist passend für diverse Jagdgewehre sowie den berühmten M1 Garand. Ohne Zweifel kann die .30-06 Springfield (7.62x63mm) als die gängigste Jagdpatrone der Welt bezeichnet werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>463</uiIndex>
@@ -3730,9 +3730,9 @@
 		<uiIndex>468</uiIndex>
 		<szItemName>.30 Mag HS</szItemName>
 		<szLongItemName>.30 Carbine Magazin, HS</szLongItemName>
-		<szItemDesc>In den 40er Jahren entwickelte WINCHESTER diese neue Patrone im Kaliber .30 Carbine (7.62x33mm) für den M1 Karabiner. Die von uns angebotenen Magazine können auch für das deutsche StG44 verwendet werden.</szItemDesc>
+		<szItemDesc>Dieses Magazin enthält 30 Patronen mit VMR-Projektile und ist passend für den M1 Carbine. Die neue Patrone im Kaliber .30 Carbine (7.62x33mm) wurde von WICHESTER passend zum M1 Karabiner in den 40er Jahren entwickelt.</szItemDesc>
 		<szBRName>.30 Mag HS</szBRName>
-		<szBRDesc>In den 40er Jahren entwickelte WINCHESTER diese neue Patrone im Kaliber .30 Carbine (7.62x33mm) für den M1 Karabiner. Die von uns angebotenen Magazine können auch für das deutsche StG44 verwendet werden.</szBRDesc>
+		<szBRDesc>Dieses Magazin enthält 30 Patronen mit VMR-Projektile und ist passend für den M1 Carbine. Die neue Patrone im Kaliber .30 Carbine (7.62x33mm) wurde von WICHESTER passend zum M1 Karabiner in den 40er Jahren entwickelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>469</uiIndex>
@@ -3776,11 +3776,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>474</uiIndex>
-		<szItemName>.30 Mag PB</szItemName>
+		<szItemName>.30 Mag</szItemName>
 		<szLongItemName>.30 Carbine Magazin, PB</szLongItemName>
-		<szItemDesc>In den 40er Jahren entwickelte WINCHESTER diese neue Patrone im Kaliber .30 Carbine (7.62x33mm) für den M1 Karabiner. Die von uns angebotenen Magazine können auch für das deutsche StG44 verwendet werden.</szItemDesc>
-		<szBRName>.30 Mag PB</szBRName>
-		<szBRDesc>In den 40er Jahren entwickelte WINCHESTER diese neue Patrone im Kaliber .30 Carbine (7.62x33mm) für den M1 Karabiner. Die von uns angebotenen Magazine können auch für das deutsche StG44 verwendet werden.</szBRDesc>
+		<szItemDesc>Dieses Magazin enthält 30 Patronen mit VMR-Projektile und ist passend für den M1 Carbine. Die neue Patrone im Kaliber .30 Carbine (7.62x33mm) wurde von WICHESTER passend zum M1 Karabiner in den 40er Jahren entwickelt.</szItemDesc>
+		<szBRName>.30 Mag</szBRName>
+		<szBRDesc>Dieses Magazin enthält 30 Patronen mit VMR-Projektile und ist passend für den M1 Carbine. Die neue Patrone im Kaliber .30 Carbine (7.62x33mm) wurde von WICHESTER passend zum M1 Karabiner in den 40er Jahren entwickelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>475</uiIndex>
@@ -3978,9 +3978,9 @@
 		<uiIndex>499</uiIndex>
 		<szItemName>7.62x25 Tr.</szItemName>
 		<szLongItemName>7.62x25mm Trommel</szLongItemName>
-		<szItemDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
+		<szItemDesc>Diese VMR-Projektile von WOLF Russia, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>7.62x25 Trommel #100</szBRName>
-		<szBRDesc>Diese WOLF Russia VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
+		<szBRDesc>Diese VMR-Projektile von WOLF Russia, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>500</uiIndex>
@@ -4954,9 +4954,9 @@
 		<uiIndex>621</uiIndex>
 		<szItemName>M4 Super 90</szItemName>
 		<szLongItemName>Benelli M4 Super 90</szLongItemName>
-		<szItemDesc>Die M4 Super 90 von BENELLI ist eine gasdruckbetriebene, glattläufige, halbautomatische Flinte. Sie ist absolut zuverlässig und wartungsfrei.</szItemDesc>
+		<szItemDesc>Die M4 Super 90 von BENELLI ist eine gasdruckbetriebene Selbstladeflinte mit glattem Lauf. Sie ist absolut zuverlässig und wartungsarm.</szItemDesc>
 		<szBRName>Benelli M4 Super 90</szBRName>
-		<szBRDesc>Die M4 Super 90 von BENELLI ist eine gasdruckbetriebene, glattläufige, halbautomatische Flinte. Sie ist absolut zuverlässig und wartungsfrei. Diese Flinte wird auch vom US Marine Corpse eingesetzt.</szBRDesc>
+		<szBRDesc>Die M4 Super 90 von BENELLI ist eine gasdruckbetriebene Selbstladeflinte mit glattem Lauf. Aufgrund ihrer hohen Zuverlässigkeit kaufte 1999 das U.S. Marine Corpse 20.000 Stück unter der Bezeichnung M1014.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>622</uiIndex>
@@ -4968,7 +4968,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>623</uiIndex>
-		<szItemName>Brigadier</szItemName>
+		<szItemName>Brigadier .40</szItemName>
 		<szLongItemName>Beretta 96FS Brigadier</szLongItemName>
 		<szItemDesc>Diese Variante der Beretta 92 wurde in das Kaliber .40 S&amp;W konvertiert und hat einen neu designten Schlitten.</szItemDesc>
 		<szBRName>Beretta 96FS Brigadier</szBRName>
@@ -5018,9 +5018,9 @@
 		<uiIndex>629</uiIndex>
 		<szItemName>Modelo C</szItemName>
 		<szLongItemName>CETME Modelo C</szLongItemName>
-		<szItemDesc>Das spanische CETME-Modell diente in den 60er Jahren als Vorlage für das HK G3, welches ein verbesserter Lizenz-Nachbau ist.</szItemDesc>
+		<szItemDesc>Das spanische CETME-Modell ist ein Rückstoßlader und basiert technisch auf dem StG45 von MAUSER.</szItemDesc>
 		<szBRName>CETME Modelo C</szBRName>
-		<szBRDesc>Das spanische CETME-Modell diente in den 60er Jahren als Vorlage für das HK G3, welches ein verbesserter Lizenz-Nachbau ist.</szBRDesc>
+		<szBRDesc>Das spanische CETME-Modell ist ein Rückstoßlader und basiert technisch auf dem StG45 von MAUSER. In den 60er Jahren diente es als Vorlage für das HK G3, welches ein verbesserter Lizenz-Nachbau ist.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>630</uiIndex>
@@ -5052,7 +5052,7 @@
 		<szLongItemName>Colt M4A1 Karabiner</szLongItemName>
 		<szItemDesc>Der M4-Karabiner mit 14.5"-Lauf ist zuverlässig, sehr präzise und höchst effektiv. Er wird von Infanteriesoldaten, Spezialeinheiten und Einzelkämpfern favorisiert.</szItemDesc>
 		<szBRName>Colt M4A1 Karabiner</szBRName>
-		<szBRDesc>Der M4-Karabiner mit 14.5"-Lauf ist eine Weiterentwicklung des XM177, sehr präzise und höchst effektiv. Seit 1997 wird er von US Army Rangers, FBI und SWAT verwendet. Feuermodus: S-F</szBRDesc>
+		<szBRDesc>Der M4-Karabiner mit 14.5-Zoll-Lauf ist eine Weiterentwicklung des XM177, sehr präzise und höchst effektiv. Seit 1997 wird er von U.S. Army Rangers, dem FBI und SWAT-Einheiten verwendet. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>634</uiIndex>
@@ -5084,7 +5084,7 @@
 		<szLongItemName>I.M.I. Desert Eagle Mark VII</szLongItemName>
 		<szItemDesc>Das Modell ist in den Kalibern .357Mag., .44Mag., .50AE und .440Cor-Bon erhältlich und wird von MAGNUM RESEARCH in den USA hergestellt.</szItemDesc>
 		<szBRName>Desert Eagle Mk. VII</szBRName>
-		<szBRDesc>Diese Pistole wurde 1980 von I.M.I. in Israel entwickelt. Ziel war es eine halbautomatische Handfeuerwaffe zu entwickeln, die mit einem Magnum-Kaliber ausgestattet ist. Seit 1985 wird sie von MAGNUM RESEARCH (USA) weiterentwickelt und hergestellt.</szBRDesc>
+		<szBRDesc>Diese Pistole wurde 1980 von I.M.I. in Israel entwickelt. Ziel war es eine halbautomatische Handfeuerwaffe zu entwickeln, die mit einem Magnum-Kaliber ausgestattet ist. Seit 1985 wird sie von MAGNUM RESEARCH (USA) weiter- entwickelt und hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>638</uiIndex>
@@ -5092,7 +5092,7 @@
 		<szLongItemName>I.M.I. Desert Eagle Mark XIX</szLongItemName>
 		<szItemDesc>Das Modell ist in den Kalibern .357Mag., .44Mag., .50AE und .440Cor-Bon erhältlich und wird von MAGNUM RESEARCH in den USA hergestellt.</szItemDesc>
 		<szBRName>Desert Eagle Mk. XIX</szBRName>
-		<szBRDesc>Diese Pistole wurde 1980 von I.M.I. in Israel entwickelt. Ziel war es eine halbautomatische Handfeuerwaffe zu entwickeln, die mit einem Magnum-Kaliber ausgestattet ist. Seit 1985 wird sie von MAGNUM RESEARCH (USA) weiterentwickelt und hergestellt.</szBRDesc>
+		<szBRDesc>Diese Pistole wurde 1980 von I.M.I. in Israel entwickelt. Ziel war es eine halbautomatische Handfeuerwaffe zu entwickeln, die mit einem Magnum-Kaliber ausgestattet ist. Seit 1985 wird sie von MAGNUM RESEARCH (USA) weiter- entwickelt und hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>639</uiIndex>
@@ -5348,7 +5348,7 @@
 		<szLongItemName>HK Mark 23</szLongItemName>
 		<szItemDesc>Die MK23 garantiert dem Schützen absolute Matchpräzision, dennoch erfüllt sie die strengsten Einsatzanforderungen, die jemals an eine Dienstwaffe gestellt wurden.</szItemDesc>
 		<szBRName>HK Mark 23</szBRName>
-		<szBRDesc>Die MK23 garantiert dem Schützen absolute Matchpräzision. Nach härtesten Vergleichserprobungen wurde sie im Mai 1996 unter der Bezeichnung MK23 USSOCOM als Dienstpistole eingeführt.</szBRDesc>
+		<szBRDesc>Die MK23 garantiert dem Schützen absolute Matchpräzision. Nach härtesten Vergleichs- erprobungen wurde sie im Mai 1996 unter der Bezeichnung MK23 USSOCOM als Dienstpistole eingeführt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>671</uiIndex>
@@ -5538,13 +5538,13 @@
 		<uiIndex>694</uiIndex>
 		<szItemName>MP-133</szItemName>
 		<szLongItemName>Baikal MP-133</szLongItemName>
-		<szItemDesc>Seit Jahren entwickelt und produziert BAIKAL exzellente Schrotflinten. Dieses Modell eignet sich hervorragend für die Jagd und Polizei.</szItemDesc>
+		<szItemDesc>Seit Jahren entwickelt und produziert BAIKAL exzellente Schrotflinten. Diese Vorderschaft- repetierflinte eignet sich hervorragend für die Jagd.</szItemDesc>
 		<szBRName>Baikal MP-133</szBRName>
-		<szBRDesc>Seit Jahren entwickelt und produziert BAIKAL exzellente Schrotflinten. Dieses Modell eignet sich hervorragend für die Jagd, Polizei und Selbstverteidigung.</szBRDesc>
+		<szBRDesc>Seit Jahren entwickelt und produziert BAIKAL exzellente Schrotflinten. Diese Vorderschaft- repetierflinte eignet sich gleichermaßen für die Jagd als auch für Sicherheitskräfte.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>695</uiIndex>
-		<szItemName>Varjag</szItemName>
+		<szItemName>Varjag .40</szItemName>
 		<szLongItemName>MP-445 Varjag</szLongItemName>
 		<szItemDesc>Die MP-445 ist eines der neuesten Pistolenmodelle des russischen Militärs. Sie hat einen hochfesten Kunstoffrahmen.</szItemDesc>
 		<szBRName>MP-445 Varjag</szBRName>
@@ -5640,11 +5640,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>707</uiIndex>
-		<szItemName>Redhawk</szItemName>
+		<szItemName>Redhawk .44</szItemName>
 		<szLongItemName>Ruger Redhawk Revolver</szLongItemName>
-		<szItemDesc>Dieser Revolver ist ideal für Sportschützen, Jäger und alle die etwas auf sich halten. Mit dieser Kanone hinterlassen Sie einen bleibenden Eindruck.</szItemDesc>
+		<szItemDesc>Dieser Revolver ist ideal für Sportschützen, Jäger und Söldner die von sich überzeugt sind. Mit dieser Kanone hinterlassen Sie einen bleibenden Eindruck.</szItemDesc>
 		<szBRName>Ruger Redhawk Revolver</szBRName>
-		<szBRDesc>Dieser RUGER-Revolver ist ideal für Sportschützen, Jäger und alle die etwas auf sich halten. Mit dieser Kanone hinterlassen Sie einen bleibenden Eindruck.</szBRDesc>
+		<szBRDesc>Dieser .44 Magnum Revolver ist ideal für Sportschützen, Jäger und Söldner die von sich überzeugt sind. Mit dieser Kanone hinterlassen Sie einen bleibenden Eindruck.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>708</uiIndex>
@@ -5720,7 +5720,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>717</uiIndex>
-		<szItemName>P226R</szItemName>
+		<szItemName>P226R .40</szItemName>
 		<szLongItemName>SIG-Sauer P226R Tactical</szLongItemName>
 		<szItemDesc>Die P226R Tactical gilt als Maßstab für militärische Handfeuerwaffen und wird von den US Navy SEALs und den legendären Texas Rangers eingesetzt.</szItemDesc>
 		<szBRName>SIG-Sauer P226R Tactical</szBRName>
@@ -6018,9 +6018,9 @@
 		<uiIndex>754</uiIndex>
 		<szItemName>MP-233B</szItemName>
 		<szLongItemName>Baikal MP-233B</szLongItemName>
-		<szItemDesc>Diese doppelläufige Flinte ist das neueste Modell der Sport- und Jagdwaffenreihe aus dem Hause BAIKAL.</szItemDesc>
+		<szItemDesc>Diese Bockdoppelflinte ist das neueste Modell der Sport- und Jagdwaffenreihe aus dem Hause BAIKAL.</szItemDesc>
 		<szBRName>Baikal MP-233B</szBRName>
-		<szBRDesc>Diese doppelläufige Flinte ist das neueste Modell der Sport- und Jagdwaffenreihe aus dem Hause BAIKAL. Sie kann an die individuellen Anforderungen des Schützen agepasst werden.</szBRDesc>
+		<szBRDesc>Diese Bockdoppelflinte ist das neueste Modell der Sport- und Jagdwaffenreihe aus dem Hause BAIKAL. Sie kann an die individuellen Anforderungen des Schützen agepasst werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>755</uiIndex>
@@ -6092,23 +6092,23 @@
 		<szLongItemName>Colt XM177-E1 Commando</szLongItemName>
 		<szItemDesc>Das XM177-E1 Commando mit 10"-Lauf ist die 2. Generation des CAR-15 Commando und wurde ab 1966 von US Special Forces in Vietnam eingesetzt.</szItemDesc>
 		<szBRName>Colt XM177-E1</szBRName>
-		<szBRDesc>Das XM177-E1 Commando mit 10"-Lauf ist die 2. Generation des CAR-15 Commando, der ersten Karabinerversion des M16. Das starke Mündungsfeuer und die enorme Lautstärke konnten durch einen neu entwickelten MF-Dämpfer reduziert werden.</szBRDesc>
+		<szBRDesc>Das XM177-E1 Commando mit 10-Zoll-Lauf ist die 2. Generation des CAR-15 Commando, der ersten Karabinerversion des M16. Das starke Mündungsfeuer und die enorme Lautstärke konnten durch einen neu entwickelten MF-Dämpfer reduziert werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>764</uiIndex>
-		<szItemName>CMMG 7.3"</szItemName>
-		<szLongItemName>CMMG 7.3"</szLongItemName>
-		<szItemDesc>Diese sehr große Pistole mit 7.3"-Lauf basiert ebenfalls auf dem bekannten AR-15-System und wird von CMMG in den USA gefertigt.</szItemDesc>
-		<szBRName>CMMG 7.3"</szBRName>
-		<szBRDesc>Diese sehr große Pistole mit 7.3"-Lauf basiert ebenfalls auf dem bekannten AR-15-System und wird von CMMG in den USA gefertigt. Sie werden die 'Desert Eagle' und andere Großkaliber-Revolver vergessen, wenn Sie einmal mit ihr geschossen haben - versprochen!</szBRDesc>
+		<szItemName>CMMG M7</szItemName>
+		<szLongItemName>CMMG 7.3" M7</szLongItemName>
+		<szItemDesc>Diese Waffe hat einen gezogenen 7.3"-Lauf und basiert ebenfalls auf dem bekannten AR-15-System. Sie wird von CMMG in Missouri (USA) hergestellt.</szItemDesc>
+		<szBRName>CMMG 7.3" M7</szBRName>
+		<szBRDesc>Diese Waffe hat einen gezogenen 7.3-Zoll-Lauf und basiert ebenfalls auf dem bekannten AR-15-System. Sie wird von CMMG in Missouri (USA) hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>765</uiIndex>
-		<szItemName>OA-93 6.5"</szItemName>
-		<szLongItemName>Olympic Arms 93 6.5"</szLongItemName>
-		<szItemDesc>Diese sehr große Pistole basiert ebenfalls auf dem bekannten AR-15-System und wird seit mehr als 10 Jahren von OLYMPIC ARMS (USA) gefertigt.</szItemDesc>
-		<szBRName>OA-93 6.5"</szBRName>
-		<szBRDesc>Diese sehr große Pistole mit 6.5" Lauf basiert ebenfalls auf dem bekannten AR-15-System und wird seit mehr als 10 Jahren von OLYMPIC ARMS (USA) gefertigt.</szBRDesc>
+		<szItemName>OA-93</szItemName>
+		<szLongItemName>Olympic Arms OA-93</szLongItemName>
+		<szItemDesc>Diese Waffe hat einen 6.5"-Lauf und basiert ebenfalls auf dem bekannten AR-15-System. Sie wird seit mehr als 10 Jahren von OLYMPIC ARMS in Iowa (USA) hergestellt.</szItemDesc>
+		<szBRName>OA-93</szBRName>
+		<szBRDesc>Diese Waffe hat einen 6.5-Zoll-Lauf und basiert ebenfalls auf dem bekannten AR-15-System. Sie wird seit mehr als 10 Jahren von OLYMPIC ARMS in Iowa (USA) hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>766</uiIndex>
@@ -6124,7 +6124,7 @@
 		<szLongItemName>L.A.R. Grizzly Mark I</szLongItemName>
 		<szItemDesc>In 1984 entwickelte L.A.R. eine auf dem bewährten M1911-System basierende vergrößerte Selbstladepistole im Kaliber .45 Winchester Magnum.</szItemDesc>
 		<szBRName>L.A.R. Grizzly Mk. I</szBRName>
-		<szBRDesc>In 1984 entwickelte L.A.R. eine auf dem bewährten M1911-System basierende vergrößerte Selbstladepistole. Sie nutzt die Patrone im Kaliber .45WM, die seinerzeit für die 'Wildey' entwickelt wurde. Sie hat einen 6.5" Lauf und wird brüniert geliefert.</szBRDesc>
+		<szBRDesc>In 1984 entwickelte L.A.R. eine auf dem bewährten M1911-System basierende vergrößerte Selbstladepistole. Sie nutzt die Patrone im Kaliber .45WM, die seinerzeit für die 'Wildey' entwickelt wurde. Sie hat einen 6.5"-Lauf und wird brüniert geliefert.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>768</uiIndex>
@@ -6152,7 +6152,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>771</uiIndex>
-		<szItemName>Alaskan</szItemName>
+		<szItemName>Alaskan .454</szItemName>
 		<szLongItemName>Ruger Super Redhawk Alaskan</szLongItemName>
 		<szItemDesc>Ein kleiner aber sehr durchschlagskräftiger Revolver. Ideal als Zweitwaffe bei der Bären- oder Menschenjagd.</szItemDesc>
 		<szBRName>Ruger Super Redhawk</szBRName>
@@ -6186,9 +6186,9 @@
 		<uiIndex>775</uiIndex>
 		<szItemName>SPAS-12</szItemName>
 		<szLongItemName>Franchi SPAS-12</szLongItemName>
-		<szItemDesc>Diese halbautomatische Flinte wurde speziell für den Polizei-Einsatz entwickelt und kam 1979 auf den Markt.</szItemDesc>
+		<szItemDesc>Die 1979 auf den Markt gekommene italienische SPAS-12 ist eine gasdruckbetriebene Selbstladeflinte und wurde speziell für Sicherheitskräfte entwickelt.</szItemDesc>
 		<szBRName>Franchi SPAS-12</szBRName>
-		<szBRDesc>Diese halbautomatische Flinte wurde speziell für den Polizei-Einsatz entwickelt und kam 1979 auf den Markt. Die Waffe kann durch Drücken eines Knopfes auf manuellen Pump-Action-Modus umgestellt werden.</szBRDesc>
+		<szBRDesc>Die 1979 auf den Markt gekommene italienische SPAS-12 ist eine gasdruckbetriebene Selbstladeflinte. Sie wurde speziell für Sicherheitskräfte die eine zuverlässige und vielseitige Waffe mit großer Feuerkraft benötigen entwickelt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>776</uiIndex>
@@ -6210,9 +6210,9 @@
 		<uiIndex>778</uiIndex>
 		<szItemName>Blaser R93</szItemName>
 		<szLongItemName>Blaser R93 LRS2</szLongItemName>
-		<szItemDesc>Mit dem neu entwickelten Radialbundverschluss erfolgt das Repetieren extrem schnell und geradlinig ohne Drehbewegung im Verschluss.</szItemDesc>
+		<szItemDesc>Die Repetierbüchse R93 'Longe Range Sporter 2' von BLASER ist die neueste Interpretation des R93 Matchgewehrs.</szItemDesc>
 		<szBRName>Blaser R93 LRS2</szBRName>
-		<szBRDesc>Die R93 LRS2 von BLASER ist die neueste Interpretation des R93 Matchgewehres für Profischützen. Alle Elemente sind auf absolute Stabilität und Zuverlässigkeit ausgelegt, Top-Präzision, auch mit Standard-Munition, war die Maxime bei der Konstruktion.</szBRDesc>
+		<szBRDesc>Die Repetierbüchse R93 'Longe Range Sporter 2' von BLASER ist die neueste Interpretation des R93 Matchgewehrs. Mit dem neu entwickelten Radialbundverschluss erfolgt das Repetieren extrem schnell und geradlinig, ohne Drehbewegung im Verschluss.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>779</uiIndex>
@@ -6346,7 +6346,7 @@
 		<uiIndex>795</uiIndex>
 		<szItemName>M468</szItemName>
 		<szLongItemName>Barrett M468</szLongItemName>
-		<szItemDesc>Das neue Sturmgewehr M468 von BARRETT mit hartverchromten 16-Zoll-Lauf im Kaliber 6.8mm SPC garantiert hohe Präzision und Langlebigkeit.</szItemDesc>
+		<szItemDesc>Das neue Sturmgewehr M468 von BARRETT mit hartverchromten 16"-Lauf im Kaliber 6.8mm SPC garantiert eine hohe Präzision und Langlebigkeit.</szItemDesc>
 		<szBRName>Barrett M468</szBRName>
 		<szBRDesc>Das M468 ist die neueste Entwicklung aus dem Hause BARRET. Hierbei handelt es sich um ein modifiziertes M4 mit größerer Reichweite, Durchschlagskraft und Mannstoppwirkung im Vergleich zum üblichen Kaliber.</szBRDesc>
 	</ITEM>
@@ -6356,7 +6356,7 @@
 		<szLongItemName>Bushmaster M4A3</szLongItemName>
 		<szItemDesc>Das neue Sturmgewehr M4A3 von BUSHMASTER mit hartverchromten 16-Zoll-Lauf im neuen Kaliber 6.8mm SPC garantiert hohe Präzision und Langlebigkeit.</szItemDesc>
 		<szBRName>Bushmaster M4A3</szBRName>
-		<szBRDesc>Das neue Sturmgewehr M4A3 von BUSHMASTER mit hartverchromten 16-Zoll-Lauf im neuen Kaliber 6.8mm SPC garantiert hohe Präzision und Langlebigkeit. Als extra Zugabe erhalten Sie von uns die Militär-/Polizei-Variante mit Dauerfeuer-Abzugsgruppe - ohne Aufpreis!</szBRDesc>
+		<szBRDesc>Das neue Sturmgewehr M4A3 von BUSHMASTER mit hartverchromten 16-Zoll-Lauf im neuen Kaliber 6.8mm SPC garantiert hohe Präzision und Langlebigkeit. Als extra Zugabe erhalten Sie von uns die Militär-Variante mit Dauerfeuer-Abzugsgruppe - ohne Aufpreis!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>797</uiIndex>
@@ -6368,10 +6368,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>798</uiIndex>
-		<szItemName>Luger P08</szItemName>
-		<szLongItemName>Parabellum P08</szLongItemName>
+		<szItemName>Luger P.08</szItemName>
+		<szLongItemName>Luger P.08</szLongItemName>
 		<szItemDesc>Die Luger P08 war als Dienstwaffe eher ungeeignet, da sie zu empfindlich und kompliziert war. Sie wurde im Zweiten Weltkrieg durch die Walther P38 ersetzt.</szItemDesc>
-		<szBRName>Parabellum P08</szBRName>
+		<szBRName>Parabellum P.08</szBRName>
 		<szBRDesc>Das kaiserliche Heer stellte 1908 eine von Luger weiterentwickelte Version der 'Parabellum Model 1900' als 'Pistole 08' in Dienst. Diese weltberühmte Waffe wurde von DWM in Berlin/Erfurt, SIMSON in Suhl und MAUSER in Oberndorf hergestellt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6384,7 +6384,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>800</uiIndex>
-		<szItemName>P226 SAS</szItemName>
+		<szItemName>P226 SAS .40</szItemName>
 		<szLongItemName>SIG-Sauer P226 SAS</szLongItemName>
 		<szItemDesc>Diese Version der P226 im Kaliber .40 S&amp;W hat abgerundete Kanten, es wird so ein verstecktes Tragen unter der Kleidung erleichtert.</szItemDesc>
 		<szBRName>SIG-Sauer P226 SAS</szBRName>
@@ -6442,25 +6442,25 @@
 		<uiIndex>807</uiIndex>
 		<szItemName>Tarnhelm</szItemName>
 		<szLongItemName>Ghillie Suit, Helm</szLongItemName>
-		<szItemDesc>Entweder in Verbindung mit dem Tarnanzug oder allein getragen, tarnt dieser Helm das Wichtigste: Ihren Kopf. Schutzklasse: II-A (NIJ)</szItemDesc>
+		<szItemDesc>Entweder in Verbindung mit dem Ghillie Suit oder allein getragen, tarnt dieser Helm das Wichtigste: Ihren Kopf!</szItemDesc>
 		<szBRName>Ghillie Suit, Helm</szBRName>
-		<szBRDesc>Entweder in Verbindung mit dem Ghillie Suit (Tarnanzug) oder allein getragen, tarnt dieser Helm das Wichtigste: Ihren Kopf. Schutzklasse: II-A (NIJ)</szBRDesc>
+		<szBRDesc>Entweder in Verbindung mit dem Ghillie Suit oder allein getragen, tarnt dieser Helm das Wichtigste: Ihren Kopf!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>808</uiIndex>
 		<szItemName>Tarnhose</szItemName>
 		<szLongItemName>Ghillie Suit, Hose</szLongItemName>
-		<szItemDesc>Egal ob Sie Ihre süße Nachbarin von nebenan ausspionieren oder sich bis zum Feind anschleichen wollen, dieser 'Ghillie Suit' wird sicherstellen das man Sie nicht sieht. Schutzklasse: II-A (NIJ)</szItemDesc>
+		<szItemDesc>Ein 'Ghillie Suit' ist ein Tarnanzug der meistens von Scharfschützen eingesetzt wird. Er verbirgt die Form des menschlichen Körpers und lässt ihn mit seiner Umgebung verschmelzen. In der Regel besteht ein Ghillie Suit aus einem Netzmaterial, entweder in Form eines Überwurfes oder als zweiteilige Ausführung.</szItemDesc>
 		<szBRName>Ghillie Suit, Hose</szBRName>
-		<szBRDesc>Egal ob Sie Ihre süße Nachbarin von nebenan ausspionieren oder sich bis zum Feind anschleichen wollen, dieser 'Ghillie Suit' wird sicherstellen das man Sie nicht sieht. Schutzklasse: II-A (NIJ)</szBRDesc>
+		<szBRDesc>Ein 'Ghillie Suit' ist ein Tarnanzug der meistens von Scharfschützen eingesetzt wird. Er verbirgt die Form des menschlichen Körpers und lässt ihn mit seiner Umgebung verschmelzen. In der Regel besteht ein Ghillie Suit aus einem Netzmaterial, entweder in Form eines Überwurfes oder als zweiteilige Ausführung. Tarnbonus: 30%</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>809</uiIndex>
 		<szItemName>Tarnweste</szItemName>
 		<szLongItemName>Ghillie Suit, Weste</szLongItemName>
-		<szItemDesc>Egal ob Sie Ihre süße Nachbarin von nebenan ausspionieren oder sich bis zum Feind anschleichen wollen, dieser 'Ghillie Suit' wird sicherstellen das man Sie nicht sieht. Schutzklasse: II-A (NIJ)</szItemDesc>
+		<szItemDesc>Ein 'Ghillie Suit' ist ein Tarnanzug der meistens von Scharfschützen eingesetzt wird. Er verbirgt die Form des menschlichen Körpers und lässt ihn mit seiner Umgebung verschmelzen. In der Regel besteht ein Ghillie Suit aus einem Netzmaterial, entweder in Form eines Überwurfes oder als zweiteilige Ausführung.</szItemDesc>
 		<szBRName>Ghillie Suit, Weste</szBRName>
-		<szBRDesc>Egal ob Sie Ihre süße Nachbarin von nebenan ausspionieren oder sich bis zum Feind anschleichen wollen, dieser 'Ghillie Suit' wird sicherstellen das man Sie nicht sieht. Schutzklasse: II-A (NIJ)</szBRDesc>
+		<szBRDesc>Ein 'Ghillie Suit' ist ein Tarnanzug der meistens von Scharfschützen eingesetzt wird. Er verbirgt die Form des menschlichen Körpers und lässt ihn mit seiner Umgebung verschmelzen. In der Regel besteht ein Ghillie Suit aus einem Netzmaterial, entweder in Form eines Überwurfes oder als zweiteilige Ausführung. Tarnbonus: 50%</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>810</uiIndex>
@@ -6681,9 +6681,9 @@
 	<ITEM>
 		<uiIndex>837</uiIndex>
 		<szItemName>Traumaplatten</szItemName>
-		<szLongItemName>Traumaplatten Titan, SK: III (NIJ)</szLongItemName>
+		<szLongItemName>Traumaplatten Titan</szLongItemName>
 		<szItemDesc>Diese harten Titan-Platten können in die Brust- und Rückenteile der meisten Westen eingesetzt werden. Sie sind im Vergleich mit Keramik-Platten preisgünstiger, leichter aber auch weniger effektiv. Schutzklasse: III (NIJ)</szItemDesc>
-		<szBRName>Traumaplatten, SK: III</szBRName>
+		<szBRName>Traumaplatten Titan</szBRName>
 		<szBRDesc>Diese harten Titan-Platten können in die Brust- und Rückenteile der meisten Westen eingesetzt werden. Sie sind im Vergleich mit Keramik-Platten preisgünstiger, leichter aber auch weniger effektiv. Schutzklasse: III (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6722,7 +6722,7 @@
 		<uiIndex>842</uiIndex>
 		<szItemName>Recon K-Weste</szItemName>
 		<szLongItemName>Recon Kevlarweste</szLongItemName>
-		<szItemDesc>Diese woodland Kevlarweste ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarnung: 25 Prozent - Rüstung: 20 Prozent</szItemDesc>
+		<szItemDesc>Diese Woodland Kevlarweste ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarnung-25, Rüstung-25</szItemDesc>
 		<szBRName>Recon Kevlarweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6730,7 +6730,7 @@
 		<uiIndex>843</uiIndex>
 		<szItemName>Recon G-Weste</szItemName>
 		<szLongItemName>Recon Guardian-Weste</szLongItemName>
-		<szItemDesc>Diese woodland Guardian-Weste ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarnung: 25 Prozent - Rüstung: 20 Prozent</szItemDesc>
+		<szItemDesc>Diese Woodland Guardian-Weste ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarnung-25, Rüstung-28</szItemDesc>
 		<szBRName>Recon Guardianweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6738,7 +6738,7 @@
 		<uiIndex>844</uiIndex>
 		<szItemName>Recon Tw.-Weste</szItemName>
 		<szLongItemName>Recon Twaron-Weste</szLongItemName>
-		<szItemDesc>Diese woodland Twaron-Weste ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarnung: 25 Prozent - Rüstung: 20 Prozent</szItemDesc>
+		<szItemDesc>Diese Woodland Twaron-Weste ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarnung-25, Rüstung-28</szItemDesc>
 		<szBRName>Recon Twaron-Weste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6746,7 +6746,7 @@
 		<uiIndex>845</uiIndex>
 		<szItemName>Recon K-Hose</szItemName>
 		<szLongItemName>Recon Kevlarhose</szLongItemName>
-		<szItemDesc>Diese woodland Kevlarhose ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Drahtschere und Booster unterbringen. Tarnung: 15 Prozent - Rüstung: 15 Prozent</szItemDesc>
+		<szItemDesc>Diese Woodland Kevlarhose ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Drahtschere und Booster unterbringen. Tarnung-15, Rüstung-23</szItemDesc>
 		<szBRName>Recon Kevlarhose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6754,7 +6754,7 @@
 		<uiIndex>846</uiIndex>
 		<szItemName>Recon Tw.-Hose</szItemName>
 		<szLongItemName>Recon Twaron-Hose</szLongItemName>
-		<szItemDesc>Diese woodland Twaron-Hose ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Drahtschere und Booster unterbringen. Tarnung: 15 Prozent - Rüstung: 15 Prozent</szItemDesc>
+		<szItemDesc>Diese woodland Twaron-Hose ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Drahtschere und Booster unterbringen. Tarnung-15, Rüstung-26</szItemDesc>
 		<szBRName>Recon Twaron-Hose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6762,7 +6762,7 @@
 		<uiIndex>847</uiIndex>
 		<szItemName>Medic K-Weste</szItemName>
 		<szLongItemName>Sanitäter Kevlarweste</szLongItemName>
-		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 25 Prozent</szItemDesc>
+		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung-10, Rüstung-25</szItemDesc>
 		<szBRName>Sanitäter Kevlarweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6770,7 +6770,7 @@
 		<uiIndex>848</uiIndex>
 		<szItemName>Medic G-Weste</szItemName>
 		<szLongItemName>Sanitäter Guardian-Weste</szLongItemName>
-		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 25 Prozent</szItemDesc>
+		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung-10, Rüstung-28</szItemDesc>
 		<szBRName>Sanitäter Guardianweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6778,7 +6778,7 @@
 		<uiIndex>849</uiIndex>
 		<szItemName>Medic Tw.-Weste</szItemName>
 		<szLongItemName>Sanitäter Twaron-Weste</szLongItemName>
-		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 25 Prozent</szItemDesc>
+		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung-10, Rüstung-28</szItemDesc>
 		<szBRName>Sanitäter Twaron-Weste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6786,7 +6786,7 @@
 		<uiIndex>850</uiIndex>
 		<szItemName>Medic S-Weste</szItemName>
 		<szLongItemName>Sanitäter Spectra-Weste</szLongItemName>
-		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 25 Prozent</szItemDesc>
+		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung-10, Rüstung-29</szItemDesc>
 		<szBRName>Sanitäter Spectra-Weste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6794,7 +6794,7 @@
 		<uiIndex>851</uiIndex>
 		<szItemName>Medic Dyn.-Weste</szItemName>
 		<szLongItemName>Sanitäter Dyneema-Weste</szLongItemName>
-		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 25 Prozent</szItemDesc>
+		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung-10, Rüstung-29</szItemDesc>
 		<szBRName>Sanitäter Dyneema-Weste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6802,7 +6802,7 @@
 		<uiIndex>852</uiIndex>
 		<szItemName>Medic K-Hose</szItemName>
 		<szLongItemName>Sanitäter Kevlarhose</szLongItemName>
-		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. Hier können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 20 Prozent</szItemDesc>
+		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. Hier können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarnung-10, Rüstung-23</szItemDesc>
 		<szBRName>Sanitäter Kevlarhose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6810,7 +6810,7 @@
 		<uiIndex>853</uiIndex>
 		<szItemName>Medic Tw.-Hose</szItemName>
 		<szLongItemName>Sanitäter Twaron-Hose</szLongItemName>
-		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. Hier können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 20 Prozent</szItemDesc>
+		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. Hier können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarnung-10, Rüstung-26</szItemDesc>
 		<szBRName>Sanitäter Twaron-Hose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6818,7 +6818,7 @@
 		<uiIndex>854</uiIndex>
 		<szItemName>Medic S-Hose</szItemName>
 		<szLongItemName>Sanitäter Spectrahose</szLongItemName>
-		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. Hier können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 20 Prozent</szItemDesc>
+		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. Hier können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarnung-10, Rüstung-27</szItemDesc>
 		<szBRName>Sanitäter Spectra-Hose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6826,7 +6826,7 @@
 		<uiIndex>855</uiIndex>
 		<szItemName>Medic Dyn.-Hose</szItemName>
 		<szLongItemName>Sanitäter Dyneema-Hose</szLongItemName>
-		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. Hier können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 20 Prozent</szItemDesc>
+		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. Hier können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarnung-10, Rüstung-27</szItemDesc>
 		<szBRName>Sanitäter Dyneema-Hose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6834,7 +6834,7 @@
 		<uiIndex>856</uiIndex>
 		<szItemName>Mech. K-Weste</szItemName>
 		<szLongItemName>Mechaniker Kevlarweste</szLongItemName>
-		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 25 Prozent</szItemDesc>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-25</szItemDesc>
 		<szBRName>Mechaniker Kevlarweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6842,7 +6842,7 @@
 		<uiIndex>857</uiIndex>
 		<szItemName>Mech. G-Weste</szItemName>
 		<szLongItemName>Mechaniker Guardian-Weste</szLongItemName>
-		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 25 Prozent</szItemDesc>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-28</szItemDesc>
 		<szBRName>Mechaniker Guardianweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6850,7 +6850,7 @@
 		<uiIndex>858</uiIndex>
 		<szItemName>Mech. Tw.-Weste</szItemName>
 		<szLongItemName>Mechaniker Twaron-Weste</szLongItemName>
-		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 25 Prozent</szItemDesc>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-28</szItemDesc>
 		<szBRName>Mechaniker Twaron-Weste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6858,7 +6858,7 @@
 		<uiIndex>859</uiIndex>
 		<szItemName>Mech. S-Weste</szItemName>
 		<szLongItemName>Mechaniker Spectra-Weste</szLongItemName>
-		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 25 Prozent</szItemDesc>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-29</szItemDesc>
 		<szBRName>Mechaniker Spectra-Weste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6866,7 +6866,7 @@
 		<uiIndex>860</uiIndex>
 		<szItemName>Mech. Dyn.-Weste</szItemName>
 		<szLongItemName>Mechaniker Dyneema-Weste</szLongItemName>
-		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 25 Prozent</szItemDesc>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-29</szItemDesc>
 		<szBRName>Mechaniker Dyneema-Weste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6874,7 +6874,7 @@
 		<uiIndex>861</uiIndex>
 		<szItemName>Mech. K-Hose</szItemName>
 		<szLongItemName>Mechaniker Kevlarhose</szLongItemName>
-		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 20 Prozent</szItemDesc>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-23</szItemDesc>
 		<szBRName>Mechaniker Kevlarhose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6882,7 +6882,7 @@
 		<uiIndex>862</uiIndex>
 		<szItemName>Mech. Tw.-Hose</szItemName>
 		<szLongItemName>Mechaniker Twaron-Hose</szLongItemName>
-		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 20 Prozent</szItemDesc>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-26</szItemDesc>
 		<szBRName>Mechaniker Twaron-Hose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6890,7 +6890,7 @@
 		<uiIndex>863</uiIndex>
 		<szItemName>Mech. S-Hose</szItemName>
 		<szLongItemName>Mechaniker Spectra-Hose</szLongItemName>
-		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 20 Prozent</szItemDesc>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-27</szItemDesc>
 		<szBRName>Mechaniker Spectrahose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6898,7 +6898,7 @@
 		<uiIndex>864</uiIndex>
 		<szItemName>Mech. Dyn.-Hose</szItemName>
 		<szLongItemName>Mechaniker Dyneema-Hose</szLongItemName>
-		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarnung: 10 Prozent - Rüstung: 20 Prozent</szItemDesc>
+		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-27</szItemDesc>
 		<szBRName>Mechaniker Dyneema-Hose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6906,7 +6906,7 @@
 		<uiIndex>865</uiIndex>
 		<szItemName>EK K-Weste</szItemName>
 		<szLongItemName>Einzelkämpfer Kevlarweste</szLongItemName>
-		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung: 20 Prozent - Rüstung: 25 Prozent</szItemDesc>
+		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung-20, Rüstung-28</szItemDesc>
 		<szBRName>Einzelkämpfer Kevlarweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6914,7 +6914,7 @@
 		<uiIndex>866</uiIndex>
 		<szItemName>EK G-Weste</szItemName>
 		<szLongItemName>Einzelkämpfer Guardian-Weste</szLongItemName>
-		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung: 20 Prozent - Rüstung: 25 Prozent</szItemDesc>
+		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung-20, Rüstung-31</szItemDesc>
 		<szBRName>Einzelkämpfer Guardianweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6922,7 +6922,7 @@
 		<uiIndex>867</uiIndex>
 		<szItemName>EK Tw.-Weste</szItemName>
 		<szLongItemName>Einzelkämpfer Twaron-Weste</szLongItemName>
-		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung: 20 Prozent - Rüstung: 25 Prozent</szItemDesc>
+		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung-20, Rüstung-31</szItemDesc>
 		<szBRName>Einzelkämpfer Twaron-Weste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6930,7 +6930,7 @@
 		<uiIndex>868</uiIndex>
 		<szItemName>EK S-Weste</szItemName>
 		<szLongItemName>Einzelkämpfer Spectra-Weste</szLongItemName>
-		<szItemDesc>Sollten Sie längere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung: 20 Prozent - Rüstung: 25 Prozent</szItemDesc>
+		<szItemDesc>Sollten Sie längere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung-20, Rüstung-32</szItemDesc>
 		<szBRName>Einzelkämpfer Spectra-Weste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6938,7 +6938,7 @@
 		<uiIndex>869</uiIndex>
 		<szItemName>EK Dyn.-Weste</szItemName>
 		<szLongItemName>Einzelkämpfer Dyneema-Weste</szLongItemName>
-		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung: 20 Prozent - Rüstung: 25 Prozent</szItemDesc>
+		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung-20, Rüstung-32</szItemDesc>
 		<szBRName>Einzelkämpfer Dyneema-Weste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6946,7 +6946,7 @@
 		<uiIndex>870</uiIndex>
 		<szItemName>EK K-Hose</szItemName>
 		<szLongItemName>Einzelkämpfer Kevlarhose</szLongItemName>
-		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarnung: 15 Prozent - Rüstung: 20 Prozent</szItemDesc>
+		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarnung-15, Rüstung-26</szItemDesc>
 		<szBRName>Einzelkämpfer Kevlarhose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6954,7 +6954,7 @@
 		<uiIndex>871</uiIndex>
 		<szItemName>EK Tw.-Hose</szItemName>
 		<szLongItemName>Einzelkämpfer Twaron-Hose</szLongItemName>
-		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarnung: 15 Prozent - Rüstung: 20 Prozent</szItemDesc>
+		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarnung-15, Rüstung-29</szItemDesc>
 		<szBRName>Einzelkämpfer Twaron-Hose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6962,7 +6962,7 @@
 		<uiIndex>872</uiIndex>
 		<szItemName>EK S-Hose</szItemName>
 		<szLongItemName>Einzelkämpfer Spectra-Hose</szLongItemName>
-		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarnung: 15 Prozent - Rüstung: 20 Prozent</szItemDesc>
+		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarnung-15, Rüstung-30</szItemDesc>
 		<szBRName>Einzelkämpfer Spectrahose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -6970,7 +6970,7 @@
 		<uiIndex>873</uiIndex>
 		<szItemName>EK Dyn.-Hose</szItemName>
 		<szLongItemName>Einzelkämpfer Dyneema-Hose</szLongItemName>
-		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarnung: 15 Prozent - Rüstung: 20 Prozent</szItemDesc>
+		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarnung-15, Rüstung-30</szItemDesc>
 		<szBRName>Einzelkämpfer Dyneema-Hose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
@@ -7977,34 +7977,34 @@
 	<ITEM>
 		<uiIndex>999</uiIndex>
 		<szItemName>PSO-1</szItemName>
-		<szLongItemName>PSO-1 Zielfernrohr 4x24</szLongItemName>
-		<szItemDesc>Dieses russische 4x24 Zielfernrohr kann auf die meisten Gewehre der AK-Modellreihen und einige SWD-Klone montiert werden.</szItemDesc>
-		<szBRName>PSO-1</szBRName>
-		<szBRDesc>Dieses russische 4x24 Zielfernrohr kann an alle Gewehre mit Kalaschnikow-Systemkasten (AK, AEK, Saiga usw.) montiert werden. </szBRDesc>
+		<szLongItemName>PSO-1 Zielfernrohr 4x</szLongItemName>
+		<szItemDesc>Dieses russische Zielfernrohr mit 4-facher Vergrößerung kann an die meisten Gewehre des ehem. Ostblocks mit Kalaschnikow- Systemkasten sowie 'Side Mounting Rail' montiert werden.</szItemDesc>
+		<szBRName>PSO-1 Zielfernrohr 4x</szBRName>
+		<szBRDesc>Dieses russische Zielfernrohr mit 4-facher Vergrößerung kann an die meisten Gewehre des ehem. Ostblocks mit Kalaschnikow- Systemkasten sowie 'Side Mounting Rail' montiert werden (AK, AEK, Saiga).</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1000</uiIndex>
 		<szItemName>PSO-P</szItemName>
-		<szLongItemName>PSO-P Zielfernrohr 8x42</szLongItemName>
-		<szItemDesc>Dieses verbesserte russische 8x42 Zielfernrohr kann an die meisten Gewehre der AK-Modellreihe sowie an alle SWD Scharfschützengewehre montiert werden.</szItemDesc>
-		<szBRName>PSO-P</szBRName>
-		<szBRDesc>Dieses verbesserte russische 8x42 Zielfernrohr kann an die meisten Gewehre des ehem. Ostblocks montiert werden. Es ist mit 'Side Mounting Rail' oder 'Russian Small Arms Mounting Rail' lieferbar, passt jedoch nicht an Picatinny Rails</szBRDesc>
+		<szLongItemName>PSO-P Zielfernrohr 8x</szLongItemName>
+		<szItemDesc>Dieses verbesserte russische Zielfernrohr mit 8-facher Vergrößerung kann an die meisten Gewehre des ehem. Ostblocks sowie an alle Dragunov- Scharfschützengewehre montiert werden.</szItemDesc>
+		<szBRName>PSO-P Zielfernrohr 8x</szBRName>
+		<szBRDesc>Dieses verbesserte russische Zielfernrohr mit 8-facher Vergrößerung kann an die meisten Gewehre des ehem. Ostblocks montiert werden. Es ist mit 'Side Mounting Rail' oder 'Russian Small Arms Mounting Rail' lieferbar, passt jedoch nicht an Picatinny Rails.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1001</uiIndex>
 		<szItemName>5.56mm C-Mag Ad.</szItemName>
-		<szLongItemName>5.56mm Beta-C Magazin Adapter</szLongItemName>
-		<szItemDesc>Dieses Adapter kann an verschiedene 5.56mm Waffen angebracht werden und erlaubt die Verwendung des Beta-C Magazins mit 100 Patronen.</szItemDesc>
-		<szBRName>5.56mm C-Mag Ad.</szBRName>
-		<szBRDesc>Dieses Adapter kann an verschiedene 5.56mm Waffen angebracht werden und erlaubt die Verwendung des Beta-C Magazins mit 100 Patronen.</szBRDesc>
+		<szLongItemName>5.56mm Beta C-Mag Adapter</szLongItemName>
+		<szItemDesc>Das 'Century' Magazin wird von The BETA Company (USA) hergestellt und fasst 100 Patronen. Mit diesem Universal- Adapter können Sie das Magazin bei vielen 5.56mm Waffen verwenden.</szItemDesc>
+		<szBRName>5.56mm Beta C-Mag Ad.</szBRName>
+		<szBRDesc>Das 'Century' Magazin wird von The BETA Company (USA) hergestellt und fasst 100 Patronen. Mit diesem Universal- Adapter können Sie das Magazin bei vielen 5.56mm Waffen verwenden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1002</uiIndex>
 		<szItemName>9mm C-Mag Ad.</szItemName>
-		<szLongItemName>9mm Beta-C Magazin Adapter</szLongItemName>
-		<szItemDesc>Dieses Adapter kann an verschiedene 9mm Waffen angebracht werden und erlaubt die Verwendung des Beta-C Magazins mit 100 Patronen.</szItemDesc>
-		<szBRName>9mm C-Mag Ad.</szBRName>
-		<szBRDesc>Dieses Adapter kann an verschiedene 9mm Waffen angebracht werden und erlaubt die Verwendung des Beta-C Magazins mit 100 Patronen.</szBRDesc>
+		<szLongItemName>9mm Beta C-Mag Adapter</szLongItemName>
+		<szItemDesc>Das 'Century' Magazin wird von The BETA Company (USA) hergestellt und fasst 100 Patronen. Mit diesem Universal- Adapter können Sie das Magazin bei vielen 9mm Waffen verwenden.</szItemDesc>
+		<szBRName>9mm Beta C-Mag Ad.</szBRName>
+		<szBRDesc>Das 'Century' Magazin wird von The BETA Company (USA) hergestellt und fasst 100 Patronen. Mit diesem Universal- Adapter können Sie das Magazin bei vielen 9mm Waffen verwenden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1003</uiIndex>
@@ -8510,9 +8510,9 @@
 		<uiIndex>1066</uiIndex>
 		<szItemName>HK416 10"</szItemName>
 		<szLongItemName>HK416 10"</szLongItemName>
-		<szItemDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung der M16/M4-Systeme und kombiniert die besten Eigenschaften von HK's G36 und COLT's M16/M4.</szItemDesc>
+		<szItemDesc>Das HK416 ist ein Gasdrucklader mit kaltgehämmerten 10"-Lauf und stellt eine Weiterentwicklung des AR-15-Systems dar.</szItemDesc>
 		<szBRName>HK416 10"</szBRName>
-		<szBRDesc>Nachdem das britische SA80/L85A1 erfolgreich von HECKLER &amp; KOCH modernisiert wurde, entschied man sich die Jahrzehnte alten M16/M4- Systeme des US-Militärs ebenfalls zu verbessern. Das HK416 ist das vielversprechende Ergebnis.</szBRDesc>
+		<szBRDesc>Das HK416 ist ein Gasdrucklader mit kaltgehämmerten 10"-Lauf und stellt eine Weiterentwicklung des AR-15-Systems dar. Diese kompakte Version eignet sich besonders für Spezial-Kommandos.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1067</uiIndex>
@@ -8542,9 +8542,9 @@
 		<uiIndex>1070</uiIndex>
 		<szItemName>HK416 16"</szItemName>
 		<szLongItemName>HK416 16"</szLongItemName>
-		<szItemDesc>Das HK416 Sturmgewehr ist eine Weiterentwicklung der M16/M4-Systeme und kombiniert die besten Eigenschaften von HK's G36 und COLT's M16/M4.</szItemDesc>
+		<szItemDesc>Das HK416 Sturmgewehr ist ein Gasdrucklader mit kaltgehämmerten 16"-Lauf und stellt eine Weiterentwicklung des AR-15-Systems dar.</szItemDesc>
 		<szBRName>HK416 16"</szBRName>
-		<szBRDesc>Nachdem das britische SA80/L85A1 erfolgreich von HECKLER &amp; KOCH modernisiert wurde, entschied man sich die Jahrzehnte alten M16/M4- Systeme des US-Militärs ebenfalls zu verbessern. Das HK416 ist das vielversprechende Ergebnis.</szBRDesc>
+		<szBRDesc>Nachdem das britische SA80/L85A1 erfolgreich von HECKLER &amp; KOCH modifiziert wurde, entschied man sich die Jahrzehnte alten M16/M4- Systeme des US-Militärs ebenfalls zu verbessern. Das HK416 ist das vielversprechende Ergebnis!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1071</uiIndex>
@@ -8558,9 +8558,9 @@
 		<uiIndex>1072</uiIndex>
 		<szItemName>HK416 20"</szItemName>
 		<szLongItemName>HK416 20"</szLongItemName>
-		<szItemDesc>Die Match-Variante des HK416 mit 20-Zoll-Lauf eignet sich hervorragend für den ambitionierten Schützen.</szItemDesc>
+		<szItemDesc>Das HK416 in der Match-Version mit kaltgehämmerten 20-Zoll-Lauf eignet sich hervorragend für den ambitionierten (Scharf-) Schützen.</szItemDesc>
 		<szBRName>HK416 20"</szBRName>
-		<szBRDesc>Nachdem das britische SA80/L85A1 erfolgreich von HECKLER &amp; KOCH modernisiert wurde, entschied man sich die Jahrzehnte alten M16/M4- Systeme des US-Militärs ebenfalls zu verbessern. Hier die Match-Version mit 20-Zoll-Lauf für den ambitionierten Schützen.</szBRDesc>
+		<szBRDesc>Das HK416 in der Match-Version mit kaltgehämmerten 20-Zoll-Lauf eignet sich hervorragend für den ambitionierten (Scharf-) Schützen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1073</uiIndex>
@@ -8588,19 +8588,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1076</uiIndex>
-		<szItemName>Shrike</szItemName>
+		<szItemName>M4 Shrike</szItemName>
 		<szLongItemName>Ares M4 Shrike</szLongItemName>
-		<szItemDesc>Das von ARES modifizierte M4 Sturmgewehr kann als LMG bezeichnet werden.</szItemDesc>
+		<szItemDesc>Das M4 Sturmgewehr wurde von ARES zu einem leichten MG modifiziert. Wichtigste Änderungen sind ein komplett neuer Upper Receicer sowie ein vorderer Handgriff.</szItemDesc>
 		<szBRName>Ares M4 Shrike</szBRName>
-		<szBRDesc>Das von ARES modifizierte M4 Sturmgewehr kann als LMG bezeichnet werden. Aufgrund des integrierten vorderen Handgriffs lässt es sich im Dauerfeuer besser kontrollieren.</szBRDesc>
+		<szBRDesc>Das M4 Sturmgewehr wurde von ARES zu einem leichten MG modifiziert. Wichtigste Änderungen sind ein komplett neuer Upper Receicer sowie ein vorderer Handgriff zur besseren Kontrolle im Dauerfeuer. Feuermodus: S-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1077</uiIndex>
 		<szItemName>HK417 12"</szItemName>
 		<szLongItemName>HK417 12"</szLongItemName>
-		<szItemDesc>Das HK417 Sturmgewehr ist ein Gasdrucklader und stellt eine Weiterentwicklung des M16/M4-Systems dar. Es kombiniert die besten Eigenschaften von G36 und M16/M4.</szItemDesc>
+		<szItemDesc>Das HK417 ist ein Gasdrucklader mit kaltgehämmerten 12"-Lauf und stellt eine Weiterentwicklung des AR-15-Systems dar.</szItemDesc>
 		<szBRName>HK417 12"</szBRName>
-		<szBRDesc>Das HK417 Sturmgewehr ist ein Gasdrucklader mit kaltgehämmerten 12"-Lauf und stellt eine Weiterentwicklung des M16/M4-Systems dar. Es kombiniert die besten Eigenschaften von G36 und M16/M4.</szBRDesc>
+		<szBRDesc>Das HK417 ist ein Gasdrucklader mit kaltgehämmerten 12"-Lauf und stellt eine Weiterentwicklung des AR-15-Systems dar. Es ist der große Bruder des HK416 und besitzt einen S-F Feuermodus.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1078</uiIndex>
@@ -8657,32 +8657,32 @@
 		<uiIndex>1085</uiIndex>
 		<szItemName>Bw-Weste</szItemName>
 		<szLongItemName>Bundeswehr-Weste</szLongItemName>
-		<szItemDesc>Diese fabrikneue Bundeswehr-Weste im Flecktarn-Muster besitzt auf der linken Seite eine große Tasche.</szItemDesc>
+		<szItemDesc>Diese fabrikneue Bundeswehr-Weste im Flecktarn-Muster besitzt auf der linken Seite eine extra große Tasche.</szItemDesc>
 		<szBRName>Bundeswehr-Weste</szBRName>
-		<szBRDesc>Diese fabrikneue Bundeswehr-Weste im Flecktarn-Muster besitzt auf der linken Seite eine große Tasche.</szBRDesc>
+		<szBRDesc>Diese fabrikneue Bundeswehr-Weste im Flecktarn-Muster besitzt auf der linken Seite eine extra große Tasche.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1086</uiIndex>
 		<szItemName>106 Weste</szItemName>
-		<szLongItemName>Russische 106 Weste</szLongItemName>
+		<szLongItemName>russische 106 Weste</szLongItemName>
 		<szItemDesc>Diese russische Weste kann vielseitig genutzt werden.</szItemDesc>
-		<szBRName>Russische 106 Weste</szBRName>
+		<szBRName>russische 106 Weste</szBRName>
 		<szBRDesc>Diese russische Weste kann vielseitig genutzt werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1087</uiIndex>
 		<szItemName>107 Weste</szItemName>
-		<szLongItemName>Russische 107 Weste</szLongItemName>
+		<szLongItemName>russische 107 Weste</szLongItemName>
 		<szItemDesc>Diese spezielle Weste wurde entwickelt um eine Vielzahl von Magazinen zu tragen. Damit sollte Ihnen nie die Munition ausgehen!</szItemDesc>
-		<szBRName>Russische 107 Weste</szBRName>
+		<szBRName>russische 107 Weste</szBRName>
 		<szBRDesc>Diese spezielle Weste wurde entwickelt um eine Vielzahl von Magazinen zu tragen. Damit sollte Ihnen nie die Munition ausgehen!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1088</uiIndex>
 		<szItemName>RM22SF Weste</szItemName>
-		<szLongItemName>Russische RM22SF Weste</szLongItemName>
+		<szLongItemName>russische RM22SF Weste</szLongItemName>
 		<szItemDesc>Diese spezielle Weste wurde für russische Spezialeinheiten entwickelt um Magazine und Granaten am Mann zu tragen.</szItemDesc>
-		<szBRName>Russische RM22SF Weste</szBRName>
+		<szBRName>russische RM22SF Weste</szBRName>
 		<szBRDesc>Diese spezielle Weste wurde für russische Spezialeinheiten entwickelt um Magazine und Granaten am Mann zu tragen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8735,7 +8735,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1095</uiIndex>
-		<szItemName>ARUC Rucksack</szItemName>
+		<szItemName>ARUC</szItemName>
 		<szLongItemName>ARUCK Rucksack</szLongItemName>
 		<szItemDesc>Dieser Rucksack hat zusätzlich zwei äußere Taschen.</szItemDesc>
 		<szBRName>ARUC Rucksack</szBRName>
@@ -8743,10 +8743,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1096</uiIndex>
-		<szItemName>MALICE3</szItemName>
-		<szLongItemName>MALICE3 Rucksack</szLongItemName>
+		<szItemName>MALICE 3</szItemName>
+		<szLongItemName>MALICE 3 Rucksack</szLongItemName>
 		<szItemDesc>Dieser Rucksack hat zusätzliche äußere Taschen.</szItemDesc>
-		<szBRName>MALICE3 Rucksack</szBRName>
+		<szBRName>MALICE 3 Rucksack</szBRName>
 		<szBRDesc>Dieser Rucksack hat zusätzliche äußere Taschen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8759,10 +8759,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1098</uiIndex>
-		<szItemName>TAC 3-Day</szItemName>
-		<szLongItemName>TAC 3-Day Kampftasche</szLongItemName>
+		<szItemName>TAC-3-Day</szItemName>
+		<szLongItemName>TAC-3-Day Kampftasche</szLongItemName>
 		<szItemDesc>Diese Kampftasche hat eine zusätzliche äußere Tasche.</szItemDesc>
-		<szBRName>TAC 3-Day</szBRName>
+		<szBRName>TAC-3-Day Kampftasche</szBRName>
 		<szBRDesc>Diese Kampftasche hat eine zusätzliche äußere Tasche.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8985,36 +8985,51 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1170</uiIndex>
-		<szItemName>AR-Gren.</szItemName>
-		<szLongItemName>AR-Mag / Grenade Pouch</szLongItemName>
-		<szItemDesc>Beschreibung erw´ünscht</szItemDesc>
-		<szBRName>AR-Mag / Grenade Pouch</szBRName>
-		<szBRDesc>Beschreibung erw´ünscht</szBRDesc>
+		<szItemName>Mag.-Gr.</szItemName>
+		<szLongItemName>Magazin/Granat Tasche</szLongItemName>
+		<szItemDesc>In dieser Tasche können Sie zwei Magazine sowie drei Granaten verstauen.</szItemDesc>
+		<szBRName>Magazin/Granat Tasche</szBRName>
+		<szBRDesc>In dieser Tasche können Sie zwei Magazine sowie drei Granaten verstauen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1171</uiIndex>
-		<szItemName>AR-Util.</szItemName>
-		<szLongItemName>AR-Mag / Utility Pouch</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>AR-Mag / Utility Pouch</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>Mag.-Ut.</szItemName>
+		<szLongItemName>Magazin/Utensilien Tasche</szLongItemName>
+		<szItemDesc>In dieser Tasche können Sie zwei Magazine sowie größere Utensilien wie z.B. Sprengstoff verstauen.</szItemDesc>
+		<szBRName>Magazin/Utensilien Tasche</szBRName>
+		<szBRDesc>In dieser Tasche können Sie zwei Magazine sowie größere Utensilien wie z.B. Sprengstoff verstauen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1172</uiIndex>
-		<szItemName>Cant.-Util.</szItemName>
-		<szLongItemName>Canteen / Utility Pouch</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>Canteen / Utility Pouch</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>Feldfl.-Ut.</szItemName>
+		<szLongItemName>Feldflasche/Utensilien Tasche</szLongItemName>
+		<szItemDesc>In dieser Tasche können Sie eine Feldflasche sowie größere Utensilien wie z.B. Sprengstoff verstauen.</szItemDesc>
+		<szBRName>Feldfl./Utensilien Tasche</szBRName>
+		<szBRDesc>In dieser Tasche können Sie eine Feldflasche sowie größere Utensilien wie z.B. Sprengstoff verstauen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1173</uiIndex>
+		<szItemName>Ut.-Gran.</szItemName>
+		<szLongItemName>Utensilien/Granat Tasche</szLongItemName>
+		<szItemDesc>In dieser Tasche können Sie größere Utensilien wie z.B. Sprengstoff und drei Granaten verstauen.</szItemDesc>
+		<szBRName>Utensilien/Granat Tasche</szBRName>
+		<szBRDesc>In dieser Tasche können Sie größere Utensilien wie z.B. Sprengstoff und drei Granaten verstauen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1174</uiIndex>
+		<szItemName>gr.Mag.-Ut.</szItemName>
+		<szLongItemName>gr. Magazin/Utensilien Tasche</szLongItemName>
+		<szItemDesc>In dieser Tasche können Sie größere Utensilien wie z.B. Sprengstoff und lange Magazine verstauen.</szItemDesc>
+		<szBRName>gr. Magazin/Utensilien Tasche</szBRName>
+		<szBRDesc>In dieser Tasche können Sie größere Utensilien wie z.B. Sprengstoff und lange Magazine verstauen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1175</uiIndex>
+		<szItemName>gr.Mag-Gran.</szItemName>
+		<szLongItemName>gr. Magazin/Granat Tasche</szLongItemName>
+		<szItemDesc>In dieser Tasche können Sie zwei lange Magazine sowie zwei Granaten verstauen.</szItemDesc>
+		<szBRName>gr. Magazin/Granat Tasche</szBRName>
+		<szBRDesc>In dieser Tasche können Sie zwei lange Magazine sowie zwei Granaten verstauen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1176</uiIndex>
@@ -9028,9 +9043,9 @@
 		<uiIndex>1177</uiIndex>
 		<szItemName>Spectre</szItemName>
 		<szLongItemName>Spectre M4</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Bei der Entwicklung dieser hässlichen MP aus Italien wurde großer Wert auf eine hohe Zuverlässigleit gelegt.</szItemDesc>
 		<szBRName>Spectre M4</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Aufgrund einiger interessanter Konstruktions- merkmale ist diese italienische MP besonders zuverlässig. Der Lauf wird bei jedem Schuss durch einen Luftstrom gekühlt, somit wird ein Überhitzen auch bei Dauerfeuer vermieden!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1178</uiIndex>
@@ -9051,9 +9066,9 @@
 	<ITEM>
 		<uiIndex>1180</uiIndex>
 		<szItemName>ZF-42</szItemName>
-		<szLongItemName>ZF-42</szLongItemName>
+		<szLongItemName>ZF-42 Zielfernrohr</szLongItemName>
 		<szItemDesc>Dieses Zielfernrohr aus deutscher Fertigung ist passend für das MAUSER Gewehr 98 und den Karabiner 98k.</szItemDesc>
-		<szBRName>ZF-42</szBRName>
+		<szBRName>ZF-42 Zielfernrohr</szBRName>
 		<szBRDesc>Bobby Ray's konnte für Sie dieses seltene Zielfernrohr aus deutscher Fertigung ergattern, es ist passend für das MAUSER Gewehr 98 und den Karabiner 98k.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -9110,7 +9125,7 @@
 		<szLongItemName>HK MG36</szLongItemName>
 		<szItemDesc>Das neue Maschinengewehr auf Basis des G36 dient als 'Light Support Weapon' für die Infanterie.</szItemDesc>
 		<szBRName>HK MG36</szBRName>
-		<szBRDesc>Das neue Maschinengewehr auf Basis des G36 dient als 'Light Support Weapon' für die Infanterie.</szBRDesc>
+		<szBRDesc>Das neue Maschinengewehr auf Basis des G36 dient als 'Light Support Weapon' für die Infanterie. Feuermodus: S-3-F</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1188</uiIndex>
@@ -9122,19 +9137,14 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1189</uiIndex>
-		<szItemName>Flare</szItemName>
-		<szLongItemName>Emergency Flare</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>Emergency Flare</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1190</uiIndex>
 		<szItemName>KAC PDW</szItemName>
 		<szLongItemName>KAC PDW</szLongItemName>
-		<szItemDesc>Diese PDW hat eine 8" Lauf und ist nicht schwerer als eine große Pistole. Sie stellt die ideale Bewaffnung für Militärpolizei und private Sicherheitskräfte dar.</szItemDesc>
+		<szItemDesc>Diese PDW hat eine 8"-Lauf und ist nicht schwerer als eine große Pistole. Sie stellt die ideale Bewaffnung für Militärpolizei und private Sicherheitskräfte dar.</szItemDesc>
 		<szBRName>KAC PDW</szBRName>
-		<szBRDesc>Die 2006 vorgestellte Neuentwicklung von KNIGHT'S ARMANT COMPANY (USA) besitzt einen 8" Lauf und feuert eine optimierte Patrone für kurze Waffenläufe im Kaliber 6x35mm. Bestellen Sie noch heute Ihr Exemplar zum Testen!</szBRDesc>
+		<szBRDesc>Die 2006 vorgestellte Neuentwicklung von KNIGHT'S ARMANT COMPANY (USA) besitzt einen 8"-Lauf und feuert eine für kurze Waffenläufe optimierte Patrone im Kaliber 6x35mm. Bestellen Sie noch heute Ihr Exemplar zum testen!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1191</uiIndex>
@@ -9148,7 +9158,7 @@
 		<uiIndex>1192</uiIndex>
 		<szItemName>Automag V</szItemName>
 		<szLongItemName>AMT Automag V</szLongItemName>
-		<szItemDesc>Die Automag V wurde von Harry Sanford Ende der 90er Jahre entwickelt und auf den Markt gebracht. Sie hat einen 6.5" Lauf und wird wie alle Automag's ausschließlich in Edelstahl gefertigt.</szItemDesc>
+		<szItemDesc>Die Automag V wurde von Harry Sanford Ende der 90er Jahre entwickelt und auf den Markt gebracht. Sie hat einen 6.5"-Lauf und wird wie alle Automag's ausschließlich in Edelstahl gefertigt.</szItemDesc>
 		<szBRName>AMT Automag V</szBRName>
 		<szBRDesc>Die Automag V wurde von Harry Sanford Ende der 90er Jahre entwickelt und auf den Markt gebracht. Sie gilt als die ergonomischste und leichteste, halbautomatische Pistole im Kaliber .50 Action Express.</szBRDesc>
 	</ITEM>
@@ -9162,18 +9172,18 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1194</uiIndex>
-		<szItemName>Python</szItemName>
-		<szLongItemName>Colt Python</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>Colt Python</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>Python .357</szItemName>
+		<szLongItemName>Colt Python .357</szLongItemName>
+		<szItemDesc>Der 'Python' war der erste moderne Revolver der Nachkriegszeit und besitzt einen 6-Zoll-Lauf mit ventilierter Laufschiene.</szItemDesc>
+		<szBRName>Colt Python .357</szBRName>
+		<szBRDesc>Der 'Python' war der erste moderne Revolver der Nachkriegszeit und besitzt einen 6-Zoll-Lauf mit ventilierter Laufschiene. Dieses Modell zählt neben dem 'Peacemaker' zu den hochwertigsten Revolvern die jemals von COLT gefertigt wurden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1195</uiIndex>
 		<szItemName>MC51</szItemName>
 		<szLongItemName>FR Ordnance MC51</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Diese britische MP vereint hohe Feuerkraft und kompakte Abmessungen. Aufgrund der aufwendigen Wartung und Störanfälligkeit wurde sie durch die HK MP53 ersetzt.</szItemDesc>
 		<szBRName>FR Ordnance MC51</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Diese britische MP basiert auf dem G3KA4 und wurde Mitte der 80er Jahre von FR Ordnance für die S.A.S. entwickelt und gefertigt. Aufgrund der aufwendigen Wartung wurde sie nach kurzer Zeit durch die HK MP53 ersetzt. Es wurden nur 50 Exemplare gefertigt.</szBRDesc>
 	</ITEM>
 </ITEMLIST>

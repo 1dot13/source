@@ -1002,9 +1002,9 @@
 		<uiIndex>33</uiIndex>
 		<szItemName>CAWS</szItemName>
 		<szLongItemName>HK CAWS</szLongItemName>
-		<szItemDesc>This German/US experimental Close Assault Weapon System makes the concept of human skeet shooting a gory reality.</szItemDesc>
+		<szItemDesc>The experimental Close Assault Weapons System from HK. It fires special 12 gauge belted brass-case ammunition developed by Olin/Winchester that delivers superior range to conventional shotguns. It is capable of semi and fully-automatic operation.</szItemDesc>
 		<szBRName>HK CAWS</szBRName>
-		<szBRDesc>Olin/Heckler and Koch's Close Assault Weapon System is the ideal light support weapon for any aspiring mercenary. Designed for the 10-gauge shotgun shell, it also fires miniature grenades.</szBRDesc>
+		<szBRDesc>Though canceled by the US Military, we're sure you'll love the CAWS! We've just received a limited shipment of these experimental fully automatic shotguns, and their special ammo. Turn your enemies into a gory mess at 240RPM. Comes with built-in scope.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>33</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -1221,6 +1221,7 @@
 		<usItemClass>16</usItemClass>
 		<ubClassIndex>41</ubClassIndex>
 		<ubCursor>20</ubCursor>
+		<ubGraphicNum>343</ubGraphicNum>
 		<ubWeight>211</ubWeight>
 		<usPrice>1800</usPrice>
 		<ubCoolness>8</ubCoolness>
@@ -1521,9 +1522,9 @@
 	<ITEM>
 		<uiIndex>56</uiIndex>
 		<szItemName>Automag III</szItemName>
-		<szLongItemName>Automag III</szLongItemName>
+		<szLongItemName>Automag III Custom</szLongItemName>
 		<szItemDesc>This Automag has been modified into a monster of a pistol which fires .50 Beowulf rifle rounds. The name "Big Bertha" has been engraved on its sides.</szItemDesc>
-		<szBRName>Automag III</szBRName>
+		<szBRName>Automag III Custom</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>56</ubClassIndex>
@@ -3092,11 +3093,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>135</uiIndex>
-		<szItemName>Frag Grenade</szItemName>
-		<szLongItemName>Frag Grenade</szLongItemName>
-		<szItemDesc>This standard army issued fragmentation grenade is packed with TNT and has a pull-ring, pressure-released firing trigger.</szItemDesc>
-		<szBRName>Frag Grenade</szBRName>
-		<szBRDesc>Your typical army issue standard fragmentation hand grenade. Jam packed with TNT, this pressure-released firing device with pull-ring, provides great lethal coverage. Stop 'em dead in their tracks, every time.</szBRDesc>
+		<szItemName>Mk2 Grenade</szItemName>
+		<szLongItemName>Mk2 Defensive Grenade</szLongItemName>
+		<szItemDesc>An old, but still extremely effective US hand grenade. The MK2 is a defensive grenade packed with TNT, and delivers a wide fragmentation radius. Uses a pull-ring, pressure-released firing trigger.</szItemDesc>
+		<szBRName>Mk2 Defensive Grenade</szBRName>
+		<szBRDesc>This "pineapple" may be older than you are, but it's no less effective on the modern battlefield. Jam packed with TNT, this pressure-released firing device with pull-ring provides great lethal coverage. Stop 'em dead in their tracks, every time.</szBRDesc>
 		<usItemClass>256</usItemClass>
 		<ubClassIndex>4</ubClassIndex>
 		<ubCursor>6</ubCursor>
@@ -4755,7 +4756,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<NightVisionRangeBonus>10</NightVisionRangeBonus>
 		<DayVisionRangeBonus>-20</DayVisionRangeBonus>
-		<CaveVisionRangeBonus>10</CaveVisionRangeBonus>
+		<CaveVisionRangeBonus>0</CaveVisionRangeBonus>
 		<BrightLightVisionRangeBonus>-40</BrightLightVisionRangeBonus>
 	</ITEM>
 	<ITEM>
@@ -15220,6 +15221,7 @@
 		<ubWeight>86</ubWeight>
 		<usPrice>7360</usPrice>
 		<ubCoolness>9</ubCoolness>
+		<bReliability>-1</bReliability>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
