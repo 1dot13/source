@@ -965,7 +965,7 @@
 		<SilencedSound>156</SilencedSound>
 		<bBurstAP>1</bBurstAP>
 		<bAutofireShotsPerFiveAP>3</bAutofireShotsPerFiveAP>
-		<APsToReload>8</APsToReload>
+		<APsToReload>4</APsToReload>
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
 		<AutoPenalty>7</AutoPenalty>
@@ -8996,7 +8996,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>911</uiIndex>
-		<szWeaponName>GP-30 Grenade Launcher (Built-in)</szWeaponName>
+		<szWeaponName>GP-25 Grenade Launcher (Built-in)</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>6</ubShotsPer4Turns>

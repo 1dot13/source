@@ -254,10 +254,10 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>6</pIndex>
-		<pName>Medium General</pName>
-		<pSilhouette>8</pSilhouette>
+		<pName>Ammo Belt</pName>
+		<pSilhouette>22</pSilhouette>
 		<pType>0</pType>
-		<pRestriction>0</pRestriction>
+		<pRestriction>1024</pRestriction>
 		<ItemCapacityPerSize.0>1</ItemCapacityPerSize.0>
 		<ItemCapacityPerSize.1>1</ItemCapacityPerSize.1>
 		<ItemCapacityPerSize.2>1</ItemCapacityPerSize.2>
@@ -338,8 +338,8 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>8</pIndex>
-		<pName>TNT Pocket</pName>
-		<pSilhouette>10</pSilhouette>
+		<pName>Medium General</pName>
+		<pSilhouette>8</pSilhouette>
 		<pType>0</pType>
 		<pRestriction>0</pRestriction>
 		<ItemCapacityPerSize.0>1</ItemCapacityPerSize.0>

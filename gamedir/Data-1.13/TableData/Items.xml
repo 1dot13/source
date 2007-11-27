@@ -4239,7 +4239,7 @@
 		<szLongItemName>Leather &amp; Kevlar Jacket</szLongItemName>
 		<szItemDesc>This bomber-style leather aviation jacket has been lined with Kevlar to provide a minimal amount of protection.</szItemDesc>
 		<szBRName>Leather &amp; Kevlar Jacket</szBRName>
-		<szBRDesc>This bomber-style leather aviation jacket has been lined with Kevlar to provide a minimal amount of protection.</szBRDesc>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
 		<usItemClass>2048</usItemClass>
 		<ubClassIndex>28</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
@@ -4252,8 +4252,7 @@
 		<Repairable>1</Repairable>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
-		<BR_NewInventory>4</BR_NewInventory>
-		<BR_UsedInventory>1</BR_UsedInventory>
+		<NotBuyable>1</NotBuyable>
 		<AimBonus>-1</AimBonus>
 		<LeatherJacket>1</LeatherJacket>
 	</ITEM>
@@ -14400,9 +14399,9 @@
 		<uiIndex>659</uiIndex>
 		<szItemName>Groza 14-A</szItemName>
 		<szLongItemName>Groza OTs-14/7-A</szLongItemName>
-		<szItemDesc>A bull-pup design of the AKS-74U in 7.62mm WP.  This particular variant has a built-in GP-30 grenade launcher.</szItemDesc>
+		<szItemDesc>A bull-pup design of the AKS-74U in 7.62mm WP.  This particular variant has a built-in GP-25 grenade launcher.</szItemDesc>
 		<szBRName>Groza OTs-14/7-A</szBRName>
-		<szBRDesc>The Groza is a neat little weapon, but not recommended for lefties due the placement of its cocking handle, selector switch and ejection port.  This variant comes with an integral GP-30 40mm grenade launcher.</szBRDesc>
+		<szBRDesc>The Groza is a neat little weapon, but not recommended for lefties due the placement of its cocking handle, selector switch and ejection port.  This variant comes with an integral GP-25 40mm grenade launcher.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>659</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -20863,11 +20862,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>911</uiIndex>
-		<szItemName>GP-30 Launcher</szItemName>
-		<szLongItemName>GP-30 Grenade Launcher (Built-in)</szLongItemName>
-		<szItemDesc>This model of the Groza comes with an integrated 40mm GP-30 grenade launcher.  The GP-30 fires 40mm VOG-25 and VOG-25P grenades.</szItemDesc>
-		<szBRName>GP-30 Grenade Launcher (Built-in)</szBRName>
-		<szBRDesc>This model of the Groza comes with an integrated 40mm GP-30 grenade launcher.</szBRDesc>
+		<szItemName>GP-25 Launcher</szItemName>
+		<szLongItemName>GP-25 Grenade Launcher (Built-in)</szLongItemName>
+		<szItemDesc>This model of the Groza comes with an integrated 40mm GP-25 grenade launcher. The GP-25 fires 40mm VOG-25 and VOG-25P grenades.</szItemDesc>
+		<szBRName>GP-25 Grenade Launcher (Built-in)</szBRName>
+		<szBRDesc>This model of the Groza comes with an integrated 40mm GP-25 grenade launcher.</szBRDesc>
 		<usItemClass>16</usItemClass>
 		<ubClassIndex>911</ubClassIndex>
 		<ubCursor>20</ubCursor>
@@ -21040,7 +21039,7 @@
 		<ubClassIndex>917</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>219</ubGraphicNum>
-		<ubWeight>80</ubWeight>
+		<ubWeight>75</ubWeight>
 		<usPrice>2500</usPrice>
 		<ubCoolness>9</ubCoolness>
 		<bRepairEase>-3</bRepairEase>
