@@ -3986,7 +3986,7 @@
 		<mHelmetStatus>90</mHelmetStatus>
 		<mVestStatus>93</mVestStatus>
 		<mLegStatus>0</mLegStatus>
-		<mWeaponStatus>100</mWeaponStatus>
+		<mWeaponStatus>95</mWeaponStatus>
 		<mBig0Status>100</mBig0Status>
 		<mBig1Status>100</mBig1Status>
 		<mBig2Status>0</mBig2Status>
@@ -7266,7 +7266,7 @@
 		<mVest>164</mVest>
 		<mLeg>0</mLeg>
 		<mWeapon>11</mWeapon>
-		<mBig0>116</mBig0>
+		<mBig0>83</mBig0>
 		<mBig1>0</mBig1>
 		<mBig2>0</mBig2>
 		<mBig3>0</mBig3>

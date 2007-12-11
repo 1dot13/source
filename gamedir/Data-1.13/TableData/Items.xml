@@ -7157,7 +7157,7 @@
 		<szLongItemName>SIG P226R</szLongItemName>
 		<szItemDesc>A runner-up in the US Military's bid to replace the venerable Colt 1911, this compact and reliable handgun is still a favorite among armed forces.</szItemDesc>
 		<szBRName>SIG P226R</szBRName>
-		<szBRDesc>Reliability and ease of use are key features of this swiss made handgun.</szBRDesc>
+		<szBRDesc>Reliability and ease of use are key features of this swiss made handgun. Comes with a short Picatinny rail in front of the triggerguard.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>336</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -7463,7 +7463,7 @@
 		<uiIndex>347</uiIndex>
 		<szItemName>AK-47</szItemName>
 		<szLongItemName>AK-47</szLongItemName>
-		<szItemDesc>Often copied, but never truly duplicated, Mikhail Kalishnikov's gift to the world has kept on giving for more than half a century of armed conflict.</szItemDesc>
+		<szItemDesc>Often copied, but never truly duplicated, Mikhail Kalashnikov's gift to the world has kept on giving for more than half a century of armed conflict.</szItemDesc>
 		<szBRName>AK-47</szBRName>
 		<szBRDesc>Universally known and respected amongst assault rifles.  Get yours today!</szBRDesc>
 		<usItemClass>2</usItemClass>
@@ -7526,7 +7526,7 @@
 		<ubClassIndex>349</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>83</ubGraphicNum>
-		<ubWeight>20</ubWeight>
+		<ubWeight>21</ubWeight>
 		<usPrice>2450</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<bRepairEase>-2</bRepairEase>
@@ -10495,7 +10495,7 @@
 		<uiIndex>495</uiIndex>
 		<szItemName>7.62x25mm Biz. Mag</szItemName>
 		<szLongItemName>7.62x25mm Bizon Mag</szLongItemName>
-		<szItemDesc>A 45 round box of 7.62 Tk for your Bizon PP-27 SMG.</szItemDesc>
+		<szItemDesc>A 45 round box of 7.62 Tk for your Bizon 2-07 SMG.</szItemDesc>
 		<szBRName>7.62x25mm Biz. Mag</szBRName>
 		<szBRDesc>Originally converted PPSh-41/PPS-43 box magazines, these clips are made to fire 7.62 x 25 from a Bizon SMG.</szBRDesc>
 		<usItemClass>1024</usItemClass>
@@ -11351,11 +11351,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>538</uiIndex>
-		<szItemName>12.3mm Loader</szItemName>
-		<szLongItemName>12.3x50mm Speedloader</szLongItemName>
-		<szItemDesc>This five-shot speedloader of 12.3x50mm rounds is for the massive U-94 UDAR Revolver.</szItemDesc>
-		<szBRName>12.3mm Loader</szBRName>
-		<szBRDesc>Owing its dimensions to the 32 gauge shotgun shell, the 12.3mm is a weighty round for a weighty handgun.</szBRDesc>
+		<szItemName>12.5mm Loader</szItemName>
+		<szLongItemName>12.5x35mm Speedloader</szLongItemName>
+		<szItemDesc>This five-shot speedloader of 12.5x35mm rounds is for the massive U-94S UDAR Revolver.</szItemDesc>
+		<szBRName>12.5mm Loader</szBRName>
+		<szBRDesc>Owing its dimensions to the 32 gauge shotgun shell, the 12.5mm is a weighty round for a weighty handgun.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>284</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
@@ -11906,11 +11906,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>564</uiIndex>
-		<szItemName>12.3mm Loader FL</szItemName>
-		<szLongItemName>12.3x50mm Speedloader, Flechette</szLongItemName>
-		<szItemDesc>This five-shot speedloader of 12.3x50mm armor piercing flechette rounds is for the massive U-94 UDAR Revolver.</szItemDesc>
-		<szBRName>12.3mm Loader FL</szBRName>
-		<szBRDesc>Open up with a shower of armour piercing metal shards and your opponents will be cut down to size.. Literally.</szBRDesc>
+		<szItemName>12.5mm Loader FL</szItemName>
+		<szLongItemName>12.5x35mm Speedloader, Flechette</szLongItemName>
+		<szItemDesc>This five-shot speedloader of 12.5x35mm armor piercing flechette rounds is for the massive U-94S UDAR Revolver.</szItemDesc>
+		<szBRName>12.5mm Loader FL</szBRName>
+		<szBRDesc>Open up with a shower of armour piercing metal shards and your opponents will be cut down to size. Literally.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>285</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
@@ -13406,7 +13406,7 @@
 		<szLongItemName>Beretta AR-70/90</szLongItemName>
 		<szItemDesc>Italian designed and manufactured assault rifle, the AR-70/90 can be a platform for a dazzling array of attachments.</szItemDesc>
 		<szBRName>Beretta AR-70/90</szBRName>
-		<szBRDesc>Yet another Kalishnikov-inspired weapon, this 5.56mm assault rifle has a quality all its own.</szBRDesc>
+		<szBRDesc>Yet another Kalashnikov-inspired weapon, this 5.56mm assault rifle has a quality all its own.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>624</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -13458,16 +13458,16 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>626</uiIndex>
-		<szItemName>Bizon</szItemName>
-		<szLongItemName>Bizon PP-19</szLongItemName>
-		<szItemDesc>Also known as the 2-07, this Bizon SMG is chambered to accept 7.62 Tokarev box magazines.</szItemDesc>
-		<szBRName>Bizon PP-19</szBRName>
+		<szItemName>Bizon 2-07</szItemName>
+		<szLongItemName>Bizon 2-07</szLongItemName>
+		<szItemDesc>This Bizon SMG is chambered to accept 7.62 Tokarev box magazines.</szItemDesc>
+		<szBRName>Bizon 2-07</szBRName>
 		<szBRDesc>Variety is the spice of life, try out the SMG in its 7.62 Tk variant.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>626</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>129</ubGraphicNum>
-		<ubWeight>25</ubWeight>
+		<ubWeight>30</ubWeight>
 		<usPrice>1410</usPrice>
 		<ubCoolness>3</ubCoolness>
 		<bRepairEase>-1</bRepairEase>
@@ -14397,16 +14397,16 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>659</uiIndex>
-		<szItemName>Groza 14-A</szItemName>
-		<szLongItemName>Groza OTs-14/7-A</szLongItemName>
+		<szItemName>Groza OC-14</szItemName>
+		<szLongItemName>Groza OC-14</szLongItemName>
 		<szItemDesc>A bull-pup design of the AKS-74U in 7.62mm WP.  This particular variant has a built-in GP-25 grenade launcher.</szItemDesc>
-		<szBRName>Groza OTs-14/7-A</szBRName>
+		<szBRName>Groza OC-14</szBRName>
 		<szBRDesc>The Groza is a neat little weapon, but not recommended for lefties due the placement of its cocking handle, selector switch and ejection port.  This variant comes with an integral GP-25 40mm grenade launcher.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>659</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>100</ubGraphicNum>
-		<ubWeight>47</ubWeight>
+		<ubWeight>41</ubWeight>
 		<usPrice>2840</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<bRepairEase>-1</bRepairEase>
@@ -14425,16 +14425,16 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>660</uiIndex>
-		<szItemName>Groza 14-A3</szItemName>
-		<szLongItemName>Groza OTs-14-A3</szLongItemName>
+		<szItemName>Groza 14-4A</szItemName>
+		<szLongItemName>Groza OC-14-4A-01</szLongItemName>
 		<szItemDesc>Putting a silencer on this already subsonic rifle can help you keep a low profile and stay stylish in any urban combat enviroment.</szItemDesc>
-		<szBRName>Groza OTs-14-A3</szBRName>
+		<szBRName>Groza OC-14-4A-01</szBRName>
 		<szBRDesc>Putting a silencer on this already subsonic rifle can help you keep a low profile and stay stylish in any urban combat enviroment. Fires 9x39mm Subsonic ammo that is highly armor effective. </szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>660</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>211</ubGraphicNum>
-		<ubWeight>35</ubWeight>
+		<ubWeight>28</ubWeight>
 		<usPrice>3230</usPrice>
 		<ubCoolness>6</ubCoolness>
 		<bRepairEase>-1</bRepairEase>
@@ -14516,7 +14516,7 @@
 		<szLongItemName>HK G11 PDW</szLongItemName>
 		<szItemDesc>A personal defence weapon designed to compliment the G11 rifle, the G11 PDW was rumored to only be in the prototype phase.</szItemDesc>
 		<szBRName>HK G11 PDW</szBRName>
-		<szBRDesc>SPECIAL!  Available for a limited time only:  G11 sidearm prototypes with glow-in-the-dark keychain!</szBRDesc>
+		<szBRDesc>SPECIAL!  Available for a limited time only: G11 sidearm prototypes with glow-in-the-dark keychain!</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>663</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -14524,7 +14524,7 @@
 		<ubWeight>15</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
 		<usPrice>1890</usPrice>
-		<ubCoolness>4</ubCoolness>
+		<ubCoolness>6</ubCoolness>
 		<bRepairEase>-2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -15729,7 +15729,7 @@
 		<uiIndex>706</uiIndex>
 		<szItemName>RPK</szItemName>
 		<szLongItemName>RPK</szLongItemName>
-		<szItemDesc>Another product of Mikhail Kalishnikov, from Russia with love.</szItemDesc>
+		<szItemDesc>Another product of Mikhail Kalashnikov, from Russia with love.</szItemDesc>
 		<szBRName>RPK</szBRName>
 		<szBRDesc>The RPK is essentially an AK-47 with a heavier barrel and stock. It can empty a 30 round magazine or a 75 round drum at 600rpm.</szBRDesc>
 		<usItemClass>2</usItemClass>
@@ -16667,15 +16667,15 @@
 	<ITEM>
 		<uiIndex>739</uiIndex>
 		<szItemName>UDAR</szItemName>
-		<szLongItemName>U-94 UDAR</szLongItemName>
+		<szLongItemName>U-94S UDAR</szLongItemName>
 		<szItemDesc>The large caliber Udar revolver is commonly used by private security agencies and other organisations involved in special missions.</szItemDesc>
-		<szBRName>U-94 UDAR</szBRName>
-		<szBRDesc>A large caliber (12.3 mm) revolver with high stopping power, used by private security forces and on special operations.</szBRDesc>
+		<szBRName>U-94S UDAR</szBRName>
+		<szBRDesc>A large caliber (12.5 mm) revolver with high stopping power, used by private security forces and on special operations.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>739</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>216</ubGraphicNum>
-		<ubWeight>10</ubWeight>
+		<ubWeight>9</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
 		<usPrice>810</usPrice>
 		<ubCoolness>3</ubCoolness>
@@ -17872,7 +17872,7 @@
 		<ubClassIndex>781</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>294</ubGraphicNum>
-		<ubWeight>39</ubWeight>
+		<ubWeight>34</ubWeight>
 		<usPrice>1680</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<bRepairEase>-1</bRepairEase>
@@ -17958,7 +17958,7 @@
 		<ubGraphicNum>296</ubGraphicNum>
 		<ubWeight>39</ubWeight>
 		<usPrice>2700</usPrice>
-		<ubCoolness>5</ubCoolness>
+		<ubCoolness>6</ubCoolness>
 		<bReliability>1</bReliability>
 		<bRepairEase>1</bRepairEase>
 		<Damageable>1</Damageable>
@@ -20666,10 +20666,10 @@
 	<ITEM>
 		<uiIndex>904</uiIndex>
 		<szItemName>GP-30</szItemName>
-		<szLongItemName>GP-30 Grenade Launcher</szLongItemName>
-		<szItemDesc>An underbarrel mounted grenade launcher for Russian made assault rifles.  The GP-30 fires 40mm VOG-25 and VOG-25P grenades.</szItemDesc>
+		<szLongItemName>GP-30 Obuvka Grenade Launcher</szLongItemName>
+		<szItemDesc>An underbarrel mounted grenade launcher for Russian made assault rifles. The GP-30 Obuvka fires 40mm VOG-25 and VOG-25P grenades.</szItemDesc>
 		<szBRName>GP-30 Grenade Launcher</szBRName>
-		<szBRDesc>An improved model of the GP-25, the GP-30 features a sighting recticle and a recoil buffer to protect the rifle to which it is attached.  The GP-30 fires 40mm VOG-25 and VOG-25P grenades.</szBRDesc>
+		<szBRDesc>An improved model of the GP-25 Kostyor, the GP-30 Obuvka features a sighting recticle and a recoil buffer to protect the rifle to which it is attached. The GP-30 fires 40mm VOG-25 and VOG-25P grenades.</szBRDesc>
 		<usItemClass>16</usItemClass>
 		<ubClassIndex>904</ubClassIndex>
 		<ubCursor>20</ubCursor>
@@ -20754,10 +20754,10 @@
 	<ITEM>
 		<uiIndex>907</uiIndex>
 		<szItemName>RGM</szItemName>
-		<szLongItemName>RGM Grenade Launcher</szLongItemName>
-		<szItemDesc>Light-weight, retractable 40mm Russian grenade launcher for the grenadier in your squad.  The RGM fires 40mm VOG-25 and VOG-25P grenades.</szItemDesc>
+		<szLongItemName>RGM Kastet Grenade Launcher</szLongItemName>
+		<szItemDesc>Light-weight, retractable 40mm Russian grenade launcher for the grenadier in your squad. The RGM Kastet fires 40mm VOG-25 and VOG-25P grenades.</szItemDesc>
 		<szBRName>RGM Grenade Launcher</szBRName>
-		<szBRDesc>Living proof that the "Russian concussion" wasn't just the nick-name of the foreign exchange student you dated in college.  The RGM fires 40mm VOG-25 and VOG-25P grenades.</szBRDesc>
+		<szBRDesc>Living proof that the "Russian concussion" wasn't just the nick-name of the foreign exchange student you dated in college. The RGM Kastet fires 40mm VOG-25 and VOG-25P grenades.</szBRDesc>
 		<usItemClass>16</usItemClass>
 		<ubClassIndex>907</ubClassIndex>
 		<ubCursor>20</ubCursor>
@@ -20863,10 +20863,10 @@
 	<ITEM>
 		<uiIndex>911</uiIndex>
 		<szItemName>GP-25 Launcher</szItemName>
-		<szLongItemName>GP-25 Grenade Launcher (Built-in)</szLongItemName>
-		<szItemDesc>This model of the Groza comes with an integrated 40mm GP-25 grenade launcher. The GP-25 fires 40mm VOG-25 and VOG-25P grenades.</szItemDesc>
+		<szLongItemName>GP-25 Kostyor Grenade Launcher (Built-in)</szLongItemName>
+		<szItemDesc>This model of the Groza comes with an integrated 40mm GP-25 grenade launcher. The GP-25 Kostyor fires 40mm VOG-25 and VOG-25P grenades.</szItemDesc>
 		<szBRName>GP-25 Grenade Launcher (Built-in)</szBRName>
-		<szBRDesc>This model of the Groza comes with an integrated 40mm GP-25 grenade launcher.</szBRDesc>
+		<szBRDesc>This model of the Groza comes with an integrated 40mm GP-25 Kostyor grenade launcher.</szBRDesc>
 		<usItemClass>16</usItemClass>
 		<ubClassIndex>911</ubClassIndex>
 		<ubCursor>20</ubCursor>
@@ -20973,9 +20973,9 @@
 	<ITEM>
 		<uiIndex>915</uiIndex>
 		<szItemName>RPG-16</szItemName>
-		<szLongItemName>RPG-16</szLongItemName>
+		<szLongItemName>RPG-16 Grom</szLongItemName>
 		<szItemDesc>The RPG-16 was developed in the 1960s, and has better range than the RPG-7.</szItemDesc>
-		<szBRName>RPG-16</szBRName>
+		<szBRName>RPG-16 Grom</szBRName>
 		<szBRDesc>Once your enemy sees your packing the kind of firepower an RPG provides, have mercy on him and let him run away in fear.  Or not.</szBRDesc>
 		<usItemClass>16</usItemClass>
 		<ubClassIndex>915</ubClassIndex>
@@ -21001,9 +21001,9 @@
 	<ITEM>
 		<uiIndex>916</uiIndex>
 		<szItemName>RPG-26</szItemName>
-		<szLongItemName>RPG-26</szLongItemName>
+		<szLongItemName>RPG-26 Aglen</szLongItemName>
 		<szItemDesc>WARNING: DO NOT AIM AT FACE.</szItemDesc>
-		<szBRName>RPG-26</szBRName>
+		<szBRName>RPG-26 Aglen</szBRName>
 		<szBRDesc>For the times when flowers just don't cut it: say it with high explosive rocket propelled grenades.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>916</ubClassIndex>
@@ -21031,10 +21031,10 @@
 	<ITEM>
 		<uiIndex>917</uiIndex>
 		<szItemName>RPG-27</szItemName>
-		<szLongItemName>RPG-27</szLongItemName>
+		<szLongItemName>RPG-27 Tavolga</szLongItemName>
 		<szItemDesc>A top of the line RPG launcher with improved range and accuracy.</szItemDesc>
-		<szBRName>RPG-27</szBRName>
-		<szBRDesc>The RPG-27 is a further development of rocket propelled grenade launchers, and is endowed with increased range and accuracy.</szBRDesc>
+		<szBRName>RPG-27 Tavolga</szBRName>
+		<szBRDesc>The RPG-27 Tavolga is a further development of rocket propelled grenade launchers, and is endowed with increased range and accuracy.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>917</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -21061,10 +21061,10 @@
 	<ITEM>
 		<uiIndex>918</uiIndex>
 		<szItemName>RPO-A</szItemName>
-		<szLongItemName>RPO-A</szLongItemName>
+		<szLongItemName>RPO-A Shmel</szLongItemName>
 		<szItemDesc>With this baby, you can turn a pool party into a BBQ.  Literally.</szItemDesc>
-		<szBRName>RPO-A</szBRName>
-		<szBRDesc>With the RPO-A Thermobaric rocket launcher, you can turn a pool party into a BBQ.  Literally.</szBRDesc>
+		<szBRName>RPO-A Shmel</szBRName>
+		<szBRDesc>With the RPO-A Shmel thermobaric rocket launcher, you can turn a pool party into a BBQ.  Literally.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>918</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -22152,10 +22152,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>976</uiIndex>
-		<szItemName>Frag Rocket</szItemName>
-		<szLongItemName>Fragmentation Rocket</szLongItemName>
+		<szItemName>OG-7V Rocket</szItemName>
+		<szLongItemName>OG-7V Fragmentation Rocket</szLongItemName>
 		<szItemDesc>Perfect for those times when you need to make a big entrance.</szItemDesc>
-		<szBRName>Fragmentation Rocket</szBRName>
+		<szBRName>OG-7V Fragmentation Rocket</szBRName>
 		<szBRDesc>A rocket propelled grenade is perfect for those times when you need to make a big entrance.</szBRDesc>
 		<usItemClass>256</usItemClass>
 		<ubClassIndex>55</ubClassIndex>
@@ -22176,10 +22176,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>977</uiIndex>
-		<szItemName>HEAT Rocket</szItemName>
-		<szLongItemName>HEAT Rocket</szLongItemName>
+		<szItemName>PG-7VM Rocket</szItemName>
+		<szLongItemName>PG-7VM HEAT Rocket</szLongItemName>
 		<szItemDesc>Works exactly like a can opener, but on tanks.  Oh, and it's a bit louder.</szItemDesc>
-		<szBRName>HEAT Rocket</szBRName>
+		<szBRName>PG-7VM HEAT Rocket</szBRName>
 		<szBRDesc>Works exactly like a can opener, but on tanks.  Oh, and it's a bit louder.</szBRDesc>
 		<usItemClass>256</usItemClass>
 		<ubClassIndex>56</ubClassIndex>
@@ -22200,10 +22200,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>978</uiIndex>
-		<szItemName>Thermo Rocket</szItemName>
-		<szLongItemName>Thermobaric Rocket</szLongItemName>
+		<szItemName>TBG-7V Rocket</szItemName>
+		<szLongItemName>TBG-7V Thermobaric Rocket</szLongItemName>
 		<szItemDesc>Guaranteed to blow your enemies away.</szItemDesc>
-		<szBRName>Thermobaric Rocket</szBRName>
+		<szBRName>TBG-7V Thermobaric Rocket</szBRName>
 		<szBRDesc>Guaranteed to blow your enemies away.</szBRDesc>
 		<usItemClass>256</usItemClass>
 		<ubClassIndex>57</ubClassIndex>
@@ -22669,10 +22669,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1000</uiIndex>
-		<szItemName>PSO-P</szItemName>
-		<szLongItemName>PSO-P Scope</szLongItemName>
+		<szItemName>PSO-3</szItemName>
+		<szLongItemName>PSO-3 Scope</szLongItemName>
 		<szItemDesc>Better than the PSO-1 (Magnification is 8x), this scope is often used on Russian DMRs and sniper rifles.</szItemDesc>
-		<szBRName>PSO-P Scope</szBRName>
+		<szBRName>PSO-3 Scope</szBRName>
 		<szBRDesc>If you have an older style Russian rifle and need a highpower scope, than this is your best choice. Magnification is 8x.</szBRDesc>
 		<usItemClass>268435456</usItemClass>
 		<ubGraphicType>1</ubGraphicType>
@@ -27264,5 +27264,60 @@
 		<BR_ROF>600</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1196</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1196</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1197</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1197</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1198</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1198</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1199</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1199</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1200</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Index 1200</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
+		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
 	</ITEM>
 </ITEMLIST>
