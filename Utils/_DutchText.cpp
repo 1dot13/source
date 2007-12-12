@@ -4214,6 +4214,15 @@ STR16 New113Message[] =
 	L"Rain started.",
 	L"Rain ended.",
 	L"Watch out for snipers...",
+	L"Suppression fire!",	
+	L"BRST",
+	L"AUTO",
+	L"GL",
+	L"GL BRST",
+	L"GL AUTO",
+	L"Sniper!",
+	L"Unable to split money due to having an item on your cursor.",
+	L"Arrival of new recruits is being rerouted to sector %s, as scheduled drop-off point of sector %s is enemy occupied.",
 };
 
 #endif //DUTCH
