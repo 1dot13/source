@@ -362,7 +362,7 @@ void RenderInsuranceContract()
 
 	//Display the title slogan
 	GetInsuranceText( INS_SNGL_ENTERING_REVIEWING_CLAIM, sText );
-	DrawTextToScreen( sText, LAPTOP_SCREEN_UL_X, INS_CTRCT_TITLE_Y, LAPTOP_SCREEN_LR_X-LAPTOP_SCREEN_UL_X-iScreenWidthOffset, INS_FONT_BIG, INS_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	DrawTextToScreen( sText, LAPTOP_SCREEN_UL_X, INS_CTRCT_TITLE_Y, LAPTOP_SCREEN_LR_X-(LAPTOP_SCREEN_UL_X)/*-iScreenWidthOffset*/, INS_FONT_BIG, INS_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 
 	//Get and display the insurance bullet
