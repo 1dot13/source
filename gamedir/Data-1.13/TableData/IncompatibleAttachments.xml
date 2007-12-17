@@ -266,7 +266,15 @@
 	</INCOMPATIBLEATTACHMENT>
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>885</itemIndex>
+		<incompatibleattachmentIndex>1197</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>885</itemIndex>
 		<incompatibleattachmentIndex>886</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>886</itemIndex>
+		<incompatibleattachmentIndex>1197</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>886</itemIndex>
@@ -1511,5 +1519,21 @@
 	<INCOMPATIBLEATTACHMENT>
 		<itemIndex>1182</itemIndex>
 		<incompatibleattachmentIndex>1181</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1184</itemIndex>
+		<incompatibleattachmentIndex>1199</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1197</itemIndex>
+		<incompatibleattachmentIndex>885</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1197</itemIndex>
+		<incompatibleattachmentIndex>886</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>1199</itemIndex>
+		<incompatibleattachmentIndex>1184</incompatibleattachmentIndex>
 	</INCOMPATIBLEATTACHMENT>
 </INCOMPATIBLEATTACHMENTLIST>

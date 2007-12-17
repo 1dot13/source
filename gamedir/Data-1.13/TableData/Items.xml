@@ -12818,7 +12818,7 @@
 		<uiIndex>604</uiIndex>
 		<szItemName>Agram 2000</szItemName>
 		<szLongItemName>Agram 2000</szLongItemName>
-		<szItemDesc>The Agram 2000 has high marks and stlying that make it popular not only with Eastern Block police forces, but their mafia counterparts as well.</szItemDesc>
+		<szItemDesc>The Agram 2000 has high marks and styling that make it popular not only with Eastern Block police forces, but their mafia counterparts as well.</szItemDesc>
 		<szBRName>Agram 2000</szBRName>
 		<szBRDesc>This 9mm submachine gun is one of the sportiest we have to offer!</szBRDesc>
 		<usItemClass>2</usItemClass>
@@ -13172,7 +13172,7 @@
 		<uiIndex>616</uiIndex>
 		<szItemName>AN-94</szItemName>
 		<szLongItemName>AN-94 "Abakan"</szLongItemName>
-		<szItemDesc>The new AN-94 Abakan design enables the gun to "pulse," firing a very fast two bullet burst before the recoil affects the user.</szItemDesc>
+		<szItemDesc>The new AN-94 Abakan design enables the gun to "pulse", firing a very fast two bullet burst before the recoil affects the user.</szItemDesc>
 		<szBRName>AN-94 "Abakan"</szBRName>
 		<szBRDesc>Like father like son. This weapon was designed by the offspring of the immortal Mikhail Kalashnikov. Another leap forward in gun making, you can be sure to see it soon on a hijacked airliner near you.</szBRDesc>
 		<usItemClass>2</usItemClass>
@@ -18583,7 +18583,7 @@
 		<szLongItemName>Ghillie Hood</szLongItemName>
 		<szItemDesc>Either as a companion to the Ghillie suit or on its own, the Ghillie Hood camouflages your most important piece of equipment: your head. </szItemDesc>
 		<szBRName>Ghillie Hood</szBRName>
-		<szBRDesc>The finishing touch for your ghillie suit. Also usefull to keep the sun out of your eyes and as mesquito net.</szBRDesc>
+		<szBRDesc>The finishing touch for your ghillie suit. Also usefull to keep the sun out of your eyes and as mosquito net.</szBRDesc>
 		<usItemClass>2048</usItemClass>
 		<ubClassIndex>61</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
@@ -18756,7 +18756,7 @@
 		<szLongItemName>Treated Dyneema Leggings</szLongItemName>
 		<szItemDesc>The tensile strength of these Dyneema leggings has been improved by a treatment with Compound-18.</szItemDesc>
 		<szBRName>Treated Dyneema Leggings</szBRName>
-		<szBRDesc>Contrary to what you see in the movies, there really is no 'safe place' on the human body to get shot. These treated trousers are worth the investement.</szBRDesc>
+		<szBRDesc>Contrary to what you see in the movies, there really is no 'safe place' on the human body to get shot. These treated trousers are worth the investment.</szBRDesc>
 		<usItemClass>2048</usItemClass>
 		<ubClassIndex>68</ubClassIndex>
 		<ubGraphicType>2</ubGraphicType>
@@ -19240,7 +19240,7 @@
 		<uiIndex>836</uiIndex>
 		<szItemName>C. Tw. Vest</szItemName>
 		<szLongItemName>Coated Twaron Vest</szLongItemName>
-		<szItemDesc>A liberal application of alien goo has strenghtened the protective properties of this vest.</szItemDesc>
+		<szItemDesc>A liberal application of alien goo has strengthened the protective properties of this vest.</szItemDesc>
 		<szBRName>Coated Twaron Vest</szBRName>
 		<szBRDesc>This crepitus coated vest will keep unwanted foreign objects from entering your chest cavity at high speed.</szBRDesc>
 		<usItemClass>2048</usItemClass>
