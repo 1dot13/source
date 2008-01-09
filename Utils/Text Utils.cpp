@@ -13,6 +13,7 @@ BOOLEAN LoadItemInfo(UINT16 ubIndex, STR16 pNameString, STR16 pInfoString )
 
 	if (pNameString != NULL)
 	{
+#if 0
 		j = -1;
 		for (int i=0;i<80;i++)
 		{
@@ -189,10 +190,15 @@ BOOLEAN LoadItemInfo(UINT16 ubIndex, STR16 pNameString, STR16 pInfoString )
 				pNameString[i] ='\0';
 			}
 		}
+#else
+		wcsncpy( pNameString, Item[ubIndex].szLongItemName, 80);
+		pNameString[79] ='\0';
+#endif
 	}
 
 	if(pInfoString != NULL)
 	{
+#if 0
 		j = -1;
 		for (int i=0;i<400;i++)
 		{
@@ -379,6 +385,10 @@ BOOLEAN LoadItemInfo(UINT16 ubIndex, STR16 pNameString, STR16 pInfoString )
 				pInfoString[i] ='\0';
 			}
 		}
+#else
+		wcsncpy( pInfoString, Item[ubIndex].szItemDesc, 400);
+		pInfoString[399] ='\0';
+#endif
 	}
 
 	return(TRUE);
@@ -388,6 +398,7 @@ BOOLEAN LoadBRName(UINT16 ubIndex, STR16 pNameString )
 {
 	if (pNameString != NULL)
 	{
+#if 0
 		int j = -1;
 
 		for (int i=0;i<80;i++)
@@ -564,6 +575,10 @@ BOOLEAN LoadBRName(UINT16 ubIndex, STR16 pNameString )
 				pNameString[i] ='\0';
 			}
 		}
+#else
+		wcsncpy( pNameString, Item[ubIndex].szBRName, 80);
+		pNameString[79] ='\0';
+#endif
 	}
 	return TRUE;
 }
@@ -572,6 +587,7 @@ BOOLEAN LoadBRDesc(UINT16 ubIndex, STR16 pDescString )
 {
 	if (pDescString != NULL)
 	{
+#if 0
 		int j = -1;
 
 		for (int i=0;i<400;i++)
@@ -749,6 +765,10 @@ BOOLEAN LoadBRDesc(UINT16 ubIndex, STR16 pDescString )
 				pDescString[i] ='\0';
 			}
 		}
+#else
+		wcsncpy( pDescString, Item[ubIndex].szBRDesc, 400);
+		pDescString[399] ='\0';
+#endif
 	}
 
 	return TRUE;
@@ -758,13 +778,14 @@ BOOLEAN LoadShortNameItemInfo(UINT16 ubIndex, STR16 pNameString )
 {
 	if(pNameString != NULL)
 	{
+#if 0
 		int j = -1;
 
 		for (int i=0;i<80;i++)
 		{
 			j++;
 			
-			if ( i<(int)strlen(Item[ubIndex].szItemName))
+			if ( i<(int)wcslen(Item[ubIndex].szItemName))
 			{
 				pNameString[i] = Item[ubIndex].szItemName [j];
 
@@ -939,6 +960,10 @@ BOOLEAN LoadShortNameItemInfo(UINT16 ubIndex, STR16 pNameString )
 				pNameString[i] ='\0';
 			}
 		}
+#else
+		wcsncpy( pNameString, Item[ubIndex].szItemName, 80 );
+		pNameString[79] ='\0';
+#endif
 	}
 
 	return(TRUE);

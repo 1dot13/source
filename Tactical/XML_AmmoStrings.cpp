@@ -128,11 +128,16 @@ ammoEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			if(pData->curIndex < pData->maxArraySize)
 			{
+#if 0
 				for(int i=0;i<min((int)strlen(pData->szCharData),MAX_CHAR_DATA_LENGTH);i++)
 				{
 					temp = pData->szCharData[i];
 					AmmoCaliber[pData->curIndex][i] = temp;
 				}
+#else
+				MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, AmmoCaliber[pData->curIndex], sizeof(AmmoCaliber[0])/sizeof(AmmoCaliber[0][0]) );
+				AmmoCaliber[pData->curIndex][sizeof(AmmoCaliber[0])/sizeof(AmmoCaliber[0][0]) - 1] = '\0';
+#endif
 			}
 
 		}
@@ -141,11 +146,16 @@ ammoEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			if(pData->curIndex < pData->maxArraySize)
 			{
+#if 0
 				for(int i=0;i<min((int)strlen(pData->szCharData),MAX_CHAR_DATA_LENGTH);i++)
 				{
 					temp = pData->szCharData[i];
 					BobbyRayAmmoCaliber[pData->curIndex][i] = temp;
 				}
+#else
+				MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, BobbyRayAmmoCaliber[pData->curIndex], sizeof(BobbyRayAmmoCaliber[0])/sizeof(BobbyRayAmmoCaliber[0][0]) );
+				BobbyRayAmmoCaliber[pData->curIndex][sizeof(BobbyRayAmmoCaliber[0])/sizeof(BobbyRayAmmoCaliber[0][0]) - 1] = '\0';
+#endif
 			}
 
 		}

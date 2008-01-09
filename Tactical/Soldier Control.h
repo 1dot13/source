@@ -1073,6 +1073,8 @@ public:
 
 	vector<int>	bNewItemCount;
 	vector<int> bNewItemCycleCount;
+
+	INT16 sPlotSrcGrid;
 }; // SOLDIERTYPE;	
 
 #define SIZEOF_SOLDIERTYPE_POD offsetof( SOLDIERTYPE, endOfPOD )

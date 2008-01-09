@@ -1081,8 +1081,8 @@ void HandleRenderInvSlots( SOLDIERTYPE *pSoldier, UINT8 fDirtyLevel )
 #       if defined( _DEBUG ) /* Sergeant_Kolja, to be removed later again */
         if( pSoldier->inv[ cnt ].ItemData.Gun.ubGunAmmoType >= MAXITEMS )
         {
-         	DebugMsg(TOPIC_JA2, DBG_LEVEL_1, String("pObject (%s) corrupted! GetHelpTextForItem() can crash.", (pSoldier->inv[ cnt ].usItem<MAXITEMS) ? Item[pSoldier->inv[ cnt ].usItem].szItemName : "???" ));
-    	    ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"pObject (%S) corrupted! GetHelpTextForItem() can crash.",    (pSoldier->inv[ cnt ].usItem<MAXITEMS) ? Item[pSoldier->inv[ cnt ].usItem].szItemName : "???" );
+         	DebugMsg(TOPIC_JA2, DBG_LEVEL_1, String("pObject (%S) corrupted! GetHelpTextForItem() can crash.", (pSoldier->inv[ cnt ].usItem<MAXITEMS) ? Item[pSoldier->inv[ cnt ].usItem].szItemName : L"???" ));
+    	    ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"pObject (%s) corrupted! GetHelpTextForItem() can crash.",    (pSoldier->inv[ cnt ].usItem<MAXITEMS) ? Item[pSoldier->inv[ cnt ].usItem].szItemName : L"???" );
           DebugBreak();
           AssertMsg( 0, "pObject corrupted! GetHelpTextForItem() can crash." );
         }
@@ -7447,8 +7447,8 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
   if ( (pObject->ItemData.Gun.ubGunAmmoType >= MAXITEMS) 
      )
   {
-    DebugMsg(TOPIC_JA2, DBG_LEVEL_1, String( "corrupted pObject (%s) found in GetHelpTextForItem()", (usItem<MAXITEMS) ? Item[usItem].szItemName : "???" ));
-  	ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"corrupted pObject (%S) found in GetHelpTextForItem()"    , (usItem<MAXITEMS) ? Item[usItem].szItemName : "???" );
+    DebugMsg(TOPIC_JA2, DBG_LEVEL_1, String( "corrupted pObject (%S) found in GetHelpTextForItem()", (usItem<MAXITEMS) ? Item[usItem].szItemName : L"???" ));
+  	ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"corrupted pObject (%s) found in GetHelpTextForItem()"    , (usItem<MAXITEMS) ? Item[usItem].szItemName : L"???" );
     DebugBreak();
     AssertMsg( 0, "GetHelpTextForItem() would crash" );
   }

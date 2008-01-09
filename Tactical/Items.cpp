@@ -3551,20 +3551,45 @@ BOOLEAN AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pTargetObj, OBJECTTYP
 				// count down through # of attaching items and add to status of item in position 0
 				for (bLoop = pAttachment->ubNumberOfObjects - 1; bLoop >= 0; bLoop--)
 				{
-					if (pTargetObj->ItemData.Generic.bStatus[0] + pAttachment->ItemData.Generic.bStatus[bLoop] <= ubLimit)
+					if ( Item[ pTargetObj->usItem ].usItemClass == IC_AMMO )
 					{
-						// consume this one totally and continue
-						pTargetObj->ItemData.Generic.bStatus[0] += pAttachment->ItemData.Generic.bStatus[bLoop];
-						RemoveObjFrom( pAttachment, bLoop );
-						// reset loop limit
-						bLoop = pAttachment->ubNumberOfObjects; // add 1 to counteract the -1 from the loop
-					}
+						// Cast to a bigger int to prevent overflow
+						UINT32 uiTotal = pTargetObj->ItemData.Ammo.ubShotsLeft[0] + pAttachment->ItemData.Ammo.ubShotsLeft[bLoop];
+						if ( uiTotal <= ubLimit)
+						{
+							// consume this one totally and continue
+							pTargetObj->ItemData.Ammo.ubShotsLeft[0] = (UINT8) uiTotal;
+							RemoveObjFrom( pAttachment, bLoop );
+							// reset loop limit
+							bLoop = pAttachment->ubNumberOfObjects; // add 1 to counteract the -1 from the loop
+						}
+						else
+						{
+							// add part of this one and then we're done
+							pAttachment->ItemData.Ammo.ubShotsLeft[bLoop] = (UINT8) (uiTotal - ubLimit);
+							pTargetObj->ItemData.Ammo.ubShotsLeft[0] = ubLimit;
+							break;
+						}
+					} 
 					else
 					{
-						// add part of this one and then we're done
-						pAttachment->ItemData.Generic.bStatus[bLoop] -= (ubLimit - pTargetObj->ItemData.Generic.bStatus[0]);
-						pTargetObj->ItemData.Generic.bStatus[0] = ubLimit;
-						break;
+						// Cast to a bigger int to prevent overflow
+						INT32 iTotal = pTargetObj->ItemData.Generic.bStatus[0] + pAttachment->ItemData.Generic.bStatus[bLoop];
+						if ( iTotal <= ubLimit)
+						{
+							// consume this one totally and continue
+							pTargetObj->ItemData.Generic.bStatus[0] = (INT8) iTotal;
+							RemoveObjFrom( pAttachment, bLoop );
+							// reset loop limit
+							bLoop = pAttachment->ubNumberOfObjects; // add 1 to counteract the -1 from the loop
+						}
+						else
+						{
+							// add part of this one and then we're done
+							pAttachment->ItemData.Generic.bStatus[bLoop] = (INT8) (iTotal - ubLimit);
+							pTargetObj->ItemData.Generic.bStatus[0] = (INT8) ubLimit;
+							break;
+						}
 					}
 				}
 				break;

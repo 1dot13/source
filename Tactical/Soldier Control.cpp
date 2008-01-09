@@ -2391,6 +2391,10 @@ BOOLEAN EVENT_InitNewSoldierAnim( SOLDIERTYPE *pSoldier, UINT16 usNewState, UINT
 
 	// CHECK IF THIS NEW STATE IS NON-INTERRUPTABLE
 	// IF SO - SET NON-INT FLAG
+	// 0verhaul:  Okay, here is a question:  Is the "non-interrupt" supposed to be transferrable to other anims?
+	// That is, if one anim is not interruptable but it chains to another anim, should the "not interruptable" flag
+	// remain?  I'm going to try out the theory that new animations should reset the "don't interrupt" flag.
+#if 0
 	if ( uiNewAnimFlags & ANIM_NONINTERRUPT )
 	{
 		pSoldier->fInNonintAnim = TRUE;
@@ -2400,6 +2404,10 @@ BOOLEAN EVENT_InitNewSoldierAnim( SOLDIERTYPE *pSoldier, UINT16 usNewState, UINT
 	{
 		pSoldier->fRTInNonintAnim = TRUE;
 	}
+#else
+	pSoldier->fInNonintAnim = (uiNewAnimFlags & ANIM_NONINTERRUPT) != 0;
+	pSoldier->fRTInNonintAnim = (uiNewAnimFlags & ANIM_RT_NONINTERRUPT) != 0;
+#endif
 
 	// CHECK IF WE ARE NOT AIMING, IF NOT, RESET LAST TAGRET!
 	if ( !(gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_FIREREADY ) && !(gAnimControl[ usNewState ].uiFlags & ANIM_FIREREADY ) )
@@ -2653,6 +2661,9 @@ BOOLEAN EVENT_InitNewSoldierAnim( SOLDIERTYPE *pSoldier, UINT16 usNewState, UINT
 				usNewGridNo = NewGridNo( (UINT16)pSoldier->sGridNo, DirectionInc( pSoldier->ubDirection ) );
 				usNewGridNo = NewGridNo( (UINT16)usNewGridNo, DirectionInc( pSoldier->ubDirection ) );
 
+				pSoldier->sPlotSrcGrid = pSoldier->sGridNo;
+				pSoldier->fPastXDest = FALSE;
+				pSoldier->fPastYDest = FALSE;
 				pSoldier->usPathDataSize = 0;
 				pSoldier->usPathIndex    = 0;
 				pSoldier->usPathingData[ pSoldier->usPathDataSize ] = pSoldier->ubDirection;
@@ -8409,13 +8420,13 @@ InternalGivingSoldierCancelServices( pSoldier, FALSE );
 
 void MoveMerc( SOLDIERTYPE *pSoldier, FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckRange )
 {
-	INT16					dDegAngle;
+	//INT16					dDegAngle;
 	FLOAT					dDeltaPos;
 	FLOAT					dXPos , dYPos;
 	BOOLEAN				fStop = FALSE;
 
 
-	dDegAngle = (INT16)( dAngle * 180 / PI );			
+	//dDegAngle = (INT16)( dAngle * 180 / PI );			
 	//sprintf( gDebugStr, "Move Angle: %d", (int)dDegAngle );
 
 	// Find delta Movement for X pos
@@ -8588,7 +8599,7 @@ UINT8 atan8( INT16 sXPos, INT16 sYPos, INT16 sXPos2, INT16 sYPos2 )
 	DOUBLE  test_x =  sXPos2 - sXPos;
 	DOUBLE  test_y =  sYPos2 - sYPos;
 	UINT8	  mFacing = WEST;
-	INT16					dDegAngle;
+	//INT16					dDegAngle;
 	DOUBLE angle;
 
 	if ( test_x == 0 )
@@ -8599,7 +8610,7 @@ UINT8 atan8( INT16 sXPos, INT16 sYPos, INT16 sXPos2, INT16 sYPos2 )
 	angle = atan2( test_x, test_y );
 
 
-	dDegAngle = (INT16)( angle * 180 / PI );			
+	//dDegAngle = (INT16)( angle * 180 / PI );			
 	//sprintf( gDebugStr, "Move Angle: %d", (int)dDegAngle );
 
 	do
@@ -11602,6 +11613,8 @@ void ChangeToFlybackAnimation( SOLDIERTYPE *pSoldier, UINT8 ubDirection )
 	// Remove any previous actions
 	pSoldier->ubPendingAction		 = NO_PENDING_ACTION;
 
+	pSoldier->sPlotSrcGrid = pSoldier->sGridNo;
+
 	// Since we're manually setting our path, we have to reset these @#$@# flags too.  Otherwise we don't reach the
 	// destination a lot of the time
 	pSoldier->fPastXDest = 0;
@@ -11647,6 +11660,8 @@ void ChangeToFallbackAnimation( SOLDIERTYPE *pSoldier, UINT8 ubDirection )
 	// Remove any previous actions
 	pSoldier->ubPendingAction		 = NO_PENDING_ACTION;
 
+	pSoldier->sPlotSrcGrid = pSoldier->sGridNo;
+
 	// Since we're manually setting our path, we have to reset these @#$@# flags too.  Otherwise we don't reach the
 	// destination a lot of the time
 	pSoldier->fPastXDest = 0;
@@ -11689,7 +11704,7 @@ void SetSoldierCowerState( SOLDIERTYPE *pSoldier, BOOLEAN fOn )
 	}
 	else
 	{
-		if ( (pSoldier->uiStatusFlags & SOLDIER_COWERING) )
+		if ( (pSoldier->uiStatusFlags & SOLDIER_COWERING) || (gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_STAND) )
 		{
 			EVENT_InitNewSoldierAnim( pSoldier, END_COWER, 0, FALSE );
 

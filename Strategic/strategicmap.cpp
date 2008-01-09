@@ -814,6 +814,8 @@ citytableStartElementHandle(void *userData, const XML_Char *name, const XML_Char
 {
 	citytableParseData * pData = (citytableParseData *) userData;
 
+	memset( pData->szCharData, 0, sizeof( pData->szCharData) );
+
 	if(pData->currentDepth <= pData->maxReadDepth) //are we reading this element?
 	{
 
@@ -918,7 +920,7 @@ citytableStartElementHandle(void *userData, const XML_Char *name, const XML_Char
 			pData->maxReadDepth++; //we are not skipping this element
 		}
 
-		pData->szCharData[0] = '\0';
+		//pData->szCharData[0] = '\0';
 	}
 
 	pData->currentDepth++;
@@ -986,7 +988,8 @@ citytableEndElementHandle(void *userData, const XML_Char *name)
 				gfTownUsesLoyalty     [pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townUsesLoyalty;
 				gubTownRebelSentiment [pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townRebelSentiment;
 				gfMilitiaAllowedInTown[pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townMilitiaAllowed;
-				mbstowcs( pTownNames[pData->curCityInfo.uiIndex], pData->curCityInfo.cityName, MAX_TOWN_NAME_LENGHT);
+				//mbstowcs( pTownNames[pData->curCityInfo.uiIndex], pData->curCityInfo.cityName, MAX_TOWN_NAME_LENGHT);
+				MultiByteToWideChar( CP_UTF8, 0, pData->curCityInfo.cityName, -1, pTownNames[pData->curCityInfo.uiIndex], MAX_TOWN_NAME_LENGHT);
 			}
 		}
 		else if(strcmp(name, "uiIndex") == 0 && pData->curElement == CITYTABLE_ELEMENT_INDEX)

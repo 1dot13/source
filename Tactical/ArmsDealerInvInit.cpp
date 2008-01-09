@@ -1389,9 +1389,9 @@ int CompareItemsForSorting( UINT16 usItem1Index, UINT16 usItem2Index, UINT8 ubIt
 			//}
 
 			//Madd: sort by name (for now at least):
-			if (_stricmp(Item[usItem1Index].szBRName,Item[usItem2Index].szBRName) < 0 )
+			if (_wcsicmp(Item[usItem1Index].szBRName,Item[usItem2Index].szBRName) < 0 )
 				return -1;
-			else if (_stricmp(Item[usItem1Index].szBRName,Item[usItem2Index].szBRName) > 0 )
+			else if (_wcsicmp(Item[usItem1Index].szBRName,Item[usItem2Index].szBRName) > 0 )
 				return 1;
 			else
 			{

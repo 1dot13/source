@@ -1592,6 +1592,8 @@ void BtnContractLengthButtonCallback(GUI_BUTTON *btn,INT32 reason)
 
 		gubContractLength = ubRetValue;
 		DisplaySelectLights(TRUE, FALSE);
+
+		DisplayMercChargeAmount();
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
@@ -1626,6 +1628,7 @@ void BtnBuyEquipmentButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		gfBuyEquipment = (UINT8)MSYS_GetBtnUserData( btn, 0 );
 		DisplaySelectLights(FALSE, TRUE);
 
+		DisplayMercChargeAmount();
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )

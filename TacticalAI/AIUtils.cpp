@@ -1559,7 +1559,7 @@ INT16 ClosestReachableFriendInTrouble(SOLDIERTYPE *pSoldier, BOOLEAN * pfClimbin
 	// civilians don't really have any "friends", so they don't bother with this
 	if (PTR_CIVILIAN)
 	{
-		return(sClosestFriend);
+		return(NOWHERE);
 	}
 
 	// consider every friend of this soldier (locations assumed to be known)

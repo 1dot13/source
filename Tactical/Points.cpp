@@ -113,22 +113,45 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT16 sGridno, INT8 bDir, INT8
 	case TRAVELCOST_DEBRIS		: sAPCost += AP_MOVEMENT_RUBBLE;
 		break;
 	case TRAVELCOST_SHORE		: sAPCost += AP_MOVEMENT_SHORE; // wading shallow water
+		if (!IS_MERC_BODY_TYPE( pSoldier ))
+		{
+			return -1;
+		}
 		break;
 	case TRAVELCOST_KNEEDEEP	:	sAPCost += AP_MOVEMENT_LAKE; // wading waist/chest deep - very slow
+		if (!IS_MERC_BODY_TYPE( pSoldier ))
+		{
+			return -1;
+		}
 		break;
 
 	case TRAVELCOST_DEEPWATER: sAPCost += AP_MOVEMENT_OCEAN; // can swim, so it's faster than wading
+		if (!IS_MERC_BODY_TYPE( pSoldier ))
+		{
+			return -1;
+		}
 		break;
 		/*
 		case TRAVELCOST_VEINEND	:
 		case TRAVELCOST_VEINMID	: sAPCost += AP_MOVEMENT_FLAT;
 		break;
 		*/
-	case TRAVELCOST_DOOR			: sAPCost += AP_MOVEMENT_FLAT + AP_OPEN_DOOR + AP_OPEN_DOOR; // Include open and close costs!
+	case TRAVELCOST_DOOR			: 
+		if (pSoldier->bTeam == gbPlayerNum)
+		{
+			return -1;
+		}
+		sAPCost += AP_MOVEMENT_FLAT + AP_OPEN_DOOR + AP_OPEN_DOOR; // Include open and close costs!
 		break;
 
 		// cost for jumping a fence REPLACES all other AP costs!
-	case TRAVELCOST_FENCE		: return( AP_JUMPFENCE );
+	case TRAVELCOST_FENCE		: 
+		if (!IS_MERC_BODY_TYPE( pSoldier ))
+		{
+			return -1;
+		}
+
+		return( AP_JUMPFENCE );
 
 	case TRAVELCOST_NONE			: return( 0 );
 

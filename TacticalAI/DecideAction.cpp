@@ -958,7 +958,8 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 
 
 		//hide those suicidal militia on the roofs for better defensive positions
-		if ( pSoldier->bTeam == MILITIA_TEAM )
+		// 0verhaul:  If they are allowed at all to move
+		if ( pSoldier->bTeam == MILITIA_TEAM && iChance != 0)
 			iChance += 20;
 
 		// reduce chance for any injury, less likely to hop up if hurt
@@ -1636,7 +1637,11 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 						if (!fUp)
 							DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d, is climbing down",pSoldier->ubID) );
 
-						if ( CanClimbFromHere ( pSoldier, fUp ) )
+						// 0verhaul:  the Closest Noise call returns the location of a climb.  So 1) it's not necessary to
+						// ask if we can climb from here.  And 2) It's not necessary to look for the climb point.  We already
+						// have it.
+//						if ( CanClimbFromHere ( pSoldier, fUp ) )
+						if ( pSoldier->sGridNo == sNoiseGridNo)
 						{
 							if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( AP_CLIMBROOF + MinAPsToAttack( pSoldier, sNoiseGridNo, ADDTURNCOST)))
 							{
@@ -1645,8 +1650,9 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 						}
 						else
 						{
-							pSoldier->usActionData = FindClosestClimbPoint(pSoldier, pSoldier->sGridNo , sNoiseGridNo , fUp );
-							if ( pSoldier->usActionData != NOWHERE )
+//							pSoldier->usActionData = FindClosestClimbPoint(pSoldier, pSoldier->sGridNo , sNoiseGridNo , fUp );
+							pSoldier->usActionData = sNoiseGridNo;
+							//if ( pSoldier->usActionData != NOWHERE )
 							{
 								return( AI_ACTION_MOVE_TO_CLIMB  );
 							}
@@ -1776,7 +1782,10 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 						if (!fUp)
 							DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d is climbing down",pSoldier->ubID) );
 
-						if ( CanClimbFromHere ( pSoldier, fUp ) )
+						// 0verhaul:  Closest Friend call also returns the climb point if climbing is necessary.  So don't
+						// climb the wrong building and don't search again
+						//if ( CanClimbFromHere ( pSoldier, fUp ) )
+						if (pSoldier->sGridNo == sClosestFriend)
 						{
 							if (IsActionAffordable(pSoldier) )
 							{
@@ -1785,8 +1794,9 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 						}
 						else
 						{
-							pSoldier->usActionData = FindClosestClimbPoint(pSoldier, pSoldier->sGridNo , sClosestFriend , fUp );
-							if ( pSoldier->usActionData != NOWHERE )
+							//pSoldier->usActionData = FindClosestClimbPoint(pSoldier, pSoldier->sGridNo , sClosestFriend , fUp );
+							pSoldier->usActionData = sClosestFriend;
+							//if ( pSoldier->usActionData != NOWHERE )
 							{
 								return( AI_ACTION_MOVE_TO_CLIMB  );
 							}
@@ -3023,7 +3033,10 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 								if (!fUp)
 									DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("Soldier %d is climbing down",pSoldier->ubID) );
 
-								if ( CanClimbFromHere ( pSoldier, fUp ) )
+								// 0verhaul:  Yet another chance to climb the wrong building and otherwise waste CPU power.
+								// We already know the climb point we want, which may not be here even if climbing is possible.
+								//if ( CanClimbFromHere ( pSoldier, fUp ) )
+								if (pSoldier->sGridNo == sClosestFriend)
 								{
 									if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( AP_CLIMBROOF + MinAPsToAttack( pSoldier, sClosestFriend, ADDTURNCOST)))
 									{
@@ -3032,10 +3045,11 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 								}
 								else
 								{
-									INT16 sClimbPoint = FindClosestClimbPoint(pSoldier, pSoldier->sGridNo , sClosestFriend , fUp );
-									if ( sClimbPoint != NOWHERE )
+									pSoldier->usActionData = sClosestFriend;
+									//INT16 sClimbPoint = FindClosestClimbPoint(pSoldier, pSoldier->sGridNo , sClosestFriend , fUp );
+									//if ( sClimbPoint != NOWHERE )
 									{
-										pSoldier->usActionData = sClimbPoint;
+										//pSoldier->usActionData = sClimbPoint;
 										return( AI_ACTION_MOVE_TO_CLIMB  );
 									}
 								}

@@ -450,6 +450,7 @@ INT16 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT16 sDesGrid, IN
 	UINT8 ubDirection,ubDirsLeft,ubDirChecked[8],fFound = FALSE;
 	INT8 bAPsLeft, fPathFlags;
 	UINT8 ubRoomRequired = 0, ubTempRoom;
+	BOOLEAN fAllowDest = FALSE;
 
 	// 0verhaul:  Make sure to clear the stored path since this always calculates a new one.
 	// This is needed if the path cannot be found.
@@ -618,6 +619,13 @@ INT16 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT16 sDesGrid, IN
  sGoToGrid = pSoldier->sGridNo;      // start back where soldier is standing now
  sAPCost = 0;		      // initialize path cost counter
 
+ // 0verhaul:  If the destination is within the patrol route, allow it.  This is necessary to allow an errant soldier
+ // to return to his patrol route if flanking or other actions have pulled him beyond his allowed range from origin.
+ if (SpacesAway(sOrigin,sDesGrid) <= usMaxDist)
+ {
+	fAllowDest = TRUE;
+ }
+
  // we'll only go as far along the plotted route as is within our
  // permitted roaming range, and we'll stop as soon as we're down to <= 5 APs
 
@@ -647,7 +655,8 @@ INT16 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT16 sDesGrid, IN
     }
 
    // if this takes us beyond our permitted "roaming range"
-   if (SpacesAway(sOrigin,sTempDest) > usMaxDist)
+   // but if it brings us closer, then allow it!
+   if (SpacesAway(sOrigin,sTempDest) > usMaxDist && !fAllowDest)
      break;           // quit here, sGoToGrid is where we are going
 
 

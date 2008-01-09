@@ -89,6 +89,27 @@ extern	BOOLEAN	gfUseConsecutiveQuickSaveSlots;
 extern	HINSTANCE					ghInstance;
 
 
+// Prepends the language prefix to the file name in a proposed path.
+static void AddLanguagePrefix(STR fileName, const STR language)
+{
+	char *fileComponent;
+
+	fileComponent = strrchr( fileName, '\\');
+	if (fileComponent)
+	{
+		fileComponent++;
+	}
+	else
+	{
+		fileComponent = fileName;
+	}
+
+	// Make sure to use the overlap-safe version of memory copy
+	memmove( fileComponent + strlen( language), fileComponent, strlen( fileComponent) + 1);
+	memmove( fileComponent, language, strlen( language) );
+}
+
+
 BOOLEAN LoadExternalGameplayData(STR directoryName)
 {
 	char fileName[MAX_PATH];
@@ -373,6 +394,16 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	if(!ReadInMapStructure(fileName))
 		return FALSE;
 		
+#ifdef RUSSIAN 
+	AddLanguagePrefix( fileName, RUSSIAN_PREFIX);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInMapStructure(fileName))
+			return FALSE;
+	}
+#endif
+
 	// Lesh: Strategic movement costs will be read in Strategic\Strategic Movement Costs.cpp,
 	//       function BOOLEAN InitStrategicMovementCosts();
 	//       It is called several times from various places and acts after clearing SectorInfo array
