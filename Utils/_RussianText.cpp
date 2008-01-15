@@ -242,7 +242,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"ненадежен",
 	L"простой ремонт",
 	L"сложный ремонт",
-	L"высокий урон",
+	L"большой урон",
 	L"малый урон",
 	L"скорострельный",
 	L"нескоростр.",
@@ -252,7 +252,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"тяжелый",
 	L"компактный",
 	L"очередями",
-	L"нет очереди",
+	L"",		//нет отсечки очереди
 	L"бол.магазин",
 	L"мал.магазин",
 
@@ -572,7 +572,7 @@ STR16 pUpperLeftMapScreenStrings[] =
 	L"Назначение", // the mercs current assignment 
 	L"Контракт", // the contract info about the merc
 	L"Здоровье", // the health level of the current merc
-	L"Отвага", // the morale of the current merc
+	L"Мораль", // the morale of the current merc
 	L"Сост.",	// the condition of the current vehicle
 	L"Бензин",	// the fuel level of the current vehicle
 };
@@ -732,7 +732,7 @@ STR16 pPersonnelScreenStrings[] =
 	L"Мед. депозит:", // amount of medical deposit put down on the merc
 	L"До конца контракта:", // cost of current contract
 	L"Убил врагов:", // number of kills by merc
-	L"Оказал помощь:", // number of assists on kills by merc
+	L"Помог убить:", // number of assists on kills by merc
 	L"Гонорар за день:", // daily cost of merc
 	L"Общая цена услуг:", // total cost of merc
 	L"Контракт:", // cost of current contract
@@ -759,7 +759,7 @@ STR16 gzMercSkillText[] =
 	L"Тяжелое оружие",
 	L"Авт. оружие",
 	L"Скрытность",
-	L"Ловкость",
+	L"Стрельба с двух рук",
 	L"Воровство",
 	L"Боевые искусства",
 	L"Холодное оружие",
@@ -1325,7 +1325,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Настройки (|O)",
 	L"Режим очереди (|B)",
 	L"Смотреть/Повернуться (|L)",
-	L"Здоровье: %d/%d\nЭнергия: %d/%d\nОтвага: %s",
+	L"Здоровье: %d/%d\nЭнергия: %d/%d\nМораль: %s",
 	L"Ну и?",					//this means "what?"
 	L"Продолж.",					//пр an abbrieviation for "Continued"
 	L"%s будет говорить.",
@@ -1368,7 +1368,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Этот сектор отсюда покинуть нельзя.",	//пр
 	L"%s слишком далеко.",	//когда пытаешься выйти из сектора при перечеркнутом значке выхода
 	L"Скрыть кроны деревьев",
-	L"Показывать кроны деревьев",
+	L"Показать кроны деревьев",
 	L"ВОРОНА",				//Crow, as in the large black bird
 	L"ШЕЯ",
 	L"ГОЛОВА",
@@ -1566,7 +1566,7 @@ STR16 pwTownInfoStrings[] =
 	L"",
 	L"Важные объекты", 				// main facilities in this town
 	L"Уровень", 					// the training level of civilians in this town
-	L"Тренировка гражданских",				// 10 // state of civilian training in town
+	L"Тренировка ополчения",				// 10 // state of civilian training in town
 	L"Ополчение", 					// the state of the trained civilians in the town
 };
 
@@ -1664,12 +1664,12 @@ STR16 pUpdateMercStrings[] =
 
 STR16 pMapScreenBorderButtonHelpText[] =
 {
-	L"Показать населенные пункты (|W)",
-	L"Показать шахты (|M)",
-	L"Показать отряды и врагов (|T)",
+	L"Населенные пункты (|W)",
+	L"Шахты (|M)",
+	L"Отряды и враги (|T)",
 	L"Карта воздушного пространства (|A)",
 	L"Показать вещи (|I)",
-	L"Показать ополчение и врагов (|Z)",
+	L"Ополчение и враги (|Z)",
 };
 
 
@@ -1805,20 +1805,20 @@ STR16 pEmailTitleText[] =
 // the financial screen strings
 STR16 pFinanceTitle[] =
 {
-	L"Бухгалтерский отчет",		//the name we made up for the financial program in the game
+	L"Финансовый отчет",		//the name we made up for the financial program in the game
 };
 
 STR16 pFinanceSummary[] =
 {
-	L"Кредит:", 				// credit (subtract from) to player's account
-	L"Дебет:", 				// debit (add to) to player's account
+	L"Доход:", 				// credit (subtract from) to player's account
+	L"Расход:", 				// debit (add to) to player's account
 	L"Вчерашний чистый доход:",
-	L"Вчерашние другие депозиты:",
-	L"Вчерашний дебет:",
+	L"Вчерашние другие поступления:",
+	L"Вчерашний расход:",
 	L"Баланс на конец дня:",
-	L"Сегодняшний чистый доход:",
-	L"Сегодняшние другие депозиты:",
-	L"Сегодняшний дебет:",
+	L"Чистый доход сегодня:",
+	L"Другие поступления за сегодня:",
+	L"Расход за сегодня:",
 	L"Текущий баланс:",
 	L"Ожидаемый доход:",
 	L"Ожидаемый баланс:", 		// projected balance for player for tommorow
@@ -1830,8 +1830,8 @@ STR16 pFinanceSummary[] =
 STR16 pFinanceHeaders[] =
 {
   L"День", 					//пр the day column
-	L"Кредит", 				// the credits column
-	L"Дебет",				// the debits column
+	L"Доход", 				// the credits column
+	L"Расход",				// the debits column
 	L"Операции", 			// transaction type - see TransactionText below
 	L"Баланс", 				// balance at this point in time
 	L"Стр.", 				// page number
@@ -1920,7 +1920,7 @@ STR16 pMapScreenStatusStrings[] =
 {
 	L"Здоровье",
 	L"Энергия",
-	L"Отвага",
+	L"Мораль",
 	L"Состояние",	// the condition of the current vehicle (its "health")
 	L"Бензин",	// the fuel level of the current vehicle (its "energy")
 };
@@ -1956,8 +1956,8 @@ STR16 pMapErrorString[] =
 	L"У вас еще нет ни одного бойца.",	// you have no members, can't do anything 
 	L"Наемник не может выполнить.",		// merc can't comply with your order
 //6-10
-	L"нуждается в сопровождении, чтобы идти. Назначьте его с кем-нибудь в отряд.", // merc can't move unescorted .. for a male
-	L"нуждается в сопровождении, чтобы идти. Назначьте ее с кем-нибудь в отряд.", // for a female
+	L"нуждается в сопровождении чтобы идти. Назначьте его с кем-нибудь в отряд.", // merc can't move unescorted .. for a male
+	L"нуждается в сопровождении чтобы идти. Назначьте ее с кем-нибудь в отряд.", // for a female
 	L"Наемник еще не прибыл в Арулько!",
 	L"Кажется, сначала надо уладить проблемы с контрактом.",
 	L"Бежать от самолета? Только после вас!",	//пр Cannot give a movement order. Air raid is going on.
@@ -1988,7 +1988,7 @@ STR16 pMapErrorString[] =
 //31-35
 	L"Вы не можете держать ополченцев в %s.",
 	L"Пустая машина не может двигаться!",
-	L"%s из-за тяжелых ранений никуда не может идти!",
+	L"%s из-за тяжелых ранений не может идти!",
 	L"Сначала вам нужно покинуть музей!",
 	L"%s мертв(а)!",
 //36-40
@@ -2198,7 +2198,7 @@ STR16 pHistoryStrings[] =
 	L"Поговорили со старшим горняком города %s",									// talked to head miner of town
 	L"%s освобожден(а).",
 	L"Включен режим чит-кодов",
-	L"Провизия должна будет прибыть в Омерту завтра.",
+	L"Провизия будет доставлена в Омерту завтра.",
 	//21-25
 	L"%s ушла, чтобы выйти замуж за Дерила Хика.",
 	L"Истек контракт у %s.",
@@ -2425,7 +2425,7 @@ STR16 pLaptopTitles[] =
 	L"Почтовый ящик",
 	L"Просмотр данных",
 	L"Персонал",	//пр
-	L"Бухгалтерский отчет",
+	L"Финансовый отчет",
 	L"Журнал",	//пр
 };
 
@@ -2844,7 +2844,7 @@ STR16			BobbyRFilter[] =
 	// Armour
 	L"Каски",
 	L"Жилеты",
-	L"Поножи",
+	L"Брюки",
 	L"Пластины",
 
 	// Misc
@@ -3885,17 +3885,17 @@ STR16	gzIntroScreen[] =
 // e.g. "Sidney hears a loud sound of MOVEMENT coming from the SOUTH."
 STR16 pNewNoiseStr[] =
 {
-	L"%s слышит %s звук, идущий %s.",
-	L"%s слышит %s звук движения, идущий %s.",
+	L"%s слышит %s звук %s.",
+	L"%s слышит %s звук движения %s.",
 	L"%s слышит %s скрип, идущий %s.",
-	L"%s слышит %s звук всплеска, идущий %s.",
-	L"%s слышит %s звук удара, идущий %s.", //$$
+	L"%s слышит %s звук всплеска %s.",
+	L"%s слышит %s звук удара %s.", //$$
 	L"%s слышит %s звук взрыва %s.",
-	L"%s слышит %s крик, идущий %s.",
-	L"%s слышит %s звук удара, идущий %s.",
-	L"%s слышит %s звук удара, идущий %s.",
-	L"%s слышит %s звон, идущий %s.",
-	L"%s слышит %s грохот, идущий %s.",
+	L"%s слышит %s крик %s.",
+	L"%s слышит %s звук удара %s.",
+	L"%s слышит %s звук удара %s.",
+	L"%s слышит %s звон %s.",
+	L"%s слышит %s грохот %s.",
 };
 
 STR16 wMapScreenSortButtonHelpText[] =
@@ -4079,7 +4079,7 @@ STR16 gzLateLocalizedString[] =
 
 	//32-34
 	L"%s ничего не говорит.",
-	L"Выбираться на поверхность?",
+	L"Выбраться на поверхность?",
 	L"(%dй отряд)",
 
 	//35
@@ -4094,7 +4094,7 @@ STR16 gzLateLocalizedString[] =
 	L"Этот предмет отсюда взять невозможно.",
 
 	//39
-	L"Никто из оставшихся наемников не может сражаться. Сражение с тварями продолжат ополченцы.",
+	L"Оставшиеся наемники не могут сражаться. Сражение с тварями продолжат ополченцы.",
 
 	//40-43
 	//%s is the name of merc.
@@ -4165,12 +4165,12 @@ STR16 gzTooltipStrings[] =
 	// Full info
 	L"%s|Каска: %s\n",
 	L"%s|Жилет: %s\n",
-	L"%s|Поножи: %s\n",
+	L"%s|Брюки: %s\n",
 	// Limited, Basic
 	L"|Броня: ",
 	L"Каска ",
 	L"Жилет ",
-	L"Поножи",
+	L"Брюки",
 	L"изношен",
 	L"нет брони",
 	L"%s|П|Н|В: %s\n",
