@@ -637,7 +637,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>26</BR_ROF>
-		<PercentAPReduction>-7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -13256,7 +13256,7 @@
 		<BR_ROF>22</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
-		<PercentAPReduction>-7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -13453,7 +13453,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
-		<PercentAPReduction>-7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -13706,7 +13706,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
-		<PercentAPReduction>-7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -13840,7 +13840,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
-		<PercentAPReduction>-7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -13869,7 +13869,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
-		<PercentAPReduction>-7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -14163,7 +14163,7 @@
 		<szLongItemName>FN SCAR-H CQC</szLongItemName>
 		<szItemDesc>The SCAR is FN's newest offering into the military armament scene. The "H" stands for "Heavy", and refers to this version firing the 7.62mm NATO round. CQC denotes the shortest version for fighting in dense terrain.</szItemDesc>
 		<szBRName>FN SCAR-H CQC</szBRName>
-		<szBRDesc>US SOCOM issued a solicitation for the procurement of SOF Combat Assault Rifles (SCAR) on October 15th, 2003, and this is what FN came up with. Widely customizable and extremely durable; if ever a gun had promise, the SCAR does.</szBRDesc>
+		<szBRDesc>US SOCOM issued a solicitation for the procurement of SOF Combat Assault Rifles (SCAR) in 2003, and this is what FN came up with. Widely customizable and extremely durable; if ever a gun had promise, the SCAR does.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>651</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -14276,7 +14276,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
-		<PercentAPReduction>-7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -15085,7 +15085,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>18</BR_ROF>
-		<PercentAPReduction>-7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<DefaultAttachment>1000</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -15171,7 +15171,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>26</BR_ROF>
-		<PercentAPReduction>-7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -15534,7 +15534,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>26</BR_ROF>
-		<PercentAPReduction>-7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -15602,7 +15602,7 @@
 		<ubClassIndex>701</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>242</ubGraphicNum>
-		<ubWeight>19</ubWeight>
+		<ubWeight>15</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
 		<usPrice>1140</usPrice>
 		<ubCoolness>3</ubCoolness>
@@ -15837,7 +15837,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
-		<PercentAPReduction>-7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -15866,7 +15866,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>20</BR_ROF>
-		<PercentAPReduction>-7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -16242,7 +16242,7 @@
 		<ubClassIndex>724</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>103</ubGraphicNum>
-		<ubWeight>10</ubWeight>
+		<ubWeight>12</ubWeight>
 		<ubPerPocket>1</ubPerPocket>
 		<usPrice>920</usPrice>
 		<ubCoolness>2</ubCoolness>
@@ -16374,7 +16374,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>26</BR_ROF>
 		<Bipod>10</Bipod>
-		<PercentAPReduction>-7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<DefaultAttachment>1007</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -16403,7 +16403,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
-		<PercentAPReduction>-7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -16517,11 +16517,11 @@
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
-		<BR_NewInventory>2</BR_NewInventory>
+		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
 		<Bipod>10</Bipod>
-		<PercentAPReduction>-7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -16643,7 +16643,7 @@
 		<szLongItemName>Tokarev TT-33</szLongItemName>
 		<szItemDesc>Developed in the late 1920's, this pistol was the official side arm of the Red Army in WW2.</szItemDesc>
 		<szBRName>Tokarev TT-33</szBRName>
-		<szBRDesc>Developed in the late 1920's, this pistol was the official side arm of the Red Army in WW2.  For its time, the TT was a formidable weapon, with good pentration and range.</szBRDesc>
+		<szBRDesc>Developed in the late 1920's, this pistol was the official side arm of the Red Army in WW2.  For its time, the TT was a formidable weapon, with good penetration and range.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>738</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -22251,7 +22251,7 @@
 		<ubClassIndex>59</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>291</ubGraphicNum>
-		<ubWeight>10</ubWeight>
+		<ubWeight>2</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>400</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -22277,7 +22277,7 @@
 		<ubClassIndex>60</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>292</ubGraphicNum>
-		<ubWeight>10</ubWeight>
+		<ubWeight>2</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<usPrice>540</usPrice>
 		<ubCoolness>5</ubCoolness>
@@ -27248,7 +27248,7 @@
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>342</ubGraphicNum>
 		<ubWeight>37</ubWeight>
-		<usPrice>1</usPrice>
+		<usPrice>2230</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<bReliability>-2</bReliability>
 		<Damageable>1</Damageable>
@@ -27317,6 +27317,58 @@
 		<szBRName>Nothing</szBRName>
 		<szBRDesc>Nothing</szBRDesc>
 		<usItemClass>1</usItemClass>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1201</uiIndex>
+		<szItemName>NIVDTR</szItemName>
+		<szLongItemName>NIV Default Thigh Rig</szLongItemName>
+		<szItemDesc>This is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szItemDesc>
+		<szBRName>Not for sale</szBRName>
+		<szBRDesc>This should not be available through Bobby Ray. It is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>573</ubGraphicNum>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1202</uiIndex>
+		<szItemName>NIVDV</szItemName>
+		<szLongItemName>NIV Default Vest</szLongItemName>
+		<szItemDesc>This is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szItemDesc>
+		<szBRName>Not for sale</szBRName>
+		<szBRDesc>This should not be available through Bobby Ray. It is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>573</ubGraphicNum>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1203</uiIndex>
+		<szItemName>NIVDCP</szItemName>
+		<szLongItemName>NIV Default Combat Pack</szLongItemName>
+		<szItemDesc>This is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szItemDesc>
+		<szBRName>Not for sale</szBRName>
+		<szBRDesc>This should not be available through Bobby Ray. It is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>573</ubGraphicNum>
+		<NotBuyable>1</NotBuyable>
+		<BigGunList>1</BigGunList>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1204</uiIndex>
+		<szItemName>NIVDBP</szItemName>
+		<szLongItemName>NIV Default Backpack</szLongItemName>
+		<szItemDesc>This is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szItemDesc>
+		<szBRName>Not for sale</szBRName>
+		<szBRDesc>This should not be available through Bobby Ray. It is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szBRDesc>
+		<usItemClass>268435456</usItemClass>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>573</ubGraphicNum>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 	</ITEM>
