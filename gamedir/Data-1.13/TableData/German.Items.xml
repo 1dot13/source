@@ -3408,11 +3408,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>428</uiIndex>
-		<szItemName>5.56x45 US-G</szItemName>
-		<szLongItemName>5.56x45mm Magazin, US-Glaser</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>5.56x45 Mag US-G #10</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>NIVDTR</szItemName>
+		<szLongItemName>NIV Default Thigh Rig</szLongItemName>
+		<szItemDesc>Dies ist ein interner Gegenstand, der für das Zusammenspiel von Neuem Inventar und 1.13 XML-Editor erforderlich ist.</szItemDesc>
+		<szBRName>NIV Default Thigh Rig</szBRName>
+		<szBRDesc>Dies ist ein interner Gegenstand, der für das Zusammenspiel von Neuem Inventar und 1.13 XML-Editor erforderlich ist.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>429</uiIndex>
@@ -3456,11 +3456,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>434</uiIndex>
-		<szItemName>5.56x45 US-G</szItemName>
-		<szLongItemName>5.56x45mm Magazin, US-Glaser</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>5.56x45 Mag US-G</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>NIVDV</szItemName>
+		<szLongItemName>NIV Default Vest</szLongItemName>
+		<szItemDesc>Dies ist ein interner Gegenstand, der für das Zusammenspiel von Neuem Inventar und 1.13 XML-Editor erforderlich ist.</szItemDesc>
+		<szBRName>NIV Default Vest</szBRName>
+		<szBRDesc>Dies ist ein interner Gegenstand, der für das Zusammenspiel von Neuem Inventar und 1.13 XML-Editor erforderlich ist.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>435</uiIndex>
@@ -3520,11 +3520,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>442</uiIndex>
-		<szItemName>5.56x45 US-G</szItemName>
-		<szLongItemName>5.56x45mm Beta C-Mag, US-Glaser</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>5.56x45 C-Mag US-G</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>NIVDCP</szItemName>
+		<szLongItemName>NIV Default Combat Pack</szLongItemName>
+		<szItemDesc>Dies ist ein interner Gegenstand, der für das Zusammenspiel von Neuem Inventar und 1.13 XML-Editor erforderlich ist.</szItemDesc>
+		<szBRName>NIV Default Combat Pack</szBRName>
+		<szBRDesc>Dies ist ein interner Gegenstand, der für das Zusammenspiel von Neuem Inventar und 1.13 XML-Editor erforderlich ist.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>443</uiIndex>
@@ -3568,11 +3568,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>448</uiIndex>
-		<szItemName>5.56x45 US-G</szItemName>
-		<szLongItemName>5.56x45mm Gurt, US-Glaser</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>5.56x45 Gurt US-G #200</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>NIVDBP</szItemName>
+		<szLongItemName>NIV Default Backpack</szLongItemName>
+		<szItemDesc>Dies ist ein interner Gegenstand, der für das Zusammenspiel von Neuem Inventar und 1.13 XML-Editor erforderlich ist.</szItemDesc>
+		<szBRName>NIV Default Backpack</szBRName>
+		<szBRDesc>Dies ist ein interner Gegenstand, der für das Zusammenspiel von Neuem Inventar und 1.13 XML-Editor erforderlich ist.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>449</uiIndex>
@@ -9185,5 +9185,36 @@
 		<szItemDesc>Diese britische MP vereint hohe Feuerkraft und kompakte Abmessungen. Aufgrund der aufwendigen Wartung und Störanfälligkeit wurde sie durch die HK MP53 ersetzt.</szItemDesc>
 		<szBRName>FR Ordnance MC51</szBRName>
 		<szBRDesc>Diese britische MP basiert auf dem G3KA4 und wurde Mitte der 80er Jahre von FR Ordnance für die S.A.S. entwickelt und gefertigt. Aufgrund der aufwendigen Wartung wurde sie nach kurzer Zeit durch die HK MP53 ersetzt. Es wurden nur 50 Exemplare gefertigt.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1196</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1197</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1198</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1199</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1200</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1201</uiIndex>
+		<szItemName>SL8 RAS</szItemName>
+		<szLongItemName>HK SL8 RAS</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>HK SL8 RAS</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1202</uiIndex>
+		<szItemName>Rohrzange</szItemName>
+		<szLongItemName>Rohrzange</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Rohrzange</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 </ITEMLIST>

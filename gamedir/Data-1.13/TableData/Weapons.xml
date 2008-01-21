@@ -173,6 +173,7 @@
 		<SilencedSound>156</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>480</ManualReloadSound>
 	</WEAPON>
@@ -199,6 +200,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>480</ManualReloadSound>
 	</WEAPON>
@@ -1472,7 +1474,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>56</uiIndex>
-		<szWeaponName>Automag III</szWeaponName>
+		<szWeaponName>Automag III Custom</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>38</ubCalibre>
@@ -1715,6 +1717,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>480</ManualReloadSound>
 	</WEAPON>
@@ -3399,7 +3402,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>626</uiIndex>
-		<szWeaponName>Bizon PP-19</szWeaponName>
+		<szWeaponName>Bizon 2-07</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
 		<ubWeaponType>3</ubWeaponType>
 		<ubCalibre>20</ubCalibre>
@@ -4425,7 +4428,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>659</uiIndex>
-		<szWeaponName>Groza OTs-14/7-A</szWeaponName>
+		<szWeaponName>Groza OC-14</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>10</ubCalibre>
@@ -4458,7 +4461,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>660</uiIndex>
-		<szWeaponName>Groza OTs-14-A3</szWeaponName>
+		<szWeaponName>Groza OC-14-4A-01</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>6</ubWeaponType>
 		<ubCalibre>18</ubCalibre>
@@ -5944,6 +5947,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>480</ManualReloadSound>
 	</WEAPON>
@@ -6818,6 +6822,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>480</ManualReloadSound>
 	</WEAPON>
@@ -6884,7 +6889,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>739</uiIndex>
-		<szWeaponName>U-94 UDAR</szWeaponName>
+		<szWeaponName>U-94S UDAR</szWeaponName>
 		<ubWeaponClass>1</ubWeaponClass>
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>28</ubCalibre>
@@ -6905,6 +6910,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<APsToReloadManually>1</APsToReloadManually>
 		<ManualReloadSound>480</ManualReloadSound>
@@ -7880,6 +7886,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>480</ManualReloadSound>
 	</WEAPON>
@@ -7905,6 +7912,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>480</ManualReloadSound>
 	</WEAPON>
@@ -8837,7 +8845,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>904</uiIndex>
-		<szWeaponName>GP-30 Grenade Launcher</szWeaponName>
+		<szWeaponName>GP-30 Obuvka Grenade Launcher</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubReadyTime>4</ubReadyTime>
 		<ubShotsPer4Turns>6</ubShotsPer4Turns>
@@ -8904,7 +8912,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>907</uiIndex>
-		<szWeaponName>RGM Grenade Launcher</szWeaponName>
+		<szWeaponName>RGM Kastet Grenade Launcher</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>6</ubShotsPer4Turns>
@@ -8998,7 +9006,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>911</uiIndex>
-		<szWeaponName>GP-30 Grenade Launcher (Built-in)</szWeaponName>
+		<szWeaponName>GP-25 Kostyor Grenade Launcher (Built-in)</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>6</ubShotsPer4Turns>
@@ -9088,7 +9096,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>915</uiIndex>
-		<szWeaponName>RPG-16</szWeaponName>
+		<szWeaponName>RPG-16 Grom</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubShotsPer4Turns>5</ubShotsPer4Turns>
 		<ubBulletSpeed>30</ubBulletSpeed>
@@ -9111,7 +9119,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>916</uiIndex>
-		<szWeaponName>RPG-26</szWeaponName>
+		<szWeaponName>RPG-26 Aglen</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubShotsPer4Turns>5</ubShotsPer4Turns>
 		<ubBulletSpeed>30</ubBulletSpeed>
@@ -9133,7 +9141,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>917</uiIndex>
-		<szWeaponName>RPG-27</szWeaponName>
+		<szWeaponName>RPG-27 Tavolga</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubShotsPer4Turns>5</ubShotsPer4Turns>
 		<ubBulletSpeed>30</ubBulletSpeed>
@@ -9155,7 +9163,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>918</uiIndex>
-		<szWeaponName>RPO-A</szWeaponName>
+		<szWeaponName>RPO-A Shmel</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubShotsPer4Turns>5</ubShotsPer4Turns>
 		<ubBulletSpeed>30</ubBulletSpeed>
@@ -9220,6 +9228,16 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1015</uiIndex>
+		<szWeaponName>Shovel</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>9</ubShotsPer4Turns>
+		<ubImpact>24</ubImpact>
+		<ubDeadliness>4</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>1053</uiIndex>
@@ -9981,6 +9999,7 @@
 		<SilencedSound>157</SilencedSound>
 		<bBurstAP>5</bBurstAP>
 		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>480</ManualReloadSound>
 	</WEAPON>
@@ -10016,5 +10035,45 @@
 		<MaxDistForMessyDeath>9</MaxDistForMessyDeath>
 		<AutoPenalty>10</AutoPenalty>
 		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1201</uiIndex>
+		<szWeaponName>HK SL8 RAS</szWeaponName>
+		<ubWeaponClass>3</ubWeaponClass>
+		<ubWeaponType>4</ubWeaponType>
+		<ubCalibre>8</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>14</ubShotsPer4Turns>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>31</ubImpact>
+		<ubDeadliness>35</ubDeadliness>
+		<bAccuracy>4</bAccuracy>
+		<ubMagSize>10</ubMagSize>
+		<usRange>380</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>72</ubAttackVolume>
+		<ubHitVolume>7</ubHitVolume>
+		<sSound>334</sSound>
+		<sBurstSound>28</sBurstSound>
+		<sSilencedBurstSound>111</sSilencedBurstSound>
+		<sReloadSound>102</sReloadSound>
+		<sLocknLoadSound>108</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<APsToReload>4</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>8</MaxDistForMessyDeath>
+		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>1202</uiIndex>
+		<szWeaponName>Pipe Wrench</szWeaponName>
+		<ubWeaponClass>6</ubWeaponClass>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubImpact>21</ubImpact>
+		<ubDeadliness>4</ubDeadliness>
+		<usReloadDelay>200</usReloadDelay>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 	</WEAPON>
 </WEAPONLIST>

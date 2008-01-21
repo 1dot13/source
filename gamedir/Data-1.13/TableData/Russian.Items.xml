@@ -3426,11 +3426,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>428</uiIndex>
-		<szItemName>5.56mm Mag 10 G C</szItemName>
-		<szLongItemName>5.56x45mm Mag, 10 Glaser Cold</szLongItemName>
-		<szItemDesc>If 10 rounds of Glaser Safety ammo fail to make your point, the conversation wasn't worth having to begin with. These bullets have been cold-loaded for quieter stopping power.</szItemDesc>
-		<szBRName>5.56x45mm Mag 10 Glaser Cold</szBRName>
-		<szBRDesc>Ten rounds of frangible fun. All of the man-stopping power, none of the over-penetration.  These bullets have been cold-loaded for silent hunting.</szBRDesc>
+		<szItemName>NIVDTR</szItemName>
+		<szLongItemName>NIV Default Thigh Rig</szLongItemName>
+		<szItemDesc>This is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szItemDesc>
+		<szBRName>NIV Default Thigh Rig</szBRName>
+		<szBRDesc>This should not be available through Bobby Ray. It is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>429</uiIndex>
@@ -3474,11 +3474,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>434</uiIndex>
-		<szItemName>5.56mm Mag 30 G C</szItemName>
-		<szLongItemName>5.56x45mm Mag, 30 Glaser Cold</szLongItemName>
-		<szItemDesc>If 30 rounds of Glaser Safety ammo fail to make your point, the conversation wasn't worth having to begin with. These bullets have been cold-loaded for quieter stopping power.</szItemDesc>
-		<szBRName>5.56x45mm Mag 30 Glaser Cold</szBRName>
-		<szBRDesc>Thirty rounds of frangible fun. All of the man-stopping power, none of the over-penetration.  These bullets have been cold-loaded for silent hunting.</szBRDesc>
+		<szItemName>NIVDV</szItemName>
+		<szLongItemName>NIV Default Vest</szLongItemName>
+		<szItemDesc>This is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szItemDesc>
+		<szBRName>Not for sale</szBRName>
+		<szBRDesc>This should not be available through Bobby Ray. It is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>435</uiIndex>
@@ -3538,11 +3538,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>442</uiIndex>
-		<szItemName>5.56mm C-Mag G C</szItemName>
-		<szLongItemName>5.56x45mm C-Mag, Glaser Cold</szLongItemName>
-		<szItemDesc>If 100 rounds of Glaser Safety ammo fail to make your point, the conversation wasn't worth having to begin with. These bullets have been cold-loaded for quieter stopping power.</szItemDesc>
-		<szBRName>5.56x45mm C-Mag Glaser Cold</szBRName>
-		<szBRDesc>One hundred rounds of frangible fun. All of the man-stopping power, none of the over-penetration.  These bullets have been cold-loaded for silent hunting.</szBRDesc>
+		<szItemName>NIVDCP</szItemName>
+		<szLongItemName>NIV Default Combat Pack</szLongItemName>
+		<szItemDesc>This is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szItemDesc>
+		<szBRName>Not for sale</szBRName>
+		<szBRDesc>This should not be available through Bobby Ray. It is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>443</uiIndex>
@@ -3586,11 +3586,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>448</uiIndex>
-		<szItemName>5.56mm Belt G C</szItemName>
-		<szLongItemName>5.56x45mm Belt, Glaser Cold</szLongItemName>
-		<szItemDesc>If 200 rounds of Glaser Safety ammo fail to make your point, the conversation wasn't worth having to begin with. These bullets have been cold-loaded for quieter stopping power.</szItemDesc>
-		<szBRName>5.56x45mm Belt Glaser Cold</szBRName>
-		<szBRDesc>Two hundred rounds of frangible fun. All of the man-stopping power, none of the over-penetration.  These bullets have been cold-loaded for silent hunting.</szBRDesc>
+		<szItemName>NIVDBP</szItemName>
+		<szLongItemName>NIV Default Backpack</szLongItemName>
+		<szItemDesc>This is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szItemDesc>
+		<szBRName>Not for sale</szBRName>
+		<szBRDesc>This should not be available through Bobby Ray. It is an internal item that is needed for the 1.13 XML-Editor. Removal of this item and subsequent use of the 1.13 XML-Editor may cause bugs.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>449</uiIndex>
@@ -9011,5 +9011,36 @@
 		<szItemDesc>Despite having stopping power in a small package, this was a not so popular gun, due to high maintenace requirements and low controllability in fullauto fire.</szItemDesc>
 		<szBRName>FR Ordnance MC51</szBRName>
 		<szBRDesc>An even shorter version of the G3KA4 battle rifle, this was made in Great Britain for the SAS. We were able to get some of the rare rails for this gun.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1196</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1197</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1198</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1199</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1200</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1201</uiIndex>
+		<szItemName>SL8 RAS</szItemName>
+		<szLongItemName>HK SL8 RAS</szLongItemName>
+		<szItemDesc>What a Rail Kit and a bit of black paint can do to your SL8! Now you can mount a few goodies that would not fit on a standard one.</szItemDesc>
+		<szBRName>HK SL8 RAS</szBRName>
+		<szBRDesc>Not buyable at BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1202</uiIndex>
+		<szItemName>Wrench</szItemName>
+		<szLongItemName>Pipe Wrench</szLongItemName>
+		<szItemDesc>A durable tool for fixing pipes and obnoxious people.</szItemDesc>
+		<szBRName>Pipe Wrench</szBRName>
+		<szBRDesc>Not for sale at BR.</szBRDesc>
 	</ITEM>
 </ITEMLIST>
