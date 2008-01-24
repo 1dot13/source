@@ -106,13 +106,13 @@ FAST HELP TEXT -- Explains how the syntax of fast help text works.
 
 STR16 pCreditsJA2113[] =
 {
-	L"@T,{;JA2 v1.13 Development Team",
-	L"@T,C144,R134,{;Coding",
-	L"@T,C144,R134,{;Graphics and Sounds",
-	L"@};(Various other mods!)",
-	L"@T,C144,R134,{;Items",
-	L"@T,C144,R134,{;Other Contributors",
-	L"@};(All other community members who contributed input and feedback!)",
+	L"@T,{;Разработчики JA2 v1.13",
+	L"@T,C144,R134,{;Программирование",
+	L"@T,C144,R134,{;Графика и звук",
+	L"@};(Многое было взято из других модов!)",
+	L"@T,C144,R134,{;Предметы",
+	L"@T,C144,R134,{;Также помогали",
+	L"@};(И многие другие, предложившие хорошие идеи и высказавшие важные замечания!)",
 };
 
 CHAR16 ItemNames[MAXITEMS][80] =
@@ -1053,7 +1053,7 @@ STR16 gpStrategicString[] =
 	L"Твари атаковали ваших ополченцев в секторе %c%d.",
 	//1st %d refers to the number of civilians eaten by monsters,  %c%d is the sector -- ex:  A9
 	//Note:  the minimum number of civilians eaten will be two.
-	L"Твари атаковали сектор %s и убили %d гражданских.",
+	L"Твари убили %d гражданских во время атаки сектора %s.",
 	//%s is the sector location -- ex:  A9: Omerta
 	L"Враги атаковали ваших наемников в секторе %s. Ни один из ваших бойцов не в состоянии сражаться!",
 	//%s is the sector location -- ex:  A9: Omerta
@@ -3336,7 +3336,7 @@ STR16			zSaveLoadText[] =
 	L"Игра успешно загружена",
 	L"ОШИБКА загрузки игры!",
 
-	L"Скорее всего, вы не сможете нормально продолжить игру. Все равно продолжить?",
+	L"Это сохранение было сделано иной версией игры. Скорее всего, вы не сможете загрузить его. Все равно продолжить?",
 	L"Версия файла сохранения отличается от текущей версии игры.",
 
 	//Translators, the next two strings are for the same thing.  The first one is for beta version releases and the second one
