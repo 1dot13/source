@@ -1728,6 +1728,7 @@
 		<ubWeaponType>1</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
 		<ubShotsPer4Turns>18</ubShotsPer4Turns>
+		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>27</ubImpact>
 		<ubDeadliness>18</ubDeadliness>
@@ -1758,6 +1759,7 @@
 		<ubCalibre>2</ubCalibre>
 		<ubReadyTime>3</ubReadyTime>
 		<ubShotsPer4Turns>14</ubShotsPer4Turns>
+		<ubBurstPenalty>9</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>27</ubImpact>
 		<ubDeadliness>17</ubDeadliness>
