@@ -99,8 +99,9 @@ void MusicStopCallback( void *pData );
 //********************************************************************************
 BOOLEAN MusicPlay(UINT32 uiNum)
 {
-  if( 1==iScreenMode ) /* on Windowed mode, skip the music? was coded for WINDOWED_MODE that way...*/
-    return FALSE;
+	// WANNE: We want music in windowed mode
+  //if( 1==iScreenMode ) /* on Windowed mode, skip the music? was coded for WINDOWED_MODE that way...*/
+  //  return FALSE;
 
   SOUNDPARMS spParms;	
 
@@ -144,8 +145,9 @@ BOOLEAN MusicSetVolume(UINT32 uiVolume)
 {
   INT32 uiOldMusicVolume = uiMusicVolume;
 
-  if( 1==iScreenMode ) /* on Windowed mode, skip the music? was coded for WINDOWED_MODE that way...*/
-    return FALSE;
+  // WANNE: We want music in windowed mode
+  //if( 1==iScreenMode ) /* on Windowed mode, skip the music? was coded for WINDOWED_MODE that way...*/
+  //  return FALSE;
 
   
   uiMusicVolume=__min(uiVolume, 127);
@@ -198,8 +200,9 @@ UINT32 MusicGetVolume(void)
 //********************************************************************************
 BOOLEAN MusicStop(void)
 {
-  if( 1==iScreenMode ) /* on Windowed mode, skip the music? was coded for WINDOWED_MODE that way...*/
-  	return(FALSE);
+	// WANNE: We want music in windowed mode
+  //if( 1==iScreenMode ) /* on Windowed mode, skip the music? was coded for WINDOWED_MODE that way...*/
+  //	return(FALSE);
 
 
 	if(uiMusicHandle!=NO_SAMPLE)
@@ -265,8 +268,9 @@ BOOLEAN MusicPoll( BOOLEAN fForce )
 {
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"MusicPoll");
 
-  if( 1==iScreenMode ) /* on Windowed mode, skip the music? was coded for WINDOWED_MODE that way...*/
-  	return(TRUE);
+	// WANNE: We want music in windowed mode
+  //if( 1==iScreenMode ) /* on Windowed mode, skip the music? was coded for WINDOWED_MODE that way...*/
+  	//return(TRUE);
 
 	INT32 iVol;
 
