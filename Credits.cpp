@@ -514,6 +514,9 @@ BOOLEAN		EnterCreditsScreen()
 
 	guiCreditScreenActiveFont = FONT12ARIAL;
 	gubCreditScreenActiveColor = FONT_MCOLOR_DKWHITE;
+
+	//gubCreditScreenActiveColor = FONT_MCOLOR_LTBLUE;
+
 	guiCreditScreenTitleFont = FONT14ARIAL;
 	gubCreditScreenTitleColor = FONT_MCOLOR_RED;
 //	guiCreditScreenActiveDisplayFlags = LEFT_JUSTIFIED;
@@ -1449,6 +1452,9 @@ UINT32	GetAndHandleCreditCodeFromCodeString( STR16 pzCode )
 {
 //new codes:
 
+	// WANNE: BUGFIX: Set the credit texts always to white
+	gubCreditScreenActiveColor = FONT_MCOLOR_DKWHITE;
+	
 
 	//if the code is to change the delay between strings
 	if( pzCode[0] == CRDT_DELAY_BN_STRINGS_CODE )
@@ -1528,7 +1534,10 @@ UINT32	GetAndHandleCreditCodeFromCodeString( STR16 pzCode )
 	else if( pzCode[0] == CRDT_ACTIVE_FONT_COLOR )
 	{
 		//Get the new color for the active text
-		swscanf( &pzCode[1], L"%d%*s", &gubCreditScreenActiveColor );
+		// WANNE: BUGFIX: We set the active font color at the beginning of this method. It is always "white"
+		//swscanf( &pzCode[1], L"%d%*s", &gubCreditScreenActiveColor );
+
+		//gubCreditScreenActiveColor = FONT_MCOLOR_LTBLUE;
 
 		return( CRDT_NODE_NONE );
 	}
