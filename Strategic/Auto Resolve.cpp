@@ -4128,7 +4128,8 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 	else
 	{
 		OBJECTTYPE *pItem;
-		//OBJECTTYPE tempItem;
+		OBJECTTYPE tempItem;
+		
 		PlayAutoResolveSample( (UINT8)(BULLET_IMPACT_1+PreRandom(3)), RATE_11025, 50, 1, MIDDLEPAN );
 		if( !pTarget->pSoldier->bLife )
 		{ //Soldier already dead (can't kill him again!)
@@ -4146,19 +4147,21 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 				pAttacker->pSoldier->usAttackingWeapon = pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ].usItem;
 		}
 		
-		//if( pAttacker->bWeaponSlot != HANDPOS )
-		//{ //switch items			
-		//	memcpy( &tempItem, &pAttacker->pSoldier->inv[ HANDPOS ], sizeof( OBJECTTYPE ) );			
-		//	memcpy( &pAttacker->pSoldier->inv[ HANDPOS ], &pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ], sizeof( OBJECTTYPE ) ); //CTD
-		//	iImpact = HTHImpact( pAttacker->pSoldier, pTarget->pSoldier, ubAccuracy, (BOOLEAN)(fKnife | fClaw) );
-		//	memcpy( &pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ], &pAttacker->pSoldier->inv[ HANDPOS ], sizeof( OBJECTTYPE ) );
-		//	memcpy( &pAttacker->pSoldier->inv[ HANDPOS ], &tempItem, sizeof( OBJECTTYPE ) );
-		//}
-		//else
-		//{
-		//	iImpact = HTHImpact( pAttacker->pSoldier, pTarget->pSoldier, ubAccuracy, (BOOLEAN)(fKnife || fClaw) );
-		//}
-		iImpact = 0;
+		// WANNE: Does this lead to a CTD -> no I did not get any CTD, so I reenabled it
+		if( pAttacker->bWeaponSlot != HANDPOS )
+		{ 
+			//switch items			
+			memcpy( &tempItem, &pAttacker->pSoldier->inv[ HANDPOS ], sizeof( OBJECTTYPE ) );			
+			memcpy( &pAttacker->pSoldier->inv[ HANDPOS ], &pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ], sizeof( OBJECTTYPE ) ); //CTD
+			iImpact = HTHImpact( pAttacker->pSoldier, pTarget->pSoldier, ubAccuracy, (BOOLEAN)(fKnife | fClaw) );
+			memcpy( &pAttacker->pSoldier->inv[ pAttacker->bWeaponSlot ], &pAttacker->pSoldier->inv[ HANDPOS ], sizeof( OBJECTTYPE ) );
+			memcpy( &pAttacker->pSoldier->inv[ HANDPOS ], &tempItem, sizeof( OBJECTTYPE ) );
+		}
+		else
+		{
+			iImpact = HTHImpact( pAttacker->pSoldier, pTarget->pSoldier, ubAccuracy, (BOOLEAN)(fKnife || fClaw) );
+		}
+
 		iNewLife = pTarget->pSoldier->bLife - iImpact;
 
 		if( pAttacker->uiFlags & CELL_MERC )

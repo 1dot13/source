@@ -3058,14 +3058,14 @@ void CalcFirstIndexForPage( STORE_INVENTORY *pInv, UINT32	uiItemClass )
 		//Get to the first index on the page
 		for(i=gusFirstItemIndex; i<=gusLastItemIndex; i++)
 		{
+			bCntItem = FALSE;
+
 			if (guiCurrentUsedFilterMode == -1)
 			{
 				bCntItem = TRUE;
 			}
 			else
 			{
-				bCntItem = FALSE;
-
 				usItemIndex = pInv[ i ].usItemIndex;
 
 				switch (guiCurrentUsedFilterMode)
@@ -3130,6 +3130,8 @@ void CalcFirstIndexForPage( STORE_INVENTORY *pInv, UINT32	uiItemClass )
 		//Get to the first index on the page
 		for(i=gusFirstItemIndex; i<=gusLastItemIndex; i++)
 		{
+			bCntItem = FALSE;
+
 			if( Item[ pInv[ i ].usItemIndex ].usItemClass & uiItemClass )
 			{
 				if (uiItemClass == IC_BOBBY_GUN)
@@ -3140,8 +3142,6 @@ void CalcFirstIndexForPage( STORE_INVENTORY *pInv, UINT32	uiItemClass )
 					}
 					else
 					{
-						bCntItem = FALSE;
-
 						usItemIndex = LaptopSaveInfo.BobbyRayInventory[ i ].usItemIndex;
 
 						if (Weapon[ Item[usItemIndex].ubClassIndex ].ubWeaponType == guiCurrentGunFilterMode)
