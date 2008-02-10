@@ -184,13 +184,20 @@ BOOLEAN EnterIntroScreen()
 	// Don't play music....
 	SetMusicMode( MUSIC_NONE );
 
-#ifdef JA2BETAVERSION
-	if( FileExists( "..\\NoIntro.txt" ) )
+	// WANNE: No we have an INI option for the choise if the intro should be played
+	if (!iPlayIntro)
 	{
 		PrepareToExitIntroScreen();
 		return( TRUE );
 	}
-#endif
+
+//#ifdef JA2BETAVERSION
+//	if( FileExists( "..\\NoIntro.txt" ) )
+//	{
+//		PrepareToExitIntroScreen();
+//		return( TRUE );
+//	}
+//#endif
 
 	//if the library doesnt exist, exit
 	if( !IsLibraryOpened( LIBRARY_INTRO ) )

@@ -1036,6 +1036,9 @@ void GetRuntimeSettings( )
   /* 1 for Windowed, 0 for Fullscreen */
   if( !bScreenModeCmdLine )
     iScreenMode = (int) GetPrivateProfileInt( "Ja2 Settings","SCREEN_MODE_WINDOWED", iScreenMode, INIFile );
+
+	// WANNE: Should we play the intro?
+	iPlayIntro = (int) GetPrivateProfileInt( "Ja2 Settings","PLAY_INTRO", iPlayIntro, INIFile );
 }
 
 void ShutdownWithErrorBox(CHAR8 *pcMessage)
