@@ -1038,7 +1038,8 @@ void GetRuntimeSettings( )
     iScreenMode = (int) GetPrivateProfileInt( "Ja2 Settings","SCREEN_MODE_WINDOWED", iScreenMode, INIFile );
 
 	// WANNE: Should we play the intro?
-	iPlayIntro = (int) GetPrivateProfileInt( "Ja2 Settings","PLAY_INTRO", iPlayIntro, INIFile );
+	//iPlayIntro = (int) GetPrivateProfileInt( "Ja2 Settings","PLAY_INTRO", iPlayIntro, INIFile );
+	iPlayIntro = 1;
 }
 
 void ShutdownWithErrorBox(CHAR8 *pcMessage)
