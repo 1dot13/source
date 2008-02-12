@@ -756,7 +756,7 @@
 		<szLongItemName>FAMAS G2</szLongItemName>
 		<szItemDesc>Nicknamed 'The Bugle' by French Army Troops, this bullpup rifle packs the utility of the M-16 in under two-and-a-half feet.</szItemDesc>
 		<szBRName>FAMAS G2</szBRName>
-		<szBRDesc>The French Army's FA-MAS rifle was the first 'bullpup' design to enter military service. It handles well, and shoots quite accurately. A bipod can also be attached for steadier shooting.</szBRDesc>
+		<szBRDesc>The French Army's FA-MAS rifle was the first 'bullpup' design to enter military service. It handles well, and shoots quite accurately. A bipod is attached for steadier shooting.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>24</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -11669,6 +11669,7 @@
 		<ubGraphicType>1</ubGraphicType>
 		<ubGraphicNum>405</ubGraphicNum>
 		<ubWeight>30</ubWeight>
+		<ubPerPocket>2</ubPerPocket>
 		<usPrice>400</usPrice>
 		<ubCoolness>8</ubCoolness>
 		<Metal>1</Metal>
@@ -13232,34 +13233,29 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>619</uiIndex>
-		<szItemName>M82B1K-PDW</szItemName>
-		<szLongItemName>Barrett M82B1K-PDW</szLongItemName>
-		<szItemDesc>Originally clocked as an internet spoof, somebody somewhere with a lot of gunsmithing experience took a hacksaw and a soldering iron to the M82A2.</szItemDesc>
-		<szBRName>Barrett M82B1K-PDW</szBRName>
-		<szBRDesc>Nobody will mess with you if you're carrying a bullpup .50 BMG. And we do mean nobody.</szBRDesc>
+		<szItemName>Veresk</szItemName>
+		<szLongItemName>SR-2 Veresk</szLongItemName>
+		<szItemDesc>In use with Russian elite law-enforcement units, this SMG fires the same armor-pircing round as the Gyurza pistol.</szItemDesc>
+		<szBRName>SR-2 Veresk</szBRName>
+		<szBRDesc>This SMG is small and light enough for easy carrying, yet fires the powerful 9x21mm round. 30rnd mags are not available yet, but are on back-order.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>619</ubClassIndex>
 		<ubCursor>3</ubCursor>
 		<ubGraphicNum>125</ubGraphicNum>
-		<ubWeight>98</ubWeight>
-		<usPrice>7490</usPrice>
-		<bReliability>-2</bReliability>
-		<bRepairEase>-4</bRepairEase>
+		<ubWeight>16</ubWeight>
+		<usPrice>1420</usPrice>
+		<ubCoolness>5</ubCoolness>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<WaterDamages>1</WaterDamages>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
-		<TwoHanded>1</TwoHanded>
 		<BigGunList>1</BigGunList>
-		<SciFi>1</SciFi>
-		<BR_ROF>12</BR_ROF>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_ROF>900</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
-		<BurstToHitBonus>5</BurstToHitBonus>
-		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
-		<PercentAPReduction>7</PercentAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>620</uiIndex>
@@ -15176,7 +15172,7 @@
 		<szLongItemName>M60E3</szLongItemName>
 		<szItemDesc>The M60E3 is a smaller, lighter and improved version of the legendary M60 light machinegun used by the US Armed Forces.</szItemDesc>
 		<szBRName>M60E3</szBRName>
-		<szBRDesc>Always wanted to be like Rambo?  Now you can!  With the M60E3, you'll always look good taking out a drug cartel, mowing down local mob bosses, and stopping an entire invasion force on your own. Buy now and receive a free Rambo action figure!</szBRDesc>
+		<szBRDesc>Always wanted to be like Rambo?  Now you can!  With the M60E3, you'll always look good taking out a drug cartel, mowing down local mob bosses, and stopping an entire invasion force on your own. Comes with integral bipod and foregrip.</szBRDesc>
 		<usItemClass>2</usItemClass>
 		<ubClassIndex>687</ubClassIndex>
 		<ubCursor>3</ubCursor>
@@ -15184,7 +15180,6 @@
 		<ubWeight>86</ubWeight>
 		<usPrice>7360</usPrice>
 		<ubCoolness>9</ubCoolness>
-		<bReliability>-1</bReliability>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -15197,7 +15192,9 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>650</BR_ROF>
-		<DefaultAttachment>1011</DefaultAttachment>
+		<Bipod>7</Bipod>
+		<BurstToHitBonus>5</BurstToHitBonus>
+		<AutoFireToHitBonus>5</AutoFireToHitBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>688</uiIndex>

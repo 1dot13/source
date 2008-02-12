@@ -4952,11 +4952,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>619</uiIndex>
-		<szItemName>M82B1K-PDW</szItemName>
-		<szLongItemName>Barrett M82B1K-PDW</szLongItemName>
-		<szItemDesc>Originally clocked as an internet spoof, somebody somewhere with a lot of gunsmithing experience took a hacksaw and a saudering iron to the M82A2.</szItemDesc>
-		<szBRName>Barrett M82B1K-PDW</szBRName>
-		<szBRDesc>Nobody will mess with you if you're carrying a bullpup .50 BMG. And we do mean nobody.</szBRDesc>
+		<szItemName>Veresk</szItemName>
+		<szLongItemName>SR-2 Veresk</szLongItemName>
+		<szItemDesc>In use with Russian elite law-enforcement units, this SMG fires the same armor-pircing round as the Gyurza pistol.</szItemDesc>
+		<szBRName>SR-2 Veresk</szBRName>
+		<szBRDesc>This SMG is small and light enough for easy carrying, yet fires the powerful 9x21mm round. 30rnd mags are not available yet, but are on back-order.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>620</uiIndex>
