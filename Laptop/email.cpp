@@ -323,7 +323,7 @@ INT32 GetNumberOfPagesToEmail( );
 void PreProcessEmail( EmailPtr pMail );
 void ModifyInsuranceEmails( UINT16 usMessageId, INT32 *iResults, EmailPtr pMail, UINT8 ubNumberOfRecords );
 BOOLEAN ReplaceMercNameAndAmountWithProperData( CHAR16 *pFinishedString, EmailPtr pMail );
-
+BOOLEAN ReplaceBiffNameWithProperMercName( CHAR16 *pFinishedString, EmailPtr pMail, CHAR16 *pMercName );
 
 
 void InitializeMouseRegions()
@@ -700,8 +700,7 @@ void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 
 	INT32 iPosition=0;
 	INT32 iCounter=1;
 
-
-	// starts at iSubjectOffset amd goes iSubjectLength, reading in string
+	// WANNE: Short work in both ways
 	LoadEncryptedDataFromFile("BINARYDATA\\Email.edt", pSubject, 640*(iMessageOffset), 640);
 
 	// add message to list
@@ -3946,11 +3945,13 @@ void HandleIMPCharProfileResultsMessage( void)
       	// read one record from email file
 		  //LoadEncryptedDataFromFile( "BINARYDATA\\Impass.edt", pString, MAIL_STRING_SIZE * ( IMP_SKILLS_SPECIAL_ONROOF ), MAIL_STRING_SIZE );
 		 
-			#ifdef GERMAN
-				wcscpy(pString, L"Dach-Treffer Bonus: <Noch keine Beschreibung vorhanden>");
-			#else
-			wcscpy(pString, L"Rooftop Sniping: <No description yet>");
-			#endif
+			wcscpy(pString, MissingIMPSkillsDescriptions[0]);
+
+			//#ifdef GERMAN
+			//	wcscpy(pString, L"Dach-Treffer Bonus: <Noch keine Beschreibung vorhanden>");
+			//#else
+			//wcscpy(pString, L"Rooftop Sniping: <No description yet>");
+			//#endif
 
 		  // add to list
 		  AddEmailRecordToList( pString );
@@ -3963,11 +3964,13 @@ void HandleIMPCharProfileResultsMessage( void)
       	// read one record from email file
 		  //LoadEncryptedDataFromFile( "BINARYDATA\\Impass.edt", pString, MAIL_STRING_SIZE * ( IMP_SKILLS_SPECIAL_CAMOUFLAGED ), MAIL_STRING_SIZE );
 		 
-			#ifdef GERMAN
+			wcscpy(pString, MissingIMPSkillsDescriptions[1]);
+
+			/*#ifdef GERMAN
 				wcscpy(pString, L"Getarnt: <Noch keine Beschreibung vorhanden>");
 			#else
 			wcscpy(pString, L"Camouflage: <No description yet>");
-			#endif
+			#endif*/
 
 		  // add to list
 		  AddEmailRecordToList( pString );
@@ -4777,6 +4780,15 @@ void PreProcessEmail( EmailPtr pMail )
 		return;
 	}
 
+	// WANNE: Get the text and replace name!
+	int iNew113MERCMerc = 0;
+	if (pMail->usLength == MERC_UP_LEVEL_GASTON || pMail->usLength == MERC_UP_LEVEL_STOGIE ||
+		pMail->usLength == MERC_UP_LEVEL_TEX || pMail->usLength == MERC_UP_LEVEL_BIGGENS)
+	{
+		iNew113MERCMerc = pMail->usLength;
+		pMail->usLength = 2;
+	}
+
 	// list doesn't exist, reload
 	if( !pTempRecord )
   {
@@ -4785,12 +4797,46 @@ void PreProcessEmail( EmailPtr pMail )
       // read one record from email file
 		  LoadEncryptedDataFromFile( "BINARYDATA\\Email.edt", pString, MAIL_STRING_SIZE * ( iOffSet + iCounter ), MAIL_STRING_SIZE );
 		 
+			// WANNE: We have a new 1.13 MERC merc (Text, Gaston, Stogie or Biggens)
+			if (iNew113MERCMerc != 0)
+			{
+				// WANNE: TODO: Replace "Biff" with the name of the 1.13 merc
+				if (iCounter == 1)
+				{
+					wcscpy(pString, L"\0");
+					if (iNew113MERCMerc == MERC_UP_LEVEL_GASTON)
+					{
+						wcscpy( pString, New113MERCMercMailTexts[0] );
+						
+					}
+					else if (iNew113MERCMerc == MERC_UP_LEVEL_STOGIE)
+					{
+						wcscpy( pString, New113MERCMercMailTexts[1] );
+					}
+					else if (iNew113MERCMerc == MERC_UP_LEVEL_TEX)
+					{
+						wcscpy( pString, New113MERCMercMailTexts[2] );
+					}
+					else if (iNew113MERCMerc == MERC_UP_LEVEL_BIGGENS)
+					{
+						wcscpy( pString, New113MERCMercMailTexts[3] );
+					}
+				}
+			}
+			
 			// add to list
 			AddEmailRecordToList( pString );
       
       // increment email record counter
 		  iCounter++;
     }
+
+	  // WANNE: Set the value back
+	if (iNew113MERCMerc != 0)
+	{
+		pMail->usLength = iNew113MERCMerc;
+	}
+
     giPrevMessageId = giMessageId;
 
 	}
@@ -5029,6 +5075,79 @@ void ModifyInsuranceEmails( UINT16 usMessageId, INT32 *iResults, EmailPtr pMail,
 //
 	giPrevMessageId = giMessageId;
 }
+
+BOOLEAN ReplaceBiffNameWithProperMercName( CHAR16 *pFinishedString, EmailPtr pMail, CHAR16 *pMercName )
+{
+	CHAR16		pTempString[MAIL_STRING_SIZE];
+	INT32			iLength=0;
+	INT32			iCurLocInSourceString=0;
+	INT32			iLengthOfSourceString = wcslen( pFinishedString );		//Get the length of the source string
+	CHAR16		*pMercNameString=NULL;
+	CHAR16		*pSubString=NULL;
+	BOOLEAN		fReplacingMercName = TRUE;
+
+	CHAR16	sMercName[ 32 ] = L"Biff";	//Doesnt need to be translated, inside Email.txt and will be replaced by the mercs name
+	CHAR16	sSearchString[32];
+
+	//Copy the original string over to the temp string
+	wcscpy( pTempString, pFinishedString );
+
+	//Null out the string
+	pFinishedString[0] = L'\0';
+
+
+	//Keep looping through to replace all references to the keyword
+	while( iCurLocInSourceString < iLengthOfSourceString )
+	{
+		iLength = 0;
+		pSubString = NULL;
+
+		//Find out if the $MERCNAME$ is in the string
+		pMercNameString = wcsstr( &pTempString[ iCurLocInSourceString ], sMercName );
+
+		//pAmountString = wcsstr( &pTempString[ iCurLocInSourceString ], sAmount );
+
+		if( pMercNameString != NULL)
+		{
+			fReplacingMercName = TRUE;
+			pSubString = pMercNameString;
+			wcscpy( sSearchString, sMercName);
+		}
+		else
+		{
+			pSubString = NULL;
+		}
+
+
+		// if there is a substring
+		if( pSubString != NULL )
+		{
+			iLength = pSubString - &pTempString[ iCurLocInSourceString ];
+
+			//Copy the part of the source string upto the keyword
+			wcsncat( pFinishedString, &pTempString[ iCurLocInSourceString ], iLength );
+
+			//increment the source string counter by how far in the keyword is and by the length of the keyword
+			iCurLocInSourceString+= iLength + wcslen( sSearchString );
+
+			if( fReplacingMercName )
+			{
+				//add the mercs name to the string
+				wcscat( pFinishedString, pMercName );
+			}
+		}
+		else
+		{
+			//add the rest of the string
+			wcscat( pFinishedString, &pTempString[ iCurLocInSourceString ] );
+
+			iCurLocInSourceString += wcslen( &pTempString[ iCurLocInSourceString ] );
+		}
+	}
+
+	return( TRUE );
+}
+
 
 BOOLEAN ReplaceMercNameAndAmountWithProperData( CHAR16 *pFinishedString, EmailPtr pMail )
 {

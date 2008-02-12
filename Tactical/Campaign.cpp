@@ -1618,7 +1618,42 @@ UINT16 CountSurfaceSectorsVisited( void )
 void MERCMercWentUpALevelSendEmail( UINT8 ubMercMercIdValue )
 {
 	UINT8 ubEmailOffset = 0;
+	int iMsgLength = 0;
 
-	ubEmailOffset = MERC_UP_LEVEL_BIFF + MERC_UP_LEVEL_LENGTH_BIFF * ( ubMercMercIdValue ); 
-	AddEmail( ubEmailOffset, MERC_UP_LEVEL_LENGTH_BIFF, SPECK_FROM_MERC, GetWorldTotalMin(), -1);
+	// WANNE: TODO: Tex, Biggins, Stoggy and Gaston have special handling because they are the new MERC merc in 1.13
+	// There is no letter template in Email.edt. We have them hardcoded in the source code.
+	if (ubMercMercIdValue == 124 || ubMercMercIdValue == 125 || ubMercMercIdValue == 126 || ubMercMercIdValue == 127)
+	{
+		// Gaston
+		if (ubMercMercIdValue == 124)
+		{
+			ubEmailOffset = MERC_UP_LEVEL_BIFF;
+			iMsgLength = MERC_UP_LEVEL_GASTON;
+		}
+		// Stogie
+		else if (ubMercMercIdValue == 125)
+		{
+			ubEmailOffset = MERC_UP_LEVEL_BIFF;
+			iMsgLength = MERC_UP_LEVEL_STOGIE;
+		}
+		// Tex
+		else if (ubMercMercIdValue == 126)
+		{
+			ubEmailOffset = MERC_UP_LEVEL_BIFF;
+			iMsgLength = MERC_UP_LEVEL_TEX;
+		}
+		// Biggens
+		else if (ubMercMercIdValue == 127)
+		{
+			ubEmailOffset = MERC_UP_LEVEL_BIFF;
+			iMsgLength = MERC_UP_LEVEL_BIGGENS;
+		}
+	}
+	else
+	{
+		iMsgLength = MERC_UP_LEVEL_LENGTH_BIFF;
+		ubEmailOffset = MERC_UP_LEVEL_BIFF + MERC_UP_LEVEL_LENGTH_BIFF * ( ubMercMercIdValue ); 
+	}
+
+	AddEmail( ubEmailOffset, iMsgLength, SPECK_FROM_MERC, GetWorldTotalMin(), -1);
 }

@@ -4012,4 +4012,28 @@ STR16 New113Message[] =
 	L"Arrival of new recruits is being rerouted to sector %s, as scheduled drop-off point of sector %s is enemy occupied.",
 };
 
+// WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
+// INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
+STR16	New113MERCMercMailTexts[] =
+{
+	// Gaston: Text from Line 39 in Email.edt
+	L"Hiermit geben wir zur Kenntnis, daß aufgrund von Gastons guten Leistungen in der Vergangenheit sein Sold erhöht wurde. Ich persönlich bin darüber nicht überrascht. ± ± Speck T. Kline ± ",
+	// Stogie: Text from Line 43 in Email.edt
+	L"Bitte nehmen Sie zur Kenntnis, daß Stogies Bezüge für seine geleisteten Dienste mit sofortiger Wirkung erhöht wurden in Anpassung an seine verbesserten Fähigkeiten. ± ± Speck T. Kline ± ", 
+	// Tex: Text from Line 45 in Email.edt
+	L"Bitte nehmen Sie zur Kenntnis, daß Tex aufgrund seiner Erfahrung Anspruch auf eine angemessenere Entlohnung hat. Seine Bezüge wurden daher ab sofort seinem Wert entsprechend erhöht. ± ± Speck T. Kline ± ",
+	// Biggens: Text from Line 49 in Email.edt
+	L"Zur Kenntnisnahme. Aufgrund seiner verbesserten Leistungen wurden Biggens Dienstbezüge erhöht. ± ± Speck T. Kline ± ",
+};
+
+// WANNE: These are the missing skills from the impass.edt file
+// INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
+STR16 MissingIMPSkillsDescriptions[] =
+{
+	// Rooftop sniping
+	L"Dach-Treffer Bonus: Vor Ihnen sind nicht einmal Ameisen sicher. Jedes anvisierte Ziel wird gnadenlos zur Strecke gebracht! ± ",
+	// Camouflage
+	L"Getarnt: Neben Ihnen sehen selbst Sträucher künstlich aus! ± ",	
+};
+
 #endif //GERMAN

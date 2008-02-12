@@ -1526,6 +1526,8 @@ FLOAT GetWeightBasedOnMetricOption( UINT32 uiObjectWeight );
 
 //SB: new 1.13 messages
 extern STR16 New113Message[];
+extern STR16 New113MERCMercMailTexts[];
+extern STR16 MissingIMPSkillsDescriptions[];
 
 enum
 {

@@ -2862,6 +2862,16 @@ void CalculateAutoResolveInfo()
 																				&gpAR->ubYMCreatures, &gpAR->ubYFCreatures,
 																				&gpAR->ubAMCreatures, &gpAR->ubAFCreatures );
 		}
+
+		// WANNE: Quickfix: If we have 0 creatues call the DetermineCreatureTownCompositionBasedOnTacticalInformation(),
+		// because we called the DetermineCreatureTownComposition() method before which was wrong.
+		if (gubNumCreaturesAttackingTown == 0)
+		{
+			DetermineCreatureTownCompositionBasedOnTacticalInformation( &gubNumCreaturesAttackingTown, 
+																				&gpAR->ubYMCreatures, &gpAR->ubYFCreatures,
+																				&gpAR->ubAMCreatures, &gpAR->ubAFCreatures );
+		}
+
 		gpAR->ubEnemies = (UINT8)min( gpAR->ubYMCreatures + gpAR->ubYFCreatures + gpAR->ubAMCreatures + gpAR->ubAFCreatures, MAX_AR_TEAM_SIZE );
 	}
 	gfTransferTacticalOppositionToAutoResolve = FALSE;

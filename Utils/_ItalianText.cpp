@@ -4204,4 +4204,28 @@ STR16 New113Message[] =
 	L"Arrival of new recruits is being rerouted to sector %s, as scheduled drop-off point of sector %s is enemy occupied.",
 };
 
+// WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
+// INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
+STR16	New113MERCMercMailTexts[] =
+{
+	// Gaston: Text from Line 39 in Email.edt
+	L"Hereby be informed that due to Gastons's past performance his fees for services rendered have undergone an increase. Personally, I'm not surprised. ± ± Speck T. Kline ± ",
+	// Stogie: Text from Line 43 in Email.edt
+	L"Please be advised that, as of this moment, Stogies's fees for services rendered have increased to coincide with the increase in his abilities. ± ± Speck T. Kline ± ", 
+	// Tex: Text from Line 45 in Email.edt
+	L"Please be advised that Tex's experience entitles him to more equitable compensation. He's fees have therefore been increased to more accurately reflect his worth. ± ± Speck T. Kline ± ",
+	// Biggens: Text from Line 49 in Email.edt
+	L"Please take note. Due to the improved performance of Biggens his fees for services rendered have undergone an increase. ± ± Speck T. Kline ± ",
+};
+
+// WANNE: These are the missing skills from the impass.edt file
+// INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
+STR16 MissingIMPSkillsDescriptions[] =
+{
+	// Rooftop sniping
+	L"Rooftop Sniping: Not even ants are on the save side. Each target is mercilessly tracked down! ± ",
+	// Camouflage
+	L"Camouflage: Besides you even bushes look synthetic! ± ",	
+};
+
 #endif //ITALIAN
