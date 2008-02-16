@@ -43,7 +43,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libexpatMT.lib mss32.lib winmm.lib smackw32.lib fmodvc.lib lua51.lib"
-				OutputFile="C:\Games\Jagged Alliance 2\ja2_debug_1020_en.exe"
+				OutputFile="D:\Games\Jagged Alliance 2 v1.13\JA2_v1.13_Debug_EN.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				IgnoreDefaultLibraryNames="libcmt;LIBCD"
@@ -545,7 +545,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libexpatMT.lib winmm.lib smackw32.lib mss32.lib fmodvc.lib lua51.lib"
-				OutputFile="C:\games\Jagged Alliance 2\JA2_vs2003_release.exe"
+				OutputFile="D:\games\Jagged Alliance 2 v1.13\JA2 v1.13.1796_EN.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreDefaultLibraryNames=""
@@ -2245,6 +2245,9 @@
 			Filter="h;hpp;hxx;hm;inl;fi;fd">
 			<File
 				RelativePath="builddefines.h">
+			</File>
+			<File
+				RelativePath=".\Cheats.h">
 			</File>
 			<File
 				RelativePath="Credits.h">

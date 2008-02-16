@@ -390,7 +390,7 @@
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="3"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\;..\Utils;..\tacticalai;..\Editor;..\strategic;..\Laptop;.\"
+				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\;..\Utils;..\tacticalai;..\Editor;..\strategic;..\Laptop;.\;..\lua"
 				PreprocessorDefinitions="CALLBACKTIMER;PRECOMPILEDHEADERS;NDEBUG;WIN32;_WINDOWS;JA2;XML_STATIC;CINTERFACE"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"

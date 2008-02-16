@@ -2,6 +2,7 @@
 #include "Tactical All.h"
 #include "PreBattle Interface.h"
 #include "creature spreading.h"
+#include "Lua Interpreter.h"
 #else
 #include <stdio.h>
 #include <string.h>
