@@ -1,0 +1,42 @@
+Hallo !
+
+Anbei die CPPs. Alle bis auf PreBattle interface (STRATEGIC) gehören zu TACTICAL.
+
+Die Änderungen befinden sich zwischen CALLAHAN START und CALLAHAN END, genau wie damals beim Einbau der explosiven Bullets.
+
+Obwohl man Monster/Armee kämpfe beobachten kann, kommt es derzeit zu keinem Kampf wenn Monster Armeesektoren überfallen.
+Da die Monster zum sinnlosem herumstehen tendierten und mit meinen neuen STROGG Einheiten bessere Monster zur Verfügung standen, löschte ich schliesslich diese 
+Funktionsänderung. 
+Es sollte sich aber leicht wieder in CREATURE SPREADING einbauen lassen, falls es gewünscht wird.
+
+Kann ich den neuen Code auch ausserhalb von SVN beziehen ? Wie bereits erwähnt kann ich das Programm nicht nutzen, und müsste jede File einzeln als Text herunterladen.
+Ich frage natürlich völlig uneigennützig - nur um bei der Korrektur möglicher Fehlerquellen
+zu helfen ;-)
+
+Falls es noch Fragen gibt, stehe ich natürlich zur Verfügung.
+
+Gruss Callahan
+
+
+--------------------------------------------------------
+
+> Hello!
+>
+> I just received an email from Callahan (german ja2 forum) who did several changes to the source code for his own mod. He mailed me
+his feature list and asked me, if we want to include it in the svn source code.
+>
+> I just post the features in german, I hope some german guy can translate it in English, cause I have not much time now...
+>
+> 1. Gegner Hit Location Zielauswahl hängt von zu erwartendem Schaden * Trefferchance ab.(Einzelschuss / Burst getrennt berechnet )
+>
+> 2. Kopf/ Beine bei liegenden Gegnern anvisierbar.
+>
+> 3. Alle Schlachten ohne Sölli verfolgbar. (Allerdings fragt er bei kämpfen Monster / Armee immer noch, ob man sich ergeben will)
+>
+> 4. Bluten kann sich verringern und sogar stoppen, statt immer schlimmer zu werden.
+>
+> 5. Laden einer vollen Waffe mit Mag anderer Kugelzahl addiert das Waffenmag ins Inventar und lädt dann nach. Ideal um schnell in
+passende Mags umzuwandeln.
+>
+> 6. Mags gleichen Patronentyps können miteinander gefüllt werden.
+>

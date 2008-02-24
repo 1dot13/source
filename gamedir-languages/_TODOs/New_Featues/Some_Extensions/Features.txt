@@ -1,0 +1,36 @@
+There is about the extension to v1.13 contained information on side this. The current version of the extension carries the v.8a.
+
+Version 8a
+
+New parameters and header ([Extension]) in the file : Ja2_Options.ini
+
+
+added 40 new groups in the editor 
+
+new parameters added one can apply in files profXXX_XXX.ini
+
+The possibility of writing down mercenaries profil from MERC to files ini. The list of accessible parameters is described in the file czytaj_to.txt.
+The possibility of writing down mercenaries profil from NPC to files ini. The list of accessible parameters is described in the file czytaj_to.txt.
+The possibility of writing down mercenaries profil from AIM to files ini. The list of accessible parameters is described in the file czytaj_to.txt.
+Add files in which we can put underground locations. 
+
+BASEMENT_LEVEL_1.ini - the underground level 1
+BASEMENT_LEVEL_2.ini - the underground level 2
+BASEMENT_LEVEL_3.ini - the underground level 3
+
+Added the underground the file BloodCats.ini.
+
+File this serves to places tigers quantity in sectors.
+The quantity of cities was altered from 12 on 30. We to add to have the new city to add them in Cities.xml.
+Added the file loading_screen.ini
+
+File this gives us the possibility of attributing every one sector the different screen of reading. Every sector can have two screens of reading.
+New parameters in Ja2_Options.INI
+
+- X
+- Y
+- SECTOR
+
+Serve they to the setting of the take-off sector.
+
+The full list of changes in the version v.8a is accessible after unpacking the archive in the file readme.html.
