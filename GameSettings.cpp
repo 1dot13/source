@@ -705,6 +705,9 @@ void LoadGameExternalOptions()
 	// Kaiden: Vehicle Inventory change - Added INI file Option VEHICLE_INVENTORY
 	gGameExternalOptions.fVehicleInventory					= iniReader.ReadBoolean("JA2 Gameplay Settings", "VEHICLE_INVENTORY", TRUE);
 
+	// WANNE: Added INI file Option for enemy ambushes, so we also have the option to play vanilla ja2 ambush settings
+	gGameExternalOptions.fEnableChanceOfEnemyAmbushesOnInsaneDifficult = iniReader.ReadBoolean("JA2 Gameplay Settings", "ENABLE_CHANCE_OF_ENEMY_AMBUSHES_ON_INSANE_DIFFICULT", TRUE);
+
 }
 
 

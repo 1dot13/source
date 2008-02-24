@@ -543,8 +543,10 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 					{
 						gubEnemyEncounterCode = ENEMY_AMBUSH_CODE;
 					}
-					// Madd
-					else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE && 
+					// Madd:  
+					// WANNE: Added an ja2_options.ini Property "ENABLE_CHANCE_OF_ENEMY_AMBUSHES_ON_INSANE_DIFFICULT"
+					else if( gGameExternalOptions.fEnableChanceOfEnemyAmbushesOnInsaneDifficult && 
+						gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE && 
 									 CurrentPlayerProgressPercentage() >= 25 )
 					{ //if the enemy outnumbers the players, then there is a chance of the enemies ambushing the group
 						if( ubNumMobileEnemies > ubNumMercs )

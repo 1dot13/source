@@ -209,6 +209,8 @@ typedef struct
 	// Kaiden: Vehicle Inventory change - Added for INI Option
 	BOOLEAN fVehicleInventory;
 
+	BOOLEAN fEnableChanceOfEnemyAmbushesOnInsaneDifficult;
+
 	// System settings
 	UINT8 gubDeadLockDelay;
 	BOOLEAN gfEnableEmergencyButton_SkipStrategicEvents;
