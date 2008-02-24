@@ -4543,11 +4543,18 @@ void DrawItemTileCursor( )
 		}
 
 
+		// WANNE: Prevent duplication of items cheat-bug:
+		// You need two mercenaries. You place required item to first mercenary's inventory, 
+		// then you take the item and point cursor with the item at the second mercenary. 
+		// Then you click right mouse button and then left one. 
+		// During the process of giving the item from the first mercenary to the second quicly move the item to the another slot of the inventory. 
+		// As a result of it the item will be given to the second mercenary and the first mercenary will still have it.
+		
 		// OK, if different than default, change....
-		if ( gfItemPointerDifferentThanDefault )
-		{
-			fGiveItem = !fGiveItem;
-		}
+		//if ( gfItemPointerDifferentThanDefault )
+		//{
+		//	fGiveItem = !fGiveItem;
+		//}
 
 
 		// Get recalc and cursor flags
@@ -4879,11 +4886,17 @@ BOOLEAN HandleItemPointerClick( UINT16 usMapPos )
 		fGiveItem = TRUE;
 	}
 
+	// WANNE: Prevent duplication of items cheat-bug:
+	// You need two mercenaries. You place required item to first mercenary's inventory, 
+	// then you take the item and point cursor with the item at the second mercenary. 
+	// Then you click right mouse button and then left one. 
+	// During the process of giving the item from the first mercenary to the second quicly move the item to the another slot of the inventory. 
+	// As a result of it the item will be given to the second mercenary and the first mercenary will still have it.
 	// OK, if different than default, change....
-	if ( gfItemPointerDifferentThanDefault )
-	{
-		fGiveItem = !fGiveItem;
-	}
+	//if ( gfItemPointerDifferentThanDefault )
+	//{
+	//	fGiveItem = !fGiveItem;
+	//}
 
 
 	// Get Pyth spaces away.....
