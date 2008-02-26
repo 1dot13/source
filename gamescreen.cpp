@@ -1115,6 +1115,14 @@ void InitHelicopterEntranceByMercs( void )
 		// Update clock ahead from STARTING_TIME to make mercs arrive!
 		WarpGameTime( gGameExternalOptions.iFirstArrivalDelay, WARPTIME_PROCESS_EVENTS_NORMALLY );
 
+		// WANNE: fix HOT DAY in night at arrival by night. Maybe gubEnvLightValue=12 is no good value..
+		// Maybe we should add a switch-case for different night times and set gubEnvLightValue to differnt values
+		if( gGameExternalOptions.iFirstArrivalDelay < 21599)
+		{ 
+			gubEnvLightValue = 12; 
+			LightSetBaseLevel(gubEnvLightValue); 
+		} 
+
 		AirRaidDef.sSectorX		= 9;
 		AirRaidDef.sSectorY		= 1;
 		AirRaidDef.sSectorZ		= 0;
