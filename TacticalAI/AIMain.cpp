@@ -1926,7 +1926,7 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 
 		if ( CHEATER_CHEAT_LEVEL( ) )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Soldier %d decides action %d with data %d", pSoldier->ubID, pSoldier->bAction, pSoldier->usActionData );
+			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Soldier %d decides action %d with data %d", pSoldier->ubID, pSoldier->bAction, pSoldier->usActionData );
 		}
 
 		// see if we can afford to do this action

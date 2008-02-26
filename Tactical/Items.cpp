@@ -4709,7 +4709,7 @@ UINT16 FindReplacementMagazineIfNecessary( UINT16 usOldGun, UINT16 usOldAmmo, UI
 // increase this if any gun can have more types that this
 #define MAX_AMMO_TYPES_PER_GUN		24  // MADD MARKER
 
-UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard )
+UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard, UINT8 maxCoolness )
 {
 	// Note: if any ammo items in the item table are separated from the main group,
 	// this function will have to be rewritten to scan the item table for an item
@@ -4717,10 +4717,11 @@ UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard )
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("RandomMagazine (by index)"));
 
 	WEAPONTYPE *	pWeapon;
-	UINT16				usLoop;
-	UINT16				usPossibleMagIndex[ MAX_AMMO_TYPES_PER_GUN ];
-	UINT16				usPossibleMagCnt = 0;
-	UINT8					ubMagChosen;
+	UINT16			usLoop;
+	UINT16			loopItem;
+	UINT16			usPossibleMagIndex[ MAX_AMMO_TYPES_PER_GUN ];
+	UINT16			usPossibleMagCnt = 0;
+	UINT8			ubMagChosen;
 
 	if (!(Item[usItem].usItemClass & IC_GUN))
 	{
@@ -4733,8 +4734,11 @@ UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard )
 	usLoop = 0;
 	while ( Magazine[ usLoop ].ubCalibre != NOAMMO )
 	{
+		loopItem = MagazineClassIndexToItemType(usLoop);
+
 		if (Magazine[usLoop].ubCalibre == pWeapon->ubCalibre &&
-				Magazine[usLoop].ubMagSize == pWeapon->ubMagSize && ItemIsLegal(MagazineClassIndexToItemType(usLoop)))
+				Magazine[usLoop].ubMagSize == pWeapon->ubMagSize && ItemIsLegal(loopItem)
+				&& maxCoolness >= Item[loopItem].ubCoolness )
 		{
 			// store it! (make sure array is big enough)
 			Assert(usPossibleMagCnt < MAX_AMMO_TYPES_PER_GUN);
@@ -4791,7 +4795,7 @@ UINT16 RandomMagazine( UINT16 usItem, UINT8 ubPercentStandard )
 	}
 }
 
-UINT16 RandomMagazine( OBJECTTYPE * pGun, UINT8 ubPercentStandard )
+UINT16 RandomMagazine( OBJECTTYPE * pGun, UINT8 ubPercentStandard, UINT8 maxCoolness )
 {
 	// Note: if any ammo items in the item table are separated from the main group,
 	// this function will have to be rewritten to scan the item table for an item
@@ -4799,10 +4803,11 @@ UINT16 RandomMagazine( OBJECTTYPE * pGun, UINT8 ubPercentStandard )
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("RandomMagazine"));
 
 	WEAPONTYPE *	pWeapon;
-	UINT16				usLoop;
-	UINT16				usPossibleMagIndex[ MAX_AMMO_TYPES_PER_GUN ];
-	UINT16				usPossibleMagCnt = 0;
-	UINT8					ubMagChosen;
+	UINT16			usLoop;
+	UINT16			loopItem;
+	UINT16			usPossibleMagIndex[ MAX_AMMO_TYPES_PER_GUN ];
+	UINT16			usPossibleMagCnt = 0;
+	UINT8			ubMagChosen;
 
 	if (!(Item[pGun->usItem].usItemClass & IC_GUN))
 	{
@@ -4815,8 +4820,11 @@ UINT16 RandomMagazine( OBJECTTYPE * pGun, UINT8 ubPercentStandard )
 	usLoop = 0;
 	while ( Magazine[ usLoop ].ubCalibre != NOAMMO )
 	{
+		loopItem = MagazineClassIndexToItemType(usLoop);
+
 		if (Magazine[usLoop].ubCalibre == pWeapon->ubCalibre &&
-				Magazine[usLoop].ubMagSize == GetMagSize(pGun) && ItemIsLegal(MagazineClassIndexToItemType(usLoop)))
+				Magazine[usLoop].ubMagSize == GetMagSize(pGun) && ItemIsLegal(loopItem)
+				&& maxCoolness >= Item[loopItem].ubCoolness )
 		{
 			// store it! (make sure array is big enough)
 			Assert(usPossibleMagCnt < MAX_AMMO_TYPES_PER_GUN);

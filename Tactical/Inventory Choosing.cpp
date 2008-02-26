@@ -659,7 +659,11 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 			{
 				usGunIndex = pp->Inv[ i ].usItem;
 				ubChanceStandardAmmo = 100 - (bWeaponClass * -9);		// weapon class is negative!
-				usAmmoIndex = RandomMagazine( usGunIndex, ubChanceStandardAmmo );
+				usAmmoIndex = RandomMagazine( usGunIndex, ubChanceStandardAmmo, max(Item[usGunIndex].ubCoolness, HighestPlayerProgressPercentage() / 10 + 3));
+		
+				if ( usAmmoIndex <= 0 )
+					usAmmoIndex = DefaultMagazine(usGunIndex);
+
 				pp->Inv[ i ].ItemData.Gun.ubGunAmmoType = Magazine[Item[usAmmoIndex].ubClassIndex].ubAmmoType;
 				pp->Inv[ i ].ItemData.Gun.usGunAmmoItem = usAmmoIndex;
 
@@ -928,7 +932,11 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 		//		break;
 		//}
 
-		usAmmoIndex = RandomMagazine( &pp->Inv[HANDPOS], ubChanceStandardAmmo );
+		usAmmoIndex = RandomMagazine( &pp->Inv[HANDPOS], ubChanceStandardAmmo, max(Item[usGunIndex].ubCoolness, HighestPlayerProgressPercentage() / 10 + 3 ));
+
+		if ( usAmmoIndex <= 0 )
+			usAmmoIndex = DefaultMagazine(usGunIndex);
+
 		pp->Inv[ HANDPOS ].ItemData.Gun.ubGunAmmoType = Magazine[Item[usAmmoIndex].ubClassIndex].ubAmmoType;
 		pp->Inv[ HANDPOS ].ItemData.Gun.usGunAmmoItem = usAmmoIndex;
 	}
