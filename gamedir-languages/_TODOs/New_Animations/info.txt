@@ -1,6 +1,0 @@
-Animations done by 
-
-KHOR: 	khor1966@yahoo.com
-MAn:	mladoff@ukr.net
-
-For implementing new animations see SVN Revision 890. There we added the crouching throwing animation.
