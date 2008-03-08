@@ -15,7 +15,7 @@
 
 #define MAX_CHAR_DATA_LENGTH			500
 
-extern INT32  iRestrictedSectorArraySize;
+extern INT32	iRestrictedSectorArraySize;
 extern UINT32 gRestrictMilitia[256];
 
 
@@ -105,10 +105,10 @@ RoamingEndElementHandle(void *userData, const XML_Char *name)
 
 			y = (UINT8)pData->szCharData[0] & 0x1F;
 			x = (UINT8)atol(&pData->szCharData[1]);
-			if ( x > 0 && x <= 16  && y > 0 && y <= 16 )
+			if ( x > 0 && x <= 16	&& y > 0 && y <= 16 )
 			{
 				pData->curRoamingInfo.fValidSector = TRUE;
-				pData->curRoamingInfo.ubSectorID   = SECTOR(x,y);
+				pData->curRoamingInfo.ubSectorID	= SECTOR(x,y);
 				gRestrictMilitia[pData->uiSectorCount] = pData->curRoamingInfo.ubSectorID;
 				pData->uiSectorCount++;
 			}
@@ -131,13 +131,13 @@ BOOLEAN ReadInRoamingInfo(STR fileName)
 	UINT32		uiFSize;
 	CHAR8 *		lpcBuffer;
 	XML_Parser	parser = XML_ParserCreate(NULL);
-	
+
 	RoamingParseData pData;
 
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);
 
@@ -152,16 +152,16 @@ BOOLEAN ReadInRoamingInfo(STR fileName)
 
 	FileClose( hFile );
 
-	
+
 	XML_SetElementHandler(parser, RoamingStartElementHandle, RoamingEndElementHandle);
 	XML_SetCharacterDataHandler(parser, RoamingCharacterDataHandle);
 
-	
+
 	memset(&pData,0,sizeof(pData));
 	XML_SetUserData(parser, &pData);
 	iRestrictedSectorArraySize = 0;
 
-    if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
+	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
 		sprintf(errorBuf, "XML Parser Error in RestrictedRoamingMilitia.xml: %s at line %d", XML_ErrorString(XML_GetErrorCode(parser)), XML_GetCurrentLineNumber(parser));

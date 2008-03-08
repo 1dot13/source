@@ -1,6 +1,8 @@
 #ifndef _STRATEGIC_MERC_HANDLER_H_
 #define _STRATEGIC_MERC_HANDLER_H_
 
+//forward declarations of common classes to eliminate includes
+class SOLDIERTYPE;
 
 void StrategicHandlePlayerTeamMercDeath( SOLDIERTYPE *pSoldier );
 void MercDailyUpdate();

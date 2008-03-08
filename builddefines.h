@@ -11,9 +11,16 @@
 
 //#define JA2EDITOR
 
+//#define SGP_DEBUG
+
 //#define DEBUG_ATTACKBUSY
 
+//#define DEBUGDECISIONS
+
 #define ROBOT_ALWAYS_READY
+
+
+#define BLOOD_N_GORE_ENABLED
 
 //#ifdef _DEBUG
 //	#ifndef JA2TESTVERSION

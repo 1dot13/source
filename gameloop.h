@@ -10,8 +10,8 @@
 
 
 extern BOOLEAN InitializeGame(void);
-extern void    ShutdownGame(void);
-extern void    GameLoop(void);
+extern void	ShutdownGame(void);
+extern void	GameLoop(void);
 
 // handle exit from game due to shortcut key
 void HandleShortCutExitState( void );

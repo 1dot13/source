@@ -99,15 +99,15 @@ void UpdateBuildingsInfo()
 //1) if there isn't structure info here, return.
 //2) if there is structure info here, delete it now.
 //3) KillBuilding at x-1, y.
-//4) KillBuilding at x  , y-1.
+//4) KillBuilding at x	, y-1.
 //5) KillBuilding at x+1, y.
-//6) KillBuilding at x  , y+1.
+//6) KillBuilding at x	, y+1.
 void KillBuilding( UINT32 iMapIndex )
 {
 	BOOLEAN fFound = FALSE;
 
 	if( !gfBasement )
-		fFound |= RemoveAllRoofsOfTypeRange( iMapIndex, FIRSTTEXTURE, LASTITEM );	
+		fFound |= RemoveAllRoofsOfTypeRange( iMapIndex, FIRSTTEXTURE, LASTITEM );
 	fFound |= RemoveAllLandsOfTypeRange( iMapIndex, FIRSTFLOOR, LASTFLOOR );
 
 	EraseBuilding( iMapIndex );
@@ -120,13 +120,13 @@ void KillBuilding( UINT32 iMapIndex )
 		return;
 	}
 
-	if( GridNoOnVisibleWorldTile( (UINT16)( iMapIndex - WORLD_COLS ) ) )
+	if( GridNoOnVisibleWorldTile( (INT16)( iMapIndex - WORLD_COLS ) ) )
 		KillBuilding( iMapIndex - WORLD_COLS );
-	if( GridNoOnVisibleWorldTile( (UINT16)( iMapIndex + WORLD_COLS ) ) )
+	if( GridNoOnVisibleWorldTile( (INT16)( iMapIndex + WORLD_COLS ) ) )
 		KillBuilding( iMapIndex + WORLD_COLS );
-	if( GridNoOnVisibleWorldTile( (UINT16)( iMapIndex + 1 ) ) )
+	if( GridNoOnVisibleWorldTile( (INT16)( iMapIndex + 1 ) ) )
 		KillBuilding( iMapIndex + 1 );
-	if( GridNoOnVisibleWorldTile( (UINT16)( iMapIndex - 1 ) ) )
+	if( GridNoOnVisibleWorldTile( (INT16)( iMapIndex - 1 ) ) )
 		KillBuilding( iMapIndex - 1 );
 
 	if( gfBasement )
@@ -149,7 +149,7 @@ void DeleteBuildingLayout()
 		MemFree( curr );
 	}
 	gpBuildingLayoutList = NULL;
-	gsBuildingLayoutAnchorGridNo = -1;	
+	gsBuildingLayoutAnchorGridNo = -1;
 }
 
 void BuildLayout( INT32 iMapIndex, INT32 iOffset )
@@ -193,16 +193,16 @@ void BuildLayout( INT32 iMapIndex, INT32 iOffset )
 	BuildLayout( iMapIndex, WORLD_COLS );
 }
 
-//The first step is copying a building.  After that, it either must be pasted or moved.
+//The first step is copying a building.	After that, it either must be pasted or moved.
 void CopyBuilding( INT32 iMapIndex )
 {
-	AssertMsg( !gpBuildingLayoutList, "Error:  Attempting to copy building multiple times." );
+	AssertMsg( !gpBuildingLayoutList, "Error:	Attempting to copy building multiple times." );
 
-	//First step is to determine if we have a building in the area that we click.  If not, do nothing.
+	//First step is to determine if we have a building in the area that we click.	If not, do nothing.
 	if( !BuildingAtGridNo( iMapIndex ) )
 		return;
-	//Okay, a building does exist here to some undetermined capacity.  
-	//Allocate the basic structure, then calculate the layout.  The head node is
+	//Okay, a building does exist here to some undetermined capacity.
+	//Allocate the basic structure, then calculate the layout.	The head node is
 	gpBuildingLayoutList = (BUILDINGLAYOUTNODE*)MemAlloc( sizeof( BUILDINGLAYOUTNODE ) );
 	Assert( gpBuildingLayoutList );
 	gpBuildingLayoutList->sGridNo = (INT16)iMapIndex;
@@ -210,16 +210,16 @@ void CopyBuilding( INT32 iMapIndex )
 
 	//Set the anchor point for this building -- this is where the user clicked.
 	gsBuildingLayoutAnchorGridNo = (INT16)iMapIndex;
-		
-	//Now, recursively expand out while adding unique gridnos to our list.  The recursion will
+
+	//Now, recursively expand out while adding unique gridnos to our list.	The recursion will
 	//terminate when complete.
 	BuildLayout( iMapIndex, -WORLD_COLS );
 	BuildLayout( iMapIndex, -1 );
 	BuildLayout( iMapIndex, 1 );
 	BuildLayout( iMapIndex, WORLD_COLS );
 
-	//We have our layout.  Now depending on the mode, we will either move the building or
-	//copy it.  The layout automatically gets deleted as soon as the user releases the mouse
+	//We have our layout.	Now depending on the mode, we will either move the building or
+	//copy it.	The layout automatically gets deleted as soon as the user releases the mouse
 	//button.
 }
 
@@ -295,7 +295,7 @@ void PasteMapElementToNewMapElement( INT32 iSrcGridNo, INT32 iDstGridNo )
 	MAP_ELEMENT			*pSrcMapElement;
 	LEVELNODE				*pNode;
 	UINT16					usType;
-	
+
 	DeleteStuffFromMapTile( iDstGridNo );
 	DeleteAllLandLayers( iDstGridNo );
 
@@ -512,23 +512,23 @@ void InitDoorEditing( INT32 iMapIndex )
 	DisableEditorTaskbar();
 	MSYS_DefineRegion( &DoorRegion, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGH-2, 0, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 	iDoorButton[ DOOR_BACKGROUND ] =
-		CreateTextButton( 0, 0, 0, 0, BUTTON_USE_DEFAULT, iScreenWidthOffset + 200, iScreenHeightOffset + 130, 240, 100, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1, 
+		CreateTextButton( 0, 0, 0, 0, BUTTON_USE_DEFAULT, iScreenWidthOffset + 200, iScreenHeightOffset + 130, 240, 100, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1,
 		BUTTON_NO_CALLBACK, BUTTON_NO_CALLBACK );
 	DisableButton( iDoorButton[ DOOR_BACKGROUND ] );
 	SpecifyDisabledButtonStyle( iDoorButton[ DOOR_BACKGROUND ], DISABLED_STYLE_NONE );
 	iDoorButton[ DOOR_OKAY ] =
 		CreateTextButton(L"Okay", FONT12POINT1, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
-		iScreenWidthOffset + 330, iScreenHeightOffset + 195, 50, 30, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, 
+		iScreenWidthOffset + 330, iScreenHeightOffset + 195, 50, 30, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK,
 		DoorOkayCallback );
 	iDoorButton[ DOOR_CANCEL ] =
 		CreateTextButton(L"Cancel", FONT12POINT1, FONT_BLACK, FONT_BLACK, BUTTON_USE_DEFAULT,
-		iScreenWidthOffset + 385, iScreenHeightOffset + 195, 50, 30, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK, 
+		iScreenWidthOffset + 385, iScreenHeightOffset + 195, 50, 30, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH, DEFAULT_MOVE_CALLBACK,
 		DoorCancelCallback );
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
 	AddTextInputField( iScreenWidthOffset + 210, iScreenHeightOffset + 155, 25, 16, MSYS_PRIORITY_HIGH, L"0", 3, INPUTTYPE_NUMERICSTRICT );
 	AddTextInputField( iScreenWidthOffset + 210, iScreenHeightOffset + 175, 25, 16, MSYS_PRIORITY_HIGH, L"0", 2, INPUTTYPE_NUMERICSTRICT );
 	AddTextInputField( iScreenWidthOffset + 210, iScreenHeightOffset + 195, 25, 16, MSYS_PRIORITY_HIGH, L"0", 2, INPUTTYPE_NUMERICSTRICT );
-	iDoorButton[ DOOR_LOCKED ] = 
+	iDoorButton[ DOOR_LOCKED ] =
 		CreateCheckBoxButton(	iScreenWidthOffset + 210, iScreenHeightOffset + 215, "EDITOR//SmCheckbox.sti", MSYS_PRIORITY_HIGH, DoorToggleLockedCallback );
 
 	pDoor = FindDoorInfoAtGridNo( iDoorMapIndex );
@@ -569,20 +569,20 @@ void ExtractAndUpdateDoorInfo()
 	num = min( max( GetNumericStrictValueFromField( 1 ), 0 ), 10 );
 	door.ubTrapID = (UINT8)num;
 	SetInputFieldStringWithNumericStrictValue( 1, num );
-	if( num ) 
+	if( num )
 		fCursor = TRUE;
 
 	num = min( max( GetNumericStrictValueFromField( 2 ), 0 ), 20 );
 	if( door.ubTrapID && !num )
-		num = 1;  //Can't have a trap without a traplevel!
+		num = 1;	//Can't have a trap without a traplevel!
 	door.ubTrapLevel = (UINT8)num;
 	SetInputFieldStringWithNumericStrictValue( 2, num );
-	if( num ) 
+	if( num )
 		fCursor = TRUE;
 
 	if( ButtonList[ iDoorButton[ DOOR_LOCKED ] ]->uiFlags & BUTTON_CLICKED_ON )
 	{
-		door.fLocked = TRUE;		
+		door.fLocked = TRUE;
 	}
 	else
 	{
@@ -730,7 +730,7 @@ void SetupTextInputForBuildings()
 {
 	CHAR16 str[4];
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
-	AddUserInputField( NULL );  //just so we can use short cut keys while not typing.
+	AddUserInputField( NULL );	//just so we can use short cut keys while not typing.
 	swprintf( str, L"%d", gubMaxRoomNumber );
 	AddTextInputField( iScreenWidthOffset + 410, 2 * iScreenHeightOffset + 400, 25, 15, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_NUMERICSTRICT );
 }
@@ -760,6 +760,7 @@ void ExtractAndUpdateBuildingInfo()
 
 
 
- 
+
+
 
 

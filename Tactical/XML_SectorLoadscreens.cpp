@@ -2,43 +2,8 @@
 	#include "Tactical All.h"
 #else
 	#include "sgp.h"
-	#include "overhead types.h"
-	#include "Sound Control.h"
-	#include "Soldier Control.h"
 	#include "overhead.h"
-	#include "Event Pump.h"
 	#include "weapons.h"
-	#include "Animation Control.h"
-	#include "sys globals.h"
-	#include "Handle UI.h"
-	#include "Isometric Utils.h"
-	#include "worldman.h"
-	#include "math.h"
-	#include "points.h"
-	#include "ai.h"
-	#include "los.h"
-	#include "renderworld.h"
-	#include "opplist.h"
-	#include "interface.h"
-	#include "message.h"
-	#include "campaign.h"
-	#include "items.h"
-	#include "text.h"
-	#include "Soldier Profile.h"
-	#include "tile animation.h"
-	#include "Dialogue Control.h"
-	#include "SkillCheck.h"
-	#include "explosion control.h"
-	#include "Quests.h"
-	#include "Physics.h"
-	#include "Random.h"
-	#include "Vehicles.h"
-	#include "bullets.h"
-	#include "morale.h"
-	#include "meanwhile.h"
-	#include "SkillCheck.h"
-	#include "gamesettings.h"
-	#include "SaveLoadMap.h"
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
@@ -54,13 +19,13 @@ struct
 	SECTOR_LOADSCREENS *	curArray;
 
 	UINT32			maxArraySize;
-	UINT32			curIndex;	
+	UINT32			curIndex;
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
 }
 typedef sectorLoadscreensParseData;
 
-static void XMLCALL 
+static void XMLCALL
 sectorLoadscreensStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	sectorLoadscreensParseData * pData = (sectorLoadscreensParseData *)userData;
@@ -85,7 +50,7 @@ sectorLoadscreensStartElementHandle(void *userData, const XML_Char *name, const 
 		}
 		else if (pData->curElement == ELEMENT &&
 				(strcmp(name, "uiIndex") == 0 ||
-				strcmp(name, "szLocation") == 0 || 
+				strcmp(name, "szLocation") == 0 ||
 				strcmp(name, "RandomAltSector") == 0 ||
 				strcmp(name, "szImageFormat") == 0 ||
 				strcmp(name, "szDay") == 0 ||
@@ -110,9 +75,9 @@ sectorLoadscreensCharacterDataHandle(void *userData, const XML_Char *str, int le
 {
 	sectorLoadscreensParseData * pData = (sectorLoadscreensParseData *)userData;
 
-	if( (pData->currentDepth <= pData->maxReadDepth) && 
+	if( (pData->currentDepth <= pData->maxReadDepth) &&
 		(strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH)
-	  ){
+	){
 		strncat(pData->szCharData,str,__min((unsigned int)len,MAX_CHAR_DATA_LENGTH-strlen(pData->szCharData)));
 	}
 }
@@ -120,7 +85,7 @@ sectorLoadscreensCharacterDataHandle(void *userData, const XML_Char *str, int le
 
 static void XMLCALL
 sectorLoadscreensEndElementHandle(void *userData, const XML_Char *name)
-{	
+{
 	char temp;
 	sectorLoadscreensParseData * pData = (sectorLoadscreensParseData *)userData;
 
@@ -142,7 +107,7 @@ sectorLoadscreensEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "uiIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curSectorLoadscreens.uiIndex   = (UINT32) atol(pData->szCharData);
+			pData->curSectorLoadscreens.uiIndex	= (UINT32) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "szLocation") == 0)
 		{
@@ -166,7 +131,7 @@ sectorLoadscreensEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "RandomAltSector") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curSectorLoadscreens.RandomAltSector  = (BOOLEAN) atol(pData->szCharData);
+			pData->curSectorLoadscreens.RandomAltSector	= (BOOLEAN) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "szImageFormat") == 0)
 		{
@@ -190,7 +155,7 @@ sectorLoadscreensEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "szDay") == 0)
 		{
 			pData->curElement = ELEMENT;
-			
+
 			if(MAX_IMAGE_PATH_CHARS >= strlen(pData->szCharData))
 				strcpy(pData->curSectorLoadscreens.szDay,pData->szCharData);
 			else
@@ -209,7 +174,7 @@ sectorLoadscreensEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "szNight") == 0)
 		{
 			pData->curElement = ELEMENT;
-			
+
 			if(MAX_IMAGE_PATH_CHARS >= strlen(pData->szCharData))
 				strcpy(pData->curSectorLoadscreens.szNight,pData->szCharData);
 			else
@@ -228,7 +193,7 @@ sectorLoadscreensEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "szDayAlt") == 0)
 		{
 			pData->curElement = ELEMENT;
-			
+
 			if(MAX_IMAGE_PATH_CHARS >= strlen(pData->szCharData))
 				strcpy(pData->curSectorLoadscreens.szDayAlt,pData->szCharData);
 			else
@@ -247,7 +212,7 @@ sectorLoadscreensEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "szNightAlt") == 0)
 		{
 			pData->curElement = ELEMENT;
-			
+
 			if(MAX_IMAGE_PATH_CHARS >= strlen(pData->szCharData))
 				strcpy(pData->curSectorLoadscreens.szNightAlt,pData->szCharData);
 			else
@@ -280,7 +245,7 @@ BOOLEAN ReadInSectorLoadscreensStats(SECTOR_LOADSCREENS *pSectorLoadscreens, STR
 	UINT32		uiFSize;
 	CHAR8 *		lpcBuffer;
 	XML_Parser	parser = XML_ParserCreate(NULL);
-	
+
 	sectorLoadscreensParseData pData;
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading SectorLoadscreens.xml" );
@@ -289,7 +254,7 @@ BOOLEAN ReadInSectorLoadscreensStats(SECTOR_LOADSCREENS *pSectorLoadscreens, STR
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);
 
@@ -304,19 +269,19 @@ BOOLEAN ReadInSectorLoadscreensStats(SECTOR_LOADSCREENS *pSectorLoadscreens, STR
 
 	FileClose( hFile );
 
-	
+
 	XML_SetElementHandler(parser, sectorLoadscreensStartElementHandle, sectorLoadscreensEndElementHandle);
 	XML_SetCharacterDataHandler(parser, sectorLoadscreensCharacterDataHandle);
 
-	
+
 	memset(&pData,0,sizeof(pData));
 	pData.curArray = pSectorLoadscreens;
-	pData.maxArraySize = MAX_SECTOR_LOADSCREENS; 
-	
+	pData.maxArraySize = MAX_SECTOR_LOADSCREENS;
+
 	XML_SetUserData(parser, &pData);
 
 
-    if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
+	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
 
@@ -345,7 +310,7 @@ BOOLEAN WriteSectorLoadscreensStats(SECTOR_LOADSCREENS *pSectorLoadscreens, STR 
 	hFile = FileOpen( fileName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	{
 		UINT32 cnt;
 

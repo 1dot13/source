@@ -1,6 +1,6 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
-  #include "interface control.h"
+	#include "interface control.h"
 #else
 	#include <windows.h>
 	#include <mmsystem.h>
@@ -29,7 +29,7 @@ UINT32	guiBaseJA2NoPauseClock = 0;
 BOOLEAN	gfPauseClock = FALSE;
 
 INT32		giTimerIntervals[ NUMTIMERS ] =
-{ 
+{
 		5,					// Tactical Overhead
 		20,					// NEXTSCROLL
 		200,				// Start Scroll
@@ -93,7 +93,7 @@ extern INT32 giCommonGlowBaseTime;
 extern INT32 giFlashAssignBaseTime;
 extern INT32 giFlashContractBaseTime;
 extern UINT32 guiFlashCursorBaseTime;
-extern INT32 giPotCharPathBaseTime; 
+extern INT32 giPotCharPathBaseTime;
 
 
 UINT32 InitializeJA2TimerCallback( UINT32 uiDelay, LPTIMECALLBACK TimerProc, UINT32 uiUser );
@@ -136,40 +136,40 @@ void CALLBACK TimeProc( UINT uID,	UINT uMsg, DWORD dwUser, DWORD dw1,	DWORD dw2	
 
 #ifndef BOUNDS_CHECKER
 
-      // If mapscreen...
-      if( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
-      {
-        // IN Mapscreen, loop through player's team.....
-			  for ( gCNT = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; gCNT <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; gCNT++ )
-			  {
-				  gPSOLDIER = MercPtrs[ gCNT ];
-					UPDATETIMECOUNTER( gPSOLDIER->PortraitFlashCounter );
-					UPDATETIMECOUNTER( gPSOLDIER->PanelAnimateCounter );
-        }
-      }
-      else
-      {
-			  // Set update flags for soldiers
-			  ////////////////////////////		
-			  for ( gCNT = 0; gCNT < guiNumMercSlots; gCNT++ )
-			  {
-				  gPSOLDIER = MercSlots[ gCNT ];
+		// If mapscreen...
+		if( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
+		{
+		// IN Mapscreen, loop through player's team.....
+			for ( gCNT = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; gCNT <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; gCNT++ )
+			{
+				gPSOLDIER = MercPtrs[ gCNT ];
+					UPDATETIMECOUNTER( gPSOLDIER->timeCounters.PortraitFlashCounter );
+					UPDATETIMECOUNTER( gPSOLDIER->timeCounters.PanelAnimateCounter );
+		}
+		}
+		else
+		{
+			// Set update flags for soldiers
+			////////////////////////////
+			for ( gCNT = 0; gCNT < guiNumMercSlots; gCNT++ )
+			{
+				gPSOLDIER = MercSlots[ gCNT ];
 
-				  if ( gPSOLDIER != NULL )
-				  {
-					  UPDATETIMECOUNTER( gPSOLDIER->UpdateCounter );
-					  UPDATETIMECOUNTER( gPSOLDIER->DamageCounter );
-					  UPDATETIMECOUNTER( gPSOLDIER->ReloadCounter );
-					  UPDATETIMECOUNTER( gPSOLDIER->FlashSelCounter );
-					  UPDATETIMECOUNTER( gPSOLDIER->BlinkSelCounter );
-					  UPDATETIMECOUNTER( gPSOLDIER->PortraitFlashCounter );
-					  UPDATETIMECOUNTER( gPSOLDIER->AICounter );
-					  UPDATETIMECOUNTER( gPSOLDIER->FadeCounter );
-					  UPDATETIMECOUNTER( gPSOLDIER->NextTileCounter );
-					  UPDATETIMECOUNTER( gPSOLDIER->PanelAnimateCounter );
-				  }
-			  }
-      }
+				if ( gPSOLDIER != NULL )
+				{
+					UPDATETIMECOUNTER( gPSOLDIER->timeCounters.UpdateCounter );
+					UPDATETIMECOUNTER( gPSOLDIER->timeCounters.DamageCounter );
+					UPDATETIMECOUNTER( gPSOLDIER->timeCounters.ReloadCounter );
+					UPDATETIMECOUNTER( gPSOLDIER->timeCounters.FlashSelCounter );
+					UPDATETIMECOUNTER( gPSOLDIER->timeCounters.BlinkSelCounter );
+					UPDATETIMECOUNTER( gPSOLDIER->timeCounters.PortraitFlashCounter );
+					UPDATETIMECOUNTER( gPSOLDIER->timeCounters.AICounter );
+					UPDATETIMECOUNTER( gPSOLDIER->timeCounters.FadeCounter );
+					UPDATETIMECOUNTER( gPSOLDIER->timeCounters.NextTileCounter );
+					UPDATETIMECOUNTER( gPSOLDIER->timeCounters.PanelAnimateCounter );
+				}
+			}
+		}
 #endif
 		}
 
@@ -203,28 +203,28 @@ BOOLEAN InitializeJA2Clock(void)
 
 	if ( mmResult != TIMERR_NOERROR )
 	{
-		 DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not get timer properties");
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not get timer properties");
 	}
 
 	// Set timer at lowest resolution. Could use middle of lowest/highest, we'll see how this performs first
 	gTimerID = timeSetEvent( BASETIMESLICE, BASETIMESLICE, TimeProc, (DWORD)0, TIME_PERIODIC );
- 
+
 	if ( !gTimerID )
 	{
-		 DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not create timer callback");
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not create timer callback");
 	}
 
 #endif
 
-  return TRUE;
+	return TRUE;
 }
 
-void    ShutdownJA2Clock(void)
+void	ShutdownJA2Clock(void)
 {
-  // Make sure we kill the timer
+	// Make sure we kill the timer
 #ifdef CALLBACKTIMER
 
-  timeKillEvent( gTimerID );
+	timeKillEvent( gTimerID );
 
 #endif
 
@@ -242,18 +242,18 @@ UINT32 InitializeJA2TimerCallback( UINT32 uiDelay, LPTIMECALLBACK TimerProc, UIN
 
 	if ( mmResult != TIMERR_NOERROR )
 	{
-		 DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not get timer properties");
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not get timer properties");
 	}
 
 	// Set timer at lowest resolution. Could use middle of lowest/highest, we'll see how this performs first
 	TimerID = timeSetEvent( (UINT)uiDelay, (UINT)uiDelay, TimerProc, (DWORD)uiUser, TIME_PERIODIC );
- 
+
 	if ( !TimerID )
 	{
-		 DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not create timer callback");
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Could not create timer callback");
 	}
 
-  return ( (UINT32)TimerID );
+	return ( (UINT32)TimerID );
 }
 
 
@@ -271,7 +271,7 @@ UINT32 InitializeJA2TimerID( UINT32 uiDelay, UINT32 uiCallbackID, UINT32 uiUser 
 
 			return( InitializeJA2TimerCallback( uiDelay, FlashItem, uiUser ) );
 			break;
-		
+
 	}
 
 	// invalid callback id
@@ -316,7 +316,7 @@ void CheckCustomizableTimer( void )
 		if ( TIMECOUNTERDONE( giTimerCustomizable, 0 ) )
 		{
 			// set the callback to a temp variable so we can reset the global variable
-			// before calling the callback, so that if the callback sets up another 
+			// before calling the callback, so that if the callback sets up another
 			// instance of the timer, we don't reset it afterwards
 			CUSTOMIZABLE_TIMER_CALLBACK pTempCallback;
 
@@ -337,8 +337,8 @@ void ResetJA2ClockGlobalTimers( void )
 	guiCompressionStringBaseTime = uiCurrentTime;
 	giFlashHighlightedItemBaseTime = uiCurrentTime;
 	giCompatibleItemBaseTime = uiCurrentTime;
-  giAnimateRouteBaseTime = uiCurrentTime;
-	giPotHeliPathBaseTime = uiCurrentTime; 
+	giAnimateRouteBaseTime = uiCurrentTime;
+	giPotHeliPathBaseTime = uiCurrentTime;
 	giClickHeliIconBaseTime = uiCurrentTime;
 	giExitToTactBaseTime = uiCurrentTime;
 	guiSectorLocatorBaseTime = uiCurrentTime;
@@ -347,5 +347,5 @@ void ResetJA2ClockGlobalTimers( void )
 	giFlashAssignBaseTime = uiCurrentTime;
 	giFlashContractBaseTime = uiCurrentTime;
 	guiFlashCursorBaseTime = uiCurrentTime;
-	giPotCharPathBaseTime = uiCurrentTime; 
+	giPotCharPathBaseTime = uiCurrentTime;
 }

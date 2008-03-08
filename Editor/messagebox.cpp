@@ -49,7 +49,7 @@ void CreateMessageBox( STR16 wzString )
 									BUTTON_NO_CALLBACK, BUTTON_NO_CALLBACK);
 	DisableButton( iMsgBoxBgrnd );
 	SpecifyDisabledButtonStyle( iMsgBoxBgrnd, DISABLED_STYLE_NONE );
-	
+
 	iMsgBoxOkImg = LoadButtonImage("EDITOR//ok.sti",0,1,2,3,4);
 	iMsgBoxCancelImg = LoadButtonImage("EDITOR//cancel.sti",0,1,2,3,4);
 
@@ -74,7 +74,7 @@ void CreateMessageBox( STR16 wzString )
 
 BOOLEAN MessageBoxHandled()
 {
-  InputAtom DummyEvent;
+	InputAtom DummyEvent;
 
 	while( DequeueEvent( &DummyEvent ) )
 	{
@@ -134,7 +134,7 @@ void MsgBoxOkClkCallback( GUI_BUTTON *butn, INT32 reason )
 		butn->uiFlags |= BUTTON_CLICKED_ON;
 	}
 	else if ( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{		
+	{
 		gubMessageBoxStatus = MESSAGEBOX_DONE;
 		gfMessageBoxResult = TRUE;
 	}
@@ -147,7 +147,7 @@ void MsgBoxCnclClkCallback( GUI_BUTTON *butn, INT32 reason )
 		butn->uiFlags |= BUTTON_CLICKED_ON;
 	}
 	else if ( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-	{		
+	{
 		gubMessageBoxStatus = MESSAGEBOX_DONE;
 		gfMessageBoxResult = FALSE;
 	}
@@ -162,6 +162,7 @@ void MsgBoxCnclClkCallback( GUI_BUTTON *butn, INT32 reason )
 
 
 
- 
+
+
 
 

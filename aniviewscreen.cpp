@@ -4,26 +4,25 @@
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <stdarg.h>
-	#include <time.h> 
-	#include "sgp.h" 
+	#include <time.h>
+	#include "sgp.h"
 	#include "gameloop.h"
 	#include "himage.h"
 	#include "vobject.h"
 	#include "vobject_private.h"
 	#include "vobject_blitters.h"
 	#include "wcheck.h"
-	#include "worlddef.h" 
+	#include "worlddef.h"
 	#include "renderworld.h"
 	#include "input.h"
-	#include "font.h"  
+	#include "font.h"
 	#include "screenids.h"
-	#include "container.h" 
+	#include "container.h"
 	#include "overhead.h"
 	#include "Isometric Utils.h"
 	#include "sysutil.h"
-	#include "Font Control.h"  
+	#include "Font Control.h"
 	#include "Radar Screen.h"
-	#include "Soldier Control.h"
 	#include "Animation Control.h"
 	#include "Animation Data.h"
 	#include "Event Pump.h"
@@ -38,6 +37,10 @@
 	#include "Fileman.h"
 	#include "messageboxscreen.h"
 #endif
+
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
 
 
 void BuildListFile( );
@@ -63,27 +66,27 @@ void CycleAnimations( )
 		if ( gAnimControl[ cnt ].ubHeight == ubStartHeight )
 		{
 			usStartAnim = ( UINT8) cnt;
-			EVENT_InitNewSoldierAnim( pSoldier, usStartAnim, 0 , TRUE );
+			pSoldier->EVENT_InitNewSoldierAnim( usStartAnim, 0 , TRUE );
 			return;
 		}
 	}
 
 	usStartAnim = 0;
-	EVENT_InitNewSoldierAnim( pSoldier, usStartAnim, 0 , TRUE );
+	pSoldier->EVENT_InitNewSoldierAnim( usStartAnim, 0 , TRUE );
 }
 
 
 UINT32 AniEditScreenInit(void)
-{  
+{
 
   return TRUE;
 }
-   
+
 // The ShutdownGame function will free up/undo all things that were started in InitializeGame()
 // It will also be responsible to making sure that all Gaming Engine tasks exit properly
 
 UINT32 AniEditScreenShutdown(void)
-{ 
+{
 
 	return TRUE;
 }
@@ -116,16 +119,16 @@ UINT32  AniEditScreenHandle(void)
 		pSoldier = MercPtrs[ gusSelectedSoldier ];
 
 		gTacticalStatus.uiFlags |= LOADING_SAVED_GAME;
-	
-		EVENT_InitNewSoldierAnim( pSoldier, usStartAnim, 0 , TRUE );
+
+		pSoldier->EVENT_InitNewSoldierAnim( usStartAnim, 0 , TRUE );
 
 		BuildListFile( );
 
 	}
 
-	
 
-	/////////////////////////////////////////////////////					
+
+	/////////////////////////////////////////////////////
 	StartFrameBufferRender( );
 
 	RenderWorld( );
@@ -185,7 +188,7 @@ UINT32  AniEditScreenHandle(void)
   if (DequeueEvent(&InputEvent) == TRUE)
   {
     if ((InputEvent.usEvent == KEY_DOWN)&&(InputEvent.usParam == ESC))
-    { 
+    {
 			 fFirstTime = TRUE;
 
 			 gfAniEditMode = FALSE;
@@ -201,7 +204,7 @@ UINT32  AniEditScreenHandle(void)
 
 			 fOKFiles = FALSE;
 
-			 return( GAME_SCREEN );			
+			 return( GAME_SCREEN );
     }
 
 		if ((InputEvent.usEvent == KEY_UP) && (InputEvent.usParam == SPACE ))
@@ -236,12 +239,12 @@ UINT32  AniEditScreenHandle(void)
 						usAnim = PRONE;
 						break;
 				}
-				
-				EVENT_InitNewSoldierAnim( pSoldier, usAnim, 0 , TRUE );
+
+				pSoldier->EVENT_InitNewSoldierAnim( usAnim, 0 , TRUE );
 			}
 			else
 			{
-				EVENT_InitNewSoldierAnim( pSoldier, usOldState, 0 , TRUE );
+				pSoldier->EVENT_InitNewSoldierAnim( usOldState, 0 , TRUE );
 			}
 
 			fToggle = !fToggle;
@@ -253,11 +256,11 @@ UINT32  AniEditScreenHandle(void)
 			{
 				usOldState = usStartAnim;
 
-				EVENT_InitNewSoldierAnim( pSoldier, pusStates[ ubCurLoadedState ], 0 , TRUE );
+				pSoldier->EVENT_InitNewSoldierAnim( pusStates[ ubCurLoadedState ], 0 , TRUE );
 			}
 			else
 			{
-				EVENT_InitNewSoldierAnim( pSoldier, usOldState, 0 , TRUE );
+				pSoldier->EVENT_InitNewSoldierAnim( usOldState, 0 , TRUE );
 			}
 
 			fToggle2 = !fToggle2;
@@ -275,7 +278,7 @@ UINT32  AniEditScreenHandle(void)
 						ubCurLoadedState = 0;
 					}
 
-					EVENT_InitNewSoldierAnim( pSoldier, pusStates[ ubCurLoadedState ], 0 , TRUE );
+					pSoldier->EVENT_InitNewSoldierAnim( pusStates[ ubCurLoadedState ], 0 , TRUE );
 
 			 }
 		}
@@ -292,7 +295,7 @@ UINT32  AniEditScreenHandle(void)
 						ubCurLoadedState = ubNumStates;
 					}
 
-					EVENT_InitNewSoldierAnim( pSoldier, pusStates[ ubCurLoadedState ], 0 , TRUE );
+					pSoldier->EVENT_InitNewSoldierAnim( pusStates[ ubCurLoadedState ], 0 , TRUE );
 			 }
 		}
 
@@ -300,7 +303,7 @@ UINT32  AniEditScreenHandle(void)
 		{
 			// CLEAR!
 			usStartAnim = 0;
-			EVENT_InitNewSoldierAnim( pSoldier, usStartAnim, 0 , TRUE );
+			pSoldier->EVENT_InitNewSoldierAnim( usStartAnim, 0 , TRUE );
 		}
 
 		if ((InputEvent.usEvent == KEY_UP) && (InputEvent.usParam == ENTER ))
@@ -313,7 +316,7 @@ UINT32  AniEditScreenHandle(void)
 			{
 				ubStartHeight = ANIM_PRONE;
 			}
-			else 
+			else
 			{
 				ubStartHeight = ANIM_STAND;
 			}
@@ -321,7 +324,7 @@ UINT32  AniEditScreenHandle(void)
 
   }
 
-	
+
   return( ANIEDIT_SCREEN );
 
 }
@@ -352,7 +355,7 @@ void BuildListFile( )
 	int	cnt;
 	UINT16 usState;
 	CHAR16 zError[128];
-	
+
 
 	//Verify the existance of the header text file.
 	infoFile = fopen( "ANITEST.DAT", "rb");
@@ -368,7 +371,7 @@ void BuildListFile( )
 
 		numEntries++;
 	}
-	fseek( infoFile, 0, SEEK_SET ); //reset header file 
+	fseek( infoFile, 0, SEEK_SET ); //reset header file
 
 	// Allocate array
 	pusStates = (UINT16 *) MemAlloc( sizeof( UINT16 ) * numEntries );

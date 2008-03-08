@@ -45,7 +45,7 @@ typedef struct
 	CHAR8					szCharData[MAX_CHAR_DATA_LENGTH+1];
 	garrisonInfo			curGarrisonInfo;
 	UINT32					uiGarrisonCount;
-	
+
 	UINT32					currentDepth;
 	UINT32					maxReadDepth;
 } garrisonParseData;
@@ -115,7 +115,7 @@ garrisonEndElementHandle(void *userData, const XML_Char *name)
 
 			if ( pData->curGarrisonInfo.fValidSector && pData->uiGarrisonCount < MAX_GARRISON_GROUPS )
 			{
-				gOrigGarrisonGroup[ pData->uiGarrisonCount ].ubSectorID    = pData->curGarrisonInfo.ubSectorID;
+				gOrigGarrisonGroup[ pData->uiGarrisonCount ].ubSectorID	= pData->curGarrisonInfo.ubSectorID;
 				gOrigGarrisonGroup[ pData->uiGarrisonCount ].ubComposition = pData->curGarrisonInfo.ubComposition;
 				pData->uiGarrisonCount++;
 			}
@@ -127,10 +127,10 @@ garrisonEndElementHandle(void *userData, const XML_Char *name)
 
 			y = (UINT8)pData->szCharData[0] & 0x1F;
 			x = (UINT8)atol(&pData->szCharData[1]);
-			if ( x > 0 && x <= 16  && y > 0 && y <= 16 )
+			if ( x > 0 && x <= 16	&& y > 0 && y <= 16 )
 			{
 				pData->curGarrisonInfo.fValidSector = TRUE;
-				pData->curGarrisonInfo.ubSectorID   = SECTOR(x,y);
+				pData->curGarrisonInfo.ubSectorID	= SECTOR(x,y);
 			}
 			else
 			{
@@ -155,7 +155,7 @@ BOOLEAN ReadInGarrisonInfo(STR fileName)
 	UINT32		uiFSize;
 	CHAR8 *		lpcBuffer;
 	XML_Parser	parser = XML_ParserCreate(NULL);
-	
+
 	garrisonParseData pData;
 
 
@@ -163,7 +163,7 @@ BOOLEAN ReadInGarrisonInfo(STR fileName)
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);
 
@@ -178,16 +178,16 @@ BOOLEAN ReadInGarrisonInfo(STR fileName)
 
 	FileClose( hFile );
 
-	
+
 	XML_SetElementHandler(parser, garrisonStartElementHandle, garrisonEndElementHandle);
 	XML_SetCharacterDataHandler(parser, garrisonCharacterDataHandle);
 
-	
+
 	memset(&pData,0,sizeof(pData));
 	XML_SetUserData(parser, &pData);
 	iOrigGarrisonArraySize = 0;
 
-    if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
+	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
 
@@ -209,11 +209,11 @@ BOOLEAN ReadInGarrisonInfo(STR fileName)
 BOOLEAN WriteInGarrisonInfo(STR fileName)
 {
 	HWFILE		hFile;
-	
+
 	hFile = FileOpen( fileName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	{
 		INT8 cnt;
 
@@ -270,7 +270,7 @@ typedef struct
 	CHAR8					szCharData[MAX_CHAR_DATA_LENGTH+1];
 	patrolInfo				curPatrolInfo;
 	UINT32					uiPatrolCount;
-	
+
 	UINT32					currentDepth;
 	UINT32					maxReadDepth;
 } patrolParseData;
@@ -365,8 +365,8 @@ patrolEndElementHandle(void *userData, const XML_Char *name)
 
 			if ( !pData->curPatrolInfo.fErrorState && pData->uiPatrolCount < MAX_PATROL_GROUPS )
 			{
-				gOrigPatrolGroup[ pData->uiPatrolCount ].bSize         = pData->curPatrolInfo.bSize;
-				gOrigPatrolGroup[ pData->uiPatrolCount ].bPriority     = pData->curPatrolInfo.bPriority;
+				gOrigPatrolGroup[ pData->uiPatrolCount ].bSize		 = pData->curPatrolInfo.bSize;
+				gOrigPatrolGroup[ pData->uiPatrolCount ].bPriority	 = pData->curPatrolInfo.bPriority;
 				gOrigPatrolGroup[ pData->uiPatrolCount ].ubSectorID[0] = pData->curPatrolInfo.ubSectorID[0];
 				gOrigPatrolGroup[ pData->uiPatrolCount ].ubSectorID[1] = pData->curPatrolInfo.ubSectorID[1];
 				gOrigPatrolGroup[ pData->uiPatrolCount ].ubSectorID[2] = pData->curPatrolInfo.ubSectorID[2];
@@ -406,7 +406,7 @@ patrolEndElementHandle(void *userData, const XML_Char *name)
 				UINT8	x, y;
 				y = (UINT8)pData->szCharData[0] & 0x1F;
 				x = (UINT8)atol(&pData->szCharData[1]);
-				if ( x > 0 && x <= 16  && y > 0 && y <= 16 )
+				if ( x > 0 && x <= 16	&& y > 0 && y <= 16 )
 				{
 					pData->curPatrolInfo.ubSectorID[0] = SECTOR(x,y);
 				}
@@ -429,7 +429,7 @@ patrolEndElementHandle(void *userData, const XML_Char *name)
 				UINT8	x, y;
 				y = (UINT8)pData->szCharData[0] & 0x1F;
 				x = (UINT8)atol(&pData->szCharData[1]);
-				if ( x > 0 && x <= 16  && y > 0 && y <= 16 )
+				if ( x > 0 && x <= 16	&& y > 0 && y <= 16 )
 				{
 					pData->curPatrolInfo.ubSectorID[1] = SECTOR(x,y);
 				}
@@ -452,7 +452,7 @@ patrolEndElementHandle(void *userData, const XML_Char *name)
 				UINT8	x, y;
 				y = (UINT8)pData->szCharData[0] & 0x1F;
 				x = (UINT8)atol(&pData->szCharData[1]);
-				if ( x > 0 && x <= 16  && y > 0 && y <= 16 )
+				if ( x > 0 && x <= 16	&& y > 0 && y <= 16 )
 				{
 					pData->curPatrolInfo.ubSectorID[2] = SECTOR(x,y);
 				}
@@ -475,7 +475,7 @@ patrolEndElementHandle(void *userData, const XML_Char *name)
 				UINT8	x, y;
 				y = (UINT8)pData->szCharData[0] & 0x1F;
 				x = (UINT8)atol(&pData->szCharData[1]);
-				if ( x > 0 && x <= 16  && y > 0 && y <= 16 )
+				if ( x > 0 && x <= 16	&& y > 0 && y <= 16 )
 				{
 					pData->curPatrolInfo.ubSectorID[3] = SECTOR(x,y);
 				}
@@ -499,7 +499,7 @@ BOOLEAN ReadInPatrolInfo(STR fileName)
 	UINT32		uiFSize;
 	CHAR8 *		lpcBuffer;
 	XML_Parser	parser = XML_ParserCreate(NULL);
-	
+
 	patrolParseData pData;
 
 
@@ -507,7 +507,7 @@ BOOLEAN ReadInPatrolInfo(STR fileName)
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);
 
@@ -522,16 +522,16 @@ BOOLEAN ReadInPatrolInfo(STR fileName)
 
 	FileClose( hFile );
 
-	
+
 	XML_SetElementHandler(parser, patrolStartElementHandle, patrolEndElementHandle);
 	XML_SetCharacterDataHandler(parser, patrolCharacterDataHandle);
 
-	
+
 	memset(&pData,0,sizeof(pData));
 	XML_SetUserData(parser, &pData);
 	iOrigPatrolArraySize = 0;
 
-    if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
+	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
 
@@ -553,11 +553,11 @@ BOOLEAN ReadInPatrolInfo(STR fileName)
 BOOLEAN WriteInPatrolInfo(STR fileName)
 {
 	HWFILE		hFile;
-	
+
 	hFile = FileOpen( fileName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	{
 		INT8 cnt, i;
 
@@ -620,12 +620,12 @@ typedef enum
 typedef struct
 {
 	INT32 iIndex;
-	INT8  bPriority;
-	INT8  bElitePercentage;
-	INT8  bTroopPercentage;
-	INT8  bAdminPercentage;
-	INT8  bDesiredPopulation;
-	INT8  bStartPopulation;
+	INT8	bPriority;
+	INT8	bElitePercentage;
+	INT8	bTroopPercentage;
+	INT8	bAdminPercentage;
+	INT8	bDesiredPopulation;
+	INT8	bStartPopulation;
 } compositionInfo;
 
 typedef struct
@@ -635,7 +635,7 @@ typedef struct
 	CHAR8					szCharData[MAX_CHAR_DATA_LENGTH+1];
 	compositionInfo			curCompositionInfo;
 	INT32					iHighestIndex;
-	
+
 	UINT32					currentDepth;
 	UINT32					maxReadDepth;
 } compositionParseData;
@@ -730,13 +730,13 @@ compositionEndElementHandle(void *userData, const XML_Char *name)
 
 			if ( pData->curCompositionInfo.iIndex < MAX_ARMY_COMPOSITIONS )
 			{
-				gOrigArmyComp[ pData->curCompositionInfo.iIndex ].iReadability       = pData->curCompositionInfo.iIndex;
-				gOrigArmyComp[ pData->curCompositionInfo.iIndex ].bPriority          = pData->curCompositionInfo.bPriority;
-				gOrigArmyComp[ pData->curCompositionInfo.iIndex ].bElitePercentage   = pData->curCompositionInfo.bElitePercentage;
-				gOrigArmyComp[ pData->curCompositionInfo.iIndex ].bTroopPercentage   = pData->curCompositionInfo.bTroopPercentage;
-				gOrigArmyComp[ pData->curCompositionInfo.iIndex ].bAdminPercentage   = pData->curCompositionInfo.bAdminPercentage;
+				gOrigArmyComp[ pData->curCompositionInfo.iIndex ].iReadability		= pData->curCompositionInfo.iIndex;
+				gOrigArmyComp[ pData->curCompositionInfo.iIndex ].bPriority			= pData->curCompositionInfo.bPriority;
+				gOrigArmyComp[ pData->curCompositionInfo.iIndex ].bElitePercentage	= pData->curCompositionInfo.bElitePercentage;
+				gOrigArmyComp[ pData->curCompositionInfo.iIndex ].bTroopPercentage	= pData->curCompositionInfo.bTroopPercentage;
+				gOrigArmyComp[ pData->curCompositionInfo.iIndex ].bAdminPercentage	= pData->curCompositionInfo.bAdminPercentage;
 				gOrigArmyComp[ pData->curCompositionInfo.iIndex ].bDesiredPopulation = pData->curCompositionInfo.bDesiredPopulation;
-				gOrigArmyComp[ pData->curCompositionInfo.iIndex ].bStartPopulation   = pData->curCompositionInfo.bStartPopulation;
+				gOrigArmyComp[ pData->curCompositionInfo.iIndex ].bStartPopulation	= pData->curCompositionInfo.bStartPopulation;
 			}
 		}
 		else if(strcmp(name, "Index") == 0 && pData->curElement == COMPOSITION_ELEMENT_INDEX)
@@ -814,14 +814,14 @@ BOOLEAN ReadInArmyCompositionInfo(STR fileName)
 	UINT32		uiFSize;
 	CHAR8 *		lpcBuffer;
 	XML_Parser	parser = XML_ParserCreate(NULL);
-	
+
 	compositionParseData pData;
 
 	// Open weapons file
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);
 
@@ -836,16 +836,16 @@ BOOLEAN ReadInArmyCompositionInfo(STR fileName)
 
 	FileClose( hFile );
 
-	
+
 	XML_SetElementHandler(parser, compositionStartElementHandle, compositionEndElementHandle);
 	XML_SetCharacterDataHandler(parser, compositionCharacterDataHandle);
 
-	
+
 	memset(&pData,0,sizeof(pData));
 	XML_SetUserData(parser, &pData);
 	NUM_ARMY_COMPOSITIONS = 0;
 
-    if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
+	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
 
@@ -867,11 +867,11 @@ BOOLEAN ReadInArmyCompositionInfo(STR fileName)
 BOOLEAN WriteInArmyCompositionInfo(STR fileName)
 {
 	HWFILE		hFile;
-	
+
 	hFile = FileOpen( fileName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	{
 		INT8 cnt;
 
@@ -903,5 +903,6 @@ BOOLEAN WriteInArmyCompositionInfo(STR fileName)
 
 	return TRUE;
 }
+
 
 

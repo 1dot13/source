@@ -123,7 +123,7 @@ extern		BOOLEAN BltVSurfaceUsingDD( HVSURFACE hDestVSurface, HVSURFACE hSrcVSurf
 #define	HLP_SCRN__WIDTH_OF_TEXT_BUFFER									280
 #define	HLP_SCRN__MAX_NUMBER_OF_LINES_IN_BUFFER					170//100
 #define	HLP_SCRN__HEIGHT_OF_1_LINE_IN_BUFFER						( GetFontHeight( HELP_SCREEN_TEXT_BODY_FONT ) + HELP_SCREEN_GAP_BTN_LINES )
-#define	HLP_SCRN__MAX_NUMBER_PIXELS_DISPLAYED_IN_TEXT_BUFFER		HELP_SCREEN_DEFUALT_LOC_HEIGHT 
+#define	HLP_SCRN__MAX_NUMBER_PIXELS_DISPLAYED_IN_TEXT_BUFFER		HELP_SCREEN_DEFUALT_LOC_HEIGHT
 #define	HLP_SCRN__HEIGHT_OF_TEXT_BUFFER									( HLP_SCRN__HEIGHT_OF_1_LINE_IN_BUFFER * HLP_SCRN__MAX_NUMBER_OF_LINES_IN_BUFFER )
 
 #define	HLP_SCRN__MAX_NUMBER_DISPLAYED_LINES_IN_BUFFER		( HLP_SCRN__HEIGHT_OF_TEXT_AREA / HLP_SCRN__HEIGHT_OF_1_LINE_IN_BUFFER )
@@ -234,7 +234,7 @@ typedef struct
 } HELP_SCREEN_BTN_TEXT_RECORD;
 
 //An array of record nums for the text on the help buttons
-HELP_SCREEN_BTN_TEXT_RECORD gHelpScreenBtnTextRecordNum[ HELP_SCREEN_NUMBER_OF_HELP_SCREENS ] = 
+HELP_SCREEN_BTN_TEXT_RECORD gHelpScreenBtnTextRecordNum[ HELP_SCREEN_NUMBER_OF_HELP_SCREENS ] =
 {
 //new screen:
 
@@ -249,7 +249,7 @@ HELP_SCREEN_BTN_TEXT_RECORD gHelpScreenBtnTextRecordNum[ HELP_SCREEN_NUMBER_OF_H
 		HLP_TXT_LAPTOP_BUTTON_7,
 		HLP_TXT_LAPTOP_BUTTON_8, },
 
-	
+
 //	HELP_SCREEN_MAPSCREEN,
 	{ HLP_TXT_WELCOM_TO_ARULCO_BUTTON_1,
 		HLP_TXT_WELCOM_TO_ARULCO_BUTTON_2,
@@ -300,31 +300,31 @@ BOOLEAN	gfScrollBoxIsScrolling = FALSE;
 BOOLEAN	gfHaveRenderedFirstFrameToSaveBuffer=FALSE;
 
 
-//  must use this cause you have ur cursor over a button when entering the help screen, the button will burn though.
+//	must use this cause you have ur cursor over a button when entering the help screen, the button will burn though.
 //It does this cause that region loses it focus so it draws the button again.
-UINT8		gubRenderHelpScreenTwiceInaRow=0;	
+UINT8		gubRenderHelpScreenTwiceInaRow=0;
 
 //mmm
 
 // region to mask the background
-MOUSE_REGION    gHelpScreenFullScreenMask;
+MOUSE_REGION	gHelpScreenFullScreenMask;
 //void SelectHelpTextFullScreenMaskCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
 
 // region to mask the background
-MOUSE_REGION    gHelpScreenScrollArea;
+MOUSE_REGION	gHelpScreenScrollArea;
 void SelectHelpScrollAreaMovementCallBack( MOUSE_REGION * pRegion, INT32 iReason );
 void SelectHelpScrollAreaCallBack( MOUSE_REGION * pRegion, INT32 iReason );
 
 // region to mask the background
-MOUSE_REGION    gHelpScreenScrollAreaArrows;
+MOUSE_REGION	gHelpScreenScrollAreaArrows;
 void SelectHelpScrollAreaArrowsCallBack( MOUSE_REGION * pRegion, INT32 iReason );
 
 
 //checkbox to toggle show help again toggle
 UINT32	gHelpScreenDontShowHelpAgainToggle;
 void BtnHelpScreenDontShowHelpAgainCallback(GUI_BUTTON *btn,INT32 reason);
-//MOUSE_REGION    HelpScreenDontShowHelpAgainToggleTextRegion;
+//MOUSE_REGION	HelpScreenDontShowHelpAgainToggleTextRegion;
 //void		HelpScreenDontShowHelpAgainToggleTextRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
 
@@ -463,7 +463,7 @@ HELP_SCREEN_WAIT_1_FRAME:
 	}
 
 HELP_SCREEN_SHOULD_COME_UP:
-	
+
 	//Record which screen it is
 
 	//if its mapscreen
@@ -519,9 +519,9 @@ void HelpScreenHandler()
 		gHelpScreen.ubHelpScreenDirty = HLP_SCRN_DRTY_LVL_NOT_DIRTY;
 	}
 
-	// render buttons marked dirty	
-//  MarkButtonsDirty( );
-	RenderButtons( ); 
+	// render buttons marked dirty
+//	MarkButtonsDirty( );
+	RenderButtons( );
 
 	SaveBackgroundRects( );
 	RenderButtonsFastHelp();
@@ -546,7 +546,7 @@ void HelpScreenHandler()
 
 BOOLEAN EnterHelpScreen()
 {
-  VOBJECT_DESC    VObjectDesc;
+	VOBJECT_DESC	VObjectDesc;
 	UINT16 usPosX, usPosY;//, usWidth, usHeight;
 //	INT32	iStartLoc;
 //	CHAR16 zText[1024];
@@ -554,7 +554,7 @@ BOOLEAN EnterHelpScreen()
 	//Clear out all the save background rects
 	EmptyBackgroundRects( );
 
-	
+
 	UnmarkButtonsDirty( );
 
 	// remeber if the game was paused or not ( so when we exit we know what to do )
@@ -569,8 +569,8 @@ BOOLEAN EnterHelpScreen()
 
 	//Create a mouse region 'mask' the entrire screen
 	MSYS_DefineRegion( &gHelpScreenFullScreenMask, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGHEST,
-							 gHelpScreen.usCursor, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK ); 
-  MSYS_AddRegion( &gHelpScreenFullScreenMask ); 
+							gHelpScreen.usCursor, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+	MSYS_AddRegion( &gHelpScreenFullScreenMask );
 
 
 	//Create the exit button
@@ -584,12 +584,12 @@ BOOLEAN EnterHelpScreen()
 	//Create the exit buttons
 	giExitBtnImage = LoadButtonImage("INTERFACE\\HelpScreen.sti", -1,0,4,2,6 );
 
-	guiHelpScreenExitBtn = CreateIconAndTextButton( giExitBtnImage, L"", HELP_SCREEN_BTN_FONT, 
-														 HELP_SCREEN_BTN_FONT_ON_COLOR, DEFAULT_SHADOW, 
-														 HELP_SCREEN_BTN_FONT_OFF_COLOR, DEFAULT_SHADOW, 
-														 TEXT_CJUSTIFIED, 
-														 usPosX, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
-														 DEFAULT_MOVE_CALLBACK, BtnHelpScreenExitCallback );
+	guiHelpScreenExitBtn = CreateIconAndTextButton( giExitBtnImage, L"", HELP_SCREEN_BTN_FONT,
+														HELP_SCREEN_BTN_FONT_ON_COLOR, DEFAULT_SHADOW,
+														HELP_SCREEN_BTN_FONT_OFF_COLOR, DEFAULT_SHADOW,
+														TEXT_CJUSTIFIED,
+														usPosX, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
+														DEFAULT_MOVE_CALLBACK, BtnHelpScreenExitCallback );
 	SetButtonFastHelpText( guiHelpScreenExitBtn, gzHelpScreenText[HLP_SCRN_TXT__EXIT_SCREEN] );
 	SetButtonCursor( guiHelpScreenExitBtn, gHelpScreen.usCursor);
 
@@ -609,11 +609,11 @@ BOOLEAN EnterHelpScreen()
 
 	if( !gHelpScreen.fForceHelpScreenToComeUp)
 	{
-		gHelpScreenDontShowHelpAgainToggle = CreateCheckBoxButton( usPosX, (UINT16)(usPosY-3), 
-																		"INTERFACE\\OptionsCheckBoxes.sti", MSYS_PRIORITY_HIGHEST, 
+		gHelpScreenDontShowHelpAgainToggle = CreateCheckBoxButton( usPosX, (UINT16)(usPosY-3),
+																		"INTERFACE\\OptionsCheckBoxes.sti", MSYS_PRIORITY_HIGHEST,
 																		BtnHelpScreenDontShowHelpAgainCallback );
 
-		SetButtonCursor( gHelpScreenDontShowHelpAgainToggle, gHelpScreen.usCursor ); 
+		SetButtonCursor( gHelpScreenDontShowHelpAgainToggle, gHelpScreen.usCursor );
 
 		// Set the state of the chec box
 		if( gGameSettings.fHideHelpInAllScreens )
@@ -632,8 +632,8 @@ BOOLEAN EnterHelpScreen()
 
 /*
 	MSYS_DefineRegion( &HelpScreenDontShowHelpAgainToggleTextRegion, usPosX, usPosY, (UINT16)(usPosX+usWidth), (UINT16)(usPosY+usHeight), MSYS_PRIORITY_HIGHEST-1,
-							 gHelpScreen.usCursor, MSYS_NO_CALLBACK, HelpScreenDontShowHelpAgainToggleTextRegionCallBack ); 
-  MSYS_AddRegion( &HelpScreenDontShowHelpAgainToggleTextRegion ); 
+							gHelpScreen.usCursor, MSYS_NO_CALLBACK, HelpScreenDontShowHelpAgainToggleTextRegionCallBack );
+	MSYS_AddRegion( &HelpScreenDontShowHelpAgainToggleTextRegion );
 */
 
 	// load the help screen background graphic and add it
@@ -680,7 +680,7 @@ BOOLEAN EnterHelpScreen()
 
 void HandleHelpScreen()
 {
-	//if any of the possible screens need to have a some code done every loop..  its done in here
+	//if any of the possible screens need to have a some code done every loop..	its done in here
 	SpecialHandlerCode();
 
 	if( gfScrollBoxIsScrolling )
@@ -699,7 +699,7 @@ void HandleHelpScreen()
 	if( gubRenderHelpScreenTwiceInaRow < 3 )
 	{
 //test
-//		gHelpScreen.ubHelpScreenDirty = HLP_SCRN_DRTY_LVL_REFRESH_ALL; 
+//		gHelpScreen.ubHelpScreenDirty = HLP_SCRN_DRTY_LVL_REFRESH_ALL;
 
 		gubRenderHelpScreenTwiceInaRow++;
 
@@ -737,7 +737,7 @@ void RenderHelpScreen()
 
 		//blit everything to the save buffer ( cause the save buffer can bleed through )
 		BlitBufferToBuffer(guiRENDERBUFFER, guiSAVEBUFFER, gHelpScreen.usScreenLocX, gHelpScreen.usScreenLocY, (UINT16)(gHelpScreen.usScreenWidth), (UINT16)(gHelpScreen.usScreenHeight) );
-		
+
 		UnmarkButtonsDirty( );
 	}
 
@@ -780,7 +780,7 @@ void ExitHelpScreen()
 
 	//checkbox to toggle show help again toggle
 //	MSYS_RemoveRegion( &HelpScreenDontShowHelpAgainToggleTextRegion );
-	
+
 
 	//remove the hepl graphic
 	DeleteVideoObjectFromIndex( guiHelpScreenBackGround );
@@ -825,7 +825,7 @@ void ExitHelpScreen()
 
 BOOLEAN DrawHelpScreenBackGround()
 {
-  HVOBJECT hPixHandle;
+	HVOBJECT hPixHandle;
 	UINT16 usPosX;
 
 	//Get and display the background image
@@ -836,13 +836,13 @@ BOOLEAN DrawHelpScreenBackGround()
 	//if there are buttons, blit the button border
 	if( gHelpScreen.bNumberOfButtons != 0 )
 	{
-	  BltVideoObject(FRAME_BUFFER, hPixHandle, HLP_SCRN_BUTTON_BORDER, usPosX, gHelpScreen.usScreenLocY, VO_BLT_SRCTRANSPARENCY,NULL);
+	BltVideoObject(FRAME_BUFFER, hPixHandle, HLP_SCRN_BUTTON_BORDER, usPosX, gHelpScreen.usScreenLocY, VO_BLT_SRCTRANSPARENCY,NULL);
 		usPosX += HELP_SCREEN_BUTTON_BORDER_WIDTH;
 	}
 
-  BltVideoObject(FRAME_BUFFER, hPixHandle, HLP_SCRN_DEFAULT_TYPE, usPosX, gHelpScreen.usScreenLocY, VO_BLT_SRCTRANSPARENCY,NULL);
+	BltVideoObject(FRAME_BUFFER, hPixHandle, HLP_SCRN_DEFAULT_TYPE, usPosX, gHelpScreen.usScreenLocY, VO_BLT_SRCTRANSPARENCY,NULL);
 
-  InvalidateRegion( gHelpScreen.usScreenLocX, gHelpScreen.usScreenLocY, gHelpScreen.usScreenLocX+gHelpScreen.usScreenWidth, gHelpScreen.usScreenLocY + gHelpScreen.usScreenHeight );
+	InvalidateRegion( gHelpScreen.usScreenLocX, gHelpScreen.usScreenLocY, gHelpScreen.usScreenLocX+gHelpScreen.usScreenWidth, gHelpScreen.usScreenLocY + gHelpScreen.usScreenHeight );
 
 	return( TRUE );
 }
@@ -917,17 +917,17 @@ void SetSizeAndPropertiesOfHelpScreen()
 
 		default:
 			#ifdef JA2BETAVERSION
-				AssertMsg( 0, "Error in help screen.  DF 0" );
-      #else
-        break;
+				AssertMsg( 0, "Error in help screen.	DF 0" );
+		#else
+		break;
 			#endif
 	}
 
 	//if there are buttons
 	if( gHelpScreen.bNumberOfButtons != 0 )
-		gHelpScreen.usLeftMarginPosX  = gHelpScreen.usScreenLocX + HELP_SCREEN_TEXT_LEFT_MARGIN_WITH_BTN;
+		gHelpScreen.usLeftMarginPosX	= gHelpScreen.usScreenLocX + HELP_SCREEN_TEXT_LEFT_MARGIN_WITH_BTN;
 	else
-		gHelpScreen.usLeftMarginPosX  = gHelpScreen.usScreenLocX + HELP_SCREEN_TEXT_LEFT_MARGIN;
+		gHelpScreen.usLeftMarginPosX	= gHelpScreen.usScreenLocX + HELP_SCREEN_TEXT_LEFT_MARGIN;
 
 }
 
@@ -952,20 +952,20 @@ void CreateHelpScreenButtons()
 			GetHelpScreenText( gHelpScreenBtnTextRecordNum[ gHelpScreen.bCurrentHelpScreen ].iButtonTextNum[i], sText );
 
 /*
-			guiHelpScreenBtns[i] = CreateTextButton( sText, HELP_SCREEN_BTN_FONT, HELP_SCREEN_BTN_FONT_COLOR, HELP_SCREEN_BTN_FONT_BACK_COLOR, 
-					BUTTON_USE_DEFAULT, usPosX, usPosY, HELP_SCREEN_BTN_WIDTH, HELP_SCREEN_BTN_HEIGHT, 
+			guiHelpScreenBtns[i] = CreateTextButton( sText, HELP_SCREEN_BTN_FONT, HELP_SCREEN_BTN_FONT_COLOR, HELP_SCREEN_BTN_FONT_BACK_COLOR,
+					BUTTON_USE_DEFAULT, usPosX, usPosY, HELP_SCREEN_BTN_WIDTH, HELP_SCREEN_BTN_HEIGHT,
 					BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST, BUTTON_NO_CALLBACK, BtnHelpScreenBtnsCallback );
 */
 
 
 			giHelpScreenButtonsImage[i] = UseLoadedButtonImage( giExitBtnImage, -1,1,5,3,7 );
-			
-			guiHelpScreenBtns[i] = CreateIconAndTextButton( giHelpScreenButtonsImage[i], sText, HELP_SCREEN_BTN_FONT, 
-															 HELP_SCREEN_BTN_FONT_ON_COLOR, DEFAULT_SHADOW, 
-															 HELP_SCREEN_BTN_FONT_OFF_COLOR, DEFAULT_SHADOW, 
-															 TEXT_CJUSTIFIED, 
-															 usPosX, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
-															 DEFAULT_MOVE_CALLBACK, BtnHelpScreenBtnsCallback);
+
+			guiHelpScreenBtns[i] = CreateIconAndTextButton( giHelpScreenButtonsImage[i], sText, HELP_SCREEN_BTN_FONT,
+															HELP_SCREEN_BTN_FONT_ON_COLOR, DEFAULT_SHADOW,
+															HELP_SCREEN_BTN_FONT_OFF_COLOR, DEFAULT_SHADOW,
+															TEXT_CJUSTIFIED,
+															usPosX, usPosY, BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
+															DEFAULT_MOVE_CALLBACK, BtnHelpScreenBtnsCallback);
 
 
 			SetButtonCursor( guiHelpScreenBtns[i], gHelpScreen.usCursor);
@@ -984,36 +984,36 @@ void CreateHelpScreenButtons()
 void	GetHelpScreenUserInput()
 {
 	InputAtom Event;
-	POINT  MousePos;
+	POINT	MousePos;
 
 	GetCursorPos(&MousePos);
-    ScreenToClient(ghWindow, &MousePos); // In window coords!
+	ScreenToClient(ghWindow, &MousePos); // In window coords!
 
 	while( DequeueEvent( &Event ) )
 	{
 		// HOOK INTO MOUSE HOOKS
 		switch( Event.usEvent)
-	  {
+	{
 			case LEFT_BUTTON_DOWN:
 				MouseSystemHook(LEFT_BUTTON_DOWN, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
 				break;
 			case LEFT_BUTTON_UP:
-				MouseSystemHook(LEFT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y ,_LeftButtonDown, _RightButtonDown);			
+				MouseSystemHook(LEFT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y ,_LeftButtonDown, _RightButtonDown);
 				break;
 			case RIGHT_BUTTON_DOWN:
 				MouseSystemHook(RIGHT_BUTTON_DOWN, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
 				break;
-			case RIGHT_BUTTON_UP: 
-				MouseSystemHook(RIGHT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);	
+			case RIGHT_BUTTON_UP:
+				MouseSystemHook(RIGHT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
 				break;
-			case RIGHT_BUTTON_REPEAT: 
-				MouseSystemHook(RIGHT_BUTTON_REPEAT, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);			
+			case RIGHT_BUTTON_REPEAT:
+				MouseSystemHook(RIGHT_BUTTON_REPEAT, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
 				break;
-			case LEFT_BUTTON_REPEAT: 
-				MouseSystemHook(LEFT_BUTTON_REPEAT, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);				
+			case LEFT_BUTTON_REPEAT:
+				MouseSystemHook(LEFT_BUTTON_REPEAT, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
 				break;
 		}
-		
+
 
 		if( !HandleTextInput( &Event ) && Event.usEvent == KEY_UP )
 		{
@@ -1024,30 +1024,30 @@ void	GetHelpScreenUserInput()
 					break;
 
 				case DNARROW:
-				{ 
+				{
 					ChangeTopLineInTextBufferByAmount( 1 );
 				}
 				break;
 
 				case UPARROW:
-				{ 
+				{
 					ChangeTopLineInTextBufferByAmount( -1 );
 				}
 				break;
 
 				case PGUP:
-				{ 
+				{
 					ChangeTopLineInTextBufferByAmount( -( HLP_SCRN__MAX_NUMBER_DISPLAYED_LINES_IN_BUFFER -1 ) );
 				}
 				break;
 				case PGDN:
-				{ 
+				{
 					ChangeTopLineInTextBufferByAmount( ( HLP_SCRN__MAX_NUMBER_DISPLAYED_LINES_IN_BUFFER -1 ) );
 				}
 				break;
 
 				case LEFTARROW:
-					ChangeToHelpScreenSubPage( (INT8)( gHelpScreen.bCurrentHelpScreenActiveSubPage - 1 ) ); 
+					ChangeToHelpScreenSubPage( (INT8)( gHelpScreen.bCurrentHelpScreenActiveSubPage - 1 ) );
 					break;
 
 				case RIGHTARROW:
@@ -1057,12 +1057,12 @@ void	GetHelpScreenUserInput()
 /*
 
 				case LEFTARROW:
-				{ 
+				{
 				}
 					break;
 
 				case RIGHTARROW:
-				{ 
+				{
 				}
 					break;
 */
@@ -1079,7 +1079,7 @@ void	GetHelpScreenUserInput()
 					break;
 
 				case 'd':
-				  InvalidateRegion( gHelpScreen.usScreenLocX, gHelpScreen.usScreenLocY, gHelpScreen.usScreenLocX+gHelpScreen.usScreenWidth, gHelpScreen.usScreenLocY + gHelpScreen.usScreenHeight );
+				InvalidateRegion( gHelpScreen.usScreenLocX, gHelpScreen.usScreenLocY, gHelpScreen.usScreenLocX+gHelpScreen.usScreenWidth, gHelpScreen.usScreenLocY + gHelpScreen.usScreenHeight );
 					break;
 #endif
 			}
@@ -1090,24 +1090,24 @@ void	GetHelpScreenUserInput()
 			switch( Event.usParam )
 			{
 				case DNARROW:
-				{ 
+				{
 					ChangeTopLineInTextBufferByAmount( 1 );
 				}
 				break;
 
 				case UPARROW:
-				{ 
+				{
 					ChangeTopLineInTextBufferByAmount( -1 );
 				}
 				break;
 
 				case PGUP:
-				{ 
+				{
 					ChangeTopLineInTextBufferByAmount( -( HLP_SCRN__MAX_NUMBER_DISPLAYED_LINES_IN_BUFFER -1 ) );
 				}
 				break;
 				case PGDN:
-				{ 
+				{
 					ChangeTopLineInTextBufferByAmount( ( HLP_SCRN__MAX_NUMBER_DISPLAYED_LINES_IN_BUFFER -1 ) );
 				}
 				break;
@@ -1117,7 +1117,7 @@ void	GetHelpScreenUserInput()
 }
 
 
-//Handles anything spcial that must be done when exiting the specific screen we are about to reenter ( eg. dirtying of the screen ) 
+//Handles anything spcial that must be done when exiting the specific screen we are about to reenter ( eg. dirtying of the screen )
 void HelpScreenSpecialExitCode()
 {
 	//switch on the current screen
@@ -1149,9 +1149,9 @@ void HelpScreenSpecialExitCode()
 
 		default:
 			#ifdef JA2BETAVERSION
-				AssertMsg( 0, "Error in help screen.  DF 0" );
-      #else
-        break;
+				AssertMsg( 0, "Error in help screen.	DF 0" );
+		#else
+		break;
 			#endif
 	}
 }
@@ -1162,7 +1162,7 @@ void PrepareToExitHelpScreen()
 }
 
 
-//Handles anything special that must be done when exiting the specific screen we are about to reenter ( eg. dirtying of the screen ) 
+//Handles anything special that must be done when exiting the specific screen we are about to reenter ( eg. dirtying of the screen )
 void SpecialHandlerCode()
 {
 	//switch on the current screen
@@ -1192,9 +1192,9 @@ void SpecialHandlerCode()
 
 		default:
 			#ifdef JA2BETAVERSION
-				AssertMsg( 0, "Error in help screen:  SpecialHandlerCode().  DF 0" );
-      #else
-        break;
+				AssertMsg( 0, "Error in help screen:	SpecialHandlerCode().	DF 0" );
+		#else
+		break;
 			#endif
 	}
 }
@@ -1207,9 +1207,9 @@ UINT16 RenderSpecificHelpScreen()
 
 	//set the buffer for the text to go to
 //	SetFontDestBuffer( guiHelpScreenTextBufferSurface, gHelpScreen.usLeftMarginPosX, gHelpScreen.usScreenLocY + HELP_SCREEN_TEXT_OFFSET_Y,
-//										 HLP_SCRN__WIDTH_OF_TEXT_BUFFER, HLP_SCRN__NUMBER_BYTES_IN_TEXT_BUFFER, FALSE );
+//										HLP_SCRN__WIDTH_OF_TEXT_BUFFER, HLP_SCRN__NUMBER_BYTES_IN_TEXT_BUFFER, FALSE );
 	SetFontDestBuffer( guiHelpScreenTextBufferSurface, 0, 0,
-										 HLP_SCRN__WIDTH_OF_TEXT_BUFFER, HLP_SCRN__HEIGHT_OF_TEXT_BUFFER, FALSE );
+										HLP_SCRN__WIDTH_OF_TEXT_BUFFER, HLP_SCRN__HEIGHT_OF_TEXT_BUFFER, FALSE );
 
 
 	//switch on the current screen
@@ -1241,9 +1241,9 @@ UINT16 RenderSpecificHelpScreen()
 		default:
 			#ifdef JA2BETAVERSION
 				SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
-				AssertMsg( 0, "Error in help screen:  RenderSpecificHelpScreen().  DF 0" );
-      #else
-        break;
+				AssertMsg( 0, "Error in help screen:	RenderSpecificHelpScreen().	DF 0" );
+		#else
+		break;
 			#endif
 	}
 
@@ -1306,9 +1306,9 @@ void DisplayCurrentScreenTitleAndFooter()
 
 		default:
 			#ifdef JA2BETAVERSION
-				AssertMsg( 0, "Error in help screen:  DisplayCurrentScreenTitleAndFooter().  DF 0" );
-      #else
-        break;
+				AssertMsg( 0, "Error in help screen:	DisplayCurrentScreenTitleAndFooter().	DF 0" );
+		#else
+		break;
 			#endif
 	}
 
@@ -1328,13 +1328,13 @@ void DisplayCurrentScreenTitleAndFooter()
 
 		usPosX = gHelpScreen.usLeftMarginPosX;
 
-//		DrawTextToScreen( zText, usPosX, (UINT16)(gHelpScreen.usScreenLocY+HELP_SCREEN_TITLE_OFFSET_Y), usWidth, 
-//									 HELP_SCREEN_TITLE_BODY_FONT, HELP_SCREEN_TITLE_BODY_COLOR, HELP_SCREEN_TEXT_BACKGROUND, FALSE, CENTER_JUSTIFIED );
+//		DrawTextToScreen( zText, usPosX, (UINT16)(gHelpScreen.usScreenLocY+HELP_SCREEN_TITLE_OFFSET_Y), usWidth,
+//									HELP_SCREEN_TITLE_BODY_FONT, HELP_SCREEN_TITLE_BODY_COLOR, HELP_SCREEN_TEXT_BACKGROUND, FALSE, CENTER_JUSTIFIED );
 
 		//Display the Title
-		IanDisplayWrappedString( usPosX, (UINT16)(gHelpScreen.usScreenLocY+HELP_SCREEN_TITLE_OFFSET_Y), usWidth, HELP_SCREEN_GAP_BTN_LINES, 
-														 HELP_SCREEN_TITLE_BODY_FONT, HELP_SCREEN_TITLE_BODY_COLOR, zText, 
-														 HELP_SCREEN_TEXT_BACKGROUND, FALSE, 0 );
+		IanDisplayWrappedString( usPosX, (UINT16)(gHelpScreen.usScreenLocY+HELP_SCREEN_TITLE_OFFSET_Y), usWidth, HELP_SCREEN_GAP_BTN_LINES,
+														HELP_SCREEN_TITLE_BODY_FONT, HELP_SCREEN_TITLE_BODY_COLOR, zText,
+														HELP_SCREEN_TEXT_BACKGROUND, FALSE, 0 );
 
 	}
 
@@ -1345,13 +1345,13 @@ void DisplayCurrentScreenTitleAndFooter()
 	usPosX = gHelpScreen.usLeftMarginPosX;
 
 	usPosY = gHelpScreen.usScreenLocY+HELP_SCREEN_HELP_REMINDER_Y;
-//	DrawTextToScreen( zText, usPosX, usPosY, usWidth, 
-//								 HELP_SCREEN_TEXT_BODY_FONT, HELP_SCREEN_TITLE_BODY_COLOR, HELP_SCREEN_TEXT_BACKGROUND, FALSE, CENTER_JUSTIFIED );
+//	DrawTextToScreen( zText, usPosX, usPosY, usWidth,
+//								HELP_SCREEN_TEXT_BODY_FONT, HELP_SCREEN_TITLE_BODY_COLOR, HELP_SCREEN_TEXT_BACKGROUND, FALSE, CENTER_JUSTIFIED );
 
 
-	IanDisplayWrappedString( usPosX, usPosY, usWidth, HELP_SCREEN_GAP_BTN_LINES, 
-													 HELP_SCREEN_TITLE_BODY_FONT, HELP_SCREEN_TITLE_BODY_COLOR, zText, 
-													 HELP_SCREEN_TEXT_BACKGROUND, FALSE, 0 );
+	IanDisplayWrappedString( usPosX, usPosY, usWidth, HELP_SCREEN_GAP_BTN_LINES,
+													HELP_SCREEN_TITLE_BODY_FONT, HELP_SCREEN_TITLE_BODY_COLOR, zText,
+													HELP_SCREEN_TEXT_BACKGROUND, FALSE, 0 );
 
 	if( !gHelpScreen.fForceHelpScreenToComeUp )
 	{
@@ -1365,9 +1365,9 @@ void DisplayCurrentScreenTitleAndFooter()
 
 
 		//Display the ' [ x ] Dont display again...'
-		IanDisplayWrappedString( usPosX, usPosY, usWidth, HELP_SCREEN_GAP_BTN_LINES, 
-														 HELP_SCREEN_TEXT_BODY_FONT, HELP_SCREEN_TITLE_BODY_COLOR, zText, 
-														 HELP_SCREEN_TEXT_BACKGROUND, FALSE, 0 );
+		IanDisplayWrappedString( usPosX, usPosY, usWidth, HELP_SCREEN_GAP_BTN_LINES,
+														HELP_SCREEN_TEXT_BODY_FONT, HELP_SCREEN_TITLE_BODY_COLOR, zText,
+														HELP_SCREEN_TEXT_BACKGROUND, FALSE, 0 );
 	}
 
 	SetFontShadow( DEFAULT_SHADOW );
@@ -1388,7 +1388,7 @@ void BtnHelpScreenBtnsCallback(GUI_BUTTON *btn,INT32 reason)
 		ChangeToHelpScreenSubPage( bRetValue );
 /*
 		//change the current page to the new one
-		gHelpScreen.bCurrentHelpScreenActiveSubPage = ( bRetValue > gHelpScreen.bNumberOfButtons ) ? gHelpScreen.bNumberOfButtons-1 : bRetValue; 
+		gHelpScreen.bCurrentHelpScreenActiveSubPage = ( bRetValue > gHelpScreen.bNumberOfButtons ) ? gHelpScreen.bNumberOfButtons-1 : bRetValue;
 
 		gHelpScreen.ubHelpScreenDirty = HLP_SCRN_DRTY_LVL_REFRESH_TEXT;
 
@@ -1410,7 +1410,7 @@ void BtnHelpScreenBtnsCallback(GUI_BUTTON *btn,INT32 reason)
 //		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
-} 
+}
 
 void ChangeToHelpScreenSubPage( INT8 bNewPage )
 {
@@ -1480,9 +1480,9 @@ UINT16 GetAndDisplayHelpScreenText( UINT32 uiRecord, UINT16 usPosX, UINT16 usPos
 	LoadEncryptedDataFromFile(HELPSCREEN_FILE, zText, uiStartLoc, HELPSCREEN_RECORD_SIZE );
 
 	//Display the text
-	usNumVertPixels = IanDisplayWrappedString( usPosX, usPosY, usWidth, HELP_SCREEN_GAP_BTN_LINES, 
-													 HELP_SCREEN_TEXT_BODY_FONT, HELP_SCREEN_TEXT_BODY_COLOR, zText, 
-													 HELP_SCREEN_TEXT_BACKGROUND, FALSE, 0 );
+	usNumVertPixels = IanDisplayWrappedString( usPosX, usPosY, usWidth, HELP_SCREEN_GAP_BTN_LINES,
+													HELP_SCREEN_TEXT_BODY_FONT, HELP_SCREEN_TEXT_BODY_COLOR, zText,
+													HELP_SCREEN_TEXT_BACKGROUND, FALSE, 0 );
 
 	SetFontShadow( DEFAULT_SHADOW );
 
@@ -1569,7 +1569,7 @@ void BtnHelpScreenExitCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
-} 
+}
 
 
 UINT16 RenderLaptopHelpScreen()
@@ -2083,7 +2083,7 @@ void RefreshAllHelpScreenButtons()
 	}
 
 	ButtonList[ guiHelpScreenExitBtn ]->uiFlags |= BUTTON_DIRTY;
-	
+
 	if( !gHelpScreen.fForceHelpScreenToComeUp )
 	{
 		ButtonList[ gHelpScreenDontShowHelpAgainToggle ]->uiFlags |= BUTTON_DIRTY;
@@ -2176,12 +2176,12 @@ void ChangeHelpScreenSubPage()
 
 	//enable or disable the help screen arrow buttons
 	if( gHelpScreen.usTotalNumberOfLinesInBuffer <= HLP_SCRN__MAX_NUMBER_DISPLAYED_LINES_IN_BUFFER )
-	{		
+	{
 		DisableButton( giHelpScreenScrollArrows[0] );
 		DisableButton( giHelpScreenScrollArrows[1] );
 	}
 	else
-	{		
+	{
 		EnableButton( giHelpScreenScrollArrows[0] );
 		EnableButton( giHelpScreenScrollArrows[1] );
 	}
@@ -2189,8 +2189,8 @@ void ChangeHelpScreenSubPage()
 
 void ClearHelpScreenTextBuffer()
 {
-	UINT32										 uiDestPitchBYTES;
-	UINT8											 *pDestBuf;
+	UINT32										uiDestPitchBYTES;
+	UINT8											*pDestBuf;
 
 	// CLEAR THE FRAME BUFFER
 	pDestBuf = LockVideoSurface( guiHelpScreenTextBufferSurface, &uiDestPitchBYTES );
@@ -2259,8 +2259,8 @@ void DisplayHelpScreenTextBufferScrollBox()
 {
 	INT32	iSizeOfBox;
 	INT32	iTopPosScrollBox=0;
-  UINT8	 *pDestBuf;
-  UINT32 uiDestPitchBYTES;
+	UINT8	*pDestBuf;
+	UINT32 uiDestPitchBYTES;
 	UINT16 usPosX;
 
 	if( gHelpScreen.bNumberOfButtons != 0 )
@@ -2282,13 +2282,13 @@ void DisplayHelpScreenTextBufferScrollBox()
 	// next draw the box
 	//
 
-	//if there ARE scroll bars, draw the 
+	//if there ARE scroll bars, draw the
 	if( !( gHelpScreen.usTotalNumberOfLinesInBuffer <= HLP_SCRN__MAX_NUMBER_DISPLAYED_LINES_IN_BUFFER ) )
 	{
 		ColorFillVideoSurfaceArea( FRAME_BUFFER, usPosX, iTopPosScrollBox, usPosX+HLP_SCRN__WIDTH_OF_SCROLL_AREA,	iTopPosScrollBox+iSizeOfBox-1, Get16BPPColor( FROMRGB( 227, 198, 88 ) ) );
 
 		//display the line
-		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );			
+		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 		// draw the gold highlite line on the top and left
@@ -2298,7 +2298,7 @@ void DisplayHelpScreenTextBufferScrollBox()
 		// draw the shadow line on the bottom and right
 		LineDraw(FALSE, usPosX, iTopPosScrollBox+iSizeOfBox-1, usPosX+HLP_SCRN__WIDTH_OF_SCROLL_AREA, iTopPosScrollBox+iSizeOfBox-1, Get16BPPColor( FROMRGB( 65, 49, 6 ) ), pDestBuf);
 		LineDraw(FALSE, usPosX+HLP_SCRN__WIDTH_OF_SCROLL_AREA, iTopPosScrollBox, usPosX+HLP_SCRN__WIDTH_OF_SCROLL_AREA, iTopPosScrollBox+iSizeOfBox-1, Get16BPPColor( FROMRGB( 65, 49, 6 ) ), pDestBuf);
-		
+
 		// unlock frame buffer
 		UnLockVideoSurface( FRAME_BUFFER );
 	}
@@ -2326,8 +2326,8 @@ void CreateScrollAreaButtons()
 
 		//Create a mouse region 'mask' the entrire screen
 	MSYS_DefineRegion( &gHelpScreenScrollArea, usPosX, (UINT16)iPosY, (UINT16)(usPosX+usWidth), (UINT16)(iPosY+HLP_SCRN__HEIGHT_OF_SCROLL_AREA), MSYS_PRIORITY_HIGHEST,
-							 gHelpScreen.usCursor, SelectHelpScrollAreaMovementCallBack, SelectHelpScrollAreaCallBack ); 
-  MSYS_AddRegion( &gHelpScreenScrollArea );
+							gHelpScreen.usCursor, SelectHelpScrollAreaMovementCallBack, SelectHelpScrollAreaCallBack );
+	MSYS_AddRegion( &gHelpScreenScrollArea );
 
 	guiHelpScreenScrollArrowImage[ 0 ] = LoadButtonImage( "INTERFACE\\HelpScreen.sti", 14,10, 11, 12 ,13 );
 	guiHelpScreenScrollArrowImage[ 1 ] = UseLoadedButtonImage( guiHelpScreenScrollArrowImage[ 0 ] ,19,15,16,17,18 );
@@ -2344,7 +2344,7 @@ void CreateScrollAreaButtons()
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										DEFAULT_MOVE_CALLBACK, BtnHelpScreenScrollArrowsCallback );
 	MSYS_SetBtnUserData( giHelpScreenScrollArrows[0],0,0);
-	SetButtonCursor( giHelpScreenScrollArrows[0], gHelpScreen.usCursor ); 
+	SetButtonCursor( giHelpScreenScrollArrows[0], gHelpScreen.usCursor );
 
 	usPosY = gHelpScreen.usScreenLocY + HLP_SCRN__SCROLL_DWN_ARROW_Y;
 
@@ -2353,7 +2353,7 @@ void CreateScrollAreaButtons()
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 										DEFAULT_MOVE_CALLBACK, BtnHelpScreenScrollArrowsCallback );
 	MSYS_SetBtnUserData( giHelpScreenScrollArrows[1],0,1);
-	SetButtonCursor( giHelpScreenScrollArrows[1], gHelpScreen.usCursor ); 
+	SetButtonCursor( giHelpScreenScrollArrows[1], gHelpScreen.usCursor );
 }
 
 
@@ -2408,7 +2408,7 @@ void CalculateHeightAndPositionForHelpScreenScrollBox( INT32 *piHeightOfScrollBo
 
 
 void SelectHelpScrollAreaCallBack(MOUSE_REGION * pRegion, INT32 iReason )
-{ 
+{
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 	}
@@ -2416,15 +2416,15 @@ void SelectHelpScrollAreaCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		gfScrollBoxIsScrolling = FALSE;
 		gHelpScreen.iLastMouseClickY = -1;
-	} 
+	}
 	else if( iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 		gfScrollBoxIsScrolling = TRUE;
 		HelpScreenMouseMoveScrollBox( pRegion->MouseYPos );
-	} 
+	}
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
-	} 
+	}
 
 }
 
@@ -2444,7 +2444,7 @@ void SelectHelpScrollAreaMovementCallBack(MOUSE_REGION * pRegion, INT32 iReason 
 			HelpScreenMouseMoveScrollBox( pRegion->MouseYPos );
 		}
 	}
-} 
+}
 
 void HelpScreenMouseMoveScrollBox( INT32 usMousePosY )
 {

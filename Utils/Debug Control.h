@@ -8,7 +8,7 @@
 //#define		_AISUBSYSTEM_DEBUG
 
 #ifdef JA2BETAVERSION
-//  #define			_ANIMSUBSYSTEM_DEBUG
+//	#define			_ANIMSUBSYSTEM_DEBUG
 #endif
 
 

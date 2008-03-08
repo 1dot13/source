@@ -9,14 +9,14 @@
 
 // Shortest Path Defines
 #define NORTH_MOVE -18
-#define EAST_MOVE    1
-#define WEST_MOVE    -1
-#define SOUTH_MOVE  18 
+#define EAST_MOVE	1
+#define WEST_MOVE	-1
+#define SOUTH_MOVE	18 
 
 
 // Movement speed defines
 #define NORMAL_MVT 1
-#define SLOW_MVT   0
+#define SLOW_MVT	0
 
 
 // movment modes
@@ -29,7 +29,7 @@ enum{
 INT32 FindStratPath(INT16 sStart, INT16 sDestination, INT16 sMvtGroupNumber, BOOLEAN fTacticalTraversal );
 
 /*
-BOOLEAN SectorIsBlockedFromVehicleExit( UINT16 sSectorDest, INT8 bToDirection  );
+BOOLEAN SectorIsBlockedFromVehicleExit( UINT16 sSectorDest, INT8 bToDirection	);
 BOOLEAN SectorIsBlockedFromFootExit( UINT16 sSector, INT8 bToDirection );
 BOOLEAN TravelBetweenSectorsIsBlockedFromVehicle( UINT16 sSourceSector, UINT16 sDestSector );
 BOOLEAN TravelBetweenSectorsIsBlockedFromFoot( UINT16 sSourceSector, UINT16 sDestSector );
@@ -74,7 +74,7 @@ INT16 GetLastSectorIdInCharactersPath( SOLDIERTYPE *pCharacter );
 INT16 GetLastSectorIdInVehiclePath( INT32 iId );
 
 // copy paths
-PathStPtr CopyPaths( PathStPtr pSourcePath,  PathStPtr pDestPath );
+PathStPtr CopyPaths( PathStPtr pSourcePath,	PathStPtr pDestPath );
 
 // build eta's for characters path - no longer used
 //void CalculateEtaForCharacterPath( SOLDIERTYPE *pCharacter );

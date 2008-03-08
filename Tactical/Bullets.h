@@ -7,15 +7,15 @@
 #include "tile animation.h"
 
 
-#define		BULLET_FLAG_CREATURE_SPIT		        0x0001
-#define		BULLET_FLAG_KNIFE						        0x0002
-#define		BULLET_FLAG_MISSILE					        0x0004
-#define		BULLET_FLAG_SMALL_MISSILE		        0x0008
-#define		BULLET_STOPPED							        0x0010
-#define		BULLET_FLAG_TANK_CANNON			        0x0020
-#define		BULLET_FLAG_BUCKSHOT				        0x0040
-#define		BULLET_FLAG_FLAME						        0x0080
-#define		BULLET_FLAG_TRACER						        0x0100
+#define		BULLET_FLAG_CREATURE_SPIT			 0x0001
+#define		BULLET_FLAG_KNIFE							 0x0002
+#define		BULLET_FLAG_MISSILE						 0x0004
+#define		BULLET_FLAG_SMALL_MISSILE			 0x0008
+#define		BULLET_STOPPED								 0x0010
+#define		BULLET_FLAG_TANK_CANNON				 0x0020
+#define		BULLET_FLAG_BUCKSHOT					 0x0040
+#define		BULLET_FLAG_FLAME							 0x0080
+#define		BULLET_FLAG_TRACER							 0x0100
 
 typedef struct
 {
@@ -59,17 +59,17 @@ typedef struct
 	UINT16	usFlags;
 	ANITILE			*pAniTile;
 	ANITILE			*pShadowAniTile;
-	UINT8		ubItemStatus;
+	UINT16		ubItemStatus;
 	UINT16	fromItem;
 	INT32 flash;
 } BULLET;
 
 extern UINT32 guiNumBullets;
 
-INT32  CreateBullet( UINT8 ubFirer, BOOLEAN fFake, UINT16 usFlags,UINT16 fromItem );
-void	 RemoveBullet( INT32 iBullet );
-void	 StopBullet( INT32 iBullet );
-void	 UpdateBullets( );
+INT32	CreateBullet( UINT8 ubFirer, BOOLEAN fFake, UINT16 usFlags,UINT16 fromItem );
+void	RemoveBullet( INT32 iBullet );
+void	StopBullet( INT32 iBullet );
+void	UpdateBullets( );
 BULLET *GetBulletPtr( INT32 iBullet );
 
 void DeleteAllBullets( );

@@ -1,9 +1,9 @@
 #ifndef __TALKING_H_
 #define __TALKING_H_
-#define   NO_EXPRESSION			0
+#define	NO_EXPRESSION			0
 #define		BLINKING					1
 #define		ANGRY							2
-#define   SURPRISED					3
+#define	SURPRISED					3
 
 #include "soldier control.h"
  
@@ -17,28 +17,28 @@ struct audio_gap
 	struct audio_gap *pNext;
 };
 
-#define  FACE_AUTO_DISPLAY_BUFFER		0xFFFFF000
-#define  FACE_AUTO_RESTORE_BUFFER		0xFFFFFF00
-#define  FACE_NO_RESTORE_BUFFER			0xFFFFFFF0
+#define	FACE_AUTO_DISPLAY_BUFFER		0xFFFFF000
+#define	FACE_AUTO_RESTORE_BUFFER		0xFFFFFF00
+#define	FACE_NO_RESTORE_BUFFER			0xFFFFFFF0
 
 // FLAGS....
-#define	 FACE_DESTROY_OVERLAY								0x00000000						// A face may contain a video overlay
-#define	 FACE_BIGFACE												0x00000001						// A BIGFACE instead of small face
-#define	 FACE_POTENTIAL_KEYWAIT							0x00000002						// If the option is set, will not stop face until key pressed
-#define	 FACE_PCTRIGGER_NPC									0x00000004						// This face has to trigger an NPC after being done
-#define  FACE_INACTIVE_HANDLED_ELSEWHERE		0x00000008						// This face has been setup and any disable should be done
+#define	FACE_DESTROY_OVERLAY								0x00000000						// A face may contain a video overlay
+#define	FACE_BIGFACE												0x00000001						// A BIGFACE instead of small face
+#define	FACE_POTENTIAL_KEYWAIT							0x00000002						// If the option is set, will not stop face until key pressed
+#define	FACE_PCTRIGGER_NPC									0x00000004						// This face has to trigger an NPC after being done
+#define	FACE_INACTIVE_HANDLED_ELSEWHERE		0x00000008						// This face has been setup and any disable should be done
 																																	// Externally
-#define	 FACE_TRIGGER_PREBATTLE_INT					0x00000010						
-#define	 FACE_SHOW_WHITE_HILIGHT						0x00000020						// Show highlight around face
-#define	 FACE_FORCE_SMALL										0x00000040						// force to small face	
-#define	 FACE_MODAL													0x00000080						// make game modal
-#define	 FACE_MAKEACTIVE_ONCE_DONE					0x00000100						
-#define  FACE_SHOW_MOVING_HILIGHT						0x00000200
-#define	 FACE_REDRAW_WHOLE_FACE_NEXT_FRAME	0x00000400						// Redraw the complete face next frame
+#define	FACE_TRIGGER_PREBATTLE_INT					0x00000010						
+#define	FACE_SHOW_WHITE_HILIGHT						0x00000020						// Show highlight around face
+#define	FACE_FORCE_SMALL										0x00000040						// force to small face	
+#define	FACE_MODAL													0x00000080						// make game modal
+#define	FACE_MAKEACTIVE_ONCE_DONE					0x00000100						
+#define	FACE_SHOW_MOVING_HILIGHT						0x00000200
+#define	FACE_REDRAW_WHOLE_FACE_NEXT_FRAME	0x00000400						// Redraw the complete face next frame
 
-#define	 FACE_DRAW_TEXT_OVER				2
-#define	 FACE_ERASE_TEXT_OVER				1
-#define	 FACE_NO_TEXT_OVER					0
+#define	FACE_DRAW_TEXT_OVER				2
+#define	FACE_ERASE_TEXT_OVER				1
+#define	FACE_NO_TEXT_OVER					0
 
 
 // duration for talking
@@ -48,15 +48,15 @@ typedef struct audio_gap AUDIO_GAP;
 
 typedef struct
 {
-  // This is a structure that will contain data about the gaps in a particular
+	// This is a structure that will contain data about the gaps in a particular
 	// wave file
 
-  UINT32					size; /* the number of entries in the list of AUDIO_GAPs itself*/
-  UINT32					current_time;
-  // Pointer to head and current entry of gap list
+	UINT32					size; /* the number of entries in the list of AUDIO_GAPs itself*/
+	UINT32					current_time;
+	// Pointer to head and current entry of gap list
 	AUDIO_GAP *pHead;
 	AUDIO_GAP *pCurrent;
-  
+	
 	BOOLEAN					audio_gap_active;
 		
 } AudioGapList;
@@ -86,8 +86,8 @@ typedef struct
 	UINT8			ubSoldierID;										// SoldierID if one specified
 	UINT8			ubCharacterNum;									// Profile ID num
 
-  UINT16		usFaceX;												// X location to render face
-  UINT16		usFaceY;												// Y location to render face
+	UINT16		usFaceX;												// X location to render face
+	UINT16		usFaceY;												// Y location to render face
 	UINT16		usFaceWidth;										
 	UINT16		usFaceHeight;
 	UINT32		uiAutoDisplayBuffer;						// Display buffer for face
@@ -113,11 +113,11 @@ typedef struct
 	UINT16		usMouthOffsetY;
 	UINT16		usMouthWidth;
 	UINT16		usMouthHeight;
-  
-  UINT16		sEyeFrame;
+	
+	UINT16		sEyeFrame;
 	INT8			ubEyeWait;
-  UINT32		uiEyelast;
-  UINT32		uiEyeDelay;
+	UINT32		uiEyelast;
+	UINT32		uiEyeDelay;
 	UINT32		uiBlinkFrequency;
 	UINT32		uiExpressionFrequency;
 	UINT32		uiStopOverlayTimer;
@@ -134,13 +134,13 @@ typedef struct
 	BOOLEAN		fOldShowMoveHilight;
 
 	UINT16		sMouthFrame;
-  UINT32		uiMouthlast;
-  UINT32		uiMouthDelay;
+	UINT32		uiMouthlast;
+	UINT32		uiMouthDelay;
 
 	UINT32		uiLastBlink;
 	UINT32		uiLastExpression;
 
-  UINT32		uiVideoObject;
+	UINT32		uiVideoObject;
 
 	UINT32		uiUserData1;
 	UINT32		uiUserData2;

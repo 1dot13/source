@@ -57,7 +57,7 @@ extern void		ShutdownSoundManager(void);
 // Configuration functions
 extern BOOLEAN	SoundSetMemoryLimit(UINT32 uiLimit);
 extern BOOLEAN	SoundSetCacheThreshhold(UINT32 uiThreshold);
-extern void *   SoundGetDriverHandle( void );
+extern void *	SoundGetDriverHandle( void );
 
 // Master volume control functions
 extern void		SoundSetDefaultVolume(UINT32 uiVolume);

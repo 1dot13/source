@@ -82,7 +82,7 @@ BOOLEAN LoadSTCIFileToImage( HIMAGE hImage, UINT16 fContents )
 	TempImage.ubBitDepth = Header.ubDepth;
 	*hImage = TempImage;
 
-	return( TRUE );		
+	return( TRUE );
 }
 
 BOOLEAN STCILoadRGB( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHeader * pHeader )
@@ -93,9 +93,9 @@ BOOLEAN STCILoadRGB( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHeader *
 	{ // RGB doesn't have a palette!
 		return( FALSE );
 	}
-	
+
 	if (fContents & IMAGE_BITMAPDATA)
-	{ 
+	{
 		// Allocate memory for the image data and read it in
 		hImage->pImageData =	MemAlloc( pHeader->uiStoredSize );
 		if (hImage->pImageData == NULL)
@@ -103,7 +103,7 @@ BOOLEAN STCILoadRGB( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHeader *
 			return( FALSE );
 		}
 		else if (!FileRead( hFile, hImage->pImageData, pHeader->uiStoredSize, &uiBytesRead ) || uiBytesRead != pHeader->uiStoredSize)
-		{ 
+		{
 			MemFree( hImage->pImageData );
 			return( FALSE );
 		}
@@ -116,7 +116,7 @@ BOOLEAN STCILoadRGB( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHeader *
 
 			if (gusRedMask != (UINT16) pHeader->RGB.uiRedMask || gusGreenMask != (UINT16) pHeader->RGB.uiGreenMask || gusBlueMask != (UINT16) pHeader->RGB.uiBlueMask )
 			{
-				// colour distribution of the file is different from hardware!  We have to change it!
+				// colour distribution of the file is different from hardware!	We have to change it!
 				DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, "Converting to current RGB distribution!" );
 				// Convert the image to the current hardware's specifications
 				if (gusRedMask > gusGreenMask && gusGreenMask > gusBlueMask)
@@ -137,7 +137,7 @@ BOOLEAN STCILoadRGB( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHeader *
 						ConvertRGBDistribution565To556( hImage->p16BPPData, pHeader->usWidth * pHeader->usHeight );
 						return( TRUE );
 					}
-					else 
+					else
 					{
 						// take the long route
 						ConvertRGBDistribution565ToAny( hImage->p16BPPData, pHeader->usWidth * pHeader->usHeight );
@@ -153,7 +153,7 @@ BOOLEAN STCILoadRGB( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHeader *
 			}
 		}
 	}
-#ifdef JA2	
+#ifdef JA2
 	return( TRUE );
 #else
 // Anything else is an ERROR! --DB
@@ -171,7 +171,7 @@ BOOLEAN STCILoadIndexed( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHead
 	if (fContents & IMAGE_PALETTE)
 	{ // Allocate memory for reading in the palette
 		if (pHeader->Indexed.uiNumberOfColours != 256)
-		{ 
+		{
 			DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, "Palettized image has bad palette size." );
 			return( FALSE );
 		}
@@ -200,7 +200,7 @@ BOOLEAN STCILoadIndexed( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHead
 			DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, "Problem setting hImage-format palette!" );
 			FileClose( hFile );
 			MemFree( pSTCIPalette );
-			return( FALSE );	
+			return( FALSE );
 		}
 		hImage->fFlags |= IMAGE_PALETTE;
 		// Free the temporary buffer
@@ -213,11 +213,11 @@ BOOLEAN STCILoadIndexed( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHead
 		{
 			DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, "Problem seeking past palette!" );
 			FileClose( hFile );
-			return( FALSE );	
+			return( FALSE );
 		}
 	}
 	if (fContents & IMAGE_BITMAPDATA)
-	{ 	
+	{
 		if (pHeader->fFlags & STCI_ETRLE_COMPRESSED)
 		{
 			// load data for the subimage (object) structures
@@ -229,17 +229,17 @@ BOOLEAN STCILoadIndexed( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHead
 			{
 				DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, "Out of memory!" );
 				FileClose( hFile );
-				if (fContents & IMAGE_PALETTE) 
+				if (fContents & IMAGE_PALETTE)
 				{
 					MemFree( hImage->pPalette );
 				}
 				return( FALSE );
 			}
 			if (!FileRead( hFile, hImage->pETRLEObject, uiFileSectionSize, &uiBytesRead ) || uiBytesRead != uiFileSectionSize)
-			{ 
+			{
 				DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, "Error loading subimage structures!" );
 				FileClose( hFile );
-				if (fContents & IMAGE_PALETTE) 
+				if (fContents & IMAGE_PALETTE)
 				{
 					MemFree( hImage->pPalette );
 				}
@@ -255,7 +255,7 @@ BOOLEAN STCILoadIndexed( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHead
 		{
 			DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, "Out of memory!" );
 			FileClose( hFile );
-			if (fContents & IMAGE_PALETTE) 
+			if (fContents & IMAGE_PALETTE)
 			{
 				MemFree( hImage->pPalette );
 			}
@@ -270,7 +270,7 @@ BOOLEAN STCILoadIndexed( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHead
 			DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, "Error loading image data!" );
 			FileClose( hFile );
 			MemFree( hImage->pImageData );
-			if (fContents & IMAGE_PALETTE) 
+			if (fContents & IMAGE_PALETTE)
 			{
 				MemFree( hImage->pPalette );
 			}
@@ -288,7 +288,7 @@ BOOLEAN STCILoadIndexed( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHead
 		{
 			DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, "Problem seeking past image data!" );
 			FileClose( hFile );
-			return( FALSE );	
+			return( FALSE );
 		}
 	}
 
@@ -301,7 +301,7 @@ BOOLEAN STCILoadIndexed( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHead
 			DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, "Out of memory!" );
 			FileClose( hFile );
 			MemFree( hImage->pAppData );
-			if (fContents & IMAGE_PALETTE) 
+			if (fContents & IMAGE_PALETTE)
 			{
 				MemFree( hImage->pPalette );
 			}
@@ -316,11 +316,11 @@ BOOLEAN STCILoadIndexed( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHead
 			return( FALSE );
 		}
 		if (!FileRead( hFile, hImage->pAppData, pHeader->uiAppDataSize, &uiBytesRead ) || uiBytesRead != pHeader->uiAppDataSize)
-		{ 
+		{
 			DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, "Error loading application-specific data!" );
 			FileClose( hFile );
 			MemFree( hImage->pAppData );
-			if (fContents & IMAGE_PALETTE) 
+			if (fContents & IMAGE_PALETTE)
 			{
 				MemFree( hImage->pPalette );
 			}
@@ -362,16 +362,16 @@ BOOLEAN STCISetPalette( PTR pSTCIPalette, HIMAGE hImage )
 		return( FALSE );
 	}
 
-  // Initialize the proper palette entries
-  for (usIndex = 0; usIndex < 256; usIndex++)
-  { 
-		hImage->pPalette[ usIndex ].peRed   = pubPalette->ubRed;
+	// Initialize the proper palette entries
+	for (usIndex = 0; usIndex < 256; usIndex++)
+	{
+		hImage->pPalette[ usIndex ].peRed	= pubPalette->ubRed;
 		hImage->pPalette[ usIndex ].peGreen = pubPalette->ubGreen;
-    hImage->pPalette[ usIndex ].peBlue  = pubPalette->ubBlue;
-    hImage->pPalette[ usIndex ].peFlags = 0;
+	hImage->pPalette[ usIndex ].peBlue	= pubPalette->ubBlue;
+	hImage->pPalette[ usIndex ].peFlags = 0;
 		pubPalette ++;
-  }
-  return TRUE;
+	}
+	return TRUE;
 }
 
 
@@ -396,10 +396,10 @@ BOOLEAN IsSTCIETRLEFile( CHAR8 * ImageFile )
 	FileClose( hFile );
 	if (Header.fFlags & STCI_ETRLE_COMPRESSED)
 	{
-	    return( TRUE );
+	 return( TRUE );
 	}
 	else
 	{
-	    return( FALSE );
+	 return( FALSE );
 	}
-} 
+}

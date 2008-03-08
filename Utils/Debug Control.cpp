@@ -12,11 +12,11 @@
 
 void AnimDbgMessage( CHAR8 *strMessage)
 {
-  FILE      *OutFile;
+	FILE		*OutFile;
 
 	if ((OutFile = fopen("AnimDebug.txt", "a+t")) != NULL)
 	{ 
-	  fprintf(OutFile, "%s\n", strMessage);
+	fprintf(OutFile, "%s\n", strMessage);
 		fclose(OutFile);
 	}
 }
@@ -28,11 +28,11 @@ void AnimDbgMessage( CHAR8 *strMessage)
 
 void PhysicsDbgMessage( CHAR8 *strMessage)
 {
-  FILE      *OutFile;
+	FILE		*OutFile;
 
 	if ((OutFile = fopen("PhysicsDebug.txt", "a+t")) != NULL)
 	{ 
-	  fprintf(OutFile, "%s\n", strMessage);
+	fprintf(OutFile, "%s\n", strMessage);
 		fclose(OutFile);
 	}
 }
@@ -45,11 +45,11 @@ void PhysicsDbgMessage( CHAR8 *strMessage)
 
 void AiDbgMessage( CHAR8 *strMessage)
 {
-  FILE      *OutFile;
+	FILE		*OutFile;
 
 	if ((OutFile = fopen("AiDebug.txt", "a+t")) != NULL)
 	{ 
-	  fprintf(OutFile, "%s\n", strMessage);
+	fprintf(OutFile, "%s\n", strMessage);
 		fclose(OutFile);
 	}
 }
@@ -59,11 +59,11 @@ void AiDbgMessage( CHAR8 *strMessage)
 
 void LiveMessage( CHAR8 *strMessage)
 {
-  FILE      *OutFile;
+	FILE		*OutFile;
 
 	if ((OutFile = fopen("Log.txt", "a+t")) != NULL)
 	{ 
-	  fprintf(OutFile, "%s\n", strMessage);
+	fprintf(OutFile, "%s\n", strMessage);
 		fclose(OutFile);
 	}
 }

@@ -2,43 +2,8 @@
 	#include "Tactical All.h"
 #else
 	#include "sgp.h"
-	#include "overhead types.h"
-	#include "Sound Control.h"
-	#include "Soldier Control.h"
 	#include "overhead.h"
-	#include "Event Pump.h"
 	#include "weapons.h"
-	#include "Animation Control.h"
-	#include "sys globals.h"
-	#include "Handle UI.h"
-	#include "Isometric Utils.h"
-	#include "worldman.h"
-	#include "math.h"
-	#include "points.h"
-	#include "ai.h"
-	#include "los.h"
-	#include "renderworld.h"
-	#include "opplist.h"
-	#include "interface.h"
-	#include "message.h"
-	#include "campaign.h"
-	#include "items.h"
-	#include "text.h"
-	#include "Soldier Profile.h"
-	#include "tile animation.h"
-	#include "Dialogue Control.h"
-	#include "SkillCheck.h"
-	#include "explosion control.h"
-	#include "Quests.h"
-	#include "Physics.h"
-	#include "Random.h"
-	#include "Vehicles.h"
-	#include "bullets.h"
-	#include "morale.h"
-	#include "meanwhile.h"
-	#include "SkillCheck.h"
-	#include "gamesettings.h"
-	#include "SaveLoadMap.h"
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
@@ -52,13 +17,13 @@ struct
 
 	UINT16			curAttachment[3];
 	UINT32			maxArraySize;
-	UINT32			curIndex;	
+	UINT32			curIndex;
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
 }
 typedef attachmentParseData;
 
-static void XMLCALL 
+static void XMLCALL
 attachmentStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	attachmentParseData * pData = (attachmentParseData *)userData;
@@ -104,9 +69,9 @@ attachmentCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	attachmentParseData * pData = (attachmentParseData *)userData;
 
-	if( (pData->currentDepth <= pData->maxReadDepth) && 
+	if( (pData->currentDepth <= pData->maxReadDepth) &&
 		(strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH)
-	  ){
+	){
 		strncat(pData->szCharData,str,__min((unsigned int)len,MAX_CHAR_DATA_LENGTH-strlen(pData->szCharData)));
 	}
 }
@@ -167,7 +132,7 @@ BOOLEAN ReadInAttachmentStats(STR fileName)
 	UINT32		uiFSize;
 	CHAR8 *		lpcBuffer;
 	XML_Parser	parser = XML_ParserCreate(NULL);
-	
+
 	attachmentParseData pData;
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading Attachments.xml" );
@@ -176,7 +141,7 @@ BOOLEAN ReadInAttachmentStats(STR fileName)
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);
 
@@ -191,19 +156,19 @@ BOOLEAN ReadInAttachmentStats(STR fileName)
 
 	FileClose( hFile );
 
-	
+
 	XML_SetElementHandler(parser, attachmentStartElementHandle, attachmentEndElementHandle);
 	XML_SetCharacterDataHandler(parser, attachmentCharacterDataHandle);
 
-	
+
 	memset(&pData,0,sizeof(pData));
-	pData.maxArraySize = MAXATTACHMENTS; 
+	pData.maxArraySize = MAXATTACHMENTS;
 	pData.curIndex = -1;
-	
+
 	XML_SetUserData(parser, &pData);
 
 
-    if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
+	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
 
@@ -230,7 +195,7 @@ BOOLEAN WriteAttachmentStats()
 	hFile = FileOpen( "TABLEDATA\\Attachments out.xml", FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	{
 		UINT32 cnt;
 

@@ -97,7 +97,7 @@ BOOLEAN CalculateSoldierZPos( SOLDIERTYPE * pSoldier, UINT8 ubPosType, FLOAT * p
 
 // 191 is 6' (structures of height 3)
 // 127 is 4' (structures of height 2)
-//  63 is 2' (structures of height 1)
+//	63 is 2' (structures of height 1)
 
 
 #define STANDING_HEIGHT 191.0f

@@ -73,7 +73,7 @@ BOOLEAN GetCachedAnimationSurface( UINT16 usSoldierID, AnimationSurfaceCacheType
 {
 	UINT8			cnt;
 	UINT8			ubLowestIndex = 0;
-	INT16		  sMostHits = (INT16)32000;
+	INT16		sMostHits = (INT16)32000;
 	UINT16		usCurrentAnimSurface;
 
 	// Check to see if surface exists already
@@ -81,10 +81,10 @@ BOOLEAN GetCachedAnimationSurface( UINT16 usSoldierID, AnimationSurfaceCacheType
 	{
 		if ( pAnimCache->usCachedSurfaces[ cnt ] == usSurfaceIndex )
 		{
-			 // Found surface, return
-			 AnimDebugMsg( String( "Anim Cache: Hit %d ( Soldier %d )", usSurfaceIndex, usSoldierID ) );
-			 pAnimCache->sCacheHits[cnt]++;
-			 return( TRUE );
+			// Found surface, return
+			AnimDebugMsg( String( "Anim Cache: Hit %d ( Soldier %d )", usSurfaceIndex, usSoldierID ) );
+			pAnimCache->sCacheHits[cnt]++;
+			return( TRUE );
 		}
 	}
 
@@ -101,20 +101,20 @@ BOOLEAN GetCachedAnimationSurface( UINT16 usSoldierID, AnimationSurfaceCacheType
 		// Loop through and pick one with lowest cache hits
 		for ( cnt = 0; cnt < pAnimCache->ubCacheSize; cnt++ )
 		{
-			 AnimDebugMsg( String( "Anim Cache: Slot %d Hits %d ( Soldier %d )", cnt, pAnimCache->sCacheHits[ cnt ], usSoldierID ) );
+			AnimDebugMsg( String( "Anim Cache: Slot %d Hits %d ( Soldier %d )", cnt, pAnimCache->sCacheHits[ cnt ], usSoldierID ) );
 
-			 if ( pAnimCache->usCachedSurfaces[ cnt ] == usCurrentAnimSurface )
-			 {
+			if ( pAnimCache->usCachedSurfaces[ cnt ] == usCurrentAnimSurface )
+			{
 				AnimDebugMsg( String( "Anim Cache: REJECTING Slot %d EXISTING ANIM SURFACE ( Soldier %d )", cnt, usSoldierID ) );
-			 }
-			 else
-			 {
-				 if ( pAnimCache->sCacheHits[ cnt ] < sMostHits )
-				 {
+			}
+			else
+			{
+				if ( pAnimCache->sCacheHits[ cnt ] < sMostHits )
+				{
 						sMostHits = pAnimCache->sCacheHits[ cnt ];
 						ubLowestIndex = cnt;
-				 }
-			 }
+				}
+			}
 		}
 
 		// Bump off lowest index

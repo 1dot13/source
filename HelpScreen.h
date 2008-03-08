@@ -36,7 +36,7 @@ typedef struct
 
 	INT32		iLastMouseClickY;			//last position the mouse was clicked ( if != -1 )
 
-	INT8		bCurrentHelpScreenActiveSubPage;  //used to keep track of the current page being displayed
+	INT8		bCurrentHelpScreenActiveSubPage;	//used to keep track of the current page being displayed
 
 	INT8		bNumberOfButtons;
 

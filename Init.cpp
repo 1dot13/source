@@ -3,7 +3,7 @@
 	#include "HelpScreen.h"
 	#include "Multilingual Text Code Generator.h"
 	#include "INIReader.h"
-	
+
 #else
 	#include "builddefines.h"
 	#include <stdio.h>
@@ -48,7 +48,7 @@
 	#include "laptop.h"
 	#include "Shade Table Util.h"
 	#include "Exit Grids.h"
-	#include "Summary Info.h" 
+	#include "Summary Info.h"
 	#include "GameSettings.h"
 	#include "Game Init.h"
 	#include "Init.h"
@@ -62,10 +62,17 @@
 	#include "editscreen.h"
 #endif
 
+#include "Sector Summary.h"
 extern BOOLEAN GetCDromDriveLetter( STR8	pString );
 
 // The InitializeGame function is responsible for setting up all data and Gaming Engine
 // tasks which will run the game
+
+#ifdef JA2EDITOR
+#define BUILD_AS_EDITOR_ONLY
+#else
+#undef BUILD_AS_EDITOR_ONLY
+#endif
 
 #ifdef JA2BETAVERSION
 extern	BOOLEAN	gfUseConsecutiveQuickSaveSlots;
@@ -88,6 +95,7 @@ extern	BOOLEAN	gfUseConsecutiveQuickSaveSlots;
 
 extern	HINSTANCE					ghInstance;
 
+extern OBJECTTYPE GLOCK_17_ForUseWithLOS;
 
 // Prepends the language prefix to the file name in a proposed path.
 static void AddLanguagePrefix(STR fileName, const STR language)
@@ -145,7 +153,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	if(!ReadInEnemyArmourDropsStats(gEnemyArmourDrops, fileName))
 		return FALSE;
 	// WANNE: Enemy drops - end
-	
+
 	// WANNE: Sector Loadscreens [2007-05-18]
 	strcpy(fileName, directoryName);
 	strcat(fileName, SECTORLOADSCREENSFILENAME);
@@ -184,13 +192,13 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 		return FALSE;
 
 
-    // Lesh: added this, begin
+	// Lesh: added this, begin
 	strcpy(fileName, directoryName);
 	strcat(fileName, BURSTSOUNDSFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	if(!ReadInBurstSoundArray(fileName))
 		return FALSE;
-    // Lesh: end
+	// Lesh: end
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, ITEMSFILENAME);
@@ -202,12 +210,12 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 // The idea here is that we can have a separate xml file that's named differently
 // but only contains the relevant tags that need to be localized
 // then when the file is read in using the same xml reader code, it will only overwrite
-// the tags that are contained in the localized file.  This only works for items.xml 
+// the tags that are contained in the localized file.	This only works for items.xml 
 // since I tweaked the xml_items.cpp to make it work :p
 // So for instance, the german file would be called German.Items.xml and would only contain
 // the uiIndex (for reference), szItemName, szLongItemName, szItemDesc, szBRName, and szBRDesc tags
- 
-#ifdef GERMAN 
+
+#ifdef GERMAN
 	strcpy(fileName, directoryName);
 	strcat(fileName, GERMAN_PREFIX);
 	strcat(fileName, ITEMSFILENAME);
@@ -218,7 +226,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 			return FALSE;
 	}
 #endif
-#ifdef RUSSIAN 
+#ifdef RUSSIAN
 	strcpy(fileName, directoryName);
 	strcat(fileName, RUSSIAN_PREFIX);
 	strcat(fileName, ITEMSFILENAME);
@@ -257,7 +265,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, LAUNCHABLESFILENAME);
 	if(!ReadInLaunchableStats(fileName))
 		return FALSE;
-	
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, COMPATIBLEFACEITEMSFILENAME);
 	if(!ReadInCompatibleFaceItemStats(fileName))
@@ -280,10 +288,54 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, EXPLOSIVESFILENAME);
 	if(!ReadInExplosiveStats(fileName))
 		return FALSE;
-	
+
 	strcpy(fileName, directoryName);
 	strcat(fileName, ARMOURSFILENAME);
 	if(!ReadInArmourStats(fileName))
+		return FALSE;
+
+	// CHRISL:
+	strcpy(fileName, directoryName);
+	strcat(fileName, LOADBEARINGEQUIPMENTFILENAME);
+	if(!ReadInlbeStats(fileName))
+		return FALSE;
+
+	// CHRISL:
+	strcpy(fileName, directoryName);
+	strcat(fileName, LBEPOCKETFILENAME);
+	if(!ReadInLBEPocketStats(fileName,FALSE))
+		return FALSE;
+
+//CHRISL: Simple localization
+// Same setup as what Madd used for items.xml
+
+#ifdef GERMAN
+	strcpy(fileName, directoryName);
+	strcat(fileName, GERMAN_PREFIX);
+	strcat(fileName, LBEPOCKETFILENAME);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInLBEPocketStats(fileName,TRUE))
+			return FALSE;
+	}
+#endif
+#ifdef RUSSIAN
+	strcpy(fileName, directoryName);
+	strcat(fileName, RUSSIAN_PREFIX);
+	strcat(fileName, LBEPOCKETFILENAME);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInLBEPocketStats(fileName,TRUE))
+			return FALSE;
+	}
+#endif
+
+	// CHRISL:
+	strcpy(fileName, directoryName);
+	strcat(fileName, MERCSTARTINGGEARFILENAME);
+	if(!ReadInMercStartingGearStats(fileName))
 		return FALSE;
 
 	strcpy(fileName, directoryName);
@@ -393,7 +445,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, CITYTABLEFILENAME);
 	if(!ReadInMapStructure(fileName))
 		return FALSE;
-		
+
 #ifdef RUSSIAN 
 	AddLanguagePrefix( fileName, RUSSIAN_PREFIX);
 	if ( FileExists(fileName) )
@@ -405,8 +457,8 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 #endif
 
 	// Lesh: Strategic movement costs will be read in Strategic\Strategic Movement Costs.cpp,
-	//       function BOOLEAN InitStrategicMovementCosts();
-	//       It is called several times from various places and acts after clearing SectorInfo array
+	//		function BOOLEAN InitStrategicMovementCosts();
+	//		It is called several times from various places and acts after clearing SectorInfo array
 
 	// Lesh: load altsectors list
 	strcpy(fileName, directoryName);
@@ -419,7 +471,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, SAMSITESFILENAME);
 	if ( !ReadInSAMInfo(fileName) )
 		return FALSE;
-	
+
 	// Lesh: army externalization
 	strcpy(fileName, directoryName);
 	strcat(fileName, GARRISONFILENAME);
@@ -438,14 +490,14 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, EXPLOSIONDATAFILENAME);
-    if(!ReadInExplosionDataStats(fileName))
+	if(!ReadInExplosionDataStats(fileName))
 		return FALSE;
 
 	// Kaiden: Read in Restricted Sectors for Mobile Militia
 	strcpy(fileName, directoryName);
 	strcat(fileName, ROAMINGMILITIAFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-    if(!ReadInRoamingInfo(fileName))
+	if(!ReadInRoamingInfo(fileName))
 		return FALSE;
 
 	return TRUE;
@@ -453,13 +505,13 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 
 
 UINT32 InitializeJA2(void)
-{ 
+{
 
 #ifdef LASERLOCK_ENABLED
 	HandleLaserLockResult( PrepareLaserLockSystem() );
 #endif
 
-  HandleJA2CDCheck( );
+	HandleJA2CDCheck( );
 
 	gfWorldLoaded = FALSE;
 
@@ -468,7 +520,7 @@ UINT32 InitializeJA2(void)
 	{
 		return( ERROR_SCREEN );
 	}
-	
+
 	// Load external text
 	LoadAllExternalText();
 
@@ -477,7 +529,7 @@ UINT32 InitializeJA2(void)
 
 	gsRenderCenterX = 805;
 	gsRenderCenterY = 805;
- 
+
 
 	// Init data
 	InitializeSystemVideoObjects( );
@@ -498,7 +550,7 @@ UINT32 InitializeJA2(void)
 	{
 		return( ERROR_SCREEN );
 	}
-	
+
 	//needs to be called here to init the SectorInfo struct
 	if ( !InitStrategicMovementCosts( ) )
 	{
@@ -520,7 +572,7 @@ UINT32 InitializeJA2(void)
 
 	// INit intensity tables
 	BuildIntensityTable( );
-	
+
 	// Init Event Manager
 	if ( !InitializeEventManager( ) )
 	{
@@ -548,6 +600,11 @@ UINT32 InitializeJA2(void)
 		return( ERROR_SCREEN );
 	}
 
+	//ADB When a merc calcs CTGT for a thrown item he uses a GLOCK temp item
+	//but we don't want to recreate it every single time CTGT is called, so init the GLOCK here
+	CreateItem(GLOCK_17, 100, &GLOCK_17_ForUseWithLOS);
+
+
 #ifdef JA2BETAVERSION
 	#ifdef JA2EDITOR
 
@@ -559,7 +616,7 @@ UINT32 InitializeJA2(void)
 	}
 	#endif
 #endif
-	
+
 #ifdef JA2BETAVERSION
 	if( ProcessIfMultilingualCmdLineArgDetected( gzCommandLine ) )
 	{ //If the multilingual text code generator has activated, quit now.
@@ -595,7 +652,7 @@ UINT32 InitializeJA2(void)
 			//also set the sector
 			gWorldSectorX = 0;
 			gWorldSectorY = 0;
-			gfAutoLoadA9 = TRUE;
+			gfAutoLoadA9 = FALSE;
 			gfIntendOnEnteringEditor = TRUE;
 			gGameOptions.fGunNut = TRUE;
 			gGameOptions.fAirStrikes = FALSE;
@@ -615,6 +672,23 @@ UINT32 InitializeJA2(void)
 			gGameOptions.fAirStrikes = FALSE;
 			return( GAME_SCREEN );
 		}
+
+		#ifdef BUILD_AS_EDITOR_ONLY
+			//ADB We are building with JA2EDITOR, why force a commandline arguement???
+			//build once, rename, change the define and build again
+			//no pesky shortcuts
+			OutputDebugString( "Beginning JA2EDITOR without using a commandline argument...\n" );
+			//For editor purposes, need to know the default map file.
+			sprintf( gubFilename, "none");
+			//also set the sector
+			gWorldSectorX = 0;
+			gWorldSectorY = 0;
+			gfAutoLoadA9 = TRUE;
+			gfIntendOnEnteringEditor = TRUE;
+			gGameOptions.fGunNut = TRUE;
+			gGameOptions.fAirStrikes = FALSE;
+			return( GAME_SCREEN );
+		#endif
 	#endif
 #endif
 
@@ -623,8 +697,8 @@ UINT32 InitializeJA2(void)
 
 
 void ShutdownJA2(void)
-{ 
-  UINT32 uiIndex;
+{
+	UINT32 uiIndex;
 
 	// Clear screen....
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
@@ -633,7 +707,7 @@ void ShutdownJA2(void)
 	SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
 
 	RefreshScreen( NULL );
-		
+
 	ShutdownStrategicLayer();
 
 	// remove temp files built by laptop
@@ -642,11 +716,11 @@ void ShutdownJA2(void)
 	// Shutdown queue system
 	ShutdownDialogueControl();
 
-  // Shutdown Screens
-  for (uiIndex = 0; uiIndex < MAX_SCREENS; uiIndex++)
-  { 
-    (*(GameScreens[uiIndex].ShutdownScreen))();
-  }
+	// Shutdown Screens
+	for (uiIndex = 0; uiIndex < MAX_SCREENS; uiIndex++)
+	{
+	(*(GameScreens[uiIndex].ShutdownScreen))();
+	}
 
 
 	// Shutdown animation system
@@ -723,7 +797,7 @@ BOOLEAN PrepareLaserLockSystem()
 	iCheckRetVal = LASERLOK_Check();
 	if( iCheckRetVal != 0 )
 		goto FAILED_LASERLOK;
-	
+
 	//Restore back to the proper directory
 	SetFileManCurrentDirectory( zDirectory );
 	return( TRUE );
@@ -742,8 +816,8 @@ void HandleLaserLockResult( BOOLEAN fSuccess )
 
 		sprintf( zString, "%S", gzLateLocalizedString[56] );
 
-//    ShowCursor(TRUE);
-//    ShowCursor(TRUE);
+//		ShowCursor(TRUE);
+//		ShowCursor(TRUE);
 		ShutdownWithErrorBox( zString );
 	}
 }

@@ -58,14 +58,14 @@ void ClearNonPersistantPBIInfo();
 //only if the PBI isn't persistant (!gfPersistantPBI).
 extern BOOLEAN gfPersistantPBI;
 
-//Contains general information about the type of encounter the player is faced with.  This
-//determines whether or not you can autoresolve the battle or even retreat.  This code
+//Contains general information about the type of encounter the player is faced with.	This
+//determines whether or not you can autoresolve the battle or even retreat.	This code
 //dictates the header that is used at the top of the PBI.
 extern UINT8 gubEnemyEncounterCode;
 
 //The autoresolve during tactical battle option needs more detailed information than the 
-//gubEnemyEncounterCode can provide.  The explicit version contains possibly unique codes
-//for reasons not normally used in the PBI.  For example, if we were fighting the enemy
+//gubEnemyEncounterCode can provide.	The explicit version contains possibly unique codes
+//for reasons not normally used in the PBI.	For example, if we were fighting the enemy
 //in a normal situation, then shot at a civilian, the civilians associated with the victim
 //would turn hostile, which would disable the ability to autoresolve the battle.
 extern BOOLEAN gubExplicitEnemyEncounterCode;

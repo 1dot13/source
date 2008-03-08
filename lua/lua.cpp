@@ -2,13 +2,12 @@
 #include <string.h>
 #include <iostream>
 #include "Lua Interpreter.h"
-
 #include <Windows.h>
 #include "MemMan.h"
 
 lua_State *L;
 
-#define ARRAY_INDEX " idx"  // The space is intentional to make this an out-of-band field
+#define ARRAY_INDEX " idx"	// The space is intentional to make this an out-of-band field
 
 void CreateLuaType( lua_State *L, STR8 TypeName, luaL_Reg *LuaAccessors )
 {
@@ -177,12 +176,11 @@ void NewLuaObject( lua_State *L, STR8 ClsName, void *Ptr )
 
 
 
-
 void InitializeLua( )
 {
 	L = lua_open();
 	luaL_openlibs(L);
-	
+
 	// Create the accessor metatable
 //	CreateLuaType( L, ACCESSOR_TABLE, LuaAccessors);
 //	lua_setglobal( L, ACCESSOR_TABLE); // We also want this class to be known to the script
@@ -218,11 +216,11 @@ int EvalLua (const wchar_t* buff) {
 		int len = strlen( error);
 		if (len >= 7 && !strcmp( error + len - 7, "'<eof>'"))
 		{
-			lua_pop(L, 1);  /* pop error message from the stack */
+			lua_pop(L, 1);	/* pop error message from the stack */
 			return FALSE;
 		}
 		printf( "%s\n", lua_tostring(L, -1));
-		lua_pop(L, 1);  /* pop error message from the stack */
+		lua_pop(L, 1);	/* pop error message from the stack */
 		return TRUE;
 	}
 

@@ -54,20 +54,20 @@ enum
 // Selects at the start of the game the set of guns the Queen's army will use during this game
 void InitArmyGunTypes(void);
 
-//Chooses equipment based on the equipment level (1-11) with best being 11.  It allocates a range 
+//Chooses equipment based on the equipment level (1-11) with best being 11.	It allocates a range 
 //of equipment to choose from.
 void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8 bEquipmentRating);
 
 void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponClass, 
-																				 INT8 bAmmoClips, INT8 bAttachClass, BOOLEAN fAttachment );
+																				INT8 bAmmoClips, INT8 bAttachClass, BOOLEAN fAttachment );
 
 void ChooseGrenadesForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bGrenades, INT8 bGrenadeClass, BOOLEAN fGrenadeLauncher );
 
 void ChooseArmourForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bHelmetClass, 
-																				 INT8 bArmourClass, INT8 bLeggingsClass );
+																				INT8 bArmourClass, INT8 bLeggingsClass );
 
 void ChooseSpecialWeaponsForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bKnifeClass, 
-																								 BOOLEAN fGrenadeLauncher, BOOLEAN fLAW, BOOLEAN fMortar, BOOLEAN fRPG );
+																								BOOLEAN fGrenadeLauncher, BOOLEAN fLAW, BOOLEAN fMortar, BOOLEAN fRPG );
 
 void ChooseFaceGearForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp );
 
@@ -88,6 +88,7 @@ void ResetMortarsOnTeamCount( void );
 
 extern ARMY_GUN_CHOICE_TYPE gExtendedArmyGunChoices[ARMY_GUN_LEVELS];
 
+// Headrock: Added LBE enumeration
 enum
 {
 	HELMET = 0,
@@ -110,6 +111,7 @@ enum
 	ATTACHMENTS,
 	KNIVES,
 	ENEMYAMMOTYPES,
+	LBE,
 	MAX_ITEM_TYPES
 };
 

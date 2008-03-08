@@ -3,37 +3,37 @@
 
 #include "Soldier Profile.h"
 
-#define SALARYAMT               0
-#define HEALTHAMT               1
-#define AGILAMT                 2
-#define DEXTAMT                 3
-#define WISDOMAMT               4
-#define MEDICALAMT              5
-#define EXPLODEAMT              6
-#define MECHANAMT               7
-#define MARKAMT                 8
-#define EXPERAMT                9
+#define SALARYAMT				0
+#define HEALTHAMT				1
+#define AGILAMT				 2
+#define DEXTAMT				 3
+#define WISDOMAMT				4
+#define MEDICALAMT				5
+#define EXPLODEAMT				6
+#define MECHANAMT				7
+#define MARKAMT				 8
+#define EXPERAMT				9
 #define STRAMT									10
 #define LDRAMT									11
-#define ASSIGNAMT               12
-#define NAMEAMT                 13
+#define ASSIGNAMT				12
+#define NAMEAMT				 13
 
 #define FIRST_CHANGEABLE_STAT		HEALTHAMT
 #define LAST_CHANGEABLE_STAT		LDRAMT
 #define CHANGEABLE_STAT_COUNT		( LDRAMT - HEALTHAMT + 1 )
 
 #define MAX_STAT_VALUE 100			// for stats and skills
-#define MAXEXPLEVEL     10      // maximum merc experience level
+#define MAXEXPLEVEL	 10		// maximum merc experience level
 
 #define SKILLS_SUBPOINTS_TO_IMPROVE		25
 #define ATTRIBS_SUBPOINTS_TO_IMPROVE	50
-#define LEVEL_SUBPOINTS_TO_IMPROVE		350    // per current level!	(Can't go over 6500, 10x must fit in USHORT!)
+#define LEVEL_SUBPOINTS_TO_IMPROVE		350	// per current level!	(Can't go over 6500, 10x must fit in USHORT!)
 
-#define WORKIMPROVERATE  2      // increase to make working  mercs improve more
-#define TRAINIMPROVERATE 2      // increase to make training mercs improve more
+#define WORKIMPROVERATE	2		// increase to make working	mercs improve more
+#define TRAINIMPROVERATE 2		// increase to make training mercs improve more
 
 #define SALARY_CHANGE_PER_LEVEL 1.25		// Mercs salary is multiplied by this
-#define MAX_DAILY_SALARY        30000		// must fit into an INT16 (32k)
+#define MAX_DAILY_SALARY		30000		// must fit into an INT16 (32k)
 #define MAX_LARGE_SALARY				500000	// no limit, really
 
 // training cap: you can't train any stat/skill beyond this value

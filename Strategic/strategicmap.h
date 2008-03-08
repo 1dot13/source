@@ -5,7 +5,7 @@
 #include "soldier control.h"
 #include "FileMan.h"
 
-//The maximum size for any team strategically speaking.  For example, we can't have more than 20 enemies, militia, or creatures at a time.
+//The maximum size for any team strategically speaking.	For example, we can't have more than 20 enemies, militia, or creatures at a time.
 //#define MAX_STRATEGIC_TEAM_SIZE	20
 
 // Codes for jumoing into adjacent sectors..
@@ -63,12 +63,12 @@ extern	BOOLEAN		gfUseAlternateMap;
 
 // get index into aray
 #define		CALCULATE_STRATEGIC_INDEX( x, y )			( x + ( y * MAP_WORLD_X ) )
-#define   GET_X_FROM_STRATEGIC_INDEX( i )				( i % MAP_WORLD_X )
-#define   GET_Y_FROM_STRATEGIC_INDEX( i )				( i / MAP_WORLD_X )
+#define	GET_X_FROM_STRATEGIC_INDEX( i )				( i % MAP_WORLD_X )
+#define	GET_Y_FROM_STRATEGIC_INDEX( i )				( i / MAP_WORLD_X )
 
 // macros to convert between the 2 different sector numbering systems
 #define		SECTOR_INFO_TO_STRATEGIC_INDEX( i )		( CALCULATE_STRATEGIC_INDEX ( SECTORX( i ), SECTORY( i ) ) )
-#define		STRATEGIC_INDEX_TO_SECTOR_INFO( i )		( SECTOR(  GET_X_FROM_STRATEGIC_INDEX( i ), GET_Y_FROM_STRATEGIC_INDEX( i ) ) )
+#define		STRATEGIC_INDEX_TO_SECTOR_INFO( i )		( SECTOR(	GET_X_FROM_STRATEGIC_INDEX( i ), GET_Y_FROM_STRATEGIC_INDEX( i ) ) )
 
 
 // grab the town id value
@@ -171,7 +171,7 @@ void SetupProfileInsertionDataForSoldier( SOLDIERTYPE *pSoldier );
 BOOLEAN HandlePotentialBringUpAutoresolveToFinishBattle( );
 
 //Used for determining the type of error message that comes up when you can't traverse to
-//an adjacent sector.  THESE VALUES DO NOT NEED TO BE SAVED!
+//an adjacent sector.	THESE VALUES DO NOT NEED TO BE SAVED!
 extern BOOLEAN	gfInvalidTraversal;
 extern BOOLEAN	gfLoneEPCAttemptingTraversal;
 extern BOOLEAN	gfRobotWithoutControllerAttemptingTraversal;

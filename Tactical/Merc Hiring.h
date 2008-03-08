@@ -18,7 +18,7 @@
 
 // ATE: This define has been moved to be a function so that
 // we pick the most appropriate time of day to use...
-//#define		MERC_ARRIVAL_TIME_OF_DAY				 (7 * 60 + 30)		// 7:30 am
+//#define		MERC_ARRIVAL_TIME_OF_DAY				(7 * 60 + 30)		// 7:30 am
 
 
 typedef struct

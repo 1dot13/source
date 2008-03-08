@@ -28,14 +28,14 @@
 #define ITEMLIST_HANDLE_SELECTION	5
 
 // visibility defines
-#define ANY_VISIBILITY_VALUE  -10
+#define ANY_VISIBILITY_VALUE	-10
 #define HIDDEN_ITEM -4
 #define BURIED -3
 #define HIDDEN_IN_OBJECT -2
 #define INVISIBLE -1
 #define VISIBLE 1
 
-#define	ITEM_LOCATOR_DELAY  0x01
+#define	ITEM_LOCATOR_DELAY	0x01
 #define	ITEM_LOCATOR_LOCKED 0x02
 
 
@@ -46,8 +46,7 @@
 typedef void ( *ITEM_POOL_LOCATOR_HOOK )( void );	
 
 
-// WDS - Clean up inventory handling
-struct WORLDITEM;
+class WORLDITEM;
 struct LEVELNODE;
 
 typedef struct TAG_ITEM_POOL
@@ -80,7 +79,6 @@ typedef struct
 
 } ITEM_POOL_LOCATOR;
 
-// WDS - Clean up inventory handling
 class SOLDIERTYPE;
 INT32 HandleItem( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT16 usHandItem, BOOLEAN fFromUI );
 void SoldierPickupItem( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT16 sGridNo, INT8 bZLevel );
@@ -101,12 +99,13 @@ void AllSoldiersLookforItems( BOOLEAN RevealRoofsAndItems );
 
 void SoldierGetItemFromWorld( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT16 sGridNo, INT8 bZLevel, BOOLEAN *pfSelectionList );
 
-OBJECTTYPE* AddItemToPool( INT16 sGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel );
-OBJECTTYPE* AddItemToPoolAndGetIndex( INT16 sGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT32 * piItemIndex );
-OBJECTTYPE* InternalAddItemToPool( INT16 *psGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT32 * piItemIndex );
+OBJECTTYPE* AddItemToPool( INT16 sGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 soldierID = -1 );
+OBJECTTYPE* AddItemToPoolAndGetIndex( INT16 sGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 soldierID, INT32 * piItemIndex );
+OBJECTTYPE* InternalAddItemToPool( INT16 *psGridNo, OBJECTTYPE *pObject, INT8 bVisible, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 soldierID, INT32 * piItemIndex );
 
 INT16 AdjustGridNoForItemPlacement( SOLDIERTYPE *pSoldier, INT16 sGridNo );
-BOOLEAN	GetItemPool( UINT16 usMapPos, ITEM_POOL **ppItemPool, UINT8 ubLevel );
+BOOLEAN	GetItemPool( INT16 sMapPos, ITEM_POOL **ppItemPool, UINT8 ubLevel );
+BOOLEAN	GetItemPoolFromGround( INT16 sMapPos, ITEM_POOL **ppItemPool );
 BOOLEAN DrawItemPoolList( ITEM_POOL *pItemPool, INT16 sGridNo, UINT8 bCommand, INT8 bZLevel, INT16 sXPos, INT16 sYPos );
 BOOLEAN RemoveItemFromPool( INT16 sGridNo, INT32 iItemIndex, UINT8 ubLevel );
 BOOLEAN ItemExistsAtLocation( INT16 sGridNo, INT32 iItemIndex, UINT8 ubLevel );
@@ -134,9 +133,6 @@ BOOLEAN DoesItemPoolContainAllHiddenItems( ITEM_POOL *pItemPool );
 void HandleSoldierDropBomb( SOLDIERTYPE *pSoldier, INT16 sGridNo );
 void HandleSoldierUseRemote( SOLDIERTYPE *pSoldier, INT16 sGridNo );
 
-BOOLEAN DoesItemPoolContainAllItemsOfZeroZLevel( ITEM_POOL *pItemPool );
-BOOLEAN DoesItemPoolContainAllItemsOfHigherZLevel( ITEM_POOL *pItemPool );
-
 BOOLEAN ItemPoolOKForDisplay( ITEM_POOL *pItemPool, INT8 bZLevel );
 INT16 GetNumOkForDisplayItemsInPool( ITEM_POOL *pItemPool, INT8 bZLevel );
 
@@ -154,7 +150,7 @@ void MineSpottedDialogueCallBack( void );
 extern INT16 gsBoobyTrapGridNo;
 extern SOLDIERTYPE * gpBoobyTrapSoldier;
 void AddBlueFlag( INT16 sGridNo, INT8 bLevel );
-void RemoveBlueFlag( INT16 sGridNo, INT8 bLevel  );
+void RemoveBlueFlag( INT16 sGridNo, INT8 bLevel	);
 
 // check if item is booby trapped
 BOOLEAN ContinuePastBoobyTrapInMapScreen( OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier );

@@ -4,7 +4,7 @@
 #define			SHOW_MIN_FPS			0
 #define			SHOW_FULL_FPS			1
 
-extern CHAR8	gubErrorText[ 200 ];
+extern CHAR8	gubErrorText[ 512 ];//for long filenames
 extern BOOLEAN	gfAniEditMode;
 extern BOOLEAN	gfEditMode;
 extern BOOLEAN	fFirstTimeInGameScreen;
@@ -25,6 +25,6 @@ extern UINT32	guiGameCycleCounter;
 extern INT32	giFPSOverlay;
 extern INT32	giCounterPeriodOverlay;
 
-extern	BOOLEAN  SET_ERROR( const STR8 String, ...);
+extern	BOOLEAN	SET_ERROR( const STR8 String, ...);
 
 #endif

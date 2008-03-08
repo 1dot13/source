@@ -43,7 +43,7 @@ const int StackColumns = 8;		// Number of columns in stack dump.
 
 
 //ppp
-void		ErrorLog(HWFILE LogFile, STR8  Format, ...);
+void		ErrorLog(HWFILE LogFile, STR8	Format, ...);
 STR			GetExceptionString( DWORD uiExceptionCode );
 void		DisplayRegisters( HWFILE hFile, CONTEXT	*pContext );
 BOOLEAN GetAndDisplayModuleAndSystemInfo( HWFILE hFile, CONTEXT *pContext );
@@ -73,7 +73,7 @@ INT32 RecordExceptionInfo( EXCEPTION_POINTERS *pExceptInfo )
 
 
 	//
-	//	 Open a file to output the current state of the game
+	//	Open a file to output the current state of the game
 	//
 
 
@@ -103,7 +103,7 @@ INT32 RecordExceptionInfo( EXCEPTION_POINTERS *pExceptInfo )
 #ifdef JA2
 
 	//Dispay Ja's version number
-	ErrorLog( hFile, "%S: %s.  %S",zVersionLabel, czVersionNumber, zTrackingNumber );
+	ErrorLog( hFile, "%S: %s.	%S",zVersionLabel, czVersionNumber, zTrackingNumber );
 
 	//Insert a new line
 	ErrorLog( hFile, zNewLine );
@@ -198,7 +198,7 @@ INT32 RecordExceptionInfo( EXCEPTION_POINTERS *pExceptInfo )
 
 
 
-void ErrorLog( HWFILE hFile, STR8  Format, ...)
+void ErrorLog( HWFILE hFile, STR8	Format, ...)
 {
 	char buffer[2000];	// wvsprintf never prints more than one K.
 	UINT32	uiNumBytesWritten=0;
@@ -355,7 +355,7 @@ BOOLEAN GetAndDisplayModuleAndSystemInfo( HWFILE hFile, CONTEXT *pContext )
 //
 // This code for this function is based ( stolen ) from Bruce Dawson's article in Game Developer Magazine Jan 99
 //
-BOOLEAN DisplayStack( HWFILE hFile, CONTEXT	*pContext  )
+BOOLEAN DisplayStack( HWFILE hFile, CONTEXT	*pContext	)
 {
 	int Count = 0;
 	char	buffer[1000] = "";
@@ -464,7 +464,7 @@ void PrintTime(STR8 output, FILETIME TimeToPrint)
 void RecordModuleList(HWFILE hFile )
 {
 	ErrorLog( hFile, "\r\n"
-					 "Module list: names, addresses, sizes, time stamps "
+					"Module list: names, addresses, sizes, time stamps "
 			"and file times:\r\n");
 	SYSTEM_INFO	SystemInfo;
 	GetSystemInfo(&SystemInfo);
@@ -520,12 +520,12 @@ static void ShowModuleInfo(HWFILE hFile, HINSTANCE ModuleHandle)
 			// be a valid code module address. Therefore we can try to walk
 			// our way through its structures to find the link time stamp.
 			IMAGE_DOS_HEADER *DosHeader = (IMAGE_DOS_HEADER*)ModuleHandle;
-		    if (IMAGE_DOS_SIGNATURE != DosHeader->e_magic)
-	    	    return;
+		 if (IMAGE_DOS_SIGNATURE != DosHeader->e_magic)
+	 	 return;
 			IMAGE_NT_HEADERS *NTHeader = (IMAGE_NT_HEADERS*)((STR8 )DosHeader
 						+ DosHeader->e_lfanew);
-		    if (IMAGE_NT_SIGNATURE != NTHeader->Signature)
-	    	    return;
+		 if (IMAGE_NT_SIGNATURE != NTHeader->Signature)
+	 	 return;
 			// Open the code module file so that we can get its file date
 			// and size.
 			HANDLE ModuleFile = CreateFile(ModName, GENERIC_READ,

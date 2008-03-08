@@ -91,15 +91,15 @@ void QuestDebugFileMsg( UINT8 ubQuoteType, UINT8 ubPriority, STR pStringA, ...)
 	static UINT32		uiLineNumber = 1;
 	HWFILE		hFile;
 	UINT32		uiByteWritten;
-  va_list		argptr;
-  char			TempString[1024];
-  char			DestString[1024];
+	va_list		argptr;
+	char			TempString[1024];
+	char			DestString[1024];
 
 
 	TempString[0] = '\0';
 	DestString[0] = '\0';
 
-	va_start(argptr, pStringA);       	// Set up variable argument pointer
+	va_start(argptr, pStringA);			// Set up variable argument pointer
 	vsprintf(TempString, pStringA, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
 

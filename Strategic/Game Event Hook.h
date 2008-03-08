@@ -47,7 +47,7 @@ enum
 	EVENT_SETUP_TOWN_OPINION,
 	EVENT_MAKE_CIV_GROUP_HOSTILE_ON_NEXT_SECTOR_ENTRANCE,
 	EVENT_BEGIN_AIR_RAID,
-	EVENT_TOWN_LOYALTY_UPDATE,		/* Delayed loyalty effects elimininated.  Sep.12/98.  ARM */
+	EVENT_TOWN_LOYALTY_UPDATE,		/* Delayed loyalty effects elimininated.	Sep.12/98.	ARM */
 	EVENT_MEANWHILE,
 	EVENT_BEGIN_CREATURE_QUEST,
 	EVENT_CREATURE_SPREAD,
@@ -80,7 +80,7 @@ enum
 	EVENT_RPC_WHINE_ABOUT_PAY,
 	EVENT_HAVENT_MADE_IMP_CHARACTER_EMAIL,
 	EVENT_RAINSTORM,
-  EVENT_QUARTER_HOUR_UPDATE,
+	EVENT_QUARTER_HOUR_UPDATE,
 	EVENT_MERC_MERC_WENT_UP_LEVEL_EMAIL_DELAY,
 	EVENT_MERC_SITE_NEW_MERC_AVAILABLE,
 //	EVENT_CHECK_FOR_AIR_RAID,
@@ -89,14 +89,14 @@ enum
 	EVENT_CRIPPLED_VERSION_END_GAME_CHECK,
 #endif
 	/*
-	HEY, YOU GUYS AREN'T DOING THIS!!!!!!  (see below)
+	HEY, YOU GUYS AREN'T DOING THIS!!!!!!	(see below)
 
 
 
 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	!! IMPORTANT NOTE                                                                         !!
-	!! FOR ALL NEW EVENTS:  For text debug support, make sure you add the text version of the !!
-	!! new event into the gEventName[] at the top of Game Events.c.                           !!
+	!! IMPORTANT NOTE																		 !!
+	!! FOR ALL NEW EVENTS:	For text debug support, make sure you add the text version of the !!
+	!! new event into the gEventName[] at the top of Game Events.c.							!!
 	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	*/
 	
@@ -110,7 +110,7 @@ enum
 
 //One Time Events
 //These events are scheduled to happen, and when their time is up, they are processed 
-//once, and deleted.  The first prototype requires the actual world time in minutes 
+//once, and deleted.	The first prototype requires the actual world time in minutes 
 //included the current day, and the additional ones are wrappers which calculate the 
 //actual world time for you.
 BOOLEAN AddStrategicEvent( UINT8 ubCallbackID, UINT32 uiMinStamp, UINT32 uiParam );
@@ -123,11 +123,11 @@ BOOLEAN AddFutureDayStrategicEventUsingSeconds( UINT8 ubCallbackID, UINT32 uiSec
 
 //Ranged Events
 //In certain cases, you may wish to create an event that has a start time and an end 
-//time.  If this is used, then the execution of the event will happen once at the 
-//beginning of the event and once at the expiration time of the event.  A flag, 
-//pEvent->fEndEvent is set for the second call.  It is up to you process it 
-//separately.  An example use of ranged events would be for ambient sounds.  The 
-//start time would be called to define the sounds for use within the game.  The end 
+//time.	If this is used, then the execution of the event will happen once at the 
+//beginning of the event and once at the expiration time of the event.	A flag, 
+//pEvent->fEndEvent is set for the second call.	It is up to you process it 
+//separately.	An example use of ranged events would be for ambient sounds.	The 
+//start time would be called to define the sounds for use within the game.	The end 
 //time would be used to remove the sound from the system.
 BOOLEAN AddRangedStrategicEvent( UINT8 ubCallbackID, UINT32 uiStartMin, UINT32 uiLengthMin, UINT32 uiParam );
 BOOLEAN AddSameDayRangedStrategicEvent( UINT8 ubCallbackID, UINT32 uiStartMin, UINT32 uiLengthMin, UINT32 uiParam);
@@ -138,23 +138,23 @@ BOOLEAN AddFutureDayRangedStrategicEventUsingSeconds( UINT8 ubCallbackID, UINT32
 
 //EveryDay Events
 //A second special case event, this event will get processed automatically at the 
-//same time every day.  Time of day lighting is a perfect example.  Other events 
-//such as checking for quests, can also be automated using this system.  NOTE:  
+//same time every day.	Time of day lighting is a perfect example.	Other events 
+//such as checking for quests, can also be automated using this system.	NOTE:	
 //Only specify the time of day in minutes (don't add the actual day to this value)
 BOOLEAN AddEveryDayStrategicEvent( UINT8 ubCallbackID, UINT32 uiStartMin, UINT32 uiParam );
 BOOLEAN AddEveryDayStrategicEventUsingSeconds( UINT8 ubCallbackID, UINT32 uiStartSeconds, UINT32 uiParam );
 
 //Periodic Events
-//Event will get processed automatically once every X minutes.  The period is added to the current time for
-//the time stamp.  
+//Event will get processed automatically once every X minutes.	The period is added to the current time for
+//the time stamp.	
 BOOLEAN AddPeriodStrategicEvent( UINT8 ubCallbackID, UINT32 uiOnceEveryXMinutes, UINT32 uiParam );
 BOOLEAN AddPeriodStrategicEventUsingSeconds( UINT8 ubCallbackID, UINT32 uiOnceEveryXSeconds, UINT32 uiParam );
-//Hybrids that aren't based from the current time.  They are offsetted from the current time first.
+//Hybrids that aren't based from the current time.	They are offsetted from the current time first.
 BOOLEAN AddPeriodStrategicEventWithOffset( UINT8 ubCallbackID, UINT32 uiOnceEveryXMinutes, UINT32 uiOffsetFromCurrent, UINT32 uiParam );
 BOOLEAN AddPeriodStrategicEventUsingSecondsWithOffset( UINT8 ubCallbackID, UINT32 uiOnceEveryXSeconds, UINT32 uiOffsetFromCurrent, UINT32 uiParam );
 
-//Searches for and removes the first event matching the supplied information.  There may very well be a need
-//for more specific event removal, so let me know (Kris), of any support needs.  Function returns FALSE if
+//Searches for and removes the first event matching the supplied information.	There may very well be a need
+//for more specific event removal, so let me know (Kris), of any support needs.	Function returns FALSE if
 //no events were found.
 BOOLEAN DeleteStrategicEvent( UINT8 ubCallbackID, UINT32 uiParam );
 void DeleteAllStrategicEventsOfType( UINT8 ubCallbackID );

@@ -31,7 +31,7 @@ enum
 
 	NUM_COMMON_SK_QUOTES,
 
-	// Quotes 28+ are NPC Specific, and are not under direct control of the SKI system.  The get used by .COD files
+	// Quotes 28+ are NPC Specific, and are not under direct control of the SKI system.	The get used by .COD files
 };
 
 

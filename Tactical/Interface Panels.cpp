@@ -4,8 +4,8 @@
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <stdarg.h>
-	#include <time.h> 
-	#include "sgp.h" 
+	#include <time.h>
+	#include "sgp.h"
 	#include "gameloop.h"
 	#include "himage.h"
 	#include "vobject.h"
@@ -34,7 +34,7 @@
 	#include "weapons.h"
 	#include "lighting.h"
 	#include "faces.h"
-	#include "mapscreen.h" 
+	#include "mapscreen.h"
 	#include "message.h"
 	#include "text.h"
 	#include "Interface Items.h"
@@ -74,45 +74,53 @@
 	#include "Boxing.h"
 #endif
 
-/* 
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
+
+
+/*
  *
  *								SINGLE MERC BAR COORDS
  *
  *
- *  My opinion about this bars and GUI
- *  i would be very happy if we had c++ classes then we could made somethis like modules
- *  and peoples could very easly make their ow panels, button, labels and other 
- *  i have got some ideas but it will tak some time to implement then.
- *  it will be hard and time consuming but maby i will show ya all direction how i would 
- *  do it and peoples will continue that path :) joker
+ *	My opinion about this bars and GUI
+ *	i would be very happy if we had c++ classes then we could made somethis like modules
+ *	and peoples could very easly make their ow panels, button, labels and other
+ *	i have got some ideas but it will tak some time to implement then.
+ *	it will be hard and time consuming but maby i will show ya all direction how i would
+ *	do it and peoples will continue that path :) joker
  */
 
 /*	Ok so this array values had a constant initializer INV_INTERFACE_START_Y wich was constant
- *	we need do load SCREEN_WIDTH _HEIGHT from file to make JA more customizable so if we 
- *  will make SCREEN_xxx viariable then xxx_INTERFACE_xxx will be also variable.
- *  When we declare static array like here (below) we need constant initializer but we need dynamic 
- *  array so i declare only array and i will initielize it in run-time.
- *  any questions?
- *  joker 
+ *	we need do load SCREEN_WIDTH _HEIGHT from file to make JA more customizable so if we
+ *	will make SCREEN_xxx viariable then xxx_INTERFACE_xxx will be also variable.
+ *	When we declare static array like here (below) we need constant initializer but we need dynamic
+ *	array so i declare only array and i will initielize it in run-time.
+ *	any questions?
+ *	joker
  */
 
-INV_REGION_DESC gSMInvPocketXY[19];	// ARRAY FOR INV PANEL INTERFACE ITEM POSITIONS
+// CHRISL: Change key value to use dynamically generated NUM_INV_SLOTS instead of static setting
+INV_REGION_DESC gSMInvPocketXY[NUM_INV_SLOTS];	// ARRAY FOR INV PANEL INTERFACE ITEM POSITIONS
 INV_REGION_DESC gSMCamoXY;			// X, Y Location of cammo region
 
-/*  So this coords buttons, bars etc. also ware declered here as constant and we also need them
- *  more customizable in future so i just declare them and i will initialize them later
- *  any questions? joker
+/*	So this coords buttons, bars etc. also ware declered here as constant and we also need them
+ *	more customizable in future so i just declare them and i will initialize them later
+ *	any questions? joker
  */
 int SM_ITEMDESC_START_X;
 int SM_ITEMDESC_START_Y;
 int SM_ITEMDESC_HEIGHT;
 int SM_ITEMDESC_WIDTH;
+extern INT16 ITEMDESC_START_X;
+extern INT16 ITEMDESC_START_Y;
 
 int SM_SELMERC_AP_X;
 int SM_SELMERC_AP_Y;
 int SM_SELMERC_AP_HEIGHT;
 int SM_SELMERC_AP_WIDTH;
- 
+
 int SM_SELMERC_HEALTH_X;
 int SM_SELMERC_HEALTH_Y;
 int SM_SELMERC_HEALTH_WIDTH;
@@ -184,6 +192,13 @@ int SM_DONE_X;
 int SM_DONE_Y;
 int SM_MAPSCREEN_X;
 int SM_MAPSCREEN_Y;
+// CHRISL: backpack buttons
+int SM_DROPPACK_X;
+int SM_DROPPACK_Y;
+int SM_ZIPPER_X;
+int SM_ZIPPER_Y;
+extern int INV_BDROP_X;
+extern int INV_BDROP_Y;
 
 int SM_POSITIONB_X;
 int SM_POSITIONB_Y;
@@ -241,22 +256,22 @@ int MONEY_Y;
 int MONEY_WIDTH;
 int MONEY_HEIGHT;
 
-/* 
+/*
  *
  *								TEAM BAR COORDS
- * 
+ *
  */
 
 /*
- *  Now we have only 6 mercs in team but maby we will make it CUSTOMIZABLE hehe i like that word
- *  why we declare array with 12 items? coz we got 2 valuse x and y maby we can work it out 
- *  and change INT16 to INV_REGION_DESC for ex.
+ *	Now we have only 6 mercs in team but maby we will make it CUSTOMIZABLE hehe i like that word
+ *	why we declare array with 12 items? coz we got 2 valuse x and y maby we can work it out
+ *	and change INT16 to INV_REGION_DESC for ex.
  */
 INT16 sTEAMAPPanelXY[12];
 INT16 sTEAMFacesXY[12];
 INT16 sTEAMNamesXY[12];
 INT16 sTEAMFaceHighlXY[12];
-INT16 sTEAMLifeXY[12]; 
+INT16 sTEAMLifeXY[12];
 INT16 sTEAMBreathXY[12];
 INT16 sTEAMMoraleXY[12];
 INT16 sTEAMApXY[12];
@@ -302,19 +317,33 @@ int INDICATOR_BOX_HEIGHT;
 MOUSE_REGION	gSMPanelRegion;
 INT8		gbNewItem[ NUM_INV_SLOTS ];
 TEAM_PANEL_SLOTS_TYPE	gTeamPanel[ NUM_TEAM_SLOTS ];
-/*  
+/*
  *
  *							VARIOUS PANELS COORDS
  *
- *	now its only clock and location name we will also make them ??? 
- *  yes yes yes MORE CUSTOMIZABLE :P for moders 
- *  i will work with radar screen to allow moving it. or maby someone else will do it
- *  any questions? joker
+ *	now its only clock and location name we will also make them ???
+ *	yes yes yes MORE CUSTOMIZABLE :P for moders
+ *	i will work with radar screen to allow moving it. or maby someone else will do it
+ *	any questions? joker
  */
 int	INTERFACE_CLOCK_X;
 int	INTERFACE_CLOCK_Y;
 int	LOCATION_NAME_X;
 int	LOCATION_NAME_Y;
+
+/* CHRISL: Added new "TM" variables to allow team and inventory screens to place the clock and location name
+independantly of each other */
+int	INTERFACE_CLOCK_TM_X;
+int	INTERFACE_CLOCK_TM_Y;
+int	LOCATION_NAME_TM_X;
+int	LOCATION_NAME_TM_Y;
+
+// CHRISL: Keyring coords moved from Interface Items.cpp
+int KEYRING_X;
+int KEYRING_Y;
+extern UINT32 guiCurrentItemDescriptionScreen;
+
+extern UINT32 guiCurrentItemDescriptionScreen;
 
 
 typedef enum
@@ -334,6 +363,7 @@ typedef enum
 	STANCE_IMAGES,
 	DONE_IMAGES,
 	MAPSCREEN_IMAGES,
+	BACKPACK_IMAGES,
 	NUM_SM_BUTTON_IMAGES
 };
 
@@ -351,6 +381,12 @@ INT32		iTEAMPanelImages	[ NUM_TEAM_BUTTON_IMAGES ];
 
 INT32		giSMStealthImages	= -1;
 INT32		giSMStealthButton	= -1;
+
+// CHRISL: Backpack buttons
+INT32		giSMDropPackImages			= -1;
+INT32		giSMDropPackButton			= -1;
+INT32		giSMZipperImages			= -1;
+INT32		giSMZipperButton			= -1;
 
 BOOLEAN		gfSwitchPanel		= FALSE;
 UINT8		gbNewPanel			= SM_PANEL;
@@ -381,9 +417,8 @@ extern	BOOLEAN		gfInItemPickupMenu;
 
 extern	void HandleAnyMercInSquadHasCompatibleStuff( UINT8 ubSquad, OBJECTTYPE *pObject, BOOLEAN fReset );
 extern	void SetNewItem( SOLDIERTYPE *pSoldier, UINT8 ubInvPos, BOOLEAN fNewItem );
-extern	void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj );
-extern	BOOLEAN	InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY, UINT8 ubStatusIndex, SOLDIERTYPE *pSoldier );
-extern	BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTestObject, BOOLEAN fOn  );
+extern	BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY, UINT8 ubStatusIndex, SOLDIERTYPE *pSoldier, UINT8 ubPosition );
+extern	BOOLEAN InternalHandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, OBJECTTYPE *pTestObject, BOOLEAN fOn	);
 
 BOOLEAN IsMouseInRegion( MOUSE_REGION *pRegion );
 void HandleMouseOverSoldierFaceForContMove( SOLDIERTYPE *pSoldier, BOOLEAN fOn );
@@ -435,7 +470,8 @@ void HelpTextDoneCallback( void );
 INT8				gbSMCurStanceObj;
 UINT16				gusSMCurrentMerc = 0;
 SOLDIERTYPE			*gpSMCurrentMerc = NULL;
-extern	INT8		gbCompatibleApplyItem; 
+// CHRISL:
+extern	INT8		gbCompatibleApplyItem;
 extern	SOLDIERTYPE *gpItemPopupSoldier;
 
 INT8		gbStanceButPos[2][3][3] =
@@ -446,9 +482,22 @@ INT8		gbStanceButPos[2][3][3] =
 	22,		20,		21,
 	// STEALTH MODE
 	13,		11,		12,
-	7,		5,		6,	
+	7,		5,		6,
 	19,		17,		18
 };
+
+//CHRISL: New arrays to deal with backpack button positions
+INT8		gbDropPackButPos[2][2] =
+{
+	2,	3,
+	3,	2
+};
+INT8		gbZipperButPos[2][2] =
+{
+	0,	1,
+	1,	0
+};
+
 
 
 // Mouse button and region callbacks
@@ -474,6 +523,11 @@ void BtnTalkCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnMuteCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnSMDoneCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnMapScreenCallback(GUI_BUTTON *btn,INT32 reason);
+
+// CHRISL: New callback functions for backpack buttons
+void BtnDropPackCallback(GUI_BUTTON *btn,INT32 reason);
+void BtnZipperCallback(GUI_BUTTON *btn,INT32 reason);
+BOOLEAN ChangeZipperStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus);
 
 void BtnPrevMercCallback(GUI_BUTTON *btn,INT32 reason);
 void BtnNextMercCallback(GUI_BUTTON *btn,INT32 reason);
@@ -515,7 +569,7 @@ INT8 GetUIApsToDisplay( SOLDIERTYPE *pSoldier )
 {
 	SOLDIERTYPE *pVehicle;
 
-	if ( pSoldier->uiStatusFlags & SOLDIER_DRIVER )
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_DRIVER )
 	{
 		pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
 
@@ -543,6 +597,9 @@ void CheckForDisabledForGiveItem( )
 	SOLDIERTYPE		*pSoldier;
 	UINT8			ubSrcSoldier;
 
+	// CHRISL: If Merc hasn't been set, default to first merc
+	if(gpSMCurrentMerc==NULL)
+		gpSMCurrentMerc = MercPtrs[ 0 ];
 	Assert( gpSMCurrentMerc != NULL);
 
 	if ( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE )
@@ -555,18 +612,18 @@ void CheckForDisabledForGiveItem( )
 	gfSMDisableForItems = TRUE;
 
 	// ATE: Is the current merc unconscious.....
-	if ( gpSMCurrentMerc->bLife < OKLIFE && gpItemPointer != NULL )
+	if ( gpSMCurrentMerc->stats.bLife < OKLIFE && gpItemPointer != NULL )
 	{
 		// Go through each merc and see if there is one closeby....
 		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
-		{	
-			if ( pSoldier->bActive && pSoldier->bLife >= OKLIFE && !( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) && !AM_A_ROBOT( pSoldier ) && pSoldier->bInSector && IsMercOnCurrentSquad( pSoldier ) )
+		{
+			if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !AM_A_ROBOT( pSoldier ) && pSoldier->bInSector && IsMercOnCurrentSquad( pSoldier ) )
 			{
 				sDist = PythSpacesAway( gpSMCurrentMerc->sGridNo, pSoldier->sGridNo );
 
 				// Check LOS....
-				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, gpSMCurrentMerc->sGridNo,  gpSMCurrentMerc->bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
+				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, gpSMCurrentMerc->sGridNo,  gpSMCurrentMerc->pathing.bLevel, 3, TRUE, CALC_FROM_ALL_DIRS ) )
 				{
 					if ( sDist <= PASSING_ITEM_DISTANCE_NOTOKLIFE )
 					{
@@ -592,7 +649,7 @@ void CheckForDisabledForGiveItem( )
 			if ( gusSMCurrentMerc != ubSrcSoldier )
 			{
 				sDestGridNo = MercPtrs[ gusSMCurrentMerc ]->sGridNo;
-				bDestLevel	= MercPtrs[ gusSMCurrentMerc ]->bLevel;
+				bDestLevel	= MercPtrs[ gusSMCurrentMerc ]->pathing.bLevel;
 
 				// Get distance....
 				sDist = PythSpacesAway( MercPtrs[ ubSrcSoldier ]->sGridNo, sDestGridNo );
@@ -601,7 +658,7 @@ void CheckForDisabledForGiveItem( )
 				if ( SoldierTo3DLocationLineOfSightTest( MercPtrs[ ubSrcSoldier ], sDestGridNo,  bDestLevel, 3, TRUE, CALC_FROM_ALL_DIRS )  )
 				{
 					// UNCONSCIOUS GUYS ONLY 1 tile AWAY
-					if ( MercPtrs[ gusSMCurrentMerc ]->bLife < CONSCIOUSNESS )
+					if ( MercPtrs[ gusSMCurrentMerc ]->stats.bLife < CONSCIOUSNESS )
 					{
 						if ( sDist <= PASSING_ITEM_DISTANCE_NOTOKLIFE )
 						{
@@ -670,7 +727,7 @@ void SetSMPanelCurrentMerc( UINT8 ubNewID )
 	}
 	else
 	{
-		if ( ( gpItemPointer != NULL || guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE || gpSMCurrentMerc->bLife < OKLIFE ) )
+		if ( ( gpItemPointer != NULL || guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE || gpSMCurrentMerc->stats.bLife < OKLIFE ) )
 		{
 			CheckForDisabledForGiveItem( );
 		}
@@ -760,7 +817,7 @@ void UpdateSMPanel( )
 			// Disable if we cannot do this!
 			if ( !IsValidStance( gpSMCurrentMerc, ANIM_CROUCH ) )
 			{
-				DisableButton( iSMPanelButtons[ STANCEDOWN_BUTTON ] );				
+				DisableButton( iSMPanelButtons[ STANCEDOWN_BUTTON ] );
 			}
 			break;
 
@@ -778,11 +835,11 @@ void UpdateSMPanel( )
 			// Disable if we cannot do this!
 			if ( !IsValidStance( gpSMCurrentMerc, ANIM_PRONE ) )
 			{
-				DisableButton( iSMPanelButtons[ STANCEDOWN_BUTTON ] );				
+				DisableButton( iSMPanelButtons[ STANCEDOWN_BUTTON ] );
 			}
 			break;
 	}
-	
+
 	// Stance button done wether we're disabled or not...
 	if ( gfUIStanceDifferent )
 	{
@@ -797,11 +854,12 @@ void UpdateSMPanel( )
 		}
 
 		// Make new
-		giSMStealthImages = UseLoadedButtonImage( iSMPanelImages[ STANCE_IMAGES  ] ,gbStanceButPos[ gpSMCurrentMerc->bStealthMode ][gbSMCurStanceObj][0] ,gbStanceButPos[ gpSMCurrentMerc->bStealthMode ][gbSMCurStanceObj][1],-1,gbStanceButPos[ gpSMCurrentMerc->bStealthMode ][gbSMCurStanceObj][2],-1 );
+		giSMStealthImages = UseLoadedButtonImage( iSMPanelImages[ STANCE_IMAGES	] ,gbStanceButPos[ gpSMCurrentMerc->bStealthMode ][gbSMCurStanceObj][0] ,gbStanceButPos[ gpSMCurrentMerc->bStealthMode ][gbSMCurStanceObj][1],-1,gbStanceButPos[ gpSMCurrentMerc->bStealthMode ][gbSMCurStanceObj][2],-1 );
 
 		giSMStealthButton = QuickCreateButton( giSMStealthImages, SM_STEALTHMODE_X, SM_STEALTHMODE_Y,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1,
 										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnStealthModeCallback );
+		RenderBackpackButtons(0);	/* CHRISL: Needed for new inventory backpack buttons */
 
 		SetButtonFastHelpText( giSMStealthButton, TacticalStr[ TOGGLE_STEALTH_MODE_POPUPTEXT ] );
 
@@ -813,6 +871,7 @@ void UpdateSMPanel( )
 			{
 					DisableButton( giSMStealthButton );
 			}
+			RenderBackpackButtons(3);	/* CHRISL: Needed for new inventory backpack buttons */
 		}
 	}
 
@@ -825,12 +884,12 @@ void UpdateSMPanel( )
 	CheckForReEvaluateDisabledINVPanelButtons( );
 
 	// Check for any newly added items we need.....
-	if ( gpSMCurrentMerc->fCheckForNewlyAddedItems )
+	if ( gpSMCurrentMerc->flags.fCheckForNewlyAddedItems )
 	{
 		// Startup any newly added items....
 		CheckForAnyNewlyAddedItems( gpSMCurrentMerc );
 
-		gpSMCurrentMerc->fCheckForNewlyAddedItems = FALSE;
+		gpSMCurrentMerc->flags.fCheckForNewlyAddedItems = FALSE;
 	}
 
 
@@ -861,7 +920,7 @@ void UpdateSMPanel( )
 
 
 	// Toggle MUTE button...
-	if ( gpSMCurrentMerc->uiStatusFlags & SOLDIER_MUTE )
+	if ( gpSMCurrentMerc->flags.uiStatusFlags & SOLDIER_MUTE )
 	{
 		if ( !ButtonList[ iSMPanelButtons[ MUTE_BUTTON ] ]->ubToggleButtonActivated )
 		{
@@ -877,7 +936,7 @@ void UpdateSMPanel( )
 	}
 
 
-	DisableButton( iSMPanelButtons[ CLIMB_BUTTON ] );		
+	DisableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
 
 	GetMercClimbDirection( gpSMCurrentMerc->ubID, &fNearLowerLevel, &fNearHeigherLevel );
 
@@ -887,7 +946,7 @@ void UpdateSMPanel( )
 		{
 			if ( EnoughPoints( gpSMCurrentMerc, GetAPsToClimbRoof( gpSMCurrentMerc, TRUE ), 0, FALSE ) )
 			{
-				EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );		
+				EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
 			}
 		}
 
@@ -895,14 +954,14 @@ void UpdateSMPanel( )
 		{
 			if ( EnoughPoints( gpSMCurrentMerc, GetAPsToClimbRoof( gpSMCurrentMerc, FALSE ), 0, FALSE ) )
 			{
-				EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );		
+				EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
 			}
 		}
 	}
-	
+
 	if ( FindFenceJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
 	{
-		EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );		
+		EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
 	}
 
 	if ( (gTacticalStatus.ubCurrentTeam != gbPlayerNum) || (gTacticalStatus.uiFlags & REALTIME ) || !(gTacticalStatus.uiFlags & INCOMBAT ) )
@@ -976,10 +1035,10 @@ void UpdateSMPanel( )
 	}
 
 	// If not selected ( or dead ), disable/gray some buttons
-	if ( gusSelectedSoldier != gpSMCurrentMerc->ubID || ( gpSMCurrentMerc->bLife < OKLIFE ) || (gTacticalStatus.ubCurrentTeam != gbPlayerNum) || gfSMDisableForItems )
+	if ( gusSelectedSoldier != gpSMCurrentMerc->ubID || ( gpSMCurrentMerc->stats.bLife < OKLIFE ) || (gTacticalStatus.ubCurrentTeam != gbPlayerNum) || gfSMDisableForItems )
 	{
-		DisableButton( iSMPanelButtons[ CLIMB_BUTTON ] );		
-		DisableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );		
+		DisableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
+		DisableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );
 		DisableButton( iSMPanelButtons[ STANCEUP_BUTTON ] );
 		DisableButton( iSMPanelButtons[ STANCEDOWN_BUTTON ] );
 		DisableButton( iSMPanelButtons[ LOOK_BUTTON ] );
@@ -989,17 +1048,20 @@ void UpdateSMPanel( )
 		{
 				DisableButton( giSMStealthButton );
 		}
+		RenderBackpackButtons(3);	/* CHRISL: Needed for new inventory backpack buttons */
 	}
 	else
 	{
 		// Enable some buttons!
-		if ( ((IsGunAutofireCapable( gpSMCurrentMerc, HANDPOS ) || IsGunBurstCapable( gpSMCurrentMerc, HANDPOS , FALSE )) && !Weapon[gpSMCurrentMerc->inv[HANDPOS].usItem].NoSemiAuto ) || IsGrenadeLauncherAttached ( &(gpSMCurrentMerc->inv[HANDPOS]) ) )
+		// Changed by ADB, rev 1513
+		//if ( ((IsGunAutofireCapable( gpSMCurrentMerc, HANDPOS ) || IsGunBurstCapable( gpSMCurrentMerc, HANDPOS , FALSE )) && !Weapon[gpSMCurrentMerc->inv[HANDPOS].usItem].NoSemiAuto ) || IsGrenadeLauncherAttached ( &(gpSMCurrentMerc->inv[HANDPOS]) ) )
+		if ( ((IsGunAutofireCapable( &gpSMCurrentMerc->inv[HANDPOS] ) || IsGunBurstCapable( &gpSMCurrentMerc->inv[HANDPOS], FALSE, gpSMCurrentMerc )) && !Weapon[gpSMCurrentMerc->inv[HANDPOS].usItem].NoSemiAuto ) || IsGrenadeLauncherAttached ( &(gpSMCurrentMerc->inv[HANDPOS]) ) )
 		{
-			EnableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );		
+			EnableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );
 		}
 		else
 		{
-			DisableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );		
+			DisableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );
 		}
 		EnableButton( iSMPanelButtons[ LOOK_BUTTON ] );
 		EnableButton( iSMPanelButtons[ UPDOWN_BUTTON ] );
@@ -1009,6 +1071,8 @@ void UpdateSMPanel( )
 		{
 				EnableButton( giSMStealthButton );
 		}
+		if(!gfInItemDescBox)
+			RenderBackpackButtons(2);	/* CHRISL: Needed for new inventory backpack buttons */
 	}
 
 	// CJC Dec 4 2002: or if item pickup menu is up
@@ -1023,19 +1087,18 @@ void UpdateSMPanel( )
 
 }
 
-extern BOOLEAN CanItemFitInPosition( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos, BOOLEAN fDoingPlacement );
-extern INT8		 gbInvalidPlacementSlot[ NUM_INV_SLOTS ]; 
+extern INT8		gbInvalidPlacementSlot[ NUM_INV_SLOTS ];
 
 
 void ReevaluateItemHatches( SOLDIERTYPE *pSoldier, BOOLEAN fAllValid )
 {
-	INT32	cnt;
+	UINT32	cnt;
 
 	// if there's an item in the cursor and we're not supposed to just make them all valid
 	if ( ( gpItemPointer != NULL ) && !fAllValid )
 	{
-		// check all inventory positions and mark the ones where cursor item won't fit as invalid 
-		for ( cnt = 0; cnt < NUM_INV_SLOTS; cnt++ )
+		// check all inventory positions and mark the ones where cursor item won't fit as invalid
+		for ( cnt = 0; cnt < pSoldier->inv.size(); cnt++ )
 		{
 			gbInvalidPlacementSlot[ cnt ] = !CanItemFitInPosition( pSoldier, gpItemPointer, (INT8)cnt, FALSE );
 
@@ -1066,6 +1129,99 @@ void ReevaluateItemHatches( SOLDIERTYPE *pSoldier, BOOLEAN fAllValid )
 	}
 
 	fInterfacePanelDirty = DIRTYLEVEL2;
+}
+
+//CHRISL: Function to handle backpack button rendering
+void RenderBackpackButtons(int bpAction)
+{
+	// Only run function if we're using new inventory system
+	if((UsingNewInventorySystem() == false))
+		return;
+	// Only run this if we're not on the strategic screen
+	if(guiCurrentItemDescriptionScreen == MAP_SCREEN)
+		return;
+	// Only run if the Tactical Inventory Panel is open
+	if(gsCurInterfacePanel != SM_PANEL)
+		return;
+	// If Merc hasn't been set, default to first merc
+	if(gpSMCurrentMerc==NULL)
+		gpSMCurrentMerc = MercPtrs[ 0 ];
+	Assert(gpSMCurrentMerc!=NULL);
+	// Deal with buttons depending on which screen is currently active
+	switch (bpAction)
+	{
+		case 0:
+			// Activate buttons
+			if(giSMZipperButton != -1)
+				RemoveButton( giSMZipperButton );
+			if(giSMZipperImages != -1)
+				UnloadButtonImage( giSMZipperImages );
+			if(giSMDropPackButton != -1)
+				RemoveButton( giSMDropPackButton );
+			if(giSMDropPackImages != -1)
+				UnloadButtonImage( giSMDropPackImages );
+			gpSMCurrentMerc->flags.DropPackFlag = FALSE;
+			if(gpSMCurrentMerc->inv[BPACKPOCKPOS].exists() == FALSE)
+			{
+				for(unsigned int wi = 0; wi < guiNumWorldItems; wi++)
+				{
+					if(gWorldItems[wi].soldierID == gpSMCurrentMerc->ubID && gWorldItems[wi].object.exists() == true)
+					{
+						gpSMCurrentMerc->flags.DropPackFlag = TRUE;
+						break;
+					}
+				}
+			}
+			giSMZipperImages	= UseLoadedButtonImage( iSMPanelImages[ BACKPACK_IMAGES  ] ,-1 ,gbZipperButPos[ gpSMCurrentMerc->flags.ZipperFlag ][0],-1,gbZipperButPos[ gpSMCurrentMerc->flags.ZipperFlag ][1],-1 );
+			giSMDropPackImages	= UseLoadedButtonImage( iSMPanelImages[ BACKPACK_IMAGES  ] ,-1 ,gbDropPackButPos[ gpSMCurrentMerc->flags.DropPackFlag ][0],-1,gbDropPackButPos[ gpSMCurrentMerc->flags.DropPackFlag ][1],-1 );
+			//giSMDropPackImages	= UseLoadedButtonImage( iSMPanelImages[ BACKPACK_IMAGES  ] ,gbDropPackButPos[ gpSMCurrentMerc->flags.DropPackFlag ][0] ,gbDropPackButPos[ gpSMCurrentMerc->flags.DropPackFlag ][0],-1,gbDropPackButPos[ gpSMCurrentMerc->flags.DropPackFlag ][1],-1 );
+
+			giSMZipperButton	= QuickCreateButton( giSMZipperImages, SM_ZIPPER_X, SM_ZIPPER_Y,
+													BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1,
+													DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnZipperCallback );
+			giSMDropPackButton	= QuickCreateButton( giSMDropPackImages, SM_DROPPACK_X, SM_DROPPACK_Y,
+													BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1,
+													DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnDropPackCallback );
+			//SetButtonFastHelpText( giSMZipperButton, TacticalStr[  ] );
+			//SetButtonFastHelpText( giSMDropPackButton, TacticalStr[  ] );
+			break;
+		case 1:
+			// Deactivate buttons
+			if(giSMZipperButton != -1)
+				RemoveButton( giSMZipperButton );
+			if(giSMDropPackButton != -1)
+				RemoveButton( giSMDropPackButton );
+			giSMDropPackImages	= -1;
+			giSMDropPackButton	= -1;
+			giSMZipperImages	= -1;
+			giSMZipperButton	= -1;
+			break;
+		case 2:
+			// Enable buttons
+			if(giSMDropPackButton == -1 || giSMZipperButton == -1)
+			{
+				RenderBackpackButtons(1);
+				RenderBackpackButtons(0);
+			}
+			if(giSMDropPackButton != -1)
+				EnableButton( giSMDropPackButton );
+			if(giSMZipperButton != -1)
+				EnableButton( giSMZipperButton );
+			break;
+		case 3:
+			// Disable buttons
+			if(giSMDropPackButton != -1)
+				DisableButton( giSMDropPackButton );
+			if(giSMZipperButton != -1)
+				DisableButton( giSMZipperButton );
+			break;
+		case 4:
+			if(giSMZipperImages != -1)
+				UnloadButtonImage( giSMZipperImages );
+			if(giSMDropPackImages != -1)
+				UnloadButtonImage( giSMDropPackImages );
+			break;
+	}
 }
 
 
@@ -1129,8 +1285,8 @@ void EnableSMPanelButtons( BOOLEAN fEnable , BOOLEAN fFromItemPickup )
 			// only enable the following if NOT in shopkeeper's interface
 			if ( !(guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
 			{
-				EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );		
-				EnableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );		
+				EnableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
+				EnableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );
 				EnableButton( iSMPanelButtons[ STANCEUP_BUTTON ] );
 				EnableButton( iSMPanelButtons[ STANCEDOWN_BUTTON ] );
 				EnableButton( iSMPanelButtons[ LOOK_BUTTON ] );
@@ -1140,6 +1296,7 @@ void EnableSMPanelButtons( BOOLEAN fEnable , BOOLEAN fFromItemPickup )
 				{
 					EnableButton( giSMStealthButton );
 				}
+				RenderBackpackButtons(2);	/* CHRISL: Needed for new inventory backpack buttons */
 
 				if ( gfDisableTacticalPanelButtons )
 				{
@@ -1160,7 +1317,7 @@ void EnableSMPanelButtons( BOOLEAN fEnable , BOOLEAN fFromItemPickup )
 
 				gfSMDisableForItems = FALSE;
 
-      	DisableInvRegions( gfSMDisableForItems );
+			DisableInvRegions( gfSMDisableForItems );
 			}
 
 			if ( !fFromItemPickup )
@@ -1171,8 +1328,8 @@ void EnableSMPanelButtons( BOOLEAN fEnable , BOOLEAN fFromItemPickup )
 		}
 		else
 		{
-			DisableButton( iSMPanelButtons[ CLIMB_BUTTON ] );		
-			DisableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );		
+			DisableButton( iSMPanelButtons[ CLIMB_BUTTON ] );
+			DisableButton( iSMPanelButtons[ BURSTMODE_BUTTON ] );
 			DisableButton( iSMPanelButtons[ STANCEUP_BUTTON ] );
 			DisableButton( iSMPanelButtons[ STANCEDOWN_BUTTON ] );
 			DisableButton( iSMPanelButtons[ LOOK_BUTTON ] );
@@ -1182,6 +1339,7 @@ void EnableSMPanelButtons( BOOLEAN fEnable , BOOLEAN fFromItemPickup )
 			{
 					DisableButton( giSMStealthButton );
 			}
+			RenderBackpackButtons(3);	/* CHRISL: Needed for new inventory backpack buttons */
 
 			if ( !fFromItemPickup )
 			{
@@ -1208,38 +1366,61 @@ UINT16 GetSMPanelCurrentMerc( )
 }
 
 
-BOOLEAN InitializeSMPanelCoords( )
+// CHRISL: New functions to define initial settings for New Inventory system
+void InitNewInventorySystem( )
+{
+	INTERFACE_WIDTH			= 640;
+	INTERFACE_HEIGHT		= 120;
+	INV_INTERFACE_HEIGHT	= 200;
+	INTERFACE_START_X		= 0;
+	INTERFACE_START_Y		= ( SCREEN_HEIGHT - INTERFACE_HEIGHT );
+	INV_INTERFACE_START_Y	= ( SCREEN_HEIGHT - INV_INTERFACE_HEIGHT );
+}
+
+// CHRISL: New functions to define initial settings for Old Inventory system
+void InitOldInventorySystem( )
+{
+	INTERFACE_WIDTH			= 640;
+	INTERFACE_HEIGHT		= 120;
+	INV_INTERFACE_HEIGHT	= 140;
+	INTERFACE_START_X		= 0;
+	INTERFACE_START_Y		= ( SCREEN_HEIGHT - INTERFACE_HEIGHT );
+	INV_INTERFACE_START_Y	= ( SCREEN_HEIGHT - INV_INTERFACE_HEIGHT );
+}
+
+// CHRISL: These functions will setup inventory panel coords based on game options
+BOOLEAN InitializeSMPanelCoordsOld()
 {
 	// int i; // unused (jonathanl)
-	/* 
-	 * now i use standard positions and i add to them starting coords of panel but 
-	 * we can add here function that will read coord in panel from file
-	 * that will be phase2 of making GUI more customizable
-	 * any questions? joker
-	 */
+	/*
+	* now i use standard positions and i add to them starting coords of panel but
+	* we can add here function that will read coord in panel from file
+	* that will be phase2 of making GUI more customizable
+	* any questions? joker
+	*/
 	// Inventory slots
-	gSMInvPocketXY[0].sX = INTERFACE_START_X + 344;		gSMInvPocketXY[0].sY = INV_INTERFACE_START_Y + 7;	// HELMETPOS
-	gSMInvPocketXY[1].sX = INTERFACE_START_X + 344;		gSMInvPocketXY[1].sY = INV_INTERFACE_START_Y + 36;	// VESTPOS
-	gSMInvPocketXY[2].sX = INTERFACE_START_X + 344;		gSMInvPocketXY[2].sY = INV_INTERFACE_START_Y + 96;	// LEGPOS,
-	gSMInvPocketXY[3].sX = INTERFACE_START_X + 226;		gSMInvPocketXY[3].sY = INV_INTERFACE_START_Y + 7;	// HEAD1POS
-	gSMInvPocketXY[4].sX = INTERFACE_START_X + 226;		gSMInvPocketXY[4].sY = INV_INTERFACE_START_Y + 31;	// HEAD2POS
-	gSMInvPocketXY[5].sX = INTERFACE_START_X + 226;		gSMInvPocketXY[5].sY = INV_INTERFACE_START_Y + 84;	// HANDPOS,
-	gSMInvPocketXY[6].sX = INTERFACE_START_X + 226;		gSMInvPocketXY[6].sY = INV_INTERFACE_START_Y + 108;	// SECONDHANDPOS
-	gSMInvPocketXY[7].sX = INTERFACE_START_X + 468;		gSMInvPocketXY[7].sY = INV_INTERFACE_START_Y + 6;	// BIGPOCK1
-	gSMInvPocketXY[8].sX = INTERFACE_START_X + 468;		gSMInvPocketXY[8].sY = INV_INTERFACE_START_Y + 30;	// BIGPOCK2
-	gSMInvPocketXY[9].sX = INTERFACE_START_X + 468;		gSMInvPocketXY[9].sY = INV_INTERFACE_START_Y + 54;	// BIGPOCK3
-	gSMInvPocketXY[10].sX = INTERFACE_START_X + 468;	gSMInvPocketXY[10].sY = INV_INTERFACE_START_Y + 78;	// BIGPOCK4
-	gSMInvPocketXY[11].sX = INTERFACE_START_X + 396;	gSMInvPocketXY[11].sY = INV_INTERFACE_START_Y + 6;	// SMALLPOCK1
-	gSMInvPocketXY[12].sX = INTERFACE_START_X + 396;	gSMInvPocketXY[12].sY = INV_INTERFACE_START_Y + 30;	// SMALLPOCK2
-	gSMInvPocketXY[13].sX = INTERFACE_START_X + 396;	gSMInvPocketXY[13].sY = INV_INTERFACE_START_Y + 54;	// SMALLPOCK3
-	gSMInvPocketXY[14].sX = INTERFACE_START_X + 396;	gSMInvPocketXY[14].sY = INV_INTERFACE_START_Y + 78;	// SMALLPOCK4
-	gSMInvPocketXY[15].sX = INTERFACE_START_X + 432;	gSMInvPocketXY[15].sY = INV_INTERFACE_START_Y + 6;	// SMALLPOCK5
-	gSMInvPocketXY[16].sX = INTERFACE_START_X + 432;	gSMInvPocketXY[16].sY = INV_INTERFACE_START_Y + 30;	// SMALLPOCK6
-	gSMInvPocketXY[17].sX = INTERFACE_START_X + 432;	gSMInvPocketXY[17].sY = INV_INTERFACE_START_Y + 54;	// SMALLPOCK7
-	gSMInvPocketXY[18].sX = INTERFACE_START_X + 432;	gSMInvPocketXY[18].sY = INV_INTERFACE_START_Y + 78;	// SMALLPOCK8
+	gSMInvPocketXY[HELMETPOS].sX = INTERFACE_START_X + 344;		gSMInvPocketXY[HELMETPOS].sY = INV_INTERFACE_START_Y + 7;	// HELMETPOS
+	gSMInvPocketXY[VESTPOS].sX = INTERFACE_START_X + 344;		gSMInvPocketXY[VESTPOS].sY = INV_INTERFACE_START_Y + 36;	// VESTPOS
+	gSMInvPocketXY[LEGPOS].sX = INTERFACE_START_X + 344;		gSMInvPocketXY[LEGPOS].sY = INV_INTERFACE_START_Y + 96;	// LEGPOS,
+	gSMInvPocketXY[HEAD1POS].sX = INTERFACE_START_X + 226;		gSMInvPocketXY[HEAD1POS].sY = INV_INTERFACE_START_Y + 7;	// HEAD1POS
+	gSMInvPocketXY[HEAD2POS].sX = INTERFACE_START_X + 226;		gSMInvPocketXY[HEAD2POS].sY = INV_INTERFACE_START_Y + 31;	// HEAD2POS
+	gSMInvPocketXY[HANDPOS].sX = INTERFACE_START_X + 226;		gSMInvPocketXY[HANDPOS].sY = INV_INTERFACE_START_Y + 84;	// HANDPOS,
+	gSMInvPocketXY[SECONDHANDPOS].sX = INTERFACE_START_X + 226;	gSMInvPocketXY[SECONDHANDPOS].sY = INV_INTERFACE_START_Y + 108;	// SECONDHANDPOS
+	gSMInvPocketXY[BIGPOCK1POS].sX = INTERFACE_START_X + 468;	gSMInvPocketXY[BIGPOCK1POS].sY = INV_INTERFACE_START_Y + 6;	// BIGPOCK1
+	gSMInvPocketXY[BIGPOCK2POS].sX = INTERFACE_START_X + 468;	gSMInvPocketXY[BIGPOCK2POS].sY = INV_INTERFACE_START_Y + 30;	// BIGPOCK2
+	gSMInvPocketXY[BIGPOCK3POS].sX = INTERFACE_START_X + 468;	gSMInvPocketXY[BIGPOCK3POS].sY = INV_INTERFACE_START_Y + 54;	// BIGPOCK3
+	gSMInvPocketXY[BIGPOCK4POS].sX = INTERFACE_START_X + 468;	gSMInvPocketXY[BIGPOCK4POS].sY = INV_INTERFACE_START_Y + 78;	// BIGPOCK4
+	gSMInvPocketXY[SMALLPOCK1POS].sX = INTERFACE_START_X + 396;	gSMInvPocketXY[SMALLPOCK1POS].sY = INV_INTERFACE_START_Y + 6;	// SMALLPOCK1
+	gSMInvPocketXY[SMALLPOCK2POS].sX = INTERFACE_START_X + 396;	gSMInvPocketXY[SMALLPOCK2POS].sY = INV_INTERFACE_START_Y + 30;	// SMALLPOCK2
+	gSMInvPocketXY[SMALLPOCK3POS].sX = INTERFACE_START_X + 396;	gSMInvPocketXY[SMALLPOCK3POS].sY = INV_INTERFACE_START_Y + 54;	// SMALLPOCK3
+	gSMInvPocketXY[SMALLPOCK4POS].sX = INTERFACE_START_X + 396;	gSMInvPocketXY[SMALLPOCK4POS].sY = INV_INTERFACE_START_Y + 78;	// SMALLPOCK4
+	gSMInvPocketXY[SMALLPOCK5POS].sX = INTERFACE_START_X + 432;	gSMInvPocketXY[SMALLPOCK5POS].sY = INV_INTERFACE_START_Y + 6;	// SMALLPOCK5
+	gSMInvPocketXY[SMALLPOCK6POS].sX = INTERFACE_START_X + 432;	gSMInvPocketXY[SMALLPOCK6POS].sY = INV_INTERFACE_START_Y + 30;	// SMALLPOCK6
+	gSMInvPocketXY[SMALLPOCK7POS].sX = INTERFACE_START_X + 432;	gSMInvPocketXY[SMALLPOCK7POS].sY = INV_INTERFACE_START_Y + 54;	// SMALLPOCK7
+	gSMInvPocketXY[SMALLPOCK8POS].sX = INTERFACE_START_X + 432;	gSMInvPocketXY[SMALLPOCK8POS].sY = INV_INTERFACE_START_Y + 78;	// SMALLPOCK8
 	
 	SM_ITEMDESC_START_X		= ( 214 + INTERFACE_START_X );
-	SM_ITEMDESC_START_Y		= ( 1 +   INV_INTERFACE_START_Y );
+	SM_ITEMDESC_START_Y		= ( 1 +	INV_INTERFACE_START_Y );
 	SM_ITEMDESC_HEIGHT		= 128;
 	SM_ITEMDESC_WIDTH		= 358;
 
@@ -1247,7 +1428,7 @@ BOOLEAN InitializeSMPanelCoords( )
 	SM_SELMERC_AP_Y			= ( 53 + INV_INTERFACE_START_Y );
 	SM_SELMERC_AP_HEIGHT	= 12;
 	SM_SELMERC_AP_WIDTH		= 11;
- 
+
 	SM_SELMERC_HEALTH_X		= ( 69 + INTERFACE_START_X );
 	SM_SELMERC_HEALTH_Y		= ( 47 + INV_INTERFACE_START_Y );
 	SM_SELMERC_HEALTH_WIDTH = 3;
@@ -1316,9 +1497,9 @@ BOOLEAN InitializeSMPanelCoords( )
 	SM_STEALTHMODE_X		= ( 187 + INTERFACE_START_X );
 	SM_STEALTHMODE_Y		= ( 73 + INV_INTERFACE_START_Y );
 
-	SM_DONE_X				=  (SCREEN_WIDTH - 97);//( 543 + INTERFACE_START_X );
+	SM_DONE_X				=	(SCREEN_WIDTH - 97);//( 543 + INTERFACE_START_X );
 	SM_DONE_Y				= ( 4 + INV_INTERFACE_START_Y );
-	SM_MAPSCREEN_X			=  (SCREEN_WIDTH - 51);//( 589 + INTERFACE_START_X );
+	SM_MAPSCREEN_X			=	(SCREEN_WIDTH - 51);//( 589 + INTERFACE_START_X );
 	SM_MAPSCREEN_Y			= ( 4 + INV_INTERFACE_START_Y );
 
 	SM_POSITIONB_X			= ( 106 + INTERFACE_START_X );
@@ -1376,32 +1557,410 @@ BOOLEAN InitializeSMPanelCoords( )
 	MONEY_Y					= ( 105 + INV_INTERFACE_START_Y );
 	MONEY_WIDTH				= 30;
 	MONEY_HEIGHT			= 22;
+
+	// ow ye font color they can also be customizable :P
+	STATS_TITLE_FONT_COLOR	= 6;
+	STATS_TEXT_FONT_COLOR	= 5;
+
+	// ow and te clock and location i will put it here
+	INTERFACE_CLOCK_X	=		(SCREEN_WIDTH - 86);				//( 554	+ INTERFACE_START_X		);
+	INTERFACE_CLOCK_Y	= ( 119	+ INV_INTERFACE_START_Y );
+	LOCATION_NAME_X		=	(SCREEN_WIDTH - 92);				//( 548	+ INTERFACE_START_X		);
+	LOCATION_NAME_Y		= ( 65	+ INTERFACE_START_Y		);
+
+	// Keyring
+	KEYRING_X			= 487;
+	KEYRING_Y			= (105 + INV_INTERFACE_START_Y);
+
+	// so we got everything "dynamic" now we just return TRUE
+	return ( TRUE );
+}
+BOOLEAN InitializeSMPanelCoordsNew()
+{
+	// int i; // unused (jonathanl)
+	/* 
+	 * now i use standard positions and i add to them starting coords of panel but 
+	 * we can add here function that will read coord in panel from file
+	 * that will be phase2 of making GUI more customizable
+	 * any questions? joker
+	 */
+	/* CHRISL: Inventory slot information was completly altered to allow for new inventory pockets and
+	to allow the new inventory interface to function properly. Also altered many of the interface coords
+	so that the new interface would line up correctly.*/
+	// Inventory slots
+	if(iResolution == 0){
+		gSMInvPocketXY[0].sX = INTERFACE_START_X + 239;		gSMInvPocketXY[0].sY = INV_INTERFACE_START_Y + 68;		// HELMETPOS
+		gSMInvPocketXY[1].sX = INTERFACE_START_X + 239;		gSMInvPocketXY[1].sY = INV_INTERFACE_START_Y + 96;		// VESTPOS
+		gSMInvPocketXY[2].sX = INTERFACE_START_X + 239;		gSMInvPocketXY[2].sY = INV_INTERFACE_START_Y + 157;		// LEGPOS
+		gSMInvPocketXY[3].sX = INTERFACE_START_X + 124;		gSMInvPocketXY[3].sY = INV_INTERFACE_START_Y + 68;		// HEAD1POS
+		gSMInvPocketXY[4].sX = INTERFACE_START_X + 124;		gSMInvPocketXY[4].sY = INV_INTERFACE_START_Y + 92;		// HEAD2POS
+		gSMInvPocketXY[5].sX = INTERFACE_START_X + 124;		gSMInvPocketXY[5].sY = INV_INTERFACE_START_Y + 146;		// HANDPOS
+		gSMInvPocketXY[6].sX = INTERFACE_START_X + 124;		gSMInvPocketXY[6].sY = INV_INTERFACE_START_Y + 170;		// SECONDHANDPOS
+		gSMInvPocketXY[7].sX = INTERFACE_START_X + 274;		gSMInvPocketXY[7].sY = INV_INTERFACE_START_Y + 13;		// VESTPOCK
+		gSMInvPocketXY[8].sX = INTERFACE_START_X + 292;		gSMInvPocketXY[8].sY = INV_INTERFACE_START_Y + 79;		// LTHIGHPOCK
+		gSMInvPocketXY[9].sX = INTERFACE_START_X + 340;		gSMInvPocketXY[9].sY = INV_INTERFACE_START_Y + 79;		// RTHIGHPOCK
+		gSMInvPocketXY[10].sX = INTERFACE_START_X + 443;	gSMInvPocketXY[10].sY = INV_INTERFACE_START_Y + 79;		// CPACKPOCK
+		gSMInvPocketXY[11].sX = INTERFACE_START_X + 486;	gSMInvPocketXY[11].sY = INV_INTERFACE_START_Y + 13;		// BPACKPOCK
+		gSMInvPocketXY[12].sX = INTERFACE_START_X + 383;	gSMInvPocketXY[12].sY = INV_INTERFACE_START_Y + 79;		// GUNSLINGPOCKPOS
+		gSMInvPocketXY[13].sX = INTERFACE_START_X + 499;	gSMInvPocketXY[13].sY = INV_INTERFACE_START_Y + 79;		// KNIFEPOCKPOS
+		gSMInvPocketXY[14].sX = INTERFACE_START_X + 433;	gSMInvPocketXY[14].sY = INV_INTERFACE_START_Y + 116;	// BIGPOCK1
+		gSMInvPocketXY[15].sX = INTERFACE_START_X + 433;	gSMInvPocketXY[15].sY = INV_INTERFACE_START_Y + 140;	// BIGPOCK2
+		gSMInvPocketXY[16].sX = INTERFACE_START_X + 433;	gSMInvPocketXY[16].sY = INV_INTERFACE_START_Y + 164;	// BIGPOCK3
+		gSMInvPocketXY[17].sX = INTERFACE_START_X + 582;	gSMInvPocketXY[17].sY = INV_INTERFACE_START_Y + 10;		// BIGPOCK4
+		gSMInvPocketXY[18].sX = INTERFACE_START_X + 582;	gSMInvPocketXY[18].sY = INV_INTERFACE_START_Y + 34;		// BIGPOCK5
+		gSMInvPocketXY[19].sX = INTERFACE_START_X + 582;	gSMInvPocketXY[19].sY = INV_INTERFACE_START_Y + 58;		// BIGPOCK6
+		gSMInvPocketXY[20].sX = INTERFACE_START_X + 582;	gSMInvPocketXY[20].sY = INV_INTERFACE_START_Y + 82;		// BIGPOCK7
+		gSMInvPocketXY[21].sX = INTERFACE_START_X + 439;	gSMInvPocketXY[21].sY = INV_INTERFACE_START_Y + 10;		// MEDPOCK1
+		gSMInvPocketXY[22].sX = INTERFACE_START_X + 439;	gSMInvPocketXY[22].sY = INV_INTERFACE_START_Y + 34;		// MEDPOCK2
+		gSMInvPocketXY[23].sX = INTERFACE_START_X + 295;	gSMInvPocketXY[23].sY = INV_INTERFACE_START_Y + 164;	// MEDPOCK3
+		gSMInvPocketXY[24].sX = INTERFACE_START_X + 343;	gSMInvPocketXY[24].sY = INV_INTERFACE_START_Y + 164;	// MEDPOCK4
+		gSMInvPocketXY[25].sX = INTERFACE_START_X + 324;	gSMInvPocketXY[25].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK1
+		gSMInvPocketXY[26].sX = INTERFACE_START_X + 347;	gSMInvPocketXY[26].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK2
+		gSMInvPocketXY[27].sX = INTERFACE_START_X + 370;	gSMInvPocketXY[27].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK3
+		gSMInvPocketXY[28].sX = INTERFACE_START_X + 393;	gSMInvPocketXY[28].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK4
+		gSMInvPocketXY[29].sX = INTERFACE_START_X + 416;	gSMInvPocketXY[29].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK5
+		gSMInvPocketXY[30].sX = INTERFACE_START_X + 324;	gSMInvPocketXY[30].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK6
+		gSMInvPocketXY[31].sX = INTERFACE_START_X + 347;	gSMInvPocketXY[31].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK7
+		gSMInvPocketXY[32].sX = INTERFACE_START_X + 370;	gSMInvPocketXY[32].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK8	
+		gSMInvPocketXY[33].sX = INTERFACE_START_X + 393;	gSMInvPocketXY[33].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK9
+		gSMInvPocketXY[34].sX = INTERFACE_START_X + 416;	gSMInvPocketXY[34].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK10
+		gSMInvPocketXY[35].sX = INTERFACE_START_X + 291;	gSMInvPocketXY[35].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK11
+		gSMInvPocketXY[36].sX = INTERFACE_START_X + 314;	gSMInvPocketXY[36].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK12
+		gSMInvPocketXY[37].sX = INTERFACE_START_X + 291;	gSMInvPocketXY[37].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK13
+		gSMInvPocketXY[38].sX = INTERFACE_START_X + 314;	gSMInvPocketXY[38].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK14
+		gSMInvPocketXY[39].sX = INTERFACE_START_X + 339;	gSMInvPocketXY[39].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK15
+		gSMInvPocketXY[40].sX = INTERFACE_START_X + 362;	gSMInvPocketXY[40].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK16
+		gSMInvPocketXY[41].sX = INTERFACE_START_X + 339;	gSMInvPocketXY[41].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK17
+		gSMInvPocketXY[42].sX = INTERFACE_START_X + 362;	gSMInvPocketXY[42].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK18
+		gSMInvPocketXY[43].sX = INTERFACE_START_X + 387;	gSMInvPocketXY[43].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK19
+		gSMInvPocketXY[44].sX = INTERFACE_START_X + 410;	gSMInvPocketXY[44].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK20
+		gSMInvPocketXY[45].sX = INTERFACE_START_X + 387;	gSMInvPocketXY[45].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK21
+		gSMInvPocketXY[46].sX = INTERFACE_START_X + 410;	gSMInvPocketXY[46].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK22
+		gSMInvPocketXY[47].sX = INTERFACE_START_X + 536;	gSMInvPocketXY[47].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK23
+		gSMInvPocketXY[48].sX = INTERFACE_START_X + 536;	gSMInvPocketXY[48].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK24
+		gSMInvPocketXY[49].sX = INTERFACE_START_X + 536;	gSMInvPocketXY[49].sY = INV_INTERFACE_START_Y + 58;		// SMALLPOCK25
+		gSMInvPocketXY[50].sX = INTERFACE_START_X + 536;	gSMInvPocketXY[50].sY = INV_INTERFACE_START_Y + 82;		// SMALLPOCK26
+		gSMInvPocketXY[51].sX = INTERFACE_START_X + 559;	gSMInvPocketXY[51].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK27
+		gSMInvPocketXY[52].sX = INTERFACE_START_X + 559;	gSMInvPocketXY[52].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK28
+		gSMInvPocketXY[53].sX = INTERFACE_START_X + 559;	gSMInvPocketXY[53].sY = INV_INTERFACE_START_Y + 58;		// SMALLPOCK29
+		gSMInvPocketXY[54].sX = INTERFACE_START_X + 559;	gSMInvPocketXY[54].sY = INV_INTERFACE_START_Y + 82;		// SMALLPOCK30
+	}
+	else if(iResolution == 1){
+		gSMInvPocketXY[0].sX = INTERFACE_START_X + 258;		gSMInvPocketXY[0].sY = INV_INTERFACE_START_Y + 68;		// HELMETPOS
+		gSMInvPocketXY[1].sX = INTERFACE_START_X + 258;		gSMInvPocketXY[1].sY = INV_INTERFACE_START_Y + 96;		// VESTPOS
+		gSMInvPocketXY[2].sX = INTERFACE_START_X + 258;		gSMInvPocketXY[2].sY = INV_INTERFACE_START_Y + 157;		// LEGPOS
+		gSMInvPocketXY[3].sX = INTERFACE_START_X + 124;		gSMInvPocketXY[3].sY = INV_INTERFACE_START_Y + 68;		// HEAD1POS
+		gSMInvPocketXY[4].sX = INTERFACE_START_X + 124;		gSMInvPocketXY[4].sY = INV_INTERFACE_START_Y + 92;		// HEAD2POS
+		gSMInvPocketXY[5].sX = INTERFACE_START_X + 124;		gSMInvPocketXY[5].sY = INV_INTERFACE_START_Y + 146;		// HANDPOS
+		gSMInvPocketXY[6].sX = INTERFACE_START_X + 124;		gSMInvPocketXY[6].sY = INV_INTERFACE_START_Y + 170;		// SECONDHANDPOS
+		gSMInvPocketXY[7].sX = INTERFACE_START_X + 284;		gSMInvPocketXY[7].sY = INV_INTERFACE_START_Y + 13;		// VESTPOCK
+		gSMInvPocketXY[8].sX = INTERFACE_START_X + 323;		gSMInvPocketXY[8].sY = INV_INTERFACE_START_Y + 79;		// LTHIGHPOCK
+		gSMInvPocketXY[9].sX = INTERFACE_START_X + 439;		gSMInvPocketXY[9].sY = INV_INTERFACE_START_Y + 79;		// RTHIGHPOCK
+		gSMInvPocketXY[10].sX = INTERFACE_START_X + 586;	gSMInvPocketXY[10].sY = INV_INTERFACE_START_Y + 79;		// CPACKPOCK
+		gSMInvPocketXY[11].sX = INTERFACE_START_X + 594;	gSMInvPocketXY[11].sY = INV_INTERFACE_START_Y + 13;		// BPACKPOCK
+		gSMInvPocketXY[12].sX = INTERFACE_START_X + 505;	gSMInvPocketXY[12].sY = INV_INTERFACE_START_Y + 79;		// GUNSLINGPOCKPOS
+		gSMInvPocketXY[13].sX = INTERFACE_START_X + 388;	gSMInvPocketXY[13].sY = INV_INTERFACE_START_Y + 79;		// KNIFEPOCKPOS
+		gSMInvPocketXY[14].sX = INTERFACE_START_X + 566;	gSMInvPocketXY[14].sY = INV_INTERFACE_START_Y + 116;	// BIGPOCK1
+		gSMInvPocketXY[15].sX = INTERFACE_START_X + 566;	gSMInvPocketXY[15].sY = INV_INTERFACE_START_Y + 140;	// BIGPOCK2
+		gSMInvPocketXY[16].sX = INTERFACE_START_X + 566;	gSMInvPocketXY[16].sY = INV_INTERFACE_START_Y + 164;	// BIGPOCK3
+		gSMInvPocketXY[17].sX = INTERFACE_START_X + 729;	gSMInvPocketXY[17].sY = INV_INTERFACE_START_Y + 10;		// BIGPOCK4
+		gSMInvPocketXY[18].sX = INTERFACE_START_X + 729;	gSMInvPocketXY[18].sY = INV_INTERFACE_START_Y + 34;		// BIGPOCK5
+		gSMInvPocketXY[19].sX = INTERFACE_START_X + 729;	gSMInvPocketXY[19].sY = INV_INTERFACE_START_Y + 58;		// BIGPOCK6
+		gSMInvPocketXY[20].sX = INTERFACE_START_X + 729;	gSMInvPocketXY[20].sY = INV_INTERFACE_START_Y + 82;		// BIGPOCK7
+		gSMInvPocketXY[21].sX = INTERFACE_START_X + 527;	gSMInvPocketXY[21].sY = INV_INTERFACE_START_Y + 10;		// MEDPOCK1
+		gSMInvPocketXY[22].sX = INTERFACE_START_X + 527;	gSMInvPocketXY[22].sY = INV_INTERFACE_START_Y + 34;		// MEDPOCK2
+		gSMInvPocketXY[23].sX = INTERFACE_START_X + 333;	gSMInvPocketXY[23].sY = INV_INTERFACE_START_Y + 164;	// MEDPOCK3
+		gSMInvPocketXY[24].sX = INTERFACE_START_X + 419;	gSMInvPocketXY[24].sY = INV_INTERFACE_START_Y + 164;	// MEDPOCK4
+		gSMInvPocketXY[25].sX = INTERFACE_START_X + 347;	gSMInvPocketXY[25].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK1
+		gSMInvPocketXY[26].sX = INTERFACE_START_X + 383;	gSMInvPocketXY[26].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK2
+		gSMInvPocketXY[27].sX = INTERFACE_START_X + 419;	gSMInvPocketXY[27].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK3
+		gSMInvPocketXY[28].sX = INTERFACE_START_X + 455;	gSMInvPocketXY[28].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK4
+		gSMInvPocketXY[29].sX = INTERFACE_START_X + 491;	gSMInvPocketXY[29].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK5
+		gSMInvPocketXY[30].sX = INTERFACE_START_X + 347;	gSMInvPocketXY[30].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK6
+		gSMInvPocketXY[31].sX = INTERFACE_START_X + 383;	gSMInvPocketXY[31].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK7
+		gSMInvPocketXY[32].sX = INTERFACE_START_X + 419;	gSMInvPocketXY[32].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK8	
+		gSMInvPocketXY[33].sX = INTERFACE_START_X + 455;	gSMInvPocketXY[33].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK9
+		gSMInvPocketXY[34].sX = INTERFACE_START_X + 491;	gSMInvPocketXY[34].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK10
+		gSMInvPocketXY[35].sX = INTERFACE_START_X + 322;	gSMInvPocketXY[35].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK11
+		gSMInvPocketXY[36].sX = INTERFACE_START_X + 358;	gSMInvPocketXY[36].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK12
+		gSMInvPocketXY[37].sX = INTERFACE_START_X + 322;	gSMInvPocketXY[37].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK13
+		gSMInvPocketXY[38].sX = INTERFACE_START_X + 358;	gSMInvPocketXY[38].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK14
+		gSMInvPocketXY[39].sX = INTERFACE_START_X + 408;	gSMInvPocketXY[39].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK15
+		gSMInvPocketXY[40].sX = INTERFACE_START_X + 444;	gSMInvPocketXY[40].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK16
+		gSMInvPocketXY[41].sX = INTERFACE_START_X + 408;	gSMInvPocketXY[41].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK17
+		gSMInvPocketXY[42].sX = INTERFACE_START_X + 444;	gSMInvPocketXY[42].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK18
+		gSMInvPocketXY[43].sX = INTERFACE_START_X + 494;	gSMInvPocketXY[43].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK19
+		gSMInvPocketXY[44].sX = INTERFACE_START_X + 530;	gSMInvPocketXY[44].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK20
+		gSMInvPocketXY[45].sX = INTERFACE_START_X + 494;	gSMInvPocketXY[45].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK21
+		gSMInvPocketXY[46].sX = INTERFACE_START_X + 530;	gSMInvPocketXY[46].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK22
+		gSMInvPocketXY[47].sX = INTERFACE_START_X + 657;	gSMInvPocketXY[47].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK23
+		gSMInvPocketXY[48].sX = INTERFACE_START_X + 657;	gSMInvPocketXY[48].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK24
+		gSMInvPocketXY[49].sX = INTERFACE_START_X + 657;	gSMInvPocketXY[49].sY = INV_INTERFACE_START_Y + 58;		// SMALLPOCK25
+		gSMInvPocketXY[50].sX = INTERFACE_START_X + 657;	gSMInvPocketXY[50].sY = INV_INTERFACE_START_Y + 82;		// SMALLPOCK26
+		gSMInvPocketXY[51].sX = INTERFACE_START_X + 693;	gSMInvPocketXY[51].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK27
+		gSMInvPocketXY[52].sX = INTERFACE_START_X + 693;	gSMInvPocketXY[52].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK28
+		gSMInvPocketXY[53].sX = INTERFACE_START_X + 693;	gSMInvPocketXY[53].sY = INV_INTERFACE_START_Y + 58;		// SMALLPOCK29
+		gSMInvPocketXY[54].sX = INTERFACE_START_X + 693;	gSMInvPocketXY[54].sY = INV_INTERFACE_START_Y + 82;		// SMALLPOCK30
+	}
+	else if(iResolution == 2){
+		//1024x768 resolution
+		gSMInvPocketXY[0].sX = INTERFACE_START_X + 258;		gSMInvPocketXY[0].sY = INV_INTERFACE_START_Y + 68;		// HELMETPOS
+		gSMInvPocketXY[1].sX = INTERFACE_START_X + 258;		gSMInvPocketXY[1].sY = INV_INTERFACE_START_Y + 96;		// VESTPOS
+		gSMInvPocketXY[2].sX = INTERFACE_START_X + 258;		gSMInvPocketXY[2].sY = INV_INTERFACE_START_Y + 157;		// LEGPOS
+		gSMInvPocketXY[3].sX = INTERFACE_START_X + 124;		gSMInvPocketXY[3].sY = INV_INTERFACE_START_Y + 68;		// HEAD1POS
+		gSMInvPocketXY[4].sX = INTERFACE_START_X + 124;		gSMInvPocketXY[4].sY = INV_INTERFACE_START_Y + 92;		// HEAD2POS
+		gSMInvPocketXY[5].sX = INTERFACE_START_X + 124;		gSMInvPocketXY[5].sY = INV_INTERFACE_START_Y + 146;		// HANDPOS
+		gSMInvPocketXY[6].sX = INTERFACE_START_X + 124;		gSMInvPocketXY[6].sY = INV_INTERFACE_START_Y + 170;		// SECONDHANDPOS
+		gSMInvPocketXY[7].sX = INTERFACE_START_X + 284;		gSMInvPocketXY[7].sY = INV_INTERFACE_START_Y + 13;		// VESTPOCK
+		gSMInvPocketXY[8].sX = INTERFACE_START_X + 358;		gSMInvPocketXY[8].sY = INV_INTERFACE_START_Y + 79;		// LTHIGHPOCK
+		gSMInvPocketXY[9].sX = INTERFACE_START_X + 516;		gSMInvPocketXY[9].sY = INV_INTERFACE_START_Y + 79;		// RTHIGHPOCK
+		gSMInvPocketXY[10].sX = INTERFACE_START_X + 594;	gSMInvPocketXY[10].sY = INV_INTERFACE_START_Y + 128;	// CPACKPOCK
+		gSMInvPocketXY[11].sX = INTERFACE_START_X + 594;	gSMInvPocketXY[11].sY = INV_INTERFACE_START_Y + 13;		// BPACKPOCK
+		gSMInvPocketXY[12].sX = INTERFACE_START_X + 429;	gSMInvPocketXY[12].sY = INV_INTERFACE_START_Y + 79;		// GUNSLINGPOCKPOS
+		gSMInvPocketXY[13].sX = INTERFACE_START_X + 594;	gSMInvPocketXY[13].sY = INV_INTERFACE_START_Y + 79;		// KNIFEPOCKPOS
+		gSMInvPocketXY[14].sX = INTERFACE_START_X + 729;	gSMInvPocketXY[14].sY = INV_INTERFACE_START_Y + 116;	// BIGPOCK1
+		gSMInvPocketXY[15].sX = INTERFACE_START_X + 729;	gSMInvPocketXY[15].sY = INV_INTERFACE_START_Y + 140;	// BIGPOCK2
+		gSMInvPocketXY[16].sX = INTERFACE_START_X + 729;	gSMInvPocketXY[16].sY = INV_INTERFACE_START_Y + 164;	// BIGPOCK3
+		gSMInvPocketXY[17].sX = INTERFACE_START_X + 729;	gSMInvPocketXY[17].sY = INV_INTERFACE_START_Y + 10;		// BIGPOCK4
+		gSMInvPocketXY[18].sX = INTERFACE_START_X + 729;	gSMInvPocketXY[18].sY = INV_INTERFACE_START_Y + 34;		// BIGPOCK5
+		gSMInvPocketXY[19].sX = INTERFACE_START_X + 729;	gSMInvPocketXY[19].sY = INV_INTERFACE_START_Y + 58;		// BIGPOCK6
+		gSMInvPocketXY[20].sX = INTERFACE_START_X + 729;	gSMInvPocketXY[20].sY = INV_INTERFACE_START_Y + 82;		// BIGPOCK7
+		gSMInvPocketXY[21].sX = INTERFACE_START_X + 527;	gSMInvPocketXY[21].sY = INV_INTERFACE_START_Y + 10;		// MEDPOCK1
+		gSMInvPocketXY[22].sX = INTERFACE_START_X + 527;	gSMInvPocketXY[22].sY = INV_INTERFACE_START_Y + 34;		// MEDPOCK2
+		gSMInvPocketXY[23].sX = INTERFACE_START_X + 358;	gSMInvPocketXY[23].sY = INV_INTERFACE_START_Y + 164;	// MEDPOCK3
+		gSMInvPocketXY[24].sX = INTERFACE_START_X + 516;	gSMInvPocketXY[24].sY = INV_INTERFACE_START_Y + 164;	// MEDPOCK4
+		gSMInvPocketXY[25].sX = INTERFACE_START_X + 347;	gSMInvPocketXY[25].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK1
+		gSMInvPocketXY[26].sX = INTERFACE_START_X + 383;	gSMInvPocketXY[26].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK2
+		gSMInvPocketXY[27].sX = INTERFACE_START_X + 419;	gSMInvPocketXY[27].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK3
+		gSMInvPocketXY[28].sX = INTERFACE_START_X + 455;	gSMInvPocketXY[28].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK4
+		gSMInvPocketXY[29].sX = INTERFACE_START_X + 491;	gSMInvPocketXY[29].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK5
+		gSMInvPocketXY[30].sX = INTERFACE_START_X + 347;	gSMInvPocketXY[30].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK6
+		gSMInvPocketXY[31].sX = INTERFACE_START_X + 383;	gSMInvPocketXY[31].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK7
+		gSMInvPocketXY[32].sX = INTERFACE_START_X + 419;	gSMInvPocketXY[32].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK8	
+		gSMInvPocketXY[33].sX = INTERFACE_START_X + 455;	gSMInvPocketXY[33].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK9
+		gSMInvPocketXY[34].sX = INTERFACE_START_X + 491;	gSMInvPocketXY[34].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK10
+		gSMInvPocketXY[35].sX = INTERFACE_START_X + 347;	gSMInvPocketXY[35].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK11
+		gSMInvPocketXY[36].sX = INTERFACE_START_X + 383;	gSMInvPocketXY[36].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK12
+		gSMInvPocketXY[37].sX = INTERFACE_START_X + 347;	gSMInvPocketXY[37].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK13
+		gSMInvPocketXY[38].sX = INTERFACE_START_X + 383;	gSMInvPocketXY[38].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK14
+		gSMInvPocketXY[39].sX = INTERFACE_START_X + 505;	gSMInvPocketXY[39].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK15
+		gSMInvPocketXY[40].sX = INTERFACE_START_X + 541;	gSMInvPocketXY[40].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK16
+		gSMInvPocketXY[41].sX = INTERFACE_START_X + 505;	gSMInvPocketXY[41].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK17
+		gSMInvPocketXY[42].sX = INTERFACE_START_X + 541;	gSMInvPocketXY[42].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK18
+		gSMInvPocketXY[43].sX = INTERFACE_START_X + 657;	gSMInvPocketXY[43].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK19
+		gSMInvPocketXY[44].sX = INTERFACE_START_X + 693;	gSMInvPocketXY[44].sY = INV_INTERFACE_START_Y + 116;	// SMALLPOCK20
+		gSMInvPocketXY[45].sX = INTERFACE_START_X + 657;	gSMInvPocketXY[45].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK21
+		gSMInvPocketXY[46].sX = INTERFACE_START_X + 693;	gSMInvPocketXY[46].sY = INV_INTERFACE_START_Y + 140;	// SMALLPOCK22
+		gSMInvPocketXY[47].sX = INTERFACE_START_X + 657;	gSMInvPocketXY[47].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK23
+		gSMInvPocketXY[48].sX = INTERFACE_START_X + 657;	gSMInvPocketXY[48].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK24
+		gSMInvPocketXY[49].sX = INTERFACE_START_X + 657;	gSMInvPocketXY[49].sY = INV_INTERFACE_START_Y + 58;		// SMALLPOCK25
+		gSMInvPocketXY[50].sX = INTERFACE_START_X + 657;	gSMInvPocketXY[50].sY = INV_INTERFACE_START_Y + 82;		// SMALLPOCK26
+		gSMInvPocketXY[51].sX = INTERFACE_START_X + 693;	gSMInvPocketXY[51].sY = INV_INTERFACE_START_Y + 10;		// SMALLPOCK27
+		gSMInvPocketXY[52].sX = INTERFACE_START_X + 693;	gSMInvPocketXY[52].sY = INV_INTERFACE_START_Y + 34;		// SMALLPOCK28
+		gSMInvPocketXY[53].sX = INTERFACE_START_X + 693;	gSMInvPocketXY[53].sY = INV_INTERFACE_START_Y + 58;		// SMALLPOCK29
+		gSMInvPocketXY[54].sX = INTERFACE_START_X + 693;	gSMInvPocketXY[54].sY = INV_INTERFACE_START_Y + 82;		// SMALLPOCK30
+	}
+
+	SM_ITEMDESC_START_X		= ( 114 + INTERFACE_START_X );	//115
+	SM_ITEMDESC_START_Y		= ( 1 +   INV_INTERFACE_START_Y );
+	SM_ITEMDESC_HEIGHT		= 128;
+	SM_ITEMDESC_WIDTH		= 358;
+
+	SM_SELMERC_AP_X			= ( 71 + INTERFACE_START_X );
+	SM_SELMERC_AP_Y			= ( 53 + INV_INTERFACE_START_Y );
+	SM_SELMERC_AP_HEIGHT	= 12;
+	SM_SELMERC_AP_WIDTH		= 11;
+ 
+	SM_SELMERC_HEALTH_X		= ( 70 + INTERFACE_START_X );
+	SM_SELMERC_HEALTH_Y		= ( 48 + INV_INTERFACE_START_Y );
+	SM_SELMERC_HEALTH_WIDTH = 3;
+	SM_SELMERC_HEALTH_HEIGHT = 42;
+
+	SM_SELMERC_BREATH_X		= ( 76 + INTERFACE_START_X );
+	SM_SELMERC_BREATH_Y		= ( 48 + INV_INTERFACE_START_Y );
+	SM_SELMERC_BREATH_WIDTH = 3;
+	SM_SELMERC_BREATH_HEIGHT = 42;
+
+	SM_SELMERC_MORALE_X		= ( 82 + INTERFACE_START_X );
+	SM_SELMERC_MORALE_Y		= ( 48 + INV_INTERFACE_START_Y );
+	SM_SELMERC_MORALE_WIDTH = 3;
+	SM_SELMERC_MORALE_HEIGHT = 42;
+
+	SM_SELMERC_BARS_TIP_X	= (	SM_SELMERC_HEALTH_X - SM_SELMERC_HEALTH_WIDTH );
+	SM_SELMERC_BARS_TIP_Y	= ( SM_SELMERC_HEALTH_Y - SM_SELMERC_HEALTH_HEIGHT );
+	SM_SELMERC_BARS_TIP_WIDTH = ((SM_SELMERC_BREATH_WIDTH + 4) *3);
+	SM_SELMERC_BARS_TIP_HEIGHT= ( SM_SELMERC_HEALTH_HEIGHT );
+
+	SM_SELMERCNAME_X		= ( 12 + INTERFACE_START_X );
+	SM_SELMERCNAME_Y		= ( 55 + INV_INTERFACE_START_Y );
+	SM_SELMERCNAME_WIDTH	= 53;
+	SM_SELMERCNAME_HEIGHT	= 11;
+
+	SM_SELMERC_FACE_X		= ( 14 + INTERFACE_START_X );
+	SM_SELMERC_FACE_Y		= ( 5 + INV_INTERFACE_START_Y );
+	SM_SELMERC_FACE_HEIGHT	= 42;
+	SM_SELMERC_FACE_WIDTH	= 48;
+
+	SM_SELMERC_PLATE_X		= ( 5 + INTERFACE_START_X );
+	SM_SELMERC_PLATE_Y		= ( 2 + INV_INTERFACE_START_Y );
+	SM_SELMERC_PLATE_HEIGHT = 65;
+	SM_SELMERC_PLATE_WIDTH	= 83;
+
+	if(iResolution == 0){
+		SM_BODYINV_X			= ( 141 + INTERFACE_START_X );
+		SM_BODYINV_Y			= ( 68 + INV_INTERFACE_START_Y );
+	}
+	else{
+		SM_BODYINV_X			= ( 151 + INTERFACE_START_X );
+		SM_BODYINV_Y			= ( 68 + INV_INTERFACE_START_Y );
+	}
+
+	// Cammo
+	gSMCamoXY.sX = SM_BODYINV_X; gSMCamoXY.sY = SM_BODYINV_Y;
+
+	SM_UPDOWNB_X			= ( 8 + INTERFACE_START_X );
+	SM_UPDOWNB_Y			= ( 70 + INV_INTERFACE_START_Y );
+	SM_HANDCURSORB_X		= ( 33 + INTERFACE_START_X );
+	SM_HANDCURSORB_Y		= ( 70 + INV_INTERFACE_START_Y );
+	SM_CLIMBB_X				= ( 58 + INTERFACE_START_X );
+	SM_CLIMBB_Y				= ( 70 + INV_INTERFACE_START_Y );
+	SM_MUTEB_X				= ( 8 + INTERFACE_START_X );
+	SM_MUTEB_Y				= ( 98 + INV_INTERFACE_START_Y );
+	SM_LOOKB_X				= ( 33 + INTERFACE_START_X );
+	SM_LOOKB_Y				= ( 98 + INV_INTERFACE_START_Y );
+	SM_TALKB_X				= ( 58 + INTERFACE_START_X );
+	SM_TALKB_Y				= ( 98 + INV_INTERFACE_START_Y );
+	SM_STANCEUPB_X			= ( 88 + INTERFACE_START_X );
+	SM_STANCEUPB_Y			= ( 70 + INV_INTERFACE_START_Y );
+	SM_STEALTHMODE_X		= ( 88 + INTERFACE_START_X );
+	SM_STEALTHMODE_Y		= ( 98 + INV_INTERFACE_START_Y );
+	SM_STANCEDOWNB_X		= ( 88 + INTERFACE_START_X );
+	SM_STANCEDOWNB_Y		= ( 126 + INV_INTERFACE_START_Y );
+	SM_BURSTMODEB_X			= ( 88 + INTERFACE_START_X );
+	SM_BURSTMODEB_Y			= ( 167 + INV_INTERFACE_START_Y );
+	SM_PREVMERCB_X			= ( 10 + INTERFACE_START_X );
+	SM_PREVMERCB_Y			= ( 130 + INV_INTERFACE_START_Y );
+	SM_NEXTMERCB_X			= ( 52 + INTERFACE_START_X );
+	SM_NEXTMERCB_Y			= ( 130 + INV_INTERFACE_START_Y );
+	SM_OPTIONSB_X			= ( 10 + INTERFACE_START_X );
+	SM_OPTIONSB_Y			= ( 165 + INV_INTERFACE_START_Y );
+	// CHRISL: Backpack buttons
+	if(iResolution == 0){
+		SM_DROPPACK_X			= ( 504 + INTERFACE_START_X );
+		SM_DROPPACK_Y			= ( 39 + INV_INTERFACE_START_Y );
+		SM_ZIPPER_X				= ( 482 + INTERFACE_START_X );
+		SM_ZIPPER_Y				= ( 39 + INV_INTERFACE_START_Y );
+	}
+	else{
+		SM_DROPPACK_X			= ( 612 + INTERFACE_START_X );
+		SM_DROPPACK_Y			= ( 39 + INV_INTERFACE_START_Y );
+		SM_ZIPPER_X				= ( 590 + INTERFACE_START_X );
+		SM_ZIPPER_Y				= ( 39 + INV_INTERFACE_START_Y );
+	}
+
+	// WANNE 2
+	SM_DONE_X				=  (SCREEN_WIDTH - 152);
+	SM_DONE_Y				= ( 118 + INV_INTERFACE_START_Y );
+	SM_MAPSCREEN_X			=  (SCREEN_WIDTH - 152);
+	SM_MAPSCREEN_Y			= ( 140 + INV_INTERFACE_START_Y );
+
+	SM_POSITIONB_X			= ( 106 + INTERFACE_START_X );
+	SM_POSITIONB_Y			= ( 34 + INV_INTERFACE_START_Y );
+	SM_POSITIONB_WIDTH		= 19;
+	SM_POSITIONB_HEIGHT		= 24;
+
+	SM_PERCENT_WIDTH		= 20;
+	SM_PERCENT_HEIGHT		= 10;
+
+	if(iResolution == 0){
+		SM_ARMOR_X				= ( 245 + INTERFACE_START_X );
+		SM_ARMOR_Y				= ( 141 + INV_INTERFACE_START_Y );
+		SM_ARMOR_LABEL_X		= ( 260 + INTERFACE_START_X );
+		SM_ARMOR_LABEL_Y		= ( 131 + INV_INTERFACE_START_Y );
+		SM_ARMOR_PERCENT_X		= ( 265 + INTERFACE_START_X );
+		SM_ARMOR_PERCENT_Y		= ( 141 + INV_INTERFACE_START_Y );
+	}
+	else{
+		SM_ARMOR_X				= ( 264 + INTERFACE_START_X );
+		SM_ARMOR_Y				= ( 141 + INV_INTERFACE_START_Y );
+		SM_ARMOR_LABEL_X		= ( 279 + INTERFACE_START_X );
+		SM_ARMOR_LABEL_Y		= ( 131 + INV_INTERFACE_START_Y );
+		SM_ARMOR_PERCENT_X		= ( 284 + INTERFACE_START_X );
+		SM_ARMOR_PERCENT_Y		= ( 141 + INV_INTERFACE_START_Y );
+	}
+
+	SM_WEIGHT_LABEL_X		= ( 220 + INTERFACE_START_X );
+	SM_WEIGHT_LABEL_Y		= ( 34 + INV_INTERFACE_START_Y );
+	SM_WEIGHT_PERCENT_X		= ( 239 + INTERFACE_START_X );
+	SM_WEIGHT_PERCENT_Y		= ( 34 + INV_INTERFACE_START_Y );
+	SM_WEIGHT_X				= ( 218 + INTERFACE_START_X );
+	SM_WEIGHT_Y				= ( 33 + INV_INTERFACE_START_Y );
+
+	SM_CAMMO_LABEL_X		= ( 220 + INTERFACE_START_X );
+	SM_CAMMO_LABEL_Y		= ( 50 + INV_INTERFACE_START_Y );
+	SM_CAMMO_PERCENT_X		= ( 239 + INTERFACE_START_X );
+	SM_CAMMO_PERCENT_Y		= ( 49 + INV_INTERFACE_START_Y );
+	SM_CAMMO_X				= ( 218 + INTERFACE_START_X );
+	SM_CAMMO_Y				= ( 49 + INV_INTERFACE_START_Y );
+
+	SM_STATS_WIDTH			= 30;
+	SM_STATS_HEIGHT			= 8 ;
+	SM_AGI_X				= ( 101 + INTERFACE_START_X );
+	SM_AGI_Y				= ( 7 + INV_INTERFACE_START_Y );
+	SM_DEX_X				= ( 101 + INTERFACE_START_X );
+	SM_DEX_Y				= ( 17 + INV_INTERFACE_START_Y );
+	SM_STR_X				= ( 101 + INTERFACE_START_X );
+	SM_STR_Y				= ( 27 + INV_INTERFACE_START_Y );
+	SM_CHAR_X				= ( 101 + INTERFACE_START_X );
+	SM_CHAR_Y				= ( 37 + INV_INTERFACE_START_Y );
+	SM_WIS_X				= ( 101 + INTERFACE_START_X );
+	SM_WIS_Y				= ( 47 + INV_INTERFACE_START_Y );
+	SM_EXPLVL_X				= ( 150 + INTERFACE_START_X );
+	SM_EXPLVL_Y				= ( 7 + INV_INTERFACE_START_Y );
+	SM_MRKM_X				= ( 150 + INTERFACE_START_X );
+	SM_MRKM_Y				= ( 17 + INV_INTERFACE_START_Y );
+	SM_EXPL_X				= ( 150 + INTERFACE_START_X );
+	SM_EXPL_Y				= ( 27 + INV_INTERFACE_START_Y );
+	SM_MECH_X				= ( 150 + INTERFACE_START_X );
+	SM_MECH_Y				= ( 37 + INV_INTERFACE_START_Y );
+	SM_MED_X				= ( 150 + INTERFACE_START_X );
+	SM_MED_Y				= ( 47 + INV_INTERFACE_START_Y );
+
+	MONEY_X					= ( 185 + INTERFACE_START_X );
+	MONEY_Y					= ( 5 + INV_INTERFACE_START_Y );
+	MONEY_WIDTH				= 30;
+	MONEY_HEIGHT			= 22;
 	
 	// ow ye font color they can also be customizable :P
 	STATS_TITLE_FONT_COLOR	= 6;
 	STATS_TEXT_FONT_COLOR	= 5;
 
 	// ow and te clock and location i will put it here 
-	INTERFACE_CLOCK_X	=  	(SCREEN_WIDTH - 86);				//( 554	+ INTERFACE_START_X		);
-	INTERFACE_CLOCK_Y	= ( 119	+ INV_INTERFACE_START_Y );
-	LOCATION_NAME_X		=	(SCREEN_WIDTH - 92);				//( 548	+ INTERFACE_START_X		);
-	LOCATION_NAME_Y		= ( 65	+ INTERFACE_START_Y		);
+	INTERFACE_CLOCK_X	=  	(SCREEN_WIDTH - 86);
+	INTERFACE_CLOCK_Y	= ( 116	+ INV_INTERFACE_START_Y );
+	LOCATION_NAME_X		=	(SCREEN_WIDTH - 92);
+	LOCATION_NAME_Y		= ( 87	+ INTERFACE_START_Y		);
+
+	//Keyring
+	KEYRING_X			= 209;
+	KEYRING_Y			= (4 + INV_INTERFACE_START_Y);
 
 	// so we got everything "dynamic" now we just return TRUE
 	return ( TRUE );
 }
-BOOLEAN InitializeSMPanel(  )
-{
-  VOBJECT_DESC    VObjectDesc;
 
- /*  OK i need to initialize coords here
- *  Isnt it cool
- *  any questions? joker
+BOOLEAN InitializeSMPanel(	)
+{
+	VOBJECT_DESC	VObjectDesc;
+
+ /*	OK i need to initialize coords here
+ *	Isnt it cool
+ *	any questions? joker
  */
 //	InitializeSMPanelCoords( );
 
   fDisplayOverheadMap = TRUE;
-	
+
 	// failing the CHECKF after this will cause you to lose your mouse
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 
@@ -1437,7 +1996,7 @@ BOOLEAN InitializeSMPanel(  )
 	FilenameForBPP("INTERFACE\\Bars.sti", VObjectDesc.ImageFile);
 	CHECKF( AddVideoObject( &VObjectDesc, &guiBrownBackgroundForTeamPanel ) );
 
-	
+
 	// Clear inv display stuff
 	memset( gfSM_HandInvDispText, 0, sizeof( gfSM_HandInvDispText ) );
 
@@ -1453,13 +2012,13 @@ BOOLEAN InitializeSMPanel(  )
 	// Set viewports
 	// Define region for panel
 	MSYS_DefineRegion( &gSMPanelRegion, 0, INV_INTERFACE_START_Y ,SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_NORMAL,
-						 CURSOR_NORMAL, MSYS_NO_CALLBACK, InvPanelButtonClickCallback ); 
+						CURSOR_NORMAL, MSYS_NO_CALLBACK, InvPanelButtonClickCallback );
 	// Add region
 	MSYS_AddRegion( &gSMPanelRegion);
 
 	//DEfine region for selected guy panel
 	MSYS_DefineRegion( &gSM_SELMERCPanelRegion, SM_SELMERC_FACE_X, SM_SELMERC_FACE_Y, SM_SELMERC_FACE_X + SM_SELMERC_FACE_WIDTH, SM_SELMERC_FACE_Y + SM_SELMERC_FACE_HEIGHT, MSYS_PRIORITY_NORMAL,
-						 MSYS_NO_CURSOR, SelectedMercButtonMoveCallback, SelectedMercButtonCallback ); 
+						MSYS_NO_CURSOR, SelectedMercButtonMoveCallback, SelectedMercButtonCallback );
 	// Add region
 	MSYS_AddRegion( &gSM_SELMERCPanelRegion );
 
@@ -1467,14 +2026,14 @@ BOOLEAN InitializeSMPanel(  )
 
 	//DEfine region for selected guy panel
 	MSYS_DefineRegion( &gSM_SELMERCEnemyIndicatorRegion, SM_SELMERC_FACE_X + 1, SM_SELMERC_FACE_Y + 1, SM_SELMERC_FACE_X + INDICATOR_BOX_WIDTH, SM_SELMERC_FACE_Y + INDICATOR_BOX_HEIGHT, MSYS_PRIORITY_NORMAL,
-						 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, SelectedMercEnemyIndicatorCallback ); 
+						MSYS_NO_CURSOR, MSYS_NO_CALLBACK, SelectedMercEnemyIndicatorCallback );
 	// Add region
 	MSYS_AddRegion( &gSM_SELMERCEnemyIndicatorRegion );
 
 
 	//DEfine region for money button
 	MSYS_DefineRegion( &gSM_SELMERCMoneyRegion, MONEY_X, MONEY_Y, MONEY_X + MONEY_WIDTH, MONEY_Y + MONEY_HEIGHT, MSYS_PRIORITY_HIGH,
-						 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, SMInvMoneyButtonCallback ); 
+						MSYS_NO_CURSOR, MSYS_NO_CALLBACK, SMInvMoneyButtonCallback );
 	// Add region
 	MSYS_AddRegion( &gSM_SELMERCMoneyRegion );
 
@@ -1491,11 +2050,17 @@ BOOLEAN InitializeSMPanel(  )
 
 	//DEfine region for selected guy panel
 	// THIS IS A REGION OF BAR TIPS
-	MSYS_DefineRegion( &gSM_SELMERCBarsRegion, SM_SELMERC_BARS_TIP_X, SM_SELMERC_BARS_TIP_Y, 
+	MSYS_DefineRegion( &gSM_SELMERCBarsRegion, SM_SELMERC_BARS_TIP_X, SM_SELMERC_BARS_TIP_Y,
 					SM_SELMERC_BARS_TIP_X + SM_SELMERC_BARS_TIP_WIDTH, SM_SELMERC_BARS_TIP_Y + SM_SELMERC_BARS_TIP_HEIGHT, MSYS_PRIORITY_NORMAL,
-						 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, SelectedMercButtonCallback ); 
+						MSYS_NO_CURSOR, MSYS_NO_CALLBACK, SelectedMercButtonCallback );
 	MSYS_AddRegion( &gSM_SELMERCBarsRegion );
 
+
+	// CHRISL: Setup default coords
+	if((UsingNewInventorySystem() == true))
+		InitInventoryNew();
+	else
+		InitInventoryOld();
 	
 	InitInvSlotInterface( gSMInvPocketXY, &gSMCamoXY, SMInvMoveCallback, SMInvClickCallback, SMInvMoveCammoCallback, SMInvClickCamoCallback, FALSE );
 
@@ -1523,44 +2088,49 @@ BOOLEAN CreateSMPanelButtons( )
 {
 CHAR8 ubString[48];
 
-	giSMStealthImages = -1;
-	giSMStealthButton = -1;
+	// CHRISL: Reset backpack buttons as well
+	giSMStealthImages = giSMZipperImages = giSMDropPackImages = -1;
+	giSMStealthButton = giSMZipperButton = giSMDropPackButton = -1;
 	gfUIStanceDifferent = TRUE;
 	gfAllDisabled	= FALSE;
 
 	FilenameForBPP("INTERFACE\\inventory_buttons.sti", ubString);
 	// Load button Graphics
-	iSMPanelImages[ STANCEUP_IMAGES  ]			= LoadButtonImage(ubString,-1,0,-1,10,-1 );
+	iSMPanelImages[ STANCEUP_IMAGES	]			= LoadButtonImage(ubString,-1,0,-1,10,-1 );
 
-	iSMPanelImages[ UPDOWN_IMAGES  ]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ] ,-1,9,-1,19,-1 );
-	iSMPanelImages[ CLIMB_IMAGES  ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ] ,-1,3,-1,13,-1 );
-	iSMPanelImages[ STANCEDOWN_IMAGES  ]		= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ] ,-1,8,-1,18,-1 );
-	iSMPanelImages[ HANDCURSOR_IMAGES  ]		= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ] ,-1,1,-1,11,-1 );
-	iSMPanelImages[ PREVMERC_IMAGES  ]			= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ] ,-1,20,-1,22,-1 );
-	iSMPanelImages[ NEXTMERC_IMAGES  ]			= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ] ,-1,21,-1,23,-1 );
-	//iSMPanelImages[ BURSTMODE_IMAGES  ]			= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ] ,-1,7,-1,17,-1 );
-	iSMPanelImages[ LOOK_IMAGES  ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ] ,-1,2,-1,12,-1 );
-	iSMPanelImages[ TALK_IMAGES  ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ] ,-1,6,-1,16,-1 );
-	iSMPanelImages[ MUTE_IMAGES  ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ] ,-1,5,-1,15,-1 );
-	iSMPanelImages[ OPTIONS_IMAGES  ]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ] ,-1,24,-1,25,-1 );
+	iSMPanelImages[ UPDOWN_IMAGES	]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,9,-1,19,-1 );
+	iSMPanelImages[ CLIMB_IMAGES	]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,3,-1,13,-1 );
+	iSMPanelImages[ STANCEDOWN_IMAGES	]		= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,8,-1,18,-1 );
+	iSMPanelImages[ HANDCURSOR_IMAGES	]		= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,1,-1,11,-1 );
+	iSMPanelImages[ PREVMERC_IMAGES	]			= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,20,-1,22,-1 );
+	iSMPanelImages[ NEXTMERC_IMAGES	]			= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,21,-1,23,-1 );
+	//iSMPanelImages[ BURSTMODE_IMAGES	]			= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,7,-1,17,-1 );
+	iSMPanelImages[ LOOK_IMAGES	]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,2,-1,12,-1 );
+	iSMPanelImages[ TALK_IMAGES	]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,6,-1,16,-1 );
+	iSMPanelImages[ MUTE_IMAGES	]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,5,-1,15,-1 );
+	iSMPanelImages[ OPTIONS_IMAGES	]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	] ,-1,24,-1,25,-1 );
 
-	iBurstButtonImages[ WM_NORMAL ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ], -1, 7, -1, -1, -1 );
-	iBurstButtonImages[ WM_BURST ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ], -1, 17, -1, -1, -1 );
-	iBurstButtonImages[ WM_AUTOFIRE ]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ], -1, 17, -1, -1, -1 );
-	iBurstButtonImages[ WM_ATTACHED_GL ]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ], -1, 26, -1, -1, -1 );
-	iBurstButtonImages[ WM_ATTACHED_GL_BURST ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ], -1, 17, -1, -1, -1 );
-	iBurstButtonImages[ WM_ATTACHED_GL_AUTO ]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES  ], -1, 17, -1, -1, -1 );
-	
+	iBurstButtonImages[ WM_NORMAL ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 7, -1, -1, -1 );
+	iBurstButtonImages[ WM_BURST ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
+	iBurstButtonImages[ WM_AUTOFIRE ]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
+	iBurstButtonImages[ WM_ATTACHED_GL ]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 26, -1, -1, -1 );
+	iBurstButtonImages[ WM_ATTACHED_GL_BURST ]					= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
+	iBurstButtonImages[ WM_ATTACHED_GL_AUTO ]				= UseLoadedButtonImage( iSMPanelImages[ STANCEUP_IMAGES	], -1, 17, -1, -1, -1 );
+
 
 	FilenameForBPP("INTERFACE\\invadd-ons.sti", ubString);
 	// Load button Graphics
-	iSMPanelImages[ STANCE_IMAGES  ]				= LoadButtonImage(ubString,0,0,-1,2,-1 );
+	iSMPanelImages[ STANCE_IMAGES	]				= LoadButtonImage(ubString,0,0,-1,2,-1 );
 
 	FilenameForBPP("INTERFACE\\inventory_buttons_2.sti", ubString);
 	// Load button Graphics
-	iSMPanelImages[ DONE_IMAGES  ]					= LoadButtonImage(ubString,-1,1,-1,3,-1 );
-	iSMPanelImages[ MAPSCREEN_IMAGES  ]			= UseLoadedButtonImage( iSMPanelImages[ DONE_IMAGES  ] ,-1,0,-1,2,-1 );
+	iSMPanelImages[ DONE_IMAGES	]					= LoadButtonImage(ubString,-1,1,-1,3,-1 );
+	iSMPanelImages[ MAPSCREEN_IMAGES	]			= UseLoadedButtonImage( iSMPanelImages[ DONE_IMAGES	] ,-1,0,-1,2,-1 );
 
+
+	// CHRISL: Needed for new inventory backpack buttons
+	FilenameForBPP("INTERFACE\\backpack_buttons.sti", ubString);
+	iSMPanelImages[ BACKPACK_IMAGES  ]				= LoadButtonImage(ubString,0,0,-1,2,-1 );
 
 	// Create buttons
 
@@ -1574,11 +2144,11 @@ CHAR8 ubString[48];
 	SetBtnHelpEndCallback( iSMPanelButtons[ SM_MAP_SCREEN_BUTTON ], HelpTextDoneCallback );
 
 	iSMPanelButtons[ SM_DONE_BUTTON ] = CreateIconAndTextButton( iSMPanelImages[ DONE_IMAGES ], L"", FONT12ARIAL,
-													 FONT_MCOLOR_WHITE, DEFAULT_SHADOW ,
-													 FONT_MCOLOR_WHITE, DEFAULT_SHADOW ,
-													 TEXT_CJUSTIFIED, 
-													 SM_DONE_X, SM_DONE_Y, BUTTON_TOGGLE ,MSYS_PRIORITY_HIGH-1,
-													 DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnSMDoneCallback );
+													FONT_MCOLOR_WHITE, DEFAULT_SHADOW ,
+													FONT_MCOLOR_WHITE, DEFAULT_SHADOW ,
+													TEXT_CJUSTIFIED,
+													SM_DONE_X, SM_DONE_Y, BUTTON_TOGGLE ,MSYS_PRIORITY_HIGH-1,
+													DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnSMDoneCallback );
 	SetButtonFastHelpText( iSMPanelButtons[ SM_DONE_BUTTON ], TacticalStr[ END_TURN_POPUPTEXT ] );
 	SetBtnHelpEndCallback( iSMPanelButtons[ SM_DONE_BUTTON ], HelpTextDoneCallback );
 
@@ -1732,7 +2302,7 @@ CHAR8 ubString[48];
 	return( TRUE );
 }
 
-void    RemoveSMPanelButtons( )
+void	RemoveSMPanelButtons( )
 {
 	UINT32 cnt;
 
@@ -1746,7 +2316,10 @@ void    RemoveSMPanelButtons( )
 
 	for ( cnt = 0; cnt < NUM_SM_BUTTON_IMAGES; cnt++ )
 	{
-		UnloadButtonImage( iSMPanelImages[ cnt ] );
+		if(iSMPanelImages[ cnt ] != -1)
+		{
+			UnloadButtonImage( iSMPanelImages[ cnt ] );
+		}
 	}
 
 	if ( giSMStealthButton != -1 )
@@ -1754,10 +2327,13 @@ void    RemoveSMPanelButtons( )
 		RemoveButton( giSMStealthButton );
 	}
 
+	RenderBackpackButtons(1);	/* CHRISL: Needed for new inventory backpack buttons */
+
 	if ( giSMStealthImages != -1 )
 	{
 		UnloadButtonImage( giSMStealthImages );
 	}
+	RenderBackpackButtons(4);	/* CHRISL: Needed for new inventory backpack buttons */
 	
 	UnloadButtonImage( iBurstButtonImages[ WM_NORMAL ] );
 	UnloadButtonImage( iBurstButtonImages[ WM_BURST ] );
@@ -1798,7 +2374,7 @@ BOOLEAN ShutdownSMPanel( )
 
 	// shutdown keyring interface
 	ShutdownKeyRingInterface( );
-	
+
 	MSYS_RemoveRegion( &gSMPanelRegion );
 	MSYS_RemoveRegion( &gSM_SELMERCPanelRegion );
 	MSYS_RemoveRegion( &gSM_SELMERCBarsRegion );
@@ -1812,6 +2388,9 @@ BOOLEAN ShutdownSMPanel( )
 
 	RemoveSMPanelButtons( );
 
+	//CHRISL: Following line is to make sure that team panel buttons activate
+	DisableTacticalTeamPanelButtons( FALSE );
+
 	return( TRUE );
 }
 
@@ -1821,7 +2400,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 	INT16 sFontX, sFontY;
 	INT16	usX, usY;
 	CHAR16 sString[9];
-	UINT32	cnt = 0xff000000; // Give a value that ought to crash it if this is really undefined for the robot
+	UINT32	cnt;
 	static CHAR16 pStr[ 200 ], pMoraleStr[ 20 ];
 
 	if ( gubSelectSMPanelToMerc != NOBODY )
@@ -1838,7 +2417,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 	}
 
 	if ( gfCheckForMouseOverItem )
-	{	
+	{
 		if ( ( GetJA2Clock( ) - guiMouseOverItemTime ) > 100 )
 		{
 			if ( HandleCompatibleAmmoUI( gpSMCurrentMerc, (INT8)gbCheckForMouseOverItemPos, TRUE ) )
@@ -1866,7 +2445,8 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 
 		if ( InItemDescriptionBox( ) )
 		{
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiSMPanel, 0, INTERFACE_START_X, INV_INTERFACE_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+			// CHRISL: Changed 3rd parameter so we can display graphic based on inventory system used
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiSMPanel, UsingNewInventorySystem(), INTERFACE_START_X, INV_INTERFACE_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 			RenderSoldierFace( gpSMCurrentMerc, SM_SELMERC_FACE_X, SM_SELMERC_FACE_Y, TRUE );
 
 
@@ -1878,7 +2458,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 			}
 			else
 			{
-				if ( gusSelectedSoldier == gpSMCurrentMerc->ubID && gTacticalStatus.ubCurrentTeam == OUR_TEAM && OK_INTERRUPT_MERC(  gpSMCurrentMerc ) )
+				if ( gusSelectedSoldier == gpSMCurrentMerc->ubID && gTacticalStatus.ubCurrentTeam == OUR_TEAM && OK_INTERRUPT_MERC(	gpSMCurrentMerc ) )
 				{
 					BltVideoObjectFromIndex( guiSAVEBUFFER, guiSMObjects, 0, SM_SELMERC_PLATE_X, SM_SELMERC_PLATE_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 					RestoreExternBackgroundRect( SM_SELMERC_PLATE_X, SM_SELMERC_PLATE_Y, SM_SELMERC_PLATE_WIDTH , SM_SELMERC_PLATE_HEIGHT );
@@ -1889,10 +2469,10 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 		}
 		else
 		{
+			// CHRISL: Changed 3rd parameter so we can display graphic based on inventory system used
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiSMPanel, UsingNewInventorySystem(), INTERFACE_START_X, INV_INTERFACE_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiSMPanel, 0, INTERFACE_START_X, INV_INTERFACE_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
-
-			RenderInvBodyPanel( gpSMCurrentMerc, SM_BODYINV_X, SM_BODYINV_Y );		
+			RenderInvBodyPanel( gpSMCurrentMerc, SM_BODYINV_X, SM_BODYINV_Y );
 
 			// CHECK FOR PANEL STUFF / DEATHS / CLOSURES
 			CheckForFacePanelStartAnims( gpSMCurrentMerc, SM_SELMERC_FACE_X, SM_SELMERC_FACE_Y );
@@ -1906,7 +2486,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 			}
 			else
 			{
-				if ( gusSelectedSoldier == gpSMCurrentMerc->ubID && gTacticalStatus.ubCurrentTeam == OUR_TEAM && OK_INTERRUPT_MERC(  gpSMCurrentMerc ) )
+				if ( gusSelectedSoldier == gpSMCurrentMerc->ubID && gTacticalStatus.ubCurrentTeam == OUR_TEAM && OK_INTERRUPT_MERC(	gpSMCurrentMerc ) )
 				{
 					BltVideoObjectFromIndex( guiSAVEBUFFER, guiSMObjects, 0, SM_SELMERC_PLATE_X, SM_SELMERC_PLATE_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 					RestoreExternBackgroundRect( SM_SELMERC_PLATE_X, SM_SELMERC_PLATE_Y, SM_SELMERC_PLATE_WIDTH , SM_SELMERC_PLATE_HEIGHT );
@@ -1936,7 +2516,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 			SetFontForeground( STATS_TITLE_FONT_COLOR );
 			for( cnt = 0; cnt < 5; cnt++ )
 			{
-				mprintf( INTERFACE_START_X + 92, ( INT16 )( INV_INTERFACE_START_Y + 7 + cnt * 10 ), pShortAttributeStrings[ cnt  ] );
+				mprintf( INTERFACE_START_X + 92, ( INT16 )( INV_INTERFACE_START_Y + 7 + cnt * 10 ), pShortAttributeStrings[ cnt	] );
 				mprintf( INTERFACE_START_X + 137, ( INT16 )( INV_INTERFACE_START_Y + 7 + cnt * 10 ), pShortAttributeStrings[ cnt + 5 ] );
 			}
 
@@ -1945,71 +2525,71 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 
 			mprintf( SM_WEIGHT_LABEL_X - StringPixLength( pInvPanelTitleStrings[1], BLOCKFONT2 ), SM_WEIGHT_LABEL_Y, pInvPanelTitleStrings[ 1 ] );
 			mprintf( SM_WEIGHT_PERCENT_X, SM_WEIGHT_PERCENT_Y, L"%%" );
-			
+
 			mprintf( SM_CAMMO_LABEL_X - StringPixLength( pInvPanelTitleStrings[2], BLOCKFONT2 ), SM_CAMMO_LABEL_Y, pInvPanelTitleStrings[ 2 ] );
 			mprintf( SM_CAMMO_PERCENT_X, SM_CAMMO_PERCENT_Y, L"%%" );
 
-			UpdateStatColor( gpSMCurrentMerc-> uiChangeAgilityTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & AGIL_INCREASE? TRUE: FALSE ) );
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeAgilityTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & AGIL_INCREASE? TRUE: FALSE ) );
 
-			swprintf( sString, L"%2d", gpSMCurrentMerc->bAgility );
+			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bAgility );
 			FindFontRightCoordinates(SM_AGI_X, SM_AGI_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY , sString ); 
+			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc-> uiChangeDexterityTime,( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & DEX_INCREASE? TRUE: FALSE )  );
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeDexterityTime,( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & DEX_INCREASE? TRUE: FALSE )	);
 
-			swprintf( sString, L"%2d", gpSMCurrentMerc->bDexterity );
+			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bDexterity );
 			FindFontRightCoordinates(SM_DEX_X, SM_DEX_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY , sString ); 
+			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc-> uiChangeStrengthTime, ( BOOLEAN )( gpSMCurrentMerc->usValueGoneUp & STRENGTH_INCREASE?TRUE: FALSE ) );
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeStrengthTime, ( BOOLEAN )( gpSMCurrentMerc->usValueGoneUp & STRENGTH_INCREASE?TRUE: FALSE ) );
 
-			swprintf( sString, L"%2d", gpSMCurrentMerc->bStrength );
+			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bStrength );
 			FindFontRightCoordinates(SM_STR_X, SM_STR_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY , sString ); 
+			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc-> uiChangeLeadershipTime, ( BOOLEAN )( gpSMCurrentMerc->usValueGoneUp & LDR_INCREASE? TRUE: FALSE )  );
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeLeadershipTime, ( BOOLEAN )( gpSMCurrentMerc->usValueGoneUp & LDR_INCREASE? TRUE: FALSE )	);
 
-			swprintf( sString, L"%2d", gpSMCurrentMerc->bLeadership );
+			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bLeadership );
 			FindFontRightCoordinates(SM_CHAR_X, SM_CHAR_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY , sString ); 
+			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc-> uiChangeWisdomTime,( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & WIS_INCREASE? TRUE: FALSE )  );
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeWisdomTime,( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & WIS_INCREASE? TRUE: FALSE )	);
 
-			swprintf( sString, L"%2d", gpSMCurrentMerc->bWisdom );
+			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bWisdom );
 			FindFontRightCoordinates(SM_WIS_X, SM_WIS_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY , sString ); 
+			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc-> uiChangeLevelTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & LVL_INCREASE? TRUE: FALSE )  );
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeLevelTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & LVL_INCREASE? TRUE: FALSE )	);
 
-			swprintf( sString, L"%2d", gpSMCurrentMerc->bExpLevel );
+			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bExpLevel );
 			FindFontRightCoordinates(SM_EXPLVL_X, SM_EXPLVL_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY , sString ); 
+			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc-> uiChangeMarksmanshipTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & MRK_INCREASE? TRUE: FALSE )  );
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeMarksmanshipTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & MRK_INCREASE? TRUE: FALSE )	);
 
-			swprintf( sString, L"%2d", gpSMCurrentMerc->bMarksmanship );
+			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bMarksmanship );
 			FindFontRightCoordinates(SM_MRKM_X, SM_MRKM_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY , sString ); 
+			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc-> uiChangeExplosivesTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & EXP_INCREASE? TRUE: FALSE )  );
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeExplosivesTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & EXP_INCREASE? TRUE: FALSE )	);
 
-			swprintf( sString, L"%2d", gpSMCurrentMerc->bExplosive );
+			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bExplosive );
 			FindFontRightCoordinates(SM_EXPL_X, SM_EXPL_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY , sString ); 
+			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc-> uiChangeMechanicalTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & MECH_INCREASE ? TRUE: FALSE )  );
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeMechanicalTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & MECH_INCREASE ? TRUE: FALSE )	);
 
-			swprintf( sString, L"%2d", gpSMCurrentMerc->bMechanical );
+			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bMechanical );
 			FindFontRightCoordinates(SM_MECH_X, SM_MECH_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY , sString ); 
+			mprintf( usX, usY , sString );
 
-			UpdateStatColor( gpSMCurrentMerc-> uiChangeMedicalTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & MED_INCREASE? TRUE: FALSE )  );
+			UpdateStatColor( gpSMCurrentMerc->timeChanges.uiChangeMedicalTime, ( BOOLEAN ) ( gpSMCurrentMerc->usValueGoneUp & MED_INCREASE? TRUE: FALSE )	);
 
-			swprintf( sString, L"%2d", gpSMCurrentMerc->bMedical );
+			swprintf( sString, L"%2d", gpSMCurrentMerc->stats.bMedical );
 			FindFontRightCoordinates(SM_MED_X, SM_MED_Y ,SM_STATS_WIDTH ,SM_STATS_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY , sString ); 
+			mprintf( usX, usY , sString );
 
-			if ( gpSMCurrentMerc->bLife >= OKLIFE )
+			if ( gpSMCurrentMerc->stats.bLife >= OKLIFE )
 			{
 				SetFontBackground( FONT_MCOLOR_BLACK );
 				SetFontForeground( STATS_TEXT_FONT_COLOR );
@@ -2023,19 +2603,19 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 			// Display armour value!
 			swprintf( sString, L"%3d", ArmourPercent( gpSMCurrentMerc ) );
 			FindFontRightCoordinates(SM_ARMOR_X, SM_ARMOR_Y ,SM_PERCENT_WIDTH ,SM_PERCENT_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY , sString ); 
+			mprintf( usX, usY , sString );
 
 			// Display wieght value!
 			swprintf( sString, L"%3d", CalculateCarriedWeight( gpSMCurrentMerc ) );
 			FindFontRightCoordinates(SM_WEIGHT_X, SM_WEIGHT_Y ,SM_PERCENT_WIDTH ,SM_PERCENT_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY , sString ); 
+			mprintf( usX, usY , sString );
 
 			ApplyEquipmentBonuses(gpSMCurrentMerc);
 
 			// Display cammo value!
 			swprintf( sString, L"%3d", max(0, min( (gpSMCurrentMerc->bCamo + gpSMCurrentMerc->wornCamo+gpSMCurrentMerc->urbanCamo+gpSMCurrentMerc->wornUrbanCamo+gpSMCurrentMerc->desertCamo+gpSMCurrentMerc->wornDesertCamo+gpSMCurrentMerc->snowCamo+gpSMCurrentMerc->wornSnowCamo),100 )) );
 			FindFontRightCoordinates(SM_CAMMO_X, SM_CAMMO_Y ,SM_PERCENT_WIDTH ,SM_PERCENT_HEIGHT ,sString, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY , sString ); 
+			mprintf( usX, usY , sString );
 
 
 			// reset to frame buffer!
@@ -2054,7 +2634,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 		if ( gpSMCurrentMerc->bStealthMode )
 		{
 			SetFontBackground( FONT_MCOLOR_BLACK );
-			SetFontForeground( FONT_MCOLOR_LTYELLOW );								
+			SetFontForeground( FONT_MCOLOR_LTYELLOW );
 		}
 		else
 		{
@@ -2071,24 +2651,24 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 	if ( *pfDirty != DIRTYLEVEL0 )
 	{
 		// UPdate stats!
-		if ( gpSMCurrentMerc->bLife != 0 )
+		if ( gpSMCurrentMerc->stats.bLife != 0 )
 		{
-      if ( gpSMCurrentMerc->uiStatusFlags & SOLDIER_VEHICLE )
-      {
-			  swprintf( pStr, TacticalStr[ VEHICLE_VITAL_STATS_POPUPTEXT ], gpSMCurrentMerc->bLife, gpSMCurrentMerc->bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax );
-			  SetRegionFastHelpText( &(gSM_SELMERCBarsRegion), pStr );
-      }
-      else if ( gpSMCurrentMerc->uiStatusFlags & SOLDIER_ROBOT )
-      {
-			  swprintf( pStr, gzLateLocalizedString[ 16 ], gpSMCurrentMerc->bLife, gpSMCurrentMerc->bLifeMax );
-			  SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
-      }
-      else
-      {
-			  GetMoraleString( gpSMCurrentMerc, pMoraleStr );
-			  swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], gpSMCurrentMerc->bLife, gpSMCurrentMerc->bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax, pMoraleStr );
-			  SetRegionFastHelpText( &(gSM_SELMERCBarsRegion), pStr );
-      }
+		if ( gpSMCurrentMerc->flags.uiStatusFlags & SOLDIER_VEHICLE )
+		{
+			swprintf( pStr, TacticalStr[ VEHICLE_VITAL_STATS_POPUPTEXT ], gpSMCurrentMerc->stats.bLife, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax );
+			SetRegionFastHelpText( &(gSM_SELMERCBarsRegion), pStr );
+		}
+		else if ( gpSMCurrentMerc->flags.uiStatusFlags & SOLDIER_ROBOT )
+		{
+			swprintf( pStr, gzLateLocalizedString[ 16 ], gpSMCurrentMerc->stats.bLife, gpSMCurrentMerc->stats.bLifeMax );
+			SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
+		}
+		else
+		{
+			GetMoraleString( gpSMCurrentMerc, pMoraleStr );
+			swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], gpSMCurrentMerc->stats.bLife, gpSMCurrentMerc->stats.bLifeMax, gpSMCurrentMerc->bBreath, gpSMCurrentMerc->bBreathMax, pMoraleStr );
+			SetRegionFastHelpText( &(gSM_SELMERCBarsRegion), pStr );
+		}
 		}
 		else
 		{
@@ -2100,13 +2680,13 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 			SetRegionHelpEndCallback( &gSM_SELMERCBarsRegion, SkiHelpTextDoneCallBack );
 
 		// display AP
-		if ( !( gpSMCurrentMerc->uiStatusFlags & SOLDIER_DEAD ) )
+		if ( !( gpSMCurrentMerc->flags.uiStatusFlags & SOLDIER_DEAD ) )
 		{
-			if ( gTacticalStatus.uiFlags & TURNBASED && (gTacticalStatus.uiFlags & INCOMBAT ) && gpSMCurrentMerc->bLife >= OKLIFE )
+			if ( gTacticalStatus.uiFlags & TURNBASED && (gTacticalStatus.uiFlags & INCOMBAT ) && gpSMCurrentMerc->stats.bLife >= OKLIFE )
 			{
 				SetFont( TINYFONT1 );
-				//if ( gpSMCurrentMerc->sLastTarget != NOWHERE && !EnoughPoints( gpSMCurrentMerc, MinAPsToAttack( gpSMCurrentMerc, gpSMCurrentMerc->sLastTarget, FALSE ), 0, FALSE ) || GetUIApsToDisplay( gpSMCurrentMerc ) < 0 ) 
-				if ( !EnoughPoints( gpSMCurrentMerc, MinAPsToAttack( gpSMCurrentMerc, gpSMCurrentMerc->sLastTarget, FALSE ), 0, FALSE ) || GetUIApsToDisplay( gpSMCurrentMerc ) < 0 ) 
+				//if ( gpSMCurrentMerc->sLastTarget != NOWHERE && !EnoughPoints( gpSMCurrentMerc, MinAPsToAttack( gpSMCurrentMerc, gpSMCurrentMerc->sLastTarget, FALSE ), 0, FALSE ) || GetUIApsToDisplay( gpSMCurrentMerc ) < 0 )
+				if ( !EnoughPoints( gpSMCurrentMerc, MinAPsToAttack( gpSMCurrentMerc, gpSMCurrentMerc->sLastTarget, FALSE ), 0, FALSE ) || GetUIApsToDisplay( gpSMCurrentMerc ) < 0 )
 				{
 					SetFontBackground( FONT_MCOLOR_BLACK );
 					SetFontForeground( FONT_MCOLOR_DKRED );
@@ -2121,7 +2701,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 					else if ( gpSMCurrentMerc->bStealthMode )
 					{
 						SetFontBackground( FONT_MCOLOR_BLACK );
-						SetFontForeground( FONT_MCOLOR_LTYELLOW );								
+						SetFontForeground( FONT_MCOLOR_LTYELLOW );
 					}
 					else
 					{
@@ -2138,24 +2718,25 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 			// Display bars
 			DrawLifeUIBarEx( gpSMCurrentMerc, SM_SELMERC_HEALTH_X, SM_SELMERC_HEALTH_Y, SM_SELMERC_HEALTH_WIDTH, SM_SELMERC_HEALTH_HEIGHT, TRUE , FRAME_BUFFER );
 
-      if ( !(gpSMCurrentMerc->uiStatusFlags & SOLDIER_ROBOT ) )
-      {
-			  DrawBreathUIBarEx( gpSMCurrentMerc, SM_SELMERC_BREATH_X, SM_SELMERC_BREATH_Y, SM_SELMERC_HEALTH_WIDTH, SM_SELMERC_HEALTH_HEIGHT, TRUE, FRAME_BUFFER );
-			  DrawMoraleUIBarEx( gpSMCurrentMerc, SM_SELMERC_MORALE_X, SM_SELMERC_MORALE_Y, SM_SELMERC_MORALE_WIDTH, SM_SELMERC_MORALE_HEIGHT, TRUE, FRAME_BUFFER );
-      }
+		if ( !(gpSMCurrentMerc->flags.uiStatusFlags & SOLDIER_ROBOT ) )
+		{
+			DrawBreathUIBarEx( gpSMCurrentMerc, SM_SELMERC_BREATH_X, SM_SELMERC_BREATH_Y, SM_SELMERC_HEALTH_WIDTH, SM_SELMERC_HEALTH_HEIGHT, TRUE, FRAME_BUFFER );
+			DrawMoraleUIBarEx( gpSMCurrentMerc, SM_SELMERC_MORALE_X, SM_SELMERC_MORALE_Y, SM_SELMERC_MORALE_WIDTH, SM_SELMERC_MORALE_HEIGHT, TRUE, FRAME_BUFFER );
+		}
 		}
 
 	}
 
-/*  I added this
- *  any questions? joker
+/*	I added this
+ *	any questions? joker
  */
 	if( fRenderRadarScreen == TRUE )
 	{
 		// Render clock
 		RenderClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
 		CreateMouseRegionForPauseOfClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
-		RenderTownIDString( );
+		// CHRISL: Change function call to include X,Y coordinates.
+		RenderTownIDString( LOCATION_NAME_X, LOCATION_NAME_Y );
 	}
 	else
 	{
@@ -2164,7 +2745,7 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 
 	UpdateSMPanel( );
 
-  
+
 	//HandlePanelFaceAnimations( gpSMCurrentMerc );
 
 	HandleSoldierFaceFlash( gpSMCurrentMerc, SM_SELMERC_FACE_X, SM_SELMERC_FACE_Y );
@@ -2174,12 +2755,15 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 
 	if ( gfSMDisableForItems && (*pfDirty) != DIRTYLEVEL0 )
 	{
-		UINT8	 *pDestBuf;
+		UINT8	*pDestBuf;
 		UINT32 uiDestPitchBYTES;
 		SGPRect ClipRect;
 
-		ClipRect.iLeft	 = 87;
-		ClipRect.iRight  = 536;
+		// CHRISL: Change hatching area based on inventory system
+		ClipRect.iLeft = ((UsingNewInventorySystem() == true)) ? 0 : 87;
+		ClipRect.iRight = ((UsingNewInventorySystem() == true)) ? SCREEN_WIDTH : 536;
+		//ClipRect.iLeft	 = 87;
+		//ClipRect.iRight  = 536;
 		ClipRect.iTop		= INV_INTERFACE_START_Y;
 		ClipRect.iBottom = SCREEN_HEIGHT;
 		pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
@@ -2191,9 +2775,9 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 
 void UpdateStatColor( UINT32 uiTimer, BOOLEAN fIncrease )
 {
-	if ( gpSMCurrentMerc->bLife >= OKLIFE )
+	if ( gpSMCurrentMerc->stats.bLife >= OKLIFE )
 	{
-		if( ( GetJA2Clock()  < CHANGE_STAT_RECENTLY_DURATION + uiTimer) && ( uiTimer != 0 ) )
+		if( ( GetJA2Clock()	< CHANGE_STAT_RECENTLY_DURATION + uiTimer) && ( uiTimer != 0 ) )
 		{
 			if( fIncrease )
 			{
@@ -2230,7 +2814,7 @@ void SMInvMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		return;
 	}
 
-	if ( gpSMCurrentMerc->inv[ uiHandPos ].usItem == NOTHING )
+	if ( gpSMCurrentMerc->inv[ uiHandPos ].exists() == false )
 		return;
 
 	if (iReason == MSYS_CALLBACK_REASON_MOVE)
@@ -2255,7 +2839,7 @@ void SMInvMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			gfCheckForMouseOverItem = FALSE;
 			fInterfacePanelDirty		= DIRTYLEVEL2;
 		}
-	}	
+	}
 }
 
 void InvPanelButtonClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
@@ -2293,15 +2877,15 @@ void SMInvMoveCammoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		//gfSM_HandInvDispText[ uiHandPos ] = 1;
 		HandleCompatibleAmmoUI( gpSMCurrentMerc, (INT8)NO_SLOT, FALSE );
 		gfCheckForMouseOverItem = FALSE;
-	}	
+	}
 }
 
 
 void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	//UINT16 usNewItemIndex;
-	UINT8	 ubSrcID, ubDestID;
-  BOOLEAN fGoodAPs;
+	UINT8	ubSrcID, ubDestID;
+	BOOLEAN fGoodAPs;
 
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
@@ -2316,13 +2900,13 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		if ( gpItemPointer != NULL )
 		{
 			// ATE: OK, get source, dest guy if different... check for and then charge appropriate APs
-			ubSrcID  = gpSMCurrentMerc->ubID;
+			ubSrcID	= gpSMCurrentMerc->ubID;
 			ubDestID = gpItemPointerSoldier->ubID;
 
 			//if ( ubSrcID == ubDestID )
 			{
 				// We are doing this ourselve, continue
-				if ( gpSMCurrentMerc->bLife >= CONSCIOUSNESS )
+				if ( gpSMCurrentMerc->stats.bLife >= CONSCIOUSNESS )
 				{
 					//usNewItemIndex = gpItemPointer->usItem;
 
@@ -2331,60 +2915,60 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					{
 						if ( fGoodAPs )
 						{
-						  // Dirty 
-						  fInterfacePanelDirty = DIRTYLEVEL2;
-
-						  // Check if it's the same now!
-						  if ( gpItemPointer->ubNumberOfObjects == 0 )
-						  {
-							  gbCompatibleApplyItem = FALSE;
-							  EndItemPointer( );
-						  }
-
-						  // Say OK acknowledge....
-						  DoMercBattleSound( gpSMCurrentMerc, BATTLE_SOUND_COOL1 );
-            }
-					}
-					else if ( ApplyCanteen( gpSMCurrentMerc, gpItemPointer, &fGoodAPs ) )
-					{
-						// Dirty 
-            if ( fGoodAPs )
-            {
-						  fInterfacePanelDirty = DIRTYLEVEL2;
-
-						  // Check if it's the same now!
-						  if ( gpItemPointer->ubNumberOfObjects == 0 )
-						  {
-							  gbCompatibleApplyItem = FALSE;
-							  EndItemPointer( );
-						  }
-            }
-					}
-					else if ( ApplyElixir( gpSMCurrentMerc, gpItemPointer, &fGoodAPs ) )
-					{
-            if ( fGoodAPs )
-            {
-  						// Dirty 
-						  fInterfacePanelDirty = DIRTYLEVEL2;
-
-						  // Check if it's the same now!
-						  if ( gpItemPointer->ubNumberOfObjects == 0 )
-						  {
-							  gbCompatibleApplyItem = FALSE;
-							  EndItemPointer( );
-						  }
-
-						  // Say OK acknowledge....
-   					  DoMercBattleSound( gpSMCurrentMerc, BATTLE_SOUND_COOL1 );
-            }
-					}
-					else if ( ApplyDrugs( gpSMCurrentMerc, gpItemPointer ) )
-					{
-						// Dirty 
+						// Dirty
 						fInterfacePanelDirty = DIRTYLEVEL2;
 
 						// Check if it's the same now!
-						if ( gpItemPointer->ubNumberOfObjects == 0 )
+						if ( gpItemPointer->exists() == false )
+						{
+							gbCompatibleApplyItem = FALSE;
+							EndItemPointer( );
+						}
+
+						// Say OK acknowledge....
+						gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+			}
+					}
+					else if ( ApplyCanteen( gpSMCurrentMerc, gpItemPointer, &fGoodAPs ) )
+					{
+						// Dirty
+			if ( fGoodAPs )
+			{
+						fInterfacePanelDirty = DIRTYLEVEL2;
+
+						// Check if it's the same now!
+						if ( gpItemPointer->exists() == false )
+						{
+							gbCompatibleApplyItem = FALSE;
+							EndItemPointer( );
+						}
+			}
+					}
+					else if ( ApplyElixir( gpSMCurrentMerc, gpItemPointer, &fGoodAPs ) )
+					{
+			if ( fGoodAPs )
+			{
+							// Dirty
+						fInterfacePanelDirty = DIRTYLEVEL2;
+
+						// Check if it's the same now!
+						if ( gpItemPointer->exists() == false )
+						{
+							gbCompatibleApplyItem = FALSE;
+							EndItemPointer( );
+						}
+
+						// Say OK acknowledge....
+						gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
+			}
+					}
+					else if ( ApplyDrugs( gpSMCurrentMerc, gpItemPointer ) )
+					{
+						// Dirty
+						fInterfacePanelDirty = DIRTYLEVEL2;
+
+						// Check if it's the same now!
+						if ( gpItemPointer->exists() == false )
 						{
 							gbCompatibleApplyItem = FALSE;
 							EndItemPointer( );
@@ -2402,7 +2986,7 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 
 						// Say OK acknowledge....
-						DoMercBattleSound( gpSMCurrentMerc, BATTLE_SOUND_COOL1 );
+						gpSMCurrentMerc->DoMercBattleSound( BATTLE_SOUND_COOL1 );
 
 					}
 					else
@@ -2411,7 +2995,7 @@ void SMInvClickCamoCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ CANNOT_DO_INV_STUFF_STR ] );
 					}
 				}
-			} 
+			}
 		}
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_DWN)
@@ -2440,15 +3024,15 @@ BOOLEAN HandleNailsVestFetish( SOLDIERTYPE *pSoldier, UINT32 uiHandPos, UINT16 u
 			{
 				// Do we have nothing or the leather vest or kevlar leather vest?
 				if ( Item[usReplaceItem].leatherjacket ||
-						 usReplaceItem == COMPOUND18 ||
-						 usReplaceItem == JAR_QUEEN_CREATURE_BLOOD )
+						usReplaceItem == COMPOUND18 ||
+						usReplaceItem == JAR_QUEEN_CREATURE_BLOOD )
 				{
 					// This is good....
 					fRefuse = FALSE;
 				}
 				else
 				{
-					fRefuse = TRUE;			
+					fRefuse = TRUE;
 				}
 			}
 
@@ -2469,43 +3053,43 @@ BOOLEAN UIHandleItemPlacement( UINT8 ubHandPos, UINT16 usOldItemIndex, UINT16 us
 	if ( _KeyDown(CTRL) )
 	{
 		CleanUpStack( &( gpSMCurrentMerc->inv[ ubHandPos ] ), gpItemPointer );
-		if ( gpItemPointer->ubNumberOfObjects == 0 )
+		if ( gpItemPointer->exists() == false )
 		{
 			EndItemPointer( );
 		}
 		return( TRUE );
 	}
 
-	// Try to place here			
+	// Try to place here
 	if ( PlaceObject( gpSMCurrentMerc, ubHandPos, gpItemPointer ) )
 	{
 		if ( fDeductPoints )
 		{
 			// Deduct points
-			if ( gpItemPointerSoldier->bLife >= CONSCIOUSNESS )
+			if ( gpItemPointerSoldier->stats.bLife >= CONSCIOUSNESS )
 			{
-				DeductPoints( gpItemPointerSoldier,  2, 0 );
+				DeductPoints( gpItemPointerSoldier,	2, 0 );
 			}
-			if ( gpSMCurrentMerc->bLife >= CONSCIOUSNESS )
+			if ( gpSMCurrentMerc->stats.bLife >= CONSCIOUSNESS )
 			{
-				DeductPoints( gpSMCurrentMerc,  2, 0 );
+				DeductPoints( gpSMCurrentMerc,	2, 0 );
 			}
 		}
 
 		HandleTacticalEffectsOfEquipmentChange( gpSMCurrentMerc, ubHandPos, usOldItemIndex, usNewItemIndex );
 
-		// Dirty 
+		// Dirty
 		fInterfacePanelDirty = DIRTYLEVEL2;
 
 		// Check if cursor is empty now
-		if ( gpItemPointer->ubNumberOfObjects == 0 )
+		if ( gpItemPointer->exists() == false )
 		{
 			EndItemPointer( );
 		}
 
 		if ( gpItemPointerSoldier != gpSMCurrentMerc )
 		{
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_ITEM_PASSED_TO_MERC ], ShortItemNames[ usNewItemIndex ], gpSMCurrentMerc->name );		
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_ITEM_PASSED_TO_MERC ], ShortItemNames[ usNewItemIndex ], gpSMCurrentMerc->name );
 		}
 
 		// UPDATE ITEM POINTER.....
@@ -2517,7 +3101,7 @@ BOOLEAN UIHandleItemPlacement( UINT8 ubHandPos, UINT16 usOldItemIndex, UINT16 us
 		}
 
 		// Set cursor back to normal mode...
-		guiPendingOverrideEvent = A_CHANGE_TO_MOVE;	
+		guiPendingOverrideEvent = A_CHANGE_TO_MOVE;
 
 		return( TRUE );
 
@@ -2526,7 +3110,7 @@ BOOLEAN UIHandleItemPlacement( UINT8 ubHandPos, UINT16 usOldItemIndex, UINT16 us
 	{
 		return( FALSE );
 	}
-	
+
 }
 
 void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
@@ -2570,6 +3154,10 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	//	fLeftDown = TRUE;
 	//}
 	//else if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP && fLeftDown )
+	// CHRISL: Are we in combat, wearing a backpack with the zipper closed?  Don't allow access to backpack items
+	if((UsingNewInventorySystem() == true))
+		if(icLBE[uiHandPos] == BPACKPOCKPOS && (!(gpSMCurrentMerc->flags.ZipperFlag) || (gpSMCurrentMerc->flags.ZipperFlag && gAnimControl[gpSMCurrentMerc->usAnimState].ubEndHeight == ANIM_STAND)) && (gTacticalStatus.uiFlags & INCOMBAT) && (iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN ))
+			iReason = MSYS_CALLBACK_REASON_NONE;
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 		fLeftDown = FALSE;
@@ -2579,7 +3167,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		{
 
 			// Return if empty
-			if ( gpSMCurrentMerc->inv[ uiHandPos ].usItem == NOTHING )
+			if ( gpSMCurrentMerc->inv[ uiHandPos ].exists() == false )
 				return;
 
 			if ( gpSMCurrentMerc->ubID != gusSelectedSoldier )
@@ -2599,8 +3187,31 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				return;
 			}
 			
+			if((UsingNewInventorySystem() == true))
+			{
+				/*if we pick up a backpack without reactivating the drop pack button, and we have a
+				dropkey, reactivate the button*/
+				if(uiHandPos == BPACKPOCKPOS)
+				{
+					// Deal with the zipper before we do anything
+					if(gpSMCurrentMerc->flags.ZipperFlag)
+						if(!ChangeZipperStatus(gpSMCurrentMerc, FALSE))
+							return;
+					// Do we still have a linked backpack?  If so, reset droppackflag
+					for(unsigned int wi = 0; wi < guiNumWorldItems; wi++)
+					{
+						if(gWorldItems[wi].soldierID == gpSMCurrentMerc->ubID && gWorldItems[wi].object.exists() == true)
+						{
+							gpSMCurrentMerc->flags.DropPackFlag = TRUE;
+							break;
+						}
+					}
+					RenderBackpackButtons(0);	/* CHRISL: Needed for new inventory backpack buttons */
+				}
+			}
+
 			// Turn off new item glow!
-			gpSMCurrentMerc->bNewItemCount[ uiHandPos ] = 0;
+			gpSMCurrentMerc->inv.bNewItemCount[ uiHandPos ] = 0;
 
 			usOldItemIndex = gpSMCurrentMerc->inv[ uiHandPos ].usItem;
 
@@ -2625,21 +3236,21 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			BOOLEAN		fDeductPoints = FALSE;
 
 			// ATE: OK, get source, dest guy if different... check for and then charge appropriate APs
-			ubSrcID  = gpSMCurrentMerc->ubID;
+			ubSrcID	= gpSMCurrentMerc->ubID;
 			ubDestID = gpItemPointerSoldier->ubID;
 
 			if ( ubSrcID == ubDestID )
 			{
 				// We are doing this ourselve, continue
 				fOKToGo = TRUE;
-			} 
+			}
 			else
 			{
 				// These guys are different....
 				fDeductPoints = TRUE;
 
 				// First check points for src guy
-				if ( gpItemPointerSoldier->bLife >= CONSCIOUSNESS )
+				if ( gpItemPointerSoldier->stats.bLife >= CONSCIOUSNESS )
 				{
 					if ( EnoughPoints( gpItemPointerSoldier, 3, 0, TRUE ) )
 					{
@@ -2654,7 +3265,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				// Should we go on?
 				if ( fOKToGo )
 				{
-					if ( gpSMCurrentMerc->bLife >= CONSCIOUSNESS )
+					if ( gpSMCurrentMerc->stats.bLife >= CONSCIOUSNESS )
 					{
 						if ( EnoughPoints( gpSMCurrentMerc, 3, 0, TRUE ) )
 						{
@@ -2687,7 +3298,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						// it's an attempt to attach; bring up the inventory panel
 						if ( !InItemDescriptionBox( ) )
 						{
-							InitItemDescriptionBox( gpSMCurrentMerc, (UINT8)uiHandPos, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, 0 );
+							InitItemDescriptionBox( gpSMCurrentMerc, (UINT8)uiHandPos, ITEMDESC_START_X, ITEMDESC_START_Y, 0 );
 						}
 						return;
 					}
@@ -2701,7 +3312,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 						if( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE )
 						{
-							//the only way to merge items is to pick them up.  In SKI when you pick up an item, the cursor is
+							//the only way to merge items is to pick them up.	In SKI when you pick up an item, the cursor is
 							//locked in a region, free it up.
 							FreeMouseCursor();
 
@@ -2715,6 +3326,28 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				}
 
 
+				/* CHRISL: For New Inventory system.  Are we swapping LBE Items?  We'll need to move any
+				items in the associated IC group pockets into a new LBENODE.  We'll have to check
+				whether we already have an LBENODE for this type of LBE item and, if so, remove
+				the items from it, place them in the LBE Items current sector, and delete the existing
+				LBENODE.  Then we need to know if the LBE Item in the cursor is an LBENODE
+				or just a normal OBJECTTYPE.  If it's an LBENODE, we need to move it's items into
+				the appropriate pockets for the soldier and then delete the LBENODE.*/
+				if((UsingNewInventorySystem() == true))
+				{
+					//If we put a new pack in the backpack pocket, turn off the droppack button
+					if(uiHandPos == BPACKPOCKPOS && CanItemFitInPosition(gpSMCurrentMerc, gpItemPointer, uiHandPos, FALSE))
+					{
+						// First, deal with the zipper
+						if(gpSMCurrentMerc->flags.ZipperFlag)
+							if(!ChangeZipperStatus(gpSMCurrentMerc, FALSE))
+								return;
+						if(gpSMCurrentMerc->flags.DropPackFlag)
+							gpSMCurrentMerc->flags.DropPackFlag = FALSE;
+						RenderBackpackButtons(0);	/* CHRISL: Needed for new inventory backpack buttons */
+					}
+				}
+
 				// remember the item type currently in the item pointer
 				usItemPrevInItemPointer = gpItemPointer->usItem;
 
@@ -2727,7 +3360,8 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				// try to place the item in the cursor into this inventory slot
 				if ( UIHandleItemPlacement( (UINT8) uiHandPos, usOldItemIndex, usNewItemIndex, fDeductPoints ) )
 				{
-					// it worked!  if we're in the SKI...
+					RenderBackpackButtons(0);	/* CHRISL: Needed for new inventory backpack buttons */
+					// it worked!	if we're in the SKI...
 					if( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE )
 					{
 						SetNewItem( gpSMCurrentMerc, ( UINT8 ) uiHandPos, fNewItem );
@@ -2736,7 +3370,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						if( gpItemPointer == NULL )
 						{
 							// clean up
-							memset( &gMoveingItem, 0, sizeof( INVENTORY_IN_SLOT ) );
+							gMoveingItem.initialize();
 							SetSkiCursor( CURSOR_NORMAL );
 						}
 						else
@@ -2762,30 +3396,30 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				}
 
 				/*
-				// Try to place here			
+				// Try to place here
 				if ( PlaceObject( gpSMCurrentMerc, (UINT8)uiHandPos, gpItemPointer ) )
 				{
-				
+
 					if ( fDeductPoints )
 					{
 						// Deduct points
-						if ( gpItemPointerSoldier->bLife >= CONSCIOUSNESS )
+						if ( gpItemPointerSoldier->stats.bLife >= CONSCIOUSNESS )
 						{
-							DeductPoints( gpItemPointerSoldier,  2, 0 );
+							DeductPoints( gpItemPointerSoldier,	2, 0 );
 						}
-						if ( gpSMCurrentMerc->bLife >= CONSCIOUSNESS )
+						if ( gpSMCurrentMerc->stats.bLife >= CONSCIOUSNESS )
 						{
-							DeductPoints( gpSMCurrentMerc,  2, 0 );
+							DeductPoints( gpSMCurrentMerc,	2, 0 );
 						}
 					}
 
 					HandleTacticalEffectsOfEquipmentChange( gpSMCurrentMerc, uiHandPos, usOldItemIndex, usNewItemIndex );
 
-					// Dirty 
+					// Dirty
 					fInterfacePanelDirty = DIRTYLEVEL2;
 
 					// Check if it's the same now!
-					if ( gpItemPointer->ubNumberOfObjects == 0 )
+					if ( gpItemPointer->exists() == false )
 					{
 						EndItemPointer( );
 					}
@@ -2809,7 +3443,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		fRightDown = FALSE;
 
 		// Return if empty
-		if ( gpSMCurrentMerc->inv[ uiHandPos ].usItem == NOTHING )
+		if ( gpSMCurrentMerc->inv[ uiHandPos ].exists() == false )
 			return;
 
 		// CJC: OK, get source, dest guy if different, don't allow panels to be brought up
@@ -2821,17 +3455,27 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		*/
 
 		// Turn off new item glow!
-		gpSMCurrentMerc->bNewItemCount[ uiHandPos ] = 0;
+		gpSMCurrentMerc->inv.bNewItemCount[ uiHandPos ] = 0;
 
 		// Some global stuff here - for esc, etc
 		// Check for # of slots in item
-		if( ( gpSMCurrentMerc->inv[ uiHandPos ].ubNumberOfObjects > 1 && ItemSlotLimit( gpSMCurrentMerc->inv[ uiHandPos ].usItem, (UINT8)uiHandPos ) > 0 ) && ( guiCurrentScreen != MAP_SCREEN ) )
+		// CHRISL: Use new ItemSlotLimit function if we're using the new inventory system
+		UINT8 isLimit = ItemSlotLimit( &gpSMCurrentMerc->inv[ uiHandPos ], uiHandPos, gpSMCurrentMerc );
+		if( ( gpSMCurrentMerc->inv[ uiHandPos ].ubNumberOfObjects > 1 && isLimit > 0 ) && ( guiCurrentScreen != MAP_SCREEN ) )
 		{
-			if ( !InItemStackPopup( )  )
+			if ( !InItemStackPopup( )	)
 			{
+				//CHRISL: Set popup width based on pocket size
+				INT16	invWidth;
+				if(uiHandPos >= (UINT32)BIGPOCKSTART && uiHandPos < (UINT32)BIGPOCKFINAL)
+					invWidth = 531;
+				else if(uiHandPos >= (UINT32)MEDPOCKSTART && uiHandPos < (UINT32)MEDPOCKFINAL)
+					invWidth = 412;
+				else
+					invWidth = 314;
 
 				//InitItemStackPopup( gpSMCurrentMerc, (UINT8)uiHandPos, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, SM_ITEMDESC_WIDTH, SM_ITEMDESC_HEIGHT );
-				InitItemStackPopup( gpSMCurrentMerc, (UINT8)uiHandPos, 216, INV_INTERFACE_START_Y, 314, ( SCREEN_HEIGHT - INV_INTERFACE_START_Y ) );
+				InitItemStackPopup( gpSMCurrentMerc, (UINT8)uiHandPos, 216, INV_INTERFACE_START_Y, invWidth, ( SCREEN_HEIGHT - INV_INTERFACE_START_Y ) );
 
 			}
 		}
@@ -2839,7 +3483,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		{
 			if ( !InItemDescriptionBox( ) )
 			{
-				InitItemDescriptionBox( gpSMCurrentMerc, (UINT8)uiHandPos, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, 0 );
+				InitItemDescriptionBox( gpSMCurrentMerc, (UINT8)uiHandPos, ITEMDESC_START_X, ITEMDESC_START_Y, 0 );
 			}
 		}
 	}
@@ -2850,17 +3494,182 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	}
 
 }
+// CHRISL: Function to adjust zipper backpack button status
+BOOLEAN  ChangeZipperStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus)
+{
+	INT16	sAPCost;
+	INT32	iBPCost = 0;
+	INT8	bNewStance;
+
+	//Set AP cost based on what we're doing
+	sAPCost = (newStatus) ? 7 : 6;
+	//Are we currently in combat?
+	if(gTacticalStatus.uiFlags & INCOMBAT)
+	{
+		// If we have fewer base points then the default cost to unzip a pack, use all remaining points instead
+		if(pSoldier->bInitialActionPoints < sAPCost)
+			sAPCost = pSoldier->bInitialActionPoints;
+		if(EnoughPoints(pSoldier, sAPCost, iBPCost, TRUE))
+			DeductPoints(pSoldier, sAPCost, iBPCost);
+		else
+			return FALSE;
+	}
+
+	//Opening a pack?
+	if(newStatus)
+	{
+		// Are we standing?
+		bNewStance = gAnimControl[ pSoldier->usAnimState ].ubEndHeight;
+		if(bNewStance == ANIM_STAND)
+		{
+			bNewStance = ANIM_CROUCH;
+			UIHandleSoldierStanceChange( pSoldier->ubID, bNewStance );
+		}
+		pSoldier->flags.ZipperFlag = newStatus;
+		gfUIStanceDifferent = TRUE;
+	}
+	// Closing a pack?
+	else
+	{
+		pSoldier->flags.ZipperFlag = newStatus;
+		gfUIStanceDifferent = TRUE;
+	}
+	fCharacterInfoPanelDirty = TRUE;
+	fInterfacePanelDirty = DIRTYLEVEL2;
+
+	return TRUE;
+}
+
+// CHRISL: Function to adjust droppack packpack button status
+BOOLEAN ChangeDropPackStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus)
+{
+	INT16	sAPCost = 3;
+	INT32	iBPCost = 0;
+	INT32	worldKey=1;
+
+	// Are we dropping a pack that has the zipper open?
+	if(newStatus && pSoldier->flags.ZipperFlag)
+	{
+		sAPCost = 0;
+		if(!ChangeZipperStatus(pSoldier, FALSE))
+			return FALSE;
+	}
+	
+	// Are we currently in combat?
+	if(gTacticalStatus.uiFlags & INCOMBAT)
+	{
+		// If we're standing over the backpack that we're trying to pick up, reset the ap cost to 0
+		if(!newStatus) {
+			for(unsigned int wi = 0; wi < guiNumWorldItems; wi++)
+			{
+				if(gWorldItems[wi].soldierID == pSoldier->ubID && gWorldItems[wi].object.exists() == true)
+				{
+					for (unsigned int x = 0; x < gWorldItems[wi].object.ubNumberOfObjects; ++x) {
+						// Failsafe in case our LBEArray data ever goes missing.
+						if(x >= LBEArray.size()){
+							break;
+						}
+						if(gWorldItems[wi].object.IsActiveLBE(x)) {
+							if(gWorldItems[wi].object.GetLBEPointer(x)->lbeIndex != NONE) {
+								if(gWorldItems[wi].sGridNo == pSoldier->sGridNo)
+								{
+									sAPCost = 0;
+									break;
+								}
+								// If not, we can't pick up the item
+								else
+								{
+									ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_CAN_NOT_PICKUP] );
+									return FALSE;
+								}
+							}
+						}
+					}
+					break;
+				}
+			}
+		}
+		// Do we have enough APs to complete this action?
+		if(EnoughPoints(pSoldier, sAPCost, iBPCost, TRUE))
+			DeductPoints(pSoldier, sAPCost, iBPCost);
+		else
+			return FALSE;
+	}
+
+	// Dropping a pack?
+	if(newStatus)
+	{
+		// We need to clear any existing WorldItems that are linked with this soldier
+		for(unsigned int wi = 0; wi < guiNumWorldItems; wi++)
+		{
+			if(gWorldItems[wi].soldierID == pSoldier->ubID)
+			{
+				gWorldItems[wi].soldierID = -1;
+			}
+		}
+		MoveItemToLBEItem( pSoldier, BPACKPOCKPOS );
+		AddItemToPoolAndGetIndex(pSoldier->sGridNo, &pSoldier->inv[BPACKPOCKPOS], 1, pSoldier->pathing.bLevel, 0 , -1, pSoldier->ubID, &worldKey );
+		// Item successfully added to world
+		if(worldKey != ITEM_NOT_FOUND)
+		{
+			NotifySoldiersToLookforItems( );
+			DeleteObj(&pSoldier->inv[BPACKPOCKPOS]);
+			pSoldier->flags.DropPackFlag = newStatus;
+			gfUIStanceDifferent = TRUE;
+		}
+	}
+	// Picking up a pack?
+	else
+	{
+		for(unsigned int wi = 0; wi < guiNumWorldItems; wi++)
+		{
+			if(gWorldItems[wi].soldierID == pSoldier->ubID && gWorldItems[wi].object.exists() == true && LoadBearingEquipment[Item[gWorldItems[wi].object.usItem].ubClassIndex].lbeClass == BACKPACK)
+			{
+				for (int x = 0; x < gWorldItems[wi].object.ubNumberOfObjects; ++x) {
+					// Is the item we dropped in this sector and does it have an active LBENODE flag?
+					//if(gWorldItems[wi].object.IsActiveLBE(x)) {
+						// Is the LBENODE we're trying to pick up actually in use?
+						//if(gWorldItems[wi].object.GetLBEPointer(x)->lbeIndex != NONE)
+						{
+							// Try to pickup the LBENODE
+							if(AutoPlaceObject(pSoldier, &(gWorldItems[wi].object ), TRUE ))
+							{
+								RemoveItemFromPool(gWorldItems[wi].sGridNo, wi, gWorldItems[wi].ubLevel);
+								pSoldier->flags.DropPackFlag = newStatus;
+								gfUIStanceDifferent = TRUE;
+								return TRUE;
+							}
+							else
+							{
+								ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_DROP] );
+								return TRUE;
+							}
+						}
+					//}
+				}
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_PACK] );
+				break;
+			}
+		}
+		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_PACK] );
+	}
+
+	return TRUE;
+}
+
 
 void MergeMessageBoxCallBack( UINT8 ubExitValue )
 {
 	if ( ubExitValue == MSG_BOX_RETURN_YES )
 	{
-		AttachObject( gpItemPointerSoldier, &( gpSMCurrentMerc->inv[ gubHandPos ] ), gpItemPointer );
+		//ADB see what happens here
+		DebugBreakpoint();
+		gpSMCurrentMerc->inv[ gubHandPos ].AttachObject( gpItemPointerSoldier, gpItemPointer );
 
 		// re-evaluate repairs
 		gfReEvaluateEveryonesNothingToDo = TRUE;
 
-		if (gpItemPointer->usItem == NOTHING)
+		if (gpItemPointer->exists() == false)
 		{
 			// merge item consumed
 			EndItemPointer();
@@ -2883,35 +3692,35 @@ void HandleMouseOverSoldierFaceForContMove( SOLDIERTYPE *pSoldier, BOOLEAN fOn )
 		return;
 	}
 
-	if ( fOn && CheckForMercContMove( pSoldier ) )
+	if ( fOn )
 	{
 		// Check if we are waiting to continue move...
-		//if ( CheckForMercContMove( pSoldier ) )
-		//{
-		// Display 'cont' on face....
-		// Get face
-		pFace = &gFacesData[ pSoldier->iFaceIndex ];
-
-		pFace->fDisplayTextOver = FACE_DRAW_TEXT_OVER;
-		wcscpy( pFace->zDisplayText, TacticalStr[ CONTINUE_OVER_FACE_STR ] );
-
-		sGridNo = pSoldier->sFinalDestination;
-
-		if ( pSoldier->bGoodContPath )
+		if ( CheckForMercContMove( pSoldier ) )
 		{
-			sGridNo = pSoldier->sContPathLocation;
-		}
+			// Display 'cont' on face....
+			// Get face
+			pFace = &gFacesData[ pSoldier->iFaceIndex ];
 
-		// While our mouse is here, draw a path!
-		PlotPath( pSoldier, sGridNo, NO_COPYROUTE, PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
-		//}
+			pFace->fDisplayTextOver = FACE_DRAW_TEXT_OVER;
+			wcscpy( pFace->zDisplayText, TacticalStr[ CONTINUE_OVER_FACE_STR ] );
+
+			sGridNo = pSoldier->pathing.sFinalDestination;
+
+			if ( pSoldier->bGoodContPath )
+			{
+				sGridNo = pSoldier->sContPathLocation;
+			}
+
+			// While our mouse is here, draw a path!
+			PlotPath( pSoldier, sGridNo, NO_COPYROUTE, PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
+		}
 	}
 	else
 	{
 		// Remove 'cont' on face....
 		// Get face
 		pFace = &gFacesData[ pSoldier->iFaceIndex ];
-		
+
 		pFace->fDisplayTextOver = FACE_ERASE_TEXT_OVER;
 
 		// Erase path!
@@ -2964,7 +3773,7 @@ void SelectedMercButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		// ATE: Don't if this guy can't....
 		if ( !gfSMDisableForItems )
 		{
-			if ( gpSMCurrentMerc->uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+			if ( gpSMCurrentMerc->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
 			{
 				pVehicle = GetSoldierStructureForVehicle( gpSMCurrentMerc->iVehicleId );
 
@@ -2978,14 +3787,16 @@ void SelectedMercButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					ContinueMercMovement( gpSMCurrentMerc );
 					ErasePath( TRUE );
 				}
-				else	
+				else
 				{
 					HandleLocateSelectMerc( gpSMCurrentMerc->ubID, 0 );
 				}
 			}
 		}
 	}
-	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_DWN)
+	//CHRISL: Change this to UP so that we don't inadvertantly switch to action mode when closing Inv panel
+	//else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_DWN)
+	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
 		// ATE: Cannot get out by right clicking...
 		//if ( gpItemPointer == NULL )
@@ -2997,7 +3808,7 @@ void SelectedMercButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				{
 					DeleteItemDescriptionBox( );
 				}
-			
+
 				gfSwitchPanel = TRUE;
 				gbNewPanel		= TEAM_PANEL;
 			}
@@ -3026,12 +3837,12 @@ void SelectedMercEnemyIndicatorCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		// ATE: Don't if this guy can't....
 		if ( !gfSMDisableForItems )
 		{
-			if ( gpSMCurrentMerc->uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+			if ( gpSMCurrentMerc->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
 			{
 			}
 			else
 			{
-				if ( gpSMCurrentMerc->bOppCnt > 0 )
+				if ( gpSMCurrentMerc->aiData.bOppCnt > 0 )
 				{
 					CycleVisibleEnemies( gpSMCurrentMerc );
 				}
@@ -3084,6 +3895,95 @@ void BtnStanceUpCallback(GUI_BUTTON *btn,INT32 reason)
 }
 
 
+// CHRISL: Callback functions for backpack buttons
+void BtnDropPackCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags |= BUTTON_CLICKED_ON;
+	}
+	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+		//CHRISL: Added "SHIFT-LMB" option to drop packs for all members of current squad
+		if ( _KeyDown( SHIFT ) )
+		{
+			INT8 bAssignment = gpSMCurrentMerc->bAssignment;
+			for(int x=0; x<18; x++)
+			{
+				/* Is DropPackFlag currently false and is there something in the backpack pocket?  If so, we haven't
+				dropped a pack yet and apparently want to*/
+				if(MercPtrs[x]->bAssignment == bAssignment && MercPtrs[x]->inv[BPACKPOCKPOS].exists() == true && !MercPtrs[x]->flags.DropPackFlag)
+				{
+					ChangeDropPackStatus(MercPtrs[x], TRUE);
+				}
+				/* Is DropPackFlag currently true, is nothing in the backpack pocket and have we dropped a pack?  If so, we
+				must want to retreive a backpack we previously dropped.*/
+				else if(MercPtrs[x]->bAssignment == bAssignment && MercPtrs[x]->inv[BPACKPOCKPOS].exists() == false && MercPtrs[x]->flags.DropPackFlag)
+				{
+					ChangeDropPackStatus(MercPtrs[x], FALSE);
+				}
+			}
+		}
+		else
+		{
+			/* Is DropPackFlag currently false and is there something in the backpack pocket?  If so, we haven't
+			dropped a pack yet and apparently want to*/
+			if(gpSMCurrentMerc->inv[BPACKPOCKPOS].exists() == true && !gpSMCurrentMerc->flags.DropPackFlag)
+			{
+				ChangeDropPackStatus(gpSMCurrentMerc, TRUE);
+			}
+			/* Is DropPackFlag currently true, is nothing in the backpack pocket and have we dropped a pack?  If so, we
+			must want to retreive a backpack we previously dropped.*/
+			else if(gpSMCurrentMerc->inv[BPACKPOCKPOS].exists() == false && gpSMCurrentMerc->flags.DropPackFlag)
+			{
+				ChangeDropPackStatus(gpSMCurrentMerc, FALSE);
+			}
+		}
+	}
+	else if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+	}
+}
+
+void BtnZipperCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if (!(btn->uiFlags & BUTTON_ENABLED))
+		return;
+
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags |= BUTTON_CLICKED_ON;
+	}
+	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+		//Are we in combat, do we have a backpack on and is the pack closed? Open it
+		if((gTacticalStatus.uiFlags & INCOMBAT) && gpSMCurrentMerc->inv[BPACKPOCKPOS].exists() == true && !gpSMCurrentMerc->flags.ZipperFlag)
+		{
+			ChangeZipperStatus(gpSMCurrentMerc, TRUE);
+		}
+		//Is the pack open?
+		else if(gpSMCurrentMerc->flags.ZipperFlag)
+		{
+			ChangeZipperStatus(gpSMCurrentMerc, FALSE);
+		}
+		//Are we not in combat?
+		else if(!(gTacticalStatus.uiFlags & INCOMBAT))
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_ZIPPER_COMBAT] );
+		}
+	}
+	else if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+	}
+}
+
 void BtnUpdownCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
@@ -3111,7 +4011,7 @@ void BtnUpdownCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 
 }
-	
+
 void BtnClimbCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	BOOLEAN						fNearHeigherLevel;
@@ -3133,16 +4033,16 @@ void BtnClimbCallback(GUI_BUTTON *btn,INT32 reason)
 
 		if ( fNearLowerLevel )
 		{
-			BeginSoldierClimbDownRoof( gpSMCurrentMerc );
+			gpSMCurrentMerc->BeginSoldierClimbDownRoof(	);
 		}
 		if ( fNearHeigherLevel )
 		{
-			BeginSoldierClimbUpRoof( gpSMCurrentMerc );
+			gpSMCurrentMerc->BeginSoldierClimbUpRoof(	);
 		}
 
 		if ( FindFenceJumpDirection( gpSMCurrentMerc, gpSMCurrentMerc->sGridNo, gpSMCurrentMerc->ubDirection, &bDirection ) )
 		{
-			BeginSoldierClimbFence( gpSMCurrentMerc );
+			gpSMCurrentMerc->BeginSoldierClimbFence(	);
 		}
 
 	}
@@ -3150,7 +4050,7 @@ void BtnClimbCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 	}
-	
+
 }
 
 void BtnStanceDownCallback(GUI_BUTTON *btn,INT32 reason)
@@ -3186,7 +4086,7 @@ void BtnStanceDownCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 	}
-	
+
 }
 
 void BtnStealthModeCallback(GUI_BUTTON *btn,INT32 reason)
@@ -3246,15 +4146,15 @@ void BtnMuteCallback(GUI_BUTTON *btn,INT32 reason)
 
 	if (reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-		if ( gpSMCurrentMerc->uiStatusFlags & SOLDIER_MUTE )
+		if ( gpSMCurrentMerc->flags.uiStatusFlags & SOLDIER_MUTE )
 		{
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ MUTE_OFF_STR ], gpSMCurrentMerc->name );
-			gpSMCurrentMerc->uiStatusFlags &= ( ~SOLDIER_MUTE );
+			gpSMCurrentMerc->flags.uiStatusFlags &= ( ~SOLDIER_MUTE );
 		}
 		else
 		{
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, TacticalStr[ MUTE_ON_STR ], gpSMCurrentMerc->name );
-			gpSMCurrentMerc->uiStatusFlags |= ( SOLDIER_MUTE );
+			gpSMCurrentMerc->flags.uiStatusFlags |= ( SOLDIER_MUTE );
 		}
 	}
 
@@ -3306,13 +4206,13 @@ void BtnPrevMercCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 	}
-	
+
 }
 
 void BtnNextMercCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	INT16 sID;
-	
+
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
 
@@ -3355,7 +4255,7 @@ void BtnNextMercCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 	}
-	
+
 }
 
 
@@ -3380,7 +4280,7 @@ void BtnOptionsCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 	}
-	
+
 }
 
 void BtnSMDoneCallback(GUI_BUTTON *btn,INT32 reason)
@@ -3403,7 +4303,7 @@ void BtnSMDoneCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 	}
-	
+
 }
 
 
@@ -3428,7 +4328,7 @@ void BtnMapScreenCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 	}
-	
+
 }
 
 /*
@@ -3461,7 +4361,7 @@ void BtnBurstModeCallback(GUI_BUTTON *btn,INT32 reason)
 //		btn->uiFlags |= BUTTON_DIRTY;
 
 	}
-	
+
 }
 
 void BtnLookCallback(GUI_BUTTON *btn,INT32 reason)
@@ -3476,13 +4376,13 @@ void BtnLookCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
 		ToggleLookCursorMode( NULL );
-		
+
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 	}
-	
+
 }
 
 void BtnPositionShowCallback(GUI_BUTTON *btn,INT32 reason)
@@ -3526,10 +4426,10 @@ BOOLEAN InitializeTEAMPanelCoords( )
 	TM_BARS_REGION_HEIGHT	= 47;
 	TM_BARS_REGION_WIDTH	= 26;
 
-	INDICATOR_BOX_WIDTH	 = 12;
+	INDICATOR_BOX_WIDTH	= 12;
 	INDICATOR_BOX_HEIGHT = 10;
 
-	sTEAMAPPanelXY[0] = ( 69  + INTERFACE_START_X );	sTEAMAPPanelXY[1] = ( 6 + INTERFACE_START_Y );
+	sTEAMAPPanelXY[0] = ( 69	+ INTERFACE_START_X );	sTEAMAPPanelXY[1] = ( 6 + INTERFACE_START_Y );
 	sTEAMAPPanelXY[2] = ( 151 + INTERFACE_START_X );	sTEAMAPPanelXY[3] = ( 6 + INTERFACE_START_Y );
 	sTEAMAPPanelXY[4] = ( 234 + INTERFACE_START_X );	sTEAMAPPanelXY[5] = ( 6 + INTERFACE_START_Y );
 	sTEAMAPPanelXY[6] = ( 317 + INTERFACE_START_X );	sTEAMAPPanelXY[7] = ( 6 + INTERFACE_START_Y );
@@ -3583,14 +4483,14 @@ BOOLEAN InitializeTEAMPanelCoords( )
 	sTEAMApXY[4] = ( 233 + INTERFACE_START_X );	sTEAMApXY[5] = ( 52 + INTERFACE_START_Y );
 	sTEAMApXY[6] = ( 317 + INTERFACE_START_X );	sTEAMApXY[7] = ( 52 + INTERFACE_START_Y );
 	sTEAMApXY[8] = ( 400 + INTERFACE_START_X );	sTEAMApXY[9] = ( 52 + INTERFACE_START_Y );
-	sTEAMApXY[10] = ( 483 + INTERFACE_START_X );sTEAMApXY[11] = ( 52 + INTERFACE_START_Y ); 
+	sTEAMApXY[10] = ( 483 + INTERFACE_START_X );sTEAMApXY[11] = ( 52 + INTERFACE_START_Y );
 
 	sTEAMBarsXY[0] = ( 61 + INTERFACE_START_X );	sTEAMBarsXY[1] = ( 3 + INTERFACE_START_Y );
 	sTEAMBarsXY[2] = ( 145 + INTERFACE_START_X );	sTEAMBarsXY[3] = ( 3 + INTERFACE_START_Y );
 	sTEAMBarsXY[4] = ( 228 + INTERFACE_START_X );	sTEAMBarsXY[5] = ( 3 + INTERFACE_START_Y );
 	sTEAMBarsXY[6] = ( 311 + INTERFACE_START_X );	sTEAMBarsXY[7] = ( 3 + INTERFACE_START_Y );
 	sTEAMBarsXY[8] = ( 394 + INTERFACE_START_X );	sTEAMBarsXY[9] = ( 3 + INTERFACE_START_Y );
-	sTEAMBarsXY[10] = ( 477 + INTERFACE_START_X );	sTEAMBarsXY[11] = ( 3 + INTERFACE_START_Y ); 
+	sTEAMBarsXY[10] = ( 477 + INTERFACE_START_X );	sTEAMBarsXY[11] = ( 3 + INTERFACE_START_Y );
 
 	sTEAMHandInvXY[0] = ( TM_INV_HAND1STARTX + ( 0 * TM_INV_HAND_SEP ));	sTEAMHandInvXY[1] = TM_INV_HAND1STARTY;
 	sTEAMHandInvXY[2] = ( TM_INV_HAND1STARTX + ( 1 * TM_INV_HAND_SEP ));	sTEAMHandInvXY[3] = TM_INV_HAND1STARTY;
@@ -3600,22 +4500,30 @@ BOOLEAN InitializeTEAMPanelCoords( )
 	sTEAMHandInvXY[10] = ( TM_INV_HAND1STARTX + ( 5 * TM_INV_HAND_SEP ));	sTEAMHandInvXY[11] = TM_INV_HAND1STARTY;
 	// ufff to much copy&paste :D
 
+	// CHRISL: New definitions for the team panel clock and location coordinates
+	INTERFACE_CLOCK_TM_X	= ( SCREEN_WIDTH - 86 );
+	INTERFACE_CLOCK_TM_Y	= ( 98	+ INTERFACE_START_Y );
+	LOCATION_NAME_TM_X		= ( SCREEN_WIDTH - 92 );
+	LOCATION_NAME_TM_Y		= ( 65	+ INTERFACE_START_Y	);
+
 	return ( TRUE );
 }
 // TEAM PANEL!!!!!!!!!!!!!!
-BOOLEAN InitializeTEAMPanel(  )
+BOOLEAN InitializeTEAMPanel(	)
 {
 	VSURFACE_DESC		vs_desc;
-  VOBJECT_DESC    VObjectDesc;
+	VOBJECT_DESC	VObjectDesc;
 	UINT32					cnt, posIndex;
 	static BOOLEAN	fFirstTime = TRUE;
 
+	/* CHRISL: Add something here to reset the cursor to a pointer so we don't inadvertantly activate
+	context sensitive cursor when closing the inventory panel*/
 	fDisplayOverheadMap = TRUE;
 
-/*  OK i need to initialize coords here
- *  Isnt it cool
- *  any questions? joker
- *  i moved it
+/*	OK i need to initialize coords here
+ *	Isnt it cool
+ *	any questions? joker
+ *	i moved it
  */
 //	InitializeTEAMPanelCoords( );
 	// INit viewport region
@@ -3623,7 +4531,7 @@ BOOLEAN InitializeTEAMPanel(  )
 	// Define region for viewport
 	MSYS_DefineRegion( &gViewportRegion, 0, 0 ,gsVIEWPORT_END_X, gsVIEWPORT_WINDOW_END_Y, MSYS_PRIORITY_NORMAL, VIDEO_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 	MSYS_AddRegion( &gViewportRegion );
-	
+
 	// Load interface panels
 	vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
 
@@ -3662,21 +4570,21 @@ BOOLEAN InitializeTEAMPanel(  )
 	// Set viewports
 	// Define region for panel
 	MSYS_DefineRegion( &gTEAM_PanelRegion, 0, gsVIEWPORT_END_Y ,SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_NORMAL,
-						 CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK ); 
+						CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 	// Add region
 	MSYS_AddRegion( &gTEAM_PanelRegion);
 
-	for ( posIndex = 0, cnt = 0; cnt < 6; cnt++, posIndex +=2 )
+	for ( posIndex = 0, cnt = 0; cnt < NUM_TEAM_SLOTS; cnt++, posIndex +=2 )
 	{
 		MSYS_DefineRegion( &gTEAM_FaceRegions[ cnt ], sTEAMFacesXY[ posIndex ], sTEAMFacesXY[ posIndex + 1 ] ,(INT16)(sTEAMFacesXY[ posIndex ] + TM_FACE_WIDTH ), (INT16)(sTEAMFacesXY[ posIndex + 1 ] + TM_FACE_HEIGHT), MSYS_PRIORITY_NORMAL,
-							 MSYS_NO_CURSOR, MercFacePanelMoveCallback, MercFacePanelCallback ); 
+							MSYS_NO_CURSOR, MercFacePanelMoveCallback, MercFacePanelCallback );
 		// Add region
 		MSYS_AddRegion( &gTEAM_FaceRegions[ cnt ] );
 		MSYS_SetRegionUserData( &gTEAM_FaceRegions[ cnt ], 0, cnt );
 
 
 		MSYS_DefineRegion( &gTEAM_EnemyIndicator[ cnt ], (INT16)(sTEAMFacesXY[ posIndex ] + 1), (INT16)(sTEAMFacesXY[ posIndex + 1 ] + 1 ) ,(INT16)(sTEAMFacesXY[ posIndex ] + INDICATOR_BOX_WIDTH ), (INT16)(sTEAMFacesXY[ posIndex + 1 ] + INDICATOR_BOX_HEIGHT), MSYS_PRIORITY_NORMAL,
-							 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, EnemyIndicatorClickCallback ); 
+							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, EnemyIndicatorClickCallback );
 		// Add region
 		MSYS_AddRegion( &gTEAM_EnemyIndicator[ cnt ] );
 		MSYS_SetRegionUserData( &gTEAM_EnemyIndicator[ cnt ], 0, cnt );
@@ -3693,20 +4601,20 @@ BOOLEAN InitializeTEAMPanel(  )
 
 
 		MSYS_DefineRegion( &gTEAM_BarsRegions[ cnt ], sTEAMBarsXY[ posIndex ], sTEAMBarsXY[ posIndex + 1 ] ,(INT16)(sTEAMBarsXY[ posIndex ] + TM_BARS_REGION_WIDTH ), (INT16)(sTEAMBarsXY[ posIndex + 1 ] + TM_BARS_REGION_HEIGHT ), MSYS_PRIORITY_NORMAL,
-							 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MercFacePanelCallback ); 
+							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MercFacePanelCallback );
 		// Add region
 		MSYS_AddRegion( &gTEAM_BarsRegions[ cnt ] );
 		MSYS_SetRegionUserData( &gTEAM_BarsRegions[ cnt ], 0, cnt );
 
 		MSYS_DefineRegion( &gTEAM_LeftBarsRegions[ cnt ], (INT16)(sTEAMFacesXY[ posIndex ] - 8 ), sTEAMFacesXY[ posIndex + 1 ] ,(INT16)(sTEAMFacesXY[ posIndex ] ), (INT16)(sTEAMFacesXY[ posIndex + 1 ] + TM_BARS_REGION_HEIGHT ), MSYS_PRIORITY_NORMAL,
-							 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MercFacePanelCallback ); 
+							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MercFacePanelCallback );
 		// Add region
 		MSYS_AddRegion( &gTEAM_LeftBarsRegions[ cnt ] );
 		MSYS_SetRegionUserData( &gTEAM_LeftBarsRegions[ cnt ], 0, cnt );
 
 
 		MSYS_DefineRegion( &gTEAM_FirstHandInv[ cnt ], sTEAMHandInvXY[ posIndex ], sTEAMHandInvXY[ posIndex + 1 ], (INT16)(sTEAMHandInvXY[ posIndex ] + TM_INV_WIDTH ) ,(INT16)(sTEAMHandInvXY[ posIndex + 1 ] + TM_INV_HEIGHT ), MSYS_PRIORITY_NORMAL,
-							 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, TMClickFirstHandInvCallback ); 
+							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, TMClickFirstHandInvCallback );
 		// Add region
 		MSYS_AddRegion( &gTEAM_FirstHandInv[ cnt ] );
 
@@ -3716,19 +4624,19 @@ BOOLEAN InitializeTEAMPanel(  )
 
 
 		MSYS_DefineRegion( &gTEAM_SecondHandInv[ cnt ], sTEAMHandInvXY[ posIndex ], (INT16)( sTEAMHandInvXY[ posIndex + 1 ] + 24 ), (INT16)(sTEAMHandInvXY[ posIndex ] + TM_INV_WIDTH) ,(INT16)(sTEAMHandInvXY[ posIndex + 1 ] + TM_INV_HEIGHT + 24 ), MSYS_PRIORITY_NORMAL,
-							 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, TMClickSecondHandInvCallback ); 
+							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, TMClickSecondHandInvCallback );
 		// Add region
 		MSYS_AddRegion( &gTEAM_SecondHandInv[ cnt ] );
 
 		// Add user data
 		MSYS_SetRegionUserData( &gTEAM_SecondHandInv[ cnt ], 0, cnt );
-		
+
 	}
 
 
 	//DEfine region for selected guy panel
 	//MSYS_DefineRegion( &gSM_SELMERCPanalRegion, SM_SELMERC_FACE_X, SM_SELMERC_FACE_Y, SM_SELMERC_FACE_X + SM_SELMERC_FACE_WIDTH, SM_SELMERC_FACE_Y + SM_SELMERC_FACE_HEIGHT, MSYS_PRIORITY_NORMAL,
-	//					 CURSOR_NORMAL, MSYS_NO_CALLBACK, SelectedMercButtonCallback ); 
+	//					CURSOR_NORMAL, MSYS_NO_CALLBACK, SelectedMercButtonCallback );
 	// Add region
 	//MSYS_AddRegion( &gSM_SELMERCPanalRegion );
 
@@ -3774,8 +4682,8 @@ BOOLEAN ShutdownTEAMPanel( )
 	// turn off the display of the squad list
 	if( fRenderRadarScreen == FALSE )
 	{
-		// start rendering radar region again, 
-	  fRenderRadarScreen = TRUE;
+		// start rendering radar region again,
+	fRenderRadarScreen = TRUE;
 
 		// remove squad panel
 		CreateDestroyMouseRegionsForSquadList( );
@@ -3793,15 +4701,15 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 
 	if ( fDirty == DIRTYLEVEL2 )
 	{
-		MarkAButtonDirty( iTEAMPanelButtons[ TEAM_DONE_BUTTON ] );	
-		MarkAButtonDirty( iTEAMPanelButtons[ TEAM_MAP_SCREEN_BUTTON ] );	
-		MarkAButtonDirty( iTEAMPanelButtons[ CHANGE_SQUAD_BUTTON ] );	
+		MarkAButtonDirty( iTEAMPanelButtons[ TEAM_DONE_BUTTON ] );
+		MarkAButtonDirty( iTEAMPanelButtons[ TEAM_MAP_SCREEN_BUTTON ] );
+		MarkAButtonDirty( iTEAMPanelButtons[ CHANGE_SQUAD_BUTTON ] );
 
 
 		// Blit video surface
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiTEAMPanel, 0, INTERFACE_START_X, INTERFACE_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 		RestoreExternBackgroundRect( INTERFACE_START_X, INTERFACE_START_Y, SCREEN_WIDTH - INTERFACE_START_X , INTERFACE_HEIGHT );
-		
+
 		// LOOP THROUGH ALL MERCS ON TEAM PANEL
 		for ( cnt = 0, posIndex = 0; cnt < NUM_TEAM_SLOTS; cnt++, posIndex+= 2 )
 		{
@@ -3809,7 +4717,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 			if ( !gTeamPanel[ cnt ].fOccupied )
 			{
 				//BLIT CLOSE PANEL
-				BltVideoObjectFromIndex( guiSAVEBUFFER, guiCLOSE, 5, sTEAMFacesXY[ posIndex ], sTEAMFacesXY[ posIndex + 1 ],  VO_BLT_SRCTRANSPARENCY, NULL );
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiCLOSE, 5, sTEAMFacesXY[ posIndex ], sTEAMFacesXY[ posIndex + 1 ],	VO_BLT_SRCTRANSPARENCY, NULL );
 				RestoreExternBackgroundRect( sTEAMFacesXY[ posIndex ], sTEAMFacesXY[ posIndex + 1 ], TM_FACE_WIDTH, TM_FACE_HEIGHT );
 
 				// BLIT AP CLOSE PANEL
@@ -3821,7 +4729,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 				{
 					// Hatch out...
 					BltVideoObjectFromIndex( guiSAVEBUFFER, guiTEAMObjects, 1, sTEAMFaceHighlXY[ posIndex ], sTEAMFaceHighlXY[ posIndex + 1 ], VO_BLT_SRCTRANSPARENCY, NULL );
-					RestoreExternBackgroundRect( sTEAMFaceHighlXY[ posIndex ], sTEAMFaceHighlXY[ posIndex + 1 ], TM_FACEHIGHTL_WIDTH, TM_FACEHIGHTL_HEIGHT );						
+					RestoreExternBackgroundRect( sTEAMFaceHighlXY[ posIndex ], sTEAMFaceHighlXY[ posIndex + 1 ], TM_FACEHIGHTL_WIDTH, TM_FACEHIGHTL_HEIGHT );
 				}
 
 			}
@@ -3829,7 +4737,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 			{
 				pSoldier = MercPtrs[ gTeamPanel[ cnt ].ubID ];
 
-				if ( pSoldier->uiStatusFlags & ( SOLDIER_DRIVER ) )
+				if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER ) )
 				{
 					// Get soldier pointer for vehicle.....
 					SOLDIERTYPE *pVehicle;
@@ -3837,8 +4745,8 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 					pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
 
 					//OK, for each item, set dirty text if applicable!
-					swprintf( pStr, TacticalStr[ DRIVER_POPUPTEXT ], pVehicle->bLife, pVehicle->bLifeMax, pVehicle->bBreath, pVehicle->bBreathMax );
-					SetRegionFastHelpText( &(gTEAM_FirstHandInv[ cnt ]), pStr );					
+					swprintf( pStr, TacticalStr[ DRIVER_POPUPTEXT ], pVehicle->stats.bLife, pVehicle->stats.bLifeMax, pVehicle->bBreath, pVehicle->bBreathMax );
+					SetRegionFastHelpText( &(gTEAM_FirstHandInv[ cnt ]), pStr );
 				}
 				// Add text for first hand popup
 				else
@@ -3850,14 +4758,14 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 				}
 
 				// Add text for seonc hand popup
-				if ( pSoldier->uiStatusFlags & ( SOLDIER_PASSENGER | SOLDIER_DRIVER ) )
+				if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_PASSENGER | SOLDIER_DRIVER ) )
 				{
 					//OK, for each item, set dirty text if applicable!
-					SetRegionFastHelpText( &(gTEAM_SecondHandInv[ cnt ]), TacticalStr[ EXIT_VEHICLE_POPUPTEXT ] );					
+					SetRegionFastHelpText( &(gTEAM_SecondHandInv[ cnt ]), TacticalStr[ EXIT_VEHICLE_POPUPTEXT ] );
 				}
 				else
 				{
-					GetHelpTextForItem( pStr, &( pSoldier->inv[ SECONDHANDPOS ]  ), pSoldier );
+					GetHelpTextForItem( pStr, &( pSoldier->inv[ SECONDHANDPOS ]	), pSoldier );
 
 					//OK, for each item, set dirty text if applicable!
 					SetRegionFastHelpText( &(gTEAM_SecondHandInv[ cnt ]), pStr );
@@ -3870,7 +4778,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 					//if(gbPixelDepth==16)
 					//{
 						BltVideoObjectFromIndex( guiSAVEBUFFER, guiTEAMObjects, 0, sTEAMFaceHighlXY[ posIndex ], sTEAMFaceHighlXY[ posIndex + 1 ], VO_BLT_SRCTRANSPARENCY, NULL );
-						RestoreExternBackgroundRect( sTEAMFaceHighlXY[ posIndex ], sTEAMFaceHighlXY[ posIndex + 1 ], TM_FACEHIGHTL_WIDTH, TM_FACEHIGHTL_HEIGHT );						
+						RestoreExternBackgroundRect( sTEAMFaceHighlXY[ posIndex ], sTEAMFaceHighlXY[ posIndex + 1 ], TM_FACEHIGHTL_WIDTH, TM_FACEHIGHTL_HEIGHT );
 
 						// Render faceplate
 						//BltVideoObjectFromIndex( guiSAVEBUFFER, guiTEAMObjects, 1, sTEAMFacesXY[ posIndex ] + TM_FACEPLATE_OFFSET_X, sTEAMFacesXY[ posIndex + 1 ] + TM_FACEPLATE_OFFSET_Y, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -3880,10 +4788,10 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 				else if ( gTacticalStatus.ubCurrentTeam != OUR_TEAM || !OK_INTERRUPT_MERC( pSoldier ) )
 				{
 					BltVideoObjectFromIndex( guiSAVEBUFFER, guiTEAMObjects, 1, sTEAMFaceHighlXY[ posIndex ], sTEAMFaceHighlXY[ posIndex + 1 ], VO_BLT_SRCTRANSPARENCY, NULL );
-					RestoreExternBackgroundRect( sTEAMFaceHighlXY[ posIndex ], sTEAMFaceHighlXY[ posIndex + 1 ], TM_FACEHIGHTL_WIDTH, TM_FACEHIGHTL_HEIGHT );						
+					RestoreExternBackgroundRect( sTEAMFaceHighlXY[ posIndex ], sTEAMFaceHighlXY[ posIndex + 1 ], TM_FACEHIGHTL_WIDTH, TM_FACEHIGHTL_HEIGHT );
 						// Render non-selection
 						//BltVideoObjectFromIndex( guiSAVEBUFFER, guiTEAMObjects, 4, sTEAMFaceHighlXY[ posIndex ], sTEAMFaceHighlXY[ posIndex + 1 ], VO_BLT_SRCTRANSPARENCY, NULL );
-						//RestoreExternBackgroundRect( sTEAMFaceHighlXY[ posIndex ], sTEAMFaceHighlXY[ posIndex + 1 ], TM_FACEHIGHTL_WIDTH, TM_FACEHIGHTL_HEIGHT );						
+						//RestoreExternBackgroundRect( sTEAMFaceHighlXY[ posIndex ], sTEAMFaceHighlXY[ posIndex + 1 ], TM_FACEHIGHTL_WIDTH, TM_FACEHIGHTL_HEIGHT );
 
 						// Render faceplate
 						//BltVideoObjectFromIndex( guiSAVEBUFFER, guiTEAMObjects, 1, sTEAMFacesXY[ posIndex ] + TM_FACEPLATE_OFFSET_X, sTEAMFacesXY[ posIndex + 1 ] + TM_FACEPLATE_OFFSET_Y, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -3904,7 +4812,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 				if ( pSoldier->bStealthMode )
 				{
 					SetFontBackground( FONT_MCOLOR_BLACK );
-					SetFontForeground( FONT_MCOLOR_LTYELLOW );								
+					SetFontForeground( FONT_MCOLOR_LTYELLOW );
 				}
 				else
 				{
@@ -3934,7 +4842,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 			pSoldier = MercPtrs[ gTeamPanel[ cnt ].ubID ];
 
 			// Update animations....
-			if ( pSoldier->fClosePanel || pSoldier->fClosePanelToDie )
+			if ( pSoldier->flags.fClosePanel || pSoldier->flags.fClosePanelToDie )
 			{
 				pSoldier->sPanelFaceX = gFacesData[ pSoldier->iFaceIndex ].usFaceX;
 				pSoldier->sPanelFaceY = gFacesData[ pSoldier->iFaceIndex ].usFaceY;
@@ -3944,44 +4852,44 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 			if ( fDirty != DIRTYLEVEL0 )
 			{
 				// UPdate stats!
-        if ( fDirty == DIRTYLEVEL2 )
-        {
-				  if ( pSoldier->bLife != 0 )
-				  {
-            if ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
-            {
-			        swprintf( pStr, TacticalStr[ VEHICLE_VITAL_STATS_POPUPTEXT ], pSoldier->bLife, pSoldier->bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax );
-			        SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
-            }
-            else if ( pSoldier->uiStatusFlags & SOLDIER_ROBOT )
-            {
-			        swprintf( pStr, gzLateLocalizedString[ 16 ], pSoldier->bLife, pSoldier->bLifeMax );
-			        SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
-            }
-            else
-            {
-					    GetMoraleString( pSoldier, pMoraleStr );
-					    swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], pSoldier->bLife, pSoldier->bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr );
-					    SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
-            }
-				  }
-				  else
-				  {
-					  SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), L"" );
-				  }
-        }
+		if ( fDirty == DIRTYLEVEL2 )
+		{
+				if ( pSoldier->stats.bLife != 0 )
+				{
+			if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
+			{
+				 swprintf( pStr, TacticalStr[ VEHICLE_VITAL_STATS_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax );
+				 SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
+			}
+			else if ( pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT )
+			{
+				 swprintf( pStr, gzLateLocalizedString[ 16 ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax );
+				 SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
+			}
+			else
+			{
+					 GetMoraleString( pSoldier, pMoraleStr );
+					 swprintf( pStr, TacticalStr[ MERC_VITAL_STATS_POPUPTEXT ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pMoraleStr );
+					 SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), pStr );
+			}
+				}
+				else
+				{
+					SetRegionFastHelpText( &(gTEAM_BarsRegions[ cnt ]), L"" );
+				}
+		}
 
-				if ( !( pSoldier->uiStatusFlags & SOLDIER_DEAD ) )
+				if ( !( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD ) )
 				{
 					DrawLifeUIBarEx( pSoldier, sTEAMLifeXY[ posIndex ], sTEAMLifeXY[ posIndex + 1 ], TM_LIFEBAR_WIDTH, TM_LIFEBAR_HEIGHT, TRUE, FRAME_BUFFER );
 
-          if ( !( pSoldier->uiStatusFlags & SOLDIER_ROBOT ) )
-          {
-					  DrawBreathUIBarEx( pSoldier, sTEAMBreathXY[ posIndex ], sTEAMBreathXY[ posIndex + 1 ], TM_LIFEBAR_WIDTH, TM_LIFEBAR_HEIGHT, TRUE, FRAME_BUFFER );
-					  DrawMoraleUIBarEx( pSoldier, sTEAMMoraleXY[ posIndex ], sTEAMMoraleXY[ posIndex + 1 ], TM_LIFEBAR_WIDTH, TM_LIFEBAR_HEIGHT, TRUE, FRAME_BUFFER );
-          }
+			if ( !( pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT ) )
+			{
+					DrawBreathUIBarEx( pSoldier, sTEAMBreathXY[ posIndex ], sTEAMBreathXY[ posIndex + 1 ], TM_LIFEBAR_WIDTH, TM_LIFEBAR_HEIGHT, TRUE, FRAME_BUFFER );
+					DrawMoraleUIBarEx( pSoldier, sTEAMMoraleXY[ posIndex ], sTEAMMoraleXY[ posIndex + 1 ], TM_LIFEBAR_WIDTH, TM_LIFEBAR_HEIGHT, TRUE, FRAME_BUFFER );
+			}
 
-					if ( gTacticalStatus.uiFlags & TURNBASED && pSoldier->bLife >= OKLIFE )
+					if ( gTacticalStatus.uiFlags & TURNBASED && pSoldier->stats.bLife >= OKLIFE )
 					{
 						// Render APs
 						SetFont( TINYFONT1 );
@@ -4002,7 +4910,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 							else if ( pSoldier->bStealthMode )
 							{
 								SetFontBackground( FONT_MCOLOR_BLACK );
-								SetFontForeground( FONT_MCOLOR_LTYELLOW );								
+								SetFontForeground( FONT_MCOLOR_LTYELLOW );
 							}
 							else
 							{
@@ -4023,7 +4931,7 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 				{
 					//Erase!
 					//DrawUIBar( pSoldier->bBreath, sTEAMBreathXY[ posIndex ], sTEAMBreathXY[ posIndex + 1 ], TM_LIFEBAR_WIDTH, TM_LIFEBAR_HEIGHT, DRAW_ERASE_BAR );
-					//DrawUIBar( pSoldier->bLife, sTEAMLifeXY[ posIndex ], sTEAMLifeXY[ posIndex + 1 ], TM_LIFEBAR_WIDTH, TM_LIFEBAR_HEIGHT, DRAW_ERASE_BAR );
+					//DrawUIBar( pSoldier->stats.bLife, sTEAMLifeXY[ posIndex ], sTEAMLifeXY[ posIndex + 1 ], TM_LIFEBAR_WIDTH, TM_LIFEBAR_HEIGHT, DRAW_ERASE_BAR );
 
 					// Erase APs
 					RestoreExternBackgroundRect( sTEAMApXY[ posIndex ], sTEAMApXY[ posIndex + 1 ], TM_AP_WIDTH, TM_AP_HEIGHT );
@@ -4044,15 +4952,16 @@ void RenderTEAMPanel( BOOLEAN fDirty )
 
 		}
 	}
-	
+
 	UpdateTEAMPanel( );
-	
+
 	if( fRenderRadarScreen == TRUE )
 	{
 		// Render clock
-		RenderClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
-		CreateMouseRegionForPauseOfClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
-		RenderTownIDString( );
+		// CHRISL: Change coords to base off of right side of screen and use new paramters in RenderTownIDString
+		RenderClock( INTERFACE_CLOCK_TM_X, INTERFACE_CLOCK_TM_Y );
+		CreateMouseRegionForPauseOfClock( INTERFACE_CLOCK_TM_X, INTERFACE_CLOCK_TM_Y );
+		RenderTownIDString( LOCATION_NAME_TM_X, LOCATION_NAME_TM_Y);
 	}
 	else
 	{
@@ -4067,10 +4976,10 @@ CHAR8	ubString[48];
 	FilenameForBPP("INTERFACE\\bottom_bar_buttons.sti", ubString);
 
 	// Load button Graphics
-	iTEAMPanelImages[ ENDTURN_IMAGES  ]			= LoadButtonImage(ubString,-1,0,-1, 3,-1 );
-	iTEAMPanelImages[ ROSTERMODE_IMAGES  ]	= UseLoadedButtonImage( iTEAMPanelImages[ ENDTURN_IMAGES  ] ,-1, 1,-1, 4,-1 );
-	iTEAMPanelImages[ DISK_IMAGES  ]				= UseLoadedButtonImage( iTEAMPanelImages[ ENDTURN_IMAGES  ] ,-1, 2,-1, 5, -1 );
-	
+	iTEAMPanelImages[ ENDTURN_IMAGES	]			= LoadButtonImage(ubString,-1,0,-1, 3,-1 );
+	iTEAMPanelImages[ ROSTERMODE_IMAGES	]	= UseLoadedButtonImage( iTEAMPanelImages[ ENDTURN_IMAGES	] ,-1, 1,-1, 4,-1 );
+	iTEAMPanelImages[ DISK_IMAGES	]				= UseLoadedButtonImage( iTEAMPanelImages[ ENDTURN_IMAGES	] ,-1, 2,-1, 5, -1 );
+
 	// Create buttons
 	iTEAMPanelButtons[ TEAM_DONE_BUTTON ] = QuickCreateButton( iTEAMPanelImages[ ENDTURN_IMAGES ], TM_ENDTURN_X, TM_ENDTURN_Y,
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGH - 1,
@@ -4107,7 +5016,7 @@ CHAR8	ubString[48];
 	return( TRUE );
 }
 
-void    RemoveTEAMPanelButtons( )
+void	RemoveTEAMPanelButtons( )
 {
 	UINT32 cnt;
 
@@ -4141,7 +5050,7 @@ void BtnEndTurnCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 	}
-	
+
 }
 
 void BtnRostermodeCallback(GUI_BUTTON *btn,INT32 reason)
@@ -4161,7 +5070,7 @@ void BtnRostermodeCallback(GUI_BUTTON *btn,INT32 reason)
 		}
 
 	}
-	
+
 }
 
 
@@ -4184,7 +5093,7 @@ void BtnSquadCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 	}
-	
+
 }
 
 void SetTEAMPanelCurrentMerc( UINT8 ubNewID )
@@ -4234,7 +5143,7 @@ void UpdateTEAMPanel( )
 
 			MSYS_DisableRegion( &gTEAM_FirstHandInv[ cnt ] );
 
-			MSYS_DisableRegion( &gTEAM_SecondHandInv[ cnt ] );			
+			MSYS_DisableRegion( &gTEAM_SecondHandInv[ cnt ] );
 		}
 
 		//disable the radar map region
@@ -4255,7 +5164,7 @@ void UpdateTEAMPanel( )
 
 			MSYS_EnableRegion( &gTEAM_FirstHandInv[ cnt ] );
 
-			MSYS_EnableRegion( &gTEAM_SecondHandInv[ cnt ] );			
+			MSYS_EnableRegion( &gTEAM_SecondHandInv[ cnt ] );
 		}
 
 		//Enable the radar map region
@@ -4279,12 +5188,12 @@ void HandleMouseOverTeamFaceForContMove( BOOLEAN fOn )
 			// Display 'cont' on face....
 			// Get face
 			pFace = &gFacesData[ gpSMCurrentMerc->iFaceIndex ];
-			
+
 			pFace->fDisplayTextOver = FACE_DRAW_TEXT_OVER;
 			wcscpy( pFace->zDisplayText, TacticalStr[ CONTINUE_OVER_FACE_STR ] );
 
 			// While our mouse is here, draw a path!
-			PlotPath( gpSMCurrentMerc, gpSMCurrentMerc->sFinalDestination, NO_COPYROUTE, PLOT, TEMPORARY, (UINT16)gpSMCurrentMerc->usUIMovementMode, NOT_STEALTH, FORWARD, gpSMCurrentMerc->bActionPoints );
+			PlotPath( gpSMCurrentMerc, gpSMCurrentMerc->pathing.sFinalDestination, NO_COPYROUTE, PLOT, TEMPORARY, (UINT16)gpSMCurrentMerc->usUIMovementMode, NOT_STEALTH, FORWARD, gpSMCurrentMerc->bActionPoints );
 		}
 	}
 	else
@@ -4292,7 +5201,7 @@ void HandleMouseOverTeamFaceForContMove( BOOLEAN fOn )
 		// Remove 'cont' on face....
 		// Get face
 		pFace = &gFacesData[ gpSMCurrentMerc->iFaceIndex ];
-		
+
 		pFace->fDisplayTextOver = FACE_ERASE_TEXT_OVER;
 
 		// Erase path!
@@ -4380,7 +5289,7 @@ void EnemyIndicatorClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	if (iReason & MSYS_CALLBACK_REASON_LBUTTON_DWN)
 	{
-		if ( MercPtrs[ ubSoldierID ]->uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+		if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
 		{
 		}
 		else
@@ -4389,7 +5298,7 @@ void EnemyIndicatorClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 			pSoldier = MercPtrs[ ubSoldierID ];
 
-			if ( pSoldier->bOppCnt > 0 )
+			if ( pSoldier->aiData.bOppCnt > 0 )
 			{	// Cycle....
 				CycleVisibleEnemies( pSoldier );
 			}
@@ -4449,7 +5358,7 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		if ( !gfInItemPickupMenu && gpItemPointer == NULL )
 		{
-			if ( MercPtrs[ ubSoldierID ]->uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
+			if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
 			{
 				pVehicle = GetSoldierStructureForVehicle( MercPtrs[ ubSoldierID ]->iVehicleId );
 
@@ -4478,12 +5387,12 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			}
 		}
 	}
-	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_DWN)
+	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
 		if ( !InOverheadMap( ) )
 		{
 			// Only if guy is not dead!
-			if ( !( MercPtrs[ ubSoldierID ]->uiStatusFlags & SOLDIER_DEAD ) && !AM_AN_EPC( MercPtrs[ ubSoldierID ] ) && !( MercPtrs[ ubSoldierID ]->uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
+			if ( !( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & SOLDIER_DEAD ) && !AM_AN_EPC( MercPtrs[ ubSoldierID ] ) && !( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) ) )
 			{
 				gfSwitchPanel = TRUE;
 				gbNewPanel = SM_PANEL;
@@ -4496,7 +5405,7 @@ void MercFacePanelCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 extern void InternalSelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceReselect, BOOLEAN fFromUI );
 
-void HandleLocateSelectMerc( UINT8 ubID, INT8 bFlag  )
+void HandleLocateSelectMerc( UINT8 ubID, INT8 bFlag	)
 {
 	BOOLEAN fSelect = FALSE;
 
@@ -4513,7 +5422,7 @@ void HandleLocateSelectMerc( UINT8 ubID, INT8 bFlag  )
 
 
 	// ATE: No matter what we do... if below OKLIFE, just locate....
-	if ( MercPtrs[ ubID ]->bLife < OKLIFE )
+	if ( MercPtrs[ ubID ]->stats.bLife < OKLIFE )
 	{
 		LocateSoldier( ubID, SETLOCATOR );
 		return;
@@ -4525,7 +5434,7 @@ void HandleLocateSelectMerc( UINT8 ubID, INT8 bFlag  )
 		{
 			// Select merc
 			InternalSelectSoldier( ubID, TRUE, FALSE, TRUE);
-			MercPtrs[ ubID ]->fFlashLocator = FALSE;
+			MercPtrs[ ubID ]->flags.fFlashLocator = FALSE;
 			ResetMultiSelection( );
 		}
 		else
@@ -4536,7 +5445,7 @@ void HandleLocateSelectMerc( UINT8 ubID, INT8 bFlag  )
 	}
 	else
 	{
-		if ( MercPtrs[ ubID ]->fFlashLocator == FALSE )
+		if ( MercPtrs[ ubID ]->flags.fFlashLocator == FALSE )
 		{
 			if ( gGameSettings.fOptions[ TOPTION_OLD_SELECTION_METHOD ] )
 			{
@@ -4563,7 +5472,7 @@ void HandleLocateSelectMerc( UINT8 ubID, INT8 bFlag  )
 				}
 			}
 		}
-		else 
+		else
 		{
 			if ( gGameSettings.fOptions[ TOPTION_OLD_SELECTION_METHOD ] )
 			{
@@ -4600,7 +5509,7 @@ void HandleLocateSelectMerc( UINT8 ubID, INT8 bFlag  )
 		if ( fSelect )
 		{
 			// Select merc, only if alive!
-			if ( !( MercPtrs[ ubID ]->uiStatusFlags & SOLDIER_DEAD ) )
+			if ( !( MercPtrs[ ubID ]->flags.uiStatusFlags & SOLDIER_DEAD ) )
 			{
 				InternalSelectSoldier( ubID, TRUE, FALSE, TRUE );
 			}
@@ -4618,17 +5527,17 @@ void HandleLocateSelectMerc( UINT8 ubID, INT8 bFlag  )
 
 void ShowRadioLocator( UINT8 ubID, UINT8 ubLocatorSpeed )
 {
-	RESETTIMECOUNTER( MercPtrs[ ubID ]->FlashSelCounter, FLASH_SELECTOR_DELAY );
+	RESETTIMECOUNTER( MercPtrs[ ubID ]->timeCounters.FlashSelCounter, FLASH_SELECTOR_DELAY );
 
 	//LocateSoldier( ubID, FALSE );	// IC - this is already being done outside of this function :)
-	MercPtrs[ ubID ]->fFlashLocator = TRUE;
+	MercPtrs[ ubID ]->flags.fFlashLocator = TRUE;
 	//gbPanelSelectedGuy = ubID;	IC - had to move this outside to make this function versatile
 	MercPtrs[ ubID ]->sLocatorFrame = 0;
 
 	if ( ubLocatorSpeed == SHOW_LOCATOR_NORMAL )
 	{
 		// If we are an AI guy, and we have the baton, make lower...
-		// ( MercPtrs[ ubID ]->uiStatusFlags & SOLDIER_UNDERAICONTROL && MercPtrs[ ubID ]->bTeam != gbPlayerNum )
+		// ( MercPtrs[ ubID ]->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL && MercPtrs[ ubID ]->bTeam != gbPlayerNum )
 		//
 		//ercPtrs[ ubID ]->ubNumLocateCycles = 3;
 		//
@@ -4645,8 +5554,8 @@ void ShowRadioLocator( UINT8 ubID, UINT8 ubLocatorSpeed )
 
 void EndRadioLocator( UINT8 ubID )
 {
-	MercPtrs[ ubID ]->fFlashLocator = FALSE;
-	MercPtrs[ ubID ]->fShowLocator = FALSE;  
+	MercPtrs[ ubID ]->flags.fFlashLocator = FALSE;
+	MercPtrs[ ubID ]->flags.fShowLocator = FALSE;
 }
 
 
@@ -4660,7 +5569,7 @@ void CheckForFacePanelStartAnims( SOLDIERTYPE *pSoldier, INT16 sPanelX, INT16 sP
 	}
 
 
-	if ( pSoldier->fUIdeadMerc  )
+	if ( pSoldier->flags.fUIdeadMerc	)
 	{
 //		pSoldier->sPanelFaceX	= sPanelX;
 //		pSoldier->sPanelFaceY	= sPanelY;
@@ -4675,19 +5584,19 @@ void FinishAnySkullPanelAnimations( )
 	SOLDIERTYPE *pTeamSoldier;
 	INT32		cnt2;
 
-	cnt2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;	
+	cnt2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// run through list
 	for ( pTeamSoldier = MercPtrs[ cnt2 ]; cnt2 <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt2++,pTeamSoldier++ )
 	{
-		if ( pTeamSoldier->bActive && pTeamSoldier->bLife == 0 )
+		if ( pTeamSoldier->bActive && pTeamSoldier->stats.bLife == 0 )
 		{
-			if ( pTeamSoldier->fUIdeadMerc || pTeamSoldier->fClosePanelToDie )
+			if ( pTeamSoldier->flags.fUIdeadMerc || pTeamSoldier->flags.fClosePanelToDie )
 			{
 				HandlePlayerTeamMemberDeathAfterSkullAnimation( pTeamSoldier );
-				
-				pTeamSoldier->fUIdeadMerc = FALSE;
-				pTeamSoldier->fClosePanelToDie = FALSE;
+
+				pTeamSoldier->flags.fUIdeadMerc = FALSE;
+				pTeamSoldier->flags.fClosePanelToDie = FALSE;
 			}
 		}
 	}
@@ -4707,50 +5616,50 @@ void HandlePanelFaceAnimations( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
-	if ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		// Don't do this for a vehice.
 		return;
 	}
 
 	// If this is the first time we are active, open panel!
-	if ( pSoldier->fUInewMerc )
+	if ( pSoldier->flags.fUInewMerc )
 	{
-		pSoldier->fUInewMerc = FALSE;
+		pSoldier->flags.fUInewMerc = FALSE;
 	}
 
-	if ( pSoldier->fUICloseMerc )
+	if ( pSoldier->flags.fUICloseMerc )
 	{
-		pSoldier->fUICloseMerc = FALSE;
+		pSoldier->flags.fUICloseMerc = FALSE;
 	}
 
-	if ( pSoldier->fUIdeadMerc  )
+	if ( pSoldier->flags.fUIdeadMerc	)
 	{
 		pSoldier->sPanelFaceX = gFacesData[ pSoldier->iFaceIndex ].usFaceX;
 		pSoldier->sPanelFaceY = gFacesData[ pSoldier->iFaceIndex ].usFaceY;
 
-		pSoldier->fUIdeadMerc = FALSE;		
-		pSoldier->fClosePanel		= TRUE;
-		pSoldier->fClosePanelToDie = TRUE;
+		pSoldier->flags.fUIdeadMerc = FALSE;
+		pSoldier->flags.fClosePanel		= TRUE;
+		pSoldier->flags.fClosePanelToDie = TRUE;
 		pSoldier->ubClosePanelFrame = 0;
 		pSoldier->ubDeadPanelFrame = 0;
-		RESETTIMECOUNTER( pSoldier->PanelAnimateCounter, 160 );
+		RESETTIMECOUNTER( pSoldier->timeCounters.PanelAnimateCounter, 160 );
 	}
 
-	if ( pSoldier->fClosePanel )
+	if ( pSoldier->flags.fClosePanel )
 	{
-		 if ( TIMECOUNTERDONE( pSoldier->PanelAnimateCounter, 160 ) )
-		 {
+		if ( TIMECOUNTERDONE( pSoldier->timeCounters.PanelAnimateCounter, 160 ) )
+		{
 				pSoldier->ubClosePanelFrame++;
 
 				if ( pSoldier->ubClosePanelFrame > 5 )
 				{
-					pSoldier->fClosePanel = FALSE;
+					pSoldier->flags.fClosePanel = FALSE;
 					pSoldier->ubClosePanelFrame = 5;
 
-					if ( pSoldier->fClosePanelToDie )
+					if ( pSoldier->flags.fClosePanelToDie )
 					{
-						pSoldier->fDeadPanel = TRUE;
+						pSoldier->flags.fDeadPanel = TRUE;
 						//PlayJA2Sample( (UINT8)HEADCR_1, RATE_11025, HIGHVOLUME, 1, MIDDLEPAN );
 					}
 					else
@@ -4761,29 +5670,29 @@ void HandlePanelFaceAnimations( SOLDIERTYPE *pSoldier )
 						}
 					}
 				}
-				RESETTIMECOUNTER( pSoldier->PanelAnimateCounter, 160 );
-		 }
+				RESETTIMECOUNTER( pSoldier->timeCounters.PanelAnimateCounter, 160 );
+		}
 	}
 
-	if ( pSoldier->fClosePanel )
+	if ( pSoldier->flags.fClosePanel )
 	{
-		 // Render panel!
-		 //if(gbPixelDepth==16)
-		 //{
+		// Render panel!
+		//if(gbPixelDepth==16)
+		//{
 			if ( !gFacesData[ pSoldier->iFaceIndex ].fDisabled )
 			{
-				 RestoreExternBackgroundRect( pSoldier->sPanelFaceX, pSoldier->sPanelFaceY, TM_FACE_WIDTH, TM_FACE_HEIGHT );
-				 BltVideoObjectFromIndex( FRAME_BUFFER, guiCLOSE, pSoldier->ubClosePanelFrame, pSoldier->sPanelFaceX, pSoldier->sPanelFaceY, VO_BLT_SRCTRANSPARENCY, NULL );
-				 InvalidateRegion( pSoldier->sPanelFaceX, pSoldier->sPanelFaceY, pSoldier->sPanelFaceX + TM_FACE_WIDTH, pSoldier->sPanelFaceY + TM_FACE_HEIGHT );			 
+				RestoreExternBackgroundRect( pSoldier->sPanelFaceX, pSoldier->sPanelFaceY, TM_FACE_WIDTH, TM_FACE_HEIGHT );
+				BltVideoObjectFromIndex( FRAME_BUFFER, guiCLOSE, pSoldier->ubClosePanelFrame, pSoldier->sPanelFaceX, pSoldier->sPanelFaceY, VO_BLT_SRCTRANSPARENCY, NULL );
+				InvalidateRegion( pSoldier->sPanelFaceX, pSoldier->sPanelFaceY, pSoldier->sPanelFaceX + TM_FACE_WIDTH, pSoldier->sPanelFaceY + TM_FACE_HEIGHT );
 			}
-		 //}
+		//}
 	}
 
 
-	if ( pSoldier->fDeadPanel )
+	if ( pSoldier->flags.fDeadPanel )
 	{
-		 if ( TIMECOUNTERDONE(  pSoldier->PanelAnimateCounter, 160 ) )
-		 {
+		if ( TIMECOUNTERDONE(	pSoldier->timeCounters.PanelAnimateCounter, 160 ) )
+		{
 				pSoldier->ubDeadPanelFrame++;
 
 				if ( pSoldier->ubDeadPanelFrame == 4 )
@@ -4796,9 +5705,9 @@ void HandlePanelFaceAnimations( SOLDIERTYPE *pSoldier )
 
 				if ( pSoldier->ubDeadPanelFrame > 5 )
 				{
-					pSoldier->fDeadPanel = FALSE;
+					pSoldier->flags.fDeadPanel = FALSE;
 					pSoldier->ubDeadPanelFrame = 5;
-					pSoldier->fClosePanelToDie = FALSE;
+					pSoldier->flags.fClosePanelToDie = FALSE;
 
 					// Finish!
 					if ( !gFacesData[ pSoldier->iFaceIndex ].fDisabled )
@@ -4813,37 +5722,37 @@ void HandlePanelFaceAnimations( SOLDIERTYPE *pSoldier )
 					HandlePlayerTeamMemberDeathAfterSkullAnimation( pSoldier );
 
 				}
-				RESETTIMECOUNTER( pSoldier->PanelAnimateCounter, 160 );
-		 }
+				RESETTIMECOUNTER( pSoldier->timeCounters.PanelAnimateCounter, 160 );
+		}
 	}
 
-	if ( pSoldier->fDeadPanel )
+	if ( pSoldier->flags.fDeadPanel )
 	{
-		 // Render panel!
-		 //if(gbPixelDepth==16)
-		 //{
+		// Render panel!
+		//if(gbPixelDepth==16)
+		//{
 				if ( !gFacesData[ pSoldier->iFaceIndex ].fDisabled )
 				{
-					 BltVideoObjectFromIndex( FRAME_BUFFER, guiDEAD, pSoldier->ubDeadPanelFrame, pSoldier->sPanelFaceX, pSoldier->sPanelFaceY, VO_BLT_SRCTRANSPARENCY, NULL );
+					BltVideoObjectFromIndex( FRAME_BUFFER, guiDEAD, pSoldier->ubDeadPanelFrame, pSoldier->sPanelFaceX, pSoldier->sPanelFaceY, VO_BLT_SRCTRANSPARENCY, NULL );
 
-					 // Blit hatch!
-					 BltVideoObjectFromIndex( guiSAVEBUFFER, guiHATCH, 0, pSoldier->sPanelFaceX, pSoldier->sPanelFaceY, VO_BLT_SRCTRANSPARENCY, NULL );
+					// Blit hatch!
+					BltVideoObjectFromIndex( guiSAVEBUFFER, guiHATCH, 0, pSoldier->sPanelFaceX, pSoldier->sPanelFaceY, VO_BLT_SRCTRANSPARENCY, NULL );
 
-					 InvalidateRegion( pSoldier->sPanelFaceX, pSoldier->sPanelFaceY, pSoldier->sPanelFaceX + TM_FACE_WIDTH, pSoldier->sPanelFaceY + TM_FACE_HEIGHT );			 
+					InvalidateRegion( pSoldier->sPanelFaceX, pSoldier->sPanelFaceY, pSoldier->sPanelFaceX + TM_FACE_WIDTH, pSoldier->sPanelFaceY + TM_FACE_HEIGHT );
 				}
-		 //}
+		//}
 	}
 
 
-	if ( pSoldier->fOpenPanel )
+	if ( pSoldier->flags.fOpenPanel )
 	{
-		 if ( TIMECOUNTERDONE( pSoldier->PanelAnimateCounter, 160 ) )
-		 {
+		if ( TIMECOUNTERDONE( pSoldier->timeCounters.PanelAnimateCounter, 160 ) )
+		{
 				pSoldier->bOpenPanelFrame--;
 
 				if ( pSoldier->bOpenPanelFrame < 0 )
 				{
-					pSoldier->fOpenPanel = FALSE;
+					pSoldier->flags.fOpenPanel = FALSE;
 					pSoldier->bOpenPanelFrame = 0;
 
 					if ( !gFacesData[ pSoldier->iFaceIndex ].fDisabled )
@@ -4851,24 +5760,24 @@ void HandlePanelFaceAnimations( SOLDIERTYPE *pSoldier )
 						RestoreExternBackgroundRect( pSoldier->sPanelFaceX, pSoldier->sPanelFaceY, TM_FACE_WIDTH, TM_FACE_HEIGHT );
 					}
 				}
-				RESETTIMECOUNTER( pSoldier->PanelAnimateCounter, 160 );
-		 }
+				RESETTIMECOUNTER( pSoldier->timeCounters.PanelAnimateCounter, 160 );
+		}
 	}
 
-	if ( pSoldier->fOpenPanel )
+	if ( pSoldier->flags.fOpenPanel )
 	{
-		 // Render panel!
-		 //if(gbPixelDepth==16)
-		 //{
+		// Render panel!
+		//if(gbPixelDepth==16)
+		//{
 				if ( !gFacesData[ pSoldier->iFaceIndex ].fDisabled )
 				{
 					RestoreExternBackgroundRect( pSoldier->sPanelFaceX, pSoldier->sPanelFaceY, TM_FACE_WIDTH, TM_FACE_HEIGHT );
 					BltVideoObjectFromIndex( FRAME_BUFFER, guiCLOSE, pSoldier->bOpenPanelFrame, pSoldier->sPanelFaceX, pSoldier->sPanelFaceY, VO_BLT_SRCTRANSPARENCY, NULL );
-					//InvalidateRegion( sTEAMFacesXY[ ubOpenPanelID ], sTEAMFacesXY[ ubOpenPanelID + 1 ], sTEAMFacesXY[ ubOpenPanelID ] + TM_FACE_WIDTH, sTEAMFacesXY[ ubOpenPanelID + 1 ] + TM_FACE_HEIGHT );			 
+					//InvalidateRegion( sTEAMFacesXY[ ubOpenPanelID ], sTEAMFacesXY[ ubOpenPanelID + 1 ], sTEAMFacesXY[ ubOpenPanelID ] + TM_FACE_WIDTH, sTEAMFacesXY[ ubOpenPanelID + 1 ] + TM_FACE_HEIGHT );
 				}
-		 //}
+		//}
 	}
-	
+
 }
 
 
@@ -4882,9 +5791,9 @@ void HandleSoldierFaceFlash( SOLDIERTYPE *pSoldier, INT16 sFaceX, INT16 sFaceY )
 
 void RenderSoldierTeamInv( SOLDIERTYPE *pSoldier, INT16 sX, INT16 sY, UINT8 ubPanelNum, BOOLEAN fDirty )
 {
-	if ( pSoldier->bActive && !(pSoldier->uiStatusFlags & SOLDIER_DEAD ) )
+	if ( pSoldier->bActive && !(pSoldier->flags.uiStatusFlags & SOLDIER_DEAD ) )
 	{
-		if ( pSoldier->uiStatusFlags & SOLDIER_DRIVER )
+		if ( pSoldier->flags.uiStatusFlags & SOLDIER_DRIVER )
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiVEHINV, 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
 			RestoreExternBackgroundRect( sX, sY, (INT16)( TM_INV_WIDTH ) , (INT16)( TM_INV_HEIGHT ) );
@@ -4895,7 +5804,7 @@ void RenderSoldierTeamInv( SOLDIERTYPE *pSoldier, INT16 sX, INT16 sY, UINT8 ubPa
 			INVRenderItem( guiSAVEBUFFER, pSoldier, &(pSoldier->inv[ HANDPOS ]), sX, sY, TM_INV_WIDTH, TM_INV_HEIGHT, fDirty, &(gfTEAM_HandInvDispText[ ubPanelNum ][ HANDPOS ] ), 0 , FALSE, 0);
 		}
 
-		if ( pSoldier->uiStatusFlags & ( SOLDIER_PASSENGER | SOLDIER_DRIVER ) )
+		if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_PASSENGER | SOLDIER_DRIVER ) )
 		{
 			BltVideoObjectFromIndex( guiSAVEBUFFER, guiVEHINV, 1, sX, (INT16)(sY + TM_INV_HAND_SEPY), VO_BLT_SRCTRANSPARENCY, NULL );
 			RestoreExternBackgroundRect( sX, (INT16)(sY + TM_INV_HAND_SEPY), (INT16)(TM_INV_WIDTH ) , (INT16)( TM_INV_HEIGHT ) );
@@ -4933,7 +5842,7 @@ void TMFirstHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	// Now use soldier ID values
 	ubSoldierID = gTeamPanel[ ubID ].ubID;
-	
+
 
 	if ( !MercPtrs[ ubSoldierID ]->bActive )
 	{
@@ -4970,7 +5879,7 @@ void TMClickFirstHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	if ( ubID == NOBODY )
 		return;
-	
+
 	// Now use soldier ID values
 	ubSoldierID = gTeamPanel[ ubID ].ubID;
 
@@ -4990,7 +5899,7 @@ void TMClickFirstHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			usOldHandItem = MercPtrs[ ubSoldierID ]->inv[HANDPOS].usItem;
 			//SwapOutHandItem( MercPtrs[ ubSoldierID ] );
 			SwapHandItems( MercPtrs[ ubSoldierID ] );
-			ReLoadSoldierAnimationDueToHandItemChange( MercPtrs[ ubSoldierID ], usOldHandItem, MercPtrs[ ubSoldierID ]->inv[HANDPOS].usItem );
+			MercPtrs[ ubSoldierID ]->ReLoadSoldierAnimationDueToHandItemChange( usOldHandItem, MercPtrs[ ubSoldierID ]->inv[HANDPOS].usItem );
 			fInterfacePanelDirty = DIRTYLEVEL2;
 		}
 	}
@@ -5006,7 +5915,7 @@ void TMClickSecondHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	if ( ubID == NOBODY )
 		return;
-	
+
 	// Now use soldier ID values
 	ubSoldierID = gTeamPanel[ ubID ].ubID;
 
@@ -5015,7 +5924,7 @@ void TMClickSecondHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	if (iReason == MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
-		if ( MercPtrs[ ubSoldierID ]->uiStatusFlags & ( SOLDIER_PASSENGER | SOLDIER_DRIVER ) )
+		if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_PASSENGER | SOLDIER_DRIVER ) )
 		{
 			ExitVehicle( MercPtrs[ ubSoldierID ] );
 		}
@@ -5023,7 +5932,7 @@ void TMClickSecondHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	if (iReason == MSYS_CALLBACK_REASON_RBUTTON_UP )
 	{
-		if ( MercPtrs[ ubSoldierID ]->uiStatusFlags & ( SOLDIER_PASSENGER | SOLDIER_DRIVER ) )
+		if ( MercPtrs[ ubSoldierID ]->flags.uiStatusFlags & ( SOLDIER_PASSENGER | SOLDIER_DRIVER ) )
 		{
 		}
 		else
@@ -5032,7 +5941,7 @@ void TMClickSecondHandInvCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			{
 				usOldHandItem = MercPtrs[ ubSoldierID ]->inv[HANDPOS].usItem;
 				SwapHandItems( MercPtrs[ ubSoldierID ] );
-				ReLoadSoldierAnimationDueToHandItemChange( MercPtrs[ ubSoldierID ], usOldHandItem, MercPtrs[ ubSoldierID ]->inv[HANDPOS].usItem );
+				MercPtrs[ ubSoldierID ]->ReLoadSoldierAnimationDueToHandItemChange( usOldHandItem, MercPtrs[ ubSoldierID ]->inv[HANDPOS].usItem );
 				fInterfacePanelDirty = DIRTYLEVEL2;
 			}
 		}
@@ -5100,10 +6009,10 @@ BOOLEAN RemovePlayerFromTeamSlotGivenMercID( UINT8 ubMercID )
 
 void AddPlayerToInterfaceTeamSlot( UINT8 ubID )
 {
-	INT32  cnt;
+	INT32	cnt;
 
 	// If we are a vehicle don't ever add.....
-	if ( MercPtrs[ ubID ]->uiStatusFlags & SOLDIER_VEHICLE )
+	if ( MercPtrs[ ubID ]->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		return;
 	}
@@ -5125,7 +6034,7 @@ void AddPlayerToInterfaceTeamSlot( UINT8 ubID )
 				fInterfacePanelDirty = DIRTYLEVEL2;
 
 				// Set ID to do open anim
-				MercPtrs[ ubID ]->fUInewMerc						= TRUE;
+				MercPtrs[ ubID ]->flags.fUInewMerc						= TRUE;
 
 				break;
 			}
@@ -5169,7 +6078,7 @@ BOOLEAN GetPlayerIDFromInterfaceTeamSlot( UINT8 ubPanelSlot, UINT8 *pubID )
 void RemoveAllPlayersFromSlot( )
 {
 	int cnt;
-	
+
 	for ( cnt = 0; cnt < NUM_TEAM_SLOTS; cnt++ )
 	{
 		RemovePlayerFromInterfaceTeamSlot( (UINT8)cnt );
@@ -5186,11 +6095,11 @@ BOOLEAN RemovePlayerFromInterfaceTeamSlot( UINT8 ubPanelSlot )
 
 	if ( gTeamPanel[ ubPanelSlot ].fOccupied )
 	{
-		if ( !( MercPtrs[ gTeamPanel[ ubPanelSlot ].ubID ]->uiStatusFlags & SOLDIER_DEAD ) )
-    {
-		  // Set Id to close
-		  MercPtrs[ gTeamPanel[ ubPanelSlot ].ubID ]->fUICloseMerc		= TRUE;
-    }
+		if ( !( MercPtrs[ gTeamPanel[ ubPanelSlot ].ubID ]->flags.uiStatusFlags & SOLDIER_DEAD ) )
+	{
+		// Set Id to close
+		MercPtrs[ gTeamPanel[ ubPanelSlot ].ubID ]->flags.fUICloseMerc		= TRUE;
+	}
 
 		// Set face to inactive...
 		SetAutoFaceInActive( MercPtrs[ gTeamPanel[ ubPanelSlot ].ubID ]->iFaceIndex );
@@ -5214,7 +6123,9 @@ BOOLEAN RemovePlayerFromInterfaceTeamSlot( UINT8 ubPanelSlot )
 }
 
 
-void RenderTownIDString( )
+/* CHRISL: Adjust function to allow X,Y coordinates to be passed so that we can render the TownID string
+seperately between the team and inventory windows. */
+void RenderTownIDString( INT16 sX, INT16 sY )
 {
 	CHAR16	zTownIDString[80];
 	INT16 sFontX, sFontY;
@@ -5226,7 +6137,7 @@ void RenderTownIDString( )
 
 	GetSectorIDString( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, zTownIDString, TRUE );
 	ReduceStringLength( zTownIDString, 80, COMPFONT );
-	VarFindFontCenterCoordinates( LOCATION_NAME_X , LOCATION_NAME_Y, 80, 16, COMPFONT, &sFontX, &sFontY, zTownIDString );
+	VarFindFontCenterCoordinates( sX , sY, 80, 16, COMPFONT, &sFontX, &sFontY, zTownIDString );
 	mprintf( sFontX, sFontY, L"%s", zTownIDString );
 }
 
@@ -5234,21 +6145,21 @@ void RenderTownIDString( )
 void CheckForAndAddMercToTeamPanel( SOLDIERTYPE *pSoldier )
 {
 
-	if ( pSoldier->bActive  )
+	if ( pSoldier->bActive	)
 	{
 		// Add to interface if the are ours
 		if ( pSoldier->bTeam == gbPlayerNum )
 		{
 			// Are we in the loaded sector?
-			if ( pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ && !pSoldier->fBetweenSectors && pSoldier->bInSector )
+			if ( pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ && !pSoldier->flags.fBetweenSectors && pSoldier->bInSector )
 			{
 				// IF on duty....
-				if( ( pSoldier->bAssignment ==  CurrentSquad( ) )|| ( SoldierIsDeadAndWasOnSquad( pSoldier, ( INT8 )( CurrentSquad( ) ) ) ) )
+				if( ( pSoldier->bAssignment ==	CurrentSquad( ) )|| ( SoldierIsDeadAndWasOnSquad( pSoldier, ( INT8 )( CurrentSquad( ) ) ) ) )
 				{
 
 					if( pSoldier->bAssignment == ASSIGNMENT_DEAD )
 					{
-						pSoldier->fUICloseMerc = FALSE;
+						pSoldier->flags.fUICloseMerc = FALSE;
 					}
 					// ATE: ALrighty, if we have the insertion code of helicopter..... don't add just yet!
 					/// ( will add in heli code )
@@ -5258,17 +6169,17 @@ void CheckForAndAddMercToTeamPanel( SOLDIERTYPE *pSoldier )
 					}
 
 					// ARE WE A VEHICLE.....
-					if ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
+					if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 					{
 						AddPassangersToTeamPanel( pSoldier->bVehicleID );
 					}
-				}	
+				}
 			}
 			else
 			{
 				// Make sure we are NOT in this world!
 				// Set gridno to one that's not visib;l
-				RemoveSoldierFromGridNo( pSoldier );
+				pSoldier->RemoveSoldierFromGridNo( );
 
 				// Remove slot from tactical
 				RemoveMercSlot( pSoldier );
@@ -5278,6 +6189,30 @@ void CheckForAndAddMercToTeamPanel( SOLDIERTYPE *pSoldier )
 	}
 }
 
+void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj )
+{
+	INT16	bMaxPoints;
+
+	if ( !(Item[ pObj->usItem ].usItemClass & IC_AMMO || Item[ pObj->usItem ].usItemClass & IC_KIT || Item[ pObj->usItem ].usItemClass & IC_MEDKIT  || Item[pObj->usItem].canteen || Item[pObj->usItem].gascan || Item[pObj->usItem].alcohol ) )
+	{
+		return;
+	}
+
+	if ( Item[ pObj->usItem ].usItemClass & IC_AMMO )
+	{
+		bMaxPoints = Magazine[ Item[ pObj->usItem ].ubClassIndex ].ubMagSize;
+	}
+	else
+	{
+		bMaxPoints = 100;
+	}
+
+	if ( pCursorObj && pCursorObj->usItem == pObj->usItem )
+	{
+		DistributeStatus(pCursorObj, pObj, bMaxPoints);
+	}
+	DistributeStatus(pObj, pObj, bMaxPoints);
+}
 
 UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs )
 {
@@ -5310,7 +6245,7 @@ UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife
 
 			if ( fGoodForLessOKLife )
 			{
-				if ( pTeamSoldier->bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && pTeamSoldier->bAssignment < ON_DUTY  && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
+				if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && pTeamSoldier->bAssignment < ON_DUTY	&& OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
 				{
 					return( (UINT8)gTeamPanel[ cnt ].ubID );
 				}
@@ -5327,7 +6262,7 @@ UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife
 
 
 	if ( ( gusSelectedSoldier != NOBODY ) && ( gGameSettings.fOptions[ TOPTION_SPACE_SELECTS_NEXT_SQUAD ] ) )
-	{ 
+	{
 		// only allow if nothing in hand and if in SM panel, the Change Squad button must be enabled
 		if ( ( ( gsCurInterfacePanel != TEAM_PANEL ) || ( ButtonList[ iTEAMPanelButtons[ CHANGE_SQUAD_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
 		{
@@ -5366,7 +6301,7 @@ UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife
 
 			if ( fGoodForLessOKLife )
 			{
-				if ( pTeamSoldier->bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && pTeamSoldier->bAssignment < ON_DUTY  && OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
+				if ( pTeamSoldier->stats.bLife > 0 && pTeamSoldier->bActive && pTeamSoldier->bInSector && pTeamSoldier->bTeam == gbPlayerNum && pTeamSoldier->bAssignment < ON_DUTY	&& OK_INTERRUPT_MERC( pTeamSoldier ) && pSoldier->bAssignment == pTeamSoldier->bAssignment )
 				{
 					return( (UINT8)gTeamPanel[ cnt ].ubID );
 				}
@@ -5432,7 +6367,7 @@ void BeginKeyPanelFromKeyShortcut( )
 	if( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE )
 		return;
 
-	InitKeyRingPopup( pSoldier, 0, sStartYPosition, sWidth, sHeight ); 
+	InitKeyRingPopup( pSoldier, 0, sStartYPosition, sWidth, sHeight );
 }
 
 
@@ -5454,8 +6389,8 @@ void KeyRingItemPanelButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			return;
 		}
 
-		
-		
+
+
 
 		pSoldier = &( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] );
 		sStartYPosition = MAP_START_KEYRING_Y;
@@ -5495,7 +6430,7 @@ void KeyRingItemPanelButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			InvalidateRegion( 0, 107, 261, 359 );
 		}
 
-		InitKeyRingPopup( pSoldier, 0, sStartYPosition, sWidth, sHeight ); 
+		InitKeyRingPopup( pSoldier, 0, sStartYPosition, sWidth, sHeight );
 	}
 }
 
@@ -5510,7 +6445,7 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	uiKeyRing = MSYS_GetRegionUserData( pRegion, 0 );
 
-	
+
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 		return;
@@ -5533,22 +6468,20 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			if( gMoveingItem.sItemIndex == 0 )
 			{
 				//Delete the contents of the item cursor
-				memset( &gMoveingItem, 0, sizeof( INVENTORY_IN_SLOT ) );
+				gMoveingItem.initialize();
 			}
 			else
 			{
-				memset( &InvSlot, 0, sizeof( INVENTORY_IN_SLOT ) );
-
 				// Return if empty
-				//if ( gpSMCurrentMerc->inv[ uiHandPos ].usItem == NOTHING )
+				//if ( gpSMCurrentMerc->inv[ uiHandPos ].exists() == false )
 				//	return;
 
 
 				// Fill out the inv slot for the item
 				//InvSlot.sItemIndex = gpSMCurrentMerc->inv[ uiHandPos ].usItem;
 //			InvSlot.ubNumberOfItems = gpSMCurrentMerc->inv[ uiHandPos ].ubNumberOfObjects;
-//			InvSlot.ubItemQuality = gpSMCurrentMerc->inv[ uiHandPos ].bGunStatus;
-				//memcpy( &InvSlot.ItemObject, &gpSMCurrentMerc->inv[ uiHandPos ], sizeof( OBJECTTYPE ) );
+//			InvSlot.ubItemQuality = gpSMCurrentMerc->inv[ uiHandPos ].gun.bGunStatus;
+				//InvSlot.ItemObject = gpSMCurrentMerc->inv[ uiHandPos ];
 				//InvSlot.ubLocationOfObject = PLAYERS_INVENTORY;
 
 				//InvSlot.ubIdOfMercWhoOwnsTheItem = gpSMCurrentMerc->ubProfile;
@@ -5557,7 +6490,7 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				//Add the item to the Players Offer Area
 				//AddItemToPlayersOfferArea( gpSMCurrentMerc->ubProfile, &InvSlot, (UINT8)uiHandPos );
 
-				// Dirty 
+				// Dirty
 				fInterfacePanelDirty = DIRTYLEVEL2;
 			}
 			return;
@@ -5582,7 +6515,7 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				}
 			}
 
-			usOldItemIndex =  ( UINT16 )uiKeyRing ;
+			usOldItemIndex =	( UINT16 )uiKeyRing ;
 
 			BeginKeyRingItemPointer( gpItemPopupSoldier, (UINT8)usOldItemIndex );
 			//BeginItemPointer( gpSMCurrentMerc, (UINT8)uiHandPos );
@@ -5594,13 +6527,13 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			BOOLEAN		fOKToGo = FALSE;
 			BOOLEAN		fDeductPoints = FALSE;
 
-			if( ( gpItemPointer ->usItem < FIRST_KEY ) || ( gpItemPointer ->usItem > KEY_32 ) )
+			if( ( gpItemPointer->usItem < FIRST_KEY ) || ( gpItemPointer->usItem > KEY_32 ) )
 			{
 				return;
 			}
 
 			// ATE: OK, get source, dest guy if different... check for and then charge appropriate APs
-			ubSrcID  = ( UINT8 )gCharactersList[ bSelectedInfoChar ].usSolID;
+			ubSrcID	= ( UINT8 )gCharactersList[ bSelectedInfoChar ].usSolID;
 			if ( gpItemPointerSoldier )
 			{
 				ubDestID = gpItemPointerSoldier->ubID;
@@ -5614,14 +6547,14 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			{
 				// We are doing this ourselve, continue
 				fOKToGo = TRUE;
-			} 
+			}
 			else
 			{
 				// These guys are different....
 				fDeductPoints = TRUE;
 
 				// First check points for src guy
-				if ( gpItemPointerSoldier->bLife >= CONSCIOUSNESS )
+				if ( gpItemPointerSoldier->stats.bLife >= CONSCIOUSNESS )
 				{
 					if ( EnoughPoints( gpItemPointerSoldier, 2, 0, TRUE ) )
 					{
@@ -5636,7 +6569,7 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				// Should we go on?
 				if ( fOKToGo )
 				{
-					if ( gpSMCurrentMerc->bLife >= CONSCIOUSNESS )
+					if ( gpSMCurrentMerc->stats.bLife >= CONSCIOUSNESS )
 					{
 						if ( EnoughPoints( gpSMCurrentMerc, 2, 0, TRUE ) )
 						{
@@ -5655,32 +6588,32 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				//usOldItemIndex = gpSMCurrentMerc->inv[ uiHandPos ].usItem;
 				//usNewItemIndex = gpItemPointer->usItem;
 
-				if ( gpItemPopupSoldier->pKeyRing[ uiKeyRing ].ubKeyID == INVALID_KEY_NUMBER || gpItemPopupSoldier->pKeyRing[ uiKeyRing ].ubKeyID == gpItemPointer->ItemData.Key.ubKeyID)
+				if ( gpItemPopupSoldier->pKeyRing[ uiKeyRing ].ubKeyID == INVALID_KEY_NUMBER || gpItemPopupSoldier->pKeyRing[ uiKeyRing ].ubKeyID == (*gpItemPointer)[0]->data.key.ubKeyID)
 				{
 					// Try to place here
 					if ( ( iNumberOfKeysTaken = AddKeysToSlot( gpItemPopupSoldier, ( INT8 )uiKeyRing, gpItemPointer ) ) )
 					{
-					
+
 						if ( fDeductPoints )
 						{
 							// Deduct points
-							if ( gpItemPointerSoldier->bLife >= CONSCIOUSNESS )
+							if ( gpItemPointerSoldier->stats.bLife >= CONSCIOUSNESS )
 							{
-								DeductPoints( gpItemPointerSoldier,  2, 0 );
+								DeductPoints( gpItemPointerSoldier,	2, 0 );
 							}
-							if ( gpItemPopupSoldier->bLife >= CONSCIOUSNESS )
+							if ( gpItemPopupSoldier->stats.bLife >= CONSCIOUSNESS )
 							{
-								DeductPoints( gpItemPopupSoldier,  2, 0 );
+								DeductPoints( gpItemPopupSoldier,	2, 0 );
 							}
 						}
-						
-						// Dirty 
+
+						// Dirty
 						fInterfacePanelDirty = DIRTYLEVEL2;
 
 						gpItemPointer->ubNumberOfObjects -= ( UINT8 )iNumberOfKeysTaken;
 
 						// Check if it's the same now!
-						if ( gpItemPointer->ubNumberOfObjects == 0 )
+						if ( gpItemPointer->exists() == false )
 						{
 							if ( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
 							{
@@ -5707,17 +6640,17 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					if ( fDeductPoints )
 					{
 						// Deduct points
-						if ( gpItemPointerSoldier && gpItemPointerSoldier->bLife >= CONSCIOUSNESS )
+						if ( gpItemPointerSoldier && gpItemPointerSoldier->stats.bLife >= CONSCIOUSNESS )
 						{
-							DeductPoints( gpItemPointerSoldier,  2, 0 );
+							DeductPoints( gpItemPointerSoldier,	2, 0 );
 						}
-						if ( gpSMCurrentMerc->bLife >= CONSCIOUSNESS )
+						if ( gpSMCurrentMerc->stats.bLife >= CONSCIOUSNESS )
 						{
-							DeductPoints( gpSMCurrentMerc,  2, 0 );
+							DeductPoints( gpSMCurrentMerc,	2, 0 );
 						}
 					}
-					
-					// Dirty 
+
+					// Dirty
 					fInterfacePanelDirty = DIRTYLEVEL2;
 
 				}
@@ -5747,12 +6680,12 @@ void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		{
 			if ( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
 			{
-				//InitKeyItemDescriptionBox( gpItemPopupSoldier, (UINT8)uiKeyRing, MAP_ITEMDESC_START_X, MAP_ITEMDESC_START_Y, 0 );			
-      }
-      else
-      {
-				InitKeyItemDescriptionBox( gpItemPopupSoldier, (UINT8)uiKeyRing, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, 0 );			
-      }
+				//InitKeyItemDescriptionBox( gpItemPopupSoldier, (UINT8)uiKeyRing, MAP_ITEMDESC_START_X, MAP_ITEMDESC_START_Y, 0 );
+		}
+		else
+		{
+				InitKeyItemDescriptionBox( gpItemPopupSoldier, (UINT8)uiKeyRing, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, 0 );
+		}
 		}
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )
@@ -5797,7 +6730,7 @@ void DisableSMPpanelButtonsWhenInShopKeeperInterface( BOOLEAN fDontDrawButtons )
 	DisableButton( iSMPanelButtons[ MUTE_BUTTON ] );
 
 	DisableButton( giSMStealthButton );
-
+	RenderBackpackButtons(3);	/* CHRISL: Needed for new inventory backpack buttons */
 
 
 
@@ -5817,6 +6750,13 @@ void DisableSMPpanelButtonsWhenInShopKeeperInterface( BOOLEAN fDontDrawButtons )
 		ButtonList[ iSMPanelButtons[ MUTE_BUTTON ] ]->uiFlags &= ~BUTTON_DIRTY;
 
 		ButtonList[ giSMStealthButton ]->uiFlags &= ~BUTTON_DIRTY;
+		// CHRISL: Backpack buttons for new inventory system
+		if((UsingNewInventorySystem() == true))
+		{
+			ButtonList[ giSMZipperButton ]->uiFlags &= ~BUTTON_DIRTY;
+			ButtonList[ giSMDropPackButton ]->uiFlags &= ~BUTTON_DIRTY;
+		}
+
 
 		//Make sure the options button is disabled
 		ButtonList[ iSMPanelButtons[ OPTIONS_BUTTON ] ]->uiFlags &= ~BUTTON_ENABLED;
@@ -5835,6 +6775,12 @@ void DisableSMPpanelButtonsWhenInShopKeeperInterface( BOOLEAN fDontDrawButtons )
 		ButtonList[ iSMPanelButtons[ MUTE_BUTTON ] ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
 
 		ButtonList[ giSMStealthButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
+		// CHRISL: Backpack buttons for new inventory system
+		if((UsingNewInventorySystem() == true))
+		{
+			ButtonList[ giSMZipperButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
+			ButtonList[ giSMDropPackButton ]->uiFlags |= BUTTON_FORCE_UNDIRTY;
+		}
 	}
 }
 
@@ -5870,7 +6816,7 @@ void EnableButtonsForInItemBox( BOOLEAN fEnable )
 			EnableButton( iSMPanelButtons[ SM_MAP_SCREEN_BUTTON ] );
 		}
 	}
-}	
+}
 
 
 void SMInvMoneyButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
@@ -5885,7 +6831,7 @@ void SMInvMoneyButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		if( gfSMDisableForItems )
 			return;
 
-		//if the player has an item in his hand, 
+		//if the player has an item in his hand,
 		if( gpItemPointer != NULL )
 		{
 			//and the item is money
@@ -5894,11 +6840,11 @@ void SMInvMoneyButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				CHAR16	zText[512];
 				CHAR16	zMoney[64];
 
-        // Make sure we go back to movement mode...
-		    guiPendingOverrideEvent = A_CHANGE_TO_MOVE;
-		    HandleTacticalUI( );
+				// Make sure we go back to movement mode...
+				guiPendingOverrideEvent = A_CHANGE_TO_MOVE;
+				HandleTacticalUI( );
 
-				swprintf( zMoney, L"%d", gpItemPointer->ItemData.Money.uiMoneyAmount );
+				swprintf( zMoney, L"%d", (*gpItemPointer)[0]->data.money.uiMoneyAmount );
 
 				InsertCommasForDollarFigure( zMoney );
 				InsertDollarSignInToString( zMoney );
@@ -5933,7 +6879,7 @@ void SMInvMoneyButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 //			else
 				CreateMoney( LaptopSaveInfo.iCurrentBalance, &gItemPointer );
 
-			InternalInitItemDescriptionBox( &gItemPointer, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, 0, gpSMCurrentMerc );
+			InternalInitItemDescriptionBox( &gItemPointer, ITEMDESC_START_X, ITEMDESC_START_Y, 0, gpSMCurrentMerc );
 		}
 	}
 }
@@ -5943,7 +6889,7 @@ void ConfirmationToDepositMoneyToPlayersAccount( UINT8 ubExitValue )
 	if ( ubExitValue == MSG_BOX_RETURN_YES )
 	{
 		//add the money to the players account
-		AddTransactionToPlayersBook( MERC_DEPOSITED_MONEY_TO_PLAYER_ACCOUNT, gpSMCurrentMerc->ubProfile, GetWorldTotalMin(), gpItemPointer->ItemData.Money.uiMoneyAmount );
+		AddTransactionToPlayersBook( MERC_DEPOSITED_MONEY_TO_PLAYER_ACCOUNT, gpSMCurrentMerc->ubProfile, GetWorldTotalMin(), (*gpItemPointer)[0]->data.money.uiMoneyAmount );
 
 		// dirty shopkeeper
 		gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
@@ -5993,7 +6939,7 @@ void GoToMapScreenFromTactical( void )
 	if ( gTacticalStatus.bBoxingState != NOT_BOXING )
 	{
 		// pop up dialogue asking whether the player wants to abandon the fight
-		DoMessageBox( MSG_BOX_BASIC_STYLE, Message[ STR_ABANDON_FIGHT ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, AbandonBoxingCallback, NULL );		
+		DoMessageBox( MSG_BOX_BASIC_STYLE, Message[ STR_ABANDON_FIGHT ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, AbandonBoxingCallback, NULL );
 		return;
 	}
 	// ok, proceed!
@@ -6001,7 +6947,8 @@ void GoToMapScreenFromTactical( void )
 }
 
 
-void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInvPos, UINT16 usOldItem, UINT16 usNewItem )
+// Moved to Weapons.cpp by ADB, rev 1513
+/*void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInvPos, UINT16 usOldItem, UINT16 usNewItem )
 {
 	// if in attached weapon mode and don't have weapon with GL attached in hand, reset weapon mode
 	if ( (pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )&& !IsGrenadeLauncherAttached( &(pSoldier->inv[ HANDPOS ]) ) )
@@ -6027,15 +6974,15 @@ void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInv
 		if ( uiInvPos == HANDPOS || uiInvPos == SECONDHANDPOS )
 		{
 			// check if we need to change animation!
-			ReLoadSoldierAnimationDueToHandItemChange( pSoldier, usOldItem, usNewItem );
+			pSoldier->ReLoadSoldierAnimationDueToHandItemChange( usOldItem, usNewItem );
 		}
 
 		// if this is head gear
 		if ( uiInvPos == HEAD1POS || uiInvPos == HEAD2POS )
 		{
-			// Could be because of GOGGLES change...  Re-create light...
-			DeleteSoldierLight( pSoldier );
-			PositionSoldierLight( pSoldier );
+			// Could be because of GOGGLES change...	Re-create light...
+			pSoldier->DeleteSoldierLight( );
+			pSoldier->PositionSoldierLight( );
 		}
 	}
 	else
@@ -6057,4 +7004,9 @@ void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInv
 			}
 		}
 	}
-}
+}*/
+
+
+
+
+

@@ -203,19 +203,19 @@ extern UINT16		gsUIHandleShowMoveGridLocation;
 
 extern BOOLEAN		gfUIDisplayDamage;
 extern INT8			gbDamage;
-extern UINT16		gsDamageGridNo;
+extern INT16		gsDamageGridNo;
 
 extern BOOLEAN		gfFontPopupDo;
 
 extern BOOLEAN		gUITargetReady;
 extern BOOLEAN		gUITargetShotWaiting;
-extern UINT16		gsUITargetShotGridNo;
+extern INT16		gsUITargetShotGridNo;
 
 extern CHAR16		gzLocation[ 20 ];
 extern BOOLEAN		gfUIBodyHitLocation;
 
-extern UINT8		gsBulletCount;
-extern UINT8		gsTotalBulletCount;
+extern UINT16		gsBulletCount;
+extern UINT16		gsTotalBulletCount;
 extern BOOLEAN		gTintBulletCounts;
 extern BOOLEAN		gfUIAutofireBulletCount;
 
@@ -280,7 +280,7 @@ void GetTBMousePositionInput( UINT32 *puiNewEvent );
 void QueryTBLeftButton( UINT32 *puiNewEvent );
 void QueryTBRightButton( UINT32 *puiNewEvent );
 void HandleStanceChangeFromUIKeys( UINT8 ubAnimHeight );
-void HandleKeyInputOnEnemyTurn(  );
+void HandleKeyInputOnEnemyTurn(	);
 
 
 void GetRTMouseButtonInput( UINT32 *puiNewEvent );
@@ -291,7 +291,7 @@ void QueryRTRightButton( UINT32 *puiNewEvent );
 void AdjustSoldierCreationStartValues( );
 
 BOOLEAN SelectedMercCanAffordAttack( );
-BOOLEAN SelectedMercCanAffordMove(  );
+BOOLEAN SelectedMercCanAffordMove(	);
 void GetMercClimbDirection( UINT8 ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pfGoUp );
 
 void ToggleHandCursorMode( UINT32 *puiNewEvent );
@@ -301,7 +301,7 @@ void ToggleLookCursorMode( UINT32 *puiNewEvent );
 void UIHandleSoldierStanceChange( UINT8 ubSoldierID, INT8	bNewStance );
 void GetCursorMovementFlags( UINT32 *puiCursorFlags );
 
-BOOLEAN HandleUIMovementCursor( SOLDIERTYPE *pSoldier, UINT32 uiCursorFlags, UINT16 usMapPos, UINT32 uiFlags );
+BOOLEAN HandleUIMovementCursor( SOLDIERTYPE *pSoldier, UINT32 uiCursorFlags, INT16 sMapPos, UINT32 uiFlags );
 BOOLEAN UIMouseOnValidAttackLocation( SOLDIERTYPE *pSoldier );
 
 BOOLEAN UIOkForItemPickup( SOLDIERTYPE *pSoldier, INT16 sGridNo );
@@ -309,7 +309,7 @@ BOOLEAN UIOkForItemPickup( SOLDIERTYPE *pSoldier, INT16 sGridNo );
 BOOLEAN IsValidTalkableNPCFromMouse( UINT8 *pubSoldierID, BOOLEAN fGive, BOOLEAN fAllowMercs, BOOLEAN fCheckCollapsed );
 BOOLEAN IsValidTalkableNPC( UINT8 ubSoldierID, BOOLEAN fGive, BOOLEAN fAllowMercs, BOOLEAN fCheckCollapsed );
 
-BOOLEAN HandleTalkInit(  );
+BOOLEAN HandleTalkInit(	);
 
 BOOLEAN HandleCheckForExitArrowsInput( BOOLEAN fAdjustForConfirm );
 
@@ -320,8 +320,8 @@ UINT32 UIHandleLUIEndLock( UI_EVENT *pUIEvent );
 
 void BeginDisplayTimedCursor( UINT32 uiCursorID, UINT32 uiDelay );
 
-void HandleHandCursorClick( UINT16 usMapPos, UINT32 *puiNewEvent );
-INT8 HandleMoveModeInteractiveClick( UINT16 usMapPos, UINT32 *puiNewEvent );
+void HandleHandCursorClick( INT16 sMapPos, UINT32 *puiNewEvent );
+INT8 HandleMoveModeInteractiveClick( INT16 sMapPos, UINT32 *puiNewEvent );
 
 BOOLEAN HandleUIReloading( SOLDIERTYPE *pSoldier );
 

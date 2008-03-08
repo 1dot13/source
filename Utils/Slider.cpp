@@ -43,7 +43,7 @@ typedef struct TAG_SLIDER
 
 	UINT16				usBackGroundColor;
 
-	MOUSE_REGION  ScrollAreaMouseRegion;
+	MOUSE_REGION	ScrollAreaMouseRegion;
 
 	UINT32				uiSliderBoxImage;
 	UINT16				usCurrentSliderBoxPosition;
@@ -115,8 +115,8 @@ void CalculateNewSliderIncrement( UINT32 uiSliderID, UINT16 usPosX );
 
 BOOLEAN InitSlider()
 {
-  VOBJECT_DESC    VObjectDesc;
-	
+	VOBJECT_DESC	VObjectDesc;
+
 	// load Slider Box Graphic graphic and add it
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("INTERFACE\\SliderBox.sti", VObjectDesc.ImageFile);
@@ -155,9 +155,6 @@ INT32	AddSlider( UINT8 ubStyle, UINT16 usCursor, UINT16 usPosX, UINT16 usPosY, U
 {
 	SLIDER *pTemp = NULL;
 	SLIDER *pNewSlider = NULL;
-	//INT32		iNewID=0;
-	//UINT32	cnt=0;
-	//UINT16	usIncrementWidth=0;
 
 	AssertMsg( gfSliderInited, "Trying to Add a Slider Bar when the Slider System was never inited");
 
@@ -196,7 +193,7 @@ INT32	AddSlider( UINT8 ubStyle, UINT16 usCursor, UINT16 usPosX, UINT16 usPosY, U
 	//
 	// Create the mouse regions for each increment in the slider
 	//
-	
+
 	//add the region
 	usPosX = pNewSlider->usPosX;
 	usPosY = pNewSlider->usPosY;
@@ -214,10 +211,10 @@ INT32	AddSlider( UINT8 ubStyle, UINT16 usCursor, UINT16 usPosX, UINT16 usPosY, U
 
 
 			MSYS_DefineRegion( &pNewSlider->ScrollAreaMouseRegion, (UINT16)(usPosX-pNewSlider->usWidth/2), usPosY, (UINT16)(usPosX+pNewSlider->usWidth/2), (UINT16)(pNewSlider->usPosY+pNewSlider->usHeight), sPriority,
-									 usCursor, SelectedSliderMovementCallBack, SelectedSliderButtonCallBack ); 
+									usCursor, SelectedSliderMovementCallBack, SelectedSliderButtonCallBack );
 			MSYS_SetRegionUserData( &pNewSlider->ScrollAreaMouseRegion, 1, pNewSlider->uiSliderID );
 			break;
-				
+
 		case SLIDER_DEFAULT_STYLE:
 		default:
 
@@ -226,7 +223,7 @@ INT32	AddSlider( UINT8 ubStyle, UINT16 usCursor, UINT16 usPosX, UINT16 usPosY, U
 			pNewSlider->usHeight = DEFUALT_SLIDER_SIZE;
 
 			MSYS_DefineRegion( &pNewSlider->ScrollAreaMouseRegion, usPosX, (UINT16)(usPosY-DEFUALT_SLIDER_SIZE), (UINT16)(pNewSlider->usPosX+pNewSlider->usWidth), (UINT16)(usPosY+DEFUALT_SLIDER_SIZE), sPriority,
-									 usCursor, SelectedSliderMovementCallBack, SelectedSliderButtonCallBack ); 
+									usCursor, SelectedSliderMovementCallBack, SelectedSliderButtonCallBack );
 			MSYS_SetRegionUserData( &pNewSlider->ScrollAreaMouseRegion, 1, pNewSlider->uiSliderID );
 		break;
 	}
@@ -234,7 +231,7 @@ INT32	AddSlider( UINT8 ubStyle, UINT16 usCursor, UINT16 usPosX, UINT16 usPosY, U
 
 	//
 	//	Load the graphic image for the slider box
-	// 
+	//
 
 	//add the slider into the list
 	pTemp = pSliderHead;
@@ -252,7 +249,7 @@ INT32	AddSlider( UINT8 ubStyle, UINT16 usCursor, UINT16 usPosX, UINT16 usPosY, U
 		{
 			pTemp = pTemp->pNext;
 		}
-		
+
 		pTemp->pNext = pNewSlider;
 		pNewSlider->pPrev = pTemp;
 		pNewSlider->pNext = NULL;
@@ -278,8 +275,8 @@ void RenderAllSliderBars()
 		else
 			usPosY = gusMouseYPos - gpCurrentSlider->usPosY;
 
-		//if the mouse 
-		CalculateNewSliderIncrement( gpCurrentSlider->uiSliderID,  usPosY );
+		//if the mouse
+		CalculateNewSliderIncrement( gpCurrentSlider->uiSliderID,	usPosY );
 	}
 	else
 	{
@@ -305,10 +302,10 @@ void RenderSelectedSliderBar( SLIDER *pSlider )
 
 	if( pSlider->uiFlags & SLIDER_VERTICAL )
 	{
-	}				
+	}
 	else
 	{
-		//display the background ( the bar ) 
+		//display the background ( the bar )
 		OptDisplayLine( (UINT16)(pSlider->usPosX+1), (UINT16)(pSlider->usPosY-1), (UINT16)(pSlider->usPosX + pSlider->usWidth-1), (UINT16)(pSlider->usPosY-1), pSlider->usBackGroundColor );
 		OptDisplayLine( pSlider->usPosX, pSlider->usPosY, (UINT16)(pSlider->usPosX + pSlider->usWidth), pSlider->usPosY, pSlider->usBackGroundColor );
 		OptDisplayLine( (UINT16)(pSlider->usPosX+1), (UINT16)(pSlider->usPosY+1), (UINT16)(pSlider->usPosX + pSlider->usWidth-1), (UINT16)(pSlider->usPosY+1), pSlider->usBackGroundColor );
@@ -322,7 +319,7 @@ void RenderSelectedSliderBar( SLIDER *pSlider )
 
 void RenderSliderBox( SLIDER *pSlider )
 {
-  HVOBJECT hPixHandle;
+	HVOBJECT hPixHandle;
 	SGPRect		SrcRect;
 	SGPRect		DestRect;
 
@@ -340,7 +337,7 @@ void RenderSliderBox( SLIDER *pSlider )
 		DestRect.iRight = DestRect.iLeft + pSlider->ubSliderWidth;
 		DestRect.iBottom = DestRect.iTop + pSlider->ubSliderHeight;
 
-		
+
 		//If it is not the first time to render the slider
 		if( !( pSlider->LastRect.iLeft == 0 && pSlider->LastRect.iRight == 0 ) )
 		{
@@ -480,7 +477,7 @@ void SelectedSliderMovementCallBack(MOUSE_REGION * pRegion, INT32 reason )
 			if( pSlider->uiFlags & SLIDER_VERTICAL )
 			{
 				CalculateNewSliderIncrement( uiSelectedSlider, pRegion->RelativeYPos );
-			}				
+			}
 			else
 			{
 				CalculateNewSliderIncrement( uiSelectedSlider, pRegion->RelativeXPos );
@@ -505,7 +502,7 @@ void SelectedSliderMovementCallBack(MOUSE_REGION * pRegion, INT32 reason )
 			if( pSlider->uiFlags & SLIDER_VERTICAL )
 			{
 				CalculateNewSliderIncrement( uiSelectedSlider, pRegion->RelativeYPos );
-			}				
+			}
 			else
 			{
 				CalculateNewSliderIncrement( uiSelectedSlider, pRegion->RelativeXPos );
@@ -531,19 +528,19 @@ void SelectedSliderMovementCallBack(MOUSE_REGION * pRegion, INT32 reason )
 			if( pSlider->uiFlags & SLIDER_VERTICAL )
 			{
 				CalculateNewSliderIncrement( uiSelectedSlider, pRegion->RelativeYPos );
-			}				
+			}
 			else
 			{
 				CalculateNewSliderIncrement( uiSelectedSlider, pRegion->RelativeXPos );
 			}
 		}
 	}
-} 
+}
 
 
 
 void SelectedSliderButtonCallBack(MOUSE_REGION * pRegion, INT32 iReason )
-{ 
+{
 	UINT32	uiSelectedSlider;
 	SLIDER *pSlider=NULL;
 
@@ -573,16 +570,16 @@ void SelectedSliderButtonCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 		if( pSlider->uiFlags & SLIDER_VERTICAL )
 		{
 			CalculateNewSliderIncrement( uiSelectedSlider, pRegion->RelativeYPos );
-		}				
+		}
 		else
 		{
 			CalculateNewSliderIncrement( uiSelectedSlider, pRegion->RelativeXPos );
 		}
-	} 
+	}
 	else if (iReason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
 	{
 		uiSelectedSlider = MSYS_GetRegionUserData( pRegion, 1 );
-		
+
 		pSlider = GetSliderFromID( uiSelectedSlider );
 		if( pSlider == NULL )
 			return;
@@ -597,7 +594,7 @@ void SelectedSliderButtonCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 		if( pSlider->uiFlags & SLIDER_VERTICAL )
 		{
 			CalculateNewSliderIncrement( uiSelectedSlider, pRegion->RelativeYPos );
-		}				
+		}
 		else
 		{
 			CalculateNewSliderIncrement( uiSelectedSlider, pRegion->RelativeXPos );
@@ -606,7 +603,7 @@ void SelectedSliderButtonCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 
 	else if (iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
-	} 
+	}
 }
 
 
@@ -633,7 +630,7 @@ void CalculateNewSliderIncrement( UINT32 uiSliderID, UINT16 usPos )
 		if( usPos <= (UINT16)(pSlider->usHeight * (FLOAT).01 ) )
 			fFirstSpot = TRUE;
 
-		
+
 		//pSlider->usNumberOfIncrements
 		if( fFirstSpot )
 			dNewIncrement = 0;
@@ -675,14 +672,14 @@ void CalculateNewSliderIncrement( UINT32 uiSliderID, UINT16 usPos )
 
 void OptDisplayLine( UINT16 usStartX, UINT16 usStartY, UINT16 EndX, UINT16 EndY, INT16 iColor )
 {
-  UINT32 uiDestPitchBYTES;
-  UINT8 *pDestBuf;
+	UINT32 uiDestPitchBYTES;
+	UINT8 *pDestBuf;
 
-	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );			
+	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-  // draw the line 
+	// draw the line
 	LineDraw(FALSE, usStartX, usStartY, EndX, EndY, iColor, pDestBuf);
 
 	// unlock frame buffer
@@ -752,8 +749,8 @@ SLIDER *GetSliderFromID( UINT32 uiSliderID )
 	// if we couldnt find the right slider
 	if( pTemp == NULL )
 		return( NULL );
-	
-	return( pTemp );	
+
+	return( pTemp );
 }
 
 
@@ -775,4 +772,5 @@ void SetSliderValue( UINT32 uiSliderID, UINT32 uiNewValue )
 
 	CalculateNewSliderBoxPosition( pSlider );
 }
+
 

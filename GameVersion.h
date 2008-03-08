@@ -16,16 +16,20 @@ extern	CHAR8		czVersionNumber[16];
 extern	CHAR16		zTrackingNumber[16];
 
 
+//ADB:	I needed these here so I moved them, and why put them in *.cpp anyways?
+//
+//		Keeps track of the saved game version.	Increment the saved game version whenever 
+//	you will invalidate the saved game file
+#define			SAVE_GAME_VERSION					103	//102	//101	//100 // 99
+
+
+//these I don't so much need here
+#define			CURRENT_SAVEGAME_DATATYPE_VERSION					103
+#define			FIRST_SAVEGAME_DATATYPE_CHANGE					102
+//#define			SECOND_SAVEGAME_DATATYPE_CHANGE				999, #define	CURRENT_SAVEGAME_DATATYPE_VERSION	999
+
 
 //#define RUSSIANGOLD
-
-//
-//		Keeps track of the saved game version.  Increment the saved game version whenever 
-//	you will invalidate the saved game file
-//
-
-const extern	UINT32	guiSavedGameVersion;
-
 #ifdef __cplusplus
 }
 #endif

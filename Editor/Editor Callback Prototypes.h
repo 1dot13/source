@@ -93,6 +93,7 @@ void TerrainTileButtonRegionCallback(MOUSE_REGION *reg,INT32 reason);
 void ItemsWeaponsCallback(GUI_BUTTON *btn,INT32 reason);
 void ItemsAmmoCallback(GUI_BUTTON *btn,INT32 reason);
 void ItemsArmourCallback(GUI_BUTTON *btn,INT32 reason);
+void ItemsLBECallback(GUI_BUTTON *btn,INT32 reason);
 void ItemsExplosivesCallback(GUI_BUTTON *btn,INT32 reason);
 void ItemsEquipment1Callback(GUI_BUTTON *btn,INT32 reason);
 void ItemsEquipment2Callback(GUI_BUTTON *btn,INT32 reason);

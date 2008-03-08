@@ -25,17 +25,17 @@
 #define ALT_DOWN									0x04
 
 #define MAX_STRING_INPUT					64
-#define DBL_CLK_TIME							300     // Increased by Alex, Jun-10-97, 200 felt too short
+#define DBL_CLK_TIME							300	 // Increased by Alex, Jun-10-97, 200 felt too short
 #define BUTTON_REPEAT_TIMEOUT			250
 #define BUTTON_REPEAT_TIME				50
 
 typedef struct
 { 
-  UINT32 uiTimeStamp;
-  UINT16 usKeyState;
-  UINT16 usEvent;
-  UINT32 usParam;
-  UINT32 uiParam;
+	UINT32 uiTimeStamp;
+	UINT16 usKeyState;
+	UINT16 usEvent;
+	UINT32 usParam;
+	UINT32 uiParam;
 
 } InputAtom;
 
@@ -46,17 +46,17 @@ typedef struct
 
 typedef struct StringInput
 {
-         UINT16      *pString;
-         UINT16      *pOriginalString;
-         UINT16      *pFilter;
-         UINT16       usMaxStringLength;
-         UINT16       usCurrentStringLength;
-         UINT16       usStringOffset;
-         UINT16       usLastCharacter;
-         BOOLEAN      fInsertMode;
-         BOOLEAN      fFocus;
-  struct StringInput *pPreviousString;
-  struct StringInput *pNextString;
+		 UINT16		*pString;
+		 UINT16		*pOriginalString;
+		 UINT16		*pFilter;
+		 UINT16		usMaxStringLength;
+		 UINT16		usCurrentStringLength;
+		 UINT16		usStringOffset;
+		 UINT16		usLastCharacter;
+		 BOOLEAN		fInsertMode;
+		 BOOLEAN		fFocus;
+	struct StringInput *pPreviousString;
+	struct StringInput *pNextString;
 
 } StringInput;
 
@@ -77,16 +77,16 @@ extern void					DisableDoubleClk(void);
 extern void					GetMousePos(SGPPoint *Point);
 
 extern StringInput *InitStringInput(UINT16 *pInputString, UINT16 usLength, UINT16 *pFilter);
-extern void         LinkPreviousString(StringInput *pCurrentString, StringInput *pPreviousString);
-extern void         LinkNextString(StringInput *pCurrentString, StringInput *pNextString);
-extern UINT16       GetStringLastInput(void);
-extern BOOLEAN      StringInputHasFocus(void);
-extern BOOLEAN      SetStringFocus(StringInput *pStringDescriptor);
-extern UINT16       GetCursorPositionInString(StringInput *pStringDescriptor);
-extern UINT16       GetStringInputState(void);
-extern BOOLEAN      StringHasFocus(StringInput *pStringDescriptor);
-extern UINT16      *GetString(StringInput *pStringDescriptor);
-extern void         EndStringInput(StringInput *pStringDescriptor);
+extern void		 LinkPreviousString(StringInput *pCurrentString, StringInput *pPreviousString);
+extern void		 LinkNextString(StringInput *pCurrentString, StringInput *pNextString);
+extern UINT16		GetStringLastInput(void);
+extern BOOLEAN		StringInputHasFocus(void);
+extern BOOLEAN		SetStringFocus(StringInput *pStringDescriptor);
+extern UINT16		GetCursorPositionInString(StringInput *pStringDescriptor);
+extern UINT16		GetStringInputState(void);
+extern BOOLEAN		StringHasFocus(StringInput *pStringDescriptor);
+extern UINT16		*GetString(StringInput *pStringDescriptor);
+extern void		 EndStringInput(StringInput *pStringDescriptor);
 extern BOOLEAN DequeueSpecificEvent(InputAtom *Event, UINT32 uiMaskFlags );
 
 extern void					RestrictMouseToXYXY(UINT16 usX1, UINT16 usY1, UINT16 usX2, UINT16 usY2);
@@ -94,7 +94,7 @@ extern void					RestrictMouseCursor(SGPRect *pRectangle);
 extern void					FreeMouseCursor(void);
 extern BOOLEAN			IsCursorRestricted( void );
 extern void					GetRestrictedClipCursor( SGPRect *pRectangle );
-extern void         RestoreCursorClipRect( void );
+extern void		 RestoreCursorClipRect( void );
 
 
 void SimulateMouseMovement( UINT32 uiNewXPos, UINT32 uiNewYPos );
@@ -105,33 +105,33 @@ INT16 GetMouseWheelDeltaValue( UINT32 wParam );
 extern void DequeueAllKeyBoardEvents();
 
 
-extern BOOLEAN   gfKeyState[256];    // TRUE = Pressed, FALSE = Not Pressed
+extern BOOLEAN	gfKeyState[256];	// TRUE = Pressed, FALSE = Not Pressed
 
-extern INT16    gusMouseXPos;        // X position of the mouse on screen
-extern INT16    gusMouseYPos;        // y position of the mouse on screen
-extern BOOLEAN   gfLeftButtonState;  // TRUE = Pressed, FALSE = Not Pressed
-extern BOOLEAN   gfRightButtonState; // TRUE = Pressed, FALSE = Not Pressed
+extern INT16	gusMouseXPos;		// X position of the mouse on screen
+extern INT16	gusMouseYPos;		// y position of the mouse on screen
+extern BOOLEAN	gfLeftButtonState;	// TRUE = Pressed, FALSE = Not Pressed
+extern BOOLEAN	gfRightButtonState; // TRUE = Pressed, FALSE = Not Pressed
 
 extern BOOLEAN		gfSGPInputReceived;
 
 
-#define _KeyDown(a)        gfKeyState[(a)]
-#define _LeftButtonDown    gfLeftButtonState
-#define _RightButtonDown   gfRightButtonState
-#define _MouseXPos				 gusMouseXPos
-#define _MouseYPos				 gusMouseYPos
+#define _KeyDown(a)		gfKeyState[(a)]
+#define _LeftButtonDown	gfLeftButtonState
+#define _RightButtonDown	gfRightButtonState
+#define _MouseXPos				gusMouseXPos
+#define _MouseYPos				gusMouseYPos
 
 // NOTE: this may not be the absolute most-latest current mouse co-ordinates, use GetCursorPos for that
-#define _gusMouseInside(x1,y1,x2,y2)   ((gusMouseXPos >= x1) && (gusMouseXPos <= x2) && (gusMouseYPos >= y1) && (gusMouseYPos <= y2))
+#define _gusMouseInside(x1,y1,x2,y2)	((gusMouseXPos >= x1) && (gusMouseXPos <= x2) && (gusMouseYPos >= y1) && (gusMouseYPos <= y2))
 
-#define _EvType(a)         ((InputAtom *)(a))->usEvent
-#define _EvTimeStamp(a)    ((InputAtom *)(a))->uiTimeStamp
-#define _EvKey(a)          ((InputAtom *)(a))->usParam
-#define _EvMouseX(a)       (UINT16)(((InputAtom *)(a))->uiParam & 0x0000ffff)
-#define _EvMouseY(a)       (UINT16)((((InputAtom *)(a))->uiParam & 0xffff0000) >> 16)
-#define _EvShiftDown(a)    (((InputAtom *)(a))->usKeyState & SHIFT_DOWN)
-#define _EvCtrlDown(a)     (((InputAtom *)(a))->usKeyState & CTRL_DOWN)
-#define _EvAltDown(a)      (((InputAtom *)(a))->usKeyState & ALT_DOWN)
+#define _EvType(a)		 ((InputAtom *)(a))->usEvent
+#define _EvTimeStamp(a)	((InputAtom *)(a))->uiTimeStamp
+#define _EvKey(a)			((InputAtom *)(a))->usParam
+#define _EvMouseX(a)		(UINT16)(((InputAtom *)(a))->uiParam & 0x0000ffff)
+#define _EvMouseY(a)		(UINT16)((((InputAtom *)(a))->uiParam & 0xffff0000) >> 16)
+#define _EvShiftDown(a)	(((InputAtom *)(a))->usKeyState & SHIFT_DOWN)
+#define _EvCtrlDown(a)	 (((InputAtom *)(a))->usKeyState & CTRL_DOWN)
+#define _EvAltDown(a)		(((InputAtom *)(a))->usKeyState & ALT_DOWN)
 
 #ifdef __cplusplus
 }

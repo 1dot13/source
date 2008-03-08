@@ -56,7 +56,7 @@ extern BOOLEAN InitializeRegistryKeys(STR strAppName, STR strRegistryKey);
 extern HKEY GetAppRegistryKey();
 
 // returns key for:
-//      HKEY_CURRENT_USER\"Software"\RegistryKey\AppName\lpszSection
+//		HKEY_CURRENT_USER\"Software"\RegistryKey\AppName\lpszSection
 // creating it if it doesn't exist.
 // responsibility of the caller to call RegCloseKey() on the returned HKEY
 extern HKEY GetSectionKey(STR lpszSection);

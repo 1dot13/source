@@ -767,7 +767,7 @@ STR16 gzMercSkillText[] =
 	L"Dief",
 	L"Vechtkunsten",
 	L"Mesworp",
-	L"Raak op dak! Bonus",
+	L"Sniper",
 	L"Camouflaged",
 	L"Camouflage (Urban)",						
 	L"Camouflage (Desert)",						
@@ -1081,7 +1081,7 @@ STR16 sKeyDescriptionStrings[2] =
 
 //The headers used to describe various weapon statistics.
 
-INT16		gWeaponStatsDesc[][ 14 ] =
+CHAR16		gWeaponStatsDesc[][ 14 ] =
 {
 	L"Gewicht (%s):",
 	L"Status:",
@@ -1102,7 +1102,7 @@ INT16		gWeaponStatsDesc[][ 14 ] =
 
 //The headers used for the merc's money.
 
-INT16 gMoneyStatsDesc[][ 13 ] =
+CHAR16 gMoneyStatsDesc[][ 13 ] =
 {
 	L"Bedrag",
 	L"Restbedrag:", //this is the overall balance
@@ -1140,12 +1140,12 @@ STR16	gzMoneyAmounts[6] =
 };
 
 // short words meaning "Advantages" for "Pros" and "Disadvantages" for "Cons." 
-INT16		gzProsLabel[10] = 
+CHAR16		gzProsLabel[10] = 
 {
 	L"Voor:",
 };
 
-INT16		gzConsLabel[10] = 
+CHAR16		gzConsLabel[10] = 
 {
 	L"Tegen:",
 };
@@ -1408,6 +1408,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Gezondheid: %d/%d\nBrandstof: %d/%d",				//L"Health: %d/%d\nFuel: %d/%d",
 	L"%s kan %s niet zien.",					// Cannot see person trying to talk to
 	L"Attachment removed",
+	L"Kan niet een ander voertuig bereiken aangezien u reeds 2 hebt",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -1618,6 +1619,7 @@ STR16 pMapInventoryErrorString[] =
 	L"Tijdens gevechten moet je items handmatig oppakken.",
 	L"Tijdens gevechten moet je items handmatig neerleggen.",
 	L"%s is niet in de sector om dat item neer te leggen.",
+	L"Tijdens gevecht, kunt u met een munitiekrat herladen niet.",
 };
 
 STR16 pMapInventoryStrings[] =
@@ -2843,6 +2845,7 @@ STR16			BobbyRFilter[] =
 	// Used
 	L"Guns",
 	L"Armor",
+	L"LBE Gear",
 	L"Misc",
 
 	// Armour
@@ -2860,6 +2863,7 @@ STR16			BobbyRFilter[] =
 	L"Med. Kits",
 	L"Kits",
 	L"Face Items",
+	L"LBE Gear",
 	L"Misc.",
 };
 
@@ -3384,6 +3388,8 @@ STR16			zSaveLoadText[] =
 	L"Great Selection",
 	L"Excellent Selection",
 	L"Awesome Selection",
+
+	L"New Inventory does not work in 640x480 screen size.  Please resize and try again.",
 };
 
 
@@ -3602,6 +3608,9 @@ STR16	gzGIOScreenText[] =
 	L"Excellent",
 	L"Awesome",
 	L"INSANE",
+	L"Inventory System",
+	L"Old",
+	L"New",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -3994,6 +4003,8 @@ STR16 sRepairsDoneString[] =
 	L"%s is klaar met reparatie van ieders wapens en bepantering",
 	L"%s is klaar met reparatie van ieders uitrusting",
 	L"%s is klaar met reparatie van ieders vervoerde items",
+	L"%s is klaar met reparatie van ieders vervoerde items",
+	L"%s is klaar met reparatie van ieders vervoerde items",
 };
 
 /*STR16 zGioDifConfirmText[]=
@@ -4243,10 +4254,19 @@ STR16	New113MERCMercMailTexts[] =
 // INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
 STR16 MissingIMPSkillsDescriptions[] =
 {
-	// Rooftop sniping
-	L"Rooftop Sniping: Not even ants are on the save side. Each target is mercilessly tracked down! ± ",
+	// Sniper
+	L"Sniper: De ogen van een havik, u kunnen de vleugels van een vlieg bij honderd werven ontspruiten! ± ",
 	// Camouflage
-	L"Camouflage: Besides you even bushes look synthetic! ± ",	
+	L"Camouflage: Naast u ringt synthetische zelfs blik! ± ",	
+};
+
+STR16 NewInvMessage[] = 
+{
+	L"Kan op dit moment niet bestelwagenrugzak",
+	L"Geen plaats om rugzak te zetten",
+	L"Gevonden niet rugzak",
+	L"De ritssluiting werkt slechts in gevecht",
+	L"Kan niet me bewegen terwijl actieve rugzakritssluiting",
 };
 
 #endif //DUTCH

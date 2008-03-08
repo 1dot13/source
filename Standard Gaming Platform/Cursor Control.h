@@ -10,7 +10,7 @@
 #include "Video.h"
 #else
 #include "video2.h"
-#endif  
+#endif	
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,11 +18,11 @@ extern "C" {
 
 
 extern UINT32		GetCursorHandle(UINT32 uiCursorIndex);
-extern void     UnloadCursorData(UINT32 uiCursorIndex);
-extern BOOLEAN  LoadCursorData(UINT32 uiCursorIndex);
-extern void     CursorDatabaseClear(void);
+extern void	 UnloadCursorData(UINT32 uiCursorIndex);
+extern BOOLEAN	LoadCursorData(UINT32 uiCursorIndex);
+extern void	 CursorDatabaseClear(void);
 extern UINT16		GetCursorSubIndex(UINT32 uiCursorIndex);
-extern BOOLEAN  SetCurrentCursorFromDatabase( UINT32 uiCursorIndex  );
+extern BOOLEAN	SetCurrentCursorFromDatabase( UINT32 uiCursorIndex	);
 
 #define ANIMATED_CURSOR							0x02
 #define	USE_EXTERN_VO_CURSOR				0x04
@@ -44,7 +44,7 @@ extern BOOLEAN  SetCurrentCursorFromDatabase( UINT32 uiCursorIndex  );
 #define CURSOR_TO_FLASH2							0x02
 #define CURSOR_TO_SUB_CONDITIONALLY		0x04
 #define	DELAY_START_CURSOR						0x08
-#define CURSOR_TO_PLAY_SOUND          0x10
+#define CURSOR_TO_PLAY_SOUND			0x10
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -55,9 +55,9 @@ extern BOOLEAN  SetCurrentCursorFromDatabase( UINT32 uiCursorIndex  );
 
 typedef struct
 {
-  UINT8			ubFilename[MAX_FILENAME_LEN];
-  BOOLEAN		fLoaded;
-  UINT32		uiIndex;
+	UINT8			ubFilename[MAX_FILENAME_LEN];
+	BOOLEAN		fLoaded;
+	UINT32		uiIndex;
 	UINT8			ubFlags;
 	UINT8			ubNumberOfFrames;
 	HVOBJECT	hVObject;
@@ -66,8 +66,8 @@ typedef struct
 
 typedef struct
 {
-  UINT32 uiFileIndex;
-  UINT16 uiSubIndex;
+	UINT32 uiFileIndex;
+	UINT16 uiSubIndex;
 	UINT32 uiCurrentFrame;
 	INT16 usPosX;
 	INT16 usPosY;
@@ -78,8 +78,8 @@ typedef struct
 {
 	CursorImage	Composites[ MAX_COMPOSITES ];
 	UINT16			usNumComposites;
-	INT16			  sOffsetX;
-	INT16			  sOffsetY;
+	INT16			sOffsetX;
+	INT16			sOffsetY;
 	UINT16			usHeight;
 	UINT16			usWidth;
 	UINT8				bFlags;
@@ -87,19 +87,19 @@ typedef struct
 
 } CursorData;
 
-extern INT16					 gsGlobalCursorYOffset;
+extern INT16					gsGlobalCursorYOffset;
 
 // Globals for cursor database offset values
-extern INT16					 gsCurMouseOffsetX;
-extern INT16 				 gsCurMouseOffsetY;
-extern UINT16				 gsCurMouseHeight;
-extern UINT16				 gsCurMouseWidth;
+extern INT16					gsCurMouseOffsetX;
+extern INT16 				gsCurMouseOffsetY;
+extern UINT16				gsCurMouseHeight;
+extern UINT16				gsCurMouseWidth;
 
-extern UINT32				 guiExternVo;
-extern UINT16				 gusExternVoSubIndex;
-extern UINT32 				 guiExtern2Vo;
-extern UINT16				 gusExtern2VoSubIndex;
-extern BOOLEAN				 gfExternUse2nd;
+extern UINT32				guiExternVo;
+extern UINT16				gusExternVoSubIndex;
+extern UINT32 				guiExtern2Vo;
+extern UINT16				gusExtern2VoSubIndex;
+extern BOOLEAN				gfExternUse2nd;
 
 typedef void (*MOUSEBLT_HOOK)( void );
 

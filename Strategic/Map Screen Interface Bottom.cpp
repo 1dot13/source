@@ -51,16 +51,22 @@
 	#include "SaveLoadScreen.h"
 #endif
 
+/* CHRISL: Adjusted settings to allow new Map_Screen_Bottom_800x600.sti to work.  This is needed if we
+want to have the new inventory panel not overlap the message text area. */
 #define MAP_BOTTOM_X							0
 #define MAP_BOTTOM_Y							(SCREEN_HEIGHT - 121)	//359
 
-#define MESSAGE_SCROLL_AREA_START_X				330
-#define MESSAGE_SCROLL_AREA_END_X				344
+//#define MESSAGE_SCROLL_AREA_START_X				(SCREEN_WIDTH - 534)	//330
+//#define MESSAGE_SCROLL_AREA_END_X				(SCREEN_WIDTH - 522)	//344
 #define MESSAGE_SCROLL_AREA_WIDTH				( MESSAGE_SCROLL_AREA_END_X - MESSAGE_SCROLL_AREA_START_X + 1 )
 
 #define MESSAGE_SCROLL_AREA_START_Y				(SCREEN_HEIGHT - 90)	//390
 #define MESSAGE_SCROLL_AREA_END_Y				(SCREEN_HEIGHT - 32)		//448
 #define MESSAGE_SCROLL_AREA_HEIGHT				( MESSAGE_SCROLL_AREA_END_Y - MESSAGE_SCROLL_AREA_START_Y + 1 )
+
+// CHRISL: Use these if we want scroll bar based on left edge of screen
+#define MESSAGE_SCROLL_AREA_START_X				330
+#define MESSAGE_SCROLL_AREA_END_X				344
 
 #define SLIDER_HEIGHT							11
 #define SLIDER_WIDTH							11
@@ -79,7 +85,7 @@
 /*
 // delay to start auto message scroll
 #define DELAY_TO_START_MESSAGE_SCROLL 3000
-// delay per auto message scroll 
+// delay per auto message scroll
 #define DELAY_PER_MESSAGE_SCROLL 300
 */
 
@@ -160,6 +166,7 @@ extern BOOLEAN fShowDescriptionFlag;
 
 extern MOUSE_REGION gMPanelRegion;
 
+extern BOOLEAN gfDisableTacticalPanelButtons;
 
 // PROTOTYPES
 
@@ -210,9 +217,9 @@ void MapScreenMessageScrollBarCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 void HandleLoadOfMapBottomGraphics( void )
 {
 	// will load the graphics needed for the mapscreen interface bottom
-	VOBJECT_DESC    VObjectDesc; 
+	VOBJECT_DESC	VObjectDesc;
 
-	// will create buttons for interface bottom 
+	// will create buttons for interface bottom
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 
 	if (iResolution == 0)
@@ -245,7 +252,7 @@ BOOLEAN LoadMapScreenInterfaceBottom( void )
 
 	// create pause region
 	CreateCompressModePause( );
-	
+
 	return( TRUE );
 }
 
@@ -273,24 +280,27 @@ void DeleteMapScreenInterfaceBottom( void )
 }
 
 
-void RenderMapScreenInterfaceBottom( void )
+// Headrock: this function used to accept no arguments. It now accepts a Boolean so it can be forced to run
+// the whole process when we call it from other files. See also .h file!!!
+void RenderMapScreenInterfaceBottom( BOOLEAN fForceMapscreenFullRender )
 {
 	// will render the map screen bottom interface
 	HVOBJECT hHandle;
 	CHAR8 bFilename[ 32 ];
-	
+
 	fDisplayOverheadMap = FALSE;
 
 	// render whole panel
-	if( fMapScreenBottomDirty == TRUE )
+	// HEADROCK Changed this line to accept outside influence through the new boolean:
+	if ( fForceMapscreenFullRender == TRUE || fMapScreenBottomDirty == TRUE )
 	{
 		// get and blt panel
-	  GetVideoObject(&hHandle, guiMAPBOTTOMPANEL ); 
-	  BltVideoObject( guiSAVEBUFFER , hHandle, 0, MAP_BOTTOM_X, MAP_BOTTOM_Y, VO_BLT_SRCTRANSPARENCY,NULL );
+	GetVideoObject(&hHandle, guiMAPBOTTOMPANEL );
+	BltVideoObject( guiSAVEBUFFER , hHandle, 0, MAP_BOTTOM_X, MAP_BOTTOM_Y, VO_BLT_SRCTRANSPARENCY,NULL );
 
 		if( GetSectorFlagStatus( sSelMapX, sSelMapY, ( UINT8 )iCurrentMapSectorZ, SF_ALREADY_VISITED ) == TRUE )
 		{
-			GetMapFileName( sSelMapX, sSelMapY, ( UINT8 )iCurrentMapSectorZ, bFilename, TRUE, TRUE ); 
+			GetMapFileName( sSelMapX, sSelMapY, ( UINT8 )iCurrentMapSectorZ, bFilename, TRUE, TRUE );
 			LoadRadarScreenBitmap( bFilename );
 		}
 		else
@@ -307,7 +317,7 @@ void RenderMapScreenInterfaceBottom( void )
 		MarkButtonsDirty( );
 
 		// invalidate region
-		RestoreExternBackgroundRect( MAP_BOTTOM_X, MAP_BOTTOM_Y, SCREEN_WIDTH, SCREEN_HEIGHT - MAP_BOTTOM_Y );
+		RestoreExternBackgroundRect( MAP_BOTTOM_X, MAP_BOTTOM_Y, SCREEN_WIDTH - MAP_BOTTOM_X, SCREEN_HEIGHT - MAP_BOTTOM_Y );
 
 		// re render radar map
 		RenderRadarScreen( );
@@ -315,6 +325,9 @@ void RenderMapScreenInterfaceBottom( void )
 		// reset dirty flag
 		fMapScreenBottomDirty = FALSE;
 		fMapBottomDirtied = TRUE;
+
+		// Headrock: Moved this next line from the above marker ^
+		fMapScreenBottomDirty = FALSE;
 	}
 
 	DisplayCompressMode( );
@@ -324,13 +337,16 @@ void RenderMapScreenInterfaceBottom( void )
 
 	// draw the name of the loaded sector
 	DrawNameOfLoadedSector( );
-	
+
 	// display slider on the scroll bar
 	DisplayScrollBarSlider( );
 
+	// CHRISL: Don't display messagelist if inventory panel is open
+	// CHRISL: Only run this condition if we're drawing the message list on the left
 	// display messages that can be scrolled through
-	DisplayStringsInMapScreenMessageList( );
-	
+	if(!fShowInventoryFlag)
+		DisplayStringsInMapScreenMessageList( );
+		
 	// handle auto scroll
 	//CheckForAndHandleAutoMessageScroll( );
 
@@ -346,25 +362,25 @@ void RenderMapScreenInterfaceBottom( void )
 BOOLEAN CreateButtonsForMapScreenInterfaceBottom( void )
 {
 	// laptop
-	guiMapBottomExitButtonsImage[ MAP_EXIT_TO_LAPTOP ]=  LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,6,-1,15,-1 );
-  guiMapBottomExitButtons[ MAP_EXIT_TO_LAPTOP ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_LAPTOP ], (SCREEN_WIDTH - 184), (SCREEN_HEIGHT - 70),
+	guiMapBottomExitButtonsImage[ MAP_EXIT_TO_LAPTOP ]=	LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,6,-1,15,-1 );
+	guiMapBottomExitButtons[ MAP_EXIT_TO_LAPTOP ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_LAPTOP ], (SCREEN_WIDTH - 184), (SCREEN_HEIGHT - 70),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnLaptopCallback);
- 
+
 	// tactical
-	guiMapBottomExitButtonsImage[ MAP_EXIT_TO_TACTICAL ]=  LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,7,-1,16,-1 );
- 
+	guiMapBottomExitButtonsImage[ MAP_EXIT_TO_TACTICAL ]=	LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,7,-1,16,-1 );
+
 	guiMapBottomExitButtons[ MAP_EXIT_TO_TACTICAL ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_TACTICAL ], (SCREEN_WIDTH - 144), (SCREEN_HEIGHT - 70),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnTacticalCallback);
 
 	// options
-	guiMapBottomExitButtonsImage[ MAP_EXIT_TO_OPTIONS ]=  LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,18,-1,19,-1 );
-  guiMapBottomExitButtons[ MAP_EXIT_TO_OPTIONS ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_OPTIONS ], (SCREEN_WIDTH - 182), (SCREEN_HEIGHT - 108),
+	guiMapBottomExitButtonsImage[ MAP_EXIT_TO_OPTIONS ]=	LoadButtonImage( "INTERFACE\\map_border_buttons.sti" ,-1,18,-1,19,-1 );
+	guiMapBottomExitButtons[ MAP_EXIT_TO_OPTIONS ] = QuickCreateButton( guiMapBottomExitButtonsImage[ MAP_EXIT_TO_OPTIONS ], (SCREEN_WIDTH - 182), (SCREEN_HEIGHT - 108),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnOptionsFromMapScreenCallback);
-	
- 
+
+
 	SetButtonFastHelpText( guiMapBottomExitButtons[ 0 ], pMapScreenBottomFastHelp[ 0 ] );
 	SetButtonFastHelpText( guiMapBottomExitButtons[ 1 ], pMapScreenBottomFastHelp[ 1 ] );
 	SetButtonFastHelpText( guiMapBottomExitButtons[ 2 ], pMapScreenBottomFastHelp[ 2 ] );
@@ -375,37 +391,45 @@ BOOLEAN CreateButtonsForMapScreenInterfaceBottom( void )
 
 
 	// time compression buttons
-	guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_MORE ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,10,1,-1,3,-1 );
-  guiMapBottomTimeButtons[ MAP_TIME_COMPRESS_MORE ] = QuickCreateButton( guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_MORE ], (SCREEN_WIDTH - 112), (SCREEN_HEIGHT - 24),
+	guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_MORE ]=	LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,10,1,-1,3,-1 );
+	guiMapBottomTimeButtons[ MAP_TIME_COMPRESS_MORE ] = QuickCreateButton( guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_MORE ], (SCREEN_WIDTH - 112), (SCREEN_HEIGHT - 24),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 2 ,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnTimeCompressMoreMapScreenCallback);
- 
-	guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_LESS ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,9,0,-1,2,-1 );
-  guiMapBottomTimeButtons[ MAP_TIME_COMPRESS_LESS ] = QuickCreateButton( guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_LESS ], (SCREEN_WIDTH - 174), (SCREEN_HEIGHT - 24),
+
+	guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_LESS ]=	LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,9,0,-1,2,-1 );
+	guiMapBottomTimeButtons[ MAP_TIME_COMPRESS_LESS ] = QuickCreateButton( guiMapBottomTimeButtonsImage[ MAP_TIME_COMPRESS_LESS ], (SCREEN_WIDTH - 174), (SCREEN_HEIGHT - 24),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 2,
-                   (GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnTimeCompressLessMapScreenCallback);
+					(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnTimeCompressLessMapScreenCallback);
 
 
 	SetButtonFastHelpText( guiMapBottomTimeButtons[ 0 ], pMapScreenBottomFastHelp[ 3 ] );
-  SetButtonFastHelpText( guiMapBottomTimeButtons[ 1 ], pMapScreenBottomFastHelp[ 4 ] );
+	SetButtonFastHelpText( guiMapBottomTimeButtons[ 1 ], pMapScreenBottomFastHelp[ 4 ] );
 
 	SetButtonCursor(guiMapBottomTimeButtons[ 0 ], MSYS_NO_CURSOR );
 	SetButtonCursor(guiMapBottomTimeButtons[ 1 ], MSYS_NO_CURSOR );
 
 
  // scroll buttons
+// CHRISL: Changed coordinates to dynamically place scroll buttons from the right edge of screen.
   guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_UP ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,11,4,-1,6,-1 );
+//  guiMapMessageScrollButtons[ MAP_SCROLL_MESSAGE_UP ] = QuickCreateButton( guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_UP ], (SCREEN_WIDTH - 533), (SCREEN_HEIGHT - 109), 
+//										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+//										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMessageUpMapScreenCallback);
+ 
+	guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_DOWN ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,12,5,-1,7,-1 );
+//  guiMapMessageScrollButtons[ MAP_SCROLL_MESSAGE_DOWN ] = QuickCreateButton( guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_DOWN ], (SCREEN_WIDTH - 533), (SCREEN_HEIGHT - 28), 
+//										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
+//										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMessageDownMapScreenCallback);
+// CHRISL: Use these if we want buttons based on left edge of screen
   guiMapMessageScrollButtons[ MAP_SCROLL_MESSAGE_UP ] = QuickCreateButton( guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_UP ], 331, (SCREEN_HEIGHT - 109),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMessageUpMapScreenCallback);
- 
-	guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_DOWN ]=  LoadButtonImage( "INTERFACE\\map_screen_bottom_arrows.sti" ,12,5,-1,7,-1 );
   guiMapMessageScrollButtons[ MAP_SCROLL_MESSAGE_DOWN ] = QuickCreateButton( guiMapMessageScrollButtonsImage[ MAP_SCROLL_MESSAGE_DOWN ], 331, (SCREEN_HEIGHT - 28),
 										BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)BtnMessageDownMapScreenCallback);
 
 	SetButtonFastHelpText( guiMapMessageScrollButtons[ 0 ], pMapScreenBottomFastHelp[ 5 ] );
-  SetButtonFastHelpText( guiMapMessageScrollButtons[ 1 ], pMapScreenBottomFastHelp[ 6 ] );
+	SetButtonFastHelpText( guiMapMessageScrollButtons[ 1 ], pMapScreenBottomFastHelp[ 6 ] );
 	SetButtonCursor(guiMapMessageScrollButtons[ 0 ], MSYS_NO_CURSOR );
 	SetButtonCursor(guiMapMessageScrollButtons[ 1 ], MSYS_NO_CURSOR );
 
@@ -425,7 +449,7 @@ void DestroyButtonsForMapScreenInterfaceBottom( void )
 	RemoveButton( guiMapMessageScrollButtons[ 0 ] );
 	RemoveButton( guiMapMessageScrollButtons[ 1 ] );
 	RemoveButton( guiMapBottomTimeButtons[ 0 ] );
-	RemoveButton( guiMapBottomTimeButtons[ 1 ] ); 
+	RemoveButton( guiMapBottomTimeButtons[ 1 ] );
 
 
 	UnloadButtonImage( guiMapBottomExitButtonsImage[ 0 ] );
@@ -438,7 +462,7 @@ void DestroyButtonsForMapScreenInterfaceBottom( void )
 
 	// reset dirty flag
 	fMapScreenBottomDirty = TRUE;
-	
+
 	return;
 }
 
@@ -459,24 +483,24 @@ void BtnLaptopCallback(GUI_BUTTON *btn,INT32 reason)
 			fMapScreenBottomDirty = TRUE;
 		}
 
-	  btn->uiFlags|=(BUTTON_CLICKED_ON);   
+	btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-  {
+	{
 		if( IsMapScreenHelpTextUp() )
 		{
 			// stop mapscreen text
 			StopMapScreenHelpText( );
 		}
 
-    if (btn->uiFlags & BUTTON_CLICKED_ON)
+	if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			btn->uiFlags&=~(BUTTON_CLICKED_ON | BUTTON_DIRTY);
 			DrawButton( btn->IDNum );
 
 			RequestTriggerExitFromMapscreen( MAP_EXIT_TO_LAPTOP );
-	  }
-	}	
+	}
+	}
 	else if(reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
 	{
 		if( IsMapScreenHelpTextUp() )
@@ -485,12 +509,12 @@ void BtnLaptopCallback(GUI_BUTTON *btn,INT32 reason)
 			StopMapScreenHelpText( );
 		}
 	}
-} 
+}
 
 
 void BtnTacticalCallback( GUI_BUTTON *btn,INT32 reason )
 {
-	
+
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 		if( IsMapScreenHelpTextUp() )
@@ -506,16 +530,16 @@ void BtnTacticalCallback( GUI_BUTTON *btn,INT32 reason )
 			fMapScreenBottomDirty = TRUE;
 		}
 
-	  btn->uiFlags|=(BUTTON_CLICKED_ON);   
+	btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-  {
-   if (btn->uiFlags & BUTTON_CLICKED_ON)
+	{
+	if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
 			RequestTriggerExitFromMapscreen( MAP_EXIT_TO_TACTICAL );
-	  }
+	}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
 	{
@@ -542,22 +566,22 @@ void BtnOptionsFromMapScreenCallback( GUI_BUTTON *btn, INT32 reason )
 		}
 
 		// redraw region
-		if( btn ->uiFlags & MSYS_HAS_BACKRECT )
+		if( btn->uiFlags & MSYS_HAS_BACKRECT )
 		{
 			fMapScreenBottomDirty = TRUE;
 		}
 
-	  btn->uiFlags|=(BUTTON_CLICKED_ON);   
+	btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-  {
-   if (btn->uiFlags & BUTTON_CLICKED_ON)
+	{
+	if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			btn->uiFlags&=~(BUTTON_CLICKED_ON);
 			fMapScreenBottomDirty = TRUE;
 
 			RequestTriggerExitFromMapscreen( MAP_EXIT_TO_OPTIONS );
-	  }
+	}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
 	{
@@ -573,15 +597,15 @@ void BtnOptionsFromMapScreenCallback( GUI_BUTTON *btn, INT32 reason )
 void DrawNameOfLoadedSector( void )
 {
 	CHAR16 sString[ 128 ];
-  INT16 sFontX, sFontY;
+	INT16 sFontX, sFontY;
 
 
-  SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
+	SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
 	SetFont( COMPFONT );
 	SetFontForeground( 183 );
 	SetFontBackground( FONT_BLACK );
-	
+
 
 	GetSectorIDString( sSelMapX, sSelMapY, ( INT8 )( iCurrentMapSectorZ ),sString, TRUE );
 	ReduceStringLength( sString, 80, COMPFONT );
@@ -595,7 +619,7 @@ void DrawNameOfLoadedSector( void )
 void CompressModeClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	if( iReason & ( MSYS_CALLBACK_REASON_RBUTTON_UP | MSYS_CALLBACK_REASON_LBUTTON_UP ) )
-  {
+	{
 		if ( CommonTimeCompressionChecks() == TRUE )
 			return;
 
@@ -613,22 +637,22 @@ void BtnTimeCompressMoreMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
 			return;
 
 		// redraw region
-		if( btn ->uiFlags & MSYS_HAS_BACKRECT )
+		if( btn->uiFlags & MSYS_HAS_BACKRECT )
 		{
 			fMapScreenBottomDirty = TRUE;
 		}
 
-	  btn->uiFlags|=(BUTTON_CLICKED_ON);   
+	btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-  {
+	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			btn->uiFlags&=~(BUTTON_CLICKED_ON);
 			fMapScreenBottomDirty = TRUE;
 
 			RequestIncreaseInTimeCompression();
-	  }
+	}
 	}
 	else 	if(reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
 	{
@@ -642,29 +666,29 @@ void BtnTimeCompressMoreMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
 void BtnTimeCompressLessMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
 {
 
-  if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 		if ( CommonTimeCompressionChecks() == TRUE )
 			return;
 
 		// redraw region
-		if( btn ->uiFlags & MSYS_HAS_BACKRECT )
+		if( btn->uiFlags & MSYS_HAS_BACKRECT )
 		{
 			fMapScreenBottomDirty = TRUE;
 		}
 
-	  btn->uiFlags|=(BUTTON_CLICKED_ON);   
+	btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-  {
+	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-      btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		btn->uiFlags&=~(BUTTON_CLICKED_ON);
 			fMapScreenBottomDirty = TRUE;
 
 			RequestDecreaseInTimeCompression();
-	  }
-	}	
+	}
+	}
 	else 	if(reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
 	{
 		if ( CommonTimeCompressionChecks() == TRUE )
@@ -688,39 +712,39 @@ void BtnMessageDownMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
 		}
 
 		// redraw region
-		if( btn ->uiFlags & MSYS_HAS_BACKRECT )
+		if( btn->uiFlags & MSYS_HAS_BACKRECT )
 		{
 			fMapScreenBottomDirty = TRUE;
 		}
 
-	  btn->uiFlags|=(BUTTON_CLICKED_ON);   
+	btn->uiFlags|=(BUTTON_CLICKED_ON);
 
-	  iLastRepeatScrollTime = 0;
+	iLastRepeatScrollTime = 0;
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-  {
+	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-      btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
 			// redraw region
-			if( btn ->uiFlags & MSYS_HAS_BACKRECT )
+			if( btn->uiFlags & MSYS_HAS_BACKRECT )
 			{
 				fMapScreenBottomDirty = TRUE;
 			}
 
 			// down a line
 			MapScreenMsgScrollDown( 1 );
-	  }
-	}	
+	}
+	}
 	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
-	{	
+	{
 		if( GetJA2Clock() - iLastRepeatScrollTime >= MESSAGE_BTN_SCROLL_TIME )
 		{
 			// down a line
 			MapScreenMsgScrollDown( 1 );
 
-		  iLastRepeatScrollTime = GetJA2Clock( );
+		iLastRepeatScrollTime = GetJA2Clock( );
 		}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
@@ -733,39 +757,39 @@ void BtnMessageDownMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
 		}
 
 		// redraw region
-		if( btn ->uiFlags & MSYS_HAS_BACKRECT )
+		if( btn->uiFlags & MSYS_HAS_BACKRECT )
 		{
 			fMapScreenBottomDirty = TRUE;
 		}
 
-	  btn->uiFlags|=(BUTTON_CLICKED_ON);   
+	btn->uiFlags|=(BUTTON_CLICKED_ON);
 
-	  iLastRepeatScrollTime = 0;
+	iLastRepeatScrollTime = 0;
 	}
 	else if(reason & MSYS_CALLBACK_REASON_RBUTTON_UP )
-  {
+	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-      btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
 			// redraw region
-			if( btn ->uiFlags & MSYS_HAS_BACKRECT )
+			if( btn->uiFlags & MSYS_HAS_BACKRECT )
 			{
 				fMapScreenBottomDirty = TRUE;
 			}
 
 			// down a page
 			MapScreenMsgScrollDown( MAX_MESSAGES_ON_MAP_BOTTOM );
-	  }
+	}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_RBUTTON_REPEAT )
-	{	
+	{
 		if( GetJA2Clock() - iLastRepeatScrollTime >= MESSAGE_BTN_SCROLL_TIME )
 		{
 			// down a page
 			MapScreenMsgScrollDown( MAX_MESSAGES_ON_MAP_BOTTOM );
 
-		  iLastRepeatScrollTime = GetJA2Clock( );
+		iLastRepeatScrollTime = GetJA2Clock( );
 		}
 	}
 }
@@ -785,41 +809,41 @@ void BtnMessageUpMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
 			return;
 		}
 
-	  btn->uiFlags|=(BUTTON_CLICKED_ON); 
+	btn->uiFlags|=(BUTTON_CLICKED_ON);
 
-	 // redraw region
+	// redraw region
 		if( btn->Area.uiFlags & MSYS_HAS_BACKRECT )
 		{
 			fMapScreenBottomDirty = TRUE;
 		}
 
-	  iLastRepeatScrollTime = 0;
+	iLastRepeatScrollTime = 0;
 	}
 
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-  {
+	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
 			btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
 			// redraw region
-			if( btn ->uiFlags & MSYS_HAS_BACKRECT )
+			if( btn->uiFlags & MSYS_HAS_BACKRECT )
 			{
 				fMapScreenBottomDirty = TRUE;
 			}
-		 
+
 			// up a line
 			MapScreenMsgScrollUp( 1 );
-	  }
+	}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
-	{	
+	{
 		if( GetJA2Clock() - iLastRepeatScrollTime >= MESSAGE_BTN_SCROLL_TIME )
 		{
 			// up a line
 			MapScreenMsgScrollUp( 1 );
 
-		  iLastRepeatScrollTime = GetJA2Clock( );
+		iLastRepeatScrollTime = GetJA2Clock( );
 		}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_RBUTTON_DWN )
@@ -832,30 +856,30 @@ void BtnMessageUpMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
 		}
 
 		// redraw region
-		if( btn ->uiFlags & MSYS_HAS_BACKRECT )
+		if( btn->uiFlags & MSYS_HAS_BACKRECT )
 		{
 			fMapScreenBottomDirty = TRUE;
 		}
 
-	  btn->uiFlags|=(BUTTON_CLICKED_ON);   
+	btn->uiFlags|=(BUTTON_CLICKED_ON);
 
-	  iLastRepeatScrollTime = 0;
+	iLastRepeatScrollTime = 0;
 	}
 	else if(reason & MSYS_CALLBACK_REASON_RBUTTON_UP )
-  {
+	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-      btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
 			// redraw region
-			if( btn ->uiFlags & MSYS_HAS_BACKRECT )
+			if( btn->uiFlags & MSYS_HAS_BACKRECT )
 			{
 				fMapScreenBottomDirty = TRUE;
 			}
 
 			// up a page
 			MapScreenMsgScrollUp( MAX_MESSAGES_ON_MAP_BOTTOM );
-	  }
+	}
 	}
 	else if( reason & MSYS_CALLBACK_REASON_RBUTTON_REPEAT )
 	{
@@ -864,7 +888,7 @@ void BtnMessageUpMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
 			// up a page
 			MapScreenMsgScrollUp( MAX_MESSAGES_ON_MAP_BOTTOM );
 
-		  iLastRepeatScrollTime = GetJA2Clock( );
+		iLastRepeatScrollTime = GetJA2Clock( );
 		}
 	}
 }
@@ -875,7 +899,7 @@ void EnableDisableMessageScrollButtonsAndRegions( void )
 {
 	UINT8 ubNumMessages;
 
-  ubNumMessages = GetRangeOfMapScreenMessages();
+	ubNumMessages = GetRangeOfMapScreenMessages();
 
 	// if no scrolling required, or already showing the topmost message
 	if( ( ubNumMessages <= MAX_MESSAGES_ON_MAP_BOTTOM ) || ( gubFirstMapscreenMessageIndex == 0 ) )
@@ -935,7 +959,7 @@ void DisplayCompressMode( void )
 
 	SetFontDestBuffer( FRAME_BUFFER, 0,0,SCREEN_WIDTH,SCREEN_HEIGHT, FALSE );
 	SetFont( COMPFONT );
-	
+
 	if( GetJA2Clock() - guiCompressionStringBaseTime >= PAUSE_GAME_TIMER )
 	{
 		if( usColor == FONT_LTGREEN )
@@ -957,11 +981,11 @@ void DisplayCompressMode( void )
 
 	SetFontForeground( usColor );
 	SetFontBackground( FONT_BLACK );
-  
+
 	//FindFontCenterCoordinates( 489, 456, 522 - 489, 467 - 454, sString, COMPFONT, &sX, &sY );
 	FindFontCenterCoordinates( (SCREEN_WIDTH - 151), (SCREEN_HEIGHT - 24), 33, 13, sString, COMPFONT, &sX, &sY );
 	mprintf( sX, sY, sString );
-  
+
 
 	return;
 }
@@ -986,9 +1010,9 @@ void RemoveCompressModePause( void )
 
 void LoadMessageSliderBar( void )
 {
-  // this function will load the message slider bar
-	VOBJECT_DESC    VObjectDesc; 
-	
+	// this function will load the message slider bar
+	VOBJECT_DESC	VObjectDesc;
+
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP( "INTERFACE\\map_screen_bottom_arrows.sti", VObjectDesc.ImageFile );
 	if( !AddVideoObject( &VObjectDesc, &guiSliderBar ) )
@@ -1006,13 +1030,13 @@ void CreateMapScreenBottomMessageScrollBarRegion( void )
 {
 		MSYS_DefineRegion( &gMapMessageScrollBarRegion, MESSAGE_SCROLL_AREA_START_X, MESSAGE_SCROLL_AREA_START_Y,
 								MESSAGE_SCROLL_AREA_END_X, MESSAGE_SCROLL_AREA_END_Y,
-								MSYS_PRIORITY_NORMAL, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MapScreenMessageScrollBarCallBack ); 
+								MSYS_PRIORITY_NORMAL, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MapScreenMessageScrollBarCallBack );
 }
 
 
 void DeleteMapScreenBottomMessageScrollRegion( void )
 {
-  MSYS_RemoveRegion( &gMapMessageScrollBarRegion );
+	MSYS_RemoveRegion( &gMapMessageScrollBarRegion );
 }
 
 
@@ -1026,23 +1050,23 @@ void MapScreenMessageScrollBarCallBack( MOUSE_REGION *pRegion, INT32 iReason )
 	UINT8 ubNumMessages;
 
 
-  if (iReason & MSYS_CALLBACK_REASON_INIT)
-  {
-	  return;
-  }
+	if (iReason & MSYS_CALLBACK_REASON_INIT)
+	{
+	return;
+	}
 
 
 	if ( iReason & ( MSYS_CALLBACK_REASON_LBUTTON_DWN | MSYS_CALLBACK_REASON_LBUTTON_REPEAT ) )
-  {
+	{
 		// how many messages are there?
-	  ubNumMessages = GetRangeOfMapScreenMessages();
+	ubNumMessages = GetRangeOfMapScreenMessages();
 
-		// region is supposed to be disabled if there aren't enough messages to scroll.  Formulas assume this
+		// region is supposed to be disabled if there aren't enough messages to scroll.	Formulas assume this
 		if ( ubNumMessages > MAX_MESSAGES_ON_MAP_BOTTOM )
 		{
 			// where is the mouse?
 			GetCursorPos( &MousePos );
-            ScreenToClient(ghWindow, &MousePos); // In window coords!
+			ScreenToClient(ghWindow, &MousePos); // In window coords!
 
 			ubMouseYOffset = (UINT8) MousePos.y - MESSAGE_SCROLL_AREA_START_Y;
 
@@ -1087,7 +1111,7 @@ void DisplayScrollBarSlider( )
 	HVOBJECT hHandle;
 
 
-  ubNumMessages = GetRangeOfMapScreenMessages();
+	ubNumMessages = GetRangeOfMapScreenMessages();
 
 	// only show the slider if there are more messages than will fit on screen
 	if ( ubNumMessages > MAX_MESSAGES_ON_MAP_BOTTOM )
@@ -1124,7 +1148,7 @@ void CheckForAndHandleAutoMessageScroll( void )
 		// we just scrolled to a new message, reset timer
 		iBaseScrollTime = GetJA2Clock( );
 
-		// reset flag 
+		// reset flag
 		gfNewScrollMessage = FALSE;
 		fScrollMessage = FALSE;
 	}
@@ -1133,13 +1157,13 @@ void CheckForAndHandleAutoMessageScroll( void )
 
 	if( GetJA2Clock( ) - iBaseScrollTime > DELAY_TO_START_MESSAGE_SCROLL )
 	{
-		
+
 		if( fScrollMessage == FALSE )
 		{
-		  // set up scroll delay
-		 iBaseScrollDelay = GetJA2Clock( );
+		// set up scroll delay
+		iBaseScrollDelay = GetJA2Clock( );
 
-		 // start scroll
+		// start scroll
 		fScrollMessage = TRUE;
 
 		}
@@ -1180,7 +1204,7 @@ void EnableDisableBottomButtonsAndRegions( void )
 		{
 			EnableButton( guiMapBottomExitButtons[ iExitButtonIndex ]);
 		}
-		else				
+		else
 		{
 			DisableButton( guiMapBottomExitButtons[ iExitButtonIndex ]);
 		}
@@ -1201,7 +1225,7 @@ void EnableDisableBottomButtonsAndRegions( void )
 		{
 			DisableButton( giMapInvDoneButton );
 		}
-		else				
+		else
 		{
 			EnableButton( giMapInvDoneButton );
 		}
@@ -1358,7 +1382,7 @@ BOOLEAN AllowedToTimeCompress( void )
 	{
 		return( FALSE );
 	}
-	
+
 	// hostile sector / in battle
 	if( (gTacticalStatus.uiFlags & INCOMBAT ) || ( gTacticalStatus.fEnemyInSector ) )
 	{
@@ -1389,8 +1413,10 @@ void DisplayCurrentBalanceTitleForMapBottom( void )
 	swprintf( sString, L"%s", pMapScreenBottomText[ 0 ] );
 
 	// center it
+	// CHRISL: Replaced X coordinate with dynamic coordinate set from right edge of screen
+	//VarFindFontCenterCoordinates( (SCREEN_WIDTH - 637), (SCREEN_HEIGHT - 107),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	// CHRISL: Use this if we want to display from the left edge
 	VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 107),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
-	//VarFindFontCenterCoordinates( 359, 387 - 14,  437 - 359, 10,  COMPFONT, &sFontX, &sFontY, sString );
 	
 	// print it
 	mprintf( sFontX, sFontY, L"%s", sString );
@@ -1398,7 +1424,9 @@ void DisplayCurrentBalanceTitleForMapBottom( void )
 	swprintf( sString, L"%s", zMarksMapScreenText[ 2 ] );
 
 	// center it
-	//VarFindFontCenterCoordinates( 359, 433 - 14,  437 - 359, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	// CHRISL: Replaced X coordinate with dynamic coordinate set from right edge of screen
+	//VarFindFontCenterCoordinates( (SCREEN_WIDTH - 637), (SCREEN_HEIGHT - 61),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	// CHRISL: Use this if we want to display from the left edge
 	VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 61),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
 
 	// print it
@@ -1425,12 +1453,15 @@ void DisplayCurrentBalanceForMapBottom( void )
 
 	swprintf( sString, L"%d", LaptopSaveInfo.iCurrentBalance );
 
-	// insert 
-	
+	// insert
+
 	InsertCommasForDollarFigure( sString );
 	InsertDollarSignInToString( sString );
 
 	// center it
+	// CHRISL: Replaced X coordinate with dynamic coordinate set from right edge of screen
+	//VarFindFontCenterCoordinates( (SCREEN_WIDTH - 637), (SCREEN_HEIGHT - 91),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	// CHRISL: Use this if we want to display from the left edge
 	VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 91),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
 	
 	// print it
@@ -1509,13 +1540,13 @@ void CompressMaskClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 void DisplayProjectedDailyMineIncome( void )
 {
 	INT32 iRate = 0;
-	static INT32 iOldRate = -1; 
+	static INT32 iOldRate = -1;
 	CHAR16 sString[ 128 ];
 	INT16 sFontX, sFontY;
 
 	// grab the rate from the financial system
 	iRate = GetProjectedTotalDailyIncome( );
-	
+
 	if( iRate != iOldRate )
 	{
 		iOldRate = iRate;
@@ -1537,16 +1568,19 @@ void DisplayProjectedDailyMineIncome( void )
 
 	swprintf( sString, L"%d", iRate );
 
-	// insert 
+	// insert
 	InsertCommasForDollarFigure( sString );
 	InsertDollarSignInToString( sString );
 
 	// center it
+	// CHRISL: Replaced X coordinate with dynamic coordinate set from right edge of screen
+	//VarFindFontCenterCoordinates( (SCREEN_WIDTH - 637), (SCREEN_HEIGHT - 45),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
+	// CHRISL: Use this if we want to display from the left edge
 	VarFindFontCenterCoordinates( 359, (SCREEN_HEIGHT - 45),  78, 10,  COMPFONT, &sFontX, &sFontY, sString );
 	
 	// print it
 	mprintf( sFontX, sFontY, L"%s", sString );
-	
+
 	return;
 }
 
@@ -1589,8 +1623,8 @@ BOOLEAN AnyUsableRealMercenariesOnTeam( void )
 	{
 		pSoldier = &Menptr[ iCounter ];
 
-		if( ( pSoldier->bActive ) && ( pSoldier->bLife > 0 ) &&
-				!( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) && !AM_A_ROBOT( pSoldier ) &&
+		if( ( pSoldier->bActive ) && ( pSoldier->stats.bLife > 0 ) &&
+				!( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !AM_A_ROBOT( pSoldier ) &&
 				( pSoldier->bAssignment != ASSIGNMENT_POW ) &&
 				( pSoldier->bAssignment != ASSIGNMENT_DEAD ) &&
 				( pSoldier->ubWhatKindOfMercAmI != MERC_TYPE__EPC ) )
@@ -1627,6 +1661,9 @@ void RequestTriggerExitFromMapscreen( INT8 bExitToWhere )
 
 		// delay until mapscreen has had a chance to render at least one full frame
 		gfOneFramePauseOnExit = TRUE;
+
+		//CHRISL: To force activation of tactical team panel buttons when switching to tactical
+		gfDisableTacticalPanelButtons = FALSE;
 	}
 }
 
@@ -1703,7 +1740,7 @@ BOOLEAN AllowedToExitFromMapscreenTo( INT8 bExitToWhere )
 	{
 		// if in battle or air raid, the ONLY sector we can go tactical in is the one that's loaded
 		if ( ( ( gTacticalStatus.uiFlags & INCOMBAT ) || ( gTacticalStatus.fEnemyInSector ) /*|| InAirRaid( )*/ ) &&
-				 ( ( sSelMapX != gWorldSectorX ) || ( sSelMapY != gWorldSectorY ) || ( ( UINT8 )iCurrentMapSectorZ ) != gbWorldSectorZ ) )
+				( ( sSelMapX != gWorldSectorX ) || ( sSelMapY != gWorldSectorY ) || ( ( UINT8 )iCurrentMapSectorZ ) != gbWorldSectorZ ) )
 		{
 			return( FALSE );
 		}
@@ -1751,7 +1788,7 @@ void HandleExitsFromMapScreen( void )
 
 					if( gfExtraBuffer )
 					{ //Then initiate the transition animation from the mapscreen to laptop...
-						
+
 						BlitBufferToBuffer( FRAME_BUFFER, guiEXTRABUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 						gfStartMapScreenToLaptopTransition = TRUE;
 					}
@@ -1796,7 +1833,7 @@ void MapScreenMsgScrollDown( UINT8 ubLinesDown )
 {
 	UINT8 ubNumMessages;
 
-  ubNumMessages = GetRangeOfMapScreenMessages();
+	ubNumMessages = GetRangeOfMapScreenMessages();
 
 	// check if we can go that far, only go as far as we can
 	if ( ( gubFirstMapscreenMessageIndex + MAX_MESSAGES_ON_MAP_BOTTOM + ubLinesDown ) > ubNumMessages )
@@ -1815,7 +1852,7 @@ void MapScreenMsgScrollUp( UINT8 ubLinesUp )
 {
 	UINT8 ubNumMessages;
 
-  ubNumMessages = GetRangeOfMapScreenMessages();
+	ubNumMessages = GetRangeOfMapScreenMessages();
 
 	// check if we can go that far, only go as far as we can
 	if ( gubFirstMapscreenMessageIndex < ubLinesUp )
@@ -1836,7 +1873,7 @@ void MoveToEndOfMapScreenMessageList( void )
 	UINT8 ubDesiredMessageIndex;
 	UINT8 ubNumMessages;
 
-  ubNumMessages = GetRangeOfMapScreenMessages();
+	ubNumMessages = GetRangeOfMapScreenMessages();
 
 	ubDesiredMessageIndex = ubNumMessages - min( ubNumMessages, MAX_MESSAGES_ON_MAP_BOTTOM );
 	ChangeCurrentMapscreenMessageIndex( ubDesiredMessageIndex );

@@ -37,7 +37,7 @@ UINT32	guiInsCmntBulletImage;
 
 
 //link to the varios pages
-MOUSE_REGION    gSelectedInsuranceCommentLinkRegion[3];
+MOUSE_REGION	gSelectedInsuranceCommentLinkRegion[3];
 void SelectInsuranceCommentLinkRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
 
@@ -53,7 +53,7 @@ void GameInitInsuranceComments()
 
 BOOLEAN EnterInsuranceComments()
 {
-  VOBJECT_DESC    VObjectDesc;
+	VOBJECT_DESC	VObjectDesc;
 	UINT8 i;
 	UINT16 usPosX;
 
@@ -68,9 +68,9 @@ BOOLEAN EnterInsuranceComments()
 	for( i=0; i<3; i++)
 	{
 		MSYS_DefineRegion( &gSelectedInsuranceCommentLinkRegion[i], usPosX, INS_CMNT_LINK_Y-1, (UINT16)(usPosX + INS_CMNT_LINK_WIDTH), INS_CMNT_LINK_Y+INS_CMNT_LINK_HEIGHT+1, MSYS_PRIORITY_HIGH,
-					 CURSOR_WWW, MSYS_NO_CALLBACK, SelectInsuranceCommentLinkRegionCallBack); 
-		MSYS_AddRegion(&gSelectedInsuranceCommentLinkRegion[i]); 
-		MSYS_SetRegionUserData( &gSelectedInsuranceCommentLinkRegion[i], 0, i );	
+					CURSOR_WWW, MSYS_NO_CALLBACK, SelectInsuranceCommentLinkRegionCallBack);
+		MSYS_AddRegion(&gSelectedInsuranceCommentLinkRegion[i]);
+		MSYS_SetRegionUserData( &gSelectedInsuranceCommentLinkRegion[i], 0, i );
 
 		usPosX += INS_CMNT_LINK_OFFSET_X;
 	}
@@ -100,7 +100,7 @@ void HandleInsuranceComments()
 
 void RenderInsuranceComments()
 {
-//  HVOBJECT hPixHandle;
+//	HVOBJECT hPixHandle;
 	CHAR16		sText[800];
 	UINT16	usPosX, usPosY;
 
@@ -140,7 +140,7 @@ void RenderInsuranceComments()
 
 	//Display the first link text
 	swprintf( sText, L"%s", pMessageStrings[ MSG_HOMEPAGE ] );
-	DisplayWrappedString( usPosX, INS_CMNT_LINK_Y+13, INS_CMNT_LINK_WIDTH, 2, INS_FONT_MED, INS_FONT_COLOR,  sText, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+	DisplayWrappedString( usPosX, INS_CMNT_LINK_Y+13, INS_CMNT_LINK_WIDTH, 2, INS_FONT_MED, INS_FONT_COLOR,	sText, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 	//Display the red bar under the link at the bottom
 	DisplaySmallRedLineWithShadow( usPosX, INS_CMNT_LINK_Y+INS_CMNT_LINK_HEIGHT, (UINT16)(usPosX+INS_CMNT_LINK_WIDTH), INS_CMNT_LINK_Y+INS_CMNT_LINK_HEIGHT);
 	usPosX += INS_CMNT_LINK_OFFSET_X;
@@ -160,14 +160,14 @@ void RenderInsuranceComments()
 	DisplaySmallRedLineWithShadow( usPosX, INS_CMNT_LINK_Y+INS_CMNT_LINK_HEIGHT, (UINT16)(usPosX+INS_CMNT_LINK_WIDTH), INS_CMNT_LINK_Y+INS_CMNT_LINK_HEIGHT);
 
 	SetFontShadow(DEFAULT_SHADOW);
-  MarkButtonsDirty( );
+	MarkButtonsDirty( );
 	RenderWWWProgramTitleBar( );
-  InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
+	InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
 }
 
 
 void SelectInsuranceCommentLinkRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
-{ 
+{
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 	}
@@ -184,14 +184,14 @@ void SelectInsuranceCommentLinkRegionCallBack(MOUSE_REGION * pRegion, INT32 iRea
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
-	} 
+	}
 }
 
 
 BOOLEAN DisplayComment( UINT8 ubCommentorsName, UINT8 ubComment, UINT16 usPosY )
 {
 	CHAR16		sText[800];
-  HVOBJECT	hPixHandle;
+	HVOBJECT	hPixHandle;
 	UINT16		sNumPixels=0;
 
 
@@ -201,7 +201,7 @@ BOOLEAN DisplayComment( UINT8 ubCommentorsName, UINT8 ubComment, UINT16 usPosY )
 
 	//Display the commenters comment
 	GetInsuranceText( ubComment, sText );			//+INS_CMNT_COMMENT_OFFSET_Y
-	sNumPixels = DisplayWrappedString( INS_CMNT_FIRST_BULLET_X+INSURANCE_BULLET_TEXT_OFFSET_X, (UINT16)(usPosY), INS_CMNT_COMMENT_TEXT_WIDTH, 2, INS_FONT_MED, INS_FONT_COLOR,  sText, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+	sNumPixels = DisplayWrappedString( INS_CMNT_FIRST_BULLET_X+INSURANCE_BULLET_TEXT_OFFSET_X, (UINT16)(usPosY), INS_CMNT_COMMENT_TEXT_WIDTH, 2, INS_FONT_MED, INS_FONT_COLOR,	sText, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 	//Display the red bar under the link at the bottom
 	DisplaySmallRedLineWithShadow( INS_CMNT_FIRST_BULLET_X+INSURANCE_BULLET_TEXT_OFFSET_X, (UINT16)(usPosY+sNumPixels), INS_CMNT_FIRST_BULLET_X+INS_CMNT_REDLINE_WIDTH, (UINT16)(usPosY+sNumPixels));
@@ -214,5 +214,6 @@ BOOLEAN DisplayComment( UINT8 ubCommentorsName, UINT8 ubComment, UINT16 usPosY )
 
 	return( TRUE );
 }
+
 
 

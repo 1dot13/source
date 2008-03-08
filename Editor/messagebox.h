@@ -19,7 +19,7 @@ BOOLEAN MessageBoxHandled();
 void RemoveMessageBox();
 
 //NOTES:
-//Rewrote the damn thing.  It is better now because you have less management issues.
+//Rewrote the damn thing.	It is better now because you have less management issues.
 //In your screen's main loop, instead of using the previous method, you would use the following syntax:
 //
 //	if( gubMessageBoxState )
@@ -29,9 +29,9 @@ void RemoveMessageBox();
 //		return MYCURRENT_SCREEN;
 //	}
 //
-//  UINT32 ProcessMyOwnMessageBoxResultHandlerFunction()
+//	UINT32 ProcessMyOwnMessageBoxResultHandlerFunction()
 //	{
-//		RemoveMessageBox();  //MUST BE HERE
+//		RemoveMessageBox();	//MUST BE HERE
 //		if( gfMessageBoxResult ) //user selected yes
 //		{
 //			...

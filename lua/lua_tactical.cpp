@@ -82,7 +82,7 @@ static int LuaGetSoldierLevel( lua_State *L )
 	}
 	else
 	{
-		lua_pushinteger( L, pSoldier->bLevel);
+		lua_pushinteger( L, pSoldier->pathing.bLevel);
 	}
 	return 1;
 }
@@ -94,7 +94,7 @@ static int LuaSetSoldierLevel( lua_State *L )
 	int newlevel = luaL_checkinteger( L, 3);
 	luaL_argcheck( L, newlevel >= 0 && newlevel <= 1, 2, "The level must be 1 or 0" );
 	HandlePlacingRoofMarker( pSoldier, pSoldier->sGridNo, (BOOLEAN) newlevel, TRUE );
-	SetSoldierHeight( pSoldier, (FLOAT)50*newlevel );
+	pSoldier->SetSoldierHeight((FLOAT)50*newlevel );
 	HandlePlacingRoofMarker( pSoldier, pSoldier->sGridNo, (BOOLEAN) newlevel, TRUE );
 	return 0;
 }
@@ -130,10 +130,10 @@ static int LuaSoldierWalkTo( lua_State *L )
 	SOLDIERTYPE *pSoldier = *ppSoldier;
 	int newgrid = luaL_checkinteger( L, 2);
 	luaL_argcheck( L, newgrid > 0 && newgrid <= NOWHERE, 2, "The grid number must be on screen!" );
-	pSoldier->bAction = AI_ACTION_WALK;
-	pSoldier->usActionData = (INT16) newgrid;
-	pSoldier->bPathStored = FALSE;
-	pSoldier->bActionInProgress = ExecuteAction( pSoldier);
+	pSoldier->aiData.bAction = AI_ACTION_WALK;
+	pSoldier->aiData.usActionData = (INT16) newgrid;
+	pSoldier->pathing.bPathStored = FALSE;
+	pSoldier->aiData.bActionInProgress = ExecuteAction( pSoldier);
 	return 0;
 }
 
@@ -143,10 +143,10 @@ static int LuaSoldierRunTo( lua_State *L )
 	SOLDIERTYPE *pSoldier = *ppSoldier;
 	int newgrid = luaL_checkinteger( L, 2);
 	luaL_argcheck( L, newgrid > 0 && newgrid <= NOWHERE, 2, "The grid number must be on screen!" );
-	pSoldier->bAction = AI_ACTION_RUN;
-	pSoldier->usActionData = (INT16) newgrid;
-	pSoldier->bPathStored = FALSE;
-	pSoldier->bActionInProgress = ExecuteAction( pSoldier);
+	pSoldier->aiData.bAction = AI_ACTION_RUN;
+	pSoldier->aiData.usActionData = (INT16) newgrid;
+	pSoldier->pathing.bPathStored = FALSE;
+	pSoldier->aiData.bActionInProgress = ExecuteAction( pSoldier);
 	return 0;
 }
 
@@ -155,7 +155,7 @@ static int LuaSoldierChangeStance( lua_State *L )
 	SOLDIERTYPE **ppSoldier = (SOLDIERTYPE**) luaL_checkudata( L, 1, SOLDIER_CLASS );
 	SOLDIERTYPE *pSoldier = *ppSoldier;
 	int newstance = luaL_checkinteger( L, 2);
-	ChangeSoldierStance( pSoldier, (UINT8) newstance);
+	pSoldier->ChangeSoldierStance( (UINT8) newstance);
 	return 0;
 }
 

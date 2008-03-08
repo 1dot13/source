@@ -118,15 +118,6 @@
 				RelativePath=".\lua.cpp">
 			</File>
 			<File
-				RelativePath=".\lua_env.cpp">
-			</File>
-			<File
-				RelativePath=".\lua_strategic.cpp">
-			</File>
-			<File
-				RelativePath=".\lua_tactical.cpp">
-			</File>
-			<File
 				RelativePath=".\lwstring.cpp">
 			</File>
 		</Filter>

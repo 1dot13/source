@@ -27,15 +27,15 @@ BOOLEAN gfEnumSucceed = FALSE;
 
 
 
-#define         MAX_WIN_FONTS   10
+#define		 MAX_WIN_FONTS	10
 
 // Private struct not to be exported
 // to other modules
 typedef struct
 {
-  HFONT       hFont;  
-  COLORVAL    ForeColor;
-  COLORVAL    BackColor;
+	HFONT		hFont;	
+	COLORVAL	ForeColor;
+	COLORVAL	BackColor;
 
 } HWINFONT;
 
@@ -44,7 +44,7 @@ LOGFONT gLogFont;
 HWINFONT	WinFonts[ MAX_WIN_FONTS ];
 
 
-void Convert16BitStringTo8BitChineseBig5String( UINT8 *dst, UINT16 *src )
+void Convert16BitStringTo8BitChineseBig5String( CHAR8 *dst, CHAR16 *src )
 {
 	INT32 i, j;
 	STR8 ptr;
@@ -67,7 +67,7 @@ void Convert16BitStringTo8BitChineseBig5String( UINT8 *dst, UINT16 *src )
 
 void InitWinFonts( )
 {
-  memset( WinFonts, 0, sizeof( WinFonts ) );
+	memset( WinFonts, 0, sizeof( WinFonts ) );
 }
 
 void ShutdownWinFonts( )
@@ -77,15 +77,15 @@ void ShutdownWinFonts( )
 
 INT32 FindFreeWinFont( void )
 {
-  INT32 iCount;
+	INT32 iCount;
 
 	for( iCount = 0; iCount < MAX_WIN_FONTS; iCount++ )
-  {
+	{
 		if( WinFonts[ iCount ].hFont == NULL )
-    {
+	{
 			return( iCount );
-    }
-  }
+	}
+	}
 
 	return( -1 );
 }
@@ -93,42 +93,42 @@ INT32 FindFreeWinFont( void )
 
 HWINFONT *GetWinFont( INT32 iFont )
 {
-  if ( iFont == -1 )
-  {
-    return( NULL );
-  }
+	if ( iFont == -1 )
+	{
+	return( NULL );
+	}
 
-  if ( WinFonts[ iFont ].hFont == NULL )
-  {
-    return( NULL );
-  }
-  else
-  {
-    return( &( WinFonts[ iFont ] ) );
-  }
+	if ( WinFonts[ iFont ].hFont == NULL )
+	{
+	return( NULL );
+	}
+	else
+	{
+	return( &( WinFonts[ iFont ] ) );
+	}
 }
 
 CHAR16 gzFontName[32];
 
-INT32 CreateWinFont( INT32 iHeight, INT32 iWidth, INT32 iEscapement,  
-                     INT32 iWeight, BOOLEAN fItalic,  BOOLEAN fUnderline,  BOOLEAN fStrikeOut, STR16 szFontName, INT32 iCharSet )
+INT32 CreateWinFont( INT32 iHeight, INT32 iWidth, INT32 iEscapement,	
+					 INT32 iWeight, BOOLEAN fItalic,	BOOLEAN fUnderline,	BOOLEAN fStrikeOut, STR16 szFontName, INT32 iCharSet )
 {
-  INT32   iFont;
-  HFONT   hFont;
-  CHAR8  szCharFontName[32]; //32 characters including null terminator (matches max font name length)
-  // Find free slot
-  iFont = FindFreeWinFont( );
+	INT32	iFont;
+	HFONT	hFont;
+	CHAR8	szCharFontName[32]; //32 characters including null terminator (matches max font name length)
+	// Find free slot
+	iFont = FindFreeWinFont( );
 
-  if ( iFont == -1 )
-  {
-    return( iFont );
-  }
+	if ( iFont == -1 )
+	{
+	return( iFont );
+	}
 
 	//SET UP FONT WE WANT TO LOAD HERE
 	wcscpy( gzFontName, szFontName );
 
 	//ATTEMPT TO LOAD THE FONT NOW
-	sprintf(  szCharFontName, "%S", szFontName );
+	sprintf(	szCharFontName, "%S", szFontName );
 	if( DoesWinFontExistOnSystem( szFontName, iCharSet ) )
 	{
 		gLogFont.lfHeight = iHeight;
@@ -141,77 +141,77 @@ INT32 CreateWinFont( INT32 iHeight, INT32 iWidth, INT32 iEscapement,
 		return( -1 );
 	}
 
-  if ( hFont == NULL )
-  {
-    return( -1 );
-  }
+	if ( hFont == NULL )
+	{
+	return( -1 );
+	}
 
-  // Set font....
-  WinFonts[ iFont ].hFont = hFont;
+	// Set font....
+	WinFonts[ iFont ].hFont = hFont;
 
-  return( iFont );
+	return( iFont );
 }
 
-void  DeleteWinFont( INT32 iFont )
+void	DeleteWinFont( INT32 iFont )
 {
-  HWINFONT *pWinFont;
-  
-  pWinFont = GetWinFont( iFont );
+	HWINFONT *pWinFont;
+	
+	pWinFont = GetWinFont( iFont );
 
-  if ( pWinFont != NULL )
-  {
-    DeleteObject( pWinFont->hFont );
-  }
+	if ( pWinFont != NULL )
+	{
+	DeleteObject( pWinFont->hFont );
+	}
 }
 
-  
+	
 void SetWinFontForeColor( INT32 iFont, COLORVAL *pColor )
 {
-  HWINFONT *pWinFont;
-  
-  pWinFont = GetWinFont( iFont );
+	HWINFONT *pWinFont;
+	
+	pWinFont = GetWinFont( iFont );
 
-  if ( pWinFont != NULL )
-  {
-    pWinFont->ForeColor = ( *pColor );
-  }
+	if ( pWinFont != NULL )
+	{
+	pWinFont->ForeColor = ( *pColor );
+	}
 }
 
-  
+	
 void SetWinFontBackColor( INT32 iFont, COLORVAL *pColor )
 {
-  HWINFONT *pWinFont;
-  
-  pWinFont = GetWinFont( iFont );
+	HWINFONT *pWinFont;
+	
+	pWinFont = GetWinFont( iFont );
 
-  if ( pWinFont != NULL )
-  {
-    pWinFont->BackColor = ( *pColor );
-  }
+	if ( pWinFont != NULL )
+	{
+	pWinFont->BackColor = ( *pColor );
+	}
 }
 
 
 void PrintWinFont( UINT32 uiDestBuf, INT32 iFont, INT32 x, INT32 y, STR16 pFontString, ...)
 {
-  va_list                 argptr;
-  CHAR16									string2[512];
-  CHAR8										string[512];
-  HVSURFACE               hVSurface;
-  LPDIRECTDRAWSURFACE2    pDDSurface;
-  HDC                     hdc;
-  RECT                    rc;
-  HWINFONT                *pWinFont;
-  int                     len;
-  SIZE                    RectSize;
-  
-  pWinFont = GetWinFont( iFont );
+	va_list				 argptr;
+	CHAR16									string2[512];
+	CHAR8										string[512];
+	HVSURFACE				hVSurface;
+	LPDIRECTDRAWSURFACE2	pDDSurface;
+	HDC					 hdc;
+	RECT					rc;
+	HWINFONT				*pWinFont;
+	int					 len;
+	SIZE					RectSize;
+	
+	pWinFont = GetWinFont( iFont );
 
-  if ( pWinFont == NULL )
-  {
-    return;
-  }
+	if ( pWinFont == NULL )
+	{
+	return;
+	}
 
-	va_start(argptr, pFontString);       	// Set up variable argument pointer
+	va_start(argptr, pFontString);			// Set up variable argument pointer
 	len = vswprintf(string2, pFontString, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
 
@@ -221,38 +221,38 @@ void PrintWinFont( UINT32 uiDestBuf, INT32 iFont, INT32 x, INT32 y, STR16 pFontS
 	sprintf( string, "%S", string2 );
 #endif
 
-  // Get surface...
-  GetVideoSurface( &hVSurface, uiDestBuf );
+	// Get surface...
+	GetVideoSurface( &hVSurface, uiDestBuf );
 
-  pDDSurface = GetVideoSurfaceDDSurface( hVSurface );
+	pDDSurface = GetVideoSurfaceDDSurface( hVSurface );
 
-  IDirectDrawSurface2_GetDC( pDDSurface, &hdc );
+	IDirectDrawSurface2_GetDC( pDDSurface, &hdc );
 
-  SelectObject(hdc, pWinFont->hFont );
-  SetTextColor( hdc, pWinFont->ForeColor );
-  SetBkColor(hdc, pWinFont->BackColor );
-  SetBkMode(hdc, TRANSPARENT);
+	SelectObject(hdc, pWinFont->hFont );
+	SetTextColor( hdc, pWinFont->ForeColor );
+	SetBkColor(hdc, pWinFont->BackColor );
+	SetBkMode(hdc, TRANSPARENT);
 
-  GetTextExtentPoint32( hdc, string, len, &RectSize );
-  SetRect(&rc, x, y, x + RectSize.cx, y + RectSize.cy );
-  ExtTextOut( hdc, x, y, ETO_OPAQUE, &rc, string, len, NULL );
-  IDirectDrawSurface2_ReleaseDC( pDDSurface, hdc );
+	GetTextExtentPoint32( hdc, string, len, &RectSize );
+	SetRect(&rc, x, y, x + RectSize.cx, y + RectSize.cy );
+	ExtTextOut( hdc, x, y, ETO_OPAQUE, &rc, string, len, NULL );
+	IDirectDrawSurface2_ReleaseDC( pDDSurface, hdc );
 
 }
 
 INT16 WinFontStringPixLength( STR16 string2, INT32 iFont )
 {
-  HWINFONT                *pWinFont;
-  HDC                     hdc;
-  SIZE                    RectSize;
-  CHAR8	                  string[512];
-  
-  pWinFont = GetWinFont( iFont );
+	HWINFONT				*pWinFont;
+	HDC					 hdc;
+	SIZE					RectSize;
+	CHAR8					string[512];
+	
+	pWinFont = GetWinFont( iFont );
 
-  if ( pWinFont == NULL )
-  {
-    return( 0 );
-  }
+	if ( pWinFont == NULL )
+	{
+	return( 0 );
+	}
 
 #ifdef TAIWANESE
 	Convert16BitStringTo8BitChineseBig5String( string, string2 );
@@ -260,28 +260,28 @@ INT16 WinFontStringPixLength( STR16 string2, INT32 iFont )
 	sprintf( string, "%S", string2 );
 #endif
 
-  hdc = GetDC(NULL);
-  SelectObject(hdc, pWinFont->hFont );
-  GetTextExtentPoint32( hdc, string, strlen(string), &RectSize );
-  ReleaseDC(NULL, hdc);
-  
-  return( (INT16)RectSize.cx );
+	hdc = GetDC(NULL);
+	SelectObject(hdc, pWinFont->hFont );
+	GetTextExtentPoint32( hdc, string, strlen(string), &RectSize );
+	ReleaseDC(NULL, hdc);
+	
+	return( (INT16)RectSize.cx );
 }
 
 
 INT16 GetWinFontHeight( STR16 string2, INT32 iFont )
 {
-  HWINFONT                *pWinFont;
-  HDC                     hdc;
-  SIZE                    RectSize;
-  CHAR8                   string[512];
+	HWINFONT				*pWinFont;
+	HDC					 hdc;
+	SIZE					RectSize;
+	CHAR8					string[512];
 
-  pWinFont = GetWinFont( iFont );
+	pWinFont = GetWinFont( iFont );
 
-  if ( pWinFont == NULL )
-  {
-    return( 0 );
-  }
+	if ( pWinFont == NULL )
+	{
+	return( 0 );
+	}
 
 #ifdef TAIWANESE
 	Convert16BitStringTo8BitChineseBig5String( string, string2 );
@@ -289,34 +289,34 @@ INT16 GetWinFontHeight( STR16 string2, INT32 iFont )
 	sprintf( string, "%S", string2 );
 #endif
 
-  hdc = GetDC(NULL);
-  SelectObject(hdc, pWinFont->hFont );
-  GetTextExtentPoint32( hdc, string, strlen(string), &RectSize );
-  ReleaseDC(NULL, hdc);
-  
-  return( (INT16)RectSize.cy );
+	hdc = GetDC(NULL);
+	SelectObject(hdc, pWinFont->hFont );
+	GetTextExtentPoint32( hdc, string, strlen(string), &RectSize );
+	ReleaseDC(NULL, hdc);
+	
+	return( (INT16)RectSize.cy );
 }
 
 UINT32	WinFont_mprintf( INT32 iFont, INT32 x, INT32 y, STR16 pFontString, ...)
 {
-  va_list                 argptr;
-  CHAR16	                string[512];
+	va_list				 argptr;
+	CHAR16				 string[512];
 
-	va_start(argptr, pFontString);       	// Set up variable argument pointer
+	va_start(argptr, pFontString);			// Set up variable argument pointer
 	vswprintf(string, pFontString, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
 
-  PrintWinFont( FontDestBuffer, iFont, x,  y, string );
+	PrintWinFont( FontDestBuffer, iFont, x,	y, string );
 
-  return( 1 );
+	return( 1 );
 }
 
-int CALLBACK EnumFontFamProc( CONST LOGFONT *lplf,  CONST TEXTMETRIC *lptm,  DWORD dwType, LPARAM lpData )
+int CALLBACK EnumFontFamProc( CONST LOGFONT *lplf,	CONST TEXTMETRIC *lptm,	DWORD dwType, LPARAM lpData )
 {
 
-  gfEnumSucceed = TRUE;
+	gfEnumSucceed = TRUE;
 	
-  return( TRUE );
+	return( TRUE );
 }
 
 
@@ -325,7 +325,7 @@ int CALLBACK EnumFontFamExProc( ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, 
 	CHAR8 szFontName[32];
 
 	sprintf( szFontName, "%S", gzFontName );
-	if( !strcmp(  szFontName, (STR8) lpelfe->elfFullName ) )
+	if( !strcmp(	szFontName, (STR8) lpelfe->elfFullName ) )
 	{
 		gfEnumSucceed = TRUE;
 		memcpy( &gLogFont, &(lpelfe->elfLogFont), sizeof( LOGFONT ) );
@@ -337,12 +337,12 @@ int CALLBACK EnumFontFamExProc( ENUMLOGFONTEX *lpelfe, NEWTEXTMETRICEX *lpntme, 
 
 BOOLEAN DoesWinFontExistOnSystem( STR16 pTypeFaceName, INT32 iCharSet )
 {
-  HDC       hdc;
+	HDC		hdc;
 	char			string[512];
 	LOGFONT LogFont;
-  hdc = GetDC(NULL);
+	hdc = GetDC(NULL);
 
-  gfEnumSucceed = FALSE;
+	gfEnumSucceed = FALSE;
 	// Copy into 8-bit!
 	sprintf( string, "%S", pTypeFaceName );
 
@@ -351,8 +351,8 @@ BOOLEAN DoesWinFontExistOnSystem( STR16 pTypeFaceName, INT32 iCharSet )
 	lstrcpy( (LPSTR)&LogFont.lfFaceName, string );
 
 	EnumFontFamiliesEx( hdc, &LogFont, (FONTENUMPROCA) EnumFontFamExProc, 0, 0 );
-  
+	
 	ReleaseDC(NULL, hdc);
 
-  return( gfEnumSucceed );
+	return( gfEnumSucceed );
 }

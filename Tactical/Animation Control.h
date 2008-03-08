@@ -56,19 +56,19 @@
 #define	ANIM_RAISE_WEAPON						0x00080000
 #define	ANIM_NOCHANGE_WEAPON				0x00100000
 #define	ANIM_NOCHANGE_PENDINGCOUNT	0x00200000
-// I'm commandeering the effort flags.  I do not expect to see multiple efforts for the same tasks, so I'm turning them into a 2-bit
-// level instead.  So there :P
+// I'm commandeering the effort flags.	I do not expect to see multiple efforts for the same tasks, so I'm turning them into a 2-bit
+// level instead.	So there :P
 #define	ANIM_NO_EFFORT							0x00000000
 #define	ANIM_MIN_EFFORT							0x00400000
 #define	ANIM_LIGHT_EFFORT						0x00800000
 #define	ANIM_MODERATE_EFFORT				0x00C00000
 
-// Return a number between 0 and 4 to indicate effort.  4 means variable
+// Return a number between 0 and 4 to indicate effort.	4 means variable
 #define EFFORT(flags) (((flags) & ANIM_VARIABLE_EFFORT) ? 4 : ((flags) & 0x00C00000) >> 22)
 
-// Now I have room for a new flag.  And there's still room for one more!
-#define ANIM_ATTACK                         0x01000000
-#define ANIM_FREEFORUSE                     0x02000000
+// Now I have room for a new flag.	And there's still room for one more!
+#define ANIM_ATTACK						 0x01000000
+#define ANIM_FREEFORUSE					 0x02000000
 
 #define	ANIM_RT_NONINTERRUPT				0x04000000
 #define	ANIM_VARIABLE_EFFORT				0x08000000
@@ -531,17 +531,17 @@ enum AnimationStates
 	ATTACH_CAN_TO_STRING,
 	SWAT_BACKWARDS,
 	JUMP_OVER_BLOCKING_PERSON,
-  REFUEL_VEHICLE,
-  ROBOT_CAMERA_NOT_MOVING,
-  CRIPPLE_OPEN_DOOR,
-  CRIPPLE_CLOSE_DOOR,
+	REFUEL_VEHICLE,
+	ROBOT_CAMERA_NOT_MOVING,
+	CRIPPLE_OPEN_DOOR,
+	CRIPPLE_CLOSE_DOOR,
 	CRIPPLE_END_OPEN_DOOR,
 	CRIPPLE_END_OPEN_LOCKED_DOOR,
-  LOCKPICK_CROUCHED,
+	LOCKPICK_CROUCHED,
 
-  //<SB> crouch throwing
-  THROW_ITEM_CROUCHED,
-  //</SB>
+	//<SB> crouch throwing
+	THROW_ITEM_CROUCHED,
+	//</SB>
 
 	NUMANIMATIONSTATES
 

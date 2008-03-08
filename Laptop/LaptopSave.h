@@ -1,9 +1,14 @@
 #ifndef _LAPTOP_SAVE_H_
 #define _LAPTOP_SAVE_H_
 
-#include "Item Types.h"
+//#include "Item Types.h"
 #include "FileMan.h"
 #include "Store Inventory.h"
+
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
+
 
 #define		MAX_BOOKMARKS											20
 

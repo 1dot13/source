@@ -2,16 +2,16 @@
 #define _OPPLIST_H
 
 
-#define EVERYBODY       MAXMERCS
+#define EVERYBODY		MAXMERCS
 
-#define MAX_MISC_NOISE_DURATION 12      // max dur for VERY loud NOBODY noises
+#define MAX_MISC_NOISE_DURATION 12		// max dur for VERY loud NOBODY noises
 
-#define DOOR_NOISE_VOLUME       2
+#define DOOR_NOISE_VOLUME		2
 #define WINDOW_CRACK_VOLUME			4
 #define WINDOW_SMASH_VOLUME			8
-#define MACHETE_VOLUME          9
-#define TRIMMER_VOLUME          18
-#define CHAINSAW_VOLUME         30
+#define MACHETE_VOLUME			9
+#define TRIMMER_VOLUME			18
+#define CHAINSAW_VOLUME		 30
 #define SMASHING_DOOR_VOLUME		6
 #define CROWBAR_DOOR_VOLUME			4
 #define ITEM_THROWN_VOLUME			2
@@ -25,9 +25,9 @@
 #define AUTOMATIC_INTERRUPT 100
 #define NO_INTERRUPT 127
 
-#define MOVEINTERRUPT   0
-#define SIGHTINTERRUPT  1
-#define NOISEINTERRUPT  2
+#define MOVEINTERRUPT	0
+#define SIGHTINTERRUPT	1
+#define NOISEINTERRUPT	2
 
 
 // noise type constants
@@ -71,8 +71,8 @@ extern UINT8 gubKnowledgeValue[10][10];
 extern INT8 gbLookDistance[8][8];
 extern INT8 gfKnowAboutOpponents;
 
-extern BOOLEAN   gfPlayerTeamSawJoey;
-extern BOOLEAN   gfMikeShouldSayHi;
+extern BOOLEAN	gfPlayerTeamSawJoey;
+extern BOOLEAN	gfMikeShouldSayHi;
 
 
 extern INT16			gsWatchedLoc[ TOTAL_SOLDIERS ][ NUM_WATCHED_LOCS ];

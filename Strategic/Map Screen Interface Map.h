@@ -54,7 +54,7 @@ void CancelPathForCharacter( SOLDIERTYPE *pCharacter );
 void CancelPathForVehicle( VEHICLETYPE *pVehicle, BOOLEAN fAlreadyReversed );
 void CancelPathForGroup( GROUP *pGroup );
 
-// check if we have waited long enought o update temp path
+// check if we have waited long enought object update temp path
 void DisplayThePotentialPathForHelicopter(INT16 sMapX, INT16 sMapY );
 
 // clear out helicopter list after this sector
@@ -115,13 +115,13 @@ void CreateDestroyMilitiaPopUPRegions( void );
 BOOLEAN DrawMilitiaPopUpBox( void );
 
 
-//Returns true if the player knows how many enemies are in the sector if that number is greater than 0.  
+//Returns true if the player knows how many enemies are in the sector if that number is greater than 0.	
 //Returns false for all other cases.
 UINT32 WhatPlayerKnowsAboutEnemiesInSector( INT16 sSectorX, INT16 sSectorY );
 
-//There is a special case flag used when players encounter enemies in a sector, then retreat.  The number of enemies
-//will display on mapscreen until time is compressed.  When time is compressed, the flag is cleared, and
-//a question mark is displayed to reflect that the player no longer knows.  This is the function that clears that
+//There is a special case flag used when players encounter enemies in a sector, then retreat.	The number of enemies
+//will display on mapscreen until time is compressed.	When time is compressed, the flag is cleared, and
+//a question mark is displayed to reflect that the player no longer knows.	This is the function that clears that
 //flag.
 void ClearAnySectorsFlashingNumberOfEnemies();
 
@@ -177,17 +177,17 @@ enum {
 //#define			MAP_VIEW_HEIGHT				298
 
 // zoomed in grid sizes
-#define     MAP_GRID_ZOOM_X       MAP_GRID_X*2
-#define     MAP_GRID_ZOOM_Y       MAP_GRID_Y*2
+#define	 MAP_GRID_ZOOM_X		MAP_GRID_X*2
+#define	 MAP_GRID_ZOOM_Y		MAP_GRID_Y*2
 
 // number of units wide
-#define     WORLD_MAP_X           18
+#define	 WORLD_MAP_X			18
 
 // dirty regions for the map
 #define			DMAP_GRID_X						( MAP_GRID_X + 1 )
 #define			DMAP_GRID_Y						( MAP_GRID_Y + 1 )
-#define     DMAP_GRID_ZOOM_X      ( MAP_GRID_ZOOM_X+1)
-#define     DMAP_GRID_ZOOM_Y      ( MAP_GRID_ZOOM_Y+1) 
+#define	 DMAP_GRID_ZOOM_X		( MAP_GRID_ZOOM_X+1)
+#define	 DMAP_GRID_ZOOM_Y		( MAP_GRID_ZOOM_Y+1) 
 
 
 // Orta position on the map
@@ -200,7 +200,7 @@ enum {
 // what are we showing?..teams/vehicles
 // Show values
 #define SHOW_TEAMMATES 1
-#define SHOW_VEHICLES  2
+#define SHOW_VEHICLES	2
 
 
 // wait time until temp path is drawn, from placing cursor on a map grid
@@ -263,7 +263,7 @@ extern INT8 bSelectedContractChar;
 extern UINT32 guiMAPCURSORS;
 
 // has temp path for character path or helicopter been already drawn
-extern BOOLEAN  fTempPathAlreadyDrawn;
+extern BOOLEAN	fTempPathAlreadyDrawn;
 
 // map view region clipping rect
 extern SGPRect MapScreenRect;

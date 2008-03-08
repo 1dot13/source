@@ -14,7 +14,7 @@
 //Soon to be added to an editor struct
 extern UINT16 usTotalWeight;
 extern BOOLEAN	fPrevShowTerrainTileButtons;
-extern BOOLEAN  fUseTerrainWeights;
+extern BOOLEAN	fUseTerrainWeights;
 extern INT32 TerrainTileSelected, TerrainForegroundTile,TerrainBackgroundTile;
 extern INT32 TerrainTileDrawMode;
 

@@ -7,10 +7,10 @@
 	#include "wcheck.h"
 	#include "stdlib.h"
 	#include "debug.h"
-	#include "soldier control.h"
+	//#include "soldier control.h"
 	#include "weapons.h"
 	#include "handle items.h"
-	#include "worlddef.h"	
+	#include "worlddef.h"
 	#include "worldman.h"
 	#include "rotting corpses.h"
 	#include "tile cache.h"
@@ -22,7 +22,7 @@
 	#include "renderworld.h"
 	#include "tile animation.h"
 	#include "merc entering.h"
-	#include "sound control.h"
+	#include "Sound Control.h"
 	#include "strategic.h"
 	#include "strategicmap.h"
 	#include "Handle UI.h"
@@ -39,6 +39,11 @@
 	#include "Dialogue Control.h"
 	#include "Music Control.h"
 #endif
+
+
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
 
 #define		MAX_MERC_IN_HELI		20
 #define		MAX_HELI_SCRIPT			30
@@ -156,7 +161,7 @@ UINT8			ubHeliScripts[ NUM_HELI_STATES ][ MAX_HELI_SCRIPT ] =
 	HELI_MOVEY,
 	HELI_MOVEY,
 	HELI_GOTO_BEGINDROP,
-	
+
 	// HELI_BEGIN_DROP
 	HELI_MOVE_DOWN,
 	HELI_MOVE_DOWN,
@@ -230,7 +235,7 @@ UINT8			ubHeliScripts[ NUM_HELI_STATES ][ MAX_HELI_SCRIPT ] =
 	HELI_MOVESMALL_DOWN,
 	HELI_MOVESMALL_DOWN,
 	HELI_GOTO_DROP,
-	
+
 	// HELI END DROP
 	HELI_MOVE_UP,
 	HELI_MOVE_UP,
@@ -464,10 +469,10 @@ void HandleHeliDrop( )
 
 		if ( _KeyDown( ESC ) )
 		{
-			// Loop through all mercs not yet placed 
+			// Loop through all mercs not yet placed
 			for ( cnt = gbCurDrop; cnt < gbNumHeliSeatsOccupied; cnt++ )
 			{
-				// Add merc to sector				
+				// Add merc to sector
 				MercPtrs[ gusHeliSeats[ cnt ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
 				UpdateMercInSector( MercPtrs[ gusHeliSeats[ cnt ] ], 9, 1, 0 );
 
@@ -481,7 +486,7 @@ void HandleHeliDrop( )
 			// Remove heli
 			DeleteAniTile( gpHeli );
 
-      RebuildCurrentSquad( );
+		RebuildCurrentSquad( );
 
 			// Remove sound
 			if( uiSoundSample!=NO_SAMPLE )
@@ -500,7 +505,7 @@ void HandleHeliDrop( )
 			SelectSoldier( gusHeliSeats[ 0 ], FALSE, TRUE );
 
 			//guiCurrentEvent = LU_ENDUILOCK;
-			//gCurrentUIMode  = LOCKUI_MODE;
+			//gCurrentUIMode	= LOCKUI_MODE;
 			guiPendingOverrideEvent = LU_ENDUILOCK;
 			//UIHandleLUIEndLock( NULL );
 
@@ -512,8 +517,8 @@ void HandleHeliDrop( )
 		gfIgnoreScrolling = TRUE;
 
 		uiClock = GetJA2Clock( );
-		
-		if ( ( uiClock - guiHeliLastUpdate ) >  ME_SCRIPT_DELAY )
+
+		if ( ( uiClock - guiHeliLastUpdate ) >	ME_SCRIPT_DELAY )
 		{
 			guiHeliLastUpdate = uiClock;
 
@@ -553,7 +558,7 @@ void HandleHeliDrop( )
 						UnLockPauseState();
 						UnPauseGame();
 
-            RebuildCurrentSquad( );
+			RebuildCurrentSquad( );
 
 						HandleFirstHeliDropOfGame( );
 					}
@@ -568,7 +573,7 @@ void HandleHeliDrop( )
 					UnLockPauseState();
 					UnPauseGame();
 
-          RebuildCurrentSquad( );
+			RebuildCurrentSquad( );
 
 					HandleFirstHeliDropOfGame( );
 				}
@@ -578,7 +583,7 @@ void HandleHeliDrop( )
 			{
 				return;
 			}
-			
+
 			ubScriptCode = ubHeliScripts[ gubHeliState ][ gsHeliScript ];
 
 			// Switch on mode...
@@ -600,7 +605,7 @@ void HandleHeliDrop( )
 					{
 						//sWorldX = CenterX( gsGridNoSweetSpot );
 						//sWorldY = CenterY( gsGridNoSweetSpot );
-						EVENT_InitNewSoldierAnim( MercPtrs[ gusHeliSeats[ gbCurDrop ] ], HELIDROP, 0 , FALSE );
+						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->EVENT_InitNewSoldierAnim( HELIDROP, 0 , FALSE );
 
 						// Change insertion code
 						MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->ubStrategicInsertionCode = INSERTION_CODE_NORTH;
@@ -612,7 +617,7 @@ void HandleHeliDrop( )
 						if ( gfFirstGuyDown )
 						{
 							gfFirstGuyDown = FALSE;
-							SetCurrentSquad( MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->bAssignment, TRUE );							
+							SetCurrentSquad( MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->bAssignment, TRUE );
 						}
 						ScreenMsg( FONT_MCOLOR_WHITE, MSG_INTERFACE, TacticalStr[ MERC_HAS_ARRIVED_STR ], MercPtrs[ gusHeliSeats[ gbCurDrop ] ]->name );
 
@@ -632,7 +637,7 @@ void HandleHeliDrop( )
 
 							if ( gbExitCount == 1 )
 							{
-								// Goto leave 
+								// Goto leave
 								gsHeliScript				= -1;
 								gubHeliState				= HELI_ENDDROP;
 
@@ -743,7 +748,7 @@ void HandleHeliDrop( )
 						gdHeliZPos					= 0;
 						gsHeliScript				= 0;
 						gbExitCount					= 0;
-						gubHeliState				= HELI_APPROACH;	
+						gubHeliState				= HELI_APPROACH;
 						gbHeliRound++;
 
 						// Ahh, but still delete the heli!
@@ -808,15 +813,16 @@ void HandleFirstHeliDropOfGame( )
 		SayQuoteFromAnyBodyInSector( QUOTE_ENEMY_PRESENCE );
 
 		// Start music
-		SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );		
+		SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 
 		gfFirstHeliRun = FALSE;
-		
+
 	}
 
 	// Send message to turn on ai again....
-	CharacterDialogueWithSpecialEvent( 0, 0,   0 , DIALOGUE_TACTICAL_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_ENABLE_AI ,0, 0 );
+	CharacterDialogueWithSpecialEvent( 0, 0,	0 , DIALOGUE_TACTICAL_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_ENABLE_AI ,0, 0 );
 
 }
+
 
 

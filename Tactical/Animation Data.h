@@ -28,7 +28,7 @@
 // RGM = Regular Male
 // (RG) = Body desc ( Regular - RG, Short Stocky ( SS ), etc
 // (M) = Sex, Male, female
-#define	IS_MERC_BODY_TYPE( p )   ( ( p->ubBodyType <= REGFEMALE ) ? ( TRUE ) : ( FALSE ) )
+#define	IS_MERC_BODY_TYPE( p )	( ( p->ubBodyType <= REGFEMALE ) ? ( TRUE ) : ( FALSE ) )
 #define IS_CIV_BODY_TYPE( p ) ( (p->ubBodyType >= FATCIV) && (p->ubBodyType <= CRIPPLECIV) )
 
 #define NUMSOLDIERBODYTYPES	4
@@ -67,7 +67,7 @@ enum SoldierBodyTypes
 	ICECREAMTRUCK,
 	JEEP,
 
-  TOTALBODYTYPES
+	TOTALBODYTYPES
 
 } ;
 
@@ -528,7 +528,7 @@ typedef enum
 // Struct for animation 'surface' information
 typedef struct
 {
-	UINT16								  ubName;
+	UINT16								ubName;
 	CHAR8										Filename[ 50 ];
 	CHAR8										bStructDataType; 
 	UINT8										ubFlags;
@@ -557,8 +557,8 @@ extern AnimationStructureType	gAnimStructureDatabase[ TOTALBODYTYPES ][ NUM_STRU
 // Functions
 BOOLEAN InitAnimationSystem( );
 BOOLEAN DeInitAnimationSystem( );
-BOOLEAN LoadAnimationSurface(  UINT16 usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState );
-BOOLEAN UnLoadAnimationSurface(  UINT16 usSoldierID, UINT16 usSurfaceIndex );
+BOOLEAN LoadAnimationSurface(	UINT16 usSoldierID, UINT16 usSurfaceIndex, UINT16 usAnimState );
+BOOLEAN UnLoadAnimationSurface(	UINT16 usSoldierID, UINT16 usSurfaceIndex );
 void ClearAnimationSurfacesUsageHistory( UINT16 usSoldierID );
 
 

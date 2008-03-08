@@ -66,8 +66,8 @@
 @* checks for initialization code.
 ** CHANGE them if you want different names.
 */
-#define LUA_PATH        "LUA_PATH"
-#define LUA_CPATH       "LUA_CPATH"
+#define LUA_PATH		"LUA_PATH"
+#define LUA_CPATH		"LUA_CPATH"
 #define LUA_INIT	"LUA_INIT"
 
 
@@ -87,21 +87,21 @@
 */
 #define LUA_LDIR	"!\\lua\\"
 #define LUA_CDIR	"!\\"
-#define LUA_PATH_DEFAULT  \
-		".\\?.lua;"  LUA_LDIR"?.lua;"  LUA_LDIR"?\\init.lua;" \
-		             LUA_CDIR"?.lua;"  LUA_CDIR"?\\init.lua"
+#define LUA_PATH_DEFAULT	\
+		".\\?.lua;"	LUA_LDIR"?.lua;"	LUA_LDIR"?\\init.lua;" \
+					LUA_CDIR"?.lua;"	LUA_CDIR"?\\init.lua"
 #define LUA_CPATH_DEFAULT \
-	".\\?.dll;"  LUA_CDIR"?.dll;" LUA_CDIR"loadall.dll"
+	".\\?.dll;"	LUA_CDIR"?.dll;" LUA_CDIR"loadall.dll"
 
 #else
 #define LUA_ROOT	"/usr/local/"
 #define LUA_LDIR	LUA_ROOT "share/lua/5.1/"
 #define LUA_CDIR	LUA_ROOT "lib/lua/5.1/"
-#define LUA_PATH_DEFAULT  \
-		"./?.lua;"  LUA_LDIR"?.lua;"  LUA_LDIR"?/init.lua;" \
-		            LUA_CDIR"?.lua;"  LUA_CDIR"?/init.lua"
+#define LUA_PATH_DEFAULT	\
+		"./?.lua;"	LUA_LDIR"?.lua;"	LUA_LDIR"?/init.lua;" \
+				 LUA_CDIR"?.lua;"	LUA_CDIR"?/init.lua"
 #define LUA_CPATH_DEFAULT \
-	"./?.so;"  LUA_CDIR"?.so;" LUA_CDIR"loadall.so"
+	"./?.so;"	LUA_CDIR"?.so;" LUA_CDIR"loadall.so"
 #endif
 
 
@@ -183,7 +183,7 @@
 #define LUAI_DATA	/* empty */
 
 #elif defined(__GNUC__) && ((__GNUC__*100 + __GNUC_MINOR__) >= 302) && \
-      defined(__ELF__)
+		defined(__ELF__)
 #define LUAI_FUNC	__attribute__((visibility("hidden"))) extern
 #define LUAI_DATA	LUAI_FUNC
 
@@ -232,7 +232,7 @@
 #include <stdio.h>
 #define lua_stdin_is_tty()	_isatty(_fileno(stdin))
 #else
-#define lua_stdin_is_tty()	1  /* assume stdin is a tty */
+#define lua_stdin_is_tty()	1	/* assume stdin is a tty */
 #endif
 
 
@@ -276,13 +276,13 @@
 #include <readline/history.h>
 #define lua_readline(L,b,p)	((void)L, ((b)=readline(p)) != NULL)
 #define lua_saveline(L,idx) \
-	if (lua_strlen(L,idx) > 0)  /* non-empty line? */ \
-	  add_history(lua_tostring(L, idx));  /* add it to history */
+	if (lua_strlen(L,idx) > 0)	/* non-empty line? */ \
+	add_history(lua_tostring(L, idx));	/* add it to history */
 #define lua_freeline(L,b)	((void)L, free(b))
 #else
 #define lua_readline(L,b,p)	\
-	((void)L, fputs(p, stdout), fflush(stdout),  /* show prompt */ \
-	fgets(b, LUA_MAXINPUT, stdin) != NULL)  /* get line */
+	((void)L, fputs(p, stdout), fflush(stdout),	/* show prompt */ \
+	fgets(b, LUA_MAXINPUT, stdin) != NULL)	/* get line */
 #define lua_saveline(L,idx)	{ (void)L; (void)idx; }
 #define lua_freeline(L,b)	{ (void)L; (void)b; }
 #endif
@@ -299,7 +299,7 @@
 ** mean larger pauses which mean slower collection.) You can also change
 ** this value dynamically.
 */
-#define LUAI_GCPAUSE	200  /* 200% (wait memory to double before next GC) */
+#define LUAI_GCPAUSE	200	/* 200% (wait memory to double before next GC) */
 
 
 /*
@@ -376,9 +376,9 @@
 */
 #if defined(LUA_USE_APICHECK)
 #include <assert.h>
-#define luai_apicheck(L,o)	{ (void)L; assert(o); }
+#define luai_apicheck(L,object)	{ (void)L; assert(object); }
 #else
-#define luai_apicheck(L,o)	{ (void)L; }
+#define luai_apicheck(L,object)	{ (void)L; }
 #endif
 
 
@@ -554,21 +554,21 @@
 
 /* On a Pentium, resort to a trick */
 #if defined(LUA_NUMBER_DOUBLE) && !defined(LUA_ANSI) && !defined(__SSE2__) && \
-    (defined(__i386) || defined (_M_IX86) || defined(__i386__))
+	(defined(__i386) || defined (_M_IX86) || defined(__i386__))
 
 /* On a Microsoft compiler, use assembler */
 #if defined(_MSC_VER)
 
-#define lua_number2int(i,d)   __asm fld d   __asm fistp i
+#define lua_number2int(i,d)	__asm fld d	__asm fistp i
 #define lua_number2integer(i,n)		lua_number2int(i, n)
 
 /* the next trick should work on any Pentium, but sometimes clashes
-   with a DirectX idiosyncrasy */
+	with a DirectX idiosyncrasy */
 #else
 
 union luai_Cast { double l_d; long l_l; };
 #define lua_number2int(i,d) \
-  { volatile union luai_Cast u; u.l_d = (d) + 6755399441055744.0; (i) = u.l_l; }
+	{ volatile union luai_Cast u; u.l_d = (d) + 6755399441055744.0; (i) = u.l_l; }
 #define lua_number2integer(i,n)		lua_number2int(i, n)
 
 #endif
@@ -607,7 +607,7 @@ union luai_Cast { double l_d; long l_l; };
 #define LUAI_THROW(L,c)	throw(c)
 #define LUAI_TRY(L,c,a)	try { a } catch(...) \
 	{ if ((c)->status == 0) (c)->status = -1; }
-#define luai_jmpbuf	int  /* dummy variable */
+#define luai_jmpbuf	int	/* dummy variable */
 
 #elif defined(LUA_USE_ULONGJMP)
 /* in Unix, try _longjmp/_setjmp (more efficient) */
@@ -637,7 +637,7 @@ union luai_Cast { double l_d; long l_l; };
 @* temporary name.
 @@ LUA_TMPNAMBUFSIZE is the maximum size of a name created by lua_tmpnam.
 ** CHANGE them if you have an alternative to tmpnam (which is considered
-** insecure) or if you want the original tmpnam anyway.  By default, Lua
+** insecure) or if you want the original tmpnam anyway.	By default, Lua
 ** uses tmpnam except when POSIX is available, where it uses mkstemp.
 */
 #if defined(loslib_c) || defined(luaall_c)
@@ -676,7 +676,7 @@ union luai_Cast { double l_d; long l_l; };
 
 #else
 
-#define lua_popen(L,c,m)	((void)((void)c, m),  \
+#define lua_popen(L,c,m)	((void)((void)c, m),	\
 		luaL_error(L, LUA_QL("popen") " not supported"), (FILE*)0)
 #define lua_pclose(L,file)		((void)((void)L, file), 0)
 
@@ -688,9 +688,9 @@ union luai_Cast { double l_d; long l_l; };
 ** dynamic-library system for your platform (either Windows' DLL, Mac's
 ** dyld, or Unix's dlopen). If your system is some kind of Unix, there
 ** is a good chance that it has dlopen, so LUA_DL_DLOPEN will work for
-** it.  To use dlopen you also need to adapt the src/Makefile (probably
+** it.	To use dlopen you also need to adapt the src/Makefile (probably
 ** adding -ldl to the linker options), so Lua does not select it
-** automatically.  (When you change the makefile to add -ldl, you must
+** automatically.	(When you change the makefile to add -ldl, you must
 ** also add -DLUA_USE_DLOPEN.)
 ** If you do not want any kind of dynamic library, undefine all these
 ** options.

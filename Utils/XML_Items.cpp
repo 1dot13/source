@@ -103,6 +103,7 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "ubGraphicNum") == 0 ||
 				strcmp(name, "ubWeight") == 0 ||
 				strcmp(name, "ubPerPocket") == 0 ||
+				strcmp(name, "ItemSize") == 0 ||
 				strcmp(name, "usPrice") == 0 ||
 				strcmp(name, "ubCoolness") == 0 ||
 				strcmp(name, "bReliability") == 0 ||
@@ -162,6 +163,7 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "DayVisionRangeBonus") == 0 ||
 				strcmp(name, "CaveVisionRangeBonus") == 0 ||
 				strcmp(name, "BrightLightVisionRangeBonus") == 0 ||
+				strcmp(name, "ItemSizeBonus") == 0 ||
 				strcmp(name, "LeatherJacket") == 0 ||
 				strcmp(name, "NeedsBatteries") == 0 ||
 				strcmp(name, "Batteries") == 0 ||
@@ -185,6 +187,7 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "Flare") == 0 ||
 				strcmp(name, "MetalDetector") == 0 ||
 				strcmp(name, "FingerPrintID") == 0 ||
+				strcmp(name, "AmmoCrate") == 0 ||
 				strcmp(name, "Cannon") == 0 ||
 				strcmp(name, "RocketRifle") == 0 ||
 				strcmp(name, "MedicalKit") == 0 ||
@@ -209,6 +212,7 @@ itemStartElementHandle(void *userData, const XML_Char *name, const XML_Char **at
 				strcmp(name, "SnowCamoBonus") == 0 ||
 				strcmp(name, "StealthBonus") == 0 ||
 				strcmp(name, "SciFi") == 0 ||
+				strcmp(name, "NewInv") == 0 ||
 
 	strcmp(name, "fFlags") == 0 ))
 		{
@@ -242,7 +246,9 @@ static void XMLCALL
 itemEndElementHandle(void *userData, const XML_Char *name)
 {
 	itemParseData * pData = (itemParseData *)userData;
+#if 0
 	char temp;
+#endif
 
 	if(pData->currentDepth <= pData->maxReadDepth) //we're at the end of an element that we've been reading
 	{
@@ -456,6 +462,11 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.ubPerPocket = (UINT8) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "ItemSize") == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.ItemSize = (UINT8) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "usPrice") == 0)
 		{
@@ -749,6 +760,11 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.scifi   = (BOOLEAN) atol(pData->szCharData);
 		}
+		else if(strcmp(name, "NewInv")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.newinv   = (BOOLEAN) atol(pData->szCharData);
+		}
 		else if(strcmp(name, "HideMuzzleFlash")	 == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -874,6 +890,11 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curItem.brightlightvisionrangebonus    = (INT16) atol(pData->szCharData);
 		}
+		if(strcmp(name, "ItemSizeBonus")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.itemsizebonus    = (INT16) atol(pData->szCharData);
+		}
 		else if(strcmp(name, "LeatherJacket")	 == 0)
 		{
 			pData->curElement = ELEMENT;
@@ -963,6 +984,11 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.fingerprintid    = (BOOLEAN) atol(pData->szCharData);
+		}
+		else if(strcmp(name, "AmmoCrate")	 == 0)
+		{
+			pData->curElement = ELEMENT;
+			pData->curItem.ammocrate    = (BOOLEAN) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "Rock")	 == 0)
 		{
@@ -1398,6 +1424,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<ubGraphicNum>%d</ubGraphicNum>\r\n",						Item[cnt].ubGraphicNum);
 			FilePrintf(hFile,"\t\t<ubWeight>%d</ubWeight>\r\n",						Item[cnt].ubWeight);
 			FilePrintf(hFile,"\t\t<ubPerPocket>%d</ubPerPocket>\r\n",									Item[cnt].ubPerPocket);
+			FilePrintf(hFile,"\t\t<ItemSize>%d</ItemSize>\r\n",									Item[cnt].ItemSize);
 			FilePrintf(hFile,"\t\t<usPrice>%d</usPrice>\r\n",							Item[cnt].usPrice);
 			FilePrintf(hFile,"\t\t<ubCoolness>%d</ubCoolness>\r\n",								Item[cnt].ubCoolness);
 			FilePrintf(hFile,"\t\t<bReliability>%d</bReliability>\r\n",								Item[cnt].bReliability);
@@ -1432,6 +1459,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<Attachment>%d</Attachment>\r\n",						Item[cnt].attachment  );
 			FilePrintf(hFile,"\t\t<BigGunList>%d</BigGunList>\r\n",						Item[cnt].biggunlist   );
 			FilePrintf(hFile,"\t\t<SciFi>%d</SciFi>\r\n",						Item[cnt].scifi   );
+			FilePrintf(hFile,"\t\t<NewInv>%d</NewInv>\r\n",						Item[cnt].newinv   );
 			FilePrintf(hFile,"\t\t<NotInEditor>%d</NotInEditor>\r\n",						Item[cnt].notineditor  );
 			FilePrintf(hFile,"\t\t<DefaultUndroppable>%d</DefaultUndroppable>\r\n",						Item[cnt].defaultundroppable );
 			FilePrintf(hFile,"\t\t<Unaerodynamic>%d</Unaerodynamic>\r\n",						Item[cnt].unaerodynamic );
@@ -1508,6 +1536,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<DayVisionRangeBonus>%d</DayVisionRangeBonus>\r\n",						Item[cnt].dayvisionrangebonus  );
 			FilePrintf(hFile,"\t\t<CaveVisionRangeBonus>%d</CaveVisionRangeBonus>\r\n",						Item[cnt].cavevisionrangebonus  );
 			FilePrintf(hFile,"\t\t<BrightLightVisionRangeBonus>%d</BrightLightVisionRangeBonus>\r\n",						Item[cnt].brightlightvisionrangebonus  );
+			FilePrintf(hFile,"\t\t<ItemSizeBonus>%d</ItemSizeBonus>\r\n",						Item[cnt].itemsizebonus  );
 			FilePrintf(hFile,"\t\t<PercentTunnelVision>%d</PercentTunnelVision>\r\n",						Item[cnt].percenttunnelvision );
 			FilePrintf(hFile,"\t\t<ThermalOptics>%d</ThermalOptics>\r\n",						Item[cnt].thermaloptics );
 			FilePrintf(hFile,"\t\t<GasMask>%d</GasMask>\r\n",						Item[cnt].gasmask );
@@ -1533,6 +1562,7 @@ BOOLEAN WriteItemStats()
 			FilePrintf(hFile,"\t\t<ContainsLiquid>%d</ContainsLiquid>\r\n",						Item[cnt].containsliquid  );
 			FilePrintf(hFile,"\t\t<MetalDetector>%d</MetalDetector>\r\n",						Item[cnt].metaldetector   );
 			FilePrintf(hFile,"\t\t<FingerPrintID>%d</FingerPrintID>\r\n",						Item[cnt].fingerprintid    );
+			FilePrintf(hFile,"\t\t<AmmoCrate>%d</AmmoCrate>\r\n",						Item[cnt].ammocrate    );
 
 			FilePrintf(hFile,"\t</ITEM>\r\n");
 		}

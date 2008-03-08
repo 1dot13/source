@@ -31,10 +31,10 @@
 //
 //**************************************************************************
 
-#define MAX_FILENAME_LEN        48
+#define MAX_FILENAME_LEN		48
 
-#define FILE_ACCESS_READ	      0x01
-#define FILE_ACCESS_WRITE	      0x02
+#define FILE_ACCESS_READ		0x01
+#define FILE_ACCESS_WRITE		0x02
 #define FILE_ACCESS_READWRITE		0x03
 
 #define FILE_CREATE_NEW				0x0010	// create new file. fail if exists
@@ -84,8 +84,8 @@ typedef	FILETIME				SGP_FILETIME;
 
 // Snap: At program launch we build two directory catalogues:
 // one for the default Data directory, the other for the custom Data directory.
-extern TFileCat gDefaultDataCat;  // Init in InitializeStandardGamingPlatform (sgp.cpp)
-extern TFileCat gCustomDataCat;   // Init in InitializeStandardGamingPlatform (sgp.cpp)
+extern TFileCat gDefaultDataCat;	// Init in InitializeStandardGamingPlatform (sgp.cpp)
+extern TFileCat gCustomDataCat;	// Init in InitializeStandardGamingPlatform (sgp.cpp)
 
 //**************************************************************************
 //
@@ -98,7 +98,7 @@ extern "C" {
 #endif
 */
 
-extern BOOLEAN	InitializeFileManager(  STR strIndexFilename );
+extern BOOLEAN	InitializeFileManager(	STR strIndexFilename );
 
 extern void		ShutdownFileManager( void );
 extern void		FileDebug( BOOLEAN f );
@@ -115,7 +115,7 @@ extern BOOLEAN	FileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UINT32 *
 extern BOOLEAN	FileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, UINT32 *puiBytesWritten );
 extern BOOLEAN	FileLoad( STR filename, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiBytesRead );
 
-extern BOOLEAN _cdecl FilePrintf( HWFILE hFile, STR8  strFormatted, ... );
+extern BOOLEAN _cdecl FilePrintf( HWFILE hFile, STR8	strFormatted, ... );
 
 extern BOOLEAN	FileSeek( HWFILE, UINT32 uiDistance, UINT8 uiHow );
 extern INT32	FileGetPos( HWFILE );
@@ -187,7 +187,7 @@ BOOLEAN AddSubdirectoryToPath(CHAR8 *pDirectory);
 //Gets the amount of free space on the hard drive that the main executeablt is runnning from
 UINT32		GetFreeSpaceOnHardDriveWhereGameIsRunningFrom( );
 
-//Gets the free hard drive space from the drive letter passed in.  It has to be the root dir.  ( eg. c:\ )
+//Gets the free hard drive space from the drive letter passed in.	It has to be the root dir.	( eg. c:\ )
 UINT32		GetFreeSpaceOnHardDrive( STR pzDriveLetter );
 
 /*

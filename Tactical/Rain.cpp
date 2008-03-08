@@ -2,14 +2,14 @@
 	#include "Tactical All.h"
 #else
 	#include "types.h"
-	#include "soldier control.h"
+	//#include "soldier control.h"
 	#include "overhead.h"
 	#include "animation control.h"
 	#include "points.h"
 	#include "opplist.h"
 	#include "timer.h"
 	#include "event pump.h"
-	#include "Sound Control.h"
+//	#include "Sound Control.h"
 	#include "interface.h"
 	#include "Isometric Utils.h"
 	#include "Font Control.H"
@@ -56,6 +56,11 @@
 
 #include "Rain.h"
 
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
+
+
 // Shop Keeper Interface
 #define SKI_X_OFFSET						(((SCREEN_WIDTH - 536) / 2))
 #define SKI_Y_OFFSET						((((SCREEN_HEIGHT - 140) - 340) / 2))
@@ -67,7 +72,7 @@
 #define RAIN_UPDATE_RATE 60
 #define PERCENT_OF_DROPS_GOING_TO_THE_EDGE_OF_SCREEN 0.25f
 
-#define DROP_ANGLE_CHANGE_RATE  1.0f
+#define DROP_ANGLE_CHANGE_RATE	1.0f
 
 #define MIN_DROP_LENGTH 2.0f
 #define ADD_DROP_LENGTH_IF_STORM 2.0f
@@ -82,12 +87,12 @@
 
 UINT32 guiMaxRainDrops = 79;
 
-#define RESOLUTION_FACTOR_ON_MAXIMUM_DROPS			((FLOAT) ( SCREEN_WIDTH * SCREEN_HEIGHT ) / ((FLOAT) 640 * 480 ) ) 
-#define BASE_MAXIMUM_DROPS													 guiMaxRainDrops * RESOLUTION_FACTOR_ON_MAXIMUM_DROPS
+#define RESOLUTION_FACTOR_ON_MAXIMUM_DROPS			((FLOAT) ( SCREEN_WIDTH * SCREEN_HEIGHT ) / ((FLOAT) 640 * 480 ) )
+#define BASE_MAXIMUM_DROPS													guiMaxRainDrops * RESOLUTION_FACTOR_ON_MAXIMUM_DROPS
 
 #define DEGREE(a) ( 3.14159 / 180 * a )
 
-typedef struct 
+typedef struct
 {
 	BOOLEAN fAlive;
 
@@ -95,7 +100,7 @@ typedef struct
 	FLOAT fpY;
 	FLOAT fpIncrX;
 	FLOAT fpIncrY;
-	
+
 	FLOAT fpEndRelX;
 	FLOAT fpEndRelY;
 
@@ -130,7 +135,7 @@ FLOAT fpMinDropSpeed = 0;
 extern UINT32 guiCurrentScreen;
 //extern BOOLEAN gfAllowRain;
 
-extern INT16 gsVIEWPORT_WINDOW_END_Y;			
+extern INT16 gsVIEWPORT_WINDOW_END_Y;
 extern INT16 gsVIEWPORT_WINDOW_START_Y;
 
 #define VIDEO_OVERLAYS 100
@@ -169,7 +174,7 @@ void InitializeRainVideoObject( )
 	UINT16					usWidth;
 	UINT16					usHeight;
 	UINT8						ubBitDepth;
-      
+
 	// Create render buffer
 	GetCurrentVideoSettings( &usWidth, &usHeight, &ubBitDepth );
 	vs_desc.fCreateFlags = VSURFACE_CREATE_DEFAULT | VSURFACE_SYSTEM_MEM_USAGE;
@@ -218,7 +223,7 @@ void KillOutOfRegionRainDrops()
 		TRainDrop *pCurr = &pRainDrops[ uiIndex ];
 
 		if( ( pCurr->fpX < gRainRegion.left || pCurr->fpX >= gRainRegion.right ||
-			pCurr->fpY < gRainRegion.top || pCurr->fpY >= gRainRegion.bottom ) && 
+			pCurr->fpY < gRainRegion.top || pCurr->fpY >= gRainRegion.bottom ) &&
 			( pCurr->fpX + pCurr->fpEndRelX < gRainRegion.left || pCurr->fpX + pCurr->fpEndRelX >= gRainRegion.right ||
 			pCurr->fpY + pCurr->fpEndRelY < gRainRegion.top || pCurr->fpY + pCurr->fpEndRelY >= gRainRegion.bottom ) )
 		{
@@ -254,7 +259,7 @@ void CreateRainDrops()
 
 		if( pCurr->fAlive )continue;
 
-		uiIndRand  = (((UINT32)pCurr) / sizeof(TRainDrop) ) % 20;
+		uiIndRand	= (((UINT32)pCurr) / sizeof(TRainDrop) ) % 20;
 
 		fpDropLength = fpCurrDropLength + ( (((UINT32)pCurr) / sizeof(TRainDrop) ) % 7 ) * DROP_LENGTH_RAND / 6;
 		fpDropSpeed = fpCurrDropSpeed + ( ( ((UINT32)pCurr) / sizeof(TRainDrop) + 43 ) % 13 ) * DROP_SPEED_RAND / 12;
@@ -271,7 +276,7 @@ void CreateRainDrops()
 
 		if( uiIndex < guiCurrMaxAmountOfRainDrops * PERCENT_OF_DROPS_GOING_TO_THE_EDGE_OF_SCREEN )
 		{
-			if( !fpCos ) 
+			if( !fpCos )
 				fpNumDropsToXBorder = 0;
 			else
 			{
@@ -365,7 +370,7 @@ void UpdateRainDrops()
 		}else{
 			pCurr->fpEndRelX += pCurr->fpIncrX;
 			pCurr->fpEndRelY += pCurr->fpIncrY;
-			
+
 			if( ( pCurr->fpEndRelX > 0 && pCurr->fpIncrX > 0 ) ||
 				( pCurr->fpEndRelX < 0 && pCurr->fpIncrX < 0 ) ||
 				( pCurr->fpEndRelY > 0 && pCurr->fpIncrY > 0 ) ||
@@ -409,8 +414,8 @@ void RenderRainOnSurface()
 		TRainDrop *pCurr = &pRainDrops[ uiIndex ];
 
 		if( !pCurr->fAlive )continue;
-		
-		LineDraw( TRUE, (int)pCurr->fpX, (int)pCurr->fpY, (int)pCurr->fpX + (int)pCurr->fpEndRelX, (int)(pCurr->fpY + pCurr->fpEndRelY),  sDropsColor, pDestBuf );
+
+		LineDraw( TRUE, (int)pCurr->fpX, (int)pCurr->fpY, (int)pCurr->fpX + (int)pCurr->fpEndRelX, (int)(pCurr->fpY + pCurr->fpEndRelY),	sDropsColor, pDestBuf );
 	}
 
 	UnLockVideoSurface( guiRainRenderSurface );
@@ -433,7 +438,7 @@ void GenerateRainMaximums()
 	}
 
 	fpCurrDropAngleOfFalling = fpMinDropAngleOfFalling + Random( (UINT32)(fpMaxDropAngleOfFalling - fpMinDropAngleOfFalling) );
-	
+
 	fpMinDropLength = MIN_DROP_LENGTH + ADD_DROP_LENGTH_IF_STORM * ( gbCurrentRainIntensity - 1 );
 	fpMaxDropLength = fpMinDropLength + DROP_LENGTH_RANGE;
 
@@ -504,9 +509,9 @@ void RainClipVideoOverlay()
 		pCurr = gVideoOverlays[ uiIndex ].pBackground;
 
 		if( pCurr->sLeft < gRainRegion.right ||
-			 pCurr->sTop < gRainRegion.bottom ||
-			 pCurr->sRight >= gRainRegion.left ||
-			 pCurr->sBottom >= gRainRegion.top )
+			pCurr->sTop < gRainRegion.bottom ||
+			pCurr->sRight >= gRainRegion.left ||
+			pCurr->sBottom >= gRainRegion.top )
 				ColorFillVideoSurfaceArea( guiRainRenderSurface, pCurr->sLeft, pCurr->sTop, pCurr->sRight, pCurr->sBottom, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 	}
 }
@@ -556,7 +561,7 @@ void RenderRain()
 
 
 		guiCurrAmountOfDeadRainDrops = guiCurrMaxAmountOfRainDrops;
-		
+
 		CreateRainDrops();
 		RandomizeRainDropsPosition();
 	}

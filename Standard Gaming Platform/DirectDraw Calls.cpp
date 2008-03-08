@@ -50,12 +50,12 @@ DDCreateSurfaceInMemory ( LPDIRECTDRAW2 pExistingDirectDraw,
 
 	// copy to a local so we don't change the input parameter
 	memcpy ( &DDSurfaceDesc, pNewSurfaceDesc, sizeof ( DDSURFACEDESC ) );
-	
+
 	// must have caps set since we are adding to the ddsCaps element
 	DDSurfaceDesc.dwFlags |= DDSD_CAPS;
 
 	// If this is a hardware D3D driver, the Z-Buffer MUST end up in video
-	// memory.  Otherwise, it MUST end up in system memory.
+	// memory.	Otherwise, it MUST end up in system memory.
 	if ( fVideoMemory )
 		DDSurfaceDesc.ddsCaps.dwCaps |= DDSCAPS_VIDEOMEMORY;
 	else
@@ -64,7 +64,7 @@ DDCreateSurfaceInMemory ( LPDIRECTDRAW2 pExistingDirectDraw,
 	// create the surface
 	DDCreateSurface ( pExistingDirectDraw, &DDSurfaceDesc, ppNewSurface1, ppNewSurface2 );
 
-   // get surface information
+	// get surface information
 	DDGetSurfaceDescription ( *ppNewSurface2, &DDSurfaceDesc );
 
 	// was the surface created in video memory?
@@ -123,7 +123,7 @@ void DDGetSurfaceDescription ( LPDIRECTDRAWSURFACE2 pSurface, DDSURFACEDESC *pSu
 
 void DDGetSurfaceCaps ( LPDIRECTDRAWSURFACE2 pSurface, DDSCAPS *pSurfaceCaps )
 {
-	Assert( pSurface != NULL  );
+	Assert( pSurface != NULL	);
 	Assert( pSurfaceCaps != NULL );
 
 	ATTEMPT( IDirectDrawSurface2_GetCaps( pSurface, pSurfaceCaps ) );
@@ -131,9 +131,9 @@ void DDGetSurfaceCaps ( LPDIRECTDRAWSURFACE2 pSurface, DDSCAPS *pSurfaceCaps )
 }
 
 void DDCreateRasterSurface ( LPDIRECTDRAW2 pDirectDraw, INT32 iWidth, INT32 iHeight,
-									  BOOLEAN fVideoMemory,
-									  LPDIRECTDRAWSURFACE *ppRasterSurface1,
-									  LPDIRECTDRAWSURFACE2 *ppRasterSurface2 )
+									BOOLEAN fVideoMemory,
+									LPDIRECTDRAWSURFACE *ppRasterSurface1,
+									LPDIRECTDRAWSURFACE2 *ppRasterSurface2 )
 {
 	DDSURFACEDESC	DDSurfaceDesc;
 
@@ -155,9 +155,9 @@ void DDCreateRasterSurface ( LPDIRECTDRAW2 pDirectDraw, INT32 iWidth, INT32 iHei
 }
 
 void DDCreateZBufferSurface ( LPDIRECTDRAW2 pDirectDraw, INT32 iWidth, INT32 iHeight,
-									  BOOLEAN fVideoMemory,
-									  LPDIRECTDRAWSURFACE *ppZBufferSurface1,
-									  LPDIRECTDRAWSURFACE2 *ppZBufferSurface2 )
+									BOOLEAN fVideoMemory,
+									LPDIRECTDRAWSURFACE *ppZBufferSurface1,
+									LPDIRECTDRAWSURFACE2 *ppZBufferSurface2 )
 {
 	DDSURFACEDESC	DDSurfaceDesc;
 
@@ -183,9 +183,9 @@ void
 DDAddAttachedSurface (	LPDIRECTDRAWSURFACE2 pParentSurface,
 							LPDIRECTDRAWSURFACE2 pAddChildSurface )
 {
-	Assert ( pParentSurface != NULL  );
+	Assert ( pParentSurface != NULL	);
 	Assert ( pAddChildSurface != NULL );
-	
+
 	// attach the child to the parent surface
 	ATTEMPT ( IDirectDrawSurface2_AddAttachedSurface ( pParentSurface,
 								pAddChildSurface ) );
@@ -195,7 +195,7 @@ void
 DDDeleteAttachedSurface (	LPDIRECTDRAWSURFACE2 pParentSurface,
 							LPDIRECTDRAWSURFACE2 pDeleteChildSurface )
 {
-	Assert ( pParentSurface != NULL  );
+	Assert ( pParentSurface != NULL	);
 	Assert ( pDeleteChildSurface != NULL );
 
 	// seperate the z buffer surface from the raster surface
@@ -226,13 +226,13 @@ void DDRestoreSurface( LPDIRECTDRAWSURFACE2 pSurface )
 }
 
 
-void DDBltFastSurface( LPDIRECTDRAWSURFACE2 pDestSurface, UINT32 uiX, UINT32 uiY, LPDIRECTDRAWSURFACE2 pSrcSurface, 
+void DDBltFastSurface( LPDIRECTDRAWSURFACE2 pDestSurface, UINT32 uiX, UINT32 uiY, LPDIRECTDRAWSURFACE2 pSrcSurface,
 							LPRECT pSrcRect, UINT32 uiTrans)
 {
 	HRESULT ReturnCode;
 
-	Assert( pDestSurface != NULL  );
-	Assert( pSrcSurface != NULL  );
+	Assert( pDestSurface != NULL	);
+	Assert( pSrcSurface != NULL	);
 
 	do
 	{
@@ -243,12 +243,12 @@ void DDBltFastSurface( LPDIRECTDRAWSURFACE2 pDestSurface, UINT32 uiX, UINT32 uiY
 
 
 void DDBltSurface( LPDIRECTDRAWSURFACE2 pDestSurface, LPRECT pDestRect, LPDIRECTDRAWSURFACE2 pSrcSurface,
-					    LPRECT pSrcRect, UINT32 uiFlags, LPDDBLTFX pDDBltFx )
+					 LPRECT pSrcRect, UINT32 uiFlags, LPDDBLTFX pDDBltFx )
 {
 
 	HRESULT ReturnCode;
 
-	Assert( pDestSurface != NULL  );
+	Assert( pDestSurface != NULL	);
 
 	do
 	{
@@ -272,7 +272,7 @@ void DDCreatePalette( LPDIRECTDRAW2 pDirectDraw, UINT32 uiFlags, LPPALETTEENTRY 
 
 void DDSetSurfacePalette( LPDIRECTDRAWSURFACE2 pSurface, LPDIRECTDRAWPALETTE pDDPalette )
 {
-	Assert( pDDPalette != NULL  );
+	Assert( pDDPalette != NULL	);
 	Assert( pSurface != NULL );
 
 	ATTEMPT( IDirectDrawSurface2_SetPalette( pSurface, pDDPalette ) );
@@ -294,7 +294,7 @@ void DDSetPaletteEntries( LPDIRECTDRAWPALETTE pPalette, UINT32 uiFlags, UINT32 u
 	Assert( pPalette != NULL );
 	Assert( pEntries != NULL );
 
-	ATTEMPT( IDirectDrawPalette_SetEntries( pPalette, uiFlags, uiStartingEntry, uiCount, pEntries ) );		
+	ATTEMPT( IDirectDrawPalette_SetEntries( pPalette, uiFlags, uiStartingEntry, uiCount, pEntries ) );
 
 }
 
@@ -304,7 +304,7 @@ void DDGetPaletteEntries( LPDIRECTDRAWPALETTE pPalette, UINT32 uiFlags, UINT32 u
 	Assert( pPalette != NULL );
 	Assert( pEntries != NULL );
 
-	ATTEMPT( IDirectDrawPalette_GetEntries( pPalette, uiFlags, uiBase, uiNumEntries, pEntries ) );		
+	ATTEMPT( IDirectDrawPalette_GetEntries( pPalette, uiFlags, uiBase, uiNumEntries, pEntries ) );
 
 }
 
@@ -381,7 +381,7 @@ void DDSetClipperList( LPDIRECTDRAWCLIPPER pDDClipper, LPRGNDATA pClipList, UINT
 {
 	Assert( pDDClipper != NULL );
 	Assert( pClipList != NULL );
-	
+
 	ATTEMPT( IDirectDrawClipper_SetClipList( pDDClipper, pClipList, uiFlags ) );
 }
 
@@ -391,30 +391,30 @@ HRESULT BltFastDDSurfaceUsingSoftware( LPDIRECTDRAWSURFACE2 pDestSurface, INT32 
 {
 	DDSURFACEDESC SurfaceDescription;
 	UINT32 uiDestPitchBYTES, uiSrcPitchBYTES;
-	UINT8	 *pDestBuf, *pSrcBuf;
-  HRESULT       ReturnCode;
-  DDCOLORKEY    ColorKey;
+	UINT8	*pDestBuf, *pSrcBuf;
+	HRESULT		ReturnCode;
+	DDCOLORKEY	ColorKey;
 	UINT16				us16BPPColorKey;
 
 
 	// Lock surfaces
 	DDLockSurface( (LPDIRECTDRAWSURFACE2)pDestSurface, NULL, &SurfaceDescription, 0, NULL);
 	uiDestPitchBYTES = SurfaceDescription.lPitch;
-	pDestBuf				 = (UINT8 *) SurfaceDescription.lpSurface;
+	pDestBuf				= (UINT8 *) SurfaceDescription.lpSurface;
 
 
 	// Lock surfaces
 	DDLockSurface( (LPDIRECTDRAWSURFACE2)pSrcSurface, NULL, &SurfaceDescription, 0, NULL);
 	uiSrcPitchBYTES = SurfaceDescription.lPitch;
-	pSrcBuf				 = (UINT8 *) SurfaceDescription.lpSurface;
+	pSrcBuf				= (UINT8 *) SurfaceDescription.lpSurface;
 
 	if ( uiTrans == DDBLTFAST_NOCOLORKEY )
 	{
-		Blt16BPPTo16BPP( (UINT16 *)pDestBuf, uiDestPitchBYTES, 
-					(UINT16 *)pSrcBuf, uiSrcPitchBYTES,  
-					uiX , uiY, 
-					pSrcRect->left , pSrcRect->top, 
-					( pSrcRect->right - pSrcRect->left ), 
+		Blt16BPPTo16BPP( (UINT16 *)pDestBuf, uiDestPitchBYTES,
+					(UINT16 *)pSrcBuf, uiSrcPitchBYTES,
+					uiX , uiY,
+					pSrcRect->left , pSrcRect->top,
+					( pSrcRect->right - pSrcRect->left ),
 					( pSrcRect->bottom - pSrcRect->top ) );
 	}
 	else if ( uiTrans == DDBLTFAST_SRCCOLORKEY )
@@ -422,20 +422,20 @@ HRESULT BltFastDDSurfaceUsingSoftware( LPDIRECTDRAWSURFACE2 pDestSurface, INT32 
 		// Get 16 bpp color key.....
 		ReturnCode = IDirectDrawSurface2_GetColorKey( pSrcSurface, DDCKEY_SRCBLT, &ColorKey);
 
-	  if (ReturnCode == DD_OK)
+	if (ReturnCode == DD_OK)
 		{
 			us16BPPColorKey = (UINT16)ColorKey.dwColorSpaceLowValue;
 
-			Blt16BPPTo16BPPTrans( (UINT16 *)pDestBuf, uiDestPitchBYTES, 
-						(UINT16 *)pSrcBuf, uiSrcPitchBYTES,  
-						uiX , uiY, 
-						pSrcRect->left , pSrcRect->top, 
-						( pSrcRect->right - pSrcRect->left ), 
+			Blt16BPPTo16BPPTrans( (UINT16 *)pDestBuf, uiDestPitchBYTES,
+						(UINT16 *)pSrcBuf, uiSrcPitchBYTES,
+						uiX , uiY,
+						pSrcRect->left , pSrcRect->top,
+						( pSrcRect->right - pSrcRect->left ),
 						( pSrcRect->bottom - pSrcRect->top ), us16BPPColorKey );
 
 		}
 	}
-	else 
+	else
 	{
 		// Not supported.....
 	}
@@ -453,15 +453,15 @@ HRESULT BltDDSurfaceUsingSoftware( LPDIRECTDRAWSURFACE2 pDestSurface, LPRECT pDe
 	DDSURFACEDESC SurfaceDescription;
 	UINT32 uiDestPitchBYTES, uiSrcPitchBYTES = 0;
 	UINT8	 *pDestBuf, *pSrcBuf = NULL;
-  HRESULT       ReturnCode;
-  DDCOLORKEY    ColorKey;
+	HRESULT		ReturnCode;
+	DDCOLORKEY	ColorKey;
 	UINT16				us16BPPColorKey;
 
 
 	// Lock surfaces
 	DDLockSurface( (LPDIRECTDRAWSURFACE2)pDestSurface, NULL, &SurfaceDescription, 0, NULL);
 	uiDestPitchBYTES = SurfaceDescription.lPitch;
-	pDestBuf				 = (UINT8 *) SurfaceDescription.lpSurface;
+	pDestBuf				= (UINT8 *) SurfaceDescription.lpSurface;
 
 
 	if ( pSrcSurface != NULL )
@@ -469,12 +469,12 @@ HRESULT BltDDSurfaceUsingSoftware( LPDIRECTDRAWSURFACE2 pDestSurface, LPRECT pDe
 		// Lock surfaces
 		DDLockSurface( (LPDIRECTDRAWSURFACE2)pSrcSurface, NULL, &SurfaceDescription, 0, NULL);
 		uiSrcPitchBYTES = SurfaceDescription.lPitch;
-		pSrcBuf				 = (UINT8 *) SurfaceDescription.lpSurface;
+		pSrcBuf				= (UINT8 *) SurfaceDescription.lpSurface;
 	}
 
-	if ( pSrcRect != NULL && 
-			 ( ( pSrcRect->right - pSrcRect->left ) != ( pDestRect->right - pDestRect->left ) ||
-			 ( pSrcRect->bottom - pSrcRect->top ) != ( pDestRect->bottom - pDestRect->top ) ) )
+	if ( pSrcRect != NULL &&
+			( ( pSrcRect->right - pSrcRect->left ) != ( pDestRect->right - pDestRect->left ) ||
+			( pSrcRect->bottom - pSrcRect->top ) != ( pDestRect->bottom - pDestRect->top ) ) )
 	{
 		DDUnlockSurface( (LPDIRECTDRAWSURFACE2)pDestSurface, NULL );
 
@@ -493,13 +493,13 @@ HRESULT BltDDSurfaceUsingSoftware( LPDIRECTDRAWSURFACE2 pDestSurface, LPRECT pDe
 		// Lock surfaces
 		DDLockSurface( (LPDIRECTDRAWSURFACE2)pSrcSurface, NULL, &SurfaceDescription, 0, NULL);
 		uiSrcPitchBYTES = SurfaceDescription.lPitch;
-		pSrcBuf				 = (UINT8 *) SurfaceDescription.lpSurface;
+		pSrcBuf				= (UINT8 *) SurfaceDescription.lpSurface;
 
-		Blt16BPPTo16BPP( (UINT16 *)pDestBuf, uiDestPitchBYTES, 
-					(UINT16 *)pSrcBuf, uiSrcPitchBYTES,  
-					pDestRect->left , pDestRect->top, 
-					pSrcRect->left , pSrcRect->top, 
-					( pSrcRect->right - pSrcRect->left ), 
+		Blt16BPPTo16BPP( (UINT16 *)pDestBuf, uiDestPitchBYTES,
+					(UINT16 *)pSrcBuf, uiSrcPitchBYTES,
+					pDestRect->left , pDestRect->top,
+					pSrcRect->left , pSrcRect->top,
+					( pSrcRect->right - pSrcRect->left ),
 					( pSrcRect->bottom - pSrcRect->top ) );
 	}
 	else if ( uiFlags & DDBLT_KEYSRC )
@@ -507,15 +507,15 @@ HRESULT BltDDSurfaceUsingSoftware( LPDIRECTDRAWSURFACE2 pDestSurface, LPRECT pDe
 		// Get 16 bpp color key.....
 		ReturnCode = IDirectDrawSurface2_GetColorKey( pSrcSurface, DDCKEY_SRCBLT, &ColorKey);
 
-	  if (ReturnCode == DD_OK)
+	if (ReturnCode == DD_OK)
 		{
 			us16BPPColorKey = (UINT16)ColorKey.dwColorSpaceLowValue;
 
-			Blt16BPPTo16BPPTrans( (UINT16 *)pDestBuf, uiDestPitchBYTES, 
-						(UINT16 *)pSrcBuf, uiSrcPitchBYTES,  
-						pDestRect->left , pDestRect->top, 
-						pSrcRect->left , pSrcRect->top, 
-						( pSrcRect->right - pSrcRect->left ), 
+			Blt16BPPTo16BPPTrans( (UINT16 *)pDestBuf, uiDestPitchBYTES,
+						(UINT16 *)pSrcBuf, uiSrcPitchBYTES,
+						pDestRect->left , pDestRect->top,
+						pSrcRect->left , pSrcRect->top,
+						( pSrcRect->right - pSrcRect->left ),
 						( pSrcRect->bottom - pSrcRect->top ), us16BPPColorKey );
 
 		}

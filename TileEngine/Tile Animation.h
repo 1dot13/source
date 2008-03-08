@@ -38,13 +38,13 @@
 
 typedef struct TAG_anitile
 {
-	struct TAG_anitile			 	  *pNext;
+	struct TAG_anitile				*pNext;
 	UINT32											uiFlags;							// flags struct
 	UINT32											uiTimeLastUpdate;			// Stuff for animated tiles
 
 	LEVELNODE										*pLevelNode;
 	UINT8												ubLevelID;
-	INT16											  sCurrentFrame;		
+	INT16											sCurrentFrame;		
 	INT16												sStartFrame;	
 	INT16												sDelay;								
 	UINT16											usTileType;
@@ -80,7 +80,7 @@ typedef struct TAG_anitile_params
 {
 	UINT32											uiFlags;							// flags struct
 	UINT8												ubLevelID;						// Level ID for rendering layer
-	INT16											  sStartFrame;					// Start frame
+	INT16											sStartFrame;					// Start frame
 	INT16												sDelay;								// Delay time
 	UINT16											usTileType;						// Tile databse type ( optional )
 	UINT16											usTileIndex;					// Tile database index ( optional )
@@ -112,7 +112,7 @@ enum KeyFrameEnums
 	ANI_KEYFRAME_BEGIN_TRANSLUCENCY,
 	ANI_KEYFRAME_BEGIN_DAMAGE,
 	ANI_KEYFRAME_CHAIN_WATER_EXPLOSION,
-  ANI_KEYFRAME_DO_SOUND,
+	ANI_KEYFRAME_DO_SOUND,
 
 } ;
 

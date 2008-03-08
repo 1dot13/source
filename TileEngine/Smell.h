@@ -1,8 +1,8 @@
 #include "soldier control.h"
 
-#define HUMAN							 0
-#define CREATURE_ON_FLOOR	 0x01
-#define CREATURE_ON_ROOF   0x02
+#define HUMAN							0
+#define CREATURE_ON_FLOOR	0x01
+#define CREATURE_ON_ROOF	0x02
 
 #define NORMAL_HUMAN_SMELL_STRENGTH			10
 #define COW_SMELL_STRENGTH							15

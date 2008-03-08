@@ -32,7 +32,13 @@
 	#include "meanwhile.h"
 	#include "strategicmap.h"
 	#include "Animation Data.h"
+	#include "GameSettings.h"
 #endif
+
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
+
 
 extern INT32 iCurrentMapSectorZ;
 
@@ -49,7 +55,7 @@ void TacticalSquadListBtnCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 // the squad list font
 #define SQUAD_FONT COMPFONT
 
-#define SQUAD_REGION_HEIGHT 2 * RADAR_WINDOW_HEIGHT 
+#define SQUAD_REGION_HEIGHT 2 * RADAR_WINDOW_HEIGHT
 #define SQUAD_WINDOW_TM_Y RADAR_WINDOW_TM_Y + GetFontHeight( SQUAD_FONT )
 
 // subtractor for squad list from size of radar view region height
@@ -60,12 +66,22 @@ INT16			gsRadarX;
 INT16			gsRadarY;
 UINT32		gusRadarImage;
 BOOLEAN		fImageLoaded = FALSE;
-BOOLEAN   fRenderRadarScreen = TRUE;
+BOOLEAN	fRenderRadarScreen = TRUE;
 INT16			sSelectedSquadLine = -1;
+
+// CHRISL: Moved radar coords from header file
+INT16	RADAR_WINDOW_TM_X;
+INT16	RADAR_WINDOW_SM_X;
+INT16	RADAR_WINDOW_TM_Y;
+INT16	RADAR_WINDOW_SM_Y;
+INT16	RADAR_WINDOW_WIDTH;
+INT16	RADAR_WINDOW_HEIGHT;
+INT16	RADAR_WINDOW_STRAT_X;
+INT16	RADAR_WINDOW_STRAT_Y;
 
 BOOLEAN		gfRadarCurrentGuyFlash = FALSE;
 
-// WANNE: Are we allowed to scroll in radar map? 
+// WANNE: Are we allowed to scroll in radar map?
 // (E.g: It is not allowed to scroll, if the whole tactical map fits in the radar map) [2007-05-14]
 BOOLEAN		fAllowRadarMovementHor = TRUE;
 BOOLEAN		fAllowRadarMovementVer = TRUE;
@@ -73,15 +89,29 @@ BOOLEAN		fAllowRadarMovementVer = TRUE;
 
 MOUSE_REGION gRadarRegionSquadList[ NUMBER_OF_SQUADS ];
 
+void InitRadarScreenCoords( )
+{
+		RADAR_WINDOW_TM_X = (SCREEN_WIDTH - 97);
+		RADAR_WINDOW_SM_X = (SCREEN_WIDTH - 97);
+		RADAR_WINDOW_TM_Y = (INTERFACE_START_Y + 13);
+		RADAR_WINDOW_SM_Y = ((UsingNewInventorySystem() == false)) ? (INV_INTERFACE_START_Y + 33) : (INV_INTERFACE_START_Y + 116);
+		RADAR_WINDOW_WIDTH = 88;
+		RADAR_WINDOW_HEIGHT = 44;
+		RADAR_WINDOW_STRAT_X = (SCREEN_WIDTH - 97);
+		RADAR_WINDOW_STRAT_Y = (SCREEN_HEIGHT - 107);
+}
+
 BOOLEAN InitRadarScreen( )
 {
+		// CHRISL: Move screen coord setup to it's own function
+		InitRadarScreenCoords();
 		// Add region for radar
-		MSYS_DefineRegion( &gRadarRegion, RADAR_WINDOW_X, RADAR_WINDOW_TM_Y, 
-											 RADAR_WINDOW_X + RADAR_WINDOW_WIDTH,
-											 RADAR_WINDOW_TM_Y + RADAR_WINDOW_HEIGHT,
-											 MSYS_PRIORITY_HIGHEST, 0, 
-											 RadarRegionMoveCallback,
-											 RadarRegionButtonCallback );
+		MSYS_DefineRegion( &gRadarRegion, RADAR_WINDOW_TM_X, RADAR_WINDOW_TM_Y, 
+											RADAR_WINDOW_TM_X + RADAR_WINDOW_WIDTH,
+											RADAR_WINDOW_TM_Y + RADAR_WINDOW_HEIGHT,
+											MSYS_PRIORITY_HIGHEST, 0,
+											RadarRegionMoveCallback,
+											RadarRegionButtonCallback );
 
 		// Add region
 		MSYS_AddRegion( &gRadarRegion );
@@ -89,7 +119,7 @@ BOOLEAN InitRadarScreen( )
 		//disable the radar map
 		MSYS_DisableRegion(&gRadarRegion);
 
-		gsRadarX = RADAR_WINDOW_X;
+		gsRadarX = RADAR_WINDOW_TM_X;
 		gsRadarY = RADAR_WINDOW_TM_Y;
 
 		return( TRUE );
@@ -104,46 +134,46 @@ BOOLEAN LoadRadarScreenBitmap(CHAR8 * aFilename )
 
 	strcpy( zFilename, aFilename );
 
-	 // If we have loaded, remove old one
-	 if ( fImageLoaded )
-	 {	
-		 DeleteVideoObjectFromIndex( gusRadarImage );
-			
-		 fImageLoaded = FALSE;
-	 }
+	// If we have loaded, remove old one
+	if ( fImageLoaded )
+	{
+		DeleteVideoObjectFromIndex( gusRadarImage );
 
-/* ARM - Restriction removed Nov.29/98.  Must be able to view different radar maps from map screen while underground!
-	 // If we are in a cave or basement..... dont get a new one...
-	 if( !gfBasement && !gfCaves )
+		fImageLoaded = FALSE;
+	}
+
+/* ARM - Restriction removed Nov.29/98.	Must be able to view different radar maps from map screen while underground!
+	// If we are in a cave or basement..... dont get a new one...
+	if( !gfBasement && !gfCaves )
 */
-	 {
-		 // Remove extension
-		 for ( cnt = strlen( zFilename )-1; cnt >=0; cnt-- )
-		 {
-			 if ( zFilename[ cnt ] == '.' )
-			 {
-				 zFilename[ cnt ] = '\0';
-			 }
-		 }
+	{
+		// Remove extension
+		for ( cnt = strlen( zFilename )-1; cnt >=0; cnt-- )
+		{
+			if ( zFilename[ cnt ] == '.' )
+			{
+				zFilename[ cnt ] = '\0';
+			}
+		}
 
-		 // Grab the Map image
-		 VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		 sprintf( VObjectDesc.ImageFile, "RADARMAPS\\%s.STI", zFilename );
+		// Grab the Map image
+		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+		sprintf( VObjectDesc.ImageFile, "RADARMAPS\\%s.STI", zFilename );
 
-		 CHECKF(AddVideoObject(&VObjectDesc, &gusRadarImage));
+		CHECKF(AddVideoObject(&VObjectDesc, &gusRadarImage));
 
-		 fImageLoaded = TRUE;
+		fImageLoaded = TRUE;
 
-		 if( GetVideoObject( &hVObject, gusRadarImage ) )
-		 {
+		if( GetVideoObject( &hVObject, gusRadarImage ) )
+		{
 				// ATE: Add a shade table!
-		 		hVObject->pShades[ 0 ]	= Create16BPPPaletteShaded( hVObject->pPaletteEntry, 255, 255, 255, FALSE );
-		 		hVObject->pShades[ 1 ]	= Create16BPPPaletteShaded( hVObject->pPaletteEntry, 100, 100, 100, FALSE );
-		 }
-	 }
+				hVObject->pShades[ 0 ]	= Create16BPPPaletteShaded( hVObject->pPaletteEntry, 255, 255, 255, FALSE );
+				hVObject->pShades[ 1 ]	= Create16BPPPaletteShaded( hVObject->pPaletteEntry, 100, 100, 100, FALSE );
+		}
+	}
 
-	 // Dirty interface
-	 fInterfacePanelDirty = TRUE;
+	// Dirty interface
+	fInterfacePanelDirty = TRUE;
 
 	return( TRUE );
 }
@@ -151,11 +181,11 @@ BOOLEAN LoadRadarScreenBitmap(CHAR8 * aFilename )
 void ClearOutRadarMapImage( void )
 {
 	// If we have loaded, remove old one
-  if ( fImageLoaded )
-  {	
-	  DeleteVideoObjectFromIndex( gusRadarImage );
-	  fImageLoaded = FALSE;
-  }
+	if ( fImageLoaded )
+	{
+	DeleteVideoObjectFromIndex( gusRadarImage );
+	fImageLoaded = FALSE;
+	}
 
 }
 
@@ -173,23 +203,29 @@ void MoveRadarScreen()
 
 	// Add new one
 
-		// Move based on inventory panel
+	// CHRISL: Reset coords
+	InitRadarScreenCoords();
+	// Move based on inventory panel
 	if( guiCurrentScreen == MAP_SCREEN )
 	{
+		gsRadarX = RADAR_WINDOW_STRAT_X;
 		gsRadarY = RADAR_WINDOW_STRAT_Y;
 	}
 	else if ( gsCurInterfacePanel == SM_PANEL )
 	{
-		gsRadarY = RADAR_WINDOW_TM_Y;
+		gsRadarX = RADAR_WINDOW_SM_X;
+		gsRadarY = RADAR_WINDOW_SM_Y;
 	}
 	else
 	{
+		gsRadarX = RADAR_WINDOW_TM_X;
 		gsRadarY = RADAR_WINDOW_TM_Y;
 	}
 
 	// Add region for radar
-	MSYS_DefineRegion( &gRadarRegion, RADAR_WINDOW_X, (UINT16)(gsRadarY), 
-										 RADAR_WINDOW_X + RADAR_WINDOW_WIDTH,
+	// CHRISL:
+	MSYS_DefineRegion( &gRadarRegion, (UINT16) (gsRadarX), (UINT16)(gsRadarY), 
+										 (UINT16) (gsRadarX + RADAR_WINDOW_WIDTH),
 										 (UINT16)(gsRadarY + RADAR_WINDOW_HEIGHT),
 										 MSYS_PRIORITY_HIGHEST, 0, 
 										 RadarRegionMoveCallback,
@@ -218,7 +254,7 @@ void RadarRegionMoveCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			// WANNE: If the tactical map fits in the whole radar map, disable scrolling in radar map. [2007-05-14]
 			if (fAllowRadarMovementHor)
 				// Use relative coordinates to set center of viewport
-				sRadarX = pRegion->RelativeXPos - ( RADAR_WINDOW_WIDTH / 2 );	
+				sRadarX = pRegion->RelativeXPos - ( RADAR_WINDOW_WIDTH / 2 );
 			else
 				sRadarX = 0;
 
@@ -253,7 +289,7 @@ void RadarRegionButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			// WANNE: If the tactical map fits in the whole radar map, disable scrolling in radar map. [2007-05-14]
 			if (fAllowRadarMovementHor)
 				// Use relative coordinates to set center of viewport
-				sRadarX = pRegion->RelativeXPos - ( RADAR_WINDOW_WIDTH / 2 );	
+				sRadarX = pRegion->RelativeXPos - ( RADAR_WINDOW_WIDTH / 2 );
 			else
 				sRadarX = 0;
 
@@ -265,7 +301,7 @@ void RadarRegionButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			if (fAllowRadarMovementHor || fAllowRadarMovementVer)
 			{
 				AdjustWorldCenterFromRadarCoords( sRadarX, sRadarY );
-				
+
 				SetRenderFlags(RENDER_FLAG_FULL);
 			}
 		}
@@ -311,12 +347,12 @@ void RenderRadarScreen( )
 
 	INT16	sXSoldPos, sYSoldPos, sXSoldScreen, sYSoldScreen, sXSoldRadar, sYSoldRadar;
 
-	UINT32										 uiDestPitchBYTES;
-	UINT8											 *pDestBuf;
-	UINT16										 usLineColor;
-	UINT32											 cnt;
-	INT16											 sHeight, sWidth, sX, sY;
-	INT32											 iCounter = 0;
+	UINT32										uiDestPitchBYTES;
+	UINT8											*pDestBuf;
+	UINT16										usLineColor;
+	UINT32											cnt;
+	INT16											sHeight, sWidth, sX, sY;
+	INT32											iCounter = 0;
 
 
 	// create / destroy squad list regions as nessacary
@@ -350,18 +386,20 @@ void RenderRadarScreen( )
 			}
 		}
 
-		BltVideoObjectFromIndex(  guiSAVEBUFFER, gusRadarImage, 0, RADAR_WINDOW_X, gsRadarY, VO_BLT_SRCTRANSPARENCY, NULL );
+		// CHRISL:
+		BltVideoObjectFromIndex(  guiSAVEBUFFER, gusRadarImage, 0, gsRadarX, gsRadarY, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	// FIRST DELETE WHAT'S THERE
-	RestoreExternBackgroundRect( RADAR_WINDOW_X, gsRadarY, RADAR_WINDOW_WIDTH + 1 , RADAR_WINDOW_HEIGHT + 1 );
+	// CHRISL:
+	RestoreExternBackgroundRect( gsRadarX, gsRadarY, RADAR_WINDOW_WIDTH + 1 , RADAR_WINDOW_HEIGHT + 1 );
 
 	// Determine scale factors
 
 	// Find the diustance from render center to true world center
 	sDistToCenterX = gsRenderCenterX - gCenterWorldX;
 	sDistToCenterY = gsRenderCenterY - gCenterWorldY;
-	
+
 	// From render center in world coords, convert to render center in "screen" coords
 	FromCellToScreenCoordinates( sDistToCenterX , sDistToCenterY, &sScreenCenterX, &sScreenCenterY );
 
@@ -374,17 +412,17 @@ void RenderRadarScreen( )
 	sX_S = ( ( gsVIEWPORT_END_X - gsVIEWPORT_START_X ) /2 );
 	sY_S = ( ( gsVIEWPORT_END_Y - gsVIEWPORT_START_Y ) /2 );
 
-	sTopLeftWorldX = sScreenCenterX  - sX_S;
-	sTopLeftWorldY = sScreenCenterY  - sY_S;
+	sTopLeftWorldX = sScreenCenterX	- sX_S;
+	sTopLeftWorldY = sScreenCenterY	- sY_S;
 
-	sTopRightWorldX = sScreenCenterX  + sX_S;
-	sTopRightWorldY = sScreenCenterY  - sY_S;
-	
-	sBottomLeftWorldX = sScreenCenterX  - sX_S;
-	sBottomLeftWorldY = sScreenCenterY  + sY_S;
+	sTopRightWorldX = sScreenCenterX	+ sX_S;
+	sTopRightWorldY = sScreenCenterY	- sY_S;
 
-	sBottomRightWorldX = sScreenCenterX  + sX_S;
-	sBottomRightWorldY = sScreenCenterY  + sY_S;
+	sBottomLeftWorldX = sScreenCenterX	- sX_S;
+	sBottomLeftWorldY = sScreenCenterY	+ sY_S;
+
+	sBottomRightWorldX = sScreenCenterX	+ sX_S;
+	sBottomRightWorldY = sScreenCenterY	+ sY_S;
 
 
 	// Determine radar coordinates
@@ -394,12 +432,12 @@ void RenderRadarScreen( )
 
 	sWidth		= ( RADAR_WINDOW_WIDTH );
 	sHeight		= ( RADAR_WINDOW_HEIGHT );
-	sX				= RADAR_WINDOW_X;
+	sX				= RADAR_WINDOW_TM_X;
 	sY				= gsRadarY;
 
 
-	sRadarTLX = (INT16)( ( sTopLeftWorldX * gdScaleX ) - sRadarCX  + sX + ( sWidth /2 ) );
-	sRadarTLY = (INT16)( ( sTopLeftWorldY * gdScaleY ) - sRadarCY + gsRadarY + ( sHeight /2 ) ); 
+	sRadarTLX = (INT16)( ( sTopLeftWorldX * gdScaleX ) - sRadarCX	+ sX + ( sWidth /2 ) );
+	sRadarTLY = (INT16)( ( sTopLeftWorldY * gdScaleY ) - sRadarCY + gsRadarY + ( sHeight /2 ) );
 	sRadarBRX = (INT16)( ( sBottomRightWorldX * gdScaleX ) - sRadarCX + sX + ( sWidth /2 ) );
 	sRadarBRY = (INT16)( ( sBottomRightWorldY * gdScaleY ) - sRadarCY + gsRadarY + ( sHeight /2 ) );
 
@@ -419,7 +457,8 @@ void RenderRadarScreen( )
 
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 	
-	SetClippingRegionAndImageWidth( uiDestPitchBYTES, RADAR_WINDOW_X, gsRadarY, ( RADAR_WINDOW_X + RADAR_WINDOW_WIDTH - 1 ), ( gsRadarY + RADAR_WINDOW_HEIGHT - 1 ) );
+	// CHRISL:
+	SetClippingRegionAndImageWidth( uiDestPitchBYTES, gsRadarX, gsRadarY, ( gsRadarX + RADAR_WINDOW_WIDTH - 1 ), ( gsRadarY + RADAR_WINDOW_HEIGHT - 1 ) );
 
 	if( !( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 	{
@@ -428,8 +467,8 @@ void RenderRadarScreen( )
 			// WANNE: Correct radar rectangle size if it is too large to fit in radar screen [2007-05-14]
 			if (fAllowRadarMovementHor == FALSE)
 			{
-				sRadarTLX = RADAR_WINDOW_X;
-				sRadarBRX = RADAR_WINDOW_X + RADAR_WINDOW_WIDTH;
+				sRadarTLX = RADAR_WINDOW_TM_X;
+				sRadarBRX = RADAR_WINDOW_TM_X + RADAR_WINDOW_WIDTH;
 			}
 
 			if (fAllowRadarMovementVer == FALSE)
@@ -468,7 +507,7 @@ void RenderRadarScreen( )
 
 			iItemNumber = iCounter + iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT;
 			// stolen item
-			if( ( pInventoryPoolList[ iItemNumber ].o.ubNumberOfObjects == 0 )||( pInventoryPoolList[ iItemNumber ].sGridNo == 0 ) )
+			if( ( pInventoryPoolList[ iItemNumber ].object.exists() == false )||( pInventoryPoolList[ iItemNumber ].sGridNo == 0 ) )
 			{
 				// yep, continue on
 				continue;
@@ -483,7 +522,7 @@ void RenderRadarScreen( )
 
 
 			// Add starting relative to interface
-			sXSoldRadar += RADAR_WINDOW_X;
+			sXSoldRadar += RADAR_WINDOW_TM_X;
 			sYSoldRadar += gsRadarY;
 
 			// if we are in 16 bit mode....kind of redundant
@@ -491,13 +530,13 @@ void RenderRadarScreen( )
 			{
 				if( ( fFlashHighLightInventoryItemOnradarMap ) )
 				{
-					usLineColor = Get16BPPColor( FROMRGB(  0,  255,  0 ) );
+					usLineColor = Get16BPPColor( FROMRGB(	0,	255,	0 ) );
 
 				}
 				else
 				{
 					// DB Need to add a radar color for 8-bit
-					usLineColor = Get16BPPColor( FROMRGB(  255,  255,  255 ) );
+					usLineColor = Get16BPPColor( FROMRGB(	255,	255,	255 ) );
 				}
 
 				if( iCurrentlyHighLightedItem == iCounter )
@@ -507,7 +546,7 @@ void RenderRadarScreen( )
 			}
 		}
 	}
-	
+
 	if( !( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 	{
 		// RE-RENDER RADAR
@@ -516,7 +555,7 @@ void RenderRadarScreen( )
 			pSoldier = MercSlots[ cnt ];
 
 			if ( pSoldier != NULL )
-			{	
+			{
 				// Don't place guys in radar until visible!
 				if ( pSoldier->bVisible == -1 && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS) && !(pSoldier->ubMiscSoldierFlags & SOLDIER_MISC_XRAYED) )
 				{
@@ -524,7 +563,7 @@ void RenderRadarScreen( )
 				}
 
 				// Don't render guys if they are dead!
-				if ( ( pSoldier->uiStatusFlags & SOLDIER_DEAD ) )
+				if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD ) )
 				{
 					continue;
 				}
@@ -549,13 +588,13 @@ void RenderRadarScreen( )
 				}
 
 				// Add starting relative to interface
-				sXSoldRadar += RADAR_WINDOW_X;
+				sXSoldRadar += RADAR_WINDOW_TM_X;
 				sYSoldRadar += gsRadarY;
 
 
 				if(gbPixelDepth==16)
 				{
-					// DB Need to add a radar color for 8-bit 
+					// DB Need to add a radar color for 8-bit
 
 					// Are we a selected guy?
 					if ( pSoldier->ubID == gusSelectedSoldier )
@@ -566,47 +605,47 @@ void RenderRadarScreen( )
 						}
 						else
 						{
-              // If on roof, make darker....
-              if ( pSoldier->bLevel > 0 )
-              {
-						    usLineColor = Get16BPPColor( FROMRGB( 150, 150, 0 ) );
-              }
-              else
-              {
-							  usLineColor = Get16BPPColor( gTacticalStatus.Team[ pSoldier->bTeam ].RadarColor );
-              }
-						}					
+				// If on roof, make darker....
+				if ( pSoldier->pathing.bLevel > 0 )
+				{
+						 usLineColor = Get16BPPColor( FROMRGB( 150, 150, 0 ) );
+				}
+				else
+				{
+							usLineColor = Get16BPPColor( gTacticalStatus.Team[ pSoldier->bTeam ].RadarColor );
+				}
+						}
 					}
 					else
 					{
 						usLineColor = Get16BPPColor( gTacticalStatus.Team[ pSoldier->bTeam ].RadarColor );
 
-            // Override civ team with red if hostile...
-            if ( pSoldier->bTeam == CIV_TEAM && !pSoldier->bNeutral && ( pSoldier->bSide != gbPlayerNum ) )
-            {
+			// Override civ team with red if hostile...
+			if ( pSoldier->bTeam == CIV_TEAM && !pSoldier->aiData.bNeutral && ( pSoldier->bSide != gbPlayerNum ) )
+			{
 							usLineColor = Get16BPPColor( FROMRGB( 255, 0, 0 ) );
-            }
+			}
 
 						// Render different color if an enemy and he's unconscious
-						if ( pSoldier->bTeam != gbPlayerNum && pSoldier->bLife < OKLIFE )
+						if ( pSoldier->bTeam != gbPlayerNum && pSoldier->stats.bLife < OKLIFE )
 						{
 							usLineColor = Get16BPPColor( FROMRGB( 128, 128, 128 ) );
 						}
 
-            // If on roof, make darker....
-            if ( pSoldier->bTeam == gbPlayerNum && pSoldier->bLevel > 0 )
-            {
-						  usLineColor = Get16BPPColor( FROMRGB( 150, 150, 0 ) );
-            }
+			// If on roof, make darker....
+			if ( pSoldier->bTeam == gbPlayerNum && pSoldier->pathing.bLevel > 0 )
+			{
+						usLineColor = Get16BPPColor( FROMRGB( 150, 150, 0 ) );
+			}
 					}
 
-					RectangleDraw( TRUE, sXSoldRadar, sYSoldRadar, sXSoldRadar+1, sYSoldRadar+1, usLineColor, pDestBuf );	
+					RectangleDraw( TRUE, sXSoldRadar, sYSoldRadar, sXSoldRadar+1, sYSoldRadar+1, usLineColor, pDestBuf );
 				}
 				else if(gbPixelDepth==8)
 				{
 					// DB Need to change this to a color from the 8-but standard palette
 					usLineColor = COLOR_BLUE;
-					RectangleDraw8( TRUE, sXSoldRadar, sYSoldRadar, sXSoldRadar+1, sYSoldRadar+1, usLineColor, pDestBuf );	
+					RectangleDraw8( TRUE, sXSoldRadar, sYSoldRadar, sXSoldRadar+1, sYSoldRadar+1, usLineColor, pDestBuf );
 				}
 			}
 		}
@@ -616,8 +655,9 @@ void RenderRadarScreen( )
 
 	if( ( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) && ( fShowMapInventoryPool == TRUE ) )
 	{
-		InvalidateRegion( RADAR_WINDOW_X, gsRadarY,
-										RADAR_WINDOW_X + RADAR_WINDOW_WIDTH,
+		// CHRISL:
+		InvalidateRegion( gsRadarX, gsRadarY,
+										gsRadarX + RADAR_WINDOW_WIDTH,
 										gsRadarY + RADAR_WINDOW_HEIGHT );
 	}
 
@@ -643,15 +683,15 @@ void AdjustWorldCenterFromRadarCoords( INT16 sRadarX, INT16 sRadarY )
 	sScreenY -= ( ( gsVIEWPORT_END_Y - gsVIEWPORT_START_Y ) /2 );
 
 	//Make sure these coordinates are multiples of scroll steps
-	sNumXSteps = sScreenX  / SCROLL_X_STEP;
+	sNumXSteps = sScreenX	/ SCROLL_X_STEP;
 	sNumYSteps = sScreenY / SCROLL_Y_STEP;
 
 	sScreenX = ( sNumXSteps * SCROLL_X_STEP );
 	sScreenY = ( sNumYSteps * SCROLL_Y_STEP );
 
 	// Adjust back
-	sScreenX += ( ( gsVIEWPORT_END_X - gsVIEWPORT_START_X  ) /2 );
-	sScreenY += ( ( gsVIEWPORT_END_Y - gsVIEWPORT_START_Y  ) /2 );
+	sScreenX += ( ( gsVIEWPORT_END_X - gsVIEWPORT_START_X	) /2 );
+	sScreenY += ( ( gsVIEWPORT_END_Y - gsVIEWPORT_START_Y	) /2 );
 
 	// Subtract world center
 	//sScreenX += gsCX;
@@ -688,10 +728,10 @@ void ToggleRadarScreenRender( void )
 
 BOOLEAN CreateDestroyMouseRegionsForSquadList( void )
 {
-	// will check the state of renderradarscreen flag and decide if we need to create mouse regions for 
+	// will check the state of renderradarscreen flag and decide if we need to create mouse regions for
 	static BOOLEAN fCreated = FALSE;
 	INT16 sCounter = 0;
-	VOBJECT_DESC    VObjectDesc; 
+	VOBJECT_DESC	VObjectDesc;
 	HVOBJECT hHandle;
 	UINT32 uiHandle;
 
@@ -699,16 +739,16 @@ BOOLEAN CreateDestroyMouseRegionsForSquadList( void )
 	{
 		// create regions
 		// load graphics
-	  VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	  FilenameForBPP("INTERFACE\\squadpanel.sti", VObjectDesc.ImageFile);
-	  CHECKF(AddVideoObject(&VObjectDesc, &uiHandle));
+	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP("INTERFACE\\squadpanel.sti", VObjectDesc.ImageFile);
+	CHECKF(AddVideoObject(&VObjectDesc, &uiHandle));
 
-	  GetVideoObject(&hHandle, uiHandle);
-		
-	  
+	GetVideoObject(&hHandle, uiHandle);
+
+
 		BltVideoObject( guiSAVEBUFFER , hHandle, 0,(SCREEN_WIDTH - 102 - 1), gsVIEWPORT_END_Y, VO_BLT_SRCTRANSPARENCY,NULL );
 		RestoreExternBackgroundRect ((SCREEN_WIDTH - 102 - 1), gsVIEWPORT_END_Y, 102,( INT16 ) ( SCREEN_HEIGHT - gsVIEWPORT_END_Y ) );
-		
+
 		for( sCounter = 0; sCounter < NUMBER_OF_SQUADS; sCounter++ )
 		{
 			// run through list of squads and place appropriatly
@@ -716,14 +756,16 @@ BOOLEAN CreateDestroyMouseRegionsForSquadList( void )
 			{
 
 				// left half of list
-				MSYS_DefineRegion( &gRadarRegionSquadList[ sCounter ], RADAR_WINDOW_X , ( INT16 )( SQUAD_WINDOW_TM_Y + ( sCounter * (  ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / ( NUMBER_OF_SQUADS / 2 ) ) ) ), RADAR_WINDOW_X + RADAR_WINDOW_WIDTH / 2 - 1, ( INT16 )( SQUAD_WINDOW_TM_Y + ( ( sCounter + 1 ) * ( ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / ( NUMBER_OF_SQUADS / 2 ) ) ) ) ,MSYS_PRIORITY_HIGHEST,
+				// CHRISL:
+				MSYS_DefineRegion( &gRadarRegionSquadList[ sCounter ], RADAR_WINDOW_TM_X , ( INT16 )( SQUAD_WINDOW_TM_Y + ( sCounter * (  ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / ( NUMBER_OF_SQUADS / 2 ) ) ) ), RADAR_WINDOW_TM_X + RADAR_WINDOW_WIDTH / 2 - 1, ( INT16 )( SQUAD_WINDOW_TM_Y + ( ( sCounter + 1 ) * ( ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / ( NUMBER_OF_SQUADS / 2 ) ) ) ) ,MSYS_PRIORITY_HIGHEST,
 							0, TacticalSquadListMvtCallback, TacticalSquadListBtnCallBack );
 			}
 			else
 			{
 
 				// right half of list
-				MSYS_DefineRegion( &gRadarRegionSquadList[ sCounter ], RADAR_WINDOW_X + RADAR_WINDOW_WIDTH / 2, ( INT16 )( SQUAD_WINDOW_TM_Y + ( ( sCounter - ( NUMBER_OF_SQUADS / 2) ) * ( 2 * ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / NUMBER_OF_SQUADS ) ) ), RADAR_WINDOW_X + RADAR_WINDOW_WIDTH  - 1, ( INT16 )( SQUAD_WINDOW_TM_Y + ( ( ( sCounter + 1 ) - ( NUMBER_OF_SQUADS / 2) )* ( 2 * ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / NUMBER_OF_SQUADS ) ) ), MSYS_PRIORITY_HIGHEST,
+				// CHRISL:
+				MSYS_DefineRegion( &gRadarRegionSquadList[ sCounter ], RADAR_WINDOW_TM_X + RADAR_WINDOW_WIDTH / 2, ( INT16 )( SQUAD_WINDOW_TM_Y + ( ( sCounter - ( NUMBER_OF_SQUADS / 2) ) * ( 2 * ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / NUMBER_OF_SQUADS ) ) ), RADAR_WINDOW_TM_X + RADAR_WINDOW_WIDTH  - 1, ( INT16 )( SQUAD_WINDOW_TM_Y + ( ( ( sCounter + 1 ) - ( NUMBER_OF_SQUADS / 2) )* ( 2 * ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / NUMBER_OF_SQUADS ) ) ), MSYS_PRIORITY_HIGHEST,
 						0, TacticalSquadListMvtCallback, TacticalSquadListBtnCallBack );
 			}
 
@@ -746,20 +788,20 @@ BOOLEAN CreateDestroyMouseRegionsForSquadList( void )
 
 		for( sCounter = 0; sCounter < NUMBER_OF_SQUADS; sCounter++ )
 		{
-		  MSYS_RemoveRegion( &gRadarRegionSquadList[ sCounter ] );
+		MSYS_RemoveRegion( &gRadarRegionSquadList[ sCounter ] );
 		}
 
 		// set fact regions are destroyed
 		fCreated = FALSE;
-		
+
 
 		if ( guiCurrentScreen == GAME_SCREEN )
 		{
 			// dirty region
 			fInterfacePanelDirty = DIRTYLEVEL2;
-				
+
 			MarkButtonsDirty( );
-				
+
 			// re render region
 			RenderTacticalInterface( );
 
@@ -782,10 +824,12 @@ void RenderSquadList( void )
 	INT16 sX, sY;
 
 	// clear region
-	RestoreExternBackgroundRect( RADAR_WINDOW_X, gsRadarY, RADAR_WINDOW_WIDTH , SQUAD_REGION_HEIGHT );
+	// CHRISL:
+	RestoreExternBackgroundRect( gsRadarX, gsRadarY, RADAR_WINDOW_WIDTH , SQUAD_REGION_HEIGHT );
 
 	// fill area
-	ColorFillVideoSurfaceArea( FRAME_BUFFER, RADAR_WINDOW_X, RADAR_WINDOW_TM_Y, RADAR_WINDOW_X + RADAR_WINDOW_WIDTH, RADAR_WINDOW_TM_Y + SQUAD_REGION_HEIGHT , Get16BPPColor( FROMRGB(0,0,0) ) );
+	// CHRISL:
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, RADAR_WINDOW_TM_X, RADAR_WINDOW_TM_Y, RADAR_WINDOW_TM_X + RADAR_WINDOW_WIDTH, RADAR_WINDOW_TM_Y + SQUAD_REGION_HEIGHT , Get16BPPColor( FROMRGB(0,0,0) ) );
 
 	// set font
 	SetFont( SQUAD_FONT );
@@ -795,11 +839,13 @@ void RenderSquadList( void )
 		// run through list of squads and place appropriatly
 			if( sCounter < NUMBER_OF_SQUADS / 2 )
 			{
-				FindFontCenterCoordinates( RADAR_WINDOW_X , ( INT16 )( SQUAD_WINDOW_TM_Y + ( sCounter * ( 2 * ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / NUMBER_OF_SQUADS ) ) ), RADAR_WINDOW_WIDTH / 2 - 1, ( INT16 )( (  ( 2 * ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / NUMBER_OF_SQUADS ) ) ) ,pSquadMenuStrings[ sCounter ] , SQUAD_FONT, &sX, &sY);
+				// CHRISL:
+				FindFontCenterCoordinates( RADAR_WINDOW_TM_X , ( INT16 )( SQUAD_WINDOW_TM_Y + ( sCounter * ( 2 * ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / NUMBER_OF_SQUADS ) ) ), RADAR_WINDOW_WIDTH / 2 - 1, ( INT16 )( (  ( 2 * ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / NUMBER_OF_SQUADS ) ) ) ,pSquadMenuStrings[ sCounter ] , SQUAD_FONT, &sX, &sY);
 			}
 			else
 			{
-				FindFontCenterCoordinates(RADAR_WINDOW_X + RADAR_WINDOW_WIDTH / 2, ( INT16 )( SQUAD_WINDOW_TM_Y + ( ( sCounter - ( NUMBER_OF_SQUADS / 2) ) * ( 2 * ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / NUMBER_OF_SQUADS ) ) ), RADAR_WINDOW_WIDTH / 2 - 1, ( INT16 )(   ( ( 2 * ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / NUMBER_OF_SQUADS ) ) ), pSquadMenuStrings[ sCounter ] , SQUAD_FONT, &sX, &sY);
+				// CHRISL:
+				FindFontCenterCoordinates(RADAR_WINDOW_TM_X + RADAR_WINDOW_WIDTH / 2, ( INT16 )( SQUAD_WINDOW_TM_Y + ( ( sCounter - ( NUMBER_OF_SQUADS / 2) ) * ( 2 * ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / NUMBER_OF_SQUADS ) ) ), RADAR_WINDOW_WIDTH / 2 - 1, ( INT16 )(   ( ( 2 * ( SQUAD_REGION_HEIGHT - SUBTRACTOR_FOR_SQUAD_LIST ) / NUMBER_OF_SQUADS ) ) ), pSquadMenuStrings[ sCounter ] , SQUAD_FONT, &sX, &sY);
 			}
 
 			// highlight line?
@@ -817,7 +863,7 @@ void RenderSquadList( void )
 					}
 					else
 					{
-						SetFontForeground(  FONT_DKGREEN);
+						SetFontForeground(	FONT_DKGREEN);
 					}
 				}
 				else
@@ -830,11 +876,11 @@ void RenderSquadList( void )
 
 			if( sCounter < NUMBER_OF_SQUADS / 2 )
 			{
-				sX = RADAR_WINDOW_X + 2; 
+				sX = RADAR_WINDOW_TM_X + 2; 
 			}
 			else
 			{
-				sX = RADAR_WINDOW_X + ( RADAR_WINDOW_WIDTH / 2 ) - 2;
+				sX = RADAR_WINDOW_TM_X + ( RADAR_WINDOW_WIDTH / 2 ) - 2;
 			}
 			mprintf( sX, sY , pSquadMenuStrings[ sCounter ]);
 	}
@@ -850,7 +896,7 @@ void TacticalSquadListMvtCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		if( IsSquadOnCurrentTacticalMap( iValue ) == TRUE )
 		{
-			sSelectedSquadLine = ( INT16 )iValue; 
+			sSelectedSquadLine = ( INT16 )iValue;
 		}
 	}
 	if (iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )

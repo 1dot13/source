@@ -49,33 +49,33 @@ SGPPoint SelWinSpacing, SelWinStartPoint, SelWinEndPoint;
 
 //These definitions help define the start and end of the various wall indices.
 //This needs to be maintained if the walls change.
-#define WALL_LAST_WALL_OFFSET						 30
-#define	WALL_FIRST_AFRAME_OFFSET				 31
-#define WALL_LAST_AFRAME_OFFSET					 34
-#define	WALL_FIRST_WINDOW_OFFSET				 35
-#define WALL_LAST_WINDOW_OFFSET					 46
-#define WALL_FIRST_BROKEN_WALL_OFFSET		 47
-#define WALL_LAST_BROKEN_WALL_OFFSET		 54
-#define WALL_FIRST_APPENDED_WALL_OFFSET	 55
-#define WALL_LAST_APPENDED_WALL_OFFSET	 56
+#define WALL_LAST_WALL_OFFSET						30
+#define	WALL_FIRST_AFRAME_OFFSET				31
+#define WALL_LAST_AFRAME_OFFSET					34
+#define	WALL_FIRST_WINDOW_OFFSET				35
+#define WALL_LAST_WINDOW_OFFSET					46
+#define WALL_FIRST_BROKEN_WALL_OFFSET		47
+#define WALL_LAST_BROKEN_WALL_OFFSET		54
+#define WALL_FIRST_APPENDED_WALL_OFFSET	55
+#define WALL_LAST_APPENDED_WALL_OFFSET	56
 #define WALL_FIRST_WEATHERED_WALL_OFFSET 57
-#define WALL_LAST_WEATHERED_WALL_OFFSET  64
+#define WALL_LAST_WEATHERED_WALL_OFFSET	64
 
 //I've added these definitions to add readability, and minimize conversion time for changes
-//incase there are new values, etc. 
+//incase there are new values, etc.
 #define OSTRUCTS_NUMELEMENTS		( LASTOSTRUCT - FIRSTFULLSTRUCT + 22 )
 #define OSTRUCTS1_NUMELEMENTS					5
 #define OSTRUCTS2_NUMELEMENTS					12
 #define BANKSLIST_NUMELEMENTS					5
 #define ROADSLIST_NUMELEMENTS					1
-#define DEBRISLIST_NUMELEMENTS				( LASTDEBRIS - DEBRISROCKS + 2 + 1 ) //+1 for ANOTHERDEBRIS 
+#define DEBRISLIST_NUMELEMENTS				( LASTDEBRIS - DEBRISROCKS + 2 + 1 ) //+1 for ANOTHERDEBRIS
 
 #define SINGLEWALL_NUMELEMENTS				( (LASTWALL-FIRSTWALL+1) * 2 )
 #define SINGLEDOOR_NUMELEMENTS				(( LASTDOOR - FIRSTDOOR + 1 ) * 5)
 #define SINGLEWINDOW_NUMELEMENTS			( LASTWALL - FIRSTWALL + 1 )
 #define SINGLEROOF_NUMELEMENTS				( (LASTROOF-FIRSTROOF+1) + (LASTSLANTROOF-FIRSTSLANTROOF+1) + \
 																				(LASTWALL-FIRSTWALL+1) + (SECONDONROOF-FIRSTONROOF+1) )
-#define SINGLENEWROOF_NUMELEMENTS			(LASTROOF-FIRSTROOF+1) 
+#define SINGLENEWROOF_NUMELEMENTS			(LASTROOF-FIRSTROOF+1)
 #define SINGLEBROKENWALL_NUMELEMENTS	( (LASTDECORATIONS-FIRSTDECORATIONS+1) + (LASTWALL-FIRSTWALL+1)*2 )
 #define SINGLEDECOR_NUMELEMENTS				( LASTISTRUCT - FIRSTISTRUCT + 1 )
 #define SINGLEDECAL_NUMELEMENTS				( LASTWALLDECAL - FIRSTWALLDECAL + EIGTHWALLDECAL - FIFTHWALLDECAL + 3 )
@@ -87,8 +87,8 @@ SGPPoint SelWinSpacing, SelWinStartPoint, SelWinEndPoint;
 																				(LASTROOF-FIRSTROOF+1) + (2 ))
 
 
-//This is a special case for trees which may have varying numbers.  There was a problem
-//in which we loaded a new tileset which had one less tree in it.  When we called BuildSelectionWindow(),
+//This is a special case for trees which may have varying numbers.	There was a problem
+//in which we loaded a new tileset which had one less tree in it.	When we called BuildSelectionWindow(),
 //it would crash because it thought there was an extra tree which was now invalid.
 UINT16	gusNumOStructs = 0;
 
@@ -104,15 +104,15 @@ DisplaySpec SingleDoor[ SINGLEDOOR_NUMELEMENTS ];
 DisplaySpec SingleWindow[ SINGLEWINDOW_NUMELEMENTS ];
 DisplaySpec SingleRoof[ SINGLEROOF_NUMELEMENTS ];
 DisplaySpec SingleNewRoof[ SINGLENEWROOF_NUMELEMENTS ];
-DisplaySpec SingleBrokenWall[ SINGLEBROKENWALL_NUMELEMENTS ]; 
+DisplaySpec SingleBrokenWall[ SINGLEBROKENWALL_NUMELEMENTS ];
 DisplaySpec SingleDecor[ SINGLEDECOR_NUMELEMENTS ];
 DisplaySpec SingleDecal[ SINGLEDECAL_NUMELEMENTS ];
 DisplaySpec SingleFloor[ SINGLEFLOOR_NUMELEMENTS ];
 DisplaySpec SingleToilet[ SINGLETOILET_NUMELEMENTS ];
 DisplaySpec Room[ ROOM_NUMELEMENTS ];
 
-//These are all of the different selection lists.  Changing the max_selections will
-//change the number of selections values you can have at a time.  This is Bret's gay code,
+//These are all of the different selection lists.	Changing the max_selections will
+//change the number of selections values you can have at a time.	This is Bret's gay code,
 //though I've cleaned it up a lot.
 Selections	SelOStructs[MAX_SELECTIONS]				=		{ {FIRSTFULLSTRUCT, 0, 1} };	// Default selections
 Selections	SelOStructs1[MAX_SELECTIONS]				=		{ {FOURTHOSTRUCT, 0, 1} };	// Default selections
@@ -123,13 +123,13 @@ Selections	SelDebris[MAX_SELECTIONS]					=		{ {DEBRISROCKS, 0, 1} };
 Selections	SelSingleWall[MAX_SELECTIONS]			=		{ {FIRSTWALL, 0, 1} };
 Selections	SelSingleDoor[MAX_SELECTIONS]			=		{ {FIRSTDOOR, 0, 1} };
 Selections	SelSingleWindow[MAX_SELECTIONS]		=		{ {FIRSTWALL, 44, 1} };
-Selections  SelSingleRoof[MAX_SELECTIONS] =				{ {FIRSTROOF, 0, 1} };
-Selections  SelSingleNewRoof[MAX_SELECTIONS] =		{ {FIRSTROOF, 0, 1} };
-Selections  SelSingleBrokenWall[MAX_SELECTIONS] = { {FIRSTDECORATIONS, 0, 1} };
+Selections	SelSingleRoof[MAX_SELECTIONS] =				{ {FIRSTROOF, 0, 1} };
+Selections	SelSingleNewRoof[MAX_SELECTIONS] =		{ {FIRSTROOF, 0, 1} };
+Selections	SelSingleBrokenWall[MAX_SELECTIONS] = { {FIRSTDECORATIONS, 0, 1} };
 Selections	SelSingleDecor[MAX_SELECTIONS]=				{ {FIRSTISTRUCT, 0, 1} };
 Selections	SelSingleDecal[MAX_SELECTIONS]	=		{ {FIRSTWALLDECAL, 0, 1} };
-Selections  SelSingleFloor[MAX_SELECTIONS] =			{ {FIRSTFLOOR, 0, 1} };
-Selections  SelSingleToilet[MAX_SELECTIONS] =			{ {FIFTHISTRUCT, 0, 1} };
+Selections	SelSingleFloor[MAX_SELECTIONS] =			{ {FIRSTFLOOR, 0, 1} };
+Selections	SelSingleToilet[MAX_SELECTIONS] =			{ {FIFTHISTRUCT, 0, 1} };
 Selections	SelRoom[MAX_SELECTIONS]			=					{ {FIRSTWALL, 0, 1} };
 
 // Number of objects currently in the selection list
@@ -147,7 +147,7 @@ INT32				iNumDecorSelected = 1;
 INT32				iNumDecalsSelected = 1;
 INT32				iNumBrokenWallsSelected = 1;
 INT32				iNumFloorsSelected = 1;
-INT32       iNumToiletsSelected = 1;
+INT32		iNumToiletsSelected = 1;
 INT32				iNumRoofsSelected = 1;
 INT32				iNumNewRoofsSelected = 1;
 INT32				iNumRoomsSelected = 1;
@@ -157,7 +157,7 @@ Selections	OldSelList[MAX_SELECTIONS];
 INT32				iOldNumSelList;
 
 // Global pointers for selection list
-Selections  *pSelList;
+Selections	*pSelList;
 INT32				*pNumSelList;
 
 // Global used to indicate which selection to use (changes with the PGUP/PGDWN keys in editor)
@@ -183,15 +183,15 @@ void CreateJA2SelectionWindow( INT16 sWhat )
 	fAllDone = FALSE;
 
 	DisableEditorTaskbar( );
-	
+
 	// Load up the button images
 	iButtonIcons[ CANCEL_ICON ] = LoadGenericButtonIcon( "EDITOR//bigX.sti" );
 	iButtonIcons[ UP_ICON ] = LoadGenericButtonIcon( "EDITOR//lgUpArrow.sti" );
 	iButtonIcons[ DOWN_ICON ] = LoadGenericButtonIcon( "EDITOR//lgDownArrow.sti" );
 	iButtonIcons[ OK_ICON ] = LoadGenericButtonIcon( "EDITOR//checkmark.sti" );
-	
+
 	iSelectWin = CreateHotSpot(0, 0, 600, 360, MSYS_PRIORITY_HIGH,
-														DEFAULT_MOVE_CALLBACK, SelWinClkCallback);	
+														DEFAULT_MOVE_CALLBACK, SelWinClkCallback);
 
 	iCancelWin = CreateIconButton((INT16)iButtonIcons[CANCEL_ICON], 0,
 														BUTTON_USE_DEFAULT, 600, 40,
@@ -221,7 +221,7 @@ void CreateJA2SelectionWindow( INT16 sWhat )
 														DEFAULT_MOVE_CALLBACK, DwnClkCallback);
 	SetButtonFastHelpText(iScrollDown,L"Scroll window down");
 
-	fButtonsPresent = TRUE;	
+	fButtonsPresent = TRUE;
 
 	SelWinSpacing.iX = 2;
 	SelWinSpacing.iY = 2;
@@ -230,12 +230,12 @@ void CreateJA2SelectionWindow( INT16 sWhat )
 	SelWinStartPoint.iY = 15;
 
 	iTopWinCutOff = 15;
-	
+
 	SelWinEndPoint.iX = 599;
 	SelWinEndPoint.iY = 359;
 
 	iBotWinCutOff = 359;
- 
+
 	switch( sWhat )
 	{
 		case SELWIN_OSTRUCTS:
@@ -352,14 +352,14 @@ void CreateJA2SelectionWindow( INT16 sWhat )
 			return;
 	}
 
-	BuildDisplayWindow( pDSpec, usNSpecs, &pDispList, &SelWinStartPoint, &SelWinEndPoint, 
+	BuildDisplayWindow( pDSpec, usNSpecs, &pDispList, &SelWinStartPoint, &SelWinEndPoint,
 										&SelWinSpacing, CLEAR_BACKGROUND);
 }
 
 
-//The selection window method is initialized here.  This is where all the graphics for all
-//the categories are organized and loaded.  If you wish to move things around, then this is
-//where the initialization part is done.  I have also changed this from previously being loaded
+//The selection window method is initialized here.	This is where all the graphics for all
+//the categories are organized and loaded.	If you wish to move things around, then this is
+//where the initialization part is done.	I have also changed this from previously being loaded
 //every single time you go into a selection window which was redundant and CPU consuming.
 void InitJA2SelectionWindow( void )
 {
@@ -416,7 +416,7 @@ void InitJA2SelectionWindow( void )
 		OStructs1[ iCount + 1 ].uiObjIndx = FIRSTOSTRUCT + iCount;
 	}
 
-	
+
 	// Other junk! (the "2" button in the "terrain" toolbar)
 	OStructs2[ 0 ].ubType = DISPLAY_GRAPHIC;
 	OStructs2[ 0 ].hVObject = gTileDatabase[gTileTypeStartIndex[THIRDOSTRUCT]].hTileSurface;
@@ -536,13 +536,13 @@ void InitJA2SelectionWindow( void )
 		DebrisList[ iCount ].usEnd = 0;
 		DebrisList[ iCount ].uiObjIndx = DEBRISROCKS + iCount;
 	}
-	// Add one more for new misc debris 
+	// Add one more for new misc debris
 	DebrisList[ iCount ].ubType = DISPLAY_GRAPHIC;
 	DebrisList[ iCount ].hVObject = gTileDatabase[gTileTypeStartIndex[DEBRIS2MISC ] ].hTileSurface;
 	DebrisList[ iCount ].usStart = DISPLAY_ALL_OBJECTS;
 	DebrisList[ iCount ].usEnd = 0;
 	DebrisList[ iCount ].uiObjIndx = DEBRIS2MISC;
-	//Add yet another one...		
+	//Add yet another one...
 	iCount++;
 	DebrisList[ iCount ].ubType = DISPLAY_GRAPHIC;
 	DebrisList[ iCount ].hVObject = gTileDatabase[gTileTypeStartIndex[ANOTHERDEBRIS ] ].hTileSurface;
@@ -584,7 +584,7 @@ void InitJA2SelectionWindow( void )
 		Room[ iCount ].uiObjIndx = FIRSTSLANTROOF + iCount2;
 	}
 
-	//Walls 
+	//Walls
 	for ( iCount = 0, iCount2 = 0; iCount < (LASTWALL - FIRSTWALL + 1); iCount++, iCount2+=2 )
 	{
 		SingleWall[ iCount2 ].ubType = DISPLAY_GRAPHIC;
@@ -634,13 +634,13 @@ void InitJA2SelectionWindow( void )
 		SingleDoor[ iCount2+4 ].usEnd = 19;
 		SingleDoor[ iCount2+4 ].uiObjIndx = FIRSTDOOR + iCount;
 	}
-	//Windows 
+	//Windows
 	for ( iCount = 0; iCount < (LASTWALL - FIRSTWALL + 1); iCount++ )
-	{	
+	{
 		SingleWindow[ iCount ].ubType = DISPLAY_GRAPHIC;
 		SingleWindow[ iCount ].hVObject = gTileDatabase[gTileTypeStartIndex[FIRSTWALL + iCount]].hTileSurface;
-		SingleWindow[ iCount ].usStart = WALL_FIRST_WINDOW_OFFSET;		
-		SingleWindow[ iCount ].usEnd = WALL_LAST_WINDOW_OFFSET;			
+		SingleWindow[ iCount ].usStart = WALL_FIRST_WINDOW_OFFSET;
+		SingleWindow[ iCount ].usEnd = WALL_LAST_WINDOW_OFFSET;
 		SingleWindow[ iCount ].uiObjIndx = FIRSTWALL + iCount;
 	}
 	//Roofs and slant roofs
@@ -810,11 +810,11 @@ void RemoveJA2SelectionWindow( void )
 		pDispList = TrashList(pDispList);
 	}
 	gfRenderTaskbar = TRUE;
-	
+
 	gfOverheadMapDirty = TRUE;
 	EnableEditorTaskbar( );
 }
- 
+
 
 //----------------------------------------------------------------------------------------------
 //	TrashList
@@ -828,10 +828,10 @@ DisplayList *TrashList( DisplayList *pNode )
 
 	if (pNode->pNext != NULL)
 		pNode->pNext = TrashList(pNode->pNext);
-	
+
 	if (pNode->pNext == NULL)
 		MemFree(pNode);
-	
+
 	return(NULL);
 }
 
@@ -865,9 +865,9 @@ void RenderSelectionWindow( void )
 		button = ButtonList[iSelectWin];
 		if ( button == NULL )
 			return;
-		
-		if ( (abs( iStartClickX - button->Area.MouseXPos ) > 9) || 
-			   (abs( iStartClickY - (button->Area.MouseYPos + iTopWinCutOff - (INT16)SelWinStartPoint.iY)) > 9) )
+
+		if ( (abs( iStartClickX - button->Area.MouseXPos ) > 9) ||
+			(abs( iStartClickY - (button->Area.MouseYPos + iTopWinCutOff - (INT16)SelWinStartPoint.iY)) > 9) )
 		{
 //			iSX = (INT32)iStartClickX;
 //			iEX = (INT32)button->Area.MouseXPos;
@@ -931,7 +931,7 @@ void SelWinClkCallback( GUI_BUTTON *button, INT32 reason )
 
 	if (!(button->uiFlags & BUTTON_ENABLED))
 		return;
-		
+
 	iClickX = button->Area.MouseXPos;
 	iClickY = button->Area.MouseYPos + iTopWinCutOff - (INT16)SelWinStartPoint.iY;
 
@@ -976,7 +976,7 @@ void SelWinClkCallback( GUI_BUTTON *button, INT32 reason )
 	else if (reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
 		button->uiFlags &= (~BUTTON_CLICKED_ON);
-		
+
 		if( !gfRenderSquareArea )
 			return;
 
@@ -1061,7 +1061,7 @@ void DisplaySelectionWindowGraphicalInformation()
 	}
 	SetFont( FONT12POINT1 );
 	SetFontForeground( FONT_WHITE );
-	if( pNode ) 
+	if( pNode )
 	{
 		//usObjIndex = (UINT16)pNode->uiObjIndx;
 		//usIndex = pNode->uiIndex;
@@ -1074,13 +1074,13 @@ void DisplaySelectionWindowGraphicalInformation()
 		}
 		else
 		{
-			mprintf( 2, 2, L"File:  %S, subindex:  %d (%S)", 
+			mprintf( 2, 2, L"File:  %S, subindex:  %d (%S)",
 				gTilesets[ giCurrentTilesetID ].TileSurfaceFilenames[ pNode->uiObjIndx ],
 				pNode->uiIndex, gTileSurfaceName[ pNode->uiObjIndx ] );
 		}
 	}
-	mprintf( 350, 2, L"Current Tileset:  %s",	gTilesets[ giCurrentTilesetID ].zName );
-}	
+	mprintf( 350, 2, L"Current Tileset:  %s",  gTilesets[ giCurrentTilesetID ].zName );
+}
 
 //----------------------------------------------------------------------------------------------
 //	AddToSelectionList
@@ -1095,12 +1095,12 @@ void AddToSelectionList( DisplayList *pNode )
 	for (iIndex = 0; iIndex < (*pNumSelList); iIndex++ )
 	{
 		if ( pNode->uiObjIndx == pSelList[ iIndex ].uiObject &&
-				 pNode->uiIndex == pSelList[ iIndex ].usIndex )
+				pNode->uiIndex == pSelList[ iIndex ].usIndex )
 		{
 			iUseIndex = iIndex;
 			break;
 		}
-	}	
+	}
 
 	if ( iUseIndex >= 0 )
 	{
@@ -1171,13 +1171,13 @@ BOOLEAN RemoveFromSelectionList( DisplayList *pNode )
 	for (iIndex = 0; iIndex < (*pNumSelList); iIndex++ )
 	{
 		if ( pNode->uiObjIndx == pSelList[ iIndex ].uiObject &&
-				 pNode->uiIndex == pSelList[ iIndex ].usIndex )
+				pNode->uiIndex == pSelList[ iIndex ].usIndex )
 		{
 			iUseIndex = iIndex;
 			break;
 		}
-	}	
-	
+	}
+
 	if ( iUseIndex >= 0 )
 	{
 		// Was already in the list, so bump up the count
@@ -1188,7 +1188,7 @@ BOOLEAN RemoveFromSelectionList( DisplayList *pNode )
 			// Squash the list to remove old entry
 			for ( iIndex = iUseIndex; iIndex < ((*pNumSelList) - 1); iIndex++ )
 				pSelList[ iIndex ] = pSelList[ iIndex + 1 ];
-			
+
 			(*pNumSelList)--;
 			fRemoved = TRUE;
 		}
@@ -1214,7 +1214,7 @@ INT32 GetRandomSelection( void )
 		fDontUseRandom = FALSE;
 		return( iCurBank );
 	}
-	
+
 	iTotalCounts = 0;
 	for (iIndex = 0; iIndex < (*pNumSelList); iIndex++ )
 		iTotalCounts += (INT32)pSelList[ iIndex ].sCount;
@@ -1248,12 +1248,12 @@ BOOLEAN IsInSelectionList( DisplayList *pNode )
 	for (iIndex = 0; iIndex < (*pNumSelList) && !fFound; iIndex++ )
 	{
 		if ( pNode->uiObjIndx == pSelList[ iIndex ].uiObject &&
-				 pNode->uiIndex == pSelList[ iIndex ].usIndex )
+				pNode->uiIndex == pSelList[ iIndex ].usIndex )
 		{
 			fFound = TRUE;
 		}
-	}	
-	
+	}
+
 	return ( fFound );
 }
 
@@ -1275,13 +1275,13 @@ INT32 FindInSelectionList( DisplayList *pNode )
 	for (iIndex = 0; iIndex < (*pNumSelList) && !fFound; iIndex++ )
 	{
 		if ( pNode->uiObjIndx == pSelList[ iIndex ].uiObject &&
-				 pNode->uiIndex == pSelList[ iIndex ].usIndex )
+				pNode->uiIndex == pSelList[ iIndex ].usIndex )
 		{
 			fFound = TRUE;
 			iUseIndex = iIndex;
 		}
-	}	
-	
+	}
+
 	return ( iUseIndex );
 }
 
@@ -1289,7 +1289,7 @@ INT32 FindInSelectionList( DisplayList *pNode )
 //----------------------------------------------------------------------------------------------
 //	SaveSelectionList
 //
-//	Copies the current selection list to a save buffer. Used in case we want to cancel a 
+//	Copies the current selection list to a save buffer. Used in case we want to cancel a
 //	selection window.
 //
 void SaveSelectionList( void )
@@ -1326,7 +1326,7 @@ void RestoreSelectionList( void )
 void OkClkCallback( GUI_BUTTON *button, INT32 reason )
 {
 
-		
+
 	if (reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 		button->uiFlags |= BUTTON_CLICKED_ON;
@@ -1345,7 +1345,7 @@ void OkClkCallback( GUI_BUTTON *button, INT32 reason )
 //	Button callback function for the selection window's CANCEL button
 //
 void CnclClkCallback( GUI_BUTTON *button, INT32 reason )
-{	
+{
 	if (reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
 		button->uiFlags |= BUTTON_CLICKED_ON;
@@ -1480,14 +1480,14 @@ void DrawSelections( void )
 
 	GetClippingRect(&ClipRect);
 	SetClippingRect(&NewRect);
-	
+
 //	SetFont( gpSmallFont );
 	SetFont( gpLargeFontType1 );
 	SetObjectShade( gvoLargeFontType1, 0 );
 //	SetObjectShade( gvoLargeFont, 0 );
 
 	DisplayWindowFunc( pDispList, iTopWinCutOff, iBotWinCutOff, &SelWinStartPoint, CLEAR_BACKGROUND );
-	
+
 	SetObjectShade( gvoLargeFontType1, 4 );
 
 	SetClippingRect(&ClipRect);
@@ -1501,7 +1501,7 @@ void DrawSelections( void )
 //	properly scrolling the window etc.
 //
 BOOLEAN BuildDisplayWindow( DisplaySpec *pDisplaySpecs, UINT16 usNumSpecs, DisplayList **pDisplayList,
-														SGPPoint * pUpperLeft, SGPPoint * pBottomRight, 
+														SGPPoint * pUpperLeft, SGPPoint * pBottomRight,
 														SGPPoint * pSpacing, UINT16 fFlags )
 {
 	INT32						iCurrX = pUpperLeft->iX;
@@ -1552,7 +1552,7 @@ BOOLEAN BuildDisplayWindow( DisplaySpec *pDisplaySpecs, UINT16 usNumSpecs, Displ
 					iCurrY += usGreatestHeightInRow + pSpacing->iY;
 					usGreatestHeightInRow = 0;
 				}
-				
+
 				if ((pCurNode = (DisplayList *)MemAlloc(sizeof(DisplayList))) != FALSE)
 				{
 					pCurNode->hObj = pDisplaySpec->hVObject;
@@ -1580,7 +1580,7 @@ BOOLEAN BuildDisplayWindow( DisplaySpec *pDisplaySpecs, UINT16 usNumSpecs, Displ
 				}
 
 				iCurrX += pETRLEObject->usWidth + pSpacing->iX;
-			}	
+			}
 		}
 	}
 
@@ -1604,7 +1604,7 @@ BOOLEAN DisplayWindowFunc( DisplayList *pNode, INT16 iTopCutOff, INT16 iBottomCu
 	ETRLEObject *		pETRLEObject;
 	UINT16					usFillColor;
 	INT16						sCount;
-	
+
 	if ( pNode == NULL )
 		return(TRUE);
 
@@ -1637,7 +1637,7 @@ BOOLEAN DisplayWindowFunc( DisplayList *pNode, INT16 iTopCutOff, INT16 iBottomCu
 				usFillColor = SelWinHilightFillColor;
 
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, pNode->iX, iCurrY,
-												pNode->iX + pNode->iWidth, 
+												pNode->iX + pNode->iWidth,
 												iCurrY + pNode->iHeight, usFillColor);
 		}
 
@@ -1646,7 +1646,7 @@ BOOLEAN DisplayWindowFunc( DisplayList *pNode, INT16 iTopCutOff, INT16 iBottomCu
 			sCount = pSelList[ FindInSelectionList( pNode ) ].sCount;
 
 		SetObjectShade( pNode->hObj, DEFAULT_SHADE_LEVEL );
-		fReturnVal = BltVideoObject( FRAME_BUFFER, pNode->hObj, pNode->uiIndex, 
+		fReturnVal = BltVideoObject( FRAME_BUFFER, pNode->hObj, pNode->uiIndex,
 														(UINT16)pNode->iX, (UINT16)iCurrY,
 														VO_BLT_SRCTRANSPARENCY, NULL);
 
@@ -1670,6 +1670,6 @@ BOOLEAN DisplayWindowFunc( DisplayList *pNode, INT16 iTopCutOff, INT16 iBottomCu
 
 
 
- 
+
 
 

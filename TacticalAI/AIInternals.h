@@ -9,32 +9,32 @@
 extern BOOLEAN gfTurnBasedAI;
 
 #define MAX_DIST 160
-// THIS IS AN ITEM #  - AND FOR NOW JUST COMPLETELY FAKE...
+// THIS IS AN ITEM #	- AND FOR NOW JUST COMPLETELY FAKE...
 
-#define MAX_TOSS_SEARCH_DIST    1       // must throw within this of opponent
-#define NPC_TOSS_SAFETY_MARGIN  4       // all friends must be this far away
+#define MAX_TOSS_SEARCH_DIST	1		// must throw within this of opponent
+#define NPC_TOSS_SAFETY_MARGIN	4		// all friends must be this far away
 
-#define ACTING_ON_SCHEDULE( p ) ( (p)->fAIFlags & AI_CHECK_SCHEDULE )
+#define ACTING_ON_SCHEDULE( p ) ( (p)->aiData.fAIFlags & AI_CHECK_SCHEDULE )
 
 // the AI should try to have this many APs before climbing a roof, if possible
 #define AI_AP_CLIMBROOF 15
 
-#define TEMPORARILY     0
-#define FOREVER         1
+#define TEMPORARILY	 0
+#define FOREVER		 1
 
-#define IGNORE_PATH             0
-#define ENSURE_PATH             1
-#define ENSURE_PATH_COST        2
+#define IGNORE_PATH			 0
+#define ENSURE_PATH			 1
+#define ENSURE_PATH_COST		2
 
-//Kris:  November 10, 1997
-//Please don't change this value from 10.  It will invalidate all of the maps and soldiers.
-#define MAXPATROLGRIDS  10
+//Kris:	November 10, 1997
+//Please don't change this value from 10.	It will invalidate all of the maps and soldiers.
+#define MAXPATROLGRIDS	10
 
-#define NOWATER         0
-#define WATEROK         1
+#define NOWATER		 0
+#define WATEROK		 1
 
 #define DONTADDTURNCOST 0
-#define ADDTURNCOST     1
+#define ADDTURNCOST	 1
 
 enum
 {
@@ -44,17 +44,17 @@ enum
 	NUM_URGENCY_STATES
 };
 
-#define NOWATER         0
-#define WATEROK         1
+#define NOWATER		 0
+#define WATEROK		 1
 
-#define IGNORE_PATH             0
-#define ENSURE_PATH             1
-#define ENSURE_PATH_COST        2
+#define IGNORE_PATH			 0
+#define ENSURE_PATH			 1
+#define ENSURE_PATH_COST		2
 
-#define DONTFORCE       0
-#define FORCE           1
+#define DONTFORCE		0
+#define FORCE			1
 
-#define MAX_ROAMING_RANGE       WORLD_COLS
+#define MAX_ROAMING_RANGE		WORLD_COLS
 
 #define PTR_CIV_OR_MILITIA ( PTR_CIVILIAN || (pSoldier->bTeam == MILITIA_TEAM) )
 
@@ -62,40 +62,40 @@ enum
 #define REALTIME_CIV_AI_DELAY ( 1000 * (gTacticalStatus.Team[ MILITIA_TEAM ].bMenInSector + gTacticalStatus.Team[ CIV_TEAM ].bMenInSector) + 5000 + 2000 * Random( 3 ) )
 #define REALTIME_CREATURE_AI_DELAY ( 10000 + 1000 * Random( 3 ) )
 
-//#define PLAYINGMODE             0
-//#define CAMPAIGNLENGTH          1
-//#define LASTUSABLESLOT          2
-//#define RANDOMMERCS             3
-//#define AVAILABLEMERCS          4
-//#define HIRINGKNOWLEDGE         5
-//#define EQUIPMENTLEVEL          6
-//#define ENEMYTEAMSIZE           7
-#define ENEMYDIFFICULTY         8	// this is being used in this module
-//#define FOG_OF_WAR              9
-//#define TURNLENGTH              10
-//#define INCREASEDAP             11
-//#define BLOODSTAINS             12
-//#define STARTINGBALANCE         13
-#define MAXGAMEOPTIONS          14
+//#define PLAYINGMODE			 0
+//#define CAMPAIGNLENGTH			1
+//#define LASTUSABLESLOT			2
+//#define RANDOMMERCS			 3
+//#define AVAILABLEMERCS			4
+//#define HIRINGKNOWLEDGE		 5
+//#define EQUIPMENTLEVEL			6
+//#define ENEMYTEAMSIZE			7
+#define ENEMYDIFFICULTY		 8	// this is being used in this module
+//#define FOG_OF_WAR				9
+//#define TURNLENGTH				10
+//#define INCREASEDAP			 11
+//#define BLOODSTAINS			 12
+//#define STARTINGBALANCE		 13
+#define MAXGAMEOPTIONS			14
 
-#define NOSHOOT_WAITABIT        -1
-#define NOSHOOT_WATER           -2
-#define NOSHOOT_MYSELF          -3
-#define NOSHOOT_HURT            -4
-#define NOSHOOT_NOAMMO          -5
-#define NOSHOOT_NOLOAD          -6
-#define NOSHOOT_NOWEAPON        -7
+#define NOSHOOT_WAITABIT		-1
+#define NOSHOOT_WATER			-2
+#define NOSHOOT_MYSELF			-3
+#define NOSHOOT_HURT			-4
+#define NOSHOOT_NOAMMO			-5
+#define NOSHOOT_NOLOAD			-6
+#define NOSHOOT_NOWEAPON		-7
 
-#define PERCENT_TO_IGNORE_THREAT        50      // any less, use threat value
+#define PERCENT_TO_IGNORE_THREAT		50		// any less, use threat value
 #define ACTION_TIMEOUT_CYCLES	50	// # failed cycles through AI
-#define MAX_THREAT_RANGE  	400	// 30 tiles worth
+#define MAX_THREAT_RANGE		400	// 30 tiles worth
 #define MIN_PERCENT_BETTER	5	// 5% improvement in cover is good
 
 
-#define TOSSES_PER_10TURNS      18      // max # of grenades tossable in 10 turns
-#define SHELLS_PER_10TURNS      13      // max # of shells   firable  in 10 turns
+#define TOSSES_PER_10TURNS		18		// max # of grenades tossable in 10 turns
+#define SHELLS_PER_10TURNS		13		// max # of shells	firable	in 10 turns
 
-#define SEE_THRU_COVER_THRESHOLD        5      // min chance to get through
+#define SEE_THRU_COVER_THRESHOLD		5		// min chance to get through
 
 #undef min
 #define min(a,b) ((a) < (b) ? (a) : (b))
@@ -119,15 +119,15 @@ typedef struct
 
 typedef struct
 {
- UINT8 ubPossible;            // is this attack form possible?  T/F
- UINT8 ubOpponent;            // which soldier is the victim?
+ UINT8 ubPossible;			// is this attack form possible?	T/F
+ UINT8 ubOpponent;			// which soldier is the victim?
  UINT8 ubAimTime;							// how many extra APs to spend on aiming
- UINT8 ubChanceToReallyHit;   // chance to hit * chance to get through cover
- INT32 iAttackValue;          // relative worthiness of this type of attack
+ UINT8 ubChanceToReallyHit;	// chance to hit * chance to get through cover
+ INT32 iAttackValue;			// relative worthiness of this type of attack
  INT16 sTarget;								// target gridno of this attack
- INT8  bTargetLevel;					// target level of this attack
+ INT8	bTargetLevel;					// target level of this attack
  UINT8 ubAPCost;							// how many APs the attack will use up
- INT8	 bWeaponIn;							// the inv slot of the weapon in question
+ INT8	bWeaponIn;							// the inv slot of the weapon in question
 } ATTACKTYPE;
 
 extern THREATTYPE Threat[MAXMERCS];
@@ -226,5 +226,5 @@ void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN s
 
 INT16 FindBestCoverNearTheGridNo(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubSearchRadius );
 
-INT8 FindDirectionForClimbing( INT16 sGridNo, INT8 bLevel);
+INT8 FindDirectionForClimbing( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel);
 

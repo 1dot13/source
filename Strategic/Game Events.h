@@ -9,7 +9,7 @@
 
 typedef struct STRATEGICEVENT
 {
-	struct STRATEGICEVENT	 *next;
+	struct STRATEGICEVENT	*next;
 	UINT32									uiTimeStamp;
 	UINT32									uiParam;
 	UINT32									uiTimeOffset;

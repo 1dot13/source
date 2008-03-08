@@ -14,9 +14,9 @@
 #define ENRICO_CONGRATS_LENGTH	3
 #define IMP_EMAIL_AGAIN					(ENRICO_CONGRATS + ENRICO_CONGRATS_LENGTH)
 #define IMP_EMAIL_AGAIN_LENGTH	6
-#define MERC_INTRO              (IMP_EMAIL_AGAIN + IMP_EMAIL_AGAIN_LENGTH)
-#define MERC_INTRO_LENGTH       5
-#define MERC_NEW_SITE_ADDRESS   ( MERC_INTRO + MERC_INTRO_LENGTH )
+#define MERC_INTRO				(IMP_EMAIL_AGAIN + IMP_EMAIL_AGAIN_LENGTH)
+#define MERC_INTRO_LENGTH		5
+#define MERC_NEW_SITE_ADDRESS	( MERC_INTRO + MERC_INTRO_LENGTH )
 #define MERC_NEW_SITE_ADDRESS_LENGTH 2
 #define AIM_MEDICAL_DEPOSIT_REFUND ( MERC_NEW_SITE_ADDRESS + MERC_NEW_SITE_ADDRESS_LENGTH )
 #define AIM_MEDICAL_DEPOSIT_REFUND_LENGTH 3
@@ -227,8 +227,8 @@ typedef struct pagemessages Page;
 typedef Page *PagePtr;
 
 struct messagerecord{
-//  CHAR16 pRecord[ 320 ];
-  CHAR16 pRecord[ 640 ];
+//	CHAR16 pRecord[ 320 ];
+	CHAR16 pRecord[ 640 ];
 	struct messagerecord *Next;
 };
 
@@ -245,7 +245,7 @@ typedef struct
 enum {
 	SENDER=0,
 	RECEIVED,
-  SUBJECT,
+	SUBJECT,
 	READ,
 };
 
@@ -270,8 +270,8 @@ enum {
 
 extern BOOLEAN fUnReadMailFlag;
 extern BOOLEAN fNewMailFlag;
-extern BOOLEAN  fOldUnreadFlag;
-extern BOOLEAN  fOldNewMailFlag;
+extern BOOLEAN	fOldUnreadFlag;
+extern BOOLEAN	fOldNewMailFlag;
 extern BOOLEAN fDeleteMailFlag;
 extern BOOLEAN fDisplayMessageFlag;
 extern BOOLEAN fReDrawNewMailFlag; 

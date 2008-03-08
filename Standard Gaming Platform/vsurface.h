@@ -16,10 +16,10 @@
 // Defines for special video object handles given to blit function
 //
 
-#define PRIMARY_SURFACE							            0xFFFFFFF0
-#define BACKBUFFER									            0xFFFFFFF1
-#define FRAME_BUFFER                            0xFFFFFFF2
-#define MOUSE_BUFFER                            0xFFFFFFF3
+#define PRIMARY_SURFACE									 0xFFFFFFF0
+#define BACKBUFFER											 0xFFFFFFF1
+#define FRAME_BUFFER							0xFFFFFFF2
+#define MOUSE_BUFFER							0xFFFFFFF3
 
 //
 // Defines for blitting
@@ -43,9 +43,9 @@
 typedef struct 
 {
 	COLORVAL ColorFill;		// Used for fill effect
-	SGPRect	 SrcRect;			// Given SRC subrect instead of srcregion
-	SGPRect	 FillRect;		// Given SRC subrect instead of srcregion
-	UINT16	 DestRegion;  // Given a DEST region for dest positions within the VO
+	SGPRect	SrcRect;			// Given SRC subrect instead of srcregion
+	SGPRect	FillRect;		// Given SRC subrect instead of srcregion
+	UINT16	DestRegion;	// Given a DEST region for dest positions within the VO
 
 } blt_vs_fx;
 
@@ -64,8 +64,8 @@ typedef struct
 // Used in the VSurface_DESC structure to describe creation flags
 //
 
-#define VSURFACE_CREATE_DEFAULT			  0x00000020		// Creates and empty Surface of given width, height and BPP
-#define VSURFACE_CREATE_FROMFILE			 0x00000040		// Creates a video Surface from a file ( using HIMAGE )
+#define VSURFACE_CREATE_DEFAULT			0x00000020		// Creates and empty Surface of given width, height and BPP
+#define VSURFACE_CREATE_FROMFILE			0x00000040		// Creates a video Surface from a file ( using HIMAGE )
 
 //
 // The following structure is used to define a region of the video Surface
@@ -96,7 +96,7 @@ typedef struct
 	PTR							pSavedSurfaceData;		// A void pointer, but for this implementation, is really a lpDirectDrawSurface;
 																				// pSavedSurfaceData is used to hold all video memory Surfaces so that they my be restored
 	UINT32					fFlags;								// Used to describe memory usage, etc
-	PTR							pPalette;						  // A void pointer, but for this implementation a DDPalette
+	PTR							pPalette;						// A void pointer, but for this implementation a DDPalette
 	UINT16					*p16BPPPalette;				// A 16BPP palette used for 8->16 blits
 	COLORVAL				TransparentColor;			// Defaults to 0,0,0
 	PTR							pClipper;							// A void pointer encapsolated as a clipper Surface
@@ -182,7 +182,7 @@ BOOLEAN GetVideoSurfaceDescription( UINT32 uiIndex, UINT16 *usWidth, UINT16 *usH
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Darkens a rectangular area on a surface for menus etc.
-BOOLEAN PixelateVideoSurfaceRect(  UINT32	uiDestVSurface, INT32 X1, INT32 Y1, INT32 X2, INT32 Y2);
+BOOLEAN PixelateVideoSurfaceRect(	UINT32	uiDestVSurface, INT32 X1, INT32 Y1, INT32 X2, INT32 Y2);
 
 // Created from a VSurface_DESC structure. Can be from a file via HIMAGE or empty.
 HVSURFACE CreateVideoSurface( VSURFACE_DESC *VSurfaceDesc );
@@ -228,7 +228,7 @@ BOOLEAN AddVSurfaceRegionAtIndex( HVSURFACE hVSurface, UINT16 usIndex, VSURFACE_
 BOOLEAN AddVSurfaceRegions( HVSURFACE hVSurface, VSURFACE_REGION **ppNewRegions, UINT16 uiNumRegions );
 BOOLEAN RemoveVSurfaceRegion( HVSURFACE hVSurface, UINT16 usIndex );
 BOOLEAN ClearAllVSurfaceRegions( HVSURFACE hVSurface );
-BOOLEAN GetVSurfaceRegion( HVSURFACE hVSurface, UINT16 usIndex,  VSURFACE_REGION *aRegion );
+BOOLEAN GetVSurfaceRegion( HVSURFACE hVSurface, UINT16 usIndex,	VSURFACE_REGION *aRegion );
 BOOLEAN GetNumRegions( HVSURFACE hVSurface , UINT32 *puiNumRegions );
 BOOLEAN ReplaceVSurfaceRegion( HVSURFACE hVSurface , UINT16 usIndex, VSURFACE_REGION *aRegion );
 BOOLEAN DeleteVideoSurfaceFromIndex( UINT32 uiIndex );
@@ -255,7 +255,7 @@ BOOLEAN BltVideoSurfaceToVideoSurface( HVSURFACE hDestVSurface, HVSURFACE hSrcVS
 HVSURFACE GetPrimaryVideoSurface( );
 HVSURFACE GetBackBufferVideoSurface( );
 
-BOOLEAN ShadowVideoSurfaceRect(  UINT32	uiDestVSurface, INT32 X1, INT32 Y1, INT32 X2, INT32 Y2);
+BOOLEAN ShadowVideoSurfaceRect(	UINT32	uiDestVSurface, INT32 X1, INT32 Y1, INT32 X2, INT32 Y2);
 BOOLEAN ShadowVideoSurfaceImage( UINT32	uiDestVSurface, HVOBJECT hImageHandle, INT32 iPosX, INT32 iPosY);
 
 // If the Dest Rect and the source rect are not the same size, the source surface will be either
@@ -264,7 +264,7 @@ BOOLEAN BltStretchVideoSurface(UINT32 uiDestVSurface, UINT32 uiSrcVSurface, INT3
 
 BOOLEAN MakeVSurfaceFromVObject(UINT32 uiVObject, UINT16 usSubIndex, UINT32 *puiVSurface);
 
-BOOLEAN ShadowVideoSurfaceRectUsingLowPercentTable(  UINT32	uiDestVSurface, INT32 X1, INT32 Y1, INT32 X2, INT32 Y2);
+BOOLEAN ShadowVideoSurfaceRectUsingLowPercentTable(	UINT32	uiDestVSurface, INT32 X1, INT32 Y1, INT32 X2, INT32 Y2);
 
 /*
 #ifdef __cplusplus

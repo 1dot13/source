@@ -65,7 +65,7 @@ extern BOOLEAN gbMessageDisplayed;
 
 extern UINT32 guiCurrentLaptopMode;
 extern UINT32 guiPreviousLaptopMode;
-extern INT32	 giCurrentSubPage;
+extern INT32	giCurrentSubPage;
 extern UINT32 guiCurrentLapTopCursor;
 extern UINT32 guiPreviousLapTopCursor;
 extern BOOLEAN fMarkButtonsDirtyFlag;
@@ -143,12 +143,12 @@ enum
 
 enum{
 	FIRST_SIDE_PANEL=1,
-  SECOND_SIDE_PANEL,
+	SECOND_SIDE_PANEL,
 };
 enum{
 	LAPTOP_NO_CURSOR=0,
-  LAPTOP_PANEL_CURSOR,
-  LAPTOP_SCREEN_CURSOR,
+	LAPTOP_PANEL_CURSOR,
+	LAPTOP_SCREEN_CURSOR,
 	LAPTOP_WWW_CURSOR,
 };
 

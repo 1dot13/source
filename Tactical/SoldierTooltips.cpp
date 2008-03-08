@@ -3,7 +3,7 @@
 #else
 #include "Types.h"
 #include "Windows.h"
-#include "Soldier Control.h"
+//#include "Soldier Control.h"
 #include "Input.h"
 #include "english.h"
 #include "Isometric Utils.h"
@@ -22,8 +22,13 @@
 #include "line.h"
 #endif
 
-struct MOUSETT 
-{	
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
+
+
+struct MOUSETT
+{
 	CHAR16 FastHelpText[ 1024 ];
 	INT32 iX;
 	INT32 iY;
@@ -44,10 +49,10 @@ void DrawMouseTooltip(void);
 #define MAX(a, b) (a > b ? a : b)
 
 void SoldierTooltip( SOLDIERTYPE* pSoldier )
-{			
+{
 	SGPRect		aRect;
 	extern void GetSoldierScreenRect(SOLDIERTYPE*,SGPRect*);
-	GetSoldierScreenRect( pSoldier,  &aRect );
+	GetSoldierScreenRect( pSoldier,	&aRect );
 	INT16		a1,a2;
 	BOOLEAN		fDrawTooltip = FALSE;
 
@@ -57,7 +62,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		MOUSETT		*pRegion = &mouseTT;
 		CHAR16		pStrInfo[ sizeof( pRegion->FastHelpText ) ];
 		int			iNVG = 0;
-		UINT16		usSoldierGridNo;
+		INT16		sSoldierGridNo;
 		BOOLEAN		fDisplayBigSlotItem	= FALSE;
 		BOOLEAN		fMercIsUsingScope	= FALSE;
 		UINT16		iCarriedRL = 0;
@@ -68,12 +73,14 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		fDrawTooltip = TRUE;
 
 		// get the gridno the cursor is at
-		GetMouseMapPos( &usSoldierGridNo );
+		GetMouseMapPos( &sSoldierGridNo );
 
 		// get the distance to enemy's tile from the selected merc
 		if ( gusSelectedSoldier != NOBODY )
-		{		
-			iRangeToTarget = GetRangeInCellCoordsFromGridNoDiff( MercPtrs[ gusSelectedSoldier ]->sGridNo, usSoldierGridNo ) / 10;
+		{
+			//CHRISL: Changed the second parameter to use the same information as the 'F' hotkey uses.
+			//iRangeToTarget = GetRangeInCellCoordsFromGridNoDiff( MercPtrs[ gusSelectedSoldier ]->sGridNo, sSoldierGridNo ) / 10;
+			iRangeToTarget = GetRangeInCellCoordsFromGridNoDiff( MercPtrs[ gusSelectedSoldier ]->sGridNo, MercPtrs[ gusUIFullTargetID ]->sGridNo ) / 10;
 		}
 		// WANNE: If we want to show the tooltip of milita and no merc is present in the sector
 		else
@@ -82,10 +89,10 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		}
 
 		if ( gGameExternalOptions.fEnableDynamicSoldierTooltips )
-		{			
-			for ( INT32 cnt = 0; cnt < MAX_ATTACHMENTS; cnt++ )
-			{
-				if ( Item[MercPtrs[gusSelectedSoldier]->inv[HANDPOS].usAttachItem[cnt]].visionrangebonus > 0 )
+		{
+			OBJECTTYPE* pObject = &(MercPtrs[gusSelectedSoldier]->inv[HANDPOS]);
+			for (attachmentList::iterator iter = (*pObject)[0]->attachments.begin(); iter != (*pObject)[0]->attachments.end(); ++iter) {
+				if ( Item[iter->usItem].visionrangebonus > 0 )
 				{
 					fMercIsUsingScope = TRUE;
 					break;
@@ -100,14 +107,14 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 			else
 			{
 				// add 10% to max tooltip viewing distance per level of the merc
-				uiMaxTooltipDistance *= 1 + (MercPtrs[ gusSelectedSoldier ]->bExpLevel / 10);
+				uiMaxTooltipDistance *= 1 + (MercPtrs[ gusSelectedSoldier ]->stats.bExpLevel / 10);
 
 				if ( gGameExternalOptions.gfAllowLimitedVision )
 					uiMaxTooltipDistance *= 1 - (gGameExternalOptions.ubVisDistDecreasePerRainIntensity / 100);
 
 				if ( !(Item[MercPtrs[gusSelectedSoldier]->inv[HEAD1POS].usItem].nightvisionrangebonus > 0) &&
-					 !(Item[MercPtrs[gusSelectedSoldier]->inv[HEAD2POS].usItem].nightvisionrangebonus > 0) &&
- 					 !DayTime() )
+					!(Item[MercPtrs[gusSelectedSoldier]->inv[HEAD2POS].usItem].nightvisionrangebonus > 0) &&
+ 					!DayTime() )
 				{
 					// if night reduce max tooltip viewing distance by a factor of 4 if merc is not wearing NVG
 					uiMaxTooltipDistance >>= 2;
@@ -138,8 +145,8 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		{
 			// Get the current selected merc
 			SOLDIERTYPE* pMerc = MercPtrs[ gusSelectedSoldier ];
-			
-			if ( pMerc->bOppList[pSoldier->ubID] != SEEN_CURRENTLY )
+
+			if ( pMerc->aiData.bOppList[pSoldier->ubID] != SEEN_CURRENTLY )
 			{
 				// We do not see the enemy. Return and do not display the tooltip.
 				return;
@@ -151,21 +158,21 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		{
 			// display "debug" info
 			if ( gGameExternalOptions.fEnableSoldierTooltipLocation )
-				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_LOCATION], pStrInfo, usSoldierGridNo );
+				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_LOCATION], pStrInfo, sSoldierGridNo );
 			if ( gGameExternalOptions.fEnableSoldierTooltipBrightness )
-				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_BRIGHTNESS], pStrInfo, SHADE_MIN - LightTrueLevel( usSoldierGridNo, gsInterfaceLevel ), SHADE_MIN );
+				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_BRIGHTNESS], pStrInfo, SHADE_MIN - LightTrueLevel( sSoldierGridNo, gsInterfaceLevel ), SHADE_MIN );
 			if ( gGameExternalOptions.fEnableSoldierTooltipRangeToTarget )
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_RANGE_TO_TARGET], pStrInfo, iRangeToTarget );
 			if ( gGameExternalOptions.fEnableSoldierTooltipID )
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_ID], pStrInfo, pSoldier->ubID );
 			if ( gGameExternalOptions.fEnableSoldierTooltipOrders )
-				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_ORDERS], pStrInfo, pSoldier->bOrders );
+				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_ORDERS], pStrInfo, pSoldier->aiData.bOrders );
 			if ( gGameExternalOptions.fEnableSoldierTooltipAttitude )
-				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_ATTITUDE], pStrInfo, pSoldier->bAttitude );
+				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_ATTITUDE], pStrInfo, pSoldier->aiData.bAttitude );
 			if ( gGameExternalOptions.fEnableSoldierTooltipActionPoints )
 				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_CURRENT_APS], pStrInfo, pSoldier->bActionPoints );
 			if ( gGameExternalOptions.fEnableSoldierTooltipHealth )
-				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_CURRENT_HEALTH], pStrInfo, pSoldier->bLife );
+				swprintf( pStrInfo, gzTooltipStrings[STR_TT_CAT_CURRENT_HEALTH], pStrInfo, pSoldier->stats.bLife );
 		}
 
 		// armor info code block start
@@ -266,9 +273,9 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		// weapon in off hand info code block end
 
 		// large objects in big inventory slots info code block start
-		for ( UINT8 BigSlot = BIGPOCK1POS; BigSlot <= BIGPOCK4POS; BigSlot++ )
+		for ( UINT8 BigSlot = BIGPOCKSTART; BigSlot < BIGPOCKFINAL; BigSlot++ )
 		{
-			if ( pSoldier->inv[ BigSlot ].usItem == 0 )
+			if ( pSoldier->inv[ BigSlot ].exists() == false )
 				continue; // slot is empty, move on to the next slot
 
 			switch( BigSlot )
@@ -285,22 +292,35 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 				case BIGPOCK3POS:
 					if ( !gGameExternalOptions.fEnableSoldierTooltipBigSlot3 )
 						continue;
-				    break;
+				 break;
 				case BIGPOCK4POS:
 					if ( !gGameExternalOptions.fEnableSoldierTooltipBigSlot4 )
 						continue;
 					break;
+// CHRISL: Added new large pockets introduced by new inventory system
+				case BIGPOCK5POS:
+					if ( !gGameExternalOptions.fEnableSoldierTooltipBigSlot5 )
+						continue;
+					break;
+				case BIGPOCK6POS:
+					if ( !gGameExternalOptions.fEnableSoldierTooltipBigSlot6 )
+						continue;
+					break;
+				case BIGPOCK7POS:
+					if ( !gGameExternalOptions.fEnableSoldierTooltipBigSlot7 )
+						continue;
+				    break;
 			}
 
 			if ( Item[ pSoldier->inv[ BigSlot ].usItem ].rocketlauncher )
 				iCarriedRL = pSoldier->inv[ BigSlot ].usItem; // remember that enemy is carrying a rocket launcher when check for rocket ammo is made later on
 
-			if ( (  Item[ pSoldier->inv[ BigSlot ].usItem ].usItemClass == IC_LAUNCHER ) ||
-				 (	Item[ pSoldier->inv[ BigSlot ].usItem ].usItemClass == IC_GUN ) )
+			if ( (	Item[ pSoldier->inv[ BigSlot ].usItem ].usItemClass == IC_LAUNCHER ) ||
+				(	Item[ pSoldier->inv[ BigSlot ].usItem ].usItemClass == IC_GUN ) )
 			{
 				// it's a firearm
 				if ( (	Weapon[pSoldier->inv[ BigSlot ].usItem].ubWeaponClass != HANDGUNCLASS ) &&
-					 (	Weapon[pSoldier->inv[ BigSlot ].usItem].ubWeaponClass != SMGCLASS ) )
+					(	Weapon[pSoldier->inv[ BigSlot ].usItem].ubWeaponClass != SMGCLASS ) )
 				{
 					// it's a long gun or heavy weapon
 					fDisplayBigSlotItem = TRUE;
@@ -310,7 +330,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 			{
 				// check for rocket ammo
 				if ( ( iCarriedRL != 0 ) &&												// soldier is carrying a RL ...
-					 ValidLaunchable( pSoldier->inv[ BigSlot ].usItem, iCarriedRL ) )	// this item is launchable by the RL
+					ValidLaunchable( pSoldier->inv[ BigSlot ].usItem, iCarriedRL ) )	// this item is launchable by the RL
 				{
 					fDisplayBigSlotItem = TRUE;
 				}
@@ -325,7 +345,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		// large objects in big inventory slots info code block end
 
 		pRegion->iX = gusMouseXPos;
-		pRegion->iY = gusMouseYPos;				
+		pRegion->iY = gusMouseYPos;
 
 //		if ( gGameExternalOptions.ubSoldierTooltipDetailLevel == DL_Debug )
 //			swprintf( pRegion->FastHelpText, L"%s\n|String |Length|: %d", pStrInfo, wcslen(pStrInfo) );
@@ -393,34 +413,30 @@ void DisplayWeaponInfo( SOLDIERTYPE* pSoldier, CHAR16* pStrInfo, UINT8 ubSlot, U
 	if ( gGameExternalOptions.ubSoldierTooltipDetailLevel >= DL_Basic )
 	{
 		// display weapon attachments
-		for ( INT32 cnt = 0; cnt < MAX_ATTACHMENTS; cnt++ )
-		{
-			if ( pSoldier->inv[ubSlot].usAttachItem[ cnt ] != NOTHING )
-			{	
-				if ( ubTooltipDetailLevel == DL_Basic )
+		for (attachmentList::iterator iter = pSoldier->inv[ubSlot][0]->attachments.begin(); iter != pSoldier->inv[ubSlot][0]->attachments.end(); ++iter) {
+			if ( ubTooltipDetailLevel == DL_Basic )
+			{
+				// display only externally-visible weapon attachments
+				if ( !Item[iter->usItem].hiddenattachment )
 				{
-					// display only externally-visible weapon attachments
-					if ( !Item[pSoldier->inv[ubSlot].usAttachItem[ cnt ]].hiddenattachment )
-						{
-							fDisplayAttachment = TRUE;
-					}
+						fDisplayAttachment = TRUE;
 				}
+			}
+			else
+			{
+				// display all weapon attachments
+				fDisplayAttachment = TRUE;
+			}
+			if ( fDisplayAttachment )
+			{
+				iNumAttachments++;
+				if ( iNumAttachments == 1 )
+					wcscat( pStrInfo, L"\n[" );
 				else
-				{
-					// display all weapon attachments
-					fDisplayAttachment = TRUE;
-				}
-				if ( fDisplayAttachment )
-				{
-					iNumAttachments++;
-					if ( iNumAttachments == 1 )
-						wcscat( pStrInfo, L"\n[" );
-					else
-						wcscat( pStrInfo, L", " );
-					wcscat( pStrInfo, ItemNames[ pSoldier->inv[ubSlot].usAttachItem[ cnt ] ] );
-					fDisplayAttachment = FALSE; // clear flag for next loop iteration
-				}
-			} // pSoldier->inv[HANDPOS].usAttachItem[ cnt ] != NOTHING
+					wcscat( pStrInfo, L", " );
+				wcscat( pStrInfo, ItemNames[ iter->usItem ] );
+				fDisplayAttachment = FALSE; // clear flag for next loop iteration
+			}
 		} // for
 		if ( iNumAttachments > 0 )
 			wcscat( pStrInfo, pMessageStrings[ MSG_END_ATTACHMENT_LIST ] ); // append ' attached]' to end of string
@@ -434,11 +450,8 @@ void DrawMouseTooltip()
 {
 	UINT8 *pDestBuf;
 	UINT32 uiDestPitchBYTES;
-	UINT16 usFillColor =	Get16BPPColor(FROMRGB(250, 240, 188));
-	UINT16 usRectColor1 =	Get16BPPColor( FROMRGB( 65, 57, 15 ) );
-	UINT16 usRectColor2 =	Get16BPPColor( FROMRGB( 227, 198, 88 ) );
 	static INT32 iX, iY, iW, iH;
-	
+
 	extern INT16 GetWidthOfString(const STR16);
 	extern INT16 GetNumberOfLinesInHeight(const STR16);
 	extern void DisplayHelpTokenizedString(const STR16,INT16,INT16);
@@ -457,7 +470,7 @@ void DrawMouseTooltip()
 		iY -= (iH / 2);
 		if (gusMouseXPos > (SCREEN_WIDTH / 2))
 			iX = gusMouseXPos - iW - 24;
-		else 
+		else
 			iX = gusMouseXPos + 24;
 		//if (gusMouseYPos > (SCREEN_HEIGHT / 2))
 		//	iY -= 32;
@@ -466,10 +479,10 @@ void DrawMouseTooltip()
 	}
 	else
 	{	//draw in panel
-		//502,485 658,596   160*110 580,540
+		//502,485 658,596	160*110 580,540
 		iX = 580 - (iW / 2);
 		iY = 540 - (iH/2);
-		if (iY + iH > SCREEN_HEIGHT)  iY = SCREEN_HEIGHT - iH - 3 ;
+		if (iY + iH > SCREEN_HEIGHT)	iY = SCREEN_HEIGHT - iH - 3 ;
 	}
 
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
@@ -483,7 +496,7 @@ void DrawMouseTooltip()
 	SetFont( FONT10ARIAL );
 	SetFontShadow( FONT_NEARBLACK );
 	DisplayHelpTokenizedString( mouseTT.FastHelpText ,( INT16 )( iX + 5 ), ( INT16 )( iY + 5 ) );
-	InvalidateRegion(  iX, iY, (iX + iW) , (iY + iH) );
+	InvalidateRegion(	iX, iY, (iX + iW) , (iY + iH) );
 
 	//InvalidateScreen();
 }

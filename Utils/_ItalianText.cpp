@@ -750,7 +750,7 @@ STR16 gzMercSkillText[] =
 	L"Furtività",
 	L"Arti marziali",
 	L"Coltelli",
-	L"Bonus per altezza",
+	L"Sniper",
 	L"Camuffato",
 	L"Camuffato (Urban)",
 	L"Camuffato (Desert)",
@@ -1064,7 +1064,7 @@ STR16 sKeyDescriptionStrings[2] =
 
 //The headers used to describe various weapon statistics.
 
-INT16		gWeaponStatsDesc[][ 14 ] =
+CHAR16		gWeaponStatsDesc[][ 14 ] =
 {
 	L"Peso (%s):", 
 	L"Stato:",
@@ -1085,7 +1085,7 @@ INT16		gWeaponStatsDesc[][ 14 ] =
 
 //The headers used for the merc's money.
 
-INT16 gMoneyStatsDesc[][ 13 ] =
+CHAR16 gMoneyStatsDesc[][ 13 ] =
 {
 	L"Ammontare",
 	L"Rimanenti:", //this is the overall balance
@@ -1123,12 +1123,12 @@ STR16	gzMoneyAmounts[6] =
 };
 
 // short words meaning "Advantages" for "Pros" and "Disadvantages" for "Cons." 
-INT16		gzProsLabel[10] = 
+CHAR16		gzProsLabel[10] = 
 {
 	L"Vant.:",
 };
 
-INT16		gzConsLabel[10] = 
+CHAR16		gzConsLabel[10] = 
 {
 	L"Svant.:",
 };
@@ -1392,6 +1392,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Salute: %d/%d\nCarburante: %d/%d",
 	L"%s non riesce a vedere %s.",  // Cannot see person trying to talk to
 	L"Attachment removed",
+	L"Non può guadagnare un altro veicolo poichè già avete 2",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -1602,6 +1603,7 @@ STR16 pMapInventoryErrorString[] =
 	L"Durante il combattimento, dovrete raccogliere gli oggetti manualmente.",
 	L"Durante il combattimento, dovrete rilasciare gli oggetti manualmente.",
 	L"%s non si trova nel settore per rilasciare quell'oggetto.",
+	L"Durante il combattimento, non potete ricaricare con una cassa del ammo.",
 };
 
 STR16 pMapInventoryStrings[] =
@@ -2826,6 +2828,7 @@ STR16			BobbyRFilter[] =
 	// Used
 	L"Guns",
 	L"Armor",
+	L"LBE Gear",
 	L"Misc",
 
 	// Armour
@@ -2843,6 +2846,7 @@ STR16			BobbyRFilter[] =
 	L"Med. Kits",
 	L"Kits",
 	L"Face Items",
+	L"LBE Gear",
 	L"Misc.",
 };
 
@@ -3365,6 +3369,8 @@ STR16			zSaveLoadText[] =
 	L"Great Selection",
 	L"Excellent Selection",
 	L"Awesome Selection",
+
+	L"New Inventory does not work in 640x480 screen size.  Please resize and try again.",
 };
 
 
@@ -3583,6 +3589,9 @@ STR16	gzGIOScreenText[] =
 	L"Excellent",
 	L"Awesome",
 	L"INSANE",
+	L"Inventory System",
+	L"Old",
+	L"New",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -3975,6 +3984,8 @@ STR16 sRepairsDoneString[] =
 	L"%s ha finito di riparare le armi e i giubbotti antiproiettile di tutti",
 	L"%s ha finito di riparare gli oggetti dell'equipaggiamento di tutti",
 	L"%s ha finito di riparare gli oggetti trasportati di tutti",
+	L"%s ha finito di riparare gli oggetti trasportati di tutti",
+	L"%s ha finito di riparare gli oggetti trasportati di tutti",
 };
 
 STR16 zGioDifConfirmText[]=
@@ -4222,10 +4233,19 @@ STR16	New113MERCMercMailTexts[] =
 // INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
 STR16 MissingIMPSkillsDescriptions[] =
 {
-	// Rooftop sniping
-	L"Rooftop Sniping: Not even ants are on the save side. Each target is mercilessly tracked down! ± ",
+	// Sniper
+	L"Sniper: Occhi di un hawk, potete sparare le ale da un mosca ad cento yarde! ± ",
 	// Camouflage
-	L"Camouflage: Besides you even bushes look synthetic! ± ",	
+	L"Camuffamento: Oltre voi persino i cespugli sembrano sintetici! ± ",	
+};
+
+STR16 NewInvMessage[] = 
+{
+	L"Non può il fagotto della raccolta attualmente",
+	L"Nessun posto per mettere fagotto",
+	L"Fagotto non trovato",
+	L"La chiusura lampo funziona soltanto nel combattimento",
+	L"Non può muoversi mentre la chiusura lampo del fagotto attiva",
 };
 
 #endif //ITALIAN

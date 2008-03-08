@@ -25,13 +25,8 @@
 	#include "Animated ProgressBar.h"
 #endif
 
-//Don't mess with this value, unless you want to force update all maps in the game!
-// Lesh: fix the sad situation with the different major map versions
-//#ifdef RUSSIAN
-	//#define MAJOR_MAP_VERSION		6.00
-//#else
-	#define MAJOR_MAP_VERSION		5.00
-//#endif
+//CHRISL: MAJOR_MAP_VERSION information moved to worlddef.h by ADB.  We're using these values elsewhere and need them
+//	in the header file
 
 FLOAT gdMajorMapVersion = MAJOR_MAP_VERSION;
 
@@ -39,48 +34,55 @@ BOOLEAN gfWorldLoaded;
 
 MAPCREATE_STRUCT gMapInformation;
 
-//Current minor map version updater.
-#define MINOR_MAP_VERSION		25
+//CHRISL: MINOR_MAP_VERSION information moved to worlddef.h by ADB.  We're using these values elsewhere and need them
+//	in the header file
+
 UINT8 gubMinorMapVersion = MINOR_MAP_VERSION;
 
 /*
 MINOR_MAP_VERSION Log -- Created by Kris Morness, November 14, 1997
 Version 0 -- Kris -- obsolete November 14, 1997
 	The newly created soldier information had a couple bugs regarding initialization
-  Bug 1)	Soldier placements without detailed slots weren't initialized.
-	Bug 2)  The attitude variable was accidentally being generated like attributes
+	Bug 1)	Soldier placements without detailed slots weren't initialized.
+	Bug 2)	The attitude variable was accidentally being generated like attributes
 			which usually put it completely out of range.
 Version 1 -- Kris -- obsolete January 7, 1998
-	Bug 3)  New changes to the wall decals, made the currently existing ones in the world
+	Bug 3)	New changes to the wall decals, made the currently existing ones in the world
 			unpredictable, and are automatically removed, so new ones can be used.
 Version 2 -- Kris -- obsolete February 3, 1998
-  Bug 4)  Enemy mercs now have a color code assignment which defaults to army.
+	Bug 4)	Enemy mercs now have a color code assignment which defaults to army.
 Version 3 -- Kris -- obsolete February 9, 1998
-  Bug 5)  Move entry points down if they are too high.
+	Bug 5)	Move entry points down if they are too high.
 Version 4 -- Kris -- obsolete February 25, 1998
-  Bug 6)  Change all doors to FIRSTDOOR
+	Bug 6)	Change all doors to FIRSTDOOR
 Version 5 -- Kris -- obsolete March 4, 1998
-  Bug 7)  Remove all exit grids (the format has changed)
+	Bug 7)	Remove all exit grids (the format has changed)
 Version 6 -- Kris -- obsolete March 9, 1998
-  Bug 8)  Change droppable status of merc items so that they are all undroppable.
+	Bug 8)	Change droppable status of merc items so that they are all undroppable.
 Version 7 -- Kris -- obsolete April 14, 1998
-	Bug 9)  Priority placements have been dropped in favor of splitting it into two categories.
-					The first is Detailed placements, and the second is priority existance.  So, all
+	Bug 9)	Priority placements have been dropped in favor of splitting it into two categories.
+					The first is Detailed placements, and the second is priority existance.	So, all
 					current detailed placements will also have priority existance.
 Version 8 -- Kris -- obsolete April 16, 1998
-	MAJOR CONFLICT RESULTING IN A MAJOR VERSION UPDATE 2.00!  
-	Bug 10) Padding on detailed placements is uninitialized.  Clear all data starting at
+	MAJOR CONFLICT RESULTING IN A MAJOR VERSION UPDATE 2.00!
+	Bug 10) Padding on detailed placements is uninitialized.	Clear all data starting at
 					fKillSlotIfOwnerDies.
 Version 9 -- Kris -- obsolete April 26, 1998
 	This version requires no auto updating, but external code has adjusted the size of the mapedgepoint
-	arraysize from UINT8 to UINT16.  See Map Edgepoints.c.
-	Bug 11) Convert all wheelchaired placement bodytypes to cows.  Result of change in the animation database.
+	arraysize from UINT8 to UINT16.	See Map Edgepoints.c.
+	Bug 11) Convert all wheelchaired placement bodytypes to cows.	Result of change in the animation database.
 Version 11 -- Kris -- obsolete May 2, 1998
-  Added new center entry point.  Need to initialize the original padding to -1.
+	Added new center entry point.	Need to initialize the original padding to -1.
+
+	Version 6.27 ADB July 22 07
+	Changing the format of OBJECTTYPE means the maps should be loaded, converted, and saved
+	if one wants to take advantage of the new format
+	Converting to the new format is not necessary to load a map and run the game.
+	**Note** this conversion hasn't happened yet
 */
 
-//EntryPoints can't be placed on the top two gridnos in a map.  So all we do in this case
-//is return the closest gridno.  Returns TRUE if the mapindex changes.
+//EntryPoints can't be placed on the top two gridnos in a map.	So all we do in this case
+//is return the closest gridno.	Returns TRUE if the mapindex changes.
 BOOLEAN ValidateEntryPointGridNo( INT16 *sGridNo )
 {
 	INT16 sXMapPos, sYMapPos;
@@ -135,9 +137,9 @@ void LoadMapInformation( INT8 **hBuffer )
 	InitRenderParams( gMapInformation.ubRestrictedScrollID );
 }
 
-//This will automatically update obsolete map versions to the new ones.  This will even
-//work in the game itself, but would require conversion to happen every time.  This is completely 
-//transparent to the rest of the game, but in the editor, obsolete versions will be updated upon 
+//This will automatically update obsolete map versions to the new ones.	This will even
+//work in the game itself, but would require conversion to happen every time.	This is completely
+//transparent to the rest of the game, but in the editor, obsolete versions will be updated upon
 //loading and won't be permanently updated until the map is saved, regardless of changes.
 void UpdateOldVersionMap()
 {
@@ -154,10 +156,10 @@ void UpdateOldVersionMap()
 		curr = gSoldierInitHead;
 		while( curr )
 		{
-			//Bug #01)  Nodes without detailed slots weren't initialized.
+			//Bug #01)	Nodes without detailed slots weren't initialized.
 			if( !curr->pBasicPlacement->fDetailedPlacement )
 				curr->pDetailedPlacement = NULL;
-			//Bug #02)  The attitude variable was accidentally being generated like attributes
+			//Bug #02)	The attitude variable was accidentally being generated like attributes
 			//					which put it completely out of range.
 			if( curr->pBasicPlacement->bAttitude > 7 )
 				curr->pBasicPlacement->bAttitude = (INT8)Random(8);
@@ -167,9 +169,9 @@ void UpdateOldVersionMap()
 	}
 	//VERSION 1 -- obsolete January 7, 1998
 	if( gMapInformation.ubMapVersion == 1 )
-	{	
+	{
 		gMapInformation.ubMapVersion++;
-		//Bug #03)  Removing all wall decals from map, because of new changes to the slots
+		//Bug #03)	Removing all wall decals from map, because of new changes to the slots
 		//					as well as certain decals found commonly in illegal places.
 		for( i = 0; i < WORLD_MAX; i++ )
 		{
@@ -184,7 +186,7 @@ void UpdateOldVersionMap()
 		curr = gSoldierInitHead;
 		while( curr )
 		{
-			//Bug #04)  Assign enemy mercs default army color code if applicable
+			//Bug #04)	Assign enemy mercs default army color code if applicable
 			if( curr->pBasicPlacement->bTeam == ENEMY_TEAM && !curr->pBasicPlacement->ubSoldierClass )
 			{
 				if( !curr->pDetailedPlacement )
@@ -204,7 +206,7 @@ void UpdateOldVersionMap()
 	if( gMapInformation.ubMapVersion == 3 )
 	{
 		gMapInformation.ubMapVersion++;
-		//Bug #05)  Move entry points down if necessary.
+		//Bug #05)	Move entry points down if necessary.
 		ValidateEntryPointGridNo( &gMapInformation.sNorthGridNo );
 		ValidateEntryPointGridNo( &gMapInformation.sEastGridNo );
 		ValidateEntryPointGridNo( &gMapInformation.sSouthGridNo );
@@ -214,15 +216,15 @@ void UpdateOldVersionMap()
 	if( gMapInformation.ubMapVersion == 4 )
 	{
 		gMapInformation.ubMapVersion++;
-		//6)  Change all doors to FIRSTDOOR
+		//6)	Change all doors to FIRSTDOOR
 		for( i = 0; i < WORLD_MAX; i++ )
 		{
-			//NOTE:  Here are the index values for the various doors
+			//NOTE:	Here are the index values for the various doors
 			//DOOR		OPEN		CLOSED
-			//FIRST		 916			 912
-			//SECOND	 936       932
-			//THIRD		 956       952
-			//FOURTH	 976       972
+			//FIRST		916			912
+			//SECOND	936		932
+			//THIRD		956		952
+			//FOURTH	976		972
 			pStruct = gpWorldLevelData[ i ].pStructHead;
 			while( pStruct )
 			{
@@ -233,7 +235,7 @@ void UpdateOldVersionMap()
 					break;
 				}
 				else if( pStruct->usIndex == 936 || pStruct->usIndex == 956 || pStruct->usIndex == 976 )
-				{	
+				{
 					ReplaceStructIndex( i, pStruct->usIndex, 916 );
 					break;
 				}
@@ -278,22 +280,22 @@ void UpdateOldVersionMap()
 	if( gMapInformation.ubMapVersion == 5 )
 	{
 		gMapInformation.ubMapVersion++;
-	  //Bug 7)  Remove all exit grids (the format has changed)
+	//Bug 7)	Remove all exit grids (the format has changed)
 		for( i = 0; i < WORLD_MAX; i++ )
 			RemoveExitGridFromWorld( i );
 	}
 	//VERSION 6 -- obsolete March 9, 1998
 	if( gMapInformation.ubMapVersion == 6 )
-	{ //Bug 8)  Change droppable status of merc items so that they are all undroppable.
+	{ //Bug 8)	Change droppable status of merc items so that they are all undroppable.
 		gMapInformation.ubMapVersion++;
 		curr = gSoldierInitHead;
 		while( curr )
 		{
-			//Bug #04)  Assign enemy mercs default army color code if applicable
+			//Bug #04)	Assign enemy mercs default army color code if applicable
 			if( curr->pDetailedPlacement )
 			{
-				for( i = 0; i < NUM_INV_SLOTS; i++ )
-				{ //make all items undroppable, even if it is empty.  This will allow for 
+				for( i = 0; i < curr->pDetailedPlacement->Inv.size(); i++ )
+				{ //make all items undroppable, even if it is empty.	This will allow for
 					//random item generation, while empty, droppable slots are locked as empty
 					//during random item generation.
 					curr->pDetailedPlacement->Inv[ i ].fFlags |= OBJECT_UNDROPPABLE;
@@ -306,8 +308,8 @@ void UpdateOldVersionMap()
 	if( gMapInformation.ubMapVersion == 7 )
 	{
 		gMapInformation.ubMapVersion++;
-		//Bug 9)  Priority placements have been dropped in favor of splitting it into two categories.
-		//				The first is Detailed placements, and the second is priority existance.  So, all
+		//Bug 9)	Priority placements have been dropped in favor of splitting it into two categories.
+		//				The first is Detailed placements, and the second is priority existance.	So, all
 		//				current detailed placements will also have priority existance.
 		curr = gSoldierInitHead;
 		while( curr )
@@ -356,7 +358,7 @@ void UpdateOldVersionMap()
 			{
 				RemoveObject( i, pStruct->usIndex );
 			}
-		}		
+		}
 	}
 
 	if( gMapInformation.ubMapVersion <= 7 )
@@ -364,7 +366,7 @@ void UpdateOldVersionMap()
 		if( gfEditMode )
 		{
 			#ifdef JA2TESTVERSION
-				ScreenMsg( FONT_MCOLOR_RED, MSG_ERROR, L"Currently loaded map is corrupt!  Allowing the map to load anyway!" );
+				ScreenMsg( FONT_MCOLOR_RED, MSG_ERROR, L"Currently loaded map is corrupt!	Allowing the map to load anyway!" );
 			#endif
 		}
 		else
@@ -383,14 +385,14 @@ void UpdateOldVersionMap()
 	if( gMapInformation.ubMapVersion == 8 )
 	{
 		gMapInformation.ubMapVersion++;
-		//Bug 10) Padding on detailed placements is uninitialized.  Clear all data starting at
+		//Bug 10) Padding on detailed placements is uninitialized.	Clear all data starting at
 		//				fKillSlotIfOwnerDies.
 		curr = gSoldierInitHead;
 		while( curr )
 		{
 			if( curr->pDetailedPlacement )
 			{
-				//The size 120 was hand calculated.  The remaining padding was 118 bytes
+				//The size 120 was hand calculated.	The remaining padding was 118 bytes
 				//and there were two one byte fields cleared, fKillSlotIfOwnerDies and ubScheduleID
 				memset( &curr->pDetailedPlacement->fKillSlotIfOwnerDies, 0, 120 );
 			}
@@ -404,7 +406,7 @@ void UpdateOldVersionMap()
 		curr = gSoldierInitHead;
 		while( curr )
 		{
-			//Bug 11) Convert all wheelchaired placement bodytypes to cows.  Result of change in the animation database.
+			//Bug 11) Convert all wheelchaired placement bodytypes to cows.	Result of change in the animation database.
 			if( curr->pDetailedPlacement && curr->pDetailedPlacement->bBodyType == CRIPPLECIV )
 			{
 				curr->pDetailedPlacement->bBodyType = COW;
@@ -423,21 +425,21 @@ void UpdateOldVersionMap()
 		INT32 i, cnt;
 		OBJECTTYPE *pItem;
 		gMapInformation.ubMapVersion++;
-		//Bug 10) Padding on detailed placements is uninitialized.  Clear all data starting at
+		//Bug 10) Padding on detailed placements is uninitialized.	Clear all data starting at
 		//				fKillSlotIfOwnerDies.
 		curr = gSoldierInitHead;
 		while( curr )
 		{
 			if( curr->pDetailedPlacement )
 			{
-				for ( i = 0; i < NUM_INV_SLOTS; i++ )
+				for ( i = 0; i < curr->pDetailedPlacement->Inv.size(); i++ )
 				{
 					pItem = &curr->pDetailedPlacement->Inv[ i ];
 					if( Item[ pItem->usItem ].usItemClass & IC_AMMO )
 					{
 						for( cnt = 0; cnt < pItem->ubNumberOfObjects; cnt++ )
 						{
-							pItem->ubShotsLeft[ cnt ] = Magazine[ Item[ pItem->usItem ].ubClassIndex ].ubMagSize;
+							pItem->shots.ubShotsLeft[ cnt ] = Magazine[ Item[ pItem->usItem ].ubClassIndex ].ubMagSize;
 						}
 					}
 				}
@@ -454,14 +456,14 @@ void UpdateOldVersionMap()
 		}
 	}
 	if( gMapInformation.ubMapVersion < 15 )
-	{ //Do nothing.  The object layer was expanded from 1 byte to 2 bytes, effecting the
-		//size of the maps.  This was due to the fact that the ROADPIECES tileset contains
+	{ //Do nothing.	The object layer was expanded from 1 byte to 2 bytes, effecting the
+		//size of the maps.	This was due to the fact that the ROADPIECES tileset contains
 		//over 300 pieces, hence requiring a size increase of the tileset subindex for this
 		//layer only.
 	}
 #endif //end of MAJOR VERSION 3.0 obsolete code
 	if( gMapInformation.ubMapVersion < 15 )
-	{ 
+	{
 		AssertMsg( 0, "Map is less than minimum supported version." );
 	}
 	if( gMapInformation.ubMapVersion < 16 )
@@ -481,9 +483,9 @@ void UpdateOldVersionMap()
 		gMapInformation.ubMapVersion = 18;
 		for ( i = 0; i < guiNumWorldItems; i++ )
 		{
-			if ( gWorldItems[ i ].o.usItem == JAR_ELIXIR )
+			if ( gWorldItems[ i ].object.usItem == JAR_ELIXIR )
 			{
-				gWorldItems[ i ].o.usItem = CROWBAR;
+				gWorldItems[ i ].object.usItem = CROWBAR;
 			}
 		}
 	}
@@ -507,7 +509,7 @@ void UpdateOldVersionMap()
 	{
 		SOLDIERINITNODE *curr;
 		//override any item slots being locked if there is no item in that slot.
-		//Laymen terms:  If any items slots are locked to be empty, make them empty but available
+		//Laymen terms:	If any items slots are locked to be empty, make them empty but available
 		//for random item generation.
 		gMapInformation.ubMapVersion = 21;
 		curr = gSoldierInitHead;
@@ -515,8 +517,7 @@ void UpdateOldVersionMap()
 		{
 			if( curr->pDetailedPlacement )
 			{
-				INT32 i;
-				for( i = 0; i < NUM_INV_SLOTS; i++ )
+				for( UINT32 i = 0; i < curr->pDetailedPlacement->Inv.size(); i++ )
 				{
 					if( !curr->pDetailedPlacement->Inv[ i ].usItem )
 					{
@@ -541,7 +542,7 @@ void UpdateOldVersionMap()
 	{ //Allow map edgepoints to be regenerated as new system has been reenabled.
 		SOLDIERINITNODE *curr;
 		gMapInformation.ubMapVersion = 23;
-		if( giCurrentTilesetID == 1 ) //cave/mine tileset only 
+		if( giCurrentTilesetID == 1 ) //cave/mine tileset only
 		{ //convert all civilians to miners which use uniforms and more masculine body types.
 			curr = gSoldierInitHead;
 			while( curr )
@@ -556,7 +557,7 @@ void UpdateOldVersionMap()
 		}
 	}
 	if( gMapInformation.ubMapVersion < 25 )
-	{ 
+	{
 		gMapInformation.ubMapVersion = 25;
 		if( gfCaves )
 		{
@@ -565,30 +566,29 @@ void UpdateOldVersionMap()
 	}
 }
 
-void AutoCalculateItemNoOverwriteStatus() 
+void AutoCalculateItemNoOverwriteStatus()
 {
 	SOLDIERINITNODE *curr;
-	INT32 i;
 	OBJECTTYPE *pItem;
 
-	//Recalculate the "no overwrite" status flag on all items.  There are two different cases:
-	//1)  If detailed placement has item, the item "no overwrite" flag is set
-	//2)  If detailed placement doesn't have item, but item is set to drop (forced empty slot), the "no overwrite" flag is set.
+	//Recalculate the "no overwrite" status flag on all items.	There are two different cases:
+	//1)	If detailed placement has item, the item "no overwrite" flag is set
+	//2)	If detailed placement doesn't have item, but item is set to drop (forced empty slot), the "no overwrite" flag is set.
 	curr = gSoldierInitHead;
 	while( curr )
 	{
 		if( curr->pDetailedPlacement )
 		{
-			for( i = 0; i < NUM_INV_SLOTS; i++ )
+			for( UINT32 i = 0; i < curr->pDetailedPlacement->Inv.size(); i++ )
 			{
 				pItem = &curr->pDetailedPlacement->Inv[ i ];
-				if( pItem->usItem != NONE )
+				if( pItem->exists() == true )
 				{	//case 1 (see above)
-					pItem->fFlags |= OBJECT_NO_OVERWRITE;
+					(*pItem).fFlags |= OBJECT_NO_OVERWRITE;
 				}
-				else if( !(pItem->fFlags & OBJECT_UNDROPPABLE) )
+				else if( !((*pItem).fFlags & OBJECT_UNDROPPABLE) )
 				{ //case 2 (see above)
-					pItem->fFlags |= OBJECT_NO_OVERWRITE;
+					(*pItem).fFlags |= OBJECT_NO_OVERWRITE;
 				}
 			}
 		}

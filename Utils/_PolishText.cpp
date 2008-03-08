@@ -751,7 +751,7 @@ STR16 gzMercSkillText[] =
 	L"Kradzie¿e",
 	L"Sztuki walki",
 	L"Broñ bia³a",
-	L"Snajper",
+	L"Sniper",
 	L"Kamufla¿",
 	L"Kamufla¿ (Urban)",
 	L"Kamufla¿ (Desert)",
@@ -1065,7 +1065,7 @@ STR16 sKeyDescriptionStrings[2] =
 
 //The headers used to describe various weapon statistics.
 
-INT16		gWeaponStatsDesc[][ 14 ] =
+CHAR16		gWeaponStatsDesc[][ 14 ] =
 {
 	L"Waga (%s):", // change kg to another weight unit if your standard is not kilograms, and TELL SIR-TECH!
 	L"Stan:",
@@ -1086,7 +1086,7 @@ INT16		gWeaponStatsDesc[][ 14 ] =
 
 //The headers used for the merc's money.
 
-INT16 gMoneyStatsDesc[][ 13 ] =
+CHAR16 gMoneyStatsDesc[][ 13 ] =
 {
 	L"Kwota",
 	L"Pozosta³o:", //this is the overall balance
@@ -1124,12 +1124,12 @@ STR16	gzMoneyAmounts[6] =
 };
 
 // short words meaning "Advantages" for "Pros" and "Disadvantages" for "Cons." 
-INT16		gzProsLabel[10] = 
+CHAR16		gzProsLabel[10] = 
 {
 	L"Zalety:",
 };
 
-INT16		gzConsLabel[10] = 
+CHAR16		gzConsLabel[10] = 
 {
 	L"Wady:",
 };
@@ -1392,6 +1392,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Stan: %d/%d\nPaliwo: %d/%d",
 	L"%s nie widzi - %s.",  // Cannot see person trying to talk to
 	L"Attachment removed",
+	L"Can not gain another vehicle as you already have 2",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -1602,6 +1603,7 @@ STR16 pMapInventoryErrorString[] =
 	L"Podczas walki nie mo¿na korzystaæ z tego panelu.",
 	L"Podczas walki nie mo¿na korzystaæ z tego panelu.",
 	L"%s nie mo¿e tu zostawiæ tego przedmiotu, gdy¿ nie jest w tym sektorze.",
+	L"During combat, you can't reload with an ammo crate.",
 };
 
 STR16 pMapInventoryStrings[] =
@@ -2825,6 +2827,7 @@ STR16			BobbyRFilter[] =
 	// Used
 	L"Guns",
 	L"Armor",
+	L"LBE Gear",
 	L"Misc",
 
 	// Armour
@@ -2842,6 +2845,7 @@ STR16			BobbyRFilter[] =
 	L"Med. Kits",
 	L"Kits",
 	L"Face Items",
+	L"LBE Gear",
 	L"Misc.",
 };
 
@@ -3366,6 +3370,7 @@ STR16			zSaveLoadText[] =
 	L"Excellent Selection",
 	L"Awesome Selection",
 
+	L"New Inventory does not work in 640x480 screen size.  Please resize and try again.",
 };
 
 
@@ -3584,6 +3589,9 @@ STR16	gzGIOScreenText[] =
 	L"Great",
 	L"Excellent",
 	L"Awesome",
+	L"Inventory System",
+	L"Old",
+	L"New",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -3976,6 +3984,8 @@ STR16 sRepairsDoneString[] =
 	L"%s skoñczy³(a) naprawiaæ broñ i ochraniacze wszystkich cz³onków oddzia³u",
 	L"%s skoñczy³(a) naprawiaæ wyposa¿enie wszystkich cz³onków oddzia³u",
 	L"%s skoñczy³(a) naprawiaæ ekwipunek wszystkich cz³onków oddzia³u",
+	L"%s skoñczy³(a) naprawiaæ ekwipunek wszystkich cz³onków oddzia³u",
+	L"%s skoñczy³(a) naprawiaæ ekwipunek wszystkich cz³onków oddzia³u",
 };
 
 
@@ -4133,6 +4143,11 @@ STR16 gzLateLocalizedString[] =
 	L"%s fires %d more round than intended!",
 };
 
+STR16 gzCWStrings[] = 
+{
+	L"Call reinforcements from adjacent sectors?",
+};
+
 // WANNE: Tooltips
 STR16 gzTooltipStrings[] =
 {
@@ -4214,10 +4229,19 @@ STR16	New113MERCMercMailTexts[] =
 // INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
 STR16 MissingIMPSkillsDescriptions[] =
 {
-	// Rooftop sniping
-	L"Rooftop Sniping: Not even ants are on the save side. Each target is mercilessly tracked down! ± ",
+	// Sniper
+	L"Sniper: Eyes of a hawk, you can shoot the wings from a fly at a hundred yards! ± ",
 	// Camouflage
 	L"Camouflage: Besides you even bushes look synthetic! ± ",	
+};
+
+STR16 NewInvMessage[] = 
+{
+	L"Cannot pickup backpack at this time",
+	L"No place to put backpack",
+	L"Backpack not found",
+	L"Zipper only works in combat",
+	L"Can not move while backpack zipper active",
 };
 
 #endif //POLISH

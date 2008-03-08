@@ -23,17 +23,18 @@
 	#include "Dialogue Control.h"
 	#include <stdio.h>
 	#include "Game Clock.h"
+	#include "GameSettings.h"
 #endif
 
-typedef struct 
+typedef struct
 {
-	UINT32  uiFont;
-	UINT32  uiTimeOfLastUpdate;
-	UINT32  uiFlags;
+	UINT32	uiFont;
+	UINT32	uiTimeOfLastUpdate;
+	UINT32	uiFlags;
 	UINT32	uiPadding[ 3 ];
-	UINT16  usColor;
+	UINT16	usColor;
 	BOOLEAN fBeginningOfNewString;
-  
+
 } StringSaveStruct;
 
 
@@ -68,7 +69,7 @@ BOOLEAN fOkToBeepNewMessage = TRUE;
 
 static ScrollStringStPtr	gpDisplayList[ MAX_LINE_COUNT ];
 static ScrollStringStPtr gMapScreenMessageList[ 256 ];
-static ScrollStringStPtr pStringS=NULL;
+extern ScrollStringStPtr pStringS=NULL;
 
 // first time adding any message to the message dialogue system
 BOOLEAN fFirstTimeInMessageSystem = TRUE;
@@ -93,7 +94,7 @@ extern BOOLEAN fDialogueBoxDueToLastMessage;
 // prototypes
 
 BOOLEAN CreateStringVideoOverlay( ScrollStringStPtr pStringSt, UINT16 usX, UINT16 usY );
-void SetStringVideoOverlayPosition(  ScrollStringStPtr pStringSt, UINT16 usX, UINT16 usY );
+void SetStringVideoOverlayPosition(	ScrollStringStPtr pStringSt, UINT16 usX, UINT16 usY );
 
 void BlitString( VIDEO_OVERLAY *pBlitter );
 void RemoveStringVideoOverlay( ScrollStringStPtr pStringSt );
@@ -109,7 +110,7 @@ ScrollStringStPtr AddString(STR16 string, UINT16 usColor, UINT32 uiFont, BOOLEAN
 void SetString(ScrollStringStPtr pStringSt, STR16 String);
 
 void SetStringPosition(ScrollStringStPtr pStringSt, UINT16 x, UINT16 y);
-void SetStringColor(ScrollStringStPtr pStringSt, UINT16 color); 
+void SetStringColor(ScrollStringStPtr pStringSt, UINT16 color);
 ScrollStringStPtr SetStringNext(ScrollStringStPtr pStringSt, ScrollStringStPtr pNext);
 ScrollStringStPtr SetStringPrev(ScrollStringStPtr pStringSt, ScrollStringStPtr pPrev);
 void AddStringToMapScreenMessageList( STR16 pString, UINT16 usColor, UINT32 uiFont, BOOLEAN fStartOfNewString, UINT8 ubPriority );
@@ -148,13 +149,13 @@ ScrollStringStPtr AddString(STR16 pString, UINT16 usColor, UINT32 uiFont, BOOLEA
 	// add a new string to the list of strings
 	ScrollStringStPtr pStringSt=NULL;
 	pStringSt= (ScrollStringStPtr)MemAlloc(sizeof(ScrollStringSt));
- 
+
 	SetString(pStringSt, pString);
 	SetStringColor(pStringSt, usColor);
 	pStringSt->uiFont = uiFont;
-	pStringSt -> fBeginningOfNewString = fStartOfNewString; 
-	pStringSt -> uiFlags = ubPriority;
- 
+	pStringSt->fBeginningOfNewString = fStartOfNewString;
+	pStringSt->uiFlags = ubPriority;
+
 	SetStringNext(pStringSt, NULL);
 	SetStringPrev(pStringSt, NULL);
 	pStringSt->iVideoOverlay=-1;
@@ -190,7 +191,7 @@ void SetStringColor(ScrollStringStPtr pStringSt, UINT16 usColor)
 ScrollStringStPtr GetNextString(ScrollStringStPtr pStringSt)
 {
 	// returns pointer to next string line
-  if (pStringSt==NULL)
+	if (pStringSt==NULL)
 		return NULL;
 	else
 		return pStringSt->pNext;
@@ -210,14 +211,14 @@ ScrollStringStPtr GetPrevString(ScrollStringStPtr pStringSt)
 ScrollStringStPtr SetStringNext(ScrollStringStPtr pStringSt, ScrollStringStPtr pNext)
 {
 	pStringSt->pNext=pNext;
-  return pStringSt;
+	return pStringSt;
 }
 
 
 ScrollStringStPtr SetStringPrev(ScrollStringStPtr pStringSt, ScrollStringStPtr pPrev)
 {
 	pStringSt->pPrev=pPrev;
-  return pStringSt;
+	return pStringSt;
 }
 
 
@@ -229,16 +230,16 @@ BOOLEAN CreateStringVideoOverlay( ScrollStringStPtr pStringSt, UINT16 usX, UINT1
 	memset( &VideoOverlayDesc, 0, sizeof( VIDEO_OVERLAY_DESC ) );
 
 	// SET VIDEO OVERLAY
-	VideoOverlayDesc.sLeft			 = usX;
-	VideoOverlayDesc.sTop				 = usY;
-	VideoOverlayDesc.uiFontID    = pStringSt->uiFont;
-	VideoOverlayDesc.ubFontBack  = FONT_MCOLOR_BLACK ;
-	VideoOverlayDesc.ubFontFore  = (unsigned char)pStringSt->usColor;
-	VideoOverlayDesc.sX					 = VideoOverlayDesc.sLeft;
-	VideoOverlayDesc.sY					 = VideoOverlayDesc.sTop;
+	VideoOverlayDesc.sLeft			= usX;
+	VideoOverlayDesc.sTop				= usY;
+	VideoOverlayDesc.uiFontID	= pStringSt->uiFont;
+	VideoOverlayDesc.ubFontBack	= FONT_MCOLOR_BLACK ;
+	VideoOverlayDesc.ubFontFore	= (unsigned char)pStringSt->usColor;
+	VideoOverlayDesc.sX					= VideoOverlayDesc.sLeft;
+	VideoOverlayDesc.sY					= VideoOverlayDesc.sTop;
 	swprintf( VideoOverlayDesc.pzText, pStringSt->pString16 );
 	VideoOverlayDesc.BltCallback = BlitString;
-	pStringSt->iVideoOverlay =  RegisterVideoOverlay( ( VOVERLAY_DIRTYBYTEXT ), &VideoOverlayDesc );
+	pStringSt->iVideoOverlay =	RegisterVideoOverlay( ( VOVERLAY_DIRTYBYTEXT ), &VideoOverlayDesc );
 
 	if ( pStringSt->iVideoOverlay == -1 )
 	{
@@ -264,7 +265,7 @@ void RemoveStringVideoOverlay( ScrollStringStPtr pStringSt )
 }
 
 
-void SetStringVideoOverlayPosition(  ScrollStringStPtr pStringSt, UINT16 usX, UINT16 usY )
+void SetStringVideoOverlayPosition(	ScrollStringStPtr pStringSt, UINT16 usX, UINT16 usY )
 {
 	VIDEO_OVERLAY_DESC		VideoOverlayDesc;
 
@@ -273,11 +274,11 @@ void SetStringVideoOverlayPosition(  ScrollStringStPtr pStringSt, UINT16 usX, UI
 	// Donot update if not allocated!
 	if ( pStringSt->iVideoOverlay != -1 )
 	{
-		VideoOverlayDesc.uiFlags    = VOVERLAY_DESC_POSITION;
-		VideoOverlayDesc.sLeft			 = usX;
-		VideoOverlayDesc.sTop				 = usY;
-		VideoOverlayDesc.sX					 = VideoOverlayDesc.sLeft;
-		VideoOverlayDesc.sY					 = VideoOverlayDesc.sTop;
+		VideoOverlayDesc.uiFlags	= VOVERLAY_DESC_POSITION;
+		VideoOverlayDesc.sLeft			= usX;
+		VideoOverlayDesc.sTop				= usY;
+		VideoOverlayDesc.sX					= VideoOverlayDesc.sLeft;
+		VideoOverlayDesc.sY					= VideoOverlayDesc.sTop;
 		UpdateVideoOverlay( &VideoOverlayDesc, pStringSt->iVideoOverlay, FALSE );
 	}
 }
@@ -285,12 +286,12 @@ void SetStringVideoOverlayPosition(  ScrollStringStPtr pStringSt, UINT16 usX, UI
 
 void BlitString( VIDEO_OVERLAY *pBlitter )
 {
-	UINT8	 *pDestBuf;
+	UINT8	*pDestBuf;
 	UINT32 uiDestPitchBYTES;
 
-  //gprintfdirty(pBlitter->sX,pBlitter->sY, pBlitter->zText);
+	//gprintfdirty(pBlitter->sX,pBlitter->sY, pBlitter->zText);
 	//RestoreExternBackgroundRect(pBlitter->sX,pBlitter->sY, pBlitter->sX+StringPixLength(pBlitter->zText,pBlitter->uiFontID ), pBlitter->sY+GetFontHeight(pBlitter->uiFontID ));
-	
+
 	if( fScrollMessagesHidden == TRUE )
 	{
 		return;
@@ -305,7 +306,7 @@ void BlitString( VIDEO_OVERLAY *pBlitter )
 	SetFontShadow( DEFAULT_SHADOW );
 	mprintf_buffer_coded( pDestBuf, uiDestPitchBYTES, pBlitter->uiFontID, pBlitter->sX, pBlitter->sY, pBlitter->zText );
 	UnLockVideoSurface( pBlitter->uiDestBuff );
-	
+
 }
 
 
@@ -318,7 +319,7 @@ void EnableStringVideoOverlay( ScrollStringStPtr pStringSt, BOOLEAN fEnable )
 	if ( pStringSt->iVideoOverlay != -1 )
 	{
 		VideoOverlayDesc.fDisabled	= !fEnable;
-		VideoOverlayDesc.uiFlags    = VOVERLAY_DESC_DISABLED;
+		VideoOverlayDesc.uiFlags	= VOVERLAY_DESC_DISABLED;
 		UpdateVideoOverlay( &VideoOverlayDesc, pStringSt->iVideoOverlay, FALSE );
 	}
 }
@@ -329,22 +330,22 @@ void ClearDisplayedListOfTacticalStrings( void )
 	// this function will go through list of display strings and clear them all out
 	UINT32 cnt;
 
-  for ( cnt = 0; cnt < MAX_LINE_COUNT; cnt++ )
-  {
+	for ( cnt = 0; cnt < MAX_LINE_COUNT; cnt++ )
+	{
 		if ( gpDisplayList[ cnt ] != NULL )
 		{
 			// CHECK IF WE HAVE AGED
-		
+
 			// Remove our sorry ass
 			RemoveStringVideoOverlay( gpDisplayList[ cnt ] );
 			MemFree( gpDisplayList[ cnt ]->pString16);
 			MemFree( gpDisplayList[ cnt ] );
-			
+
 			// Free slot
-			gpDisplayList[ cnt ] = NULL;					
+			gpDisplayList[ cnt ] = NULL;
 		}
-  }
-	
+	}
+
 	return;
 }
 
@@ -352,15 +353,15 @@ void ClearDisplayedListOfTacticalStrings( void )
 
 void ScrollString( )
 {
-	//ScrollStringStPtr pStringSt = pStringS;
 	UINT32 suiTimer=0;
 	UINT32 cnt;
-  INT32 iNumberOfNewStrings = 0; // the count of new strings, so we can update position by WIDTH_BETWEEN_NEW_STRINGS pixels in the y
+	INT32 iNumberOfNewStrings = 0; // the count of new strings, so we can update position by WIDTH_BETWEEN_NEW_STRINGS pixels in the y
 	INT32 iNumberOfMessagesOnQueue = 0;
 	INT32 iMaxAge = 0;
 	BOOLEAN fDitchLastMessage = FALSE;
 
-	INT16 iMsgYStart = SCREEN_HEIGHT - 150;
+	INT16 iMsgYStart = ((UsingNewInventorySystem() == false)) ? SCREEN_HEIGHT - 150 : SCREEN_HEIGHT - 210;
+
 
 	// UPDATE TIMER
 	suiTimer=GetJA2Clock();
@@ -386,7 +387,7 @@ void ScrollString( )
 	}
 
 	iNumberOfMessagesOnQueue = GetMessageQueueSize( );
-	iMaxAge =  MAX_AGE;
+	iMaxAge =	MAX_AGE;
 
 	if( ( iNumberOfMessagesOnQueue > 0 )&&( gpDisplayList[ MAX_LINE_COUNT - 1 ] != NULL) )
 	{
@@ -398,7 +399,7 @@ void ScrollString( )
 
 	}
 
-	
+
 	if( ( iNumberOfMessagesOnQueue * 1000 ) >= iMaxAge )
 	{
 		iNumberOfMessagesOnQueue = ( iMaxAge / 1000 );
@@ -407,7 +408,7 @@ void ScrollString( )
 	{
 		iNumberOfMessagesOnQueue = 0;
 	}
-	
+
 	//AGE
 	for ( cnt = 0; cnt < MAX_LINE_COUNT; cnt++ )
 	{
@@ -418,15 +419,15 @@ void ScrollString( )
 				gpDisplayList[ cnt ]->uiTimeOfLastUpdate = iMaxAge;
 			}
 				// CHECK IF WE HAVE AGED
-			if ( ( suiTimer - gpDisplayList[ cnt ]->uiTimeOfLastUpdate ) > ( UINT32 )( iMaxAge - ( 1000 * iNumberOfMessagesOnQueue ) ) ) 
+			if ( ( suiTimer - gpDisplayList[ cnt ]->uiTimeOfLastUpdate ) > ( UINT32 )( iMaxAge - ( 1000 * iNumberOfMessagesOnQueue ) ) )
 			{
 				// Remove our sorry ass
 				RemoveStringVideoOverlay( gpDisplayList[ cnt ] );
 				MemFree( gpDisplayList[ cnt ]->pString16);
 				MemFree( gpDisplayList[ cnt ] );
-			
+
 				// Free slot
-				gpDisplayList[ cnt ] = NULL;					
+				gpDisplayList[ cnt ] = NULL;
 			}
 		}
 	}
@@ -442,57 +443,57 @@ void ScrollString( )
 		if ( gpDisplayList[ MAX_LINE_COUNT - 1 ] == NULL )
 		{
 			// MOVE ALL UP!
-		 
-		 // cpy, then move	
-		 for( cnt = MAX_LINE_COUNT - 1; cnt > 0; cnt-- )
-		 { 
-				gpDisplayList[ cnt ] =  gpDisplayList[ cnt - 1 ];
-		 }
+
+		// cpy, then move
+		for( cnt = MAX_LINE_COUNT - 1; cnt > 0; cnt-- )
+		{
+				gpDisplayList[ cnt ] =	gpDisplayList[ cnt - 1 ];
+		}
 
 			// now add in the new string
-		 cnt = 0;
-		 gpDisplayList[ cnt ] = pStringS;
-		 CreateStringVideoOverlay( pStringS, X_START, iMsgYStart );
-		 if( pStringS -> fBeginningOfNewString == TRUE )
-		 {
-			 iNumberOfNewStrings++;
-		 }
+		cnt = 0;
+		gpDisplayList[ cnt ] = pStringS;
+		CreateStringVideoOverlay( pStringS, X_START, iMsgYStart );
+		if( pStringS->fBeginningOfNewString == TRUE )
+		{
+			iNumberOfNewStrings++;
+		}
 
-		 // set up age
-		 pStringS->uiTimeOfLastUpdate = GetJA2Clock();
-		 
-		 // now move
-		 for ( cnt = 0; cnt <= MAX_LINE_COUNT - 1; cnt++ )
-		 {
-			
+		// set up age
+		pStringS->uiTimeOfLastUpdate = GetJA2Clock();
+
+		// now move
+		for ( cnt = 0; cnt <= MAX_LINE_COUNT - 1; cnt++ )
+		{
+
 				// Adjust position!
-				if ( gpDisplayList[ cnt  ] != NULL )
+				if ( gpDisplayList[ cnt	] != NULL )
 				{
-					
+
 					SetStringVideoOverlayPosition( gpDisplayList[ cnt ], X_START, (INT16)( ( iMsgYStart - ( ( cnt ) * GetFontHeight( SMALLFONT1 ) ) ) - ( INT16)( WIDTH_BETWEEN_NEW_STRINGS * ( iNumberOfNewStrings ) ) ) );
-					
+
 					// start of new string, increment count of new strings, for spacing purposes
-					if( gpDisplayList[ cnt ] -> fBeginningOfNewString == TRUE )
+					if( gpDisplayList[ cnt ]->fBeginningOfNewString == TRUE )
 					{
 						iNumberOfNewStrings++;
-					}						
-				
+					}
+
 
 				}
 
-		 }
+		}
 
-						 
-		 // WE NOW HAVE A FREE SPACE, INSERT!
-	 
-		 // Adjust head!
-		 pStringS = pStringS->pNext;
-		 if( pStringS )
-		 {
-			 pStringS->pPrev = NULL;
-		 }
 
-		 //check if new meesage we have not seen since mapscreen..if so, beep
+		// WE NOW HAVE A FREE SPACE, INSERT!
+
+		// Adjust head!
+		pStringS = pStringS->pNext;
+		if( pStringS )
+		{
+			pStringS->pPrev = NULL;
+		}
+
+		//check if new meesage we have not seen since mapscreen..if so, beep
 			if( ( fOkToBeepNewMessage == TRUE ) && ( gpDisplayList[ MAX_LINE_COUNT - 2 ] == NULL ) && ( ( guiCurrentScreen == GAME_SCREEN ) || ( guiCurrentScreen == MAP_SCREEN ) ) && ( gfFacePanelActive == FALSE ) )
 			{
 				PlayNewMessageSound( );
@@ -528,18 +529,18 @@ void HideMessagesDuringNPCDialogue( void )
 
 
 	VideoOverlayDesc.fDisabled	= TRUE;
-	VideoOverlayDesc.uiFlags    = VOVERLAY_DESC_DISABLED;
+	VideoOverlayDesc.uiFlags	= VOVERLAY_DESC_DISABLED;
 
-	
+
 	fScrollMessagesHidden = TRUE;
 	uiStartOfPauseTime = GetJA2Clock();
-	
+
 	for ( cnt = 0; cnt < MAX_LINE_COUNT; cnt++ )
 	{
 			if ( gpDisplayList[ cnt ] != NULL )
 			{
-				RestoreExternBackgroundRectGivenID( gVideoOverlays[ gpDisplayList[ cnt ] -> iVideoOverlay ].uiBackground );
-				UpdateVideoOverlay( &VideoOverlayDesc, gpDisplayList[ cnt ] -> iVideoOverlay, FALSE );
+				RestoreExternBackgroundRectGivenID( gVideoOverlays[ gpDisplayList[ cnt ]->iVideoOverlay ].uiBackground );
+				UpdateVideoOverlay( &VideoOverlayDesc, gpDisplayList[ cnt ]->iVideoOverlay, FALSE );
 			}
 	}
 
@@ -557,15 +558,15 @@ void UnHideMessagesDuringNPCDialogue( void )
 
 
 	VideoOverlayDesc.fDisabled	= FALSE;
-	VideoOverlayDesc.uiFlags    = VOVERLAY_DESC_DISABLED;
+	VideoOverlayDesc.uiFlags	= VOVERLAY_DESC_DISABLED;
 	fScrollMessagesHidden				= FALSE;
-	
+
 	for ( cnt = 0; cnt < MAX_LINE_COUNT; cnt++ )
 	{
 		if ( gpDisplayList[ cnt ] != NULL )
 		{
 			gpDisplayList[ cnt ]->uiTimeOfLastUpdate+= GetJA2Clock() - uiStartOfPauseTime;
-			UpdateVideoOverlay( &VideoOverlayDesc, gpDisplayList[ cnt ] -> iVideoOverlay, FALSE );
+			UpdateVideoOverlay( &VideoOverlayDesc, gpDisplayList[ cnt ]->iVideoOverlay, FALSE );
 		}
 	}
 
@@ -602,7 +603,7 @@ void ScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ...)
 			#ifndef _DEBUG
 				return;
 			#endif
-		}	
+		}
 
 		if( ubPriority == MSG_BETAVERSION )
 		{
@@ -620,12 +621,12 @@ void ScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ...)
 			usColor = TESTVERSION_COLOR;
 
 			#ifndef JA2TESTVERSION
-				 return;
+				return;
 			#endif
 
 		}
 
-		va_start(argptr, pStringA);       	
+		va_start(argptr, pStringA);
 		vswprintf(DestString, pStringA, argptr);
 		va_end(argptr);
 
@@ -677,7 +678,7 @@ void ClearWrappedStrings( WRAPPED_STRING *pStringWrapperHead )
 		pDeleteNode = pNode;
 
 		// set current node as next node
-		pNode = pNode -> pNextWrappedString;
+		pNode = pNode->pNextWrappedString;
 
 		//delete the string
 		MemFree( pDeleteNode->sString );
@@ -700,26 +701,19 @@ void ClearWrappedStrings( WRAPPED_STRING *pStringWrapperHead )
 // new tactical and mapscreen message system
 void TacticalScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 {
-  // this function sets up the string into several single line structures
-	
+	// this function sets up the string into several single line structures
+
 	ScrollStringStPtr pStringSt;
 	UINT32 uiFont = TINYFONT1;
-	//UINT16 usPosition=0;
-	//UINT16 usCount=0;
-	//UINT16 usStringLength=0;
-	//UINT16 usCurrentSPosition=0;
-	//UINT16 usCurrentLookup=0;
 	//STR16pString;
-	//BOOLEAN fLastLine=FALSE;
-  va_list argptr;
+	va_list argptr;
 
-  CHAR16	DestString[512];//, DestStringA[ 512 ];
+	CHAR16	DestString[512];//, DestStringA[ 512 ];
 	//STR16pStringBuffer;
-  //BOOLEAN fMultiLine=FALSE;
-  ScrollStringStPtr pTempStringSt=NULL;
-  WRAPPED_STRING *pStringWrapper=NULL;
-  WRAPPED_STRING *pStringWrapperHead=NULL;
-  BOOLEAN fNewString = FALSE;
+	ScrollStringStPtr pTempStringSt=NULL;
+	WRAPPED_STRING *pStringWrapper=NULL;
+	WRAPPED_STRING *pStringWrapperHead=NULL;
+	BOOLEAN fNewString = FALSE;
 	UINT16	usLineWidthIfWordIsWiderThenWidth=0;
 
 
@@ -750,7 +744,7 @@ void TacticalScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 		usColor = TESTVERSION_COLOR;
 
 		#ifndef JA2TESTVERSION
-			 return;
+			return;
 		#endif
 
 		WriteMessageToFile( DestString );
@@ -767,12 +761,12 @@ void TacticalScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 		//	return;
 	}
 
-	
+
 	pStringSt=pStringS;
 	while(GetNextString(pStringSt))
-		    pStringSt=GetNextString(pStringSt);
+		 pStringSt=GetNextString(pStringSt);
 
-	va_start(argptr, pStringA);       	// Set up variable argument pointer
+	va_start(argptr, pStringA);			// Set up variable argument pointer
 	vswprintf(DestString, pStringA, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
 
@@ -801,76 +795,69 @@ void TacticalScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 
 
 	pStringWrapperHead=LineWrap(uiFont, LINE_WIDTH, &usLineWidthIfWordIsWiderThenWidth, DestString);
-  pStringWrapper=pStringWrapperHead;
+	pStringWrapper=pStringWrapperHead;
 	if(!pStringWrapper)
-    return;
-	
+	return;
+
 	fNewString = TRUE;
 	while(pStringWrapper->pNextWrappedString!=NULL)
 	{
-	 if(!pStringSt)
-	 {
-    pStringSt=AddString(pStringWrapper->sString, usColor, uiFont, fNewString, ubPriority );
+	if(!pStringSt)
+	{
+	pStringSt=AddString(pStringWrapper->sString, usColor, uiFont, fNewString, ubPriority );
 		fNewString = FALSE;
 		pStringSt->pNext=NULL;
 		pStringSt->pPrev=NULL;
-    pStringS=pStringSt;
-	 }
-	 else
-	 {
-	  pTempStringSt=AddString(pStringWrapper->sString, usColor, uiFont, fNewString, ubPriority);
-    fNewString = FALSE;
-		pTempStringSt->pPrev=pStringSt;
-	  pStringSt->pNext=pTempStringSt;
-	  pStringSt=pTempStringSt;
-	  pTempStringSt->pNext=NULL;
-	 }
-   pStringWrapper=pStringWrapper->pNextWrappedString;
+	pStringS=pStringSt;
 	}
-  pTempStringSt=AddString(pStringWrapper->sString, usColor, uiFont, fNewString, ubPriority );
+	else
+	{
+	pTempStringSt=AddString(pStringWrapper->sString, usColor, uiFont, fNewString, ubPriority);
+	fNewString = FALSE;
+		pTempStringSt->pPrev=pStringSt;
+	pStringSt->pNext=pTempStringSt;
+	pStringSt=pTempStringSt;
+	pTempStringSt->pNext=NULL;
+	}
+	pStringWrapper=pStringWrapper->pNextWrappedString;
+	}
+	pTempStringSt=AddString(pStringWrapper->sString, usColor, uiFont, fNewString, ubPriority );
 	if(pStringSt)
 	{
-	 pStringSt->pNext=pTempStringSt;
-	 pTempStringSt->pPrev=pStringSt;
-	 pStringSt=pTempStringSt;
-	 pStringSt->pNext=NULL;
+	pStringSt->pNext=pTempStringSt;
+	pTempStringSt->pPrev=pStringSt;
+	pStringSt=pTempStringSt;
+	pStringSt->pNext=NULL;
 	}
-  else
+	else
 	{
 		pStringSt=pTempStringSt;
 		pStringSt->pNext=NULL;
 		pStringSt->pPrev=NULL;
-    pStringS=pStringSt;
+	pStringS=pStringSt;
 	}
-	
+
 	// clear up list of wrapped strings
 	ClearWrappedStrings( pStringWrapperHead );
 
  //LeaveMutex(SCROLL_MESSAGE_MUTEX, __LINE__, __FILE__);
  return;
-} 
+}
 
 
 void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 {
-  // this function sets up the string into several single line structures
-	 
+	// this function sets up the string into several single line structures
+
 	ScrollStringStPtr pStringSt;
 	UINT32 uiFont = MAP_SCREEN_MESSAGE_FONT;
-	//UINT16 usPosition=0;
-	//UINT16 usCount=0;
-	//UINT16 usStringLength=0;
-	//UINT16 usCurrentSPosition=0;
-	//UINT16 usCurrentLookup=0;
 	//STR16pString;
-	//BOOLEAN fLastLine=FALSE;
-  va_list argptr;
-  CHAR16	DestString[512], DestStringA[ 512 ];
+	va_list argptr;
+	CHAR16	DestString[512], DestStringA[ 512 ];
 	//STR16pStringBuffer;
-  //BOOLEAN fMultiLine=FALSE;
-  WRAPPED_STRING *pStringWrapper=NULL;
-  WRAPPED_STRING *pStringWrapperHead=NULL;
-  BOOLEAN fNewString = FALSE;
+	WRAPPED_STRING *pStringWrapper=NULL;
+	WRAPPED_STRING *pStringWrapperHead=NULL;
+	BOOLEAN fNewString = FALSE;
 	UINT16	usLineWidthIfWordIsWiderThenWidth;
 
 	if( fDisableJustForIan == TRUE )
@@ -906,14 +893,14 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 		usColor = TESTVERSION_COLOR;
 
 		#ifndef JA2TESTVERSION
-			 return;
+			return;
 		#endif
 		WriteMessageToFile( DestString );
 	}
 	// OK, check if we are ani imeediate feedback message, if so, do something else!
 	if ( ubPriority == MSG_UI_FEEDBACK )
 	{
-		va_start(argptr, pStringA);       	// Set up variable argument pointer
+		va_start(argptr, pStringA);			// Set up variable argument pointer
 		vswprintf(DestString, pStringA, argptr);	// process gprintf string (get output str)
 		va_end(argptr);
 
@@ -923,7 +910,7 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 
 	if ( ubPriority == MSG_SKULL_UI_FEEDBACK )
 	{
-		va_start(argptr, pStringA);       	// Set up variable argument pointer
+		va_start(argptr, pStringA);			// Set up variable argument pointer
 		vswprintf(DestString, pStringA, argptr);	// process gprintf string (get output str)
 		va_end(argptr);
 
@@ -934,7 +921,7 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 	// check if error
 	if ( ubPriority == MSG_ERROR )
 	{
-		va_start(argptr, pStringA);       	// Set up variable argument pointer
+		va_start(argptr, pStringA);			// Set up variable argument pointer
 		vswprintf(DestString, pStringA, argptr);	// process gprintf string (get output str)
 		va_end(argptr);
 
@@ -948,11 +935,11 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 
 
 		// OK, check if we are an immediate MAP feedback message, if so, do something else!
-	if ( ( ubPriority == MSG_MAP_UI_POSITION_UPPER  ) ||
-			 ( ubPriority == MSG_MAP_UI_POSITION_MIDDLE ) ||
-			 ( ubPriority == MSG_MAP_UI_POSITION_LOWER  ) )
+	if ( ( ubPriority == MSG_MAP_UI_POSITION_UPPER	) ||
+			( ubPriority == MSG_MAP_UI_POSITION_MIDDLE ) ||
+			( ubPriority == MSG_MAP_UI_POSITION_LOWER	) )
 	{
-		va_start(argptr, pStringA);       	// Set up variable argument pointer
+		va_start(argptr, pStringA);			// Set up variable argument pointer
 		vswprintf(DestString, pStringA, argptr);	// process gprintf string (get output str)
 		va_end(argptr);
 
@@ -970,12 +957,12 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 		//	return;
 	}
 
-	
+
 	pStringSt=pStringS;
 	while(GetNextString(pStringSt))
-		    pStringSt=GetNextString(pStringSt);
+		 pStringSt=GetNextString(pStringSt);
 
-	va_start(argptr, pStringA);       	// Set up variable argument pointer
+	va_start(argptr, pStringA);			// Set up variable argument pointer
 	vswprintf(DestString, pStringA, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
 
@@ -1000,10 +987,10 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 	}
 
 	pStringWrapperHead=LineWrap(uiFont, MAP_LINE_WIDTH, &usLineWidthIfWordIsWiderThenWidth, DestString);
-  pStringWrapper=pStringWrapperHead;
+	pStringWrapper=pStringWrapperHead;
 	if(!pStringWrapper)
-    return;
-	
+	return;
+
 	fNewString = TRUE;
 
 	while(pStringWrapper->pNextWrappedString!=NULL)
@@ -1014,7 +1001,7 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 		pStringWrapper=pStringWrapper->pNextWrappedString;
 	}
 
-  AddStringToMapScreenMessageList(pStringWrapper->sString, usColor, uiFont, fNewString, ubPriority );
+	AddStringToMapScreenMessageList(pStringWrapper->sString, usColor, uiFont, fNewString, ubPriority );
 
 
 	// clear up list of wrapped strings
@@ -1033,22 +1020,21 @@ void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ... )
 // add string to the map screen message list
 void AddStringToMapScreenMessageList( STR16 pString, UINT16 usColor, UINT32 uiFont, BOOLEAN fStartOfNewString, UINT8 ubPriority )
 {
-	//UINT8 ubSlotIndex = 0;
-  ScrollStringStPtr pStringSt = NULL;
+	ScrollStringStPtr pStringSt = NULL;
 
 
-  pStringSt = (ScrollStringStPtr) MemAlloc(sizeof(ScrollStringSt));
- 
+	pStringSt = (ScrollStringStPtr) MemAlloc(sizeof(ScrollStringSt));
+
 	SetString(pStringSt, pString);
-  SetStringColor(pStringSt, usColor);
+	SetStringColor(pStringSt, usColor);
 	pStringSt->uiFont = uiFont;
-	pStringSt->fBeginningOfNewString = fStartOfNewString; 
+	pStringSt->fBeginningOfNewString = fStartOfNewString;
 	pStringSt->uiFlags = ubPriority;
-  pStringSt->iVideoOverlay = -1;
- 
+	pStringSt->iVideoOverlay = -1;
+
 	// next/previous are not used, it's strictly a wraparound queue
-  SetStringNext(pStringSt, NULL);
-  SetStringPrev(pStringSt, NULL);
+	SetStringNext(pStringSt, NULL);
+	SetStringPrev(pStringSt, NULL);
 
 
 	// Figure out which queue slot index we're going to use to store this
@@ -1063,7 +1049,7 @@ void AddStringToMapScreenMessageList( STR16 pString, UINT16 usColor, UINT32 uiFo
 	{
 		MemFree( gMapScreenMessageList[ gubEndOfMapScreenMessageList ]->pString16 );
 		MemFree( gMapScreenMessageList[ gubEndOfMapScreenMessageList ] );
-	}		
+	}
 
 	// store the new message there
 	gMapScreenMessageList[ gubEndOfMapScreenMessageList ] = pStringSt;
@@ -1089,6 +1075,9 @@ void DisplayStringsInMapScreenMessageList( void )
 
 	//SetFontDestBuffer( FRAME_BUFFER, 17, 360 + 6, 407, 360 + 101, FALSE );
 
+	// CHRISL: Change both X paramters so they dynamically generate from right edge of screen
+	//SetFontDestBuffer( FRAME_BUFFER, (SCREEN_WIDTH - 509), (SCREEN_HEIGHT - 114), (SCREEN_WIDTH - 233), (SCREEN_HEIGHT - 114) + 101, FALSE );
+	// CHRISL: Use this setup if we want message box on the left side
 	SetFontDestBuffer( FRAME_BUFFER, 17, (SCREEN_HEIGHT - 114), 407, (SCREEN_HEIGHT - 114) + 101, FALSE );
 
 	SetFont( MAP_SCREEN_MESSAGE_FONT );		// no longer supports variable fonts
@@ -1120,6 +1109,9 @@ void DisplayStringsInMapScreenMessageList( void )
 		SetFontForeground( ( UINT8 )( gMapScreenMessageList[ ubCurrentStringIndex ]->usColor ) );
 
 		// print this line
+		// CHRISL: Change X parameter to dynamically generate from right edge of screen
+		//mprintf_coded( (SCREEN_WIDTH - 506), sY, gMapScreenMessageList[ ubCurrentStringIndex ]->pString16 );
+		// CHRISL: Use this line if we want to display from the left edge
 		mprintf_coded( 20, sY, gMapScreenMessageList[ ubCurrentStringIndex ]->pString16 );
 
 		sY = sY + usSpacing;
@@ -1140,11 +1132,11 @@ void EnableDisableScrollStringVideoOverlay( BOOLEAN fEnable )
 
 	for( bCounter = 0; bCounter < MAX_LINE_COUNT; bCounter++ )
 	{
-		
+
 		// if valid, enable/disable
 		if( gpDisplayList[ bCounter ] != NULL )
 		{
-			 EnableVideoOverlay( fEnable ,gpDisplayList[ bCounter ] -> iVideoOverlay );
+			EnableVideoOverlay( fEnable ,gpDisplayList[ bCounter ]->iVideoOverlay );
 		}
 	}
 
@@ -1162,7 +1154,7 @@ void PlayNewMessageSound( void )
 	{
 		// is sound playing?..don't play new one
 		if( SoundIsPlaying( uiSoundId ) == TRUE )
-		{ 
+		{
 			return;
 		}
 	}
@@ -1230,7 +1222,7 @@ BOOLEAN SaveMapScreenMessagesToSaveGameFile( HWFILE hFile )
 				return(FALSE);
 			}
 
-			// Create  the saved string struct
+			// Create	the saved string struct
 			StringSave.uiFont = gMapScreenMessageList[ uiCount ]->uiFont;
 			StringSave.usColor = gMapScreenMessageList[ uiCount ]->usColor;
 			StringSave.fBeginningOfNewString = gMapScreenMessageList[ uiCount ]->fBeginningOfNewString;
@@ -1322,7 +1314,7 @@ BOOLEAN LoadMapScreenMessagesFromSaveGameFile( HWFILE hFile )
 				// There is now message here, add one
 				ScrollStringSt	*sScroll;
 
-				
+
 				sScroll = (ScrollStringSt *) MemAlloc( sizeof( ScrollStringSt ) );
 				if( sScroll == NULL )
 					return( FALSE );
@@ -1350,7 +1342,7 @@ BOOLEAN LoadMapScreenMessagesFromSaveGameFile( HWFILE hFile )
 				return(FALSE);
 			}
 
-			// Create  the saved string struct
+			// Create	the saved string struct
 			gMapScreenMessageList[ uiCount ]->uiFont = StringSave.uiFont;
 			gMapScreenMessageList[ uiCount ]->usColor = StringSave.usColor;
 			gMapScreenMessageList[ uiCount ]->uiFlags = StringSave.uiFlags;
@@ -1378,7 +1370,7 @@ void HandleLastQuotePopUpTimer( void )
 	}
 
 	// check if timed out
-	if( GetJA2Clock() - guiDialogueLastQuoteTime >  guiDialogueLastQuoteDelay )
+	if( GetJA2Clock() - guiDialogueLastQuoteTime >	guiDialogueLastQuoteDelay )
 	{
 		// done clear up
 		ShutDownLastQuoteTacticalTextBox( );
@@ -1438,7 +1430,7 @@ void ClearTacticalMessageQueue( void )
 	{
 		pOtherStringSt = pStringSt;
 		pStringSt = pStringSt->pNext;
-		MemFree( pOtherStringSt-> pString16 );
+		MemFree( pOtherStringSt->pString16 );
 		MemFree( pOtherStringSt );
 	}
 
@@ -1452,14 +1444,14 @@ void WriteMessageToFile( STR16 pString )
 #ifdef JA2BETAVERSION
 
 	FILE *fp;
-	
+
 	fp = fopen( "DebugMessage.txt", "a" );
-	
+
 	if( fp == NULL )
 	{
-		return;	
+		return;
 	}
-	
+
 	fprintf( fp, "%S\n", pString );
 	fclose( fp );
 
@@ -1548,7 +1540,7 @@ UINT8 GetFirstEmptySlotInTheMapScreenMessageList( void )
 
 	// find first empty slot in list
 
-	if( IsThereAnEmptySlotInTheMapScreenMessageList(  ) == FALSE)
+	if( IsThereAnEmptySlotInTheMapScreenMessageList(	) == FALSE)
 	{
 		ubSlotId = gubEndOfMapScreenMessageList;
 		return( ubSlotId );
@@ -1573,7 +1565,7 @@ UINT8 GetFirstEmptySlotInTheMapScreenMessageList( void )
 void SetCurrentMapScreenMessageString( UINT8 ubCurrentStringPosition )
 {
 	// will attempt to set current string to this value, or the closest one
-  UINT8 ubCounter = 0;
+	UINT8 ubCounter = 0;
 
 	if( gMapScreenMessageList[ ubCurrentStringPosition ] == NULL )
 	{
@@ -1581,7 +1573,7 @@ void SetCurrentMapScreenMessageString( UINT8 ubCurrentStringPosition )
 		ubCounter = ubCurrentStringPosition;
 		ubCounter--;
 
-		while(  ( gMapScreenMessageList[ ubCounter ] == NULL )&&( ubCounter != ubCurrentStringPosition ) )
+		while(	( gMapScreenMessageList[ ubCounter ] == NULL )&&( ubCounter != ubCurrentStringPosition ) )
 		{
 			if( ubCounter == 0 )
 			{
@@ -1623,9 +1615,9 @@ UINT8 GetTheRelativePositionOfCurrentMessage( void )
 void MoveCurrentMessagePointerDownList( void )
 {
 	// check to see if we can move 'down' to newer messages?
-	if( gMapScreenMessageList[ ( UINT8 )( gubCurrentMapMessageString  + 1 )  ] != NULL )
+	if( gMapScreenMessageList[ ( UINT8 )( gubCurrentMapMessageString	+ 1 )	] != NULL )
 	{
-		if(  ( UINT8 ) ( gubCurrentMapMessageString + 1 ) != gubEndOfMapScreenMessageList )
+		if(	( UINT8 ) ( gubCurrentMapMessageString + 1 ) != gubEndOfMapScreenMessageList )
 		{
 			if( ( AreThereASetOfStringsAfterThisIndex( gubCurrentMapMessageString, MAX_MESSAGES_ON_MAP_BOTTOM ) == TRUE ) )
 			{
@@ -1639,7 +1631,7 @@ void MoveCurrentMessagePointerDownList( void )
 void MoveCurrentMessagePointerUpList(void )
 {
 		// check to see if we can move 'down' to newer messages?
-	if( gMapScreenMessageList[ ( UINT8 )( gubCurrentMapMessageString  - 1 )  ] != NULL )
+	if( gMapScreenMessageList[ ( UINT8 )( gubCurrentMapMessageString	- 1 )	] != NULL )
 	{
 		if( ( UINT8 ) ( gubCurrentMapMessageString - 1 ) != gubEndOfMapScreenMessageList )
 		{
@@ -1665,7 +1657,7 @@ void ScrollToHereInMapScreenMessageList( UINT8 ubPosition )
 		ubRange += 9;
 	}
 
-	ubTestPosition = ( UINT8 )( gubEndOfMapScreenMessageList - ( UINT8 )(  ubRange  ) + (  ( ( UINT8 )( ubRange )  * ubPosition ) / 256 ) );
+	ubTestPosition = ( UINT8 )( gubEndOfMapScreenMessageList - ( UINT8 )(	ubRange	) + (	( ( UINT8 )( ubRange )	* ubPosition ) / 256 ) );
 
 	if( AreThereASetOfStringsAfterThisIndex( ubTestPosition, MAX_MESSAGES_ON_MAP_BOTTOM ) == TRUE )
 	{
@@ -1715,9 +1707,9 @@ UINT8 GetCurrentMessageValue( void )
 {
 	// return the value of the current message in the list, relative to the start of the list
 
-	if( GetRangeOfMapScreenMessages( ) >= 255  )
+	if( GetRangeOfMapScreenMessages( ) >= 255	)
 	{
-	  return( gubCurrentMapMessageString - gubStartOfMapScreenMessageList );
+	return( gubCurrentMapMessageString - gubStartOfMapScreenMessageList );
 	}
 	else
 	{
@@ -1729,7 +1721,7 @@ UINT8 GetCurrentMessageValue( void )
 
 UINT8 GetCurrentTempMessageValue( void )
 {
-	if( GetRangeOfMapScreenMessages( ) >= 255  )
+	if( GetRangeOfMapScreenMessages( ) >= 255	)
 	{
 		return( ubTempPosition - gubEndOfMapScreenMessageList );
 	}
@@ -1803,8 +1795,8 @@ void DisplayLastMessage( void )
 
 
 	// set counter to end of list
-	while( ( gMapScreenMessageList[ ( UINT8 )( ubCounter  + 1 )  ] != NULL ) && ( ( UINT8 ) ( ubCounter + 1 ) != gubEndOfMapScreenMessageList ) )
-	{	
+	while( ( gMapScreenMessageList[ ( UINT8 )( ubCounter	+ 1 )	] != NULL ) && ( ( UINT8 ) ( ubCounter + 1 ) != gubEndOfMapScreenMessageList ) )
+	{
 		ubCounter++;
 	}
 
@@ -1827,12 +1819,12 @@ void DisplayLastMessage( void )
 		// check if message if dialogue
 		if( gMapScreenMessageList[ ubCounter ]->uiFlags == MSG_DIALOG )
 		{
-			if( gMapScreenMessageList[ ubCounter ]-> fBeginningOfNewString == TRUE )
+			if( gMapScreenMessageList[ ubCounter ]->fBeginningOfNewString == TRUE )
 			{
 				// yup
 				fNotDone = FALSE;
 				fFound = TRUE;
-				
+
 				// now display message
 				continue;
 			}
@@ -1849,7 +1841,7 @@ void DisplayLastMessage( void )
 		{
 			if( gMapScreenMessageList[ ubCounter ] )
 			{
-				if( ( fSecondNewString ) && ( gMapScreenMessageList[ ubCounter ] ->  fBeginningOfNewString ) )
+				if( ( fSecondNewString ) && ( gMapScreenMessageList[ ubCounter ]-> fBeginningOfNewString ) )
 				{
 					fNotDone = FALSE;
 				}
@@ -1859,7 +1851,7 @@ void DisplayLastMessage( void )
 					wcscat( sString, L" " );
 				}
 
-				if( ( gMapScreenMessageList[ ubCounter ] ->  fBeginningOfNewString ) )
+				if( ( gMapScreenMessageList[ ubCounter ]-> fBeginningOfNewString ) )
 				{
 					fSecondNewString = TRUE;
 				}
@@ -1874,7 +1866,7 @@ void DisplayLastMessage( void )
 			ubCounter++;
 		}
 		// execute text box
-		ExecuteTacticalTextBoxForLastQuote( ( INT16 )( ( 640 - gusSubtitleBoxWidth ) / 2 ),  sString );
+		ExecuteTacticalTextBoxForLastQuote( ( INT16 )( ( 640 - gusSubtitleBoxWidth ) / 2 ),	sString );
 	}
 
 	return;

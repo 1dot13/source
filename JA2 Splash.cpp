@@ -22,7 +22,7 @@ void InitJA2SplashScreen()
 
 #else
 	UINT32 uiLogoID = 0;
-	HVSURFACE hVSurface; // unused jonathanl  // lalien reenabled for international versions
+	HVSURFACE hVSurface; // unused jonathanl	// lalien reenabled for international versions
 	VSURFACE_DESC VSurfaceDesc; //unused jonathanl // lalien reenabled for international versions
  #ifdef JA2TESTVERSION
 	INT32 i = 0;
@@ -31,7 +31,7 @@ void InitJA2SplashScreen()
 	VSurfaceDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
 	sprintf( VSurfaceDesc.ImageFile, "LOADSCREENS\\Notification.sti" );
 	if( !AddVideoSurface( &VSurfaceDesc, &uiLogoID ) )
-	{	
+	{
 		//AssertMsg( 0, String( "Failed to load %s", VSurfaceDesc.ImageFile ) );
 		return;
 	}
@@ -52,12 +52,12 @@ void InitJA2SplashScreen()
 		i++;
 	}
 #endif
-	
+
 			memset( &VSurfaceDesc, 0, sizeof( VSURFACE_DESC ) );
 			VSurfaceDesc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
 			GetMLGFilename( VSurfaceDesc.ImageFile, MLG_SPLASH );
 			if( !AddVideoSurface( &VSurfaceDesc, &uiLogoID ) )
-			{	
+			{
 				AssertMsg( 0, String( "Failed to load %s", VSurfaceDesc.ImageFile ) );
 				return;
 			}

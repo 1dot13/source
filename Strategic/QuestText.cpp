@@ -353,7 +353,7 @@ STR16		FactDescText[] =
 	L"Fact keith out of business",	//														274												
 	L"Fact mike available to army",//														275
 	L"Fact kingpin can send assassins",//												276
-	L"Fact estoni refuelling possible",//                        277
+	L"Fact estoni refuelling possible",//						277
 	L"Fact museum alarm went off",//															278
 	L"",
 

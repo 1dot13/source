@@ -25,8 +25,8 @@ enum CreatureCalls
 	NUM_CREATURE_CALLS
 } ;
 
-#define DONTFORCE       0
-#define FORCE           1
+#define DONTFORCE		0
+#define FORCE			1
 
 // ANY NEW ACTIONS ADDED - UPDATE OVERHEAD.C ARRAY WITH ACTION'S STRING VALUE
 #define FIRST_MOVEMENT_ACTION AI_ACTION_RANDOM_PATROL
@@ -81,7 +81,7 @@ typedef enum
 	AI_ACTION_WAIT,								// RT: don't do anything for a certain length of time
 	AI_ACTION_PENDING_ACTION,			// RT: wait for pending action (pickup, door open, etc) to finish
 	AI_ACTION_DROP_ITEM,					// duh
-	AI_ACTION_COWER,							// for civilians:  cower in fear and stay there!
+	AI_ACTION_COWER,							// for civilians:	cower in fear and stay there!
 
 	AI_ACTION_STOP_COWERING,			// stop cowering
 	AI_ACTION_OPEN_OR_CLOSE_DOOR,	// schedule-provoked; open or close door
@@ -131,12 +131,12 @@ enum QuoteActionType
 #define IS_NEW_SITUATION 2
 
 
-#define DIFF_ENEMY_EQUIP_MOD            0
-#define DIFF_ENEMY_TO_HIT_MOD           1
-#define DIFF_ENEMY_INTERRUPT_MOD        2
-#define DIFF_RADIO_RED_ALERT            3
-#define DIFF_MAX_COVER_RANGE            4
-#define MAX_DIFF_PARMS									5      // how many different difficulty variables?
+#define DIFF_ENEMY_EQUIP_MOD			0
+#define DIFF_ENEMY_TO_HIT_MOD			1
+#define DIFF_ENEMY_INTERRUPT_MOD		2
+#define DIFF_RADIO_RED_ALERT			3
+#define DIFF_MAX_COVER_RANGE			4
+#define MAX_DIFF_PARMS									5		// how many different difficulty variables?
 
 extern INT8 gbDiff[MAX_DIFF_PARMS][5];
 
@@ -171,7 +171,7 @@ INT16 DistanceToClosestFriend( SOLDIERTYPE * pSoldier );
 void EndAIDeadlock(void);
 void EndAIGuysTurn( SOLDIERTYPE *pSoldier );
 
-INT8  ExecuteAction(SOLDIERTYPE *pSoldier);
+INT8	ExecuteAction(SOLDIERTYPE *pSoldier);
 
 INT16 FindAdjacentSpotBeside(SOLDIERTYPE *pSoldier, INT16 sGridno);
 INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *pPercentBetter);
@@ -179,7 +179,7 @@ INT16 FindClosestDoor( SOLDIERTYPE * pSoldier );
 INT16 FindNearbyPointOnEdgeOfMap( SOLDIERTYPE * pSoldier, INT8 * pbDirection );
 INT16 FindNearestEdgePoint( INT16 sGridNo );
 
-//Kris:  Added these as I need specific searches on certain sides.
+//Kris:	Added these as I need specific searches on certain sides.
 enum
 {
 	NORTH_EDGEPOINT_SEARCH,

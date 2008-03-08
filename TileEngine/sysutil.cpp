@@ -33,7 +33,7 @@ BOOLEAN	InitializeGameVideoObjects( )
 	UINT16					usWidth;
 	UINT16					usHeight;
 	UINT8						ubBitDepth;
-      
+
 	// Create render buffer
 	GetCurrentVideoSettings( &usWidth, &usHeight, &ubBitDepth );
 	vs_desc.fCreateFlags = VSURFACE_CREATE_DEFAULT | VSURFACE_SYSTEM_MEM_USAGE;
@@ -42,7 +42,7 @@ BOOLEAN	InitializeGameVideoObjects( )
 	vs_desc.ubBitDepth = ubBitDepth;
 
 	CHECKF( AddVideoSurface( &vs_desc, &guiSAVEBUFFER ) );
-	
+
 	CHECKF( AddVideoSurface( &vs_desc, &guiEXTRABUFFER ) );
 	gfExtraBuffer = TRUE;
 

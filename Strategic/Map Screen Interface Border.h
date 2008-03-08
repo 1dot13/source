@@ -3,8 +3,8 @@
 
 #include "Types.h"
 
-//#define     MAP_BORDER_START_X   261
-//#define     MAP_BORDER_START_Y    0
+//#define	 MAP_BORDER_START_X	261
+//#define	 MAP_BORDER_START_Y	0
 
 
 
@@ -12,16 +12,16 @@
 // scroll directions
 enum{
 	ZOOM_MAP_SCROLL_UP =0,
-  ZOOM_MAP_SCROLL_DWN,
+	ZOOM_MAP_SCROLL_DWN,
 	ZOOM_MAP_SCROLL_RIGHT,
 	ZOOM_MAP_SCROLL_LEFT,
 };
 
 enum{
-	 EAST_DIR =  0,
-   WEST_DIR,  
-   NORTH_DIR, 
-   SOUTH_DIR, 
+	EAST_DIR =	0,
+	WEST_DIR,	
+	NORTH_DIR, 
+	SOUTH_DIR, 
 };
 enum{
 	MAP_BORDER_TOWN_BTN =0,
@@ -92,7 +92,7 @@ void EnableMapBorderRegion( void );
 void DeleteMapBorderButtons( void );
 BOOLEAN CreateButtonsForMapBorder( void );
 
-// render the pop up for eta  in path plotting in map screen
+// render the pop up for eta	in path plotting in map screen
 void RenderMapBorderEtaPopUp( void );
 BOOLEAN DoesPlayerHaveAnyMilitia( void );
 

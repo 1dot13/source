@@ -5,7 +5,7 @@
 #ifndef __EDITORMERCS_H
 #define __EDITORMERCS_H
 
-//Merc editing modes.  These are used to determine which buttons to show and hide.
+//Merc editing modes.	These are used to determine which buttons to show and hide.
 enum
 {
 	MERC_NOMODE,					//used for shutting down mercs tab, to extract any changed information

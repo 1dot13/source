@@ -49,33 +49,32 @@ enum{
 
 extern INT16 sVehicleOrigArmorValues[ NUMBER_OF_TYPES_OF_VEHICLES][ NUMBER_OF_INTERNAL_HIT_LOCATIONS_IN_VEHICLE];
 
-// WDS - Clean up inventory handling
 #define MAXPASSENGERS 10
 // struct for vehicles
 typedef struct
 {
- PathStPtr pMercPath;  // vehicle's stategic path list
- UINT8     ubMovementGroup; // the movement group this vehicle belongs to
- UINT8     ubVehicleType; // type of vehicle 
- INT16     sSectorX;   // X position on the Stategic Map
- INT16     sSectorY;   // Y position on the Stategic Map
- INT16     sSectorZ;
- BOOLEAN fBetweenSectors;  // between sectors?
- INT16		 sGridNo;   // location in tactical
+ PathStPtr pMercPath;	// vehicle's stategic path list
+ UINT8	 ubMovementGroup; // the movement group this vehicle belongs to
+ UINT8	 ubVehicleType; // type of vehicle 
+ INT16	 sSectorX;	// X position on the Stategic Map
+ INT16	 sSectorY;	// Y position on the Stategic Map
+ INT16	 sSectorZ;
+ BOOLEAN fBetweenSectors;	// between sectors?
+ INT16		sGridNo;	// location in tactical
  SOLDIERTYPE *pPassengers[ MAXPASSENGERS ];
- UINT8		 ubDriver;
- INT16		 sInternalHitLocations[ NUMBER_OF_EXTERNAL_HIT_LOCATIONS_ON_VEHICLE ];
- INT16		 sArmourType;
- INT16		 sExternalArmorLocationsStatus[ NUMBER_OF_EXTERNAL_HIT_LOCATIONS_ON_VEHICLE ];
- INT16		 sCriticalHits[ NUMBER_OF_INTERNAL_HIT_LOCATIONS_IN_VEHICLE ];
- INT32		 iOnSound;
- INT32		 iOffSound;
- INT32		 iMoveSound;
- INT32		 iOutOfSound;
- BOOLEAN   fFunctional;
- BOOLEAN	 fDestroyed;
- INT32		 iMovementSoundID;
- UINT8		 ubProfileID;
+ UINT8		ubDriver;
+ INT16		sInternalHitLocations[ NUMBER_OF_EXTERNAL_HIT_LOCATIONS_ON_VEHICLE ];
+ INT16		sArmourType;
+ INT16		sExternalArmorLocationsStatus[ NUMBER_OF_EXTERNAL_HIT_LOCATIONS_ON_VEHICLE ];
+ INT16		sCriticalHits[ NUMBER_OF_INTERNAL_HIT_LOCATIONS_IN_VEHICLE ];
+ INT32		iOnSound;
+ INT32		iOffSound;
+ INT32		iMoveSound;
+ INT32		iOutOfSound;
+ BOOLEAN	fFunctional;
+ BOOLEAN	fDestroyed;
+ INT32		iMovementSoundID;
+ UINT8		ubProfileID;
 
  BOOLEAN fValid;
 
@@ -221,13 +220,13 @@ void AddVehicleFuelToSave( );
 
 BOOLEAN CanSoldierDriveVehicle( SOLDIERTYPE *pSoldier, INT32 iVehicleId, BOOLEAN fIgnoreAsleep ); 
 BOOLEAN SoldierMustDriveVehicle( SOLDIERTYPE *pSoldier, INT32 iVehicleId, BOOLEAN fTryingToTravel );
-BOOLEAN OnlyThisSoldierCanDriveVehicle( SOLDIERTYPE *pSoldier, INT32 iVehicleId );
+BOOLEAN OnlythisCanDriveVehicle( SOLDIERTYPE *pSoldier, INT32 iVehicleId );
 
 BOOLEAN IsEnoughSpaceInVehicle( INT32 iID );
 
 BOOLEAN IsSoldierInThisVehicleSquad( SOLDIERTYPE *pSoldier, INT8 bSquadNumber );
 
-SOLDIERTYPE*  PickRandomPassengerFromVehicle( SOLDIERTYPE *pSoldier );
+SOLDIERTYPE*	PickRandomPassengerFromVehicle( SOLDIERTYPE *pSoldier );
 
 BOOLEAN DoesVehicleHaveAnyPassengers( INT32 iVehicleID );
 BOOLEAN DoesVehicleGroupHaveAnyPassengers( GROUP *pGroup );

@@ -15,7 +15,7 @@
 #define HEALABLE_THIS_HOUR	1
 
 
-// merc collapses from fatigue if max breath drops to this.  Can't go any lower!
+// merc collapses from fatigue if max breath drops to this.	Can't go any lower!
 #define BREATHMAX_ABSOLUTE_MINIMUM	10
 #define BREATHMAX_GOTTA_STOP_MOVING	30
 #define BREATHMAX_PRETTY_TIRED			50
@@ -71,9 +71,9 @@ enum{
 // Train stats defines (must match ATTRIB_MENU_ defines, and pAttributeMenuStrings )
 enum{
 	STRENGTH = 0,
-  DEXTERITY,
+	DEXTERITY,
 	AGILITY,
-  HEALTH,
+	HEALTH,
 	MARKSMANSHIP,
 	MEDICAL,
 	MECHANICAL,
@@ -210,15 +210,15 @@ extern INT32 ghMoveBox;
 //extern INT32 ghUpdateBox;
 
 
-extern MOUSE_REGION    gAssignmentScreenMaskRegion;
+extern MOUSE_REGION	gAssignmentScreenMaskRegion;
 
-extern MOUSE_REGION    gAssignmentMenuRegion[  ];
-extern MOUSE_REGION    gTrainingMenuRegion[  ];
-extern MOUSE_REGION    gAttributeMenuRegion[  ];
-extern MOUSE_REGION    gSquadMenuRegion[  ];
-extern MOUSE_REGION    gContractMenuRegion[  ];
-extern MOUSE_REGION    gRemoveMercAssignRegion[  ];
-extern MOUSE_REGION		 gVehicleMenuRegion[];
+extern MOUSE_REGION	gAssignmentMenuRegion[	];
+extern MOUSE_REGION	gTrainingMenuRegion[	];
+extern MOUSE_REGION	gAttributeMenuRegion[	];
+extern MOUSE_REGION	gSquadMenuRegion[	];
+extern MOUSE_REGION	gContractMenuRegion[	];
+extern MOUSE_REGION	gRemoveMercAssignRegion[	];
+extern MOUSE_REGION		gVehicleMenuRegion[];
 
 extern BOOLEAN fShownContractMenu;
 extern BOOLEAN fShownAssignmentMenu;

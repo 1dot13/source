@@ -739,7 +739,7 @@ STR16 gzMercSkillText[] =
 	L"Dieb",
 	L"Kampfsport",
 	L"Messer",
-	L"Dach-Treffer-Bonus",
+	L"Scharfschütze",
 	L"Getarnt",
 	L"Getarnt (Stadt)",						
 	L"Getarnt (Wüste)",						
@@ -1370,6 +1370,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Gesundh.: %d/%d\nTank: %d/%d",
 	L"%s kann %s nicht sehen.", // Cannot see person trying to talk to
 	L"Attachment removed",
+	L"Sie können kein weiteres Fahrzeug mehr verwenden, da Sie bereits 2 haben",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -1569,6 +1570,7 @@ STR16 pMapInventoryErrorString[] =
 	L"Während einer Schlacht müssen Sie Gegenstände manuell nehmen.",
 	L"Während einer Schlacht müssen Sie Gegenstände manuell fallenlassen.",
 	L"%s ist nicht im Sektor und kann Gegenstand nicht fallen lassen.",
+	L"Während des Kampfes können Sie die Munitionskiste nicht zum Nachladen verwenden.",
 };
 
 STR16 pMapInventoryStrings[] =
@@ -2702,6 +2704,7 @@ STR16			BobbyRFilter[] =
 	// Used
 	L"Feuerwfn.",
 	L"Rüstungen",
+	L"LBE Ausr.",
 	L"Sonstiges",
 
 	// Armour
@@ -2719,6 +2722,7 @@ STR16			BobbyRFilter[] =
 	L"Verbandsk.",
 	L"Taschen",
 	L"Gesicht G.",
+	L"LBE Ausr.",
 	L"Sonstiges",
 };
 
@@ -3187,6 +3191,8 @@ STR16 zSaveLoadText[] =
 	L"Große Auswahl",
 	L"Ausgezeichnete Auswahl",
 	L"Fantastische Auswahl",
+
+	L"Neuer Warenbestand arbeitet nicht im 640x480 Bildumfang. Bitte bestimmen Sie die Größe neu und versuchen Sie wieder.",
 };
 
 //MapScreen
@@ -3406,6 +3412,9 @@ STR16 gzGIOScreenText[] =
 	L"Groß",
 	L"Ausgezeichnet",
 	L"Fantastisch",
+	L"Inventar System",
+	L"Alt",
+	L"Neu",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -3796,6 +3805,8 @@ STR16 sRepairsDoneString[] =
 	L"%s hat die Waffen und Rüstungen aller Teammitglieder repariert",
 	L"%s hat die aktivierten Gegenstände aller Teammitglieder repariert",
 	L"%s hat die mitgeführten Gegenstände aller Teammitglieder repariert",
+	L"%s hat die mitgeführten Gegenstände aller Teammitglieder repariert",
+	L"%s hat die mitgeführten Gegenstände aller Teammitglieder repariert",
 };
 
 STR16 zGioDifConfirmText[]=
@@ -4030,10 +4041,19 @@ STR16	New113MERCMercMailTexts[] =
 // INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
 STR16 MissingIMPSkillsDescriptions[] =
 {
-	// Rooftop sniping
-	L"Dach-Treffer Bonus: Vor Ihnen sind nicht einmal Ameisen sicher. Jedes anvisierte Ziel wird gnadenlos zur Strecke gebracht! ± ",
+	// Sniper
+	L"Scharfschütze: Sie haben Augen wie ein Falke. Dadurch können sie sogar auf die Flügel einer Fliege aus hunderten von Metern schießen! ± ",
 	// Camouflage
-	L"Getarnt: Neben Ihnen sehen selbst Sträucher künstlich aus! ± ",	
+	L"Tarnung: Neben Ihnen schauen sogar Büsche synthetisch aus! ± ",	
+};
+
+STR16 NewInvMessage[] = 
+{
+	L"Rucksack kann zur Zeit nicht aufgehoben werden",
+	L"Kein Platz zum Ablegen des Rucksacks",
+	L"Rucksack nicht gefunden",
+	L"Reißverschluss funktioniert nur im Kampf",
+	L"Bewegung nicht möglich, während Reißverschluss des Rucksacks offen ist",
 };
 
 #endif //GERMAN

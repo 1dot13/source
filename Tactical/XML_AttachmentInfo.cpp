@@ -2,43 +2,8 @@
 	#include "Tactical All.h"
 #else
 	#include "sgp.h"
-	#include "overhead types.h"
-	#include "Sound Control.h"
-	#include "Soldier Control.h"
 	#include "overhead.h"
-	#include "Event Pump.h"
 	#include "weapons.h"
-	#include "Animation Control.h"
-	#include "sys globals.h"
-	#include "Handle UI.h"
-	#include "Isometric Utils.h"
-	#include "worldman.h"
-	#include "math.h"
-	#include "points.h"
-	#include "ai.h"
-	#include "los.h"
-	#include "renderworld.h"
-	#include "opplist.h"
-	#include "interface.h"
-	#include "message.h"
-	#include "campaign.h"
-	#include "items.h"
-	#include "text.h"
-	#include "Soldier Profile.h"
-	#include "tile animation.h"
-	#include "Dialogue Control.h"
-	#include "SkillCheck.h"
-	#include "explosion control.h"
-	#include "Quests.h"
-	#include "Physics.h"
-	#include "Random.h"
-	#include "Vehicles.h"
-	#include "bullets.h"
-	#include "morale.h"
-	#include "meanwhile.h"
-	#include "SkillCheck.h"
-	#include "gamesettings.h"
-	#include "SaveLoadMap.h"
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
@@ -52,13 +17,13 @@ struct
 	AttachmentInfoStruct		curAttachmentInfo;
 	AttachmentInfoStruct *	curArray;
 	UINT32			maxArraySize;
-	
+
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
 }
 typedef attachmentinfoParseData;
 
-static void XMLCALL 
+static void XMLCALL
 attachmentinfoStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	attachmentinfoParseData * pData = (attachmentinfoParseData *)userData;
@@ -105,11 +70,11 @@ attachmentinfoCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	attachmentinfoParseData * pData = (attachmentinfoParseData *)userData;
 
-	if( (pData->currentDepth <= pData->maxReadDepth) && 
+	if( (pData->currentDepth <= pData->maxReadDepth) &&
 		(strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH)
-	  ){
+	){
 		strncat(pData->szCharData,str,__min((unsigned int)len,MAX_CHAR_DATA_LENGTH-strlen(pData->szCharData)));
-	  }
+	}
 }
 
 
@@ -136,12 +101,12 @@ attachmentinfoEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "uiIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAttachmentInfo.uiIndex   = (UINT32) atol(pData->szCharData);
+			pData->curAttachmentInfo.uiIndex	= (UINT32) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "usItem") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAttachmentInfo.usItem   = (UINT16) atol(pData->szCharData);
+			pData->curAttachmentInfo.usItem	= (UINT16) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "uiItemClass") == 0)
 		{
@@ -151,12 +116,12 @@ attachmentinfoEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "bAttachmentSkillCheck") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAttachmentInfo.bAttachmentSkillCheck  = (INT8) atol(pData->szCharData);
+			pData->curAttachmentInfo.bAttachmentSkillCheck	= (INT8) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "bAttachmentSkillCheckMod") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curAttachmentInfo.bAttachmentSkillCheckMod  = (INT8) atol(pData->szCharData);
+			pData->curAttachmentInfo.bAttachmentSkillCheckMod	= (INT8) atol(pData->szCharData);
 		}
 
 		pData->maxReadDepth--;
@@ -175,7 +140,7 @@ BOOLEAN ReadInAttachmentInfoStats(STR fileName)
 	UINT32		uiFSize;
 	CHAR8 *		lpcBuffer;
 	XML_Parser	parser = XML_ParserCreate(NULL);
-	
+
 	attachmentinfoParseData pData;
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading AttachmentInfo.xml" );
@@ -184,7 +149,7 @@ BOOLEAN ReadInAttachmentInfoStats(STR fileName)
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);
 
@@ -199,19 +164,19 @@ BOOLEAN ReadInAttachmentInfoStats(STR fileName)
 
 	FileClose( hFile );
 
-	
+
 	XML_SetElementHandler(parser, attachmentinfoStartElementHandle, attachmentinfoEndElementHandle);
 	XML_SetCharacterDataHandler(parser, attachmentinfoCharacterDataHandle);
 
-	
+
 	memset(&pData,0,sizeof(pData));
 	pData.curArray = AttachmentInfo;
-	pData.maxArraySize = MAXITEMS; 
-	
+	pData.maxArraySize = MAXITEMS;
+
 	XML_SetUserData(parser, &pData);
 
 
-    if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
+	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
 
@@ -240,7 +205,7 @@ BOOLEAN WriteAttachmentInfoStats()
 	hFile = FileOpen( "TABLEDATA\\AttachmentInfo out.xml", FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	{
 		UINT32 cnt;
 
@@ -252,9 +217,9 @@ BOOLEAN WriteAttachmentInfoStats()
 
 			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n",								cnt );
 			FilePrintf(hFile,"\t\t<usItem>%d</usItem>\r\n",								AttachmentInfo[cnt].usItem );
-			FilePrintf(hFile,"\t\t<uiItemClass>%d</uiItemClass>\r\n",								AttachmentInfo[cnt].uiItemClass  );
-			FilePrintf(hFile,"\t\t<bAttachmentSkillCheck>%d</bAttachmentSkillCheck>\r\n",								AttachmentInfo[cnt].bAttachmentSkillCheck  );
-			FilePrintf(hFile,"\t\t<bAttachmentSkillCheckMod>%d</bAttachmentSkillCheckMod>\r\n",								AttachmentInfo[cnt].bAttachmentSkillCheckMod   );
+			FilePrintf(hFile,"\t\t<uiItemClass>%d</uiItemClass>\r\n",								AttachmentInfo[cnt].uiItemClass	);
+			FilePrintf(hFile,"\t\t<bAttachmentSkillCheck>%d</bAttachmentSkillCheck>\r\n",								AttachmentInfo[cnt].bAttachmentSkillCheck	);
+			FilePrintf(hFile,"\t\t<bAttachmentSkillCheckMod>%d</bAttachmentSkillCheckMod>\r\n",								AttachmentInfo[cnt].bAttachmentSkillCheckMod	);
 
 			FilePrintf(hFile,"\t</ATTACHMENTINFO>\r\n");
 		}

@@ -68,7 +68,7 @@ INT32		giProfileCount;
 // they are required for the String() function, which is NOT a 
 // debug-mode only function, it's used in release-mode as well! -- DB
  
-CHAR8 gubAssertString[128];
+CHAR8 gubAssertString[512];//for long filenames
 
 #define MAX_MSG_LENGTH2 512
 CHAR8		gbTmpDebugString[8][MAX_MSG_LENGTH2];
@@ -158,7 +158,7 @@ STRING512 gpcDebugLogFileName;
 // Return Value :
 // Modification history :
 //
-//		xxjun98:CJC		-> creation
+//		xxjun98:CJC		->creation
 //
 //**************************************************************************
 BOOLEAN DbgGetLogFileName( STRING512 pcName )
@@ -194,7 +194,7 @@ BOOLEAN DbgGetLogFileName( STRING512 pcName )
 // Return Value :
 // Modification history :
 //
-//		xxnov96:HJH		-> creation
+//		xxnov96:HJH		->creation
 //
 //**************************************************************************
 
@@ -235,7 +235,7 @@ BOOLEAN DbgInitialize(void)
 // Return Value :
 // Modification history :
 //
-//		xxnov96:HJH		-> creation
+//		xxnov96:HJH		->creation
 //
 //**************************************************************************
 
@@ -254,7 +254,7 @@ void DbgShutdown(void)
 // Return Value :
 // Modification history :
 //
-//		June 97: BR		-> creation
+//		June 97: BR		->creation
 //
 //**************************************************************************
 
@@ -324,7 +324,7 @@ void RemoveDebugText( void )
 // Return Value :
 // Modification history :
 //
-//		June 97: BR		-> creation
+//		June 97: BR		->creation
 //
 //**************************************************************************
 
@@ -343,7 +343,6 @@ void DbgClearAllTopics( void )
 	}
 }
 
-
 //**************************************************************************
 //
 // DbgMessageReal
@@ -354,7 +353,7 @@ void DbgClearAllTopics( void )
 // Return Value :
 // Modification history :
 //
-//		xxnov96:HJH		-> creation
+//		xxnov96:HJH		->creation
 //
 //**************************************************************************
 void DbgMessageReal(UINT16 uiTopicId, UINT8 uiCommand, UINT8 uiDebugLevel, STR8 strMessage)
@@ -362,7 +361,6 @@ void DbgMessageReal(UINT16 uiTopicId, UINT8 uiCommand, UINT8 uiDebugLevel, STR8 
 #ifndef _NO_DEBUG_TXT
   FILE      *OutFile;
 #endif
-
 	// Check for a registered topic ID
 	if ( uiTopicId < MAX_TOPICS_ALLOTED )//&& gfDebugTopics[uiTopicId] )
 	{
@@ -379,7 +377,6 @@ void DbgMessageReal(UINT16 uiTopicId, UINT8 uiCommand, UINT8 uiDebugLevel, STR8 
 		}
 #endif
 	}
-
 }
 
 //**************************************************************************
@@ -392,7 +389,7 @@ void DbgMessageReal(UINT16 uiTopicId, UINT8 uiCommand, UINT8 uiDebugLevel, STR8 
 // Return Value :
 // Modification history :
 //
-//		11nov96:HJH		-> creation
+//		11nov96:HJH		->creation
 //
 //**************************************************************************
 
@@ -411,7 +408,7 @@ BOOLEAN DbgSetDebugLevel(UINT16 uiTopicId, UINT8 uiDebugLevel)
 // Return Value :
 // Modification history :
 //
-//		xxnov96:HJH		-> creation
+//		xxnov96:HJH		->creation
 //
 //**************************************************************************
 
@@ -493,7 +490,6 @@ void		DbgShutdown(void) {};
 #endif
 
 
-
 #if defined ( _DEBUG ) || defined ( FORCE_ASSERTS_ON )
 
 
@@ -507,15 +503,14 @@ extern HVOBJECT FontObjs[25];
 
 #ifdef JA2 //JAGGED ALLIANCE 2 VERSION ONLY
 void _FailMessage( STR8 pString, UINT32 uiLineNum, STR8 pSourceFile )
-{ 
+{
 	CHAR8 ubOutputString[512];
 #ifndef _NO_DEBUG_TXT
 	MSG Message;
 //	FILE *DebugFile;
 #endif
-	BOOLEAN fDone = FALSE;
 	//Build the output strings
-	sprintf( ubOutputString, "{ %ld } Assertion Failure [Line %d in %s]\n", GetTickCount(), uiLineNum, pSourceFile );
+	sprintf( ubOutputString, "{ %ld } Assertion Failure [Line %d in \n%c %s]\n", GetTickCount(), uiLineNum, '\n', pSourceFile );
 	if( pString )
 		sprintf( gubAssertString, pString );	
 	else
@@ -540,6 +535,7 @@ void _FailMessage( STR8 pString, UINT32 uiLineNum, STR8 pSourceFile )
 	// 0verhaul:  Replacement for the above.  More consistent.
 	DbgMessage( TOPIC_GAME, DBG_LEVEL_1, ubOutputString);
 
+
 #if 0
 	if( !FontObjs[0] )
 	{ //Font manager hasn't yet been initialized so use the windows error system
@@ -554,7 +550,7 @@ void _FailMessage( STR8 pString, UINT32 uiLineNum, STR8 pSourceFile )
 	//NASTY HACK, THE GAME IS GOING TO DIE ANYWAY, SO WHO CARES WHAT WE DO.
 	//This will actually bring up a screen that prints out the assert message
 	//until the user hits esc or alt-x.
-	sprintf( gubErrorText, "Assertion Failure -- Line %d in %s", uiLineNum, pSourceFile );
+	sprintf( gubErrorText, "Assertion Failure -- Line %d in %s %s", uiLineNum, std::string("\n").c_str(), pSourceFile );
 	SetPendingNewScreen( ERROR_SCREEN );
 	SetCurrentScreen( ERROR_SCREEN );
 	while (gfProgramIsRunning)

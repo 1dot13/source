@@ -29,7 +29,7 @@ enum
 	PATHFINDCOUNTER,										// PATH FIND COUNTER
 	CURSORCOUNTER,											// ANIMATED CURSOR
 	RMOUSECLICK_DELAY_COUNTER,					// RIGHT BUTTON CLICK DELAY
-	LMOUSECLICK_DELAY_COUNTER,					// LEFT	 BUTTON CLICK DELAY
+	LMOUSECLICK_DELAY_COUNTER,					// LEFT	BUTTON CLICK DELAY
 	SLIDETEXT,													// DAMAGE DISPLAY				
 	TARGETREFINE,												// TARGET REFINE
 	CURSORFLASH,												// Cursor/AP flash
@@ -66,14 +66,14 @@ extern INT32	giTimerTeamTurnUpdate;
 
 // Functions
 BOOLEAN InitializeJA2Clock( void );
-void    ShutdownJA2Clock( void );
+void	ShutdownJA2Clock( void );
 
 #define GetJA2Clock()						guiBaseJA2Clock
 
 UINT32	GetPauseJA2Clock( );
 
 UINT32 InitializeJA2TimerID( UINT32 uiDelay, UINT32 uiCallbackID, UINT32 uiUser );
-void	 RemoveJA2TimerCallback( UINT32 uiTimer );
+void	RemoveJA2TimerCallback( UINT32 uiTimer );
 
 void PauseTime( BOOLEAN fPaused );
 
@@ -85,35 +85,35 @@ extern UINT32	guiBaseJA2Clock;
 extern CUSTOMIZABLE_TIMER_CALLBACK gpCustomizableTimerCallback;
 
 // MACROS
-//																CHeck if new counter < 0														 | set to 0 |										 Decrement
+//																CHeck if new counter < 0														| set to 0 |										Decrement
 
 #ifdef CALLBACKTIMER
 
-#define   UPDATECOUNTER( c )						( ( giTimerCounters[ c ] - BASETIMESLICE ) < 0 ) ?  ( giTimerCounters[ c ] = 0 ) : ( giTimerCounters[ c ] -= BASETIMESLICE )  
-#define   RESETCOUNTER( c )							( giTimerCounters[ c ] = giTimerIntervals[ c ] )
-#define   COUNTERDONE( c )							( giTimerCounters[ c ] == 0 ) ? TRUE : FALSE
+#define	UPDATECOUNTER( c )						( ( giTimerCounters[ c ] - BASETIMESLICE ) < 0 ) ?	( giTimerCounters[ c ] = 0 ) : ( giTimerCounters[ c ] -= BASETIMESLICE )	
+#define	RESETCOUNTER( c )							( giTimerCounters[ c ] = giTimerIntervals[ c ] )
+#define	COUNTERDONE( c )							( giTimerCounters[ c ] == 0 ) ? TRUE : FALSE
 
-#define   UPDATETIMECOUNTER( c )				( ( c - BASETIMESLICE ) < 0 ) ?  ( c = 0 ) : ( c -= BASETIMESLICE )  
+#define	UPDATETIMECOUNTER( c )				( ( c - BASETIMESLICE ) < 0 ) ?	( c = 0 ) : ( c -= BASETIMESLICE )	
 #define		RESETTIMECOUNTER( c, d )			( c = d )
 
 #ifdef BOUNDS_CHECKER
-	#define   TIMECOUNTERDONE( c, d )				( TRUE )
+	#define	TIMECOUNTERDONE( c, d )				( TRUE )
 #else
-	#define   TIMECOUNTERDONE( c, d )				( c == 0 ) ? TRUE : FALSE
+	#define	TIMECOUNTERDONE( c, d )				( c == 0 ) ? TRUE : FALSE
 #endif
 
 #define		SYNCTIMECOUNTER( )
-#define		ZEROTIMECOUNTER( c )          ( c = 0 )
+#define		ZEROTIMECOUNTER( c )			( c = 0 )
 
 #else
 
-#define   UPDATECOUNTER( c )				
-#define   RESETCOUNTER( c )							( giTimerCounters[ c ] = giClockTimer )
-#define   COUNTERDONE( c )							( ( ( giClockTimer = GetJA2Clock() ) - giTimerCounters[ c ] ) >  giTimerIntervals[ c ] ) ? TRUE : FALSE
+#define	UPDATECOUNTER( c )				
+#define	RESETCOUNTER( c )							( giTimerCounters[ c ] = giClockTimer )
+#define	COUNTERDONE( c )							( ( ( giClockTimer = GetJA2Clock() ) - giTimerCounters[ c ] ) >	giTimerIntervals[ c ] ) ? TRUE : FALSE
 
-#define   UPDATETIMECOUNTER( c )		
-#define   RESETTIMECOUNTER( c, d )			( c = giClockTimer )
-#define   TIMECOUNTERDONE( c, d )				( giClockTimer - c >  d ) ? TRUE : FALSE
+#define	UPDATETIMECOUNTER( c )		
+#define	RESETTIMECOUNTER( c, d )			( c = giClockTimer )
+#define	TIMECOUNTERDONE( c, d )				( giClockTimer - c >	d ) ? TRUE : FALSE
 #define		SYNCTIMECOUNTER( )						( giClockTimer = GetJA2Clock() )
 
 #endif

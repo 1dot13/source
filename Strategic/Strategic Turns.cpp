@@ -40,8 +40,8 @@ void StrategicTurnsNewGame( )
 
 void SyncStrategicTurnTimes( )
 {
-	guiLastStrategicTime =  GetWorldTotalSeconds( );
-	guiLastTacticalRealTime =  GetJA2Clock( );
+	guiLastStrategicTime =	GetWorldTotalSeconds( );
+	guiLastTacticalRealTime =	GetJA2Clock( );
 }
 
 void HandleStrategicTurn( )
@@ -90,7 +90,7 @@ void HandleStrategicTurn( )
 				// OK, if we have compressed time...., adjust our check value to be faster....
 				if( giTimeCompressSpeeds[ giTimeCompressMode ] > 0 )
 				{
-				  uiCheckTime = NUM_REAL_SEC_PER_TACTICAL_TURN / ( giTimeCompressSpeeds[ giTimeCompressMode ] * RT_COMPRESSION_TACTICAL_TURN_MODIFIER );
+				uiCheckTime = NUM_REAL_SEC_PER_TACTICAL_TURN / ( giTimeCompressSpeeds[ giTimeCompressMode ] * RT_COMPRESSION_TACTICAL_TURN_MODIFIER );
 				}
 			}
 

@@ -59,7 +59,7 @@ BOOLEAN TalkingMenuDialogue( UINT16 usQuoteNum );
 
 
 // Removes memory allocated for structure, removes face...
-void DeleteTalkingMenu(  );
+void DeleteTalkingMenu(	);
 
 // Dirty menu
 void SetTalkingMenuDirty( BOOLEAN fDirtyLevel );
@@ -75,7 +75,7 @@ BOOLEAN	TalkingMenuGiveItem( UINT8 ubNPC, OBJECTTYPE *pObject, INT8 bInvPos );
 // Triggers an NPC record
 BOOLEAN	NPCTriggerNPC( UINT8 ubTargetNPC, UINT8 ubTargetRecord, UINT8 ubTargetApproach, BOOLEAN fShowDialogueMenu );
 // NPC goto gridno
-BOOLEAN	NPCGotoGridNo( UINT8 ubTargetNPC, UINT16 usGridNo, UINT8 ubQuoteNum );
+BOOLEAN	NPCGotoGridNo( UINT8 ubTargetNPC, INT16 sGridNo, UINT8 ubQuoteNum );
 // NPC Do action
 BOOLEAN	NPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum );
 
@@ -87,7 +87,7 @@ void HandleWaitTimerForNPCTrigger( );
 void HandleNPCClosePanel( );
 void HandleNPCItemGiven( UINT8 ubNPC, OBJECTTYPE *pObject, INT8 bInvPos );
 void HandleNPCTriggerNPC( UINT8 ubTargetNPC, UINT8 ubTargetRecord, BOOLEAN fShowDialogueMenu, UINT8 ubTargetApproach );
-void HandleNPCGotoGridNo( UINT8 ubTargetNPC, UINT16 usGridNo, UINT8 ubRecordNum );
+void HandleNPCGotoGridNo( UINT8 ubTargetNPC, INT16 sGridNo, UINT8 ubRecordNum );
 void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum );
 
 BOOLEAN ProfileCurrentlyTalkingInDialoguePanel( UINT8 ubProfile );
@@ -235,7 +235,7 @@ enum
 	NPC_ACTION_REDUCE_CONRAD_SALARY_CONDITIONS,
 	NPC_ACTION_REMOVE_CONRAD,
 	NPC_ACTION_KROTT_REQUESTOR,
-	NPC_ACTION_KROTT_ALIVE_LOYALTY_BOOST,		/* Delayed loyalty effects elimininated.  Sep.12/98.  ARM */
+	NPC_ACTION_KROTT_ALIVE_LOYALTY_BOOST,		/* Delayed loyalty effects elimininated.	Sep.12/98.	ARM */
 	NPC_ACTION_TRIGGER_YANNI, // 185
 	NPC_ACTION_TRIGGER_MARY_OR_JOHN_RECORD_9,
 	NPC_ACTION_TRIGGER_MARY_OR_JOHN_RECORD_10,
@@ -264,7 +264,7 @@ enum
 	NPC_ACTION_CHANGE_MANNY_POSITION = 210,
 	NPC_ACTION_TIMER_FOR_VEHICLE, // 211
 	NPC_ACTION_ASK_ABOUT_PAYING_RPC_WITH_DAILY_SALARY,//212
-  NPC_ACTION_TRIGGER_MICKY_BY_SCI_FI, // 213
+	NPC_ACTION_TRIGGER_MICKY_BY_SCI_FI, // 213
 	// 214 is blank
 	NPC_ACTION_TRIGGER_ELLIOT_BY_BATTLE_RESULT = 215,
 	NPC_ACTION_TRIGGER_ELLIOT_BY_SAM_DISABLED,

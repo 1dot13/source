@@ -27,7 +27,7 @@
 #define AFRAME_TILE							0x00002000
 #define HIDDEN_TILE							0x00004000
 #define CLIFFHANG_TILE					0x00008000
-#define UNDERFLOW_FILLER        0x00010000
+#define UNDERFLOW_FILLER		0x00010000
 #define Z_AWARE_DYNAMIC_TILE		0x00020000
 
 
@@ -35,8 +35,8 @@
 #define	WALL_HEIGHT		50
 
 
-//Kris:  Added the last two bottom corner orientation values.  This won't effect
-//current code, but there is new code that makes use of this.  A function called
+//Kris:	Added the last two bottom corner orientation values.	This won't effect
+//current code, but there is new code that makes use of this.	A function called
 //UINT8 CalculateWallOrientationsAtGridNo( INT32 iMapIndex ) that will look at all
 //of the walls and return the last two wall orientations for tiles with two proper
 //wall pieces.
@@ -71,7 +71,7 @@ typedef struct
 {
 	HVOBJECT									vo;
 	UINT32										fType;
-  AuxObjectData *						pAuxData;
+	AuxObjectData *						pAuxData;
 	RelTileLoc *							pTileLocData;
 	STRUCTURE_FILE_REF *			pStructureFileRef;
 	UINT8											ubTerrainID;
@@ -113,12 +113,12 @@ typedef struct
 		// Land and overlay type
 //		struct
 //		{
-			 INT16					sOffsetHeight;	
-			 UINT16					usWallOrientation;
-			 UINT8					ubFullTile;	
+			INT16					sOffsetHeight;	
+			UINT16					usWallOrientation;
+			UINT8					ubFullTile;	
 
-			 // For animated tiles
-			 TILE_ANIMATION_DATA	*pAnimData;
+			// For animated tiles
+			TILE_ANIMATION_DATA	*pAnimData;
 //		};
 
 //	};
@@ -171,7 +171,7 @@ UINT8		GetLandLevelDepth( UINT32 iMapIndex );
 
 BOOLEAN SetLandIndexWithRadius( INT32 iMapIndex, UINT16 usIndex, UINT32 uiNewType, UINT8 ubRadius, BOOLEAN fReplace );
 
-BOOLEAN LandTypeHeigher( UINT32 uiDestType, UINT32 uiSrcType  );
+BOOLEAN LandTypeHeigher( UINT32 uiDestType, UINT32 uiSrcType	);
 
 BOOLEAN MoveLandIndexToTop( UINT32 iMapIndex, UINT16 usIndex );
 

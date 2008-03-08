@@ -72,7 +72,7 @@ void HideTerrainTileButtons()
 		{
 			DisableEditorRegion( x );
 		}
-		gfShowTerrainTileButtons=FALSE;	
+		gfShowTerrainTileButtons=FALSE;
 	}
 }
 
@@ -85,7 +85,7 @@ void ShowTerrainTileButtons()
 		{
 			EnableEditorRegion( x );
 		}
-		gfShowTerrainTileButtons=TRUE;	
+		gfShowTerrainTileButtons=TRUE;
 	}
 }
 
@@ -122,10 +122,10 @@ void RenderTerrainTileButtons()
 				ColorFillVideoSurfaceArea(ButtonDestBuffer, usX + 1, usY + 1, usX2, usY2, usFillColorLight);
 			}
 			ColorFillVideoSurfaceArea(ButtonDestBuffer, usX + 1, usY + 1, usX2 - 1, usY2 - 1, 0);
-			
+
 			SetObjectShade( gTileDatabase[gTileTypeStartIndex[x]].hTileSurface, DEFAULT_SHADE_LEVEL );
-			BltVideoObject(ButtonDestBuffer, gTileDatabase[gTileTypeStartIndex[x]].hTileSurface, 0, (usX + 1), (usY + 1), 
-										 VO_BLT_SRCTRANSPARENCY, NULL);
+			BltVideoObject(ButtonDestBuffer, gTileDatabase[gTileTypeStartIndex[x]].hTileSurface, 0, (usX + 1), (usY + 1),
+										VO_BLT_SRCTRANSPARENCY, NULL);
 
 			if( fUseTerrainWeights )
 			{
@@ -135,7 +135,7 @@ void RenderTerrainTileButtons()
 	}
 }
 
-//This callback is used for each of the terrain tile buttons.  The userData[0] field
+//This callback is used for each of the terrain tile buttons.	The userData[0] field
 //contains the terrain button's index value.
 void TerrainTileButtonRegionCallback(MOUSE_REGION *reg,INT32 reason)
 {
@@ -147,9 +147,9 @@ void TerrainTileButtonRegionCallback(MOUSE_REGION *reg,INT32 reason)
 		{
 			TerrainForegroundTile = TerrainTileSelected;
 			CurrentPaste = (UINT16)TerrainForegroundTile;
-			//iEditorToolbarState = TBAR_MODE_DRAW;				
+			//iEditorToolbarState = TBAR_MODE_DRAW;
 			if( _KeyDown( SHIFT ) )
-			{ 
+			{
 				fUseTerrainWeights = TRUE;
 			}
 			if( fUseTerrainWeights )
@@ -161,7 +161,7 @@ void TerrainTileButtonRegionCallback(MOUSE_REGION *reg,INT32 reason)
 					usTotalWeight++;
 				}
 			}
-			else 
+			else
 			{ //Regular LEFTCLICK selects only that terrain tile.
 				//When total weight is 0, then the only selected tile is drawn.
 				ResetTerrainTileWeights();
@@ -195,7 +195,7 @@ void ChooseWeightedTerrainTile()
 	UINT16 x, usWeight;
 	INT16 sRandomNum;
 	if(!usTotalWeight)
-	{ //Not in the weighted mode.  CurrentPaste will already contain the selected tile.
+	{ //Not in the weighted mode.	CurrentPaste will already contain the selected tile.
 		return;
 	}
 	sRandomNum = rand() % usTotalWeight;
@@ -228,7 +228,7 @@ void Fill( INT32 x, INT32 y )
 
 	if( count > maxCount )
 		maxCount = count;
-	
+
 	iMapIndex = y * WORLD_COLS + x;
 	if( !GridNoOnVisibleWorldTile( (INT16)iMapIndex ) )
 	{
@@ -261,15 +261,15 @@ void TerrainFill( UINT32 iMapIndex )
 	INT16 sX, sY;
 	//determine what we should be looking for to replace...
 	GetTileType( gpWorldLevelData[ iMapIndex ].pLandHead->usIndex, &guiSearchType );
-	
+
 	//check terminating conditions
 	if( guiSearchType == CurrentPaste )
 		return;
-	
+
 	ConvertGridNoToXY( (INT16)iMapIndex, &sX, &sY );
 
 	count = 0;
-		
+
 	Fill( sX, sY );
 
 }
@@ -279,6 +279,7 @@ void TerrainFill( UINT32 iMapIndex )
 
 
 
- 
+
+
 
 

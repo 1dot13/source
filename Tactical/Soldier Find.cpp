@@ -17,7 +17,7 @@
 	#include "Isometric Utils.h"
 	#include "Event Pump.h"
 	#include "Timer Control.h"
-	#include "Render Fun.h" 
+	#include "Render Fun.h"
 	#include "Render Dirty.h"
 	#include "mousesystem.h"
 	#include "interface.h"
@@ -31,7 +31,7 @@
 	#include "english.h"
 	#include "overhead.h"
 	#include "opplist.h"
-	#include "Sound Control.h"
+	//#include "Sound Control.h"
 	#include "Font Control.h"
 	#include "lighting.h"
 	#include "pathai.h"
@@ -64,7 +64,7 @@ void GetSoldierScreenRect( SOLDIERTYPE *pSoldier, SGPRect *pRect );
 #define				MAX_STACKED_MERCS		10
 
 
-UINT32							gScrollSlideInertiaDirection[ NUM_WORLD_DIRECTIONS ] = 
+UINT32							gScrollSlideInertiaDirection[ NUM_WORLD_DIRECTIONS ] =
 {
 	3,
 	0,
@@ -83,7 +83,7 @@ typedef struct
 	UINT8			ubIDs[ MAX_STACKED_MERCS ];
 	INT8			bCur;
 	BOOLEAN		fUseGridNo;
-	UINT16		sUseGridNoGridNo;
+	INT16		sUseGridNoGridNo;
 
 } SOLDIER_STACK_TYPE;
 
@@ -96,36 +96,36 @@ extern								UINT32	guiUITargetSoldierId;
 
 BOOLEAN FindSoldierFromMouse( UINT16 *pusSoldierIndex, UINT32 *pMercFlags )
 {
-	UINT16							usMapPos;
-	
+	INT16							sMapPos;
+
 	*pMercFlags = 0;
 
-	 if ( GetMouseMapPos( &usMapPos ) )
-	 {
-			 if ( FindSoldier( usMapPos, pusSoldierIndex, pMercFlags ,FINDSOLDIERSAMELEVEL( gsInterfaceLevel ) ) )
-			 {					
-				 return( TRUE );
-			 }
-	 }
+	if ( GetMouseMapPos( &sMapPos ) )
+	{
+			if ( FindSoldier( sMapPos, pusSoldierIndex, pMercFlags ,FINDSOLDIERSAMELEVEL( gsInterfaceLevel ) ) )
+			{
+				return( TRUE );
+			}
+	}
 
-	 return( FALSE );
+	return( FALSE );
 }
 
 BOOLEAN SelectiveFindSoldierFromMouse( UINT16 *pusSoldierIndex, UINT32 *pMercFlags )
 {
-	UINT16							usMapPos;
-	
+	INT16							sMapPos;
+
 	*pMercFlags = 0;
 
-	 if ( GetMouseMapPos( &usMapPos ) )
-	 {
-			 if ( FindSoldier( usMapPos, pusSoldierIndex, pMercFlags , FINDSOLDIERSAMELEVEL( gsInterfaceLevel ) ) )
-			 {					
-				 return( TRUE );
-			 }
-	 }
+	if ( GetMouseMapPos( &sMapPos ) )
+	{
+			if ( FindSoldier( sMapPos, pusSoldierIndex, pMercFlags , FINDSOLDIERSAMELEVEL( gsInterfaceLevel ) ) )
+			{
+				return( TRUE );
+			}
+	}
 
-	 return( FALSE );
+	return( FALSE );
 }
 
 
@@ -144,55 +144,55 @@ UINT32 GetSoldierFindFlags( UINT16 ubID )
  }
  if ( ubID >= gTacticalStatus.Team[ gbPlayerNum ].bFirstID && ubID <= gTacticalStatus.Team[ gbPlayerNum ].bLastID )
  {
-	 if ( ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) && !GetNumberInVehicle( pSoldier->bVehicleID ) )
-	 {
-		 // Don't do anything!
-	 }
-	 else
-	 {
+	if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !GetNumberInVehicle( pSoldier->bVehicleID ) )
+	{
+		// Don't do anything!
+	}
+	else
+	{
 			// It's our own merc
-		 MercFlags  |= OWNED_MERC;
+		MercFlags	|= OWNED_MERC;
 
-		 if ( pSoldier->bAssignment < ON_DUTY )
-		 {
+		if ( pSoldier->bAssignment < ON_DUTY )
+		{
 				MercFlags |= ONDUTY_MERC;
-		 }
-	 }
+		}
+	}
  }
  else
  {
-	 // Check the side, etc
-	 if ( !pSoldier->bNeutral && (pSoldier->bSide != gbPlayerNum ) )
-	 {
+	// Check the side, etc
+	if ( !pSoldier->aiData.bNeutral && (pSoldier->bSide != gbPlayerNum ) )
+	{
 			// It's an enemy merc
-		 MercFlags  |= ENEMY_MERC;
-	 }
-	 else
-	 {
+		MercFlags	|= ENEMY_MERC;
+	}
+	else
+	{
 			// It's not an enemy merc
-		 MercFlags  |= NEUTRAL_MERC;
-	 }
+		MercFlags	|= NEUTRAL_MERC;
+	}
  }
 
 	// Check for a guy who does not have an iterrupt ( when applicable! )
 	if ( !OK_INTERRUPT_MERC( pSoldier ) )
 	{
-			MercFlags  |=	NOINTERRUPT_MERC;
+			MercFlags	|=	NOINTERRUPT_MERC;
 	}
 
-	if ( pSoldier->bLife < OKLIFE )
+	if ( pSoldier->stats.bLife < OKLIFE )
 	{
-		MercFlags  |=	UNCONSCIOUS_MERC;
+		MercFlags	|=	UNCONSCIOUS_MERC;
 	}
 
-	if ( pSoldier->bLife == 0 )
+	if ( pSoldier->stats.bLife == 0 )
 	{
-		MercFlags  |=	DEAD_MERC;
+		MercFlags	|=	DEAD_MERC;
 	}
 
 	if ( pSoldier->bVisible != -1 || (gTacticalStatus.uiFlags&SHOW_ALL_MERCS) )
 	{
-		MercFlags  |=	VISIBLE_MERC;
+		MercFlags	|=	VISIBLE_MERC;
 	}
 
 	return( MercFlags );
@@ -219,7 +219,7 @@ BOOLEAN FindSoldier( INT16 sGridNo, UINT16 *pusSoldierIndex, UINT32 *pMercFlags,
 
 
 	*pusSoldierIndex = NOBODY;
-	*pMercFlags			 = 0;
+	*pMercFlags			= 0;
 
 	if ( _KeyDown( SHIFT ) )
 	{
@@ -227,7 +227,7 @@ BOOLEAN FindSoldier( INT16 sGridNo, UINT16 *pusSoldierIndex, UINT32 *pMercFlags,
 	}
 
 	// Set some values
-  if ( uiFlags & FIND_SOLDIER_BEGINSTACK )
+	if ( uiFlags & FIND_SOLDIER_BEGINSTACK )
 	{
 		gSoldierStack.bNum = 0;
 		gSoldierStack.fUseGridNo = FALSE;
@@ -242,12 +242,12 @@ BOOLEAN FindSoldier( INT16 sGridNo, UINT16 *pusSoldierIndex, UINT32 *pMercFlags,
 		fInGridNo			= FALSE;
 
 		if ( pSoldier != NULL )
-		{			
+		{
 
-			if ( pSoldier->bActive && !( pSoldier->uiStatusFlags & SOLDIER_DEAD ) && ( pSoldier->bVisible != -1 || (gTacticalStatus.uiFlags&SHOW_ALL_MERCS) ) )
+			if ( pSoldier->bActive && !( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD ) && ( pSoldier->bVisible != -1 || (gTacticalStatus.uiFlags&SHOW_ALL_MERCS) ) )
 			{
 				// OK, ignore if we are a passenger...
-				if ( pSoldier->uiStatusFlags & ( SOLDIER_PASSENGER | SOLDIER_DRIVER ) )
+				if ( pSoldier->flags.uiStatusFlags & ( SOLDIER_PASSENGER | SOLDIER_DRIVER ) )
 				{
 					continue;
 				}
@@ -255,7 +255,7 @@ BOOLEAN FindSoldier( INT16 sGridNo, UINT16 *pusSoldierIndex, UINT32 *pMercFlags,
 				// If we want same level, skip if buggy's not on the same level!
 				if ( uiFlags & FIND_SOLDIER_SAMELEVEL )
 				{
-					if ( pSoldier->bLevel != (UINT8)( uiFlags >> 16 ) )
+					if ( pSoldier->pathing.bLevel != (UINT8)( uiFlags >> 16 ) )
 					{
 						continue;
 					}
@@ -309,7 +309,7 @@ BOOLEAN FindSoldier( INT16 sGridNo, UINT16 *pusSoldierIndex, UINT32 *pMercFlags,
 					{
 						fInGridNo			= TRUE;
 					}
-					
+
 					// ATE: If we are an enemy....
 					if ( !gGameSettings.fOptions[ TOPTION_SMART_CURSOR ] )
 					{
@@ -343,15 +343,15 @@ BOOLEAN FindSoldier( INT16 sGridNo, UINT16 *pusSoldierIndex, UINT32 *pMercFlags,
 					if ( fInScreenRect || fInGridNo )
 					{
 						// Check if we are a vehicle and refine if so....
-						if ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
+						if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 						{
 							usAnimSurface = GetSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
 
 							if ( usAnimSurface != INVALID_ANIMATION_SURFACE )
 							{
 								iMercScreenX = (INT32)( sScreenX - aRect.iLeft );
-                iMercScreenY = (INT32)( -1 * ( sScreenY - aRect.iBottom ) );
-									
+				iMercScreenY = (INT32)( -1 * ( sScreenY - aRect.iBottom ) );
+
 								if ( !CheckVideoObjectScreenCoordinateInData( gAnimSurfaceDatabase[ usAnimSurface ].hVideoObject, pSoldier->usAniFrame, iMercScreenX, iMercScreenY ) )
 								{
 									continue;
@@ -365,66 +365,66 @@ BOOLEAN FindSoldier( INT16 sGridNo, UINT16 *pusSoldierIndex, UINT32 *pMercFlags,
 
 						}
 
-						 // Only break here if we're not creating a stack of these fellas
-			 			 if ( uiFlags & FIND_SOLDIER_BEGINSTACK )
-						 {
-							 gfHandleStack = TRUE;
+						// Only break here if we're not creating a stack of these fellas
+						if ( uiFlags & FIND_SOLDIER_BEGINSTACK )
+						{
+							gfHandleStack = TRUE;
 
 								// Add this one!
-							 gSoldierStack.ubIDs[ gSoldierStack.bNum ] = pSoldier->ubID;
-							 gSoldierStack.bNum++;
+							gSoldierStack.ubIDs[ gSoldierStack.bNum ] = pSoldier->ubID;
+							gSoldierStack.bNum++;
 
-							 // Determine if it's the current
-							 if ( aRect.iBottom > sHeighestMercScreenY )
-							 {
+							// Determine if it's the current
+							if ( aRect.iBottom > sHeighestMercScreenY )
+							{
 									sMaxScreenMercY = (UINT16)aRect.iBottom;
 									sHeighestMercScreenY = sMaxScreenMercY;
 
 									gSoldierStack.bCur = gSoldierStack.bNum - 1;
-							 }
-						 }
-						 //Are we handling a stack right now?
-						 else if ( gfHandleStack )
-						 {
-							  // Are we the selected stack?
+							}
+						}
+						//Are we handling a stack right now?
+						else if ( gfHandleStack )
+						{
+							// Are we the selected stack?
 								if ( gSoldierStack.fUseGridNo )
 								{
-									 fSoldierFound = FALSE;
-									 break;		
+									fSoldierFound = FALSE;
+									break;
 								}
 								else if ( gSoldierStack.ubIDs[ gSoldierStack.bCur ] == pSoldier->ubID )
 								{
-									 // Set it!
-									 ubBestMerc = pSoldier->ubID;
+									// Set it!
+									ubBestMerc = pSoldier->ubID;
 
-									 fSoldierFound = TRUE;
-									 break;		
+									fSoldierFound = TRUE;
+									break;
 								}
-						 }
-						 else
-						 {
-							 // Determine if it's the best one
-							 if ( aRect.iBottom > sHeighestMercScreenY )
-							 {
+						}
+						else
+						{
+							// Determine if it's the best one
+							if ( aRect.iBottom > sHeighestMercScreenY )
+							{
 									sMaxScreenMercY = (UINT16)aRect.iBottom;
 									sHeighestMercScreenY = sMaxScreenMercY;
 
 									// Set it!
 									ubBestMerc = pSoldier->ubID;
-							 }
+							}
 
-							 fSoldierFound = TRUE;
-							 // Don't break here, find the rest!
+							fSoldierFound = TRUE;
+							// Don't break here, find the rest!
 
-						 }
+						}
 					}
-				
+
 				}
 				else
 				{
 					//Otherwise, look for a bad guy by way of gridno]
 					// Selective means don't give out enemy mercs if they are not visible
-					
+
 					///&& !NewOKDestination( pSoldier, sGridNo, TRUE, (INT8)gsInterfaceLevel )
 					if ( pSoldier->sGridNo == sGridNo && !NewOKDestination( pSoldier, sGridNo, TRUE, (INT8)gsInterfaceLevel ) )
 					{
@@ -441,11 +441,11 @@ BOOLEAN FindSoldier( INT16 sGridNo, UINT16 *pusSoldierIndex, UINT32 *pMercFlags,
 
 	if ( fSoldierFound && ubBestMerc != NOBODY )
 	{
-		 *pusSoldierIndex = (UINT16)ubBestMerc;
+		*pusSoldierIndex = (UINT16)ubBestMerc;
 
-		 (*pMercFlags) = GetSoldierFindFlags( ubBestMerc );
+		(*pMercFlags) = GetSoldierFindFlags( ubBestMerc );
 
- 		  return( TRUE );
+ 		return( TRUE );
 
 	}
 	else
@@ -469,15 +469,15 @@ BOOLEAN FindSoldier( INT16 sGridNo, UINT16 *pusSoldierIndex, UINT32 *pMercFlags,
 	return( FALSE );
 }
 
-BOOLEAN CycleSoldierFindStack( UINT16 usMapPos )
+BOOLEAN CycleSoldierFindStack( INT16 sMapPos )
 {
-	UINT16  usSoldierIndex;
+	UINT16	usSoldierIndex;
 	UINT32	uiMercFlags;
 
 	// Have we initalized for this yet?
 	if ( !gfHandleStack )
 	{
-		if ( FindSoldier( usMapPos, &usSoldierIndex, &uiMercFlags , FINDSOLDIERSAMELEVEL( gsInterfaceLevel ) | FIND_SOLDIER_BEGINSTACK ) )
+		if ( FindSoldier( sMapPos, &usSoldierIndex, &uiMercFlags , FINDSOLDIERSAMELEVEL( gsInterfaceLevel ) | FIND_SOLDIER_BEGINSTACK ) )
 		{
 			gfHandleStack = TRUE;
 		}
@@ -500,7 +500,7 @@ BOOLEAN CycleSoldierFindStack( UINT16 usMapPos )
 			{
 				gSoldierStack.fUseGridNo = TRUE;
 				gUIActionModeChangeDueToMouseOver = FALSE;
-			  gSoldierStack.sUseGridNoGridNo = usMapPos;
+			gSoldierStack.sUseGridNoGridNo = sMapPos;
 			}
 			else
 			{
@@ -515,11 +515,11 @@ BOOLEAN CycleSoldierFindStack( UINT16 usMapPos )
 			gusUIFullTargetID = gSoldierStack.ubIDs[ gSoldierStack.bCur ];
 			guiUIFullTargetFlags = GetSoldierFindFlags( gusUIFullTargetID );
 			guiUITargetSoldierId = gusUIFullTargetID;
-			gfUIFullTargetFound			 = TRUE;
+			gfUIFullTargetFound			= TRUE;
 		}
 		else
 		{
-			gfUIFullTargetFound			 = FALSE;
+			gfUIFullTargetFound			= FALSE;
 		}
 
 
@@ -557,7 +557,7 @@ BOOLEAN IsValidTargetMerc( UINT8 ubSoldierID )
 	}
 
 	// CHECK IF DEAD
-	if( pSoldier->bLife == 0 )
+	if( pSoldier->stats.bLife == 0 )
 	{
 		//return( FALSE );
 	}
@@ -567,7 +567,7 @@ BOOLEAN IsValidTargetMerc( UINT8 ubSoldierID )
 	{
 		if ( pSoldier->bVisible == -1 && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS) )
 		{
-			return( FALSE  );
+			return( FALSE	);
 		}
 	}
 
@@ -589,7 +589,7 @@ BOOLEAN IsGridNoInScreenRect( INT16 sGridNo, SGPRect *pRect )
 		do
 		{
 			GetScreenXYGridNo( (INT16)iXTrav, (INT16)iYTrav, &sMapPos );
-			
+
 			if ( sMapPos == sGridNo )
 			{
 				return( TRUE );
@@ -640,7 +640,7 @@ void GetSoldierScreenRect( SOLDIERTYPE *pSoldier, SGPRect *pRect )
 
 void GetSoldierAnimDims( SOLDIERTYPE *pSoldier, INT16 *psHeight, INT16 *psWidth )
 {
-	UINT16											 usAnimSurface;
+	UINT16											usAnimSurface;
 
 	usAnimSurface = GetSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
 
@@ -648,7 +648,7 @@ void GetSoldierAnimDims( SOLDIERTYPE *pSoldier, INT16 *psHeight, INT16 *psWidth 
 	{
 		*psHeight					= (INT16)5;
 		*psWidth					= (INT16)5;
-		
+
 		return;
 	}
 
@@ -656,18 +656,13 @@ void GetSoldierAnimDims( SOLDIERTYPE *pSoldier, INT16 *psHeight, INT16 *psWidth 
 	// depending on the frame and the value returned here will vary thusly. However, for the
 	// uses of this function, we should be able to use just the first frame...
 
-	if ( pSoldier->usAniFrame >= gAnimSurfaceDatabase[ usAnimSurface ].hVideoObject->usNumberOfObjects )
-	{
-		int i = 0;
-	}
-
 	*psHeight					= (INT16)pSoldier->sBoundingBoxHeight;
 	*psWidth					= (INT16)pSoldier->sBoundingBoxWidth;
 }
 
 void GetSoldierAnimOffsets( SOLDIERTYPE *pSoldier, INT16 *sOffsetX, INT16 *sOffsetY )
 {
-	UINT16											 usAnimSurface;
+	UINT16											usAnimSurface;
 
 	usAnimSurface = GetSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
 
@@ -688,7 +683,7 @@ void GetSoldierScreenPos( SOLDIERTYPE *pSoldier, INT16 *psScreenX, INT16 *psScre
 		INT16 sMercScreenX, sMercScreenY;
 		FLOAT dOffsetX, dOffsetY;
 		FLOAT dTempX_S, dTempY_S;
-		UINT16											 usAnimSurface;
+		UINT16											usAnimSurface;
 //		ETRLEObject *pTrav;
 
 		usAnimSurface = GetSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
@@ -712,8 +707,8 @@ void GetSoldierScreenPos( SOLDIERTYPE *pSoldier, INT16 *psScreenX, INT16 *psScre
 		sMercScreenY = ( ( gsVIEWPORT_END_Y - gsVIEWPORT_START_Y ) /2 ) + (INT16)dTempY_S;
 
 		// Adjust starting screen coordinates
-		sMercScreenX	-= gsRenderWorldOffsetX; 
-		sMercScreenY	-= gsRenderWorldOffsetY; 
+		sMercScreenX	-= gsRenderWorldOffsetX;
+		sMercScreenY	-= gsRenderWorldOffsetY;
 		sMercScreenY	-= gpWorldLevelData[ pSoldier->sGridNo ].sHeight;
 
 		// Adjust for render height
@@ -738,7 +733,7 @@ void GetSoldierTRUEScreenPos( SOLDIERTYPE *pSoldier, INT16 *psScreenX, INT16 *ps
 		INT16 sMercScreenX, sMercScreenY;
 		FLOAT dOffsetX, dOffsetY;
 		FLOAT dTempX_S, dTempY_S;
-		UINT16											 usAnimSurface;
+		UINT16											usAnimSurface;
 
 		usAnimSurface = GetSoldierAnimationSurface( pSoldier, pSoldier->usAnimState );
 
@@ -759,8 +754,8 @@ void GetSoldierTRUEScreenPos( SOLDIERTYPE *pSoldier, INT16 *psScreenX, INT16 *ps
 		sMercScreenY = ( ( gsVIEWPORT_END_Y - gsVIEWPORT_START_Y ) /2 ) + (INT16)dTempY_S;
 
 		// Adjust starting screen coordinates
-		sMercScreenX	-= gsRenderWorldOffsetX; 
-		sMercScreenY	-= gsRenderWorldOffsetY; 
+		sMercScreenX	-= gsRenderWorldOffsetX;
+		sMercScreenY	-= gsRenderWorldOffsetY;
 
 		// Adjust for render height
 		sMercScreenY += gsRenderHeight;
@@ -779,12 +774,12 @@ BOOLEAN GridNoOnScreen( INT16 sGridNo )
 	INT16 sNewCenterWorldX, sNewCenterWorldY;
 	INT16 sWorldX;
 	INT16 sWorldY;
-  INT16 sAllowance = 20;
-	
-  if ( gsVIEWPORT_WINDOW_START_Y == 20 )
-  {
-    sAllowance = 40;
-  }
+	INT16 sAllowance = 20;
+
+	if ( gsVIEWPORT_WINDOW_START_Y == 20 )
+	{
+	sAllowance = 40;
+	}
 
 	ConvertGridNoToXY( sGridNo, &sNewCenterWorldX, &sNewCenterWorldY );
 
@@ -793,7 +788,7 @@ BOOLEAN GridNoOnScreen( INT16 sGridNo )
 
 	// ATE: OK, here, adjust the top value so that it's a tile and a bit over, because of our mercs!
 	if ( sWorldX >= gsTopLeftWorldX && sWorldX <= gsBottomRightWorldX &&
-			 sWorldY >= ( gsTopLeftWorldY + sAllowance )	&& sWorldY <= ( gsBottomRightWorldY + 20 ) )
+			sWorldY >= ( gsTopLeftWorldY + sAllowance )	&& sWorldY <= ( gsBottomRightWorldY + 20 ) )
 	{
 		return( TRUE );
 	}
@@ -816,7 +811,7 @@ BOOLEAN SoldierOnVisibleWorldTile( SOLDIERTYPE *pSoldier )
 {
 	return( GridNoOnVisibleWorldTile( pSoldier->sGridNo ) );
 }
-		
+
 
 
 BOOLEAN SoldierLocationRelativeToScreen( INT16 sGridNo, UINT16 usReasonID, INT8 *pbDirection, UINT32 *puiScrollFlags )
@@ -839,7 +834,7 @@ BOOLEAN SoldierLocationRelativeToScreen( INT16 sGridNo, UINT16 usReasonID, INT8 
 	// Find the diustance from render center to true world center
 	sDistToCenterX = gsRenderCenterX - gCenterWorldX;
 	sDistToCenterY = gsRenderCenterY - gCenterWorldY;
-	
+
 	// From render center in world coords, convert to render center in "screen" coords
 	FromCellToScreenCoordinates( sDistToCenterX , sDistToCenterY, &sScreenCenterX, &sScreenCenterY );
 
@@ -856,11 +851,11 @@ BOOLEAN SoldierLocationRelativeToScreen( INT16 sGridNo, UINT16 usReasonID, INT8 
 	*pbDirection = atan8( gsRenderCenterX, gsRenderCenterY, (INT16)(sX), (INT16)(sY) );
 
 	// Check values!
-	if ( sWorldX > ( sScreenCenterX + 20 ) ) 
+	if ( sWorldX > ( sScreenCenterX + 20 ) )
 	{
 		(*puiScrollFlags) |= SCROLL_RIGHT;
 	}
-	if ( sWorldX < ( sScreenCenterX - 20 ) ) 
+	if ( sWorldX < ( sScreenCenterX - 20 ) )
 	{
 		(*puiScrollFlags) |= SCROLL_LEFT;
 	}
@@ -876,7 +871,7 @@ BOOLEAN SoldierLocationRelativeToScreen( INT16 sGridNo, UINT16 usReasonID, INT8 
 
 	// If we are on screen, stop
 	if ( sWorldX >= gsTopLeftWorldX && sWorldX <= gsBottomRightWorldX &&
-			 sWorldY >= gsTopLeftWorldY	&& sWorldY <= ( gsBottomRightWorldY + 20 ) )
+			sWorldY >= gsTopLeftWorldY	&& sWorldY <= ( gsBottomRightWorldY + 20 ) )
 	{
 		// CHECK IF WE ARE DONE...
 		if ( fCountdown > gScrollSlideInertiaDirection[ *pbDirection ] )
@@ -982,7 +977,7 @@ UINT8 QuickFindSoldier( INT16 sGridNo )
 		pSoldier = MercSlots[ cnt ];
 
 		if ( pSoldier != NULL )
-		{			
+		{
 			if ( pSoldier->sGridNo == sGridNo && pSoldier->bVisible != -1 )
 			{
 				return( (UINT8)cnt );
@@ -1014,8 +1009,8 @@ void GetGridNoScreenPos( INT16 sGridNo, UINT8 ubLevel, INT16 *psScreenX, INT16 *
 		sScreenY = ( ( gsVIEWPORT_END_Y - gsVIEWPORT_START_Y ) /2 ) + (INT16)dTempY_S;
 
 		// Adjust starting screen coordinates
-		sScreenX	-= gsRenderWorldOffsetX; 
-		sScreenY	-= gsRenderWorldOffsetY; 
+		sScreenX	-= gsRenderWorldOffsetX;
+		sScreenY	-= gsRenderWorldOffsetY;
 
 		sScreenY += gsRenderHeight;
 
@@ -1031,4 +1026,5 @@ void GetGridNoScreenPos( INT16 sGridNo, UINT8 ubLevel, INT16 *psScreenX, INT16 *
 		*psScreenX = sScreenX;
 		*psScreenY = sScreenY;
 }
+
 

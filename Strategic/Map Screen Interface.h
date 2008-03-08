@@ -48,9 +48,9 @@ typedef struct FASTHELPREGION {
 #define MAP_SCREEN_FONT BLOCKFONT2
 
 // characterlist regions
-#define     Y_START               135	//146
-#define			MAP_START_KEYRING_Y   107
-#define     Y_SIZE                GetFontHeight(MAP_SCREEN_FONT)
+#define	 Y_START				135	//146
+#define			MAP_START_KEYRING_Y	107
+#define	 Y_SIZE				GetFontHeight(MAP_SCREEN_FONT)
 
 //lal
 // militia control menu
@@ -211,7 +211,7 @@ enum{
 #define UPDATE_MERC_FACE_X_HEIGHT 50
 #define UPDATE_MERC_FACE_X_OFFSET 2
 #define UPDATE_MERC_FACE_Y_OFFSET 2
-#define WIDTH_OF_UPDATE_PANEL_BLOCKS  50
+#define WIDTH_OF_UPDATE_PANEL_BLOCKS	50
 #define HEIGHT_OF_UPDATE_PANEL_BLOCKS 50
 #define UPDATE_MERC_Y_OFFSET 4
 #define UPDATE_MERC_X_OFFSET 4
@@ -222,7 +222,7 @@ enum{
 #define TACT_UPDATE_MERC_FACE_X_HEIGHT 49
 #define TACT_UPDATE_MERC_FACE_X_OFFSET 8
 #define TACT_UPDATE_MERC_FACE_Y_OFFSET 6
-#define TACT_WIDTH_OF_UPDATE_PANEL_BLOCKS  70
+#define TACT_WIDTH_OF_UPDATE_PANEL_BLOCKS	70
 #define TACT_HEIGHT_OF_UPDATE_PANEL_BLOCKS 49
 #define TACT_UPDATE_MERC_Y_OFFSET 4
 #define TACT_UPDATE_MERC_X_OFFSET 4
@@ -231,10 +231,22 @@ enum{
 // the first vehicle slot int he list
 #define FIRST_VEHICLE 18
 
-typedef struct MERC_LEAVE_ITEM{
-	OBJECTTYPE o;
-	struct MERC_LEAVE_ITEM *pNext;
-}MERC_LEAVE_ITEM;
+class OLD_MERC_LEAVE_ITEM_101
+{
+public:
+	OLD_OBJECTTYPE_101 oldObject;
+	class MERC_LEAVE_ITEM *pNext;
+};
+
+class MERC_LEAVE_ITEM
+{
+public:
+	BOOLEAN Save( HWFILE hFile);
+	BOOLEAN Load( HWFILE hFile);
+	void initialize() {object.initialize(); pNext = NULL;};
+	OBJECTTYPE object;
+	class MERC_LEAVE_ITEM *pNext;
+};
 
 extern BOOLEAN fShowAssignmentMenu;
 extern BOOLEAN fShowTrainingMenu ;
@@ -320,11 +332,11 @@ extern INT32 iCurrentMapSectorZ;
 extern INT32 giBoxY;
 
 // pop up box textures
-extern UINT32    guiPOPUPTEX;
-extern UINT32    guiPOPUPBORDERS;
+extern UINT32	guiPOPUPTEX;
+extern UINT32	guiPOPUPBORDERS;
 
 // the level-changing markers on the map border
-extern UINT32		 guiLEVELMARKER;
+extern UINT32		guiLEVELMARKER;
 
 // the currently selected character arrow
 extern UINT32		guiSelectedCharArrow;
@@ -392,7 +404,7 @@ void EnableTeamInfoPanels( void );
 void ActivateSoldierPopup( SOLDIERTYPE *pSoldier, UINT8 ubPopupType, INT16 xp, INT16 yp );
 
 // do mapscreen message box
-INT32 DoMapMessageBox( UINT8 ubStyle,  STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback );
+INT32 DoMapMessageBox( UINT8 ubStyle,	STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback );
 
 // hop up one leve,l int he map screen level interface
 void GoUpOneLevelInMap( void );
@@ -434,7 +446,7 @@ void InitLeaveList( void );
 void ShutDownLeaveList( void );
 
 // add item to leave equip index
-BOOLEAN AddItemToLeaveIndex( OBJECTTYPE *o, UINT32 uiIndex );
+BOOLEAN AddItemToLeaveIndex( OBJECTTYPE *object, UINT32 uiIndex );
 
 // release memory for all items in this slot's leave item list
 void FreeLeaveListSlot( UINT32 uiSlotIndex );

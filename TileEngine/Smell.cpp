@@ -17,13 +17,13 @@
 
 /*
  * Smell & Blood system
- * 
- * Smell and blood trails decay as time passes.  
- * 
- *             Decay Rate        Maximum Strength    Decay Time: Min Max (for biggest volume)
  *
- * Smell       1 per turn              31                         31  31
- * Blood    1 every 1-3 turns           7                          7  21
+ * Smell and blood trails decay as time passes.
+ *
+ *			 Decay Rate		Maximum Strength	Decay Time: Min Max (for biggest volume)
+ *
+ * Smell		1 per turn				31						 31	31
+ * Blood	1 every 1-3 turns			7							7	21
  *
  * Smell has a much finer resolution so that creatures which track by smell
  * can do so effectively.
@@ -33,23 +33,23 @@
  * Time for some crazy-ass macros!
  * The smell byte is spit as follows:
  * O \
- * O  \
- * O   \ Smell
- * O   / Strength (only on ground)
- * O  /
+ * O	\
+ * O	\ Smell
+ * O	/ Strength (only on ground)
+ * O	/
  * O /
- * O >   Type of blood on roof
- * O >   Type of smell/blood on ground
+ * O >	Type of blood on roof
+ * O >	Type of smell/blood on ground
  *
  * The blood byte is split as follows:
  * O \
- * O  > Blood quantity on roof
+ * O	> Blood quantity on roof
  * O /
- * O \ 
- * O  > Blood quantity on ground
+ * O \
+ * O	> Blood quantity on ground
  * O /
- * O \  Blood decay
- * O /  time (roof and ground decay together)
+ * O \	Blood decay
+ * O /	time (roof and ground decay together)
  */
 
 /*
@@ -58,20 +58,20 @@
  */
 
 // LUT for which graphic to use based on strength
-//															 0  1,  2,  3,  4,  5,  6, 7
-UINT8 ubBloodGraphicLUT [ ] = {  3, 3,  2,  2,  1,  1,  0, 0 };
+//															0	1,	2,	3,	4,	5,	6, 7
+UINT8 ubBloodGraphicLUT [ ] = {	3, 3,	2,	2,	1,	1,	0, 0 };
 
 
 #define SMELL_STRENGTH_MAX		63
 #define BLOOD_STRENGTH_MAX		7
-#define BLOOD_DELAY_MAX       3
+#define BLOOD_DELAY_MAX		3
 
 #define SMELL_TYPE_BITS( s )	(s & 0x03)
 
-#define BLOOD_ROOF_TYPE( s )  (s & 0x02)
+#define BLOOD_ROOF_TYPE( s )	(s & 0x02)
 #define BLOOD_FLOOR_TYPE( s )	(s & 0x01)
 
-#define BLOOD_ROOF_STRENGTH( b )    (b & 0xE0)
+#define BLOOD_ROOF_STRENGTH( b )	(b & 0xE0)
 #define BLOOD_FLOOR_STRENGTH( b )		( (b & 0x1C) >> 2 )
 #define BLOOD_DELAY_TIME( b )				(b & 0x03)
 #define NO_BLOOD_STRENGTH( b )			((b & 0xFC) == 0)
@@ -151,7 +151,7 @@ void RemoveBlood( INT16 sGridNo, INT8 bLevel )
 
 
 void DecaySmells( void )
-{	
+{
 	UINT32					uiLoop;
 	MAP_ELEMENT *		pMapElement;
 
@@ -215,7 +215,7 @@ void DecayBlood()
 						if (NO_BLOOD_STRENGTH( pMapElement->ubBloodInfo ))
 						{
 							// wipe the whole byte to zero
-							pMapElement->ubBloodInfo = 0;							
+							pMapElement->ubBloodInfo = 0;
 						}
 					}
 				}
@@ -241,7 +241,7 @@ void DecayBloodAndSmells( UINT32 uiTime )
 	{
 		return;
 	}
-	
+
 	// period between checks, in game seconds
 	switch( giTimeCompressMode )
 	{
@@ -279,11 +279,11 @@ void DropSmell( SOLDIERTYPE * pSoldier )
 	UINT8						ubStrength;
 
 	/*
-	 *  Here we are creating a new smell on the ground.  If there is blood in
-	 *  the tile, it overrides dropping smells of any type
-	 */
+	*	Here we are creating a new smell on the ground.	If there is blood in
+	*	the tile, it overrides dropping smells of any type
+	*/
 
-	if (pSoldier->bLevel == 0)
+	if (pSoldier->pathing.bLevel == 0)
 	{
 		pMapElement = &(gpWorldLevelData[pSoldier->sGridNo]);
 		if (pMapElement->ubBloodInfo)
@@ -292,14 +292,14 @@ void DropSmell( SOLDIERTYPE * pSoldier )
 			return;
 		}
 
-		if (pSoldier->bNormalSmell > pSoldier->bMonsterSmell)
+		if (pSoldier->aiData.bNormalSmell > pSoldier->aiData.bMonsterSmell)
 		{
-			ubStrength = pSoldier->bNormalSmell - pSoldier->bMonsterSmell;
+			ubStrength = pSoldier->aiData.bNormalSmell - pSoldier->aiData.bMonsterSmell;
 			ubSmell = HUMAN;
 		}
 		else
 		{
-			ubStrength = pSoldier->bMonsterSmell - pSoldier->bNormalSmell;
+			ubStrength = pSoldier->aiData.bMonsterSmell - pSoldier->aiData.bNormalSmell;
 			if (ubStrength == 0)
 			{
 				// don't drop any smell
@@ -360,11 +360,11 @@ void InternalDropBlood( INT16 sGridNo, INT8 bLevel, UINT8 ubType, UINT8 ubStreng
 	UINT8						ubOldStrength=0;
 	UINT8						ubNewStrength=0;
 	UINT8	bOverTerrainType;
-		
+
 	/*
-	 * Dropping some blood;
-	 * We can check the type of blood by consulting the type in the smell byte
-	 */
+	* Dropping some blood;
+	* We can check the type of blood by consulting the type in the smell byte
+	*/
 
 	bOverTerrainType = GetTerrainType( sGridNo);
 	// If we are in water...
@@ -396,7 +396,7 @@ void InternalDropBlood( INT16 sGridNo, INT8 bLevel, UINT8 ubType, UINT8 ubStreng
 			if (BLOOD_FLOOR_TYPE( pMapElement->ubBloodInfo ) == ubType)
 			{
 				// combine blood strengths!
-				ubNewStrength = __min( ( ubOldStrength + ubStrength ), BLOOD_STRENGTH_MAX ); 
+				ubNewStrength = __min( ( ubOldStrength + ubStrength ), BLOOD_STRENGTH_MAX );
 
 				SET_BLOOD_FLOOR_STRENGTH( pMapElement->ubBloodInfo, ubNewStrength );
 			}
@@ -414,7 +414,7 @@ void InternalDropBlood( INT16 sGridNo, INT8 bLevel, UINT8 ubType, UINT8 ubStreng
 		else
 		{
 			// no blood on the ground yet, so drop this amount!
-			// set decay time 
+			// set decay time
 			SET_BLOOD_DELAY_TIME( pMapElement->ubBloodInfo );
 			SET_BLOOD_FLOOR_STRENGTH( pMapElement->ubBloodInfo, ubStrength );
 			// NB blood floor type stored in smell byte!
@@ -431,8 +431,8 @@ void InternalDropBlood( INT16 sGridNo, INT8 bLevel, UINT8 ubType, UINT8 ubStreng
 			if (BLOOD_ROOF_TYPE( pMapElement->ubSmellInfo ) == ubType)
 			{
 				// combine blood strengths!
-				ubNewStrength = __max( ubOldStrength, ubStrength ) + 1;		
-				// make sure the strength is legal		
+				ubNewStrength = __max( ubOldStrength, ubStrength ) + 1;
+				// make sure the strength is legal
 				ubNewStrength = __max( ubNewStrength, BLOOD_STRENGTH_MAX );
 				SET_BLOOD_ROOF_STRENGTH( pMapElement->ubBloodInfo, ubNewStrength );
 			}
@@ -450,7 +450,7 @@ void InternalDropBlood( INT16 sGridNo, INT8 bLevel, UINT8 ubType, UINT8 ubStreng
 		else
 		{
 			// no blood on the roof yet, so drop this amount!
-			// set decay time 
+			// set decay time
 			SET_BLOOD_DELAY_TIME( pMapElement->ubBloodInfo );
 			SET_BLOOD_ROOF_STRENGTH( pMapElement->ubBloodInfo, ubNewStrength );
 			SET_BLOOD_ROOF_TYPE( pMapElement->ubSmellInfo, ubType );
@@ -471,18 +471,15 @@ void InternalDropBlood( INT16 sGridNo, INT8 bLevel, UINT8 ubType, UINT8 ubStreng
 void DropBlood( SOLDIERTYPE * pSoldier, UINT8 ubStrength, INT8 bVisible )
 {
 	UINT8						ubType;
-	UINT8						ubOldStrength=0;
-	UINT8						ubNewStrength=0;
-		
 	/*
-	 * Dropping some blood;
-	 * We can check the type of blood by consulting the type in the smell byte
-	 */
+	* Dropping some blood;
+	* We can check the type of blood by consulting the type in the smell byte
+	*/
 
 	// figure out the type of blood that we're dropping
-	if ( pSoldier->uiStatusFlags & SOLDIER_MONSTER )
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER )
 	{
-		if ( pSoldier->bLevel == 0 )
+		if ( pSoldier->pathing.bLevel == 0 )
 		{
 			ubType = CREATURE_ON_FLOOR;
 		}
@@ -497,7 +494,7 @@ void DropBlood( SOLDIERTYPE * pSoldier, UINT8 ubStrength, INT8 bVisible )
 	}
 
 
-	InternalDropBlood( pSoldier->sGridNo, pSoldier->bLevel, ubType, ubStrength, bVisible );
+	InternalDropBlood( pSoldier->sGridNo, pSoldier->pathing.bLevel, ubType, ubStrength, bVisible );
 }
 
 
@@ -507,7 +504,7 @@ void UpdateBloodGraphics( INT16 sGridNo, INT8 bLevel )
 	MAP_ELEMENT *		pMapElement;
 	INT8						bValue;
 	UINT16					usIndex, usNewIndex;
-	
+
 	// OK, based on level, type, display graphics for blood
 	pMapElement = &(gpWorldLevelData[ sGridNo ]);
 
@@ -527,7 +524,7 @@ void UpdateBloodGraphics( INT16 sGridNo, INT8 bLevel )
 		if ( bLevel == 0 )
 		{
 			bValue = BLOOD_FLOOR_STRENGTH( pMapElement->ubBloodInfo );
-		
+
 			// OK, remove tile graphic if one exists....
 			if ( TypeRangeExistsInObjectLayer( sGridNo, HUMANBLOOD, CREATUREBLOOD, &usIndex ) )
 			{

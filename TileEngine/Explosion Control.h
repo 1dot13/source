@@ -67,12 +67,12 @@ enum EXPLOSION_TYPES
 
 typedef struct
 {
-    UINT8   ubTransKeyFrame;
-    UINT8   ubDamageKeyFrame;
-    UINT32  uiExplosionSoundID;
-    UINT32  uiAltExplosionSoundID;
-    CHAR8   zBlastFilename[MAX_BLAST_FILENAME_LEN];
-    CHAR8   sBlastSpeed;
+	UINT8	ubTransKeyFrame;
+	UINT8	ubDamageKeyFrame;
+	UINT32	uiExplosionSoundID;
+	UINT32	uiAltExplosionSoundID;
+	CHAR8	zBlastFilename[MAX_BLAST_FILENAME_LEN];
+	CHAR8	sBlastSpeed;
 } EXPLOSION_DATA;
 
 extern EXPLOSION_DATA gExpAniData[NUM_EXP_TYPES];
@@ -118,7 +118,7 @@ void UpdateExplosionFrame( INT32 iIndex, INT16 sCurrentFrame );
 void RemoveExplosionData( INT32 iIndex );
 
 void UpdateAndDamageSAMIfFound( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, INT16 sGridNo, UINT8 ubDamage );
-void UpdateSAMDoneRepair( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ  );
+void UpdateSAMDoneRepair( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ	);
 
 
 BOOLEAN SaveExplosionTableToSaveGameFile( HWFILE hFile );

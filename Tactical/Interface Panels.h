@@ -43,8 +43,8 @@ typedef enum
 #define SHOW_LOCATOR_FAST					2
 
 BOOLEAN CreateSMPanelButtons( );
-void    RemoveSMPanelButtons( );
-BOOLEAN InitializeSMPanel(  );
+void	RemoveSMPanelButtons( );
+BOOLEAN InitializeSMPanel(	);
 BOOLEAN ShutdownSMPanel( );
 void RenderSMPanel( BOOLEAN *pfDirty );
 void EnableSMPanelButtons( BOOLEAN fEnable, BOOLEAN fFromItemPickup );
@@ -56,11 +56,14 @@ void EnableSMPanelButtons( BOOLEAN fEnable, BOOLEAN fFromItemPickup );
  * and when we will read all values we return TRUE if not we will retunf FALSE
  * any questions? joker
  */
-BOOLEAN InitializeSMPanelCoords( ); 
+//BOOLEAN InitializeSMPanelCoords( ); 
+BOOLEAN InitializeSMPanelCoordsNew();
+BOOLEAN InitializeSMPanelCoordsOld(); 
+
 
 BOOLEAN CreateTEAMPanelButtons( );
-void    RemoveTEAMPanelButtons( );
-BOOLEAN InitializeTEAMPanel(  );
+void	RemoveTEAMPanelButtons( );
+BOOLEAN InitializeTEAMPanel(	);
 BOOLEAN ShutdownTEAMPanel( );
 void RenderTEAMPanel( BOOLEAN fDirty );
 void UpdateTEAMPanel( );
@@ -72,7 +75,7 @@ BOOLEAN InitializeTEAMPanelCoords( );
 
 void SetSMPanelCurrentMerc( UINT8 ubNewID );
 void SetTEAMPanelCurrentMerc( UINT8 ubNewID );
-UINT16 GetSMPanelCurrentMerc(  );
+UINT16 GetSMPanelCurrentMerc(	);
 void UpdateSMPanel( );
 
 BOOLEAN InitTEAMSlots( );
@@ -83,10 +86,16 @@ void RemoveAllPlayersFromSlot( );
 BOOLEAN PlayerExistsInSlot( UINT8 ubID );
 BOOLEAN RemovePlayerFromTeamSlotGivenMercID( UINT8 ubMercID );
 void CheckForAndAddMercToTeamPanel( SOLDIERTYPE *pSoldier );
+void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj );
 
 void DisableTacticalTeamPanelButtons( BOOLEAN fDisable );
-void RenderTownIDString( );
+// CHRISL: Add X,Y coords as parameters so we can control the placement of TownID string on the team and inventory panels seperately
+void RenderTownIDString( INT16 sX, INT16 sY );
 void KeyRingSlotInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason );
+// CHRISL: New functions to handle initialization of inventory systems
+void InitNewInventorySystem( );
+void InitOldInventorySystem( );
+
 
 
 // ATE TO BE MOVED TO INTERFACE_ITEMS.C
@@ -124,15 +133,21 @@ void CheckForReEvaluateDisabledINVPanelButtons( );
 
 void CheckForDisabledForGiveItem( );
 void ReevaluateItemHatches( SOLDIERTYPE *pSoldier, BOOLEAN fEnable );
+//CHRISL: New function to deal with rendering backpack buttons
+void RenderBackpackButtons(int bpAction);
 
 void HandlePanelFaceAnimations( SOLDIERTYPE *pSoldier );
 
 void GoToMapScreenFromTactical( void );
 
-void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInvPos, UINT16 usOldItem, UINT16 usNewItem );
+// Moved to weapons.h by ADB, rev 1513
+//void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInvPos, UINT16 usOldItem, UINT16 usNewItem );
 
 void FinishAnySkullPanelAnimations( );
 
 UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife, BOOLEAN fOnlyRegularMercs );
+
+// CHRISL: New callback functions for backpack buttons
+BOOLEAN ChangeDropPackStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus);
 
 #endif

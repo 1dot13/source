@@ -31,6 +31,7 @@ enum
 
 };
 extern	STR16	zNewTacticalMessages[];
+extern	STR16 gzIMPSkillTraitsText[];
 
 enum
 {

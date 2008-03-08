@@ -70,7 +70,7 @@
 
 typedef struct
 {
-	UINT16  usNumberOfSymbols;
+	UINT16	usNumberOfSymbols;
 	UINT16 *DynamicArrayOf16BitValues;
 
 } FontTranslationTable;
@@ -110,7 +110,7 @@ void SetFontForeground(UINT8 ubForeground);
 void SetFontBackground(UINT8 ubBackground);
 void SetFontShadow(UINT8 ubBackground);
 
-//Kris:  added these
+//Kris:	added these
 void SetRGBFontForeground( UINT32 uiRed, UINT32 uiGreen, UINT32 uiBlue );
 void SetRGBFontBackground( UINT32 uiRed, UINT32 uiGreen, UINT32 uiBlue );
 void SetRGBFontShadow( UINT32 uiRed, UINT32 uiGreen, UINT32 uiBlue );
@@ -122,14 +122,14 @@ UINT16 *GetFontObjectPalette16BPP(INT32 iFont);
 
 void DestroyEnglishTransTable( void );
 
-extern HVOBJECT	 GetFontObject(INT32 iFont);
-extern UINT32		 gprintf(INT32 x, INT32 y, const STR16 pFontString, ...);
-extern UINT32    gprintfDirty(INT32 x, INT32 y, const STR16 pFontString, ...);
-extern UINT32		 mprintf(INT32 x, INT32 y, const STR16 pFontString, ...);
-extern UINT32		 gprintf_buffer( UINT8 *pDestBuf, UINT32 uiDestPitchBYTES, UINT32 FontType, INT32 x, INT32 y, const STR16 pFontString, ...);
+extern HVOBJECT	GetFontObject(INT32 iFont);
+extern UINT32		gprintf(INT32 x, INT32 y, const STR16 pFontString, ...);
+extern UINT32	gprintfDirty(INT32 x, INT32 y, const STR16 pFontString, ...);
+extern UINT32		mprintf(INT32 x, INT32 y, const STR16 pFontString, ...);
+extern UINT32		gprintf_buffer( UINT8 *pDestBuf, UINT32 uiDestPitchBYTES, UINT32 FontType, INT32 x, INT32 y, const STR16 pFontString, ...);
 extern UINT32	mprintf_buffer( UINT8 *pDestBuf, UINT32 uiDestPitchBYTES, UINT32 FontType, INT32 x, INT32 y, const STR16 pFontString, ...);
 
-// Function for displaying coded test. Since it's slower to do this, it's separate from  the normal fuctions
+// Function for displaying coded test. Since it's slower to do this, it's separate from	the normal fuctions
 #define FONT_CODE_BEGINCOLOR				180
 #define FONT_CODE_RESETCOLOR				181
 
@@ -137,16 +137,16 @@ UINT32 mprintf_buffer_coded( UINT8 *pDestBuf, UINT32 uiDestPitchBYTES, UINT32 Fo
 UINT32 mprintf_coded( INT32 x, INT32 y, const STR16 pFontString, ...);
 
 
-extern BOOLEAN	 SetFontDestBuffer(UINT32 DestBuffer, INT32 x1, INT32 y1, INT32 x2, INT32 y2, BOOLEAN wrap);
-extern BOOLEAN	 SetFont(INT32 iFontIndex);
+extern BOOLEAN	SetFontDestBuffer(UINT32 DestBuffer, INT32 x1, INT32 y1, INT32 x2, INT32 y2, BOOLEAN wrap);
+extern BOOLEAN	SetFont(INT32 iFontIndex);
 
-extern INT32		 LoadFontFile(const STR8 pFileName);
-extern UINT16    GetFontHeight(INT32 FontNum);
-extern BOOLEAN   InitializeFontManager(UINT16 usDefaultPixDepth, FontTranslationTable *pTransTable);
-extern void      ShutdownFontManager(void);
-extern void			 UnloadFont(UINT32 FontIndex);
+extern INT32		LoadFontFile(const STR8 pFileName);
+extern UINT16	GetFontHeight(INT32 FontNum);
+extern BOOLEAN	InitializeFontManager(UINT16 usDefaultPixDepth, FontTranslationTable *pTransTable);
+extern void		ShutdownFontManager(void);
+extern void			UnloadFont(UINT32 FontIndex);
 
-extern FontTranslationTable *CreateEnglishTransTable(  );
+extern FontTranslationTable *CreateEnglishTransTable(	);
 
 extern INT16 GetIndex(CHAR16 siChar);
 extern UINT32 GetWidth(HVOBJECT hSrcVObject, INT16 ssIndex);
@@ -168,13 +168,13 @@ void FindFontRightCoordinates( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHei
 void FindFontCenterCoordinates( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight, const STR16 pStr, INT32 iFontIndex, INT16 *psNewX, INT16 *psNewY );
 
 //extern FontBase *LoadFontFile(CHAR8 *pFileName);
-//extern UINT8    *GetFontPalette(CHAR8 *pFileName);
-//extern UINT16    GetMaxFontWidth(FontBase *pBase);
-//extern void      UnloadFont(FontBase *pBase);
-//extern BOOLEAN   SetFontPalette(FontBase *pFont, UINT16 siDepthPix, SGPPaletteEntry *pNewPalette);
+//extern UINT8	*GetFontPalette(CHAR8 *pFileName);
+//extern UINT16	GetMaxFontWidth(FontBase *pBase);
+//extern void		UnloadFont(FontBase *pBase);
+//extern BOOLEAN	SetFontPalette(FontBase *pFont, UINT16 siDepthPix, SGPPaletteEntry *pNewPalette);
 // make sure the pFontString is terminated by 0
-//extern BOOLEAN   PrintFontString(STR16 pFontString, UINT8 *pDestBuffer, UINT16 siDestWidth, UINT16 siDestPixelDepth, UINT16 siDestPitch, UINT16 siDestHeight, UINT16 siX, UINT16 siY, UINT16 siTotalWidth, UINT16 siTotalHeight, BOOLEAN MultiLine, FontBase *pFontBase);
-//extern BOOLEAN   SetFont16BitData(FontBase *pFontBase, UINT16 *pData16);
+//extern BOOLEAN	PrintFontString(STR16 pFontString, UINT8 *pDestBuffer, UINT16 siDestWidth, UINT16 siDestPixelDepth, UINT16 siDestPitch, UINT16 siDestHeight, UINT16 siX, UINT16 siY, UINT16 siTotalWidth, UINT16 siTotalHeight, BOOLEAN MultiLine, FontBase *pFontBase);
+//extern BOOLEAN	SetFont16BitData(FontBase *pFontBase, UINT16 *pData16);
 
 /*
 #ifdef __cplusplus

@@ -7,7 +7,7 @@
 //	each region.
 //
 //	Written by Bret Rowdon, Jan 30 '97
-//  Re-Written by Kris Morness, since...
+//	Re-Written by Kris Morness, since...
 //
 //=================================================================================================
 
@@ -55,7 +55,7 @@
 //Max double click delay (in milliseconds) to be considered a double click
 #define MSYS_DOUBLECLICK_DELAY		400
 //
-//Records and stores the last place the user clicked.  These values are compared to the current
+//Records and stores the last place the user clicked.	These values are compared to the current
 //click to determine if a double click event has been detected.
 MOUSE_REGION	*gpRegionLastLButtonDown = NULL;
 MOUSE_REGION	*gpRegionLastLButtonUp = NULL;
@@ -64,7 +64,7 @@ UINT32				guiRegionLastLButtonDownTime = 0;
 
 
 
-extern void ReleaseAnchorMode();  //private function used here (implemented in Button System.c)
+extern void ReleaseAnchorMode();	//private function used here (implemented in Button System.c)
 
 // number of lines in height help text will be
 INT16 GetNumberOfLinesInHeight( const STR16 pStringA );
@@ -96,12 +96,12 @@ MOUSE_REGION *MSYS_PrevRegion = NULL;
 MOUSE_REGION *MSYS_CurrRegion = NULL;
 
 //When set, the fast help text will be instantaneous, if consecutive regions with help text are
-//hilighted.  It is set, whenever the timer for the first help button expires, and the mode is
+//hilighted.	It is set, whenever the timer for the first help button expires, and the mode is
 //cleared as soon as the cursor moves into no region or a region with no helptext.
 BOOLEAN gfPersistantFastHelpMode;
 
-INT16   gsFastHelpDelay = 600; // In timer ticks
-BOOLEAN gfShowFastHelp  = TRUE;
+INT16	gsFastHelpDelay = 600; // In timer ticks
+BOOLEAN gfShowFastHelp	= TRUE;
 
 // help text is done, now execute callback, if there is one
 void ExecuteMouseHelpEndCallBack( MOUSE_REGION *region );
@@ -109,9 +109,9 @@ void ExecuteMouseHelpEndCallBack( MOUSE_REGION *region );
 
 
 //Kris:
-//NOTE:  This doesn't really need to be here, however, it is a good indication that
+//NOTE:	This doesn't really need to be here, however, it is a good indication that
 //when an error appears here, that you need to go below to the init code and initialize the
-//values there as well.  That's the only reason why I left this here.
+//values there as well.	That's the only reason why I left this here.
 MOUSE_REGION MSYS_SystemBaseRegion = {
 								MSYS_ID_SYSTEM, MSYS_PRIORITY_SYSTEM, BASE_REGION_FLAGS,
 								-32767, -32767, 32767, 32767, 0, 0, 0, 0, 0, 0,
@@ -120,17 +120,17 @@ MOUSE_REGION MSYS_SystemBaseRegion = {
 
 BOOLEAN					gfRefreshUpdate = FALSE;
 
-//Kris:  December 3, 1997
+//Kris:	December 3, 1997
 //Special internal debugging utilities that will ensure that you don't attempt to delete
-//an already deleted region.  It will also ensure that you don't create an identical region
+//an already deleted region.	It will also ensure that you don't create an identical region
 //that already exists.
-//TO REMOVE ALL DEBUG FUNCTIONALITY:  simply comment out MOUSESYSTEM_DEBUGGING definition
+//TO REMOVE ALL DEBUG FUNCTIONALITY:	simply comment out MOUSESYSTEM_DEBUGGING definition
 #ifdef JA2
-  #ifdef _DEBUG
+	#ifdef _DEBUG
 	#ifndef BOUNDS_CHECKER
-	  #define MOUSESYSTEM_DEBUGGING
+	#define MOUSESYSTEM_DEBUGGING
 	#endif
-  #endif
+	#endif
 #endif
 
 #ifdef MOUSESYSTEM_DEBUGGING
@@ -254,11 +254,11 @@ void MSYS_SGP_Mouse_Handler_Hook(UINT16 Type,UINT16 Xcoord, UINT16 Ycoord, BOOLE
 			{
 				MSYS_Action |= MSYS_DO_LBUTTON_UP;
 				//Kris:
-				//Used only if applicable.  This is used for that special button that is locked with the
-				//mouse press -- just like windows.  When you release the button, the previous state
-				//of the button is restored if you released the mouse outside of it's boundaries.  If
+				//Used only if applicable.	This is used for that special button that is locked with the
+				//mouse press -- just like windows.	When you release the button, the previous state
+				//of the button is restored if you released the mouse outside of it's boundaries.	If
 				//you release inside of the button, the action is selected -- but later in the code.
-				//NOTE:  It has to be here, because the mouse can be released anywhere regardless of
+				//NOTE:	It has to be here, because the mouse can be released anywhere regardless of
 				//regions, buttons, etc.
 				#ifdef JA2
 					ReleaseAnchorMode();
@@ -323,7 +323,7 @@ void MSYS_SGP_Mouse_Handler_Hook(UINT16 Type,UINT16 Xcoord, UINT16 Ycoord, BOOLE
 			break;
 
 		default:
-		  DbgMessage(TOPIC_MOUSE_SYSTEM, DBG_LEVEL_0, "ERROR -- MSYS 2 SGP Mouse Hook got bad type");
+		DbgMessage(TOPIC_MOUSE_SYSTEM, DBG_LEVEL_0, "ERROR -- MSYS 2 SGP Mouse Hook got bad type");
 			break;
 	}
 }
@@ -519,7 +519,7 @@ void MSYS_DeleteRegionFromList(MOUSE_REGION *region)
 	{
 		if(region->prev)
 			region->prev->next = region->next;
-		// If not last node in list, adjust following node's ->prev entry.
+		// If not last node in list, adjust following node's->prev entry.
 		if( region->next )
 			region->next->prev = region->prev;
 		region->prev = region->next = NULL;
@@ -555,14 +555,14 @@ void MSYS_DeleteRegionFromList(MOUSE_REGION *region)
 //======================================================================================================
 //	MSYS_UpdateMouseRegion
 //
-//	Searches the list for the highest priority region and updates its info. It also dispatches
+//	Searches the list for the highest priority region and updates it's info. It also dispatches
 //	the callback functions
 //
 void MSYS_UpdateMouseRegion(void)
 {
 	INT32 found;
 	UINT32 ButtonReason;
-  MOUSE_REGION *pTempRegion;
+	MOUSE_REGION *pTempRegion;
 	BOOLEAN fFound=FALSE;
 	found=FALSE;
 
@@ -578,10 +578,10 @@ void MSYS_UpdateMouseRegion(void)
 	while( !found && MSYS_CurrRegion )
 	{
 		if( MSYS_CurrRegion->uiFlags & (MSYS_REGION_ENABLED | MSYS_ALLOW_DISABLED_FASTHELP) &&
-		   (MSYS_CurrRegion->RegionTopLeftX <= MSYS_CurrentMX) &&		// Check boundaries
-		   (MSYS_CurrRegion->RegionTopLeftY <= MSYS_CurrentMY) &&
-		   (MSYS_CurrRegion->RegionBottomRightX >= MSYS_CurrentMX) &&
-		   (MSYS_CurrRegion->RegionBottomRightY >= MSYS_CurrentMY))
+		(MSYS_CurrRegion->RegionTopLeftX <= MSYS_CurrentMX) &&		// Check boundaries
+		(MSYS_CurrRegion->RegionTopLeftY <= MSYS_CurrentMY) &&
+		(MSYS_CurrRegion->RegionBottomRightX >= MSYS_CurrentMX) &&
+		(MSYS_CurrRegion->RegionBottomRightY >= MSYS_CurrentMY))
 		{
 			// We got the right region. We don't need to check for priorities 'cause
 			// the whole list is sorted the right way!
@@ -623,7 +623,7 @@ void MSYS_UpdateMouseRegion(void)
 			}
 
 			if (MSYS_CurrRegion)
-				MSYS_CurrRegion->FastHelpTimer = gsFastHelpDelay;
+			MSYS_CurrRegion->FastHelpTimer = gsFastHelpDelay;
 
 			// Force a callbacks to happen on previous region to indicate that
 			// the mouse has left the old region
@@ -643,7 +643,7 @@ void MSYS_UpdateMouseRegion(void)
 			{
 				if( MSYS_CurrRegion->FastHelpText && !( MSYS_CurrRegion->uiFlags & MSYS_FASTHELP_RESET ) )
 				{
-				  //ExecuteMouseHelpEndCallBack( MSYS_CurrRegion );
+				//ExecuteMouseHelpEndCallBack( MSYS_CurrRegion );
 					MSYS_CurrRegion->FastHelpTimer = gsFastHelpDelay;
 					#ifdef _JA2_RENDER_DIRTY
 						if( MSYS_CurrRegion->uiFlags & MSYS_GOT_BACKGROUND )
@@ -666,7 +666,7 @@ void MSYS_UpdateMouseRegion(void)
 			}
 
 			// if the cursor is set and is not set to no cursor
-      if( MSYS_CurrRegion->uiFlags & MSYS_REGION_ENABLED && 
+		if( MSYS_CurrRegion->uiFlags & MSYS_REGION_ENABLED && 
 					MSYS_CurrRegion->uiFlags & MSYS_SET_CURSOR && 
 					MSYS_CurrRegion->Cursor != MSYS_NO_CURSOR )
 			{
@@ -674,26 +674,26 @@ void MSYS_UpdateMouseRegion(void)
 			}
 			else
 			{
-	     // Addition Oct 10/1997 Carter, patch for mouse cursor
-			 // start at region and find another region encompassing
-			 pTempRegion=MSYS_CurrRegion->next;
-			 while((pTempRegion!=NULL)&&(!fFound))
-			 {
-        if((pTempRegion->uiFlags & MSYS_REGION_ENABLED) &&
-		       (pTempRegion->RegionTopLeftX <= MSYS_CurrentMX) &&
-		       (pTempRegion->RegionTopLeftY <= MSYS_CurrentMY) &&
-		       (pTempRegion->RegionBottomRightX >= MSYS_CurrentMX) &&
-		       (pTempRegion->RegionBottomRightY >= MSYS_CurrentMY)&&(pTempRegion->uiFlags & MSYS_SET_CURSOR))
+		// Addition Oct 10/1997 Carter, patch for mouse cursor
+			// start at region and find another region encompassing
+			pTempRegion=MSYS_CurrRegion->next;
+			while((pTempRegion!=NULL)&&(!fFound))
+			{
+		if((pTempRegion->uiFlags & MSYS_REGION_ENABLED) &&
+			(pTempRegion->RegionTopLeftX <= MSYS_CurrentMX) &&
+			(pTempRegion->RegionTopLeftY <= MSYS_CurrentMY) &&
+			(pTempRegion->RegionBottomRightX >= MSYS_CurrentMX) &&
+			(pTempRegion->RegionBottomRightY >= MSYS_CurrentMY)&&(pTempRegion->uiFlags & MSYS_SET_CURSOR))
 				{
-	  	   fFound=TRUE;
-				 if( pTempRegion->Cursor != MSYS_NO_CURSOR )
-				 {
-					 MSYS_SetCurrentCursor(pTempRegion->Cursor);
-				 }
+		fFound=TRUE;
+				if( pTempRegion->Cursor != MSYS_NO_CURSOR )
+				{
+					MSYS_SetCurrentCursor(pTempRegion->Cursor);
 				}
-        pTempRegion=pTempRegion->next;
-			 }
-      }
+				}
+		pTempRegion=pTempRegion->next;
+			}
+		}
 		}
 
 		// OK, if we do not have a button down, any button is game!
@@ -746,19 +746,19 @@ void MSYS_UpdateMouseRegion(void)
 						gusClickedIDNumber = MSYS_CurrRegion->IDNumber;
 					}
 
-					if(MSYS_Action & MSYS_DO_RBUTTON_UP  )
+					if(MSYS_Action & MSYS_DO_RBUTTON_UP	)
 					{
 						ButtonReason|=MSYS_CALLBACK_REASON_RBUTTON_UP;
 						gfClickedModeOn = FALSE;
 					}
 
 					// ATE: Added repeat resons....
-					if(MSYS_Action & MSYS_DO_LBUTTON_REPEAT  )
+					if(MSYS_Action & MSYS_DO_LBUTTON_REPEAT	)
 					{
 						ButtonReason|=MSYS_CALLBACK_REASON_LBUTTON_REPEAT;
 					}
 
-					if(MSYS_Action & MSYS_DO_RBUTTON_REPEAT  )
+					if(MSYS_Action & MSYS_DO_RBUTTON_REPEAT	)
 					{
 						ButtonReason|=MSYS_CALLBACK_REASON_RBUTTON_REPEAT;
 					}
@@ -812,7 +812,7 @@ void MSYS_UpdateMouseRegion(void)
 							UINT32 uiCurrTime = GetClock();
 							if( gpRegionLastLButtonDown == MSYS_CurrRegion &&
 									uiCurrTime <= guiRegionLastLButtonDownTime + MSYS_DOUBLECLICK_DELAY )
-							{ //Double click is Left down, then left up, then left down.  We have just detected the left up here (step 2).
+							{ //Double click is Left down, then left up, then left down.	We have just detected the left up here (step 2).
 								gpRegionLastLButtonUp = MSYS_CurrRegion;
 							}
 							else 
@@ -834,11 +834,11 @@ void MSYS_UpdateMouseRegion(void)
 		{
 			// OK here, if we have release a button, UNSET LOCK wherever you are....
 			// Just don't give this button the message....
-			if(MSYS_Action & MSYS_DO_RBUTTON_UP  )
+			if(MSYS_Action & MSYS_DO_RBUTTON_UP	)
 			{
 				gfClickedModeOn = FALSE;
 			}
-			if(MSYS_Action & MSYS_DO_LBUTTON_UP  )
+			if(MSYS_Action & MSYS_DO_LBUTTON_UP	)
 			{
 				gfClickedModeOn = FALSE;
 			}
@@ -871,7 +871,7 @@ void MSYS_UpdateMouseRegion(void)
 //	Inits a MOUSE_REGION structure for use with the mouse system
 //
 void MSYS_DefineRegion(MOUSE_REGION *region,UINT16 tlx,UINT16 tly,UINT16 brx,UINT16 bry,INT8 priority,
-					   UINT16 crsr,MOUSE_CALLBACK movecallback,MOUSE_CALLBACK buttoncallback)
+					UINT16 crsr,MOUSE_CALLBACK movecallback,MOUSE_CALLBACK buttoncallback)
 {
 	#ifdef MOUSESYSTEM_DEBUGGING
 		if( region->uiFlags & MSYS_REGION_EXISTS )
@@ -1175,38 +1175,38 @@ void MSYS_ReleaseMouse(MOUSE_REGION *region)
 
 
 /* ==================================================================================
-   MSYS_MoveMouseRegionTo( MOUSE_REGION *region, INT16 sX, INT16 sY)
+	MSYS_MoveMouseRegionTo( MOUSE_REGION *region, INT16 sX, INT16 sY)
 
-	 Moves a Mouse region to X Y on the screen
+	Moves a Mouse region to X Y on the screen
 
 */
 
 void MSYS_MoveMouseRegionTo( MOUSE_REGION *region, INT16 sX, INT16 sY)
 {
 
-  INT16 sWidth;
+	INT16 sWidth;
 	INT16 sHeight;
 
 
-	sWidth =  region ->RegionBottomRightX - region ->RegionTopLeftX;
-	sHeight = region ->RegionBottomRightY - region ->RegionTopLeftY;
+	sWidth =	region->RegionBottomRightX - region->RegionTopLeftX;
+	sHeight = region->RegionBottomRightY - region->RegionTopLeftY;
 
 
 	// move top left
-	region -> RegionTopLeftX = sX;
-	region -> RegionTopLeftY = sY;
+	region->RegionTopLeftX = sX;
+	region->RegionTopLeftY = sY;
 
 	// now move bottom right based on topleft + width or height
-  region -> RegionBottomRightX = sX + sWidth;
-	region -> RegionBottomRightY = sY + sHeight;
+	region->RegionBottomRightX = sX + sWidth;
+	region->RegionBottomRightY = sY + sHeight;
 
 	return;
 }
 
 /* ==================================================================================
-   MSYS_MoveMouseRegionBy( MOUSE_REGION *region, INT16 sDeltaX, INT16 sDeltaY)
+	MSYS_MoveMouseRegionBy( MOUSE_REGION *region, INT16 sDeltaX, INT16 sDeltaY)
 
-	 Moves a Mouse region by sDeltaX sDeltaY on the screen
+	Moves a Mouse region by sDeltaX sDeltaY on the screen
 
 */
 
@@ -1214,12 +1214,12 @@ void MSYS_MoveMouseRegionBy( MOUSE_REGION *region, INT16 sDeltaX, INT16 sDeltaY)
 {
 
 	// move top left
-	region -> RegionTopLeftX = region -> RegionTopLeftX + sDeltaX;
-	region -> RegionTopLeftY = region -> RegionTopLeftY + sDeltaY;
+	region->RegionTopLeftX = region->RegionTopLeftX + sDeltaX;
+	region->RegionTopLeftY = region->RegionTopLeftY + sDeltaY;
 
 	// now move bottom right
-  region -> RegionBottomRightX = region -> RegionBottomRightX + sDeltaX;
-	region -> RegionBottomRightY = region -> RegionBottomRightY + sDeltaY;
+	region->RegionBottomRightX = region->RegionBottomRightX + sDeltaX;
+	region->RegionBottomRightY = region->RegionBottomRightY + sDeltaY;
 
 	return;
 }
@@ -1259,8 +1259,8 @@ void SetRegionFastHelpText( MOUSE_REGION *region, const STR16 szText )
 
 	wcscpy( region->FastHelpText, szText );
 
-  // ATE: We could be replacing already existing, active text
-  // so let's remove the region so it be rebuilt...
+	// ATE: We could be replacing already existing, active text
+	// so let's remove the region so it be rebuilt...
 
 	#ifdef JA2
 	if ( guiCurrentScreen != MAP_SCREEN )
@@ -1268,12 +1268,12 @@ void SetRegionFastHelpText( MOUSE_REGION *region, const STR16 szText )
 	#endif
 
 	#ifdef _JA2_RENDER_DIRTY
-	  if( region->uiFlags & MSYS_GOT_BACKGROUND )
-		  FreeBackgroundRectPending( region->FastHelpRect );
-  #endif
+	if( region->uiFlags & MSYS_GOT_BACKGROUND )
+		FreeBackgroundRectPending( region->FastHelpRect );
+	#endif
 
-  region->uiFlags &= (~MSYS_GOT_BACKGROUND);
-  region->uiFlags &= (~MSYS_FASTHELP_RESET);
+	region->uiFlags &= (~MSYS_GOT_BACKGROUND);
+	region->uiFlags &= (~MSYS_FASTHELP_RESET);
 
 	#ifdef JA2
 	}
@@ -1294,9 +1294,9 @@ INT16 GetNumberOfLinesInHeight( const STR16 pStringA )
 	pToken = wcstok( pString, L"\n" );
 
 	while( pToken != NULL )
-  {
-		 pToken = wcstok( NULL, L"\n" );
-		 sCounter++;
+	{
+		pToken = wcstok( NULL, L"\n" );
+		sCounter++;
 	}
 
 	return( sCounter );
@@ -1313,7 +1313,6 @@ void DisplayFastHelp( MOUSE_REGION *region )
 {
 	UINT16 usFillColor;
 	INT32 iX,iY,iW,iH;
-	INT32 iNumberOfLines = 1;
 
 	if ( region->uiFlags & MSYS_FASTHELP )
 	{
@@ -1359,7 +1358,7 @@ void DisplayFastHelp( MOUSE_REGION *region )
 			SetFont( FONT10ARIAL );
 			SetFontShadow( FONT_NEARBLACK );
 			DisplayHelpTokenizedString( region->FastHelpText ,( INT16 )( iX + 5 ), ( INT16 )( iY + 5 ) );
-			InvalidateRegion(  iX, iY, (iX + iW) , (iY + iH) );
+			InvalidateRegion(	iX, iY, (iX + iW) , (iY + iH) );
 		}
 	}
 }
@@ -1376,7 +1375,7 @@ INT16 GetWidthOfString( const STR16 pStringA )
 	pToken = wcstok( pString, L"\n" );
 
 	while( pToken != NULL )
-  {
+	{
 		if( sWidth < StringPixLength( pToken, FONT10ARIAL ) )
 		{
 			sWidth = StringPixLength( pToken, FONT10ARIAL );
@@ -1403,7 +1402,7 @@ void DisplayHelpTokenizedString( const STR16 pStringA, INT16 sX, INT16 sY )
 	pToken = wcstok( pString, L"\n" );
 
 	while( pToken != NULL )
-  {
+	{
 		iLength = (INT32)wcslen( pToken );
 		for( i = 0; i < iLength; i++ )
 		{
@@ -1491,7 +1490,7 @@ INT16 GetWidthOfString( const STR16 pStringA )
 	pToken = wcstok( pString, L"\n" );
 
 	while( pToken != NULL )
-  {
+	{
 		if( sWidth < StringPixLength( pToken, ghTinyMonoFont ) )
 		{
 			sWidth = StringPixLength( pToken, ghTinyMonoFont );
@@ -1548,7 +1547,7 @@ void DisplayHelpTokenizedString( const STR16 pStringA, INT16 sX, INT16 sY )
 	pToken = wcstok( pString, L"\n" );
 
 	while( pToken != NULL )
-  {
+	{
 		iLength = (INT32)wcslen( pToken );
 		for( i = 0; i < iLength; i++ )
 		{
@@ -1656,7 +1655,7 @@ void SetRegionHelpEndCallback( MOUSE_REGION *region, MOUSE_HELPTEXT_DONE_CALLBAC
 	}
 
 	// now set the region help text
-	region-> HelpDoneCallback = CallbackFxn;
+	region->HelpDoneCallback = CallbackFxn;
 
 	return;
 }
@@ -1689,17 +1688,17 @@ void ExecuteMouseHelpEndCallBack( MOUSE_REGION *region )
 
 void SetFastHelpDelay( INT16 sFastHelpDelay )
 {
-  gsFastHelpDelay = sFastHelpDelay;
+	gsFastHelpDelay = sFastHelpDelay;
 }
 
 void EnableMouseFastHelp( void )
 {
-  gfShowFastHelp = TRUE;
+	gfShowFastHelp = TRUE;
 }
 
 void DisableMouseFastHelp( void )
 {
-  gfShowFastHelp = FALSE;
+	gfShowFastHelp = FALSE;
 }
 
 void ResetClickedMode(void)

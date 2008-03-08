@@ -56,8 +56,8 @@ enum //strategic values for each sector
 #define SF_USE_MAP_SETTINGS							0x00000001
 #define SF_ENEMY_AMBUSH_LOCATION					0x00000002
 
-//Special case flag used when players encounter enemies in a sector, then retreat.  The number of enemies
-//will display on mapscreen until time is compressed.  When time is compressed, the flag is cleared, and
+//Special case flag used when players encounter enemies in a sector, then retreat.	The number of enemies
+//will display on mapscreen until time is compressed.	When time is compressed, the flag is cleared, and
 //a question mark is displayed to reflect that the player no longer knows.
 #define SF_PLAYER_KNOWS_ENEMIES_ARE_HERE			0x00000004	
 
@@ -172,7 +172,7 @@ extern UINT8 gszTerrain[NUM_TRAVTERRAIN_TYPES][15];
 #define TRAVELRATING_HIGH			75
 #define TRAVELRATING_EXTREME		100
 
-//Used by ubGarrisonID when a sector doesn't point to a garrison.  Used by strategic AI only.
+//Used by ubGarrisonID when a sector doesn't point to a garrison.	Used by strategic AI only.
 #define NO_GARRISON					255
 
 typedef struct SECTORINFO
@@ -194,7 +194,7 @@ typedef struct SECTORINFO
 	UINT8	ubNumElites;				//the actual number of elites here.
 	UINT8	ubNumAdmins;				//the actual number of admins here.
 	UINT8	ubNumCreatures;				//only set when immediately before ground attack made!
-	UINT8   ubTroopsInBattle, ubElitesInBattle, ubAdminsInBattle, ubCreaturesInBattle;
+	UINT8	ubTroopsInBattle, ubElitesInBattle, ubAdminsInBattle, ubCreaturesInBattle;
 
 	INT8	bLastKnownEnemies;			// -1 means never been there, no idea, otherwise it's what we'd observed most recently
 										// while this is being maintained (partially, surely buggy), nothing uses it anymore. ARM
@@ -206,15 +206,15 @@ typedef struct SECTORINFO
 										//The last index represents the traversability if travelling
 										//throught the sector without entering it.
 	INT8	bNameId;
-	INT8	bUSUSED;   
+	INT8	bUSUSED;	
 	INT8	bBloodCats;
 	INT8	bBloodCatPlacements;
 	INT8	UNUSEDbSAMCondition;
 
-	UINT8	ubTravelRating;				//Represents how travelled a sector is.  Typically, the higher the travel rating,
-										//the more people go near it.  A travel rating of 0 means there are never people
-										//around.  This value is used for determining how often items would "vanish" from
-										//a sector (nice theory, except it isn't being used that way.  Stealing is only in towns.  ARM)
+	UINT8	ubTravelRating;				//Represents how travelled a sector is.	Typically, the higher the travel rating,
+										//the more people go near it.	A travel rating of 0 means there are never people
+										//around.	This value is used for determining how often items would "vanish" from
+										//a sector (nice theory, except it isn't being used that way.	Stealing is only in towns.	ARM)
 	UINT8	ubNumberOfCivsAtLevel[ MAX_MILITIA_LEVELS ]; // town militia per experience class, 0/1/2 is GREEN/REGULAR/ELITE
 	UINT16	usUNUSEDMilitiaLevels;					// unused (ARM)
 	UINT8	ubUNUSEDNumberOfJoeBlowCivilians;		// unused (ARM)
@@ -247,9 +247,9 @@ typedef struct UNDERGROUND_SECTORINFO
 	UINT8	ubSectorX, ubSectorY, ubSectorZ;
 	UINT8	ubNumElites, ubNumTroops, ubNumAdmins, ubNumCreatures;
 	UINT8	fVisited;
-	INT8	ubTravelRating;				//Represents how travelled a sector is.  Typically, the higher the travel rating,
-										//the more people go near it.  A travel rating of 0 means there are never people
-										//around.  This value is used for determining how often items would "vanish" from
+	INT8	ubTravelRating;				//Represents how travelled a sector is.	Typically, the higher the travel rating,
+										//the more people go near it.	A travel rating of 0 means there are never people
+										//around.	This value is used for determining how often items would "vanish" from
 										//a sector.
 	UINT32	uiTimeCurrentSectorWasLastLoaded;		//Specifies the last time the player was in the sector
 	struct	UNDERGROUND_SECTORINFO *next;
@@ -262,7 +262,7 @@ typedef struct UNDERGROUND_SECTORINFO
 	//no padding left!
 }UNDERGROUND_SECTORINFO;
 
-//The sector information required for the strategic AI.  Contains the number of enemy troops,
+//The sector information required for the strategic AI.	Contains the number of enemy troops,
 //as well as intentions, etc.
 extern SECTORINFO SectorInfo[256];
 extern UNDERGROUND_SECTORINFO *gpUndergroundSectorInfoHead;

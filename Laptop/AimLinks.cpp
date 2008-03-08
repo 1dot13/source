@@ -14,8 +14,8 @@
 #define		AIM_LINK_TITLE_FONT						FONT14ARIAL
 #define		AIM_LINK_TITLE_COLOR					AIM_GREEN
 
-#define   AIM_LINK_FONT									FONT12ARIAL
-#define   AIM_LINK_COLOR								AIM_FONT_GOLD
+#define	AIM_LINK_FONT									FONT12ARIAL
+#define	AIM_LINK_COLOR								AIM_FONT_GOLD
 
 #define		AIM_LINK_NUM_LINKS						3
 
@@ -55,7 +55,7 @@ UINT8			gubLinkPages[]={
 							INSURANCE_BOOKMARK};
 
 //Clicking on guys Face
-MOUSE_REGION    gSelectedLinkRegion[ AIM_LINK_NUM_LINKS ] ;
+MOUSE_REGION	gSelectedLinkRegion[ AIM_LINK_NUM_LINKS ] ;
 void SelectLinkRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
 
@@ -66,7 +66,7 @@ void GameInitAimLinks()
 
 BOOLEAN EnterAimLinks()
 {
-  VOBJECT_DESC    VObjectDesc;
+	VOBJECT_DESC	VObjectDesc;
 	UINT16					usPosY;
 	INT16						i;
 
@@ -92,12 +92,12 @@ BOOLEAN EnterAimLinks()
 	for(i=0; i<AIM_LINK_NUM_LINKS; i++)
 	{
 		MSYS_DefineRegion( &gSelectedLinkRegion[i], AIM_LINK_BOBBY_LINK_X, usPosY , AIM_LINK_BOBBY_LINK_X + AIM_LINK_LINK_WIDTH, (UINT16)(usPosY + AIM_LINK_LINK_HEIGHT), MSYS_PRIORITY_HIGH,
-								 CURSOR_WWW, MSYS_NO_CALLBACK, SelectLinkRegionCallBack ); 
-		MSYS_AddRegion(&gSelectedLinkRegion[i]); 
-		MSYS_SetRegionUserData( &gSelectedLinkRegion[i], 0, gubLinkPages[i]);	
+								CURSOR_WWW, MSYS_NO_CALLBACK, SelectLinkRegionCallBack );
+		MSYS_AddRegion(&gSelectedLinkRegion[i]);
+		MSYS_SetRegionUserData( &gSelectedLinkRegion[i], 0, gubLinkPages[i]);
 		usPosY += AIM_LINK_LINK_OFFSET_Y;
 	}
-	
+
 
 	RenderAimLinks();
 	return(TRUE);
@@ -127,32 +127,32 @@ void HandleAimLinks()
 
 void RenderAimLinks()
 {
-  HVOBJECT hPixHandle;
+	HVOBJECT hPixHandle;
 
 	DrawAimDefaults();
 	DisableAimButton();
 
 	GetVideoObject(&hPixHandle, guiBobbyLink);
-  BltVideoObject(FRAME_BUFFER, hPixHandle, 0, AIM_LINK_BOBBY_LINK_X, AIM_LINK_BOBBY_LINK_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+	BltVideoObject(FRAME_BUFFER, hPixHandle, 0, AIM_LINK_BOBBY_LINK_X, AIM_LINK_BOBBY_LINK_Y, VO_BLT_SRCTRANSPARENCY,NULL);
 
 	GetVideoObject(&hPixHandle, guiFuneralLink);
-  BltVideoObject(FRAME_BUFFER, hPixHandle, 0, AIM_LINK_FUNERAL_LINK_X, AIM_LINK_FUNERAL_LINK_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+	BltVideoObject(FRAME_BUFFER, hPixHandle, 0, AIM_LINK_FUNERAL_LINK_X, AIM_LINK_FUNERAL_LINK_Y, VO_BLT_SRCTRANSPARENCY,NULL);
 //	DrawTextToScreen(AimLinkText[AIM_LINK_FUNERAL], AIM_LINK_BOBBY_LINK_X, AIM_LINK_LINK_TEXT_2_Y, AIM_LINK_LINK_WIDTH, AIM_LINK_FONT, AIM_LINK_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
 	GetVideoObject(&hPixHandle, guiInsuranceLink);
-  BltVideoObject(FRAME_BUFFER, hPixHandle, 0, AIM_LINK_INSURANCE_LINK_X, AIM_LINK_INSURANCE_LINK_Y, VO_BLT_SRCTRANSPARENCY,NULL);
+	BltVideoObject(FRAME_BUFFER, hPixHandle, 0, AIM_LINK_INSURANCE_LINK_X, AIM_LINK_INSURANCE_LINK_Y, VO_BLT_SRCTRANSPARENCY,NULL);
 //	DrawTextToScreen(AimLinkText[AIM_LINK_LISTENING], AIM_LINK_BOBBY_LINK_X, AIM_LINK_LINK_TEXT_3_Y, AIM_LINK_LINK_WIDTH, AIM_LINK_FONT, AIM_LINK_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
 	//Draw Link Title
 	DrawTextToScreen(AimLinkText[AIM_LINK_TITLE], AIM_LINK_TITLE_X, AIM_LINK_TITLE_Y, AIM_LINK_TITLE_WIDTH, AIM_LINK_TITLE_FONT, AIM_LINK_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
-  MarkButtonsDirty( );
+	MarkButtonsDirty( );
 	RenderWWWProgramTitleBar( );
-  InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
+	InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
 }
 
 void SelectLinkRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
-{ 
+{
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 	}
@@ -169,13 +169,14 @@ void SelectLinkRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
-	} 
+	}
 }
 
 
 
 
 
- 
+
+
 
 

@@ -5,19 +5,21 @@
 #include "Timer Control.h"
 #include "vobject.h"
 #include "Overhead Types.h"
-#include "Item Types.h"
+//#include "Item Types.h"
 #include "soldier control.h"
 
-// WDS - Clean up inventory handling
 #include <vector>
 #include <iterator>
 
-using namespace std;
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
+
 
 #define		SOLDIER_CREATE_AUTO_TEAM			-1
 
 //Kris: 
-//This value is the total maximum number of slots in a map.  
+//This value is the total maximum number of slots in a map.	
 //Players		20
 //Enemies		32
 //Creatures 32
@@ -26,20 +28,20 @@ using namespace std;
 //Total			148
 #define MAX_INDIVIDUALS											148
 
-//Kris:  SERIALIZING INFORMATION
+//Kris:	SERIALIZING INFORMATION
 //All maps must have:
 //	-MAPCREATE_STRUCT
 //		MAPCREATE_STRUCT.ubNumIndividuals determines how many BASIC_SOLDIERCREATE_STRUCTs there are
-//  -The BASIC_SOLDIERCREATE_STRUCTS are saved contiguously, but if any of them
+//	-The BASIC_SOLDIERCREATE_STRUCTS are saved contiguously, but if any of them
 //		fDetailedPlacement set, then there is a SOLDIERCREATE_STRUCT saved immediately after.
 
 //These are the placement slots used by the editor to define where characters are in a map, what 
-//they are, what team they are on, personality traits, etc.  The Merc section of the editor is 
+//they are, what team they are on, personality traits, etc.	The Merc section of the editor is 
 //what is used to define these values.
 typedef struct
 {
-	BOOLEAN fDetailedPlacement;			//Specialized information.  Has a counterpart containing all info.
-	UINT16 usStartingGridNo;				//Where the placement position is.
+	BOOLEAN fDetailedPlacement;			//Specialized information.	Has a counterpart containing all info.
+	INT16 sStartingGridNo;				//Where the placement position is.
 	INT8 bTeam;											//The team this individual is part of.
 	INT8 bRelativeAttributeLevel;		
 	INT8 bRelativeEquipmentLevel;		
@@ -57,40 +59,31 @@ typedef struct
 	INT8 PADDINGSLOTS[ 14 ];
 } BASIC_SOLDIERCREATE_STRUCT; //50 bytes
 
-// WDS - Clean up inventory handling
-//typedef struct
-class SOLDIERCREATE_STRUCT
+class OLD_SOLDIERCREATE_STRUCT_101
 {
 public:
 	// Constructor
-	SOLDIERCREATE_STRUCT();
+	OLD_SOLDIERCREATE_STRUCT_101();
 	// Copy Constructor
-	SOLDIERCREATE_STRUCT(const SOLDIERCREATE_STRUCT&);
+	OLD_SOLDIERCREATE_STRUCT_101(const OLD_SOLDIERCREATE_STRUCT_101&);
 	// Assignment operator
-    SOLDIERCREATE_STRUCT& operator=(const SOLDIERCREATE_STRUCT&);
+	OLD_SOLDIERCREATE_STRUCT_101& operator=(const OLD_SOLDIERCREATE_STRUCT_101&);
 	// Destructor
-	~SOLDIERCREATE_STRUCT();
+	~OLD_SOLDIERCREATE_STRUCT_101();
 
-	// Initialize the soldier.  
-	//  Use this instead of the old method of calling memset!
-	//  Note that the constructor does this automatically.
+	// Initialize the soldier.	
+	//	Use this instead of the old method of calling memset!
+	//	Note that the constructor does this automatically.
 	void initialize();
 
-	// Ugly temporary solution
-	//
-	// Note!  These two functions should ONLY be used either just before saving to a
+	// Note!	These two functions should ONLY be used either just before saving to a
 	// file (NewToOld) or after loading a file (OldToNew).
 	void CopyOldInventoryToNew();
-	void CopyNewInventoryToOld();
 
-	// Note: Place all non-POD items at the end (after endOfPOD)
-	// The format of this structure affects what is written into and read from various
-	// files (maps, save files, etc.).  If you change it then that code will not work 
-	// properly until it is all fixed and the files updated.
 public:
 	//Bulletproofing so static detailed placements aren't used to tactically create soldiers.
 	//Used by editor for validation purposes.
-	BOOLEAN						fStatic;  
+	BOOLEAN						fStatic;	
 	
 	//Profile information used for special NPCs and player mercs.
 	UINT8							ubProfile;
@@ -130,7 +123,7 @@ public:
 
 private:
 	//Inventory
-	OBJECTTYPE				DO_NOT_USE_Inv[ OldInventory::NUM_INV_SLOTS ];	
+	OLD_OBJECTTYPE_101				DO_NOT_USE_Inv[ OldInventory::NUM_INV_SLOTS ];	
 public:
 	
 	//Palette information for soldiers.
@@ -144,7 +137,7 @@ public:
 	INT16 sPatrolGrid[ MAXPATROLGRIDS ];
 	INT8 bPatrolCnt;
 	
-	//Kris:  Additions November 16, 1997 (padding down to 129 from 150)
+	//Kris:	Additions November 16, 1997 (padding down to 129 from 150)
 	BOOLEAN						fVisible;
 	CHAR16						name[ 10 ];
 
@@ -168,17 +161,128 @@ public:
 	INT8 bPadding[115];
 
 	//
-	// New and OO stuff goes after here.  Above this point any changes will goof up reading from files.
+	// New and OO stuff goes after here.	Above this point any changes will goof up reading from files.
 	//
 	char ef1,ef2;	// Extra filler to get "offsetof(endOfPOD)" to match SIZEOF(oldstruct)
 
 	char endOfPOD;	// marker for end of POD (plain old data)
 
 	Inventory				Inv;
+}; // OLD_SOLDIERCREATE_STRUCT_101;
+
+
+class SOLDIERCREATE_STRUCT
+{
+public:
+	// Constructor
+	SOLDIERCREATE_STRUCT();
+	// Copy Constructor
+	SOLDIERCREATE_STRUCT(const SOLDIERCREATE_STRUCT&);
+	// Assignment operator
+	SOLDIERCREATE_STRUCT& operator=(const SOLDIERCREATE_STRUCT&);
+	// Conversion operator from old to new
+	SOLDIERCREATE_STRUCT& operator=(const OLD_SOLDIERCREATE_STRUCT_101&);
+	// Conversion operator from SOLDIERTYPE to SOLDIERCREATE_STRUCT
+	SOLDIERCREATE_STRUCT& operator=(const SOLDIERTYPE&);
+	// Destructor
+	~SOLDIERCREATE_STRUCT();
+
+	UINT16 GetChecksum();
+
+	// Initialize the soldier.	
+	//	Use this instead of the old method of calling memset!
+	//	Note that the constructor does this automatically.
+	void initialize();
+
+	BOOLEAN Load(HWFILE hFile, int versionToLoad, bool loadChecksum);
+	BOOLEAN Load(INT8 **hBuffer, float dMajorMapVersion, UINT8 ubMinorMapVersion);
+	BOOLEAN Save(HWFILE hFile, bool fSavingMap);
+
+public:
+	//Bulletproofing so static detailed placements aren't used to tactically create soldiers.
+	//Used by editor for validation purposes.
+	BOOLEAN						fStatic;	
+	
+	//Profile information used for special NPCs and player mercs.
+	UINT8							ubProfile;
+	BOOLEAN						fPlayerMerc;
+	BOOLEAN						fPlayerPlan;
+	BOOLEAN						fCopyProfileItemsOver;
+
+	//Location information
+	INT16							sSectorX;
+	INT16							sSectorY;
+	UINT8							ubDirection;
+	INT16							sInsertionGridNo;
+
+	// Can force a team, but needs flag set
+	INT8							bTeam;
+	INT8							bBodyType;
+
+	//Orders and attitude settings
+	INT8							bAttitude;
+	INT8							bOrders;
+
+	//Attributes
+	INT8							bLifeMax;	
+	INT8							bLife;
+	INT8							bAgility;
+	INT8							bDexterity;
+	INT8							bExpLevel;
+	INT8							bMarksmanship;
+	INT8							bMedical;
+	INT8							bMechanical;
+	INT8							bExplosive;
+	INT8							bLeadership;
+	INT8							bStrength;
+	INT8							bWisdom;
+	INT8							bMorale;
+	INT8							bAIMorale;
+
+public:
+	
+	//Palette information for soldiers.
+	PaletteRepID			HeadPal;	
+	PaletteRepID			PantsPal;	
+	PaletteRepID			VestPal;	
+	PaletteRepID			SkinPal;	
+	PaletteRepID			MiscPal;
+	
+	//Waypoint information for patrolling
+	INT16					sPatrolGrid[ MAXPATROLGRIDS ];
+	INT8					bPatrolCnt;
+	
+	//Kris:	Additions November 16, 1997 (padding down to 129 from 150)
+	BOOLEAN						fVisible;
+	CHAR16						name[ 10 ];
+
+	UINT8						ubSoldierClass;	//army, administrator, elite
+
+	BOOLEAN						fOnRoof;
+
+	INT8						bSectorZ;
+
+	SOLDIERTYPE					*pExistingSoldier;
+	BOOLEAN						fUseExistingSoldier;
+	UINT8						ubCivilianGroup;
+
+	BOOLEAN						fKillSlotIfOwnerDies;
+	UINT8						ubScheduleID;
+
+	BOOLEAN						fUseGivenVehicle;				
+	INT8						bUseGivenVehicleID;				
+	BOOLEAN						fHasKeys;
+
+	//
+	// New and OO stuff goes after here.	Above this point any changes will goof up reading from files.
+	//
+	char endOfPOD;	// marker for end of POD (plain old data)
+
+	Inventory				Inv;
 }; // SOLDIERCREATE_STRUCT;
 
+#define SIZEOF_OLD_SOLDIERCREATE_STRUCT_101_POD offsetof( OLD_SOLDIERCREATE_STRUCT_101, endOfPOD )
 #define SIZEOF_SOLDIERCREATE_STRUCT_POD offsetof( SOLDIERCREATE_STRUCT, endOfPOD )
-#define SIZEOF_SOLDIERCREATE_STRUCT sizeof( SOLDIERCREATE_STRUCT )
 
 
 //Original functions currently used throughout the game.
@@ -210,45 +314,45 @@ UINT8 GetPythDistanceFromPalace( INT16 sSectorX, INT16 sSectorY );
 //These following functions are currently used exclusively by the editor.
 //Now, this will be useful for the strategic AI.
 //Definitions:
-//Soldier (s):	Currently in the game, but subject to modifications.  The editor has the capability to 
-//  modify soldier attributes on the fly for testing purposes.
-//BasicPlacement (bp):  A BASIC_SOLDIERCREATE_STRUCT that contains compact, very general, information about 
-//  a soldier.  The BasicPlacement is then used to generate a DetailedPlacement before creating a soldier.  
+//Soldier (s):	Currently in the game, but subject to modifications.	The editor has the capability to 
+//	modify soldier attributes on the fly for testing purposes.
+//BasicPlacement (bp):	A BASIC_SOLDIERCREATE_STRUCT that contains compact, very general, information about 
+//	a soldier.	The BasicPlacement is then used to generate a DetailedPlacement before creating a soldier.	
 //	Most of the soldiers saved in the maps will be saved in this manner.
-//DetailedPlacement (pp):  A SOLDIERCREATE_STRUCT ready to be passed to TacticalCreateSoldier to generate 
-//	and add a new soldier to the world.  The DetailedPlacement contains all of the necessary information
-//  to do this.  This information won't be saved in maps. In most cases, only very few attributes are static, 
-//  and the rest are generated at runtime.  Because of this situation, saved detailed placements must be in a 
-//  different format.
-//StaticDetailedPlacement (spp):  A hybrid version of the DetailedPlacement.  This is the information saved in 
-//	the map via the editor.  When loaded, this information is converted to a normal detailed placement, but 
-//	must also use the BasicPlacement information to complete this properly.  Once the conversion is complete, 
-//	the static information is lost.  This gives us complete flexibility.  The basic placements contain relative
-//  values that work in conjunction with the strategic AI's relative values to generate soldiers.  In no
-//  circumstances will static detailed placements be used outside of the editor.  Note, that this hybrid version
-//  uses the identical structure as detailed placements.  All non-static values are set to -1.
+//DetailedPlacement (pp):	A SOLDIERCREATE_STRUCT ready to be passed to TacticalCreateSoldier to generate 
+//	and add a new soldier to the world.	The DetailedPlacement contains all of the necessary information
+//	to do this.	This information won't be saved in maps. In most cases, only very few attributes are static, 
+//	and the rest are generated at runtime.	Because of this situation, saved detailed placements must be in a 
+//	different format.
+//StaticDetailedPlacement (spp):	A hybrid version of the DetailedPlacement.	This is the information saved in 
+//	the map via the editor.	When loaded, this information is converted to a normal detailed placement, but 
+//	must also use the BasicPlacement information to complete this properly.	Once the conversion is complete, 
+//	the static information is lost.	This gives us complete flexibility.	The basic placements contain relative
+//	values that work in conjunction with the strategic AI's relative values to generate soldiers.	In no
+//	circumstances will static detailed placements be used outside of the editor.	Note, that this hybrid version
+//	uses the identical structure as detailed placements.	All non-static values are set to -1.
 
-//Used to generate a detailed placement from a basic placement.  This assumes that the detailed placement
-//doesn't exist, meaning there are no static attributes.  This is called when you wish to convert a basic 
+//Used to generate a detailed placement from a basic placement.	This assumes that the detailed placement
+//doesn't exist, meaning there are no static attributes.	This is called when you wish to convert a basic 
 //placement into a detailed placement just before creating a soldier.
 void CreateDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *pp, BASIC_SOLDIERCREATE_STRUCT *bp );
 
 //Used exclusively by the editor when the user wishes to change a basic placement into a detailed placement.
 //Because the intention is to make some of the attributes static, all of the information that can be generated
-//are defaulted to -1.  When an attribute is made to be static, that value in replaced by the new static value.
-//This information is NOT compatible with TacticalCreateSoldier.  Before doing so, you must first convert the
-//static detailed placement to a regular detailed placement.  
+//are defaulted to -1.	When an attribute is made to be static, that value in replaced by the new static value.
+//This information is NOT compatible with TacticalCreateSoldier.	Before doing so, you must first convert the
+//static detailed placement to a regular detailed placement.	
 void CreateStaticDetailedPlacementGivenBasicPlacementInfo( SOLDIERCREATE_STRUCT *spp, BASIC_SOLDIERCREATE_STRUCT *bp );
 
 //When you are ready to generate a soldier with a static detailed placement slot, this function will generate
 //the proper priority placement slot given the static detailed placement and it's accompanying basic placment.
 //For the purposes of merc editing, the static detailed placement is preserved.
 void CreateDetailedPlacementGivenStaticDetailedPlacementAndBasicPlacementInfo( 
-		   SOLDIERCREATE_STRUCT *pp, SOLDIERCREATE_STRUCT *spp, BASIC_SOLDIERCREATE_STRUCT *bp );
+		SOLDIERCREATE_STRUCT *pp, SOLDIERCREATE_STRUCT *spp, BASIC_SOLDIERCREATE_STRUCT *bp );
 
-//Used to update a existing soldier's attributes with the new static detailed placement info.  This is used
+//Used to update a existing soldier's attributes with the new static detailed placement info.	This is used
 //by the editor upon exiting the editor into the game, to update the existing soldiers with new information.
-//This gives flexibility of testing mercs.  Upon entering the editor again, this call will reset all the 
+//This gives flexibility of testing mercs.	Upon entering the editor again, this call will reset all the 
 //mercs to their original states.
 void UpdateSoldierWithStaticDetailedInformation( SOLDIERTYPE *s, SOLDIERCREATE_STRUCT *spp );
 
@@ -269,11 +373,11 @@ void QuickCreateProfileMerc( INT8 bTeam, UINT8 ubProfileID );
 
 BOOLEAN InternalTacticalRemoveSoldier( UINT16 usSoldierIndex, BOOLEAN fRemoveVehicle );
 
-//SPECIAL!  Certain events in the game can cause profiled NPCs to become enemies.  The two cases are 
-//adding Mike and Iggy.  We will only add one NPC in any given combat and the conditions for setting
-//the associated facts are done elsewhere.  The function will set the profile for the SOLDIERCREATE_STRUCT
+//SPECIAL!	Certain events in the game can cause profiled NPCs to become enemies.	The two cases are 
+//adding Mike and Iggy.	We will only add one NPC in any given combat and the conditions for setting
+//the associated facts are done elsewhere.	The function will set the profile for the SOLDIERCREATE_STRUCT
 //and the rest will be handled automatically so long the ubProfile field doesn't get changed.
-//NOTE:  We don't want to add Mike or Iggy if this is being called from autoresolve!
+//NOTE:	We don't want to add Mike or Iggy if this is being called from autoresolve!
 void OkayToUpgradeEliteToSpecialProfiledEnemy( SOLDIERCREATE_STRUCT *pp );
 extern BOOLEAN gfProfiledEnemyAdded; //needs to be saved (used by the above function)
 

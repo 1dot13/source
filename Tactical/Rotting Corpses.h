@@ -35,7 +35,7 @@ enum RottingCorpseDefines
 	FMERC_FALL,
 	FMERC_FALLF,
 
-  // CIVS
+	// CIVS
 	M_DEAD1,
 	K_DEAD1,
 	H_DEAD1,
@@ -62,12 +62,12 @@ enum RottingCorpseDefines
 	TANK2_DEAD,
 	HUMMER_DEAD,
 	ICECREAM_DEAD,
-  QUEEN_MONSTER_DEAD,
-  ROBOT_DEAD,
-  BURNT_DEAD,
-  EXPLODE_DEAD,
+	QUEEN_MONSTER_DEAD,
+	ROBOT_DEAD,
+	BURNT_DEAD,
+	EXPLODE_DEAD,
 
-  NUM_CORPSES,
+	NUM_CORPSES,
 
 } ;
 
@@ -109,8 +109,8 @@ typedef struct
 	INT8												bVisible;
 	INT8												bNumServicingCrows;
 	UINT8												ubProfile;
-  BOOLEAN                     fHeadTaken;
-  	UINT8												ubAIWarningValue;
+	BOOLEAN					 fHeadTaken;
+		UINT8												ubAIWarningValue;
 
 	UINT8												ubFiller[ 12 ];
 
@@ -176,7 +176,7 @@ extern UINT8					gb4DirectionsFrom8[8];
 
 ROTTING_CORPSE *GetCorpseAtGridNo( INT16 sGridNo , INT8 bLevel );
 BOOLEAN IsValidDecapitationCorpse( ROTTING_CORPSE *pCorpse );
-void DecapitateCorpse( SOLDIERTYPE *pSoldier, INT16 sGridNo,  INT8 bLevel );
+void DecapitateCorpse( SOLDIERTYPE *pSoldier, INT16 sGridNo,	INT8 bLevel );
 
 void GetBloodFromCorpse( SOLDIERTYPE *pSoldier );
 

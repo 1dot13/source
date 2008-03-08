@@ -43,7 +43,7 @@ void HandleHourlyUpdate()
 	if ( DidGameJustStart() )
 		return;
 
-	// hourly update of town loyalty	
+	// hourly update of town loyalty
 	HandleTownLoyalty();
 
 	// hourly update of team assignments
@@ -83,7 +83,7 @@ void HandleHourlyUpdate()
 void UpdateRegenCounters( void )
 {
 	UINT8	ubID;
-		
+
 	for ( ubID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubID <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubID++ )
 	{
 		if ( MercPtrs[ ubID ]->bRegenBoostersUsedToday > 0 )
@@ -99,7 +99,7 @@ void HandleQuarterHourUpdate()
 	if ( DidGameJustStart() )
 		return;
 
-  DecayTacticalMoraleModifiers( );
+	DecayTacticalMoraleModifiers( );
 }
 
 
@@ -107,7 +107,7 @@ void HourlyQuestUpdate( void )
 {
 	UINT32 uiHour = GetWorldHour();
 
-	// brothel 
+	// brothel
 	if ( uiHour == 4 )
 	{
 		SetFactFalse( FACT_BROTHEL_OPEN );
@@ -124,7 +124,7 @@ void HourlyQuestUpdate( void )
 
 		SetFactTrue( FACT_CLUB_OPEN );
 		SetFactFalse( FACT_PAST_CLUB_CLOSING_AND_PLAYER_WARNED );
-		
+
 		// reset boxes fought
 		for ( ubLoop = 0; ubLoop < NUM_BOXERS; ubLoop++ )
 		{
@@ -168,9 +168,9 @@ UINT16	LarryItems[ NUM_LARRY_ITEMS ][ 3 ] =
 {
 	// item, temptation, points to use
 	{ ADRENALINE_BOOSTER,		5, 100 },
-	{	ALCOHOL,							BAR_TEMPTATION, 25  },
-	{ MEDICKIT,							4, 10  },
-	{	WINE,									3, 50  },
+	{	ALCOHOL,							BAR_TEMPTATION, 25	},
+	{ MEDICKIT,							4, 10	},
+	{	WINE,									3, 50	},
 	{ REGEN_BOOSTER,				3, 100 },
 	{	BEER,									2, 100 },
 };
@@ -197,7 +197,7 @@ void HourlyLarryUpdate( void )
 		{
 			return;
 		}
-		if ( pSoldier->fBetweenSectors )
+		if ( pSoldier->flags.fBetweenSectors )
 		{
 			return;
 		}
@@ -217,17 +217,17 @@ void HourlyLarryUpdate( void )
 			}
 		}
 
-		// check to see if we're in a bar sector, if we are, we have access to alcohol 
+		// check to see if we're in a bar sector, if we are, we have access to alcohol
 		// which may be better than anything we've got...
 		if ( usTemptation < BAR_TEMPTATION && GetCurrentBalance() >= Item[ ALCOHOL ].usPrice )
 		{
-			if ( pSoldier->bSectorZ == 0 && 
+			if ( pSoldier->bSectorZ == 0 &&
 						( ( pSoldier->sSectorX == 13 && pSoldier->sSectorY == MAP_ROW_B) ||
 							( pSoldier->sSectorX == 13 && pSoldier->sSectorY == MAP_ROW_C) ||
 							( pSoldier->sSectorX == 5 && pSoldier->sSectorY == MAP_ROW_C) ||
 							( pSoldier->sSectorX == 6 && pSoldier->sSectorY == MAP_ROW_C) ||
 							( pSoldier->sSectorX == 5 && pSoldier->sSectorY == MAP_ROW_D) ||
-							( pSoldier->sSectorX == 2 && pSoldier->sSectorY == MAP_ROW_H) 
+							( pSoldier->sSectorX == 2 && pSoldier->sSectorY == MAP_ROW_H)
 						)
 				)
 			{
@@ -235,10 +235,10 @@ void HourlyLarryUpdate( void )
 				fBar = TRUE;
 				usTemptation = BAR_TEMPTATION;
 			}
-		}			
+		}
 
 		if ( usTemptation > 0 )
-		{	
+		{
 			if ( pSoldier->ubProfile == LARRY_NORMAL )
 			{
 				gMercProfiles[ LARRY_NORMAL ].bNPCData += (INT8) Random( usTemptation );
@@ -250,7 +250,8 @@ void HourlyLarryUpdate( void )
 						usCashAmount = Item[ ALCOHOL ].usPrice;
 						AddTransactionToPlayersBook ( TRANSFER_FUNDS_TO_MERC, pSoldier->ubProfile, GetWorldTotalMin() , -( usCashAmount ) );
 						// give Larry some booze and set slot etc values appropriately
-						bBoozeSlot = FindEmptySlotWithin( pSoldier, HANDPOS, SMALLPOCK8POS );
+						// CHRISL: Change final parameter to allow dynamic control of inventory slots
+						bBoozeSlot = FindEmptySlotWithin( pSoldier, HANDPOS, NUM_INV_SLOTS );
 						if ( bBoozeSlot != NO_SLOT )
 						{
 							// give Larry booze here
@@ -281,7 +282,8 @@ void HourlyLarryUpdate( void )
 					usCashAmount = Item[ ALCOHOL ].usPrice;
 					AddTransactionToPlayersBook ( TRANSFER_FUNDS_TO_MERC, pSoldier->ubProfile, GetWorldTotalMin() , -( usCashAmount ) );
 					// give Larry some booze and set slot etc values appropriately
-					bBoozeSlot = FindEmptySlotWithin( pSoldier, HANDPOS, SMALLPOCK8POS );
+					// CHRISL: Change final parameter to allow dynamic control of inventory slots
+					bBoozeSlot = FindEmptySlotWithin( pSoldier, HANDPOS, NUM_INV_SLOTS );
 					if ( bBoozeSlot != NO_SLOT )
 					{
 						// give Larry booze here
@@ -308,7 +310,7 @@ void HourlyLarryUpdate( void )
 		}
 
 	}
-	
+
 }
 
 void HourlyCheckIfSlayAloneSoHeCanLeave()
@@ -319,11 +321,11 @@ void HourlyCheckIfSlayAloneSoHeCanLeave()
 	{
 		return;
 	}
-	if( pSoldier->fBetweenSectors )
+	if( pSoldier->flags.fBetweenSectors )
 	{
 		return;
 	}
-	if( !pSoldier->bActive || !pSoldier->bLife )
+	if( !pSoldier->bActive || !pSoldier->stats.bLife )
 	{
 		return;
 	}

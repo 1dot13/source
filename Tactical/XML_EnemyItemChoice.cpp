@@ -2,44 +2,8 @@
 	#include "Tactical All.h"
 #else
 	#include "sgp.h"
-	#include "overhead types.h"
-	#include "Sound Control.h"
-	#include "Soldier Control.h"
 	#include "overhead.h"
-	#include "Event Pump.h"
 	#include "weapons.h"
-	#include "Animation Control.h"
-	#include "sys globals.h"
-	#include "Handle UI.h"
-	#include "Isometric Utils.h"
-	#include "worldman.h"
-	#include "math.h"
-	#include "points.h"
-	#include "ai.h"
-	#include "los.h"
-	#include "renderworld.h"
-	#include "opplist.h"
-	#include "interface.h"
-	#include "message.h"
-	#include "campaign.h"
-	#include "items.h"
-	#include "weapons.h"
-	#include "text.h"
-	#include "Soldier Profile.h"
-	#include "tile animation.h"
-	#include "Dialogue Control.h"
-	#include "SkillCheck.h"
-	#include "explosion control.h"
-	#include "Quests.h"
-	#include "Physics.h"
-	#include "Random.h"
-	#include "Vehicles.h"
-	#include "bullets.h"
-	#include "morale.h"
-	#include "meanwhile.h"
-	#include "SkillCheck.h"
-	#include "gamesettings.h"
-	#include "SaveLoadMap.h"
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
@@ -54,13 +18,13 @@ struct
 	ARMY_GUN_CHOICE_TYPE		curArmyItemChoices;
 	ARMY_GUN_CHOICE_TYPE *	curArray;
 	UINT32			maxArraySize;
-	
+
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
 }
 typedef armyitemchoicesParseData;
 
-static void XMLCALL 
+static void XMLCALL
 armyitemchoicesStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	armyitemchoicesParseData * pData = (armyitemchoicesParseData *)userData;
@@ -154,11 +118,11 @@ armyitemchoicesCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	armyitemchoicesParseData * pData = (armyitemchoicesParseData *)userData;
 
-	if( (pData->currentDepth <= pData->maxReadDepth) && 
+	if( (pData->currentDepth <= pData->maxReadDepth) &&
 		(strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH)
-	  ){
+	){
 		strncat(pData->szCharData,str,__min((unsigned int)len,MAX_CHAR_DATA_LENGTH-strlen(pData->szCharData)));
-	  }
+	}
 }
 
 
@@ -185,12 +149,12 @@ armyitemchoicesEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "uiIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curArmyItemChoices.uiIndex   = (UINT32) atol(pData->szCharData);
+			pData->curArmyItemChoices.uiIndex	= (UINT32) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "ubChoices") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curArmyItemChoices.ubChoices  = (UINT8) atol(pData->szCharData);
+			pData->curArmyItemChoices.ubChoices	= (UINT8) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "bItemNo1") == 0)
 		{
@@ -459,7 +423,7 @@ BOOLEAN ReadInArmyItemChoicesStats(STR fileName)
 	UINT32		uiFSize;
 	CHAR8 *		lpcBuffer;
 	XML_Parser	parser = XML_ParserCreate(NULL);
-	
+
 	armyitemchoicesParseData pData;
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading EnemyItemChoicess.xml" );
@@ -468,7 +432,7 @@ BOOLEAN ReadInArmyItemChoicesStats(STR fileName)
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);
 
@@ -483,19 +447,19 @@ BOOLEAN ReadInArmyItemChoicesStats(STR fileName)
 
 	FileClose( hFile );
 
-	
+
 	XML_SetElementHandler(parser, armyitemchoicesStartElementHandle, armyitemchoicesEndElementHandle);
 	XML_SetCharacterDataHandler(parser, armyitemchoicesCharacterDataHandle);
 
-	
+
 	memset(&pData,0,sizeof(pData));
 	pData.curArray = gArmyItemChoices;
-	pData.maxArraySize = MAX_ITEM_TYPES; 
-	
+	pData.maxArraySize = MAX_ITEM_TYPES;
+
 	XML_SetUserData(parser, &pData);
 
 
-    if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
+	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
 
@@ -524,7 +488,7 @@ BOOLEAN WriteArmyItemChoicesStats()
 	hFile = FileOpen( "TABLEDATA\\EnemyItemChoices out.xml", FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	{
 		UINT32 cnt;
 
@@ -535,9 +499,9 @@ BOOLEAN WriteArmyItemChoicesStats()
 			FilePrintf(hFile,"\t<ENEMYITEMCHOICES>\r\n");
 
 			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n",								cnt );
-			FilePrintf(hFile,"\t\t<ubChoices>%d</ubChoices>\r\n",								gArmyItemChoices[cnt].ubChoices   );
+			FilePrintf(hFile,"\t\t<ubChoices>%d</ubChoices>\r\n",								gArmyItemChoices[cnt].ubChoices	);
 			for (int i=0;i<50;i++)
-				FilePrintf(hFile,"\t\t<bItemNo%d>%d</bItemNo%d>\r\n",i+1,gArmyItemChoices[cnt].bItemNo[i],i+1  );
+				FilePrintf(hFile,"\t\t<bItemNo%d>%d</bItemNo%d>\r\n",i+1,gArmyItemChoices[cnt].bItemNo[i],i+1	);
 
 
 			FilePrintf(hFile,"\t</ENEMYITEMCHOICES>\r\n");

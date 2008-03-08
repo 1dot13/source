@@ -14,7 +14,7 @@
 #endif
 
 #ifdef JA2TESTVERSION
-	
+
 CHAR16 gEventName[NUMBER_OF_EVENT_TYPES_PLUS_ONE][40]={
 	//1234567890123456789012345678901234567890 (increase size of array if necessary)
 	L"Null",
@@ -231,11 +231,11 @@ void ProcessPendingGameEvents( UINT32 uiAdjustment, UINT8 ubWarpCode )
 	curr = gpEventList;
 	prev = NULL; //prev only used when warping time to target time.
 	while( !gfTimeInterrupt && curr && curr->uiTimeStamp <= guiGameClock + uiAdjustment )
-	{ 
+	{
 		fDeleteEvent = FALSE;
 		//Update the time by the difference, but ONLY if the event comes after the current time.
 		//In the beginning of the game, series of events are created that are placed in the list
-		//BEFORE the start time.  Those events will be processed without influencing the actual time.
+		//BEFORE the start time.	Those events will be processed without influencing the actual time.
 		if( curr->uiTimeStamp > guiGameClock && ubWarpCode != WARPTIME_PROCESS_TARGET_TIME_FIRST )
 		{
 			AdjustClockToEventStamp( curr, &uiAdjustment );
@@ -252,7 +252,7 @@ void ProcessPendingGameEvents( UINT32 uiAdjustment, UINT8 ubWarpCode )
 				AdjustClockToEventStamp( curr, &uiAdjustment );
 
 				fDeleteEvent = ExecuteStrategicEvent( curr );
-				
+
 				if( curr && prev && fDeleteQueuedEvent )
 				{ //The only case where we are deleting a node in the middle of the list
 					prev->next = curr->next;
@@ -260,15 +260,15 @@ void ProcessPendingGameEvents( UINT32 uiAdjustment, UINT8 ubWarpCode )
 			}
 			else
 			{ //We are at the current target warp time however, there are still other events following in this time cycle.
-				//We will only target the final event in this time.  NOTE:  Events are posted using a FIFO method
+				//We will only target the final event in this time.	NOTE:	Events are posted using a FIFO method
 				prev = curr;
 				curr = curr->next;
 				continue;
 			}
 		}
 		else
-		{ //We are warping time to the target time.  We haven't found the event yet,
-			//so continuing will keep processing the list until we find it.  NOTE:  Events are posted using a FIFO method
+		{ //We are warping time to the target time.	We haven't found the event yet,
+			//so continuing will keep processing the list until we find it.	NOTE:	Events are posted using a FIFO method
 			prev = curr;
 			curr = curr->next;
 			continue;
@@ -298,7 +298,7 @@ void ProcessPendingGameEvents( UINT32 uiAdjustment, UINT8 ubWarpCode )
 				prev = NULL;
 				//ValidateGameEvents();
 			}
-			else 
+			else
 			{
 				temp = curr;
 				prev->next = curr->next;
@@ -313,7 +313,7 @@ void ProcessPendingGameEvents( UINT32 uiAdjustment, UINT8 ubWarpCode )
 			curr = curr->next;
 		}
 	}
-	
+
 	gfProcessingGameEvents = FALSE;
 
 	if( gfEventDeletionPending )
@@ -362,11 +362,11 @@ STRATEGICEVENT* AddAdvancedStrategicEvent( UINT8 ubEventType, UINT8 ubCallbackID
 		#ifdef JA2TESTVERSION
 			//if( ubCallbackID == EVENT_PROCESS_TACTICAL_SCHEDULE )
 			{
-				ScreenMsg( FONT_RED, MSG_DEBUG, L"%s Event Rejected:  Can't post events <= time while inside an event callback.  This is a special case situation that isn't a bug.", gEventName[ ubCallbackID ] );
+				ScreenMsg( FONT_RED, MSG_DEBUG, L"%s Event Rejected:	Can't post events <= time while inside an event callback.	This is a special case situation that isn't a bug.", gEventName[ ubCallbackID ] );
 			}
 			//else
 			//{
-			//	AssertMsg( 0, String( "%S Event Rejected:  Can't post events <= time while inside an event callback.", gEventName[ ubCallbackID ] ) );
+			//	AssertMsg( 0, String( "%S Event Rejected:	Can't post events <= time while inside an event callback.", gEventName[ ubCallbackID ] ) );
 			//}
 		#endif
 		return NULL;
@@ -407,7 +407,7 @@ STRATEGICEVENT* AddAdvancedStrategicEvent( UINT8 ubEventType, UINT8 ubCallbackID
 		if ( !pNode )
 		{
 			pPrevNode->next = pNewNode;
-			pNewNode->next  = NULL;
+			pNewNode->next	= NULL;
 		}
 		else
 		{
@@ -443,7 +443,7 @@ BOOLEAN AddStrategicEventUsingSeconds( UINT8 ubCallbackID, UINT32 uiSecondStamp,
 	return FALSE;
 }
 
-	
+
 BOOLEAN AddRangedStrategicEvent( UINT8 ubCallbackID, UINT32 uiStartMin, UINT32 uiLengthMin, UINT32 uiParam )
 {
 	STRATEGICEVENT *pEvent;
@@ -502,7 +502,7 @@ BOOLEAN AddEveryDayStrategicEventUsingSeconds( UINT8 ubCallbackID, UINT32 uiStar
 	return FALSE;
 }
 
-//NEW:  Period Events
+//NEW:	Period Events
 //Event will get processed automatically once every X minutes.
 BOOLEAN AddPeriodStrategicEvent( UINT8 ubCallbackID, UINT32 uiOnceEveryXMinutes, UINT32 uiParam )
 {
@@ -574,7 +574,7 @@ void DeleteAllStrategicEventsOfType( UINT8 ubCallbackID )
 				prev->next = curr->next;
 			else
 				gpEventList = curr->next;
-			
+
 			//isolate and remove curr
 			temp = curr;
 			curr = curr->next;
@@ -603,8 +603,8 @@ void DeleteAllStrategicEvents()
 	gpEventList = NULL;
 }
 
-//Searches for and removes the first event matching the supplied information.  There may very well be a need
-//for more specific event removal, so let me know (Kris), of any support needs.  Function returns FALSE if
+//Searches for and removes the first event matching the supplied information.	There may very well be a need
+//for more specific event removal, so let me know (Kris), of any support needs.	Function returns FALSE if
 //no events were found or if the event wasn't deleted due to delete lock,
 BOOLEAN DeleteStrategicEvent( UINT8 ubCallbackID, UINT32 uiParam )
 {
@@ -652,7 +652,7 @@ BOOLEAN SaveStrategicEventsToSavedGame( HWFILE hFile )
 
 	UINT32	uiNumGameEvents=0;
 	STRATEGICEVENT *pTempEvent = gpEventList;
-	
+
 	//Go through the list and determine the number of events
 	while( pTempEvent )
 	{
@@ -686,7 +686,7 @@ BOOLEAN SaveStrategicEventsToSavedGame( HWFILE hFile )
 		pTempEvent = pTempEvent->next;
 	}
 
- 
+
 	return( TRUE );
 }
 
@@ -703,7 +703,7 @@ BOOLEAN LoadStrategicEventsFromSavedGame( HWFILE hFile )
 	//erase the old Game Event queue
 	DeleteAllStrategicEvents();
 
-	
+
 	//Read the number of strategic events
 	FileRead( hFile, &uiNumGameEvents, sizeof( UINT32 ), &uiNumBytesRead );
 	if( uiNumBytesRead != sizeof( UINT32 ) )
@@ -736,7 +736,7 @@ BOOLEAN LoadStrategicEventsFromSavedGame( HWFILE hFile )
 
 		// Add the new node to the list
 
-		//if its the first node, 
+		//if its the first node,
 		if( cnt == 0 )
 		{
 			// assign it as the head node

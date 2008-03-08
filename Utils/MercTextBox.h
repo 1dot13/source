@@ -13,7 +13,7 @@ BOOLEAN InitMercPopupBox( );
 
 
 // create a pop up box if needed, return id of box..a -1 means couldn't be added
-INT32 PrepareMercPopupBox(  INT32 iBoxId, UINT8 ubBackgroundIndex, UINT8 ubBorderIndex, STR16 pString, UINT16 usWidth, UINT16 usMarginX, UINT16 usMarginTopY, UINT16 usMarginBottomY, UINT16 *pActualWidth, UINT16 *pActualHeight);
+INT32 PrepareMercPopupBox(	INT32 iBoxId, UINT8 ubBackgroundIndex, UINT8 ubBorderIndex, STR16 pString, UINT16 usWidth, UINT16 usMarginX, UINT16 usMarginTopY, UINT16 usMarginBottomY, UINT16 *pActualWidth, UINT16 *pActualHeight);
 
 
 // remove the current box
@@ -64,10 +64,10 @@ enum{
 
 // border enumeration
 enum{
-  BASIC_MERC_POPUP_BORDER =0,
-  RED_MERC_POPUP_BORDER,
-  BLUE_MERC_POPUP_BORDER,
-  DIALOG_MERC_POPUP_BORDER,
+	BASIC_MERC_POPUP_BORDER =0,
+	RED_MERC_POPUP_BORDER,
+	BLUE_MERC_POPUP_BORDER,
+	DIALOG_MERC_POPUP_BORDER,
 	LAPTOP_POP_BORDER
 };
 

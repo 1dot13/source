@@ -1,29 +1,29 @@
 #ifdef PRECOMPILEDHEADERS
-#include "Strategic All.h"
+	#include "Strategic All.h"
 #else
-#include "Town Militia.h"
-#include "Militia Control.h"
-#include "Campaign Types.h"
-#include "strategic.h"
-#include "strategicmap.h"
-#include "Overhead.h"
-#include "Strategic Town Loyalty.h"
-#include "Utilities.h"
-#include "random.h"
-#include "text.h"
-#include "Map Screen Interface.h"
-#include "Interface.h"
-#include "Laptopsave.h"
-#include "finances.h"
-#include "Game Clock.h"
-#include "Assignments.h"
-#include "squads.h"
-#include "Soldier Create.h"
-#include "Dialogue Control.h"
-#include "Queen Command.h"
-#include "GameSettings.h"
-#include "Soldier Init List.h"
-#include "Inventory Choosing.h"
+	#include "Town Militia.h"
+	#include "Militia Control.h"
+	#include "Campaign Types.h"
+	#include "strategic.h"
+	#include "strategicmap.h"
+	#include "Overhead.h"
+	#include "Strategic Town Loyalty.h"
+	#include "Utilities.h"
+	#include "random.h"
+	#include "text.h"
+	#include "Map Screen Interface.h"
+	#include "Interface.h"
+	#include "Laptopsave.h"
+	#include "finances.h"
+	#include "Game Clock.h"
+	#include "Assignments.h"
+	#include "squads.h"
+	#include "Soldier Create.h"
+	#include "Dialogue Control.h"
+	#include "Queen Command.h"
+	#include "GameSettings.h"
+	#include "Soldier Init List.h"
+	#include "Inventory Choosing.h"
 #endif
 
 #include "Reinforcement.h"
@@ -36,7 +36,7 @@ void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pub
 	UINT8 ubNumAdmins, ubNumTroops, ubNumElites;
 	UINT16 pusMoveDir[4][3];
 	UINT8 ubDirNumber, ubIndex;
-
+	
 	GetNumberOfStationaryEnemiesInSector( sSectorX, sSectorY, pubNumAdmins, pubNumTroops, pubNumElites );
 
 	GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( sSectorX, sSectorY, &ubNumAdmins, &ubNumTroops, &ubNumElites );
@@ -75,7 +75,6 @@ void GetNumberOfEnemiesInFiveSectors( INT16 sSectorX, INT16 sSectorY, UINT8 *pub
 			}
 		}
 
-
 		GetNumberOfMobileEnemiesInSectorWithoutRoadBlock( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ),  &ubNumAdmins, &ubNumTroops, &ubNumElites );
 
 		*pubNumAdmins += ubNumAdmins;
@@ -89,7 +88,7 @@ UINT8 NumEnemiesInFiveSectors( INT16 sMapX, INT16 sMapY )
 	UINT8 ubNumAdmins, ubNumTroops, ubNumElites;
 
 	GetNumberOfEnemiesInFiveSectors( sMapX, sMapY, &ubNumAdmins, &ubNumTroops, &ubNumElites );
-
+	
 	return ubNumAdmins + ubNumTroops + ubNumElites;
 }
 
@@ -134,7 +133,7 @@ UINT8 CountAllMilitiaInFiveSectors(INT16 sMapX, INT16 sMapY)
 	UINT8 ubResult = 0;
 	UINT16 pusMoveDir[4][3];
 	UINT8 ubDirNumber, ubIndex;
-
+	
 	ubResult = CountAllMilitiaInSector( sMapX, sMapY );
 
 	if( !gGameExternalOptions.gfAllowReinforcements )
@@ -155,7 +154,7 @@ UINT8 MilitiaInFiveSectorsOfRank( INT16 sMapX, INT16 sMapY, UINT8 ubRank )
 	UINT8 ubResult = 0;
 	UINT16 pusMoveDir[4][3];
 	UINT8 ubDirNumber, ubIndex;
-
+	
 	ubResult = MilitiaInSectorOfRank( sMapX, sMapY, ubRank );
 
 	if( !gGameExternalOptions.gfAllowReinforcements )
@@ -167,13 +166,11 @@ UINT8 MilitiaInFiveSectorsOfRank( INT16 sMapX, INT16 sMapY, UINT8 ubRank )
 	for( ubIndex = 0; ubIndex < ubDirNumber; ubIndex++ )
 		ubResult += MilitiaInSectorOfRank( SECTORX( pusMoveDir[ ubIndex ][ 0 ] ), SECTORY( pusMoveDir[ ubIndex ][ 0 ] ), ubRank );
 
-
 	return ubResult;
 }
 
 BOOLEAN ARMoveBestMilitiaManFromAdjacentSector(INT16 sMapX, INT16 sMapY)
 {
-	UINT8 ubResult = 0;
 	UINT16 pusMoveDir[4][3];
 	UINT8 ubDirNumber;
 	UINT8 ubRandom;
@@ -383,7 +380,6 @@ UINT8 DoReinforcementAsPendingMilitia( INT16 sMapX, INT16 sMapY, UINT8 *pubRank 
 				return (UINT8)pusMoveDir[ ubIndex ][ 2 ];
 			}
 		}
-
 }
 
 
@@ -392,7 +388,6 @@ void AddPossiblePendingMilitiaToBattle()
 
 	UINT8 ubSlots;
 	UINT8 ubNumElites, ubNumRegulars, ubNumGreens;
-	SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
 	static UINT8 ubPredefinedInsertionCode = 255;
 	static UINT8 ubPredefinedRank = 255;
 
@@ -452,5 +447,4 @@ void AddPossiblePendingMilitiaToBattle()
 			gfStrategicMilitiaChangesMade = FALSE; // Handled them here
 		}
 	}
-
 }

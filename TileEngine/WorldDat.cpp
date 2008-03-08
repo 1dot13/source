@@ -24,7 +24,7 @@ void SetTilesetFourTerrainValues();
 // where it is read from JA2SET.DAT header.
 UINT8 gubNumSets = MAX_TILESETS;
 
-TILESET	 gTilesets[ MAX_TILESETS ];
+TILESET	gTilesets[ MAX_TILESETS ];
 
 
 void InitEngineTilesets( )
@@ -38,13 +38,13 @@ void InitEngineTilesets( )
 	//OPEN FILE
 //	hfile = fopen( "BINARYDATA\\JA2SET.DAT", "rb" );
 	hfile = FileOpen( "BINARYDATA\\JA2SET.DAT", FILE_ACCESS_READ, FALSE );
-	if ( !hfile  )
+	if ( !hfile	)
 	{
 		SET_ERROR( "Cannot open tileset data file" );
 		return;
 	}
 
-		
+
 	// READ # TILESETS and compare
 //	fread( &gubNumSets, sizeof( gubNumSets ), 1, hfile );
 	FileRead( hfile, &gubNumSets, sizeof( gubNumSets ), &uiNumBytesRead );
@@ -80,7 +80,7 @@ void InitEngineTilesets( )
 //		fread( &(gTilesets[ cnt ].ubAmbientID), sizeof( UINT8), 1, hfile );
 		FileRead( hfile, &(gTilesets[ cnt ].ubAmbientID), sizeof( UINT8 ), &uiNumBytesRead );
 
-		// Set into tileset 
+		// Set into tileset
 		swprintf( gTilesets[ cnt ].zName, L"%S", zName );
 
 		// Loop for files

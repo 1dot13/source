@@ -178,9 +178,9 @@
 #include "Strategic Merc Handler.h"
 #include "Militia Control.h"
 #include "Queen Command.h"
-#include "editscreen.h"  
+#include "editscreen.h"	
 #include "soldier tile.h"
-#ifdef  NETWORKED
+#ifdef	NETWORKED
 	#include "Networking.h"
 	#include "NetworkEvent.h"
 #endif

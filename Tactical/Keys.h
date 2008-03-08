@@ -4,6 +4,11 @@
 #include "types.h"
 #include "FileMan.h"
 
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
+
+
 typedef struct
 {
 	UINT16		usItem;						// index in item table for key
@@ -90,7 +95,7 @@ typedef enum
 
 typedef struct
 {
-	UINT8		fFlags;									// stops action?  recurring trap?
+	UINT8		fFlags;									// stops action?	recurring trap?
 } DOORTRAP;
 
 
@@ -102,7 +107,7 @@ typedef struct
 #define		DOOR_HAS_TIN_CAN				0x10
 
 
-#define   DONTSETDOORSTATUS			2
+#define	DONTSETDOORSTATUS			2
 
 typedef struct
 {
@@ -140,34 +145,34 @@ extern STR16 sKeyDescriptionStrings[];
  * Door utils add by Kris Morness *
  **********************************/
 
-//Dynamic array of Doors.  For general game purposes, the doors that are locked and/or trapped
-//are permanently saved within the map, and are loaded and allocated when the map is loaded.  Because
+//Dynamic array of Doors.	For general game purposes, the doors that are locked and/or trapped
+//are permanently saved within the map, and are loaded and allocated when the map is loaded.	Because
 //the editor allows more doors to be added, or removed, the actual size of the DoorTable may change.
 extern DOOR *DoorTable;
 
 //Current number of doors in world.
 extern UINT8 gubNumDoors;
-//Current max number of doors.  This is only used by the editor.  When adding doors to the 
+//Current max number of doors.	This is only used by the editor.	When adding doors to the 
 //world, we may run out of space in the DoorTable, so we will allocate a new array with extra slots,
-//then copy everything over again.  gubMaxDoors holds the arrays actual number of slots, even though
+//then copy everything over again.	gubMaxDoors holds the arrays actual number of slots, even though
 //the current number (gubNumDoors) will be <= to it.
 extern UINT8 gubMaxDoors;
-//File I/O for loading the door information from the map.  This automatically allocates
+//File I/O for loading the door information from the map.	This automatically allocates
 //the exact number of slots when loading.
 
 extern void LoadDoorTableFromMap( INT8 **hBuffer );
-//Saves the existing door information to the map.  Before it actually saves, it'll verify that the
-//door still exists.  Otherwise, it'll ignore it.  It is possible in the editor to delete doors in 
+//Saves the existing door information to the map.	Before it actually saves, it'll verify that the
+//door still exists.	Otherwise, it'll ignore it.	It is possible in the editor to delete doors in 
 //many different ways, so I opted to put it in the saving routine.
 extern void SaveDoorTableToMap( HWFILE fp );
-//The editor adds locks to the world.  If the gridno already exists, then the currently existing door
+//The editor adds locks to the world.	If the gridno already exists, then the currently existing door
 //information is overwritten.
 extern void AddDoorInfoToTable( DOOR *pDoor );
 //When the editor removes a door from the world, this function looks for and removes accompanying door
-//information.  If the entry is not the last entry, the last entry is move to it's current slot, to keep
+//information.	If the entry is not the last entry, the last entry is move to it's current slot, to keep
 //everything contiguous.
 extern void RemoveDoorInfoFromTable( INT32 iMapIndex );
-//This is the link to see if a door exists at a gridno.  
+//This is the link to see if a door exists at a gridno.	
 DOOR * FindDoorInfoAtGridNo( INT32 iMapIndex );
 //Upon world deallocation, the door table needs to be deallocated.
 extern void TrashDoorTable();
@@ -188,15 +193,15 @@ void UpdateDoorPerceivedValue( DOOR *pDoor );
 
 
 //Saves the Door Table array to the temp file
-BOOLEAN  SaveDoorTableToDoorTableTempFile( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
+BOOLEAN	SaveDoorTableToDoorTableTempFile( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 
 //Load the door table from the temp file
 BOOLEAN		LoadDoorTableFromDoorTableTempFile( );
 
 
 
-//	Adds a door to the Door status array.  As the user comes across the door, they are added.
-//  if the door already exists, nothing happens
+//	Adds a door to the Door status array.	As the user comes across the door, they are added.
+//	if the door already exists, nothing happens
 // fOpen is True if the door is to be initially open, false if it is closed
 // fInitiallyPercieveOpen is true if the door is to be initially open, else false
 BOOLEAN ModifyDoorStatus( INT16 sGridNo, BOOLEAN fOpen, BOOLEAN fInitiallyPercieveOpen );

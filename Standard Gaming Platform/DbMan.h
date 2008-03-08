@@ -28,11 +28,11 @@
 //**************************************************************************
 
 #ifndef FILE_ACCESS_READ
-#define FILE_ACCESS_READ	      0x01
+#define FILE_ACCESS_READ		0x01
 #endif
 
 #ifndef FILE_ACCESS_WRITE
-#define FILE_ACCESS_WRITE	      0x02
+#define FILE_ACCESS_WRITE		0x02
 #endif
 
 #define FILE_SEEK_FROM_START		0x01	// keep in sync with fileman.h

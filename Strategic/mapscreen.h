@@ -84,5 +84,9 @@ BOOLEAN CanChangeSleepStatusForSoldier( SOLDIERTYPE *pSoldier );
 
 BOOLEAN MapCharacterHasAccessibleInventory( INT8 bCharNumber );
 
+// CHRISL: New functions to handle initialization of inventory coordinates
+BOOLEAN InitializeInvPanelCoordsOld( );
+BOOLEAN InitializeInvPanelCoordsNew( );
+BOOLEAN InitializeInvPanelCoordsVehicle( );
 
 #endif

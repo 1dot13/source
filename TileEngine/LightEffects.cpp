@@ -8,10 +8,10 @@
 	#include "wcheck.h"
 	#include "stdlib.h"
 	#include "debug.h"
-	#include "soldier control.h"
+	//#include "soldier control.h"
 	#include "weapons.h"
 	#include "handle items.h"
-	#include "worlddef.h"	
+	#include "worlddef.h"
 	#include "worldman.h"
 	#include "animation control.h"
 	#include "tile animation.h"
@@ -30,6 +30,11 @@
 #endif
 
 #include "SaveLoadGame.h"
+
+
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
 
 
 #define		NUM_LIGHT_EFFECT_SLOTS					25
@@ -85,7 +90,7 @@ void UpdateLightingSprite( LIGHTEFFECT *pLight )
 	// Delete old one if one exists...
 	if( pLight->iLight!=(-1) )
 	{
-		LightSpriteDestroy( pLight->iLight );	
+		LightSpriteDestroy( pLight->iLight );
 		pLight->iLight = -1;
 	}
 
@@ -103,7 +108,7 @@ void UpdateLightingSprite( LIGHTEFFECT *pLight )
 
 
 INT32 NewLightEffect( INT16 sGridNo, UINT8 ubDuration, UINT8 ubStartRadius )
-{		
+{
 	LIGHTEFFECT *pLight;
 	INT32				iLightIndex;
 
@@ -120,18 +125,18 @@ INT32 NewLightEffect( INT16 sGridNo, UINT8 ubDuration, UINT8 ubStartRadius )
 	pLight->uiTimeOfLastUpdate			= GetWorldTotalSeconds( );
 
 	pLight->ubDuration	= ubDuration;
-	pLight->bRadius     = ubStartRadius;
+	pLight->bRadius	 = ubStartRadius;
 	pLight->bAge				= 0;
-	pLight->fAllocated  = TRUE;
+	pLight->fAllocated	= TRUE;
 
 	UpdateLightingSprite( pLight );
 
-  // Handle sight here....
+	// Handle sight here....
 	AllTeamsLookForAll( FALSE );
 
 	//Play the breaklight sound
 //	PlayJA2Sample( BREAK_LIGHT_IGNITING, RATE_11025, SoundVolume( LOWVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
-// MAdd:  for some reason this crashes the game!
+// MAdd:	for some reason this crashes the game!
 	return( pLight->iLight );
 }
 
@@ -143,10 +148,10 @@ void RemoveLightEffectFromTile( INT16 sGridNo )
 	UINT32 cnt;
 
 	// Set to unallocated....
-  for ( cnt = 0; cnt < guiNumLightEffects; cnt++ )
-  {
+	for ( cnt = 0; cnt < guiNumLightEffects; cnt++ )
+	{
 		pLight = &gLightEffectData[ cnt ];
-		
+
 		if ( pLight->fAllocated )
 		{
 			if ( pLight->sGridNo == sGridNo )
@@ -156,7 +161,7 @@ void RemoveLightEffectFromTile( INT16 sGridNo )
 				// Remove light....
 				if( pLight->iLight != (-1) )
 				{
-					LightSpriteDestroy( pLight->iLight );	
+					LightSpriteDestroy( pLight->iLight );
 				}
 				break;
 			}
@@ -171,10 +176,10 @@ BOOLEAN IsLightEffectAtTile( INT16 sGridNo )
 	UINT32 cnt;
 
 	// Set to unallocated....
-  for ( cnt = 0; cnt < guiNumLightEffects; cnt++ )
-  {
+	for ( cnt = 0; cnt < guiNumLightEffects; cnt++ )
+	{
 		pLight = &gLightEffectData[ cnt ];
-		
+
 		if ( pLight->fAllocated )
 		{
 			if ( pLight->sGridNo == sGridNo )
@@ -184,27 +189,27 @@ BOOLEAN IsLightEffectAtTile( INT16 sGridNo )
 		}
 	}
 
-  return FALSE;
+	return FALSE;
 }
 
 void DecayLightEffects( UINT32 uiTime )
 {
 	LIGHTEFFECT *pLight;
 	UINT32 cnt, cnt2;
-	BOOLEAN	  fDelete = FALSE;
-  UINT16    usNumUpdates = 1;
+	BOOLEAN	fDelete = FALSE;
+	UINT16	usNumUpdates = 1;
 
-  // age all active tear gas clouds, deactivate those that are just dispersing
-  for ( cnt = 0; cnt < guiNumLightEffects; cnt++ )
-  {
+	// age all active tear gas clouds, deactivate those that are just dispersing
+	for ( cnt = 0; cnt < guiNumLightEffects; cnt++ )
+	{
 		pLight = &gLightEffectData[ cnt ];
-		
+
 		fDelete = FALSE;
 
 		if ( pLight->fAllocated )
 		{
 			// ATE: Do this every so ofte, to acheive the effect we want...
-			if ( ( uiTime - pLight->uiTimeOfLastUpdate ) > 10 ) 
+			if ( ( uiTime - pLight->uiTimeOfLastUpdate ) > 10 )
 			{
 				usNumUpdates = ( UINT16 ) ( ( uiTime - pLight->uiTimeOfLastUpdate ) / 10 );
 
@@ -246,20 +251,20 @@ void DecayLightEffects( UINT32 uiTime )
 
 				if ( fDelete )
 				{
-					pLight->fAllocated = FALSE;				
+					pLight->fAllocated = FALSE;
 
 					if( pLight->iLight != (-1) )
 					{
-						LightSpriteDestroy( pLight->iLight );	
+						LightSpriteDestroy( pLight->iLight );
 					}
 				}
 
-				
+
 				// Handle sight here....
 				AllTeamsLookForAll( FALSE );
 			}
 		}
-  }
+	}
 }
 
 
@@ -315,10 +320,10 @@ BOOLEAN LoadLightEffectsFromLoadGameFile( HWFILE hFile )
 	UINT32	uiNumBytesRead;
 	UINT32	uiCount;
 
-	//no longer need to load Light effects.  They are now in temp files
-	if( guiSaveGameVersion < 76 )
+	//no longer need to load Light effects.	They are now in temp files
+	if( guiCurrentSaveGameVersion < 76 )
 	{
-		memset( gLightEffectData, 0, sizeof( LIGHTEFFECT ) *  NUM_LIGHT_EFFECT_SLOTS );
+		memset( gLightEffectData, 0, sizeof( LIGHTEFFECT ) *	NUM_LIGHT_EFFECT_SLOTS );
 
 		//Load the Number of Light Effects
 		FileRead( hFile, &guiNumLightEffects, sizeof( UINT32 ), &uiNumBytesRead );
@@ -347,7 +352,7 @@ BOOLEAN LoadLightEffectsFromLoadGameFile( HWFILE hFile )
 		for(uiCount=0; uiCount < guiNumLightEffects; uiCount++)
 		{
 			if( gLightEffectData[uiCount].fAllocated )
-				UpdateLightingSprite( &( gLightEffectData[uiCount] ) );			
+				UpdateLightingSprite( &( gLightEffectData[uiCount] ) );
 		}
 	}
 
@@ -440,7 +445,6 @@ BOOLEAN LoadLightEffectsFromMapTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	UINT32	uiCount;
 	UINT32	uiCnt=0;
 	HWFILE	hFile;
-	UINT32	uiNumBytesWritten=0;
 	CHAR8		zMapName[ 128 ];
 
 	GetMapTempFileName( SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS, zMapName, sMapX, sMapY, bMapZ );
@@ -482,7 +486,7 @@ BOOLEAN LoadLightEffectsFromMapTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	for(uiCount=0; uiCount < guiNumLightEffects; uiCount++)
 	{
 		if( gLightEffectData[uiCount].fAllocated )
-			UpdateLightingSprite( &( gLightEffectData[uiCount] ) );			
+			UpdateLightingSprite( &( gLightEffectData[uiCount] ) );
 	}
 
 	FileClose( hFile );

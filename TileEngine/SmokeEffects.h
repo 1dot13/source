@@ -13,24 +13,24 @@ enum
 	BURNABLEGAS_SMOKE_EFFECT,
 };
 
-#define SMOKE_EFFECT_INDOORS          0x01
-#define SMOKE_EFFECT_ON_ROOF          0x02
-#define SMOKE_EFFECT_MARK_FOR_UPDATE  0x04
+#define SMOKE_EFFECT_INDOORS			0x01
+#define SMOKE_EFFECT_ON_ROOF			0x02
+#define SMOKE_EFFECT_MARK_FOR_UPDATE	0x04
 
 
 typedef struct TAG_SMOKE_EFFECT
 {
-	INT16		sGridNo;          // gridno at which the tear gas cloud is centered
+	INT16		sGridNo;			// gridno at which the tear gas cloud is centered
 
-	UINT8		ubDuration;        // the number of turns gas will remain effective
-	UINT8		ubRadius;          // the current radius of the cloud in map tiles
-	UINT8   bFlags;            // 0 - outdoors (fast spread), 1 - indoors (slow)
-	UINT8		bAge;             // the number of turns gas has been around
+	UINT8		ubDuration;		// the number of turns gas will remain effective
+	UINT8		ubRadius;			// the current radius of the cloud in map tiles
+	UINT8	bFlags;			// 0 - outdoors (fast spread), 1 - indoors (slow)
+	UINT8		bAge;			 // the number of turns gas has been around
 	BOOLEAN	fAllocated;
 	INT8		bType;
 	UINT16	usItem;
-  UINT8   ubOwner;
-  UINT8   ubPadding;
+	UINT8	ubOwner;
+	UINT8	ubPadding;
 	UINT32	uiTimeOfLastUpdate;
 
 } SMOKEEFFECT;

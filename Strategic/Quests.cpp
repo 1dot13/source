@@ -76,9 +76,9 @@ BOOLEAN CheckForNewShipment( void )
 {
 	ITEM_POOL *			pItemPool;
 
-	if ( ( gWorldSectorX == BOBBYR_SHIPPING_DEST_SECTOR_X ) && ( gWorldSectorY == BOBBYR_SHIPPING_DEST_SECTOR_Y ) && ( gbWorldSectorZ == BOBBYR_SHIPPING_DEST_SECTOR_Z ) )	
+	if ( ( gWorldSectorX == BOBBYR_SHIPPING_DEST_SECTOR_X ) && ( gWorldSectorY == BOBBYR_SHIPPING_DEST_SECTOR_Y ) && ( gbWorldSectorZ == BOBBYR_SHIPPING_DEST_SECTOR_Z ) )
 	{
-		if ( GetItemPool( BOBBYR_SHIPPING_DEST_GRIDNO, &pItemPool, 0 ) )
+		if ( GetItemPoolFromGround( BOBBYR_SHIPPING_DEST_GRIDNO, &pItemPool ) )
 		{
 			return( !( ITEMPOOL_VISIBLE( pItemPool ) ) );
 		}
@@ -92,7 +92,7 @@ BOOLEAN CheckNPCWounded( UINT8 ubProfileID, BOOLEAN fByPlayerOnly )
 
 	// is the NPC is wounded at all?
 	pSoldier = FindSoldierByProfileID( ubProfileID, FALSE );
-	if (pSoldier && pSoldier->bLife < pSoldier->bLifeMax)
+	if (pSoldier && pSoldier->stats.bLife < pSoldier->stats.bLifeMax)
 	{
 		if (fByPlayerOnly)
 		{
@@ -104,7 +104,7 @@ BOOLEAN CheckNPCWounded( UINT8 ubProfileID, BOOLEAN fByPlayerOnly )
 			{
 				return( FALSE );
 			}
-		}			
+		}
 		else
 		{
 			return( TRUE );
@@ -113,7 +113,7 @@ BOOLEAN CheckNPCWounded( UINT8 ubProfileID, BOOLEAN fByPlayerOnly )
 	else
 	{
 		return( FALSE );
-		
+
 	}
 }
 
@@ -123,7 +123,7 @@ BOOLEAN CheckNPCInOkayHealth( UINT8 ubProfileID )
 
 	// is the NPC at better than half health?
 	pSoldier = FindSoldierByProfileID( ubProfileID, FALSE );
-	if (pSoldier && pSoldier->bLife > (pSoldier->bLifeMax / 2) && pSoldier->bLife > 30)
+	if (pSoldier && pSoldier->stats.bLife > (pSoldier->stats.bLifeMax / 2) && pSoldier->stats.bLife > 30)
 	{
 		return( TRUE );
 	}
@@ -139,7 +139,7 @@ BOOLEAN CheckNPCBleeding( UINT8 ubProfileID )
 
 	// the NPC is wounded...
 	pSoldier = FindSoldierByProfileID( ubProfileID, FALSE );
-	if (pSoldier && pSoldier->bLife > 0 && pSoldier->bBleeding > 0)
+	if (pSoldier && pSoldier->stats.bLife > 0 && pSoldier->bBleeding > 0)
 	{
 		return( TRUE );
 	}
@@ -174,7 +174,7 @@ BOOLEAN CheckGuyVisible( UINT8 ubNPC, UINT8 ubGuy )
 	{
 		return( FALSE );
 	}
-	if (pNPC->bOppList[ pGuy->ubID ] == SEEN_CURRENTLY )
+	if (pNPC->aiData.bOppList[ pGuy->ubID ] == SEEN_CURRENTLY )
 	{
 		return( TRUE );
 	}
@@ -205,7 +205,7 @@ BOOLEAN CheckNPCIsEnemy( UINT8 ubProfileID )
 	{
 		return( FALSE );
 	}
-	if (pNPC->bSide == gbPlayerNum || pNPC->bNeutral)
+	if (pNPC->bSide == gbPlayerNum || pNPC->aiData.bNeutral)
 	{
 		if (pNPC->ubCivilianGroup != NON_CIV_GROUP)
 		{
@@ -270,7 +270,7 @@ INT8 NumWoundedMercsNearby( UINT8 ubProfileID )
 	{
 		pSoldier = MercSlots[ uiLoop ];
 
-		if ( pSoldier && pSoldier->bTeam == gbPlayerNum && pSoldier->bLife > 0 && pSoldier->bLife < pSoldier->bLifeMax && pSoldier->bAssignment != ASSIGNMENT_HOSPITAL )
+		if ( pSoldier && pSoldier->bTeam == gbPlayerNum && pSoldier->stats.bLife > 0 && pSoldier->stats.bLife < pSoldier->stats.bLifeMax && pSoldier->bAssignment != ASSIGNMENT_HOSPITAL )
 		{
 			if (PythSpacesAway( sGridNo, pSoldier->sGridNo ) <= HOSPITAL_PATIENT_DISTANCE)
 			{
@@ -301,7 +301,7 @@ INT8 NumMercsNear( UINT8 ubProfileID, UINT8 ubMaxDist )
 	{
 		pSoldier = MercSlots[ uiLoop ];
 
-		if ( pSoldier && pSoldier->bTeam == gbPlayerNum && pSoldier->bLife >= OKLIFE )
+		if ( pSoldier && pSoldier->bTeam == gbPlayerNum && pSoldier->stats.bLife >= OKLIFE )
 		{
 			if (PythSpacesAway( sGridNo, pSoldier->sGridNo ) <= ubMaxDist)
 			{
@@ -379,7 +379,7 @@ BOOLEAN PCInSameRoom( UINT8 ubProfileID )
 			}
 		}
 	}
-	
+
 	return( FALSE );
 }
 
@@ -388,11 +388,11 @@ BOOLEAN CheckTalkerStrong( void )
 {
 	if (gpSrcSoldier && gpSrcSoldier->bTeam == gbPlayerNum)
 	{
-		return( gpSrcSoldier->bStrength >= 84 );
+		return( gpSrcSoldier->stats.bStrength >= 84 );
 	}
 	else if (gpDestSoldier && gpDestSoldier->bTeam == gbPlayerNum)
 	{
-		return( gpDestSoldier->bStrength >= 84 );
+		return( gpDestSoldier->stats.bStrength >= 84 );
 	}
 	return( FALSE );
 }
@@ -448,7 +448,7 @@ INT8 NumMalesPresent( UINT8 ubProfileID )
 	{
 		pSoldier = MercSlots[ uiLoop ];
 
-		if ( pSoldier && pSoldier->bTeam == gbPlayerNum && pSoldier->bLife >= OKLIFE)
+		if ( pSoldier && pSoldier->bTeam == gbPlayerNum && pSoldier->stats.bLife >= OKLIFE)
 		{
 			if ( pSoldier->ubProfile != NO_PROFILE && gMercProfiles[ pSoldier->ubProfile].bSex == MALE )
 			{
@@ -482,7 +482,7 @@ BOOLEAN FemalePresent( UINT8 ubProfileID )
 	{
 		pSoldier = MercSlots[ uiLoop ];
 
-		if ( pSoldier && pSoldier->bTeam == gbPlayerNum && pSoldier->bLife >= OKLIFE)
+		if ( pSoldier && pSoldier->bTeam == gbPlayerNum && pSoldier->stats.bLife >= OKLIFE)
 		{
 			if ( pSoldier->ubProfile != NO_PROFILE && gMercProfiles[ pSoldier->ubProfile].bSex == FEMALE )
 			{
@@ -507,17 +507,17 @@ BOOLEAN CheckPlayerHasHead( void )
 	{
 		pSoldier = MercPtrs[ bLoop ];
 
-		if ( pSoldier->bActive && pSoldier->bLife > 0 )
+		if ( pSoldier->bActive && pSoldier->stats.bLife > 0 )
 		{
 			if ( FindObjInObjRange( pSoldier, HEAD_2, HEAD_7 ) != NO_SLOT )
-			{			
+			{
 				return( TRUE );
 			}
 		}
 	}
 
 	return( FALSE );
-	
+
 }
 
 BOOLEAN CheckNPCSector( UINT8 ubProfileID, INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
@@ -555,7 +555,7 @@ BOOLEAN AIMMercWithin( INT16 sGridNo, INT16 sDistance )
 	{
 		pSoldier = MercSlots[ uiLoop ];
 
-		if ( pSoldier && (pSoldier->bTeam == gbPlayerNum) && (pSoldier->bLife >= OKLIFE) && ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC ) )
+		if ( pSoldier && (pSoldier->bTeam == gbPlayerNum) && (pSoldier->stats.bLife >= OKLIFE) && ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC ) )
 		{
 			if (PythSpacesAway( sGridNo, pSoldier->sGridNo ) <= sDistance)
 			{
@@ -576,7 +576,7 @@ BOOLEAN CheckNPCCowering( UINT8 ubProfileID )
 	{
 		return( FALSE );
 	}
-	return( ( (pNPC->uiStatusFlags & SOLDIER_COWERING) != 0) );
+	return( ( (pNPC->flags.uiStatusFlags & SOLDIER_COWERING) != 0) );
 }
 
 UINT8 CountBartenders( void )
@@ -603,7 +603,7 @@ BOOLEAN CheckNPCIsUnderFire( UINT8 ubProfileID )
 	{
 		return( FALSE );
 	}
-	return( pNPC->bUnderFire != 0 );
+	return( pNPC->aiData.bUnderFire != 0 );
 }
 
 BOOLEAN NPCHeardShot( UINT8 ubProfileID )
@@ -645,7 +645,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 		case FACT_DIMITRI_DEAD:
 			gubFact[ usFact ] = (gMercProfiles[ DIMITRI ].bMercStatus == MERC_IS_DEAD );
 			break;
-		case FACT_CURRENT_SECTOR_IS_SAFE:	
+		case FACT_CURRENT_SECTOR_IS_SAFE:
 			gubFact[FACT_CURRENT_SECTOR_IS_SAFE] = !( ( (gTacticalStatus.fEnemyInSector && NPCHeardShot( ubProfileID ) ) || gTacticalStatus.uiFlags & INCOMBAT ) );
 			break;
 		case FACT_BOBBYRAY_SHIPMENT_IN_TRANSIT:
@@ -716,7 +716,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 				gubFact[FACT_NPC_BLEEDING_BUT_OKAY] = FALSE;
 			}
 			break;
-		
+
 		case FACT_PLAYER_HAS_HEAD_AND_CARMEN_IN_SAN_MONA:
 			gubFact[usFact] = (CheckNPCSector( CARMEN, 5, MAP_ROW_C, 0 ) && CheckPlayerHasHead() );
 			break;
@@ -746,7 +746,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			if ( gMercProfiles[ 85 ].bMercStatus == MERC_IS_DEAD)
 			{
 				gubFact[FACT_BRENDA_IN_STORE_AND_ALIVE] = FALSE;
-			}	
+			}
 			// ensure in a building and nearby
 			else if ( !(NPCInRoom( 85, 47 ) )	)
 			{
@@ -875,12 +875,12 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			break;
 		case FACT_DYNAMO_IN_J9:
 			gubFact[usFact] = CheckNPCSector( DYNAMO, 9, MAP_ROW_J, 0 ) && NumEnemiesInAnySector( 9, 10, 0 );
-			break;			
+			break;
 		case FACT_DYNAMO_ALIVE:
 			gubFact[usFact] = ( gMercProfiles[ DYNAMO ].bMercStatus != MERC_IS_DEAD );
 			break;
 		case FACT_DYNAMO_SPEAKING_OR_NEARBY:
-			gubFact[usFact] = ( gpSrcSoldier != NULL && (gpSrcSoldier->ubProfile == DYNAMO || ( CheckNPCWithin( gpSrcSoldier->ubProfile, DYNAMO, 10 ) && CheckGuyVisible( gpSrcSoldier->ubProfile, DYNAMO ) ) ) ); 
+			gubFact[usFact] = ( gpSrcSoldier != NULL && (gpSrcSoldier->ubProfile == DYNAMO || ( CheckNPCWithin( gpSrcSoldier->ubProfile, DYNAMO, 10 ) && CheckGuyVisible( gpSrcSoldier->ubProfile, DYNAMO ) ) ) );
 			break;
 		case FACT_JOHN_EPC:
 			gubFact[usFact] = CheckNPCIsEPC( JOHN );
@@ -909,10 +909,10 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 
 		case FACT_ANOTHER_FIGHT_POSSIBLE:
 			gubFact[usFact] = AnotherFightPossible();
-			break;		
+			break;
 
 		case FACT_RECEIVING_INCOME_FROM_DCAC:
-			gubFact[usFact] = ( 
+			gubFact[usFact] = (
 				( PredictDailyIncomeFromAMine( MINE_DRASSEN ) > 0 ) &&
 				( PredictDailyIncomeFromAMine( MINE_ALMA ) > 0 ) &&
 				( PredictDailyIncomeFromAMine( MINE_CAMBRIA ) > 0 ) &&
@@ -939,7 +939,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			bTown = gMercProfiles[ ubProfileID ].bTown;
 			if( ( bTown != BLANK_SECTOR ) && gTownLoyalty[ bTown ].fStarted && gfTownUsesLoyalty[ bTown ])
 			{
-				gubFact[usFact] = ( (gTownLoyalty[ bTown ].ubRating >= LOYALTY_LOW_THRESHOLD ) && (gTownLoyalty[ bTown ].ubRating < LOYALTY_OK_THRESHOLD ) ); 
+				gubFact[usFact] = ( (gTownLoyalty[ bTown ].ubRating >= LOYALTY_LOW_THRESHOLD ) && (gTownLoyalty[ bTown ].ubRating < LOYALTY_OK_THRESHOLD ) );
 			}
 			else
 			{
@@ -953,7 +953,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			{
 				// if Skyrider, ignore low loyalty until he has monologues, and wait at least a day since the latest monologue to avoid a hot/cold attitude
 				if ( ( ubProfileID == SKYRIDER ) &&
-						 ( ( guiHelicopterSkyriderTalkState == 0 ) || ( ( GetWorldTotalMin() - guiTimeOfLastSkyriderMonologue ) < ( 24 * 60 ) ) ) )
+						( ( guiHelicopterSkyriderTalkState == 0 ) || ( ( GetWorldTotalMin() - guiTimeOfLastSkyriderMonologue ) < ( 24 * 60 ) ) ) )
 				{
 					gubFact[usFact] = FALSE;
 				}
@@ -1087,7 +1087,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 
 		case FACT_TONY_IN_BUILDING:
 			gubFact[usFact] = CheckNPCSector( TONY, 5, MAP_ROW_C, 0 ) && NPCInRoom( TONY, 50 );
-			break;			
+			break;
 
 		case FACT_SHANK_SPEAKING:
 			gubFact[usFact] = ( gpSrcSoldier && gpSrcSoldier->ubProfile == SHANK );
@@ -1120,7 +1120,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 		case FACT_JENNY_ALIVE:
 			gubFact[usFact] = gMercProfiles[ JENNY ].bMercStatus != MERC_IS_DEAD;
 			break;
-	
+
 		case FACT_ARNOLD_ALIVE:
 			gubFact[usFact] = gMercProfiles[ ARNIE ].bMercStatus != MERC_IS_DEAD;
 			break;
@@ -1193,7 +1193,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			break;
 
 		case FACT_SKYRIDER_IN_C16:
-			gubFact[ usFact ] = CheckNPCSector( SKYRIDER, 16, MAP_ROW_C, 0 );			
+			gubFact[ usFact ] = CheckNPCSector( SKYRIDER, 16, MAP_ROW_C, 0 );
 			break;
 		case FACT_SKYRIDER_IN_E14:
 			gubFact[ usFact ] = CheckNPCSector( SKYRIDER, 14, MAP_ROW_E, 0 );
@@ -1206,8 +1206,8 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 			gubFact[usFact] = (gTacticalStatus.fCivGroupHostile[ KINGPIN_CIV_GROUP ] >= CIV_GROUP_WILL_BECOME_HOSTILE);
 			break;
 
-		case FACT_DYNAMO_NOT_SPEAKER:			
-			gubFact[usFact] = !( gpSrcSoldier != NULL && (gpSrcSoldier->ubProfile == DYNAMO ) ); 
+		case FACT_DYNAMO_NOT_SPEAKER:
+			gubFact[usFact] = !( gpSrcSoldier != NULL && (gpSrcSoldier->ubProfile == DYNAMO ) );
 			break;
 
 		case FACT_PABLO_BRIBED:
@@ -1238,7 +1238,7 @@ BOOLEAN CheckFact( UINT16 usFact, UINT8 ubProfileID )
 
 void StartQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY )
 {
-  InternalStartQuest( ubQuest, sSectorX, sSectorY, TRUE );
+	InternalStartQuest( ubQuest, sSectorX, sSectorY, TRUE );
 }
 
 
@@ -1248,10 +1248,10 @@ void InternalStartQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN 
 	{
 		gubQuest[ubQuest] = QUESTINPROGRESS;
 
-    if ( fUpdateHistory )
-    {
-		  SetHistoryFact( HISTORY_QUEST_STARTED, ubQuest, GetWorldTotalMin(), sSectorX, sSectorY );
-    }
+	if ( fUpdateHistory )
+	{
+		SetHistoryFact( HISTORY_QUEST_STARTED, ubQuest, GetWorldTotalMin(), sSectorX, sSectorY );
+	}
 	}
 	else
 	{
@@ -1261,7 +1261,7 @@ void InternalStartQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN 
 
 void EndQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY )
 {
-  InternalEndQuest( ubQuest, sSectorX, sSectorY, TRUE );
+	InternalEndQuest( ubQuest, sSectorX, sSectorY, TRUE );
 }
 
 void InternalEndQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN fUpdateHistory )
@@ -1270,10 +1270,10 @@ void InternalEndQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN fU
 	{
 		gubQuest[ubQuest] = QUESTDONE;
 
-    if ( fUpdateHistory )
-    {
-		  ResetHistoryFact( ubQuest, sSectorX, sSectorY );
-    }
+	if ( fUpdateHistory )
+	{
+		ResetHistoryFact( ubQuest, sSectorX, sSectorY );
+	}
 	}
 	else
 	{
@@ -1287,13 +1287,13 @@ void InternalEndQuest( UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN fU
 		gMercProfiles[ MADAME ].bNPCData = 0;
 		gMercProfiles[ MADAME ].bNPCData2 = 0;
 	}
-	
+
 };
 
 void InitQuestEngine()
 {
 	memset(gubQuest, 0, sizeof(gubQuest));
-	memset(gubFact,  0, sizeof(gubFact));
+	memset(gubFact,	0, sizeof(gubFact));
 
 	// semi-hack to make the letter quest start right away
 	CheckForQuests( 1 );
@@ -1323,7 +1323,7 @@ void CheckForQuests( UINT32 uiDay )
 	ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"Checking For Quests, Day %d", uiDay );
 #endif
 
-  // -------------------------------------------------------------------------------
+	// -------------------------------------------------------------------------------
 	// QUEST 0 : DELIVER LETTER
 	// -------------------------------------------------------------------------------
 	// The game always starts with DELIVER LETTER quest, so turn it on if it hasn't
@@ -1335,7 +1335,7 @@ void CheckForQuests( UINT32 uiDay )
 		ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"Started DELIVER LETTER quest");
 #endif
 	}
-	
+
 	// This quest gets turned OFF through conversation with Miguel - when user hands
 	// Miguel the letter
 }
@@ -1389,6 +1389,7 @@ BOOLEAN LoadQuestInfoFromSavedGameFile( HWFILE hFile )
 
 
 
- 
+
+
 
 

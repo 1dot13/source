@@ -24,16 +24,16 @@
 
 //Kris:
 //This is the plan for game time...
-//Game time should be restricted to outside code.  Think of it as encapsulation.  Anyway, using these
-//simple functions, you will be able to change the amount of time that passes per frame.  The gameloop will
+//Game time should be restricted to outside code.	Think of it as encapsulation.	Anyway, using these
+//simple functions, you will be able to change the amount of time that passes per frame.	The gameloop will
 //automatically update the clock once per cycle, regardless of the mode you are in.
 //This does pose potential problems in modes such as the editor, or similar where time shouldn't pass, and
-//isn't currently handled.  The best thing to do in these cases is call the PauseGame() function when entering
-//such a mode, and UnPauseGame() when finished.  Everything will be restored just the way you left it.  This
-//is much simpler to handle in the overall scheme of things.  
+//isn't currently handled.	The best thing to do in these cases is call the PauseGame() function when entering
+//such a mode, and UnPauseGame() when finished.	Everything will be restored just the way you left it.	This
+//is much simpler to handle in the overall scheme of things.	
 
 //PAUSE FEATURES
-//Pauses and unpauses the game.  It sets and clears a flag which preserves the time rate.
+//Pauses and unpauses the game.	It sets and clears a flag which preserves the time rate.
 extern void PauseGame();
 extern void UnPauseGame();
 extern void TogglePause();
@@ -60,8 +60,8 @@ BOOLEAN IsTimeCompressionOn( void );		// returns TRUE if the player currently wa
 //USING TIME COMPRESSION
 //Allows the setting/changing/access of time rate via predefined compression values.
 //These functions change the index in giTimeCompressSpeeds which aren't in any
-//particular mathematical pattern.  The higher the index, the faster the time is processed
-//per frame.  These functions have their limits, so game time will also be between 
+//particular mathematical pattern.	The higher the index, the faster the time is processed
+//per frame.	These functions have their limits, so game time will also be between 
 //TIME_COMPRESS_X1 to TIME_COMPRESS_X8 based in the laptop time compression.
 void SetGameTimeCompressionLevel( UINT32 uiCompressionRate );
 void DecreaseGameTimeCompressionRate();
@@ -69,10 +69,10 @@ void IncreaseGameTimeCompressionRate();
 
 //USING CLOCK RESOLUTION
 //Note, that changing the clock resolution doesn't effect the amount of game time that passes per
-//real second, but how many times per second the clock is updated.  This rate will break up the actual
-//time slices per second into smaller chunks.  This is useful for animating strategic movement under
+//real second, but how many times per second the clock is updated.	This rate will break up the actual
+//time slices per second into smaller chunks.	This is useful for animating strategic movement under
 //fast time compression, so objects don't warp around.
-void SetClockResolutionToDefault();  //1 time per second
+void SetClockResolutionToDefault();	//1 time per second
 //Valid range is 1 - 60 times per second.
 void SetClockResolutionPerSecond( UINT8 ubNumTimesPerSecond );
 //Function for accessing the current rate
@@ -118,7 +118,7 @@ void WarpGameTime( UINT32 uiAdjustment, UINT8 ubWarpCode );
 
 void AdvanceToNextDay();
 
-//This function is called once per cycle in the game loop.  This determine how often the clock should be
+//This function is called once per cycle in the game loop.	This determine how often the clock should be
 //as well as how much to update the clock by.
 void UpdateClock();
 
@@ -129,14 +129,14 @@ extern	UINT32			guiDay;
 extern	UINT32			guiHour;
 extern	UINT32			guiMin;
 
-//Advanced function used by certain event callbacks.  In the case where time is warped, certain event
-//need to know how much time was warped since the last query to the event list.  
+//Advanced function used by certain event callbacks.	In the case where time is warped, certain event
+//need to know how much time was warped since the last query to the event list.	
 //This function returns that value
 extern UINT32 guiTimeOfLastEventQuery;
 
-//This value represents the time that the sector was loaded.  If you are in sector A9, and leave
-//the game clock at that moment will get saved into the temp file associated with it.  The next time you
-//enter A9, this value will contain that time.  Used for scheduling purposes.
+//This value represents the time that the sector was loaded.	If you are in sector A9, and leave
+//the game clock at that moment will get saved into the temp file associated with it.	The next time you
+//enter A9, this value will contain that time.	Used for scheduling purposes.
 extern UINT32				guiTimeCurrentSectorWasLastLoaded;
 
 // is the current pause state due to the player?
@@ -170,9 +170,9 @@ void RenderClock( INT16 sX, INT16 sY );
 
 void ToggleSuperCompression();
 
-//IMPORTANT FUNCTION:  Used whenever an event or situation is deemed important enough to cancel the
-//further processing of time in this current time slice!  This can only be used inside of event callback
-//functions -- otherwise, it'll be ignored and automatically reset.  An example of this would be when arriving
+//IMPORTANT FUNCTION:	Used whenever an event or situation is deemed important enough to cancel the
+//further processing of time in this current time slice!	This can only be used inside of event callback
+//functions -- otherwise, it'll be ignored and automatically reset.	An example of this would be when arriving
 //in a new sector and being prompted to attack or retreat.
 void InterruptTime();
 void PauseTimeForInterupt();

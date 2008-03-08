@@ -49,7 +49,7 @@
 
 typedef enum
 {
-	// There are only for distance-adjusted global loyalty effects.  Others go into list above instead!
+	// There are only for distance-adjusted global loyalty effects.	Others go into list above instead!
 	GLOBAL_LOYALTY_BATTLE_WON,
 	GLOBAL_LOYALTY_BATTLE_LOST,
 	GLOBAL_LOYALTY_ENEMY_KILLED,
@@ -72,7 +72,7 @@ typedef struct TOWN_LOYALTY
 	UINT8			ubRating;
 	INT16			sChange;
 	BOOLEAN		fStarted;		// starting loyalty of each town is initialized only when player first enters that town
-	UINT8			UNUSEDubRebelSentiment;		// current rebel sentiment.  Events could change the starting value...
+	UINT8			UNUSEDubRebelSentiment;		// current rebel sentiment.	Events could change the starting value...
 	BOOLEAN		fLiberatedAlready;
 	BYTE			filler[19];					// reserved for expansion
 
@@ -153,7 +153,7 @@ void BuildListOfTownSectors( void );
 void ReadInDistancesBetweenTowns( void );
 
 
-/* Delayed loyalty effects elimininated.  Sep.12/98.  ARM
+/* Delayed loyalty effects elimininated.	Sep.12/98.	ARM
 // delayed town loyalty event
 void HandleDelayedTownLoyaltyEvent( UINT32 uiValue );
 // build loyalty event value
@@ -187,13 +187,13 @@ void CheckIfEntireTownHasBeenLost( INT8 bTownId, INT16 sSectorX, INT16 sSectorY 
 
 void HandleLoyaltyChangeForNPCAction( UINT8 ubNPCProfileId );
 
-BOOLEAN  DidFirstBattleTakePlaceInThisTown( INT8 bTownId );
+BOOLEAN	DidFirstBattleTakePlaceInThisTown( INT8 bTownId );
 void SetTheFirstBattleSector( INT16 sSectorValue );
 
 // gte number of whole towns but exclude this one
 INT32 GetNumberOfWholeTownsUnderControlButExcludeCity( INT8 bCityToExclude );
 
-//Function assumes that mercs have retreated already.  Handles two cases, one for general merc retreat 
+//Function assumes that mercs have retreated already.	Handles two cases, one for general merc retreat 
 //which slightly demoralizes the mercs, the other handles abandonment of militia forces which poses
 //as a serious loyalty penalty.
 

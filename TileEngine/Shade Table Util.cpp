@@ -42,14 +42,14 @@ void DetermineRGBDistributionSettings()
 	// Snap: save current directory
 	GetFileManCurrentDirectory( DataDir );
 
-	//First, determine if we have a file saved.  If not, then this is the first time, and
-	//all shade tables will have to be built and saved to disk.  This can be time consuming, adding up to
+	//First, determine if we have a file saved.	If not, then this is the first time, and
+	//all shade tables will have to be built and saved to disk.	This can be time consuming, adding up to
 	//3-4 seconds to the time of a map load.
 	GetExecutableDirectory( ExecDir );
 	sprintf( ShadeTableDir, "%s\\%s", DataDir, SHADE_TABLE_DIR );
 
-	
-	//Check to make sure we have a ShadeTable directory.  If we don't create one!
+
+	//Check to make sure we have a ShadeTable directory.	If we don't create one!
 	if( !SetFileManCurrentDirectory( ShadeTableDir ) )
 	{
 		if( !MakeFileManDirectory( ShadeTableDir ) )
@@ -62,12 +62,12 @@ void DetermineRGBDistributionSettings()
 		}
 		fSaveRGBDist = TRUE;
 	}
-	
+
 	if( !fSaveRGBDist )
 	{ //Load the previous RGBDist and determine if it is the same one
 		if( !FileExists( "RGBDist.dat" ) || FileExists( "ResetShadeTables.txt" ) )
-		{ //Can't find the RGBDist.dat file.  The directory exists, but the file doesn't, which
-			//means the user deleted the file manually.  Now, set it up to create a new one.
+		{ //Can't find the RGBDist.dat file.	The directory exists, but the file doesn't, which
+			//means the user deleted the file manually.	Now, set it up to create a new one.
 			fSaveRGBDist = TRUE;
 			fCleanShadeTable = TRUE;
 		}
@@ -93,24 +93,24 @@ void DetermineRGBDistributionSettings()
 	if( fLoadedPrevRGBDist )
 	{
 		if( uiRBitMask != uiPrevRBitMask || uiGBitMask != uiPrevGBitMask || uiBBitMask != uiPrevBBitMask )
-		{ //The user has changed modes since the last time he has played JA2.  This essentially can only happen if:
-			//1)  The video card has been changed since the last run of JA2.
-			//2)  Certain video cards have different RGB distributions in different operating systems such as
+		{ //The user has changed modes since the last time he has played JA2.	This essentially can only happen if:
+			//1)	The video card has been changed since the last run of JA2.
+			//2)	Certain video cards have different RGB distributions in different operating systems such as
 			//		the Millenium card using Windows NT or Windows 95
-			//3)  The user has physically modified the RGBDist.dat file.
+			//3)	The user has physically modified the RGBDist.dat file.
 			fSaveRGBDist = TRUE;
 			fCleanShadeTable = TRUE;
 		}
 	}
 	if( fCleanShadeTable )
 	{ //This means that we are going to remove all of the current shade tables, if any exist, and
-		//start fresh.  
+		//start fresh.
 		EraseDirectory( ShadeTableDir );
 	}
 	if( fSaveRGBDist )
-	{ //The RGB distribution is going to be saved in a tiny file for future reference.  As long as the
+	{ //The RGB distribution is going to be saved in a tiny file for future reference.	As long as the
 		//RGB distribution never changes, the shade table will grow until eventually, all tilesets are loaded,
-		//shadetables generated and saved in this directory.  
+		//shadetables generated and saved in this directory.
 		hfile = FileOpen( "RGBDist.dat", FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 		if( !hfile )
 		{
@@ -138,8 +138,8 @@ BOOLEAN LoadShadeTable( HVOBJECT pObj, UINT32 uiTileTypeIndex )
 	CHAR8 *ptr;
 	//ASSUMPTIONS:
 	//We are assuming that the uiTileTypeIndex is referring to the correct file
-	//stored in the TileSurfaceFilenames[].  If it isn't, then that is a huge problem
-	//and should be fixed.  Also assumes that the directory is set to Data\ShadeTables.
+	//stored in the TileSurfaceFilenames[].	If it isn't, then that is a huge problem
+	//and should be fixed.	Also assumes that the directory is set to Data\ShadeTables.
 	strcpy( ShadeFileName, TileSurfaceFilenames[ uiTileTypeIndex ] );
 	ptr = strstr( ShadeFileName, "." );
 	if( !ptr )
@@ -156,7 +156,7 @@ BOOLEAN LoadShadeTable( HVOBJECT pObj, UINT32 uiTileTypeIndex )
 		return FALSE;
 	}
 
-	//MISSING:  Compare time stamps.
+	//MISSING:	Compare time stamps.
 
 	for( i = 0; i < 16; i++ )
 	{
@@ -165,7 +165,7 @@ BOOLEAN LoadShadeTable( HVOBJECT pObj, UINT32 uiTileTypeIndex )
 		FileRead( hfile, pObj->pShades[ i ], 512, &uiNumBytesRead );
 	}
 
-	//The file exists, now make sure the 
+	//The file exists, now make sure the
 	FileClose( hfile );
 	#ifdef JA2TESTVERSION
 		uiNumTablesLoaded++;
@@ -185,8 +185,8 @@ BOOLEAN SaveShadeTable( HVOBJECT pObj, UINT32 uiTileTypeIndex )
 	#endif
 	//ASSUMPTIONS:
 	//We are assuming that the uiTileTypeIndex is referring to the correct file
-	//stored in the TileSurfaceFilenames[].  If it isn't, then that is a huge problem
-	//and should be fixed.  Also assumes that the directory is set to Data\ShadeTables.
+	//stored in the TileSurfaceFilenames[].	If it isn't, then that is a huge problem
+	//and should be fixed.	Also assumes that the directory is set to Data\ShadeTables.
 	strcpy( ShadeFileName, TileSurfaceFilenames[ uiTileTypeIndex ] );
 	ptr = strstr( ShadeFileName, "." );
 	if( !ptr )
@@ -198,7 +198,7 @@ BOOLEAN SaveShadeTable( HVOBJECT pObj, UINT32 uiTileTypeIndex )
 
 	hfile = FileOpen( ShadeFileName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 	if( !hfile )
-	{ 
+	{
 		FileClose( hfile );
 		AssertMsg( 0, String( "Can't create %s", ShadeFileName ) );
 		return FALSE;
@@ -215,6 +215,6 @@ BOOLEAN SaveShadeTable( HVOBJECT pObj, UINT32 uiTileTypeIndex )
 
 
 BOOLEAN DeleteShadeTableDir( )
-{	
+{
 	return( RemoveFileManDirectory( SHADE_TABLE_DIR, TRUE ) );
 }

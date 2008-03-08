@@ -2,13 +2,13 @@
 	#include "Utils All.h"
 #else
 	#include "Language Defines.h"
-	#if defined( ENGLISH ) || defined( TAIWANESE )
+	#if defined( ENGLISH )
 		#include "text.h"
 		#include "Fileman.h"
 	#endif
 #endif
 
-#if defined( ENGLISH ) || defined( TAIWANESE )
+#if defined( ENGLISH )
 
 /*
  
@@ -765,7 +765,7 @@ STR16 gzMercSkillText[] =
 	L"Thief",
 	L"Martial Arts",
 	L"Knifing",
-	L"Rooftop Sniping",				//JA25: modified
+	L"Sniper",
 	L"Camouflage",						//JA25: modified
 	L"Camouflage (Urban)",						
 	L"Camouflage (Desert)",						
@@ -1408,6 +1408,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Health: %d/%d\nFuel: %d/%d",
 	L"%s cannot see %s.",  // Cannot see person trying to talk to
 	L"Attachment removed",
+	L"Can not gain another vehicle as you already have 2",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -1618,6 +1619,7 @@ STR16 pMapInventoryErrorString[] =
 	L"During combat, you'll have to pick up items manually.",
 	L"During combat, you'll have to drop items manually.",
 	L"%s isn't in the sector to drop that item.",
+	L"During combat, you can't reload with an ammo crate.",
 };
 
 STR16 pMapInventoryStrings[] =
@@ -2844,6 +2846,7 @@ STR16			BobbyRFilter[] =
 	// Used
 	L"Guns",
 	L"Armor",
+	L"LBE Gear",
 	L"Misc",
 
 	// Armour
@@ -2861,6 +2864,7 @@ STR16			BobbyRFilter[] =
 	L"Med. Kits",
 	L"Kits",
 	L"Face Items",
+	L"LBE Gear",
 	L"Misc.",
 };
 
@@ -3385,6 +3389,8 @@ STR16			zSaveLoadText[] =
 	L"Great Selection",
 	L"Excellent Selection",
 	L"Awesome Selection",
+
+	L"New Inventory does not work in 640x480 screen size.  Please resize and try again.",
 };
 
 
@@ -3605,6 +3611,9 @@ STR16	gzGIOScreenText[] =
 	L"Great",
 	L"Excellent",
 	L"Awesome",
+	L"Inventory System",
+	L"Old",
+	L"New",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -3997,6 +4006,8 @@ STR16 sRepairsDoneString[] =
 	L"%s finished repairing everyone's guns & armor",
 	L"%s finished repairing everyone's equipped items",
 	L"%s finished repairing everyone's carried items",
+	L"%s finished repairing everyone's carried items",
+	L"%s finished repairing everyone's carried items",
 };
 
 STR16 zGioDifConfirmText[]=
@@ -4238,10 +4249,19 @@ STR16	New113MERCMercMailTexts[] =
 // INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
 STR16 MissingIMPSkillsDescriptions[] =
 {
-	// Rooftop sniping
-	L"Rooftop Sniping: Not even ants are on the save side. Each target is mercilessly tracked down! ± ",
+	// Sniper
+	L"Sniper: Eyes of a hawk, you can shoot the wings from a fly at a hundred yards! ± ",
 	// Camouflage
 	L"Camouflage: Besides you even bushes look synthetic! ± ",	
+};
+
+STR16 NewInvMessage[] = 
+{
+	L"Cannot pickup backpack at this time",
+	L"No place to put backpack",
+	L"Backpack not found",
+	L"Zipper only works in combat",
+	L"Can not move while backpack zipper active",
 };
 
 #endif //ENGLISH

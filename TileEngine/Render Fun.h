@@ -5,7 +5,7 @@
 #include "worlddef.h"
 
 #define		NO_ROOM			0
-#define   MAX_ROOMS		250
+#define	MAX_ROOMS		250
 
 
 extern UINT8	gubWorldRoomHidden[ MAX_ROOMS ];
@@ -18,13 +18,13 @@ void ShutdownRoomDatabase( );
 void SetTileRoomNum( INT16 sGridNo, UINT8 ubRoomNum );
 void SetTileRangeRoomNum( SGPRect *pSelectRegion, UINT8 ubRoomNum );
 
-void RemoveRoomRoof( UINT16 sGridNo, UINT8 bRoomNum, SOLDIERTYPE *pSoldier );
-BOOLEAN InARoom( UINT16 sGridNo, UINT8 *pubRoomNo );
-BOOLEAN InAHiddenRoom( UINT16 sGridNo, UINT8 *pubRoomNo );
+void RemoveRoomRoof( INT16 sGridNo, UINT8 bRoomNum, SOLDIERTYPE *pSoldier );
+BOOLEAN InARoom( INT16 sGridNo, UINT8 *pubRoomNo );
+BOOLEAN InAHiddenRoom( INT16 sGridNo, UINT8 *pubRoomNo );
 
-void SetGridNoRevealedFlag( UINT16 sGridNo );
+void SetGridNoRevealedFlag( INT16 sGridNo );
 
-void ExamineGridNoForSlantRoofExtraGraphic( UINT16 sCheckGridNo );
+void ExamineGridNoForSlantRoofExtraGraphic( INT16 sCheckGridNo );
 
 void SetRecalculateWireFrameFlagRadius(INT16 sX, INT16 sY, INT16 sRadius);
 

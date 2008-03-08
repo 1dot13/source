@@ -2,7 +2,6 @@
 	#include "Tactical All.h"
 #else
 	#include "Types.h"
-	#include "Item Types.h"
 	#include "DEbug.h"
 	#include "EnemyItemDrops.h"
 #endif

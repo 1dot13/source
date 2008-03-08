@@ -73,7 +73,7 @@ void GameInitAimFacialIndex()
 
 BOOLEAN EnterAimFacialIndex()
 {
-  VOBJECT_DESC    VObjectDesc;
+	VOBJECT_DESC	VObjectDesc;
 	UINT8	i;
 	UINT16		usPosX, usPosY, x,y;
 	STR				sFaceLoc = "FACES\\";
@@ -93,7 +93,7 @@ BOOLEAN EnterAimFacialIndex()
 		{
 
 			MSYS_DefineRegion( &gMercFaceMouseRegions[ i ], usPosX, usPosY, (INT16)(usPosX + AIM_FI_PORTRAIT_WIDTH), (INT16)(usPosY + AIM_FI_PORTRAIT_HEIGHT), MSYS_PRIORITY_HIGH,
-								 CURSOR_WWW, SelectMercFaceMoveRegionCallBack, SelectMercFaceRegionCallBack); 
+								CURSOR_WWW, SelectMercFaceMoveRegionCallBack, SelectMercFaceRegionCallBack);
 			// Add region
 			MSYS_AddRegion( &gMercFaceMouseRegions[ i ] );
 			MSYS_SetRegionUserData( &gMercFaceMouseRegions[ i ], 0, i);
@@ -104,7 +104,7 @@ BOOLEAN EnterAimFacialIndex()
 			if( !AddVideoObject(&VObjectDesc, &guiAimFiFace[i]) )
 				return( FALSE );
 
-			
+
 			usPosX += AIM_FI_PORTRAIT_WIDTH + AIM_FI_MUGSHOT_GAP_X;
 			i++;
 		}
@@ -113,7 +113,7 @@ BOOLEAN EnterAimFacialIndex()
 	}
 
 	MSYS_DefineRegion( &gScreenMouseRegions, LAPTOP_SCREEN_UL_X, LAPTOP_SCREEN_WEB_UL_Y, LAPTOP_SCREEN_LR_X, LAPTOP_SCREEN_WEB_LR_Y, MSYS_PRIORITY_HIGH-1,
-						 CURSOR_LAPTOP_SCREEN, MSYS_NO_CALLBACK, SelectScreenRegionCallBack); 
+						CURSOR_LAPTOP_SCREEN, MSYS_NO_CALLBACK, SelectScreenRegionCallBack);
 	// Add region
 	MSYS_AddRegion( &gScreenMouseRegions );
 
@@ -138,11 +138,11 @@ void ExitAimFacialIndex()
 	for(i=0; i<MAX_NUMBER_MERCS; i++)
 	{
 		DeleteVideoObjectFromIndex( guiAimFiFace[i]);
-	  MSYS_RemoveRegion( &gMercFaceMouseRegions[ i ]);
+	MSYS_RemoveRegion( &gMercFaceMouseRegions[ i ]);
 	}
 	ExitAimMenuBar();
 
-  MSYS_RemoveRegion( &gScreenMouseRegions);
+	MSYS_RemoveRegion( &gScreenMouseRegions);
 }
 
 void HandleAimFacialIndex()
@@ -166,7 +166,7 @@ BOOLEAN RenderAimFacialIndex()
 	else
 		swprintf(sString, AimFiText[ AIM_FI_AIM_MEMBERS_SORTED_DESCENDING ], AimFiText[gubCurrentSortMode] );
 
-	DrawTextToScreen(sString, AIM_FI_MEMBER_TEXT_X, AIM_FI_MEMBER_TEXT_Y, AIM_FI_MEMBER_TEXT_WIDTH, AIM_MAINTITLE_FONT, AIM_MAINTITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);			
+	DrawTextToScreen(sString, AIM_FI_MEMBER_TEXT_X, AIM_FI_MEMBER_TEXT_Y, AIM_FI_MEMBER_TEXT_WIDTH, AIM_MAINTITLE_FONT, AIM_MAINTITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
 
 
 	//Draw the mug shot border and face
@@ -179,8 +179,8 @@ BOOLEAN RenderAimFacialIndex()
 		for(x=0; x<AIM_FI_NUM_MUHSHOTS_X; x++)
 		{
 			DrawMercsFaceToScreen(i, usPosX, usPosY, 1);
-			DrawTextToScreen(gMercProfiles[AimMercArray[i]].zNickname, (UINT16)(usPosX - AIM_FI_NNAME_OFFSET_X), (UINT16)(usPosY + AIM_FI_NNAME_OFFSET_Y), AIM_FI_NNAME_WIDTH, AIM_FONT12ARIAL, AIM_FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);			
-		
+			DrawTextToScreen(gMercProfiles[AimMercArray[i]].zNickname, (UINT16)(usPosX - AIM_FI_NNAME_OFFSET_X), (UINT16)(usPosY + AIM_FI_NNAME_OFFSET_Y), AIM_FI_NNAME_WIDTH, AIM_FONT12ARIAL, AIM_FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
+
 			usPosX += AIM_FI_PORTRAIT_WIDTH + AIM_FI_MUGSHOT_GAP_X;
 			i++;
 		}
@@ -191,22 +191,22 @@ BOOLEAN RenderAimFacialIndex()
 	DisableAimButton();
 
 	//display the 'left and right click' onscreen help msg
-	DrawTextToScreen(AimFiText[AIM_FI_LEFT_CLICK], AIM_FI_LEFT_CLICK_TEXT_X, AIM_FI_LEFT_CLICK_TEXT_Y, AIM_FI_CLICK_TEXT_WIDTH, AIM_FI_HELP_TITLE_FONT, AIM_FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);			
-	DrawTextToScreen(AimFiText[AIM_FI_TO_SELECT], AIM_FI_LEFT_CLICK_TEXT_X, AIM_FI_LEFT_CLICK_TEXT_Y+AIM_FI_CLICK_DESC_TEXT_Y_OFFSET, AIM_FI_CLICK_TEXT_WIDTH, AIM_FI_HELP_FONT, AIM_FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);			
+	DrawTextToScreen(AimFiText[AIM_FI_LEFT_CLICK], AIM_FI_LEFT_CLICK_TEXT_X, AIM_FI_LEFT_CLICK_TEXT_Y, AIM_FI_CLICK_TEXT_WIDTH, AIM_FI_HELP_TITLE_FONT, AIM_FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
+	DrawTextToScreen(AimFiText[AIM_FI_TO_SELECT], AIM_FI_LEFT_CLICK_TEXT_X, AIM_FI_LEFT_CLICK_TEXT_Y+AIM_FI_CLICK_DESC_TEXT_Y_OFFSET, AIM_FI_CLICK_TEXT_WIDTH, AIM_FI_HELP_FONT, AIM_FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
 
-	DrawTextToScreen(AimFiText[AIM_FI_RIGHT_CLICK], AIM_FI_RIGHT_CLICK_TEXT_X, AIM_FI_LEFT_CLICK_TEXT_Y, AIM_FI_CLICK_TEXT_WIDTH, AIM_FI_HELP_TITLE_FONT, AIM_FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);			
-	DrawTextToScreen(AimFiText[AIM_FI_TO_ENTER_SORT_PAGE], AIM_FI_RIGHT_CLICK_TEXT_X, AIM_FI_LEFT_CLICK_TEXT_Y+AIM_FI_CLICK_DESC_TEXT_Y_OFFSET, AIM_FI_CLICK_TEXT_WIDTH, AIM_FI_HELP_FONT, AIM_FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);			
+	DrawTextToScreen(AimFiText[AIM_FI_RIGHT_CLICK], AIM_FI_RIGHT_CLICK_TEXT_X, AIM_FI_LEFT_CLICK_TEXT_Y, AIM_FI_CLICK_TEXT_WIDTH, AIM_FI_HELP_TITLE_FONT, AIM_FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
+	DrawTextToScreen(AimFiText[AIM_FI_TO_ENTER_SORT_PAGE], AIM_FI_RIGHT_CLICK_TEXT_X, AIM_FI_LEFT_CLICK_TEXT_Y+AIM_FI_CLICK_DESC_TEXT_Y_OFFSET, AIM_FI_CLICK_TEXT_WIDTH, AIM_FI_HELP_FONT, AIM_FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
 
-  MarkButtonsDirty( );
+	MarkButtonsDirty( );
 
-  RenderWWWProgramTitleBar( );
+	RenderWWWProgramTitleBar( );
 
 	InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
 	return(TRUE);
 }
 
 void SelectMercFaceRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
-{ 
+{
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 	}
@@ -218,12 +218,12 @@ void SelectMercFaceRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
 		guiCurrentLaptopMode = LAPTOP_MODE_AIM_MEMBERS_SORTED_FILES;
-	} 
+	}
 }
 
 
 void SelectScreenRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
-{ 
+{
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 	}
@@ -268,11 +268,11 @@ void SelectMercFaceMoveRegionCallBack(MOUSE_REGION * pRegion, INT32 reason )
 		DrawMercsFaceToScreen(ubMercNum, usPosX, usPosY, 0);
 		InvalidateRegion(pRegion->RegionTopLeftX, pRegion->RegionTopLeftY, pRegion->RegionBottomRightX, pRegion->RegionBottomRightY);
 	}
-} 
+}
 
 BOOLEAN DrawMercsFaceToScreen(UINT8 ubMercID, UINT16 usPosX, UINT16 usPosY, UINT8 ubImage)
 {
-  HVOBJECT	hMugShotBorderHandle;
+	HVOBJECT	hMugShotBorderHandle;
 	HVOBJECT	hFaceHandle;
 	SOLDIERTYPE	*pSoldier=NULL;
 
@@ -299,14 +299,14 @@ BOOLEAN DrawMercsFaceToScreen(UINT8 ubMercID, UINT16 usPosX, UINT16 usPosY, UINT
 		//set the red pallete to the face
 		SetObjectHandleShade( guiAimFiFace[ubMercID], 0 );
 
-		//Blt face to screen 
+		//Blt face to screen
 		BltVideoObject(FRAME_BUFFER, hFaceHandle, 0,usPosX+AIM_FI_FACE_OFFSET, usPosY+AIM_FI_FACE_OFFSET, VO_BLT_SRCTRANSPARENCY,NULL);
-	
+
 		DrawTextToScreen(AimFiText[AIM_FI_DEAD], (UINT16)(usPosX+AIM_FI_AWAY_TEXT_OFFSET_X), (UINT16)(usPosY+AIM_FI_AWAY_TEXT_OFFSET_Y), AIM_FI_AWAY_TEXT_OFFSET_WIDTH, FONT10ARIAL, 145, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
 	}
 
 	//else if the merc is currently a POW or, the merc was fired as a pow
-	else if( gMercProfiles[ AimMercArray[ubMercID] ].bMercStatus == MERC_FIRED_AS_A_POW  || ( pSoldier &&  pSoldier->bAssignment == ASSIGNMENT_POW ) )
+	else if( gMercProfiles[ AimMercArray[ubMercID] ].bMercStatus == MERC_FIRED_AS_A_POW	|| ( pSoldier &&	pSoldier->bAssignment == ASSIGNMENT_POW ) )
 	{
 		ShadowVideoSurfaceRect( FRAME_BUFFER, usPosX+AIM_FI_FACE_OFFSET, usPosY+AIM_FI_FACE_OFFSET, usPosX + 48+AIM_FI_FACE_OFFSET, usPosY + 43+AIM_FI_FACE_OFFSET);
 		DrawTextToScreen( pPOWStrings[0], (UINT16)(usPosX+AIM_FI_AWAY_TEXT_OFFSET_X), (UINT16)(usPosY+AIM_FI_AWAY_TEXT_OFFSET_Y), AIM_FI_AWAY_TEXT_OFFSET_WIDTH, FONT10ARIAL, 145, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
@@ -335,6 +335,7 @@ BOOLEAN DrawMercsFaceToScreen(UINT8 ubMercID, UINT16 usPosX, UINT16 usPosY, UINT
 
 
 
- 
+
+
 
 

@@ -18,7 +18,7 @@
 	#include "mousesystem.h"
 	#include "screenids.h"
 	#include "screens.h"
-	#include "Font Control.h" 
+	#include "Font Control.h"
 	#include "sysutil.h"
 	#include "renderworld.h"
 	#include "tiledef.h"
@@ -26,7 +26,7 @@
 	#include "editscreen.h"
 	#include <wchar.h>
 	#include <tchar.h>
-	#include "Timer Control.h"     
+	#include "Timer Control.h"
 	#include "Sys Globals.h"
 	#include "interface.h"
 	#include "overhead.h"
@@ -41,7 +41,6 @@
 	#include "lighting.h"
 	#include "interface panels.h"
 	#include "Music Control.h"
-	#include "Sound Control.h"
 	#include "mainmenuscreen.h"
 	#include "Game Init.h"
 	#include "init.h"
@@ -76,9 +75,9 @@ extern BOOLEAN			gfAmINetworked;
 #define MAX_DEBUG_PAGES 4
 
 
-// GLOBAL FOR PAL EDITOR 
-UINT8	 CurrentPalette = 0;
-UINT32  guiBackgroundRect;
+// GLOBAL FOR PAL EDITOR
+UINT8	CurrentPalette = 0;
+UINT32	guiBackgroundRect;
 BOOLEAN	gfExitPalEditScreen = FALSE;
 BOOLEAN	gfExitDebugScreen = FALSE;
 BOOLEAN gfInitRect = TRUE;
@@ -87,10 +86,10 @@ BOOLEAN	gfDoneWithSplashScreen = FALSE;
 
 
 
-void PalEditRenderHook(  );
+void PalEditRenderHook(	);
 BOOLEAN PalEditKeyboardHook( InputAtom *pInputEvent );
 
-void DebugRenderHook(  );
+void DebugRenderHook(	);
 BOOLEAN DebugKeyboardHook( InputAtom *pInputEvent );
 INT8 gCurDebugPage = 0;
 
@@ -107,17 +106,17 @@ void DefaultDebugPage1( );
 void DefaultDebugPage2( );
 void DefaultDebugPage3( );
 void DefaultDebugPage4( );
-RENDER_HOOK				gDebugRenderOverride[ MAX_DEBUG_PAGES ] = 
-{ (RENDER_HOOK)DefaultDebugPage1, (RENDER_HOOK)DefaultDebugPage2, 
-  (RENDER_HOOK)DefaultDebugPage3, (RENDER_HOOK)DefaultDebugPage4 };
+RENDER_HOOK				gDebugRenderOverride[ MAX_DEBUG_PAGES ] =
+{ (RENDER_HOOK)DefaultDebugPage1, (RENDER_HOOK)DefaultDebugPage2,
+	(RENDER_HOOK)DefaultDebugPage3, (RENDER_HOOK)DefaultDebugPage4 };
 
 extern HVSURFACE ghFrameBuffer;
 
 void DisplayFrameRate( )
 {
 	static UINT32		uiFPS = 0;
-	static UINT32		uiFrameCount = 0;	
-	UINT16 usMapPos;
+	static UINT32		uiFrameCount = 0;
+	INT16 sMapPos;
 	VIDEO_OVERLAY_DESC		VideoOverlayDesc;
 
 	// Increment frame count
@@ -128,7 +127,7 @@ void DisplayFrameRate( )
 		// Reset counter
 		RESETCOUNTER( FPSCOUNTER );
 
-		uiFPS = uiFrameCount;		
+		uiFPS = uiFrameCount;
 		uiFrameCount = 0;
 	}
 
@@ -136,16 +135,16 @@ void DisplayFrameRate( )
 	SetFont( SMALLFONT1 );
 
 	//DebugMsg(TOPIC_JA2, DBG_LEVEL_0, String( "FPS: %d ", __min( uiFPS, 1000 ) ) );
-	
+
 	if ( uiFPS < 20 )
 	{
 		SetFontBackground( FONT_MCOLOR_BLACK );
-		SetFontForeground( FONT_MCOLOR_LTRED );		
+		SetFontForeground( FONT_MCOLOR_LTRED );
 	}
 	else
 	{
 		SetFontBackground( FONT_MCOLOR_BLACK );
-		SetFontForeground( FONT_MCOLOR_DKGRAY );				
+		SetFontForeground( FONT_MCOLOR_DKGRAY );
 	}
 
 	if ( gbFPSDisplay == SHOW_FULL_FPS )
@@ -153,24 +152,24 @@ void DisplayFrameRate( )
 		// FRAME RATE
 		memset( &VideoOverlayDesc, 0, sizeof( VideoOverlayDesc ) );
 		swprintf( VideoOverlayDesc.pzText, L"%ld", __min( uiFPS, 1000 ) );
-		VideoOverlayDesc.uiFlags    = VOVERLAY_DESC_TEXT;
+		VideoOverlayDesc.uiFlags	= VOVERLAY_DESC_TEXT;
 		UpdateVideoOverlay( &VideoOverlayDesc, giFPSOverlay, FALSE );
 
-		// TIMER COUNTER		
+		// TIMER COUNTER
 		swprintf( VideoOverlayDesc.pzText, L"%ld", __min( giTimerDiag, 1000 ) );
-		VideoOverlayDesc.uiFlags    = VOVERLAY_DESC_TEXT;
+		VideoOverlayDesc.uiFlags	= VOVERLAY_DESC_TEXT;
 		UpdateVideoOverlay( &VideoOverlayDesc, giCounterPeriodOverlay, FALSE );
-		
 
-		if( GetMouseMapPos( &usMapPos) )
+
+		if( GetMouseMapPos( &sMapPos) )
 		{
-			//gprintfdirty( 0, 315, L"(%d)",usMapPos);		
-			//mprintf( 0,315,L"(%d)",usMapPos);		
+			//gprintfdirty( 0, 315, L"(%d)",sMapPos);
+			//mprintf( 0,315,L"(%d)",sMapPos);
 		}
 		else
 		{
-			//gprintfdirty( 0, 315, L"(%d %d)",gusMouseXPos, gusMouseYPos - INTERFACE_START_Y );		
-			//mprintf( 0,315,L"(%d %d)",gusMouseXPos, gusMouseYPos - INTERFACE_START_Y );		
+			//gprintfdirty( 0, 315, L"(%d %d)",gusMouseXPos, gusMouseYPos - INTERFACE_START_Y );
+			//mprintf( 0,315,L"(%d %d)",gusMouseXPos, gusMouseYPos - INTERFACE_START_Y );
 		}
 	}
 
@@ -178,7 +177,7 @@ void DisplayFrameRate( )
 	{
 		SetFont( SMALLFONT1 );
 		SetFontBackground( FONT_MCOLOR_BLACK );
-		SetFontForeground( FONT_MCOLOR_DKRED );				
+		SetFontForeground( FONT_MCOLOR_DKRED );
 		//gprintfdirty( 0, 0, L"GOD MODE" );
 		//mprintf( 0, 0, L"GOD MODE" );
 	}
@@ -187,7 +186,7 @@ void DisplayFrameRate( )
 	{
 		SetFont( SMALLFONT1 );
 		SetFontBackground( FONT_MCOLOR_BLACK );
-		SetFontForeground( FONT_MCOLOR_DKGRAY );				
+		SetFontForeground( FONT_MCOLOR_DKGRAY );
 		//gprintfdirty( 0, 0, L"DEMO MODE" );
 		//mprintf( 0, 0, L"DEMO MODE" );
 	}
@@ -196,11 +195,11 @@ void DisplayFrameRate( )
 
 	SetFont( SMALLFONT1 );
 	SetFontBackground( FONT_MCOLOR_BLACK );
-	SetFontForeground( FONT_MCOLOR_DKGRAY );				
+	SetFontForeground( FONT_MCOLOR_DKGRAY );
 
 	if ( gbFPSDisplay == SHOW_FULL_FPS )
 	{
-		// Debug	
+		// Debug
 		if (gDebugStr[0] != '\0')
 		{
 			//gprintfdirty( 0, 345, L"DEBUG: %S",gDebugStr);
@@ -260,11 +259,11 @@ UINT32 LoadingScreenShutdown(void)
 UINT32 ErrorScreenInitialize(void)
 {
 	return( TRUE );
-} 
+}
 
 UINT32 ErrorScreenHandle(void)
 {
-  InputAtom  InputEvent;
+	InputAtom	InputEvent;
 	static BOOLEAN	fFirstTime = FALSE;
 #ifdef JA2BETAVERSION
 	CHAR16 str[256];
@@ -282,19 +281,19 @@ UINT32 ErrorScreenHandle(void)
 	mprintf( 50, 225, L"PRESS <ESC> TO EXIT" );
 
 	SetFont( FONT12ARIAL );
-	SetFontForeground( FONT_YELLOW ); 
-	SetFontShadow( 60 );		 //60 is near black
+	SetFontForeground( FONT_YELLOW );
+	SetFontShadow( 60 );		//60 is near black
 	mprintf( 50, 255, L"%S", gubErrorText );
-	SetFontForeground( FONT_LTRED ); 
+	SetFontForeground( FONT_LTRED );
 
 
 #ifdef JA2BETAVERSION
-  
-	  if( gubAssertString[0] )
-	  {
-		  swprintf( str, L"%S", gubAssertString );
-		  DisplayWrappedString( 50, 270, 560, 2, FONT12ARIAL, FONT_RED, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
-	  }
+
+	if( gubAssertString[0] )
+	{
+		swprintf( str, L"%S", gubAssertString );
+		DisplayWrappedString( 50, 270, 560, 2, FONT12ARIAL, FONT_RED, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
+	}
 #endif
 
 	if ( !fFirstTime )
@@ -307,17 +306,17 @@ UINT32 ErrorScreenHandle(void)
 	InvalidateScreen( );
 	EndFrameBufferRender( );
 
-	// Check for esc 
-  while (DequeueEvent(&InputEvent) == TRUE)
-  {
-      if( InputEvent.usEvent == KEY_DOWN )
+	// Check for esc
+	while (DequeueEvent(&InputEvent) == TRUE)
+	{
+		if( InputEvent.usEvent == KEY_DOWN )
 			{
 				if( InputEvent.usParam == ESC || InputEvent.usParam == 'x' && InputEvent.usKeyState & ALT_DOWN )
 				{ // Exit the program
 					DebugMsg(TOPIC_GAME, DBG_LEVEL_0, "GameLoop: User pressed ESCape, TERMINATING");
-					
+
 					// handle shortcut exit
-					HandleShortCutExitState( );				
+					HandleShortCutExitState( );
 				}
 			}
 	}
@@ -335,7 +334,7 @@ UINT32 ErrorScreenShutdown(void)
 UINT32 InitScreenInitialize(void)
 {
 	return( TRUE );
-} 
+}
 
 UINT32 InitScreenHandle(void)
 {
@@ -403,19 +402,19 @@ UINT32 InitScreenHandle(void)
 
 		mprintf( 10, 0, L"(LIMITED PRESS PREVIEW VERSION)" );
 
-#elif defined JA2BETAVERSION 
+#elif defined JA2BETAVERSION
 
 		mprintf( 10, 0, L"(Beta version error reporting enabled)" );
 
 #endif
 
-#ifdef _DEBUG 
+#ifdef _DEBUG
 		mprintf( 10, 20, L"SOLDIERTYPE: %d bytes", sizeof( SOLDIERTYPE ) );
 #endif
 
 		if ( gfDontUseDDBlits )
 		{
-			#ifdef _DEBUG 
+			#ifdef _DEBUG
 				mprintf( 10, 10, L"SOLDIERTYPE: %d bytes", sizeof( SOLDIERTYPE ) );
 			#else
 				mprintf( 10, 20, L"Using software blitters" );
@@ -429,7 +428,7 @@ UINT32 InitScreenHandle(void)
 #ifdef RUSSIAN
 		if( hVSurface )
 #endif
-			DeleteVideoSurface( hVSurface );
+		DeleteVideoSurface( hVSurface );
 		//ATE: Set to true to reset before going into main screen!
 
 		SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
@@ -493,7 +492,7 @@ UINT32 PalEditScreenHandle(void)
 		SetUIKeyboardHook( (UIKEYBOARD_HOOK)NULL );
 		return( GAME_SCREEN );
 	}
-	
+
 	if ( FirstTime )
 	{
 		FirstTime = FALSE;
@@ -522,7 +521,7 @@ UINT32 PalEditScreenShutdown(void)
 }
 
 
-void PalEditRenderHook(  )
+void PalEditRenderHook(	)
 {
 	SOLDIERTYPE		*pSoldier;
 
@@ -553,14 +552,14 @@ BOOLEAN PalEditKeyboardHook( InputAtom *pInputEvent )
 		return( FALSE );
 	}
 
-  if ((pInputEvent->usEvent == KEY_DOWN )&& ( pInputEvent->usParam == ESC ))
-  { 
+	if ((pInputEvent->usEvent == KEY_DOWN )&& ( pInputEvent->usParam == ESC ))
+	{
 		gfExitPalEditScreen = TRUE;
 		return( TRUE );
 	}
 
-  if ((pInputEvent->usEvent == KEY_DOWN )&& ( pInputEvent->usParam == 'h' ))
-  { 
+	if ((pInputEvent->usEvent == KEY_DOWN )&& ( pInputEvent->usParam == 'h' ))
+	{
 			// Get Soldier
 			GetSoldier( &pSoldier, gusSelectedSoldier );
 
@@ -584,14 +583,14 @@ BOOLEAN PalEditKeyboardHook( InputAtom *pInputEvent )
 			}
 			SET_PALETTEREP_ID ( pSoldier->HeadPal,	gpPalRep[ ubPaletteRep ].ID );
 
-			CreateSoldierPalettes( pSoldier );
+			pSoldier->CreateSoldierPalettes( );
 
 			return( TRUE );
-  }
+	}
 
 
-  if ((pInputEvent->usEvent == KEY_DOWN )&& ( pInputEvent->usParam == 'v' ))
-  { 
+	if ((pInputEvent->usEvent == KEY_DOWN )&& ( pInputEvent->usParam == 'v' ))
+	{
 			// Get Soldier
 			GetSoldier( &pSoldier, gusSelectedSoldier );
 
@@ -615,13 +614,13 @@ BOOLEAN PalEditKeyboardHook( InputAtom *pInputEvent )
 			}
 			SET_PALETTEREP_ID ( pSoldier->VestPal,	gpPalRep[ ubPaletteRep ].ID );
 
-			CreateSoldierPalettes( pSoldier );
+			pSoldier->CreateSoldierPalettes( );
 
 			return( TRUE );
-  }
+	}
 
-  if ((pInputEvent->usEvent == KEY_DOWN )&& ( pInputEvent->usParam == 'p' ))
-  { 
+	if ((pInputEvent->usEvent == KEY_DOWN )&& ( pInputEvent->usParam == 'p' ))
+	{
 			// Get Soldier
 			GetSoldier( &pSoldier, gusSelectedSoldier );
 
@@ -645,13 +644,13 @@ BOOLEAN PalEditKeyboardHook( InputAtom *pInputEvent )
 			}
 			SET_PALETTEREP_ID ( pSoldier->PantsPal,	gpPalRep[ ubPaletteRep ].ID );
 
-			CreateSoldierPalettes( pSoldier );
+			pSoldier->CreateSoldierPalettes( );
 
 			return( TRUE );
-  }
+	}
 
-  if ((pInputEvent->usEvent == KEY_DOWN )&& ( pInputEvent->usParam == 's' ))
-  { 
+	if ((pInputEvent->usEvent == KEY_DOWN )&& ( pInputEvent->usParam == 's' ))
+	{
 			// Get Soldier
 			GetSoldier( &pSoldier, gusSelectedSoldier );
 
@@ -675,10 +674,10 @@ BOOLEAN PalEditKeyboardHook( InputAtom *pInputEvent )
 			}
 			SET_PALETTEREP_ID ( pSoldier->SkinPal,	gpPalRep[ ubPaletteRep ].ID );
 
-			CreateSoldierPalettes( pSoldier );
+			pSoldier->CreateSoldierPalettes( );
 
 			return( TRUE );
-  }
+	}
 
 	return( FALSE );
 }
@@ -723,7 +722,7 @@ UINT32 DebugScreenHandle(void)
 	{
 		return( GAME_SCREEN );
 	}
-	
+
 	if ( gfInitRect )
 	{
 		guiBackgroundRect = RegisterBackgroundRect( BGND_FLAG_PERMANENT, NULL, 0, 0, 600 , 360);
@@ -757,21 +756,21 @@ UINT32 DebugScreenShutdown(void)
 }
 
 
-void DebugRenderHook(  )
+void DebugRenderHook(	)
 {
 	gDebugRenderOverride[ gCurDebugPage ]( );
 }
 
 BOOLEAN DebugKeyboardHook( InputAtom *pInputEvent )
 {
-  if ((pInputEvent->usEvent == KEY_UP )&& ( pInputEvent->usParam == 'q' ))
-  { 
+	if ((pInputEvent->usEvent == KEY_UP )&& ( pInputEvent->usParam == 'q' ))
+	{
 		gfExitDebugScreen = TRUE;
 		return( TRUE );
 	}
 
-  if ((pInputEvent->usEvent == KEY_UP )&& ( pInputEvent->usParam == PGUP ))
-  { 
+	if ((pInputEvent->usEvent == KEY_UP )&& ( pInputEvent->usParam == PGUP ))
+	{
 		// Page down
 		gCurDebugPage++;
 
@@ -783,10 +782,10 @@ BOOLEAN DebugKeyboardHook( InputAtom *pInputEvent )
 		FreeBackgroundRect( guiBackgroundRect );
 		gfInitRect = TRUE;
 
-  }
+	}
 
-  if ((pInputEvent->usEvent == KEY_UP )&& ( pInputEvent->usParam == PGDN ))
-  { 
+	if ((pInputEvent->usEvent == KEY_UP )&& ( pInputEvent->usParam == PGDN ))
+	{
 		// Page down
 		gCurDebugPage--;
 
@@ -798,7 +797,7 @@ BOOLEAN DebugKeyboardHook( InputAtom *pInputEvent )
 		FreeBackgroundRect( guiBackgroundRect );
 		gfInitRect = TRUE;
 
-  }
+	}
 
 	return( FALSE );
 }
@@ -837,7 +836,7 @@ void DefaultDebugPage4( )
 UINT32 SexScreenInit(void)
 {
 	return( TRUE );
-} 
+}
 
 #define SMILY_DELAY						100
 #define SMILY_END_DELAY				1000
@@ -845,11 +844,11 @@ UINT32 SexScreenInit(void)
 UINT32 SexScreenHandle(void)
 {
 	static UINT8					ubCurrentScreen = 0;
-  VOBJECT_DESC					VObjectDesc;
+	VOBJECT_DESC					VObjectDesc;
 	static UINT32					guiSMILY;
 	static INT8						bCurFrame = 0;
 	static UINT32					uiTimeOfLastUpdate = 0, uiTime;
-  ETRLEObject						*pTrav;
+	ETRLEObject						*pTrav;
 	HVOBJECT							hVObject;
 	INT16									sX, sY;
 
@@ -951,12 +950,12 @@ UINT32 SexScreenShutdown(void)
 UINT32 DemoExitScreenInit(void)
 {
 	return( TRUE );
-} 
+}
 
 
 void DoneFadeOutForDemoExitScreen( void )
 {
-	gfProgramIsRunning = FALSE;	
+	gfProgramIsRunning = FALSE;
 }
 
 extern INT8 gbFadeSpeed;
@@ -969,12 +968,12 @@ void DisplayTopwareGermanyAddress()
 	UINT8 *pDestBuf;
 	UINT32 uiDestPitchBYTES;
 	SGPRect ClipRect;
-  
+
 	//bring up the Topware address screen
 	vo_desc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	sprintf( vo_desc.ImageFile, "German\\topware_germany.sti" );
 	if( !AddVideoObject( &vo_desc, &uiTempID ) )
-	{	
+	{
 		AssertMsg( 0, "Failed to load German\\topware_germany.sti" );
 		return;
 	}

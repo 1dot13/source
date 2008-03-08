@@ -44,6 +44,10 @@ void SetEditorItemsTaskbarMode( UINT16 usNewMode )
 			ClickEditorButton( ITEMS_ARMOUR );
 			iEditorToolbarState = TBAR_MODE_ITEM_ARMOUR;
 			break;
+		case ITEMS_LBEGEAR:
+			ClickEditorButton( ITEMS_LBEGEAR );
+			iEditorToolbarState = TBAR_MODE_ITEM_LBEGEAR;
+			break;
 		case ITEMS_EXPLOSIVES:
 			ClickEditorButton( ITEMS_EXPLOSIVES );
 			iEditorToolbarState = TBAR_MODE_ITEM_EXPLOSIVES;
@@ -75,7 +79,6 @@ void SetEditorItemsTaskbarMode( UINT16 usNewMode )
 
 void SetEditorBuildingTaskbarMode( UINT16 usNewMode )
 {
-	BOOLEAN fNewGroup = FALSE;
 	BOOLEAN fNewRoofs, fNewWalls, fNewRoomInfo;
 	if( usNewMode == usCurrentMode )
 	{
@@ -137,7 +140,7 @@ void SetEditorBuildingTaskbarMode( UINT16 usNewMode )
 		case BUILDING_PLACE_FLOORS:
 		case BUILDING_PLACE_TOILETS:
 		case BUILDING_PLACE_FURNITURE:
-		case BUILDING_PLACE_DECALS:	
+		case BUILDING_PLACE_DECALS:
 		case BUILDING_SMART_WALLS:
 		case BUILDING_SMART_DOORS:
 		case BUILDING_SMART_WINDOWS:
@@ -185,7 +188,7 @@ void SetEditorBuildingTaskbarMode( UINT16 usNewMode )
 		fBuildingShowRoomInfo = fNewRoomInfo;
 		gfRenderWorld = TRUE;
 	}
-}	
+}
 
 void SetEditorTerrainTaskbarMode( UINT16 usNewMode )
 {
@@ -345,11 +348,11 @@ void SetEditorMapInfoTaskbarMode( UINT16 usNewMode )
 			break;
 	}
 	if( fShowExitGrids )
-	{ 
+	{
 		ShowExitGrids();
 	}
 	else
-	{ 
+	{
 		HideExitGrids();
 	}
 }

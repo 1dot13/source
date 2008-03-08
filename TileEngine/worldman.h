@@ -18,17 +18,17 @@ BOOLEAN TypeRangeExistsInObjectLayer( UINT32 iMapIndex, UINT32 fStartType, UINT3
 
 // Roof manipulation functions
 BOOLEAN RemoveRoof( UINT32 iMapIndex, UINT16 usIndex );
-LEVELNODE  *AddRoofToTail( UINT32 iMapIndex, UINT16 usIndex );
+LEVELNODE	*AddRoofToTail( UINT32 iMapIndex, UINT16 usIndex );
 BOOLEAN AddRoofToHead( UINT32 iMapIndex, UINT16 usIndex );
 BOOLEAN TypeExistsInRoofLayer( UINT32 iMapIndex, UINT32 fType, UINT16 *pusRoofIndex );
 BOOLEAN RemoveAllRoofsOfTypeRange( UINT32 iMapIndex, UINT32 fStartType, UINT32 fEndType );
 void SetAllRoofShadeLevels( UINT32 iMapIndex, UINT8 ubShadeLevel );
 void AdjustAllRoofShadeLevels( UINT32 iMapIndex, INT8 bShadeDiff );
-void RemoveRoofIndexFlagsFromTypeRange( UINT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT32 uiFlags  );
-void SetRoofIndexFlagsFromTypeRange( UINT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT32 uiFlags  );
+void RemoveRoofIndexFlagsFromTypeRange( UINT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT32 uiFlags	);
+void SetRoofIndexFlagsFromTypeRange( UINT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT32 uiFlags	);
 BOOLEAN TypeRangeExistsInRoofLayer( UINT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT16 *pusRoofIndex );
-void SetWallLevelnodeFlags( UINT16 sGridNo, UINT32 uiFlags );
-void RemoveWallLevelnodeFlags( UINT16 sGridNo, UINT32 uiFlags );
+void SetWallLevelnodeFlags( INT16 sGridNo, UINT32 uiFlags );
+void RemoveWallLevelnodeFlags( INT16 sGridNo, UINT32 uiFlags );
 BOOLEAN IndexExistsInRoofLayer( INT16 sGridNo, UINT16 usIndex );
 
 
@@ -55,7 +55,7 @@ BOOLEAN ReplaceLandIndex( UINT32 iMapIndex, UINT16 usOldIndex, UINT16 usNewIndex
 BOOLEAN DeleteAllLandLayers( UINT32 iMapIndex );
 BOOLEAN InsertLandIndexAtLevel( UINT32 iMapIndex, UINT16 usIndex, UINT8 ubLevel );
 BOOLEAN RemoveHigherLandLevels( UINT32 iMapIndex, UINT32 fSrcType, UINT32 **puiHigherTypes, UINT8 *pubNumHigherTypes );
-BOOLEAN SetLowerLandLevels( UINT32 iMapIndex, UINT32 fSrcType, UINT16 usIndex  );
+BOOLEAN SetLowerLandLevels( UINT32 iMapIndex, UINT32 fSrcType, UINT16 usIndex	);
 BOOLEAN AdjustForFullTile( UINT32 iMapIndex );
 void SetAllLandShadeLevels( UINT32 iMapIndex, UINT8 ubShadeLevel );
 void AdjustAllLandShadeLevels( UINT32 iMapIndex, INT8 bShadeDiff );
@@ -80,10 +80,10 @@ BOOLEAN HideStructOfGivenType( UINT32 iMapIndex, UINT32 fType, BOOLEAN fHide );
 BOOLEAN InsertStructIndex( UINT32 iMapIndex, UINT16 usIndex, UINT8 ubLevel );
 void SetAllStructShadeLevels( UINT32 iMapIndex, UINT8 ubShadeLevel );
 void AdjustAllStructShadeLevels( UINT32 iMapIndex, INT8 bShadeDiff );
-void SetStructIndexFlagsFromTypeRange( UINT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT32 uiFlags  );
-void RemoveStructIndexFlagsFromTypeRange( UINT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT32 uiFlags  );
-void SetStructAframeFlags( UINT32 iMapIndex, UINT32 uiFlags  );
-void RemoveStructAframeFlags( UINT32 iMapIndex, UINT32 uiFlags  );
+void SetStructIndexFlagsFromTypeRange( UINT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT32 uiFlags	);
+void RemoveStructIndexFlagsFromTypeRange( UINT32 iMapIndex, UINT32 fStartType, UINT32 fEndType, UINT32 uiFlags	);
+void SetStructAframeFlags( UINT32 iMapIndex, UINT32 uiFlags	);
+void RemoveStructAframeFlags( UINT32 iMapIndex, UINT32 uiFlags	);
 BOOLEAN RemoveStructFromLevelNode( UINT32 iMapIndex, LEVELNODE *pNode );
 
 
@@ -109,7 +109,7 @@ BOOLEAN RemoveShadowFromLevelNode( UINT32 iMapIndex, LEVELNODE *pNode );
 // #################################################################
 
 BOOLEAN AddMercToHead( UINT32 iMapIndex, SOLDIERTYPE *pSoldier, BOOLEAN fAddStructInfo );
-BOOLEAN RemoveMerc( UINT32 iMapIndex, SOLDIERTYPE *pSoldier, BOOLEAN fPlaceHolder  );
+BOOLEAN RemoveMerc( UINT32 iMapIndex, SOLDIERTYPE *pSoldier, BOOLEAN fPlaceHolder	);
 UINT8 WhoIsThere2( INT16 sGridNo, INT8 bLevel );
 BOOLEAN AddMercStructureInfo( INT16 sGridNo, SOLDIERTYPE *pSoldier );
 BOOLEAN AddMercStructureInfoFromAnimSurface( INT16 sGridNo, SOLDIERTYPE *pSoldier, UINT16 usAnimSurface, UINT16 usAnimState );
@@ -118,7 +118,7 @@ BOOLEAN OKToAddMercToWorld( SOLDIERTYPE *pSoldier, INT8 bDirection );
  
 
 // TOPMOST manipulation functions
-LEVELNODE  *AddTopmostToTail( UINT32 iMapIndex, UINT16 usIndex );
+LEVELNODE	*AddTopmostToTail( UINT32 iMapIndex, UINT16 usIndex );
 BOOLEAN AddTopmostToHead( UINT32 iMapIndex, UINT16 usIndex );
 BOOLEAN RemoveTopmost( UINT32 iMapIndex, UINT16 usIndex );
 BOOLEAN TypeExistsInTopmostLayer( UINT32 iMapIndex, UINT32 fType, UINT16 *pusTopmostIndex );

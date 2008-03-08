@@ -9,7 +9,7 @@
 enum //enemy intentions,
 {
 	NO_INTENTIONS,			//enemy intentions are undefined.
-	PURSUIT,						//enemy group has spotted a player group and is pursuing them.  If they lose the player group, they
+	PURSUIT,						//enemy group has spotted a player group and is pursuing them.	If they lose the player group, they
 											//will get reassigned.
 	STAGING,						//enemy is prepare to assault a town sector, but doesn't have enough troops.
 	PATROL,							//enemy is moving around determining safe areas.
@@ -36,8 +36,8 @@ enum
 };
 
 //This structure contains all of the information about a group moving in the strategic
-//layer.  This includes all troops, equipment, and waypoints, and location.
-//NOTE:  This is used for groups that are initiating a movement to another sector.
+//layer.	This includes all troops, equipment, and waypoints, and location.
+//NOTE:	This is used for groups that are initiating a movement to another sector.
 typedef struct WAYPOINT
 {
 	UINT8 x;											//sector x position of waypoint
@@ -49,7 +49,7 @@ typedef struct WAYPOINT
 
 typedef struct PLAYERGROUP
 {
-	UINT8 ubProfileID;						//SAVE THIS VALUE ONLY.  The others are temp (for quick access)
+	UINT8 ubProfileID;						//SAVE THIS VALUE ONLY.	The others are temp (for quick access)
 	UINT8 ubID;										//index in the Menptr array
 	SOLDIERTYPE *pSoldier;				//direct access to the soldier pointer
 	UINT8 bFlags;									//flags referring to individual player soldiers
@@ -65,22 +65,22 @@ typedef struct ENEMYGROUP
 	UINT8 ubLeaderProfileID;			//could be Mike, maybe the warden... someone new, but likely nobody.
 	UINT8 ubPendingReinforcements;//This group is waiting for reinforcements before attacking or attempting to fortify newly aquired sector.
 	UINT8 ubAdminsInBattle;				//number of administrators in currently in battle.
-	UINT8 ubIntention;						//the type of group this is:  patrol, assault, spies, etc.
+	UINT8 ubIntention;						//the type of group this is:	patrol, assault, spies, etc.
 	UINT8 ubTroopsInBattle;				//number of soldiers currently in battle.
 	UINT8 ubElitesInBattle;				//number of elite soldiers currently in battle.
-	INT8  bPadding[20];
+	INT8	bPadding[20];
 }ENEMYGROUP;
 
-//NOTE:  ALL FLAGS ARE CLEARED WHENEVER A GROUP ARRIVES IN A SECTOR, OR ITS WAYPOINTS ARE
-//       DELETED!!!
+//NOTE:	ALL FLAGS ARE CLEARED WHENEVER A GROUP ARRIVES IN A SECTOR, OR ITS WAYPOINTS ARE
+//		DELETED!!!
 #define GROUPFLAG_SIMULTANEOUSARRIVAL_APPROVED	0x00000001
 #define GROUPFLAG_SIMULTANEOUSARRIVAL_CHECKED		0x00000002
 //I use this flag when traversing through a list to determine which groups meet whatever conditions,
-//then add this marker flag.  The second time I traverse the list, I simply check for this flag,
-//apply my modifications to the group, and remove the flag.  If you decide to use it, make sure the 
+//then add this marker flag.	The second time I traverse the list, I simply check for this flag,
+//apply my modifications to the group, and remove the flag.	If you decide to use it, make sure the 
 //flag is cleared.
 #define GROUPFLAG_MARKER												0x00000004
-//Set whenever a group retreats from battle.  If the group arrives in the next sector and enemies are there
+//Set whenever a group retreats from battle.	If the group arrives in the next sector and enemies are there
 //retreat will not be an option.
 #define GROUPFLAG_JUST_RETREATED_FROM_BATTLE		0x00000008
 #define GROUPFLAG_HIGH_POTENTIAL_FOR_AMBUSH			0x00000010
@@ -114,7 +114,7 @@ typedef struct GROUP
 	UINT8 ubTransportationMask;		//the mask combining all of the groups transportation methods.
 	UINT32 uiFlags;								//various conditions that apply to the group
 	UINT8 ubCreatedSectorID;			//used for debugging strategic AI for keeping track of the sector ID a group was created in.
-	UINT8 ubSectorIDOfLastReassignment;	//used for debuggin strategic AI.  Records location of any reassignments.
+	UINT8 ubSectorIDOfLastReassignment;	//used for debuggin strategic AI.	Records location of any reassignments.
 	INT8 bPadding[29];						//***********************************************//
 
 	union
@@ -132,20 +132,20 @@ extern GROUP *gpGroupList;
 void RemoveAllGroups();
 GROUP* GetGroup( UINT8 ubGroupID );
 
-//Remove a group from the list.  This removes all of the waypoints as well as the members of the group.
-//Calling this function doesn't position them in a sector.  It is up to you to do that.  The event system
+//Remove a group from the list.	This removes all of the waypoints as well as the members of the group.
+//Calling this function doesn't position them in a sector.	It is up to you to do that.	The event system
 //will automatically handle their updating as they arrive in sectors.
 void RemoveGroup( UINT8 ubGroupID );//takes a groupID
 void RemovePGroup( GROUP *pGroup ); //same function, but takes a GROUP*
 void RemoveGroupIdFromList( UINT8 ubId );
 
-//Clears a groups waypoints.  This is necessary when sending new orders such as different routes.
+//Clears a groups waypoints.	This is necessary when sending new orders such as different routes.
 void RemoveGroupWaypoints( UINT8 ubGroupID );
 void RemovePGroupWaypoints( GROUP *pGroup ); //same function, but takes a GROUP*
 
 //Player grouping functions
 //.........................
-//Creates a new player group, returning the unique ID of that group.  This is the first
+//Creates a new player group, returning the unique ID of that group.	This is the first
 //step before adding waypoints and members to the player group.
 UINT8 CreateNewPlayerGroupDepartingFromSector( UINT8 ubSectorX, UINT8 ubSectorY );
 //Allows you to add or remove players from the group.
@@ -160,7 +160,7 @@ BOOLEAN RemoveAllPlayersFromPGroup( GROUP *pGroup );
 UINT8 CreateNewVehicleGroupDepartingFromSector( UINT8 ubSectorX, UINT8 ubSectorY , UINT32 uiVehicleId );
 
 
-//Appends a waypoint to the end of the list.  Waypoint MUST be on the
+//Appends a waypoint to the end of the list.	Waypoint MUST be on the
 //same horizontal xor vertical level as the last waypoint added.
 BOOLEAN AddWaypointToGroup( UINT8 ubGroupID, UINT8 ubSectorX, UINT8 ubSectorY );
 BOOLEAN AddWaypointToPGroup( GROUP *pGroup, UINT8 ubSectorX, UINT8 ubSectorY );
@@ -249,12 +249,12 @@ void HandleArrivalOfReinforcements( GROUP *pGroup );
 
 void PlanSimultaneousGroupArrivalCallback( UINT8 bMessageValue );
 
-//When groups meet up, then it is possible that they may join up.  This only happens if
+//When groups meet up, then it is possible that they may join up.	This only happens if
 //the groups were separated because of singular tactical/exitgrid traversal, and the timing
 //expires.
 BOOLEAN AttemptToMergeSeparatedGroups( GROUP *pGroup, BOOLEAN fDecrementTraversals );
 
-//Called when all checks have been made for the group (if possible to retreat, etc.)  This function
+//Called when all checks have been made for the group (if possible to retreat, etc.)	This function
 //blindly determines where to move the group.
 void RetreatGroupToPreviousSector( GROUP *pGroup );
 
@@ -263,7 +263,7 @@ GROUP* FindMovementGroupInSector( UINT8 ubSectorX, UINT8 ubSectorY, BOOLEAN fPla
 BOOLEAN GroupAtFinalDestination( GROUP *pGroup );
 
 // find the travel time between waypts for this group
-INT32 FindTravelTimeBetweenWaypoints( WAYPOINT * pSource, WAYPOINT * pDest,  GROUP *pGroup );
+INT32 FindTravelTimeBetweenWaypoints( WAYPOINT * pSource, WAYPOINT * pDest,	GROUP *pGroup );
 
 BOOLEAN GroupReversingDirectionsBetweenSectors( GROUP *pGroup, UINT8 ubSectorX, UINT8 ubSectorY, BOOLEAN fBuildingWaypoints );
 BOOLEAN GroupBetweenSectorsAndSectorXYIsInDifferentDirection( GROUP *pGroup, UINT8 ubSectorX, UINT8 ubSectorY );
@@ -276,7 +276,7 @@ void ResetMovementForEnemyGroupsInLocation( UINT8 ubSectorX, UINT8 ubSectorY );
 void ResetMovementForEnemyGroup( GROUP *pGroup );
 
 //Determines if any particular group WILL be moving through a given sector given it's current
-//position in the route and TREATS the pGroup->ubMoveType as ONE_WAY EVEN IF IT ISN'T.  If the 
+//position in the route and TREATS the pGroup->ubMoveType as ONE_WAY EVEN IF IT ISN'T.	If the 
 //group is currently IN the sector, or just left the sector, it will return FALSE.
 BOOLEAN GroupWillMoveThroughSector( GROUP *pGroup, UINT8 ubSectorX, UINT8 ubSectorY );
 

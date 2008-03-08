@@ -42,7 +42,6 @@
 	#include "Soldier Init List.h"
 	#include "strategicmap.h"
 	#include "Soldier Add.h"
-	#include "Soldier Control.h"
 	#include "Soldier Profile Type.h"
 	#include "Soldier Profile.h"
 	#include "Text Input.h"
@@ -59,6 +58,10 @@
 	#include "Simple Render Utils.h"
 #endif
 
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
+
 INT8 gbDefaultLightType = PRIMETIME_LIGHT;
 
 SGPPaletteEntry	gEditorLightColor;
@@ -68,10 +71,10 @@ BOOLEAN gfEditorForceShadeTableRebuild = FALSE;
 void SetupTextInputForMapInfo()
 {
 	CHAR16 str[10];
-	
+
 	InitTextInputModeWithScheme( DEFAULT_SCHEME );
 
-	AddUserInputField( NULL );  //just so we can use short cut keys while not typing.
+	AddUserInputField( NULL );	//just so we can use short cut keys while not typing.
 
 	//light rgb fields
 	swprintf( str, L"%d", gEditorLightColor.peRed );
@@ -98,7 +101,7 @@ void SetupTextInputForMapInfo()
 	AddTextInputField( iScreenWidthOffset + 338, 2 * iScreenHeightOffset + 363, 30, 18, MSYS_PRIORITY_NORMAL, str, 3, INPUTTYPE_EXCLUSIVE_COORDINATE );
 	swprintf( str, L"%d", gExitGrid.ubGotoSectorZ );
 	AddTextInputField( iScreenWidthOffset + 338, 2 * iScreenHeightOffset + 383, 30, 18, MSYS_PRIORITY_NORMAL, str, 1, INPUTTYPE_NUMERICSTRICT );
-	swprintf( str, L"%d", gExitGrid.usGridNo );
+	swprintf( str, L"%d", gExitGrid.sGridNo );
 	AddTextInputField( iScreenWidthOffset + 338, 2 * iScreenHeightOffset + 403, 40, 18, MSYS_PRIORITY_NORMAL, str, 5, INPUTTYPE_NUMERICSTRICT );
 }
 
@@ -222,13 +225,13 @@ void ExtractAndUpdateMapInfo()
 		gMapInformation.ubRestrictedScrollID = 0;
 	else
 		gMapInformation.ubRestrictedScrollID = (UINT8)temp;
-	
-	//set up fields for exitgrid information 
+
+	//set up fields for exitgrid information
 	Get16BitStringFromField( 7, str );
 	if( str[0] >= 'a' && str[0] <= 'z' )
 		str[0] -= 32; //uppercase it!
-	if( str[0] >= 'A' && str[0] <= 'Z' && 
-		  str[1] >= '0' && str[1] <= '9' )
+	if( str[0] >= 'A' && str[0] <= 'Z' &&
+		str[1] >= '0' && str[1] <= '9' )
 	{ //only update, if coordinate is valid.
 		gExitGrid.ubGotoSectorY = (UINT8)(str[0] - 'A' + 1);
 		gExitGrid.ubGotoSectorX = (UINT8)(str[1] - '0');
@@ -237,8 +240,8 @@ void ExtractAndUpdateMapInfo()
 		gExitGrid.ubGotoSectorX = (UINT8)max( min( gExitGrid.ubGotoSectorX, 16 ), 1 );
 		gExitGrid.ubGotoSectorY = (UINT8)max( min( gExitGrid.ubGotoSectorY, 16 ), 1 );
 	}
-	gExitGrid.ubGotoSectorZ    = (UINT8)max( min( GetNumericStrictValueFromField( 8 ), 3 ), 0 );
-	gExitGrid.usGridNo					 = (UINT16)max( min( GetNumericStrictValueFromField( 9 ), 25600 ), 0 );
+	gExitGrid.ubGotoSectorZ	= (UINT8)max( min( GetNumericStrictValueFromField( 8 ), 3 ), 0 );
+	gExitGrid.sGridNo					= (INT16)max( min( GetNumericStrictValueFromField( 9 ), 25600 ), 0 );
 
 	UpdateMapInfoFields();
 }
@@ -253,13 +256,13 @@ BOOLEAN ApplyNewExitGridValuesToTextFields()
 	SetInputFieldStringWith16BitString( 7, str );
 	swprintf( str, L"%d", gExitGrid.ubGotoSectorZ );
 	SetInputFieldStringWith16BitString( 8, str );
-	swprintf( str, L"%d", gExitGrid.usGridNo );
+	swprintf( str, L"%d", gExitGrid.sGridNo );
 	SetInputFieldStringWith16BitString( 9, str );
 	SetActiveField( 0 );
 	return TRUE;
 }
 
-UINT16 usCurrentExitGridNo = 0;
+INT16 usCurrentExitGridNo = 0;
 void LocateNextExitGrid()
 {
 	EXITGRID ExitGrid;
@@ -295,6 +298,7 @@ void ChangeLightDefault( INT8 bLightType )
 
 
 
- 
+
+
 
 

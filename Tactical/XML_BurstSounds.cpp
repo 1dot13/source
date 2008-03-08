@@ -49,15 +49,15 @@ struct
 	PARSE_STAGE	curElement;
 
 	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
-	
+
 	UINT32			maxArraySize;
-	UINT32			curIndex;	
+	UINT32			curIndex;
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
 }
 typedef burstSoundParseData;
 
-static void XMLCALL 
+static void XMLCALL
 burstSoundStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	burstSoundParseData * pData = (burstSoundParseData *)userData;
@@ -90,9 +90,9 @@ burstSoundCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	burstSoundParseData * pData = (burstSoundParseData *)userData;
 
-	if( (pData->currentDepth <= pData->maxReadDepth) && 
+	if( (pData->currentDepth <= pData->maxReadDepth) &&
 		(strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH)
-	  ){
+	){
 		strncat(pData->szCharData,str,__min((unsigned int)len,MAX_CHAR_DATA_LENGTH-strlen(pData->szCharData)));
 	}
 }
@@ -140,7 +140,7 @@ BOOLEAN ReadInBurstSoundArray(STR fileName)
 	UINT32		uiFSize;
 	CHAR8 *		lpcBuffer;
 	XML_Parser	parser = XML_ParserCreate(NULL);
-	
+
 	burstSoundParseData pData;
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("Loading %s",SOUNDSFILENAME ) );
@@ -149,7 +149,7 @@ BOOLEAN ReadInBurstSoundArray(STR fileName)
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);
 
@@ -164,19 +164,19 @@ BOOLEAN ReadInBurstSoundArray(STR fileName)
 
 	FileClose( hFile );
 
-	
+
 	XML_SetElementHandler(parser, burstSoundStartElementHandle, burstSoundEndElementHandle);
 	XML_SetCharacterDataHandler(parser, burstSoundCharacterDataHandle);
 
-	
+
 	memset(&pData,0,sizeof(pData));
-	pData.maxArraySize = MAX_SAMPLES; 
+	pData.maxArraySize = MAX_SAMPLES;
 	pData.curIndex = -1;
 
 	XML_SetUserData(parser, &pData);
 
 
-    if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
+	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
 
@@ -203,7 +203,7 @@ BOOLEAN WriteBurstSoundArray()
 	hFile = FileOpen( "TABLEDATA\\BurstSounds out.xml", FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	{
 		UINT32 cnt;
 
@@ -218,7 +218,7 @@ BOOLEAN WriteBurstSoundArray()
 			{
 				UINT32 uiCharLoc = strcspn(szRemainder,"&<>\'\"\0");
 				char invChar = szRemainder[uiCharLoc];
-				
+
 				if(uiCharLoc)
 				{
 					szRemainder[uiCharLoc] = '\0';

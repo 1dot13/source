@@ -1,6 +1,6 @@
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
-	#include "_Ja25EnglishText.h"
+	#include "_Ja25GermanText.h"
 #else
 	#include "Language Defines.h"
 	#include "text.h"

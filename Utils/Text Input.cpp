@@ -73,7 +73,7 @@ typedef struct TEXTINPUTNODE{
 	struct TEXTINPUTNODE *next, *prev;
 }TEXTINPUTNODE;
 
-//Stack list containing the head nodes of each level.  Only the top level is the active level.
+//Stack list containing the head nodes of each level.	Only the top level is the active level.
 typedef struct STACKTEXTINPUTNODE
 {
 	TEXTINPUTNODE *head;
@@ -92,7 +92,7 @@ void ExecuteCopyCommand();
 void ExecuteCutCommand();
 void ExecutePasteCommand();
 
-//Internal list vars.  active always points to the currently edited field.
+//Internal list vars.	active always points to the currently edited field.
 TEXTINPUTNODE *gpTextInputHead = NULL, *gpTextInputTail = NULL, *gpActive = NULL;
 
 //Saving current mode
@@ -116,7 +116,7 @@ void PushTextInputLevel()
 }
 
 //After the currently text input mode is removed, we then restore the previous one
-//automatically.  Assert failure in this function will expose cases where you are trigger 
+//automatically.	Assert failure in this function will expose cases where you are trigger
 //happy with killing non-existant text input modes.
 void PopTextInputLevel()
 {
@@ -144,12 +144,12 @@ UINT8 gubEndHilite = 0;
 //allow the user to cut, copy, and paste just like windows.
 CHAR16 gszClipboardString[256];
 
-//Simply initiates that you wish to begin inputting text.  This should only apply to screen
-//initializations that contain fields that edit text.  It also verifies and clears any existing
-//fields.  Your input loop must contain the function HandleTextInput and processed if the gfTextInputMode
-//flag is set else process your regular input handler.  Note that this doesn't mean you are necessarily typing,
-//just that there are text fields in your screen and may be inactive.  The TAB key cycles through your text fields, 
-//and special fields can be defined which will call a void functionName( UINT16 usFieldNum ) 
+//Simply initiates that you wish to begin inputting text.	This should only apply to screen
+//initializations that contain fields that edit text.	It also verifies and clears any existing
+//fields.	Your input loop must contain the function HandleTextInput and processed if the gfTextInputMode
+//flag is set else process your regular input handler.	Note that this doesn't mean you are necessarily typing,
+//just that there are text fields in your screen and may be inactive.	The TAB key cycles through your text fields,
+//and special fields can be defined which will call a void functionName( UINT16 usFieldNum )
 void InitTextInputMode()
 {
 	if( gpTextInputHead )
@@ -170,18 +170,18 @@ void InitTextInputMode()
 	pColors->usCursorColor = 0;
 }
 
-//A hybrid version of InitTextInput() which uses a specific scheme.  JA2's editor uses scheme 1, so
+//A hybrid version of InitTextInput() which uses a specific scheme.	JA2's editor uses scheme 1, so
 //feel free to add new schemes.
 void InitTextInputModeWithScheme( UINT8 ubSchemeID )
 {
 	InitTextInputMode();
 	switch( ubSchemeID )
 	{
-		case DEFAULT_SCHEME:  //yellow boxes with black text, with bluish bevelling
+		case DEFAULT_SCHEME:	//yellow boxes with black text, with bluish bevelling
 			SetTextInputFont( (UINT16)FONT12POINT1 );
 			Set16BPPTextFieldColor( Get16BPPColor(FROMRGB(250, 240, 188) ) );
 			SetBevelColors( Get16BPPColor(FROMRGB(136, 138, 135)), Get16BPPColor(FROMRGB(24, 61, 81)) );
-			SetTextInputRegularColors( FONT_BLACK, FONT_BLACK ); 
+			SetTextInputRegularColors( FONT_BLACK, FONT_BLACK );
 			SetTextInputHilitedColors( FONT_GRAY2, FONT_GRAY2, FONT_METALGRAY );
 			break;
 	}
@@ -225,8 +225,8 @@ void KillTextInputMode()
 		gpActive = NULL;
 }
 
-//Kills all levels of text input modes.  When you init a second consecutive text input mode, without
-//first removing them, the existing mode will be preserved.  This function removes all of them in one
+//Kills all levels of text input modes.	When you init a second consecutive text input mode, without
+//first removing them, the existing mode will be preserved.	This function removes all of them in one
 //call, though doing so "may" reflect poor coding style, though I haven't thought about any really
 //just uses for it :(
 void KillAllTextInputModes()
@@ -235,18 +235,18 @@ void KillAllTextInputModes()
 		KillTextInputMode();
 }
 
-//After calling InitTextInputMode, you want to define one or more text input fields.  The order
-//of calls to this function dictate the TAB order from traversing from one field to the next.  This
+//After calling InitTextInputMode, you want to define one or more text input fields.	The order
+//of calls to this function dictate the TAB order from traversing from one field to the next.	This
 //function adds mouse regions and processes them for you, as well as deleting them when you are done.
-void AddTextInputField( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight, INT8 bPriority, 
-											  STR16 szInitText, UINT8 ubMaxChars, UINT16 usInputType )
+void AddTextInputField( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight, INT8 bPriority,
+											STR16 szInitText, UINT8 ubMaxChars, UINT16 usInputType )
 {
 	TEXTINPUTNODE *pNode;
 	pNode = (TEXTINPUTNODE*)MemAlloc(sizeof(TEXTINPUTNODE));
 	Assert(pNode);
 	memset( pNode, 0, sizeof( TEXTINPUTNODE ) );
 	pNode->next = NULL;
-  if( !gpTextInputHead ) //first entry, so we start with text input.
+	if( !gpTextInputHead ) //first entry, so we start with text input.
 	{
 		gfEditingText = TRUE;
 		gpTextInputHead = gpTextInputTail = pNode;
@@ -263,7 +263,7 @@ void AddTextInputField( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight, IN
 	}
 	//Setup the information for the node
 	pNode->usInputType = usInputType;	//setup the filter type
-	//All 24hourclock inputtypes have 6 characters.  01:23 (null terminated)
+	//All 24hourclock inputtypes have 6 characters.	01:23 (null terminated)
 	if( usInputType == INPUTTYPE_EXCLUSIVE_24HOURCLOCK )
 		ubMaxChars = 6;
 	//Allocate and copy the string.
@@ -271,7 +271,7 @@ void AddTextInputField( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight, IN
 	Assert( pNode->szString );
 	if( szInitText )
 	{
-		pNode->ubStrLen = (UINT8)wcslen( szInitText );		
+		pNode->ubStrLen = (UINT8)wcslen( szInitText );
 		Assert( pNode->ubStrLen <= ubMaxChars );
 		swprintf( pNode->szString, szInitText );
 	}
@@ -294,16 +294,16 @@ void AddTextInputField( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight, IN
 	pNode->fEnabled = TRUE;
 	//Setup the region.
 	MSYS_DefineRegion( &pNode->region, sLeft, sTop, (INT16)(sLeft+sWidth), (INT16)(sTop+sHeight), bPriority,
-						 gusTextInputCursor, MouseMovedInTextRegionCallback, MouseClickedInTextRegionCallback ); 
+						gusTextInputCursor, MouseMovedInTextRegionCallback, MouseClickedInTextRegionCallback );
 	MSYS_SetRegionUserData( &pNode->region, 0, pNode->ubID );
 }
 
-//This allows you to insert special processing functions and modes that can't be determined here.  An example 
-//would be a file dialog where there would be a file list.  This file list would be accessed using the Win95 
-//convention by pressing TAB.  In there, your key presses would be handled differently and by adding a userinput
-//field, you can make this hook into your function to accomplish this.  In a filedialog, alpha characters 
-//would be used to jump to the file starting with that letter, and setting the field in the text input 
-//field.  Pressing TAB again would place you back in the text input field.  All of that stuff would be handled
+//This allows you to insert special processing functions and modes that can't be determined here.	An example
+//would be a file dialog where there would be a file list.	This file list would be accessed using the Win95
+//convention by pressing TAB.	In there, your key presses would be handled differently and by adding a userinput
+//field, you can make this hook into your function to accomplish this.	In a filedialog, alpha characters
+//would be used to jump to the file starting with that letter, and setting the field in the text input
+//field.	Pressing TAB again would place you back in the text input field.	All of that stuff would be handled
 //externally, except for the TAB keys.
 void AddUserInputField( INPUT_CALLBACK userFunction )
 {
@@ -311,7 +311,7 @@ void AddUserInputField( INPUT_CALLBACK userFunction )
 	pNode = (TEXTINPUTNODE*)MemAlloc(sizeof(TEXTINPUTNODE));
 	Assert(pNode);
 	pNode->next = NULL;
-  if( !gpTextInputHead ) //first entry, so we don't start with text input.
+	if( !gpTextInputHead ) //first entry, so we don't start with text input.
 	{
 		gfEditingText = FALSE;
 		gpTextInputHead = gpTextInputTail = pNode;
@@ -334,7 +334,7 @@ void AddUserInputField( INPUT_CALLBACK userFunction )
 	pNode->InputCallback = userFunction;
 }
 
-//Removes the specified field from the existing fields.  If it doesn't exist, then there will be an 
+//Removes the specified field from the existing fields.	If it doesn't exist, then there will be an
 //assertion failure.
 void RemoveTextInputField( UINT8 ubField )
 {
@@ -370,10 +370,10 @@ void RemoveTextInputField( UINT8 ubField )
 		}
 		curr = curr->next;
 	}
-	AssertMsg( 0, "Attempt to remove a text input field that doesn't exist.  Check your IDs." );
+	AssertMsg( 0, "Attempt to remove a text input field that doesn't exist.	Check your IDs." );
 }
 
-//Returns the gpActive field ID number.  It'll return -1 if no field is active.
+//Returns the gpActive field ID number.	It'll return -1 if no field is active.
 INT16 GetActiveFieldID()
 {
 	if( gpActive )
@@ -381,13 +381,13 @@ INT16 GetActiveFieldID()
 	return -1;
 }
 
-//This is a useful call made from an external user input field.  Using the previous file dialog example, this
+//This is a useful call made from an external user input field.	Using the previous file dialog example, this
 //call would be made when the user selected a different filename in the list via clicking or scrolling with
 //the arrows, or even using alpha chars to jump to the appropriate filename.
 void SetInputFieldStringWith16BitString( UINT8 ubField, const STR16 szNewText )
 {
 	TEXTINPUTNODE *curr;
-  curr = gpTextInputHead;
+	curr = gpTextInputHead;
 	while( curr )
 	{
 		if( curr->ubID == ubField )
@@ -416,7 +416,7 @@ void SetInputFieldStringWith16BitString( UINT8 ubField, const STR16 szNewText )
 void SetInputFieldStringWith8BitString( UINT8 ubField, const STR8 szNewText )
 {
 	TEXTINPUTNODE *curr;
-  curr = gpTextInputHead;
+	curr = gpTextInputHead;
 	while( curr )
 	{
 		if( curr->ubID == ubField )
@@ -446,7 +446,7 @@ void SetInputFieldStringWith8BitString( UINT8 ubField, const STR8 szNewText )
 void Get8BitStringFromField( UINT8 ubField, STR8 szString )
 {
 	TEXTINPUTNODE *curr;
-  curr = gpTextInputHead;
+	curr = gpTextInputHead;
 	while( curr )
 	{
 		if( curr->ubID == ubField )
@@ -462,7 +462,7 @@ void Get8BitStringFromField( UINT8 ubField, STR8 szString )
 void Get16BitStringFromField( UINT8 ubField, STR16 szString )
 {
 	TEXTINPUTNODE *curr;
-  curr = gpTextInputHead;
+	curr = gpTextInputHead;
 	while( curr )
 	{
 		if( curr->ubID == ubField )
@@ -476,7 +476,7 @@ void Get16BitStringFromField( UINT8 ubField, STR16 szString )
 }
 
 //Converts the field's string into a number, then returns that number
-//returns -1 if blank or invalid.  Only works for positive numbers.
+//returns -1 if blank or invalid.	Only works for positive numbers.
 INT32 GetNumericStrictValueFromField( UINT8 ubField )
 {
 	STR16 ptr;
@@ -486,7 +486,7 @@ INT32 GetNumericStrictValueFromField( UINT8 ubField )
 	//Blank string, so return -1
 	if( str[0] == '\0' )
 		return -1;
-	//Convert the string to a number.  Don't trust other functions.  This will
+	//Convert the string to a number.	Don't trust other functions.	This will
 	//ensure that nonnumeric values automatically return -1.
 	total = 0;
 	ptr = str;
@@ -494,7 +494,7 @@ INT32 GetNumericStrictValueFromField( UINT8 ubField )
 	{
 		if( *ptr >= '0' && *ptr <= '9' )		//...make sure it is numeric...
 		{	//Multiply prev total by 10 and add converted char digit value.
-			total = total * 10 + (*ptr - '0');	
+			total = total * 10 + (*ptr - '0');
 		}
 		else																//...else the string is invalid.
 			return -1;
@@ -503,7 +503,7 @@ INT32 GetNumericStrictValueFromField( UINT8 ubField )
 	return total; //if we made it this far, then we have a valid number.
 }
 
-//Converts a number to a numeric strict value.  If the number is negative, the 
+//Converts a number to a numeric strict value.	If the number is negative, the
 //field will be blank.
 void SetInputFieldStringWithNumericStrictValue( UINT8 ubField, INT32 iNumber )
 {
@@ -517,7 +517,7 @@ void SetInputFieldStringWithNumericStrictValue( UINT8 ubField, INT32 iNumber )
 				AssertMsg( 0, String( "Attempting to illegally set text into user field %d", curr->ubID ) );
 			if( iNumber < 0 ) //negative number converts to blank string
 				swprintf( curr->szString, L"" );
-			else 
+			else
 			{
 				INT32 iMax = (INT32)pow( 10.0, curr->ubMaxChars );
 				if( iNumber > iMax ) //set string to max value based on number of chars.
@@ -527,7 +527,7 @@ void SetInputFieldStringWithNumericStrictValue( UINT8 ubField, INT32 iNumber )
 			}
 			curr->ubStrLen = (UINT8)wcslen( curr->szString );
 			return;
-		}		
+		}
 		curr = curr->next;
 	}
 }
@@ -651,9 +651,9 @@ void SelectPrevField()
 	}
 }
 
-//These allow you to customize the general color scheme of your text input boxes.  I am assuming that
-//under no circumstances would a user want a different color for each field.  It follows the Win95 convention
-//that all text input boxes are exactly the same color scheme.  However, these colors can be set at anytime,
+//These allow you to customize the general color scheme of your text input boxes.	I am assuming that
+//under no circumstances would a user want a different color for each field.	It follows the Win95 convention
+//that all text input boxes are exactly the same color scheme.	However, these colors can be set at anytime,
 //but will effect all of the colors.
 void SetTextInputFont( UINT16 usFont )
 {
@@ -698,14 +698,14 @@ void SetCursorColor( UINT16 usCursorColor )
 	pColors->usCursorColor = usCursorColor;
 }
 
-//All CTRL and ALT keys combinations, F1-F12 keys, ENTER and ESC are ignored allowing 
-//processing to be done with your own input handler.  Otherwise, the keyboard event
+//All CTRL and ALT keys combinations, F1-F12 keys, ENTER and ESC are ignored allowing
+//processing to be done with your own input handler.	Otherwise, the keyboard event
 //is absorbed by this input handler, if used in the appropriate manner.
 //This call must be added at the beginning of your input handler in this format:
 //while( DequeueEvent(&Event) )
 //{
-//	if(	!HandleTextInput( &Event ) && (your conditions...ex:  Event.usEvent == KEY_DOWN ) )
-//  {
+//	if(	!HandleTextInput( &Event ) && (your conditions...ex:	Event.usEvent == KEY_DOWN ) )
+//	{
 //		switch( Event.usParam )
 //		{
 //			//Normal key cases here.
@@ -719,11 +719,11 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 
 	//not in text input mode
 	gfNoScroll = FALSE;
-	if( !gfTextInputMode ) 
-		return FALSE; 
+	if( !gfTextInputMode )
+		return FALSE;
 	//currently in a user field, so return unless TAB or SHIFT_TAB are pressed.
-	if( !gfEditingText && Event->usParam != TAB && Event->usParam != SHIFT_TAB ) 
-		return FALSE; 
+	if( !gfEditingText && Event->usParam != TAB && Event->usParam != SHIFT_TAB )
+		return FALSE;
 	//unless we are psycho typers, we only want to process these key events.
 	if( Event->usEvent != KEY_DOWN && Event->usEvent != KEY_REPEAT )
 		return FALSE;
@@ -739,7 +739,7 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 	//For any number of reasons, these ALT and CTRL combination key presses
 	//will be processed externally
 #if 0
-	if( Event->usKeyState & CTRL_DOWN  )
+	if( Event->usKeyState & CTRL_DOWN	)
 	{
 		if( Event->usParam == 'c' || Event->usParam == 'C' )
 		{
@@ -761,8 +761,8 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 	if( Event->usKeyState & ALT_DOWN || Event->usKeyState & CTRL_DOWN && Event->usParam != DEL )
 		return FALSE;
 	//F1-F12 regardless of state are processed externally as well.
-	if( Event->usParam >= F1			 && Event->usParam <= F12				|| 
-		  Event->usParam >= SHIFT_F1 && Event->usParam <= SHIFT_F12 )
+	if( Event->usParam >= F1			&& Event->usParam <= F12				||
+		Event->usParam >= SHIFT_F1 && Event->usParam <= SHIFT_F12 )
 	{
 		return FALSE;
 	}
@@ -785,7 +785,7 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 			SelectPrevField();
 			break;
 		case LEFTARROW:
-			//Move the cursor to the left one position.  If there is selected text,
+			//Move the cursor to the left one position.	If there is selected text,
 			//the cursor moves to the left of the block, and clears the block.
 			gfNoScroll = TRUE;
 			if( gfHiliteMode )
@@ -798,7 +798,7 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 				gubCursorPos--;
 			break;
 		case RIGHTARROW:
-			//Move the cursor to the right one position.  If there is selected text,
+			//Move the cursor to the right one position.	If there is selected text,
 			//the block is cleared.
 			gfNoScroll = TRUE;
 			if( gfHiliteMode )
@@ -821,7 +821,7 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 			gubCursorPos = 0;
 			break;
 		case SHIFT_LEFTARROW:
-			//Initiates or continues hilighting to the left one position.  If the cursor
+			//Initiates or continues hilighting to the left one position.	If the cursor
 			//is at the left end of the block, then the block decreases one position.
 			gfNoScroll = TRUE;
 			if( !gfHiliteMode )
@@ -834,7 +834,7 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 			gubEndHilite = gubCursorPos;
 			break;
 		case SHIFT_RIGHTARROW:
-			//Initiates or continues hilighting to the right one position.  If the cursor
+			//Initiates or continues hilighting to the right one position.	If the cursor
 			//is at the right end of the block, then the block decreases one position.
 			gfNoScroll = TRUE;
 			if( !gfHiliteMode )
@@ -858,7 +858,7 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 			gubEndHilite = gubCursorPos;
 			break;
 		case SHIFT_HOME:
-			//From the location of the anchored cursor for hilighting, the cursor goes to 
+			//From the location of the anchored cursor for hilighting, the cursor goes to
 			//the beginning of the text, selecting all text from the anchor to the beginning
 			//of the text.
 			if( !gfHiliteMode )
@@ -871,7 +871,7 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 			break;
 		case DEL:
 			//CTRL+DEL will delete the entire text field, regardless of hilighting.
-			//DEL will either delete the selected text, or the character to the right 
+			//DEL will either delete the selected text, or the character to the right
 			//of the cursor if applicable.
 			PlayJA2Sample( ENTERING_TEXT, RATE_11025, BTNVOLUME, 1, MIDDLEPAN );
 			if( Event->usKeyState & CTRL_DOWN )
@@ -899,7 +899,7 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 				RemoveChar( --gubCursorPos );
 			}
 			break;
-		default:  //check for typing keys
+		default:	//check for typing keys
 			if( gfHiliteMode )
 				DeleteHilitedText();
 			if( gpActive->usInputType >= INPUTTYPE_EXCLUSIVE_BASEVALUE )
@@ -927,7 +927,7 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 					AddChar( key );
 					return TRUE;
 				}
-				//Handle alphas 
+				//Handle alphas
 				if( type & INPUTTYPE_ALPHA )
 				{
 					if( key >= 'A' && key <= 'Z' )
@@ -949,10 +949,10 @@ BOOLEAN HandleTextInput( InputAtom *Event )
 				if( type & INPUTTYPE_SPECIAL )
 				{
 					//More can be added, but not all of the fonts support these
-					if( key >= 0x21 && key <= 0x2f || // ! " # $ % & ' ( ) * + , - . / 
-						  key >= 0x3a && key <= 0x40 || // : ; < = > ? @
+					if( key >= 0x21 && key <= 0x2f || // ! " # $ % & ' ( ) * + , - . /
+						key >= 0x3a && key <= 0x40 || // : ; < = > ? @
 							key >= 0x5b && key <= 0x5f || // [ \ ] ^ _
-							key >= 0x7b && key <= 0x7d  ) // { | }
+							key >= 0x7b && key <= 0x7d	) // { | }
 					{
 						AddChar( key );
 						return TRUE;
@@ -969,7 +969,7 @@ void HandleExclusiveInput( UINT32 uiKey )
 	switch( gpActive->usInputType )
 	{
 		case INPUTTYPE_EXCLUSIVE_DOSFILENAME: //dos file names
-			if( uiKey >= 'A' && uiKey <= 'Z' || 
+			if( uiKey >= 'A' && uiKey <= 'Z' ||
 					uiKey >= 'a' && uiKey <= 'z' ||
 					uiKey >= '0' && uiKey <= '9' ||
 					uiKey == '_' || uiKey == '.' )
@@ -981,11 +981,11 @@ void HandleExclusiveInput( UINT32 uiKey )
 				AddChar( uiKey );
 			}
 			break;
-		case INPUTTYPE_EXCLUSIVE_COORDINATE:  //coordinates such as a9, z78, etc.
+		case INPUTTYPE_EXCLUSIVE_COORDINATE:	//coordinates such as a9, z78, etc.
 			if( !gubCursorPos ) //first char is an lower case alpha
 			{
 				if( uiKey >= 'a' && uiKey <= 'z' )
-					AddChar( uiKey ); 
+					AddChar( uiKey );
 				else if( uiKey >= 'A' && uiKey <= 'Z' )
 					AddChar( uiKey + 32 ); //convert to lowercase
 			}
@@ -1022,7 +1022,7 @@ void HandleExclusiveInput( UINT32 uiKey )
 				{
 					AddChar( ':' );
 					AddChar( uiKey );
-				}	
+				}
 			}
 			else if( gubCursorPos == 3 )
 			{
@@ -1042,7 +1042,7 @@ void AddChar( UINT32 uiKey )
 {
 	PlayJA2Sample( ENTERING_TEXT, RATE_11025, BTNVOLUME, 1, MIDDLEPAN );
 	if( gpActive->ubStrLen >= gpActive->ubMaxChars )
-	{	//max length reached.  Just replace the last character with new one.
+	{	//max length reached.	Just replace the last character with new one.
 		gpActive->ubStrLen = gpActive->ubMaxChars;
 		gpActive->szString[ gpActive->ubStrLen-1 ] = (UINT16)uiKey;
 		gpActive->szString[ gpActive->ubStrLen ] = '\0';
@@ -1108,7 +1108,7 @@ void RemoveChar( UINT8 ubArrayIndex )
 		fDeleting = TRUE;
 	}
 	//if we deleted a char, then decrement the strlen.
-	if( fDeleting ) 
+	if( fDeleting )
 		gpActive->ubStrLen--;
 }
 
@@ -1118,7 +1118,7 @@ void MouseMovedInTextRegionCallback(MOUSE_REGION *reg, INT32 reason)
 	TEXTINPUTNODE *curr;
 	if( gfLeftButtonState )
 	{
-		if( reason & MSYS_CALLBACK_REASON_MOVE || 
+		if( reason & MSYS_CALLBACK_REASON_MOVE ||
 				reason & MSYS_CALLBACK_REASON_LOST_MOUSE ||
 				reason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
 		{
@@ -1130,7 +1130,7 @@ void MouseMovedInTextRegionCallback(MOUSE_REGION *reg, INT32 reason)
 				RenderInactiveTextFieldNode( gpActive );
 				curr = gpTextInputHead;
 				while( curr )
-				{	
+				{
 					if( curr->ubID == ubNewID )
 					{
 						gpActive = curr;
@@ -1141,7 +1141,7 @@ void MouseMovedInTextRegionCallback(MOUSE_REGION *reg, INT32 reason)
 			}
 			if( reason & MSYS_CALLBACK_REASON_LOST_MOUSE )
 			{
-				if( gusMouseYPos < reg->RegionTopLeftY ) 
+				if( gusMouseYPos < reg->RegionTopLeftY )
 				{
 					gubEndHilite = 0;
 					gfHiliteMode = TRUE;
@@ -1187,7 +1187,7 @@ void MouseClickedInTextRegionCallback(MOUSE_REGION *reg, INT32 reason)
 			RenderInactiveTextFieldNode( gpActive );
 			curr = gpTextInputHead;
 			while( curr )
-			{	
+			{
 				if( curr->ubID == ubNewID )
 				{
 					gpActive = curr;
@@ -1209,10 +1209,10 @@ void MouseClickedInTextRegionCallback(MOUSE_REGION *reg, INT32 reason)
 			iCurrCharPos = iNextCharPos;
 			iNextCharPos = StringPixLengthArg( pColors->usFont, gubCursorPos + 1, gpActive->szString );
 		}
-		gubStartHilite = gubCursorPos;  //This value is the anchor
+		gubStartHilite = gubCursorPos;	//This value is the anchor
 		gubEndHilite = gubCursorPos;		//The end will move with the cursor as long as it's down.
 		gfHiliteMode = FALSE;
-		
+
 	}
 }
 
@@ -1221,9 +1221,9 @@ void RenderBackgroundField( TEXTINPUTNODE *pNode )
 	UINT16 usColor;
 	if( pColors->fBevelling )
 	{
-		ColorFillVideoSurfaceArea(FRAME_BUFFER,	pNode->region.RegionTopLeftX, pNode->region.RegionTopLeftY, 
+		ColorFillVideoSurfaceArea(FRAME_BUFFER,	pNode->region.RegionTopLeftX, pNode->region.RegionTopLeftY,
 											pNode->region.RegionBottomRightX, pNode->region.RegionBottomRightY, pColors->usDarkerColor );
-		ColorFillVideoSurfaceArea(FRAME_BUFFER,	pNode->region.RegionTopLeftX+1, pNode->region.RegionTopLeftY+1, 
+		ColorFillVideoSurfaceArea(FRAME_BUFFER,	pNode->region.RegionTopLeftX+1, pNode->region.RegionTopLeftY+1,
 											pNode->region.RegionBottomRightX, pNode->region.RegionBottomRightY, pColors->usBrighterColor );
 	}
 	if( !pNode->fEnabled && !pColors->fUseDisabledAutoShade )
@@ -1231,10 +1231,10 @@ void RenderBackgroundField( TEXTINPUTNODE *pNode )
 	else
 		usColor = pColors->usTextFieldColor;
 
-	ColorFillVideoSurfaceArea(FRAME_BUFFER,	pNode->region.RegionTopLeftX+1, pNode->region.RegionTopLeftY+1, 
+	ColorFillVideoSurfaceArea(FRAME_BUFFER,	pNode->region.RegionTopLeftX+1, pNode->region.RegionTopLeftY+1,
 										pNode->region.RegionBottomRightX-1, pNode->region.RegionBottomRightY-1, usColor );
 
-	InvalidateRegion( pNode->region.RegionTopLeftX, pNode->region.RegionTopLeftY, 
+	InvalidateRegion( pNode->region.RegionTopLeftX, pNode->region.RegionTopLeftY,
 										pNode->region.RegionBottomRightX, pNode->region.RegionBottomRightY );
 
 }
@@ -1307,10 +1307,10 @@ void RenderActiveTextField()
 		uiCursorXPos = StringPixLengthArg( pColors->usFont, gubCursorPos, str ) + 2;
 		if( GetJA2Clock()%1000 < 500 )
 		{	//draw the blinking ibeam cursor during the on blink period.
-			ColorFillVideoSurfaceArea(FRAME_BUFFER, 
-				gpActive->region.RegionTopLeftX + uiCursorXPos, 
-				gpActive->region.RegionTopLeftY + usOffset, 
-				gpActive->region.RegionTopLeftX + uiCursorXPos + 1, 
+			ColorFillVideoSurfaceArea(FRAME_BUFFER,
+				gpActive->region.RegionTopLeftX + uiCursorXPos,
+				gpActive->region.RegionTopLeftY + usOffset,
+				gpActive->region.RegionTopLeftX + uiCursorXPos + 1,
 				gpActive->region.RegionTopLeftY + usOffset + GetFontHeight( pColors->usFont ), pColors->usCursorColor );
 		}
 	}
@@ -1418,7 +1418,7 @@ void RenderAllTextFields()
 void EnableTextField( UINT8 ubID )
 {
 	TEXTINPUTNODE *curr;
-  curr = gpTextInputHead;
+	curr = gpTextInputHead;
 	while( curr )
 	{
 		if( curr->ubID == ubID )
@@ -1440,7 +1440,7 @@ void EnableTextField( UINT8 ubID )
 void DisableTextField( UINT8 ubID )
 {
 	TEXTINPUTNODE *curr;
-  curr = gpTextInputHead;
+	curr = gpTextInputHead;
 	while( curr )
 	{
 		if( curr->ubID == ubID )
@@ -1462,7 +1462,7 @@ void DisableTextField( UINT8 ubID )
 void EnableTextFields( UINT8 ubFirstID, UINT8 ubLastID )
 {
 	TEXTINPUTNODE *curr;
-  curr = gpTextInputHead;
+	curr = gpTextInputHead;
 	while( curr )
 	{
 		if( curr->ubID >= ubFirstID && curr->ubID <= ubLastID )
@@ -1482,7 +1482,7 @@ void EnableTextFields( UINT8 ubFirstID, UINT8 ubLastID )
 void DisableTextFields( UINT8 ubFirstID, UINT8 ubLastID )
 {
 	TEXTINPUTNODE *curr;
-  curr = gpTextInputHead;
+	curr = gpTextInputHead;
 	while( curr )
 	{
 		if( curr->ubID >= ubFirstID && curr->ubID <= ubLastID )
@@ -1502,7 +1502,7 @@ void DisableTextFields( UINT8 ubFirstID, UINT8 ubLastID )
 void EnableAllTextFields()
 {
 	TEXTINPUTNODE *curr;
-  curr = gpTextInputHead;
+	curr = gpTextInputHead;
 	while( curr )
 	{
 		if( !curr->fEnabled )
@@ -1519,7 +1519,7 @@ void EnableAllTextFields()
 void DisableAllTextFields()
 {
 	TEXTINPUTNODE *curr;
-  curr = gpTextInputHead;
+	curr = gpTextInputHead;
 	while( curr )
 	{
 		if( curr->fEnabled )
@@ -1596,10 +1596,10 @@ void ExecutePasteCommand()
 	if( !gpActive || !szClipboard )
 		return;
 	DeleteHilitedText();
-	
+
 	ubCount = 0;
 	while( szClipboard[ ubCount ] )
-	{	
+	{
 		AddChar( szClipboard[ ubCount ] );
 		ubCount++;
 	}
@@ -1612,7 +1612,7 @@ void ExecuteCutCommand()
 }
 
 //Saves the current text input mode, then removes it and activates the previous text input mode,
-//if applicable.  The second function restores the settings.  Doesn't currently support nested
+//if applicable.	The second function restores the settings.	Doesn't currently support nested
 //calls.
 void SaveAndRemoveCurrentTextInputMode()
 {
@@ -1636,7 +1636,7 @@ void RestoreSavedTextInputMode()
 {
 	if( !pSavedHead )
 		AssertMsg( 0, "Attempting to restore saved text input stack head, when one doesn't exist.");
-  gpTextInputHead = pSavedHead;
+	gpTextInputHead = pSavedHead;
 	pColors = pSavedColors;
 	pSavedHead = NULL;
 	pSavedColors = NULL;
@@ -1644,7 +1644,7 @@ void RestoreSavedTextInputMode()
 
 UINT16 GetTextInputCursor()
 {
-	return gusTextInputCursor;	
+	return gusTextInputCursor;
 }
 
 void SetTextInputCursor( UINT16 usNewCursor )
@@ -1694,9 +1694,9 @@ UINT16 GetExclusive24HourTimeValueFromField( UINT8 ubField )
 			if( curr->szString[0] == '2' && curr->szString[1] >= '0' &&		//20-23
 					curr->szString[1] <='3' ||
 					curr->szString[0] >= '0' && curr->szString[0] <= '1' &&		// 00-19
-				  curr->szString[1] >= '0' && curr->szString[1] <= '9' )		 
+				curr->szString[1] >= '0' && curr->szString[1] <= '9' )
 			{ //Next, validate the colon, and the minutes 00-59
-				if(	curr->szString[2] == ':' &&	curr->szString[5] == 0	 &&	//	:
+				if(	curr->szString[2] == ':' &&	curr->szString[5] == 0	&&	//	:
 						curr->szString[3] >= '0' && curr->szString[3] <= '5' &&	// 0-5
 						curr->szString[4] >= '0' && curr->szString[4] <= '9' )	// 0-9
 				{
@@ -1721,7 +1721,7 @@ UINT16 GetExclusive24HourTimeValueFromField( UINT8 ubField )
 void SetExclusive24HourTimeValue( UINT8 ubField, UINT16 usTime )
 {
 	TEXTINPUTNODE *curr;
-	//First make sure the time is a valid time.  If not, then use 23:59
+	//First make sure the time is a valid time.	If not, then use 23:59
 	if( usTime == 0xffff )
 	{
 		SetInputFieldStringWith16BitString( ubField, L"" );

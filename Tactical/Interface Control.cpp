@@ -3,8 +3,8 @@
 #else
 	#include <stdio.h>
 	#include <stdarg.h>
-	#include <time.h> 
-	#include "sgp.h" 
+	#include <time.h>
+	#include "sgp.h"
 	#include "gameloop.h"
 	#include "himage.h"
 	#include "vobject.h"
@@ -51,9 +51,9 @@
 	#include "civ quotes.h"
 #endif
 
-/*  I deleted here declaration of clock coords for tactical screen i will declare them
- *  in functions that Initialize coord for SMPanet and TEAMPanel
- *  any questions? joker
+/*	I deleted here declaration of clock coords for tactical screen i will declare them
+ *	in functions that Initialize coord for SMPanet and TEAMPanel
+ *	any questions? joker
  */
 SGPRect				gOldClippingRect, gOldDirtyClippingRect;
 
@@ -67,7 +67,8 @@ BOOLEAN		gfRerenderInterfaceFromHelpText = FALSE;
 
 MOUSE_REGION		gLockPanelOverlayRegion;
 
-extern void			RenderTownIDString( );
+// CHRISL: Change function definition to allow passing of X,Y coords to control placement of TownID string
+extern void			RenderTownIDString( INT16 sX, INT16 sY );
 extern BOOLEAN	gfUIOverItemPool;
 extern INT16		gfUIOverItemPoolGridNo;
 extern BOOLEAN	gfInMovementMenu;
@@ -77,7 +78,7 @@ extern UINT32		guiUIMessageTimeDelay;
 
 
 BOOLEAN	gfPausedTacticalRenderInterfaceFlags = FALSE;
-BOOLEAN	gfPausedTacticalRenderFlags					 = FALSE;
+BOOLEAN	gfPausedTacticalRenderFlags					= FALSE;
 
 // which assignment menu can be shown?
 extern void DetermineWhichAssignmentMenusCanBeShown( void );
@@ -116,9 +117,9 @@ void RenderTacticalInterface( )
 	{
 		HandleFlashingItems( );
 
-    HandleMultiPurposeLocator( );
- 
-	}	
+	HandleMultiPurposeLocator( );
+
+	}
 
 	// Handle degrading new items...
 	DegradeNewlyAddedItems( );
@@ -137,7 +138,7 @@ void RenderTacticalInterface( )
 	// Handle faces
 	if( !(guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE ) )
 		HandleAutoFaces( );
-	
+
 }
 
 
@@ -154,7 +155,7 @@ void HandlePausedTacticalRender( void )
 
 	if ( gfPausedTacticalRenderInterfaceFlags )
 	{
-		fInterfacePanelDirty = gfPausedTacticalRenderInterfaceFlags; 
+		fInterfacePanelDirty = gfPausedTacticalRenderInterfaceFlags;
 		gfPausedTacticalRenderInterfaceFlags = FALSE;
 	}
 
@@ -184,15 +185,15 @@ void RenderTacticalInterfaceWhileScrolling( )
 
 void SetUpInterface( )
 {
-	SOLDIERTYPE								 *pSoldier;
-	LEVELNODE									 *pIntTile;
+	SOLDIERTYPE								*pSoldier;
+	LEVELNODE									*pIntTile;
 
 	if ( ( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 	{
 		return;
 	}
 
-	DrawUICursor( );	
+	DrawUICursor( );
 
 	SetupPhysicsTrajectoryUI( );
 
@@ -200,7 +201,7 @@ void SetUpInterface( )
 	if ( giUIMessageOverlay != -1 )
 	{
 		if ( ( GetJA2Clock( ) - guiUIMessageTime ) > guiUIMessageTimeDelay )
-		{	
+		{
 			EndUIMessage( );
 		}
 	}
@@ -231,7 +232,7 @@ void SetUpInterface( )
 
 	HandleInterfaceBackgrounds( );
 
-	
+
 	if ( gfUIHandleSelection == NONSELECTED_GUY_SELECTION )
 	{
 		if ( gsSelectedLevel > 0 )
@@ -255,7 +256,7 @@ void SetUpInterface( )
 		if ( gsSelectedLevel > 0 )
 		{
 			//AddRoofToHead( gsSelectedGridNo, SELRING1 );
-			AddRoofToHead( gsSelectedGridNo, FIRSTPOINTERS2 );			
+			AddRoofToHead( gsSelectedGridNo, FIRSTPOINTERS2 );
 			gpWorldLevelData[gsSelectedGridNo].pRoofHead->ubShadeLevel=DEFAULT_SHADE_LEVEL;
 			gpWorldLevelData[gsSelectedGridNo].pRoofHead->ubNaturalShadeLevel=DEFAULT_SHADE_LEVEL;
 
@@ -263,7 +264,7 @@ void SetUpInterface( )
 		else
 		{
 			//AddObjectToHead( gsSelectedGridNo, SELRING1 );
-			AddObjectToHead( gsSelectedGridNo, FIRSTPOINTERS2 );			
+			AddObjectToHead( gsSelectedGridNo, FIRSTPOINTERS2 );
 			gpWorldLevelData[gsSelectedGridNo].pObjectHead->ubShadeLevel=DEFAULT_SHADE_LEVEL;
 			gpWorldLevelData[gsSelectedGridNo].pObjectHead->ubNaturalShadeLevel=DEFAULT_SHADE_LEVEL;
 		}
@@ -353,7 +354,7 @@ void ResetInterface( )
 
 	DetermineWhichMilitiaControlMenusCanBeShown( ); //lal
 	CreateDestroyMilitiaControlPopUpBoxes( );
-	
+
 
 	HideUICursor( );
 
@@ -389,7 +390,7 @@ void ResetInterface( )
 	{
 		fInterfacePanelDirty = FALSE;
 	}
-	
+
 
 	// Reset int tile cursor stuff
 	if ( gfUIShowCurIntTile )
@@ -404,7 +405,7 @@ void ResetInterface( )
 				if ( pNode->usIndex == gusUICurIntTileEffectIndex )
 				{
 					pNode->ubShadeLevel = gsUICurIntTileOldShade;
-					pNode->uiFlags &= (~LEVELNODE_DYNAMIC);				
+					pNode->uiFlags &= (~LEVELNODE_DYNAMIC);
 					break;
 				}
 
@@ -419,7 +420,7 @@ void ResetInterface( )
 extern BOOLEAN AnyItemsVisibleOnLevel( ITEM_POOL *pItemPool, INT8 bZLevel );
 
 
-UINT32	guiColors[ 12 ] = 
+UINT32	guiColors[ 12 ] =
 {
 	FROMRGB( 198, 163, 0 ),
 	FROMRGB( 185, 150, 0 ),
@@ -437,13 +438,13 @@ UINT32	guiColors[ 12 ] =
 
 void RenderRubberBanding( )
 {
-	UINT16										 usLineColor;
-	UINT32										 uiDestPitchBYTES;
-	UINT8											 *pDestBuf;
-	INT16											 iLeft, iRight, iTop, iBottom;
-	INT32											 iBack = -1;
-	static INT32							 iFlashColor = 0;
-	static INT32							 uiTimeOfLastUpdate = 0;
+	UINT16										usLineColor;
+	UINT32										uiDestPitchBYTES;
+	UINT8											*pDestBuf;
+	INT16											iLeft, iRight, iTop, iBottom;
+	INT32											iBack = -1;
+	static INT32							iFlashColor = 0;
+	static INT32							uiTimeOfLastUpdate = 0;
 
 	if ( !gRubberBandActive )
 		return;
@@ -476,14 +477,14 @@ void RenderRubberBanding( )
 	usLineColor = Get16BPPColor( guiColors[ iFlashColor ] );
 
 	if ( ( iRight - iLeft ) > 0 )
-	{	
+	{
 		LineDraw( TRUE, iLeft, iTop, iRight, iTop, usLineColor, pDestBuf );
-		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, iLeft, iTop, (INT16)( iRight + 1 ), (INT16)( iTop + 1 ) ); 
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, iLeft, iTop, (INT16)( iRight + 1 ), (INT16)( iTop + 1 ) );
 	}
 	else if ( ( iRight - iLeft ) < 0 )
 	{
 		LineDraw( TRUE, iLeft, iTop, iRight, iTop, usLineColor, pDestBuf );
-		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, iRight, iTop, (INT16)( iLeft + 1 ), (INT16)( iTop + 1 ) ); 
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, iRight, iTop, (INT16)( iLeft + 1 ), (INT16)( iTop + 1 ) );
 	}
 
 	if ( iBack != -1 )
@@ -495,14 +496,14 @@ void RenderRubberBanding( )
 	iBack = -1;
 
 	if ( ( iRight - iLeft ) > 0 )
-	{	
+	{
 		LineDraw( TRUE, iLeft, iBottom, iRight, iBottom, usLineColor, pDestBuf );
-		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, iLeft, iBottom, (INT16)( iRight +1 ), (INT16)( iBottom + 1 ) ); 
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, iLeft, iBottom, (INT16)( iRight +1 ), (INT16)( iBottom + 1 ) );
 	}
 	else if ( ( iRight - iLeft ) < 0 )
 	{
 		LineDraw( TRUE, iLeft, iBottom, iRight, iBottom, usLineColor, pDestBuf );
-		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, iRight, iBottom, (INT16)( iLeft + 1 ), (INT16)( iBottom + 1 ) ); 
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, iRight, iBottom, (INT16)( iLeft + 1 ), (INT16)( iBottom + 1 ) );
 	}
 
 	if ( iBack != -1 )
@@ -515,14 +516,14 @@ void RenderRubberBanding( )
 	iBack = -1;
 
 	if ( ( iBottom - iTop ) > 0 )
-	{	
+	{
 		LineDraw( TRUE, iLeft, iTop, iLeft, iBottom, usLineColor, pDestBuf );
-		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, iLeft, iTop, (INT16)( iLeft +1 ), iBottom ); 
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, iLeft, iTop, (INT16)( iLeft +1 ), iBottom );
 	}
 	else if ( ( iBottom - iTop ) < 0 )
 	{
 		LineDraw( TRUE, iLeft, iTop, iLeft, iBottom, usLineColor, pDestBuf );
-		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, iLeft, iBottom, (INT16)( iLeft + 1 ), iTop ); 
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, iLeft, iBottom, (INT16)( iLeft + 1 ), iTop );
 	}
 
 	if ( iBack != -1 )
@@ -534,14 +535,14 @@ void RenderRubberBanding( )
 	iBack = -1;
 
 	if ( ( iBottom - iTop ) > 0 )
-	{	
+	{
 		LineDraw( TRUE, iRight, iTop, iRight, iBottom, usLineColor, pDestBuf );
-		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, iRight, iTop, (INT16)( iRight +1 ), iBottom ); 
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, iRight, iTop, (INT16)( iRight +1 ), iBottom );
 	}
 	else if ( ( iBottom - iTop ) < 0 )
 	{
 		LineDraw( TRUE, iRight, iTop, iRight, iBottom, usLineColor, pDestBuf );
-		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, iRight, iBottom, (INT16)( iRight + 1 ), iTop ); 
+		iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, iRight, iBottom, (INT16)( iRight + 1 ), iTop );
 	}
 
 	if ( iBack != -1 )
@@ -556,16 +557,16 @@ void RenderRubberBanding( )
 
 void RenderTopmostTacticalInterface( )
 {
-	SOLDIERTYPE								 *pSoldier;
-	UINT32											 cnt;
+	SOLDIERTYPE								*pSoldier;
+	UINT32											cnt;
 	static UINT32				uiBogTarget = 0;
-  VOBJECT_DESC    VObjectDesc;
+	VOBJECT_DESC	VObjectDesc;
 	INT16			sX, sY;
 	INT16			sOffsetX, sOffsetY, sTempY_S, sTempX_S;
-	UINT16						usMapPos;
+	INT16						sMapPos;
 	ITEM_POOL					*pItemPool;
 
-	
+
 	if ( gfRerenderInterfaceFromHelpText == TRUE )
 	{
 		fInterfacePanelDirty = DIRTYLEVEL2;
@@ -602,14 +603,7 @@ void RenderTopmostTacticalInterface( )
 
 	if ( InItemStackPopup( ) )
 	{
-		if ( fInterfacePanelDirty == DIRTYLEVEL2 )
-		{
-			RenderItemStackPopup( TRUE );
-		}
-		else
-		{
-			RenderItemStackPopup( FALSE );
-		}
+		RenderItemStackPopup( ( BOOLEAN )( fInterfacePanelDirty == DIRTYLEVEL2 ) );
 	}
 
 	if( ( InKeyRingPopup() ) && ( !InItemDescriptionBox( ) ) )
@@ -644,7 +638,7 @@ void RenderTopmostTacticalInterface( )
 					}
 
 					if ( GridNoOnScreen( (INT16)MAPROWCOLTOPOS( ( MercPtrs[ cnt ]->sPlannedTargetY/CELL_Y_SIZE), ( MercPtrs[ cnt ]->sPlannedTargetX / CELL_X_SIZE ) ) ) )
-					{					
+					{
 						// GET SCREEN COORDINATES
 						sOffsetX = (MercPtrs[ cnt ]->sPlannedTargetX - gsRenderCenterX);
 						sOffsetY = (MercPtrs[ cnt ]->sPlannedTargetY - gsRenderCenterY);
@@ -661,7 +655,7 @@ void RenderTopmostTacticalInterface( )
 						sX -= 10;
 						sY -= 10;
 
-						BltVideoObjectFromIndex(  FRAME_BUFFER, uiBogTarget, 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
+						BltVideoObjectFromIndex(	FRAME_BUFFER, uiBogTarget, 0, sX, sY, VO_BLT_SRCTRANSPARENCY, NULL );
 						InvalidateRegion( sX, sY, sX + 20, sY + 20 );
 					}
 				}
@@ -670,13 +664,13 @@ void RenderTopmostTacticalInterface( )
 	}
 
 
-	
+
 	if ( gfUIInDeadlock )
 	{
 		SetFont( LARGEFONT1 );
 		SetFontBackground( FONT_MCOLOR_BLACK );
 		SetFontForeground( FONT_MCOLOR_WHITE );
-		gprintfdirty( 0, 300, L"OPPONENT %d DEADLOCKED - 'Q' TO DEBUG, <ALT><ENTER> END OPP TURN", gUIDeadlockedSoldier  );
+		gprintfdirty( 0, 300, L"OPPONENT %d DEADLOCKED - 'Q' TO DEBUG, <ALT><ENTER> END OPP TURN", gUIDeadlockedSoldier	);
 		mprintf( 0, 300, L"OPPONENT %d DEADLOCKED - 'Q' TO DEBUG, <ALT><ENTER> END OPP TURN", gUIDeadlockedSoldier );
 
 	}
@@ -686,12 +680,12 @@ void RenderTopmostTacticalInterface( )
 	SYNCTIMECOUNTER( );
 
 
-	// Setup system for video overlay ( text and blitting ) Sets clipping rects, etc 
+	// Setup system for video overlay ( text and blitting ) Sets clipping rects, etc
 	StartViewportOverlays( );
 
 	RenderTopmostFlashingItems( );
 
-  RenderTopmostMultiPurposeLocator( );
+	RenderTopmostMultiPurposeLocator( );
 
 	RenderAccumulatedBurstLocations( );
 
@@ -704,14 +698,14 @@ void RenderTopmostTacticalInterface( )
 		{
 			if ( pSoldier->ubID == gsSelectedGuy && gfUIHandleSelectionAboveGuy )
 			{
-        
+
 			}
 			else
 			{
 				DrawSelectedUIAboveGuy((UINT16)pSoldier->ubID);
 			}
 
-			if ( pSoldier->fDisplayDamage )
+			if ( pSoldier->flags.fDisplayDamage )
 			{
 				// Display damage
 
@@ -723,32 +717,32 @@ void RenderTopmostTacticalInterface( )
 					GetSoldierScreenPos( pSoldier, &sMercScreenX, &sMercScreenY );
 					GetSoldierAnimOffsets( pSoldier, &sOffsetX, &sOffsetY );
 
-          if ( pSoldier->ubBodyType == QUEENMONSTER )
-          {
-		        sDamageX = sMercScreenX + pSoldier->sDamageX - pSoldier->sBoundingBoxOffsetX;
-		        sDamageY = sMercScreenY + pSoldier->sDamageY - pSoldier->sBoundingBoxOffsetY;
+			if ( pSoldier->ubBodyType == QUEENMONSTER )
+			{
+			 sDamageX = sMercScreenX + pSoldier->sDamageX - pSoldier->sBoundingBoxOffsetX;
+			 sDamageY = sMercScreenY + pSoldier->sDamageY - pSoldier->sBoundingBoxOffsetY;
 
-		        sDamageX += 25;
-		        sDamageY += 10;
-          }
-          else
-          {		
-					  sDamageX = pSoldier->sDamageX + (INT16)(sMercScreenX + ( 2 * 30 / 3 )  );
-					  sDamageY = pSoldier->sDamageY + (INT16)(sMercScreenY - 5 );
+			 sDamageX += 25;
+			 sDamageY += 10;
+			}
+			else
+			{
+					sDamageX = pSoldier->sDamageX + (INT16)(sMercScreenX + ( 2 * 30 / 3 )	);
+					sDamageY = pSoldier->sDamageY + (INT16)(sMercScreenY - 5 );
 
-					  sDamageX -= sOffsetX;
-					  sDamageY -= sOffsetY;
+					sDamageX -= sOffsetX;
+					sDamageY -= sOffsetY;
 
-			      if ( sDamageY < gsVIEWPORT_WINDOW_START_Y )
-			      {
-				      sDamageY = ( sMercScreenY - sOffsetY );
-            }
-          }
-          
-          SetFont( TINYFONT1 );
+				if ( sDamageY < gsVIEWPORT_WINDOW_START_Y )
+				{
+					sDamageY = ( sMercScreenY - sOffsetY );
+			}
+			}
+
+			SetFont( TINYFONT1 );
 					SetFontBackground( FONT_MCOLOR_BLACK );
 					SetFontForeground( FONT_MCOLOR_WHITE );
-					
+
 					gprintfdirty( sDamageX, sDamageY, L"-%d", pSoldier->sDamage );
 					mprintf( sDamageX, sDamageY, L"-%d", pSoldier->sDamage );
 				}
@@ -785,27 +779,27 @@ void RenderTopmostTacticalInterface( )
 	}
 
 	// CHECK IF OUR CURSOR IS OVER AN INV POOL
-	if( GetMouseMapPos( &usMapPos) )
+	if( GetMouseMapPos( &sMapPos) )
 	{
 		if ( gfUIOverItemPool )
 		{
 			if(	GetSoldier( &pSoldier, gusSelectedSoldier ) )
 			{
 				// Check if we are over an item pool
-				if ( GetItemPool( gfUIOverItemPoolGridNo, &pItemPool, pSoldier->bLevel ) )
+				if ( GetItemPool( gfUIOverItemPoolGridNo, &pItemPool, pSoldier->pathing.bLevel ) )
 				{
 					STRUCTURE					*pStructure = NULL;
 					INT16							sIntTileGridNo;
 					INT8							bZLevel = 0;
-					INT16							sActionGridNo = usMapPos;
+					INT16							sActionGridNo = sMapPos;
 
 					// Get interactive tile...
 					if ( ConditionalGetCurInteractiveTileGridNoAndStructure( &sIntTileGridNo , &pStructure, FALSE ) )
 					{
 						sActionGridNo = sIntTileGridNo;
 					}
-					
-					bZLevel = GetZLevelOfItemPoolGivenStructure( sActionGridNo, pSoldier->bLevel, pStructure );
+
+					bZLevel = GetZLevelOfItemPoolGivenStructure( sActionGridNo, pSoldier->pathing.bLevel, pStructure );
 
 					if ( AnyItemsVisibleOnLevel( pItemPool, bZLevel ) )
 					{
@@ -816,46 +810,46 @@ void RenderTopmostTacticalInterface( )
 
 					}
 				}
-        else
-        {
-          INT8 bCheckLevel;
+		else
+		{
+			INT8 bCheckLevel;
 
-          // ATE: Allow to see list if a different level....
-          if ( pSoldier->bLevel == 0 )
-          {
-            bCheckLevel = 1;
-          }
-          else
-          {
-            bCheckLevel = 0;
-          }
+			// ATE: Allow to see list if a different level....
+			if ( pSoldier->pathing.bLevel == 0 )
+			{
+			bCheckLevel = 1;
+			}
+			else
+			{
+			bCheckLevel = 0;
+			}
 
-				  // Check if we are over an item pool
-				  if ( GetItemPool( gfUIOverItemPoolGridNo, &pItemPool, bCheckLevel ) )
-				  {
-					  STRUCTURE					*pStructure = NULL;
-					  INT16							sIntTileGridNo;
-					  INT8							bZLevel = 0;
-					  INT16							sActionGridNo = usMapPos;
+				// Check if we are over an item pool
+				if ( GetItemPool( gfUIOverItemPoolGridNo, &pItemPool, bCheckLevel ) )
+				{
+					STRUCTURE					*pStructure = NULL;
+					INT16							sIntTileGridNo;
+					INT8							bZLevel = 0;
+					INT16							sActionGridNo = sMapPos;
 
-					  // Get interactive tile...
-					  if ( ConditionalGetCurInteractiveTileGridNoAndStructure( &sIntTileGridNo , &pStructure, FALSE ) )
-					  {
-						  sActionGridNo = sIntTileGridNo;
-					  }
-					  
-					  bZLevel = GetZLevelOfItemPoolGivenStructure( sActionGridNo, bCheckLevel, pStructure );
+					// Get interactive tile...
+					if ( ConditionalGetCurInteractiveTileGridNoAndStructure( &sIntTileGridNo , &pStructure, FALSE ) )
+					{
+						sActionGridNo = sIntTileGridNo;
+					}
 
-					  if ( AnyItemsVisibleOnLevel( pItemPool, bZLevel ) )
-					  {
-						  DrawItemPoolList( pItemPool, gfUIOverItemPoolGridNo	, ITEMLIST_DISPLAY, bZLevel, gusMouseXPos, gusMouseYPos );
+					bZLevel = GetZLevelOfItemPoolGivenStructure( sActionGridNo, bCheckLevel, pStructure );
 
-						  // ATE: If over items, remove locator....
-						  RemoveFlashItemSlot( pItemPool );
+					if ( AnyItemsVisibleOnLevel( pItemPool, bZLevel ) )
+					{
+						DrawItemPoolList( pItemPool, gfUIOverItemPoolGridNo	, ITEMLIST_DISPLAY, bZLevel, gusMouseXPos, gusMouseYPos );
 
-					  }
-				  }
-        }
+						// ATE: If over items, remove locator....
+						RemoveFlashItemSlot( pItemPool );
+
+					}
+				}
+		}
 			}
 		}
 	}
@@ -888,11 +882,11 @@ void RenderTopmostTacticalInterface( )
 
 	if( fRenderRadarScreen == TRUE )
 	{
-	  // Render clock
-/*  Here we was rendering closk and position string now i moved it to functions 
- *  that render SM or TEAM panel it will be usefull when RenderTownIDString will
- *  take position where render i will fix that 
- *  any questions?? joker
+	// Render clock
+/*	Here we was rendering closk and position string now i moved it to functions
+ *	that render SM or TEAM panel it will be usefull when RenderTownIDString will
+ *	take position where render i will fix that
+ *	any questions?? joker
  */
 //		RenderClock( CLOCK_X, CLOCK_Y );
 //		RenderTownIDString( );
@@ -919,8 +913,8 @@ void RenderTopmostTacticalInterface( )
 
 		// mark all pop ups as dirty
 	MarkAllBoxesAsAltered( );
-	
-	HandleShowingOfTacticalInterfaceFastHelpText( ); 
+
+	HandleShowingOfTacticalInterfaceFastHelpText( );
 	HandleShadingOfLinesForAssignmentMenus( );
 	DetermineBoxPositions( );
 	DisplayBoxes( FRAME_BUFFER );
@@ -930,14 +924,14 @@ void RenderTopmostTacticalInterface( )
 
 void StartViewportOverlays( )
 {
-	
+
 	// Set Clipping Rect to be the viewscreen
 	// Save old one
 	memcpy( &gOldClippingRect, &ClippingRect, sizeof( gOldClippingRect ) );
 
 	// Save old dirty clipping rect
 	memcpy( &gOldDirtyClippingRect, &ClippingRect, sizeof( gOldDirtyClippingRect ) );
-	
+
 	// Set bottom clipping value for blitter clipping rect
 	ClippingRect.iLeft = INTERFACE_START_X;
 	ClippingRect.iTop = gsVIEWPORT_WINDOW_START_Y;
@@ -972,7 +966,7 @@ void LockTacticalInterface( )
 	if ( !(guiTacticalInterfaceFlags & INTERFACE_LOCKEDLEVEL1 ) )
 	{
 		MSYS_DefineRegion( &gLockPanelOverlayRegion, 0, gsVIEWPORT_WINDOW_END_Y ,SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGHEST,
-							 CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK ); 
+							CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 		// Add region
 		MSYS_AddRegion( &gLockPanelOverlayRegion);
 
@@ -1005,7 +999,7 @@ void EraseInterfaceMenus( BOOLEAN fIgnoreUIUnLock )
 	// Remove item pointer if one active
 	CancelItemPointer( );
 
-  ShutDownQuoteBoxIfActive( );
+	ShutDownQuoteBoxIfActive( );
 	PopDownMovementMenu( );
 	PopDownOpenDoorMenu( );
 	DeleteTalkingMenu( );
@@ -1036,7 +1030,7 @@ void ResetInterfaceAndUI( )
 
 	//ResetMultiSelection( );
 
-	if ( giUIMessageOverlay != -1  )
+	if ( giUIMessageOverlay != -1	)
 	{
 		RemoveVideoOverlay( giUIMessageOverlay );
 		giUIMessageOverlay = -1;

@@ -151,15 +151,15 @@ BOOLEAN GetCivQuoteText( UINT8 ubCivQuoteID, UINT8 ubEntryID, STR16 zQuote )
 	// Build filename....
 	if ( ubCivQuoteID == CIV_QUOTE_HINT )
 	{
-    if ( gbWorldSectorZ > 0 )
-    {
-		  //sprintf( zFileName, "NPCData\\miners.edt" );
-  		sprintf( zFileName,"NPCDATA\\CIV%02d.edt", CIV_QUOTE_MINERS_NOT_FOR_PLAYER );
-    }
-    else
-    {
-		  sprintf( zFileName, "NPCData\\%c%d.edt", 'A' + (gWorldSectorY - 1) , gWorldSectorX );
-    }
+	if ( gbWorldSectorZ > 0 )
+	{
+		//sprintf( zFileName, "NPCData\\miners.edt" );
+			sprintf( zFileName,"NPCDATA\\CIV%02d.edt", CIV_QUOTE_MINERS_NOT_FOR_PLAYER );
+	}
+	else
+	{
+		sprintf( zFileName, "NPCData\\%c%d.edt", 'A' + (gWorldSectorY - 1) , gWorldSectorX );
+	}
 	}
 	else
 	{
@@ -171,7 +171,7 @@ BOOLEAN GetCivQuoteText( UINT8 ubCivQuoteID, UINT8 ubEntryID, STR16 zQuote )
 	// Get data...
 	LoadEncryptedDataFromFile( zFileName, zQuote, ubEntryID * 320, 320 );
 
-	if( zQuote[0] == 0 ) 
+	if( zQuote[0] == 0 )
 	{
 		return( FALSE );
 	}
@@ -189,7 +189,7 @@ void SurrenderMessageBoxCallBack( UINT8 ubExitValue )
 		// CJC Dec 1 2002: fix multiple captures
 		BeginCaptureSquence();
 
-    // Do capture....
+	// Do capture....
 		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++)
@@ -197,14 +197,14 @@ void SurrenderMessageBoxCallBack( UINT8 ubExitValue )
 			// Are we active and in sector.....
 			if ( pTeamSoldier->bActive && pTeamSoldier->bInSector )
 			{
-        if ( pTeamSoldier->bLife != 0 )
+		if ( pTeamSoldier->stats.bLife != 0 )
 				{
 					EnemyCapturesPlayerSoldier( pTeamSoldier );
 
 					RemoveSoldierFromTacticalSector( pTeamSoldier, TRUE );
 				}
 			}
-    }
+	}
 
 		EndCaptureSequence( );
 
@@ -225,7 +225,7 @@ void ShutDownQuoteBox( BOOLEAN fForce )
 	{
 		return;
 	}
-	
+
 	// Check for min time....
 	if ( ( GetJA2Clock( ) - gCivQuoteData.uiTimeOfCreation ) > 300 || fForce )
 	{
@@ -234,13 +234,13 @@ void ShutDownQuoteBox( BOOLEAN fForce )
 		// Remove mouse region...
 		MSYS_RemoveRegion( &(gCivQuoteData.MouseRegion) );
 
-    RemoveMercPopupBoxFromIndex( gCivQuoteData.iDialogueBox );
-    gCivQuoteData.iDialogueBox = -1;
+	RemoveMercPopupBoxFromIndex( gCivQuoteData.iDialogueBox );
+	gCivQuoteData.iDialogueBox = -1;
 
 		gCivQuoteData.bActive = FALSE;
 
 		// do we need to do anything at the end of the civ quote?
-		if ( gCivQuoteData.pCiv && gCivQuoteData.pCiv->bAction == AI_ACTION_OFFER_SURRENDER )
+		if ( gCivQuoteData.pCiv && gCivQuoteData.pCiv->aiData.bAction == AI_ACTION_OFFER_SURRENDER )
 		{
 			DoMessageBox( MSG_BOX_BASIC_STYLE, Message[ STR_SURRENDER ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, SurrenderMessageBoxCallBack, NULL );
 		}
@@ -271,8 +271,8 @@ INT8 GetCivType( SOLDIERTYPE *pCiv )
 	// 1 ) check sector....
 	if ( gWorldSectorX == 10 && gWorldSectorY == 6 && gbWorldSectorZ == 0 )
 	{
-    // 2 ) the only female....
-    if ( pCiv->ubCivilianGroup == 0 && pCiv->bTeam != gbPlayerNum && pCiv->ubBodyType == REGFEMALE )
+	// 2 ) the only female....
+	if ( pCiv->ubCivilianGroup == 0 && pCiv->bTeam != gbPlayerNum && pCiv->ubBodyType == REGFEMALE )
 		{
 			// She's a ho!
 			return( CIV_TYPE_MARRIED_PC );
@@ -333,7 +333,7 @@ void RenderCivQuoteBoxOverlay( VIDEO_OVERLAY *pBlitter )
 {
 	if ( gCivQuoteData.iVideoOverlay != -1 )
 	{
-		RenderMercPopUpBoxFromIndex( gCivQuoteData.iDialogueBox, pBlitter->sX, pBlitter->sY,  pBlitter->uiDestBuff );
+		RenderMercPopUpBoxFromIndex( gCivQuoteData.iDialogueBox, pBlitter->sX, pBlitter->sY,	pBlitter->uiDestBuff );
 
 		InvalidateRegion( pBlitter->sX, pBlitter->sY, pBlitter->sX + gusCivQuoteBoxWidth, pBlitter->sY + gusCivQuoteBoxHeight );
 	}
@@ -388,17 +388,17 @@ void BeginCivQuote( SOLDIERTYPE *pCiv, UINT8 ubCivQuoteID, UINT8 ubEntryID, INT1
 
 	if ( ubCivQuoteID == CIV_QUOTE_HINT )
 	{
-		MapScreenMessage( FONT_MCOLOR_WHITE, MSG_DIALOG, L"%s",  gzCivQuote );
+		MapScreenMessage( FONT_MCOLOR_WHITE, MSG_DIALOG, L"%s",	gzCivQuote );
 	}
 
 	// Create video oeverlay....
 	memset( &VideoOverlayDesc, 0, sizeof( VIDEO_OVERLAY_DESC ) );
-	
+
 	// Prepare text box
-  SET_USE_WINFONTS( TRUE );
-  SET_WINFONT( giSubTitleWinFont ); 	
+	SET_USE_WINFONTS( TRUE );
+	SET_WINFONT( giSubTitleWinFont );
 	gCivQuoteData.iDialogueBox = PrepareMercPopupBox( gCivQuoteData.iDialogueBox , BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER, gzCivQuote, DIALOGUE_DEFAULT_WIDTH, 0, 0, 0, &gusCivQuoteBoxWidth, &gusCivQuoteBoxHeight );
-  SET_USE_WINFONTS( FALSE );
+	SET_USE_WINFONTS( FALSE );
 
 	// OK, find center for box......
 	sX = sX - ( gusCivQuoteBoxWidth / 2 );
@@ -430,20 +430,20 @@ void BeginCivQuote( SOLDIERTYPE *pCiv, UINT8 ubCivQuoteID, UINT8 ubEntryID, INT1
 		}
 	}
 
-	VideoOverlayDesc.sLeft			 = sX;
-	VideoOverlayDesc.sTop				 = sY;
-	VideoOverlayDesc.sRight			 = VideoOverlayDesc.sLeft + gusCivQuoteBoxWidth;
-	VideoOverlayDesc.sBottom		 = VideoOverlayDesc.sTop + gusCivQuoteBoxHeight;
-	VideoOverlayDesc.sX					 = VideoOverlayDesc.sLeft;
-	VideoOverlayDesc.sY					 = VideoOverlayDesc.sTop;
+	VideoOverlayDesc.sLeft			= sX;
+	VideoOverlayDesc.sTop				= sY;
+	VideoOverlayDesc.sRight			= VideoOverlayDesc.sLeft + gusCivQuoteBoxWidth;
+	VideoOverlayDesc.sBottom		= VideoOverlayDesc.sTop + gusCivQuoteBoxHeight;
+	VideoOverlayDesc.sX					= VideoOverlayDesc.sLeft;
+	VideoOverlayDesc.sY					= VideoOverlayDesc.sTop;
 	VideoOverlayDesc.BltCallback = RenderCivQuoteBoxOverlay;
 
-	gCivQuoteData.iVideoOverlay =  RegisterVideoOverlay( 0, &VideoOverlayDesc );
+	gCivQuoteData.iVideoOverlay =	RegisterVideoOverlay( 0, &VideoOverlayDesc );
 
 
 	//Define main region
-	MSYS_DefineRegion( &(gCivQuoteData.MouseRegion), VideoOverlayDesc.sLeft, VideoOverlayDesc.sTop,  VideoOverlayDesc.sRight, VideoOverlayDesc.sBottom, MSYS_PRIORITY_HIGHEST,
-						 CURSOR_NORMAL, MSYS_NO_CALLBACK, QuoteOverlayClickCallback ); 
+	MSYS_DefineRegion( &(gCivQuoteData.MouseRegion), VideoOverlayDesc.sLeft, VideoOverlayDesc.sTop,	VideoOverlayDesc.sRight, VideoOverlayDesc.sBottom, MSYS_PRIORITY_HIGHEST,
+						CURSOR_NORMAL, MSYS_NO_CALLBACK, QuoteOverlayClickCallback );
 	// Add region
 	MSYS_AddRegion( &(gCivQuoteData.MouseRegion) );
 
@@ -453,7 +453,7 @@ void BeginCivQuote( SOLDIERTYPE *pCiv, UINT8 ubCivQuoteID, UINT8 ubEntryID, INT1
 	gCivQuoteData.uiTimeOfCreation = GetJA2Clock( );
 
 	gCivQuoteData.uiDelayTime = FindDelayForString( gzCivQuote ) + 500;
-	
+
 	gCivQuoteData.pCiv = pCiv;
 
 }
@@ -465,8 +465,8 @@ UINT8 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT8 *pubCivHintToUse, BOOLEAN
 	BOOLEAN	bCivLowLoyalty = FALSE;
 	BOOLEAN	bCivHighLoyalty = FALSE;
 	INT8		bCivHint;
-  INT8    bMineId;
-  BOOLEAN bMiners = FALSE;
+	INT8	bMineId;
+	BOOLEAN bMiners = FALSE;
 
 	(*pubCivHintToUse) = 0;
 
@@ -477,17 +477,17 @@ UINT8 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT8 *pubCivHintToUse, BOOLEAN
 		// Determine what type of quote to say...
 		// Are are we going to attack?
 
-		if ( pCiv->bAction == AI_ACTION_TOSS_PROJECTILE || pCiv->bAction == AI_ACTION_FIRE_GUN ||
-							pCiv->bAction == AI_ACTION_FIRE_GUN || pCiv->bAction == AI_ACTION_KNIFE_MOVE )
+		if ( pCiv->aiData.bAction == AI_ACTION_TOSS_PROJECTILE || pCiv->aiData.bAction == AI_ACTION_FIRE_GUN ||
+							pCiv->aiData.bAction == AI_ACTION_FIRE_GUN || pCiv->aiData.bAction == AI_ACTION_KNIFE_MOVE )
 		{
 			return( CIV_QUOTE_ENEMY_THREAT );
 		}
-		else if ( pCiv->bAction == AI_ACTION_OFFER_SURRENDER )
+		else if ( pCiv->aiData.bAction == AI_ACTION_OFFER_SURRENDER )
 		{
 			return( CIV_QUOTE_ENEMY_OFFER_SURRENDER );
 		}
 		// Hurt?
-		else if ( pCiv->bLife < 30 )
+		else if ( pCiv->stats.bLife < 30 )
 		{
 			return( CIV_QUOTE_ENEMY_HURT );
 		}
@@ -519,7 +519,7 @@ UINT8 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT8 *pubCivHintToUse, BOOLEAN
 	{
 		// Are they friendly?
 		//if ( gTacticalStatus.fCivGroupHostile[ HICKS_CIV_GROUP ] < CIV_GROUP_WILL_BECOME_HOSTILE )
-		if ( pCiv->bNeutral )
+		if ( pCiv->aiData.bNeutral )
 		{
 			return( CIV_QUOTE_HICKS_FRIENDLY );
 		}
@@ -534,7 +534,7 @@ UINT8 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT8 *pubCivHintToUse, BOOLEAN
 	{
 		// Are they friendly?
 		//if ( gTacticalStatus.fCivGroupHostile[ KINGPIN_CIV_GROUP ] < CIV_GROUP_WILL_BECOME_HOSTILE )
-		if ( pCiv->bNeutral )
+		if ( pCiv->aiData.bNeutral )
 		{
 			return( CIV_QUOTE_GOONS_FRIENDLY );
 		}
@@ -545,7 +545,7 @@ UINT8 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT8 *pubCivHintToUse, BOOLEAN
 	}
 
 	// ATE: Cowering people take precedence....
-	if ( ( pCiv->uiStatusFlags & SOLDIER_COWERING ) || ( pCiv->bTeam == CIV_TEAM && ( gTacticalStatus.uiFlags & INCOMBAT ) ) )
+	if ( ( pCiv->flags.uiStatusFlags & SOLDIER_COWERING ) || ( pCiv->bTeam == CIV_TEAM && ( gTacticalStatus.uiFlags & INCOMBAT ) ) )
 	{
 		if ( ubCivType == CIV_TYPE_ADULT )
 		{
@@ -626,11 +626,11 @@ UINT8 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT8 *pubCivHintToUse, BOOLEAN
 		}
 	}
 
-  // If we are in medunna, and queen is dead, use these...
-  if ( bTownId == MEDUNA && CheckFact( FACT_QUEEN_DEAD, 0 ) )
-  {
-    return( CIV_QUOTE_DEIDRANNA_DEAD );
-  }
+	// If we are in medunna, and queen is dead, use these...
+	if ( bTownId == MEDUNA && CheckFact( FACT_QUEEN_DEAD, 0 ) )
+	{
+	return( CIV_QUOTE_DEIDRANNA_DEAD );
+	}
 
 	// if in a town
 	if( ( bTownId != BLANK_SECTOR ) && ( gbWorldSectorZ == 0 ) && gfTownUsesLoyalty[ bTownId ] )
@@ -651,40 +651,40 @@ UINT8 DetermineCivQuoteEntry( SOLDIERTYPE *pCiv, UINT8 *pubCivHintToUse, BOOLEAN
 
 
 	// ATE: OK, check if we should look for a civ hint....
-  if ( fCanUseHints )
-  {
-	  bCivHint = ConsiderCivilianQuotes( gWorldSectorX, gWorldSectorY, gbWorldSectorZ,  FALSE );
-  }
-  else
-  {
-    bCivHint = -1;
-  }
+	if ( fCanUseHints )
+	{
+	bCivHint = ConsiderCivilianQuotes( gWorldSectorX, gWorldSectorY, gbWorldSectorZ,	FALSE );
+	}
+	else
+	{
+	bCivHint = -1;
+	}
 
 	// ATE: check miners......
 	if ( pCiv->ubSoldierClass == SOLDIER_CLASS_MINER )
 	{
-    bMiners = TRUE;
+	bMiners = TRUE;
 
-    // If not a civ hint available...
-    if ( bCivHint == -1 )
-    {
-		  // Check if they are under our control...
+	// If not a civ hint available...
+	if ( bCivHint == -1 )
+	{
+		// Check if they are under our control...
 
-      // Should I go talk to miner?
-      // Not done yet.
+		// Should I go talk to miner?
+		// Not done yet.
 
-      // Are they working for us?
-  	  bMineId = GetIdOfMineForSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
+		// Are they working for us?
+		bMineId = GetIdOfMineForSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 
-      if ( PlayerControlsMine( bMineId ) )
-      {
-        return( CIV_QUOTE_MINERS_FOR_PLAYER ); 
-      }
-      else
-      {
-        return( CIV_QUOTE_MINERS_NOT_FOR_PLAYER ); 
-      }
-    }
+		if ( PlayerControlsMine( bMineId ) )
+		{
+		return( CIV_QUOTE_MINERS_FOR_PLAYER );
+		}
+		else
+		{
+		return( CIV_QUOTE_MINERS_NOT_FOR_PLAYER );
+		}
+	}
 	}
 
 
@@ -778,8 +778,8 @@ void StartCivQuote( SOLDIERTYPE *pCiv )
 	if ( pCiv->bCurrentCivQuote == CIV_QUOTE_HINT )
 	{
 		// Determine which quote to say.....
-    // CAN'T USE HINTS, since we just did one...
-    pCiv->bCurrentCivQuote = -1;
+	// CAN'T USE HINTS, since we just did one...
+	pCiv->bCurrentCivQuote = -1;
 		pCiv->bCurrentCivQuoteDelta = 0;
 		ubCivQuoteID = DetermineCivQuoteEntry( pCiv, &ubCivHintToUse, FALSE );
 	}
@@ -800,7 +800,7 @@ void StartCivQuote( SOLDIERTYPE *pCiv )
 			pCiv->bCurrentCivQuoteDelta = 0;
 		}
 
-		ubEntryID    = pCiv->bCurrentCivQuote + pCiv->bCurrentCivQuoteDelta;
+		ubEntryID	= pCiv->bCurrentCivQuote + pCiv->bCurrentCivQuoteDelta;
 	}
 	else
 	{

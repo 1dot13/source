@@ -9,17 +9,17 @@
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA	02111-1307	USA
 //
 // Send bug reports, bug fixes, enhancements, requests, flames, etc., and
-// I'll try to keep a version up to date.  I can be reached as follows:
-//    marko.bozikovic@alterbox.net
-//    bozho@kset.org
+// I'll try to keep a version up to date.	I can be reached as follows:
+//	marko.bozikovic@alterbox.net
+//	bozho@kset.org
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -49,7 +49,7 @@ XTermCursor::XTermCursor(HWND hwndConsole, HDC hdcWindow, COLORREF crCursorColor
 }
 
 XTermCursor::~XTermCursor() {
-	
+
 	::DeleteObject(m_hActiveBrush);
 	::DeleteObject(m_hInactiveBrush);
 }
@@ -74,7 +74,7 @@ void XTermCursor::Draw(LPRECT pRect) {
 /////////////////////////////////////////////////////////////////////////////
 
 void XTermCursor::PrepareNext() {
-	
+
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -108,7 +108,7 @@ BlockCursor::~BlockCursor() {
 /////////////////////////////////////////////////////////////////////////////
 
 void BlockCursor::Draw(LPRECT pRect) {
-	
+
 	if (m_bActive && m_bVisible) {
 
 		::FillRect(m_hdcWindow, pRect, m_hActiveBrush);
@@ -143,7 +143,7 @@ NBBlockCursor::NBBlockCursor(HWND hwndParent, HDC hdcWindow, COLORREF crCursorCo
 }
 
 NBBlockCursor::~NBBlockCursor() {
-	
+
 	::DeleteObject(m_hActiveBrush);
 }
 
@@ -153,7 +153,7 @@ NBBlockCursor::~NBBlockCursor() {
 /////////////////////////////////////////////////////////////////////////////
 
 void NBBlockCursor::Draw(LPRECT pRect) {
-	
+
 	::FillRect(m_hdcWindow, pRect, m_hActiveBrush);
 }
 
@@ -188,7 +188,7 @@ PulseBlockCursor::PulseBlockCursor(HWND hwndParent, HDC hdcWindow, COLORREF crCu
 }
 
 PulseBlockCursor::~PulseBlockCursor() {
-	
+
 	if (m_uiTimer) ::KillTimer(m_hwndParent, m_uiTimer);
 	::DeleteObject(m_hActiveBrush);
 }
@@ -199,7 +199,7 @@ PulseBlockCursor::~PulseBlockCursor() {
 /////////////////////////////////////////////////////////////////////////////
 
 void PulseBlockCursor::Draw(LPRECT pRect) {
-	
+
 	// this is called only once, to set the size of the cursor
 	if (m_nMaxSize == 0) {
 		if ((pRect->right - pRect->left) < (pRect->bottom - pRect->top)) {
@@ -208,7 +208,7 @@ void PulseBlockCursor::Draw(LPRECT pRect) {
 			m_nMaxSize = (pRect->bottom - pRect->top) >> 1;
 		}
 	}
-	
+
 	if (m_bActive) {
 		RECT rect;
 		::CopyMemory(&rect, pRect, sizeof(RECT));
@@ -226,13 +226,13 @@ void PulseBlockCursor::Draw(LPRECT pRect) {
 /////////////////////////////////////////////////////////////////////////////
 
 void PulseBlockCursor::PrepareNext() {
-	
+
 	if (m_nSize == 0) {
 		m_nStep = 1;
 	} else if (m_nSize == m_nMaxSize) {
 		m_nStep = -1;
 	}
-	
+
 	m_nSize += m_nStep;
 }
 
@@ -256,9 +256,9 @@ BarCursor::BarCursor(HWND hwndParent, HDC hdcWindow, COLORREF crCursorColor)
 }
 
 BarCursor::~BarCursor() {
-	
+
 	if (m_uiTimer) ::KillTimer(m_hwndParent, m_uiTimer);
-	
+
 	::DeleteObject(m_hPen);
 }
 
@@ -268,7 +268,7 @@ BarCursor::~BarCursor() {
 /////////////////////////////////////////////////////////////////////////////
 
 void BarCursor::Draw(LPRECT pRect) {
-	
+
 	if (m_bActive && m_bVisible) {
 		HPEN hOldPen = (HPEN)::SelectObject(m_hdcWindow, m_hPen);
 		::MoveToEx(m_hdcWindow, pRect->left, pRect->top, NULL);
@@ -283,7 +283,7 @@ void BarCursor::Draw(LPRECT pRect) {
 /////////////////////////////////////////////////////////////////////////////
 
 void BarCursor::PrepareNext() {
-	
+
 	m_bVisible = !m_bVisible;
 }
 
@@ -308,7 +308,7 @@ ConsoleCursor::ConsoleCursor(HWND hwndParent, HDC hdcWindow, COLORREF crCursorCo
 }
 
 ConsoleCursor::~ConsoleCursor() {
-	
+
 	if (m_uiTimer) ::KillTimer(m_hwndParent, m_uiTimer);
 	::DeleteObject(m_hActiveBrush);
 	::CloseHandle(m_hStdOut);
@@ -320,7 +320,7 @@ ConsoleCursor::~ConsoleCursor() {
 /////////////////////////////////////////////////////////////////////////////
 
 void ConsoleCursor::Draw(LPRECT pRect) {
-	
+
 	RECT rect;
 
 	::CopyMemory(&rect, pRect, sizeof(RECT));
@@ -345,7 +345,7 @@ void ConsoleCursor::Draw(LPRECT pRect) {
 /////////////////////////////////////////////////////////////////////////////
 
 void ConsoleCursor::PrepareNext() {
-	
+
 	m_bVisible = !m_bVisible;
 }
 
@@ -367,7 +367,7 @@ NBHLineCursor::NBHLineCursor(HWND hwndParent, HDC hdcWindow, COLORREF crCursorCo
 }
 
 NBHLineCursor::~NBHLineCursor() {
-	
+
 	::DeleteObject(m_hPen);
 }
 
@@ -377,7 +377,7 @@ NBHLineCursor::~NBHLineCursor() {
 /////////////////////////////////////////////////////////////////////////////
 
 void NBHLineCursor::Draw(LPRECT pRect) {
-	
+
 	HPEN hOldPen = (HPEN)::SelectObject(m_hdcWindow, m_hPen);
 	::MoveToEx(m_hdcWindow, pRect->left, pRect->bottom-1, NULL);
 	::LineTo(m_hdcWindow, pRect->right, pRect->bottom-1);
@@ -390,7 +390,7 @@ void NBHLineCursor::Draw(LPRECT pRect) {
 /////////////////////////////////////////////////////////////////////////////
 
 void NBHLineCursor::PrepareNext() {
-	
+
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -415,9 +415,9 @@ HLineCursor::HLineCursor(HWND hwndParent, HDC hdcWindow, COLORREF crCursorColor)
 }
 
 HLineCursor::~HLineCursor() {
-	
+
 	if (m_uiTimer) ::KillTimer(m_hwndParent, m_uiTimer);
-	
+
 	::DeleteObject(m_hPen);
 }
 
@@ -481,9 +481,9 @@ VLineCursor::VLineCursor(HWND hwndParent, HDC hdcWindow, COLORREF crCursorColor)
 }
 
 VLineCursor::~VLineCursor() {
-	
+
 	if (m_uiTimer) ::KillTimer(m_hwndParent, m_uiTimer);
-	
+
 	::DeleteObject(m_hPen);
 }
 
@@ -493,14 +493,14 @@ VLineCursor::~VLineCursor() {
 /////////////////////////////////////////////////////////////////////////////
 
 void VLineCursor::Draw(LPRECT pRect) {
-	
+
 	// this is called only once, to set the size of the cursor
 	if (m_nSize != (pRect->right - pRect->left - 1)) {
 		m_nSize = pRect->right - pRect->left - 1;
 		m_nPosition = 0;
 		m_nStep = 1;
 	}
-	
+
 	if (m_bActive) {
 		HPEN hOldPen = (HPEN)::SelectObject(m_hdcWindow, m_hPen);
 		::MoveToEx(m_hdcWindow, pRect->left + m_nPosition, pRect->top, NULL);
@@ -515,13 +515,13 @@ void VLineCursor::Draw(LPRECT pRect) {
 /////////////////////////////////////////////////////////////////////////////
 
 void VLineCursor::PrepareNext() {
-	
+
 	if (m_nPosition == 0) {
 		m_nStep = 1;
 	} else if (m_nPosition == m_nSize) {
 		m_nStep = -1;
 	}
-	
+
 	m_nPosition += m_nStep;
 }
 
@@ -545,7 +545,7 @@ RectCursor::RectCursor(HWND hwndParent, HDC hdcWindow, COLORREF crCursorColor)
 }
 
 RectCursor::~RectCursor() {
-	
+
 	if (m_uiTimer) ::KillTimer(m_hwndParent, m_uiTimer);
 	::DeleteObject(m_hActiveBrush);
 }
@@ -556,9 +556,9 @@ RectCursor::~RectCursor() {
 /////////////////////////////////////////////////////////////////////////////
 
 void RectCursor::Draw(LPRECT pRect) {
-	
+
 	if (m_bActive && m_bVisible) {
-		
+
 		::FrameRect(m_hdcWindow, pRect, m_hActiveBrush);
 	}
 }
@@ -569,7 +569,7 @@ void RectCursor::Draw(LPRECT pRect) {
 /////////////////////////////////////////////////////////////////////////////
 
 void RectCursor::PrepareNext() {
-	
+
 	m_bVisible = !m_bVisible;
 }
 
@@ -591,7 +591,7 @@ NBRectCursor::NBRectCursor(HWND hwndParent, HDC hdcWindow, COLORREF crCursorColo
 }
 
 NBRectCursor::~NBRectCursor() {
-	
+
 	::DeleteObject(m_hActiveBrush);
 }
 
@@ -601,7 +601,7 @@ NBRectCursor::~NBRectCursor() {
 /////////////////////////////////////////////////////////////////////////////
 
 void NBRectCursor::Draw(LPRECT pRect) {
-	
+
 	::FrameRect(m_hdcWindow, pRect, m_hActiveBrush);
 }
 
@@ -636,7 +636,7 @@ PulseRectCursor::PulseRectCursor(HWND hwndParent, HDC hdcWindow, COLORREF crCurs
 }
 
 PulseRectCursor::~PulseRectCursor() {
-	
+
 	if (m_uiTimer) ::KillTimer(m_hwndParent, m_uiTimer);
 	::DeleteObject(m_hActiveBrush);
 }
@@ -647,7 +647,7 @@ PulseRectCursor::~PulseRectCursor() {
 /////////////////////////////////////////////////////////////////////////////
 
 void PulseRectCursor::Draw(LPRECT pRect) {
-	
+
 	// this is called only once, to set the size of the cursor
 	if (m_nMaxSize == 0) {
 		if ((pRect->right - pRect->left) < (pRect->bottom - pRect->top)) {
@@ -674,13 +674,13 @@ void PulseRectCursor::Draw(LPRECT pRect) {
 /////////////////////////////////////////////////////////////////////////////
 
 void PulseRectCursor::PrepareNext() {
-	
+
 	if (m_nSize == 0) {
 		m_nStep = 1;
 	} else if (m_nSize == m_nMaxSize) {
 		m_nStep = -1;
 	}
-	
+
 	m_nSize += m_nStep;
 }
 
@@ -705,13 +705,13 @@ FadeBlockCursor::FadeBlockCursor(HWND hwndParent, HDC hdcWindow, COLORREF crCurs
 , m_hMemDC(NULL)
 {
 	m_uiTimer = ::SetTimer(hwndParent, CURSOR_TIMER, 35, NULL);
-	
+
 #if 0
 	if (g_bWin2000) {
 		// on Win2000 we use real alpha blending
 
-		// create a reasonable-sized bitmap, since AlphaBlt resizes 
-		// destination rect if needed, and we don't need to redraw the mem DC 
+		// create a reasonable-sized bitmap, since AlphaBlt resizes
+		// destination rect if needed, and we don't need to redraw the mem DC
 		// each time
 		m_nBmpWidth	= BLEND_BMP_WIDTH;
 		m_nBmpHeight= BLEND_BMP_HEIGHT;
@@ -743,7 +743,7 @@ FadeBlockCursor::FadeBlockCursor(HWND hwndParent, HDC hdcWindow, COLORREF crCurs
 }
 
 FadeBlockCursor::~FadeBlockCursor() {
-	
+
 	if (m_uiTimer) ::KillTimer(m_hwndParent, m_uiTimer);
 
 #if 0
@@ -761,10 +761,10 @@ FadeBlockCursor::~FadeBlockCursor() {
 /////////////////////////////////////////////////////////////////////////////
 
 void FadeBlockCursor::Draw(LPRECT pRect) {
-	
+
 #if 0
 	if (g_bWin2000) {
-		
+
 		g_pfnAlphaBlend(
 			m_hdcWindow,
 			pRect->left,
@@ -777,7 +777,7 @@ void FadeBlockCursor::Draw(LPRECT pRect) {
 			BLEND_BMP_WIDTH,
 			BLEND_BMP_HEIGHT,
 			m_bfn);
-		
+
 	} else {
 #endif
 
@@ -800,7 +800,7 @@ void FadeBlockCursor::PrepareNext() {
 		} else if ((DWORD)m_bfn.SourceConstantAlpha + ALPHA_STEP > 255) {
 			m_nStep = -ALPHA_STEP;
 		}
-		
+
 		m_bfn.SourceConstantAlpha += m_nStep;
 	} else {
 #endif
@@ -817,19 +817,19 @@ void FadeBlockCursor::PrepareNext() {
 
 
 /////////////////////////////////////////////////////////////////////////////
-// This function is used to create a fake blending for WinNT (uuseful only 
+// This function is used to create a fake blending for WinNT (uuseful only
 // for solid background, though)
 
 void FadeBlockCursor::FakeBlend() {
-	
+
 	int nDeltaR = ((GetRValue(m_crCursorColor) - GetRValue(m_crBkColor)) << 8) / FADE_STEPS;
 	int nDeltaG = ((GetGValue(m_crCursorColor) - GetGValue(m_crBkColor)) << 8) / FADE_STEPS;
 	int nDeltaB = ((GetBValue(m_crCursorColor) - GetBValue(m_crBkColor)) << 8) / FADE_STEPS;
-	
+
 	for (int i = 0; i < FADE_STEPS; ++i) {
 		m_arrColors[i] = RGB(GetRValue(m_crCursorColor) - (nDeltaR*i >> 8), GetGValue(m_crCursorColor) - (nDeltaG*i >> 8), GetBValue(m_crCursorColor) - (nDeltaB*i >> 8));
 	}
-	
+
 	m_arrColors[FADE_STEPS] = m_crBkColor;
 }
 
@@ -839,4 +839,5 @@ void FadeBlockCursor::FakeBlend() {
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
 

@@ -9,17 +9,17 @@
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA	02111-1307	USA
 //
 // Send bug reports, bug fixes, enhancements, requests, flames, etc., and
-// I'll try to keep a version up to date.  I can be reached as follows:
-//    marko.bozikovic@alterbox.net
-//    bozho@kset.org
+// I'll try to keep a version up to date.	I can be reached as follows:
+//	marko.bozikovic@alterbox.net
+//	bozho@kset.org
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -72,8 +72,8 @@ BOOL CAboutDlg::DoModal()
 {
 	::DialogBox(
 		ghInstance,
-		MAKEINTRESOURCE(IDD_ABOUT), 
-		m_hWndParent, 
+		MAKEINTRESOURCE(IDD_ABOUT),
+		m_hWndParent,
 		CAboutDlg::DialogProc);
 
 	return TRUE;
@@ -106,7 +106,7 @@ int CALLBACK CAboutDlg::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARA
 					break;
 			}
 	}
-			
+
 	return 0;
 }
 
@@ -116,6 +116,7 @@ int CALLBACK CAboutDlg::DialogProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARA
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+
 
 
 

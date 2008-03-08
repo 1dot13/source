@@ -14,8 +14,8 @@
 	#include "WinFont.h"
 #endif
 
-INT32          giCurWinFont = 0;
-BOOLEAN        gfUseWinFonts = FALSE;
+INT32		  giCurWinFont = 0;
+BOOLEAN		gfUseWinFonts = FALSE;
 
 
 // Global variables for video objects
@@ -31,14 +31,14 @@ HVOBJECT				gvoTinyFontType1;
 INT32						gp12PointFont1;
 HVOBJECT				gvo12PointFont1;
 
-INT32           gpClockFont;
-HVOBJECT        gvoClockFont;
+INT32			gpClockFont;
+HVOBJECT		gvoClockFont;
 
-INT32           gpCompFont;
-HVOBJECT        gvoCompFont;
+INT32			gpCompFont;
+HVOBJECT		gvoCompFont;
 
-INT32           gpSmallCompFont;
-HVOBJECT        gvoSmallCompFont;
+INT32			gpSmallCompFont;
+HVOBJECT		gvoSmallCompFont;
 
 INT32						gp10PointRoman;
 HVOBJECT				gvo10PointRoman;
@@ -64,10 +64,10 @@ HVOBJECT				gvo14PointArial;
 INT32						gp12PointArial;
 HVOBJECT				gvo12PointArial;
 
-INT32           gpBlockyFont;
+INT32			gpBlockyFont;
 HVOBJECT				gvoBlockyFont;
 
-INT32           gpBlockyFont2;
+INT32			gpBlockyFont2;
 HVOBJECT				gvoBlockyFont2;
 
 INT32						gp12PointArialFixedFont;
@@ -87,7 +87,7 @@ HVOBJECT				gvo14PointHumanist;
 	HVOBJECT			gvoHugeFont;
 #endif
 
-INT32          giSubTitleWinFont;
+INT32		  giSubTitleWinFont;
 
 
 
@@ -100,8 +100,8 @@ extern UINT16 gzFontName[32];
 
 BOOLEAN	InitializeFonts( )
 {
-	//INT16   zWinFontName[128]; // unused (jonathanl)
-	//COLORVAL Color;			 // usused (jonathanl)
+	//INT16	zWinFontName[128]; // unused (jonathanl)
+	//COLORVAL Color;			// usused (jonathanl)
 
 	// Initialize fonts
 //	gpLargeFontType1  = LoadFontFile( "FONTS\\lfont1.sti" );
@@ -180,12 +180,12 @@ BOOLEAN	InitializeFonts( )
   gp12PointArial  = LoadFontFile( "FONTS\\FONT12ARIAL.sti" );
   gvo12PointArial = GetFontObject( gp12PointArial);
   CHECKF( CreateFontPaletteTables( gvo12PointArial) );
-  
+
 //	gpBlockyFont  = LoadFontFile( "FONTS\\FONT2.sti" );
 	gpBlockyFont  = LoadFontFile( "FONTS\\BLOCKFONT.sti" );
   gvoBlockyFont = GetFontObject( gpBlockyFont);
   CHECKF( CreateFontPaletteTables( gvoBlockyFont) );
- 
+
 //	gpBlockyFont2  = LoadFontFile( "FONTS\\interface_font.sti" );
 	gpBlockyFont2  = LoadFontFile( "FONTS\\BLOCKFONT2.sti" );
   gvoBlockyFont2 = GetFontObject( gpBlockyFont2);
@@ -195,11 +195,11 @@ BOOLEAN	InitializeFonts( )
 	gp12PointArialFixedFont = LoadFontFile( "FONTS\\FONT12ARIALFIXEDWIDTH.sti" );
 	gvo12PointArialFixedFont = GetFontObject( gp12PointArialFixedFont );
 	CHECKF( CreateFontPaletteTables( gvo12PointArialFixedFont ) );
-	
+
 	gp16PointArial = LoadFontFile( "FONTS\\FONT16ARIAL.sti" );
 	gvo16PointArial = GetFontObject( gp16PointArial );
 	CHECKF( CreateFontPaletteTables( gvo16PointArial ) );
-	
+
 	gpBlockFontNarrow = LoadFontFile( "FONTS\\BLOCKFONTNARROW.sti" );
 	gvoBlockFontNarrow = GetFontObject( gpBlockFontNarrow );
 	CHECKF( CreateFontPaletteTables( gvoBlockFontNarrow ) );
@@ -213,7 +213,7 @@ BOOLEAN	InitializeFonts( )
 		gvoHugeFont = GetFontObject( gpHugeFont );
 		CHECKF( CreateFontPaletteTables( gvoHugeFont ) );
 	#endif
-	
+
 	// Set default for font system
 	SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
@@ -228,7 +228,7 @@ BOOLEAN	InitializeFonts( )
 	giSubTitleWinFont = CreateWinFont( -16, 0, 0,  0, FALSE, FALSE, FALSE, L"·s²Ó©úÅé", CHINESEBIG5_CHARSET );
 
   SET_USE_WINFONTS( TRUE );
-  SET_WINFONT( giSubTitleWinFont ); 
+  SET_WINFONT( giSubTitleWinFont );
   Color = FROMRGB( 255, 255, 255 );
   SetWinFontForeColor( giSubTitleWinFont, &Color );
 	PrintWinFont( FRAME_BUFFER, giSubTitleWinFont, 10, 100, L"Font %s initialized", gzFontName );
@@ -265,7 +265,7 @@ void ShutdownFonts( )
 
   // ATE: Shutdown any win fonts
 #ifdef WINFONTS
-    DeleteWinFont( giSubTitleWinFont );
+	DeleteWinFont( giSubTitleWinFont );
 #endif
 }
 
@@ -316,7 +316,7 @@ UINT16 CreateFontPaletteTables(HVOBJECT pObj )
 
 	pObj->pShades[ FONT_SHADE_WHITE ]=Create16BPPPaletteShaded( pObj->pPaletteEntry, 255, 255, 255, TRUE);
 
-		
+
 	// the rest are darkening tables, right down to all-black.
 	pObj->pShades[0]=Create16BPPPaletteShaded( pObj->pPaletteEntry, 165, 165, 165, FALSE);
 	pObj->pShades[7]=Create16BPPPaletteShaded( pObj->pPaletteEntry, 135, 135, 135, FALSE);
@@ -334,23 +334,23 @@ UINT16 CreateFontPaletteTables(HVOBJECT pObj )
 
 	// check to make sure every table got a palette
 	//for(count=0; (count < HVOBJECT_SHADE_TABLES) && (pObj->pShades[count]!=NULL); count++);
-	
+
 	// return the result of the check
 	//return(count==HVOBJECT_SHADE_TABLES);
 	return(TRUE);
 }
 
-UINT16    WFGetFontHeight( INT32 FontNum )
+UINT16	WFGetFontHeight( INT32 FontNum )
 {
   if ( USE_WINFONTS( ) )
   {
 		// return how many Y pixels we used
-	  return( GetWinFontHeight( L"a\0", GET_WINFONT( ) ) );
+	return( GetWinFontHeight( L"a\0", GET_WINFONT( ) ) );
   }
   else
   {
 		// return how many Y pixels we used
-	  return( GetFontHeight( FontNum ) );
+	return( GetFontHeight( FontNum ) );
   }
 }
 
@@ -360,13 +360,14 @@ INT16 WFStringPixLength( STR16 string,INT32 UseFont )
   if ( USE_WINFONTS( ) )
   {
 		// return how many Y pixels we used
-	  return( WinFontStringPixLength( string, GET_WINFONT( ) ) );
+	return( WinFontStringPixLength( string, GET_WINFONT( ) ) );
   }
   else
   {
 		// return how many Y pixels we used
-	  return( StringPixLength( string, UseFont ) );
+	return( StringPixLength( string, UseFont ) );
   }
 }
+
 
 

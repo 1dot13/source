@@ -7,12 +7,12 @@
 
 
 struct strategicmapelement{
-	UINT8 UNUSEDuiFootEta[4];          // eta/mvt costs for feet 
-	UINT8 UNUSEDuiVehicleEta[4];       // eta/mvt costs for vehicles 
-	UINT8 uiBadFootSector[4];    // blocking mvt for foot
+	UINT8 UNUSEDuiFootEta[4];			// eta/mvt costs for feet 
+	UINT8 UNUSEDuiVehicleEta[4];		// eta/mvt costs for vehicles 
+	UINT8 uiBadFootSector[4];	// blocking mvt for foot
 	UINT8 uiBadVehicleSector[4]; // blocking mvt from vehicles
-	INT8  bNameId;
-	BOOLEAN fEnemyControlled;   // enemy controlled or not
+	INT8	bNameId;
+	BOOLEAN fEnemyControlled;	// enemy controlled or not
 	BOOLEAN fEnemyAirControlled;
 	BOOLEAN UNUSEDfLostControlAtSomeTime;
 	INT8 bSAMCondition; // SAM Condition .. 0 - 100, just like an item's status

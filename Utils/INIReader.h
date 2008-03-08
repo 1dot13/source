@@ -10,14 +10,14 @@
 class CIniReader
 {
 public:
-	CIniReader(const STR8  szFileName);
-	int ReadInteger(const STR8  szSection, const STR8  szKey, int iDefaultValue);
-	int ReadInteger(const STR8  szSection, const STR8  szKey, int iDefaultValue, int iMinValue, int iMaxValue);
-	float ReadFloat(const STR8  szSection, const STR8  szKey, float fltDefaultValue);
-	bool ReadBoolean(const STR8  szSection, const STR8  szKey, bool bolDefaultValue);
-	STR8  ReadString(const STR8  szSection, const STR8  szKey, const STR8  szDefaultValue);
+	CIniReader(const STR8	szFileName);
+	int ReadInteger(const STR8	szSection, const STR8	szKey, int iDefaultValue);
+	int ReadInteger(const STR8	szSection, const STR8	szKey, int iDefaultValue, int iMinValue, int iMaxValue);
+	float ReadFloat(const STR8	szSection, const STR8	szKey, float fltDefaultValue);
+	bool ReadBoolean(const STR8	szSection, const STR8	szKey, bool bolDefaultValue);
+	STR8	ReadString(const STR8	szSection, const STR8	szKey, const STR8	szDefaultValue);
 private:
-  char m_szFileName[MAX_PATH];
+	char m_szFileName[MAX_PATH];
 };
 
 #endif//INIREADER_H

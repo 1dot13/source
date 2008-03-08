@@ -31,7 +31,7 @@ INT32 GetFirstFemaleSlot();
 INT32 GetLastFemaleSlot();
 
 // This returns a count of how any slots along we are in the potential
-// slot list.  Usable for displaying on the "Voice" button in the interface
+// slot list.	Usable for displaying on the "Voice" button in the interface
 // and probably not much else.
 INT32 GetVoiceCountFromVoiceSlot(INT32 iSlot);
 

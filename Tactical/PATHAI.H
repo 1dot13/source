@@ -1,7 +1,7 @@
 /*
-	Filename        :       pathai.h
-	Author          :       Ray E. Bornert II
-	Date            :       1992-MAR-15
+	Filename		:		pathai.h
+	Author			:		Ray E. Bornert II
+	Date			:		1992-MAR-15
 
 	Copyright (C) 1993 HixoxiH Software
 */
@@ -222,7 +222,7 @@ extern BOOLEAN	gfPathAroundObstacles;
 extern UINT8 gubGlobalPathFlags;
 
 // Ian's terrain values for travelling speed/pathing purposes
-// Fixed by CJC March 4, 1998.  Please do not change these unless familiar
+// Fixed by CJC March 4, 1998.	Please do not change these unless familiar
 // with how this will affect the path code!
 
 #define TRAVELCOST_NONE						0
@@ -290,7 +290,7 @@ extern UINT8 gubGlobalPathFlags;
 
 #define NO_COPYROUTE						0
 #define COPYROUTE								1
-#define COPYREACHABLE           2
+#define COPYREACHABLE			2
 #define COPYREACHABLE_AND_APS		3
 #define FINDCLIMBPOINTS				4
 

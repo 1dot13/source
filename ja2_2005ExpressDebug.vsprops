@@ -6,6 +6,6 @@
 	>
 	<Tool
 		Name="VCCLCompilerTool"
-		PreprocessorDefinitions="JA2BETAVERSION;JA2TESTVERSION;JA2EDITOR;DEBUG_ATTACKBUSY"
+		PreprocessorDefinitions="JA2BETAVERSION;JA2TESTVERSION;DEBUG_ATTACKBUSY"
 	/>
 </VisualStudioPropertySheet>

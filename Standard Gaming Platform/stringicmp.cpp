@@ -2,7 +2,6 @@
 // Snap: Implementation of case-insensitive string comparison classes
 //
 #include "stringicmp.h"
-//#include <cctype>
 #include <ctype.h>
 
 

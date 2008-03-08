@@ -19,19 +19,19 @@
 	#include "vobject.h"
 #endif
 
-// This is the color substituted to keep a 24bpp -> 16bpp color
+// This is the color substituted to keep a 24bpp->16bpp color
 // from going transparent (0x0000) -- DB
 
-#define BLACK_SUBSTITUTE	0x0001	
+#define BLACK_SUBSTITUTE	0x0001
 
 
 UINT16 gusAlphaMask = 0;
 UINT16 gusRedMask = 0;
 UINT16 gusGreenMask = 0;
 UINT16 gusBlueMask = 0;
-INT16  gusRedShift = 0;
-INT16  gusBlueShift = 0;
-INT16  gusGreenShift = 0;
+INT16	gusRedShift = 0;
+INT16	gusBlueShift = 0;
+INT16	gusGreenShift = 0;
 
 
 // this funky union is used for fast 16-bit pixel format conversions
@@ -73,7 +73,7 @@ HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents )
 	do
 	{
 		iFileLoader = UNKNOWN_FILE_READER;
- 
+
 		if ( _stricmp( Extension, "PCX" ) == 0 )
 		{
 			iFileLoader = PCX_FILE_READER;
@@ -113,11 +113,11 @@ HIMAGE CreateImage( SGPFILENAME ImageFile, UINT16 fContents )
 	AssertMsg( hImage, "Failed to allocate memory for hImage in CreateImage");
 	// Initialize some values
 	memset( hImage, 0, sizeof( image_type ) );
-		
+
 	//hImage->fFlags = 0;
 	// Set data pointers to NULL
 	//hImage->pImageData = NULL;
-	//hImage->pPalette   = NULL;
+	//hImage->pPalette	= NULL;
 	//hImage->pui16BPPPalette = NULL;
 
 	// Set filename and loader
@@ -151,7 +151,7 @@ BOOLEAN ReleaseImageData( HIMAGE hImage, UINT16 fContents )
 {
 
 	Assert( hImage != NULL );
-	
+
 	if ( (fContents & IMAGE_PALETTE) && (hImage->fFlags & IMAGE_PALETTE) )
 	{
 		//Destroy palette
@@ -170,7 +170,7 @@ BOOLEAN ReleaseImageData( HIMAGE hImage, UINT16 fContents )
 		// Remove contents flag
 		hImage->fFlags = hImage->fFlags ^ IMAGE_PALETTE;
 	}
-	
+
 	if ( (fContents & IMAGE_BITMAPDATA) && (hImage->fFlags & IMAGE_BITMAPDATA) )
 	{
 		//Destroy image data
@@ -204,7 +204,7 @@ BOOLEAN LoadImageData( HIMAGE hImage, UINT16 fContents )
 
 	Assert( hImage != NULL );
 
-	// Switch on file loader	
+	// Switch on file loader
 	switch( hImage->iFileLoader )
 	{
 		case TGA_FILE_READER:
@@ -226,7 +226,7 @@ BOOLEAN LoadImageData( HIMAGE hImage, UINT16 fContents )
 			DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_2, "Unknown image loader was specified." );
 
 	}
-	
+
 	if ( !fReturnVal )
 	{
 		DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_2, "Error occured while reading image data." );
@@ -253,7 +253,7 @@ BOOLEAN CopyImageToBuffer( HIMAGE hImage, UINT32 fBufferType, BYTE *pDestBuf, UI
 
 		// Default do here
 		DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_2, "Copying 8 BPP Imagery." );
-		return ( Copy8BPPImageTo8BPPBuffer( hImage, pDestBuf, usDestWidth, usDestHeight, usX, usY, srcRect ) );			
+		return ( Copy8BPPImageTo8BPPBuffer( hImage, pDestBuf, usDestWidth, usDestHeight, usX, usY, srcRect ) );
 
 	}
 
@@ -303,7 +303,7 @@ BOOLEAN Copy8BPPCompressedImageTo8BPPBuffer( HIMAGE hImage, BYTE *pDestBuf, UINT
 
 	UINT8 *	pDest;
 	UINT32	uiDestStart;
-	
+
 	UINT8 *	pScanLine;
 
 	PTR			pDecompPtr;
@@ -386,7 +386,7 @@ BOOLEAN Copy8BPPCompressedImageTo16BPPBuffer( HIMAGE hImage, BYTE *pDestBuf, UIN
 	UINT16 *	pDest;
 	UINT16 *	pDestTemp;
 	UINT32		uiDestStart;
-	
+
 	UINT8 *		pScanLine;
 	UINT8 *		pScanLineTemp;
 
@@ -454,8 +454,8 @@ BOOLEAN Copy8BPPCompressedImageTo16BPPBuffer( HIMAGE hImage, BYTE *pDestBuf, UIN
 		// decompress a scanline
 		uiDecompressed = Decompress( pDecompPtr, pScanLine, hImage->usWidth );
 		Assert( uiDecompressed == hImage->usWidth );
-		
-		// set pointers and blit	
+
+		// set pointers and blit
 		pDestTemp = pDest;
 		pScanLineTemp = pScanLine + srcRect->iLeft;
 		for (uiCol = 0; uiCol < uiLineSize; uiCol++ )
@@ -466,9 +466,9 @@ BOOLEAN Copy8BPPCompressedImageTo16BPPBuffer( HIMAGE hImage, BYTE *pDestBuf, UIN
 		}
 		pDest += usDestWidth;
 	}
-	
+
 	DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, String( "End Copying at %p", pDest ) );
-	
+
 	DecompressFini( pDecompPtr );
 	return( TRUE );
 }
@@ -508,16 +508,16 @@ BOOLEAN Copy8BPPImageTo8BPPBuffer( HIMAGE hImage, BYTE *pDestBuf, UINT16 usDestW
 
 	Assert( usDestWidth >= uiLineSize );
 	Assert( usDestHeight >= uiNumLines );
-	
+
 	// Copy line by line
 	pDest = ( UINT8*)pDestBuf + uiDestStart;
-	pSrc =  hImage->p8BPPData + uiSrcStart;
+	pSrc =	hImage->p8BPPData + uiSrcStart;
 
 	for( cnt = 0; cnt < uiNumLines-1; cnt++ )
 	{
 		memcpy( pDest, pSrc, uiLineSize );
 		pDest += usDestWidth;
-		pSrc  += hImage->usWidth;
+		pSrc	+= hImage->usWidth;
 	}
 	// Do last line
 	memcpy( pDest, pSrc, uiLineSize );
@@ -551,16 +551,16 @@ BOOLEAN Copy16BPPImageTo16BPPBuffer( HIMAGE hImage, BYTE *pDestBuf, UINT16 usDes
 
 	CHECKF( usDestWidth >= uiLineSize );
 	CHECKF( usDestHeight >= uiNumLines );
-	
+
 	// Copy line by line
 	pDest = ( UINT16*)pDestBuf + uiDestStart;
-	pSrc =  hImage->p16BPPData + uiSrcStart;
+	pSrc =	hImage->p16BPPData + uiSrcStart;
 
 	for( cnt = 0; cnt < uiNumLines-1; cnt++ )
 	{
 		memcpy( pDest, pSrc, uiLineSize * 2 );
 		pDest += usDestWidth;
-		pSrc  += hImage->usWidth;
+		pSrc	+= hImage->usWidth;
 	}
 	// Do last line
 	memcpy( pDest, pSrc, uiLineSize * 2 );
@@ -586,11 +586,11 @@ BOOLEAN Copy8BPPImageTo16BPPBuffer( HIMAGE hImage, BYTE *pDestBuf, UINT16 usDest
 {
 	UINT32 uiSrcStart, uiDestStart, uiNumLines, uiLineSize;
 	UINT32 rows, cols;
-	UINT8  *pSrc, *pSrcTemp;
+	UINT8	*pSrc, *pSrcTemp;
 	UINT16 *pDest, *pDestTemp;
 	UINT16 *p16BPPPalette;
 
-	
+
 	p16BPPPalette = hImage->pui16BPPPalette;
 
 	// Assertions
@@ -614,10 +614,10 @@ BOOLEAN Copy8BPPImageTo16BPPBuffer( HIMAGE hImage, BYTE *pDestBuf, UINT16 usDest
 
 	CHECKF( usDestWidth >= uiLineSize );
 	CHECKF( usDestHeight >= uiNumLines );
-	
+
 	// Convert to Pixel specification
 	pDest = ( UINT16*)pDestBuf + uiDestStart;
-	pSrc =  hImage->p8BPPData + uiSrcStart;
+	pSrc =	hImage->p8BPPData + uiSrcStart;
 	DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, String( "Start Copying at %p", pDest ) );
 
 	// For every entry, look up into 16BPP palette
@@ -634,7 +634,7 @@ BOOLEAN Copy8BPPImageTo16BPPBuffer( HIMAGE hImage, BYTE *pDestBuf, UINT16 usDest
 		}
 
 		pDest += usDestWidth;
-		pSrc  += hImage->usWidth;
+		pSrc	+= hImage->usWidth;
 	}
 	// Do last line
 	DbgMessage( TOPIC_HIMAGE, DBG_LEVEL_3, String( "End Copying at %p", pDest ) );
@@ -647,7 +647,7 @@ UINT16 *Create16BPPPalette( SGPPaletteEntry *pPalette )
 {
 	UINT16 *p16BPPPalette, r16, g16, b16, usColor;
 	UINT32 cnt;
-	UINT8	 r,g,b;
+	UINT8	r,g,b;
 
 	Assert( pPalette != NULL );
 
@@ -694,17 +694,17 @@ UINT16 *Create16BPPPalette( SGPPaletteEntry *pPalette )
 
 /**********************************************************************************************
  Create16BPPPaletteShaded
-	
-	Creates an 8 bit to 16 bit palette table, and modifies the colors as it builds.	
-	
+
+	Creates an 8 bit to 16 bit palette table, and modifies the colors as it builds.
+
 	Parameters:
-		rscale, gscale, bscale: 
+		rscale, gscale, bscale:
 				Color mode: Percentages (255=100%) of color to translate into destination palette.
-				Mono mode:  Color for monochrome palette.
+				Mono mode:	Color for monochrome palette.
 		mono:
-				TRUE or FALSE to create a monochrome palette. In mono mode, Luminance values for 
+				TRUE or FALSE to create a monochrome palette. In mono mode, Luminance values for
 				colors are calculated, and the RGB color is shaded according to each pixel's brightness.
-		
+
 	This can be used in several ways:
 
 	1) To "brighten" a palette, pass down RGB values that are higher than 100% ( > 255) for all
@@ -721,7 +721,7 @@ UINT16 *Create16BPPPaletteShaded( SGPPaletteEntry *pPalette, UINT32 rscale, UINT
 	UINT16 *p16BPPPalette, r16, g16, b16, usColor;
 	UINT32 cnt, lumin;
 	UINT32 rmod, gmod, bmod;
-	UINT8	 r,g,b;
+	UINT8	r,g,b;
 
 	Assert( pPalette != NULL );
 
@@ -743,7 +743,7 @@ UINT16 *Create16BPPPaletteShaded( SGPPaletteEntry *pPalette, UINT32 rscale, UINT
 			gmod = (gscale*pPalette[ cnt ].peGreen/256);
 			bmod = (bscale*pPalette[ cnt ].peBlue/256);
 		}
-		
+
 		r = (UINT8)__min(rmod, 255);
 		g = (UINT8)__min(gmod, 255);
 		b = (UINT8)__min(bmod, 255);
@@ -784,7 +784,7 @@ UINT16 *Create16BPPPaletteShaded( SGPPaletteEntry *pPalette, UINT32 rscale, UINT
 UINT16 Get16BPPColor( UINT32 RGBValue )
 {
 	UINT16 r16, g16, b16, usColor = 0;
-	UINT8  r, g, b;
+	UINT8	r,g,b;
 
 	r = SGPGetRValue( RGBValue );
 	g = SGPGetGValue( RGBValue );
@@ -864,10 +864,10 @@ UINT32 GetRGBColor( UINT16 Value16BPP )
 //
 // Parameter List : Converts from RGB to SGPPaletteEntry
 //
-// Return Value  pointer to the SGPPaletteEntry
-//               
+// Return Value	pointer to the SGPPaletteEntry
+//
 // Modification History :
-// Dec 15th 1996 -> modified for use by Wizardry
+// Dec 15th 1996->modified for use by Wizardry
 //
 //*****************************************************************************
 
@@ -881,8 +881,8 @@ SGPPaletteEntry *ConvertRGBToPaletteEntry(UINT8 sbStart, UINT8 sbEnd, UINT8 *pOl
 	memset( pPalEntry, 0, sizeof(SGPPaletteEntry) * 256 );
 	pInitEntry = pPalEntry;
 
-	DbgMessage(TOPIC_HIMAGE, DBG_LEVEL_0, "Converting RGB palette to SGPPaletteEntry");   
-	
+	DbgMessage(TOPIC_HIMAGE, DBG_LEVEL_0, "Converting RGB palette to SGPPaletteEntry");
+
 	for(Index=0; Index <= (sbEnd-sbStart);Index++)
 	{
 		pPalEntry->peRed = *(pOldPalette + (Index*3));
@@ -892,7 +892,7 @@ SGPPaletteEntry *ConvertRGBToPaletteEntry(UINT8 sbStart, UINT8 sbEnd, UINT8 *pOl
 		pPalEntry++;
 	}
 	return pInitEntry;
-} 
+}
 
 BOOLEAN GetETRLEImageData( HIMAGE hImage, ETRLEData *pBuffer )
 {
@@ -928,7 +928,7 @@ void ConvertRGBDistribution565To555( UINT16 * p16BPPData, UINT32 uiNumberOfPixel
 {
 	UINT16 *	pPixel;
 	UINT32		uiLoop;
-	
+
 	SplitUINT32		Pixel;
 
 	pPixel = p16BPPData;
@@ -956,7 +956,7 @@ void ConvertRGBDistribution565To655( UINT16 * p16BPPData, UINT32 uiNumberOfPixel
 {
 	UINT16 *	pPixel;
 	UINT32		uiLoop;
-	
+
 	SplitUINT32		Pixel;
 
 	pPixel = p16BPPData;
@@ -983,7 +983,7 @@ void ConvertRGBDistribution565To556( UINT16 * p16BPPData, UINT32 uiNumberOfPixel
 {
 	UINT16 *	pPixel;
 	UINT32		uiLoop;
-	
+
 	SplitUINT32		Pixel;
 
 	pPixel = p16BPPData;

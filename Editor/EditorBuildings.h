@@ -33,7 +33,7 @@ typedef struct BUILDINGLAYOUTNODE
 extern BUILDINGLAYOUTNODE *gpBuildingLayoutList;
 extern INT16 gsBuildingLayoutAnchorGridNo;
 
-//The first step is copying a building.  After that, it either must be pasted or moved.
+//The first step is copying a building.	After that, it either must be pasted or moved.
 void CopyBuilding( INT32 iMapIndex );
 void MoveBuilding( INT32 iMapIndex );
 void PasteBuilding( INT32 iMapIndex );

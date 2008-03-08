@@ -8,7 +8,7 @@ typedef struct MAPEDGEPOINTINFO
 {
 	UINT8 ubNumPoints;
 	UINT8 ubStrategicInsertionCode;
-	UINT16 sGridNo[ 32 ];
+	INT16 sGridNo[ 32 ];
 }MAPEDGEPOINTINFO;
 
 UINT16 ChooseMapEdgepoint( UINT8 ubStrategicInsertionCode );
@@ -55,10 +55,10 @@ extern UINT16 gus2ndSouthEdgepointMiddleIndex;
 extern UINT16 gus2ndWestEdgepointMiddleIndex;
 
 //This is the search code that will determine the closest map edgepoint to a given gridno and
-//a strategic insertion code.  You must call the begin...() first, the call SearchForClosestMapEdgepoint() 
-//for each soldier that is looking.  After you are completely finished, call the end..().  The return value
+//a strategic insertion code.	You must call the begin...() first, the call SearchForClosestMapEdgepoint() 
+//for each soldier that is looking.	After you are completely finished, call the end..().	The return value
 //will return NOWHERE if the information is invalid (no edgepoint info for that particular side, or all
-//spots are reserved.  There are only 20 spots that can be reserved (one for each player soldier).  This
+//spots are reserved.	There are only 20 spots that can be reserved (one for each player soldier).	This
 //code shouldn't be used for enemies or anybody else.
 void BeginMapEdgepointSearch();
 void EndMapEdgepointSearch();
@@ -66,10 +66,10 @@ INT16 SearchForClosestPrimaryMapEdgepoint( INT16 sGridNo, UINT8 ubInsertionCode 
 INT16 SearchForClosestSecondaryMapEdgepoint( INT16 sGridNo, UINT8 ubInsertionCode );
 
 //There are two classes of edgepoints.
-//PRIMARY		: The default list of edgepoints.  This list includes edgepoints that are easily accessible from the 
+//PRIMARY		: The default list of edgepoints.	This list includes edgepoints that are easily accessible from the 
 //						strategic level.
-//SECONDARY	: The isolated list of edgepoints.  Certain areas of the game are blocked off, but tactically traversing 
-//						to these areas is possible.  Examples would be isolated sections of Grumm or Alma, which you can't 
+//SECONDARY	: The isolated list of edgepoints.	Certain areas of the game are blocked off, but tactically traversing 
+//						to these areas is possible.	Examples would be isolated sections of Grumm or Alma, which you can't 
 //						immediately
 //		
 UINT8 CalcMapEdgepointClassInsertionCode( INT16 sGridNo );

@@ -69,17 +69,14 @@ BUILDING * GenerateBuilding( INT16 sDesiredSpot )
 		return( NULL );
 	}
 
-	// WDS - Clean up inventory handling
 	// set up fake soldier for location testing
-//	memset( &FakeSoldier, 0, SIZEOF_SOLDIERTYPE );
 #if 0
-	FakeSoldier.initialize();
 	FakeSoldier.sGridNo = sDesiredSpot;
-	FakeSoldier.bLevel = 1;
+	FakeSoldier.pathing.bLevel = 1;
 	FakeSoldier.bTeam = 1;
 #endif
 
-	// Set reachable 
+	// Set reachable
 	RoofReachableTest( sDesiredSpot, ubBuildingID );
 
 	// 0verhaul:  The RoofReachableTest now finds ALL of the climb points for each climbable building, instead of a max of
@@ -90,8 +87,8 @@ BUILDING * GenerateBuilding( INT16 sDesiredSpot )
 	// From sGridNo, search until we find a spot that isn't part of the building
 	ubDirection = NORTHWEST;
 	sTempGridNo = sDesiredSpot;
-	// using diagonal directions to hopefully prevent picking a 
-	// spot that 
+	// using diagonal directions to hopefully prevent picking a
+	// spot that
 	while( (gpWorldLevelData[ sTempGridNo ].uiFlags & MAPELEMENT_REACHABLE ) )
 	{
 		sNextTempGridNo = NewGridNo( sTempGridNo, DirectionInc( ubDirection ) );
@@ -104,7 +101,7 @@ BUILDING * GenerateBuilding( INT16 sDesiredSpot )
 		{
 			sTempGridNo = sNextTempGridNo;
 		}
-	} 
+	}
 
 	// we've got our spot
 	sStartGridNo = sTempGridNo;
@@ -222,8 +219,8 @@ BUILDING * GenerateBuilding( INT16 sDesiredSpot )
 
 			gubBuildingInfo[ sCurrGridNo ] = ubBuildingID;
 
-			// consider this location as possible climb gridno		
-			// there must be a regular wall adjacent to this for us to consider it a 
+			// consider this location as possible climb gridno
+			// there must be a regular wall adjacent to this for us to consider it a
 			// climb gridno
 
 			// if the direction is east or north, the wall would be in our gridno;
@@ -283,7 +280,7 @@ BUILDING * GenerateBuilding( INT16 sDesiredSpot )
 					bSkipSpots--;
 				}
 				else if ( Random( uiChanceIn ) == 0 )
-				{		
+				{
 					// don't consider people as obstacles
 					//if ( NewOKDestination( &FakeSoldier, sCurrGridNo, FALSE, 0 ) )
 					{
@@ -309,13 +306,13 @@ BUILDING * GenerateBuilding( INT16 sDesiredSpot )
 					//{
 						// if location is not added, 100% chance of handling next location
 						// and the next until we can add one
-					//	uiChanceIn = 1;					
+						//uiChanceIn = 1;
 
 					//}
 				}
 				else
 				{
-					// didn't pick this location, so increase chance that next location 
+					// didn't pick this location, so increase chance that next location
 					// will be considered
 					if (uiChanceIn > 2)
 					{
@@ -396,7 +393,7 @@ BUILDING * FindBuilding( INT16 sGridNo )
 	{
 		return( NULL );
 		/*
-		// need extra checks to see if is valid spot... 
+		// need extra checks to see if is valid spot...
 		// must have valid room information and be a flat-roofed
 		// building
 		if ( InARoom( sGridNo, &ubRoomNo ) && (FindStructure( sGridNo, STRUCTURE_NORMAL_ROOF ) != NULL) )

@@ -75,8 +75,8 @@ UINT32		guiAccountNumberGrid;
 INT32		giMercTotalContractCharge;
 
 UINT32	guiMercOrderGrid0;
-UINT8		iNumberOfHiredMercs;		
-UINT8		iTotalAccountPages;	
+UINT8		iNumberOfHiredMercs;
+UINT8		iTotalAccountPages;
 UINT8		iCurrentAccountPage;
 INT32		guiAccountButtonImage;
 
@@ -139,7 +139,7 @@ void BtnAccountPrevPageButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
-} 
+}
 
 void BtnAccountNextPageButtonCallback(GUI_BUTTON *btn,INT32 reason)
 {
@@ -176,7 +176,7 @@ void BtnAccountNextPageButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
-} 
+}
 
 INT32 GetNumberOfHiredMercs()
 {
@@ -195,7 +195,7 @@ INT32 GetNumberOfHiredMercs()
 		usMercID = GetMercIDFromMERCArray( i );
 
 		// Is the merc hired?
-		if( IsMercOnTeam( (UINT8)usMercID )  || gMercProfiles[ usMercID ].iMercMercContractLength != 0 )
+		if( IsMercOnTeam( (UINT8)usMercID )	|| gMercProfiles[ usMercID ].iMercMercContractLength != 0 )
 		{
 			uiContractCharge = gMercProfiles[ usMercID ].sSalary * gMercProfiles[ usMercID ].iMercMercContractLength;
 			giMercTotalContractCharge += uiContractCharge;
@@ -220,7 +220,7 @@ BOOLEAN EnterMercsAccount()
 	iCurrentAccountPage = 0;
 
 	iNumberOfHiredMercs = GetNumberOfHiredMercs();
-	
+
 	// Can only display MAX_NUMBER_MERCS mercs per page
 	iTotalAccountPages = iNumberOfHiredMercs / MAX_NUMBER_MERCS_ON_PAGE;
 	mercOverPage = iNumberOfHiredMercs % MAX_NUMBER_MERCS_ON_PAGE;
@@ -232,7 +232,7 @@ BOOLEAN EnterMercsAccount()
 		iTotalAccountPages++;
 
 
-  VOBJECT_DESC    VObjectDesc;
+	VOBJECT_DESC	VObjectDesc;
 
 	InitMercBackGround();
 
@@ -258,46 +258,46 @@ BOOLEAN EnterMercsAccount()
 
 	// Prev Button
 	guiAccountPrevButton = CreateIconAndTextButton( guiAccountButtonImage, MercAccountPageText[0],
-													 FONT12ARIAL, 
-													 MERC_BUTTON_UP_COLOR, DEFAULT_SHADOW, 
-													 MERC_BUTTON_DOWN_COLOR, DEFAULT_SHADOW, 
-													 TEXT_CJUSTIFIED, 
-													 MERC_AC_PREV_BUTTON_X, MERC_AC_PREV_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													 DEFAULT_MOVE_CALLBACK, BtnAccountPrevPageButtonCallback);
+													FONT12ARIAL,
+													MERC_BUTTON_UP_COLOR, DEFAULT_SHADOW,
+													MERC_BUTTON_DOWN_COLOR, DEFAULT_SHADOW,
+													TEXT_CJUSTIFIED,
+													MERC_AC_PREV_BUTTON_X, MERC_AC_PREV_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnAccountPrevPageButtonCallback);
 	SetButtonCursor(guiAccountPrevButton, CURSOR_LAPTOP_SCREEN);
 	SpecifyDisabledButtonStyle( guiAccountPrevButton, DISABLED_STYLE_SHADED);
 
 	// Next Button
 	guiAccountNextButton = CreateIconAndTextButton( guiAccountButtonImage, MercAccountPageText[1],
-													 FONT12ARIAL, 
-													 MERC_BUTTON_UP_COLOR, DEFAULT_SHADOW, 
-													 MERC_BUTTON_DOWN_COLOR, DEFAULT_SHADOW, 
-													 TEXT_CJUSTIFIED, 
-													 MERC_AC_NEXT_BUTTON_X, MERC_AC_NEXT_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													 DEFAULT_MOVE_CALLBACK, BtnAccountNextPageButtonCallback);
+													FONT12ARIAL,
+													MERC_BUTTON_UP_COLOR, DEFAULT_SHADOW,
+													MERC_BUTTON_DOWN_COLOR, DEFAULT_SHADOW,
+													TEXT_CJUSTIFIED,
+													MERC_AC_NEXT_BUTTON_X, MERC_AC_NEXT_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnAccountNextPageButtonCallback);
 	SetButtonCursor(guiAccountNextButton, CURSOR_LAPTOP_SCREEN);
 	SpecifyDisabledButtonStyle( guiAccountNextButton, DISABLED_STYLE_SHADED);
-	
+
 
 	guiMercAuthorizeButtonImage = LoadButtonImage("LAPTOP\\BigButtons.sti", -1,0,-1,1,-1 );
 
 	guiMercAuthorizeBoxButton = CreateIconAndTextButton( guiMercAuthorizeButtonImage, MercAccountText[MERC_ACCOUNT_AUTHORIZE],
-													 FONT12ARIAL, 
-													 MERC_BUTTON_UP_COLOR, DEFAULT_SHADOW, 
-													 MERC_BUTTON_DOWN_COLOR, DEFAULT_SHADOW, 
-													 TEXT_CJUSTIFIED, 
-													 MERC_AC_AUTHORIZE_BUTTON_X, MERC_AC_AUTHORIZE_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													 DEFAULT_MOVE_CALLBACK, BtnMercAuthorizeButtonCallback);
+													FONT12ARIAL,
+													MERC_BUTTON_UP_COLOR, DEFAULT_SHADOW,
+													MERC_BUTTON_DOWN_COLOR, DEFAULT_SHADOW,
+													TEXT_CJUSTIFIED,
+													MERC_AC_AUTHORIZE_BUTTON_X, MERC_AC_AUTHORIZE_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMercAuthorizeButtonCallback);
 	SetButtonCursor(guiMercAuthorizeBoxButton, CURSOR_LAPTOP_SCREEN);
 	SpecifyDisabledButtonStyle( guiMercAuthorizeBoxButton, DISABLED_STYLE_SHADED);
 
 	guiMercBackBoxButton = CreateIconAndTextButton( guiMercAuthorizeButtonImage, MercAccountText[MERC_ACCOUNT_HOME],
-													 FONT12ARIAL, 
-													 MERC_BUTTON_UP_COLOR, DEFAULT_SHADOW, 
-													 MERC_BUTTON_DOWN_COLOR, DEFAULT_SHADOW, 
-													 TEXT_CJUSTIFIED, 
-													 MERC_AC_CANCEL_BUTTON_X, MERC_AC_CANCEL_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
-													 DEFAULT_MOVE_CALLBACK, BtnMercBackButtonCallback);
+													FONT12ARIAL,
+													MERC_BUTTON_UP_COLOR, DEFAULT_SHADOW,
+													MERC_BUTTON_DOWN_COLOR, DEFAULT_SHADOW,
+													TEXT_CJUSTIFIED,
+													MERC_AC_CANCEL_BUTTON_X, MERC_AC_CANCEL_BUTTON_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnMercBackButtonCallback);
 	SetButtonCursor(guiMercBackBoxButton, CURSOR_LAPTOP_SCREEN);
 	SpecifyDisabledButtonStyle( guiMercBackBoxButton, DISABLED_STYLE_SHADED);
 
@@ -342,14 +342,14 @@ void HandleMercsAccount()
 	{
 		gfMercPlayerDoesntHaveEnoughMoney_DisplayWarning = FALSE;
 
-		DoLapTopMessageBox( MSG_BOX_BLUE_ON_GREY, L"Transfer failed.  No funds available.", LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+		DoLapTopMessageBox( MSG_BOX_BLUE_ON_GREY, L"Transfer failed.	No funds available.", LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 	}
 }
 
 void RenderMercsAccount()
 {
 	CHAR16		sText[100];
-  HVOBJECT hPixHandle;
+	HVOBJECT hPixHandle;
 
 	DrawMecBackGround();
 
@@ -378,7 +378,7 @@ void RenderMercsAccount()
 	DrawTextToScreen( MercAccountText[MERC_ACCOUNT_DAYS], MERC_AC_SECOND_COLUMN_X, MERC_AC_MERC_TITLE_Y, MERC_AC_SECOND_COLUMN_WIDTH, MERC_ACCOUNT_TEXT_FONT, MERC_ACCOUNT_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 	DrawTextToScreen( MercAccountText[MERC_ACCOUNT_RATE], MERC_AC_THIRD_COLUMN_X, MERC_AC_MERC_TITLE_Y, MERC_AC_THIRD_COLUMN_WIDTH, MERC_ACCOUNT_TEXT_FONT, MERC_ACCOUNT_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 	DrawTextToScreen( MercAccountText[MERC_ACCOUNT_CHARGE], MERC_AC_FOURTH_COLUMN_X, MERC_AC_MERC_TITLE_Y, MERC_AC_FOURTH_COLUMN_WIDTH, MERC_ACCOUNT_TEXT_FONT, MERC_ACCOUNT_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
-	
+
 	if (iCurrentAccountPage == iTotalAccountPages - 1)
 	{
 		DrawTextToScreen( MercAccountText[MERC_ACCOUNT_TOTAL], MERC_AC_THIRD_COLUMN_X, MERC_AC_TOTAL_COST_Y, MERC_AC_THIRD_COLUMN_WIDTH, MERC_ACCOUNT_TEXT_FONT, MERC_ACCOUNT_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
@@ -386,7 +386,7 @@ void RenderMercsAccount()
 
 	DisplayHiredMercs();
 
-	// giMercTotalContractCharge  gets set with the price in DisplayHiredMercs(), so if there is currently no charge, disable the button
+	// giMercTotalContractCharge	gets set with the price in DisplayHiredMercs(), so if there is currently no charge, disable the button
 	if( giMercTotalContractCharge == 0 )
 	{
 		DisableButton( guiMercAuthorizeBoxButton );
@@ -394,9 +394,9 @@ void RenderMercsAccount()
 
 
 
-  MarkButtonsDirty( );
+	MarkButtonsDirty( );
 	RenderWWWProgramTitleBar( );
-  InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
+	InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
 }
 
 
@@ -434,7 +434,7 @@ void BtnMercAuthorizeButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
-} 
+}
 
 
 void BtnMercBackButtonCallback(GUI_BUTTON *btn,INT32 reason)
@@ -461,12 +461,12 @@ void BtnMercBackButtonCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
-} 
+}
 
 void DisplayHiredMercs()
 {
 	UINT16	usPosY;
-	UINT32	uiContractCharge;	
+	UINT32	uiContractCharge;
 	CHAR16	sTemp[20];
 	UINT8	i, usMercID;
 	UINT8	ubFontColor;
@@ -497,20 +497,20 @@ void DisplayHiredMercs()
 	}
 
 	// Loop through all the mercs
-  for(i=usMercIDStart; i <= TOTAL_NUMBER_OF_MERCS ; i++)
+	for(i=usMercIDStart; i <= TOTAL_NUMBER_OF_MERCS ; i++)
 	{
 		// We have no more free rows on the current page
 		if (usCurrentRow == usMercIDEnd - 1)
 			break;
 
-		//if it larry Roach burn advance.  ( cause larry is in twice, a sober larry and a stoned larry )
+		//if it larry Roach burn advance.	( cause larry is in twice, a sober larry and a stoned larry )
 		if( i == MERC_LARRY_ROACHBURN )
 			continue;
 
 		usMercID = GetMercIDFromMERCArray( i );
 
 		//is the merc on the team, or is owed money
-		if( IsMercOnTeam( (UINT8)usMercID )  || gMercProfiles[ usMercID ].iMercMercContractLength != 0 )
+		if( IsMercOnTeam( (UINT8)usMercID )	|| gMercProfiles[ usMercID ].iMercMercContractLength != 0 )
 		{
 			usCurrentRow++;
 
@@ -618,7 +618,7 @@ void SettleMercAccounts()
 		//if( LaptopSaveInfo.gubPlayersMercAccountStatus != MERC_ACCOUNT_INVALID )
 			LaptopSaveInfo.gubPlayersMercAccountStatus = MERC_ACCOUNT_VALID;
 
-		
+
 		// Since the player has paid, make sure speck wont complain about the lack of payment
 		LaptopSaveInfo.uiSpeckQuoteFlags &= ~SPECK_QUOTE__SENT_EMAIL_ABOUT_LACK_OF_PAYMENT;
 	}
@@ -687,7 +687,7 @@ void SettleMercAccounts()
 
 		return;
 	}
-	
+
 	// add the transaction to the finance page
 	AddTransactionToPlayersBook( PAY_SPECK_FOR_MERC, GetMercIDFromMERCArray( gubCurMercIndex ), GetWorldTotalMin(), -giMercTotalContractCharge);
 	AddHistoryToPlayersLog( HISTORY_SETTLED_ACCOUNTS_AT_MERC, GetMercIDFromMERCArray( gubCurMercIndex ), GetWorldTotalMin(), -1, -1 );
@@ -724,7 +724,7 @@ void SettleMercAccounts()
 void MercAuthorizePaymentMessageBoxCallBack( UINT8 bExitValue )
 {
 	// yes, clear the form
-  if( bExitValue == MSG_BOX_RETURN_YES )
+	if( bExitValue == MSG_BOX_RETURN_YES )
 	{
 		//if the player owes Speck money, then settle the accounts
 		if( giMercTotalContractCharge )
@@ -741,7 +741,7 @@ UINT32	CalculateHowMuchPlayerOwesSpeck()
 
 	for(i=0; i<TOTAL_NUMBER_OF_MERCS; i++)
 	{
-		//if it larry Roach burn advance.  ( cause larry is in twice, a sober larry and a stoned larry )
+		//if it larry Roach burn advance.	( cause larry is in twice, a sober larry and a stoned larry )
 		if( i == MERC_LARRY_ROACHBURN )
 			continue;
 

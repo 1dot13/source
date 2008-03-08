@@ -19,7 +19,7 @@
 
 // the max and min town opinion of an individual merc can be
 #define MAX_TOWN_OPINION								50
-#define MIN_TOWN_OPINION							 -50
+#define MIN_TOWN_OPINION							-50
 
 // town reputation is currently updated 4x per day: at 9am, noon, 3pm, and 6pm
 
@@ -80,7 +80,7 @@ UINT8 GetTownOpinionOfMercForSoldier( SOLDIERTYPE *pSoldier, UINT8 ubTownId )
 
 	Assert(ubTownId < NUM_TOWNS);
 
-	// pass on to 
+	// pass on to
 	return( GetTownOpinionOfMerc( pSoldier->ubProfile, ubTownId ) );
 }
 
@@ -104,7 +104,7 @@ void UpdateTownOpinionOfThisMerc( UINT8 ubProfileId, UINT8 ubTownId, INT8 bAmoun
 	else
 	{
 		// update amount
-		gMercProfiles[ ubProfileId ].bMercTownReputation[ ubTownId ] += bAmount; 
+		gMercProfiles[ ubProfileId ].bMercTownReputation[ ubTownId ] += bAmount;
 	}
 }
 
@@ -135,7 +135,7 @@ void HandleSpreadOfAllTownsOpinion( void )
 	for( ubProfileId = 0; ubProfileId < FIRST_NPC; ubProfileId++ )
 	{
 		HandleSpreadOfTownOpinionForMerc( ubProfileId );
-	}	
+	}
 }
 
 

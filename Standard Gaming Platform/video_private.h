@@ -16,6 +16,6 @@ LPDIRECTDRAWSURFACE2 GetBackbufferInterface( );
 
 BOOLEAN SetDirectDraw2Object( LPDIRECTDRAW2 pDirectDraw );
 BOOLEAN SetPrimarySurfaceInterface( LPDIRECTDRAWSURFACE2 pSurface );
-BOOLEAN SetBackbufferInterface(  LPDIRECTDRAWSURFACE2 pSurface );
+BOOLEAN SetBackbufferInterface(	LPDIRECTDRAWSURFACE2 pSurface );
 
 #endif

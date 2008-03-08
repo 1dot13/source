@@ -42,14 +42,14 @@ extern UINT8 NumEnemyInSector();
 
 
 
-void HandleRPCDescription(  )
+void HandleRPCDescription(	)
 {
 	UINT8	ubMercsInSector[ 20 ] = { 0 };
 	UINT8	ubNumMercs = 0;
 	UINT8	ubChosenMerc;
 	SOLDIERTYPE *pTeamSoldier;
 	INT32		cnt2;
-  BOOLEAN fSAMSite = FALSE;
+	BOOLEAN fSAMSite = FALSE;
 
 
 	if ( !gTacticalStatus.fCountingDownForGuideDescription )
@@ -57,27 +57,27 @@ void HandleRPCDescription(  )
 		return;
 	}
 
-  // ATE: postpone if we are not in tactical
-  if ( guiCurrentScreen != GAME_SCREEN )
-  {
-    return;
-  }
+	// ATE: postpone if we are not in tactical
+	if ( guiCurrentScreen != GAME_SCREEN )
+	{
+	return;
+	}
 
-  if ( ( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
-  {
-    return;
-  }
+	if ( ( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
+	{
+	return;
+	}
 
-  // Are we a SAM site?
-  if ( gTacticalStatus.ubGuideDescriptionToUse == 27 || 
-       gTacticalStatus.ubGuideDescriptionToUse == 30 || 
-       gTacticalStatus.ubGuideDescriptionToUse == 32 || 
-       gTacticalStatus.ubGuideDescriptionToUse == 25 || 
-       gTacticalStatus.ubGuideDescriptionToUse == 31 )
-  {
-     fSAMSite = TRUE;  
-     gTacticalStatus.bGuideDescriptionCountDown = 1;
-  }
+	// Are we a SAM site?
+	if ( gTacticalStatus.ubGuideDescriptionToUse == 27 ||
+		gTacticalStatus.ubGuideDescriptionToUse == 30 ||
+		gTacticalStatus.ubGuideDescriptionToUse == 32 ||
+		gTacticalStatus.ubGuideDescriptionToUse == 25 ||
+		gTacticalStatus.ubGuideDescriptionToUse == 31 )
+	{
+	 fSAMSite = TRUE;
+	 gTacticalStatus.bGuideDescriptionCountDown = 1;
+	}
 
 	// ATE; Don't do in combat
 	if ( ( gTacticalStatus.uiFlags & INCOMBAT ) && !fSAMSite )
@@ -95,12 +95,12 @@ void HandleRPCDescription(  )
 	gTacticalStatus.bGuideDescriptionCountDown--;
 
 	if ( gTacticalStatus.bGuideDescriptionCountDown == 0 )
-	{	
+	{
 		gTacticalStatus.fCountingDownForGuideDescription = FALSE;
 
 		// OK, count how many rpc guys we have....
 		// set up soldier ptr as first element in mercptrs list
-		cnt2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;	
+		cnt2 = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 		// run through list
 		for ( pTeamSoldier = MercPtrs[ cnt2 ]; cnt2 <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt2++,pTeamSoldier++ )
@@ -108,15 +108,15 @@ void HandleRPCDescription(  )
 			// Add guy if he's a candidate...
 			if ( RPC_RECRUITED( pTeamSoldier ) )
 			{
-				if ( pTeamSoldier->bLife >= OKLIFE && pTeamSoldier->bActive && 
-						 pTeamSoldier->sSectorX == gTacticalStatus.bGuideDescriptionSectorX && pTeamSoldier->sSectorY == gTacticalStatus.bGuideDescriptionSectorY &&
-						 pTeamSoldier->bSectorZ == gbWorldSectorZ && 
-						 !pTeamSoldier->fBetweenSectors  )
-				{		
-					if ( pTeamSoldier->ubProfile == IRA || 
-							 pTeamSoldier->ubProfile == MIGUEL || 
-							 pTeamSoldier->ubProfile == CARLOS || 
-							 pTeamSoldier->ubProfile == DIMITRI )
+				if ( pTeamSoldier->stats.bLife >= OKLIFE && pTeamSoldier->bActive &&
+						pTeamSoldier->sSectorX == gTacticalStatus.bGuideDescriptionSectorX && pTeamSoldier->sSectorY == gTacticalStatus.bGuideDescriptionSectorY &&
+						pTeamSoldier->bSectorZ == gbWorldSectorZ &&
+						!pTeamSoldier->flags.fBetweenSectors	)
+				{
+					if ( pTeamSoldier->ubProfile == IRA ||
+							pTeamSoldier->ubProfile == MIGUEL ||
+							pTeamSoldier->ubProfile == CARLOS ||
+							pTeamSoldier->ubProfile == DIMITRI )
 					{
 						ubMercsInSector[ ubNumMercs ] = (UINT8)cnt2;
 						ubNumMercs++;
@@ -131,17 +131,17 @@ void HandleRPCDescription(  )
 			ubChosenMerc = (UINT8)Random( ubNumMercs );
 
 			TacticalCharacterDialogueWithSpecialEvent( MercPtrs[ ubMercsInSector[ ubChosenMerc ] ], gTacticalStatus.ubGuideDescriptionToUse, DIALOGUE_SPECIAL_EVENT_USE_ALTERNATE_FILES, 0, 0 );
-		}				
+		}
 	}
 }
 
 
 void HandleTacticalEndTurn( )
-{	
+{
 	UINT32 cnt;
 	SOLDIERTYPE		*pSoldier;
 	UINT32				uiTime;
-  static UINT32 uiTimeSinceLastStrategicUpdate = 0;
+	static UINT32 uiTimeSinceLastStrategicUpdate = 0;
 
 	// OK, Do a number of things here....
 	// Every few turns......
@@ -149,13 +149,13 @@ void HandleTacticalEndTurn( )
 	// Get time elasped
 	uiTime = GetWorldTotalSeconds( );
 
-  if ( ( uiTimeSinceLastStrategicUpdate - uiTime ) > 1200 )
-  {
+	if ( ( uiTimeSinceLastStrategicUpdate - uiTime ) > 1200 )
+	{
 		HandleRottingCorpses( );
-  	//DecayTacticalMoraleModifiers();
+		//DecayTacticalMoraleModifiers();
 
-    uiTimeSinceLastStrategicUpdate = uiTime;
-  }
+	uiTimeSinceLastStrategicUpdate = uiTime;
+	}
 
 	DecayBombTimers( );
 
@@ -173,11 +173,11 @@ void HandleTacticalEndTurn( )
 	DecayRottingCorpseAIWarnings();
 
 	//Check for enemy pooling (add enemies if there happens to be more than the max in the
-	//current battle.  If one or more slots have freed up, we can add them now.
+	//current battle.	If one or more slots have freed up, we can add them now.
 	AddPossiblePendingEnemiesToBattle();
 
 	AddPossiblePendingMilitiaToBattle();
-	
+
 	// Loop through each active team and decay public opplist...
 	// May want this done every few times too
 	NonCombatDecayPublicOpplist( uiTime );
@@ -187,8 +187,8 @@ void HandleTacticalEndTurn( )
 		if ( gTacticalStatus.Team[ cnt ].bMenInSector > 0 )
 		{
 			// decay team's public opplist
-			DecayPublicOpplist( (INT8)cnt );			
-		}	
+			DecayPublicOpplist( (INT8)cnt );
+		}
 	}
 */
 
@@ -196,13 +196,13 @@ void HandleTacticalEndTurn( )
 	// Loop through our own mercs:
 	//	Check things like ( even if not in our sector )
 	//		1 ) All updates of breath, shock, bleeding, etc
-	//    2 ) Updating First AID, etc
-	//  ( If in our sector: )
+	//	2 ) Updating First AID, etc
+	//	( If in our sector: )
 	//		3 ) Update things like decayed opplist, etc
 
 	// Second pass:
-	//  Loop through all mercs in tactical engine
-	//  If not a player merc ( ubTeam ) , do things like 1 , 2 , 3 above
+	//	Loop through all mercs in tactical engine
+	//	If not a player merc ( ubTeam ) , do things like 1 , 2 , 3 above
 
 
 	// First exit if we are not in realtime combat or realtime noncombat
@@ -213,11 +213,11 @@ void HandleTacticalEndTurn( )
 
 		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
-		{	
-			if ( pSoldier->bActive && pSoldier->bLife > 0 && !( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) && !( AM_A_ROBOT( pSoldier ) ) )
+		{
+			if ( pSoldier->bActive && pSoldier->stats.bLife > 0 && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !( AM_A_ROBOT( pSoldier ) ) )
 			{
 				// Handle everything from getting breath back, to bleeding, etc
-				EVENT_BeginMercTurn( pSoldier, TRUE, 0 );
+				pSoldier->EVENT_BeginMercTurn( TRUE, 0 );
 
 				// Handle Player services
 				HandlePlayerServices( pSoldier );
@@ -250,8 +250,8 @@ void HandleTacticalEndTurn( )
 				if ( pSoldier->bTeam != gbPlayerNum )
 				{
 					// Handle everything from getting breath back, to bleeding, etc
-					EVENT_BeginMercTurn( pSoldier, TRUE, 0 );
-					
+					pSoldier->EVENT_BeginMercTurn( TRUE, 0 );
+
 					// Handle Player services
 					HandlePlayerServices( pSoldier );
 				}
@@ -262,5 +262,6 @@ void HandleTacticalEndTurn( )
 	HandleRPCDescription( );
 
 }
+
 
 

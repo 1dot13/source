@@ -54,7 +54,7 @@ STR16 gzIMPSkillTraitsText[]=
 	L"Stealth",
 	L"Ambidextrous",
 	L"Knifing",
-	L"Rooftop Sniping",
+	L"Sniper",
 	L"Camouflage",
 	L"Martial Arts",
 

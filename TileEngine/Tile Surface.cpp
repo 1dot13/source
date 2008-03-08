@@ -25,13 +25,13 @@ TILE_IMAGERY				*gTileSurfaceArray[ NUMBEROFTILETYPES ];
 UINT8								gbDefaultSurfaceUsed[ NUMBEROFTILETYPES ];
 UINT8								gbSameAsDefaultSurfaceUsed[ NUMBEROFTILETYPES ];
 
-TILE_IMAGERY *LoadTileSurface(  STR8  cFilename )
+TILE_IMAGERY *LoadTileSurface(	STR8	cFilename )
 {
 	// Add tile surface
-	PTILE_IMAGERY  pTileSurf = NULL;	
-	VOBJECT_DESC   VObjectDesc;
-	HVOBJECT		   hVObject;
-	HIMAGE				 hImage;
+	PTILE_IMAGERY	pTileSurf = NULL;
+	VOBJECT_DESC	VObjectDesc;
+	HVOBJECT		hVObject;
+	HIMAGE				hImage;
 	SGPFILENAME						cStructureFilename;
 	STR										cEndOfName;
 	STRUCTURE_FILE_REF *	pStructureFileRef;
@@ -81,21 +81,21 @@ TILE_IMAGERY *LoadTileSurface(  STR8  cFilename )
 		{
 			DestroyImage( hImage );
 			DeleteVideoObject( hVObject );
-			SET_ERROR(  "Structure file error: %s", cStructureFilename );
+			SET_ERROR(	"Structure file error: %s", cStructureFilename );
 			return( NULL );
 		}
-		
+
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, cStructureFilename );
-	
+
 		fOk = AddZStripInfoToVObject( hVObject, pStructureFileRef, FALSE, 0 );
 		if (fOk == FALSE)
 		{
 			DestroyImage( hImage );
 			DeleteVideoObject( hVObject );
-			SET_ERROR(  "ZStrip creation error: %s", cStructureFilename );
+			SET_ERROR(	"ZStrip creation error: %s", cStructureFilename );
 			return( NULL );
 		}
-		
+
 	}
 	else
 	{
@@ -134,7 +134,7 @@ TILE_IMAGERY *LoadTileSurface(  STR8  cFilename )
 	// the hImage is no longer needed
 	DestroyImage( hImage );
 
-  return( pTileSurf );
+	return( pTileSurf );
 }
 
 
@@ -191,7 +191,7 @@ void SetRaisedObjectFlag( STR8 cFilename, TILE_IMAGERY *pTileSurf )
 		while( ubRaisedObjectFiles[ cnt ][ 0 ] != '1' )
 		{
 			if ( _stricmp( ubRaisedObjectFiles[ cnt ], cRootFile ) == 0 )
-			{		
+			{
 				pTileSurf->bRaisedObjectType = TRUE;
 			}
 

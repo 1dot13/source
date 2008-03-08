@@ -6,7 +6,7 @@
 //
 // Modification history :
 //
-//		30jan97:Bret	-> Creation
+//		30jan97:Bret	->Creation
 //
 // *****************************************************************************
 
@@ -135,10 +135,10 @@ typedef struct _MOUSE_REGION {
 #define	MSYS_CALLBACK_REASON_LBUTTON_REPEAT				256
 #define	MSYS_CALLBACK_REASON_RBUTTON_REPEAT				512
 
-//Kris:  Nov 31, 1999
-//Added support for double clicks.  The DOUBLECLICK event is passed combined with
+//Kris:	Nov 31, 1999
+//Added support for double clicks.	The DOUBLECLICK event is passed combined with
 //the LBUTTON_DWN event if two LBUTTON_DWN events are detected on the same button/region
-//within the delay defined by MSYS_DOUBLECLICK_DELAY (in milliseconds).  If your button/region
+//within the delay defined by MSYS_DOUBLECLICK_DELAY (in milliseconds).	If your button/region
 //supports double clicks and single clicks, make sure the DOUBLECLICK event is checked first (rejecting
 //the LBUTTON_DWN event if detected)
 #define MSYS_CALLBACK_REASON_LBUTTON_DOUBLECLICK	1024
@@ -178,7 +178,7 @@ void MSYS_SetCurrentCursor(UINT16 Cursor);
 INT32 MSYS_Init(void);
 void MSYS_Shutdown(void);
 void MSYS_DefineRegion(MOUSE_REGION *region,UINT16 tlx,UINT16 tly,UINT16 brx,UINT16 bry,INT8 priority,
-					   UINT16 crsr,MOUSE_CALLBACK movecallback,MOUSE_CALLBACK buttoncallback);
+					UINT16 crsr,MOUSE_CALLBACK movecallback,MOUSE_CALLBACK buttoncallback);
 void MSYS_ChangeRegionCursor(MOUSE_REGION *region,UINT16 crsr);
 INT32 MSYS_AddRegion(MOUSE_REGION *region);
 void MSYS_RemoveRegion(MOUSE_REGION *region);

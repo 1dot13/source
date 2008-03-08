@@ -13,13 +13,13 @@
 	#include "worldman.h"
 	#include "renderworld.h"
 	#include "Assignments.h"
-	#include "Soldier Control.h"
+
 	#include "Animation Control.h"
 	#include "Animation Data.h"
 	#include "Isometric Utils.h"
 	#include "Event Pump.h"
 	#include "Timer Control.h"
-	#include "Render Fun.h" 
+	#include "Render Fun.h"
 	#include "Render Dirty.h"
 	#include "mousesystem.h"
 	#include "interface.h"
@@ -60,6 +60,11 @@
 	#include "GameSettings.h"
 #endif
 
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
+
+
 #define	MIN_FLIGHT_PREP_TIME	6
 
 #ifdef JA2TESTVERSION
@@ -83,7 +88,6 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 {
 	SOLDIERTYPE	*pSoldier;
 	UINT8		iNewIndex;
-	UINT8		ubCount=0;
 	UINT8		ubCurrentSoldier = pHireMerc->ubProfileID;
 	MERCPROFILESTRUCT				*pMerc;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
@@ -111,8 +115,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 	}
 
 	// BUILD STRUCTURES
-	// MercCreateStruct has been C++'d
-	//memset( &MercCreateStruct, 0, sizeof( MercCreateStruct ) );
+	MercCreateStruct.initialize();
 	MercCreateStruct.ubProfile						= ubCurrentSoldier;
 	MercCreateStruct.fPlayerMerc					= TRUE;
 	MercCreateStruct.sSectorX							= pHireMerc->sSectorX;
@@ -123,7 +126,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 
 	if ( !TacticalCreateSoldier( &MercCreateStruct, &iNewIndex ) )
 	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "TacticalCreateSoldier in HireMerc():  Failed to Add Merc");
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "TacticalCreateSoldier in HireMerc():	Failed to Add Merc");
 		return( MERC_HIRE_FAILED );
 	}
 
@@ -133,15 +136,16 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 		if ( iNewIndex == 0 )
 		{
 			// OK, give this item to our merc!
-			OBJECTTYPE Object;
-		
 			// make an objecttype
-			memset( &Object, 0, sizeof( OBJECTTYPE ) );
-			Object.usItem						= LETTER;
-			Object.ubNumberOfObjects = 1;
-			Object.ItemData.Generic.bStatus[0]				= 100;
-			// Give it 
-			fReturn = AutoPlaceObject( MercPtrs[iNewIndex], &Object, FALSE );
+			CreateItem(LETTER, 100, &gTempObject);
+			// Give it
+			fReturn = AutoPlaceObject( MercPtrs[iNewIndex], &gTempObject, FALSE );
+			// CHRISL: This condition should resolve the issue of the letter not being issued to the first merc
+			if(!fReturn && (UsingNewInventorySystem() == true))
+			{
+				(MercPtrs[iNewIndex]->inv[NUM_INV_SLOTS-1]) = gTempObject;
+				fReturn=TRUE;
+			}
 			Assert( fReturn );
 		}
 
@@ -161,7 +165,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 	pSoldier->ubStrategicInsertionCode = pHireMerc->ubInsertionCode;
 	pSoldier->usStrategicInsertionData = pHireMerc->usInsertionData;
 	// ATE: Copy over value for using alnding zone to soldier type
-	pSoldier->fUseLandingZoneForArrival = pHireMerc->fUseLandingZoneForArrival;
+	pSoldier->flags.fUseLandingZoneForArrival = pHireMerc->fUseLandingZoneForArrival;
 
 
 	// Set assignment
@@ -211,9 +215,9 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 
 
 	//if we are trying to hire a merc that should arrive later, put the merc in the queue
-	if( pHireMerc->uiTimeTillMercArrives  != 0 )
+	if( pHireMerc->uiTimeTillMercArrives	!= 0 )
 	{
-		AddStrategicEvent( EVENT_DELAYED_HIRING_OF_MERC, pHireMerc->uiTimeTillMercArrives,  pSoldier->ubID );
+		AddStrategicEvent( EVENT_DELAYED_HIRING_OF_MERC, pHireMerc->uiTimeTillMercArrives,	pSoldier->ubID );
 
 		//specify that the merc is hired but hasnt arrived yet
 		pMerc->bMercStatus = MERC_HIRED_BUT_NOT_ARRIVED_YET;
@@ -231,27 +235,27 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 		{
 			//pSoldier->iTotalContractCharge = gMercProfiles[ pSoldier->ubProfile ].sSalary;
 			pSoldier->bTypeOfLastContract = CONTRACT_EXTEND_1_DAY;
-      pSoldier->iTimeCanSignElsewhere = GetWorldTotalMin();
+		pSoldier->iTimeCanSignElsewhere = GetWorldTotalMin();
 		}
 		else if( pHireMerc->iTotalContractLength == 7 )
 		{
 			//pSoldier->iTotalContractCharge = gMercProfiles[ pSoldier->ubProfile ].uiWeeklySalary;
 			pSoldier->bTypeOfLastContract = CONTRACT_EXTEND_1_WEEK;
-      pSoldier->iTimeCanSignElsewhere = GetWorldTotalMin();
+		pSoldier->iTimeCanSignElsewhere = GetWorldTotalMin();
 		}
 		else if( pHireMerc->iTotalContractLength == 14 )
 		{
 			//pSoldier->iTotalContractCharge = gMercProfiles[ pSoldier->ubProfile ].uiBiWeeklySalary;
 			pSoldier->bTypeOfLastContract = CONTRACT_EXTEND_2_WEEK;
-      // These luck fellows need to stay the whole duration!
-      pSoldier->iTimeCanSignElsewhere = pSoldier->iEndofContractTime;
+		// These luck fellows need to stay the whole duration!
+		pSoldier->iTimeCanSignElsewhere = pSoldier->iEndofContractTime;
 		}
 
-		// remember the medical deposit we PAID.  The one in his profile can increase when he levels!
+		// remember the medical deposit we PAID.	The one in his profile can increase when he levels!
 		pSoldier->usMedicalDeposit = gMercProfiles[ pSoldier->ubProfile ].sMedicalDepositAmount;
 	}
 	//if the merc is from M.E.R.C.
-	else if( ( ubCurrentSoldier >= BIFF && ubCurrentSoldier <= BUBBA ) || ubCurrentSoldier >= GASTON ) 
+	else if( ( ubCurrentSoldier >= BIFF && ubCurrentSoldier <= BUBBA ) || ubCurrentSoldier >= GASTON )
 	{
 		pSoldier->ubWhatKindOfMercAmI = MERC_TYPE__MERC;
 		//pSoldier->iTotalContractCharge = -1;
@@ -264,7 +268,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 		AddHistoryToPlayersLog(HISTORY_HIRED_MERC_FROM_MERC, ubCurrentSoldier, GetWorldTotalMin(), -1, -1 );
 	}
 	//If the merc is from IMP, (ie a player character)
-	else if( ( ubCurrentSoldier >= 51 ) && ( ubCurrentSoldier < 57 ) ) 
+	else if( ( ubCurrentSoldier >= 51 ) && ( ubCurrentSoldier < 57 ) )
 	{
 		pSoldier->ubWhatKindOfMercAmI = MERC_TYPE__PLAYER_CHARACTER;
 		//pSoldier->iTotalContractCharge = -1;
@@ -291,7 +295,7 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 	UINT32									uiTimeOfPost;
 
 	if( !DidGameJustStart() && gsMercArriveSectorX == 9 && gsMercArriveSectorY == 1 )
-	{ //Mercs arriving in A9.  This sector has been deemed as the always safe sector.
+	{ //Mercs arriving in A9.	This sector has been deemed as the always safe sector.
 		//Seeing we don't support entry into a hostile sector (except for the beginning),
 		//we will nuke any enemies in this sector first.
 		if( gWorldSectorX != 9 || gWorldSectorY != 1 || gbWorldSectorZ )
@@ -314,7 +318,7 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 	AddCharacterToAnySquad( pSoldier );
 
 	// ATE: Make sure we use global.....
-	if ( pSoldier->fUseLandingZoneForArrival )
+	if ( pSoldier->flags.fUseLandingZoneForArrival )
 	{
 		pSoldier->sSectorX	= gsMercArriveSectorX;
 		pSoldier->sSectorY	= gsMercArriveSectorY;
@@ -325,7 +329,7 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 	if ( gWorldSectorX == pSoldier->sSectorX && gWorldSectorY == pSoldier->sSectorY && pSoldier->bSectorZ == gbWorldSectorZ )
 	{
 		// OK, If this sector is currently loaded, and guy does not have CHOPPER insertion code....
-		// ( which means we are at beginning of game if so ) 
+		// ( which means we are at beginning of game if so )
 		// Setup chopper....
 		if ( pSoldier->ubStrategicInsertionCode != INSERTION_CODE_CHOPPER && pSoldier->sSectorX == 9 && pSoldier->sSectorY == 1 )
 		{
@@ -334,7 +338,7 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 			// OK, If we are in mapscreen, get out...
 			if ( guiCurrentScreen == MAP_SCREEN )
 			{
-        // ATE: Make sure the current one is selected!
+		// ATE: Make sure the current one is selected!
 				ChangeSelectedMapSector( gWorldSectorX, gWorldSectorY, 0 );
 
 				RequestTriggerExitFromMapscreen( MAP_EXIT_TO_TACTICAL );
@@ -377,7 +381,7 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 	// remember when excatly he ARRIVED in Arulco, in case he gets fired early
 	pSoldier->uiTimeOfLastContractUpdate = GetWorldTotalMin();
 
-	//set when the merc's contract is finished 
+	//set when the merc's contract is finished
 	pSoldier->iEndofContractTime = GetMidnightOfFutureDayInMinutes( pSoldier->iTotalContractLength ) + ( GetHourWhenContractDone( pSoldier ) * 60 );
 
 	// Do initial check for bad items
@@ -387,7 +391,7 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 		if ( SoldierHasWorseEquipmentThanUsedTo( pSoldier ) )
 		{
 			// Randomly anytime between 9:00, and 10:00
-			uiTimeOfPost =  540 + Random( 660 );
+			uiTimeOfPost =	540 + Random( 660 );
 
 			if ( GetWorldMinutesInDay() < uiTimeOfPost )
 			{
@@ -413,9 +417,9 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 BOOLEAN IsMercHireable( UINT8 ubMercID )
 {
 	//If the merc has an .EDT file, is not away on assignment, and isnt already hired (but not arrived yet), he is not DEAD and he isnt returning home
-	if( ( gMercProfiles[ ubMercID ].bMercStatus == MERC_HAS_NO_TEXT_FILE ) || 
-			( gMercProfiles[ ubMercID ].bMercStatus > 0 ) || 
-			( gMercProfiles[ ubMercID ].bMercStatus == MERC_HIRED_BUT_NOT_ARRIVED_YET ) || 
+	if( ( gMercProfiles[ ubMercID ].bMercStatus == MERC_HAS_NO_TEXT_FILE ) ||
+			( gMercProfiles[ ubMercID ].bMercStatus > 0 ) ||
+			( gMercProfiles[ ubMercID ].bMercStatus == MERC_HIRED_BUT_NOT_ARRIVED_YET ) ||
 			( gMercProfiles[ ubMercID ].bMercStatus == MERC_IS_DEAD ) ||
 			( gMercProfiles[ ubMercID ].uiDayBecomesAvailable > 0 ) ||
 			( gMercProfiles[ ubMercID ].bMercStatus == MERC_WORKING_ELSEWHERE ) ||
@@ -436,7 +440,7 @@ BOOLEAN IsMercDead( UINT8 ubMercID )
 
 BOOLEAN IsTheSoldierAliveAndConcious( SOLDIERTYPE		*pSoldier )
 {
-	if( pSoldier->bLife >= CONSCIOUSNESS )	
+	if( pSoldier->stats.bLife >= CONSCIOUSNESS )
 		return(TRUE);
 	else
 		return(FALSE);
@@ -453,10 +457,10 @@ UINT8	NumberOfMercsOnPlayerTeam()
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
-  for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
-	{	
+	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+	{
 		//if the is active, and is not a vehicle
-		if( pSoldier->bActive && !( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) )
+		if( pSoldier->bActive && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 		{
 			ubCount++;
 		}
@@ -470,7 +474,7 @@ void HandleMercArrivesQuotes( SOLDIERTYPE *pSoldier )
 {
 	INT8										cnt, bHated, bLastTeamID;
 	SOLDIERTYPE							*pTeamSoldier;
- 
+
 	// If we are approaching with helicopter, don't say any ( yet )
 	if ( pSoldier->ubStrategicInsertionCode != INSERTION_CODE_CHOPPER )
 	{
@@ -527,7 +531,7 @@ void SetFlagToForceHireMerc( BOOLEAN fForceHire )
 UINT32 GetMercArrivalTimeOfDay( )
 {
 	UINT32		uiCurrHour;
-	UINT32		uiMinHour; 
+	UINT32		uiMinHour;
 
 	// Pick a time...
 
@@ -539,7 +543,7 @@ UINT32 GetMercArrivalTimeOfDay( )
 
 	// OK, first check if we need to advance a whole day's time...
 	// See if we have missed the last flight for the day...
-	if ( ( uiCurrHour ) > 13  ) // ( > 1:00 pm - too bad )
+	if ( ( uiCurrHour ) > 13	) // ( > 1:00 pm - too bad )
 	{
 		// 7:30 flight....
 		return( GetMidnightOfFutureDayInMinutes( 1 ) + MERC_ARRIVE_TIME_SLOT_1 );
@@ -569,19 +573,19 @@ void UpdateAnyInTransitMercsWithGlobalArrivalSector( )
 
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
-  // look for all mercs on the same team, 
-  for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
-	{	
+	// look for all mercs on the same team,
+	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+	{
 		if ( pSoldier->bActive )
-		{	
-			if ( pSoldier->bAssignment == IN_TRANSIT ) 
+		{
+			if ( pSoldier->bAssignment == IN_TRANSIT )
 			{
-				if ( pSoldier->fUseLandingZoneForArrival )
+				if ( pSoldier->flags.fUseLandingZoneForArrival )
 				{
 					pSoldier->sSectorX	= gsMercArriveSectorX;
 					pSoldier->sSectorY	= gsMercArriveSectorY;
 					pSoldier->bSectorZ	= 0;
-				}				
+				}
 			}
 		}
 	}
@@ -594,7 +598,7 @@ INT16 StrategicPythSpacesAway(INT16 sOrigin, INT16 sDest)
 	sRows = abs((sOrigin / MAP_WORLD_X) - (sDest / MAP_WORLD_X));
 	sCols = abs((sOrigin % MAP_WORLD_X) - (sDest % MAP_WORLD_X));
 
- 
+
 	// apply Pythagoras's theorem for right-handed triangle:
 	// dist^2 = rows^2 + cols^2, so use the square root to get the distance
 	sResult = (INT16)sqrt((double)(sRows * sRows) + (sCols * sCols));
@@ -609,13 +613,13 @@ INT16 StrategicPythSpacesAway(INT16 sOrigin, INT16 sDest)
 // if so, search around for nearest non-occupied sector.
 void CheckForValidArrivalSector( )
 {
-	INT16  sTop, sBottom;
-	INT16  sLeft, sRight;
-	INT16  cnt1, cnt2, sGoodX, sGoodY;
-	UINT8	 ubRadius = 4;
-	INT32	 leftmost;
-	INT16	 sSectorGridNo, sSectorGridNo2;
-	INT32	 uiRange, uiLowestRange = 999999;
+	INT16	sTop, sBottom;
+	INT16	sLeft, sRight;
+	INT16	cnt1, cnt2, sGoodX, sGoodY;
+	UINT8	ubRadius = 4;
+	INT32	leftmost;
+	INT16	sSectorGridNo, sSectorGridNo2;
+	INT32	uiRange, uiLowestRange = 999999;
 	BOOLEAN	fFound = FALSE;
 	CHAR16 sString[ 1024 ];
 	CHAR16 zShortTownIDString1[ 50 ];
@@ -635,8 +639,8 @@ void CheckForValidArrivalSector( )
 	// If here - we need to do a search!
 	sTop		= ubRadius;
 	sBottom = -ubRadius;
-	sLeft   = - ubRadius;
-	sRight  = ubRadius;
+	sLeft	= - ubRadius;
+	sRight	= ubRadius;
 
 	for( cnt1 = sBottom; cnt1 <= sTop; cnt1++ )
 	{
@@ -676,7 +680,7 @@ void CheckForValidArrivalSector( )
 //		swprintf( sString, L"Arrival of new recruits is being rerouted to sector %s, as scheduled drop-off point of sector %s is enemy occupied.", zShortTownIDString2, zShortTownIDString1 );
 		swprintf( sString, New113Message[MSG113_ARRIVINGREROUTED], zShortTownIDString2, zShortTownIDString1 );
 
-		DoScreenIndependantMessageBox(  sString, MSG_BOX_FLAG_OK, NULL );
+		DoScreenIndependantMessageBox(	sString, MSG_BOX_FLAG_OK, NULL );
 
 	}
 }

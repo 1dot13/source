@@ -19,9 +19,9 @@
 // hit points, but instead stores a pointer to the
 // base object (section).
 //
-// Each section has a line of sight profile.  These
+// Each section has a line of sight profile.	These
 // profiles are split into 5 in each horizontal direction
-// and 4 vertically, forming 100 "cubes".  In real
+// and 4 vertically, forming 100 "cubes".	In real
 // world terms, each section represents a volume
 // with a height of 8 feet (and width and length
 // of what?)
@@ -58,8 +58,8 @@ extern UINT8 AtHeight[PROFILE_Z_SIZE];
 // then the structure is the "base" of the object
 // and its hitpoint value is the one for the object
 //
-//															        vv    generic flags for all structures
-//															     vvv      type flags
+//																 vv	generic flags for all structures
+//																vvv		type flags
 //
 
 // how to handle explodable structures
@@ -116,16 +116,16 @@ extern UINT8 AtHeight[PROFILE_Z_SIZE];
 #define STRUCTURE_ANYDOOR				0x00CC0000
 #define STRUCTURE_OBSTACLE			0x00008F00
 #define STRUCTURE_WALLSTUFF			0x00CF0000
-#define STRUCTURE_BLOCKSMOVES   0x00208F00
+#define STRUCTURE_BLOCKSMOVES	0x00208F00
 #define STRUCTURE_TYPE_DEFINED	0x8FEF8F00
-#define STRUCTURE_ROOF          0x07000000
+#define STRUCTURE_ROOF			0x07000000
 
 #define TILE_ON_ROOF						0x01
 #define TILE_PASSABLE						0x02
 
 typedef struct TAG_STRUCTURE_TILE
 {
-	INT16			sPosRelToBase;  // "single-axis"
+	INT16			sPosRelToBase;	// "single-axis"
 	INT8			bXPosRelToBase;
 	INT8			bYPosRelToBase;
 	PROFILE		Shape;					// 25 bytes

@@ -112,7 +112,7 @@ void DebugAI( STR szOutput )
 	// Send regular debug msg AND AI debug message
 	FILE *		DebugFile;
 
-	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, szOutput );	
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, szOutput );
 	if ((DebugFile = fopen( "aidebug.txt", "a+t" )) != NULL)
 	{
 		fputs( szOutput, DebugFile );
@@ -169,7 +169,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 	// ATE
 	// Bail if we are engaged in a NPC conversation/ and/or sequence ... or we have a pause because 
 	// we just saw someone... or if there are bombs on the bomb queue
-	if ( pSoldier->uiStatusFlags & SOLDIER_ENGAGEDINACTION || gTacticalStatus.fEnemySightingOnTheirTurn || (gubElementsOnExplosionQueue != 0) )
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_ENGAGEDINACTION || gTacticalStatus.fEnemySightingOnTheirTurn || (gubElementsOnExplosionQueue != 0) )
 	{
 		return;
 	}
@@ -179,16 +179,16 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
-	if (pSoldier->uiStatusFlags & SOLDIER_PC)
+	if (pSoldier->flags.uiStatusFlags & SOLDIER_PC)
 	{
 		// if we're in autobandage, or the AI control flag is set and the player has a quote record to perform, or is a boxer,
 		// let AI process this merc; otherwise abort
-		if ( !(gTacticalStatus.fAutoBandageMode) && !(pSoldier->uiStatusFlags & SOLDIER_PCUNDERAICONTROL && (pSoldier->ubQuoteRecord != 0 || pSoldier->uiStatusFlags & SOLDIER_BOXER) ) )
+		if ( !(gTacticalStatus.fAutoBandageMode) && !(pSoldier->flags.uiStatusFlags & SOLDIER_PCUNDERAICONTROL && (pSoldier->ubQuoteRecord != 0 || pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) ) )
 		{
 			// patch...
-			if ( pSoldier->fAIFlags & AI_HANDLE_EVERY_FRAME )
+			if ( pSoldier->aiData.fAIFlags & AI_HANDLE_EVERY_FRAME )
 			{
-				pSoldier->fAIFlags &= ~AI_HANDLE_EVERY_FRAME;
+				pSoldier->aiData.fAIFlags &= ~AI_HANDLE_EVERY_FRAME;
 			}
 			return;
 		}
@@ -198,7 +198,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 	else
 	{		
 	// AI is run on all PCs except the one who is selected
-	if (pSoldier->uiStatusFlags & SOLDIER_PC )
+	if (pSoldier->flags.uiStatusFlags & SOLDIER_PC )
 	{
 	// if this soldier is "selected" then only let user give orders!
 	if ((pSoldier->ubID == gusSelectedSoldier) && !(gTacticalStatus.uiFlags & DEMOMODE))
@@ -228,8 +228,8 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 		}
 		// why do we let the quote record thing be in here?  we're in turnbased the quote record doesn't matter,
 		// we can't act out of turn!
-		if ( !(pSoldier->uiStatusFlags & SOLDIER_UNDERAICONTROL) )
-			//if ( !(pSoldier->uiStatusFlags & SOLDIER_UNDERAICONTROL) && (pSoldier->ubQuoteRecord == 0))
+		if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL) )
+			//if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL) && (pSoldier->ubQuoteRecord == 0))
 		{
 			return;
 		}
@@ -239,10 +239,10 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 #ifdef JA2BETAVERSION
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_ERROR, L"Turning off AI flag for %d because trying to act out of turn", pSoldier->ubID );
 #endif
-			pSoldier->uiStatusFlags &= ~SOLDIER_UNDERAICONTROL;
+			pSoldier->flags.uiStatusFlags &= ~SOLDIER_UNDERAICONTROL;
 			return;
 		}
-		if ( pSoldier->bMoved )
+		if ( pSoldier->aiData.bMoved )
 		{
 #ifdef TESTAICONTROL
 			if (gfTurnBasedAI)
@@ -256,11 +256,11 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 		}
 
 	}
-	else if ( !(pSoldier->fAIFlags & AI_HANDLE_EVERY_FRAME) ) // if set to handle every frame, ignore delay!
+	else if ( !(pSoldier->aiData.fAIFlags & AI_HANDLE_EVERY_FRAME) ) // if set to handle every frame, ignore delay!
 	{
 		//#ifndef AI_PROFILING
 		//Time to handle guys in realtime (either combat or not )
-		if ( !TIMECOUNTERDONE( pSoldier->AICounter, pSoldier->uiAIDelay ) )
+		if ( !TIMECOUNTERDONE( pSoldier->timeCounters.AICounter, pSoldier->uiAIDelay ) )
 		{
 			// CAMFIELD, LOOK HERE!
 			return;
@@ -268,30 +268,30 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 		else
 		{
 			//Reset counter!
-			RESETTIMECOUNTER( pSoldier->AICounter, pSoldier->uiAIDelay );
-			//DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "%s waiting %d from %d", pSoldier->name, pSoldier->AICounter, uiCurrTime ) );
+			RESETTIMECOUNTER( pSoldier->timeCounters.AICounter, pSoldier->uiAIDelay );
+			//DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "%s waiting %d from %d", pSoldier->name, pSoldier->timeCounters.AICounter, uiCurrTime ) );
 		}
 		//#endif
 	}
 
-	if ( pSoldier->fAIFlags & AI_HANDLE_EVERY_FRAME ) // if set to handle every frame, ignore delay!
+	if ( pSoldier->aiData.fAIFlags & AI_HANDLE_EVERY_FRAME ) // if set to handle every frame, ignore delay!
 	{
 		if (pSoldier->ubQuoteActionID != QUOTE_ACTION_ID_TURNTOWARDSPLAYER)
 		{
 			// turn off flag!
-			pSoldier->fAIFlags &= (~AI_HANDLE_EVERY_FRAME);
+			pSoldier->aiData.fAIFlags &= (~AI_HANDLE_EVERY_FRAME);
 		}
 	}
 
 	// if this NPC is getting hit, abort
-	if (pSoldier->fGettingHit)
+	if (pSoldier->flags.fGettingHit)
 	{
-		return;	
+		return;
 	}
 
 	if ( gTacticalStatus.bBoxingState == PRE_BOXING || gTacticalStatus.bBoxingState == BOXING || gTacticalStatus.bBoxingState == WON_ROUND || gTacticalStatus.bBoxingState == LOST_ROUND )
 	{
-		if ( ! ( pSoldier->uiStatusFlags & SOLDIER_BOXER ) )
+		if ( ! ( pSoldier->flags.uiStatusFlags & SOLDIER_BOXER ) )
 		{
 			// do nothing!
 #ifdef TESTAICONTROL
@@ -306,9 +306,9 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 	}
 
 	// if this NPC is dying, bail
-	if (pSoldier->bLife < OKLIFE || !pSoldier->bActive )
+	if (pSoldier->stats.bLife < OKLIFE || !pSoldier->bActive )
 	{
-		if ( pSoldier->bActive && pSoldier->fMuzzleFlash )
+		if ( pSoldier->bActive && pSoldier->flags.fMuzzleFlash )
 		{
 			EndMuzzleFlash( pSoldier );
 		}
@@ -323,15 +323,15 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
-	if ( pSoldier->fAIFlags & AI_ASLEEP )
+	if ( pSoldier->aiData.fAIFlags & AI_ASLEEP )
 	{
 		if ( gfTurnBasedAI && pSoldier->bVisible )
 		{
 			// turn off sleep flag, guy's got to be able to do stuff in turnbased
 			// if he's visible
-			pSoldier->fAIFlags &= ~AI_ASLEEP;
+			pSoldier->aiData.fAIFlags &= ~AI_ASLEEP;
 		}
-		else if ( !(pSoldier->fAIFlags & AI_CHECK_SCHEDULE) )
+		else if ( !(pSoldier->aiData.fAIFlags & AI_CHECK_SCHEDULE) )
 		{
 			// don't do anything!
 #ifdef TESTAICONTROL
@@ -346,7 +346,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 		}
 	}
 
-	if ( pSoldier->bInSector == FALSE && !(pSoldier->fAIFlags & AI_CHECK_SCHEDULE) )
+	if ( pSoldier->bInSector == FALSE && !(pSoldier->aiData.fAIFlags & AI_CHECK_SCHEDULE) )
 	{
 		// don't do anything!
 #ifdef TESTAICONTROL
@@ -360,7 +360,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
-	if ( ( (pSoldier->uiStatusFlags & SOLDIER_VEHICLE) && !TANK( pSoldier ) ) || AM_A_ROBOT( pSoldier ) )
+	if ( ( (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && !TANK( pSoldier ) ) || AM_A_ROBOT( pSoldier ) )
 	{
 		// bail out!
 #ifdef TESTAICONTROL
@@ -377,7 +377,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 	if (pSoldier->bCollapsed)
 	{
 		// being handled so turn off muzzle flash
-		if ( pSoldier->fMuzzleFlash )
+		if ( pSoldier->flags.fMuzzleFlash )
 		{
 			EndMuzzleFlash( pSoldier );
 		}
@@ -402,9 +402,9 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
-	// ATE: Did some changes here 
+	// ATE: Did some changes here
 	// DON'T rethink if we are determined to get somewhere....
-	if ( pSoldier->bNewSituation == IS_NEW_SITUATION )
+	if ( pSoldier->aiData.bNewSituation == IS_NEW_SITUATION )
 	{
 		BOOLEAN fProcessNewSituation;
 
@@ -415,7 +415,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 			fProcessNewSituation = FALSE;
 #if 0
 			// HACK!!
-			if ( pSoldier->bAction == AI_ACTION_FIRE_GUN )
+			if ( pSoldier->aiData.bAction == AI_ACTION_FIRE_GUN )
 			{
 				if ( guiNumBullets == 0 )
 				{
@@ -425,7 +425,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 					fProcessNewSituation = TRUE;
 				}
 			}
-			else if ( pSoldier->bAction == AI_ACTION_TOSS_PROJECTILE )
+			else if ( pSoldier->aiData.bAction == AI_ACTION_TOSS_PROJECTILE )
 			{
 				if ( guiNumObjectSlots == 0 )
 				{
@@ -436,7 +436,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 				}
 			}
 #endif
-		}		
+		}
 		else
 		{
 			fProcessNewSituation = TRUE;
@@ -444,7 +444,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 
 		if ( fProcessNewSituation )
 		{
-			if ( (pSoldier->uiStatusFlags & SOLDIER_UNDERAICONTROL) && pSoldier->ubQuoteActionID >= QUOTE_ACTION_ID_TRAVERSE_EAST && pSoldier->ubQuoteActionID <= QUOTE_ACTION_ID_TRAVERSE_NORTH && !GridNoOnVisibleWorldTile( pSoldier->sGridNo ) )
+			if ( (pSoldier->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL) && pSoldier->ubQuoteActionID >= QUOTE_ACTION_ID_TRAVERSE_EAST && pSoldier->ubQuoteActionID <= QUOTE_ACTION_ID_TRAVERSE_NORTH && !GridNoOnVisibleWorldTile( pSoldier->sGridNo ) )
 			{
 				// traversing offmap, ignore new situations
 			}
@@ -454,27 +454,27 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 				// now we don't have AI controlled escorted mercs though - CJC
 				CancelAIAction( pSoldier, FORCE );
 				// zap any next action too
-				if ( pSoldier->bAction != AI_ACTION_END_COWER_AND_MOVE )
+				if ( pSoldier->aiData.bAction != AI_ACTION_END_COWER_AND_MOVE )
 				{
-					pSoldier->bNextAction = AI_ACTION_NONE;
+					pSoldier->aiData.bNextAction = AI_ACTION_NONE;
 				}
 				DecideAlertStatus( pSoldier );
 			}
-			else 
+			else
 			{
 				if ( pSoldier->ubQuoteRecord )
 				{
 					// make sure we're not using combat AI
-					pSoldier->bAlertStatus = STATUS_GREEN;
+					pSoldier->aiData.bAlertStatus = STATUS_GREEN;
 				}
-				pSoldier->bNewSituation = WAS_NEW_SITUATION;
+				pSoldier->aiData.bNewSituation = WAS_NEW_SITUATION;
 			}
 		}
 	}
 	else
 	{
 		// might have been in 'was' state; no longer so...
-		pSoldier->bNewSituation = NOT_NEW_SITUATION;
+		pSoldier->aiData.bNewSituation = NOT_NEW_SITUATION;
 	}
 
 #ifdef TESTAI
@@ -494,11 +494,11 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 			// ATE: Display message that deadlock occured...
 			LiveMessage( "Breaking Deadlock" );
 
-#ifdef JA2TESTVERSION		
+#ifdef JA2TESTVERSION
 			// display deadlock message
 			gfUIInDeadlock = TRUE;
 			gUIDeadlockedSoldier = pSoldier->ubID;
-			DebugAI(  String("DEADLOCK soldier %d action %s ABC %d", pSoldier->ubID, gzActionStr[pSoldier->bAction], gTacticalStatus.ubAttackBusyCount ) );
+			DebugAI(  String("DEADLOCK soldier %d action %s ABC %d", pSoldier->ubID, gzActionStr[pSoldier->aiData.bAction], gTacticalStatus.ubAttackBusyCount ) );
 #else
 
 			// If we are in beta version, also report message!
@@ -507,7 +507,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 #endif
 			// just abort
 			EndAIDeadlock();
-			if ( !(pSoldier->uiStatusFlags & SOLDIER_UNDERAICONTROL) )
+			if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL) )
 			{
 				return;
 			}
@@ -522,10 +522,10 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 		return;
 	}
 
-	if (pSoldier->bAction == AI_ACTION_NONE)
-	{ 
+	if (pSoldier->aiData.bAction == AI_ACTION_NONE)
+	{
 		// being handled so turn off muzzle flash
-		if ( pSoldier->fMuzzleFlash )
+		if ( pSoldier->flags.fMuzzleFlash )
 		{
 			EndMuzzleFlash( pSoldier );
 		}
@@ -534,10 +534,10 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 		// figure out what to do!
 		if (gfTurnBasedAI)
 		{
-			if (pSoldier->fNoAPToFinishMove)
+			if (pSoldier->flags.fNoAPToFinishMove)
 			{
 				// well that move must have been cancelled because we're thinking now!
-				//pSoldier->fNoAPToFinishMove = FALSE;
+				//pSoldier->flags.fNoAPToFinishMove = FALSE;
 			}
 			TurnBasedHandleNPCAI( pSoldier );
 		}
@@ -551,15 +551,15 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 	{
 
 		// an old action was in progress; continue it
-		if (pSoldier->bAction >= FIRST_MOVEMENT_ACTION && pSoldier->bAction <= LAST_MOVEMENT_ACTION && !pSoldier->fDelayedMovement)
+		if (pSoldier->aiData.bAction >= FIRST_MOVEMENT_ACTION && pSoldier->aiData.bAction <= LAST_MOVEMENT_ACTION && !pSoldier->flags.fDelayedMovement)
 		{
-			if (pSoldier->usPathIndex == pSoldier->usPathDataSize)
+			if (pSoldier->pathing.usPathIndex == pSoldier->pathing.usPathDataSize)
 			{
 				if (pSoldier->sAbsoluteFinalDestination != NOWHERE)
 				{
 					if ( !ACTING_ON_SCHEDULE( pSoldier ) &&  SpacesAway( pSoldier->sGridNo, pSoldier->sAbsoluteFinalDestination ) < 4 )
 					{
-						// This is close enough... reached final destination for NPC system move				
+						// This is close enough... reached final destination for NPC system move
 						if ( pSoldier->sAbsoluteFinalDestination != pSoldier->sGridNo )
 						{
 							// update NPC records to replace our final dest with this location
@@ -567,7 +567,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 						}
 						pSoldier->sAbsoluteFinalDestination = pSoldier->sGridNo;
 						// change action data so that we consider this our final destination below
-						pSoldier->usActionData = pSoldier->sGridNo;
+						pSoldier->aiData.usActionData = pSoldier->sGridNo;
 					}
 
 					if ( pSoldier->sAbsoluteFinalDestination == pSoldier->sGridNo )
@@ -578,8 +578,8 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 						{
 							NPCReachedDestination( pSoldier, FALSE );
 							// wait just a little bit so the queue can be processed
-							pSoldier->bNextAction = AI_ACTION_WAIT;
-							pSoldier->usNextActionData = 500;
+							pSoldier->aiData.bNextAction = AI_ACTION_WAIT;
+							pSoldier->aiData.usNextActionData = 500;
 
 						}
 						else if (pSoldier->ubQuoteActionID >= QUOTE_ACTION_ID_TRAVERSE_EAST && pSoldier->ubQuoteActionID <= QUOTE_ACTION_ID_TRAVERSE_NORTH)
@@ -591,7 +591,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 					else
 					{
 						// make sure this guy is handled next frame!
-						pSoldier->uiStatusFlags |= AI_HANDLE_EVERY_FRAME; 
+						pSoldier->flags.uiStatusFlags |= AI_HANDLE_EVERY_FRAME;
 					}
 				}
 				// for regular guys still have to check for leaving the map
@@ -606,19 +606,19 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 				DebugMsg( TOPIC_JA2AI, DBG_LEVEL_0, String("OPPONENT %d REACHES DEST - ACTION DONE",pSoldier->ubID ) );
 #endif
 
-				if ( pSoldier->sGridNo == pSoldier->sFinalDestination )
+				if ( pSoldier->sGridNo == pSoldier->pathing.sFinalDestination )
 				{
-					if ( pSoldier->bAction == AI_ACTION_MOVE_TO_CLIMB )
+					if ( pSoldier->aiData.bAction == AI_ACTION_MOVE_TO_CLIMB )
 					{
 						// successfully moved to roof!
 
 						// fake setting action to climb roof and see if we can afford this
-						pSoldier->bAction = AI_ACTION_CLIMB_ROOF;
+						pSoldier->aiData.bAction = AI_ACTION_CLIMB_ROOF;
 						if (IsActionAffordable(pSoldier))
 						{
 							// set action to none and next action to climb roof so we do that next
-							pSoldier->bAction = AI_ACTION_NONE;
-							pSoldier->bNextAction = AI_ACTION_CLIMB_ROOF;
+							pSoldier->aiData.bAction = AI_ACTION_NONE;
+							pSoldier->aiData.bNextAction = AI_ACTION_CLIMB_ROOF;
 						}
 
 					}
@@ -628,7 +628,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 			}
 
 			//*** TRICK- TAKE INTO ACCOUNT PAUSED FOR NO TIME ( FOR NOW )
-			if (pSoldier->fNoAPToFinishMove )
+			if (pSoldier->flags.fNoAPToFinishMove )
 			{
 				SoldierTriesToContinueAlongPath(pSoldier);
 			}
@@ -637,7 +637,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier )
 			{
 				// ATE: Put some ( MORE ) refinements on here....
 				// If we are trying to open door, or jump fence  don't continue until done...
-				if ( !pSoldier->fContinueMoveAfterStanceChange && !pSoldier->bEndDoorOpenCode )
+				if ( !pSoldier->flags.fContinueMoveAfterStanceChange && !pSoldier->bEndDoorOpenCode )
 				{
 					//ATE: just a few more.....
 					// If we have ANY pending aninmation that is movement.....
@@ -685,7 +685,7 @@ void EndAIGuysTurn( SOLDIERTYPE *pSoldier )
 		{
 			if ( OK_INSECTOR_MERC( MercPtrs[ ubID ] ) )
 			{
-				if ( MercPtrs[ ubID ]->fCloseCall )
+				if ( MercPtrs[ ubID ]->flags.fCloseCall )
 				{
 					if ( !gTacticalStatus.fSomeoneHit && MercPtrs[ ubID ]->bNumHitsThisTurn == 0 && !(MercPtrs[ ubID ]->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL) && Random( 3 ) == 0 )
 					{
@@ -693,17 +693,17 @@ void EndAIGuysTurn( SOLDIERTYPE *pSoldier )
 						TacticalCharacterDialogue( MercPtrs[ ubID ], QUOTE_CLOSE_CALL );
 						MercPtrs[ ubID ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL;
 					}
-					MercPtrs[ ubID ]->fCloseCall = FALSE;
+					MercPtrs[ ubID ]->flags.fCloseCall = FALSE;
 				}
 			}
 		}
 		gTacticalStatus.fSomeoneHit = FALSE;
 
 		// if civ in civ group and hostile, try to change nearby guys to hostile
-		if ( pSoldier->ubCivilianGroup != NON_CIV_GROUP && !pSoldier->bNeutral )
+		if ( pSoldier->ubCivilianGroup != NON_CIV_GROUP && !pSoldier->aiData.bNeutral )
 		{
 
-			if ( !(pSoldier->uiStatusFlags & SOLDIER_BOXER)	|| !( gTacticalStatus.bBoxingState == PRE_BOXING || gTacticalStatus.bBoxingState == BOXING ) )
+			if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER)	|| !( gTacticalStatus.bBoxingState == PRE_BOXING || gTacticalStatus.bBoxingState == BOXING ) )
 			{
 				UINT8 ubFirstProfile;
 
@@ -724,10 +724,10 @@ void EndAIGuysTurn( SOLDIERTYPE *pSoldier )
 
 		// End this NPC's control, move to next dude
 		EndRadioLocator( pSoldier->ubID );
-		pSoldier->uiStatusFlags &= ( ~SOLDIER_UNDERAICONTROL );
-		pSoldier->fTurnInProgress = FALSE;
-		pSoldier->bMoved = TRUE;
-		pSoldier->bBypassToGreen = FALSE;
+		pSoldier->flags.uiStatusFlags &= ( ~SOLDIER_UNDERAICONTROL );
+		pSoldier->flags.fTurnInProgress = FALSE;
+		pSoldier->aiData.bMoved = TRUE;
+		pSoldier->aiData.bBypassToGreen = FALSE;
 
 #ifdef TESTAICONTROL
 		if (!(gTacticalStatus.uiFlags & DEMOMODE))
@@ -738,7 +738,7 @@ void EndAIGuysTurn( SOLDIERTYPE *pSoldier )
 		ubID = RemoveFirstAIListEntry();
 		if (ubID != NOBODY)
 		{
-			StartNPCAI( MercPtrs[ ubID ] );			
+			StartNPCAI( MercPtrs[ ubID ] );
 			return;
 		}
 
@@ -761,14 +761,14 @@ void EndAIDeadlock(void)
 	SOLDIERTYPE *pSoldier;
 	INT8 bFound=FALSE;
 
-	// ESCAPE ENEMY'S TURN			
+	// ESCAPE ENEMY'S TURN
 
 	// find enemy with problem and free him up...
 	for (cnt=0,pSoldier=Menptr; cnt < MAXMERCS; cnt++,pSoldier++)
 	{
 		if ( pSoldier->bActive && pSoldier->bInSector )
 		{
-			if (pSoldier->uiStatusFlags & SOLDIER_UNDERAICONTROL)
+			if (pSoldier->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL)
 			{
 				CancelAIAction(pSoldier,FORCE);
 #ifdef TESTAICONTROL
@@ -808,10 +808,10 @@ void StartNPCAI(SOLDIERTYPE *pSoldier)
 	if(!gfAmIHost)
 		return;
 #endif
-	//pSoldier->uiStatusFlags |= SOLDIER_UNDERAICONTROL;
-	SetSoldierAsUnderAiControl( pSoldier );
+	//pSoldier->flags.uiStatusFlags |= SOLDIER_UNDERAICONTROL;
+	pSoldier->SetSoldierAsUnderAiControl( );
 
-	pSoldier->fTurnInProgress = TRUE;
+	pSoldier->flags.fTurnInProgress = TRUE;
 
 	pSoldier->sLastTwoLocations[0] = NOWHERE;
 	pSoldier->sLastTwoLocations[1] = NOWHERE;
@@ -830,7 +830,7 @@ void StartNPCAI(SOLDIERTYPE *pSoldier)
 	// important: if "fPausedAnimation" is TRUE, then we have to turn it off else
 	// HandleSoldierAI() will not be called!
 
-	if( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
+	if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		if ( GetNumberInVehicle(  pSoldier->bVehicleID ) == 0 )
 		{
@@ -842,10 +842,10 @@ void StartNPCAI(SOLDIERTYPE *pSoldier)
 	// If we are not in an interrupt situation!
 	if ( (( gTacticalStatus.uiFlags & TURNBASED ) && ( gTacticalStatus.uiFlags & INCOMBAT )) && gubOutOfTurnPersons == 0 )
 	{
-		if( ( ( pSoldier->bVisible != -1 && pSoldier->bLife) || ( gTacticalStatus.uiFlags & SHOW_ALL_MERCS ) ) && ( fInValidSoldier == FALSE ) )
+		if( ( ( pSoldier->bVisible != -1 && pSoldier->stats.bLife) || ( gTacticalStatus.uiFlags & SHOW_ALL_MERCS ) ) && ( fInValidSoldier == FALSE ) )
 		{
 			// If we are on a roof, set flag for rendering...
-			if ( pSoldier->bLevel != 0 && ( gTacticalStatus.uiFlags & INCOMBAT ) )
+			if ( pSoldier->pathing.bLevel != 0 && ( gTacticalStatus.uiFlags & INCOMBAT ) )
 			{
 				gTacticalStatus.uiFlags |= SHOW_ALL_ROOFS;
 				SetRenderFlags( RENDER_FLAG_FULL );
@@ -856,7 +856,7 @@ void StartNPCAI(SOLDIERTYPE *pSoldier)
 			//ATE: Changed to show locator
 
 			// Skip locator for green friendly militia
-			if ( !(pSoldier->bTeam == MILITIA_TEAM && pSoldier->bSide == 0 && pSoldier->bAlertStatus == STATUS_GREEN) )
+			if ( !(pSoldier->bTeam == MILITIA_TEAM && pSoldier->bSide == 0 && pSoldier->aiData.bAlertStatus == STATUS_GREEN) )
 			{
 				LocateSoldier( pSoldier->ubID, SETLOCATORFAST );
 			}
@@ -864,7 +864,7 @@ void StartNPCAI(SOLDIERTYPE *pSoldier)
 			// try commenting this out altogether
 			/*
 			// so long as he's not a neutral civ or a militia friendly to the player
-			if ( !(pSoldier->bNeutral || (pSoldier->bTeam == MILITIA_TEAM && pSoldier->bSide == 0) ) )
+			if ( !(pSoldier->aiData.bNeutral || (pSoldier->bTeam == MILITIA_TEAM && pSoldier->bSide == 0) ) )
 			{
 			PauseAITemporarily();
 			}
@@ -873,7 +873,7 @@ void StartNPCAI(SOLDIERTYPE *pSoldier)
 
 		UpdateEnemyUIBar( );
 
-	}		
+	}
 
 	// Remove deadlock message
 	DebugMsg( TOPIC_JA2AI, DBG_LEVEL_3 , "About to remove deadlock message" );
@@ -897,7 +897,7 @@ BOOLEAN DestNotSpokenFor(SOLDIERTYPE *pSoldier, INT16 sGridno)
 	{
 		if ( pOurTeam->bActive )
 		{
-			if (pOurTeam->sGridNo == sGridno || pOurTeam->usActionData == sGridno)
+			if (pOurTeam->sGridNo == sGridno || pOurTeam->aiData.usActionData == sGridno)
 				return(FALSE);
 		}
 	}
@@ -918,12 +918,12 @@ INT16 FindAdjacentSpotBeside(SOLDIERTYPE *pSoldier, INT16 sGridno)
 		sTempGridno = sGridno + mods[cnt];
 		if (!OutOfBounds(sGridno,sTempGridno))
 		{
-			if (NewOKDestination(pSoldier,sTempGridno,PEOPLETOO, pSoldier->bLevel ) && DestNotSpokenFor(pSoldier,sTempGridno))
+			if (NewOKDestination(pSoldier,sTempGridno,PEOPLETOO, pSoldier->pathing.bLevel ) && DestNotSpokenFor(pSoldier,sTempGridno))
 			{
 				sMovementCost = PlotPath(pSoldier,sTempGridno,FALSE,FALSE,FALSE,WALKING,FALSE,FALSE,0);
 				if (sMovementCost < sCheapestCost)
 				{
-					sCheapestCost	= sMovementCost;  
+					sCheapestCost	= sMovementCost;
 					sCheapestDest = sTempGridno;
 				}
 
@@ -942,7 +942,7 @@ UINT8 GetMostThreateningOpponent( SOLDIERTYPE *pSoldier )
 	SOLDIERTYPE		*pTargetSoldier;
 	UINT8					ubTargetSoldier = NOBODY;
 
-	// Loop through all mercs 
+	// Loop through all mercs
 
 	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
 	{
@@ -956,20 +956,20 @@ UINT8 GetMostThreateningOpponent( SOLDIERTYPE *pSoldier )
 		// if this soldier is on same team as me, skip him
 		if (pTargetSoldier->bTeam == pSoldier->bTeam || pTargetSoldier->bSide == pSoldier->bSide)
 		{
-			continue;		
+			continue;
 		}
 
 		// if potential opponent is dead, skip him
-		if (!pTargetSoldier->bLife)
+		if (!pTargetSoldier->stats.bLife)
 		{
 			continue;
 		}
 
-		if (pSoldier->bOppList[pTargetSoldier->ubID] != SEEN_CURRENTLY)
+		if (pSoldier->aiData.bOppList[pTargetSoldier->ubID] != SEEN_CURRENTLY)
 			continue;
 
 		// Special stuff for Carmen the bounty hunter
-		if (pSoldier->bAttitude == ATTACKSLAYONLY && pTargetSoldier->ubProfile != 64)
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pTargetSoldier->ubProfile != 64)
 		{
 			continue;  // next opponent
 		}
@@ -992,14 +992,14 @@ void FreeUpNPCFromPendingAction( 	SOLDIERTYPE *pSoldier )
 {
 	if ( pSoldier )
 	{
-		if ( pSoldier->bAction == AI_ACTION_PENDING_ACTION
-			|| pSoldier->bAction == AI_ACTION_OPEN_OR_CLOSE_DOOR
-			|| pSoldier->bAction == AI_ACTION_CREATURE_CALL
-			|| pSoldier->bAction == AI_ACTION_YELLOW_ALERT
-			|| pSoldier->bAction == AI_ACTION_RED_ALERT
-			|| pSoldier->bAction == AI_ACTION_UNLOCK_DOOR
-			|| pSoldier->bAction == AI_ACTION_PULL_TRIGGER
-			|| pSoldier->bAction == AI_ACTION_LOCK_DOOR	)
+		if ( pSoldier->aiData.bAction == AI_ACTION_PENDING_ACTION
+			|| pSoldier->aiData.bAction == AI_ACTION_OPEN_OR_CLOSE_DOOR
+			|| pSoldier->aiData.bAction == AI_ACTION_CREATURE_CALL
+			|| pSoldier->aiData.bAction == AI_ACTION_YELLOW_ALERT
+			|| pSoldier->aiData.bAction == AI_ACTION_RED_ALERT
+			|| pSoldier->aiData.bAction == AI_ACTION_UNLOCK_DOOR
+			|| pSoldier->aiData.bAction == AI_ACTION_PULL_TRIGGER
+			|| pSoldier->aiData.bAction == AI_ACTION_LOCK_DOOR	)
 		{
 			if ( pSoldier->ubProfile != NO_PROFILE )
 			{
@@ -1030,15 +1030,15 @@ void FreeUpNPCFromAttacking(UINT8 ubID)
 
 	pSoldier = MercPtrs[ubID];
 	ActionDone(pSoldier);
-	pSoldier->bNeedToLook = TRUE;
+	pSoldier->pathing.bNeedToLook = TRUE;
 
 	/*
-	if (pSoldier->bActionInProgress)
-	{ 
+	if (pSoldier->aiData.bActionInProgress)
+	{
 	#ifdef TESTAI
 	DebugMsg( TOPIC_JA2AI, DBG_LEVEL_0, String( "FreeUpNPCFromAttacking for %d", pSoldier->ubID ) );
 	#endif
-	if (pSoldier->bAction == AI_ACTION_FIRE_GUN)
+	if (pSoldier->aiData.bAction == AI_ACTION_FIRE_GUN)
 	{
 	if (pSoldier->bDoBurst)
 	{
@@ -1047,29 +1047,29 @@ void FreeUpNPCFromAttacking(UINT8 ubID)
 	// now find the target and have them say "close call" quote if
 	// applicable
 	pTarget = SimpleFindSoldier( pSoldier->sTargetGridNo, pSoldier->bTargetLevel );
-	if (pTarget && pTarget->bTeam == OUR_TEAM && pTarget->fCloseCall && pTarget->bShock == 0)
+	if (pTarget && pTarget->bTeam == OUR_TEAM && pTarget->flags.fCloseCall && pTarget->bShock == 0)
 	{
 	// say close call quote!
 	TacticalCharacterDialogue( pTarget, QUOTE_CLOSE_CALL );
-	pTarget->fCloseCall = FALSE;
+	pTarget->flags.fCloseCall = FALSE;
 	}
 	ActionDone(pSoldier);
 	pSoldier->bDoBurst = FALSE;
-	}		
+	}
 	}
 	else
 	{
 	pTarget = SimpleFindSoldier( pSoldier->sTargetGridNo, pSoldier->bTargetLevel );
-	if (pTarget && pTarget->bTeam == OUR_TEAM && pTarget->fCloseCall && pTarget->bShock == 0)
+	if (pTarget && pTarget->bTeam == OUR_TEAM && pTarget->flags.fCloseCall && pTarget->bShock == 0)
 	{
 	// say close call quote!
 	TacticalCharacterDialogue( pTarget, QUOTE_CLOSE_CALL );
-	pTarget->fCloseCall = FALSE;
+	pTarget->flags.fCloseCall = FALSE;
 	}
-	ActionDone(pSoldier);	
+	ActionDone(pSoldier);
 	}
 	}
-	else if ((pSoldier->bAction == AI_ACTION_TOSS_PROJECTILE) || (pSoldier->bAction == AI_ACTION_KNIFE_STAB))
+	else if ((pSoldier->aiData.bAction == AI_ACTION_TOSS_PROJECTILE) || (pSoldier->aiData.bAction == AI_ACTION_KNIFE_STAB))
 	{
 	ActionDone(pSoldier);
 	}
@@ -1079,7 +1079,7 @@ void FreeUpNPCFromAttacking(UINT8 ubID)
 	//pSoldier->sTarget = NOWHERE;
 
 	// make him look in case he turns to face a new direction
-	pSoldier->bNeedToLook = TRUE;
+	pSoldier->pathing.bNeedToLook = TRUE;
 
 	// This is here to speed up resolution of interrupts that have already been
 	// delayed while AttackingPerson was still set (causing ChangeControl to
@@ -1091,7 +1091,7 @@ void FreeUpNPCFromAttacking(UINT8 ubID)
 
 void FreeUpNPCFromLoweringGun( SOLDIERTYPE *pSoldier )
 {
-	if ( pSoldier && pSoldier->bAction == AI_ACTION_LOWER_GUN )
+	if ( pSoldier && pSoldier->aiData.bAction == AI_ACTION_LOWER_GUN )
 	{
 		ActionDone(pSoldier);
 	}
@@ -1101,11 +1101,11 @@ void FreeUpNPCFromTurning(SOLDIERTYPE *pSoldier, INT8 bLook)
 {
 
 	// if NPC is in the process of changing facing, mark him as being done!
-	if ((pSoldier->bAction == AI_ACTION_CHANGE_FACING) && pSoldier->bActionInProgress)
+	if ((pSoldier->aiData.bAction == AI_ACTION_CHANGE_FACING) && pSoldier->aiData.bActionInProgress)
 	{
 #ifdef TESTAI
-		DebugMsg( TOPIC_JA2AI, DBG_LEVEL_3, 
-			String("FREEUPNPCFROMTURNING: our action %d, desdir %d dir %d",pSoldier->bAction,pSoldier->bDesiredDirection,pSoldier->ubDirection) );
+		DebugMsg( TOPIC_JA2AI, DBG_LEVEL_3,
+			String("FREEUPNPCFROMTURNING: our action %d, desdir %d dir %d",pSoldier->aiData.bAction,pSoldier->pathing.bDesiredDirection,pSoldier->ubDirection) );
 #endif
 
 
@@ -1123,13 +1123,13 @@ void FreeUpNPCFromTurning(SOLDIERTYPE *pSoldier, INT8 bLook)
 void FreeUpNPCFromStanceChange(SOLDIERTYPE *pSoldier )
 {
 	// are we/were we doing something?
-	if (pSoldier->bActionInProgress)
+	if (pSoldier->aiData.bActionInProgress)
 	{
 		// check and see if we were changing stance
-		if (pSoldier->bAction == AI_ACTION_CHANGE_STANCE || pSoldier->bAction == AI_ACTION_COWER || pSoldier->bAction == AI_ACTION_STOP_COWERING)
+		if (pSoldier->aiData.bAction == AI_ACTION_CHANGE_STANCE || pSoldier->aiData.bAction == AI_ACTION_COWER || pSoldier->aiData.bAction == AI_ACTION_STOP_COWERING)
 		{
 			// yes we were - are we finished?
-			if ( gAnimControl[ pSoldier->usAnimState ].ubHeight == pSoldier->usActionData )
+			if ( gAnimControl[ pSoldier->usAnimState ].ubHeight == pSoldier->aiData.usActionData )
 			{
 				// yes! Free us up to do other fun things
 				ActionDone(pSoldier);
@@ -1141,10 +1141,10 @@ void FreeUpNPCFromStanceChange(SOLDIERTYPE *pSoldier )
 void FreeUpNPCFromRoofClimb(SOLDIERTYPE *pSoldier )
 {
 	// are we/were we doing something?
-	if (pSoldier->bActionInProgress)
+	if (pSoldier->aiData.bActionInProgress)
 	{
 		// check and see if we were climbing
-		if (pSoldier->bAction == AI_ACTION_CLIMB_ROOF)
+		if (pSoldier->aiData.bAction == AI_ACTION_CLIMB_ROOF)
 		{
 			// yes! Free us up to do other fun things
 			ActionDone(pSoldier);
@@ -1158,13 +1158,13 @@ void FreeUpNPCFromRoofClimb(SOLDIERTYPE *pSoldier )
 void ActionDone(SOLDIERTYPE *pSoldier)
 {
 	// if an action is currently selected
-	if (pSoldier->bAction != AI_ACTION_NONE)
+	if (pSoldier->aiData.bAction != AI_ACTION_NONE)
 	{
-		if (pSoldier->uiStatusFlags & SOLDIER_MONSTER)
+		if (pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER)
 		{
 #ifdef TESTAI
-			DebugMsg( TOPIC_JA2AI, DBG_LEVEL_3, 
-				String("Cancelling actiondone: our action %d, desdir %d dir %d",pSoldier->bAction,pSoldier->bDesiredDirection,pSoldier->ubDirection) );
+			DebugMsg( TOPIC_JA2AI, DBG_LEVEL_3,
+				String("Cancelling actiondone: our action %d, desdir %d dir %d",pSoldier->aiData.bAction,pSoldier->pathing.bDesiredDirection,pSoldier->ubDirection) );
 #endif
 		}
 
@@ -1177,36 +1177,36 @@ void ActionDone(SOLDIERTYPE *pSoldier)
 		//}
 
 		// cancel any turning & movement by making current settings desired ones
-		pSoldier->sFinalDestination	= pSoldier->sGridNo;
+		pSoldier->pathing.sFinalDestination	= pSoldier->sGridNo;
 
-		if ( !pSoldier->fNoAPToFinishMove )
+		if ( !pSoldier->flags.fNoAPToFinishMove )
 		{
-			EVENT_StopMerc( pSoldier, pSoldier->sGridNo, pSoldier->ubDirection );
-			AdjustNoAPToFinishMove( pSoldier, FALSE );
+			pSoldier->EVENT_StopMerc( pSoldier->sGridNo, pSoldier->ubDirection );
+			pSoldier->AdjustNoAPToFinishMove( FALSE );
 		}
 
 		//Lalien: moved later in ExecuteAction() case AI_ACTION_RAISE_GUN:
 		//AXP 23.03.2007: Sniper deadlock fix
-		//if ( pSoldier->bOrders == SNIPER && pSoldier->bAction == AI_ACTION_RAISE_GUN && pSoldier->bLastAction == AI_ACTION_RAISE_GUN)
+		//if ( pSoldier->aiData.bOrders == SNIPER && pSoldier->aiData.bAction == AI_ACTION_RAISE_GUN && pSoldier->aiData.bLastAction == AI_ACTION_RAISE_GUN)
 		//{
-		//	pSoldier->bNextAction = AI_ACTION_END_TURN;
+		//	pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
 		//}
 
 		// cancel current action
-		pSoldier->bLastAction		= pSoldier->bAction;
-		pSoldier->bAction			= AI_ACTION_NONE;
-		pSoldier->usActionData		= NOWHERE;
-		pSoldier->bActionInProgress	= FALSE;
-		pSoldier->fDelayedMovement	= FALSE;
+		pSoldier->aiData.bLastAction		= pSoldier->aiData.bAction;
+		pSoldier->aiData.bAction			= AI_ACTION_NONE;
+		pSoldier->aiData.usActionData		= NOWHERE;
+		pSoldier->aiData.bActionInProgress	= FALSE;
+		pSoldier->flags.fDelayedMovement	= FALSE;
 
 		/*
-		if ( pSoldier->bLastAction == AI_ACTION_CHANGE_STANCE || pSoldier->bLastAction == AI_ACTION_COWER || pSoldier->bLastAction == AI_ACTION_STOP_COWERING )
+		if ( pSoldier->aiData.bLastAction == AI_ACTION_CHANGE_STANCE || pSoldier->aiData.bLastAction == AI_ACTION_COWER || pSoldier->aiData.bLastAction == AI_ACTION_STOP_COWERING )
 		{
-		SoldierGotoStationaryStance( pSoldier );
+		pSoldier->SoldierGotoStationaryStance( );
 		}
 		*/
 
-		if ( pSoldier->bLastAction == AI_ACTION_RAISE_GUN )
+		if ( pSoldier->aiData.bLastAction == AI_ACTION_RAISE_GUN )
 		{
 			HandleSight( pSoldier, SIGHT_LOOK );
 		}
@@ -1215,10 +1215,10 @@ void ActionDone(SOLDIERTYPE *pSoldier)
 		// This is possible if we decide on an action that we have no points for
 		// (but which set pathStored).  The action is retained until next turn,
 		// although NewDest isn't called.  A newSit. could cancel it before then!
-		pSoldier->bPathStored = FALSE;
+		pSoldier->pathing.bPathStored = FALSE;
 	}
 
-	if (pSoldier->uiStatusFlags & SOLDIER_DEAD)
+	if (pSoldier->flags.uiStatusFlags & SOLDIER_DEAD)
 	{
 		// The last action killed the soldier (stepped on a mine, detonated a LAW too close, etc)
 		EndAIGuysTurn( pSoldier);
@@ -1266,7 +1266,7 @@ void NPCDoesAct(SOLDIERTYPE *pSoldier)
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"NPCDoesAct");
 
 	// if the action is visible and we're in a hidden turnbased mode, go to turnbased
-	if (gTacticalStatus.uiFlags & TURNBASED && !(gTacticalStatus.uiFlags & INCOMBAT) && (pSoldier->bAction == AI_ACTION_FIRE_GUN || pSoldier->bAction == AI_ACTION_TOSS_PROJECTILE || pSoldier->bAction == AI_ACTION_KNIFE_MOVE || pSoldier->bAction == AI_ACTION_KNIFE_STAB || pSoldier->bAction == AI_ACTION_THROW_KNIFE) )
+	if (gTacticalStatus.uiFlags & TURNBASED && !(gTacticalStatus.uiFlags & INCOMBAT) && (pSoldier->aiData.bAction == AI_ACTION_FIRE_GUN || pSoldier->aiData.bAction == AI_ACTION_TOSS_PROJECTILE || pSoldier->aiData.bAction == AI_ACTION_KNIFE_MOVE || pSoldier->aiData.bAction == AI_ACTION_KNIFE_STAB || pSoldier->aiData.bAction == AI_ACTION_THROW_KNIFE) )
 	{
 		DisplayHiddenTurnbased( pSoldier );
 	}
@@ -1280,9 +1280,9 @@ void NPCDoesAct(SOLDIERTYPE *pSoldier)
 
 	// CJC Feb 18 99: make sure that soldier is not in the middle of a turn due to visual crap to make enemies
 	// face and point their guns at us
-	if ( pSoldier->bDesiredDirection != pSoldier->ubDirection )
+	if ( pSoldier->pathing.bDesiredDirection != pSoldier->ubDirection )
 	{
-		pSoldier->bDesiredDirection = pSoldier->ubDirection;
+		pSoldier->pathing.bDesiredDirection = pSoldier->ubDirection;
 	}
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"NPCDoesAct done");
@@ -1325,17 +1325,17 @@ void CancelAIAction(SOLDIERTYPE *pSoldier, UINT8 ubForce)
 	SkipCoverCheck = FALSE;
 
 	// turn off new situation flag to stop this from repeating all the time!
-	if ( pSoldier->bNewSituation == IS_NEW_SITUATION )
+	if ( pSoldier->aiData.bNewSituation == IS_NEW_SITUATION )
 	{
-		pSoldier->bNewSituation = WAS_NEW_SITUATION;
+		pSoldier->aiData.bNewSituation = WAS_NEW_SITUATION;
 	}
 
 	// NPCs getting escorted do NOT react to new situations, unless forced!
-	if (pSoldier->bUnderEscort && !ubForce)
+	if (pSoldier->aiData.bUnderEscort && !ubForce)
 		return;
 
 	// turn off RED/YELLOW status "bypass to Green", to re-check all actions
-	pSoldier->bBypassToGreen = FALSE;
+	pSoldier->aiData.bBypassToGreen = FALSE;
 
 	ActionDone(pSoldier);
 }
@@ -1362,9 +1362,9 @@ return;
 
 
 // check if it's a problem with a offensive combat action
-if ((pSoldier->bAction == AI_ACTION_FIRE_GUN) ||
-(pSoldier->bAction == AI_ACTION_TOSS_PROJECTILE) ||
-(pSoldier->bAction == AI_ACTION_KNIFE_STAB))
+if ((pSoldier->aiData.bAction == AI_ACTION_FIRE_GUN) ||
+(pSoldier->aiData.bAction == AI_ACTION_TOSS_PROJECTILE) ||
+(pSoldier->aiData.bAction == AI_ACTION_KNIFE_STAB))
 {
 // THESE ARE LESS SERIOUS, SINCE THEY LIKELY WON'T REPEAT THEMSELVES
 attackAction = TRUE;
@@ -1374,7 +1374,7 @@ attackAction = TRUE;
 
 #ifdef BETAVERSION
 sprintf(tempstr,"ActionInProgress - ERROR: %s's timeout limit exceeded.  Action #%d (%d)",
-pSoldier->name,pSoldier->bAction,pSoldier->usActionData);
+pSoldier->name,pSoldier->aiData.bAction,pSoldier->aiData.usActionData);
 
 #ifdef RECORDNET
 fprintf(NetDebugFile,"\n%s\n\n",tempstr);
@@ -1417,17 +1417,17 @@ SendNetData(cnt);
 if (!alreadyFreedUp)
 FreeUpManFromAttacking(pSoldier->ubID,COMMUNICATE);
 }
-else if (pSoldier->bAction == AI_ACTION_CHANGE_FACING)
+else if (pSoldier->aiData.bAction == AI_ACTION_CHANGE_FACING)
 {
 #ifdef BETAVERSION
 NameMessage(pSoldier,"will now be freed up from turning...",2000);
 #endif
 
 // force him to face in the right direction (as long as it's legal)
-if ((pSoldier->bDesiredDirection >= 1) && (pSoldier->bDesiredDirection <= 8))
-pSoldier->ubDirection = pSoldier->bDesiredDirection;
+if ((pSoldier->pathing.bDesiredDirection >= 1) && (pSoldier->pathing.bDesiredDirection <= 8))
+pSoldier->ubDirection = pSoldier->pathing.bDesiredDirection;
 else
-pSoldier->bDesiredDirection = pSoldier->ubDirection;
+pSoldier->pathing.bDesiredDirection = pSoldier->ubDirection;
 
 // free up ONLY players from whom we haven't received an AI_ACTION_DONE yet
 // we can all agree the action is DONE and we can continue...
@@ -1435,7 +1435,7 @@ pSoldier->bDesiredDirection = pSoldier->ubDirection;
 NetSend.msgType    = NET_FREE_UP_TURN;
 NetSend.ubID     = pSoldier->ubID;
 NetSend.misc_UCHAR = pSoldier->ubDirection;
-NetSend.answer     = pSoldier->bDesiredDirection;
+NetSend.answer     = pSoldier->pathing.bDesiredDirection;
 
 for (cnt = 0; cnt < MAXPLAYERS; cnt++)
 {
@@ -1465,7 +1465,7 @@ CancelAIAction(pSoldier,FORCE);
 
 
 // reset the timeout counter for next time
-pSoldier->bActionTimeout = 0;
+pSoldier->aiData.bActionTimeout = 0;
 }
 */
 
@@ -1475,22 +1475,22 @@ pSoldier->bActionTimeout = 0;
 INT16 ActionInProgress(SOLDIERTYPE *pSoldier)
 {
 	// if NPC has a desired destination, but isn't currently going there
-	if ((pSoldier->sFinalDestination != NOWHERE) && (pSoldier->sDestination != pSoldier->sFinalDestination))
+	if ((pSoldier->pathing.sFinalDestination != NOWHERE) && (pSoldier->pathing.sDestination != pSoldier->pathing.sFinalDestination))
 	{
 		// return success (TRUE) if we successfully resume the movement
-		return(TryToResumeMovement(pSoldier,pSoldier->sFinalDestination));
+		return(TryToResumeMovement(pSoldier,pSoldier->pathing.sFinalDestination));
 	}
 
 
 	// this here should never happen, but it seems to (turns sometimes hang!)
-	if ((pSoldier->bAction == AI_ACTION_CHANGE_FACING) && (pSoldier->bDesiredDirection != pSoldier->usActionData))
+	if ((pSoldier->aiData.bAction == AI_ACTION_CHANGE_FACING) && (pSoldier->pathing.bDesiredDirection != pSoldier->aiData.usActionData))
 	{
 #ifdef TESTVERSION
 		PopMessage("ActionInProgress: WARNING - CONTINUING FACING CHANGE...");
 #endif
 
 		// don't try to pay any more APs for this, it was paid for once already!
-		pSoldier->bDesiredDirection = (INT8) pSoldier->usActionData;   // turn to face direction in actionData
+		pSoldier->pathing.bDesiredDirection = (INT8) pSoldier->aiData.usActionData;   // turn to face direction in actionData
 		return(TRUE);
 	}
 
@@ -1600,7 +1600,7 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 	//
 
 	// If man is inactive/at base/dead/unconscious
-	if (!pSoldier->bActive || !pSoldier->bInSector || (pSoldier->bLife < OKLIFE))
+	if (!pSoldier->bActive || !pSoldier->bInSector || (pSoldier->stats.bLife < OKLIFE))
 	{
 	#ifdef DEBUGDECISIONS
 	AINumMessage("HandleManAI - Unavailable man, skipping guy#",pSoldier->ubID);
@@ -1611,7 +1611,7 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 	}
 
 	if (PTR_CIVILIAN && pSoldier->service &&
-	(pSoldier->bNeutral || MedicsMissionIsEscort(pSoldier)))
+	(pSoldier->aiData.bNeutral || MedicsMissionIsEscort(pSoldier)))
 	{
 	#ifdef DEBUGDECISIONS
 	AINumMessage("HandleManAI - Civilian is being serviced, skipping guy#",pSoldier->ubID);
@@ -1665,7 +1665,7 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 
 
 	// if NPC's has been forced to stop by an opponent's interrupt or similar
-	if (pSoldier->forcedToStop)
+	if (pSoldier->flags.forcedToStop)
 	{
 	#ifdef DEBUGBUSY
 	AINumMessage("HandleManAI - Forced to stop, skipping guy #",pSoldier->ubID);
@@ -1687,14 +1687,14 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 	*/
 
 	// yikes, this shouldn't occur! we should be trying to finish our move!
-	// pSoldier->fNoAPToFinishMove = FALSE;
+	// pSoldier->flags.fNoAPToFinishMove = FALSE;
 
 	// unless in mid-move, get an up-to-date alert status for this guy
-	if (pSoldier->bStopped)
+	if (pSoldier->pathing.bStopped)
 	{
 		// if active team is waiting for oppChanceToDecide, that means we have NOT
 		// had a chance to go through NewSelectedNPC(), so do the refresh here
-		/* 
+		/*
 		???
 		if (gTacticalStatus.team[Net.turnActive].allowOppChanceToDecide)
 		{
@@ -1713,7 +1713,7 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 
 	/*
 	// move this clause outside of the function...
-	if (pSoldier->bNewSituation)
+	if (pSoldier->aiData.bNewSituation)
 	// don't force, don't want escorted mercs reacting to new opponents, etc.
 	CancelAIAction(pSoldier,DONTFORCE);
 
@@ -1733,15 +1733,15 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 
 
 
-	if ((pSoldier->bAction != AI_ACTION_NONE) && pSoldier->bActionInProgress)
+	if ((pSoldier->aiData.bAction != AI_ACTION_NONE) && pSoldier->aiData.bActionInProgress)
 	{
 		/*
-		if (pSoldier->bAction == AI_ACTION_RANDOM_PATROL)
+		if (pSoldier->aiData.bAction == AI_ACTION_RANDOM_PATROL)
 		{
-		if (pSoldier->usPathIndex == pSoldier->usPathDataSize)
-		//if (pSoldier->usActionData == pSoldier->sGridNo )
-		//(IC?) if (pSoldier->bAction == AI_ACTION_RANDOM_PATROL && ( pSoldier->usPathIndex == pSoldier->usPathDataSize ) )
-		//(old?) if (pSoldier->bAction == AI_ACTION_RANDOM_PATROL && ( pSoldier->usActionData == pSoldier->sGridNo ) )
+		if (pSoldier->pathing.usPathIndex == pSoldier->pathing.usPathDataSize)
+		//if (pSoldier->aiData.usActionData == pSoldier->sGridNo )
+		//(IC?) if (pSoldier->aiData.bAction == AI_ACTION_RANDOM_PATROL && ( pSoldier->pathing.usPathIndex == pSoldier->pathing.usPathDataSize ) )
+		//(old?) if (pSoldier->aiData.bAction == AI_ACTION_RANDOM_PATROL && ( pSoldier->aiData.usActionData == pSoldier->sGridNo ) )
 		{
 		#ifdef TESTAI
 		DebugMsg( TOPIC_JA2AI, DBG_LEVEL_0, String("OPPONENT %d REACHES DEST - ACTION DONE",pSoldier->ubID ) );
@@ -1750,8 +1750,8 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 		}
 
 		//*** TRICK- TAKE INTO ACCOUNT PAUSED FOR NO TIME ( FOR NOW )
-		if (pSoldier->fNoAPToFinishMove)
-		//if (pSoldier->bAction == AI_ACTION_RANDOM_PATROL && pSoldier->fNoAPToFinishMove)
+		if (pSoldier->flags.fNoAPToFinishMove)
+		//if (pSoldier->aiData.bAction == AI_ACTION_RANDOM_PATROL && pSoldier->flags.fNoAPToFinishMove)
 		{
 		// OK, we have a move to finish...
 
@@ -1789,10 +1789,10 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 
 
 	// if man has nothing to do
-	if (pSoldier->bAction == AI_ACTION_NONE)
+	if (pSoldier->aiData.bAction == AI_ACTION_NONE)
 	{
 		// make sure this flag is turned off (it already should be!)
-		pSoldier->bActionInProgress = FALSE;
+		pSoldier->aiData.bActionInProgress = FALSE;
 
 		// Since we're NEVER going to "continue" along an old path at this point,
 		// then it would be nice place to reinitialize "pathStored" flag for
@@ -1809,67 +1809,67 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 		// The only reason we would NEED to reinitialize it here is if I've
 		// incorrectly set pathStored to TRUE in a process that doesn't end up
 		// calling NewDest()
-		pSoldier->bPathStored = FALSE;
+		pSoldier->pathing.bPathStored = FALSE;
 
 		// decide on the next action
-		if (pSoldier->bNextAction != AI_ACTION_NONE)
+		if (pSoldier->aiData.bNextAction != AI_ACTION_NONE)
 		{
 			// do the next thing we have to do...
-			if ( pSoldier->bNextAction == AI_ACTION_END_COWER_AND_MOVE )
+			if ( pSoldier->aiData.bNextAction == AI_ACTION_END_COWER_AND_MOVE )
 			{
-				if ( pSoldier->uiStatusFlags & SOLDIER_COWERING )
+				if ( pSoldier->flags.uiStatusFlags & SOLDIER_COWERING )
 				{
-					pSoldier->bAction = AI_ACTION_STOP_COWERING;
-					pSoldier->usActionData = ANIM_STAND;
+					pSoldier->aiData.bAction = AI_ACTION_STOP_COWERING;
+					pSoldier->aiData.usActionData = ANIM_STAND;
 				}
 				else if ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight < ANIM_STAND )
 				{
 					// stand up!
-					pSoldier->bAction = AI_ACTION_CHANGE_STANCE;
-					pSoldier->usActionData = ANIM_STAND;
+					pSoldier->aiData.bAction = AI_ACTION_CHANGE_STANCE;
+					pSoldier->aiData.usActionData = ANIM_STAND;
 				}
 				else
 				{
-					pSoldier->bAction = AI_ACTION_NONE;
+					pSoldier->aiData.bAction = AI_ACTION_NONE;
 				}
-				if ( pSoldier->sGridNo == pSoldier->usNextActionData )
+				if ( pSoldier->sGridNo == pSoldier->aiData.usNextActionData )
 				{
 					// no need to walk after this
-					pSoldier->bNextAction = AI_ACTION_NONE;
-					pSoldier->usNextActionData = NOWHERE;
+					pSoldier->aiData.bNextAction = AI_ACTION_NONE;
+					pSoldier->aiData.usNextActionData = NOWHERE;
 				}
 				else
 				{
-					pSoldier->bNextAction = AI_ACTION_WALK;				
+					pSoldier->aiData.bNextAction = AI_ACTION_WALK;
 					// leave next-action-data as is since that's where we want to go
 				}
 			}
 			else
 			{
-				pSoldier->bAction = pSoldier->bNextAction;
-				pSoldier->usActionData = pSoldier->usNextActionData;
-				pSoldier->bTargetLevel = pSoldier->bNextTargetLevel;
-				pSoldier->bNextAction = AI_ACTION_NONE;
-				pSoldier->usNextActionData = 0;
-				pSoldier->bNextTargetLevel = 0;
+				pSoldier->aiData.bAction = pSoldier->aiData.bNextAction;
+				pSoldier->aiData.usActionData = pSoldier->aiData.usNextActionData;
+				pSoldier->bTargetLevel = pSoldier->aiData.bNextTargetLevel;
+				pSoldier->aiData.bNextAction = AI_ACTION_NONE;
+				pSoldier->aiData.usNextActionData = 0;
+				pSoldier->aiData.bNextTargetLevel = 0;
 			}
-			if (pSoldier->bAction == AI_ACTION_PICKUP_ITEM)
+			if (pSoldier->aiData.bAction == AI_ACTION_PICKUP_ITEM)
 			{
 				// the item pool index was stored in the special data field
-				pSoldier->uiPendingActionData1 = pSoldier->iNextActionSpecialData;
+				pSoldier->aiData.uiPendingActionData1 = pSoldier->iNextActionSpecialData;
 			}
 		}
 		else if ( pSoldier->sAbsoluteFinalDestination != NOWHERE )
 		{
 			if ( ACTING_ON_SCHEDULE( pSoldier ) )
 			{
-				pSoldier->bAction = AI_ACTION_SCHEDULE_MOVE;
+				pSoldier->aiData.bAction = AI_ACTION_SCHEDULE_MOVE;
 			}
 			else
 			{
-				pSoldier->bAction = AI_ACTION_WALK;
+				pSoldier->aiData.bAction = AI_ACTION_WALK;
 			}
-			pSoldier->usActionData = pSoldier->sAbsoluteFinalDestination;
+			pSoldier->aiData.usActionData = pSoldier->sAbsoluteFinalDestination;
 		}
 		else
 		{
@@ -1877,26 +1877,26 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 			{
 				if (CREATURE_OR_BLOODCAT( pSoldier ))
 				{
-					pSoldier->bAction = CreatureDecideAction( pSoldier );
+					pSoldier->aiData.bAction = CreatureDecideAction( pSoldier );
 				}
 				else if (pSoldier->ubBodyType == CROW)
 				{
-					pSoldier->bAction = CrowDecideAction( pSoldier );
+					pSoldier->aiData.bAction = CrowDecideAction( pSoldier );
 				}
 				else
 				{
-					pSoldier->bAction = DecideAction(pSoldier);
+					pSoldier->aiData.bAction = DecideAction(pSoldier);
 				}
 			}
 		}
 
-		if (pSoldier->bAction == AI_ACTION_ABSOLUTELY_NONE)
+		if (pSoldier->aiData.bAction == AI_ACTION_ABSOLUTELY_NONE)
 		{
-			pSoldier->bAction = AI_ACTION_NONE;
+			pSoldier->aiData.bAction = AI_ACTION_NONE;
 		}
 
 		// if he chose to continue doing nothing
-		if (pSoldier->bAction == AI_ACTION_NONE)
+		if (pSoldier->aiData.bAction == AI_ACTION_NONE)
 		{
 #ifdef RECORDNET
 			fprintf(NetDebugFile,"\tMOVED BECOMING TRUE: Chose to do nothing, guynum %d\n",pSoldier->ubID);
@@ -1926,7 +1926,7 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 
 		if ( CHEATER_CHEAT_LEVEL( ) )
 		{
-			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Soldier %d decides action %d with data %d", pSoldier->ubID, pSoldier->bAction, pSoldier->usActionData );
+			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Soldier %d decides action %d with data %d", pSoldier->ubID, pSoldier->aiData.bAction, pSoldier->aiData.usActionData );
 		}
 
 		// see if we can afford to do this action
@@ -1935,9 +1935,9 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 			NPCDoesAct(pSoldier);
 
 			// perform the chosen action
-			pSoldier->bActionInProgress = ExecuteAction(pSoldier); // if started, mark us as busy
+			pSoldier->aiData.bActionInProgress = ExecuteAction(pSoldier); // if started, mark us as busy
 
-			if ( !pSoldier->bActionInProgress && pSoldier->sAbsoluteFinalDestination != NOWHERE )
+			if ( !pSoldier->aiData.bActionInProgress && pSoldier->sAbsoluteFinalDestination != NOWHERE )
 			{
 				// turn based... abort this guy's turn
 				EndAIGuysTurn( pSoldier );
@@ -1961,28 +1961,28 @@ void RefreshAI(SOLDIERTYPE *pSoldier)
 	// MarkDetectableMines(pSoldier);
 
 	// whether last attack hit or not doesn't matter once control has been lost
-	pSoldier->bLastAttackHit = FALSE;
+	pSoldier->aiData.bLastAttackHit = FALSE;
 
 	// get an up-to-date alert status for this guy
 	DecideAlertStatus(pSoldier);
 
-	if (pSoldier->bAlertStatus == STATUS_YELLOW)
+	if (pSoldier->aiData.bAlertStatus == STATUS_YELLOW)
 		SkipCoverCheck = FALSE;
 
 	// if he's in battle or knows opponents are here
 	if (gfTurnBasedAI)
 	{
-		if ((pSoldier->bAlertStatus == STATUS_BLACK) || (pSoldier->bAlertStatus == STATUS_RED))
+		if ((pSoldier->aiData.bAlertStatus == STATUS_BLACK) || (pSoldier->aiData.bAlertStatus == STATUS_RED))
 		{
 			// always freshly rethink things at start of his turn
-			pSoldier->bNewSituation = IS_NEW_SITUATION;
+			pSoldier->aiData.bNewSituation = IS_NEW_SITUATION;
 		}
 		else
 		{
 			// make sure any paths stored during out last AI decision but not reacted
 			// to (probably due to lack of APs) get re-tested by the ExecuteAction()
-			// function in AI, since the ->sDestination may no longer be legal now!
-			pSoldier->bPathStored = FALSE;
+			// function in AI, since the->pathing.sDestination may no longer be legal now!
+			pSoldier->pathing.bPathStored = FALSE;
 
 			// if not currently engaged, or even alerted
 			// take a quick look around to see if any friends seem to be in trouble
@@ -1990,7 +1990,7 @@ void RefreshAI(SOLDIERTYPE *pSoldier)
 
 			// allow stationary GREEN Civilians to turn again at least 1/turn!
 		}
-		pSoldier->bLastAction = AI_ACTION_NONE;
+		pSoldier->aiData.bLastAction = AI_ACTION_NONE;
 
 	}
 }
@@ -2016,12 +2016,12 @@ void AIDecideRadioAnimation( SOLDIERTYPE *pSoldier )
 	{
 	case ANIM_STAND:
 
-		EVENT_InitNewSoldierAnim( pSoldier, AI_RADIO, 0 , FALSE );
+		pSoldier->EVENT_InitNewSoldierAnim( AI_RADIO, 0 , FALSE );
 		break;
 
 	case ANIM_CROUCH:
 
-		EVENT_InitNewSoldierAnim( pSoldier, AI_CR_RADIO, 0 , FALSE );
+		pSoldier->EVENT_InitNewSoldierAnim( AI_CR_RADIO, 0 , FALSE );
 		break;
 
 	case ANIM_PRONE:
@@ -2042,24 +2042,24 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 	SkipCoverCheck = FALSE;
 
 	// reset this field, too
-	pSoldier->bLastAttackHit = FALSE;
+	pSoldier->aiData.bLastAttackHit = FALSE;
 
 	UINT16 usHandItem = pSoldier->inv[HANDPOS].usItem;
 
 #ifdef TESTAICONTROL
 	if (gfTurnBasedAI || gTacticalStatus.fAutoBandageMode)
 	{
-		DebugAI( String( "%d does %s (a.d. %d) in %d with %d APs left", pSoldier->ubID, gzActionStr[pSoldier->bAction], pSoldier->usActionData, pSoldier->sGridNo, pSoldier->bActionPoints ) );
+		DebugAI( String( "%d does %s (a.d. %d) in %d with %d APs left", pSoldier->ubID, gzActionStr[pSoldier->aiData.bAction], pSoldier->aiData.usActionData, pSoldier->sGridNo, pSoldier->bActionPoints ) );
 	}
 #endif
 
-	DebugAI( String( "%d does %s (a.d. %d) at time %ld", pSoldier->ubID, gzActionStr[pSoldier->bAction], pSoldier->usActionData, GetJA2Clock() ) );
+	DebugAI( String( "%d does %s (a.d. %d) at time %ld", pSoldier->ubID, gzActionStr[pSoldier->aiData.bAction], pSoldier->aiData.usActionData, GetJA2Clock() ) );
 
-	// 0verhaul:  The decideaction stage does so many path plots and overrides that 
+	// 0verhaul:  The decideaction stage does so many path plots and overrides that
 	// relying on a stored path from there is a bad idea.
-	pSoldier->usPathDataSize = pSoldier->usPathIndex = pSoldier->bPathStored = 0;
+	pSoldier->pathing.usPathDataSize = pSoldier->pathing.usPathIndex = pSoldier->pathing.bPathStored = 0;
 
-	switch (pSoldier->bAction)
+	switch (pSoldier->aiData.bAction)
 	{
 	case AI_ACTION_NONE:                  // maintain current position & facing
 		// do nothing
@@ -2073,10 +2073,10 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		}
 		else
 		{
-			RESETTIMECOUNTER( pSoldier->AICounter, pSoldier->usActionData ); 
+			RESETTIMECOUNTER( pSoldier->timeCounters.AICounter, pSoldier->aiData.usActionData );
 			if (pSoldier->ubProfile != NO_PROFILE)
 			{
-				//DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "%s waiting %d from %d", pSoldier->name, pSoldier->AICounter, GetJA2Clock() ) );
+				//DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "%s waiting %d from %d", pSoldier->name, pSoldier->timeCounters.AICounter, GetJA2Clock() ) );
 			}
 		}
 		ActionDone( pSoldier );
@@ -2086,7 +2086,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		// as long as we don't see anyone new, cover won't have changed
 		// if we see someone new, it will cause a new situation & remove this
 		// 0verhaul:  If turning and not moving, set the final destination to the current position
-		pSoldier->sFinalDestination = pSoldier->sGridNo;
+		pSoldier->pathing.sFinalDestination = pSoldier->sGridNo;
 		SkipCoverCheck = TRUE;
 
 #ifdef DEBUGDECISIONS
@@ -2095,16 +2095,16 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		DebugAI (tempstr);
 #endif
 
-		//			pSoldier->bDesiredDirection = (UINT8) ;   // turn to face direction in actionData
-		SendSoldierSetDesiredDirectionEvent( pSoldier, pSoldier->usActionData );
+		//			pSoldier->pathing.bDesiredDirection = (UINT8) ;   // turn to face direction in actionData
+		SendSoldierSetDesiredDirectionEvent( pSoldier, pSoldier->aiData.usActionData );
 		// now we'll have to wait for the turning to finish; no need to call TurnSoldier here
-		//TurnSoldier( pSoldier );
+		//pSoldier->TurnSoldier( );
 		/*
-		if (!StartTurn(pSoldier,pSoldier->usActionData,FASTTURN))
+		if (!StartTurn(pSoldier,pSoldier->aiData.usActionData,FASTTURN))
 		{
 		#ifdef BETAVERSION
 		sprintf(tempstr,"ERROR: %s tried TURN to direction %d, StartTurn failed, action %d CANCELED",
-		pSoldier->name,pSoldier->usActionData,pSoldier->bAction);
+		pSoldier->name,pSoldier->aiData.usActionData,pSoldier->aiData.bAction);
 		PopMessage(tempstr);
 		#endif
 
@@ -2117,41 +2117,50 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		else
 		{
 		#ifdef RECORDNET
-		fprintf(NetDebugFile,"\tAI decides to turn guynum %d to dir %d\n",pSoldier->ubID,pSoldier->usActionData);
+		fprintf(NetDebugFile,"\tAI decides to turn guynum %d to dir %d\n",pSoldier->ubID,pSoldier->aiData.usActionData);
 		#endif
-		NetLookTowardsDir(pSoldier,pSoldier->usActionData);
+		NetLookTowardsDir(pSoldier,pSoldier->aiData.usActionData);
 		}
 		*/
 		break;
 
 	case AI_ACTION_PICKUP_ITEM:					 // grab something!
-		SoldierPickupItem( pSoldier, pSoldier->uiPendingActionData1, pSoldier->usActionData, 0 );
+		SoldierPickupItem( pSoldier, pSoldier->aiData.uiPendingActionData1, pSoldier->aiData.usActionData, 0 );
 		break;
 
 	case AI_ACTION_DROP_ITEM:					 // drop item in hand
-		SoldierDropItem( pSoldier, &(pSoldier->inv[HANDPOS]) );
-		DeleteObj( &(pSoldier->inv[HANDPOS]) );
+		//CHRISL: If we have a weapon in both hands, we need to drop the weapon that isn't usable
+		if(pSoldier->inv[HANDPOS].fFlags & OBJECT_AI_UNUSABLE)
+		{
+			SoldierDropItem( pSoldier, &(pSoldier->inv[HANDPOS]) );
+			DeleteObj( &(pSoldier->inv[HANDPOS]) );
+		}
+		if(pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass == IC_GUN && pSoldier->inv[SECONDHANDPOS].fFlags & OBJECT_AI_UNUSABLE)
+		{
+			SoldierDropItem( pSoldier, &(pSoldier->inv[SECONDHANDPOS]) );
+			DeleteObj( &(pSoldier->inv[SECONDHANDPOS]) );
+		}
 		// 0verhaul:  Moved into PickDropAnimation because when something is dropped while crouched there's nothing to wait for
-		// pSoldier->bAction = AI_ACTION_PENDING_ACTION;
+		// pSoldier->aiData.bAction = AI_ACTION_PENDING_ACTION;
 		break;
 
 		//case AI_ACTION_MOVE_TO_CLIMB:
-		//	if ( pSoldier->usActionData == pSoldier->sGridNo )
+		//	if ( pSoldier->aiData.usActionData == pSoldier->sGridNo )
 		//	{
 		//		// change action to climb now and try that.
-		//		pSoldier->bAction = AI_ACTION_CLIMB_ROOF;
+		//		pSoldier->aiData.bAction = AI_ACTION_CLIMB_ROOF;
 		//		if (IsActionAffordable(pSoldier))
 		//		{
 		//			return( ExecuteAction( pSoldier ) );
 		//		}
 		//		else
-		//		{	
+		//		{
 		//			// no action started
 		//			return( FALSE );
 		//		}
 		//	}
 
-		// fall through			
+		// fall through
 	case AI_ACTION_RANDOM_PATROL:         // move towards a particular location
 	case AI_ACTION_SEEK_FRIEND:           // move towards friend in trouble
 	case AI_ACTION_SEEK_OPPONENT:         // move towards a reported opponent
@@ -2173,13 +2182,13 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 	case AI_ACTION_FLANK_RIGHT:
 	case AI_ACTION_RUN:
 	case AI_ACTION_MOVE_TO_CLIMB:
-		if ( pSoldier->bAction == AI_ACTION_MOVE_TO_CLIMB )
+		if ( pSoldier->aiData.bAction == AI_ACTION_MOVE_TO_CLIMB )
 		{
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Executing: AI_ACTION_MOVE_TO_CLIMB");
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("Soldier GridNo = %d, action data = %d ", pSoldier->sGridNo , pSoldier->usActionData));
+			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("Soldier GridNo = %d, action data = %d ", pSoldier->sGridNo , pSoldier->aiData.usActionData));
 		}
 
-		if ( gfTurnBasedAI && pSoldier->bAlertStatus < STATUS_BLACK )
+		if ( gfTurnBasedAI && pSoldier->aiData.bAlertStatus < STATUS_BLACK )
 		{
 			if ( pSoldier->sLastTwoLocations[0] == NOWHERE )
 			{
@@ -2190,7 +2199,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 				pSoldier->sLastTwoLocations[1] = pSoldier->sGridNo;
 			}
 			// check for loop
-			else if ( pSoldier->usActionData == pSoldier->sLastTwoLocations[1] && pSoldier->sGridNo == pSoldier->sLastTwoLocations[0] )
+			else if ( pSoldier->aiData.usActionData == pSoldier->sLastTwoLocations[1] && pSoldier->sGridNo == pSoldier->sLastTwoLocations[0] )
 			{
 				DebugAI( String( "%d in movement loop, aborting turn", pSoldier->ubID ) );
 
@@ -2212,7 +2221,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 			{
 				if ( Random( 2 ) == 0 )
 				{
-					PlaySoldierJA2Sample( pSoldier->ubID, ( BLOODCAT_GROWL_1 + Random( 4 ) ), RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ), TRUE );			
+					PlaySoldierJA2Sample( pSoldier->ubID, ( BLOODCAT_GROWL_1 + Random( 4 ) ), RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ), TRUE );
 				}
 			}
 		}
@@ -2220,32 +2229,32 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		// on YELLOW/GREEN status, NPCs keep the actions from turn to turn
 		// (newSituation is intentionally NOT set in NewSelectedNPC()), so the
 		// possibility exists that NOW the actionData is no longer a valid
-		// NPC ->sDestination (path got blocked, someone is now standing at that
-		// gridno, etc.)  So we gotta check again that the ->sDestination's legal!
+		// NPC->pathing.sDestination (path got blocked, someone is now standing at that
+		// gridno, etc.)  So we gotta check again that the->pathing.sDestination's legal!
 
 		// optimization - Ian (if up-to-date path is known, do not check again)
-		if (!pSoldier->bPathStored)
+		if (!pSoldier->pathing.bPathStored)
 		{
 			if ( (pSoldier->sAbsoluteFinalDestination != NOWHERE || gTacticalStatus.fAutoBandageMode) && !(gTacticalStatus.uiFlags & INCOMBAT) )
 			{
 				// NPC system move, allow path through
-				if (LegalNPCDestination(pSoldier,pSoldier->usActionData,ENSURE_PATH,WATEROK, PATH_THROUGH_PEOPLE ))
+				if (LegalNPCDestination(pSoldier,pSoldier->aiData.usActionData,ENSURE_PATH,WATEROK, PATH_THROUGH_PEOPLE ))
 				{
 					// optimization - Ian: prevent another path call in SetNewCourse()
-					pSoldier->bPathStored = TRUE;
+					pSoldier->pathing.bPathStored = TRUE;
 				}
 			}
 			else
 			{
-				if (LegalNPCDestination(pSoldier,pSoldier->usActionData,ENSURE_PATH,WATEROK, 0))
+				if (LegalNPCDestination(pSoldier,pSoldier->aiData.usActionData,ENSURE_PATH,WATEROK, 0))
 				{
 					// optimization - Ian: prevent another path call in SetNewCourse()
-					pSoldier->bPathStored = TRUE;
+					pSoldier->pathing.bPathStored = TRUE;
 				}
 			}
 
 			// if we STILL don't have a path
-			if ( !pSoldier->bPathStored )
+			if ( !pSoldier->pathing.bPathStored )
 			{
 				// Check if we were told to move by NPC stuff
 				if ( pSoldier->sAbsoluteFinalDestination != NOWHERE && !(gTacticalStatus.uiFlags & INCOMBAT) )
@@ -2262,20 +2271,20 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 					else
 					{
 						// This is important, so try taking a path through people (and bumping them aside)
-						if (LegalNPCDestination(pSoldier,pSoldier->usActionData,ENSURE_PATH,WATEROK, PATH_THROUGH_PEOPLE))
+						if (LegalNPCDestination(pSoldier,pSoldier->aiData.usActionData,ENSURE_PATH,WATEROK, PATH_THROUGH_PEOPLE))
 						{
 							// optimization - Ian: prevent another path call in SetNewCourse()
-							pSoldier->bPathStored = TRUE;
-						}						
+							pSoldier->pathing.bPathStored = TRUE;
+						}
 						else
 						{
 							// Have buddy wait a while...
-							pSoldier->bNextAction = AI_ACTION_WAIT;
-							pSoldier->usNextActionData = (UINT16)REALTIME_AI_DELAY;						
+							pSoldier->aiData.bNextAction = AI_ACTION_WAIT;
+							pSoldier->aiData.usNextActionData = (UINT16)REALTIME_AI_DELAY;
 						}
 					}
 
-					if (!pSoldier->bPathStored)
+					if (!pSoldier->pathing.bPathStored)
 					{
 						CancelAIAction(pSoldier,FORCE);
 						return(FALSE);         // nothing is in progress
@@ -2293,34 +2302,34 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		switch( pSoldier->ubQuoteActionID )
 		{
 		case QUOTE_ACTION_ID_TRAVERSE_EAST:
-			pSoldier->sOffWorldGridNo = pSoldier->usActionData;
-			AdjustSoldierPathToGoOffEdge( pSoldier, pSoldier->usActionData, EAST );
+			pSoldier->sOffWorldGridNo = pSoldier->aiData.usActionData;
+			AdjustSoldierPathToGoOffEdge( pSoldier, pSoldier->aiData.usActionData, EAST );
 			break;
 		case QUOTE_ACTION_ID_TRAVERSE_SOUTH:
-			pSoldier->sOffWorldGridNo = pSoldier->usActionData;
-			AdjustSoldierPathToGoOffEdge( pSoldier, pSoldier->usActionData, SOUTH );
+			pSoldier->sOffWorldGridNo = pSoldier->aiData.usActionData;
+			AdjustSoldierPathToGoOffEdge( pSoldier, pSoldier->aiData.usActionData, SOUTH );
 			break;
 		case QUOTE_ACTION_ID_TRAVERSE_WEST:
-			pSoldier->sOffWorldGridNo = pSoldier->usActionData;
-			AdjustSoldierPathToGoOffEdge( pSoldier, pSoldier->usActionData, WEST );
+			pSoldier->sOffWorldGridNo = pSoldier->aiData.usActionData;
+			AdjustSoldierPathToGoOffEdge( pSoldier, pSoldier->aiData.usActionData, WEST );
 			break;
 		case QUOTE_ACTION_ID_TRAVERSE_NORTH:
-			pSoldier->sOffWorldGridNo = pSoldier->usActionData;
-			AdjustSoldierPathToGoOffEdge( pSoldier, pSoldier->usActionData, NORTH );
+			pSoldier->sOffWorldGridNo = pSoldier->aiData.usActionData;
+			AdjustSoldierPathToGoOffEdge( pSoldier, pSoldier->aiData.usActionData, NORTH );
 			break;
 		default:
 			break;
 		}
 
-		NewDest(pSoldier,pSoldier->usActionData);    // set new ->sDestination to actionData
+		NewDest(pSoldier,pSoldier->aiData.usActionData);    // set new->pathing.sDestination to actionData
 
-		// make sure it worked (check that pSoldier->sDestination == pSoldier->usActionData)
-		if (pSoldier->sFinalDestination != pSoldier->usActionData)
+		// make sure it worked (check that pSoldier->pathing.sDestination == pSoldier->aiData.usActionData)
+		if (pSoldier->pathing.sFinalDestination != pSoldier->aiData.usActionData)
 		{
 #ifdef BETAVERSION
 			// this should NEVER happen, indicates AI picked an illegal spot!
 			sprintf(tempstr,"ExecuteAction: ERROR - %s tried MOVE to gridno %d, NewDest failed, action %d CANCELED",
-				pSoldier->name,pSoldier->usActionData,pSoldier->bAction);
+				pSoldier->name,pSoldier->aiData.usActionData,pSoldier->aiData.bAction);
 
 #ifdef RECORDNET
 			fprintf(NetDebugFile,"\n%s\n\n",tempstr);
@@ -2328,36 +2337,36 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 			PopMessage(tempstr);
 
-			sprintf(tempstr,"BLACK-LISTING gridno %d for %s",pSoldier->usActionData,pSoldier->name);
+			sprintf(tempstr,"BLACK-LISTING gridno %d for %s",pSoldier->aiData.usActionData,pSoldier->name);
 			PopMessage(tempstr);
 
 			SaveGame(ERROR_SAVE);
 #endif
 			// temporarily black list this gridno to stop enemy from going there
-			pSoldier->sBlackList = (INT16) pSoldier->usActionData;
+			pSoldier->pathing.sBlackList = (INT16) pSoldier->aiData.usActionData;
 
-			DebugAI( String( "Setting blacklist for %d to %d", pSoldier->ubID, pSoldier->sBlackList ) );
+			DebugAI( String( "Setting blacklist for %d to %d", pSoldier->ubID, pSoldier->pathing.sBlackList ) );
 
 			CancelAIAction(pSoldier,FORCE);
 			return(FALSE);         // nothing is in progress
 		}
 
-		// cancel any old black-listed gridno, got a valid new ->sDestination
-		pSoldier->sBlackList = NOWHERE;
+		// cancel any old black-listed gridno, got a valid new->pathing.sDestination
+		pSoldier->pathing.sBlackList = NOWHERE;
 		break;
 
 	case AI_ACTION_ESCORTED_MOVE:         // go where told to by escortPlayer
 		// since this is a delayed move, gotta make sure that it hasn't become
-		// illegal since escort orders were issued (->sDestination/route blocked).
+		// illegal since escort orders were issued (->pathing.sDestination/route blocked).
 		// So treat it like a CONTINUE movement, and handle errors that way
-		if (!TryToResumeMovement(pSoldier,pSoldier->usActionData))
+		if (!TryToResumeMovement(pSoldier,pSoldier->aiData.usActionData))
 		{
 			// don't black-list anything here, and action already got canceled
 			return(FALSE);         // nothing is in progress
 		}
 
-		// cancel any old black-listed gridno, got a valid new ->sDestination
-		pSoldier->sBlackList = NOWHERE;
+		// cancel any old black-listed gridno, got a valid new->pathing.sDestination
+		pSoldier->pathing.sBlackList = NOWHERE;
 		break;
 
 	case AI_ACTION_TOSS_PROJECTILE:       // throw grenade at/near opponent(s)
@@ -2365,7 +2374,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		// drop through here...
 
 	case AI_ACTION_KNIFE_MOVE:            // preparing to stab opponent
-		if (pSoldier->bAction == AI_ACTION_KNIFE_MOVE) // if statement because toss falls through
+		if (pSoldier->aiData.bAction == AI_ACTION_KNIFE_MOVE) // if statement because toss falls through
 		{
 			pSoldier->usUIMovementMode = DetermineMovementMode( pSoldier, AI_ACTION_KNIFE_MOVE );
 		}
@@ -2388,30 +2397,30 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		}
 #ifdef RECORDNET
 		fprintf(NetDebugFile,"\tExecuteAction: %d calling HandleItem(), inHand %d, actionData %d, anitype %d, oldani %d\n",
-			pSoldier->ubID,pSoldier->inv[HANDPOS].item,pSoldier->usActionData,pSoldier->anitype[pSoldier->anim],pSoldier->oldani);
+			pSoldier->ubID,pSoldier->inv[HANDPOS].item,pSoldier->aiData.usActionData,pSoldier->anitype[pSoldier->anim],pSoldier->oldani);
 #endif
 
 #ifdef TESTVERSION
-		if (pSoldier->bAction == AI_ACTION_KNIFE_MOVE)
+		if (pSoldier->aiData.bAction == AI_ACTION_KNIFE_MOVE)
 		{
 			sprintf(tempstr,"TEST MSG: %s is about to go stab %s. MAKE SURE HE DOES!",
 				pSoldier->name,
-				ExtMen[WhoIsThere(pSoldier->usActionData)].name);
+				ExtMen[WhoIsThere(pSoldier->aiData.usActionData)].name);
 
 			SimulMessage(tempstr,3000,NODECRYPT);
 		}
 #endif
 
-		if ( pSoldier->bAction == AI_ACTION_TOSS_PROJECTILE && IsGrenadeLauncherAttached(&pSoldier->inv[HANDPOS]) )
+		if ( pSoldier->aiData.bAction == AI_ACTION_TOSS_PROJECTILE && IsGrenadeLauncherAttached(&pSoldier->inv[HANDPOS]) )
 			usHandItem = GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS]);
 
-		iRetCode = HandleItem( pSoldier, pSoldier->usActionData, pSoldier->bTargetLevel, usHandItem, FALSE );
+		iRetCode = HandleItem( pSoldier, pSoldier->aiData.usActionData, pSoldier->bTargetLevel, usHandItem, FALSE );
 		if ( iRetCode != ITEM_HANDLE_OK)
 		{
 			if ( iRetCode != ITEM_HANDLE_BROKEN ) // if the item broke, this is 'legal' and doesn't need reporting
 			{
-				DebugAI( String( "AI %d got error code %ld from HandleItem, doing action %d, has %d APs... aborting deadlock!", pSoldier->ubID, iRetCode, pSoldier->bAction, pSoldier->bActionPoints ) );
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d got error code %ld from HandleItem, doing action %d... aborting deadlock!", pSoldier->ubID, iRetCode, pSoldier->bAction );
+				DebugAI( String( "AI %d got error code %ld from HandleItem, doing action %d, has %d APs... aborting deadlock!", pSoldier->ubID, iRetCode, pSoldier->aiData.bAction, pSoldier->bActionPoints ) );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d got error code %ld from HandleItem, doing action %d... aborting deadlock!", pSoldier->ubID, iRetCode, pSoldier->aiData.bAction );
 			}
 			CancelAIAction( pSoldier, FORCE);
 #ifdef TESTAICONTROL
@@ -2421,7 +2430,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 			}
 #endif
 			EndAIGuysTurn( pSoldier );
-		}		
+		}
 		break;
 
 	case AI_ACTION_PULL_TRIGGER:          // activate an adjacent panic trigger
@@ -2436,7 +2445,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 			SendSoldierSetDesiredDirectionEvent( pSoldier, WEST );
 		}
 
-		EVENT_InitNewSoldierAnim( pSoldier, AI_PULL_SWITCH, 0 , FALSE );
+		pSoldier->EVENT_InitNewSoldierAnim( AI_PULL_SWITCH, 0 , FALSE );
 
 		DeductPoints( pSoldier, AP_PULL_TRIGGER, 0 );
 
@@ -2444,7 +2453,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		gTacticalStatus.ubTheChosenOne			= NOBODY;
 		break;
 
-	case AI_ACTION_USE_DETONATOR: 
+	case AI_ACTION_USE_DETONATOR:
 		//gTacticalStatus.fPanicFlags					= 0; // turn all flags off
 		gTacticalStatus.ubTheChosenOne			= NOBODY;
 		//gTacticalStatus.sPanicTriggerGridno	= NOWHERE;
@@ -2455,16 +2464,16 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		SetOffPanicBombs( pSoldier->ubID, 0 );
 
 		// action completed immediately, cancel it right away
-		pSoldier->usActionData = NOWHERE;
-		pSoldier->bLastAction = pSoldier->bAction;
-		pSoldier->bAction = AI_ACTION_NONE;
+		pSoldier->aiData.usActionData = NOWHERE;
+		pSoldier->aiData.bLastAction = pSoldier->aiData.bAction;
+		pSoldier->aiData.bAction = AI_ACTION_NONE;
 		return(FALSE);           // no longer in progress
 
 		break;
 
 	case AI_ACTION_RED_ALERT:             // tell friends opponent(s) seen
 		// if a computer merc, and up to now they didn't know you're here
-		if (!(pSoldier->uiStatusFlags & SOLDIER_PC) && ( !(gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition) || ( ( gTacticalStatus.fPanicFlags & PANIC_TRIGGERS_HERE ) && gTacticalStatus.ubTheChosenOne == NOBODY ) ) )
+		if (!(pSoldier->flags.uiStatusFlags & SOLDIER_PC) && ( !(gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition) || ( ( gTacticalStatus.fPanicFlags & PANIC_TRIGGERS_HERE ) && gTacticalStatus.ubTheChosenOne == NOBODY ) ) )
 		{
 			HandleInitialRedAlert(pSoldier->bTeam, TRUE);
 		}
@@ -2494,7 +2503,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		break;
 
 	case AI_ACTION_CHANGE_STANCE:                // crouch
-		if ( gAnimControl[ pSoldier->usAnimState ].ubHeight == pSoldier->usActionData )
+		if ( gAnimControl[ pSoldier->usAnimState ].ubHeight == pSoldier->aiData.usActionData )
 		{
 			// abort!
 			ActionDone( pSoldier );
@@ -2507,12 +2516,12 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		sprintf( tempstr, "ExecuteAction: SkipCoverCheck ON\n" );
 		DebugAI (tempstr);
 #endif
-		SendChangeSoldierStanceEvent( pSoldier, (UINT8) pSoldier->usActionData );
+		SendChangeSoldierStanceEvent( pSoldier, (UINT8) pSoldier->aiData.usActionData );
 		break;
 
 	case AI_ACTION_COWER:
 		// make sure action data is set right
-		if ( pSoldier->uiStatusFlags & SOLDIER_COWERING )
+		if ( pSoldier->flags.uiStatusFlags & SOLDIER_COWERING )
 		{
 			// nothing to do!
 			ActionDone( pSoldier );
@@ -2520,17 +2529,17 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		}
 		else
 		{
-			pSoldier->usActionData = ANIM_CROUCH;
-			SetSoldierCowerState( pSoldier, TRUE );
+			pSoldier->aiData.usActionData = ANIM_CROUCH;
+			pSoldier->SetSoldierCowerState( TRUE );
 		}
 		break;
 
 	case AI_ACTION_STOP_COWERING:
 		// make sure action data is set right
-		if ( pSoldier->uiStatusFlags & SOLDIER_COWERING )
+		if ( pSoldier->flags.uiStatusFlags & SOLDIER_COWERING )
 		{
-			pSoldier->usActionData = ANIM_STAND;
-			SetSoldierCowerState( pSoldier, FALSE );
+			pSoldier->aiData.usActionData = ANIM_STAND;
+			pSoldier->SetSoldierCowerState( FALSE );
 		}
 		else
 		{
@@ -2542,11 +2551,11 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 	case AI_ACTION_GIVE_AID:              // help injured/dying friend
 		//pSoldier->usUIMovementMode = RUNNING;
-		iRetCode = HandleItem( pSoldier, pSoldier->usActionData, 0, pSoldier->inv[HANDPOS].usItem, FALSE );
+		iRetCode = HandleItem( pSoldier, pSoldier->aiData.usActionData, 0, pSoldier->inv[HANDPOS].usItem, FALSE );
 		if ( iRetCode != ITEM_HANDLE_OK)
 		{
 #ifdef JA2BETAVERSION
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_ERROR, L"AI %d got error code %ld from HandleItem, doing action %d... aborting deadlock!", pSoldier->ubID, iRetCode, pSoldier->bAction );
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_ERROR, L"AI %d got error code %ld from HandleItem, doing action %d... aborting deadlock!", pSoldier->ubID, iRetCode, pSoldier->aiData.bAction );
 #endif
 			CancelAIAction( pSoldier, FORCE);
 #ifdef TESTAICONTROL
@@ -2556,7 +2565,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 			}
 #endif
 			EndAIGuysTurn( pSoldier );
-		}		
+		}
 		break;
 
 	case AI_ACTION_OPEN_OR_CLOSE_DOOR:
@@ -2567,7 +2576,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 			UINT8					ubDirection;
 			INT16					sDoorGridNo;
 
-			ubDirection = GetDirectionFromGridNo( (INT16)pSoldier->usActionData, pSoldier );
+			ubDirection = GetDirectionFromGridNo( (INT16)pSoldier->aiData.usActionData, pSoldier );
 			if (ubDirection == EAST || ubDirection == SOUTH)
 			{
 				sDoorGridNo = pSoldier->sGridNo;
@@ -2590,7 +2599,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 					DebugAI( String("Ending turn for %d because of error opening door", pSoldier->ubID ) );
 				}
 #endif
-				EndAIGuysTurn( pSoldier );				
+				EndAIGuysTurn( pSoldier );
 			}
 
 			StartInteractiveObject( sDoorGridNo, pStructure->usStructureID, pSoldier, ubDirection );
@@ -2600,19 +2609,19 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 	case AI_ACTION_LOWER_GUN:
 		// for now, just do "action done"
-		InternalSoldierReadyWeapon(pSoldier,pSoldier->ubDirection,TRUE);
+		pSoldier->InternalSoldierReadyWeapon(pSoldier->ubDirection,TRUE);
 		HandleSight(pSoldier, SIGHT_LOOK );
 		ActionDone( pSoldier );
 		break;
 
 	case AI_ACTION_RAISE_GUN: //Madd: action added for snipers to ready weapon and use vision range bonuses
-		SoldierReadyWeapon(pSoldier);
+		pSoldier->SoldierReadyWeapon();
 		HandleSight(pSoldier, SIGHT_LOOK | SIGHT_RADIO);
 
 		//AXP 23.03.2007: Sniper deadlock fix
-		if ( pSoldier->bOrders == SNIPER && pSoldier->bLastAction == AI_ACTION_RAISE_GUN)
+		if ( pSoldier->aiData.bOrders == SNIPER && pSoldier->aiData.bLastAction == AI_ACTION_RAISE_GUN)
 		{
-			pSoldier->bNextAction = AI_ACTION_END_TURN;
+			pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
 		}
 
 		ActionDone( pSoldier );
@@ -2621,14 +2630,14 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 	case AI_ACTION_CLIMB_ROOF:
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Executing: AI_ACTION_CLIMB_ROOF");
 
-		if (pSoldier->bLevel == 0)
+		if (pSoldier->pathing.bLevel == 0)
 		{
-			BeginSoldierClimbUpRoof( pSoldier );
+			pSoldier->BeginSoldierClimbUpRoof( );
 		}
 		else
 		{
-			BeginSoldierClimbDownRoof( pSoldier );
-		}			
+			pSoldier->BeginSoldierClimbDownRoof( );
+		}
 		break;
 
 	case AI_ACTION_END_TURN:
@@ -2661,7 +2670,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 	default:
 #ifdef BETAVERSION
-		NumMessage("ExecuteAction - Illegal action type = ",pSoldier->bAction);
+		NumMessage("ExecuteAction - Illegal action type = ",pSoldier->aiData.bAction);
 #endif
 		return(FALSE);
 	}
@@ -2671,51 +2680,51 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 }
 
 void CheckForChangingOrders(SOLDIERTYPE *pSoldier)
-{ 
-	switch( pSoldier->bAlertStatus )
+{
+	switch( pSoldier->aiData.bAlertStatus )
 	{
 	case STATUS_GREEN:
 		if ( !CREATURE_OR_BLOODCAT( pSoldier ) )
 		{
-			if ( pSoldier->bTeam == CIV_TEAM && pSoldier->ubProfile != NO_PROFILE && pSoldier->bNeutral && gMercProfiles[ pSoldier->ubProfile ].sPreCombatGridNo != NOWHERE && pSoldier->ubCivilianGroup != QUEENS_CIV_GROUP )
+			if ( pSoldier->bTeam == CIV_TEAM && pSoldier->ubProfile != NO_PROFILE && pSoldier->aiData.bNeutral && gMercProfiles[ pSoldier->ubProfile ].sPreCombatGridNo != NOWHERE && pSoldier->ubCivilianGroup != QUEENS_CIV_GROUP )
 			{
 				// must make them uncower first, then return to start location
-				pSoldier->bNextAction = AI_ACTION_END_COWER_AND_MOVE;
-				pSoldier->usNextActionData = gMercProfiles[ pSoldier->ubProfile ].sPreCombatGridNo;
+				pSoldier->aiData.bNextAction = AI_ACTION_END_COWER_AND_MOVE;
+				pSoldier->aiData.usNextActionData = gMercProfiles[ pSoldier->ubProfile ].sPreCombatGridNo;
 				gMercProfiles[ pSoldier->ubProfile ].sPreCombatGridNo = NOWHERE;
 			}
-			else if ( pSoldier->uiStatusFlags & SOLDIER_COWERING )
+			else if ( pSoldier->flags.uiStatusFlags & SOLDIER_COWERING )
 			{
-				pSoldier->bNextAction = AI_ACTION_STOP_COWERING;
-				pSoldier->usNextActionData = ANIM_STAND;
+				pSoldier->aiData.bNextAction = AI_ACTION_STOP_COWERING;
+				pSoldier->aiData.usNextActionData = ANIM_STAND;
 			}
 			else
 			{
-				pSoldier->bNextAction = AI_ACTION_CHANGE_STANCE;
-				pSoldier->usNextActionData = ANIM_STAND;
+				pSoldier->aiData.bNextAction = AI_ACTION_CHANGE_STANCE;
+				pSoldier->aiData.usNextActionData = ANIM_STAND;
 			}
 		}
 		break;
 	case STATUS_YELLOW:
 		break;
 	default:
-		if ((pSoldier->bOrders == ONGUARD) || (pSoldier->bOrders == CLOSEPATROL))
+		if ((pSoldier->aiData.bOrders == ONGUARD) || (pSoldier->aiData.bOrders == CLOSEPATROL))
 		{
 			// crank up ONGUARD to CLOSEPATROL, and CLOSEPATROL to FARPATROL
-			pSoldier->bOrders++;       // increase roaming range by 1 category
+			pSoldier->aiData.bOrders++;       // increase roaming range by 1 category
 		}
-		else if ( pSoldier->bTeam == MILITIA_TEAM && pSoldier->bOrders != SNIPER )
+		else if ( pSoldier->bTeam == MILITIA_TEAM && pSoldier->aiData.bOrders != SNIPER )
 		{
 			// go on alert!
-			pSoldier->bOrders = SEEKENEMY;
+			pSoldier->aiData.bOrders = SEEKENEMY;
 		}
 		else if ( CREATURE_OR_BLOODCAT( pSoldier ) )
 		{
-			if (pSoldier->bOrders != STATIONARY && pSoldier->bOrders != ONCALL)
+			if (pSoldier->aiData.bOrders != STATIONARY && pSoldier->aiData.bOrders != ONCALL)
 			{
-				pSoldier->bOrders = SEEKENEMY;
+				pSoldier->aiData.bOrders = SEEKENEMY;
 			}
-		}	
+		}
 
 		if ( pSoldier->ubProfile == WARDEN )
 		{
@@ -2769,13 +2778,13 @@ void HandleInitialRedAlert( INT8 bTeam, UINT8 ubCommunicate)
 		pSoldier = FindSoldierByProfileID( QUEEN, FALSE );
 		if ( pSoldier )
 		{
-			pSoldier->bAlertStatus = STATUS_RED;
+			pSoldier->aiData.bAlertStatus = STATUS_RED;
 		}
 
 		pSoldier = FindSoldierByProfileID( JOE, FALSE );
 		if ( pSoldier )
 		{
-			pSoldier->bAlertStatus = STATUS_RED;
+			pSoldier->aiData.bAlertStatus = STATUS_RED;
 		}
 	}
 
@@ -2806,7 +2815,7 @@ void ManChecksOnFriends(SOLDIERTYPE *pSoldier)
 		}
 
 		// if this man is neutral / NOT on my side, he's not my friend
-		if (pFriend->bNeutral || (pSoldier->bSide != pFriend->bSide))
+		if (pFriend->aiData.bNeutral || (pSoldier->bSide != pFriend->bSide))
 			continue;  // next merc
 
 		// if this merc is actually ME
@@ -2818,7 +2827,7 @@ void ManChecksOnFriends(SOLDIERTYPE *pSoldier)
 		if (SoldierToSoldierLineOfSightTest(pSoldier, pFriend, TRUE, CALC_FROM_ALL_DIRS))
 		{
 			// if my friend is in battle or something is clearly happening there
-			if ((pFriend->bAlertStatus >= STATUS_RED) || pFriend->bUnderFire || (pFriend->bLife < OKLIFE))
+			if ((pFriend->aiData.bAlertStatus >= STATUS_RED) || pFriend->aiData.bUnderFire || (pFriend->stats.bLife < OKLIFE))
 			{
 #ifdef DEBUGDECISIONS
 				STR16 tempstr;
@@ -2826,7 +2835,7 @@ void ManChecksOnFriends(SOLDIERTYPE *pSoldier)
 				AIPopMessage(tempstr);
 #endif
 
-				pSoldier->bAlertStatus = STATUS_RED;
+				pSoldier->aiData.bAlertStatus = STATUS_RED;
 				CheckForChangingOrders(pSoldier);
 				SetNewSituation( pSoldier );
 				break;         // don't bother checking on any other friends
@@ -2835,17 +2844,17 @@ void ManChecksOnFriends(SOLDIERTYPE *pSoldier)
 			{
 				// if he seems suspicious or acts like he thought he heard something
 				// and I'm still on status GREEN
-				if ((pFriend->bAlertStatus == STATUS_YELLOW) &&
-					(pSoldier->bAlertStatus < STATUS_YELLOW))
+				if ((pFriend->aiData.bAlertStatus == STATUS_YELLOW) &&
+					(pSoldier->aiData.bAlertStatus < STATUS_YELLOW))
 				{
 #ifdef TESTVERSION
 					sprintf(tempstr,"TEST MSG: %s sees %s listening, goes to YELLOW ALERT!",pSoldier->name,ExtMen[pFriend->ubID].name);
 					PopMessage(tempstr);
 #endif
-					pSoldier->bAlertStatus = STATUS_YELLOW;    // also get suspicious
+					pSoldier->aiData.bAlertStatus = STATUS_YELLOW;    // also get suspicious
 					SetNewSituation( pSoldier );
-					pSoldier->sNoiseGridno = pFriend->sGridNo;  // pretend FRIEND made noise
-					pSoldier->ubNoiseVolume = 3;                // remember this for 3 turns
+					pSoldier->aiData.sNoiseGridno = pFriend->sGridNo;  // pretend FRIEND made noise
+					pSoldier->aiData.ubNoiseVolume = 3;                // remember this for 3 turns
 					// keep check other friends, too, in case any are already on RED
 				}
 			}
@@ -2858,7 +2867,7 @@ void SetNewSituation( SOLDIERTYPE * pSoldier )
 {
 	if ( pSoldier->bTeam != gbPlayerNum )
 	{
-		if ( pSoldier->ubQuoteRecord == 0 && !gTacticalStatus.fAutoBandageMode && !(pSoldier->bNeutral && gTacticalStatus.uiFlags & ENGAGED_IN_CONV) )
+		if ( pSoldier->ubQuoteRecord == 0 && !gTacticalStatus.fAutoBandageMode && !(pSoldier->aiData.bNeutral && gTacticalStatus.uiFlags & ENGAGED_IN_CONV) )
 		{
 			// allow new situation to be set
 			//if (gTacticalStatus.ubAttackBusyCount > 0)
@@ -2868,7 +2877,7 @@ void SetNewSituation( SOLDIERTYPE * pSoldier )
 			//else
 			{
 				// 0verhaul:  Let's see if we can do without this.
-				pSoldier->bNewSituation = IS_NEW_SITUATION;
+				pSoldier->aiData.bNewSituation = IS_NEW_SITUATION;
 			}
 
 			if ( gTacticalStatus.ubAttackBusyCount != 0 )
@@ -2879,7 +2888,7 @@ void SetNewSituation( SOLDIERTYPE * pSoldier )
 			if ( !(gTacticalStatus.uiFlags & INCOMBAT) || (gTacticalStatus.uiFlags & REALTIME) )
 			{
 				// reset delay if necessary!
-				RESETTIMECOUNTER( pSoldier->AICounter, Random( 1000 ) );
+				RESETTIMECOUNTER( pSoldier->timeCounters.AICounter, Random( 1000 ) );
 			}
 		}
 	}
@@ -2910,13 +2919,13 @@ void HandleAITacticalTraversal( SOLDIERTYPE * pSoldier )
 
 	EndAIGuysTurn( pSoldier );
 	RemoveManAsTarget( pSoldier );
-	if (pSoldier->bTeam == CIV_TEAM && pSoldier->fAIFlags & AI_CHECK_SCHEDULE)
+	if (pSoldier->bTeam == CIV_TEAM && pSoldier->aiData.fAIFlags & AI_CHECK_SCHEDULE)
 	{
 		MoveSoldierFromMercToAwaySlot( pSoldier );
 		pSoldier->bInSector = FALSE;
 	}
 	else
-	{								
+	{
 		int iMapX = gWorldSectorX;
 		int iMapY = gWorldSectorY;
 
@@ -2954,7 +2963,7 @@ void HandleAITacticalTraversal( SOLDIERTYPE * pSoldier )
 
 		}
 
-		ProcessQueenCmdImplicationsOfDeath( pSoldier );		
+		ProcessQueenCmdImplicationsOfDeath( pSoldier );
 		TacticalRemoveSoldier( pSoldier->ubID );
 	}
 	CheckForEndOfBattle( TRUE );

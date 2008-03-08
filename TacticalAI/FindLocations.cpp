@@ -27,7 +27,8 @@
 	#include "strategicmap.h"
 	#include "environment.h"
 	#include "lighting.h"
-		#include "Buildings.h"
+	#include "Buildings.h"
+	#include "GameSettings.h"
 #endif
 
 #include "PathAIDebug.h"
@@ -58,38 +59,38 @@ INT32 CalcPercentBetter(INT32 iOldValue, INT32 iNewValue, INT32 iOldScale, INT32
 
  // here, the change in cover HAS to be an improvement over current cover
  if (iValueChange <= 0)
-  {
+	{
 #ifdef BETAVERSION
-   sprintf(tempstr,"CalcPercentBetter: ERROR - invalid valueChange = %d",valueChange);
+	sprintf(tempstr,"CalcPercentBetter: ERROR - invalid valueChange = %d",valueChange);
 
 #ifdef RECORDNET
-   fprintf(NetDebugFile,"\n\t%s\n\n",tempstr);
+	fprintf(NetDebugFile,"\n\t%s\n\n",tempstr);
 #endif
 
-   PopMessage(tempstr);
+	PopMessage(tempstr);
 #endif
 
-   return(NOWHERE);
-  }
+	return(NOWHERE);
+	}
 
 
  iScaleSum = iOldScale + iNewScale;
 
  // here, the change in cover HAS to be an improvement over current cover
  if (iScaleSum <= 0)
-  {
+	{
 #ifdef BETAVERSION
-   sprintf(tempstr,"CalcPercentBetter: ERROR - invalid scaleSum = %d",iScaleSum);
+	sprintf(tempstr,"CalcPercentBetter: ERROR - invalid scaleSum = %d",iScaleSum);
 
 #ifdef RECORDNET
-   fprintf(NetDebugFile,"\n\t%s\n\n",tempstr);
+	fprintf(NetDebugFile,"\n\t%s\n\n",tempstr);
 #endif
 
-   PopMessage(tempstr);
+	PopMessage(tempstr);
 #endif
 
-   return(NOWHERE);
-  }
+	return(NOWHERE);
+	}
 
 
 
@@ -143,7 +144,7 @@ INT8 CalcWorstCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT16 sOpp
 
 		bThisCTGT = SoldierToLocationChanceToGetThrough( pSoldier, sOppGridNo, bLevel, bCubeLevel, ubOppID );
 		if (bThisCTGT < bWorstCTGT)
-		{	
+		{
 			bWorstCTGT = bThisCTGT;
 			// if there is perfect cover
 			if (bWorstCTGT == 0)
@@ -159,7 +160,7 @@ INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT16 sO
 	// When considering a gridno for cover, we want to take into account cover if we
 	// lie down, so we return the LOWEST chance to get through for that location.
 	INT8		bCubeLevel;
-	INT32		iTotalCTGT = 0, bValidCubeLevels = 0;;
+	INT32		iTotalCTGT = 0, bValidCubeLevels = 0;
 
 	for (bCubeLevel = 1; bCubeLevel <= 3; bCubeLevel++)
 	{
@@ -240,7 +241,7 @@ INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, UINT8 ubOppID, INT16 sOppGridNo, INT8 
 						sCheckSpot = sSouthGridNo;
 						break;
 				}
-     
+
 				// ATE: OLD STUFF
 				// if the adjacent gridno is reachable from the starting spot
 				if ( NewOKDestination( pSoldier, sCheckSpot, FALSE, bLevel ) )
@@ -249,11 +250,11 @@ INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, UINT8 ubOppID, INT16 sOppGridNo, INT8 
 					// "virtually" so we can calculate what our cover is from there
 
 					// NOTE: GOTTA SET THESE 3 FIELDS *BACK* AFTER USING THIS FUNCTION!!!
-					pSoldier->sGridNo = sAdjSpot;     // pretend he's standing at 'sAdjSpot'
-					AICenterXY( sAdjSpot, &(pSoldier->dXPos), &(pSoldier->dYPos) );	
+					pSoldier->sGridNo = sAdjSpot;	 // pretend he's standing at 'sAdjSpot'
+					AICenterXY( sAdjSpot, &(pSoldier->dXPos), &(pSoldier->dYPos) );
 					bThisCTGT = CalcWorstCTGTForPosition( pSoldier, ubOppID, sOppGridNo, bLevel, iMyAPsLeft );
 					if (bThisCTGT > bBestCTGT)
-					{	
+					{
 						bBestCTGT = bThisCTGT;
 						// if there is no cover
 						if (bBestCTGT == 100)
@@ -270,7 +271,7 @@ INT8 CalcBestCTGT( SOLDIERTYPE *pSoldier, UINT8 ubOppID, INT16 sOppGridNo, INT8 
 
 
 INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT16 sMyGridNo, INT32 iMyThreat, INT32 iMyAPsLeft,
-											UINT32 uiThreatIndex, INT32 iRange, INT32 morale, INT32 *iTotalScale)
+					UINT32 uiThreatIndex, INT32 iRange, INT32 morale, INT32 *iTotalScale)
 {
 	DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("CalcCoverValue"));
 
@@ -289,17 +290,17 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT16 sMyGridNo, INT32 iMyThreat, INT32 i
 	pHim = Threat[uiThreatIndex].pOpponent;
 	sHisGridNo = Threat[uiThreatIndex].sGridNo;
 
-	// THE FOLLOWING STUFF IS *VEERRRY SCAARRRY*, BUT SHOULD WORK.  IF YOU REALLY
+	// THE FOLLOWING STUFF IS *VEERRRY SCAARRRY*, BUT SHOULD WORK.	IF YOU REALLY
 	// HATE IT, THEN CHANGE ChanceToGetThrough() TO WORK FROM A GRIDNO TO GRIDNO
 
 	// if this is theoretical, and I'm not actually at sMyGridNo right now
 	if (pMe->sGridNo != sMyGridNo)
 	{
-		sMyRealGridNo = pMe->sGridNo;        // remember where I REALLY am
+		sMyRealGridNo = pMe->sGridNo;		// remember where I REALLY am
 		dMyX = pMe->dXPos;
 		dMyY = pMe->dYPos;
 
-		pMe->sGridNo = sMyGridNo;              // but pretend I'm standing at sMyGridNo
+		pMe->sGridNo = sMyGridNo;				// but pretend I'm standing at sMyGridNo
 		ConvertGridNoToCenterCellXY( sMyGridNo, &sTempX, &sTempY );
 		pMe->dXPos = (FLOAT) sTempX;
 		pMe->dYPos = (FLOAT) sTempY;
@@ -308,11 +309,11 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT16 sMyGridNo, INT32 iMyThreat, INT32 i
 	// if this is theoretical, and he's not actually at hisGrid right now
 	if (pHim->sGridNo != sHisGridNo)
 	{
-		sHisRealGridNo = pHim->sGridNo;      // remember where he REALLY is
+		sHisRealGridNo = pHim->sGridNo;		// remember where he REALLY is
 		dHisX = pHim->dXPos;
 		dHisY = pHim->dYPos;
 
-		pHim->sGridNo = sHisGridNo;            // but pretend he's standing at sHisGridNo
+		pHim->sGridNo = sHisGridNo;			// but pretend he's standing at sHisGridNo
 		ConvertGridNoToCenterCellXY( sHisGridNo, &sTempX, &sTempY );
 		pHim->dXPos = (FLOAT) sTempX;
 		pHim->dYPos = (FLOAT) sTempY;
@@ -327,8 +328,8 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT16 sMyGridNo, INT32 iMyThreat, INT32 i
 	{
 		// optimistically assume we'll be behind the best cover available at this spot
 
-		//bHisActualCTGT = ChanceToGetThrough(pHim,sMyGridNo,FAKE,ACTUAL,TESTWALLS,9999,M9PISTOL,NOT_FOR_LOS); // assume a gunshot		
-		bHisActualCTGT = CalcWorstCTGTForPosition( pHim, pMe->ubID, sMyGridNo, pMe->bLevel, iMyAPsLeft );
+		//bHisActualCTGT = ChanceToGetThrough(pHim,sMyGridNo,FAKE,ACTUAL,TESTWALLS,9999,M9PISTOL,NOT_FOR_LOS); // assume a gunshot
+		bHisActualCTGT = CalcWorstCTGTForPosition( pHim, pMe->ubID, sMyGridNo, pMe->pathing.bLevel, iMyAPsLeft );
 	}
 
 	// normally, that will be the cover I'll use, unless worst case over-rides it
@@ -341,13 +342,13 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT16 sMyGridNo, INT32 iMyThreat, INT32 i
 		// because calculating worst case is about to play with it in a big way!
 		if (sHisRealGridNo == NOWHERE)
 		{
-			sHisRealGridNo = pHim->sGridNo;      // remember where he REALLY is
+			sHisRealGridNo = pHim->sGridNo;		// remember where he REALLY is
 			dHisX = pHim->dXPos;
 			dHisY = pHim->dYPos;
 		}
 
 		// calculate where my cover is worst if opponent moves just 1 tile over
-		bHisBestCTGT = CalcBestCTGT(pHim, pMe->ubID, sMyGridNo, pMe->bLevel, iMyAPsLeft);
+		bHisBestCTGT = CalcBestCTGT(pHim, pMe->ubID, sMyGridNo, pMe->pathing.bLevel, iMyAPsLeft);
 
 		// if he can actually improve his CTGT by moving to a nearby gridno
 		if (bHisBestCTGT > bHisActualCTGT)
@@ -378,7 +379,7 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT16 sMyGridNo, INT32 iMyThreat, INT32 i
 
 		// let's not assume anything about the stance the enemy might take, so take an average
 		// value... no cover give a higher value than partial cover
-		bMyCTGT = CalcAverageCTGTForPosition( pMe, pHim->ubID, sHisGridNo, pHim->bLevel, iMyAPsLeft );
+		bMyCTGT = CalcAverageCTGTForPosition( pMe, pHim->ubID, sHisGridNo, pHim->pathing.bLevel, iMyAPsLeft );
 
 		// since NPCs are too dumb to shoot "blind", ie. at opponents that they
 		// themselves can't see (mercs can, using another as a spotter!), if the
@@ -392,47 +393,47 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT16 sMyGridNo, INT32 iMyThreat, INT32 i
 	// UNDO ANY TEMPORARY "DAMAGE" DONE ABOVE
 	if (sMyRealGridNo != NOWHERE)
 	{
-		pMe->sGridNo = sMyRealGridNo;        // put me back where I belong!
-		pMe->dXPos = dMyX;                      // also change the 'x'
-		pMe->dYPos = dMyY;                      // and the 'y'
+		pMe->sGridNo = sMyRealGridNo;		// put me back where I belong!
+		pMe->dXPos = dMyX;						// also change the 'x'
+		pMe->dYPos = dMyY;						// and the 'y'
 	}
 
 	if (sHisRealGridNo != NOWHERE)
 	{
-		pHim->sGridNo = sHisRealGridNo;      // put HIM back where HE belongs!
-		pHim->dXPos = dHisX;                    // also change the 'x'
-		pHim->dYPos = dHisY;                    // and the 'y'
+		pHim->sGridNo = sHisRealGridNo;		// put HIM back where HE belongs!
+		pHim->dXPos = dHisX;					// also change the 'x'
+		pHim->dYPos = dHisY;					// and the 'y'
 	}
 
 
 	// these value should be < 1 million each
 	iHisPosValue = bHisCTGT * Threat[uiThreatIndex].iValue * Threat[uiThreatIndex].iAPs;
-	iMyPosValue =  bMyCTGT *  iMyThreat * iMyAPsLeft;
+	iMyPosValue =	bMyCTGT *	iMyThreat * iMyAPsLeft;
 
 
 	// try to account for who outnumbers who: the side with the advantage thus
 	// (hopefully) values offense more, while those in trouble will play defense
-	if (pHim->bOppCnt > 1)
+	if (pHim->aiData.bOppCnt > 1)
 	{
-		iHisPosValue /= pHim->bOppCnt;
+		iHisPosValue /= pHim->aiData.bOppCnt;
 	}
 
-	if (pMe->bOppCnt > 1)
+	if (pMe->aiData.bOppCnt > 1)
 	{
-		iMyPosValue /= pMe->bOppCnt;
+		iMyPosValue /= pMe->aiData.bOppCnt;
 	}
 
 
  // if my positional value is worth something at all here
  if (iMyPosValue > 0)
-  {
-   // if I CAN'T crouch when I get there, that makes it significantly less
-   // appealing a spot (how much depends on range), so that's a penalty to me
-   if (iMyAPsLeft < AP_CROUCH)
-     // subtract another 1 % penalty for NOT being able to crouch per tile
-     // the farther away we are, the bigger a difference crouching will make!
-     iMyPosValue -= ((iMyPosValue * (AIM_PENALTY_TARGET_CROUCHED + (iRange / CELL_X_SIZE))) / 100);
-  }
+	{
+	// if I CAN'T crouch when I get there, that makes it significantly less
+	// appealing a spot (how much depends on range), so that's a penalty to me
+	if (iMyAPsLeft < AP_CROUCH)
+	 // subtract another 1 % penalty for NOT being able to crouch per tile
+	 // the farther away we are, the bigger a difference crouching will make!
+	 iMyPosValue -= ((iMyPosValue * (AIM_PENALTY_TARGET_CROUCHED + (iRange / CELL_X_SIZE))) / 100);
+	}
 
 
 	// high morale prefers decreasing the range (positive factor), while very
@@ -479,7 +480,7 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT16 sMyGridNo, INT32 iMyThreat, INT32 i
 	// the farther apart we are, the less important the cover differences are
 	// the less certain his position, the less important cover differences are
 	iReductionFactor = ((MAX_THREAT_RANGE - iRange) * Threat[uiThreatIndex].iCertainty) /
-		    MAX_THREAT_RANGE;
+		 MAX_THREAT_RANGE;
 
 	// divide by a 100 to make the numbers more managable and avoid 32-bit limit
 	iThisScale = max( iMyPosValue, iHisPosValue) / 100;
@@ -495,9 +496,9 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT16 sMyGridNo, INT32 iMyThreat, INT32 i
 
 #ifdef DEBUGCOVER
 	DebugAI( String( "CalcCoverValue: iCoverValue %d, sMyGridNo %d, sHisGrid %d, iRange %d, morale %d\n",iCoverValue,sMyGridNo,sHisGridNo,iRange,morale) );
-	DebugAI( String( "CalcCoverValue: iCertainty %d, his bOppCnt %d, my bOppCnt %d\n",Threat[uiThreatIndex].iCertainty,pHim->bOppCnt,pMe->bOppCnt) );
+	DebugAI( String( "CalcCoverValue: iCertainty %d, his bOppCnt %d, my bOppCnt %d\n",Threat[uiThreatIndex].iCertainty,pHim->aiData.bOppCnt,pMe->aiData.bOppCnt) );
 	DebugAI( String( "CalcCoverValue: bHisCTGT = %d, hisThreat = %d, hisFullAPs = %d\n",bHisCTGT,Threat[uiThreatIndex].iValue,Threat[uiThreatIndex].iAPs) );
-	DebugAI( String( "CalcCoverValue: bMyCTGT = %d,  iMyThreat = %d,  iMyAPsLeft = %d\n", bMyCTGT, iMyThreat,iMyAPsLeft) );
+	DebugAI( String( "CalcCoverValue: bMyCTGT = %d,	iMyThreat = %d,	iMyAPsLeft = %d\n", bMyCTGT, iMyThreat,iMyAPsLeft) );
 	DebugAI( String( "CalcCoverValue: hisPosValue = %d, myPosValue = %d\n",iHisPosValue,iMyPosValue) );
 	DebugAI( String( "CalcCoverValue: iThisScale = %d, iTotalScale = %d, iReductionFactor %d\n\n",iThisScale,*iTotalScale, iReductionFactor) );
 #endif
@@ -518,7 +519,7 @@ UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT16 sGridNo )
 		sTempGridNo = NewGridNo( sGridNo, DirectionInc( ubLoop ) );
 		if ( sTempGridNo != sGridNo )
 		{
-			ubWhoIsThere = WhoIsThere2( sGridNo, pSoldier->bLevel );
+			ubWhoIsThere = WhoIsThere2( sGridNo, pSoldier->pathing.bLevel );
 			if ( ubWhoIsThere != NOBODY && ubWhoIsThere != pSoldier->ubID && MercPtrs[ ubWhoIsThere ]->bTeam == pSoldier->bTeam )
 			{
 				ubCount++;
@@ -602,7 +603,7 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	pusLastLoc = &(gsLastKnownOppLoc[pSoldier->ubID][0]);
 
 	// hang a pointer into personal opplist
-	pbPersOL = &(pSoldier->bOppList[0]);
+	pbPersOL = &(pSoldier->aiData.bOppList[0]);
 	// hang a pointer into public opplist
 	pbPublOL = &(gbPublicOpplist[pSoldier->bTeam][0]);
 
@@ -610,7 +611,7 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	iSearchRange = gbDiff[DIFF_MAX_COVER_RANGE][ SoldierDifficultyLevel( pSoldier ) ];
 
 /*
-	switch (pSoldier->bAttitude)
+	switch (pSoldier->aiData.bAttitude)
 	{
 		case DEFENSIVE:		iSearchRange += 2; break;
 		case BRAVESOLO:		iSearchRange -= 4; break;
@@ -622,9 +623,9 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 
 
 	// maximum search range is 1 tile / 8 pts of wisdom
-	if (iSearchRange > (pSoldier->bWisdom / 8))
+	if (iSearchRange > (pSoldier->stats.bWisdom / 8))
 	{
-		iSearchRange = (pSoldier->bWisdom / 8);
+		iSearchRange = (pSoldier->stats.bWisdom / 8);
 	}
 
 	if (!gfTurnBasedAI)
@@ -635,7 +636,7 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 
 	usMovementMode = DetermineMovementMode( pSoldier, AI_ACTION_TAKE_COVER );
 
-	if (pSoldier->bAlertStatus >= STATUS_RED)          // if already in battle
+	if (pSoldier->aiData.bAlertStatus >= STATUS_RED)			// if already in battle
 	{
 		// must be able to reach the cover, so it can't possibly be more than
 		// action points left (rounded down) tiles away, since minimum
@@ -668,37 +669,37 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		pOpponent = MercSlots[ uiLoop ];
 
 		// if this merc is inactive, at base, on assignment, dead, unconscious
-		if (!pOpponent || pOpponent->bLife < OKLIFE)
+		if (!pOpponent || pOpponent->stats.bLife < OKLIFE)
 		{
-			continue;          // next merc
+			continue;			// next merc
 		}
 
 		// if this man is neutral / on the same side, he's not an opponent
  		if ( CONSIDERED_NEUTRAL( pSoldier, pOpponent ) || (pSoldier->bSide == pOpponent->bSide))
 		{
-			continue;          // next merc
+			continue;			// next merc
 		}
 
-		pbPersOL = pSoldier->bOppList + pOpponent->ubID; 
+		pbPersOL = pSoldier->aiData.bOppList + pOpponent->ubID;
 		pbPublOL = gbPublicOpplist[pSoldier->bTeam] + pOpponent->ubID;
 		pusLastLoc = gsLastKnownOppLoc[pSoldier->ubID] + pOpponent->ubID;
 
 		// if this opponent is unknown personally and publicly
 		if ((*pbPersOL == NOT_HEARD_OR_SEEN) && (*pbPublOL == NOT_HEARD_OR_SEEN))
 		{
-			continue;          // next merc
+			continue;			// next merc
 		}
 
 		// Special stuff for Carmen the bounty hunter
-		if (pSoldier->bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != 64)
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != 64)
 		{
-			continue;  // next opponent
+			continue;	// next opponent
 		}
 
 		// if personal knowledge is more up to date or at least equal
 		if ((gubKnowledgeValue[*pbPublOL - OLDEST_HEARD_VALUE][*pbPersOL - OLDEST_HEARD_VALUE] > 0) ||
 			(*pbPersOL == *pbPublOL))
-    {
+		{
 			// using personal knowledge, obtain opponent's "best guess" gridno
 			sThreatLoc = *pusLastLoc;
 			iThreatCertainty = ThreatPercent[*pbPersOL - OLDEST_HEARD_VALUE];
@@ -727,7 +728,7 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 //			AINameMessage(pOpponent,"is too far away to be a threat",1000);
 #endif
 
-			continue;          // check next opponent
+			continue;			// check next opponent
 		}
 
 		// remember this opponent as a current threat, but DON'T REDUCE FOR COVER!
@@ -737,7 +738,7 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		if (Threat[uiThreatCnt].iValue == -999)
 		{
 			//NameMessage(pOpponent,"is thought to be no threat");
-			continue;          // check next opponent
+			continue;			// check next opponent
 		}
 
 		//NameMessage(pOpponent,"added to the list of threats");
@@ -749,7 +750,7 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		Threat[uiThreatCnt].iOrigRange	= iThreatRange;
 
 		// calculate how many APs he will have at the start of the next turn
-		Threat[uiThreatCnt].iAPs = CalcActionPoints(pOpponent);
+		Threat[uiThreatCnt].iAPs = pOpponent->CalcActionPoints();
 
 		if (iThreatRange < iClosestThreatRange)
 		{
@@ -808,8 +809,8 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	iRoamRange = RoamingRange(pSoldier,&sOrigin);
 
 	// if status isn't black (life & death combat), and roaming range is limited
-	if ((pSoldier->bAlertStatus != STATUS_BLACK) && (iRoamRange < MAX_ROAMING_RANGE) &&
-		 (sOrigin != NOWHERE))
+	if ((pSoldier->aiData.bAlertStatus != STATUS_BLACK) && (iRoamRange < MAX_ROAMING_RANGE) &&
+		(sOrigin != NOWHERE))
 	{
 		// must try to stay within or return to the point of origin
 		iDistFromOrigin = SpacesAway(sOrigin,pSoldier->sGridNo);
@@ -834,7 +835,7 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	DebugAI( tempstr );
 #endif
 
-	if (pSoldier->bAlertStatus >= STATUS_RED)          // if already in battle
+	if (pSoldier->aiData.bAlertStatus >= STATUS_RED)			// if already in battle
 	{
 		// to speed this up, tell PathAI to cancel any paths beyond our AP reach!
 		gubNPCAPBudget = pSoldier->bActionPoints;
@@ -843,12 +844,12 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	{
 		// even if not under pressure, limit to 1 turn's travelling distance
 		// hope this isn't too expensive...
-		gubNPCAPBudget = CalcActionPoints( pSoldier );
+		gubNPCAPBudget = pSoldier->CalcActionPoints( );
 		//gubNPCAPBudget = pSoldier->bInitialAPs;
 	}
 
 	// Call FindBestPath to set flags in all locations that we can
-	// walk into within range.  We have to set some things up first...
+	// walk into within range.	We have to set some things up first...
 
 	// set the distance limit of the square region
 	gubNPCDistLimit = (UINT8) iSearchRange;
@@ -868,7 +869,7 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		}
 	}
 
-	FindBestPath( pSoldier, NOWHERE, pSoldier->bLevel, DetermineMovementMode( pSoldier, AI_ACTION_TAKE_COVER ), COPYREACHABLE_AND_APS, 0 );
+	FindBestPath( pSoldier, NOWHERE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_TAKE_COVER ), COPYREACHABLE_AND_APS, 0 );
 
 	// Turn off the "reachable" flag for his current location
 	// so we don't consider it
@@ -897,11 +898,11 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 
 				// if this is outside roaming range, and doesn't get us closer to it
 				if ((iDistCoverFromOrigin > iRoamRange) &&
-					 (iDistFromOrigin <= iDistCoverFromOrigin))
+					(iDistFromOrigin <= iDistCoverFromOrigin))
 				{
 					continue;	// then we can't go there
 				}
-      }
+		}
 
 /*
 			if (Net.pnum != Net.turnActive)
@@ -920,7 +921,7 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			}
 
 			// ignore blacklisted spot
-			if ( sGridNo == pSoldier->sBlackList )
+			if ( sGridNo == pSoldier->pathing.sBlackList )
 			{
 				continue;
 			}
@@ -932,23 +933,23 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 
 			if (!iPathCost)
 			{
-				continue;        // skip on to the next potential grid
+				continue;		// skip on to the next potential grid
 			}
 
 			// CJC: This should be a redundent check because the path code is given an
 			// AP limit to begin with!
-			if (pSoldier->bAlertStatus == STATUS_BLACK)      // in battle
+			if (pSoldier->aiData.bAlertStatus == STATUS_BLACK)		// in battle
 			{
 				// must be able to afford the APs to get to this cover this turn
 				if (iPathCost > pSoldier->bActionPoints)
 				{
 					//NumMessage("In BLACK, and can't afford to get there, cost = ",iPathCost);
-					continue;      // skip on to the next potential grid
+					continue;		// skip on to the next potential grid
 				}
 			}
 			*/
 
-			// OK, this place shows potential.  How useful is it as cover?
+			// OK, this place shows potential.	How useful is it as cover?
 			// EVALUATE EACH GRID #, remembering the BEST PROTECTED ONE
 			iCoverValue = 0;
 			iCoverScale = 0;
@@ -987,7 +988,7 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 				// reduce cover at nighttime based on how bright the light is at that location
 				// using the difference in sighting distance between the background and the
 				// light for this tile
-				ubLightPercentDifference = (gbLightSighting[ 0 ][ LightTrueLevel( sGridNo, pSoldier->bLevel ) ] - ubBackgroundLightPercent );
+				ubLightPercentDifference = (gbLightSighting[ 0 ][ LightTrueLevel( sGridNo, pSoldier->pathing.bLevel ) ] - ubBackgroundLightPercent );
 				if ( iCoverValue >= 0 )
 				{
 					iCoverValue -= (iCoverValue / 100) * ubLightPercentDifference;
@@ -1062,12 +1063,12 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		EndFrameBufferRender();
 		RefreshScreen( NULL );
 		/*
-	 iLoop = GetJA2Clock();
-	 do
-	 {
+	iLoop = GetJA2Clock();
+	do
+	{
 
-	 } while( ( GetJA2Clock( ) - iLoop ) < 2000 );
-	 */
+	} while( ( GetJA2Clock( ) - iLoop ) < 2000 );
+	*/
 	}
 	#endif
 
@@ -1095,10 +1096,10 @@ INT16 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			SnuggleDebug(pSoldier,"Found Cover");
 #endif
 
-			return((INT16)sBestCover);       // return the gridno of that cover
+			return((INT16)sBestCover);		// return the gridno of that cover
 		}
 	}
-	return(NOWHERE);       // return that no suitable cover was found
+	return(NOWHERE);		// return that no suitable cover was found
 }
 
 INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
@@ -1124,41 +1125,41 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 		pOpponent = MercSlots[ uiLoop ];
 
 		// if this merc is inactive, at base, on assignment, dead, unconscious
-		if (!pOpponent || (pOpponent->bLife < OKLIFE))
+		if (!pOpponent || (pOpponent->stats.bLife < OKLIFE))
 		{
-			continue;          // next merc
+			continue;			// next merc
 		}
 
 		// if this man is neutral / on the same side, he's not an opponent
 		if ( CONSIDERED_NEUTRAL( pSoldier, pOpponent ) || (pSoldier->bSide == pOpponent->bSide))
 		{
-			continue;          // next merc
+			continue;			// next merc
 		}
 
-		pbPersOL = &(pSoldier->bOppList[pOpponent->ubID]);
+		pbPersOL = &(pSoldier->aiData.bOppList[pOpponent->ubID]);
 		pbPublOL = &(gbPublicOpplist[pSoldier->bTeam][pOpponent->ubID]);
 
 		// if this opponent is unknown personally and publicly
 		if ((*pbPersOL == NOT_HEARD_OR_SEEN) && (*pbPublOL == NOT_HEARD_OR_SEEN))
 		{
-			continue;          // check next opponent
+			continue;			// check next opponent
 		}
 
 		// Special stuff for Carmen the bounty hunter
-		if (pSoldier->bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != 64)
+		if (pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != 64)
 		{
-			continue;  // next opponent
+			continue;	// next opponent
 		}
 
 		// if the opponent is no threat at all for some reason
 		if (CalcManThreatValue(pOpponent,pSoldier->sGridNo,FALSE,pSoldier) == -999)
 		{
-			continue;          // check next opponent
+			continue;			// check next opponent
 		}
 
 		// if personal knowledge is more up to date or at least equal
 		if ((gubKnowledgeValue[*pbPublOL - OLDEST_HEARD_VALUE][*pbPersOL - OLDEST_HEARD_VALUE] > 0) ||
-       (*pbPersOL == *pbPublOL))
+		(*pbPersOL == *pbPublOL))
 		{
 			// using personal knowledge, obtain opponent's "best guess" gridno
 			sThreatLoc = gsLastKnownOppLoc[pSoldier->ubID][pOpponent->ubID];
@@ -1210,7 +1211,7 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 	// THIS IS A LOT QUICKER THAN COVER, SO DO A LARGER AREA, NOT AFFECTED BY
 	// DIFFICULTY SETTINGS...
 
-	if (pSoldier->bAlertStatus == STATUS_BLACK)          // if already in battle
+	if (pSoldier->aiData.bAlertStatus == STATUS_BLACK)			// if already in battle
 	{
 		iSearchRange = pSoldier->bActionPoints / 2;
 
@@ -1220,7 +1221,7 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 	else
 	{
 		// even if not under pressure, limit to 1 turn's travelling distance
-		gubNPCAPBudget = __min( pSoldier->bActionPoints / 2, CalcActionPoints( pSoldier ) );
+		gubNPCAPBudget = __min( pSoldier->bActionPoints / 2, pSoldier->CalcActionPoints( ) );
 
 		iSearchRange = gubNPCAPBudget / 2;
 	}
@@ -1261,7 +1262,7 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 	//NumMessage("sMaxDown = ",sMaxDown);
 
 	// Call FindBestPath to set flags in all locations that we can
-	// walk into within range.  We have to set some things up first...
+	// walk into within range.	We have to set some things up first...
 
 	// set the distance limit of the square region
 	gubNPCDistLimit = (UINT8) iSearchRange;
@@ -1281,7 +1282,7 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 		}
 	}
 
-	FindBestPath( pSoldier, NOWHERE, pSoldier->bLevel, DetermineMovementMode( pSoldier, AI_ACTION_RUN_AWAY ), COPYREACHABLE, 0 );
+	FindBestPath( pSoldier, NOWHERE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_RUN_AWAY ), COPYREACHABLE, 0 );
 
 	// Turn off the "reachable" flag for his current location
 	// so we don't consider it
@@ -1304,10 +1305,10 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 				continue;
 			}
 
-			if ( sGridNo == pSoldier->sBlackList )
+			if ( sGridNo == pSoldier->pathing.sBlackList )
 			{
 				continue;
-			}			
+			}
 
 			if ( pSoldier->bTeam == CIV_TEAM )
 			{
@@ -1325,17 +1326,17 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 			}
 
 			//Madd: skip lighted spots
-			if ( InLightAtNight( sGridNo, pSoldier->bLevel ) )
+			if ( InLightAtNight( sGridNo, pSoldier->pathing.bLevel ) )
 				continue;
 
-			// OK, this place shows potential.  How useful is it as cover?
+			// OK, this place shows potential.	How useful is it as cover?
 			//NumMessage("Promising seems gridno #",gridno);
 
 			iSpotClosestThreatRange = 1500;
 
 			if ( pSoldier->bTeam == ENEMY_TEAM && GridNoOnEdgeOfMap( sGridNo, &bEscapeDirection ) )
 			{
-				// We can escape!  This is better than anything else except a closer spot which we can
+				// We can escape!	This is better than anything else except a closer spot which we can
 				// cross over from.
 
 				// Subtract the straight-line distance from our location to this one as an estimate of
@@ -1382,7 +1383,7 @@ INT16 FindSpotMaxDistFromOpponents(SOLDIERTYPE *pSoldier)
 
 	if (bBestEscapeDirection != -1)
 	{
-		// Woohoo!  We can escape!  Fake some stuff with the quote-related actions
+		// Woohoo!	We can escape!	Fake some stuff with the quote-related actions
 		pSoldier->ubQuoteActionID = GetTraversalQuoteActionID( bBestEscapeDirection );
 	}
 
@@ -1416,7 +1417,7 @@ INT16 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 		//NumMessage("sMaxDown = ",sMaxDown);
 
 		// Call FindBestPath to set flags in all locations that we can
-		// walk into within range.  We have to set some things up first...
+		// walk into within range.	We have to set some things up first...
 
 		// set the distance limit of the square region
 		gubNPCDistLimit = (UINT8) iSearchRange;
@@ -1436,7 +1437,7 @@ INT16 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 			}
 		}
 
-		FindBestPath( pSoldier, NOWHERE, pSoldier->bLevel, DetermineMovementMode( pSoldier, AI_ACTION_LEAVE_WATER_GAS ), COPYREACHABLE, 0 );
+		FindBestPath( pSoldier, NOWHERE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_LEAVE_WATER_GAS ), COPYREACHABLE, 0 );
 
 		// Turn off the "reachable" flag for his current location
 		// so we don't consider it
@@ -1461,7 +1462,7 @@ INT16 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 				}
 
 				// ignore blacklisted spot
-				if ( sGridNo == pSoldier->sBlackList )
+				if ( sGridNo == pSoldier->pathing.sBlackList )
 				{
 					continue;
 				}
@@ -1473,7 +1474,7 @@ INT16 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 
 				if (!sPathCost)
 				{
-					continue;      // skip on to the next potential grid
+					continue;		// skip on to the next potential grid
 				}
 
 				// if this path is shorter than the one to the closest land found so far
@@ -1490,7 +1491,7 @@ INT16 FindNearestUngassedLand(SOLDIERTYPE *pSoldier)
 		}
 
 		// if we found a piece of land in this search area
-		if (sClosestLand != NOWHERE)  // quit now, no need to look any farther
+		if (sClosestLand != NOWHERE)	// quit now, no need to look any farther
 			break;
 	}
 
@@ -1508,7 +1509,7 @@ INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 	INT32 iRoamRange;
 	INT16 sOrigin;
 
-	bCurrLightLevel = LightTrueLevel( pSoldier->sGridNo, pSoldier->bLevel );
+	bCurrLightLevel = LightTrueLevel( pSoldier->sGridNo, pSoldier->pathing.bLevel );
 
 	iRoamRange = RoamingRange( pSoldier, &sOrigin );
 
@@ -1529,7 +1530,7 @@ INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 		//NumMessage("sMaxDown = ",sMaxDown);
 
 		// Call FindBestPath to set flags in all locations that we can
-		// walk into within range.  We have to set some things up first...
+		// walk into within range.	We have to set some things up first...
 
 		// set the distance limit of the square region
 		gubNPCDistLimit = (UINT8) iSearchRange;
@@ -1549,7 +1550,7 @@ INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 			}
 		}
 
-		FindBestPath( pSoldier, NOWHERE, pSoldier->bLevel, DetermineMovementMode( pSoldier, AI_ACTION_LEAVE_WATER_GAS ), COPYREACHABLE, 0 );
+		FindBestPath( pSoldier, NOWHERE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_LEAVE_WATER_GAS ), COPYREACHABLE, 0 );
 
 		// Turn off the "reachable" flag for his current location
 		// so we don't consider it
@@ -1574,7 +1575,7 @@ INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 				}
 
 				// ignore blacklisted spot
-				if ( sGridNo == pSoldier->sBlackList )
+				if ( sGridNo == pSoldier->pathing.sBlackList )
 				{
 					continue;
 				}
@@ -1586,7 +1587,7 @@ INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 				}
 
 				// screen out anything brighter than our current best spot
-				bLightLevel = LightTrueLevel( sGridNo, pSoldier->bLevel );
+				bLightLevel = LightTrueLevel( sGridNo, pSoldier->pathing.bLevel );
 
 				bLightDiff = gbLightSighting[0][ bCurrLightLevel ] - gbLightSighting[0][ bLightLevel ];
 
@@ -1603,7 +1604,7 @@ INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 
 				if (!sPathCost)
 				{
-					continue;      // skip on to the next potential grid
+					continue;		// skip on to the next potential grid
 				}
 
 				// decrease the "cost" of the spot by the amount of light/darkness
@@ -1612,7 +1613,7 @@ INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 				if ( iSpotValue < iBestSpotValue )
 				{
 					// remember it instead
-					iBestSpotValue = iSpotValue;				
+					iBestSpotValue = iSpotValue;
 					//NumMessage("New shortest route = ",shortestPath);
 
 					sClosestSpot = sGridNo;
@@ -1622,7 +1623,7 @@ INT16 FindNearbyDarkerSpot( SOLDIERTYPE *pSoldier )
 		}
 
 		// if we found a piece of land in this search area
-		if (sClosestSpot != NOWHERE)  // quit now, no need to look any farther
+		if (sClosestSpot != NOWHERE)	// quit now, no need to look any farther
 		{
 			break;
 		}
@@ -1668,20 +1669,20 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 
 	iSearchRange = gbDiff[DIFF_MAX_COVER_RANGE][ SoldierDifficultyLevel( pSoldier ) ];
 
-	switch (pSoldier->bAttitude)
+	switch (pSoldier->aiData.bAttitude)
 	{
-		case DEFENSIVE:		iSearchRange --;   break;
+		case DEFENSIVE:		iSearchRange --;	break;
 		case BRAVESOLO:		iSearchRange += 2; break;
 		case BRAVEAID:		iSearchRange += 2; break;
 		case CUNNINGSOLO:	iSearchRange -= 2; break;
 		case CUNNINGAID:	iSearchRange -= 2; break;
-		case AGGRESSIVE:	iSearchRange ++;   break;
+		case AGGRESSIVE:	iSearchRange ++;	break;
 	}
 
 	// maximum search range is 1 tile / 10 pts of wisdom
-	if (iSearchRange > (pSoldier->bWisdom / 10))
+	if (iSearchRange > (pSoldier->stats.bWisdom / 10))
 	{
-		iSearchRange = (pSoldier->bWisdom / 10);
+		iSearchRange = (pSoldier->stats.bWisdom / 10);
 	}
 
 	if (!gfTurnBasedAI)
@@ -1706,7 +1707,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 	//NumMessage("sMaxDown = ",sMaxDown);
 
 	// Call FindBestPath to set flags in all locations that we can
-	// walk into within range.  We have to set some things up first...
+	// walk into within range.	We have to set some things up first...
 
 	// set the distance limit of the square region
 	gubNPCDistLimit = (UINT8) iSearchRange;
@@ -1730,7 +1731,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 		}
 	}
 
-	FindBestPath( pSoldier, NOWHERE, pSoldier->bLevel, DetermineMovementMode( pSoldier, AI_ACTION_PICKUP_ITEM ), COPYREACHABLE, 0 );
+	FindBestPath( pSoldier, NOWHERE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_PICKUP_ITEM ), COPYREACHABLE, 0 );
 
 	// SET UP DOUBLE-LOOP TO STEP THROUGH POTENTIAL GRID #s
 	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
@@ -1755,35 +1756,35 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 			{
 
 				// ignore blacklisted spot
-				if ( sGridNo == pSoldier->sBlackList )
+				if ( sGridNo == pSoldier->pathing.sBlackList )
 				{
 					continue;
 				}
 
 				iValue = 0;
-				GetItemPool( sGridNo, &pItemPool, pSoldier->bLevel );
+				GetItemPool( sGridNo, &pItemPool, pSoldier->pathing.bLevel );
 				switch( bReason )
 				{
 					case SEARCH_AMMO:
 						// we are looking for ammo to match the gun in usItem
 						while( pItemPool )
 						{
-							pObj = &(gWorldItems[ pItemPool->iItemIndex ].o);
+							pObj = &(gWorldItems[ pItemPool->iItemIndex ].object);
 							pItem = &(Item[pObj->usItem]);
-							if ( pItem->usItemClass == IC_GUN && pObj->ItemData.Generic.bStatus[0] >= MINIMUM_REQUIRED_STATUS )
+							if ( pItem->usItemClass == IC_GUN && (*pObj)[0]->data.objectStatus >= MINIMUM_REQUIRED_STATUS )
 							{
 								// maybe this gun has ammo (adjust for whether it is better than ours!)
-								if ( pObj->ItemData.Gun.bGunAmmoStatus < 0 || pObj->ItemData.Gun.ubGunShotsLeft == 0 || (Item[pObj->usItem].fingerprintid && pObj->ubImprintID != NOBODY && pObj->ubImprintID != pSoldier->ubID) )
+								if ( (*pObj)[0]->data.gun.bGunAmmoStatus < 0 || (*pObj)[0]->data.gun.ubGunShotsLeft == 0 || (Item[pObj->usItem].fingerprintid && (*pObj)[0]->data.ubImprintID != NOBODY && (*pObj)[0]->data.ubImprintID != pSoldier->ubID) )
 								{
 									iTempValue = 0;
 								}
 								else
 								{
-									iTempValue = pObj->ItemData.Gun.ubGunShotsLeft * Weapon[pObj->usItem].ubDeadliness / Weapon[usItem].ubDeadliness;
+									iTempValue = (*pObj)[0]->data.gun.ubGunShotsLeft * Weapon[pObj->usItem].ubDeadliness / Weapon[usItem].ubDeadliness;
 								}
 							}
 							else if (ValidAmmoType( usItem, pObj->usItem ) )
-							{	
+							{
 								iTempValue = TotalPoints( pObj );
 							}
 							else
@@ -1791,7 +1792,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 								iTempValue = 0;
 							}
 							if (iTempValue > iValue )
-							{								
+							{
 								iValue = iTempValue;
 								iItemIndex = pItemPool->iItemIndex;
 							}
@@ -1801,11 +1802,11 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 					case SEARCH_WEAPONS:
 						while( pItemPool )
 						{
-							pObj = &(gWorldItems[ pItemPool->iItemIndex ].o);
+							pObj = &(gWorldItems[ pItemPool->iItemIndex ].object);
 							pItem = &(Item[pObj->usItem]);
-							if (pItem->usItemClass & IC_WEAPON && pObj->ItemData.Generic.bStatus[0] >= MINIMUM_REQUIRED_STATUS )
+							if (pItem->usItemClass & IC_WEAPON && (*pObj)[0]->data.objectStatus >= MINIMUM_REQUIRED_STATUS )
 							{
-								if ( (pItem->usItemClass & IC_GUN) && (pObj->ItemData.Gun.bGunAmmoStatus < 0 || pObj->ItemData.Gun.ubGunShotsLeft == 0 || (( Item[pObj->usItem].fingerprintid ) && pObj->ubImprintID != NOBODY && pObj->ubImprintID != pSoldier->ubID) ) )
+								if ( (pItem->usItemClass & IC_GUN) && ((*pObj)[0]->data.gun.bGunAmmoStatus < 0 || (*pObj)[0]->data.gun.ubGunShotsLeft == 0 || (( Item[pObj->usItem].fingerprintid ) && (*pObj)[0]->data.ubImprintID != NOBODY && (*pObj)[0]->data.ubImprintID != pSoldier->ubID) ) )
 								{
 									// jammed or out of ammo, skip it!
 									iTempValue = 0;
@@ -1831,7 +1832,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 								iTempValue = 0;
 							}
 							if (iTempValue > iValue )
-							{								
+							{
 								iValue = iTempValue;
 								iItemIndex = pItemPool->iItemIndex;
 							}
@@ -1841,16 +1842,16 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 					default:
 						while( pItemPool )
 						{
-							pObj = &(gWorldItems[ pItemPool->iItemIndex ].o);
+							pObj = &(gWorldItems[ pItemPool->iItemIndex ].object);
 							pItem = &(Item[pObj->usItem]);
-							if ( pItem->usItemClass & IC_WEAPON && pObj->ItemData.Generic.bStatus[0] >= MINIMUM_REQUIRED_STATUS )
+							if ( pItem->usItemClass & IC_WEAPON && (*pObj)[0]->data.objectStatus >= MINIMUM_REQUIRED_STATUS )
 							{
-								if ( (pItem->usItemClass & IC_GUN) && (pObj->ItemData.Gun.bGunAmmoStatus < 0 || pObj->ItemData.Gun.ubGunShotsLeft == 0 || (( Item[pObj->usItem].fingerprintid ) && pObj->ubImprintID != NOBODY && pObj->ubImprintID != pSoldier->ubID) ) )
+								if ( (pItem->usItemClass & IC_GUN) && ((*pObj)[0]->data.gun.bGunAmmoStatus < 0 || (*pObj)[0]->data.gun.ubGunShotsLeft == 0 || (( Item[pObj->usItem].fingerprintid ) && (*pObj)[0]->data.ubImprintID != NOBODY && (*pObj)[0]->data.ubImprintID != pSoldier->ubID) ) )
 								{
 									// jammed or out of ammo, skip it!
 									iTempValue = 0;
 								}
-								else if ( (Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON)  )
+								else if ( (Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_WEAPON)	)
 								{
 									if (Weapon[pObj->usItem].ubDeadliness > Weapon[pSoldier->inv[HANDPOS].usItem].ubDeadliness)
 									{
@@ -1866,12 +1867,12 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 									iTempValue = 200 + Weapon[pObj->usItem].ubDeadliness;
 								}
 							}
-							else if	(pItem->usItemClass == IC_ARMOUR && pObj->ItemData.Generic.bStatus[0] >= MINIMUM_REQUIRED_STATUS )
+							else if	(pItem->usItemClass == IC_ARMOUR && (*pObj)[0]->data.objectStatus >= MINIMUM_REQUIRED_STATUS )
 							{
 								switch( Armour[pItem->ubClassIndex].ubArmourClass )
 								{
 									case ARMOURCLASS_HELMET:
-										if (pSoldier->inv[HELMETPOS].usItem == NOTHING)
+										if (pSoldier->inv[HELMETPOS].exists() == false)
 										{
 											iTempValue = 200 + EffectiveArmour( pObj );
 										}
@@ -1885,7 +1886,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 										}
 										break;
 									case ARMOURCLASS_VEST:
-										if (pSoldier->inv[VESTPOS].usItem == NOTHING)
+										if (pSoldier->inv[VESTPOS].exists() == false)
 										{
 											iTempValue = 200 + EffectiveArmour( pObj );
 										}
@@ -1899,7 +1900,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 										}
 										break;
 									case ARMOURCLASS_LEGGINGS:
-										if (pSoldier->inv[LEGPOS].usItem == NOTHING)
+										if (pSoldier->inv[LEGPOS].exists() == false)
 										{
 											iTempValue = 200 + EffectiveArmour( pObj );
 										}
@@ -1922,12 +1923,12 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 							}
 
 							if (iTempValue > iValue )
-							{								
+							{
 								iValue = iTempValue;
 								iItemIndex = pItemPool->iItemIndex;
 							}
 							pItemPool = pItemPool->pNext;
-						}						
+						}
 						break;
 				}
 				iValue = (3 * iValue) / (3 + PythSpacesAway( sGridNo, pSoldier->sGridNo ));
@@ -1943,9 +1944,11 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 
 	if (sBestSpot != NOWHERE)
 	{
-		DebugAI( String( "%d decides to pick up %S", pSoldier->ubID, ItemNames[ gWorldItems[ iBestItemIndex ].o.usItem ] ) );
-		if (Item[gWorldItems[ iBestItemIndex ].o.usItem].usItemClass == IC_GUN)
+		DebugAI( String( "%d decides to pick up %S", pSoldier->ubID, ItemNames[ gWorldItems[ iBestItemIndex ].object.usItem ] ) );
+		if (Item[gWorldItems[ iBestItemIndex ].object.usItem].usItemClass == IC_GUN)
 		{
+			//CHRISL: This is the line from ADB's code but I removed it, for now, to match what 0verhaul has been working on
+			//if (pSoldier->inv[HANDPOS].exists() == true && PlaceInAnyPocket(pSoldier, &pSoldier->inv[HANDPOS], false) == false)
 			if (FindBetterSpotForItem( pSoldier, HANDPOS ) == FALSE)
 			{
 				if (pSoldier->bActionPoints < AP_PICKUP_ITEM + AP_PICKUP_ITEM)
@@ -1964,15 +1967,15 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 					// we want to drop this item!
 					DebugAI( String( "%d decides he must drop %S first", pSoldier->ubID, ItemNames[ pSoldier->inv[HANDPOS].usItem ] ) );
 
-					pSoldier->bNextAction = AI_ACTION_PICKUP_ITEM;
-					pSoldier->usNextActionData = sBestSpot;
+					pSoldier->aiData.bNextAction = AI_ACTION_PICKUP_ITEM;
+					pSoldier->aiData.usNextActionData = sBestSpot;
 					pSoldier->iNextActionSpecialData = iBestItemIndex;
 					return( AI_ACTION_DROP_ITEM );
 				}
 			}
-		}		
-		pSoldier->uiPendingActionData1 = iBestItemIndex;
-		pSoldier->usActionData = sBestSpot;
+		}
+		pSoldier->aiData.uiPendingActionData1 = iBestItemIndex;
+		pSoldier->aiData.usActionData = sBestSpot;
 		return( AI_ACTION_PICKUP_ITEM );
 	}
 
@@ -2052,7 +2055,7 @@ INT16 FindNearestEdgepointOnSpecifiedEdge( INT16 sGridNo, INT8 bEdgeCode )
 			return( NOWHERE );
 	}
 
-	// Do a 2D search to find the closest map edgepoint and 
+	// Do a 2D search to find the closest map edgepoint and
 	// try to create a path there
 
 	for ( iLoop = 0; iLoop < iEdgepointArraySize; iLoop++ )
@@ -2125,7 +2128,7 @@ INT16 FindNearestEdgePoint( INT16 sGridNo )
 			return( NOWHERE );
 	}
 
-	// Do a 2D search to find the closest map edgepoint and 
+	// Do a 2D search to find the closest map edgepoint and
 	// try to create a path there
 
 	for ( iLoop = 0; iLoop < iEdgepointArraySize; iLoop++ )
@@ -2155,7 +2158,7 @@ INT16 FindNearbyPointOnEdgeOfMap( SOLDIERTYPE * pSoldier, INT8 * pbDirection )
 	bClosestDirection = -1;
 
 	// Call FindBestPath to set flags in all locations that we can
-	// walk into within range.  We have to set some things up first...
+	// walk into within range.	We have to set some things up first...
 
 	// set the distance limit of the square region
 	gubNPCDistLimit = EDGE_OF_MAP_SEARCH;
@@ -2188,7 +2191,7 @@ INT16 FindNearbyPointOnEdgeOfMap( SOLDIERTYPE * pSoldier, INT8 * pbDirection )
 		}
 	}
 
-	FindBestPath( pSoldier, NOWHERE, pSoldier->bLevel, WALKING, COPYREACHABLE, 0 );
+	FindBestPath( pSoldier, NOWHERE, pSoldier->pathing.bLevel, WALKING, COPYREACHABLE, 0 );
 
 	// Turn off the "reachable" flag for his current location
 	// so we don't consider it
@@ -2236,9 +2239,9 @@ INT16 FindRouteBackOntoMap( SOLDIERTYPE * pSoldier, INT16 sDestGridNo )
 	// values
 
 	// well, let's TRY just taking a path to the place we're supposed to go...
-	if ( FindBestPath( pSoldier, sDestGridNo, pSoldier->bLevel, WALKING, COPYROUTE, 0 ) )
+	if ( FindBestPath( pSoldier, sDestGridNo, pSoldier->pathing.bLevel, WALKING, COPYROUTE, 0 ) )
 	{
-		pSoldier->bPathStored = TRUE;
+		pSoldier->pathing.bPathStored = TRUE;
 		return( sDestGridNo );
 	}
 	else
@@ -2374,13 +2377,13 @@ INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
 	DebugMsg ( TOPIC_JA2AI , DBG_LEVEL_3 , String("FindFlankingSpot: orig loc = %d, loc to flank = %d", pSoldier->sGridNo , sPos));
 
 	// hit the edge of the map
-	if ( FindNearestEdgePoint ( pSoldier->sGridNo ) == pSoldier->sGridNo  )
+	if ( FindNearestEdgePoint ( pSoldier->sGridNo ) == pSoldier->sGridNo	)
 		return NOWHERE;
 
 
 	if ( gfTurnBasedAI )
 	{
-		//if (pSoldier->bAlertStatus == STATUS_BLACK)          // if already in battle
+		//if (pSoldier->aiData.bAlertStatus == STATUS_BLACK)			// if already in battle
 		//{
 
 		//	iSearchRange = pSoldier->bActionPoints - ( MinAPsToAttack( pSoldier, sPos, ADDTURNCOST));
@@ -2393,7 +2396,7 @@ INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
 		//	// even if not under pressure, limit to 1 turn's travelling distance
 		//	iSearchRange = pSoldier->bActionPoints - ( MinAPsToAttack( pSoldier, sPos, ADDTURNCOST));
 
-		//	gubNPCAPBudget = iSearchRange; //__min( pSoldier->bActionPoints / 2, CalcActionPoints( pSoldier ) );
+		//	gubNPCAPBudget = iSearchRange; //__min( pSoldier->bActionPoints / 2, pSoldier->CalcActionPoints( ) );
 
 			//iSearchRange = gubNPCAPBudget;
 		//}
@@ -2411,7 +2414,7 @@ INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
 	//}
 
 	gubNPCAPBudget=(UINT8) (iSearchRange*3);
-	
+
 	// assume we have to stand up and turn
 	// use the min macro here to make sure we don't wrap the UINT8 to 255...
 
@@ -2434,7 +2437,7 @@ INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
 	//NumMessage("sMaxDown = ",sMaxDown);
 
 	// Call FindBestPath to set flags in all locations that we can
-	// walk into within range.  We have to set some things up first...
+	// walk into within range.	We have to set some things up first...
 
 	// set the distance limit of the square region
 	gubNPCDistLimit = (UINT8) iSearchRange;
@@ -2454,7 +2457,7 @@ INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
 		}
 	}
 
-	FindBestPath( pSoldier, NOWHERE, pSoldier->bLevel, DetermineMovementMode( pSoldier, bAction ), COPYREACHABLE, 0 );
+	FindBestPath( pSoldier, NOWHERE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, bAction ), COPYREACHABLE, 0 );
 
 	// Turn off the "reachable" flag for his current location
 	// so we don't consider it
@@ -2480,7 +2483,7 @@ INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
 			break;
 		default:
 			sDesiredDir = sDir;
-	}	
+	}
 
 	if ( sDesiredDir < 0 )
 		sDesiredDir += 8;
@@ -2510,10 +2513,10 @@ INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
 				continue;
 			}
 
-			if ( sGridNo == pSoldier->sBlackList )
+			if ( sGridNo == pSoldier->pathing.sBlackList )
 			{
 				continue;
-			}			
+			}
 
 			// exclude locations with tear/mustard gas (at this point, smoke is cool!)
 			if ( InGas( pSoldier, sGridNo ) )
@@ -2522,7 +2525,7 @@ INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
 			}
 
 			//Madd: skip lighted spots
-			if ( InLightAtNight( sGridNo, pSoldier->bLevel ) )
+			if ( InLightAtNight( sGridNo, pSoldier->pathing.bLevel ) )
 				continue;
 
 			// allow an extra direction for flanking
@@ -2565,7 +2568,6 @@ INT16 FindFlankingSpot(SOLDIERTYPE *pSoldier, INT16 sPos, INT8 bAction )
 
 INT16 FindClosestClimbPoint (SOLDIERTYPE *pSoldier, BOOLEAN fClimbUp )
 {
-
 	INT16 sBestSpot = NOWHERE;
 
 	//DebugMsg( TOPIC_JA2AI , DBG_LEVEL_3 , "FindClosestClimbPoint");
@@ -2613,7 +2615,7 @@ INT16 FindClosestClimbPoint (SOLDIERTYPE *pSoldier, BOOLEAN fClimbUp )
 				}
 
 
-				if ( sGridNo == pSoldier->sBlackList )
+				if ( sGridNo == pSoldier->pathing.sBlackList )
 				{
 					continue;
 				}			
@@ -2663,7 +2665,7 @@ INT16 FindClosestClimbPoint (SOLDIERTYPE *pSoldier, BOOLEAN fClimbUp )
 BOOLEAN CanClimbFromHere (SOLDIERTYPE * pSoldier, BOOLEAN fUp )
 {
 #if 1
-	return FindDirectionForClimbing( pSoldier->sGridNo, pSoldier->bLevel) != DIRECTION_IRRELEVANT;
+	return FindDirectionForClimbing( pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel) != DIRECTION_IRRELEVANT;
 #else
 	BUILDING * pBuilding;
 	INT16 i;
@@ -2682,7 +2684,7 @@ BOOLEAN CanClimbFromHere (SOLDIERTYPE * pSoldier, BOOLEAN fUp )
 	sMaxDown = (INT16) min( iSearchRange, MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
 
 	INT16 sGridNo=NOWHERE;
-	
+
 	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
 	{
 		for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
@@ -2698,13 +2700,13 @@ BOOLEAN CanClimbFromHere (SOLDIERTYPE * pSoldier, BOOLEAN fUp )
 			}
 
 
-			if ( sGridNo == pSoldier->sBlackList )
+			if ( sGridNo == pSoldier->pathing.sBlackList )
 			{
 				continue;
-			}			
+			}
 
 
-			// OK, this place shows potential.  How useful is it as cover?
+			// OK, this place shows potential.	How useful is it as cover?
 			//NumMessage("Promising seems gridno #",gridno);
 
 			// Kaiden: From this point down I've removed an unneccessary call to
@@ -2714,7 +2716,7 @@ BOOLEAN CanClimbFromHere (SOLDIERTYPE * pSoldier, BOOLEAN fUp )
 			pBuilding = FindBuilding ( sGridNo );
 
 			if ( pBuilding != NULL)
-			{	
+			{
 				if ( fUp )
 				{
 
@@ -2742,7 +2744,7 @@ BOOLEAN CanClimbFromHere (SOLDIERTYPE * pSoldier, BOOLEAN fUp )
 	return FALSE;
 #endif
 }
-			// OK, this place shows potential.  How useful is it as cover?
+			// OK, this place shows potential.	How useful is it as cover?
 			//NumMessage("Promising seems gridno #",gridno);
 
 /*			if ( FindBuilding ( sGridNo ) != NULL )
@@ -2752,7 +2754,7 @@ BOOLEAN CanClimbFromHere (SOLDIERTYPE * pSoldier, BOOLEAN fUp )
 
 	DebugMsg( TOPIC_JA2AI , DBG_LEVEL_3 , String("Adjacent Building climb spots = %d" , pBuilding->ubNumClimbSpots ));
 	if ( pBuilding != NULL)
-	{	
+	{
 		if ( fUp )
 		{
 			for (i = 0 ; i < pBuilding->ubNumClimbSpots; i++)
@@ -2786,25 +2788,25 @@ INT16 FindBestCoverNearTheGridNo(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubS
 	INT32 iPercentBetter;
 //	INT16 sTrueGridNo;
 	INT16 sResultGridNo;
-	INT8 bRealWisdom = pSoldier->bWisdom;
+	INT8 bRealWisdom = pSoldier->stats.bWisdom;
 
 //	sTrueGridNo = pSoldier->sGridNo;
 //	pSoldier->sGridNo = sGridNo;
-	pSoldier->bWisdom = 8 * ubSearchRadius;// 5 tiles
-	
+	pSoldier->stats.bWisdom = 8 * ubSearchRadius;// 5 tiles
+
 	sResultGridNo = FindBestNearbyCover( pSoldier, MORALE_NORMAL, &iPercentBetter);
-	
-	pSoldier->bWisdom = bRealWisdom;
+
+	pSoldier->stats.bWisdom = bRealWisdom;
 //	pSoldier->sGridNo = sTrueGridNo;
 
 	if( sResultGridNo != NOWHERE )
 		return sResultGridNo;
-	else 
+	else
 		return sGridNo;
 
 }
 
-INT8 FindDirectionForClimbing( INT16 sGridNo, INT8 bLevel )
+INT8 FindDirectionForClimbing( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel )
 {
 	UINT8 ubClimbDir;
 	INT16 sClimbSpot;
@@ -2826,6 +2828,9 @@ INT8 FindDirectionForClimbing( INT16 sGridNo, INT8 bLevel )
 	}
 	else if (bLevel == 1)
 	{
+		//CHRISL: If NewInv and wearing a backpack, don't allow climbing
+		if(UsingNewInventorySystem() == true && pSoldier->inv[BPACKPOCKPOS].exists() == true)
+			return DIRECTION_IRRELEVANT;
 		if (gpWorldLevelData[ sGridNo].ubExtFlags[1] & MAPELEMENT_EXT_CLIMBPOINT)
 		{
 			for (ubClimbDir=0; ubClimbDir<8; ubClimbDir+=2)

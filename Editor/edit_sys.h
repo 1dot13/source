@@ -17,9 +17,9 @@
 #define	DRAW_CLIFFS		1
 #define	DRAW_CLIFF_LAND 2
 
-extern BOOLEAN	gfWarning;   
+extern BOOLEAN	gfWarning;	
 
-extern BOOLEAN	gfDoFill;   
+extern BOOLEAN	gfDoFill;	
 extern UINT16	CurrentPaste;
 extern UINT16	gDebrisPaste;
 extern UINT16	gChangeElevation;

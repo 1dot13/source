@@ -11,7 +11,7 @@
 	#include "Soldier Control.h"
 	#include "overhead.h"
 	#include "fade screen.h"
-	#include "gamescreen.h" 
+	#include "gamescreen.h"
 	#include "email.h"
 	#include "Game Clock.h"
 	#include "soldier profile.h"
@@ -60,7 +60,12 @@
 	#include "Air Raid.h"
 	#include "Interface.h"
 	#include "cheats.h"
+	#include "Interface Panels.h"
 #endif
+
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
 
 // Temp function
 void QuickSetupOfMercProfileItems( UINT32 uiCount, UINT8 ubProfileIndex );
@@ -130,7 +135,7 @@ void InitNPCs( void )
 			SectorInfo[ SECTOR( 4, MAP_ROW_E ) ].uiFlags |= SF_USE_ALTERNATE_MAP;
 			break;
 	}
-	
+
 	// add Micky in random location
 
 	pProfile = &(gMercProfiles[MICKY]);
@@ -170,10 +175,10 @@ void InitNPCs( void )
 	// use alternate map in this sector
 	//SectorInfo[ SECTOR( pProfile->sSectorX, pProfile->sSectorY ) ].uiFlags |= SF_USE_ALTERNATE_MAP;
 
-  gfPlayerTeamSawJoey = FALSE;
+	gfPlayerTeamSawJoey = FALSE;
 
 
-	if ( gGameOptions.ubGameStyle == STYLE_SCIFI  && gGameExternalOptions.fEnableCrepitus )
+	if ( gGameOptions.ubGameStyle == STYLE_SCIFI	&& gGameExternalOptions.fEnableCrepitus )
 	{
 		// add Bob
 		pProfile = &(gMercProfiles[BOB]);
@@ -226,9 +231,9 @@ void InitNPCs( void )
 void InitBloodCatSectors()
 {
 	INT32 i;
-	//Hard coded table of bloodcat populations.  We don't have
-	//access to the real population (if different) until we physically 
-	//load the map.  If the real population is different, then an error
+	//Hard coded table of bloodcat populations.	We don't have
+	//access to the real population (if different) until we physically
+	//load the map.	If the real population is different, then an error
 	//will be reported.
 	for( i = 0; i < 255; i++ )
 	{
@@ -374,6 +379,24 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 	// Reset the selected soldier
 	gusSelectedSoldier = NOBODY;
 
+	// CHRISL: Init inventory
+	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"InitNewGame: set initial inventory coords");
+	if( gubScreenCount == 0 )
+	{
+		if((UsingNewInventorySystem() == true))
+		{
+			InitNewInventorySystem();
+			InitializeSMPanelCoordsNew();
+			InitializeInvPanelCoordsNew();
+		}
+		else
+		{
+			InitOldInventorySystem();
+			InitializeSMPanelCoordsOld();
+			InitializeInvPanelCoordsOld();
+		}
+	}
+
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"InitNewGame: loading merc profiles");
 	if( gubScreenCount == 0 )
 	{
@@ -391,7 +414,7 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 	}
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"InitNewGame: clearing messages");
-	// clear tactical 
+	// clear tactical
 	ClearTacticalMessageQueue( );
 
 	// clear mapscreen messages
@@ -413,11 +436,11 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 		ResetHeliSeats( );
 
 		// Setup two new messages!
-		AddPreReadEmail(OLD_ENRICO_1,OLD_ENRICO_1_LENGTH,MAIL_ENRICO,  GetWorldTotalMin() );
-		AddPreReadEmail(OLD_ENRICO_2,OLD_ENRICO_2_LENGTH,MAIL_ENRICO,  GetWorldTotalMin() );
-		AddPreReadEmail(RIS_REPORT,RIS_REPORT_LENGTH,RIS_EMAIL,  GetWorldTotalMin() );
-		AddPreReadEmail(OLD_ENRICO_3,OLD_ENRICO_3_LENGTH,MAIL_ENRICO,  GetWorldTotalMin() );
-		AddEmail(IMP_EMAIL_INTRO,IMP_EMAIL_INTRO_LENGTH,CHAR_PROFILE_SITE,  GetWorldTotalMin(), -1);
+		AddPreReadEmail(OLD_ENRICO_1,OLD_ENRICO_1_LENGTH,MAIL_ENRICO,	GetWorldTotalMin() );
+		AddPreReadEmail(OLD_ENRICO_2,OLD_ENRICO_2_LENGTH,MAIL_ENRICO,	GetWorldTotalMin() );
+		AddPreReadEmail(RIS_REPORT,RIS_REPORT_LENGTH,RIS_EMAIL,	GetWorldTotalMin() );
+		AddPreReadEmail(OLD_ENRICO_3,OLD_ENRICO_3_LENGTH,MAIL_ENRICO,	GetWorldTotalMin() );
+		AddEmail(IMP_EMAIL_INTRO,IMP_EMAIL_INTRO_LENGTH,CHAR_PROFILE_SITE,	GetWorldTotalMin(), -1);
 		//AddEmail(ENRICO_CONGRATS,ENRICO_CONGRATS_LENGTH,MAIL_ENRICO, GetWorldTotalMin() );
 		if(gGameExternalOptions.fMercDayOne)
 		{
@@ -449,7 +472,7 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 
 			case DIF_LEVEL_INSANE:
 
-				iStartingCash = gGameExternalOptions.iStartingCashInsane; 
+				iStartingCash = gGameExternalOptions.iStartingCashInsane;
 				// iStartingCash	= 15000;
 				break;
 
@@ -481,7 +504,7 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 			}
 		}
 
-		//Add an event to check for the end of the crippled version 
+		//Add an event to check for the end of the crippled version
 		AddEveryDayStrategicEvent( EVENT_CRIPPLED_VERSION_END_GAME_CHECK, 0, 0 );
 #endif
 
@@ -518,7 +541,7 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 /*
 	if ( gubScreenCount == 2 )
 	{
-			
+
 		if ( !SetCurrentWorldSector( 9, 1, 0 ) )
 		{
 
@@ -531,12 +554,12 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 		EnterTacticalScreen( );
 
 		if( gfAtLeastOneMercWasHired == TRUE )
-		{  
+		{
 			gubScreenCount = 3;
 		}
 		else
 		{
-			
+
 		}
 
 		return( TRUE );
@@ -553,16 +576,16 @@ BOOLEAN AnyMercsHired( )
 {
 	INT32 cnt;
 	SOLDIERTYPE		*pTeamSoldier;
-	INT16				  bLastTeamID;
+	INT16				bLastTeamID;
 
 	// Find first guy availible in team
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
-  // look for all mercs on the same team, 
-  for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pTeamSoldier++)
-	{	
+	// look for all mercs on the same team,
+	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pTeamSoldier++)
+	{
 		if ( pTeamSoldier->bActive )
 		{
 			return( TRUE );
@@ -571,7 +594,7 @@ BOOLEAN AnyMercsHired( )
 
 	return( FALSE );
 }
- 
+
 
 void QuickStartGame( )
 {
@@ -604,7 +627,7 @@ void QuickStartGame( )
 			do
 			{
 				usVal = (UINT16)Random( 40 );
-			} 
+			}
 			while( usVal != ub1 && usVal != ub2 );
 
 			QuickSetupOfMercProfileItems( cnt, (UINT8)usVal );
@@ -619,7 +642,7 @@ void QuickStartGame( )
 void QuickSetupOfMercProfileItems( UINT32 uiCount, UINT8 ubProfileIndex )
 {
 	// Quickly give some guys we hire some items
- 
+
 	if ( uiCount == 0 )
 	{
 		//CreateGun( GLOCK_17, &(pSoldier->inv[ HANDPOS ] ) );
@@ -655,7 +678,7 @@ void QuickSetupOfMercProfileItems( UINT32 uiCount, UINT8 ubProfileIndex )
 
 		// TEMP!
 		// make carman's opinion of us high!
-		gMercProfiles[ 78 ].bMercOpinion[ ubProfileIndex ] = 25; 
+		gMercProfiles[ 78 ].bMercOpinion[ ubProfileIndex ] = 25;
 
 	}
 	else if ( uiCount == 1 )
@@ -721,7 +744,7 @@ void QuickSetupOfMercProfileItems( UINT32 uiCount, UINT8 ubProfileIndex )
 	gMercProfiles[ ubProfileIndex ].inv[ BIGPOCK2POS ] = RDX;
 	gMercProfiles[ ubProfileIndex ].bInvStatus[ BIGPOCK2POS ] = 10;
 	gMercProfiles[ ubProfileIndex ].bInvNumber[ BIGPOCK2POS ] = 1;
-	
+
 	gMercProfiles[ ubProfileIndex ].inv[ SMALLPOCK4POS ] = HAND_GRENADE;
 	gMercProfiles[ ubProfileIndex ].bInvStatus[ SMALLPOCK4POS ] = 100;
 	gMercProfiles[ ubProfileIndex ].bInvNumber[ SMALLPOCK4POS ] = 4;
@@ -759,10 +782,10 @@ BOOLEAN QuickGameMemberHireMerc( UINT8 ubCurrentSoldier )
 	{
 		return(FALSE);
 	}
-	
+
 	//add an entry in the finacial page for the hiring of the merc
 	AddTransactionToPlayersBook(HIRED_MERC, ubCurrentSoldier, GetWorldTotalMin(), -(INT32) gMercProfiles[ubCurrentSoldier].uiWeeklySalary );
-	
+
 	if( gMercProfiles[ ubCurrentSoldier ].bMedicalDeposit )
 	{
 		//add an entry in the finacial page for the medical deposit
@@ -778,7 +801,7 @@ BOOLEAN QuickGameMemberHireMerc( UINT8 ubCurrentSoldier )
 
 
 
-//This function is called when the game is REstarted.  Things that need to be reinited are placed in here
+//This function is called when the game is REstarted.	Things that need to be reinited are placed in here
 void ReStartingGame()
 {
 	UINT16	cnt;
@@ -800,7 +823,7 @@ void ReStartingGame()
 
 	//Loop through all the soldier and delete them all
 	for( cnt=0; cnt< TOTAL_SOLDIERS; cnt++)
-	{	
+	{
 		TacticalRemoveSoldier( cnt );
 	}
 
@@ -834,7 +857,7 @@ void ReStartingGame()
 	if ( InAirRaid( ) )
 	{
 		EndAirRaid( );
-	}	
+	}
 
 #ifdef JA2TESTVERSION
 	//Reset so we can use the 'cheat key' to start with mercs

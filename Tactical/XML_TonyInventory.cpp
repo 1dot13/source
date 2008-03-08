@@ -2,44 +2,8 @@
 	#include "Tactical All.h"
 #else
 	#include "sgp.h"
-	#include "overhead types.h"
-	#include "Sound Control.h"
-	#include "Soldier Control.h"
 	#include "overhead.h"
-	#include "Event Pump.h"
 	#include "weapons.h"
-	#include "Animation Control.h"
-	#include "sys globals.h"
-	#include "Handle UI.h"
-	#include "Isometric Utils.h"
-	#include "worldman.h"
-	#include "math.h"
-	#include "points.h"
-	#include "ai.h"
-	#include "los.h"
-	#include "renderworld.h"
-	#include "opplist.h"
-	#include "interface.h"
-	#include "message.h"
-	#include "campaign.h"
-	#include "items.h"
-	#include "weapons.h"
-	#include "text.h"
-	#include "Soldier Profile.h"
-	#include "tile animation.h"
-	#include "Dialogue Control.h"
-	#include "SkillCheck.h"
-	#include "explosion control.h"
-	#include "Quests.h"
-	#include "Physics.h"
-	#include "Random.h"
-	#include "Vehicles.h"
-	#include "bullets.h"
-	#include "morale.h"
-	#include "meanwhile.h"
-	#include "SkillCheck.h"
-	#include "gamesettings.h"
-	#include "SaveLoadMap.h"
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
@@ -53,13 +17,13 @@ struct
 	DEALER_POSSIBLE_INV		curInventory;
 	DEALER_POSSIBLE_INV *	curArray;
 	UINT32			maxArraySize;
-	
+
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
 }
 typedef inventoryParseData;
 
-static void XMLCALL 
+static void XMLCALL
 inventoryStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	inventoryParseData * pData = (inventoryParseData *)userData;
@@ -104,11 +68,11 @@ inventoryCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	inventoryParseData * pData = (inventoryParseData *)userData;
 
-	if( (pData->currentDepth <= pData->maxReadDepth) && 
+	if( (pData->currentDepth <= pData->maxReadDepth) &&
 		(strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH)
-	  ){
+	){
 		strncat(pData->szCharData,str,__min((unsigned int)len,MAX_CHAR_DATA_LENGTH-strlen(pData->szCharData)));
-	  }
+	}
 }
 
 
@@ -135,12 +99,12 @@ inventoryEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "uiIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curInventory.uiIndex   = (UINT32) atol(pData->szCharData);
+			pData->curInventory.uiIndex	= (UINT32) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "sItemIndex") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curInventory.sItemIndex  = (INT16) atol(pData->szCharData);
+			pData->curInventory.sItemIndex	= (INT16) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "ubOptimalNumber") == 0)
 		{
@@ -164,7 +128,7 @@ BOOLEAN ReadInInventoryStats(DEALER_POSSIBLE_INV *pInv, STR fileName)
 	UINT32		uiFSize;
 	CHAR8 *		lpcBuffer;
 	XML_Parser	parser = XML_ParserCreate(NULL);
-	
+
 	inventoryParseData pData;
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading Inventory.xml" );
@@ -173,7 +137,7 @@ BOOLEAN ReadInInventoryStats(DEALER_POSSIBLE_INV *pInv, STR fileName)
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);
 
@@ -188,19 +152,19 @@ BOOLEAN ReadInInventoryStats(DEALER_POSSIBLE_INV *pInv, STR fileName)
 
 	FileClose( hFile );
 
-	
+
 	XML_SetElementHandler(parser, inventoryStartElementHandle, inventoryEndElementHandle);
 	XML_SetCharacterDataHandler(parser, inventoryCharacterDataHandle);
 
-	
+
 	memset(&pData,0,sizeof(pData));
 	pData.curArray = pInv;
-	pData.maxArraySize = MAXITEMS; 
-	
+	pData.maxArraySize = MAXITEMS;
+
 	XML_SetUserData(parser, &pData);
 
 
-    if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
+	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
 
@@ -229,7 +193,7 @@ BOOLEAN WriteInventoryStats(DEALER_POSSIBLE_INV *pInv, STR fileName)
 	hFile = FileOpen( fileName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	{
 		UINT32 cnt;
 
@@ -240,8 +204,8 @@ BOOLEAN WriteInventoryStats(DEALER_POSSIBLE_INV *pInv, STR fileName)
 			FilePrintf(hFile,"\t<INVENTORY>\r\n");
 
 			FilePrintf(hFile,"\t\t<uiIndex>%d</uiIndex>\r\n",								cnt );
-			FilePrintf(hFile,"\t\t<sItemIndex>%d</sItemIndex>\r\n",								pInv[cnt].sItemIndex   );
-			FilePrintf(hFile,"\t\t<ubOptimalNumber>%d</ubOptimalNumber>\r\n",								pInv[cnt].ubOptimalNumber    );
+			FilePrintf(hFile,"\t\t<sItemIndex>%d</sItemIndex>\r\n",								pInv[cnt].sItemIndex	);
+			FilePrintf(hFile,"\t\t<ubOptimalNumber>%d</ubOptimalNumber>\r\n",								pInv[cnt].ubOptimalNumber	);
 
 			FilePrintf(hFile,"\t</INVENTORY>\r\n");
 		}

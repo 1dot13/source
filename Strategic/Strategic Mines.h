@@ -8,7 +8,7 @@
 
 // the mines
 enum{
-	  MINE_SAN_MONA = 0,
+	MINE_SAN_MONA = 0,
 		MINE_DRASSEN,
 		MINE_ALMA,
 		MINE_CAMBRIA,
@@ -36,13 +36,13 @@ enum{
 
 // monster infestatation level, as percieved by the villagers
 enum{
-	MINES_NO_MONSTERS = 0,	 // nothing there at all
-  MINES_TRACE_MONSTERS,    // monsters leave traces behind, but no one has seen them yet
-	MINES_SOME_MONSTERS,		 // there have been sightings but no one believes the witnesses
-  MINES_MODERATE_MONSTERS, // scattered reports of monsters in lower levels, leaves workers uneasy
-	MINES_HIGH_MONSTERS,		 // workers know they are there and all but a few refuse to work
-	MINES_RAMPANT_MONSTERS,  // the few that go down don't seem to return, no one wants to work period
-	MINES_MONSTERS_SURFACE,  // monsters are coming out of the mines into the town looking for any edibles
+	MINES_NO_MONSTERS = 0,	// nothing there at all
+	MINES_TRACE_MONSTERS,	// monsters leave traces behind, but no one has seen them yet
+	MINES_SOME_MONSTERS,		// there have been sightings but no one believes the witnesses
+	MINES_MODERATE_MONSTERS, // scattered reports of monsters in lower levels, leaves workers uneasy
+	MINES_HIGH_MONSTERS,		// workers know they are there and all but a few refuse to work
+	MINES_RAMPANT_MONSTERS,	// the few that go down don't seem to return, no one wants to work period
+	MINES_MONSTERS_SURFACE,	// monsters are coming out of the mines into the town looking for any edibles
 };
 
 // head miner quote types
@@ -59,36 +59,36 @@ enum{
 // the strategic mine structures
 typedef struct MINE_LOCATION_TYPE
 {
-	INT16	   sSectorX;						// x value of sector mine is in
-	INT16    sSectorY;						// y value of sector mine is in
-	INT8	   bAssociatedTown;			// associated town of this mine
+	INT16	sSectorX;						// x value of sector mine is in
+	INT16	sSectorY;						// y value of sector mine is in
+	INT8	bAssociatedTown;			// associated town of this mine
 
 } MINE_LOCATION_TYPE;
 
 typedef struct MINE_STATUS_TYPE
 {
-	UINT8    ubMineType;								// type of mine (silver or gold)
-	BYTE		 filler1[3];
-	UINT32   uiMaxRemovalRate;					// fastest rate we can move ore from this mine in period
+	UINT8	ubMineType;								// type of mine (silver or gold)
+	BYTE		filler1[3];
+	UINT32	uiMaxRemovalRate;					// fastest rate we can move ore from this mine in period
 
-	UINT32   uiRemainingOreSupply;			// the total value left to this mine (-1 means unlimited)
-	UINT32   uiOreRunningOutPoint;			// when supply drop below this, workers tell player the mine is running out of ore
+	UINT32	uiRemainingOreSupply;			// the total value left to this mine (-1 means unlimited)
+	UINT32	uiOreRunningOutPoint;			// when supply drop below this, workers tell player the mine is running out of ore
 
-	BOOLEAN  fEmpty;										// whether no longer minable
-	BOOLEAN  fRunningOut;								// whether mine is beginning to run out
-	BOOLEAN  fWarnedOfRunningOut;				// whether mine foreman has already told player the mine's running out
-	BOOLEAN  fShutDownIsPermanent;			// means will never produce again in the game (head miner was attacked & died/quit)
-	BOOLEAN  fShutDown;									// TRUE means mine production has been shut off
-	BOOLEAN  fPrevInvadedByMonsters;		// whether or not mine has been previously invaded by monsters
-	BOOLEAN  fSpokeToHeadMiner;					// player doesn't receive income from mine without speaking to the head miner first
-	BOOLEAN  fMineHasProducedForPlayer;	// player has earned income from this mine at least once
+	BOOLEAN	fEmpty;										// whether no longer minable
+	BOOLEAN	fRunningOut;								// whether mine is beginning to run out
+	BOOLEAN	fWarnedOfRunningOut;				// whether mine foreman has already told player the mine's running out
+	BOOLEAN	fShutDownIsPermanent;			// means will never produce again in the game (head miner was attacked & died/quit)
+	BOOLEAN	fShutDown;									// TRUE means mine production has been shut off
+	BOOLEAN	fPrevInvadedByMonsters;		// whether or not mine has been previously invaded by monsters
+	BOOLEAN	fSpokeToHeadMiner;					// player doesn't receive income from mine without speaking to the head miner first
+	BOOLEAN	fMineHasProducedForPlayer;	// player has earned income from this mine at least once
 
-	BOOLEAN  fQueenRetookProducingMine;	// whether or not queen ever retook a mine after a player had produced from it
-	BOOLEAN  fAttackedHeadMiner;				// player has attacked the head miner, shutting down mine & decreasing loyalty
-	UINT16	 usValidDayCreaturesCanInfest; //Creatures will be permitted to spread if the game day is greater than this value.
-	UINT32   uiTimePlayerProductionStarted;		// time in minutes when 'fMineHasProducedForPlayer' was first set
+	BOOLEAN	fQueenRetookProducingMine;	// whether or not queen ever retook a mine after a player had produced from it
+	BOOLEAN	fAttackedHeadMiner;				// player has attacked the head miner, shutting down mine & decreasing loyalty
+	UINT16	usValidDayCreaturesCanInfest; //Creatures will be permitted to spread if the game day is greater than this value.
+	UINT32	uiTimePlayerProductionStarted;		// time in minutes when 'fMineHasProducedForPlayer' was first set
 
-	BYTE     filler[11];					// reserved for expansion
+	BYTE	 filler[11];					// reserved for expansion
 
 } MINE_STATUS_TYPE;
 

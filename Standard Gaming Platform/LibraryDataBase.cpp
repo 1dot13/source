@@ -21,7 +21,7 @@
 
 //NUMBER_OF_LIBRARIES
 #ifdef JA2
-	#include	"Ja2 Libs.cpp"
+	#include	"Ja2 Libs.h"
 	#include	"GameSettings.h"
 #elif defined(UTIL)
 	LibraryInitHeader gGameLibaries[ ] = { 0 };
@@ -52,9 +52,9 @@ INT32 CompareDirEntryFileNames( CHAR8 *arg1[], DIRENTRY **arg2 );
 
 //************************************************************************
 //
-//	 InitializeFileDatabase():  Call this function to initialize the file
-//	database.  It will use the gGameLibaries[] array for the list of libraries
-//	and the define NUMBER_OF_LIBRARIES for the number of libraries.  The gGameLibaries
+//	InitializeFileDatabase():	Call this function to initialize the file
+//	database.	It will use the gGameLibaries[] array for the list of libraries
+//	and the define NUMBER_OF_LIBRARIES for the number of libraries.	The gGameLibaries
 //	array is an array of structure, one of the fields determines if the library
 //	will be initialized and game start.
 //
@@ -130,9 +130,9 @@ BOOLEAN InitializeFileDatabase( )
 // Closes all CD libraries, then reopens them. This function needs to be called when CDs
 // are changed.
 // 
-// Returns BOOLEAN            - TRUE, always
+// Returns BOOLEAN			- TRUE, always
 // 
-// Created:  3/21/00 Derek Beland
+// Created:	3/21/00 Derek Beland
 //*****************************************************************************************
 BOOLEAN ReopenCDLibraries(void)
 {
@@ -153,7 +153,7 @@ INT16 i;
 
 //************************************************************************
 //
-//	 ShutDownFileDatabase():  Call this function to close down the file
+//	ShutDownFileDatabase():	Call this function to close down the file
 //	database.
 //
 //************************************************************************
@@ -177,7 +177,7 @@ BOOLEAN ShutDownFileDatabase( )
 	//loop through all the 'opened files' ( there should be no files open )
 	for( sLoop1=0; sLoop1< gFileDataBase.RealFiles.iNumFilesOpen; sLoop1++)
 	{
-		FastDebugMsg( String("ShutDownFileDatabase( ):  ERROR:  real file id still exists, wasnt closed") );
+		FastDebugMsg( String("ShutDownFileDatabase( ):	ERROR:	real file id still exists, wasnt closed") );
 		CloseHandle( gFileDataBase.RealFiles.pRealFilesOpen[ sLoop1 ].hRealFileHandle );
 	}
 
@@ -276,7 +276,7 @@ BOOLEAN InitializeLibrary( STR pLibraryName, LibraryHeaderStruct *pLibHeader, BO
 	SetFilePointer( hFile, -( LibFileHeader.iEntries * (INT32)sizeof(DIRENTRY) ), NULL, FILE_END );
 
 	//loop through the library and determine the number of files that are FILE_OK
-	//ie.  so we dont load the old or deleted files
+	//ie.	so we dont load the old or deleted files
 	usNumEntries = 0;
 	for( uiLoop=0; uiLoop<(UINT32)LibFileHeader.iEntries; uiLoop++ )
 	{
@@ -313,7 +313,7 @@ BOOLEAN InitializeLibrary( STR pLibraryName, LibraryHeaderStruct *pLibHeader, BO
 		{
 			//Check to see if the file is not longer then it should be
 			if( ( strlen( DirEntry.sFileName ) + 1 ) >= FILENAME_SIZE )
-				FastDebugMsg(String("\n*******InitializeLibrary():  Warning!:  '%s' from the library '%s' has name whose size (%d) is bigger then it should be (%s)", DirEntry.sFileName, pLibHeader->sLibraryPath, ( strlen( DirEntry.sFileName ) + 1 ), FILENAME_SIZE ) );
+				FastDebugMsg(String("\n*******InitializeLibrary():	Warning!:	'%s' from the library '%s' has name whose size (%d) is bigger then it should be (%s)", DirEntry.sFileName, pLibHeader->sLibraryPath, ( strlen( DirEntry.sFileName ) + 1 ), FILENAME_SIZE ) );
 
 
 			//allocate memory for the files name
@@ -347,7 +347,7 @@ BOOLEAN InitializeLibrary( STR pLibraryName, LibraryHeaderStruct *pLibHeader, BO
 	//allocate memory for the library path
 //	if( strlen( LibFileHeader.sPathToLibrary ) == 0 )
 	{
-//		FastDebugMsg( String("The %s library file does not contain a path.  Use 'n' argument to name the library when you create it\n", LibFileHeader.sLibName ) );
+//		FastDebugMsg( String("The %s library file does not contain a path.	Use 'n' argument to name the library when you create it\n", LibFileHeader.sLibName ) );
 //		Assert( 0 );
 	}
 
@@ -474,9 +474,9 @@ BOOLEAN CheckIfFileExistInLibrary( STR pFileName )
 
 //************************************************************************
 //
-//	This function finds out if the file CAN be in a library.  It determines
+//	This function finds out if the file CAN be in a library.	It determines
 //	if the library that the file MAY be in is open.
-//	( eg. File is  Laptop\Test.sti, if the Laptop\ library is open, it returns true
+//	( eg. File is	Laptop\Test.sti, if the Laptop\ library is open, it returns true
 //
 //************************************************************************
 INT16 GetLibraryIDFromFileName( STR pFileName )
@@ -522,7 +522,7 @@ INT16 sLoop1, sBestMatch=-1;
 //************************************************************************
 //
 //	GetFileHeaderFromLibrary() performsperforms a binary search of the
-//	library.  It adds the libraries path to the file in the
+//	library.	It adds the libraries path to the file in the
 //	library and then string compared that to the name that we are
 //	searching for.
 //
@@ -538,20 +538,20 @@ BOOLEAN	GetFileHeaderFromLibrary( INT16 sLibraryID, STR pstrFileName, FileHeader
 
 	gsCurrentLibrary = sLibraryID;
 
-	 /* try to find the filename using a binary search algorithm: */
-	 ppFileHeader = (FileHeaderStruct **) bsearch(  &sFileNameWithPath, (FileHeaderStruct *) gFileDataBase.pLibraries[ sLibraryID ].pFileHeader, gFileDataBase.pLibraries[ sLibraryID ].usNumberOfEntries,
+	/* try to find the filename using a binary search algorithm: */
+	ppFileHeader = (FileHeaderStruct **) bsearch(	&sFileNameWithPath, (FileHeaderStruct *) gFileDataBase.pLibraries[ sLibraryID ].pFileHeader, gFileDataBase.pLibraries[ sLibraryID ].usNumberOfEntries,
 															sizeof( FileHeaderStruct ), (int (*)(const void*, const void*))CompareFileNames );
 
-	 if( ppFileHeader )
-	 {
+	if( ppFileHeader )
+	{
 			*pFileHeader = ( FileHeaderStruct * ) ppFileHeader;
 			return( TRUE );
-	 }
-	 else
-	 {
+	}
+	else
+	{
 			pFileHeader = NULL;
 			return( FALSE );
-	 }
+	}
 }
 
 
@@ -573,8 +573,8 @@ INT CompareFileNames( CHAR8 *arg1[], FileHeaderStruct **arg2 )
 
 	sprintf( sFileNameWithPath, "%s%s", gFileDataBase.pLibraries[ gsCurrentLibrary ].sLibraryPath, TempFileHeader->pFileName );
 
-   /* Compare all of both strings: */
-   return _stricmp( sSearchKey, sFileNameWithPath );
+	/* Compare all of both strings: */
+	return _stricmp( sSearchKey, sFileNameWithPath );
 }
 
 
@@ -584,7 +584,6 @@ void AddSlashToPath( STR pName )
 {
 	UINT32	uiLoop, uiCounter;
 	BOOLEAN	fDone = FALSE;
-	BOOLEAN fFound = FALSE;
 	CHAR8		sNewName[ FILENAME_SIZE ];
 
 	//find out if there is a '\' in the file name
@@ -612,7 +611,7 @@ void AddSlashToPath( STR pName )
 
 //************************************************************************
 //
-// This function will see if a file is in a library.  If it is, the file will be opened and a file
+// This function will see if a file is in a library.	If it is, the file will be opened and a file
 // handle will be created for it.
 //
 //************************************************************************
@@ -639,8 +638,8 @@ HWFILE OpenFileFromLibrary( STR pName )
 		if( gFileDataBase.pLibraries[ sLibraryID ].uiIdOfOtherFileAlreadyOpenedLibrary != 0 )
 		{
 			// Temp removed
-//			FastDebugMsg(String("\n*******\nOpenFileFromLibrary():  Warning!:  Trying to load file '%s' from the library '%s' which already has a file open\n", pName, gGameLibaries[ sLibraryID ].sLibraryName ) );
-//			FastDebugMsg(String("\n*******\nOpenFileFromLibrary():  Warning!:  Trying to load file '%s' from the library '%s' which already has a file open ( file open is '%s')\n", pName, gGameLibaries[ sLibraryID ].sLibraryName, gFileDataBase.pLibraries[ sLibraryID ].pOpenFiles[ gFileDataBase.pLibraries[ sLibraryID ].uiIdOfOtherFileAlreadyOpenedLibrary ].pFileHeader->pFileName ) );
+//			FastDebugMsg(String("\n*******\nOpenFileFromLibrary():	Warning!:	Trying to load file '%s' from the library '%s' which already has a file open\n", pName, gGameLibaries[ sLibraryID ].sLibraryName ) );
+//			FastDebugMsg(String("\n*******\nOpenFileFromLibrary():	Warning!:	Trying to load file '%s' from the library '%s' which already has a file open ( file open is '%s')\n", pName, gGameLibaries[ sLibraryID ].sLibraryName, gFileDataBase.pLibraries[ sLibraryID ].pOpenFiles[ gFileDataBase.pLibraries[ sLibraryID ].uiIdOfOtherFileAlreadyOpenedLibrary ].pFileHeader->pFileName ) );
 		}
 
 		//check if the file is already open
@@ -660,7 +659,7 @@ HWFILE OpenFileFromLibrary( STR pName )
 
 				//reallocate more space for the array
 				pOpenFiles = (FileOpenStruct *) MemRealloc( gFileDataBase.pLibraries[ sLibraryID ].pOpenFiles,
-								 gFileDataBase.pLibraries[ sLibraryID ].iSizeOfOpenFileArray + NUM_FILES_TO_ADD_AT_A_TIME );
+								gFileDataBase.pLibraries[ sLibraryID ].iSizeOfOpenFileArray + NUM_FILES_TO_ADD_AT_A_TIME );
 
 				if( !pOpenFiles )
 					return( 0 );
@@ -875,7 +874,7 @@ BOOLEAN LibraryFileSeek( INT16 sLibraryID, UINT32 uiFileNum, UINT32 uiDistance, 
 //************************************************************************
 //
 //	OpenLibrary() Opens a library from the 'array' of library names
-//	that was passd in at game initialization.  Pass in an enum for the
+//	that was passd in at game initialization.	Pass in an enum for the
 //	library.
 //
 //************************************************************************
@@ -910,7 +909,7 @@ BOOLEAN CloseLibrary( INT16 sLibraryID )
 		return( FALSE );
 
 	#ifdef JA2TESTVERSION
-		FastDebugMsg( String("ShutDownFileDatabase( ): %d bytes of ram used for the Library #%3d, path '%s',  in the File Database System\n", gFileDataBase.pLibraries[ sLibraryID ].uiTotalMemoryAllocatedForLibrary, sLibraryID, gFileDataBase.pLibraries[ sLibraryID ].sLibraryPath ));
+		FastDebugMsg( String("ShutDownFileDatabase( ): %d bytes of ram used for the Library #%3d, path '%s',	in the File Database System\n", gFileDataBase.pLibraries[ sLibraryID ].uiTotalMemoryAllocatedForLibrary, sLibraryID, gFileDataBase.pLibraries[ sLibraryID ].sLibraryPath ));
 		gFileDataBase.pLibraries[ sLibraryID ].uiTotalMemoryAllocatedForLibrary = 0;
 	#endif
 
@@ -922,10 +921,10 @@ BOOLEAN CloseLibrary( INT16 sLibraryID )
 		{
 			if( CheckIfFileIsAlreadyOpen( gFileDataBase.pLibraries[ sLibraryID ].pFileHeader[ uiLoop1 ].pFileName, sLibraryID ) )
 			{
-				FastDebugMsg( String("CloseLibrary():  ERROR:  %s library file id still exists, wasnt closed, closing now.", gFileDataBase.pLibraries[ sLibraryID ].pFileHeader[ uiLoop1 ].pFileName ) );
+				FastDebugMsg( String("CloseLibrary():	ERROR:	%s library file id still exists, wasnt closed, closing now.", gFileDataBase.pLibraries[ sLibraryID ].pFileHeader[ uiLoop1 ].pFileName ) );
 				CloseLibraryFile( sLibraryID, uiLoop1 );
 
-				//	Removed because the memory gets freed in the next for loop.  Would only enter here if files were still open
+				//	Removed because the memory gets freed in the next for loop.	Would only enter here if files were still open
 				//	gFileDataBase.pLibraries[ sLibraryID ].pFileHeader[ uiLoop1 ].pFileName = NULL;
 			}
 		}
@@ -1023,11 +1022,9 @@ BOOLEAN CheckIfFileIsAlreadyOpen( STR pFileName, INT16 sLibraryID )
 
 BOOLEAN GetLibraryFileTime( INT16 sLibraryID, UINT32 uiFileNum, SGP_FILETIME	*pLastWriteTime )
 {
-	UINT16	usNumEntries=0;
 	UINT32	uiNumBytesRead;
 	DIRENTRY *pDirEntry;
 	LIBHEADER	LibFileHeader;
-	BOOLEAN fDone = FALSE;
 //	UINT32	cnt;
 	INT32	iFilePos=0;
 
@@ -1077,15 +1074,15 @@ BOOLEAN GetLibraryFileTime( INT16 sLibraryID, UINT32 uiFileNum, SGP_FILETIME	*pL
 
 
 
-	 /* try to find the filename using a binary search algorithm: */
-	 ppDirEntry = (DIRENTRY **) bsearch( gFileDataBase.pLibraries[ sLibraryID ].pOpenFiles[ uiFileNum ].pFileHeader->pFileName, 
+	/* try to find the filename using a binary search algorithm: */
+	ppDirEntry = (DIRENTRY **) bsearch( gFileDataBase.pLibraries[ sLibraryID ].pOpenFiles[ uiFileNum ].pFileHeader->pFileName, 
 																			(DIRENTRY *) pAllEntries, 
 																			LibFileHeader.iEntries,
 																			sizeof( DIRENTRY ), (int (*)(const void*, const void*))CompareDirEntryFileNames );
 
-	 if( ppDirEntry )
+	if( ppDirEntry )
 		pDirEntry = ( DIRENTRY * ) ppDirEntry;
-	 else
+	else
 		return( FALSE );
 
 	//Copy the dir entry time over to the passed in time
@@ -1118,7 +1115,7 @@ INT32 CompareDirEntryFileNames( CHAR8 *arg1[], DIRENTRY **arg2 )
 
 	sprintf( sFileNameWithPath, "%s", TempDirEntry->sFileName );
 
-   /* Compare all of both strings: */
-   return _stricmp( sSearchKey, sFileNameWithPath );
+	/* Compare all of both strings: */
+	return _stricmp( sSearchKey, sFileNameWithPath );
 }
 

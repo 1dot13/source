@@ -83,7 +83,7 @@ enum
 
 INT32	giCurrentIntroBeingPlayed = SMKINTRO_NO_VIDEO;
 
-CHAR		*gpzSmackerFileNames[] = 
+CHAR		*gpzSmackerFileNames[] =
 {
 	//begining of the game
 	"INTRO\\Rebel_cr.smk",
@@ -225,7 +225,7 @@ BOOLEAN EnterIntroScreen()
 	{
 		PrepareToExitIntroScreen();
 	}
-	
+
 
 	return( TRUE );
 }
@@ -279,34 +279,34 @@ void HandleIntroScreen()
 void		GetIntroScreenUserInput()
 {
 	InputAtom Event;
-	POINT  MousePos;
+	POINT	MousePos;
 
 
 	GetCursorPos(&MousePos);
-    ScreenToClient(ghWindow, &MousePos); // In window coords!
+	ScreenToClient(ghWindow, &MousePos); // In window coords!
 
 	while( DequeueEvent( &Event ) )
 	{
 		// HOOK INTO MOUSE HOOKS
 		switch( Event.usEvent)
-	  {
+	{
 			case LEFT_BUTTON_DOWN:
 				MouseSystemHook(LEFT_BUTTON_DOWN, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
 				break;
 			case LEFT_BUTTON_UP:
-				MouseSystemHook(LEFT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y ,_LeftButtonDown, _RightButtonDown);			
+				MouseSystemHook(LEFT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y ,_LeftButtonDown, _RightButtonDown);
 				break;
 			case RIGHT_BUTTON_DOWN:
 				MouseSystemHook(RIGHT_BUTTON_DOWN, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
 				break;
-			case RIGHT_BUTTON_UP: 
-				MouseSystemHook(RIGHT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);	
+			case RIGHT_BUTTON_UP:
+				MouseSystemHook(RIGHT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
 				break;
-			case RIGHT_BUTTON_REPEAT: 
-				MouseSystemHook(RIGHT_BUTTON_REPEAT, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);			
+			case RIGHT_BUTTON_REPEAT:
+				MouseSystemHook(RIGHT_BUTTON_REPEAT, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
 				break;
-			case LEFT_BUTTON_REPEAT: 
-				MouseSystemHook(LEFT_BUTTON_REPEAT, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);				
+			case LEFT_BUTTON_REPEAT:
+				MouseSystemHook(LEFT_BUTTON_REPEAT, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
 				break;
 		}
 
@@ -499,12 +499,12 @@ void SetIntroType( INT8 bIntroType )
 
 void DisplaySirtechSplashScreen()
 {
-  HVOBJECT hPixHandle;
-  VOBJECT_DESC    VObjectDesc;
+	HVOBJECT hPixHandle;
+	VOBJECT_DESC	VObjectDesc;
 	UINT32 uiLogoID;
 
-	UINT32										 uiDestPitchBYTES;
-	UINT8											 *pDestBuf;
+	UINT32										uiDestPitchBYTES;
+	UINT8											*pDestBuf;
 
 
 	// CLEAR THE FRAME BUFFER
@@ -519,23 +519,23 @@ void DisplaySirtechSplashScreen()
 
 //	FilenameForBPP("INTERFACE\\TShold.sti", VObjectDesc.ImageFile);
 	if( !AddVideoObject(&VObjectDesc, &uiLogoID) )
-	{	
-  	FilenameForBPP("GERMAN\\SPLASH_GERMAN.sti", VObjectDesc.ImageFile);
-	  if( !AddVideoObject(&VObjectDesc, &uiLogoID) )
-	  {	
-      /* 
-       * This is the place, where most non english coders stranding.
-       * Don't hesitate, don't give up! 
-       * I'll now tell You what You made wrong
-       *                                (2006-10-10, Sergeant_Kolja)
-       */
-      #ifdef _DEBUG
-      #  if defined(ENGLISH)
-		     AssertMsg( 0, String( "Wheter English nor German works. May be You built English - but have only German or other foreign Disk?" ) );
-      #  elif defined(GERMAN)
-		     AssertMsg( 0, String( "Weder Englisch noch Deutsch geht. Deutsche Version kompiliert und mit englischer CDs gestartet? Das geht nicht!" ) );
-      #  endif
-      #endif
+	{
+		FilenameForBPP("GERMAN\\SPLASH_GERMAN.sti", VObjectDesc.ImageFile);
+	if( !AddVideoObject(&VObjectDesc, &uiLogoID) )
+	{
+		/*
+		* This is the place, where most non english coders stranding.
+		* Don't hesitate, don't give up!
+		* I'll now tell You what You made wrong
+		*								(2006-10-10, Sergeant_Kolja)
+		*/
+		#ifdef _DEBUG
+		#	if defined(ENGLISH)
+			AssertMsg( 0, String( "Wheter English nor German works. May be You built English - but have only German or other foreign Disk?" ) );
+		#	elif defined(GERMAN)
+			AssertMsg( 0, String( "Weder Englisch noch Deutsch geht. Deutsche Version kompiliert und mit englischer CDs gestartet? Das geht nicht!" ) );
+		#	endif
+		#endif
 		AssertMsg( 0, String( "Failed to load %s", VObjectDesc.ImageFile ) );
 		return;
 	}

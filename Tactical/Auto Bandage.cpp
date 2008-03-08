@@ -35,14 +35,14 @@
 #define NUMBER_MERC_FACES_AUTOBANDAGE_BOX 4
 
 
-STR16		sAutoBandageString      = NULL;
-INT32		giBoxId						      = -1;
+STR16		sAutoBandageString		= NULL;
+INT32		giBoxId							= -1;
 UINT16	gusTextBoxWidth					= 0;
-UINT16	gusTextBoxHeight			  = 0;
-BOOLEAN	gfBeginningAutoBandage  = FALSE;
+UINT16	gusTextBoxHeight			= 0;
+BOOLEAN	gfBeginningAutoBandage	= FALSE;
 INT16		gsX											= 0;
 INT16		gsY											= 0;
-UINT32  guiAutoBandageSeconds		= 0;
+UINT32	guiAutoBandageSeconds		= 0;
 BOOLEAN fAutoBandageComplete = FALSE;
 BOOLEAN fEndAutoBandage = FALSE;
 
@@ -107,7 +107,7 @@ void BeginAutoBandage( )
 	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++ )
 	{
 		// if the soldier isn't active or in sector, we have problems..leave
-		if ( !(pSoldier->bActive) || !(pSoldier->bInSector) || ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) || (pSoldier->bAssignment == VEHICLE ) )
+		if ( !(pSoldier->bActive) || !(pSoldier->bInSector) || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) || (pSoldier->bAssignment == VEHICLE ) )
 		{
 			continue;
 		}
@@ -127,9 +127,9 @@ void BeginAutoBandage( )
 			if ( fFoundAGuy && fFoundAMedKit )
 			{
 				break;
-			}	
+			}
 		}
-	
+
 	}
 
 	if ( !fFoundAGuy )
@@ -145,7 +145,7 @@ void BeginAutoBandage( )
 		if ( ! CanAutoBandage( FALSE ) )
 		{
 			DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ CANT_AUTOBANDAGE_PROMPT ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL );
-		}	
+		}
 		else
 		{
 			// Confirm if we want to start or not....
@@ -182,18 +182,18 @@ void HandleAutoBandagePending( )
 		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++,pSoldier++)
 		{
 			// Are we in sector?
-			if ( pSoldier->bActive  )
+			if ( pSoldier->bActive	)
 			{
-				if ( pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ && !pSoldier->fBetweenSectors )
+				if ( pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ && !pSoldier->flags.fBetweenSectors )
 				{
-					if ( pSoldier->ubPendingAction != NO_PENDING_ACTION )
+					if ( pSoldier->aiData.ubPendingAction != NO_PENDING_ACTION )
 					{
 						return;
 					}
 				}
 			}
 		}
-	
+
 		// Do was have any menus up?
 		if ( AreWeInAUIMenu( ) )
 		{
@@ -224,11 +224,11 @@ void ShouldBeginAutoBandage( )
 		return;
 	}
 
-  // ATE: If not in endgame
-  if ( ( gTacticalStatus.uiFlags & IN_DEIDRANNA_ENDGAME ) )
-  {
-    return;
-  }
+	// ATE: If not in endgame
+	if ( ( gTacticalStatus.uiFlags & IN_DEIDRANNA_ENDGAME ) )
+	{
+	return;
+	}
 
 	if ( CanAutoBandage( FALSE ) )
 	{
@@ -240,21 +240,21 @@ void ShouldBeginAutoBandage( )
 
 BOOLEAN HandleAutoBandage( )
 {
-  InputAtom					InputEvent;
+	InputAtom					InputEvent;
 
 	if ( gTacticalStatus.fAutoBandageMode )
 	{
 		if ( gfBeginningAutoBandage )
 		{
 			//Shadow area
-			ShadowVideoSurfaceRect( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );		
+			ShadowVideoSurfaceRect( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 			InvalidateScreen( );
 			RefreshScreen( NULL );
 		}
 
 		DisplayAutoBandageUpdatePanel( );
 
-		//RenderMercPopUpBoxFromIndex( giBoxId, gsX, gsY,  FRAME_BUFFER );
+		//RenderMercPopUpBoxFromIndex( giBoxId, gsX, gsY,	FRAME_BUFFER );
 
 		//InvalidateRegion( gsX, gsY, gsX + gusTextBoxWidth, gsY + gusTextBoxHeight );
 
@@ -291,7 +291,7 @@ BOOLEAN HandleAutoBandage( )
 
 		if( fEndAutoBandage )
 		{
-			AutoBandage( FALSE ); 
+			AutoBandage( FALSE );
 			fEndAutoBandage = FALSE;
 		}
 
@@ -315,7 +315,7 @@ BOOLEAN CreateAutoBandageString( void )
 	cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
 	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++,pSoldier++)
 	{
-		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->bLife >= OKLIFE && !(pSoldier->bCollapsed) && pSoldier->bMedical > 0 && FindObjClass( pSoldier, IC_MEDKIT ) != NO_SLOT)
+		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife >= OKLIFE && !(pSoldier->bCollapsed) && pSoldier->stats.bMedical > 0 && FindObjClass( pSoldier, IC_MEDKIT ) != NO_SLOT)
 		{
 			ubDoctor[ubDoctors] = pSoldier->ubID;
 			ubDoctors++;
@@ -330,7 +330,7 @@ BOOLEAN CreateAutoBandageString( void )
 	}
 
 	if (ubDoctors == 1)
-	{	
+	{
 		uiDoctorNameStringLength += wcslen( Message[STR_IS_APPLYING_FIRST_AID] );
 	}
 	else
@@ -338,20 +338,20 @@ BOOLEAN CreateAutoBandageString( void )
 		uiDoctorNameStringLength += wcslen( Message[STR_ARE_APPLYING_FIRST_AID] );
 	}
 
-	sAutoBandageString =  (STR16) MemRealloc( sAutoBandageString, uiDoctorNameStringLength * sizeof( CHAR16 ) );
+	sAutoBandageString =	(STR16) MemRealloc( sAutoBandageString, uiDoctorNameStringLength * sizeof( CHAR16 ) );
 	if (!sAutoBandageString)
 	{
 		return( FALSE );
 	}
-	
+
 	if (ubDoctors == 1)
-	{	
+	{
 		swprintf( sAutoBandageString, Message[STR_IS_APPLYING_FIRST_AID], MercPtrs[ubDoctor[0]]->name );
 	}
 	else
 	{
 		// make a temporary string to hold most of the doctors names joined by commas
-		sTemp =  (STR16) MemAlloc( uiDoctorNameStringLength * sizeof( CHAR16 ) );
+		sTemp =	(STR16) MemAlloc( uiDoctorNameStringLength * sizeof( CHAR16 ) );
 	//	sTemp = MemAlloc( 1000 );
 		if (!sTemp)
 		{
@@ -396,11 +396,11 @@ void AutoBandage( BOOLEAN fStart )
 
 	if ( fStart )
 	{
-		gTacticalStatus.fAutoBandageMode	 = TRUE;
+		gTacticalStatus.fAutoBandageMode	= TRUE;
 		gTacticalStatus.uiFlags						|= OUR_MERCS_AUTO_MOVE;
 
 		gfAutoBandageFailed = FALSE;
-		
+
 
 		// ste up the autobandage panel
 		SetUpAutoBandageUpdatePanel( );
@@ -416,14 +416,14 @@ void AutoBandage( BOOLEAN fStart )
 		cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
 		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++,pSoldier++)
 		{
-			if ( pSoldier->bActive  )
+			if ( pSoldier->bActive	)
 			{
 				pSoldier->bSlotItemTakenFrom = NO_SLOT;
 				pSoldier->ubAutoBandagingMedic = NOBODY;
 			}
 		}
 
-		ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"Begin auto bandage." );		
+		ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"Begin auto bandage." );
 
 		if (CreateAutoBandageString())
 		{
@@ -442,7 +442,7 @@ void AutoBandage( BOOLEAN fStart )
 
 		// build a mask
 		MSYS_DefineRegion( &gAutoBandageRegion, 0,0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGHEST - 1,
-						 CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+						CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 
 		gfBeginningAutoBandage = TRUE;
 
@@ -450,7 +450,7 @@ void AutoBandage( BOOLEAN fStart )
 	else
 	{
 		gTacticalStatus.fAutoBandageMode = FALSE;
-		gTacticalStatus.uiFlags					 &= ( ~OUR_MERCS_AUTO_MOVE );
+		gTacticalStatus.uiFlags					&= ( ~OUR_MERCS_AUTO_MOVE );
 
 		// make sure anyone under AI control has their action cancelled
 		cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
@@ -467,11 +467,11 @@ void AutoBandage( BOOLEAN fStart )
 				}
 
 				// ATE: Make everyone stand up!
-				if ( pSoldier->bLife >= OKLIFE && !pSoldier->bCollapsed )
+				if ( pSoldier->stats.bLife >= OKLIFE && !pSoldier->bCollapsed )
 				{
 					if ( gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_STAND )
 					{
-						ChangeSoldierStance( pSoldier, ANIM_STAND );
+						pSoldier->ChangeSoldierStance( ANIM_STAND );
 					}
 				}
 
@@ -487,7 +487,7 @@ void AutoBandage( BOOLEAN fStart )
 			// If anyone is still doing aid animation, stop!
 			if ( MercPtrs[ ubLoop ]->usAnimState == GIVING_AID )
 			{
-				SoldierGotoStationaryStance( MercPtrs[ ubLoop ] );
+				MercPtrs[ ubLoop ]->SoldierGotoStationaryStance(	);
 			}
 		}
 
@@ -507,8 +507,8 @@ void AutoBandage( BOOLEAN fStart )
 		// Delete popup!
 		RemoveMercPopupBoxFromIndex( giBoxId );
 		giBoxId = -1;
-		ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"End auto bandage." );	
-		
+		ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"End auto bandage." );
+
 		// build a mask
 		MSYS_RemoveRegion( &gAutoBandageRegion );
 
@@ -538,7 +538,7 @@ void AutoBandage( BOOLEAN fStart )
 
 void BeginAutoBandageCallBack( UINT8 bExitValue )
 {
-  if( bExitValue == MSG_BOX_RETURN_YES )
+	if( bExitValue == MSG_BOX_RETURN_YES )
 	{
 		fRestoreBackgroundForMessageBox = TRUE;
 		AutoBandage( TRUE );
@@ -548,15 +548,15 @@ void BeginAutoBandageCallBack( UINT8 bExitValue )
 
 void SetUpAutoBandageUpdatePanel( void )
 {
-	
+
 	INT32 iNumberDoctoring = 0;
 	INT32 iNumberPatienting = 0;
 	INT32 iNumberOnTeam = 0;
 	INT32 iCounterA = 0;
 
 	// reset the tables of merc ids
-	memset( iDoctorList, -1,  sizeof( INT32 ) * MAX_CHARACTER_COUNT );
-	memset( iPatientList, -1,  sizeof( INT32 ) * MAX_CHARACTER_COUNT );
+	memset( iDoctorList, -1,	sizeof( INT32 ) * MAX_CHARACTER_COUNT );
+	memset( iPatientList, -1,	sizeof( INT32 ) * MAX_CHARACTER_COUNT );
 
 
 	// grab number of potential grunts on players team
@@ -570,7 +570,7 @@ void SetUpAutoBandageUpdatePanel( void )
 			// add to list, up the count
 			iDoctorList[ iNumberDoctoring ] = iCounterA;
 			iNumberDoctoring++;
-			
+
 		}
 	}
 
@@ -589,7 +589,7 @@ void SetUpAutoBandageUpdatePanel( void )
 	if( ( iNumberDoctoring == 0 ) || ( iNumberPatienting == 0 ) )
 	{
 		// reset the tables of merc ids
-		memset( iDoctorList, -1,  sizeof( INT32 ) * MAX_CHARACTER_COUNT );
+		memset( iDoctorList, -1,	sizeof( INT32 ) * MAX_CHARACTER_COUNT );
 		memset( iPatientList, -1, sizeof( INT32 ) * MAX_CHARACTER_COUNT );
 	}
 
@@ -619,7 +619,7 @@ void DisplayAutoBandageUpdatePanel( void )
 	// are even in autobandage mode?
 	if( gTacticalStatus.fAutoBandageMode == FALSE )
 	{
-		// nope, 
+		// nope,
 		return;
 	}
 
@@ -643,7 +643,7 @@ void DisplayAutoBandageUpdatePanel( void )
 	}
 
 	// build dimensions of box
-	
+
 	if( iNumberDoctors < NUMBER_MERC_FACES_AUTOBANDAGE_BOX )
 	{
 		// nope, get the base amount
@@ -654,8 +654,8 @@ void DisplayAutoBandageUpdatePanel( void )
 		iNumberDoctorsWide = NUMBER_MERC_FACES_AUTOBANDAGE_BOX;
 	}
 
-	
-		
+
+
 	// set the min number of mercs
 	if( iNumberDoctorsWide < 3 )
 	{
@@ -669,7 +669,7 @@ void DisplayAutoBandageUpdatePanel( void )
 
 	// the doctors
 	iNumberDoctorsHigh = ( iNumberDoctors / ( NUMBER_MERC_FACES_AUTOBANDAGE_BOX ) + 1 );
-	
+
 	if( iNumberDoctors % NUMBER_MERC_FACES_AUTOBANDAGE_BOX )
 	{
 		// now the patients
@@ -678,7 +678,7 @@ void DisplayAutoBandageUpdatePanel( void )
 	else
 	{
 		// now the patients
-		iNumberDoctorsHigh = ( iNumberDoctors / ( NUMBER_MERC_FACES_AUTOBANDAGE_BOX )  );
+		iNumberDoctorsHigh = ( iNumberDoctors / ( NUMBER_MERC_FACES_AUTOBANDAGE_BOX )	);
 	}
 
 	if( iNumberPatients < NUMBER_MERC_FACES_AUTOBANDAGE_BOX )
@@ -705,18 +705,18 @@ void DisplayAutoBandageUpdatePanel( void )
 	if( iNumberPatients % NUMBER_MERC_FACES_AUTOBANDAGE_BOX )
 	{
 		// now the patients
-		iNumberPatientsHigh = ( iNumberPatients / ( NUMBER_MERC_FACES_AUTOBANDAGE_BOX ) + 1  );
+		iNumberPatientsHigh = ( iNumberPatients / ( NUMBER_MERC_FACES_AUTOBANDAGE_BOX ) + 1	);
 	}
 	else
 	{
 		// now the patients
-		iNumberPatientsHigh = ( iNumberPatients / ( NUMBER_MERC_FACES_AUTOBANDAGE_BOX )  );
+		iNumberPatientsHigh = ( iNumberPatients / ( NUMBER_MERC_FACES_AUTOBANDAGE_BOX )	);
 	}
-	
+
 
 
 	// now the actual pixel dimensions
-	
+
 	iTotalPixelsHigh = ( iNumberPatientsHigh + iNumberDoctorsHigh ) * TACT_UPDATE_MERC_FACE_X_HEIGHT;
 
 	// see which is wider, and set to this
@@ -747,10 +747,10 @@ void DisplayAutoBandageUpdatePanel( void )
 		{
 			sCurrentXPosition = sXPosition + ( iCounterB * TACT_UPDATE_MERC_FACE_X_WIDTH );
 			sCurrentYPosition = sYPosition + ( iCounterA * TACT_UPDATE_MERC_FACE_X_HEIGHT );
-		
+
 			// slap down background piece
 			BltVideoObject( FRAME_BUFFER , hBackGroundHandle, 15, sCurrentXPosition, sCurrentYPosition, VO_BLT_SRCTRANSPARENCY, NULL );
-	
+
 
 			iIndex = iCounterA * iNumberDoctorsWide + iCounterB;
 
@@ -759,17 +759,17 @@ void DisplayAutoBandageUpdatePanel( void )
 
 				sCurrentXPosition += TACT_UPDATE_MERC_FACE_X_OFFSET;
 				sCurrentYPosition += TACT_UPDATE_MERC_FACE_Y_OFFSET;
-				
+
 				// there is a face
 				RenderSoldierSmallFaceForAutoBandagePanel( iIndex, sCurrentXPosition, sCurrentYPosition );
-					
+
 				// display the mercs name
 				swprintf( sString, L"%s", ( Menptr[ iDoctorList[ iCounterA * iNumberDoctorsWide + iCounterB ] ] ).name );
-				FindFontCenterCoordinates( ( INT16 )( sCurrentXPosition ), ( INT16 )( sCurrentYPosition ),  ( TACT_UPDATE_MERC_FACE_X_WIDTH - 25 ), 0, sString, TINYFONT1, &sX, &sY );
+				FindFontCenterCoordinates( ( INT16 )( sCurrentXPosition ), ( INT16 )( sCurrentYPosition ),	( TACT_UPDATE_MERC_FACE_X_WIDTH - 25 ), 0, sString, TINYFONT1, &sX, &sY );
 				SetFont( TINYFONT1 );
 				SetFontForeground( FONT_LTRED );
-				SetFontBackground( FONT_BLACK ); 
-				
+				SetFontBackground( FONT_BLACK );
+
 				sY+= 35;
 				sCurrentXPosition -= TACT_UPDATE_MERC_FACE_X_OFFSET;
 				sCurrentYPosition -= TACT_UPDATE_MERC_FACE_Y_OFFSET;
@@ -786,8 +786,8 @@ void DisplayAutoBandageUpdatePanel( void )
 			// slap down background piece
 			BltVideoObject( FRAME_BUFFER , hBackGroundHandle, 16, sXPosition + ( iCounterB * TACT_UPDATE_MERC_FACE_X_WIDTH ), sCurrentYPosition + ( TACT_UPDATE_MERC_FACE_X_HEIGHT ), VO_BLT_SRCTRANSPARENCY, NULL );
 			BltVideoObject( FRAME_BUFFER , hBackGroundHandle, 16, sXPosition + ( iCounterB * TACT_UPDATE_MERC_FACE_X_WIDTH ), sYPosition - 9 , VO_BLT_SRCTRANSPARENCY, NULL );
-	
-			
+
+
 	}
 
 		// bordering patient title
@@ -797,20 +797,20 @@ void DisplayAutoBandageUpdatePanel( void )
 
 	SetFont( TINYFONT1 );
 	SetFontForeground( FONT_WHITE );
-	SetFontBackground( FONT_BLACK ); 
+	SetFontBackground( FONT_BLACK );
 
 //	iCurPixelY = sYPosition;
 	iCurPixelY = sYPosition + ( ( iCounterA - 1 ) * TACT_UPDATE_MERC_FACE_X_HEIGHT );
-	
+
 
 	swprintf( sString, L"%s", zMarksMapScreenText[ 13 ] );
-	FindFontCenterCoordinates( ( INT16 )( sXPosition ), ( INT16 )( sCurrentYPosition ),  ( INT16 )( iTotalPixelsWide ), 0, sString, TINYFONT1, &sX, &sY );
+	FindFontCenterCoordinates( ( INT16 )( sXPosition ), ( INT16 )( sCurrentYPosition ),	( INT16 )( iTotalPixelsWide ), 0, sString, TINYFONT1, &sX, &sY );
 	// print medic
 	mprintf( sX, sYPosition - 7 , sString );
-	
-	//DisplayWrappedString( ( INT16 )( sXPosition ),  ( INT16 )( sCurrentYPosition - 40 ), ( INT16 )( iTotalPixelsWide ), 0, TINYFONT1, FONT_WHITE, pUpdateMercStrings[ 0 ], FONT_BLACK, 0, 0 );
 
-	
+	//DisplayWrappedString( ( INT16 )( sXPosition ),	( INT16 )( sCurrentYPosition - 40 ), ( INT16 )( iTotalPixelsWide ), 0, TINYFONT1, FONT_WHITE, pUpdateMercStrings[ 0 ], FONT_BLACK, 0, 0 );
+
+
 	sYPosition += 9;
 
 	// now the patients
@@ -821,8 +821,8 @@ void DisplayAutoBandageUpdatePanel( void )
 
 			sCurrentXPosition = sXPosition + ( iCounterB * TACT_UPDATE_MERC_FACE_X_WIDTH );
 			sCurrentYPosition = sYPosition + ( ( iCounterA + iNumberDoctorsHigh ) * TACT_UPDATE_MERC_FACE_X_HEIGHT );
-		
-			
+
+
 			// slap down background piece
 			BltVideoObject( FRAME_BUFFER , hBackGroundHandle, 15, sCurrentXPosition, 	sCurrentYPosition , VO_BLT_SRCTRANSPARENCY, NULL );
 
@@ -834,25 +834,25 @@ void DisplayAutoBandageUpdatePanel( void )
 
 				sCurrentXPosition += TACT_UPDATE_MERC_FACE_X_OFFSET;
 				sCurrentYPosition += TACT_UPDATE_MERC_FACE_Y_OFFSET;
-				
+
 				// there is a face
 				RenderSoldierSmallFaceForAutoBandagePanel( iIndex + iNumberDoctors, sCurrentXPosition, sCurrentYPosition );
-					
+
 				// display the mercs name
 				swprintf( sString, L"%s", ( Menptr[ iPatientList[ iIndex ] ] ).name );
-				FindFontCenterCoordinates( ( INT16 )( sCurrentXPosition ), ( INT16 )( sCurrentYPosition ),  ( TACT_UPDATE_MERC_FACE_X_WIDTH - 25 ), 0, sString, TINYFONT1, &sX, &sY );
+				FindFontCenterCoordinates( ( INT16 )( sCurrentXPosition ), ( INT16 )( sCurrentYPosition ),	( TACT_UPDATE_MERC_FACE_X_WIDTH - 25 ), 0, sString, TINYFONT1, &sX, &sY );
 				SetFont( TINYFONT1 );
 				SetFontForeground( FONT_LTRED );
-				SetFontBackground( FONT_BLACK ); 
+				SetFontBackground( FONT_BLACK );
 				sY+= 35;
-				
+
 				// print name
 				mprintf( sX, sY , sString );
 			}
-		
+
 		}
 	}
-	
+
 
 	// BORDER PIECES!!!!
 
@@ -860,7 +860,7 @@ void DisplayAutoBandageUpdatePanel( void )
 	for( iCounterA = 0; iCounterA < iNumberPatientsHigh; iCounterA++ )
 	{
 		BltVideoObject( FRAME_BUFFER , hBackGroundHandle, 3, sXPosition - 4, sYPosition + ( ( iCounterA + iNumberDoctorsHigh ) * TACT_UPDATE_MERC_FACE_X_HEIGHT ) , VO_BLT_SRCTRANSPARENCY,NULL );
-		BltVideoObject( FRAME_BUFFER , hBackGroundHandle, 5, sXPosition + iTotalPixelsWide , sYPosition + ( ( iCounterA  + iNumberDoctorsHigh ) * TACT_UPDATE_MERC_FACE_X_HEIGHT ), VO_BLT_SRCTRANSPARENCY,NULL );
+		BltVideoObject( FRAME_BUFFER , hBackGroundHandle, 5, sXPosition + iTotalPixelsWide , sYPosition + ( ( iCounterA	+ iNumberDoctorsHigh ) * TACT_UPDATE_MERC_FACE_X_HEIGHT ), VO_BLT_SRCTRANSPARENCY,NULL );
 	}
 
 
@@ -870,8 +870,8 @@ void DisplayAutoBandageUpdatePanel( void )
 	// pieces bordering doctor squares
 	for( iCounterA = 0; iCounterA < iNumberDoctorsHigh; iCounterA++ )
 	{
-		BltVideoObject( FRAME_BUFFER , hBackGroundHandle, 3, sXPosition - 4, sYPosition + ( ( iCounterA  ) * TACT_UPDATE_MERC_FACE_X_HEIGHT ) , VO_BLT_SRCTRANSPARENCY,NULL );
-		BltVideoObject( FRAME_BUFFER , hBackGroundHandle, 5, sXPosition + iTotalPixelsWide , sYPosition + ( ( iCounterA  ) * TACT_UPDATE_MERC_FACE_X_HEIGHT ), VO_BLT_SRCTRANSPARENCY,NULL );
+		BltVideoObject( FRAME_BUFFER , hBackGroundHandle, 3, sXPosition - 4, sYPosition + ( ( iCounterA	) * TACT_UPDATE_MERC_FACE_X_HEIGHT ) , VO_BLT_SRCTRANSPARENCY,NULL );
+		BltVideoObject( FRAME_BUFFER , hBackGroundHandle, 5, sXPosition + iTotalPixelsWide , sYPosition + ( ( iCounterA	) * TACT_UPDATE_MERC_FACE_X_HEIGHT ), VO_BLT_SRCTRANSPARENCY,NULL );
 	}
 
 	// bordering doctor title
@@ -894,7 +894,7 @@ void DisplayAutoBandageUpdatePanel( void )
 
 	// the bottom
 	BltVideoObject( FRAME_BUFFER , hBackGroundHandle, 17, sXPosition - 4, sYPosition + iTotalPixelsHigh, VO_BLT_SRCTRANSPARENCY,NULL );
-	BltVideoObject( FRAME_BUFFER , hBackGroundHandle, 18, sXPosition + iTotalPixelsWide - TACT_UPDATE_MERC_FACE_X_WIDTH,  sYPosition + iTotalPixelsHigh, VO_BLT_SRCTRANSPARENCY,NULL );
+	BltVideoObject( FRAME_BUFFER , hBackGroundHandle, 18, sXPosition + iTotalPixelsWide - TACT_UPDATE_MERC_FACE_X_WIDTH,	sYPosition + iTotalPixelsHigh, VO_BLT_SRCTRANSPARENCY,NULL );
 
 	if( iNumberPatientsWide == 2 )
 	{
@@ -909,23 +909,23 @@ void DisplayAutoBandageUpdatePanel( void )
 
 	SetFont( TINYFONT1 );
 	SetFontForeground( FONT_WHITE );
-	SetFontBackground( FONT_BLACK ); 
+	SetFontBackground( FONT_BLACK );
 
 	swprintf( sString, L"%s", zMarksMapScreenText[ 14 ]);
-	FindFontCenterCoordinates( ( INT16 )( sXPosition ), ( INT16 )( sCurrentYPosition ),  ( INT16 )( iTotalPixelsWide ), 0, sString, TINYFONT1, &sX, &sY );	
+	FindFontCenterCoordinates( ( INT16 )( sXPosition ), ( INT16 )( sCurrentYPosition ),	( INT16 )( iTotalPixelsWide ), 0, sString, TINYFONT1, &sX, &sY );
 	// print patient
 	mprintf( sX, iCurPixelY + ( TACT_UPDATE_MERC_FACE_X_HEIGHT ) + 2, sString );
-			
+
 
 	MarkAButtonDirty( iEndAutoBandageButton[ 0 ] );
 	MarkAButtonDirty( iEndAutoBandageButton[ 1 ] );
 
 
-	
+
 
 	DrawButton( iEndAutoBandageButton[ 0 ] );
 	DrawButton( iEndAutoBandageButton[ 1 ] );
-	
+
 	iTotalPixelsHigh+= 35;
 
 	// if autobandage is complete, set the fact by enabling the done button
@@ -941,7 +941,7 @@ void DisplayAutoBandageUpdatePanel( void )
 	}
 
 	// now make sure it goes to the screen
-	InvalidateRegion( sXPosition - 4, sYPosition - 18, ( INT16 )( sXPosition + iTotalPixelsWide + 4), ( INT16 )( sYPosition + iTotalPixelsHigh  ) );
+	InvalidateRegion( sXPosition - 4, sYPosition - 18, ( INT16 )( sXPosition + iTotalPixelsWide + 4), ( INT16 )( sYPosition + iTotalPixelsHigh	) );
 
 	return;
 }
@@ -963,9 +963,9 @@ void CreateTerminateAutoBandageButton( INT16 sX, INT16 sY )
 
 	// grab the image
 	iEndAutoBandageButtonImage[ 0 ] = LoadButtonImage( "INTERFACE\\group_confirm_tactical.sti" ,-1,7,-1,8,-1 );
-	
-	// grab the button	
-	iEndAutoBandageButton[ 0 ] = QuickCreateButton( iEndAutoBandageButtonImage[ 0 ], sX, sY, 
+
+	// grab the button
+	iEndAutoBandageButton[ 0 ] = QuickCreateButton( iEndAutoBandageButtonImage[ 0 ], sX, sY,
 														BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 														(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)StopAutoBandageButtonCallback );
 
@@ -973,9 +973,9 @@ void CreateTerminateAutoBandageButton( INT16 sX, INT16 sY )
 	//the cancel button
 	// grab the image
 	iEndAutoBandageButtonImage[ 1 ] = LoadButtonImage( "INTERFACE\\group_confirm_tactical.sti" ,-1,7,-1,8,-1 );
-	
-	// grab the button	
-	iEndAutoBandageButton[ 1 ] = QuickCreateButton( iEndAutoBandageButtonImage[ 1 ], ( INT16 )( sX + 70 ) , sY, 
+
+	// grab the button
+	iEndAutoBandageButton[ 1 ] = QuickCreateButton( iEndAutoBandageButtonImage[ 1 ], ( INT16 )( sX + 70 ) , sY,
 														BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 														(GUI_CALLBACK)BtnGenericMouseMoveButtonCallback, (GUI_CALLBACK)StopAutoBandageButtonCallback );
 
@@ -997,14 +997,14 @@ void StopAutoBandageButtonCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-	  btn->uiFlags|=(BUTTON_CLICKED_ON);   
+	btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-  {
-    if (btn->uiFlags & BUTTON_CLICKED_ON)
+	{
+	if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-      btn->uiFlags&=~(BUTTON_CLICKED_ON);
-		  fEndAutoBandage = TRUE;
+		btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		fEndAutoBandage = TRUE;
 		}
 	}
 
@@ -1022,7 +1022,7 @@ void DestroyTerminateAutoBandageButton( void )
 		// not around, don't destroy what ain't there
 		return;
 	}
-	
+
 	fAutoEndBandageButtonCreated = FALSE;
 
 	// remove button
@@ -1043,7 +1043,7 @@ BOOLEAN AddFacesToAutoBandageBox( void )
 {
 	INT32 iCounter = 0;
 	INT32 iNumberOfDoctors = 0;
-	VOBJECT_DESC     VObjectDesc;
+	VOBJECT_DESC	 VObjectDesc;
 
 
 	// reset
@@ -1070,7 +1070,7 @@ BOOLEAN AddFacesToAutoBandageBox( void )
 			// load the face
 			AddVideoObject( &VObjectDesc, (UINT32 *)&giAutoBandagesSoldierFaces[ iCounter ] );
 			iNumberOfDoctors++;
-			
+
 		}
 	}
 
@@ -1152,13 +1152,13 @@ BOOLEAN RenderSoldierSmallFaceForAutoBandagePanel( INT32 iIndex, INT16 sCurrentX
 
 	// fill the background for the info bars black
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, sCurrentXPosition+36, sCurrentYPosition+2, sCurrentXPosition+44,	sCurrentYPosition+30, 0 );
-	
+
 	// put down the background
 	BltVideoObjectFromIndex( FRAME_BUFFER, giMercPanelImage, 0, sCurrentXPosition, sCurrentYPosition, VO_BLT_SRCTRANSPARENCY, NULL );
-	
+
 	// grab the face
 	BltVideoObject( FRAME_BUFFER , hHandle , 0, sCurrentXPosition+2, sCurrentYPosition+2, VO_BLT_SRCTRANSPARENCY, NULL );
-	
+
 
 	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ )
 	{
@@ -1182,32 +1182,32 @@ BOOLEAN RenderSoldierSmallFaceForAutoBandagePanel( INT32 iIndex, INT16 sCurrentX
 	}
 
 	// is the merc alive?
-	if( !pSoldier->bLife )
+	if( !pSoldier->stats.bLife )
 		return( FALSE );
 
 
 	//yellow one for bleeding
-	iStartY = sCurrentYPosition + 29 - 27*pSoldier->bLifeMax/100;
+	iStartY = sCurrentYPosition + 29 - 27*pSoldier->stats.bLifeMax/100;
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, sCurrentXPosition+36, iStartY, sCurrentXPosition+37, sCurrentYPosition+29, Get16BPPColor( FROMRGB( 107, 107, 57 ) ) );
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, sCurrentXPosition+37, iStartY, sCurrentXPosition+38, sCurrentYPosition+29, Get16BPPColor( FROMRGB( 222, 181, 115 ) ) );
-	
+
 	//pink one for bandaged.
 	iStartY += 27*pSoldier->bBleeding/100;
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, sCurrentXPosition+36, iStartY, sCurrentXPosition+37, sCurrentYPosition+29, Get16BPPColor( FROMRGB( 156, 57, 57 ) ) );
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, sCurrentXPosition+37, iStartY, sCurrentXPosition+38, sCurrentYPosition+29, Get16BPPColor( FROMRGB( 222, 132, 132 ) ) );
-	
+
 	//red one for actual health
-	iStartY = sCurrentYPosition + 29 - 27*pSoldier->bLife/100;
+	iStartY = sCurrentYPosition + 29 - 27*pSoldier->stats.bLife/100;
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, sCurrentXPosition+36, iStartY, sCurrentXPosition+37, sCurrentYPosition+29, Get16BPPColor( FROMRGB( 107, 8, 8 ) ) );
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, sCurrentXPosition+37, iStartY, sCurrentXPosition+38, sCurrentYPosition+29, Get16BPPColor( FROMRGB( 206, 0, 0 ) ) );
-	
+
 	//BREATH BAR
 	iStartY = sCurrentYPosition + 29 - 27*pSoldier->bBreathMax/100;
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, sCurrentXPosition+39, iStartY, sCurrentXPosition+40, sCurrentYPosition+29, Get16BPPColor( FROMRGB( 8, 8, 132 ) ) );
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, sCurrentXPosition+40, iStartY, sCurrentXPosition+41, sCurrentYPosition+29, Get16BPPColor( FROMRGB( 8, 8, 107 ) ) );
-	
+
 	//MORALE BAR
-	iStartY = sCurrentYPosition + 29 - 27*pSoldier->bMorale/100;
+	iStartY = sCurrentYPosition + 29 - 27*pSoldier->aiData.bMorale/100;
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, sCurrentXPosition+42, iStartY, sCurrentXPosition+43, sCurrentYPosition+29, Get16BPPColor( FROMRGB( 8, 156, 8 ) ) );
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, sCurrentXPosition+43, iStartY, sCurrentXPosition+44, sCurrentYPosition+29, Get16BPPColor( FROMRGB( 8, 107, 8 ) ) );
 

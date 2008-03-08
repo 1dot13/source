@@ -87,8 +87,8 @@ typedef struct
 	HANDLE	hLibraryHandle;
 	UINT16	usNumberOfEntries;
 	BOOLEAN	fLibraryOpen;
-//	BOOLEAN	fAnotherFileAlreadyOpenedLibrary;				//this variable is set when a file is opened from the library and reset when the file is close.  No 2 files can have access to the library at 1 time.
-	UINT32	uiIdOfOtherFileAlreadyOpenedLibrary;				//this variable is set when a file is opened from the library and reset when the file is close.  No 2 files can have access to the library at 1 time.
+//	BOOLEAN	fAnotherFileAlreadyOpenedLibrary;				//this variable is set when a file is opened from the library and reset when the file is close.	No 2 files can have access to the library at 1 time.
+	UINT32	uiIdOfOtherFileAlreadyOpenedLibrary;				//this variable is set when a file is opened from the library and reset when the file is close.	No 2 files can have access to the library at 1 time.
 	INT32		iNumFilesOpen;
 	INT32		iSizeOfOpenFileArray;
 	FileHeaderStruct *pFileHeader;
@@ -132,7 +132,7 @@ typedef struct
 
 //*************************************************************************
 //
-//  NOTE!  The following structs are also used by the datalib98 utility
+//	NOTE!	The following structs are also used by the datalib98 utility
 //
 //*************************************************************************
 

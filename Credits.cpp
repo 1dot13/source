@@ -2,13 +2,11 @@
 	#include "JA2 All.h"
 	#include "Credits.h"
 	#include "Encrypted File.h"
-	//#include "Utils All.h" 
-	#include "Language Defines.h" 
+	#include "Language Defines.h"
 #else
 	#include "Types.h"
 	#include "Credits.h"
-	//#include "Utils All.h" 
-	#include "Language Defines.h" 
+	#include "Language Defines.h"
 	#include "vsurface.h"
 	#include "mousesystem.h"
 	#include "Text.h"
@@ -186,9 +184,9 @@ typedef struct
 
 } CDRT_FACE;
 
-CDRT_FACE		gCreditFaces[] = 
+CDRT_FACE		gCreditFaces[] =
 {
-//  x		y				w		h			
+//	x		y				w		h
 	298, 137,			37, 49, 310, 157,		304, 170,	2500, 0, 0,											//Camfield
 	348, 137,			43, 47, 354, 153,		354, 153,	3700, 0, 0,											//Shawn
 	407, 132,			30, 50, 408, 151,		410, 164,	3000, 0, 0,											//Kris
@@ -321,7 +319,7 @@ UINT32		guiCreditScreenActiveFont;				// the font that is used
 UINT32		guiCreditScreenTitleFont;				// the font that is used
 UINT8			gubCreditScreenActiveColor;				// color of the font
 UINT8			gubCreditScreenTitleColor;				// color of a Title node
-//UINT32		guiCreditScreenActiveDisplayFlags;	// 	
+//UINT32		guiCreditScreenActiveDisplayFlags;	//
 
 UINT32		guiCrdtNodeScrollSpeed = CRDT_NODE_DELAY_AMOUNT;	//speed credits go up at
 //UINT32		guiCrdtTimeTillReadNextCredit = CRDT_DELAY_BN_SECTIONS;		//the delay before reading the next credit ( normall = guiCrdtDelayBetweenCreditSection or guiCrdtDelayBetweenNodes )
@@ -418,13 +416,13 @@ UINT32	CreditScreenHandle( void )
 	}
 
 	GetCreditScreenUserInput();
-	
+
 
 	HandleCreditScreen();
 
-	// render buttons marked dirty	
+	// render buttons marked dirty
 //	MarkButtonsDirty( );
-//	RenderButtons( ); 
+//	RenderButtons( );
 
 	// render help
 //	RenderFastHelp( );
@@ -465,7 +463,7 @@ UINT32	CreditScreenShutdown( void )
 BOOLEAN		EnterCreditsScreen()
 {
 	UINT32 uiCnt;
-  VOBJECT_DESC    VObjectDesc;
+	VOBJECT_DESC	VObjectDesc;
 /*
 
 	VSURFACE_DESC		vs_desc;
@@ -475,12 +473,12 @@ BOOLEAN		EnterCreditsScreen()
 	strcpy(vs_desc.ImageFile, "INTERFACE\\Credits.sti");
 
 	if( !AddVideoSurface( &vs_desc, &guiCreditBackGroundImage ) )
-	{ 
+	{
 		return( FALSE );
 	}
 */
 
-    gfModCredits = TRUE;
+	gfModCredits = TRUE;
 
 	ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0 );
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
@@ -540,7 +538,7 @@ BOOLEAN		EnterCreditsScreen()
 	{
 		// Make a mouse region
 		MSYS_DefineRegion( &gCrdtMouseRegions[uiCnt], gCreditFaces[uiCnt].sX, gCreditFaces[uiCnt].sY, (INT16)(gCreditFaces[uiCnt].sX + gCreditFaces[uiCnt].sWidth), (INT16)(gCreditFaces[uiCnt].sY + gCreditFaces[uiCnt].sHeight), MSYS_PRIORITY_NORMAL,
-							 CURSOR_WWW, SelectCreditFaceMovementRegionCallBack, SelectCreditFaceRegionCallBack );
+							CURSOR_WWW, SelectCreditFaceMovementRegionCallBack, SelectCreditFaceRegionCallBack );
 
 		// Add region
 		MSYS_AddRegion( &gCrdtMouseRegions[uiCnt] );
@@ -552,7 +550,7 @@ BOOLEAN		EnterCreditsScreen()
 	//open the credit text file
 	ghFile = FileOpen( CRDT_NAME_OF_CREDIT_FILE, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
 	if( !ghFile )
-	{ 
+	{
 		return( FALSE );
 	}
 */
@@ -576,7 +574,7 @@ BOOLEAN		ExitCreditScreen()
 	//Blit the background image
 //	DeleteVideoSurfaceFromIndex( guiCreditBackGroundImage );
 	DeleteVideoObjectFromIndex( guiCreditBackGroundImage );
-	
+
 	DeleteVideoObjectFromIndex( guiCreditFaces );
 
 
@@ -644,10 +642,10 @@ void			HandleCreditScreen()
 BOOLEAN		RenderCreditScreen()
 {
 
-  HVOBJECT hPixHandle;
+	HVOBJECT hPixHandle;
 
 	GetVideoObject(&hPixHandle, guiCreditBackGroundImage );
-  BltVideoObject( FRAME_BUFFER, hPixHandle, 0, 0, 0, VO_BLT_SRCTRANSPARENCY, NULL);
+	BltVideoObject( FRAME_BUFFER, hPixHandle, 0, 0, 0, VO_BLT_SRCTRANSPARENCY, NULL);
 /*
 	HVSURFACE hVSurface;
 
@@ -861,7 +859,7 @@ BOOLEAN	AddCreditNode( UINT32 uiType, UINT32 uiFlags, STR16 pString )
 
 	//
 	// Set some default data
-	// 
+	//
 
 	//the type of the node
 	pNodeToAdd->uiType = uiType;
@@ -960,7 +958,6 @@ BOOLEAN	AddCreditNode( UINT32 uiType, UINT32 uiFlags, STR16 pString )
 
 void HandleCreditNodes()
 {
-	UINT32	uiCurrentTime =GetJA2Clock();
 	CRDT_NODE	*pCurrent=NULL;
 	CRDT_NODE	*pTemp=NULL;
 
@@ -1018,8 +1015,6 @@ void HandleCurrentCreditNode( CRDT_NODE	*pCurrent )
 
 void HandleNode_Default( CRDT_NODE	*pCurrent )
 {
-	UINT32	uiCurrentTime =GetJA2Clock();
-
 	//if it is time to update the current node
 //	if( ( uiCurrentTime - pCurrent->uiLastTime ) > guiCrdtNodeScrollSpeed )
 	{
@@ -1080,7 +1075,7 @@ BOOLEAN DisplayCreditNode( CRDT_NODE	*pCurrent )
 			//INT16	sHeight = 480 - pCurrent->sOldPosY;
 			RestoreExternBackgroundRect( pCurrent->sOldPosX, pCurrent->sOldPosY, CRDT_WIDTH_OF_TEXT_AREA, sHeight );
 		}
-		else if( pCurrent->sOldPosY > CRDT_LINE_NODE_DISAPPEARS_AT ) 
+		else if( pCurrent->sOldPosY > CRDT_LINE_NODE_DISAPPEARS_AT )
 		{
 			RestoreExternBackgroundRect( pCurrent->sOldPosX, pCurrent->sOldPosY, CRDT_WIDTH_OF_TEXT_AREA, pCurrent->sHeightOfString );
 		}
@@ -1098,20 +1093,17 @@ BOOLEAN DisplayCreditNode( CRDT_NODE	*pCurrent )
 
 
 	BltVideoSurfaceToVideoSurface( ghFrameBuffer, hVSurface, 0, pCurrent->sPosX, pCurrent->sPosY, VS_BLT_CLIPPED | VS_BLT_USECOLORKEY, NULL );
-	
+
 	return( TRUE );
 }
 
 //return false from this function when there are no more items in the text file
 BOOLEAN	GetNextCreditFromTextFile()
 {
-	BOOLEAN	fDone = FALSE;
-	UINT32	uiStringWidth = 20;
 	CHAR16	zOriginalString[512];
 	CHAR16	zString[512];
 	CHAR16	zCodes[512];
 	STR16		pzNewCode=NULL;
-	UINT32	uiCodeType = 0;
 	UINT32	uiNodeType = 0;
 	UINT32	uiStartLoc = 0;
 	UINT32	uiFlags=0;
@@ -1261,7 +1253,7 @@ BOOLEAN	GetNextCreditFromTextFile()
 			break;
 
 			case 28:
-				wcscpy(zOriginalString,  L"Starwalker");
+				wcscpy(zOriginalString,	L"Starwalker");
 			break;
 
 			case 29:
@@ -1344,7 +1336,7 @@ BOOLEAN	GetNextCreditFromTextFile()
 			case 48:
 				wcscpy(zOriginalString, L"@}; ");
 			break;
-			
+
 			// 3.)	Sir-Tech Credits
 			default:
 				//Get the current Credit record
@@ -1465,7 +1457,7 @@ UINT32	GetAndHandleCreditCodeFromCodeString( STR16 pzCode )
 		swscanf( &pzCode[1], L"%d%*s", &uiNewDelay );
 
 //		guiCrdtDelayBetweenNodes = uiNewDelay;
-		guiGapBetweenCreditNodes  = uiNewDelay;
+		guiGapBetweenCreditNodes	= uiNewDelay;
 
 		return( CRDT_NODE_NONE );
 	}
@@ -1648,11 +1640,11 @@ void SelectCreditFaceRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
-	} 
+	}
 }
 
 void SelectCreditFaceMovementRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
-{ 
+{
 	if( iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )
 	{
 		giCurrentlySelectedFace = -1;
@@ -1678,7 +1670,7 @@ void InitCreditEyeBlinking()
 
 void HandleCreditEyeBlinking()
 {
-  HVOBJECT hPixHandle;
+	HVOBJECT hPixHandle;
 	UINT8 ubCnt;
 
 	GetVideoObject(&hPixHandle, guiCreditFaces );
@@ -1689,7 +1681,7 @@ void HandleCreditEyeBlinking()
 		{
 			// EXCEPTION IS THROWN HERE!
 			BltVideoObject( FRAME_BUFFER, hPixHandle, (UINT8)(ubCnt*3), gCreditFaces[ubCnt].sEyeX, gCreditFaces[ubCnt].sEyeY, VO_BLT_SRCTRANSPARENCY, NULL);
-			
+
 			InvalidateRegion( gCreditFaces[ubCnt].sEyeX, gCreditFaces[ubCnt].sEyeY, gCreditFaces[ubCnt].sEyeX + CRDT_EYE_WIDTH, gCreditFaces[ubCnt].sEyeY + CRDT_EYE_HEIGHT );
 
 			gCreditFaces[ubCnt].uiLastBlinkTime = GetJA2Clock();

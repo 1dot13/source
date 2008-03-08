@@ -4,8 +4,8 @@
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <stdarg.h>
-	#include <time.h> 
-	#include "sgp.h" 
+	#include <time.h>
+	#include "sgp.h"
 	#include "gameloop.h"
 	#include "himage.h"
 	#include "vobject.h"
@@ -38,7 +38,7 @@
 	#include "Handle UI Plan.h"
 	#include "interface control.h"
 	#include "interface items.h"
-	#include "soldier profile.h" 
+	#include "soldier profile.h"
 	#include "MercTextBox.h"
 	#include "soldier functions.h"
 	#include "cursor control.h"
@@ -88,9 +88,9 @@ INT32		giMenuAnchorX, giMenuAnchorY;
 #define PROG_BAR_START_X			5
 #define PROG_BAR_START_Y			2
 
-BOOLEAN	gfProgBarActive      = FALSE;
-UINT8		gubProgNumEnemies		 = 0;
-UINT8		gubProgCurEnemy			 = 0;
+BOOLEAN	gfProgBarActive		= FALSE;
+UINT8		gubProgNumEnemies		= 0;
+UINT8		gubProgCurEnemy			= 0;
 
 
 UINT32		guiPORTRAITICONS;
@@ -102,7 +102,7 @@ typedef struct
 	INT8				bCurrentMessage;
 	UINT32			uiTimeOfLastUpdate;
 	UINT32			uiTimeSinceLastBeep;
-	INT8				bAnimate;	
+	INT8				bAnimate;
 	INT8				bYPos;
 	BOOLEAN			fCreated;
 	INT16				sWorldRenderX;
@@ -122,7 +122,7 @@ extern UINT16 GetAnimStateForInteraction( SOLDIERTYPE *pSoldier, BOOLEAN fDoor, 
 MOUSE_REGION	gMenuOverlayRegion;
 
 
-MOUSE_REGION    gBottomPanalRegion;
+MOUSE_REGION	gBottomPanalRegion;
 
 UINT16				gusOldSelectedSoldier		= NOBODY;
 
@@ -168,7 +168,7 @@ typedef enum
 	AIDACTIONC_IMAGES,
 	PUNCHACTIONC_IMAGES,
 	BOMBACTIONC_IMAGES,
-	
+
 	OPEN_DOOR_IMAGES,
 	EXAMINE_DOOR_IMAGES,
 	LOCKPICK_DOOR_IMAGES,
@@ -225,6 +225,7 @@ UINT32					guiP1ITEMS;
 UINT32					guiP2ITEMS;
 UINT32					guiP3ITEMS;
 UINT32					guiBUTTONBORDER;
+UINT32					guiSILHOUETTE;
 UINT32					guiRADIO;
 UINT32					guiRADIO2;
 UINT32					guiCOMPANEL;
@@ -253,9 +254,9 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 void PopupDoorOpenMenu( BOOLEAN fClosingDoor );
 
 
-BOOLEAN fFirstTimeInGameScreen  = TRUE;
-BOOLEAN	fInterfacePanelDirty	  = DIRTYLEVEL2;
-INT16		gsInterfaceLevel			  = I_GROUND_LEVEL;
+BOOLEAN fFirstTimeInGameScreen	= TRUE;
+BOOLEAN	fInterfacePanelDirty	= DIRTYLEVEL2;
+INT16		gsInterfaceLevel			= I_GROUND_LEVEL;
 INT16		gsCurrentSoldierGridNo	= 0;
 INT16		gsCurInterfacePanel			= TEAM_PANEL;
 
@@ -271,61 +272,57 @@ UINT32 CalcUIMessageDuration( STR16 wString );
 
 
 
-BOOLEAN InitializeTacticalInterface(  )
+BOOLEAN InitializeTacticalInterface(	)
 {
 	VSURFACE_DESC		vs_desc;
-	VOBJECT_DESC    VObjectDesc;
+	VOBJECT_DESC	VObjectDesc;
 
-	INTERFACE_WIDTH			= 640;
-	INTERFACE_HEIGHT		= 120;
-	INV_INTERFACE_HEIGHT	= 140;
-
-	// centering panel disabled becouse keyring squad change and radar 
-	// are not finished (no time) sorry 
-	/* 
-	if ( SCREEN_WIDTH > INTERFACE_WIDTH)
-		INTERFACE_START_X		= (SCREEN_WIDTH - INTERFACE_WIDTH) / 2;
+	// CHRISL: Setup default interface coords based on inventory system in use
+	if((UsingNewInventorySystem() == true))
+	{
+		InitNewInventorySystem();
+		InitializeSMPanelCoordsNew();
+	}
 	else
-	*/
-		INTERFACE_START_X		= 0;
-	INTERFACE_START_Y		= ( SCREEN_HEIGHT - INTERFACE_HEIGHT );
-	INV_INTERFACE_START_Y	= ( SCREEN_HEIGHT - INV_INTERFACE_HEIGHT );
+	{
+		InitOldInventorySystem();
+		InitializeSMPanelCoordsOld();
+	}
 
-/*  OK i need to initialize coords here
- *  Isnt it cool
- *  any questions? joker
+/*	OK i need to initialize coords here
+ *	Isnt it cool
+ *	any questions? joker
  */
 	InitializeViewPort( );
 	InitializeTEAMPanelCoords( );
-	InitializeSMPanelCoords( );
 	
 	// Load button Interfaces
-	iIconImages[ WALK_IMAGES  ]			= LoadButtonImage("INTERFACE\\newicons3.sti", -1,3,4,5,-1 );
-	iIconImages[ SNEAK_IMAGES ]			= UseLoadedButtonImage(iIconImages[ WALK_IMAGES  ], -1, 6, 7, 8, -1 );
-	iIconImages[ RUN_IMAGES ]				= UseLoadedButtonImage(iIconImages[ WALK_IMAGES  ], -1, 0, 1, 2, -1 );
-	iIconImages[ CRAWL_IMAGES ]			= UseLoadedButtonImage(iIconImages[ WALK_IMAGES  ], -1, 9, 10, 11, -1 );
-	iIconImages[ LOOK_IMAGES ]			= UseLoadedButtonImage(iIconImages[ WALK_IMAGES  ], -1, 12, 13, 14, -1 );
-	iIconImages[ TALK_IMAGES ]			= UseLoadedButtonImage(iIconImages[ WALK_IMAGES  ], -1, 21, 22, 23, -1 );
-	iIconImages[ HAND_IMAGES ]			= UseLoadedButtonImage(iIconImages[ WALK_IMAGES  ], -1, 18, 19, 20, -1 );
-	iIconImages[ CANCEL_IMAGES ]		= UseLoadedButtonImage(iIconImages[ WALK_IMAGES  ], -1, 15, 16, 17, -1 );
+	iIconImages[ WALK_IMAGES	]			= LoadButtonImage("INTERFACE\\newicons3.sti", -1,3,4,5,-1 );
+	iIconImages[ SNEAK_IMAGES ]			= UseLoadedButtonImage(iIconImages[ WALK_IMAGES	], -1, 6, 7, 8, -1 );
+	iIconImages[ RUN_IMAGES ]				= UseLoadedButtonImage(iIconImages[ WALK_IMAGES	], -1, 0, 1, 2, -1 );
+	iIconImages[ CRAWL_IMAGES ]			= UseLoadedButtonImage(iIconImages[ WALK_IMAGES	], -1, 9, 10, 11, -1 );
+	iIconImages[ LOOK_IMAGES ]			= UseLoadedButtonImage(iIconImages[ WALK_IMAGES	], -1, 12, 13, 14, -1 );
+	iIconImages[ TALK_IMAGES ]			= UseLoadedButtonImage(iIconImages[ WALK_IMAGES	], -1, 21, 22, 23, -1 );
+	iIconImages[ HAND_IMAGES ]			= UseLoadedButtonImage(iIconImages[ WALK_IMAGES	], -1, 18, 19, 20, -1 );
+	iIconImages[ CANCEL_IMAGES ]		= UseLoadedButtonImage(iIconImages[ WALK_IMAGES	], -1, 15, 16, 17, -1 );
 
-	iIconImages[ TARGETACTIONC_IMAGES ]		= UseLoadedButtonImage(iIconImages[ WALK_IMAGES  ], -1, 24, 25, 26, -1 );
-	iIconImages[ KNIFEACTIONC_IMAGES ]		= UseLoadedButtonImage(iIconImages[ WALK_IMAGES  ], -1, 27, 28, 29, -1 );
-	iIconImages[ AIDACTIONC_IMAGES ]			= UseLoadedButtonImage(iIconImages[ WALK_IMAGES  ], -1, 30, 31, 32, -1 );
-	iIconImages[ PUNCHACTIONC_IMAGES ]		= UseLoadedButtonImage(iIconImages[ WALK_IMAGES  ], -1, 33, 34, 35, -1 );
-	iIconImages[ BOMBACTIONC_IMAGES ]			= UseLoadedButtonImage(iIconImages[ WALK_IMAGES  ], -1, 36, 37, 38, -1 );
-	iIconImages[ TOOLKITACTIONC_IMAGES ]	= UseLoadedButtonImage(iIconImages[ WALK_IMAGES  ], -1, 39, 40, 41, -1 );
-	iIconImages[ WIRECUTACTIONC_IMAGES ]	= UseLoadedButtonImage(iIconImages[ WALK_IMAGES  ], -1, 42, 43, 44, -1 );
+	iIconImages[ TARGETACTIONC_IMAGES ]		= UseLoadedButtonImage(iIconImages[ WALK_IMAGES	], -1, 24, 25, 26, -1 );
+	iIconImages[ KNIFEACTIONC_IMAGES ]		= UseLoadedButtonImage(iIconImages[ WALK_IMAGES	], -1, 27, 28, 29, -1 );
+	iIconImages[ AIDACTIONC_IMAGES ]			= UseLoadedButtonImage(iIconImages[ WALK_IMAGES	], -1, 30, 31, 32, -1 );
+	iIconImages[ PUNCHACTIONC_IMAGES ]		= UseLoadedButtonImage(iIconImages[ WALK_IMAGES	], -1, 33, 34, 35, -1 );
+	iIconImages[ BOMBACTIONC_IMAGES ]			= UseLoadedButtonImage(iIconImages[ WALK_IMAGES	], -1, 36, 37, 38, -1 );
+	iIconImages[ TOOLKITACTIONC_IMAGES ]	= UseLoadedButtonImage(iIconImages[ WALK_IMAGES	], -1, 39, 40, 41, -1 );
+	iIconImages[ WIRECUTACTIONC_IMAGES ]	= UseLoadedButtonImage(iIconImages[ WALK_IMAGES	], -1, 42, 43, 44, -1 );
 
 	iIconImages[ OPEN_DOOR_IMAGES ]				= LoadButtonImage("INTERFACE\\door_op2.sti", -1,9,10,11,-1 );
-	iIconImages[ EXAMINE_DOOR_IMAGES ]		= UseLoadedButtonImage(iIconImages[ OPEN_DOOR_IMAGES  ], -1, 12, 13, 14, -1 );
-	iIconImages[ LOCKPICK_DOOR_IMAGES ]		= UseLoadedButtonImage(iIconImages[ OPEN_DOOR_IMAGES  ], -1, 21, 22, 23, -1 );
-	iIconImages[ BOOT_DOOR_IMAGES ]				= UseLoadedButtonImage(iIconImages[ OPEN_DOOR_IMAGES  ], -1, 25, 26, 27, -1 );
-	iIconImages[ CROWBAR_DOOR_IMAGES ]		= UseLoadedButtonImage(iIconImages[ OPEN_DOOR_IMAGES  ], -1, 0, 1, 2, -1 );
-	iIconImages[ USE_KEY_IMAGES ]					= UseLoadedButtonImage(iIconImages[ OPEN_DOOR_IMAGES  ], -1, 3, 4, 5, -1 );
-	iIconImages[ USE_KEYRING_IMAGES ]			= UseLoadedButtonImage(iIconImages[ OPEN_DOOR_IMAGES  ], -1, 6, 7, 8, -1 );
-	iIconImages[ EXPLOSIVE_DOOR_IMAGES ]	= UseLoadedButtonImage(iIconImages[ OPEN_DOOR_IMAGES  ], -1, 15, 16, 17, -1 );
-	
+	iIconImages[ EXAMINE_DOOR_IMAGES ]		= UseLoadedButtonImage(iIconImages[ OPEN_DOOR_IMAGES	], -1, 12, 13, 14, -1 );
+	iIconImages[ LOCKPICK_DOOR_IMAGES ]		= UseLoadedButtonImage(iIconImages[ OPEN_DOOR_IMAGES	], -1, 21, 22, 23, -1 );
+	iIconImages[ BOOT_DOOR_IMAGES ]				= UseLoadedButtonImage(iIconImages[ OPEN_DOOR_IMAGES	], -1, 25, 26, 27, -1 );
+	iIconImages[ CROWBAR_DOOR_IMAGES ]		= UseLoadedButtonImage(iIconImages[ OPEN_DOOR_IMAGES	], -1, 0, 1, 2, -1 );
+	iIconImages[ USE_KEY_IMAGES ]					= UseLoadedButtonImage(iIconImages[ OPEN_DOOR_IMAGES	], -1, 3, 4, 5, -1 );
+	iIconImages[ USE_KEYRING_IMAGES ]			= UseLoadedButtonImage(iIconImages[ OPEN_DOOR_IMAGES	], -1, 6, 7, 8, -1 );
+	iIconImages[ EXPLOSIVE_DOOR_IMAGES ]	= UseLoadedButtonImage(iIconImages[ OPEN_DOOR_IMAGES	], -1, 15, 16, 17, -1 );
+
 	// Load interface panels
 	vs_desc.fCreateFlags = VSURFACE_CREATE_FROMFILE | VSURFACE_SYSTEM_MEM_USAGE;
 
@@ -386,6 +383,13 @@ BOOLEAN InitializeTacticalInterface(  )
 	FilenameForBPP("INTERFACE\\mdp3items.sti", VObjectDesc.ImageFile);
 	if( !AddVideoObject( &VObjectDesc, &guiP3ITEMS ) )
 		AssertMsg(0, "Missing INTERFACE\\mdp3items.sti" );
+
+	// CHRISL:
+	// LOAD INTERFACE POCKET SILHOUETTES
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP("INTERFACE\\Silhouettes.sti", VObjectDesc.ImageFile);
+	if( !AddVideoObject( &VObjectDesc, &guiSILHOUETTE ) )
+		AssertMsg(0, "Missing INTERFACE\\Silhouettes.sti" );
 
 	// LOAD INTERFACE BUTTON BORDER
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
@@ -451,12 +455,12 @@ BOOLEAN InitializeTacticalInterface(  )
 	if( !AddVideoObject( &VObjectDesc, &guiITEMPOINTERHATCHES ) )
 		AssertMsg(0, "Missing INTERFACE\\itemgrid.sti" );
 
-	
+
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 	FilenameForBPP("INTERFACE\\communicationpopup_2.sti", VObjectDesc.ImageFile);
 	if( !AddVideoObject( &VObjectDesc, &guiCOMPANELB ) )
 		AssertMsg(0, "Missing INTERFACE\\communicationpopup_2.sti" );
-	
+
 
 	// Alocate message surfaces
 	vs_desc.fCreateFlags = VSURFACE_CREATE_DEFAULT | VSURFACE_SYSTEM_MEM_USAGE;
@@ -464,7 +468,7 @@ BOOLEAN InitializeTacticalInterface(  )
 	vs_desc.usHeight = 20;
 	vs_desc.ubBitDepth = 16;
 	CHECKF( AddVideoSurface( &vs_desc, &(gTopMessage.uiSurface) ) );
- 
+
 
 	InitItemInterface( );
 
@@ -496,7 +500,7 @@ BOOLEAN InitializeCurrentPanel( )
 	{
 		case SM_PANEL:
 			// Set new viewport
-			gsVIEWPORT_WINDOW_END_Y =  INV_INTERFACE_START_Y;
+			gsVIEWPORT_WINDOW_END_Y =	INV_INTERFACE_START_Y;
 
 			// Render full
 			SetRenderFlags(RENDER_FLAG_FULL);
@@ -514,7 +518,7 @@ BOOLEAN InitializeCurrentPanel( )
 //	RefreshMouseRegions( );
 	gfPanelAllocated = TRUE;
 
-	return( fOK ); 
+	return( fOK );
 }
 
 void ShutdownCurrentPanel( )
@@ -607,7 +611,7 @@ void SetCurrentInterfacePanel( UINT8 ubNewPanel )
 void ToggleTacticalPanels( )
 {
 	gfSwitchPanel			= TRUE;
-	gubNewPanelParam  = (UINT8)gusSelectedSoldier;
+	gubNewPanelParam	= (UINT8)gusSelectedSoldier;
 
 	if ( gsCurInterfacePanel == SM_PANEL )
 	{
@@ -707,7 +711,7 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 
 	// Create mouse region over all area to facilitate clicking to end
 	MSYS_DefineRegion( &gMenuOverlayRegion, 0, 0 ,SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGHEST-1,
-						 CURSOR_NORMAL, MSYS_NO_CALLBACK, MovementMenuBackregionCallback ); 
+						CURSOR_NORMAL, MSYS_NO_CALLBACK, MovementMenuBackregionCallback );
 	// Add region
 	MSYS_AddRegion( &gMenuOverlayRegion);
 
@@ -747,14 +751,14 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 	//SetButtonSavedRect( iActionIcons[ RUN_ICON ] );
 	ButtonList[ iActionIcons[ RUN_ICON ] ]->UserData[0] = (UINT32)pUIEvent;
 
-	if ( MercInWater( pSoldier ) || ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) || ( pSoldier->uiStatusFlags & SOLDIER_ROBOT ) )
+	if ( pSoldier->MercInWater( ) || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) || ( pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT ) )
 	{
 		DisableButton( iActionIcons[ RUN_ICON ] );
 	}
 
-  iActionIcons[ WALK_ICON ] = QuickCreateButton( iIconImages[ WALK_IMAGES ], (INT16)(iMenuAnchorX + 40 ), (INT16)(iMenuAnchorY  ),
+	iActionIcons[ WALK_ICON ] = QuickCreateButton( iIconImages[ WALK_IMAGES ], (INT16)(iMenuAnchorX + 40 ), (INT16)(iMenuAnchorY	),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnMovementCallback );	
+										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnMovementCallback );
 	if ( iActionIcons[ WALK_ICON ] == -1 )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Cannot create Interface button" );
@@ -762,7 +766,7 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 	}
 	//SetButtonSavedRect( iActionIcons[ WALK_ICON ] );
 
-	if ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		SetButtonFastHelpText( iActionIcons[ WALK_ICON ], TacticalStr[ DRIVE_POPUPTEXT ] );
 	}
@@ -773,9 +777,9 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 
 	ButtonList[ iActionIcons[ WALK_ICON ] ]->UserData[0] = (UINT32)pUIEvent;
 
-	if ( pSoldier->uiStatusFlags & SOLDIER_ROBOT )
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT )
 	{
-		if ( !CanRobotBeControlled( pSoldier ) )
+		if ( !pSoldier->CanRobotBeControlled( ) )
 		{
 			DisableButton( iActionIcons[ WALK_ICON ] );
 		}
@@ -797,7 +801,7 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 	// Check if this is a valid stance, diable if not!
 	if ( !IsValidStance( pSoldier, ANIM_CROUCH ) )
 	{
-		DisableButton( iActionIcons[ SNEAK_ICON ]  );
+		DisableButton( iActionIcons[ SNEAK_ICON ]	);
 	}
 
 	iActionIcons[ CRAWL_ICON ] = QuickCreateButton( iIconImages[ CRAWL_IMAGES ], (INT16)(iMenuAnchorX + 40 ), (INT16)(iMenuAnchorY + 40 ),
@@ -815,7 +819,7 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 	// Check if this is a valid stance, diable if not!
 	if ( !IsValidStance( pSoldier, ANIM_PRONE ) )
 	{
-		DisableButton( iActionIcons[ CRAWL_ICON ]  );
+		DisableButton( iActionIcons[ CRAWL_ICON ]	);
 	}
 
 
@@ -831,20 +835,20 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 	//SetButtonSavedRect( iActionIcons[ LOOK_ICON ] );
 	ButtonList[ iActionIcons[ LOOK_ICON ] ]->UserData[0] = (UINT32)pUIEvent;
 
-	if ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
-		DisableButton( iActionIcons[ LOOK_ICON ]  );
+		DisableButton( iActionIcons[ LOOK_ICON ]	);
 	}
 
-	if ( pSoldier->uiStatusFlags & SOLDIER_ROBOT )
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT )
 	{
-		if ( !CanRobotBeControlled( pSoldier ) )
+		if ( !pSoldier->CanRobotBeControlled( ) )
 		{
 			DisableButton( iActionIcons[ LOOK_ICON ] );
 		}
 	}
 
-	if ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		// Until we get mounted weapons...
 		uiActionImages = CANCEL_IMAGES;
@@ -914,7 +918,7 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 		fDisableAction = TRUE;
 	}
 
-	iActionIcons[ ACTIONC_ICON ] = QuickCreateButton( iIconImages[ uiActionImages ], (INT16)(iMenuAnchorX  ), (INT16)(iMenuAnchorY + 20 ),
+	iActionIcons[ ACTIONC_ICON ] = QuickCreateButton( iIconImages[ uiActionImages ], (INT16)(iMenuAnchorX	), (INT16)(iMenuAnchorY + 20 ),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnMovementCallback );
 	if ( iActionIcons[ ACTIONC_ICON ] == -1 )
@@ -928,11 +932,11 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 
 	if ( fDisableAction )
 	{
-		DisableButton( iActionIcons[ ACTIONC_ICON ]  );
+		DisableButton( iActionIcons[ ACTIONC_ICON ]	);
 	}
 
 
-	iActionIcons[ TALK_ICON ] = QuickCreateButton( iIconImages[ TALK_IMAGES ], (INT16)(iMenuAnchorX  ), (INT16)(iMenuAnchorY + 40 ),
+	iActionIcons[ TALK_ICON ] = QuickCreateButton( iIconImages[ TALK_IMAGES ], (INT16)(iMenuAnchorX	), (INT16)(iMenuAnchorY + 40 ),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnMovementCallback );
 	if ( iActionIcons[ TALK_ICON ] == -1 )
@@ -944,13 +948,13 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 	SetButtonFastHelpText( iActionIcons[ TALK_ICON ], pTacticalPopupButtonStrings[ TALK_ICON ] );
 	ButtonList[ iActionIcons[ TALK_ICON ] ]->UserData[0] = (UINT32)pUIEvent;
 
-	if ( AM_AN_EPC( pSoldier ) || ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) )
+	if ( AM_AN_EPC( pSoldier ) || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 	{
-		DisableButton( iActionIcons[ TALK_ICON ]  );
+		DisableButton( iActionIcons[ TALK_ICON ]	);
 	}
 
 
-	iActionIcons[ HAND_ICON ] = QuickCreateButton( iIconImages[ HAND_IMAGES ], (INT16)(iMenuAnchorX + 20  ), (INT16)(iMenuAnchorY + 40 ),
+	iActionIcons[ HAND_ICON ] = QuickCreateButton( iIconImages[ HAND_IMAGES ], (INT16)(iMenuAnchorX + 20	), (INT16)(iMenuAnchorY + 40 ),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnMovementCallback );
 	if ( iActionIcons[ HAND_ICON ] == -1 )
@@ -962,12 +966,12 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 	SetButtonFastHelpText( iActionIcons[ HAND_ICON ], pTacticalPopupButtonStrings[ HAND_ICON ] );
 	ButtonList[ iActionIcons[ HAND_ICON ] ]->UserData[0] = (UINT32)pUIEvent;
 
-	if ( AM_AN_EPC( pSoldier ) || ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) )
+	if ( AM_AN_EPC( pSoldier ) || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 	{
-		DisableButton( iActionIcons[ HAND_ICON ]  );
+		DisableButton( iActionIcons[ HAND_ICON ]	);
 	}
 
-	iActionIcons[ CANCEL_ICON ] = QuickCreateButton( iIconImages[ CANCEL_IMAGES ], (INT16)(iMenuAnchorX + 20  ), (INT16)(iMenuAnchorY + 20 ),
+	iActionIcons[ CANCEL_ICON ] = QuickCreateButton( iIconImages[ CANCEL_IMAGES ], (INT16)(iMenuAnchorX + 20	), (INT16)(iMenuAnchorY + 20 ),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnMovementCallback );
 	if ( iActionIcons[ CANCEL_ICON ] == -1 )
@@ -992,15 +996,15 @@ void PopDownMovementMenu( )
 {
 	if ( gfInMovementMenu )
 	{
-		RemoveButton( iActionIcons[ WALK_ICON  ] );
-		RemoveButton( iActionIcons[ SNEAK_ICON  ] );
-		RemoveButton( iActionIcons[ RUN_ICON  ] );
-		RemoveButton( iActionIcons[ CRAWL_ICON  ] );
-		RemoveButton( iActionIcons[ LOOK_ICON  ] );
-		RemoveButton( iActionIcons[ ACTIONC_ICON  ] );
-		RemoveButton( iActionIcons[ TALK_ICON  ] );
-		RemoveButton( iActionIcons[ HAND_ICON  ] );
-		RemoveButton( iActionIcons[ CANCEL_ICON  ] );
+		RemoveButton( iActionIcons[ WALK_ICON	] );
+		RemoveButton( iActionIcons[ SNEAK_ICON	] );
+		RemoveButton( iActionIcons[ RUN_ICON	] );
+		RemoveButton( iActionIcons[ CRAWL_ICON	] );
+		RemoveButton( iActionIcons[ LOOK_ICON	] );
+		RemoveButton( iActionIcons[ ACTIONC_ICON	] );
+		RemoveButton( iActionIcons[ TALK_ICON	] );
+		RemoveButton( iActionIcons[ HAND_ICON	] );
+		RemoveButton( iActionIcons[ CANCEL_ICON	] );
 
 		// Turn off Ignore scrolling
 		gfIgnoreScrolling = FALSE;
@@ -1024,17 +1028,17 @@ void RenderMovementMenu( )
 	if ( gfInMovementMenu )
 	{
 		BltVideoObjectFromIndex( FRAME_BUFFER, guiBUTTONBORDER, 0, giMenuAnchorX, giMenuAnchorY, VO_BLT_SRCTRANSPARENCY, NULL );
-	
+
 		// Mark buttons dirty!
-		MarkAButtonDirty( iActionIcons[ WALK_ICON  ] );	
-		MarkAButtonDirty( iActionIcons[ SNEAK_ICON  ] );	
-		MarkAButtonDirty( iActionIcons[ RUN_ICON  ] );	
-		MarkAButtonDirty( iActionIcons[ CRAWL_ICON  ] );	
-		MarkAButtonDirty( iActionIcons[ LOOK_ICON  ] );	
-		MarkAButtonDirty( iActionIcons[ ACTIONC_ICON  ] );	
-		MarkAButtonDirty( iActionIcons[ TALK_ICON  ] );	
-		MarkAButtonDirty( iActionIcons[ HAND_ICON  ] );	
-		MarkAButtonDirty( iActionIcons[ CANCEL_ICON  ] );	
+		MarkAButtonDirty( iActionIcons[ WALK_ICON	] );
+		MarkAButtonDirty( iActionIcons[ SNEAK_ICON	] );
+		MarkAButtonDirty( iActionIcons[ RUN_ICON	] );
+		MarkAButtonDirty( iActionIcons[ CRAWL_ICON	] );
+		MarkAButtonDirty( iActionIcons[ LOOK_ICON	] );
+		MarkAButtonDirty( iActionIcons[ ACTIONC_ICON	] );
+		MarkAButtonDirty( iActionIcons[ TALK_ICON	] );
+		MarkAButtonDirty( iActionIcons[ HAND_ICON	] );
+		MarkAButtonDirty( iActionIcons[ CANCEL_ICON	] );
 
 		InvalidateRegion( giMenuAnchorX, giMenuAnchorY, giMenuAnchorX + BUTTON_PANEL_WIDTH, giMenuAnchorY + BUTTON_PANEL_HEIGHT );
 
@@ -1045,7 +1049,7 @@ void CancelMovementMenu( )
 {
 	// Signal end of event
 	PopDownMovementMenu( );
-	guiPendingOverrideEvent		= A_CHANGE_TO_MOVE;	
+	guiPendingOverrideEvent		= A_CHANGE_TO_MOVE;
 }
 
 void BtnMovementCallback(GUI_BUTTON *btn,INT32 reason)
@@ -1061,39 +1065,39 @@ void BtnMovementCallback(GUI_BUTTON *btn,INT32 reason)
 
 		pUIEvent = (UI_EVENT*)( btn->UserData[0] );
 
-		if ( uiBtnID == iActionIcons[ WALK_ICON  ] )
+		if ( uiBtnID == iActionIcons[ WALK_ICON	] )
 		{
 			pUIEvent->uiParams[0] = MOVEMENT_MENU_WALK;
 		}
-		else if ( uiBtnID == iActionIcons[ RUN_ICON  ] )
+		else if ( uiBtnID == iActionIcons[ RUN_ICON	] )
 		{
 			pUIEvent->uiParams[0] = MOVEMENT_MENU_RUN;
 		}
-		else if ( uiBtnID == iActionIcons[ SNEAK_ICON  ] )
+		else if ( uiBtnID == iActionIcons[ SNEAK_ICON	] )
 		{
 			pUIEvent->uiParams[0] = MOVEMENT_MENU_SWAT;
 		}
-		else if ( uiBtnID == iActionIcons[ CRAWL_ICON  ] )
+		else if ( uiBtnID == iActionIcons[ CRAWL_ICON	] )
 		{
 			pUIEvent->uiParams[0] = MOVEMENT_MENU_PRONE;
 		}
-		else if ( uiBtnID == iActionIcons[ LOOK_ICON  ] )
+		else if ( uiBtnID == iActionIcons[ LOOK_ICON	] )
 		{
 			pUIEvent->uiParams[2] = MOVEMENT_MENU_LOOK;
 		}
-		else if ( uiBtnID == iActionIcons[ ACTIONC_ICON  ] )
+		else if ( uiBtnID == iActionIcons[ ACTIONC_ICON	] )
 		{
 			pUIEvent->uiParams[2] = MOVEMENT_MENU_ACTIONC;
 		}
-		else if ( uiBtnID == iActionIcons[ TALK_ICON  ] )
+		else if ( uiBtnID == iActionIcons[ TALK_ICON	] )
 		{
 			pUIEvent->uiParams[2] = MOVEMENT_MENU_TALK;
 		}
-		else if ( uiBtnID == iActionIcons[ HAND_ICON  ] )
+		else if ( uiBtnID == iActionIcons[ HAND_ICON	] )
 		{
 			pUIEvent->uiParams[2] = MOVEMENT_MENU_HAND;
 		}
-		else if ( uiBtnID == iActionIcons[ CANCEL_ICON  ] )
+		else if ( uiBtnID == iActionIcons[ CANCEL_ICON	] )
 		{
 			// Signal end of event
 			EndMenuEvent( U_MOVEMENT_MENU );
@@ -1115,7 +1119,7 @@ void BtnMovementCallback(GUI_BUTTON *btn,INT32 reason)
 
 void HandleUpDownArrowBackgrounds( )
 {
-	static	UINT32						 uiOldShowUpDownArrows = ARROWS_HIDE_UP | ARROWS_HIDE_DOWN;
+	static	UINT32						uiOldShowUpDownArrows = ARROWS_HIDE_UP | ARROWS_HIDE_DOWN;
 
 	// Check for change in mode
 	if ( guiShowUPDownArrows != uiOldShowUpDownArrows || gfUIRefreshArrows )
@@ -1133,7 +1137,7 @@ void HandleUpDownArrowBackgrounds( )
 
 void RenderArrows( )
 {
-	TILE_ELEMENT							 TileElem;
+	TILE_ELEMENT							TileElem;
 
 	if ( guiShowUPDownArrows & ARROWS_HIDE_UP && guiShowUPDownArrows & ARROWS_HIDE_DOWN )
 	{
@@ -1142,111 +1146,111 @@ void RenderArrows( )
 
 	if ( guiShowUPDownArrows & ARROWS_SHOW_UP_BESIDE )
 	{
-			TileElem = gTileDatabase[ SECONDPOINTERS3 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS3 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	if ( guiShowUPDownArrows & ARROWS_SHOW_UP_ABOVE_G )
 	{
-			TileElem = gTileDatabase[ SECONDPOINTERS1 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS1 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	if ( guiShowUPDownArrows & ARROWS_SHOW_UP_ABOVE_Y )
 	{
-			TileElem = gTileDatabase[ SECONDPOINTERS3 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS3 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	if ( guiShowUPDownArrows & ARROWS_SHOW_UP_ABOVE_YG )
 	{
-			TileElem = gTileDatabase[ SECONDPOINTERS3 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
-			TileElem = gTileDatabase[ SECONDPOINTERS1 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY + 20, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS3 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS1 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY + 20, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	if ( guiShowUPDownArrows & ARROWS_SHOW_UP_ABOVE_GG )
 	{
-			TileElem = gTileDatabase[ SECONDPOINTERS1 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY + 20, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS1 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY + 20, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	if ( guiShowUPDownArrows & ARROWS_SHOW_UP_ABOVE_YY )
 	{
-			TileElem = gTileDatabase[ SECONDPOINTERS3 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY + 20, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS3 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY + 20, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	if ( guiShowUPDownArrows & ARROWS_SHOW_UP_ABOVE_CLIMB )
 	{
-			TileElem = gTileDatabase[ SECONDPOINTERS8 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS8 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	if ( guiShowUPDownArrows & ARROWS_SHOW_UP_ABOVE_CLIMB2 )
 	{
-			TileElem = gTileDatabase[ SECONDPOINTERS3 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY + 20, VO_BLT_SRCTRANSPARENCY, NULL );
-			TileElem = gTileDatabase[ SECONDPOINTERS8 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS3 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY + 20, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS8 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	if ( guiShowUPDownArrows & ARROWS_SHOW_UP_ABOVE_CLIMB3 )
 	{
-			TileElem = gTileDatabase[ SECONDPOINTERS3 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
-			TileElem = gTileDatabase[ SECONDPOINTERS8 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY + 20, VO_BLT_SRCTRANSPARENCY, NULL );
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY + 40, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS3 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS8 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY + 20, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsUpArrowX, gsUpArrowY + 40, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	if ( guiShowUPDownArrows & ARROWS_SHOW_DOWN_BESIDE )
 	{
-			TileElem = gTileDatabase[ SECONDPOINTERS4 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS4 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	if ( guiShowUPDownArrows & ARROWS_SHOW_DOWN_BELOW_G )
 	{
-			TileElem = gTileDatabase[ SECONDPOINTERS2 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS2 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	if ( guiShowUPDownArrows & ARROWS_SHOW_DOWN_BELOW_Y )
 	{
-			TileElem = gTileDatabase[ SECONDPOINTERS4 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS4 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	if ( guiShowUPDownArrows & ARROWS_SHOW_DOWN_CLIMB )
 	{
-			TileElem = gTileDatabase[ SECONDPOINTERS7 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS7 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	if ( guiShowUPDownArrows & ARROWS_SHOW_DOWN_BELOW_YG )
 	{
-			TileElem = gTileDatabase[ SECONDPOINTERS2 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
-			TileElem = gTileDatabase[ SECONDPOINTERS4 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY + 20, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS2 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS4 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY + 20, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	if ( guiShowUPDownArrows & ARROWS_SHOW_DOWN_BELOW_GG )
 	{
-			TileElem = gTileDatabase[ SECONDPOINTERS2 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY + 20, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS2 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY + 20, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 	if ( guiShowUPDownArrows & ARROWS_SHOW_DOWN_BELOW_YY )
 	{
-			TileElem = gTileDatabase[ SECONDPOINTERS4 ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY + 20, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ SECONDPOINTERS4 ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, gsDownArrowX, gsDownArrowY + 20, VO_BLT_SRCTRANSPARENCY, NULL );
 	}
 
 
@@ -1267,7 +1271,7 @@ void EraseRenderArrows( )
 	{
 		if ( giDownArrowRect != -1 )
 		{
-			FreeBackgroundRect( giDownArrowRect );	
+			FreeBackgroundRect( giDownArrowRect );
 		}
 	}
 	giDownArrowRect = 0;
@@ -1275,9 +1279,9 @@ void EraseRenderArrows( )
 
 void GetArrowsBackground( )
 {
-	SOLDIERTYPE								 *pSoldier;
-	INT16											 sMercScreenX, sMercScreenY;
-	UINT16										 sArrowHeight = ARROWS_HEIGHT, sArrowWidth = ARROWS_WIDTH;
+	SOLDIERTYPE								*pSoldier;
+	INT16											sMercScreenX, sMercScreenY;
+	UINT16										sArrowHeight = ARROWS_HEIGHT, sArrowWidth = ARROWS_WIDTH;
 
 	if ( guiShowUPDownArrows & ARROWS_HIDE_UP && guiShowUPDownArrows & ARROWS_HIDE_DOWN )
 	{
@@ -1297,7 +1301,7 @@ void GetArrowsBackground( )
 			// Setup blt rect
 			gsUpArrowX = sMercScreenX + ARROWS_X_OFFSET;
 			gsUpArrowY = sMercScreenY + UPARROW_Y_OFFSET;
-		} 
+		}
 
 		if ( guiShowUPDownArrows & ARROWS_SHOW_UP_ABOVE_G || guiShowUPDownArrows & ARROWS_SHOW_UP_ABOVE_Y )
 		{
@@ -1369,7 +1373,7 @@ void GetArrowsBackground( )
 		if ( gsInterfaceLevel == I_ROOF_LEVEL )
 		{
 		//	gsDownArrowY -= ROOF_LEVEL_HEIGHT;
-		//	gsUpArrowY	 -= ROOF_LEVEL_HEIGHT;
+		//	gsUpArrowY	-= ROOF_LEVEL_HEIGHT;
 		}
 
 		//Erase prevois ones...
@@ -1385,10 +1389,9 @@ void GetArrowsBackground( )
 void GetSoldierAboveGuyPositions( SOLDIERTYPE *pSoldier, INT16 *psX, INT16 *psY, BOOLEAN fRadio )
 {
 	INT16 sMercScreenX, sMercScreenY;
-	INT16 sOffsetX, sOffsetY, sAddXOffset = 0;
+	INT16 sOffsetX, sOffsetY;
 	UINT8	ubAnimUseHeight;
 	INT16		sStanceOffset = 0;
-	INT16		sBarBodyTypeYOffset = 55;
 	INT16		sTextBodyTypeYOffset = 62;
 
 	// Find XY, dims, offsets
@@ -1401,7 +1404,7 @@ void GetSoldierAboveGuyPositions( SOLDIERTYPE *pSoldier, INT16 *psX, INT16 *psY,
 
 	// Adjust based on stance
 	if ( ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_NOMOVE_MARKER) )
-	{	
+	{
 		ubAnimUseHeight = gAnimControl[ pSoldier->usAnimState ].ubHeight;
 	}
 	else
@@ -1440,11 +1443,11 @@ void GetSoldierAboveGuyPositions( SOLDIERTYPE *pSoldier, INT16 *psX, INT16 *psY,
 	//sStanceOffset -= gpWorldLevelData[ pSoldier->sGridNo ].sHeight;
 
 	// Adjust based on level
-	if ( pSoldier->bLevel == 1 && gsInterfaceLevel == 0 )
+	if ( pSoldier->pathing.bLevel == 1 && gsInterfaceLevel == 0 )
 	{
 		//sStanceOffset -= ROOF_LEVEL_HEIGHT;
 	}
-	if ( pSoldier->bLevel == 0 && gsInterfaceLevel == 1 )
+	if ( pSoldier->pathing.bLevel == 0 && gsInterfaceLevel == 1 )
 	{
 		//sStanceOffset += ROOF_LEVEL_HEIGHT;
 	}
@@ -1466,7 +1469,7 @@ void GetSoldierAboveGuyPositions( SOLDIERTYPE *pSoldier, INT16 *psX, INT16 *psY,
 
 			// If not a radio position, adjust if we are getting hit, to be lower!
 			// If we are getting hit, lower them!
-			if ( pSoldier->fDisplayDamage || *psY < gsVIEWPORT_WINDOW_START_Y )
+			if ( pSoldier->flags.fDisplayDamage || *psY < gsVIEWPORT_WINDOW_START_Y )
 			{
 				*psX = sMercScreenX - ( 80 / 2 ) - pSoldier->sLocatorOffX;
 				*psY = sMercScreenY;
@@ -1495,8 +1498,8 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 	CHAR16			*pStr;
 	CHAR16			NameStr[ 50 ];
 	UINT16			usGraphicToUse = THIRDPOINTERS1;
-	BOOLEAN         fRaiseName = FALSE;
-	BOOLEAN         fDoName = TRUE;
+	BOOLEAN		 fRaiseName = FALSE;
+	BOOLEAN		 fDoName = TRUE;
 
 	GetSoldier( &pSoldier, usSoldierID );
 
@@ -1510,21 +1513,21 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		return;
 	}
 
-	if ( pSoldier->fFlashLocator )
+	if ( pSoldier->flags.fFlashLocator )
 	{
 		if ( pSoldier->bVisible == -1 )
 		{
-			pSoldier->fFlashLocator = FALSE;
+			pSoldier->flags.fFlashLocator = FALSE;
 		}
 		else
 		{
-			if ( TIMECOUNTERDONE( pSoldier->BlinkSelCounter, 80 ) )
+			if ( TIMECOUNTERDONE( pSoldier->timeCounters.BlinkSelCounter, 80 ) )
 			{
-				RESETTIMECOUNTER( pSoldier->BlinkSelCounter, 80 );
+				RESETTIMECOUNTER( pSoldier->timeCounters.BlinkSelCounter, 80 );
 
-			//	pSoldier->fShowLocator = !pSoldier->fShowLocator;
+			//	pSoldier->flags.fShowLocator = !pSoldier->flags.fShowLocator;
 
-				pSoldier->fShowLocator = TRUE;
+				pSoldier->flags.fShowLocator = TRUE;
 
 				// Update frame
 				pSoldier->sLocatorFrame++;
@@ -1532,30 +1535,30 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				if ( pSoldier->sLocatorFrame == 5 )
 				{
 					// Update time we do this
-					pSoldier->fFlashLocator++;
+					pSoldier->flags.fFlashLocator++;
 					pSoldier->sLocatorFrame = 0;
 				}
 			}
 
-			//if ( TIMECOUNTERDONE( pSoldier->FlashSelCounter, 5000 ) )
+			//if ( TIMECOUNTERDONE( pSoldier->timeCounters.FlashSelCounter, 5000 ) )
 			//{
-			//	RESETTIMECOUNTER( pSoldier->FlashSelCounter, 5000 );
+			//	RESETTIMECOUNTER( pSoldier->timeCounters.FlashSelCounter, 5000 );
 
-			//	pSoldier->fFlashLocator = FALSE;
-			//	pSoldier->fShowLocator = FALSE;
+			//	pSoldier->flags.fFlashLocator = FALSE;
+			//	pSoldier->flags.fShowLocator = FALSE;
 
 			//}
-			if ( pSoldier->fFlashLocator == pSoldier->ubNumLocateCycles )
+			if ( pSoldier->flags.fFlashLocator == pSoldier->ubNumLocateCycles )
 			{
-					pSoldier->fFlashLocator = FALSE;
-					pSoldier->fShowLocator = FALSE;
+					pSoldier->flags.fFlashLocator = FALSE;
+					pSoldier->flags.fShowLocator = FALSE;
 			}
 
-			//if ( pSoldier->fShowLocator )
+			//if ( pSoldier->flags.fShowLocator )
 			{
 				// Render the beastie
 				GetSoldierAboveGuyPositions( pSoldier, &sXPos, &sYPos, TRUE );
-			
+
 				// Adjust for bars!
 				sXPos += 25;
 				sYPos += 25;
@@ -1565,38 +1568,38 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 
 
 				// Add bars
-				//iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 55 ), (INT16)(sYPos + 80 ) ); 
-				iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos +40 ), (INT16)(sYPos + 40 ) ); 
+				//iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 55 ), (INT16)(sYPos + 80 ) );
+				iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos +40 ), (INT16)(sYPos + 40 ) );
 
 				if ( iBack != -1 )
 				{
 					SetBackgroundRectFilled( iBack );
 				}
 
-				if ( ( !pSoldier->bNeutral && ( pSoldier->bSide != gbPlayerNum ) ) )
+				if ( ( !pSoldier->aiData.bNeutral && ( pSoldier->bSide != gbPlayerNum ) ) )
 				{
-					BltVideoObjectFromIndex(  FRAME_BUFFER, guiRADIO2, pSoldier->sLocatorFrame, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
+					BltVideoObjectFromIndex(	FRAME_BUFFER, guiRADIO2, pSoldier->sLocatorFrame, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
 				}
 				else
 				{
 
-					BltVideoObjectFromIndex(  FRAME_BUFFER, guiRADIO, pSoldier->sLocatorFrame, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
+					BltVideoObjectFromIndex(	FRAME_BUFFER, guiRADIO, pSoldier->sLocatorFrame, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
 
-				//BltVideoObjectFromIndex(  FRAME_BUFFER, guiRADIO, 0, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
+				//BltVideoObjectFromIndex(	FRAME_BUFFER, guiRADIO, 0, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
 				}
 
-			}		
+			}
 		}
 		//return;
 	}
 
 
-	if ( !pSoldier->fShowLocator )
+	if ( !pSoldier->flags.fShowLocator )
 	{
 		// RETURN IF MERC IS NOT SELECTED
 		if ( gfUIHandleSelectionAboveGuy && pSoldier->ubID == gsSelectedGuy && pSoldier->ubID != gusSelectedSoldier && !gfIgnoreOnSelectedGuy )
 		{
-			
+
 		}
 		else if ( pSoldier->ubID == gusSelectedSoldier && !gRubberBandActive )
 		{
@@ -1607,7 +1610,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		//{
 
 		//}
-		else if ( pSoldier->uiStatusFlags & SOLDIER_MULTI_SELECTED )
+		else if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
 		{
 
 		}
@@ -1632,7 +1635,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 	}
 
 	// Donot show if we are dead
-	if ( ( pSoldier->uiStatusFlags & SOLDIER_DEAD ) )
+	if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD ) )
 	{
 		return;
 	}
@@ -1646,7 +1649,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 	SetFontBackground( FONT_MCOLOR_BLACK );
 	SetFontForeground( FONT_MCOLOR_WHITE );
 
-	if ( pSoldier->ubProfile != NO_PROFILE || ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) )
+	if ( pSoldier->ubProfile != NO_PROFILE || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 	{
 		if ( gfUIMouseOnValidCatcher == 1 && pSoldier->ubID == gubUIValidCatcherID )
 		{
@@ -1654,7 +1657,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
 			gprintfdirty( sX, sY, NameStr );
 			mprintf( sX, sY, NameStr );
-      fRaiseName = TRUE;
+		fRaiseName = TRUE;
 		}
 		else if ( gfUIMouseOnValidCatcher == 3 && pSoldier->ubID == gubUIValidCatcherID )
 		{
@@ -1662,7 +1665,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
 			gprintfdirty( sX, sY, NameStr );
 			mprintf( sX, sY, NameStr );
-      fRaiseName = TRUE;
+		fRaiseName = TRUE;
 		}
 		else if ( gfUIMouseOnValidCatcher == 4 && pSoldier->ubID == gubUIValidCatcherID )
 		{
@@ -1670,7 +1673,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
 			gprintfdirty( sX, sY, NameStr );
 			mprintf( sX, sY, NameStr );
-      fRaiseName = TRUE;
+		fRaiseName = TRUE;
 		}
 		else if ( pSoldier->bAssignment >= ON_DUTY )
 		{
@@ -1681,7 +1684,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 				mprintf( sX, sY, NameStr );
 		fRaiseName = TRUE;
 		}
-		else if ( pSoldier->bTeam == gbPlayerNum &&  pSoldier->bAssignment < ON_DUTY && pSoldier->bAssignment != CurrentSquad() && !(  pSoldier->uiStatusFlags & SOLDIER_MULTI_SELECTED ) )
+		else if ( pSoldier->bTeam == gbPlayerNum &&	pSoldier->bAssignment < ON_DUTY && pSoldier->bAssignment != CurrentSquad() && !(	pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED ) )
 		{
 				swprintf( NameStr, gzLateLocalizedString[ 34 ], ( pSoldier->bAssignment + 1 ) );
 				FindFontCenterCoordinates( sXPos, (INT16)(sYPos ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
@@ -1692,7 +1695,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 
 
 		// If not in a squad....
-		if ( ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) )
+		if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 		{
 			if ( GetNumberInVehicle( pSoldier->bVehicleID ) == 0 )
 			{
@@ -1701,31 +1704,31 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		}
 		else
 		{
-			if ( pSoldier->bAssignment >= ON_DUTY  )
-			{			
+			if ( pSoldier->bAssignment >= ON_DUTY	)
+			{
 				SetFontForeground( FONT_YELLOW );
 			}
 		}
 
 		if ( fDoName )
 		{
-		  if ( fRaiseName )
-		  {
-			  swprintf( NameStr, L"%s", pSoldier->name );
-			  FindFontCenterCoordinates( sXPos, (INT16)( sYPos - 10 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-			  gprintfdirty( sX, sY, NameStr );
-			  mprintf( sX, sY, NameStr );
-		  }
-		  else
-		  {
-			  swprintf( NameStr, L"%s", pSoldier->name );
-			  FindFontCenterCoordinates( sXPos, sYPos, (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
-			  gprintfdirty( sX, sY, NameStr );
-			  mprintf( sX, sY, NameStr );
-		  }
+		if ( fRaiseName )
+		{
+			swprintf( NameStr, L"%s", pSoldier->name );
+			FindFontCenterCoordinates( sXPos, (INT16)( sYPos - 10 ), (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+			gprintfdirty( sX, sY, NameStr );
+			mprintf( sX, sY, NameStr );
+		}
+		else
+		{
+			swprintf( NameStr, L"%s", pSoldier->name );
+			FindFontCenterCoordinates( sXPos, sYPos, (INT16)(80 ), 1, NameStr, TINYFONT1, &sX, &sY );
+			gprintfdirty( sX, sY, NameStr );
+			mprintf( sX, sY, NameStr );
+		}
 		}
 
-		if ( pSoldier->ubProfile < FIRST_RPC || pSoldier->ubProfile >= GASTON || RPC_RECRUITED( pSoldier ) || AM_AN_EPC( pSoldier ) || ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) )
+		if ( pSoldier->ubProfile < FIRST_RPC || pSoldier->ubProfile >= GASTON || RPC_RECRUITED( pSoldier ) || AM_AN_EPC( pSoldier ) || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 		{
 			// Adjust for bars!
 
@@ -1741,28 +1744,28 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			}
 
 			// Add bars
-			iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 34 ), (INT16)(sYPos + 11 ) ); 
+			iBack = RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos + 34 ), (INT16)(sYPos + 11 ) );
 
 			if ( iBack != -1 )
 			{
 				SetBackgroundRectFilled( iBack );
 			}
-			TileElem = gTileDatabase[ usGraphicToUse ];	
-			BltVideoObject(  FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
+			TileElem = gTileDatabase[ usGraphicToUse ];
+			BltVideoObject(	FRAME_BUFFER, TileElem.hTileSurface, TileElem.usRegionIndex, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
 
 			// Draw life, breath
 			// Only do this when we are a vehicle but on our team
 			if ( pSoldier->ubID == gusSelectedSoldier )
-			{ 
-				DrawBarsInUIBox( pSoldier,  (INT16)(sXPos + 1), (INT16)(sYPos + 2), 16, 1 );
+			{
+				DrawBarsInUIBox( pSoldier,	(INT16)(sXPos + 1), (INT16)(sYPos + 2), 16, 1 );
 			}
 			else
 			{
-				DrawBarsInUIBox( pSoldier,  (INT16)(sXPos ), (INT16)(sYPos ), 16, 1 );
+				DrawBarsInUIBox( pSoldier,	(INT16)(sXPos ), (INT16)(sYPos ), 16, 1 );
 			}
 		}
-		else // ( pSoldier->ubProfile < FIRST_RPC || pSoldier->ubProfile >= GASTON || 
-		{    // RPC_RECRUITED( pSoldier ) || AM_AN_EPC( pSoldier ) || ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) )
+		else // ( pSoldier->ubProfile < FIRST_RPC || pSoldier->ubProfile >= GASTON ||
+		{	// RPC_RECRUITED( pSoldier ) || AM_AN_EPC( pSoldier ) || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 			if ( gfUIMouseOnValidCatcher == 2 && pSoldier->ubID == gubUIValidCatcherID )
 			{
 				SetFont( TINYFONT1 );
@@ -1783,7 +1786,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 
 
 				pStr = GetSoldierHealthString( pSoldier );
-				
+
 
 				FindFontCenterCoordinates( sXPos, (INT16)( sYPos + 10 ), (INT16)(80 ), 1, pStr, TINYFONT1, &sX, &sY );
 				gprintfdirty( sX, sY, pStr );
@@ -1791,9 +1794,9 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 			}
 		}
 	}
-	else //pSoldier->ubProfile != NO_PROFILE || ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
+	else //pSoldier->ubProfile != NO_PROFILE || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
-		if ( pSoldier->bLevel != 0 )
+		if ( pSoldier->pathing.bLevel != 0 )
 		{
 			// Display name
 			SetFont( TINYFONT1 );
@@ -1811,7 +1814,7 @@ void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
 		//jones
 		extern void SoldierTooltip(SOLDIERTYPE*);
 		if ( gGameExternalOptions.gfAllowSoldierToolTips )
-		    SoldierTooltip(pSoldier);
+		 SoldierTooltip(pSoldier);
 
 		SetFont( TINYFONT1 );
 		SetFontBackground( FONT_MCOLOR_BLACK );
@@ -1830,7 +1833,7 @@ void RenderOverlayMessage( VIDEO_OVERLAY *pBlitter )
 	// Override it!
 	OverrideMercPopupBox( &gpOverrideMercBox );
 
-	RenderMercPopupBox( pBlitter->sX, pBlitter->sY,  pBlitter->uiDestBuff );
+	RenderMercPopupBox( pBlitter->sX, pBlitter->sY,	pBlitter->uiDestBuff );
 
 	// Set it back!
 	ResetOverrideMercPopupBox( );
@@ -1846,7 +1849,7 @@ void BeginOverlayMessage( UINT32 uiFont, STR16 pFontString, ... )
 	CHAR16	SlideString[512];
 
 
-	va_start(argptr, pFontString);       	// Set up variable argument pointer
+	va_start(argptr, pFontString);			// Set up variable argument pointer
 	vswprintf(SlideString, pFontString, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
 
@@ -1861,21 +1864,21 @@ void BeginOverlayMessage( UINT32 uiFont, STR16 pFontString, ... )
 	// Set it back!
 	ResetOverrideMercPopupBox( );
 
-	if ( giPopupSlideMessageOverlay == -1  )
+	if ( giPopupSlideMessageOverlay == -1	)
 	{
 		// WDS - bug fix: VideoOverlayDesc must be initialized! - 07/16/2007
 		memset( &VideoOverlayDesc, 0, sizeof( VIDEO_OVERLAY_DESC ) );
 
-	    // Set Overlay
-		VideoOverlayDesc.sLeft			 = ( SCREEN_WIDTH - gusOverlayPopupBoxWidth ) / 2;
-		VideoOverlayDesc.sTop				 = 100;
-		VideoOverlayDesc.sRight			 = VideoOverlayDesc.sLeft + gusOverlayPopupBoxWidth;
-		VideoOverlayDesc.sBottom		 = VideoOverlayDesc.sTop + gusOverlayPopupBoxHeight;
-		VideoOverlayDesc.sX					 = VideoOverlayDesc.sLeft;
-		VideoOverlayDesc.sY					 = VideoOverlayDesc.sTop;
+	 // Set Overlay
+		VideoOverlayDesc.sLeft			= ( SCREEN_WIDTH - gusOverlayPopupBoxWidth ) / 2;
+		VideoOverlayDesc.sTop				= 100;
+		VideoOverlayDesc.sRight			= VideoOverlayDesc.sLeft + gusOverlayPopupBoxWidth;
+		VideoOverlayDesc.sBottom		= VideoOverlayDesc.sTop + gusOverlayPopupBoxHeight;
+		VideoOverlayDesc.sX					= VideoOverlayDesc.sLeft;
+		VideoOverlayDesc.sY					= VideoOverlayDesc.sTop;
 		VideoOverlayDesc.BltCallback = RenderOverlayMessage;
 
-		giPopupSlideMessageOverlay =  RegisterVideoOverlay( 0, &VideoOverlayDesc );
+		giPopupSlideMessageOverlay =	RegisterVideoOverlay( 0, &VideoOverlayDesc );
 	}
 
 }
@@ -1883,7 +1886,7 @@ void BeginOverlayMessage( UINT32 uiFont, STR16 pFontString, ... )
 void EndOverlayMessage( )
 {
 	if ( giPopupSlideMessageOverlay != -1 )
-	{	
+	{
 
 //		DebugMsg( TOPIC_JA2, DBG_LEVEL_0, String( "Removing Overlay message") );
 
@@ -1897,92 +1900,92 @@ void EndOverlayMessage( )
 
 void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sWidth, INT16 sHeight )
 {
-	FLOAT											 dWidth, dPercentage;
-	//UINT16										 usLineColor;
+	FLOAT											dWidth, dPercentage;
+	//UINT16										usLineColor;
 
-	UINT32										 uiDestPitchBYTES;
-	UINT8											 *pDestBuf;
-	UINT16										 usLineColor;
-	INT8											 bBandage;
+	UINT32										uiDestPitchBYTES;
+	UINT8											*pDestBuf;
+	UINT16										usLineColor;
+	INT8											bBandage;
 
 	// Draw breath points
 
 	// Draw new size
-	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );	
-	
+	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
+
 	// region rysowania barow nad najemnikiem
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, gsVIEWPORT_WINDOW_START_Y, SCREEN_WIDTH, ( gsVIEWPORT_WINDOW_END_Y - gsVIEWPORT_WINDOW_START_Y ) );
 
 	// get amt bandaged
-	bBandage = pSoldier->bLifeMax - pSoldier->bLife - pSoldier->bBleeding;
+	bBandage = pSoldier->stats.bLifeMax - pSoldier->stats.bLife - pSoldier->bBleeding;
 
-	
+
 
 	// NOW DO BLEEDING
 	if ( pSoldier->bBleeding )
 	{
-		dPercentage = (FLOAT)( pSoldier->bBleeding +  pSoldier->bLife + bBandage )/ (FLOAT)100;
+		dPercentage = (FLOAT)( pSoldier->bBleeding +	pSoldier->stats.bLife + bBandage )/ (FLOAT)100;
 		dWidth			=	dPercentage * sWidth;
 		if(gbPixelDepth==16)
 		{
-			usLineColor = Get16BPPColor( FROMRGB( 240,  240, 20  ) );
-			RectangleDraw( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );	
+			usLineColor = Get16BPPColor( FROMRGB( 240,	240, 20	) );
+			RectangleDraw( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
 		}
 		else if(gbPixelDepth==8)
 		{
 		// DB Need to change this to a color from the 8-bit standard palette
 			usLineColor = COLOR_RED;
-			RectangleDraw8( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );	
+			RectangleDraw8( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
 		}
 	}
 
-	
+
 	if( bBandage )
 	{
-		dPercentage = (FLOAT)( pSoldier->bLife + bBandage ) / (FLOAT)100;
+		dPercentage = (FLOAT)( pSoldier->stats.bLife + bBandage ) / (FLOAT)100;
 		dWidth			=	dPercentage * sWidth;
 		if(gbPixelDepth==16)
 		{
 			usLineColor = Get16BPPColor( FROMRGB( 222, 132, 132 ) );
-			RectangleDraw( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );	
+			RectangleDraw( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
 		}
 		else if(gbPixelDepth==8)
 		{
 			// DB Need to change this to a color from the 8-bit standard palette
 			usLineColor = COLOR_RED;
-			RectangleDraw8( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );	
+			RectangleDraw8( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
 		}
 	}
 
 
-	dPercentage = (FLOAT)pSoldier->bLife / (FLOAT)100;
+	dPercentage = (FLOAT)pSoldier->stats.bLife / (FLOAT)100;
 	dWidth			=	dPercentage * sWidth;
 	if(gbPixelDepth==16)
 	{
 		usLineColor = Get16BPPColor( FROMRGB( 200, 0, 0 ) );
-		RectangleDraw( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );	
+		RectangleDraw( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
 	}
 	else if(gbPixelDepth==8)
 	{
 	// DB Need to change this to a color from the 8-bit standard palette
 		usLineColor = COLOR_RED;
-		RectangleDraw8( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );	
+		RectangleDraw8( TRUE, sXPos + 3, sYPos + 1, (INT32)( sXPos + dWidth + 3 ), sYPos + 1, usLineColor, pDestBuf );
 	}
 
-	
+
 
 	dPercentage = (FLOAT)( pSoldier->bBreathMax ) / (FLOAT)100;
 	dWidth			=	dPercentage * sWidth;
 	if(gbPixelDepth==16)
 	{
 		usLineColor = Get16BPPColor( FROMRGB( 20, 20, 150 ) );
-		RectangleDraw( TRUE, sXPos + 3, sYPos + 4, (INT32)( sXPos + dWidth + 3 ), sYPos + 4, usLineColor, pDestBuf );	
+		RectangleDraw( TRUE, sXPos + 3, sYPos + 4, (INT32)( sXPos + dWidth + 3 ), sYPos + 4, usLineColor, pDestBuf );
 	}
 	else if(gbPixelDepth==8)
 	{
 	// DB Need to change this to a color from the 8-bit standard palette
 		usLineColor = COLOR_BLUE;
-		RectangleDraw8( TRUE, sXPos + 3, sYPos + 4, (INT32)( sXPos + dWidth + 3 ), sYPos + 4, usLineColor, pDestBuf );	
+		RectangleDraw8( TRUE, sXPos + 3, sYPos + 4, (INT32)( sXPos + dWidth + 3 ), sYPos + 4, usLineColor, pDestBuf );
 	}
 
 	dPercentage = (FLOAT)( pSoldier->bBreath ) / (FLOAT)100;
@@ -1990,29 +1993,29 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 	if(gbPixelDepth==16)
 	{
 		usLineColor = Get16BPPColor( FROMRGB( 100, 100, 220 ) );
-		RectangleDraw( TRUE, sXPos + 3, sYPos + 4, (INT32)( sXPos + dWidth + 3 ), sYPos + 4, usLineColor, pDestBuf );	
+		RectangleDraw( TRUE, sXPos + 3, sYPos + 4, (INT32)( sXPos + dWidth + 3 ), sYPos + 4, usLineColor, pDestBuf );
 	}
 	else if(gbPixelDepth==8)
 	{
 	// DB Need to change this to a color from the 8-bit standard palette
 		usLineColor = COLOR_BLUE;
-		RectangleDraw8( TRUE, sXPos + 3, sYPos + 4, (INT32)( sXPos + dWidth + 3 ), sYPos + 4, usLineColor, pDestBuf );	
+		RectangleDraw8( TRUE, sXPos + 3, sYPos + 4, (INT32)( sXPos + dWidth + 3 ), sYPos + 4, usLineColor, pDestBuf );
 	}
 
 	/*
 	// morale
-	dPercentage = (FLOAT)pSoldier->bMorale / (FLOAT)100;
+	dPercentage = (FLOAT)pSoldier->aiData.bMorale / (FLOAT)100;
 	dWidth			=	dPercentage * sWidth;
 	if(gbPixelDepth==16)
 	{
 		usLineColor = Get16BPPColor( FROMRGB( 0, 250, 0 ) );
-		RectangleDraw( TRUE, sXPos + 1, sYPos + 7, (INT32)( sXPos + dWidth + 1 ), sYPos + 7, usLineColor, pDestBuf );	
+		RectangleDraw( TRUE, sXPos + 1, sYPos + 7, (INT32)( sXPos + dWidth + 1 ), sYPos + 7, usLineColor, pDestBuf );
 	}
 	else if(gbPixelDepth==8)
 	{
 	// DB Need to change this to a color from the 8-bit standard palette
 		usLineColor = COLOR_GREEN;
-		RectangleDraw8( TRUE, sXPos + 1, sYPos + 7, (INT32)( sXPos + dWidth + 1 ), sYPos + 7, usLineColor, pDestBuf );	
+		RectangleDraw8( TRUE, sXPos + 1, sYPos + 7, (INT32)( sXPos + dWidth + 1 ), sYPos + 7, usLineColor, pDestBuf );
 	}
 
 	*/
@@ -2078,11 +2081,11 @@ void ClearInterface( )
 	// Erase Interface cursors
 	HideUICursor( );
 
-	MSYS_ChangeRegionCursor( &gViewportRegion , VIDEO_NO_CURSOR );	
+	MSYS_ChangeRegionCursor( &gViewportRegion , VIDEO_NO_CURSOR );
 
 	// Hide lock UI cursors...
-	MSYS_ChangeRegionCursor( &gDisableRegion , VIDEO_NO_CURSOR );	
-	MSYS_ChangeRegionCursor( &gUserTurnRegion , VIDEO_NO_CURSOR );	
+	MSYS_ChangeRegionCursor( &gDisableRegion , VIDEO_NO_CURSOR );
+	MSYS_ChangeRegionCursor( &gUserTurnRegion , VIDEO_NO_CURSOR );
 
 	// Remove special thing for south arrow...
 	if ( gsGlobalCursorYOffset == ( SCREEN_HEIGHT - gsVIEWPORT_WINDOW_END_Y ) )
@@ -2101,15 +2104,15 @@ void RestoreInterface( )
 	gfUIRefreshArrows = TRUE;
 
 	// SHow lock UI cursors...
-	MSYS_ChangeRegionCursor( &gDisableRegion , CURSOR_WAIT );	
-	MSYS_ChangeRegionCursor( &gUserTurnRegion , CURSOR_WAIT );	
+	MSYS_ChangeRegionCursor( &gDisableRegion , CURSOR_WAIT );
+	MSYS_ChangeRegionCursor( &gUserTurnRegion , CURSOR_WAIT );
 
 }
 
 
 void BlitPopupText( VIDEO_OVERLAY *pBlitter )
 {
-	UINT8	 *pDestBuf;
+	UINT8	*pDestBuf;
 	UINT32 uiDestPitchBYTES;
 
 	BltVideoSurface( pBlitter->uiDestBuff, guiINTEXT, 0, pBlitter->pBackground->sLeft, pBlitter->pBackground->sTop, VS_BLT_FAST | VS_BLT_USECOLORKEY, NULL );
@@ -2216,11 +2219,11 @@ BOOLEAN InitDoorOpenMenu( SOLDIERTYPE *pSoldier, STRUCTURE *pStructure, UINT8 ub
 
 	gOpenDoorMenu.fMenuHandled	= FALSE;
 
-	guiPendingOverrideEvent		= OP_OPENDOORMENU;	
+	guiPendingOverrideEvent		= OP_OPENDOORMENU;
 	HandleTacticalUI( );
 
 	PopupDoorOpenMenu( fClosingDoor );
-	
+
 	return( TRUE );
 }
 
@@ -2240,7 +2243,7 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 
 	// Create mouse region over all area to facilitate clicking to end
 	MSYS_DefineRegion( &gMenuOverlayRegion, 0, 0 ,SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGHEST-1,
-						 CURSOR_NORMAL, MSYS_NO_CALLBACK, DoorMenuBackregionCallback ); 
+						CURSOR_NORMAL, MSYS_NO_CALLBACK, DoorMenuBackregionCallback );
 	// Add region
 	MSYS_AddRegion( &gMenuOverlayRegion);
 
@@ -2264,7 +2267,7 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 	}
 	SetButtonFastHelpText( iActionIcons[ USE_KEYRING_ICON ], zDisp );
 
-	if ( !EnoughPoints(  gOpenDoorMenu.pSoldier, AP_UNLOCK_DOOR, BP_UNLOCK_DOOR, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
+	if ( !EnoughPoints(	gOpenDoorMenu.pSoldier, AP_UNLOCK_DOOR, BP_UNLOCK_DOOR, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
 	{
 		DisableButton( iActionIcons[ USE_KEYRING_ICON ] );
 	}
@@ -2276,9 +2279,9 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 	}
 
 
-	iActionIcons[ USE_CROWBAR_ICON ] = QuickCreateButton( iIconImages[ CROWBAR_DOOR_IMAGES ], (INT16)(iMenuAnchorX + 40 ), (INT16)(iMenuAnchorY  ),
+	iActionIcons[ USE_CROWBAR_ICON ] = QuickCreateButton( iIconImages[ CROWBAR_DOOR_IMAGES ], (INT16)(iMenuAnchorX + 40 ), (INT16)(iMenuAnchorY	),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
-										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnDoorMenuCallback );	
+										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnDoorMenuCallback );
 	if ( iActionIcons[ USE_CROWBAR_ICON ] == -1 )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "Cannot create Interface button" );
@@ -2296,12 +2299,12 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 	SetButtonFastHelpText( iActionIcons[ USE_CROWBAR_ICON ], zDisp );
 
 	// Greyout if no crowbar found...
-	if ( FindUsableCrowbar ( gOpenDoorMenu.pSoldier ) == NO_SLOT  || fClosingDoor )
+	if ( FindUsableCrowbar ( gOpenDoorMenu.pSoldier ) == NO_SLOT	|| fClosingDoor )
 	{
 		DisableButton( iActionIcons[ USE_CROWBAR_ICON ] );
 	}
 
-	if ( !EnoughPoints(  gOpenDoorMenu.pSoldier, AP_USE_CROWBAR, BP_USE_CROWBAR, FALSE ) )
+	if ( !EnoughPoints(	gOpenDoorMenu.pSoldier, AP_USE_CROWBAR, BP_USE_CROWBAR, FALSE ) )
 	{
 		DisableButton( iActionIcons[ USE_CROWBAR_ICON ] );
 	}
@@ -2325,7 +2328,7 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 	}
 	SetButtonFastHelpText( iActionIcons[ LOCKPICK_DOOR_ICON ], zDisp );
 
-	if ( !EnoughPoints(  gOpenDoorMenu.pSoldier, AP_PICKLOCK, BP_PICKLOCK, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
+	if ( !EnoughPoints(	gOpenDoorMenu.pSoldier, AP_PICKLOCK, BP_PICKLOCK, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
 	{
 		DisableButton( iActionIcons[ LOCKPICK_DOOR_ICON ] );
 	}
@@ -2357,7 +2360,7 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 	}
 	SetButtonFastHelpText( iActionIcons[ EXPLOSIVE_DOOR_ICON ], zDisp );
 
-	if ( !EnoughPoints(  gOpenDoorMenu.pSoldier, AP_EXPLODE_DOOR, BP_EXPLODE_DOOR, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
+	if ( !EnoughPoints(	gOpenDoorMenu.pSoldier, AP_EXPLODE_DOOR, BP_EXPLODE_DOOR, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
 	{
 		DisableButton( iActionIcons[ EXPLOSIVE_DOOR_ICON ] );
 	}
@@ -2403,14 +2406,14 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 	}
 	SetButtonFastHelpText( iActionIcons[ OPEN_DOOR_ICON ], zDisp );
 
-	if ( !EnoughPoints(  gOpenDoorMenu.pSoldier, AP_OPEN_DOOR, BP_OPEN_DOOR, FALSE ) )
+	if ( !EnoughPoints(	gOpenDoorMenu.pSoldier, AP_OPEN_DOOR, BP_OPEN_DOOR, FALSE ) )
 	{
 		DisableButton( iActionIcons[ OPEN_DOOR_ICON ] );
 	}
 
 
 	// Create button based on what is in our hands at the moment!
-	iActionIcons[ EXAMINE_DOOR_ICON ] = QuickCreateButton( iIconImages[ EXAMINE_DOOR_IMAGES ], (INT16)(iMenuAnchorX  ), (INT16)(iMenuAnchorY + 20 ),
+	iActionIcons[ EXAMINE_DOOR_ICON ] = QuickCreateButton( iIconImages[ EXAMINE_DOOR_IMAGES ], (INT16)(iMenuAnchorX	), (INT16)(iMenuAnchorY + 20 ),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnDoorMenuCallback );
 	if ( iActionIcons[ EXAMINE_DOOR_ICON ] == -1 )
@@ -2429,12 +2432,12 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 	}
 	SetButtonFastHelpText( iActionIcons[ EXAMINE_DOOR_ICON ], zDisp );
 
-	if ( !EnoughPoints(  gOpenDoorMenu.pSoldier, AP_EXAMINE_DOOR, BP_EXAMINE_DOOR, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
+	if ( !EnoughPoints(	gOpenDoorMenu.pSoldier, AP_EXAMINE_DOOR, BP_EXAMINE_DOOR, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
 	{
 		DisableButton( iActionIcons[ EXAMINE_DOOR_ICON ] );
 	}
 
-	iActionIcons[ BOOT_DOOR_ICON ] = QuickCreateButton( iIconImages[ BOOT_DOOR_IMAGES ], (INT16)(iMenuAnchorX  ), (INT16)(iMenuAnchorY + 40 ),
+	iActionIcons[ BOOT_DOOR_ICON ] = QuickCreateButton( iIconImages[ BOOT_DOOR_IMAGES ], (INT16)(iMenuAnchorX	), (INT16)(iMenuAnchorY + 40 ),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnDoorMenuCallback );
 	if ( iActionIcons[ BOOT_DOOR_ICON ] == -1 )
@@ -2453,13 +2456,13 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 	}
 	SetButtonFastHelpText( iActionIcons[ BOOT_DOOR_ICON ], zDisp );
 
-	if ( !EnoughPoints(  gOpenDoorMenu.pSoldier, AP_BOOT_DOOR, BP_BOOT_DOOR, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
+	if ( !EnoughPoints(	gOpenDoorMenu.pSoldier, AP_BOOT_DOOR, BP_BOOT_DOOR, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
 	{
 		DisableButton( iActionIcons[ BOOT_DOOR_ICON ] );
 	}
 
 
-	iActionIcons[ UNTRAP_DOOR_ICON ] = QuickCreateButton( iIconImages[ UNTRAP_DOOR_ICON ], (INT16)(iMenuAnchorX + 20  ), (INT16)(iMenuAnchorY + 40 ),
+	iActionIcons[ UNTRAP_DOOR_ICON ] = QuickCreateButton( iIconImages[ UNTRAP_DOOR_ICON ], (INT16)(iMenuAnchorX + 20	), (INT16)(iMenuAnchorY + 40 ),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnDoorMenuCallback );
 	if ( iActionIcons[ UNTRAP_DOOR_ICON ] == -1 )
@@ -2478,12 +2481,12 @@ void PopupDoorOpenMenu( BOOLEAN fClosingDoor )
 	}
 	SetButtonFastHelpText( iActionIcons[ UNTRAP_DOOR_ICON ], zDisp );
 
-	if ( !EnoughPoints(  gOpenDoorMenu.pSoldier, AP_UNTRAP_DOOR, BP_UNTRAP_DOOR, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
+	if ( !EnoughPoints(	gOpenDoorMenu.pSoldier, AP_UNTRAP_DOOR, BP_UNTRAP_DOOR, FALSE ) || fClosingDoor || AM_AN_EPC( gOpenDoorMenu.pSoldier ) )
 	{
 		DisableButton( iActionIcons[ UNTRAP_DOOR_ICON ] );
 	}
 
-	iActionIcons[ CANCEL_ICON ] = QuickCreateButton( iIconImages[ CANCEL_IMAGES ], (INT16)(iMenuAnchorX + 20  ), (INT16)(iMenuAnchorY + 20 ),
+	iActionIcons[ CANCEL_ICON ] = QuickCreateButton( iIconImages[ CANCEL_IMAGES ], (INT16)(iMenuAnchorX + 20	), (INT16)(iMenuAnchorY + 20 ),
 										BUTTON_NO_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
 										DEFAULT_MOVE_CALLBACK, (GUI_CALLBACK)BtnDoorMenuCallback );
 	if ( iActionIcons[ CANCEL_ICON ] == -1 )
@@ -2511,15 +2514,15 @@ void PopDownOpenDoorMenu( )
 		// UnPause timers as well....
 		PauseTime( FALSE );
 
-		RemoveButton( iActionIcons[ USE_KEYRING_ICON  ] );
-		RemoveButton( iActionIcons[ USE_CROWBAR_ICON  ] );
-		RemoveButton( iActionIcons[ LOCKPICK_DOOR_ICON  ] );
-		RemoveButton( iActionIcons[ EXPLOSIVE_DOOR_ICON  ] );
-		RemoveButton( iActionIcons[ OPEN_DOOR_ICON  ] );
-		RemoveButton( iActionIcons[ EXAMINE_DOOR_ICON  ] );
-		RemoveButton( iActionIcons[ BOOT_DOOR_ICON  ] );
-		RemoveButton( iActionIcons[ UNTRAP_DOOR_ICON  ] );
-		RemoveButton( iActionIcons[ CANCEL_ICON  ] );
+		RemoveButton( iActionIcons[ USE_KEYRING_ICON	] );
+		RemoveButton( iActionIcons[ USE_CROWBAR_ICON	] );
+		RemoveButton( iActionIcons[ LOCKPICK_DOOR_ICON	] );
+		RemoveButton( iActionIcons[ EXPLOSIVE_DOOR_ICON	] );
+		RemoveButton( iActionIcons[ OPEN_DOOR_ICON	] );
+		RemoveButton( iActionIcons[ EXAMINE_DOOR_ICON	] );
+		RemoveButton( iActionIcons[ BOOT_DOOR_ICON	] );
+		RemoveButton( iActionIcons[ UNTRAP_DOOR_ICON	] );
+		RemoveButton( iActionIcons[ CANCEL_ICON	] );
 
 		// Turn off Ignore scrolling
 		gfIgnoreScrolling = FALSE;
@@ -2543,23 +2546,23 @@ void RenderOpenDoorMenu( )
 	if ( gfInOpenDoorMenu )
 	{
 		BltVideoObjectFromIndex( FRAME_BUFFER, guiBUTTONBORDER, 0, gOpenDoorMenu.sX, gOpenDoorMenu.sY, VO_BLT_SRCTRANSPARENCY, NULL );
-	
+
 		// Mark buttons dirty!
-		MarkAButtonDirty( iActionIcons[ USE_KEYRING_ICON  ] );
-		MarkAButtonDirty( iActionIcons[ USE_CROWBAR_ICON  ] );
-		MarkAButtonDirty( iActionIcons[ LOCKPICK_DOOR_ICON  ] );
-		MarkAButtonDirty( iActionIcons[ EXPLOSIVE_DOOR_ICON  ] );
-		MarkAButtonDirty( iActionIcons[ OPEN_DOOR_ICON  ] );
-		MarkAButtonDirty( iActionIcons[ EXAMINE_DOOR_ICON  ] );
-		MarkAButtonDirty( iActionIcons[ BOOT_DOOR_ICON  ] );
-		MarkAButtonDirty( iActionIcons[ UNTRAP_DOOR_ICON  ] );
-		MarkAButtonDirty( iActionIcons[ CANCEL_ICON  ] );
+		MarkAButtonDirty( iActionIcons[ USE_KEYRING_ICON	] );
+		MarkAButtonDirty( iActionIcons[ USE_CROWBAR_ICON	] );
+		MarkAButtonDirty( iActionIcons[ LOCKPICK_DOOR_ICON	] );
+		MarkAButtonDirty( iActionIcons[ EXPLOSIVE_DOOR_ICON	] );
+		MarkAButtonDirty( iActionIcons[ OPEN_DOOR_ICON	] );
+		MarkAButtonDirty( iActionIcons[ EXAMINE_DOOR_ICON	] );
+		MarkAButtonDirty( iActionIcons[ BOOT_DOOR_ICON	] );
+		MarkAButtonDirty( iActionIcons[ UNTRAP_DOOR_ICON	] );
+		MarkAButtonDirty( iActionIcons[ CANCEL_ICON	] );
 
 		RenderButtons( );
 
 		// if game is paused, then render paused game text
 		RenderPausedGameBox( );
-		
+
 		InvalidateRegion( gOpenDoorMenu.sX, gOpenDoorMenu.sY, gOpenDoorMenu.sX + BUTTON_PANEL_WIDTH, gOpenDoorMenu.sY + BUTTON_PANEL_HEIGHT );
 
 	}
@@ -2595,14 +2598,14 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 			// Open door normally...
 			// Check APs
-			if ( EnoughPoints(  gOpenDoorMenu.pSoldier, AP_OPEN_DOOR, BP_OPEN_DOOR, FALSE ) )
+			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, AP_OPEN_DOOR, BP_OPEN_DOOR, FALSE ) )
 			{
 				// Set UI
 				SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
 
 				if ( gOpenDoorMenu.fClosingDoor )
 				{
-					ChangeSoldierState( gOpenDoorMenu.pSoldier, GetAnimStateForInteraction( gOpenDoorMenu.pSoldier, TRUE, CLOSE_DOOR ), 0 , FALSE );
+					gOpenDoorMenu.pSoldier->ChangeSoldierState( GetAnimStateForInteraction( gOpenDoorMenu.pSoldier, TRUE, CLOSE_DOOR ), 0 , FALSE );
 				}
 				else
 				{
@@ -2619,7 +2622,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 		if ( uiBtnID == iActionIcons[ BOOT_DOOR_ICON ] )
 		{
 			// Boot door
-			if ( EnoughPoints(  gOpenDoorMenu.pSoldier, AP_BOOT_DOOR, BP_BOOT_DOOR, FALSE ) )
+			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, AP_BOOT_DOOR, BP_BOOT_DOOR, FALSE ) )
 			{
 				// Set UI
 				SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
@@ -2636,7 +2639,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 		if ( uiBtnID == iActionIcons[ USE_KEYRING_ICON ] )
 		{
 			// Unlock door
-			if ( EnoughPoints(  gOpenDoorMenu.pSoldier, AP_UNLOCK_DOOR, BP_UNLOCK_DOOR, FALSE ) )
+			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, AP_UNLOCK_DOOR, BP_UNLOCK_DOOR, FALSE ) )
 			{
 				// Set UI
 				SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
@@ -2653,7 +2656,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 		if ( uiBtnID == iActionIcons[ LOCKPICK_DOOR_ICON ] )
 		{
 			// Lockpick
-			if ( EnoughPoints(  gOpenDoorMenu.pSoldier, AP_PICKLOCK, BP_PICKLOCK, FALSE ) )
+			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, AP_PICKLOCK, BP_PICKLOCK, FALSE ) )
 			{
 				// Set UI
 				SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
@@ -2670,7 +2673,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 		if ( uiBtnID == iActionIcons[ EXAMINE_DOOR_ICON ] )
 		{
 			// Lockpick
-			if ( EnoughPoints(  gOpenDoorMenu.pSoldier, AP_EXAMINE_DOOR, BP_EXAMINE_DOOR, FALSE ) )
+			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, AP_EXAMINE_DOOR, BP_EXAMINE_DOOR, FALSE ) )
 			{
 				// Set UI
 				SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
@@ -2687,7 +2690,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 		if ( uiBtnID == iActionIcons[ EXPLOSIVE_DOOR_ICON ] )
 		{
 			// Explode
-			if ( EnoughPoints(  gOpenDoorMenu.pSoldier, AP_EXPLODE_DOOR, BP_EXPLODE_DOOR, FALSE ) )
+			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, AP_EXPLODE_DOOR, BP_EXPLODE_DOOR, FALSE ) )
 			{
 				// Set UI
 				SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
@@ -2704,7 +2707,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 		if ( uiBtnID == iActionIcons[ UNTRAP_DOOR_ICON ] )
 		{
 			// Explode
-			if ( EnoughPoints(  gOpenDoorMenu.pSoldier, AP_UNTRAP_DOOR, BP_UNTRAP_DOOR, FALSE ) )
+			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, AP_UNTRAP_DOOR, BP_UNTRAP_DOOR, FALSE ) )
 			{
 				// Set UI
 				SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
@@ -2721,7 +2724,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 		if ( uiBtnID == iActionIcons[ USE_CROWBAR_ICON ] )
 		{
 			// Explode
-			if ( EnoughPoints(  gOpenDoorMenu.pSoldier, AP_USE_CROWBAR, BP_USE_CROWBAR, FALSE ) )
+			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, AP_USE_CROWBAR, BP_USE_CROWBAR, FALSE ) )
 			{
 				// Set UI
 				SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
@@ -2758,7 +2761,7 @@ void RenderUIMessage( VIDEO_OVERLAY *pBlitter )
 	// Shade area first...
 	ShadowVideoSurfaceRect( pBlitter->uiDestBuff, pBlitter->sX, pBlitter->sY, pBlitter->sX + gusUIMessageWidth - 2, pBlitter->sY + gusUIMessageHeight - 2 );
 
-	RenderMercPopUpBoxFromIndex( iUIMessageBox, pBlitter->sX, pBlitter->sY,  pBlitter->uiDestBuff );
+	RenderMercPopUpBoxFromIndex( iUIMessageBox, pBlitter->sX, pBlitter->sY,	pBlitter->uiDestBuff );
 
 	InvalidateRegion( pBlitter->sX, pBlitter->sY, pBlitter->sX + gusUIMessageWidth, pBlitter->sY + gusUIMessageHeight );
 }
@@ -2771,7 +2774,7 @@ void InternalBeginUIMessage( BOOLEAN fUseSkullIcon, STR16 pFontString, ... )
 	CHAR16	MsgString[512];
 
 
-	va_start(argptr, pFontString);       	// Set up variable argument pointer
+	va_start(argptr, pFontString);			// Set up variable argument pointer
 	vswprintf(MsgString, pFontString, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
 
@@ -2781,7 +2784,7 @@ void InternalBeginUIMessage( BOOLEAN fUseSkullIcon, STR16 pFontString, ... )
 	// Override it!
 	OverrideMercPopupBox( &gpUIMessageOverrideMercBox );
 
-  //SetPrepareMercPopupFlags( MERC_POPUP_PREPARE_FLAGS_TRANS_BACK | MERC_POPUP_PREPARE_FLAGS_MARGINS );
+	//SetPrepareMercPopupFlags( MERC_POPUP_PREPARE_FLAGS_TRANS_BACK | MERC_POPUP_PREPARE_FLAGS_MARGINS );
 
 	if ( fUseSkullIcon )
 	{
@@ -2798,27 +2801,27 @@ void InternalBeginUIMessage( BOOLEAN fUseSkullIcon, STR16 pFontString, ... )
 	// Set it back!
 	ResetOverrideMercPopupBox( );
 
-	if ( giUIMessageOverlay != -1  )
+	if ( giUIMessageOverlay != -1	)
 	{
 		RemoveVideoOverlay( giUIMessageOverlay );
 
 		giUIMessageOverlay = -1;
 	}
 
-	if ( giUIMessageOverlay == -1  )
+	if ( giUIMessageOverlay == -1	)
 	{
 		memset( &VideoOverlayDesc, 0, sizeof( VideoOverlayDesc ) );
 
 		// Set Overlay
-		VideoOverlayDesc.sLeft			 = ( SCREEN_WIDTH - gusUIMessageWidth ) / 2;
-		VideoOverlayDesc.sTop				 = 150;
-		VideoOverlayDesc.sRight			 = VideoOverlayDesc.sLeft + gusUIMessageWidth;
-		VideoOverlayDesc.sBottom		 = VideoOverlayDesc.sTop + gusUIMessageHeight;
-		VideoOverlayDesc.sX					 = VideoOverlayDesc.sLeft;
-		VideoOverlayDesc.sY					 = VideoOverlayDesc.sTop;
+		VideoOverlayDesc.sLeft			= ( SCREEN_WIDTH - gusUIMessageWidth ) / 2;
+		VideoOverlayDesc.sTop				= 150;
+		VideoOverlayDesc.sRight			= VideoOverlayDesc.sLeft + gusUIMessageWidth;
+		VideoOverlayDesc.sBottom		= VideoOverlayDesc.sTop + gusUIMessageHeight;
+		VideoOverlayDesc.sX					= VideoOverlayDesc.sLeft;
+		VideoOverlayDesc.sY					= VideoOverlayDesc.sTop;
 		VideoOverlayDesc.BltCallback = RenderUIMessage;
 
-		giUIMessageOverlay =  RegisterVideoOverlay( 0, &VideoOverlayDesc );
+		giUIMessageOverlay =	RegisterVideoOverlay( 0, &VideoOverlayDesc );
 	}
 
 	gfUseSkullIconMessage = fUseSkullIcon;
@@ -2829,7 +2832,7 @@ void BeginUIMessage( STR16 pFontString, ... )
 	va_list argptr;
 	CHAR16	MsgString[512];
 
-	va_start(argptr, pFontString);       	// Set up variable argument pointer
+	va_start(argptr, pFontString);			// Set up variable argument pointer
 	vswprintf(MsgString, pFontString, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
 
@@ -2845,7 +2848,7 @@ void BeginMapUIMessage( UINT8 ubPosition, STR16 pFontString, ... )
 
 	memset( &VideoOverlayDesc, 0, sizeof( VideoOverlayDesc ) );
 
-	va_start(argptr, pFontString);       	// Set up variable argument pointer
+	va_start(argptr, pFontString);			// Set up variable argument pointer
 	vswprintf(MsgString, pFontString, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
 
@@ -2863,15 +2866,14 @@ void BeginMapUIMessage( UINT8 ubPosition, STR16 pFontString, ... )
 	// Set it back!
 	ResetOverrideMercPopupBox( );
 
-	if ( giUIMessageOverlay == -1  )
+	if ( giUIMessageOverlay == -1	)
 	{
 		// WDS - bug fix: VideoOverlayDesc must be initialized! - 07/16/2007
 		memset( &VideoOverlayDesc, 0, sizeof( VIDEO_OVERLAY_DESC ) );
-
 		// Set Overlay
-		VideoOverlayDesc.sLeft	 = 20 + MAP_VIEW_START_X + ( MAP_VIEW_WIDTH - gusUIMessageWidth ) / 2;
+		VideoOverlayDesc.sLeft	= 20 + MAP_VIEW_START_X + ( MAP_VIEW_WIDTH - gusUIMessageWidth ) / 2;
 
-		VideoOverlayDesc.sTop	 = MAP_VIEW_START_Y + ( MAP_VIEW_HEIGHT - gusUIMessageHeight ) / 2;
+		VideoOverlayDesc.sTop	= MAP_VIEW_START_Y + ( MAP_VIEW_HEIGHT - gusUIMessageHeight ) / 2;
 
 		if( ubPosition == MSG_MAP_UI_POSITION_UPPER )
 		{
@@ -2882,13 +2884,13 @@ void BeginMapUIMessage( UINT8 ubPosition, STR16 pFontString, ... )
 			VideoOverlayDesc.sTop	+= 100;
 		}
 
-		VideoOverlayDesc.sRight			 = VideoOverlayDesc.sLeft + gusUIMessageWidth;
-		VideoOverlayDesc.sBottom		 = VideoOverlayDesc.sTop + gusUIMessageHeight;
-		VideoOverlayDesc.sX					 = VideoOverlayDesc.sLeft;
-		VideoOverlayDesc.sY					 = VideoOverlayDesc.sTop;
+		VideoOverlayDesc.sRight			= VideoOverlayDesc.sLeft + gusUIMessageWidth;
+		VideoOverlayDesc.sBottom		= VideoOverlayDesc.sTop + gusUIMessageHeight;
+		VideoOverlayDesc.sX					= VideoOverlayDesc.sLeft;
+		VideoOverlayDesc.sY					= VideoOverlayDesc.sTop;
 		VideoOverlayDesc.BltCallback = RenderUIMessage;
 
-		giUIMessageOverlay =  RegisterVideoOverlay( 0, &VideoOverlayDesc );
+		giUIMessageOverlay =	RegisterVideoOverlay( 0, &VideoOverlayDesc );
 	}
 
 }
@@ -2898,7 +2900,7 @@ void EndUIMessage( )
 	UINT32	uiClock = GetJA2Clock();
 
 	if ( giUIMessageOverlay != -1 )
-	{	
+	{
 		if ( gfUseSkullIconMessage )
 		{
 			if ( ( uiClock - guiUIMessageTime ) < 300 )
@@ -2911,12 +2913,12 @@ void EndUIMessage( )
 
 		RemoveVideoOverlay( giUIMessageOverlay );
 
-    // Remove popup as well....
-    if ( iUIMessageBox != -1 )
-    {
-    	RemoveMercPopupBoxFromIndex( iUIMessageBox );
-      iUIMessageBox = -1;
-    }
+	// Remove popup as well....
+	if ( iUIMessageBox != -1 )
+	{
+		RemoveMercPopupBoxFromIndex( iUIMessageBox );
+		iUIMessageBox = -1;
+	}
 
 		giUIMessageOverlay = -1;
 
@@ -2939,15 +2941,15 @@ BOOLEAN AddTopMessage( UINT8 ubType, STR16 pzString )
 	UINT32	cnt;
 	BOOLEAN	fFound = FALSE;
 
-	// Set time of last update	
+	// Set time of last update
 	gTopMessage.uiTimeOfLastUpdate = GetJA2Clock( );
 
 	// Set flag to animate down...
 	//gTopMessage.bAnimate = -1;
-	//gTopMessage.bYPos		 = 2;
+	//gTopMessage.bYPos		= 2;
 
 	gTopMessage.bAnimate = 0;
-	gTopMessage.bYPos		 = 20;
+	gTopMessage.bYPos		= 20;
 	gTopMessage.fCreated = TRUE;
 
 	fFound = TRUE;
@@ -2973,8 +2975,8 @@ BOOLEAN AddTopMessage( UINT8 ubType, STR16 pzString )
 
 void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 {
-	UINT32	uiBAR, uiPLAYERBAR, uiINTBAR;
-	VOBJECT_DESC    VObjectDesc;
+	UINT32	uiBAR, uiPLAYERBAR = 0, uiINTBAR = 0;
+	VOBJECT_DESC	VObjectDesc;
 	INT16		sX, sY;
 	INT32		cnt2;
 	INT16		sBarX = 0;
@@ -2989,7 +2991,7 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 
 	if (iResolution == 0)
 	{
-		FilenameForBPP("INTERFACE\\rect.sti", VObjectDesc.ImageFile);
+	FilenameForBPP("INTERFACE\\rect.sti", VObjectDesc.ImageFile);
 	}
 	else if (iResolution == 1)
 	{
@@ -2998,11 +3000,6 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 	else if (iResolution == 2)
 	{
 		FilenameForBPP("INTERFACE\\rect_1024x768.sti", VObjectDesc.ImageFile);
-	}
-	else
-	{
-		AssertMsg( 0, "Invalid resolution");
-		return;
 	}
 
 	if( !AddVideoObject( &VObjectDesc, &uiBAR ) )
@@ -3014,44 +3011,40 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 	if (iResolution == 0)
 	{
 		FilenameForBPP("INTERFACE\\timebargreen.sti", VObjectDesc.ImageFile);
+		if( !AddVideoObject( &VObjectDesc, &uiPLAYERBAR ) )
+			AssertMsg(0, "Missing INTERFACE\\timebargreen.sti" );
 	}
 	else if (iResolution == 1)
 	{
 		FilenameForBPP("INTERFACE\\timebargreen_800x600.sti", VObjectDesc.ImageFile);
+		if( !AddVideoObject( &VObjectDesc, &uiPLAYERBAR ) )
+			AssertMsg(0, "Missing INTERFACE\\timebargreen_800x600.sti" );
 	}
 	else if (iResolution == 2)
 	{
 		FilenameForBPP("INTERFACE\\timebargreen_1024x768.sti", VObjectDesc.ImageFile);
+		if( !AddVideoObject( &VObjectDesc, &uiPLAYERBAR ) )
+			AssertMsg(0, "Missing INTERFACE\\timebargreen_1024x768.sti" );
 	}
-	else
-	{
-		AssertMsg( 0, "Invalid resolution");
-		return;
-	}
-
-	if( !AddVideoObject( &VObjectDesc, &uiPLAYERBAR ) )
-		AssertMsg(0, String( "Missing %s", VObjectDesc.ImageFile) );
 
 	if (iResolution == 0)
 	{
-		FilenameForBPP("INTERFACE\\timebaryellow.sti", VObjectDesc.ImageFile);
+	FilenameForBPP("INTERFACE\\timebaryellow.sti", VObjectDesc.ImageFile);
+	if( !AddVideoObject( &VObjectDesc, &uiINTBAR ) )
+		AssertMsg(0, "Missing INTERFACE\\timebaryellow.sti" );
 	}
 	else if (iResolution == 1)
 	{
 		FilenameForBPP("INTERFACE\\timebaryellow_800x600.sti", VObjectDesc.ImageFile);
+		if( !AddVideoObject( &VObjectDesc, &uiINTBAR ) )
+			AssertMsg(0, "Missing INTERFACE\\timebaryellow_800x600.sti" );
 	}
 	else if (iResolution == 2)
 	{
 		FilenameForBPP("INTERFACE\\timebaryellow_1024x768.sti", VObjectDesc.ImageFile);
+		if( !AddVideoObject( &VObjectDesc, &uiINTBAR ) )
+			AssertMsg(0, "Missing INTERFACE\\timebaryellow_1024x768.sti" );
 	}
-	else
-	{
-		AssertMsg( 0, "Invalid resolution");
-		return;
-	}
-
-	if( !AddVideoObject( &VObjectDesc, &uiINTBAR ) )
-		AssertMsg(0, String( "Missing %s", VObjectDesc.ImageFile) );
 
 	// Change dest buffer
 	SetFontDestBuffer( uiSurface , 0, 0, SCREEN_WIDTH , 20, FALSE );
@@ -3070,7 +3063,7 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 			SetFontBackground( FONT_MCOLOR_BLACK );
 			SetFontForeground( FONT_MCOLOR_WHITE );
 			uiBarToUseInUpDate = uiBAR;
-			fDoLimitBar				 = TRUE;
+			fDoLimitBar				= TRUE;
 			break;
 
 		case PLAYER_INTERRUPT_MESSAGE:
@@ -3110,7 +3103,7 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 		INT16		usNumStepsPerEnemy;
 
 		if ( gfProgBarActive )
-		{				
+		{
 			//usNumStepsPerEnemy = ( PROG_BAR_LENGTH / gubProgNumEnemies );
 
 			// Alrighty, do some fun stuff!
@@ -3120,7 +3113,7 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 			BltVideoObjectFromIndex( uiSurface, uiBAR, 3, sBarX, PROG_BAR_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 
 			// Determine Length
-		//	iLength   = (gubProgCurEnemy ) * usNumStepsPerEnemy;
+		//	iLength	= (gubProgCurEnemy ) * usNumStepsPerEnemy;
 
 			cnt1 = 0;
 			cnt2 = 0;
@@ -3130,7 +3123,7 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 				sBarX++;
 
 				// Check sBarX, ( just as a precaution )
-				if ( sBarX > SCREEN_WIDTH  )
+				if ( sBarX > SCREEN_WIDTH	)
 				{
 					break;
 				}
@@ -3163,9 +3156,9 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 	}
 
 	if ( fDoLimitBar )
-	{				
+	{
 		dNumStepsPerEnemy = (FLOAT)( (FLOAT)iProgBarLength / (FLOAT)gTacticalStatus.usTactialTurnLimitMax );
-		
+
 		//dNumStepsPerEnemy = (FLOAT)( (FLOAT)PROG_BAR_LENGTH / (FLOAT)gTacticalStatus.usTactialTurnLimitMax );
 
 		// Alrighty, do some fun stuff!
@@ -3175,7 +3168,7 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 		BltVideoObjectFromIndex( uiSurface, uiBarToUseInUpDate, 1, sBarX, PROG_BAR_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 
 		// Determine Length
-		dLength   = ( gTacticalStatus.usTactialTurnLimitCounter ) * dNumStepsPerEnemy;
+		dLength	= ( gTacticalStatus.usTactialTurnLimitCounter ) * dNumStepsPerEnemy;
 
 		dCurSize = 0;
 		cnt2 = 0;
@@ -3205,9 +3198,9 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 		if ( gTacticalStatus.usTactialTurnLimitCounter == gTacticalStatus.usTactialTurnLimitMax )
 		{
 			sBarX++;
-			BltVideoObjectFromIndex( uiSurface, uiBarToUseInUpDate, (INT16)( 2 + cnt2 ), sBarX, PROG_BAR_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );			
+			BltVideoObjectFromIndex( uiSurface, uiBarToUseInUpDate, (INT16)( 2 + cnt2 ), sBarX, PROG_BAR_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 			sBarX++;
-			BltVideoObjectFromIndex( uiSurface, uiBarToUseInUpDate, (INT16)( 12 ), sBarX, PROG_BAR_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );			
+			BltVideoObjectFromIndex( uiSurface, uiBarToUseInUpDate, (INT16)( 12 ), sBarX, PROG_BAR_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 	}
 
@@ -3223,7 +3216,7 @@ void CreateTopMessage( UINT32 uiSurface, UINT8 ubType, STR16 psString )
 	// Draw text....
 	FindFontCenterCoordinates( SCREEN_WIDTH/2, 7, 1, 1, psString, TINYFONT1, &sX, &sY );
 	mprintf( sX, sY, psString );
-	
+
 	// Change back...
 	SetFontDestBuffer( FRAME_BUFFER , 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
@@ -3249,8 +3242,8 @@ void CheckForAndHandleEndPlayerTimeLimit( )
 		{
 			if ( gTacticalStatus.ubTopMessageType == PLAYER_TURN_MESSAGE || gTacticalStatus.ubTopMessageType == PLAYER_INTERRUPT_MESSAGE )
 			{
-				 if ( gTacticalStatus.usTactialTurnLimitCounter == ( gTacticalStatus.usTactialTurnLimitMax - 1 ) )
-				 {
+				if ( gTacticalStatus.usTactialTurnLimitCounter == ( gTacticalStatus.usTactialTurnLimitMax - 1 ) )
+				{
 						// ATE: increase this so that we don't go into here again...
 						gTacticalStatus.usTactialTurnLimitCounter++;
 
@@ -3260,7 +3253,7 @@ void CheckForAndHandleEndPlayerTimeLimit( )
 						// End turn...
 						UIHandleEndTurn( NULL );
 
-				 }
+				}
 			}
 		}
 	}
@@ -3287,10 +3280,10 @@ void HandleTopMessages( )
 			AddTopMessage( gTacticalStatus.ubTopMessageType, gTacticalStatus.zTopMessageString );
 		}
 
-		if ( gTacticalStatus.ubTopMessageType == COMPUTER_TURN_MESSAGE || 
-				 gTacticalStatus.ubTopMessageType == COMPUTER_INTERRUPT_MESSAGE ||
-				 gTacticalStatus.ubTopMessageType == MILITIA_INTERRUPT_MESSAGE ||
-				 gTacticalStatus.ubTopMessageType == AIR_RAID_TURN_MESSAGE )
+		if ( gTacticalStatus.ubTopMessageType == COMPUTER_TURN_MESSAGE ||
+				gTacticalStatus.ubTopMessageType == COMPUTER_INTERRUPT_MESSAGE ||
+				gTacticalStatus.ubTopMessageType == MILITIA_INTERRUPT_MESSAGE ||
+				gTacticalStatus.ubTopMessageType == AIR_RAID_TURN_MESSAGE )
 		{
 			// OK, update timer.....
 			if ( TIMECOUNTERDONE( giTimerTeamTurnUpdate, PLAYER_TEAM_TIMER_SEC_PER_TICKS ) )
@@ -3304,7 +3297,7 @@ void HandleTopMessages( )
 				}
 
 				// Check if we have reach limit...
-				if ( gTacticalStatus.usTactialTurnLimitCounter >= ( ( gubProgCurEnemy  ) * PLAYER_TEAM_TIMER_TICKS_PER_ENEMY ) )
+				if ( gTacticalStatus.usTactialTurnLimitCounter >= ( ( gubProgCurEnemy	) * PLAYER_TEAM_TIMER_TICKS_PER_ENEMY ) )
 				{
 					gTacticalStatus.usTactialTurnLimitCounter = ( ( gubProgCurEnemy ) * PLAYER_TEAM_TIMER_TICKS_PER_ENEMY );
 				}
@@ -3316,11 +3309,11 @@ void HandleTopMessages( )
 		{
 			if ( gTacticalStatus.ubTopMessageType == PLAYER_TURN_MESSAGE || gTacticalStatus.ubTopMessageType == PLAYER_INTERRUPT_MESSAGE )
 			{
-				 if ( !gfUserTurnRegionActive && !AreWeInAUIMenu() )
-				 {
+				if ( !gfUserTurnRegionActive && !AreWeInAUIMenu() )
+				{
 						// Check Grace period...
 						if ( ( GetJA2Clock( ) - gTacticalStatus.uiTactialTurnLimitClock ) > PLAYER_TEAM_TIMER_GRACE_PERIOD )
-						{					
+						{
 							gTacticalStatus.uiTactialTurnLimitClock = 0;
 
 							if ( TIMECOUNTERDONE( giTimerTeamTurnUpdate, PLAYER_TEAM_TIMER_SEC_PER_TICKS ) )
@@ -3363,8 +3356,8 @@ void HandleTopMessages( )
 								}
 							}
 						}
-				 }
-			 }
+				}
+			}
 		}
 
 		// Set redner viewport value
@@ -3374,7 +3367,7 @@ void HandleTopMessages( )
 		if ( gTopMessage.sWorldRenderX != gsRenderCenterX || gTopMessage.sWorldRenderY != gsRenderCenterY )
 		{
 			gfTopMessageDirty = TRUE;
-		}	
+		}
 
 		if ( gfTopMessageDirty )
 		{
@@ -3383,23 +3376,23 @@ void HandleTopMessages( )
 
 			// Redner!
 			BltFx.SrcRect.iLeft = 0;
-			BltFx.SrcRect.iTop  = 20 - gTopMessage.bYPos;
+			BltFx.SrcRect.iTop	= 20 - gTopMessage.bYPos;
 			BltFx.SrcRect.iRight = SCREEN_WIDTH ;
 			BltFx.SrcRect.iBottom = 20;
 
-			BltVideoSurface( FRAME_BUFFER, gTopMessage.uiSurface, 0, 
-																		 0, 0, 
-																		 VS_BLT_SRCSUBRECT, &BltFx );
+			BltVideoSurface( FRAME_BUFFER, gTopMessage.uiSurface, 0,
+																		0, 0,
+																		VS_BLT_SRCSUBRECT, &BltFx );
 
 			// Save to save buffer....
 			BltFx.SrcRect.iLeft = 0;
-			BltFx.SrcRect.iTop  = 0;
+			BltFx.SrcRect.iTop	= 0;
 			BltFx.SrcRect.iRight = SCREEN_WIDTH;
 			BltFx.SrcRect.iBottom = 20;
 
-			BltVideoSurface( guiSAVEBUFFER, FRAME_BUFFER, 0, 
-																		 0, 0, 
-																		 VS_BLT_SRCSUBRECT, &BltFx );			
+			BltVideoSurface( guiSAVEBUFFER, FRAME_BUFFER, 0,
+																		0, 0,
+																		VS_BLT_SRCSUBRECT, &BltFx );
 
 			InvalidateRegion( 0, 0, SCREEN_WIDTH, 20 );
 
@@ -3410,7 +3403,7 @@ void HandleTopMessages( )
 	else
 	{
 		// Set redner viewport value
-	  gsVIEWPORT_WINDOW_START_Y = 0;
+	gsVIEWPORT_WINDOW_START_Y = 0;
 	}
 }
 
@@ -3426,7 +3419,7 @@ void EndTopMessage( )
 		// Are we the last?
 		//if ( gTopMessage.bCurrentMessage == 1 )
 		{
-			// We are.... 
+			// We are....
 			// Re-render our strip and then copy to the save buffer...
 			gsVIEWPORT_WINDOW_START_Y = 0;
 			gTacticalStatus.fInTopMessage = FALSE;
@@ -3437,23 +3430,23 @@ void EndTopMessage( )
 
 			// Copy into save buffer...
 			//BltFx.SrcRect.iLeft = 0;
-			//BltFx.SrcRect.iTop  = 0;
+			//BltFx.SrcRect.iTop	= 0;
 			//BltFx.SrcRect.iRight = 640;
 			//BltFx.SrcRect.iBottom = 20;
 
-			//BltVideoSurface( guiSAVEBUFFER, FRAME_BUFFER, 0, 
-			//															 0, 0, 
-			//															 VS_BLT_SRCSUBRECT, &BltFx );			
+			//BltVideoSurface( guiSAVEBUFFER, FRAME_BUFFER, 0,
+			//															0, 0,
+			//															VS_BLT_SRCSUBRECT, &BltFx );
 		}
 		//else
 		//{
 			// Render to save buffer
-		//	CreateTopMessage( guiSAVEBUFFER, gTopMessageTypes[ 0 ], gzTopMessageStrings[ 0 ] );			
+		//	CreateTopMessage( guiSAVEBUFFER, gTopMessageTypes[ 0 ], gzTopMessageStrings[ 0 ] );
 		//}
 
 		// Animate up...
 		//gTopMessage.bAnimate = 1;
-		// Set time of last update	
+		// Set time of last update
 		//gTopMessage.uiTimeOfLastUpdate = GetJA2Clock( ) + 150;
 
 		// Handle first frame now...
@@ -3545,7 +3538,7 @@ void InitPlayerUIBar( BOOLEAN fInterrupt )
 		}
 		else
 		{
-			//EndTopMessage();	
+			//EndTopMessage();
 			AddTopMessage( PLAYER_TURN_MESSAGE, TeamTurnString[0] );
 		}
 		return;
@@ -3559,13 +3552,13 @@ void InitPlayerUIBar( BOOLEAN fInterrupt )
 		// IF IT'S THE SELECTED GUY, MAKE ANOTHER SELECTED!
 		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
-		// look for all mercs on the same team, 
+		// look for all mercs on the same team,
 		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++)
-		{       
+		{
 			// Are we active and in sector.....
 			if ( pTeamSoldier->bActive && pTeamSoldier->bInSector )
 			{
-				if ( pTeamSoldier->bLife < OKLIFE )
+				if ( pTeamSoldier->stats.bLife < OKLIFE )
 				{
 					bNumNotOK++;
 				}
@@ -3582,7 +3575,7 @@ void InitPlayerUIBar( BOOLEAN fInterrupt )
 	{
 		if ( gTacticalStatus.usTactialTurnLimitCounter > PLAYER_TEAM_TIMER_INTTERUPT_GRACE )
 		{
-			gTacticalStatus.usTactialTurnLimitCounter -= PLAYER_TEAM_TIMER_INTTERUPT_GRACE;		
+			gTacticalStatus.usTactialTurnLimitCounter -= PLAYER_TEAM_TIMER_INTTERUPT_GRACE;
 		}
 	}
 
@@ -3625,7 +3618,7 @@ void DoorMenuBackregionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 STR16 GetSoldierHealthString( SOLDIERTYPE *pSoldier )
 {
 	INT32 cnt, cntStart;
-	if( pSoldier->bLife == pSoldier->bLifeMax )
+	if( pSoldier->stats.bLife == pSoldier->stats.bLifeMax )
 	{
 		cntStart = 4;
 	}
@@ -3636,7 +3629,7 @@ STR16 GetSoldierHealthString( SOLDIERTYPE *pSoldier )
 	//Show health on others.........
 	for ( cnt = cntStart; cnt < 6; cnt ++ )
 	{
-		if ( pSoldier->bLife < bHealthStrRanges[ cnt ] )
+		if ( pSoldier->stats.bLife < bHealthStrRanges[ cnt ] )
 		{
 			break;
 		}
@@ -3669,7 +3662,7 @@ typedef struct
 static BOOLEAN					gfInAimCubeUI = FALSE;
 static AIMCUBE_UI_DATA	gCubeUIData;
 
-#define	GET_CUBES_HEIGHT_FROM_UIHEIGHT( h )  ( 32 + ( h * 64 ) )
+#define	GET_CUBES_HEIGHT_FROM_UIHEIGHT( h )	( 32 + ( h * 64 ) )
 
 
 
@@ -3725,7 +3718,7 @@ BOOLEAN AimCubeUIClick( )
 	if ( gCubeUIData.fActiveHeightBar && gCubeUIData.bHeight != 0 )
 	{
 		gCubeUIData.fShowPower				= TRUE;
-		gCubeUIData.fActiveHeightBar  = FALSE;
+		gCubeUIData.fActiveHeightBar	= FALSE;
 		gCubeUIData.fActivePowerBar		= TRUE;
 
 		return( FALSE );
@@ -3749,7 +3742,7 @@ void BeginAimCubeUI( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 ubLevel, UINT8 b
 	gCubeUIData.fShowPower	= FALSE;
 	gCubeUIData.fActivePowerBar		= FALSE;
 	gCubeUIData.fActiveHeightBar	= TRUE;
-	gCubeUIData.fAtEndHeight  = FALSE;
+	gCubeUIData.fAtEndHeight	= FALSE;
 	gCubeUIData.dDegrees		= (float)PI/4;
 
 
@@ -3844,7 +3837,7 @@ void ResetAimCubeAI( )
 
 void RenderAimCubeUI( )
 {
-	INT16 sScreenX, sScreenY;
+	INT16 sScreenX = 0, sScreenY = 0;
 	INT32	cnt;
 	INT16	sBarHeight;
 	INT32 iBack;
@@ -3852,14 +3845,15 @@ void RenderAimCubeUI( )
 
 	if ( gfInAimCubeUI )
 	{
-		// Determine screen location....
-		GetGridNoScreenPos( gCubeUIData.sGridNo, gCubeUIData.ubLevel, &sScreenX, &sScreenY );
 
 		// OK, given height
 		if ( gCubeUIData.fShowHeight )
 		{
+			// Determine screen location....
+			GetGridNoScreenPos( gCubeUIData.sGridNo, gCubeUIData.ubLevel, &sScreenX, &sScreenY );
+
 			// Save background
-			iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sScreenX, (INT16)(sScreenY - 70 ), (INT16)(sScreenX + 40 ), (INT16)(sScreenY + 50 ) ); 
+			iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sScreenX, (INT16)(sScreenY - 70 ), (INT16)(sScreenX + 40 ), (INT16)(sScreenY + 50 ) );
 			if ( iBack != -1 )
 			{
 				SetBackgroundRectFilled( iBack );
@@ -3888,7 +3882,7 @@ void RenderAimCubeUI( )
 				sBarHeight -= 3;
 				BltVideoObjectFromIndex( FRAME_BUFFER, guiAIMCUBES, bGraphicNum, sScreenX, ( sScreenY + sBarHeight ), VO_BLT_SRCTRANSPARENCY, NULL );
 				sBarHeight -= 3;
-				BltVideoObjectFromIndex( FRAME_BUFFER, guiAIMCUBES, bGraphicNum, sScreenX, ( sScreenY + sBarHeight ), VO_BLT_SRCTRANSPARENCY, NULL );				
+				BltVideoObjectFromIndex( FRAME_BUFFER, guiAIMCUBES, bGraphicNum, sScreenX, ( sScreenY + sBarHeight ), VO_BLT_SRCTRANSPARENCY, NULL );
 			}
 		}
 
@@ -3912,8 +3906,8 @@ void GetLaunchItemParamsFromUI( )
 
 
 static BOOLEAN gfDisplayPhysicsUI = FALSE;
-static INT16	 gsPhysicsImpactPointGridNo;
-static INT8		 gbPhysicsImpactPointLevel;
+static INT16	gsPhysicsImpactPointGridNo;
+static INT8		gbPhysicsImpactPointLevel;
 static BOOLEAN gfBadPhysicsCTGT = FALSE;
 
 void BeginPhysicsTrajectoryUI( INT16 sGridNo, INT8 bLevel, BOOLEAN fBadCTGT )
@@ -3978,7 +3972,7 @@ void ResetPhysicsTrajectoryUI( )
 
 void DirtyTopMessage( )
 {
-	gTopMessage.fCreated	 = FALSE;
+	gTopMessage.fCreated	= FALSE;
 }
 
 
@@ -3990,38 +3984,38 @@ UINT32 CalcUIMessageDuration( STR16 wString )
 }
 
 
-BOOLEAN   gfMultipurposeLocatorOn = FALSE;
-UINT32    guiMultiPurposeLocatorLastUpdate;
-INT8      gbMultiPurposeLocatorFrame;
-INT16     gsMultiPurposeLocatorGridNo;
-INT8      gbMultiPurposeLocatorLevel;
-INT8      gbMultiPurposeLocatorCycles;
+BOOLEAN	gfMultipurposeLocatorOn = FALSE;
+UINT32	guiMultiPurposeLocatorLastUpdate;
+INT8		gbMultiPurposeLocatorFrame;
+INT16	 gsMultiPurposeLocatorGridNo;
+INT8		gbMultiPurposeLocatorLevel;
+INT8		gbMultiPurposeLocatorCycles;
 
 void BeginMultiPurposeLocator( INT16 sGridNo, INT8 bLevel, BOOLEAN fSlideTo )
 {
-  guiMultiPurposeLocatorLastUpdate = 0;
-  gbMultiPurposeLocatorCycles      = 0;
-  gbMultiPurposeLocatorFrame       = 0;
-  gfMultipurposeLocatorOn = TRUE;
+	guiMultiPurposeLocatorLastUpdate = 0;
+	gbMultiPurposeLocatorCycles		= 0;
+	gbMultiPurposeLocatorFrame		= 0;
+	gfMultipurposeLocatorOn = TRUE;
 
-  gsMultiPurposeLocatorGridNo = sGridNo;
-  gbMultiPurposeLocatorLevel  = bLevel;
+	gsMultiPurposeLocatorGridNo = sGridNo;
+	gbMultiPurposeLocatorLevel	= bLevel;
 
-  if ( fSlideTo )
-  {
-  	// FIRST CHECK IF WE ARE ON SCREEN
-	  if ( GridNoOnScreen( sGridNo ) )
-	  {
-		  return;
-	  }
+	if ( fSlideTo )
+	{
+		// FIRST CHECK IF WE ARE ON SCREEN
+	if ( GridNoOnScreen( sGridNo ) )
+	{
+		return;
+	}
 
-	  // sGridNo here for DG compatibility
-	  gTacticalStatus.sSlideTarget = sGridNo;
-	  gTacticalStatus.sSlideReason = NOBODY;
+	// sGridNo here for DG compatibility
+	gTacticalStatus.sSlideTarget = sGridNo;
+	gTacticalStatus.sSlideReason = NOBODY;
 
-	  // Plot new path!
-	  gfPlotNewMovement = TRUE;
-  }
+	// Plot new path!
+	gfPlotNewMovement = TRUE;
+	}
 }
 
 
@@ -4029,14 +4023,14 @@ void HandleMultiPurposeLocator( )
 {
 	UINT32			uiClock;
 
-  if ( !gfMultipurposeLocatorOn )
-  {
-    return;
-  }
+	if ( !gfMultipurposeLocatorOn )
+	{
+	return;
+	}
 
 	// Update radio locator
 	uiClock = GetJA2Clock( );
-		
+
 	// Update frame values!
 	if ( ( uiClock - guiMultiPurposeLocatorLastUpdate ) > 80 )
 	{
@@ -4048,13 +4042,13 @@ void HandleMultiPurposeLocator( )
 		if ( gbMultiPurposeLocatorFrame == 5 )
 		{
 			gbMultiPurposeLocatorFrame = 0;
-      gbMultiPurposeLocatorCycles++;
+		gbMultiPurposeLocatorCycles++;
 		}
 
-    if ( gbMultiPurposeLocatorCycles == 8 )
-    { 
-      gfMultipurposeLocatorOn    = FALSE;
-    }
+	if ( gbMultiPurposeLocatorCycles == 8 )
+	{
+		gfMultipurposeLocatorOn	= FALSE;
+	}
 	}
 }
 
@@ -4067,10 +4061,10 @@ void RenderTopmostMultiPurposeLocator( )
 	INT16				sX, sY, sXPos, sYPos;
 	INT32				iBack;
 
-  if ( !gfMultipurposeLocatorOn )
-  {
-    return;
-  }
+	if ( !gfMultipurposeLocatorOn )
+	{
+	return;
+	}
 
 	ConvertGridNoToCenterCellXY( gsMultiPurposeLocatorGridNo, &sX, &sY );
 
@@ -4086,7 +4080,7 @@ void RenderTopmostMultiPurposeLocator( )
 	// Adjust for offset position on screen
 	sXPos -= gsRenderWorldOffsetX;
 	sYPos -= gsRenderWorldOffsetY;
-	
+
 	// Adjust for render height
 	sYPos += gsRenderHeight;
 
@@ -4100,12 +4094,12 @@ void RenderTopmostMultiPurposeLocator( )
 	sXPos -= 20;
 	sYPos -= 20;
 
-	iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos +40 ), (INT16)(sYPos + 40 ) ); 
+	iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos +40 ), (INT16)(sYPos + 40 ) );
 	if ( iBack != -1 )
 	{
 		SetBackgroundRectFilled( iBack );
 	}
 
-	BltVideoObjectFromIndex(  FRAME_BUFFER, guiRADIO, gbMultiPurposeLocatorFrame, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
+	BltVideoObjectFromIndex(	FRAME_BUFFER, guiRADIO, gbMultiPurposeLocatorFrame, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
 }
 

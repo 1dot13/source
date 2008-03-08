@@ -30,28 +30,28 @@ void Add3X3Pit( INT32 iMapIndex )
 	if( !gfEditMode )
 		ApplyMapChangesToMapTempFile( TRUE );
 	AddObjectToTail( iMapIndex + 159, REGWATERTEXTURE1 );
-	AddObjectToTail( iMapIndex -   1,	REGWATERTEXTURE2 );
+	AddObjectToTail( iMapIndex -	1,	REGWATERTEXTURE2 );
 	AddObjectToTail( iMapIndex - 161, REGWATERTEXTURE3 );
 	AddObjectToTail( iMapIndex + 160, REGWATERTEXTURE4 );
 	AddObjectToTail( iMapIndex,				REGWATERTEXTURE5 );
 	AddObjectToTail( iMapIndex - 160, REGWATERTEXTURE6 );
 	AddObjectToTail( iMapIndex + 161, REGWATERTEXTURE7 );
-	AddObjectToTail( iMapIndex +   1, REGWATERTEXTURE8 );
+	AddObjectToTail( iMapIndex +	1, REGWATERTEXTURE8 );
 	AddObjectToTail( iMapIndex - 159, REGWATERTEXTURE9 );
 	if( !gfEditMode )
 	{ //Add the exitgrids associated with the pit.
 		ExitGrid.ubGotoSectorX = (UINT8)gWorldSectorX;
 		ExitGrid.ubGotoSectorY = (UINT8)gWorldSectorY;
 		ExitGrid.ubGotoSectorZ = (UINT8)(gbWorldSectorZ+1);
-		ExitGrid.usGridNo = (UINT16)iMapIndex;
+		ExitGrid.sGridNo = (INT16)iMapIndex;
 		AddExitGridToWorld( iMapIndex + 159, &ExitGrid );
-		AddExitGridToWorld( iMapIndex -   1, &ExitGrid );
+		AddExitGridToWorld( iMapIndex -	1, &ExitGrid );
 		AddExitGridToWorld( iMapIndex - 161, &ExitGrid );
 		AddExitGridToWorld( iMapIndex + 160, &ExitGrid );
-		AddExitGridToWorld( iMapIndex,			 &ExitGrid );
+		AddExitGridToWorld( iMapIndex,			&ExitGrid );
 		AddExitGridToWorld( iMapIndex - 160, &ExitGrid );
 		AddExitGridToWorld( iMapIndex + 161, &ExitGrid );
-		AddExitGridToWorld( iMapIndex +   1, &ExitGrid );
+		AddExitGridToWorld( iMapIndex +	1, &ExitGrid );
 		AddExitGridToWorld( iMapIndex - 159, &ExitGrid );
 		RecompileLocalMovementCostsFromRadius( (INT16)iMapIndex, 2 );
 	}
@@ -68,12 +68,12 @@ void Add5X5Pit( INT32 iMapIndex )
 		ApplyMapChangesToMapTempFile( TRUE );
 	AddObjectToTail( iMapIndex + 318, REGWATERTEXTURE10 );
 	AddObjectToTail( iMapIndex + 158, REGWATERTEXTURE11 );
-	AddObjectToTail( iMapIndex -   2, REGWATERTEXTURE12 );
+	AddObjectToTail( iMapIndex -	2, REGWATERTEXTURE12 );
 	AddObjectToTail( iMapIndex - 162, REGWATERTEXTURE13 );
 	AddObjectToTail( iMapIndex - 322, REGWATERTEXTURE14 );
 	AddObjectToTail( iMapIndex + 319, REGWATERTEXTURE15 );
 	AddObjectToTail( iMapIndex + 159, REGWATERTEXTURE16 );
-	AddObjectToTail( iMapIndex -   1, REGWATERTEXTURE17 );
+	AddObjectToTail( iMapIndex -	1, REGWATERTEXTURE17 );
 	AddObjectToTail( iMapIndex - 161, REGWATERTEXTURE18 );
 	AddObjectToTail( iMapIndex - 321, REGWATERTEXTURE19 );
 	AddObjectToTail( iMapIndex + 320, REGWATERTEXTURE20 );
@@ -83,12 +83,12 @@ void Add5X5Pit( INT32 iMapIndex )
 	AddObjectToTail( iMapIndex - 320, REGWATERTEXTURE24 );
 	AddObjectToTail( iMapIndex + 321, REGWATERTEXTURE25 );
 	AddObjectToTail( iMapIndex + 161, REGWATERTEXTURE26 );
-	AddObjectToTail( iMapIndex +   1, REGWATERTEXTURE27 );
+	AddObjectToTail( iMapIndex +	1, REGWATERTEXTURE27 );
 	AddObjectToTail( iMapIndex - 159, REGWATERTEXTURE28 );
 	AddObjectToTail( iMapIndex - 319, REGWATERTEXTURE29 );
 	AddObjectToTail( iMapIndex + 322, REGWATERTEXTURE30 );
 	AddObjectToTail( iMapIndex + 162, REGWATERTEXTURE31 );
-	AddObjectToTail( iMapIndex +   2, REGWATERTEXTURE32 );
+	AddObjectToTail( iMapIndex +	2, REGWATERTEXTURE32 );
 	AddObjectToTail( iMapIndex - 158, REGWATERTEXTURE33 );
 	AddObjectToTail( iMapIndex - 318, REGWATERTEXTURE34 );
 	if( !gfEditMode )
@@ -96,30 +96,30 @@ void Add5X5Pit( INT32 iMapIndex )
 		ExitGrid.ubGotoSectorX = (UINT8)gWorldSectorX;
 		ExitGrid.ubGotoSectorY = (UINT8)gWorldSectorY;
 		ExitGrid.ubGotoSectorZ = (UINT8)(gbWorldSectorZ+1);
-		ExitGrid.usGridNo = (UINT16)iMapIndex;
+		ExitGrid.sGridNo = (INT16)iMapIndex;
 		AddExitGridToWorld( iMapIndex + 318, &ExitGrid );
 		AddExitGridToWorld( iMapIndex + 158, &ExitGrid );
-		AddExitGridToWorld( iMapIndex -   2, &ExitGrid );
+		AddExitGridToWorld( iMapIndex -	2, &ExitGrid );
 		AddExitGridToWorld( iMapIndex - 162, &ExitGrid );
 		AddExitGridToWorld( iMapIndex - 322, &ExitGrid );
 		AddExitGridToWorld( iMapIndex + 319, &ExitGrid );
 		AddExitGridToWorld( iMapIndex + 159, &ExitGrid );
-		AddExitGridToWorld( iMapIndex -   1, &ExitGrid );
+		AddExitGridToWorld( iMapIndex -	1, &ExitGrid );
 		AddExitGridToWorld( iMapIndex - 161, &ExitGrid );
 		AddExitGridToWorld( iMapIndex - 321, &ExitGrid );
 		AddExitGridToWorld( iMapIndex + 320, &ExitGrid );
 		AddExitGridToWorld( iMapIndex + 160, &ExitGrid );
-		AddExitGridToWorld( iMapIndex,			 &ExitGrid );
+		AddExitGridToWorld( iMapIndex,			&ExitGrid );
 		AddExitGridToWorld( iMapIndex - 160, &ExitGrid );
 		AddExitGridToWorld( iMapIndex - 320, &ExitGrid );
 		AddExitGridToWorld( iMapIndex + 321, &ExitGrid );
 		AddExitGridToWorld( iMapIndex + 161, &ExitGrid );
-		AddExitGridToWorld( iMapIndex +   1, &ExitGrid );
+		AddExitGridToWorld( iMapIndex +	1, &ExitGrid );
 		AddExitGridToWorld( iMapIndex - 159, &ExitGrid );
 		AddExitGridToWorld( iMapIndex - 319, &ExitGrid );
 		AddExitGridToWorld( iMapIndex + 322, &ExitGrid );
 		AddExitGridToWorld( iMapIndex + 162, &ExitGrid );
-		AddExitGridToWorld( iMapIndex +   2, &ExitGrid );
+		AddExitGridToWorld( iMapIndex +	2, &ExitGrid );
 		AddExitGridToWorld( iMapIndex - 158, &ExitGrid );
 		AddExitGridToWorld( iMapIndex - 318, &ExitGrid );
 		RecompileLocalMovementCostsFromRadius( (INT16)iMapIndex, 3 );
@@ -132,13 +132,13 @@ void Add5X5Pit( INT32 iMapIndex )
 void Remove3X3Pit( INT32 iMapIndex )
 {
 	RemoveAllObjectsOfTypeRange( iMapIndex + 159, REGWATERTEXTURE, REGWATERTEXTURE );
-	RemoveAllObjectsOfTypeRange( iMapIndex -   1,	REGWATERTEXTURE, REGWATERTEXTURE );
+	RemoveAllObjectsOfTypeRange( iMapIndex -	1,	REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex - 161, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex + 160, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex,				REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex - 160, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex + 161, REGWATERTEXTURE, REGWATERTEXTURE );
-	RemoveAllObjectsOfTypeRange( iMapIndex +   1, REGWATERTEXTURE, REGWATERTEXTURE );
+	RemoveAllObjectsOfTypeRange( iMapIndex +	1, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex - 159, REGWATERTEXTURE, REGWATERTEXTURE );
 	MarkWorldDirty();
 }
@@ -147,12 +147,12 @@ void Remove5X5Pit( INT32 iMapIndex )
 {
 	RemoveAllObjectsOfTypeRange( iMapIndex + 318, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex + 158, REGWATERTEXTURE, REGWATERTEXTURE );
-	RemoveAllObjectsOfTypeRange( iMapIndex -   2, REGWATERTEXTURE, REGWATERTEXTURE );
+	RemoveAllObjectsOfTypeRange( iMapIndex -	2, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex - 162, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex - 322, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex + 319, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex + 159, REGWATERTEXTURE, REGWATERTEXTURE );
-	RemoveAllObjectsOfTypeRange( iMapIndex -   1, REGWATERTEXTURE, REGWATERTEXTURE );
+	RemoveAllObjectsOfTypeRange( iMapIndex -	1, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex - 161, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex - 321, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex + 320, REGWATERTEXTURE, REGWATERTEXTURE );
@@ -162,12 +162,12 @@ void Remove5X5Pit( INT32 iMapIndex )
 	RemoveAllObjectsOfTypeRange( iMapIndex - 320, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex + 321, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex + 161, REGWATERTEXTURE, REGWATERTEXTURE );
-	RemoveAllObjectsOfTypeRange( iMapIndex +   1, REGWATERTEXTURE, REGWATERTEXTURE );
+	RemoveAllObjectsOfTypeRange( iMapIndex +	1, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex - 159, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex - 319, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex + 322, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex + 162, REGWATERTEXTURE, REGWATERTEXTURE );
-	RemoveAllObjectsOfTypeRange( iMapIndex +   2, REGWATERTEXTURE, REGWATERTEXTURE );
+	RemoveAllObjectsOfTypeRange( iMapIndex +	2, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex - 158, REGWATERTEXTURE, REGWATERTEXTURE );
 	RemoveAllObjectsOfTypeRange( iMapIndex - 318, REGWATERTEXTURE, REGWATERTEXTURE );
 	MarkWorldDirty();
@@ -178,13 +178,13 @@ void AddAllPits()
 	UINT32 i;
 	for( i = 0; i < guiNumWorldItems; i++ )
 	{
-		if( gWorldItems[ i ].o.usItem == ACTION_ITEM )
+		if( gWorldItems[ i ].object.usItem == ACTION_ITEM )
 		{
-			if( gWorldItems[ i ].o.ItemData.Trigger.bActionValue == ACTION_ITEM_SMALL_PIT )
-				Add3X3Pit( gWorldItems[ i ].sGridNo );		
-			else if( gWorldItems[ i ].o.ItemData.Trigger.bActionValue == ACTION_ITEM_LARGE_PIT )
+			if( gWorldItems[ i ].object[0]->data.misc.bActionValue == ACTION_ITEM_SMALL_PIT )
+				Add3X3Pit( gWorldItems[ i ].sGridNo );
+			else if( gWorldItems[ i ].object[0]->data.misc.bActionValue == ACTION_ITEM_LARGE_PIT )
 				Add5X5Pit( gWorldItems[ i ].sGridNo );
-		}	
+		}
 	}
 }
 
@@ -193,13 +193,13 @@ void RemoveAllPits()
 	UINT32 i;
 	for( i = 0; i < guiNumWorldItems; i++ )
 	{
-		if( gWorldItems[ i ].o.usItem == ACTION_ITEM )
+		if( gWorldItems[ i ].object.usItem == ACTION_ITEM )
 		{
-			if( gWorldItems[ i ].o.ItemData.Trigger.bActionValue == ACTION_ITEM_SMALL_PIT )
-				Remove3X3Pit( gWorldItems[ i ].sGridNo );		
-			else if( gWorldItems[ i ].o.ItemData.Trigger.bActionValue == ACTION_ITEM_LARGE_PIT )
+			if( gWorldItems[ i ].object[0]->data.misc.bActionValue == ACTION_ITEM_SMALL_PIT )
+				Remove3X3Pit( gWorldItems[ i ].sGridNo );
+			else if( gWorldItems[ i ].object[0]->data.misc.bActionValue == ACTION_ITEM_LARGE_PIT )
 				Remove5X5Pit( gWorldItems[ i ].sGridNo );
-		}	
+		}
 	}
 }
 
@@ -214,8 +214,8 @@ void SearchForOtherMembersWithinPitRadiusAndMakeThemFall( INT16 sGridNo, INT16 s
 	for( y = -sRadius; y <= sRadius; y++ ) for( x = -sRadius; x <= sRadius; x++ )
 	{
 		sNewGridNo = sGridNo + y * WORLD_COLS + x;
-		//Validate gridno location, and check if there are any mercs here.  If there are
-		//any mercs, we want them to fall below.  The exitgrid already exists at this location
+		//Validate gridno location, and check if there are any mercs here.	If there are
+		//any mercs, we want them to fall below.	The exitgrid already exists at this location
 		if( GridNoOnVisibleWorldTile( sNewGridNo ) )
 		{
 
@@ -228,10 +228,10 @@ void SearchForOtherMembersWithinPitRadiusAndMakeThemFall( INT16 sGridNo, INT16 s
 				// Set data to look for exit grid....
 				pSoldier = MercPtrs[ ubID ];
 
-				pSoldier->uiPendingActionData4 = sNewGridNo;
+				pSoldier->aiData.uiPendingActionData4 = sNewGridNo;
 
-				EVENT_InitNewSoldierAnim( pSoldier, FALL_INTO_PIT, 0 , FALSE );
-			}			
+				pSoldier->EVENT_InitNewSoldierAnim( FALL_INTO_PIT, 0 , FALSE );
+			}
 		}
 	}
 }
@@ -242,14 +242,14 @@ void HandleFallIntoPitFromAnimation( UINT8 ubID )
 	EXITGRID ExitGrid;
 	INT16 sPitGridNo;
 	// OK, get exit grid...
-	
-	sPitGridNo = (INT16)pSoldier->uiPendingActionData4;
+
+	sPitGridNo = (INT16)pSoldier->aiData.uiPendingActionData4;
 
 	GetExitGrid( sPitGridNo, &ExitGrid );
 
 	// Given exit grid, make buddy move to next sector....
 	pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
-	pSoldier->usStrategicInsertionData = ExitGrid.usGridNo;
+	pSoldier->usStrategicInsertionData = ExitGrid.sGridNo;
 
 	pSoldier->sSectorX = ExitGrid.ubGotoSectorX;
 	pSoldier->sSectorY = ExitGrid.ubGotoSectorY;
@@ -260,6 +260,6 @@ void HandleFallIntoPitFromAnimation( UINT8 ubID )
 
 	HandleSoldierLeavingSectorByThemSelf( pSoldier );
 
-	SetSoldierHeight( pSoldier, 0 );
+	pSoldier->SetSoldierHeight( 0 );
 
-}	
+}

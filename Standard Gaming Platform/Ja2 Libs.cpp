@@ -1,4 +1,4 @@
-
+#include "LibraryDataBase.h"
 LibraryInitHeader gGameLibaries[ ] = 
 { 
 		//Library Name					Can be	Init at start
@@ -15,18 +15,18 @@ LibraryInitHeader gGameLibaries[ ] =
 	{ "Fonts.slf",						FALSE, TRUE },
 	{ "Interface.slf",				FALSE, TRUE },
 	{ "Laptop.slf",						FALSE, TRUE },
-	{ "Maps.slf",							TRUE,  TRUE },
+	{ "Maps.slf",							TRUE,	TRUE },
 	{ "MercEdt.slf",					FALSE, TRUE },
-	{ "Music.slf",						TRUE,  TRUE },
-	{ "Npc_Speech.slf",				TRUE,	 TRUE },
+	{ "Music.slf",						TRUE,	TRUE },
+	{ "Npc_Speech.slf",				TRUE,	TRUE },
 	{ "NpcData.slf",					FALSE, TRUE },
 	{ "RadarMaps.slf",				FALSE, TRUE },
 	{ "Sounds.slf",						FALSE, TRUE },
-	{ "Speech.slf",						TRUE,  TRUE },
+	{ "Speech.slf",						TRUE,	TRUE },
 //	{ "TileCache.slf",				FALSE, TRUE },
-	{ "TileSets.slf",					TRUE,  TRUE },
-	{ "LoadScreens.slf",			TRUE,  TRUE },
-	{ "Intro.slf",						TRUE,  TRUE },
+	{ "TileSets.slf",					TRUE,	TRUE },
+	{ "LoadScreens.slf",			TRUE,	TRUE },
+	{ "Intro.slf",						TRUE,	TRUE },
 
 #ifdef GERMAN
 	{ "German.slf",						FALSE, TRUE },

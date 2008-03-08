@@ -26,7 +26,7 @@
 //
 //**************************************************************************
 
-#define ErrFlicLibAccess  -1
+#define ErrFlicLibAccess	-1
 #define ErrFlicAccess -2
 #define ErrFlicSeek -3
 #define ErrFlicRead -4
@@ -76,7 +76,7 @@ typedef struct
 	Ushort	frames;		/* Number of frames in flic. */
 	Ushort	width;		/* Flic width in pixels. */
 	Ushort	height;		/* Flic height in pixels. */
-	Ushort	depth;		/* Bits per pixel.  (Always 8 now.) */
+	Ushort	depth;		/* Bits per pixel.	(Always 8 now.) */
 	Ushort	flags;		/* FLI_FINISHED | FLI_LOOPED ideally. */
 	Long 		speed;		/* Delay between frames. */
 	Short		reserved1;	/* Set to zero. */
@@ -104,38 +104,38 @@ typedef struct
 {
 	Pixel *pixels;	/* Set to AOOO:0000 for hardware. */
 	int width, height;	/* Dimensions of screen. (320x200) */
-        char change_palette;  /*True means that the flic changes the palette */
+		char change_palette;	/*True means that the flic changes the palette */
 } FlicScreen;					/* Device specific screen type. */
 
 typedef struct
 {
-  Ulong max_loop_count,
+	Ulong max_loop_count,
 	loop_count;
-  Ushort max_frame_index,
-         frame_index;
+	Ushort max_frame_index,
+		 frame_index;
 } FlicFrameStatus;
 
 typedef struct
 {
-//  lmlib_t *names;
-  long offset,
-       length;
+//	lmlib_t *names;
+	long offset,
+		length;
 }FlicLib;
 
 typedef struct _Flic
 {
-  FlicHead head;	/* Flic file header. */
-  FILE *file;		/* File handle. */
-  const char *name;		/* Name from flic_open.  Helps error reporting. */
-  int xoff,yoff;	/* Offset to display flic at. */
+	FlicHead head;	/* Flic file header. */
+	FILE *file;		/* File handle. */
+	const char *name;		/* Name from flic_open.	Helps error reporting. */
+	int xoff,yoff;	/* Offset to display flic at. */
 
-  FlicFrameStatus status;
-  FlicScreen screen;
-  FlicLib lib;
+	FlicFrameStatus status;
+	FlicScreen screen;
+	FlicLib lib;
 
-  FlicOpenFunc *open;
-  FlicCheckFrameFunc *check_frame;
-  FlicSeekFunc       *seek;
+	FlicOpenFunc *open;
+	FlicCheckFrameFunc *check_frame;
+	FlicSeekFunc		*seek;
 
 } Flic;
 
@@ -144,7 +144,7 @@ typedef struct _Flic
 #define FLC_TYPE 0xAF12u	/* Variable rez .FLC type ID */
 	/* Values for FlicHead.flags */
 #define FLI_FINISHED 0x0001
-#define FLI_LOOPED	 0x0002
+#define FLI_LOOPED	0x0002
 
 	/* Optional Prefix Header */
 typedef struct
@@ -156,7 +156,7 @@ typedef struct
 } PrefixHead;
 
 /* Value for PrefixHead.type */
-#define PREFIX_TYPE  0xF100u
+#define PREFIX_TYPE	0xF100u
 
 /* Frame Header */
 typedef struct
@@ -205,9 +205,9 @@ void		FlicSetOrigin(Flic *flic, unsigned x, unsigned y);
 ErrCode	FlicPlay(Flic *flic, Ulong max_loop);
 void		FlicClose(Flic *flic);
 void		FlicSeekFirst(Flic *flic);
-int		  FlicAdvance(Flic *flic, BOOL fDecode);
-int		  FlicAdvanceNoDecode(Flic *flic);
-int     FlicStart(char *filename, int width, int height, char *buffer, Flic *flic, char usepal);
+int		FlicAdvance(Flic *flic, BOOL fDecode);
+int		FlicAdvanceNoDecode(Flic *flic);
+int	 FlicStart(char *filename, int width, int height, char *buffer, Flic *flic, char usepal);
 void		FlicStop(Flic *flic);
 ErrCode FlicGetStats(char *filename, int width, int height, Flic *flic, int *piBufferSize, int *piColourPalSize);
 ErrCode	FlicGetColourPalette(CHAR *filename, int width, int height, CHAR **ppBuffer, INT *piNumColours);

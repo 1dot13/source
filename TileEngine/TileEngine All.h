@@ -94,7 +94,7 @@
 #include "math.h"
 #include <stdlib.h>
 #include <errno.h>
-#include "input.h"  
+#include "input.h"	
 #include "video.h"
 #include "vobject_blitters.h"
 #include "edit_sys.h"

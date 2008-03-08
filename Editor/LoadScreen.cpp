@@ -948,6 +948,8 @@ UINT32 ProcessFileIO()
 				CreateMessageBox( L" Error loading file.  Try another filename?" );
 				return LOADSAVE_SCREEN;
 			}
+			//ADB these are NOT set yet! but they need to be, duh
+			CompileWorldMovementCosts();
 			SetGlobalSectorValues( gzFilename );
 
 			RestoreFontSettings();
@@ -958,9 +960,9 @@ UINT32 ProcessFileIO()
 			//UpdateMercsInSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 
 			AddSoldierInitListTeamToWorld( ENEMY_TEAM,		255 );
-			AddSoldierInitListTeamToWorld( CREATURE_TEAM, 255 );
+			AddSoldierInitListTeamToWorld( CREATURE_TEAM,	255 );
 			AddSoldierInitListTeamToWorld( MILITIA_TEAM,	255 );
-			AddSoldierInitListTeamToWorld( CIV_TEAM,			255 );
+			AddSoldierInitListTeamToWorld( CIV_TEAM,		255 );
 			iCurrentAction = ACTION_NULL;
 			gbCurrentFileIOStatus = IOSTATUS_NONE;
 			if( !gfCaves && !gfBasement )

@@ -23,7 +23,7 @@
 
 #ifdef JA2EDITOR
 
-#include "quantize wrap.h" 
+#include "quantize wrap.h"
 
 #define		MINIMAP_X_SIZE			88
 #define		MINIMAP_Y_SIZE			44
@@ -61,7 +61,7 @@ UINT32	MapUtilScreenHandle( )
 {
 	static INT16		fNewMap = TRUE;
 	static INT16		sFileNum = 0;
-  InputAtom  InputEvent;
+	InputAtom	InputEvent;
 	GETFILESTRUCT FileInfo;
 	static FDLG_LIST *FListNode;
 	static INT16 sFiles = 0, sCurFile = 0;
@@ -85,7 +85,7 @@ UINT32	MapUtilScreenHandle( )
 	INT32						cnt;
 
 	INT16 sX1, sX2, sY1, sY2, sTop, sBottom, sLeft, sRight;
-	
+
 
 	FLOAT		dX, dY, dStartX, dStartY;
 	INT32		iX, iY, iSubX1, iSubY1, iSubX2, iSubY2, iWindowX, iWindowY, iCount;
@@ -102,7 +102,7 @@ UINT32	MapUtilScreenHandle( )
 	if ( fNewMap )
 	{
 		fNewMap = FALSE;
-      
+
 		// Create render buffer
 		GetCurrentVideoSettings( &usWidth, &usHeight, &ubBitDepth );
 		vs_desc.fCreateFlags = VSURFACE_CREATE_DEFAULT | VSURFACE_SYSTEM_MEM_USAGE;
@@ -132,7 +132,7 @@ UINT32	MapUtilScreenHandle( )
 
 		//Allocate 24 bit Surface
 		p24BitValues = (RGBValues *) MemAlloc( MINIMAP_X_SIZE * MINIMAP_Y_SIZE * sizeof( RGBValues ) );
-		p24BitDest	 = (UINT8*)p24BitValues;
+		p24BitDest	= (UINT8*)p24BitValues;
 
 
 		//Allocate 8-bit surface
@@ -153,7 +153,7 @@ UINT32	MapUtilScreenHandle( )
 	//OK, we are here, now loop through files
 	if ( sCurFile == sFiles || FListNode== NULL )
 	{
-    gfProgramIsRunning = FALSE;
+	gfProgramIsRunning = FALSE;
 		return( MAPUTILITY_SCREEN );
 	}
 
@@ -170,10 +170,10 @@ UINT32	MapUtilScreenHandle( )
 
 	gfOverheadMapDirty = TRUE;
 
-	RenderOverheadMap( 0, (WORLD_COLS / 2), iOffsetHorizontal, 
+	RenderOverheadMap( 0, (WORLD_COLS / 2), iOffsetHorizontal,
 		iOffsetVertical, 640 + iOffsetHorizontal, 320 + iOffsetVertical, FALSE );
 
-  TrashOverheadMap( );
+	TrashOverheadMap( );
 
 	// OK, NOW PROCESS OVERHEAD MAP ( SHOUIDL BE ON THE FRAMEBUFFER )
 	gdXStep	= (float)640/(float)88;
@@ -185,7 +185,7 @@ UINT32	MapUtilScreenHandle( )
 	{
 		CalculateRestrictedMapCoords( NORTH, &sX1, &sY1, &sX2, &sTop, iOffsetHorizontal + 640, iOffsetVertical + 320 );
 		CalculateRestrictedMapCoords( SOUTH, &sX1, &sBottom, &sX2, &sY2, iOffsetHorizontal + 640, iOffsetVertical + 320 );
-		CalculateRestrictedMapCoords( WEST,	 &sX1, &sY1, &sLeft, &sY2, iOffsetHorizontal + 640, iOffsetVertical + 320 );
+		CalculateRestrictedMapCoords( WEST,	&sX1, &sY1, &sLeft, &sY2, iOffsetHorizontal + 640, iOffsetVertical + 320 );
 		CalculateRestrictedMapCoords( EAST, &sRight, &sY1, &sX2, &sY2, iOffsetHorizontal + 640, iOffsetVertical + 320 );
 
 		gdXStep	= (float)( sRight - sLeft )/(float)88;
@@ -291,7 +291,7 @@ UINT32	MapUtilScreenHandle( )
 		UINT16 usLineColor;
 
 		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, 640, 480 );
-		
+
 		for ( cnt = 0; cnt < 256; cnt++ )
 		{
 			usLineColor = Get16BPPColor( FROMRGB( pPalette[ cnt ].peRed, pPalette[ cnt ].peGreen, pPalette[ cnt ].peBlue ) );
@@ -320,19 +320,19 @@ UINT32	MapUtilScreenHandle( )
 
 	SetFont( TINYFONT1 );
 	SetFontBackground( FONT_MCOLOR_BLACK );
-	SetFontForeground( FONT_MCOLOR_DKGRAY );				
+	SetFontForeground( FONT_MCOLOR_DKGRAY );
 	mprintf( 10, 340, L"Writing radar image %S", zFilename2 );
 
 	mprintf( 10, 350, L"Using tileset %s", gTilesets[ giCurrentTilesetID ].zName );
 
 	InvalidateScreen( );
 
-  while (DequeueEvent(&InputEvent) == TRUE)
-  {
-      if ((InputEvent.usEvent == KEY_DOWN)&&(InputEvent.usParam == ESC))
-      { // Exit the program
-        gfProgramIsRunning = FALSE;
-      }
+	while (DequeueEvent(&InputEvent) == TRUE)
+	{
+		if ((InputEvent.usEvent == KEY_DOWN)&&(InputEvent.usParam == ESC))
+		{ // Exit the program
+		gfProgramIsRunning = FALSE;
+		}
 	}
 
 	// Set next

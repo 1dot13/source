@@ -35,7 +35,7 @@ enum{
 
 // ATE: Added so we can have no current squad
 // happens in we move off sector via tactical, but nobody is left!
-#define NO_CURRENT_SQUAD  NUMBER_OF_SQUADS
+#define NO_CURRENT_SQUAD	NUMBER_OF_SQUADS
 
 
 // ptrs to soldier types of squads and their members
@@ -90,7 +90,7 @@ BOOLEAN SectorSquadIsIn(INT8 bSquadValue, INT16 *sMapX, INT16 *sMapY, INT16 *sMa
 void RebuildCurrentSquad( void );
 
 // copy path of squad to character
-BOOLEAN CopyPathOfSquadToCharacter(  SOLDIERTYPE *pCharacter, INT8 bSquadValue );
+BOOLEAN CopyPathOfSquadToCharacter(	SOLDIERTYPE *pCharacter, INT8 bSquadValue );
 
 // copy path from character back to squad
 BOOLEAN CopyPathOfCharacterToSquad( SOLDIERTYPE *pCharacter, INT8 bSquadValue );
@@ -100,6 +100,9 @@ INT32 CurrentSquad( void );
 
 // add character to unique squad (returns the squad #, -1 if failed)
 INT8 AddCharacterToUniqueSquad( SOLDIERTYPE *pCharacter );
+
+// resort the squad by ubID
+void SortSquadByID( INT8 bSquadValue );
 
 // is this squad empty?
 BOOLEAN SquadIsEmpty( INT8 bSquadValue );
@@ -118,7 +121,7 @@ void SetDefaultSquadOnSectorEntry( BOOLEAN fForce );
 INT32 GetLastSquadActive( void );
 
 // set squads between sector position
-void SetSquadPositionBetweenSectors( UINT8 ubNextX, UINT8 ubNextY, UINT8 ubPrevX, UINT8 ubPrevY, UINT32 uiTraverseTime, UINT32 uiArriveTime, UINT8 ubSquadValue  );
+void SetSquadPositionBetweenSectors( UINT8 ubNextX, UINT8 ubNextY, UINT8 ubPrevX, UINT8 ubPrevY, UINT32 uiTraverseTime, UINT32 uiArriveTime, UINT8 ubSquadValue	);
 
 // get squads between sector positions and times
 void GetSquadPosition( UINT8 *ubNextX, UINT8 *ubNextY, UINT8 *ubPrevX, UINT8 *ubPrevY, UINT32 *uiTraverseTime, UINT32 *uiArriveTime, UINT8 ubSquadValue );
@@ -144,7 +147,7 @@ BOOLEAN IsSquadInSector( SOLDIERTYPE *pSoldier, UINT8 ubSquad );
 // is any merc on squad asleep?
 BOOLEAN IsAnyMercOnSquadAsleep( UINT8 ubSquadValue );
 
-// is therea  dead guy here
+// is therea	dead guy here
 BOOLEAN IsDeadGuyInThisSquadSlot( INT8 bSlotId, INT8 bSquadValue , INT8 *bNumberOfDeadGuysSoFar );
 
 // dead soldier was on squad
@@ -153,7 +156,7 @@ BOOLEAN SoldierIsDeadAndWasOnSquad( SOLDIERTYPE *pSoldier, INT8 bSquadValue );
 // now reset the table for these mercs
 BOOLEAN ResetDeadSquadMemberList( INT32 iSquadValue );
 
-// this passed  soldier on the current squad int he tactical map
+// this passed	soldier on the current squad int he tactical map
 BOOLEAN IsMercOnCurrentSquad( SOLDIERTYPE *pSoldier );
 
 // is this squad filled up?

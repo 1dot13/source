@@ -241,25 +241,25 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 		//		"GERMAN\\IMPSymbol_German.sti"
 
 		#if   defined( DUTCH )
-		  sprintf( zLanguage, "DUTCH" );
+		  sprintf( (char *)zLanguage, "DUTCH" );
 		#elif defined( FRENCH )
-		  sprintf( zLanguage, "FRENCH" );
+		  sprintf( (char *)zLanguage, "FRENCH" );
 		#elif defined( GERMAN )
-		  sprintf( zLanguage, "GERMAN" );
+		  sprintf( (char *)zLanguage, "GERMAN" );
 		#elif defined( ITALIAN )
-		  sprintf( zLanguage, "ITALIAN" );
+		  sprintf( (char *)zLanguage, "ITALIAN" );
 		#elif defined( JAPANESE )
-		  sprintf( zLanguage, "JAPANESE" );
+		  sprintf( (char *)zLanguage, "JAPANESE" );
 		#elif defined( KOREAN )
-		  sprintf( zLanguage, "KOREAN" );
+		  sprintf( (char *)zLanguage, "KOREAN" );
 		#elif defined( POLISH )
-		  sprintf( zLanguage, "POLISH" );
+		  sprintf( (char *)zLanguage, "POLISH" );
 		#elif defined( RUSSIAN )
 		  sprintf( (char *)zLanguage, "RUSSIAN" );
 		#elif defined( SPANISH )
-		  sprintf( zLanguage, "SPANISH" );
+		  sprintf( (char *)zLanguage, "SPANISH" );
 		#elif defined( TAIWANESE )
-		  sprintf( zLanguage, "TAIWANESE" );
+		  sprintf( (char *)zLanguage, "TAIWANESE" );
 		#endif
 
 //SB: Also check for russian Gold version, like English

@@ -31,8 +31,8 @@ UINT8 ubColorTables[HVOBJECT_SHADE_TABLES+3][256];
 UINT16	IntensityTable[65536];
 UINT16	ShadeTable[65536];
 UINT16	White16BPPPalette[ 256 ];
-FLOAT   guiShadePercent = (FLOAT)0.48;
-FLOAT   guiBrightPercent = (FLOAT)1.1;
+FLOAT	guiShadePercent = (FLOAT)0.48;
+FLOAT	guiBrightPercent = (FLOAT)1.1;
 
 BOOLEAN ShadesCalculateTables(SGPPaletteEntry *p8BPPPalette)
 {
@@ -41,7 +41,7 @@ UINT32	uiCount;
 		// Green palette
 		ShadesCalculatePalette(p8BPPPalette, Shaded8BPPPalettes[0], 0, 255, 0, TRUE);
 		// Blue palette
-		ShadesCalculatePalette(p8BPPPalette, Shaded8BPPPalettes[HVOBJECT_SHADE_TABLES],  0, 0, 255, TRUE);
+		ShadesCalculatePalette(p8BPPPalette, Shaded8BPPPalettes[HVOBJECT_SHADE_TABLES],	0, 0, 255, TRUE);
 		// Yellow palette
 		ShadesCalculatePalette(p8BPPPalette, Shaded8BPPPalettes[HVOBJECT_SHADE_TABLES+1], 255, 255, 0, TRUE);
 		// Red palette
@@ -150,19 +150,19 @@ DoNextIndex:
 		xor		bx,bx
 
 NextColor:
-		xor		ah,ah                       ; Calc delta between shaded color
+		xor		ah,ah						; Calc delta between shaded color
 		mov		al,[edi]										; and a color in the orig palette.
 		mov		bl,[esi]										; Formula:
-		sub		ax,bx                       ;  Delta = abs(red-origred) +
-		or		ax,ax												;          abs(green-origgreen) +
+		sub		ax,bx						;	Delta = abs(red-origred) +
+		or		ax,ax												;			abs(green-origgreen) +
 		jns		NC1
 		neg		ax
-NC1:mov		dx,ax                       ;          abs(blue-origblue)
+NC1:mov		dx,ax						;			abs(blue-origblue)
 		xor		ah,ah
 		mov		al,[edi+1]
 		mov		bl,[esi+1]
 		sub		ax,bx
-		or		ax,ax												;          abs(green-origgreen) +
+		or		ax,ax												;			abs(green-origgreen) +
 		jns		NC2
 		neg		ax
 NC2:add		dx,ax
@@ -170,21 +170,21 @@ NC2:add		dx,ax
 		mov		al,[edi+2]
 		mov		bl,[esi+2]
 		sub		ax,bx
-		or		ax,ax												;          abs(green-origgreen) +
+		or		ax,ax												;			abs(green-origgreen) +
 		jns		NC3
 		neg		ax
 NC3:add		dx,ax
 
 		cmp		dx,usCurDelta								; If delta < old delta
 		jae		NotThisCol									;	Save this delta and it's
-		mov		ax,256                      ;	palette index
+		mov		ax,256						;	palette index
 		mov		[usCurDelta],dx
-		sub   ax,cx
+		sub	ax,cx
 		mov		[usCurIndex],ax
 NotThisCol:
 		add		edi,4												; Try next color in orginal pal
 		dec		cx
-		jnz   NextColor
+		jnz	NextColor
 
 		pop		ebx
 		mov		ax,usCurIndex								; By now, usCurIndex holds pal index
@@ -241,7 +241,7 @@ void BuildIntensityTable(void)
 {
 	UINT16 red, green, blue = 0;
 	UINT16 index = 0;
-	FLOAT  dShadedPercent = (FLOAT)0.80;
+	FLOAT	dShadedPercent = (FLOAT)0.80;
 
 
 

@@ -6,7 +6,7 @@
 	#include "wcheck.h"
 	#include "stdlib.h"
 	#include "debug.h"
-	#include "soldier control.h"
+	//#include "soldier control.h"
 	#include "weapons.h"
 	#include "cursor control.h"
 	#include "cursors.h"
@@ -18,6 +18,11 @@
 	#include "spread burst.h"
 	#include "points.h"
 #endif
+
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
+
 
 
 BURST_LOCATIONS			gsBurstLocations[ MAX_BURST_LOCATIONS ];
@@ -55,7 +60,7 @@ void InternalAccumulateBurstLocation( INT16 sGridNo )
 	}
 }
 
-//Madd: to add a bit more usefulness to spread fire, I'm making it so that 
+//Madd: to add a bit more usefulness to spread fire, I'm making it so that
 //it will automatically latch onto enemies within iSearchRange tiles of the mouse drag.
 void AccumulateBurstLocation( INT16 sGridNo )
 {
@@ -71,19 +76,19 @@ void AccumulateBurstLocation( INT16 sGridNo )
 
 		if (pTarget)
 		{
-			InternalAccumulateBurstLocation(sGridNo);			
-			foundTarget = TRUE;	
+			InternalAccumulateBurstLocation(sGridNo);
+			foundTarget = TRUE;
 		}
 		//let's now look around this square - maybe there are some adjacent enemies we can latch onto
 
 		// stay away from the edges
 
 		// determine maximum horizontal limits
-		sMaxLeft  = min( iSearchRange, (sGridNo % MAXCOL));
+		sMaxLeft	= min( iSearchRange, (sGridNo % MAXCOL));
 		sMaxRight = min( iSearchRange, MAXCOL - ((sGridNo % MAXCOL) + 1));
 
 		// determine maximum vertical limits
-		sMaxUp   = min( iSearchRange, (sGridNo / MAXROW));
+		sMaxUp	= min( iSearchRange, (sGridNo / MAXROW));
 		sMaxDown = min( iSearchRange, MAXROW - ((sGridNo / MAXROW) + 1));
 
 		// reset the "reachable" flags in the region we're looking at
@@ -103,9 +108,9 @@ void AccumulateBurstLocation( INT16 sGridNo )
 					pTarget = SimpleFindSoldier(sAdjacentGridNo, 1); //try on a roof
 
 				if (pTarget)
-				{		
+				{
 					InternalAccumulateBurstLocation(sAdjacentGridNo); //there's somebody there! let's latch onto him
-					foundTarget = TRUE;	
+					foundTarget = TRUE;
 				}
 			}
 		}
@@ -144,7 +149,7 @@ void PickBurstLocations( SOLDIERTYPE *pSoldier )
 				pSoldier->bDoAutofire++;
 				sAPCosts = CalcTotalAPsToAttack( pSoldier, gsBurstLocations[0].sGridNo, TRUE, 0);
 			}
-			while(EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) && pSoldier->inv[ pSoldier->ubAttackingHand ].ItemData.Gun.ubGunShotsLeft >= pSoldier->bDoAutofire && gbNumBurstLocations >= pSoldier->bDoAutofire);
+			while(EnoughPoints( pSoldier, sAPCosts, 0, FALSE ) && pSoldier->inv[ pSoldier->ubAttackingHand ][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire && gbNumBurstLocations >= pSoldier->bDoAutofire);
 			pSoldier->bDoAutofire--;
 
 			ubShotsPerBurst = pSoldier->bDoAutofire;
@@ -165,7 +170,7 @@ void PickBurstLocations( SOLDIERTYPE *pSoldier )
 
 	if (ubShotsPerBurst == 1)
 	{
-		pSoldier->fDoSpread = FALSE;
+		pSoldier->flags.fDoSpread = FALSE;
 		return;
 	}
 
@@ -299,15 +304,16 @@ void RenderAccumulatedBurstLocations( )
 			//sXPos -= 10;
 			//sYPos -= 10;
 
-			iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos +40 ), (INT16)(sYPos + 40 ) ); 
+			iBack = RegisterBackgroundRect( BGND_FLAG_SINGLE, NULL, sXPos, sYPos, (INT16)(sXPos +40 ), (INT16)(sYPos + 40 ) );
 			if ( iBack != -1 )
 			{
 				SetBackgroundRectFilled( iBack );
 			}
 
-			BltVideoObject(  FRAME_BUFFER, hVObject, 1, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObject(	FRAME_BUFFER, hVObject, 1, sXPos, sYPos, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 	}
 }
+
 
 

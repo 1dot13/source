@@ -22,21 +22,22 @@ BOOLEAN			gfResetInputCheck = FALSE;
 BOOLEAN			gfGlobalError			= FALSE;
 
 UINT32	guiGameCycleCounter = 0;
-CHAR8	gubErrorText[ 200 ];
+CHAR8	gubErrorText[ 512 ];//for long filenames
 
-BOOLEAN  SET_ERROR( const STR8 String, ...)
+BOOLEAN	SET_ERROR( const STR8 String, ...)
 {
-  va_list  ArgPtr;
+	va_list	ArgPtr;
 
-  va_start(ArgPtr, String);
-  vsprintf( gubErrorText, String, ArgPtr);
-  va_end(ArgPtr);
+	va_start(ArgPtr, String);
+	vsprintf( gubErrorText, String, ArgPtr);
+	va_end(ArgPtr);
 
 	SetPendingNewScreen( ERROR_SCREEN );
 
-	gfGlobalError = TRUE; 
-	
-	return( FALSE );	
+	gfGlobalError = TRUE;
+
+	return( FALSE );
 }
+
 
 

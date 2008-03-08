@@ -200,7 +200,7 @@ BOOLEAN IsDoorVisibleAtGridNo( INT16 sGridNo )
 
 		}
 
-	}	
+	}
 
 	// Return true here, even if she does not exist
 	return( TRUE );
@@ -217,7 +217,7 @@ BOOLEAN DoesGridnoContainHiddenStruct( INT16 sGridNo, BOOLEAN *pfVisible )
 
 	//if ( pStructure != NULL )
 	//{
-	//	if ( !(gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS)  )
+	//	if ( !(gpWorldLevelData[ sGridNo ].uiFlags & MAPELEMENT_REVEALED ) && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS)	)
 	//	{
 	//		*pfVisible = FALSE;
 	//	}
@@ -263,7 +263,7 @@ BOOLEAN	WallExistsOfTopLeftOrientation( INT16 sGridNo )
 		{
 			return( TRUE );
 		}
-		
+
 		pStructure = FindNextStructure( pStructure, STRUCTURE_WALL );
 
 	}
@@ -310,7 +310,7 @@ BOOLEAN WallOrClosedDoorExistsOfTopLeftOrientation( INT16 sGridNo )
 				return( TRUE );
 			}
 		}
-		
+
 		pStructure = FindNextStructure( pStructure, STRUCTURE_WALLSTUFF );
 
 	}
@@ -335,7 +335,7 @@ BOOLEAN WallOrClosedDoorExistsOfTopRightOrientation( INT16 sGridNo )
 				return( TRUE );
 			}
 		}
-		
+
 		pStructure = FindNextStructure( pStructure, STRUCTURE_WALLSTUFF );
 
 	}
@@ -359,7 +359,7 @@ BOOLEAN OpenRightOrientedDoorWithDoorOnRightOfEdgeExists( INT16 sGridNo )
 				return( TRUE );
 			}
 		}
-		
+
 		pStructure = FindNextStructure( pStructure, STRUCTURE_ANYDOOR );
 
 	}
@@ -383,7 +383,7 @@ BOOLEAN OpenLeftOrientedDoorWithDoorOnLeftOfEdgeExists( INT16 sGridNo )
 				return( TRUE );
 			}
 		}
-		
+
 		pStructure = FindNextStructure( pStructure, STRUCTURE_ANYDOOR );
 
 	}
@@ -406,7 +406,7 @@ STRUCTURE	* FindCuttableWireFenceAtGridNo( INT16 sGridNo )
 BOOLEAN CutWireFence( INT16 sGridNo )
 {
 	STRUCTURE * pStructure;
-	
+
 	pStructure = FindCuttableWireFenceAtGridNo( sGridNo );
 	if (pStructure)
 	{
@@ -441,7 +441,7 @@ BOOLEAN IsRepairableStructAtGridNo( INT16 sGridNo, UINT8 *pubID )
 
 	if ( ubMerc != NOBODY )
 	{
-		if ( MercPtrs[ ubMerc ]->uiStatusFlags & SOLDIER_VEHICLE )
+		if ( MercPtrs[ ubMerc ]->flags.uiStatusFlags & SOLDIER_VEHICLE )
 		{
 			return( 2 );
 		}
@@ -473,7 +473,7 @@ BOOLEAN IsRefuelableStructAtGridNo( INT16 sGridNo, UINT8 *pubID )
 
 	if ( ubMerc != NOBODY )
 	{
-		if ( MercPtrs[ ubMerc ]->uiStatusFlags & SOLDIER_VEHICLE )
+		if ( MercPtrs[ ubMerc ]->flags.uiStatusFlags & SOLDIER_VEHICLE )
 		{
 			return( TRUE );
 		}

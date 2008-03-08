@@ -23,10 +23,10 @@ typedef struct MACROSTRUCT
 }MACROSTRUCT;
 //road macros
 
-//These define the macros for the 32 road pieces.  The column contains the macro ID and
+//These define the macros for the 32 road pieces.	The column contains the macro ID and
 //the second contains the gridno offset from the anchor position (where the user clicks in the world to
-//place the road).  The actual index of the array refers to the offset from ROADPIECE001.
-MACROSTRUCT gRoadMacros[] = 
+//place the road).	The actual index of the array refers to the offset from ROADPIECE001.
+MACROSTRUCT gRoadMacros[] =
 {
 	//left 1
 	{L1, -2		},
@@ -148,19 +148,19 @@ MACROSTRUCT gRoadMacros[] =
 	{RTL, -322	},
 	{RTL, -482	},
 	{RTL, -642	},
-	{RTL, -802  },
+	{RTL, -802	},
 	{RTL, -1		},
 	{RTL, -161	},
 	{RTL, -321	},
 	{RTL, -481	},
 	{RTL, -641	},
-	{RTL, -801  },
+	{RTL, -801	},
 	{RTL, 0 		},
 	{RTL, -160	},
 	{RTL, -320	},
 	{RTL, -480	},
 	{RTL, -640	},
-	{RTL, -800  },
+	{RTL, -800	},
 	//right half of top-left corner
 	{RBR, 159		},
 	{RBR, -1		},
@@ -376,7 +376,7 @@ MACROSTRUCT gRoadMacros[] =
 
 INT16 gsRoadMacroStartIndex[ NUM_ROAD_MACROS ];
 
-//A simple optimization function that calculates the first index in the large database for 
+//A simple optimization function that calculates the first index in the large database for
 //the particular macro ID.
 void InitializeRoadMacros()
 {
@@ -398,7 +398,7 @@ void InitializeRoadMacros()
 //	i = ROADPIECES001;
 }
 
-//Road macros vary in size from 3 gridnos to 18 gridnos.  Using the anchor gridno based off of the original
+//Road macros vary in size from 3 gridnos to 18 gridnos.	Using the anchor gridno based off of the original
 //road system, this function will place the new macro (consisting of multiple road pieces in multiple
 //gridnos).
 void PlaceRoadMacroAtGridNo( INT32 iMapIndex, INT32 iMacroID )
@@ -416,10 +416,10 @@ void PlaceRoadMacroAtGridNo( INT32 iMapIndex, INT32 iMacroID )
 	}
 }
 
-//The old road system used multi-tiled roads as a single image.  The new road system has taken these large
-//pieces and chopped them up into single tiled images (to mitigate lighting problems).  Some of the larger 
-//road pieces turned into 18 smaller pieces.  So this function will go analyse the world, and replaces any 
-//locations containing the original road tile information, delete it, and replace it by inserting it's 
+//The old road system used multi-tiled roads as a single image.	The new road system has taken these large
+//pieces and chopped them up into single tiled images (to mitigate lighting problems).	Some of the larger
+//road pieces turned into 18 smaller pieces.	So this function will go analyse the world, and replaces any
+//locations containing the original road tile information, delete it, and replace it by inserting it's
 //equivalent macro.
 void ReplaceObsoleteRoads()
 {

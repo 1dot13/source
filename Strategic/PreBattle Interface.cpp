@@ -141,7 +141,7 @@ extern INT32 giCharInfoButton[ 2 ];
 extern void CreateDestroyMapCharacterScrollButtons( void );
 extern void UpdateTheStateOfTheNextPrevMapScreenCharacterButtons( void );
 
-// were we showing the mapscreen inventory when the prebattle interface came up 
+// were we showing the mapscreen inventory when the prebattle interface came up
 extern BOOLEAN fShowInventoryFlag;
 
 UINT32 guiNumInvolved;
@@ -149,18 +149,18 @@ UINT32 guiNumUninvolved;
 
 //SAVE START
 
-//Using the ESC key in the PBI will get rid of the PBI and go back to mapscreen, but 
+//Using the ESC key in the PBI will get rid of the PBI and go back to mapscreen, but
 //only if the PBI isn't persistant (!gfPersistantPBI).
 BOOLEAN gfPersistantPBI = FALSE;
 
-//Contains general information about the type of encounter the player is faced with.  This
-//determines whether or not you can autoresolve the battle or even retreat.  This code
+//Contains general information about the type of encounter the player is faced with.	This
+//determines whether or not you can autoresolve the battle or even retreat.	This code
 //dictates the header that is used at the top of the PBI.
 UINT8 gubEnemyEncounterCode = NO_ENCOUNTER_CODE;
 
-//The autoresolve during tactical battle option needs more detailed information than the 
-//gubEnemyEncounterCode can provide.  The explicit version contains possibly unique codes
-//for reasons not normally used in the PBI.  For example, if we were fighting the enemy
+//The autoresolve during tactical battle option needs more detailed information than the
+//gubEnemyEncounterCode can provide.	The explicit version contains possibly unique codes
+//for reasons not normally used in the PBI.	For example, if we were fighting the enemy
 //in a normal situation, then shot at a civilian, the civilians associated with the victim
 //would turn hostile, which would disable the ability to autoresolve the battle.
 BOOLEAN gubExplicitEnemyEncounterCode = NO_ENCOUNTER_CODE;
@@ -226,16 +226,16 @@ void ValidateAndCorrectInBattleCounters( GROUP *pLocGroup )
 	if( ubInvalidGroups || pSector->ubAdminsInBattle || pSector->ubTroopsInBattle || pSector->ubElitesInBattle || pSector->ubCreaturesInBattle )
 	{
 		CHAR16 str[ 512 ];
-		swprintf( str, L"Strategic info warning:  Sector 'in battle' counters are not clear when they should be.  "
-									 L"If you can provide information on how a previous battle was resolved here or nearby patrol "
-									 L"(auto resolve, tactical battle, cheat keys, or retreat),"
-									 L"please forward that info (no data files necessary) as well as the following code (very important):  "
-									 L"G(%02d:%c%d_b%d) A(%02d:%02d) T(%02d:%02d) E(%02d:%02d) C(%02d:%02d)",
-									 ubInvalidGroups, pLocGroup->ubSectorY + 'A' - 1, pLocGroup->ubSectorX, pLocGroup->ubSectorZ,
-									 pSector->ubNumAdmins, pSector->ubAdminsInBattle,
-									 pSector->ubNumTroops, pSector->ubTroopsInBattle,
-									 pSector->ubNumElites, pSector->ubElitesInBattle,
-									 pSector->ubNumCreatures, pSector->ubCreaturesInBattle );
+		swprintf( str, L"Strategic info warning:	Sector 'in battle' counters are not clear when they should be.	"
+									L"If you can provide information on how a previous battle was resolved here or nearby patrol "
+									L"(auto resolve, tactical battle, cheat keys, or retreat),"
+									L"please forward that info (no data files necessary) as well as the following code (very important):	"
+									L"G(%02d:%c%d_b%d) A(%02d:%02d) T(%02d:%02d) E(%02d:%02d) C(%02d:%02d)",
+									ubInvalidGroups, pLocGroup->ubSectorY + 'A' - 1, pLocGroup->ubSectorX, pLocGroup->ubSectorZ,
+									pSector->ubNumAdmins, pSector->ubAdminsInBattle,
+									pSector->ubNumTroops, pSector->ubTroopsInBattle,
+									pSector->ubNumElites, pSector->ubElitesInBattle,
+									pSector->ubNumCreatures, pSector->ubCreaturesInBattle );
 		DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, NULL );
 		pSector->ubAdminsInBattle = 0;
 		pSector->ubTroopsInBattle = 0;
@@ -247,7 +247,7 @@ void ValidateAndCorrectInBattleCounters( GROUP *pLocGroup )
 
 void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 {
-  VOBJECT_DESC    VObjectDesc;
+	VOBJECT_DESC	VObjectDesc;
 	INT32 i;
 	UINT8 ubGroupID = 0;
 	UINT8 ubNumStationaryEnemies = 0;
@@ -292,7 +292,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			}
 		}
 
-		//If we are currently in the AI Viewer development utility, then remove it first.  It automatically
+		//If we are currently in the AI Viewer development utility, then remove it first.	It automatically
 		//returns to the mapscreen upon removal, which is where we want to go.
 		#ifdef JA2BETAVERSION
 			if( guiCurrentScreen == AIVIEWER_SCREEN )
@@ -318,8 +318,8 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			gfUsePersistantPBI = TRUE;
 			return;
 		}
-		
-		if( gfTacticalTraversal && (pBattleGroup == gpTacticalTraversalGroup || gbWorldSectorZ > 0) ) 
+
+		if( gfTacticalTraversal && (pBattleGroup == gpTacticalTraversalGroup || gbWorldSectorZ > 0) )
 		{
 			return;
 		}
@@ -331,7 +331,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		gfDisplayPotentialRetreatPaths = FALSE;
 
 		gpBattleGroup = pBattleGroup;
-		
+
 		//calc sector values
 		if( gpBattleGroup )
 		{
@@ -366,7 +366,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		{ //We are underground, so no autoresolve allowed
 			pSector = &SectorInfo[ SECTOR( gubPBSectorX, gubPBSectorY ) ];
 			if( pSector->ubCreaturesInBattle )
-			{ 
+			{
 				gubExplicitEnemyEncounterCode = FIGHTING_CREATURES_CODE;
 			}
 			else if( pSector->ubAdminsInBattle || pSector->ubTroopsInBattle || pSector->ubElitesInBattle )
@@ -375,19 +375,19 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			}
 		}
 		else if( gubEnemyEncounterCode == ENTERING_ENEMY_SECTOR_CODE ||
-						 gubEnemyEncounterCode == ENEMY_ENCOUNTER_CODE || 
-						 gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || 
-						 gubEnemyEncounterCode == ENEMY_INVASION_CODE ||
-						 gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE ||
-						 gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE ||
-						 gubEnemyEncounterCode == CREATURE_ATTACK_CODE )
+						gubEnemyEncounterCode == ENEMY_ENCOUNTER_CODE ||
+						gubEnemyEncounterCode == ENEMY_AMBUSH_CODE ||
+						gubEnemyEncounterCode == ENEMY_INVASION_CODE ||
+						gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE ||
+						gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE ||
+						gubEnemyEncounterCode == CREATURE_ATTACK_CODE )
 		{ //use same code
 			gubExplicitEnemyEncounterCode = gubEnemyEncounterCode;
 		}
-		else 
+		else
 		{
 			#ifdef JA2BETAVERSION
-				DoScreenIndependantMessageBox( L"Can't determine valid reason for battle indicator.  Please try to provide information as to when and why this indicator first appeared and send whatever files that may help.", MSG_BOX_FLAG_OK, NULL );
+				DoScreenIndependantMessageBox( L"Can't determine valid reason for battle indicator.	Please try to provide information as to when and why this indicator first appeared and send whatever files that may help.", MSG_BOX_FLAG_OK, NULL );
 			#endif
 			gfBlitBattleSectorLocator = FALSE;
 			return;
@@ -396,7 +396,8 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 
 	fMapScreenBottomDirty = TRUE;
 	ChangeSelectedMapSector( gubPBSectorX, gubPBSectorY, gubPBSectorZ );
-	RenderMapScreenInterfaceBottom();
+	// Headrock: Added FALSE argument, We might need TRUE but not sure. Will need to initiate battle :)
+	RenderMapScreenInterfaceBottom( FALSE );
 
 	//If we are currently in tactical, then set the flag to automatically bring up the mapscreen.
 	if( guiCurrentScreen == GAME_SCREEN )
@@ -475,21 +476,21 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	guiNumInvolved = 0;
 	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
 	{
-		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->bLife && !(MercPtrs[ i ]->uiStatusFlags & SOLDIER_VEHICLE) )
+		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 		{
 			if ( PlayerMercInvolvedInThisCombat( MercPtrs[ i ] ) )
 			{
 				// involved
 				if( !ubGroupID )
-				{ //Record the first groupID.  If there are more than one group in this battle, we
-					//can detect it by comparing the first value with future values.  If we do, then
+				{ //Record the first groupID.	If there are more than one group in this battle, we
+					//can detect it by comparing the first value with future values.	If we do, then
 					//we set a flag which determines whether to use the singular help text or plural version
 					//for the retreat button.
 					ubGroupID = MercPtrs[ i ]->ubGroupID;
 					if( !gpBattleGroup )
 						gpBattleGroup = GetGroup( ubGroupID );
-					if( bBestExpLevel > MercPtrs[ i ]->bExpLevel )
-						bBestExpLevel = MercPtrs[ i ]->bExpLevel;
+					if( bBestExpLevel > MercPtrs[ i ]->stats.bExpLevel )
+						bBestExpLevel = MercPtrs[ i ]->stats.bExpLevel;
 					if( MercPtrs[ i ]->ubPrevSectorID == 255 )
 					{ //Not able to retreat (calculate it for group)
 						GROUP *pTempGroup;
@@ -547,7 +548,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 					// WANNE: Added an ja2_options.ini Property "ENABLE_CHANCE_OF_ENEMY_AMBUSHES_ON_INSANE_DIFFICULT"
 					else if( gGameExternalOptions.fEnableChanceOfEnemyAmbushesOnInsaneDifficult && 
 						gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE && 
-									 CurrentPlayerProgressPercentage() >= 25 )
+									CurrentPlayerProgressPercentage() >= 25 )
 					{ //if the enemy outnumbers the players, then there is a chance of the enemies ambushing the group
 						if( ubNumMobileEnemies > ubNumMercs )
 						{
@@ -568,8 +569,8 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 							}
 						}
 					}
-					else if( WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_NOTHING && 
-									 CurrentPlayerProgressPercentage() >= 30 - gGameOptions.ubDifficultyLevel * 5 )
+					else if( WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) == KNOWS_NOTHING &&
+									CurrentPlayerProgressPercentage() >= 30 - gGameOptions.ubDifficultyLevel * 5 )
 					{ //if the enemy outnumbers the players, then there is a small chance of the enemies ambushing the group
 						if( ubNumMobileEnemies > ubNumMercs )
 						{
@@ -616,7 +617,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 						gubEnemyEncounterCode = ENEMY_ENCOUNTER_CODE;
 						break;
 				}
-			}	
+			}
 		}
 	}
 
@@ -666,14 +667,14 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	//when necessary.
 	if( gfPersistantPBI )
 	{
-		if( gubEnemyEncounterCode == ENTERING_ENEMY_SECTOR_CODE || 
+		if( gubEnemyEncounterCode == ENTERING_ENEMY_SECTOR_CODE ||
 				gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE )
 		{ //Don't allow autoresolve for player initiated invasion battle types
 			DisableButton( iPBButton[ 0 ] );
 			SetButtonFastHelpText( iPBButton[ 0 ], gpStrategicString[ STR_PB_DISABLED_AUTORESOLVE_FASTHELP ] );
 		}
-		else if( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || 
-						 gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE )
+		else if( gubEnemyEncounterCode == ENEMY_AMBUSH_CODE ||
+						gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE )
 		{ //Don't allow autoresolve for ambushes
 			DisableButton( iPBButton[ 0 ] );
 			SetButtonFastHelpText( iPBButton[ 0 ], gzNonPersistantPBIText[ 3 ] );
@@ -692,9 +693,9 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			gfCantRetreatInPBI = FALSE;
 			fRetreatAnOption = FALSE;
 		}
-		if( gfAutomaticallyStartAutoResolve || !fRetreatAnOption || 
-				gubEnemyEncounterCode == ENEMY_AMBUSH_CODE || 
-				gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE || 
+		if( gfAutomaticallyStartAutoResolve || !fRetreatAnOption ||
+				gubEnemyEncounterCode == ENEMY_AMBUSH_CODE ||
+				gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE ||
 				gubEnemyEncounterCode == CREATURE_ATTACK_CODE )
 		{
 			DisableButton( iPBButton[ 2 ] );
@@ -714,7 +715,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	}
 	else
 	{ //use the explicit encounter code to determine what get's disable and the associated help text that is used.
-		
+
 		//First of all, the retreat button is always disabled seeing a battle is in progress.
 		DisableButton( iPBButton[ 2 ] );
 		SetButtonFastHelpText( iPBButton[ 2 ], gzNonPersistantPBIText[ 0 ] );
@@ -751,7 +752,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		}
 	}
 
-	//Disable the options button when the auto resolve  screen comes up
+	//Disable the options button when the auto resolve	screen comes up
 	EnableDisAbleMapScreenOptionsButton( FALSE );
 
 	SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
@@ -780,7 +781,7 @@ void DoTransitionFromMapscreenToPreBattleInterface()
 	PBIRect.iBottom = 359;
 	iWidth = 261;
 	iHeight = 359;
-	
+
 	uiTimeRange = 1000;
 	iPercentage = 0;
 	uiStartTime = GetJA2Clock();
@@ -795,8 +796,8 @@ void DoTransitionFromMapscreenToPreBattleInterface()
 	BlitBufferToBuffer( FRAME_BUFFER, guiEXTRABUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
 	if( gfEnterAutoResolveMode )
-	{ //If we are intending on immediately entering autoresolve, change the global flag so that it will actually 
-		//render the interface once.  If gfEnterAutoResolveMode is clear, then RenderPreBattleInterface() won't do 
+	{ //If we are intending on immediately entering autoresolve, change the global flag so that it will actually
+		//render the interface once.	If gfEnterAutoResolveMode is clear, then RenderPreBattleInterface() won't do
 		//anything.
 		fEnterAutoResolveMode = TRUE;
 		gfEnterAutoResolveMode = FALSE;
@@ -822,7 +823,7 @@ void DoTransitionFromMapscreenToPreBattleInterface()
 	InvalidateScreen();
 	RefreshScreen( NULL );
 
-	while( iPercentage < 100  )
+	while( iPercentage < 100	)
 	{
 		uiCurrTime = GetJA2Clock();
 		iPercentage = (uiCurrTime-uiStartTime) * 100 / uiTimeRange;
@@ -853,7 +854,7 @@ void DoTransitionFromMapscreenToPreBattleInterface()
 		RefreshScreen( NULL );
 
 		//Restore the previous rect.
-		BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, (UINT16)DstRect.iLeft, (UINT16)DstRect.iTop, 
+		BlitBufferToBuffer( guiEXTRABUFFER, FRAME_BUFFER, (UINT16)DstRect.iLeft, (UINT16)DstRect.iTop,
 			(UINT16)(DstRect.iRight-DstRect.iLeft+1), (UINT16)(DstRect.iBottom-DstRect.iTop+1) );
 	}
 	BlitBufferToBuffer( FRAME_BUFFER, guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
@@ -895,7 +896,7 @@ void KillPreBattleInterface()
 	fCharacterInfoPanelDirty = TRUE;
 	gfDisplayPotentialRetreatPaths = FALSE;
 
-	//Enable the options button when the auto resolve  screen comes up
+	//Enable the options button when the auto resolve	screen comes up
 	EnableDisAbleMapScreenOptionsButton( TRUE );
 
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, 0, 0, 261, 359, 0 );
@@ -913,7 +914,6 @@ void KillPreBattleInterface()
 	{
 		ShowButton( giCharInfoButton[ 1 ] );
 	}
-
 	gfPersistantPBI = FALSE; // If killing the PBI, it must not be persistant anymore!
 }
 
@@ -990,8 +990,8 @@ void RenderPreBattleInterface()
 	UINT8 ubJunk;
 	//PLAYERGROUP *pPlayer;
 
-	//This code determines if the cursor is inside the rectangle consisting of the 
-	//retreat button.  If it is inside, then we set up the variables so that the retreat
+	//This code determines if the cursor is inside the rectangle consisting of the
+	//retreat button.	If it is inside, then we set up the variables so that the retreat
 	//arrows get drawn in the mapscreen.
 	if( ButtonList[ iPBButton[ 2 ] ]->uiFlags & BUTTON_ENABLED )
 	{
@@ -1077,7 +1077,7 @@ void RenderPreBattleInterface()
 			width = StringPixLength( str, BLOCKFONTNARROW );
 		}
 		mprintf( 54 - width , 38, str );
-		
+
 		SetFont( BLOCKFONT );
 		swprintf( str, gpStrategicString[ STR_PB_MERCS ] );
 		width = StringPixLength( str, BLOCKFONT );
@@ -1087,7 +1087,7 @@ void RenderPreBattleInterface()
 			width = StringPixLength( str, BLOCKFONTNARROW );
 		}
 		mprintf( 139 - width , 38, str );
-		
+
 		SetFont( BLOCKFONT );
 		swprintf( str, gpStrategicString[ STR_PB_MILITIA ] );
 		width = StringPixLength( str, BLOCKFONT );
@@ -1119,10 +1119,10 @@ void RenderPreBattleInterface()
 		GetSectorIDString( gubPBSectorX, gubPBSectorY, gubPBSectorZ, pSectorName, TRUE );
 		mprintf( 70, 17, L"%s %s", gpStrategicString[ STR_PB_SECTOR ], pSectorName );
 
-		//enemy 
+		//enemy
 		SetFont( FONT14ARIAL );
-		if( gubEnemyEncounterCode == CREATURE_ATTACK_CODE || 
-			  gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE ||
+		if( gubEnemyEncounterCode == CREATURE_ATTACK_CODE ||
+			gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE ||
 				gubEnemyEncounterCode == ENTERING_BLOODCAT_LAIR_CODE ||
 				WhatPlayerKnowsAboutEnemiesInSector( gubPBSectorX, gubPBSectorY ) != KNOWS_HOW_MANY )
 		{
@@ -1154,12 +1154,12 @@ void RenderPreBattleInterface()
 		SetFontForeground( FONT_YELLOW );
 
 		//print out the participants of the battle.
-		// |  NAME  | ASSIGN |  COND  |   HP   |   BP   |
+		// |	NAME	| ASSIGN |	COND	|	HP	|	BP	|
 		line = 0;
 		y = TOP_Y + 1;
 		for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
 		{
-			if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->bLife && !(MercPtrs[ i ]->uiStatusFlags & SOLDIER_VEHICLE) )
+			if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 			{
 				if ( PlayerMercInvolvedInThisCombat( MercPtrs[ i ] ) )
 				{ //involved
@@ -1197,7 +1197,7 @@ void RenderPreBattleInterface()
 		}
 
 		//print out the uninvolved members of the battle
-		// |  NAME  | ASSIGN |  LOC   |  DEST  |  DEP   |  
+		// |	NAME	| ASSIGN |	LOC	|	DEST	|	DEP	|
 		if( !guiNumUninvolved )
 		{
 			SetFontForeground( FONT_YELLOW );
@@ -1212,7 +1212,7 @@ void RenderPreBattleInterface()
 			y = BOTTOM_Y - ROW_HEIGHT * guiNumUninvolved + 2;
 			for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
 			{
-				if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->bLife && !(MercPtrs[ i ]->uiStatusFlags & SOLDIER_VEHICLE) )
+				if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 				{
 					if ( !PlayerMercInvolvedInThisCombat( MercPtrs[ i ] ) )
 					{
@@ -1263,7 +1263,7 @@ void RenderPreBattleInterface()
 		RenderPBHeader( &x, &width ); //the text is important enough to blink.
 	}
 
-  //InvalidateRegion( 0, 0, 261, 359 );
+	//InvalidateRegion( 0, 0, 261, 359 );
 	if( gfEnterAutoResolveMode )
 	{
 		gfEnterAutoResolveMode = FALSE;
@@ -1342,8 +1342,8 @@ void GoToSectorCallback( GUI_BUTTON *btn, INT32 reason )
 					SetMusicMode( MUSIC_TACTICAL_NOTHING );
 					return;
 				}
-			if( gfPersistantPBI && gpBattleGroup && gpBattleGroup->fPlayer && 
-					gubEnemyEncounterCode != ENEMY_AMBUSH_CODE && 
+			if( gfPersistantPBI && gpBattleGroup && gpBattleGroup->fPlayer &&
+					gubEnemyEncounterCode != ENEMY_AMBUSH_CODE &&
 					gubEnemyEncounterCode != CREATURE_ATTACK_CODE &&
 					gubEnemyEncounterCode != BLOODCAT_AMBUSH_CODE )
 			{
@@ -1436,14 +1436,14 @@ enum
 void GetSoldierConditionInfo( SOLDIERTYPE *pSoldier, STR16 szCondition, UINT8 *pubHPPercent, UINT8 *pubBPPercent )
 {
 	Assert( pSoldier );
-	*pubHPPercent = (UINT8)(pSoldier->bLife * 100 / pSoldier->bLifeMax);
+	*pubHPPercent = (UINT8)(pSoldier->stats.bLife * 100 / pSoldier->stats.bLifeMax);
 	*pubBPPercent = pSoldier->bBreath;
 	//Go from the worst condition to the best.
-	if( !pSoldier->bLife )
+	if( !pSoldier->stats.bLife )
 	{ //0 life
 		swprintf( szCondition, pConditionStrings[ COND_DEAD ] );
 	}
-	else if( pSoldier->bLife < OKLIFE && pSoldier->bBleeding )
+	else if( pSoldier->stats.bLife < OKLIFE && pSoldier->bBleeding )
 	{ //life less than OKLIFE and bleeding
 		swprintf( szCondition, pConditionStrings[ COND_DYING ] );
 	}
@@ -1455,7 +1455,7 @@ void GetSoldierConditionInfo( SOLDIERTYPE *pSoldier, STR16 szCondition, UINT8 *p
 	{ //bleeding
 		swprintf( szCondition, pConditionStrings[ COND_BLEEDING ] );
 	}
-	else if( pSoldier->bLife*100 < pSoldier->bLifeMax*50 )
+	else if( pSoldier->stats.bLife*100 < pSoldier->stats.bLifeMax*50 )
 	{ //less than 50% life
 		swprintf( szCondition, pConditionStrings[ COND_WOUNDED ] );
 	}
@@ -1463,11 +1463,11 @@ void GetSoldierConditionInfo( SOLDIERTYPE *pSoldier, STR16 szCondition, UINT8 *p
 	{ //breath less than half
 		swprintf( szCondition, pConditionStrings[ COND_FATIGUED ] );
 	}
-	else if( pSoldier->bLife*100 < pSoldier->bLifeMax*67 )
+	else if( pSoldier->stats.bLife*100 < pSoldier->stats.bLifeMax*67 )
 	{ //less than 67% life
 		swprintf( szCondition, pConditionStrings[ COND_FAIR ] );
 	}
-	else if( pSoldier->bLife*100 < pSoldier->bLifeMax*86 )
+	else if( pSoldier->stats.bLife*100 < pSoldier->stats.bLifeMax*86 )
 	{ //less than 86% life
 		swprintf( szCondition, pConditionStrings[ COND_GOOD ] );
 	}
@@ -1647,11 +1647,11 @@ void ActivateAutomaticAutoResolveStart()
 void CalculateNonPersistantPBIInfo()
 {
 	//We need to set up the non-persistant PBI
-	if( !gfBlitBattleSectorLocator || 
+	if( !gfBlitBattleSectorLocator ||
 			gubPBSectorX != gWorldSectorX || gubPBSectorY != gWorldSectorY || gubPBSectorZ != gbWorldSectorZ )
 	{ //Either the locator isn't on or the locator info is in a different sector
-	
-		//Calculated the encounter type 
+
+		//Calculated the encounter type
 		gubEnemyEncounterCode = NO_ENCOUNTER_CODE;
 		gubExplicitEnemyEncounterCode = NO_ENCOUNTER_CODE;
 		if( HostileCiviliansPresent() )
@@ -1667,7 +1667,7 @@ void CalculateNonPersistantPBIInfo()
 			UNDERGROUND_SECTORINFO *pSector = FindUnderGroundSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 			Assert( pSector );
 			if( pSector->ubCreaturesInBattle )
-			{ 
+			{
 				gubExplicitEnemyEncounterCode = FIGHTING_CREATURES_CODE;
 			}
 			else if( pSector->ubAdminsInBattle || pSector->ubTroopsInBattle || pSector->ubElitesInBattle )
@@ -1681,7 +1681,7 @@ void CalculateNonPersistantPBIInfo()
 			SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
 			Assert( pSector );
 			if( pSector->ubCreaturesInBattle )
-			{ 
+			{
 				gubExplicitEnemyEncounterCode = FIGHTING_CREATURES_CODE;
 			}
 			else if( pSector->ubAdminsInBattle || pSector->ubTroopsInBattle || pSector->ubElitesInBattle )
@@ -1711,7 +1711,7 @@ void PutNonSquadMercsInBattleSectorOnSquads( BOOLEAN fExitVehicles )
 {
 	GROUP *pGroup, *pNextGroup;
 
-	// IMPORTANT: Have to do this by group, so everyone inside vehicles gets assigned to the same squad.  Needed for
+	// IMPORTANT: Have to do this by group, so everyone inside vehicles gets assigned to the same squad.	Needed for
 	// the tactical placement interface to work in case of simultaneous multi-vehicle arrivals!
 
 	pGroup = gpGroupList;
@@ -1771,7 +1771,7 @@ void PutNonSquadMercsInPlayerGroupOnSquads( GROUP *pGroup, BOOLEAN fExitVehicles
 		// store ptr to next soldier in group, once removed from group, his info will get memfree'd!
 		pNextPlayer = pPlayer->next;
 
-		if ( pSoldier->bActive && pSoldier->bLife && !( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) )
+		if ( pSoldier->bActive && pSoldier->stats.bLife && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 		{
 			// if involved, but off-duty (includes mercs inside vehicles!)
 			if ( PlayerMercInvolvedInThisCombat( pSoldier ) && ( pSoldier->bAssignment >= ON_DUTY ) )
@@ -1783,7 +1783,7 @@ void PutNonSquadMercsInPlayerGroupOnSquads( GROUP *pGroup, BOOLEAN fExitVehicles
 					{
 						TakeSoldierOutOfVehicle( pSoldier );
 
-						// put them on the unique squad assigned to people leaving this vehicle.  Can't add them to existing squads,
+						// put them on the unique squad assigned to people leaving this vehicle.	Can't add them to existing squads,
 						// because if this is a simultaneous group attack, the mercs could be coming from different sides, and the
 						// placement screen can't handle mercs on the same squad arriving from difference edges!
 						fSuccess = AddCharacterToSquad( pSoldier, bUniqueVehicleSquad );
@@ -1799,8 +1799,8 @@ void PutNonSquadMercsInPlayerGroupOnSquads( GROUP *pGroup, BOOLEAN fExitVehicles
 				Assert( fSuccess );
 
 				// clear any desired squad assignments
-				pSoldier -> ubNumTraversalsAllowedToMerge = 0;
-				pSoldier -> ubDesiredSquadAssignment = NO_ASSIGNMENT;
+				pSoldier->ubNumTraversalsAllowedToMerge = 0;
+				pSoldier->ubDesiredSquadAssignment = NO_ASSIGNMENT;
 
 				// stand him up
 				MakeSoldiersTacticalAnimationReflectAssignment( pSoldier );
@@ -1826,10 +1826,10 @@ void WakeUpAllMercsInSectorUnderAttack( void )
 	{
 		pSoldier = &( Menptr[ iCounter ] );
 
-		if ( pSoldier->bActive && pSoldier->bLife && !( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) )
+		if ( pSoldier->bActive && pSoldier->stats.bLife && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 		{
 			// if involved, but asleep
-			if ( PlayerMercInvolvedInThisCombat( pSoldier ) && ( pSoldier->fMercAsleep == TRUE ) )
+			if ( PlayerMercInvolvedInThisCombat( pSoldier ) && ( pSoldier->flags.fMercAsleep == TRUE ) )
 			{
 				// FORCE him wake him up
 				SetMercAwake( pSoldier, FALSE, TRUE );
@@ -1887,11 +1887,11 @@ BOOLEAN PlayerMercInvolvedInThisCombat( SOLDIERTYPE *pSoldier )
 	Assert( pSoldier );
 	Assert( pSoldier->bActive );
 
-	if( !pSoldier->fBetweenSectors && 
+	if( !pSoldier->flags.fBetweenSectors &&
 			pSoldier->bAssignment != IN_TRANSIT &&
 			pSoldier->bAssignment != ASSIGNMENT_POW &&
 			pSoldier->bAssignment != ASSIGNMENT_DEAD &&
-			!(pSoldier->uiStatusFlags & SOLDIER_VEHICLE) &&
+			!(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) &&
 			// Robot is involved if it has a valid controller with it, uninvolved otherwise
 			( !AM_A_ROBOT( pSoldier ) || ( pSoldier->ubRobotRemoteHolderID != NOBODY ) ) &&
 			!SoldierAboardAirborneHeli( pSoldier ) )
@@ -1960,15 +1960,15 @@ void CheckForRobotAndIfItsControlled( void )
 	// search for the robot on player's team
 	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
 	{
-		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->bLife && AM_A_ROBOT( MercPtrs[ i ] ))
+		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && AM_A_ROBOT( MercPtrs[ i ] ))
 		{
 			// check whether it has a valid controller with it. This sets its ubRobotRemoteHolderID field.
-			UpdateRobotControllerGivenRobot( MercPtrs[ i ] );
+			MercPtrs[ i ]->UpdateRobotControllerGivenRobot( );
 
-			// if he has a controller, set controllers 
+			// if he has a controller, set controllers
 			if ( MercPtrs[ i ]->ubRobotRemoteHolderID != NOBODY )
 			{
-				UpdateRobotControllerGivenController( MercPtrs[ MercPtrs[ i ]->ubRobotRemoteHolderID ] );
+				MercPtrs[ MercPtrs[ i ]->ubRobotRemoteHolderID ]->UpdateRobotControllerGivenController( );
 			}
 
 			break;

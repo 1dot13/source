@@ -7,7 +7,7 @@
 	#include "Render Dirty.h"
 	#include "Font Control.h"
 	#include "Assignments.h"
-	#include "Soldier Control.h"
+
 	#include "Overhead.h"
 	#include "Squads.h"
 	#include "Sound Control.h"
@@ -54,6 +54,11 @@
 	#include "Queen Command.h"
 	#include "Render Fun.h"
 #endif
+
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
+
 
 // inventory pool position on screen
 #define MAP_INVEN_POOL_X				300
@@ -211,7 +216,7 @@ extern BOOLEAN fShowInventoryFlag;
 extern FACETYPE *gpCurrentTalkingFace;
 extern UINT8			gubCurrentTalkingID;
 extern BOOLEAN fMapScreenBottomDirty;
-extern MOUSE_REGION    gMPanelRegion;
+extern MOUSE_REGION	gMPanelRegion;
 
 
 // has the inventory pool been selected to be on or off?
@@ -219,7 +224,7 @@ BOOLEAN fMapInventoryPoolInited = FALSE;
 BOOLEAN fShowMapScreenMovementList = FALSE;
 
 
-MapScreenCharacterSt gCharactersList[ MAX_CHARACTER_COUNT+1]; 
+MapScreenCharacterSt gCharactersList[ MAX_CHARACTER_COUNT+1];
 
 extern MOUSE_REGION gCharInfoHandRegion;
 MOUSE_REGION	gMapStatusBarsRegion;
@@ -236,7 +241,7 @@ UINT32 guiSAMICON;
 
 
 // disable team info panels due to battle roster
-BOOLEAN   fDisableDueToBattleRoster = FALSE;
+BOOLEAN	fDisableDueToBattleRoster = FALSE;
 
 // track old contract times
 INT32 iOldContractTimes[ MAX_CHARACTER_COUNT ];
@@ -267,8 +272,8 @@ INT32 giContractHighLine = -1;
 INT32 giSleepHighLine = -1;
 
 // pop up box textures
-UINT32    guiPOPUPTEX;
-UINT32    guiPOPUPBORDERS;
+UINT32	guiPOPUPTEX;
+UINT32	guiPOPUPBORDERS;
 
 // the currently selected character arrow
 UINT32		guiSelectedCharArrow;
@@ -302,9 +307,9 @@ BOOLEAN fShowTrainingMenu = FALSE;
 BOOLEAN fShowAttributeMenu = FALSE;
 BOOLEAN fShowSquadMenu = FALSE;
 BOOLEAN fShowContractMenu = FALSE;
-BOOLEAN fShowRemoveMenu =  FALSE;
-BOOLEAN fShowMilitiaControlMenu =  FALSE; //lal
-//BOOLEAN fShowTalkToAllMenu =  FALSE;//lal
+BOOLEAN fShowRemoveMenu =	FALSE;
+BOOLEAN fShowMilitiaControlMenu =	FALSE; //lal
+//BOOLEAN fShowTalkToAllMenu =	FALSE;//lal
 
 BOOLEAN fRebuildMoveBox = FALSE;
 
@@ -322,7 +327,7 @@ SGPPoint RepairPosition={160,150};
 SGPRect RepairDimensions={0,0,80,80};
 
 //lal
-SGPPoint MilitiaControlPosition={120,150}; 
+SGPPoint MilitiaControlPosition={120,150};
 SGPRect MilitiaControlDimensions={0,0,100,95};
 
 //SGPPoint TalkToAllPosition={160,150};
@@ -463,7 +468,7 @@ BOOLEAN IsEntryInSelectedListSet( INT8 bEntry )
 	Assert( ( bEntry >= 0 ) && ( bEntry < MAX_CHARACTER_COUNT ) );
 
 	// is this entry in the selected list set?
-	
+
 	return( fSelectedListOfMercsForMapScreen[ bEntry ] );
 
 }
@@ -513,7 +518,7 @@ BOOLEAN MultipleCharacterListEntriesSelected( void )
 	INT32 iCounter = 0;
 
 	// check if more than one person is selected in the selected list
-	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++  )
+	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++	)
 	{
 		if( fSelectedListOfMercsForMapScreen[iCounter] == TRUE )
 		{
@@ -548,7 +553,7 @@ void ResetAssignmentsForMercsTrainingUnpaidSectorsInSelectedList( INT8 bAssignme
 		}
 
 		pSoldier = &Menptr[ gCharactersList[ iCounter ].usSolID ];
-		
+
 		if( pSoldier->bActive == FALSE )
 		{
 			continue;
@@ -580,7 +585,7 @@ void ResetAssignmentOfMercsThatWereTrainingMilitiaInThisSector( INT16 sSectorX, 
 		}
 
 		pSoldier = &Menptr[ gCharactersList[ iCounter ].usSolID ];
-		
+
 		if( pSoldier->bActive == FALSE )
 		{
 			continue;
@@ -653,7 +658,7 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 					}
 				}
 				// if anchor guy IS a vehicle
-				else if ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
+				else if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 				{
 					if ( !CanSoldierMoveWithVehicleId( pSoldier2, pSoldier->bVehicleID ) )
 					{
@@ -671,7 +676,7 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 					}
 				}
 				// if this guy IS a vehicle
-				else if ( pSoldier2->uiStatusFlags & SOLDIER_VEHICLE )
+				else if ( pSoldier2->flags.uiStatusFlags & SOLDIER_VEHICLE )
 				{
 					if ( !CanSoldierMoveWithVehicleId( pSoldier, pSoldier2->bVehicleID ) )
 					{
@@ -694,9 +699,9 @@ void DeselectSelectedListMercsWhoCantMoveWithThisGuy( SOLDIERTYPE *pSoldier )
 						ResetEntryForSelectedList( ( INT8 )iCounter );
 					}
 
-					// if either is between sectors, they must be in the same movement group 
-					if ( ( pSoldier->fBetweenSectors || pSoldier2->fBetweenSectors ) &&
-							 ( pSoldier->ubGroupID != pSoldier2->ubGroupID ) )
+					// if either is between sectors, they must be in the same movement group
+					if ( ( pSoldier->flags.fBetweenSectors || pSoldier2->flags.fBetweenSectors ) &&
+							( pSoldier->ubGroupID != pSoldier2->ubGroupID ) )
 					{
 						ResetEntryForSelectedList( ( INT8 )iCounter );
 					}
@@ -776,14 +781,14 @@ BOOLEAN AnyMercInSameSquadOrVehicleIsSelected( SOLDIERTYPE *pSoldier )
 				}
 
 				// target guy is in a vehicle, and this guy IS that vehicle
-				if( ( pSoldier->bAssignment == VEHICLE ) && ( pSoldier2->uiStatusFlags & SOLDIER_VEHICLE ) &&
+				if( ( pSoldier->bAssignment == VEHICLE ) && ( pSoldier2->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
 						( pSoldier->iVehicleId == pSoldier2->bVehicleID ) )
 				{
 					return ( TRUE );
 				}
 
 				// this guy is in a vehicle, and the target guy IS that vehicle
-				if( ( pSoldier2->bAssignment == VEHICLE ) && ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) &&
+				if( ( pSoldier2->bAssignment == VEHICLE ) && ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
 						( pSoldier2->iVehicleId == pSoldier->bVehicleID ) )
 				{
 					return ( TRUE );
@@ -835,7 +840,7 @@ void RestoreBackgroundForAssignmentGlowRegionList( void )
 		fTeamPanelDirty = TRUE;
 
 		// set old to current
-		iOldAssignmentLine = giAssignHighLine; 
+		iOldAssignmentLine = giAssignHighLine;
 	}
 
 	// leave
@@ -863,7 +868,7 @@ void RestoreBackgroundForDestinationGlowRegionList( void )
 		fTeamPanelDirty = TRUE;
 
 		// set old to current
-		iOldDestinationLine = giDestHighLine; 
+		iOldDestinationLine = giDestHighLine;
 	}
 
 	// leave
@@ -891,7 +896,7 @@ void RestoreBackgroundForContractGlowRegionList( void )
 		fTeamPanelDirty = TRUE;
 
 		// set old to current
-		iOldContractLine = giContractHighLine; 
+		iOldContractLine = giContractHighLine;
 
 		// reset color rotation
 		fResetContractGlow = TRUE;
@@ -923,7 +928,7 @@ void RestoreBackgroundForSleepGlowRegionList( void )
 		fTeamPanelDirty = TRUE;
 
 		// set old to current
-		iOldSleepHighLine = giSleepHighLine; 
+		iOldSleepHighLine = giSleepHighLine;
 
 		// reset color rotation
 		fResetContractGlow = TRUE;
@@ -942,7 +947,7 @@ void PlayGlowRegionSound( void )
 	{
 		// is sound playing?..don't play new one
 		if( SoundIsPlaying( uiSoundId ) == TRUE )
-		{ 
+		{
 			return;
 		}
 	}
@@ -971,7 +976,7 @@ INT16 CharacterIsGettingPathPlotted( INT16 sCharNumber )
 
 	// if the highlighted line character is also selected
 	if ( ( ( giDestHighLine != -1 ) && IsEntryInSelectedListSet ( ( INT8 ) giDestHighLine ) ) ||
-			 ( ( bSelectedDestChar != -1 ) && IsEntryInSelectedListSet ( bSelectedDestChar ) ) )
+			( ( bSelectedDestChar != -1 ) && IsEntryInSelectedListSet ( bSelectedDestChar ) ) )
 	{
 		// then ALL selected lines will be affected
 		if( IsEntryInSelectedListSet( ( INT8 ) sCharNumber ) )
@@ -984,7 +989,7 @@ INT16 CharacterIsGettingPathPlotted( INT16 sCharNumber )
 		// if he is *the* selected dude
 		if( bSelectedDestChar == sCharNumber )
 		{
-			return ( TRUE ); 
+			return ( TRUE );
 		}
 
 		// ONLY the highlighted line will be affected
@@ -1118,7 +1123,7 @@ void ActivateSoldierPopup( SOLDIERTYPE *pSoldier, UINT8 ubPopupType, INT16 xp, I
 			bSelectedDestChar = -1;
 			bSelectedContractChar = -1;
 			bSelectedAssignChar = bCharacter;
-			if( ( pSoldier->bLife > 0 ) &&( pSoldier->bAssignment != ASSIGNMENT_POW ) )
+			if( ( pSoldier->stats.bLife > 0 ) &&( pSoldier->bAssignment != ASSIGNMENT_POW ) )
 			{
 				fShowAssignmentMenu = TRUE;
 			}
@@ -1128,7 +1133,7 @@ void ActivateSoldierPopup( SOLDIERTYPE *pSoldier, UINT8 ubPopupType, INT16 xp, I
 			}
 
 			// set box y positions
-			AssignmentPosition.iY =  giBoxY;
+			AssignmentPosition.iY =	giBoxY;
 			TrainPosition.iY = AssignmentPosition.iY + GetFontHeight( MAP_SCREEN_FONT )* ASSIGN_MENU_TRAIN;
 			AttributePosition.iY = 	TrainPosition.iY;
 			SquadPosition.iY = 	AssignmentPosition.iY;
@@ -1147,7 +1152,7 @@ void ActivateSoldierPopup( SOLDIERTYPE *pSoldier, UINT8 ubPopupType, INT16 xp, I
 			bSelectedAssignChar = -1;
 			RebuildContractBoxForMerc( pSoldier );
 
-			if( ( pSoldier->bLife > 0 ) &&( pSoldier->bAssignment != ASSIGNMENT_POW ) )
+			if( ( pSoldier->stats.bLife > 0 ) &&( pSoldier->bAssignment != ASSIGNMENT_POW ) )
 			{
 				fShowContractMenu = TRUE;
 			}
@@ -1163,21 +1168,22 @@ void ActivateSoldierPopup( SOLDIERTYPE *pSoldier, UINT8 ubPopupType, INT16 xp, I
 
 
 INT32 DoMapMessageBoxWithRect( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback, SGPRect *pCenteringRect )
-{	// reset the highlighted line
+{
+	// reset the highlighted line
 	giHighLine = -1;
-  return DoMessageBox( ubStyle, zString, uiExitScreen, ( UINT16 ) ( usFlags | MSG_BOX_FLAG_USE_CENTERING_RECT ), ReturnCallback, pCenteringRect );
+	return DoMessageBox( ubStyle, zString, uiExitScreen, ( UINT16 ) ( usFlags | MSG_BOX_FLAG_USE_CENTERING_RECT ), ReturnCallback, pCenteringRect );
 }
 
 
-INT32 DoMapMessageBox( UINT8 ubStyle,  STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
+INT32 DoMapMessageBox( UINT8 ubStyle,	STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback )
 {
-  SGPRect CenteringRect= {0, 0, SCREEN_WIDTH, INV_INTERFACE_START_Y };
+	SGPRect CenteringRect= {0, 0, SCREEN_WIDTH, INV_INTERFACE_START_Y };
 
 	// reset the highlighted line
 	giHighLine = -1;
 
 	// do message box and return
-  return DoMessageBox(  ubStyle,  zString,  uiExitScreen, ( UINT16 ) ( usFlags| MSG_BOX_FLAG_USE_CENTERING_RECT ),  ReturnCallback,  &CenteringRect );
+	return DoMessageBox(	ubStyle,	zString,	uiExitScreen, ( UINT16 ) ( usFlags| MSG_BOX_FLAG_USE_CENTERING_RECT ),	ReturnCallback,	&CenteringRect );
 }
 
 
@@ -1244,29 +1250,29 @@ void CheckAndUpdateBasedOnContractTimes( void )
 		if( gCharactersList[iCounter].fValid == TRUE )
 		{
 				// what kind of merc
-			 if(Menptr[gCharactersList[iCounter].usSolID].ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC)
-			 { 
-				 // amount of time left on contract
-				 iTimeRemaining=Menptr[gCharactersList[iCounter].usSolID].iEndofContractTime-GetWorldTotalMin();
-				 if(iTimeRemaining >60*24)
-				 {
-					 // more than a day, display in green
-					 iTimeRemaining/=(60*24);
+			if(Menptr[gCharactersList[iCounter].usSolID].ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC)
+			{
+				// amount of time left on contract
+				iTimeRemaining=Menptr[gCharactersList[iCounter].usSolID].iEndofContractTime-GetWorldTotalMin();
+				if(iTimeRemaining >60*24)
+				{
+					// more than a day, display in green
+					iTimeRemaining/=(60*24);
 
-					 // check if real change in contract time
-					 if( iTimeRemaining != iOldContractTimes[ iCounter ])
-					 {
-						 iOldContractTimes[ iCounter ] = iTimeRemaining;
-						 
-						 // dirty screen
-						 fTeamPanelDirty = TRUE;
-						 fCharacterInfoPanelDirty = TRUE;
-					 }
+					// check if real change in contract time
+					if( iTimeRemaining != iOldContractTimes[ iCounter ])
+					{
+						iOldContractTimes[ iCounter ] = iTimeRemaining;
+
+						// dirty screen
+						fTeamPanelDirty = TRUE;
+						fCharacterInfoPanelDirty = TRUE;
+					}
 				}
 				else
 				{
 					// less than a day, display hours left in red
-				 iTimeRemaining/=60;
+				iTimeRemaining/=60;
 
 					// check if real change in contract time
 					if( iTimeRemaining != iOldContractTimes[ iCounter ])
@@ -1281,11 +1287,11 @@ void CheckAndUpdateBasedOnContractTimes( void )
 			else if( Menptr[gCharactersList[iCounter].usSolID].ubWhatKindOfMercAmI == MERC_TYPE__MERC )
 			{
 				iTimeRemaining = Menptr[gCharactersList[iCounter].usSolID].iTotalContractLength;
-				
+
 				if( iTimeRemaining != iOldContractTimes[ iCounter ])
 				{
 					iOldContractTimes[ iCounter ] = iTimeRemaining;
-						 
+
 					// dirty screen
 					fTeamPanelDirty = TRUE;
 					fCharacterInfoPanelDirty = TRUE;
@@ -1322,8 +1328,8 @@ void HandleDisplayOfSelectedMercArrows( void )
 	}
 	// now blit one by the selected merc
 	sYPosition = Y_START+( bSelectedInfoChar * ( Y_SIZE + 2 ) ) - 1;
-	
-	
+
+
 	if( bSelectedInfoChar >= FIRST_VEHICLE )
 	{
 		usVehicleCount = bSelectedInfoChar - FIRST_VEHICLE;
@@ -1344,7 +1350,7 @@ void HandleDisplayOfSelectedMercArrows( void )
 			if( ( IsEntryInSelectedListSet( ubCount ) == TRUE ) || ( ( bSelectedDestChar != - 1 ) ? ( ( Menptr[ gCharactersList[ ubCount ].usSolID ].ubGroupID != 0 ) ? ( Menptr[ gCharactersList[ bSelectedDestChar ].usSolID ].ubGroupID == Menptr[ gCharactersList[ ubCount ].usSolID ].ubGroupID ) : FALSE ) : FALSE ) )
 			{
 				sYPosition = Y_START+( ubCount * ( Y_SIZE + 2) ) - 1;
-				
+
 				if( ubCount >= FIRST_VEHICLE )
 				{
 					usVehicleCount = ubCount - FIRST_VEHICLE;
@@ -1372,13 +1378,13 @@ void HandleDisplayOfItemPopUpForSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 	{
 		return;
 	}
-	
-	
+
+
 	if( ( fWasInited == FALSE ) && ( fMapInventoryPoolInited ) )
 	{
 		if( gCharactersList[ bSelectedInfoChar ].fValid == TRUE )
 		{
-			if( ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].sSectorX == sMapX ) && ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].sSectorY == sMapY ) && ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].bSectorZ == sMapZ ) && ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].bActive ) && ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].bLife >= OKLIFE ) )
+			if( ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].sSectorX == sMapX ) && ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].sSectorY == sMapY ) && ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].bSectorZ == sMapZ ) && ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].bActive ) && ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID].stats.bLife >= OKLIFE ) )
 			{
 				// valid character
 				InitializeItemPickupMenu( &( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID] ), NOWHERE , pItemPool, MAP_INVEN_POOL_X, MAP_INVEN_POOL_Y, -1 );
@@ -1418,9 +1424,9 @@ void HandleDisplayOfItemPopUpForSector( INT16 sMapX, INT16 sMapY, INT16 sMapZ )
 
 void CreateScreenMaskForInventoryPoolPopUp( void )
 {
-	//  a screen mask for the inventory pop up
+	//	a screen mask for the inventory pop up
 	MSYS_DefineRegion( &gInventoryScreenMask, 0, 0 , SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGH - 1,
-						 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, InventoryScreenMaskBtnCallback ); 
+						MSYS_NO_CURSOR, MSYS_NO_CALLBACK, InventoryScreenMaskBtnCallback );
 
 }
 
@@ -1433,21 +1439,21 @@ void RemoveScreenMaskForInventoryPoolPopUp( void )
 
 // invnetory screen mask btn callback
 void InventoryScreenMaskBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
-{ 
-  // inventory screen mask btn callback
-  if(iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
-  {
-	  fMapInventoryPoolInited = FALSE;
-  }
+{
+	// inventory screen mask btn callback
+	if(iReason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	{
+	fMapInventoryPoolInited = FALSE;
+	}
 }
 
 void GetMoraleString( SOLDIERTYPE *pSoldier, STR16 sString )
 {
-	INT8 bMorale = pSoldier->bMorale;
+	INT8 bMorale = pSoldier->aiData.bMorale;
 
-	if ( pSoldier->uiStatusFlags & SOLDIER_DEAD )
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD )
 	{
-    wcscpy( sString, pMoralStrings[ 5 ] );
+	wcscpy( sString, pMoralStrings[ 5 ] );
 	}
 	else if( bMorale > 80 )
 	{
@@ -1455,11 +1461,11 @@ void GetMoraleString( SOLDIERTYPE *pSoldier, STR16 sString )
 	}
 	else if( bMorale > 65 )
 	{
-    wcscpy( sString, pMoralStrings[ 1 ] );
+	wcscpy( sString, pMoralStrings[ 1 ] );
 	}
 	else if( bMorale > 35 )
 	{
-    wcscpy( sString, pMoralStrings[ 2 ] );
+	wcscpy( sString, pMoralStrings[ 2 ] );
 	}
 	else if( bMorale > 20 )
 	{
@@ -1467,7 +1473,7 @@ void GetMoraleString( SOLDIERTYPE *pSoldier, STR16 sString )
 	}
 	else
 	{
-    wcscpy( sString, pMoralStrings[ 4 ] );
+	wcscpy( sString, pMoralStrings[ 4 ] );
 	}
 }
 
@@ -1477,61 +1483,61 @@ void GetMoraleString( SOLDIERTYPE *pSoldier, STR16 sString )
 void HandleLeavingOfEquipmentInCurrentSector( UINT32 uiMercId )
 {
 	// just drop the stuff in the current sector
-	INT32 iCounter = 0;
-  INT16 sGridNo, sTempGridNo;
+	//INT32 iCounter = 0;
+	INT16 sGridNo, sTempGridNo;
 
 	if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || Menptr[ uiMercId ].bSectorZ != gbWorldSectorZ )
 	{
-    // ATE: Use insertion gridno if not nowhere and insertion is gridno
-   if ( Menptr[ uiMercId ].ubStrategicInsertionCode == INSERTION_CODE_GRIDNO && Menptr[ uiMercId ].usStrategicInsertionData != NOWHERE )
-   {
-		  sGridNo = Menptr[ uiMercId ].usStrategicInsertionData;
-   }
-   else
-   {
-      // Set flag for item...
-      sGridNo = RandomGridNo();
-   }
+	// ATE: Use insertion gridno if not nowhere and insertion is gridno
+	if ( Menptr[ uiMercId ].ubStrategicInsertionCode == INSERTION_CODE_GRIDNO && Menptr[ uiMercId ].usStrategicInsertionData != NOWHERE )
+	{
+		sGridNo = Menptr[ uiMercId ].usStrategicInsertionData;
 	}
-  else
-  {
-    // ATE: Mercs can have a gridno of NOWHERE.....
-    sGridNo = Menptr[ uiMercId ].sGridNo;
+	else
+	{
+		// Set flag for item...
+		sGridNo = RandomGridNo();
+	}
+	}
+	else
+	{
+	// ATE: Mercs can have a gridno of NOWHERE.....
+	sGridNo = Menptr[ uiMercId ].sGridNo;
 
-    if ( sGridNo == NOWHERE )
-    {
-      sGridNo = RandomGridNo();
+	if ( sGridNo == NOWHERE )
+	{
+		sGridNo = RandomGridNo();
 
 			sTempGridNo = FindNearestAvailableGridNoForItem( sGridNo, 5 );
 			if( sTempGridNo == NOWHERE )
 				sTempGridNo = FindNearestAvailableGridNoForItem( sGridNo, 15 );
 
-      if ( sTempGridNo != NOWHERE )
-      {
-        sGridNo = sTempGridNo;
-      }
-    }
-  }
-
-	for( iCounter = 0; iCounter < NUM_INV_SLOTS; iCounter++ )
-	{
-		// slot found,		
-		// check if actual item
-		if(  Menptr[ uiMercId ].inv[ iCounter ].ubNumberOfObjects > 0 )
+		if ( sTempGridNo != NOWHERE )
 		{
-	    if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || Menptr[ uiMercId ].bSectorZ != gbWorldSectorZ )
-	    {
-        // Set flag for item...
-				AddItemsToUnLoadedSector( Menptr[ uiMercId ].sSectorX,  Menptr[ uiMercId ].sSectorY, Menptr[ uiMercId ].bSectorZ , sGridNo, 1, &( Menptr[ uiMercId ].inv[ iCounter ]) , Menptr[ uiMercId ].bLevel, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0, 1, FALSE );
-      }
+		sGridNo = sTempGridNo;
+		}
+	}
+	}
+
+	for( UINT32 iCounter = 0; iCounter < Menptr[ uiMercId ].inv.size(); iCounter++ )
+	{
+		// slot found,
+		// check if actual item
+		if(	Menptr[ uiMercId ].inv[ iCounter ].exists() == true )
+		{
+	 if( Menptr[ uiMercId ].sSectorX != gWorldSectorX || Menptr[ uiMercId ].sSectorY != gWorldSectorY || Menptr[ uiMercId ].bSectorZ != gbWorldSectorZ )
+	 {
+		// Set flag for item...
+				AddItemsToUnLoadedSector( Menptr[ uiMercId ].sSectorX,	Menptr[ uiMercId ].sSectorY, Menptr[ uiMercId ].bSectorZ , sGridNo, 1, &( Menptr[ uiMercId ].inv[ iCounter ]) , Menptr[ uiMercId ].pathing.bLevel, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0, 1, FALSE );
+		}
 			else
 			{
-				AddItemToPool( sGridNo, &( Menptr[ uiMercId ].inv[ iCounter ] ) , 1, Menptr[ uiMercId ].bLevel, WORLD_ITEM_REACHABLE, 0 );
+				AddItemToPool( sGridNo, &( Menptr[ uiMercId ].inv[ iCounter ] ) , 1, Menptr[ uiMercId ].pathing.bLevel, WORLD_ITEM_REACHABLE, 0 );
 			}
 		}
 	}
 
-  DropKeysInKeyRing( MercPtrs[ uiMercId ], sGridNo, MercPtrs[ uiMercId ]->bLevel, 1, FALSE, 0, FALSE );
+	DropKeysInKeyRing( MercPtrs[ uiMercId ], sGridNo, MercPtrs[ uiMercId ]->pathing.bLevel, 1, FALSE, 0, FALSE );
 
 }
 
@@ -1599,16 +1605,16 @@ void HandleEquipmentLeftInOmerta( UINT32 uiSlotIndex )
 
 	while( pItem )
 	{
-		if( gWorldSectorX  != OMERTA_LEAVE_EQUIP_SECTOR_X || gWorldSectorY != OMERTA_LEAVE_EQUIP_SECTOR_Y || gbWorldSectorZ != OMERTA_LEAVE_EQUIP_SECTOR_Z )
+		if( gWorldSectorX	!= OMERTA_LEAVE_EQUIP_SECTOR_X || gWorldSectorY != OMERTA_LEAVE_EQUIP_SECTOR_Y || gbWorldSectorZ != OMERTA_LEAVE_EQUIP_SECTOR_Z )
 		{
 			// given this slot value, add to sector item list
-			AddItemsToUnLoadedSector( OMERTA_LEAVE_EQUIP_SECTOR_X, OMERTA_LEAVE_EQUIP_SECTOR_Y, OMERTA_LEAVE_EQUIP_SECTOR_Z, OMERTA_LEAVE_EQUIP_GRIDNO, 1, &( pItem -> o ) , 0, WORLD_ITEM_REACHABLE, 0, 1, FALSE );
+			AddItemsToUnLoadedSector( OMERTA_LEAVE_EQUIP_SECTOR_X, OMERTA_LEAVE_EQUIP_SECTOR_Y, OMERTA_LEAVE_EQUIP_SECTOR_Z, OMERTA_LEAVE_EQUIP_GRIDNO, 1, &( pItem->object ) , 0, WORLD_ITEM_REACHABLE, 0, 1, FALSE );
 		}
 		else
 		{
-			AddItemToPool( OMERTA_LEAVE_EQUIP_GRIDNO, &( pItem->o ), 1, 0, WORLD_ITEM_REACHABLE, 0 );
+			AddItemToPool( OMERTA_LEAVE_EQUIP_GRIDNO, &( pItem->object ), 1, 0, WORLD_ITEM_REACHABLE, 0 );
 		}
-		pItem = pItem -> pNext;
+		pItem = pItem->pNext;
 	}
 
 	FreeLeaveListSlot( uiSlotIndex );
@@ -1642,14 +1648,14 @@ void HandleEquipmentLeftInDrassen( UINT32 uiSlotIndex )
 
 	while( pItem )
 	{
-		if( gWorldSectorX  != BOBBYR_SHIPPING_DEST_SECTOR_X || gWorldSectorY != BOBBYR_SHIPPING_DEST_SECTOR_Y || gbWorldSectorZ != BOBBYR_SHIPPING_DEST_SECTOR_Z )
+		if( gWorldSectorX	!= BOBBYR_SHIPPING_DEST_SECTOR_X || gWorldSectorY != BOBBYR_SHIPPING_DEST_SECTOR_Y || gbWorldSectorZ != BOBBYR_SHIPPING_DEST_SECTOR_Z )
 		{
 			// given this slot value, add to sector item list
-			AddItemsToUnLoadedSector( BOBBYR_SHIPPING_DEST_SECTOR_X, BOBBYR_SHIPPING_DEST_SECTOR_Y, BOBBYR_SHIPPING_DEST_SECTOR_Z, 10433, 1, &( pItem -> o ) , 0, WORLD_ITEM_REACHABLE, 0, 1, FALSE );
+			AddItemsToUnLoadedSector( BOBBYR_SHIPPING_DEST_SECTOR_X, BOBBYR_SHIPPING_DEST_SECTOR_Y, BOBBYR_SHIPPING_DEST_SECTOR_Z, 10433, 1, &( pItem->object ) , 0, WORLD_ITEM_REACHABLE, 0, 1, FALSE );
 		}
 		else
 		{
-			AddItemToPool( 10433, &( pItem->o ), 1, 0, WORLD_ITEM_REACHABLE, 0 );
+			AddItemToPool( 10433, &( pItem->object ), 1, 0, WORLD_ITEM_REACHABLE, 0 );
 		}
 		pItem = pItem->pNext;
 	}
@@ -1686,24 +1692,24 @@ void ShutDownLeaveList( void )
 }
 
 
-BOOLEAN AddItemToLeaveIndex( OBJECTTYPE *o, UINT32 uiSlotIndex )
+BOOLEAN AddItemToLeaveIndex( OBJECTTYPE *object, UINT32 uiSlotIndex )
 {
 	MERC_LEAVE_ITEM *pItem, *pCurrentItem;
 
 	Assert( uiSlotIndex < NUM_LEAVE_LIST_SLOTS );
 
 
-	if( o == NULL )
+	if( object == NULL )
 	{
 		return( FALSE );
 	}
 
 	// allocate space
-	pItem = (MERC_LEAVE_ITEM *) MemAlloc( sizeof( MERC_LEAVE_ITEM ) );
+	pItem = new MERC_LEAVE_ITEM;
 
 	// copy object
-	memcpy( &( pItem->o ), o, sizeof( OBJECTTYPE ) );
-	
+	pItem->object = *object;
+
 	// nobody afterwards
 	pItem->pNext = NULL;
 
@@ -1717,9 +1723,9 @@ BOOLEAN AddItemToLeaveIndex( OBJECTTYPE *o, UINT32 uiSlotIndex )
 	}
 
 	// move through list
-	while( pCurrentItem ->pNext )
+	while( pCurrentItem->pNext )
 	{
-		 pCurrentItem = pCurrentItem->pNext;
+		pCurrentItem = pCurrentItem->pNext;
 	}
 
 	// found
@@ -1771,7 +1777,6 @@ INT32 SetUpDropItemListForMerc( UINT32 uiMercId )
 {
 	// will set up a drop list for this grunt, remove items from inventory, and profile
 	INT32 iSlotIndex = -1;
-	INT32 iCounter = 0;
 
 	iSlotIndex = FindFreeSlotInLeaveList( );
 	if( iSlotIndex == -1 )
@@ -1779,11 +1784,11 @@ INT32 SetUpDropItemListForMerc( UINT32 uiMercId )
 		return( -1 );
 	}
 
-	for( iCounter = 0; iCounter < NUM_INV_SLOTS; iCounter++ )
+	for( UINT32 iCounter = 0; iCounter < Menptr[ uiMercId ].inv.size(); iCounter++ )
 	{
 		// slot found,
 		// check if actual item
-		if(  Menptr[ uiMercId ].inv[ iCounter ].ubNumberOfObjects > 0 )
+		if(	Menptr[ uiMercId ].inv[ iCounter ].exists() == true )
 		{
 			// make a linked list of the items left behind, with the ptr to its head in this free slot
 			AddItemToLeaveIndex( &( Menptr[ uiMercId ].inv[ iCounter ] ), iSlotIndex );
@@ -1793,15 +1798,11 @@ INT32 SetUpDropItemListForMerc( UINT32 uiMercId )
 		}
 	}
 
-  // ATE: Added this to drop keyring keys - the 2nd last paramter says to add it to a leave list...
-  // the gridno, level and visiblity are ignored
-  DropKeysInKeyRing( MercPtrs[ uiMercId ], NOWHERE, 0, 0, TRUE, iSlotIndex, FALSE );
+	// ATE: Added this to drop keyring keys - the 2nd last paramter says to add it to a leave list...
+	// the gridno, level and visiblity are ignored
+	DropKeysInKeyRing( MercPtrs[ uiMercId ], NOWHERE, 0, 0, TRUE, iSlotIndex, FALSE );
 
 	// zero out profiles
-        // WDS - Clean up inventory handling
-	//memset( ( gMercProfiles[ Menptr[ uiMercId ].ubProfile ].bInvStatus ), 0, sizeof( UINT8 ) * 19 );
-	//memset( ( gMercProfiles[ Menptr[ uiMercId ].ubProfile ].bInvNumber ), 0, sizeof( UINT8 ) * 19 );
-	//memset( ( gMercProfiles[ Menptr[ uiMercId ].ubProfile ].inv ), 0, sizeof( UINT16 ) * 19 );
 	gMercProfiles[ Menptr[ uiMercId ].ubProfile ].clearInventory();
 
 	return( iSlotIndex );
@@ -1835,16 +1836,16 @@ BOOLEAN RemoveItemFromLeaveIndex( MERC_LEAVE_ITEM *pItem, UINT32 uiSlotIndex )
 //ARM: THIS DOESN'T MAKE SENSE, pCurrentItem is always NULL at this stage!
 	if( pItem == pCurrentItem )
 	{
-		gpLeaveListHead[ uiSlotIndex ] = pCurrentItem ->pNext;
+		gpLeaveListHead[ uiSlotIndex ] = pCurrentItem->pNext;
 		MemFree( pItem );
 		pItem = NULL;
 		return( TRUE );
 	}
 
 	// in the body
-	while( ( pCurrentItem->pNext != pItem ) && ( pCurrentItem -> pNext != NULL ) )
+	while( ( pCurrentItem->pNext != pItem ) && ( pCurrentItem->pNext != NULL ) )
 	{
-		pCurrentItem = pCurrentItem -> pNext;
+		pCurrentItem = pCurrentItem->pNext;
 	}
 
 	// item not found
@@ -1855,7 +1856,7 @@ BOOLEAN RemoveItemFromLeaveIndex( MERC_LEAVE_ITEM *pItem, UINT32 uiSlotIndex )
 
 	// set to next after next
 	pCurrentItem->pNext = pCurrentItem->pNext->pNext;
-	
+
 	// free space and null ptr
 	MemFree( pItem );
 	pItem = NULL;
@@ -1890,7 +1891,7 @@ void HandleMapScreenUpArrow( void )
 	{
 		if( GetBoxShadeFlag( ghAssignmentBox, iValue ) == FALSE )
 		{
-			if( iHighLine ==  0)
+			if( iHighLine ==	0)
 			{
 				iHighLine = ( INT32 )GetNumberOfLinesOfTextInBox( ghAssignmentBox );
 			}
@@ -1902,7 +1903,7 @@ void HandleMapScreenUpArrow( void )
 	}
 	else
 	{
-		if( ( giHighLine == 0 ) || ( giHighLine  == -1 ) )
+		if( ( giHighLine == 0 ) || ( giHighLine	== -1 ) )
 		{
 			giHighLine = GetNumberOfCharactersOnPlayersTeam( ) - 1;
 			fTeamPanelDirty = TRUE;
@@ -1912,7 +1913,7 @@ void HandleMapScreenUpArrow( void )
 			giHighLine--;
 			fTeamPanelDirty = TRUE;
 		}
-	
+
 	}
 }
 
@@ -1952,7 +1953,7 @@ void HandleMapScreenDownArrow( void )
 	}
 	else
 	{
-		if( ( giHighLine == GetNumberOfCharactersOnPlayersTeam( ) - 1 ) || ( giHighLine  == -1 ) )
+		if( ( giHighLine == GetNumberOfCharactersOnPlayersTeam( ) - 1 ) || ( giHighLine	== -1 ) )
 		{
 			giHighLine = 0;
 			fTeamPanelDirty = TRUE;
@@ -1962,7 +1963,7 @@ void HandleMapScreenDownArrow( void )
 			giHighLine++;
 			fTeamPanelDirty = TRUE;
 		}
-	
+
 	}
 }
 
@@ -1990,7 +1991,7 @@ void CreateMapStatusBarsRegion( void )
 	// create the status region over the bSelectedCharacter info region, to get quick rundown of merc's status
 	MSYS_DefineRegion( &gMapStatusBarsRegion, BAR_INFO_X - 3, BAR_INFO_Y - 42,(INT16)( BAR_INFO_X + 17), (INT16)(BAR_INFO_Y ), MSYS_PRIORITY_HIGH + 5,
 							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
-	
+
 	return;
 }
 
@@ -2019,19 +2020,19 @@ void UpdateCharRegionHelpText( void )
 		// health/energy/morale
 		if( pSoldier->bAssignment != ASSIGNMENT_POW )
 		{
-			if ( pSoldier->bLife != 0 )
+			if ( pSoldier->stats.bLife != 0 )
 			{
 				if ( AM_A_ROBOT( MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ] ) )
 				{
 					// robot (condition only)
 					swprintf( sString, L"%s: %d/%d",
-													pMapScreenStatusStrings[ 3 ], pSoldier->bLife, pSoldier->bLifeMax );
+													pMapScreenStatusStrings[ 3 ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax );
 				}
-				else if ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].uiStatusFlags & SOLDIER_VEHICLE )
+				else if ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].flags.uiStatusFlags & SOLDIER_VEHICLE )
 				{
 					// vehicle (condition/fuel)
 					swprintf( sString, L"%s: %d/%d, %s: %d/%d",
-													pMapScreenStatusStrings[ 3 ], pSoldier->bLife, pSoldier->bLifeMax,
+													pMapScreenStatusStrings[ 3 ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
 													pMapScreenStatusStrings[ 4 ], pSoldier->bBreath, pSoldier->bBreathMax );
 				}
 				else
@@ -2039,7 +2040,7 @@ void UpdateCharRegionHelpText( void )
 					// person (health/energy/morale)
 					GetMoraleString( pSoldier, pMoraleStr );
 					swprintf( sString, L"%s: %d/%d, %s: %d/%d, %s: %s",
-													pMapScreenStatusStrings[ 0 ], pSoldier->bLife, pSoldier->bLifeMax,
+													pMapScreenStatusStrings[ 0 ], pSoldier->stats.bLife, pSoldier->stats.bLifeMax,
 													pMapScreenStatusStrings[ 1 ], pSoldier->bBreath, pSoldier->bBreathMax,
 													pMapScreenStatusStrings[ 2 ], pMoraleStr );
 				}
@@ -2105,8 +2106,8 @@ void FindAndSetThisContractSoldier( SOLDIERTYPE *pSoldier )
 	INT32 iCounter = 0;
 
 	fShowContractMenu = FALSE;
-	
-	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ ) 
+
+	for( iCounter = 0; iCounter < MAX_CHARACTER_COUNT; iCounter++ )
 	{
 		if( gCharactersList[ iCounter].fValid == TRUE )
 		{
@@ -2114,8 +2115,8 @@ void FindAndSetThisContractSoldier( SOLDIERTYPE *pSoldier )
 			{
 				ChangeSelectedInfoChar( ( INT8 )iCounter, TRUE );
 				bSelectedContractChar = ( INT8 )iCounter;
-				fShowContractMenu = TRUE; 
-				
+				fShowContractMenu = TRUE;
+
 				// create
 				RebuildContractBoxForMerc( pSoldier );
 
@@ -2144,7 +2145,7 @@ void UpdateMapScreenAssignmentPositions( void )
 {
 	// set the position of the pop up boxes
 	SGPPoint pPoint;
-	
+
 
 	if( guiCurrentScreen != MAP_SCREEN )
 	{
@@ -2185,8 +2186,8 @@ void UpdateMapScreenAssignmentPositions( void )
 */
 	}
 
-	
-		
+
+
 	AssignmentPosition.iY = giBoxY;
 
 	AttributePosition.iY = TrainPosition.iY = AssignmentPosition.iY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 )* ASSIGN_MENU_TRAIN;
@@ -2225,7 +2226,7 @@ void UpdateMapScreenAssignmentPositions( void )
 	}
 
 
-	
+
 	return;
 }
 
@@ -2267,7 +2268,7 @@ void UpdateMapScreenMilitiaControlPositions( void )
 	{
 		giBoxY = ( Y_START + ( bSelectedAssignChar ) * ( Y_SIZE + 2 ) );
 	}
-		
+
 	MilitiaControlPosition.iY = giBoxY;
 
 	//TalkToAllPosition.iY = MilitiaControlPosition.iY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 )* MILCON_MENU_ALL;
@@ -2314,8 +2315,8 @@ void RandomMercInGroupSaysQuote( GROUP *pGroup, UINT16 usQuoteNum )
 		pSoldier = pPlayer->pSoldier;
 		Assert( pSoldier );
 
-		if ( pSoldier->bLife >= OKLIFE && !( pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) &&
-					!AM_A_ROBOT( pSoldier ) && !AM_AN_EPC( pSoldier ) && !pSoldier->fMercAsleep )
+		if ( pSoldier->stats.bLife >= OKLIFE && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
+					!AM_A_ROBOT( pSoldier ) && !AM_AN_EPC( pSoldier ) && !pSoldier->flags.fMercAsleep )
 		{
 			ubMercsInGroup[ ubNumMercs ] = pSoldier->ubID;
 			ubNumMercs++;
@@ -2419,13 +2420,13 @@ BOOLEAN MapscreenCanPassItemToCharNum( INT32 iNewCharSlot )
 	{
 		// disallow passing items to anyone not in that sector
 		if ( pNewSoldier->sSectorX != sSelMapX ||
-				 pNewSoldier->sSectorY != sSelMapY ||
-				 pNewSoldier->bSectorZ != ( INT8 )( iCurrentMapSectorZ ) )
+				pNewSoldier->sSectorY != sSelMapY ||
+				pNewSoldier->bSectorZ != ( INT8 )( iCurrentMapSectorZ ) )
 		{
 			return( FALSE );
 		}
 
-		if ( pNewSoldier->fBetweenSectors )
+		if ( pNewSoldier->flags.fBetweenSectors )
 		{
 			return( FALSE );
 		}
@@ -2456,17 +2457,17 @@ BOOLEAN MapscreenCanPassItemToCharNum( INT32 iNewCharSlot )
 	{
 		// disallow passing items to a merc not in the same sector
 		if ( pNewSoldier->sSectorX != pOldSoldier->sSectorX ||
-				 pNewSoldier->sSectorY != pOldSoldier->sSectorY ||
-				 pNewSoldier->bSectorZ != pOldSoldier->bSectorZ )
+				pNewSoldier->sSectorY != pOldSoldier->sSectorY ||
+				pNewSoldier->bSectorZ != pOldSoldier->bSectorZ )
 		{
 			return( FALSE );
 		}
 
 		// if on the road
-		if ( pNewSoldier->fBetweenSectors )
+		if ( pNewSoldier->flags.fBetweenSectors )
 		{
 			// other guy must also be on the road...
-			if ( !pOldSoldier->fBetweenSectors )
+			if ( !pOldSoldier->flags.fBetweenSectors )
 			{
 				return( FALSE );
 			}
@@ -2621,14 +2622,14 @@ void HandleMinerEvent( UINT8 bMinerNumber, INT16 sSectorX, INT16 sSectorY, INT16
 		fMapPanelDirty = TRUE;
 
 		// post dialogue events for miners to say this quote and flash the sector where his mine is
-		CharacterDialogueWithSpecialEvent( ( UINT8 )uiExternalFaceProfileIds[ bMinerNumber ], sQuoteNumber,   bMinerNumber , DIALOGUE_EXTERNAL_NPC_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_MINESECTOREVENT, START_RED_SECTOR_LOCATOR, 1 );
-		CharacterDialogue( ( UINT8 )uiExternalFaceProfileIds[ bMinerNumber ], sQuoteNumber, ( UINT8 )( UINT8 )uiExternalStaticNPCFaces[ bMinerNumber ], DIALOGUE_EXTERNAL_NPC_UI,  FALSE , FALSE );
-		CharacterDialogueWithSpecialEvent( ( UINT8 )uiExternalFaceProfileIds[ bMinerNumber ], sQuoteNumber,   bMinerNumber , DIALOGUE_EXTERNAL_NPC_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_MINESECTOREVENT, STOP_RED_SECTOR_LOCATOR, 1 );
+		CharacterDialogueWithSpecialEvent( ( UINT8 )uiExternalFaceProfileIds[ bMinerNumber ], sQuoteNumber,	bMinerNumber , DIALOGUE_EXTERNAL_NPC_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_MINESECTOREVENT, START_RED_SECTOR_LOCATOR, 1 );
+		CharacterDialogue( ( UINT8 )uiExternalFaceProfileIds[ bMinerNumber ], sQuoteNumber, ( UINT8 )( UINT8 )uiExternalStaticNPCFaces[ bMinerNumber ], DIALOGUE_EXTERNAL_NPC_UI,	FALSE , FALSE );
+		CharacterDialogueWithSpecialEvent( ( UINT8 )uiExternalFaceProfileIds[ bMinerNumber ], sQuoteNumber,	bMinerNumber , DIALOGUE_EXTERNAL_NPC_UI , FALSE , FALSE , DIALOGUE_SPECIAL_EVENT_MINESECTOREVENT, STOP_RED_SECTOR_LOCATOR, 1 );
 	}
 	else	// stay in tactical
 	{
 		// no need to to highlight mine sector
-		CharacterDialogue( ( UINT8 )uiExternalFaceProfileIds[ bMinerNumber ], sQuoteNumber, ( UINT8 )( UINT8 )uiExternalStaticNPCFaces[ bMinerNumber ], DIALOGUE_EXTERNAL_NPC_UI,  FALSE , FALSE );
+		CharacterDialogue( ( UINT8 )uiExternalFaceProfileIds[ bMinerNumber ], sQuoteNumber, ( UINT8 )( UINT8 )uiExternalStaticNPCFaces[ bMinerNumber ], DIALOGUE_EXTERNAL_NPC_UI,	FALSE , FALSE );
 	}
 }
 
@@ -2718,7 +2719,7 @@ void HandleShowingOfTacticalInterfaceFastHelpText( void )
 		fTextActive = TRUE;
 
 	}
-	else if( ( fInterfaceFastHelpTextActive == FALSE ) && ( fTextActive ) ) 
+	else if( ( fInterfaceFastHelpTextActive == FALSE ) && ( fTextActive ) )
 	{
 		fTextActive = FALSE;
 		UnPauseGame();
@@ -2739,7 +2740,7 @@ void StartShowingInterfaceFastHelpText( void )
 
 // stop showing interface fast help text
 void StopShowingInterfaceFastHelpText( void )
-{	
+{
 	fInterfaceFastHelpTextActive = FALSE;
 }
 
@@ -2770,14 +2771,13 @@ void DisplayUserDefineHelpTextRegions( FASTHELPREGION *pRegion )
 {
 	UINT16 usFillColor;
 	INT32 iX,iY,iW,iH;
-	INT32 iNumberOfLines = 1;
 	UINT8 *pDestBuf;
 	UINT32 uiDestPitchBYTES;
 
 
 	// grab the color for the background region
 	usFillColor = Get16BPPColor(FROMRGB(250, 240, 188));
-	
+
 
 	iX = pRegion->iX;
 	iY = pRegion->iY;
@@ -2797,7 +2797,7 @@ void DisplayUserDefineHelpTextRegions( FASTHELPREGION *pRegion )
 		iX = (SCREEN_WIDTH - iW - 4);
 
 	// what about the y value?
-	iY = (INT32)pRegion->iY - (  iH * 3 / 4);
+	iY = (INT32)pRegion->iY - (	iH * 3 / 4);
 
 	// not far enough
 	if (iY < 0)
@@ -2826,7 +2826,7 @@ void DisplayUserDefineHelpTextRegions( FASTHELPREGION *pRegion )
 
 	iHeightOfInitFastHelpText = iH + 20;
 
-	InvalidateRegion(  iX, iY, (iX + iW) , (iY + iH + 20 ) );
+	InvalidateRegion(	iX, iY, (iX + iW) , (iY + iH + 20 ) );
 
 }
 
@@ -2841,14 +2841,13 @@ void DisplaySoldierToolTip( FASTHELPREGION *pRegion )
 {
 	UINT16 usFillColor;
 	INT32 iX,iY,iW,iH;
-	INT32 iNumberOfLines = 1;
 	UINT8 *pDestBuf;
 	UINT32 uiDestPitchBYTES;
 
 
 	// grab the color for the background region
 	usFillColor = Get16BPPColor(FROMRGB(250, 240, 188));
-	
+
 
 	iX = pRegion->iX;
 	iY = pRegion->iY;
@@ -2871,7 +2870,7 @@ void DisplaySoldierToolTip( FASTHELPREGION *pRegion )
 		iX = (SCREEN_WIDTH - iW - 4);
 
 	// what about the y value?
-	iY = (INT32)pRegion->iY - (  iH * 3 / 4);
+	iY = (INT32)pRegion->iY - (	iH * 3 / 4);
 
 	// not far enough
 	if (iY < 0)
@@ -2897,12 +2896,12 @@ void DisplaySoldierToolTip( FASTHELPREGION *pRegion )
 	SetFontForeground( FONT_BEIGE );
 
 	//iH = ( INT32 )DisplayWrappedString( ( INT16 )( iX + 10 ), ( INT16 )( iY + 6 ), ( INT16 )pRegion->iW, 0, FONT10ARIAL, FONT_BEIGE, pRegion->FastHelpText, FONT_NEARBLACK, TRUE, 0 );
-	
+
 	DisplayHelpTokenizedString( pRegion->FastHelpText ,( INT16 )( iX + 5 ), ( INT16 )( iY + 5 ) );
-	
+
 	iHeightOfInitFastHelpText = iH + 20;
 
-	InvalidateRegion(  iX, iY, (iX + iW) , (iY + iH + 20 ) );
+	InvalidateRegion(	iX, iY, (iX + iW) , (iY + iH + 20 ) );
 }
 
 
@@ -2913,7 +2912,7 @@ void DisplaySoldierToolTip( FASTHELPREGION *pRegion )
 
 
 
-void DisplayFastHelpForInitialTripInToMapScreen(  FASTHELPREGION *pRegion )
+void DisplayFastHelpForInitialTripInToMapScreen(	FASTHELPREGION *pRegion )
 {
 	if( gTacticalStatus.fDidGameJustStart )
 	{
@@ -2941,9 +2940,9 @@ void DisplayFastHelpForInitialTripInToMapScreen(  FASTHELPREGION *pRegion )
 void DisplayMapScreenFastHelpList( void )
 {
 	INT32 iCounter = 0;
-	
+
 	DisplayFastHelpForInitialTripInToMapScreen( &pFastHelpMapScreenList[ iCounter ] );
-	
+
 	return;
 }
 
@@ -2997,17 +2996,17 @@ void SetUpShutDownMapScreenHelpTextScreenMask( void )
 	{
 		if( gTacticalStatus.fDidGameJustStart )
 		{
-			MSYS_DefineRegion( &gMapScreenHelpTextMask , ( INT16 )( pMapScreenFastHelpLocationList[ 9 ].iX ), ( INT16 )( pMapScreenFastHelpLocationList[ 9 ].iY ), ( INT16 )( pMapScreenFastHelpLocationList[ 9 ].iX + pMapScreenFastHelpWidthList[ 9 ] ), ( INT16 )( pMapScreenFastHelpLocationList[ 9 ].iY + iHeightOfInitFastHelpText ), MSYS_PRIORITY_HIGHEST, 
+			MSYS_DefineRegion( &gMapScreenHelpTextMask , ( INT16 )( pMapScreenFastHelpLocationList[ 9 ].iX ), ( INT16 )( pMapScreenFastHelpLocationList[ 9 ].iY ), ( INT16 )( pMapScreenFastHelpLocationList[ 9 ].iX + pMapScreenFastHelpWidthList[ 9 ] ), ( INT16 )( pMapScreenFastHelpLocationList[ 9 ].iY + iHeightOfInitFastHelpText ), MSYS_PRIORITY_HIGHEST,
 				MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MapScreenHelpTextScreenMaskBtnCallback );
 		}
 		else
 		{
-				MSYS_DefineRegion( &gMapScreenHelpTextMask , 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGHEST, 
+				MSYS_DefineRegion( &gMapScreenHelpTextMask , 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGHEST,
 					MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MapScreenHelpTextScreenMaskBtnCallback );
 		}
 
 		fCreated = TRUE;
-			
+
 	}
 	else if( ( fShowMapScreenHelpText == FALSE ) && ( fInterfaceFastHelpTextActive == FALSE ) && ( fCreated == TRUE ) )
 	{
@@ -3149,7 +3148,7 @@ void SelectSquadForMovement( INT32 iSquadNumber )
 
 				if ( pSoldier && pSoldier->bActive )
 				{
-					// is he able & allowed to move?  (Report only the first reason for failure encountered)
+					// is he able & allowed to move?	(Report only the first reason for failure encountered)
 					if ( CanMoveBoxSoldierMoveStrategically( pSoldier, fFirstFailure ) )
 					{
 						SelectSoldierForMovement( pSoldier );
@@ -3161,7 +3160,7 @@ void SelectSquadForMovement( INT32 iSquadNumber )
 					}
 				}
 			}
-	
+
 			if ( !fSomeCantMove )
 			{
 				fSquadIsMoving[ iCounter ] = TRUE;
@@ -3206,7 +3205,7 @@ void DeselectSquadForMovement( INT32 iSquadNumber )
 
 BOOLEAN AllSoldiersInSquadSelected( INT32 iSquadNumber )
 {
-	INT32 iCounter = 0, iCount = 0;
+	INT32 iCounter = 0;
 
 	// is everyone on this squad moving?
 	for( iCounter = 0; iCounter < giNumberOfSoldiersInSectorMoving; iCounter++ )
@@ -3318,8 +3317,8 @@ INT32 HowManyMovingSoldiersInVehicle( INT32 iVehicleId )
 
 	for( iCounter = 0; iCounter < giNumberOfSoldiersInSectorMoving; iCounter++ )
 	{
-		// is he in the right vehicle 
-		if( ( pSoldierMovingList[ iCounter ] ->bAssignment == VEHICLE )&&( pSoldierMovingList[ iCounter ] ->iVehicleId == iVehicleId ) )
+		// is he in the right vehicle
+		if( ( pSoldierMovingList[ iCounter ]->bAssignment == VEHICLE )&&( pSoldierMovingList[ iCounter ]->iVehicleId == iVehicleId ) )
 		{
 			// if he moving?
 			if ( fSoldierIsMoving[ iCounter ] )
@@ -3340,7 +3339,7 @@ INT32 HowManyMovingSoldiersInSquad( INT32 iSquadNumber )
 	for( iCounter = 0; iCounter < giNumberOfSoldiersInSectorMoving; iCounter++ )
 	{
 		// is he in the right squad
-		if( pSoldierMovingList[ iCounter ] ->bAssignment == iSquadNumber )
+		if( pSoldierMovingList[ iCounter ]->bAssignment == iSquadNumber )
 		{
 			// if he moving?
 			if ( fSoldierIsMoving[ iCounter ] )
@@ -3452,7 +3451,7 @@ void InitializeMovingLists( void )
 
 
 	giNumberOfSoldiersInSectorMoving = 0;
-	giNumberOfSquadsInSectorMoving   = 0;
+	giNumberOfSquadsInSectorMoving	= 0;
 	giNumberOfVehiclesInSectorMoving = 0;
 
 	// init the soldiers
@@ -3484,7 +3483,7 @@ void InitializeMovingLists( void )
 	}
 
 	return;
-}	
+}
 
 
 
@@ -3542,7 +3541,7 @@ void CreateDestroyMovementBox( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 		CreatePopUpBoxForMovementBox( );
 		BuildMouseRegionsForMoveBox( );
 		CreateScreenMaskForMoveBox( );
-  	fMapPanelDirty = TRUE;
+		fMapPanelDirty = TRUE;
 	}
 	else if( ( fShowMapScreenMovementList == FALSE ) && ( fCreated == TRUE ) )
 	{
@@ -3553,7 +3552,7 @@ void CreateDestroyMovementBox( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 		RemoveBox( ghMoveBox );
 		ghMoveBox = -1;
 		RemoveScreenMaskForMoveBox( );
-  	fMapPanelDirty = TRUE;
+		fMapPanelDirty = TRUE;
 		fMapScreenBottomDirty = TRUE;		// really long move boxes can overlap bottom panel
 	}
 
@@ -3587,7 +3586,7 @@ void SetUpMovingListsForSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 					( pSoldier->bAssignment != IN_TRANSIT ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) &&
 					( pSoldier->sSectorX == sSectorX ) && ( pSoldier->sSectorY == sSectorY ) && ( pSoldier->bSectorZ == sSectorZ ) )
 			{
-				if ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
+				if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 				{
 					// vehicle
 					// if it can move (can't be empty)
@@ -3600,13 +3599,13 @@ void SetUpMovingListsForSector( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ )
 				else // soldier
 				{
 					// alive, not aboard Skyrider (airborne or not!)
-					if ( ( pSoldier->bLife >= OKLIFE ) &&
-							 ( ( pSoldier->bAssignment != VEHICLE ) || ( pSoldier->iVehicleId != iHelicopterVehicleId ) ) )
+					if ( ( pSoldier->stats.bLife >= OKLIFE ) &&
+							( ( pSoldier->bAssignment != VEHICLE ) || ( pSoldier->iVehicleId != iHelicopterVehicleId ) ) )
 					{
 						// add soldier
 						AddSoldierToMovingLists( pSoldier );
 
-						// if on a squad, 
+						// if on a squad,
 						if ( pSoldier->bAssignment < ON_DUTY )
 						{
 							// add squad (duplicates ok, they're ignored inside the function)
@@ -3630,10 +3629,10 @@ void CreatePopUpBoxForMovementBox( void )
 	SGPRect Dimensions;
 
 	// create the pop up box and mouse regions for movement list
- 
+
  // create basic box
  CreatePopUpBox(&ghMoveBox, AssignmentDimensions, MovePosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_RESIZE ));
- 
+
  // which buffer will box render to
  SetBoxBuffer(ghMoveBox, FRAME_BUFFER);
 
@@ -3742,21 +3741,21 @@ void AddStringsToMoveBox( void )
 		{
 			swprintf( sString, L"%s", pSquadMenuStrings[iSquadMovingList[ iCount ] ] );
 		}
-		AddMonoString(&hStringHandle, sString ); 
+		AddMonoString(&hStringHandle, sString );
 
 		// now add all the grunts in it
 		for( iCountB = 0; iCountB < giNumberOfSoldiersInSectorMoving; iCountB++ )
 		{
-			if( pSoldierMovingList[ iCountB ] -> bAssignment == iSquadMovingList[ iCount ] )
+			if( pSoldierMovingList[ iCountB ]->bAssignment == iSquadMovingList[ iCount ] )
 			{
 				// add mercs in squads
 				if( IsSoldierSelectedForMovement( pSoldierMovingList[ iCountB ] ) == TRUE )
 				{
-					swprintf( sString, L"   *%s*", pSoldierMovingList[ iCountB ]->name );
+					swprintf( sString, L"  *%s*", pSoldierMovingList[ iCountB ]->name );
 				}
 				else
 				{
-					swprintf( sString, L"   %s", pSoldierMovingList[ iCountB ]->name );
+					swprintf( sString, L"  %s", pSoldierMovingList[ iCountB ]->name );
 				}
 				AddMonoString(&hStringHandle, sString );
 			}
@@ -3774,23 +3773,23 @@ void AddStringsToMoveBox( void )
 		}
 		else
 		{
-			swprintf( sString, L"%s", pVehicleStrings[ pVehicleList[ iVehicleMovingList[ iCount ]  ].ubVehicleType ] );
+			swprintf( sString, L"%s", pVehicleStrings[ pVehicleList[ iVehicleMovingList[ iCount ]	].ubVehicleType ] );
 		}
-		AddMonoString(&hStringHandle, sString ); 
+		AddMonoString(&hStringHandle, sString );
 
 		// now add all the grunts in it
 		for( iCountB = 0; iCountB < giNumberOfSoldiersInSectorMoving; iCountB++ )
 		{
-			if( ( pSoldierMovingList[ iCountB ] -> bAssignment == VEHICLE ) &&( pSoldierMovingList[ iCountB ] -> iVehicleId == iVehicleMovingList[ iCount ] ) )
+			if( ( pSoldierMovingList[ iCountB ]->bAssignment == VEHICLE ) &&( pSoldierMovingList[ iCountB ]->iVehicleId == iVehicleMovingList[ iCount ] ) )
 			{
 				// add mercs in vehicles
 				if( IsSoldierSelectedForMovement( pSoldierMovingList[ iCountB ] ) == TRUE )
 				{
-					swprintf( sString, L"   *%s*", pSoldierMovingList[ iCountB ]->name );
+					swprintf( sString, L"  *%s*", pSoldierMovingList[ iCountB ]->name );
 				}
 				else
 				{
-					swprintf( sString, L"   %s", pSoldierMovingList[ iCountB ]->name );
+					swprintf( sString, L"  %s", pSoldierMovingList[ iCountB ]->name );
 				}
 				AddMonoString(&hStringHandle, sString );
 			}
@@ -3825,11 +3824,11 @@ void AddStringsToMoveBox( void )
 			// add OTHER soldiers (not on duty nor in a vehicle)
 			if( IsSoldierSelectedForMovement( pSoldierMovingList[ iCount ] ) == TRUE )
 			{
-				swprintf( sString, L"  *%s ( %s )*", pSoldierMovingList[ iCount ]->name, pAssignmentStrings[  pSoldierMovingList[ iCount ]->bAssignment ] );
+				swprintf( sString, L" *%s ( %s )*", pSoldierMovingList[ iCount ]->name, pAssignmentStrings[	pSoldierMovingList[ iCount ]->bAssignment ] );
 			}
 			else
 			{
-				swprintf( sString, L"   %s ( %s )", pSoldierMovingList[ iCount ]->name, pAssignmentStrings[  pSoldierMovingList[ iCount ]->bAssignment ] );
+				swprintf( sString, L" %s ( %s )", pSoldierMovingList[ iCount ]->name, pAssignmentStrings[	pSoldierMovingList[ iCount ]->bAssignment ] );
 			}
 			AddMonoString(&hStringHandle, sString );
 		}
@@ -3851,7 +3850,7 @@ void AddStringsToMoveBox( void )
 		// blank line
 		AddMonoString(&hStringHandle, L"" );
 	}
-	
+
 
 	// add cancel line
 	swprintf( sString, L"%s", pMovementMenuStrings[ 2 ] );
@@ -3874,7 +3873,7 @@ void BuildMouseRegionsForMoveBox( void )
 
 
 	// grab height of font
-	iFontHeight = GetLineSpace( ghMoveBox ) + GetFontHeight( GetBoxFont( ghMoveBox ) ); 
+	iFontHeight = GetLineSpace( ghMoveBox ) + GetFontHeight( GetBoxFont( ghMoveBox ) );
 
 	// get x.y position of box
 	GetBoxPosition( ghMoveBox, &pPosition);
@@ -3895,12 +3894,12 @@ void BuildMouseRegionsForMoveBox( void )
 
 	// box heading
 	MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
-							 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 	iCounter++;
 
 	// blank line
 	MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
-						 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+						MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 	iCounter++;
 
 	// calc total number of "moving" lines in the box
@@ -3916,7 +3915,7 @@ void BuildMouseRegionsForMoveBox( void )
 		for( iCount = 0; iCount < giNumberOfSquadsInSectorMoving; iCount++ )
 		{
 			MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
-							 MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
+							MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 			// set user defines
 			MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 0, iCounter );
@@ -3926,10 +3925,10 @@ void BuildMouseRegionsForMoveBox( void )
 
 			for( iCountB = 0; iCountB < giNumberOfSoldiersInSectorMoving; iCountB++ )
 			{
-				if( pSoldierMovingList[ iCountB ] -> bAssignment == iSquadMovingList[ iCount ] )
+				if( pSoldierMovingList[ iCountB ]->bAssignment == iSquadMovingList[ iCount ] )
 				{
 					MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
-							 MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
+							MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 					// set user defines
 					MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 0, iCounter );
@@ -3944,7 +3943,7 @@ void BuildMouseRegionsForMoveBox( void )
 		{
 			// define regions for vehicle lines
 			MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
-							 MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
+							MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 			// set user defines
 			MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 0, iCounter );
@@ -3954,10 +3953,10 @@ void BuildMouseRegionsForMoveBox( void )
 
 			for( iCountB = 0; iCountB < giNumberOfSoldiersInSectorMoving; iCountB++ )
 			{
-				if( ( pSoldierMovingList[ iCountB ] -> bAssignment == VEHICLE ) &&( pSoldierMovingList[ iCountB ] -> iVehicleId == iVehicleMovingList[ iCount ] ) )
+				if( ( pSoldierMovingList[ iCountB ]->bAssignment == VEHICLE ) &&( pSoldierMovingList[ iCountB ]->iVehicleId == iVehicleMovingList[ iCount ] ) )
 				{
 					MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
-							 MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
+							MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 					// set user defines
 					MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 0, iCounter );
@@ -3968,7 +3967,7 @@ void BuildMouseRegionsForMoveBox( void )
 			}
 		}
 
-		
+
 		// define regions for "other" soldiers
 		for( iCount = 0; iCount < giNumberOfSoldiersInSectorMoving; iCount++ )
 		{
@@ -3979,7 +3978,7 @@ void BuildMouseRegionsForMoveBox( void )
 				if( !fDefinedOtherRegion )
 				{
 					MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
-							 MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
+							MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 					// set user defines
 					MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 0, iCounter );
@@ -4005,7 +4004,7 @@ void BuildMouseRegionsForMoveBox( void )
 
 	// blank line
 	MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
-						 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+						MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 	iCounter++;
 
 
@@ -4013,7 +4012,7 @@ void BuildMouseRegionsForMoveBox( void )
 	{
 		// DONE line
 		MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
-							 MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
+							MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 		// set user defines
 		MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 0, iCounter );
@@ -4025,13 +4024,13 @@ void BuildMouseRegionsForMoveBox( void )
 	{
 		// blank line
 		MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
-							 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+							MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 		iCounter++;
 	}
 
 	// CANCEL line
 	MSYS_DefineRegion( &gMoveMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + iFontHeight * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + iFontHeight * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST,
-						 MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
+						MSYS_NO_CURSOR, MoveMenuMvtCallback, MoveMenuBtnCallback );
 
 	// set user defines
 	MSYS_SetRegionUserData( &gMoveMenuRegion[ iCounter ], 0, iCounter );
@@ -4067,7 +4066,7 @@ void MoveMenuMvtCallback(MOUSE_REGION * pRegion, INT32 iReason )
 	if (iReason & MSYS_CALLBACK_REASON_GAIN_MOUSE )
 	{
 		// highlight string
-	  HighLightBoxLine( ghMoveBox, iValue );
+	HighLightBoxLine( ghMoveBox, iValue );
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_LOST_MOUSE )
 	{
@@ -4086,13 +4085,13 @@ void MoveMenuBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
 
 
 	iMoveBoxLine = MSYS_GetRegionUserData( pRegion, 0 );
-	iRegionType  = MSYS_GetRegionUserData( pRegion, 1 );
-	iListIndex   = MSYS_GetRegionUserData( pRegion, 2 );
-	iClickTime	 = GetJA2Clock();
+	iRegionType	= MSYS_GetRegionUserData( pRegion, 1 );
+	iListIndex	= MSYS_GetRegionUserData( pRegion, 2 );
+	iClickTime	= GetJA2Clock();
 
-	if( ( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP )  )
+	if( ( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP )	)
 	{
-		if( iClickTime - giDblClickTimersForMoveBoxMouseRegions[ iMoveBoxLine ] < DBL_CLICK_DELAY_FOR_MOVE_MENU  )
+		if( iClickTime - giDblClickTimersForMoveBoxMouseRegions[ iMoveBoxLine ] < DBL_CLICK_DELAY_FOR_MOVE_MENU	)
 		{
 			// dbl click, and something is selected?
 			if ( IsAnythingSelectedForMoving() )
@@ -4151,7 +4150,7 @@ void MoveMenuBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
 			{
 				pSoldier = pSoldierMovingList[ iListIndex ];
 
-				if ( pSoldier->fBetweenSectors )
+				if ( pSoldier->flags.fBetweenSectors )
 				{
 					// we don't allow mercs to change squads or get out of vehicles between sectors, easiest way to handle this
 					// is to prevent any toggling of individual soldiers on the move at the outset.
@@ -4200,7 +4199,7 @@ void MoveMenuBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
 				}
 				else	// currently NOT moving
 				{
-					// is he able & allowed to move?  (Errors with a reason are reported within)
+					// is he able & allowed to move?	(Errors with a reason are reported within)
 					if ( CanMoveBoxSoldierMoveStrategically( pSoldier, TRUE ) )
 					{
 						// change him to move instead
@@ -4243,7 +4242,7 @@ void MoveMenuBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
 				AssertMsg( 0, String( "MoveMenuBtnCallback: Invalid regionType %d, moveBoxLine %d", iRegionType, iMoveBoxLine ) );
 				return;
 			}
-	
+
 			fRebuildMoveBox = TRUE;
 			fTeamPanelDirty = TRUE;
 			fMapPanelDirty = TRUE;
@@ -4290,10 +4289,10 @@ void SelectAllOtherSoldiersInList( void )
 	INT32 iCounter = 0;
 	BOOLEAN fSomeCantMove = FALSE;
 
-	
+
 	for( iCounter = 0; iCounter < giNumberOfSoldiersInSectorMoving; iCounter++ )
 	{
-		if( ( pSoldierMovingList[ iCounter ] ->bAssignment >= ON_DUTY ) && ( pSoldierMovingList[ iCounter ] ->bAssignment != VEHICLE ) )
+		if( ( pSoldierMovingList[ iCounter ]->bAssignment >= ON_DUTY ) && ( pSoldierMovingList[ iCounter ]->bAssignment != VEHICLE ) )
 		{
 			if ( CanMoveBoxSoldierMoveStrategically( pSoldierMovingList[ iCounter ], FALSE ) )
 			{
@@ -4318,10 +4317,10 @@ void SelectAllOtherSoldiersInList( void )
 void DeselectAllOtherSoldiersInList( void )
 {
 	INT32 iCounter = 0;
-	
+
 	for( iCounter = 0; iCounter < giNumberOfSoldiersInSectorMoving; iCounter++ )
 	{
-		if( ( pSoldierMovingList[ iCounter ] ->bAssignment >= ON_DUTY ) && ( pSoldierMovingList[ iCounter ] ->bAssignment != VEHICLE ) )
+		if( ( pSoldierMovingList[ iCounter ]->bAssignment >= ON_DUTY ) && ( pSoldierMovingList[ iCounter ]->bAssignment != VEHICLE ) )
 		{
 			fSoldierIsMoving[ iCounter ] = FALSE;
 		}
@@ -4398,7 +4397,7 @@ void HandleMoveoutOfSectorMovementTroops( void )
 				iSquadNumber = AddCharacterToUniqueSquad( pSoldier );
 				if ( iSquadNumber != -1 )
 				{
-					// It worked.  Add his new squad to the "moving squads" list so others can join it, too!
+					// It worked.	Add his new squad to the "moving squads" list so others can join it, too!
 					AddSquadToMovingLists( iSquadNumber );
 
 					// If this guy is moving
@@ -4446,7 +4445,7 @@ void HandleSettingTheSelectedListOfMercs( void )
 		{
 			pSoldier = MercPtrs[ gCharactersList[ iCounter ].usSolID ];
 
-			if ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
+			if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 			{
 				fSelected = IsVehicleSelectedForMovement( pSoldier->bVehicleID );
 			}
@@ -4517,7 +4516,7 @@ BOOLEAN AllOtherSoldiersInListAreSelected( void )
 
 	for( iCounter = 0; iCounter < giNumberOfSoldiersInSectorMoving; iCounter++ )
 	{
-		if( ( pSoldierMovingList[ iCounter ]->bAssignment >= ON_DUTY ) && (  pSoldierMovingList[ iCounter ]->bAssignment >= VEHICLE ) )
+		if( ( pSoldierMovingList[ iCounter ]->bAssignment >= ON_DUTY ) && (	pSoldierMovingList[ iCounter ]->bAssignment >= VEHICLE ) )
 		{
 			if( fSoldierIsMoving[ iCounter ] == FALSE )
 			{
@@ -4610,7 +4609,7 @@ void ReBuildMoveBox( void )
 	// stop showing the box
 	fShowMapScreenMovementList = FALSE;
 	CreateDestroyMovementBox( sSelMapX, sSelMapY, ( INT16 )iCurrentMapSectorZ );
-	
+
 	// show the box
 	fShowMapScreenMovementList = TRUE;
 	CreateDestroyMovementBox( sSelMapX, sSelMapY, ( INT16 )iCurrentMapSectorZ );
@@ -4624,9 +4623,9 @@ void CreateScreenMaskForMoveBox( void )
 	if( fScreenMaskForMoveCreated == FALSE )
 	{
 		// set up the screen mask
-		MSYS_DefineRegion( &gMoveBoxScreenMask, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGHEST - 4, 
+		MSYS_DefineRegion( &gMoveBoxScreenMask, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGHEST - 4,
 		MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MoveScreenMaskBtnCallback );
-	
+
 		fScreenMaskForMoveCreated = TRUE;
 	}
 }
@@ -4645,7 +4644,7 @@ void RemoveScreenMaskForMoveBox( void )
 void MoveScreenMaskBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// btn callback handler for move box screen mask region
-	if( ( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP )  )
+	if( ( iReason & MSYS_CALLBACK_REASON_LBUTTON_UP )	)
 	{
 		fShowMapScreenMovementList = FALSE;
 	}
@@ -4687,7 +4686,7 @@ void ResetSoldierUpdateBox( void )
 		pUpdateSoldierBox[ iCounter ] = NULL;
 	}
 
-	
+
 	return;
 }
 
@@ -4736,23 +4735,23 @@ void AddSoldierToWaitingListQueue( SOLDIERTYPE *pSoldier )
 	// get soldier profile
 	iSoldierId = pSoldier->ubID;
 
-	SpecialCharacterDialogueEvent( DIALOGUE_ADD_EVENT_FOR_SOLDIER_UPDATE_BOX, UPDATE_BOX_REASON_ADDSOLDIER, iSoldierId, 0, 0, 0 );	
+	SpecialCharacterDialogueEvent( DIALOGUE_ADD_EVENT_FOR_SOLDIER_UPDATE_BOX, UPDATE_BOX_REASON_ADDSOLDIER, iSoldierId, 0, 0, 0 );
 	return;
 }
 
 
 void AddReasonToWaitingListQueue( INT32 iReason )
 {
- 	SpecialCharacterDialogueEvent( DIALOGUE_ADD_EVENT_FOR_SOLDIER_UPDATE_BOX, UPDATE_BOX_REASON_SET_REASON, iReason, 0, 0, 0 );	
+ 	SpecialCharacterDialogueEvent( DIALOGUE_ADD_EVENT_FOR_SOLDIER_UPDATE_BOX, UPDATE_BOX_REASON_SET_REASON, iReason, 0, 0, 0 );
 	return;
 }
 
 
 void AddDisplayBoxToWaitingQueue( void )
 {
-	SpecialCharacterDialogueEvent( DIALOGUE_ADD_EVENT_FOR_SOLDIER_UPDATE_BOX, UPDATE_BOX_REASON_SHOW_BOX, 0, 0, 0, 0 );	
+	SpecialCharacterDialogueEvent( DIALOGUE_ADD_EVENT_FOR_SOLDIER_UPDATE_BOX, UPDATE_BOX_REASON_SHOW_BOX, 0, 0, 0, 0 );
 
-	
+
 	return;
 }
 
@@ -4768,22 +4767,22 @@ void AddSoldierToUpdateBox( SOLDIERTYPE *pSoldier )
 	INT32 iCounter = 0;
 	VOBJECT_DESC VObjectDesc;
 
-	
+
 
 	// going to load face
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	
-	if( pSoldier->bLife == 0 )
+
+	if( pSoldier->stats.bLife == 0 )
 	{
 		return;
 	}
 
-	if( pSoldier -> bActive == FALSE )
+	if( pSoldier->bActive == FALSE )
 	{
 		return;
 	}
 
-	// if update 
+	// if update
 	if( pUpdateSoldierBox[ iCounter ] == NULL )
 	{
 		sprintf( VObjectDesc.ImageFile, "Interface\\panels.sti" );
@@ -4801,7 +4800,7 @@ void AddSoldierToUpdateBox( SOLDIERTYPE *pSoldier )
 		{
 			// add to box
 			pUpdateSoldierBox[ iCounter ] = pSoldier;
-			
+
 			if( gMercProfiles[ pSoldier->ubProfile ].ubFaceIndex < 100 )
 			{
 				// grab filename of face
@@ -4815,7 +4814,7 @@ void AddSoldierToUpdateBox( SOLDIERTYPE *pSoldier )
 
 			// load the face
 			AddVideoObject( &VObjectDesc, (UINT32 *)&giUpdateSoldierFaces[ iCounter ] );
-			
+
 			return;
 		}
 	}
@@ -4842,18 +4841,14 @@ void DisplaySoldierUpdateBox( )
 	HVOBJECT hBackGroundHandle;
 	INT32 iCounter = 0;
 	CHAR16 sString[ 32 ];
-	INT16 sX = 0, sY = 0;
-	INT32 iHeightOfString = 0;
-	INT32 iCounterB = 0;
-	INT32 iOrigNumberHigh = 0, iOrigY = 0;
-	INT32 iUpperLimit = 0;	
-	
-	
+	INT32 iUpperLimit = 0;
+
+
 	if( fShowUpdateBox == FALSE )
 	{
 		return;
 	}
-	
+
 
 	// get the number of mercs
 	iNumberOfMercsOnUpdatePanel = GetNumberOfMercsInUpdateList( );
@@ -4886,11 +4881,11 @@ void DisplaySoldierUpdateBox( )
 	}
 
 	// get number of rows
-	iNumberHigh = ( fFourWideMode ?  iNumberOfMercsOnUpdatePanel / NUMBER_OF_MERC_COLUMNS_FOR_FOUR_WIDE_MODE 
-		:  iNumberOfMercsOnUpdatePanel / NUMBER_OF_MERC_COLUMNS_FOR_TWO_WIDE_MODE);
+	iNumberHigh = ( fFourWideMode ?	iNumberOfMercsOnUpdatePanel / NUMBER_OF_MERC_COLUMNS_FOR_FOUR_WIDE_MODE
+		:	iNumberOfMercsOnUpdatePanel / NUMBER_OF_MERC_COLUMNS_FOR_TWO_WIDE_MODE);
 
-	//number of columns 
-	iNumberWide = ( fFourWideMode ? NUMBER_OF_MERC_COLUMNS_FOR_FOUR_WIDE_MODE 
+	//number of columns
+	iNumberWide = ( fFourWideMode ? NUMBER_OF_MERC_COLUMNS_FOR_FOUR_WIDE_MODE
 		: NUMBER_OF_MERC_COLUMNS_FOR_TWO_WIDE_MODE );
 
 
@@ -4913,15 +4908,15 @@ void DisplaySoldierUpdateBox( )
 		}
 	}
 
-		// round off 
-	if( fFourWideMode ) 
+		// round off
+	if( fFourWideMode )
 	{
 		if(iNumberOfMercsOnUpdatePanel % NUMBER_OF_MERC_COLUMNS_FOR_FOUR_WIDE_MODE )
 		{
 			iNumberOfMercsOnUpdatePanel += NUMBER_OF_MERC_COLUMNS_FOR_FOUR_WIDE_MODE - ( iNumberOfMercsOnUpdatePanel % NUMBER_OF_MERC_COLUMNS_FOR_FOUR_WIDE_MODE );
 		}
 	}
-	else 
+	else
 	{
 		if(iNumberOfMercsOnUpdatePanel % NUMBER_OF_MERC_COLUMNS_FOR_TWO_WIDE_MODE )
 		{
@@ -4942,7 +4937,7 @@ void DisplaySoldierUpdateBox( )
 	BltVideoObject( guiSAVEBUFFER, hBackGroundHandle, 0, iX-4, iY - 4 , VO_BLT_SRCTRANSPARENCY,NULL );
 	BltVideoObject( guiSAVEBUFFER, hBackGroundHandle, 2, iX+iUpdatePanelWidth, iY - 4 , VO_BLT_SRCTRANSPARENCY,NULL );
 
-	if( fFourWideMode ) 
+	if( fFourWideMode )
 	{
 		//Display 2 vertical lines starting at the bottom
 		BltVideoObject( guiSAVEBUFFER , hBackGroundHandle, 3, iX - 4, iY + iUpdatePanelHeight - 3 - 70, VO_BLT_SRCTRANSPARENCY,NULL );
@@ -4955,7 +4950,7 @@ void DisplaySoldierUpdateBox( )
 
 
 	SetFontDestBuffer( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
-	
+
 	iUpperLimit = fFourWideMode ? ( iNumberOfMercsOnUpdatePanel + NUMBER_OF_MERC_COLUMNS_FOR_FOUR_WIDE_MODE ) : ( iNumberOfMercsOnUpdatePanel + NUMBER_OF_MERC_COLUMNS_FOR_TWO_WIDE_MODE );
 
 	//need to put the background down first
@@ -4964,7 +4959,7 @@ void DisplaySoldierUpdateBox( )
 		// blt the face and name
 
 		// get the face x and y
-		iFaceX = iX + ( iCounter % iNumberWide ) * TACT_UPDATE_MERC_FACE_X_WIDTH;  
+		iFaceX = iX + ( iCounter % iNumberWide ) * TACT_UPDATE_MERC_FACE_X_WIDTH;
 		iFaceY = iY + ( iCounter / iNumberWide ) * TACT_UPDATE_MERC_FACE_X_HEIGHT;
 
 		BltVideoObject( guiSAVEBUFFER , hBackGroundHandle, 20, iFaceX, iFaceY , VO_BLT_SRCTRANSPARENCY,NULL );
@@ -4978,8 +4973,8 @@ void DisplaySoldierUpdateBox( )
 		//
 
 		// get the face x and y
-		iFaceX = iX + ( iCounter % iNumberWide ) * TACT_UPDATE_MERC_FACE_X_WIDTH;  
-		iFaceY = iY + ( iCounter / iNumberWide ) * TACT_UPDATE_MERC_FACE_X_HEIGHT +  REASON_FOR_SOLDIER_UPDATE_OFFSET_Y;
+		iFaceX = iX + ( iCounter % iNumberWide ) * TACT_UPDATE_MERC_FACE_X_WIDTH;
+		iFaceY = iY + ( iCounter / iNumberWide ) * TACT_UPDATE_MERC_FACE_X_HEIGHT +	REASON_FOR_SOLDIER_UPDATE_OFFSET_Y;
 
 		// now get the face
 		if( pUpdateSoldierBox[ iCounter ] )
@@ -4989,7 +4984,7 @@ void DisplaySoldierUpdateBox( )
 
 			// there is a face
 			RenderSoldierSmallFaceForUpdatePanel( iCounter, iFaceX, iFaceY );
-			
+
 			// display the mercs name
 			swprintf( sString, L"%s", pUpdateSoldierBox[ iCounter ]->name );
 			DrawTextToScreen( sString, (UINT16)(iFaceX-5), (UINT16)(iFaceY + 31), 57, TINYFONT1, FONT_LTRED, FONT_BLACK, 0, CENTER_JUSTIFIED );
@@ -4997,21 +4992,21 @@ void DisplaySoldierUpdateBox( )
 	}
 
 	// the button container box
-	if( fFourWideMode ) 
+	if( fFourWideMode )
 	{
-		//def: 3/1/99 WAS SUBINDEX 6, 
-		BltVideoObject( guiSAVEBUFFER , hBackGroundHandle, 19, iX - 4 + TACT_UPDATE_MERC_FACE_X_WIDTH,  iY + iNumberHigh * TACT_UPDATE_MERC_FACE_X_HEIGHT + REASON_FOR_SOLDIER_UPDATE_OFFSET_Y+3, VO_BLT_SRCTRANSPARENCY,NULL );
-	
+		//def: 3/1/99 WAS SUBINDEX 6,
+		BltVideoObject( guiSAVEBUFFER , hBackGroundHandle, 19, iX - 4 + TACT_UPDATE_MERC_FACE_X_WIDTH,	iY + iNumberHigh * TACT_UPDATE_MERC_FACE_X_HEIGHT + REASON_FOR_SOLDIER_UPDATE_OFFSET_Y+3, VO_BLT_SRCTRANSPARENCY,NULL );
+
 		// ATE: Display string for time compression
-		DisplayWrappedString( ( UINT16 )( iX ),  ( UINT16 )( iY + iNumberHigh * TACT_UPDATE_MERC_FACE_X_HEIGHT + 5 + REASON_FOR_SOLDIER_UPDATE_OFFSET_Y + 3), ( UINT16 )( iUpdatePanelWidth ), 0, MAP_SCREEN_FONT, FONT_WHITE, gzLateLocalizedString[49], FONT_BLACK, 0, CENTER_JUSTIFIED );
+		DisplayWrappedString( ( UINT16 )( iX ),	( UINT16 )( iY + iNumberHigh * TACT_UPDATE_MERC_FACE_X_HEIGHT + 5 + REASON_FOR_SOLDIER_UPDATE_OFFSET_Y + 3), ( UINT16 )( iUpdatePanelWidth ), 0, MAP_SCREEN_FONT, FONT_WHITE, gzLateLocalizedString[49], FONT_BLACK, 0, CENTER_JUSTIFIED );
 	}
 	else
 	{
-		//def: 3/1/99 WAS SUBINDEX 6, 
+		//def: 3/1/99 WAS SUBINDEX 6,
 		BltVideoObject( guiSAVEBUFFER , hBackGroundHandle, 19, iX - 4 , iY + iNumberHigh * TACT_UPDATE_MERC_FACE_X_HEIGHT + REASON_FOR_SOLDIER_UPDATE_OFFSET_Y+3, VO_BLT_SRCTRANSPARENCY,NULL );
 
 		// ATE: Display string for time compression
-		DisplayWrappedString( ( UINT16 )( iX ),  ( UINT16 )( iY + iNumberHigh * TACT_UPDATE_MERC_FACE_X_HEIGHT + 5 + REASON_FOR_SOLDIER_UPDATE_OFFSET_Y+3 ), ( UINT16 )( iUpdatePanelWidth ), 0, MAP_SCREEN_FONT, FONT_WHITE, gzLateLocalizedString[49], FONT_BLACK, 0, CENTER_JUSTIFIED );
+		DisplayWrappedString( ( UINT16 )( iX ),	( UINT16 )( iY + iNumberHigh * TACT_UPDATE_MERC_FACE_X_HEIGHT + 5 + REASON_FOR_SOLDIER_UPDATE_OFFSET_Y+3 ), ( UINT16 )( iUpdatePanelWidth ), 0, MAP_SCREEN_FONT, FONT_WHITE, gzLateLocalizedString[49], FONT_BLACK, 0, CENTER_JUSTIFIED );
 	}
 
 	iCounter = 0;
@@ -5034,21 +5029,21 @@ void DisplaySoldierUpdateBox( )
 
 
 	//Display the reason for the update box
-	if( fFourWideMode ) 
+	if( fFourWideMode )
 	{
-		DisplayWrappedString( ( INT16 )( iX ),  ( INT16 )( iY + 6 ), (INT16)iUpdatePanelWidth, 0, MAP_SCREEN_FONT, FONT_WHITE, pUpdateMercStrings[ iReasonForSoldierUpDate ], FONT_BLACK, 0, CENTER_JUSTIFIED );
+		DisplayWrappedString( ( INT16 )( iX ),	( INT16 )( iY + 6 ), (INT16)iUpdatePanelWidth, 0, MAP_SCREEN_FONT, FONT_WHITE, pUpdateMercStrings[ iReasonForSoldierUpDate ], FONT_BLACK, 0, CENTER_JUSTIFIED );
 	}
 	else
 	{
-		DisplayWrappedString( ( INT16 )( iX ),  ( INT16 )( iY + 3 ), (INT16)iUpdatePanelWidth, 0, MAP_SCREEN_FONT, FONT_WHITE, pUpdateMercStrings[ iReasonForSoldierUpDate ], FONT_BLACK, 0, CENTER_JUSTIFIED );
+		DisplayWrappedString( ( INT16 )( iX ),	( INT16 )( iY + 3 ), (INT16)iUpdatePanelWidth, 0, MAP_SCREEN_FONT, FONT_WHITE, pUpdateMercStrings[ iReasonForSoldierUpDate ], FONT_BLACK, 0, CENTER_JUSTIFIED );
 	}
 
 
 	SetFontDestBuffer( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
 	// restore extern background rect
-	RestoreExternBackgroundRect( ( INT16 )( iX - 5 ), ( INT16 )( iY - 5 ), ( INT16 )(  iUpdatePanelWidth + 10 ), ( INT16 )(iUpdatePanelHeight + 6 ) );
-	
+	RestoreExternBackgroundRect( ( INT16 )( iX - 5 ), ( INT16 )( iY - 5 ), ( INT16 )(	iUpdatePanelWidth + 10 ), ( INT16 )(iUpdatePanelHeight + 6 ) );
+
 	CreateDestroyUpdatePanelButtons( iX, ( iY + iUpdatePanelHeight - 18 ), fFourWideMode );
 	MarkAButtonDirty( guiUpdatePanelButtons[ 0 ] );
 	MarkAButtonDirty( guiUpdatePanelButtons[ 1 ] );
@@ -5068,12 +5063,12 @@ void CreateDestroyUpdatePanelButtons(INT32 iX, INT32 iY, BOOLEAN fFourWideMode )
 		fShowAssignmentMenu = FALSE;
 		fShowContractMenu = FALSE;
 
-//		guiUpdatePanelButtonsImage[ 0 ]=  LoadButtonImage( "INTERFACE\\group_confirm.sti" ,-1,7,-1,8,-1 );
+//		guiUpdatePanelButtonsImage[ 0 ]=	LoadButtonImage( "INTERFACE\\group_confirm.sti" ,-1,7,-1,8,-1 );
 //		guiUpdatePanelButtonsImage[ 1 ] = LoadButtonImage( "INTERFACE\\group_confirm.sti" ,-1,7,-1,8,-1 );
-		guiUpdatePanelButtonsImage[ 0 ]=  LoadButtonImage( "INTERFACE\\group_confirm_tactical.sti" ,-1,7,-1,8,-1 );
+		guiUpdatePanelButtonsImage[ 0 ]=	LoadButtonImage( "INTERFACE\\group_confirm_tactical.sti" ,-1,7,-1,8,-1 );
 		guiUpdatePanelButtonsImage[ 1 ] = LoadButtonImage( "INTERFACE\\group_confirm_tactical.sti" ,-1,7,-1,8,-1 );
 
-		if( fFourWideMode ) 
+		if( fFourWideMode )
 		{
 			guiUpdatePanelButtons[ 0 ] = QuickCreateButton( guiUpdatePanelButtonsImage[ 0 ], ( INT16 )( iX - 4 + TACT_UPDATE_MERC_FACE_X_WIDTH + 4), (INT16)iY,
 											BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST - 1,
@@ -5118,7 +5113,7 @@ void CreateDestroyUpdatePanelButtons(INT32 iX, INT32 iY, BOOLEAN fFourWideMode )
 
 		UnloadButtonImage( guiUpdatePanelButtonsImage[ 0 ]);
 		UnloadButtonImage( guiUpdatePanelButtonsImage[ 1 ]);
-		
+
 		// unpause
 		UnPauseDialogueQueue( );
 	}
@@ -5130,7 +5125,7 @@ void CreateUpdateBox( void )
 {
 	// create basic box
  CreatePopUpBox(&ghUpdateBox, AssignmentDimensions, MovePosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_RESIZE ));
- 
+
  // which buffer will box render to
  SetBoxBuffer(ghUpdateBox, FRAME_BUFFER);
 
@@ -5197,7 +5192,7 @@ void CreateUpdateBoxStrings( void )
 			AddMonoString(&hStringHandle, sString );
 		}
 	}
-	
+
 	// add a few blank lines
 	sString[ 0 ] = 0;
 
@@ -5265,7 +5260,7 @@ void CreateDestroyTheUpdateBox( void )
 
 		// display the box
 		DisplaySoldierUpdateBox( );
-		
+
 		// Do beep
 		PlayJA2SampleFromFile( "Sounds\\newbeep.wav", RATE_11025, MIDVOLUME, 1 , MIDDLEPAN );
 	}
@@ -5320,43 +5315,43 @@ void RenderSoldierSmallFaceForUpdatePanel( INT32 iIndex, INT32 iX, INT32 iY )
 
 	// fill the background for the info bars black
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+36, iY+2, iX+44,	iY+30, 0 );
-	
+
 	// put down the background
 	BltVideoObjectFromIndex( guiSAVEBUFFER, giMercPanelImage, 0, iX, iY, VO_BLT_SRCTRANSPARENCY, NULL );
-	
+
 	// grab the face
 	BltVideoObjectFromIndex( guiSAVEBUFFER , giUpdateSoldierFaces[ iIndex ], 0, iX+2, iY+2, VO_BLT_SRCTRANSPARENCY, NULL );
-	
+
 	//HEALTH BAR
 	pSoldier = pUpdateSoldierBox[ iIndex ];
 
 	// is the merc alive?
-	if( !pSoldier->bLife )
+	if( !pSoldier->stats.bLife )
 		return;
 
 
 	//yellow one for bleeding
-	iStartY = iY + 29 - 27*pSoldier->bLifeMax/100;
+	iStartY = iY + 29 - 27*pSoldier->stats.bLifeMax/100;
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+36, iStartY, iX+37, iY+29, Get16BPPColor( FROMRGB( 107, 107, 57 ) ) );
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+37, iStartY, iX+38, iY+29, Get16BPPColor( FROMRGB( 222, 181, 115 ) ) );
-	
+
 	//pink one for bandaged.
 	iStartY += 27*pSoldier->bBleeding/100;
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+36, iStartY, iX+37, iY+29, Get16BPPColor( FROMRGB( 156, 57, 57 ) ) );
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+37, iStartY, iX+38, iY+29, Get16BPPColor( FROMRGB( 222, 132, 132 ) ) );
-	
+
 	//red one for actual health
-	iStartY = iY + 29 - 27*pSoldier->bLife/100;
+	iStartY = iY + 29 - 27*pSoldier->stats.bLife/100;
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+36, iStartY, iX+37, iY+29, Get16BPPColor( FROMRGB( 107, 8, 8 ) ) );
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+37, iStartY, iX+38, iY+29, Get16BPPColor( FROMRGB( 206, 0, 0 ) ) );
-	
+
 	//BREATH BAR
 	iStartY = iY + 29 - 27*pSoldier->bBreathMax/100;
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+39, iStartY, iX+40, iY+29, Get16BPPColor( FROMRGB( 8, 8, 132 ) ) );
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+40, iStartY, iX+41, iY+29, Get16BPPColor( FROMRGB( 8, 8, 107 ) ) );
-	
+
 	//MORALE BAR
-	iStartY = iY + 29 - 27*pSoldier->bMorale/100;
+	iStartY = iY + 29 - 27*pSoldier->aiData.bMorale/100;
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+42, iStartY, iX+43, iY+29, Get16BPPColor( FROMRGB( 8, 156, 8 ) ) );
 	ColorFillVideoSurfaceArea( guiSAVEBUFFER, iX+43, iStartY, iX+44, iY+29, Get16BPPColor( FROMRGB( 8, 107, 8 ) ) );
 
@@ -5368,13 +5363,13 @@ void ContinueUpdateButtonCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-	  btn->uiFlags|=(BUTTON_CLICKED_ON);   
+	btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-  {
-    if (btn->uiFlags & BUTTON_CLICKED_ON)
+	{
+	if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-      btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
 			EndUpdateBox( TRUE );	// restart time compression
 		}
@@ -5388,15 +5383,15 @@ void StopUpdateButtonCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
 	{
-	  btn->uiFlags|=(BUTTON_CLICKED_ON);   
+	btn->uiFlags|=(BUTTON_CLICKED_ON);
 	}
 	else if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-  {
-    if (btn->uiFlags & BUTTON_CLICKED_ON)
+	{
+	if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-      btn->uiFlags&=~(BUTTON_CLICKED_ON);
+		btn->uiFlags&=~(BUTTON_CLICKED_ON);
 
-			EndUpdateBox( FALSE );  // stop time compression
+			EndUpdateBox( FALSE );	// stop time compression
 		}
 	}
 
@@ -5513,13 +5508,13 @@ void CreateDestroyInsuranceMouseRegionForMercs( BOOLEAN fCreate )
 	if( ( fCreated == FALSE ) && ( fCreate == TRUE ) )
 	{
 		MSYS_DefineRegion( &gContractIconRegion, CHAR_ICON_X, CHAR_ICON_CONTRACT_Y, CHAR_ICON_X + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y + CHAR_ICON_HEIGHT,
-						 MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+						MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 
 		MSYS_DefineRegion( &gInsuranceIconRegion, CHAR_ICON_X, CHAR_ICON_CONTRACT_Y + CHAR_ICON_SPACING, CHAR_ICON_X + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y + CHAR_ICON_SPACING + CHAR_ICON_HEIGHT,
-						 MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+						MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 
 		MSYS_DefineRegion( &gDepositIconRegion, CHAR_ICON_X, CHAR_ICON_CONTRACT_Y + ( 2 * CHAR_ICON_SPACING ), CHAR_ICON_X + CHAR_ICON_WIDTH, CHAR_ICON_CONTRACT_Y + ( 2 * CHAR_ICON_SPACING ) + CHAR_ICON_HEIGHT,
-						 MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
+						MSYS_PRIORITY_HIGH - 1, MSYS_NO_CURSOR, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 
 		fCreated = TRUE;
 	}
@@ -5555,19 +5550,19 @@ void HandlePlayerEnteringMapScreenBeforeGoingToTactical( void )
 
 
 	// now inform the player
-	
+
 	if( fShowMapScreenHelpText )
 	{
 		fShowMapScreenHelpText = FALSE;
 		SetUpShutDownMapScreenHelpTextScreenMask( );
 		fShowMapScreenHelpText = TRUE;
 	}
-	
+
 	return;
 }
 
 
-void DoneHandlePlayerFirstEntryToMapScreen(  UINT8 bExitValue )
+void DoneHandlePlayerFirstEntryToMapScreen(	UINT8 bExitValue )
 {
 	static BOOLEAN fFirstTime = TRUE;
 
@@ -5606,15 +5601,15 @@ BOOLEAN HandleTimeCompressWithTeamJackedInAndGearedToGo( void )
 	{
 		return( FALSE );
 	}
-	
-	//Setup variables in the PBI for this first battle.  We need to support the
+
+	//Setup variables in the PBI for this first battle.	We need to support the
 	//non-persistant PBI in case the user goes to mapscreen.
 	gfBlitBattleSectorLocator = TRUE;
 	gubPBSectorX = 9;
 	gubPBSectorY = 1;
 	gubPBSectorZ = 0;
 	gubEnemyEncounterCode = ENTERING_ENEMY_SECTOR_CODE;
-	
+
 	InitHelicopterEntranceByMercs( );
 
 	FadeInGameScreen( );
@@ -5658,7 +5653,7 @@ void HandleDisplayOfExitToTacticalMessageForFirstEntryToMapScreen( void )
 	iTime = GetJA2Clock();
 
 	iDifference = iTime - giExitToTactBaseTime;
-	
+
 	if( iDifference > TIMER_FOR_SHOW_EXIT_TO_TACTICAL_MESSAGE )
 	{
 		fShowMapScreenHelpText = FALSE;
@@ -5668,7 +5663,7 @@ void HandleDisplayOfExitToTacticalMessageForFirstEntryToMapScreen( void )
 		giExitToTactBaseTime = 0;
 	}
 
-	
+
 	return;
 }
 
@@ -5699,7 +5694,7 @@ BOOLEAN NotifyPlayerWhenEnemyTakesControlOfImportantSector( INT16 sSectorX, INT1
 	{
 		swprintf( sStringB, pMapErrorString[ 15 ], sString );
 
-		// put up the message informing the player of the event 
+		// put up the message informing the player of the event
 		DoScreenIndependantMessageBox( sStringB, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 		return( TRUE );
 	}
@@ -5715,17 +5710,17 @@ BOOLEAN NotifyPlayerWhenEnemyTakesControlOfImportantSector( INT16 sSectorX, INT1
 		{
 			// get how much we now will get from the mines
 			iValue = GetProjectedTotalDailyIncome( );
-			
+
 			// parse the string
 			swprintf( sStringC, L"%d", iValue );
-			
-			// insert 
+
+			// insert
 			InsertCommasForDollarFigure( sStringC );
 			InsertDollarSignInToString( sStringC );
 
 			swprintf( sStringB, pMapErrorString[ 16 ], sString, sStringC );
 
-			// put up the message informing the player of the event 
+			// put up the message informing the player of the event
 			DoScreenIndependantMessageBox( sStringB, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 			return( TRUE );
 		}
@@ -5740,11 +5735,11 @@ BOOLEAN NotifyPlayerWhenEnemyTakesControlOfImportantSector( INT16 sSectorX, INT1
 		}
 		swprintf( sStringB, pMapErrorString[ 25 ], sString );
 
-		// put up the message informing the player of the event 
+		// put up the message informing the player of the event
 		DoScreenIndependantMessageBox( sStringB, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 		return( TRUE );
 	}
-	
+
 	// get the strategic sector value
 	sSector = sSectorX + MAP_WORLD_X * sSectorY;
 
@@ -5821,7 +5816,6 @@ void NotifyPlayerOfInvasionByEnemyForces( INT16 sSectorX, INT16 sSectorY, INT8 b
 
 BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber )
 {
-	BOOLEAN fCanMove = TRUE;
 	INT16 sSector = 0;
 	BOOLEAN fProblemExists = FALSE;
 
@@ -5859,7 +5853,7 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 
 
 	// vehicle checks
-	if ( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
+	if ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		// empty (needs a driver!)?
 		if ( GetNumberInVehicle( pSoldier->bVehicleID ) == 0 )
@@ -5869,7 +5863,7 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 		}
 
 		// too damaged?
-		if ( pSoldier->bLife < OKLIFE )
+		if ( pSoldier->stats.bLife < OKLIFE )
 		{
 			*pbErrorNumber = 47;
 			return( FALSE );
@@ -5885,7 +5879,7 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 	else	// non-vehicle
 	{
 		// dead?
-		if ( pSoldier->bLife <= 0 )
+		if ( pSoldier->stats.bLife <= 0 )
 		{
 			swprintf( gsCustomErrorString, pMapErrorString[ 35 ], pSoldier->name );
 			*pbErrorNumber = -99;	// customized error message!
@@ -5893,7 +5887,7 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 		}
 
 		// too injured?
-		if ( pSoldier->bLife < OKLIFE )
+		if ( pSoldier->stats.bLife < OKLIFE )
 		{
 			swprintf( gsCustomErrorString, pMapErrorString[ 33 ], pSoldier->name );
 			*pbErrorNumber = -99;	// customized error message!
@@ -5903,7 +5897,7 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 
 
 	// if merc is in a particular sector, not somewhere in between
-	if ( pSoldier->fBetweenSectors == FALSE )
+	if ( pSoldier->flags.fBetweenSectors == FALSE )
 	{
 		// and he's NOT flying above it all in a working helicopter
 		if( !SoldierAboardAirborneHeli( pSoldier ) )
@@ -5921,7 +5915,7 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 
 				// hostile sector?
 				if ( gTacticalStatus.fEnemyInSector )
-				{ 
+				{
 					*pbErrorNumber = 2;
 					return( FALSE );
 				}
@@ -5946,7 +5940,7 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 
 	// if in L12 museum, and the museum alarm went off, and Eldin still around?
 	if ( ( pSoldier->sSectorX == 12 ) && ( pSoldier->sSectorY == MAP_ROW_L ) && ( pSoldier->bSectorZ == 0 ) &&
-			 ( !pSoldier->fBetweenSectors ) && gMercProfiles[ ELDIN ].bMercStatus != MERC_IS_DEAD )
+			( !pSoldier->flags.fBetweenSectors ) && gMercProfiles[ ELDIN ].bMercStatus != MERC_IS_DEAD )
 	{
 		UINT8	ubRoom, cnt;
 		SOLDIERTYPE * pSoldier2;
@@ -5994,7 +5988,7 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 	{
 		// going alone?
 		if ( ( ( pSoldier->bAssignment == VEHICLE ) && ( !IsRobotControllerInVehicle( pSoldier->iVehicleId ) ) ) ||
-				 ( ( pSoldier->bAssignment  < ON_DUTY ) && ( !IsRobotControllerInSquad( pSoldier->bAssignment ) ) ) )
+				( ( pSoldier->bAssignment	< ON_DUTY ) && ( !IsRobotControllerInSquad( pSoldier->bAssignment ) ) ) )
 		{
 			*pbErrorNumber = 49;
 			return( FALSE );
@@ -6005,7 +5999,7 @@ BOOLEAN CanCharacterMoveInStrategic( SOLDIERTYPE *pSoldier, INT8 *pbErrorNumber 
 	{
 		// going alone?
 		if ( ( ( pSoldier->bAssignment == VEHICLE ) && ( GetNumberOfNonEPCsInVehicle( pSoldier->iVehicleId ) == 0 ) ) ||
-				 ( ( pSoldier->bAssignment  < ON_DUTY ) && ( NumberOfNonEPCsInSquad( pSoldier->bAssignment ) == 0 ) ) )
+				( ( pSoldier->bAssignment	< ON_DUTY ) && ( NumberOfNonEPCsInSquad( pSoldier->bAssignment ) == 0 ) ) )
 		{
 			// are they male or female
 			if( gMercProfiles[ pSoldier->ubProfile ].bSex == MALE )
@@ -6073,7 +6067,7 @@ BOOLEAN CanEntireMovementGroupMercIsInMove( SOLDIERTYPE *pSoldier, INT8 *pbError
 	// now check anybody who would be travelling with him
 
 	// does character have group?
-	if( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
+	if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		// IS a vehicle - use vehicle's group
 		ubGroup = pVehicleList[ pSoldier->bVehicleID ].ubMovementGroup;
@@ -6111,7 +6105,7 @@ BOOLEAN CanEntireMovementGroupMercIsInMove( SOLDIERTYPE *pSoldier, INT8 *pbError
 			}
 
 			// does character have group?
-			if( pCurrentSoldier->uiStatusFlags & SOLDIER_VEHICLE )
+			if( pCurrentSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 			{
 				// IS a vehicle
 				ubCurrentGroup = pVehicleList[ pCurrentSoldier->bVehicleID ].ubMovementGroup;
@@ -6140,7 +6134,7 @@ BOOLEAN CanEntireMovementGroupMercIsInMove( SOLDIERTYPE *pSoldier, INT8 *pbError
 	}
 
 
-	// everybody can move...  Yey!  :-)
+	// everybody can move...	Yey!	:-)
 	return( TRUE );
 }
 
@@ -6251,7 +6245,7 @@ BOOLEAN CanSoldierMoveWithVehicleId( SOLDIERTYPE *pSoldier, INT32 iVehicle1Id )
 	}
 	else
 	// if soldier IS a vehicle
-	if( pSoldier->uiStatusFlags & SOLDIER_VEHICLE )
+	if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 	{
 		iVehicle2Id = pSoldier->bVehicleID;
 	}
@@ -6277,8 +6271,8 @@ BOOLEAN CanSoldierMoveWithVehicleId( SOLDIERTYPE *pSoldier, INT32 iVehicle1Id )
 
 		// as long as they're in the same location, amd neither is between sectors, different vehicles is also ok
 		if( ( pVehicle1->sSectorX == pVehicle2->sSectorX ) &&
-			  ( pVehicle1->sSectorY == pVehicle2->sSectorY ) &&
-			  ( pVehicle1->sSectorZ == pVehicle2->sSectorZ ) &&
+			( pVehicle1->sSectorY == pVehicle2->sSectorY ) &&
+			( pVehicle1->sSectorZ == pVehicle2->sSectorZ ) &&
 					!pVehicle1->fBetweenSectors &&
 					!pVehicle2->fBetweenSectors )
 		{
@@ -6321,8 +6315,8 @@ BOOLEAN SaveLeaveItemList( HWFILE hFile )
 			//loop through all the nodes to see how many there are
 			while( pCurrentItem->pNext )
 			{
-				 pCurrentItem = pCurrentItem->pNext;
-				 uiCount++;
+				pCurrentItem = pCurrentItem->pNext;
+				uiCount++;
 			}
 
 			// Save the number specifing how many items there are in the list
@@ -6337,9 +6331,8 @@ BOOLEAN SaveLeaveItemList( HWFILE hFile )
 			//loop through all the nodes to see how many there are
 			for( uiCnt=0; uiCnt<uiCount; uiCnt++)
 			{
-				// Save the items 
-				FileWrite( hFile, pCurrentItem, sizeof( MERC_LEAVE_ITEM ), &uiNumBytesWritten );
-				if( uiNumBytesWritten != sizeof( MERC_LEAVE_ITEM ) )
+				// Save the items
+				if ( !pCurrentItem->Save(hFile) )
 				{
 					return(FALSE);
 				}
@@ -6411,28 +6404,25 @@ BOOLEAN LoadLeaveItemList( HWFILE hFile )
 			}
 
 			// allocate space
-			gpLeaveListHead[ iCounter ] = (MERC_LEAVE_ITEM *) MemAlloc( sizeof( MERC_LEAVE_ITEM ) );
+			gpLeaveListHead[ iCounter ] = new MERC_LEAVE_ITEM;
 			if( gpLeaveListHead[ iCounter ] == NULL )
 			{
 				return( FALSE );
 			}
-			memset( gpLeaveListHead[ iCounter ], 0, sizeof( MERC_LEAVE_ITEM ) );
 
 			pCurrentItem = gpLeaveListHead[ iCounter ];
 
 			for( uiSubItem=0; uiSubItem< uiCount; uiSubItem++ )
 			{
 				// allocate space
-				pItem = (MERC_LEAVE_ITEM *) MemAlloc( sizeof( MERC_LEAVE_ITEM ) );
+				pItem = new MERC_LEAVE_ITEM;
 				if( pItem == NULL )
 				{
 					return( FALSE );
 				}
-				memset( pItem, 0, sizeof( MERC_LEAVE_ITEM ) );
 
-				// Load the items 
-				FileRead( hFile, pItem, sizeof( MERC_LEAVE_ITEM ), &uiNumBytesRead );
-				if( uiNumBytesRead != sizeof( MERC_LEAVE_ITEM ) )
+				// Load the items
+				if ( !pItem->Load(hFile) )
 				{
 					return(FALSE);
 				}
@@ -6444,7 +6434,7 @@ BOOLEAN LoadLeaveItemList( HWFILE hFile )
 				if( uiSubItem == 0 )
 				{
 					gpLeaveListHead[ iCounter ] = pItem;
-					pCurrentItem = gpLeaveListHead[ iCounter ];					
+					pCurrentItem = gpLeaveListHead[ iCounter ];
 				}
 				else
 				{
@@ -6488,7 +6478,7 @@ void TurnOnSectorLocator( UINT8 ubProfileID )
 		if ( ( ubProfileID == SKYRIDER ) && fSkyRiderSetUp )
 		{
 			// if helicopter position is being shown, don't do this, too, cause the helicopter icon is on top and it looks
-			// like crap.  I tried moving the heli icon blit to before, but that screws up it's blitting.
+			// like crap.	I tried moving the heli icon blit to before, but that screws up it's blitting.
 			if ( !fShowAircraftFlag )
 			{
 				// can't use his profile, he's where his chopper is
@@ -6521,7 +6511,7 @@ void TurnOffSectorLocator()
 
 void HandleBlitOfSectorLocatorIcon( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, UINT8 ubLocatorID )
 {
-	static UINT8  ubFrame = 0;
+	static UINT8	ubFrame = 0;
 	UINT8 ubBaseFrame = 0;
 	UINT32 uiTimer = 0;
 	HVOBJECT hHandle;
@@ -6531,10 +6521,10 @@ void HandleBlitOfSectorLocatorIcon( INT16 sSectorX, INT16 sSectorY, INT16 sSecto
 	// blits at 0,0 had been observerd...
 	Assert( ( sSectorX >= 1 ) && ( sSectorX <= 16 ) );
 	Assert( ( sSectorY >= 1 ) && ( sSectorY <= 16 ) );
-	Assert( ( sSectorZ >= 0 ) && ( sSectorZ <=  3 ) );
+	Assert( ( sSectorZ >= 0 ) && ( sSectorZ <=	3 ) );
 
 	if( sSectorZ != iCurrentMapSectorZ )
-	{ //if the z level of the map screen renderer is different than the 
+	{ //if the z level of the map screen renderer is different than the
 		//sector z that we wish to locate, then don't render it
 		return;
 	}
@@ -6572,7 +6562,7 @@ void HandleBlitOfSectorLocatorIcon( INT16 sSectorX, INT16 sSectorY, INT16 sSecto
 		sScreenX = MAP_GRID_X;
 	}
 	sScreenY--; //Carterism ritual
-  if( sScreenY < MAP_GRID_Y )
+	if( sScreenY < MAP_GRID_Y )
 	{
 		sScreenY = MAP_GRID_Y;
 	}
@@ -6597,7 +6587,7 @@ void HandleBlitOfSectorLocatorIcon( INT16 sSectorX, INT16 sSectorY, INT16 sSecto
 		}
 	}
 
-	RestoreExternBackgroundRect(  (INT16)(sScreenX + 1), (INT16)(sScreenY - 1),  MAP_GRID_X , MAP_GRID_Y );
+	RestoreExternBackgroundRect(	(INT16)(sScreenX + 1), (INT16)(sScreenY - 1),	MAP_GRID_X , MAP_GRID_Y );
 
 	// blit object to frame buffer
 	BltVideoObject( FRAME_BUFFER, hHandle, ubFrame, sScreenX, sScreenY, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -6613,7 +6603,7 @@ BOOLEAN CheckIfSalaryIncreasedAndSayQuote( SOLDIERTYPE *pSoldier, BOOLEAN fTrigg
 	Assert( pSoldier );
 
 	// OK, check if their price has gone up
-	if( pSoldier->fContractPriceHasIncreased )
+	if( pSoldier->flags.fContractPriceHasIncreased )
 	{
 		if ( fTriggerContractMenu )
 		{
@@ -6628,7 +6618,7 @@ BOOLEAN CheckIfSalaryIncreasedAndSayQuote( SOLDIERTYPE *pSoldier, BOOLEAN fTrigg
 			HandleImportantMercQuote( pSoldier, QUOTE_MERC_GONE_UP_IN_PRICE );
 		}
 
-		pSoldier->fContractPriceHasIncreased = FALSE;
+		pSoldier->flags.fContractPriceHasIncreased = FALSE;
 
 		// said quote / triggered contract menu
 		return( TRUE );

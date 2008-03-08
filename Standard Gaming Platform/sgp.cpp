@@ -28,7 +28,7 @@
 		#include "Timer Control.h"
 	#endif
 	#if !defined( JA2 ) && !defined( UTIL )
-		#include "GameData.h"               // for MoveTimer() [Wizardry specific]
+		#include "GameData.h"				// for MoveTimer() [Wizardry specific]
 	#endif
 	#include "LibraryDataBase.h"
 	#include "utilities.h"
@@ -60,21 +60,21 @@
 extern UINT32 MemDebugCounter;
 #ifdef JA2
 extern BOOLEAN gfPauseDueToPlayerGamePause;
-extern int     iScreenMode;
-extern BOOL    bScreenModeCmdLine;
+extern int	 iScreenMode;
+extern BOOL	bScreenModeCmdLine;
 #endif
 
 extern	BOOLEAN	CheckIfGameCdromIsInCDromDrive();
-extern  void    QueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam);
+extern	void	QueueEvent(UINT16 ubInputEvent, UINT32 usParam, UINT32 uiParam);
 
 // Prototype Declarations
 
 INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam);
-BOOLEAN          InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow);
-void             ShutdownStandardGamingPlatform(void);
-void						 GetRuntimeSettings( );
+BOOLEAN			InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow);
+void			 ShutdownStandardGamingPlatform(void);
+void						GetRuntimeSettings( );
 
-int PASCAL HandledWinMain(HINSTANCE hInstance,  HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow);
+int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow);
 
 Console g_Console("", "", "Lua Console", "no");
 
@@ -99,7 +99,7 @@ HINSTANCE					ghInstance;
 
 // Global Variable Declarations
 RECT				rcWindow;
-POINT               ptWindowSize;
+POINT				ptWindowSize;
 
 // moved from header file: 24mar98:HJH
 UINT32		giStartMem;
@@ -125,7 +125,7 @@ BOOLEAN	gfIgnoreMessages=FALSE;
 UINT8		gbPixelDepth = PIXEL_DEPTH;
 
 INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam)
-{ 
+{
 	static BOOLEAN fRestore = FALSE;
 
 	if ( Message == WM_USER )
@@ -134,19 +134,19 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 		return 0L;
 	}
 	BOOL visible = IsWindowVisible(hWindow);
-
+	
 	if(gfIgnoreMessages)
 		return(DefWindowProc(hWindow, Message, wParam, lParam));
 
 	// ATE: This is for older win95 or NT 3.51 to get MOUSE_WHEEL Messages
 	if ( Message == guiMouseWheelMsg )
 	{
-      QueueEvent(MOUSE_WHEEL, wParam, lParam);
+		QueueEvent(MOUSE_WHEEL, wParam, lParam);
 			return( 0L );
 	}
  
 	switch(Message)
-  {
+	{
 	case WM_CLOSE:
 		PostQuitMessage(0);
 		break;
@@ -158,15 +158,15 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 			}
 		
 #ifdef JA2
-    case WM_MOVE:
-//        if( 1==iScreenMode )
+	case WM_MOVE:
+//		if( 1==iScreenMode )
           {
-          GetClientRect(hWindow, &rcWindow);
-		  // Go ahead and clamp the client width and height
-		  rcWindow.right = SCREEN_WIDTH;
-		  rcWindow.bottom = SCREEN_HEIGHT;
-          ClientToScreen(hWindow, (LPPOINT)&rcWindow);
-          ClientToScreen(hWindow, (LPPOINT)&rcWindow+1);
+			GetClientRect(hWindow, &rcWindow);
+			// Go ahead and clamp the client width and height
+			rcWindow.right = SCREEN_WIDTH;
+			rcWindow.bottom = SCREEN_HEIGHT;
+			ClientToScreen(hWindow, (LPPOINT)&rcWindow);
+			ClientToScreen(hWindow, (LPPOINT)&rcWindow+1);
 			int xPos = (int)(short) LOWORD(lParam); 
 			int yPos = (int)(short) HIWORD(lParam);
 			BOOL needchange = FALSE;
@@ -186,7 +186,7 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 			}
 
           }
-        break;
+		break;
 	case WM_GETMINMAXINFO:
 		{
 			MINMAXINFO *mmi = (MINMAXINFO*)lParam;
@@ -206,7 +206,7 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 			INT32		iWidth, iHeight, iX, iY;
 			BOOLEAN fWidthByHeight=FALSE, fHoldRight=FALSE;
 
-			lpWindow = (LPRECT) lParam;  
+			lpWindow = (LPRECT) lParam;	
 
 			iWidth=lpWindow->right-lpWindow->left;
 			iHeight=lpWindow->bottom-lpWindow->top;
@@ -315,9 +315,9 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 		}
 		break;
 
-    case WM_SIZE:
+	case WM_SIZE:
 		{
-			UINT16 nWidth = LOWORD(lParam);  // width of client area 
+			UINT16 nWidth = LOWORD(lParam);	// width of client area 
 			UINT16 nHeight = HIWORD(lParam); // height of client area 
 
 			if(nWidth && nHeight)
@@ -336,10 +336,10 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 		}
 		break;
 
-    case WM_MOVE:
+	case WM_MOVE:
 		{
-			INT32 xPos = (INT32)LOWORD(lParam);    // horizontal position 
-			INT32 yPos = (INT32)HIWORD(lParam);    // vertical position 		
+			INT32 xPos = (INT32)LOWORD(lParam);	// horizontal position 
+			INT32 yPos = (INT32)HIWORD(lParam);	// vertical position 		
 		}
 		break;
 #endif
@@ -352,40 +352,40 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 		PollConsole( );
 #endif
 
-      if (gfApplicationActive)
-      {
-        GameLoop();        
-      } 
-	  break;
+		if (gfApplicationActive)
+		{
+		GameLoop();		
+		} 
+	break;
 
-    case WM_ACTIVATEAPP: 
-      switch(wParam)
-      {
-        case TRUE: // We are restarting DirectDraw
-          if (fRestore == TRUE)
-          {
+	case WM_ACTIVATEAPP: 
+		switch(wParam)
+		{
+		case TRUE: // We are restarting DirectDraw
+			if (fRestore == TRUE)
+			{
 #ifdef JA2
-	          RestoreVideoManager();
-		        RestoreVideoSurfaces();	// Restore any video surfaces
+			RestoreVideoManager();
+			 RestoreVideoSurfaces();	// Restore any video surfaces
 
 						// unpause the JA2 Global clock
-            if ( !gfPauseDueToPlayerGamePause )
-            {
-						  PauseTime( FALSE );
-            }
+			if ( !gfPauseDueToPlayerGamePause )
+			{
+						PauseTime( FALSE );
+			}
 #else
 						if(!VideoInspectorIsEnabled())
 						{
-	            RestoreVideoManager();
-		          RestoreVideoSurfaces();	// Restore any video surfaces
+			 RestoreVideoManager();
+				RestoreVideoSurfaces();	// Restore any video surfaces
 						}
 
-	          MoveTimer(TIMER_RESUME);
+			MoveTimer(TIMER_RESUME);
 #endif
-            gfApplicationActive = TRUE;
-          }
-          break;
-        case FALSE: // We are suspending direct draw
+			gfApplicationActive = TRUE;
+			}
+			break;
+		case FALSE: // We are suspending direct draw
 #ifdef JA2
 						// pause the JA2 Global clock
 						PauseTime( TRUE );
@@ -396,27 +396,27 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 							SuspendVideoManager();
 #endif
 #endif
-          // suspend movement timer, to prevent timer crash if delay becomes long
-          // * it doesn't matter whether the 3-D engine is actually running or not, or if it's even been initialized
-          // * restore is automatic, no need to do anything on reactivation
+			// suspend movement timer, to prevent timer crash if delay becomes long
+			// * it doesn't matter whether the 3-D engine is actually running or not, or if it's even been initialized
+			// * restore is automatic, no need to do anything on reactivation
 #if !defined( JA2 ) && !defined( UTIL )
-          MoveTimer(TIMER_SUSPEND);
+			MoveTimer(TIMER_SUSPEND);
 #endif
 
-          gfApplicationActive = FALSE;
-          fRestore = TRUE;
-          break;
-      }
-      break;
+			gfApplicationActive = FALSE;
+			fRestore = TRUE;
+			break;
+		}
+		break;
 
-    case WM_CREATE: 
+	case WM_CREATE: 
 			break;
 
-    case WM_DESTROY: 
+	case WM_DESTROY: 
 			ShutdownStandardGamingPlatform();
-//      ShowCursor(TRUE);
-      PostQuitMessage(0);
-      break;
+//		ShowCursor(TRUE);
+		PostQuitMessage(0);
+		break;
 
 		case WM_SETFOCUS:
 #if !defined( JA2 ) && !defined( UTIL )
@@ -425,7 +425,7 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 			gfApplicationActive=TRUE;
 //			RestrictMouseToXYXY(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 #else
-      RestoreCursorClipRect( );
+		RestoreCursorClipRect( );
 #endif
 
 			break;
@@ -444,14 +444,14 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 
 
 #if defined( JA2 )
-		case  WM_DEVICECHANGE:
+		case	WM_DEVICECHANGE:
 			{
-				//DEV_BROADCAST_HDR  *pHeader = (DEV_BROADCAST_HDR  *)lParam;
+				//DEV_BROADCAST_HDR	*pHeader = (DEV_BROADCAST_HDR	*)lParam;
 
 				////if a device has been removed
 				//if( wParam == DBT_DEVICEREMOVECOMPLETE )
 				//{
-				//	//if its  a disk
+				//	//if its	a disk
 				//	if( pHeader->dbch_devicetype == DBT_DEVTYP_VOLUME )
 				//	{
 				//		//check to see if the play cd is still in the cdrom
@@ -466,13 +466,13 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 
 		case WM_SYSKEYUP:
 		case WM_KEYUP:
-		    KeyUp(wParam, lParam);
+		 KeyUp(wParam, lParam);
 			break;
 
 		case WM_SYSKEYDOWN:
 		case WM_KEYDOWN:
-		    KeyDown(wParam, lParam);
-			gfSGPInputReceived =  TRUE;
+		 KeyDown(wParam, lParam);
+			gfSGPInputReceived =	TRUE;
 			break;
 
 		case WM_CHAR:
@@ -500,10 +500,10 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 				cout << "> ";
 			}
 			break;
-    default
-    : return DefWindowProc(hWindow, Message, wParam, lParam);
-  }
-  return 0L;
+	default
+	: return DefWindowProc(hWindow, Message, wParam, lParam);
+	}
+	return 0L;
 }
 
 
@@ -532,7 +532,7 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	// Now start up everything else.
 	RegisterDebugTopic(TOPIC_SGP, "Standard Gaming Platform");
 
-  // this one needs to go ahead of all others (except Debug), for MemDebugCounter to work right...
+	// this one needs to go ahead of all others (except Debug), for MemDebugCounter to work right...
 	FastDebugMsg("Initializing Memory Manager");
 	// Initialize the Memory Manager
 	if (InitializeMemoryManager() == FALSE)
@@ -542,7 +542,7 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	}
 
 #ifdef JA2
-  FastDebugMsg("Initializing Mutex Manager");
+	FastDebugMsg("Initializing Mutex Manager");
 	// Initialize the Dirty Rectangle Manager
 	if (InitializeMutexManager() == FALSE)
 	{ // We were unable to initialize the game
@@ -560,7 +560,7 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	}
 
 	FastDebugMsg("Initializing Containers Manager");
-  InitializeContainers();
+	InitializeContainers();
 
 	FastDebugMsg("Initializing Input Manager");
 	// Initialize the Input Manager
@@ -629,9 +629,9 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		InitJA2SplashScreen();
 	//#endif
 
-  // Make sure we start up our local clock (in milliseconds)
-  // We don't need to check for a return value here since so far its always TRUE
-  InitializeClockManager();  // must initialize after VideoManager, 'cause it uses ghWindow
+	// Make sure we start up our local clock (in milliseconds)
+	// We don't need to check for a return value here since so far its always TRUE
+	InitializeClockManager();	// must initialize after VideoManager, 'cause it uses ghWindow
 
 	// Create font translation table (store in temp structure)
 	pFontTable = CreateEnglishTransTable( );
@@ -658,12 +658,12 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 	{ // We were unable to initialize the sound manager
 		FastDebugMsg("FAILED : Initializing Sound Manager");
 		return FALSE;
-	}  
+	}	
 #endif
 
 	FastDebugMsg("Initializing Random");
-  // Initialize random number generator
-  InitializeRandom(); // no Shutdown
+	// Initialize random number generator
+	InitializeRandom(); // no Shutdown
 
 	FastDebugMsg("Initializing Game Manager");
 	// Initialize the Game
@@ -710,7 +710,7 @@ void ShutdownStandardGamingPlatform(void)
 
 	if (gfGameInitialized)
 	{
-		ShutdownGame();  
+		ShutdownGame();	
 	}
 
 
@@ -718,45 +718,45 @@ void ShutdownStandardGamingPlatform(void)
 	MSYS_Shutdown();
 
 #ifndef UTIL
-  ShutdownSoundManager();
+	ShutdownSoundManager();
 #endif
 
-	DestroyEnglishTransTable( );    // has to go before ShutdownFontManager()
-  ShutdownFontManager();
+	DestroyEnglishTransTable( );	// has to go before ShutdownFontManager()
+	ShutdownFontManager();
 
-  ShutdownClockManager();   // must shutdown before VideoManager, 'cause it uses ghWindow
+	ShutdownClockManager();	// must shutdown before VideoManager, 'cause it uses ghWindow
 
 #ifdef SGP_VIDEO_DEBUGGING
 	PerformVideoInfoDumpIntoFile( "SGPVideoShutdownDump.txt", FALSE );
 #endif
 
 	ShutdownVideoSurfaceManager();
-  ShutdownVideoObjectManager();
-  ShutdownVideoManager();
+	ShutdownVideoObjectManager();
+	ShutdownVideoManager();
 
-  ShutdownInputManager();
-  ShutdownContainers();
-  ShutdownFileManager();
+	ShutdownInputManager();
+	ShutdownContainers();
+	ShutdownFileManager();
 #ifdef JA2
-  ShutdownMutexManager();
+	ShutdownMutexManager();
 #endif
 
 #ifdef EXTREME_MEMORY_DEBUGGING
 	DumpMemoryInfoIntoFile( "ExtremeMemoryDump.txt", FALSE );
 #endif
 
-  ShutdownMemoryManager();  // must go last (except for Debug), for MemDebugCounter to work right...
+	ShutdownMemoryManager();	// must go last (except for Debug), for MemDebugCounter to work right...
 
 	//
-  // Make sure we unregister the last remaining debug topic before shutting
-  // down the debugging layer
-  UnRegisterDebugTopic(TOPIC_SGP, "Standard Gaming Platform");
+	// Make sure we unregister the last remaining debug topic before shutting
+	// down the debugging layer
+	UnRegisterDebugTopic(TOPIC_SGP, "Standard Gaming Platform");
 
-  ShutdownDebugManager();
+	ShutdownDebugManager();
 }
 
 
-int PASCAL WinMain(HINSTANCE hInstance,  HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow)
+int PASCAL WinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow)
 {
 
 //If we are to use exception handling
@@ -785,13 +785,13 @@ int PASCAL WinMain(HINSTANCE hInstance,  HINSTANCE hPrevInstance, LPSTR pCommand
 
 
 
-int PASCAL HandledWinMain(HINSTANCE hInstance,  HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow)
+int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow)
 {
 //DO NOT REMOVE, used for exception handing list above in WinMain
 #endif
-  MSG				Message;
+	MSG				Message;
 	HWND			hPrevInstanceWindow;
-	UINT32          uiTimer = 0;
+	UINT32			uiTimer = 0;
 
 	// Make sure that only one instance of this application is running at once
 	// // Look for prev instance by searching for the window
@@ -834,8 +834,8 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,  HINSTANCE hPrevInstance, LPSTR p
 #endif
 
 	// Mem Usage
-	giStartMem = MemGetFree(  ) / 1024;
-  
+	giStartMem = MemGetFree(	) / 1024;
+	
 
 #ifdef JA2
 	// Handle Check for CD
@@ -850,19 +850,19 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,  HINSTANCE hPrevInstance, LPSTR p
 
 #endif
 
-//  ShowCursor(FALSE);
+//	ShowCursor(FALSE);
 
-  // Inititialize the SGP
-  if (InitializeStandardGamingPlatform(hInstance, sCommandShow) == FALSE)
-  { // We failed to initialize the SGP
-    return 0;
-  }
+	// Inititialize the SGP
+	if (InitializeStandardGamingPlatform(hInstance, sCommandShow) == FALSE)
+	{ // We failed to initialize the SGP
+	return 0;
+	}
 
 #ifdef LUACONSOLE
-  if (1==iScreenMode)
-  {
-	  CreateConsole();
-  }
+	if (1==iScreenMode)
+	{
+	CreateConsole();
+	}
 #endif
 
 #ifdef JA2
@@ -871,59 +871,59 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,  HINSTANCE hPrevInstance, LPSTR p
 	#endif
 #endif
 
-  gfApplicationActive = TRUE;
-  gfProgramIsRunning = TRUE;
+	gfApplicationActive = TRUE;
+	gfProgramIsRunning = TRUE;
 
-  FastDebugMsg("Running Game");
+	FastDebugMsg("Running Game");
 
-  // 0verhaul:  Use the smallest available timer to make sure all animation updates happen at the speed they're supposed to
-  SetTimer( ghWindow, uiTimer, 1, NULL);
+	// 0verhaul:	Use the smallest available timer to make sure all animation updates happen at the speed they're supposed to
+	SetTimer( ghWindow, uiTimer, 1, NULL);
 
-  // At this point the SGP is set up, which means all I/O, Memory, tools, etc... are available. All we need to do is 
-  // attend to the gaming mechanics themselves
-  Message.wParam = 0;
+	// At this point the SGP is set up, which means all I/O, Memory, tools, etc... are available. All we need to do is 
+	// attend to the gaming mechanics themselves
+	Message.wParam = 0;
 
-  while (gfProgramIsRunning)
-  {
-//    if (PeekMessage(&Message, NULL, 0, 0, PM_NOREMOVE))
-//    { // We have a message on the WIN95 queue, let's get it
-      if (!GetMessage(&Message, NULL, 0, 0))
-      { // It's quitting time
-        return Message.wParam;
-      }
-      // Ok, now that we have the message, let's handle it
-      TranslateMessage(&Message);
-      DispatchMessage(&Message);      
-    }
+	while (gfProgramIsRunning)
+	{
+//	if (PeekMessage(&Message, NULL, 0, 0, PM_NOREMOVE))
+//	{ // We have a message on the WIN95 queue, let's get it
+		if (!GetMessage(&Message, NULL, 0, 0))
+		{ // It's quitting time
+		return Message.wParam;
+		}
+		// Ok, now that we have the message, let's handle it
+		TranslateMessage(&Message);
+		DispatchMessage(&Message);		
+	}
 #if 0
-    else
-    { // Windows hasn't processed any messages, therefore we handle the rest
+	else
+	{ // Windows hasn't processed any messages, therefore we handle the rest
 #ifdef LUACONSOLE
 		PollConsole( );
 #endif
 
-      if (gfApplicationActive == FALSE)
-      { // Well we got nothing to do but to wait for a message to activate
-        WaitMessage();
-      } 
-      else
-      { // Well, the game is active, so we handle the game stuff        
-        GameLoop();        
+		if (gfApplicationActive == FALSE)
+		{ // Well we got nothing to do but to wait for a message to activate
+		WaitMessage();
+		} 
+		else
+		{ // Well, the game is active, so we handle the game stuff		
+		GameLoop();		
 
 				// After this frame, reset input given flag
-	      gfSGPInputReceived  =  FALSE;
-      }
-    }
-  }
+		gfSGPInputReceived	=	FALSE;
+		}
+	}
+	}
 #endif
 
-  KillTimer( ghWindow, uiTimer);
+	KillTimer( ghWindow, uiTimer);
 
-  // This is the normal exit point
-  FastDebugMsg("Exiting Game");
-  PostQuitMessage(0);
+	// This is the normal exit point
+	FastDebugMsg("Exiting Game");
+	PostQuitMessage(0);
 
-	// SGPExit() will be called next through the atexit() mechanism...  This way we correctly process both normal exits and
+	// SGPExit() will be called next through the atexit() mechanism...	This way we correctly process both normal exits and
 	// emergency aborts (such as those caused by a failed assertion).
 
 	// return wParam of the last message received
@@ -935,9 +935,6 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,  HINSTANCE hPrevInstance, LPSTR p
 void SGPExit(void)
 {
 	static BOOLEAN fAlreadyExiting = FALSE;
-	BOOLEAN fUnloadScreens = TRUE;
-
-
 	// helps prevent heap crashes when multiple assertions occur and call us
 	if ( fAlreadyExiting )
 	{
@@ -963,11 +960,11 @@ void SGPExit(void)
 #endif
 
 	ShutdownStandardGamingPlatform();
-//  ShowCursor(TRUE);
+//	ShowCursor(TRUE);
 	if(strlen(gzErrorMsg))
-  {
-		MessageBox(NULL, gzErrorMsg, "Error", MB_OK | MB_ICONERROR  );
-  }
+	{
+		MessageBox(NULL, gzErrorMsg, "Error", MB_OK | MB_ICONERROR	);
+	}
 
 #ifndef JA2
 	VideoDumpMemoryLeaks();
@@ -1032,10 +1029,10 @@ void GetRuntimeSettings( )
 	iScreenWidthOffset = (SCREEN_WIDTH - 640) / 2;
 	iScreenHeightOffset = (SCREEN_HEIGHT - 480) / 2;
 
-  /* Sergeant_Kolja. 2007-02-20: runtime Windowed mode instead of compile-time */
-  /* 1 for Windowed, 0 for Fullscreen */
-  if( !bScreenModeCmdLine )
-    iScreenMode = (int) GetPrivateProfileInt( "Ja2 Settings","SCREEN_MODE_WINDOWED", iScreenMode, INIFile );
+	/* Sergeant_Kolja. 2007-02-20: runtime Windowed mode instead of compile-time */
+	/* 1 for Windowed, 0 for Fullscreen */
+	if( !bScreenModeCmdLine )
+	iScreenMode = (int) GetPrivateProfileInt( "Ja2 Settings","SCREEN_MODE_WINDOWED", iScreenMode, INIFile );
 
 	// WANNE: Should we play the intro?
 	iPlayIntro = (int) GetPrivateProfileInt( "Ja2 Settings","PLAY_INTRO", iPlayIntro, INIFile );
@@ -1152,18 +1149,18 @@ void ProcessJa2CommandLineBeforeInitialization(CHAR8 *pCommandLine)
 		{
 			//overwrite Graphic setting from JA2_settings.ini
 			iScreenMode=0; /* 1 for Windowed, 0 for Fullscreen */
-      bScreenModeCmdLine = TRUE; /* if set TRUE, INI is no longer evaluated */
-      /* no resolution read from Args. Still from INI, but could be added here, too...*/
+		bScreenModeCmdLine = TRUE; /* if set TRUE, INI is no longer evaluated */
+		/* no resolution read from Args. Still from INI, but could be added here, too...*/
 		}
 		else if(!_strnicmp(pToken, "/WINDOW", 7))
 		{
 			//overwrite Graphic setting from JA2_settings.ini
 			iScreenMode=1; /* 1 for Windowed, 0 for Fullscreen */
-      bScreenModeCmdLine = TRUE; /* if set TRUE, INI is no longer evaluated */
-      /* no resolution read from Args. Still from INI, but could be added here, too...*/
+		bScreenModeCmdLine = TRUE; /* if set TRUE, INI is no longer evaluated */
+		/* no resolution read from Args. Still from INI, but could be added here, too...*/
 		}
 
-    //get the next token
+	//get the next token
 		pToken=strtok(NULL, cSeparators);
 	}
 

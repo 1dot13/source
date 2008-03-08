@@ -6,10 +6,10 @@
 //DEFINES
 #define MAXCOL					WORLD_COLS
 #define MAXROW					WORLD_ROWS
-#define GRIDSIZE        (MAXCOL * MAXROW)
-#define RIGHTMOSTGRID   (MAXCOL - 1)
-#define LASTROWSTART    (GRIDSIZE - MAXCOL)
-#define NOWHERE         (GRIDSIZE + 1)
+#define GRIDSIZE		(MAXCOL * MAXROW)
+#define RIGHTMOSTGRID	(MAXCOL - 1)
+#define LASTROWSTART	(GRIDSIZE - MAXCOL)
+#define NOWHERE		 (GRIDSIZE + 1)
 //#define	NO_MAP_POS			NOWHERE
 #define MAPWIDTH			(WORLD_COLS)
 #define MAPHEIGHT			(WORLD_ROWS)
@@ -30,7 +30,7 @@ extern UINT8 gPurpendicularDirection[ NUM_WORLD_DIRECTIONS ][ NUM_WORLD_DIRECTIO
 // Macros
 
 
-//                                                |Check for map bounds------------------------------------------|   |Invalid-|   |Valid-------------------|
+//												|Check for map bounds------------------------------------------|	|Invalid-|	|Valid-------------------|
 #define MAPROWCOLTOPOS( r, c )									( ( (r < 0) || (r >= WORLD_ROWS) || (c < 0) || (c >= WORLD_COLS) ) ? ( 0xffff ) : ( (r) * WORLD_COLS + (c) ) )
 
 #define GETWORLDINDEXFROMWORLDCOORDS( y, x )		( (INT16) ( x / CELL_X_SIZE ) ) + WORLD_COLS * ( (INT16) ( y / CELL_Y_SIZE ) ) 
@@ -50,7 +50,7 @@ INT32 OutOfBounds(INT16 sGridno, INT16 sProposedGridno);
 BOOLEAN GetMouseCell( INT32 *piMouseMapPos );
 BOOLEAN GetMouseXY( INT16 *psMouseX, INT16 *psMouseY );
 BOOLEAN GetMouseWorldCoords( INT16 *psMouseX, INT16 *psMouseY );
-BOOLEAN GetMouseMapPos( UINT16	*psMapPos );
+BOOLEAN GetMouseMapPos( INT16	*psMapPos );
 BOOLEAN GetMouseWorldCoordsInCenter( INT16 *psMouseX, INT16 *psMouseY );
 BOOLEAN GetMouseXYWithRemainder( INT16 *psMouseX, INT16 *psMouseY, INT16 *psCellX, INT16 *psCellY );
 
@@ -74,7 +74,7 @@ BOOLEAN GridNoOnVisibleWorldTile( INT16 sGridNo );
 BOOLEAN GridNoOnVisibleWorldTileGivenYLimits( INT16 sGridNo );
 BOOLEAN GridNoOnEdgeOfMap( INT16 sGridNo, INT8 * pbDirection );
 
-BOOLEAN ConvertMapPosToWorldTileCenter( UINT16 usMapPos, INT16 *psXPos, INT16 *psYPos );
+BOOLEAN ConvertMapPosToWorldTileCenter( INT16 sMapPos, INT16 *psXPos, INT16 *psYPos );
 
 BOOLEAN CellXYToScreenXY(INT16 sCellX, INT16 sCellY, INT16 *sScreenX, INT16 *sScreenY);
 

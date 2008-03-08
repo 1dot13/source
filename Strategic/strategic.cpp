@@ -29,12 +29,12 @@ BOOLEAN HandleStrategicDeath( SOLDIERTYPE *pSoldier )
 	// add the guy to the dead list
 	//AddCharacterToDeadList( pSoldier );
 
-  // If in a vehicle, remove them!
+	// If in a vehicle, remove them!
 	if( ( pSoldier->bAssignment == VEHICLE ) && ( pSoldier->iVehicleId != -1 ) )
 	{
 		// remove from vehicle
 		TakeSoldierOutOfVehicle( pSoldier );
-  }
+	}
 
 	// if not in mapscreen
 	if ( !(guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
@@ -47,10 +47,10 @@ BOOLEAN HandleStrategicDeath( SOLDIERTYPE *pSoldier )
 
 		ChangeSoldiersAssignment( pSoldier, ASSIGNMENT_DEAD );
 	}
-	else if( ( pSoldier -> bLife == 0 )&&( pSoldier->bAssignment != ASSIGNMENT_DEAD ) )
+	else if( ( pSoldier->stats.bLife == 0 )&&( pSoldier->bAssignment != ASSIGNMENT_DEAD ) )
 	{
 		// died in mapscreen
-		
+
 		fReDrawFace = TRUE;
 
 		// dead
@@ -62,22 +62,22 @@ BOOLEAN HandleStrategicDeath( SOLDIERTYPE *pSoldier )
 		ChangeSoldiersAssignment( pSoldier, ASSIGNMENT_DEAD );
 
 		//s et breath and breath max to 0
-		pSoldier -> bBreath = pSoldier->bBreathMax = 0;
+		pSoldier->bBreath = pSoldier->bBreathMax = 0;
 
 		// rebuild list
 		ReBuildCharactersList( );
 
 		// ste merc as dead
-		// pSoldier->fUIdeadMerc = TRUE;
-	
-		// attempt o remove character from squad
+		// pSoldier->flags.fUIdeadMerc = TRUE;
+
+		// attempt to remove character from squad
 		RemoveCharacterFromSquads( pSoldier );
-		
+
 		// handle any passign comments by grunts
 		HandleSoldierDeadComments( pSoldier );
-		
+
 		// put the dead guys down
-		AddDeadSoldierToUnLoadedSector( ( UINT8 ) ( pSoldier->sSectorX ), ( UINT8 )( pSoldier->sSectorY ), pSoldier->bSectorZ, pSoldier, RandomGridNo(), ADD_DEAD_SOLDIER_TO_SWEETSPOT );			
+		AddDeadSoldierToUnLoadedSector( ( UINT8 ) ( pSoldier->sSectorX ), ( UINT8 )( pSoldier->sSectorY ), pSoldier->bSectorZ, pSoldier, RandomGridNo(), ADD_DEAD_SOLDIER_TO_SWEETSPOT );
 
 		fTeamPanelDirty = TRUE;
 		fMapPanelDirty = TRUE;
@@ -99,11 +99,11 @@ void HandleSoldierDeadComments( SOLDIERTYPE *pSoldier )
 	// IF IT'S THE SELECTED GUY, MAKE ANOTHER SELECTED!
 	cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
 
-	
+
 	// see if this was the friend of a living merc
 	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; cnt++,pTeamSoldier++)
-	{       
-		if ( pTeamSoldier->bLife >= OKLIFE && pTeamSoldier->bActive )
+	{
+		if ( pTeamSoldier->stats.bLife >= OKLIFE && pTeamSoldier->bActive )
 		{
 			bBuddyIndex = WhichBuddy( pTeamSoldier->ubProfile, pSoldier->ubProfile );
 			switch( bBuddyIndex )

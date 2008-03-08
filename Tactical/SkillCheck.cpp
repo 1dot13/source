@@ -8,7 +8,7 @@
 	#include "Dialogue Control.h"
 	#include "Overhead.h"
 	#include "Soldier macros.h"
-	#include "Isometric Utils.h" 
+	#include "Isometric Utils.h"
 	#include "Morale.h"
 	#include "drugs and alcohol.h"
 	#include "strategicmap.h"
@@ -22,12 +22,12 @@ INT8 EffectiveStrength( SOLDIERTYPE * pSoldier )
 	// Effective strength is:
 	// 1/2 full strength
 	// plus 1/2 strength scaled according to how hurt we are
-  bBandaged = pSoldier->bLifeMax - pSoldier->bLife - pSoldier->bBleeding;
+	bBandaged = pSoldier->stats.bLifeMax - pSoldier->stats.bLife - pSoldier->bBleeding;
 
-	if (pSoldier->bStrength > 0)
+	if (pSoldier->stats.bStrength > 0)
 	{
-		iEffStrength = pSoldier->bStrength / 2;
-		iEffStrength += (pSoldier->bStrength / 2) * (pSoldier->bLife + bBandaged / 2) / (pSoldier->bLifeMax);
+		iEffStrength = pSoldier->stats.bStrength / 2;
+		iEffStrength += (pSoldier->stats.bStrength / 2) * (pSoldier->stats.bLife + bBandaged / 2) / (pSoldier->stats.bLifeMax);
 	}
 	else
 	{
@@ -45,7 +45,7 @@ INT8 EffectiveWisdom( SOLDIERTYPE * pSoldier )
 {
 	INT32	iEffWisdom;
 
-	iEffWisdom = pSoldier->bWisdom;
+	iEffWisdom = pSoldier->stats.bWisdom;
 
 	iEffWisdom = EffectStatForBeingDrunk( pSoldier, iEffWisdom );
 
@@ -56,7 +56,7 @@ INT8 EffectiveAgility( SOLDIERTYPE * pSoldier )
 {
 	INT32	iEffAgility;
 
-	iEffAgility = pSoldier->bAgility;
+	iEffAgility = pSoldier->stats.bAgility;
 
 	iEffAgility = EffectStatForBeingDrunk( pSoldier, iEffAgility );
 
@@ -73,7 +73,7 @@ INT8 EffectiveMechanical( SOLDIERTYPE * pSoldier )
 {
 	INT32	iEffMechanical;
 
-	iEffMechanical = pSoldier->bMechanical;
+	iEffMechanical = pSoldier->stats.bMechanical;
 
 	iEffMechanical = EffectStatForBeingDrunk( pSoldier, iEffMechanical );
 
@@ -85,7 +85,7 @@ INT8 EffectiveExplosive( SOLDIERTYPE * pSoldier )
 {
 	INT32	iEffExplosive;
 
-	iEffExplosive = pSoldier->bExplosive;
+	iEffExplosive = pSoldier->stats.bExplosive;
 
 	iEffExplosive = EffectStatForBeingDrunk( pSoldier, iEffExplosive );
 
@@ -97,7 +97,7 @@ INT8 EffectiveMedical( SOLDIERTYPE * pSoldier )
 {
 	INT32	iEffMedical;
 
-	iEffMedical = pSoldier->bMedical;
+	iEffMedical = pSoldier->stats.bMedical;
 
 	iEffMedical = EffectStatForBeingDrunk( pSoldier, iEffMedical );
 
@@ -109,7 +109,7 @@ INT8 EffectiveLeadership( SOLDIERTYPE * pSoldier )
 	INT32	iEffLeadership;
 	INT8	bDrunkLevel;
 
-	iEffLeadership = pSoldier->bLeadership;
+	iEffLeadership = pSoldier->stats.bLeadership;
 
 	// if we are drunk, effect leader ship in a +ve way...
 	bDrunkLevel = GetDrunkLevel( pSoldier );
@@ -126,15 +126,15 @@ INT8 EffectiveExpLevel( SOLDIERTYPE * pSoldier )
 {
 	INT32	iEffExpLevel;
 	INT8	bDrunkLevel;
-	INT32	iExpModifier[] = 
+	INT32	iExpModifier[] =
 		{ 0,	// SOBER
 			0,	// Feeling good
 		-1,	// Borderline
 		-2,	// Drunk
-		 0,		// Hung
+		0,		// Hung
 		};
 
-	iEffExpLevel = pSoldier->bExpLevel;
+	iEffExpLevel = pSoldier->stats.bExpLevel;
 
 	bDrunkLevel = GetDrunkLevel( pSoldier );
 
@@ -164,7 +164,7 @@ INT8 EffectiveMarksmanship( SOLDIERTYPE * pSoldier )
 {
 	INT32	iEffMarksmanship;
 
-	iEffMarksmanship = pSoldier->bMarksmanship;
+	iEffMarksmanship = pSoldier->stats.bMarksmanship;
 
 	iEffMarksmanship = EffectStatForBeingDrunk( pSoldier, iEffMarksmanship );
 
@@ -175,7 +175,7 @@ INT8 EffectiveDexterity( SOLDIERTYPE * pSoldier )
 {
 	INT32	iEffDexterity;
 
-	iEffDexterity = pSoldier->bDexterity;
+	iEffDexterity = pSoldier->stats.bDexterity;
 
 	iEffDexterity = EffectStatForBeingDrunk( pSoldier, iEffDexterity );
 
@@ -188,12 +188,12 @@ UINT8 GetPenaltyForFatigue( SOLDIERTYPE *pSoldier )
 {
 	UINT8 ubPercentPenalty;
 
-	if			( pSoldier->bBreathMax >= 85 )	ubPercentPenalty =   0;
-	else if ( pSoldier->bBreathMax >= 70 )	ubPercentPenalty =  10;
-	else if ( pSoldier->bBreathMax >= 50 )	ubPercentPenalty =  25;
-	else if ( pSoldier->bBreathMax >= 30 )	ubPercentPenalty =  50;
-	else if ( pSoldier->bBreathMax >= 15 )	ubPercentPenalty =  75;
-	else if ( pSoldier->bBreathMax >   0 )	ubPercentPenalty =  90;
+	if			( pSoldier->bBreathMax >= 85 )	ubPercentPenalty =	0;
+	else if ( pSoldier->bBreathMax >= 70 )	ubPercentPenalty =	10;
+	else if ( pSoldier->bBreathMax >= 50 )	ubPercentPenalty =	25;
+	else if ( pSoldier->bBreathMax >= 30 )	ubPercentPenalty =	50;
+	else if ( pSoldier->bBreathMax >= 15 )	ubPercentPenalty =	75;
+	else if ( pSoldier->bBreathMax >	0 )	ubPercentPenalty =	90;
 	else																		ubPercentPenalty = 100;
 
 	return( ubPercentPenalty );
@@ -219,7 +219,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 	INT32	iLoop;
 	SOLDIERTYPE * pTeamSoldier;
 	INT8	bBuddyIndex;
-  BOOLEAN fForceDamnSound = FALSE;
+	BOOLEAN fForceDamnSound = FALSE;
 
 	iReportChance = -1;
 
@@ -228,14 +228,14 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 		case LOCKPICKING_CHECK:
 		case ELECTRONIC_LOCKPICKING_CHECK:
 
-      fForceDamnSound = TRUE;
+		fForceDamnSound = TRUE;
 
 			iSkill = EffectiveMechanical( pSoldier );
 			if (iSkill == 0)
 			{
 				break;
 			}
-			// adjust skill based on wisdom (knowledge) 
+			// adjust skill based on wisdom (knowledge)
 			iSkill = iSkill * (EffectiveWisdom( pSoldier ) + 100) / 200;
 			// and dexterity (clumsy?)
 			iSkill = iSkill * (EffectiveDexterity( pSoldier ) + 100) / 200;
@@ -258,11 +258,11 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 				// this should never happen, but might as well check...
 				iSkill = 0;
 			}
-			iSkill = iSkill * pSoldier->inv[bSlot].ItemData.Generic.bStatus[0] / 100;
+			iSkill = iSkill * pSoldier->inv[bSlot][0]->data.objectStatus / 100;
 			break;
 		case ATTACHING_DETONATOR_CHECK:
 		case ATTACHING_REMOTE_DETONATOR_CHECK:
-			iSkill = EffectiveExplosive( pSoldier );			
+			iSkill = EffectiveExplosive( pSoldier );
 			if (iSkill == 0)
 			{
 				break;
@@ -295,7 +295,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 
 		case DISARM_TRAP_CHECK:
 
-      fForceDamnSound = TRUE;
+		fForceDamnSound = TRUE;
 
 			iSkill = EffectiveExplosive( pSoldier ) * 7;
 			if ( iSkill == 0 )
@@ -311,7 +311,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 
 		case DISARM_ELECTRONIC_TRAP_CHECK:
 
-      fForceDamnSound = TRUE;
+		fForceDamnSound = TRUE;
 
 			iSkill = __max( EffectiveMechanical( pSoldier ) , EffectiveExplosive( pSoldier ) ) * 7;
 			if ( iSkill == 0 )
@@ -333,7 +333,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 		case OPEN_WITH_CROWBAR:
 			// Add for crowbar...
 			iSkill = EffectiveStrength( pSoldier ) + 20;
-      fForceDamnSound = TRUE;
+		fForceDamnSound = TRUE;
 			break;
 
 		case SMASH_DOOR_CHECK:
@@ -357,7 +357,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			{
 				break;
 			}
-			// adjust skill based on wisdom (knowledge) 
+			// adjust skill based on wisdom (knowledge)
 			iSkill = iSkill * (EffectiveWisdom( pSoldier ) + 100) / 200;
 			// and dexterity (clumsy?)
 			iSkill = iSkill * (EffectiveDexterity( pSoldier ) + 100) / 200;
@@ -449,13 +449,13 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 					// silent check
 					break;
 				default:
-					DoMercBattleSound( pSoldier, BATTLE_SOUND_CURSE1 );
+					pSoldier->DoMercBattleSound( BATTLE_SOUND_CURSE1 );
 					break;
 			}
 		}
 
 	}
-	else 
+	else
 	{
 		// A buddy might make a positive comment based on our success;
 		// Increase the chance for people with higher skill and for more difficult tasks
@@ -463,11 +463,11 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 		if (iRoll < iChance)
 		{
 			// If a buddy of this merc is standing around nearby, they'll make a positive comment.
-			iLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;	
+			iLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 			for ( pTeamSoldier = MercPtrs[ iLoop ]; iLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; iLoop++,pTeamSoldier++ )
 			{
 				if ( OK_INSECTOR_MERC( pTeamSoldier ) )
-				{				
+				{
 					bBuddyIndex = WhichBuddy( pTeamSoldier->ubProfile, pSoldier->ubProfile );
 					if (bBuddyIndex >= 0 && SpacesAway( pSoldier->sGridNo, pTeamSoldier->sGridNo ) < 15)
 					{
@@ -491,7 +491,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 					}
 				}
 			}
-		}	
+		}
 	}
 	return( iMadeItBy );
 }
@@ -504,8 +504,8 @@ INT8 CalcTrapDetectLevel( SOLDIERTYPE * pSoldier, BOOLEAN fExamining )
 	INT8 bDetectLevel;
 
 	// formula: 1 pt for every exp_level
-	//     plus 1 pt for every 40 explosives
-	//     less 1 pt for every 20 wisdom MISSING
+	//	 plus 1 pt for every 40 explosives
+	//	 less 1 pt for every 20 wisdom MISSING
 
 	bDetectLevel = EffectiveExpLevel( pSoldier );
 	bDetectLevel += (EffectiveExplosive( pSoldier ) / 40);
@@ -517,9 +517,9 @@ INT8 CalcTrapDetectLevel( SOLDIERTYPE * pSoldier, BOOLEAN fExamining )
 	{
 		bDetectLevel += (INT8) PreRandom(bDetectLevel / 3 + 2);
 	}
-	
+
 	// if substantially bleeding, or still in serious shock, randomly lower value
-	if ((pSoldier->bBleeding > 20) || (pSoldier->bShock > 1))
+	if ((pSoldier->bBleeding > 20) || (pSoldier->aiData.bShock > 1))
 	{
 		bDetectLevel -= (INT8) PreRandom(3);
 	}

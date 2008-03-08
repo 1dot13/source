@@ -36,7 +36,7 @@ void FindTilesetComments(void);
 void GetMasterList(void);
 
 void HandleJA2ToolbarSelection( void );
-void HandleKeyboardShortcuts(  );
+void HandleKeyboardShortcuts(	);
 UINT32 PerformSelectedAction( void );
 UINT32 WaitForSelectionWindowResponse( void );
 UINT32 WaitForMessageBoxResponse( UINT32 uiCurrentScreen );
@@ -55,7 +55,7 @@ void MapOptimize(void);
 
 extern UINT16 GenericButtonFillColors[40];
 
-//These go together.  The taskbar has a specific color scheme.
+//These go together.	The taskbar has a specific color scheme.
 extern UINT16 gusEditorTaskbarColor;
 extern UINT16 gusEditorTaskbarHiColor;
 extern UINT16 gusEditorTaskbarLoColor;

@@ -6,7 +6,7 @@
 	#include <memory.h>
 
 	#include "types.h"
-	#include "Soldier Control.h"
+
 	#include "Keys.h"
 	#include "debug.h"
 	#include "Smoothing Utils.h"
@@ -33,7 +33,7 @@
 	#include "random.h"
 	#include "worlddef.h"
 	#include "campaign.h"
-	#include "sound control.h"
+	#include "Sound Control.h"
 	#include "Interface.h"
 	#include "Game Clock.h"
 	#include "handle doors.h"
@@ -55,7 +55,7 @@ BOOLEAN	InternalSetDoorPerceivedOpenStatus( DOOR_STATUS *pDoorStatus, BOOLEAN fP
 KEY KeyTable[NUM_KEYS] =
 {
 	// Item #			Flags		Sector, Date Found
-	//							
+	//
 	{KEY_1,				0,			0,			0},
 	{KEY_2,				0,			0,			0},
 	{KEY_3,				0,			0,			0},
@@ -72,9 +72,9 @@ KEY KeyTable[NUM_KEYS] =
 //Current number of doors in world.
 UINT8 gubNumDoors = 0;
 
-//Current max number of doors.  This is only used by the editor.  When adding doors to the 
+//Current max number of doors.	This is only used by the editor.	When adding doors to the
 //world, we may run out of space in the DoorTable, so we will allocate a new array with extra slots,
-//then copy everything over again.  gubMaxDoors holds the arrays actual number of slots, even though
+//then copy everything over again.	gubMaxDoors holds the arrays actual number of slots, even though
 //the current number (gubNumDoors) will be <= to it.
 UINT8 gubMaxDoors = 0;
 
@@ -113,8 +113,8 @@ DOORTRAP DoorTrapTable[NUM_DOOR_TRAPS] =
 
 
 
-//Dynamic array of Doors.  For general game purposes, the doors that are locked and/or trapped
-//are permanently saved within the map, and are loaded and allocated when the map is loaded.  Because
+//Dynamic array of Doors.	For general game purposes, the doors that are locked and/or trapped
+//are permanently saved within the map, and are loaded and allocated when the map is loaded.	Because
 //the editor allows more doors to be added, or removed, the actual size of the DoorTable may change.
 DOOR * DoorTable = NULL;
 
@@ -195,11 +195,11 @@ BOOLEAN KeyExistsInInventory( SOLDIERTYPE *pSoldier, UINT8 ubKeyID )
 {
 	UINT8				ubLoop;
 
-	for (ubLoop = 0; ubLoop < NUM_INV_SLOTS; ubLoop++)
+	for (ubLoop = 0; ubLoop < pSoldier->inv.size(); ubLoop++)
 	{
 		if (Item[pSoldier->inv[ubLoop].usItem].usItemClass == IC_KEY)
 		{
-			if ( (pSoldier->inv[ubLoop].ItemData.Key.ubKeyID == ubKeyID) || (ubKeyID == ANYKEY) )
+			if ( (pSoldier->inv[ubLoop][0]->data.key.ubKeyID == ubKeyID) || (ubKeyID == ANYKEY) )
 			{
 				// there's the key we want!
 				return( TRUE );
@@ -237,7 +237,7 @@ BOOLEAN DoUnlockDoor( DOOR * pDoor, UINT8 ubKeyID )
 	if ( (pDoor->fLocked) && ValidKey( pDoor, ubKeyID ))
 	{
 		// Play lockpicking
-		PlayJA2Sample( ( (UINT8)UNLOCK_DOOR_1 ), RATE_11025, SoundVolume( MIDVOLUME, pDoor->sGridNo ), 1, SoundDir( pDoor->sGridNo ) );			
+		PlayJA2Sample( ( (UINT8)UNLOCK_DOOR_1 ), RATE_11025, SoundVolume( MIDVOLUME, pDoor->sGridNo ), 1, SoundDir( pDoor->sGridNo ) );
 
 		pDoor->fLocked = FALSE;
 		return( TRUE );
@@ -271,8 +271,8 @@ BOOLEAN AttemptToUnlockDoor( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 	}
 
 	// drat, couldn't find the key
-	PlayJA2Sample( KEY_FAILURE, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );			
-	
+	PlayJA2Sample( KEY_FAILURE, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
+
 	return( FALSE );
 }
 
@@ -315,7 +315,7 @@ BOOLEAN AttemptToCrowbarLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 	}
 
 	// generate a noise for thumping on the door
-	MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->bLevel, gpWorldLevelData[pSoldier->sGridNo].ubTerrainID, CROWBAR_DOOR_VOLUME, NOISE_DOOR_SMASHING );
+	MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, gpWorldLevelData[pSoldier->sGridNo].ubTerrainID, CROWBAR_DOOR_VOLUME, NOISE_DOOR_SMASHING );
 
 	if ( !pDoor->fLocked )
 	{
@@ -326,7 +326,7 @@ BOOLEAN AttemptToCrowbarLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 		// award experience points?
 
 		// Play lock busted sound
-		PlayJA2Sample( ( (UINT8)BREAK_LOCK ), RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
+		PlayJA2Sample( ( (UINT8)BREAK_LOCK ), RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 
 		return( TRUE );
 	}
@@ -357,14 +357,14 @@ BOOLEAN AttemptToCrowbarLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 
 	if (iResult > 0)
 	{
-    // STR GAIN (20) - Pried open a lock
-    StatChange( pSoldier, STRAMT, 20, FALSE );
+	// STR GAIN (20) - Pried open a lock
+	StatChange( pSoldier, STRAMT, 20, FALSE );
 
 		// succeeded! door can never be locked again, so remove from door list...
 		RemoveDoorInfoFromTable( pDoor->sGridNo );
 
 		// Play lock busted sound
-		PlayJA2Sample( ( (UINT8)BREAK_LOCK ), RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
+		PlayJA2Sample( ( (UINT8)BREAK_LOCK ), RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 
 		return( TRUE );
 	}
@@ -372,7 +372,7 @@ BOOLEAN AttemptToCrowbarLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 	{
 		if (iResult > -10)
 		{
-			ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, TacticalStr[ LOCK_HAS_BEEN_HIT ] );  
+			ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, TacticalStr[ LOCK_HAS_BEEN_HIT ] );
 
 			// STR GAIN - Damaged a lock by prying
 			StatChange( pSoldier, STRAMT, 5, FALSE );
@@ -399,7 +399,7 @@ BOOLEAN AttemptToSmashDoor( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 	LOCK * pLock;
 
 	// generate a noise for thumping on the door
-	MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->bLevel, gpWorldLevelData[pSoldier->sGridNo].ubTerrainID, SMASHING_DOOR_VOLUME, NOISE_DOOR_SMASHING );
+	MakeNoise( pSoldier->ubID, pSoldier->sGridNo, pSoldier->pathing.bLevel, gpWorldLevelData[pSoldier->sGridNo].ubTerrainID, SMASHING_DOOR_VOLUME, NOISE_DOOR_SMASHING );
 
 	if ( !pDoor->fLocked )
 	{
@@ -410,7 +410,7 @@ BOOLEAN AttemptToSmashDoor( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 		// award experience points?
 
 		// Play lock busted sound
-		PlayJA2Sample( ( (UINT8)BREAK_LOCK ), RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
+		PlayJA2Sample( ( (UINT8)BREAK_LOCK ), RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 
 		return( TRUE );
 	}
@@ -436,15 +436,15 @@ BOOLEAN AttemptToSmashDoor( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 	}
 	if (iResult > 0)
 	{
-    // STR GAIN (20) - Pried open a lock
-    StatChange( pSoldier, STRAMT, 20, FALSE );
+	// STR GAIN (20) - Pried open a lock
+	StatChange( pSoldier, STRAMT, 20, FALSE );
 
 		// succeeded! door can never be locked again, so remove from door list...
 		RemoveDoorInfoFromTable( pDoor->sGridNo );
 		// award experience points?
 
 		// Play lock busted sound
-		PlayJA2Sample( ( (UINT8)BREAK_LOCK ), RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
+		PlayJA2Sample( ( (UINT8)BREAK_LOCK ), RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 
 		return( TRUE );
 	}
@@ -452,7 +452,7 @@ BOOLEAN AttemptToSmashDoor( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 	{
 		if (iResult > -10)
 		{
-			ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, TacticalStr[ LOCK_HAS_BEEN_HIT ] );  
+			ScreenMsg( MSG_FONT_YELLOW, MSG_INTERFACE, TacticalStr[ LOCK_HAS_BEEN_HIT ] );
 
 			// STR GAIN - Damaged a lock by prying
 			StatChange( pSoldier, STRAMT, 5, FALSE );
@@ -495,9 +495,9 @@ BOOLEAN AttemptToPickLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 
 	// Play lockpicking
 	// ATE: Moved to animation
-	//PlayJA2Sample( ( (UINT8)PICKING_LOCK ), RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );			
+	//PlayJA2Sample( ( (UINT8)PICKING_LOCK ), RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 
-	// See if we measure up to the task.  
+	// See if we measure up to the task.
 	// The difficulty is negated here to make it a skill adjustment
 	if ( pLock->ubPickDifficulty == OPENING_NOT_POSSIBLE )
 	{
@@ -511,17 +511,17 @@ BOOLEAN AttemptToPickLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 	}
 	if (iResult > 0)
 	{
-	  // MECHANICAL GAIN:  Picked open a lock
-    StatChange( pSoldier, MECHANAMT, ( UINT16 ) ( pLock->ubPickDifficulty / 5 ), FALSE );
+	// MECHANICAL GAIN:	Picked open a lock
+	StatChange( pSoldier, MECHANAMT, ( UINT16 ) ( pLock->ubPickDifficulty / 5 ), FALSE );
 
-	  // DEXTERITY GAIN:  Picked open a lock
-    StatChange( pSoldier, DEXTAMT, ( UINT16 ) ( pLock->ubPickDifficulty / 10 ), FALSE );
+	// DEXTERITY GAIN:	Picked open a lock
+	StatChange( pSoldier, DEXTAMT, ( UINT16 ) ( pLock->ubPickDifficulty / 10 ), FALSE );
 
-		// WISDOM GAIN:  Picked open a lock (Snap)
+		// WISDOM GAIN:	Picked open a lock (Snap)
 		if ( bReason == ELECTRONIC_LOCKPICKING_CHECK )
-		    StatChange( pSoldier, WISDOMAMT, ( UINT16 ) ( pLock->ubPickDifficulty / 10 ), FALSE );
+		 StatChange( pSoldier, WISDOMAMT, ( UINT16 ) ( pLock->ubPickDifficulty / 10 ), FALSE );
 		else
-		    StatChange( pSoldier, WISDOMAMT, ( UINT16 ) ( pLock->ubPickDifficulty / 15 ), FALSE );
+		 StatChange( pSoldier, WISDOMAMT, ( UINT16 ) ( pLock->ubPickDifficulty / 15 ), FALSE );
 
 
 
@@ -542,8 +542,8 @@ BOOLEAN AttemptToUntrapDoor( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 {
 	INT32		iResult;
 
-	// See if we measure up to the task.  
-	if ( pDoor->ubTrapID == EXPLOSION  )
+	// See if we measure up to the task.
+	if ( pDoor->ubTrapID == EXPLOSION	)
 	{
 		iResult = SkillCheck( pSoldier, DISARM_TRAP_CHECK, (INT8) (pDoor->ubTrapLevel * 7) );
 	}
@@ -620,7 +620,7 @@ BOOLEAN HasDoorTrapGoneOff( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 
 void HandleDoorTrap( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 {
-	if ( !( DoorTrapTable[ pDoor->ubTrapID ].fFlags & DOOR_TRAP_SILENT )  )
+	if ( !( DoorTrapTable[ pDoor->ubTrapID ].fFlags & DOOR_TRAP_SILENT )	)
 	{
 		switch( pDoor->ubTrapID )
 		{
@@ -643,7 +643,7 @@ void HandleDoorTrap( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 			// cause damage as a regular hand grenade
 			IgniteExplosion( NOBODY, CenterX( pSoldier->sGridNo ), (INT16)CenterY( pSoldier->sGridNo ), 25, pSoldier->sGridNo, HAND_GRENADE, 0 );
 			break;
- 
+
  		case SIREN:
 			// play siren sound effect but otherwise treat as silent alarm, calling
 			// available enemies to this location
@@ -664,30 +664,30 @@ void HandleDoorTrap( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 			// insert electrical sound effect here
 			PlayJA2Sample( DOOR_ELECTRICITY, RATE_11025, SoundVolume( MIDVOLUME, pDoor->sGridNo ), 1, SoundDir( pDoor->sGridNo ) );
 
-	    // Set attacker's ID
-	    pSoldier->ubAttackerID = pSoldier->ubID;
-	    // Increment  being attacked count
-	    // pSoldier->bBeingAttackedCount++;
-		  // gTacticalStatus.ubAttackBusyCount++;
-		  DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Trap gone off %d", gTacticalStatus.ubAttackBusyCount) );
-		  DebugAttackBusy( "!!!!!!! Trap gone off\n" );
+	 // Set attacker's ID
+	 pSoldier->ubAttackerID = pSoldier->ubID;
+	 // Increment	being attacked count
+	 // pSoldier->bBeingAttackedCount++;
+		// gTacticalStatus.ubAttackBusyCount++;
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Trap gone off %d", gTacticalStatus.ubAttackBusyCount) );
+		DebugAttackBusy( "!!!!!!! Trap gone off\n" );
 
-			SoldierTakeDamage( pSoldier, 0, (UINT16) (10 + PreRandom( 10 )), (UINT16) ((3 + PreRandom( 3 ) * 1000)), TAKE_DAMAGE_ELECTRICITY, NOBODY, pDoor->sGridNo, 0, TRUE );
+			pSoldier->SoldierTakeDamage( 0, (UINT16) (10 + PreRandom( 10 )), (UINT16) ((3 + PreRandom( 3 ) * 1000)), TAKE_DAMAGE_ELECTRICITY, NOBODY, pDoor->sGridNo, 0, TRUE );
 			break;
 
 		case SUPER_ELECTRIC:
 			// insert electrical sound effect here
-			PlayJA2Sample( DOOR_ELECTRICITY, RATE_11025, SoundVolume( MIDVOLUME, pDoor->sGridNo ), 1, SoundDir( pDoor->sGridNo ) );	
+			PlayJA2Sample( DOOR_ELECTRICITY, RATE_11025, SoundVolume( MIDVOLUME, pDoor->sGridNo ), 1, SoundDir( pDoor->sGridNo ) );
 
-	    // Set attacker's ID
-	    pSoldier->ubAttackerID = pSoldier->ubID;
-	    // Increment  being attacked count
-	    // pSoldier->bBeingAttackedCount++;
-		//  gTacticalStatus.ubAttackBusyCount++;
-		  DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Trap gone off %d", gTacticalStatus.ubAttackBusyCount) );
-		  DebugAttackBusy( "!!!!!!! Trap gone off\n" );
+	 // Set attacker's ID
+	 pSoldier->ubAttackerID = pSoldier->ubID;
+	 // Increment	being attacked count
+	 // pSoldier->bBeingAttackedCount++;
+		//	gTacticalStatus.ubAttackBusyCount++;
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Trap gone off %d", gTacticalStatus.ubAttackBusyCount) );
+		DebugAttackBusy( "!!!!!!! Trap gone off\n" );
 
-			SoldierTakeDamage( pSoldier, 0, (UINT16) (20 + PreRandom( 20 )), (UINT16) ((6 + PreRandom( 6 ) * 1000)), TAKE_DAMAGE_ELECTRICITY, NOBODY, pDoor->sGridNo, 0, TRUE );
+			pSoldier->SoldierTakeDamage( 0, (UINT16) (20 + PreRandom( 20 )), (UINT16) ((6 + PreRandom( 6 ) * 1000)), TAKE_DAMAGE_ELECTRICITY, NOBODY, pDoor->sGridNo, 0, TRUE );
 			break;
 
 
@@ -742,13 +742,13 @@ BOOLEAN AttemptToBlowUpLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 
 			CreateAnimationTile( &AniParams );
 
-			PlayJA2Sample( SMALL_EXPLODE_1 , RATE_11025, SoundVolume( (INT8)HIGHVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );						
+			PlayJA2Sample( SMALL_EXPLODE_1 , RATE_11025, SoundVolume( (INT8)HIGHVOLUME, sGridNo ), 1, SoundDir( sGridNo ) );
 
 			// Remove the explosive.....
 			bSlot = FindLockBomb( pSoldier );
 			if (bSlot != NO_SLOT)
 			{
-				RemoveObjs( &(pSoldier->inv[ bSlot ]), 1 );
+				pSoldier->inv[ bSlot ].RemoveObjectsFromStack(1);
 				DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 			}
 		}
@@ -769,7 +769,7 @@ BOOLEAN AttemptToBlowUpLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 		bSlot = FindLockBomb( pSoldier );
 		if (bSlot != NO_SLOT)
 		{
-			RemoveObjs( &(pSoldier->inv[ bSlot ]), 1 );
+			pSoldier->inv[ bSlot ].RemoveObjectsFromStack(1);
 			DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 		}
 
@@ -779,7 +779,7 @@ BOOLEAN AttemptToBlowUpLock( SOLDIERTYPE * pSoldier, DOOR * pDoor )
 	return( FALSE );
 }
 
-//File I/O for loading the door information from the map.  This automatically allocates
+//File I/O for loading the door information from the map.	This automatically allocates
 //the exact number of slots when loading.
 void LoadDoorTableFromMap( INT8 **hBuffer )
 {
@@ -801,8 +801,8 @@ void LoadDoorTableFromMap( INT8 **hBuffer )
 	}
 }
 
-//Saves the existing door information to the map.  Before it actually saves, it'll verify that the
-//door still exists.  Otherwise, it'll ignore it.  It is possible in the editor to delete doors in 
+//Saves the existing door information to the map.	Before it actually saves, it'll verify that the
+//door still exists.	Otherwise, it'll ignore it.	It is possible in the editor to delete doors in
 //many different ways, so I opted to put it in the saving routine.
 void SaveDoorTableToMap( HWFILE fp )
 {
@@ -820,7 +820,7 @@ void SaveDoorTableToMap( HWFILE fp )
 	FileWrite( fp, DoorTable, sizeof( DOOR )*gubNumDoors, &uiBytesWritten );
 }
 
-//The editor adds locks to the world.  If the gridno already exists, then the currently existing door
+//The editor adds locks to the world.	If the gridno already exists, then the currently existing door
 //information is overwritten.
 void AddDoorInfoToTable( DOOR *pDoor )
 {
@@ -859,28 +859,28 @@ void AddDoorInfoToTable( DOOR *pDoor )
 }
 
 //When the editor removes a door from the world, this function looks for and removes accompanying door
-//information.  If the entry is not the last entry, the last entry is move to it's current slot, to keep
+//information.	If the entry is not the last entry, the last entry is move to it's current slot, to keep
 //everything contiguous.
 void RemoveDoorInfoFromTable( INT32 iMapIndex )
 {
 	INT32 i;
-  INT32 iNumDoorsToCopy;
+	INT32 iNumDoorsToCopy;
 	for( i = 0; i < gubNumDoors; i++ )
 	{
 		if( DoorTable[ i ].sGridNo == iMapIndex )
 		{
-      iNumDoorsToCopy = gubNumDoors - i - 1;
-      if( iNumDoorsToCopy )
-      {
-			  memmove( &DoorTable[ i ], &DoorTable[ i+1 ], sizeof( DOOR ) * iNumDoorsToCopy );
-      }
+		iNumDoorsToCopy = gubNumDoors - i - 1;
+		if( iNumDoorsToCopy )
+		{
+			memmove( &DoorTable[ i ], &DoorTable[ i+1 ], sizeof( DOOR ) * iNumDoorsToCopy );
+		}
 			gubNumDoors--;
 			return;
 		}
 	}
 }
 
-//This is the link to see if a door exists at a gridno.  
+//This is the link to see if a door exists at a gridno.
 DOOR* FindDoorInfoAtGridNo( INT32 iMapIndex )
 {
 	INT32 i;
@@ -892,7 +892,7 @@ DOOR* FindDoorInfoAtGridNo( INT32 iMapIndex )
 	return NULL;
 }
 
-//Upon world deallocation, the door table needs to be deallocated.  Remember, this function
+//Upon world deallocation, the door table needs to be deallocated.	Remember, this function
 //resets the values, so make sure you do this before you change gubNumDoors or gubMaxDoors.
 void TrashDoorTable()
 {
@@ -909,7 +909,7 @@ void UpdateDoorPerceivedValue( DOOR *pDoor )
 	{
 		pDoor->bPerceivedLocked = DOOR_PERCEIVED_LOCKED;
 	}
-	else if ( !pDoor->fLocked ) 
+	else if ( !pDoor->fLocked )
 	{
 		pDoor->bPerceivedLocked = DOOR_PERCEIVED_UNLOCKED;
 	}
@@ -929,7 +929,7 @@ void UpdateDoorPerceivedValue( DOOR *pDoor )
 
 
 
-BOOLEAN  SaveDoorTableToDoorTableTempFile( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
+BOOLEAN	SaveDoorTableToDoorTableTempFile( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
 	UINT32	uiNumBytesWritten;
 	UINT32	uiSizeToSave=0;
@@ -960,7 +960,7 @@ BOOLEAN  SaveDoorTableToDoorTableTempFile( INT16 sSectorX, INT16 sSectorY, INT8 
 	}
 
 
-	
+
 	//Open the file for writing, Create it if it doesnt exist
 	hFile = FileOpen( zMapName, FILE_ACCESS_WRITE | FILE_OPEN_ALWAYS, FALSE );
 	if( hFile == 0 )
@@ -991,8 +991,8 @@ BOOLEAN  SaveDoorTableToDoorTableTempFile( INT16 sSectorX, INT16 sSectorY, INT8 
 		}
 	}
 
-	
-	//Set the sector flag indicating that there is a Door table temp file present 
+
+	//Set the sector flag indicating that there is a Door table temp file present
 	SetSectorFlag( gWorldSectorX, gWorldSectorY, gbWorldSectorZ, SF_DOOR_TABLE_TEMP_FILES_EXISTS );
 
 	FileClose( hFile );
@@ -1103,7 +1103,7 @@ BOOLEAN ModifyDoorStatus( INT16 sGridNo, BOOLEAN fOpen, BOOLEAN fPerceivedOpen )
 #endif
 		return( FALSE );
 	}
-	
+
 	//if there is an array
 	if( gpDoorStatus )
 	{
@@ -1178,14 +1178,14 @@ BOOLEAN ModifyDoorStatus( INT16 sGridNo, BOOLEAN fOpen, BOOLEAN fPerceivedOpen )
 	if ( fPerceivedOpen != DONTSETDOORSTATUS )
 	{
 		if( fOpen )
-			gpDoorStatus[ gubNumDoorStatus-1 ].ubFlags |= DOOR_PERCEIVED_OPEN; 
+			gpDoorStatus[ gubNumDoorStatus-1 ].ubFlags |= DOOR_PERCEIVED_OPEN;
 	}
 	else
 	{
-		gpDoorStatus[ gubNumDoorStatus-1 ].ubFlags |= DOOR_PERCEIVED_NOTSET; 
+		gpDoorStatus[ gubNumDoorStatus-1 ].ubFlags |= DOOR_PERCEIVED_NOTSET;
 	}
 
-	// flag the tile as containing a door status 
+	// flag the tile as containing a door status
 	gpWorldLevelData[ pBaseStructure->sGridNo ].ubExtFlags[0] |= MAPELEMENT_EXT_DOOR_STATUS_PRESENT;
 
 	return( TRUE );
@@ -1295,11 +1295,11 @@ DOOR_STATUS	*GetDoorStatus( INT16 sGridNo )
 
 BOOLEAN AllMercsLookForDoor( INT16 sGridNo, BOOLEAN fUpdateValue )
 {
-	INT32                    cnt, cnt2;
-	INT8										 bDirs[ 8 ] = { NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST };
-	SOLDIERTYPE							 *pSoldier;
-	DOOR_STATUS							 *pDoorStatus;
-	INT16											usNewGridNo;
+	INT32					cnt, cnt2;
+	INT8										bDirs[ 8 ] = { NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST };
+	SOLDIERTYPE							*pSoldier;
+	DOOR_STATUS							*pDoorStatus;
+	INT16											sNewGridNo;
 
 	// Get door
 	pDoorStatus = GetDoorStatus( sGridNo );
@@ -1312,11 +1312,11 @@ BOOLEAN AllMercsLookForDoor( INT16 sGridNo, BOOLEAN fUpdateValue )
 	// IF IT'S THE SELECTED GUY, MAKE ANOTHER SELECTED!
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
-	// look for all mercs on the same team, 
+	// look for all mercs on the same team,
 	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++ )
-	{ 
+	{
 		// ATE: Ok, lets check for some basic things here!
-		if ( pSoldier->bLife >= OKLIFE && pSoldier->sGridNo != NOWHERE && pSoldier->bActive && pSoldier->bInSector )
+		if ( pSoldier->stats.bLife >= OKLIFE && pSoldier->sGridNo != NOWHERE && pSoldier->bActive && pSoldier->bInSector )
 		{
 			// and we can trace a line of sight to his x,y coordinates?
 			// (taking into account we are definitely aware of this guy now)
@@ -1333,10 +1333,10 @@ BOOLEAN AllMercsLookForDoor( INT16 sGridNo, BOOLEAN fUpdateValue )
 			// Now try other adjacent gridnos...
 			for ( cnt2 = 0; cnt2 < 8; cnt2++ )
 			{
-				usNewGridNo = NewGridNo( sGridNo, DirectionInc( bDirs[ cnt2 ] ) );
+				sNewGridNo = NewGridNo( sGridNo, DirectionInc( bDirs[ cnt2 ] ) );
 				// and we can trace a line of sight to his x,y coordinates?
 				// (taking into account we are definitely aware of this guy now)
-				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, usNewGridNo, 0, 0, TRUE, CALC_FROM_ALL_DIRS ) )
+				if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sNewGridNo, 0, 0, TRUE, CALC_FROM_ALL_DIRS ) )
 				{
 					// Update status...
 					if ( fUpdateValue )
@@ -1355,11 +1355,11 @@ BOOLEAN AllMercsLookForDoor( INT16 sGridNo, BOOLEAN fUpdateValue )
 
 BOOLEAN MercLooksForDoors( SOLDIERTYPE *pSoldier, BOOLEAN fUpdateValue )
 {
-	INT32                    cnt, cnt2;
-	INT16										 sGridNo;
-	DOOR_STATUS							 *pDoorStatus;
-	INT8										 bDirs[ 8 ] = { NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST };
-	INT16										 usNewGridNo;
+	INT32					cnt, cnt2;
+	INT16										sGridNo;
+	DOOR_STATUS							*pDoorStatus;
+	INT8										bDirs[ 8 ] = { NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST };
+	INT16										sNewGridNo;
 
 
 
@@ -1392,10 +1392,10 @@ BOOLEAN MercLooksForDoors( SOLDIERTYPE *pSoldier, BOOLEAN fUpdateValue )
 		// Now try other adjacent gridnos...
 		for ( cnt2 = 0; cnt2 < 8; cnt2++ )
 		{
-			usNewGridNo = NewGridNo( sGridNo, DirectionInc( bDirs[ cnt2 ] ) );
+			sNewGridNo = NewGridNo( sGridNo, DirectionInc( bDirs[ cnt2 ] ) );
 			// and we can trace a line of sight to his x,y coordinates?
 			// (taking into account we are definitely aware of this guy now)
-			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, usNewGridNo, 0, 0, TRUE, CALC_FROM_ALL_DIRS ) )
+			if ( SoldierTo3DLocationLineOfSightTest( pSoldier, sNewGridNo, 0, 0, TRUE, CALC_FROM_ALL_DIRS ) )
 			{
 				// Update status...
 				if ( fUpdateValue )
@@ -1418,7 +1418,7 @@ void SyncronizeDoorStatusToStructureData( DOOR_STATUS *pDoorStatus )
 {
 	STRUCTURE *pStructure, *pBaseStructure;
 	LEVELNODE * pNode;
-	INT16 sBaseGridNo				 = NOWHERE;
+	INT16 sBaseGridNo				= NOWHERE;
 
 	// First look for a door structure here...
 	pStructure = FindStructure( pDoorStatus->sGridNo, STRUCTURE_ANYDOOR );
@@ -1426,7 +1426,7 @@ void SyncronizeDoorStatusToStructureData( DOOR_STATUS *pDoorStatus )
 	if (pStructure)
 	{
 		pBaseStructure = FindBaseStructure( pStructure );
-		sBaseGridNo    = pBaseStructure->sGridNo;
+		sBaseGridNo	= pBaseStructure->sGridNo;
 	}
 	else
 	{
@@ -1453,7 +1453,7 @@ void SyncronizeDoorStatusToStructureData( DOOR_STATUS *pDoorStatus )
 	// ATE: OK let me explain something here:
 	// One of the purposes of this function is to MAKE sure the door status MATCHES
 	// the struct data value - if not - change ( REGARDLESS of perceived being used or not... )
-	// 
+	//
 	// Check for opened...
 	if ( pDoorStatus->ubFlags & DOOR_OPEN )
 	{
@@ -1461,25 +1461,25 @@ void SyncronizeDoorStatusToStructureData( DOOR_STATUS *pDoorStatus )
 		if ( !( pStructure->fFlags & STRUCTURE_OPEN ) )
 		{
 			// Swap!
-			SwapStructureForPartner( sBaseGridNo, pBaseStructure ); 
+			SwapStructureForPartner( sBaseGridNo, pBaseStructure );
 			RecompileLocalMovementCosts( sBaseGridNo );
 		}
 	}
 	else
-	{	
+	{
 		if ( ( pStructure->fFlags & STRUCTURE_OPEN ) )
 		{
 			// Swap!
-			SwapStructureForPartner( sBaseGridNo, pBaseStructure ); 
+			SwapStructureForPartner( sBaseGridNo, pBaseStructure );
 			RecompileLocalMovementCosts( sBaseGridNo );
 		}
 	}
-}	
+}
 
 void UpdateDoorGraphicsFromStatus( BOOLEAN fUsePerceivedStatus, BOOLEAN fDirty )
 {
-	INT32                    cnt;
-	DOOR_STATUS							 *pDoorStatus;
+	INT32					cnt;
+	DOOR_STATUS							*pDoorStatus;
 
 	for ( cnt = 0; cnt < gubNumDoorStatus; cnt++ )
 	{
@@ -1498,9 +1498,9 @@ void InternalUpdateDoorGraphicFromStatus( DOOR_STATUS *pDoorStatus, BOOLEAN fUse
 	INT32			cnt;
 	BOOLEAN		fOpenedGraphic = FALSE;
 	LEVELNODE * pNode;
-	BOOLEAN		fWantToBeOpen  = FALSE;
-	BOOLEAN		fDifferent     = FALSE;
-	INT16 sBaseGridNo				 = NOWHERE;
+	BOOLEAN		fWantToBeOpen	= FALSE;
+	BOOLEAN		fDifferent	 = FALSE;
+	INT16 sBaseGridNo				= NOWHERE;
 
 
 	// OK, look at perceived status and adjust graphic
@@ -1510,7 +1510,7 @@ void InternalUpdateDoorGraphicFromStatus( DOOR_STATUS *pDoorStatus, BOOLEAN fUse
 	if (pStructure)
 	{
 		pBaseStructure = FindBaseStructure( pStructure );
-		sBaseGridNo    = pBaseStructure->sGridNo;
+		sBaseGridNo	= pBaseStructure->sGridNo;
 	}
 	else
 	{
@@ -1566,7 +1566,7 @@ void InternalUpdateDoorGraphicFromStatus( DOOR_STATUS *pDoorStatus, BOOLEAN fUse
 
 	// OK, we either have an opened graphic, in which case we want to switch to the closed, or a closed
 	// in which case we want to switch to opened...
-	// adjust o' graphic
+	// adjust object' graphic
 
 
 	// OK, we now need to test these things against the true structure data
@@ -1575,7 +1575,7 @@ void InternalUpdateDoorGraphicFromStatus( DOOR_STATUS *pDoorStatus, BOOLEAN fUse
 	{
 		BOOLEAN fFound = FALSE;
 		// Adjust graphic....
-		
+
 		// Loop through and and find opened graphic for the closed one....
 		cnt = 0;
 		while( gOpenDoorList[ cnt ] != -1 )
@@ -1588,7 +1588,7 @@ void InternalUpdateDoorGraphicFromStatus( DOOR_STATUS *pDoorStatus, BOOLEAN fUse
 			}
 			cnt++;
 		};
-		
+
 		// OK, now use opened graphic.
 		if ( fFound )
 		{
@@ -1603,13 +1603,13 @@ void InternalUpdateDoorGraphicFromStatus( DOOR_STATUS *pDoorStatus, BOOLEAN fUse
 
 		return;
 	}
-	
+
 	// If we want to be closed but structure is closed
 	if ( !fWantToBeOpen && !( pStructure->fFlags & STRUCTURE_OPEN ) )
 	{
 		BOOLEAN fFound = FALSE;
 		// Adjust graphic....
-		
+
 		// Loop through and and find closed graphic for the opend one....
 		cnt = 0;
 		while( gClosedDoorList[ cnt ] != -1 )
@@ -1622,7 +1622,7 @@ void InternalUpdateDoorGraphicFromStatus( DOOR_STATUS *pDoorStatus, BOOLEAN fUse
 			}
 			cnt++;
 		};
-		
+
 		// OK, now use opened graphic.
 		if ( fFound )
 		{
@@ -1666,7 +1666,7 @@ void InternalUpdateDoorGraphicFromStatus( DOOR_STATUS *pDoorStatus, BOOLEAN fUse
 	if ( fDifferent )
 	{
 		SwapStructureForPartner( sBaseGridNo, pBaseStructure );
- 
+
 		RecompileLocalMovementCosts( sBaseGridNo );
 
 		if ( fDirty )
@@ -1687,7 +1687,7 @@ BOOLEAN InternalIsPerceivedDifferentThanReality( DOOR_STATUS *pDoorStatus )
 
 	// Compare flags....
 	if ( ( pDoorStatus->ubFlags & DOOR_OPEN && pDoorStatus->ubFlags & DOOR_PERCEIVED_OPEN ) ||
-			 ( !( pDoorStatus->ubFlags & DOOR_OPEN ) && !( pDoorStatus->ubFlags & DOOR_PERCEIVED_OPEN ) ) )
+			( !( pDoorStatus->ubFlags & DOOR_OPEN ) && !( pDoorStatus->ubFlags & DOOR_PERCEIVED_OPEN ) ) )
 	{
 		return( FALSE );
 	}
@@ -1711,7 +1711,7 @@ void InternalUpdateDoorsPerceivedValue( DOOR_STATUS *pDoorStatus )
 BOOLEAN UpdateDoorStatusPerceivedValue( INT16 sGridNo )
 {
 	DOOR_STATUS	*pDoorStatus = NULL;
-	
+
 	pDoorStatus = GetDoorStatus( sGridNo );
 	CHECKF( pDoorStatus != NULL );
 
@@ -1724,7 +1724,7 @@ BOOLEAN UpdateDoorStatusPerceivedValue( INT16 sGridNo )
 BOOLEAN	IsDoorPerceivedOpen( INT16 sGridNo )
 {
 	DOOR_STATUS	* pDoorStatus;
-	
+
 	pDoorStatus = GetDoorStatus( sGridNo );
 
 	if (pDoorStatus && pDoorStatus->ubFlags & DOOR_PERCEIVED_OPEN)
@@ -1762,7 +1762,7 @@ BOOLEAN	InternalSetDoorPerceivedOpenStatus( DOOR_STATUS *pDoorStatus, BOOLEAN fP
 BOOLEAN	SetDoorPerceivedOpenStatus( INT16 sGridNo, BOOLEAN fPerceivedOpen )
 {
 	DOOR_STATUS	*pDoorStatus = NULL;
-	
+
 	pDoorStatus = GetDoorStatus( sGridNo );
 
 	CHECKF( pDoorStatus != NULL );
@@ -1778,7 +1778,7 @@ BOOLEAN	SetDoorOpenStatus( INT16 sGridNo, BOOLEAN fOpen )
 
 	pDoorStatus = GetDoorStatus( sGridNo );
 
-	if ( pDoorStatus ) 
+	if ( pDoorStatus )
 	{
 		if( fOpen )
 		{
@@ -1922,7 +1922,7 @@ BOOLEAN LoadDoorStatusArrayFromDoorStatusTempFile()
 
 	// the graphics will be updated later in the loading process.
 
-	// set flags in map for containing a door status 
+	// set flags in map for containing a door status
 	for (ubLoop = 0; ubLoop < gubNumDoorStatus; ubLoop++)
 	{
 		gpWorldLevelData[ gpDoorStatus[ ubLoop ].sGridNo ].ubExtFlags[0] |= MAPELEMENT_EXT_DOOR_STATUS_PRESENT;
@@ -1968,11 +1968,11 @@ BOOLEAN LoadKeyTableFromSaveedGameFile( HWFILE hFile )
 
 void ExamineDoorsOnEnteringSector( )
 {
-	INT32                    cnt;
-	DOOR_STATUS							 *pDoorStatus;
-	SOLDIERTYPE              *pSoldier;
-	BOOLEAN									 fOK = FALSE;	
-	INT8										 bTownId;
+	INT32					cnt;
+	DOOR_STATUS							*pDoorStatus;
+	SOLDIERTYPE				*pSoldier;
+	BOOLEAN									fOK = FALSE;
+	INT8										bTownId;
 
 	// OK, only do this if conditions are met....
 	// If this is any omerta tow, don't do it...
@@ -1992,9 +1992,9 @@ void ExamineDoorsOnEnteringSector( )
 	// there is at least one human being in that sector.
 	// check for civ
 	cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
-  // look for all mercs on the same team, 
-  for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ LAST_TEAM ].bLastID; cnt++ ,pSoldier++ )
-	{       
+	// look for all mercs on the same team,
+	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ LAST_TEAM ].bLastID; cnt++ ,pSoldier++ )
+	{
 		if ( pSoldier->bActive )
 		{
 			if ( pSoldier->bInSector )
@@ -2024,12 +2024,12 @@ void ExamineDoorsOnEnteringSector( )
 
 void HandleDoorsChangeWhenEnteringSectorCurrentlyLoaded( )
 {
-	INT32                    cnt;
-	DOOR_STATUS							 *pDoorStatus;
-	SOLDIERTYPE              *pSoldier;
-	BOOLEAN									 fOK = FALSE;	
-	INT32										 iNumNewMercs = 0;
-	INT8										 bTownId;
+	INT32					cnt;
+	DOOR_STATUS							*pDoorStatus;
+	SOLDIERTYPE				*pSoldier;
+	BOOLEAN									fOK = FALSE;
+	INT32										iNumNewMercs = 0;
+	INT8										bTownId;
 
 	// OK, only do this if conditions are met....
 
@@ -2051,9 +2051,9 @@ void HandleDoorsChangeWhenEnteringSectorCurrentlyLoaded( )
 		return;
 	}
 
-  // look for all mercs on the same team, 
-  for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ LAST_TEAM ].bLastID; cnt++ ,pSoldier++ )
-	{       
+	// look for all mercs on the same team,
+	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ LAST_TEAM ].bLastID; cnt++ ,pSoldier++ )
+	{
 		if ( pSoldier->bActive && pSoldier->bInSector )
 		{
 			fOK = TRUE;
@@ -2063,8 +2063,8 @@ void HandleDoorsChangeWhenEnteringSectorCurrentlyLoaded( )
 
 	// Loop through our team now....
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-  for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++ ,pSoldier++ )
-	{       
+	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++ ,pSoldier++ )
+	{
 		if ( pSoldier->bActive && pSoldier->bInSector && gbMercIsNewInThisSector[ cnt ] )
 		{
 			iNumNewMercs++;
@@ -2093,7 +2093,7 @@ void HandleDoorsChangeWhenEnteringSectorCurrentlyLoaded( )
 				HandleDoorChangeFromGridNo( NULL, pDoorStatus->sGridNo, TRUE );
 
 				gfSetPerceivedDoorState = FALSE;
-				
+
 				AllMercsLookForDoor( pDoorStatus->sGridNo, TRUE );
 
 				InternalUpdateDoorGraphicFromStatus( pDoorStatus, TRUE, TRUE );
@@ -2106,44 +2106,42 @@ void HandleDoorsChangeWhenEnteringSectorCurrentlyLoaded( )
 
 void DropKeysInKeyRing( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, INT8 bVisible, BOOLEAN fAddToDropList, INT32 iDropListSlot, BOOLEAN fUseUnLoaded )
 {
-	UINT8		    ubLoop;
-  UINT8       ubItem;
-  OBJECTTYPE  Object;
-
 	if (!(pSoldier->pKeyRing))
 	{
 		// no key ring!
 		return;
 	}
+	UINT8		ubLoop;
+	UINT8		ubItem;
 	for (ubLoop = 0; ubLoop < NUM_KEYS; ubLoop++)
 	{
-  	ubItem = pSoldier->pKeyRing[ ubLoop ].ubKeyID;
+			ubItem = pSoldier->pKeyRing[ ubLoop ].ubKeyID;
 
-    if ( pSoldier->pKeyRing[ubLoop].ubNumber > 0 )
-    {
-  	  CreateKeyObject( &Object, pSoldier->pKeyRing[ubLoop].ubNumber, ubItem );
+		if ( pSoldier->pKeyRing[ubLoop].ubNumber > 0 )
+		{
+				CreateKeyObject( &gTempObject, pSoldier->pKeyRing[ubLoop].ubNumber, ubItem );
 
-      // Zero out entry
-		  pSoldier->pKeyRing[ ubLoop ].ubNumber = 0;
-		  pSoldier->pKeyRing[ ubLoop ].ubKeyID = INVALID_KEY_NUMBER;
+			// Zero out entry
+			pSoldier->pKeyRing[ ubLoop ].ubNumber = 0;
+			pSoldier->pKeyRing[ ubLoop ].ubKeyID = INVALID_KEY_NUMBER;
 
-      if ( fAddToDropList )
-      {
-        AddItemToLeaveIndex( &Object, iDropListSlot );
-      }
-      else
-      {
-	      if( pSoldier->sSectorX != gWorldSectorX || pSoldier->sSectorY != gWorldSectorY || pSoldier->bSectorZ != gbWorldSectorZ || fUseUnLoaded )
-	      {
-          // Set flag for item...
-				  AddItemsToUnLoadedSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ , sGridNo, 1, &Object , bLevel, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0, bVisible, FALSE );
-        }
-			  else
-			  {
-          // Add to pool
-          AddItemToPool( sGridNo, &Object, bVisible, bLevel, 0, 0 );
-			  }
-      }
-    }
+			if ( fAddToDropList )
+			{
+				AddItemToLeaveIndex( &gTempObject, iDropListSlot );
+			}
+			else
+			{
+				if( pSoldier->sSectorX != gWorldSectorX || pSoldier->sSectorY != gWorldSectorY || pSoldier->bSectorZ != gbWorldSectorZ || fUseUnLoaded )
+				{
+					// Set flag for item...
+					AddItemsToUnLoadedSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ , sGridNo, 1, &gTempObject , bLevel, WOLRD_ITEM_FIND_SWEETSPOT_FROM_GRIDNO | WORLD_ITEM_REACHABLE, 0, bVisible, FALSE );
+				}
+				else
+				{
+					// Add to pool
+					AddItemToPool( sGridNo, &gTempObject, bVisible, bLevel, 0, 0 );
+				}
+			}
+		}
 	}
 }

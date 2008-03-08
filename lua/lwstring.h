@@ -22,7 +22,7 @@ typedef struct {
 	CHAR16 data[1];
 } TWString;
 
-#define sizewstring(s)   (sizeof(int) + (s) * sizeof(CHAR16) + sizeof(CHAR16))
+#define sizewstring(s)	(sizeof(int) + (s) * sizeof(CHAR16) + sizeof(CHAR16))
 
 #define luaWS_newstr(L, s)	(luaWS_newlstr(L, s, wcslen(s)))
 

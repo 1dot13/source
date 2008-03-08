@@ -20,11 +20,11 @@ void DDCreateSurfaceInMemory ( LPDIRECTDRAW2 pExistingDirectDraw,
 								BOOLEAN fVideoMemory, LPDIRECTDRAWSURFACE *ppNewSurface1,
 								LPDIRECTDRAWSURFACE2 *ppNewSurface2 );
 void DDCreateZBufferSurface ( LPDIRECTDRAW2 pDirectDraw, INT32 iWidth, INT32 iHeight,
-									  BOOLEAN fVideoMemory, LPDIRECTDRAWSURFACE *ppZBufferSurface1,
-									  LPDIRECTDRAWSURFACE2 *ppZBufferSurface2 );
+									BOOLEAN fVideoMemory, LPDIRECTDRAWSURFACE *ppZBufferSurface1,
+									LPDIRECTDRAWSURFACE2 *ppZBufferSurface2 );
 void DDCreateRasterSurface ( LPDIRECTDRAW2 pDirectDraw, INT32 iWidth, INT32 iHeight,
-									  BOOLEAN fVideoMemory, LPDIRECTDRAWSURFACE *ppRasterSurface1,
-									  LPDIRECTDRAWSURFACE2 *ppRasterSurface2 );
+									BOOLEAN fVideoMemory, LPDIRECTDRAWSURFACE *ppRasterSurface1,
+									LPDIRECTDRAWSURFACE2 *ppRasterSurface2 );
 void DDGetSurfaceDescription ( LPDIRECTDRAWSURFACE2 pSurface, DDSURFACEDESC *pSurfaceDesc );
 void DDGetSurfaceCaps ( LPDIRECTDRAWSURFACE2 pSurface, DDSCAPS *pSurfaceCaps );
 void DDAddAttachedSurface ( LPDIRECTDRAWSURFACE2 pParentSurface,
@@ -37,7 +37,7 @@ void DDGetDDInterface( LPDIRECTDRAWSURFACE2 pSurface, LPDIRECTDRAW *ppDirectDraw
 
 
 void DDLockSurface( LPDIRECTDRAWSURFACE2 pSurface, LPRECT pDestRect, LPDDSURFACEDESC pSurfaceDesc,
-					    UINT32 uiFlags, HANDLE hEvent);
+					 UINT32 uiFlags, HANDLE hEvent);
 
 void DDUnlockSurface( LPDIRECTDRAWSURFACE2 pSurface, PTR pSurfaceData );
 
@@ -47,7 +47,7 @@ void DDBltFastSurface( LPDIRECTDRAWSURFACE2 pDestSurface, UINT32 uiX, UINT32 uiY
 							LPRECT pSrcRect, UINT32 uiTrans);
 
 void DDBltSurface( LPDIRECTDRAWSURFACE2 pDestSurface, LPRECT pDestRect, LPDIRECTDRAWSURFACE2 pSrcSurface,
-					    LPRECT pSrcRect, UINT32 uiFlags, LPDDBLTFX pDDBltFx );
+					 LPRECT pSrcRect, UINT32 uiFlags, LPDDBLTFX pDDBltFx );
 
 void DDSetSurfacePalette( LPDIRECTDRAWSURFACE2 pSurface, LPDIRECTDRAWPALETTE pDDPalette );
 
@@ -86,8 +86,8 @@ HRESULT BltFastDDSurfaceUsingSoftware( LPDIRECTDRAWSURFACE2 pDestSurface, INT32 
 HRESULT BltDDSurfaceUsingSoftware( LPDIRECTDRAWSURFACE2 pDestSurface, LPRECT pDestRect, LPDIRECTDRAWSURFACE2 pSrcSurface, LPRECT pSrcRect, UINT32 uiFlags, LPDDBLTFX pDDBltFx );
 
 
-#define IDirectDrawSurface2_SGPBltFast(p,a,b,c,d,e)         ( ( gfDontUseDDBlits == TRUE ) ?  BltFastDDSurfaceUsingSoftware( p, a, b, c, d, e ) : ( IDirectDrawSurface2_BltFast(p,a,b,c,d,e) ) )
-#define IDirectDrawSurface2_SGPBlt(p,a,b,c,d,e)							( ( gfDontUseDDBlits == TRUE ) ?  BltDDSurfaceUsingSoftware( p, a, b, c, d, e ) : ( IDirectDrawSurface2_Blt(p,a,b,c,d,e) ) )
+#define IDirectDrawSurface2_SGPBltFast(p,a,b,c,d,e)		 ( ( gfDontUseDDBlits == TRUE ) ?	BltFastDDSurfaceUsingSoftware( p, a, b, c, d, e ) : ( IDirectDrawSurface2_BltFast(p,a,b,c,d,e) ) )
+#define IDirectDrawSurface2_SGPBlt(p,a,b,c,d,e)							( ( gfDontUseDDBlits == TRUE ) ?	BltDDSurfaceUsingSoftware( p, a, b, c, d, e ) : ( IDirectDrawSurface2_Blt(p,a,b,c,d,e) ) )
 
 
 #ifdef __cplusplus

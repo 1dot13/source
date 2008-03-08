@@ -33,13 +33,13 @@ typedef struct popupstring POPUPSTRING;
 typedef POPUPSTRING* POPUPSTRINGPTR;
 
 struct popupbox{
-	SGPRect  Dimensions;
+	SGPRect	Dimensions;
 	SGPPoint Position;
 	UINT32 uiLeftMargin;
 	UINT32 uiRightMargin;
 	UINT32 uiBottomMargin;
 	UINT32 uiTopMargin;
-  UINT32 uiLineSpace;
+	UINT32 uiLineSpace;
 	INT32 iBorderObjectIndex;
 	INT32 iBackGroundSurface;
 	UINT32 uiFlags;
@@ -75,7 +75,7 @@ void SetBoxPosition(INT32 hBoxHandle,SGPPoint Position);
 void GetBoxPosition( INT32 hBoxHandle, SGPPoint *Position );
 UINT32 GetNumberOfLinesOfTextInBox( INT32 hBoxHandle );
 void SetBoxSize( INT32 hBoxHandle, SGPRect Dimensions );
-void GetBoxSize(  INT32 hBoxHandle, SGPRect *Dimensions );
+void GetBoxSize(	INT32 hBoxHandle, SGPRect *Dimensions );
 void SetBoxFlags( INT32 hBoxHandle, UINT32 uiFlags);
 void SetBorderType(INT32 hBoxHandle,INT32 BorderObjectIndex);
 void SetBackGroundSurface(INT32 hBoxHandle, INT32 BackGroundSurfaceIndex);

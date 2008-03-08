@@ -21,7 +21,7 @@ BOOLEAN AddInteractiveTile( INT16 sGridNo, LEVELNODE *pLevelNode, UINT32 uiFlags
 BOOLEAN StartInteractiveObject( INT16 sGridNo, UINT16 usStructureID, SOLDIERTYPE *pSoldier, UINT8 ubDirection );
 BOOLEAN StartInteractiveObjectFromMouse( SOLDIERTYPE *pSoldier, UINT8 ubDirection );
 void CompileInteractiveTiles( );
-UINT32  GetInteractiveTileCursor( UINT32 uiOldCursor, BOOLEAN fConfirm );
+UINT32	GetInteractiveTileCursor( UINT32 uiOldCursor, BOOLEAN fConfirm );
 BOOLEAN InteractWithInteractiveObject( SOLDIERTYPE *pSoldier, STRUCTURE *pStructure, UINT8 ubDirection );
 BOOLEAN SoldierHandleInteractiveObject( SOLDIERTYPE *pSoldier );
 
@@ -35,7 +35,7 @@ void EndCurInteractiveTileCheck( );
 void LogMouseOverInteractiveTile( INT16 sGridNo );
 BOOLEAN ShouldCheckForMouseDetections( );
  
-void CycleIntTileFindStack( UINT16 usMapPos );
+void CycleIntTileFindStack( INT16 sMapPos );
 void SetActionModeDoorCursorText( );
 
 LEVELNODE *GetCurInteractiveTile( );

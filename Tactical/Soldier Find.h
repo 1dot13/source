@@ -2,6 +2,11 @@
 #define __SOLDIER_FIND_H
 
 
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
+
+
 #define			FIND_SOLDIER_FULL				0x000000002
 #define			FIND_SOLDIER_GRIDNO			0x000000004
 #define			FIND_SOLDIER_SAMELEVEL	0x000000008
@@ -12,7 +17,7 @@
 #define			SELECTED_MERC				0x000000002
 #define			OWNED_MERC					0x000000004
 #define			ENEMY_MERC					0x000000008
-#define     UNCONSCIOUS_MERC		0x000000020
+#define	 UNCONSCIOUS_MERC		0x000000020
 #define			DEAD_MERC						0x000000040
 #define			VISIBLE_MERC				0x000000080
 #define			ONDUTY_MERC					0x000000100
@@ -30,7 +35,7 @@ BOOLEAN SelectiveFindSoldierFromMouse( UINT16 *pusSoldierIndex, UINT32 *pMercFla
 BOOLEAN FindSoldier( INT16 sGridNo, UINT16 *pusSoldierIndex, UINT32 *pMercFlags , UINT32 uiFlags );
 SOLDIERTYPE * SimpleFindSoldier( INT16 sGridNo, INT8 bLevel );
 
-BOOLEAN CycleSoldierFindStack( UINT16 usMapPos );
+BOOLEAN CycleSoldierFindStack( INT16 sMapPos );
 
 BOOLEAN GridNoOnScreen( INT16 sGridNo );
 

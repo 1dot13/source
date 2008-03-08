@@ -1,9 +1,6 @@
 #ifndef __BOBBYRGUNS_H
 #define __BOBBYRGUNS_H
 
-//#include "LaptopSave.h"
-
-
 #define		BOBBYRDESCFILE										"BINARYDATA\\BrayDesc.edt"
 
 #define		BOBBYR_ITEM_DESC_NAME_SIZE				160

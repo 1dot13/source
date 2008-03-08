@@ -32,30 +32,30 @@ extern	UINT8			gubCheatLevel;
 
 #ifdef GERMAN
 
-  // ATE: remove cheats unless we're doing a debug build
+	// ATE: remove cheats unless we're doing a debug build
 //#ifdef JA2TESTVERSION
 	#define						INFORMATION_CHEAT_LEVEL( )			( gubCheatLevel >= 5 )
 	#define						CHEATER_CHEAT_LEVEL( )					( gubCheatLevel >= 6 )
-	#define						DEBUG_CHEAT_LEVEL( )					  ( gubCheatLevel >= 7 )
+	#define						DEBUG_CHEAT_LEVEL( )					( gubCheatLevel >= 7 )
 //#else
 //	#define						INFORMATION_CHEAT_LEVEL( )			( FALSE )
 //	#define						CHEATER_CHEAT_LEVEL( )					( FALSE )
-//	#define						DEBUG_CHEAT_LEVEL( )					  ( FALSE )
+//	#define						DEBUG_CHEAT_LEVEL( )					( FALSE )
 //#endif
 
 	#define						RESET_CHEAT_LEVEL( )						( gubCheatLevel = 0 )
 
 #else
 
-  // ATE: remove cheats unless we're doing a debug build
+	// ATE: remove cheats unless we're doing a debug build
 //#ifdef JA2TESTVERSION
 	#define						INFORMATION_CHEAT_LEVEL( )			( gubCheatLevel >= 3 )
 	#define						CHEATER_CHEAT_LEVEL( )					( gubCheatLevel >= 5 )
-	#define						DEBUG_CHEAT_LEVEL( )					  ( gubCheatLevel >= 6 )
+	#define						DEBUG_CHEAT_LEVEL( )					( gubCheatLevel >= 6 )
 //#else
 //	#define						INFORMATION_CHEAT_LEVEL( )			( FALSE )
 //	#define						CHEATER_CHEAT_LEVEL( )					( FALSE )
-//	#define						DEBUG_CHEAT_LEVEL( )					  ( FALSE )
+//	#define						DEBUG_CHEAT_LEVEL( )					( FALSE )
 //#endif
 
 	#define						RESET_CHEAT_LEVEL( )						( gubCheatLevel = 0 )

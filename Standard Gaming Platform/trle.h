@@ -4,22 +4,22 @@
 
 typedef struct
 {
-  UINT32 uiOffset;
-  UINT32 uiWidth;
-  UINT32 uiOffLen;
-	INT16	 sOffsetX;
-	INT16  sOffsetY;
+	UINT32 uiOffset;
+	UINT32 uiWidth;
+	UINT32 uiOffLen;
+	INT16	sOffsetX;
+	INT16	sOffsetY;
 
 } TRLEObject;
 
 
 typedef struct
 {
-	UINT32           uiHeightEach;
-	UINT32           uiTotalElements;
-	TRLEObject      *pTRLEObject;			
-	PTR							 pPixData;
-	UINT32					 uiSizePixDataElem;
+	UINT32			uiHeightEach;
+	UINT32			uiTotalElements;
+	TRLEObject		*pTRLEObject;			
+	PTR							pPixData;
+	UINT32					uiSizePixDataElem;
 	
 } TRLEData;
 

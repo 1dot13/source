@@ -5,15 +5,20 @@
 	#include "GameVersion.h"
 #endif
  
-   
+	
 //
 //	Keeps track of the game version
 //
  
-#ifdef JA2BETAVERSION
+#ifdef JA2EDITOR
+
+//MAP EDITOR BUILD VERSION
+CHAR16 zVersionLabel[256]		= { L"Map Editor v1.13.1855.NI.B11.1" }; 
+
+#elif defined JA2BETAVERSION
 
 //BETA/TEST BUILD VERSION
-CHAR16 zVersionLabel[256]		= { L"Map Editor v1.13.1202" }; 
+CHAR16 zVersionLabel[256]		= { L"Debug v1.13.1855.NI.B11.1" }; 
 
 #elif defined CRIPPLED_VERSION
 
@@ -22,20 +27,14 @@ CHAR16 zVersionLabel[256]		= { L"Beta v. 0.98" };
 
 #else
 
-	//RELEASE BUILD VERSION  
-	CHAR16		zVersionLabel[256]		= { L"Release v1.13.1797" };
-
+	//RELEASE BUILD VERSION	
+	CHAR16		zVersionLabel[256]		= { L"Release v1.13.1855.NI.B11.1" };
 
 #endif
 										
-CHAR8		czVersionNumber[16]	= { "Build 08.02.24" };		//YY.MM.DD
+//CHAR8		czVersionNumber[16]	= { "Build 08.02.24" };		//YY.MM.DD
+CHAR8		czVersionNumber[16]	= { "Beta  08.03.03" };		//YY.MM.DD
 CHAR16		zTrackingNumber[16]	= { L"Z" };
 	
 
-//
-//		Keeps track of the saved game version.  Increment the saved game version whenever 
-//	you will invalidate the saved game file
-
-#define			SAVE_GAME_VERSION					101	//100 // 99
-
-const	UINT32	guiSavedGameVersion = SAVE_GAME_VERSION;
+// SAVE_GAME_VERSION is defined in header, change it there

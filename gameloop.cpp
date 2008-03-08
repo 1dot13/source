@@ -9,7 +9,7 @@
 	#include "Gameloop.h"
 	#include "Screens.h"
 	#include "Wcheck.h"
-	#include "cursors.h"  
+	#include "cursors.h"
 	#include "init.h"
 	#include "music control.h"
 	#include "sys globals.h"
@@ -31,11 +31,10 @@
 	#include "PreBattle Interface.h"
 #endif
 
-//#include "Console.h"
 #include "Lua Interpreter.h"
 
 // rain
-#include "Rain.h" 
+#include "Rain.h"
 // end rain
 
 
@@ -43,7 +42,7 @@ UINT32 guiCurrentScreen;
 UINT32 guiPendingScreen = NO_PENDING_SCREEN;
 UINT32 guiPreviousScreen = NO_PENDING_SCREEN;
 
-INT32	 giStartingMemValue = 0;
+INT32	giStartingMemValue = 0;
 
 #define	DONT_CHECK_FOR_FREE_SPACE		255
 UINT8		gubCheckForFreeSpaceOnHardDriveCount=DONT_CHECK_FOR_FREE_SPACE;
@@ -53,7 +52,7 @@ extern	BOOLEAN	DoSkiMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScree
 extern void NotEnoughHardDriveSpaceForQuickSaveMessageBoxCallBack( UINT8 bExitValue );
 extern BOOLEAN gfTacticalPlacementGUIActive;
 extern BOOLEAN gfTacticalPlacementGUIDirty;
-extern BOOLEAN gfValidLocationsChanged; 
+extern BOOLEAN gfValidLocationsChanged;
 extern BOOLEAN	gfInMsgBox;
 extern void InitSightRange(); //lal
 
@@ -72,13 +71,13 @@ void ReportMapscreenErrorLock()
 	switch( gubReportMapscreenLock )
 	{
 		case 1:
-			DoScreenIndependantMessageBox( L"You have just loaded the game which is in a state that you shouldn't be able to.  You can still play, but there should be a sector with enemies co-existing with mercs.  Please don't report that.", MSG_BOX_FLAG_OK, NULL );
+			DoScreenIndependantMessageBox( L"You have just loaded the game which is in a state that you shouldn't be able to.	You can still play, but there should be a sector with enemies co-existing with mercs.	Please don't report that.", MSG_BOX_FLAG_OK, NULL );
 			fDisableDueToBattleRoster = FALSE;
 			fDisableMapInterfaceDueToBattle = FALSE;
 			gubReportMapscreenLock = 0;
 			break;
 		case 2:
-			DoScreenIndependantMessageBox( L"You have just saved the game which is in a state that you shouldn't be able to.  Please report circumstances (ex:  merc in other sector pipes up about enemies), etc.  Autocorrected, but if you reload the save, don't report the error appearing in load.", MSG_BOX_FLAG_OK, NULL );
+			DoScreenIndependantMessageBox( L"You have just saved the game which is in a state that you shouldn't be able to.	Please report circumstances (ex:	merc in other sector pipes up about enemies), etc.	Autocorrected, but if you reload the save, don't report the error appearing in load.", MSG_BOX_FLAG_OK, NULL );
 			fDisableDueToBattleRoster = FALSE;
 			fDisableMapInterfaceDueToBattle = FALSE;
 			gubReportMapscreenLock = 0;
@@ -88,7 +87,7 @@ void ReportMapscreenErrorLock()
 #endif
 
 BOOLEAN InitializeGame(void)
-{ 
+{
 	UINT32				uiIndex;
 
 	giStartingMemValue = MemGetFree( );
@@ -123,9 +122,9 @@ BOOLEAN InitializeGame(void)
 
 	// Initialize Game Screens.
 	for (uiIndex = 0; uiIndex < MAX_SCREENS; uiIndex++)
-	{ 
+	{
 		if ((*(GameScreens[uiIndex].InitializeScreen))() == FALSE)
-		{ // Failed to initialize one of the screens. 
+		{ // Failed to initialize one of the screens.
 			return FALSE;
 		}
 	}
@@ -151,18 +150,18 @@ BOOLEAN InitializeGame(void)
 // It will also be responsible to making sure that all Gaming Engine tasks exit properly
 
 void ShutdownGame(void)
-{ 
+{
 	// handle shutdown of game with respect to preloaded mapscreen graphics
 	HandleRemovalOfPreLoadedMapGraphics( );
 
-	 ShutdownJA2( );
+	ShutdownJA2( );
 
 	//Save the general save game settings to disk
 	SaveGameSettings();
 
 
-	 //shutdown the file database manager
-	 ShutDownFileDatabase( );
+	//shutdown the file database manager
+	ShutDownFileDatabase( );
 
 
 	//Deletes all the Temp files in the Maps\Temp directory
@@ -173,7 +172,7 @@ void ShutdownGame(void)
 	FreeGameExternalOptions();
 }
 
- 
+
 // This is the main Gameloop. This should eventually be one big switch statement which represents
 // the state of the game (i.e. Main Menu, PC Generation, Combat loop, etc....)
 // This function exits constantly and reenters constantly
@@ -188,11 +187,11 @@ void GameLoop(void)
 	InputAtom	InputEvent;
 	POINT		MousePos;
 	UINT32		uiOldScreen=guiCurrentScreen;
-	clock_t		startTime = clock(); // decrease CPU load patch from defrog
+	//clock_t		startTime = clock(); // decrease CPU load patch from defrog
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: get mouse position");
 	GetCursorPos(&MousePos);
-    ScreenToClient(ghWindow, &MousePos); // In window coords!
+	ScreenToClient(ghWindow, &MousePos); // In window coords!
 
 	// Hook into mouse stuff for MOVEMENT MESSAGES
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: get mouse hook");
@@ -204,9 +203,9 @@ void GameLoop(void)
 	while (DequeueSpecificEvent(&InputEvent, LEFT_BUTTON_REPEAT|RIGHT_BUTTON_REPEAT|LEFT_BUTTON_DOWN|LEFT_BUTTON_UP|RIGHT_BUTTON_DOWN|RIGHT_BUTTON_UP ) == TRUE )
 	{
 		// HOOK INTO MOUSE HOOKS
-	  //DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GameLoop: mouse event %d", InputEvent.usEvent ));
+	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GameLoop: mouse event %d", InputEvent.usEvent ));
 		switch(InputEvent.usEvent)
-	  {
+	{
 			case LEFT_BUTTON_DOWN:
 				MouseSystemHook(LEFT_BUTTON_DOWN, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
 				break;
@@ -216,16 +215,16 @@ void GameLoop(void)
 			case RIGHT_BUTTON_DOWN:
 				MouseSystemHook(RIGHT_BUTTON_DOWN, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
 				break;
-			case RIGHT_BUTTON_UP: 
+			case RIGHT_BUTTON_UP:
 				MouseSystemHook(RIGHT_BUTTON_UP, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
 				break;
-			case LEFT_BUTTON_REPEAT: 
+			case LEFT_BUTTON_REPEAT:
 				MouseSystemHook(LEFT_BUTTON_REPEAT, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
 				break;
-			case RIGHT_BUTTON_REPEAT: 
+			case RIGHT_BUTTON_REPEAT:
 				MouseSystemHook(RIGHT_BUTTON_REPEAT, (INT16)MousePos.x, (INT16)MousePos.y,_LeftButtonDown, _RightButtonDown);
 				break;
-	  }
+	}
 	}
 
 
@@ -239,7 +238,7 @@ void GameLoop(void)
 	}
 
 /*
-	// Madd: removed check because it kept coming up for me, even on new games, even though I have 12GB free!!  I think the "DoesUserHaveEnoughHardDriveSpace" function is busted.
+	// Madd: removed check because it kept coming up for me, even on new games, even though I have 12GB free!!	I think the "DoesUserHaveEnoughHardDriveSpace" function is busted.
 	//if we are to check for free space on the hard drive
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: check hard drive");
 	if( gubCheckForFreeSpaceOnHardDriveCount < DONT_CHECK_FOR_FREE_SPACE )
@@ -323,7 +322,7 @@ void GameLoop(void)
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop: screen changed");
 
 
-	uiOldScreen = (*(GameScreens[guiCurrentScreen].HandleScreen))(); 
+	uiOldScreen = (*(GameScreens[guiCurrentScreen].HandleScreen))();
 
 	// if the screen has chnaged
 	if( uiOldScreen != guiCurrentScreen )
@@ -374,12 +373,12 @@ void GameLoop(void)
 #endif
 
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop done");
-} 
+}
 
 void SetCurrentScreen( UINT32 uiNewScreen )
 {
 	guiCurrentScreen = uiNewScreen;
- (*(GameScreens[guiCurrentScreen].HandleScreen))(); 
+ (*(GameScreens[guiCurrentScreen].HandleScreen))();
 
 }
 
@@ -394,7 +393,7 @@ extern UINT32 guiRainLoop;
 
 // Gets called when the screen changes, place any needed in code in here
 void HandleNewScreenChange( UINT32 uiNewScreen, UINT32 uiOldScreen )
-{	
+{
 	//if we are not going into the message box screen, and we didnt just come from it
 	if( ( uiNewScreen != MSG_BOX_SCREEN && uiOldScreen != MSG_BOX_SCREEN ) )
 	{
@@ -429,7 +428,7 @@ void HandleShortCutExitState( void )
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN )
 	{
-		DoMessageBox(  MSG_BOX_BASIC_STYLE, pMessageStrings[ MSG_EXITGAME ],  guiCurrentScreen, ( UINT8 ) ( MSG_BOX_FLAG_YESNO | MSG_BOX_FLAG_USE_CENTERING_RECT ),  EndGameMessageBoxCallBack,  &pCenteringRect );
+		DoMessageBox(	MSG_BOX_BASIC_STYLE, pMessageStrings[ MSG_EXITGAME ],	guiCurrentScreen, ( UINT8 ) ( MSG_BOX_FLAG_YESNO | MSG_BOX_FLAG_USE_CENTERING_RECT ),	EndGameMessageBoxCallBack,	&pCenteringRect );
 		return;
 	}
 
@@ -443,7 +442,7 @@ void HandleShortCutExitState( void )
 	else if( guiCurrentScreen == LAPTOP_SCREEN )
 	{
 		// set up for laptop
-		DoLapTopSystemMessageBox( MSG_BOX_LAPTOP_DEFAULT,  pMessageStrings[ MSG_EXITGAME ], LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, EndGameMessageBoxCallBack );
+		DoLapTopSystemMessageBox( MSG_BOX_LAPTOP_DEFAULT,	pMessageStrings[ MSG_EXITGAME ], LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, EndGameMessageBoxCallBack );
 	}
 	else if( guiCurrentScreen == SHOPKEEPER_SCREEN )
 	{
@@ -470,7 +469,7 @@ void HandleShortCutExitState( void )
 		}
 
 		// set up for all otherscreens
-		DoMessageBox(  MSG_BOX_BASIC_STYLE, pMessageStrings[ MSG_EXITGAME ],  guiCurrentScreen, ( UINT8 ) ( MSG_BOX_FLAG_YESNO | MSG_BOX_FLAG_USE_CENTERING_RECT ),  EndGameMessageBoxCallBack,  &pCenteringRect );
+		DoMessageBox(	MSG_BOX_BASIC_STYLE, pMessageStrings[ MSG_EXITGAME ],	guiCurrentScreen, ( UINT8 ) ( MSG_BOX_FLAG_YESNO | MSG_BOX_FLAG_USE_CENTERING_RECT ),	EndGameMessageBoxCallBack,	&pCenteringRect );
 	}
 }
 
@@ -478,7 +477,7 @@ void HandleShortCutExitState( void )
 void EndGameMessageBoxCallBack( UINT8 bExitValue )
 {
 	// yes, so start over, else stay here and do nothing for now
-  if( bExitValue == MSG_BOX_RETURN_YES )
+	if( bExitValue == MSG_BOX_RETURN_YES )
 	{
 		gfProgramIsRunning = FALSE;
 	}
@@ -487,7 +486,7 @@ void EndGameMessageBoxCallBack( UINT8 bExitValue )
 	if( gfTacticalPlacementGUIActive )
 	{
 		gfTacticalPlacementGUIDirty = TRUE;
-		gfValidLocationsChanged = TRUE; 
+		gfValidLocationsChanged = TRUE;
 	}
 
 	return;

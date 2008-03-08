@@ -1,7 +1,7 @@
 #ifndef _SAVE_LOAD_SCREEN__H_
 #define _SAVE_LOAD_SCREEN__H_
 
-#include  "MessageBoxScreen.h"
+#include	"MessageBoxScreen.h"
 
 
 #define		NUM_SAVE_GAMES											11

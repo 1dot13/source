@@ -38,6 +38,39 @@ typedef struct
 } INV_REGION_DESC;
 
 
+class OLD_ITEM_CURSOR_SAVE_INFO_101
+{
+public:
+	OLD_OBJECTTYPE_101	ItemPointerInfo;
+	UINT8				ubSoldierID;
+	UINT8				ubInvSlot;
+	BOOLEAN				fCursorActive;
+	INT8				bPadding[5];
+
+};
+
+
+class ITEM_CURSOR_SAVE_INFO
+{
+public:
+	ITEM_CURSOR_SAVE_INFO& operator=(OLD_ITEM_CURSOR_SAVE_INFO_101& src)
+	{
+		this->fCursorActive = src.fCursorActive;
+		this->ItemPointerInfo = src.ItemPointerInfo;
+		this->ubInvSlot = src.ubInvSlot;
+		this->ubSoldierID = src.ubSoldierID;
+		return *this;
+	}
+	//could use a little tidying up
+	BOOLEAN Save(HWFILE hFile);
+	BOOLEAN Load(HWFILE hFile);
+
+	UINT8				ubSoldierID;
+	UINT8				ubInvSlot;
+	BOOLEAN				fCursorActive;
+	OBJECTTYPE			ItemPointerInfo;
+};
+
 // Itempickup stuff
 BOOLEAN InitializeItemPickupMenu( SOLDIERTYPE *pSoldier, INT16 sGridNo, ITEM_POOL *pItemPool, INT16 sScreenX, INT16 sScreenY, INT8 bZLevel );
 void RenderItemPickupMenu( );
@@ -70,22 +103,35 @@ BOOLEAN HandleCompatibleAmmoUI( SOLDIERTYPE *pSoldier, INT8 bInvPos, BOOLEAN fOn
 // uiBuffer - The Dest Video Surface - can only be FRAME_BUFFER or guiSAVEBUFFER
 // pSoldier - used for determining whether burst mode needs display
 // pObject	- Usually taken from pSoldier->inv[HANDPOS]
-// sX, sY, Width, Height,  - Will Center it in the Width
-// fDirtyLevel  if == DIRTYLEVEL2 will render everything
+// sX, sY, Width, Height,	- Will Center it in the Width
+// fDirtyLevel	if == DIRTYLEVEL2 will render everything
 //							if == DIRTYLEVEL1 will render bullets and status only
 // 
 //	pubHighlightCounter - if not null, and == 2 - will display name above item
 //											-	if == 1 will only dirty the name space and then set counter to 0
-//  Last parameter used mainly for when mouse is over item
+//	Last parameter used mainly for when mouse is over item
 
-void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE  *pObject, INT16 sX, INT16 sY, INT16 sWidth, INT16 sHeight, UINT8 fDirtyLevel, UINT8 *pubHighlightCounter, UINT8 ubStatusIndex, BOOLEAN fOutline, INT16 sOutlineColor );
+void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE	*pObject, INT16 sX, INT16 sY, INT16 sWidth, INT16 sHeight, UINT8 fDirtyLevel, UINT8 *pubHighlightCounter, UINT8 ubStatusIndex, BOOLEAN fOutline, INT16 sOutlineColor, UINT8 iter = 0 );
+// CHRISL: Add a new function that will be used to render a pocket silhouette
+void INVRenderSilhouette( UINT32 uiBugger, INT16 PocketIndex, INT16 SilIndex, INT16 sX, INT16 sY, INT16 sWideth, INT16 sHeight);
+// CHRISL: New function to handle display of inventory quantities based on item current in cursor
+void RenderPocketItemCapacity( UINT8 pCapacity, INT16 bPos, SOLDIERTYPE *pSoldier );
+// CHRISL: New function to display items stored in an LBENODE
+void RenderLBENODEItems( OBJECTTYPE *pObj, int subObject );
+// CHRISL: New function to setup GSMInvData based on game options
+void InitInvData(INV_REGIONS &InvData, BOOLEAN fBigPocket, INT16 sBarDx, INT16 sBarDy, INT16 sWidth, INT16 sHeight, INT16 sX, INT16 sY);
+void InitInventoryOld();
+void InitInventoryNew();
+void InitInventoryVehicle(INV_REGION_DESC *pRegionDesc, MOUSE_CALLBACK INVMoveCallback, MOUSE_CALLBACK INVClickCallback, BOOLEAN fSetHighestPrioity);
+void InitInventorySoldier(INV_REGION_DESC *pRegionDesc, MOUSE_CALLBACK INVMoveCallback, MOUSE_CALLBACK INVClickCallback, BOOLEAN fSetHighestPrioity);
+
 
 
 extern BOOLEAN		gfInItemDescBox;
 
 BOOLEAN InItemDescriptionBox( );
 BOOLEAN InitItemDescriptionBox( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sX, INT16 sY, UINT8 ubStatusIndex );
-BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY, UINT8 ubStatusIndex, SOLDIERTYPE *pSoldier );
+BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY, UINT8 ubStatusIndex, SOLDIERTYPE *pSoldier, UINT8 ubPosition = NUM_INV_SLOTS );
 BOOLEAN InitKeyItemDescriptionBox( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sX, INT16 sY, UINT8 ubStatusIndex );
 void RenderItemDescriptionBox( );
 void HandleItemDescriptionBox( BOOLEAN *pfDirty );
@@ -128,17 +174,13 @@ void DrawItemFreeCursor( );
 void DrawItemTileCursor( );
 void HideItemTileCursor( );
 void InitItemInterface( );
-BOOLEAN ItemCursorInLobRange( UINT16 usMapPos );
-BOOLEAN	 HandleItemPointerClick( UINT16 usMapPos );
+BOOLEAN ItemCursorInLobRange( INT16 sMapPos );
+BOOLEAN	HandleItemPointerClick( INT16 sMapPos );
 UINT32 GetInterfaceGraphicForItem( INVTYPE *pItem );
 UINT16 GetTileGraphicForItem( INVTYPE *pItem );
 BOOLEAN LoadTileGraphicForItem( INVTYPE *pItem, UINT32 *puiVo );
 
-void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier );
-
-BOOLEAN AttemptToApplyCamo( SOLDIERTYPE *pSoldier, UINT16 usItemIndex );
-
-UINT8 GetPrefferedItemSlotGraphicNum( UINT16 usItem );
+void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier, int subObject = -1 );
 
 void CancelItemPointer( );
 
@@ -149,10 +191,10 @@ void EnableKeyRing( BOOLEAN fEnable );
 
 // handle compatable items for merc and map inventory
 BOOLEAN HandleCompatibleAmmoUIForMapScreen( SOLDIERTYPE *pSoldier, INT32 bInvPos, BOOLEAN fOn, BOOLEAN fFromMerc );
-BOOLEAN HandleCompatibleAmmoUIForMapInventory( SOLDIERTYPE *pSoldier, INT32 bInvPos, INT32 iStartSlotNumber, BOOLEAN fOn, BOOLEAN fFromMerc  );
+BOOLEAN HandleCompatibleAmmoUIForMapInventory( SOLDIERTYPE *pSoldier, INT32 bInvPos, INT32 iStartSlotNumber, BOOLEAN fOn, BOOLEAN fFromMerc	);
 void ResetCompatibleItemArray( );
 
-void CycleItemDescriptionItem( );
+void CycleItemDescriptionItem( INT16 sX, INT16 sY );
 
 BOOLEAN InitializeStealItemPickupMenu( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, ITEM_POOL *pItemPool, UINT8 ubCount);
 

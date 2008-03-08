@@ -33,7 +33,7 @@ void InitStrategicStatus(void)
 
 BOOLEAN SaveStrategicStatusToSaveGameFile( HWFILE hFile )
 {
-	UINT32	 uiNumBytesWritten;
+	UINT32	uiNumBytesWritten;
 
 	//Save the Strategic Status structure to the saved game file
 	FileWrite( hFile, &gStrategicStatus, sizeof( STRATEGIC_STATUS ), &uiNumBytesWritten );
@@ -49,7 +49,7 @@ BOOLEAN SaveStrategicStatusToSaveGameFile( HWFILE hFile )
 
 BOOLEAN LoadStrategicStatusFromSaveGameFile( HWFILE hFile )
 {
-	UINT32	 uiNumBytesRead;
+	UINT32	uiNumBytesRead;
 
 	//Load the Strategic Status structure from the saved game file
 	FileRead( hFile, &gStrategicStatus, sizeof( STRATEGIC_STATUS ), &uiNumBytesRead );
@@ -87,7 +87,7 @@ void ModifyPlayerReputation(INT8 bRepChange)
 	iNewBadRep = (INT32) gStrategicStatus.ubBadReputation - bRepChange;
 
 	// keep within a 0-100 range (0 = Saint, 100 = Satan)
-	iNewBadRep = __max(   0, iNewBadRep );
+	iNewBadRep = __max(	0, iNewBadRep );
 	iNewBadRep = __min( 100, iNewBadRep );
 
 	gStrategicStatus.ubBadReputation = (UINT8) iNewBadRep;
@@ -166,7 +166,7 @@ BOOLEAN MercThinksHisMoraleIsTooLow( SOLDIERTYPE *pSoldier )
 	// above 50, morale is GOOD, never below tolerance then
 	bMoraleTolerance = (100 - bRepTolerance) / 2;
 
-	if (pSoldier->bMorale < bMoraleTolerance)
+	if (pSoldier->aiData.bMorale < bMoraleTolerance)
 	{
 		// too low - sorry
 		return(TRUE);
@@ -198,7 +198,7 @@ UINT8 LackOfProgressTolerance( void )
 	{
 		return( 6 - gGameOptions.ubDifficultyLevel + gStrategicStatus.ubHighestProgress / 42 );
 	}
-	
+
 }
 
 
@@ -240,7 +240,7 @@ void HandleEnricoEmail(void)
 
 	// test for a major setback OR a second minor setback
 	if ((((ubHighestProgress - ubCurrentProgress) >= MAJOR_SETBACK_THRESHOLD) ||
-	    (((ubHighestProgress - ubCurrentProgress) >= MINOR_SETBACK_THRESHOLD) && (gStrategicStatus.usEnricoEmailFlags & ENRICO_EMAIL_FLAG_SETBACK_OVER))) &&
+	 (((ubHighestProgress - ubCurrentProgress) >= MINOR_SETBACK_THRESHOLD) && (gStrategicStatus.usEnricoEmailFlags & ENRICO_EMAIL_FLAG_SETBACK_OVER))) &&
 			!(gStrategicStatus.usEnricoEmailFlags & ENRICO_EMAIL_SENT_MAJOR_SETBACK))
 	{
 		AddEmail(ENRICO_SETBACK, ENRICO_SETBACK_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1);
@@ -249,7 +249,7 @@ void HandleEnricoEmail(void)
 	else
 	// test for a first minor setback
 	if (((ubHighestProgress - ubCurrentProgress) >= MINOR_SETBACK_THRESHOLD) &&
-		  !(gStrategicStatus.usEnricoEmailFlags & (ENRICO_EMAIL_SENT_MINOR_SETBACK | ENRICO_EMAIL_SENT_MAJOR_SETBACK)))
+		!(gStrategicStatus.usEnricoEmailFlags & (ENRICO_EMAIL_SENT_MINOR_SETBACK | ENRICO_EMAIL_SENT_MAJOR_SETBACK)))
 	{
 		AddEmail(ENRICO_SETBACK_2, ENRICO_SETBACK_2_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1);
 		gStrategicStatus.usEnricoEmailFlags |= ENRICO_EMAIL_SENT_MINOR_SETBACK;
@@ -270,7 +270,7 @@ void HandleEnricoEmail(void)
 		ubTolerance = LackOfProgressTolerance();
 
 		if ( gStrategicStatus.ubNumberOfDaysOfInactivity >= ubTolerance )
-		{			
+		{
 			if ( gStrategicStatus.ubNumberOfDaysOfInactivity == ubTolerance )
 			{
 				// send email
@@ -344,7 +344,7 @@ void HandleEnricoEmail(void)
 		}
 	}
 
-	// reset # of new sectors visited 'today' 
+	// reset # of new sectors visited 'today'
 	// grant some leeway for the next day, could have started moving
 	// at night...
 	gStrategicStatus.ubNumNewSectorsVisitedToday = __min( gStrategicStatus.ubNumNewSectorsVisitedToday, NEW_SECTORS_EQUAL_TO_ACTIVITY ) / 3;
@@ -354,9 +354,9 @@ void HandleEnricoEmail(void)
 void TrackEnemiesKilled( UINT8 ubKilledHow, UINT8 ubSoldierClass )
 {
 	INT8 bRankIndex;
-	
+
 	bRankIndex = SoldierClassToRankIndex( ubSoldierClass );
-	
+
 	// if it's not a standard enemy-class soldier
 	if ( bRankIndex == -1 )
 	{
@@ -383,7 +383,7 @@ INT8 SoldierClassToRankIndex( UINT8 ubSoldierClass )
 		case SOLDIER_CLASS_ADMINISTRATOR:	bRankIndex = 0;	break;
 		case SOLDIER_CLASS_ELITE:					bRankIndex = 2;	break;
 		case SOLDIER_CLASS_ARMY:					bRankIndex = 1;	break;
-		
+
 		default:
 			// this happens when an NPC joins the enemy team (e.g. Conrad, Iggy, Mike)
 			break;

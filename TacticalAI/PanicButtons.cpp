@@ -50,15 +50,15 @@ void MakeClosestEnemyChosenOne()
 		}
 
 		// if this merc is unconscious, or dead
-		if (pSoldier->bLife < OKLIFE)
+		if (pSoldier->stats.bLife < OKLIFE)
 		{
-			continue;  // next soldier
+			continue;	// next soldier
 		}
 
 		// if this guy's too tired to go
 		if (pSoldier->bBreath < OKBREATH)
 		{
-			continue;  // next soldier
+			continue;	// next soldier
 		}
 
 		if ( gWorldSectorX == TIXA_SECTOR_X && gWorldSectorY == TIXA_SECTOR_Y )
@@ -78,21 +78,21 @@ void MakeClosestEnemyChosenOne()
 		}
 
 		// if this guy is in battle with opponent(s)
-		if (pSoldier->bOppCnt > 0)
+		if (pSoldier->aiData.bOppCnt > 0)
 		{
-			continue;  // next soldier
+			continue;	// next soldier
 		}
 
 		// if this guy is still in serious shock
-		if (pSoldier->bShock > 2)
+		if (pSoldier->aiData.bShock > 2)
 		{
-			continue;  // next soldier
+			continue;	// next soldier
 		}
 
-		if ( pSoldier->bLevel != 0 )
+		if ( pSoldier->pathing.bLevel != 0 )
 		{
 			// screw having guys on the roof go for panic triggers!
-			continue;  // next soldier
+			continue;	// next soldier
 		}
 
 		bPanicTrigger = ClosestPanicTrigger( pSoldier );
@@ -109,27 +109,27 @@ void MakeClosestEnemyChosenOne()
 		}
 
 		// remember whether this guy had keys before
-		//bOldKeys = pSoldier->bHasKeys;
+		//bOldKeys = pSoldier->flags.bHasKeys;
 
 		// give him keys to see if with them he can get to the panic trigger
-		pSoldier->bHasKeys = (pSoldier->bHasKeys << 1) | 1;
+		pSoldier->flags.bHasKeys = (pSoldier->flags.bHasKeys << 1) | 1;
 
 		// we now path directly to the panic trigger
 
-		
+
 			// if he can't get to a spot where he could get at the panic trigger
 			/*
 			if ( FindAdjacentGridEx( pSoldier, gTacticalStatus.sPanicTriggerGridno, &ubDirection, &sAdjSpot, FALSE, FALSE ) == -1 )
 			{
-				pSoldier->bHasKeys = bOldKeys;
-				continue;          // next merc
+				pSoldier->flags.bHasKeys = bOldKeys;
+				continue;			// next merc
 			}
 			*/
 
 
 		// ok, this enemy appears to be eligible
 
-		// FindAdjacentGrid set HandGrid for us.  If we aren't at that spot already
+		// FindAdjacentGrid set HandGrid for us.	If we aren't at that spot already
 		if (pSoldier->sGridNo != sPanicTriggerGridNo)
 		{
 			// get the AP cost for this enemy to go to target position
@@ -141,7 +141,7 @@ void MakeClosestEnemyChosenOne()
 		}
 
 		// set his keys value back to what it was before this hack
-		pSoldier->bHasKeys = (pSoldier->bHasKeys >> 1 );
+		pSoldier->flags.bHasKeys = (pSoldier->flags.bHasKeys >> 1 );
 
 		// if he can get there (or is already there!)
 		if (sPathCost || (pSoldier->sGridNo == sPanicTriggerGridNo))
@@ -159,21 +159,21 @@ void MakeClosestEnemyChosenOne()
 	// if we found have an eligible enemy, make him our "chosen one"
 	if (ubClosestEnemy < TOTAL_SOLDIERS)
 	{
-		gTacticalStatus.ubTheChosenOne = ubClosestEnemy;       // flag him as the chosen one
+		gTacticalStatus.ubTheChosenOne = ubClosestEnemy;		// flag him as the chosen one
 
 #ifdef TESTVERSION
 		NumMessage("TEST MSG: The chosen one is ",TheChosenOne);
 #endif
 
 		pSoldier = MercPtrs[gTacticalStatus.ubTheChosenOne];
-		if ( pSoldier->bAlertStatus < STATUS_RED )
+		if ( pSoldier->aiData.bAlertStatus < STATUS_RED )
 		{
-			pSoldier->bAlertStatus = STATUS_RED;
+			pSoldier->aiData.bAlertStatus = STATUS_RED;
 			CheckForChangingOrders( pSoldier );
 		}
-		SetNewSituation( pSoldier );    // set new situation for the chosen one
-		pSoldier->bHasKeys = (pSoldier->bHasKeys << 1) | 1; // cheat and give him keys to every door
-		//pSoldier->bHasKeys = TRUE;         
+		SetNewSituation( pSoldier );	// set new situation for the chosen one
+		pSoldier->flags.bHasKeys = (pSoldier->flags.bHasKeys << 1) | 1; // cheat and give him keys to every door
+		//pSoldier->flags.bHasKeys = TRUE;
 	}
 #ifdef TESTVERSION
 	else
@@ -194,7 +194,7 @@ void PossiblyMakeThisEnemyChosenOne( SOLDIERTYPE * pSoldier )
 		return;
 	}
 
-	if ( pSoldier->bLevel != 0 )
+	if ( pSoldier->pathing.bLevel != 0 )
 	{
 		// screw having guys on the roof go for panic triggers!
 		return;
@@ -216,8 +216,8 @@ void PossiblyMakeThisEnemyChosenOne( SOLDIERTYPE * pSoldier )
 		return;
 	}
 
-	//bOldKeys = pSoldier->bHasKeys;	
-	pSoldier->bHasKeys = (pSoldier->bHasKeys << 1) | 1;
+	//bOldKeys = pSoldier->flags.bHasKeys;
+	pSoldier->flags.bHasKeys = (pSoldier->flags.bHasKeys << 1) | 1;
 
 	// if he can't get to a spot where he could get at the panic trigger
 	iAPCost = AP_PULL_TRIGGER;
@@ -226,23 +226,23 @@ void PossiblyMakeThisEnemyChosenOne( SOLDIERTYPE * pSoldier )
 		iPathCost = PlotPath( pSoldier, sPanicTriggerGridNo, FALSE, FALSE, FALSE, RUNNING, FALSE, FALSE, 0);
 		if (iPathCost == 0)
 		{
-			//pSoldier->bHasKeys = bOldKeys;
-			pSoldier->bHasKeys = (pSoldier->bHasKeys >> 1);
+			//pSoldier->flags.bHasKeys = bOldKeys;
+			pSoldier->flags.bHasKeys = (pSoldier->flags.bHasKeys >> 1);
 			return;
 		}
 		iAPCost += iPathCost;
 
 	}
 
-	if ( iAPCost <= CalcActionPoints( pSoldier ) * 2)
+	if ( iAPCost <= pSoldier->CalcActionPoints( ) * 2)
 	{
 		// go!!!
 		gTacticalStatus.ubTheChosenOne = pSoldier->ubID;
 		return;
 	}
 	// else return keys to normal
-	//pSoldier->bHasKeys = bOldKeys;
-	pSoldier->bHasKeys = (pSoldier->bHasKeys >> 1);
+	//pSoldier->flags.bHasKeys = bOldKeys;
+	pSoldier->flags.bHasKeys = (pSoldier->flags.bHasKeys >> 1);
 }
 
 
@@ -278,9 +278,9 @@ INT8 PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove)
 				// blow up all the PANIC bombs!
 				return(AI_ACTION_USE_DETONATOR);
 			}
-			else     // otherwise, wait a turn
+			else	 // otherwise, wait a turn
 			{
-				pSoldier->usActionData = NOWHERE;
+				pSoldier->aiData.usActionData = NOWHERE;
 				return(AI_ACTION_NONE);
 			}
 		}
@@ -305,12 +305,12 @@ INT8 PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove)
 			// if not standing on the panic trigger
 			if (pSoldier->sGridNo != sPanicTriggerGridNo)
 			{
-				// determine whether we can still get there 
+				// determine whether we can still get there
 				iPathCost = PlotPath( pSoldier, sPanicTriggerGridNo, FALSE, FALSE, FALSE, RUNNING, FALSE, FALSE, 0);
 				if (iPathCost != 0)
 				{
 					fFoundRoute = TRUE;
-				}			
+				}
 			}
 			else
 			{
@@ -324,15 +324,15 @@ INT8 PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove)
 /*
  *** COMMENTED OUT BECAUSE WE DON'T HAVE SUPPORT ROUTINES YET
 
-       // make sure it's not in water (those triggers can't be pulled)
-       if (Water(Terrain(gTacticalStatus.sHandGrid),Structure(gTacticalStatus.sHandGrid)))
+		// make sure it's not in water (those triggers can't be pulled)
+		if (Water(Terrain(gTacticalStatus.sHandGrid),Structure(gTacticalStatus.sHandGrid)))
 	{
 #ifdef BETAVERSION
-         PopMessage("BAD SCENARIO DESIGN: Enemies can't use this panic trigger!");
+		 PopMessage("BAD SCENARIO DESIGN: Enemies can't use this panic trigger!");
 #endif
-         gTacticalStatus.ubTheChosenOne = NOBODY;   // strip him of his Chosen One status
-	 // don't bother replacing him either, the next won't have more luck!
-         return(-1);
+		 gTacticalStatus.ubTheChosenOne = NOBODY;	// strip him of his Chosen One status
+	// don't bother replacing him either, the next won't have more luck!
+		 return(-1);
 	}
 
 	*/
@@ -347,23 +347,23 @@ INT8 PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove)
 					if (pSoldier->bActionPoints >= AP_PULL_TRIGGER)
 					{
 						// blow up the all the PANIC bombs (or just the journal)
-						pSoldier->usActionData = sPanicTriggerGridNo;
+						pSoldier->aiData.usActionData = sPanicTriggerGridNo;
 
 #ifdef TESTVERSION
 						sprintf(tempstr,"TEST MSG: %s - PULLS PANIC TRIGGER at grid %d",
-						pSoldier->name,pSoldier->usActionData);
+						pSoldier->name,pSoldier->aiData.usActionData);
 						PopMessage(tempstr);
 #endif
 
 						return(AI_ACTION_PULL_TRIGGER);
 					}
-					else       // otherwise, wait a turn
+					else		// otherwise, wait a turn
 					{
-						pSoldier->usActionData = NOWHERE;
+						pSoldier->aiData.usActionData = NOWHERE;
 						return(AI_ACTION_NONE);
 					}
 				}
-				else           // we are NOT at the HandGrid spot
+				else			// we are NOT at the HandGrid spot
 				{
 					// if we can move at least 1 square's worth
 					if (ubCanMove)
@@ -372,39 +372,39 @@ INT8 PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove)
 						// animations don't allow trigger-pulling from water, so we won't!
 						if (LegalNPCDestination(pSoldier,sPanicTriggerGridNo,ENSURE_PATH,NOWATER,0))
 						{
-							pSoldier->usActionData = sPanicTriggerGridNo;
-							pSoldier->bPathStored = TRUE;
+							pSoldier->aiData.usActionData = sPanicTriggerGridNo;
+							pSoldier->pathing.bPathStored = TRUE;
 
 #ifdef DEBUGDECISIONS
-							sprintf(tempstr,"%s - GETTING CLOSER to PANIC TRIGGER at grid %d (Trigger at %d)", pSoldier->name,pSoldier->usActionData,sPanicTriggerGridNo);
+							sprintf(tempstr,"%s - GETTING CLOSER to PANIC TRIGGER at grid %d (Trigger at %d)", pSoldier->name,pSoldier->aiData.usActionData,sPanicTriggerGridNo);
 							AIPopMessage(tempstr);
 #endif
 
 							return(AI_ACTION_GET_CLOSER);
 						}
-						else       // Oh oh, the chosen one can't get to the trigger!
+						else		// Oh oh, the chosen one can't get to the trigger!
 						{
 #ifdef TESTVERSION
-							PopMessage("TEST MSG: Oh oh!  !legalDest - ChosenOne can't get to the trigger!");
+							PopMessage("TEST MSG: Oh oh!	!legalDest - ChosenOne can't get to the trigger!");
 #endif
-							gTacticalStatus.ubTheChosenOne = NOBODY;   // strip him of his Chosen One status
-							MakeClosestEnemyChosenOne();     // and replace him!
+							gTacticalStatus.ubTheChosenOne = NOBODY;	// strip him of his Chosen One status
+							MakeClosestEnemyChosenOne();	 // and replace him!
 						}
 					}
-					else         // can't move, wait 1 turn
+					else		 // can't move, wait 1 turn
 					{
-						pSoldier->usActionData = NOWHERE;
+						pSoldier->aiData.usActionData = NOWHERE;
 						return(AI_ACTION_NONE);
 					}
 				}
 			}
-			else     // Oh oh, the chosen one can't get to the trigger!
+			else	 // Oh oh, the chosen one can't get to the trigger!
 			{
 #ifdef TESTVERSION
-				PopMessage("TEST MSG: Oh oh!  !adjacentFound - ChosenOne can't get to the trigger!");
+				PopMessage("TEST MSG: Oh oh!	!adjacentFound - ChosenOne can't get to the trigger!");
 #endif
 				gTacticalStatus.ubTheChosenOne = NOBODY; // strip him of his Chosen One status
-				MakeClosestEnemyChosenOne();   // and replace him!
+				MakeClosestEnemyChosenOne();	// and replace him!
 			}
 		}
 	}
@@ -428,13 +428,13 @@ INT8 ClosestPanicTrigger( SOLDIERTYPE * pSoldier )
 	INT8		bClosestTrigger = -1;
 	UINT32	uiPercentEnemiesKilled;
 
-	uiPercentEnemiesKilled = (UINT32)( 100 * (UINT32)(gTacticalStatus.ubArmyGuysKilled) / (UINT32)( gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector + gTacticalStatus.ubArmyGuysKilled ) );	
+	uiPercentEnemiesKilled = (UINT32)( 100 * (UINT32)(gTacticalStatus.ubArmyGuysKilled) / (UINT32)( gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector + gTacticalStatus.ubArmyGuysKilled ) );
 
 	for ( bLoop = 0; bLoop < NUM_PANIC_TRIGGERS; bLoop++ )
 	{
 		if ( gTacticalStatus.sPanicTriggerGridNo[ bLoop ] != NOWHERE )
 		{
-		
+
 			if ( gTacticalStatus.ubPanicTolerance[ bLoop ] > uiPercentEnemiesKilled )
 			{
 				// not yet... not yet...
@@ -496,7 +496,7 @@ BOOLEAN NeedToRadioAboutPanicTrigger( void )
 	}
 
 
-	uiPercentEnemiesKilled = (UINT32)( 100 * (UINT32)(gTacticalStatus.ubArmyGuysKilled) / (UINT32)( gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector + gTacticalStatus.ubArmyGuysKilled ) );	
+	uiPercentEnemiesKilled = (UINT32)( 100 * (UINT32)(gTacticalStatus.ubArmyGuysKilled) / (UINT32)( gTacticalStatus.Team[ ENEMY_TEAM ].bMenInSector + gTacticalStatus.ubArmyGuysKilled ) );
 
 	for ( bLoop = 0; bLoop < NUM_PANIC_TRIGGERS; bLoop++ )
 	{
@@ -517,7 +517,7 @@ BOOLEAN NeedToRadioAboutPanicTrigger( void )
 INT8 HeadForTheStairCase( SOLDIERTYPE * pSoldier )
 {
 	UNDERGROUND_SECTORINFO * pBasementInfo;
-	
+
 	pBasementInfo = FindUnderGroundSector( 3, MAP_ROW_P, 1 );
 	if ( pBasementInfo && pBasementInfo->uiTimeCurrentSectorWasLastLoaded != 0 && ( pBasementInfo->ubNumElites + pBasementInfo->ubNumTroops + pBasementInfo->ubNumAdmins ) < 5 )
 	{
@@ -532,7 +532,7 @@ INT8 HeadForTheStairCase( SOLDIERTYPE * pSoldier )
 	{
 		if ( LegalNPCDestination( pSoldier, STAIRCASE_GRIDNO, ENSURE_PATH, WATEROK, 0 ) )
 		{
-			pSoldier->usActionData = STAIRCASE_GRIDNO;
+			pSoldier->aiData.usActionData = STAIRCASE_GRIDNO;
 			return( AI_ACTION_GET_CLOSER );
 		}
 	}

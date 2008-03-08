@@ -20,9 +20,9 @@ typedef struct
 // Snap: The maximum number of tilesets allowed is max of UINT8
 #define MAX_TILESETS 255
 
-extern UINT8 gubNumSets;  // from WorldDat.cpp
+extern UINT8 gubNumSets;	// from WorldDat.cpp
 
-extern TILESET	 gTilesets[ MAX_TILESETS ];
+extern TILESET	gTilesets[ MAX_TILESETS ];
 
 
 void InitEngineTilesets( );

@@ -24,7 +24,7 @@ vector_3 VSubtract( vector_3 *a, vector_3 *b )
 	c.x = a->x - b->x;
 	c.y = a->y - b->y;
 	c.z = a->z - b->z;
-		
+
 	return( c );
 }
 
@@ -35,7 +35,7 @@ vector_3 VAdd( vector_3 *a, vector_3 *b )
 	c.x = a->x + b->x;
 	c.y = a->y + b->y;
 	c.z = a->z + b->z;
-		
+
 	return( c );
 }
 
@@ -46,7 +46,7 @@ vector_3 VMultScalar( vector_3 *a, real b )
 	c.x = a->x * b;
 	c.y = a->y * b;
 	c.z = a->z * b;
-		
+
 	return( c );
 }
 
@@ -57,7 +57,7 @@ vector_3 VDivScalar( vector_3 *a, real b )
 	c.x = a->x / b;
 	c.y = a->y / b;
 	c.z = a->z / b;
-		
+
 	return( c );
 }
 
@@ -76,9 +76,9 @@ vector_3 VCrossProduct( vector_3 *a, vector_3 *b )
 {
 	vector_3 c;
 
-	c.x = ( a->y * b->z ) - ( a->z *  b->y );
-	c.y = ( a->x * b->z ) - ( a->z *  b->x );
-	c.z = ( a->x * b->y ) - ( a->y *  b->x );
+	c.x = ( a->y * b->z ) - ( a->z *	b->y );
+	c.y = ( a->x * b->z ) - ( a->z *	b->x );
+	c.z = ( a->x * b->y ) - ( a->y *	b->x );
 
 	return( c );
 }
@@ -89,8 +89,8 @@ vector_3 VGetPerpendicular( vector_3 *a )
 	vector_3 c;
 
 	c.x = -a->y;
-	c.y =  a->x;
-	c.z =  a->z;
+	c.y =	a->x;
+	c.z =	a->z;
 
 	return( c );
 }
@@ -108,7 +108,7 @@ vector_3 VGetNormal( vector_3 *a )
 
 	Length = VGetLength( a );
 
-	if ( Length == 0 )	
+	if ( Length == 0 )
 	{
 		c.x = 0;
 		c.y = 0;
@@ -124,6 +124,7 @@ vector_3 VGetNormal( vector_3 *a )
 	}
 	return ( c );
 }
+
 
 
 

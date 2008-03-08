@@ -86,16 +86,16 @@ BOOLEAN AddEvent( UINT32 uiEvent, UINT16 usDelay, PTR pEventData, UINT32 uiDataS
 	CHECKF( pEvent != NULL );
 
 	// Set values
-	pEvent->TimeStamp  = GetJA2Clock( );
-	pEvent->usDelay		 = usDelay;
-	pEvent->uiEvent		 = uiEvent;
-	pEvent->uiFlags		 = 0;
+	pEvent->TimeStamp	= GetJA2Clock( );
+	pEvent->usDelay		= usDelay;
+	pEvent->uiEvent		= uiEvent;
+	pEvent->uiFlags		= 0;
 	pEvent->uiDataSize = uiDataSize;
-	pEvent->pData			 = (BYTE*)pEvent;
-	pEvent->pData			 = pEvent->pData + uiEventSize;
+	pEvent->pData			= (BYTE*)pEvent;
+	pEvent->pData			= pEvent->pData + uiEventSize;
 
 	memcpy( pEvent->pData, pEventData, uiDataSize );
-	
+
 	// Add event to queue
 	hQueue = GetQueue( ubQueueID );
 	hQueue = AddtoList( hQueue, &pEvent, ListSize( hQueue ) );
@@ -187,7 +187,7 @@ UINT32 EventQueueSize( UINT8 ubQueueID )
 
 	// Get Size
 	uiQueueSize = ListSize( hQueue );
-	
+
 	return( uiQueueSize );
 }
 

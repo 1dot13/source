@@ -62,8 +62,8 @@ BOOLEAN InitializeRegistryKeys(STR lpszAppName, STR lpszRegistryKey)
 	//CHECKF(gpszProfileName == NULL);
 
 	// Note: this will leak the original gpszProfileName, but it
-	//  will be freed when the application exits.  No assumptions
-	//  can be made on how gpszProfileName was allocated.
+	//	will be freed when the application exits.	No assumptions
+	//	can be made on how gpszProfileName was allocated.
 
 	strcpy( gszAppName, lpszAppName);
 	strcpy( gszRegistryKey, lpszRegistryKey );
@@ -106,7 +106,7 @@ HKEY GetAppRegistryKey()
 }
 
 // returns key for:
-//      HKEY_CURRENT_USER\"Software"\RegistryKey\AppName\lpszSection
+//		HKEY_CURRENT_USER\"Software"\RegistryKey\AppName\lpszSection
 // creating it if it doesn't exist.
 // responsibility of the caller to call RegCloseKey() on the returned HKEY
 HKEY GetSectionKey(STR lpszSection)
@@ -203,7 +203,7 @@ BOOLEAN GetProfileChar(STR lpszSection, STR lpszEntry, STR lpszDefault, STR lpsz
 //		assert(gpszProfileName != NULL);
 //
 //		if (lpszDefault == NULL)
-//			lpszDefault = &afxChNil;    // don't pass in NULL
+//			lpszDefault = &afxChNil;	// don't pass in NULL
 //		TCHAR szT[4096];
 //		DWORD dw = ::GetPrivateProfileString(lpszSection, lpszEntry,
 //			lpszDefault, szT, _countof(szT), gpszProfileName);

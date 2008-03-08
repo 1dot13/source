@@ -10,30 +10,30 @@
 
 struct stringstruct{
 
-  STR16   pString16;
-  INT32	  iVideoOverlay;
-	UINT32   uiFont;
-	UINT16  usColor;
-	UINT32  uiFlags;
+	STR16	pString16;
+	INT32	iVideoOverlay;
+	UINT32	uiFont;
+	UINT16	usColor;
+	UINT32	uiFlags;
 	BOOLEAN fBeginningOfNewString;
-  UINT32  uiTimeOfLastUpdate;
-	UINT32  uiPadding[ 5 ];
-  struct  stringstruct *pNext;
-	struct  stringstruct *pPrev;
+	UINT32	uiTimeOfLastUpdate;
+	UINT32	uiPadding[ 5 ];
+	struct	stringstruct *pNext;
+	struct	stringstruct *pPrev;
 };
 
 #define		MSG_INTERFACE				0
 #define		MSG_DIALOG					1
 #define		MSG_CHAT						2
-#define   MSG_DEBUG						3
+#define	MSG_DEBUG						3
 #define		MSG_UI_FEEDBACK			4
-#define   MSG_ERROR						5
-#define   MSG_BETAVERSION     6
-#define   MSG_TESTVERSION     7
-#define   MSG_MAP_UI_POSITION_MIDDLE 8
-#define   MSG_MAP_UI_POSITION_UPPER 9
-#define   MSG_MAP_UI_POSITION_LOWER 10
-#define   MSG_SKULL_UI_FEEDBACK	11
+#define	MSG_ERROR						5
+#define	MSG_BETAVERSION	 6
+#define	MSG_TESTVERSION	 7
+#define	MSG_MAP_UI_POSITION_MIDDLE 8
+#define	MSG_MAP_UI_POSITION_UPPER 9
+#define	MSG_MAP_UI_POSITION_LOWER 10
+#define	MSG_SKULL_UI_FEEDBACK	11
 
 
 // These defines correlate to defines in font.h
@@ -43,7 +43,7 @@ struct stringstruct{
 
 
 typedef struct stringstruct ScrollStringSt;
-typedef ScrollStringSt *ScrollStringStPtr;		  
+typedef ScrollStringSt *ScrollStringStPtr;		
 
 
 extern ScrollStringStPtr pStringS;

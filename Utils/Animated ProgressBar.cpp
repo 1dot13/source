@@ -33,7 +33,7 @@ void CreateLoadingScreenProgressBar()
 	gusLeftmostShaded = 162;
 	gfUseLoadScreenProgressBar = TRUE;
 
-	// Special case -> show small image centered
+	// Special case->show small image centered
 	if (bShowSmallImage == TRUE)
 	{
 		if (iResolution > 0)
@@ -104,10 +104,10 @@ BOOLEAN CreateProgressBar( UINT8 ubProgressBarID, UINT16 usLeft, UINT16 usTop, U
 	return TRUE;
 }
 
-//You may also define a panel to go in behind the progress bar.  You can now assign a title to go with
+//You may also define a panel to go in behind the progress bar.	You can now assign a title to go with
 //the panel.
 void DefineProgressBarPanel( UINT32 ubID, UINT8 r, UINT8 g, UINT8 b,
-														 UINT16 usLeft, UINT16 usTop, UINT16 usRight, UINT16 usBottom )
+														UINT16 usLeft, UINT16 usTop, UINT16 usRight, UINT16 usBottom )
 {
 	PROGRESSBAR *pCurr;
 	Assert( ubID < MAX_PROGRESSBARS );
@@ -122,9 +122,9 @@ void DefineProgressBarPanel( UINT32 ubID, UINT8 r, UINT8 g, UINT8 b,
 	pCurr->usPanelBottom = usBottom;
 	pCurr->usColor = Get16BPPColor( FROMRGB( r, g, b ) );
 	//Calculate the slightly lighter and darker versions of the same rgb color
-	pCurr->usLtColor = Get16BPPColor( FROMRGB( (UINT8)min( 255, (UINT16)(r*1.33)), 
-																						 (UINT8)min( 255, (UINT16)(g*1.33)),
-																						 (UINT8)min( 255, (UINT16)(b*1.33)) ));
+	pCurr->usLtColor = Get16BPPColor( FROMRGB( (UINT8)min( 255, (UINT16)(r*1.33)),
+																						(UINT8)min( 255, (UINT16)(g*1.33)),
+																						(UINT8)min( 255, (UINT16)(b*1.33)) ));
 	pCurr->usDkColor = Get16BPPColor( FROMRGB( (UINT8)(r*0.75), (UINT8)(g*0.75), (UINT8)(b*0.75) ) );
 }
 
@@ -181,12 +181,12 @@ void RemoveProgressBar( UINT8 ubID )
 	}
 }
 
-//An important setup function.  The best explanation is through example.  The example being the loading
-//of a file -- there are many stages of the map loading.  In JA2, the first step is to load the tileset.
+//An important setup function.	The best explanation is through example.	The example being the loading
+//of a file -- there are many stages of the map loading.	In JA2, the first step is to load the tileset.
 //Because it is a large chunk of the total loading of the map, we may gauge that it takes up 30% of the
-//total load.  Because it is also at the beginning, we would pass in the arguments ( 0, 30, "text" ).
+//total load.	Because it is also at the beginning, we would pass in the arguments ( 0, 30, "text" ).
 //As the process animates using UpdateProgressBar( 0 to 100 ), the total progress bar will only reach 30%
-//at the 100% mark within UpdateProgressBar.  At that time, you would go onto the next step, resetting the
+//at the 100% mark within UpdateProgressBar.	At that time, you would go onto the next step, resetting the
 //relative start and end percentage from 30 to whatever, until your done.
 void SetRelativeStartAndEndPercentage( UINT8 ubID, UINT32 uiRelStartPerc, UINT32 uiRelEndPerc, STR16 str)
 {
@@ -205,11 +205,11 @@ void SetRelativeStartAndEndPercentage( UINT8 ubID, UINT32 uiRelStartPerc, UINT32
 	if( pCurr->fPanel )
 	{
 		//Draw panel
-		ColorFillVideoSurfaceArea( FRAME_BUFFER, 
+		ColorFillVideoSurfaceArea( FRAME_BUFFER,
 			pCurr->usPanelLeft, pCurr->usPanelTop, pCurr->usPanelRight, pCurr->usPanelBottom, pCurr->usLtColor );
-		ColorFillVideoSurfaceArea( FRAME_BUFFER, 
+		ColorFillVideoSurfaceArea( FRAME_BUFFER,
 			pCurr->usPanelLeft+1, pCurr->usPanelTop+1, pCurr->usPanelRight, pCurr->usPanelBottom, pCurr->usDkColor );
-		ColorFillVideoSurfaceArea( FRAME_BUFFER, 
+		ColorFillVideoSurfaceArea( FRAME_BUFFER,
 			pCurr->usPanelLeft+1, pCurr->usPanelTop+1, pCurr->usPanelRight-1, pCurr->usPanelBottom-1, pCurr->usColor );
 		InvalidateRegion( pCurr->usPanelLeft, pCurr->usPanelTop, pCurr->usPanelRight, pCurr->usPanelBottom );
 		//Draw title
@@ -217,8 +217,8 @@ void SetRelativeStartAndEndPercentage( UINT8 ubID, UINT32 uiRelStartPerc, UINT32
 		if( pCurr->swzTitle )
 		{
 			usStartX = pCurr->usPanelLeft +																					// left position
-								 (pCurr->usPanelRight - pCurr->usPanelLeft)/2 -								// + half width
-								 StringPixLength( pCurr->swzTitle, pCurr->usTitleFont ) / 2;	// - half string width
+								(pCurr->usPanelRight - pCurr->usPanelLeft)/2 -								// + half width
+								StringPixLength( pCurr->swzTitle, pCurr->usTitleFont ) / 2;	// - half string width
 			usStartY = pCurr->usPanelTop + 3;
 			SetFont( pCurr->usTitleFont );
 			SetFontForeground( pCurr->ubTitleFontForeColor );
@@ -249,9 +249,9 @@ void SetRelativeStartAndEndPercentage( UINT8 ubID, UINT32 uiRelStartPerc, UINT32
 	}
 }
 
-//This part renders the progress bar at the percentage level that you specify.  If you have set relative
+//This part renders the progress bar at the percentage level that you specify.	If you have set relative
 //percentage values in the above function, then the uiPercentage will be reflected based off of the relative
-//percentages.  
+//percentages.
 void RenderProgressBar( UINT8 ubID, UINT32 uiPercentage )
 {
 	static UINT32 uiLastTime = 0;
@@ -285,25 +285,25 @@ void RenderProgressBar( UINT8 ubID, UINT32 uiPercentage )
 		}
 		if( gfUseLoadScreenProgressBar )
 		{
-			ColorFillVideoSurfaceArea( FRAME_BUFFER,	
-				pCurr->usBarLeft, pCurr->usBarTop, end, pCurr->usBarBottom, 
+			ColorFillVideoSurfaceArea( FRAME_BUFFER,
+				pCurr->usBarLeft, pCurr->usBarTop, end, pCurr->usBarBottom,
 				Get16BPPColor(FROMRGB( pCurr->ubColorFillRed, pCurr->ubColorFillGreen, pCurr->ubColorFillBlue )) );
 			//if( pCurr->usBarRight > gusLeftmostShaded )
 			//{
-			//	ShadowVideoSurfaceRect( FRAME_BUFFER, gusLeftmostShaded+1, pCurr->usBarTop, end, pCurr->usBarBottom );	
+			//	ShadowVideoSurfaceRect( FRAME_BUFFER, gusLeftmostShaded+1, pCurr->usBarTop, end, pCurr->usBarBottom );
 			//	gusLeftmostShaded = (UINT16)end;
 			//}
 		}
 		else
 		{
 			//Border edge of the progress bar itself in gray
-			ColorFillVideoSurfaceArea( FRAME_BUFFER,	
-				pCurr->usBarLeft, pCurr->usBarTop, pCurr->usBarRight, pCurr->usBarBottom, 
+			ColorFillVideoSurfaceArea( FRAME_BUFFER,
+				pCurr->usBarLeft, pCurr->usBarTop, pCurr->usBarRight, pCurr->usBarBottom,
 				Get16BPPColor(FROMRGB(160, 160, 160)) );
 			//Interior of progress bar in black
-			ColorFillVideoSurfaceArea( FRAME_BUFFER,	
-				pCurr->usBarLeft+2, pCurr->usBarTop+2, pCurr->usBarRight-2, pCurr->usBarBottom-2, 
-				Get16BPPColor(FROMRGB(  0,   0,   0)) );
+			ColorFillVideoSurfaceArea( FRAME_BUFFER,
+				pCurr->usBarLeft+2, pCurr->usBarTop+2, pCurr->usBarRight-2, pCurr->usBarBottom-2,
+				Get16BPPColor(FROMRGB(	0,	0,	0)) );
 			ColorFillVideoSurfaceArea(FRAME_BUFFER,	pCurr->usBarLeft+2, pCurr->usBarTop+2, end, pCurr->usBarBottom-2, Get16BPPColor(FROMRGB(72 , 155, 24)));
 		}
 		InvalidateRegion( pCurr->usBarLeft, pCurr->usBarTop, pCurr->usBarRight, pCurr->usBarBottom );

@@ -26,7 +26,7 @@ void GameInitBobbyRAmmo()
 
 BOOLEAN EnterBobbyRAmmo()
 {
-  VOBJECT_DESC    VObjectDesc;
+	VOBJECT_DESC	VObjectDesc;
 
 	//gfBigImageMouseRegionCreated = FALSE;
 
@@ -90,20 +90,21 @@ void RenderBobbyRAmmo()
 
 	DisplayItemInfo(IC_AMMO, guiCurrentAmmoFilterMode);
 	UpdateButtonText(guiCurrentLaptopMode);
-	
+
 	UpdateAmmoFilterButtons(guiCurrentAmmoFilterMode, guiPrevAmmoFilterMode);
 
 	MarkButtonsDirty( );
 	RenderWWWProgramTitleBar( );
 	InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
-  	fReDrawScreenFlag = TRUE;
-	fPausedReDrawScreenFlag = TRUE;	
+		fReDrawScreenFlag = TRUE;
+	fPausedReDrawScreenFlag = TRUE;
 }
 
 
 
 
 
- 
+
+
 
 

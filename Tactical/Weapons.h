@@ -3,6 +3,22 @@
 
 #include "Soldier Control.h"
 
+//ADB moved from Soldier Control.h
+enum WeaponMode
+{
+	WM_NORMAL = 0,
+	WM_BURST,
+	WM_AUTOFIRE,
+	WM_ATTACHED_GL,
+	WM_ATTACHED_GL_BURST,
+	WM_ATTACHED_GL_AUTO,
+	NUM_WEAPON_MODES
+} ;
+
+//ADB moved from Interface Panels.h
+void HandleTacticalEffectsOfEquipmentChange( SOLDIERTYPE *pSoldier, UINT32 uiInvPos, UINT16 usOldItem, UINT16 usNewItem );
+
+
 #define MAXCHANCETOHIT 99
 #define BAD_DODGE_POSITION_PENALTY 20
 
@@ -209,43 +225,44 @@ enum
 // one quarter of punching damage is "real" rather than breath damage
 #define PUNCH_REAL_DAMAGE_PORTION 4 
 
-#define AIM_BONUS_SAME_TARGET       10      // chance-to-hit bonus (in %)
-#define AIM_BONUS_PER_AP            10      // chance-to-hit bonus (in %) for aim
-#define AIM_BONUS_CROUCHING         10
-#define AIM_BONUS_PRONE			     		20
+#define AIM_BONUS_SAME_TARGET		10		// chance-to-hit bonus (in %)
+#define AIM_BONUS_PER_AP			10		// chance-to-hit bonus (in %) for aim
+#define AIM_BONUS_CROUCHING		 10
+#define AIM_BONUS_PRONE						20
 #define AIM_BONUS_TWO_HANDED_PISTOL 5 
 #define AIM_BONUS_FIRING_DOWN				15
 #define AIM_PENALTY_ONE_HANDED_PISTOL 5 
 #define AIM_PENALTY_DUAL_PISTOLS		20
-#define AIM_PENALTY_SMG              5
-#define AIM_PENALTY_GASSED          50
-#define AIM_PENALTY_GETTINGAID      20
-#define AIM_PENALTY_PER_SHOCK        5      // 5% penalty per point of shock
-#define AIM_BONUS_TARGET_HATED      20
-#define AIM_BONUS_PSYCHO            15
-#define AIM_PENALTY_TARGET_BUDDY    20
+#define AIM_PENALTY_SMG				5
+#define AIM_PENALTY_GASSED			50
+#define AIM_PENALTY_GETTINGAID		20
+#define AIM_PENALTY_PER_SHOCK		5		// 5% penalty per point of shock
+#define AIM_BONUS_TARGET_HATED		20
+#define AIM_BONUS_PSYCHO			15
+#define AIM_PENALTY_TARGET_BUDDY	20
 #define AIM_PENALTY_BURSTING		10
-#define AIM_PENALTY_GENTLEMAN       15
+#define AIM_PENALTY_GENTLEMAN		15
 #define AIM_PENALTY_TARGET_CROUCHED 20
 #define AIM_PENALTY_TARGET_PRONE	40
 #define AIM_PENALTY_BLIND			80
 #define AIM_PENALTY_FIRING_UP		25
+#define	HIGH_POWER_SCOPE			14
 
 #define MAX_WEAPON_NAME_LENGTH		20
 
 typedef struct
 {
- UINT8	ubWeaponClass;             // handgun/shotgun/rifle/knife
- UINT8	ubWeaponType;							 // exact type (for display purposes)
- UINT8	ubCalibre;	               // type of ammunition needed
- UINT8	ubReadyTime;               // APs to ready/unready weapon
- UINT8	ubShotsPer4Turns;          // maximum (mechanical) firing rate
+ UINT8	ubWeaponClass;			 // handgun/shotgun/rifle/knife
+ UINT8	ubWeaponType;							// exact type (for display purposes)
+ UINT8	ubCalibre;				// type of ammunition needed
+ UINT8	ubReadyTime;				// APs to ready/unready weapon
+ UINT8	ubShotsPer4Turns;			// maximum (mechanical) firing rate
  UINT8	ubShotsPerBurst;
- UINT8	ubBurstPenalty;						 // % penalty per shot after first
- UINT8	ubBulletSpeed;             // bullet's travelling speed
- UINT8	ubImpact;		               // weapon's max damage impact (size & speed)
- UINT8	ubDeadliness;							 // comparative ratings of guns
- INT8	bAccuracy;								 // accuracy or penalty
+ UINT8	ubBurstPenalty;						// % penalty per shot after first
+ UINT8	ubBulletSpeed;			 // bullet's travelling speed
+ UINT8	ubImpact;					// weapon's max damage impact (size & speed)
+ UINT8	ubDeadliness;							// comparative ratings of guns
+ INT8	bAccuracy;								// accuracy or penalty
  UINT8	ubMagSize;
  UINT16	usRange;
  UINT16	usReloadDelay;
@@ -268,7 +285,7 @@ typedef struct
  UINT8	maxdistformessydeath;
  BOOLEAN NoSemiAuto;
  UINT8	AutoPenalty;
- INT16  sAniDelay;          // Lesh: for burst animation delay
+ INT16	sAniDelay;			// Lesh: for burst animation delay
  UINT8	APsToReloadManually;
  UINT16 ManualReloadSound;
 
@@ -276,7 +293,7 @@ typedef struct
 typedef struct
 {
 	UINT8	ubCalibre;
-	UINT8 ubMagSize;
+	UINT16	ubMagSize;
 	UINT8	ubAmmoType;
 
 	UINT32 uiIndex;
@@ -311,7 +328,7 @@ extern WEAPONTYPE Weapon[ MAXITEMS ];
 extern ARMOURTYPE Armour[MAXITEMS+1];
 extern MAGTYPE Magazine[MAXITEMS+1];
 extern EXPLOSIVETYPE Explosive[MAXITEMS+1];
-extern CHAR8 gzBurstSndStrings[MAXITEMS*2][128];   // Lesh: changed this
+extern CHAR8 gzBurstSndStrings[MAXITEMS*2][128];	// Lesh: changed this
 extern AMMOTYPE AmmoTypes[MAXITEMS];
 
 extern BOOLEAN ReadInWeaponStats(STR fileName);
@@ -321,20 +338,24 @@ extern INT32 EffectiveArmour( OBJECTTYPE * pObj );
 extern INT8 ArmourVersusExplosivesPercent( SOLDIERTYPE * pSoldier );
 extern BOOLEAN FireWeapon( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo );
 extern void WeaponHit( UINT16 usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 sBreathLoss, UINT16 usDirection, INT16 sXPos, INT16 sYPos, INT16 sZPos, INT16 sRange , UINT8 ubAttackerID, BOOLEAN fHit, UINT8 ubSpecial, UINT8 ubHitLocation );
-extern void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT8 bWeaponStatus, UINT8 ubAttackerID, UINT16 sXPos, INT16 sYPos, INT16 sZPos, UINT16 usStructureID, INT32 iImpact, BOOLEAN fStopped );
+extern void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, UINT8 ubAttackerID, UINT16 sXPos, INT16 sYPos, INT16 sZPos, UINT16 usStructureID, INT32 iImpact, BOOLEAN fStopped );
 extern void WindowHit( INT16 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, BOOLEAN fLargeForce );
 extern INT32 BulletImpact( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 iImpact, INT16 sHitBy, UINT8 * pubSpecial );
 extern BOOLEAN InRange( SOLDIERTYPE *pSoldier, INT16 sGridNo );
 extern void ShotMiss( UINT8 ubAttackerID, INT32 iBullet );
-extern UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime, UINT8 ubAimPos );
-extern UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, UINT16 sGridNo, UINT8 ubAimTime, UINT8 ubAimPos );
+extern UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAimTime, UINT8 ubAimPos );
+extern UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAimTime, UINT8 ubAimPos );
 extern UINT32 CalcChanceToPunch(SOLDIERTYPE *pAttacker, SOLDIERTYPE * pDefender, UINT8 ubAimTime);
 extern UINT32 CalcChanceToStab(SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, UINT8 ubAimTime);
 UINT32 CalcChanceToSteal(SOLDIERTYPE *pAttacker, SOLDIERTYPE * pDefender, UINT8 ubAimTime);
 extern void ReloadWeapon( SOLDIERTYPE *pSoldier, UINT8 ubHandPos );
-extern BOOLEAN IsGunWeaponModeCapable( SOLDIERTYPE *pSoldier, UINT8 ubHandPos , UINT8 bWpnMode );
-extern BOOLEAN IsGunBurstCapable( SOLDIERTYPE *pSoldier, UINT8 ubHandPos , BOOLEAN fNotify );
-extern BOOLEAN IsGunAutofireCapable( SOLDIERTYPE *pSoldier, UINT8 ubHandPos );
+// Changed by ADB, rev 1513
+//extern BOOLEAN IsGunWeaponModeCapable( SOLDIERTYPE *pSoldier, UINT8 ubHandPos , UINT8 bWpnMode );
+//extern BOOLEAN IsGunBurstCapable( SOLDIERTYPE *pSoldier, UINT8 ubHandPos , BOOLEAN fNotify );
+//extern BOOLEAN IsGunAutofireCapable( SOLDIERTYPE *pSoldier, UINT8 ubHandPos );
+extern BOOLEAN IsGunWeaponModeCapable( OBJECTTYPE* pObject, WeaponMode weaponMode, SOLDIERTYPE *pSoldier = NULL );
+extern BOOLEAN IsGunBurstCapable( OBJECTTYPE* pObject, BOOLEAN fNotify, SOLDIERTYPE *pSoldier = NULL );
+extern BOOLEAN IsGunAutofireCapable( OBJECTTYPE* pObject );
 extern INT32 CalcBodyImpactReduction( UINT8 ubAmmoType, UINT8 ubHitLocation );
 extern INT32 TotalArmourProtection( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 iImpact, UINT8 ubAmmoType );
 extern INT32 ArmourPercent( SOLDIERTYPE * pSoldier );
@@ -363,8 +384,8 @@ UINT8 GetBaseAutoFireCost( OBJECTTYPE *pObj );
 UINT8 GetBurstPenalty( OBJECTTYPE *pObj, BOOLEAN fProneStance = FALSE );
 UINT8 GetAutoPenalty( OBJECTTYPE *pObj, BOOLEAN fProneStance = FALSE );
 UINT8 GetShotsPerBurst( OBJECTTYPE *pObj );
-UINT8 GetMagSize( OBJECTTYPE *pObj );
-BOOLEAN WeaponReady(SOLDIERTYPE * pSoldier);
+UINT16 GetMagSize( OBJECTTYPE *pObj );
+bool WeaponReady(SOLDIERTYPE * pSoldier);
 INT8 GetAPsToReload( OBJECTTYPE *pObj );
 
 

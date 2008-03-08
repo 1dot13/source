@@ -15,16 +15,20 @@
  * using one of the two later methods will keep this SVN file unchanged for the
  * future, only Your private project files (workspace/solution) will differ 
  * from the SVN stuff.
- *                                             (2006-10-10, Sergeant_Kolja)
+ *											 (2006-10-10, Sergeant_Kolja)
  */
 
-#if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH)
+#if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH) && !defined(FRENCH) && !defined(ITALIAN) && !defined(TAIWANESE)
 /* please set one manually here (by uncommenting) if not willingly to set Workspace wide */
 #define ENGLISH
 //#define GERMAN
 //#define RUSSIAN
 //#define DUTCH
 //#define POLISH
+//#define FRENCH
+//#define ITALIAN
+//#define TAIWANESE
+
 #endif
 
 
@@ -33,25 +37,12 @@
  * Regardless of if we did it Workspace wide or by uncommenting above,
  * HERE we must see, what language was selected. If one, we
  */
-#if defined(ENGLISH)
-#  pragma message(" (Language set to ENGLISH, You'll need english CDs)")
-#elif defined(GERMAN)
-#  pragma message(" (Language set to GERMAN, You'll need Topware/german CDs)")
-#elif defined(RUSSIAN)
-#  pragma message(" (Language set to RUSSIAN, You'll need russian CDs)")
-#elif defined(DUTCH)
-#  pragma message(" (Language set to DUTCH, You'll need dutch CDs)")
-#elif defined(POLISH)
-#  pragma message(" (Language set to POLISH, You'll need polish CDs)")
-#else
+#if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH) && !defined(FRENCH) && !defined(ITALIAN) && !defined(TAIWANESE)
 #  error "At least You have to specify a Language somewhere. See comments above."
 #endif
 
 
 
-
-
-#define BLOOD_N_GORE_ENABLED
 
 //if the language represents words as single chars
 #ifdef TAIWAN

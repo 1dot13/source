@@ -86,7 +86,7 @@ enum
 	BALIME_DEFENCE,			//Rich town, paved roads, close to Meduna (in queen's favor)
 	TIXA_PRISON,				//Prison, well defended, but no point in retaking
 	TIXA_SAMSITE,				//The central-most sam site (important for queen to keep)
-	ALMA_DEFENCE,				//The military town of Meduna.  Also very important for queen.
+	ALMA_DEFENCE,				//The military town of Meduna.	Also very important for queen.
 	ALMA_MINE,					//Mine income AND administrators
 	CAMBRIA_DEFENCE,		//Medical town, large, central.
 	CAMBRIA_MINE,
@@ -106,26 +106,26 @@ extern UINT8 NUM_ARMY_COMPOSITIONS;
 typedef struct ARMY_COMPOSITION
 {
 	INT32 iReadability;					//contains the enumeration which is useless, but helps readability.
-	INT8  bPriority;
-	INT8  bElitePercentage;
-	INT8  bTroopPercentage;
-	INT8  bAdminPercentage;
-	INT8  bDesiredPopulation;
-	INT8  bStartPopulation;
-	INT8  bPadding[10];
+	INT8	bPriority;
+	INT8	bElitePercentage;
+	INT8	bTroopPercentage;
+	INT8	bAdminPercentage;
+	INT8	bDesiredPopulation;
+	INT8	bStartPopulation;
+	INT8	bPadding[10];
 }ARMY_COMPOSITION;
 
 //Defines the patrol groups -- movement groups.
 typedef struct PATROL_GROUP
 { 
-	INT8  bSize;
-	INT8  bPriority;
+	INT8	bSize;
+	INT8	bPriority;
 	UINT8 ubSectorID[4];
-	INT8  bFillPermittedAfterDayMod100;
+	INT8	bFillPermittedAfterDayMod100;
 	UINT8 ubGroupID;
-	INT8  bWeight;
+	INT8	bWeight;
 	UINT8 ubPendingGroupID;
-	INT8  bPadding[10];
+	INT8	bPadding[10];
 }PATROL_GROUP;
 
 //Defines all stationary defence forces. 
@@ -133,13 +133,13 @@ typedef struct GARRISON_GROUP
 {
 	UINT8 ubSectorID;
 	UINT8 ubComposition;
-	INT8  bWeight;
+	INT8	bWeight;
 	UINT8 ubPendingGroupID;
-	INT8  bPadding[10];
+	INT8	bPadding[10];
 }GARRISON_GROUP;
 
-#define MAX_GARRISON_GROUPS   100
-#define MAX_PATROL_GROUPS     50
+#define MAX_GARRISON_GROUPS	100
+#define MAX_PATROL_GROUPS	 50
 #define MAX_ARMY_COMPOSITIONS 60
 
 #endif

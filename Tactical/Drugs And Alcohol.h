@@ -4,7 +4,7 @@
 
 #define	DRUG_TYPE_ADRENALINE							0
 #define	DRUG_TYPE_ALCOHOL									1
-#define NO_DRUG													  2
+#define NO_DRUG													2
 #define NUM_COMPLEX_DRUGS									2
 #define DRUG_TYPE_REGENERATION						3
 

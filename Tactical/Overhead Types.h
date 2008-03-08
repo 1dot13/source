@@ -23,7 +23,7 @@
 #define MIN_AMB_LEVEL_FOR_MERC_LIGHTS		9
 
 
-#define     MAXTEAMS				6
+#define	 MAXTEAMS				6
 #define			MAXMERCS				MAX_NUM_SOLDIERS
 
 //TACTICAL OVERHEAD STUFF
@@ -37,7 +37,7 @@
 // TACTICAL ENGINE STATUS FLAGS
 #define			REALTIME						0x000000002
 #define			TURNBASED						0x000000004
-#define			IN_ENDGAME_SEQUENCE             		0x000000008
+#define			IN_ENDGAME_SEQUENCE			 		0x000000008
 #define			SHOW_ALL_ITEMS											0x000000010
 #define			SHOW_AP_LEFT												0x000000020
 #define			SHOW_ALL_MERCS											0x000000040
@@ -48,7 +48,7 @@
 #define			NPC_TEAM_DEAD												0x000000800
 #define			DISALLOW_SIGHT											0x000001000
 #define			CHECK_SIGHT_AT_END_OF_ATTACK				0x000002000
-#define     IN_CREATURE_LAIR                    0x000004000
+#define	 IN_CREATURE_LAIR					0x000004000
 #define			HIDE_TREES													0x000008000
 #define			NOHIDE_REDUNDENCY										0x000010000
 #define			DEBUGCLIFFS													0x000020000
@@ -73,7 +73,7 @@
 #define			CONSCIOUSNESS				10
 
 // VIEWRANGE DEFINES
-#define     NORMAL_VIEW_RANGE					13
+#define	 NORMAL_VIEW_RANGE					13
 #define			MIN_RANGE_FOR_BLOWNAWAY		40
 
 // MODIFIERS FOR AP COST FOR MOVEMENT 
@@ -81,6 +81,12 @@
 #define WALKCOST					-1
 #define SWATCOST					0
 #define CRAWLCOST					1
+
+// CHRISL: AP Cost Movement modifiers when wearing a backpack
+#define RUNDIVISORBPACK				1.5
+#define WALKCOSTBPACK					0
+#define SWATCOSTBPACK					1
+#define CRAWLCOSTBPACK					2
 
 // defines
 // ######################################################
@@ -94,26 +100,26 @@
 #define	FLASH_SELECTOR_DELAY		4000
 #define	BLINK_SELECTOR_DELAY		250
 
-#define PTR_OURTEAM     (pSoldier->bTeam == gbPlayerNum)
+#define PTR_OURTEAM	 (pSoldier->bTeam == gbPlayerNum)
 
 
 #define DONTLOOK				0
 #define LOOK						1
 
 
-#define NOLOCATE        0
-#define LOCATE          1
+#define NOLOCATE		0
+#define LOCATE			1
 
 #define DONTSETLOCATOR									0
 #define SETLOCATOR											1
 #define SETANDREMOVEPREVIOUSLOCATOR			2
 #define SETLOCATORFAST									3
 
-#define NOCENTERING     0
+#define NOCENTERING	 0
 
 
-#define NOUPDATE        0
-#define UPDATE          1
+#define NOUPDATE		0
+#define UPDATE			1
 
 
 // ORDERS
@@ -179,15 +185,15 @@ enum
 #define		FIRE_WEAPON_BLINDED_AND_DEAFENED	11
 
 
-#define NO_INTERRUPTS           0
-#define ALLOW_INTERRUPTS        1
+#define NO_INTERRUPTS			0
+#define ALLOW_INTERRUPTS		1
 
 
-#define SIGHT_LOOK      0x1
-//#define SIGHT_SEND      0x2   // no longer needed using LOCAL OPPLISTs
-#define SIGHT_RADIO     0x4
+#define SIGHT_LOOK		0x1
+//#define SIGHT_SEND		0x2	// no longer needed using LOCAL OPPLISTs
+#define SIGHT_RADIO	 0x4
 #define SIGHT_INTERRUPT 0x8
-#define SIGHT_ALL       0xF
+#define SIGHT_ALL		0xF
 
 
 // CHANGE THIS VALUE TO AFFECT TOTAL SIGHT RANGE
@@ -204,27 +210,27 @@ enum
 #define BEHIND_RATIO		0
 
 // looking distance defines
-//#define BEHIND          (INT8)( BEHIND_RATIO * STRAIGHT_RANGE )
-//#define SBEHIND         (INT8)( SBEHIND_RATIO * STRAIGHT_RANGE )
-//#define SIDE            (INT8)( SIDE_RATIO * STRAIGHT_RANGE )
-//#define ANGLE           (INT8)( ANGLE_RATIO * STRAIGHT_RANGE )
-//#define STRAIGHT        (INT8)( STRAIGHT_RATIO * STRAIGHT_RANGE )
+//#define BEHIND			(INT8)( BEHIND_RATIO * STRAIGHT_RANGE )
+//#define SBEHIND		 (INT8)( SBEHIND_RATIO * STRAIGHT_RANGE )
+//#define SIDE			(INT8)( SIDE_RATIO * STRAIGHT_RANGE )
+//#define ANGLE			(INT8)( ANGLE_RATIO * STRAIGHT_RANGE )
+//#define STRAIGHT		(INT8)( STRAIGHT_RATIO * STRAIGHT_RANGE )
  
 
 // opplist value constants
-#define HEARD_3_TURNS_AGO       -4
-#define HEARD_2_TURNS_AGO       -3
-#define HEARD_LAST_TURN         -2
-#define HEARD_THIS_TURN         -1
-#define NOT_HEARD_OR_SEEN        0
-#define SEEN_CURRENTLY           1
-#define SEEN_THIS_TURN           2
-#define SEEN_LAST_TURN           3
-#define SEEN_2_TURNS_AGO         4
-#define SEEN_3_TURNS_AGO         5
+#define HEARD_3_TURNS_AGO		-4
+#define HEARD_2_TURNS_AGO		-3
+#define HEARD_LAST_TURN		 -2
+#define HEARD_THIS_TURN		 -1
+#define NOT_HEARD_OR_SEEN		0
+#define SEEN_CURRENTLY			1
+#define SEEN_THIS_TURN			2
+#define SEEN_LAST_TURN			3
+#define SEEN_2_TURNS_AGO		 4
+#define SEEN_3_TURNS_AGO		 5
 
-#define OLDEST_SEEN_VALUE			 SEEN_3_TURNS_AGO
-#define OLDEST_HEARD_VALUE     HEARD_3_TURNS_AGO
+#define OLDEST_SEEN_VALUE			SEEN_3_TURNS_AGO
+#define OLDEST_HEARD_VALUE	 HEARD_3_TURNS_AGO
 
 #define UNDER_FIRE							2
 #define UNDER_FIRE_LAST_TURN		1
@@ -319,9 +325,9 @@ enum BoxingStates
 	LOST_ROUND
 } ;
 
-//NOTE:  The editor uses these enumerations, so please update the text as well if you modify or
-//			 add new groups.  Try to abbreviate the team name as much as possible.  The text is in 
-//			 EditorMercs.c
+//NOTE:	The editor uses these enumerations, so please update the text as well if you modify or
+//			add new groups.	Try to abbreviate the team name as much as possible.	The text is in 
+//			EditorMercs.c
 #ifdef JA2EDITOR
 	extern CHAR16 gszCivGroupNames[ NUM_CIV_GROUPS ][ 20 ];
 #endif
@@ -353,6 +359,6 @@ typedef struct
 // This will set an animation ID
 #define			SET_PALETTEREP_ID( a, b )				( strcpy( a, b ) )
 																						// strcmp returns 0 if true!		
-#define     COMPARE_PALETTEREP_ID( a, b )		( strcmp( a, b ) ? FALSE : TRUE )
+#define	 COMPARE_PALETTEREP_ID( a, b )		( strcmp( a, b ) ? FALSE : TRUE )
 
 #endif

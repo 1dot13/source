@@ -3,13 +3,12 @@
 
 #include <string.h>
 #include <stdio.h>
-//#include "container.h"
 #include "Soldier Control.h"
 #include "overhead types.h"
 #include "soldier find.h"
 #define				ADD_SOLDIER_NO_PROFILE_ID		200
 
-#define  MAX_REALTIME_SPEED_VAL						10
+#define	MAX_REALTIME_SPEED_VAL						10
 
 /*
 enum
@@ -45,7 +44,7 @@ typedef struct
 {
 	UINT8			bFirstID;
 	UINT8			bLastID;
-	COLORVAL  RadarColor;
+	COLORVAL	RadarColor;
 	INT8			bSide;
 	INT8			bMenInSector;
 	UINT8			ubLastMercToRadio;
@@ -143,7 +142,7 @@ typedef struct
 	BOOLEAN							ubItemsSeenOnAttackSoldier;
 	BOOLEAN							fBeenInCombatOnce;
 	BOOLEAN							fSaidCreatureSmellQuote;
-	UINT16							usItemsSeenOnAttackGridNo;
+	INT16							sItemsSeenOnAttackGridNo;
 	BOOLEAN							fLockItemLocators;
 	UINT8								ubLastQuoteSaid;
 	UINT8								ubLastQuoteProfileNUm;
@@ -174,14 +173,14 @@ typedef struct
 	INT8								bGuideDescriptionSectorX;
 	INT8								bGuideDescriptionSectorY;
 	INT8								fEnemyFlags;
-  BOOLEAN             fAutoBandagePending;
-  BOOLEAN             fHasEnteredCombatModeSinceEntering;
-  BOOLEAN             fDontAddNewCrows;
-  UINT8               ubMorePadding;
-  UINT16              sCreatureTenseQuoteDelay;
-  UINT32              uiCreatureTenseQuoteLastUpdate;
+	BOOLEAN			 fAutoBandagePending;
+	BOOLEAN			 fHasEnteredCombatModeSinceEntering;
+	BOOLEAN			 fDontAddNewCrows;
+	UINT8				ubMorePadding;
+	UINT16				sCreatureTenseQuoteDelay;
+	UINT32				uiCreatureTenseQuoteLastUpdate;
 
-  // PADDING GONE!!!!!
+	// PADDING GONE!!!!!
 
 } TacticalStatusType;
 
@@ -198,7 +197,7 @@ extern CHAR8	gzDirectionStr[][ 30 ];
 
 // TEMP FOR E3
 extern UINT8	gubCurrentScene;
-extern CHAR8	*GetSceneFilename(  );
+extern CHAR8	*GetSceneFilename(	);
 extern INT8		ubLevelMoveLink[ 10 ];
 
 // Soldier List used for all soldier overhead interaction
@@ -233,7 +232,7 @@ extern BOOLEAN FlatRoofAboveGridNo( INT32 iMapIndex );
 
 
 BOOLEAN ExecuteOverhead( );
-BOOLEAN ResetAllAnimationCache(  );
+BOOLEAN ResetAllAnimationCache(	);
 
 void EndTurn( );
 void EndTurn( UINT8 ubNextTeam );
@@ -241,12 +240,12 @@ void EndTurn( UINT8 ubNextTeam );
 void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode );
 void EndTacticalDemo( );
 
-void SelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceReselect  );
+void SelectSoldier( UINT16 usSoldierID, BOOLEAN fAcknowledge, BOOLEAN fForceReselect	);
 
 //Kaiden: Function declaration from UB to reveal all items after combat.
 void RevealAllDroppedEnemyItems();
 
-void LocateGridNo( UINT16 sGridNo );
+void LocateGridNo( INT16 sGridNo );
 void LocateSoldier( UINT16 usID, BOOLEAN fSetLocator);
 
 void BeginTeamTurn( UINT8 ubTeam );
@@ -268,7 +267,7 @@ void StopMercAnimation( BOOLEAN fStop );
 
 UINT32 EnterTacticalDemoMode();
 
-BOOLEAN UIOKMoveDestination( SOLDIERTYPE *pSoldier, UINT16 usMapPos );
+BOOLEAN UIOKMoveDestination( SOLDIERTYPE *pSoldier, INT16 sMapPos );
 
 INT16 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 *pubDirection, INT16 *psAdjustedGridNo, BOOLEAN fForceToPerson, BOOLEAN fDoor );
 INT16 FindNextToAdjacentGridEx( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 *pubDirection, INT16 *psAdjustedGridNo, BOOLEAN fForceToPerson, BOOLEAN fDoor );
@@ -285,7 +284,7 @@ BOOLEAN IsValidTargetMerc( UINT8 ubSoldierID );
 INT32 GetFreeMercSlot(void);
 void RecountMercSlots(void);
 INT32	AddMercSlot( SOLDIERTYPE *pSoldier );
-BOOLEAN RemoveMercSlot( SOLDIERTYPE *pSoldier  );
+BOOLEAN RemoveMercSlot( SOLDIERTYPE *pSoldier	);
 
 INT32		AddAwaySlot( SOLDIERTYPE *pSoldier );
 BOOLEAN RemoveAwaySlot( SOLDIERTYPE *pSoldier );
@@ -308,7 +307,7 @@ SOLDIERTYPE * FreeUpAttacker( );
 
 BOOLEAN PlayerTeamFull( );
 
-void SetActionToDoOnceMercsGetToLocation( UINT8 ubActionCode,  INT8 bNumMercsWaiting, UINT32 uiData1, UINT32 uiData2, UINT32 uiData3 );
+void SetActionToDoOnceMercsGetToLocation( UINT8 ubActionCode,	INT8 bNumMercsWaiting, UINT32 uiData1, UINT32 uiData2, UINT32 uiData3 );
 
 void ResetAllMercSpeeds( );
 

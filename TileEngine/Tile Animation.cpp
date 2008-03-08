@@ -73,7 +73,7 @@ ANITILE *CreateAnimationTile( ANITILE_PARAMS *pAniParams )
 
 	memset( pNewAniNode, 0, sizeof( ANITILE ) );
 
-	if ( (uiFlags & ANITILE_EXISTINGTILE  ) )
+	if ( (uiFlags & ANITILE_EXISTINGTILE	) )
 	{
 		pNewAniNode->pLevelNode						= pGivenNode;
 		pNewAniNode->pLevelNode->pAniTile = pNewAniNode;
@@ -159,7 +159,7 @@ ANITILE *CreateAnimationTile( ANITILE_PARAMS *pAniParams )
 
 		if ( ( uiFlags & ANITILE_CACHEDTILE ) )
 		{
-			pNewAniNode->pLevelNode->uiFlags |=	( LEVELNODE_CACHEDANITILE );	
+			pNewAniNode->pLevelNode->uiFlags |=	( LEVELNODE_CACHEDANITILE );
 			pNewAniNode->sCachedTileID = (INT16)iCachedTile;
 			pNewAniNode->usCachedTileSubIndex = usTileType;
 			pNewAniNode->pLevelNode->pAniTile = pNewAniNode;
@@ -169,7 +169,7 @@ ANITILE *CreateAnimationTile( ANITILE_PARAMS *pAniParams )
 
 		}
 		// Can't set relative X,Y,Z IF FLAGS ANITILE_CACHEDTILE set!
-		else if ( (uiFlags & ANITILE_USEABSOLUTEPOS  ) )
+		else if ( (uiFlags & ANITILE_USEABSOLUTEPOS	) )
 		{
 			pNewAniNode->pLevelNode->sRelativeX		= sX;
 			pNewAniNode->pLevelNode->sRelativeY		= sY;
@@ -285,7 +285,7 @@ ANITILE *CreateAnimationTile( ANITILE_PARAMS *pAniParams )
 	pNewAniNode->uiTimeLastUpdate = GetJA2Clock( );
 	pNewAniNode->sGridNo					= sGridNo;
 
-	pNewAniNode->sStartFrame      = sStartFrame;
+	pNewAniNode->sStartFrame		= sStartFrame;
 
 	pNewAniNode->ubKeyFrame1			= pAniParams->ubKeyFrame1;
 	pNewAniNode->uiKeyFrame1Code	= pAniParams->uiKeyFrame1Code;
@@ -299,7 +299,7 @@ ANITILE *CreateAnimationTile( ANITILE_PARAMS *pAniParams )
 	//Set head
 	pAniTileHead = pNewAniNode;
 
-	// Set some special stuff 
+	// Set some special stuff
 	return( pNewAniNode );
 }
 
@@ -348,7 +348,7 @@ void DeleteAniTile( ANITILE *pAniTile )
 				pOldAniNode->pNext = pAniNode->pNext;
 			}
 
-			if ( !(pAniNode->uiFlags & ANITILE_EXISTINGTILE  ) )
+			if ( !(pAniNode->uiFlags & ANITILE_EXISTINGTILE	) )
 			{
 
 				// Delete memory assosiated with item
@@ -421,10 +421,10 @@ void DeleteAniTile( ANITILE *pAniTile )
 				{
 					// First delete the bullet!
 					RemoveBullet( pAniNode->uiUserData3 );
-					
-					// 0verhaul:  Removed because it's handled by RemoveBullet.
+
+					// 0verhaul:	Removed because it's handled by RemoveBullet.
 					// DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("@@@@@@@ Freeing up attacker - miss finished animation") );
-					// FreeUpAttacker( (UINT8) pAniNode->ubAttackerMissed );					
+					// FreeUpAttacker( (UINT8) pAniNode->ubAttackerMissed );
 				}
 			}
 			else
@@ -556,16 +556,16 @@ void UpdateAniTiles( )
 
 						case ANI_KEYFRAME_DO_SOUND:
 
-							PlayJA2Sample( pNode->uiUserData, RATE_11025, SoundVolume( MIDVOLUME, (INT16)pNode->uiUserData3 ), 1, SoundDir( (INT16)pNode->uiUserData3 ) );			
+							PlayJA2Sample( pNode->uiUserData, RATE_11025, SoundVolume( MIDVOLUME, (INT16)pNode->uiUserData3 ), 1, SoundDir( (INT16)pNode->uiUserData3 ) );
 							break;
 						}
 
-					} 
+					}
 
 					// CHECK IF WE SHOULD BE DISPLAYING TRANSLUCENTLY!
 					if ( pNode->sCurrentFrame == pNode->ubKeyFrame2 )
 					{
-						UINT16     ubExpType;
+						UINT16	 ubExpType;
 
 						switch( pNode->uiKeyFrame2Code )
 						{
@@ -573,13 +573,13 @@ void UpdateAniTiles( )
 
 							ubExpType = Explosive[ Item[ (UINT16)pNode->uiUserData ].ubClassIndex ].ubType;
 
-							//              if ( ubExpType == EXPLOSV_TEARGAS || ubExpType == EXPLOSV_MUSTGAS || 
-							//                   ubExpType == EXPLOSV_SMOKE )
-							if ( ubExpType == EXPLOSV_TEARGAS || ubExpType == EXPLOSV_MUSTGAS || 
+							//				if ( ubExpType == EXPLOSV_TEARGAS || ubExpType == EXPLOSV_MUSTGAS ||
+							//					ubExpType == EXPLOSV_SMOKE )
+							if ( ubExpType == EXPLOSV_TEARGAS || ubExpType == EXPLOSV_MUSTGAS ||
 								ubExpType == EXPLOSV_SMOKE || ubExpType == EXPLOSV_BURNABLEGAS )
 							{
 								// Do sound....
-								// PlayJA2Sample( AIR_ESCAPING_1, RATE_11025, SoundVolume( HIGHVOLUME, pNode->sGridNo ), 1, SoundDir( pNode->sGridNo ) );			
+								// PlayJA2Sample( AIR_ESCAPING_1, RATE_11025, SoundVolume( HIGHVOLUME, pNode->sGridNo ), 1, SoundDir( pNode->sGridNo ) );
 								NewSmokeEffect( pNode->sGridNo, (UINT16)pNode->uiUserData, gExplosionData[ pNode->uiUserData3 ].Params.bLevel, (UINT8)pNode->ubUserData2 );
 							}
 							else
@@ -624,7 +624,7 @@ void UpdateAniTiles( )
 						pNode->uiFlags |= ANITILE_BACKWARD;
 					}
 					else
-					{		
+					{
 
 						// Delete from world!
 						DeleteAniTile( pNode );
@@ -641,7 +641,7 @@ void UpdateAniTiles( )
 			if ( pNode->uiFlags & ANITILE_BACKWARD )
 			{
 				if ( pNode->uiFlags & ANITILE_ERASEITEMFROMSAVEBUFFFER )
-				{	
+				{
 					// ATE: Check if bounding box is on the screen...
 					if ( pNode->bFrameCountAfterStart == 0 )
 					{
@@ -729,7 +729,7 @@ void UpdateAniTiles( )
 					}
 
 					if ( pNode->uiFlags & ANITILE_ERASEITEMFROMSAVEBUFFFER )
-					{	
+					{
 						// ATE: Check if bounding box is on the screen...
 						pNode->bFrameCountAfterStart = 0;
 						//pNode->pLevelNode->uiFlags |= LEVELNODE_UPDATESAVEBUFFERONCE;
@@ -750,7 +750,7 @@ void UpdateAniTiles( )
 			{
 				// ONLY TURN OFF IF PAUSED...
 				if ( ( pNode->uiFlags & ANITILE_ERASEITEMFROMSAVEBUFFFER ) )
-				{	
+				{
 					if ( pNode->uiFlags & ANITILE_PAUSED )
 					{
 						if ( pNode->pLevelNode->uiFlags & LEVELNODE_DYNAMIC )

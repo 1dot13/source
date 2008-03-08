@@ -3,8 +3,8 @@
 #else
 	#include <stdio.h>
 	#include <stdarg.h>
-	#include <time.h> 
-	#include "sgp.h" 
+	#include <time.h>
+	#include "sgp.h"
 	#include "mousesystem.h"
 	#include "vsurface.h"
 	#include "wcheck.h"
@@ -31,10 +31,10 @@
 
 
 #define LOOSE_CURSOR_DELAY 300
-static BOOLEAN gfLooseCursorOn		 = FALSE;
-static INT16	 gsLooseCursorGridNo = NOWHERE;
-static UINT32	 guiLooseCursorID		 = 0;
-static UINT32	 guiLooseCursorTimeOfLastUpdate = 0;
+static BOOLEAN gfLooseCursorOn		= FALSE;
+static INT16	gsLooseCursorGridNo = NOWHERE;
+static UINT32	guiLooseCursorID		= 0;
+static UINT32	guiLooseCursorTimeOfLastUpdate = 0;
 
 
 void HandleLooseCursorDraw( );
@@ -78,10 +78,10 @@ UICursor	gUICursors[ NUM_UI_CURSORS ] =
 	ACTION_NOCHANCE_BURST_UICURSOR,			UICURSOR_FREEFLOWING,													CURSOR_TARGETBURSTDKBLACK,	0,
 
 	ACTION_FLASH_TOSS_UICURSOR,					UICURSOR_FREEFLOWING,													CURSOR_TARGET,							0,
-	ACTION_TOSS_UICURSOR,								UICURSOR_FREEFLOWING,													CURSOR_TARGET,							0,		
+	ACTION_TOSS_UICURSOR,								UICURSOR_FREEFLOWING,													CURSOR_TARGET,							0,
 	ACTION_RED_TOSS_UICURSOR,						UICURSOR_FREEFLOWING,													CURSOR_TARGETRED,						0,
 
-	ACTION_FLASH_SHOOT_UICURSOR,				UICURSOR_FREEFLOWING,													CURSOR_FLASH_TARGET,							0,	
+	ACTION_FLASH_SHOOT_UICURSOR,				UICURSOR_FREEFLOWING,													CURSOR_FLASH_TARGET,							0,
 	ACTION_FLASH_BURST_UICURSOR,				UICURSOR_FREEFLOWING,													CURSOR_FLASH_TARGETBURST,					0,
 	ACTION_TARGETAIM1_UICURSOR,					UICURSOR_FREEFLOWING,													CURSOR_TARGETON1,						0,
 	ACTION_TARGETAIM2_UICURSOR,					UICURSOR_FREEFLOWING,													CURSOR_TARGETON2,						0,
@@ -209,11 +209,11 @@ UICursor	gUICursors[ NUM_UI_CURSORS ] =
 	EXCHANGE_PLACES_UICURSOR,						UICURSOR_FREEFLOWING,													CURSOR_EXCHANGE_PLACES,					0,
 	JUMP_OVER_UICURSOR,									UICURSOR_FREEFLOWING,													CURSOR_JUMP_OVER,								0,
 
-	REFUEL_GREY_UICURSOR,			      		UICURSOR_FREEFLOWING,													CURSOR_FUEL,	    	  					0,
-	REFUEL_RED_UICURSOR,			      		UICURSOR_FREEFLOWING,													CURSOR_FUEL_RED,		  					0,
+	REFUEL_GREY_UICURSOR,						UICURSOR_FREEFLOWING,													CURSOR_FUEL,	 						0,
+	REFUEL_RED_UICURSOR,						UICURSOR_FREEFLOWING,													CURSOR_FUEL_RED,							0,
 
-}; 
- 
+};
+
 
 UINT32 guiCurUICursor = NO_UICURSOR;
 UINT32 guiOldUICursor = NO_UICURSOR;
@@ -236,7 +236,7 @@ BOOLEAN SetUICursor( UINT32 uiNewCursor )
 
 BOOLEAN DrawUICursor( )
 {
-	UINT16						usMapPos;
+	INT16						sMapPos;
 	static BOOLEAN						fHideCursor = FALSE;
 	LEVELNODE					*pNode;
 	UINT16						usTileCursor;
@@ -249,7 +249,7 @@ BOOLEAN DrawUICursor( )
 	// OK, WE OVERRIDE HERE CURSOR DRAWING FOR THINGS LIKE
 	if ( gpItemPointer != NULL )
 	{
-		MSYS_ChangeRegionCursor( &gViewportRegion , VIDEO_NO_CURSOR );	
+		MSYS_ChangeRegionCursor( &gViewportRegion , VIDEO_NO_CURSOR );
 
 		// Check if we are in the viewport region...
 		if ( gViewportRegion.uiFlags & MSYS_MOUSE_IN_AREA )
@@ -263,13 +263,13 @@ BOOLEAN DrawUICursor( )
 		return( TRUE );
 	}
 
-	if (GetMouseMapPos( &usMapPos) )
+	if (GetMouseMapPos( &sMapPos) )
 	{
-		gusCurMousePos = usMapPos;
+		gusCurMousePos = sMapPos;
 
 		if ( guiCurUICursor == NO_UICURSOR )
 		{
-			MSYS_ChangeRegionCursor( &gViewportRegion , VIDEO_NO_CURSOR );	
+			MSYS_ChangeRegionCursor( &gViewportRegion , VIDEO_NO_CURSOR );
 			return( TRUE );
 		}
 
@@ -299,7 +299,7 @@ BOOLEAN DrawUICursor( )
 
 		if ( gUICursors[ guiCurUICursor ].uiFlags & UICURSOR_FREEFLOWING && !( gUICursors[ guiCurUICursor ].uiFlags & UICURSOR_DONTSHOW2NDLEVEL ) )
 		{
-			gfTargetDropPos	 = TRUE;
+			gfTargetDropPos	= TRUE;
 			gusTargetDropPos = gusCurMousePos;
 
 			if ( gsInterfaceLevel == I_ROOF_LEVEL )
@@ -317,7 +317,7 @@ BOOLEAN DrawUICursor( )
 
 			}
 		}
-		
+
 		if ( gUICursors[ guiCurUICursor ].uiFlags & UICURSOR_SHOWTILEAPDEPENDENT )
 		{
 			// Add depending on AP status
@@ -352,7 +352,7 @@ BOOLEAN DrawUICursor( )
 			}
 			else
 			{
-				pNode = AddTopmostToTail( gusCurMousePos,  GetSnapCursorIndex( usTileCursor ) );
+				pNode = AddTopmostToTail( gusCurMousePos,	GetSnapCursorIndex( usTileCursor ) );
 			}
 
 			pNode->ubShadeLevel=DEFAULT_SHADE_LEVEL;
@@ -361,18 +361,18 @@ BOOLEAN DrawUICursor( )
 			if ( gsInterfaceLevel == I_ROOF_LEVEL )
 			{
 				// Put one on the roof as well
-				AddOnRoofToHead( gusCurMousePos,  GetSnapCursorIndex( usTileCursor ) );
+				AddOnRoofToHead( gusCurMousePos,	GetSnapCursorIndex( usTileCursor ) );
 				gpWorldLevelData[gusCurMousePos].pOnRoofHead->ubShadeLevel=DEFAULT_SHADE_LEVEL;
 				gpWorldLevelData[gusCurMousePos].pOnRoofHead->ubNaturalShadeLevel=DEFAULT_SHADE_LEVEL;
 			}
 		}
 
-	
+
 		// If snapping - remove from main viewport
 		if ( gUICursors[ guiCurUICursor ].uiFlags & UICURSOR_SNAPPING )
 		{
 			// Hide mouse region cursor
-			MSYS_ChangeRegionCursor( &gViewportRegion , VIDEO_NO_CURSOR );	
+			MSYS_ChangeRegionCursor( &gViewportRegion , VIDEO_NO_CURSOR );
 
 			// Set Snapping Cursor
 			DrawSnappingCursor( );
@@ -383,7 +383,7 @@ BOOLEAN DrawUICursor( )
 		{
 			switch( guiCurUICursor )
 			{
-				case  MOVE_VEHICLE_UICURSOR:
+				case	MOVE_VEHICLE_UICURSOR:
 
 					// Set position for APS
 					gfUIDisplayActionPointsCenter = FALSE;
@@ -423,13 +423,13 @@ BOOLEAN DrawUICursor( )
 
 			if ( !fHideCursor )
 			{
-				MSYS_ChangeRegionCursor( &gViewportRegion , gUICursors[ guiCurUICursor ].usFreeCursorName );	
+				MSYS_ChangeRegionCursor( &gViewportRegion , gUICursors[ guiCurUICursor ].usFreeCursorName );
 
 			}
 			else
 			{
 				// Hide
-				MSYS_ChangeRegionCursor( &gViewportRegion , VIDEO_NO_CURSOR );	
+				MSYS_ChangeRegionCursor( &gViewportRegion , VIDEO_NO_CURSOR );
 			}
 
 		}
@@ -463,7 +463,7 @@ BOOLEAN HideUICursor( )
 		return( TRUE );
 	}
 
-	if ( gUICursors[ guiCurUICursor ].uiFlags & ( UICURSOR_SHOWTILE | UICURSOR_SHOWTILEAPDEPENDENT )  )
+	if ( gUICursors[ guiCurUICursor ].uiFlags & ( UICURSOR_SHOWTILE | UICURSOR_SHOWTILEAPDEPENDENT )	)
 	{
 		RemoveAllTopmostsOfTypeRange( gusCurMousePos, FIRSTPOINTERS, FIRSTPOINTERS );
 		RemoveAllOnRoofsOfTypeRange( gusCurMousePos, FIRSTPOINTERS, FIRSTPOINTERS );
@@ -499,14 +499,14 @@ BOOLEAN HideUICursor( )
 		// Nothing special here...
 	}
 
-	return( TRUE ); 
+	return( TRUE );
 }
 
 
 void DrawSnappingCursor( )
 {
 	LEVELNODE					*pNewUIElem;
-	SOLDIERTYPE								 *pSoldier;
+	SOLDIERTYPE								*pSoldier;
 	static BOOLEAN		fShowAP = TRUE;
 
 	if ( gusSelectedSoldier != NOBODY )
@@ -523,7 +523,7 @@ void DrawSnappingCursor( )
 
 		case NORMAL_SNAPUICURSOR:
 
-			AddTopmostToHead( gusCurMousePos, FIRSTPOINTERS1  );
+			AddTopmostToHead( gusCurMousePos, FIRSTPOINTERS1	);
 			gpWorldLevelData[gusCurMousePos].pTopmostHead->ubShadeLevel=DEFAULT_SHADE_LEVEL;
 			gpWorldLevelData[gusCurMousePos].pTopmostHead->ubNaturalShadeLevel=DEFAULT_SHADE_LEVEL;
 			break;
@@ -623,7 +623,7 @@ void DrawSnappingCursor( )
 			}
 			else
 			{
-				AddTopmostToHead( gusCurMousePos, BADMARKER1  );
+				AddTopmostToHead( gusCurMousePos, BADMARKER1	);
 				gpWorldLevelData[gusCurMousePos].pTopmostHead->ubShadeLevel=DEFAULT_SHADE_LEVEL;
 				gpWorldLevelData[gusCurMousePos].pTopmostHead->ubNaturalShadeLevel=DEFAULT_SHADE_LEVEL;
 
@@ -647,7 +647,7 @@ void DrawSnappingCursor( )
 			if ( COUNTERDONE( CURSORFLASH ) )
 			{
 				RESETCOUNTER( CURSORFLASH );
-				
+
 				fShowAP = !fShowAP;
 			}
 		}

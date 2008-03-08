@@ -1,7 +1,7 @@
 // WANNE: EDITOR: todo
 
 //FUNCTIONALITY:
-//This popup menu functions IDENTICALLY to Windows95's methodology.  You can use the arrow keys, or the 
+//This popup menu functions IDENTICALLY to Windows95's methodology.  You can use the arrow keys, or the
 //mouse in two methods.  The first method is where you release the mouse button before
 //moving the cursor inside the popup menu, which makes it persistant (it won't go away until you click again),
 //or non-persistant, where you release the button inside the menu after your initial click (non-persistant).
@@ -76,14 +76,14 @@ user to make a selection or cancel before doing anything else.
 There are two modes of operation as soon as the user presses the mouse
 on a popup menu activation button.
 	1)  The user releases the mouse before moving the cursor onto
-			the popup region.  The popup menu will end as soon as the 
+			the popup region.  The popup menu will end as soon as the
 			user presses the mouse button.  If the cursor is out of the
 			popup region, then it returns 0.
 	2)  The user holds the mouse while moving the cursor onto the
 			popup region.  The popup menu will end as soon as the user
 			releases the mouse button.  If the cursor is out of the popup
 			region, then it returns 0.
-		
+
 
 Returns 0 if nothing in menu was selected, else
 returns the menu entry number starting from 1.
@@ -182,7 +182,7 @@ void InitPopupMenu( INT32 iButtonID, UINT8 ubPopupMenuID, UINT8 ubDirection )
 		gPopup.ubColumns++;
 	}
 	//now we have the number of columns as well as the max number of entries per column, and
-	//the total menu height.  
+	//the total menu height.
 
 	//We now calculate the total width of the menu as well as the max width of each column.
 	ubCounter = 0;
@@ -202,7 +202,7 @@ void InitPopupMenu( INT32 iButtonID, UINT8 ubPopupMenuID, UINT8 ubDirection )
 		}
 		usMenuWidth += gPopup.ubColumnWidth[ ubColumn ];
 	}
-	
+
 	//Calculate popup menu boundaries based on direction from argument point.
 	switch( ubDirection )
 	{
@@ -214,8 +214,8 @@ void InitPopupMenu( INT32 iButtonID, UINT8 ubPopupMenuID, UINT8 ubDirection )
 			break;
 		case DIR_UPLEFT:
 			gPopup.usLeft = usX - usMenuWidth;
-			gPopup.usTop = usY - usMenuHeight - 1; 
-			gPopup.usRight = usX; 
+			gPopup.usTop = usY - usMenuHeight - 1;
+			gPopup.usRight = usX;
 			gPopup.usBottom = usY - 1;
 			break;
 		case DIR_DOWNRIGHT:
@@ -226,13 +226,13 @@ void InitPopupMenu( INT32 iButtonID, UINT8 ubPopupMenuID, UINT8 ubDirection )
 			break;
 		case DIR_DOWNLEFT:
 			gPopup.usLeft = usX - usMenuWidth;
-			gPopup.usTop = usY + 1; 
-			gPopup.usRight = usX; 
+			gPopup.usTop = usY + 1;
+			gPopup.usRight = usX;
 			gPopup.usBottom = usY + usMenuHeight + 1;
 			break;
 	}
 	MSYS_DefineRegion( &popupRegion, 0, 0, 640, 480, MSYS_PRIORITY_HIGHEST,
-						 CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK ); 
+						 CURSOR_NORMAL, MSYS_NO_CALLBACK, MSYS_NO_CALLBACK );
 
 	RenderPopupMenu();
 }
@@ -248,13 +248,13 @@ void RenderPopupMenu()
 	UINT16 usStart;
 
 	//Draw the menu
-	ColorFillVideoSurfaceArea(FRAME_BUFFER, 
-		gPopup.usLeft, gPopup.usTop, gPopup.usRight, gPopup.usBottom, 
+	ColorFillVideoSurfaceArea(FRAME_BUFFER,
+		gPopup.usLeft, gPopup.usTop, gPopup.usRight, gPopup.usBottom,
 		Get16BPPColor(FROMRGB(128, 128, 128) ) );
-	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );			
+	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, 640, 480 );
 	usLineColor = Get16BPPColor( FROMRGB( 64, 64, 64 ) );
-	RectangleDraw( TRUE, gPopup.usLeft, gPopup.usTop, gPopup.usRight, gPopup.usBottom, 
+	RectangleDraw( TRUE, gPopup.usLeft, gPopup.usTop, gPopup.usRight, gPopup.usBottom,
 		usLineColor, pDestBuf );
 	if( gPopup.ubColumns > 1 )
 	{ //draw a vertical line between each column
@@ -271,7 +271,7 @@ void RenderPopupMenu()
 	SetFont( gPopup.usFont);
 	SetFontBackground( FONT_MCOLOR_BLACK );
 	SetFontForeground( FONT_MCOLOR_WHITE );
-	
+
 	usX = gPopup.usLeft + 1;
 	ubCounter = 0;
 	usStart = gPopup.usLeft;
@@ -312,7 +312,7 @@ UINT8 GetPopupIndexFromMousePosition()
 	UINT8 ubNumEntriesDown;
 	UINT16 usRelX;
 	UINT8 ubCount;
-	if( gusMouseXPos >= gPopup.usLeft 
+	if( gusMouseXPos >= gPopup.usLeft
 		&& gusMouseXPos <= gPopup.usRight
 		&& gusMouseYPos > gPopup.usTop						//one pixel gap on top ignored
 		&& gusMouseYPos < gPopup.usBottom - 2 )		//two pixel gap on bottom ignored
@@ -346,7 +346,7 @@ void PopupMenuHandle()
 		//Attempt to determine if the menu will be persistant or not.
 		//Determination is made when the mouse's left button is released or if
 		//the mouse cursor enters the menu region.
-		if( gusMouseXPos >= gPopup.usLeft 
+		if( gusMouseXPos >= gPopup.usLeft
 			&& gusMouseXPos <= gPopup.usRight
 			&& gusMouseYPos > gPopup.usTop						//one pixel gap on top ignored
 			&& gusMouseYPos < gPopup.usBottom - 1 )		//two pixel gap on bottom ignored
@@ -382,15 +382,15 @@ void PopupMenuHandle()
 	//Check terminating conditions for persistant states.
 	if( gfLeftButtonState && gPopup.ubActiveType == POPUP_ACTIVETYPE_PERSISTANT )
 		fWaitingForLButtonRelease = TRUE;
-	if( gfLeftButtonState && gPopup.ubActiveType == POPUP_ACTIVETYPE_PERSISTANT 
+	if( gfLeftButtonState && gPopup.ubActiveType == POPUP_ACTIVETYPE_PERSISTANT
 		|| !gfLeftButtonState && gPopup.ubActiveType == POPUP_ACTIVETYPE_NONPERSISTANT )
 	{
-		//Selection conditions via mouse have been met whether the mouse is in the 
+		//Selection conditions via mouse have been met whether the mouse is in the
 		//menu region or not.
 		gPopup.ubSelectedIndex = GetPopupIndexFromMousePosition();
 		if( gPopup.ubSelectedIndex )
 		{
-			ProcessPopupMenuSelection();	
+			ProcessPopupMenuSelection();
 		}
 		gPopup.fActive = FALSE;
 		MSYS_RemoveRegion( &popupRegion );
@@ -497,6 +497,7 @@ BOOLEAN ProcessPopupMenuIfActive( )
 
 
 
- 
+
+
 
 

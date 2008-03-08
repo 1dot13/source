@@ -3225,7 +3225,7 @@ enum TileTypeDefines
 // Quick defines for finding last type entry in tile types
 #define LASTTEXTURE				(DEEPWATERTEXTURE - 1)
 #define LASTBANKS					(FIRSTCLIFFSHADOW - 1)
-#define LASTCLIFFHANG     (FIRSTCLIFF-1) 
+#define LASTCLIFFHANG	 (FIRSTCLIFF-1) 
 #define LASTCLIFFSHADOW		(FIRSTOSTRUCT - 1)
 #define LASTOSTRUCT				(THIRDFULLSTRUCT - 1)
 #define LASTSHADOW				(FIRSTWALL - 1)
@@ -3245,7 +3245,7 @@ enum TileTypeDefines
 //#define LASTDEBRIS				(FOOTPRINTS - 1)
 #define LASTFOOTPRINTS		(FIRSTPOINTERS - 1)	
 #define LASTPOINTERS			(SELRING - 1)
-#define LASTUIELEM				(WIREFRAMES  - 1)		// Change this entry if adding new types to the end
+#define LASTUIELEM				(WIREFRAMES	- 1)		// Change this entry if adding new types to the end
 #define LASTTIELSETELEM		(GUNS - 1)
 
 //===========================================================================
@@ -3253,10 +3253,10 @@ enum TileTypeDefines
 // DEFINES FOR SPECIFIC SPECIAL TILE SLOTS
 #define			WALL_AFRAME_START				31
 #define			WALL_AFRAME_END					34
-#define     WALL_AFRAME1						31
-#define     WALL_AFRAME2						32
-#define     WALL_AFRAME3						33
-#define     WALL_AFRAME4						34
+#define	 WALL_AFRAME1						31
+#define	 WALL_AFRAME2						32
+#define	 WALL_AFRAME3						33
+#define	 WALL_AFRAME4						34
 
 
 extern INT16 gOpenDoorList[20];

@@ -82,7 +82,7 @@ typedef struct
 			HVOBJECT	hVObject;
 			UINT16		usStart;
 			UINT16		usEnd;
-			UINT32    uiObjIndx;
+			UINT32	uiObjIndx;
 		};
 		struct
 		{
@@ -141,11 +141,11 @@ extern Selections		SelSingleDoor[ MAX_SELECTIONS ];
 extern Selections		SelSingleWindow[ MAX_SELECTIONS ];
 extern Selections		SelSingleRoof[ MAX_SELECTIONS ];
 extern Selections		SelSingleNewRoof[ MAX_SELECTIONS ];
-extern Selections   SelSingleBrokenWall[ MAX_SELECTIONS ];
+extern Selections	SelSingleBrokenWall[ MAX_SELECTIONS ];
 extern Selections		SelSingleDecor[ MAX_SELECTIONS ];
 extern Selections		SelSingleDecal[ MAX_SELECTIONS ];
 extern Selections		SelSingleFloor[ MAX_SELECTIONS ];
-extern Selections   SelSingleToilet[ MAX_SELECTIONS ];
+extern Selections	SelSingleToilet[ MAX_SELECTIONS ];
 
 extern Selections		SelRoom[ MAX_SELECTIONS ];
 

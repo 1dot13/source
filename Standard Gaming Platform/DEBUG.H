@@ -55,21 +55,21 @@ extern	STR8		String(const STR8 String, ...);
 // Debug Mode
 //*******************************************************************************************
 
-//Modified the Assertion code.  As of the writing of this code, there are no other functions that
-//make use of _FailMessage.  With that assumption made, we can then make two functions, the first Assert, taking
-//one argument, and passing a NULL string.  The second one, AssertMsg(), accepts a string as the second parameter.
-//This string that has vanished for Assert is now built inside of fail message.  This is the case for both Asserts, but the second one
-//also is added.  Ex:
+//Modified the Assertion code.	As of the writing of this code, there are no other functions that
+//make use of _FailMessage.	With that assumption made, we can then make two functions, the first Assert, taking
+//one argument, and passing a NULL string.	The second one, AssertMsg(), accepts a string as the second parameter.
+//This string that has vanished for Assert is now built inside of fail message.	This is the case for both Asserts, but the second one
+//also is added.	Ex:
 //Assert( pointer );
-//Assert( pointer, "This pointer is null and you tried to access it in function A ");  
-//It'll make debugging a little simpler.  In anal cases, you could build the string first, then assert 
+//Assert( pointer, "This pointer is null and you tried to access it in function A ");	
+//It'll make debugging a little simpler.	In anal cases, you could build the string first, then assert 
 //with it.
 extern void _FailMessage(STR8 pString, UINT32 uiLineNum, STR8 pSourceFile );
 
 #define Assert(a)										(a) ? _Null() : _FailMessage( NULL, __LINE__, __FILE__ )
-#define AssertMsg(a,b)							(a) ? _Null() : _FailMessage(    b, __LINE__, __FILE__ )
+#define AssertMsg(a,b)							(a) ? _Null() : _FailMessage(	b, __LINE__, __FILE__ )
 
-extern CHAR8			gubAssertString[128];
+extern CHAR8			gubAssertString[512];//for long filenames
 
 
 #else 
@@ -83,7 +83,7 @@ extern CHAR8			gubAssertString[128];
 
 // Kaiden: Added this for Map Editor
 #ifdef JA2BETAVERSION
-	extern CHAR8			gubAssertString[128];
+	extern CHAR8			gubAssertString[512];//for long filenames
 #endif
 	
 // Moved these out of the defines - debug mgr always initialized
@@ -120,7 +120,7 @@ extern BOOLEAN		gfDebugTopics[MAX_TOPICS_ALLOTED];
 // Enable the debug topic we want
 #if defined( JA2 ) || defined( UTIL )
 #define RegisterJA2DebugTopic(a, b)		DbgTopicRegistration( TOPIC_REGISTER, &(a), (b) )
-#define RegisterDebugTopic(a, b)    	((void *)0)
+#define RegisterDebugTopic(a, b)		((void *)0)
 #define DebugMsg(a, b, c)				DbgMessageReal( (a), TOPIC_MESSAGE, (b), (c) )
 #else
 #define RegisterJA2DebugTopic(a, b)		((void *)0)

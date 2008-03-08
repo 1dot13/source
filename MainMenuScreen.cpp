@@ -55,9 +55,9 @@ enum
 #define		MAINMENU_Y				iScreenHeightOffset + 277
 #define		MAINMENU_Y_SPACE		37
 
-	
+
 INT32							iMenuImages[ NUM_MENU_ITEMS ];
-INT32							iMenuButtons[ NUM_MENU_ITEMS ]; 
+INT32							iMenuButtons[ NUM_MENU_ITEMS ];
 
 UINT16						gusMainMenuButtonWidths[ NUM_MENU_ITEMS ];
 
@@ -98,8 +98,8 @@ void RestoreButtonBackGrounds();
 UINT32	MainMenuScreenInit( )
 {
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Version Label: %S", zVersionLabel ));
-	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Version #:     %s", czVersionNumber ));
-	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Tracking #:    %S", zTrackingNumber ));
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Version #:	 %s", czVersionNumber ));
+	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Tracking #:	%S", zTrackingNumber ));
 
 	return( TRUE );
 }
@@ -115,13 +115,13 @@ UINT32	MainMenuScreenHandle( )
 	{
 		SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
 		SetMusicMode( MUSIC_NONE );
-		return MAINMENU_SCREEN;  //The splash screen hasn't been up long enough yet.
+		return MAINMENU_SCREEN;	//The splash screen hasn't been up long enough yet.
 	}
 	if( guiSplashFrameFade )
 	{ //Fade the splash screen.
 		uiTime = GetJA2Clock();
 		if( guiSplashFrameFade > 2 )
-			ShadowVideoSurfaceRectUsingLowPercentTable( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );		
+			ShadowVideoSurfaceRectUsingLowPercentTable( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 		else if( guiSplashFrameFade > 1 )
 			ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0 );
 		else
@@ -139,7 +139,7 @@ UINT32	MainMenuScreenHandle( )
 		EndFrameBufferRender();
 
 		SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
-		
+
 		return MAINMENU_SCREEN;
 	}
 
@@ -175,7 +175,7 @@ UINT32	MainMenuScreenHandle( )
 
 	EndFrameBufferRender( );
 
-	
+
 //	if ( gfDoHelpScreen )
 //		HandleHelpScreenInput();
 //	else
@@ -197,7 +197,7 @@ UINT32	MainMenuScreenHandle( )
 }
 
 
-UINT32	MainMenuScreenShutdown(  )
+UINT32	MainMenuScreenShutdown(	)
 {
 	return( FALSE );
 }
@@ -255,7 +255,7 @@ void HandleMainMenuScreen()
 
 BOOLEAN InitMainMenu( )
 {
-  VOBJECT_DESC    VObjectDesc;
+	VOBJECT_DESC	VObjectDesc;
 
 //	gfDoHelpScreen = 0;
 
@@ -326,8 +326,8 @@ BOOLEAN InitMainMenu( )
 
 void ExitMainMenu( )
 {
-//	UINT32										 uiDestPitchBYTES;
-//	UINT8											 *pDestBuf;
+//	UINT32										uiDestPitchBYTES;
+//	UINT8											*pDestBuf;
 
 //	if( !gfDoHelpScreen )
 	{
@@ -336,7 +336,7 @@ void ExitMainMenu( )
 
 
 	CreateDestroyMainMenuButtons( FALSE );
-	
+
 	DeleteVideoObjectFromIndex( guiMainMenuBackGroundImage );
 	DeleteVideoObjectFromIndex( guiJa2LogoImage );
 
@@ -405,12 +405,12 @@ void MenuButtonMoveCallback(GUI_BUTTON *btn,INT32 reason)
 
 void HandleMainMenuInput()
 {
-	InputAtom  InputEvent;
+	InputAtom	InputEvent;
 
-	// Check for esc 
+	// Check for esc
 	while (DequeueEvent(&InputEvent) == TRUE)
-  {
-    if( InputEvent.usEvent == KEY_UP )
+	{
+	if( InputEvent.usEvent == KEY_UP )
 		{
 			switch( InputEvent.usParam )
 			{
@@ -445,11 +445,11 @@ void HandleMainMenuInput()
 
 				case 'o':
 					gbHandledMainMenu = PREFERENCES;
-					break;						
+					break;
 
 				case 's':
 					gbHandledMainMenu = CREDITS;
-					break;						
+					break;
 			}
 		}
 	}
@@ -474,8 +474,8 @@ void HandleHelpScreenInput()
 
 void ClearMainMenu()
 {
-	UINT32										 uiDestPitchBYTES;
-	UINT8											 *pDestBuf;
+	UINT32										uiDestPitchBYTES;
+	UINT8											*pDestBuf;
 
 	// CLEAR THE FRAME BUFFER
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
@@ -507,7 +507,7 @@ void SelectMainMenuBackGroundRegionCallBack(MOUSE_REGION * pRegion, INT32 iReaso
 			gfDoHelpScreen = FALSE;
 		}
 */
-	} 
+	}
 }
 
 void SetMainMenuExitScreen( UINT32 uiNewScreen )
@@ -532,7 +532,7 @@ void CreateDestroyBackGroundMouseMask( BOOLEAN fCreate )
 
 		// Make a mouse region
 		MSYS_DefineRegion( &(gBackRegion), 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, MSYS_PRIORITY_HIGHEST,
-							 CURSOR_NORMAL, MSYS_NO_CALLBACK, SelectMainMenuBackGroundRegionCallBack ); 
+							CURSOR_NORMAL, MSYS_NO_CALLBACK, SelectMainMenuBackGroundRegionCallBack );
 		// Add region
 		MSYS_AddRegion(&(gBackRegion) );
 
@@ -555,7 +555,6 @@ BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate )
 	INT32 cnt;
 	SGPFILENAME filename;
 	INT16 sSlot;
-	//INT32	iStartLoc=0;
 #ifndef _DEBUG
 	CHAR16	zText[512];
 #endif
@@ -609,7 +608,7 @@ BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate )
 			ButtonList[ iMenuButtons[ cnt ] ]->UserData[0] = cnt;
 
 			#ifndef _DEBUG
-				//load up some info from the 'mainmenu.edt' file.  This makes sure the file is present.  The file is
+				//load up some info from the 'mainmenu.edt' file.	This makes sure the file is present.	The file is
 				// 'marked' with a code that identifies the testers
 				INT32 iStartLoc = MAINMENU_RECORD_SIZE * cnt;
 				if( !LoadEncryptedDataFromFile(MAINMENU_TEXT_FILE, zText, iStartLoc, MAINMENU_RECORD_SIZE ) )
@@ -620,7 +619,7 @@ BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate )
 					if( pSoldier->bActive != TRUE )
 					{
 						//something is very wrong
-						pSoldier->bActive = pSoldier->bLife;
+						pSoldier->bActive = pSoldier->stats.bLife;
 					}
 				}
 			#endif
@@ -650,41 +649,41 @@ BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate )
 
 void RenderMainMenu()
 {
-  HVOBJECT hPixHandle;
+	HVOBJECT hPixHandle;
 
 	//Get and display the background image
 	GetVideoObject(&hPixHandle, guiMainMenuBackGroundImage );
-  BltVideoObject( guiSAVEBUFFER, hPixHandle, 0, 0, 0, VO_BLT_SRCTRANSPARENCY,NULL);
-  BltVideoObject( FRAME_BUFFER, hPixHandle, 0, 0, 0, VO_BLT_SRCTRANSPARENCY,NULL);
+	BltVideoObject( guiSAVEBUFFER, hPixHandle, 0, 0, 0, VO_BLT_SRCTRANSPARENCY,NULL);
+	BltVideoObject( FRAME_BUFFER, hPixHandle, 0, 0, 0, VO_BLT_SRCTRANSPARENCY,NULL);
 
 	GetVideoObject(&hPixHandle, guiJa2LogoImage );
-  BltVideoObject( FRAME_BUFFER, hPixHandle, 0, iScreenWidthOffset + 188, iScreenHeightOffset + 10, VO_BLT_SRCTRANSPARENCY,NULL);
-  BltVideoObject( guiSAVEBUFFER, hPixHandle, 0, iScreenWidthOffset + 188, iScreenHeightOffset + 10, VO_BLT_SRCTRANSPARENCY,NULL);
+	BltVideoObject( FRAME_BUFFER, hPixHandle, 0, iScreenWidthOffset + 188, iScreenHeightOffset + 10, VO_BLT_SRCTRANSPARENCY,NULL);
+	BltVideoObject( guiSAVEBUFFER, hPixHandle, 0, iScreenWidthOffset + 188, iScreenHeightOffset + 10, VO_BLT_SRCTRANSPARENCY,NULL);
 
 
 #ifdef TESTFOREIGNFONTS
-	DrawTextToScreen( L"LARGEFONT1: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 105, 640, LARGEFONT1, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"SMALLFONT1: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 125, 640, SMALLFONT1, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"TINYFONT1: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 145, 640, TINYFONT1, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"FONT12POINT1: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 165, 640, FONT12POINT1, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"COMPFONT: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 185, 640, COMPFONT, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"SMALLCOMPFONT: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 205, 640, SMALLCOMPFONT, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"FONT10ROMAN: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 225, 640, FONT10ROMAN, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"FONT12ROMAN: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 245, 640, FONT12ROMAN, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"FONT14SANSERIF: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 255, 640, FONT14SANSERIF, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"MILITARYFONT: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 265, 640, MILITARYFONT1, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"FONT10ARIAL: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 285, 640, FONT10ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"FONT14ARIAL: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 305, 640, FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"FONT12ARIAL: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 325, 640, FONT12ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"FONT10ARIALBOLD: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 345, 640, FONT10ARIALBOLD, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"BLOCKFONT: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 365, 640, BLOCKFONT, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"BLOCKFONT2: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 385, 640, BLOCKFONT2, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"FONT12ARIALFIXEDWIDTH: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 405, 640, FONT12ARIALFIXEDWIDTH, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"FONT16ARIAL: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 425, 640, FONT16ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"BLOCKFONTNARROW: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 445, 640, BLOCKFONTNARROW, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
-	DrawTextToScreen( L"FONT14HUMANIST: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 465, 640, FONT14HUMANIST, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
+	DrawTextToScreen( L"LARGEFONT1: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 105, 640, LARGEFONT1, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"SMALLFONT1: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 125, 640, SMALLFONT1, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"TINYFONT1: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 145, 640, TINYFONT1, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"FONT12POINT1: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 165, 640, FONT12POINT1, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"COMPFONT: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 185, 640, COMPFONT, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"SMALLCOMPFONT: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 205, 640, SMALLCOMPFONT, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"FONT10ROMAN: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 225, 640, FONT10ROMAN, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"FONT12ROMAN: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 245, 640, FONT12ROMAN, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"FONT14SANSERIF: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 255, 640, FONT14SANSERIF, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"MILITARYFONT: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 265, 640, MILITARYFONT1, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"FONT10ARIAL: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 285, 640, FONT10ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"FONT14ARIAL: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 305, 640, FONT14ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"FONT12ARIAL: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 325, 640, FONT12ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"FONT10ARIALBOLD: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 345, 640, FONT10ARIALBOLD, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"BLOCKFONT: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 365, 640, BLOCKFONT, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"BLOCKFONT2: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 385, 640, BLOCKFONT2, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"FONT12ARIALFIXEDWIDTH: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 405, 640, FONT12ARIALFIXEDWIDTH, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"FONT16ARIAL: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 425, 640, FONT16ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"BLOCKFONTNARROW: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 445, 640, BLOCKFONTNARROW, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+	DrawTextToScreen( L"FONT14HUMANIST: ДАБВЗЛИЙКПЦТУФЬЩЪЫдабвзлийкпцтуфьщъыМОмо"/*gzCopyrightText[ 0 ]*/, 0, 465, 640, FONT14HUMANIST, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 #else
-	DrawTextToScreen( gzCopyrightText[ 0 ], 0, SCREEN_HEIGHT - 20, SCREEN_WIDTH, FONT10ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );	
+	DrawTextToScreen( gzCopyrightText[ 0 ], 0, SCREEN_HEIGHT - 20, SCREEN_WIDTH, FONT10ARIAL, FONT_MCOLOR_WHITE, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 #endif
 
 	InvalidateRegion( 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
@@ -703,5 +702,6 @@ void RestoreButtonBackGrounds()
 	}
 #endif
 }
+
 
 

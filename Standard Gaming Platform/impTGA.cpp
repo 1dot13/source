@@ -105,7 +105,7 @@ BOOLEAN LoadTGAFileToImage( HIMAGE hImage, UINT16 fContents )
 		break;
 	}
 
-  // Set remaining values
+	// Set remaining values
 
 end:
 	FileClose( hFile );
@@ -122,7 +122,7 @@ end:
 // Return Value :
 // Modification history :
 //
-//		20nov96:HJH		-> creation
+//		20nov96:HJH		->creation
 //
 //**************************************************************************
 
@@ -141,7 +141,7 @@ BOOLEAN ReadUncompColMapImage( HIMAGE hImage, HWFILE hFile, UINT8 uiImgID, UINT8
 // Return Value :
 // Modification history :
 //
-//		20nov96:HJH		-> creation
+//		20nov96:HJH		->creation
 //
 //**************************************************************************
 
@@ -161,7 +161,7 @@ BOOLEAN ReadUncompRGBImage( HIMAGE hImage, HWFILE hFile, UINT8 uiImgID, UINT8 ui
 	UINT8		uiImagePixelSize;
 	UINT8		uiImageDescriptor;
 	UINT32	iNumValues;
-	UINT16  cnt;
+	UINT16	cnt;
 
 	UINT32	i;
 	UINT8		r;
@@ -270,7 +270,7 @@ BOOLEAN ReadUncompRGBImage( HIMAGE hImage, HWFILE hFile, UINT8 uiImgID, UINT8 ui
 					if ( !FileRead( hFile, &r, sizeof(UINT8), &uiBytesRead ) )
 						goto freeEnd;
 
-					pBMPtr[ i*3   ] = r;
+					pBMPtr[ i*3	] = r;
 					pBMPtr[ i*3+1 ] = g;
 					pBMPtr[ i*3+2 ] = b;
 				}
@@ -296,7 +296,7 @@ BOOLEAN ReadUncompRGBImage( HIMAGE hImage, HWFILE hFile, UINT8 uiImgID, UINT8 ui
 				if ( !FileRead( hFile, &a, sizeof(UINT8), &uiBytesRead ) )
 					goto freeEnd;
 
-				pBMData[ i*3   ] = r;
+				pBMData[ i*3	] = r;
 				pBMData[ i*3+1 ] = g;
 				pBMData[ i*3+2 ] = b;
 			}
@@ -324,7 +324,7 @@ freeEnd:
 // Return Value :
 // Modification history :
 //
-//		20nov96:HJH		-> creation
+//		20nov96:HJH		->creation
 //
 //**************************************************************************
 
@@ -343,7 +343,7 @@ BOOLEAN ReadRLEColMapImage( HIMAGE hImage, HWFILE hFile, UINT8 uiImgID, UINT8 ui
 // Return Value :
 // Modification history :
 //
-//		20nov96:HJH		-> creation
+//		20nov96:HJH		->creation
 //
 //**************************************************************************
 
@@ -385,13 +385,13 @@ BOOLEAN	ConvertTGAToSystemBPPFormat( HIMAGE hImage )
 	ubScaleR			= 0;
 	ubScaleG			= 0;
 	ubScaleB			= 0;
-	ubRNewShift   = 10;
-	ubGNewShift   = 5;
-	ubBNewShift   = 0;
+	ubRNewShift	= 10;
+	ubGNewShift	= 5;
+	ubBNewShift	= 0;
 
 	// Determine values
-  switch( uiBBitMask )
-  {
+	switch( uiBBitMask )
+	{
 		case 0x3f: // 0000000000111111 pixel mask for blue
 
 			// 5-5-6
@@ -400,30 +400,30 @@ BOOLEAN	ConvertTGAToSystemBPPFormat( HIMAGE hImage )
 			ubScaleB		= 1;
 			break;
 
-    case 0x1f: // 0000000000011111 pixel mask for blue
+	case 0x1f: // 0000000000011111 pixel mask for blue
 			switch( uiGBitMask )
-      {
+		{
 				case 0x7e0: // 0000011111100000 pixel mask for green
 
-	        // 5-6-5
+		 // 5-6-5
 					ubRNewShift = 11;
-					ubScaleG    = 1;
+					ubScaleG	= 1;
 					break;
 
-        case 0x3e0: // 0000001111100000 pixel mask for green
+		case 0x3e0: // 0000001111100000 pixel mask for green
 
 					switch( uiRBitMask )
-          {
+			{
 						case 0xfc00: // 1111110000000000 pixel mask for red
 
 							// 6-5-5
 							ubScaleR	= 1;
 							break;
-          }
-          break;
-      }
-      break;
-  }
+			}
+			break;
+		}
+		break;
+	}
 
 	pData = hImage->pui16BPPPalette;
 	usX = 0;
@@ -448,7 +448,7 @@ BOOLEAN	ConvertTGAToSystemBPPFormat( HIMAGE hImage )
 			usG = usG << ubScaleG;
 			usB = usB << ubScaleB;
 
-			hImage->p16BPPData[ usX * hImage->usWidth + usY ] = ((UINT16) ( ( usR << ubRNewShift | usG << ubGNewShift ) | usB  ) );
+			hImage->p16BPPData[ usX * hImage->usWidth + usY ] = ((UINT16) ( ( usR << ubRNewShift | usG << ubGNewShift ) | usB	) );
 
 			usY++;
 

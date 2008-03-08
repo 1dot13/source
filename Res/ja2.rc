@@ -29,22 +29,22 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 1 TEXTINCLUDE 
 BEGIN
-    "resource.h\0"
+	"resource.h\0"
 END
 
 2 TEXTINCLUDE 
 BEGIN
-    "#include ""afxres.h""\r\n"
-    "\0"
+	"#include ""afxres.h""\r\n"
+	"\0"
 END
 
 3 TEXTINCLUDE 
 BEGIN
-    "\r\n"
-    "\0"
+	"\r\n"
+	"\0"
 END
 
-#endif    // APSTUDIO_INVOKED
+#endif	// APSTUDIO_INVOKED
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -65,24 +65,24 @@ VS_VERSION_INFO VERSIONINFO
  FILETYPE 0x7L
  FILESUBTYPE 0x0L
 BEGIN
-    BLOCK "StringFileInfo"
-    BEGIN
-        BLOCK "040904b0"
-        BEGIN
-            VALUE "CompanyName", "Sir-Tech Canada Ltd."
-            VALUE "FileDescription", "Jagged Alliance 2 Gold"
-            VALUE "FileVersion", "1, 0, 0, 6"
-            VALUE "InternalName", "Jagged Alliance 2"
-            VALUE "LegalCopyright", "Copyright © 1998"
-            VALUE "OriginalFilename", "Ja2.exe"
-            VALUE "ProductName", "Jagged Alliance 2 Gold"
-            VALUE "ProductVersion", "1, 0, 0, 6"
-        END
-    END
-    BLOCK "VarFileInfo"
-    BEGIN
-        VALUE "Translation", 0x409, 1200
-    END
+	BLOCK "StringFileInfo"
+	BEGIN
+		BLOCK "040904b0"
+		BEGIN
+			VALUE "CompanyName", "Sir-Tech Canada Ltd."
+			VALUE "FileDescription", "Jagged Alliance 2 Gold"
+			VALUE "FileVersion", "1, 0, 0, 6"
+			VALUE "InternalName", "Jagged Alliance 2"
+			VALUE "LegalCopyright", "Copyright © 1998"
+			VALUE "OriginalFilename", "Ja2.exe"
+			VALUE "ProductName", "Jagged Alliance 2 Gold"
+			VALUE "ProductVersion", "1, 0, 0, 6"
+		END
+	END
+	BLOCK "VarFileInfo"
+	BEGIN
+		VALUE "Translation", 0x409, 1200
+	END
 END
 
 
@@ -93,8 +93,8 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON1               ICON                    "jagged3.ico"
-#endif    // English (U.S.) resources
+IDI_ICON1				ICON					"jagged3.ico"
+#endif	// English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -107,5 +107,5 @@ IDI_ICON1               ICON                    "jagged3.ico"
 
 
 /////////////////////////////////////////////////////////////////////////////
-#endif    // not APSTUDIO_INVOKED
+#endif	// not APSTUDIO_INVOKED
 

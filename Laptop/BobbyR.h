@@ -1,8 +1,13 @@
 #ifndef __BOBBYR_H
 #define __BOBBYR_H
 
-#include "Item Types.h"
+//#include "Item Types.h"
 #include "Store Inventory.h"
+
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
+
 
 
 void GameInitBobbyR();
@@ -34,12 +39,12 @@ extern	UINT16	gusFirstMiscIndex;
 extern	UINT16	gusLastMiscIndex;
 extern	UINT8		gubNumMiscPages;
 
-extern	UINT16  gusFirstArmourIndex;
-extern	UINT16  gusLastArmourIndex;
+extern	UINT16	gusFirstArmourIndex;
+extern	UINT16	gusLastArmourIndex;
 extern	UINT8		gubNumArmourPages;
 
-extern	UINT16  gusFirstUsedIndex;
-extern	UINT16  gusLastUsedIndex;
+extern	UINT16	gusFirstUsedIndex;
+extern	UINT16	gusLastUsedIndex;
 extern	UINT8		gubNumUsedPages;
 */
 

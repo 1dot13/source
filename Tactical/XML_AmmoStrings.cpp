@@ -3,42 +3,8 @@
 #else
 	#include "sgp.h"
 	#include "overhead types.h"
-	#include "Sound Control.h"
-	#include "Soldier Control.h"
 	#include "overhead.h"
-	#include "Event Pump.h"
-	#include "weapons.h"
-	#include "Animation Control.h"
-	#include "sys globals.h"
-	#include "Handle UI.h"
-	#include "Isometric Utils.h"
-	#include "worldman.h"
-	#include "math.h"
-	#include "points.h"
-	#include "ai.h"
-	#include "los.h"
-	#include "renderworld.h"
-	#include "opplist.h"
-	#include "interface.h"
-	#include "message.h"
-	#include "campaign.h"
-	#include "items.h"
 	#include "text.h"
-	#include "Soldier Profile.h"
-	#include "tile animation.h"
-	#include "Dialogue Control.h"
-	#include "SkillCheck.h"
-	#include "explosion control.h"
-	#include "Quests.h"
-	#include "Physics.h"
-	#include "Random.h"
-	#include "Vehicles.h"
-	#include "bullets.h"
-	#include "morale.h"
-	#include "meanwhile.h"
-	#include "SkillCheck.h"
-	#include "gamesettings.h"
-	#include "SaveLoadMap.h"
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
@@ -51,13 +17,13 @@ struct
 	CHAR8		szCharData[MAX_CHAR_DATA_LENGTH+1];
 
 	UINT32			maxArraySize;
-	UINT32			curIndex;	
+	UINT32			curIndex;
 	UINT32			currentDepth;
 	UINT32			maxReadDepth;
 }
 typedef ammoParseData;
 
-static void XMLCALL 
+static void XMLCALL
 ammoStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
 	ammoParseData * pData = (ammoParseData *)userData;
@@ -98,9 +64,9 @@ ammoCharacterDataHandle(void *userData, const XML_Char *str, int len)
 {
 	ammoParseData * pData = (ammoParseData *)userData;
 
-	if( (pData->currentDepth <= pData->maxReadDepth) && 
+	if( (pData->currentDepth <= pData->maxReadDepth) &&
 		(strlen(pData->szCharData) < MAX_CHAR_DATA_LENGTH)
-	  ){
+	){
 		strncat(pData->szCharData,str,__min((unsigned int)len,MAX_CHAR_DATA_LENGTH-strlen(pData->szCharData)));
 	}
 }
@@ -108,8 +74,10 @@ ammoCharacterDataHandle(void *userData, const XML_Char *str, int len)
 
 static void XMLCALL
 ammoEndElementHandle(void *userData, const XML_Char *name)
-{	
+{
+#if 0
 	char temp;
+#endif
 	ammoParseData * pData = (ammoParseData *)userData;
 
 	if(pData->currentDepth <= pData->maxReadDepth) //we're at the end of an element that we've been reading
@@ -177,7 +145,7 @@ BOOLEAN ReadInAmmoStats(STR fileName)
 	UINT32		uiFSize;
 	CHAR8 *		lpcBuffer;
 	XML_Parser	parser = XML_ParserCreate(NULL);
-	
+
 	ammoParseData pData;
 
 	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Loading AmmoStrings.xml" );
@@ -186,7 +154,7 @@ BOOLEAN ReadInAmmoStats(STR fileName)
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);
 
@@ -201,19 +169,19 @@ BOOLEAN ReadInAmmoStats(STR fileName)
 
 	FileClose( hFile );
 
-	
+
 	XML_SetElementHandler(parser, ammoStartElementHandle, ammoEndElementHandle);
 	XML_SetCharacterDataHandler(parser, ammoCharacterDataHandle);
 
-	
+
 	memset(&pData,0,sizeof(pData));
-	pData.maxArraySize = MAXITEMS; 
+	pData.maxArraySize = MAXITEMS;
 	pData.curIndex = -1;
-	
+
 	XML_SetUserData(parser, &pData);
 
 
-    if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
+	if(!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
 	{
 		CHAR8 errorBuf[511];
 
@@ -240,7 +208,7 @@ BOOLEAN WriteAmmoStats()
 	hFile = FileOpen( "TABLEDATA\\Ammos out.xml", FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE );
 	if ( !hFile )
 		return( FALSE );
-	
+
 	{
 		UINT32 cnt;
 
@@ -256,7 +224,7 @@ BOOLEAN WriteAmmoStats()
 			{
 				UINT32 uiCharLoc = wcscspn(szRemainder,L"&<>\'\"\0");
 				CHAR16 invChar = szRemainder[uiCharLoc];
-				
+
 				if(uiCharLoc)
 				{
 					szRemainder[uiCharLoc] = '\0';
@@ -304,7 +272,7 @@ BOOLEAN WriteAmmoStats()
 			{
 				UINT32 uiCharLoc = wcscspn(szRemainder,L"&<>\'\"\0");
 				CHAR16 invChar = szRemainder[uiCharLoc];
-				
+
 				if(uiCharLoc)
 				{
 					szRemainder[uiCharLoc] = '\0';

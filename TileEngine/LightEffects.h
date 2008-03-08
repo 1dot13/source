@@ -13,11 +13,11 @@ enum
 
 typedef struct
 {
-	INT16		sGridNo;          // gridno at which the tear gas cloud is centered
+	INT16		sGridNo;			// gridno at which the tear gas cloud is centered
 
-	UINT8		ubDuration;		       // the number of turns will remain effective
-	UINT8		bRadius;	          // the current radius
-	UINT8		bAge;				        // the number of turns light has been around
+	UINT8		ubDuration;			// the number of turns will remain effective
+	UINT8		bRadius;			// the current radius
+	UINT8		bAge;					 // the number of turns light has been around
 	BOOLEAN	fAllocated;
 	INT8		bType;
 	INT32		iLight;

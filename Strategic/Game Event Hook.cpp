@@ -8,7 +8,7 @@
 	#include "environment.h"
 	#include "Ambient Control.h"
 	#include "Quests.h"
-	#include "Sound Control.h"
+//	#include "Sound Control.h"
 	#include "AimMembers.h"
 	#include "Strategic Event Handler.h"
 	#include "BobbyR.h"
@@ -22,7 +22,7 @@
 	#include "Assignments.h"
 	#include "Strategic Mines.h"
 	#include "Strategic Town Loyalty.h"
-	#include "Message.h" 
+	#include "Message.h"
 	#include "Map Screen Interface.h"
 	#include "Map Screen Helicopter.h"
 	#include "Scheduling.h"
@@ -82,14 +82,14 @@ BOOLEAN DelayEventIfBattleInProgress( STRATEGICEVENT *pEvent )
 BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 {
 
-  BOOLEAN bMercDayOne = FALSE;
+	BOOLEAN bMercDayOne = FALSE;
 	// Kaiden: Opening the INI File
 	CIniReader iniReader("..\\Ja2_Options.ini");
 
 
 	//Kaiden: Getting Value for MERC Available on Day one?
 	// for some reason, this can't be in gamesettings.cpp
-	// or it won't work. 
+	// or it won't work.
 	bMercDayOne = iniReader.ReadBoolean("Options","MERC_DAY_ONE",FALSE);
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"ExecuteStrategicEvent");
@@ -99,7 +99,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Strategic event skipped!" );
 		return TRUE;
 	}
-	
+
 	BOOLEAN fOrigPreventFlag;
 
 	fOrigPreventFlag = gfPreventDeletionOfAnyEvent;
@@ -135,7 +135,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		if( gfMercsNeverQuit )
 		{
 			if( pEvent->ubCallbackID == EVENT_MERC_ABOUT_TO_LEAVE_COMMENT ||
-				  pEvent->ubCallbackID == EVENT_MERC_CONTRACT_OVER )
+				pEvent->ubCallbackID == EVENT_MERC_CONTRACT_OVER )
 			{
 				gfPreventDeletionOfAnyEvent = fOrigPreventFlag;
 				return FALSE;
@@ -151,7 +151,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			// Change light to value
 			gubEnvLightValue = (UINT8)pEvent->uiParam;
 			if( !gfBasement && !gfCaves )
-				gfDoLighting		 = TRUE;
+				gfDoLighting		= TRUE;
 			break;
 		case EVENT_CHECKFORQUESTS:
 			CheckForQuests( GetWorldDay() );
@@ -180,7 +180,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		case EVENT_BOBBYRAY_PURCHASE:
 			BobbyRayPurchaseEventCallback( (UINT8) pEvent->uiParam);
 			break;
-		//Gets called once a day ( at BOBBYRAY_UPDATE_TIME).  To simulate the items being bought and sold at bobby rays 
+		//Gets called once a day ( at BOBBYRAY_UPDATE_TIME).	To simulate the items being bought and sold at bobby rays
 		case EVENT_DAILY_UPDATE_BOBBY_RAY_INVENTORY:
 			DailyUpdateOfBobbyRaysNewInventory();
 			DailyUpdateOfBobbyRaysUsedInventory();
@@ -195,7 +195,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		case EVENT_DAILY_UPDATE_OF_MERC_SITE:
 			DailyUpdateOfMercSite( (UINT16)GetWorldDay() );
 			break;
-    case EVENT_DAY3_ADD_EMAIL_FROM_SPECK:
+	case EVENT_DAY3_ADD_EMAIL_FROM_SPECK:
 			if(!bMercDayOne)
 			{
 				AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin( ), -1 );
@@ -205,7 +205,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			AddEmail(IMP_EMAIL_PROFILE_RESULTS, IMP_EMAIL_PROFILE_RESULTS_LENGTH, IMP_PROFILE_RESULTS, GetWorldTotalMin( ), -1 );
 			break;
 		//If a merc gets hired and they dont show up immediately, the merc gets added to the queue and shows up
-		// uiTimeTillMercArrives  minutes later
+		// uiTimeTillMercArrives	minutes later
 		case EVENT_DELAYED_HIRING_OF_MERC:
 			MercArrivesCallback(	(UINT8) pEvent->uiParam );
 			break;
@@ -296,7 +296,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			break;
 		case EVENT_DAILY_EARLY_MORNING_EVENTS:
 			HandleEarlyMorningEvents();
-			break; 
+			break;
 		case EVENT_GROUP_ABOUT_TO_ARRIVE:
 			HandleGroupAboutToArrive();
 			break;
@@ -311,8 +311,8 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			break;
 		case EVENT_RAINSTORM:
 
-      // ATE: Disabled
-      //rain
+		// ATE: Disabled
+		//rain
 			if( pEvent->ubEventType == ENDRANGED_EVENT )
 			{
 				EnvEndRainStorm( );
@@ -453,14 +453,14 @@ void CrippledVersionEndGameCheck()
 
 	if( guiDay >= 8 )
 	{
-		swprintf( zString, L"Game Over.  We hope you have enjoyed playing the limited version of Jagged Alliance 2." );
+		swprintf( zString, L"Game Over.	We hope you have enjoyed playing the limited version of Jagged Alliance 2." );
 	}
 	else
 	{
-		swprintf( zString, L"You have %d game days left in this limited version of Jagged Alliance 2.",  ( 8 - guiDay ) );
+		swprintf( zString, L"You have %d game days left in this limited version of Jagged Alliance 2.",	( 8 - guiDay ) );
 	}
 
-	DoScreenIndependantMessageBox( zString, MSG_BOX_FLAG_OK, CrippledVersionEndGameCheckCallBack );	
+	DoScreenIndependantMessageBox( zString, MSG_BOX_FLAG_OK, CrippledVersionEndGameCheckCallBack );
 }
 
 void CrippledVersionEndGameCheckCallBack( UINT8 bExitValue )
@@ -484,5 +484,6 @@ void CrippledVersionEndGameCheckCallBack( UINT8 bExitValue )
 }
 
 #endif
+
 
 

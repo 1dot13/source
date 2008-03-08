@@ -24,7 +24,7 @@
 #define	NPC_TALK_RADIUS						4
 
 #define TURN_UI_OFF 65000
-#define TURN_UI_ON  65001
+#define TURN_UI_ON	65001
 #define SPECIAL_TURN_UI_OFF 65002
 #define SPECIAL_TURN_UI_ON 65003
 
@@ -54,18 +54,18 @@ typedef struct
 	UINT8		ubFirstDay;					// first day quote can be said
 	UINT8		ubLastDay;					// last day quote can be said
 	UINT8		ubApproachRequired;	// must use this approach to generate quote
-	UINT8		ubOpinionRequired;	// opinion needed for this quote     13 bytes
+	UINT8		ubOpinionRequired;	// opinion needed for this quote	 13 bytes
 
 	// quote to say (if any)
 	UINT8		ubQuoteNum;					// this is the quote to say
-	UINT8		ubNumQuotes;				// total # of quotes to say          15 bytes
+	UINT8		ubNumQuotes;				// total # of quotes to say			15 bytes
 
 	// actions
 	UINT8		ubStartQuest;
 	UINT8		ubEndQuest;
 	UINT8		ubTriggerNPC;
 	UINT8		ubTriggerNPCRec;
-	UINT8		ubFiller;				//                                       20 bytes
+	UINT8		ubFiller;				//										20 bytes
 	UINT16	usSetFactTrue;
 	UINT16	usGiftItem;			// item NPC gives to merc after saying quote
 	UINT16	usGoToGridno;
@@ -203,7 +203,7 @@ BOOLEAN GetInfoForAbandoningEPC( UINT8 ubNPC, UINT16 * pusQuoteNum, UINT16 * pus
 
 BOOLEAN RecordHasDialogue( UINT8 ubNPC, UINT8 ubRecord );
 
-INT8 ConsiderCivilianQuotes( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ,  BOOLEAN fSetAsUsed );
+INT8 ConsiderCivilianQuotes( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ,	BOOLEAN fSetAsUsed );
 
 void ResetOncePerConvoRecordsForNPC( UINT8 ubNPC );
 

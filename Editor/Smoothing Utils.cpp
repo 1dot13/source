@@ -6,7 +6,7 @@
 
 #ifdef JA2EDITOR
 
-#ifndef PRECOMPILEDHEADERS 
+#ifndef PRECOMPILEDHEADERS
 	#include <stdlib.h>
 	#include "worlddef.h"	//for LEVELNODE def
 	#include "worldman.h" //for RemoveXXXX()
@@ -22,7 +22,7 @@
 extern UINT16 PickAWallPiece( UINT16 usWallPieceType );
 
 //This method isn't foolproof, but because erasing large areas of buildings could result in
-//multiple wall types for each building.  When processing the region, it is necessary to 
+//multiple wall types for each building.	When processing the region, it is necessary to
 //calculate the roof type by searching for the nearest roof tile.
 UINT16 SearchForWallType( UINT32 iMapIndex )
 {
@@ -40,7 +40,7 @@ UINT16 SearchForWallType( UINT32 iMapIndex )
 	}
 	while( sRadius < 32 )
 	{
-		//NOTE:  start at the higher y value and go negative because it is possible to have another
+		//NOTE:	start at the higher y value and go negative because it is possible to have another
 		// structure type one tile north, but not one tile south -- so it'll find the correct wall first.
 		for( y = sRadius; y >= -sRadius; y-- ) for( x = -sRadius; x <= sRadius; x++ )
 		{
@@ -73,7 +73,7 @@ UINT16 SearchForWallType( UINT32 iMapIndex )
 }
 
 //This method isn't foolproof, but because erasing large areas of buildings could result in
-//multiple roof types for each building.  When processing the region, it is necessary to 
+//multiple roof types for each building.	When processing the region, it is necessary to
 //calculate the roof type by searching for the nearest roof tile.
 UINT16 SearchForRoofType( UINT32 iMapIndex )
 {
@@ -108,7 +108,7 @@ UINT16 SearchForRoofType( UINT32 iMapIndex )
 	}
 	return 0xffff;
 }
-	
+
 BOOLEAN RoofAtGridNo( UINT32 iMapIndex )
 {
 	LEVELNODE	*pRoof;
@@ -139,7 +139,7 @@ BOOLEAN BuildingAtGridNo( UINT32 iMapIndex )
 
 BOOLEAN ValidDecalPlacement( UINT32 iMapIndex )
 {
-	if( GetVerticalWall( iMapIndex ) || GetHorizontalWall( iMapIndex ) 
+	if( GetVerticalWall( iMapIndex ) || GetHorizontalWall( iMapIndex )
 			|| GetVerticalFence( iMapIndex ) || GetHorizontalFence( iMapIndex ) )
 		return TRUE;
 	return FALSE;
@@ -157,7 +157,7 @@ LEVELNODE* GetVerticalWall( UINT32 iMapIndex )
 		{
 			GetTileType( pStruct->usIndex, &uiTileType );
 			if ( uiTileType >= FIRSTWALL && uiTileType <= LASTWALL ||
-					 uiTileType >= FIRSTDOOR && uiTileType <= LASTDOOR )
+					uiTileType >= FIRSTDOOR && uiTileType <= LASTDOOR )
 			{
 				GetWallOrientation( pStruct->usIndex, &usWallOrientation );
 				if( usWallOrientation == INSIDE_TOP_RIGHT || usWallOrientation == OUTSIDE_TOP_RIGHT )
@@ -183,7 +183,7 @@ LEVELNODE* GetHorizontalWall( UINT32 iMapIndex )
 		{
 			GetTileType( pStruct->usIndex, &uiTileType );
 			if ( uiTileType >= FIRSTWALL && uiTileType <= LASTWALL ||
-					 uiTileType >= FIRSTDOOR && uiTileType <= LASTDOOR )
+					uiTileType >= FIRSTDOOR && uiTileType <= LASTDOOR )
 			{
 				GetWallOrientation( pStruct->usIndex, &usWallOrientation );
 				if( usWallOrientation == INSIDE_TOP_LEFT || usWallOrientation == OUTSIDE_TOP_LEFT )
@@ -398,12 +398,12 @@ void RestoreWalls( UINT32 iMapIndex )
 	{
 		return;
 	}
-	//we are in a special case here.  The user is attempting to restore a wall, though nothing 
-	//is here.  We will hook into the smart wall method by tricking it into using the local wall
+	//we are in a special case here.	The user is attempting to restore a wall, though nothing
+	//is here.	We will hook into the smart wall method by tricking it into using the local wall
 	//type, but only if we have adjacent walls.
 	fDone = FALSE;
 	if( pWall = GetHorizontalWall( iMapIndex - 1 ) )
-	  fDone = TRUE;
+	fDone = TRUE;
 	if( !fDone && (pWall = GetHorizontalWall( iMapIndex + 1 )) )
 		fDone = TRUE;
 	if( !fDone && (pWall = GetVerticalWall( iMapIndex - WORLD_COLS )) )
@@ -412,7 +412,7 @@ void RestoreWalls( UINT32 iMapIndex )
 		fDone = TRUE;
 	if( !fDone )
 		return;
-	//found a wall.  Let's back up the current wall value, and restore it after pasting a smart wall.
+	//found a wall.	Let's back up the current wall value, and restore it after pasting a smart wall.
 	if( pWall )
 	{
 		GetTileType( pWall->usIndex, &uiTileType );
@@ -422,7 +422,7 @@ void RestoreWalls( UINT32 iMapIndex )
 		if( usWallType != 0xffff )
 		{
 			ubSaveWallUIValue = gubWallUIValue; //save the wall UI value.
-			gubWallUIValue = (UINT8)usWallType;	//trick the UI value 
+			gubWallUIValue = (UINT8)usWallType;	//trick the UI value
 			PasteSmartWall( iMapIndex );				//paste smart wall with fake UI value
 			gubWallUIValue = ubSaveWallUIValue;	//restore the real UI value.
 		}
@@ -443,7 +443,7 @@ UINT16 GetWallClass( LEVELNODE *pWall )
 		{
 			if( usWallIndex == gbWallTileLUT[row][col] )
 			{
-				return row;  //row is the wall class
+				return row;	//row is the wall class
 			}
 		}
 	}

@@ -156,17 +156,17 @@ void ScrollWorld( );
 void InitRenderParams( UINT8 ubRestrictionID );
 void RenderWorld( );
 
-/*  This procedure will initialize gsVIEWPORT_xxx variables
- *  they ware declared with static initializer 
- *  any question? joker
+/*	This procedure will initialize gsVIEWPORT_xxx variables
+ *	they ware declared with static initializer 
+ *	any question? joker
  */
 void InitializeViewPort();
 void ResetLayerOptimizing(void);
 void ResetSpecificLayerOptimizing( UINT32 uiRowFlag );
 
 // Routines of RenderWorld
-extern void RenderStaticWorld(  );
-extern void RenderDynamicWorld(  );
+extern void RenderStaticWorld(	);
+extern void RenderDynamicWorld(	);
 void CopyRenderBuffer( );
 
 void SetRenderFlags(UINT32 uiFlags);

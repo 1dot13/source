@@ -48,9 +48,9 @@
 #define BASE_DIR_PRIORITY 5
 // little chance to move if below minimum
 
-//#define MINIMUM_MILITIA_SQUAD_SIZE 10 
+//#define MINIMUM_MILITIA_SQUAD_SIZE 10
 // should be 2* Minimum
-//#define MAXIMUM_MILITIA_SQUAD_SIZE 30 
+//#define MAXIMUM_MILITIA_SQUAD_SIZE 30
  //#define MAXIMUM_MILITIA_SQUAD_SIZE_BATTLE MAXIMUM_MILITIA_SQUAD_SIZE
 
 #define DIR_WITH_UNFULL_SQUAD_RATING_BONUS 100
@@ -63,7 +63,7 @@
 #define DIR_SOUTH 2
 #define DIR_WEST 3
 
-INT32  iRestrictedSectorArraySize;
+INT32	iRestrictedSectorArraySize;
 UINT32 gRestrictMilitia[256];
 
 UINT8 gpAttackDirs[5][4]; // 0. Green Militia 1. Regular Militia 2. Elite Militia 3. Insertion code
@@ -87,16 +87,16 @@ BOOLEAN PlayerMercsInSector_MSE( UINT8 ubSectorX, UINT8 ubSectorY, BOOLEAN fDont
 	while( pGroup )
 	{
 		if( pGroup->fPlayer )// && !pGroup->fBetweenSectors)
-		{ 
+		{
 			if ( ( pGroup->ubSectorX == ubSectorX && pGroup->ubSectorY == ubSectorY && pGroup->ubSectorZ == 0 ) ||
-				 ( !fDontConsiderNextSector && ( pGroup->ubNextX == ubSectorX && pGroup->ubNextY == ubSectorY && pGroup->ubSectorZ == 0 ) ) )
+				( !fDontConsiderNextSector && ( pGroup->ubNextX == ubSectorX && pGroup->ubNextY == ubSectorY && pGroup->ubSectorZ == 0 ) ) )
 			{
 				//we have a group, make sure that it isn't a group containing only dead members.
 				pPlayer = pGroup->pPlayerList;
 				while( pPlayer )
 				{
 					// robots count as mercs here, because they can fight, but vehicles don't
-					if( ( pPlayer->pSoldier->bLife ) && !( pPlayer->pSoldier->uiStatusFlags & SOLDIER_VEHICLE ) )
+					if( ( pPlayer->pSoldier->stats.bLife ) && !( pPlayer->pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 					{
 						ubNumMercs++;
 					}
@@ -121,7 +121,7 @@ UINT8 GetEnemyGroupIdInSector( INT16 sMapX, INT16 sMapY )
 		if( curr->ubSectorX == sMapX && curr->ubSectorY == sMapY && !curr->fPlayer )
 			if( !curr->ubGroupID )
 				return curr->ubGroupID;
-			else 
+			else
 				ubRes = curr->ubGroupID;
 		curr = curr->next;
 	}
@@ -141,7 +141,7 @@ UINT8 CountMilitia(SECTORINFO *pSectorInfo)
 void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY )
 {
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
-	
+
 	StrategicAddMilitiaToSector( sTMapX, sTMapY, GREEN_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] / gGameExternalOptions.guiDivOfOriginalMilitia);
 	StrategicAddMilitiaToSector( sTMapX, sTMapY, REGULAR_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] / gGameExternalOptions.guiDivOfOriginalMilitia);
 	StrategicAddMilitiaToSector( sTMapX, sTMapY, ELITE_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] / gGameExternalOptions.guiDivOfOriginalMilitia);
@@ -149,9 +149,20 @@ void GenerateMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY )
 	pSectorInfo = &( SectorInfo[ SECTOR( sTMapX, sTMapY ) ] );
 
 	while( CountMilitia(pSectorInfo) > gGameExternalOptions.guiMaxMilitiaSquadSize )
-		if(pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA])--pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];else
-			if(pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA])--pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];else
-				if(pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA])--pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
+	{
+		if(pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA])
+		{
+			--pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];
+		}
+		else if(pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA])
+		{
+			--pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];
+		}
+		else if(pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA])
+		{
+			--pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
+		}
+	}
 
 	// Update the militia if the current sector is affected
 	if (gfStrategicMilitiaChangesMade)
@@ -165,7 +176,7 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 {
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 	SECTORINFO *pTSectorInfo = &( SectorInfo[ SECTOR( sTMapX, sTMapY ) ] );
-	
+
 	StrategicAddMilitiaToSector( sTMapX, sTMapY, GREEN_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ GREEN_MILITIA ] );
 	StrategicAddMilitiaToSector( sTMapX, sTMapY, REGULAR_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] );
 	StrategicAddMilitiaToSector( sTMapX, sTMapY, ELITE_MILITIA, pSectorInfo->ubNumberOfCivsAtLevel[ ELITE_MILITIA ] );
@@ -176,12 +187,23 @@ void MoveMilitiaSquad(INT16 sMapX, INT16 sMapY, INT16 sTMapX, INT16 sTMapY, BOOL
 
 	while( !fAlternativeMax && CountMilitia(pTSectorInfo) > gGameExternalOptions.guiMaxMilitiaSquadSize ||
 		fAlternativeMax && CountMilitia(pTSectorInfo) > gGameExternalOptions.guiMaxMilitiaSquadSizeBattle )
+	{
 		if(pTSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA])
-		{--pTSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];++pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];}else
-		if(pTSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA])
-		{--pTSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];++pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];}else
-		if(pTSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA])
-		{--pTSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];++pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];}
+		{
+			--pTSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];
+			++pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];
+		}
+		else if(pTSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA])
+		{
+			--pTSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];
+			++pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];
+		}
+		else if(pTSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA])
+		{
+			--pTSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
+			++pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
+		}
+	}
 
 	if (gfStrategicMilitiaChangesMade)
 	{
@@ -245,7 +267,7 @@ UINT16 CountDirectionEnemyRating( INT16 sMapX, INT16 sMapY, UINT8 uiDir )
 	default:
 		return 0;
 	}
-	
+
 	//for( uiSector = 0 ; uiSector < 256 ; ++uiSector )
 	for( sLMX = 0; sLMX < 16 ; ++sLMX )
 		for( sLMY = 0; sLMY < 16 ; ++sLMY )
@@ -263,14 +285,14 @@ UINT16 CountDirectionEnemyRating( INT16 sMapX, INT16 sMapY, UINT8 uiDir )
 				else ddAngle = atan2( (double)(sLMY - sMapY), (double)(sLMX - sMapX) );
 
 			if( ddAngle < 0 && uiDir == DIR_WEST )ddAngle += pix2;
-	
+
 			// is it in a right direction?
 			if( ddAngle >= ddMinAngle && ddAngle <= ddMaxAngle )
 			{
 				DOUBLE ddDistance = sqrt( pow( (double)(sLMY - sMapY), 2 ) + pow( (double)(sLMX - sMapX), 2 ) );
 
 				ddRes += (DOUBLE)uiSumOfEnemyTroops / pow( ddDistance, 2 );
-	
+
 			}
 		}
 	}
@@ -310,17 +332,17 @@ UINT16 CountDirectionRating( INT16 sMapX, INT16 sMapY, UINT8 uiDir )
 	if( CountAllMilitiaInSector( sDMapX, sDMapY ) &&
 		(UINT32)( CountAllMilitiaInSector( sDMapX, sDMapY ) + CountAllMilitiaInSector( sMapX, sMapY ) ) <= gGameExternalOptions.guiMaxMilitiaSquadSize )
 		iRes += DIR_WITH_UNFULL_SQUAD_RATING_BONUS;
-	
-	if( NumEnemiesInSector( sDMapX, sDMapY  ) )
+
+	if( NumEnemiesInSector( sDMapX, sDMapY	) )
 	{
 	//	if( GetTownIdForSector( sMapX, sMapY ) == BLANK_SECTOR )
 			iDiff = (INT32)( (FLOAT)iRes * ( (FLOAT)CountAllMilitiaInFiveSectors( sDMapX, sDMapY ) / (FLOAT)NumEnemiesInFiveSectors( sDMapX, sDMapY ) ) );
-	//	else 
+	//	else
 	//		iDiff = iRes * ( (FLOAT)CountAllMilitiaInFiveSectors( sMapX, sMapY ) / DIV_OF_ORIGINAL_MILITIA / (FLOAT)NumEnemiesInFiveSectors( sDMapX, sDMapY ) );
 
-		if( iDiff > (INT32)( (FLOAT)DIR_MIN_DIF * (FLOAT)iRes ) ) 
+		if( iDiff > (INT32)( (FLOAT)DIR_MIN_DIF * (FLOAT)iRes ) )
 			iRes = iDiff;
-		else 
+		else
 			iRes = 0;
 	}
 
@@ -344,7 +366,7 @@ BOOLEAN CheckStandardConditionsForDirection( INT16 sSMapX, INT16 sSMapY, INT16 s
 
 	if( !fForBattle && gfMSBattle && NumEnemiesInSector( sMapX, sMapY ) ) return FALSE;
 
-	return (GetTownIdForSector( sMapX, sMapY ) == BLANK_SECTOR || fWithCities) && !IsThisSectorASAMSector(  sMapX, sMapY , 0 ) &&
+	return (GetTownIdForSector( sMapX, sMapY ) == BLANK_SECTOR || fWithCities) && !IsThisSectorASAMSector(	sMapX, sMapY , 0 ) &&
 		(GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR || !fOnlyCitySectors);// &&
 //		( !NumEnemiesInSector( sMapX, sMapY ) || GetEnemyGroupIdInSector(sMapX, sMapY ) || fForBattle ) &&
 //		( fForBattle || CountAllMilitiaInSector( sMapX, sMapY ) < gGameExternalOptions.guiMaxMilitiaSquadSize || PlayerMercsInSector( sMapX, sMapY, 0 ) )
@@ -360,7 +382,7 @@ void GenerateDirectionInfos( INT16 sMapX, INT16 sMapY, UINT8* uiDirNumber, UINT1
 
 	if(CheckStandardConditionsForDirection( sMapX, sMapY, sMapX, sMapY - 1, fWithCities, fForBattle, fOnlyCitySectors ) )
 	{
-		pMoveDir[ *uiDirNumber ][0] = SECTOR( sMapX, sMapY - 1 ); 
+		pMoveDir[ *uiDirNumber ][0] = SECTOR( sMapX, sMapY - 1 );
 
 		if( fForBattle )
 			pMoveDir[ *uiDirNumber ][1] = 0;
@@ -375,9 +397,9 @@ void GenerateDirectionInfos( INT16 sMapX, INT16 sMapY, UINT8* uiDirNumber, UINT1
 
 		++(*uiDirNumber);
 	}
-	if(CheckStandardConditionsForDirection(  sMapX, sMapY, sMapX - 1, sMapY, fWithCities, fForBattle, fOnlyCitySectors ))
+	if(CheckStandardConditionsForDirection(	sMapX, sMapY, sMapX - 1, sMapY, fWithCities, fForBattle, fOnlyCitySectors ))
 	{
-		pMoveDir[ *uiDirNumber ][0] = SECTOR( sMapX - 1, sMapY ); 
+		pMoveDir[ *uiDirNumber ][0] = SECTOR( sMapX - 1, sMapY );
 
 		if( fForBattle )
 			pMoveDir[ *uiDirNumber ][1] = 0;
@@ -392,10 +414,10 @@ void GenerateDirectionInfos( INT16 sMapX, INT16 sMapY, UINT8* uiDirNumber, UINT1
 
 		++(*uiDirNumber);
 	}
-	if(CheckStandardConditionsForDirection(  sMapX, sMapY, sMapX, sMapY + 1, fWithCities, fForBattle, fOnlyCitySectors ))
+	if(CheckStandardConditionsForDirection(	sMapX, sMapY, sMapX, sMapY + 1, fWithCities, fForBattle, fOnlyCitySectors ))
 	{
-		pMoveDir[ *uiDirNumber ][0] = SECTOR( sMapX, sMapY + 1 ); 
-		
+		pMoveDir[ *uiDirNumber ][0] = SECTOR( sMapX, sMapY + 1 );
+
 		if( fForBattle )
 			pMoveDir[ *uiDirNumber ][1] = 0;
 		else
@@ -409,10 +431,10 @@ void GenerateDirectionInfos( INT16 sMapX, INT16 sMapY, UINT8* uiDirNumber, UINT1
 
 		++(*uiDirNumber);
 	}
-	if(CheckStandardConditionsForDirection(  sMapX, sMapY, sMapX + 1, sMapY, fWithCities, fForBattle, fOnlyCitySectors ))
+	if(CheckStandardConditionsForDirection(	sMapX, sMapY, sMapX + 1, sMapY, fWithCities, fForBattle, fOnlyCitySectors ))
 	{
-		pMoveDir[ *uiDirNumber ][0] = SECTOR( sMapX + 1, sMapY ); 
-		
+		pMoveDir[ *uiDirNumber ][0] = SECTOR( sMapX + 1, sMapY );
+
 		if( fForBattle )
 			pMoveDir[ *uiDirNumber ][1] = 0;
 		else
@@ -475,7 +497,7 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	if( CheckInBlockMoveList( sMapX, sMapY ) )return;
 
 	uiMilitiaCount = CountMilitia(pSectorInfo);
-	
+
 	if( !uiMilitiaCount )return;
 
 	// Kaiden: Moved Create Militia code into CreateMilitiaSquads
@@ -483,7 +505,7 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	// If it's time, and this is a city sector create a new group.
 	// But only if we're not training our own.
 
-	if( (!gGameExternalOptions.gfmusttrainroaming) && ( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR ) ) 
+	if( (!gGameExternalOptions.gfmusttrainroaming) && ( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR ) )
 	{
 		if (GetWorldDay( ) < gGameExternalOptions.guiAllowMilitiaGroupsDelay)
 			return;
@@ -492,7 +514,6 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 			return;
 
 		CreateMilitiaSquads( sMapX, sMapY );
-
 		if (gfStrategicMilitiaChangesMade)
 		{
 			ResetMilitia();
@@ -501,8 +522,8 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 
 
 	// moving squad, if it is not a SAM site
-	if( ( GetTownIdForSector( sMapX, sMapY ) == BLANK_SECTOR ) && (!IsThisSectorASAMSector(  sMapX, sMapY, 0 )) )
-	{	
+	if( ( GetTownIdForSector( sMapX, sMapY ) == BLANK_SECTOR ) && (!IsThisSectorASAMSector(	sMapX, sMapY, 0 )) )
+	{
 		if( !PlayerMercsInSector_MSE( (UINT8)sMapX, (UINT8)sMapY, FALSE ) ) // and there's no player's mercs in the sector
 		{
 			if( GetWorldHour() % 2 )return;
@@ -514,8 +535,8 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 			{
 				for( x = 1; x < uiDirNumber ; ++x )pMoveDir[x][1] += pMoveDir[x-1][1];
 			//			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld", x, pMoveDir[x][1]);
-						
-				iRandom = Random( pMoveDir[ uiDirNumber - 1 ][1] + 
+
+				iRandom = Random( pMoveDir[ uiDirNumber - 1 ][1] +
 					( uiMilitiaCount >= gGameExternalOptions.guiMinMilitiaSquadSize ? CHANCE_TO_MOVE_A_SQUAD : CHANCE_TO_MOVE_AN_UNFULL_SQUAD ) );
 
 				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Roll %ld", iRandomRes);
@@ -528,13 +549,13 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 						iRandomRes = x;
 						break;
 					}
-		
+
 					// "Decided" to stay here
 					if(iRandomRes >= uiDirNumber)
 						return;
 
 					//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld:Dir count %ld, Rand %ld. Go to %ld,%ld. Have %ld militia men", sMapX, sMapY, uiDirNumber, iRandomRes, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ), uiMilitiaCount);
-					//Kaiden: if Restricted Sectors List option is turned on, 
+					//Kaiden: if Restricted Sectors List option is turned on,
 					// militia can't move to any sectors in the list.
 					// Unless they are following a group of mercs.
 					if (gGameExternalOptions.gflimitedRoaming)
@@ -552,6 +573,7 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 					Assert(targetY >= 0 && targetY < MAP_WORLD_Y);
 					MoveMilitiaSquad( sMapX, sMapY,  targetX, targetY, FALSE );
 					AddToBlockMoveList( targetX, targetY );
+
 					if ( gfStrategicMilitiaChangesMade)
 					{
 						ResetMilitia();
@@ -562,7 +584,7 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 						extern GROUP *gpBattleGroup;
 						gpBattleGroup = GetGroup( GetEnemyGroupIdInSector( targetX, targetY ) );
 		/*				GROUP* pEnemyGroup = GetGroup( GetEnemyGroupIdInSector( targetX, targetY ) );
-				
+
 						if(pEnemyGroup && pEnemyGroup->ubGroupID)
 						{
 							//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Attacking from %ld,%ld to %ld,%ld - enemy's group id %ld", sMapX, sMapY, targetX, SECTORY( pMoveDir[ iRandomRes ][0], pEnemyGroup->ubGroupID ));
@@ -573,9 +595,9 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 
 							pEnemyGroup->ubNextX = targetX;
 							pEnemyGroup->ubNextY = targetY;
-		*/					
+		*/
 							gfMSBattle = TRUE;
-			
+
 			//				GroupArrivedAtSector( pEnemyGroup->ubGroupID , TRUE, FALSE );
 							EnterAutoResolveMode( targetX,  targetY );
 		//				}
@@ -587,7 +609,7 @@ void UpdateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 }
 
 	// Kaiden: Roaming Militia Training:
-	// If we're training roaming militia,	
+	// If we're training roaming militia,
 	// we'll get our squad from here:
 	// Don't need to check for delay, as this function won't be
 	// called if there is a delay set.
@@ -595,13 +617,13 @@ void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 {
 	UINT16 pMoveDir[4][3];
 	UINT8 uiDirNumber = 0;
-	UINT32 iRandomRes = 0, iRandom = 0;
+	UINT32 iRandomRes = 0;
 	UINT8 x;//,y;
 	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 	UINT8 uiMilitiaCount;
 
 
-	// If we're not allowing roaming groups, 
+	// If we're not allowing roaming groups,
 	// then we're not creating them either.
 	// Remove this if you want to create them
 	// for some other reason. But you also have to
@@ -621,7 +643,7 @@ void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	if( CheckInBlockMoveList( sMapX, sMapY ) )return;
 
 	uiMilitiaCount = CountMilitia(pSectorInfo);
-	
+
 	if( !uiMilitiaCount )return;
 
 	// Create new Militia Squad
@@ -642,19 +664,19 @@ void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 						iRandomRes = x;
 						break;
 					}
-				
+
 				// shouldn't be!
 				if(iRandomRes >= uiDirNumber)iRandomRes = 0;
 
 				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%ld,%ld:Dir count %ld, Rand %ld. Go to %ld,%ld", sMapX, sMapY, uiDirNumber, iRandomRes, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ));
 
-				GenerateMilitiaSquad( sMapX, sMapY,  SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );
+				GenerateMilitiaSquad( sMapX, sMapY,	SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );
 				AddToBlockMoveList( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) );
-				
+
 				if( NumEnemiesInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) && CountAllMilitiaInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) )
 				{
 	/*				GROUP* pEnemyGroup = GetGroup( GetEnemyGroupIdInSector( SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0] ) ) );
-			
+
 					if(pEnemyGroup && pEnemyGroup->ubGroupID)
 					{
 						//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Attacking from %ld,%ld to %ld,%ld - enemy's group id %ld", sMapX, sMapY, SECTORX( pMoveDir[ iRandomRes ][0] ), SECTORY( pMoveDir[ iRandomRes ][0], pEnemyGroup->ubGroupID ));
@@ -668,8 +690,8 @@ void CreateMilitiaSquads(INT16 sMapX, INT16 sMapY )
 	*/
 						gfMSBattle = TRUE;
 	//					GroupArrivedAtSector( pEnemyGroup->ubGroupID , TRUE, FALSE );
-						
-						EnterAutoResolveMode( SECTORX( pMoveDir[ iRandomRes ][0] ),  SECTORY( pMoveDir[ iRandomRes ][0] ) );
+
+						EnterAutoResolveMode( SECTORX( pMoveDir[ iRandomRes ][0] ),	SECTORY( pMoveDir[ iRandomRes ][0] ) );
 	//				}
 				}
 
@@ -703,7 +725,7 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 
 	guiDirNumber = 0;
 
-	GenerateDirectionInfos( sMapX, sMapY, &uiDirNumber, pMoveDir, 
+	GenerateDirectionInfos( sMapX, sMapY, &uiDirNumber, pMoveDir,
 		( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR ? TRUE : FALSE ), TRUE, FALSE );
 
 	ZeroMemory( gpAttackDirs, sizeof( gpAttackDirs ) );
@@ -713,7 +735,7 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 	gpAttackDirs[ guiDirNumber ][2] = uiNumElite = pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
 	gpAttackDirs[ guiDirNumber ][3] = INSERTION_CODE_CENTER;
 
-	guiDirNumber = uiDirNumber  + 1;
+	guiDirNumber = uiDirNumber	+ 1;
 
 	x = 0;
 	while( CountMilitia(pSectorInfo ) < gGameExternalOptions.guiMaxMilitiaSquadSizeBattle &&
@@ -729,7 +751,7 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 			gpAttackDirs[ x + 1 ][1] += pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA] - uiNumReg;
 			gpAttackDirs[ x + 1 ][2] += pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA] - uiNumElite;
 			gpAttackDirs[ x + 1 ][3] = (UINT8)pMoveDir[ x ][2];
-			
+
 			uiNumGreen = pSectorInfo->ubNumberOfCivsAtLevel[GREEN_MILITIA];
 			uiNumReg = pSectorInfo->ubNumberOfCivsAtLevel[REGULAR_MILITIA];
 			uiNumElite = pSectorInfo->ubNumberOfCivsAtLevel[ELITE_MILITIA];
@@ -743,10 +765,10 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 		}
 	}
 
-	// If militia have been moved here, no reason to reset--just add them.  If militia have not moved, then no strategic
-	// changes were made.  Either case, this flag should be false.
+	// If militia have been moved here, no reason to reset--just add them.	If militia have not moved, then no strategic
+	// changes were made.	Either case, this flag should be false.
 	gfStrategicMilitiaChangesMade = FALSE;
-}
+	}
 
 void MSCallBack( UINT8 ubResult )
 {
@@ -764,7 +786,7 @@ BOOLEAN IsThereMilitiaInAdjacentSector( INT16 sMapX, INT16 sMapY )
 	UINT8 x;
 	BOOLEAN fResult = FALSE;
 
-	GenerateDirectionInfos( sMapX, sMapY, &uiDirNumber, pMoveDir, 
+	GenerateDirectionInfos( sMapX, sMapY, &uiDirNumber, pMoveDir,
 		( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR ? TRUE : FALSE ), TRUE, FALSE );
 
 	for( x = 0; x < uiDirNumber ; ++x )
@@ -778,7 +800,6 @@ void MilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 {
 	sMSMapX = sMapX;
 	sMSMapY = sMapY;
-	SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( sMapX, sMapY ) ] );
 
 	if( !gGameExternalOptions.gfAllowMilitiaGroups )
 		return;
@@ -790,7 +811,7 @@ void MilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 //	if( CountAllMilitiaInSector( sMapX, sMapY ) ) MSCallBack( MSG_BOX_RETURN_YES );
 
 	// This is no longer a question of simply whether to have a full militia count, but also whether we want
-	// reinforcements.  So if there are any available, always ask.
+	// reinforcements.	So if there are any available, always ask.
 	if( IsThereMilitiaInAdjacentSector( sMapX, sMapY ) ) // && CountAllMilitiaInSector( sMapX, sMapY ) < gGameExternalOptions.guiMaxMilitiaSquadSizeBattle )
 		DoScreenIndependantMessageBox( gzCWStrings[0], MSG_BOX_FLAG_YESNO, MSCallBack );
 }
@@ -798,11 +819,11 @@ void MilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 void MilitiaFollowPlayer( INT16 sMapX, INT16 sMapY, INT16 sDMapX, INT16 sDMapY )
 {
 	if( GetTownIdForSector( sMapX, sMapY ) != BLANK_SECTOR ||
-		 IsThisSectorASAMSector( sMapX, sMapY, 0 ) ||
-		 PlayerMercsInSector_MSE( (UINT8)sMapX, (UINT8)sMapY, TRUE ) )return;
+		IsThisSectorASAMSector( sMapX, sMapY, 0 ) ||
+		PlayerMercsInSector_MSE( (UINT8)sMapX, (UINT8)sMapY, TRUE ) )return;
 
 	if( GetTownIdForSector( sDMapX, sDMapY ) != BLANK_SECTOR ||
-		 IsThisSectorASAMSector( sDMapX, sDMapY, 0 ) )return;
+		IsThisSectorASAMSector( sDMapX, sDMapY, 0 ) )return;
 
 
 	MoveMilitiaSquad( sMapX, sMapY, sDMapX, sDMapY, FALSE );

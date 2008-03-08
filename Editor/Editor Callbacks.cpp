@@ -401,10 +401,10 @@ void BuildingSawRoomCallback( GUI_BUTTON *btn, INT32 reason )
 
 void BuildingKillBuildingCallback(GUI_BUTTON *btn, INT32 reason)
 {
-  if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
 		SetEditorBuildingTaskbarMode( BUILDING_KILL_BUILDING );
-	  iDrawMode = DRAW_MODE_KILL_BUILDING;
+	iDrawMode = DRAW_MODE_KILL_BUILDING;
 	}
 }
 
@@ -428,10 +428,10 @@ void BuildingMoveBuildingCallback( GUI_BUTTON *btn, INT32 reason )
 
 void BuildingDrawRoomNumCallback(GUI_BUTTON *btn, INT32 reason)
 {
-  if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 	{
 		SetEditorBuildingTaskbarMode( BUILDING_DRAW_ROOMNUM );
-	  iDrawMode = DRAW_MODE_ROOMNUM;
+	iDrawMode = DRAW_MODE_ROOMNUM;
 		gubCurrRoomNumber = gubMaxRoomNumber;
 	}
 }
@@ -457,7 +457,7 @@ void BuildingToggleRoofViewCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 			UnclickEditorButton( BUILDING_TOGGLE_ROOF_VIEW );
 		}
-		//Name could be a bit misleading.  It'll hide or show the roofs based on the
+		//Name could be a bit misleading.	It'll hide or show the roofs based on the
 		//fBuildingShowRoofs value.
 		UpdateRoofsView();
 	}
@@ -475,7 +475,7 @@ void BuildingToggleWallViewCallback(GUI_BUTTON *btn,INT32 reason)
 		{
 			UnclickEditorButton( BUILDING_TOGGLE_WALL_VIEW );
 		}
-		//Name could be a bit misleading.  It'll hide or show the walls based on the
+		//Name could be a bit misleading.	It'll hide or show the walls based on the
 		//fBuildingShowWalls value.
 		UpdateWallsView();
 	}
@@ -506,7 +506,7 @@ void BtnFakeLightCallback(GUI_BUTTON *btn,INT32 reason)
 			btn->uiFlags &= (~BUTTON_CLICKED_ON);
 		else
 			btn->uiFlags |= BUTTON_CLICKED_ON;
-	
+
 		iEditorToolbarState = TBAR_MODE_FAKE_LIGHTING;
 	}
 }
@@ -699,6 +699,12 @@ void ItemsArmourCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
 		SetEditorItemsTaskbarMode( ITEMS_ARMOUR );
+}
+
+void ItemsLBECallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP)
+		SetEditorItemsTaskbarMode( ITEMS_LBEGEAR );
 }
 
 void ItemsExplosivesCallback(GUI_BUTTON *btn,INT32 reason)
@@ -1295,7 +1301,7 @@ void MouseMovedInMercRegion( MOUSE_REGION *reg, INT32 reason )
 void MouseClickedInMercRegion( MOUSE_REGION *reg, INT32 reason )
 {
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
-		HandleMercInventoryPanel( reg->RelativeXPos, reg->RelativeYPos, GUI_LCLICK_EVENT );			
+		HandleMercInventoryPanel( reg->RelativeXPos, reg->RelativeYPos, GUI_LCLICK_EVENT );
 	else if( reason & MSYS_CALLBACK_REASON_RBUTTON_UP )
 		HandleMercInventoryPanel( reg->RelativeXPos, reg->RelativeYPos, GUI_RCLICK_EVENT );
 }

@@ -4,7 +4,7 @@
 #include "FileMan.h"
 #include "strategicmap.h"
 
-//  Quest.ubStatus values
+//	Quest.ubStatus values
 #define QUESTNOTSTARTED					0
 #define	QUESTINPROGRESS					1
 #define QUESTDONE								2
@@ -37,7 +37,7 @@
 
 
 // --------------------------------------------------------------------------------------
-//  Q U E S T     D E F I N E S
+//	Q U E S T	 D E F I N E S
 // --------------------------------------------------------------------------------------
 
 enum Quests
@@ -216,7 +216,7 @@ enum Facts
 	FACT_MIGUEL_FOUND,			//																12
 	FACT_LETTER_DELIVERED,	//																13
 	FACT_FOOD_ROUTE_EXISTS,	//																14
-	FACT_DIMITRI_DEAD,		  //																15
+	FACT_DIMITRI_DEAD,		//																15
 
 	FACT_MIGUEL_READ_LETTER =																	23,
 
@@ -447,7 +447,7 @@ enum Facts
 	FACT_KEITH_OUT_OF_BUSINESS,	//														274												
 	FACT_MIKE_AVAILABLE_TO_ARMY,//														275
 	FACT_KINGPIN_CAN_SEND_ASSASSINS,//												276
-	FACT_ESTONI_REFUELLING_POSSIBLE,//                        277
+	FACT_ESTONI_REFUELLING_POSSIBLE,//						277
 	FACT_MUSEUM_ALARM_WENT_OFF,//															278
 
 	FACT_MADDOG_IS_SPEAKER =																	280,
@@ -516,7 +516,7 @@ enum Facts
 	FACT_CONRAD_SHOULD_GO =																		367,
 	FACT_PLAYER_KILLED_BOXERS =																368,
 } ;
-//**  END FACTS *************************
+//**	END FACTS *************************
 
 #define		BOBBYR_SHIPPING_DEST_SECTOR_X				13
 #define		BOBBYR_SHIPPING_DEST_SECTOR_Y				2

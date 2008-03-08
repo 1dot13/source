@@ -8,13 +8,13 @@
 #define ONELEVELTYPETWOROOF			2
 
 
-//   Area (pointer to SGP rect) +							
-//      Location to check-+--|  |       |---- Check left and right edges -----|    |---- Check top and bottom edges -----|
+//	Area (pointer to SGP rect) +							
+//		Location to check-+--|	|		|---- Check left and right edges -----|	|---- Check top and bottom edges -----|
 #define IsLocationInArea( x, y, r )		( ((x) >= r->iLeft) && ((x) <= r->iRight) && ((y) >= r->iTop) && ((y) <= r->iBottom) )
 
 
 void SmoothAllTerrainWorld( void );
-void SmoothTerrain(int gridno, int origType, UINT16 *piNewTile, BOOLEAN fForceSmooth  );
+void SmoothTerrain(int gridno, int origType, UINT16 *piNewTile, BOOLEAN fForceSmooth	);
 
 void SmoothTerrainRadius( UINT32 iMapIndex, UINT32 uiCheckType, UINT8 ubRadius, BOOLEAN fForceSmooth );
 void SmoothTerrainWorld( UINT32 uiCheckType );

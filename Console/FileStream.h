@@ -9,23 +9,23 @@
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
 // along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA	02111-1307	USA
 //
 // Send bug reports, bug fixes, enhancements, requests, flames, etc., and
-// I'll try to keep a version up to date.  I can be reached as follows:
-//    marko.bozikovic@alterbox.net
-//    bozho@kset.org
+// I'll try to keep a version up to date.	I can be reached as follows:
+//	marko.bozikovic@alterbox.net
+//	bozho@kset.org
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
 // FileStream.h		- implementation of IStream interface on any file 
-//					  (not really COM, I'm faking it here a bit :-)
+//					(not really COM, I'm faking it here a bit :-)
 //
 
 #pragma once
@@ -35,14 +35,14 @@
 // CreateFileStream	- opens/creates a file and returns an IStream interface
 
 HRESULT CreateFileStream(
-  LPCTSTR lpFileName,							// file name
-  DWORD dwDesiredAccess,						// access mode
-  DWORD dwShareMode,							// share mode
-  LPSECURITY_ATTRIBUTES lpSecurityAttributes,	// SD
-  DWORD dwCreationDisposition,					// how to create
-  DWORD dwFlagsAndAttributes,					// file attributes
-  HANDLE hTemplateFile,							// handle to template file
-  IStream** ppStream							// pointer to IStream interface
+	LPCTSTR lpFileName,							// file name
+	DWORD dwDesiredAccess,						// access mode
+	DWORD dwShareMode,							// share mode
+	LPSECURITY_ATTRIBUTES lpSecurityAttributes,	// SD
+	DWORD dwCreationDisposition,					// how to create
+	DWORD dwFlagsAndAttributes,					// file attributes
+	HANDLE hTemplateFile,							// handle to template file
+	IStream** ppStream							// pointer to IStream interface
 );
 
 

@@ -76,11 +76,11 @@ UINT32	guiInsuranceBulletImage;
 
 
 //link to the varios pages
-MOUSE_REGION    gSelectedInsuranceLinkRegion[3];
+MOUSE_REGION	gSelectedInsuranceLinkRegion[3];
 void SelectInsuranceRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
 //link to the home page by clicking on the small title
-MOUSE_REGION    gSelectedInsuranceTitleLinkRegion;
+MOUSE_REGION	gSelectedInsuranceTitleLinkRegion;
 void SelectInsuranceTitleLinkRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 
 
@@ -91,7 +91,7 @@ void GameInitInsurance()
 
 BOOLEAN EnterInsurance()
 {
-  VOBJECT_DESC    VObjectDesc;
+	VOBJECT_DESC	VObjectDesc;
 	UINT16					usPosX, i;
 
 	SetBookMark( INSURANCE_BOOKMARK );
@@ -112,9 +112,9 @@ BOOLEAN EnterInsurance()
 	for(i=0; i<3; i++)
 	{
 		MSYS_DefineRegion( &gSelectedInsuranceLinkRegion[i], usPosX, INSURANCE_BOTTOM_LINK_RED_BAR_Y-37, (UINT16)(usPosX + INSURANCE_BOTTOM_LINK_RED_BAR_WIDTH), INSURANCE_BOTTOM_LINK_RED_BAR_Y+2, MSYS_PRIORITY_HIGH,
-						 CURSOR_WWW, MSYS_NO_CALLBACK, SelectInsuranceRegionCallBack); 
-		MSYS_AddRegion(&gSelectedInsuranceLinkRegion[i]); 
-		MSYS_SetRegionUserData( &gSelectedInsuranceLinkRegion[i], 0, i );	
+						CURSOR_WWW, MSYS_NO_CALLBACK, SelectInsuranceRegionCallBack);
+		MSYS_AddRegion(&gSelectedInsuranceLinkRegion[i]);
+		MSYS_SetRegionUserData( &gSelectedInsuranceLinkRegion[i], 0, i );
 
 		usPosX += INSURANCE_BOTTOM_LINK_RED_BAR_OFFSET;
 	}
@@ -149,7 +149,7 @@ void HandleInsurance()
 void RenderInsurance()
 {
 	CHAR16		sText[800];
-  HVOBJECT hPixHandle;
+	HVOBJECT hPixHandle;
 
 	DisplayInsuranceDefaults();
 
@@ -189,39 +189,39 @@ void RenderInsurance()
 	DrawTextToScreen( sText, INSURANCE_BOTTOM_SLOGAN_X, INSURANCE_BOTTOM_SLOGAN_Y, INSURANCE_BOTTOM_SLOGAN_WIDTH, INS_FONT_MED, INS_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 
-	//Display the red bar under the link at the bottom.  and the text
+	//Display the red bar under the link at the bottom.	and the text
 	DisplaySmallRedLineWithShadow( INSURANCE_BOTTOM_LINK_RED_BAR_X, INSURANCE_BOTTOM_LINK_RED_BAR_Y, INSURANCE_BOTTOM_LINK_RED_BAR_X+INSURANCE_BOTTOM_LINK_RED_BAR_WIDTH, INSURANCE_BOTTOM_LINK_RED_BAR_Y);
 
 	GetInsuranceText( INS_SNGL_COMMENTSFROM_CLIENTS, sText );
-	DisplayWrappedString( INSURANCE_LINK_TEXT_1_X, INSURANCE_LINK_TEXT_1_Y, INSURANCE_LINK_TEXT_WIDTH, 2, INS_FONT_MED, INS_FONT_COLOR,  sText, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
-	
+	DisplayWrappedString( INSURANCE_LINK_TEXT_1_X, INSURANCE_LINK_TEXT_1_Y, INSURANCE_LINK_TEXT_WIDTH, 2, INS_FONT_MED, INS_FONT_COLOR,	sText, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+
 
 	//Display the red bar under the link at the bottom
 	DisplaySmallRedLineWithShadow( INSURANCE_BOTTOM_LINK_RED_BAR_X_2, INSURANCE_BOTTOM_LINK_RED_BAR_Y, INSURANCE_BOTTOM_LINK_RED_BAR_X_2+INSURANCE_BOTTOM_LINK_RED_BAR_WIDTH, INSURANCE_BOTTOM_LINK_RED_BAR_Y);
 
 	GetInsuranceText( INS_SNGL_HOW_DOES_INS_WORK, sText );
-	DisplayWrappedString( INSURANCE_LINK_TEXT_2_X, INSURANCE_LINK_TEXT_2_Y+7, INSURANCE_LINK_TEXT_WIDTH, 2, INS_FONT_MED, INS_FONT_COLOR,  sText, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+	DisplayWrappedString( INSURANCE_LINK_TEXT_2_X, INSURANCE_LINK_TEXT_2_Y+7, INSURANCE_LINK_TEXT_WIDTH, 2, INS_FONT_MED, INS_FONT_COLOR,	sText, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
 
 	//Display the red bar under the link at the bottom
 	DisplaySmallRedLineWithShadow( INSURANCE_BOTTOM_LINK_RED_BAR_X_3, INSURANCE_BOTTOM_LINK_RED_BAR_Y, INSURANCE_BOTTOM_LINK_RED_BAR_X_3+INSURANCE_BOTTOM_LINK_RED_BAR_WIDTH, INSURANCE_BOTTOM_LINK_RED_BAR_Y);
 
 	GetInsuranceText( INS_SNGL_TO_ENTER_REVIEW, sText );
-	DisplayWrappedString( INSURANCE_LINK_TEXT_3_X, INSURANCE_LINK_TEXT_3_Y+7, INSURANCE_LINK_TEXT_WIDTH, 2, INS_FONT_MED, INS_FONT_COLOR,  sText, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+	DisplayWrappedString( INSURANCE_LINK_TEXT_3_X, INSURANCE_LINK_TEXT_3_Y+7, INSURANCE_LINK_TEXT_WIDTH, 2, INS_FONT_MED, INS_FONT_COLOR,	sText, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 
 
 
 	SetFontShadow(DEFAULT_SHADOW);
 
-  MarkButtonsDirty( );
+	MarkButtonsDirty( );
 	RenderWWWProgramTitleBar( );
-  InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
+	InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
 }
 
 
 BOOLEAN InitInsuranceDefaults()
 {
-  VOBJECT_DESC    VObjectDesc;
+	VOBJECT_DESC	VObjectDesc;
 
 	// load the Flower Account Box graphic and add it
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
@@ -248,8 +248,8 @@ BOOLEAN InitInsuranceDefaults()
 
 		//create the link to the home page on the small titles
 		MSYS_DefineRegion( &gSelectedInsuranceTitleLinkRegion, INSURANCE_SMALL_TITLE_X+85, INSURANCE_SMALL_TITLE_Y, (UINT16)(INSURANCE_SMALL_TITLE_X + INSURANCE_SMALL_TITLE_WIDTH), (UINT16)(INSURANCE_SMALL_TITLE_Y+INSURANCE_SMALL_TITLE_HEIGHT), MSYS_PRIORITY_HIGH,
-						 CURSOR_WWW, MSYS_NO_CALLBACK, SelectInsuranceTitleLinkRegionCallBack); 
-		MSYS_AddRegion(&gSelectedInsuranceTitleLinkRegion); 
+						CURSOR_WWW, MSYS_NO_CALLBACK, SelectInsuranceTitleLinkRegionCallBack);
+		MSYS_AddRegion(&gSelectedInsuranceTitleLinkRegion);
 	}
 
 	return( TRUE );
@@ -257,7 +257,7 @@ BOOLEAN InitInsuranceDefaults()
 
 void DisplayInsuranceDefaults()
 {
-  HVOBJECT hPixHandle;
+	HVOBJECT hPixHandle;
 	UINT8	i;
 	UINT16	usPosY;
 
@@ -320,19 +320,19 @@ void RemoveInsuranceDefaults()
 
 void DisplaySmallRedLineWithShadow( UINT16 usStartX, UINT16 usStartY, UINT16 EndX, UINT16 EndY)
 {
-  UINT32 uiDestPitchBYTES;
-  UINT8 *pDestBuf;
+	UINT32 uiDestPitchBYTES;
+	UINT8 *pDestBuf;
 
-	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );			
+	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
 
 	SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-  // draw the red line 
+	// draw the red line
 	LineDraw(FALSE, usStartX, usStartY, EndX, EndY, Get16BPPColor( FROMRGB( 255, 0, 0 ) ), pDestBuf);
 
-  // draw the black shadow line 
+	// draw the black shadow line
 	LineDraw(FALSE, usStartX+1, usStartY+1, EndX+1, EndY+1, Get16BPPColor( FROMRGB( 0, 0, 0 ) ), pDestBuf);
-	
+
 	// unlock frame buffer
 	UnLockVideoSurface( FRAME_BUFFER );
 }
@@ -357,7 +357,7 @@ void GetInsuranceText( UINT8 ubNumber, STR16 pString )
 
 
 void SelectInsuranceRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
-{ 
+{
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 	}
@@ -374,11 +374,11 @@ void SelectInsuranceRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
-	} 
+	}
 }
 
 void SelectInsuranceTitleLinkRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
-{ 
+{
 	if (iReason & MSYS_CALLBACK_REASON_INIT)
 	{
 	}
@@ -388,12 +388,13 @@ void SelectInsuranceTitleLinkRegionCallBack(MOUSE_REGION * pRegion, INT32 iReaso
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
-	} 
+	}
 }
 
 
 
 
- 
+
+
 
 

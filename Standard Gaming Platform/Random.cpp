@@ -22,9 +22,9 @@
 
 void InitializeRandom()
 {
-  // Seed the random-number generator with current time so that
-  // the numbers will be different every time we run.
-  srand( (unsigned) time(NULL) );
+	// Seed the random-number generator with current time so that
+	// the numbers will be different every time we run.
+	srand( (unsigned) time(NULL) );
 	#ifdef PRERANDOM_GENERATOR
 		//Pregenerate all of the random numbers.
 		for( guiPreRandomIndex = 0; guiPreRandomIndex < MAX_PREGENERATED_NUMS; guiPreRandomIndex++ )
@@ -46,7 +46,7 @@ UINT32 Random(UINT32 uiRange)
 		}
 	#endif
 
-  if (uiRange == 0)	
+	if (uiRange == 0)
 		return(0);
 	return rand() * uiRange / RAND_MAX % uiRange;
 }
@@ -73,7 +73,7 @@ UINT32 PreRandom( UINT32 uiRange )
 	uiNum = guiPreRandomNums[ guiPreRandomIndex ] * uiRange / RAND_MAX % uiRange;
 	//Replace the current pregenerated number with a new one.
 
-	//This was removed in the name of optimization.  Uncomment if you hate recycling.
+	//This was removed in the name of optimization.	Uncomment if you hate recycling.
 	//guiPreRandomNums[ guiPreRandomIndex ] = rand();
 
 	//Go to the next index.

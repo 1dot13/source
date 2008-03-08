@@ -26,7 +26,7 @@
 
 // lightlist node flags
 #define		LIGHT_NODE_DRAWN		0x00000001		// light node duplicate marker
-#define   LIGHT_ROOF_ONLY			0x00001000		// light only rooftops
+#define	LIGHT_ROOF_ONLY			0x00001000		// light only rooftops
 #define		LIGHT_IGNORE_WALLS	0x00002000		// doesn't take walls into account
 #define		LIGHT_BACKLIGHT			0x00004000		// light does not light objs, trees
 #define		LIGHT_NEW_RAY				0x00008000		// start of new ray in linked list
@@ -57,7 +57,7 @@
 #define		LIGHT_SPR_ERASE			0x0008
 #define		LIGHT_SPR_REDRAW		0x0010
 #define		LIGHT_SPR_ONROOF		0x0020
-#define   MERC_LIGHT		      0x0040
+#define	MERC_LIGHT			0x0040
 #define		LIGHT_PRIMETIME			0x0080		// light turns goes on in evening, turns off at bedtime.
 #define		LIGHT_NIGHTTIME			0x0100		// light stays on when dark outside
 

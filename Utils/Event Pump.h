@@ -34,7 +34,7 @@ enum eJA2Events
 
 	S_SENDPATHTONETWORK,
 	S_UPDATENETWORKSOLDIER,
-  EVENTS_ONLY_SENT_OVER_NETWORK,	// Events above are only sent to the network
+	EVENTS_ONLY_SENT_OVER_NETWORK,	// Events above are only sent to the network
 
 	NUM_EVENTS
 
@@ -59,12 +59,12 @@ typedef struct
 
 typedef struct
 {
-	UINT16  usSoldierID;
-	UINT32  uiUniqueId;
+	UINT16	usSoldierID;
+	UINT32	uiUniqueId;
 	UINT16	usNewState;
 	INT16		sXPos;
 	INT16		sYPos;
-	UINT16  usStartingAniCode;
+	UINT16	usStartingAniCode;
 	BOOLEAN	fForce;
 
 } EV_S_CHANGESTATE;
@@ -72,8 +72,8 @@ typedef struct
 
 typedef struct
 {
-	UINT16  usSoldierID;
-	UINT32  uiUniqueId;
+	UINT16	usSoldierID;
+	UINT32	uiUniqueId;
 	UINT16	usNewDestination;
 
 } EV_S_CHANGEDEST;
@@ -81,31 +81,31 @@ typedef struct
 typedef struct
 {
 	UINT16 usSoldierID;
-	UINT32  uiUniqueId;
-	FLOAT	 dNewXPos;
-	FLOAT	 dNewYPos;
+	UINT32	uiUniqueId;
+	FLOAT	dNewXPos;
+	FLOAT	dNewYPos;
 
 } EV_S_SETPOSITION;
 
 typedef struct
 {
-	UINT16	 usSoldierID;
-	UINT32	 uiUniqueId;
-	INT16		 sDestGridNo;
-	UINT16		usMovementAnim;		 
+	UINT16	usSoldierID;
+	UINT32	uiUniqueId;
+	INT16		sDestGridNo;
+	UINT16		usMovementAnim;		
 
 } EV_S_GETNEWPATH;
 
 typedef struct
 {
-	UINT16  usSoldierID;
-	UINT32  uiUniqueId;
+	UINT16	usSoldierID;
+	UINT32	uiUniqueId;
 } EV_S_BEGINTURN;
 
 typedef struct
 {
-	UINT16  usSoldierID;
-	UINT32  uiUniqueId;
+	UINT16	usSoldierID;
+	UINT32	uiUniqueId;
 	UINT8		ubNewStance;
 	INT16		sXPos;
 	INT16		sYPos;
@@ -114,16 +114,16 @@ typedef struct
 
 typedef struct
 {
-	UINT16  usSoldierID;
-	UINT32  uiUniqueId;
+	UINT16	usSoldierID;
+	UINT32	uiUniqueId;
 	UINT16	usNewDirection;
 
 } EV_S_SETDIRECTION;
 
 typedef struct
 {
-	UINT16  usSoldierID;
-	UINT32  uiUniqueId;
+	UINT16	usSoldierID;
+	UINT32	uiUniqueId;
 	UINT16	usDesiredDirection;
 
 } EV_S_SETDESIREDDIRECTION;
@@ -131,8 +131,8 @@ typedef struct
 
 typedef struct
 {
-	UINT16  usSoldierID;
-	UINT32  uiUniqueId;
+	UINT16	usSoldierID;
+	UINT32	uiUniqueId;
 	INT16		sTargetGridNo;
 	INT8		bTargetLevel;
 	INT8		bTargetCubeLevel;
@@ -141,8 +141,8 @@ typedef struct
 
 typedef struct
 {
-	UINT16  usSoldierID;
-	UINT32  uiUniqueId;
+	UINT16	usSoldierID;
+	UINT32	uiUniqueId;
 	INT16		sTargetGridNo;
 	INT8		bTargetLevel;
 	INT8		bTargetCubeLevel;
@@ -150,8 +150,8 @@ typedef struct
 
 typedef struct
 {
-	UINT16  usSoldierID;
-	UINT32  uiUniqueId;
+	UINT16	usSoldierID;
+	UINT32	uiUniqueId;
 	UINT16	usWeaponIndex;
 	INT16		sDamage;
 	INT16		sBreathLoss;
@@ -173,7 +173,7 @@ typedef struct
 	INT16		sYPos;
 	INT16		sZPos;
 	UINT16	usWeaponIndex;
-	INT8		bWeaponStatus;
+	INT16		bWeaponStatus;
 	UINT8		ubAttackerID;
 	UINT16	usStructureID;
 	INT32		iImpact;
@@ -207,8 +207,8 @@ typedef struct
 
 typedef struct
 {
-	UINT16  usSoldierID;
-	UINT32  uiUniqueId;
+	UINT16	usSoldierID;
+	UINT32	uiUniqueId;
 	INT8		bDirection;
 	INT16		sGridNo;
 	INT16		sXPos;
@@ -221,11 +221,11 @@ typedef struct
 typedef struct
 {
 	UINT8		usSoldierID;
-	UINT32  uiUniqueId;
+	UINT32	uiUniqueId;
 	UINT8		usPathDataSize;			// Size of Path
 	INT16		sAtGridNo;					// Owner merc is at this tile when sending packet
 	UINT8		usCurrentPathIndex;	// Index the owner of the merc is at when sending packet
-	UINT8		usPathData[ NETWORK_PATH_DATA_SIZE ];		// make define  // Next X tile to go to
+	UINT8		usPathData[ NETWORK_PATH_DATA_SIZE ];		// make define	// Next X tile to go to
 	UINT8		ubNewState;			// new movment Anim
 //	INT8		bActionPoints;
 //	INT8		bBreath;			// current breath value
@@ -237,7 +237,7 @@ typedef struct
 typedef struct
 {
 	UINT8		usSoldierID;	
-	UINT32  uiUniqueId;
+	UINT32	uiUniqueId;
 	INT16		sAtGridNo;					// Owner merc is at this tile when sending packet
 	INT8		bActionPoints;			// current A.P. value
 	INT8		bBreath;						// current breath value

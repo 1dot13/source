@@ -2,8 +2,13 @@
 #define __STRATEGIC_STATUS_H
 
 #include "types.h"
-#include "Item Types.h"
+//#include "Item Types.h"
 #include "Soldier Control.h"
+
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
+
 
 //Enemy is allowed to capture the player after certain day
 #define STARTDAY_ALLOW_PLAYER_CAPTURE_FOR_RESCUE		4
@@ -92,9 +97,9 @@ typedef struct STRATEGIC_STATUS
 
 	UINT8			ubUnhiredMercDeaths;		// how many mercs have died while NOT working for the player
 
-	UINT16		usPlayerKills;					// kills achieved by all mercs controlled by player together.  *Excludes* militia kills!
+	UINT16		usPlayerKills;					// kills achieved by all mercs controlled by player together.	*Excludes* militia kills!
 
-	UINT16		usEnemiesKilled[NUM_WAYS_ENEMIES_KILLED][NUM_ENEMY_RANKS];	// admin/troop/elite.  Includes kills by militia, too
+	UINT16		usEnemiesKilled[NUM_WAYS_ENEMIES_KILLED][NUM_ENEMY_RANKS];	// admin/troop/elite.	Includes kills by militia, too
 	UINT16		usLastDayOfPlayerActivity;
 	UINT8			ubNumNewSectorsVisitedToday;
 	UINT8			ubNumberOfDaysOfInactivity;

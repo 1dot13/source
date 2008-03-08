@@ -4,25 +4,25 @@
 #include "builddefines.h"
 #include "font.h"
 
-extern      BOOLEAN     gfUseWinFonts;
-extern      INT32       giCurWinFont;
+extern		BOOLEAN	 gfUseWinFonts;
+extern		INT32		giCurWinFont;
 
 // ATE: Use this define to enable winfonts in JA2
-// #define     WINFONTS
+// #define	 WINFONTS
 
 #ifdef WINFONTS
-  #define     USE_WINFONTS( )               ( gfUseWinFonts )
+	#define	 USE_WINFONTS( )				( gfUseWinFonts )
 #else
-  #define     USE_WINFONTS( )               ( FALSE )
+	#define	 USE_WINFONTS( )				( FALSE )
 #endif
 
-#define     GET_WINFONT( )                ( giCurWinFont )
-#define     SET_USE_WINFONTS( fSet )      ( gfUseWinFonts = fSet );
-#define     SET_WINFONT( fFont )          ( giCurWinFont = fFont );
+#define	 GET_WINFONT( )				( giCurWinFont )
+#define	 SET_USE_WINFONTS( fSet )		( gfUseWinFonts = fSet );
+#define	 SET_WINFONT( fFont )			( giCurWinFont = fFont );
 
 // ATE: A few winfont wrappers..
-UINT16    WFGetFontHeight( INT32 FontNum );
-INT16     WFStringPixLength( STR16 string,INT32 UseFont );
+UINT16	WFGetFontHeight( INT32 FontNum );
+INT16	 WFStringPixLength( STR16 string,INT32 UseFont );
 
 
 
@@ -41,14 +41,14 @@ extern HVOBJECT				gvoTinyFontType1;
 extern INT32						gp12PointFont1;
 extern HVOBJECT				gvo12PointFont1;
 
-extern INT32           gpClockFont;
-extern HVOBJECT        gvoClockFont;
+extern INT32			gpClockFont;
+extern HVOBJECT		gvoClockFont;
 
-extern INT32           gpCompFont;
-extern HVOBJECT        gvoCompFont;
+extern INT32			gpCompFont;
+extern HVOBJECT		gvoCompFont;
 
-extern INT32           gpSmallCompFont;
-extern HVOBJECT        gvoSmallCompFont;
+extern INT32			gpSmallCompFont;
+extern HVOBJECT		gvoSmallCompFont;
 
 extern INT32						gp10PointRoman;
 extern HVOBJECT				gvo10PointRoman;
@@ -97,7 +97,7 @@ extern INT32						gpHugeFont;
 extern HVOBJECT				gvoHugeFont;
 #endif
 
-extern INT32           giSubTitleWinFont;
+extern INT32			giSubTitleWinFont;
 
 
 extern BOOLEAN					gfFontsInit;
@@ -105,21 +105,21 @@ extern BOOLEAN					gfFontsInit;
 // Defines
 #define					LARGEFONT1				gpLargeFontType1
 #define					SMALLFONT1				gpSmallFontType1
-#define					TINYFONT1				  gpTinyFontType1
+#define					TINYFONT1				gpTinyFontType1
 #define					FONT12POINT1			gp12PointFont1
-#define					CLOCKFONT			    gpClockFont
-#define         COMPFONT          gpCompFont
-#define         SMALLCOMPFONT     gpSmallCompFont
+#define					CLOCKFONT			 gpClockFont
+#define		 COMPFONT			gpCompFont
+#define		 SMALLCOMPFONT	 gpSmallCompFont
 #define					FONT10ROMAN				gp10PointRoman
 #define					FONT12ROMAN				gp12PointRoman
 #define					FONT14SANSERIF		gp14PointSansSerif
 #define					MILITARYFONT1			BLOCKFONT		//gpMilitaryFont1
 #define					FONT10ARIAL				gp10PointArial
 #define					FONT14ARIAL				gp14PointArial
-#define         FONT12ARIAL       gp12PointArial
-#define         FONT10ARIALBOLD   gp10PointArialBold
-#define         BLOCKFONT         gpBlockyFont
-#define         BLOCKFONT2        gpBlockyFont2
+#define		 FONT12ARIAL		gp12PointArial
+#define		 FONT10ARIALBOLD	gp10PointArialBold
+#define		 BLOCKFONT		 gpBlockyFont
+#define		 BLOCKFONT2		gpBlockyFont2
 #define					FONT12ARIALFIXEDWIDTH gp12PointArialFixedFont
 #define					FONT16ARIAL				gp16PointArial
 #define					BLOCKFONTNARROW		gpBlockFontNarrow

@@ -4,12 +4,17 @@
 #ifndef __ITEM_STATISTICS_H
 #define __ITEM_STATISTICS_H
 
-#include "Item Types.h"
+//#include "Item Types.h"
+
+//forward declarations of common classes to eliminate includes
+class OBJECTTYPE;
+class SOLDIERTYPE;
+
 
 //Handles the dynamic changing of text input fields and button modes depending on the currently edited
-//item.  Both the merc's inventory panel, and the items tab use the same code to accomplish this.
+//item.	Both the merc's inventory panel, and the items tab use the same code to accomplish this.
 
-//Set if we are editing items from the items tab.  Otherwise, it is assumed that we are 
+//Set if we are editing items from the items tab.	Otherwise, it is assumed that we are 
 //editing items from the merc's inventory panel.
 extern BOOLEAN gfItemEditingMode;
 
@@ -40,8 +45,8 @@ void ExecuteItemStatsCmd( UINT8 ubAction );
 extern OBJECTTYPE *gpItem;
 extern INT16			gsItemGridNo;
 
-//enumerations for all of the different action items.  Used by the popup menu for
-//changing the type of action item.  When modified, an equivalent text array must be 
+//enumerations for all of the different action items.	Used by the popup menu for
+//changing the type of action item.	When modified, an equivalent text array must be 
 //changed as well. 
 enum
 {

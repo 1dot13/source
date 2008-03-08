@@ -37,7 +37,7 @@
 
 // GLOBAL FOR FACES LISTING
 BULLET	gBullets[ NUM_BULLET_SLOTS ];
-UINT32  guiNumBullets = 0;
+UINT32	guiNumBullets = 0;
 BOOLEAN	fTracer = FALSE;
 
 
@@ -103,7 +103,7 @@ INT32	CreateBullet( UINT8 ubFirerID, BOOLEAN fFake, UINT16 usFlags,UINT16 fromIt
 		pBullet->fReal = TRUE;
 //		gBullets[ iBullet ].pFirer->bBulletsLeft++;
 		gTacticalStatus.ubAttackBusyCount++;
-		DebugAttackBusy( String( "Creating a new bullet for %d.  ABC now %d\n", ubFirerID, gTacticalStatus.ubAttackBusyCount) );
+		DebugAttackBusy( String( "Creating a new bullet for %d.	ABC now %d\n", ubFirerID, gTacticalStatus.ubAttackBusyCount) );
 	}
 
 	return( iBulletIndex );
@@ -142,7 +142,7 @@ void HandleBulletSpecialFlags( INT32 iBulletIndex )
 			else if ( pBullet->usFlags & ( BULLET_FLAG_KNIFE ) )
 			{
 				strcpy( AniParams.zCachedFile, "TILECACHE\\KNIFING.STI" );
-				pBullet->ubItemStatus = pBullet->pFirer->inv[ HANDPOS ].ItemData.Generic.bStatus[0];
+				pBullet->ubItemStatus = pBullet->pFirer->inv[ HANDPOS ][0]->data.objectStatus;
 			}
 
 			// Get direction to use for this guy....
@@ -159,7 +159,7 @@ void HandleBulletSpecialFlags( INT32 iBulletIndex )
 			if ( pBullet->usFlags & ( BULLET_FLAG_KNIFE ) )
 			{
 				AniParams.ubLevelID						= ANI_SHADOW_LEVEL;
-				AniParams.sZ									= 0;				
+				AniParams.sZ									= 0;
 				pBullet->pShadowAniTile				= CreateAnimationTile( &AniParams );
 			}
 
@@ -173,7 +173,7 @@ void RemoveBullet( INT32 iBullet )
 	CHECKV( iBullet < NUM_BULLET_SLOTS );
 
 	// decrease soldier's bullet count
-	
+
 	if (gBullets[ iBullet ].fReal)
 	{
 		// set to be deleted at next update
@@ -182,7 +182,7 @@ void RemoveBullet( INT32 iBullet )
 		// decrement reference to bullet in the firer
 //		gBullets[ iBullet ].pFirer->bBulletsLeft--;
 //		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Ending bullet, bullets left %d", gBullets[ iBullet ].pFirer->bBulletsLeft ) );
-//		DebugAttackBusy( String( "Deleting a bullet for %d.  Total count now %d\n", gBullets[ iBullet].ubFirerID, gBullets[ iBullet ].pFirer->bBulletsLeft) );
+//		DebugAttackBusy( String( "Deleting a bullet for %d.	Total count now %d\n", gBullets[ iBullet].ubFirerID, gBullets[ iBullet ].pFirer->bBulletsLeft) );
 		// Nah, just decrement the attack busy count and be done with it
 		DebugAttackBusy( String( "Deleting a bullet for %d.\n", gBullets[ iBullet].ubFirerID ) );
 		ReduceAttackBusyCount( );
@@ -219,24 +219,24 @@ void LocateBullet( INT32 iBulletIndex )
 {
 	if ( gGameSettings.fOptions[ TOPTION_SHOW_MISSES ] )
 	{
-	  // Check if a bad guy fired!
-	  if ( gBullets[ iBulletIndex ].ubFirerID != NOBODY )
-	  {
-		  if ( MercPtrs[ gBullets[ iBulletIndex ].ubFirerID ]->bSide == gbPlayerNum )
-		  {
-			  if ( !gBullets[ iBulletIndex ].fLocated )
-			  {
-				  gBullets[ iBulletIndex ].fLocated = TRUE;
+	// Check if a bad guy fired!
+	if ( gBullets[ iBulletIndex ].ubFirerID != NOBODY )
+	{
+		if ( MercPtrs[ gBullets[ iBulletIndex ].ubFirerID ]->bSide == gbPlayerNum )
+		{
+			if ( !gBullets[ iBulletIndex ].fLocated )
+			{
+				gBullets[ iBulletIndex ].fLocated = TRUE;
 
-				  //Only if we are in turnbased and noncombat
-				  if ( gTacticalStatus.uiFlags & TURNBASED && (gTacticalStatus.uiFlags & INCOMBAT) )
-				  {
-					  LocateGridNo( (INT16)gBullets[ iBulletIndex ].sGridNo );
-				  }
-			  }
-		  }
-	  }
-  }
+				//Only if we are in turnbased and noncombat
+				if ( gTacticalStatus.uiFlags & TURNBASED && (gTacticalStatus.uiFlags & INCOMBAT) )
+				{
+					LocateGridNo( (INT16)gBullets[ iBulletIndex ].sGridNo );
+				}
+			}
+		}
+	}
+	}
 }
 
 
@@ -299,7 +299,7 @@ void UpdateBullets( )
 						{
 							gBullets[ uiCount ].pAniTile->sRelativeX	= (INT16) FIXEDPT_TO_INT32( gBullets[ uiCount ].qCurrX );
 							gBullets[ uiCount ].pAniTile->sRelativeY	= (INT16) FIXEDPT_TO_INT32( gBullets[ uiCount ].qCurrY );
-							gBullets[ uiCount ].pAniTile->pLevelNode->sRelativeZ  = (INT16) CONVERT_HEIGHTUNITS_TO_PIXELS( FIXEDPT_TO_INT32( gBullets[ uiCount ].qCurrZ ) );
+							gBullets[ uiCount ].pAniTile->pLevelNode->sRelativeZ	= (INT16) CONVERT_HEIGHTUNITS_TO_PIXELS( FIXEDPT_TO_INT32( gBullets[ uiCount ].qCurrZ ) );
 
 							if ( gBullets[ uiCount ].usFlags & ( BULLET_FLAG_KNIFE ) )
 							{
@@ -346,14 +346,14 @@ void UpdateBullets( )
 					}
 				}
 			}
-			else 
+			else
 			{
 				if ( gBullets[ uiCount ].fToDelete )
 				{
 					gBullets[ uiCount ].fAllocated = FALSE;
 					fDeletedSome = TRUE;
 				}
-			}	
+			}
 		}
 	}
 
@@ -454,7 +454,7 @@ void AddMissileTrail( BULLET *pBullet, FIXEDPT qCurrX, FIXEDPT qCurrY, FIXEDPT q
 		LightSpritePosition( pBullet->pAniTile->lightSprite, (INT16)(sXPos/CELL_X_SIZE), (INT16)(sYPos/CELL_Y_SIZE));
 
 #if 0
-		if ( pBullet->pFirer->bLevel > 0 ) // if firer on roof then
+		if ( pBullet->pFirer->pathing.bLevel > 0 ) // if firer on roof then
 		{
 			if ( FindBuilding(AniParams.sGridNo) != NULL ) // if this spot is still within the building's grid area
 			{
@@ -539,7 +539,7 @@ BOOLEAN LoadBulletStructureFromSavedGameFile( HWFILE hFile )
 			return( FALSE );
 		}
 
-		//Set some parameters 
+		//Set some parameters
 		gBullets[usCnt].uiLastUpdate = 0;
 		if( gBullets[usCnt].ubFirerID != NOBODY )
 			gBullets[usCnt].pFirer = &Menptr[ gBullets[usCnt].ubFirerID ];

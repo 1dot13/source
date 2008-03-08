@@ -757,7 +757,7 @@ STR16 gzMercSkillText[] =
 	L"Voleur",
 	L"Arts martiaux",
 	L"Couteau",
-	L"Bonus toucher (sur le toit)",
+	L"Tireur isolé",
 	L"Camouflage",
 	L"Camouflage (Urban)",						
 	L"Camouflage (Desert)",						
@@ -1071,7 +1071,7 @@ STR16 sKeyDescriptionStrings[2] =
 
 //The headers used to describe various weapon statistics.
 
-INT16		gWeaponStatsDesc[][ 14 ] =
+CHAR16		gWeaponStatsDesc[][ 14 ] =
 {
 	L"Poids (%s):", 
 	L"Etat :",
@@ -1092,7 +1092,7 @@ INT16		gWeaponStatsDesc[][ 14 ] =
 
 //The headers used for the merc's money.
 
-INT16 gMoneyStatsDesc[][ 13 ] =
+CHAR16 gMoneyStatsDesc[][ 13 ] =
 {
 	L"Montant",
 	L"Restant :", //this is the overall balance
@@ -1130,12 +1130,12 @@ STR16	gzMoneyAmounts[6] =
 };
 
 // short words meaning "Advantages" for "Pros" and "Disadvantages" for "Cons." 
-INT16		gzProsLabel[10] = 
+CHAR16		gzProsLabel[10] = 
 {
 	L"Plus :",
 };
 
-INT16		gzConsLabel[10] = 
+CHAR16		gzConsLabel[10] = 
 {
 	L"Moins :",
 };
@@ -1398,6 +1398,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Etat : %d/%d\nCarburant : %d/%d",
 	L"%s ne peut pas voir %s.",  // Cannot see person trying to talk to
 	L"Attachment removed",
+	L"Ne peut pas gagner un autre véhicule car vous avez déjà 2",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -1608,6 +1609,7 @@ STR16 pMapInventoryErrorString[] =
 	L"En combat, vous devez prendre les objets vous-même.",
 	L"En combat, vous devez abandonner les objets vous-même.",
 	L"%s n'est pas dans le bon secteur.",
+	L"Pendant le combat, vous ne pouvez pas recharger avec une caisse de munitions.",
 };
 
 STR16 pMapInventoryStrings[] =
@@ -2832,6 +2834,7 @@ STR16			BobbyRFilter[] =
 	// Used
 	L"Guns",
 	L"Armor",
+	L"LBE Gear",
 	L"Misc",
 
 	// Armour
@@ -2849,6 +2852,7 @@ STR16			BobbyRFilter[] =
 	L"Med. Kits",
 	L"Kits",
 	L"Face Items",
+	L"LBE Gear",
 	L"Misc.",
 };
 
@@ -3373,6 +3377,8 @@ STR16			zSaveLoadText[] =
 	L"Meilleur Selection",
 	L"Excellent Selection",
 	L"Superb Selection",
+
+	L"New Inventory does not work in 640x480 screen size.  Please resize and try again.",
 };
 
 
@@ -3592,6 +3598,9 @@ STR16	gzGIOScreenText[] =
 	L"Meilleur",
 	L"Excellent",
 	L"Superb",
+	L"Inventory System",
+	L"Old",
+	L"New",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -3984,6 +3993,8 @@ STR16 sRepairsDoneString[] =
 	L"%s a terminé la réparation des armes & armures",
 	L"%s a terminé la réparation des objets portés",
 	L"%s a terminé la réparation des objets transportés",
+	L"%s a terminé la réparation des objets transportés",
+	L"%s a terminé la réparation des objets transportés",
 };
 
 STR16 zGioDifConfirmText[]=
@@ -4225,10 +4236,19 @@ STR16	New113MERCMercMailTexts[] =
 // INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
 STR16 MissingIMPSkillsDescriptions[] =
 {
-	// Rooftop sniping
-	L"Rooftop Sniping: Not even ants are on the save side. Each target is mercilessly tracked down! ± ",
+	// Sniper
+	L"Tireur isolé : Des yeux d'un faucon, vous pouvez tirer les ailes d'une mouche à cent yards! ± ",
 	// Camouflage
-	L"Camouflage: Besides you even bushes look synthetic! ± ",	
+	L"Camouflage : Sans compter que vous même les buissons semblent synthétiques! ± ",	
+};
+
+STR16 NewInvMessage[] = 
+{
+	L"Ne peut pas le baluchon de collecte actuellement",
+	L"Aucun endroit pour mettre le baluchon",
+	L"Baluchon non trouvé",
+	L"La tirette fonctionne seulement dans le combat",
+	L"Ne peut pas se déplacer alors que la tirette de baluchon active",
 };
 
 #endif //FRENCH

@@ -1167,7 +1167,7 @@ BYTE *LockVideoSurfaceBuffer( HVSURFACE hVSurface, UINT32 *pPitch )
 	// Assertions
 	if ( hVSurface == NULL )
 	{
-		int i = 0;
+		//int breakpoint = 0;
 	}
 
 

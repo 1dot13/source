@@ -7,7 +7,7 @@
 
 void luaWS_newlstr (lua_State *L, const CHAR16 *str, size_t l)
 {
-  TWString *ts;
+	TWString *ts;
 
   // Create and initialize this data
   int size = sizewstring( l);
@@ -15,9 +15,9 @@ void luaWS_newlstr (lua_State *L, const CHAR16 *str, size_t l)
   ts->len = l;
   memcpy( ts->data, str, l*sizeof(CHAR16)+sizeof(CHAR16));
 
-  // Make this data a wstring
-  luaL_getmetatable(L, "wstring");
-  lua_setmetatable(L, -2);
+	// Make this data a wstring
+	luaL_getmetatable(L, "wstring");
+	lua_setmetatable(L, -2);
 }
 
 // Create a string from a UTF-8 representation
@@ -51,7 +51,7 @@ int LuaWStringByte( lua_State* L )
 	tw = (TWString*) luaL_checkudata( L, 1, "wstring" );
 	start = luaL_optint( L, 2, 1 );
 	stop = luaL_optint( L, 3, 1 );
-	
+
 	// This function in the char strings will return nothing if the params are out of bounds.
 	if (start < 1 || start >= tw->len ||
 		stop < start)
@@ -79,7 +79,7 @@ static int LuaWStringChar( lua_State *L )
 	int len = lua_gettop( L) + 1;
 	STR16 str = (STR16) MemAlloc( len * sizeof( CHAR16) );
 	int idx;
-	
+
 	len--;
 	for( idx=0; idx<len; idx++)
 	{
@@ -126,7 +126,7 @@ static int LuaWStringLower( lua_State *L )
 	int len = tw->len + 1;
 	STR16 str = (STR16) MemAlloc( len * sizeof( CHAR16) );
 	int idx;
-	
+
 	for( idx=0; idx<len-1; idx++)
 	{
 		str[ idx ] = (CHAR16) towlower( tw->data[ idx ] );
@@ -173,7 +173,7 @@ static int LuaWStringReverse( lua_State *L )
 	int len = tw->len + 1;
 	STR16 str = (STR16) MemAlloc( len * sizeof( CHAR16) );
 	int idx;
-	
+
 	for( idx=0; idx<len-1; idx++)
 	{
 		str[ idx ] = tw->data[ tw->len - idx - 1 ];
@@ -197,7 +197,7 @@ static int LuaWStringUpper( lua_State *L )
 	int len = tw->len + 1;
 	STR16 str = (STR16) MemAlloc( len * sizeof( CHAR16) );
 	int idx;
-	
+
 	for( idx=0; idx<len-1; idx++)
 	{
 		str[ idx ] = (CHAR16) towupper( tw->data[ idx ] );
@@ -228,7 +228,7 @@ static int LuaWStringIndex( lua_State *L )
 {
 	luaL_checkudata( L, 1, "wstring" );
 	const CHAR8 *idx = luaL_checkstring( L, 2 );
-	
+
 	// Disqualify metafunctions
 	if ( idx[0] == '_' && idx[1] == '_' )
 	{
@@ -243,7 +243,7 @@ static int LuaWStringIndex( lua_State *L )
 }
 
 luaL_Reg WStringMethods[] = {
-    // Constructors
+	// Constructors
 	{ "fromUTF8", LuaWStringFromUTF8, },
 
 	// String-specific
