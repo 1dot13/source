@@ -755,7 +755,7 @@ public:
 	POCKETTYPE& operator=(const POCKETTYPE&);
 	~POCKETTYPE();
 	UINT16			pIndex;
-	CHAR8			pName[80];
+	CHAR16			pName[80];
 	UINT8			pSilhouette;
 	UINT16			pType;
 	UINT32			pRestriction;

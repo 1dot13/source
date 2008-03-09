@@ -4222,6 +4222,10 @@ STR16 New113Message[] =
 	L"Снайпер!",
 	L"Невозможно разделить деньги из-за предмета на курсоре.",
 	L"Точка высадки новых наемников перенесена в %s, так как предыдущая точка высадки %s захвачена противником.",
+	L"Deleted item",
+	L"Deleted all items of this type",
+	L"Sold item",
+	L"Sold all items of this type",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends

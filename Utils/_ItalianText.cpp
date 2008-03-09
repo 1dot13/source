@@ -4213,6 +4213,10 @@ STR16 New113Message[] =
 	L"Sniper!",
 	L"Unable to split money due to having an item on your cursor.",
 	L"Arrival of new recruits is being rerouted to sector %s, as scheduled drop-off point of sector %s is enemy occupied.",
+	L"Articolo cancellato",
+	L"Ha cancellato tutti gli articoli di questo tipo",
+	L"Articolo venduto",
+	L"Ha venduto tutti gli articoli di questo tipo",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends

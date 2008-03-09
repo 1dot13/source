@@ -2813,14 +2813,16 @@ void CycleItemDescriptionItem( INT16 sX, INT16 sY )
 	{
 		usOldItem--;
 
+		if ( usOldItem < 1 )
+		{
+			usOldItem = MAXITEMS-1;
+		}
+
 		while ( usOldItem > 0 && ( Item[usOldItem].usItemClass == IC_NONE || Item[usOldItem].usItemClass == 0 ))
 		{
 			usOldItem--;
-		}
-
-		if ( usOldItem < 0 )
-		{
-			usOldItem = MAXITEMS-1;
+			if(usOldItem < 1)
+				usOldItem = MAXITEMS-1;
 		}
 	}
 	else
@@ -2835,6 +2837,8 @@ void CycleItemDescriptionItem( INT16 sX, INT16 sY )
 		while (usOldItem < MAXITEMS && (Item[usOldItem].usItemClass == IC_NONE || Item[usOldItem].usItemClass == 0 ))
 		{
 			usOldItem++;
+			if(usOldItem >= MAXITEMS)
+				usOldItem = 1;
 		}
 	}
 

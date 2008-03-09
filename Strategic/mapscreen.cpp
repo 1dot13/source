@@ -619,6 +619,7 @@ extern UINT16 gusNewItemIndex;
 extern BOOLEAN gfDeductPoints;
 
 extern void CleanUpStack( OBJECTTYPE * pObj, OBJECTTYPE * pCursorObj );
+extern void SwapGoggles(SOLDIERTYPE *pTeamSoldier);
 
 UINT32	guiCHARLIST;
 UINT32	guiCHARINFO;
@@ -6365,6 +6366,13 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							}
 						}
 					#endif
+					break;
+				case 'N':
+					if ( bSelectedInfoChar != -1 && fShowInventoryFlag )
+					{
+						SOLDIERTYPE *pSoldier = MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ];
+						SwapGoggles(pSoldier);
+					}
 					break;
 				case 'o':
 					if( fAlt )

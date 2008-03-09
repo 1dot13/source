@@ -1387,10 +1387,10 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 			if ( _KeyDown ( 89 )) //Lalien: delete all items of this type on Ctrl+Y
 			{
 				DeleteItemsOfType( gItemPointer.usItem );
-				ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Deleted all items of this type" );
+				ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, New113Message[MSG113_DELETE_ALL] );
 			}
 			else {
-				ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Deleted item" );
+				ScreenMsg( FONT_MCOLOR_LTRED, MSG_INTERFACE, New113Message[MSG113_DELETED] );
 			}
 			if ( fShowMapInventoryPool )
 				HandleButtonStatesWhileMapInventoryActive();
@@ -1420,10 +1420,10 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 
 			if ( _KeyDown ( 89 )) //Lalien: sell all items of this type on Alt+Y
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Sold all items of this type" );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SOLD_ALL] );
 			}
 			else {
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Sold item" );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[MSG113_SOLD] );
 			}
 
 			AddTransactionToPlayersBook( SOLD_ITEMS, 0, GetWorldTotalMin(), iPrice );

@@ -1191,6 +1191,7 @@ void RenderBackpackButtons(int bpAction)
 				RemoveButton( giSMZipperButton );
 			if(giSMDropPackButton != -1)
 				RemoveButton( giSMDropPackButton );
+			RenderBackpackButtons(4);
 			giSMDropPackImages	= -1;
 			giSMDropPackButton	= -1;
 			giSMZipperImages	= -1;
@@ -7005,6 +7006,8 @@ void GoToMapScreenFromTactical( void )
 		}
 	}
 }*/
+
+
 
 
 

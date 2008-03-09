@@ -2000,7 +2000,10 @@ UINT16 DisplayLBEInfo(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight)
 			}
 			else
 			{
-				mbstowcs(pName,LBEPocketType[count].pName,80);
+				//mbstowcs(pName,LBEPocketType[count].pName,80);
+				for(UINT8 i = 0; i<14; i++)
+					pName[i] = LBEPocketType[count].pName[i];
+				//pName = LBEPocketType[count].pName;
 				pName[14] = '\0';
 				swprintf(sTemp, L"%s(x%d)", pName, pocketNum[count] );
 				DrawTextToScreen(sTemp, BOBBYR_ITEM_WEIGHT_TEXT_X, (UINT16)usPosY, BOBBYR_ITEM_WEIGHT_NUM_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
@@ -3401,6 +3404,9 @@ void ReportBobbyROrderError( UINT16 usItemNumber, UINT8 ubPurchaseNum, UINT8 ubQ
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("ubNumPurchasing = %d", ubNumPurchasing ) );
 }
 #endif
+
+
+
 
 
 

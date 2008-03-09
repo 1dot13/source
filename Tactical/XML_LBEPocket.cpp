@@ -133,7 +133,7 @@ lbepocketEndElementHandle(void *userData, const XML_Char *name)
 			if ( !onlyLocalizedText )
 				LBEPocketType.push_back(pData->curLBEPocket);
 			else
-				strcpy(LBEPocketType[pData->curLBEPocket.pIndex].pName, pData->curLBEPocket.pName);
+				wcscpy(LBEPocketType[pData->curLBEPocket.pIndex].pName,pData->curLBEPocket.pName);
 		}
 		else if(strcmp(name, "pIndex") == 0)
 		{
@@ -143,6 +143,7 @@ lbepocketEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "pName") == 0)
 		{
 			pData->curElement = ELEMENT;
+#if 0
 			if(MAX_CHAR_DATA_LENGTH >= strlen(pData->szCharData))
 				strcpy(pData->curLBEPocket.pName,pData->szCharData);
 			else
@@ -150,6 +151,10 @@ lbepocketEndElementHandle(void *userData, const XML_Char *name)
 				strncpy(pData->curLBEPocket.pName,pData->szCharData,MAX_CHAR_DATA_LENGTH);
 				pData->curLBEPocket.pName[MAX_CHAR_DATA_LENGTH] = '\0';
 			}
+#else
+			MultiByteToWideChar( CP_UTF8, 0, pData->szCharData, -1, pData->curLBEPocket.pName, sizeof(pData->curLBEPocket.pName)/sizeof(pData->curLBEPocket.pName[0]) );
+			pData->curLBEPocket.pName[sizeof(pData->curLBEPocket.pName)/sizeof(pData->curLBEPocket.pName[0]) - 1] = '\0';
+#endif
 		}
 		else if(strcmp(name, "pSilhouette") == 0)
 		{
