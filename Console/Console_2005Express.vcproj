@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="Console_2005Express"
 	ProjectGUID="{F962CFA1-2215-4124-938F-253973A27591}"
 	RootNamespace="Console"
@@ -133,6 +133,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="c:\Program Files\Microsoft Platform SDK for Windows Server 2003 R2\src\mfc"
@@ -217,6 +218,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
 				FavorSizeOrSpeed="0"
 				AdditionalIncludeDirectories=""
