@@ -66,7 +66,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib"
-				OutputFile="$(OutDir)\ja2_deb_1855_NI_B11.1.exe"
+				OutputFile="$(OutDir)\ja2_deb_en_1877.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -144,7 +144,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib"
-				OutputFile="$(OutDir)\ja2_rel_1855_NI_B11.1.exe"
+				OutputFile="$(OutDir)\ja2_rel_en_1877.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
