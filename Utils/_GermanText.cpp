@@ -618,6 +618,7 @@ STR16 pMilitiaControlMenuStrings[] =
 	L"Alle: Position halten",
 	L"Alle: Rückzug",
 	L"Alle: An meine Position",
+	L"Alle: Alle verteilen",
 	L"Alle: Auf den Boden",
 	L"Alle: In Deckung gehen",
 	//L"All: Find items",
@@ -655,11 +656,11 @@ STR16 pAttributeMenuStrings[] =
 
 STR16 pTrainingMenuStrings[] =
 {
- L"Üben", // train yourself 
- L"Miliz", // train the town 
- L"Trainer", // train your teammates 
- L"Rekrut", // be trained by an instructor 
- L"Abbrechen", // cancel this menu
+ 	L"Üben", // train yourself 
+ 	L"Miliz", // train the town 
+ 	L"Trainer", // train your teammates 
+ 	L"Rekrut", // be trained by an instructor 
+ 	L"Abbrechen", // cancel this menu
 };
 
 STR16 pSquadMenuStrings[] =
@@ -4007,20 +4008,20 @@ STR16 gzTooltipStrings[] =
 
 STR16 New113Message[] =
 {
-	L"Storm started.",
-	L"Storm ended.",
-	L"Rain started.",
-	L"Rain ended.",
-	L"Watch out for snipers...",
-	L"Suppression fire!",	
+	L"Sturm startet.",
+	L"Sturm endet.",
+	L"Regen startet.",
+	L"Regen endet.",
+	L"Achtung vor Heckenschützen...",
+	L"Unterdrückungsfeuer!",	
 	L"BRST",
 	L"AUTO",
 	L"GL",
 	L"GL BRST",
 	L"GL AUTO",
-	L"Sniper!",
-	L"Unable to split money due to having an item on your cursor.",
-	L"Arrival of new recruits is being rerouted to sector %s, as scheduled drop-off point of sector %s is enemy occupied.",
+	L"Heckenschütze!",
+	L"Geld kann nicht aufgeteilt werden, weil ein Gegenstand am Cursor ist.",
+	L"Ankunft der neuen Söldner wurde in den Sektor %s verlegt, weil der vorhergesehene Sektor %s von Feinden belagert ist.",
 	L"Gegenstand gelöscht",
 	L"Alle Gegenstände dieses Typs gelöscht",
 	L"Gegestand verkauft",
