@@ -2898,11 +2898,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>362</uiIndex>
-		<szItemName>9x19mm Mag 8 G C</szItemName>
-		<szLongItemName>9x19mm Pistol Mag, 8 Glaser Cold</szLongItemName>
-		<szItemDesc>Glaser ammunition has double the impact of standard hollow point ammo. Unfortunately, it also has twice as much difficulty penetrating armor. These bullets have been cold-loaded for quieter stopping power.</szItemDesc>
-		<szBRName>9x19mm Mag 8 Glaser Cold</szBRName>
-		<szBRDesc>Eight rounds of frangible fun. All of the man-stopping power, none of the over-penetration. These bullets have been cold-loaded for silent hunting.</szBRDesc>
+		<szItemName>Nothing</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Nothing</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>363</uiIndex>
@@ -2962,11 +2962,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>370</uiIndex>
-		<szItemName>9x19mm Mag 15 G C</szItemName>
-		<szLongItemName>9x19mm Pistol Mag, 15 Glaser Cold</szLongItemName>
-		<szItemDesc>Glaser ammunition has double the impact of standard hollow point ammo. Unfortunately, it also has twice as much difficulty penetrating armor. These bullets have been cold-loaded for quieter stopping power.</szItemDesc>
-		<szBRName>9x19mm Mag 15 Glaser Cold</szBRName>
-		<szBRDesc>Fifteen rounds of frangible fun. All of the man-stopping power, none of the over-penetration. These bullets have been cold-loaded for silent hunting.</szBRDesc>
+		<szItemName>Nothing</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Nothing</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>371</uiIndex>
@@ -3026,11 +3026,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>378</uiIndex>
-		<szItemName>9x19mm SMG Mag G C</szItemName>
-		<szLongItemName>9x19mm SMG Mag, Glaser Cold</szLongItemName>
-		<szItemDesc>Glaser ammunition has double the impact of standard hollow point ammo. Unfortunately, it also has twice as much difficulty penetrating armor. These bullets have been cold-loaded for quieter stopping power.</szItemDesc>
-		<szBRName>9x19mm SMG Mag Glaser Cold</szBRName>
-		<szBRDesc>Thirty rounds of frangible fun. All of the man-stopping power, none of the over-penetration. These bullets have been cold-loaded for silent hunting.</szBRDesc>
+		<szItemName>Nothing</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Nothing</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>379</uiIndex>
@@ -3090,11 +3090,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>386</uiIndex>
-		<szItemName>9x19mm Lrg Mag G C</szItemName>
-		<szLongItemName>9x19mm Large Mag, Glaser Cold</szLongItemName>
-		<szItemDesc>If 50 rounds of Glaser Safety ammo fail to make your point, the conversation wasn't worth having to begin with. These bullets have been cold-loaded for quieter stopping power.</szItemDesc>
-		<szBRName>9x19mm Lrg Mag Glaser Cold</szBRName>
-		<szBRDesc>Fifty rounds of frangible fun. All of the man-stopping power, none of the over-penetration. These bullets have been cold-loaded for silent hunting.</szBRDesc>
+		<szItemName>Nothing</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Nothing</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>387</uiIndex>
@@ -3178,11 +3178,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>397</uiIndex>
-		<szItemName>9x19mm C-Mag G C</szItemName>
-		<szLongItemName>9x19mm C-Mag, Glaser Cold</szLongItemName>
-		<szItemDesc>If 100 rounds of Glaser Safety ammo fail to make your point, the conversation wasn't worth having to begin with. These bullets have been cold-loaded for quieter stopping power.</szItemDesc>
-		<szBRName>9x19mm C-Mag Glaser Cold</szBRName>
-		<szBRDesc>One hundred rounds of frangible fun. All of the man-stopping power, none of the over-penetration. These bullets have been cold-loaded for silent hunting.</szBRDesc>
+		<szItemName>Nothing</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Nothing</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>398</uiIndex>
@@ -4298,11 +4298,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>537</uiIndex>
-		<szItemName>10mm Mag DU</szItemName>
-		<szLongItemName>10mm Magazine, Depleted Uranium</szLongItemName>
-		<szItemDesc>ade from depleted radioactive matter, these bullets will blast through armor with resultant fallout damage.</szItemDesc>
-		<szBRName>10mm Mag D-U</szBRName>
-		<szBRDesc>If a bad case of lead poisoning dosen't slow the target down, radiation poisoning surely will.</szBRDesc>
+		<szItemName>9x21mm SMG Mag</szItemName>
+		<szLongItemName>9x21mm SMG Magazine</szLongItemName>
+		<szItemDesc>A 30rnd magazine for the SR-2 Veresk machinepistol.</szItemDesc>
+		<szBRName>9x21mm SMG Magazine</szBRName>
+		<szBRDesc>Now available: 30rnd mags vor the Veresk!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>538</uiIndex>
@@ -7980,11 +7980,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>997</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 997</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>7.62WP Adapter</szItemName>
+		<szLongItemName>7.62x39mm Drum Adapter</szLongItemName>
+		<szItemDesc>This piece of metal lets you fit a 100rnd drum onto several AK-rifles.</szItemDesc>
+		<szBRName>7.62x39mm Drum Adapter</szBRName>
+		<szBRDesc>This piece of metal lets you fit a 100rnd drum onto several AK-rifles. Permanent installing required.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>998</uiIndex>
@@ -9625,5 +9625,182 @@
 		<szItemDesc>Надежный и проверенный инструмент для ремонта труб. А вообще, его применение зависит во многом от фантазии владельца. Многие пытаются им "лечить" людей.</szItemDesc>
 		<szBRName>Газовый ключ</szBRName>
 		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1203</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1204</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1205</uiIndex>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1206</uiIndex>
+		<szItemName>5.56mm crate</szItemName>
+		<szLongItemName>5.56x45mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5.56x45mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1207</uiIndex>
+		<szItemName>5.56 HP crate</szItemName>
+		<szLongItemName>5.56x45mm HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5.56x45mm HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1208</uiIndex>
+		<szItemName>5.56 M crate</szItemName>
+		<szLongItemName>5.56x45mm M ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5.56x45mm M ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1209</uiIndex>
+		<szItemName>5.56 G crate</szItemName>
+		<szLongItemName>5.56x45mm G ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5.56x45mm G ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1210</uiIndex>
+		<szItemName>5.56mm T crate</szItemName>
+		<szLongItemName>5.56x45mm T ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5.56x45mm T ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1211</uiIndex>
+		<szItemName>5.56mm C crate</szItemName>
+		<szLongItemName>5.56x45mm C ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5.56x45mm C ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1212</uiIndex>
+		<szItemName>5.56mm HP C crate</szItemName>
+		<szLongItemName>5.56x45mm HP C ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5.56x45mm HP C ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1213</uiIndex>
+		<szItemName>7.62NATO crate</szItemName>
+		<szLongItemName>7.62x51mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x51mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1214</uiIndex>
+		<szItemName>7.62NATO HP crate</szItemName>
+		<szLongItemName>7.62x51mm HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x51mm HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1215</uiIndex>
+		<szItemName>7.62NATO M crate</szItemName>
+		<szLongItemName>7.62x51mm M ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x51mm M ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1216</uiIndex>
+		<szItemName>7.62NATO G crate</szItemName>
+		<szLongItemName>7.62x51mm G ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x51mm G ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1217</uiIndex>
+		<szItemName>7.62NATO T crate</szItemName>
+		<szLongItemName>7.62x51mm T ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x51mm T ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1218</uiIndex>
+		<szItemName>7.62NATO C crate</szItemName>
+		<szLongItemName>7.62x51mm C ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x51mm C ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1219</uiIndex>
+		<szItemName>7.62NATO HP C crate</szItemName>
+		<szLongItemName>7.62x51mm HP C ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x51mm HP C ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1220</uiIndex>
+		<szItemName>9x19mm  crate</szItemName>
+		<szLongItemName>9x19mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9x19mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1221</uiIndex>
+		<szItemName>9x19 AP crate</szItemName>
+		<szLongItemName>9x19mm AP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9x19mm AP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1222</uiIndex>
+		<szItemName>9x19 HP crate</szItemName>
+		<szLongItemName>9x19mm HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9x19mm HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1223</uiIndex>
+		<szItemName>9x19 M crate</szItemName>
+		<szLongItemName>9x19mm M ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9x19mm M ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1224</uiIndex>
+		<szItemName>9x19 G crate</szItemName>
+		<szLongItemName>9x19mm G ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9x19mm G ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1225</uiIndex>
+		<szItemName>9x19 T crate</szItemName>
+		<szLongItemName>9x19mm T ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9x19mm T ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1226</uiIndex>
+		<szItemName>9x19 AET crate</szItemName>
+		<szLongItemName>9x19mm AET ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9x19mm AET ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 </ITEMLIST>

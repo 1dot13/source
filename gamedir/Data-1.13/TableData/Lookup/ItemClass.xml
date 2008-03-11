@@ -65,6 +65,10 @@
 		<name>Key</name>
 	</ItemClass>
 	<ItemClass>
+		<id>131072</id>
+		<name>Load Bearing Equipment</name>
+	</ItemClass>
+	<ItemClass>
 		<id>268435456</id>
 		<name>Misc</name>
 	</ItemClass>

@@ -920,10 +920,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>115</uiIndex>
-		<szItemName>FW-Clip</szItemName>
-		<szLongItemName>Flammenwerfer Clip</szLongItemName>
+		<szItemName>FW-Tank</szItemName>
+		<szLongItemName>Flammenwerfer Tank</szLongItemName>
 		<szItemDesc>Das ist Munition für den Flammenwerfer.</szItemDesc>
-		<szBRName>FW-Clip</szBRName>
+		<szBRName>FW-Tank</szBRName>
 		<szBRDesc>Das ist Munition für den Flammenwerfer.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1049,31 +1049,31 @@
 	<ITEM>
 		<uiIndex>131</uiIndex>
 		<szItemName>V-Granate</szItemName>
-		<szLongItemName>Vakuum-Handgranate</szLongItemName>
+		<szLongItemName>Vakuumgranate</szLongItemName>
 		<szItemDesc>Mit dieser Granate nehmen Sie jeder Infanterie- Einheit den Wind aus den Segeln.</szItemDesc>
-		<szBRName>Vakuum-Granate</szBRName>
+		<szBRName>Vakuumgranate</szBRName>
 		<szBRDesc>Mit dieser Granate nehmen Sie jeder Infanterie-Einheit den Wind aus den Segeln.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>132</uiIndex>
 		<szItemName>TG-Granate</szItemName>
-		<szLongItemName>Trängas-Handgranate</szLongItemName>
+		<szLongItemName>Trängasgranate</szLongItemName>
 		<szItemDesc>Aus diesem gummiartigen Geschoss wird nach einer kurzen Verzögerung Tränengas freigesetzt.</szItemDesc>
-		<szBRName>Trängas-Granate</szBRName>
+		<szBRName>Trängasgranate</szBRName>
 		<szBRDesc>Aus diesem gummiartigen Geschoss wird nach einer kurzen Verzögerung Tränengas freigesetzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>133</uiIndex>
 		<szItemName>SG-Granate</szItemName>
-		<szLongItemName>Senfgas-Handranate</szLongItemName>
+		<szLongItemName>Senfgasgranate</szLongItemName>
 		<szItemDesc>Diese Granate setzt ein farb-, geruch- und geschmackloses Gas frei, das schwere Verätzungen in der Lunge verursacht.</szItemDesc>
-		<szBRName>Senfgas-Granate</szBRName>
+		<szBRName>Senfgasgranate</szBRName>
 		<szBRDesc>Diese Granate setzt ein farb-, geruch- und geschmackloses Gas frei, das schwere Verätzungen in der Lunge verursacht. Ohne sofortige medizinische Hilfe stirbt das Opfer.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>134</uiIndex>
 		<szItemName>Mini-Granate</szItemName>
-		<szLongItemName>Mini-Handgranate</szLongItemName>
+		<szLongItemName>Mini-Granate</szLongItemName>
 		<szItemDesc>Diese kleine TNT-Granate wurde konzipiert, um sichere Wurfreichweite und wirkungsvolle Zersplitterung zu gewährleisten.</szItemDesc>
 		<szBRName>Mini-Granate</szBRName>
 		<szBRDesc>Diese kleine TNT-Granate wurde konzipiert, um sichere Wurfreichweite und wirkungsvolle Zersplitterung zu gewährleisten. Sie hat sich als gutes, tödliches Mittel erwiesen, um für Deckung zu sorgen.</szBRDesc>
@@ -1145,17 +1145,17 @@
 	<ITEM>
 		<uiIndex>143</uiIndex>
 		<szItemName>SL-Mine</szItemName>
-		<szLongItemName>Stolperdraht-Leuchtmine</szLongItemName>
+		<szLongItemName>S Leuchtfalle</szLongItemName>
 		<szItemDesc>Diese Leuchtmine ist mit einem Stolperdraht versehen. Durch Ziehen oder Durchtrennen des Stolperdrahtes wird die Leuchtpatrone gezündet, und die Söldner werden auf den Gegner aufmerksam gemacht.</szItemDesc>
-		<szBRName>SL-Mine</szBRName>
+		<szBRName>S Leuchtfalle</szBRName>
 		<szBRDesc>Diese Leuchtmine ist mit einem Stolperdraht versehen. Durch Ziehen oder Durchtrennen des Stolperdrahtes wird die Leuchtpatrone gezündet, und die Söldner werden auf den Gegner aufmerksam gemacht.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>144</uiIndex>
 		<szItemName>SLA-Mine</szItemName>
-		<szLongItemName>SL-Alarm-Mine</szLongItemName>
+		<szLongItemName>SL Alarmfalle</szLongItemName>
 		<szItemDesc>Diese mit einem Stolperdraht versehene Leuchtmine macht Söldner auf Gegner aufmerksam, die sich in der Nähe befinden. Durch Ziehen oder Durchtrennen des Stolperdrahtes wird die Leuchtpatrone gezündet. Eine Alarmsirene ertönt.</szItemDesc>
-		<szBRName>SL-Alarm-Mine</szBRName>
+		<szBRName>SL Alarmfalle</szBRName>
 		<szBRDesc>Diese mit einem Stolperdraht versehene Leuchtmine macht Söldner auf Gegner aufmerksam, die sich in der Nähe befinden. Durch Ziehen oder Durchtrennen des Stolperdrahtes wird die Leuchtpatrone gezündet. Eine Alarmsirene ertönt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1295,9 +1295,9 @@
 	<ITEM>
 		<uiIndex>162</uiIndex>
 		<szItemName>C18-SS-Weste</szItemName>
-		<szLongItemName>C18-Schutzweste</szLongItemName>
+		<szLongItemName>C18 Schutzweste</szLongItemName>
 		<szItemDesc>Diese ultraleichte Armorshield-Jacke wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen. Die ärmellose Jacke wird zusammen mit Nacken- und Tiefenschutz geliefert.</szItemDesc>
-		<szBRName>C18-Schutzweste</szBRName>
+		<szBRName>C18 Schutzweste</szBRName>
 		<szBRDesc>Diese ultraleichte Armorshield-Jacke wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen. Die ärmellose Jacke wird zusammen mit Nacken- und Tiefenschutz geliefert.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1319,9 +1319,9 @@
 	<ITEM>
 		<uiIndex>165</uiIndex>
 		<szItemName>C18-K-Weste</szItemName>
-		<szLongItemName>C18-Kevlarweste</szLongItemName>
+		<szLongItemName>C18 Kevlarweste</szLongItemName>
 		<szItemDesc>Diese Kevlarweste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-Kevlarweste</szBRName>
+		<szBRName>C18 Kevlarweste</szBRName>
 		<szBRDesc>Diese Kevlarweste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1335,25 +1335,25 @@
 	<ITEM>
 		<uiIndex>167</uiIndex>
 		<szItemName>SS-Weste</szItemName>
-		<szLongItemName>Spectra-Shield-Weste</szLongItemName>
+		<szLongItemName>Spectra Shield Weste</szLongItemName>
 		<szItemDesc>Diese Weste besteht aus mehreren Folienlagen Spectra-Shield. Sie beugt Verletzungen durch Treffer aus verschiedenen Schusswinkeln vor. Zusätzlich kann eine Traumaplatte für den Brustbereich angebracht werden. Schutzklasse: III-A (NIJ)</szItemDesc>
-		<szBRName>Spectra-Shield-Weste</szBRName>
+		<szBRName>Spectra Shield Weste</szBRName>
 		<szBRDesc>Diese Weste besteht aus mehreren Folienlagen Spectra-Shield. Sie beugt Verletzungen durch Treffer aus verschiedenen Schusswinkeln vor. Zusätzlich kann eine Traumaplatte für den Brustbereich angebracht werden. Schutzklasse: III-A (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>168</uiIndex>
 		<szItemName>C18-S-Weste</szItemName>
-		<szLongItemName>C18-Spectra-Shield-Weste</szLongItemName>
+		<szLongItemName>C18 Spectra Shield Weste</szLongItemName>
 		<szItemDesc>Diese Spectra-Shield-Weste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-Spectra-Shield-Weste</szBRName>
+		<szBRName>C18 Spectra Shield Weste</szBRName>
 		<szBRDesc>Diese Spectra-Shield-Weste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>169</uiIndex>
 		<szItemName>beh. S-Weste</szItemName>
-		<szLongItemName>beh. Spectra-Shield-Weste</szLongItemName>
+		<szLongItemName>beh. Spectra Shield Weste</szLongItemName>
 		<szItemDesc>Diese Spectra-Shield-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
-		<szBRName>beh. Spectra-Shield-Weste</szBRName>
+		<szBRName>beh. Spectra Shield Weste</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1367,9 +1367,9 @@
 	<ITEM>
 		<uiIndex>171</uiIndex>
 		<szItemName>C18-K-Hose</szItemName>
-		<szLongItemName>C18-Kevlarhose</szLongItemName>
+		<szLongItemName>C18 Kevlarhose</szLongItemName>
 		<szItemDesc>Diese Kevlarhose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-Kevlarhose</szBRName>
+		<szBRName>C18 Kevlarhose</szBRName>
 		<szBRDesc>Diese Kevlarhose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1383,25 +1383,25 @@
 	<ITEM>
 		<uiIndex>173</uiIndex>
 		<szItemName>SS-Hose</szItemName>
-		<szLongItemName>Spectra-Shield-Hose</szLongItemName>
+		<szLongItemName>Spectra Shield Hose</szLongItemName>
 		<szItemDesc>Diese Hose besteht aus mehreren Folienlagen Spectra-Shield. Sie beugt Verletzungen durch Treffer aus verschiedenen Schusswinkeln vor. Verstellbare Klettverschlüsse an Hüften und Knöcheln garantieren volle Bewegungsfreiheit. Schutzklasse: III-A (NIJ)</szItemDesc>
-		<szBRName>Spectra-Shield-Hose</szBRName>
+		<szBRName>Spectra Shield Hose</szBRName>
 		<szBRDesc>Diese Hose besteht aus mehreren Folienlagen Spectra-Shield. Sie beugt Verletzungen durch Treffer aus verschiedenen Schusswinkeln vor. Verstellbare Klettverschlüsse an Hüften und Knöcheln garantieren volle Bewegungsfreiheit. Schutzklasse: III-A (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>174</uiIndex>
 		<szItemName>C18-S-Hose</szItemName>
-		<szLongItemName>C18-Spectra-Shield-Hose</szLongItemName>
+		<szLongItemName>C18 Spectra Shield Hose</szLongItemName>
 		<szItemDesc>Diese Spectra-Shield-Hose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-Spectra-Shield-Hose</szBRName>
+		<szBRName>C18 Spectra Shield Hose</szBRName>
 		<szBRDesc>Diese Spectra-Shield-Hose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>175</uiIndex>
 		<szItemName>beh. S-Hose</szItemName>
-		<szLongItemName>beh. Spectra-Shield-Hose</szLongItemName>
+		<szLongItemName>beh. Spectra Shield Hose</szLongItemName>
 		<szItemDesc>Diese Spectra-Shield-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
-		<szBRName>beh. Spectra-Shield-Hose</szBRName>
+		<szBRName>beh. Spectra Shield Hose</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1423,9 +1423,9 @@
 	<ITEM>
 		<uiIndex>178</uiIndex>
 		<szItemName>C18-K-Helm</szItemName>
-		<szLongItemName>C18-Kevlarhelm</szLongItemName>
+		<szLongItemName>C18 Kevlarhelm</szLongItemName>
 		<szItemDesc>Dieser Kevlarhelm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-Kevlarhelm</szBRName>
+		<szBRName>C18 Kevlarhelm</szBRName>
 		<szBRDesc>Dieser Kevlarhelm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1439,25 +1439,25 @@
 	<ITEM>
 		<uiIndex>180</uiIndex>
 		<szItemName>SS-Helm</szItemName>
-		<szLongItemName>Spectra-Shield-Helm</szLongItemName>
+		<szLongItemName>Spectra Shield Helm</szLongItemName>
 		<szItemDesc>Dieser leichte Spectra-Helm ist berühmt für seine antiballistischen Eigenschaften. Er ist mit IR-Licht absorbierendem Lack beschichtet, hat ein Schaumstoffpolster sowie ein Lederkopfband. Schutzklasse: III-A (NIJ)</szItemDesc>
-		<szBRName>Spectra-Shield-Helm</szBRName>
+		<szBRName>Spectra Shield Helm</szBRName>
 		<szBRDesc>Dieser leichte Spectra-Helm ist berühmt für seine antiballistischen Eigenschaften. Er ist mit IR-Licht absorbierendem Lack beschichtet, hat ein Schaumstoffpolster sowie ein Lederkopfband. Schutzklasse: III-A (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>181</uiIndex>
 		<szItemName>C18-S-Helm</szItemName>
-		<szLongItemName>C18-Spectra-Shield-Helm</szLongItemName>
+		<szLongItemName>C18 Spectra Shield Helm</szLongItemName>
 		<szItemDesc>Dieser Spectra-Shield-Helm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-Spectra-Shield-Helm</szBRName>
+		<szBRName>C18 Spectra Shield Helm</szBRName>
 		<szBRDesc>Dieser Spectra-Shield-Helm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>182</uiIndex>
 		<szItemName>beh. S-Helm</szItemName>
-		<szLongItemName>beh. Spectra-Shield-Helm</szLongItemName>
+		<szLongItemName>beh. Spectra Shield Helm</szLongItemName>
 		<szItemDesc>Dieser Spectra-Shield-Helm bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
-		<szBRName>beh. Spectra-Shield-Helm</szBRName>
+		<szBRName>beh. Spectra Shield Helm</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1511,25 +1511,25 @@
 	<ITEM>
 		<uiIndex>189</uiIndex>
 		<szItemName>K-Pilotenjacke</szItemName>
-		<szLongItemName>Kevlar-Pilotenjacke</szLongItemName>
+		<szLongItemName>Kevlar Pilotenjacke</szLongItemName>
 		<szItemDesc>Diese Fliegerjacke ist mit Kevlarfasern verstärkt, um ein Mindestmaß an Schutz zu gewährleisten.</szItemDesc>
-		<szBRName>Kevlar-Pilotenjacke</szBRName>
+		<szBRName>Kevlar Pilotenjacke</szBRName>
 		<szBRDesc>Diese lederne Fliegerjacke ist mit einem Innenfutter aus Kevlarfasern vernäht, um ein Mindestmaß an Schutz zu gewährleisten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>190</uiIndex>
 		<szItemName>C18-K-Pilotenjacke</szItemName>
-		<szLongItemName>Comp.18-Kevlar-Pilotenjacke</szLongItemName>
+		<szLongItemName>Comp.18 Kevlar Pilotenjacke</szLongItemName>
 		<szItemDesc>Diese Fliegerjacke aus Leder mit Kevlar-Innenfutter ist mit Compound-18 behandelt worden, wodurch sie noch besser schützt.</szItemDesc>
-		<szBRName>C18-K-Pilotenjacke</szBRName>
+		<szBRName>C18 K-Pilotenjacke</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>191</uiIndex>
 		<szItemName>beh. K-Pilotenjacke</szItemName>
-		<szLongItemName>beh. Kevlar-Pilotenjacke</szLongItemName>
+		<szLongItemName>beh. Kevlar Pilotenjacke</szLongItemName>
 		<szItemDesc>Diese Kevlar-Fliegerjacke bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
-		<szBRName>beh. Kevlar-Pilotenjacke</szBRName>
+		<szBRName>beh. Kevlar Pilotenjacke</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1567,25 +1567,25 @@
 	<ITEM>
 		<uiIndex>196</uiIndex>
 		<szItemName>G-Weste</szItemName>
-		<szLongItemName>Guardian-Weste</szLongItemName>
+		<szLongItemName>Guardianweste</szLongItemName>
 		<szItemDesc>Diese Qualitätsweste aus dem Hause GUARDIAN ARMORIES besteht aus 36 Schichten Kevlar, ist vollverstellbar und hat Taschen für zusätzliche Traumaplatten im Brust- und Rückenbereich. Schutzklasse: II (NIJ)</szItemDesc>
-		<szBRName>G-Weste</szBRName>
+		<szBRName>Guardianweste</szBRName>
 		<szBRDesc>Diese Qualitätsweste aus dem Hause GUARDIAN ARMORIES besteht aus 36 Schichten Kevlar, ist vollverstellbar und hat Taschen für zusätzliche Traumaplatten im Brust- und Rückenbereich. Schutzklasse: II (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>197</uiIndex>
 		<szItemName>C18-G-Weste</szItemName>
-		<szLongItemName>C18-Guardian-Weste</szLongItemName>
+		<szLongItemName>C18 Guardianweste</szLongItemName>
 		<szItemDesc>Diese Guardian-Weste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-Guardian-Weste</szBRName>
+		<szBRName>C18 Guardianweste</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>198</uiIndex>
 		<szItemName>beh. G-Weste</szItemName>
-		<szLongItemName>beh. Guardian-Weste</szLongItemName>
+		<szLongItemName>beh. Guardianweste</szLongItemName>
 		<szItemDesc>Diese Guardian-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
-		<szBRName>beh. Guardian-Weste</szBRName>
+		<szBRName>beh. Guardianweste</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1646,16 +1646,16 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>206</uiIndex>
-		<szItemName>Sprengfallen-Set</szItemName>
-		<szLongItemName>Sprengfallen-Set</szLongItemName>
+		<szItemName>Sprengfallenset</szItemName>
+		<szLongItemName>Sprengfallenset</szLongItemName>
 		<szItemDesc>Dieses Set enthält alles, was man zum Bau von Fallen benötigt: Stolperdrähte, Sprengstoff und Auslöser.</szItemDesc>
-		<szBRName>Sprengfallen-Set</szBRName>
+		<szBRName>Sprengfallenset</szBRName>
 		<szBRDesc>Dieses Set enthält alles, was man zum Bau von Fallen benötigt: Stolperdrähte, Sprengstoff und Auslöser.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>207</uiIndex>
 		<szItemName>SD-1</szItemName>
-		<szLongItemName>KAC Schalldämpfer-1</szLongItemName>
+		<szLongItemName>KAC Schalldämpfer SD-1</szLongItemName>
 		<szItemDesc>Dieser leichte und kompakte Schalldämpfer ermöglicht aufgrund seines Designs eine unkomplizierte Anbringung an den meisten Pistolen und MPs. Bitte verwenden Sie speziele Unterschall-Munition.</szItemDesc>
 		<szBRName>KAC SD-1</szBRName>
 		<szBRDesc>Dieser leichte und kompakte Schalldämpfer ermöglicht aufgrund seines Designs eine unkomplizierte Anbringung an den meisten Pistolen und MPs. Bitte vergessen Sie nicht die passende Unterschall-Munition mit zu bestellen!</szBRDesc>
@@ -1784,10 +1784,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>224</uiIndex>
-		<szItemName>Zünder</szItemName>
-		<szLongItemName>Zünder</szLongItemName>
+		<szItemName>Fernzünder</szItemName>
+		<szLongItemName>Fernzünder</szLongItemName>
 		<szItemDesc>Bringen Sie diesen Zünder an einer Bombe an und Sie können sich in aller Ruhe in Sicherheit bringen, ehe Sie das Ziel in die Luft jagen. Die Ladung geht erst hoch, wenn sie den Auslöser drücken.</szItemDesc>
-		<szBRName>Zünder</szBRName>
+		<szBRName>Fernzünder</szBRName>
 		<szBRDesc>Bringen Sie diesen Zünder an einer Bombe an und Sie können sich in aller Ruhe in Sicherheit bringen, ehe Sie das Ziel in die Luft jagen. Die Ladung geht erst hoch, wenn sie den Auslöser drücken.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1911,9 +1911,9 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>240</uiIndex>
-		<szItemName>Besitz-Urkunde</szItemName>
-		<szLongItemName>Besitz-Urkunde</szLongItemName>
-		<szBRName>Besitz-Urkunde</szBRName>
+		<szItemName>Besitzurkunde</szItemName>
+		<szLongItemName>Besitzurkunde</szLongItemName>
+		<szBRName>Besitzurkunde</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2063,9 +2063,9 @@
 	<ITEM>
 		<uiIndex>259</uiIndex>
 		<szItemName>Roboter FB</szItemName>
-		<szLongItemName>Roboter-Fernbedienung</szLongItemName>
+		<szLongItemName>Roboter Fernbedienung</szLongItemName>
 		<szItemDesc>Lassen Sie Ihren Roboter mit dieser zuverlässigen Fernbedienung die Drecksarbeit machen, während Sie aus sicherer Entfernung zusehen.</szItemDesc>
-		<szBRName>Roboter-Fernbedienung</szBRName>
+		<szBRName>Roboter Fernbedienung</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2107,10 +2107,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>265</uiIndex>
-		<szItemName>Golf Schläger</szItemName>
-		<szLongItemName>Golf Schläger</szLongItemName>
+		<szItemName>Golfschläger</szItemName>
+		<szLongItemName>Golfschläger</szLongItemName>
 		<szItemDesc>Diese Tasche mit dem klassischen Satz an Hölzern und Eisen hat schon bessere Tage auf dem Grün gesehen. Obwohl schon leicht abgenutzt, können Sie mit diesen Schlägern noch immer locker unter par bleiben.</szItemDesc>
-		<szBRName>Golf Schläger</szBRName>
+		<szBRName>Golfschläger</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2164,9 +2164,9 @@
 	<ITEM>
 		<uiIndex>272</uiIndex>
 		<szItemName>Schlüssel</szItemName>
-		<szLongItemName>Gefängnis-Schlüssel</szLongItemName>
+		<szLongItemName>Gefängnisschlüssel</szLongItemName>
 		<szItemDesc>Ein Gefängnisschlüssel aus rostfreiem Stahl.</szItemDesc>
-		<szBRName>Gefängnis-Schlüssel</szBRName>
+		<szBRName>Gefängnisschlüssel</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2364,9 +2364,9 @@
 	<ITEM>
 		<uiIndex>297</uiIndex>
 		<szItemName>Tele-Schlagstock</szItemName>
-		<szLongItemName>Teleskop-Schlagstock</szLongItemName>
+		<szLongItemName>Teleskop Schlagstock</szLongItemName>
 		<szItemDesc>Ein Schlagstock gehört zur Grundausstattung von Sicherheitskräften.</szItemDesc>
-		<szBRName>Teleskop-Schlagstock</szBRName>
+		<szBRName>Teleskop Schlagstock</szBRName>
 		<szBRDesc>Dieser Teleskop-Schlagstock ist verdeckt zu tragen und schnell einsatzbereit. Wird auch gerne von radikalen Fußballfreunden gekauft!</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2585,17 +2585,17 @@
 	<ITEM>
 		<uiIndex>325</uiIndex>
 		<szItemName>Silber</szItemName>
-		<szLongItemName>Silber-Klumpen</szLongItemName>
+		<szLongItemName>Silberklumpen</szLongItemName>
 		<szItemDesc>Ein Klumpen aus purem Silber, wahrscheinlich direkt aus einer arulcanischen Mine.</szItemDesc>
-		<szBRName>Silber-Klumpen</szBRName>
+		<szBRName>Silberklumpen</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>326</uiIndex>
 		<szItemName>Gold</szItemName>
-		<szLongItemName>Gold-Klumpen</szLongItemName>
+		<szLongItemName>Goldklumpen</szLongItemName>
 		<szItemDesc>Fast so gut wie Cash, nur schwerer. Dies ist ein glänzender, beeindruckender Goldklumpen. Mit besten Grüßen aus Arulcos Minen.</szItemDesc>
-		<szBRName>Gold-Klumpen</szBRName>
+		<szBRName>Goldklumpen</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2880,11 +2880,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>362</uiIndex>
-		<szItemName>9x19 US-G</szItemName>
-		<szLongItemName>9x19mm Magazin, US-Glaser</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>9x19 Mag US-G #8</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>Nothing</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Nothing</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>363</uiIndex>
@@ -2944,11 +2944,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>370</uiIndex>
-		<szItemName>9x19 US-G</szItemName>
-		<szLongItemName>9x19mm Magazin, US-Glaser</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>9x19 Mag US-G #15</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>Nothing</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Nothing</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>371</uiIndex>
@@ -3008,11 +3008,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>378</uiIndex>
-		<szItemName>9x19 US-G</szItemName>
-		<szLongItemName>9x19mm MP-Magazin, US-Glaser</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>9x19 Mag US-G</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>Nothing</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Nothing</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>379</uiIndex>
@@ -3072,11 +3072,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>386</uiIndex>
-		<szItemName>9x19 US-G</szItemName>
-		<szLongItemName>9x19mm Magazin, US-Glaser</szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>9x19 Mag US-G #50</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>Nothing</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Nothing</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>387</uiIndex>
@@ -3160,11 +3160,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>397</uiIndex>
-		<szItemName>9x19 US-G</szItemName>
-		<szLongItemName>9x19mm Beta C-Mag, US-Glaser </szLongItemName>
-		<szItemDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szItemDesc>
-		<szBRName>9x19 C-Mag US-G</szBRName>
-		<szBRDesc>Verwenden Sie die EXTREME SHOCK Silent Warrior Patrone und Sie hören nur das Klicken des Schlagbolzens und den Einschlag des Projektils. Diese Munition wurde mit dem Ziel entwickelt, die heutigen Anforderungen von Spezialeinheiten zu erfüllen.</szBRDesc>
+		<szItemName>Nothing</szItemName>
+		<szLongItemName>Nothing</szLongItemName>
+		<szItemDesc>Nothing</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>Nothing</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>398</uiIndex>
@@ -4153,7 +4153,7 @@
 	<ITEM>
 		<uiIndex>521</uiIndex>
 		<szItemName>7.62x54R LS</szItemName>
-		<szLongItemName>7.62x54R Box, Leutspur</szLongItemName>
+		<szLongItemName>7.62x54R Box, Leuchtspur</szLongItemName>
 		<szItemDesc>Mit dieser Leuchtspurmunition sollte das Zielen und Treffen im Burstmodus kein Problem mehr sein.</szItemDesc>
 		<szBRName>7.62x54R Box LS #200</szBRName>
 		<szBRDesc>Mit dieser Leuchtspurmunition sollte das Zielen und Treffen im Burstmodus kein Problem mehr sein.</szBRDesc>
@@ -4280,11 +4280,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>537</uiIndex>
-		<szItemName>10mm Mag DU</szItemName>
-		<szLongItemName>10mm AUTO Magazin, DU</szLongItemName>
-		<szItemDesc>Aufgrund der verwendeten Legierung entfalten diese panzerbrechenden Geschosse eine große Durchschlagskraft. Das Projektil enthält Uran-235 und setzt beim Einschlagen einen radioaktiven Staub frei welcher sehr tödlich ist.</szItemDesc>
-		<szBRName>10mm Mag DU</szBRName>
-		<szBRDesc>Aufgrund der verwendeten Legierung entfalten diese panzerbrechenden Geschosse eine große Durchschlagskraft. Das Projektil enthält Uran-235 und setzt beim Einschlagen einen radioaktiven Staub frei welcher sehr tödlich ist.</szBRDesc>
+		<szItemName>9x21mm SMG Mag</szItemName>
+		<szLongItemName>9x21mm SMG Magazine</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>9x21mm SMG Magazine</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>538</uiIndex>
@@ -4721,7 +4721,7 @@
 	<ITEM>
 		<uiIndex>592</uiIndex>
 		<szItemName>SD-3</szItemName>
-		<szLongItemName>KAC Schalldämpfer-3</szLongItemName>
+		<szLongItemName>KAC Schalldämpfer SD-3</szLongItemName>
 		<szItemDesc>Dieser große Schalldämpfer kann an Präzisionsgewehre (7.62mm, 5.45mm, 5.56mm) angebracht werden. Um eine maximale Wirkung zu erzielen, verwenden Sie bitte spezielle Unterschall-Munition.</szItemDesc>
 		<szBRName>KAC SD-3</szBRName>
 		<szBRDesc>Dieser große Schalldämpfer kann an Präzisionsgewehre (7.62mm, 5.45mm, 5.56mm) angebracht werden. Um eine maximale Wirkung zu erzielen, verwenden Sie bitte spezielle Unterschall-Munition.</szBRDesc>
@@ -5937,9 +5937,9 @@
 	<ITEM>
 		<uiIndex>744</uiIndex>
 		<szItemName>VIS-35</szItemName>
-		<szLongItemName>F.B. Random VIS-35</szLongItemName>
+		<szLongItemName>F.B. Radom VIS-35</szLongItemName>
 		<szItemDesc>Nach erfolgreichen Test wurde diese Pistole 1936 bei der polnischen Armee in Dienst gestellt.</szItemDesc>
-		<szBRName>F.B. Random VIS-35</szBRName>
+		<szBRName>F.B. Radom VIS-35</szBRName>
 		<szBRDesc>Nach erfolgreichen Test wurde diese Pistole 1936 bei der polnischen Armee in Dienst gestellt. Während des 2. Weltkriegs wurde die Produktion weitergeführt und die VIS-35 von der Wehrmacht eingesetzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6393,25 +6393,25 @@
 	<ITEM>
 		<uiIndex>801</uiIndex>
 		<szItemName>DSM-Helm</szItemName>
-		<szLongItemName>Dyneema-Helm</szLongItemName>
+		<szLongItemName>Dyneemahelm</szLongItemName>
 		<szItemDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Durch die hohe Flexibilität und Bequemlichkeit wird erreicht, dass sie auch wirklich getragen wird. Schutzklasse: III-A (NIJ)</szItemDesc>
-		<szBRName>Dyneema-Helm</szBRName>
+		<szBRName>Dyneemahelm</szBRName>
 		<szBRDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Durch die hohe Flexibilität und Bequemlichkeit wird erreicht, dass sie auch wirklich getragen wird. Schutzklasse: III-A (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>802</uiIndex>
 		<szItemName>DSM-Hose</szItemName>
-		<szLongItemName>Dyneema-Hose</szLongItemName>
+		<szLongItemName>Dyneemahose</szLongItemName>
 		<szItemDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Durch die hohe Flexibilität und Bequemlichkeit wird erreicht, dass sie auch wirklich getragen wird. Schutzklasse: III-A (NIJ)</szItemDesc>
-		<szBRName>Dyneema-Hose</szBRName>
+		<szBRName>Dyneemahose</szBRName>
 		<szBRDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Durch die hohe Flexibilität und Bequemlichkeit wird erreicht, dass sie auch wirklich getragen wird. Schutzklasse: III-A (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>803</uiIndex>
 		<szItemName>DSM-Weste</szItemName>
-		<szLongItemName>Dyneema-Weste</szLongItemName>
+		<szLongItemName>Dyneemaweste</szLongItemName>
 		<szItemDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Durch die hohe Flexibilität und Bequemlichkeit wird erreicht, dass sie auch wirklich getragen wird. Schutzklasse: III-A (NIJ)</szItemDesc>
-		<szBRName>Dyneema-Weste</szBRName>
+		<szBRName>Dyneemaweste</szBRName>
 		<szBRDesc>Diese niederländische Schutzkleidung von DSM besteht aus mehreren Folienlagen Dyneema und garantiert maximalen Schutz bei äußerst niedrigem Gewicht. Durch die hohe Flexibilität und Bequemlichkeit wird erreicht, dass sie auch wirklich getragen wird. Schutzklasse: III-A (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6465,145 +6465,145 @@
 	<ITEM>
 		<uiIndex>810</uiIndex>
 		<szItemName>Tw.-Helm</szItemName>
-		<szLongItemName>Twaron-Helm</szLongItemName>
+		<szLongItemName>Twaronhelm</szLongItemName>
 		<szItemDesc>Der Schutzhelm von TWARON wird aus dem neuentwickeltem Twaron CT Microfilament gefertigt. Hierbei besteht jeder Faden aus 1.000 feinsten Einzelfäden, deren Feinheit noch unter 1.1 dtex liegt. Schutzklasse: II (NIJ)</szItemDesc>
-		<szBRName>Twaron-Helm</szBRName>
+		<szBRName>Twaronhelm</szBRName>
 		<szBRDesc>Die Schutzkleidung von TWARON wird aus dem neuentwickeltem Twaron CT Microfilament gefertigt. Hierbei besteht jeder Faden aus 1.000 feinsten Einzelfäden, deren Feinheit noch unter 1.1 dtex liegt. Schutzklasse: II (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>811</uiIndex>
 		<szItemName>Tw.-Hose</szItemName>
-		<szLongItemName>Twaron-Hose</szLongItemName>
+		<szLongItemName>Twaronhose</szLongItemName>
 		<szItemDesc>Die Schutzhose von TWARON wird aus dem neuentwickeltem Twaron CT Microfilament gefertigt. Hierbei besteht jeder Faden aus 1.000 feinsten Einzelfäden, deren Feinheit noch unter 1.1 dtex liegt. Schutzklasse: II (NIJ)</szItemDesc>
-		<szBRName>Twaron-Hose</szBRName>
+		<szBRName>Twaronhose</szBRName>
 		<szBRDesc>Die Schutzkleidung von TWARON wird aus dem neuentwickeltem Twaron CT Microfilament gefertigt. Hierbei besteht jeder Faden aus 1.000 feinsten Einzelfäden, deren Feinheit noch unter 1.1 dtex liegt. Schutzklasse: II (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>812</uiIndex>
 		<szItemName>Tw.-Weste</szItemName>
-		<szLongItemName>Twaron-Weste</szLongItemName>
+		<szLongItemName>Twaronweste</szLongItemName>
 		<szItemDesc>Die Schutzweste von TWARON wird aus dem neuentwickeltem Twaron CT Microfilament gefertigt. Hierbei besteht jeder Faden aus 1.000 feinsten Einzelfäden, deren Feinheit noch unter 1.1 dtex liegt. Schutzklasse: II (NIJ)</szItemDesc>
-		<szBRName>Twaron-Weste</szBRName>
+		<szBRName>Twaronweste</szBRName>
 		<szBRDesc>Die Schutzkleidung von TWARON wird aus dem neuentwickeltem Twaron CT Microfilament gefertigt. Hierbei besteht jeder Faden aus 1.000 feinsten Einzelfäden, deren Feinheit noch unter 1.1 dtex liegt. Schutzklasse: II (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>813</uiIndex>
 		<szItemName>C18 Dyn.-Helm</szItemName>
-		<szLongItemName>C18-Dyneema-Helm</szLongItemName>
-		<szItemDesc>Dieser Dyneema-Helm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-Dyneema-Helm</szBRName>
-		<szBRDesc>Dieser Dyneema-Helm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
+		<szLongItemName>C18 Dyneemahelm</szLongItemName>
+		<szItemDesc>Dieser Dyneemahelm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
+		<szBRName>C18 Dyneemahelm</szBRName>
+		<szBRDesc>Dieser Dyneemahelm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>814</uiIndex>
 		<szItemName>C18 Dyn.-Hose</szItemName>
-		<szLongItemName>C18-Dyneema-Hose</szLongItemName>
-		<szItemDesc>Diese Dyneema-Hose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-Dyneema-Hose</szBRName>
-		<szBRDesc>Diese Dyneema-Hose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
+		<szLongItemName>C18 Dyneemahose</szLongItemName>
+		<szItemDesc>Diese Dyneemahose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
+		<szBRName>C18 Dyneemahose</szBRName>
+		<szBRDesc>Diese Dyneemahose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>815</uiIndex>
 		<szItemName>C18 Dyn.-Weste</szItemName>
-		<szLongItemName>C18-Dyneema-Weste</szLongItemName>
-		<szItemDesc>Diese Dyneema-Weste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-Dyneema-Weste</szBRName>
-		<szBRDesc>Diese Dyneema-Hose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
+		<szLongItemName>C18 Dyneemaweste</szLongItemName>
+		<szItemDesc>Diese Dyneemaweste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
+		<szBRName>C18 Dyneemaweste</szBRName>
+		<szBRDesc>Diese Dyneemaweste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>816</uiIndex>
 		<szItemName>C18 EOD-Helm</szItemName>
-		<szLongItemName>C18-EOD-Helm</szLongItemName>
+		<szLongItemName>C18 EOD-Helm</szLongItemName>
 		<szItemDesc>Dieser EOD-Helm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-EOD-Helm</szBRName>
+		<szBRName>C18 EOD-Helm</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>817</uiIndex>
 		<szItemName>C18 EOD-Hose</szItemName>
-		<szLongItemName>C18-EOD-Hose</szLongItemName>
+		<szLongItemName>C18 EOD-Hose</szLongItemName>
 		<szItemDesc>Diese EOD-Hose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-EOD-Hose</szBRName>
+		<szBRName>C18 EOD-Hose</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>818</uiIndex>
 		<szItemName>C18 EOD-Weste</szItemName>
-		<szLongItemName>C18-EOD-Weste</szLongItemName>
+		<szLongItemName>C18 EOD-Weste</szLongItemName>
 		<szItemDesc>Diese EOD-Weste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-EOD-Weste</szBRName>
+		<szBRName>C18 EOD-Weste</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>819</uiIndex>
 		<szItemName>C18 SWAT Helm</szItemName>
-		<szLongItemName>C18-SWAT-Helm</szLongItemName>
+		<szLongItemName>C18 SWAT-Helm</szLongItemName>
 		<szItemDesc>Dieser SWAT-Helm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-SWAT-Helm</szBRName>
+		<szBRName>C18 SWAT-Helm</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>820</uiIndex>
 		<szItemName>C18 SWAT Hose</szItemName>
-		<szLongItemName>C18-SWAT-Hose</szLongItemName>
+		<szLongItemName>C18 SWAT-Hose</szLongItemName>
 		<szItemDesc>Diese SWAT-Hose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-SWAT-Hose</szBRName>
+		<szBRName>C18 SWAT-Hose</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>821</uiIndex>
 		<szItemName>C18 SWAT Weste</szItemName>
-		<szLongItemName>C18-SWAT-Weste</szLongItemName>
+		<szLongItemName>C18 SWAT-Weste</szLongItemName>
 		<szItemDesc>Diese SWAT-Weste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-SWAT-Weste</szBRName>
+		<szBRName>C18 SWAT-Weste</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>822</uiIndex>
 		<szItemName>C18 Tw.-Helm</szItemName>
-		<szLongItemName>C18-Twaron-Helm</szLongItemName>
-		<szItemDesc>Dieser Twaron-Helm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-Twaron-Helm</szBRName>
-		<szBRDesc>Dieser Twaron-Helm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
+		<szLongItemName>C18 Twaronhelm</szLongItemName>
+		<szItemDesc>Dieser Twaronhelm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
+		<szBRName>C18 Twaronhelm</szBRName>
+		<szBRDesc>Dieser Twaronhelm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>823</uiIndex>
 		<szItemName>C18 Tw.-Hose</szItemName>
-		<szLongItemName>C18-Twaron-Hose</szLongItemName>
-		<szItemDesc>Diese Twaron-Hose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-Twaron-Hose</szBRName>
-		<szBRDesc>Diese Twaron-Hose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
+		<szLongItemName>C18 Twaronhose</szLongItemName>
+		<szItemDesc>Diese Twaronhose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
+		<szBRName>C18 Twaronhose</szBRName>
+		<szBRDesc>Diese Twaronhose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>824</uiIndex>
 		<szItemName>C18 Tw.-Weste</szItemName>
-		<szLongItemName>C18-Twaron-Weste</szLongItemName>
-		<szItemDesc>Diese Twaron-Weste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
-		<szBRName>C18-Twaron-Weste</szBRName>
-		<szBRDesc>Diese Twaron-Weste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
+		<szLongItemName>C18 Twaronweste</szLongItemName>
+		<szItemDesc>Diese Twaronweste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
+		<szBRName>C18 Twaronweste</szBRName>
+		<szBRDesc>Diese Twaronweste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>825</uiIndex>
 		<szItemName>beh. Dyn.-Helm</szItemName>
-		<szLongItemName>beh. Dyneema-Helm</szLongItemName>
+		<szLongItemName>beh. Dyneemahelm</szLongItemName>
 		<szItemDesc>Diese Dyneema-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
-		<szBRName>beh. Dyneema-Helm</szBRName>
+		<szBRName>beh. Dyneemahelm</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>826</uiIndex>
 		<szItemName>beh. Dyn.-Hose</szItemName>
-		<szLongItemName>beh. Dyneema-Hose</szLongItemName>
+		<szLongItemName>beh. Dyneemahose</szLongItemName>
 		<szItemDesc>Diese Dyneema-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
-		<szBRName>beh. Dyneema-Hose</szBRName>
+		<szBRName>beh. Dyneemahose</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>827</uiIndex>
 		<szItemName>beh. Dyn.-Weste</szItemName>
-		<szLongItemName>beh. Dyneema-Weste</szLongItemName>
+		<szLongItemName>beh. Dyneemaweste</szLongItemName>
 		<szItemDesc>Diese Dyneema-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
-		<szBRName>beh. Dyneema-Weste</szBRName>
+		<szBRName>beh. Dyneemaweste</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6657,25 +6657,25 @@
 	<ITEM>
 		<uiIndex>834</uiIndex>
 		<szItemName>beh. Tw.-Helm</szItemName>
-		<szLongItemName>beh. Twaron-Helm</szLongItemName>
+		<szLongItemName>beh. Twaronhelm</szLongItemName>
 		<szItemDesc>Diese Twaron-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
-		<szBRName>beh. Twaron-Helm</szBRName>
+		<szBRName>beh. Twaronhelm</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>835</uiIndex>
 		<szItemName>beh. Tw.-Hose</szItemName>
-		<szLongItemName>beh. Twaron-Hose</szLongItemName>
+		<szLongItemName>beh. Twaronhose</szLongItemName>
 		<szItemDesc>Diese Twaron-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
-		<szBRName>beh. Twaron-Hose</szBRName>
+		<szBRName>beh. Twaronhose</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>836</uiIndex>
 		<szItemName>beh. Tw.-Weste</szItemName>
-		<szLongItemName>beh. Twaron-Weste</szLongItemName>
+		<szLongItemName>beh. Twaronweste</szLongItemName>
 		<szItemDesc>Diese Twaron-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
-		<szBRName>beh. Twaron-Weste</szBRName>
+		<szBRName>beh. Twaronweste</szBRName>
 		<szBRDesc>Not for sale through BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6729,7 +6729,7 @@
 	<ITEM>
 		<uiIndex>843</uiIndex>
 		<szItemName>Recon G-Weste</szItemName>
-		<szLongItemName>Recon Guardian-Weste</szLongItemName>
+		<szLongItemName>Recon Guardianweste</szLongItemName>
 		<szItemDesc>Diese Woodland Guardian-Weste ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarnung-25, Rüstung-28</szItemDesc>
 		<szBRName>Recon Guardianweste</szBRName>
 		<szBRDesc>None</szBRDesc>
@@ -6737,9 +6737,9 @@
 	<ITEM>
 		<uiIndex>844</uiIndex>
 		<szItemName>Recon Tw.-Weste</szItemName>
-		<szLongItemName>Recon Twaron-Weste</szLongItemName>
+		<szLongItemName>Recon Twaronweste</szLongItemName>
 		<szItemDesc>Diese Woodland Twaron-Weste ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarnung-25, Rüstung-28</szItemDesc>
-		<szBRName>Recon Twaron-Weste</szBRName>
+		<szBRName>Recon Twaronweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6753,9 +6753,9 @@
 	<ITEM>
 		<uiIndex>846</uiIndex>
 		<szItemName>Recon Tw.-Hose</szItemName>
-		<szLongItemName>Recon Twaron-Hose</szLongItemName>
+		<szLongItemName>Recon Twaronhose</szLongItemName>
 		<szItemDesc>Diese woodland Twaron-Hose ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Drahtschere und Booster unterbringen. Tarnung-15, Rüstung-26</szItemDesc>
-		<szBRName>Recon Twaron-Hose</szBRName>
+		<szBRName>Recon Twaronhose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6769,7 +6769,7 @@
 	<ITEM>
 		<uiIndex>848</uiIndex>
 		<szItemName>Medic G-Weste</szItemName>
-		<szLongItemName>Sanitäter Guardian-Weste</szLongItemName>
+		<szLongItemName>Sanitäter Guardianweste</szLongItemName>
 		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung-10, Rüstung-28</szItemDesc>
 		<szBRName>Sanitäter Guardianweste</szBRName>
 		<szBRDesc>None</szBRDesc>
@@ -6777,25 +6777,25 @@
 	<ITEM>
 		<uiIndex>849</uiIndex>
 		<szItemName>Medic Tw.-Weste</szItemName>
-		<szLongItemName>Sanitäter Twaron-Weste</szLongItemName>
+		<szLongItemName>Sanitäter Twaronweste</szLongItemName>
 		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung-10, Rüstung-28</szItemDesc>
-		<szBRName>Sanitäter Twaron-Weste</szBRName>
+		<szBRName>Sanitäter Twaronweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>850</uiIndex>
 		<szItemName>Medic S-Weste</szItemName>
-		<szLongItemName>Sanitäter Spectra-Weste</szLongItemName>
+		<szLongItemName>Sanitäter Spectraweste</szLongItemName>
 		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung-10, Rüstung-29</szItemDesc>
-		<szBRName>Sanitäter Spectra-Weste</szBRName>
+		<szBRName>Sanitäter Spectraweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>851</uiIndex>
 		<szItemName>Medic Dyn.-Weste</szItemName>
-		<szLongItemName>Sanitäter Dyneema-Weste</szLongItemName>
+		<szLongItemName>Sanitäter Dyneemaweste</szLongItemName>
 		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung-10, Rüstung-29</szItemDesc>
-		<szBRName>Sanitäter Dyneema-Weste</szBRName>
+		<szBRName>Sanitäter Dyneemaweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6809,9 +6809,9 @@
 	<ITEM>
 		<uiIndex>853</uiIndex>
 		<szItemName>Medic Tw.-Hose</szItemName>
-		<szLongItemName>Sanitäter Twaron-Hose</szLongItemName>
+		<szLongItemName>Sanitäter Twaronhose</szLongItemName>
 		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. Hier können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarnung-10, Rüstung-26</szItemDesc>
-		<szBRName>Sanitäter Twaron-Hose</szBRName>
+		<szBRName>Sanitäter Twaronhose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6819,15 +6819,15 @@
 		<szItemName>Medic S-Hose</szItemName>
 		<szLongItemName>Sanitäter Spectrahose</szLongItemName>
 		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. Hier können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarnung-10, Rüstung-27</szItemDesc>
-		<szBRName>Sanitäter Spectra-Hose</szBRName>
+		<szBRName>Sanitäter Spectrahose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>855</uiIndex>
 		<szItemName>Medic Dyn.-Hose</szItemName>
-		<szLongItemName>Sanitäter Dyneema-Hose</szLongItemName>
+		<szLongItemName>Sanitäter Dyneemahose</szLongItemName>
 		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. Hier können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarnung-10, Rüstung-27</szItemDesc>
-		<szBRName>Sanitäter Dyneema-Hose</szBRName>
+		<szBRName>Sanitäter Dyneemahose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6841,7 +6841,7 @@
 	<ITEM>
 		<uiIndex>857</uiIndex>
 		<szItemName>Mech. G-Weste</szItemName>
-		<szLongItemName>Mechaniker Guardian-Weste</szLongItemName>
+		<szLongItemName>Mechaniker Guardianweste</szLongItemName>
 		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-28</szItemDesc>
 		<szBRName>Mechaniker Guardianweste</szBRName>
 		<szBRDesc>None</szBRDesc>
@@ -6849,25 +6849,25 @@
 	<ITEM>
 		<uiIndex>858</uiIndex>
 		<szItemName>Mech. Tw.-Weste</szItemName>
-		<szLongItemName>Mechaniker Twaron-Weste</szLongItemName>
+		<szLongItemName>Mechaniker Twaronweste</szLongItemName>
 		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-28</szItemDesc>
-		<szBRName>Mechaniker Twaron-Weste</szBRName>
+		<szBRName>Mechaniker Twaronweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>859</uiIndex>
 		<szItemName>Mech. S-Weste</szItemName>
-		<szLongItemName>Mechaniker Spectra-Weste</szLongItemName>
+		<szLongItemName>Mechaniker Spectraweste</szLongItemName>
 		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-29</szItemDesc>
-		<szBRName>Mechaniker Spectra-Weste</szBRName>
+		<szBRName>Mechaniker Spectraweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>860</uiIndex>
 		<szItemName>Mech. Dyn.-Weste</szItemName>
-		<szLongItemName>Mechaniker Dyneema-Weste</szLongItemName>
+		<szLongItemName>Mechaniker Dyneemaweste</szLongItemName>
 		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-29</szItemDesc>
-		<szBRName>Mechaniker Dyneema-Weste</szBRName>
+		<szBRName>Mechaniker Dyneemaweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6881,15 +6881,15 @@
 	<ITEM>
 		<uiIndex>862</uiIndex>
 		<szItemName>Mech. Tw.-Hose</szItemName>
-		<szLongItemName>Mechaniker Twaron-Hose</szLongItemName>
+		<szLongItemName>Mechaniker Twaronhose</szLongItemName>
 		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-26</szItemDesc>
-		<szBRName>Mechaniker Twaron-Hose</szBRName>
+		<szBRName>Mechaniker Twaronhose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>863</uiIndex>
 		<szItemName>Mech. S-Hose</szItemName>
-		<szLongItemName>Mechaniker Spectra-Hose</szLongItemName>
+		<szLongItemName>Mechaniker Spectrahose</szLongItemName>
 		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-27</szItemDesc>
 		<szBRName>Mechaniker Spectrahose</szBRName>
 		<szBRDesc>None</szBRDesc>
@@ -6897,9 +6897,9 @@
 	<ITEM>
 		<uiIndex>864</uiIndex>
 		<szItemName>Mech. Dyn.-Hose</szItemName>
-		<szLongItemName>Mechaniker Dyneema-Hose</szLongItemName>
+		<szLongItemName>Mechaniker Dyneemahose</szLongItemName>
 		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-27</szItemDesc>
-		<szBRName>Mechaniker Dyneema-Hose</szBRName>
+		<szBRName>Mechaniker Dyneemahose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6913,7 +6913,7 @@
 	<ITEM>
 		<uiIndex>866</uiIndex>
 		<szItemName>EK G-Weste</szItemName>
-		<szLongItemName>Einzelkämpfer Guardian-Weste</szLongItemName>
+		<szLongItemName>Einzelkämpfer Guardianweste</szLongItemName>
 		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung-20, Rüstung-31</szItemDesc>
 		<szBRName>Einzelkämpfer Guardianweste</szBRName>
 		<szBRDesc>None</szBRDesc>
@@ -6921,25 +6921,25 @@
 	<ITEM>
 		<uiIndex>867</uiIndex>
 		<szItemName>EK Tw.-Weste</szItemName>
-		<szLongItemName>Einzelkämpfer Twaron-Weste</szLongItemName>
+		<szLongItemName>Einzelkämpfer Twaronweste</szLongItemName>
 		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung-20, Rüstung-31</szItemDesc>
-		<szBRName>Einzelkämpfer Twaron-Weste</szBRName>
+		<szBRName>Einzelkämpfer Twaronweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>868</uiIndex>
 		<szItemName>EK S-Weste</szItemName>
-		<szLongItemName>Einzelkämpfer Spectra-Weste</szLongItemName>
+		<szLongItemName>Einzelkämpfer Spectraweste</szLongItemName>
 		<szItemDesc>Sollten Sie längere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung-20, Rüstung-32</szItemDesc>
-		<szBRName>Einzelkämpfer Spectra-Weste</szBRName>
+		<szBRName>Einzelkämpfer Spectraweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>869</uiIndex>
 		<szItemName>EK Dyn.-Weste</szItemName>
-		<szLongItemName>Einzelkämpfer Dyneema-Weste</szLongItemName>
+		<szLongItemName>Einzelkämpfer Dyneemaweste</szLongItemName>
 		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung-20, Rüstung-32</szItemDesc>
-		<szBRName>Einzelkämpfer Dyneema-Weste</szBRName>
+		<szBRName>Einzelkämpfer Dyneemaweste</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -6953,15 +6953,15 @@
 	<ITEM>
 		<uiIndex>871</uiIndex>
 		<szItemName>EK Tw.-Hose</szItemName>
-		<szLongItemName>Einzelkämpfer Twaron-Hose</szLongItemName>
+		<szLongItemName>Einzelkämpfer Twaronhose</szLongItemName>
 		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarnung-15, Rüstung-29</szItemDesc>
-		<szBRName>Einzelkämpfer Twaron-Hose</szBRName>
+		<szBRName>Einzelkämpfer Twaronhose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>872</uiIndex>
 		<szItemName>EK S-Hose</szItemName>
-		<szLongItemName>Einzelkämpfer Spectra-Hose</szLongItemName>
+		<szLongItemName>Einzelkämpfer Spectrahose</szLongItemName>
 		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarnung-15, Rüstung-30</szItemDesc>
 		<szBRName>Einzelkämpfer Spectrahose</szBRName>
 		<szBRDesc>None</szBRDesc>
@@ -6969,9 +6969,9 @@
 	<ITEM>
 		<uiIndex>873</uiIndex>
 		<szItemName>EK Dyn.-Hose</szItemName>
-		<szLongItemName>Einzelkämpfer Dyneema-Hose</szLongItemName>
+		<szLongItemName>Einzelkämpfer Dyneemahose</szLongItemName>
 		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarnung-15, Rüstung-30</szItemDesc>
-		<szBRName>Einzelkämpfer Dyneema-Hose</szBRName>
+		<szBRName>Einzelkämpfer Dyneemahose</szBRName>
 		<szBRDesc>None</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -7769,9 +7769,9 @@
 	<ITEM>
 		<uiIndex>973</uiIndex>
 		<szItemName>43mm Nebel</szItemName>
-		<szLongItemName>43mm Nebel-Granaten</szLongItemName>
+		<szLongItemName>43mm Nebelgranaten</szLongItemName>
 		<szItemDesc>Diese Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlachtfeldes oder beim Rückzug Deckung bietet.</szItemDesc>
-		<szBRName>43mm Nebel-Gran. #4</szBRName>
+		<szBRName>43mm Nebelgran. #4</szBRName>
 		<szBRDesc>Diese Granaten verbreiten rasch eine Rauchwolke, die beim Betreten des Schlacht- feldes oder beim Rückzug Deckung bietet.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -7785,7 +7785,7 @@
 	<ITEM>
 		<uiIndex>975</uiIndex>
 		<szItemName>43mm TG</szItemName>
-		<szLongItemName>43mm Tränengas-Granaten</szLongItemName>
+		<szLongItemName>43mm Tränengasgranaten</szLongItemName>
 		<szItemDesc>Aus diesem gummiartigen Geschoss wird nach einer kurzen Verzögerung Tränengas freigesetzt.</szItemDesc>
 		<szBRName>43mm TG-Gran. #4</szBRName>
 		<szBRDesc>Aus diesem gummiartigen Geschoss wird nach einer kurzen Verzögerung Tränengas freigesetzt.</szBRDesc>
@@ -7913,7 +7913,7 @@
 	<ITEM>
 		<uiIndex>991</uiIndex>
 		<szItemName>40mm Napalm</szItemName>
-		<szLongItemName>40mm Napalm-Grenade</szLongItemName>
+		<szLongItemName>40mm Napalm-Granate</szLongItemName>
 		<szItemDesc>Diese Granaten werden jeden Feind mit super-heißem Napalm töten.</szItemDesc>
 		<szBRName>40mm Napalm-Granate</szBRName>
 		<szBRDesc>Diese Granaten werden jeden Feind mit super-heißem Napalm töten.</szBRDesc>
@@ -7960,11 +7960,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>997</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 997</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>7.62WP Adapter</szItemName>
+		<szLongItemName>7.62x39mm Drum Adapter</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x39mm Drum Adapter</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>998</uiIndex>
@@ -8080,7 +8080,7 @@
 	<ITEM>
 		<uiIndex>1012</uiIndex>
 		<szItemName>SD-2</szItemName>
-		<szLongItemName>KAC Schalldämpfer-2</szLongItemName>
+		<szLongItemName>KAC Schalldämpfer SD-2</szLongItemName>
 		<szItemDesc>Dieser große Schalldämpfer kann an MPs und Sturmgewehre (7.62mm, 5.45mm, 5.56mm, 6.8mm) angebracht werden. Verwenden Sie speziele Unterschall-Munition!</szItemDesc>
 		<szBRName>KAC SD-2</szBRName>
 		<szBRDesc>Dieser große Schalldämpfer kann an MPs und Sturmgewehre (7.62mm, 5.45mm, 5.56mm, 6.8mm) angebracht werden. Um eine maximale Wirkung zu erzielen, verwenden Sie bitte spezielle Unterschall-Munition.</szBRDesc>
@@ -8420,10 +8420,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1055</uiIndex>
-		<szItemName>Schwert</szItemName>
-		<szLongItemName>Samurai-Schwert</szLongItemName>
+		<szItemName>Katana</szItemName>
+		<szLongItemName>Katana</szLongItemName>
 		<szItemDesc>Dieses Schwert ist der Stolz eines jeden Samurai.</szItemDesc>
-		<szBRName>Samurai-Schwert</szBRName>
+		<szBRName>Katana</szBRName>
 		<szBRDesc>Dieses Schwert ist ein seltenes Meisterstück fernöstlicher Handwerkskunst, verziert mit Drachen. Es zerteilt einen Bambusstab wie ein heißes Messer ein Stück Butter.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8524,11 +8524,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1068</uiIndex>
-		<szItemName>40mm G-Holster</szItemName>
-		<szLongItemName>40mm Granat-Holster</szLongItemName>
-		<szItemDesc>Dieses Granat-Holster bietet Stauraum für vier 40mm Granaten und kann am Feldanzug oder Koppel befestigt werden.</szItemDesc>
-		<szBRName>40mm Granat-Holster</szBRName>
-		<szBRDesc>Dieses Granat-Holster bietet Stauraum für vier 40mm Granaten und kann am Feldanzug oder Koppel befestigt werden.</szBRDesc>
+		<szItemName>40mm G-Tasche</szItemName>
+		<szLongItemName>40mm Granattasche</szLongItemName>
+		<szItemDesc>Diese Granattasche bietet Stauraum für vier 40mm Granaten und kann am Feldanzug oder Koppel befestigt werden.</szItemDesc>
+		<szBRName>40mm Granattasche</szBRName>
+		<szBRDesc>Diese Granattasche bietet Stauraum für vier 40mm Granaten und kann am Feldanzug oder Koppel befestigt werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1069</uiIndex>
@@ -8616,25 +8616,25 @@
 	<ITEM>
 		<uiIndex>1080</uiIndex>
 		<szItemName>40mm G-Holster</szItemName>
-		<szLongItemName>40mm Granat-Holster</szLongItemName>
+		<szLongItemName>40mm Granattasche</szLongItemName>
 		<szItemDesc>Dieses Granat-Holster bietet Stauraum für vier 40mm Granaten und kann am Feldanzug oder Koppel befestigt werden.</szItemDesc>
-		<szBRName>40mm Granat-Holster</szBRName>
+		<szBRName>40mm Granattasche</szBRName>
 		<szBRDesc>Dieses Granat-Holster bietet Stauraum für vier 40mm Granaten und kann am Feldanzug oder Koppel befestigt werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1081</uiIndex>
-		<szItemName>Mag-Holster</szItemName>
-		<szLongItemName>Doppelmagazin-Holster</szLongItemName>
-		<szItemDesc>Dieses Holster bietet Stauraum für zwei extra-lange Magazine (z.B. FN-P90).</szItemDesc>
-		<szBRName>Doppelmagazin-Holster</szBRName>
-		<szBRDesc>Dieses Holster bietet Stauraum für zwei extra-lange Magazine (z.B. FN-P90).</szBRDesc>
+		<szItemName>Mag-Tasche</szItemName>
+		<szLongItemName>Doppelmagazintasche</szLongItemName>
+		<szItemDesc>Diese Tasche bietet Stauraum für zwei extra-lange Magazine (z.B. FN-P90).</szItemDesc>
+		<szBRName>Doppelmagazintasche</szBRName>
+		<szBRDesc>Diese Tasche bietet Stauraum für zwei extra-lange Magazine (z.B. FN-P90).</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1082</uiIndex>
 		<szItemName>Tasche</szItemName>
-		<szLongItemName>Segeltuch-Tasche</szLongItemName>
+		<szLongItemName>Segeltuchtasche</szLongItemName>
 		<szItemDesc>Eine große Tasche die viel Platz bietet um eine Munitionskiste zu verstauen.</szItemDesc>
-		<szBRName>Segeltuch-Tasche</szBRName>
+		<szBRName>Segeltuchtasche</szBRName>
 		<szBRDesc>Eine große Tasche die viel Platz bietet um eine Munitionskiste zu verstauen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -8736,7 +8736,7 @@
 	<ITEM>
 		<uiIndex>1095</uiIndex>
 		<szItemName>ARUC</szItemName>
-		<szLongItemName>ARUCK Rucksack</szLongItemName>
+		<szLongItemName>ARUC Rucksack</szLongItemName>
 		<szItemDesc>Dieser Rucksack hat zusätzlich zwei äußere Taschen.</szItemDesc>
 		<szBRName>ARUC Rucksack</szBRName>
 		<szBRDesc>Dieser Rucksack hat zusätzlich zwei äußere Taschen.</szBRDesc>
@@ -9083,24 +9083,24 @@
 		<uiIndex>1182</uiIndex>
 		<szItemName>PEM ZF</szItemName>
 		<szLongItemName>PEM Zielfernrohr</szLongItemName>
-		<szItemDesc>Das 4x PE/PEM Zielfernrohr ist eine russsiche Kopie eines ZEISS-Designs und wurde von 1931-42 gefertigt. Es ist passend für das Mosin-Nagant Gewehr.</szItemDesc>
+		<szItemDesc>Das 4x PE/PEM Zielfernrohr ist eine russische Kopie eines ZEISS-Designs und wurde von 1931-42 gefertigt. Es ist passend für das Mosin-Nagant Gewehr.</szItemDesc>
 		<szBRName>PEM Zielfernrohr</szBRName>
-		<szBRDesc>Das 4x PE/PEM Zielfernrohr ist eine russsiche Kopie eines ZEISS-Designs und wurde von 1931-42 gefertigt. Es ist passend für das Mosin-Nagant Gewehr und wurde oft von russsichen Scharfschützen verwendet.</szBRDesc>
+		<szBRDesc>Das 4x PE/PEM Zielfernrohr ist eine russische Kopie eines ZEISS-Designs und wurde von 1931-42 gefertigt. Es ist passend für das Mosin-Nagant Gewehr und wurde oft von russsichen Scharfschützen verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1183</uiIndex>
 		<szItemName>Match-Visier</szItemName>
 		<szLongItemName>Match-Visier</szLongItemName>
-		<szItemDesc>Dieses profesionelle Match-Visier bietet höchste Präzision bei allen Wettkampf- Bedingungen. Es ist passend für Colt M1911, Glock, HK und SIG Pistolen.</szItemDesc>
+		<szItemDesc>Dieses profesionelle Match-Visier bietet höchste Präzision bei allen Wettkampfbedingungen. Es ist passend für Colt M1911, Glock, HK und SIG Pistolen.</szItemDesc>
 		<szBRName>Match-Visier</szBRName>
 		<szBRDesc>Sie sehen bei Dämmerung nicht Kimme &amp; Korn? Dann ist diese professionelle, offene Visierung genau das Richtige für Ihre Handfeuerwaffe! Erhältlich für Colt M1911, Glock, HK USP sowie diverse SIG Pistolen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1184</uiIndex>
-		<szItemName>Tarn-Shirt</szItemName>
-		<szLongItemName>Tarn-Shirt</szLongItemName>
+		<szItemName>Tarnhemd</szItemName>
+		<szLongItemName>Tarnhemd</szLongItemName>
 		<szItemDesc>Professionelle Söldner tragen grundsätzlich eine kugelsichere Weste. Warum also ein vollständig bedrucktes Tarn-Shirt tragen wenn ohnehin nur die Ärmel sichtbar sind? Tarnbonus: 5%</szItemDesc>
-		<szBRName>Tarn-Shirt</szBRName>
+		<szBRName>Tarnhemd</szBRName>
 		<szBRDesc>Professionelle Söldner tragen grundsätzlich eine kugelsichere Weste. Warum also ein vollständig bedrucktes Tarn-Shirt tragen wenn ohnehin nur die Ärmel sichtbar sind? Tarnbonus: 5%</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -9188,18 +9188,43 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1196</uiIndex>
+		<szItemName>TAC-1E Vest</szItemName>
+		<szLongItemName>TT Pistol Vest</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>TT Pistol Vest</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1197</uiIndex>
+		<szItemName>Tarnschal</szItemName>
+		<szLongItemName>Tarnschal</szLongItemName>
+		<szItemDesc>Dieser Schal ist für den Einsatz in Waldgebieten gedacht. Egal ob einzeln oder als Teil des Tarnanzugs, er schützt die wichtigste Ausstattung im Feld: Deinen Kopf.</szItemDesc>
+		<szBRName>Tarnschal</szBRName>
+		<szBRDesc>Der letzte Schliff für ihren Tarnanzug. Auch als Sonnenschutz oder Moskitonetz brauchbar.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1198</uiIndex>
+		<szItemName>Tarnhose</szItemName>
+		<szLongItemName>Tarnhose</szLongItemName>
+		<szItemDesc>Eine Tarnhose bestehend aus qualitativ hochwertigen Jutefasern, die vorne und hinten auf eine Feldhose aufgenäht wurden. Die Fasernfarbe eignet sich für Waldgebiete. Mittels Schlaufen kann zusätzliches Tarnmaterial aus der Natur angebracht werden.</szItemDesc>
+		<szBRName>Tarnhose</szBRName>
+		<szBRDesc>Wenn sie bei einer verdeckten Operation keine Jeans unter der Tarnweste tragen möchten, ist diese Hose der ideale Zusatz zu ihrer Tarnweste.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1199</uiIndex>
+		<szItemName>Tarnjacke</szItemName>
+		<szLongItemName>Tarnjacke</szLongItemName>
+		<szItemDesc>Eine Feldjacke, auf die rundum qualitativ hochwertige Jutefasern aufgenäht wurden. Die Fasernfarbe eignet sich für Waldgebiete. Mittels Schlaufen kann zusätzliches Tarnmaterial aus der Natur angebracht werden.</szItemDesc>
+		<szBRName>Tarnjacke</szBRName>
+		<szBRDesc>Egal ob sie das nette Mädchen von nebenan beobachten oder sich an eine feindliche Basis heranschleichen wollen, diese Jacke stellt sicher, dass sie von niemandem entdeckt werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1200</uiIndex>
+		<szItemName>R-Holster</szItemName>
+		<szLongItemName>Revolver Holster</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Revolver Holster</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1201</uiIndex>
@@ -9215,6 +9240,198 @@
 		<szLongItemName>Rohrzange</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
 		<szBRName>Rohrzange</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1203</uiIndex>
+		<szItemName>SAW-Vest</szItemName>
+		<szLongItemName>SAW-Vest</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>SAW-Vest</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1204</uiIndex>
+		<szItemName>1st Aid</szItemName>
+		<szLongItemName>First Aid Rig</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>First Aid Rig</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1205</uiIndex>
+		<szItemName>Med. Pouch</szItemName>
+		<szLongItemName>Medical Pouch</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Medical Pouch</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1206</uiIndex>
+		<szItemName>5.56mm crate</szItemName>
+		<szLongItemName>5.56x45mm ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>5.56x45mm ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1207</uiIndex>
+		<szItemName>5.56 HP crate</szItemName>
+		<szLongItemName>5.56x45mm HP ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>5.56x45mm HP ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1208</uiIndex>
+		<szItemName>5.56 M crate</szItemName>
+		<szLongItemName>5.56x45mm M ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>5.56x45mm M ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1209</uiIndex>
+		<szItemName>5.56 G crate</szItemName>
+		<szLongItemName>5.56x45mm G ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>5.56x45mm G ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1210</uiIndex>
+		<szItemName>5.56mm T crate</szItemName>
+		<szLongItemName>5.56x45mm T ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>5.56x45mm T ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1211</uiIndex>
+		<szItemName>5.56mm C crate</szItemName>
+		<szLongItemName>5.56x45mm C ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>5.56x45mm C ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1212</uiIndex>
+		<szItemName>5.56mm HP C crate</szItemName>
+		<szLongItemName>5.56x45mm HP C ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>5.56x45mm HP C ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1213</uiIndex>
+		<szItemName>7.62NATO crate</szItemName>
+		<szLongItemName>7.62x51mm ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x51mm ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1214</uiIndex>
+		<szItemName>7.62NATO HP crate</szItemName>
+		<szLongItemName>7.62x51mm HP ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x51mm HP ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1215</uiIndex>
+		<szItemName>7.62NATO M crate</szItemName>
+		<szLongItemName>7.62x51mm M ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x51mm M ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1216</uiIndex>
+		<szItemName>7.62NATO G crate</szItemName>
+		<szLongItemName>7.62x51mm G ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x51mm G ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1217</uiIndex>
+		<szItemName>7.62NATO T crate</szItemName>
+		<szLongItemName>7.62x51mm T ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x51mm T ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1218</uiIndex>
+		<szItemName>7.62NATO C crate</szItemName>
+		<szLongItemName>7.62x51mm C ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x51mm C ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1219</uiIndex>
+		<szItemName>7.62NATO HP C crate</szItemName>
+		<szLongItemName>7.62x51mm HP C ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x51mm HP C ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1220</uiIndex>
+		<szItemName>9x19mm  crate</szItemName>
+		<szLongItemName>9x19mm ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>9x19mm ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1221</uiIndex>
+		<szItemName>9x19 AP crate</szItemName>
+		<szLongItemName>9x19mm AP ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>9x19mm AP ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1222</uiIndex>
+		<szItemName>9x19 HP crate</szItemName>
+		<szLongItemName>9x19mm HP ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>9x19mm HP ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1223</uiIndex>
+		<szItemName>9x19 M crate</szItemName>
+		<szLongItemName>9x19mm M ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>9x19mm M ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1224</uiIndex>
+		<szItemName>9x19 G crate</szItemName>
+		<szLongItemName>9x19mm G ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>9x19mm G ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1225</uiIndex>
+		<szItemName>9x19 T crate</szItemName>
+		<szLongItemName>9x19mm T ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>9x19mm T ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1226</uiIndex>
+		<szItemName>9x19 AET crate</szItemName>
+		<szLongItemName>9x19mm AET ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>9x19mm AET ammo crate</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 </ITEMLIST>

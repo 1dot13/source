@@ -1,651 +1,669 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <LOADBEARINGEQUIPMENTLIST>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>0</lbeIndex>
-		<lbeClass>0</lbeClass>
-		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>0</lbeFilledSize>
-		<lbePocketIndex.1>0</lbePocketIndex.1>
-		<lbePocketIndex.2>0</lbePocketIndex.2>
-		<lbePocketIndex.3>0</lbePocketIndex.3>
-		<lbePocketIndex.4>0</lbePocketIndex.4>
-		<lbePocketIndex.5>0</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
-	</LOADBEARINGEQUIPMENT>
-	<LOADBEARINGEQUIPMENT>
-		<lbeIndex>1</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>0</lbeFilledSize>
-		<lbePocketIndex.1>16</lbePocketIndex.1>
-		<lbePocketIndex.2>16</lbePocketIndex.2>
-		<lbePocketIndex.3>18</lbePocketIndex.3>
-		<lbePocketIndex.4>0</lbePocketIndex.4>
-		<lbePocketIndex.5>0</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>16</lbePocketIndex1>
+		<lbePocketIndex2>16</lbePocketIndex2>
+		<lbePocketIndex3>18</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
-		<lbeIndex>2</lbeIndex>
+		<lbeIndex>1</lbeIndex>
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>0</lbeFilledSize>
-		<lbePocketIndex.1>16</lbePocketIndex.1>
-		<lbePocketIndex.2>16</lbePocketIndex.2>
-		<lbePocketIndex.3>0</lbePocketIndex.3>
-		<lbePocketIndex.4>0</lbePocketIndex.4>
-		<lbePocketIndex.5>0</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>16</lbePocketIndex1>
+		<lbePocketIndex2>16</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
-		<lbeIndex>3</lbeIndex>
+		<lbeIndex>2</lbeIndex>
 		<lbeClass>3</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>0</lbeFilledSize>
-		<lbePocketIndex.1>0</lbePocketIndex.1>
-		<lbePocketIndex.2>0</lbePocketIndex.2>
-		<lbePocketIndex.3>0</lbePocketIndex.3>
-		<lbePocketIndex.4>0</lbePocketIndex.4>
-		<lbePocketIndex.5>0</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
-		<lbeIndex>4</lbeIndex>
+		<lbeIndex>3</lbeIndex>
 		<lbeClass>4</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>0</lbeFilledSize>
-		<lbePocketIndex.1>0</lbePocketIndex.1>
-		<lbePocketIndex.2>0</lbePocketIndex.2>
-		<lbePocketIndex.3>0</lbePocketIndex.3>
-		<lbePocketIndex.4>0</lbePocketIndex.4>
-		<lbePocketIndex.5>0</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>4</lbeIndex>
+		<lbeClass>2</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbePocketIndex1>10</lbePocketIndex1>
+		<lbePocketIndex2>10</lbePocketIndex2>
+		<lbePocketIndex3>10</lbePocketIndex3>
+		<lbePocketIndex4>10</lbePocketIndex4>
+		<lbePocketIndex5>10</lbePocketIndex5>
+		<lbePocketIndex6>10</lbePocketIndex6>
+		<lbePocketIndex7>17</lbePocketIndex7>
+		<lbePocketIndex8>17</lbePocketIndex8>
+		<lbePocketIndex9>16</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>5</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>25</lbeFilledSize>
-		<lbePocketIndex.1>15</lbePocketIndex.1>
-		<lbePocketIndex.2>11</lbePocketIndex.2>
-		<lbePocketIndex.3>0</lbePocketIndex.3>
-		<lbePocketIndex.4>0</lbePocketIndex.4>
-		<lbePocketIndex.5>0</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>13</lbePocketIndex1>
+		<lbePocketIndex2>13</lbePocketIndex2>
+		<lbePocketIndex3>13</lbePocketIndex3>
+		<lbePocketIndex4>13</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>6</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>26</lbeFilledSize>
-		<lbePocketIndex.1>9</lbePocketIndex.1>
-		<lbePocketIndex.2>9</lbePocketIndex.2>
-		<lbePocketIndex.3>0</lbePocketIndex.3>
-		<lbePocketIndex.4>0</lbePocketIndex.4>
-		<lbePocketIndex.5>0</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>9</lbePocketIndex1>
+		<lbePocketIndex2>9</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>7</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>26</lbeFilledSize>
-		<lbePocketIndex.1>15</lbePocketIndex.1>
-		<lbePocketIndex.2>15</lbePocketIndex.2>
-		<lbePocketIndex.3>15</lbePocketIndex.3>
-		<lbePocketIndex.4>11</lbePocketIndex.4>
-		<lbePocketIndex.5>0</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>6</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>8</lbeIndex>
-		<lbeClass>1</lbeClass>
+		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>26</lbeFilledSize>
-		<lbePocketIndex.1>12</lbePocketIndex.1>
-		<lbePocketIndex.2>0</lbePocketIndex.2>
-		<lbePocketIndex.3>0</lbePocketIndex.3>
-		<lbePocketIndex.4>0</lbePocketIndex.4>
-		<lbePocketIndex.5>7</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbePocketIndex1>10</lbePocketIndex1>
+		<lbePocketIndex2>10</lbePocketIndex2>
+		<lbePocketIndex3>10</lbePocketIndex3>
+		<lbePocketIndex4>10</lbePocketIndex4>
+		<lbePocketIndex5>15</lbePocketIndex5>
+		<lbePocketIndex6>15</lbePocketIndex6>
+		<lbePocketIndex7>15</lbePocketIndex7>
+		<lbePocketIndex8>17</lbePocketIndex8>
+		<lbePocketIndex9>16</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>9</lbeIndex>
-		<lbeClass>1</lbeClass>
+		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>25</lbeFilledSize>
-		<lbePocketIndex.1>13</lbePocketIndex.1>
-		<lbePocketIndex.2>13</lbePocketIndex.2>
-		<lbePocketIndex.3>13</lbePocketIndex.3>
-		<lbePocketIndex.4>13</lbePocketIndex.4>
-		<lbePocketIndex.5>0</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbePocketIndex1>10</lbePocketIndex1>
+		<lbePocketIndex2>10</lbePocketIndex2>
+		<lbePocketIndex3>13</lbePocketIndex3>
+		<lbePocketIndex4>13</lbePocketIndex4>
+		<lbePocketIndex5>13</lbePocketIndex5>
+		<lbePocketIndex6>13</lbePocketIndex6>
+		<lbePocketIndex7>14</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>8</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>10</lbeIndex>
-		<lbeClass>1</lbeClass>
+		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>26</lbeFilledSize>
-		<lbePocketIndex.1>0</lbePocketIndex.1>
-		<lbePocketIndex.2>0</lbePocketIndex.2>
-		<lbePocketIndex.3>0</lbePocketIndex.3>
-		<lbePocketIndex.4>0</lbePocketIndex.4>
-		<lbePocketIndex.5>6</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbePocketIndex1>10</lbePocketIndex1>
+		<lbePocketIndex2>10</lbePocketIndex2>
+		<lbePocketIndex3>10</lbePocketIndex3>
+		<lbePocketIndex4>10</lbePocketIndex4>
+		<lbePocketIndex5>17</lbePocketIndex5>
+		<lbePocketIndex6>17</lbePocketIndex6>
+		<lbePocketIndex7>14</lbePocketIndex7>
+		<lbePocketIndex8>14</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>8</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>11</lbeIndex>
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
-		<lbePocketIndex.1>10</lbePocketIndex.1>
-		<lbePocketIndex.2>10</lbePocketIndex.2>
-		<lbePocketIndex.3>10</lbePocketIndex.3>
-		<lbePocketIndex.4>10</lbePocketIndex.4>
-		<lbePocketIndex.5>0</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>8</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>10</lbePocketIndex1>
+		<lbePocketIndex2>10</lbePocketIndex2>
+		<lbePocketIndex3>10</lbePocketIndex3>
+		<lbePocketIndex4>17</lbePocketIndex4>
+		<lbePocketIndex5>16</lbePocketIndex5>
+		<lbePocketIndex6>14</lbePocketIndex6>
+		<lbePocketIndex7>14</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>8</lbePocketIndex11>
+		<lbePocketIndex12>8</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>12</lbeIndex>
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
-		<lbePocketIndex.1>10</lbePocketIndex.1>
-		<lbePocketIndex.2>10</lbePocketIndex.2>
-		<lbePocketIndex.3>10</lbePocketIndex.3>
-		<lbePocketIndex.4>10</lbePocketIndex.4>
-		<lbePocketIndex.5>15</lbePocketIndex.5>
-		<lbePocketIndex.6>15</lbePocketIndex.6>
-		<lbePocketIndex.7>15</lbePocketIndex.7>
-		<lbePocketIndex.8>17</lbePocketIndex.8>
-		<lbePocketIndex.9>16</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>10</lbePocketIndex1>
+		<lbePocketIndex2>10</lbePocketIndex2>
+		<lbePocketIndex3>10</lbePocketIndex3>
+		<lbePocketIndex4>10</lbePocketIndex4>
+		<lbePocketIndex5>10</lbePocketIndex5>
+		<lbePocketIndex6>10</lbePocketIndex6>
+		<lbePocketIndex7>17</lbePocketIndex7>
+		<lbePocketIndex8>14</lbePocketIndex8>
+		<lbePocketIndex9>14</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>13</lbeIndex>
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
-		<lbePocketIndex.1>10</lbePocketIndex.1>
-		<lbePocketIndex.2>10</lbePocketIndex.2>
-		<lbePocketIndex.3>10</lbePocketIndex.3>
-		<lbePocketIndex.4>10</lbePocketIndex.4>
-		<lbePocketIndex.5>17</lbePocketIndex.5>
-		<lbePocketIndex.6>17</lbePocketIndex.6>
-		<lbePocketIndex.7>14</lbePocketIndex.7>
-		<lbePocketIndex.8>14</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>8</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>10</lbePocketIndex1>
+		<lbePocketIndex2>10</lbePocketIndex2>
+		<lbePocketIndex3>10</lbePocketIndex3>
+		<lbePocketIndex4>10</lbePocketIndex4>
+		<lbePocketIndex5>14</lbePocketIndex5>
+		<lbePocketIndex6>14</lbePocketIndex6>
+		<lbePocketIndex7>14</lbePocketIndex7>
+		<lbePocketIndex8>14</lbePocketIndex8>
+		<lbePocketIndex9>16</lbePocketIndex9>
+		<lbePocketIndex10>16</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>14</lbeIndex>
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
-		<lbePocketIndex.1>10</lbePocketIndex.1>
-		<lbePocketIndex.2>10</lbePocketIndex.2>
-		<lbePocketIndex.3>13</lbePocketIndex.3>
-		<lbePocketIndex.4>13</lbePocketIndex.4>
-		<lbePocketIndex.5>13</lbePocketIndex.5>
-		<lbePocketIndex.6>13</lbePocketIndex.6>
-		<lbePocketIndex.7>14</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>8</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>10</lbePocketIndex1>
+		<lbePocketIndex2>10</lbePocketIndex2>
+		<lbePocketIndex3>10</lbePocketIndex3>
+		<lbePocketIndex4>17</lbePocketIndex4>
+		<lbePocketIndex5>17</lbePocketIndex5>
+		<lbePocketIndex6>16</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>8</lbePocketIndex11>
+		<lbePocketIndex12>8</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>15</lbeIndex>
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
-		<lbePocketIndex.1>10</lbePocketIndex.1>
-		<lbePocketIndex.2>10</lbePocketIndex.2>
-		<lbePocketIndex.3>10</lbePocketIndex.3>
-		<lbePocketIndex.4>17</lbePocketIndex.4>
-		<lbePocketIndex.5>16</lbePocketIndex.5>
-		<lbePocketIndex.6>14</lbePocketIndex.6>
-		<lbePocketIndex.7>14</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>8</lbePocketIndex.11>
-		<lbePocketIndex.12>8</lbePocketIndex.12>
+		<lbePocketIndex1>10</lbePocketIndex1>
+		<lbePocketIndex2>10</lbePocketIndex2>
+		<lbePocketIndex3>10</lbePocketIndex3>
+		<lbePocketIndex4>10</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>8</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>16</lbeIndex>
-		<lbeClass>2</lbeClass>
+		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>29</lbeFilledSize>
-		<lbePocketIndex.1>10</lbePocketIndex.1>
-		<lbePocketIndex.2>10</lbePocketIndex.2>
-		<lbePocketIndex.3>10</lbePocketIndex.3>
-		<lbePocketIndex.4>10</lbePocketIndex.4>
-		<lbePocketIndex.5>10</lbePocketIndex.5>
-		<lbePocketIndex.6>10</lbePocketIndex.6>
-		<lbePocketIndex.7>17</lbePocketIndex.7>
-		<lbePocketIndex.8>14</lbePocketIndex.8>
-		<lbePocketIndex.9>14</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbeFilledSize>25</lbeFilledSize>
+		<lbePocketIndex1>15</lbePocketIndex1>
+		<lbePocketIndex2>11</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>17</lbeIndex>
-		<lbeClass>2</lbeClass>
+		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>29</lbeFilledSize>
-		<lbePocketIndex.1>10</lbePocketIndex.1>
-		<lbePocketIndex.2>10</lbePocketIndex.2>
-		<lbePocketIndex.3>10</lbePocketIndex.3>
-		<lbePocketIndex.4>10</lbePocketIndex.4>
-		<lbePocketIndex.5>14</lbePocketIndex.5>
-		<lbePocketIndex.6>14</lbePocketIndex.6>
-		<lbePocketIndex.7>14</lbePocketIndex.7>
-		<lbePocketIndex.8>14</lbePocketIndex.8>
-		<lbePocketIndex.9>16</lbePocketIndex.9>
-		<lbePocketIndex.10>16</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbePocketIndex1>15</lbePocketIndex1>
+		<lbePocketIndex2>15</lbePocketIndex2>
+		<lbePocketIndex3>15</lbePocketIndex3>
+		<lbePocketIndex4>11</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>18</lbeIndex>
-		<lbeClass>2</lbeClass>
+		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>29</lbeFilledSize>
-		<lbePocketIndex.1>10</lbePocketIndex.1>
-		<lbePocketIndex.2>10</lbePocketIndex.2>
-		<lbePocketIndex.3>10</lbePocketIndex.3>
-		<lbePocketIndex.4>10</lbePocketIndex.4>
-		<lbePocketIndex.5>10</lbePocketIndex.5>
-		<lbePocketIndex.6>10</lbePocketIndex.6>
-		<lbePocketIndex.7>17</lbePocketIndex.7>
-		<lbePocketIndex.8>17</lbePocketIndex.8>
-		<lbePocketIndex.9>16</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbePocketIndex1>12</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>7</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>19</lbeIndex>
-		<lbeClass>2</lbeClass>
-		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>29</lbeFilledSize>
-		<lbePocketIndex.1>10</lbePocketIndex.1>
-		<lbePocketIndex.2>10</lbePocketIndex.2>
-		<lbePocketIndex.3>10</lbePocketIndex.3>
-		<lbePocketIndex.4>17</lbePocketIndex.4>
-		<lbePocketIndex.5>17</lbePocketIndex.5>
-		<lbePocketIndex.6>16</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>8</lbePocketIndex.11>
-		<lbePocketIndex.12>8</lbePocketIndex.12>
+		<lbeClass>4</lbeClass>
+		<lbeCombo>1</lbeCombo>
+		<lbeFilledSize>31</lbeFilledSize>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>4</lbePocketIndex9>
+		<lbePocketIndex10>4</lbePocketIndex10>
+		<lbePocketIndex11>4</lbePocketIndex11>
+		<lbePocketIndex12>4</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>20</lbeIndex>
-		<lbeClass>3</lbeClass>
-		<lbeCombo>1</lbeCombo>
-		<lbeFilledSize>30</lbeFilledSize>
-		<lbePocketIndex.1>0</lbePocketIndex.1>
-		<lbePocketIndex.2>0</lbePocketIndex.2>
-		<lbePocketIndex.3>0</lbePocketIndex.3>
-		<lbePocketIndex.4>0</lbePocketIndex.4>
-		<lbePocketIndex.5>5</lbePocketIndex.5>
-		<lbePocketIndex.6>5</lbePocketIndex.6>
-		<lbePocketIndex.7>5</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbeClass>4</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>31</lbeFilledSize>
+		<lbePocketIndex1>17</lbePocketIndex1>
+		<lbePocketIndex2>17</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>4</lbePocketIndex9>
+		<lbePocketIndex10>4</lbePocketIndex10>
+		<lbePocketIndex11>4</lbePocketIndex11>
+		<lbePocketIndex12>4</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>21</lbeIndex>
-		<lbeClass>3</lbeClass>
+		<lbeClass>4</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>30</lbeFilledSize>
-		<lbePocketIndex.1>17</lbePocketIndex.1>
-		<lbePocketIndex.2>0</lbePocketIndex.2>
-		<lbePocketIndex.3>0</lbePocketIndex.3>
-		<lbePocketIndex.4>0</lbePocketIndex.4>
-		<lbePocketIndex.5>5</lbePocketIndex.5>
-		<lbePocketIndex.6>5</lbePocketIndex.6>
-		<lbePocketIndex.7>5</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbeFilledSize>31</lbeFilledSize>
+		<lbePocketIndex1>17</lbePocketIndex1>
+		<lbePocketIndex2>17</lbePocketIndex2>
+		<lbePocketIndex3>17</lbePocketIndex3>
+		<lbePocketIndex4>17</lbePocketIndex4>
+		<lbePocketIndex5>10</lbePocketIndex5>
+		<lbePocketIndex6>10</lbePocketIndex6>
+		<lbePocketIndex7>10</lbePocketIndex7>
+		<lbePocketIndex8>10</lbePocketIndex8>
+		<lbePocketIndex9>4</lbePocketIndex9>
+		<lbePocketIndex10>4</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>22</lbeIndex>
 		<lbeClass>3</lbeClass>
-		<lbeCombo>0</lbeCombo>
+		<lbeCombo>1</lbeCombo>
 		<lbeFilledSize>30</lbeFilledSize>
-		<lbePocketIndex.1>17</lbePocketIndex.1>
-		<lbePocketIndex.2>17</lbePocketIndex.2>
-		<lbePocketIndex.3>17</lbePocketIndex.3>
-		<lbePocketIndex.4>17</lbePocketIndex.4>
-		<lbePocketIndex.5>5</lbePocketIndex.5>
-		<lbePocketIndex.6>5</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>18</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>5</lbePocketIndex5>
+		<lbePocketIndex6>5</lbePocketIndex6>
+		<lbePocketIndex7>5</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>23</lbeIndex>
-		<lbeClass>4</lbeClass>
-		<lbeCombo>1</lbeCombo>
-		<lbeFilledSize>31</lbeFilledSize>
-		<lbePocketIndex.1>0</lbePocketIndex.1>
-		<lbePocketIndex.2>0</lbePocketIndex.2>
-		<lbePocketIndex.3>0</lbePocketIndex.3>
-		<lbePocketIndex.4>0</lbePocketIndex.4>
-		<lbePocketIndex.5>0</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>4</lbePocketIndex.9>
-		<lbePocketIndex.10>4</lbePocketIndex.10>
-		<lbePocketIndex.11>4</lbePocketIndex.11>
-		<lbePocketIndex.12>4</lbePocketIndex.12>
+		<lbeClass>3</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>30</lbeFilledSize>
+		<lbePocketIndex1>17</lbePocketIndex1>
+		<lbePocketIndex2>18</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>5</lbePocketIndex5>
+		<lbePocketIndex6>5</lbePocketIndex6>
+		<lbePocketIndex7>5</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>24</lbeIndex>
-		<lbeClass>4</lbeClass>
+		<lbeClass>3</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>31</lbeFilledSize>
-		<lbePocketIndex.1>17</lbePocketIndex.1>
-		<lbePocketIndex.2>17</lbePocketIndex.2>
-		<lbePocketIndex.3>0</lbePocketIndex.3>
-		<lbePocketIndex.4>0</lbePocketIndex.4>
-		<lbePocketIndex.5>0</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>4</lbePocketIndex.9>
-		<lbePocketIndex.10>4</lbePocketIndex.10>
-		<lbePocketIndex.11>4</lbePocketIndex.11>
-		<lbePocketIndex.12>4</lbePocketIndex.12>
+		<lbeFilledSize>30</lbeFilledSize>
+		<lbePocketIndex1>17</lbePocketIndex1>
+		<lbePocketIndex2>17</lbePocketIndex2>
+		<lbePocketIndex3>17</lbePocketIndex3>
+		<lbePocketIndex4>17</lbePocketIndex4>
+		<lbePocketIndex5>5</lbePocketIndex5>
+		<lbePocketIndex6>5</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>25</lbeIndex>
-		<lbeClass>4</lbeClass>
+		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>31</lbeFilledSize>
-		<lbePocketIndex.1>17</lbePocketIndex.1>
-		<lbePocketIndex.2>17</lbePocketIndex.2>
-		<lbePocketIndex.3>17</lbePocketIndex.3>
-		<lbePocketIndex.4>17</lbePocketIndex.4>
-		<lbePocketIndex.5>17</lbePocketIndex.5>
-		<lbePocketIndex.6>17</lbePocketIndex.6>
-		<lbePocketIndex.7>17</lbePocketIndex.7>
-		<lbePocketIndex.8>17</lbePocketIndex.8>
-		<lbePocketIndex.9>4</lbePocketIndex.9>
-		<lbePocketIndex.10>4</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbePocketIndex1>10</lbePocketIndex1>
+		<lbePocketIndex2>14</lbePocketIndex2>
+		<lbePocketIndex3>14</lbePocketIndex3>
+		<lbePocketIndex4>14</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>26</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>26</lbeFilledSize>
-		<lbePocketIndex.1>10</lbePocketIndex.1>
-		<lbePocketIndex.2>14</lbePocketIndex.2>
-		<lbePocketIndex.3>14</lbePocketIndex.3>
-		<lbePocketIndex.4>14</lbePocketIndex.4>
-		<lbePocketIndex.5>0</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>10</lbePocketIndex4>
+		<lbePocketIndex5>8</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>27</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>26</lbeFilledSize>
-		<lbePocketIndex.1>0</lbePocketIndex.1>
-		<lbePocketIndex.2>0</lbePocketIndex.2>
-		<lbePocketIndex.3>0</lbePocketIndex.3>
-		<lbePocketIndex.4>10</lbePocketIndex.4>
-		<lbePocketIndex.5>8</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>18</lbePocketIndex4>
+		<lbePocketIndex5>8</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>28</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>26</lbeFilledSize>
-		<lbePocketIndex.1>0</lbePocketIndex.1>
-		<lbePocketIndex.2>0</lbePocketIndex.2>
-		<lbePocketIndex.3>0</lbePocketIndex.3>
-		<lbePocketIndex.4>18</lbePocketIndex.4>
-		<lbePocketIndex.5>8</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>14</lbePocketIndex2>
+		<lbePocketIndex3>14</lbePocketIndex3>
+		<lbePocketIndex4>14</lbePocketIndex4>
+		<lbePocketIndex5>8</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>29</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>26</lbeFilledSize>
-		<lbePocketIndex.1>0</lbePocketIndex.1>
-		<lbePocketIndex.2>14</lbePocketIndex.2>
-		<lbePocketIndex.3>14</lbePocketIndex.3>
-		<lbePocketIndex.4>14</lbePocketIndex.4>
-		<lbePocketIndex.5>8</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>9</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>9</lbePocketIndex4>
+		<lbePocketIndex5>8</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>30</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>26</lbeFilledSize>
-		<lbePocketIndex.1>0</lbePocketIndex.1>
-		<lbePocketIndex.2>9</lbePocketIndex.2>
-		<lbePocketIndex.3>0</lbePocketIndex.3>
-		<lbePocketIndex.4>9</lbePocketIndex.4>
-		<lbePocketIndex.5>8</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>9</lbePocketIndex1>
+		<lbePocketIndex2>14</lbePocketIndex2>
+		<lbePocketIndex3>9</lbePocketIndex3>
+		<lbePocketIndex4>14</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>31</lbeIndex>
-		<lbeClass>1</lbeClass>
+		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>26</lbeFilledSize>
-		<lbePocketIndex.1>9</lbePocketIndex.1>
-		<lbePocketIndex.2>14</lbePocketIndex.2>
-		<lbePocketIndex.3>9</lbePocketIndex.3>
-		<lbePocketIndex.4>14</lbePocketIndex.4>
-		<lbePocketIndex.5>0</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbeFilledSize>29</lbeFilledSize>
+		<lbePocketIndex1>17</lbePocketIndex1>
+		<lbePocketIndex2>17</lbePocketIndex2>
+		<lbePocketIndex3>16</lbePocketIndex3>
+		<lbePocketIndex4>16</lbePocketIndex4>
+		<lbePocketIndex5>16</lbePocketIndex5>
+		<lbePocketIndex6>16</lbePocketIndex6>
+		<lbePocketIndex7>18</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>32</lbeIndex>
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>29</lbeFilledSize>
-		<lbePocketIndex.1>17</lbePocketIndex.1>
-		<lbePocketIndex.2>17</lbePocketIndex.2>
-		<lbePocketIndex.3>16</lbePocketIndex.3>
-		<lbePocketIndex.4>16</lbePocketIndex.4>
-		<lbePocketIndex.5>16</lbePocketIndex.5>
-		<lbePocketIndex.6>16</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>10</lbePocketIndex1>
+		<lbePocketIndex2>10</lbePocketIndex2>
+		<lbePocketIndex3>10</lbePocketIndex3>
+		<lbePocketIndex4>17</lbePocketIndex4>
+		<lbePocketIndex5>16</lbePocketIndex5>
+		<lbePocketIndex6>15</lbePocketIndex6>
+		<lbePocketIndex7>15</lbePocketIndex7>
+		<lbePocketIndex8>15</lbePocketIndex8>
+		<lbePocketIndex9>11</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>33</lbeIndex>
-		<lbeClass>2</lbeClass>
-		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>29</lbeFilledSize>
-		<lbePocketIndex.1>10</lbePocketIndex.1>
-		<lbePocketIndex.2>10</lbePocketIndex.2>
-		<lbePocketIndex.3>10</lbePocketIndex.3>
-		<lbePocketIndex.4>17</lbePocketIndex.4>
-		<lbePocketIndex.5>16</lbePocketIndex.5>
-		<lbePocketIndex.6>15</lbePocketIndex.6>
-		<lbePocketIndex.7>15</lbePocketIndex.7>
-		<lbePocketIndex.8>15</lbePocketIndex.8>
-		<lbePocketIndex.9>11</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
-	</LOADBEARINGEQUIPMENT>
-	<LOADBEARINGEQUIPMENT>
-		<lbeIndex>34</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>22</lbeFilledSize>
-		<lbePocketIndex.1>19</lbePocketIndex.1>
-		<lbePocketIndex.2>11</lbePocketIndex.2>
-		<lbePocketIndex.3>19</lbePocketIndex.3>
-		<lbePocketIndex.4>0</lbePocketIndex.4>
-		<lbePocketIndex.5>0</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>19</lbePocketIndex1>
+		<lbePocketIndex2>11</lbePocketIndex2>
+		<lbePocketIndex3>19</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>34</lbeIndex>
+		<lbeClass>2</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbePocketIndex1>16</lbePocketIndex1>
+		<lbePocketIndex2>17</lbePocketIndex2>
+		<lbePocketIndex3>17</lbePocketIndex3>
+		<lbePocketIndex4>18</lbePocketIndex4>
+		<lbePocketIndex5>18</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>6</lbePocketIndex11>
+		<lbePocketIndex12>6</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>35</lbeIndex>
-		<lbeClass>0</lbeClass>
+		<lbeClass>1</lbeClass>
+		<lbeCombo>0</lbeCombo>
+		<lbeFilledSize>25</lbeFilledSize>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>18</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
+	</LOADBEARINGEQUIPMENT>
+	<LOADBEARINGEQUIPMENT>
+		<lbeIndex>36</lbeIndex>
+		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
 		<lbeFilledSize>0</lbeFilledSize>
-		<lbePocketIndex.1>0</lbePocketIndex.1>
-		<lbePocketIndex.2>0</lbePocketIndex.2>
-		<lbePocketIndex.3>0</lbePocketIndex.3>
-		<lbePocketIndex.4>0</lbePocketIndex.4>
-		<lbePocketIndex.5>0</lbePocketIndex.5>
-		<lbePocketIndex.6>0</lbePocketIndex.6>
-		<lbePocketIndex.7>0</lbePocketIndex.7>
-		<lbePocketIndex.8>0</lbePocketIndex.8>
-		<lbePocketIndex.9>0</lbePocketIndex.9>
-		<lbePocketIndex.10>0</lbePocketIndex.10>
-		<lbePocketIndex.11>0</lbePocketIndex.11>
-		<lbePocketIndex.12>0</lbePocketIndex.12>
+		<lbePocketIndex1>0</lbePocketIndex1>
+		<lbePocketIndex2>0</lbePocketIndex2>
+		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbePocketIndex4>18</lbePocketIndex4>
+		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbePocketIndex6>0</lbePocketIndex6>
+		<lbePocketIndex7>0</lbePocketIndex7>
+		<lbePocketIndex8>0</lbePocketIndex8>
+		<lbePocketIndex9>0</lbePocketIndex9>
+		<lbePocketIndex10>0</lbePocketIndex10>
+		<lbePocketIndex11>0</lbePocketIndex11>
+		<lbePocketIndex12>0</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 </LOADBEARINGEQUIPMENTLIST>

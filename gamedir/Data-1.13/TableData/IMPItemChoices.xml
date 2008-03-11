@@ -3,13 +3,13 @@
 	<IMPITEMCHOICES>
 		<uiIndex>0</uiIndex>
 		<name>Default Items</name>
-		<ubChoices>2</ubChoices>
-		<ubNumItems>2</ubNumItems>
-		<bItemNo1>161</bItemNo1>
-		<bItemNo2>214</bItemNo2>
-		<bItemNo3>0</bItemNo3>
-		<bItemNo4>0</bItemNo4>
-		<bItemNo5>0</bItemNo5>
+		<ubChoices>5</ubChoices>
+		<ubNumItems>5</ubNumItems>
+		<bItemNo1>164</bItemNo1>
+		<bItemNo2>1005</bItemNo2>
+		<bItemNo3>1090</bItemNo3>
+		<bItemNo4>1094</bItemNo4>
+		<bItemNo5>1097</bItemNo5>
 		<bItemNo6>0</bItemNo6>
 		<bItemNo7>0</bItemNo7>
 		<bItemNo8>0</bItemNo8>
@@ -453,16 +453,16 @@
 		<name>Marksmanship</name>
 		<ubChoices>10</ubChoices>
 		<ubNumItems>1</ubNumItems>
-		<bItemNo1>3</bItemNo1>
-		<bItemNo2>3</bItemNo2>
-		<bItemNo3>3</bItemNo3>
-		<bItemNo4>3</bItemNo4>
-		<bItemNo5>4</bItemNo5>
-		<bItemNo6>4</bItemNo6>
-		<bItemNo7>2</bItemNo7>
-		<bItemNo8>2</bItemNo8>
-		<bItemNo9>9</bItemNo9>
-		<bItemNo10>9</bItemNo10>
+		<bItemNo1>631</bItemNo1>
+		<bItemNo2>631</bItemNo2>
+		<bItemNo3>631</bItemNo3>
+		<bItemNo4>631</bItemNo4>
+		<bItemNo5>1</bItemNo5>
+		<bItemNo6>644</bItemNo6>
+		<bItemNo7>644</bItemNo7>
+		<bItemNo8>342</bItemNo8>
+		<bItemNo9>671</bItemNo9>
+		<bItemNo10>1190</bItemNo10>
 		<bItemNo11>0</bItemNo11>
 		<bItemNo12>0</bItemNo12>
 		<bItemNo13>0</bItemNo13>
