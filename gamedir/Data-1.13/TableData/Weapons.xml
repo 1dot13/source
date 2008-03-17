@@ -8783,6 +8783,63 @@
 		<ManualReloadSound>476</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
+		<uiIndex>898</uiIndex>
+		<szWeaponName>Fabarm FP6</szWeaponName>
+		<ubWeaponClass>5</ubWeaponClass>
+		<ubWeaponType>8</ubWeaponType>
+		<ubCalibre>5</ubCalibre>
+		<ubReadyTime>3</ubReadyTime>
+		<ubShotsPer4Turns>11</ubShotsPer4Turns>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>38</ubImpact>
+		<ubDeadliness>28</ubDeadliness>
+		<ubMagSize>4</ubMagSize>
+		<usRange>140</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>435</sSound>
+		<sBurstSound>3</sBurstSound>
+		<sReloadSound>103</sReloadSound>
+		<sLocknLoadSound>109</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<APsToReload>12</APsToReload>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<APsToReloadManually>3</APsToReloadManually>
+		<ManualReloadSound>481</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>899</uiIndex>
+		<szWeaponName>Fabarm SDASS</szWeaponName>
+		<ubWeaponClass>5</ubWeaponClass>
+		<ubWeaponType>8</ubWeaponType>
+		<ubCalibre>5</ubCalibre>
+		<ubReadyTime>4</ubReadyTime>
+		<ubShotsPer4Turns>10</ubShotsPer4Turns>
+		<ubBulletSpeed>22</ubBulletSpeed>
+		<ubImpact>39</ubImpact>
+		<ubDeadliness>29</ubDeadliness>
+		<bAccuracy>1</bAccuracy>
+		<ubMagSize>7</ubMagSize>
+		<usRange>150</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>85</ubAttackVolume>
+		<ubHitVolume>8</ubHitVolume>
+		<sSound>435</sSound>
+		<sBurstSound>3</sBurstSound>
+		<sReloadSound>103</sReloadSound>
+		<sLocknLoadSound>109</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<APsToReload>18</APsToReload>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<APsToReloadManually>3</APsToReloadManually>
+		<ManualReloadSound>481</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
 		<uiIndex>901</uiIndex>
 		<szWeaponName>Commando Mortar</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>

@@ -4538,24 +4538,24 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>567</uiIndex>
-		<szItemName>.45 WM Mag</szItemName>
-		<szLongItemName>.45 Magazine</szLongItemName>
+		<szItemName>.45WM Mag</szItemName>
+		<szLongItemName>.45WM Magazine</szLongItemName>
 		<szItemDesc>This magazine holds 6 rounds of .45 Winchester Magnum ammunition.</szItemDesc>
 		<szBRName>.45 WinMag Mag</szBRName>
 		<szBRDesc>Standard ammo for some of the big-bore pistols.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>568</uiIndex>
-		<szItemName>.45 WM Mag HP</szItemName>
-		<szLongItemName>.45 Magazine HP</szLongItemName>
+		<szItemName>.45WM Mag HP</szItemName>
+		<szLongItemName>.45WM Magazine HP</szLongItemName>
 		<szItemDesc>This magazine holds 6 rounds of .45 WinMag Hollow Point ammunition.</szItemDesc>
 		<szBRName>.45 WinMag Mag HP</szBRName>
 		<szBRDesc>If you're a hunter, then you'll need this for your sidearm if your prey is not as dead as you believed on first sight...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>569</uiIndex>
-		<szItemName>.45 WM Mag AP</szItemName>
-		<szLongItemName>.45 Magazine AP</szLongItemName>
+		<szItemName>.45WM Mag AP</szItemName>
+		<szLongItemName>.45WM Magazine AP</szLongItemName>
 		<szItemDesc>This magazine holds 6 rounds of .45 WinMag Armor Piercing ammunition.</szItemDesc>
 		<szBRName>.45 WinMag Mag AP</szBRName>
 		<szBRDesc>Armor piercing ammo for the Wildey pistol and other .45 WinMag pistols.</szBRDesc>
@@ -7187,19 +7187,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>898</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 898</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>FP6</szItemName>
+		<szLongItemName>Fabarm FP6</szLongItemName>
+		<szItemDesc>The short version of the SDASS's predecessor as a combat shotgun.</szItemDesc>
+		<szBRName>Fabarm FP6</szBRName>
+		<szBRDesc>An Italian shotgun for police/military use, especially useful in house clearing. It includes Picatinny Rails on the receiver and the pump-action handle.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>899</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 899</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>SDASS</szItemName>
+		<szLongItemName>Fabarm SDASS</szLongItemName>
+		<szItemDesc>A new Italian combat shotgun with rails for adding specialized equipment.</szItemDesc>
+		<szBRName>Fabarm SDASS</szBRName>
+		<szBRDesc>This is a new Italian shotgun developed for police/military use. It includes Picatinny Rails on the receiver and the pump-action handle.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>900</uiIndex>
@@ -9637,6 +9637,30 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1206</uiIndex>
+		<szItemName>Cant.-Gren.</szItemName>
+		<szLongItemName>Canteen / Grenade Pouch</szLongItemName>
+		<szItemDesc>A leg panel with a canteen pouch and three grenade pouches</szItemDesc>
+		<szBRName>Canteen / Grenade Pouch</szBRName>
+		<szBRDesc>This panel is equipped with a canteen pouch and three grenade pouches.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1207</uiIndex>
+		<szItemName>AR-Ca.-Gr.</szItemName>
+		<szLongItemName>AR-Mag. / Canteen / Grenade Panel</szLongItemName>
+		<szItemDesc>A modular leg rig panel with an AR-Mag. pouch, canteen pouch, and two grenade pouches.</szItemDesc>
+		<szBRName>AR-Mag. / Canteen / Grenade Panel</szBRName>
+		<szBRDesc>A subversion of one of our other leg rigs, this panel replaces one grenade pouch with a canteen pouch.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1208</uiIndex>
+		<szItemName>L.Mag.-Ca.-Gr.</szItemName>
+		<szLongItemName>Large Mag. / Canteen / Grenade Panel</szLongItemName>
+		<szItemDesc>A leg panel with a canteen pouch, a grenade pouch, and two pouches for unusually long magazines.</szItemDesc>
+		<szBRName>5.56x45mm M ammo crate</szBRName>
+		<szBRDesc>This panel has a canteen pouch instead of the second grenade pouch of our other large magazine pouch setup.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1209</uiIndex>
 		<szItemName>5.56mm crate</szItemName>
 		<szLongItemName>5.56x45mm ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
@@ -9644,31 +9668,31 @@
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1207</uiIndex>
-		<szItemName>5.56 HP crate</szItemName>
+		<uiIndex>1210</uiIndex>
+		<szItemName>5.56mm HP crate</szItemName>
 		<szLongItemName>5.56x45mm HP ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
 		<szBRName>5.56x45mm HP ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1208</uiIndex>
-		<szItemName>5.56 M crate</szItemName>
+		<uiIndex>1211</uiIndex>
+		<szItemName>5.56mm M crate</szItemName>
 		<szLongItemName>5.56x45mm M ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
 		<szBRName>5.56x45mm M ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1209</uiIndex>
-		<szItemName>5.56 G crate</szItemName>
+		<uiIndex>1212</uiIndex>
+		<szItemName>5.56mm G crate</szItemName>
 		<szLongItemName>5.56x45mm G ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
 		<szBRName>5.56x45mm G ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1210</uiIndex>
+		<uiIndex>1213</uiIndex>
 		<szItemName>5.56mm T crate</szItemName>
 		<szLongItemName>5.56x45mm T ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
@@ -9676,7 +9700,7 @@
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1211</uiIndex>
+		<uiIndex>1214</uiIndex>
 		<szItemName>5.56mm C crate</szItemName>
 		<szLongItemName>5.56x45mm C ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
@@ -9684,7 +9708,7 @@
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1212</uiIndex>
+		<uiIndex>1215</uiIndex>
 		<szItemName>5.56mm HP C crate</szItemName>
 		<szLongItemName>5.56x45mm HP C ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
@@ -9692,7 +9716,7 @@
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1213</uiIndex>
+		<uiIndex>1216</uiIndex>
 		<szItemName>7.62NATO crate</szItemName>
 		<szLongItemName>7.62x51mm ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
@@ -9700,7 +9724,7 @@
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1214</uiIndex>
+		<uiIndex>1217</uiIndex>
 		<szItemName>7.62NATO HP crate</szItemName>
 		<szLongItemName>7.62x51mm HP ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
@@ -9708,7 +9732,7 @@
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1215</uiIndex>
+		<uiIndex>1218</uiIndex>
 		<szItemName>7.62NATO M crate</szItemName>
 		<szLongItemName>7.62x51mm M ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
@@ -9716,7 +9740,7 @@
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1216</uiIndex>
+		<uiIndex>1219</uiIndex>
 		<szItemName>7.62NATO G crate</szItemName>
 		<szLongItemName>7.62x51mm G ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
@@ -9724,7 +9748,7 @@
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1217</uiIndex>
+		<uiIndex>1220</uiIndex>
 		<szItemName>7.62NATO T crate</szItemName>
 		<szLongItemName>7.62x51mm T ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
@@ -9732,7 +9756,7 @@
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1218</uiIndex>
+		<uiIndex>1221</uiIndex>
 		<szItemName>7.62NATO C crate</szItemName>
 		<szLongItemName>7.62x51mm C ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
@@ -9740,7 +9764,7 @@
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1219</uiIndex>
+		<uiIndex>1222</uiIndex>
 		<szItemName>7.62NATO HP C crate</szItemName>
 		<szLongItemName>7.62x51mm HP C ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
@@ -9748,15 +9772,15 @@
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1220</uiIndex>
-		<szItemName>9x19mm  crate</szItemName>
+		<uiIndex>1223</uiIndex>
+		<szItemName>9x19 crate</szItemName>
 		<szLongItemName>9x19mm ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
 		<szBRName>9x19mm ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1221</uiIndex>
+		<uiIndex>1224</uiIndex>
 		<szItemName>9x19 AP crate</szItemName>
 		<szLongItemName>9x19mm AP ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
@@ -9764,7 +9788,7 @@
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1222</uiIndex>
+		<uiIndex>1225</uiIndex>
 		<szItemName>9x19 HP crate</szItemName>
 		<szLongItemName>9x19mm HP ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
@@ -9772,7 +9796,7 @@
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1223</uiIndex>
+		<uiIndex>1226</uiIndex>
 		<szItemName>9x19 M crate</szItemName>
 		<szLongItemName>9x19mm M ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
@@ -9780,7 +9804,7 @@
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1224</uiIndex>
+		<uiIndex>1227</uiIndex>
 		<szItemName>9x19 G crate</szItemName>
 		<szLongItemName>9x19mm G ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
@@ -9788,7 +9812,7 @@
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1225</uiIndex>
+		<uiIndex>1228</uiIndex>
 		<szItemName>9x19 T crate</szItemName>
 		<szLongItemName>9x19mm T ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
@@ -9796,11 +9820,155 @@
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1226</uiIndex>
+		<uiIndex>1229</uiIndex>
 		<szItemName>9x19 AET crate</szItemName>
 		<szLongItemName>9x19mm AET ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
 		<szBRName>9x19mm AET ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1230</uiIndex>
+		<szItemName>9x19 C crate</szItemName>
+		<szLongItemName>9x19mm C ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9x19mm C ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1231</uiIndex>
+		<szItemName>9x19 AP C crate</szItemName>
+		<szLongItemName>9x19mm AP C ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9x19mm AP C ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1232</uiIndex>
+		<szItemName>9x19 HP C crate</szItemName>
+		<szLongItemName>9x19mm HP C ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9x19mm HP C ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1233</uiIndex>
+		<szItemName>.38 crate</szItemName>
+		<szLongItemName>.38 ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.38 ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1234</uiIndex>
+		<szItemName>.38 AP crate</szItemName>
+		<szLongItemName>.38 AP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.38 AP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1235</uiIndex>
+		<szItemName>.38 HP crate</szItemName>
+		<szLongItemName>.38 HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.38 HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1236</uiIndex>
+		<szItemName>.38 G crate</szItemName>
+		<szLongItemName>.38 G ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.38 G ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1237</uiIndex>
+		<szItemName>.357 crate</szItemName>
+		<szLongItemName>.357 ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.357 ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1238</uiIndex>
+		<szItemName>.357 AP crate</szItemName>
+		<szLongItemName>.357 AP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.357 AP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1239</uiIndex>
+		<szItemName>.357 HP crate</szItemName>
+		<szLongItemName>.357 HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.357 HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1240</uiIndex>
+		<szItemName>.357 G crate</szItemName>
+		<szLongItemName>.357 G ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.357 G ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1241</uiIndex>
+		<szItemName>.357 AET crate</szItemName>
+		<szLongItemName>.357 AET ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.357 AET ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1242</uiIndex>
+		<szItemName>.45 crate</szItemName>
+		<szLongItemName>.45 ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.45 ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1243</uiIndex>
+		<szItemName>.45 AP crate</szItemName>
+		<szLongItemName>.45 AP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.45 AP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1244</uiIndex>
+		<szItemName>.45 HP crate</szItemName>
+		<szLongItemName>.45 HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.45 HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1245</uiIndex>
+		<szItemName>.45 M crate</szItemName>
+		<szLongItemName>.45 M ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.45 M ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1246</uiIndex>
+		<szItemName>.45 G crate</szItemName>
+		<szLongItemName>.45 G ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.45 G ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1247</uiIndex>
+		<szItemName>.45 AET crate</szItemName>
+		<szLongItemName>.45 AET ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.45 AET ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 </ITEMLIST>

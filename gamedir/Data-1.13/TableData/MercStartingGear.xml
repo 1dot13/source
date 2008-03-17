@@ -1313,7 +1313,7 @@
 		<lVestStatus>0</lVestStatus>
 		<lLeftThigh>0</lLeftThigh>
 		<lLeftThighStatus>0</lLeftThighStatus>
-		<lRightThigh>1091</lRightThigh>
+		<lRightThigh>1200</lRightThigh>
 		<lRightThighStatus>100</lRightThighStatus>
 		<lCPack>1098</lCPack>
 		<lCPackStatus>100</lCPackStatus>
@@ -2567,7 +2567,7 @@
 		<lVestStatus>0</lVestStatus>
 		<lLeftThigh>0</lLeftThigh>
 		<lLeftThighStatus>0</lLeftThighStatus>
-		<lRightThigh>1091</lRightThigh>
+		<lRightThigh>1200</lRightThigh>
 		<lRightThighStatus>100</lRightThighStatus>
 		<lCPack>1098</lCPack>
 		<lCPackStatus>100</lCPackStatus>
@@ -2963,8 +2963,8 @@
 		<lVestStatus>84</lVestStatus>
 		<lLeftThigh>0</lLeftThigh>
 		<lLeftThighStatus>0</lLeftThighStatus>
-		<lRightThigh>0</lRightThigh>
-		<lRightThighStatus>0</lRightThighStatus>
+		<lRightThigh>1200</lRightThigh>
+		<lRightThighStatus>95</lRightThighStatus>
 		<lCPack>0</lCPack>
 		<lCPackStatus>0</lCPackStatus>
 		<lBPack>0</lBPack>
@@ -3953,8 +3953,8 @@
 		<lVestStatus>75</lVestStatus>
 		<lLeftThigh>0</lLeftThigh>
 		<lLeftThighStatus>0</lLeftThighStatus>
-		<lRightThigh>0</lRightThigh>
-		<lRightThighStatus>0</lRightThighStatus>
+		<lRightThigh>1200</lRightThigh>
+		<lRightThighStatus>88</lRightThighStatus>
 		<lCPack>1098</lCPack>
 		<lCPackStatus>83</lCPackStatus>
 		<lBPack>0</lBPack>
@@ -4217,8 +4217,8 @@
 		<lVestStatus>76</lVestStatus>
 		<lLeftThigh>0</lLeftThigh>
 		<lLeftThighStatus>0</lLeftThighStatus>
-		<lRightThigh>0</lRightThigh>
-		<lRightThighStatus>0</lRightThighStatus>
+		<lRightThigh>1200</lRightThigh>
+		<lRightThighStatus>93</lRightThighStatus>
 		<lCPack>0</lCPack>
 		<lCPackStatus>0</lCPackStatus>
 		<lBPack>0</lBPack>

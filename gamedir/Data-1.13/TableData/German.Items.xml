@@ -4520,24 +4520,24 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>567</uiIndex>
-		<szItemName>.45 WM Mag</szItemName>
-		<szLongItemName>.45 WM Magazin</szLongItemName>
+		<szItemName>.45WM Mag</szItemName>
+		<szLongItemName>.45WM Magazin</szLongItemName>
 		<szItemDesc>In 1979 stellte WINCHESTER passend zur neuen Magnum-Pistole 'Wildey' diese Patrone her. Sie basiert auf der .45ACP Hülse, welche um 7,62mm verlängert wurde.</szItemDesc>
 		<szBRName>.45 WM Mag #6</szBRName>
 		<szBRDesc>In 1979 stellte WINCHESTER passend zur neuen Magnum-Pistole 'Wildey' diese Patrone her. Sie basiert auf der .45ACP Hülse, welche um 7,62mm verlängert wurde. In Nordamerika wird das starke Kaliber weiterhin für die Jagd mit Kurzwaffen verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>568</uiIndex>
-		<szItemName>.45 WM Mag HS</szItemName>
-		<szLongItemName>.45 WM Magazin, HS</szLongItemName>
+		<szItemName>.45WM Mag HS</szItemName>
+		<szLongItemName>.45WM Magazin, HS</szLongItemName>
 		<szItemDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone und garantiert eine ausgezeichnete Mannstoppwirkung bei ungeschützte Gegner.</szItemDesc>
 		<szBRName>.45 WM Mag HS #6</szBRName>
 		<szBRDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone und garantiert eine ausgezeichnete Mannstoppwirkung bei ungeschützte Gegner.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>569</uiIndex>
-		<szItemName>.45 WM Mag PB</szItemName>
-		<szLongItemName>.45 WM Magazin, PB</szLongItemName>
+		<szItemName>.45WM Mag PB</szItemName>
+		<szLongItemName>.45WM Magazin, PB</szLongItemName>
 		<szItemDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone.</szItemDesc>
 		<szBRName>.45 WM Mag PB #6</szBRName>
 		<szBRDesc>Diese Patrone wurde 1979 auf den Markt gebracht und basiert auf der .45ACP, die Hülse wurde jedoch verstärkt und verlängert. Sie ist etwa 1/3 stärker als die .44 Magnum Patrone.</szBRDesc>
@@ -7168,19 +7168,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>898</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 898</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>FP6</szItemName>
+		<szLongItemName>Fabarm FP6</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Fabarm FP6</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>899</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 899</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>SDASS</szItemName>
+		<szLongItemName>Fabarm SDASS</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Fabarm SDASS</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>900</uiIndex>
@@ -9268,6 +9268,30 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1206</uiIndex>
+		<szItemName>Cant.-Gren.</szItemName>
+		<szLongItemName>Canteen / Grenade Pouch</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Canteen / Grenade Pouch</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1207</uiIndex>
+		<szItemName>AR-Ca.-Gr.</szItemName>
+		<szLongItemName>AR-Mag. / Canteen / Grenade Panel</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>AR-Mag. / Canteen / Grenade Panel</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1208</uiIndex>
+		<szItemName>L.Mag.-Ca.-Gr.</szItemName>
+		<szLongItemName>Large Mag. / Canteen / Grenade Panel</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>5.56x45mm M ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1209</uiIndex>
 		<szItemName>5.56mm crate</szItemName>
 		<szLongItemName>5.56x45mm ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
@@ -9275,31 +9299,31 @@
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1207</uiIndex>
-		<szItemName>5.56 HP crate</szItemName>
+		<uiIndex>1210</uiIndex>
+		<szItemName>5.56mm HP crate</szItemName>
 		<szLongItemName>5.56x45mm HP ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
 		<szBRName>5.56x45mm HP ammo crate</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1208</uiIndex>
-		<szItemName>5.56 M crate</szItemName>
+		<uiIndex>1211</uiIndex>
+		<szItemName>5.56mm M crate</szItemName>
 		<szLongItemName>5.56x45mm M ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
 		<szBRName>5.56x45mm M ammo crate</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1209</uiIndex>
-		<szItemName>5.56 G crate</szItemName>
+		<uiIndex>1212</uiIndex>
+		<szItemName>5.56mm G crate</szItemName>
 		<szLongItemName>5.56x45mm G ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
 		<szBRName>5.56x45mm G ammo crate</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1210</uiIndex>
+		<uiIndex>1213</uiIndex>
 		<szItemName>5.56mm T crate</szItemName>
 		<szLongItemName>5.56x45mm T ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
@@ -9307,7 +9331,7 @@
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1211</uiIndex>
+		<uiIndex>1214</uiIndex>
 		<szItemName>5.56mm C crate</szItemName>
 		<szLongItemName>5.56x45mm C ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
@@ -9315,7 +9339,7 @@
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1212</uiIndex>
+		<uiIndex>1215</uiIndex>
 		<szItemName>5.56mm HP C crate</szItemName>
 		<szLongItemName>5.56x45mm HP C ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
@@ -9323,7 +9347,7 @@
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1213</uiIndex>
+		<uiIndex>1216</uiIndex>
 		<szItemName>7.62NATO crate</szItemName>
 		<szLongItemName>7.62x51mm ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
@@ -9331,7 +9355,7 @@
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1214</uiIndex>
+		<uiIndex>1217</uiIndex>
 		<szItemName>7.62NATO HP crate</szItemName>
 		<szLongItemName>7.62x51mm HP ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
@@ -9339,7 +9363,7 @@
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1215</uiIndex>
+		<uiIndex>1218</uiIndex>
 		<szItemName>7.62NATO M crate</szItemName>
 		<szLongItemName>7.62x51mm M ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
@@ -9347,7 +9371,7 @@
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1216</uiIndex>
+		<uiIndex>1219</uiIndex>
 		<szItemName>7.62NATO G crate</szItemName>
 		<szLongItemName>7.62x51mm G ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
@@ -9355,7 +9379,7 @@
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1217</uiIndex>
+		<uiIndex>1220</uiIndex>
 		<szItemName>7.62NATO T crate</szItemName>
 		<szLongItemName>7.62x51mm T ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
@@ -9363,7 +9387,7 @@
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1218</uiIndex>
+		<uiIndex>1221</uiIndex>
 		<szItemName>7.62NATO C crate</szItemName>
 		<szLongItemName>7.62x51mm C ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
@@ -9371,7 +9395,7 @@
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1219</uiIndex>
+		<uiIndex>1222</uiIndex>
 		<szItemName>7.62NATO HP C crate</szItemName>
 		<szLongItemName>7.62x51mm HP C ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
@@ -9379,15 +9403,15 @@
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1220</uiIndex>
-		<szItemName>9x19mm  crate</szItemName>
+		<uiIndex>1223</uiIndex>
+		<szItemName>9x19 crate</szItemName>
 		<szLongItemName>9x19mm ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
 		<szBRName>9x19mm ammo crate</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1221</uiIndex>
+		<uiIndex>1224</uiIndex>
 		<szItemName>9x19 AP crate</szItemName>
 		<szLongItemName>9x19mm AP ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
@@ -9395,7 +9419,7 @@
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1222</uiIndex>
+		<uiIndex>1225</uiIndex>
 		<szItemName>9x19 HP crate</szItemName>
 		<szLongItemName>9x19mm HP ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
@@ -9403,7 +9427,7 @@
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1223</uiIndex>
+		<uiIndex>1226</uiIndex>
 		<szItemName>9x19 M crate</szItemName>
 		<szLongItemName>9x19mm M ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
@@ -9411,7 +9435,7 @@
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1224</uiIndex>
+		<uiIndex>1227</uiIndex>
 		<szItemName>9x19 G crate</szItemName>
 		<szLongItemName>9x19mm G ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
@@ -9419,7 +9443,7 @@
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1225</uiIndex>
+		<uiIndex>1228</uiIndex>
 		<szItemName>9x19 T crate</szItemName>
 		<szLongItemName>9x19mm T ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
@@ -9427,11 +9451,155 @@
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
-		<uiIndex>1226</uiIndex>
+		<uiIndex>1229</uiIndex>
 		<szItemName>9x19 AET crate</szItemName>
 		<szLongItemName>9x19mm AET ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
 		<szBRName>9x19mm AET ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1230</uiIndex>
+		<szItemName>9x19 C crate</szItemName>
+		<szLongItemName>9x19mm C ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>9x19mm C ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1231</uiIndex>
+		<szItemName>9x19 AP C crate</szItemName>
+		<szLongItemName>9x19mm AP C ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>9x19mm AP C ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1232</uiIndex>
+		<szItemName>9x19 HP C crate</szItemName>
+		<szLongItemName>9x19mm HP C ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>9x19mm HP C ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1233</uiIndex>
+		<szItemName>.38 crate</szItemName>
+		<szLongItemName>.38 ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.38 ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1234</uiIndex>
+		<szItemName>.38 AP crate</szItemName>
+		<szLongItemName>.38 AP ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.38 AP ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1235</uiIndex>
+		<szItemName>.38 HP crate</szItemName>
+		<szLongItemName>.38 HP ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.38 HP ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1236</uiIndex>
+		<szItemName>.38 G crate</szItemName>
+		<szLongItemName>.38 G ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.38 G ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1237</uiIndex>
+		<szItemName>.357 crate</szItemName>
+		<szLongItemName>.357 ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.357 ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1238</uiIndex>
+		<szItemName>.357 AP crate</szItemName>
+		<szLongItemName>.357 AP ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.357 AP ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1239</uiIndex>
+		<szItemName>.357 HP crate</szItemName>
+		<szLongItemName>.357 HP ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.357 HP ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1240</uiIndex>
+		<szItemName>.357 G crate</szItemName>
+		<szLongItemName>.357 G ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.357 G ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1241</uiIndex>
+		<szItemName>.357 AET crate</szItemName>
+		<szLongItemName>.357 AET ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.357 AET ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1242</uiIndex>
+		<szItemName>.45 crate</szItemName>
+		<szLongItemName>.45 ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.45 ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1243</uiIndex>
+		<szItemName>.45 AP crate</szItemName>
+		<szLongItemName>.45 AP ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.45 AP ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1244</uiIndex>
+		<szItemName>.45 HP crate</szItemName>
+		<szLongItemName>.45 HP ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.45 HP ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1245</uiIndex>
+		<szItemName>.45 M crate</szItemName>
+		<szLongItemName>.45 M ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.45 M ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1246</uiIndex>
+		<szItemName>.45 G crate</szItemName>
+		<szLongItemName>.45 G ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.45 G ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1247</uiIndex>
+		<szItemName>.45 AET crate</szItemName>
+		<szLongItemName>.45 AET ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.45 AET ammo crate</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 </ITEMLIST>
