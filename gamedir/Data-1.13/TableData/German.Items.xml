@@ -7170,17 +7170,17 @@
 		<uiIndex>898</uiIndex>
 		<szItemName>FP6</szItemName>
 		<szLongItemName>Fabarm FP6</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Wenn es um Zuverlässigkeit und taktische Flexibilität geht, gibt es keine bessere Waffe als die italienische FABARM FP6 Schrotflinte!</szItemDesc>
 		<szBRName>Fabarm FP6</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Wenn es um Zuverlässigkeit und taktische Flexibilität geht, gibt es keine bessere Waffe als die italienische FABARM FP6 Schrotflinte! Sie ist der Vorgänger der SDASS-Serie.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>899</uiIndex>
 		<szItemName>SDASS</szItemName>
 		<szLongItemName>Fabarm SDASS</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Wenn es um Zuverlässigkeit und taktische Flexibilität geht, gibt es keine bessere Waffe als die neue italienische FABARM SDASS Schrotflinte!</szItemDesc>
 		<szBRName>Fabarm SDASS</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Wenn es um Zuverlässigkeit und taktische Flexibilität geht, gibt es keine bessere Waffe als die neue italienische FABARM SDASS Schrotflinte! Sie ist der Nachfolger der FP6-Serie.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>900</uiIndex>
@@ -7962,9 +7962,9 @@
 		<uiIndex>997</uiIndex>
 		<szItemName>7.62WP Adapter</szItemName>
 		<szLongItemName>7.62x39mm Drum Adapter</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Dieses Adapter ermöglicht es Ihnen ein AK-Sturmgewehr mit einem Trommelmagazin zu laden.</szItemDesc>
 		<szBRName>7.62x39mm Drum Adapter</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Dieses Adapter ermöglicht es Ihnen ein AK-Sturmgewehr mit einem Trommelmagazin zu laden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>998</uiIndex>
@@ -8608,26 +8608,26 @@
 	<ITEM>
 		<uiIndex>1079</uiIndex>
 		<szItemName>TAC-1A Weste</szItemName>
-		<szLongItemName>TAC-1A Weste</szLongItemName>
-		<szItemDesc>Diese Weste ermöglicht es Ihnen immer soviel Munition am Mann zu haben wie Sie gerade benötigen - bis zu 12x 5.56mm-Magazine.</szItemDesc>
-		<szBRName>TAC-1A Weste</szBRName>
-		<szBRDesc>Diese Weste ermöglicht es Ihnen immer soviel Munition am Mann zu haben wie Sie gerade benötigen - bis zu 12x 5.56mm-Magazine.</szBRDesc>
+		<szLongItemName>TT 1A Rifle Weste</szLongItemName>
+		<szItemDesc>Die TAC-1A Rifle Weste wurde für den Gewehr- Schützen entwickelt und ermöglicht es Ihnen bis zu 12x 5.56mm Magazine am Körper griffbereit zu tragen.</szItemDesc>
+		<szBRName>TT 1A Rifle Weste</szBRName>
+		<szBRDesc>Die TAC-1A Rifle Weste wurde für den Gewehr- Schützen entwickelt und ermöglicht es Ihnen bis zu 12x 5.56mm Magazine am Körper griffbereit zu tragen. - Besuchen Sie www.tacticaltailor.com -</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1080</uiIndex>
-		<szItemName>40mm G-Holster</szItemName>
+		<szItemName>40mm G-Tasche</szItemName>
 		<szLongItemName>40mm Granattasche</szLongItemName>
-		<szItemDesc>Dieses Granat-Holster bietet Stauraum für vier 40mm Granaten und kann am Feldanzug oder Koppel befestigt werden.</szItemDesc>
+		<szItemDesc>Dieses Granat-Holster bietet Stauraum für 4x 40mm Granaten und kann am Feldanzug oder Koppel befestigt werden.</szItemDesc>
 		<szBRName>40mm Granattasche</szBRName>
-		<szBRDesc>Dieses Granat-Holster bietet Stauraum für vier 40mm Granaten und kann am Feldanzug oder Koppel befestigt werden.</szBRDesc>
+		<szBRDesc>Dieses Granat-Holster bietet Stauraum für 4x 40mm Granaten und kann am Feldanzug oder Koppel befestigt werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1081</uiIndex>
 		<szItemName>Mag-Tasche</szItemName>
 		<szLongItemName>Doppelmagazintasche</szLongItemName>
-		<szItemDesc>Diese Tasche bietet Stauraum für zwei extra-lange Magazine (z.B. FN-P90).</szItemDesc>
+		<szItemDesc>Diese Magazintasche bietet Stauraum für zwei extra-lange Magazine (z.B. FN-P90).</szItemDesc>
 		<szBRName>Doppelmagazintasche</szBRName>
-		<szBRDesc>Diese Tasche bietet Stauraum für zwei extra-lange Magazine (z.B. FN-P90).</szBRDesc>
+		<szBRDesc>Diese Magazintasche bietet Stauraum für zwei extra-lange Magazine (z.B. FN-P90).</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1082</uiIndex>
@@ -8648,50 +8648,50 @@
 	<ITEM>
 		<uiIndex>1084</uiIndex>
 		<szItemName>Polizei-Weste</szItemName>
-		<szLongItemName>Hongkong Polizei-Weste</szLongItemName>
+		<szLongItemName>Hongkong Polizei Weste</szLongItemName>
 		<szItemDesc>Diese Weste mit unterschiedlich großen Taschen kann vielseitig genutzt werden. Vier davon sind für 40mm Granaten geeignet.</szItemDesc>
-		<szBRName>HK Polizei-Weste</szBRName>
+		<szBRName>Hongkong Polizei Weste</szBRName>
 		<szBRDesc>Diese Weste mit unterschiedlich großen Taschen kann vielseitig genutzt werden. Vier davon sind für 40mm Granaten geeignet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1085</uiIndex>
 		<szItemName>Bw-Weste</szItemName>
-		<szLongItemName>Bundeswehr-Weste</szLongItemName>
-		<szItemDesc>Diese fabrikneue Bundeswehr-Weste im Flecktarn-Muster besitzt auf der linken Seite eine extra große Tasche.</szItemDesc>
-		<szBRName>Bundeswehr-Weste</szBRName>
-		<szBRDesc>Diese fabrikneue Bundeswehr-Weste im Flecktarn-Muster besitzt auf der linken Seite eine extra große Tasche.</szBRDesc>
+		<szLongItemName>Bundeswehr Weste</szLongItemName>
+		<szItemDesc>Die CCG 'Assault Vest' NG3 flecktarn der Bundeswehr wird von KHS gefertigt und besitzt 4x Magazintaschen, 2x Mehrzweck- und 2x Granattaschen. Auf der linken Seite befindet sich eine mittelgroße Tasche.</szItemDesc>
+		<szBRName>Bundeswehr Weste</szBRName>
+		<szBRDesc>Die CCG 'Assault Vest' NG3 flecktarn der Bundeswehr wird von KHS gefertigt und besitzt 4x Magazintaschen, 2x Mehrzweck- und 2x Granattaschen. Auf der linken Seite befindet sich eine mittelgroße Tasche.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1086</uiIndex>
 		<szItemName>106 Weste</szItemName>
-		<szLongItemName>russische 106 Weste</szLongItemName>
+		<szLongItemName>Russische 106 Weste</szLongItemName>
 		<szItemDesc>Diese russische Weste kann vielseitig genutzt werden.</szItemDesc>
-		<szBRName>russische 106 Weste</szBRName>
+		<szBRName>Russische 106 Weste</szBRName>
 		<szBRDesc>Diese russische Weste kann vielseitig genutzt werden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1087</uiIndex>
 		<szItemName>107 Weste</szItemName>
-		<szLongItemName>russische 107 Weste</szLongItemName>
+		<szLongItemName>Russische 107 Weste</szLongItemName>
 		<szItemDesc>Diese spezielle Weste wurde entwickelt um eine Vielzahl von Magazinen zu tragen. Damit sollte Ihnen nie die Munition ausgehen!</szItemDesc>
-		<szBRName>russische 107 Weste</szBRName>
+		<szBRName>Russische 107 Weste</szBRName>
 		<szBRDesc>Diese spezielle Weste wurde entwickelt um eine Vielzahl von Magazinen zu tragen. Damit sollte Ihnen nie die Munition ausgehen!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1088</uiIndex>
 		<szItemName>RM22SF Weste</szItemName>
-		<szLongItemName>russische RM22SF Weste</szLongItemName>
+		<szLongItemName>Russische RM22SF Weste</szLongItemName>
 		<szItemDesc>Diese spezielle Weste wurde für russische Spezialeinheiten entwickelt um Magazine und Granaten am Mann zu tragen.</szItemDesc>
-		<szBRName>russische RM22SF Weste</szBRName>
+		<szBRName>Russische RM22SF Weste</szBRName>
 		<szBRDesc>Diese spezielle Weste wurde für russische Spezialeinheiten entwickelt um Magazine und Granaten am Mann zu tragen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1089</uiIndex>
-		<szItemName>TAC-1C Weste</szItemName>
-		<szLongItemName>TAC-1C Weste</szLongItemName>
-		<szItemDesc>Diese Weste besitzt zwei große Taschen, da passt viel hinein.</szItemDesc>
-		<szBRName>TAC-1C Weste</szBRName>
-		<szBRDesc>Diese Weste besitzt zwei große Taschen, da passt viel hinein.</szBRDesc>
+		<szItemName>TAC-1B Weste</szItemName>
+		<szLongItemName>TT 1B Utility Weste</szLongItemName>
+		<szItemDesc>Diese Weste ist der TAC-1A ähnlich, besitzt jedoch zwei große Taschen um andere wichtige Gegenstände zu verstauen. - Besuchen Sie www.tacticaltailor.com -</szItemDesc>
+		<szBRName>TT 1B Utility Weste</szBRName>
+		<szBRDesc>Diese Weste ist der TAC-1A ähnlich, besitzt jedoch zwei große Taschen um andere wichtige Gegenstände zu verstauen. - Besuchen Sie www.tacticaltailor.com -</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1090</uiIndex>
@@ -8704,18 +8704,18 @@
 	<ITEM>
 		<uiIndex>1091</uiIndex>
 		<szItemName>Holster</szItemName>
-		<szLongItemName>Pistolen-Holster</szLongItemName>
-		<szItemDesc>Das Eagle SAS Tactical Holster wird am Oberschenkel befestigt. Es kann eine mittlere Pistole sowie ein Reservemagazin verstaut werden.</szItemDesc>
-		<szBRName>Pistolen-Holster</szBRName>
-		<szBRDesc>Das Eagle SAS Tactical Holster wird am Oberschenkel befestigt. Es kann eine mittlere Pistole sowie ein Reservemagazin verstaut werden.</szBRDesc>
+		<szLongItemName>Eagle SAS Holster</szLongItemName>
+		<szItemDesc>Mit diesem Tiefziehholster, das am Oberschenkel befestigt wird, können Sie eine mittlere Pistole sowie ein Reservemagazin schnell griffbereit mitführen.</szItemDesc>
+		<szBRName>Eagle SAS Holster</szBRName>
+		<szBRDesc>Mit diesem Tiefziehholster, das am Oberschenkel befestigt wird, können Sie eine mittlere Pistole sowie ein Reservemagazin schnell griffbereit mitführen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1092</uiIndex>
-		<szItemName>Beintasche</szItemName>
-		<szLongItemName>Beintasche</szLongItemName>
-		<szItemDesc>Diese Beintasche ist mit einem Pistolen-Holster und einer 3-fachen Magazintasche ausgestattet.</szItemDesc>
-		<szBRName>Beintasche</szBRName>
-		<szBRDesc>Diese Beintasche ist mit einem Pistolen-Holster und einer 3-fachen Magazintasche ausgestattet.</szBRDesc>
+		<szItemName>TAC Holster</szItemName>
+		<szLongItemName>TAC Holster</szLongItemName>
+		<szItemDesc>Diese Beintasche ist mit einem Oberschenkelholster und einer 3-fachen Magazintasche ausgestattet. - Besuchen Sie www.tacticaltailor.com -</szItemDesc>
+		<szBRName>TAC Holster</szBRName>
+		<szBRDesc>Diese Beintasche ist mit einem Oberschenkelholster und einer 3-fachen Magazintasche ausgestattet. - Besuchen Sie www.tacticaltailor.com -</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1093</uiIndex>
@@ -8760,10 +8760,10 @@
 	<ITEM>
 		<uiIndex>1098</uiIndex>
 		<szItemName>TAC-3-Day</szItemName>
-		<szLongItemName>TAC-3-Day Kampftasche</szLongItemName>
-		<szItemDesc>Diese Kampftasche hat eine zusätzliche äußere Tasche.</szItemDesc>
-		<szBRName>TAC-3-Day Kampftasche</szBRName>
-		<szBRDesc>Diese Kampftasche hat eine zusätzliche äußere Tasche.</szBRDesc>
+		<szLongItemName>TT 3D Kampftasche</szLongItemName>
+		<szItemDesc>Wenn Sie etwas mehr Stauraum benötigen Ihnen aber ein Rucksack zu groß ist, dann ist diese Kampftasche genau richtig. Sie hat eine zusätzliche äußere Tasche.</szItemDesc>
+		<szBRName>TT 3D Kampftasche</szBRName>
+		<szBRDesc>Wenn Sie etwas mehr Stauraum benötigen Ihnen aber ein Rucksack zu groß ist, dann ist diese Kampftasche genau richtig. Sie hat eine zusätzliche äußere Tasche.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1099</uiIndex>
@@ -9026,9 +9026,9 @@
 	<ITEM>
 		<uiIndex>1175</uiIndex>
 		<szItemName>gr.Mag-Gran.</szItemName>
-		<szLongItemName>gr. Magazin/Granat Tasche</szLongItemName>
+		<szLongItemName>gr. Mag/Granat Tasche</szLongItemName>
 		<szItemDesc>In dieser Tasche können Sie zwei lange Magazine sowie zwei Granaten verstauen.</szItemDesc>
-		<szBRName>gr. Magazin/Granat Tasche</szBRName>
+		<szBRName>gr. Mag/Granat Tasche</szBRName>
 		<szBRDesc>In dieser Tasche können Sie zwei lange Magazine sowie zwei Granaten verstauen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -9188,11 +9188,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1196</uiIndex>
-		<szItemName>TAC-1E Vest</szItemName>
-		<szLongItemName>TT Pistol Vest</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>TT Pistol Vest</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>TAC-1E Weste</szItemName>
+		<szLongItemName>TT 1E Pistol Weste</szLongItemName>
+		<szItemDesc>Die TAC-1E 'Pistol' Weste ist ideal wenn Sie bereits zwei Beintaschen tragen, aber dennoch eine Pistole griffbereit am Körper tragen möchten. Das eingearbeitete Holster fasst alle gängigen Pistolen.</szItemDesc>
+		<szBRName>TT 1E Pistol Weste</szBRName>
+		<szBRDesc>Die TAC-1E 'Pistol' Weste ist ideal wenn Sie bereits zwei Beintaschen tragen, aber dennoch eine Pistole griffbereit am Körper tragen möchten. Das eingearbeitete Holster fasst alle gängigen Pistolen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1197</uiIndex>
@@ -9222,95 +9222,95 @@
 		<uiIndex>1200</uiIndex>
 		<szItemName>R-Holster</szItemName>
 		<szLongItemName>Revolver Holster</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Dieses Schulterholster ist für mittlere Revolver geeignet und besitzt zusätzlich zwei Fächer für Speedloader damit Sie schnell nachladen können.</szItemDesc>
 		<szBRName>Revolver Holster</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Dieses Schulterholster ist für mittlere Revolver geeignet und besitzt zusätzlich zwei Fächer für Speedloader damit Sie schnell nachladen können.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1201</uiIndex>
 		<szItemName>SL8 RAS</szItemName>
 		<szLongItemName>HK SL8 RAS</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Sie erkennen Ihr SL8 nicht wieder? Was ein RAS-Kit und ein wenig schwarzer Lack doch ausmachen! Jetzt können Sie Ihr Gewehr mit weiterem Zubehör bestücken.</szItemDesc>
 		<szBRName>HK SL8 RAS</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Sie erkennen Ihr SL8 nicht wieder? Was ein RAS-Kit und ein wenig schwarzer Lack doch ausmachen! Jetzt können Sie Ihr Gewehr mit weiterem Zubehör bestücken.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1202</uiIndex>
 		<szItemName>Rohrzange</szItemName>
 		<szLongItemName>Rohrzange</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Ein zuverlässiges Werkzeug für den Gas-Wasser-Installateur.</szItemDesc>
 		<szBRName>Rohrzange</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Ein zuverlässiges Werkzeug für den Gas-Wasser-Installateur.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1203</uiIndex>
-		<szItemName>SAW-Vest</szItemName>
-		<szLongItemName>SAW-Vest</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>SAW-Vest</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>SAW-Weste</szItemName>
+		<szLongItemName>SAW-Weste</szLongItemName>
+		<szItemDesc>In dieser taktischen Weste können Sie bis zu vier Patronengurte oder mehrere Trommelmagazine verstauen.</szItemDesc>
+		<szBRName>SAW-Weste</szBRName>
+		<szBRDesc>In dieser taktischen Weste können Sie bis zu vier Patronengurte oder mehrere Trommelmagazine verstauen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1204</uiIndex>
-		<szItemName>1st Aid</szItemName>
-		<szLongItemName>First Aid Rig</szLongItemName>
+		<szItemName>EH-Tasche</szItemName>
+		<szLongItemName>EH Beintasche</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>First Aid Rig</szBRName>
+		<szBRName>EH Beintasche</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1205</uiIndex>
-		<szItemName>Med. Pouch</szItemName>
-		<szLongItemName>Medical Pouch</szLongItemName>
+		<szItemName>Med. Tasche</szItemName>
+		<szLongItemName>Medical Tasche</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>Medical Pouch</szBRName>
+		<szBRName>Medical Tasche</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1206</uiIndex>
-		<szItemName>Cant.-Gren.</szItemName>
-		<szLongItemName>Canteen / Grenade Pouch</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>Canteen / Grenade Pouch</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>FF/Gr.-Tasche</szItemName>
+		<szLongItemName>FF/Granattasche</szLongItemName>
+		<szItemDesc>Diese Mehrzwecktaschen mit Schnellverschluss können am LBE befestigt werden und bieten Stauraum für Feldflasche und Granaten.</szItemDesc>
+		<szBRName>FF/Granattasche</szBRName>
+		<szBRDesc>Diese Mehrzwecktaschen mit Schnellverschluss können am LBE befestigt werden und bieten Stauraum für Feldflasche und Granaten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1207</uiIndex>
-		<szItemName>AR-Ca.-Gr.</szItemName>
-		<szLongItemName>AR-Mag. / Canteen / Grenade Panel</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>AR-Mag. / Canteen / Grenade Panel</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>Mag-FF-Gr.</szItemName>
+		<szLongItemName>Mag/FF/Granattasche</szLongItemName>
+		<szItemDesc>Diese Mehrzwecktaschen mit Schnellverschluss können am LBE befestigt werden und bieten Stauraum für Magazine, Feldflasche und Granaten.</szItemDesc>
+		<szBRName>Mag/FF/Granattasche</szBRName>
+		<szBRDesc>Diese Mehrzwecktaschen mit Schnellverschluss können am LBE befestigt werden und bieten Stauraum für Magazine, Feldflasche und Granaten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1208</uiIndex>
-		<szItemName>L.Mag.-Ca.-Gr.</szItemName>
-		<szLongItemName>Large Mag. / Canteen / Grenade Panel</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>5.56x45mm M ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>gr. Mag-FF-Gr.</szItemName>
+		<szLongItemName>gr. Mag/FF/Granattasche</szLongItemName>
+		<szItemDesc>Diese Mehrzwecktaschen mit Schnellverschluss können am LBE befestigt werden und bieten Stauraum für Magazine, Feldflasche und Granaten.</szItemDesc>
+		<szBRName>gr. Mag/FF/Granattasche</szBRName>
+		<szBRDesc>Diese Mehrzwecktaschen mit Schnellverschluss können am LBE befestigt werden und bieten Stauraum für Magazine, Feldflasche und Granaten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1209</uiIndex>
-		<szItemName>5.56mm crate</szItemName>
-		<szLongItemName>5.56x45mm ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>5.56x45mm ammo crate</szBRName>
+		<szItemName>5.56mm Kiste</szItemName>
+		<szLongItemName>5.56x45mm Mun. Kiste</szLongItemName>
+		<szItemDesc>Munitions-Kiste</szItemDesc>
+		<szBRName>5.56x45mm Mun. Kiste</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1210</uiIndex>
-		<szItemName>5.56mm HP crate</szItemName>
-		<szLongItemName>5.56x45mm HP ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemName>5.56mm HS Kiste</szItemName>
+		<szLongItemName>5.56x45mm HS Mun. Kiste</szLongItemName>
+		<szItemDesc>Munitions-Kiste</szItemDesc>
 		<szBRName>5.56x45mm HP ammo crate</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1211</uiIndex>
-		<szItemName>5.56mm M crate</szItemName>
-		<szLongItemName>5.56x45mm M ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemName>5.56mm M Kiste</szItemName>
+		<szLongItemName>5.56x45mm M Mun. Kiste</szLongItemName>
+		<szItemDesc>Munitions-Kiste</szItemDesc>
 		<szBRName>5.56x45mm M ammo crate</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
@@ -9348,17 +9348,17 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1216</uiIndex>
-		<szItemName>7.62NATO crate</szItemName>
-		<szLongItemName>7.62x51mm ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>7.62x51mm ammo crate</szBRName>
+		<szItemName>7.62NATO Kiste</szItemName>
+		<szLongItemName>7.62x51mm Mun. Kiste</szLongItemName>
+		<szItemDesc>Munitions-Kiste</szItemDesc>
+		<szBRName>7.62x51mm Mun. Kiste</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1217</uiIndex>
-		<szItemName>7.62NATO HP crate</szItemName>
-		<szLongItemName>7.62x51mm HP ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemName>7.62NATO HS Kiste</szItemName>
+		<szLongItemName>7.62x51mm HS Mun. Kiste</szLongItemName>
+		<szItemDesc>Munitions-Kiste</szItemDesc>
 		<szBRName>7.62x51mm HP ammo crate</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
@@ -9404,33 +9404,33 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1223</uiIndex>
-		<szItemName>9x19 crate</szItemName>
-		<szLongItemName>9x19mm ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>9x19mm ammo crate</szBRName>
+		<szItemName>9x19 Kiste</szItemName>
+		<szLongItemName>9x19mm Mun. Kiste</szLongItemName>
+		<szItemDesc>Munitions-Kiste</szItemDesc>
+		<szBRName>9x19mm Mun. Kiste</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1224</uiIndex>
-		<szItemName>9x19 AP crate</szItemName>
-		<szLongItemName>9x19mm AP ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemName>9x19 PB Kiste</szItemName>
+		<szLongItemName>9x19mm PB Mun. Kiste</szLongItemName>
+		<szItemDesc>Munitions-Kiste</szItemDesc>
 		<szBRName>9x19mm AP ammo crate</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1225</uiIndex>
-		<szItemName>9x19 HP crate</szItemName>
-		<szLongItemName>9x19mm HP ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemName>9x19 HS Kiste</szItemName>
+		<szLongItemName>9x19mm HS Mun. Kiste</szLongItemName>
+		<szItemDesc>Munitions-Kiste</szItemDesc>
 		<szBRName>9x19mm HP ammo crate</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1226</uiIndex>
-		<szItemName>9x19 M crate</szItemName>
-		<szLongItemName>9x19mm M ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemName>9x19 M Kiste</szItemName>
+		<szLongItemName>9x19mm M Mun. Kiste</szLongItemName>
+		<szItemDesc>Munitions-Kiste</szItemDesc>
 		<szBRName>9x19mm M ammo crate</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
@@ -9484,9 +9484,9 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1233</uiIndex>
-		<szItemName>.38 crate</szItemName>
-		<szLongItemName>.38 ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemName>.38 Kiste</szItemName>
+		<szLongItemName>.38 Mun. Kiste</szLongItemName>
+		<szItemDesc>Munitions-Kiste</szItemDesc>
 		<szBRName>.38 ammo crate</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
@@ -9516,9 +9516,9 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1237</uiIndex>
-		<szItemName>.357 crate</szItemName>
-		<szLongItemName>.357 ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemName>.357 Kiste</szItemName>
+		<szLongItemName>.357 Mun. Kiste</szLongItemName>
+		<szItemDesc>Munitions-Kiste</szItemDesc>
 		<szBRName>.357 ammo crate</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
@@ -9556,9 +9556,9 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1242</uiIndex>
-		<szItemName>.45 crate</szItemName>
-		<szLongItemName>.45 ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemName>.45 Kiste</szItemName>
+		<szLongItemName>.45 Mun. Kiste</szLongItemName>
+		<szItemDesc>Munitions-Kiste</szItemDesc>
 		<szBRName>.45 ammo crate</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
