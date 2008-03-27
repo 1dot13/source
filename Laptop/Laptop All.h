@@ -137,5 +137,6 @@
 #include "Map Screen Interface Map.h"
 #include "ShopKeeper Interface.h"
 #include "Cheats.h"
+#include "GameVersion.h"
 
 #endif

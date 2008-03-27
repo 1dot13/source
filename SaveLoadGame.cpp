@@ -7,6 +7,7 @@
 	#include "HelpScreen.h"
 	#include "Cheats.h"
 	#include "Animated ProgressBar.h"
+	#include "Shopkeeper Interface.h"
 #else
 	#include "Types.h"
 	#include "Soldier Profile.h"
