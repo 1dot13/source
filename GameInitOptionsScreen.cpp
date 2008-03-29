@@ -474,7 +474,7 @@ BOOLEAN		EnterGIOScreen()
 	}
 
 	// CHRISL: New inventory options
-	if(iResolution != 0){
+	if(iResolution != 0 && gCustomDataCat.GetRootDir() != ""){
 		usPosY = GIO_INV_SETTING_Y - GIO_OFFSET_TO_TOGGLE_BOX_Y;
 		for( cnt=0; cnt<NUM_INV_OPTIONS; cnt++)
 		{
@@ -612,7 +612,7 @@ BOOLEAN		ExitGIOScreen()
 		RemoveButton( guiBROptionToggles[ cnt ] );
 
 // CHRISL
-	if(iResolution != 0){
+	if(iResolution != 0 && gCustomDataCat.GetRootDir() != ""){
 		for( cnt=0; cnt<NUM_INV_OPTIONS; cnt++)
 			RemoveButton( guiINVOptionToggles[ cnt ] );
 	}
@@ -775,7 +775,7 @@ BOOLEAN		RenderGIOScreen()
 	DisplayWrappedString( (UINT16)(GIO_BR_SETTING_X+GIO_OFFSET_TO_TEXT), usPosY, GIO_DIF_SETTINGS_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_BR_AWESOME_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
 // CHRISL
-	if(iResolution != 0){
+	if(iResolution != 0 && gCustomDataCat.GetRootDir() != ""){
 		DisplayWrappedString( GIO_INV_SETTING_X, (UINT16)(GIO_INV_SETTING_Y-GIO_GAP_BN_SETTINGS), GIO_DIF_SETTINGS_WIDTH + 20, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_INV_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 		usPosY = GIO_INV_SETTING_Y+2;
 
@@ -1329,7 +1329,7 @@ void RestoreGIOButtonBackGrounds()
 	}
 // CHRISL
 
-	if(iResolution != 0){
+	if(iResolution != 0 && gCustomDataCat.GetRootDir() != ""){
 		usPosY = GIO_INV_SETTING_Y-GIO_OFFSET_TO_TOGGLE_BOX_Y;
 		for( cnt=0; cnt<NUM_INV_OPTIONS; cnt++)
 		{
@@ -1369,7 +1369,7 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	}
 
 	// CHRISL:
-	if(iResolution != 0){
+	if(iResolution != 0 && gCustomDataCat.GetRootDir() != ""){
 		switch ( GetCurrentINVOptionButtonSetting() )
 		{
 			case GIO_INV_OLD:

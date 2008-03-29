@@ -192,6 +192,7 @@ void EntryInitEditorItemsInfo()
 				case IC_KIT:
 				case IC_FACE:
 				case IC_MONEY:
+				case IC_BELTCLIP:
 					eInfo.sNumEquipment1++;
 					break;
 				case IC_MISC:
@@ -452,6 +453,7 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 				case IC_KIT:
 				case IC_FACE:
 				case IC_MONEY:
+				case IC_BELTCLIP:
 					fTypeMatch = eInfo.uiItemType == TBAR_MODE_ITEM_EQUIPMENT1;
 					break;
 				case IC_MISC:
@@ -1653,6 +1655,7 @@ void DisplayItemStatistics()
 
 
 #endif
+
 
 
 

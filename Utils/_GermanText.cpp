@@ -656,11 +656,11 @@ STR16 pAttributeMenuStrings[] =
 
 STR16 pTrainingMenuStrings[] =
 {
- 	L"Üben", // train yourself 
- 	L"Miliz", // train the town 
- 	L"Trainer", // train your teammates 
- 	L"Rekrut", // be trained by an instructor 
- 	L"Abbrechen", // cancel this menu
+ L"Üben", // train yourself 
+ L"Miliz", // train the town 
+ L"Trainer", // train your teammates 
+ L"Rekrut", // be trained by an instructor 
+ L"Abbrechen", // cancel this menu
 };
 
 STR16 pSquadMenuStrings[] =
@@ -3193,7 +3193,8 @@ STR16 zSaveLoadText[] =
 	L"Ausgezeichnete Auswahl",
 	L"Fantastische Auswahl",
 
-	L"Neuer Warenbestand arbeitet nicht im 640x480 Bildumfang. Bitte bestimmen Sie die Größe neu und versuchen Sie wieder.",
+	L"Neues Inventar funktioniert nicht in 640x480 Auflösung. Wählen Sie eine andere Auflösung und versuchen Sie es erneut.",
+	L"Neues Inventar funktioniert nicht mit dem ausgewählten 'Data' Ordner.",
 };
 
 //MapScreen
@@ -4059,6 +4060,8 @@ STR16 NewInvMessage[] =
 	L"Rucksack nicht gefunden",
 	L"Reißverschluss funktioniert nur im Kampf",
 	L"Bewegung nicht möglich, während Reißverschluss des Rucksacks offen ist",
+	L"Sind Sie sicher, dass Sie alle Gegenstände im Sektor verkaufen wollen?",
+	L"Sind Sie sicher, dass Sie alle Gegenstände im Sektor löschen wollen?",
 };
 
 #endif //GERMAN

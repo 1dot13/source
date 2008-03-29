@@ -534,6 +534,10 @@ BOOLEAN EnoughPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, BOOLE
 {
 	INT16 sNewAP = 0;
 
+	//CHRISL: if we don't have soldier information, assume we have enough points.
+	if(pSoldier == NULL)
+		return( TRUE );
+
 	// If this guy is on a special move... don't care about APS, OR BPSs!
 	if ( pSoldier->ubWaitActionToDo	)
 	{

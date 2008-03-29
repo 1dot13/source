@@ -456,7 +456,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		else if(strcmp(name, "ubWeight") == 0)
 		{
 			pData->curElement = ELEMENT;
-			pData->curItem.ubWeight = (UINT8) atol(pData->szCharData);
+			pData->curItem.ubWeight = (UINT16) atol(pData->szCharData);
 		}
 		else if(strcmp(name, "ubPerPocket") == 0)
 		{

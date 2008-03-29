@@ -17,7 +17,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="C:\games\jagged alliance 2"
+			OutputDirectory="\games\jagged alliance 2"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets=".\ja2_2005Express.vsprops;.\ja2_2005ExpressDebug.vsprops"
@@ -66,7 +66,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib"
-				OutputFile="$(OutDir)\ja2_deb_en_1877.exe"
+				OutputFile="$(OutDir)\ja2_deb_en_1936.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -99,7 +99,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="C:\games\jagged alliance 2"
+			OutputDirectory="\games\jagged alliance 2"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets=".\ja2_2005Express.vsprops"
@@ -145,7 +145,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib"
-				OutputFile="$(OutDir)\ja2_rel_en_1877.exe"
+				OutputFile="$(OutDir)\ja2_rel_en_1936.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
@@ -183,7 +183,7 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditor|Win32"
-			OutputDirectory="C:\games\jagged alliance 2"
+			OutputDirectory="\games\jagged alliance 2"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets=".\ja2_2005Express.vsprops;.\ja2_2005ExpressEditor.vsprops"

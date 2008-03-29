@@ -601,7 +601,7 @@ void RenderTopmostTacticalInterface( )
 		return;
 	}
 
-	if ( InItemStackPopup( ) )
+	if ( InItemStackPopup( ) || InSectorStackPopup( ) )
 	{
 		RenderItemStackPopup( ( BOOLEAN )( fInterfacePanelDirty == DIRTYLEVEL2 ) );
 	}

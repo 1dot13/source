@@ -350,6 +350,7 @@ void DeletePool(ITEM_POOL *pItemPool);
 
 // ITEM STACK POPUP STUFF
 BOOLEAN			gfInItemStackPopup = FALSE;
+BOOLEAN			gfInSectorStackPopup = FALSE;
 UINT32			guiItemPopupBoxes;
 OBJECTTYPE	*gpItemPopupObject;
 INT16				gsItemPopupWidth;
@@ -402,6 +403,7 @@ extern void	StartSKIDescriptionBox( void );
 
 void UpdateItemHatches();
 
+extern void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot );
 
 UINT8		ubRGBItemCyclePlacedItemColors[] =
 {
@@ -607,7 +609,7 @@ void GenerateProsString( STR16 zItemPros, OBJECTTYPE * pObject, UINT32 uiPixLimi
 	UINT32			uiStringLength = 0;
 	STR16		zTemp;
 	UINT16			usItem = pObject->usItem;
-	UINT8				ubWeight;
+	UINT16				ubWeight;
 
 	zItemPros[0] = 0;
 
@@ -733,7 +735,7 @@ void GenerateConsString( STR16 zItemCons, OBJECTTYPE * pObject, UINT32 uiPixLimi
 {
 	UINT32			uiStringLength = 0;
 	STR16		zTemp;
-	UINT8				ubWeight;
+	UINT16				ubWeight;
 	UINT16			usItem = pObject->usItem;
 
 	zItemCons[0] = 0;
@@ -1527,7 +1529,7 @@ void INVRenderINVPanelItem( SOLDIERTYPE *pSoldier, INT16 sPocket, UINT8 fDirtyLe
 	if (!gfSMDisableForItems && (UsingNewInventorySystem() == true) && gpItemPointer != NULL)
 	{
 		int itemSlotLimit = ItemSlotLimit(gpItemPointer, sPocket, pSoldier);
-		RenderPocketItemCapacity( itemSlotLimit, sPocket, pSoldier);
+		RenderPocketItemCapacity( guiSAVEBUFFER, itemSlotLimit, sPocket, pSoldier, &pSoldier->inv[sPocket], sX, sY );
 		if(itemSlotLimit == 0 && !CanItemFitInPosition(pSoldier, gpItemPointer, (INT8)sPocket, FALSE)) {
 			fHatchItOut = TRUE;
 		}
@@ -2353,15 +2355,14 @@ void InitItemInterface( )
 }
 
 // CHRISL: Function to display pocket inventory quantity based on object in cursor
-void RenderPocketItemCapacity( UINT8 pCapacity, INT16 bPos, SOLDIERTYPE *pSoldier )
+void RenderPocketItemCapacity( UINT32 uiWhichBuffer, UINT8 pCapacity, INT16 bPos, SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT16 sX, INT16 sY )
 {
-	INT16				sX, sY;
 	static CHAR16		pStr[ 100 ];
 
 	// Can pocket hold the item in the cursor?
 	if(InItemDescriptionBox( ))
 		return;
-	if(!CanItemFitInPosition( pSoldier, gpItemPointer, (INT8)bPos, FALSE ))
+	if(pSoldier != NULL && !CanItemFitInPosition( pSoldier, gpItemPointer, (INT8)bPos, FALSE ))
 	{
 		// Further check to see if the cursor item is valid ammo or a valid attachment
 		if(!CompatibleAmmoForGun(gpItemPointer, &pSoldier->inv[bPos]) && !ValidAttachment(gpItemPointer->usItem, pSoldier->inv[bPos].usItem))
@@ -2374,18 +2375,13 @@ void RenderPocketItemCapacity( UINT8 pCapacity, INT16 bPos, SOLDIERTYPE *pSoldie
 	SetFont( ITEM_FONT );
 	SetFontBackground( FONT_MCOLOR_BLACK );
 	SetFontForeground( FONT_RED );
-	if(CompatibleAmmoForGun(gpItemPointer, &pSoldier->inv[bPos]) || ValidLaunchable(gpItemPointer->usItem, pSoldier->inv[bPos].usItem))
-	{
-		SetFontForeground( FONT_YELLOW );
-		swprintf( pStr, L"L" );
-	}
-	else if(pCapacity != 0 && CanItemFitInPosition(pSoldier, gpItemPointer, (INT8)bPos, FALSE))
+	if(pSoldier == NULL || (pCapacity != 0 && CanItemFitInPosition(pSoldier, gpItemPointer, (INT8)bPos, FALSE)))
 	{
 		// Adjust capacity to account for current items
-		if(gpItemPointer->usItem == pSoldier->inv[bPos].usItem)
+		if(gpItemPointer->usItem == pObj->usItem)
 		{
 			SetFontForeground( FONT_GREEN );
-			pCapacity = pCapacity - pSoldier->inv[bPos].ubNumberOfObjects;
+			pCapacity = pCapacity - pObj->ubNumberOfObjects;
 			if(pCapacity > 0)
 				swprintf( pStr, L"+%d", pCapacity );
 			else
@@ -2394,14 +2390,17 @@ void RenderPocketItemCapacity( UINT8 pCapacity, INT16 bPos, SOLDIERTYPE *pSoldie
 		else
 			swprintf( pStr, L"%d", pCapacity );
 	}
+	else if(CompatibleAmmoForGun(gpItemPointer, &pSoldier->inv[bPos]) || ValidLaunchable(gpItemPointer->usItem, pSoldier->inv[bPos].usItem))
+	{
+		SetFontForeground( FONT_YELLOW );
+		swprintf( pStr, L"L" );
+	}
 	else if(ValidAttachment(gpItemPointer->usItem, pSoldier->inv[bPos].usItem))
 	{
 		SetFontForeground( FONT_YELLOW );
 		swprintf( pStr, L"A" );
 	}
-	sX = gSMInvData[ bPos ].sX + 1;
-	sY = gSMInvData[ bPos ].sY;
-	UINT32 uiWhichBuffer = ( guiCurrentItemDescriptionScreen == MAP_SCREEN ) ? guiSAVEBUFFER : guiRENDERBUFFER;
+	sX = sX + 1;
 
 	// Display pocket capacity
 	if ( uiWhichBuffer == guiSAVEBUFFER )
@@ -3370,6 +3369,7 @@ void ItemDescAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	static BOOLEAN fRightDown = FALSE;
 	CHAR16		pStr[10];
+	CHAR8		ubString[48];
 	UINT32		ubStatusIndex = MSYS_GetBtnUserData( btn, 1 );
 
 /*	region gets disabled in SKI for shopkeeper boxes.  It now works normally for merc's inventory boxes!
@@ -3394,23 +3394,77 @@ void ItemDescAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 
 		if( guiCurrentItemDescriptionScreen == MAP_SCREEN )
 		{
-			if ( gpItemPointer == NULL && EmptyWeaponMagazine( gpItemDescObject, &gItemPointer, ubStatusIndex ) )
+			//if ( gpItemPointer == NULL && EmptyWeaponMagazine( gpItemDescObject, &gItemPointer, ubStatusIndex ) )
+			EmptyWeaponMagazine( gpItemDescObject, &gTempObject, ubStatusIndex );
+			if(gpItemPointer == NULL)
 			{
-				// OK, END the description box
-				//fItemDescDelete = TRUE;
-				fInterfacePanelDirty = DIRTYLEVEL2;
+				//not holding anything
+				gTempObject.MoveThisObjectTo(gItemPointer);
 				gpItemPointer = &gItemPointer;
-				gpItemPointerSoldier = gpItemDescSoldier;
+			}
+			else
+			{
+				//holding an item
+				if(Magazine[Item[gpItemPointer->usItem].ubClassIndex].ubCalibre == Weapon[Item[gpItemDescObject->usItem].ubClassIndex].ubCalibre)
+				{
+					ReloadGun(gpItemDescSoldier, gpItemDescObject, gpItemPointer);
+				}
+				if(gpItemPointer->ubNumberOfObjects == 0)
+				{
+					// nothing left in cursor
+					gTempObject.MoveThisObjectTo(gItemPointer);
+					gpItemPointer = &gItemPointer;
+					if(gpItemPointer->ubNumberOfObjects == 0)
+					{
+						// delete object if nothing left
+						MAPEndItemPointer( );
+					}
+				}
+				else
+				{
+					// still holding someting so drop the clip we just pulled from the weapon
+					// start by searching merc for a place to put the clip
+					if(AutoPlaceObject(gpItemDescSoldier, &gTempObject, TRUE) == FALSE)
+					{
+						// couldn't find a place on the merc, so drop into the sector
+						if(fShowMapInventoryPool)	//sector inventory panel is open
+						{
+							AutoPlaceObjectInInventoryStash(&gTempObject, gpItemDescSoldier->sGridNo);
+							fMapPanelDirty = TRUE;
+						}
+						else	//sector inventory panel is closed
+						{
+							AddItemToPool(gpItemDescSoldier->sGridNo, &gTempObject, 1, gpItemDescSoldier->pathing.bLevel, WORLD_ITEM_REACHABLE, 0);
+						}
+					}
+				}
+			}
+			// OK, END the description box
+			//fItemDescDelete = TRUE;
+			fInterfacePanelDirty = DIRTYLEVEL2;
+			gpItemPointerSoldier = gpItemDescSoldier;
 
-				swprintf( pStr, L"0" );
-				SpecifyButtonText( giItemDescAmmoButton, pStr );
+			if ( GetMagSize(gpItemDescObject) <= 99 )
+				swprintf( pStr, L"%d/%d", (*gpItemDescObject)[ubStatusIndex]->data.gun.ubGunShotsLeft, GetMagSize(gpItemDescObject));
+			else
+				swprintf( pStr, L"%d", (*gpItemDescObject)[ubStatusIndex]->data.gun.ubGunShotsLeft );
 
-				// Set mouse
+			FilenameForBPP("INTERFACE\\infobox.sti", ubString);
+
+			UnloadButtonImage(giItemDescAmmoButtonImages);
+			giItemDescAmmoButtonImages	= LoadButtonImage(ubString,AmmoTypes[(*gpItemDescObject)[ubStatusIndex]->data.gun.ubGunAmmoType].grayed,AmmoTypes[(*gpItemDescObject)[ubStatusIndex]->data.gun.ubGunAmmoType].offNormal,-1,AmmoTypes[(*gpItemDescObject)[ubStatusIndex]->data.gun.ubGunAmmoType].onNormal,-1 );
+			//swprintf( pStr, L"0" );
+			SpecifyButtonText( giItemDescAmmoButton, pStr );
+
+			// Set mouse
+			if(gpItemPointer->exists() == true)
+			{
 				guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
 				gusExternVoSubIndex = Item[ gpItemPointer->usItem ].ubGraphicNum;
 
 				MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
 				MSYS_SetCurrentCursor( EXTERN_CURSOR );
+
 				fMapInventoryItem=TRUE;
 				fTeamPanelDirty=TRUE;
 			}
@@ -3418,27 +3472,67 @@ void ItemDescAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 		else
 		{
 			// Set pointer to item
-			if ( gpItemPointer == NULL && EmptyWeaponMagazine( gpItemDescObject, &gItemPointer, ubStatusIndex ) )
+			EmptyWeaponMagazine( gpItemDescObject, &gTempObject, ubStatusIndex );
+			if(gpItemPointer == NULL)
 			{
+				//not holding anything
+				gTempObject.MoveThisObjectTo(gItemPointer);
 				gpItemPointer = &gItemPointer;
-				gpItemPointerSoldier = gpItemDescSoldier;
-
-				// if in SKI, load item into SKI's item pointer
-				if( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE )
-				{
-					// pick up bullets from weapon into cursor (don't try to sell)
-					BeginSkiItemPointer( PLAYERS_INVENTORY, -1, FALSE );
-				}
-
-				// OK, END the description box
-				//fItemDescDelete = TRUE;
-				fInterfacePanelDirty = DIRTYLEVEL2;
-
-				swprintf( pStr, L"0" );
-				SpecifyButtonText( giItemDescAmmoButton, pStr );
-
-				fItemDescDelete = TRUE;
 			}
+			else
+			{
+				//holding an item
+				if(Magazine[Item[gpItemPointer->usItem].ubClassIndex].ubCalibre == Weapon[Item[gpItemDescObject->usItem].ubClassIndex].ubCalibre)
+				{
+					ReloadGun(gpItemDescSoldier, gpItemDescObject, gpItemPointer);
+				}
+				if(gpItemPointer->ubNumberOfObjects == 0)
+				{
+					// nothing left in cursor
+					gTempObject.MoveThisObjectTo(gItemPointer);
+					gpItemPointer = &gItemPointer;
+					if(gpItemPointer->ubNumberOfObjects == 0)
+					{
+						// delete object if nothing left
+						EndItemPointer( );
+					}
+				}
+				else
+				{
+					// still holding someting so drop the clip we just pulled from the weapon
+					// start by searching merc for a place to put the clip
+					if(AutoPlaceObject(gpItemDescSoldier, &gTempObject, TRUE) == FALSE)
+					{
+						AddItemToPool(gpItemDescSoldier->sGridNo, &gTempObject, 1, gpItemDescSoldier->pathing.bLevel, WORLD_ITEM_REACHABLE, 0);
+					}
+				}
+			}
+			gpItemPointerSoldier = gpItemDescSoldier;
+
+			// if in SKI, load item into SKI's item pointer
+			if( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE )
+			{
+				// pick up bullets from weapon into cursor (don't try to sell)
+				BeginSkiItemPointer( PLAYERS_INVENTORY, -1, FALSE );
+			}
+
+			// OK, END the description box
+			//fItemDescDelete = TRUE;
+			fInterfacePanelDirty = DIRTYLEVEL2;
+
+			if ( GetMagSize(gpItemDescObject) <= 99 )
+				swprintf( pStr, L"%d/%d", (*gpItemDescObject)[ubStatusIndex]->data.gun.ubGunShotsLeft, GetMagSize(gpItemDescObject));
+			else
+				swprintf( pStr, L"%d", (*gpItemDescObject)[ubStatusIndex]->data.gun.ubGunShotsLeft );
+
+			FilenameForBPP("INTERFACE\\infobox.sti", ubString);
+
+			UnloadButtonImage(giItemDescAmmoButtonImages);
+			giItemDescAmmoButtonImages	= LoadButtonImage(ubString,AmmoTypes[(*gpItemDescObject)[ubStatusIndex]->data.gun.ubGunAmmoType].grayed,AmmoTypes[(*gpItemDescObject)[ubStatusIndex]->data.gun.ubGunAmmoType].offNormal,-1,AmmoTypes[(*gpItemDescObject)[ubStatusIndex]->data.gun.ubGunAmmoType].onNormal,-1 );
+			//swprintf( pStr, L"0" );
+			SpecifyButtonText( giItemDescAmmoButton, pStr );
+
+			fItemDescDelete = TRUE;
 
 		}
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
@@ -6040,16 +6134,125 @@ BOOLEAN ItemCursorInLobRange( INT16 sMapPos )
 
 
 
+BOOLEAN InSectorStackPopup( )
+{
+	return( gfInSectorStackPopup );
+}
 
 BOOLEAN InItemStackPopup( )
 {
 	return( gfInItemStackPopup );
 }
 
-
 BOOLEAN InKeyRingPopup( )
 {
 	return( gfInKeyRingPopup );
+}
+
+BOOLEAN InitSectorStackPopup( WORLDITEM *pInventoryPoolList, INT32 ubPosition, INT16 sInvX, INT16 sInvY, INT16 sInvWidth, INT16 sInvHeight )
+{
+	VOBJECT_DESC    VObjectDesc;
+	SGPRect			aRect;
+	ETRLEObject		*pTrav;
+	HVOBJECT		hVObject;
+	INT32			cnt;
+	UINT16			usPopupWidth, usPopupHeight;
+	INT16			sOffSetY = 0, sOffSetX = 0;
+	INT16			sItemWidth = 0;
+	static CHAR16	pStr[ 512 ];
+
+	sItemWidth				= MAP_INV_ITEM_ROW_WIDTH - 1;
+	sOffSetY				= 120;
+
+	// Set some globals
+	guiCurrentItemDescriptionScreen = guiCurrentScreen;
+	gsItemPopupInvX			= sInvX;
+	gsItemPopupInvY			= sInvY;
+	gsItemPopupInvWidth		= sInvWidth;
+	gsItemPopupInvHeight	= sInvHeight;
+	// Determine # of items
+	gpItemPopupObject		= &(pInventoryPoolList->object );
+	gubNumItemPopups		= ItemSlotLimit( gpItemPopupObject, STACK_SIZE_LIMIT );
+
+	// Return false if #objects not >1
+	if ( gubNumItemPopups <1 )
+		return( FALSE );
+
+	// Load graphics
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	strcpy( VObjectDesc.ImageFile, "INTERFACE\\extra_inventory.STI" );
+	CHECKF( AddVideoObject( &VObjectDesc, &guiItemPopupBoxes) );
+
+	// Get size
+	GetVideoObject( &hVObject, guiItemPopupBoxes );
+	pTrav = &(hVObject->pETRLEObject[ 0 ] );
+	usPopupWidth = 75;
+	//usPopupWidth = pTrav->usWidth;
+	usPopupHeight = pTrav->usHeight;
+
+	// Get Width, Height
+	gsItemPopupWidth		= gubNumItemPopups * usPopupWidth;
+	gsItemPopupHeight		= pTrav->usHeight;
+	gsItemPopupX			= gsItemPopupInvX;
+	gsItemPopupY			= gsItemPopupInvY;
+
+	for ( cnt = 0; cnt < gubNumItemPopups; cnt++ )
+	{
+		// Build a mouse region here that is over any others.....
+		MSYS_DefineRegion( &gItemPopupRegions[cnt],
+				(INT16)( gsItemPopupInvX + ( cnt % sItemWidth * usPopupWidth ) + sOffSetX ), // top left
+				(INT16)( sInvY + sOffSetY +( cnt / sItemWidth * usPopupHeight ) ), // top right
+				(INT16)( gsItemPopupInvX + ( ( cnt % sItemWidth ) + 1 ) * usPopupWidth + sOffSetX ), // bottom left
+				(INT16)( sInvY + ( (cnt / sItemWidth + 1) * usPopupHeight ) + sOffSetY ), // bottom right
+				MSYS_PRIORITY_HIGHEST,
+				MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemPopupRegionCallback );
+		// Add region
+		MSYS_AddRegion( &gItemPopupRegions[cnt]);
+		MSYS_SetRegionUserData( &gItemPopupRegions[cnt], 0, cnt );
+		//CHRISL: Include the pockets capacity as UserData 1
+		MSYS_SetRegionUserData( &gItemPopupRegions[cnt], 1, gubNumItemPopups );
+		// Flag this as a sectory item
+		MSYS_SetRegionUserData( &gItemPopupRegions[cnt], 2, -1);
+		//CHRISL: Include the pocket we're looking at so we can display the right graphic
+		MSYS_SetRegionUserData( &gItemPopupRegions[cnt], 3, ubPosition);
+		
+		//OK, for each item, set dirty text if applicable!
+		//CHRISL:
+		if(cnt < gpItemPopupObject->ubNumberOfObjects && gpItemPopupObject->exists() == true){
+			GetHelpTextForItem( pStr, gpItemPopupObject, 0, cnt );
+			SetRegionFastHelpText( &(gItemPopupRegions[ cnt ]), pStr );
+		}
+		else{
+			SetRegionFastHelpText( &(gItemPopupRegions[ cnt ]), ItemNames[ gpItemPopupObject->usItem ] );
+		}
+		SetRegionHelpEndCallback( &(gItemPopupRegions[ cnt ]), HelpTextDoneCallback );
+		gfItemPopupRegionCallbackEndFix = FALSE;
+	}
+
+
+	// Build a mouse region here that is over any others.....
+	MSYS_DefineRegion( &gItemPopupRegion, sInvX, sInvY ,(INT16)(sInvX + sInvWidth), (INT16)(sInvY + sInvHeight), MSYS_PRIORITY_HIGH,
+						 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemPopupFullRegionCallback );
+	// Add region
+	MSYS_AddRegion( &gItemPopupRegion);
+
+	//Disable all faces
+	SetAllAutoFacesInactive( );
+
+	fInterfacePanelDirty = DIRTYLEVEL2;
+
+	gfInSectorStackPopup = TRUE;
+	fShowInventoryFlag = TRUE;
+
+	//Reserict mouse cursor to panel
+	aRect.iLeft = sInvX + sOffSetX;
+	aRect.iTop = sInvY + sOffSetY;
+	aRect.iRight = aRect.iLeft + sItemWidth * usPopupWidth;
+	aRect.iBottom = aRect.iTop + (INT32)(ceil((float)cnt/(float)sItemWidth)+1) * usPopupHeight;
+
+	RestrictMouseCursor( &aRect );
+
+	return( TRUE );
 }
 
 BOOLEAN InitItemStackPopup( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sInvX, INT16 sInvY, INT16 sInvWidth, INT16 sInvHeight )
@@ -6211,10 +6414,14 @@ BOOLEAN InitItemStackPopup( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sInvX
 	gfInItemStackPopup = TRUE;
 
 	//Reserict mouse cursor to panel
-	aRect.iTop = sInvY;
-	aRect.iLeft = sInvX;
-	aRect.iBottom = sInvY + sInvHeight;
-	aRect.iRight = sInvX + sInvWidth;
+	aRect.iLeft = sInvX + sOffSetX;
+	aRect.iTop = sInvY + sOffSetY;
+	aRect.iRight = aRect.iLeft + sItemWidth * usPopupWidth;
+	aRect.iBottom = aRect.iTop + (INT32)(ceil((float)cnt/(float)sItemWidth)+1) * usPopupHeight;
+	//aRect.iTop = sInvY;
+	//aRect.iLeft = sInvX;
+	//aRect.iBottom = sInvY + sInvHeight;
+	//aRect.iRight = sInvX + sInvWidth;
 
 	RestrictMouseCursor( &aRect );
 
@@ -6237,7 +6444,8 @@ void RenderItemStackPopup( BOOLEAN fFullRender )
 	UINT32								cnt;
 	INT16									sX, sY, sNewX, sNewY;
 	INT16			sItemWidth = 0, sOffSetY = 0, sWidth = 29;
-	UINT8			ubPosition, image = 0, sID;
+	UINT8			ubPosition, image = 0;
+	int				sID;
 
 	// CHRISL: Setup witdh and offset to layer inventory boxes if necessary
 	if( guiCurrentScreen == MAP_SCREEN )
@@ -6276,9 +6484,9 @@ void RenderItemStackPopup( BOOLEAN fFullRender )
 	usWidth					= (UINT32)pTrav->usWidth;
 
 	//CHRISL: resize usPopupWidth based on popup stack location
-	if(UsingNewInventorySystem() == true)
+	if(UsingNewInventorySystem() == true || sID == -1)
 	{
-		if((ubPosition >=BIGPOCKSTART && ubPosition < BIGPOCKFINAL) || (gGameExternalOptions.fVehicleInventory && (MercPtrs[sID]->flags.uiStatusFlags & SOLDIER_VEHICLE)))
+		if(sID == -1 || (ubPosition >=BIGPOCKSTART && ubPosition < BIGPOCKFINAL) || (gGameExternalOptions.fVehicleInventory && (MercPtrs[sID]->flags.uiStatusFlags & SOLDIER_VEHICLE)))
 		{
 			if(guiCurrentScreen != MAP_SCREEN)
 				sItemWidth -= 2;
@@ -6345,6 +6553,7 @@ void DeleteItemStackPopup( )
 
 
 	gfInItemStackPopup = FALSE;
+	gfInSectorStackPopup = FALSE;
 
 	for ( cnt = 0; cnt < gubNumItemPopups; cnt++ )
 	{
@@ -6466,10 +6675,10 @@ BOOLEAN InitKeyRingPopup( SOLDIERTYPE *pSoldier, INT16 sInvX, INT16 sInvY, INT16
 	gfInKeyRingPopup = TRUE;
 
 	//Reserict mouse cursor to panel
-	aRect.iTop = sInvY;
-	aRect.iLeft = sInvX;
-	aRect.iBottom = sInvY + sInvHeight;
-	aRect.iRight = sInvX + sInvWidth;
+	aRect.iLeft = gsKeyRingPopupInvX + sOffSetX;
+	aRect.iTop = sInvY + sOffSetY;
+	aRect.iRight = aRect.iLeft + sKeyRingItemWidth * usPopupWidth;
+	aRect.iBottom = aRect.iTop + (INT32)(ceil((float)cnt/(float)sKeyRingItemWidth)+1) * usPopupHeight;
 
 	RestrictMouseCursor( &aRect );
 
@@ -6811,7 +7020,7 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	UINT32					uiItemPos;
 	UINT32					iItemCap;
-	UINT32					ubID;
+	INT32					ubID;
 
 	uiItemPos = MSYS_GetRegionUserData( pRegion, 0 );
 	iItemCap = MSYS_GetRegionUserData( pRegion, 1 );
@@ -6884,15 +7093,26 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			{
 				// Here, grab an item and put in cursor to swap
 				//RemoveObjFrom( OBJECTTYPE * pObj, UINT8 ubRemoveIndex )
-				gpItemPopupObject->RemoveObjectAtIndex( uiItemPos, &gItemPointer );
 
     			if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 				{
 					// pick it up
-					InternalMAPBeginItemPointer( gpItemPopupSoldier );
+					if(ubID != -1)
+					{
+						gpItemPopupObject->RemoveObjectAtIndex( uiItemPos, &gItemPointer );
+						InternalMAPBeginItemPointer( gpItemPopupSoldier );
+					}
+					else
+					{
+						OBJECTTYPE	tSectorItem;
+						gpItemPopupObject->RemoveObjectAtIndex( uiItemPos, &tSectorItem );
+						BeginInventoryPoolPtr(&tSectorItem);
+						guiCurrentItemDescriptionScreen = MAP_SCREEN;
+					}
 				}
 				else
 				{
+					gpItemPopupObject->RemoveObjectAtIndex( uiItemPos, &gItemPointer );
 					gpItemPointer = &gItemPointer;
 					gpItemPointerSoldier = gpItemPopupSoldier;
 				}
@@ -6903,13 +7123,13 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					// pick up stacked item into cursor and try to sell it ( unless CTRL is held down )
 					BeginSkiItemPointer( PLAYERS_INVENTORY, -1, ( BOOLEAN )!gfKeyState[ CTRL ] );
 
-					// if we've just removed the last one there
-					if ( gpItemPopupObject->exists() == false )
-					{
-						// we must immediately get out of item stack popup, because the item has been deleted (memset to 0), and
-						// errors like a right bringing up an item description for item 0 could happen then.  ARM.
-						DeleteItemStackPopup( );
-					}
+				}
+				// if we've just removed the last one there
+				if ( gpItemPopupObject->exists() == false )
+				{
+					// we must immediately get out of item stack popup, because the item has been deleted (memset to 0), and
+					// errors like a right bringing up an item description for item 0 could happen then.  ARM.
+					DeleteItemStackPopup( );
 				}
 
 				// re-evaluate repairs
@@ -6933,7 +7153,9 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 		DeleteItemStackPopup( );
 
-		if ( !InItemDescriptionBox( ) )
+		if ( gpItemPopupObject->ubNumberOfObjects <= uiItemPos )
+			fTeamPanelDirty = TRUE;
+		else if ( !InItemDescriptionBox( ) )
 		{
 			// RESTORE BACKGROUND
 			RestoreExternBackgroundRect( gsItemPopupInvX, gsItemPopupInvY, gsItemPopupInvWidth, gsItemPopupInvHeight );
@@ -6972,7 +7194,7 @@ void ItemPopupFullRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	}
 	else if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
 	{
-		if ( InItemStackPopup( ) )
+		if ( InItemStackPopup( ) || InSectorStackPopup( ) )
 		{
 			DeleteItemStackPopup( );
 			fTeamPanelDirty = TRUE;

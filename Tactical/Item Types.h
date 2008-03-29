@@ -526,6 +526,7 @@ extern OBJECTTYPE gTempObject;
 
 #define IC_KEY						0x00010000
 #define IC_LBEGEAR					0x00020000	// Added for LBE items as part of the new inventory system
+#define IC_BELTCLIP					0x00040000	// Added for Belt Clip items
 
 #define IC_MISC						0x10000000
 #define IC_MONEY					0x20000000
@@ -590,7 +591,7 @@ typedef struct
 	INT8			bSoundType;
 	UINT8			ubGraphicType;
 	UINT16			ubGraphicNum;
-	UINT8			ubWeight; //2 units per kilogram; roughly 1 unit per pound
+	UINT16			ubWeight; //2 units per kilogram; roughly 1 unit per pound
 	UINT8			ubPerPocket;
 	UINT8			ItemSize;
 	UINT16		usPrice;

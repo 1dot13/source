@@ -3379,6 +3379,7 @@ STR16			zSaveLoadText[] =
 	L"Superb Selection",
 
 	L"New Inventory does not work in 640x480 screen size.  Please resize and try again.",
+	L"New Inventory does not work from the default 'Data' folder.",
 };
 
 
@@ -4253,6 +4254,8 @@ STR16 NewInvMessage[] =
 	L"Baluchon non trouvé",
 	L"La tirette fonctionne seulement dans le combat",
 	L"Ne peut pas se déplacer alors que la tirette de baluchon active",
+	L"Êtes vous sûr vous voulez vendre tous les articles de secteur?",
+	L"Êtes vous sûr vous voulez supprimer tous les articles de secteur?",
 };
 
 #endif //FRENCH

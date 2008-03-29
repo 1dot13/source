@@ -3371,6 +3371,7 @@ STR16			zSaveLoadText[] =
 	L"Awesome Selection",
 
 	L"New Inventory does not work in 640x480 screen size.  Please resize and try again.",
+	L"New Inventory does not work from the default 'Data' folder.",
 };
 
 
@@ -4250,6 +4251,8 @@ STR16 NewInvMessage[] =
 	L"Fagotto non trovato",
 	L"La chiusura lampo funziona soltanto nel combattimento",
 	L"Non può muoversi mentre la chiusura lampo del fagotto attiva",
+	L"Siete sicuri voi desiderate vendere tutti gli articoli del settore?",
+	L"Siete sicuri voi desiderate cancellare tutti gli articoli del settore?",
 };
 
 #endif //ITALIAN

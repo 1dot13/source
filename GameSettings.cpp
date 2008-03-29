@@ -299,7 +299,11 @@ void InitGameOptions()
 	gGameOptions.fAirStrikes		= FALSE;
 	gGameOptions.ubGameStyle		= STYLE_SCIFI;
 	gGameOptions.ubDifficultyLevel	= DIF_LEVEL_MEDIUM;
-	gGameOptions.ubInventorySystem	= INVENTORY_NEW;
+	//CHRISL: override default inventory mode when in low res
+	if(iResolution == 0 || gCustomDataCat.GetRootDir() == "")
+		gGameOptions.ubInventorySystem	= INVENTORY_OLD;
+	else
+		gGameOptions.ubInventorySystem	= INVENTORY_NEW;
 	//gGameOptions.fTurnTimeLimit	= FALSE;
 	
 	gGameOptions.fIronManMode		= FALSE;

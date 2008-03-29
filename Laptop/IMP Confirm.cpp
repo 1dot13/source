@@ -1013,7 +1013,7 @@ INT32 PickPocket(MERCPROFILESTRUCT *pProfile, UINT8 ppStart, UINT8 ppStop, UINT1
 		if(LBEPocketType[pIndex].ItemCapacityPerSize[Item[usItem].ItemSize] >= iNumber &&
 			LBEPocketType[pIndex].ItemCapacityPerSize[Item[usItem].ItemSize] < capacity &&
 			pProfile->inv[uiPos] == 0) {
-				if((LBEPocketType[pIndex].pRestriction != 0 && LBEPocketType[pIndex].pRestriction == Item[usItem].usItemClass) ||
+				if((LBEPocketType[pIndex].pRestriction != 0 && (LBEPocketType[pIndex].pRestriction & Item[usItem].usItemClass)) ||
 					LBEPocketType[pIndex].pRestriction == 0) {
 						capacity = LBEPocketType[pIndex].ItemCapacityPerSize[Item[usItem].ItemSize];
 						pocket = uiPos;
@@ -1477,5 +1477,6 @@ void GiveIMPItems( MERCPROFILESTRUCT *pProfile, INT8 abilityValue, UINT8 typeInd
 
 
 }
+
 
 

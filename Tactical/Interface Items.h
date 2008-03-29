@@ -115,7 +115,7 @@ void INVRenderItem( UINT32 uiBuffer, SOLDIERTYPE * pSoldier, OBJECTTYPE	*pObject
 // CHRISL: Add a new function that will be used to render a pocket silhouette
 void INVRenderSilhouette( UINT32 uiBugger, INT16 PocketIndex, INT16 SilIndex, INT16 sX, INT16 sY, INT16 sWideth, INT16 sHeight);
 // CHRISL: New function to handle display of inventory quantities based on item current in cursor
-void RenderPocketItemCapacity( UINT8 pCapacity, INT16 bPos, SOLDIERTYPE *pSoldier );
+void RenderPocketItemCapacity( UINT32 uiWhichBuffer, UINT8 pCapacity, INT16 bPos, SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT16 sX, INT16 sY );
 // CHRISL: New function to display items stored in an LBENODE
 void RenderLBENODEItems( OBJECTTYPE *pObj, int subObject );
 // CHRISL: New function to setup GSMInvData based on game options
@@ -140,6 +140,8 @@ void DeleteItemDescriptionBox( );
 
 BOOLEAN InItemStackPopup( );
 BOOLEAN InitItemStackPopup( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sInvX, INT16 sInvY, INT16 sInvWidth, INT16 sInvHeight );
+BOOLEAN InSectorStackPopup( );
+BOOLEAN InitSectorStackPopup( WORLDITEM *pInventoryPoolList, INT32 ubPosition, INT16 sInvX, INT16 sInvY, INT16 sInvWidth, INT16 sInvHeight );
 void RenderItemStackPopup( BOOLEAN fFullRender );
 void HandleItemStackPopup( );
 void DeleteItemStackPopup( );

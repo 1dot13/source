@@ -506,6 +506,8 @@ extern UINT16 usVehicleY;
 //void DeleteButtonsForScrolling(void);
 
 void BtnMessageUpMapScreenCallback( GUI_BUTTON *btn,INT32 reason );
+void BeginSellAllCallBack( UINT8 bExitValue );
+void BeginDeleteAllCallBack( UINT8 bExitValue );
 BOOLEAN fScrollButtonsInitialized = FALSE;
 
 BOOLEAN	fFlashAssignDone = FALSE;
@@ -1049,6 +1051,7 @@ void MapscreenMarkButtonsDirty();
 extern BOOLEAN CanRedistributeMilitiaInSector( INT16 sClickedSectorX, INT16 sClickedSectorY, INT8 bClickedTownId );
 
 extern INT32 GetNumberOfMercsInUpdateList( void );
+extern INT32 SellItem( OBJECTTYPE& object, BOOLEAN useModifier = TRUE );
 void DeleteAllItemsInInventoryPool();
 
 
@@ -1058,6 +1061,70 @@ void DumpSectorDifficultyInfo( void );
 void DumpItemsList( void );
 #endif
 
+void BeginSellAllCallBack( UINT8 bExitValue )
+{
+	INT32	iPrice = 0;
+	bool	anythingSold = false;
+
+	if( bExitValue == MSG_BOX_RETURN_YES )
+	{
+		fRestoreBackgroundForMessageBox = TRUE;
+		if ( gpItemPointer != NULL )
+		{
+			return;
+		}
+		for(UINT32 wItem = 0; wItem < guiNumWorldItems; wItem++)
+		{
+			if(0 == pInventoryPoolList[wItem].object.MoveThisObjectTo(gItemPointer,-1,0,NUM_INV_SLOTS,MAX_OBJECTS_PER_SLOT))
+			{
+				if (pInventoryPoolList[wItem].object.exists() == false) {
+					pInventoryPoolList[wItem].object.initialize();
+				}
+				// Dirty interface
+				fMapPanelDirty = TRUE;
+				gpItemPointer = &gItemPointer;
+				// Sell Item
+				iPrice += SellItem( gItemPointer );
+				gpItemPointer = NULL;
+				fMapInventoryItem = FALSE;
+				if (iPrice == 0) {
+					iPrice = 1;
+				}
+				anythingSold = true;
+				HandleButtonStatesWhileMapInventoryActive();
+			}
+		}
+		if(anythingSold == true)
+			AddTransactionToPlayersBook( SOLD_ITEMS, 0, GetWorldTotalMin(), iPrice );
+	}
+}
+
+void BeginDeleteAllCallBack( UINT8 bExitValue )
+{
+	if( bExitValue == MSG_BOX_RETURN_YES )
+	{
+		fRestoreBackgroundForMessageBox = TRUE;
+		if ( gpItemPointer != NULL )
+		{
+			return;
+		}
+		for(UINT32 wItem = 0; wItem < guiNumWorldItems; wItem++)
+		{
+			if(0 == pInventoryPoolList[wItem].object.MoveThisObjectTo(gItemPointer,-1,0,NUM_INV_SLOTS,MAX_OBJECTS_PER_SLOT))
+			{
+				if (pInventoryPoolList[wItem].object.exists() == false) {
+					pInventoryPoolList[wItem].object.initialize();
+				}
+				// Dirty interface
+				fMapPanelDirty = TRUE;
+				gpItemPointer = &gItemPointer;
+				// Delete Item
+				gpItemPointer = NULL;
+				fMapInventoryItem = FALSE;
+			}
+		}
+	}
+}
 
 // CHRISL: New functions to handle initialization of inventory coordinates
 BOOLEAN InitializeInvPanelCoordsOld()
@@ -4649,7 +4716,7 @@ UINT32 MapScreenHandle(void)
 	// handle video overlays
 	ExecuteVideoOverlays( );
 
-	if ( InItemStackPopup( ) )
+	if ( InItemStackPopup( ) || InSectorStackPopup( ) )
 	{
 		RenderItemStackPopup( FALSE );
 	}
@@ -6137,6 +6204,23 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					#endif
 					break;
 
+				case 'D':
+					if( fCtrl )
+					{
+						//CHRISL: Delete all items
+						if(!fShowMapInventoryPool)
+						{
+							fShowMapInventoryPool = TRUE;
+							CreateDestroyMapInventoryPoolButtons( TRUE );
+						}
+						DoMessageBox( MSG_BOX_BASIC_STYLE, NewInvMessage[NIV_DELETE_ALL], guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_YESNO, BeginDeleteAllCallBack, NULL );
+						if(fShowMapInventoryPool)
+						{
+							fShowMapInventoryPool = FALSE;
+						}
+					}
+					break;
+
 				case 'e':
 					if( gfPreBattleInterfaceActive )
 					{ //activate enter sector in prebattle interface.
@@ -6460,6 +6544,25 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						// go to SAVE screen
 						gfSaveGame = TRUE;
 						RequestTriggerExitFromMapscreen( MAP_EXIT_TO_SAVE );
+					}
+					break;
+				case 'S':
+					if( fCtrl )
+					{
+						//CHRISL: Sell all items
+						if(gGameExternalOptions.fSellAll == TRUE)
+						{
+							if(!fShowMapInventoryPool)
+							{
+								fShowMapInventoryPool = TRUE;
+								CreateDestroyMapInventoryPoolButtons( TRUE );
+							}
+							DoMessageBox( MSG_BOX_BASIC_STYLE, NewInvMessage[NIV_SELL_ALL], guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_YESNO, BeginSellAllCallBack, NULL );
+							if(fShowMapInventoryPool)
+							{
+								fShowMapInventoryPool = FALSE;
+							}
+						}
 					}
 					break;
 				case 't':

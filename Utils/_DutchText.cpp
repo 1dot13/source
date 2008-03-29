@@ -3390,6 +3390,7 @@ STR16			zSaveLoadText[] =
 	L"Awesome Selection",
 
 	L"New Inventory does not work in 640x480 screen size.  Please resize and try again.",
+	L"New Inventory does not work from the default 'Data' folder.",
 };
 
 
@@ -4271,6 +4272,8 @@ STR16 NewInvMessage[] =
 	L"Gevonden niet rugzak",
 	L"De ritssluiting werkt slechts in gevecht",
 	L"Kan niet me bewegen terwijl actieve rugzakritssluiting",
+	L"Bent zeker u u wilt alle sectorpunten verkopen?",
+	L"Bent zeker u u wilt alle sectorpunten schr?",
 };
 
 #endif //DUTCH

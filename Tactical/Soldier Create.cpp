@@ -544,7 +544,14 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 
 		// Copy the items over for the soldier, only if we have a valid profile id!
 		if ( pCreateStruct->ubProfile != NO_PROFILE )
+		{
 			CopyProfileItems( &Soldier, pCreateStruct );
+			//CHRISL: make sure nails gets his jacket no matter what
+			if(pCreateStruct->ubProfile == 34 && pCreateStruct->fCopyProfileItemsOver == FALSE)
+			{
+				CreateItem(188, 100, &Soldier.inv[VESTPOS]);
+			}
+		}
 
 		// Given team, get an ID for this guy!
 

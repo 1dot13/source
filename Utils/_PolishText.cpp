@@ -3371,6 +3371,7 @@ STR16			zSaveLoadText[] =
 	L"Awesome Selection",
 
 	L"New Inventory does not work in 640x480 screen size.  Please resize and try again.",
+	L"New Inventory does not work from the default 'Data' folder.",
 };
 
 
@@ -4246,6 +4247,8 @@ STR16 NewInvMessage[] =
 	L"Backpack not found",
 	L"Zipper only works in combat",
 	L"Can not move while backpack zipper active",
+	L"Are you sure you want to sell all sector items?",
+	L"Are you sure you want to delete all sector items?",
 };
 
 #endif //POLISH

@@ -2116,7 +2116,7 @@ OBJECTTYPE* InternalAddItemToPool( INT16 *psGridNo, OBJECTTYPE *pObject, INT8 bV
 {
 	ITEM_POOL		*pItemPool;
 	ITEM_POOL		*pItemPoolTemp;
-	INT32				iWorldItem;
+	INT32				iWorldItem = 0;
 	STRUCTURE		*pStructure, *pBase;
 	INT16				sDesiredLevel;
 	INT16		sNewGridNo = *psGridNo;

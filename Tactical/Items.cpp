@@ -1439,7 +1439,7 @@ UINT8 ItemSlotLimit( OBJECTTYPE * pObject, INT16 bSlot, SOLDIERTYPE *pSoldier, B
 	//if ( iSize < 10 && ubSlotLimit > 1)
 	//	ubSlotLimit = 1;
 
-	if(LBEPocketType[pIndex].pRestriction != 0 && LBEPocketType[pIndex].pRestriction != Item[usItem].usItemClass) {
+	if(LBEPocketType[pIndex].pRestriction != 0 && !(LBEPocketType[pIndex].pRestriction & Item[usItem].usItemClass)) {
 		return 0;
 	}
 
@@ -3678,6 +3678,12 @@ BOOLEAN OBJECTTYPE::AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttachme
 	// check for merges
 	else if (EvaluateValidMerge( pAttachment->usItem, this->usItem, &usResult, &usResult2, &ubType, &ubAPCost ))
 	{
+		//CHRISL: we don't want to try to merge IC_LBEGEAR items that are currently storing items.
+		if(Item[this->usItem].usItemClass == IC_LBEGEAR)
+		{
+			if(this->IsActiveLBE(subObject) == true)
+				return( FALSE );
+		}
 		//CHRISL: We don't want to do any merges if we're looking at a stack of items, with the exception of combines.
 		if ( this->ubNumberOfObjects > 1 && ubType != COMBINE_POINTS )
 		{
@@ -4180,7 +4186,7 @@ BOOLEAN CanItemFitInPosition( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos
 				lbePocket = (pSoldier->inv[icLBE[bPos]].exists() == false) ? LoadBearingEquipment[Item[icDefault[bPos]].ubClassIndex].lbePocketIndex[icPocket[bPos]] : LoadBearingEquipment[Item[pSoldier->inv[icLBE[bPos]].usItem].ubClassIndex].lbePocketIndex[icPocket[bPos]];
 				pRestrict = LBEPocketType[lbePocket].pRestriction;
 				if(pRestrict != 0)
-					if(pRestrict != Item[pObj->usItem].usItemClass)
+					if(!(pRestrict & Item[pObj->usItem].usItemClass))
 						lbePocket = 0;
 			}
 			break;
@@ -4267,7 +4273,7 @@ INT32 PickPocket(SOLDIERTYPE *pSoldier, UINT8 ppStart, UINT8 ppStop, UINT16 usIt
 		if(LBEPocketType[pIndex].ItemCapacityPerSize[Item[usItem].ItemSize] >= iNumber &&
 			LBEPocketType[pIndex].ItemCapacityPerSize[Item[usItem].ItemSize] < capacity &&
 			pSoldier->inv[uiPos].exists() == false && uiPos != bExcludeSlot) {
-				if((LBEPocketType[pIndex].pRestriction != 0 && LBEPocketType[pIndex].pRestriction == Item[usItem].usItemClass) ||
+				if((LBEPocketType[pIndex].pRestriction != 0 && (LBEPocketType[pIndex].pRestriction & Item[usItem].usItemClass)) ||
 					LBEPocketType[pIndex].pRestriction == 0) {
 						capacity = LBEPocketType[pIndex].ItemCapacityPerSize[Item[usItem].ItemSize];
 						pocket = uiPos;

@@ -153,6 +153,8 @@ UINT32 guiMapInvenButton[ 3 ];
 
 BOOLEAN gfCheckForCursorOverMapSectorInventoryItem = FALSE;
 
+extern int PLAYER_INFO_Y;
+extern int INV_REGION_Y;
 
 extern BOOLEAN fShowInventoryFlag;
 extern BOOLEAN fMapScreenBottomDirty;
@@ -211,6 +213,7 @@ BOOLEAN CanPlayerUseSectorInventory( SOLDIERTYPE *pSelectedSoldier );
 
 extern void MAPEndItemPointer( );
 extern	BOOLEAN GetCurrentBattleSectorXYZAndReturnTRUEIfThereIsABattle( INT16 *psSectorX, INT16 *psSectorY, INT16 *psSectorZ );
+extern BOOLEAN MAPInternalInitItemDescriptionBox( OBJECTTYPE *pObject, UINT8 ubStatusIndex, SOLDIERTYPE *pSoldier );
 
 void DeleteAllItemsInInventoryPool();
 void DeleteItemsOfType( UINT16 usItemType );
@@ -341,7 +344,7 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 
 	if( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.exists() == false )
 	{
-		return ( FALSE );
+		//return ( FALSE );
 	}
 
 	GetVideoObject( &hHandle, GetInterfaceGraphicForItem( &(Item[ pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.usItem ] ) ) );
@@ -372,11 +375,22 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 
 	SetFontDestBuffer( guiSAVEBUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
-  INVRenderItem( guiSAVEBUFFER, NULL, &(pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object),
-                 (INT16)(sX + 7), sY, 60, 25, DIRTYLEVEL2, NULL, 0, fOutLine, sOutLine );//67
+	if(UsingNewInventorySystem() == true && gpItemPointer != NULL)
+	{
+		int itemSlotLimit = ItemSlotLimit(gpItemPointer, STACK_SIZE_LIMIT);
+		RenderPocketItemCapacity( guiSAVEBUFFER, itemSlotLimit, STACK_SIZE_LIMIT, 0, &pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object, (sX + 7), sY );
+	}
+
+	INVRenderItem( guiSAVEBUFFER, NULL, &(pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object),
+			(INT16)(sX + 7), sY, 60, 25, DIRTYLEVEL2, NULL, 0, fOutLine, sOutLine );//67
 
 	SetFontDestBuffer( FRAME_BUFFER, 0,0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE );
 
+
+	if( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.exists() == false )
+	{
+		return ( FALSE );
+	}
 
 	// now blit this object in the box
 	//BltVideoObjectOutlineFromIndex( guiSAVEBUFFER, GetInterfaceGraphicForItem( &(Item[ pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].object.usItem ]) ),
@@ -810,9 +824,25 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 
 	if( ( iReason & MSYS_CALLBACK_REASON_RBUTTON_UP ) )
 	{
+		//CHRISL: Make it possible to right click and pull up stack popup and/or item description boxes
+		WORLDITEM	* twItem = &(pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ]);
+		if ( !InSectorStackPopup( ) && !InItemStackPopup( ) && !InItemDescriptionBox( ) && !InKeyRingPopup( ) && twItem->object.exists() == true)
+		{
+			if(ItemSlotLimit( &twItem->object, STACK_SIZE_LIMIT ) == 1)
+			{
+				fShowInventoryFlag = TRUE;
+				MAPInternalInitItemDescriptionBox( &twItem->object, 0, 0 );
+			}
+			else if(gpItemPointer == NULL || gpItemPointer->usItem == twItem->object.usItem || ValidAttachment(gpItemPointer->usItem, twItem->object.usItem) == TRUE)
+			{
+				InitSectorStackPopup( twItem, iCounter, 0, INV_REGION_Y, 261, ( SCREEN_HEIGHT - PLAYER_INFO_Y ) );
+				fTeamPanelDirty=TRUE;
+				fInterfacePanelDirty = DIRTYLEVEL2;
+			}
+		}
 		if ( gpItemPointer == NULL )
 		{
-			fShowMapInventoryPool = FALSE;
+			//fShowMapInventoryPool = FALSE;
 		}
 		// else do nothing
 	}

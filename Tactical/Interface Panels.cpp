@@ -3476,7 +3476,7 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					invWidth = 314;
 
 				//InitItemStackPopup( gpSMCurrentMerc, (UINT8)uiHandPos, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, SM_ITEMDESC_WIDTH, SM_ITEMDESC_HEIGHT );
-				InitItemStackPopup( gpSMCurrentMerc, (UINT8)uiHandPos, 216, INV_INTERFACE_START_Y, invWidth, ( SCREEN_HEIGHT - INV_INTERFACE_START_Y ) );
+				InitItemStackPopup( gpSMCurrentMerc, (UINT8)uiHandPos, 248, INV_INTERFACE_START_Y, invWidth, ( SCREEN_HEIGHT - INV_INTERFACE_START_Y ) );
 
 			}
 		}
@@ -6277,7 +6277,8 @@ UINT8 FindNextMercInTeamPanel( SOLDIERTYPE *pSoldier, BOOLEAN fGoodForLessOKLife
 
 			if ( pNewSoldier->bAssignment != iCurrentSquad )
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( CurrentSquad( ) + 1 ) );
+				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( CurrentSquad( ) + 1 ) );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ACTIVE ], ( pNewSoldier->bAssignment + 1 ) );
 
 				return( pNewSoldier->ubID );
 			}
@@ -6368,7 +6369,7 @@ void BeginKeyPanelFromKeyShortcut( )
 	if( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE )
 		return;
 
-	InitKeyRingPopup( pSoldier, 0, sStartYPosition, sWidth, sHeight );
+	InitKeyRingPopup( pSoldier, 35, sStartYPosition, sWidth, sHeight );
 }
 
 
@@ -6431,7 +6432,7 @@ void KeyRingItemPanelButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			InvalidateRegion( 0, 107, 261, 359 );
 		}
 
-		InitKeyRingPopup( pSoldier, 0, sStartYPosition, sWidth, sHeight );
+		InitKeyRingPopup( pSoldier, 35, sStartYPosition, sWidth, sHeight );
 	}
 }
 
@@ -7006,6 +7007,7 @@ void GoToMapScreenFromTactical( void )
 		}
 	}
 }*/
+
 
 
 

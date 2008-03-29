@@ -430,6 +430,7 @@ void SpecifyItemToEdit( OBJECTTYPE *pItem, INT32 iMapIndex )
 		case IC_LAUNCHER:
 		case IC_THROWING_KNIFE:
 		case IC_MONEY:
+		case IC_BELTCLIP:
 			gbEditingMode = EDITING_EQUIPMENT;
 			SetupEquipGUI();
 			break;
