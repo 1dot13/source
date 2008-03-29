@@ -3754,15 +3754,32 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAimTime,
 
 	if ( iSightRange > (sDistVis * CELL_X_SIZE) )
 	{
+		//CHRISL: Because of the changes I've made to how scopes modify iSightRange, this penalty makes it basically impossible
+		//	to shot at targets you can't see yourself.  While this isn't an issue for most weapons, it overly restricts the
+		//	effectiveness of sniper rifles.  So pull this penalty but leave the one that comes later in the code.
 		// shooting beyond max normal vision... penalize such distance at double (also later we halve the remaining chance)
-		iSightRange += (iSightRange - sDistVis * CELL_X_SIZE);
+		//iSightRange += (iSightRange - sDistVis * CELL_X_SIZE);
 	}
 
 	// if shooter spent some extra time aiming and can see the target
 	if (iSightRange > 0 && ubAimTime && !pSoldier->bDoBurst )
 	{
-		INT32	aimTimeBonus = 0;
-		if(highPowerScope == true)
+		// CHRISL: Rather then a flat +10/click bonus, we're going to try a bonus that's based on MRK and Lvl which gets
+		//	progressivly less the more we aim.  Everything is based on the maxBonus that a merc can possibly get which
+		//	uses the equation: 20+(MRK/20*LVL)+Accuracy+(Sniper trait * 10).  This value is then split between the 8
+		//	possible AimTime's using a max aimTime bonus of 10.
+		INT16	bonusProgression[8] = {500,500,600,600,750,750,750,1000};
+		FLOAT	maxBonus = 20+((FLOAT)iMarksmanship/20*pSoldier->stats.bExpLevel)+(Weapon[Item[pInHand->usItem].ubClassIndex].bAccuracy*2)+(NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER )*10);
+		INT8	maxClickBonus = 10;
+		FLOAT	aimTimeBonus;
+		for(int i = 0; i < ubAimTime; i++)
+ 		{
+			aimTimeBonus = __min((maxBonus*bonusProgression[i]/1000),maxClickBonus);
+			maxBonus -= aimTimeBonus;
+			iChance += (INT32)floor(aimTimeBonus+.5);
+		}
+/*		if(highPowerScope == true)
+		{
 		{
 			if ( NUM_SKILL_TRAITS( pSoldier, PROF_SNIPER ) == 2 )
 				aimTimeBonus = -((__max(0,75-pSoldier->stats.bMarksmanship))/(pSoldier->stats.bExpLevel*2));
@@ -3776,7 +3793,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAimTime,
 		}
 		else
 			aimTimeBonus = AIM_BONUS_PER_AP;
-		iChance += (aimTimeBonus * ubAimTime); // bonus for every pt of aiming
+		iChance += (aimTimeBonus * ubAimTime); // bonus for every pt of aiming*/
 	}
 
 	if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_PC ) )	// if this is a computer AI controlled enemy
@@ -5941,6 +5958,8 @@ INT8 GetAPsToReload( OBJECTTYPE *pObj )
 		( 100 - GetPercentReloadTimeAPReduction(pObj) ) ) / 100;
 
 }
+
+
 
 
 

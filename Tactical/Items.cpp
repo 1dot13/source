@@ -6887,7 +6887,25 @@ INT16 GetItemAimBonus( const INVTYPE* pItem, INT32 iRange, UINT8 ubAimTime )
 	if ( pItem->aimbonus < 0)
 		ubAimTime = 1;
 
-	return ( pItem->aimbonus * ubAimTime	* ( iRange - pItem->minrangeforaimbonus ) ) / 100;
+	//CHRISL: The old system basically allowed scopes to reduce sight range by AimBonus%/click.  So a scope with an
+	//	AimBonus 20, and 8 clicks, would reduce sight range by 160%.  In other words, it would effectively reduce sight
+	//	range to 0 just for using 8 APs to aim.
+	//return ( pItem->aimbonus * ubAimTime	* ( iRange - pItem->minrangeforaimbonus ) ) / 100;
+	//	Instead, let's have the bonus reduce each click seperately and base the percentage on the new range.
+	INT16 bonus = 0, stepBonus = 0;
+	for( UINT8 step = 0; step < ubAimTime; step++)
+	{
+		stepBonus = (pItem->aimbonus * iRange)/100;
+		iRange -= stepBonus;
+		bonus += stepBonus;
+		if(iRange < pItem->minrangeforaimbonus)
+		{
+			stepBonus = pItem->minrangeforaimbonus - iRange;
+			bonus -= stepBonus;
+			break;
+		}
+	}
+	return(bonus);
 }
 
 INT16 GetAimBonus( OBJECTTYPE * pObj, INT32 iRange, UINT8 ubAimTime )
@@ -7449,13 +7467,16 @@ INT16 GetDayVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	}
 
 	// Snap: check only attachments on a raised weapon!
+	//CHRISL: Since this is a daytime calculation, I think we want the difference between NORMAL_LIGHTLEVEL_NIGHT and
+	//	NORMAL_LIGHTLEVEL_DAY.  To just use NORMAL_LIGHTLEVEL_NIGHT is the same as basing the calculation off of the
+	//	difference between NORMAL_LIGHTLEVEL_NIGHT and 0, which represent bright light.
 	if ( usingGunScope == true )
 	{
 		pObj = &( pSoldier->inv[HANDPOS]);
 		if (pObj->exists() == true) {
 			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
 				bonus += BonusReduceMore( idiv( Item[iter->usItem].dayvisionrangebonus
-					* (NORMAL_LIGHTLEVEL_NIGHT - bLightLevel), NORMAL_LIGHTLEVEL_NIGHT ),
+					* (NORMAL_LIGHTLEVEL_NIGHT - __max(bLightLevel,NORMAL_LIGHTLEVEL_DAY)), (NORMAL_LIGHTLEVEL_NIGHT-NORMAL_LIGHTLEVEL_DAY) ),
 					(*iter)[0]->data.objectStatus );
 			}
 		}
