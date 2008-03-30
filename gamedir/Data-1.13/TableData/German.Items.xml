@@ -4280,11 +4280,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>537</uiIndex>
-		<szItemName>9x21mm SMG Mag</szItemName>
-		<szLongItemName>9x21mm SMG Magazine</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>9x21mm SMG Magazine</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>9x21 MP Mag</szItemName>
+		<szLongItemName>9x21mm MP Magazin</szLongItemName>
+		<szItemDesc>Die neue Patrone SP-10 im Kaliber 9x21mm wurde eigens für die Pistole SR-1 'Vektor' entwickelt um 30 Schichten Kevlar + 2.8mm Titan auf 100m zu durchschlagen. Jetzt auch im 30-Schuss-Magazin für die SR-2 'Veresk' erhältlich!</szItemDesc>
+		<szBRName>9x21mm MP Magazin</szBRName>
+		<szBRDesc>Die neue Patrone SP-10 im Kaliber 9x21mm wurde eigens für die Pistole SR-1 'Vektor' entwickelt um 30 Schichten Kevlar + 2.8mm Titan auf 100m zu durchschlagen. Jetzt auch im 30-Schuss-Magazin für die SR-2 'Veresk' erhältlich!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>538</uiIndex>
@@ -4298,9 +4298,9 @@
 		<uiIndex>539</uiIndex>
 		<szItemName>9x21 Mag XPB</szItemName>
 		<szLongItemName>9x21mm Magazin, XPB</szLongItemName>
-		<szItemDesc>Diese russische Munition im Kaliber 9x21mm wurde eigens für die Pistole SR-1 Gyurza entwickelt um 30 Schichten Kevlar + 2.8mm Titan auf 100m zu durchschlagen.</szItemDesc>
+		<szItemDesc>Die neue Patrone SP-10 im Kaliber 9x21mm wurde eigens für die Pistole SR-1 'Vektor' entwickelt um 30 Schichten Kevlar + 2.8mm Titan auf 100m zu durchschlagen.</szItemDesc>
 		<szBRName>9x21 Mag XPB</szBRName>
-		<szBRDesc>Diese Munition im Kaliber 9x21mm wurde eigens für die Pistole SR-1 Gyurza entwickelt um 30 Schichten Kevlar + 2.8mm Titan auf 100m zu durchschlagen. Diese fabrikneuen, teflonbeschichteten Patronen wurden von FIOCCHI gefertigt.</szBRDesc>
+		<szBRDesc>Die neue Patrone SP-10 im Kaliber 9x21mm wurde eigens für die Pistole SR-1 'Vektor' entwickelt um 30 Schichten Kevlar + 2.8mm Titan auf 100m zu durchschlagen. Diese fabrikneuen, teflonbeschichteten Patronen wurden von FIOCCHI gefertigt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>540</uiIndex>
@@ -4938,9 +4938,9 @@
 		<uiIndex>619</uiIndex>
 		<szItemName>Veresk</szItemName>
 		<szLongItemName>SR-2 Veresk</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Diese neue MP wird von russischen Spezialeinheiten der Polizei und des Militärs verwendet. Sie hat das gleiche Kaliber wie die SR-1 'Gyurza' Pistole.</szItemDesc>
 		<szBRName>SR-2 Veresk</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Diese neue MP aus Russland ist klein und handlich, verschießt aber die panzerbrechenden 9x21mm Patronen. Wir haben die passenden 30-Schuss-Magazine auf Lager!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>620</uiIndex>
@@ -5641,10 +5641,10 @@
 	<ITEM>
 		<uiIndex>707</uiIndex>
 		<szItemName>Redhawk .44</szItemName>
-		<szLongItemName>Ruger Redhawk Revolver</szLongItemName>
-		<szItemDesc>Dieser Revolver ist ideal für Sportschützen, Jäger und Söldner die von sich überzeugt sind. Mit dieser Kanone hinterlassen Sie einen bleibenden Eindruck.</szItemDesc>
-		<szBRName>Ruger Redhawk Revolver</szBRName>
-		<szBRDesc>Dieser .44 Magnum Revolver ist ideal für Sportschützen, Jäger und Söldner die von sich überzeugt sind. Mit dieser Kanone hinterlassen Sie einen bleibenden Eindruck.</szBRDesc>
+		<szLongItemName>Ruger Super Redhawk</szLongItemName>
+		<szItemDesc>Schauen Sie Ihrem Gegner in die Augen und sagen Sie mit tiefer Stime: 'Ich habe einen RUGER Redhawk Revolver, .44 Magnum mit 6 Patronen!</szItemDesc>
+		<szBRName>Ruger Super Redhawk</szBRName>
+		<szBRDesc>Der RUGER Super Redhawk ist der erste Revolver der speziell für das starke Kaliber .44 Magnum entwickelt wurde und kam 1979 auf den Markt. Er gilt als besonders robust und präzise.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>708</uiIndex>
@@ -5672,7 +5672,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>711</uiIndex>
-		<szItemName>abges. Flinte</szItemName>
+		<szItemName>Schrotfl.</szItemName>
 		<szLongItemName>abgesägte Schrotflinte</szLongItemName>
 		<szItemDesc>Nichts beendet ein Feuergefecht schneller als eine abgesägte Schrotflinte.</szItemDesc>
 		<szBRName>abges. Schrotflinte</szBRName>
@@ -5770,9 +5770,9 @@
 		<uiIndex>723</uiIndex>
 		<szItemName>SR-1 Vektor</szItemName>
 		<szLongItemName>SR-1 Gyurza/Vektor</szLongItemName>
-		<szItemDesc>Das von der SR-1 'Gyurza/Vektor' verwendete Kaliber wurde speziell entwickelt um 30 Schichten Kevlar + 2.8mm Titan auf 100m zu durchschlagen.</szItemDesc>
-		<szBRName>SR-1 Vektor</szBRName>
-		<szBRDesc>Die SR-1 basiert auf der Makarov, hat jedoch das stärkere Kaliber 9x21mm welches speziell entwickelt wurden um Kevlar+Titanplatten auf 100m zu durchschlagen. Obwohl für lange Zeit vergessenen, ist sie heute die bevorzugte Seitenwaffe der russischen Offiziere und des FSB.</szBRDesc>
+		<szItemDesc>Ursprünglich für die russische Armee Anfang der 1990er Jahre entwickelt, wird diese Pistole heute in verbesserter Ausführung vom FSB, FSO sowie der Polizei verwendet.</szItemDesc>
+		<szBRName>SR-1 Gyurza/Vektor</szBRName>
+		<szBRDesc>Die SR-1 basiert auf der Makarov, hat jedoch das stärkere Kaliber 9x21mm welches speziell entwickelt wurden um Kevlar+Titanplatten auf 100m zu durchschlagen. Obwohl für lange Zeit vergessenen, ist sie heute die bevorzugte Dienstwaffe des FSB.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>724</uiIndex>
@@ -5876,7 +5876,7 @@
 		<szLongItemName>Taurus Raging Bull 444</szLongItemName>
 		<szItemDesc>Dieser Revolver zähmte die leistungsfähigste Patrone der Welt. Mit ihm wird das abfeuern einer .44 Magnum Patrone zum Vergnügen.</szItemDesc>
 		<szBRName>Taurus Raging Bull 444</szBRName>
-		<szBRDesc>Dieser amerikanische Revolver zähmte die leistungsfähigste Patrone der Welt. Mit ihm wird das abfeuern einer .44 Magnum Patrone zum Vergnügen.</szBRDesc>
+		<szBRDesc>TAURUS Waffen werden nach strengsten Qualitätsrichtlinien gefertigt und stehen dadurch auch weltweit im Behördeneinsatz. Auch immer mehr Sportschützen und Jäger vertrauen auf die Waffe mit dem 'Stier'.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>737</uiIndex>
@@ -6153,10 +6153,10 @@
 	<ITEM>
 		<uiIndex>771</uiIndex>
 		<szItemName>Alaskan .454</szItemName>
-		<szLongItemName>Ruger Super Redhawk Alaskan</szLongItemName>
-		<szItemDesc>Ein kleiner aber sehr durchschlagskräftiger Revolver. Ideal als Zweitwaffe bei der Bären- oder Menschenjagd.</szItemDesc>
-		<szBRName>Ruger Super Redhawk</szBRName>
-		<szBRDesc>Ein kleiner aber sehr durchschlagskräftiger Revolver. Ideal als Zweitwaffe bei der Bären- oder Menschenjagd.</szBRDesc>
+		<szLongItemName>Ruger SR Alaskan</szLongItemName>
+		<szItemDesc>Die bevorzugte Sekundärwaffe für Großwildjäger. Sie sollten jedoch Schießhandschuhe tragen, da sie einen enormen Rückstoß hat!</szItemDesc>
+		<szBRName>Ruger SR Alaskan</szBRName>
+		<szBRDesc>Der Alaskan Revolver basiert auf dem Super Redhawk den RUGER mittlerweile seit mehr als 25 Jahren fertigt. Auffälligstes Merkmal sind der verstärkte Rahmen und der verkürzte 2,5-Zoll-Lauf.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>772</uiIndex>
@@ -9296,7 +9296,6 @@
 		<szLongItemName>5.56x45mm Mun. Kiste</szLongItemName>
 		<szItemDesc>Munitions-Kiste</szItemDesc>
 		<szBRName>5.56x45mm Mun. Kiste</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1210</uiIndex>
@@ -9352,7 +9351,6 @@
 		<szLongItemName>7.62x51mm Mun. Kiste</szLongItemName>
 		<szItemDesc>Munitions-Kiste</szItemDesc>
 		<szBRName>7.62x51mm Mun. Kiste</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1217</uiIndex>
@@ -9408,7 +9406,6 @@
 		<szLongItemName>9x19mm Mun. Kiste</szLongItemName>
 		<szItemDesc>Munitions-Kiste</szItemDesc>
 		<szBRName>9x19mm Mun. Kiste</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1224</uiIndex>
@@ -9416,7 +9413,6 @@
 		<szLongItemName>9x19mm PB Mun. Kiste</szLongItemName>
 		<szItemDesc>Munitions-Kiste</szItemDesc>
 		<szBRName>9x19mm AP ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1225</uiIndex>
@@ -9424,7 +9420,6 @@
 		<szLongItemName>9x19mm HS Mun. Kiste</szLongItemName>
 		<szItemDesc>Munitions-Kiste</szItemDesc>
 		<szBRName>9x19mm HP ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1226</uiIndex>
@@ -9432,7 +9427,6 @@
 		<szLongItemName>9x19mm M Mun. Kiste</szLongItemName>
 		<szItemDesc>Munitions-Kiste</szItemDesc>
 		<szBRName>9x19mm M ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1227</uiIndex>
