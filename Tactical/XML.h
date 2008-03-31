@@ -25,6 +25,11 @@ typedef PARSE_STAGE;
 
 #define GERMAN_PREFIX							"German."
 #define RUSSIAN_PREFIX							"Russian."
+#define DUTCH_PREFIX							"Dutch."
+#define POLISH_PREFIX							"Polish."
+#define FRENCH_PREFIX							"French."
+#define ITALIAN_PREFIX							"Italian."
+#define TAIWANESE_PREFIX						"Tiawanese."
 
 #define	ATTACHMENTSFILENAME						"Attachments.xml"
 #define	ATTACHMENTINFOFILENAME					"AttachmentInfo.xml"

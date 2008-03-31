@@ -2128,7 +2128,7 @@ void DoneFadeOutForSaveLoadScreen( void )
 				DoSaveLoadMessageBox( MSG_BOX_BASIC_STYLE, zSaveLoadText[SLG_INV_RES_ERROR], SAVE_LOAD_SCREEN, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
 				NextLoopCheckForEnoughFreeHardDriveSpace();
 			}
-			else if(UsingNewInventorySystem() == true && gCustomDataCat.GetRootDir() == "")
+			else if(UsingNewInventorySystem() == true && IsNIVModeValid(false) == FALSE)
 			{
 				DoSaveLoadMessageBox( MSG_BOX_BASIC_STYLE, zSaveLoadText[SLG_INV_CUSTUM_ERROR], SAVE_LOAD_SCREEN, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack );
 				NextLoopCheckForEnoughFreeHardDriveSpace();

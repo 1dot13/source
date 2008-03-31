@@ -372,8 +372,10 @@ BOOLEAN ReadInLBEPocketStats(STR fileName, BOOLEAN localizedVersion)
 
 	// Open loadbearingequipment file
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
+	//CHRISL: If the file fails to load, then return the value of localizedVersion.  This will allow the program to continue
+	//	to load if all we're missing are the localized xml files.
 	if ( !hFile )
-		return( FALSE );
+		return( localizedVersion );
 	
 	uiFSize = FileGetSize(hFile);
 	lpcBuffer = (CHAR8 *) MemAlloc(uiFSize+1);

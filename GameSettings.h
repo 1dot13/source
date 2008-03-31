@@ -143,6 +143,7 @@ typedef struct
 } GAME_OPTIONS;
 
 bool UsingNewInventorySystem();
+BOOLEAN IsNIVModeValid(bool checkRes = true);
 
 // Snap: Options read from an INI file in the default of custom Data directory
 typedef struct

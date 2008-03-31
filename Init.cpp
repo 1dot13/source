@@ -186,10 +186,31 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 #ifdef RUSSIAN
 	strcat(fileName, RUSSIAN_PREFIX); // add Russian. prefix to filename
 #endif
+#ifdef DUTCH
+	strcat(fileName, DUTCH_PREFIX); // add Polish. prefix to filename
+#endif
+#ifdef POLISH
+	strcat(fileName, POLISH_PREFIX); // add Polish. prefix to filename
+#endif
+#ifdef FRENCH
+	strcat(fileName, FRENCH_PREFIX); // add Polish. prefix to filename
+#endif
+#ifdef ITALIAN
+	strcat(fileName, ITALIAN_PREFIX); // add Polish. prefix to filename
+#endif
+#ifdef TAIWANESE
+	strcat(fileName, TAIWANESE_PREFIX); // add Polish. prefix to filename
+#endif
 	strcat(fileName, AMMOFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	if(!ReadInAmmoStats(fileName))
-		return FALSE;
+	{
+		//CHRISL: If we fail to load, try loading just the default english
+		strcpy(fileName, directoryName);
+		strcat(fileName, AMMOFILENAME);
+		if(!ReadInAmmoStats(fileName))
+			return FALSE;
+	}
 
 
 	// Lesh: added this, begin
@@ -229,6 +250,61 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 #ifdef RUSSIAN
 	strcpy(fileName, directoryName);
 	strcat(fileName, RUSSIAN_PREFIX);
+	strcat(fileName, ITEMSFILENAME);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInItemStats(fileName,TRUE))
+			return FALSE;
+	}
+#endif
+#ifdef DUTCH
+	strcpy(fileName, directoryName);
+	strcat(fileName, DUTCH_PREFIX);
+	strcat(fileName, ITEMSFILENAME);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInItemStats(fileName,TRUE))
+			return FALSE;
+	}
+#endif
+#ifdef POLISH
+	strcpy(fileName, directoryName);
+	strcat(fileName, POLISH_PREFIX);
+	strcat(fileName, ITEMSFILENAME);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInItemStats(fileName,TRUE))
+			return FALSE;
+	}
+#endif
+#ifdef FRENCH
+	strcpy(fileName, directoryName);
+	strcat(fileName, FRENCH_PREFIX);
+	strcat(fileName, ITEMSFILENAME);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInItemStats(fileName,TRUE))
+			return FALSE;
+	}
+#endif
+#ifdef ITALIAN
+	strcpy(fileName, directoryName);
+	strcat(fileName, ITALIAN_PREFIX);
+	strcat(fileName, ITEMSFILENAME);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInItemStats(fileName,TRUE))
+			return FALSE;
+	}
+#endif
+#ifdef TAIWANESE
+	strcpy(fileName, directoryName);
+	strcat(fileName, TAIWANESE_PREFIX);
 	strcat(fileName, ITEMSFILENAME);
 	if ( FileExists(fileName) )
 	{
@@ -323,6 +399,61 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 #ifdef RUSSIAN
 	strcpy(fileName, directoryName);
 	strcat(fileName, RUSSIAN_PREFIX);
+	strcat(fileName, LBEPOCKETFILENAME);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInLBEPocketStats(fileName,TRUE))
+			return FALSE;
+	}
+#endif
+#ifdef DUTCH
+	strcpy(fileName, directoryName);
+	strcat(fileName, DUTCH_PREFIX);
+	strcat(fileName, LBEPOCKETFILENAME);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInLBEPocketStats(fileName,TRUE))
+			return FALSE;
+	}
+#endif
+#ifdef POLISH
+	strcpy(fileName, directoryName);
+	strcat(fileName, POLISH_PREFIX);
+	strcat(fileName, LBEPOCKETFILENAME);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInLBEPocketStats(fileName,TRUE))
+			return FALSE;
+	}
+#endif
+#ifdef FRENCH
+	strcpy(fileName, directoryName);
+	strcat(fileName, FRENCH_PREFIX);
+	strcat(fileName, LBEPOCKETFILENAME);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInLBEPocketStats(fileName,TRUE))
+			return FALSE;
+	}
+#endif
+#ifdef ITALIAN
+	strcpy(fileName, directoryName);
+	strcat(fileName, ITALIAN_PREFIX);
+	strcat(fileName, LBEPOCKETFILENAME);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInLBEPocketStats(fileName,TRUE))
+			return FALSE;
+	}
+#endif
+#ifdef TAIWANESE
+	strcpy(fileName, directoryName);
+	strcat(fileName, TAIWANESE_PREFIX);
 	strcat(fileName, LBEPOCKETFILENAME);
 	if ( FileExists(fileName) )
 	{

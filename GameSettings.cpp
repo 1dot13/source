@@ -72,6 +72,28 @@ bool UsingNewInventorySystem()
 	return (gGameOptions.ubInventorySystem == INVENTORY_NEW);
 }
 
+std::string StringToLower(std::string strToConvert)
+{//change each element of the string to lower case
+   for(unsigned int i=0;i<strToConvert.length();i++)
+   {
+      strToConvert[i] = tolower(strToConvert[i]);
+   }
+   return strToConvert;//return the converted string
+}
+
+BOOLEAN IsNIVModeValid(bool checkRes)
+{
+	if(iResolution == 0 && checkRes == true)
+		return( FALSE );
+	if(gCustomDataCat.GetRootDir() == "")
+		return( FALSE );
+	char customDataPath[MAX_PATH];
+	GetPrivateProfileString( "Ja2 Settings","CUSTOM_DATA_LOCATION", "", customDataPath, MAX_PATH, "..\\Ja2.ini" );
+	if(StringToLower((std::string)customDataPath) == "data")
+		return( FALSE );
+	return( TRUE );
+}
+
 BOOLEAN LoadGameSettings()
 {
 	HWFILE	hFile;
@@ -300,7 +322,7 @@ void InitGameOptions()
 	gGameOptions.ubGameStyle		= STYLE_SCIFI;
 	gGameOptions.ubDifficultyLevel	= DIF_LEVEL_MEDIUM;
 	//CHRISL: override default inventory mode when in low res
-	if(iResolution == 0 || gCustomDataCat.GetRootDir() == "")
+	if(IsNIVModeValid() == FALSE)
 		gGameOptions.ubInventorySystem	= INVENTORY_OLD;
 	else
 		gGameOptions.ubInventorySystem	= INVENTORY_NEW;
