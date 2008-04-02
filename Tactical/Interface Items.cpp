@@ -1039,9 +1039,17 @@ void InitInventoryVehicle(INV_REGION_DESC *pRegionDesc, MOUSE_CALLBACK INVMoveCa
 	}
 }
 // CHRISL: Function to recreate inventory mouse regions
-void InitInventorySoldier(INV_REGION_DESC *pRegionDesc, MOUSE_CALLBACK INVMoveCallback, MOUSE_CALLBACK INVClickCallback, BOOLEAN fSetHighestPrioity)
+void InitInventorySoldier(INV_REGION_DESC *pRegionDesc, MOUSE_CALLBACK INVMoveCallback, MOUSE_CALLBACK INVClickCallback, BOOLEAN fSetHighestPrioity, BOOLEAN fNIVmode)
 {
-	InitInventoryNew();
+	if(fNIVmode == TRUE)
+		InitInventoryNew();
+	else
+	{
+		if(gSMInvData[0].sHeight == 0 && gSMInvData[0].sWidth == 0)	//base values havn't been set yet
+			InitInventoryOld();
+		else
+			return;
+	}
 	for(int cnt=INV_START_POS; cnt<NUM_INV_SLOTS; cnt++)
 	{
 		gSMInvData[ cnt ].sX = pRegionDesc[cnt].sX;

@@ -7629,13 +7629,14 @@ void BltCharInvPanel()
 		{
 			InitializeInvPanelCoordsNew();
 			// This function sets the mouse regions for the soldier inventory
-			InitInventorySoldier(gMapScreenInvPocketXY, MAPInvMoveCallback, MAPInvClickCallback, FALSE);
+			InitInventorySoldier(gMapScreenInvPocketXY, MAPInvMoveCallback, MAPInvClickCallback, FALSE, TRUE);
 			fResetMapCoords=FALSE;
 		}
 		disOpt = 1;
 	}
 	else
 	{
+		InitInventorySoldier(gMapScreenInvPocketXY, MAPInvMoveCallback, MAPInvClickCallback, FALSE, FALSE);
 		//InitializeInvPanelCoordsOld();
 	}
 	Blt8BPPDataTo16BPPBufferTransparent( pDestBuf, uiDestPitchBYTES, hCharListHandle, PLAYER_INFO_X, PLAYER_INFO_Y, disOpt);
