@@ -1678,6 +1678,15 @@ BOOLEAN AllowedToExitFromMapscreenTo( INT8 bExitToWhere )
 		return( FALSE );
 	}
 
+	// WANNE: At least one merc must be hired so we can go to tactical.
+	// This was an exploit. If you go to tactical in Omerta and have not hired any merc
+	// then go back to laptop and hire a merc. After the merc arrives the heli landing was not
+	// shown and the sector was free of enemies.
+	if (bExitToWhere == MAP_EXIT_TO_TACTICAL && gfAtLeastOneMercWasHired == FALSE)
+	{
+		return ( FALSE );
+	}
+
 	// if already going someplace else
 	if ( ( gbExitingMapScreenToWhere != -1 ) && ( gbExitingMapScreenToWhere != bExitToWhere ) )
 	{
