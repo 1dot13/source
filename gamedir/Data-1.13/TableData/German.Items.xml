@@ -2880,11 +2880,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>362</uiIndex>
-		<szItemName>Nothing</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Nothing</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>7.62x25mm Mag, AET</szItemName>
+		<szLongItemName>7.62x25mm Pistol Mag, AET</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x25mm Mag, AET</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>363</uiIndex>
@@ -2944,11 +2944,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>370</uiIndex>
-		<szItemName>Nothing</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Nothing</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>7.62x25mm SMG Mag, AET</szItemName>
+		<szLongItemName>7.62x25mm SMG Mag, AET</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x25mm SMG Mag, AET</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>371</uiIndex>
@@ -3008,11 +3008,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>378</uiIndex>
-		<szItemName>Nothing</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Nothing</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>7.62x25mm Biz. Mag, AET</szItemName>
+		<szLongItemName>7.62x25mm Bizon Mag, AET</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x25mm Biz. Mag, AET</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>379</uiIndex>
@@ -3072,11 +3072,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>386</uiIndex>
-		<szItemName>Nothing</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Nothing</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>7.62x25mm Drum, AET</szItemName>
+		<szLongItemName>7.62x25mm Drum, AET</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x25mm Drum, AET</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>387</uiIndex>
@@ -7144,27 +7144,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>895</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 895</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>EBR Schaft</szItemName>
+		<szLongItemName>EBR Schaft</szLongItemName>
+		<szItemDesc>Ein neuer Schaft für das M14 Gewehr, ausgerüstet mit Picatinny Schienen, um moderne Zielhilfen zu montieren.</szItemDesc>
+		<szBRName>EBR Schaft</szBRName>
+		<szBRDesc>Gerade neu hereingekommen: der "Enhanced Battle Rifle"-Schaft. Endlich kann man neuartige Ausrüstung auch an das M14 montieren. Passt auch für das M21.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>896</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 896</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>M14 EBR</szItemName>
+		<szLongItemName>Winchester M14 EBR</szLongItemName>
+		<szItemDesc>Das WINCHESTER M14 löste Ende der 50er Jahre den seit 1936 im Einsatz befindlichen M1 Garand ab. Es besitzt eine herausragende Schussgenauigkeit. Dies ist die verbesserte Version mit neuem Schaft.</szItemDesc>
+		<szBRName>Winchester M14 EBR</szBRName>
+		<szBRDesc>Not buyable at BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>897</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 897</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>M21 EBR</szItemName>
+		<szLongItemName>Springfield M21 EBR</szLongItemName>
+		<szItemDesc>Das M21 ist ein sehr präzises und zuverlässiges halbautomatisches Scharfschützengewehr. Es basiert auf dem M14-Sturmgewehr. Dieses hier hat man in den EBR-Schaft gesteckt, der eigentlich für das M14 gedacht war.</szItemDesc>
+		<szBRName>Springfield M21 EBR</szBRName>
+		<szBRDesc>Not buyable at BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>898</uiIndex>
@@ -7456,19 +7456,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>934</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 934</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.44 SL AET</szItemName>
+		<szLongItemName>.44 Schnelllader AET</szLongItemName>
+		<szItemDesc>Die .44 SIB ist eine Kombination aus Semi-Wadcutter und Kegelgeschoß, und vereint die Vorteile von beiden.</szItemDesc>
+		<szBRName>.44 SL AET</szBRName>
+		<szBRDesc>Körperpanzerung wird zu einem Witz, wenn Sie diese .44 SIB Geschosse verwenden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>935</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 935</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.44 Mag AET</szItemName>
+		<szLongItemName>.44 Magazin AET</szLongItemName>
+		<szItemDesc>Die .44 SIB ist eine Kombination aus Semi-Wadcutter und Kegelgeschoß, und vereint die Vorteile von beiden.</szItemDesc>
+		<szBRName>.44 Mag AET</szBRName>
+		<szBRDesc>Körperpanzerung wird zu einem Witz, wenn Sie diese .44 SIB Geschosse verwenden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>936</uiIndex>
@@ -9594,6 +9594,134 @@
 		<szLongItemName>.45 AET ammo crate</szLongItemName>
 		<szItemDesc>Beschreibung erwünscht</szItemDesc>
 		<szBRName>.45 AET ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1248</uiIndex>
+		<szItemName>5.45mm crate</szItemName>
+		<szLongItemName>5.45x39mm ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>5.45x39mm ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1249</uiIndex>
+		<szItemName>5.45mm HP crate</szItemName>
+		<szLongItemName>5.45x39mm HP ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>5.45x39mm HP ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1250</uiIndex>
+		<szItemName>5.45mm T crate</szItemName>
+		<szLongItemName>5.45x39mm T ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>5.45x39mm T ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1251</uiIndex>
+		<szItemName>7.62WP crate</szItemName>
+		<szLongItemName>7.62x39mm ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x39mm ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1252</uiIndex>
+		<szItemName>7.62WP HP crate</szItemName>
+		<szLongItemName>7.62x39mm HP ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x39mm HP ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1253</uiIndex>
+		<szItemName>7.62WP M crate</szItemName>
+		<szLongItemName>7.62x39mm M ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x39mm M ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1254</uiIndex>
+		<szItemName>7.62WP T crate</szItemName>
+		<szLongItemName>7.62x39mm T ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x39mm T ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1255</uiIndex>
+		<szItemName>4.7mm crate</szItemName>
+		<szLongItemName>4.7x33mm ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>4.7x33mm ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1256</uiIndex>
+		<szItemName>5.7mm crate</szItemName>
+		<szLongItemName>5.7x28mm ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>5.7x28mm ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1257</uiIndex>
+		<szItemName>5.7mm HP crate</szItemName>
+		<szLongItemName>5.7x28mm HP ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>5.7x28mm HP ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1258</uiIndex>
+		<szItemName>5.7mm AET crate</szItemName>
+		<szLongItemName>5.7x28mm AET ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>5.7x28mm AET ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1259</uiIndex>
+		<szItemName>5.7mm T crate</szItemName>
+		<szLongItemName>5.7x28mm T ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>5.7x28mm T ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1260</uiIndex>
+		<szItemName>7.62x54mm crate</szItemName>
+		<szLongItemName>7.62x54mm ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x54mm ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1261</uiIndex>
+		<szItemName>7.62x54mm T crate</szItemName>
+		<szLongItemName>7.62x54mm T ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>7.62x54mm T ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1262</uiIndex>
+		<szItemName>.50 BMG crate</szItemName>
+		<szLongItemName>.50 BMG ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>.50 BMG ammo crate</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1263</uiIndex>
+		<szItemName>9x39mm crate</szItemName>
+		<szLongItemName>9x39mm ammo crate</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>9x39mm ammo crate</szBRName>
 		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 </ITEMLIST>

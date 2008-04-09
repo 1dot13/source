@@ -2945,6 +2945,22 @@
 		<APCost>8</APCost>
 	</MERGE>
 	<MERGE>
+		<firstItemIndex>895</firstItemIndex>
+		<secondItemIndex>27</secondItemIndex>
+		<firstResultingItemIndex>896</firstResultingItemIndex>
+		<secondResultingItemIndex>0</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>20</APCost>
+	</MERGE>
+	<MERGE>
+		<firstItemIndex>895</firstItemIndex>
+		<secondItemIndex>684</secondItemIndex>
+		<firstResultingItemIndex>897</firstResultingItemIndex>
+		<secondResultingItemIndex>0</secondResultingItemIndex>
+		<mergeType>4</mergeType>
+		<APCost>20</APCost>
+	</MERGE>
+	<MERGE>
 		<firstItemIndex>952</firstItemIndex>
 		<secondItemIndex>952</secondItemIndex>
 		<firstResultingItemIndex>952</firstResultingItemIndex>

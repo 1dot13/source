@@ -2811,10 +2811,10 @@
 	<ITEM>
 		<uiIndex>351</uiIndex>
 		<szItemName>.38 S-Load G</szItemName>
-		<szLongItemName>.38 сменный барабан, Glaser</szLongItemName>
+		<szLongItemName>.38 быстрая обойма, Glaser</szLongItemName>
 		<szItemDesc>Боеприпасы с "контролируемой баллистикой" по наносимым повреждениям превосходят стандартные экспансивные патроны в два раза. К несчастью, ими также в два раза сложнее пробить броню.</szItemDesc>
 		<szBRName>.38 S&amp;W S-Load Glaser</szBRName>
-		<szBRDesc>Шесть тонкостенных патронов для вашего веселья. Максимальная убойная сила, минимальная бронебойность.</szBRDesc>
+		<szBRDesc>Шесть тонкостенных патронов для безудержного веселья. Максимальная убойная сила при минимальной бронебойности.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>352</uiIndex>
@@ -2836,17 +2836,17 @@
 		<uiIndex>354</uiIndex>
 		<szItemName>9x19мм, 8AP</szItemName>
 		<szLongItemName>9x19мм магазин к пистолету, 8 AP</szLongItemName>
-		<szItemDesc>Проделайте отверстия в защищенных целях с помощью этих бронебойных патронов.</szItemDesc>
+		<szItemDesc>Проделайте отверстия в защищенных мишенях с помощью этих бронебойных патронов.</szItemDesc>
 		<szBRName>9x19мм маг, 8 AP</szBRName>
-		<szBRDesc>Проделайте отверстия в защищенных целях с помощью этих бронебойных патронов.</szBRDesc>
+		<szBRDesc>Проделайте отверстия в защищенных мишенях с помощью этих бронебойных патронов.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>355</uiIndex>
-		<szItemName>9x19mm Mag 8 AET</szItemName>
-		<szLongItemName>9x19mm Pistol Mag, 8 AET</szLongItemName>
-		<szItemDesc>AET ammo has expansion and armor piercing capabilities for double the punch, but can make your weapon somewhat unreliable.</szItemDesc>
-		<szBRName>9x19mm Mag 8 AET</szBRName>
-		<szBRDesc>Your enemies hide behind Kevlar and ceramics? Your AP bullets punch through without being noticed? Here's the solution, the Advanced Energy Transfer ammo</szBRDesc>
+		<szItemName>9x19мм, 8AET</szItemName>
+		<szLongItemName>9x19мм магазин к пистолету, 8 AET</szLongItemName>
+		<szItemDesc>Патроны AET (Advanced Energy Transfer – улучшенная передача энергии) обладают характерными свойствами как экспансивных, так и бронебойных пуль, что позволяет наносить двойной урон. В то же время, использование данных боеприпасов ведет к понижению надежности оружия.</szItemDesc>
+		<szBRName>9x19мм маг, 8 AET</szBRName>
+		<szBRDesc>Ваши враги защищены Кевларом и керамической броней, а ваши бронебойные пули не достигают цели? Единственное решение – боеприпасы AET (Advanced Energy Transfer – повышенная передача энергии).</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>356</uiIndex>
@@ -2866,11 +2866,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>358</uiIndex>
-		<szItemName>9x19mm Mag 8 M</szItemName>
-		<szLongItemName>9x19mm Pistol Mag, 8 Match</szLongItemName>
-		<szItemDesc>High quality ball ammunition to boost weapon range and performance.</szItemDesc>
-		<szBRName>9x19mm Mag 8 Match</szBRName>
-		<szBRDesc>Better range more than makes up for the increased cost of match grade ammo.</szBRDesc>
+		<szItemName>9x19мм, 8 M</szItemName>
+		<szLongItemName>9x19мм магазин к пистолету, 8 целевые</szLongItemName>
+		<szItemDesc>Эти высококачественные боеприпасы повышают эффективную дальность и характеристики оружия.</szItemDesc>
+		<szBRName>9x19мм маг, 8 Match</szBRName>
+		<szBRDesc>Увеличенная эффективная дальность целевых боеприпасов с лихвой компенсирует их высокую стоимость.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>359</uiIndex>
@@ -2882,35 +2882,35 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>360</uiIndex>
-		<szItemName>9x19mm Mag 8 HP C</szItemName>
-		<szLongItemName>9x19mm Pistol Mag, 8 HP Cold</szLongItemName>
-		<szItemDesc>The hollow point bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
-		<szBRName>9x19mm Mag 8 HP Cold</szBRName>
-		<szBRDesc>Enjoy expansion power and quieter firing with cold-loaded hollow point ammunition.</szBRDesc>
+		<szItemName>9x19мм, 8 HP C</szItemName>
+		<szLongItemName>9x19мм магазин к пистолету, 8 HP дозвуковые</szLongItemName>
+		<szItemDesc>Эти пули с экспансивной выемкой обладают дозвуковой скоростью, что снижает уровень шума при выстреле, а также немного понижает убойную силу.</szItemDesc>
+		<szBRName>9x19мм, 8 HP Cold</szBRName>
+		<szBRDesc>Насладитесь сочетанием убойной силы и бесшумной стрельбы с использованием этих дозвуковых боеприпасов экспансивного действия.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>361</uiIndex>
-		<szItemName>9x19mm Mag 8 AP C</szItemName>
-		<szLongItemName>9x19mm Pistol Mag, 8 AP Cold</szLongItemName>
-		<szItemDesc>The armor piercing bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
-		<szBRName>9x19mm Mag 8 AP Cold</szBRName>
-		<szBRDesc>The tactical benefits of quieter armor piercing bullets speak for themselves.</szBRDesc>
+		<szItemName>9x19мм, 8 AP C</szItemName>
+		<szLongItemName>9x19мм магазин к пистолету, 8 AP дозвуковые</szLongItemName>
+		<szItemDesc>Эти бронебойные пули обладают дозвуковой скоростью, что снижает уровень шума при выстреле, а также немного понижает убойную силу.</szItemDesc>
+		<szBRName>9x19мм, 8 AP Cold</szBRName>
+		<szBRDesc>Тактические преимущества использования дозвуковых бронебойных пуль не нуждаются в пояснении.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>362</uiIndex>
-		<szItemName>Nothing</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Nothing</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>7.62x25mm Mag, AET</szItemName>
+		<szLongItemName>7.62x25mm Pistol Mag, AET</szLongItemName>
+		<szItemDesc>8 rounds of 7.62x25mm AET ammo for your Soviet made handgun.</szItemDesc>
+		<szBRName>7.62x25mm Mag, AET</szBRName>
+		<szBRDesc>AET rounds to make your old Tokarev pistol a competitor to today's handguns.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>363</uiIndex>
-		<szItemName>9x19mm Mag 15 AET</szItemName>
-		<szLongItemName>9x19mm Pistol Mag, 15 AET</szLongItemName>
-		<szItemDesc>AET ammo has expansion and armor piercing capabilities for double the punch, but can make your weapon somewhat unreliable.</szItemDesc>
-		<szBRName>9x19mm Mag 15 AET</szBRName>
-		<szBRDesc>When your hollow points fall off the enemies armor and the armor piercers do not deal enough damage, then it's time to pack these puppies.</szBRDesc>
+		<szItemName>9x19мм, 15 AET</szItemName>
+		<szLongItemName>9x19мм магазин к пистолету, 15 AET</szLongItemName>
+		<szItemDesc>Патроны Advanced Energy Transfer (улучшенная передача энергии) обладают характерными свойствами как экспансивных, так и бронебойных пуль, что позволяет наносить двойной урон. В то же время, использование данных боеприпасов ведет к понижению надежности оружия.</szItemDesc>
+		<szBRName>9x19мм, 15 AET</szBRName>
+		<szBRDesc>Когда экспансивные пули отскакивают от брони противника, а бронебойные наносят недостаточный урон, – пришло время зарядить обойму этими малышами.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>364</uiIndex>
@@ -2930,51 +2930,51 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>366</uiIndex>
-		<szItemName>9x19mm Mag 15 M</szItemName>
-		<szLongItemName>9x19mm Pistol Mag, 15 Match</szLongItemName>
-		<szItemDesc>High quality ball ammunition to boost weapon range and performance.</szItemDesc>
-		<szBRName>9x19mm Mag 15 Match</szBRName>
-		<szBRDesc>Better range more than makes up for the increased cost of match grade ammo.</szBRDesc>
+		<szItemName>9x19мм, 15 M</szItemName>
+		<szLongItemName>9x19мм магазин к пистолету, 15 целевые</szLongItemName>
+		<szItemDesc>Эти высококачественные боеприпасы повышают эффективную дальность и характеристики оружия.</szItemDesc>
+		<szBRName>9x19мм, 15 Match</szBRName>
+		<szBRDesc>Увеличенная эффективная дальность целевых боеприпасов с лихвой компенсирует их высокую стоимость.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>367</uiIndex>
-		<szItemName>9x19mm Mag 15 C</szItemName>
-		<szLongItemName>9x19mm Pistol Mag, 15 Cold</szLongItemName>
-		<szItemDesc>The bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
-		<szBRName>9x19mm Mag 15 Cold</szBRName>
-		<szBRDesc>The bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szBRDesc>
+		<szItemName>9x19мм, 15 C</szItemName>
+		<szLongItemName>9x19мм магазин к пистолету, 15 дозвуковые</szLongItemName>
+		<szItemDesc>Пули в этой обойме обладают дозвуковой скоростью, что снижает уровень шума при выстреле, а также немного понижает убойную силу.</szItemDesc>
+		<szBRName>9x19мм, 15 Cold</szBRName>
+		<szBRDesc>Пули в этой обойме обладают дозвуковой скоростью, что снижает уровень шума при выстреле, а также немного понижает убойную силу.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>368</uiIndex>
-		<szItemName>9x19mm Mag 15 HP C</szItemName>
-		<szLongItemName>9x19mm Pistol Mag, 15 HP Cold</szLongItemName>
-		<szItemDesc>The hollow point bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
-		<szBRName>9x19mm Mag 15 HP Cold</szBRName>
-		<szBRDesc>Enjoy expansion power and quieter firing with cold-loaded hollow point ammunition.</szBRDesc>
+		<szItemName>9x19мм, 15 HP C</szItemName>
+		<szLongItemName>9x19мм магазин к пистолету, 15 HP дозвуковые</szLongItemName>
+		<szItemDesc>Эти пули с экспансивной выемкой обладают дозвуковой скоростью, что снижает уровень шума при выстреле, а также немного понижает убойную силу.</szItemDesc>
+		<szBRName>9x19мм, 15 HP Cold</szBRName>
+		<szBRDesc>Насладитесь сочетанием убойной силы и бесшумной стрельбы с использованием этих дозвуковых боеприпасов экспансивного действия.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>369</uiIndex>
-		<szItemName>9x19mm Mag 15 AP C</szItemName>
-		<szLongItemName>9x19mm Pistol Mag, 15 AP Cold</szLongItemName>
-		<szItemDesc>The armor piercing bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
-		<szBRName>9x19mm Mag 15 AP Cold</szBRName>
-		<szBRDesc>The tactical benefits of quieter armor piercing bullets speak for themselves.</szBRDesc>
+		<szItemName>9x19мм, 15 AP C</szItemName>
+		<szLongItemName>9x19мм магазин к пистолету, 15 AP дозвуковые</szLongItemName>
+		<szItemDesc>Эти бронебойные пули обладают дозвуковой скоростью, что снижает уровень шума при выстреле, а также немного понижает убойную силу.</szItemDesc>
+		<szBRName>9x19мм, 15 AP Cold</szBRName>
+		<szBRDesc>Тактические преимущества использования дозвуковых бронебойных пуль не нуждаются в пояснении.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>370</uiIndex>
-		<szItemName>Nothing</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Nothing</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>7.62x25mm SMG Mag, AET</szItemName>
+		<szLongItemName>7.62x25mm SMG Mag, AET</szLongItemName>
+		<szItemDesc>30 AET rounds for Russian SMGs (and cheap Chinese copies).</szItemDesc>
+		<szBRName>7.62x25mm SMG Mag, AET</szBRName>
+		<szBRDesc>New for the 7.62x25mm caliber: We now have AET rounds available, so you can take advantage of this technology if you are using Russian made SMGs.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>371</uiIndex>
-		<szItemName>9x19mm SMG Mag AET</szItemName>
-		<szLongItemName>9x19mm SMG Mag, AET</szLongItemName>
-		<szItemDesc>The pinnacle of terminal ballistics combines armor defeating capability with the punch of a hollow point bullet in one small deadly package.</szItemDesc>
-		<szBRName>9x19mm SMG Mag AET</szBRName>
-		<szBRDesc>The punch of a hollow point, with the penetration of an armor piercing round make this the ultimate CQB ammo for your 9mm subgun.</szBRDesc>
+		<szItemName>9x19мм, 30 AET</szItemName>
+		<szLongItemName>9х19мм магазин для ПП, 30 AET</szLongItemName>
+		<szItemDesc>Эти пули, сочетающие бронебойные свойства и мощь экспансивных боеприпасов, представляют собой технологическую вершину в сфере баллистики. И эта смертоносная обойма в ваших руках.</szItemDesc>
+		<szBRName>9x19мм ПП, 30 AET</szBRName>
+		<szBRDesc>Убойная сила экспансивных пуль в сочетании с бронебойными свойствами превращает ваш 9мм пистолет-пулемет в абсолютное оружие ближнего боя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>372</uiIndex>
@@ -2994,51 +2994,51 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>374</uiIndex>
-		<szItemName>9x19mm SMG Mag M</szItemName>
-		<szLongItemName>9x19mm SMG Mag, Match</szLongItemName>
-		<szItemDesc>High quality ball ammunition to boost weapon range and performance.</szItemDesc>
-		<szBRName>9x19mm SMG Mag Match</szBRName>
-		<szBRDesc>A little extra range from your SMG never hurt anyone-- well almost anyone.</szBRDesc>
+		<szItemName>9x19мм, 30 M</szItemName>
+		<szLongItemName>9х19мм магазин для ПП, 30 целевые</szLongItemName>
+		<szItemDesc>Эти высококачественные боеприпасы повышают эффективную дальность и характеристики оружия.</szItemDesc>
+		<szBRName>9x19мм ПП, 30 Match</szBRName>
+		<szBRDesc>Дополнительные метры к эффективной дальности вашего ПП никому не повредят. Ну, почти никому…</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>375</uiIndex>
-		<szItemName>9x19mm SMG Mag C</szItemName>
-		<szLongItemName>9x19mm SMG Mag, Cold</szLongItemName>
-		<szItemDesc>The bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
-		<szBRName>9x19mm SMG Mag Cold</szBRName>
-		<szBRDesc>The bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szBRDesc>
+		<szItemName>9x19мм, 30 C</szItemName>
+		<szLongItemName>9х19мм магазин для ПП, 30 дозвуковые</szLongItemName>
+		<szItemDesc>Пули в этой обойме обладают дозвуковой скоростью, что снижает уровень шума при выстреле, а также немного понижает убойную силу.</szItemDesc>
+		<szBRName>9x19мм ПП, 30 Cold</szBRName>
+		<szBRDesc>Пули в этой обойме обладают дозвуковой скоростью, что снижает уровень шума при выстреле, а также немного понижает убойную силу.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>376</uiIndex>
-		<szItemName>9x19mm SMG Mag HP C</szItemName>
-		<szLongItemName>9x19mm SMG Mag, HP Cold</szLongItemName>
-		<szItemDesc>The hollow point bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
-		<szBRName>9x19mm SMG Mag HP Cold</szBRName>
-		<szBRDesc>This ammo packs a quiet but effective punch.</szBRDesc>
+		<szItemName>9x19мм, 30 HP C</szItemName>
+		<szLongItemName>9х19мм магазин для ПП, 30 HP дозвуковые</szLongItemName>
+		<szItemDesc>Эти пули с экспансивной выемкой обладают дозвуковой скоростью, что снижает уровень шума при выстреле, а также немного понижает убойную силу.</szItemDesc>
+		<szBRName>9x19мм ПП, 30 HP Cold</szBRName>
+		<szBRDesc>В этих боеприпасах скрыта значительная убойная сила. К тому же бесшумная…</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>377</uiIndex>
-		<szItemName>9x19mm SMG Mag AP C</szItemName>
-		<szLongItemName>9x19mm SMG Mag, AP Cold</szLongItemName>
-		<szItemDesc>The armor piercing bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
-		<szBRName>9x19mm SMG Mag AP Cold</szBRName>
-		<szBRDesc>The perfect gift for the SWAT team pointman who has everything.</szBRDesc>
+		<szItemName>9x19мм, 30 AP C</szItemName>
+		<szLongItemName>9х19мм магазин для ПП, 30 AP дозвуковые</szLongItemName>
+		<szItemDesc>Эти бронебойные пули обладают дозвуковой скоростью, что снижает уровень шума при выстреле, а также немного понижает убойную силу.</szItemDesc>
+		<szBRName>9x19мм ПП, 30 AP Cold</szBRName>
+		<szBRDesc>Превосходный подарок для передового бойца спецназа, который уже итак экипирован под завязку.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>378</uiIndex>
-		<szItemName>Nothing</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Nothing</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>7.62x25mm Biz. Mag, AET</szItemName>
+		<szLongItemName>7.62x25mm Bizon Mag, AET</szLongItemName>
+		<szItemDesc>A 45 round helical cyilnder-type magazine of 7.62 Tk AET ammo for your Bizon SMG.</szItemDesc>
+		<szBRName>7.62x25mm Biz. Mag, AET</szBRName>
+		<szBRDesc>Bizon mags filled with AET ammo. Not that we believe that you really need that many rounds if using this type of ammo, but you may love the lack of a need to reload during combat.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>379</uiIndex>
-		<szItemName>9x19mm Lrg Mag AET</szItemName>
-		<szLongItemName>9x19mm Large Mag, AET</szLongItemName>
-		<szItemDesc>AET ammo has expansion and armor piercing capabilities for double the punch, but can make your weapon somewhat unreliable.</szItemDesc>
-		<szBRName>9x19mm Lrg Mag AET</szBRName>
-		<szBRDesc>Stopping-power will never be a concern again with this potent HP/AP combo.</szBRDesc>
+		<szItemName>9x19мм, 50 AET</szItemName>
+		<szLongItemName>9х19мм магазин для ПП, 50 AET</szLongItemName>
+		<szItemDesc>Пули в этой обойме обладают дозвуковой скоростью, что снижает уровень шума при выстреле, а также немного понижает убойную силу.</szItemDesc>
+		<szBRName>9x19мм ПП, 50 AET</szBRName>
+		<szBRDesc>Мощь этой комбинации бронебойных и экспансивных пуль заставит вас забыть о нехватке убойной силы.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>380</uiIndex>
@@ -3058,43 +3058,43 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>382</uiIndex>
-		<szItemName>9x19mm Lrg Mag M</szItemName>
-		<szLongItemName>9x19mm Large Mag, Match</szLongItemName>
-		<szItemDesc>High quality ball ammunition to boost weapon range and performance.</szItemDesc>
-		<szBRName>9x19mm Lrg Mag Match</szBRName>
-		<szBRDesc>Match grade ammo will truly help you "go the distance."</szBRDesc>
+		<szItemName>9x19мм, 50 M</szItemName>
+		<szLongItemName>9х19мм магазин для ПП, 50 целевые</szLongItemName>
+		<szItemDesc>Эти высококачественные боеприпасы повышают эффективную дальность и характеристики оружия.</szItemDesc>
+		<szBRName>9x19мм ПП, 50 Match</szBRName>
+		<szBRDesc>Эти целевые боеприпасы помогут вам «достать до цели», если расстояние до нее больше эффективной дальности вашего оружия.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>383</uiIndex>
-		<szItemName>9x19mm Lrg Mag C</szItemName>
-		<szLongItemName>9x19mm Large Mag, Cold</szLongItemName>
-		<szItemDesc>The bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
-		<szBRName>9x19mm Lrg Mag Cold</szBRName>
-		<szBRDesc>When absolute silence is of critical importance, use cold-load ammunition.</szBRDesc>
+		<szItemName>9x19мм, 50 C</szItemName>
+		<szLongItemName>9х19мм магазин для ПП, 50 дозвуковые</szLongItemName>
+		<szItemDesc>Пули в этой обойме обладают дозвуковой скоростью, что снижает уровень шума при выстреле, а также немного понижает убойную силу.</szItemDesc>
+		<szBRName>9x19мм ПП, 50 Cold</szBRName>
+		<szBRDesc>Используйте эти дозвуковые боеприпасы, когда необходимо действовать абсолютно бесшумно.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>384</uiIndex>
-		<szItemName>9x19mm Lrg Mag HP C</szItemName>
-		<szLongItemName>9x19mm Large Mag, HP Cold</szLongItemName>
-		<szItemDesc>The hollow point bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
-		<szBRName>9x19mm Lrg Mag HP Cold</szBRName>
-		<szBRDesc>Say it quietly, firmly, and finally with this cold load HP ammo.</szBRDesc>
+		<szItemName>9x19мм, 50 HP C</szItemName>
+		<szLongItemName>9х19мм магазин для ПП, 50 HP дозвуковые</szLongItemName>
+		<szItemDesc>Эти пули с экспансивной выемкой обладают дозвуковой скоростью, что снижает уровень шума при выстреле, а также немного понижает убойную силу.</szItemDesc>
+		<szBRName>9x19мм ПП, 50 HP Cold</szBRName>
+		<szBRDesc>Бесшумные и смертоносные – лучшее определение для этих экспансивных дозвуковых боеприпасов.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>385</uiIndex>
-		<szItemName>9x19mm Lrg Mag AP C</szItemName>
-		<szLongItemName>9x19mm Large Mag, AP Cold</szLongItemName>
-		<szItemDesc>The armor piercing bullets in this magazine have been specially "cold-loaded" to reduce muzzle noise at a moderate cost to stopping power.</szItemDesc>
-		<szBRName>9x19mm Lrg Mag AP Cold</szBRName>
-		<szBRDesc>Defeats armored targets with little noise and even less fuss.</szBRDesc>
+		<szItemName>9x19мм, 50 AP C</szItemName>
+		<szLongItemName>9х19мм магазин для ПП, 50 AP дозвуковые</szLongItemName>
+		<szItemDesc>Эти бронебойные пули обладают дозвуковой скоростью, что снижает уровень шума при выстреле, а также немного понижает убойную силу.</szItemDesc>
+		<szBRName>9x19мм ПП, 50 AP Cold</szBRName>
+		<szBRDesc>Эти боеприпасы способны поражать защищенные цели без лишнего шума.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>386</uiIndex>
-		<szItemName>Nothing</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Nothing</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>7.62x25mm Drum, AET</szItemName>
+		<szLongItemName>7.62x25mm Drum, AET</szLongItemName>
+		<szItemDesc>71-round drum of 7.62x25mm AET ammunition.</szItemDesc>
+		<szBRName>7.62x25mm Drum, AET</szBRName>
+		<szBRDesc>A 7.62 Tk drum of AET ammo, to make your vintage Russian SMG into something not to be laughed at!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>387</uiIndex>
@@ -3178,19 +3178,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>397</uiIndex>
-		<szItemName>Nothing</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Nothing</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Ничто</szItemName>
+		<szLongItemName>Ничто</szLongItemName>
+		<szItemDesc>Ничто</szItemDesc>
+		<szBRName>Ничто</szBRName>
+		<szBRDesc>Ничто</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>398</uiIndex>
-		<szItemName>.45 Mag AET</szItemName>
-		<szLongItemName>.45 Pistol Mag, AET</szLongItemName>
-		<szItemDesc>Give your trusty .45 some extra punch with this penetrating and expanding ammo.</szItemDesc>
-		<szBRName>.45 Mag AET</szBRName>
-		<szBRDesc>Spice up your next gunfight with a deadly load of .45 AET.</szBRDesc>
+		<szItemName>.45 маг, AET</szItemName>
+		<szLongItemName>.45 магазин к пистолету, AET</szLongItemName>
+		<szItemDesc>Добавьте дополнительную мощь своему надежному пистолету .45 калибра с помощью этих бронебойно-экспансивных пуль.</szItemDesc>
+		<szBRName>.45 маг, AET</szBRName>
+		<szBRDesc>Придайте остроту следующей  перестрелке с помощью смертоносных пуль AET .45.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>399</uiIndex>
@@ -3202,19 +3202,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>400</uiIndex>
-		<szItemName>.45 Mag M</szItemName>
-		<szLongItemName>.45 Pistol Mag, Match</szLongItemName>
-		<szItemDesc>Be she Colt, Kimber or otherwise, feed her some match grade ammo and she'll be good to you. Extra range counts for something too</szItemDesc>
-		<szBRName>.45 Mag Match</szBRName>
-		<szBRDesc>Get extra range out of your .45. Get Match grade ammunition.</szBRDesc>
+		<szItemName>.45 маг, М</szItemName>
+		<szLongItemName>.45 магазин к пистолету, целевые</szLongItemName>
+		<szItemDesc>Будь она Кольт, Кимбер или что-то еще, скормите  своей любимой пушке калибра .45 несколько целевых патронов, и она хорошо вам послужит.</szItemDesc>
+		<szBRName>.45 маг, Мatch</szBRName>
+		<szBRDesc>Будь она Кольт, Кимбер или что-то еще, скормите  своей любимой пушке калибра .45 несколько целевых патронов, и она хорошо вам послужит.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>401</uiIndex>
-		<szItemName>.45 Hi-Cap Mag</szItemName>
-		<szLongItemName>.45 Hi-Cap Pistol Mag</szLongItemName>
-		<szItemDesc>A double stack clip for your .45 handgun, because more is better.</szItemDesc>
-		<szBRName>.45 Hi-Cap Mag</szBRName>
-		<szBRDesc>Nobody says no to a few extra rounds, except your target.</szBRDesc>
+		<szItemName>.45 Hi-Cap, 14</szItemName>
+		<szLongItemName>.45 двухрядный магазин к пистолету, 14</szLongItemName>
+		<szItemDesc>Двухрядная обойма для вашего пистолета калибра .45. Это как раз тот случай, когда чем больше – тем лучше.</szItemDesc>
+		<szBRName>.45 Hi-Cap маг, 14</szBRName>
+		<szBRDesc>Никто не будет против нескольких дополнительных патронов в вашей обойме. За исключением вашей цели.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>402</uiIndex>
@@ -3258,11 +3258,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>407</uiIndex>
-		<szItemName>.45 SMG Mag AET</szItemName>
-		<szLongItemName>.45 SMG Mag, AET</szLongItemName>
-		<szItemDesc>AET ammo has expansion and armor piercing capabilities for double the punch, but can make your weapon somewhat unreliable.</szItemDesc>
-		<szBRName>.45 SMG Mag AET</szBRName>
-		<szBRDesc>Rip an armored target multiple new ones with this SMG ammo.</szBRDesc>
+		<szItemName>.45 ПП, AET</szItemName>
+		<szLongItemName>.45 магазин для ПП, AET</szLongItemName>
+		<szItemDesc>Патроны AET (Advanced Energy Transfer – повышенная передача энергии) обладают характерными свойствами как экспансивных, так и бронебойных пуль, что позволяет наносить двойной урон. В то же время, использование данных боеприпасов ведет к понижению надежности оружия.</szItemDesc>
+		<szBRName>.45 маг ПП, AET</szBRName>
+		<szBRDesc>Отправьте защищенного противника на тот свет несколько раз, используя эти боеприпасы для пистолет-пулемета.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>408</uiIndex>
@@ -3274,11 +3274,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>409</uiIndex>
-		<szItemName>.45 SMG Mag M</szItemName>
-		<szLongItemName>.45 SMG Mag, Match</szLongItemName>
-		<szItemDesc>High quality ball ammunition to boost weapon range and performance.</szItemDesc>
-		<szBRName>.45 SMG Mag Match</szBRName>
-		<szBRDesc>These SMG rounds put a whole new spin on "distance learning."</szBRDesc>
+		<szItemName>.45 ПП, M</szItemName>
+		<szLongItemName>.45 магазин для ПП, целевые</szLongItemName>
+		<szItemDesc>Эти высококачественные боеприпасы повышают эффективную дальность и характеристики оружия.</szItemDesc>
+		<szBRName>.45 маг ПП, Match</szBRName>
+		<szBRDesc>Эти боеприпасы для пистолет-пулемета придают новое значение выражению «дистанционное обучение».</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>410</uiIndex>
@@ -3298,16 +3298,16 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>412</uiIndex>
-		<szItemName>12g Shells 2 LB</szItemName>
-		<szLongItemName>12 Gauge Shells, 2 Lock-Buster</szLongItemName>
-		<szItemDesc>Useful for opening locked doors with a decided lack of finesse, these shells have little lethal application.</szItemDesc>
-		<szBRName>12g Shells 2 Lock-Buster</szBRName>
-		<szBRDesc>Skilled lockpick artists are expensive, these shells are a lot cheaper and a lot louder.</szBRDesc>
+		<szItemName>12 кал, 2 LB</szItemName>
+		<szLongItemName>12-й калибр, 2 для взлома</szLongItemName>
+		<szItemDesc>Эти патроны могут пригодиться для вскрытия дверных замков, правда, без особого изящества. Смертоносность этих боеприпасов не заслуживает упоминания.</szItemDesc>
+		<szBRName>12 калиб, 2 Lock-Buster</szBRName>
+		<szBRDesc>Услуги специалистов по вскрытию замков влетят вам в копеечку. Эти патроны намного дешевле и делают куда больше шума.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>413</uiIndex>
 		<szItemName>12 калибр, 4</szItemName>
-		<szLongItemName>Обойма 12-го калибра, 4</szLongItemName>
+		<szLongItemName>12-й калибр, 4</szLongItemName>
 		<szItemDesc>Четыре патрона 12-го калибра. Пуля с полимерной оболочкой прошивает броню как папиросную бумагу.</szItemDesc>
 		<szBRName>12 калибр, 4</szBRName>
 		<szBRDesc>Slugs can be utilized for a bevy of tactical applications.</szBRDesc>
@@ -3322,43 +3322,43 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>415</uiIndex>
-		<szItemName>12g Shells 4 LB</szItemName>
-		<szLongItemName>12 Gauge Shells, 4 Lock-Buster</szLongItemName>
-		<szItemDesc>Good for killing locks at really close range.</szItemDesc>
-		<szBRName>12g Shells 4 Lock-Buster</szBRName>
-		<szBRDesc>For those really aggressive padlocks, these shells will provide yeoman service.</szBRDesc>
+		<szItemName>12 кал, 4 LB</szItemName>
+		<szLongItemName>12 калибр, 4 Lock-Buster</szLongItemName>
+		<szItemDesc>Этими патронами вам легко удастся разнести любой замок, правда, с очень близкого расстояния.</szItemDesc>
+		<szBRName>12 кал, 4 Lock-Buster</szBRName>
+		<szBRDesc>Перед этими патронами не устоит самый неприступный навесной замок.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>416</uiIndex>
-		<szItemName>12g Shells 7 LB</szItemName>
-		<szLongItemName>12 Gauge Shells, 7 Lock-Buster</szLongItemName>
-		<szItemDesc>Useful for opening locked doors with a decided lack of finesse, these shells have little lethal application.</szItemDesc>
-		<szBRName>12g Shells 7 Lock-Buster</szBRName>
-		<szBRDesc>Skilled lockpick artists are expensive, these shells are a lot cheaper and a lot louder.</szBRDesc>
+		<szItemName>12 кал, 7 LB</szItemName>
+		<szLongItemName>12-й калибр, 7 Lock-Buster</szLongItemName>
+		<szItemDesc>Эти патроны могут пригодиться для вскрытия дверных замков, правда, без особого изящества. Смертоносность этих боеприпасов не заслуживает упоминания.</szItemDesc>
+		<szBRName>12 кал, 7 Lock-Buster</szBRName>
+		<szBRDesc>Услуги специалистов по вскрытию замков влетят вам в копеечку. Эти патроны намного дешевле и делают куда больше шума.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>417</uiIndex>
-		<szItemName>12g Shells 12</szItemName>
-		<szLongItemName>12 Gauge Shells, 12</szLongItemName>
-		<szItemDesc>A drum of 12 gauge slugs for a self-loading shotgun.</szItemDesc>
-		<szBRName>12g Shells 12</szBRName>
-		<szBRDesc>12 slugs in rapid successing will turn your attackers into unidentifiable wrecks in no time.</szBRDesc>
+		<szItemName>12 кал, 12</szItemName>
+		<szLongItemName>12-й калибр, 12</szLongItemName>
+		<szItemDesc>Обойма патронов 12-го калибра для самозарядного ружья.</szItemDesc>
+		<szBRName>12 калибр, 12</szBRName>
+		<szBRDesc>При скоростной стрельбе эти 12 патронов превратят ваших врагов в месиво, не поддающееся опознанию.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>418</uiIndex>
-		<szItemName>12g Shells 12 BS</szItemName>
-		<szLongItemName>12 Gauge Shells, 12 Buckshot</szLongItemName>
-		<szItemDesc>12 rounds of buck for your mag-fed scattergun.</szItemDesc>
-		<szBRName>12g Shells 12 Buckshot</szBRName>
-		<szBRDesc>Smack down your own white-hot hailstorm with 12 rd mag of buck shot.</szBRDesc>
+		<szItemName>12 кал, 12 BS</szItemName>
+		<szLongItemName>12-й калибр, 12 картечь</szLongItemName>
+		<szItemDesc>Обойма на 12 патронов, снаряженных крупной дробью, предназначенная для вашей магазинной винтовки.</szItemDesc>
+		<szBRName>12 кал, 12 картечь</szBRName>
+		<szBRDesc>Накройте врагов собственным раскаленным градом при помощи этого 12-ти зарядного магазина с картечными патронами.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>419</uiIndex>
-		<szItemName>12g Shells 12 LB</szItemName>
-		<szLongItemName>12 Gauge Shells, 12 Lock-Buster</szLongItemName>
-		<szItemDesc>A twelve round mag of lock-buster will ensure the opening of most any door, but is extremely range limited.</szItemDesc>
-		<szBRName>12g Shells 12 Lock-Buster</szBRName>
-		<szBRDesc>12 shells of lock buster will help you bust any lock with alacrity.</szBRDesc>
+		<szItemName>12 кал, 12 LB</szItemName>
+		<szLongItemName>12-й калибр, 12 Lock-Buster</szLongItemName>
+		<szItemDesc>12-ти зарядная обойма с ружейными патронами, способными открыть практически любую дверь, при условии стрельбы с максимально близкого расстояния.</szItemDesc>
+		<szBRName>12 кал, 12 Lock-Buster</szBRName>
+		<szBRDesc>Эта 12-ти зарядная обойма с ружейными патронами, которые всегда готовы вам помочь разнести любой замок.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>420</uiIndex>
@@ -4538,24 +4538,24 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>567</uiIndex>
-		<szItemName>.45WM Mag</szItemName>
-		<szLongItemName>.45WM Magazine</szLongItemName>
+		<szItemName>.45 WM Mag</szItemName>
+		<szLongItemName>.45 Magazine</szLongItemName>
 		<szItemDesc>This magazine holds 6 rounds of .45 Winchester Magnum ammunition.</szItemDesc>
 		<szBRName>.45 WinMag Mag</szBRName>
 		<szBRDesc>Standard ammo for some of the big-bore pistols.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>568</uiIndex>
-		<szItemName>.45WM Mag HP</szItemName>
-		<szLongItemName>.45WM Magazine HP</szLongItemName>
+		<szItemName>.45 WM Mag HP</szItemName>
+		<szLongItemName>.45 Magazine HP</szLongItemName>
 		<szItemDesc>This magazine holds 6 rounds of .45 WinMag Hollow Point ammunition.</szItemDesc>
 		<szBRName>.45 WinMag Mag HP</szBRName>
 		<szBRDesc>If you're a hunter, then you'll need this for your sidearm if your prey is not as dead as you believed on first sight...</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>569</uiIndex>
-		<szItemName>.45WM Mag AP</szItemName>
-		<szLongItemName>.45WM Magazine AP</szLongItemName>
+		<szItemName>.45 WM Mag AP</szItemName>
+		<szLongItemName>.45 Magazine AP</szLongItemName>
 		<szItemDesc>This magazine holds 6 rounds of .45 WinMag Armor Piercing ammunition.</szItemDesc>
 		<szBRName>.45 WinMag Mag AP</szBRName>
 		<szBRDesc>Armor piercing ammo for the Wildey pistol and other .45 WinMag pistols.</szBRDesc>
@@ -7163,43 +7163,43 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>895</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 895</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>EBR Stock</szItemName>
+		<szLongItemName>EBR Stock</szLongItemName>
+		<szItemDesc>A stock with Picatinny rails, so that your M14 or M21 rifle can take advantage of more modern add-ons.</szItemDesc>
+		<szBRName>EBR Stock</szBRName>
+		<szBRDesc>This is the "Enhanced Battle Rifle" stock. Just drop your M14/M21 system into it, and mount all the modern goodies that did not fit onto the vintage M14.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>896</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 896</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>M14 EBR</szItemName>
+		<szLongItemName>M14 EBR</szLongItemName>
+		<szItemDesc>This is the M14 barrel and action dropped into a new stock with Picatinny Rails, to take advantage of more modern add-ons.</szItemDesc>
+		<szBRName>M14 EBR</szBRName>
+		<szBRDesc>Not buyable at BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>897</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 897</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>M21 EBR</szItemName>
+		<szLongItemName>M21 EBR</szLongItemName>
+		<szItemDesc>The M21 tactical rifle is the sniper version of the M14.  An accurate rifle with good stopping power. Somebody dropped this one into the EBR-stock that was originally meant for the M14 rifle.</szItemDesc>
+		<szBRName>M21 EBR</szBRName>
+		<szBRDesc>Not buyable at BR.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>898</uiIndex>
 		<szItemName>FP6</szItemName>
-		<szLongItemName>Fabarm FP6</szLongItemName>
-		<szItemDesc>The short version of the SDASS's predecessor as a combat shotgun.</szItemDesc>
+		<szLongItemName>Фабарм FP6</szLongItemName>
+		<szItemDesc>Боевой дробовик FP6 представляет собой укороченный вариант гладкоствольного ружья SDASS.</szItemDesc>
 		<szBRName>Fabarm FP6</szBRName>
-		<szBRDesc>An Italian shotgun for police/military use, especially useful in house clearing. It includes Picatinny Rails on the receiver and the pump-action handle.</szBRDesc>
+		<szBRDesc>Дробовик итальянского производства для полиции и военных, отлично подходящий для зачистки помещений. Оснащается направляющими типа Пикатинни на ствольной коробке и подвижным цевье.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>899</uiIndex>
 		<szItemName>SDASS</szItemName>
-		<szLongItemName>Fabarm SDASS</szLongItemName>
-		<szItemDesc>A new Italian combat shotgun with rails for adding specialized equipment.</szItemDesc>
+		<szLongItemName>Фабарм SDASS</szLongItemName>
+		<szItemDesc>Итальянская новинка - боевое гладкоствольное ружье. Направляющие типа Пикатинни позволят навесить специализированное оборудование.</szItemDesc>
 		<szBRName>Fabarm SDASS</szBRName>
-		<szBRDesc>This is a new Italian shotgun developed for police/military use. It includes Picatinny Rails on the receiver and the pump-action handle.</szBRDesc>
+		<szBRDesc>Это новое гладкоствольное ружье итальянского производства было разработано для использования в армии и полиции. Комплектуется направляющими типа Пикатинни на ствольной коробке и подвижном цевье.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>900</uiIndex>
@@ -7475,19 +7475,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>934</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 934</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.44 S-Load AET</szItemName>
+		<szLongItemName>.44 Speed Loader, AET</szLongItemName>
+		<szItemDesc>6 AET rounds of the .44 Mag caliber.</szItemDesc>
+		<szBRName>.44 S-Load AET</szBRName>
+		<szBRDesc>Dirty Harry would have loved these, if they were available back in his time. Well, now they are available to you!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>935</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 935</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>.44 Mag AET</szItemName>
+		<szLongItemName>.44 Magazine, AET</szLongItemName>
+		<szItemDesc>8 AET rounds for your .44 Magnum semi-automatic.</szItemDesc>
+		<szBRName>.44 Mag AET</szBRName>
+		<szBRDesc>Advanced high speed rounds that make body armor a joke.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>936</uiIndex>
@@ -9628,12 +9628,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1203</uiIndex>
+		<szItemName>SAW-Vest</szItemName>
+		<szLongItemName>SAW-Vest</szLongItemName>
+		<szItemDesc>This vest can take 4 ammobelts for your machinegun, or several drums</szItemDesc>
+		<szBRName>SAW-Vest</szBRName>
+		<szBRDesc>Your machinegunner will love this vest, provided he's strong enough to wear it when it is filled to capacity.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1204</uiIndex>
+		<szItemName>1st Aid</szItemName>
+		<szLongItemName>First Aid Rig</szLongItemName>
+		<szItemDesc>Not ready yet</szItemDesc>
+		<szBRName>First Aid Rig</szBRName>
+		<szBRDesc>Not ready yet</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1205</uiIndex>
+		<szItemName>Med. Pouch</szItemName>
+		<szLongItemName>Medical Pouch</szLongItemName>
+		<szItemDesc>Not ready yet</szItemDesc>
+		<szBRName>Medical Pouch</szBRName>
+		<szBRDesc>Not ready yet</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1206</uiIndex>
@@ -9656,15 +9671,15 @@
 		<szItemName>L.Mag.-Ca.-Gr.</szItemName>
 		<szLongItemName>Large Mag. / Canteen / Grenade Panel</szLongItemName>
 		<szItemDesc>A leg panel with a canteen pouch, a grenade pouch, and two pouches for unusually long magazines.</szItemDesc>
-		<szBRName>5.56x45mm M ammo crate</szBRName>
+		<szBRName>Large Mag. / Canteen / Grenade Panel</szBRName>
 		<szBRDesc>This panel has a canteen pouch instead of the second grenade pouch of our other large magazine pouch setup.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1209</uiIndex>
-		<szItemName>5.56mm crate</szItemName>
-		<szLongItemName>5.56x45mm ammo crate</szLongItemName>
+		<szItemName>5.56mm G crate</szItemName>
+		<szLongItemName>5.56x45mm G ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
-		<szBRName>5.56x45mm ammo crate</szBRName>
+		<szBRName>5.56x45mm G ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -9969,6 +9984,134 @@
 		<szLongItemName>.45 AET ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
 		<szBRName>.45 AET ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1248</uiIndex>
+		<szItemName>5.45mm crate</szItemName>
+		<szLongItemName>5.45x39mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5.45x39mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1249</uiIndex>
+		<szItemName>5.45mm HP crate</szItemName>
+		<szLongItemName>5.45x39mm HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5.45x39mm HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1250</uiIndex>
+		<szItemName>5.45mm T crate</szItemName>
+		<szLongItemName>5.45x39mm T ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5.45x39mm T ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1251</uiIndex>
+		<szItemName>7.62WP crate</szItemName>
+		<szLongItemName>7.62x39mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x39mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1252</uiIndex>
+		<szItemName>7.62WP HP crate</szItemName>
+		<szLongItemName>7.62x39mm HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x39mm HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1253</uiIndex>
+		<szItemName>7.62WP M crate</szItemName>
+		<szLongItemName>7.62x39mm M ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x39mm M ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1254</uiIndex>
+		<szItemName>7.62WP T crate</szItemName>
+		<szLongItemName>7.62x39mm T ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x39mm T ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1255</uiIndex>
+		<szItemName>4.7mm crate</szItemName>
+		<szLongItemName>4.7x33mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>4.7x33mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1256</uiIndex>
+		<szItemName>5.7mm crate</szItemName>
+		<szLongItemName>5.7x28mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5.7x28mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1257</uiIndex>
+		<szItemName>5.7mm HP crate</szItemName>
+		<szLongItemName>5.7x28mm HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5.7x28mm HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1258</uiIndex>
+		<szItemName>5.7mm AET crate</szItemName>
+		<szLongItemName>5.7x28mm AET ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5.7x28mm AET ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1259</uiIndex>
+		<szItemName>5.7mm T crate</szItemName>
+		<szLongItemName>5.7x28mm T ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5.7x28mm T ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1260</uiIndex>
+		<szItemName>7.62x54mm crate</szItemName>
+		<szLongItemName>7.62x54mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x54mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1261</uiIndex>
+		<szItemName>7.62x54mm T crate</szItemName>
+		<szLongItemName>7.62x54mm T ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x54mm T ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1262</uiIndex>
+		<szItemName>.50 BMG crate</szItemName>
+		<szLongItemName>.50 BMG ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.50 BMG ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1263</uiIndex>
+		<szItemName>9x39mm crate</szItemName>
+		<szLongItemName>9x39mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9x39mm ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 </ITEMLIST>
