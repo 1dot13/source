@@ -3167,6 +3167,8 @@ BOOLEAN EmptyWeaponMagazine( OBJECTTYPE * pWeapon, OBJECTTYPE *pAmmo, UINT32 sub
 	}
 	else
 	{
+		//CHRISL: Clear the contents of pAmmo just in case
+		pAmmo->initialize();
 		return( FALSE );
 	}
 }

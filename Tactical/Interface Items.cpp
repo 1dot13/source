@@ -3407,8 +3407,11 @@ void ItemDescAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 			if(gpItemPointer == NULL)
 			{
 				//not holding anything
-				gTempObject.MoveThisObjectTo(gItemPointer);
-				gpItemPointer = &gItemPointer;
+				if(gTempObject.exists() == true)
+				{
+					gTempObject.MoveThisObjectTo(gItemPointer);
+					gpItemPointer = &gItemPointer;
+				}
 			}
 			else
 			{
@@ -3484,8 +3487,11 @@ void ItemDescAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 			if(gpItemPointer == NULL)
 			{
 				//not holding anything
-				gTempObject.MoveThisObjectTo(gItemPointer);
-				gpItemPointer = &gItemPointer;
+				if(gTempObject.exists() == true)
+				{
+					gTempObject.MoveThisObjectTo(gItemPointer);
+					gpItemPointer = &gItemPointer;
+				}
 			}
 			else
 			{
