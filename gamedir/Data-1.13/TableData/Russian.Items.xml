@@ -7163,27 +7163,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>895</uiIndex>
-		<szItemName>EBR Stock</szItemName>
-		<szLongItemName>EBR Stock</szLongItemName>
-		<szItemDesc>A stock with Picatinny rails, so that your M14 or M21 rifle can take advantage of more modern add-ons.</szItemDesc>
-		<szBRName>EBR Stock</szBRName>
-		<szBRDesc>This is the "Enhanced Battle Rifle" stock. Just drop your M14/M21 system into it, and mount all the modern goodies that did not fit onto the vintage M14.</szBRDesc>
+		<szItemName>EBR основа</szItemName>
+		<szLongItemName>Скелет-основа EBR</szLongItemName>
+		<szItemDesc>Скелет-основа с направляющими типа Пикатинни и заменяемым прикладом. Разработан специально для винтовки M14, но вполне подходит и для M21. EBR скелет-основа позволит вам увешать свою винтовку новомодной навеской.</szItemDesc>
+		<szBRName>Скелет-основа EBR</szBRName>
+		<szBRDesc>Перед вами скелет-основа "Усиленная Боевая Винтовка" (Enhanced Battle Rifle). Просто перебросьте свою систему M14/M21 в новую скелет-основу и вы сможете навесить любую современную навеску, без которой приходилось обходиться со стандартной винтовкой M14.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>896</uiIndex>
 		<szItemName>M14 EBR</szItemName>
 		<szLongItemName>M14 EBR</szLongItemName>
-		<szItemDesc>This is the M14 barrel and action dropped into a new stock with Picatinny Rails, to take advantage of more modern add-ons.</szItemDesc>
+		<szItemDesc>Та же винтовка M14, но на EBR скелет-основе. Это новшество позволит увешать вашу любимую винтовку самой новомодной навеской.</szItemDesc>
 		<szBRName>M14 EBR</szBRName>
-		<szBRDesc>Not buyable at BR.</szBRDesc>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>897</uiIndex>
 		<szItemName>M21 EBR</szItemName>
 		<szLongItemName>M21 EBR</szLongItemName>
-		<szItemDesc>The M21 tactical rifle is the sniper version of the M14.  An accurate rifle with good stopping power. Somebody dropped this one into the EBR-stock that was originally meant for the M14 rifle.</szItemDesc>
+		<szItemDesc>Та же тактическая снайперская винтовка M21, но с модернизированной скелет-основой винтовки. А вообще, EBR скелет-основа была разработана для M14.</szItemDesc>
 		<szBRName>M21 EBR</szBRName>
-		<szBRDesc>Not buyable at BR.</szBRDesc>
+		<szBRDesc>Не продается у Бобби Рэя.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>898</uiIndex>
@@ -7980,11 +7980,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>997</uiIndex>
-		<szItemName>7.62WP Adapter</szItemName>
-		<szLongItemName>7.62x39mm Drum Adapter</szLongItemName>
-		<szItemDesc>This piece of metal lets you fit a 100rnd drum onto several AK-rifles.</szItemDesc>
-		<szBRName>7.62x39mm Drum Adapter</szBRName>
-		<szBRDesc>This piece of metal lets you fit a 100rnd drum onto several AK-rifles. Permanent installing required.</szBRDesc>
+		<szItemName>Адаптер 7.62WP</szItemName>
+		<szLongItemName>Адаптер для бараб. магазина 7.62x39мм</szLongItemName>
+		<szItemDesc>Это нехитрое приспособление позволит вам зарядить некоторые автоматы Калашникова барабанными магазинами на 100 патронов.</szItemDesc>
+		<szBRName>Адаптер 7.62WP Бараб.</szBRName>
+		<szBRDesc>Это нехитрое приспособление позволит вам зарядить некоторые автоматы Калашникова барабанными магазинами на 100 патронов калибра 7.62x39мм. Устанавливается вместо стандартного приемника.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>998</uiIndex>
