@@ -2576,9 +2576,10 @@ void LoadSummary( STR8 pSector, UINT8 ubLevel, FLOAT dMajorMapVersion )
 	if( !fp )
 	{
 		gusNumEntriesWithOutdatedOrNoSummaryInfo++;
+		//CHRISL:  These will force an update basically every time the editor is loaded.  What's the point of that?
 		//ADB don't forget that these might need to be updated!!!
-		gusNumberOfMapsToBeForceUpdated++;
-		gfMustForceUpdateAllMaps = TRUE;
+		//gusNumberOfMapsToBeForceUpdated++;
+		//gfMustForceUpdateAllMaps = TRUE;
 		return;
 	}
 	fread( &temp, 1, sizeof( SUMMARYFILE ), fp );
@@ -3152,4 +3153,5 @@ void ClearSummaryInfo()
 }
 
 #endif
+
 
