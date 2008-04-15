@@ -5969,6 +5969,9 @@ BOOLEAN PlaceObjectInSoldierProfile( UINT8 ubProfile, OBJECTTYPE *pObject )
 						if ((*pObject)[0]->attachments.empty() == true) {
 							break;
 						}
+						else{
+							iter = (*pObject)[0]->attachments.begin();
+						}
 					}
 				}
 
