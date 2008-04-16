@@ -997,7 +997,7 @@ SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 
 		//CHRISL: Rather then resorting the profile, which recreates all the items, what if we simply try and sort the
 		//	objects that are already attached to the RPC we're hiring?
-		if(UsingNewInventorySystem() == true)
+		//if(UsingNewInventorySystem() == true)
 		{
 			// Start by direct copy of all BODYPOS items (armor, hands, head and LBE)
 			for(cnt = 0; cnt < (UINT32)BODYPOSFINAL; cnt++)
