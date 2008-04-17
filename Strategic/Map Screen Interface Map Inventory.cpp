@@ -2309,6 +2309,15 @@ INT32 SellItem( OBJECTTYPE& object, BOOLEAN useModifier )
 			iPrice += (INT32)( itemPrice * (float) object[bLoop]->data.ubShotsLeft / magSize );
 		}
 	}
+	//CHRISL: If we're dealing with money, we want to use the money's amount and just return that value with no modification
+	else if(Item[usItemType].usItemClass == IC_MONEY)
+	{
+		for (INT8 bLoop = 0; bLoop < object.ubNumberOfObjects; bLoop++)
+		{
+			iPrice += (INT32)(object[bLoop]->data.money.uiMoneyAmount);
+		}
+		return iPrice;
+	}
 	else if(Item[usItemType].usItemClass == IC_LBEGEAR && UsingNewInventorySystem() == true)
 	{
 		//CHRISL: If we're selling an LBE Item, we need to verify if it's an LBENODE, first.  If it is, we need to sell

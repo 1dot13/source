@@ -1075,23 +1075,26 @@ void BeginSellAllCallBack( UINT8 bExitValue )
 		}
 		for(UINT32 wItem = 0; wItem < guiNumWorldItems; wItem++)
 		{
-			if(0 == pInventoryPoolList[wItem].object.MoveThisObjectTo(gItemPointer,-1,0,NUM_INV_SLOTS,MAX_OBJECTS_PER_SLOT))
+			if(pInventoryPoolList[wItem].object.exists() == true && (pInventoryPoolList[wItem].usFlags & WORLD_ITEM_REACHABLE))
 			{
-				if (pInventoryPoolList[wItem].object.exists() == false) {
-					pInventoryPoolList[wItem].object.initialize();
+				if(0 == pInventoryPoolList[wItem].object.MoveThisObjectTo(gItemPointer,-1,0,NUM_INV_SLOTS,MAX_OBJECTS_PER_SLOT))
+				{
+					if (pInventoryPoolList[wItem].object.exists() == false) {
+						pInventoryPoolList[wItem].object.initialize();
+					}
+					// Dirty interface
+					fMapPanelDirty = TRUE;
+					gpItemPointer = &gItemPointer;
+					// Sell Item
+					iPrice += SellItem( gItemPointer );
+					gpItemPointer = NULL;
+					fMapInventoryItem = FALSE;
+					if (iPrice == 0) {
+						iPrice = 1;
+					}
+					anythingSold = true;
+					HandleButtonStatesWhileMapInventoryActive();
 				}
-				// Dirty interface
-				fMapPanelDirty = TRUE;
-				gpItemPointer = &gItemPointer;
-				// Sell Item
-				iPrice += SellItem( gItemPointer );
-				gpItemPointer = NULL;
-				fMapInventoryItem = FALSE;
-				if (iPrice == 0) {
-					iPrice = 1;
-				}
-				anythingSold = true;
-				HandleButtonStatesWhileMapInventoryActive();
 			}
 		}
 		if(anythingSold == true)
