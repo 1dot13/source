@@ -535,7 +535,7 @@ bool OBJECTTYPE::CanStack(OBJECTTYPE& sourceObject, int& numToStack)
 				// average out the status values using a weighted average...
 				int thisStatus = (*this)[0]->data.money.bMoneyStatus * (*this)[0]->data.money.uiMoneyAmount;
 				int sourceStatus = sourceObject[0]->data.money.bMoneyStatus * sourceObject[0]->data.money.uiMoneyAmount;
-				int average = (*this)[0]->data.money.uiMoneyAmount + sourceObject[0]->data.money.uiMoneyAmount;
+				int average = __max((*this)[0]->data.money.uiMoneyAmount + sourceObject[0]->data.money.uiMoneyAmount,1);
 
 				(*this)[0]->data.objectStatus = ( (thisStatus + sourceStatus) / average);
 				(*this)[0]->data.money.uiMoneyAmount += sourceObject[0]->data.money.uiMoneyAmount;
