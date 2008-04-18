@@ -2850,6 +2850,11 @@ BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo
 
 	bAPs = 0;
 
+	//CHRISL: If we enter here from the sector inventory panel, we won't have soldier info.  So setup a blank soldier to
+	//	avoid a crash later in the code.
+	if(pSoldier == NULL)
+		pSoldier = new SOLDIERTYPE;
+
 	if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
 	{
 		//CHRISL: Alter this so we treat clip fed weapons differently from weapons that load with loose rounds
@@ -2925,6 +2930,12 @@ BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo
 				}
 			}
 		}
+
+		//CHRISL: We need to verify that the passed subObject actually exists.  We could get passed an empty subObject if we
+		//	reload a stack of weapons from the stack popup.  If this is the case, reset subObject to the last item in the
+		//	stack
+		if(subObject >= pGun->ubNumberOfObjects)
+			subObject = ammoObject = pGun->ubNumberOfObjects-1;
 
 		//CHRISL: If reloading with a stack, we probably want the item with the most ammo still in it
 		if (fReloadingWithStack)

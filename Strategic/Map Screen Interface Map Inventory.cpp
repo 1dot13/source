@@ -833,7 +833,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 				fShowInventoryFlag = TRUE;
 				MAPInternalInitItemDescriptionBox( &twItem->object, 0, 0 );
 			}
-			else if(gpItemPointer == NULL || gpItemPointer->usItem == twItem->object.usItem || ValidAttachment(gpItemPointer->usItem, twItem->object.usItem) == TRUE)
+			else if(gpItemPointer == NULL || gpItemPointer->usItem == twItem->object.usItem || ValidAttachment(gpItemPointer->usItem, twItem->object.usItem) == TRUE || ValidAmmoType(twItem->object.usItem, gpItemPointer->usItem) == TRUE)
 			{
 				InitSectorStackPopup( twItem, iCounter, 0, INV_REGION_Y, 261, ( SCREEN_HEIGHT - PLAYER_INFO_Y ) );
 				fTeamPanelDirty=TRUE;
