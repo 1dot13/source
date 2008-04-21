@@ -750,6 +750,9 @@ void LoadGameExternalOptions()
 
 	// CHRISL: New setting to determine AP multiplier when reloading with wrong sized clip
 	gGameExternalOptions.ubWrongMagMult			= iniReader.ReadFloat("JA2 Gameplay Settings","WRONG_MAG_MULT",2);
+
+	// CHRISL: Setting to turn off the description and stack popup options from the sector inventory panel
+	gGameExternalOptions.fSectorDesc			= iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_SECTOR_DESCRIPTION_WINDOW",TRUE);
 }
 
 

@@ -446,6 +446,9 @@ typedef struct
 
 	// CHRISL: New setting to determine AP multiplier when reloading with wrong sized clip
 	FLOAT ubWrongMagMult;
+
+	// CHRISL: Setting to turn off the description and stack popup options from the sector inventory panel
+	BOOLEAN fSectorDesc;
 } GAME_EXTERNAL_OPTIONS;
 
 //This structure will contain general Ja2 settings	NOT individual game settings.
