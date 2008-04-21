@@ -2850,11 +2850,6 @@ BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo
 
 	bAPs = 0;
 
-	//CHRISL: If we enter here from the sector inventory panel, we won't have soldier info.  So setup a blank soldier to
-	//	avoid a crash later in the code.
-	if(pSoldier == NULL)
-		pSoldier = new SOLDIERTYPE;
-
 	if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
 	{
 		//CHRISL: Alter this so we treat clip fed weapons differently from weapons that load with loose rounds

@@ -826,16 +826,16 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 	{
 		//CHRISL: Make it possible to right click and pull up stack popup and/or item description boxes
 		WORLDITEM	* twItem = &(pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ]);
-		if ( !InSectorStackPopup( ) && !InItemStackPopup( ) && !InItemDescriptionBox( ) && !InKeyRingPopup( ) && twItem->object.exists() == true)
+		if ( !InSectorStackPopup( ) && !InItemStackPopup( ) && !InItemDescriptionBox( ) && !InKeyRingPopup( ) && twItem->object.exists() == true && (bSelectedInfoChar != -1 && gCharactersList[bSelectedInfoChar].fValid))
 		{
 			if(ItemSlotLimit( &twItem->object, STACK_SIZE_LIMIT ) == 1)
 			{
 				fShowInventoryFlag = TRUE;
-				MAPInternalInitItemDescriptionBox( &twItem->object, 0, 0 );
+				MAPInternalInitItemDescriptionBox( &twItem->object, 0, MercPtrs[gCharactersList[bSelectedInfoChar].usSolID] );
 			}
 			else if(gpItemPointer == NULL || gpItemPointer->usItem == twItem->object.usItem || ValidAttachment(gpItemPointer->usItem, twItem->object.usItem) == TRUE || ValidAmmoType(twItem->object.usItem, gpItemPointer->usItem) == TRUE)
 			{
-				InitSectorStackPopup( twItem, iCounter, 0, INV_REGION_Y, 261, ( SCREEN_HEIGHT - PLAYER_INFO_Y ) );
+				InitSectorStackPopup( MercPtrs[gCharactersList[bSelectedInfoChar].usSolID], twItem, iCounter, 0, INV_REGION_Y, 261, ( SCREEN_HEIGHT - PLAYER_INFO_Y ) );
 				fTeamPanelDirty=TRUE;
 				fInterfacePanelDirty = DIRTYLEVEL2;
 			}

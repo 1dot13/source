@@ -141,7 +141,7 @@ void DeleteItemDescriptionBox( );
 BOOLEAN InItemStackPopup( );
 BOOLEAN InitItemStackPopup( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sInvX, INT16 sInvY, INT16 sInvWidth, INT16 sInvHeight );
 BOOLEAN InSectorStackPopup( );
-BOOLEAN InitSectorStackPopup( WORLDITEM *pInventoryPoolList, INT32 ubPosition, INT16 sInvX, INT16 sInvY, INT16 sInvWidth, INT16 sInvHeight );
+BOOLEAN InitSectorStackPopup( SOLDIERTYPE *pSoldier, WORLDITEM *pInventoryPoolList, INT32 ubPosition, INT16 sInvX, INT16 sInvY, INT16 sInvWidth, INT16 sInvHeight );
 void RenderItemStackPopup( BOOLEAN fFullRender );
 void HandleItemStackPopup( );
 void DeleteItemStackPopup( );

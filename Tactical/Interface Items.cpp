@@ -6163,7 +6163,7 @@ BOOLEAN InKeyRingPopup( )
 	return( gfInKeyRingPopup );
 }
 
-BOOLEAN InitSectorStackPopup( WORLDITEM *pInventoryPoolList, INT32 ubPosition, INT16 sInvX, INT16 sInvY, INT16 sInvWidth, INT16 sInvHeight )
+BOOLEAN InitSectorStackPopup( SOLDIERTYPE *pSoldier, WORLDITEM *pInventoryPoolList, INT32 ubPosition, INT16 sInvX, INT16 sInvY, INT16 sInvWidth, INT16 sInvHeight )
 {
 	VOBJECT_DESC    VObjectDesc;
 	SGPRect			aRect;
@@ -6184,6 +6184,8 @@ BOOLEAN InitSectorStackPopup( WORLDITEM *pInventoryPoolList, INT32 ubPosition, I
 	gsItemPopupInvY			= sInvY;
 	gsItemPopupInvWidth		= sInvWidth;
 	gsItemPopupInvHeight	= sInvHeight;
+	// Set soldier
+	gpItemPopupSoldier		= pSoldier;
 	// Determine # of items
 	gpItemPopupObject		= &(pInventoryPoolList->object );
 	gubNumItemPopups		= ItemSlotLimit( gpItemPopupObject, STACK_SIZE_LIMIT );
@@ -6225,10 +6227,10 @@ BOOLEAN InitSectorStackPopup( WORLDITEM *pInventoryPoolList, INT32 ubPosition, I
 		MSYS_SetRegionUserData( &gItemPopupRegions[cnt], 0, cnt );
 		//CHRISL: Include the pockets capacity as UserData 1
 		MSYS_SetRegionUserData( &gItemPopupRegions[cnt], 1, gubNumItemPopups );
+		//CHRISL: Let's also include the ubID for this merc as UserData so we can find the merc again if needed
+		MSYS_SetRegionUserData( &gItemPopupRegions[cnt], 2, pSoldier->ubID);
 		// Flag this as a sectory item
-		MSYS_SetRegionUserData( &gItemPopupRegions[cnt], 2, -1);
-		//CHRISL: Include the pocket we're looking at so we can display the right graphic
-		MSYS_SetRegionUserData( &gItemPopupRegions[cnt], 3, ubPosition);
+		MSYS_SetRegionUserData( &gItemPopupRegions[cnt], 3, -1);
 		
 		//OK, for each item, set dirty text if applicable!
 		//CHRISL:
@@ -6458,7 +6460,8 @@ void RenderItemStackPopup( BOOLEAN fFullRender )
 	UINT32								cnt;
 	INT16									sX, sY, sNewX, sNewY;
 	INT16			sItemWidth = 0, sOffSetY = 0, sWidth = 29;
-	UINT8			ubPosition, image = 0;
+	INT8			ubPosition;
+	UINT8			image = 0;
 	int				sID;
 
 	// CHRISL: Setup witdh and offset to layer inventory boxes if necessary
@@ -6498,9 +6501,9 @@ void RenderItemStackPopup( BOOLEAN fFullRender )
 	usWidth					= (UINT32)pTrav->usWidth;
 
 	//CHRISL: resize usPopupWidth based on popup stack location
-	if(UsingNewInventorySystem() == true || sID == -1)
+	if(UsingNewInventorySystem() == true || ubPosition == -1)
 	{
-		if(sID == -1 || (ubPosition >=BIGPOCKSTART && ubPosition < BIGPOCKFINAL) || (gGameExternalOptions.fVehicleInventory && (MercPtrs[sID]->flags.uiStatusFlags & SOLDIER_VEHICLE)))
+		if(ubPosition == -1 || (ubPosition >=BIGPOCKSTART && ubPosition < BIGPOCKFINAL) || (gGameExternalOptions.fVehicleInventory && (MercPtrs[sID]->flags.uiStatusFlags & SOLDIER_VEHICLE)))
 		{
 			if(guiCurrentScreen != MAP_SCREEN)
 				sItemWidth -= 2;
@@ -7074,7 +7077,7 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		//If one in our hand, place it
 		if ( gpItemPointer != NULL )
 		{
-			if ( !PlaceObjectAtObjectIndex( gpItemPointer, gpItemPopupObject, (UINT8)uiItemPos, iItemCap ) )
+			if ( !PlaceObjectAtObjectIndex( gpItemPointer, gpItemPopupObject, (UINT8)uiItemPos, iItemCap ) || gpItemPointer->ubNumberOfObjects == 0 )
 			{
 				if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 				{
@@ -7096,6 +7099,23 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				// re-evaluate repairs
 				gfReEvaluateEveryonesNothingToDo = TRUE;
 			}
+			else
+			{
+				guiExternVo = GetInterfaceGraphicForItem( &(Item[ gpItemPointer->usItem ]) );
+				gusExternVoSubIndex = Item[ gpItemPointer->usItem ].ubGraphicNum;
+
+				MSYS_ChangeRegionCursor( &gMPanelRegion , EXTERN_CURSOR );
+				MSYS_SetCurrentCursor( EXTERN_CURSOR );
+				fMapInventoryItem=TRUE;
+				fTeamPanelDirty=TRUE;
+
+				// remember which gridno the object came from
+				sObjectSourceGridNo = MercPtrs[ubID]->sGridNo;
+				// and who owned it last
+				gpItemPointerSoldier = MercPtrs[ubID];
+
+				ReevaluateItemHatches( MercPtrs[ubID], FALSE );
+			}
 
 				//Dirty interface
 				//fInterfacePanelDirty = DIRTYLEVEL2;
@@ -7111,18 +7131,8 @@ void ItemPopupRegionCallback( MOUSE_REGION * pRegion, INT32 iReason )
     			if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 				{
 					// pick it up
-					if(ubID != -1)
-					{
-						gpItemPopupObject->RemoveObjectAtIndex( uiItemPos, &gItemPointer );
-						InternalMAPBeginItemPointer( gpItemPopupSoldier );
-					}
-					else
-					{
-						OBJECTTYPE	tSectorItem;
-						gpItemPopupObject->RemoveObjectAtIndex( uiItemPos, &tSectorItem );
-						BeginInventoryPoolPtr(&tSectorItem);
-						guiCurrentItemDescriptionScreen = MAP_SCREEN;
-					}
+					gpItemPopupObject->RemoveObjectAtIndex( uiItemPos, &gItemPointer );
+					InternalMAPBeginItemPointer( gpItemPopupSoldier );
 				}
 				else
 				{
