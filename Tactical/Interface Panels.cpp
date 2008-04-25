@@ -3624,7 +3624,11 @@ BOOLEAN ChangeDropPackStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus)
 	{
 		for(unsigned int wi = 0; wi < guiNumWorldItems; wi++)
 		{
-			if(gWorldItems[wi].soldierID == pSoldier->ubID && gWorldItems[wi].object.exists() == true && LoadBearingEquipment[Item[gWorldItems[wi].object.usItem].ubClassIndex].lbeClass == BACKPACK)
+			//CHRISL: There's the remote chance that a non-LBE item might get associated with a merc.  If that happens, we can
+			//	have a CTD, so lets resolve that here.
+			if(Item[gWorldItems[wi].object.usItem].usItemClass != IC_LBEGEAR)
+				gWorldItems[wi].soldierID = -1;
+			if(gWorldItems[wi].soldierID == pSoldier->ubID && gWorldItems[wi].object.exists() == true && Item[gWorldItems[wi].object.usItem].usItemClass == IC_LBEGEAR && LoadBearingEquipment[Item[gWorldItems[wi].object.usItem].ubClassIndex].lbeClass == BACKPACK)
 			{
 				for (int x = 0; x < gWorldItems[wi].object.ubNumberOfObjects; ++x) {
 					// Is the item we dropped in this sector and does it have an active LBENODE flag?
