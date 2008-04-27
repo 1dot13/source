@@ -3,9 +3,9 @@
 	<ITEM>
 		<uiIndex>0</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>JA2-Programmierer sind die besten, die es gibt ... oder ... vielleicht doch nicht, da diese Nachricht ja eigentlich nie erscheinen sollte.</szItemDesc>
-		<szBRName>Nothing</szBRName>
+		<szBRName>Nichts</szBRName>
 		<szBRDesc>JA2-Programmierer sind die besten, die es gibt ... oder ... vielleicht doch nicht, da diese Nachricht ja eigentlich nie erscheinen sollte.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -70,7 +70,7 @@
 		<szLongItemName>Colt M1911A1 Government</szLongItemName>
 		<szItemDesc>Die Pistole M1911A1 war von 1911-85 die Seitenwaffe für Offiziere der US-Army. Sie wurde durch die Beretta 92FS im Kaliber 9mm ersetzt.</szItemDesc>
 		<szBRName>Colt M1911A1</szBRName>
-		<szBRDesc>Diese weltberühmte Pistole wurde nach zahl- reichen Tests 1911 von der US-Army übernommen. In 1985 wurde sie durch die Beretta 92FS ersetzt, jedoch änderte das nichts an ihrer Beliebtheit und so wird sie auch heute noch von Spezialeinheiten verwendet.</szBRDesc>
+		<szBRDesc>Diese weltberühmte Pistole wurde nach zahlreichen Tests 1911 von der US-Army übernommen. In 1985 wurde sie durch die Beretta 92FS ersetzt, jedoch änderte das nichts an ihrer Beliebtheit und so wird sie auch heute noch von Spezialeinheiten verwendet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>9</uiIndex>
@@ -94,7 +94,7 @@
 		<szLongItemName>Thompson M1A1</szLongItemName>
 		<szItemDesc>Als Vorläufer der modernen Sturmgewehre wurde diese 'Thompson A1' am Strand der Normandie eingesetzt.</szItemDesc>
 		<szBRName>Thompson M1A1</szBRName>
-		<szBRDesc>Der Vorläufer dieser am Strand der Normandie eingesetzten, billigeren 'Thompson A1', war die in Chicago bekannt gewordene M1928A1. Die M1A1 ist zwar häßlicher und hat ein kleineres Magazin, aber dafür die selben Schußleistungen und ein geringeres Gewicht.</szBRDesc>
+		<szBRDesc>Der Vorläufer dieser am Strand der Normandie eingesetzten, billigeren 'Thompson A1', war die in Chicago bekannt gewordene M1928A1. Die M1A1 ist zwar häßlicher und hat ein kleineres Magazin, aber dafür die selben Schussleistungen und ein geringeres Gewicht.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>12</uiIndex>
@@ -318,7 +318,7 @@
 		<szLongItemName>Ein großer Kieselstein.</szLongItemName>
 		<szItemDesc>Damit kann man Lärm machen. Oder Beulen. Oder Scherben.</szItemDesc>
 		<szBRName>Stein</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>40</uiIndex>
@@ -340,57 +340,57 @@
 		<uiIndex>42</uiIndex>
 		<szItemName>Stein</szItemName>
 		<szLongItemName>Ein weiterer Stein</szLongItemName>
-		<szItemDesc>Ein Stein aus Arulco, der sich gut werfen läßt.</szItemDesc>
+		<szItemDesc>Ein Stein aus Arulco, der sich gut werfen lässt.</szItemDesc>
 		<szBRName>Stein</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>43</uiIndex>
 		<szItemName>Klauen JM</szItemName>
 		<szLongItemName>Klauen jung/männlich</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
 		<szBRName>Klauen jung/männlich</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>44</uiIndex>
 		<szItemName>Klauen AM</szItemName>
 		<szLongItemName>Klauen alt/männlich</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
 		<szBRName>Klauen alt/männlich</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>45</uiIndex>
 		<szItemName>Klauen JW</szItemName>
 		<szLongItemName>Klauen jung/weiblich</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
 		<szBRName>Klauen jung/weiblich</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>46</uiIndex>
 		<szItemName>Klauen AW</szItemName>
 		<szLongItemName>Klauen alt/weiblich</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
 		<szBRName>Klauen alt/weiblich</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>47</uiIndex>
-		<szItemName>Queen Tentacle</szItemName>
-		<szLongItemName>Queen Tentacle</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName>Queen Tentacle</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Königinnenfangarm</szItemName>
+		<szLongItemName>Königinnenfangarm</szLongItemName>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
+		<szBRName>Königinnenfangarm</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>48</uiIndex>
-		<szItemName>Queen Spit</szItemName>
-		<szLongItemName>Queen Creature Spit</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName>Queen Creature Spit</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Königinnenspucke</szItemName>
+		<szLongItemName>Königinnenkreaturspucke</szLongItemName>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
+		<szBRName>Königinnenkreaturspucke</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>49</uiIndex>
@@ -420,17 +420,17 @@
 		<uiIndex>52</uiIndex>
 		<szItemName>Bloodcat Klauen</szItemName>
 		<szLongItemName>Bloodcat Klauen</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
 		<szBRName>Bloodcat Klauen</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>53</uiIndex>
 		<szItemName>Bloodcat Bite</szItemName>
 		<szLongItemName>Bloodcat Bite</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
 		<szBRName>Bloodcat Bite</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>54</uiIndex>
@@ -454,39 +454,39 @@
 		<szLongItemName>AMT Automag III</szLongItemName>
 		<szItemDesc>Diese aus Edelstahl gefertigte Automag III besitzt einen 6.5" Lauf. Sie wurde stark modifiziert und feuert Gewehr-Patronen im Kaliber .50 Beowulf (12.5x42RB).</szItemDesc>
 		<szBRName>AMT Automag III</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>57</uiIndex>
-		<szItemName>Infant Spit</szItemName>
-		<szLongItemName>Infant Spit</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName>Infant Spit</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Säuglingsspucke</szItemName>
+		<szLongItemName>Säuglingsspucke</szLongItemName>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
+		<szBRName>Säuglingsspucke</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>58</uiIndex>
-		<szItemName>Young Male Spit</szItemName>
-		<szLongItemName>Young Male Spit</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName>Young Male Spit</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Jungenspucke</szItemName>
+		<szLongItemName>Jungenspucke</szLongItemName>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
+		<szBRName>Jungenspucke</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>59</uiIndex>
-		<szItemName>Old Male Spit</szItemName>
-		<szLongItemName>Old Male Spit</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName>Old Male Spit</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Altenspucke</szItemName>
+		<szLongItemName>Altenspucke</szLongItemName>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
+		<szBRName>Altenspucke</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>60</uiIndex>
 		<szItemName>Kanone</szItemName>
 		<szLongItemName>Panzerkanone</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
 		<szBRName>Panzerkanone</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>61</uiIndex>
@@ -494,7 +494,7 @@
 		<szLongItemName>Pfeilpistole</szLongItemName>
 		<szItemDesc>Mit dieser druckluftbetriebenen Pfeilpistole legen Sie Großwild jeder Art schlafen, ohne die ganze Herde in Aufruhr zu versetzen.</szItemDesc>
 		<szBRName>Pfeilpistole</szBRName>
-		<szBRDesc>Ein stummer Vertreter in der lärmenden Gruppe der Schußwaffen. Hiermit können Sie den Job erledigen, ohne den Sensenmann aufzuwecken. Mit Prüfsiegel verschiedener Veterinär-Vereinigungen und zoologischer Gärten.</szBRDesc>
+		<szBRDesc>Ein stummer Vertreter in der lärmenden Gruppe der Schusswaffen. Hiermit können Sie den Job erledigen, ohne den Sensenmann aufzuwecken. Mit Prüfsiegel verschiedener Veterinär-Vereinigungen und zoologischer Gärten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>62</uiIndex>
@@ -502,7 +502,7 @@
 		<szLongItemName>blutiges Wurfmesser</szLongItemName>
 		<szItemDesc>Ein kleines, leichtes Wurfmesser mit einer zweischneidigen, hartverchromten Karbonstahlklinge, die blutverklebt ist.</szItemDesc>
 		<szBRName>blutiges Wurfmesser</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>63</uiIndex>
@@ -510,7 +510,7 @@
 		<szLongItemName>Flammenwerfer</szLongItemName>
 		<szItemDesc>Sorry Leute, leider hat es dieser Gegenstand nicht mehr in das Spiel geschafft!</szItemDesc>
 		<szBRName>Flammenwerfer</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>64</uiIndex>
@@ -548,9 +548,9 @@
 		<uiIndex>68</uiIndex>
 		<szItemName>M-900</szItemName>
 		<szLongItemName>Calico M-900 Karabiner</szLongItemName>
-		<szItemDesc>Ein halb-automatischer Karabiner mit riesigem 50-schüssigen Magazin der preiswerten 9mm Munition.</szItemDesc>
+		<szItemDesc>Ein halbautomatischer Karabiner mit riesigem 50-schüssigen Magazin der preiswerten 9mm Munition.</szItemDesc>
 		<szBRName>Calico M-900</szBRName>
-		<szBRDesc>Nahezu baugleich zur M-950 Pistole wurde mittels Kunststoffschaft und hartverchromten, extra langen Lauf ein Karabiner mit erstaunlicher Schussleistung geschaffen.</szBRDesc>
+		<szBRDesc>Nahezu baugleich zur M-950 Pistole wurde mittels Kunststoffschaft und hartverchromtem, extra langem Lauf ein Karabiner mit erstaunlicher Schussleistung geschaffen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>69</uiIndex>
@@ -563,8 +563,8 @@
 	<ITEM>
 		<uiIndex>70</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Using this slot will cause the game to crash.</szLongItemName>
-		<szBRName>Using this slot will cause the game to crash.</szBRName>
+		<szLongItemName>Das Benutzen dieses Slots führt zum Absturz des Spiels.</szLongItemName>
+		<szBRName>Das Benutzen dieses Slots führt zum Absturz des Spiels.</szBRName>
 	</ITEM>
 	<ITEM>
 		<uiIndex>71</uiIndex>
@@ -577,7 +577,7 @@
 	<ITEM>
 		<uiIndex>72</uiIndex>
 		<szItemName>9x19 Mag</szItemName>
-		<szLongItemName>9x19mm MP-Mag</szLongItemName>
+		<szLongItemName>9x19mm MP-Magazin</szLongItemName>
 		<szItemDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szItemDesc>
 		<szBRName>9x19 Mag</szBRName>
 		<szBRDesc>Diese FIOCCHI VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden. Gut geeignet gegen geschützte/ ungeschützte Gegner.</szBRDesc>
@@ -593,7 +593,7 @@
 	<ITEM>
 		<uiIndex>74</uiIndex>
 		<szItemName>9x19 PB</szItemName>
-		<szLongItemName>9x19mm MP-Mag, PB</szLongItemName>
+		<szLongItemName>9x19mm MP-Magazin, PB</szLongItemName>
 		<szItemDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen.</szItemDesc>
 		<szBRName>9x19 Mag PB</szBRName>
 		<szBRDesc>Diese teflonbeschichteten KTW Patronen wurden Mitte der 60er Jahre als Polizeimunition entwickelt um ein verbessertes Durchschlagen von harten Zielen wie Autotüren zu ermöglichen. Diese Patrone wurde jedoch auch von Kriminellen entdeckt und als 'Cop-Killer' berühmt.</szBRDesc>
@@ -609,9 +609,9 @@
 	<ITEM>
 		<uiIndex>76</uiIndex>
 		<szItemName>9x19 HS</szItemName>
-		<szLongItemName>9x19mm MP-Mag, Hohlspitz</szLongItemName>
+		<szLongItemName>9x19mm MP-Magazin, Hohlspitz</szLongItemName>
 		<szItemDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
-		<szBRName>9x19 Mag HS</szBRName>
+		<szBRName>9x19 Magazin HS</szBRName>
 		<szBRDesc>Die FEDERAL Hydra-Shok Patrone kennzeichnet ein patentiertes Design und ein eingekerbtes Kupfergeschoss. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1208,73 +1208,73 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>151</uiIndex>
-		<szItemName>Nebel-Granate</szItemName>
-		<szLongItemName>Nebel-Handgranate</szLongItemName>
+		<szItemName>Nebelgranate</szItemName>
+		<szLongItemName>Nebelhandgranate</szLongItemName>
 		<szItemDesc>Diese Handgranate erfüllt hunderte von Aufgaben wie zum Beispiel: Unbeobachtetes Herannahen an feindliche Stellungen.</szItemDesc>
-		<szBRName>Nebel-Granate</szBRName>
+		<szBRName>Nebelgranate</szBRName>
 		<szBRDesc>Diese Handgranate erfüllt hunderte von Aufgaben wie zum Beispiel: Unbeobachtetes Herannahen an feindliche Stellungen, Markieren möglicher Landeplätze und Feuerwehrmänner in Panik versetzen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>152</uiIndex>
-		<szItemName>Tank Shell</szItemName>
-		<szLongItemName>Tank Shell</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY</szItemDesc>
-		<szBRName>Tank Shell</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Panzergranate</szItemName>
+		<szLongItemName>Panzergranate</szLongItemName>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
+		<szBRName>Panzergranate</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>153</uiIndex>
-		<szItemName>Struct Ignite</szItemName>
-		<szLongItemName>Struct Ignite</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
-		<szBRName>Struct Ignite</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szItemName>Strukturentzündung</szItemName>
+		<szLongItemName>Strukturentzündung</szLongItemName>
+		<szItemDesc>INTERNER GEGENSTAND</szItemDesc>
+		<szBRName>Strukturentzündung</szBRName>
+		<szBRDesc>INTERNER GEGENSTAND</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>154</uiIndex>
 		<szItemName>Cocktail</szItemName>
-		<szLongItemName>Creature cocktail</szLongItemName>
-		<szBRName>Creature cocktail</szBRName>
+		<szLongItemName>Kreatur-Cocktail</szLongItemName>
+		<szBRName>Kreatur-Cocktail</szBRName>
 	</ITEM>
 	<ITEM>
 		<uiIndex>155</uiIndex>
-		<szItemName>Structure Explosion</szItemName>
-		<szLongItemName>Structure Explosion</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
-		<szBRName>Structure Explosion</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szItemName>Strukturxplosion</szItemName>
+		<szLongItemName>Strukturxplosion</szLongItemName>
+		<szItemDesc>INTERNER GEGENSTAND</szItemDesc>
+		<szBRName>Strukturxplosion</szBRName>
+		<szBRDesc>INTERNER GEGENSTAND</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>156</uiIndex>
-		<szItemName>Great big explosion</szItemName>
-		<szLongItemName>Great big explosion</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
-		<szBRName>Great big explosion</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szItemName>Sehr große Explosion</szItemName>
+		<szLongItemName>Sehr große Explosion</szLongItemName>
+		<szItemDesc>INTERNER GEGENSTAND</szItemDesc>
+		<szBRName>Sehr große Explosion</szBRName>
+		<szBRDesc>INTERNER GEGENSTAND</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>157</uiIndex>
-		<szItemName>Big Tear Gas</szItemName>
-		<szLongItemName>Big Tear Gas</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
-		<szBRName>Big Tear Gas</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szItemName>Großes Tränengas</szItemName>
+		<szLongItemName>Großes Tränengas</szLongItemName>
+		<szItemDesc>INTERNER GEGENSTAND</szItemDesc>
+		<szBRName>Großes Tränengas</szBRName>
+		<szBRDesc>INTERNER GEGENSTAND</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>158</uiIndex>
-		<szItemName>Small Creature Gas</szItemName>
-		<szLongItemName>Small Creature Gas</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
-		<szBRName>Small Creature Gas</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szItemName>Kleines Kreaturengas</szItemName>
+		<szLongItemName>Kleines Kreaturengas</szLongItemName>
+		<szItemDesc>INTERNER GEGENSTAND</szItemDesc>
+		<szBRName>Kleines Kreaturengas</szBRName>
+		<szBRDesc>INTERNER GEGENSTAND</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>159</uiIndex>
-		<szItemName>Large Creature Gas</szItemName>
-		<szLongItemName>Large Creature Gas</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
-		<szBRName>Large Creature Gas</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szItemName>Großes Kreaturengas</szItemName>
+		<szLongItemName>Großes Kreaturengas</szLongItemName>
+		<szItemDesc>INTERNER GEGENSTAND</szItemDesc>
+		<szBRName>Großes Kreaturengas</szBRName>
+		<szBRDesc>INTERNER GEGENSTAND</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>160</uiIndex>
@@ -1306,7 +1306,7 @@
 		<szLongItemName>beh. Schutzweste</szLongItemName>
 		<szItemDesc>Diese Schutzweste bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Schutzweste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>164</uiIndex>
@@ -1330,7 +1330,7 @@
 		<szLongItemName>beh. Kevlarweste</szLongItemName>
 		<szItemDesc>Diese Kevlar-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Kevlarweste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>167</uiIndex>
@@ -1354,7 +1354,7 @@
 		<szLongItemName>beh. Spectra Shield Weste</szLongItemName>
 		<szItemDesc>Diese Spectra-Shield-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Spectra Shield Weste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>170</uiIndex>
@@ -1378,7 +1378,7 @@
 		<szLongItemName>beh. Kevlarhose</szLongItemName>
 		<szItemDesc>Diese Kevlar-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Kevlarhose</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>173</uiIndex>
@@ -1402,7 +1402,7 @@
 		<szLongItemName>beh. Spectra Shield Hose</szLongItemName>
 		<szItemDesc>Diese Spectra-Shield-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Spectra Shield Hose</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>176</uiIndex>
@@ -1434,7 +1434,7 @@
 		<szLongItemName>beh. Kevlarhelm</szLongItemName>
 		<szItemDesc>Dieser Kevlarhelm bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Kevlarhelm</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>180</uiIndex>
@@ -1458,7 +1458,7 @@
 		<szLongItemName>beh. Spectra Shield Helm</szLongItemName>
 		<szItemDesc>Dieser Spectra-Shield-Helm bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Spectra Shield Helm</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>183</uiIndex>
@@ -1472,33 +1472,33 @@
 		<uiIndex>184</uiIndex>
 		<szItemName>Infant Hide</szItemName>
 		<szLongItemName>Infant Creature Hide</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
 		<szBRName>Infant Creature Hide</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>185</uiIndex>
 		<szItemName>Kiddy Hide</szItemName>
 		<szLongItemName>Young Adult Creature Hide</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
 		<szBRName>Young Adult Creature Hide</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>186</uiIndex>
 		<szItemName>Adult Hide</szItemName>
 		<szLongItemName>Adult Creature Hide</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
 		<szBRName>Adult Creature Hide</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>187</uiIndex>
 		<szItemName>Queen Hide</szItemName>
 		<szLongItemName>Queen Creature Hide</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
 		<szBRName>Queen Creature Hide</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>188</uiIndex>
@@ -1522,7 +1522,7 @@
 		<szLongItemName>Comp.18 Kevlar Pilotenjacke</szLongItemName>
 		<szItemDesc>Diese Fliegerjacke aus Leder mit Kevlar-Innenfutter ist mit Compound-18 behandelt worden, wodurch sie noch besser schützt.</szItemDesc>
 		<szBRName>C18 K-Pilotenjacke</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>191</uiIndex>
@@ -1530,23 +1530,23 @@
 		<szLongItemName>beh. Kevlar Pilotenjacke</szLongItemName>
 		<szItemDesc>Diese Kevlar-Fliegerjacke bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Kevlar Pilotenjacke</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>192</uiIndex>
-		<szItemName>YF Hide</szItemName>
-		<szLongItemName>Young Female Hide</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName>Young Female Hide</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>JW Fell</szItemName>
+		<szLongItemName>Junges Weibsfell</szLongItemName>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
+		<szBRName>Junges Weibsfell</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>193</uiIndex>
-		<szItemName>OF Hide</szItemName>
-		<szLongItemName>Old Female Hide</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName>Old Female Hide</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>AW Fell</szItemName>
+		<szLongItemName>Altes Weibsfell</szLongItemName>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
+		<szBRName>Altes Weibsfell</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>194</uiIndex>
@@ -1554,7 +1554,7 @@
 		<szLongItemName>Arulco T-Shirt</szLongItemName>
 		<szItemDesc>Diese modischen "I love Arulco"-T-Shirts sind ein Muss für jeden Touristen. Sie bestehen aus 100 Prozent reiner, unbehandelter Baumwolle und waren vor Deidrannas Machtergreifung der Klassenschlager schlechthin.</szItemDesc>
 		<szBRName>Arulco T-Shirt</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>195</uiIndex>
@@ -1562,7 +1562,7 @@
 		<szLongItemName>Deidranna T-Shirt</szLongItemName>
 		<szItemDesc>Das 'Deidranna Rulez!'-Shirt tragen zu müssen, ist eine weitere Erniedrigung der Arulcaner. In unbeobachtetet Momenten zerschneiden sie diese Shirts gerne zu Putzlappen.</szItemDesc>
 		<szBRName>Deidranna T-Shirt</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>196</uiIndex>
@@ -1578,7 +1578,7 @@
 		<szLongItemName>C18 Guardianweste</szLongItemName>
 		<szItemDesc>Diese Guardian-Weste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
 		<szBRName>C18 Guardianweste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>198</uiIndex>
@@ -1586,7 +1586,7 @@
 		<szLongItemName>beh. Guardianweste</szLongItemName>
 		<szItemDesc>Diese Guardian-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Guardianweste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>199</uiIndex>
@@ -1737,14 +1737,14 @@
 		<szItemName>Jelly</szItemName>
 		<szLongItemName>Royal Jelly</szLongItemName>
 		<szBRName>Royal Jelly</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>218</uiIndex>
 		<szItemName>Elixir</szItemName>
 		<szLongItemName>Jar of Elixir</szLongItemName>
 		<szBRName>Jar of Elixir</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>219</uiIndex>
@@ -1757,14 +1757,14 @@
 		<szItemName>Glas</szItemName>
 		<szLongItemName>Glas</szLongItemName>
 		<szBRName>Glas</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>221</uiIndex>
 		<szItemName>volles Glas</szItemName>
 		<szLongItemName>Glas mit Blut</szLongItemName>
 		<szBRName>Glas mit Blut</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>222</uiIndex>
@@ -1772,7 +1772,7 @@
 		<szLongItemName>Energiebooster</szLongItemName>
 		<szItemDesc>Diese Spritze ist mit einer stimulierenden chemischen Substanz gefüllt, die einem Menschen kurzfristig einen Energieschub verleiht. Achtung: Mehr als vier Dosen pro Tag können zu Herzstillstand führen!</szItemDesc>
 		<szBRName>Energiebooster</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>223</uiIndex>
@@ -1796,7 +1796,7 @@
 		<szLongItemName>Video</szLongItemName>
 		<szItemDesc>Diese VHS-Videokassette mit dem Titel 'Lack-und-Leder-Loretta 6: Der unbelebte Mann' ist ein nicht jugendfreier Pornofilm. Eltern und andere Konsumenten sollten die Zimmertüre abschließen.</szItemDesc>
 		<szBRName>Video</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>226</uiIndex>
@@ -1804,7 +1804,7 @@
 		<szLongItemName>Urkunde</szLongItemName>
 		<szItemDesc>Die Besitzurkunde für Angel's Biker-Shop.</szItemDesc>
 		<szBRName>Urkunde</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>227</uiIndex>
@@ -1812,7 +1812,7 @@
 		<szLongItemName>Brief von Enrico</szLongItemName>
 		<szItemDesc>Diesen Brief hat Ihnen Enrico gegeben.</szItemDesc>
 		<szBRName>Brief von Enrico</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>228</uiIndex>
@@ -1820,7 +1820,7 @@
 		<szLongItemName>Computer Diskette</szLongItemName>
 		<szItemDesc>Auf dieser Diskette steht 'Von Intercept gesucht'. Sie enthält vertrauliche Informationen über international gesuchte Terroristen.</szItemDesc>
 		<szBRName>Computer Diskette</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>229</uiIndex>
@@ -1828,7 +1828,7 @@
 		<szLongItemName>Kelch des Glücks</szLongItemName>
 		<szItemDesc>Gefäß des Guten, Becher der Besten, Glas der Götter. Dieser Kelch wird in Arulco verehrt, also machen Sie sich nicht darüber lustig!</szItemDesc>
 		<szBRName>Kelch des Glücks</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>230</uiIndex>
@@ -1836,7 +1836,7 @@
 		<szLongItemName>Bloodcat Klauen</szLongItemName>
 		<szItemDesc>Diese rasiermesserscharfen Klauen können einen Batzen Geld einbringen, wenn man weiß, wo man sie am besten verkauft.</szItemDesc>
 		<szBRName>Bloodcat Klauen</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>231</uiIndex>
@@ -1844,7 +1844,7 @@
 		<szLongItemName>Bloodcat Zähne</szLongItemName>
 		<szItemDesc>Man muss schon ein ganzer Kerl sein, um an diese Beißerchen heranzukommen! Daher sind Bloodcat-Zähne vielerorts eine heißbegehrte Rarität.</szItemDesc>
 		<szBRName>Bloodcat Zähne</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>232</uiIndex>
@@ -1852,23 +1852,23 @@
 		<szLongItemName>Bloodcat Pelz</szLongItemName>
 		<szItemDesc>Eine Bloodcat zu häuten ist nicht einfach. Der Pelz bringt sicher eine Menge ein!</szItemDesc>
 		<szBRName>Bloodcat Pelz</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>233</uiIndex>
 		<szItemName>Schalter</szItemName>
 		<szLongItemName>Schalter</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
 		<szBRName>Schalter</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>234</uiIndex>
 		<szItemName>Action Item</szItemName>
 		<szLongItemName>Action Item</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
 		<szBRName>Action Item</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>235</uiIndex>
@@ -1876,45 +1876,45 @@
 		<szLongItemName>Regenerationsbooster</szLongItemName>
 		<szItemDesc>Diese Spritze ist mit 10 ml eines schnell wirkenden Heilmittels gefüllt. Auf dem Etikett steht: 'Nicht mehr als 4 Dosen pro Tag verwenden.'</szItemDesc>
 		<szBRName>Regenerationsbooster</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>236</uiIndex>
 		<szItemName>Spritze</szItemName>
 		<szLongItemName>Spritze</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
 		<szBRName>Spritze</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>237</uiIndex>
 		<szItemName>Spritze</szItemName>
 		<szLongItemName>Spritze</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
 		<szBRName>Spritze</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>238</uiIndex>
 		<szItemName>Spritze</szItemName>
 		<szLongItemName>Spritze</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>KEINE BESCHREIBUNG NOTWENDIG!</szItemDesc>
 		<szBRName>Spritze</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>239</uiIndex>
 		<szItemName>volles Glas</szItemName>
 		<szLongItemName>Glas mit menschl. Blut</szLongItemName>
 		<szBRName>Glas mit menschl. Blut.</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>240</uiIndex>
 		<szItemName>Besitzurkunde</szItemName>
 		<szLongItemName>Besitzurkunde</szLongItemName>
 		<szBRName>Besitzurkunde</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>241</uiIndex>
@@ -1954,7 +1954,7 @@
 		<szLongItemName>Russian Standard</szLongItemName>
 		<szItemDesc>Dieser hochprozentige Vodka ist seit 2006 Marktführer im Premiumsegment in Russland. Wie kommt diese Flasche nur nach Arulco? Vielleicht ein Geschenk von Ivan &amp; Igor ...</szItemDesc>
 		<szBRName>Vodka</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>246</uiIndex>
@@ -1970,7 +1970,7 @@
 		<szLongItemName>leere LAW</szLongItemName>
 		<szItemDesc>Diese Panzerfaust hat ihre Schuldigkeit getan und wird den Rest der Zeit als unnötigen Ballast verbringen.</szItemDesc>
 		<szBRName>leere LAW</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>248</uiIndex>
@@ -1978,55 +1978,55 @@
 		<szLongItemName>Kopf</szLongItemName>
 		<szItemDesc>Ein nicht identifizierbarer, leicht verwester menschlicher Kopf.</szItemDesc>
 		<szBRName>Kopf</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>249</uiIndex>
 		<szItemName>Kopf</szItemName>
-		<szLongItemName>Impostor's Kopf</szLongItemName>
+		<szLongItemName>Impostors Kopf</szLongItemName>
 		<szItemDesc>Imposter wird keinem Menschen mehr Schaden zufügen. Sie sind stolzer Besitzer seines leicht angeschimmelten Kopfs.</szItemDesc>
-		<szBRName>Impostor's Kopf</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Impostors Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>250</uiIndex>
 		<szItemName>Kopf</szItemName>
-		<szLongItemName>T-Rex's Kopf</szLongItemName>
+		<szLongItemName>T-Rex' Kopf</szLongItemName>
 		<szItemDesc>T-Rex mag ja so ausgestorben sein wie ein Dinosaurier, aber seinen Kopf sollten Sie der Nachwelt erhalten.</szItemDesc>
-		<szBRName>T-Rex's Kopf</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>T-Rex' Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>251</uiIndex>
 		<szItemName>Kopf</szItemName>
-		<szLongItemName>Slay's Kopf</szLongItemName>
+		<szLongItemName>Slays Kopf</szLongItemName>
 		<szItemDesc>Slay ist abgeschlachtet worden und sein verfaulender Kopf ist alles, was noch an ihn erinnert.</szItemDesc>
-		<szBRName>Slay's Kopf</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Slays Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>252</uiIndex>
 		<szItemName>Kopf</szItemName>
-		<szLongItemName>Druggist's Kopf</szLongItemName>
+		<szLongItemName>Druggists Kopf</szLongItemName>
 		<szItemDesc>Elgin wird so schnell keine Rezepte mehr ausstellen. Sein Kopf liegt nämlich gerade auf Ihrem Hackblock.</szItemDesc>
-		<szBRName>Druggist's Kopf</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Druggists Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>253</uiIndex>
 		<szItemName>Kopf</szItemName>
-		<szLongItemName>Matron's Kopf</szLongItemName>
+		<szLongItemName>Matrons Kopf</szLongItemName>
 		<szItemDesc>Kein Mensch wird Mom oder ihren Kopf vermissen. Nehmen Sie ihn einfach mit.</szItemDesc>
-		<szBRName>Matron's Kopf</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Matrons Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>254</uiIndex>
 		<szItemName>Kopf</szItemName>
-		<szLongItemName>Tiffany's Kopf</szLongItemName>
+		<szLongItemName>Tiffanys Kopf</szLongItemName>
 		<szItemDesc>Tiffany Eddie hat nicht viel Kapital aus seinem Kopf geschlagen - jetzt tun Sie's.</szItemDesc>
-		<szBRName>Tiffany's Kopf</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Tiffanys Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>255</uiIndex>
@@ -2034,7 +2034,7 @@
 		<szLongItemName>Wein</szLongItemName>
 		<szItemDesc>Diese Flasche Rotwein verbindet den exquisiten Geschmack von vergorenen Traubensaft und Sägespänen zu einem delikaten Tropfen.</szItemDesc>
 		<szBRName>Wein</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>256</uiIndex>
@@ -2042,7 +2042,7 @@
 		<szLongItemName>Bier</szLongItemName>
 		<szItemDesc>Wen kümmert es bei 6.9% alc. wo das Zeug herkommt? Mit diesem Eisbier kann man jeden Arulcaner unter den Tisch saufen.</szItemDesc>
 		<szBRName>Bier</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>257</uiIndex>
@@ -2050,7 +2050,7 @@
 		<szLongItemName>Coupe Magazin</szLongItemName>
 		<szItemDesc>Die COUPE 7/2007 enthält ein hochinteressantes Poster von den Darstellerinnen aus der 'Real Coyote Show' und diverse Artikel für die sich kein Schwein interessiert.</szItemDesc>
 		<szBRName>Coupe</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>258</uiIndex>
@@ -2058,7 +2058,7 @@
 		<szLongItemName>VHS-Kamera</szLongItemName>
 		<szItemDesc>Mit dieser VHS-Kamera können Sie all Ihre Lieblingserinnerungen im Bild festhalten, einschließlich Ihres peinlichen Auftritts bei der Hochzeit oder lokale Würdenträger in kompromittierenden Stellungen.</szItemDesc>
 		<szBRName>VHS-Kamera</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>259</uiIndex>
@@ -2066,28 +2066,28 @@
 		<szLongItemName>Roboter Fernbedienung</szLongItemName>
 		<szItemDesc>Lassen Sie Ihren Roboter mit dieser zuverlässigen Fernbedienung die Drecksarbeit machen, während Sie aus sicherer Entfernung zusehen.</szItemDesc>
 		<szBRName>Roboter Fernbedienung</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>260</uiIndex>
 		<szItemName>Klauen</szItemName>
 		<szLongItemName>Monsterklauen</szLongItemName>
 		<szBRName>Monsterklauen</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>261</uiIndex>
 		<szItemName>Fleisch</szItemName>
 		<szLongItemName>Monsterfleisch</szLongItemName>
 		<szBRName>Monsterfleisch</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>262</uiIndex>
 		<szItemName>Organ</szItemName>
 		<szLongItemName>Monsterorgan</szLongItemName>
 		<szBRName>Monsterorgan</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>263</uiIndex>
@@ -2095,7 +2095,7 @@
 		<szLongItemName>Fernbedienung</szLongItemName>
 		<szItemDesc>Mit diesem kleinen Gerät werden normalerweise Markisen, Springbrunnen oder Garagentore betätigt. Mal sehen, wer sich in Arulco sowas leisten kann...</szItemDesc>
 		<szBRName>Fernbedienung</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>264</uiIndex>
@@ -2103,7 +2103,7 @@
 		<szLongItemName>Platinuhr</szLongItemName>
 		<szItemDesc>Ein stilvoller Designerchronograph mit automatischem Schweizer Uhrwerk, Quartzglas und vier Mikrometer-Platingehäuse.</szItemDesc>
 		<szBRName>Platinuhr</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>265</uiIndex>
@@ -2111,7 +2111,7 @@
 		<szLongItemName>Golfschläger</szLongItemName>
 		<szItemDesc>Diese Tasche mit dem klassischen Satz an Hölzern und Eisen hat schon bessere Tage auf dem Grün gesehen. Obwohl schon leicht abgenutzt, können Sie mit diesen Schlägern noch immer locker unter par bleiben.</szItemDesc>
 		<szBRName>Golfschläger</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>266</uiIndex>
@@ -2119,7 +2119,7 @@
 		<szLongItemName>Walkman</szLongItemName>
 		<szItemDesc>Mit diesem tragbaren Kassettenrekorder und den Minikopfhörern können Sie jederzeit Ihre Lieblingshits hören. Macht jede Reise noch ein bisschen schöner.</szItemDesc>
 		<szBRName>Walkman</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>267</uiIndex>
@@ -2127,7 +2127,7 @@
 		<szLongItemName>Portable TV</szLongItemName>
 		<szItemDesc>Mit diesem tragbaren Fernseher verpassen Sie keine Folge des A-Teams und sind immer über die politische Lage in der Hauptstadt informiert.</szItemDesc>
 		<szBRName>Portable TV</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>268</uiIndex>
@@ -2135,7 +2135,7 @@
 		<szLongItemName>Kontostand:</szLongItemName>
 		<szItemDesc>So kommen Sie an Ihr Bankkonto heran. Klicken Sie einfach auf einen der verschiedenen Beträge und dann auf 'Fertig'. Etwas Bargeld dabei zu haben, kann manchmal recht nützlich sein.</szItemDesc>
 		<szBRName>Kontostand:</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>269</uiIndex>
@@ -2143,15 +2143,15 @@
 		<szLongItemName>Zigarren</szLongItemName>
 		<szItemDesc>Eine ganze Schachtel dicker Zigarren. Können auch im hitzigsten Gefecht zwischen die Zähne geklemmt werden und machen sich auch gut zu einem Glas Portwein in einem Nobelklub.</szItemDesc>
 		<szBRName>Zigarren</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>270</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 270</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>271</uiIndex>
@@ -2159,7 +2159,7 @@
 		<szLongItemName>kleiner Schlüssel</szLongItemName>
 		<szItemDesc>Ein kleiner, goldener Schlüssel, der vielleicht zu einem Schrank passt.</szItemDesc>
 		<szBRName>kleiner Schlüssel</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>272</uiIndex>
@@ -2167,7 +2167,7 @@
 		<szLongItemName>Gefängnisschlüssel</szLongItemName>
 		<szItemDesc>Ein Gefängnisschlüssel aus rostfreiem Stahl.</szItemDesc>
 		<szBRName>Gefängnisschlüssel</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>273</uiIndex>
@@ -2175,7 +2175,7 @@
 		<szLongItemName>einfacher Schlüssel</szLongItemName>
 		<szItemDesc>Ein einfacher Schlüssel. Passt wahrscheinlich in ein primitives Schloss.</szItemDesc>
 		<szBRName>einfacher Schlüssel</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>274</uiIndex>
@@ -2183,7 +2183,7 @@
 		<szLongItemName>matter Schlüssel</szLongItemName>
 		<szItemDesc>Ein Schlüssel ohne Glanz.</szItemDesc>
 		<szBRName>matter Schlüssel</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>275</uiIndex>
@@ -2191,7 +2191,7 @@
 		<szLongItemName>glänzender Schlüssel</szLongItemName>
 		<szItemDesc>Ein glänzender Schlüssel, der wohl für kein gewöhnliches Schloss bestimmt ist.</szItemDesc>
 		<szBRName>glanzender Schlüssel</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>276</uiIndex>
@@ -2199,7 +2199,7 @@
 		<szLongItemName>Schlüssel für Vorhängeschloss</szLongItemName>
 		<szItemDesc>Ein Schlüssel für ein Vorhängeschloss.</szItemDesc>
 		<szBRName>Schlüssel für Vorhängeschloss</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>277</uiIndex>
@@ -2207,7 +2207,7 @@
 		<szLongItemName>elektronischer Schlüssel</szLongItemName>
 		<szItemDesc>Ein elektronischer Schlüssel mit Magnetstreifen.</szItemDesc>
 		<szBRName>Electronic Schlüssel</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>278</uiIndex>
@@ -2215,7 +2215,7 @@
 		<szLongItemName>Codekarte</szLongItemName>
 		<szItemDesc>Eine elektronische Codekarte</szItemDesc>
 		<szBRName>Codekarte</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>279</uiIndex>
@@ -2359,7 +2359,7 @@
 		<szLongItemName>T-Shirt</szLongItemName>
 		<szItemDesc>Echt geile Aufschrift - du mich auch!</szItemDesc>
 		<szBRName>T-Shirt</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>297</uiIndex>
@@ -2399,7 +2399,7 @@
 		<szLongItemName>Cuttermesser</szLongItemName>
 		<szItemDesc>Dieses Messer eignet sich hervorragend zum Teppich verlegen, im Kampf eher nutzlos.</szItemDesc>
 		<szBRName>Cuttermesser</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>302</uiIndex>
@@ -2415,7 +2415,7 @@
 		<szLongItemName>silberne Servierplatte</szLongItemName>
 		<szItemDesc>Dieses Silbertablett ist schon ziemlich angelaufen und hat keine Gravur. Aber es war früher wohl einmal ein sehr sinnvolles Geschenk.</szItemDesc>
 		<szBRName>silberne Servierplatte</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>304</uiIndex>
@@ -2423,7 +2423,7 @@
 		<szLongItemName>Klebeband</szLongItemName>
 		<szItemDesc>Mit dieser Rolle 5cm breiten Klebebandes lassen sich wunderbar Löcher stopfen und Dinge zusammenhalten.</szItemDesc>
 		<szBRName>Klebeband</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>305</uiIndex>
@@ -2431,7 +2431,7 @@
 		<szLongItemName>Aluminiumstange</szLongItemName>
 		<szItemDesc>Eine an beiden Enden abgebrochene Gardinenstange aus Alu. Was wohl mit den Gardinen passiert ist?</szItemDesc>
 		<szBRName>Aluminiumstange</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>306</uiIndex>
@@ -2439,7 +2439,7 @@
 		<szLongItemName>Feder</szLongItemName>
 		<szItemDesc>Eine kleine, stählerne Spiralfeder, wie man sie in vielen Haushaltsgeräten und Küchenhilfen findet.</szItemDesc>
 		<szBRName>Feder</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>307</uiIndex>
@@ -2447,15 +2447,15 @@
 		<szLongItemName>Bolzen &amp; Feder</szLongItemName>
 		<szItemDesc>Mit diesem Bolzen-Feder-System verleihen Sie Ihrer Waffe eine größere Schussrate!</szItemDesc>
 		<szBRName>Bolzen &amp; Feder</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>308</uiIndex>
 		<szItemName>Stahlrohr</szItemName>
 		<szLongItemName>Stahlrohr</szLongItemName>
-		<szItemDesc>Ein länglicher Stahlzylinder mit einer Bohrung zwischen 5,45 und 12,5 Millimetern. Müßte man mal nachmessen...</szItemDesc>
+		<szItemDesc>Ein länglicher Stahlzylinder mit einer Bohrung zwischen 5,45 und 12,5 Millimetern. Müsste man mal nachmessen...</szItemDesc>
 		<szBRName>Stahlrohr</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>309</uiIndex>
@@ -2463,7 +2463,7 @@
 		<szLongItemName>Sekundenkleber</szLongItemName>
 		<szItemDesc>Wenn dieser Kleber einmal anfängt zu wirken, dann hält er für immer. Die meisten Materialien haften nach weniger als drei Minuten.</szItemDesc>
 		<szBRName>Sekundenkleber</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>310</uiIndex>
@@ -2471,7 +2471,7 @@
 		<szLongItemName>Laufverlängerung</szLongItemName>
 		<szItemDesc>Verlängern Sie mit diesem Zusatzgerät den Lauf Ihrer Waffe und Sie werden über ihre neue Reichweite staunen.</szItemDesc>
 		<szBRName>Laufverlängerung</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>311</uiIndex>
@@ -2479,7 +2479,7 @@
 		<szLongItemName>Schnur</szLongItemName>
 		<szItemDesc>Ein Stück Schnur, ca. 5m lang.</szItemDesc>
 		<szBRName>Schnur</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>312</uiIndex>
@@ -2487,7 +2487,7 @@
 		<szLongItemName>Blechdose</szLongItemName>
 		<szItemDesc>Eine leere Cola-Dose.</szItemDesc>
 		<szBRName>Blechdose</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>313</uiIndex>
@@ -2495,7 +2495,7 @@
 		<szLongItemName>Blechdose mit Schnur</szLongItemName>
 		<szItemDesc>Ein Stück Schnur und eine Blechdose machen eine menge Krach, wenn Sie bei einer Hochzeit an die Stoßstange eines Autos gebunden werden.</szItemDesc>
 		<szBRName>Blechdose mit Schnur</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>314</uiIndex>
@@ -2503,14 +2503,14 @@
 		<szLongItemName>Murmeln</szLongItemName>
 		<szItemDesc>Besonders kleine Jungs mögen diese runden, glänzenden, bunten und erstaunlich schweren Glaskugeln. Man benutzt sie eigentlich nur zum Spielen.</szItemDesc>
 		<szBRName>Murmeln</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>315</uiIndex>
 		<szItemName>LameBoy</szItemName>
 		<szLongItemName>LameBoy Display</szLongItemName>
 		<szBRName>LameBoy Display</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>316</uiIndex>
@@ -2518,7 +2518,7 @@
 		<szLongItemName>Kupferdraht</szLongItemName>
 		<szItemDesc>Ganz normaler Kupferdraht, eignet sich hervorragend für elektrische Basteleien.</szItemDesc>
 		<szBRName>Kupferdraht</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>317</uiIndex>
@@ -2526,14 +2526,14 @@
 		<szLongItemName>Display</szLongItemName>
 		<szItemDesc>Dieses komische Ding mit den Kupferdrähten war wohl mal das LC-Display von einem LameBoy.</szItemDesc>
 		<szBRName>Display</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>318</uiIndex>
 		<szItemName>FumblePak</szItemName>
 		<szLongItemName>FumblePak</szLongItemName>
 		<szBRName>FumblePak</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>319</uiIndex>
@@ -2541,7 +2541,7 @@
 		<szLongItemName>Röntgenröhre</szLongItemName>
 		<szItemDesc>Dies ist ein Teil eines Röntgengerätes.</szItemDesc>
 		<szBRName>Röntgenröhre</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>320</uiIndex>
@@ -2549,7 +2549,7 @@
 		<szLongItemName>Kaugummi</szLongItemName>
 		<szItemDesc>Eine Packung zuckerfreier Spearmint-Kaugummi. Zahnärzte empfehlen, nach jedem Essen einen zu kauen, wenn gerade keine Zahnbürste zur Hand ist.</szItemDesc>
 		<szBRName>Kaugummi</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>321</uiIndex>
@@ -2557,14 +2557,14 @@
 		<szLongItemName>Röntgengerät</szLongItemName>
 		<szItemDesc>Sieht fesch aus, ist aber schwierig zu bedienen. Der Apparat besteht aus verschiedenen Teilen. Sieht so aus, als würde er jeden Moment zu leuchten und zu vibrieren anfangen.</szItemDesc>
 		<szBRName>Röntgengerät</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>322</uiIndex>
 		<szItemName>Batterien</szItemName>
 		<szLongItemName>Batterien</szLongItemName>
 		<szBRName>Batterien</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>323</uiIndex>
@@ -2572,7 +2572,7 @@
 		<szLongItemName>Gummiband</szLongItemName>
 		<szItemDesc>Elastisch und gut. Diese altbekannte Erfindung eignet sich hervorragend, um ein paar Dinge zusammenzuhalten.</szItemDesc>
 		<szBRName>Gummiband</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>324</uiIndex>
@@ -2580,7 +2580,7 @@
 		<szLongItemName>Röntgenstrahlen-Detektor</szLongItemName>
 		<szItemDesc>Dieser Röntgenapparat Marke Eigenbau sieht so aus, als könnte er sogar funktionieren, einen vibrierenden Röntgenimpuls aussenden und das Ergebnis auf dem Display anzeigen. Batterien benötigt.</szItemDesc>
 		<szBRName>Röntgenstrahlen-Detektor</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>325</uiIndex>
@@ -2588,7 +2588,7 @@
 		<szLongItemName>Silberklumpen</szLongItemName>
 		<szItemDesc>Ein Klumpen aus purem Silber, wahrscheinlich direkt aus einer arulcanischen Mine.</szItemDesc>
 		<szBRName>Silberklumpen</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>326</uiIndex>
@@ -2596,7 +2596,7 @@
 		<szLongItemName>Goldklumpen</szLongItemName>
 		<szItemDesc>Fast so gut wie Cash, nur schwerer. Dies ist ein glänzender, beeindruckender Goldklumpen. Mit besten Grüßen aus Arulcos Minen.</szItemDesc>
 		<szBRName>Goldklumpen</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>327</uiIndex>
@@ -2604,7 +2604,7 @@
 		<szLongItemName>Benzinkanister</szLongItemName>
 		<szItemDesc>Gehen Sie mit diesem Benzin sorgfältig um. Wir sind hier in Arulco!</szItemDesc>
 		<szBRName>Benzinkanister</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>328</uiIndex>
@@ -2850,9 +2850,9 @@
 		<uiIndex>358</uiIndex>
 		<szItemName>9x19 Match</szItemName>
 		<szLongItemName>9x19mm Magazin, Match</szLongItemName>
-		<szItemDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 70m.</szItemDesc>
+		<szItemDesc>Wenn Sie nach schneller, präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 70m.</szItemDesc>
 		<szBRName>9x19 Mag Match #8</szBRName>
-		<szBRDesc>Wenn Sie nach schneller &amp; präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 70m.</szBRDesc>
+		<szBRDesc>Wenn Sie nach schneller, präziser Munition suchen, kommen Sie an COR-BON's Performance Match nicht vorbei. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 70m.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>359</uiIndex>
@@ -2881,10 +2881,10 @@
 	<ITEM>
 		<uiIndex>362</uiIndex>
 		<szItemName>7.62x25mm Mag, AET</szItemName>
-		<szLongItemName>7.62x25mm Pistol Mag, AET</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szLongItemName>7.62x25mm Pistolenmagazin, AET</szLongItemName>
+		<szItemDesc>8 Patronen für eine sowjetische Waffe Ihrer Wahl.</szItemDesc>
 		<szBRName>7.62x25mm Mag, AET</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>8 AET Patronen, um Ihre Tokarev-Pistole konkurrenzfähig zu machen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>363</uiIndex>
@@ -2946,9 +2946,9 @@
 		<uiIndex>370</uiIndex>
 		<szItemName>7.62x25mm SMG Mag, AET</szItemName>
 		<szLongItemName>7.62x25mm SMG Mag, AET</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>30 AET Patronen für russische SMGs (und chinesische Fälschungen).</szItemDesc>
 		<szBRName>7.62x25mm SMG Mag, AET</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Mit dieser modernen AET Munition können sie das beste aus russischen SMGs herausholen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>371</uiIndex>
@@ -3010,9 +3010,9 @@
 		<uiIndex>378</uiIndex>
 		<szItemName>7.62x25mm Biz. Mag, AET</szItemName>
 		<szLongItemName>7.62x25mm Bizon Mag, AET</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemDesc>Ein 45 Patronen fassendes, spiralförmiges Zylindermagazin für Ihre Bizon SMG.</szItemDesc>
 		<szBRName>7.62x25mm Biz. Mag, AET</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Bizon-Magazine mit AET-Munition gefüllt. Auch wenn sie bei diesem Kaliber nicht unbedingt solch eine Anzahl an Patronen brauchen, so wird es Ihnen sicherlich gefallen, nicht mehr während des Kampfes nachladen zu müssen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>379</uiIndex>
@@ -3072,11 +3072,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>386</uiIndex>
-		<szItemName>7.62x25mm Drum, AET</szItemName>
-		<szLongItemName>7.62x25mm Drum, AET</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szItemName>7.62x25mm Trommel, AET</szItemName>
+		<szLongItemName>7.62x25mm Trommel, AET</szLongItemName>
+		<szItemDesc>71-Patronen-Trommel des Kalibers 7.62x25mm AET.</szItemDesc>
 		<szBRName>7.62x25mm Drum, AET</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szBRDesc>Eine 7.62 Trommel mit AET-Munition, die Ihre erlesene russische SMG zu einem absolut tödlichen Gegenstand macht.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>387</uiIndex>
@@ -3160,11 +3160,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>397</uiIndex>
-		<szItemName>Nothing</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Nothing</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>Nichts</szItemName>
+		<szLongItemName>Nichts</szLongItemName>
+		<szItemDesc>Nichts</szItemDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>398</uiIndex>
@@ -4444,7 +4444,7 @@
 		<szLongItemName>.50 Beowulf Magazin</szLongItemName>
 		<szItemDesc>Diese Patronen im Kaliber .50 Beowulf (12.5x42RB) werden von ALEXANDER ARMS gefertigt. Die 334 gr. VMR-Projektile, auch bekannt als 'Full Metal Jacket' deformieren sich fast nicht, tendieren aber zum Schlingern im Ziel und verursachen furchtbare Wunden.</szItemDesc>
 		<szBRName>.50 Beowulf #4</szBRName>
-		<szBRDesc>not for sale at BR</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>558</uiIndex>
@@ -4452,7 +4452,7 @@
 		<szLongItemName>.50 Beowulf Magazin, Hohlspitz</szLongItemName>
 		<szItemDesc>Diese HS-Patronen im Kaliber .50 Beowulf (12.5x42RB) werden von ALEXANDER ARMS  gefertigt. Die sofortige, kontrollierte Geschossdeformation gewährleistet eine schnelle Energieabgabe im Ziel und garantiert dadurch eine ausgezeichnete Mannstoppwirkung.</szItemDesc>
 		<szBRName>.50 Beowulf HS #4</szBRName>
-		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>559</uiIndex>
@@ -4668,7 +4668,7 @@
 		<szLongItemName>7.62x39mm Trommel, Match</szLongItemName>
 		<szItemDesc>Jemand hat dieses Trommelmagazin mit WOLF's Extra Match Patronen geladen. Die beste Wahl wenn Sie nach schneller &amp; präziser Munition suchen. Mit dieser Munition erhöht sich die Reichweite Ihrer Waffe um 120m.</szItemDesc>
 		<szBRName>7.62x39 Tr. M</szBRName>
-		<szBRDesc>Not sold by BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>586</uiIndex>
@@ -4764,7 +4764,7 @@
 		<szLongItemName>blut. schw. Wurfmesser</szLongItemName>
 		<szItemDesc>Ein schweres Wurfmesser mit einer zweischneidigen, hartverchromten Karbonstahlklinge, die mit Blut bedeckt ist.</szItemDesc>
 		<szBRName>blut. schw. Wurfmesser</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>598</uiIndex>
@@ -4772,7 +4772,7 @@
 		<szLongItemName>Steak-Messer</szLongItemName>
 		<szItemDesc>Ein gewöhnliches Steakmesser, das nicht abgewaschen wurde.</szItemDesc>
 		<szBRName>Steak-Messer</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>599</uiIndex>
@@ -5034,9 +5034,9 @@
 		<uiIndex>631</uiIndex>
 		<szItemName>M1911A1 Hi-Cap</szItemName>
 		<szLongItemName>Colt M1911A1 Government Hi-Cap</szLongItemName>
-		<szItemDesc>Die Pistole COLT Government ist aufgrund ihrer Zuverlässigkeit &amp; Feuerkraft auch heute noch sehr beliebt, hier die verbesserte Ausführung mit 14-Schuss-Magazin.</szItemDesc>
+		<szItemDesc>Die Pistole COLT Government ist aufgrund ihrer Zuverlässigkeit und Feuerkraft auch heute noch sehr beliebt, hier die verbesserte Ausführung mit 14-Schuss-Magazin.</szItemDesc>
 		<szBRName>Colt M1911A1 Hi-Cap</szBRName>
-		<szBRDesc>Sie favorisieren das Kaliber .45ACP? Dann greifen Sie zur COLT Government 'Hi-Capacity' mit 14-Schuss-Magazin! Diese weltberühmte Pistole ist aufgrund ihrer Zuverlässigkeit &amp; Feuerkraft auch heute noch sehr beliebt.</szBRDesc>
+		<szBRDesc>Sie favorisieren das Kaliber .45ACP? Dann greifen Sie zur COLT Government 'Hi-Capacity' mit 14-Schuss-Magazin! Diese weltberühmte Pistole ist aufgrund ihrer Zuverlässigkeit und Feuerkraft auch heute noch sehr beliebt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>632</uiIndex>
@@ -5444,7 +5444,7 @@
 		<szLongItemName>ZID KSVK</szLongItemName>
 		<szItemDesc>Dieses Scharfschützengewehr wurde Ende der 90er Jahre von ZID in Kowrow (RUS) entwickelt. Es befindet sich in geringen Stückzahlen im Einsatz.</szItemDesc>
 		<szBRName>ZID KSVK</szBRName>
-		<szBRDesc>Dieses Scharfschützengewehr wurde Ende der 90er Jahre von ZID in Kowrow (RUS) entwickelt. Es befindet sich heute in geringen Stückzahlen im Einsatz. Hauptproblem ist die nicht Verfügbarkeit von Präzisionsmunition, die erhältliche MG-Mun. lässt nur Kampfentfernungen bis 300m zu.</szBRDesc>
+		<szBRDesc>Dieses Scharfschützengewehr wurde Ende der 90er Jahre von ZID in Kowrow (RUS) entwickelt. Es befindet sich heute in geringen Stückzahlen im Einsatz. Hauptproblem ist die Nichtverfügbarkeit von Präzisionsmunition, die erhältliche MG-Munition lässt nur Kampfentfernungen bis 300m zu.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>683</uiIndex>
@@ -5619,7 +5619,7 @@
 		<szItemName>QBZ-97</szItemName>
 		<szLongItemName>QBZ-97</szLongItemName>
 		<szItemDesc>Die Exportversion des chinesischen Bullpup Sturmgewehres.</szItemDesc>
-		<szBRName>QBZ-97</szBRName>
+		<szBRName>QBZ-97</szBRName> 
 		<szBRDesc>Im Jahr 1901 vom britischen Thorneycroft- Karabiner vorgestellt, hat es das 'Bullenkalb'- Design nun auch nach China geschafft. Unsere Importeure bekräftigen, daß die Exportversion qualitativ hochwertiger als die nationale Version ist.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -5938,9 +5938,9 @@
 		<uiIndex>744</uiIndex>
 		<szItemName>VIS-35</szItemName>
 		<szLongItemName>F.B. Radom VIS-35</szLongItemName>
-		<szItemDesc>Nach erfolgreichen Test wurde diese Pistole 1936 bei der polnischen Armee in Dienst gestellt.</szItemDesc>
+		<szItemDesc>Nach erfolgreichen Tests wurde diese Pistole 1936 bei der polnischen Armee in Dienst gestellt.</szItemDesc>
 		<szBRName>F.B. Radom VIS-35</szBRName>
-		<szBRDesc>Nach erfolgreichen Test wurde diese Pistole 1936 bei der polnischen Armee in Dienst gestellt. Während des 2. Weltkriegs wurde die Produktion weitergeführt und die VIS-35 von der Wehrmacht eingesetzt.</szBRDesc>
+		<szBRDesc>Nach erfolgreichen Tests wurde diese Pistole 1936 bei der polnischen Armee in Dienst gestellt. Während des 2. Weltkriegs wurde die Produktion weitergeführt und die VIS-35 von der Wehrmacht eingesetzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>745</uiIndex>
@@ -6284,7 +6284,7 @@
 		<szLongItemName>FN SCAR-H SV</szLongItemName>
 		<szItemDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, hier die Präzisionsausführung für den Scharfschützen.</szItemDesc>
 		<szBRName>FN SCAR-H SV</szBRName>
-		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>788</uiIndex>
@@ -6292,7 +6292,7 @@
 		<szLongItemName>FN SCAR-L SV</szLongItemName>
 		<szItemDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, hier die Präzisionsausführung für den Scharfschützen.</szItemDesc>
 		<szBRName>FN SCAR-L SV</szBRName>
-		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>789</uiIndex>
@@ -6308,7 +6308,7 @@
 		<szLongItemName>FN SCAR-WP CQC</szLongItemName>
 		<szItemDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, hier die CQC-Ausführung für den Nahkampf.</szItemDesc>
 		<szBRName>FN SCAR-WP CQC</szBRName>
-		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>791</uiIndex>
@@ -6316,7 +6316,7 @@
 		<szLongItemName>FN SCAR-WP SV</szLongItemName>
 		<szItemDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, hier die Präzisionsausführung für den Scharfschützen.</szItemDesc>
 		<szBRName>FN SCAR-WP SV</szBRName>
-		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>792</uiIndex>
@@ -6332,7 +6332,7 @@
 		<szLongItemName>FN SCAR-68 SV</szLongItemName>
 		<szItemDesc>Das SCAR ist das zukünftige Multikalibergewehr der US-Special Forces. Es ist in verschiedenen Versionen verfügbar, hier die Präzisionsausführung für den Scharfschützen.</szItemDesc>
 		<szBRName>FN SCAR-68 SV</szBRName>
-		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>794</uiIndex>
@@ -6516,7 +6516,7 @@
 		<szLongItemName>C18 EOD-Helm</szLongItemName>
 		<szItemDesc>Dieser EOD-Helm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
 		<szBRName>C18 EOD-Helm</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>817</uiIndex>
@@ -6524,7 +6524,7 @@
 		<szLongItemName>C18 EOD-Hose</szLongItemName>
 		<szItemDesc>Diese EOD-Hose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
 		<szBRName>C18 EOD-Hose</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>818</uiIndex>
@@ -6532,7 +6532,7 @@
 		<szLongItemName>C18 EOD-Weste</szLongItemName>
 		<szItemDesc>Diese EOD-Weste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
 		<szBRName>C18 EOD-Weste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>819</uiIndex>
@@ -6540,7 +6540,7 @@
 		<szLongItemName>C18 SWAT-Helm</szLongItemName>
 		<szItemDesc>Dieser SWAT-Helm wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
 		<szBRName>C18 SWAT-Helm</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>820</uiIndex>
@@ -6548,7 +6548,7 @@
 		<szLongItemName>C18 SWAT-Hose</szLongItemName>
 		<szItemDesc>Diese SWAT-Hose wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
 		<szBRName>C18 SWAT-Hose</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>821</uiIndex>
@@ -6556,7 +6556,7 @@
 		<szLongItemName>C18 SWAT-Weste</szLongItemName>
 		<szItemDesc>Diese SWAT-Weste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
 		<szBRName>C18 SWAT-Weste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>822</uiIndex>
@@ -6588,7 +6588,7 @@
 		<szLongItemName>beh. Dyneemahelm</szLongItemName>
 		<szItemDesc>Diese Dyneema-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Dyneemahelm</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>826</uiIndex>
@@ -6596,7 +6596,7 @@
 		<szLongItemName>beh. Dyneemahose</szLongItemName>
 		<szItemDesc>Diese Dyneema-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Dyneemahose</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>827</uiIndex>
@@ -6604,7 +6604,7 @@
 		<szLongItemName>beh. Dyneemaweste</szLongItemName>
 		<szItemDesc>Diese Dyneema-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Dyneemaweste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>828</uiIndex>
@@ -6612,7 +6612,7 @@
 		<szLongItemName>beh. EOD-Helm</szLongItemName>
 		<szItemDesc>Diese EOD-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. EOD-Helm</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>829</uiIndex>
@@ -6620,7 +6620,7 @@
 		<szLongItemName>beh. EOD-Hose</szLongItemName>
 		<szItemDesc>Diese EOD-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. EOD-Hose</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>830</uiIndex>
@@ -6628,7 +6628,7 @@
 		<szLongItemName>beh. EOD-Weste</szLongItemName>
 		<szItemDesc>Diese EOD-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. EOD-Weste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>831</uiIndex>
@@ -6636,7 +6636,7 @@
 		<szLongItemName>beh. SWAT-Helm</szLongItemName>
 		<szItemDesc>Diese SWAT-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. SWAT-Helm</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>832</uiIndex>
@@ -6644,7 +6644,7 @@
 		<szLongItemName>beh. SWAT-Hose</szLongItemName>
 		<szItemDesc>Diese SWAT-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. SWAT-Hose</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>833</uiIndex>
@@ -6652,7 +6652,7 @@
 		<szLongItemName>beh. SWAT-Weste</szLongItemName>
 		<szItemDesc>Diese SWAT-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. SWAT-Weste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>834</uiIndex>
@@ -6660,7 +6660,7 @@
 		<szLongItemName>beh. Twaronhelm</szLongItemName>
 		<szItemDesc>Diese Twaron-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Twaronhelm</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>835</uiIndex>
@@ -6668,7 +6668,7 @@
 		<szLongItemName>beh. Twaronhose</szLongItemName>
 		<szItemDesc>Diese Twaron-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Twaronhose</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>836</uiIndex>
@@ -6676,7 +6676,7 @@
 		<szLongItemName>beh. Twaronweste</szLongItemName>
 		<szItemDesc>Diese Twaron-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Twaronweste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>837</uiIndex>
@@ -6692,7 +6692,7 @@
 		<szLongItemName>Beinprotektoren</szLongItemName>
 		<szItemDesc>Nicht nur für Kinder geeignet.</szItemDesc>
 		<szBRName>Beinprotektoren</szBRName>
-		<szBRDesc>Nicht nur für Kinder geeignet.</szBRDesc>
+		<szBRDesc>Diese Beinprotektoren sind nicht nur für Kinder geeignet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>839</uiIndex>
@@ -6700,7 +6700,7 @@
 		<szLongItemName>Stealth Ops Helm</szLongItemName>
 		<szItemDesc>Mit diesem Helm werden Sie die meiste Zeit unentdeckt bleiben. Er schützt Sie auch ausreichend vor Geschossen kleineren Kalibers.</szItemDesc>
 		<szBRName>Stealth Ops Helm</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>840</uiIndex>
@@ -6708,7 +6708,7 @@
 		<szLongItemName>Stealth Ops Weste</szLongItemName>
 		<szItemDesc>Mit dieser Weste werden Sie die meiste Zeit unentdeckt bleiben. Jedoch bietet sie keinen ausreichenden Schutz vor Geschossen größeren Kalibers.</szItemDesc>
 		<szBRName>Stealth Ops Weste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>841</uiIndex>
@@ -6716,7 +6716,7 @@
 		<szLongItemName>Stealth Ops Hose</szLongItemName>
 		<szItemDesc>Mit dieser Hose werden Sie die meiste Zeit unentdeckt bleiben. Jedoch bietet sie keinen ausreichenden Schutz vor Geschossen größeren Kalibers.</szItemDesc>
 		<szBRName>Stealth Ops Hose</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>842</uiIndex>
@@ -6724,7 +6724,7 @@
 		<szLongItemName>Recon Kevlarweste</szLongItemName>
 		<szItemDesc>Diese Woodland Kevlarweste ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarnung-25, Rüstung-25</szItemDesc>
 		<szBRName>Recon Kevlarweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>843</uiIndex>
@@ -6732,7 +6732,7 @@
 		<szLongItemName>Recon Guardianweste</szLongItemName>
 		<szItemDesc>Diese Woodland Guardian-Weste ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarnung-25, Rüstung-28</szItemDesc>
 		<szBRName>Recon Guardianweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>844</uiIndex>
@@ -6740,7 +6740,7 @@
 		<szLongItemName>Recon Twaronweste</szLongItemName>
 		<szItemDesc>Diese Woodland Twaron-Weste ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Sonnebrille und Booster unterbringen. Tarnung-25, Rüstung-28</szItemDesc>
 		<szBRName>Recon Twaronweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>845</uiIndex>
@@ -6748,7 +6748,7 @@
 		<szLongItemName>Recon Kevlarhose</szLongItemName>
 		<szItemDesc>Diese Woodland Kevlarhose ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Drahtschere und Booster unterbringen. Tarnung-15, Rüstung-23</szItemDesc>
 		<szBRName>Recon Kevlarhose</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>846</uiIndex>
@@ -6756,7 +6756,7 @@
 		<szLongItemName>Recon Twaronhose</szLongItemName>
 		<szItemDesc>Diese woodland Twaron-Hose ist die beste Lösung für jede Aufklärungs-Mission. Hier können Sie Messer, Tarnset, Drahtschere und Booster unterbringen. Tarnung-15, Rüstung-26</szItemDesc>
 		<szBRName>Recon Twaronhose</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>847</uiIndex>
@@ -6764,7 +6764,7 @@
 		<szLongItemName>Sanitäter Kevlarweste</szLongItemName>
 		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung-10, Rüstung-25</szItemDesc>
 		<szBRName>Sanitäter Kevlarweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>848</uiIndex>
@@ -6772,7 +6772,7 @@
 		<szLongItemName>Sanitäter Guardianweste</szLongItemName>
 		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung-10, Rüstung-28</szItemDesc>
 		<szBRName>Sanitäter Guardianweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>849</uiIndex>
@@ -6780,7 +6780,7 @@
 		<szLongItemName>Sanitäter Twaronweste</szLongItemName>
 		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung-10, Rüstung-28</szItemDesc>
 		<szBRName>Sanitäter Twaronweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>850</uiIndex>
@@ -6788,7 +6788,7 @@
 		<szLongItemName>Sanitäter Spectraweste</szLongItemName>
 		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung-10, Rüstung-29</szItemDesc>
 		<szBRName>Sanitäter Spectraweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>851</uiIndex>
@@ -6796,7 +6796,7 @@
 		<szLongItemName>Sanitäter Dyneemaweste</szLongItemName>
 		<szItemDesc>Diese Art Weste wird gewöhnlich von Sanitätern getragen, da sie mehr Platz für ihre Asurüstung bietet. Hier können Sie Medi-Pack, Feldflasche, Sonnebrille und Booster unterbringen. Tarnung-10, Rüstung-29</szItemDesc>
 		<szBRName>Sanitäter Dyneemaweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>852</uiIndex>
@@ -6804,7 +6804,7 @@
 		<szLongItemName>Sanitäter Kevlarhose</szLongItemName>
 		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. Hier können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarnung-10, Rüstung-23</szItemDesc>
 		<szBRName>Sanitäter Kevlarhose</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>853</uiIndex>
@@ -6812,7 +6812,7 @@
 		<szLongItemName>Sanitäter Twaronhose</szLongItemName>
 		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. Hier können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarnung-10, Rüstung-26</szItemDesc>
 		<szBRName>Sanitäter Twaronhose</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>854</uiIndex>
@@ -6820,7 +6820,7 @@
 		<szLongItemName>Sanitäter Spectrahose</szLongItemName>
 		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. Hier können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarnung-10, Rüstung-27</szItemDesc>
 		<szBRName>Sanitäter Spectrahose</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>855</uiIndex>
@@ -6828,7 +6828,7 @@
 		<szLongItemName>Sanitäter Dyneemahose</szLongItemName>
 		<szItemDesc>Nirgendwo ein perfekter Platz für Medi-Pack, Feldflasche und Kondome. In dieser Hose haben Sie genug Platz für Ihre Utensilien. Hier können Sie Medi-Pack, Feldflasche, Gasmaske und Booster unterbringen. Tarnung-10, Rüstung-27</szItemDesc>
 		<szBRName>Sanitäter Dyneemahose</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>856</uiIndex>
@@ -6836,7 +6836,7 @@
 		<szLongItemName>Mechaniker Kevlarweste</szLongItemName>
 		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-25</szItemDesc>
 		<szBRName>Mechaniker Kevlarweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>857</uiIndex>
@@ -6844,7 +6844,7 @@
 		<szLongItemName>Mechaniker Guardianweste</szLongItemName>
 		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-28</szItemDesc>
 		<szBRName>Mechaniker Guardianweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>858</uiIndex>
@@ -6852,7 +6852,7 @@
 		<szLongItemName>Mechaniker Twaronweste</szLongItemName>
 		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-28</szItemDesc>
 		<szBRName>Mechaniker Twaronweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>859</uiIndex>
@@ -6860,7 +6860,7 @@
 		<szLongItemName>Mechaniker Spectraweste</szLongItemName>
 		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-29</szItemDesc>
 		<szBRName>Mechaniker Spectraweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>860</uiIndex>
@@ -6868,7 +6868,7 @@
 		<szLongItemName>Mechaniker Dyneemaweste</szLongItemName>
 		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Weste ein wahr gewordener Traum. Hier können Sie Plastik-Spr., Schlosserset, Mehrzweck-Messer, Sonnenbrille, Metalldetektor, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-29</szItemDesc>
 		<szBRName>Mechaniker Dyneemaweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>861</uiIndex>
@@ -6876,7 +6876,7 @@
 		<szLongItemName>Mechaniker Kevlarhose</szLongItemName>
 		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-23</szItemDesc>
 		<szBRName>Mechaniker Kevlarhose</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>862</uiIndex>
@@ -6884,7 +6884,7 @@
 		<szLongItemName>Mechaniker Twaronhose</szLongItemName>
 		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-26</szItemDesc>
 		<szBRName>Mechaniker Twaronhose</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>863</uiIndex>
@@ -6892,7 +6892,7 @@
 		<szLongItemName>Mechaniker Spectrahose</szLongItemName>
 		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-27</szItemDesc>
 		<szBRName>Mechaniker Spectrahose</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>864</uiIndex>
@@ -6900,7 +6900,7 @@
 		<szLongItemName>Mechaniker Dyneemahose</szLongItemName>
 		<szItemDesc>Für alle Mechaniker und Bombenleger ist diese Hose ein wahr gewordener Traum. Hier können Sie Schlosserset, Mehrzweck-Messer, Gasmaske, Fernzünder und Booster unterbringen. Tarnung-10, Rüstung-27</szItemDesc>
 		<szBRName>Mechaniker Dyneemahose</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>865</uiIndex>
@@ -6908,7 +6908,7 @@
 		<szLongItemName>Einzelkämpfer Kevlarweste</szLongItemName>
 		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung-20, Rüstung-28</szItemDesc>
 		<szBRName>Einzelkämpfer Kevlarweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>866</uiIndex>
@@ -6916,7 +6916,7 @@
 		<szLongItemName>Einzelkämpfer Guardianweste</szLongItemName>
 		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung-20, Rüstung-31</szItemDesc>
 		<szBRName>Einzelkämpfer Guardianweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>867</uiIndex>
@@ -6924,7 +6924,7 @@
 		<szLongItemName>Einzelkämpfer Twaronweste</szLongItemName>
 		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung-20, Rüstung-31</szItemDesc>
 		<szBRName>Einzelkämpfer Twaronweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>868</uiIndex>
@@ -6932,7 +6932,7 @@
 		<szLongItemName>Einzelkämpfer Spectraweste</szLongItemName>
 		<szItemDesc>Sollten Sie längere Zeit im Einsatz zu sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung-20, Rüstung-32</szItemDesc>
 		<szBRName>Einzelkämpfer Spectraweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>869</uiIndex>
@@ -6940,7 +6940,7 @@
 		<szLongItemName>Einzelkämpfer Dyneemaweste</szLongItemName>
 		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Weste. Hier können Sie Messer, Knicklicht, Tarnset, Sonnenbrille, Booster und Batterien unterbringen. Tarnung-20, Rüstung-32</szItemDesc>
 		<szBRName>Einzelkämpfer Dyneemaweste</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>870</uiIndex>
@@ -6948,7 +6948,7 @@
 		<szLongItemName>Einzelkämpfer Kevlarhose</szLongItemName>
 		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarnung-15, Rüstung-26</szItemDesc>
 		<szBRName>Einzelkämpfer Kevlarhose</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>871</uiIndex>
@@ -6956,7 +6956,7 @@
 		<szLongItemName>Einzelkämpfer Twaronhose</szLongItemName>
 		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarnung-15, Rüstung-29</szItemDesc>
 		<szBRName>Einzelkämpfer Twaronhose</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>872</uiIndex>
@@ -6964,7 +6964,7 @@
 		<szLongItemName>Einzelkämpfer Spectrahose</szLongItemName>
 		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarnung-15, Rüstung-30</szItemDesc>
 		<szBRName>Einzelkämpfer Spectrahose</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>873</uiIndex>
@@ -6972,7 +6972,7 @@
 		<szLongItemName>Einzelkämpfer Dyneemahose</szLongItemName>
 		<szItemDesc>Sollten Sie längere Zeit im Einsatz sein, dann vertrauen Sie auf diese verbesserte Hose. Hier können Sie Messer, Knicklicht, Tarnset, Feldflasche, Gasmaske, Booster und Batterien unterbringen. Tarnung-15, Rüstung-30</szItemDesc>
 		<szBRName>Einzelkämpfer Dyneemahose</szBRName>
-		<szBRDesc>None</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>874</uiIndex>
@@ -7081,66 +7081,66 @@
 	<ITEM>
 		<uiIndex>887</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 887</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>888</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 888</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>889</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 889</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>890</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 890</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>891</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 891</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>892</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 892</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>893</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 893</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>894</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 894</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>895</uiIndex>
@@ -7156,7 +7156,7 @@
 		<szLongItemName>Winchester M14 EBR</szLongItemName>
 		<szItemDesc>Das WINCHESTER M14 löste Ende der 50er Jahre den seit 1936 im Einsatz befindlichen M1 Garand ab. Es besitzt eine herausragende Schussgenauigkeit. Dies ist die verbesserte Version mit neuem Schaft.</szItemDesc>
 		<szBRName>Winchester M14 EBR</szBRName>
-		<szBRDesc>Not buyable at BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>897</uiIndex>
@@ -7164,7 +7164,7 @@
 		<szLongItemName>Springfield M21 EBR</szLongItemName>
 		<szItemDesc>Das M21 ist ein sehr präzises und zuverlässiges halbautomatisches Scharfschützengewehr. Es basiert auf dem M14-Sturmgewehr. Dieses hier hat man in den EBR-Schaft gesteckt, der eigentlich für das M14 gedacht war.</szItemDesc>
 		<szBRName>Springfield M21 EBR</szBRName>
-		<szBRDesc>Not buyable at BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>898</uiIndex>
@@ -7185,10 +7185,10 @@
 	<ITEM>
 		<uiIndex>900</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 900</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>901</uiIndex>
@@ -7340,7 +7340,7 @@
 		<szLongItemName>leerer RPO-A</szLongItemName>
 		<szItemDesc>Dieser Raketenwerfer hat seine Schuldigkeit getan und wird den Rest seines Lebens als unnötiger Ballast verbringen.</szItemDesc>
 		<szBRName>leerer RPO-A</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>920</uiIndex>
@@ -7361,66 +7361,66 @@
 	<ITEM>
 		<uiIndex>922</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 922</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>923</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 923</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>924</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 924</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>925</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 925</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>926</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 926</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>927</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 927</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>928</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 928</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>929</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 929</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>930</uiIndex>
@@ -7473,82 +7473,82 @@
 	<ITEM>
 		<uiIndex>936</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 936</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>937</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 937</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>938</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 938</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>939</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 939</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>940</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 940</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>941</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 941</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>942</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 942</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>943</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 943</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>944</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 944</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>945</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 945</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>946</uiIndex>
@@ -7945,18 +7945,18 @@
 	<ITEM>
 		<uiIndex>995</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 995</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>996</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 996</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>997</uiIndex>
@@ -8067,7 +8067,7 @@
 		<szItemName>Handgriff</szItemName>
 		<szLongItemName>Universal Handgriff</szLongItemName>
 		<szBRName>Universal Handgriff</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1011</uiIndex>
@@ -8091,7 +8091,7 @@
 		<szLongItemName>Brieftasche</szLongItemName>
 		<szItemDesc>Da hat wohl jemand sein Geld verloren.</szItemDesc>
 		<szBRName>Brieftasche</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1014</uiIndex>
@@ -8099,7 +8099,7 @@
 		<szLongItemName>Passport</szLongItemName>
 		<szItemDesc>Die Pässe erzielen auf dem Schwarzmarkt bestimmt einen guten Preis.</szItemDesc>
 		<szBRName>Passport</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1015</uiIndex>
@@ -8107,28 +8107,28 @@
 		<szLongItemName>Schaufel</szLongItemName>
 		<szItemDesc>Diese Schaufel ist perfekt um sein eigenes Grab zu schaufeln.</szItemDesc>
 		<szBRName>Schaufel</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1016</uiIndex>
 		<szItemName>Gameboy</szItemName>
-		<szLongItemName>Gameboy</szLongItemName>
+		<szLongItemName>Ein handlicher Handheld mit dem Namen "Gameboy".</szLongItemName>
 		<szBRName>Gameboy</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1017</uiIndex>
 		<szItemName>Camcorder</szItemName>
-		<szLongItemName>Camcorder</szLongItemName>
+		<szLongItemName>Handelsüblicher Camcorder.</szLongItemName>
 		<szBRName>Camcorder</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1018</uiIndex>
 		<szItemName>Batterien</szItemName>
-		<szLongItemName>Batterien</szLongItemName>
+		<szLongItemName>Handelsübliche Batterien</szLongItemName>
 		<szBRName>Batterien</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1019</uiIndex>
@@ -8142,17 +8142,17 @@
 		<uiIndex>1020</uiIndex>
 		<szItemName>Medaille</szItemName>
 		<szLongItemName>Medaille</szLongItemName>
-		<szItemDesc>Eine Medaille für hervoragende Dienste für das Vaterland.</szItemDesc>
+		<szItemDesc>Eine Medaille für hervorragende Dienste für das Vaterland.</szItemDesc>
 		<szBRName>Medaille</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1021</uiIndex>
 		<szItemName>Laptop</szItemName>
 		<szLongItemName>Laptop</szLongItemName>
-		<szItemDesc>Das Teil hängt sich beim Starten jedesmal auf. Es könnte an der Luftfeuchtigkeit liegen oder es ist Windows?!</szItemDesc>
+		<szItemDesc>Das Teil hängt sich beim Starten jedesmal auf. Es könnte an der Luftfeuchtigkeit liegen oder ist es Windows?!</szItemDesc>
 		<szBRName>Laptop</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1022</uiIndex>
@@ -8160,7 +8160,7 @@
 		<szLongItemName>Putzlappen</szLongItemName>
 		<szItemDesc>Ein alter, dreckiger Putzlappen.</szItemDesc>
 		<szBRName>Putzlappen</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1023</uiIndex>
@@ -8168,7 +8168,7 @@
 		<szLongItemName>kuban. Zigarren</szLongItemName>
 		<szItemDesc>Eine ganze Schachtel dicker kuban. Zigarren. Die können auch im hitzigsten Gefecht zwischen die Zähne geklemmt werden.</szItemDesc>
 		<szBRName>kuban. Zigarren</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1024</uiIndex>
@@ -8232,7 +8232,7 @@
 		<szLongItemName>SCAR-L CQC .223 Lauf</szLongItemName>
 		<szItemDesc>Modifizieren Sie Ihr FN SCAR-L mit diesem kurzen Wechsel-Lauf und Sie erhalten die CQC-Variante. Bestens geeignet für den Nah- und Häuserkampf.</szItemDesc>
 		<szBRName>SCAR-L CQC .223 Lauf</szBRName>
-		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1032</uiIndex>
@@ -8280,7 +8280,7 @@
 		<szLongItemName>Kit SCAR-L CQC</szLongItemName>
 		<szItemDesc>Dieses Kit enthält alle notwendigen Teile um Ihr SCAR-L in das Kaliber 5.56mm NATO zu konvertieren. Mit diesem kurzen Wechsel-Lauf erhalten Sie die CQC-Variante, bestens geeignet für den Nah- und Häuserkampf.</szItemDesc>
 		<szBRName>Kit SCAR-L CQC</szBRName>
-		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1038</uiIndex>
@@ -8288,7 +8288,7 @@
 		<szLongItemName>Kit SCAR-L SV</szLongItemName>
 		<szItemDesc>Dieses Kit enthält alle notwendigen Teile um Ihr SCAR-L in das Kaliber 5.56mm NATO zu konvertieren. Mit diesem langen Wechsel-Lauf erhalten Sie ein 'Sniper Variant' Präzisionsgewehr, bestens geeignet für den ambitionierten Scharfschützen.</szItemDesc>
 		<szBRName>Kit SCAR-L SV</szBRName>
-		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1039</uiIndex>
@@ -8296,7 +8296,7 @@
 		<szLongItemName>SCAR-68 CQC Lauf</szLongItemName>
 		<szItemDesc>Modifizieren Sie Ihr FN SCAR-68 mit diesem kurzen Wechsel-Lauf und Sie erhalten die CQC-Variante. Bestens geeignet für den Nah- und Häuserkampf.</szItemDesc>
 		<szBRName>SCAR-68 CQC Lauf</szBRName>
-		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1040</uiIndex>
@@ -8328,7 +8328,7 @@
 		<szLongItemName>Kit SCAR-H CQC</szLongItemName>
 		<szItemDesc>Dieses Kit enthält alle notwendigen Teile um Ihr SCAR-H in das Kaliber 7.62mm NATO zu konvertieren. Mit diesem kurzen Wechsel-Lauf erhalten Sie die CQC-Variante, bestens geeignet für den Nah- und Häuserkampf.</szItemDesc>
 		<szBRName>Kit SCAR-H CQC</szBRName>
-		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1044</uiIndex>
@@ -8336,7 +8336,7 @@
 		<szLongItemName>Kit SCAR-H SV</szLongItemName>
 		<szItemDesc>Dieses Kit enthält alle notwendigen Teile um Ihr SCAR-H in das Kaliber 7.62mm NATO zu konvertieren. Mit diesem langen Wechsel-Lauf erhalten Sie ein 'Sniper Variant' Präzisionsgewehr, bestens geeignet für den ambitionierten Scharfschützen.</szItemDesc>
 		<szBRName>Kit SCAR-H SV</szBRName>
-		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1045</uiIndex>
@@ -8344,7 +8344,7 @@
 		<szLongItemName>SCAR-WP CQC Lauf</szLongItemName>
 		<szItemDesc>Modifizieren Sie Ihr FN SCAR-WP mit diesem kurzen Wechsel-Lauf und Sie erhalten die CQC-Variante. Bestens geeignet für den Nah- und Häuserkampf.</szItemDesc>
 		<szBRName>SCAR-WP CQC Lauf</szBRName>
-		<szBRDesc>Kein Verkauf durch BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1046</uiIndex>
@@ -8609,9 +8609,9 @@
 		<uiIndex>1079</uiIndex>
 		<szItemName>TAC-1A Weste</szItemName>
 		<szLongItemName>TT 1A Rifle Weste</szLongItemName>
-		<szItemDesc>Die TAC-1A Rifle Weste wurde für den Gewehr- Schützen entwickelt und ermöglicht es Ihnen bis zu 12x 5.56mm Magazine am Körper griffbereit zu tragen.</szItemDesc>
+		<szItemDesc>Die TAC-1A Rifle Weste wurde für den Gewehr-Schützen entwickelt und ermöglicht es Ihnen bis zu 12x 5.56mm Magazine am Körper griffbereit zu tragen.</szItemDesc>
 		<szBRName>TT 1A Rifle Weste</szBRName>
-		<szBRDesc>Die TAC-1A Rifle Weste wurde für den Gewehr- Schützen entwickelt und ermöglicht es Ihnen bis zu 12x 5.56mm Magazine am Körper griffbereit zu tragen. - Besuchen Sie www.tacticaltailor.com -</szBRDesc>
+		<szBRDesc>Die TAC-1A Rifle Weste wurde für den Gewehr-Schützen entwickelt und ermöglicht es Ihnen bis zu 12x 5.56mm Magazine am Körper griffbereit zu tragen. - Besuchen Sie www.tacticaltailor.com -</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1080</uiIndex>
@@ -8832,6 +8832,9 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1119</uiIndex>
+		<szItemName>M T-18 Weste</szItemName>
+		<szLongItemName>Twaron Mechanikerweste M T-18</szLongItemName>
+		<szItemDesc>Für alle Mechaniker und Zerstörer ist diese Weste wie ein erfüllter Traum. Mit C-18 behandelt worden, um zusätzlichen Schutz zu gewähren.</szItemDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1120</uiIndex>
@@ -9037,7 +9040,7 @@
 		<szLongItemName>Jägerweste</szLongItemName>
 		<szItemDesc>Diese vielseitige Weste gehört zur Standardausrüstung eines guten Jägers.</szItemDesc>
 		<szBRName>Jägerweste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1177</uiIndex>
@@ -9137,6 +9140,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1189</uiIndex>
+		<szItemName>Flare</szItemName>
+		<szLongItemName>Notfallsflare</szLongItemName>
+		<szItemDesc>Eine Flare, die normalerweise bei Notfällen benutzt wird.</szItemDesc>
+		<szBRName>Flare</szBRName>
+		<szBRDesc>Stärker als ein chemisches Knicklicht aber kurzlebiger.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1190</uiIndex>
@@ -9253,18 +9261,18 @@
 	<ITEM>
 		<uiIndex>1204</uiIndex>
 		<szItemName>EH-Tasche</szItemName>
-		<szLongItemName>EH Beintasche</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>EH Beintasche</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szLongItemName>Erste Hilfe Beintasche</szLongItemName>
+		<szItemDesc>Diese Beintasche bietet höchsten Komfort für ein Erste-Hilfe-Set.</szItemDesc>
+		<szBRName>Erste Hilfe Beintasche</szBRName>
+		<szBRDesc>Diese Beintasche bietet höchsten Komfort für ein Erste-Hilfe-Set.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1205</uiIndex>
 		<szItemName>Med. Tasche</szItemName>
-		<szLongItemName>Medical Tasche</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>Medical Tasche</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szLongItemName>Medizinertasche</szLongItemName>
+		<szItemDesc>Diese Medizinertasche erhält das Wichtigste für Notärzte.</szItemDesc>
+		<szBRName>Medizinertasche</szBRName>
+		<szBRDesc>Diese Medizinertasche erhält das Wichtigste für Notärzte.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1206</uiIndex>
@@ -9293,435 +9301,441 @@
 	<ITEM>
 		<uiIndex>1209</uiIndex>
 		<szItemName>5.56mm Kiste</szItemName>
-		<szLongItemName>5.56x45mm Mun. Kiste</szLongItemName>
-		<szItemDesc>Munitions-Kiste</szItemDesc>
-		<szBRName>5.56x45mm Mun. Kiste</szBRName>
+		<szLongItemName>5.56x45mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.56x45mm.</szItemDesc>
+		<szBRName>5.56x45mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1210</uiIndex>
 		<szItemName>5.56mm HS Kiste</szItemName>
-		<szLongItemName>5.56x45mm HS Mun. Kiste</szLongItemName>
-		<szItemDesc>Munitions-Kiste</szItemDesc>
-		<szBRName>5.56x45mm HP ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szLongItemName>5.56x45mm HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.56x45mm HP.</szItemDesc>
+		<szBRName>5.56x45mm HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1211</uiIndex>
 		<szItemName>5.56mm M Kiste</szItemName>
-		<szLongItemName>5.56x45mm M Mun. Kiste</szLongItemName>
-		<szItemDesc>Munitions-Kiste</szItemDesc>
-		<szBRName>5.56x45mm M ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szLongItemName>5.56x45mm M Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.56x45mm M.</szItemDesc>
+		<szBRName>5.56x45mm M Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1212</uiIndex>
-		<szItemName>5.56mm G crate</szItemName>
-		<szLongItemName>5.56x45mm G ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>5.56x45mm G ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>5.56mm G Kiste</szItemName>
+		<szLongItemName>5.56x45mm G Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.56x45mm Glaser.</szItemDesc>
+		<szBRName>5.56x45mm G Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1213</uiIndex>
-		<szItemName>5.56mm T crate</szItemName>
-		<szLongItemName>5.56x45mm T ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>5.56x45mm T ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>5.56mm T Kiste</szItemName>
+		<szLongItemName>5.56x45mm T Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.56x45mm Tracer.</szItemDesc>
+		<szBRName>5.56x45mm T Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1214</uiIndex>
-		<szItemName>5.56mm C crate</szItemName>
-		<szLongItemName>5.56x45mm C ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>5.56x45mm C ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>5.56mm C Kiste</szItemName>
+		<szLongItemName>5.56x45mm C Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.56x45mm C.</szItemDesc>
+		<szBRName>5.56x45mm C Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1215</uiIndex>
-		<szItemName>5.56mm HP C crate</szItemName>
-		<szLongItemName>5.56x45mm HP C ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>5.56x45mm HP C ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>5.56mm HP C Kiste</szItemName>
+		<szLongItemName>5.56x45mm HP C Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.56x45mm HP C.</szItemDesc>
+		<szBRName>5.56x45mm HP C Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1216</uiIndex>
 		<szItemName>7.62NATO Kiste</szItemName>
-		<szLongItemName>7.62x51mm Mun. Kiste</szLongItemName>
-		<szItemDesc>Munitions-Kiste</szItemDesc>
-		<szBRName>7.62x51mm Mun. Kiste</szBRName>
+		<szLongItemName>7.62x51mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers 7.62x51mm.</szItemDesc>
+		<szBRName>7.62x51mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1217</uiIndex>
 		<szItemName>7.62NATO HS Kiste</szItemName>
-		<szLongItemName>7.62x51mm HS Mun. Kiste</szLongItemName>
-		<szItemDesc>Munitions-Kiste</szItemDesc>
-		<szBRName>7.62x51mm HP ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szLongItemName>7.62x51mm HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers 7.62NATO HS.</szItemDesc>
+		<szBRName>7.62x51mm HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1218</uiIndex>
-		<szItemName>7.62NATO M crate</szItemName>
-		<szLongItemName>7.62x51mm M ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>7.62x51mm M ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>7.62NATO M Kiste</szItemName>
+		<szLongItemName>7.62x51mm M Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers 7.62NATO M.</szItemDesc>
+		<szBRName>7.62x51mm M Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1219</uiIndex>
-		<szItemName>7.62NATO G crate</szItemName>
-		<szLongItemName>7.62x51mm G ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>7.62x51mm G ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>7.62NATO G Kiste</szItemName>
+		<szLongItemName>7.62x51mm G Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers 7.62NATO G.</szItemDesc>
+		<szBRName>7.62x51mm G Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1220</uiIndex>
-		<szItemName>7.62NATO T crate</szItemName>
-		<szLongItemName>7.62x51mm T ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>7.62x51mm T ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>7.62NATO T Kiste</szItemName>
+		<szLongItemName>7.62x51mm T Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers 7.62NATO T.</szItemDesc>
+		<szBRName>7.62x51mm T Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1221</uiIndex>
-		<szItemName>7.62NATO C crate</szItemName>
-		<szLongItemName>7.62x51mm C ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>7.62x51mm C ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>7.62NATO C Kiste</szItemName>
+		<szLongItemName>7.62x51mm C Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers 7.62NATO C.</szItemDesc>
+		<szBRName>7.62x51mm C Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1222</uiIndex>
-		<szItemName>7.62NATO HP C crate</szItemName>
-		<szLongItemName>7.62x51mm HP C ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>7.62x51mm HP C ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>7.62NATO HP C Kiste</szItemName>
+		<szLongItemName>7.62x51mm HP C Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers 7.62x51mm HP C.</szItemDesc>
+		<szBRName>7.62x51mm HP C Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1223</uiIndex>
 		<szItemName>9x19 Kiste</szItemName>
-		<szLongItemName>9x19mm Mun. Kiste</szLongItemName>
-		<szItemDesc>Munitions-Kiste</szItemDesc>
-		<szBRName>9x19mm Mun. Kiste</szBRName>
+		<szLongItemName>9x19mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 9x19mm.</szItemDesc>
+		<szBRName>9x19mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1224</uiIndex>
 		<szItemName>9x19 PB Kiste</szItemName>
-		<szLongItemName>9x19mm PB Mun. Kiste</szLongItemName>
-		<szItemDesc>Munitions-Kiste</szItemDesc>
-		<szBRName>9x19mm AP ammo crate</szBRName>
+		<szLongItemName>9x19mm PB Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 9x19mm PB.</szItemDesc>
+		<szBRName>9x19mm AP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1225</uiIndex>
 		<szItemName>9x19 HS Kiste</szItemName>
-		<szLongItemName>9x19mm HS Mun. Kiste</szLongItemName>
-		<szItemDesc>Munitions-Kiste</szItemDesc>
-		<szBRName>9x19mm HP ammo crate</szBRName>
+		<szLongItemName>9x19mm HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 9x19mm HS.</szItemDesc>
+		<szBRName>9x19mm HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1226</uiIndex>
 		<szItemName>9x19 M Kiste</szItemName>
-		<szLongItemName>9x19mm M Mun. Kiste</szLongItemName>
-		<szItemDesc>Munitions-Kiste</szItemDesc>
-		<szBRName>9x19mm M ammo crate</szBRName>
+		<szLongItemName>9x19mm M Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 9x19mm M.</szItemDesc>
+		<szBRName>9x19mm M Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1227</uiIndex>
-		<szItemName>9x19 G crate</szItemName>
-		<szLongItemName>9x19mm G ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>9x19mm G ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>9x19 G Kiste</szItemName>
+		<szLongItemName>9x19mm G Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 9x19mm G.</szItemDesc>
+		<szBRName>9x19mm G Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1228</uiIndex>
-		<szItemName>9x19 T crate</szItemName>
-		<szLongItemName>9x19mm T ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>9x19mm T ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>9x19 T Kiste</szItemName>
+		<szLongItemName>9x19mm T Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 9x19mm T.</szItemDesc>
+		<szBRName>9x19mm T Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1229</uiIndex>
-		<szItemName>9x19 AET crate</szItemName>
-		<szLongItemName>9x19mm AET ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>9x19mm AET ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>9x19 AET Kiste</szItemName>
+		<szLongItemName>9x19mm AET Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 9x19mm AET.</szItemDesc>
+		<szBRName>9x19mm AET Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1230</uiIndex>
-		<szItemName>9x19 C crate</szItemName>
-		<szLongItemName>9x19mm C ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>9x19mm C ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>9x19 C Kiste</szItemName>
+		<szLongItemName>9x19mm C Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 9x19mm C.</szItemDesc>
+		<szBRName>9x19mm C Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1231</uiIndex>
-		<szItemName>9x19 AP C crate</szItemName>
-		<szLongItemName>9x19mm AP C ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>9x19mm AP C ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>9x19 AP C Kiste</szItemName>
+		<szLongItemName>9x19mm AP C Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 9x19mm AP C.</szItemDesc>
+		<szBRName>9x19mm AP C Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1232</uiIndex>
-		<szItemName>9x19 HP C crate</szItemName>
-		<szLongItemName>9x19mm HP C ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>9x19mm HP C ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>9x19 HP C Kiste</szItemName>
+		<szLongItemName>9x19mm HP C Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 9x19mm HP C.</szItemDesc>
+		<szBRName>9x19mm HP C Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1233</uiIndex>
 		<szItemName>.38 Kiste</szItemName>
-		<szLongItemName>.38 Mun. Kiste</szLongItemName>
-		<szItemDesc>Munitions-Kiste</szItemDesc>
-		<szBRName>.38 ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szLongItemName>.38 Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .38.</szItemDesc>
+		<szBRName>.38 Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1234</uiIndex>
-		<szItemName>.38 AP crate</szItemName>
-		<szLongItemName>.38 AP ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>.38 AP ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>.38 AP Kiste</szItemName>
+		<szLongItemName>.38 AP Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .38 AP.</szItemDesc>
+		<szBRName>.38 AP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1235</uiIndex>
-		<szItemName>.38 HP crate</szItemName>
-		<szLongItemName>.38 HP ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>.38 HP ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>.38 HP Kiste</szItemName>
+		<szLongItemName>.38 HP Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .38 HP.</szItemDesc>
+		<szBRName>.38 HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1236</uiIndex>
-		<szItemName>.38 G crate</szItemName>
-		<szLongItemName>.38 G ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>.38 G ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>.38 G Kiste</szItemName>
+		<szLongItemName>.38 G Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .38 G.</szItemDesc>
+		<szBRName>.38 G Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1237</uiIndex>
 		<szItemName>.357 Kiste</szItemName>
-		<szLongItemName>.357 Mun. Kiste</szLongItemName>
-		<szItemDesc>Munitions-Kiste</szItemDesc>
-		<szBRName>.357 ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szLongItemName>.357 Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .357.</szItemDesc>
+		<szBRName>.357 Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1238</uiIndex>
-		<szItemName>.357 AP crate</szItemName>
-		<szLongItemName>.357 AP ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>.357 AP ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>.357 AP Kiste</szItemName>
+		<szLongItemName>.357 AP Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .357 AP.</szItemDesc>
+		<szBRName>.357 AP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1239</uiIndex>
-		<szItemName>.357 HP crate</szItemName>
-		<szLongItemName>.357 HP ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>.357 HP ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>.357 HP Kiste</szItemName>
+		<szLongItemName>.357 HP Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .357 HP.</szItemDesc>
+		<szBRName>.357 HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1240</uiIndex>
-		<szItemName>.357 G crate</szItemName>
-		<szLongItemName>.357 G ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>.357 G ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>.357 G Kiste</szItemName>
+		<szLongItemName>.357 G Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .357 G.</szItemDesc>
+		<szBRName>.357 G Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1241</uiIndex>
-		<szItemName>.357 AET crate</szItemName>
-		<szLongItemName>.357 AET ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>.357 AET ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>.357 AET Kiste</szItemName>
+		<szLongItemName>.357 AET Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögenn von 5000 Patronen des Kalibers .357.</szItemDesc>
+		<szBRName>.357 AET Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1242</uiIndex>
 		<szItemName>.45 Kiste</szItemName>
-		<szLongItemName>.45 Mun. Kiste</szLongItemName>
-		<szItemDesc>Munitions-Kiste</szItemDesc>
-		<szBRName>.45 ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szLongItemName>.45 Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .45.</szItemDesc>
+		<szBRName>.45 Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1243</uiIndex>
-		<szItemName>.45 AP crate</szItemName>
-		<szLongItemName>.45 AP ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>.45 AP ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>.45 AP Kiste</szItemName>
+		<szLongItemName>.45 AP Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .45 AP.</szItemDesc>
+		<szBRName>.45 AP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1244</uiIndex>
-		<szItemName>.45 HP crate</szItemName>
-		<szLongItemName>.45 HP ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>.45 HP ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>.45 HP Kiste</szItemName>
+		<szLongItemName>.45 HP Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .45 HP.</szItemDesc>
+		<szBRName>.45 HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1245</uiIndex>
-		<szItemName>.45 M crate</szItemName>
-		<szLongItemName>.45 M ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>.45 M ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>.45 M Kiste</szItemName>
+		<szLongItemName>.45 M Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .45 M.</szItemDesc>
+		<szBRName>.45 M Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1246</uiIndex>
-		<szItemName>.45 G crate</szItemName>
-		<szLongItemName>.45 G ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>.45 G ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>.45 G Kiste</szItemName>
+		<szLongItemName>.45 G Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .45 G.</szItemDesc>
+		<szBRName>.45 G Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1247</uiIndex>
-		<szItemName>.45 AET crate</szItemName>
-		<szLongItemName>.45 AET ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>.45 AET ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>.45 AET Kiste</szItemName>
+		<szLongItemName>.45 AET Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .45 AET.</szItemDesc>
+		<szBRName>.45 AET Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1248</uiIndex>
-		<szItemName>5.45mm crate</szItemName>
-		<szLongItemName>5.45x39mm ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>5.45x39mm ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>5.45mm Kiste</szItemName>
+		<szLongItemName>5.45x39mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.45x39mm.</szItemDesc>
+		<szBRName>5.45x39mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1249</uiIndex>
-		<szItemName>5.45mm HP crate</szItemName>
-		<szLongItemName>5.45x39mm HP ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>5.45x39mm HP ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>5.45mm HP Kiste</szItemName>
+		<szLongItemName>5.45x39mm HP Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.45x39mm HP.</szItemDesc>
+		<szBRName>5.45x39mm HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1250</uiIndex>
-		<szItemName>5.45mm T crate</szItemName>
-		<szLongItemName>5.45x39mm T ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>5.45x39mm T ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>5.45mm T Kiste</szItemName>
+		<szLongItemName>5.45x39mm T Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.45x39mm T.</szItemDesc>
+		<szBRName>5.45x39mm T Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1251</uiIndex>
-		<szItemName>7.62WP crate</szItemName>
-		<szLongItemName>7.62x39mm ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>7.62x39mm ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>7.62WP Kiste</szItemName>
+		<szLongItemName>7.62x39mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers 7.62x39mm.</szItemDesc>
+		<szBRName>7.62x39mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1252</uiIndex>
-		<szItemName>7.62WP HP crate</szItemName>
-		<szLongItemName>7.62x39mm HP ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>7.62x39mm HP ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>7.62WP HP Kiste</szItemName>
+		<szLongItemName>7.62x39mm HP Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers 7.62x39mm HP.</szItemDesc>
+		<szBRName>7.62x39mm HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1253</uiIndex>
-		<szItemName>7.62WP M crate</szItemName>
-		<szLongItemName>7.62x39mm M ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>7.62x39mm M ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>7.62WP M Kiste</szItemName>
+		<szLongItemName>7.62x39mm M Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers 7.62x39mm M.</szItemDesc>
+		<szBRName>7.62x39mm M Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1254</uiIndex>
-		<szItemName>7.62WP T crate</szItemName>
-		<szLongItemName>7.62x39mm T ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>7.62x39mm T ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>7.62WP T Kiste</szItemName>
+		<szLongItemName>7.62x39mm T Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers 7.62x39mm T.</szItemDesc>
+		<szBRName>7.62x39mm T Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1255</uiIndex>
-		<szItemName>4.7mm crate</szItemName>
-		<szLongItemName>4.7x33mm ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>4.7x33mm ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>4.7mm Kiste</szItemName>
+		<szLongItemName>4.7x33mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 4.7x33mm.</szItemDesc>
+		<szBRName>4.7x33mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1256</uiIndex>
-		<szItemName>5.7mm crate</szItemName>
-		<szLongItemName>5.7x28mm ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>5.7x28mm ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>5.7mm Kiste</szItemName>
+		<szLongItemName>5.7x28mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.7x28mm.</szItemDesc>
+		<szBRName>5.7x28mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1257</uiIndex>
-		<szItemName>5.7mm HP crate</szItemName>
-		<szLongItemName>5.7x28mm HP ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>5.7x28mm HP ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>5.7mm HP Kiste</szItemName>
+		<szLongItemName>5.7x28mm HP Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.7x28mm HP.</szItemDesc>
+		<szBRName>5.7x28mm HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1258</uiIndex>
-		<szItemName>5.7mm AET crate</szItemName>
-		<szLongItemName>5.7x28mm AET ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>5.7x28mm AET ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>5.7mm AET Kiste</szItemName>
+		<szLongItemName>5.7x28mm AET Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.7x28mm AET.</szItemDesc>
+		<szBRName>5.7x28mm AET Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1259</uiIndex>
-		<szItemName>5.7mm T crate</szItemName>
-		<szLongItemName>5.7x28mm T ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>5.7x28mm T ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>5.7mm T Kiste</szItemName>
+		<szLongItemName>5.7x28mm T Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5.7x28 T.</szItemDesc>
+		<szBRName>5.7x28mm T Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1260</uiIndex>
-		<szItemName>7.62x54mm crate</szItemName>
-		<szLongItemName>7.62x54mm ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>7.62x54mm ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>7.62x54mm Kiste</szItemName>
+		<szLongItemName>7.62x54mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers 7.62x54.</szItemDesc>
+		<szBRName>7.62x54mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1261</uiIndex>
-		<szItemName>7.62x54mm T crate</szItemName>
-		<szLongItemName>7.62x54mm T ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>7.62x54mm T ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>7.62x54mm T Kiste</szItemName>
+		<szLongItemName>7.62x54mm T Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers 7.62x54 Tracer.</szItemDesc>
+		<szBRName>7.62x54mm T Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1262</uiIndex>
-		<szItemName>.50 BMG crate</szItemName>
-		<szLongItemName>.50 BMG ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>.50 BMG ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>.50 BMG Kiste</szItemName>
+		<szLongItemName>.50 BMG Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 300 Patronen des Kalibers .50 BMG.</szItemDesc>
+		<szBRName>.50 BMG Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1263</uiIndex>
-		<szItemName>9x39mm crate</szItemName>
-		<szLongItemName>9x39mm ammo crate</szLongItemName>
-		<szItemDesc>Beschreibung erwünscht</szItemDesc>
-		<szBRName>9x39mm ammo crate</szBRName>
-		<szBRDesc>Beschreibung erwünscht</szBRDesc>
+		<szItemName>9x39mm Kiste</szItemName>
+		<szLongItemName>9x39mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers 9x39mm.</szItemDesc>
+		<szBRName>9x39mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 </ITEMLIST>
