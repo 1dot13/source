@@ -2850,11 +2850,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>356</uiIndex>
-		<szItemName>9x19mm Mag 8 G</szItemName>
-		<szLongItemName>9x19mm Pistol Mag, 8 Glaser</szLongItemName>
-		<szItemDesc>Glaser ammunition has double the impact of standard hollow point ammo. Unfortunately, it also has twice as much difficulty penetrating armor.</szItemDesc>
-		<szBRName>9x19mm Mag 8 Glaser</szBRName>
-		<szBRDesc>Eight rounds of frangible fun. All of the man-stopping power, none of the over-penetration.</szBRDesc>
+		<szItemName>9x19мм, 8G</szItemName>
+		<szLongItemName>9x19мм магазин к пистолету, 8 Glaser</szLongItemName>
+		<szItemDesc>Боеприпасы с "контролируемой баллистикой" по наносимым повреждениям превосходят стандартные экспансивные патроны в два раза. К несчастью, ими также в два раза сложнее пробить броню.</szItemDesc>
+		<szBRName>9x19мм маг, 8 Glaser</szBRName>
+		<szBRDesc>Восемь тонкостенных патронов для безудержного веселья. Максимальная убойная сила при минимальной бронебойности.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>357</uiIndex>
@@ -3699,10 +3699,10 @@
 	<ITEM>
 		<uiIndex>462</uiIndex>
 		<szItemName>.30-06 AP</szItemName>
-		<szLongItemName>.30-06 AP Clip</szLongItemName>
-		<szItemDesc>A clip holding 8 rounds of FMJ ammo in the venerable .30-06 caliber.</szItemDesc>
-		<szBRName>.30-06 AP Clip</szBRName>
-		<szBRDesc>If you happen to have a M1 Garand around, here's some ammo for it.</szBRDesc>
+		<szLongItemName>.30-06 AP магазин</szLongItemName>
+		<szItemDesc>Магазин на 8 стандартных оболочечных пуль старинного калибра .30-06.</szItemDesc>
+		<szBRName>.30-06 AP маг.</szBRName>
+		<szBRDesc>Если вам повезло заиметь старую винтовку M1 Garand, то вот для нее и патроны.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>463</uiIndex>
@@ -4066,19 +4066,19 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>508</uiIndex>
-		<szItemName>9x18mm Mag 20</szItemName>
-		<szLongItemName>9x18mm SMG Mag, 20</szLongItemName>
-		<szItemDesc>20 round magazine for a 9x18mm chambered SMG.</szItemDesc>
-		<szBRName>9x18mm Mag 20</szBRName>
-		<szBRDesc>20 round clip fits many Russian SMGs and machine pistols.</szBRDesc>
+		<szItemName>9x18мм, 20</szItemName>
+		<szLongItemName>9x18мм магазин к ПП, 20</szLongItemName>
+		<szItemDesc>Магазин на 20 патронов калибра 9x18мм для вашего пистолет-пулемета.</szItemDesc>
+		<szBRName>9x18мм маг, 20</szBRName>
+		<szBRDesc>Магазин на 20 патронов калибра 9x18мм. Этот патрон подойдет для многих автоматических пистолетов и пистолет-пулеметов Российского производства.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>509</uiIndex>
-		<szItemName>9x18mm Mag 20 HP</szItemName>
-		<szLongItemName>9x18mm SMG Mag, 20 HP</szLongItemName>
-		<szItemDesc>20 round SMG mag loaded with hollow-point ammo.</szItemDesc>
-		<szBRName>9x18mm Mag 20 HP</szBRName>
-		<szBRDesc>HP rounds are preferred by law enforcement officials for their low penetration.</szBRDesc>
+		<szItemName>9x18мм, 20HP</szItemName>
+		<szLongItemName>9x18мм магазин к ПП, 20 HP</szLongItemName>
+		<szItemDesc>Магазин на 20 патронов калибра 9x18мм с пулей, имеющей экспансивную выемку.</szItemDesc>
+		<szBRName>9x18мм маг, 20 HP</szBRName>
+		<szBRDesc>Магазин на 20 патронов калибра 9x18мм с пулей, имеющей экспансивную выемку. За низкую пробивную способность этим пулям отдают свое предпочтение служители закона.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>510</uiIndex>
@@ -4610,11 +4610,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>576</uiIndex>
-		<szItemName>.45 Drum</szItemName>
-		<szLongItemName>.45 SMG Drum</szLongItemName>
-		<szItemDesc>A 50-round Drum of .45 ACP ammo for the old Thompson M1928.</szItemDesc>
-		<szBRName>.45 Drum</szBRName>
-		<szBRDesc>Original Thompson M1928 Drum, loaded with standard rounds.</szBRDesc>
+		<szItemName>.45 бараб</szItemName>
+		<szLongItemName>.45 барабан для ПП</szLongItemName>
+		<szItemDesc>Барабанный магазин на 50 патронов калибра .45 ACP для старенького Томпсона M1928.</szItemDesc>
+		<szBRName>.45 барабан к ПП</szBRName>
+		<szBRDesc>Оригинальный барабанный магазин для пистолет-пулемета Thompson M1928. Содержит 50 стандартных патронов.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>577</uiIndex>
