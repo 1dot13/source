@@ -6234,65 +6234,68 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					if(bSelectedInfoChar != -1)
 					{
 						SOLDIERTYPE *pSoldier = MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ];
-						if(!fShowMapInventoryPool)
+						if(OK_CONTROLLABLE_MERC( pSoldier ))
 						{
-							fShowMapInventoryPool = TRUE;
-							CreateDestroyMapInventoryPoolButtons( TRUE );
-						}
-						if(!fShowInventoryFlag)
-						{
-							fShowInventoryFlag = TRUE;
-						}
-						if( fCtrl )
-						{
-							//CHRISL: pickup all items to vehicle
-							if ( UsingNewInventorySystem() == true && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) && gGameExternalOptions.fVehicleInventory && (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
+							if(!fShowMapInventoryPool)
 							{
-								for(unsigned int i = 0; i<pInventoryPoolList.size(); i++)
+								fShowMapInventoryPool = TRUE;
+								CreateDestroyMapInventoryPoolButtons( TRUE );
+							}
+							if(!fShowInventoryFlag)
+							{
+								fShowInventoryFlag = TRUE;
+							}
+							if( fCtrl )
+							{
+								//CHRISL: pickup all items to vehicle
+								if ( UsingNewInventorySystem() == true && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) && gGameExternalOptions.fVehicleInventory && (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 								{
-									if(pInventoryPoolList[i].fExists == TRUE && (pInventoryPoolList[i].usFlags & WORLD_ITEM_REACHABLE))
+									for(unsigned int i = 0; i<pInventoryPoolList.size(); i++)
 									{
-										for(int x = 0; x<NUM_INV_SLOTS; x++)
+										if(pInventoryPoolList[i].fExists == TRUE && (pInventoryPoolList[i].usFlags & WORLD_ITEM_REACHABLE))
 										{
-											if(vehicleInv[x] == FALSE)
-												continue;
-											if(pSoldier->inv[x].exists() == true)
+											for(int x = 0; x<NUM_INV_SLOTS; x++)
 											{
-												if(pSoldier->inv[x].usItem != pInventoryPoolList[i].object.usItem)
+												if(vehicleInv[x] == FALSE)
 													continue;
+												if(pSoldier->inv[x].exists() == true)
+												{
+													if(pSoldier->inv[x].usItem != pInventoryPoolList[i].object.usItem)
+														continue;
+													else
+														pInventoryPoolList[i].object.AddObjectsToStack(pSoldier->inv[x], -1, pSoldier, x);
+												}
 												else
-													pInventoryPoolList[i].object.AddObjectsToStack(pSoldier->inv[x], -1, pSoldier, x);
-											}
-											else
-												pInventoryPoolList[i].object.MoveThisObjectTo(pSoldier->inv[x], -1, pSoldier, x);
-											if(pInventoryPoolList[i].object.ubNumberOfObjects < 0)
-											{
-												//RemoveItemFromWorld(i);
-												break;
+													pInventoryPoolList[i].object.MoveThisObjectTo(pSoldier->inv[x], -1, pSoldier, x);
+												if(pInventoryPoolList[i].object.ubNumberOfObjects < 0)
+												{
+													//RemoveItemFromWorld(i);
+													break;
+												}
 											}
 										}
+										fTeamPanelDirty = TRUE;
+										fMapPanelDirty = TRUE;
+										fInterfacePanelDirty = DIRTYLEVEL2;
 									}
-									fTeamPanelDirty = TRUE;
-									fMapPanelDirty = TRUE;
-									fInterfacePanelDirty = DIRTYLEVEL2;
 								}
 							}
-						}
-						else
-						{
-							//CHRISL: drop all items
-							if ( bSelectedInfoChar != -1 && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) )
+							else
 							{
-								for(int i = BODYPOSFINAL; i<NUM_INV_SLOTS; i++)
+								//CHRISL: drop all items
+								if ( bSelectedInfoChar != -1 && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) )
 								{
-									if(pSoldier->inv[i].exists() == true)
+									for(int i = BODYPOSFINAL; i<NUM_INV_SLOTS; i++)
 									{
-										AutoPlaceObjectInInventoryStash(&pSoldier->inv[i], pSoldier->sGridNo);
-										DeleteObj(&pSoldier->inv[i]);
+										if(pSoldier->inv[i].exists() == true)
+										{
+											AutoPlaceObjectInInventoryStash(&pSoldier->inv[i], pSoldier->sGridNo);
+											DeleteObj(&pSoldier->inv[i]);
+										}
+										fTeamPanelDirty = TRUE;
+										fMapPanelDirty = TRUE;
+										fInterfacePanelDirty = DIRTYLEVEL2;
 									}
-									fTeamPanelDirty = TRUE;
-									fMapPanelDirty = TRUE;
-									fInterfacePanelDirty = DIRTYLEVEL2;
 								}
 							}
 						}

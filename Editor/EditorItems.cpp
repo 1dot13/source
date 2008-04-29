@@ -156,6 +156,8 @@ void EntryInitEditorItemsInfo()
 			item = &Item[i];
 			//if( Item[i].fFlags & ITEM_NOT_EDITOR )
 			//	continue;
+			if(item->notineditor)
+				continue;
 			if( i == SWITCH || i == ACTION_ITEM )
 			{
 
@@ -404,9 +406,10 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 				break;
 			item = &Item[usCounter];
 			//if( Item[usCounter].fFlags & ITEM_NOT_EDITOR )
+			if(item->notineditor)
 			{
-			//	usCounter++;
-			//	continue;
+				usCounter++;
+				continue;
 			}
 			if( eInfo.uiItemType == TBAR_MODE_ITEM_TRIGGERS )
 			{
@@ -1655,6 +1658,7 @@ void DisplayItemStatistics()
 
 
 #endif
+
 
 
 
