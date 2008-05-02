@@ -4257,48 +4257,16 @@ void TestExplosion()
 void CycleSelectedMercsItem()
 {
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CycleSelectedMercsItem"));
-	UINT16 usOldItem;
+	INT16 usOldItem;
 	SOLDIERTYPE *pSoldier;
 	// Cycle selected guy's item...
-	if ( gfUIFullTargetFound )
+	if( gusSelectedSoldier != NOBODY )
 	{
 		// Get soldier...
-		pSoldier = MercPtrs[ gusUIFullTargetID ];
+		pSoldier = MercPtrs[ gusSelectedSoldier ];
 
-		usOldItem = pSoldier->inv[ HANDPOS ].usItem;
-
-		//CHRISL: Why not make this work like CycleItemDescriptionItem in that holding the SHIFT key reverses the cycle?
-		if ( _KeyDown( SHIFT ) )
-		{
-			usOldItem--;
-			while ( usOldItem > 0 && ( Item[usOldItem].usItemClass == IC_NONE || Item[usOldItem].usItemClass == 0 ) && (UsingNewInventorySystem() == false || (UsingNewInventorySystem() == true && Item[usOldItem].ItemSize <= 34)) )
-			{
-				usOldItem--;
-			}
-
-			if ( usOldItem < 0 )
-			{
-				usOldItem = MAXITEMS-1;
-			}
-		}
-		else
-		{
-			usOldItem++;
-			if ( usOldItem > MAXITEMS )
-			{
-				usOldItem = 0;
-			}
-
-			while (usOldItem < MAXITEMS && (Item[usOldItem].usItemClass == IC_NONE || Item[usOldItem].usItemClass == 0 ) && (UsingNewInventorySystem() == false || (UsingNewInventorySystem() == true && Item[usOldItem].ItemSize <= 34)) )
-			{
-				usOldItem++;
-			}
-		}
-
-		if ( usOldItem > MAXITEMS )
-		{
-			usOldItem = 0;
-		}
+		// Cycle item....
+		usOldItem = CycleItems(pSoldier->inv[ HANDPOS ].usItem);
 
 		CreateItem( (UINT16)usOldItem, 100, &( pSoldier->inv[ HANDPOS ]) );
 

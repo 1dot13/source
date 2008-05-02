@@ -197,6 +197,7 @@ BOOLEAN HandleCompatibleAmmoUIForMapInventory( SOLDIERTYPE *pSoldier, INT32 bInv
 void ResetCompatibleItemArray( );
 
 void CycleItemDescriptionItem( INT16 sX, INT16 sY );
+INT16 CycleItems( INT16 usOldItem );
 
 BOOLEAN InitializeStealItemPickupMenu( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, ITEM_POOL *pItemPool, UINT8 ubCount);
 

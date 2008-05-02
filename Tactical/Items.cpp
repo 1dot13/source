@@ -1433,6 +1433,7 @@ UINT8 ItemSlotLimit( OBJECTTYPE * pObject, INT16 bSlot, SOLDIERTYPE *pSoldier, B
 	}
 	else
 		iSize = Item[pObject->usItem].ItemSize;
+	iSize = __min(iSize,34);
 	ubSlotLimit = LBEPocketType[pIndex].ItemCapacityPerSize[iSize];
 
 	//this could be changed, we know guns are physically able to stack

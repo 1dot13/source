@@ -2813,18 +2813,23 @@ void CycleItemDescriptionItem( INT16 sX, INT16 sY )
 	// Delete old box...
 	DeleteItemDescriptionBox( );
 
-	// Make new item....
-	usOldItem = gpItemDescSoldier->inv[ HANDPOS ].usItem;
+	// Cycle item....
+	usOldItem = CycleItems(gpItemDescSoldier->inv[ HANDPOS ].usItem);
 
+	CreateItem( (UINT16)usOldItem, 100, &( gpItemDescSoldier->inv[ HANDPOS ] ) );
+
+	InternalInitItemDescriptionBox( &( gpItemDescSoldier->inv[ HANDPOS ] ), sX, sY, gubItemDescStatusIndex, gpItemDescSoldier );
+}
+
+INT16 CycleItems( INT16 usOldItem )
+{
 	if ( _KeyDown( SHIFT ) )
 	{
 		usOldItem--;
-
 		if ( usOldItem < 1 )
 		{
 			usOldItem = MAXITEMS-1;
 		}
-
 		while ( usOldItem > 0 && ( Item[usOldItem].usItemClass == IC_NONE || Item[usOldItem].usItemClass == 0 ))
 		{
 			usOldItem--;
@@ -2835,12 +2840,10 @@ void CycleItemDescriptionItem( INT16 sX, INT16 sY )
 	else
 	{
 		usOldItem++;
-
 		if ( usOldItem > MAXITEMS )
 		{
 			usOldItem = 0;
 		}
-
 		while (usOldItem < MAXITEMS && (Item[usOldItem].usItemClass == IC_NONE || Item[usOldItem].usItemClass == 0 ))
 		{
 			usOldItem++;
@@ -2849,9 +2852,12 @@ void CycleItemDescriptionItem( INT16 sX, INT16 sY )
 		}
 	}
 
-	CreateItem( (UINT16)usOldItem, 100, &( gpItemDescSoldier->inv[ HANDPOS ] ) );
+	if ( usOldItem > MAXITEMS )
+	{
+		usOldItem = 0;
+	}
 
-	InternalInitItemDescriptionBox( &( gpItemDescSoldier->inv[ HANDPOS ] ), sX, sY, gubItemDescStatusIndex, gpItemDescSoldier );
+	return(usOldItem);
 }
 
 BOOLEAN InitItemDescriptionBox( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sX, INT16 sY, UINT8 ubStatusIndex )
