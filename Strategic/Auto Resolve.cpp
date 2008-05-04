@@ -4140,7 +4140,7 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		}
 
 		// WANNE: Does this lead to a CTD -> no I did not get any CTD, so I reenabled it
-		if( pAttacker->bWeaponSlot != HANDPOS )
+		if( pAttacker->bWeaponSlot != HANDPOS && pAttacker->bWeaponSlot != -1)
 		{
 			//switch items
 			tempItem = pAttacker->pSoldier->inv[ HANDPOS ];
@@ -4153,7 +4153,14 @@ void AttackTarget( SOLDIERCELL *pAttacker, SOLDIERCELL *pTarget )
 		{
 			iImpact = HTHImpact( pAttacker->pSoldier, pTarget->pSoldier, ubAccuracy, (BOOLEAN)(fKnife || fClaw) );
 		}
-		iImpact = 0;
+
+		// WANNE: Why is impact here always set to 0? The impact was calculated a few lines before!
+		//iImpact = 0;
+
+		// WANNE: Just for safty.
+		if (iImpact < 0)
+			iImpact = 0;
+		
 		iNewLife = pTarget->pSoldier->stats.bLife - iImpact;
 
 		if( pAttacker->uiFlags & CELL_MERC )
