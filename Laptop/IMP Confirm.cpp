@@ -1209,7 +1209,7 @@ void WriteOutCurrentImpCharacter( INT32 iProfileId, STR fileName )
 BOOLEAN ImpExists ( STR nickName )
 {
 	// Changed by ADB, rev 1513, to resolve IMPs created prior to structural changes
-	char zFileName[13];
+	char zFileName[32];
 
 	strcpy(zFileName,nickName);
 	//strcat(zFileName,IMP_FILENAME_SUFFIX);
@@ -1238,7 +1238,8 @@ BOOLEAN LoadImpCharacter( STR nickName )
 	HWFILE hFile;
 	UINT32 uiBytesRead = 0;
 
-	char zFileName[13];
+	// WANNE: Enlarged the array from 13 characters to 32.
+	char zFileName[32];
 
 	//ADB first try to load the new kind
 	strcpy(zFileName,nickName);
