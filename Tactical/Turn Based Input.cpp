@@ -5448,6 +5448,14 @@ void SwapGoggles(SOLDIERTYPE *pTeamSoldier)
 	INT8		bSlot1;
 	int			bestBonus;
 	bool		itemFound = false;
+	//CHRISL: Before doing anything, we should look at both head slots to see if either slot has some sort of goggles
+	for(bSlot1 = HEAD1POS; bSlot1 <= HEAD2POS; bSlot1++)
+	{
+		if(Item[pTeamSoldier->inv[bSlot1].usItem].brightlightvisionrangebonus > 0)
+			itemFound = true;
+		if(Item[pTeamSoldier->inv[bSlot1].usItem].nightvisionrangebonus > 0)
+			itemFound = true;
+	}
 	//2 head slots
 	for (bSlot1 = HEAD1POS; bSlot1 <= HEAD2POS; bSlot1++)
 	{
