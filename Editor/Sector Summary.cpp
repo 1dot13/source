@@ -2907,7 +2907,7 @@ void ApologizeOverrideAndForceUpdateEverything()
 	}
 
 	// ADB: The call to EvaluateWorld does not use the .dat extension
-	EvaluateWorld( "p3_m", 0 );
+	EvaluateWorld( "A9", 0 );
 
 	RemoveProgressBar( 2 );
 	gfUpdatingNow = FALSE;
@@ -3157,6 +3157,7 @@ void ClearSummaryInfo()
 }
 
 #endif
+
 
 
 
