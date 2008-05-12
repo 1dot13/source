@@ -23,7 +23,7 @@
 	#include "Exit Grids.h"
 #endif
 
-
+#include "connect.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -1162,8 +1162,13 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 			}
 			else
 			{
-				sGridNo = FindGridNoFromSweetSpot( pSoldier, pSoldier->sInsertionGridNo, 7, &ubCalculatedDirection );
-
+				if(is_client && (pSoldier->ubStrategicInsertionCode == INSERTION_CODE_GRIDNO)) 
+				{
+					sGridNo = pSoldier->sInsertionGridNo;
+					ubCalculatedDirection = pSoldier->ubDirection;
+				}
+				else sGridNo = FindGridNoFromSweetSpot( pSoldier, pSoldier->sInsertionGridNo, 7, &ubCalculatedDirection );
+				//hayden
 		// ATE: Error condition - if nowhere use insertion gridno!
 		if ( sGridNo == NOWHERE )
 		{

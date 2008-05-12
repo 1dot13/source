@@ -27,6 +27,10 @@
 	#include "Quests.h"
 #endif
 
+
+UINT8	NUMBER_OF_MERCS;
+UINT8	LAST_MERC_ID;
+
 #define		MERC_TEXT_FONT									FONT12ARIAL
 #define		MERC_TEXT_COLOR									FONT_MCOLOR_WHITE
 
@@ -178,7 +182,7 @@ UINT32		guiMercBackGround;
 UINT32		guiMercVideoFaceBackground;
 UINT32		guiMercVideoPopupBackground;
 
-UINT8			gubMercArray[ NUMBER_OF_MERCS ];
+UINT8			gubMercArray[ MAX_NUMBER_OF_MERCS ];
 UINT8			gubCurMercIndex;
 
 INT32			iMercPopUpBox = -1;
@@ -342,6 +346,18 @@ void GameInitMercs()
 	gubMercArray[ 12 ] = COUGAR;
 	gubMercArray[ 13 ] = GASTON;
 	gubMercArray[ 14 ] = STOGIE;
+	gubMercArray[ 15 ] = 57;//hayden
+	gubMercArray[ 16 ] = 58;
+	gubMercArray[ 17 ] = 59;
+	gubMercArray[ 18 ] = 60;
+	gubMercArray[ 19 ] = 61;
+	gubMercArray[ 20 ] = 63;
+	gubMercArray[ 21 ] = 66;
+	gubMercArray[ 22 ] = 67;
+	gubMercArray[ 23 ] = 68;
+	gubMercArray[ 24 ] = 69;
+	gubMercArray[ 25 ] = 70;
+	gubMercArray[ 26 ] = 72;		
 
 	LaptopSaveInfo.gubPlayersMercAccountStatus = MERC_NO_ACCOUNT;
 	gubCurMercIndex = 0;

@@ -27,10 +27,11 @@
 	#include "Assignments.h"
 	#include "Input.h"
 	#include "english.h"
+	#include "finances.h"
 #endif
 
 #include "Cheats.h"
-
+#include "connect.h"
 
 
 #define		MERCBIOFILE												"BINARYDATA\\MercBios.edt"
@@ -667,6 +668,9 @@ BOOLEAN MercFilesHireMerc(UINT8 ubMercID)
 	}
 	else
 	{
+		//take off nominal fee: hayden,
+		if (is_networked) 
+			AddTransactionToPlayersBook( HIRED_MERC, ubMercID, GetWorldTotalMin(), gMercProfiles[ ubMercID ].sSalary * (-1) );
 		//if we succesfully hired the merc
 		return(TRUE);
 	}

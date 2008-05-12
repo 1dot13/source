@@ -58,6 +58,7 @@ extern BOOLEAN gfExitViewer;
 extern BOOLEAN fZoomFlag;
 extern BOOLEAN fMapScreenBottomDirty;
 
+#include "connect.h"
 
 BOOLEAN gfTacticalTraversal = FALSE;
 GROUP *gpTacticalTraversalGroup = NULL;
@@ -696,7 +697,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		if( gfAutomaticallyStartAutoResolve || !fRetreatAnOption ||
 				gubEnemyEncounterCode == ENEMY_AMBUSH_CODE ||
 				gubEnemyEncounterCode == BLOODCAT_AMBUSH_CODE ||
-				gubEnemyEncounterCode == CREATURE_ATTACK_CODE )
+				gubEnemyEncounterCode == CREATURE_ATTACK_CODE || is_client)
 		{
 			DisableButton( iPBButton[ 2 ] );
 			SetButtonFastHelpText( iPBButton[ 2 ], gzNonPersistantPBIText[ 9 ] );

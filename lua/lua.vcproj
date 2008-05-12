@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\;..\Tactical;..\Utils;..\tacticalai;..\Editor;..\strategic;.\"
+				AdditionalIncludeDirectories="..\Multiplayer;&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\;..\Tactical;..\Utils;..\tacticalai;..\Editor;..\strategic;.\"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -67,7 +67,7 @@
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="3"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories=".\;..\;&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\Tactical;..\Utils;..\TacticalAI;..\Editor;..\Strategic;..\Res"
+				AdditionalIncludeDirectories="..\Multiplayer;.\;..\;&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\Tactical;..\Utils;..\TacticalAI;..\Editor;..\Strategic;..\Res"
 				PreprocessorDefinitions="PRECOMPILEDHEADERS;NDEBUG;WIN32;_WINDOWS;JA2;XML_STATIC;CINTERFACE"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"

@@ -117,7 +117,7 @@
 #endif
 
 #include	"Quest Debug System.h"
-
+#include "connect.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -188,7 +188,7 @@ BOOLEAN	gfNextFireJam = FALSE;
 
 extern INT16 ITEMDESC_START_X;
 extern INT16 ITEMDESC_START_Y;
-
+#include "fresh_header.h"
 
 //Little functions called by keyboard input
 void SwapGoggles(SOLDIERTYPE *pTeamSoldier);
@@ -1530,7 +1530,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 		}
 
 
-		/// Allow to save everywhere
+		/// Allow to load everywhere
 		if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == 'l') )
 		{
 			if( InputEvent.usKeyState & ALT_DOWN )
@@ -1554,6 +1554,91 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 					guiPreviousOptionScreen = GAME_SCREEN;
 					LeaveTacticalScreen( SAVE_LOAD_SCREEN );
+				}
+			}
+		}
+		if (is_networked)
+		{
+
+		if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == 's') )//allow saving 'always'//hayden
+		{
+			if( InputEvent.usKeyState & ALT_DOWN )
+			{
+						if( !fDisableMapInterfaceDueToBattle && !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
+						{
+							//if the game CAN be saved
+							if( CanGameBeSaved() )
+							{
+								guiPreviousOptionScreen = GAME_SCREEN;
+								//guiPreviousOptionScreen = guiCurrentScreen;
+								DoQuickSave();
+							}
+							else
+							{
+								//Display a message saying the player cant save now
+								DoMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__IRON_MAN_CANT_SAVE_NOW ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL );
+							}
+						}
+			}
+			else if( InputEvent.usKeyState & CTRL_DOWN )
+			{
+					if( !fDisableMapInterfaceDueToBattle && !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
+					{
+						//if the game CAN be saved
+						if( CanGameBeSaved() )
+						{
+							gfSaveGame = TRUE;
+							gfCameDirectlyFromGame = TRUE;
+
+							guiPreviousOptionScreen = GAME_SCREEN;
+							LeaveTacticalScreen( SAVE_LOAD_SCREEN );
+						}
+						else
+						{
+							//Display a message saying the player cant save now
+							DoMessageBox( MSG_BOX_BASIC_STYLE, zNewTacticalMessages[ TCTL_MSG__IRON_MAN_CANT_SAVE_NOW ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, NULL, NULL);
+						}
+			}
+			}
+		}
+
+
+
+			if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == '0') )
+			{
+				//if( InputEvent.usKeyState & ALT_DOWN )
+				{
+					if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
+					{
+						test_func2();
+					}
+				}
+			
+			}
+
+
+		
+
+			if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == 'e') )
+			{
+				if( InputEvent.usKeyState & ALT_DOWN )
+				{
+					if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
+					{
+						overide_turn();
+					}
+				}
+			
+			}
+
+			if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == 'k') )
+			{
+				if( InputEvent.usKeyState & ALT_DOWN )
+				{
+					if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
+					{
+						kick_player();
+					}
 				}
 			}
 		}
@@ -2186,7 +2271,12 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					}
 				}
 				else
+				{
 					ChangeCurrentSquad( 4 );
+					
+					if (is_networked)
+						grid_display();//hayden
+				}
 				break;
 
 			case '6':
@@ -2203,10 +2293,16 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 			case '9':
 				ChangeCurrentSquad( 8 );
+				
+				if (is_networked)
+					cheat_func();
 				break;
 
 			case '0':
 				ChangeCurrentSquad( 9 );
+
+				if (is_networked)
+					//test_func2();
 				break;
 
 			case 'x':
@@ -3474,7 +3570,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					if ( fAlt )
 						RemoveCharacterFromSquads(MercPtrs[gusSelectedSoldier]);
 
-					else if( !fDisableMapInterfaceDueToBattle && !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
+					else if( !fDisableMapInterfaceDueToBattle && !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) && !is_networked)
 					{
 						//if the game CAN be saved
 						if( CanGameBeSaved() )
@@ -3495,7 +3591,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				else
 					if( fAlt )
 					{
-						if( !fDisableMapInterfaceDueToBattle && !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV ) )
+						if( !fDisableMapInterfaceDueToBattle && !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV )&& !is_networked )
 						{
 							//if the game CAN be saved
 							if( CanGameBeSaved() )

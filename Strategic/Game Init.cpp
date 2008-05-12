@@ -63,7 +63,8 @@
 	#include "Interface Panels.h"
 #endif
 
-//forward declarations of common classes to eliminate includes
+#include "text.h"
+#include "connect.h"
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
@@ -418,7 +419,7 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 	ClearTacticalMessageQueue( );
 
 	// clear mapscreen messages
-	FreeGlobalMessageList();
+	if(!is_networked)FreeGlobalMessageList(); //hayden
 
 	// IF our first time, go into laptop!
 	if ( gubScreenCount == 0 )
@@ -435,6 +436,8 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 		// this is for the "mercs climbing down from a rope" animation, NOT Skyrider!!
 		ResetHeliSeats( );
 
+		if(!is_networked)
+		{
 		// Setup two new messages!
 		AddPreReadEmail(OLD_ENRICO_1,OLD_ENRICO_1_LENGTH,MAIL_ENRICO,	GetWorldTotalMin() );
 		AddPreReadEmail(OLD_ENRICO_2,OLD_ENRICO_2_LENGTH,MAIL_ENRICO,	GetWorldTotalMin() );
@@ -445,6 +448,7 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 		if(gGameExternalOptions.fMercDayOne)
 		{
 			AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin( ), -1 );
+		}
 		}
 
 
@@ -509,8 +513,21 @@ BOOLEAN InitNewGame( BOOLEAN fReset )
 #endif
 
 
+		if(is_networked)
+		{
+			SetLaptopExitScreen( MAP_SCREEN ); //hayden
+			SetPendingNewScreen( MAP_SCREEN );
+			ScreenMsg( MSG_FONT_WHITE, MSG_CHAT, L"------------------------------------------------------");
+			ScreenMsg( MSG_FONT_WHITE, MSG_CHAT, MPHelp[0]);
+			ScreenMsg( MSG_FONT_WHITE, MSG_CHAT, L"------------------------------------------------------");
+			ScreenMsg( MSG_FONT_WHITE, MSG_CHAT, MPHelp[1]);
+			
+		}
+		else
+		{
 		SetLaptopExitScreen( INIT_SCREEN );
 		SetPendingNewScreen(LAPTOP_SCREEN);
+		}
 		gubScreenCount = 1;
 
 		//Set the fact the game is in progress

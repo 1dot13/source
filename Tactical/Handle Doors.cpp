@@ -34,7 +34,10 @@
 	#include "Isometric Utils.h"
 	#include "ai.h"
 	#include "Soldier macros.h"
+	#include "Event Pump.h"
 #endif
+#include "fresh_header.h"
+#include "connect.h"
 
 BOOLEAN gfSetPerceivedDoorState = FALSE;
 
@@ -942,6 +945,7 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *p
 		if ( fDoor )
 		{
 			HandleDoorChangeFromGridNo( pSoldier, sGridNo, FALSE );
+			if(is_client)send_door( pSoldier, sGridNo, FALSE );
 		}
 		else
 		{

@@ -1224,7 +1224,7 @@ BOOLEAN ExecuteGameEvent( EVENT *pEvent )
 
 				// Call soldier function
 				DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Event Pump: Stop Merc at Gridno %d", SStopMerc.sGridNo ));
-				pSoldier->EVENT_StopMerc( SStopMerc.sGridNo, SStopMerc.bDirection );
+				pSoldier->EVENT_StopMerc( SStopMerc.sGridNo, SStopMerc.ubDirection );
 				break;
 
 

@@ -20,8 +20,11 @@
 	#include "Campaign.h"
 	#include "mapscreen.h"
 	#include "Soldier macros.h"
+	#include "Event Pump.h"
 #endif
 
+#include "connect.h"
+#include "fresh_header.h"
 #define MORALE_MOD_MAX 50		// morale *mod* range is -50 to 50, if you change this, check the decay formulas!
 
 #define	DRUG_EFFECT_MORALE_MOD			150
@@ -322,6 +325,11 @@ void UpdateSoldierMorale( SOLDIERTYPE * pSoldier, UINT8 ubType, INT8 bMoraleMod 
 	{
 		return;
 	}
+	
+	if(DISABLE_MORALE && is_networked)
+	{
+		return;
+	}//hayden
 
 	pProfile = &(gMercProfiles[ pSoldier->ubProfile ]);
 

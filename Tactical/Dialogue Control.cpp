@@ -57,6 +57,8 @@
 	#include "qarray.h"
 #endif
 
+#include "connect.h"
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -1288,6 +1290,11 @@ BOOLEAN TacticalCharacterDialogueWithSpecialEventEx( SOLDIERTYPE *pSoldier, UINT
 
 BOOLEAN TacticalCharacterDialogue( SOLDIERTYPE *pSoldier, UINT16 usQuoteNum )
 {
+// Haydent
+	if(is_client)
+	{
+		return(FALSE); //somewhere amongst all this it causes a puase of merc movement while making the quote which throws out the movement sync between  clients... : hayden.
+	}
 	if ( pSoldier->ubProfile == NO_PROFILE )
 	{
 		return( FALSE );

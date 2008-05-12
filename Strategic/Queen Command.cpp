@@ -49,6 +49,7 @@
 	extern BOOLEAN gfClearCreatureQuest;
 #endif
 
+#include "connect.h"
 #include "Reinforcement.h"
 #include "MilitiaSquads.h"
 
@@ -200,6 +201,9 @@ UINT8 NumEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 
 	pSector = &SectorInfo[ SECTOR( sSectorX, sSectorY ) ];
 	ubNumTroops = (UINT8)(pSector->ubNumAdmins + pSector->ubNumTroops + pSector->ubNumElites);
+	
+	if (is_networked)
+		ubNumTroops += numenemyLAN((UINT8)sSectorX,(UINT8)sSectorY ); //hayden
 
 	pGroup = gpGroupList;
 	while( pGroup )
@@ -885,7 +889,12 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 						if( pGroup->ubGroupSize <= iMaxEnemyGroupSize && pGroup->pEnemyGroup->ubNumTroops != pGroup->pEnemyGroup->ubTroopsInBattle && !gfPendingEnemies ||
 								pGroup->ubGroupSize > iMaxEnemyGroupSize || pGroup->pEnemyGroup->ubNumTroops > 50 || pGroup->pEnemyGroup->ubTroopsInBattle > 50 )
 						{
-							DoScreenIndependantMessageBox( L"Group troop counters are bad.  What were the last 2-3 things to die, and how?  Save game and send to KM with info!!!", MSG_BOX_FLAG_OK, NULL );
+							// haydent
+							if (!is_client)
+							{
+								DoScreenIndependantMessageBox( L"Group troop counters are bad.  What were the last 2-3 things to die, and how?  Save game and send to KM with info!!!", MSG_BOX_FLAG_OK, NULL );
+						
+							}
 						}
 					}
 				#endif
@@ -986,7 +995,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"QueenCommand");
 									!pSector->ubNumTroops || !pSector->ubTroopsInBattle ||
 									pSector->ubNumTroops > 100 || pSector->ubTroopsInBattle > 32 )
 							{
-								DoScreenIndependantMessageBox( L"Sector troop counters are bad.  What were the last 2-3 things to die, and how?  Save game and send to KM with info!!!", MSG_BOX_FLAG_OK, NULL );
+								if(!is_client)DoScreenIndependantMessageBox( L"Sector troop counters are bad.  What were the last 2-3 things to die, and how?  Save game and send to KM with info!!!", MSG_BOX_FLAG_OK, NULL );
+								//disabled: hayden.
 							}
 						}
 					#endif
@@ -1194,6 +1204,12 @@ void AddPossiblePendingEnemiesToBattle()
 	SECTORINFO *pSector = &SectorInfo[ SECTOR( gWorldSectorX, gWorldSectorY ) ];
 	GROUP **pGroupInSectorList;
 	static UINT8 ubPredefinedInsertionCode = 255;
+
+	// haydent
+	if ((is_client && !is_server) || !ENEMY_ENABLED)
+	{
+		return;
+	}
 
 	// check if no world is loaded
 	if ( !gWorldSectorX && !gWorldSectorY && (gbWorldSectorZ == -1) )

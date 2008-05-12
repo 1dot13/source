@@ -17,7 +17,7 @@
 	#include <time.h>
 	#include "jascreens.h"
 	#include "worlddef.h"
-
+	#include "Soldier Control.h"
 	#include "overhead.h"
 	#include "interface panels.h"
 	#include "isometric utils.h"
@@ -106,6 +106,7 @@
 	#include "cursors.h"
 #endif
 
+#include "connect.h" //hayden added alot ""'s to get around client spawing random/different placed AI
 #include "SaveLoadGame.h"
 
 //forward declarations of common classes to eliminate includes
@@ -1746,7 +1747,15 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			SetPendingNewScreen(GAME_SCREEN);
 			if( !NumEnemyInSector( ) )
 			{
-				PrepareEnemyForSectorBattle();
+				if (is_networked)
+				{
+					if(is_server && ENEMY_ENABLED)
+						PrepareEnemyForSectorBattle();
+				}
+				else
+				{
+					PrepareEnemyForSectorBattle();
+				}
 			}
 
 			for (int i=0; i<TOTAL_SOLDIERS; i++)
@@ -1757,7 +1766,15 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			if( gubNumCreaturesAttackingTown && !gbWorldSectorZ &&
 				gubSectorIDOfCreatureAttack == SECTOR( gWorldSectorX, gWorldSectorY ) )
 			{
-				PrepareCreaturesForBattle();
+				if (is_networked)
+				{
+					if(is_server && CREATURE_ENABLED)
+						PrepareCreaturesForBattle();
+				}
+				else
+				{
+					PrepareCreaturesForBattle();
+				}
 			}
 			if( gfGotoSectorTransition )
 			{
@@ -2054,13 +2071,25 @@ void PrepareLoadedSector()
 				}
 			}
 		}
-		if( fAddCivs )
+
+		if (is_networked)
+		{
+			if( is_server && fAddCivs && CIV_ENABLED)//hayden its around here we apply .ini choices for Ai
+			{
+				AddSoldierInitListTeamToWorld( CIV_TEAM, 255 );
+			}
+		}
+		else
 		{
 			AddSoldierInitListTeamToWorld( CIV_TEAM, 255 );
 		}
 
-		AddSoldierInitListTeamToWorld( MILITIA_TEAM, 255 );
-		AddSoldierInitListBloodcats();
+		if(is_server && MILITIA_ENABLED)
+			AddSoldierInitListTeamToWorld( MILITIA_TEAM, 255 );
+		
+		if(is_server && CREATURE_ENABLED)
+			AddSoldierInitListBloodcats();
+
 		//Creatures are only added if there are actually some of them.  It has to go through some
 		//additional checking.
 
@@ -2089,9 +2118,21 @@ void PrepareLoadedSector()
 		}
 		#endif
 
-		PrepareCreaturesForBattle();
+		// Haydent
+		if (is_networked)
+		{
+			if(is_server && CREATURE_ENABLED)
+				PrepareCreaturesForBattle();
 
-		PrepareMilitiaForTactical(TRUE);
+			// Haydent
+			if(is_server && MILITIA_ENABLED)
+				PrepareMilitiaForTactical(FALSE);
+		}
+		else
+		{
+			PrepareCreaturesForBattle();
+			PrepareMilitiaForTactical(TRUE);
+		}
 
 		// OK, set varibles for entring this new sector...
 		gTacticalStatus.fVirginSector = TRUE;
@@ -2104,11 +2145,28 @@ void PrepareLoadedSector()
 			//AddSoldierInitListTeamToWorld( CIV_TEAM, 255 );
 //			fEnemyPresenceInThisSector = PrepareEnemyForSectorBattle();
 		}
-		AddProfilesNotUsingProfileInsertionData();
+		
+		if (is_networked)
+		{
+			if(is_server && CIV_ENABLED)
+				AddProfilesNotUsingProfileInsertionData(); //hayden: is just for civ's
+		}
+		else
+		{
+			AddProfilesNotUsingProfileInsertionData();
+		}
 
 		if( !AreInMeanwhile() || GetMeanwhileID() == INTERROGATION )
 		{
-			fEnemyPresenceInThisSector = PrepareEnemyForSectorBattle();
+			if (is_networked)
+			{
+				if(is_server && ENEMY_ENABLED)
+					fEnemyPresenceInThisSector = PrepareEnemyForSectorBattle();
+			}
+			else
+			{
+				fEnemyPresenceInThisSector = PrepareEnemyForSectorBattle();
+			}
 		}
 
 
@@ -4402,7 +4460,14 @@ void UpdateAirspaceControl( void )
 				// if the enemies own the controlling SAM site, and it's in working condition
 				if( ( pSAMStrategicMap->fEnemyControlled ) && ( pSAMStrategicMap->bSAMCondition >= MIN_CONDITION_FOR_SAM_SITE_TO_WORK ) )
 				{
-					fEnemyControlsAir = TRUE;
+					if (is_networked)
+					{
+						fEnemyControlsAir = FALSE; // disable SAM airspace restrictions...
+					}
+					else
+					{
+						fEnemyControlsAir = TRUE;
+					}
 				}
 				else
 				{
@@ -5477,6 +5542,11 @@ BOOLEAN CheckAndHandleUnloadingOfCurrentWorld()
 
 	//Don't bother checking this if we don't have a world loaded.
 	if( !gfWorldLoaded )
+	{
+		return FALSE;
+	}
+
+	if(is_client)//hayden - if multiplayer dont kick from level, allow spectate.
 	{
 		return FALSE;
 	}

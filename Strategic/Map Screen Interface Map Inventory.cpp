@@ -589,7 +589,6 @@ void CreateDestroyMapInventoryPoolButtons( BOOLEAN fExitFromMapScreen )
 		{
 			DeleteItemDescriptionBox();
 		}
-
 		//DEF: added to remove the 'item blip' from staying on the radar map
 		iCurrentlyHighLightedItem = -1;
 
@@ -840,16 +839,16 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 			{
 				if(OK_CONTROLLABLE_MERC( MercPtrs[gCharactersList[bSelectedInfoChar].usSolID] ))
 				{
-					if(ItemSlotLimit( &twItem->object, STACK_SIZE_LIMIT ) == 1)
-					{
-						fShowInventoryFlag = TRUE;
-						MAPInternalInitItemDescriptionBox( &twItem->object, 0, MercPtrs[gCharactersList[bSelectedInfoChar].usSolID] );
-					}
-					else if(gpItemPointer == NULL || gpItemPointer->usItem == twItem->object.usItem || ValidAttachment(gpItemPointer->usItem, twItem->object.usItem) == TRUE || ValidAmmoType(twItem->object.usItem, gpItemPointer->usItem) == TRUE)
-					{
-						InitSectorStackPopup( MercPtrs[gCharactersList[bSelectedInfoChar].usSolID], twItem, iCounter, 0, INV_REGION_Y, 261, ( SCREEN_HEIGHT - PLAYER_INFO_Y ) );
-						fTeamPanelDirty=TRUE;
-						fInterfacePanelDirty = DIRTYLEVEL2;
+				if(ItemSlotLimit( &twItem->object, STACK_SIZE_LIMIT ) == 1)
+				{
+					fShowInventoryFlag = TRUE;
+					MAPInternalInitItemDescriptionBox( &twItem->object, 0, MercPtrs[gCharactersList[bSelectedInfoChar].usSolID] );
+				}
+				else if(gpItemPointer == NULL || gpItemPointer->usItem == twItem->object.usItem || ValidAttachment(gpItemPointer->usItem, twItem->object.usItem) == TRUE || ValidAmmoType(twItem->object.usItem, gpItemPointer->usItem) == TRUE)
+				{
+					InitSectorStackPopup( MercPtrs[gCharactersList[bSelectedInfoChar].usSolID], twItem, iCounter, 0, INV_REGION_Y, 261, ( SCREEN_HEIGHT - PLAYER_INFO_Y ) );
+					fTeamPanelDirty=TRUE;
+					fInterfacePanelDirty = DIRTYLEVEL2;
 					}
 				}
 			}

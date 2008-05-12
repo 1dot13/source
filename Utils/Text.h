@@ -258,6 +258,9 @@ enum
 #ifdef JA2BETAVERSION
 	MSG_END_TURN_AUTO_SAVE,
 #endif
+	MSG_MPSAVEDIRECTORY,//84
+	MSG_CLIENT
+
 };
 extern STR16 pMessageStrings[];
 
@@ -1563,6 +1566,11 @@ enum
 
 //CHRISL: NewInv messages
 extern STR16 NewInvMessage[];
+
+// WANNE - MP: New multiplayer messages
+extern STR16 MPServerMessage[];
+extern STR16 MPClientMessage[];
+extern STR16 MPHelp[];
 
 enum
 {

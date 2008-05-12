@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8,00"
+	Version="8.00"
 	Name="TacticalAI_2005Express"
 	ProjectGUID="{27A49DAF-3F5A-4FF2-B943-9559F0B63032}"
 	RootNamespace="TacticalAI_2005Express"
@@ -41,6 +41,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
+				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -104,6 +105,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
+				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
 				RuntimeLibrary="0"
 				RuntimeTypeInfo="false"

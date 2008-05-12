@@ -58,6 +58,7 @@
 	#include "message.h"
 #endif
 
+#include "connect.h"
 //const UINT32 INTERFACE_START_X			= 0;
 //const UINT32 INTERFACE_START_Y			= ( SCREEN_HEIGHT - INTERFACE_HEIGHT );
 //const UINT32 INV_INTERFACE_START_Y		= ( SCREEN_HEIGHT - INV_INTERFACE_HEIGHT );
@@ -2928,10 +2929,11 @@ void EndUIMessage( )
 
 #define PLAYER_TEAM_TIMER_INTTERUPT_GRACE		( 15000 / PLAYER_TEAM_TIMER_SEC_PER_TICKS )
 #define PLAYER_TEAM_TIMER_GRACE_PERIOD			1000
-#define PLAYER_TEAM_TIMER_SEC_PER_TICKS			100
+//#define PLAYER_TEAM_TIMER_SEC_PER_TICKS			100
+int PLAYER_TEAM_TIMER_SEC_PER_TICKS = 100;//hayden
 #define PLAYER_TEAM_TIMER_TICKS_PER_OK_MERC								( 15000 / PLAYER_TEAM_TIMER_SEC_PER_TICKS )
 #define PLAYER_TEAM_TIMER_TICKS_PER_NOTOK_MERC						( 5000 / PLAYER_TEAM_TIMER_SEC_PER_TICKS )
-#define PLAYER_TEAM_TIMER_TICKS_FROM_END_TO_START_BEEP		( 5000 / PLAYER_TEAM_TIMER_SEC_PER_TICKS )
+#define PLAYER_TEAM_TIMER_TICKS_FROM_END_TO_START_BEEP		( (5000 / PLAYER_TEAM_TIMER_SEC_PER_TICKS)*1.15 )
 #define PLAYER_TEAM_TIMER_TIME_BETWEEN_BEEPS							( 500 )
 #define PLAYER_TEAM_TIMER_TICKS_PER_ENEMY									( 2000 / PLAYER_TEAM_TIMER_SEC_PER_TICKS )
 
@@ -3289,7 +3291,8 @@ void HandleTopMessages( )
 			if ( TIMECOUNTERDONE( giTimerTeamTurnUpdate, PLAYER_TEAM_TIMER_SEC_PER_TICKS ) )
 			{
 				RESETTIMECOUNTER( giTimerTeamTurnUpdate, PLAYER_TEAM_TIMER_SEC_PER_TICKS );
-
+				if(!is_networked)//hayden - stop clients from updating enemy progress bar...  //could have another param in here when get coop going
+				{
 				// Update counter....
 				if ( gTacticalStatus.usTactialTurnLimitCounter < gTacticalStatus.usTactialTurnLimitMax )
 				{
@@ -3300,6 +3303,8 @@ void HandleTopMessages( )
 				if ( gTacticalStatus.usTactialTurnLimitCounter >= ( ( gubProgCurEnemy	) * PLAYER_TEAM_TIMER_TICKS_PER_ENEMY ) )
 				{
 					gTacticalStatus.usTactialTurnLimitCounter = ( ( gubProgCurEnemy ) * PLAYER_TEAM_TIMER_TICKS_PER_ENEMY );
+				}
+				
 				}
 
 				CreateTopMessage( gTopMessage.uiSurface, gTacticalStatus.ubTopMessageType, gTacticalStatus.zTopMessageString );
@@ -3544,6 +3549,9 @@ void InitPlayerUIBar( BOOLEAN fInterrupt )
 		return;
 	}
 
+	if (is_networked)
+		gTacticalStatus.usTactialTurnLimitMax = 0;//hayden , cheap hack, always calc time...
+	
 	// OK, calculate time....
 	if ( !fInterrupt || gTacticalStatus.usTactialTurnLimitMax == 0 )
 	{

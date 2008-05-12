@@ -5,8 +5,12 @@
 #define		MERC_BUTTON_UP_COLOR													FONT_MCOLOR_WHITE
 #define		MERC_BUTTON_DOWN_COLOR												FONT_MCOLOR_DKWHITE
 
-#define		NUMBER_OF_MERCS			15
-#define		LAST_MERC_ID			14
+extern UINT8	NUMBER_OF_MERCS;
+extern UINT8	LAST_MERC_ID;
+
+#define		MAX_NUMBER_OF_MERCS		27
+//#define		NUMBER_OF_MERCS			27//hayden
+//#define		LAST_MERC_ID			26//hayden
 #define		NUMBER_OF_BAD_MERCS		5
 #define		NUMBER_MERCS_AFTER_FIRST_MERC_ARRIVES					6
 #define		NUMBER_MERCS_AFTER_SECOND_MERC_ARRIVES				8
@@ -79,7 +83,7 @@ extern	UINT16			gusMercVideoSpeckSpeech;
 
 extern	UINT8			gubArrivedFromMercSubSite;
 
-extern	UINT8			gubMercArray[ NUMBER_OF_MERCS ];
+extern	UINT8			gubMercArray[ MAX_NUMBER_OF_MERCS ];
 extern	UINT8			gubCurMercIndex;
 //extern	UINT8			gubLastMercIndex;
 

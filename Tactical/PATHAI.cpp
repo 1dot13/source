@@ -42,7 +42,7 @@
 	#include "gamesettings.h"
 	#include "Buildings.h"
 #endif
-
+#include "connect.h"
 #include "PathAIDebug.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -581,7 +581,7 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	else if (!GridNoOnVisibleWorldTile( StartNode ) ) 
 	{
 		#ifdef JA2BETAVERSION
-			ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"ERROR!  Trying to calculate path from non-visible gridno %d to %d", StartNode, DestNode );
+			if(!is_networked)ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"ERROR!  Trying to calculate path from non-visible gridno %d to %d", StartNode, DestNode );
 		#endif
 		return( 0 );
 	}
@@ -2411,7 +2411,7 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMo
 	else if (!GridNoOnVisibleWorldTile( (INT16) iOrigination ) )
 	{
 		#ifdef JA2BETAVERSION
-			ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"ERROR!	Trying to calculate path from non-visible gridno %d to %d", iOrigination, sDestination );
+			if(!is_networked)ScreenMsg( FONT_MCOLOR_RED, MSG_TESTVERSION, L"ERROR!	Trying to calculate path from non-visible gridno %d to %d", iOrigination, sDestination );
 		#endif
 		return( 0 );
 	}

@@ -7,7 +7,7 @@
 	#include "Render Dirty.h"
 	#include "Font Control.h"
 	#include "Assignments.h"
-
+	#include "Soldier Control.h"
 	#include "Overhead.h"
 	#include "Squads.h"
 	#include "Sound Control.h"
@@ -54,6 +54,8 @@
 	#include "Queen Command.h"
 	#include "Render Fun.h"
 #endif
+
+#include "connect.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -5593,20 +5595,38 @@ BOOLEAN HandleTimeCompressWithTeamJackedInAndGearedToGo( void )
 		return( FALSE );
 	}
 
-	// select starting sector (A9 - Omerta)
-	ChangeSelectedMapSector( 9, 1, 0 );
-
-	// load starting sector
-	if ( !SetCurrentWorldSector( 9, 1, 0 ) )
+	if (!is_networked)
+		// select starting sector (A9 - Omerta)
+		ChangeSelectedMapSector( 9, 1, 0 );
+	
+	if (is_networked)
 	{
-		return( FALSE );
-	}
+		// load starting sector
+		if ( !SetCurrentWorldSector( gsMercArriveSectorX, gsMercArriveSectorY, 0 ) )
+		{
+			return( FALSE );
+		}
 
-	//Setup variables in the PBI for this first battle.	We need to support the
+		gubPBSectorX = (UINT8)gsMercArriveSectorX;
+		gubPBSectorY = (UINT8)gsMercArriveSectorY;
+	}
+	else
+	{
+		// load starting sector
+		if ( !SetCurrentWorldSector( 9, 1, 0 ) )
+		{
+			return( FALSE );
+		}
+
+		gubPBSectorX = 9;
+		gubPBSectorY = 1;
+	}
+	
+
+	//Setup variables in the PBI for this first battle.  We need to support the
 	//non-persistant PBI in case the user goes to mapscreen.
 	gfBlitBattleSectorLocator = TRUE;
-	gubPBSectorX = 9;
-	gubPBSectorY = 1;
+
 	gubPBSectorZ = 0;
 	gubEnemyEncounterCode = ENTERING_ENEMY_SECTOR_CODE;
 

@@ -1052,8 +1052,6 @@ BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion )
 
 	// Open items file
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
-	//CHRISL: If the file fails to load, then return the value of localizedVersion.  This will allow the program to continue
-	//	to load if all we're missing are the localized xml files.
 	if ( !hFile )
 		return( localizedVersion );
 	

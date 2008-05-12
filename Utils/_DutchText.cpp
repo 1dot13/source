@@ -197,7 +197,11 @@ CHAR16 TeamTurnString[][STRING_LENGTH] =
 	L"Beurt beest",
 	L"Beurt militie",
 	L"Beurt burgers",
-	// planning turn
+	L"Player_Plan",// planning turn
+	L"Client #1",//hayden
+	L"Client #2",//hayden
+	L"Client #3",//hayden
+	L"Client #4",//hayden
 };
 
 CHAR16 Message[][STRING_LENGTH] =
@@ -3111,7 +3115,7 @@ STR16			AimPopUpText[] =
 
 	//If you try to hire more mercs than game can support
 
-	L"Je team bestaat al uit 18 huurlingen.",
+	L"Je team bestaat al uit huurlingen.",
 
 	L"Opgenomen bericht",
 	L"Bericht opgenomen",
@@ -3612,6 +3616,11 @@ STR16	gzGIOScreenText[] =
 	L"Inventory System",
 	L"Old",
 	L"New",
+
+	L"Timed Turns",//hayden
+	L"Not Timed",
+	L"Timed Player Turns",
+	L"Load MP Game",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -3796,6 +3805,9 @@ STR16 pMessageStrings[] =
 #ifdef JA2BETAVERSION
 	L"Spel succesvol bewaard in de Einde Beurt Auto Bewaar Slot.",
 #endif
+	L"..\\SavedGames\\MP_SavedGames", //The name of the directory where games are saved.
+	L"Client",
+
 };
 
 
@@ -4274,6 +4286,107 @@ STR16 NewInvMessage[] =
 	L"Kan niet me bewegen terwijl actieve rugzakritssluiting",
 	L"Bent zeker u u wilt alle sectorpunten verkopen?",
 	L"Bent zeker u u wilt alle sectorpunten schr?",
+};
+
+// WANNE - MP: Multiplayer messages
+STR16 MPServerMessage[] =
+{
+	// 0
+	L"Initiating RakNet server...",
+	L"Server started, waiting for connections...",
+	L"You must now connect with your client to the server by pressing '2'.",
+	L"Server is already running.",
+	L"Server failed to start. Terminating.",
+	// 5
+	L"%d/%d clients are ready for realtime-mode.",
+	L"Server disconnected and shutdown.",
+	L"Server is not running.",
+	L"Clients are still loading, please wait...",
+	L"You cannot change dropzone after the server has started.",
+};
+
+STR16 MPClientMessage[] =
+{
+	// 0
+	L"Initiating RakNet client...",		
+	L"Connecting to IP: %S ...",
+	L"Received game settings:",
+	L"You are already connected.",
+	L"You are already connecting...",
+	// 5
+	L"Client #%d - '%S' has hired '%s'.",
+	L"Client #%d - '%S' has hired another merc.",
+	L"You are ready - Total ready = %d/%d.",
+	L"You are no longer ready - Total ready = %d/%d.",
+	L"Starting battle...",
+	// 10
+	L"Client #%d - '%S' is ready - Total ready = %d/%d.",
+	L"Client #%d - '%S' is no longer ready - Total ready = %d/%d",
+	L"You are ready. Awaiting other clients... Press 'OK' if you are not ready anymore.",
+	L"Let us the battle begin!",
+	L"A client must be running for starting the game.",
+	// 15
+	L"Game cannot start. No mercs are hired...",
+	L"Awaiting 'OK' from server to unlock the laptop...",
+	L"Interrupted",
+	L"Finish from interrupt",
+	L"Mouse Grid Coordinates:",
+	// 20
+	L"X: %d, Y: %d",
+	L"Grid Number: %d",
+	L"Server only feature",
+	L"Choose server manual override stage:  ('1' - Enable laptop/hiring)  ('2' - Launch/load level)  ('3' - Unlock UI)  ('4' - Finish placement)",
+	//L"Sector=%s, Max Clients=%d, Max Mercs=%d, Game_Mode=%d, Same Merc=%d, Damage Multiplier=%f, Enemies=%d, Creatures=%d, Militias=%d, Civilians=%d, Timed Turns=%d, Secs/Tic=%d, Starting Cash=$%d, Tons of Guns=%d, Sci-Fi=%d, Difficulty=%d, Iron-Man=%d, BobbyRays Range=%d, Dis BobbyRay=%d, Dis Aim/Merc Equip=%d, Dis Morale=%d, Testing=%d",
+	L"Sector=%s, Max Clients=%d, Max Mercs=%d, Game_Mode=%d, Same Merc=%d, Damage Multiplier=%f, Timed Turns=%d, Secs/Tic=%d, Dis BobbyRay=%d, Dis Aim/Merc Equip=%d, Dis Morale=%d, Testing=%d",
+	// 25
+	L"Testing and cheat function '9' is enabled.",
+	L"New connection: Client #%d - '%S', Edge: %d, Team: %d.",
+	L"Team: %d.",//not used any more
+	L"'%s' (client %d - '%S') was killed by '%s' (client %d - '%S')",
+	L"Kicked client #%d - '%S'",
+	// 30
+	L"Start turn for client number:",
+	L"Starting turn for client #%d",
+	L"Requesting for realtime...",
+	L"Switched back to realtime.",
+	L"Error: Something went wrong switching back.",
+	// 35
+	L"Unlock laptop for hiring? (Are all clients connected?)",
+	L"The server has unlocked the laptop. Begin hiring!",
+	L"Interruptor.",
+	L"You cannot change dropzone if you are only the client and not the server.",
+	L"You declined the offer to surrender, because you are in a multiplayer game.",
+	// 40
+	L"All your mercs are wiped dead!",
+	L"Spectator mode enabled.",
+	L"You have been defeated!",
+	L"Sorry, climbing is disable in MP",
+	L"You Hired '%s'",
+};
+
+STR16 MPHelp[] =
+{
+	// 0
+	L"Welcome to JAGGED ALLIANCE 2 v1.13 Multiplayer",
+	L"Press 'F1' for help",
+	L"Multiplayer controls (from strategy screen)",
+	L"* first set up ja2_mp.ini *",
+	L"'1' - Start server", 
+	// 5
+	L"'2' - Connect to server",
+	L"'3' - If server unlock laptop, set client ready for battle",
+	L"'4' - Quit server and client",
+	L"'5' - Display mouse coords (from tactical screen)",
+	L"'7' - Popup dialog for server override panel",
+	// 10
+	L"'F2' - Display secondary help",
+	L"See readme_mp.html for further details",
+	L"Tips: (assuming ja2_mp.ini is set up)",
+	L"* Make sure all clients have unique CLIENT_NUM *",
+	L"* Game save doesn't record bobby rays order *",
+	// 15
+	L"* Avoid placing opposed mercs in immediate sight *",
+	L"'F1' - Display primary help",
 };
 
 #endif //DUTCH

@@ -113,8 +113,8 @@
 	#include "Animation Control.h"
 #endif
 
-
-
+#include "connect.h" //hayden
+#include "fresh_header.h"
 // DEFINES
 
 
@@ -1078,22 +1078,22 @@ void BeginSellAllCallBack( UINT8 bExitValue )
 			if(pInventoryPoolList[wItem].object.exists() == true && (pInventoryPoolList[wItem].usFlags & WORLD_ITEM_REACHABLE))
 			{
 				if(0 == pInventoryPoolList[wItem].object.MoveThisObjectTo(gItemPointer,-1,0,NUM_INV_SLOTS,MAX_OBJECTS_PER_SLOT))
-				{
-					if (pInventoryPoolList[wItem].object.exists() == false) {
-						pInventoryPoolList[wItem].object.initialize();
-					}
-					// Dirty interface
-					fMapPanelDirty = TRUE;
-					gpItemPointer = &gItemPointer;
-					// Sell Item
-					iPrice += SellItem( gItemPointer );
-					gpItemPointer = NULL;
-					fMapInventoryItem = FALSE;
-					if (iPrice == 0) {
-						iPrice = 1;
-					}
-					anythingSold = true;
-					HandleButtonStatesWhileMapInventoryActive();
+			{
+				if (pInventoryPoolList[wItem].object.exists() == false) {
+					pInventoryPoolList[wItem].object.initialize();
+				}
+				// Dirty interface
+				fMapPanelDirty = TRUE;
+				gpItemPointer = &gItemPointer;
+				// Sell Item
+				iPrice += SellItem( gItemPointer );
+				gpItemPointer = NULL;
+				fMapInventoryItem = FALSE;
+				if (iPrice == 0) {
+					iPrice = 1;
+				}
+				anythingSold = true;
+				HandleButtonStatesWhileMapInventoryActive();
 				}
 			}
 		}
@@ -5495,6 +5495,10 @@ UINT32 HandleMapUI( )
 
 							// update destination column for any mercs in transit
 							fTeamPanelDirty = TRUE;
+
+							// added by haydent
+							if (is_networked)
+								ChangeSelectedMapSector( sMapX, sMapY, ( INT8 )iCurrentMapSectorZ );
 						}
 						else
 						{
@@ -5902,8 +5906,19 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 			StopAnyCurrentlyTalkingSpeech( );
 					break;
 
+				// multiplayer: Roman: Should be changed, because the keys are already bount to another feature
 				case F1:
+					if (is_networked)
+					{
+						mp_help();
+						break;
+					}
 				case F2:
+					if (is_networked)
+					{
+						mp_help2();
+						break;
+					}
 				case F3:
 				case F4:
 				case F5:
@@ -6030,6 +6045,11 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 							}
 						}
 					#endif
+						if (fAlt)
+						{
+							
+							break;
+						}
 					break;
 
 				case '\\':
@@ -6075,13 +6095,53 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					break;
 
 
+					// ROMAN:0 multiplayer: Maybe we need to change the keys, because they are bound to other functions
 				case '1':
+					{
+						if (is_networked)
+						{
+							// haydent
+							start_server();
+							break;
+						}
+					}
 				case '2':
+					{
+						if (is_networked)
+						{
+							// haydent
+							connect_client();
+							break;
+						}
+					}
 				case '3':
+					{
+						if (is_networked)
+						{
+							// haydent
+							start_battle();
+							break;
+						}
+					}
 				case '4':
+					{
+						if (is_networked)
+						{
+							// haydent
+							server_disconnect();
+							client_disconnect();
+							break;
+						}
+					}
 				case '5':
 				case '6':
 				case '7':
+					if (is_networked)
+					{
+						// haydent
+						manual_overide();
+						break;
+					}
 				case '8':
 				case '9':
 					// multi-selects all characters in that squad.	SHIFT key and 1-0 for squads 11-20
@@ -6223,7 +6283,6 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						}
 					}
 					break;
-
 				case 'e':
 					if( gfPreBattleInterfaceActive )
 					{ //activate enter sector in prebattle interface.
@@ -6236,65 +6295,65 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						SOLDIERTYPE *pSoldier = MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ];
 						if(OK_CONTROLLABLE_MERC( pSoldier ))
 						{
-							if(!fShowMapInventoryPool)
+						if(!fShowMapInventoryPool)
+						{
+							fShowMapInventoryPool = TRUE;
+							CreateDestroyMapInventoryPoolButtons( TRUE );
+						}
+						if(!fShowInventoryFlag)
+						{
+							fShowInventoryFlag = TRUE;
+						}
+						if( fCtrl )
+						{
+							//CHRISL: pickup all items to vehicle
+							if ( UsingNewInventorySystem() == true && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) && gGameExternalOptions.fVehicleInventory && (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
 							{
-								fShowMapInventoryPool = TRUE;
-								CreateDestroyMapInventoryPoolButtons( TRUE );
-							}
-							if(!fShowInventoryFlag)
-							{
-								fShowInventoryFlag = TRUE;
-							}
-							if( fCtrl )
-							{
-								//CHRISL: pickup all items to vehicle
-								if ( UsingNewInventorySystem() == true && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) && gGameExternalOptions.fVehicleInventory && (pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE))
+								for(unsigned int i = 0; i<pInventoryPoolList.size(); i++)
 								{
-									for(unsigned int i = 0; i<pInventoryPoolList.size(); i++)
+									if(pInventoryPoolList[i].fExists == TRUE && (pInventoryPoolList[i].usFlags & WORLD_ITEM_REACHABLE))
 									{
-										if(pInventoryPoolList[i].fExists == TRUE && (pInventoryPoolList[i].usFlags & WORLD_ITEM_REACHABLE))
+										for(int x = 0; x<NUM_INV_SLOTS; x++)
 										{
-											for(int x = 0; x<NUM_INV_SLOTS; x++)
+											if(vehicleInv[x] == FALSE)
+												continue;
+											if(pSoldier->inv[x].exists() == true)
 											{
-												if(vehicleInv[x] == FALSE)
+												if(pSoldier->inv[x].usItem != pInventoryPoolList[i].object.usItem)
 													continue;
-												if(pSoldier->inv[x].exists() == true)
-												{
-													if(pSoldier->inv[x].usItem != pInventoryPoolList[i].object.usItem)
-														continue;
-													else
-														pInventoryPoolList[i].object.AddObjectsToStack(pSoldier->inv[x], -1, pSoldier, x);
-												}
 												else
-													pInventoryPoolList[i].object.MoveThisObjectTo(pSoldier->inv[x], -1, pSoldier, x);
-												if(pInventoryPoolList[i].object.ubNumberOfObjects < 0)
-												{
-													//RemoveItemFromWorld(i);
-													break;
-												}
+													pInventoryPoolList[i].object.AddObjectsToStack(pSoldier->inv[x], -1, pSoldier, x);
+											}
+											else
+												pInventoryPoolList[i].object.MoveThisObjectTo(pSoldier->inv[x], -1, pSoldier, x);
+											if(pInventoryPoolList[i].object.ubNumberOfObjects < 0)
+											{
+												//RemoveItemFromWorld(i);
+												break;
 											}
 										}
-										fTeamPanelDirty = TRUE;
-										fMapPanelDirty = TRUE;
-										fInterfacePanelDirty = DIRTYLEVEL2;
 									}
+									fTeamPanelDirty = TRUE;
+									fMapPanelDirty = TRUE;
+									fInterfacePanelDirty = DIRTYLEVEL2;
 								}
 							}
-							else
+						}
+						else
+						{
+							//CHRISL: drop all items
+							if ( bSelectedInfoChar != -1 && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) )
 							{
-								//CHRISL: drop all items
-								if ( bSelectedInfoChar != -1 && fShowInventoryFlag && fShowMapInventoryPool && !(gTacticalStatus.fEnemyInSector) )
+								for(int i = BODYPOSFINAL; i<NUM_INV_SLOTS; i++)
 								{
-									for(int i = BODYPOSFINAL; i<NUM_INV_SLOTS; i++)
+									if(pSoldier->inv[i].exists() == true)
 									{
-										if(pSoldier->inv[i].exists() == true)
-										{
-											AutoPlaceObjectInInventoryStash(&pSoldier->inv[i], pSoldier->sGridNo);
-											DeleteObj(&pSoldier->inv[i]);
-										}
-										fTeamPanelDirty = TRUE;
-										fMapPanelDirty = TRUE;
-										fInterfacePanelDirty = DIRTYLEVEL2;
+										AutoPlaceObjectInInventoryStash(&pSoldier->inv[i], pSoldier->sGridNo);
+										DeleteObj(&pSoldier->inv[i]);
+									}
+									fTeamPanelDirty = TRUE;
+									fMapPanelDirty = TRUE;
+									fInterfacePanelDirty = DIRTYLEVEL2;
 									}
 								}
 							}
@@ -6403,6 +6462,15 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						fTeamPanelDirty = TRUE;
 						fMapPanelDirty = TRUE;
 						fInterfacePanelDirty = DIRTYLEVEL2;
+					}
+					break;
+
+					// haydent
+				case 'k':
+					if (fAlt)
+					{
+						if (is_networked)
+							kick_player();
 					}
 					break;
 
@@ -7281,11 +7349,26 @@ void PollLeftButtonInMapView( UINT32 *puiNewEvent )
 
 				// ignore left clicks in the map screen if:
 				// game just started or we're in the prebattle interface or if we are about to hit pre-battle
-				if ( ( gTacticalStatus.fDidGameJustStart == TRUE ) ||
-						( gfPreBattleInterfaceActive == TRUE ) ||
-						( fDisableMapInterfaceDueToBattle	== TRUE ) )
+				
+				
+				if (is_networked)
 				{
-					return;
+					if ( /*( gTacticalStatus.fDidGameJustStart == TRUE ) || */
+						 // commented out to allow heli drop off change @/b4 start ;)
+							( gfPreBattleInterfaceActive == TRUE ) ||
+							( fDisableMapInterfaceDueToBattle	== TRUE ) )
+					{
+						return;
+					}
+				}
+				else
+				{
+					if ( ( gTacticalStatus.fDidGameJustStart == TRUE ) ||
+							( gfPreBattleInterfaceActive == TRUE ) ||
+							( fDisableMapInterfaceDueToBattle	== TRUE ) )
+					{
+						return;
+					}
 				}
 
 
@@ -7642,9 +7725,10 @@ void BltCharInvPanel()
 	}
 	else
 	{
-		InitInventorySoldier(gMapScreenInvPocketXY, MAPInvMoveCallback, MAPInvClickCallback, FALSE, FALSE);
 		//InitializeInvPanelCoordsOld();
+		InitInventorySoldier(gMapScreenInvPocketXY, MAPInvMoveCallback, MAPInvClickCallback, FALSE, FALSE);
 	}
+
 	Blt8BPPDataTo16BPPBufferTransparent( pDestBuf, uiDestPitchBYTES, hCharListHandle, PLAYER_INFO_X, PLAYER_INFO_Y, disOpt);
 	UnLockVideoSurface( guiSAVEBUFFER ); 
 	
@@ -11813,6 +11897,11 @@ void TellPlayerWhyHeCantCompressTime( void )
 		// no mercs hired, ever
 		DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMapScreenJustStartedHelpText[ 0 ], MAP_SCREEN, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 	}
+	// WANNE - MP: It is forbidden to compress time in multiplayer
+	else if (is_networked)
+	{
+		ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"You cannot compress time in multiplayer game. Press '3' to start the battle.");
+	}
 	else if ( !AnyUsableRealMercenariesOnTeam() )
 	{
 		// no usable mercs left on team
@@ -13515,13 +13604,36 @@ BOOLEAN CanMoveBullseyeAndClickedOnIt( INT16 sMapX, INT16 sMapY )
 	// if in airspace mode, and not plotting paths
 	if( ( fShowAircraftFlag == TRUE ) && ( bSelectedDestChar == -1 ) && ( fPlotForHelicopter == FALSE ) )
 	{
-		// don't allow moving bullseye until after initial arrival
-		if ( gTacticalStatus.fDidGameJustStart == FALSE )
+		if (is_networked)
 		{
-			// if he clicked on the bullseye, and we're on the surface level
-			if ( ( sMapX == gsMercArriveSectorX ) && ( sMapY == gsMercArriveSectorY ) && ( iCurrentMapSectorZ == 0 ) )
+			// haydent
+			if (!is_server && !is_client)
 			{
-				return( TRUE );
+				// if he clicked on the bullseye, and we're on the surface level
+				if ( ( sMapX == gsMercArriveSectorX ) && ( sMapY == gsMercArriveSectorY ) && ( iCurrentMapSectorZ == 0 ) )
+				{
+					return( TRUE );
+				}
+			}
+
+			// haydent
+			else if(is_server)
+			{
+				ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPServerMessage[9] );
+			}
+			else if(is_client)
+				ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[38] );
+		}
+		else
+		{
+			// don't allow moving bullseye until after initial arrival
+			if ( gTacticalStatus.fDidGameJustStart == FALSE )
+			{
+				// if he clicked on the bullseye, and we're on the surface level
+				if ( ( sMapX == gsMercArriveSectorX ) && ( sMapY == gsMercArriveSectorY ) && ( iCurrentMapSectorZ == 0 ) )
+				{
+					return( TRUE );
+				}
 			}
 		}
 	}

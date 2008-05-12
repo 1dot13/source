@@ -112,8 +112,10 @@
 #include "PreBattle Interface.h"
 #include "Militia Control.h"
 #include "Lua Interpreter.h"
+#include "bullets.h"
 #endif
-
+#include "test_space.h"
+#include "connect.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -123,6 +125,7 @@ extern void HandleBestSightingPositionInRealtime();
 
 extern UINT8	gubAICounter;
 
+#include "fresh_header.h"
 #define RT_DELAY_BETWEEN_AI_HANDLING 50
 #define RT_AI_TIMESLICE 10
 
@@ -324,24 +327,44 @@ CHAR8					gzDirectionStr[][ 30 ] =
 };
 
 // TEMP VALUES FOR TEAM DEAFULT POSITIONS
-UINT8 bDefaultTeamRanges[ MAXTEAMS ][ 2 ] =
+UINT8 bDefaultTeamRanges[ MAXTEAMS ][ 2 ] = 
+
 {
-	0,				19,																							 //20	US
-	20,			 51,																							 //32	ENEMY
-	52,			 83,																							 //32	CREATURE
-	84,			 115,																					//32	REBELS ( OUR GUYS )
-	116,	MAX_NUM_SOLDIERS - 1,					//32	CIVILIANS
-	MAX_NUM_SOLDIERS, TOTAL_SOLDIERS - 1			// PLANNING SOLDIERS
+	0,              19,                     //20  US
+	20,             51,                      //32  ENEMY
+	52,             52,      //kulled off to make room      ;) //32    CREATURE
+	53,             84,                        //32    REBELS ( OUR GUYS )
+	85,             116,                   //32  CIVILIANS
+	117,             119,			  // PLANNING SOLDIERS (reduced)
+	120,             126,				//1 //new sides //hayden // 7 each
+	127,             133,				//2
+	134,             140,				//3
+	141,             MAX_NUM_SOLDIERS - 1, 			//4
+	MAX_NUM_SOLDIERS, TOTAL_SOLDIERS - 1		        // PLANNING SOLDIERS
 };
 
-COLORVAL bDefaultTeamColors[ MAXTEAMS ] =
+//{
+//	0,              19,                                                                                             //20  US
+//	20,             51,                                                                                             //32  ENEMY
+//	52,             83,                                                                                             //32    CREATURE
+//	84,             115,                                                                                    //32    REBELS ( OUR GUYS )
+//	116,    MAX_NUM_SOLDIERS - 1,                   //32  CIVILIANS
+//MAX_NUM_SOLDIERS, TOTAL_SOLDIERS - 1            // PLANNING SOLDIERS
+//};
+
+COLORVAL bDefaultTeamColors[ MAXTEAMS ] = 
 {
 	FROMRGB( 255, 255, 0 ),
 	FROMRGB( 255, 0, 0 ),
 	FROMRGB( 255, 0, 255 ),
 	FROMRGB( 0, 255, 0 ),
 	FROMRGB( 255, 255, 255 ),
-	FROMRGB( 0, 0, 255 )
+	FROMRGB( 0, 0, 255 ),
+	FROMRGB( 255, 156, 49 ), //hayden //team 1 (radar colours)
+	FROMRGB( 49, 255, 207 ), //2
+	FROMRGB( 193, 85, 255 ), //3
+	FROMRGB( 0, 255, 115 ) //4
+
 };
 
 
@@ -684,7 +707,12 @@ BOOLEAN InitOverhead( )
 	gTacticalStatus.uiCountdownToRestart = GetJA2Clock();
 	gTacticalStatus.fGoingToEnterDemo				= FALSE;
 	gTacticalStatus.fNOTDOLASTDEMO					= FALSE;
-	gTacticalStatus.fDidGameJustStart				= TRUE;
+	
+	if (is_networked)
+		gTacticalStatus.fDidGameJustStart               = FALSE; //hayden
+	else
+		gTacticalStatus.fDidGameJustStart               = TRUE;
+
 	gTacticalStatus.ubLastRequesterTargetID					= NO_PROFILE;
 
 	for ( cnt = 0; cnt < NUM_PANIC_TRIGGERS; cnt++ )
@@ -1124,6 +1152,7 @@ BOOLEAN ExecuteOverhead( )
 
 				// Handle animation update counters
 				// ATE: Added additional check here for special value of anispeed that pauses all updates
+				{
 #ifndef BOUNDS_CHECKER
 				if ( TIMECOUNTERDONE( pSoldier->timeCounters.UpdateCounter, pSoldier->sAniDelay ) && pSoldier->sAniDelay != 10000 )
 #endif
@@ -1168,6 +1197,16 @@ BOOLEAN ExecuteOverhead( )
 						if ( !AdjustToNextAnimationFrame( pSoldier ) )
 						{
 							continue;
+						}
+						//hayden - holt at scheduled grid
+						
+						if (is_networked)
+						{
+							if(pSoldier->sGridNo==pSoldier->sScheduledStop)
+							{
+								pSoldier->HaultSoldierFromSighting( 1 );
+								pSoldier->sScheduledStop=NULL;
+							}
 						}
 
 						if ( !( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_SPECIALMOVE ) )
@@ -1594,6 +1633,19 @@ BOOLEAN ExecuteOverhead( )
 										}
 									}
 								}
+								//if(is_client)//hayden
+								//{
+								//	if(pSoldier->flags.fIsSoldierDelayed==TRUE)
+								//	{
+								//		continue;//in position but waiting on other clients
+								//	}
+								//	else
+								//	{
+								//		//ovh_advance=false;
+								//		pSoldier->flags.fIsSoldierDelayed=TRUE;
+								//		request_ovh(pSoldier->ubID);
+								//	}
+								//}
 							}
 
 							if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_PAUSEANIMOVE ) )
@@ -1601,8 +1653,21 @@ BOOLEAN ExecuteOverhead( )
 								fKeepMoving = FALSE;
 							}
 
+							BOOLEAN executeCondition = FALSE;
+
+							if (is_networked)
+							{
+								if ( !pSoldier->flags.fPausedMove && fKeepMoving && !pSoldier->flags.fNoAPToFinishMove )
+									executeCondition = TRUE;
+							}	
+							else
+							{
+								if ( !pSoldier->flags.fPausedMove && fKeepMoving )
+									executeCondition = TRUE;
+							}
+
 							// DO WALKING
-							if ( !pSoldier->flags.fPausedMove && fKeepMoving )
+							if ( executeCondition )
 							{
 								// Determine deltas
 								//	dDeltaX = pSoldier->pathing.sDestXPos - pSoldier->dXPos;
@@ -1642,8 +1707,12 @@ BOOLEAN ExecuteOverhead( )
 					if (pSoldier->flags.fSoldierUpdatedFromNetwork)
 						UpdateSoldierFromNetwork(pSoldier);
 #endif
+//haydens network soldier update ->>
+					if(is_client)UpdateSoldierToNetwork ( pSoldier );
+//
 				}
 
+				}
 				if ( !gfPauseAllAI &&
 					( ((gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT)) || (fHandleAI && guiAISlotToHandle == cnt) || (pSoldier->aiData.fAIFlags & AI_HANDLE_EVERY_FRAME) || gTacticalStatus.fAutoBandageMode ) )
 				{
@@ -5564,7 +5633,16 @@ void EnterCombatMode( UINT8 ubStartingTeam )
 		}
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"EnterCombatMode continuing... calling startplayerteamturn");
 
-		StartPlayerTeamTurn( FALSE, TRUE );
+		if (!is_client || is_server) //hayden
+		{
+			StartPlayerTeamTurn( FALSE, TRUE );
+			if(is_client)send_EndTurn( ubStartingTeam ); //hayden
+		}
+		else
+		{
+			//ScreenMsg( FONT_YELLOW, MSG_CHAT, L"client skipped EnterCombatMode");	
+			if(is_client)startCombat(ubStartingTeam);//clients other than server meet and send request for combat for server
+		}
 	}
 	else
 	{
@@ -5856,6 +5934,10 @@ BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen )
 	{
 		return( FALSE );
 	}
+	//if (is_server || is_client)
+	//{
+	//	return(FALSE); // cheap band-aid to prevent return from turn based action in multiplayer, atleast until further dev... : hayden.
+	//}
 
 	// if we're boxing NEVER end combat mode
 	if ( gTacticalStatus.bBoxingState == BOXING )
@@ -5927,8 +6009,17 @@ BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen )
 	// If we have reach a point where a cons. number of turns gone by....
 	if ( gTacticalStatus.bConsNumTurnsNotSeen > 1 )
 	{
-		gTacticalStatus.bConsNumTurnsNotSeen = 0;
 
+		if(is_networked && !getReal)//hayden
+		{
+			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[32] );
+
+			sendRT();
+
+			return(FALSE);
+		}
+		gTacticalStatus.bConsNumTurnsNotSeen = 0;
+		
 		// Exit mode!
 		ExitCombatMode();
 
@@ -5993,7 +6084,14 @@ BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen )
 
 void DeathNoMessageTimerCallback( void )
 {
-	CheckAndHandleUnloadingOfCurrentWorld();
+	//CheckAndHandleUnloadingOfCurrentWorld();
+	if(!is_client)CheckAndHandleUnloadingOfCurrentWorld();
+	else	
+	{
+		ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[40] );
+		gTacticalStatus.uiFlags |= SHOW_ALL_MERCS;//hayden
+		ScreenMsg( FONT_YELLOW, MSG_CHAT, MPClientMessage[41] );
+	}
 }
 
 void RemoveStaticEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY )
@@ -6103,6 +6201,9 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 		// Play death music
 		SetMusicMode( MUSIC_TACTICAL_DEATH );
 		SetCustomizableTimerCallbackAndDelay( 10000, DeathNoMessageTimerCallback, FALSE );
+		
+		if (is_networked)
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[42] );
 
 		if ( CheckFact( FACT_FIRST_BATTLE_BEING_FOUGHT, 0 ) )
 		{
@@ -7404,8 +7505,9 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! &&&&&&& Problem with attacker busy count decrementing past 0.... preventing wrap-around." ) );
 #ifdef JA2BETAVERSION
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Attack busy problem. Save, exit and send debug.txt + save file to Sir-Tech." );
+			if(!is_networked)ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"Attack busy problem. Save, exit and send debug.txt + save file to Sir-Tech." );
 			DebugAttackBusy( "Attack Busy Problem\n");
+			//cheap hack to suppress message in MP - hayden.
 #endif
 		}
 	}
@@ -7454,6 +7556,12 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 	// would work quite well.	If only I could close all the holes that the UI opens so that one routine could handle everything.
 	if (!pSoldier)
 	{
+		if (is_networked)
+		{
+			if(gusSelectedSoldier==156)
+				return( NULL );
+		}
+
 		pSoldier = MercPtrs[ gusSelectedSoldier ];
 	}
 
@@ -8046,7 +8154,13 @@ void	DoneFadeOutDueToDeath( void )
 void EndBattleWithUnconsciousGuysCallback( UINT8 bExitValue )
 {
 	// Enter mapscreen.....
-	CheckAndHandleUnloadingOfCurrentWorld();
+	if(!is_client)CheckAndHandleUnloadingOfCurrentWorld();
+	else	
+	{
+		ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[40] );
+		gTacticalStatus.uiFlags |= SHOW_ALL_MERCS;//hayden
+		ScreenMsg( FONT_YELLOW, MSG_CHAT, MPClientMessage[41] );
+	}
 }
 
 

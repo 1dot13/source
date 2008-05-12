@@ -1238,7 +1238,6 @@ BOOLEAN LoadImpCharacter( STR nickName )
 	HWFILE hFile;
 	UINT32 uiBytesRead = 0;
 
-	// WANNE: Enlarged the array from 13 characters to 32.
 	char zFileName[32];
 
 	//ADB first try to load the new kind

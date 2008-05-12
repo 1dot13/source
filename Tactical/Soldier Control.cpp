@@ -97,7 +97,7 @@
 #include "Strategic Pathing.h"
 #endif
 
-
+#include "fresh_header.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -122,6 +122,7 @@ extern INT16 DirIncrementer[8];
 
 
 #define		MIN_SUBSEQUENT_SNDS_DELAY									2000
+#include "connect.h"
 
 // Enumerate extended directions
 enum
@@ -1649,6 +1650,34 @@ void SOLDIERTYPE::AdjustNoAPToFinishMove( BOOLEAN fSet )
 		// this->DeleteSoldierLight( );
 	}
 
+
+	//send it on
+		if (is_networked && this->ubID < 120)
+	{
+		//if(this->ubID>=120) 
+		//	return;//hayden
+		EV_S_STOP_MERC				SStopMerc;
+
+		SStopMerc.sGridNo					= this->sGridNo;
+		SStopMerc.ubDirection			= this->ubDirection;
+		SStopMerc.usSoldierID			= this->ubID;
+		SStopMerc.fset=fSet;
+			SStopMerc.sXPos=this->sX;
+		SStopMerc.sYPos=this->sY;
+
+		//AddGameEvent( S_STOP_MERC, 0, &SStopMerc ); //hayden.
+		
+
+		if(is_client)
+			send_stop(&SStopMerc);
+	}
+
+
+
+
+
+
+
 	this->flags.fNoAPToFinishMove = fSet;
 
 	if ( !fSet )
@@ -2484,9 +2513,20 @@ BOOLEAN SOLDIERTYPE::ChangeSoldierState( UINT16 usNewState, UINT16 usStartingAni
 	SChangeState.uiUniqueId				 = this->uiUniqueSoldierIdValue;
 
 	//AddGameEvent( S_CHANGESTATE, 0, &SChangeState );
+	if(is_server && this->ubID < 120)
+	{
 	this->EVENT_InitNewSoldierAnim( SChangeState.usNewState, SChangeState.usStartingAniCode, SChangeState.fForce );
-
-
+		send_changestate(&SChangeState);
+	}
+	else if(is_client && !is_server && this->ubID < 20)
+	{
+		this->EVENT_InitNewSoldierAnim( SChangeState.usNewState, SChangeState.usStartingAniCode, SChangeState.fForce );
+		send_changestate(&SChangeState);
+	}
+	else if (!is_client)
+	{
+		this->EVENT_InitNewSoldierAnim( SChangeState.usNewState, SChangeState.usStartingAniCode, SChangeState.fForce );
+	}
 	return( TRUE );
 }
 
@@ -4649,8 +4689,16 @@ BOOLEAN SOLDIERTYPE::InternalSoldierReadyWeapon( UINT8 sFacingDir, BOOLEAN fEndR
 
 	if ( usAnimState != INVALID_ANIMATION )
 	{
+		if(is_networked)
+		{
+			ChangeSoldierState( usAnimState, 0 , FALSE );//this passes it to an area where it gets sent over the network.
+		}
+		else
+		{
 		this->EVENT_InitNewSoldierAnim( usAnimState, 0 , FALSE );
+		}
 		fReturnVal = TRUE;
+		
 	}
 
 	if ( !fEndReady )
@@ -5906,7 +5954,11 @@ BOOLEAN SOLDIERTYPE::EVENT_InternalGetNewSoldierPath( INT16 sDestGridNo, UINT16 
 				this->usDontUpdateNewGridNoOnMoveAnimChange = TRUE;
 
 				this->EVENT_InitNewSoldierAnim( usMoveAnimState, 0, FALSE );
+				if(is_server || (is_client && this->ubID <20) ) send_path( this, sDestGridNo, usMoveAnimState , 0 , FALSE );
+
+				return( TRUE );
 			}
+			if(is_server || (is_client && this->ubID <20) ) send_path( this, sDestGridNo, this->usAnimState , 255 , FALSE );
 
 			return( TRUE );
 		}
@@ -5964,11 +6016,13 @@ BOOLEAN SOLDIERTYPE::EVENT_InternalGetNewSoldierPath( INT16 sDestGridNo, UINT16 
 		{
 			this->EVENT_InitNewSoldierAnim( usAnimState, 0, FALSE );
 			this->usPendingAnimation = usMoveAnimState;
+			if(is_server || (is_client && this->ubID <20) ) send_path( this, sDestGridNo, usAnimState , 0 , FALSE );
 		}
 		else
 		{
 			// Call local copy for change soldier state!
 			this->EVENT_InitNewSoldierAnim( usMoveAnimState, 0, fForceRestartAnim );
+			if(is_server || (is_client && this->ubID <20) ) send_path( this, sDestGridNo, usMovementAnim , 0 , fForceRestartAnim );
 
 		}
 
@@ -7539,6 +7593,8 @@ void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier )
 
 	// ATE: If we are an enemy and are not visible......
 	// Set speed to 0
+	if(!is_client)
+	{
 	if ( ( gTacticalStatus.uiFlags & TURNBASED && ( gTacticalStatus.uiFlags & INCOMBAT ) ) || gTacticalStatus.fAutoBandageMode )
 	{
 		if ( ( ( pSoldier->bVisible == -1 && pSoldier->bVisible == pSoldier->bLastRenderVisibleValue ) || gTacticalStatus.fAutoBandageMode ) && pSoldier->usAnimState != MONSTER_UP )
@@ -7554,6 +7610,7 @@ void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier )
 			RESETTIMECOUNTER( pSoldier->timeCounters.UpdateCounter, pSoldier->sAniDelay );
 			return;
 		}
+	}
 	}
 
 	// Default stats soldier to same as normal soldier.....
@@ -7882,7 +7939,11 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof( void )
 	}
 	INT8							bNewDirection;
 	UINT8							ubWhoIsThere;
-
+	if(is_client)
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[43] );
+		return;//hayden disable climbing roof
+	}
 	if ( FindHeigherLevel( this, this->sGridNo, this->ubDirection, &bNewDirection ) && ( this->pathing.bLevel == 0 ) )
 	{
 		if ( EnoughPoints( this, GetAPsToClimbRoof( this, FALSE ), 0, TRUE ) )
@@ -9749,6 +9810,7 @@ void SendSoldierSetDesiredDirectionEvent( SOLDIERTYPE *pSoldier, UINT16 usDesire
 	SSetDesiredDirection.uiUniqueId = pSoldier->uiUniqueSoldierIdValue;
 
 	AddGameEvent( S_SETDESIREDDIRECTION, 0, &SSetDesiredDirection );
+	if(is_server || (is_client && pSoldier->ubID <20) ) send_dir( pSoldier, usDesiredDirection );
 
 }
 
@@ -9783,8 +9845,10 @@ void SendChangeSoldierStanceEvent( SOLDIERTYPE *pSoldier, UINT8 ubNewStance )
 
 	AddGameEvent( S_CHANGESTANCE, 0, &SChangeStance );
 #endif
-
+	if((pSoldier->ubID > 19) && is_networked)
+		return;
 	pSoldier->ChangeSoldierStance( ubNewStance );
+	if(is_server || (is_client && pSoldier->ubID <20) ) send_stance( pSoldier, ubNewStance );
 }
 
 
@@ -10905,12 +10969,17 @@ void SOLDIERTYPE::HaultSoldierFromSighting( BOOLEAN fFromSightingEnemy )
 {
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("HaultSoldierFromSighting") );
 	// SEND HUALT EVENT!
-	//EV_S_STOP_MERC				SStopMerc;
+	EV_S_STOP_MERC				SStopMerc;
 
-	//SStopMerc.sGridNo					= this->sGridNo;
-	//SStopMerc.bDirection			= this->ubDirection;
-	//SStopMerc.usSoldierID			= this->ubID;
-	//AddGameEvent( S_STOP_MERC, 0, &SStopMerc );
+	SStopMerc.sGridNo					= this->sGridNo;
+	SStopMerc.ubDirection			= this->ubDirection;
+	SStopMerc.usSoldierID			= this->ubID;
+	SStopMerc.fset=TRUE;
+		SStopMerc.sXPos=this->sX;
+		SStopMerc.sYPos=this->sY;
+	//AddGameEvent( S_STOP_MERC, 0, &SStopMerc ); //hayden.
+	if(this->ubID>=120) return;//hayden
+	if(is_client)send_stop(&SStopMerc);
 
 	// If we are a 'specialmove... ignore...
 	if ( ( gAnimControl[ this->usAnimState ].uiFlags & ANIM_SPECIALMOVE ) )

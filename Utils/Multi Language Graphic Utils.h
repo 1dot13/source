@@ -37,6 +37,7 @@ enum
 	MLG_TOSTATS,
 	MLG_WARNING,
 	MLG_YOURAD13,
+	MLG_TITLETEXT_MP,	// ROMAN: Additional multiplayer text
 };
 
 BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID );

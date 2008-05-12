@@ -1,3 +1,4 @@
+#include "connect.h"
 #ifdef PRECOMPILEDHEADERS
 #include "Tactical All.h"
 #include "BuildDefines.h"
@@ -88,6 +89,7 @@
 #include "Soldier Control.h"
 #endif
 
+#include "teamturns.h"
 
 //extern BOOLEAN gfDisplayFullCountRingBurst;
 extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady );
@@ -1196,7 +1198,22 @@ UINT32 UIHandleEndTurn( UI_EVENT *pUIEvent )
 		}
 
 		// End our turn!
-		EndTurn( gbPlayerNum + 1 );
+		if (is_server || !is_client)
+		{
+			EndTurn( gbPlayerNum + 1 );
+		}
+			if(!is_server && is_client)
+			{
+				
+					if (INTERRUPT_QUEUED)
+					{
+						EndTurn( gbPlayerNum + 1 );//is ending interrupt instead
+					}
+					else
+					{
+						send_EndTurn( netbTeam+1 );//for sending next netbteam rather than next local team
+					}
+			}
 	}
 
 	return( GAME_SCREEN );
@@ -5842,18 +5859,20 @@ void UnSetUIBusy( UINT8 ubID )
 {
 	if ( gfUserTurnRegionActive && (gTacticalStatus.uiFlags & INCOMBAT ) && ( gTacticalStatus.uiFlags & TURNBASED ) && ( gTacticalStatus.ubCurrentTeam == gbPlayerNum ) )
 	{
-		if ( !gTacticalStatus.fUnLockUIAfterHiddenInterrupt )
 		{
-			if ( gusSelectedSoldier == ubID )
+			if ( !gTacticalStatus.fUnLockUIAfterHiddenInterrupt )
 			{
-				guiPendingOverrideEvent	= LA_ENDUIOUTURNLOCK;
-				HandleTacticalUI( );
+				if ( gusSelectedSoldier == ubID && (gTacticalStatus.ubCurrentTeam == OUR_TEAM || !is_networked))// now that mp 
+				{
+					guiPendingOverrideEvent	= LA_ENDUIOUTURNLOCK;
+					HandleTacticalUI( );
 
-				// Set grace period...
-				gTacticalStatus.uiTactialTurnLimitClock = GetJA2Clock( );
+					// Set grace period...
+					gTacticalStatus.uiTactialTurnLimitClock = GetJA2Clock( );
+				}
 			}
+			// player getting control back so reset all muzzle flashes
 		}
-		// player getting control back so reset all muzzle flashes
 	}
 }
 

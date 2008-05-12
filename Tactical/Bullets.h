@@ -17,8 +17,15 @@
 #define		BULLET_FLAG_FLAME							 0x0080
 #define		BULLET_FLAG_TRACER							 0x0100
 
+//afp-start calculate line points between two point
+#define BULLET_TRACER_MAX_LENGTH 60
+void PointsPath(int sx1, int sy1, int ex2, int ey2) ;
+//afp-end
 typedef struct
 {
+	//afp-start this structure keeps tracers points
+	LEVELNODE* pNodes[BULLET_TRACER_MAX_LENGTH];
+	//afp-end
 	INT32		iBullet;
 	UINT8		ubFirerID;
 	UINT8		ubTargetID;

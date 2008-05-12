@@ -59,7 +59,7 @@
 	#include "Quests.h"
 	#include "GameSettings.h"
 #endif
-
+#include "connect.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -102,7 +102,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 	if( ( pMerc->bMercStatus != 0 ) && (pMerc->bMercStatus != MERC_ANNOYED_BUT_CAN_STILL_CONTACT ) && ( pMerc->bMercStatus != MERC_HIRED_BUT_NOT_ARRIVED_YET ) )
 		return( MERC_HIRE_FAILED );
 
-	if( NumberOfMercsOnPlayerTeam() >= 18 )
+	if( NumberOfMercsOnPlayerTeam() >= 18 || (is_client && NumberOfMercsOnPlayerTeam() >= MAX_MERCS)) //hayden, 7 member team limit setable in ini
 		return( MERC_HIRE_OVER_18_MERCS_HIRED );
 
 	// ATE: if we are to use landing zone, update to latest value
@@ -123,6 +123,9 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 	MercCreateStruct.bSectorZ							= pHireMerc->bSectorZ;
 	MercCreateStruct.bTeam								= SOLDIER_CREATE_AUTO_TEAM;
 	MercCreateStruct.fCopyProfileItemsOver= pHireMerc->fCopyProfileItemsOver;
+	
+	if(!ALLOW_EQUIP && is_networked)
+		MercCreateStruct.fCopyProfileItemsOver=0;//hayden : server overide
 
 	if ( !TacticalCreateSoldier( &MercCreateStruct, &iNewIndex ) )
 	{
@@ -192,36 +195,50 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 
 	//Set the type of merc
 
-	if( DidGameJustStart() )
+	if (!is_networked)
 	{
-		// Set time of initial merc arrival in minutes
-		pHireMerc->uiTimeTillMercArrives = ( gGameExternalOptions.iGameStartingTime + gGameExternalOptions.iFirstArrivalDelay ) / NUM_SEC_IN_MIN;
+		if( DidGameJustStart() )
+		{
+			pHireMerc->uiTimeTillMercArrives = ( gGameExternalOptions.iGameStartingTime + gGameExternalOptions.iFirstArrivalDelay ) / NUM_SEC_IN_MIN;
 
-		// Set insertion for first time in chopper
-		pHireMerc->ubInsertionCode				= INSERTION_CODE_CHOPPER;
+			// Set insertion for first time in chopper
+			pHireMerc->ubInsertionCode				= INSERTION_CODE_CHOPPER;
 
-		//set when the merc's contract is finished
-		pSoldier->iEndofContractTime = GetMidnightOfFutureDayInMinutes( pSoldier->iTotalContractLength ) + ( GetHourWhenContractDone( pSoldier ) * 60 );
+			//set when the merc's contract is finished
+			pSoldier->iEndofContractTime = GetMidnightOfFutureDayInMinutes( pSoldier->iTotalContractLength ) + ( GetHourWhenContractDone( pSoldier ) * 60 );
+		}
+		else
+		{
+			//set when the merc's contract is finished ( + 1 cause it takes a day for the merc to arrive )
+			pSoldier->iEndofContractTime = GetMidnightOfFutureDayInMinutes( 1 + pSoldier->iTotalContractLength ) + ( GetHourWhenContractDone( pSoldier ) * 60 );
+		}
 	}
+	// WANNE - MP: We need this, so the merc contract is correct!
 	else
 	{
-		//set when the merc's contract is finished ( + 1 cause it takes a day for the merc to arrive )
-		pSoldier->iEndofContractTime = GetMidnightOfFutureDayInMinutes( 1 + pSoldier->iTotalContractLength ) + ( GetHourWhenContractDone( pSoldier ) * 60 );
+		pSoldier->iEndofContractTime = GetMidnightOfFutureDayInMinutes( pSoldier->iTotalContractLength ) + ( GetHourWhenContractDone( pSoldier ) * 60 );
 	}
 
 	//Set the time and ID of the last hired merc will arrive
 	LaptopSaveInfo.sLastHiredMerc.iIdOfMerc = pHireMerc->ubProfileID;
 	LaptopSaveInfo.sLastHiredMerc.uiArrivalTime = pHireMerc->uiTimeTillMercArrives;
 
-
-	//if we are trying to hire a merc that should arrive later, put the merc in the queue
-	if( pHireMerc->uiTimeTillMercArrives	!= 0 )
+	if (!is_client)
 	{
-		AddStrategicEvent( EVENT_DELAYED_HIRING_OF_MERC, pHireMerc->uiTimeTillMercArrives,	pSoldier->ubID );
+			//if we are trying to hire a merc that should arrive later, put the merc in the queue
+			if( pHireMerc->uiTimeTillMercArrives  != 0 )
+			{
+				AddStrategicEvent( EVENT_DELAYED_HIRING_OF_MERC, pHireMerc->uiTimeTillMercArrives,  pSoldier->ubID );
+				
+				//specify that the merc is hired but hasnt arrived yet
+				pMerc->bMercStatus = MERC_HIRED_BUT_NOT_ARRIVED_YET;
 
-		//specify that the merc is hired but hasnt arrived yet
-		pMerc->bMercStatus = MERC_HIRED_BUT_NOT_ARRIVED_YET;
-
+			}
+	}
+	else
+	{
+			if(is_client)send_hire( iNewIndex, ubCurrentSoldier, pHireMerc->iTotalContractLength, MercCreateStruct.fCopyProfileItemsOver  );
+			//send off hire info to network, also avail possibility for net-game exclusive hired pSoldier changes...
 	}
 
 
@@ -265,7 +282,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 		//Set starting conditions for the merc
 		pSoldier->iStartContractTime = GetWorldDay( );
 
-		AddHistoryToPlayersLog(HISTORY_HIRED_MERC_FROM_MERC, ubCurrentSoldier, GetWorldTotalMin(), -1, -1 );
+		if(!is_client)AddHistoryToPlayersLog(HISTORY_HIRED_MERC_FROM_MERC, ubCurrentSoldier, GetWorldTotalMin(), -1, -1 );
 	}
 	//If the merc is from IMP, (ie a player character)
 	else if( ( ubCurrentSoldier >= 51 ) && ( ubCurrentSoldier < 57 ) )
@@ -294,13 +311,19 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 	SOLDIERTYPE							*pSoldier;
 	UINT32									uiTimeOfPost;
 
-	if( !DidGameJustStart() && gsMercArriveSectorX == 9 && gsMercArriveSectorY == 1 )
-	{ //Mercs arriving in A9.	This sector has been deemed as the always safe sector.
-		//Seeing we don't support entry into a hostile sector (except for the beginning),
-		//we will nuke any enemies in this sector first.
-		if( gWorldSectorX != 9 || gWorldSectorY != 1 || gbWorldSectorZ )
-		{
-			EliminateAllEnemies( (UINT8)gsMercArriveSectorX, (UINT8)gsMercArriveSectorY );
+
+	if (!is_networked)
+	{
+		// hayden - maybe you want to duke it out in omerta ;)
+		if( !DidGameJustStart() && gsMercArriveSectorX == 9 && gsMercArriveSectorY == 1 )
+		{ 
+			//Mercs arriving in A9.  This sector has been deemed as the always safe sector.
+			//Seeing we don't support entry into a hostile sector (except for the beginning),
+			//we will nuke any enemies in this sector first.
+			if( gWorldSectorX != 9 || gWorldSectorY != 1 || gbWorldSectorZ )
+			{
+				EliminateAllEnemies( (UINT8)gsMercArriveSectorX, (UINT8)gsMercArriveSectorY );
+			}
 		}
 	}
 

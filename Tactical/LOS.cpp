@@ -1,3 +1,4 @@
+#include "connect.h"
 #ifdef PRECOMPILEDHEADERS
 #include "Tactical All.h"
 #else
@@ -41,7 +42,8 @@
 #include "Quests.h"
 #include "items.h"
 #endif
-
+#include "fresh_header.h"
+#include "test_space.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -2325,7 +2327,23 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 	}
 
 	// handle hit!	Handle damage before deleting the bullet though
-	WeaponHit( SWeaponHit.usSoldierID, SWeaponHit.usWeaponIndex, SWeaponHit.sDamage, SWeaponHit.sBreathLoss, SWeaponHit.usDirection, SWeaponHit.sXPos, SWeaponHit.sYPos, SWeaponHit.sZPos, SWeaponHit.sRange, SWeaponHit.ubAttackerID, SWeaponHit.fHit, SWeaponHit.ubSpecial, SWeaponHit.ubLocation );
+	//hayden
+	if(SWeaponHit.ubAttackerID < 20 ||(is_server && SWeaponHit.ubAttackerID < 120)|| !is_client ) // 124 last possible ai 
+	{
+		if(is_client) 
+			SWeaponHit.sDamage=(INT16)(SWeaponHit.sDamage * DAMAGE_MULTIPLIER); // adjust damage from external variable //hayden
+		
+		WeaponHit( SWeaponHit.usSoldierID, SWeaponHit.usWeaponIndex, SWeaponHit.sDamage, SWeaponHit.sBreathLoss, SWeaponHit.usDirection, SWeaponHit.sXPos, SWeaponHit.sYPos, SWeaponHit.sZPos, SWeaponHit.sRange, SWeaponHit.ubAttackerID, SWeaponHit.fHit, SWeaponHit.ubSpecial, SWeaponHit.ubLocation );
+		
+		
+		if(is_server || (is_client && SWeaponHit.ubAttackerID <20) ) 
+		{
+			SWeaponHit.fStopped=fStopped;
+			SWeaponHit.iBullet=pBullet->iBullet;
+
+			send_hit( &SWeaponHit );
+		}
+	}
 
 	if (fStopped)
 	{
@@ -2384,17 +2402,48 @@ void BulletHitStructure( BULLET * pBullet, UINT16 usStructureID, INT32 iImpact, 
 	SStructureHit.usStructureID = usStructureID;
 	SStructureHit.iImpact				= iImpact;
 	SStructureHit.iBullet				= pBullet->iBullet;
+	
+	if (is_networked)
+		SStructureHit.fStopped = fStopped;
+
+	//hayden
+	if(is_client)
+		send_hitstruct(&SStructureHit);
 
 	StructureHit( SStructureHit.iBullet, SStructureHit.usWeaponIndex, SStructureHit.bWeaponStatus, SStructureHit.ubAttackerID, SStructureHit.sXPos, SStructureHit.sYPos, SStructureHit.sZPos, SStructureHit.usStructureID, SStructureHit.iImpact, fStopped );
 }
 
 void BulletHitWindow( BULLET *pBullet, INT16 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth )
 {
+	if (is_networked)
+	{
+		EV_S_WINDOWHIT	SWindowHit;
+		SWindowHit.sGridNo = sGridNo;
+		SWindowHit.usStructureID = usStructureID;
+		SWindowHit.fBlowWindowSouth = fBlowWindowSouth;
+		SWindowHit.fLargeForce = FALSE;
+		SWindowHit.iBullet = pBullet->iBullet;
+		SWindowHit.ubAttackerID=pBullet->pFirer->ubID;
+		//hayden
+		if(is_client)
+			send_hitwindow(&SWindowHit);
+	}
+
 	WindowHit( sGridNo, usStructureID, fBlowWindowSouth, FALSE );
 }
 
 void BulletMissed( BULLET *pBullet, SOLDIERTYPE * pFirer )
 {
+	if (is_networked)
+	{
+		EV_S_MISS SMiss;
+		SMiss.iBullet=pBullet->iBullet;
+		SMiss.ubAttackerID=pFirer->ubID;
+		//hayden
+		if(is_client)
+			send_miss(&SMiss);
+	}
+
 	ShotMiss( pFirer->ubID, pBullet->iBullet );
 }
 
@@ -3482,7 +3531,15 @@ INT8 FireBullet( SOLDIERTYPE * pFirer, BULLET * pBullet, BOOLEAN fFake )
 		}
 		else
 		{
-			pBullet->usClockTicksPerUpdate = (Weapon[ pFirer->usAttackingWeapon ].ubBulletSpeed + GetBulletSpeedBonus(&pFirer->inv[pFirer->ubAttackingHand]) ) / 10;
+			//afp-start  //always a fast bullet 
+			if ( pBullet->usFlags & ( BULLET_FLAG_CREATURE_SPIT | BULLET_FLAG_KNIFE | BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME /*| BULLET_FLAG_TRACER*/ ) )
+				pBullet->usClockTicksPerUpdate = (Weapon[ pFirer->usAttackingWeapon ].ubBulletSpeed + GetBulletSpeedBonus(&pFirer->inv[pFirer->ubAttackingHand]) ) / 10;
+			else
+				if (gGameExternalOptions.gbBulletTracer)				
+					pBullet->usClockTicksPerUpdate = (Weapon[ pFirer->usAttackingWeapon ].ubBulletSpeed + GetBulletSpeedBonus(&pFirer->inv[pFirer->ubAttackingHand]) ) / 10;
+				else
+					pBullet->usClockTicksPerUpdate = 1;
+			//afp-end
 		}
 
 		//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FireBullet: handle flags"));
@@ -3773,6 +3830,8 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 			//				// this is an error!!
 			//				ubLoop = ubLoop;
 			//			}
+			//hayden
+			if(is_client)send_bullet( pBullet, usHandItem );
 			FireBullet( pFirer, pBullet, FALSE );
 		}
 	}
@@ -3896,7 +3955,10 @@ void MoveBullet( INT32 iBullet )
 			// NB remove bullet only flags a bullet for deletion; we still have access to the
 			// information in the structure
 			RemoveBullet( pBullet->iBullet );
-			BulletMissed( pBullet, pBullet->pFirer );
+
+			if(ENABLE_COLLISION)
+					BulletMissed( pBullet, pBullet->pFirer );//only if local origin
+			
 			return;
 		}
 
@@ -3940,7 +4002,10 @@ void MoveBullet( INT32 iBullet )
 		{
 			fIntended = FALSE;
 		}
-
+		//check for structures at target, and calc chance to hit
+		//hayden, disable any structure t avoid collision
+		if(ENABLE_COLLISION)
+		{
 		while( pStructure )
 		{
 			if (pStructure->fFlags & ALWAYS_CONSIDER_HIT)
@@ -4140,6 +4205,7 @@ void MoveBullet( INT32 iBullet )
 			pStructure = pStructure->pNext;
 		}
 
+		}
 		// check to see if any soldiers are nearby; those soldiers
 		// have their near-miss value incremented
 		if (pMapElement->ubAdjacentSoldierCnt > 0)
@@ -4226,12 +4292,16 @@ void MoveBullet( INT32 iBullet )
 
 			// check for collision with the ground
 			iCurrAboveLevelZ = FIXEDPT_TO_INT32( pBullet->qCurrZ - qLandHeight );
+//hayden	not hit	ground
+			if(ENABLE_COLLISION)	
+			{
 			if (iCurrAboveLevelZ < 0)
 			{
 				// ground is in the way!
 				StopBullet( pBullet->iBullet );
 				BulletHitStructure( pBullet, INVALID_STRUCTURE_ID, 0, pBullet->pFirer, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, TRUE );
 				return;
+			}
 			}
 			// check for the existence of structures
 			if (iNumLocalStructures == 0 && !pRoofStructure)
@@ -4280,6 +4350,9 @@ void MoveBullet( INT32 iBullet )
 
 				// special coding (compared with other versions above) to deal with
 				// bullets hitting the ground
+//hayden, stop hit ground
+				if(ENABLE_COLLISION)
+				{
 				if (pBullet->qCurrZ + pBullet->qIncrZ * iStepsToTravel < qLandHeight)
 				{
 					iStepsToTravel = __min( iStepsToTravel, abs( (pBullet->qCurrZ - qLandHeight) / pBullet->qIncrZ ) );
@@ -4290,6 +4363,7 @@ void MoveBullet( INT32 iBullet )
 					StopBullet( pBullet->iBullet );
 					BulletHitStructure( pBullet, INVALID_STRUCTURE_ID, 0, pBullet->pFirer, pBullet->qCurrX, pBullet->qCurrY, pBullet->qCurrZ, TRUE );
 					return;
+				}
 				}
 
 				if (( pBullet->usFlags & ( BULLET_FLAG_MISSILE | BULLET_FLAG_SMALL_MISSILE | BULLET_FLAG_TANK_CANNON | BULLET_FLAG_FLAME | BULLET_FLAG_CREATURE_SPIT /*| BULLET_FLAG_TRACER*/	) ) || fTracer == TRUE)
@@ -4544,7 +4618,8 @@ void MoveBullet( INT32 iBullet )
 				{
 					pBullet->qCurrX += pBullet->qIncrX;
 					pBullet->qCurrY += pBullet->qIncrY;
-					if (pRoofStructure)
+//no hit on lan//pRoofStructure//hayden
+					if (is_networked && pRoofStructure)
 					{
 						qLastZ = pBullet->qCurrZ;
 						pBullet->qCurrZ += pBullet->qIncrZ;
@@ -4609,7 +4684,7 @@ void MoveBullet( INT32 iBullet )
 		{
 			// bullet outside of world!
 			RemoveBullet( pBullet->iBullet );
-			BulletMissed( pBullet, pBullet->pFirer );
+			if(ENABLE_COLLISION)BulletMissed( pBullet, pBullet->pFirer );//hayden: only play event if local
 			return;
 		}
 

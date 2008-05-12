@@ -7019,4 +7019,3 @@ void GoToMapScreenFromTactical( void )
 
 
 
-

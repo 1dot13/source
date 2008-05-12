@@ -58,6 +58,8 @@ typedef struct
 
 	UINT8		ubFiller[109];
 
+
+
 } SAVED_GAME_HEADER;
 
 

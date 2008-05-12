@@ -39,6 +39,7 @@
 #endif
 
 #include "Campaign Init.h"
+#include "connect.h"
 
 BOOLEAN gfSchedulesHosed = FALSE;
 extern UINT32 guiBrokenSaveGameVersion;
@@ -524,6 +525,17 @@ BOOLEAN		EnterSaveLoadScreen()
 													TEXT_CJUSTIFIED,
 													usPosX, SLG_CANCEL_POS_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 													DEFAULT_MOVE_CALLBACK, BtnSlgCancelCallback );
+
+	//load mp game
+	/*UINT16 MPusPosX = SLG_LOAD_CANCEL_POS_X-39;
+
+	UINT32 MPguiSlgCancelBtn = CreateIconAndTextButton( guiSlgButtonImage, zSaveLoadText[SLG_CANCEL], OPT_BUTTON_FONT,
+													OPT_BUTTON_ON_COLOR, DEFAULT_SHADOW,
+													OPT_BUTTON_OFF_COLOR, DEFAULT_SHADOW,
+													TEXT_CJUSTIFIED,
+													usPosX, SLG_CANCEL_POS_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, BtnSlgCancelCallback );*/
+
 
 
 	//Either the save or load button
@@ -1361,7 +1373,10 @@ BOOLEAN DisplaySaveGameEntry( INT8 bEntryID )//, UINT16 usPosY )
 		else
 		{
 			//Create the string for the Data
-			swprintf( zDateString, L"%s %d, %02d:%02d", pMessageStrings[ MSG_DAY ], SaveGameHeader.uiDay, SaveGameHeader.ubHour, SaveGameHeader.ubMin );
+		if(is_networked)
+			swprintf( zDateString, L"%s %d / %d", pMessageStrings[ MSG_CLIENT ], SaveGameHeader.uiDay, SaveGameHeader.ubHour );
+		else
+				swprintf( zDateString, L"%s %d, %02d:%02d", pMessageStrings[ MSG_DAY ], SaveGameHeader.uiDay, SaveGameHeader.ubHour, SaveGameHeader.ubMin );
 
 			//Create the string for the current location
 			if( SaveGameHeader.sSectorX == -1 && SaveGameHeader.sSectorY == -1 || SaveGameHeader.bSectorZ < 0 )
@@ -1383,7 +1398,8 @@ BOOLEAN DisplaySaveGameEntry( INT8 bEntryID )//, UINT16 usPosY )
 			//
 			// Number of mercs on the team
 			//
-
+if(!is_networked)
+{
 			//if only 1 merc is on the team
 			if( SaveGameHeader.ubNumOfMercsOnPlayersTeam == 1 )
 			{
@@ -1395,7 +1411,25 @@ BOOLEAN DisplaySaveGameEntry( INT8 bEntryID )//, UINT16 usPosY )
 				//use "mercs"
 				swprintf( zNumMercsString, L"%d %s", SaveGameHeader.ubNumOfMercsOnPlayersTeam, pMessageStrings[ MSG_MERCS ] );
 			}
+}
+else
+{
+				//
+			// Number of mercs on the team
+			//
 
+			//if only 1 merc is on the team
+			if( SaveGameHeader.ubMin == 1 )
+			{
+				//use "merc"
+				swprintf( zNumMercsString, L"%d / %d %s", SaveGameHeader.ubNumOfMercsOnPlayersTeam,SaveGameHeader.ubMin, MercAccountText[ MERC_ACCOUNT_MERC ] );
+			}
+			else
+			{
+				//use "mercs"
+				swprintf( zNumMercsString, L"%d / %d %s", SaveGameHeader.ubNumOfMercsOnPlayersTeam,SaveGameHeader.ubMin, pMessageStrings[ MSG_MERCS ] );
+			}
+}
 			//Get the current balance
 			swprintf( zBalanceString, L"%d", SaveGameHeader.iCurrentBalance);
 			InsertCommasForDollarFigure( zBalanceString );
@@ -1418,7 +1452,7 @@ BOOLEAN DisplaySaveGameEntry( INT8 bEntryID )//, UINT16 usPosY )
 			DrawTextToScreen( zNumMercsString, (UINT16)(usPosX+SLG_NUM_MERCS_OFFSET_X), (UINT16)(usPosY+SLG_NUM_MERCS_OFFSET_Y), 0, uiFont, ubFontColor, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
 
 			//The balance
-			DrawTextToScreen( zBalanceString, (UINT16)(usPosX+SLG_BALANCE_OFFSET_X), (UINT16)(usPosY+SLG_BALANCE_OFFSET_Y), 0, uiFont, ubFontColor, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
+			if(!is_networked)DrawTextToScreen( zBalanceString, (UINT16)(usPosX+SLG_BALANCE_OFFSET_X), (UINT16)(usPosY+SLG_BALANCE_OFFSET_Y), 0, uiFont, ubFontColor, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
 
 			if( gbSaveGameArray[ bEntryID ] || ( gfSaveGame && !gfUserInTextInputMode && ( gbSelectedSaveLocation == bEntryID ) ) )
 			{
@@ -1543,6 +1577,9 @@ void BtnSlgCancelCallback(GUI_BUTTON *btn,INT32 reason)
 
 		else if( guiPreviousOptionScreen == MAINMENU_SCREEN )
 			SetSaveLoadExitScreen( MAINMENU_SCREEN );
+
+		else if( guiPreviousOptionScreen == GAME_INIT_OPTIONS_SCREEN )//hayden
+			SetSaveLoadExitScreen( GAME_INIT_OPTIONS_SCREEN );
 
 		else
 			SetSaveLoadExitScreen( OPTIONS_SCREEN );

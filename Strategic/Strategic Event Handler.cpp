@@ -33,6 +33,8 @@
 #endif
 #include "BobbyRMailOrder.h"
 
+#include "connect.h"
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -74,6 +76,14 @@ void BobbyRayPurchaseEventCallback( UINT8 ubOrderID )
 	UINT8		ubItemsPurchased;
 
 	sStandardMapPos = BOBBYR_SHIPPING_DEST_GRIDNO;
+
+	// Haydent
+	if(gpNewBobbyrShipments[ ubOrderID ].fActive && is_client)
+	{
+		DropOffItemsInSector( ubOrderID );//hayden
+		return;
+	}
+
 
 	// if the delivery is for meduna, drop the items off there instead
 	if( gpNewBobbyrShipments[ ubOrderID ].fActive && gpNewBobbyrShipments[ ubOrderID ].ubDeliveryLoc == BR_MEDUNA )

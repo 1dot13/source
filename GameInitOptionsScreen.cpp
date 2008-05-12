@@ -24,6 +24,10 @@
 	#include "Soldier Profile.h"
 #endif
 
+#include "gameloop.h"
+#include "connect.h"
+#include "saveloadscreen.h"
+
 ////////////////////////////////////////////
 //
 //	Global Defines
@@ -65,11 +69,11 @@
 #define		GIO_GUN_SETTINGS_Y						iScreenHeightOffset + 242
 #define		GIO_GUN_SETTINGS_WIDTH							GIO_DIF_SETTINGS_WIDTH
 
-/*
-#define		GIO_TIMED_TURN_SETTING_X						GIO_DIF_SETTINGS_X
-#define		GIO_TIMED_TURN_SETTING_Y						GIO_GAME_SETTINGS_Y
+
+#define		GIO_TIMED_TURN_SETTING_X						GIO_GUN_SETTINGS_X
+#define		GIO_TIMED_TURN_SETTING_Y						GIO_IRON_MAN_SETTING_Y//hayden
 #define		GIO_TIMED_TURN_SETTING_WIDTH					GIO_DIF_SETTINGS_WIDTH
-*/
+
 
 // Madd
 #define		GIO_BR_SETTING_X						iScreenWidthOffset + 340
@@ -136,7 +140,7 @@ enum
 
 // JA2Gold: no more timed turns setting
 
-/*
+
 //enum for the timed turns setting
 enum
 {
@@ -144,8 +148,8 @@ enum
 	GIO_TIMED_TURNS,
 
 	GIO_NUM_TIMED_TURN_OPTIONS,
-};
-*/
+};//hayden : re-enabled
+
 
 // Iron man mode
 
@@ -163,7 +167,8 @@ enum
 	GIO_NOTHING,
 	GIO_CANCEL,
 	GIO_EXIT,
-	GIO_IRON_MAN_MODE
+	GIO_IRON_MAN_MODE,
+	MP_LOAD
 };
 
 ////////////////////////////////////////////
@@ -209,6 +214,11 @@ void BtnGIOCancelCallback(GUI_BUTTON *btn,INT32 reason);
 UINT32	guiGIOCancelButton;
 INT32		giGIOCancelBtnImage;
 
+// MP LOAD Button
+void MPBtnGIOCancelCallback(GUI_BUTTON *btn,INT32 reason);
+UINT32	MPguiGIOCancelButton;
+INT32		MPgiGIOCancelBtnImage;
+
 
 //checkbox to toggle the Diff level
 UINT32	guiDifficultySettingsToggles[ NUM_DIFF_SETTINGS ];
@@ -223,11 +233,11 @@ UINT32	guiGunOptionToggles[ NUM_GUN_OPTIONS ];
 void BtnGunOptionsTogglesCallback(GUI_BUTTON *btn,INT32 reason);
 
 // JA2Gold: no more timed turns setting
-/*
+//hayden : re-enabled
 //checkbox to toggle Timed turn option on or off
 UINT32	guiTimedTurnToggles[ GIO_NUM_TIMED_TURN_OPTIONS ];
 void BtnTimedTurnsTogglesCallback(GUI_BUTTON *btn,INT32 reason);
-*/
+
 
 //checkbox to toggle Save style
 UINT32	guiGameSaveToggles[ NUM_SAVE_OPTIONS ];
@@ -260,7 +270,7 @@ void			RestoreGIOButtonBackGrounds();
 void			DoneFadeOutForExitGameInitOptionScreen( void );
 void			DoneFadeInForExitGameInitOptionScreen( void );
 // JA2Gold: no more timed turns setting
-//UINT8			GetCurrentTimedTurnsButtonSetting();
+UINT8			GetCurrentTimedTurnsButtonSetting();//hayden : re-enabled
 BOOLEAN		DoGioMessageBox( UINT8 ubStyle, const STR16 zString, UINT32 uiExitScreen, UINT16 usFlags, MSGBOX_CALLBACK ReturnCallback );
 void			DisplayMessageToUserAboutGameDifficulty();
 void			ConfirmGioDifSettingMessageBoxCallBack( UINT8 bExitValue );
@@ -392,7 +402,19 @@ BOOLEAN		EnterGIOScreen()
 													DEFAULT_MOVE_CALLBACK, BtnGIOCancelCallback );
 	SpecifyButtonSoundScheme( guiGIOCancelButton, BUTTON_SOUND_SCHEME_BIGSWITCH3 );
 
+		//MP button
+	if(is_networked)
+	{
+	MPgiGIOCancelBtnImage = UseLoadedButtonImage( giGIODoneBtnImage, -1,1,-1,3,-1 );
+	MPguiGIOCancelButton = CreateIconAndTextButton( giGIOCancelBtnImage, gzGIOScreenText[30], OPT_BUTTON_FONT,
+													OPT_BUTTON_ON_COLOR, DEFAULT_SHADOW,
+													OPT_BUTTON_OFF_COLOR, DEFAULT_SHADOW,
+													TEXT_CJUSTIFIED,
+													GIO_CANCEL_X-180, GIO_BTN_OK_Y, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
+													DEFAULT_MOVE_CALLBACK, MPBtnGIOCancelCallback );
+	SpecifyButtonSoundScheme( guiGIOCancelButton, BUTTON_SOUND_SCHEME_BIGSWITCH3 );
 
+	}
 	//
 	//Check box to toggle Difficulty settings
 	//
@@ -581,8 +603,15 @@ BOOLEAN		ExitGIOScreen()
 	//Delete the main options screen background
 	DeleteVideoObjectFromIndex( guiGIOMainBackGroundImage );
 
+	if(is_networked)
+	{
+		RemoveButton( MPguiGIOCancelButton );
+		UnloadButtonImage( MPgiGIOCancelBtnImage );
+	}
+
 	RemoveButton( guiGIOCancelButton );
 	RemoveButton( guiGIODoneButton );
+
 
 	UnloadButtonImage( giGIOCancelBtnImage );
 	UnloadButtonImage( giGIODoneBtnImage );
@@ -644,6 +673,27 @@ void			HandleGIOScreen()
 				gubGIOExitScreen = MAINMENU_SCREEN;
 				gfGIOScreenExit	= TRUE;
 				break;
+			
+			case MP_LOAD:
+				gubGIOExitScreen = SAVE_LOAD_SCREEN;
+				gfSaveGame = FALSE;
+				//gfCameDirectlyFromGame = TRUE;
+				gfGIOScreenExit	= TRUE;
+				guiPreviousOptionScreen = GAME_INIT_OPTIONS_SCREEN;
+
+				//guiPreviousOptionScreen = guiCurrentScreen;
+				//guiMainMenuExitScreen = SAVE_LOAD_SCREEN;
+				//gbHandledMainMenu = 0;
+				//gfSaveGame = FALSE;
+				//gfMainMenuScreenExit = TRUE;
+				//guiPreviousOptionScreen = guiCurrentScreen;
+				//guiMainMenuExitScreen = SAVE_LOAD_SCREEN;
+				//gbHandledMainMenu = 0;
+				//gfSaveGame = FALSE;
+				//gfMainMenuScreenExit = TRUE;
+
+				break;
+
 
 			case GIO_EXIT:
 			{
@@ -1073,8 +1123,8 @@ void BtnGunOptionsTogglesCallback( GUI_BUTTON *btn, INT32 reason )
 }
 
 // JA2Gold: no more timed turns setting
-/*
-void BtnTimedTurnsTogglesCallback( GUI_BUTTON *btn, INT32 reason )
+
+void BtnTimedTurnsTogglesCallback( GUI_BUTTON *btn, INT32 reason )//hayden : re-enabled
 {
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{
@@ -1111,7 +1161,7 @@ void BtnTimedTurnsTogglesCallback( GUI_BUTTON *btn, INT32 reason )
 		}
 	}
 }
-*/
+
 
 
 
@@ -1127,11 +1177,18 @@ void BtnGIODoneCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
+		if(!is_networked)
+		{
 		//if the user doesnt have IRON MAN mode selected
 		if( !DisplayMessageToUserAboutIronManMode() )
 		{
 			//Confirm the difficulty setting
 			DisplayMessageToUserAboutGameDifficulty();
+		}
+		}
+		else
+		{
+			gubGameOptionScreenHandler = GIO_EXIT;
 		}
 
 
@@ -1152,6 +1209,46 @@ void BtnGIOCancelCallback(GUI_BUTTON *btn,INT32 reason)
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
 		gubGameOptionScreenHandler = GIO_CANCEL;
+
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+	}
+}
+
+
+
+
+
+void MPBtnGIOCancelCallback(GUI_BUTTON *btn,INT32 reason)
+{
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_DWN )
+	{
+		btn->uiFlags |= BUTTON_CLICKED_ON;
+		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
+	}
+	if(reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
+	{
+		btn->uiFlags &= (~BUTTON_CLICKED_ON );
+
+		//gubGameOptionScreenHandler = GIO_CANCEL;
+
+				//// Select the game which is to be restored
+				//guiPreviousOptionScreen = guiCurrentScreen;
+				//guiMainMenuExitScreen = SAVE_LOAD_SCREEN;
+				//gbHandledMainMenu = 0;
+				//gfSaveGame = FALSE;
+				//gfMainMenuScreenExit = TRUE;
+
+	/*				guiPreviousOptionScreen = guiCurrentScreen;
+					SetPendingNewScreen( SAVE_LOAD_SCREEN );
+					gubGameOptionScreenHandler = GIO_EXIT;
+
+					gubGIOExitScreen = MAINMENU_SCREEN;
+					gfGIOScreenExit	= TRUE;
+					fInterfacePanelDirty = DIRTYLEVEL2;*/
+
+					gubGameOptionScreenHandler = MP_LOAD;
+
+
 
 		InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
 	}
@@ -1236,7 +1333,7 @@ UINT8	GetCurrentGunButtonSetting()
 }
 
 // JA2 Gold: no timed turns
-/*
+
 UINT8	GetCurrentTimedTurnsButtonSetting()
 {
 	UINT8	cnt;
@@ -1250,7 +1347,7 @@ UINT8	GetCurrentTimedTurnsButtonSetting()
 	}
 	return( 0 );
 }
-*/
+//hayden : re-enabled
 
 UINT8	GetCurrentGameSaveButtonSetting()
 {
@@ -1348,7 +1445,13 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	gGameOptions.ubGameStyle = GetCurrentGameStyleButtonSetting();
 	gGameOptions.ubDifficultyLevel = GetCurrentDifficultyButtonSetting() + 1;
 	// JA2Gold: no more timed turns setting
-	//gGameOptions.fTurnTimeLimit = GetCurrentTimedTurnsButtonSetting();
+	//gGameOptions.fTurnTimeLimit = GetCurrentTimedTurnsButtonSetting();//hayden : re-enabled
+
+	if (is_networked)
+		gGameOptions.fTurnTimeLimit = TRUE;
+	else
+		gGameOptions.fTurnTimeLimit = FALSE;
+	
 	// JA2Gold: iron man
 	gGameOptions.fIronManMode = GetCurrentGameSaveButtonSetting();
 

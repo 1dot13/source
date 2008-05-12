@@ -40,6 +40,10 @@ BULLET	gBullets[ NUM_BULLET_SLOTS ];
 UINT32	guiNumBullets = 0;
 BOOLEAN	fTracer = FALSE;
 
+//afp-start
+int gXPATH[BULLET_TRACER_MAX_LENGTH]; // positions between bullet
+int gYPATH[BULLET_TRACER_MAX_LENGTH]; // positions between bullet
+//afp-end
 
 INT32 GetFreeBullet(void)
 {
@@ -106,6 +110,10 @@ INT32	CreateBullet( UINT8 ubFirerID, BOOLEAN fFake, UINT16 usFlags,UINT16 fromIt
 		DebugAttackBusy( String( "Creating a new bullet for %d.	ABC now %d\n", ubFirerID, gTacticalStatus.ubAttackBusyCount) );
 	}
 
+	//afp-start each bullet carry its tail
+	for (int i = 0; i < BULLET_TRACER_MAX_LENGTH; i++)
+		pBullet->pNodes[i] = NULL;
+	//afp-end
 	return( iBulletIndex );
 }
 
@@ -172,6 +180,15 @@ void RemoveBullet( INT32 iBullet )
 {
 	CHECKV( iBullet < NUM_BULLET_SLOTS );
 
+	//afp-start
+	// remove any tail first if exists
+	for (int i = 0; i < BULLET_TRACER_MAX_LENGTH; i++)
+		if (gBullets[iBullet].pNodes[i] != NULL)
+		{
+			RemoveStructFromLevelNode(gBullets[ iBullet ].sGridNo, gBullets[iBullet].pNodes[i]);
+			gBullets[iBullet].pNodes[i] = NULL;
+		}
+	//afp-end
 	// decrease soldier's bullet count
 
 	if (gBullets[ iBullet ].fReal)
@@ -275,6 +292,18 @@ void UpdateBullets( )
 						RemoveStruct( gBullets[ uiCount ].sGridNo, BULLETTILE2 );
 					}
 				}
+				//afp-start
+				// remove old tail first if exists
+				FIXEDPT lastX = gBullets[uiCount].qCurrX;
+				FIXEDPT lastY = gBullets[uiCount].qCurrY;
+				FIXEDPT lastZ = gBullets[uiCount].qCurrZ;
+				for (int i = 0; i < BULLET_TRACER_MAX_LENGTH; i++)
+					if (gBullets[uiCount].pNodes[i] != NULL)
+					{
+						RemoveStructFromLevelNode(gBullets[ uiCount ].sGridNo, gBullets[uiCount].pNodes[i]);
+						gBullets[uiCount].pNodes[i] = NULL;
+					}
+				//afp-end
 
 				MoveBullet( uiCount );
 				if ( gBullets[ uiCount ].fToDelete )
@@ -335,7 +364,56 @@ void UpdateBullets( )
 						pNode->sRelativeY	= (INT16) FIXEDPT_TO_INT32( gBullets[ uiCount ].qCurrY );
 						pNode->sRelativeZ = (INT16) CONVERT_HEIGHTUNITS_TO_PIXELS( FIXEDPT_TO_INT32( gBullets[ uiCount ].qCurrZ ) );
 
+						//afp-start - add new tail /tracer
+						if (gGameExternalOptions.gbBulletTracer)	
+						{
+  							if ((lastX != 0)  || (lastY != 0))
+							{
+								// qIncrX can be used to calculate slope and make the tracer longer if necessary
+								PointsPath((INT16) FIXEDPT_TO_INT32( gBullets[ uiCount ].qCurrX),
+									(INT16) FIXEDPT_TO_INT32( gBullets[ uiCount ].qCurrY), 
+									(INT16) FIXEDPT_TO_INT32( lastX), 
+									(INT16) FIXEDPT_TO_INT32( lastY));
+
+								// compute valid points allong the fire line
+								int pointsCount = 0;
+								for (int i = 0; i < BULLET_TRACER_MAX_LENGTH; i++)
+								{	
+									pointsCount = i;
+									if (gXPATH[i] == 0)
+										if (gYPATH[i] == 0)
+											break;
+								}
+								if (pointsCount <= 0)
+									pointsCount = 30;
+
+
+								for (int i = 0; i < BULLET_TRACER_MAX_LENGTH; i++)
+								{
+									if (gXPATH[i] == 0)
+										if (gYPATH[i] == 0)
+											break;
+									
+									// add all points along the path between bullets as bullets
+									pNode = AddStructToTail( gBullets[ uiCount ].sGridNo, BULLETTILE1 );
+									pNode->ubShadeLevel=DEFAULT_SHADE_LEVEL;
+									pNode->ubNaturalShadeLevel=DEFAULT_SHADE_LEVEL;
+									pNode->uiFlags |= ( LEVELNODE_USEABSOLUTEPOS | LEVELNODE_IGNOREHEIGHT );
+									pNode->sRelativeX	= gXPATH[i];
+									pNode->sRelativeY	= gYPATH[i];
+									FIXEDPT relativeZ = lastZ - ((i + 1) * ((gBullets[ uiCount ].qCurrZ - lastZ) / (pointsCount)));
+									pNode->sRelativeZ = (INT16) CONVERT_HEIGHTUNITS_TO_PIXELS( FIXEDPT_TO_INT32( relativeZ));
+									
+									// store structure pointer to clear image at the next bullet position
+									gBullets[uiCount].pNodes[i] = pNode;
+								}
+							}
+						}
+						//afp-end
 						// Display shadow
+						// afp - no more shadow if tracer enabled
+						if (!gGameExternalOptions.gbBulletTracer)	
+						{
 						pNode = AddStructToTail( gBullets[ uiCount ].sGridNo, BULLETTILE2 );
 						pNode->ubShadeLevel=DEFAULT_SHADE_LEVEL;
 						pNode->ubNaturalShadeLevel=DEFAULT_SHADE_LEVEL;
@@ -343,6 +421,7 @@ void UpdateBullets( )
 						pNode->sRelativeX	= (INT16) FIXEDPT_TO_INT32( gBullets[ uiCount ].qCurrX );
 						pNode->sRelativeY	= (INT16) FIXEDPT_TO_INT32( gBullets[ uiCount ].qCurrY );
 						pNode->sRelativeZ = (INT16)gpWorldLevelData[ gBullets[ uiCount ].sGridNo ].sHeight;
+						}
 					}
 				}
 			}
@@ -582,3 +661,91 @@ void DeleteAllBullets( )
 	RecountBullets( );
 
 }
+//afp-start adapted function, no much time for cosmetics 
+void PointsPath(int sx1, int sy1, int ex2, int ey2) 
+{ 
+	for (int i = 0; i < BULLET_TRACER_MAX_LENGTH; i++)
+	{
+		gXPATH[i] = 0;
+		gYPATH[i] = 0;
+	}
+
+	int counter = 0;
+	gXPATH[counter] = sx1;
+	gYPATH[counter] = sy1;
+
+	int x0 = sx1; 
+	int y0 = sy1; 
+	int x1 = ex2; 
+	int y1 = ey2; 
+	int dy = y1 - y0; 
+	int dx = x1 - x0; 
+	int stepx, stepy; 
+	int gridX, gridY; 
+
+	if (dy < 0) 
+	{ 
+		dy = -dy; 
+		stepy = -1; 
+	} 
+	else 
+		stepy = 1; 
+
+	if (dx < 0) 
+	{ 
+		dx = -dx; 
+		stepx = -1; 
+	} 
+	else 
+		stepx = 1; 
+
+	dy <<= 1; 
+	dx <<= 1; 
+	gridX = x0 >> 3; 
+	gridY = y0 >> 3; 
+
+	if ((sx1==ex2) &&(sy1=ey2))
+		return;
+
+	if (dx > dy) 
+	{ 
+		int fraction = dy - (dx >> 1); 
+		while (x0 != x1) 
+		{ 
+			if (fraction >= 0) 
+			{ 
+				y0 += stepy; 
+				fraction -= dx; 
+			} 
+			x0 += stepx; 
+			fraction += dy; 
+
+			counter++;
+			if (counter >= BULLET_TRACER_MAX_LENGTH)
+				return;
+			gXPATH[counter] = x0;
+			gYPATH[counter] = y0;
+		} 
+	} 
+	else 
+	{ 
+		int fraction = dx - (dy >> 1); 
+		while (y0 != y1) 
+		{ 
+			if (fraction >= 0) 
+			{ 
+				x0 += stepx; 
+				fraction -= dy; 
+			} 
+			y0 += stepy; 
+			fraction += dx; 
+			counter++;
+			if (counter >= BULLET_TRACER_MAX_LENGTH)
+				return;
+			gXPATH[counter] = x0;
+			gYPATH[counter] = y0;
+		} 
+	} 
+	return;
+}
+//afp-end

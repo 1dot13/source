@@ -26,6 +26,7 @@
 	#include "Inventory Choosing.h"
 #endif
 
+#include "connect.h"
 #include "Reinforcement.h"
 #include "MilitiaSquads.h"
 
@@ -390,6 +391,12 @@ void AddPossiblePendingMilitiaToBattle()
 	UINT8 ubNumElites, ubNumRegulars, ubNumGreens;
 	static UINT8 ubPredefinedInsertionCode = 255;
 	static UINT8 ubPredefinedRank = 255;
+
+	// Haydent
+	if ((is_client && !is_server) || !MILITIA_ENABLED)
+	{
+		return;
+	}
 
 	//	if( !PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, 0 ) || !CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY ) 
 	//		|| !NumEnemiesInSector( gWorldSectorX, gWorldSectorY ) ) return;

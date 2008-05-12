@@ -50,7 +50,7 @@
 #endif
 
 #include "MilitiaSquads.h"
-
+#include "connect.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -922,7 +922,7 @@ void PrepareForPreBattleInterface( GROUP *pPlayerDialogGroup, GROUP *pInitiating
 		pSoldier = pPlayer->pSoldier;
 
 		if ( pSoldier->stats.bLife >= OKLIFE && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
-					!AM_A_ROBOT( pSoldier ) && !AM_AN_EPC( pSoldier ) )
+					!AM_A_ROBOT( pSoldier ) && !AM_AN_EPC( pSoldier ) && !is_client )
 		{
 			ubMercsInGroup[ ubNumMercs ] = pSoldier->ubID;
 			ubNumMercs++;

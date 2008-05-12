@@ -66,8 +66,8 @@
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
-
-
+#include "connect.h"
+#include "fresh_header.h"
 #define		NO_JUMP											0
 #define		MAX_ANIFRAMES_PER_FLASH			2
 //#define		TIME_FOR_RANDOM_ANIM_CHECK	10
@@ -367,8 +367,13 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				SFireWeapon.sTargetGridNo		= pSoldier->sTargetGridNo;
 				SFireWeapon.bTargetLevel		= pSoldier->bTargetLevel;
 				SFireWeapon.bTargetCubeLevel= pSoldier->bTargetCubeLevel;
+				if((is_server && pSoldier->ubID<120) || (!is_server && is_client && pSoldier->ubID<20) || (!is_server && !is_client) )
+				{//only carry on if own werc
 				AddGameEvent( S_FIREWEAPON, 0, &SFireWeapon );
-
+				
+				//hayden
+				if(is_server || (is_client && pSoldier->ubID <20) ) send_fireweapon( &SFireWeapon );
+				}
 				//DIGICRAB: Burst UnCap
 				//Loop around in the animation if we still have burst rounds to fire
 				if (pSoldier->bDoBurst && (pSoldier->bDoBurst <= ((pSoldier->bDoAutofire)?(pSoldier->bDoAutofire):(GetShotsPerBurst(&pSoldier->inv[HANDPOS]))) || (( pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST && pSoldier->bDoBurst <= Weapon[GetAttachedGrenadeLauncher(&pSoldier->inv[HANDPOS])].ubShotsPerBurst)) ))
@@ -3209,6 +3214,12 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 
 	if ( pSoldier->stats.bLife == 0 && !( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD )	)
 	{
+		// Haydent
+		if (is_networked)
+			//send death info
+			send_death(pSoldier);//quickfix
+		
+		
 		// Cancel services here...
 		pSoldier->ReceivingSoldierCancelServices( );
 		pSoldier->GivingSoldierCancelServices( );

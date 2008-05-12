@@ -41,6 +41,8 @@
 	#include "email.h"
 #endif
 
+#include "GameSettings.h"
+#include "connect.h"
 
 void CalculateMedicalDepositRefund( SOLDIERTYPE *pSoldier );
 void NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( SOLDIERTYPE *pSoldier, BOOLEAN fAddRehireButton );
@@ -1488,7 +1490,16 @@ UINT32 GetHourWhenContractDone( SOLDIERTYPE *pSoldier )
 	UINT32	uiArriveHour;
 
 	// Get the arrival hour - that will give us when they arrived....
-	uiArriveHour = ( ( pSoldier->uiTimeSoldierWillArrive ) - ( ( ( pSoldier->uiTimeSoldierWillArrive ) / 1440 ) * 1440 ) ) / 60;
+	if (!is_networked)
+	{
+		uiArriveHour = ( ( pSoldier->uiTimeSoldierWillArrive ) - ( ( ( pSoldier->uiTimeSoldierWillArrive ) / 1440 ) * 1440 ) ) / 60;
+	}
+	else
+	{
+		// WANNE - MP: For multiplayer game, the merc arrive hour is always the game starting time which is now in multiplayer = GameStartingTime + FirstArrivalDelay
+		// Default value: 07:00
+		uiArriveHour = (gGameExternalOptions.iGameStartingTime + gGameExternalOptions.iFirstArrivalDelay - NUM_SEC_IN_DAY) / 3600;
+	}
 
 	return( uiArriveHour );
 }

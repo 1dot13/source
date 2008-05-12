@@ -223,6 +223,7 @@ bool	IsSlotASmallPocket(int slot);
 
 extern	std::list<LBENODE>	LBEArray;
 
+
 //do not alter or saves will break, create new defines if the size changes
 #define OLD_MAX_ATTACHMENTS_101 4
 #define OLD_MAX_OBJECTS_PER_SLOT_101 8

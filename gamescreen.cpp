@@ -88,6 +88,7 @@
 	#include "Scheduling.h"
 #endif
 
+#include "connect.h"
 
 #define		ARE_IN_FADE_IN( )		( gfFadeIn || gfFadeInitialized )
 
@@ -554,7 +555,7 @@ UINT32	MainGameScreenHandle(void)
 	{
 		if ( gTacticalStatus.fEnemySightingOnTheirTurn )
 		{
-			if ( ( GetJA2Clock( ) - gTacticalStatus.uiTimeSinceDemoOn ) > 3000 )
+			if ( (( GetJA2Clock( ) - gTacticalStatus.uiTimeSinceDemoOn ) > 3000) || is_client)//unpause straight away if in MP
 			{
 				if ( gTacticalStatus.ubCurrentTeam != gbPlayerNum )
 				{
@@ -1115,7 +1116,7 @@ void InitHelicopterEntranceByMercs( void )
 		// WANNE: fix HOT DAY in night at arrival by night.
 		// Explanation: If game starting time + first arrival delay < 07:00 (111600) -> we arrive before the sun rises or
 		// if game starting time + first arrival delay >= 21:00 (162000) -> we arrive after the sun goes down
-		if( (gGameExternalOptions.iGameStartingTime + gGameExternalOptions.iFirstArrivalDelay) < 111600 ||
+		if( (gGameExternalOptions.iGameStartingTime + gGameExternalOptions.	iFirstArrivalDelay) < 111600 ||
 			(gGameExternalOptions.iGameStartingTime + gGameExternalOptions.iFirstArrivalDelay >= 162000))
 		{ 
 			gubEnvLightValue = 12; 

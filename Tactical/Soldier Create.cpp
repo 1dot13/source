@@ -47,6 +47,7 @@
 	#include "math.h"
 #endif
 
+#include "connect.h"
 
 // THESE 3 DIFFICULTY FACTORS MUST ALWAYS ADD UP TO 100% EXACTLY!!!
 #define DIFF_FACTOR_PLAYER_PROGRESS			50
@@ -428,6 +429,42 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 	*pubID = NOBODY;
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("TacticalCreateSoldier"));
 
+	INT8 tbTeam;
+	BOOLEAN tfPP;
+	tbTeam=pCreateStruct->bTeam;
+	tfPP=pCreateStruct->fPlayerPlan; //used as temp indicator of struct sent from the server //hayden.
+
+	if(is_client && !is_server && (tbTeam >0 && tbTeam < 5) && tfPP==0)
+	{
+			return NULL; // pure client to not spawn AI unless from server, Hayden.
+			//gTacticalStatus.Team[ tbTeam ].bTeamActive=0;
+	}
+	//if(is_server && tbTeam>0 && tbTeam<5)
+	if(is_server && tbTeam>0 && tbTeam<5)
+	{
+		//if(tbTeam==1 && !ENEMY_ENABLED)
+		//{
+		//	return NULL;
+		//}
+		//if(tbTeam==2 && !CREATURE_ENABLED)
+		//{
+		//	return NULL;
+		//}
+		//if(tbTeam==3 && !MILITIA_ENABLED)
+		//{
+		//	return NULL;
+		//}
+		//if(tbTeam==4 && !CIV_ENABLED)
+		//{
+		//	return NULL;
+		//}
+		send_AI(pCreateStruct,pubID);
+	}
+	if(is_client && !is_server && tfPP==1)
+	{
+		pCreateStruct->fPlayerPlan = 0;
+	}
+	//hayden
 		//Kris:
 	//Huge no no!	See the header file for description of static detailed placements.
 	//If this expression ever evaluates to true, then it will expose serious problems.

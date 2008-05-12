@@ -1,3 +1,4 @@
+#include "connect.h"
 #ifdef PRECOMPILEDHEADERS
 	#include "Tactical All.h"
 #else
@@ -555,15 +556,21 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT16 usHa
 					if ( pSoldier->sSpreadLocations[ 0 ] != 0 )
 					{
 						SendBeginFireWeaponEvent( pSoldier, pSoldier->sSpreadLocations[ 0 ] );
+						if(is_server || (is_client && pSoldier->ubID <20) ) send_fire( pSoldier, pSoldier->sSpreadLocations[ 0 ] );
+
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Handle Items.cpp: SendBeginFireWeaponEvent" );
 					}
 					else
 					{
 						SendBeginFireWeaponEvent( pSoldier, sTargetGridNo );
+						if(is_server || (is_client && pSoldier->ubID <20) ) send_fire( pSoldier, sTargetGridNo );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Handle Items.cpp: SendBeginFireWeaponEvent" );
 					}
 				}
 				else
 				{
 					SendBeginFireWeaponEvent( pSoldier, sTargetGridNo );
+					if(is_server || (is_client && pSoldier->ubID <20) ) send_fire( pSoldier, sTargetGridNo );
 				}
 
 				// ATE: Here to make cursor go back to move after LAW shot...
@@ -1367,6 +1374,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT16 usHa
 			{
 
 				SendBeginFireWeaponEvent( pSoldier, sTargetGridNo );
+				if(is_server || (is_client && pSoldier->ubID <20) ) send_fire( pSoldier, sTargetGridNo );
 
 			}
 

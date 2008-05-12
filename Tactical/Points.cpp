@@ -34,7 +34,7 @@
 #include "Map Information.h"
 #include "Interface Items.h"
 #endif
-
+#include "connect.h"
 //rain
 //#define BREATH_GAIN_REDUCTION_PER_RAIN_INTENSITY 25
 //end rain
@@ -537,7 +537,6 @@ BOOLEAN EnoughPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, BOOLE
 	//CHRISL: if we don't have soldier information, assume we have enough points.
 	if(pSoldier == NULL)
 		return( TRUE );
-
 	// If this guy is on a special move... don't care about APS, OR BPSs!
 	if ( pSoldier->ubWaitActionToDo	)
 	{
@@ -562,6 +561,14 @@ BOOLEAN EnoughPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, BOOLE
 		return( TRUE );
 	}
 	#endif
+
+	if (is_networked)
+	{
+		if(pSoldier->ubID > 119 || (!is_server && pSoldier->ubID > 20))
+		{
+			return(TRUE);
+		}//hayden , if soldier replication, allow.
+	}
 
 	// Get New points
 	sNewAP = pSoldier->bActionPoints - sAPCost;
@@ -623,8 +630,21 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost,BOOLEAN f
 	// NB: iBPCost > 0 - breath loss, iBPCost < 0 - breath gain
 	if (iBPCost)
 	{
-		// Adjust breath changes due to spending or regaining of energy
-		iBPCost = AdjustBreathPts(pSoldier, iBPCost);
+		if (is_networked)
+		{
+			// Adjust breath changes due to spending or regaining of energy
+			if(!pSoldier->bActive)
+			{
+				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"test_func2" );
+			}
+			else
+				iBPCost = AdjustBreathPts(pSoldier, iBPCost);
+		}
+		else
+		{
+			iBPCost = AdjustBreathPts(pSoldier, iBPCost);
+		}
+
 
 		// Snap: award some health and strength for exertion
 		// Do 4 StatChange rolls for health (2 for strength) per 10 breath points spent?

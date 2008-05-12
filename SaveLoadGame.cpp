@@ -122,6 +122,8 @@
 #include "Rain.h"
 //end rain
 
+#include "connect.h"
+
 /////////////////////////////////////////////////////
 //
 // Local Defines
@@ -1791,7 +1793,12 @@ BOOLEAN InitSaveDir()
 
 	// The locale-specific save dir location is of the form L"..\\SavedGames"
 	// This has not changed; instead, we strip the ".." at the beginning
-	sprintf(	gSaveDir, "%s%S", dataDir.c_str(), pMessageStrings[ MSG_SAVEDIRECTORY ] + 2 );
+	if(is_networked)
+	{
+		sprintf(	gSaveDir, "%s%S", dataDir.c_str(), pMessageStrings[ MSG_MPSAVEDIRECTORY	 ] + 2 );
+	}
+	else
+		sprintf(	gSaveDir, "%s%S", dataDir.c_str(), pMessageStrings[ MSG_SAVEDIRECTORY ] + 2 );
 
 	// This was moved here from SaveGame
 	//Check to see if the save directory exists
@@ -1919,6 +1926,12 @@ BOOLEAN SaveGame( UINT8 ubSaveGameID, STR16 pGameDesc )
 	SaveGameHeader.uiDay = GetWorldDay();
 	SaveGameHeader.ubHour = (UINT8)GetWorldHour();
 	SaveGameHeader.ubMin = (UINT8)guiMin;
+	if(is_networked)
+	{
+		SaveGameHeader.uiDay = CLIENT_NUM;
+		SaveGameHeader.ubHour = MAX_CLIENTS;
+		SaveGameHeader.ubMin = MAX_MERCS;
+	}
 
 	//copy over the initial game options
 	memcpy( &SaveGameHeader.sInitialGameOptions, &gGameOptions, sizeof( GAME_OPTIONS ) );

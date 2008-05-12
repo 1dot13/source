@@ -11,6 +11,7 @@
 #include "overhead.h"
 #include "math.h"
 #include "Event Pump.h"
+#include "Soldier Control.h"
 #include "Overhead Types.h"
 #include "sys globals.h"
 #include "opplist.h"
@@ -54,6 +55,8 @@
 #include "Queen Command.h"
 #include "cheats.h"
 #endif
+
+#include "connect.h"
 
 extern void PauseAITemporarily( void );
 extern void UpdateEnemyUIBar( void );
@@ -808,8 +811,16 @@ void StartNPCAI(SOLDIERTYPE *pSoldier)
 	if(!gfAmIHost)
 		return;
 #endif
-	//pSoldier->flags.uiStatusFlags |= SOLDIER_UNDERAICONTROL;
-	pSoldier->SetSoldierAsUnderAiControl( );
+	////pSoldier->flags.uiStatusFlags |= SOLDIER_UNDERAICONTROL;
+	//if (!(pSoldier->flags.uiStatusFlags & SOLDIER_PC))
+
+	//{
+	//SetSoldierAsUnderAiControl( pSoldier );
+	//}
+
+	if (!is_networked)
+		pSoldier->SetSoldierAsUnderAiControl( );
+
 
 	pSoldier->flags.fTurnInProgress = TRUE;
 

@@ -33,6 +33,9 @@
 	#include "Map Information.h"
 #endif
 
+#include "connect.h"
+
+
 #ifdef JA2BETAVERSION
 	BOOLEAN gfClearCreatureQuest = FALSE;
 	extern UINT32 uiMeanWhileFlags;
@@ -933,7 +936,13 @@ void CreatureAttackTown( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 			InitPreBattleInterface( NULL, TRUE );
 			break;
 		case CREATURE_BATTLE_CODE_TACTICALLYADD:
-			PrepareCreaturesForBattle();
+			if (is_networked)
+			{
+				if(is_server && CREATURE_ENABLED)
+					PrepareCreaturesForBattle();
+			}
+			else
+				PrepareCreaturesForBattle();
 			break;
 	}
 	InterruptTime();

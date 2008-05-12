@@ -35,6 +35,10 @@
 	#include "GameVersion.h"
 #endif
 
+#include "mercs.h"
+#include "gamesettings.h"
+#include "connect.h"
+
 #define	MAINMENU_TEXT_FILE						"LoadScreens\\MainMenu.edt"
 #define MAINMENU_RECORD_SIZE					80 * 2
 
@@ -45,14 +49,17 @@ enum
 {
 //	TITLE,
 	NEW_GAME,
+	NEW_MP_GAME,
 	LOAD_GAME,
+	//LOAD_MP_GAME,
 	PREFERENCES,
 	CREDITS,
 	QUIT,
 	NUM_MENU_ITEMS
 };
 
-#define		MAINMENU_Y				iScreenHeightOffset + 277
+//#define		MAINMENU_Y				iScreenHeightOffset + 277
+#define		MAINMENU_Y				iScreenHeightOffset + 210
 #define		MAINMENU_Y_SPACE		37
 
 
@@ -225,6 +232,10 @@ void HandleMainMenuScreen()
 //					SetMainMenuExitScreen( INIT_SCREEN );
 				break;
 
+			// ROMAN: TODO??
+			case NEW_MP_GAME:
+				break;
+
 			case LOAD_GAME:
 				// Select the game which is to be restored
 				guiPreviousOptionScreen = guiCurrentScreen;
@@ -234,6 +245,17 @@ void HandleMainMenuScreen()
 				gfMainMenuScreenExit = TRUE;
 
 				break;
+
+			// ROMAN: TODO
+//			case LOAD_MP_GAME:
+				//// Select the game which is to be restored
+				//guiPreviousOptionScreen = guiCurrentScreen;
+				//guiMainMenuExitScreen = SAVE_LOAD_SCREEN;
+				//gbHandledMainMenu = 0;
+				//gfSaveGame = FALSE;
+				//gfMainMenuScreenExit = TRUE;
+
+				//break;
 
 			case PREFERENCES:
 				guiPreviousOptionScreen = guiCurrentScreen;
@@ -258,6 +280,17 @@ BOOLEAN InitMainMenu( )
 	VOBJECT_DESC	VObjectDesc;
 
 //	gfDoHelpScreen = 0;
+
+				if(is_networked)
+				{	
+					is_networked = FALSE;
+					// Snap: UN-Init MP save game directory
+				if ( !InitSaveDir() )
+				{
+
+					//if something didnt work, dont even know how to make error code...//hayden
+				}
+				}
 
 	//Check to see whatr saved game files exist
 	InitSaveGameArray();
@@ -350,7 +383,30 @@ void ExitMainMenu( )
 */
 }
 
+// WANNE - MP: This method initializes variables that should be initialized
+// differently for single and multiplayer
+void InitDependingGameStyleOptions(BOOLEAN isNetworked)
+{
+	// Load the ja2_options.ini
+	LoadGameExternalOptions();
 
+	ReStartingGame();
+	InitGameOptions();
+
+	if (isNetworked)
+	{
+		NUMBER_OF_MERCS = 27;
+		LAST_MERC_ID = 26;
+	}
+	else
+	{
+		NUMBER_OF_MERCS = 15;
+		LAST_MERC_ID = 14;
+	}
+}
+
+
+// WANNE - MP: In this method we decide if we want to play a single or multiplayer game
 void MenuButtonCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	INT8	bID;
@@ -368,13 +424,59 @@ void MenuButtonCallback(GUI_BUTTON *btn,INT32 reason)
 
 		if( gbHandledMainMenu == NEW_GAME )
 		{
+				if(is_networked)
+				{
+					is_networked = FALSE;
+						// Snap: UN-Init MP save game directory
+				if ( !InitSaveDir() )
+				{
+
+					//if something didnt work, dont even know how to make error code...//hayden
+				}
+				}
+		;
+
+			SetMainMenuExitScreen( GAME_INIT_OPTIONS_SCREEN );
+		}
+		else if (gbHandledMainMenu == NEW_MP_GAME)
+		{
+			is_networked = TRUE;
+
+				// Snap: Re-Init MP save game directory
+				if ( !InitSaveDir() )
+				{
+
+					//if something didnt work, dont even know how to make error code...//hayden
+				}
+
 			SetMainMenuExitScreen( GAME_INIT_OPTIONS_SCREEN );
 		}
 		else if( gbHandledMainMenu == LOAD_GAME )
 		{
+				if(is_networked)
+				{	
+					is_networked = FALSE;
+					// Snap: UN-Init MP save game directory
+				if ( !InitSaveDir() )
+				{
+
+					//if something didnt work, dont even know how to make error code...//hayden
+				}
+				}
+				
+
 			if( gfKeyState[ ALT ] )
 				gfLoadGameUponEntry = TRUE;
 		}
+		//else if ( gbHandledMainMenu == LOAD_MP_GAME )
+		//{
+		//	is_networked = TRUE;
+
+		//	if (gfKeyState[ ALT ] )
+		//		gfLoadGameUponEntry = TRUE;
+		//}
+
+		InitDependingGameStyleOptions(is_networked);
 
 		btn->uiFlags &= (~BUTTON_CLICKED_ON );
 	}
@@ -554,6 +656,7 @@ BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate )
 	static BOOLEAN fButtonsCreated = FALSE;
 	INT32 cnt;
 	SGPFILENAME filename;
+	SGPFILENAME filenameMP;
 	INT16 sSlot;
 #ifndef _DEBUG
 	CHAR16	zText[512];
@@ -569,11 +672,18 @@ BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate )
 		gfLoadGameUponEntry = FALSE;
 
 		// Load button images
-	GetMLGFilename( filename, MLG_TITLETEXT );
+		GetMLGFilename( filename, MLG_TITLETEXT );
+		GetMLGFilename( filenameMP, MLG_TITLETEXT_MP );
 
 		iMenuImages[ NEW_GAME ]	= LoadButtonImage( filename, 0,0, 1, 2 ,-1 );
+		
+		iMenuImages[ NEW_MP_GAME ] = LoadButtonImage( filenameMP, 0, 0, 1, 2, -1 );
+
 		sSlot = 0;
 		iMenuImages[ LOAD_GAME ] = UseLoadedButtonImage( iMenuImages[ NEW_GAME ] ,6,3,4,5,-1 );
+
+		//iMenuImages[ LOAD_MP_GAME ] = UseLoadedButtonImage( iMenuImages[ NEW_MP_GAME ], 3, 3, 4, 5, -1 );
+
 		iMenuImages[ PREFERENCES ] = UseLoadedButtonImage( iMenuImages[ NEW_GAME ] ,7,7,8,9,-1 );
 		iMenuImages[ CREDITS ] = UseLoadedButtonImage( iMenuImages[ NEW_GAME ] ,13,10,11,12,-1 );
 		iMenuImages[ QUIT ] = UseLoadedButtonImage( iMenuImages[ NEW_GAME ] ,14,14,15,16,-1 );
@@ -583,7 +693,9 @@ BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate )
 			switch( cnt )
 			{
 				case NEW_GAME:		gusMainMenuButtonWidths[cnt] = GetWidthOfButtonPic( (UINT16)iMenuImages[cnt], sSlot );	break;
+				case NEW_MP_GAME:	gusMainMenuButtonWidths[cnt] = GetWidthOfButtonPic( (UINT16)iMenuImages[cnt], 0);	break;
 				case LOAD_GAME:		gusMainMenuButtonWidths[cnt] = GetWidthOfButtonPic( (UINT16)iMenuImages[cnt], 3 );			break;
+//				case LOAD_MP_GAME:	gusMainMenuButtonWidths[cnt] = GetWidthOfButtonPic( (UINT16)iMenuImages[cnt], 3);		break;
 				case PREFERENCES:	gusMainMenuButtonWidths[cnt] = GetWidthOfButtonPic( (UINT16)iMenuImages[cnt], 7 );			break;
 				case CREDITS:			gusMainMenuButtonWidths[cnt] = GetWidthOfButtonPic( (UINT16)iMenuImages[cnt], 10 );			break;
 				case QUIT:				gusMainMenuButtonWidths[cnt] = GetWidthOfButtonPic( (UINT16)iMenuImages[cnt], 15 );			break;
@@ -607,6 +719,8 @@ BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate )
 			}
 			ButtonList[ iMenuButtons[ cnt ] ]->UserData[0] = cnt;
 
+			// WANNE: Removed this, because in Release version it always crashes!
+			/*
 			#ifndef _DEBUG
 				//load up some info from the 'mainmenu.edt' file.	This makes sure the file is present.	The file is
 				// 'marked' with a code that identifies the testers
@@ -623,7 +737,7 @@ BOOLEAN CreateDestroyMainMenuButtons( BOOLEAN fCreate )
 					}
 				}
 			#endif
-
+			*/
 		}
 
 

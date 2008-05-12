@@ -49,12 +49,12 @@
 #endif
 
 #include "Reinforcement.h"
-
+#include "fresh_header.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
-
-
+#include "connect.h"
+//#include "test_space.h"
 
 extern INT8 STRAIGHT;
 //extern UINT8 gubSpeedUpAnimationFactor;
@@ -248,6 +248,9 @@ void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 	}
 	// Signal UI done enemy's turn
 	guiPendingOverrideEvent = LU_ENDUILOCK;
+	
+	if (is_networked)
+		guiPendingOverrideEvent = LA_ENDUIOUTURNLOCK;
 
 	// ATE: Reset killed on attack variable.. this is because sometimes timing is such
 	/// that a baddie can die and still maintain it's attacker ID
@@ -266,7 +269,14 @@ void FreezeInterfaceForEnemyTurn( void )
 	ErasePath( TRUE );
 
 	// Setup locked UI
-	guiPendingOverrideEvent = LU_BEGINUILOCK;
+	if(is_client)
+	{
+		guiPendingOverrideEvent = LA_BEGINUIOURTURNLOCK;
+	}
+	else 
+	{
+		guiPendingOverrideEvent = LU_BEGINUILOCK;
+	}
 
 	// Remove any UI messages!
 	if ( giUIMessageOverlay != -1 )
@@ -296,7 +306,12 @@ void EndTurn( UINT8 ubNextTeam )
 
 	if (INTERRUPT_QUEUED)
 	{
-		EndInterrupt( FALSE );
+			if(is_networked)
+			{
+				end_interrupt( FALSE );//this tells other client to go on from where he was
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"ending interrupt" );
+			}
+			EndInterrupt( FALSE );
 	}
 	else
 	{
@@ -320,7 +335,7 @@ void EndTurn( UINT8 ubNextTeam )
 
 		gTacticalStatus.ubCurrentTeam	= ubNextTeam;
 
-		BeginTeamTurn( gTacticalStatus.ubCurrentTeam );
+		if(is_server || !is_client) BeginTeamTurn( gTacticalStatus.ubCurrentTeam );
 
 		BetweenTurnsVisibilityAdjustments();
 	}
@@ -435,6 +450,11 @@ void BeginTeamTurn( UINT8 ubTeam )
 				ubTeam = gbPlayerNum;
 				gTacticalStatus.ubCurrentTeam = gbPlayerNum;
 				EndTurnEvents();
+				if(is_server)
+				{
+					numreadyteams =0;//beginning round 
+					memset( &readyteamreg , 0 , sizeof (int) * 10);
+				}
 			}
 			else
 			{
@@ -486,7 +506,31 @@ void BeginTeamTurn( UINT8 ubTeam )
 			if ( ( gTacticalStatus.uiFlags & INCOMBAT ) )
 			{
 				StartPlayerTeamTurn( TRUE, FALSE );
+			/*	if(is_server && !net_turn) send_EndTurn(ubTeam);
+				if(net_turn == true) net_turn = false;*/
+				if(is_server) 
+				{
+					numreadyteams =0;//beginning round 
+					memset( &readyteamreg , 0 , sizeof (int) * 10);
+					send_EndTurn(netbTeam);
+				}
 			}
+			break;
+		}
+		else
+		if (ubTeam > 4 || (is_client && !is_server )) //hayden
+		{
+			
+			InitEnemyUIBar( 0, 0 );
+			fInterfacePanelDirty = DIRTYLEVEL2;
+			AddTopMessage( COMPUTER_TURN_MESSAGE, TeamTurnString[ ubTeam ] );
+			/*if(is_server && !net_turn) send_EndTurn(ubTeam);
+			if(net_turn == true) net_turn = false;*/
+			if(is_server) send_EndTurn(ubTeam);
+			
+			
+			
+			//return;
 			break;
 		}
 		else
@@ -496,8 +540,11 @@ void BeginTeamTurn( UINT8 ubTeam )
 			if(!gfAmIHost)
 				break;
 #endif
+			if( is_client && !is_server ) //hayden //disable independant client AI
+				break;
 
-			// Set First enemy merc to AI control
+
+			// Set First enemy merc to AI control	
 			if ( BuildAIListForTeam( ubTeam ) )
 			{
 
@@ -515,6 +562,10 @@ void BeginTeamTurn( UINT8 ubTeam )
 						AddTopMessage( COMPUTER_TURN_MESSAGE, TeamTurnString[ ubTeam ] );
 					}
 					StartNPCAI( MercPtrs[ ubID ] );
+					/*if(is_server && !net_turn) send_EndTurn(ubTeam);
+					if(net_turn == true) net_turn = false;*/
+					if(is_server) send_EndTurn(ubTeam);
+					
 					return;
 				}
 			}
@@ -544,7 +595,14 @@ void DisplayHiddenInterrupt( SOLDIERTYPE * pSoldier )
 		SlideTo( NOWHERE, pSoldier->ubID, NOBODY ,SETLOCATOR);
 	}
 
-	guiPendingOverrideEvent = LU_BEGINUILOCK;
+		if(is_client)
+	{
+		guiPendingOverrideEvent = LA_BEGINUIOURTURNLOCK;
+	}
+	else 
+	{
+		guiPendingOverrideEvent = LU_BEGINUILOCK;
+	}
 
 	// Dirty panel interface!
 	fInterfacePanelDirty = DIRTYLEVEL2;
@@ -765,6 +823,10 @@ void StartInterrupt( void )
 
 		// Signal UI done enemy's turn
 		guiPendingOverrideEvent = LU_ENDUILOCK;
+		
+		if (is_networked)
+			guiPendingOverrideEvent = LA_ENDUIOUTURNLOCK;
+		
 		HandleTacticalUI( );
 
 		InitPlayerUIBar( TRUE );
@@ -831,7 +893,7 @@ void StartInterrupt( void )
 				ubFirstInterrupter = ubInterrupter;
 			}
 		}
-
+		{
 
 		// here we have to rebuilt the AI list!
 		BuildAIListForTeam( bTeam );
@@ -855,11 +917,16 @@ void StartInterrupt( void )
 
 		gTacticalStatus.ubCurrentTeam	= pSoldier->bTeam;
 
-		#ifdef JA2BETAVERSION
+		//#ifdef JA2BETAVERSION
+		
+		if (is_networked)
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"Interrupt ( could be hidden )" );
-		#endif
-
+		
+		//#endif
+		//send_interrupt( pSoldier );//hayden
 		StartNPCAI( pSoldier );
+		
+		}
 	}
 
 	if ( !gfHiddenInterrupt )
@@ -919,7 +986,46 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 		gfHiddenInterrupt = FALSE;
 
 		// resume interrupted interrupt
-		StartInterrupt();
+		//hayden
+		if (is_networked)
+		{
+			UINT8						nubFirstInterrupter;
+			INT8						nbTeam;
+			SOLDIERTYPE *				npSoldier;
+					
+			nubFirstInterrupter = LATEST_INTERRUPT_GUY;
+			npSoldier = MercPtrs[nubFirstInterrupter];
+			nbTeam = npSoldier->bTeam;
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"unchecked interrupt call area:(resume interrupted interrupt)...");
+		
+			if ((nbTeam > 0) && (nbTeam <6 ) && is_server) //is AI and are server
+			{
+				send_interrupt( npSoldier );
+				StartInterrupt();
+
+			}
+			else if(nbTeam == 0) //its an interrupt for own merc team
+			{
+				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"interrupt for our team");
+				//hayden
+				StartInterrupt();
+				send_interrupt( npSoldier ); //
+			}
+			else
+			{
+				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"interrupt for another team"); //may need more work.
+				//ClearIntList();
+				//hayden
+				StartInterrupt();
+				send_interrupt( npSoldier ); //
+
+			}
+		}
+		else
+		{
+			StartInterrupt();
+		}
+
 	}
 	else
 	{
@@ -1020,6 +1126,10 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 				// both hidden interrupts as well - NOT good because
 				// hidden interrupts should leave it locked if it was already...
 				guiPendingOverrideEvent = LU_ENDUILOCK;
+				
+				if (is_networked)
+					guiPendingOverrideEvent = LA_ENDUIOUTURNLOCK;
+				
 				HandleTacticalUI( );
 
 				if ( gusSelectedSoldier != NOBODY )
@@ -1044,7 +1154,7 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 			}
 
 		}
-		else
+		else if(pSoldier->bTeam < 6)//hayden : is Ai or LAN ?
 		{
 			// this could be set to true for AI-vs-AI interrupts
 			gfHiddenInterrupt = FALSE;
@@ -1109,7 +1219,14 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 				}
 
 				// Signal UI done enemy's turn
-				guiPendingOverrideEvent = LU_BEGINUILOCK;
+					if(is_client)
+	{
+		guiPendingOverrideEvent = LA_BEGINUIOURTURNLOCK;
+	}
+	else 
+	{
+		guiPendingOverrideEvent = LU_BEGINUILOCK;
+	}
 
 				ClearIntList();
 			}
@@ -1126,7 +1243,14 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 				}
 
 				// Signal UI done enemy's turn
-				guiPendingOverrideEvent = LU_BEGINUILOCK;
+					if(is_client)
+	{
+		guiPendingOverrideEvent = LA_BEGINUIOURTURNLOCK;
+	}
+	else 
+	{
+		guiPendingOverrideEvent = LU_BEGINUILOCK;
+	}
 
 				// must clear int list before ending turn
 				ClearIntList();
@@ -1134,6 +1258,24 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 			}
 		}
 
+		else //its going to another Lan client..//hayden
+		{
+	
+			gTacticalStatus.ubCurrentTeam = pSoldier->bTeam;
+			AddTopMessage( COMPUTER_TURN_MESSAGE, TeamTurnString[ gTacticalStatus.ubCurrentTeam ] );
+				if(is_client)
+	{
+		guiPendingOverrideEvent = LA_BEGINUIOURTURNLOCK;
+	}
+	else 
+	{
+		guiPendingOverrideEvent = LU_BEGINUILOCK;
+	}
+
+			// must clear int list before ending turn
+			ClearIntList();
+
+		}
 		// Reset our interface!
 		fInterfacePanelDirty = DIRTYLEVEL2;
 
@@ -1336,7 +1478,7 @@ BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT8 ubOpponent
 		}
 		else
 		{
-			if ( !(pOpponent->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL) && (pSoldier->bSide != pOpponent->bSide))
+			if ( !(is_client || (pOpponent->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL)) && (pSoldier->bSide != pOpponent->bSide))
 			{
 				return( FALSE );
 			}
@@ -1494,6 +1636,16 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 		iPoints--;
 	}
 
+	//hayden, multiplayer add advantage for a ready'd reapon
+	if(is_networked)
+	{
+		if ( ( gAnimControl[ pSoldier->usAnimState ].uiFlags &( ANIM_FIREREADY | ANIM_FIRE ) ))
+		{
+			iPoints=(iPoints+WEAPON_READIED_BONUS);
+			
+		}
+	}
+
 	// if soldier is still in shock from recent injuries, that penalizes him
 	iPoints -= pSoldier->aiData.bShock;
 
@@ -1599,8 +1751,11 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 	#ifdef DEBUG_INTERRUPTS
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Calculating int pts for %d vs %d, number is %d", pSoldier->ubID, ubOpponentID, iPoints ) );
 	#endif
-
-
+if(is_networked)
+{
+	SOLDIERTYPE	*pOpp = &Menptr[ubOpponentID];
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_CHAT, L"Interrupt: '%s' vs '%s' = %d points.",pSoldier->name,pOpp->name, iPoints );
+}
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalcInterruptDuelPts done");
 	return( (INT8)iPoints );
 }
@@ -1858,7 +2013,63 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 		}
 		else
 		{
-			StartInterrupt();
+			if (is_networked)
+			{
+				UINT8						nubFirstInterrupter;
+				INT8						nbTeam;
+				SOLDIERTYPE *				npSoldier;
+						
+				nubFirstInterrupter = LATEST_INTERRUPT_GUY;
+				npSoldier = MercPtrs[nubFirstInterrupter];
+				nbTeam = npSoldier->bTeam;
+				
+				
+				if ((nbTeam > 0) && (nbTeam <6 ) && is_server) //is AI and are server
+					{
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"interrupt for AI team");
+						send_interrupt( npSoldier );
+						StartInterrupt();
+
+					}
+				else if(nbTeam == 0 && gTacticalStatus.ubCurrentTeam == 0) //its an interrupt for own merc team && its our turn
+					{
+
+						//hayden
+						StartInterrupt();
+						send_interrupt( npSoldier ); //
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"interrupt for my team");
+					}
+				else if(gTacticalStatus.ubCurrentTeam == 0)//its our turn (we are moving)
+				{
+					//StartInterrupt();
+					send_interrupt( npSoldier ); //
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"interrupt for another team");
+								{
+							//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Interrupted" );
+								//stop moving merc who was interrupted and init UI bar
+								SOLDIERTYPE* pMerc = MercPtrs[ gusSelectedSoldier ];
+								//AdjustNoAPToFinishMove( pMerc, TRUE );	
+								pMerc->HaultSoldierFromSighting(TRUE);
+								//pMerc->fTurningFromPronePosition = FALSE;// hmmm ??
+								FreezeInterfaceForEnemyTurn();
+								InitEnemyUIBar( 0, 0 );
+								fInterfacePanelDirty = DIRTYLEVEL2;
+								AddTopMessage( COMPUTER_TURN_MESSAGE, TeamTurnString[ nbTeam ] );
+								gTacticalStatus.fInterruptOccurred = TRUE;
+								
+								}
+					//ClearIntList();
+
+				}
+				else
+				{
+					ClearIntList();//no interrupt to be awarded, clear generated list.
+				}
+			}
+			else
+			{
+				StartInterrupt();
+			}
 		}
 	}
 }

@@ -2,6 +2,7 @@
 #define EVENT_PROCESSOR_H
 
 #include "Event Manager.h"
+#include "Overhead Types.h"
 
 
 #define NETWORK_PATH_DATA_SIZE	6
@@ -164,6 +165,8 @@ typedef struct
 	BOOLEAN fHit;
 	UINT8		ubSpecial;
 	UINT8		ubLocation;
+	INT32 iBullet;
+	BOOLEAN fStopped;
 
 } EV_S_WEAPONHIT;
 
@@ -178,6 +181,7 @@ typedef struct
 	UINT16	usStructureID;
 	INT32		iImpact;
 	INT32		iBullet;
+	BOOLEAN fStopped;//hayden
 
 } EV_S_STRUCTUREHIT;
 
@@ -187,11 +191,14 @@ typedef struct
 	UINT16	usStructureID;
 	BOOLEAN	fBlowWindowSouth;
 	BOOLEAN	fLargeForce;
+	INT8 ubAttackerID;
+	INT32 iBullet;
 } EV_S_WINDOWHIT;
 
 typedef struct
 {
 	UINT8		ubAttackerID;
+	INT32 iBullet;
 } EV_S_MISS;
 
 typedef struct
@@ -209,10 +216,11 @@ typedef struct
 {
 	UINT16	usSoldierID;
 	UINT32	uiUniqueId;
-	INT8		bDirection;
+	UINT8		ubDirection;
 	INT16		sGridNo;
 	INT16		sXPos;
 	INT16		sYPos;
+	BOOLEAN fset;
 
 } EV_S_STOP_MERC;
 
@@ -221,15 +229,17 @@ typedef struct
 typedef struct
 {
 	UINT8		usSoldierID;
-	UINT32	uiUniqueId;
-	UINT8		usPathDataSize;			// Size of Path
+//	UINT32  uiUniqueId;
+	UINT16		usPathDataSize;			// Size of Path
 	INT16		sAtGridNo;					// Owner merc is at this tile when sending packet
-	UINT8		usCurrentPathIndex;	// Index the owner of the merc is at when sending packet
-	UINT8		usPathData[ NETWORK_PATH_DATA_SIZE ];		// make define	// Next X tile to go to
-	UINT8		ubNewState;			// new movment Anim
+	UINT16		usCurrentPathIndex;	// Index the owner of the merc is at when sending packet
+	UINT16		usPathData[ MAX_PATH_LIST_SIZE ];		// make define  // Next X tile to go to
+	UINT16		ubNewState;			// new movment Anim
+	INT16		 sDestGridNo;
 //	INT8		bActionPoints;
 //	INT8		bBreath;			// current breath value
 //	INT8		bDesiredDirection;
+
 
 	// maybe send current action & breath points
 } EV_S_SENDPATHTONETWORK;
@@ -237,10 +247,16 @@ typedef struct
 typedef struct
 {
 	UINT8		usSoldierID;	
-	UINT32	uiUniqueId;
+	//UINT32  uiUniqueId;
 	INT16		sAtGridNo;					// Owner merc is at this tile when sending packet
 	INT8		bActionPoints;			// current A.P. value
 	INT8		bBreath;						// current breath value
+	//hayden
+	INT8 bLife;
+	INT8 bBleeding;
+	UINT16 usTactialTurnLimitCounter;
+	UINT16 usTactialTurnLimitMax;
+	UINT8	ubDirection;
 } EV_S_UPDATENETWORKSOLDIER;
 
 

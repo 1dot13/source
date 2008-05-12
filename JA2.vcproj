@@ -23,7 +23,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\Res;&quot;.\Standard Gaming Platform&quot;;.\TileEngine;.\Tactical;.\Utils;.\TacticalAI;.\Editor;.\Strategic;.\laptop;.\lua;.\"
+				AdditionalIncludeDirectories=".\Multiplayer;.\Multiplayer\raknet;.\Res;&quot;.\Standard Gaming Platform&quot;;.\TileEngine;.\Tactical;.\Utils;.\TacticalAI;.\Editor;.\Strategic;.\laptop;.\lua;.\"
 				PreprocessorDefinitions="CALLBACKTIMER;PRECOMPILEDHEADERS;_DEBUG;WIN32;_WINDOWS;JA2;_VTUNE_PROFILING;XML_STATIC;CINTERFACE"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
@@ -42,7 +42,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libexpatMT.lib mss32.lib winmm.lib smackw32.lib fmodvc.lib lua51.lib"
+				AdditionalDependencies="libexpatMT.lib mss32.lib winmm.lib smackw32.lib fmodvc.lib lua51.lib .\Multiplayer\raknet\RakNetLibStaticDebug.lib ws2_32.lib"
 				OutputFile="C:\Games\Jagged Alliance 2\ja2_debug_1020_en.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -523,7 +523,7 @@
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="3"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories=".\Res;&quot;.\Standard Gaming Platform&quot;;.\TileEngine;.\Tactical;.\Utils;.\TacticalAI;.\Editor;.\Strategic;.\laptop;.\Lua;.\Console;.\"
+				AdditionalIncludeDirectories=".\Multiplayer;.\Multiplayer\raknet;.\Res;&quot;.\Standard Gaming Platform&quot;;.\TileEngine;.\Tactical;.\Utils;.\TacticalAI;.\Editor;.\Strategic;.\laptop;.\Lua;.\Console;.\"
 				PreprocessorDefinitions="CALLBACKTIMER;PRECOMPILEDHEADERS;NDEBUG;WIN32;_WINDOWS;JA2;XML_STATIC;CINTERFACE"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -544,7 +544,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libexpatMT.lib winmm.lib smackw32.lib mss32.lib fmodvc.lib lua51.lib"
+				AdditionalDependencies="libexpatMT.lib mss32.lib winmm.lib smackw32.lib fmodvc.lib lua51.lib .\Multiplayer\Raknet\RakNetLibStatic.lib ws2_32.lib"
 				OutputFile="C:\games\Jagged Alliance 2\JA2_vs2003_release.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
@@ -2392,6 +2392,39 @@
 			<File
 				RelativePath="Res\resource.h">
 			</File>
+		</Filter>
+		<Filter
+			Name="multiplayer"
+			Filter="">
+			<Filter
+				Name="Source Files"
+				Filter="">
+				<File
+					RelativePath=".\Multiplayer\client.cpp">
+				</File>
+				<File
+					RelativePath=".\Multiplayer\server.cpp">
+				</File>
+				<File
+					RelativePath=".\Multiplayer\test_space.cpp">
+				</File>
+			</Filter>
+			<Filter
+				Name="Header Files"
+				Filter="">
+				<File
+					RelativePath=".\Multiplayer\connect.h">
+				</File>
+				<File
+					RelativePath=".\Multiplayer\fresh_header.h">
+				</File>
+				<File
+					RelativePath=".\Multiplayer\network.h">
+				</File>
+				<File
+					RelativePath=".\Multiplayer\test_space.h">
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

@@ -42,6 +42,8 @@
 	#include <vector>
 #endif
 
+#include "connect.h"
+
 #ifdef JA2EDITOR
 #include "Soldier Init List.h"
 extern SOLDIERINITNODE *gpSelected;
@@ -1180,6 +1182,7 @@ void RenderOverheadOverlays()
 	{ //loop through all soldiers.
 		end = MAX_NUM_SOLDIERS;
 	}
+	if(is_networked)end = MAX_NUM_SOLDIERS;
 
 	for( i = 0; i < end; i++ )
 	{
@@ -1200,7 +1203,14 @@ void RenderOverheadOverlays()
 
 		if( !gfTacticalPlacementGUIActive && pSoldier->bLastRenderVisibleValue == -1 && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS) )
 		{
-			continue;
+					//hayden
+					if(is_networked && pSoldier->bSide==0)
+					{
+					}
+					else
+					{
+					continue;// ie dont render
+					}
 		}
 
 		if ( pSoldier->sGridNo == NOWHERE )
@@ -1263,6 +1273,16 @@ void RenderOverheadOverlays()
 		#endif
 		if( !gfTacticalPlacementGUIActive )
 		{ //normal
+			if(is_networked)
+			{
+				if(pSoldier->bTeam!=0)
+				{
+				if(pSoldier->bSide==1)Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 1 );
+				if(pSoldier->bSide==0)Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 3 );
+				}
+				else Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
+			}
+			else
 			Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
 			RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sX, sY, (INT16)(sX + 3), (INT16)(sY + 9));
 		}
@@ -1287,6 +1307,16 @@ void RenderOverheadOverlays()
 		}
 		else
 		{ //normal
+			if(is_networked)
+			{
+				if(pSoldier->bTeam!=0)
+				{
+				if(pSoldier->bSide==1)continue;//dont render enemy
+				if(pSoldier->bSide==0)Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, 3 );
+				}
+				else Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
+			}
+			else
 			Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sX, sY, pSoldier->bTeam );
 			RegisterBackgroundRect(BGND_FLAG_SINGLE, NULL, sX, sY, (INT16)(sX + 3), (INT16)(sY + 9));
 		}

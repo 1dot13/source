@@ -200,7 +200,11 @@ CHAR16 TeamTurnString[][STRING_LENGTH] =
 	L"Spielzug Monster",
 	L"Spielzug Miliz",
 	L"Spielzug Zivilisten",
-	// planning turn
+	L"Player_Plan",// planning turn
+	L"Client #1",//hayden
+	L"Client #2",//hayden
+	L"Client #3",//hayden
+	L"Client #4",//hayden
 };
 
 CHAR16 Message[][STRING_LENGTH] =
@@ -2949,7 +2953,7 @@ STR16 AimPopUpText[] =
 
 	//If you try to hire more mercs than game can support
 
-	L"Sie haben bereits 18 Söldner in Ihrem Team.",
+	L"Sie haben bereits ein vollständiges Team.",
 
 	L"Mailbox",
 	L"Nachricht aufgenommen",
@@ -3417,6 +3421,11 @@ STR16 gzGIOScreenText[] =
 	L"Inventar System",
 	L"Alt",
 	L"Neu",
+
+	L"Timed Turns",//hayden
+	L"Not Timed",
+	L"Timed Player Turns",
+	L"Lade MP Spiel",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -3600,6 +3609,8 @@ STR16 pMessageStrings[] =
 #ifdef JA2BETAVERSION
 	L"Spiel erfolgreich in Slot End Turn Auto Save gespeichert.",		// 83
 #endif
+	L"..\\SavedGames\\MP_SavedGames", //The name of the directory where games are saved.
+	L"Client",
 };
 
 CHAR16 ItemPickupHelpPopup[][40] =
@@ -4062,6 +4073,112 @@ STR16 NewInvMessage[] =
 	L"Bewegung nicht möglich, während Reißverschluss des Rucksacks offen ist",
 	L"Sind Sie sicher, dass Sie alle Gegenstände im Sektor verkaufen wollen?",
 	L"Sind Sie sicher, dass Sie alle Gegenstände im Sektor löschen wollen?",
+};
+
+// WANNE - MP: Multiplayer messages
+STR16 MPServerMessage[] =
+{
+	// 0
+	L"Initialisiere RakNet Server...",
+	L"Server gestartet, warte auf Client Verbindungen...",
+	L"Sie müssen sich nun als Client durch drücken von '2' mit dem Server verbinden.",
+	L"Server läuft bereits.",
+	L"Starten des Servers ist fehlgeschlagen. Abbruch.",
+	// 5	
+	L"%d/%d Clients sind bereit für Echtzeitmodus.",
+	L"Verbindung zum Server ist unterbrochen, wird heruntergefahren.",
+	L"Server läuft nicht.",
+	L"Clients sind noch am laden, bitte warten...",
+	L"Sie können die Absprungzone nicht ändern, wenn der Server bereits gestartet wurde.",
+};
+
+STR16 MPClientMessage[] =
+{
+	// 0
+	L"Initialisiere RakNet Client...",
+	L"Verbinde zur ausgewählten Server IP...",
+	L"Erhalte Spiel Einstellungen:",
+	L"Sie sind bereits verbunden.",
+	L"Sie verbinden sich bereits...",
+	// 5
+	L"Client #%d - '%S' hat '%s' angeheuert.",
+	L"Client #%d - '%S' hat einen weiteren Söldner angeheuert.",
+	L"Sie sind bereit - Gesamt bereit = %d/%d",
+	L"Sie sind nicht mehr bereit - Gesamt bereit = %d/%d",
+	L"Starte Gefecht...",
+	// 10
+	L"Client #%d - '%S' ist bereit - Gesamt bereit = %d/%d",
+	L"Client #%d - '%S' ist nicht mehr bereit - Gesamt bereit = %d/%d",
+	L"Sie sind bereit. Warte auf die anderen Clients... Drücken Sie 'OK' wenn Sie doch noch nicht bereit sind.",
+	L"Lass uns das Gefecht beginnen!",
+	L"Ein Client muss laufen, um das Spiel beginnen zu können.",
+	// 15
+	L"Spiel kann nicht gestartet werden. Es sind noch keine Söldner angeheuert.",
+	L"Erwarte Freigabe vom Server für den Laptop...",
+	L"Unterbrochen",
+	L"Unterbrechung beendet",
+	L"Maus Raster Koordinaten:",
+	// 20
+	L"X: %d, Y: %d",
+	L"Raster Nummer: %d",
+	L"Aktion kann nur der Server durchführen.",
+	L"Wähle exklusive Server Aktion:  ('1' - Laptop freischalten/anheuern)  ('2' - Gefecht starten/Sektor laden)  ('3' - Interface freischalten )  ('4' - Söldner Platzierung abschließen) ",
+	//L"Sektor=%s, Max Clients=%d, Max Söldner=%d, Ko-Op=%d Gleiche Söldner=%d, Schaden Mult.=%f, Gegner=%d, Monster=%d, Miliz=%d, Zivilisten=%d, Zeitbeschränkung=%d, Sek/Tic=%d, Startgehalt=%d$, Zusatzwaffen=%d, Sci-Fi= %d, Schwierigkeit=%d, Extraschwer=%d, Bobby Rays Auswahl= %d, Deakt. Bobby Ray=%d, Deak. Aim/Merc Ausrüstung=%d, Deakt. Moral=%d, Testen=%d.",
+	//L"Sector=%s, Max Clients=%d, Max Mercs=%d, Game_Mode=%d, Same Merc=%d, Damage Multiplier=%f, Enemies=%d, Creatures=%d, Militias=%d, Civilians=%d, Timed Turns=%d, Secs/Tic=%d, Starting Cash=$%d, Tons of Guns=%d, Sci-Fi=%d, Difficulty=%d, Iron-Man=%d, BobbyRays Range=%d, Dis BobbyRay=%d, Dis Aim/Merc Equip=%d, Dis Morale=%d, Testing=%d",
+	L"Sector=%s, Max Clients=%d, Max Mercs=%d, Game_Mode=%d, Same Merc=%d, Damage Multiplier=%f, Timed Turns=%d, Secs/Tic=%d, Dis BobbyRay=%d, Dis Aim/Merc Equip=%d, Dis Morale=%d, Testing=%d",
+
+	// 25
+	L"Testmodus und Cheat-Funktion mit '9' ist freigeschalten.",
+	//L"Neue Verbindung: Client #%d - '%S', Startzone: %d.",
+	//L"Feindlich mit Client: #1=%d, #2=%d, #3=%d, #4=%d.",
+	L"New connection: Client #%d - '%S', Edge: %d, Team: %d.",
+	L"Team: %d.",//not used any more
+
+	L"'%s' (Client #%d - '%S') was killed by '%s' (Client #%d - '%S')",
+	L"Werfe Client #%d - '%S' aus dem Spiel.",
+	// 30
+	L"Starte Spielzug für Client Nummer:",
+	L"Starte Spielzug für Client #%d",
+	L"Anforderung für Echtzeit-Modus...",
+	L"In Echtzeit-Modus gewechselt.",
+	L"Fehler: Es ist ein Fehler beim Zurückwechseln in den Echtzeit-Modus aufgetreten",
+	// 35
+	L"Laptop freischalten um Söldner anzuheuern? (Sind alle Clients bereits verbunden?)",
+	L"Server hat den Laptop freigeschalten. Söldner anheuern!",
+	L"Unterbrecher.",
+	L"Sie können die Absprungzone nicht ändern, wenn Sie nur der Client und nicht zusätzlich der Server sind.",
+	L"Sie haben das Angebot zur Kampfaufgabe abgelehnt, da Sie sich gerade in einem Mehrspieler Spiel befinden.",
+	// 40
+	L"Alle Ihre Söldner wurden getötet!",
+	L"Überwachungsmodus wurde eingeschalten.",
+	L"Sie wurden besiegt!",
+	L"Auf Dächer klettern ist nicht erlaubt in einem Mehrspieler Spiel",
+	L"Sie haben '%s' angeheuert.",
+};
+
+STR16 MPHelp[] =
+{
+	// 0
+	L"Willkommen zu Jagged Alliance 2 1.13 Multiplayer",
+	L"Drücken Sie 'F1' um die Hilfe aufzurufen",
+	L"Mehrspieler Aktionen (Strategische Ansicht)",
+	L"* zuerst solle die Datei ja2_mp.ini angepasst werden *",
+	L"'1' - Starte Server",
+	// 5
+	L"'2' - Verbindung zum Server",
+	L"'3' - Wenn Server, dann Laptop freischalten, ansonsten bereit für Gefecht",
+	L"'4' - Beende Server und Client",
+	L"'5' - Anzeige der Maus Koordinaten (Taktische Ansicht)",
+	L"'7' - Server-Dialog um Aktionen zu übersteuern",
+	// 10
+	L"'F2' - Weitere Hilfe anzeigen",
+	L"Siehe readme_mp.html für weitere Informationen",
+	L"Tipps:",
+	L"* Alle Clients müssen eine eindeutige CLIENT_NUM (ja2_mp.ini) haben *",
+	L"* Gespeichertes Spiel verwirft die Bestellungen von Bobby Ray*",
+	// 15
+	L"* Vermeide eigene Söldner in der Nähe von gegnerischen Söldnern zu platzieren *",
+	L"'F1' - Anzeige der primären Hilfe",
 };
 
 #endif //GERMAN

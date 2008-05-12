@@ -25,6 +25,8 @@
 	#include "strategicmap.h"
 #endif
 
+#include "Strategic Event Handler.h"
+#include "connect.h"
 
 typedef struct
 {
@@ -341,7 +343,10 @@ void ShutDownBobbyRNewMailOrders();
 
 void GameInitBobbyRMailOrder()
 {
-	gubSelectedLight = 0;
+	if (is_networked)
+		gubSelectedLight = 2; //hayden
+	else
+		gubSelectedLight = 0;
 
 	gpNewBobbyrShipments = NULL;
 	giNumberOfNewBobbyRShipment = 0;
@@ -778,7 +783,7 @@ void BtnBobbyRAcceptOrderCallback(GUI_BUTTON *btn,INT32 reason)
 				CHAR16	zTemp[ 128 ];
 
 				//if the city is Drassen, and the airport sector is player controlled
-				if( gbSelectedCity == BR_DRASSEN && !StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( SEC_B13 ) ].fEnemyControlled )
+				if( gbSelectedCity == BR_DRASSEN && !StrategicMap[ SECTOR_INFO_TO_STRATEGIC_INDEX( SEC_B13 ) ].fEnemyControlled || is_client )
 				{
 					//Quick hack to bypass the confirmation box
 					ConfirmBobbyRPurchaseMessageBoxCallBack( MSG_BOX_RETURN_YES );
@@ -1393,6 +1398,7 @@ BOOLEAN CreateDestroyBobbyRDropDown( UINT8 ubDropDownAction )
 		{
 			UINT8 i;
 			UINT16 usPosY, usPosX;
+			UINT16 usFontHeight = GetFontHeight( BOBBYR_DROPDOWN_FONT );
 		HVOBJECT	hImageHandle;
 		HVOBJECT	hArrowHandle;
 
@@ -2158,9 +2164,19 @@ void ConfirmBobbyRPurchaseMessageBoxCallBack( UINT8 bExitValue )
 void EnterInitBobbyRayOrder()
 {
 	memset(&BobbyRayPurchases, 0, sizeof(BobbyRayPurchaseStruct) * MAX_PURCHASE_AMOUNT);
-	gubSelectedLight = 0;
+	
+	if (is_networked)
+		gubSelectedLight = 2; //hayden
+	else
+		gubSelectedLight = 0;
+
 	gfReDrawBobbyOrder = TRUE;
-	gbSelectedCity = -1;
+
+	if (is_networked)
+		gbSelectedCity = 2; //hayden , was -1
+	else
+		gbSelectedCity = -1;
+
 	gubCityAtTopOfList = 0;
 
 	//Get rid of the city drop dowm, if it is being displayed
@@ -2345,7 +2361,15 @@ BOOLEAN AddNewBobbyRShipment( BobbyRayPurchaseStruct *pPurchaseStruct, UINT8 ubD
 
 
 	//AddStrategicEvent( EVENT_BOBBYRAY_PURCHASE, uiResetTimeSec, cnt);
+	if(is_client)
+	{
+	BobbyRayPurchaseEventCallback( iFoundSpot); //hayden - instant delivery ?
+	//AddStrategicEventUsingSeconds( EVENT_BOBBYRAY_PURCHASE, GetWorldDayInSeconds() + 10, iFoundSpot );
+	}
+	else
+	{
 	AddFutureDayStrategicEvent( EVENT_BOBBYRAY_PURCHASE, (8 + Random(4) ) * 60, iFoundSpot, bDaysAhead );
+	}
 
 	return( TRUE );
 }

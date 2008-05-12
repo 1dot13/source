@@ -51,6 +51,8 @@
 	#include "SaveLoadScreen.h"
 #endif
 
+#include "connect.h"
+
 /* CHRISL: Adjusted settings to allow new Map_Screen_Bottom_800x600.sti to work.  This is needed if we
 want to have the new inventory panel not overlap the message text area. */
 #define MAP_BOTTOM_X							0
@@ -292,13 +294,15 @@ void RenderMapScreenInterfaceBottom( BOOLEAN fForceMapscreenFullRender )
 
 	// render whole panel
 	// HEADROCK Changed this line to accept outside influence through the new boolean:
-	if ( fForceMapscreenFullRender == TRUE || fMapScreenBottomDirty == TRUE )
+	if ( fForceMapscreenFullRender == TRUE || fMapScreenBottomDirty == TRUE)
 	{
 		// get and blt panel
-	GetVideoObject(&hHandle, guiMAPBOTTOMPANEL );
-	BltVideoObject( guiSAVEBUFFER , hHandle, 0, MAP_BOTTOM_X, MAP_BOTTOM_Y, VO_BLT_SRCTRANSPARENCY,NULL );
+		GetVideoObject(&hHandle, guiMAPBOTTOMPANEL );
+		BltVideoObject( guiSAVEBUFFER , hHandle, 0, MAP_BOTTOM_X, MAP_BOTTOM_Y, VO_BLT_SRCTRANSPARENCY,NULL );
 
-		if( GetSectorFlagStatus( sSelMapX, sSelMapY, ( UINT8 )iCurrentMapSectorZ, SF_ALREADY_VISITED ) == TRUE )
+		// WANNE - MP: Radarmap image should be displayed on every sector in multiplayer game
+		if( GetSectorFlagStatus( sSelMapX, sSelMapY, ( UINT8 )iCurrentMapSectorZ, SF_ALREADY_VISITED ) == TRUE 
+			|| is_networked)
 		{
 			GetMapFileName( sSelMapX, sSelMapY, ( UINT8 )iCurrentMapSectorZ, bFilename, TRUE, TRUE );
 			LoadRadarScreenBitmap( bFilename );
@@ -1286,6 +1290,12 @@ void EnableDisAbleMapScreenOptionsButton( BOOLEAN fEnable )
 
 BOOLEAN AllowedToTimeCompress( void )
 {
+	// WANNE - MP: In multiplayer mode we do not allow compress time, for now.
+	if (is_networked)
+	{
+		return ( FALSE );
+	}
+
 	// if already leaving, disallow any other attempts to exit
 	if ( fLeavingMapScreen )
 	{
@@ -1759,10 +1769,21 @@ BOOLEAN AllowedToExitFromMapscreenTo( INT8 bExitToWhere )
 		{
 			return( FALSE );
 		}
+		if ( (( sSelMapX != gWorldSectorX ) || ( sSelMapY != gWorldSectorY ) || (( UINT8 )iCurrentMapSectorZ ) != gbWorldSectorZ  ) && is_client) //hayden (PBI only)
+		{
+			return (FALSE);
+		}
 	}
 
 	//if we are map screen sector inventory
 	if( fShowMapInventoryPool )
+	{
+		//dont allow it
+		return( FALSE );
+	}
+
+	//hayden
+	if( bExitToWhere == MAP_EXIT_TO_LAPTOP && !allowlaptop && is_networked /*&& (is_client || is_server)*/)
 	{
 		//dont allow it
 		return( FALSE );

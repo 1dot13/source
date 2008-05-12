@@ -35,7 +35,8 @@
 	#include "Game Clock.h"
 #endif
 
-#include	"Text.h"
+#include "Text.h"
+#include "connect.h"
 
 #define				GAME_SETTINGS_FILE		"Ja2.set"
 
@@ -54,6 +55,7 @@ extern	SGPFILENAME	gCheckFilenames[];
 extern	CHAR8		gzErrorMsg[256];
 
 void		InitGameSettings();
+
 
 BOOLEAN GetCdromLocationFromIniFile( STR pRootOfCdromDrive );
 
@@ -93,6 +95,7 @@ BOOLEAN IsNIVModeValid(bool checkRes)
 		return( FALSE );
 	return( TRUE );
 }
+
 
 BOOLEAN LoadGameSettings()
 {
@@ -316,17 +319,31 @@ void InitGameOptions()
 	memset( &gGameOptions, 0, sizeof( GAME_OPTIONS ) );
 
 	//Init the game options
-	gGameOptions.ubBobbyRay			= BR_GOOD;
+	
+	if (is_networked)
+		gGameOptions.ubBobbyRay			= BR_AWESOME;// hayden, was BR_GOOD;
+	else
+		gGameOptions.ubBobbyRay			= BR_GOOD;
+
 	gGameOptions.fGunNut			= TRUE;
 	gGameOptions.fAirStrikes		= FALSE;
-	gGameOptions.ubGameStyle		= STYLE_SCIFI;
+
+	if (is_networked)
+		gGameOptions.ubGameStyle		= STYLE_REALISTIC;//hayden, was STYLE_SCIFI;
+	else
+		gGameOptions.ubGameStyle		= STYLE_SCIFI;
+
 	gGameOptions.ubDifficultyLevel	= DIF_LEVEL_MEDIUM;
 	//CHRISL: override default inventory mode when in low res
 	if(IsNIVModeValid() == FALSE)
 		gGameOptions.ubInventorySystem	= INVENTORY_OLD;
 	else
 		gGameOptions.ubInventorySystem	= INVENTORY_NEW;
-	//gGameOptions.fTurnTimeLimit	= FALSE;
+	
+	if (is_networked)
+		gGameOptions.fTurnTimeLimit	= TRUE;//hayden
+	else
+		gGameOptions.fTurnTimeLimit	= FALSE;
 	
 	gGameOptions.fIronManMode		= FALSE;
 }
@@ -545,6 +562,7 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.iStartingCashExpert		= iniReader.ReadInteger("JA2 Gameplay Settings", "EXPERT_CASH",30000);
 	gGameExternalOptions.iStartingCashInsane		= iniReader.ReadInteger("JA2 Gameplay Settings", "INSANE_CASH",15000);
 
+	
 	//Lalien: Game starting time
 	gGameExternalOptions.iGameStartingTime			= iniReader.ReadInteger("JA2 Gameplay Settings", "GAME_STARTING_TIME", NUM_SEC_IN_HOUR);
 
@@ -558,7 +576,7 @@ void LoadGameExternalOptions()
 	{
 		gGameExternalOptions.iGameStartingTime += NUM_SEC_IN_DAY;
 	}
-
+	
 	gGameExternalOptions.iFirstArrivalDelay			= iniReader.ReadInteger("JA2 Gameplay Settings", "FIRST_ARRIVAL_DELAY", 6 * NUM_SEC_IN_HOUR);
 
 	//################# Settings valid on game start only end ##################
@@ -753,6 +771,10 @@ void LoadGameExternalOptions()
 
 	// CHRISL: Setting to turn off the description and stack popup options from the sector inventory panel
 	gGameExternalOptions.fSectorDesc			= iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_SECTOR_DESCRIPTION_WINDOW",TRUE);
+
+
+	//afp - use bullet tracers?
+	gGameExternalOptions.gbBulletTracer = false;
 }
 
 
@@ -1087,14 +1109,17 @@ void DisplayGameSettings( )
 	//Sci fi option
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_GAME_STYLE_TEXT ], gzGIOScreenText[ GIO_REALISTIC_TEXT + gGameOptions.ubGameStyle ] );
 
-	//Timed Turns option
-	// JA2Gold: no timed turns
+	////Timed Turns option
+	//// JA2Gold: no timed turns
 	//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_TIMED_TURN_TITLE_TEXT ], gzGIOScreenText[ GIO_NO_TIMED_TURNS_TEXT + gGameOptions.fTurnTimeLimit ] );
 
-	//if( CHEATER_CHEAT_LEVEL() )
-	{
+	if (!is_networked)
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[58], CurrentPlayerProgressPercentage(), HighestPlayerProgressPercentage() );
-	}
+
+	////if( CHEATER_CHEAT_LEVEL() )
+	//{
+	//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, gzLateLocalizedString[58], CurrentPlayerProgressPercentage(), HighestPlayerProgressPercentage() );
+	//}
 }
 
 BOOLEAN MeanwhileSceneSeen( UINT8 ubMeanwhile )

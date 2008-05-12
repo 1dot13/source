@@ -89,6 +89,9 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 			case MLG_TITLETEXT:
 				sprintf( filename, "LOADSCREENS\\titletext.sti" );
 				return TRUE;
+			case MLG_TITLETEXT_MP:
+				sprintf( filename, "LOADSCREENS\\titletext_mp.sti" );
+				return TRUE;
 			case MLG_TOALUMNI:
 				sprintf( filename, "LAPTOP\\ToAlumni.sti" );
 				return TRUE;
@@ -196,6 +199,9 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 				return TRUE;
 			case MLG_TITLETEXT:
 				sprintf( filename, "GERMAN\\titletext_german.sti" );
+				return TRUE;
+			case MLG_TITLETEXT_MP:
+				sprintf( filename, "GERMAN\\titletext_mp_german.sti" );
 				return TRUE;
 			case MLG_TOALUMNI:
 				sprintf( filename, "GERMAN\\ToAlumni_german.sti" );
@@ -337,6 +343,9 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 			case MLG_TITLETEXT:
 				sprintf( filename, "%s\\titletext_%s.sti", zLanguage, zLanguage );
 				break;
+			case MLG_TITLETEXT_MP:
+				sprintf( filename, "%s\\titletext_mp_%s.sti", zLanguage, zLanguage );
+				return TRUE;
 			case MLG_TOALUMNI:
 				sprintf( filename, "%s\\ToAlumni_%s.sti", zLanguage, zLanguage );
 				break;
@@ -444,6 +453,9 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 			return TRUE;
 		case MLG_TITLETEXT:
 			sprintf( filename, "LOADSCREENS\\titletext.sti" );
+			return TRUE;
+		case MLG_TITLETEXT_MP:
+			sprintf( filename, "LOADSCREENS\\titletext_mp.sti" );
 			return TRUE;
 		case MLG_TOALUMNI:
 			sprintf( filename, "LAPTOP\\ToAlumni.sti" );

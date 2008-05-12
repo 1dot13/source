@@ -438,6 +438,9 @@ typedef struct
 	// Lesh: slow enemy items choice progress
 	BOOLEAN fSlowProgressForEnemyItemsChoice;
 
+//afp - use bullet tracers
+BOOLEAN gbBulletTracer;
+
 	// CHRISL: option to allow Slay to remain as a hired PC
 	BOOLEAN fEnableSlayForever;
 
@@ -446,7 +449,6 @@ typedef struct
 
 	// CHRISL: New setting to determine AP multiplier when reloading with wrong sized clip
 	FLOAT ubWrongMagMult;
-
 	// CHRISL: Setting to turn off the description and stack popup options from the sector inventory panel
 	BOOLEAN fSectorDesc;
 } GAME_EXTERNAL_OPTIONS;
@@ -468,6 +470,7 @@ void FreeGameExternalOptions();
 
 void InitGameOptions();
 
+void InitGameSettings();
 
 BOOLEAN GetCDLocation( );
 

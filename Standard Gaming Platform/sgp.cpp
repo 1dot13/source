@@ -386,25 +386,25 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 			}
 			break;
 		case FALSE: // We are suspending direct draw
-#ifdef JA2
-						// pause the JA2 Global clock
-						PauseTime( TRUE );
-						SuspendVideoManager();
-#else
-#ifndef UTIL 
-						if(!VideoInspectorIsEnabled())
-							SuspendVideoManager();
-#endif
-#endif
-			// suspend movement timer, to prevent timer crash if delay becomes long
-			// * it doesn't matter whether the 3-D engine is actually running or not, or if it's even been initialized
-			// * restore is automatic, no need to do anything on reactivation
-#if !defined( JA2 ) && !defined( UTIL )
-			MoveTimer(TIMER_SUSPEND);
-#endif
-
-			gfApplicationActive = FALSE;
-			fRestore = TRUE;
+//#ifdef JA2
+//						// pause the JA2 Global clock
+//						PauseTime( TRUE );
+//						SuspendVideoManager();
+//#else
+//#ifndef UTIL 
+//						if(!VideoInspectorIsEnabled())
+//							SuspendVideoManager();
+//#endif
+//#endif
+//          // suspend movement timer, to prevent timer crash if delay becomes long
+//          // * it doesn't matter whether the 3-D engine is actually running or not, or if it's even been initialized
+//          // * restore is automatic, no need to do anything on reactivation
+//#if !defined( JA2 ) && !defined( UTIL )
+//          MoveTimer(TIMER_SUSPEND);
+//#endif
+//
+//          gfApplicationActive = FALSE;
+//          fRestore = TRUE;
 			break;
 		}
 		break;
@@ -419,27 +419,27 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 		break;
 
 		case WM_SETFOCUS:
-#if !defined( JA2 ) && !defined( UTIL )
-			if(!VideoInspectorIsEnabled())
-				RestoreVideoManager();
-			gfApplicationActive=TRUE;
-//			RestrictMouseToXYXY(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-#else
-		RestoreCursorClipRect( );
-#endif
+//#if !defined( JA2 ) && !defined( UTIL )
+//			if(!VideoInspectorIsEnabled())
+//				RestoreVideoManager();
+//			gfApplicationActive=TRUE;
+////			RestrictMouseToXYXY(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+//#else
+//      RestoreCursorClipRect( );
+//#endif
 
 			break;
 
 		case WM_KILLFOCUS:
-#if !defined( JA2 ) && !defined( UTIL )
-			if(!VideoInspectorIsEnabled())
-				SuspendVideoManager();
-
-			gfApplicationActive=FALSE;
-			FreeMouseCursor();
-#endif
-			// Set a flag to restore surfaces once a WM_ACTIVEATEAPP is received
-			fRestore = TRUE;
+//#if !defined( JA2 ) && !defined( UTIL )
+//			if(!VideoInspectorIsEnabled())
+//				SuspendVideoManager();
+//
+//			gfApplicationActive=FALSE;
+//			FreeMouseCursor();
+//#endif
+//			// Set a flag to restore surfaces once a WM_ACTIVEATEAPP is received
+//			fRestore = TRUE;
 			break;
 
 

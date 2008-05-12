@@ -907,6 +907,7 @@ public:
 	
 	UINT32											uiSoldierUpdateNumber;
 	BYTE												ubSoldierUpdateType;	
+	UINT16												sScheduledStop; //hayden, used for scheduling a grid to stop
 	//END
 
 	INT32												iStartOfInsuranceContract;

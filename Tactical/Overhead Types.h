@@ -23,7 +23,7 @@
 #define MIN_AMB_LEVEL_FOR_MERC_LIGHTS		9
 
 
-#define	 MAXTEAMS				6
+#define     MAXTEAMS				11 //hayden
 #define			MAXMERCS				MAX_NUM_SOLDIERS
 
 //TACTICAL OVERHEAD STUFF
@@ -274,9 +274,14 @@ enum WorldDirections
 #define CREATURE_TEAM		2
 #define MILITIA_TEAM		3
 #define CIV_TEAM				4
-#define LAST_TEAM				CIV_TEAM
+#define LAST_TEAM				LAN_TEAM_FOUR
 #define	PLAYER_PLAN			5
 
+#define LAN_TEAM_ONE 6
+#define LAN_TEAM_TWO 7
+#define LAN_TEAM_THREE 8
+#define LAN_TEAM_FOUR 9
+//hayden
 
 //-----------------------------------------------
 //

@@ -272,6 +272,7 @@ public:
 	BOOLEAN						fUseGivenVehicle;				
 	INT8						bUseGivenVehicleID;				
 	BOOLEAN						fHasKeys;
+	INT8 PADDINGSLOTS[ 14 ];
 
 	//
 	// New and OO stuff goes after here.	Above this point any changes will goof up reading from files.

@@ -45,6 +45,8 @@
 	#include "Air Raid.h"
 #endif
 
+#include "connect.h"
+
 // zoom x and y coords for map scrolling
 INT32 iZoomX = 0;
 INT32 iZoomY = 0;
@@ -756,41 +758,44 @@ UINT32 DrawMap( void )
 			for ( cnt2 = 1; cnt2 < MAP_WORLD_Y - 1; cnt2++ )
 			{
 				// LATE DESIGN CHANGE: darken sectors not yet visited, instead of those under known enemy control
-				if( GetSectorFlagStatus( cnt, cnt2, ( UINT8 ) iCurrentMapSectorZ, SF_ALREADY_VISITED ) == FALSE )
-//				if ( IsTheSectorPerceivedToBeUnderEnemyControl( cnt, cnt2, ( INT8 )( iCurrentMapSectorZ ) ) )
+				if(!is_networked) //hayden - dont darken anything
 				{
-					if( fShowAircraftFlag && !iCurrentMapSectorZ )
+					if( GetSectorFlagStatus( cnt, cnt2, ( UINT8 ) iCurrentMapSectorZ, SF_ALREADY_VISITED ) == FALSE )
+	//				if ( IsTheSectorPerceivedToBeUnderEnemyControl( cnt, cnt2, ( INT8 )( iCurrentMapSectorZ ) ) )
 					{
-						if( !StrategicMap[ cnt + cnt2 * WORLD_MAP_X ].fEnemyAirControlled )
+						if( fShowAircraftFlag && !iCurrentMapSectorZ )
 						{
-							// sector not visited, not air controlled
-							ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_GREEN );
+							if( !StrategicMap[ cnt + cnt2 * WORLD_MAP_X ].fEnemyAirControlled )
+							{
+								// sector not visited, not air controlled
+								ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_GREEN );
+							}
+							else
+							{
+								// sector not visited, controlled and air not
+								ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_RED );
+							}
 						}
 						else
 						{
-							// sector not visited, controlled and air not
-							ShadeMapElem( cnt, cnt2, MAP_SHADE_DK_RED );
+							// not visited
+							ShadeMapElem( cnt, cnt2, MAP_SHADE_BLACK );
 						}
 					}
 					else
 					{
-						// not visited
-						ShadeMapElem( cnt, cnt2, MAP_SHADE_BLACK );
-					}
-				}
-				else
-				{
-					if( fShowAircraftFlag && !iCurrentMapSectorZ )
-					{
-						if( !StrategicMap[ cnt + cnt2 * WORLD_MAP_X ].fEnemyAirControlled )
+						if( fShowAircraftFlag && !iCurrentMapSectorZ )
 						{
-							// sector visited and air controlled
-							ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_GREEN);
-						}
-						else
-						{
-							// sector visited but not air controlled
-							ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_RED );
+							if( !StrategicMap[ cnt + cnt2 * WORLD_MAP_X ].fEnemyAirControlled )
+							{
+								// sector visited and air controlled
+								ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_GREEN);
+							}
+							else
+							{
+								// sector visited but not air controlled
+								ShadeMapElem( cnt, cnt2, MAP_SHADE_LT_RED );
+							}
 						}
 					}
 				}

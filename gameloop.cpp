@@ -37,6 +37,8 @@
 #include "Rain.h"
 // end rain
 
+//network headers
+#include "connect.h"
 
 UINT32 guiCurrentScreen;
 UINT32 guiPendingScreen = NO_PENDING_SCREEN;
@@ -93,6 +95,9 @@ BOOLEAN InitializeGame(void)
 	giStartingMemValue = MemGetFree( );
 
 	//InitializeLua();
+	is_networked = FALSE;
+	is_client = FALSE;
+	is_server = FALSE;
 
 	ClearAllDebugTopics();
 	RegisterJA2DebugTopic( TOPIC_JA2OPPLIST, "Reg" );
@@ -136,7 +141,10 @@ BOOLEAN InitializeGame(void)
 	LoadGameSettings();
 
 	//Initialize the Game options ( Gun nut, scifi and dif. levels
-	InitGameOptions();
+
+	// WANNE - MP: Moved InitGameOptions() to MainMenuScreen::MenuButtonCallback()
+	// because in this function "is_networked" is not set, so it is too early!
+	//InitGameOptions();
 
 	// preload mapscreen graphics
 	HandlePreloadOfMapGraphics( );
@@ -371,7 +379,11 @@ void GameLoop(void)
 			Sleep(sleeptime);
 	}
 #endif
-
+if ( is_networked )
+	{
+	client_packet();
+	server_packet();
+	}
 	//DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"GameLoop done");
 }
 

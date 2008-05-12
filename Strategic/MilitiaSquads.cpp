@@ -28,6 +28,7 @@
 	#include "Tactical Save.h"
 #endif
 
+#include "connect.h"
 #include "MilitiaSquads.h"
 #include "Reinforcement.h"
 
@@ -765,10 +766,18 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 		}
 	}
 
-	// If militia have been moved here, no reason to reset--just add them.	If militia have not moved, then no strategic
-	// changes were made.	Either case, this flag should be false.
-	gfStrategicMilitiaChangesMade = FALSE;
+	if (is_networked)
+	{
+		if (gfStrategicMilitiaChangesMade)
+		{
+			RemoveMilitiaFromTactical();
+			if(is_server && MILITIA_ENABLED)
+				PrepareMilitiaForTactical(FALSE);
+		}
 	}
+	
+	gfStrategicMilitiaChangesMade = FALSE;
+}
 
 void MSCallBack( UINT8 ubResult )
 {

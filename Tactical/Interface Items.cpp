@@ -6572,7 +6572,6 @@ void DeleteItemStackPopup( )
 	//CHRISL: if neither item or sector stack popups are open, just return.
 	if(!gfInItemStackPopup && !gfInSectorStackPopup)
 		return;
-
 	//Remove
 	DeleteVideoObjectFromIndex( guiItemPopupBoxes );
 

@@ -232,7 +232,7 @@
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="3"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\;..\Tactical;..\Utils;..\tacticalai;..\strategic;..\Laptop;.\"
+				AdditionalIncludeDirectories="..\Multiplayer;&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\;..\Tactical;..\Utils;..\tacticalai;..\strategic;..\Laptop;.\"
 				PreprocessorDefinitions="PRECOMPILEDHEADERS;NDEBUG;WIN32;_WINDOWS;JA2;XML_STATIC;CINTERFACE"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -387,7 +387,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\;..\Tactical;..\Utils;..\tacticalai;..\strategic;..\lua;..\Laptop;.\"
+				AdditionalIncludeDirectories="..\Multiplayer;&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\;..\Tactical;..\Utils;..\tacticalai;..\strategic;..\lua;..\Laptop;.\"
 				PreprocessorDefinitions="PRECOMPILEDHEADERS;_DEBUG;WIN32;_WINDOWS;JA2;_VTUNE_PROFILING;XML_STATIC;CINTERFACE"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"

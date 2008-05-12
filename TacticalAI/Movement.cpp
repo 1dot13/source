@@ -17,7 +17,7 @@
 	#include "Soldier macros.h"
 	#include "Render Fun.h"
 #endif
-
+#include "connect.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -878,6 +878,24 @@ void HaltMoveForSoldierOutOfPoints(SOLDIERTYPE *pSoldier)
 		return;
 	}
 
+	if (is_networked)
+	{
+		EV_S_STOP_MERC				SStopMerc;
+
+		SStopMerc.sGridNo					= pSoldier->sGridNo;
+		SStopMerc.ubDirection			= pSoldier->ubDirection;
+		SStopMerc.usSoldierID			= pSoldier->ubID;
+		SStopMerc.fset=TRUE;
+		SStopMerc.sXPos=pSoldier->sX;
+		SStopMerc.sYPos=pSoldier->sY;
+
+		//AddGameEvent( S_STOP_MERC, 0, &SStopMerc ); //hayden.
+		if(pSoldier->ubID>=120) 
+			return;//hayden
+
+		if(is_client)
+			send_stop(&SStopMerc);
+	}
 	// record that this merc can no longer animate and why...
 	pSoldier->AdjustNoAPToFinishMove( TRUE );
 

@@ -56,6 +56,7 @@
 	#include "strategic.h"
 #endif
 
+#include "connect.h"
 #ifdef JA2EDITOR
 	extern BOOLEAN gfProfileDataLoaded;
 #endif
@@ -447,7 +448,7 @@ BOOLEAN LoadMercProfiles(void)
 	DecideActiveTerrorists();
 
 	// initialize mercs' status
-	StartSomeMercsOnAssignment( );
+	if(!is_networked)StartSomeMercsOnAssignment( );
 
 	// initial recruitable mercs' reputation in each town
 	InitializeProfilesForTownReputation( );
@@ -988,11 +989,22 @@ SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 		pNewSoldier->bLastRenderVisibleValue				= pSoldier->bLastRenderVisibleValue;
 		pNewSoldier->bVisible												= pSoldier->bVisible;
 		// 0verhaul:  Need to pass certain flags over.  COWERING is one of them.  Others to be determined.
-		pNewSoldier->flags.uiStatusFlags										|= pSoldier->flags.uiStatusFlags & (SOLDIER_COWERING | SOLDIER_MUTE | SOLDIER_GASSED);
+		
+		// copy uiStatusFlags, etc. - hayden :)
+		if (is_networked)
+		{
+			pNewSoldier->flags.uiStatusFlags = pSoldier->flags.uiStatusFlags;
+			pNewSoldier->ubProfile = pSoldier->ubProfile;
+		}
+		else
+		{
+			pNewSoldier->flags.uiStatusFlags |= pSoldier->flags.uiStatusFlags & (SOLDIER_COWERING | SOLDIER_MUTE | SOLDIER_GASSED);
+		}
 
+		
 		if ( ubTeam == gbPlayerNum )
 		{
-			pNewSoldier->bVisible											= 1;
+			pNewSoldier->bVisible= 1;
 		}
 
 		//CHRISL: Rather then resorting the profile, which recreates all the items, what if we simply try and sort the

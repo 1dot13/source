@@ -47,7 +47,7 @@
 #endif
 
 #include "Strategic Town Loyalty.h"
-
+#include "connect.h"
 
 //
 //******	Defines	******
@@ -1817,7 +1817,7 @@ INT8 AimMemberHireMerc()
 	}
 
 	//add an entry in the history page for the hiring of the merc
-	AddHistoryToPlayersLog(HISTORY_HIRED_MERC_FROM_AIM, ubCurrentSoldier, GetWorldTotalMin(), -1, -1 );
+	if(!is_client)AddHistoryToPlayersLog(HISTORY_HIRED_MERC_FROM_AIM, ubCurrentSoldier, GetWorldTotalMin(), -1, -1 );
 	return(TRUE);
 }
 
@@ -1994,7 +1994,7 @@ UINT32 DisplayMercChargeAmount()
 		// if there is a medical deposit, add it in
 		if( gMercProfiles[ gbCurrentSoldier ].bMedicalDeposit )
 		{
-			giContractAmount += gMercProfiles[gbCurrentSoldier].sMedicalDepositAmount;
+			if(!is_client)giContractAmount += gMercProfiles[gbCurrentSoldier].sMedicalDepositAmount;//hayden
 		}
 
 		//If hired with the equipment, add it in aswell
@@ -3206,7 +3206,11 @@ BOOLEAN InitDeleteVideoConferencePopUp( )
 	{
 		gubVideoConferencingPreviousMode = gubVideoConferencingMode;
  		gubMercAttitudeLevel = 0;
-		gubContractLength = AIM_CONTRACT_LENGTH_ONE_WEEK;
+
+		if (is_networked)
+			gubContractLength = AIM_CONTRACT_LENGTH_ONE_DAY;
+		else
+			gubContractLength = AIM_CONTRACT_LENGTH_ONE_WEEK;
 
 		if( gMercProfiles[gbCurrentSoldier].usOptionalGearCost == 0 )
 			gfBuyEquipment = FALSE;
@@ -3290,6 +3294,11 @@ BOOLEAN InitDeleteVideoConferencePopUp( )
 			usPosY += AIM_MEMBER_BUY_EQUIPMENT_GAP;
 		}
 
+		if(is_client)//hayden : only needed for 1 day...
+		{
+						DisableButton( giContractLengthButton[1] );
+						DisableButton( giContractLengthButton[2] );
+		}
 		// BuyEquipment button
 		usPosY = AIM_MEMBER_BUY_CONTRACT_LENGTH_Y;
 		for(i=0; i<2; i++)
@@ -3310,6 +3319,12 @@ BOOLEAN InitDeleteVideoConferencePopUp( )
 		if( gMercProfiles[gbCurrentSoldier].usOptionalGearCost == 0 )
 			DisableButton( giBuyEquipmentButton[1] );
 
+		if(!ALLOW_EQUIP && is_networked)
+		{
+			gfBuyEquipment = FALSE;
+			DisableButton( giBuyEquipmentButton[0] );
+			DisableButton( giBuyEquipmentButton[1] );
+		}
 
 		// Authorize button
 		usPosX = AIM_MEMBER_AUTHORIZE_PAY_X;
@@ -4372,6 +4387,8 @@ void DisplayPopUpBoxExplainingMercArrivalLocationAndTime( )
 	if( LaptopSaveInfo.sLastHiredMerc.fHaveDisplayedPopUpInLaptop )
 		return;
 
+	if(is_client)
+		return;
 	pSoldier = FindSoldierByProfileID( (UINT8)LaptopSaveInfo.sLastHiredMerc.iIdOfMerc, TRUE );
 
 	if( pSoldier == NULL )

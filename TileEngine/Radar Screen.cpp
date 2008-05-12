@@ -38,7 +38,7 @@
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
-
+#include "connect.h"
 
 extern INT32 iCurrentMapSectorZ;
 
@@ -377,7 +377,9 @@ void RenderRadarScreen( )
 		SetObjectHandleShade( gusRadarImage, 0 );
 
 		//If night time and on surface, darken the radarmap.
-		if( NightTime() )
+
+		// WANNE - MP: Only darken the radarmap in single player mode
+		if( NightTime() && !is_networked )//hayden
 		{
 			if( guiCurrentScreen == MAP_SCREEN && !iCurrentMapSectorZ ||
 					guiCurrentScreen == GAME_SCREEN && !gbWorldSectorZ )
@@ -559,7 +561,14 @@ void RenderRadarScreen( )
 				// Don't place guys in radar until visible!
 				if ( pSoldier->bVisible == -1 && !(gTacticalStatus.uiFlags&SHOW_ALL_MERCS) && !(pSoldier->ubMiscSoldierFlags & SOLDIER_MISC_XRAYED) )
 				{
-					continue;
+					//hayden
+					if(is_networked && pSoldier->bSide==0)
+					{
+					}
+					else
+					{
+					continue;// ie dont render
+					}
 				}
 
 				// Don't render guys if they are dead!

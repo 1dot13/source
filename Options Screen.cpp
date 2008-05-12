@@ -39,6 +39,7 @@
 	#include "SmokeEffects.h"
 #endif
 
+#include		"connect.h"
 #include		"WorldMan.h"
 
 /////////////////////////////////
@@ -1172,6 +1173,14 @@ void			ConfirmQuitToMainMenuMessageBoxCallBack( UINT8 bExitValue )
 		gfEnteredFromMapScreen = FALSE;
 		gfExitOptionsAfterMessageBox = TRUE;
 		SetOptionsExitScreen( MAINMENU_SCREEN );
+
+		if (is_networked)
+		{
+			// haydent
+			server_disconnect();
+			client_disconnect();
+
+		}
 
 		//We want to reinitialize the game
 		ReStartingGame();

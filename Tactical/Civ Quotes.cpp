@@ -33,7 +33,7 @@
 #include "Strategic Mines.h"
 #include "Random.h"
 #endif
-
+#include "connect.h"
 
 #define			DIALOGUE_DEFAULT_WIDTH			200
 #define			EXTREAMLY_LOW_TOWN_LOYALTY	20
@@ -242,7 +242,9 @@ void ShutDownQuoteBox( BOOLEAN fForce )
 		// do we need to do anything at the end of the civ quote?
 		if ( gCivQuoteData.pCiv && gCivQuoteData.pCiv->aiData.bAction == AI_ACTION_OFFER_SURRENDER )
 		{
-			DoMessageBox( MSG_BOX_BASIC_STYLE, Message[ STR_SURRENDER ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, SurrenderMessageBoxCallBack, NULL );
+// Haydent
+			if(!is_client)DoMessageBox( MSG_BOX_BASIC_STYLE, Message[ STR_SURRENDER ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, SurrenderMessageBoxCallBack, NULL );
+			else ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[39] );
 		}
 	}
 }

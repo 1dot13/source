@@ -15,7 +15,7 @@
 #define AM_A_ROBOT( p )	( ( p->ubProfile == NO_PROFILE ) ? FALSE : ( gMercProfiles[ p->ubProfile ].ubBodyType == ROBOTNOWEAPON ) )
 
 
-#define OK_ENEMY_MERC( p ) ( !p->aiData.bNeutral && (p->bSide != gbPlayerNum ) && p->stats.bLife >= OKLIFE )
+#define OK_ENEMY_MERC( p ) ( !p->aiData.bNeutral && (p->bSide != gbPlayerNum ) && p->stats.bLife >= OKLIFE && (p->bTeam < 5 ))
 
 // Checks if our guy can be controllable .... checks bInSector, team, on duty, etc...
 #define OK_CONTROLLABLE_MERC( p ) ( p->stats.bLife >= OKLIFE && p->bActive && p->bInSector && p->bTeam == gbPlayerNum && p->bAssignment < ON_DUTY	)
