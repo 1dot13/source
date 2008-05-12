@@ -8519,7 +8519,7 @@
 		<uiIndex>378</uiIndex>
 		<szItemName>7.62x25mm Biz. Mag, AET</szItemName>
 		<szLongItemName>7.62x25mm Bizon Mag, AET</szLongItemName>
-		<szItemDesc>A 45 round helical cyilnder-type magazine of 7.62 Tk AET ammo for your Bizon SMG.</szItemDesc>
+		<szItemDesc>A 45 round helical cylinder-type magazine of 7.62 Tk AET ammo for your Bizon SMG.</szItemDesc>
 		<szBRName>7.62x25mm Biz. Mag, AET</szBRName>
 		<szBRDesc>Bizon mags filled with AET ammo. Not that we believe that you really need that many rounds if using this type of ammo, but you may love the lack of a need to reload during combat.</szBRDesc>
 		<usItemClass>1024</usItemClass>

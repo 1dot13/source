@@ -1950,10 +1950,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>245</uiIndex>
-		<szItemName>Vodka</szItemName>
+		<szItemName>Wodka</szItemName>
 		<szLongItemName>Russian Standard</szLongItemName>
-		<szItemDesc>Dieser hochprozentige Vodka ist seit 2006 Marktführer im Premiumsegment in Russland. Wie kommt diese Flasche nur nach Arulco? Vielleicht ein Geschenk von Ivan &amp; Igor ...</szItemDesc>
-		<szBRName>Vodka</szBRName>
+		<szItemDesc>Dieser hochprozentige Wodka ist seit 2006 Marktführer im Premiumsegment in Russland. Wie kommt diese Flasche nur nach Arulco? Vielleicht ein Geschenk von Ivan &amp; Igor ...</szItemDesc>
+		<szBRName>Wodka</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2206,7 +2206,7 @@
 		<szItemName>Schlüssel</szItemName>
 		<szLongItemName>elektronischer Schlüssel</szLongItemName>
 		<szItemDesc>Ein elektronischer Schlüssel mit Magnetstreifen.</szItemDesc>
-		<szBRName>Electronic Schlüssel</szBRName>
+		<szBRName>Elektronischer Schlüssel</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2652,7 +2652,7 @@
 		<szLongItemName>VSS Vintorez</szLongItemName>
 		<szItemDesc>Das schallgedämpfte Präzisionsgewehr wurde extra für russische Spezialeinheiten (Spetsnaz, KGB, FSB) entwickelt und ist seit den 80er Jahren im Dienst.</szItemDesc>
 		<szBRName>VSS Vintorez</szBRName>
-		<szBRDesc>Das schallgedämpfte Präzisionsgewehr wurde extra für russische Spezialeinheiten (Spetsnaz, KGB, FSB) entwickelt und ist seit den 80er Jahren im Dienst.</szBRDesc>
+		<szBRDesc>Das schallgedämpfte Präzisionsgewehr wurde extra für russische Spezialeinheiten (Spetsnaz, KGB, FSB) entwickelt und ist seit den 80er Jahren im Dienst. Es feuert Unterschallmunition und bietet einen vollautomatischen Feuermodus.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>334</uiIndex>
@@ -6060,7 +6060,7 @@
 		<szLongItemName>MAB PA-15</szLongItemName>
 		<szItemDesc>Eine französische Armeepistole mit einem ungewöhnlichen Sicherungsmechanismus.</szItemDesc>
 		<szBRName>MAB PA-15</szBRName>
-		<szBRDesc>Diese französische Pistole wird nicht mehr hergestellt. Kaufen Sie noch solange wir Vorräte haben!</szBRDesc>
+		<szBRDesc>Diese französische Pistole wird nicht mehr hergestellt. Kaufen Sie noch solange der Vorrat reicht!</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>760</uiIndex>
@@ -6692,7 +6692,7 @@
 		<szLongItemName>Beinprotektoren</szLongItemName>
 		<szItemDesc>Nicht nur für Kinder geeignet.</szItemDesc>
 		<szBRName>Beinprotektoren</szBRName>
-		<szBRDesc>Diese Beinprotektoren sind nicht nur für Kinder geeignet.</szBRDesc>
+		<szBRDesc>Diese Beinprotektoren sind nicht für Kinder geeignet.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>839</uiIndex>
@@ -7458,7 +7458,7 @@
 		<uiIndex>934</uiIndex>
 		<szItemName>.44 SL AET</szItemName>
 		<szLongItemName>.44 Schnelllader AET</szLongItemName>
-		<szItemDesc>Die .44 SIB ist eine Kombination aus Semi-Wadcutter und Kegelgeschoß, und vereint die Vorteile von beiden.</szItemDesc>
+		<szItemDesc>Die .44 SIB ist eine Kombination aus Semi-Wadcutter und Kegelgeschoss, und vereint die Vorteile von beiden.</szItemDesc>
 		<szBRName>.44 SL AET</szBRName>
 		<szBRDesc>Körperpanzerung wird zu einem Witz, wenn Sie diese .44 SIB Geschosse verwenden.</szBRDesc>
 	</ITEM>
@@ -7466,7 +7466,7 @@
 		<uiIndex>935</uiIndex>
 		<szItemName>.44 Mag AET</szItemName>
 		<szLongItemName>.44 Magazin AET</szLongItemName>
-		<szItemDesc>Die .44 SIB ist eine Kombination aus Semi-Wadcutter und Kegelgeschoß, und vereint die Vorteile von beiden.</szItemDesc>
+		<szItemDesc>Die .44 SIB ist eine Kombination aus Semi-Wadcutter und Kegelgeschoss, und vereint die Vorteile von beiden.</szItemDesc>
 		<szBRName>.44 Mag AET</szBRName>
 		<szBRDesc>Körperpanzerung wird zu einem Witz, wenn Sie diese .44 SIB Geschosse verwenden.</szBRDesc>
 	</ITEM>
