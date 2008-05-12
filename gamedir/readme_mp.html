@@ -1,0 +1,1223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+    <title>JA2 v1.13 Multiplayer</title>
+</head>
+<body>
+    b3<br>
+    <br>
+    <div style="text-align: center;">
+        <h2>
+            JA2 v1.13 Multiplayer</h2>
+        (you'll&nbsp;need NIV installed from now on)
+    </div>
+    <br>
+    <table style="background-color: rgb(255, 255, 173); text-align: left; margin-left: auto;
+        margin-right: auto; height: 491px; width: 612px;" border="1" cellpadding="2"
+        cellspacing="2">
+        <tbody>
+            <tr>
+                <td style="width: 198px; text-align: left; background-color: rgb(255, 255, 173);
+                    vertical-align: top;">
+                    <div style="text-align: center; width: 182px;">
+                        <br>
+                        <big>Getting Started</big><br>
+                        <hr style="height: 2px; width: 80%;">
+                        <br>
+                        <a href="#Installing">Installing</a><br>
+                        <a href="#Setting_up_Ja2_mp.ini">Setting up Ja2_mp.ini</a><br>
+                        <br>
+                        <a href="readme.html#Setting_the_Drop_Zone">Setting the Drop Zone</a><br>
+                        <a href="#Starting_a_Server">Starting a Server</a><br>
+                        <a href="#Connecting_the_Client">Connecting the Client</a><br>
+                        <br>
+                        <a href="#Hiring_you_Mercs">Hiring you Mercs</a><br>
+                        <a href="#Doin_Bobby_Rays">Doin' the Bobby Ray's</a><br>
+                        <br>
+                        <a href="#Starting_the_Battle">Starting the Battle</a><br>
+                        <a href="#Placing_you_Mercs">Placing your Mercs</a><br>
+                        <a href="#Entering_Tactical">Entering Tactical</a><br>
+                        <br>
+                        <a href="#Dukein_it_out">Duke'in it out</a><br>
+                        <a href="#The_Battle_Ends">The Battle Ends</a><br>
+                        <br>
+                    </div>
+                    <div style="text-align: center; width: 157px;">
+                        <a href="#Disconnecting_a_ServerClient">Disconnecting a Server/Client</a><br>
+                        <br>
+                        <a href="#The_Server_Overide_Function_and_In-game_help">The Server Overide Functions
+                            and In-game help</a><br>
+                        <br>
+                    </div>
+                </td>
+                <td style="vertical-align: top; width: 287px;">
+                    <div style="text-align: center;">
+                        <br>
+                        <big>The Variables of "Ja2_mp.ini"<br>
+                        </big>
+                        <hr style="height: 2px; width: 80%;">
+                    </div>
+                    <div style="text-align: center;">
+                        <br>
+                        <span style="font-weight: bold;">Client Settings:</span><br>
+                        <br>
+                        <a href="readme.html#SERVER_IP">SERVER_IP</a><br>
+                    </div>
+                    <div style="text-align: center;">
+                        <a href="readme.html#SERVER_PORT">SERVER_PORT </a>
+                        <br>
+                    </div>
+                    <div style="text-align: center; width: 268px;">
+                        <br>
+                    </div>
+                    <div style="text-align: center;">
+                        <a href="#OP_TEAM_X">OP_TEAM_'X'</a><br>
+                        <a href="#CLIENT_NAME">CLIENT_NAME</a><br>
+                        <a href="readme.html#SECTOR_EDGE">SECTOR_EDGE </a>
+                        <br>
+                    </div>
+                    <div style="text-align: center;">
+                        <br>
+                        <a href="readme.html#CRATE_X"></a>
+                    </div>
+                    <div style="text-align: center;">
+                        <span style="font-weight: bold;">Server only Settings:</span><br>
+                        <br>
+                        <div style="text-align: center;">
+                            <div style="text-align: center;">
+                                <a href="readme.html#MAX_CLIENTS">MAX_CLIENTS</a><br>
+                                <a href="#MAX_MERCS">MAX_MERCS</a><br>
+                                <a href="readme.html#MAX_CLIENTS"></a><a href="readme.html#NET_DIVISOR">DAMAGE_MULTIPLIER</a><br>
+                                <a href="#STARTING_BALANCE">STARTING_BALANCE</a><br>
+                                <a href="#TIMED_TURN_SECS_PER_TICK">TIMED_TURN_SECS_PER_TICK</a><br>
+                                <br>
+                                <a href="readme.html#SAME_MERC">SAME_MERC </a>
+                                <br>
+                                <a href="#REPORT_NAME"><span style="font-weight: normal;">REPORT_NAME</span></a><br>
+                                <a href="#Co_Op">Co_Op</a><br>
+                                <a href="#PLATER_BSIDE">PLAYER_BSIDE </a>
+                                <br>
+                                <a href="#DISABLE_BOBBY_RAYS_">DISABLE_BOBBY_RAYS</a>&nbsp;<br>
+                                <a href="#DISABLE_AIM_AND_MERC_EQUIP">DISABLE_AIM_AND_MERC_EQUIP</a><br>
+                                <br>
+                                <a href="readme.html#ENEMY_ENABLED">ENEMY_ENABLED&nbsp;</a><br>
+                            </div>
+                            <div style="text-align: center;">
+                                <a href="readme.html#CREATURE_ENABLED">CREATURE_ENABLED&nbsp;</a><br>
+                            </div>
+                            <div style="text-align: center;">
+                                <a href="readme.html#MILITIA_ENABLED">MILITIA_ENABLED&nbsp;</a><br>
+                            </div>
+                            <a href="readme.html#CIV_ENABLED">CIV_ENABLED</a><br>
+                            <br>
+                            <a href="#TESTING">TESTING</a><br>
+                            <a href="#START_TEAM_TURN">START_TEAM_TURN</a><br>
+                        </div>
+                        <a href="readme.html#INTERRUPTS"></a>
+                        <br>
+                    </div>
+                </td>
+                <td style="vertical-align: top; width: 433px;">
+                    <br>
+                    <div style="width: 226px; text-align: center;">
+                        <big>Developmental Comments</big><br>
+                        <hr style="height: 2px; width: 80%;">
+                        <br>
+                        <a href="#The_Online_SVN_Repo">The Online SVN Repo</a><br>
+                        <br>
+                        <a href="#JagZilla_Bugzilla">JagZilla (Bugzilla)</a><br>
+                        <br>
+                        <a href="#What_no_Co-Op_">How Co-Op Works</a><br>
+                        <br>
+                        <a href="#Further_Development">Further Development</a><br>
+                        <br>
+                        <a href="#How_it_all_Works">How it all Works</a><br>
+                        <br>
+                        <a href="#RakNet_UDP_Networking">RakNet UDP Networking</a><br>
+                        <br>
+                        <a href="#_last_minute_notes:">Changes</a><br>
+                        <br>
+                        <h3 style="margin-left: 80px;">
+                            <span style="font-weight: normal;">
+                                <br>
+                            </span>
+                        </h3>
+                        <br>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <hr style="height: 2px; margin-right: auto; margin-left: 33px; width: 1043px;">
+    <div style="margin-left: 40px; text-align: center;">
+        <h3>
+            <big>Getting Started</big></h3>
+    </div>
+    <div style="margin-left: 80px;">
+        <h3 style="font-weight: normal;">
+            <a name="Installing"></a>Installing</h3>
+        <div style="margin-left: 40px;">
+            If you use SVN, just update the Game Directory. &nbsp;&nbsp; &nbsp;<br />
+            If you do not use SVN, download the RAR-Package and extract it in your Jagged
+            Alliance 2 root directory.</div>
+    </div>
+    <div style="margin-left: 80px;">
+        <h3 style="font-weight: normal;">
+            <a name="Setting_up_Ja2_mp.ini"></a>Setting up Ja2_mp.ini</h3>
+        <div style="margin-left: 40px;">
+            Don't think you can skip this step, there's too much in here
+            which needs independently configuring per client to achieve successfull connection
+            and gameplay.<br>
+            <br>
+            You will find a copy of this file with the release, this needs
+            to go in your root Ja2 directory, along with the .exe included. It contains all
+            the variables and parameters i have added which are convenient to change. They are
+            read in from the file as part of starting up the Raknet Client. So if you change
+            a setting in the file, you dont need to restart the game engine for effect, simply
+            restart the net client. More&nbsp;about these variables in the following section
+            where i detail each one.</div>
+    </div>
+    <div style="margin-left: 40px;">
+        <div style="margin-left: 80px;">
+            <br>
+        </div>
+        <div style="margin-left: 40px;">
+            <h3 style="font-weight: normal;">
+                <a name="Setting_the_Drop_Zone"></a>Setting the Drop Zone</h3>
+            <div style="margin-left: 40px;">
+                This is now the first step after starting a new game and choosing
+                initial game option, and is only done by the server, client changes have no effect.
+                This cannot be changed once server started/running.&nbsp;&nbsp;<br>
+                <br>
+                Switch to the Airspace display by either clicking on the map button or pressing
+                the 'A' key. Then click on the 'bullseye' to select it, (which will at startup be
+                located at secotor 9,1 "Omerta"), then place it as the agreed/desired game sector.
+                All hired Mercs and Bobby Rays orders will now be sent there.</div>
+        </div>
+        <div style="margin-left: 80px;">
+            <br>
+        </div>
+    </div>
+    <div style="margin-left: 80px;">
+        <h3 style="font-weight: normal;">
+            <a name="Starting_a_Server"></a>Starting a Server</h3>
+        <div style="margin-left: 40px;">
+            Ok... start a new game and when presented with the map screen,
+            press the '1' key, (it works on the numpad too). You should see some little remarks
+            about the server starting up. If other clients cannot connect to you (the server),
+            be sure that the selected port in ja2_mp.ini is forwarded on your router!</div>
+        <h3 style="font-weight: normal;">
+            <a name="Connecting_the_Client"></a>Connecting the Client</h3>
+        <div style="margin-left: 40px;">
+            If you are the host you automatically connected to the server
+            if you pressed '1'. If you aren't the host, start a new multiplayer game. The settings
+            in the start new game screen does not matter, because you will receive the settings
+            from the server after you connected. On strategy map screen, press the '2' key and
+            you get connected to the server. In either situation you should see some comments about the Raknet
+            network client starting up, and then if you have specified the right variables in
+            Ja2_mp.ini and your network/firewall is "ok",&nbsp;you should make connection and
+            see report of this from both the server and client. If you need to change a variable
+            in your config or simply have another go at connecting, you can press the '2' key
+            again after your attempt has been reported as failed, or kill the client/server
+            and start it again.</div>
+        <h3 style="font-weight: normal;">
+            <a name="Hiring_you_Mercs"></a>Hiring you Mercs</h3>
+        &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; When all clients are connected and only then
+        should you start hiring mercs, when the server is ready, they press the '3' key
+        to unlock the laptop access.
+        <div style="margin-left: 40px;">
+            Boot up your laptop and hire up-to 7 Mercs from the selections
+            at AIM and MERC... Due to the assumed fact that their proceeding action wont be
+            longer than a day, the default chosen contract length, delivery time and confirmation
+            have been adjusted for ease of use.<br>
+            <br>
+            I might also add here that this can be a good time to save the
+            game, once all clients have hired their mercs, this way if there is a crash or some
+            other problem or you just want to start again or play once more, you can do so quicker.
+            Though bobby rays orders are not save at the moment, so save before placing them.</div>
+        <h3 style="font-weight: normal;">
+            <a name="Doin_Bobby_Rays"></a>Doin' the Bobby Ray's</h3>
+        <div style="margin-left: 40px;">
+            I just had to add this in because i could ;p ... the default
+            destination and shipping choice have been pre-set, and there's no difference in
+            changing them.&nbsp;<br>
+            <br>
+            The delivery is now made immediately after order, and available
+            from the map inventory screen, without loading the level !, into your pre-located
+            crate as specified in the config file. Further orders can be made mid game. Note
+            i've changed the defualt game options to gives the best bobby rays selection, this
+            is great, unless you want it otherwise.</div>
+        <h3 style="font-weight: normal;">
+            <a name="Starting_the_Battle"></a>Starting the Battle</h3>
+        <div style="margin-left: 40px;">
+            When all clients have followed the above steps and are ready
+            for battle, from the map screen, press the '3' key. When all clients are ready,
+            this will load the level and launch the&nbsp;"Tactical Placement GUI", as known
+            by the overhead map view of the sector, allowing placement of Mercs along allocated
+            edge space once all clients are loaded.</div>
+        <h3 style="font-weight: normal;">
+            <a name="Placing_you_Mercs"></a>Placing your Mercs</h3>
+        <div style="margin-left: 40px;">
+            When all clients are loaded you can begin. *Be carefull
+            if for some reason you will be placing opposed mercs along the same edge or at a
+            corner where they may be in immediate sighting range of another clients enemy merc
+            edge, you will probably have problems, as the code doesn't like starting the battle
+            (going into tactical) and going straight into turnbased mode when all clients aren't
+            in tactical yet, ie still in placement mode.</div>
+        <h3 style="font-weight: normal;">
+            <a name="Entering_Tactical"></a>Entering Tactical</h3>
+        <div style="margin-left: 40px;">
+            When all clients have finished with their merc placement and
+            are ready, all can selet "Done". This will set you as "ready" unless you cancel,
+            and when all are ready it will go into what is called "Tactical View". It will start
+            in realtime until the the first opposed sighting is made at which time it changes
+            to turn-based mode. The game can also switch back to realtime if each clients have
+            not seen each other for some turns.</div>
+    </div>
+    <div style="margin-left: 40px;">
+        <h3 style="margin-left: 40px;">
+            <span style="font-weight: bold;"></span><span style="font-weight: normal;"><a name="Dukein_it_out">
+            </a>Duke'in it out</span></h3>
+        <div style="margin-left: 80px;">
+            Let me break it to you now so as to dash those hopes you had
+            of experiencing the full spectrum of intricacy and complexity afforded by the Ja2
+            engine but in Multiplayer...<br>
+            <br>
+            Very little of the combat components have been implemented at this stage... here
+            is the list of what is sent across the network and as such justifies allowed gameplay
+            manouvers:<br>
+            <br>
+            ** moving your mercs on the ground level, ** changing stance between standing, crouching,
+            and prone, ** changing facing direction, &nbsp;** firing a gun, ** bullet damages
+            and ** stopping a merc apon spotting new enemy...<br>
+            <br>
+            I might also mention that ** knife damages,&nbsp;** punch damages,
+            ** and burst fire damages are implemented, however the animations are not. This
+            leaves pretty much all the rest of the fun un-implemented, so agree to avoid it
+            to save confusion and invalid battle actions, for example, roofs, med packs,&nbsp;
+            and grenades etc. etc.</div>
+    </div>
+    <div style="margin-left: 40px;">
+        <div style="margin-left: 40px; text-align: left;">
+            <h3>
+                <span style="font-weight: normal;"><a name="The_Battle_Ends"></a>The Battle Ends</span></h3>
+        </div>
+        <div style="text-align: left;">
+            <div style="margin-left: 80px;">
+                Once all but one team is left we have a winner, and you will
+                either be presented with notification of defeat or, be returned to realtime and
+                as such become the winner / survivor.<br>
+                From here im not sure whatis possible, you could obviously start a new game, but
+                you could also try hiring more mercs and gear, which will be delivered automatically.
+                Perhaps even the survivor could walk to another sector, and those defeated, hiring
+                more weapons and mercs could change their destination sector. Though it hasnt been
+                tested...</div>
+        </div>
+    </div>
+    <div style="text-align: left;">
+        <div style="margin-left: 40px;">
+            <h3 style="font-weight: normal; margin-left: 40px;">
+                <a name="Disconnecting_a_ServerClient"></a>Disconnecting a Server/Client</h3>
+            <div style="margin-left: 80px;">
+                By pressing the '4' key, from the Tactical (map) view, the server and client process's
+                if running will be disconnected and 'killed', reseting parameters relating to status
+                of connection.</div>
+        </div>
+    </div>
+    <div style="margin-left: 40px;">
+        <div style="margin-left: 80px;">
+            <br>
+        </div>
+    </div>
+    <div style="margin-left: 40px;">
+        <h3 style="font-weight: normal; margin-left: 40px;">
+            <a name="The_Server_Overide_Function_and_In-game_help"></a>The Server Overide Functions
+            and In-game help</h3>
+        <div style="margin-left: 80px;">
+            Now's a good time to mention some new features, one is the Server Overide Function,
+            bound to the key '7', which can be used by the server to bypass any of the mod's
+            4 launch checkpoints. There is also a small help display bound to 'F1' and 'F2'
+            if you forget your&nbsp; keys..., oh, there is also bound to '5' a script to show
+            mouse grid coordinates.<br>
+        </div>
+    </div>
+    <div style="margin-left: 40px;">
+        <div style="margin-left: 80px;">
+            <br>
+            The server can now also Manually end another players turn (or if in realtime, start
+            turnbased action) with 'Alt+E'.<br>
+            <br>
+            As well the server can "kick" a player with 'Alt+K'. This removes all copies of
+            that clients mercs throughout the network , causing there turn to be skipped, but
+            leaving them connected to spectate.<br>
+        </div>
+    </div>
+    <br>
+    <div style="margin-left: 0px; width: 1228px;">
+        <hr style="height: 2px; margin-right: auto; margin-left: 23px; width: 1080px;">
+    </div>
+    <div style="text-align: center;">
+        <h3>
+            <big>The Variables of "Ja2_mp.ini"</big></h3>
+        <br>
+        <h3 style="font-weight: normal; text-align: left;">
+            <strong>
+            Client Settings: (set all on all):</strong></h3>
+    </div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="SERVER_IP"></a><span style="font-weight: normal;">SERVER_IP&nbsp;</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+        This is the IP addess that your client will connect to. You can
+        use "127.0.0.1" if you are the host.<br />
+        If you are not the host you have to enter the external IP address of the server.
+        The server can look at www.whatismyip.com to get the external<br />
+        IP address. &nbsp; &nbsp;<br />
+        Don't forget the
+        <span style="font-weight: bold;">"quotation" </span>marks. This doesnt need to be
+        set if you are the server.</div>
+    <ul>
+    </ul>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="SERVER_PORT"></a><span style="font-weight: normal;">SERVER_PORT</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 40px;">
+        <div style="margin-left: 120px;">
+            <span style="font-weight: normal;"> The port that the server and client
+                will connect through, best if not used by other apps and isnt blocked by a firewall,
+                router etc. &gt; 6000 is best, set it the same on all machines and it doesnt need
+                to be writting in "quotation" marks as don't the rest of the variables.<br />
+                If other clients cannot connect to your server, be sure that this port is forwarded
+                on your router!</span></div>
+    </div>
+    <ul>
+    </ul>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="OP_TEAM_X"></a><span style="font-weight: normal;">TEAM</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+        Pick a team number, if its the same as another clients, you will be allied while
+        Teams are allowed by server.</div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="CLIENT_NAME"></a><span style="font-weight: normal;">CLIENT_NAME</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+        This can be upto 30 'char' characters. make sure to keep the "quotation" marks around
+        it ! ie "hayden"<br>
+    </div>
+    <div style="margin-left: 80px;">
+        <br>
+    </div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="SECTOR_EDGE"></a><span style="font-weight: normal;">SECTOR_EDGE</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+        Choose between 0 and 3, to set your starting sector edge
+        (ubStrategicInsertionCode) , 0=North, 2=East, 1=South, and 3=West.
+        <br>
+            <br>
+    </div>
+    <h3 style="font-weight: normal;">
+        <strong>
+        Server Only Settings: (no effect on client only game):</strong></h3>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="MAX_CLIENTS"></a><span style="font-weight: normal;">MAX_CLIENTS</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 120px;">
+        &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;This can't
+        be made higher than 4 (for the games sake), but lower is ok. Best to set this to
+        the expected number of clients to allow for proper game launch&nbsp; &nbsp;&nbsp;<br />
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;check progressions....</div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="MAX_MERCS"></a><span style="font-weight: normal;">MAX_MERCS</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 120px;">
+        &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; Number of
+        mercs hireable by each player, Maximum for this mod is 7. &nbsp;6 is good as that
+        is the squad limit (though you can have more than one sqaud.)<br>
+    </div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="NET_DIVISOR"></a><span style="font-weight: normal;">DAMAGE_MULTIPLIER</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+        Originally 'net_divisor' it is now the factor, and can handle decimal
+        value (float), eg 0.5 = half, 0.3333 = third, 2 = double.</div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="STARTING_BALANCE"></a><span style="font-weight: normal;">STARTING_BALANCE</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+        The Starting balance for all clients set in dollars without the $ sign.</div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="STARTING_BALANCE"></a><span style="font-weight: normal;">TIME</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+       Game starting time. (FLOAT).
+The values are in hours (0.5 = 1/2 hour).
+Default value is 7 (7am), ie 13.5 = 1:30pm</div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="TIMED_TURN_SECS_PER_TICK"></a><span style="font-weight: normal;">TIMED_TURN_SECS_PER_TICK</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+        A divisor of how much time each client has for its turn. Default = 100,
+        less = more time.<br>
+        10 = 43 seconds, 15 = 28s, 20 = 22, 25 = 19s, 50 = 17s, 100 = 15s, *with only cliff,
+        fresh on 22 ap's*.<br>
+    </div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="SAME_MERC"></a><span style="font-weight: normal;">SAME_MERC</span></h3>
+        </li>
+    </ul>
+    <p style="margin-left: 160px;">
+        Enable or disable the hiring of the same merc by more than
+        one client...&nbsp;</p>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="REPORT_NAME"></a><span style="font-weight: normal;">REPORT_NAME</span></h3>
+        </li>
+    </ul>
+    <p style="margin-left: 160px;">
+        If should report the Name of remotely hired mercs.</p>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="Co_Op"></a><span style="font-weight: normal;">GAME_MODE</span></h3>
+        </li>
+    </ul>
+    <p style="margin-left: 160px;">
+        0 = All vs All only, 1= Team's Allowed, (as per client
+        TEAM variable lsited above), 2 = Only Co-Op (coop not still working)</p>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="DISABLE_BOBBY_RAYS_"></a><span style="font-weight: normal;">DISABLE_BOBBY_RAYS&nbsp;</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+        1&nbsp;= true, 0&nbsp;= false.<br>
+    </div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="DISABLE_AIM_AND_MERC_EQUIP"></a><span style="font-weight: normal;">DISABLE_AIM_AND_MERC_EQUIP</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+        1 = true, 0 = false.</div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="ENEMY_ENABLED"></a><span style="font-weight: normal;">ENEMY_ENABLED</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+        This as with the following 3 options can now be set to 0 or 1,
+        to enable or disable the spawning of the respetive AI faction. The clients never
+        generate anything themselves, just spawn what is passed to them from the server
+        to make sure all players have same AI. The AI is only controlled/running on the
+        server game. Actions are from ther sent out.<br>
+        <br>
+        These options are now only server side, and need only be set
+        in its .ini
+    </div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="CREATURE_ENABLED"></a><span style="font-weight: normal;">CREATURE_ENABLED</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+        Leave creature disabled as thier team size was reduced
+        to 1 from 32 to make room for LAN players...&nbsp;</div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="MILITIA_ENABLED"></a><span style="font-weight: normal;">MILITIA_ENABLED</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+        0 = disable, 1 = enable.</div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="CIV_ENABLED"></a><span style="font-weight: normal;">CIV_ENABLED</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+        0 = disable, 1 = enable.</div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="TESTING"></a><span style="font-weight: normal;">TESTING</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+        when 1, enables cheat function bound to '9', containing helpfull testing
+        function, show all mercs, though i believe it makes getting an interrupt harder....<br>
+    </div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="TESTING"></a><span style="font-weight: normal;">DISABLE_MORALE</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+        Enable or Disable Morale Changes during battle.</div>
+    <ul>
+        <li>
+            <h3 style="margin-left: 80px;">
+                <a name="TESTING"></a><span style="font-weight: normal;">KIT_BAG</span></h3>
+        </li>
+    </ul>
+    <div style="margin-left: 160px;">
+        &nbsp;An array of items to be given to each merc hired at the start of the game,
+        repeat a item number for more than 1&nbsp;each item can not have number of digits
+        greater than 4, is &lt;=9999, total length for this string is 100, including brackets
+        and commas, and no more than 20 items int total. these can be adjusted apon request<br>
+        examples: 201=first aid, 214=canteen, 199=comp binoc's, 222=energy boost (aka stim
+        pack), 235=regen boost, 300=light knife, 49=knuckle dusters.<br>
+        look in items.xml for full list, of coarse this is also limited to mercs inc capactiy.<br>
+        Also note that right now they are not added to replicants, so they wont be dropped
+        by killed mercs other than your own.</div>
+    <div style="margin-left: 40px;">
+    </div>
+    <div style="margin-left: 80px;">
+    </div>
+    <div style="margin-left: 0px; width: 1228px;">
+        <hr style="height: 2px; margin-right: auto; margin-left: 23px; width: 1080px;">
+    </div>
+    <div style="text-align: center;">
+        <h3>
+            <big>Developmental Comments</big></h3>
+    </div>
+    <div style="text-align: center;">
+        <br>
+        <div style="text-align: left;">
+            <h3 style="font-weight: normal;">
+                <a name="The_Online_SVN_Repo"></a>The Online SVN Repo</h3>
+            &nbsp;&nbsp;&nbsp; Thanks to the forward help of&nbsp;<span class="small"></span><a
+                href="http://www.ja-galaxy-forum.com/board/ubbthreads.php?ubb=showprofile&amp;User=3220">
+                lalienxx</a> at the Bear's Bit i have some SVN space where you can get the source
+            code as i update it using an SVN client such as TortoiseSVN. I'm open to contributions,
+            i currently am running Visual Studio 2005 express.<br>
+                <br>
+            <a name="JagZilla_Bugzilla"></a>JagZilla (Bugzilla) &nbsp;&nbsp;&nbsp; Thanks to
+            the forward help of&nbsp;<span class="small"></span><a href="http://www.ja-galaxy-forum.com/board/ubbthreads.php?ubb=showprofile&amp;User=3220"><b><span
+                id="menu_control_170006"></span></b></a><b><a href="javascript:void(0);" onclick="showHideMenu('menu_control_170006','profile_popup_170006');">JAPH</a>
+                </b>at the Bear's Bit we have a bugzilla space where you can post you comments,
+            requests and bugs without them getting lost in the forums, plus you get tracking
+            and it new ... ;)<br>
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <a href="http://ja2.discusrock.org/bugzilla/">
+                http://ja2.discusrock.org/bugzilla/</a><br>
+            <h3 style="font-weight: normal;">
+                <a name="What_no_Co-Op_"></a>How Co-Op Doesnt works (well not that well, right now...)</h3>
+            &nbsp;&nbsp;&nbsp;&nbsp; If it does... (you'll have to get back to me on that)<br>
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; I seems
+            to have nutted out the problem stopping my initial sometimes working attempt from
+            working all the time. it was that the Inv array part of the Merc Create struct ,
+            which is a class and not that simple, was getting mangled through the RPC call,
+            so i fixed it by pulling out the inventory items into a dedicated struct to hold
+            them and the old struct, passing this, and then at the other end (the recieve) a
+            new create merc struct is initiated, and filled with values from the old struct,
+            (the bits that pass through ok), and the pulled out inventory items passed through
+            "outside" with it.<br>
+            <br>
+            &nbsp;&nbsp;&nbsp; It seems to work out, so let me know if you have any experience
+            to comment on. The AI components are now set server side only. And are sent out
+            when the server creates them, which is generally after going from the tactical placement
+            gui, into the tactical "action" view.
+            <h3 style="font-weight: normal;">
+                <a name="Further_Development"></a>Current Development</h3>
+            &nbsp; &nbsp;&nbsp; Currently we have RoWa21 from the boards coding some changes
+            ! He's helped allready by mergin my oringinal code with thet latest 1.13 and NIV,
+            he will also be helping with other coding areas. this being said theres plenty to
+            be done and more help would be good. hopefully we can get coop working and the basic
+            combat and movement systems working and synchronized effectively.<br />
+            <br>
+            &nbsp;&nbsp;&nbsp; You can contact me (<b><a href="http://www.ja-galaxy-forum.com/board/ubbthreads.php?ubb=showprofile&amp;User=4977">
+                haydent </a></b>) through the Bear Pit's Forum<br>
+            <br>
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; <a href="http://www.ja-galaxy-forum.com/board/ubbthreads.php?ubb=showflat&amp;Number=165740&amp;page=1">
+                <span style="text-decoration: underline;">http://www.ja-galaxy-forum.com/board/ubbthreads.php?ubb=showflat&amp;Number=165740&amp;page=1</span></a>
+            <br>
+            <br>
+            <br>
+            <h3 style="font-weight: normal;">
+                <a name="How_it_all_Works"></a>How it all Works</h3>
+            (well some of it) &nbsp;&nbsp;&nbsp; Maybe you dont want to get your head under
+            the bonet and into the code itself just yet but are just interested to know how
+            i went about certain things, here's a brief run down.
+            <br>
+            <br>
+            &nbsp;&nbsp;&nbsp; Well firslty i hope it does work, atleast some for you, ive barely
+            play tested, just loading it up on my spare computer which is a laptop with no screen
+            and a damaged faulty monitor output plug, enough though that i could test my code
+            worked, but iver christmas i hope to test it further, perhaps you can to and give
+            some feedback.<br>
+            <br>
+            &nbsp;&nbsp;&nbsp; Aside from the Initial Server and Client components which i transfered
+            and modified from a "Chat Example" project that comes with RakNet. I used a function
+            of RakNet called RPC or Remote Procedure Calls to send and recieve my communication.
+            This is easy as it avoid having to package my data into packets, send it, then open
+            it at the other end and work out what to do with it. An RPC function simply executes
+            the function specified on the other specified remote clients, in this case all but
+            the sender.<br>
+            <br>
+            &nbsp;&nbsp;&nbsp; The server computer lets each client/side know when its there
+            turn and the clients tell the server when they've finished they're's. When a client
+            give the fire weapon order, an inital command is sent out to all the other clients
+            telling them to do the same. Except when the other clients get to the bit of code
+            which applies the hit and damage, if the command came from another Client they stop.
+            Then when the Original client works out the hit damage taking into consideration
+            random factors, and if it happened, and sends it out to all the other clients which
+            then apply it hopefully in time to make it all seem connected.... You will notice
+            wont short-coming of this, is that a client having recieved an order to replicate
+            a weapon firing, may do so, but calculate that this particaular shot is going to
+            miss, and such show the difference in arc for the bullet animation to miss, but
+            just as you see the bullet whizzing past your head, you recieve the second command
+            from the attacking client (the one which has the bullet hitting and it's damages)
+            ... this is then applied and your on half health after breathing what was in this
+            case, a too eager sigh of relief ... and the same example vice versa .<br>
+            <br>
+            &nbsp;&nbsp;&nbsp; As for the few other implemented commands, the are pretty simple
+            and straight forward...<br>
+            <br>
+            &nbsp;&nbsp;&nbsp; So much of the time i've been looking through the code and i
+            would find things that were almost perfectly set up for multiplayer and often not
+            used at all, there was a definate effort by the original creators and they came
+            close in my opinion... id love to know what stopped them... ?<br>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp; Now another of the new systems implemented is the 4 new
+            LAN teams (bteam: 6, 7, 8, and 9). How i did this was to have 4 new teams, 1 for
+            wach client, max at 4. when client 1 hires a merc for example it is sent out and
+            spawned on the other clients in team 6. client 2 in 7, client 3 in 8 and 4 in 9.
+            The server (client 1) handles the team order and sends the command to each client
+            to start any particualr teams turn, including the AI. There are a set number range
+            of ubID's for each team: 6(client 1, the server) is 120 to 126 (7 members), on any
+            client, their own mercs take slots 0 through 19 team 0, but when a client sends
+            out a new move for example, the merc's ID (ubID) is prefixed (added) with a corresponding
+            number to their client number (netbTeam) to match it with the network spawned merc
+            copies in the other games. for example any clients first merc will be ubID 0 and
+            team 0, if its client 1 (server) a prefix of 120 is added on to make its ubID 120
+            which is the first clot for team 6 which is used to hold the "copies" of client
+            1's team remotely. if its client 2, the prefix is 127, and so on... i hope this
+            makes things clearer ;)<br>
+            <br>
+            &nbsp;&nbsp;&nbsp; The interupts are working again for what i have tested... and
+            are only calculated by the merc (and owners computer) that is moving because they
+            have the most up-to date info regarding merc (namely theirs) positions.<br>
+            <br>
+            <h3 style="font-weight: normal;">
+                <a name="RakNet_UDP_Networking"></a>RakNet UDP Networking</h3>
+            &nbsp;&nbsp;&nbsp; If your interested in more information on the free C++ UDP based
+            network library used in this project follow this link for where there is a forum,
+            doxygen manual and you can download it yourself.<br>
+            &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; <a href="http://www.rakkarsoft.com/">http://www.rakkarsoft.com/</a><br>
+            <br>
+            <h3 style="font-weight: normal;">
+                <a name="_last_minute_notes:"></a>Changes:</h3>
+            <br>
+            <table style="text-align: left; width: 100%;" border="0" cellpadding="3" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td style="text-align: right; vertical-align: top;">
+                            b3 --</td>
+                        <td>
+                            Well i cant even remeber everything i did today...<br>
+                            * menu changed (MP has its own save game directory)<br>
+                            * bonus added towards interrupt if your has his weapon ready<br>
+                            * various message tweaks<br>
+                            * &nbsp;Interrupt fix<br>
+                            &nbsp;and some more...</td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top; text-align: right;">
+                            b2 --
+                        </td>
+                        <td>
+                            you can now return to real time if all active lan teams request so within one round
+                            of turns<br>
+                            NIV actually was working, it just doesnt operate @ 640 res. ;)<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right; vertical-align: top;">
+                            b1 --
+                        </td>
+                        <td>
+                            lots of help has brough about some further progress !<br>
+                            <br>
+                            no more interupt lockups<br>
+                            interrupt reworkng<br>
+                            updated source to include NIV&nbsp;<br>
+                            other changes: save in turnbased when not turn, stay in game after death, &nbsp;etc
+                            etc<br>
+                            <br>
+                            this is initial intermediatary release, just to put something playable out there
+                            again...<br>
+                            <br>
+                            still needs more work on sync and interrutps etc etc.<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right; vertical-align: top;">
+                            rev. 02022008 --<br>
+                            (prebeta post final)
+                        </td>
+                        <td>
+                            I realised i got my exe's mixed up after doing some 3 player LAN testing today :),
+                            and for the last few releases theres been some test code in there that would have
+                            been making it not play well and wasnt meant to be in there... so while i was at
+                            it again i have made some other quick fixes :<br>
+                            <br>
+                            * removed test code that shouldn't have been released (causing among other things
+                            blue 'update' text and sliding merc movement)<br>
+                            <br>
+                            * fixed loss of UI lock during interrupt fter being shot at<br>
+                            <br>
+                            * removed some 'non-ready' MERC profiles<br>
+                            <br>
+                            * fixed new MERC profiles tactical selection and face animation<br>
+                            <br>
+                            * disabled roof climbing (temp)<br>
+                            <br>
+                            * prevented 3-sec pausing of repo merc movement apon it being spotted by your merc<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right; vertical-align: top;">
+                            rev. 28012008 --<br>
+                            (prebeta final) &nbsp;
+                        </td>
+                        <td>
+                            &nbsp; &nbsp;This is just adding the prerelease changes. nothing new. This is the
+                            final pre-beta, after this it will be beta and feature hopefully a upgraded network
+                            synch system. this will however require more bandwidth than before, (~ 2kbs/client)
+                            , but i think its worth it even though it will&nbsp;make playing any version past
+                            this over dialup obsolete. Hopefully it will open up the way for further un-implemeted
+                            game state synchro on a more regular basis.<br>
+                            <br>
+                            * fixed door ani los issue/bug<br>
+                            <br>
+                            * fixed bobby rays crash<br>
+                            <br>
+                            * synced up bandage health levels<br>
+                            <br>
+                            * added ~15 new game mercs to MERC<br>
+                            <br>
+                            * synced up doors!<br>
+                            <br>
+                            * synced up burst fire sounds<br>
+                            <br>
+                            * fixed death messaging<br>
+                            <br>
+                            * re-enabled intterupts<br>
+                            <br>
+                            * allowed disabling of hired name display<br>
+                            <br>
+                            * started using a dvorak keyboard<br>
+                            <br>
+                            * enabled the rest of the MERC bios<br>
+                            <br>
+                            * added begining kit bag loadout, an array in the ini for free stuff !<br>
+                            <br>
+                            * disabled medical deposit costs<br>
+                            <br>
+                            * enabled the disabling of morale events<br>
+                            <br>
+                            * server can now manually end a clients turn or start a clients turn in realtime
+                            or turnbased (bound to 'Alt+E'), making the previous ini setting and command 'START_TEAM_TURN'
+                            obsolete .<br>
+                            <br>
+                            * removed the ini setting for testing interrupts now they are happening.<br>
+                            <br>
+                            * there is no more bobby rays crate (for now), items are dumped in the middle of
+                            the sector.<br>
+                            <br>
+                            * fixed crash from death animation being tried to apply to allready dead soldier<br>
+                            <br>
+                            * disabled death messaging<br>
+                            <br>
+                            * Interrrupt syncronisation of interupted merc's location apon being interrupted<br>
+                            <br>
+                            * Kicking/Removal of a Clients team of Mercs, bound to 'Alt+K' (this doesnt disconnect
+                            the client, allowing them to spectate)<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right; vertical-align: top;">
+                            rev. 17012008 --</td>
+                        <td>
+                            &nbsp;ok , not alot of changes but some that will hopefully rectify a few of the
+                            main issues popping up during testing so far... unfortuanately/fortunately this
+                            is just a cheap hack/fix and a pretty raw solution, but ive ended going with it
+                            for now as it is quick, it is accurate, and by the process of getting this far i
+                            have learnt more that i can use later to upgrade or re-implement systems of synchronisation.
+                            ie Dont get upset if it seems ive just patched some problems only to create some
+                            more, (which may be the case as ive felt before), the aim is that this is atleast
+                            a more evenly playable variant than before.<br>
+                            <br>
+                            * there is now a regular update sent out about every 2 seconds by the owner of each
+                            merc with stats on location, health and breath, this should help with the related
+                            issues.<br>
+                            <br>
+                            * when you assign a new destination for your merc, the calculated path is now sent
+                            out as well as the destination grid, as to your mercs location. this way all merc
+                            replications start their path from the same grid and follow the same path. (though
+                            fences "work", they have not been refined)<br>
+                            <br>
+                            * There is a grid movement synchronisation system akin to what is known as "lock-step"
+                            synchronisation, where no merc can advance further than the current grid with out
+                            all the other replications of themselves being ready to do so as well. How i got
+                            this to run smoothly and avoid the pause between the time of arrival, sending out
+                            such, awaiting all others to do so, recieving the go-ahead and continuing, is by
+                            requesting the sector in advance. So it is all happening in the background while
+                            traversing a grid, and if all are in sync and ready, the next grid is moved onto
+                            seemlesly ("nearly"), depending on ping... :)<br>
+                            <br>
+                            * stop commands are now synched further, such that when it is sent out it also contains
+                            and thus applies the settings of position and direction so all replications are
+                            stopped in the same grid.<br>
+                            <br>
+                            * The main Game engine no-longer automatically pauses game play while the Main Game
+                            Window is not selected (or backgrounded/minimized). i havent got as far as blocking
+                            game pausing altogether, but this will enable you to chat in irc etc. while the
+                            game keeps running and updating graphics happily including network traffic. Due
+                            to this the implementation of a chat system has been relegated in rank of things
+                            to do as irc is an excellent system and the few times ive used it in my experience
+                            ive been rather impressed. This too along with the fact that the implementation
+                            of a chat system would hinder game play and game display more than using irc itself,
+                            thus potentially bringing up further problems. You can quit easily fit a windowed
+                            game of ja2 at 1024 along side a resized small window of irc with todays standard
+                            1280 res, but if you ahve an extra monitor your set ;)<br>
+                            <br>
+                            * I also fixed a problem which im not sure when or if it had come up before, where
+                            the servers mercs were being autoplaced apon ui unlock without selecting so.<br>
+                            <br>
+                            * Also im now back to distibuting debug exe builds, as after packing it isnt much
+                            size difference, and by running a debug exe you get a few more stats on errors and
+                            such, and it is further tested, by the community which i owe a big thankyou to for
+                            the feedback so far both through the forum thread and the ja2 1.13 jagzilla bugzilla
+                            bug tracking site.<br>
+                            <br>
+                            * I also disabled a mercs reproduction checking for enough AP's before making moves
+                            etc, as this is calculated by the owners game instance and results applied from
+                            there.<br>
+                            <br>
+                            All these updates should work just and well (and have been slightly tested so) to
+                            work with both real-time and turnbased.<br>
+                            <br>
+                            Happily all this synchronisation hasnt increased network traffic much at all and
+                            it still quite happily trots along at under 1kb/s in idle tactical view.<br>
+                            <br>
+                            Please report any problems you have as i rely on this mostly, due to any spare time
+                            i have being spent on resting and doing other things than coding, leaving little
+                            time for testing than that is necessary to check my changes "work" atleast...<br>
+                            <br>
+                            regards,<br>
+                            <br>
+                            Hayden.<br>
+                            <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right; vertical-align: top;">
+                            rev. 11012008 --</td>
+                        <td>
+                            * disabled hourly updates - causing breath loss on insertion on clients pc, but
+                            not happening on remote merc duplicates, leading to unsync due to differing ani
+                            speeds. this will have been accounting alot for some of why one merc has been faining
+                            while the other still standing... this is big fix, you stil will get "slight unsyncs"
+                            (a few grids), so someday i will still implement actualy updating of merc params
+                            and traversal. (as there is atleast a small delay between when your werc starts
+                            running and your merc replication starts running, throwing things like interrupts
+                            and first time spots out of allignment between pc')<br>
+                            <br>
+                            * There was also some code which made enemy mercs anispeed different to a player's
+                            (now overidden)<br>
+                            <br>
+                            * coop discription in documentation fixed, (was around the wrong way)<br>
+                            <br>
+                            * something i forgot to mention last time, you can now load game from tactical placement
+                            gui, rather than only being able to quit game.<br>
+                            <br>
+                            * new spectator mode enabled once you are wiped out :)<br>
+                            <br>
+                            * fixed up death sends, to not create unkillable merc...<br>
+                            <br>
+                            * added in cheat testing function to the ini, to enalble showing of all mercs to
+                            enable testing<br>
+                            &nbsp;<br>
+                            * fixed panel shading while in opponent turn<br>
+                            <br>
+                            * fixed another possible unsyncer of a problem, where a client replicating a mercs
+                            move would pause the merc when it spotted another enemy merc (possibly there's)
+                            even though the merc being moved wasnt in their control and was a replication...
+                            so now only stops if ordered from moving owner...<br>
+                            &nbsp;<br>
+                            * added manual start for turn based mode, if the server want to start off a team
+                            straight up without realtime, might be handy for testing...<br>
+                            <br>
+                            * add clients specified names to the turn title bar :)<br>
+                            <br>
+                            * there will be still slight out of sync until proper game clock animation syncing
+                            between clients is implemented...<br>
+                            <br>
+                            * fixed a bug brought on by the&nbsp; screen locking function i started using, (to
+                            enable moving screen while not turn). prob was it wasnt unlocking prop for interrupts,
+                            so that is fixed now.<br>
+                            <br>
+                            * fixed a bug where interupt timed turn was going too quick as to the turn after
+                            that. its a quick hack that makes it the same time as you get for a "normal" turn...
+                            i cant figure out any better right now.<br>
+                            <br>
+                            * first time using release build rather than debug, if you have issues let me know
+                            and i can revert</td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right; vertical-align: top;">
+                            rev.&nbsp;08012008 --</td>
+                        <td>
+                            We got quite a few good ones here... (where to start hmmm...)<br>
+                            <div style="margin-left: 40px;">
+                                * You can now move your screen around while its not your turn.<br>
+                                * The bottom right mini 'radar' map view of the selected sector from map view screen
+                                is now always active so you can see preview before play.<br>
+                                * Bullet trajectory is now replicated, and follows same path on clients as on senders,
+                                as to synced are bullet hits, bullet misses, bullet hit structures and bullet hit
+                                windows.<br>
+                                * Death's are networked as is the info relating to such, ie killer and team numbers..<br>
+                                * more INI parameters: ability to specify alliances and factions, to enable 2v2
+                                or 1v3, and the specification of a Player name.<br>
+                                * We got a bugzilla at http://ja2.discusrock.org/bugzilla/<br>
+                                * When all your mercs are killed you stay in the game, especially good for server
+                                to avoid droppouts for remaining players.<br>
+                                * Interrupts work, (they did before but they do now for real...)<br>
+                                * Change of state is replicated, ie blasted away, shrugging, animations<br>
+                                * Dont expect anything from coop, i havent looked at it yet...</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right; vertical-align: top;">
+                            rev. 02012008 --</td>
+                        <td>
+                            A heap more requested change additions:<br>
+                            <div style="margin-left: 40px;">
+                                * Timed Player Turns is now an option again, and the time allowed is adjustable
+                                from the ini ! (TIMED_TURN_SECS_PER_TICK)<br>
+                                * More externalised ini server variables: MAX_MERCS, STARTING_BALANCE, TIMED_TURN_SECS_PER_TICK,
+                                DISABLE_BOBBY_RAYS, DISABLE_AIM_AND_MERC_EQUIP<br>
+                                * M.E.R.C. hires now incur nominated daily salary apon hire.<br>
+                                * All Game Options Screen choices are now only taken into effect by the server,
+                                and sent to the clients from there...<br>
+                                * &nbsp;1 day contract length for AIM is now only option</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right; vertical-align: top;">
+                            rev. 02012008 --</td>
+                        <td>
+                            Quite alot of new changes: &nbsp;<br>
+                            <div style="margin-left: 40px;">
+                                * Bobby rays order are now delivered straight away into your sector, and can be
+                                accessed before loading level, to allow time to dish out weaps befroe match...<br>
+                                * There is now a 4 step, staged launching system with "ready" check points at: all
+                                clients connected, all clients ready for load, all clients loaded, and all clients
+                                placed and ready for battle... there is also a manual server overide feature is
+                                someone drops or goes to sleep...
+                                <br>
+                                * All the&nbsp;server settings are now set only by the servers ini and sent out
+                                to the clients apon connection, including the dropzone, which needs to be set before
+                                starting the server.<br>
+                                (there is however a small bug where a client (not the server) cant load a saved
+                                game made once in tactical...)<br>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right; vertical-align: top;">
+                            rev. 31122007 &nbsp;--</td>
+                        <td>
+                            We now have slightly tested Interrupt system working. Tested only so far with 2
+                            players in Deathmatch, no AI. Needs for testing and no doubt modification...<br>
+                            <div style="margin-left: 40px;">
+                                it has new ini setting: "INTERRUPTS" to disable, enable and always (extreme for
+                                testing) it.</div>
+                            The old "NET_DIVISOR" is now "DAMAGE_MULIPLIER" and is "decimal" (float), so 0.5
+                            = half damage, 2 = double.<br>
+                            Added basic in game help display</td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 151px; text-align: right; vertical-align: top;">
+                            rev. 30122007 --</td>
+                        <td style="width: 1038px;">
+                            &nbsp;CoOp has been fixed ... AI is now propogated to the clients where spawned,
+                            though only slightly tested, also added new dev notes on lan team turn implementation
+                            and coop. also i forgot to mention the grid coordinate display script bound to key
+                            '5' was fixed last release, as the X and Y where around the wrong way. Interupts
+                            are on their way.<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;">
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 151px; text-align: right; vertical-align: top;">
+                            rev. 24122007 --</td>
+                        <td style="width: 1038px;">
+                            bug fixes: disabled interrupts to avoid lock-up, fixed crash bug of clicking in
+                            "hashed" area while in tact place gui.<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;">
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 151px; text-align: right; vertical-align: top;">
+                            rev. 22122007 --</td>
+                        <td style="width: 1038px;">
+                            small adjustment to fix team 4 being treated as PLAYER_PLAN member and getting a
+                            green shader ! , there are now 7 slots per LAN team, but 1 creature and 1 player_plan.<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;">
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 151px; text-align: right; vertical-align: top;">
+                            rev. 21122007 --</td>
+                        <td style="width: 1038px;">
+                            initial pre beta release<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <div style="text-align: right;">
+                :)<br>
+            </div>
+            Page Created with NVU<br>
+            <br>
+            eof</div>
+    </div>
+</body>
+</html>
