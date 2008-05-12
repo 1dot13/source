@@ -772,9 +772,8 @@ void LoadGameExternalOptions()
 	// CHRISL: Setting to turn off the description and stack popup options from the sector inventory panel
 	gGameExternalOptions.fSectorDesc			= iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_SECTOR_DESCRIPTION_WINDOW",TRUE);
 
-
 	//afp - use bullet tracers?
-	gGameExternalOptions.gbBulletTracer = false;
+	gGameExternalOptions.gbBulletTracer			= iniReader.ReadBoolean("JA2 Gameplay Settings","USE_BULLET_TRACERS",FALSE);
 }
 
 

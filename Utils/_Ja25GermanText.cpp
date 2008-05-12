@@ -63,7 +63,7 @@ STR16 gzIMPSkillTraitsText[]=
 //@@@:  New string as of March 3, 2000.
 STR16	gzIronManModeWarningText[]=
 {
-	L"Sie haben sich für den Ironman- Modus entschieden. Mit dieser Einstellung können Sie das Spiel nicht speichern, wenn Feinde im Sektor sind. Sind Sie sicher, daß Sie im Ironman- Modus spielen wollen?",
+	L"Sie haben sich für den Ironman- Modus entschieden. Mit dieser Einstellung können Sie das Spiel nicht speichern, wenn Feinde im Sektor sind. Sind Sie sicher, dass Sie im Ironman- Modus spielen wollen?",
 };
 
 

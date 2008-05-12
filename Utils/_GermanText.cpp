@@ -402,7 +402,7 @@ STR16 pConditionStrings[] =
 	L"Verwundet", // wounded health
 	L"Erschöpft", // tired
 	L"Verblutend", // bleeding to death
-	L"Bewußtlos", // knocked out 
+	L"Bewusstlos", // knocked out 
 	L"Stirbt", // near death
 	L"Tot", // dead
 };
@@ -571,7 +571,7 @@ STR16 pTrainingStrings[] =
 
 STR16 pGuardMenuStrings[] = 
 {
-	L"Schußrate:", // the allowable rate of fire for a merc who is guarding
+	L"Schussrate:", // the allowable rate of fire for a merc who is guarding
 	L" Aggressiv feuern", // the merc can be aggressive in their choice of fire rates
 	L" Ammo sparen", // conserve ammo 
 	L" Nur bei Bedarf feuern", // fire only when the merc needs to 
@@ -586,7 +586,7 @@ STR16 pGuardMenuStrings[] =
 // This string has the same comments as above, however the * denotes the option has been selected by the player
 STR16 pOtherGuardMenuStrings[] = 
 {
-	L"Schußrate:",
+	L"Schussrate:",
 	L" *Aggressiv feuern*",
 	L" *Ammo sparen*",
 	L" *Nur bei Bedarf feuern*",
@@ -862,8 +862,8 @@ STR16 pLandTypeStrings[] =
 	L"See/Ozean",	
 	L"Hügel",
 	L"Unpassierbar",
-	L"Fluß",		//river from north to south
-	L"Fluß",		//river from east to west
+	L"Fluss",		//river from north to south
+	L"Fluss",		//river from east to west
 	L"Fremdes Land",
 	//NONE of the following are used for directional travel, just for the sector description.
 	L"Tropen",
@@ -909,7 +909,7 @@ STR16 gpStrategicString[] =
 	//Dialog strings for enemies.
 
 	L"Feind bietet die Chance zum Aufgeben an.",			//STR_ENEMY_SURRENDER_OFFER
-	L"Feind hat restliche bewußtlose Söldner gefangengenommen.",	//STR_ENEMY_CAPTURED
+	L"Feind hat restliche bewusstlose Söldner gefangengenommen.",	//STR_ENEMY_CAPTURED
 
 	//The text that goes on the autoresolve buttons							
 
@@ -1031,9 +1031,9 @@ STR16 gpStrategicString[] =
 	//Note: the minimum number of civilians eaten will be two.
 	L"Monster attackieren und töten %d Zivilisten im Sektor %s.",
 	//%s is the sector -- ex: A9
-	L"Feinde attackieren Ihre Söldner im Sektor %s. Alle Söldner sind bewußtlos!",
+	L"Feinde attackieren Ihre Söldner im Sektor %s. Alle Söldner sind bewusstlos!",
 	//%s is the sector -- ex: A9
-	L"Monster attackieren Ihre Söldner im Sektor %s. Alle Söldner sind bewußtlos!",
+	L"Monster attackieren Ihre Söldner im Sektor %s. Alle Söldner sind bewusstlos!",
 
 };
 
@@ -1181,7 +1181,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	
 	// CAMFIELD NUKE THIS and add quote #66.
 	
-	L"%s bemerkt, daß Teile aus der Lieferung fehlen.",
+	L"%s bemerkt, dass Teile aus der Lieferung fehlen.",
 	
 	// The %s is a string from pDoorTrapStrings
 	
@@ -1348,7 +1348,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Der Herrin sagen, was sie wissen will?",
 	L"Fingerabdruck-ID gespeichert",
 	L"Falsche Fingerabdruck-ID. Waffe außer Betrieb",
-	L"Ziel erfaßt",
+	L"Ziel erfasst",
 	L"Weg blockiert",
 	L"Geld einzahlen/abheben",		//Help text over the $ button on the Single Merc Panel 
 	L"Niemand braucht Erste Hilfe.",
@@ -1414,7 +1414,7 @@ STR16 pExitingSectorHelpText[] =
 	L"Bei aktiviertem Kästchen reist %s alleine und\nbildet automatisch wieder einen Trupp.",
 
 	//Standard helptext for all movement. Explains what will happen (moving the squad)
-	L"Bei aktiviertem Kästchen reist der ausgewählte Trupp\nweiter und verläßt den Sektor.",
+	L"Bei aktiviertem Kästchen reist der ausgewählte Trupp\nweiter und verlässt den Sektor.",
 
 	//This strings is used BEFORE the "exiting sector" interface is created. If you have an EPC selected and you attempt to tactically
 	//traverse the EPC while the escorting mercs aren't near enough (or dead, dying, or unconscious), this message will appear and the
@@ -1467,7 +1467,7 @@ STR16 pHelicopterEtaStrings[] =
 	L"Ank.: ", 				// ETA is an acronym for "estimated time of arrival" 
 	
 	// warning that the sector the helicopter is going to use for refueling is under enemy control
-	L"Helikopter hat fast keinen Sprit mehr und muß im feindlichen Gebiet landen.",	
+	L"Helikopter hat fast keinen Sprit mehr und muss im feindlichen Gebiet landen.",	
 	L"Passagiere: ",
 	L"Skyrider oder Absprungsort auswählen?",
 	L"Skyrider",
@@ -1876,7 +1876,7 @@ STR16 pEtaString[] =
 STR16 pTrashItemText[] =
 {
 	L"Sie werden das Ding nie wiedersehen. Trotzdem wegwerfen?", 	// do you want to continue and lose the item forever
-	L"Dieser Gegenstand sieht SEHR wichtig aus. Sie sie GANZ SICHER, daß Sie ihn wegwerfen wollen?", // does the user REALLY want to trash this item
+	L"Dieser Gegenstand sieht SEHR wichtig aus. Sie sie GANZ SICHER, dass Sie ihn wegwerfen wollen?", // does the user REALLY want to trash this item
 };
 
 STR16 pMapErrorString[] =
@@ -1941,7 +1941,7 @@ STR16 pMapErrorString[] =
 	L"Ein oder mehrere Söldner des ANDEREN Trupps kann sich gerade nicht bewegen.",
 	L"Fahrzeug zu stark beschädigt!",
 	L"Nur zwei Söldner pro Sektor können Milizen trainieren.",
-	L"Roboter muß von jemandem bedient werden. Beide im selben Trupp plazieren.",
+	L"Roboter muss von jemandem bedient werden. Beide im selben Trupp plazieren.",
 
 };
 
@@ -1976,11 +1976,11 @@ STR16 pMiscMapScreenMouseRegionHelpText[] =
 // male version of where equipment is left
 STR16 pMercHeLeaveString[] = 
 {
-	L"Soll %s seine Ausrüstung hier lassen (%s) oder in Drassen (B13), wenn er Arulco verläßt?",
-	L"Soll %s seine Ausrüstung hier lassen (%s) oder in Omerta (A9), wenn er Arulco verläßt?",
-	L"geht bald und läßt seine Ausrüstung in Omerta (A9).",
-	L"geht bald und läßt seine Ausrüstung in Drassen (B13).",
-	L"%s geht bald und läßt seine Ausrüstung in %s.",
+	L"Soll %s seine Ausrüstung hier lassen (%s) oder in Drassen (B13), wenn er Arulco verlässt?",
+	L"Soll %s seine Ausrüstung hier lassen (%s) oder in Omerta (A9), wenn er Arulco verlässt?",
+	L"geht bald und lässt seine Ausrüstung in Omerta (A9).",
+	L"geht bald und lässt seine Ausrüstung in Drassen (B13).",
+	L"%s geht bald und lässt seine Ausrüstung in %s.",
 };
 
 // female version
@@ -1988,9 +1988,9 @@ STR16 pMercSheLeaveString[] =
 {
 	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in Drassen (B13), bevor sie Arulco verläßt?",
 	L"Soll %s ihre Ausrüstung hier lassen (%s) oder in Omerta (A9), bevor sie Arulco verläßt?",
-	L"geht bald und läßt ihre Ausrüstung in Omerta (A9).",
-	L"geht bald und läßt ihre Ausrüstung in Drassen (B13).",
-	L"%s geht bald und läßt ihre Ausrüstung in %s.",
+	L"geht bald und lässt ihre Ausrüstung in Omerta (A9).",
+	L"geht bald und lässt ihre Ausrüstung in Drassen (B13).",
+	L"%s geht bald und lässt ihre Ausrüstung in %s.",
 };
 
 STR16 pMercContractOverStrings[] =
@@ -1999,16 +1999,16 @@ STR16 pMercContractOverStrings[] =
 	L"s Vertrag war abgelaufen, und sie ist nach Hause gegangen.", 		// merc's contract is over and has departed
 	L"s Vertrag wurde gekündigt, und er ist weggegangen.", 		// merc's contract has been terminated
 	L"s Vertrag wurde gekündigt, und sie ist weggegangen.",		// merc's contract has been terminated
-	L"Sie schulden M.E.R.C. zuviel, also ist %s gegangen.", // Your M.E.R.C. account is invalid so merc left
+	L"Sie schulden M.E.R.C. zu viel, also ist %s gegangen.", // Your M.E.R.C. account is invalid so merc left
 };
 
 // Text used on IMP Web Pages
 STR16 pImpPopUpStrings[] =
 {
 	L"Ungültiger Code",
-	L"Sie wollen gerade den ganzen Evaluierungsprozeß von vorn beginnen. Sind Sie sicher?",
+	L"Sie wollen gerade den ganzen Evaluierungsprozess von vorn beginnen. Sind Sie sicher?",
 	L"Bitte Ihren vollen Namen und Ihr Geschlecht eingeben",
-	L"Die Überprüfung Ihrer finanziellen Mittel hat ergeben, daß Sie sich keine Evaluierung leisten können.",
+	L"Die Überprüfung Ihrer finanziellen Mittel hat ergeben, dass Sie sich keine Evaluierung leisten können.",
 	L"Option zur Zeit nicht gültig.",
 	L"Um eine genaue Evaluierung durchzuführen, müssen Sie mindestens noch ein Teammitglied aufnehmen können.",
 	L"Evaluierung bereits durchgeführt.",
@@ -2030,7 +2030,7 @@ STR16 pImpButtonText[] =
 	L"Stimme %d", 			// the voice selection
 	L"Fertig", 			// done profiling
 	L"Von vorne anfangen",	 		// start over profiling
-	L"Ja, die Antwort paßt!", 
+	L"Ja, die Antwort passt!", 
 	L"Ja", 
 	L"Nein",
 	L"Fertig", 			// finished answering questions
@@ -2261,7 +2261,7 @@ STR16 sATMText[] =
 	L"Betrag eingeben", 		// enter the amount you want to transfer to merc
 	L"Art auswählen", 		// select the type of transfer to merc
 	L"Nicht genug Geld", 	// not enough money to transfer to merc
-	L"Betrag muß durch $10 teilbar sein", // transfer amount must be a multiple of $10
+	L"Betrag muss durch $10 teilbar sein", // transfer amount must be a multiple of $10
 };
 
 // Web error messages. Please use German equivilant for these messages. 
@@ -2315,7 +2315,7 @@ STR16 pWebPagesTitles[] =
 	L"Fleuropa - Gestecke",
 	L"Fleuropa - Bestellformular",
 	L"Fleuropa - Karten",
-	L"Hammer, Amboß & Steigbügel Versicherungsmakler",
+	L"Hammer, Amboss & Steigbügel Versicherungsmakler",
 	L"Information",
 	L"Vertrag",
 	L"Bemerkungen",
@@ -2457,7 +2457,7 @@ CHAR16 LargeTacticalStr[][ LARGE_STRING_LENGTH ] =
 {
 	L"Sie sind in diesem Sektor geschlagen worden!",
 	L"Der Feind hat kein Erbarmen mit den Seelen Ihrer Teammitglieder und verschlingt jeden einzelnen.",
-	L"Ihre bewußtlosen Teammitglieder wurden gefangengenommen!",
+	L"Ihre bewusstlosen Teammitglieder wurden gefangengenommen!",
 	L"Ihre Teammitglieder wurden vom Feind gefangengenommen.",
 };
 
@@ -2642,7 +2642,7 @@ STR16 sFloristGalleryText[] =
 	L"Zurück",	//abbreviation for previous
 	L"Weiter",	//abbreviation for next
 	L"Klicken Sie auf das Gesteck Ihrer Wahl",
-	L"Bitte beachten Sie, daß wir für jedes kaputte oder verwelkte Gesteck einen Aufpreis von $10 berechnen.",
+	L"Bitte beachten Sie, dass wir für jedes kaputte oder verwelkte Gesteck einen Aufpreis von $10 berechnen.",
 	L"Home",
 };
 
@@ -3695,7 +3695,7 @@ STR16 gzNonPersistantPBIText[] =
 STR16 gzMiscString[] =
 {
 	L"Ihre Milizen kämpfen ohne die Hilfe der Söldner weiter...",
-	L"Das Fahrzeug muß nicht mehr aufgetankt werden.",
+	L"Das Fahrzeug muss nicht mehr aufgetankt werden.",
 	L"Der Tank ist %d%% voll.",
 	L"Deidrannas Armee hat wieder volle Kontrolle über %s.",
 	L"Sie haben ein Tanklager verloren.",
@@ -3824,7 +3824,7 @@ STR16 sRepairsDoneString[] =
 
 STR16 zGioDifConfirmText[]=
 {
-	L"Sie haben sich für den EINSTEIGER-Modus entschieden. Dies ist die passende Einstellung für Spieler, die noch nie zuvor Jagged Alliance oder ähnliche Spiele gespielt haben oder für Spieler, die sich ganz einfach kürzere Schlachten wünschen. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, daß Sie im Einsteiger-Modus spielen wollen?",
+	L"Sie haben sich für den EINSTEIGER-Modus entschieden. Dies ist die passende Einstellung für Spieler, die noch nie zuvor Jagged Alliance oder ähnliche Spiele gespielt haben oder für Spieler, die sich ganz einfach kürzere Schlachten wünschen. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im Einsteiger-Modus spielen wollen?",
 	L"Sie haben sich für den FORTGESCHRITTENEN-Modus entschieden. Dies ist die passende Einstellung für Spieler, die bereits Erfahrung mit Jagged Alliance oder ähnlichen Spielen haben. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, daß Sie im Fortgeschrittenen-Modus spielen wollen?",
 	L"Sie haben sich für den PROFI-Modus entschieden. Na gut, wir haben Sie gewarnt. Machen Sie hinterher bloß nicht uns dafür verantwortlich, wenn Sie im Sarg nach Hause kommen. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, daß Sie im Profi-Modus spielen wollen?",
 	L"Sie haben sich für den WAHNSINNIG-Modus entschieden. WARNUNG: Beschweren Sie sich nicht, wenn Sie in kleinen Stücken zurückkommen ... Deidranna wird Sie in den Allerwertesten treten und das schmerzhaft. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, daß Sie im WAHNSINNIG-Modus spielen wollen?",
@@ -3853,7 +3853,7 @@ STR16 gzLateLocalizedString[] =
 	L"Keiner der Söldner hat medizinische Fähigkeiten.",
 	L"Sie haben kein Verbandszeug.",
 	L"Sie haben nicht genug Verbandszeug, um alle zu verarzten.",
-	L"Keiner der Söldner muß verbunden werden.",
+	L"Keiner der Söldner muss verbunden werden.",
 	L"Söldner automatisch verbinden.",
 	L"Alle Söldner verarztet.",
 
@@ -4045,11 +4045,11 @@ STR16 New113Message[] =
 STR16	New113MERCMercMailTexts[] =
 {
 	// Gaston: Text from Line 39 in Email.edt
-	L"Hiermit geben wir zur Kenntnis, daß aufgrund von Gastons guten Leistungen in der Vergangenheit sein Sold erhöht wurde. Ich persönlich bin darüber nicht überrascht. ± ± Speck T. Kline ± ",
+	L"Hiermit geben wir zur Kenntnis, dass aufgrund von Gastons guten Leistungen in der Vergangenheit sein Sold erhöht wurde. Ich persönlich bin darüber nicht überrascht. ± ± Speck T. Kline ± ",
 	// Stogie: Text from Line 43 in Email.edt
-	L"Bitte nehmen Sie zur Kenntnis, daß Stogies Bezüge für seine geleisteten Dienste mit sofortiger Wirkung erhöht wurden in Anpassung an seine verbesserten Fähigkeiten. ± ± Speck T. Kline ± ", 
+	L"Bitte nehmen Sie zur Kenntnis, dass Stogies Bezüge für seine geleisteten Dienste mit sofortiger Wirkung erhöht wurden in Anpassung an seine verbesserten Fähigkeiten. ± ± Speck T. Kline ± ", 
 	// Tex: Text from Line 45 in Email.edt
-	L"Bitte nehmen Sie zur Kenntnis, daß Tex aufgrund seiner Erfahrung Anspruch auf eine angemessenere Entlohnung hat. Seine Bezüge wurden daher ab sofort seinem Wert entsprechend erhöht. ± ± Speck T. Kline ± ",
+	L"Bitte nehmen Sie zur Kenntnis, dass Tex aufgrund seiner Erfahrung Anspruch auf eine angemessenere Entlohnung hat. Seine Bezüge wurden daher ab sofort seinem Wert entsprechend erhöht. ± ± Speck T. Kline ± ",
 	// Biggens: Text from Line 49 in Email.edt
 	L"Zur Kenntnisnahme. Aufgrund seiner verbesserten Leistungen wurden Biggens Dienstbezüge erhöht. ± ± Speck T. Kline ± ",
 };
