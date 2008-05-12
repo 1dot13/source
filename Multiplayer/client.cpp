@@ -1886,7 +1886,7 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 			gGameOptions.fIronManMode=cl_lan->sofIronManMode;
 			gGameOptions.ubBobbyRay=cl_lan->soubBobbyRay;
 
-			gGameOptions.ubInventorySystem=cl_lan->sofNewInv;
+			//gGameOptions.ubInventorySystem=cl_lan->sofNewInv;
 
 			if(!cl_lan->soDis_Bobby)LaptopSaveInfo.fBobbyRSiteCanBeAccessed = TRUE;
 

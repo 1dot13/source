@@ -337,7 +337,7 @@ void requestSETTINGS(RPCParameters *rpcParameters )
 				lan.sofIronManMode=gGameOptions.fIronManMode;
 				lan.starting_balance=gsstarting_balance;
 	
-				lan.sofNewInv=gGameOptions.ubInventorySystem;
+				//lan.sofNewInv=gGameOptions.ubInventorySystem;
 
 				lan.soDis_Bobby=gsDis_Bobby;
 				lan.soDis_Equip=gsDis_Equip;
