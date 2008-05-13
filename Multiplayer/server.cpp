@@ -190,6 +190,11 @@ void endINTERRUPT(RPCParameters *rpcParameters)
 	server->RPC("resume_turn",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
 }
 
+void sendWIPE(RPCParameters *rpcParameters)
+{
+	server->RPC("recieve_wipe",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
 void startCOMBAT(RPCParameters *rpcParameters)
 {
 	if(!( gTacticalStatus.uiFlags & INCOMBAT ))
@@ -536,6 +541,7 @@ void start_server (void)
 			REGISTER_STATIC_RPC(server, endINTERRUPT);
 			REGISTER_STATIC_RPC(server, sendREAL);
 		REGISTER_STATIC_RPC(server, startCOMBAT);
+		REGISTER_STATIC_RPC(server, sendWIPE);
 	//
 
 

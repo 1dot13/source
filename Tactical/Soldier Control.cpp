@@ -1666,7 +1666,7 @@ void SOLDIERTYPE::AdjustNoAPToFinishMove( BOOLEAN fSet )
 		SStopMerc.sYPos=this->sY;
 
 		//AddGameEvent( S_STOP_MERC, 0, &SStopMerc ); //hayden.
-		
+		if (!is_server && this->ubID >=20)return;
 
 		if(is_client)
 			send_stop(&SStopMerc);
@@ -2518,7 +2518,7 @@ BOOLEAN SOLDIERTYPE::ChangeSoldierState( UINT16 usNewState, UINT16 usStartingAni
 	this->EVENT_InitNewSoldierAnim( SChangeState.usNewState, SChangeState.usStartingAniCode, SChangeState.fForce );
 		send_changestate(&SChangeState);
 	}
-	else if(is_client && !is_server && this->ubID < 20)
+	else if((is_client && !is_server) && (this->ubID < 20 || (this->ubID < 120 && gTacticalStatus.ubCurrentTeam == OUR_TEAM)))
 	{
 		this->EVENT_InitNewSoldierAnim( SChangeState.usNewState, SChangeState.usStartingAniCode, SChangeState.fForce );
 		send_changestate(&SChangeState);
@@ -9845,8 +9845,9 @@ void SendChangeSoldierStanceEvent( SOLDIERTYPE *pSoldier, UINT8 ubNewStance )
 
 	AddGameEvent( S_CHANGESTANCE, 0, &SChangeStance );
 #endif
-	if((pSoldier->ubID > 19) && is_networked)
-		return;
+
+	if(((pSoldier->ubID > 19 && !is_server) || (pSoldier->ubID > 119 && is_server) )&& is_networked)return;
+						
 	pSoldier->ChangeSoldierStance( ubNewStance );
 	if(is_server || (is_client && pSoldier->ubID <20) ) send_stance( pSoldier, ubNewStance );
 }
@@ -10978,7 +10979,7 @@ void SOLDIERTYPE::HaultSoldierFromSighting( BOOLEAN fFromSightingEnemy )
 		SStopMerc.sXPos=this->sX;
 		SStopMerc.sYPos=this->sY;
 	//AddGameEvent( S_STOP_MERC, 0, &SStopMerc ); //hayden.
-	if(this->ubID>=120) return;//hayden
+	if(this->ubID>=120 || (!is_server && this->ubID >=20)) return;//hayden
 	if(is_client)send_stop(&SStopMerc);
 
 	// If we are a 'specialmove... ignore...

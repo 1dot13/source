@@ -469,6 +469,14 @@ void BeginTeamTurn( UINT8 ubTeam )
 			// skip back to the top, as we are processing another team now.
 			continue;
 		}
+		if ((!(gTacticalStatus.Team[ ubTeam ].bTeamActive))&& is_networked)
+		{
+			// inactive team, skip to the next one
+			ubTeam++;
+			gTacticalStatus.ubCurrentTeam++;
+			// skip back to the top, as we are processing another team now.
+			continue;
+		}
 
 		if ( gTacticalStatus.uiFlags & TURNBASED )
 		{
@@ -526,6 +534,7 @@ void BeginTeamTurn( UINT8 ubTeam )
 			AddTopMessage( COMPUTER_TURN_MESSAGE, TeamTurnString[ ubTeam ] );
 			/*if(is_server && !net_turn) send_EndTurn(ubTeam);
 			if(net_turn == true) net_turn = false;*/
+			gTacticalStatus.ubCurrentTeam = ubTeam;
 			if(is_server) send_EndTurn(ubTeam);
 			
 			

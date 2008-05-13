@@ -243,8 +243,15 @@ void ShutDownQuoteBox( BOOLEAN fForce )
 		if ( gCivQuoteData.pCiv && gCivQuoteData.pCiv->aiData.bAction == AI_ACTION_OFFER_SURRENDER )
 		{
 // Haydent
-			if(!is_client)DoMessageBox( MSG_BOX_BASIC_STYLE, Message[ STR_SURRENDER ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, SurrenderMessageBoxCallBack, NULL );
-			else ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[39] );
+			if(!is_networked)
+			{
+				DoMessageBox( MSG_BOX_BASIC_STYLE, Message[ STR_SURRENDER ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, SurrenderMessageBoxCallBack, NULL );
+			}
+			else 
+			{
+				ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[39] );
+				ActionDone( gCivQuoteData.pCiv );
+			}
 		}
 	}
 }

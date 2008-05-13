@@ -3214,10 +3214,15 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 
 	if ( pSoldier->stats.bLife == 0 && !( pSoldier->flags.uiStatusFlags & SOLDIER_DEAD )	)
 	{
-		// Haydent
+		// Haydent/send death info
 		if (is_networked)
-			//send death info
-			send_death(pSoldier);//quickfix
+		{
+			
+			if(pSoldier->bTeam==0) send_death(pSoldier);
+			else if(pSoldier->bTeam <6 && ((gTacticalStatus.ubTopMessageType == PLAYER_TURN_MESSAGE) || (gTacticalStatus.ubTopMessageType == PLAYER_INTERRUPT_MESSAGE)))send_death(pSoldier);
+			
+			
+		}
 		
 		
 		// Cancel services here...

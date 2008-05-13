@@ -20,6 +20,8 @@
 #include "Debug Control.h"
 #endif
 
+#include "connect.h"
+
 // Defines for Anim inst reading, taken from orig Jagged
 #define	ANIMFILENAME					"BINARYDATA\\ja2bin.dat"
 
@@ -3633,7 +3635,7 @@ UINT16 GetSoldierAnimationSurface( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 		// Ensure that it's loaded!
 		if ( gAnimSurfaceDatabase[ usAnimSurface ].hVideoObject == NULL )
 		{
-			ScreenMsg( FONT_MCOLOR_RED, MSG_BETAVERSION, L"IAnimation Surface for Body %d, animation %S, surface %d not loaded.", pSoldier->ubBodyType, gAnimControl[ usAnimState ].zAnimStr, usAnimSurface );
+			if(!is_networked)ScreenMsg( FONT_MCOLOR_RED, MSG_BETAVERSION, L"IAnimation Surface for Body %d, animation %S, surface %d not loaded.", pSoldier->ubBodyType, gAnimControl[ usAnimState ].zAnimStr, usAnimSurface );
 			AnimDebugMsg( String( "Surface Database: PROBLEMS!!!!!!" ) );
 			usAnimSurface = INVALID_ANIMATION_SURFACE;
 		}

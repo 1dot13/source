@@ -1200,14 +1200,14 @@ BOOLEAN ExecuteOverhead( )
 						}
 						//hayden - holt at scheduled grid
 						
-						if (is_networked)
-						{
-							if(pSoldier->sGridNo==pSoldier->sScheduledStop)
-							{
-								pSoldier->HaultSoldierFromSighting( 1 );
-								pSoldier->sScheduledStop=NULL;
-							}
-						}
+						//if (is_networked)
+						//{
+						//	if(pSoldier->sGridNo==pSoldier->sScheduledStop)
+						//	{
+						//		pSoldier->HaultSoldierFromSighting( 1 );
+						//		pSoldier->sScheduledStop=NULL;
+						//	}
+						//}
 
 						if ( !( gAnimControl[ pSoldier->usAnimState ].uiFlags & ANIM_SPECIALMOVE ) )
 						{
@@ -5929,6 +5929,21 @@ BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen )
 	BOOLEAN	fSayQuote = FALSE;
 	BOOLEAN fWeSawSomeoneRecently = FALSE, fSomeoneSawSomeoneRecently = FALSE;
 
+
+
+
+		if(is_server && check_status())
+		{
+			if(NumActiveAndConsciousTeamMembers( 0 ) ==0)
+			{
+				//ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"still some left");
+			}
+
+
+		return(FALSE);
+		}
+
+
 	// We can only check for end of combat if in combat mode
 	if ( ! ( gTacticalStatus.uiFlags & INCOMBAT ) )
 	{
@@ -5952,6 +5967,8 @@ BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen )
 	{
 		return( TRUE );
 	}
+
+
 
 	fWeSeeNoOne = WeSeeNoOne();
 	fNobodyAlerted = NobodyAlerted();
@@ -6091,6 +6108,7 @@ void DeathNoMessageTimerCallback( void )
 		ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[40] );
 		gTacticalStatus.uiFlags |= SHOW_ALL_MERCS;//hayden
 		ScreenMsg( FONT_YELLOW, MSG_CHAT, MPClientMessage[41] );
+		teamwiped();
 	}
 }
 
@@ -6128,6 +6146,17 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 			return( FALSE );
 		}
 	}
+
+		if(is_server && check_status())
+		{
+			if(NumActiveAndConsciousTeamMembers( 0 ) ==0)
+			{
+				//ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"still some left");
+			}
+	
+
+		return(FALSE);
+		}
 
 	// ATE: If attack busy count.. get out...
 	if ( (gTacticalStatus.ubAttackBusyCount > 0 ) )
@@ -8160,6 +8189,7 @@ void EndBattleWithUnconsciousGuysCallback( UINT8 bExitValue )
 		ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[40] );
 		gTacticalStatus.uiFlags |= SHOW_ALL_MERCS;//hayden
 		ScreenMsg( FONT_YELLOW, MSG_CHAT, MPClientMessage[41] );
+		teamwiped();
 	}
 }
 

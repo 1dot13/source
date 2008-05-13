@@ -153,25 +153,8 @@ typedef struct
 
 		SOLDIERCREATE_STRUCT standard_data;
 
-		OBJECTTYPE slot0;
-		OBJECTTYPE slot1;
-		OBJECTTYPE slot2;
-		OBJECTTYPE slot3;
-		OBJECTTYPE slot4;
-		OBJECTTYPE slot5;
-		OBJECTTYPE slot6;
-		OBJECTTYPE slot7;
-		OBJECTTYPE slot8;
-		OBJECTTYPE slot9;
-		OBJECTTYPE slot10;
-		OBJECTTYPE slot11;
-		OBJECTTYPE slot12;
-		OBJECTTYPE slot13;
-		OBJECTTYPE slot14;
-		OBJECTTYPE slot15;
-		OBJECTTYPE slot16;
-		OBJECTTYPE slot17;
-		OBJECTTYPE slot18;
+		OBJECTTYPE slot[55];
+
 	} AI_STRUCT;
 
 typedef struct
@@ -368,19 +351,7 @@ void recievePATH(RPCParameters *rpcParameters)
 			
 		}
 	
-		pSoldier->EVENT_InitNewSoldierAnim( SNetPath->ubNewState, 0, FALSE );	
-	/*	if(SNetPath->ubNewState !=255 ) 
-		{
-			EVENT_InitNewSoldierAnim( pSoldier, SNetPath->ubNewState, 0, FALSE );	
-			
-		}*/
-		////ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"state: %d",SNetPath->ubNewState );
-
-		//if(pSoldier->flags.fIsSoldierDelayed==FALSE)
-		//{
-		//	pSoldier->flags.fIsSoldierDelayed=TRUE;
-		//	request_ovh(pSoldier->ubID);
-		//}
+		if(pSoldier)pSoldier->EVENT_InitNewSoldierAnim( SNetPath->ubNewState, 0, FALSE );	
 
 		
 }
@@ -791,6 +762,7 @@ void send_EndTurn( UINT8 ubNextTeam )
 
 		tStruct.tsnetbTeam = netbTeam;
 		tStruct.tsubNextTeam = ubNextTeam;
+		
 
 		client->RPC("sendEndTurn",(const char*)&tStruct, (int)sizeof(turn_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
 		}
@@ -864,25 +836,12 @@ void send_AI( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *pubID )
 
 		send_inv.standard_data = *pCreateStruct;
 
-		send_inv.slot0 = pCreateStruct->Inv[ 0 ];
-		send_inv.slot1 = pCreateStruct->Inv[ 1 ];
-		send_inv.slot2 = pCreateStruct->Inv[ 2];
-		send_inv.slot3 = pCreateStruct->Inv[ 3 ];
-		send_inv.slot4 = pCreateStruct->Inv[ 4 ];
-		send_inv.slot5 = pCreateStruct->Inv[ 5 ];
-		send_inv.slot6 = pCreateStruct->Inv[ 6 ];
-		send_inv.slot7 = pCreateStruct->Inv[ 7 ];
-		send_inv.slot8 = pCreateStruct->Inv[ 8 ];
-		send_inv.slot9 = pCreateStruct->Inv[ 9 ];
-		send_inv.slot10 = pCreateStruct->Inv[ 10 ];
-		send_inv.slot11 = pCreateStruct->Inv[ 11 ];
-		send_inv.slot12 = pCreateStruct->Inv[ 12 ];
-		send_inv.slot13 = pCreateStruct->Inv[ 13 ];
-		send_inv.slot14 = pCreateStruct->Inv[ 14 ];
-		send_inv.slot15 = pCreateStruct->Inv[ 15 ];
-		send_inv.slot16 = pCreateStruct->Inv[ 16 ];
-		send_inv.slot17 = pCreateStruct->Inv[ 17 ];
-		send_inv.slot18 = pCreateStruct->Inv[ 18 ];
+
+		
+		for(int x=0;x<55;x++)
+		{
+			send_inv.slot[x] = pCreateStruct->Inv[x];
+		}
 
 		
 		
@@ -954,25 +913,16 @@ void recieveAI (RPCParameters *rpcParameters)
 		memcpy( new_standard_data.VestPal , send_inv->standard_data.VestPal, sizeof( PaletteRepID ));
 				
 
-		new_standard_data.Inv[0] = send_inv->slot0;
-		new_standard_data.Inv[1] = send_inv->slot1;
-		new_standard_data.Inv[2] = send_inv->slot2;
-		new_standard_data.Inv[3] = send_inv->slot3;
-		new_standard_data.Inv[4] = send_inv->slot4;
-		new_standard_data.Inv[5] = send_inv->slot5;
-		new_standard_data.Inv[6] = send_inv->slot6;
-		new_standard_data.Inv[7] = send_inv->slot7;
-		new_standard_data.Inv[8] = send_inv->slot8;
-		new_standard_data.Inv[9] = send_inv->slot9;
-		new_standard_data.Inv[10] = send_inv->slot10;
-		new_standard_data.Inv[11] = send_inv->slot11;
-		new_standard_data.Inv[12] = send_inv->slot12;
-		new_standard_data.Inv[13] = send_inv->slot13;
-		new_standard_data.Inv[14] = send_inv->slot14;
-		new_standard_data.Inv[15] = send_inv->slot15;
-		new_standard_data.Inv[16] = send_inv->slot16;
-		new_standard_data.Inv[17] = send_inv->slot17;
-		new_standard_data.Inv[18] = send_inv->slot18;
+		for(int x=0;x<55;x++)
+		{
+			//OBJECTTYPE		Object;
+			//new_standard_data.Inv[x]
+
+			//new_standard_data.Inv[x].fFlags = send_inv->slot[x].fFlags;
+			if(send_inv->slot[x].usItem != 0)CreateItems( send_inv->slot[x].usItem, 100, send_inv->slot[x].ubNumberOfObjects, &new_standard_data.Inv[x] );
+			//new_standard_data.Inv[x] = Object;
+		}
+
 
 		new_standard_data.fPlayerPlan=1;
 
@@ -1339,10 +1289,10 @@ void DropOffItemsInSector( UINT8 ubOrderNum )
 	if( !fSectorLoaded )
 	{
 		//build an array of objects to be added
-		pObject = (OBJECTTYPE *) MemAlloc( sizeof( OBJECTTYPE ) * usNumberOfItems );
+		pObject = new OBJECTTYPE[ usNumberOfItems ];
 		if( pObject == NULL )
 			return;
-		memset( pObject, 0, sizeof( OBJECTTYPE ) * usNumberOfItems );
+		/*memset( pObject, 0, sizeof( OBJECTTYPE ) * usNumberOfItems );*/
 	}
 
 
@@ -1367,7 +1317,8 @@ void DropOffItemsInSector( UINT8 ubOrderNum )
 			}
 			else
 			{
-				memcpy( &pObject[ uiCount ], &Object, sizeof( OBJECTTYPE ) );
+				pObject[ uiCount ] = Object;
+				//memcpy( &pObject[ uiCount ], &Object, sizeof( OBJECTTYPE ) );//fixed for NIV
 				uiCount++;
 			}
 
@@ -1386,7 +1337,7 @@ void DropOffItemsInSector( UINT8 ubOrderNum )
 			//error
 			Assert( 0 );
 		}
-		MemFree( pObject );
+		delete[] pObject ;
 		pObject = NULL;
 	}
 
@@ -2068,8 +2019,8 @@ void send_death( SOLDIERTYPE *pSoldier )
 	if(pS_bTeam>5)pS_bTeam=pS_bTeam-5;
 	if(pS_bTeam==0)pS_bTeam=CLIENT_NUM;
 	}
-
-	ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[28],pS_name,(pS_bTeam),client_names[(pS_bTeam-1)],pA_name,(pA_bTeam),client_names[(pA_bTeam-1)] );
+	if (pSoldier->bTeam==1)  ScreenMsg( FONT_YELLOW, MSG_CHAT, L"You Killed An Enemy AI");	
+	else  ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[28],pS_name,(pS_bTeam),client_names[(pS_bTeam-1)],pA_name,(pA_bTeam),client_names[(pA_bTeam-1)] );
 	//ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[28],(pS_bTeam), pS_name,client_names[(pS_bTeam-1)],pA_name,(pA_bTeam),client_names[(pA_bTeam-1)] );
 
 }
@@ -2113,13 +2064,20 @@ void recieveDEATH (RPCParameters *rpcParameters)
 		pSoldier->usAnimState=50;
 		ScreenMsg( FONT_YELLOW, MSG_CHAT, L"made merc corpse/dead");	
 		TurnSoldierIntoCorpse( pSoldier, TRUE, TRUE );
-		ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[28],pS_name,(pS_bTeam),client_names[(pS_bTeam-1)],pA_name,(pA_bTeam),client_names[(pA_bTeam-1)] );
+			if ( CheckForEndOfBattle( FALSE ) )
+			{
+			ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"All over red rover...");
+			}
+		if (pSoldier->bTeam==1)  ScreenMsg( FONT_YELLOW, MSG_CHAT, L"An Enemy AI was killed...");	
+		else ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[28],pS_name,(pS_bTeam),client_names[(pS_bTeam-1)],pA_name,(pA_bTeam),client_names[(pA_bTeam-1)] );
 		//ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[28],(pS_bTeam),pS_name,client_names[(pS_bTeam-1)],pA_name,(pA_bTeam),client_names[(pA_bTeam-1)] );
 
 	}
 	else
 	{
 		ScreenMsg( FONT_YELLOW, MSG_CHAT, L"merc allready corpse/dead");	
+		if (pSoldier->bTeam==1)  ScreenMsg( FONT_YELLOW, MSG_CHAT, L"An Enemy AI was killed...");	
+		CheckForEndOfBattle( FALSE );
 	}
 
 }
@@ -2200,45 +2158,45 @@ void cheat_func(void)
 	}
 }
 
-//void start_tt(void)
-//{
-//	if(is_server)
-//	{
-//		ScreenMsg( FONT_YELLOW, MSG_CHAT, L"manually starting turnbased mode...");	
-//
-//		gTacticalStatus.uiFlags |= INCOMBAT;
-//		EndTurn (START_TEAM_TURN);
-//	}
-//    
-//}
+BOOLEAN check_status (void)// any 'enemies' and clients left to fight ??
+{
+	SOLDIERTYPE *pSoldier;
+	int cnt;
+	int soldiers= 0 ;
+	
 
-//void unlock (void)
-//{
-//
-//	ScreenMsg( FONT_YELLOW, MSG_CHAT, L"unlocking ui...");	
-//		guiPendingOverrideEvent = LU_ENDUILOCK;
-//					guiPendingOverrideEvent = LA_ENDUIOUTURNLOCK;
-//	
-//
-//}
 
-//void request_ovh(UINT8 ubID)
-//{
-//	ovh_struct rOvh;
-//	rOvh.clnum=atoi (CLIENT_NUM);
-//	rOvh.ubid=ubID;
-//	if(ubID < 20)rOvh.ubid=ubID+ubID_prefix;
-//	++tcount;
-//
-//	SOLDIERTYPE *pSoldier = MercPtrs[ ubID ];
-//	//ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"requesting: %d",pSoldier->sGridNo );
-//
-//	//ScreenMsg( FONT_YELLOW, MSG_CHAT, L"center: %d",tcount);	
-//	if(tcount==10)tcount=0;
-//
-//	client->RPC("rOVH",(const char*)&rOvh, (int)sizeof(ovh_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
-//
-//}
+				for(int x=0;x < MAXTEAMS; x++)
+				{
+
+					for(cnt = gTacticalStatus.Team[ x ].bFirstID;cnt <= gTacticalStatus.Team[ x ].bLastID; cnt++)
+					{
+						pSoldier = MercPtrs[ cnt ];
+						if(pSoldier->stats.bLife!=0 && pSoldier->bActive && pSoldier->bInSector)
+						{
+							soldiers++;
+						}
+					}
+					if(soldiers>0)
+					{
+						gTacticalStatus.Team[ x ].bTeamActive=1;
+						gTacticalStatus.Team[x].bMenInSector=soldiers;
+					
+						soldiers=0 ;
+					}
+					else
+					{
+					
+						gTacticalStatus.Team[ x ].bTeamActive=0;
+						gTacticalStatus.Team[x].bMenInSector=0;
+					}
+				}
+				if((gTacticalStatus.Team[ 0 ].bTeamActive==1 || gTacticalStatus.Team[ 6 ].bTeamActive==1 || gTacticalStatus.Team[ 7 ].bTeamActive==1 || gTacticalStatus.Team[ 0 ].bTeamActive==1 || gTacticalStatus.Team[ 9 ].bTeamActive==1  )&& NumEnemyInSector() > 0)return(TRUE);
+				else return(FALSE);
+
+		
+					
+}
 
 void UpdateSoldierToNetwork ( SOLDIERTYPE *pSoldier )
 {
@@ -2252,7 +2210,7 @@ void UpdateSoldierToNetwork ( SOLDIERTYPE *pSoldier )
 		{
 			pSoldier->usLastUpdateTime = time;
 		}
-		if((time - (pSoldier->usLastUpdateTime)) > 2000)
+		if((time - (pSoldier->usLastUpdateTime)) > 2000 && pSoldier->stats.bLife!=0)
 		{
 			pSoldier->usLastUpdateTime = time;
 			//ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"update: %d ",time );
@@ -2269,7 +2227,7 @@ void UpdateSoldierToNetwork ( SOLDIERTYPE *pSoldier )
 			SUpdateNetworkSoldier.bBleeding=pSoldier->bBleeding;
 			SUpdateNetworkSoldier.ubDirection=pSoldier->ubDirection;
 
-			if((gTacticalStatus.ubTopMessageType == PLAYER_TURN_MESSAGE || gTacticalStatus.ubTopMessageType == PLAYER_INTERRUPT_MESSAGE) && (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT))//update progress bar, not supporting coop yet...
+			if((gTacticalStatus.ubTopMessageType == PLAYER_TURN_MESSAGE || gTacticalStatus.ubTopMessageType == PLAYER_INTERRUPT_MESSAGE || ((gTacticalStatus.ubTopMessageType == COMPUTER_INTERRUPT_MESSAGE || gTacticalStatus.ubTopMessageType == COMPUTER_TURN_MESSAGE )&& is_server)) && (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT))//update progress bar, not supporting coop yet...
 			{
 				SUpdateNetworkSoldier.usTactialTurnLimitCounter = gTacticalStatus.usTactialTurnLimitCounter;
 				SUpdateNetworkSoldier.usTactialTurnLimitMax = gTacticalStatus.usTactialTurnLimitMax;
@@ -2300,12 +2258,13 @@ void UpdateSoldierFromNetwork  (RPCParameters *rpcParameters)
 			if( pSoldier->sGridNo != SUpdateNetworkSoldier->sAtGridNo)
 			{
 				pSoldier->EVENT_InternalSetSoldierPosition( sCellX, sCellY ,FALSE, FALSE, FALSE );//new syncing call to correct network lag/drift
-			//ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"sync to pos: %d",pSoldier->sGridNo );
+				//ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"sync ubid:%d grid %d to %d",pSoldier->ubID,pSoldier->sGridNo,SUpdateNetworkSoldier->sAtGridNo  );
 			}
 
 			if(pSoldier->ubDirection != SUpdateNetworkSoldier->ubDirection)
 			{
 				pSoldier->EVENT_SetSoldierDesiredDirection( SUpdateNetworkSoldier->ubDirection );
+				//ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"sync ubid:%d dir %d to %d",pSoldier->ubID, pSoldier->ubDirection, SUpdateNetworkSoldier->ubDirection  );
 			}
 		
 
@@ -2318,22 +2277,6 @@ void UpdateSoldierFromNetwork  (RPCParameters *rpcParameters)
 	}
 }
 
-//void advance_ovh_frame  (RPCParameters *rpcParameters)
-//{
-//	
-//	adv* aoh = (adv*)rpcParameters->input;
-//	UINT8 ryubid = aoh->ubid;
-//	
-//	if((ryubid >= ubID_prefix) && (ryubid < (ubID_prefix+7))) // within our netbTeam range...
-//	{
-//		ryubid = (ryubid - ubID_prefix);
-//	}
-//	SOLDIERTYPE *pSoldier = MercPtrs[ ryubid ];
-//	//ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"advancing: %d",pSoldier->sGridNo );
-//	pSoldier->flags.fIsSoldierDelayed = false;
-//    //ovh_advance=true;
-//
-//}
 
 void kick_player (void)
 {
@@ -2520,6 +2463,26 @@ void startCombat(UINT8 ubStartingTeam)
 	
 }
 
+void teamwiped ( void )
+{
+
+	sc_struct data;
+	data.ubStartingTeam=netbTeam;
+
+	client->RPC("sendWIPE",(const char*)&data, (int)sizeof(sc_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+
+}
+
+void recieve_wipe (RPCParameters *rpcParameters)
+
+{
+	sc_struct* data = (sc_struct*)rpcParameters->input;
+	ScreenMsg( FONT_LTGREEN, MSG_INTERFACE, L"Team #%d is wiped out.", data->ubStartingTeam );
+if(is_server)
+{
+	if(gTacticalStatus.ubCurrentTeam==data->ubStartingTeam)EndTurn( data->ubStartingTeam+1 );	
+}
+}
 
 //***************************
 //*** client connection*****
@@ -2566,6 +2529,7 @@ void connect_client ( void )
 			REGISTER_STATIC_RPC(client, recieve_door);
 			REGISTER_STATIC_RPC(client, null_team);
 			REGISTER_STATIC_RPC(client, gotoRT);
+			REGISTER_STATIC_RPC(client, recieve_wipe);
 			//***
 			
 		if (b)

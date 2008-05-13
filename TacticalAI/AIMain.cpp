@@ -818,7 +818,7 @@ void StartNPCAI(SOLDIERTYPE *pSoldier)
 	//SetSoldierAsUnderAiControl( pSoldier );
 	//}
 
-	if (!is_networked)
+	if (!is_networked || is_server)
 		pSoldier->SetSoldierAsUnderAiControl( );
 
 

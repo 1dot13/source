@@ -55,3 +55,8 @@ extern UINT8			gubCheatLevel;
 void startCombat(UINT8 ubStartingTeam);
 
 extern int WEAPON_READIED_BONUS;
+
+void teamwiped (void);
+
+BOOLEAN check_status (void);
+extern UINT8 NumEnemyInSector( );

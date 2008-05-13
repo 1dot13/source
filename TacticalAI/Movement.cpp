@@ -890,7 +890,7 @@ void HaltMoveForSoldierOutOfPoints(SOLDIERTYPE *pSoldier)
 		SStopMerc.sYPos=pSoldier->sY;
 
 		//AddGameEvent( S_STOP_MERC, 0, &SStopMerc ); //hayden.
-		if(pSoldier->ubID>=120) 
+		if(pSoldier->ubID>=120 || (!is_server && pSoldier->ubID>=20)) 
 			return;//hayden
 
 		if(is_client)

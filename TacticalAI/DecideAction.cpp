@@ -33,7 +33,7 @@
 #include "GameSettings.h"
 #include "Dialogue Control.h"
 #endif
-
+#include "connect.h"
 #include "Text.h"
 
 extern BOOLEAN gfHiddenInterrupt;
@@ -926,7 +926,7 @@ INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 	// CLIMB A BUILDING
 	////////////////////////////////////////////////////////////////////////////
 
-	if (!fCivilian && pSoldier->aiData.bLastAction != AI_ACTION_CLIMB_ROOF)
+	if (!fCivilian && pSoldier->aiData.bLastAction != AI_ACTION_CLIMB_ROOF && !is_networked)
 	{
 		iChance = 10 + pSoldier->aiData.bBypassToGreen;
 
