@@ -3609,7 +3609,7 @@ STR16 pMessageStrings[] =
 #ifdef JA2BETAVERSION
 	L"Spiel erfolgreich in Slot End Turn Auto Save gespeichert.",		// 83
 #endif
-	L"..\\SavedGames\\MP_SavedGames", //The name of the directory where games are saved.
+	L"..\\Spielstände\\MP_Spielstände", //The name of the directory where games are saved.
 	L"Client",
 };
 
