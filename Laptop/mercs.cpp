@@ -330,6 +330,10 @@ void GameInitMercs()
 //	for(i=0; i<NUMBER_OF_MERCS; i++)
 //		gubMercArray[ i ] = i+BIFF;
 
+	// WANNE - MP: Initialize the the variables for single player
+	NUMBER_OF_MERCS = 15;
+	LAST_MERC_ID = 14;
+
 	//can now be out of order
 	gubMercArray[ 0 ] = BIFF;
 	gubMercArray[ 1 ] = HAYWIRE;

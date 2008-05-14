@@ -66,7 +66,7 @@
 #define		MERC_AC_ROW_SIZE							16
 
 // The maximum number of mercs
-#define TOTAL_NUMBER_OF_MERCS												14
+//#define TOTAL_NUMBER_OF_MERCS												14
 #define MAX_NUMBER_MERCS_ON_PAGE										12
 
 UINT32		guiMercOrderGrid;
@@ -187,7 +187,7 @@ INT32 GetNumberOfHiredMercs()
 
 	giMercTotalContractCharge = 0;
 
-	for (i = 0; i<=TOTAL_NUMBER_OF_MERCS; i++)
+	for (i = 0; i<=(NUMBER_OF_MERCS - 1); i++)
 	{
 		if( i == MERC_LARRY_ROACHBURN )
 			continue;
@@ -480,9 +480,9 @@ void DisplayHiredMercs()
 	usMercIDStart = iCurrentAccountPage * MAX_NUMBER_MERCS_ON_PAGE;
 
 	// End
-	if ((usMercIDStart + MAX_NUMBER_MERCS_ON_PAGE) > TOTAL_NUMBER_OF_MERCS)
+	if ((usMercIDStart + MAX_NUMBER_MERCS_ON_PAGE) > (NUMBER_OF_MERCS - 1))
 	{
-		usMercIDEnd = TOTAL_NUMBER_OF_MERCS;
+		usMercIDEnd = (NUMBER_OF_MERCS - 1);
 	}
 	else
 	{
@@ -497,7 +497,7 @@ void DisplayHiredMercs()
 	}
 
 	// Loop through all the mercs
-	for(i=usMercIDStart; i <= TOTAL_NUMBER_OF_MERCS ; i++)
+	for(i=usMercIDStart; i <= (NUMBER_OF_MERCS - 1) ; i++)
 	{
 		// We have no more free rows on the current page
 		if (usCurrentRow == usMercIDEnd - 1)
@@ -739,7 +739,7 @@ UINT32	CalculateHowMuchPlayerOwesSpeck()
 	UINT32			uiContractCharge=0;
 	UINT16			usMercID;
 
-	for(i=0; i<TOTAL_NUMBER_OF_MERCS; i++)
+	for(i=0; i<(NUMBER_OF_MERCS - 1); i++)
 	{
 		//if it larry Roach burn advance.	( cause larry is in twice, a sober larry and a stoned larry )
 		if( i == MERC_LARRY_ROACHBURN )
