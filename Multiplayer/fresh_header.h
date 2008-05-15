@@ -60,3 +60,4 @@ void teamwiped (void);
 
 BOOLEAN check_status (void);
 extern UINT8 NumEnemyInSector( );
+extern INT8	NumActiveAndConsciousTeamMembers( UINT8 ubTeam );

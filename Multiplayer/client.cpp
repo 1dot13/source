@@ -240,10 +240,10 @@ char ckbag[100];
  int REPORT_NAME;
  int WEAPON_READIED_BONUS;
 
- int ENEMY_ENABLED;
- int CREATURE_ENABLED;
- int MILITIA_ENABLED;
- int CIV_ENABLED;
+ int ENEMY_ENABLED=0;
+ int CREATURE_ENABLED=0;
+ int MILITIA_ENABLED=0;
+ int CIV_ENABLED=0;
 
  int ALLOW_EQUIP;
 
@@ -256,6 +256,8 @@ int START_TEAM_TURN;
  int numready = 0;
  int readystage = 0;
  bool status = 0;
+
+ bool wiped;
 
  bool lockedgui = 0;
 
@@ -638,6 +640,7 @@ void recieveHIRE(RPCParameters *rpcParameters)
 
 	pSoldier = &Menptr[iNewIndex];
 	pSoldier->flags.uiStatusFlags |= SOLDIER_PC;
+	gMercProfiles[ pSoldier->ubProfile ].ubMiscFlags |= PROFILE_MISC_FLAG_RECRUITED;
 	if(!SAME_MERC)gMercProfiles[ pSoldier->ubProfile ].bMercStatus = MERC_WORKING_ELSEWHERE;
 	pSoldier->bSide=0; //default coop only
 	if(PLAYER_BSIDE==0)//all vs all only
@@ -2191,6 +2194,16 @@ BOOLEAN check_status (void)// any 'enemies' and clients left to fight ??
 						gTacticalStatus.Team[x].bMenInSector=0;
 					}
 				}
+				if( (gTacticalStatus.Team[ 0 ].bTeamActive == 0) && wiped==0)//server's team has been knocked out
+				{		
+							wiped=1;
+							ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[40] );
+							gTacticalStatus.uiFlags |= SHOW_ALL_MERCS;//hayden
+							ScreenMsg( FONT_YELLOW, MSG_CHAT, MPClientMessage[41] );
+							teamwiped();
+							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[42] );
+
+				}
 				if((gTacticalStatus.Team[ 0 ].bTeamActive==1 || gTacticalStatus.Team[ 6 ].bTeamActive==1 || gTacticalStatus.Team[ 7 ].bTeamActive==1 || gTacticalStatus.Team[ 0 ].bTeamActive==1 || gTacticalStatus.Team[ 9 ].bTeamActive==1  )&& NumEnemyInSector() > 0)return(TRUE);
 				else return(FALSE);
 
@@ -2428,7 +2441,7 @@ void sendRT(void)
 
 void gotoRT(RPCParameters *rpcParameters)
 {
-	getReal=true;
+	getReal=true;//MAY NOT BE NEEDED ANY MORE
 
 	gTacticalStatus.bConsNumTurnsNotSeen = 0;
 	gTacticalStatus.ubCurrentTeam = OUR_TEAM;
@@ -2570,7 +2583,7 @@ void connect_client ( void )
 			char port[30];
 //			char client_number[30];
 			char sector_edge[30];
-
+			wiped=0;
 			
 			//disable cheating
 			gubCheatLevel = 0;

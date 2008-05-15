@@ -471,13 +471,17 @@ void start_server (void)
 
 			 gsMAX_MERCS=atoi(max_merc);
 			gsTESTING = atoi(test);
-////
+
+			gsPLAYER_BSIDE = atoi(player_bside);
+
+if(gsPLAYER_BSIDE==2)//only enable ai during coop
+{
 			ENEMY_ENABLED =atoi(bteam1_enabled);
 			CREATURE_ENABLED =atoi(bteam2_enabled);
 			MILITIA_ENABLED =atoi(bteam3_enabled);
 			CIV_ENABLED =atoi(bteam4_enabled);
 
-			gsPLAYER_BSIDE = atoi(player_bside);
+}		
 
 			gsSAME_MERC = atoi(hire_same_merc);
 			gsDAMAGE_MULTIPLIER =(FLOAT)atof(net_div);

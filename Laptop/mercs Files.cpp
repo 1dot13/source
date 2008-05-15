@@ -652,8 +652,11 @@ BOOLEAN MercFilesHireMerc(UINT8 ubMercID)
 	//Set the time and ID of the last hired merc will arrive
 //	LaptopSaveInfo.sLastHiredMerc.iIdOfMerc = HireMercStruct.ubProfileID;
 //	LaptopSaveInfo.sLastHiredMerc.uiArrivalTime = HireMercStruct.uiTimeTillMercArrives;
-
-
+	if(is_networked && (gMercProfiles[ ubMercID ].sSalary > LaptopSaveInfo.iCurrentBalance)		)
+		{
+			DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, sATMText[ 4 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+			return(FALSE);//not enough big ones $$$sATMText
+		}
 	bReturnCode = HireMerc( &HireMercStruct );
 	//already have 20 mercs on the team
 	if( bReturnCode == MERC_HIRE_OVER_18_MERCS_HIRED )

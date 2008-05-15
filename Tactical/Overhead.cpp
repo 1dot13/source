@@ -5932,16 +5932,10 @@ BOOLEAN CheckForEndOfCombatMode( BOOLEAN fIncrementTurnsNotSeen )
 
 
 
-		if(is_server && check_status())
-		{
-			if(NumActiveAndConsciousTeamMembers( 0 ) ==0)
-			{
-				//ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"still some left");
-			}
-
-
-		return(FALSE);
-		}
+		//if(is_server && check_status())
+		//{
+		//	return(FALSE);
+		//}
 
 
 	// We can only check for end of combat if in combat mode
@@ -6149,13 +6143,7 @@ BOOLEAN CheckForEndOfBattle( BOOLEAN fAnEnemyRetreated )
 
 		if(is_server && check_status())
 		{
-			if(NumActiveAndConsciousTeamMembers( 0 ) ==0)
-			{
-				//ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"still some left");
-			}
-	
-
-		return(FALSE);
+			return(FALSE);
 		}
 
 	// ATE: If attack busy count.. get out...
