@@ -771,7 +771,7 @@ void DoMilitiaHelpFromAdjacentSectors( INT16 sMapX, INT16 sMapY )
 		if (gfStrategicMilitiaChangesMade)
 		{
 			RemoveMilitiaFromTactical();
-			if(is_server && MILITIA_ENABLED)
+			if(is_server && MILITIA_ENABLED==1)
 				PrepareMilitiaForTactical(FALSE);
 		}
 	}

@@ -96,6 +96,8 @@ unsigned char packetIdentifier;
 
 #pragma pack(1)
 
+#include "keys.h"
+
 #include "new.h"
 #include "Types.h"
 #include "connect.h"
@@ -240,10 +242,10 @@ char ckbag[100];
  int REPORT_NAME;
  int WEAPON_READIED_BONUS;
 
- int ENEMY_ENABLED=0;
- int CREATURE_ENABLED=0;
- int MILITIA_ENABLED=0;
- int CIV_ENABLED=0;
+ int ENEMY_ENABLED;
+ int CREATURE_ENABLED;
+ int MILITIA_ENABLED;
+ int CIV_ENABLED;
 
  int ALLOW_EQUIP;
 
@@ -1925,6 +1927,7 @@ void recieveBULLET(RPCParameters *rpcParameters)
 		BULLET * pBullet;
 
 		iBullet = CreateBullet( netb->net_bullet.ubFirerID, 0, netb->net_bullet.usFlags,netb->usHandItem );
+		
 		if (iBullet == -1)
 		{
 			ScreenMsg( FONT_YELLOW, MSG_CHAT, L"Failed to create bullet");		
@@ -1933,6 +1936,8 @@ void recieveBULLET(RPCParameters *rpcParameters)
 
 		bTable[bTeam][net_iBullet].remote_id = net_iBullet;
 		bTable[bTeam][net_iBullet].local_id = iBullet;
+
+		
 
 		pBullet = GetBulletPtr( iBullet );
 
@@ -2120,14 +2125,17 @@ void send_miss(EV_S_MISS * SMiss)
 void recievehitSTRUCT  (RPCParameters *rpcParameters)
 {
 	EV_S_STRUCTUREHIT* struct_hit = (EV_S_STRUCTUREHIT*)rpcParameters->input;
-		
+		//ScreenMsg( FONT_YELLOW, MSG_CHAT, L"recieved structure hit");
 		SOLDIERTYPE *pSoldier = MercPtrs[ struct_hit->ubAttackerID ];
 		INT8 bTeam=pSoldier->bTeam;
 		INT32 iBullet = bTable[bTeam][struct_hit->iBullet].local_id;
 
+	
+	if(struct_hit->fStopped)StopBullet( iBullet );//, ScreenMsg( FONT_YELLOW, MSG_CHAT, L"bullet stopped");
 	StructureHit( iBullet, struct_hit->usWeaponIndex, struct_hit->bWeaponStatus, struct_hit->ubAttackerID, struct_hit->sXPos, struct_hit->sYPos, struct_hit->sZPos, struct_hit->usStructureID, struct_hit->iImpact, struct_hit->fStopped );
-	if(struct_hit->fStopped)RemoveBullet(iBullet);
-	//ScreenMsg( FONT_YELLOW, MSG_CHAT, L"recieved structure hit");
+	if(struct_hit->fStopped)RemoveBullet(iBullet);//, ScreenMsg( FONT_YELLOW, MSG_CHAT, L"bullet removed");
+	//else ScreenMsg( FONT_YELLOW, MSG_CHAT, L"bullet left");
+	
 }
 void recievehitWINDOW  (RPCParameters *rpcParameters)
 {
@@ -2420,7 +2428,15 @@ void recieve_door (RPCParameters *rpcParameters)
 	doors* sDoor = (doors*)rpcParameters->input;
 
 	SOLDIERTYPE *pSoldier = MercPtrs[ sDoor->ubID ];
-	HandleDoorChangeFromGridNo( pSoldier, sDoor->sGridNo, sDoor->fNoAnimations );
+	BOOLEAN fNoAnimations = FALSE;
+
+			if ( !AllMercsLookForDoor( sDoor->sGridNo, FALSE ) )//check for los
+			{
+				fNoAnimations = TRUE;
+			}
+
+
+	HandleDoorChangeFromGridNo( pSoldier, sDoor->sGridNo, fNoAnimations );
 
 }
 
@@ -2577,6 +2593,11 @@ void connect_client ( void )
 			status = 0;
 			gTacticalStatus.uiFlags&= (~SHOW_ALL_MERCS );
 			memset( &readyteamreg , 0 , sizeof (int) * 10);
+
+			 ENEMY_ENABLED=0;
+			 CREATURE_ENABLED=0;
+			 MILITIA_ENABLED=0;
+			 CIV_ENABLED=0;
 
 			//retrieve settings from Ja2_mp.ini
 			char ip[30];

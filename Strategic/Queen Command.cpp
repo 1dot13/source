@@ -1206,7 +1206,7 @@ void AddPossiblePendingEnemiesToBattle()
 	static UINT8 ubPredefinedInsertionCode = 255;
 
 	// haydent
-	if ((is_client && !is_server) || !ENEMY_ENABLED)
+	if ((is_client && !is_server) || ENEMY_ENABLED==0)
 	{
 		return;
 	}

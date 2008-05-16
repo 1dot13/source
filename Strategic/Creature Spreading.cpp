@@ -938,7 +938,7 @@ void CreatureAttackTown( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 		case CREATURE_BATTLE_CODE_TACTICALLYADD:
 			if (is_networked)
 			{
-				if(is_server && CREATURE_ENABLED)
+				if(is_server && CREATURE_ENABLED==1)
 					PrepareCreaturesForBattle();
 			}
 			else

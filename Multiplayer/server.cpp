@@ -418,7 +418,7 @@ void start_server (void)
 		
 			char hire_same_merc[30];
 			char bteam1_enabled[30];
-			char bteam2_enabled[30];
+			//char bteam2_enabled[30];
 			char bteam3_enabled[30];
 			char bteam4_enabled[30];
 
@@ -434,7 +434,7 @@ void start_server (void)
 			GetPrivateProfileString( "Ja2_mp Settings","DAMAGE_MULTIPLIER", "", net_div, MAX_PATH, "..\\Ja2_mp.ini" );
 			
 			GetPrivateProfileString( "Ja2_mp Settings","ENEMY_ENABLED", "", bteam1_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
-			GetPrivateProfileString( "Ja2_mp Settings","CREATURE_ENABLED", "", bteam2_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
+			//GetPrivateProfileString( "Ja2_mp Settings","CREATURE_ENABLED", "", bteam2_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
 			GetPrivateProfileString( "Ja2_mp Settings","MILITIA_ENABLED", "", bteam3_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
 			GetPrivateProfileString( "Ja2_mp Settings","CIV_ENABLED", "", bteam4_enabled, MAX_PATH, "..\\Ja2_mp.ini" );
 
@@ -477,7 +477,7 @@ void start_server (void)
 if(gsPLAYER_BSIDE==2)//only enable ai during coop
 {
 			ENEMY_ENABLED =atoi(bteam1_enabled);
-			CREATURE_ENABLED =atoi(bteam2_enabled);
+			//CREATURE_ENABLED =atoi(bteam2_enabled);
 			MILITIA_ENABLED =atoi(bteam3_enabled);
 			CIV_ENABLED =atoi(bteam4_enabled);
 

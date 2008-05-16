@@ -29,6 +29,7 @@
 	#include "lighting.h"
 	#include "Buildings.h"
 #endif
+#include "test_space.h"
 
 
 // Defines

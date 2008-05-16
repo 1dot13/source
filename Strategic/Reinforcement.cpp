@@ -393,7 +393,7 @@ void AddPossiblePendingMilitiaToBattle()
 	static UINT8 ubPredefinedRank = 255;
 
 	// Haydent
-	if ((is_client && !is_server) || !MILITIA_ENABLED)
+	if ((is_client && !is_server) || MILITIA_ENABLED==0)
 	{
 		return;
 	}

@@ -2174,7 +2174,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	////////////////////////////////////////////////////////////////////////
 	// IF POSSIBLE, FIRE LONG RANGE WEAPONS AT TARGETS REPORTED BY RADIO
 	////////////////////////////////////////////////////////////////////////
-
+if(!is_networked)//hayden
+{
 	// can't do this in realtime, because the player could be shooting a gun or whatever at the same time!
 	if (gfTurnBasedAI && !fCivilian && !bInWater && !bInGas && !(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) && (CanNPCAttack(pSoldier) == TRUE))
 	{
@@ -2250,6 +2251,8 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 				return(AI_ACTION_NONE);
 			}
 		}
+
+	}//hayden
 
 
 
@@ -3937,6 +3940,8 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 		// this looks for throwables, and sets BestThrow.ubPossible if it can be done
 		//if ( !gfHiddenInterrupt )
 		// {
+		if(!is_networked) //disable for mp ai
+		{
 		CheckIfTossPossible(pSoldier,&BestThrow);
 
 		if (BestThrow.ubPossible)
@@ -3973,7 +3978,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 		}
 
 
-
+		}
 
 
 

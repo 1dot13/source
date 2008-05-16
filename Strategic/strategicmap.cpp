@@ -1749,7 +1749,7 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			{
 				if (is_networked)
 				{
-					if(is_server && ENEMY_ENABLED)
+					if(is_server && ENEMY_ENABLED==1)
 						PrepareEnemyForSectorBattle();
 				}
 				else
@@ -1768,7 +1768,7 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			{
 				if (is_networked)
 				{
-					if(is_server && CREATURE_ENABLED)
+					if(is_server && CREATURE_ENABLED==1)
 						PrepareCreaturesForBattle();
 				}
 				else
@@ -2074,7 +2074,7 @@ void PrepareLoadedSector()
 
 		if (is_networked)
 		{
-			if( is_server && fAddCivs && CIV_ENABLED)//hayden its around here we apply .ini choices for Ai
+			if( is_server && fAddCivs && CIV_ENABLED==1)//hayden its around here we apply .ini choices for Ai
 			{
 				AddSoldierInitListTeamToWorld( CIV_TEAM, 255 );
 			}
@@ -2084,10 +2084,10 @@ void PrepareLoadedSector()
 			AddSoldierInitListTeamToWorld( CIV_TEAM, 255 );
 		}
 
-		if(is_server && MILITIA_ENABLED)
+		if(is_server && MILITIA_ENABLED==1)
 			AddSoldierInitListTeamToWorld( MILITIA_TEAM, 255 );
 		
-		if(is_server && CREATURE_ENABLED)
+		if(is_server && CREATURE_ENABLED==1)
 			AddSoldierInitListBloodcats();
 
 		//Creatures are only added if there are actually some of them.  It has to go through some
@@ -2121,11 +2121,11 @@ void PrepareLoadedSector()
 		// Haydent
 		if (is_networked)
 		{
-			if(is_server && CREATURE_ENABLED)
+			if(is_server && CREATURE_ENABLED==1)
 				PrepareCreaturesForBattle();
 
 			// Haydent
-			if(is_server && MILITIA_ENABLED)
+			if(is_server && MILITIA_ENABLED==1)
 				PrepareMilitiaForTactical(FALSE);
 		}
 		else
@@ -2148,7 +2148,7 @@ void PrepareLoadedSector()
 		
 		if (is_networked)
 		{
-			if(is_server && CIV_ENABLED)
+			if(is_server && CIV_ENABLED==1)
 				AddProfilesNotUsingProfileInsertionData(); //hayden: is just for civ's
 		}
 		else
@@ -2160,7 +2160,7 @@ void PrepareLoadedSector()
 		{
 			if (is_networked)
 			{
-				if(is_server && ENEMY_ENABLED)
+				if(is_server && ENEMY_ENABLED==1)
 					fEnemyPresenceInThisSector = PrepareEnemyForSectorBattle();
 			}
 			else
