@@ -1708,7 +1708,11 @@ void MakeObjectOutOfDealerItems( DEALER_SPECIAL_ITEM *pSpclItemInfo, OBJECTTYPE 
 			// have to keep track of #bullets in a gun throughout dealer inventory.	Without this, players could "reload" guns
 			// they don't have ammo for by selling them to Tony & buying them right back fully loaded!	One could repeat this
 			// ad nauseum (empty the gun between visits) as a (really expensive) way to get unlimited special ammo like rockets.
-			(*pObject)[subObject]->data.gun.ubGunShotsLeft = 0;
+			//CHRISL: If we're working with a SingleShotRocketLauncher, we need ubGunShotsLeft to equal 1
+			if(Item[pObject->usItem].singleshotrocketlauncher == TRUE)
+				(*pObject)[subObject]->data.gun.ubGunShotsLeft = 1;
+			else
+				(*pObject)[subObject]->data.gun.ubGunShotsLeft = 0;
 		}
 	}
 }

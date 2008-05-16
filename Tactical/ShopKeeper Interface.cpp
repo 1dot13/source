@@ -6589,7 +6589,11 @@ void SplitComplexObjectIntoSubObjects( OBJECTTYPE *pComplexObject )
 
 	subObjects.clear();
 	int usItem = pComplexObject->usItem;
-	for (int x = 0; x < pComplexObject->ubNumberOfObjects; ++x) {
+	//CHRISL: This won't work.  As we his MoveThisObjectTo, we reduce ubNumberOfObjects.  If we started with ubNumberOfObjects=4 & x=0,
+	//	our first iteration would be ubNumberOfObjects=3 & x=1.  Then ubNumberOfObjects=2 & x=2, which ends the loop.  We want to 
+	//	run the loop ubNumberOfObjects number of times regardless of whether ubNumberOfObjects is reduced.  Use a while loop.
+	//for (int x = 0; x < pComplexObject->ubNumberOfObjects; ++x) {
+	while(pComplexObject->ubNumberOfObjects > 0) {
 		//we need not worry about attachments!!!!
 
 		if (pComplexObject->MoveThisObjectTo(gTempObject, 1) == 0) {
