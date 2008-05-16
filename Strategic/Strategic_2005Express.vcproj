@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="Strategic_2005Express"
 	ProjectGUID="{AB8837DB-0435-40C7-916A-0AACF5CFF1C4}"
 	RootNamespace="Strategic_2005Express"
@@ -167,6 +167,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
+				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
