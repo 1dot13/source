@@ -3,9 +3,9 @@
 	<ITEM>
 		<uiIndex>0</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>JA2-Programmierer sind die besten, die es gibt ... oder ... vielleicht doch nicht, da diese Nachricht ja eigentlich nie erscheinen sollte.</szItemDesc>
-		<szBRName>Nothing</szBRName>
+		<szBRName>Nichts</szBRName>
 		<szBRDesc>JA2-Programmierer sind die besten, die es gibt ... oder ... vielleicht doch nicht, da diese Nachricht ja eigentlich nie erscheinen sollte.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -94,7 +94,7 @@
 		<szLongItemName>Thompson M1A1</szLongItemName>
 		<szItemDesc>Als Vorläufer der modernen Sturmgewehre wurde diese 'Thompson A1' am Strand der Normandie eingesetzt.</szItemDesc>
 		<szBRName>Thompson M1A1</szBRName>
-		<szBRDesc>Der Vorläufer dieser am Strand der Normandie eingesetzten, billigeren 'Thompson A1', war die in Chicago bekannt gewordene M1928A1. Die M1A1 ist zwar häßlicher und hat ein kleineres Magazin, aber dafür die selben Schußleistungen und ein geringeres Gewicht.</szBRDesc>
+		<szBRDesc>Der Vorläufer dieser am Strand der Normandie eingesetzten, billigeren 'Thompson A1', war die in Chicago bekannt gewordene M1928A1. Die M1A1 ist zwar hässlicher und hat ein kleineres Magazin, aber dafür die selben Schussleistungen und ein geringeres Gewicht.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>12</uiIndex>
@@ -318,7 +318,7 @@
 		<szLongItemName>Ein großer Kieselstein.</szLongItemName>
 		<szItemDesc>Damit kann man Lärm machen. Oder Beulen. Oder Scherben.</szItemDesc>
 		<szBRName>Stein</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>40</uiIndex>
@@ -340,57 +340,57 @@
 		<uiIndex>42</uiIndex>
 		<szItemName>Stein</szItemName>
 		<szLongItemName>Ein weiterer Stein</szLongItemName>
-		<szItemDesc>Ein Stein aus Arulco, der sich gut werfen läßt.</szItemDesc>
+		<szItemDesc>Ein Stein aus Arulco, der sich gut werfen lässt.</szItemDesc>
 		<szBRName>Stein</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>43</uiIndex>
 		<szItemName>Klauen JM</szItemName>
 		<szLongItemName>Klauen jung/männlich</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Klauen jung/männlich</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>44</uiIndex>
 		<szItemName>Klauen AM</szItemName>
 		<szLongItemName>Klauen alt/männlich</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Klauen alt/männlich</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>45</uiIndex>
 		<szItemName>Klauen JW</szItemName>
 		<szLongItemName>Klauen jung/weiblich</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Klauen jung/weiblich</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>46</uiIndex>
 		<szItemName>Klauen AW</szItemName>
 		<szLongItemName>Klauen alt/weiblich</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Klauen alt/weiblich</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>47</uiIndex>
 		<szItemName>Queen Tentacle</szItemName>
 		<szLongItemName>Queen Tentacle</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Queen Tentacle</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>48</uiIndex>
 		<szItemName>Queen Spit</szItemName>
 		<szLongItemName>Queen Creature Spit</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Queen Creature Spit</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>49</uiIndex>
@@ -420,17 +420,17 @@
 		<uiIndex>52</uiIndex>
 		<szItemName>Bloodcat Klauen</szItemName>
 		<szLongItemName>Bloodcat Klauen</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Bloodcat Klauen</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>53</uiIndex>
 		<szItemName>Bloodcat Bite</szItemName>
 		<szLongItemName>Bloodcat Bite</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Bloodcat Bite</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>54</uiIndex>
@@ -458,35 +458,35 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>57</uiIndex>
-		<szItemName>Infant Spit</szItemName>
-		<szLongItemName>Infant Spit</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName>Infant Spit</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Infant-Spucke</szItemName>
+		<szLongItemName>Infant-Spucke</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Infant-Spucke</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>58</uiIndex>
 		<szItemName>Young Male Spit</szItemName>
 		<szLongItemName>Young Male Spit</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Young Male Spit</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>59</uiIndex>
 		<szItemName>Old Male Spit</szItemName>
 		<szLongItemName>Old Male Spit</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Old Male Spit</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>60</uiIndex>
 		<szItemName>Kanone</szItemName>
 		<szLongItemName>Panzerkanone</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Panzerkanone</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>61</uiIndex>
@@ -494,7 +494,7 @@
 		<szLongItemName>Pfeilpistole</szLongItemName>
 		<szItemDesc>Mit dieser druckluftbetriebenen Pfeilpistole legen Sie Großwild jeder Art schlafen, ohne die ganze Herde in Aufruhr zu versetzen.</szItemDesc>
 		<szBRName>Pfeilpistole</szBRName>
-		<szBRDesc>Ein stummer Vertreter in der lärmenden Gruppe der Schußwaffen. Hiermit können Sie den Job erledigen, ohne den Sensenmann aufzuwecken. Mit Prüfsiegel verschiedener Veterinär-Vereinigungen und zoologischer Gärten.</szBRDesc>
+		<szBRDesc>Ein stummer Vertreter in der lärmenden Gruppe der Schusswaffen. Hiermit können Sie den Job erledigen, ohne den Sensenmann aufzuwecken. Mit Prüfsiegel verschiedener Veterinär-Vereinigungen und zoologischer Gärten.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>62</uiIndex>
@@ -502,7 +502,7 @@
 		<szLongItemName>blutiges Wurfmesser</szLongItemName>
 		<szItemDesc>Ein kleines, leichtes Wurfmesser mit einer zweischneidigen, hartverchromten Karbonstahlklinge, die blutverklebt ist.</szItemDesc>
 		<szBRName>blutiges Wurfmesser</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>63</uiIndex>
@@ -510,7 +510,7 @@
 		<szLongItemName>Flammenwerfer</szLongItemName>
 		<szItemDesc>Sorry Leute, leider hat es dieser Gegenstand nicht mehr in das Spiel geschafft!</szItemDesc>
 		<szBRName>Flammenwerfer</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>64</uiIndex>
@@ -563,8 +563,8 @@
 	<ITEM>
 		<uiIndex>70</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Using this slot will cause the game to crash.</szLongItemName>
-		<szBRName>Using this slot will cause the game to crash.</szBRName>
+		<szLongItemName>Das Benutzen dieses Slots führt zum Absturz des Spiels.</szLongItemName>
+		<szBRName>Das Benutzen dieses Slots führt zum Absturz des Spiels.</szBRName>
 	</ITEM>
 	<ITEM>
 		<uiIndex>71</uiIndex>
@@ -1025,10 +1025,10 @@
 	<ITEM>
 		<uiIndex>128</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 128</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>129</uiIndex>
@@ -1057,9 +1057,9 @@
 	<ITEM>
 		<uiIndex>132</uiIndex>
 		<szItemName>TG-Granate</szItemName>
-		<szLongItemName>Trängas-Handgranate</szLongItemName>
+		<szLongItemName>Tränengas-Handgranate</szLongItemName>
 		<szItemDesc>Aus diesem gummiartigen Geschoss wird nach einer kurzen Verzögerung Tränengas freigesetzt.</szItemDesc>
-		<szBRName>Trängas-Granate</szBRName>
+		<szBRName>Tränengas-Granate</szBRName>
 		<szBRDesc>Aus diesem gummiartigen Geschoss wird nach einer kurzen Verzögerung Tränengas freigesetzt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -1218,17 +1218,17 @@
 		<uiIndex>152</uiIndex>
 		<szItemName>Tank Shell</szItemName>
 		<szLongItemName>Tank Shell</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Tank Shell</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>153</uiIndex>
 		<szItemName>Struct Ignite</szItemName>
 		<szLongItemName>Struct Ignite</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szItemDesc>Interner Gegenstand</szItemDesc>
 		<szBRName>Struct Ignite</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szBRDesc>Interner Gegenstand</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>154</uiIndex>
@@ -1240,49 +1240,49 @@
 		<uiIndex>155</uiIndex>
 		<szItemName>Structure Explosion</szItemName>
 		<szLongItemName>Structure Explosion</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szItemDesc>Interner Gegenstand</szItemDesc>
 		<szBRName>Structure Explosion</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szBRDesc>Interner Gegenstand</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>156</uiIndex>
 		<szItemName>Great big explosion</szItemName>
 		<szLongItemName>Great big explosion</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szItemDesc>Interner Gegenstand</szItemDesc>
 		<szBRName>Great big explosion</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szBRDesc>Interner Gegenstand</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>157</uiIndex>
 		<szItemName>Big Tear Gas</szItemName>
 		<szLongItemName>Big Tear Gas</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szItemDesc>Interner Gegenstand</szItemDesc>
 		<szBRName>Big Tear Gas</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szBRDesc>Interner Gegenstand</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>158</uiIndex>
 		<szItemName>Small Creature Gas</szItemName>
 		<szLongItemName>Small Creature Gas</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szItemDesc>Interner Gegenstand</szItemDesc>
 		<szBRName>Small Creature Gas</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szBRDesc>Interner Gegenstand</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>159</uiIndex>
 		<szItemName>Large Creature Gas</szItemName>
 		<szLongItemName>Large Creature Gas</szLongItemName>
-		<szItemDesc>INTERNAL ITEM</szItemDesc>
+		<szItemDesc>Interner Gegenstand</szItemDesc>
 		<szBRName>Large Creature Gas</szBRName>
-		<szBRDesc>INTERNAL ITEM</szBRDesc>
+		<szBRDesc>Interner Gegenstand</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>160</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 160</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>161</uiIndex>
@@ -1306,7 +1306,7 @@
 		<szLongItemName>beh. Schutzweste</szLongItemName>
 		<szItemDesc>Diese Schutzweste bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Schutzweste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>164</uiIndex>
@@ -1330,7 +1330,7 @@
 		<szLongItemName>beh. Kevlarweste</szLongItemName>
 		<szItemDesc>Diese Kevlar-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Kevlarweste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>167</uiIndex>
@@ -1354,7 +1354,7 @@
 		<szLongItemName>beh. Spectra-Shield-Weste</szLongItemName>
 		<szItemDesc>Diese Spectra-Shield-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Spectra-Shield-Weste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>170</uiIndex>
@@ -1378,7 +1378,7 @@
 		<szLongItemName>beh. Kevlarhose</szLongItemName>
 		<szItemDesc>Diese Kevlar-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Kevlarhose</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>173</uiIndex>
@@ -1402,7 +1402,7 @@
 		<szLongItemName>beh. Spectra-Shield-Hose</szLongItemName>
 		<szItemDesc>Diese Spectra-Shield-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Spectra-Shield-Hose</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>176</uiIndex>
@@ -1434,7 +1434,7 @@
 		<szLongItemName>beh. Kevlarhelm</szLongItemName>
 		<szItemDesc>Dieser Kevlarhelm bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Kevlarhelm</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>180</uiIndex>
@@ -1458,7 +1458,7 @@
 		<szLongItemName>beh. Spectra-Shield-Helm</szLongItemName>
 		<szItemDesc>Dieser Spectra-Shield-Helm bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Spectra-Shield-Helm</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>183</uiIndex>
@@ -1470,35 +1470,35 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>184</uiIndex>
-		<szItemName>Infant Hide</szItemName>
-		<szLongItemName>Infant Creature Hide</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
-		<szBRName>Infant Creature Hide</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Infant-Fell</szItemName>
+		<szLongItemName>Infant-Kreaturen-Fell</szLongItemName>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
+		<szBRName>Infant-Kreaturen-Fell</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>185</uiIndex>
 		<szItemName>Kiddy Hide</szItemName>
 		<szLongItemName>Young Adult Creature Hide</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Young Adult Creature Hide</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>186</uiIndex>
 		<szItemName>Adult Hide</szItemName>
 		<szLongItemName>Adult Creature Hide</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Adult Creature Hide</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>187</uiIndex>
 		<szItemName>Queen Hide</szItemName>
 		<szLongItemName>Queen Creature Hide</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Queen Creature Hide</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>188</uiIndex>
@@ -1522,7 +1522,7 @@
 		<szLongItemName>Comp.18-Kevlar-Pilotenjacke</szLongItemName>
 		<szItemDesc>Diese Fliegerjacke aus Leder mit Kevlar-Innenfutter ist mit Compound-18 behandelt worden, wodurch sie noch besser schützt.</szItemDesc>
 		<szBRName>C18-K-Pilotenjacke</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>191</uiIndex>
@@ -1530,23 +1530,23 @@
 		<szLongItemName>beh. Kevlar-Pilotenjacke</szLongItemName>
 		<szItemDesc>Diese Kevlar-Fliegerjacke bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Kevlar-Pilotenjacke</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>192</uiIndex>
 		<szItemName>YF Hide</szItemName>
 		<szLongItemName>Young Female Hide</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Young Female Hide</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>193</uiIndex>
 		<szItemName>OF Hide</szItemName>
 		<szLongItemName>Old Female Hide</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Old Female Hide</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>194</uiIndex>
@@ -1554,7 +1554,7 @@
 		<szLongItemName>Arulco T-Shirt</szLongItemName>
 		<szItemDesc>Diese modischen "I love Arulco"-T-Shirts sind ein Muss für jeden Touristen. Sie bestehen aus 100 Prozent reiner, unbehandelter Baumwolle und waren vor Deidrannas Machtergreifung der Klassenschlager schlechthin.</szItemDesc>
 		<szBRName>Arulco T-Shirt</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>195</uiIndex>
@@ -1562,7 +1562,7 @@
 		<szLongItemName>Deidranna T-Shirt</szLongItemName>
 		<szItemDesc>Das 'Deidranna Rulez!'-Shirt tragen zu müssen, ist eine weitere Erniedrigung der Arulcaner. In unbeobachtetet Momenten zerschneiden sie diese Shirts gerne zu Putzlappen.</szItemDesc>
 		<szBRName>Deidranna T-Shirt</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>196</uiIndex>
@@ -1578,7 +1578,7 @@
 		<szLongItemName>C18-Guardian-Weste</szLongItemName>
 		<szItemDesc>Diese Guardian-Weste wurde mit Compound-18 behandelt und bietet daher ein Höchstmaß an Schutz vor ballistischen Geschossen.</szItemDesc>
 		<szBRName>C18-Guardian-Weste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>198</uiIndex>
@@ -1586,23 +1586,23 @@
 		<szLongItemName>beh. Guardian-Weste</szLongItemName>
 		<szItemDesc>Diese Guardian-Schutzkleidung bietet noch besseren Schutz da sie mit dem Glibber der Monsterkönigin behandelt wurde.</szItemDesc>
 		<szBRName>beh. Guardian-Weste</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>199</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 199</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>200</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 200</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>201</uiIndex>
@@ -1734,17 +1734,17 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>217</uiIndex>
-		<szItemName>Jelly</szItemName>
-		<szLongItemName>Royal Jelly</szLongItemName>
-		<szBRName>Royal Jelly</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Gelatine</szItemName>
+		<szLongItemName>Königliche Gelatine</szLongItemName>
+		<szBRName>Königliche Gelatine</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>218</uiIndex>
-		<szItemName>Elixir</szItemName>
-		<szLongItemName>Jar of Elixir</szLongItemName>
-		<szBRName>Jar of Elixir</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Elixier</szItemName>
+		<szLongItemName>Krug mit Heilmittel</szLongItemName>
+		<szBRName>Krug mit Heilmittel</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>219</uiIndex>
@@ -1757,14 +1757,14 @@
 		<szItemName>Glas</szItemName>
 		<szLongItemName>Glas</szLongItemName>
 		<szBRName>Glas</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>221</uiIndex>
-		<szItemName>volles Glas</szItemName>
+		<szItemName>Volles Glas</szItemName>
 		<szLongItemName>Glas mit Blut</szLongItemName>
 		<szBRName>Glas mit Blut</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>222</uiIndex>
@@ -1772,7 +1772,7 @@
 		<szLongItemName>Energiebooster</szLongItemName>
 		<szItemDesc>Diese Spritze ist mit einer stimulierenden chemischen Substanz gefüllt, die einem Menschen kurzfristig einen Energieschub verleiht. Achtung: Mehr als vier Dosen pro Tag können zu Herzstillstand führen!</szItemDesc>
 		<szBRName>Energiebooster</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>223</uiIndex>
@@ -1796,15 +1796,15 @@
 		<szLongItemName>Video</szLongItemName>
 		<szItemDesc>Diese VHS-Videokassette mit dem Titel 'Lack-und-Leder-Loretta 6: Der unbelebte Mann' ist ein nicht jugendfreier Pornofilm. Eltern und andere Konsumenten sollten die Zimmertüre abschließen.</szItemDesc>
 		<szBRName>Video</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>226</uiIndex>
 		<szItemName>Urkunde</szItemName>
 		<szLongItemName>Urkunde</szLongItemName>
-		<szItemDesc>Die Besitzurkunde für Angel's Biker-Shop.</szItemDesc>
+		<szItemDesc>Die Besitzurkunde für Angels Biker-Shop.</szItemDesc>
 		<szBRName>Urkunde</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>227</uiIndex>
@@ -1812,7 +1812,7 @@
 		<szLongItemName>Brief von Enrico</szLongItemName>
 		<szItemDesc>Diesen Brief hat Ihnen Enrico gegeben.</szItemDesc>
 		<szBRName>Brief von Enrico</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>228</uiIndex>
@@ -1820,7 +1820,7 @@
 		<szLongItemName>Computer Diskette</szLongItemName>
 		<szItemDesc>Auf dieser Diskette steht 'Von Intercept gesucht'. Sie enthält vertrauliche Informationen über international gesuchte Terroristen.</szItemDesc>
 		<szBRName>Computer Diskette</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>229</uiIndex>
@@ -1828,7 +1828,7 @@
 		<szLongItemName>Kelch des Glücks</szLongItemName>
 		<szItemDesc>Gefäß des Guten, Becher der Besten, Glas der Götter. Dieser Kelch wird in Arulco verehrt, also machen Sie sich nicht darüber lustig!</szItemDesc>
 		<szBRName>Kelch des Glücks</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>230</uiIndex>
@@ -1836,15 +1836,15 @@
 		<szLongItemName>Bloodcat Klauen</szLongItemName>
 		<szItemDesc>Diese rasiermesserscharfen Klauen können einen Batzen Geld einbringen, wenn man weiß, wo man sie am besten verkauft.</szItemDesc>
 		<szBRName>Bloodcat Klauen</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>231</uiIndex>
 		<szItemName>Zähne</szItemName>
 		<szLongItemName>Bloodcat Zähne</szLongItemName>
-		<szItemDesc>Man muss schon ein ganzer Kerl sein, um an diese Beißerchen heranzukommen! Daher sind Bloodcat-Zähne vielerorts eine heißbegehrte Rarität.</szItemDesc>
+		<szItemDesc>Man muss schon ein ganzer Kerl sein, um an diese Beißerchen heranzukommen! Daher sind Bloodcat-Zähne vielerorts eine heiß begehrte Rarität.</szItemDesc>
 		<szBRName>Bloodcat Zähne</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>232</uiIndex>
@@ -1852,23 +1852,23 @@
 		<szLongItemName>Bloodcat Pelz</szLongItemName>
 		<szItemDesc>Eine Bloodcat zu häuten ist nicht einfach. Der Pelz bringt sicher eine Menge ein!</szItemDesc>
 		<szBRName>Bloodcat Pelz</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>233</uiIndex>
 		<szItemName>Schalter</szItemName>
 		<szLongItemName>Schalter</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Schalter</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>234</uiIndex>
 		<szItemName>Action Item</szItemName>
 		<szLongItemName>Action Item</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Action Item</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>235</uiIndex>
@@ -1876,45 +1876,45 @@
 		<szLongItemName>Regenerationsbooster</szLongItemName>
 		<szItemDesc>Diese Spritze ist mit 10 ml eines schnell wirkenden Heilmittels gefüllt. Auf dem Etikett steht: 'Nicht mehr als 4 Dosen pro Tag verwenden.'</szItemDesc>
 		<szBRName>Regenerationsbooster</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>236</uiIndex>
 		<szItemName>Spritze</szItemName>
 		<szLongItemName>Spritze</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Spritze</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>237</uiIndex>
 		<szItemName>Spritze</szItemName>
 		<szLongItemName>Spritze</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Spritze</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>238</uiIndex>
 		<szItemName>Spritze</szItemName>
 		<szLongItemName>Spritze</szLongItemName>
-		<szItemDesc>NO DESCRIPTION NECESSARY!</szItemDesc>
+		<szItemDesc>Keine Beschreibung notwendig!</szItemDesc>
 		<szBRName>Spritze</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>239</uiIndex>
 		<szItemName>volles Glas</szItemName>
 		<szLongItemName>Glas mit menschl. Blut</szLongItemName>
 		<szBRName>Glas mit menschl. Blut.</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>240</uiIndex>
-		<szItemName>Besitz-Urkunde</szItemName>
-		<szLongItemName>Besitz-Urkunde</szLongItemName>
-		<szBRName>Besitz-Urkunde</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szItemName>Besitzurkunde</szItemName>
+		<szLongItemName>Besitzurkunde</szLongItemName>
+		<szBRName>Besitzurkunde</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>241</uiIndex>
@@ -1954,7 +1954,7 @@
 		<szLongItemName>Russian Standard</szLongItemName>
 		<szItemDesc>Dieser hochprozentige Vodka ist seit 2006 Marktführer im Premiumsegment in Russland. Wie kommt diese Flasche nur nach Arulco? Vielleicht ein Geschenk von Ivan &amp; Igor ...</szItemDesc>
 		<szBRName>Vodka</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>246</uiIndex>
@@ -1970,7 +1970,7 @@
 		<szLongItemName>leere LAW</szLongItemName>
 		<szItemDesc>Diese Panzerfaust hat ihre Schuldigkeit getan und wird den Rest der Zeit als unnötigen Ballast verbringen.</szItemDesc>
 		<szBRName>leere LAW</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>248</uiIndex>
@@ -1978,55 +1978,55 @@
 		<szLongItemName>Kopf</szLongItemName>
 		<szItemDesc>Ein nicht identifizierbarer, leicht verwester menschlicher Kopf.</szItemDesc>
 		<szBRName>Kopf</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>249</uiIndex>
 		<szItemName>Kopf</szItemName>
-		<szLongItemName>Impostor's Kopf</szLongItemName>
+		<szLongItemName>Impostors Kopf</szLongItemName>
 		<szItemDesc>Imposter wird keinem Menschen mehr Schaden zufügen. Sie sind stolzer Besitzer seines leicht angeschimmelten Kopfs.</szItemDesc>
-		<szBRName>Impostor's Kopf</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Impostors Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>250</uiIndex>
 		<szItemName>Kopf</szItemName>
-		<szLongItemName>T-Rex's Kopf</szLongItemName>
+		<szLongItemName>T-Rex' Kopf</szLongItemName>
 		<szItemDesc>T-Rex mag ja so ausgestorben sein wie ein Dinosaurier, aber seinen Kopf sollten Sie der Nachwelt erhalten.</szItemDesc>
-		<szBRName>T-Rex's Kopf</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>T-Rex' Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>251</uiIndex>
 		<szItemName>Kopf</szItemName>
-		<szLongItemName>Slay's Kopf</szLongItemName>
+		<szLongItemName>Slays Kopf</szLongItemName>
 		<szItemDesc>Slay ist abgeschlachtet worden und sein verfaulender Kopf ist alles, was noch an ihn erinnert.</szItemDesc>
-		<szBRName>Slay's Kopf</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Slays Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>252</uiIndex>
 		<szItemName>Kopf</szItemName>
-		<szLongItemName>Druggist's Kopf</szLongItemName>
+		<szLongItemName>Druggists Kopf</szLongItemName>
 		<szItemDesc>Elgin wird so schnell keine Rezepte mehr ausstellen. Sein Kopf liegt nämlich gerade auf Ihrem Hackblock.</szItemDesc>
-		<szBRName>Druggist's Kopf</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Druggists Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>253</uiIndex>
 		<szItemName>Kopf</szItemName>
-		<szLongItemName>Matron's Kopf</szLongItemName>
+		<szLongItemName>Matrons Kopf</szLongItemName>
 		<szItemDesc>Kein Mensch wird Mom oder ihren Kopf vermissen. Nehmen Sie ihn einfach mit.</szItemDesc>
-		<szBRName>Matron's Kopf</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Matrons Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>254</uiIndex>
 		<szItemName>Kopf</szItemName>
-		<szLongItemName>Tiffany's Kopf</szLongItemName>
+		<szLongItemName>Tiffanys Kopf</szLongItemName>
 		<szItemDesc>Tiffany Eddie hat nicht viel Kapital aus seinem Kopf geschlagen - jetzt tun Sie's.</szItemDesc>
-		<szBRName>Tiffany's Kopf</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Tiffanys Kopf</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>255</uiIndex>
@@ -2034,7 +2034,7 @@
 		<szLongItemName>Wein</szLongItemName>
 		<szItemDesc>Diese Flasche Rotwein verbindet den exquisiten Geschmack von vergorenen Traubensaft und Sägespänen zu einem delikaten Tropfen.</szItemDesc>
 		<szBRName>Wein</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>256</uiIndex>
@@ -2042,7 +2042,7 @@
 		<szLongItemName>Radeberger Pilsner</szLongItemName>
 		<szItemDesc>Wen kümmert es bei 4.9 Prozent Alkohol noch, wo das Zeug herkommt? Mit diesem Eisbier kann man jeden Arulcaner unter den Tisch saufen.</szItemDesc>
 		<szBRName>Bier</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>257</uiIndex>
@@ -2050,7 +2050,7 @@
 		<szLongItemName>Coupe Magazin</szLongItemName>
 		<szItemDesc>Die COUPE 7/2007 enthält ein hochinteressantes Poster von den Darstellerinnen aus der 'Real Coyote Show' und diverse Artikel für die sich kein Schwein interessiert.</szItemDesc>
 		<szBRName>Coupe</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>258</uiIndex>
@@ -2058,7 +2058,7 @@
 		<szLongItemName>VHS-Kamera</szLongItemName>
 		<szItemDesc>Mit dieser VHS-Kamera können Sie all Ihre Lieblingserinnerungen im Bild festhalten, einschließlich Ihres peinlichen Auftritts bei der Hochzeit oder lokale Würdenträger in kompromittierenden Stellungen.</szItemDesc>
 		<szBRName>VHS-Kamera</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>259</uiIndex>
@@ -2066,28 +2066,28 @@
 		<szLongItemName>Roboter-Fernbedienung</szLongItemName>
 		<szItemDesc>Lassen Sie Ihren Roboter mit dieser zuverlässigen Fernbedienung die Drecksarbeit machen, während Sie aus sicherer Entfernung zusehen.</szItemDesc>
 		<szBRName>Roboter-Fernbedienung</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>260</uiIndex>
 		<szItemName>Klauen</szItemName>
 		<szLongItemName>Monsterklauen</szLongItemName>
 		<szBRName>Monsterklauen</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>261</uiIndex>
 		<szItemName>Fleisch</szItemName>
 		<szLongItemName>Monsterfleisch</szLongItemName>
 		<szBRName>Monsterfleisch</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>262</uiIndex>
 		<szItemName>Organ</szItemName>
 		<szLongItemName>Monsterorgan</szLongItemName>
 		<szBRName>Monsterorgan</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>263</uiIndex>
@@ -2095,7 +2095,7 @@
 		<szLongItemName>Fernbedienung</szLongItemName>
 		<szItemDesc>Mit diesem kleinen Gerät werden normalerweise Markisen, Springbrunnen oder Garagentore betätigt. Mal sehen, wer sich in Arulco sowas leisten kann...</szItemDesc>
 		<szBRName>Fernbedienung</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>264</uiIndex>
@@ -2103,15 +2103,15 @@
 		<szLongItemName>Platinuhr</szLongItemName>
 		<szItemDesc>Ein stilvoller Designerchronograph mit automatischem Schweizer Uhrwerk, Quartzglas und vier Mikrometer-Platingehäuse.</szItemDesc>
 		<szBRName>Platinuhr</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>265</uiIndex>
-		<szItemName>Golf Schläger</szItemName>
-		<szLongItemName>Golf Schläger</szLongItemName>
+		<szItemName>Golfschläger</szItemName>
+		<szLongItemName>Golfschläger</szLongItemName>
 		<szItemDesc>Diese Tasche mit dem klassischen Satz an Hölzern und Eisen hat schon bessere Tage auf dem Grün gesehen. Obwohl schon leicht abgenutzt, können Sie mit diesen Schlägern noch immer locker unter par bleiben.</szItemDesc>
-		<szBRName>Golf Schläger</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Golfschläger</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>266</uiIndex>
@@ -2119,7 +2119,7 @@
 		<szLongItemName>Walkman</szLongItemName>
 		<szItemDesc>Mit diesem tragbaren Kassettenrekorder und den Minikopfhörern können Sie jederzeit Ihre Lieblingshits hören. Macht jede Reise noch ein bisschen schöner.</szItemDesc>
 		<szBRName>Walkman</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>267</uiIndex>
@@ -2127,7 +2127,7 @@
 		<szLongItemName>Portable TV</szLongItemName>
 		<szItemDesc>Mit diesem tragbaren Fernseher verpassen Sie keine Folge des A-Teams und sind immer über die politische Lage in der Hauptstadt informiert.</szItemDesc>
 		<szBRName>Portable TV</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>268</uiIndex>
@@ -2135,7 +2135,7 @@
 		<szLongItemName>Kontostand:</szLongItemName>
 		<szItemDesc>So kommen Sie an Ihr Bankkonto heran. Klicken Sie einfach auf einen der verschiedenen Beträge und dann auf 'Fertig'. Etwas Bargeld dabei zu haben, kann manchmal recht nützlich sein.</szItemDesc>
 		<szBRName>Kontostand:</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>269</uiIndex>
@@ -2143,23 +2143,23 @@
 		<szLongItemName>Zigarren</szLongItemName>
 		<szItemDesc>Eine ganze Schachtel dicker Zigarren. Können auch im hitzigsten Gefecht zwischen die Zähne geklemmt werden und machen sich auch gut zu einem Glas Portwein in einem Nobelklub.</szItemDesc>
 		<szBRName>Zigarren</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>270</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 270</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>271</uiIndex>
 		<szItemName>Schlüssel</szItemName>
-		<szLongItemName>kleiner Schlüssel</szLongItemName>
+		<szLongItemName>Kleiner Schlüssel</szLongItemName>
 		<szItemDesc>Ein kleiner, goldener Schlüssel, der vielleicht zu einem Schrank passt.</szItemDesc>
-		<szBRName>kleiner Schlüssel</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Kleiner Schlüssel</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>272</uiIndex>
@@ -2167,31 +2167,31 @@
 		<szLongItemName>Gefängnis-Schlüssel</szLongItemName>
 		<szItemDesc>Ein Gefängnisschlüssel aus rostfreiem Stahl.</szItemDesc>
 		<szBRName>Gefängnis-Schlüssel</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>273</uiIndex>
 		<szItemName>Schlüssel</szItemName>
-		<szLongItemName>einfacher Schlüssel</szLongItemName>
+		<szLongItemName>Einfacher Schlüssel</szLongItemName>
 		<szItemDesc>Ein einfacher Schlüssel. Passt wahrscheinlich in ein primitives Schloss.</szItemDesc>
-		<szBRName>einfacher Schlüssel</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Einfacher Schlüssel</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>274</uiIndex>
 		<szItemName>Schlüssel</szItemName>
-		<szLongItemName>matter Schlüssel</szLongItemName>
+		<szLongItemName>Matter Schlüssel</szLongItemName>
 		<szItemDesc>Ein Schlüssel ohne Glanz.</szItemDesc>
-		<szBRName>matter Schlüssel</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Matter Schlüssel</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>275</uiIndex>
 		<szItemName>Schlüssel</szItemName>
-		<szLongItemName>glänzender Schlüssel</szLongItemName>
+		<szLongItemName>Glänzender Schlüssel</szLongItemName>
 		<szItemDesc>Ein glänzender Schlüssel, der wohl für kein gewöhnliches Schloss bestimmt ist.</szItemDesc>
-		<szBRName>glanzender Schlüssel</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Glänzender Schlüssel</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>276</uiIndex>
@@ -2199,159 +2199,159 @@
 		<szLongItemName>Schlüssel für Vorhängeschloss</szLongItemName>
 		<szItemDesc>Ein Schlüssel für ein Vorhängeschloss.</szItemDesc>
 		<szBRName>Schlüssel für Vorhängeschloss</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>277</uiIndex>
 		<szItemName>Schlüssel</szItemName>
-		<szLongItemName>elektronischer Schlüssel</szLongItemName>
+		<szLongItemName>Elektronischer Schlüssel</szLongItemName>
 		<szItemDesc>Ein elektronischer Schlüssel mit Magnetstreifen.</szItemDesc>
-		<szBRName>Electronic Schlüssel</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Elektronischer Schlüssel</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>278</uiIndex>
 		<szItemName>Codekarte</szItemName>
 		<szLongItemName>Codekarte</szLongItemName>
-		<szItemDesc>Eine elektronische Codekarte</szItemDesc>
+		<szItemDesc>Eine elektronische Codekarte.</szItemDesc>
 		<szBRName>Codekarte</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>279</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 279</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>280</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 280</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>281</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 281</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>282</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 282</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>283</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 283</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>284</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 284</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>285</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 285</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>286</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 286</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>287</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 287</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>288</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 288</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>289</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 289</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>290</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 290</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>291</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 291</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>292</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 292</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>293</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 293</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>294</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 294</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>295</uiIndex>
 		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
+		<szLongItemName>Nichts</szLongItemName>
 		<szItemDesc>Index 295</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szBRName>Nichts</szBRName>
+		<szBRDesc>Nichts</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>296</uiIndex>
@@ -2359,7 +2359,7 @@
 		<szLongItemName>T-Shirt</szLongItemName>
 		<szItemDesc>Echt geile Aufschrift - du mich auch!</szItemDesc>
 		<szBRName>T-Shirt</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>297</uiIndex>
@@ -2387,10 +2387,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>300</uiIndex>
-		<szItemName>leichtes Kampfmesser</szItemName>
-		<szLongItemName>leichtes Kampfmesser</szLongItemName>
+		<szItemName>Leichtes Kampfmesser</szItemName>
+		<szLongItemName>Leichtes Kampfmesser</szLongItemName>
 		<szItemDesc>Dieses Kampfmesser mit massivem Heft verwandelt Sie in eine rotierende Killer-Maschine, die den schnellen und leisen Tod bringt.</szItemDesc>
-		<szBRName>leichtes Kampfmesser</szBRName>
+		<szBRName>Leichtes Kampfmesser</szBRName>
 		<szBRDesc>Dieses Kampfmesser mit massivem Heft verwandelt Sie in eine rotierende Killer-Maschine, die den schnellen und leisen Tod bringt.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -2399,7 +2399,7 @@
 		<szLongItemName>Cuttermesser</szLongItemName>
 		<szItemDesc>Dieses Messer eignet sich hervorragend zum Teppich verlegen, im Kampf eher nutzlos.</szItemDesc>
 		<szBRName>Cuttermesser</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>302</uiIndex>
@@ -2412,10 +2412,10 @@
 	<ITEM>
 		<uiIndex>303</uiIndex>
 		<szItemName>Servierplatte</szItemName>
-		<szLongItemName>silberne Servierplatte</szLongItemName>
+		<szLongItemName>Silberne Servierplatte</szLongItemName>
 		<szItemDesc>Dieses Silbertablett ist schon ziemlich angelaufen und hat keine Gravur. Aber es war früher wohl einmal ein sehr sinnvolles Geschenk.</szItemDesc>
-		<szBRName>silberne Servierplatte</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRName>Silberne Servierplatte</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>304</uiIndex>
@@ -2423,7 +2423,7 @@
 		<szLongItemName>Klebeband</szLongItemName>
 		<szItemDesc>Mit dieser Rolle 5cm breiten Klebebandes lassen sich wunderbar Löcher stopfen und Dinge zusammenhalten.</szItemDesc>
 		<szBRName>Klebeband</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>305</uiIndex>
@@ -2431,7 +2431,7 @@
 		<szLongItemName>Aluminiumstange</szLongItemName>
 		<szItemDesc>Eine an beiden Enden abgebrochene Gardinenstange aus Alu. Was wohl mit den Gardinen passiert ist?</szItemDesc>
 		<szBRName>Aluminiumstange</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>306</uiIndex>
@@ -2439,7 +2439,7 @@
 		<szLongItemName>Feder</szLongItemName>
 		<szItemDesc>Eine kleine, stählerne Spiralfeder, wie man sie in vielen Haushaltsgeräten und Küchenhilfen findet.</szItemDesc>
 		<szBRName>Feder</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>307</uiIndex>
@@ -2447,15 +2447,15 @@
 		<szLongItemName>Bolzen &amp; Feder</szLongItemName>
 		<szItemDesc>Mit diesem Bolzen-Feder-System verleihen Sie Ihrer Waffe eine größere Schussrate!</szItemDesc>
 		<szBRName>Bolzen &amp; Feder</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>308</uiIndex>
 		<szItemName>Stahlrohr</szItemName>
 		<szLongItemName>Stahlrohr</szLongItemName>
-		<szItemDesc>Ein länglicher Stahlzylinder mit einer Bohrung zwischen 5,45 und 12,5 Millimetern. Müßte man mal nachmessen...</szItemDesc>
+		<szItemDesc>Ein länglicher Stahlzylinder mit einer Bohrung zwischen 5,45 und 12,5 Millimetern. Müsste man mal nachmessen...</szItemDesc>
 		<szBRName>Stahlrohr</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>309</uiIndex>
@@ -2463,7 +2463,7 @@
 		<szLongItemName>Sekundenkleber</szLongItemName>
 		<szItemDesc>Wenn dieser Kleber einmal anfängt zu wirken, dann hält er für immer. Die meisten Materialien haften nach weniger als drei Minuten.</szItemDesc>
 		<szBRName>Sekundenkleber</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>310</uiIndex>
@@ -2471,7 +2471,7 @@
 		<szLongItemName>Laufverlängerung</szLongItemName>
 		<szItemDesc>Verlängern Sie mit diesem Zusatzgerät den Lauf Ihrer Waffe und Sie werden über ihre neue Reichweite staunen.</szItemDesc>
 		<szBRName>Laufverlängerung</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>311</uiIndex>
@@ -2479,7 +2479,7 @@
 		<szLongItemName>Schnur</szLongItemName>
 		<szItemDesc>Ein Stück Schnur, ca. 5m lang.</szItemDesc>
 		<szBRName>Schnur</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>312</uiIndex>
@@ -2487,7 +2487,7 @@
 		<szLongItemName>Blechdose</szLongItemName>
 		<szItemDesc>Eine leere Cola-Dose.</szItemDesc>
 		<szBRName>Blechdose</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>313</uiIndex>
@@ -2495,7 +2495,7 @@
 		<szLongItemName>Blechdose mit Schnur</szLongItemName>
 		<szItemDesc>Ein Stück Schnur und eine Blechdose machen eine menge Krach, wenn Sie bei einer Hochzeit an die Stoßstange eines Autos gebunden werden.</szItemDesc>
 		<szBRName>Blechdose mit Schnur</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>314</uiIndex>
@@ -2503,14 +2503,14 @@
 		<szLongItemName>Murmeln</szLongItemName>
 		<szItemDesc>Besonders kleine Jungs mögen diese runden, glänzenden, bunten und erstaunlich schweren Glaskugeln. Man benutzt sie eigentlich nur zum Spielen.</szItemDesc>
 		<szBRName>Murmeln</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>315</uiIndex>
 		<szItemName>LameBoy</szItemName>
 		<szLongItemName>LameBoy Display</szLongItemName>
 		<szBRName>LameBoy Display</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>316</uiIndex>
@@ -2518,7 +2518,7 @@
 		<szLongItemName>Kupferdraht</szLongItemName>
 		<szItemDesc>Ganz normaler Kupferdraht, eignet sich hervorragend für elektrische Basteleien.</szItemDesc>
 		<szBRName>Kupferdraht</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>317</uiIndex>
@@ -2526,22 +2526,22 @@
 		<szLongItemName>Display</szLongItemName>
 		<szItemDesc>Dieses komische Ding mit den Kupferdrähten war wohl mal das LC-Display von einem LameBoy.</szItemDesc>
 		<szBRName>Display</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>318</uiIndex>
 		<szItemName>FumblePak</szItemName>
 		<szLongItemName>FumblePak</szLongItemName>
 		<szBRName>FumblePak</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>319</uiIndex>
-		<szItemName>X-ray Tube</szItemName>
+		<szItemName>Röntgenröhre</szItemName>
 		<szLongItemName>Röntgenröhre</szLongItemName>
 		<szItemDesc>Dies ist ein Teil eines Röntgengerätes.</szItemDesc>
 		<szBRName>Röntgenröhre</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>320</uiIndex>
@@ -2549,7 +2549,7 @@
 		<szLongItemName>Kaugummi</szLongItemName>
 		<szItemDesc>Eine Packung zuckerfreier Spearmint-Kaugummi. Zahnärzte empfehlen, nach jedem Essen einen zu kauen, wenn gerade keine Zahnbürste zur Hand ist.</szItemDesc>
 		<szBRName>Kaugummi</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>321</uiIndex>
@@ -2557,14 +2557,14 @@
 		<szLongItemName>Röntgengerät</szLongItemName>
 		<szItemDesc>Sieht fesch aus, ist aber schwierig zu bedienen. Der Apparat besteht aus verschiedenen Teilen. Sieht so aus, als würde er jeden Moment zu leuchten und zu vibrieren anfangen.</szItemDesc>
 		<szBRName>Röntgengerät</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>322</uiIndex>
 		<szItemName>Batterien</szItemName>
 		<szLongItemName>Batterien</szLongItemName>
 		<szBRName>Batterien</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>323</uiIndex>
@@ -2572,15 +2572,15 @@
 		<szLongItemName>Gummiband</szLongItemName>
 		<szItemDesc>Elastisch und gut. Diese altbekannte Erfindung eignet sich hervorragend, um ein paar Dinge zusammenzuhalten.</szItemDesc>
 		<szBRName>Gummiband</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>324</uiIndex>
-		<szItemName>Röntgenstrahlen Detektor</szItemName>
+		<szItemName>Röntgenstrahlen-Detektor</szItemName>
 		<szLongItemName>Röntgenstrahlen-Detektor</szLongItemName>
 		<szItemDesc>Dieser Röntgenapparat Marke Eigenbau sieht so aus, als könnte er sogar funktionieren, einen vibrierenden Röntgenimpuls aussenden und das Ergebnis auf dem Display anzeigen. Batterien benötigt.</szItemDesc>
 		<szBRName>Röntgenstrahlen-Detektor</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>325</uiIndex>
@@ -2588,7 +2588,7 @@
 		<szLongItemName>Silber-Klumpen</szLongItemName>
 		<szItemDesc>Ein Klumpen aus purem Silber, wahrscheinlich direkt aus einer arulcanischen Mine.</szItemDesc>
 		<szBRName>Silber-Klumpen</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>326</uiIndex>
@@ -2596,7 +2596,7 @@
 		<szLongItemName>Gold-Klumpen</szLongItemName>
 		<szItemDesc>Fast so gut wie Cash, nur schwerer. Dies ist ein glänzender, beeindruckender Goldklumpen. Mit besten Grüßen aus Arulcos Minen.</szItemDesc>
 		<szBRName>Gold-Klumpen</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>327</uiIndex>
@@ -2604,7 +2604,7 @@
 		<szLongItemName>Benzinkanister</szLongItemName>
 		<szItemDesc>Gehen Sie mit diesem Benzin sorgfältig um. Wir sind hier in Arulco!</szItemDesc>
 		<szBRName>Benzinkanister</szBRName>
-		<szBRDesc>Not for sale through BR.</szBRDesc>
+		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>328</uiIndex>
