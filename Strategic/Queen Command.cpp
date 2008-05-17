@@ -1206,9 +1206,12 @@ void AddPossiblePendingEnemiesToBattle()
 	static UINT8 ubPredefinedInsertionCode = 255;
 
 	// haydent
-	if ((is_client && !is_server) || ENEMY_ENABLED==0)
+	if (is_networked)
 	{
-		return;
+		if ((is_client && !is_server) || ENEMY_ENABLED==0)
+		{
+			return;
+		}
 	}
 
 	// check if no world is loaded

@@ -881,7 +881,11 @@ void recieveAI (RPCParameters *rpcParameters)
 		new_standard_data.bMedical = send_inv->standard_data.bMedical;
 		new_standard_data.bMorale = send_inv->standard_data.bMorale;
 		new_standard_data.bOrders = send_inv->standard_data.bOrders;
-		memcpy( new_standard_data.PADDINGSLOTS, send_inv->standard_data.PADDINGSLOTS, sizeof( INT8 ) * 14 );
+		
+		// WANNE - MP: I had to remove this line of code, because PADDINGSLOTS in the structure
+		// breaks the editor and leads to crashed of modifed maps!
+		//memcpy( new_standard_data.PADDINGSLOTS, send_inv->standard_data.PADDINGSLOTS, sizeof( INT8 ) * 14 );
+		
 		new_standard_data.bPatrolCnt = send_inv->standard_data.bPatrolCnt;
 		new_standard_data.bSectorZ = send_inv->standard_data.bSectorZ;
 		new_standard_data.bStrength = send_inv->standard_data.bStrength;

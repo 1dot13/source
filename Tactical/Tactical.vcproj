@@ -333,7 +333,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer;&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\;..\Utils;..\tacticalai;..\Editor;..\strategic;..\lua;..\Laptop;.\"
+				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\;..\Utils;..\tacticalai;..\Editor;..\strategic;..\lua;..\Laptop;.\"
 				PreprocessorDefinitions="CALLBACKTIMER;PRECOMPILEDHEADERS;_DEBUG;WIN32;_WINDOWS;JA2;_VTUNE_PROFILING;XML_STATIC;CINTERFACE"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
@@ -390,7 +390,7 @@
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="3"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="..\Multiplayer;..\lua;&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\;..\Utils;..\tacticalai;..\Editor;..\strategic;..\Laptop;.\"
+				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\;..\Utils;..\tacticalai;..\Editor;..\strategic;..\Laptop;.\"
 				PreprocessorDefinitions="CALLBACKTIMER;PRECOMPILEDHEADERS;NDEBUG;WIN32;_WINDOWS;JA2;XML_STATIC;CINTERFACE"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
