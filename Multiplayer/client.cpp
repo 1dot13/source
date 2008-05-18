@@ -241,6 +241,7 @@ char ckbag[100];
 
  int REPORT_NAME;
  int WEAPON_READIED_BONUS;
+ int ALLOW_CUSTOM_NIV;
 
  int ENEMY_ENABLED;
  int CREATURE_ENABLED;
@@ -567,6 +568,15 @@ void send_hire( UINT8 iNewIndex, UINT8 ubCurrentSoldier, INT16 iTotalContractLen
 			SOLDIERTYPE *pSoldier = MercPtrs[ iNewIndex ];
 			pSoldier->ubStrategicInsertionCode=(atoi(SECT_EDGE)); // this sets the param read from the ini for your starting sector edge...
 			
+			if(ubCurrentSoldier==64)//slay
+			{
+			pSoldier->ubBodyType = REGMALE;
+			//pSoldier->EVENT_InitNewSoldierAnim( STANDING, 0 , TRUE );
+			gMercProfiles[ pSoldier->ubProfile ].ubBodyType = REGMALE;
+
+			}
+
+
 			ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[44], pSoldier->name);
 
 			
@@ -645,13 +655,18 @@ void recieveHIRE(RPCParameters *rpcParameters)
 	gMercProfiles[ pSoldier->ubProfile ].ubMiscFlags |= PROFILE_MISC_FLAG_RECRUITED;
 	if(!SAME_MERC)gMercProfiles[ pSoldier->ubProfile ].bMercStatus = MERC_WORKING_ELSEWHERE;
 	pSoldier->bSide=0; //default coop only
+
+			if(MercCreateStruct.ubProfile==64)//slay
+			{
+			pSoldier->ubBodyType = REGMALE;
+			//pSoldier->EVENT_InitNewSoldierAnim( STANDING, 0 , TRUE );
+			gMercProfiles[ pSoldier->ubProfile ].ubBodyType = REGMALE;
+
+			}	
+	
 	if(PLAYER_BSIDE==0)//all vs all only
 	{
 		pSoldier->bSide=1;
-	//if(MercCreateStruct.bTeam==6)pSoldier->bSide=OP_TEAM_1;
-	//	if(MercCreateStruct.bTeam==7)pSoldier->bSide=OP_TEAM_2;
-	//		if(MercCreateStruct.bTeam==8)pSoldier->bSide=OP_TEAM_3;
-	//	if(MercCreateStruct.bTeam==9)pSoldier->bSide=OP_TEAM_4;
 		
 	}
 	if(PLAYER_BSIDE==1) //allow teams
@@ -1846,7 +1861,7 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 			gGameOptions.fIronManMode=cl_lan->sofIronManMode;
 			gGameOptions.ubBobbyRay=cl_lan->soubBobbyRay;
 
-			//gGameOptions.ubInventorySystem=cl_lan->sofNewInv;
+			
 
 			if(!cl_lan->soDis_Bobby)LaptopSaveInfo.fBobbyRSiteCanBeAccessed = TRUE;
 
@@ -1879,6 +1894,8 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 			InitNewGameClock( );
 						
 			WEAPON_READIED_BONUS=cl_lan->WEAPON_READIED_BONUS;
+			ALLOW_CUSTOM_NIV=cl_lan->ALLOW_CUSTOM_NIV;
+			if(ALLOW_CUSTOM_NIV==0)gGameOptions.ubInventorySystem=cl_lan->sofNewInv;
 
 			
 			ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[26],cl_lan->client_num,szDefault,cl_lan->cl_edge,cl_lan->team );
@@ -2598,10 +2615,7 @@ void connect_client ( void )
 			gTacticalStatus.uiFlags&= (~SHOW_ALL_MERCS );
 			memset( &readyteamreg , 0 , sizeof (int) * 10);
 
-			 ENEMY_ENABLED=0;
-			 CREATURE_ENABLED=0;
-			 MILITIA_ENABLED=0;
-			 CIV_ENABLED=0;
+
 
 			//retrieve settings from Ja2_mp.ini
 			char ip[30];
@@ -2688,6 +2702,8 @@ void connect_client ( void )
 				LaptopSaveInfo.gubLastMercIndex = LAST_MERC_ID;
 				
 				LaptopSaveInfo.ubLastMercAvailableId = 7;
+				gGameExternalOptions.fEnableSlayForever	=1;
+				LaptopSaveInfo.gubPlayersMercAccountStatus = 4;
 				
 				extern BOOLEAN gfTemporaryDisablingOfLoadPendingFlag;
 				gfTemporaryDisablingOfLoadPendingFlag = TRUE;
@@ -2703,6 +2719,7 @@ void connect_client ( void )
 				gMercProfiles[ 64 ].sSalary = 1500;
 				gMercProfiles[ 72 ].sSalary = 1000;
 				gMercProfiles[ 148 ].sSalary = 100;
+				gMercProfiles[ 68 ].sSalary = 2200; //iggy;
 
 							
 			//**********************

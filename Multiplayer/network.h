@@ -36,7 +36,7 @@ typedef struct
 	BOOLEAN	sofTurnTimeLimit;
 	BOOLEAN	sofIronManMode;
 	UINT8	soubBobbyRay;
-	//BOOLEAN sofNewInv;	// WANNE - MP: New inventory: Removed, so now each client can decide if playing with old or new inventory
+	BOOLEAN sofNewInv;
 	INT32 gsMAX_MERCS;
 	UINT8 client_num;
 	char client_name[30];
@@ -50,6 +50,7 @@ typedef struct
 	int cl_edge;
 	float TIME;
 	int WEAPON_READIED_BONUS;
+	int ALLOW_CUSTOM_NIV;
 } settings_struct;
 
 //typedef struct

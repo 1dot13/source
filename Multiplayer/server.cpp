@@ -48,6 +48,7 @@ INT32 gssecs_per_tick;
 INT32 gsstarting_balance;
 float TIME;
 int sWEAPON_READIED_BONUS;
+int sALLOW_CUSTOM_NIV;
 
 unsigned char SGetPacketIdentifier(Packet *p);
 unsigned char SpacketIdentifier;
@@ -342,7 +343,7 @@ void requestSETTINGS(RPCParameters *rpcParameters )
 				lan.sofIronManMode=gGameOptions.fIronManMode;
 				lan.starting_balance=gsstarting_balance;
 	
-				//lan.sofNewInv=gGameOptions.ubInventorySystem;
+				lan.sofNewInv=gGameOptions.ubInventorySystem;
 
 				lan.soDis_Bobby=gsDis_Bobby;
 				lan.soDis_Equip=gsDis_Equip;
@@ -351,17 +352,15 @@ void requestSETTINGS(RPCParameters *rpcParameters )
 				
 				memcpy( lan.client_names , client_names, sizeof( char ) * 4 * 30 );
 				lan.team=clinf->team;
-				//lan.cl_ops[0]=clinf->cl_ops[0];
-				//lan.cl_ops[1]=clinf->cl_ops[1];
-				//lan.cl_ops[2]=clinf->cl_ops[2];
-				//lan.cl_ops[3]=clinf->cl_ops[3];
-				//memcpy(lan.cl_ops,clinf->cl_ops,sizeof(int)*4);
-////
+
+
 				lan.TESTING=gsTESTING;
 
 				lan.cl_edge=clinf->cl_edge;
 				lan.TIME=TIME;
 				lan.WEAPON_READIED_BONUS=sWEAPON_READIED_BONUS;
+				lan.ALLOW_CUSTOM_NIV=sALLOW_CUSTOM_NIV;
+
 
 		server->RPC("recieveSETTINGS",(const char*)&lan, (int)sizeof(settings_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
 
@@ -474,6 +473,11 @@ void start_server (void)
 
 			gsPLAYER_BSIDE = atoi(player_bside);
 
+			 ENEMY_ENABLED=0;
+			 CREATURE_ENABLED=0;
+			 MILITIA_ENABLED=0;
+			 CIV_ENABLED=0;
+
 if(gsPLAYER_BSIDE==2)//only enable ai during coop
 {
 			ENEMY_ENABLED =atoi(bteam1_enabled);
@@ -498,6 +502,10 @@ if(gsPLAYER_BSIDE==2)//only enable ai during coop
 			char wpr[30];
 			GetPrivateProfileString( "Ja2_mp Settings","WEAPON_READIED_BONUS", "", wpr, MAX_PATH, "..\\Ja2_mp.ini" );
 			sWEAPON_READIED_BONUS=atoi(wpr);
+
+				char acniv[30];
+			GetPrivateProfileString( "Ja2_mp Settings","ALLOW_CUSTOM_NIV", "", acniv, MAX_PATH, "..\\Ja2_mp.ini" );
+			sALLOW_CUSTOM_NIV=atoi(acniv);
 
 			//**********************
 

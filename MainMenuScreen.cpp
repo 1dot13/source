@@ -395,8 +395,8 @@ void InitDependingGameStyleOptions(BOOLEAN isNetworked)
 
 	if (isNetworked)
 	{
-		NUMBER_OF_MERCS = 27;
-		LAST_MERC_ID = 26;
+		NUMBER_OF_MERCS = 28;
+		LAST_MERC_ID = 27;
 	}
 	else
 	{

@@ -27,6 +27,7 @@
 	#include "Quests.h"
 #endif
 
+#include "connect.h"
 
 UINT8	NUMBER_OF_MERCS;
 UINT8	LAST_MERC_ID;
@@ -362,6 +363,7 @@ void GameInitMercs()
 	gubMercArray[ 24 ] = 69;
 	gubMercArray[ 25 ] = 70;
 	gubMercArray[ 26 ] = 72;		
+	gubMercArray[ 27 ] = 64;
 
 	LaptopSaveInfo.gubPlayersMercAccountStatus = MERC_NO_ACCOUNT;
 	gubCurMercIndex = 0;
@@ -1068,6 +1070,8 @@ void InitMercVideoFace()
 
 BOOLEAN	StartSpeckTalking(UINT16 usQuoteNum)
 {
+
+	if(is_networked)return( FALSE );
 	if( usQuoteNum == MERC_VIDEO_SPECK_SPEECH_NOT_TALKING || usQuoteNum == MERC_VIDEO_SPECK_HAS_TO_TALK_BUT_QUOTE_NOT_CHOSEN_YET )
 		return( FALSE );
 
@@ -2161,6 +2165,8 @@ BOOLEAN ShouldSpeckStartTalkingDueToActionOnSubPage()
 
 BOOLEAN ShouldSpeckSayAQuote()
 {
+
+
 	//if we are entering from anywhere except a sub page, and we should say the opening quote
 	if( gfJustEnteredMercSite && gubArrivedFromMercSubSite == MERC_CAME_FROM_OTHER_PAGE )
 	{

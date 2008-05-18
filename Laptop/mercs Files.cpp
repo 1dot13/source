@@ -535,6 +535,7 @@ void DisplayMercsStats( UINT8 ubMercID )
 {
 	UINT16 usPosY, usPosX;
 	CHAR16 sString[128];
+	CHAR16 NsString[128];
 
 	usPosY = MERC_HEALTH_Y;
 
@@ -599,7 +600,10 @@ void DisplayMercsStats( UINT8 ubMercID )
 
 	usPosX = MERC_STATS_SECOND_COL_X + StringPixLength(MercInfo[MERC_FILES_SALARY], MERC_NAME_FONT) + 1;
 	swprintf(sString, L"%d %s", gMercProfiles[ ubMercID ].sSalary, MercInfo[MERC_FILES_PER_DAY]);
+	swprintf(NsString, L"+ %d gear.",gMercProfiles[ ubMercID ].usOptionalGearCost);
+
 	DrawTextToScreen( sString, usPosX, usPosY, 95, MERC_NAME_FONT, MERC_DYNAMIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+	if(is_networked && ALLOW_EQUIP)DrawTextToScreen( NsString, usPosX, usPosY+MERC_SPACE_BN_LINES, 95, MERC_NAME_FONT, MERC_DYNAMIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 }
 
 
@@ -608,6 +612,7 @@ BOOLEAN MercFilesHireMerc(UINT8 ubMercID)
 {
 	MERC_HIRE_STRUCT HireMercStruct;
 	INT8	bReturnCode;
+	INT32 Namount=0;
 
 	memset(&HireMercStruct, 0, sizeof(MERC_HIRE_STRUCT));
 
@@ -652,7 +657,11 @@ BOOLEAN MercFilesHireMerc(UINT8 ubMercID)
 	//Set the time and ID of the last hired merc will arrive
 //	LaptopSaveInfo.sLastHiredMerc.iIdOfMerc = HireMercStruct.ubProfileID;
 //	LaptopSaveInfo.sLastHiredMerc.uiArrivalTime = HireMercStruct.uiTimeTillMercArrives;
-	if(is_networked && (gMercProfiles[ ubMercID ].sSalary > LaptopSaveInfo.iCurrentBalance)		)
+
+				Namount += gMercProfiles[ ubMercID ].sSalary * (-1);
+			if(ALLOW_EQUIP)Namount += gMercProfiles[ubMercID].usOptionalGearCost * (-1);
+
+		if(is_networked && (Namount*(-1) > LaptopSaveInfo.iCurrentBalance))
 		{
 			DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, sATMText[ 4 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
 			return(FALSE);//not enough big ones $$$sATMText
@@ -673,7 +682,11 @@ BOOLEAN MercFilesHireMerc(UINT8 ubMercID)
 	{
 		//take off nominal fee: hayden,
 		if (is_networked) 
-			AddTransactionToPlayersBook( HIRED_MERC, ubMercID, GetWorldTotalMin(), gMercProfiles[ ubMercID ].sSalary * (-1) );
+		{
+			
+
+			AddTransactionToPlayersBook( HIRED_MERC, ubMercID, GetWorldTotalMin(), Namount );
+	}
 		//if we succesfully hired the merc
 		return(TRUE);
 	}
