@@ -113,6 +113,7 @@ unsigned char packetIdentifier;
 
 #include "laptop.h"
 #include "test_space.h"
+#include "interface panels.h"
 
 
 
@@ -1895,7 +1896,35 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 						
 			WEAPON_READIED_BONUS=cl_lan->WEAPON_READIED_BONUS;
 			ALLOW_CUSTOM_NIV=cl_lan->ALLOW_CUSTOM_NIV;
-			if(ALLOW_CUSTOM_NIV==0)gGameOptions.ubInventorySystem=cl_lan->sofNewInv;
+			
+			
+			if(ALLOW_CUSTOM_NIV==0)
+			{	
+				// WANNE - MP: If the clients has selected another inventory than the server had choosen.
+				if (gGameOptions.ubInventorySystem != cl_lan->sofNewInv)
+				{
+					gGameOptions.ubInventorySystem=cl_lan->sofNewInv;
+
+					// WANNE - MP: We have to re-initialize the correct interface
+					if((UsingNewInventorySystem() == true) && IsNIVModeValid(true))
+					{
+						InitNewInventorySystem();
+						InitializeSMPanelCoordsNew();
+						InitializeInvPanelCoordsNew();
+					}
+					else
+					{
+						gGameOptions.ubInventorySystem = 0;
+						InitOldInventorySystem();
+						InitializeSMPanelCoordsOld();
+						InitializeInvPanelCoordsOld();
+					}
+
+					// WANNE - MP: We also have to reinitialize the merc profiles because
+					// they depend on the inventory!
+					LoadMercProfiles();
+				}
+			}
 
 			
 			ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[26],cl_lan->client_num,szDefault,cl_lan->cl_edge,cl_lan->team );
