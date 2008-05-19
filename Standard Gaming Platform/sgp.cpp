@@ -387,11 +387,11 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 			break;
 		case FALSE: // We are suspending direct draw
 
-			if (iScreenMode == 0)
+			//if (iScreenMode == 0)
 			{
 #ifdef JA2
 						// pause the JA2 Global clock
-						PauseTime( TRUE );
+						//PauseTime( TRUE );
 						SuspendVideoManager();
 #else
 #ifndef UTIL 
@@ -406,7 +406,7 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
           MoveTimer(TIMER_SUSPEND);
 #endif
 
-          gfApplicationActive = FALSE;
+         // gfApplicationActive = FALSE;
           fRestore = TRUE;
 			}
 			break;
@@ -423,7 +423,7 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 		break;
 
 		case WM_SETFOCUS:
-			if (iScreenMode == 0)
+			//if (iScreenMode == 0)
 			{
 #if !defined( JA2 ) && !defined( UTIL )
 			if(!VideoInspectorIsEnabled())
