@@ -2130,7 +2130,10 @@ void recieveDEATH (RPCParameters *rpcParameters)
 	{
 		pSoldier->usAnimState=50;
 		ScreenMsg( FONT_YELLOW, MSG_CHAT, L"made merc corpse/dead");	
+		RemoveManAsTarget(pSoldier);
 		TurnSoldierIntoCorpse( pSoldier, TRUE, TRUE );
+	
+
 			if ( CheckForEndOfBattle( FALSE ) )
 			{
 			ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"All over red rover...");
