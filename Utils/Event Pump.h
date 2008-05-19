@@ -67,6 +67,7 @@ typedef struct
 	INT16		sYPos;
 	UINT16	usStartingAniCode;
 	BOOLEAN	fForce;
+	UINT8	usNewDirection;//hayden
 
 } EV_S_CHANGESTATE;
 
@@ -257,6 +258,7 @@ typedef struct
 	UINT16 usTactialTurnLimitCounter;
 	UINT16 usTactialTurnLimitMax;
 	UINT8	ubDirection;
+
 } EV_S_UPDATENETWORKSOLDIER;
 
 

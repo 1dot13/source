@@ -1744,9 +1744,7 @@ void requestSETTINGS(void)
 	//cl_name.client_num=CLIENT_NUM;
 	strcpy(cl_name.client_name , CLIENT_NAME);
 	cl_name.team=TEAM;
-	//cl_name.cl_ops[1]=OP_TEAM_2;
-	//cl_name.cl_ops[2]=OP_TEAM_3;
-	//cl_name.cl_ops[3]=OP_TEAM_4;
+
 	cl_name.cl_edge=atoi(SECT_EDGE);
 	
 
@@ -2042,8 +2040,19 @@ void recieveSTATE(RPCParameters *rpcParameters)
 
 	SOLDIERTYPE * pSoldier=MercPtrs[ new_state->usSoldierID ];
 
-	if(pSoldier->bActive)
+		if(pSoldier->bActive)
+		{
+			if(new_state->usNewState==93)
+			{
+				pSoldier->EVENT_InternalSetSoldierPosition( new_state->sXPos, new_state->sYPos ,FALSE, FALSE, FALSE );
+				pSoldier->ChangeSoldierStance( ANIM_CROUCH );
+				pSoldier->EVENT_SetSoldierDirection(	new_state->usNewDirection );
+
+			}
+			if(new_state->usNewState==95)ScreenMsg( FONT_YELLOW, MSG_CHAT, L"All Bandaged.");	
+
 		pSoldier->EVENT_InitNewSoldierAnim( new_state->usNewState, new_state->usStartingAniCode, new_state->fForce );
+		}
 //AddGameEvent( S_CHANGESTATE, 0, &SChangeState );
 	//someday ;)
 }
@@ -2291,12 +2300,15 @@ void UpdateSoldierToNetwork ( SOLDIERTYPE *pSoldier )
 
 			SUpdateNetworkSoldier.usSoldierID=pSoldier->ubID;
 			if(pSoldier->ubID < 20)SUpdateNetworkSoldier.usSoldierID=pSoldier->ubID+ubID_prefix;
-
+			
 			SUpdateNetworkSoldier.sAtGridNo=pSoldier->sGridNo;
 			SUpdateNetworkSoldier.bBreath=pSoldier->bBreath;
+			SUpdateNetworkSoldier.ubDirection=pSoldier->ubDirection;
+
 			SUpdateNetworkSoldier.bLife=pSoldier->stats.bLife;
 			SUpdateNetworkSoldier.bBleeding=pSoldier->bBleeding;
-			SUpdateNetworkSoldier.ubDirection=pSoldier->ubDirection;
+
+			
 
 			if((gTacticalStatus.ubTopMessageType == PLAYER_TURN_MESSAGE || gTacticalStatus.ubTopMessageType == PLAYER_INTERRUPT_MESSAGE || ((gTacticalStatus.ubTopMessageType == COMPUTER_INTERRUPT_MESSAGE || gTacticalStatus.ubTopMessageType == COMPUTER_TURN_MESSAGE )&& is_server)) && (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT))//update progress bar, not supporting coop yet...
 			{
@@ -2320,6 +2332,8 @@ void UpdateSoldierFromNetwork  (RPCParameters *rpcParameters)
 	SOLDIERTYPE *pSoldier = MercPtrs[ SUpdateNetworkSoldier->usSoldierID ];
 	pSoldier->bBreath=SUpdateNetworkSoldier->bBreath;
 	pSoldier->stats.bLife=SUpdateNetworkSoldier->bLife;
+
+
 
 
 			INT16  sCellX, sCellY;
@@ -2395,10 +2409,14 @@ void overide_turn (void)
 	if(is_server)
 	{
 	//manual overide command for server
-		const STR16 msg = MPClientMessage[30];
+		//const STR16 msg = MPClientMessage[30];
+		CHAR16 Cmsg[255];
+		swprintf(Cmsg, L"Start turn for client number: #1-'%S', #2-'%S', #3-'%S', #4-'%S'",client_names[0],client_names[1],client_names[2],client_names[3]);
+
+
 
 			SGPRect CenterRect = { 100, 100, SCREEN_WIDTH - 100, 300 };
-			DoMessageBox( MSG_BOX_BASIC_STYLE, msg,  guiCurrentScreen, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS | MSG_BOX_FLAG_USE_CENTERING_RECT, turn_callback,  &CenterRect );
+			DoMessageBox( MSG_BOX_BASIC_STYLE, Cmsg,  guiCurrentScreen, MSG_BOX_FLAG_FOUR_NUMBERED_BUTTONS | MSG_BOX_FLAG_USE_CENTERING_RECT, turn_callback,  &CenterRect );
 
 	}
 	else	ScreenMsg( FONT_LTGREEN, MSG_INTERFACE, MPClientMessage[22] );
@@ -2563,6 +2581,36 @@ if(is_server)
 }
 }
 
+void send_heal (SOLDIERTYPE *pSoldier )
+{
+	heal data;
+	data.ubID=pSoldier->ubID;
+	data.bLife=pSoldier->stats.bLife;
+	data.bBleeding=pSoldier->bBleeding;
+
+
+	client->RPC("sendHEAL",(const char*)&data, (int)sizeof(heal)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+
+}
+
+void recieve_heal (RPCParameters *rpcParameters)
+{
+	heal* data = (heal*)rpcParameters->input;
+
+
+	UINT16 healed;
+					if((data->ubID >= ubID_prefix) && (data->ubID < (ubID_prefix+5)))
+						healed = (data->ubID - ubID_prefix);
+					else
+						healed = data->ubID;
+
+	SOLDIERTYPE *pSoldier = MercPtrs[ healed ];
+	pSoldier->bBleeding=data->bBleeding;
+	pSoldier->stats.bLife=data->bLife;
+	ScreenMsg( FONT_LTGREEN, MSG_INTERFACE, L"healing..." );
+
+}
+
 //***************************
 //*** client connection*****
 //*************************
@@ -2609,6 +2657,7 @@ void connect_client ( void )
 			REGISTER_STATIC_RPC(client, null_team);
 			REGISTER_STATIC_RPC(client, gotoRT);
 			REGISTER_STATIC_RPC(client, recieve_wipe);
+			REGISTER_STATIC_RPC(client, recieve_heal);
 			//***
 			
 		if (b)

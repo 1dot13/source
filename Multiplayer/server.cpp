@@ -196,6 +196,11 @@ void sendWIPE(RPCParameters *rpcParameters)
 	server->RPC("recieve_wipe",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
 }
 
+void sendHEAL(RPCParameters *rpcParameters)
+{
+	server->RPC("recieve_heal",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
 void startCOMBAT(RPCParameters *rpcParameters)
 {
 	if(!( gTacticalStatus.uiFlags & INCOMBAT ))
@@ -554,6 +559,7 @@ if(gsPLAYER_BSIDE==2)//only enable ai during coop
 			REGISTER_STATIC_RPC(server, sendREAL);
 		REGISTER_STATIC_RPC(server, startCOMBAT);
 		REGISTER_STATIC_RPC(server, sendWIPE);
+			REGISTER_STATIC_RPC(server, sendHEAL);
 	//
 
 

@@ -2510,7 +2510,8 @@ BOOLEAN SOLDIERTYPE::ChangeSoldierState( UINT16 usNewState, UINT16 usStartingAni
 	SChangeState.sXPos						 = this->sX;
 	SChangeState.sYPos						 = this->sY;
 	SChangeState.fForce						 = fForce;
-	SChangeState.uiUniqueId				 = this->uiUniqueSoldierIdValue;
+	SChangeState.usNewDirection = this->ubDirection;
+
 
 	//AddGameEvent( S_CHANGESTATE, 0, &SChangeState );
 	if(is_server && this->ubID < 120)
@@ -6087,7 +6088,9 @@ void SOLDIERTYPE::SoldierGotoStationaryStance( void )
 	}
 	else if ( this->ubServicePartner != NOBODY && this->stats.bLife >= OKLIFE && this->bBreath > 0  )
 	{
-		this->EVENT_InitNewSoldierAnim( GIVING_AID, 0 , FALSE );
+		if(!is_networked)this->EVENT_InitNewSoldierAnim( GIVING_AID, 0 , FALSE );
+		else this->ChangeSoldierState( GIVING_AID, 0, 0 );			
+		
 	}
 	else
 	{
@@ -10631,7 +10634,9 @@ void SOLDIERTYPE::EVENT_SoldierBeginFirstAid( INT16 sGridNo, UINT8 ubDirection )
 		//else
 		{
 			// CHANGE TO ANIMATION
-			this->EVENT_InitNewSoldierAnim( START_AID, 0 , FALSE );
+			if(!is_networked)this->EVENT_InitNewSoldierAnim( START_AID, 0 , FALSE );
+			else this->ChangeSoldierState( START_AID, 0, 0 );
+
 		}
 
 		// SET TARGET GRIDNO
@@ -10873,6 +10878,7 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 		// DEXTERITY GAIN (actual / 6):  Helped someone by giving first aid
 		StatChange(this, DEXTAMT,    (UINT16)(uiActual / 6), FALSE);
 	}
+	if(is_networked && pVictim->ubID > 19)send_heal(pVictim);
 
 	return( uiMedcost );
 }
@@ -10908,7 +10914,8 @@ void SOLDIERTYPE::InternalReceivingSoldierCancelServices( BOOLEAN fPlayEndAnim )
 						// don't use end aid animation in autobandage
 						if ( pTSoldier->stats.bLife >= OKLIFE && pTSoldier->bBreath > 0 && fPlayEndAnim )
 						{
-							pTSoldier->EVENT_InitNewSoldierAnim( END_AID, 0 , FALSE );
+							if(!is_networked)pTSoldier->EVENT_InitNewSoldierAnim( END_AID, 0 , FALSE );
+							else pTSoldier->ChangeSoldierState( END_AID, 0, 0 );
 						}
 					}
 
@@ -10953,7 +10960,8 @@ void SOLDIERTYPE::InternalGivingSoldierCancelServices( BOOLEAN fPlayEndAnim )
 			if ( this->stats.bLife >= OKLIFE && this->bBreath > 0 && fPlayEndAnim )
 			{
 				// don't use end aid animation in autobandage
-				this->EVENT_InitNewSoldierAnim( END_AID, 0 , FALSE );
+					if(!is_networked)this->EVENT_InitNewSoldierAnim( END_AID, 0 , FALSE );
+					else this->ChangeSoldierState( END_AID, 0, 0 );	
 			}
 		}
 	}

@@ -16,6 +16,15 @@ typedef struct
 	INT16 sGridNo;
 	BOOLEAN fNoAnimations;
 }doors;
+
+typedef struct
+{
+UINT16 ubID;
+INT8 bLife;
+INT8 bBleeding;
+}heal;
+
+
 void send_door ( SOLDIERTYPE *pSoldier, INT16 sGridNo, BOOLEAN fNoAnimations );
 
 void send_changestate (EV_S_CHANGESTATE * SChangeState);
@@ -62,3 +71,4 @@ BOOLEAN check_status (void);
 extern UINT8 NumEnemyInSector( );
 extern INT8	NumActiveAndConsciousTeamMembers( UINT8 ubTeam );
 
+void send_heal (SOLDIERTYPE *pSoldier );
