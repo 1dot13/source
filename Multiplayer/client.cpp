@@ -2425,7 +2425,7 @@ void overide_turn (void)
 	//manual overide command for server
 		//const STR16 msg = MPClientMessage[30];
 		CHAR16 Cmsg[255];
-		swprintf(Cmsg, L"Start turn for client number: #1-'%S', #2-'%S', #3-'%S', #4-'%S'",client_names[0],client_names[1],client_names[2],client_names[3]);
+		swprintf(Cmsg, MPClientMessage[30], client_names[0],client_names[1],client_names[2],client_names[3]);
 
 
 

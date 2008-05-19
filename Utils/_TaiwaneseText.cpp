@@ -4339,8 +4339,8 @@ STR16 MPClientMessage[] =
 	L"'%s' (client %d - '%S') was killed by '%s' (client %d - '%S')",
 	L"Kicked client #%d - '%S'",
 	// 30
-	L"Start turn for client number:",
-	L"Starting turn for client #%d",
+	L"Start turn for client number: #1 - '%S' | #2 - '%S' | #3 - '%S' | #4 - '%S'",
+	L"Starting turn for client #%d",	
 	L"Requesting for realtime...",
 	L"Switched back to realtime.",
 	L"Error: Something went wrong switching back.",

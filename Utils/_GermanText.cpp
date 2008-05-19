@@ -4137,7 +4137,7 @@ STR16 MPClientMessage[] =
 	L"'%s' (Client #%d - '%S') was killed by '%s' (Client #%d - '%S')",
 	L"Werfe Client #%d - '%S' aus dem Spiel.",
 	// 30
-	L"Starte Spielzug für Client Nummer:",
+	L"Starte Spielzug für Client Nummer: #1 - '%S' | #2 - '%S' | #3 - '%S' | #4 - '%S'",
 	L"Starte Spielzug für Client #%d",
 	L"Anforderung für Echtzeit-Modus...",
 	L"In Echtzeit-Modus gewechselt.",
