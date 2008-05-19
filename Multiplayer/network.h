@@ -51,6 +51,7 @@ typedef struct
 	float TIME;
 	int WEAPON_READIED_BONUS;
 	int ALLOW_CUSTOM_NIV;
+	int DISABLE_SPEC_MODE;
 } settings_struct;
 
 //typedef struct

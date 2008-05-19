@@ -2514,20 +2514,19 @@ BOOLEAN SOLDIERTYPE::ChangeSoldierState( UINT16 usNewState, UINT16 usStartingAni
 
 
 	//AddGameEvent( S_CHANGESTATE, 0, &SChangeState );
-	if(is_server && this->ubID < 120)
+	if((is_server && this->ubID < 120)||(is_client && this->ubID < 20))
 	{
-	this->EVENT_InitNewSoldierAnim( SChangeState.usNewState, SChangeState.usStartingAniCode, SChangeState.fForce );
 		send_changestate(&SChangeState);
 	}
-	else if((is_client && !is_server) && (this->ubID < 20 || (this->ubID < 120 && gTacticalStatus.ubCurrentTeam == OUR_TEAM)))
-	{
+	//else if((is_client && !is_server) && (this->ubID < 20 || (this->ubID < 120 && gTacticalStatus.ubCurrentTeam == OUR_TEAM)))
+	//{
+	//	this->EVENT_InitNewSoldierAnim( SChangeState.usNewState, SChangeState.usStartingAniCode, SChangeState.fForce );
+	//	send_changestate(&SChangeState);
+	//}
+	//else if (!is_client)
+	//{
 		this->EVENT_InitNewSoldierAnim( SChangeState.usNewState, SChangeState.usStartingAniCode, SChangeState.fForce );
-		send_changestate(&SChangeState);
-	}
-	else if (!is_client)
-	{
-		this->EVENT_InitNewSoldierAnim( SChangeState.usNewState, SChangeState.usStartingAniCode, SChangeState.fForce );
-	}
+	//}
 	return( TRUE );
 }
 
@@ -11913,7 +11912,8 @@ void SoldierCollapse( SOLDIERTYPE *pSoldier )
 		else
 		{
 			pSoldier->BeginTyingToFall( );
-			pSoldier->EVENT_InitNewSoldierAnim( FALLFORWARD_FROMHIT_STAND, 0, FALSE );
+			if(!is_networked)pSoldier->EVENT_InitNewSoldierAnim( FALLFORWARD_FROMHIT_STAND, 0, FALSE );
+			else pSoldier->ChangeSoldierState( FALLFORWARD_FROMHIT_STAND, 0, FALSE );
 		}
 		break;
 
@@ -11926,7 +11926,8 @@ void SoldierCollapse( SOLDIERTYPE *pSoldier )
 		// then when real anims come, use them instead.
 		//if ( fMerc )
 		//{
-			pSoldier->EVENT_InitNewSoldierAnim( FALLFORWARD_FROMHIT_CROUCH, 0 , FALSE);
+			if(!is_networked)pSoldier->EVENT_InitNewSoldierAnim( FALLFORWARD_FROMHIT_CROUCH, 0 , FALSE);
+			else pSoldier->ChangeSoldierState( FALLFORWARD_FROMHIT_CROUCH, 0, FALSE );
 		//}
 		//else
 		//{
@@ -11950,7 +11951,8 @@ void SoldierCollapse( SOLDIERTYPE *pSoldier )
 			break;
 
 		default:
-			pSoldier->EVENT_InitNewSoldierAnim( PRONE_LAY_FROMHIT, 0 , FALSE );
+			if(!is_networked)pSoldier->EVENT_InitNewSoldierAnim( PRONE_LAY_FROMHIT, 0 , FALSE );
+			else pSoldier->ChangeSoldierState( PRONE_LAY_FROMHIT, 0, FALSE );
 			break;
 		}
 		break;

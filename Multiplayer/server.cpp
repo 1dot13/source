@@ -49,6 +49,7 @@ INT32 gsstarting_balance;
 float TIME;
 int sWEAPON_READIED_BONUS;
 int sALLOW_CUSTOM_NIV;
+int sDISABLE_SPEC_MODE;
 
 unsigned char SGetPacketIdentifier(Packet *p);
 unsigned char SpacketIdentifier;
@@ -365,6 +366,7 @@ void requestSETTINGS(RPCParameters *rpcParameters )
 				lan.TIME=TIME;
 				lan.WEAPON_READIED_BONUS=sWEAPON_READIED_BONUS;
 				lan.ALLOW_CUSTOM_NIV=sALLOW_CUSTOM_NIV;
+				lan.DISABLE_SPEC_MODE=sDISABLE_SPEC_MODE;
 
 
 		server->RPC("recieveSETTINGS",(const char*)&lan, (int)sizeof(settings_struct)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
@@ -511,6 +513,10 @@ if(gsPLAYER_BSIDE==2)//only enable ai during coop
 				char acniv[30];
 			GetPrivateProfileString( "Ja2_mp Settings","ALLOW_CUSTOM_NIV", "", acniv, MAX_PATH, "..\\Ja2_mp.ini" );
 			sALLOW_CUSTOM_NIV=atoi(acniv);
+
+							char dspec[30];
+			GetPrivateProfileString( "Ja2_mp Settings","DISABLE_SPEC_MODE", "", dspec, MAX_PATH, "..\\Ja2_mp.ini" );
+			sDISABLE_SPEC_MODE=atoi(dspec);
 
 			//**********************
 

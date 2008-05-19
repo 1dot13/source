@@ -72,3 +72,5 @@ extern UINT8 NumEnemyInSector( );
 extern INT8	NumActiveAndConsciousTeamMembers( UINT8 ubTeam );
 
 void send_heal (SOLDIERTYPE *pSoldier );
+
+extern int DISABLE_SPEC_MODE;

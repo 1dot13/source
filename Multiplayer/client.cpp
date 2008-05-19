@@ -243,6 +243,7 @@ char ckbag[100];
  int REPORT_NAME;
  int WEAPON_READIED_BONUS;
  int ALLOW_CUSTOM_NIV;
+ int DISABLE_SPEC_MODE;
 
  int ENEMY_ENABLED;
  int CREATURE_ENABLED;
@@ -1894,6 +1895,7 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 						
 			WEAPON_READIED_BONUS=cl_lan->WEAPON_READIED_BONUS;
 			ALLOW_CUSTOM_NIV=cl_lan->ALLOW_CUSTOM_NIV;
+			DISABLE_SPEC_MODE=cl_lan->DISABLE_SPEC_MODE;
 			
 			
 			if(ALLOW_CUSTOM_NIV==0)
@@ -2268,8 +2270,12 @@ BOOLEAN check_status (void)// any 'enemies' and clients left to fight ??
 				{		
 							wiped=1;
 							ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[40] );
-							gTacticalStatus.uiFlags |= SHOW_ALL_MERCS;//hayden
-							ScreenMsg( FONT_YELLOW, MSG_CHAT, MPClientMessage[41] );
+		if(!DISABLE_SPEC_MODE)
+		{
+		gTacticalStatus.uiFlags |= SHOW_ALL_MERCS;//hayden
+		ScreenMsg( FONT_YELLOW, MSG_CHAT, MPClientMessage[41] );
+		}
+		else ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"spectator mode disabled");
 							teamwiped();
 							ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[42] );
 
@@ -2310,7 +2316,7 @@ void UpdateSoldierToNetwork ( SOLDIERTYPE *pSoldier )
 
 			SUpdateNetworkSoldier.bLife=pSoldier->stats.bLife;
 			SUpdateNetworkSoldier.bBleeding=pSoldier->bBleeding;
-
+			SUpdateNetworkSoldier.ubNewStance=pSoldier->ubDesiredHeight;
 			
 
 			if((gTacticalStatus.ubTopMessageType == PLAYER_TURN_MESSAGE || gTacticalStatus.ubTopMessageType == PLAYER_INTERRUPT_MESSAGE || ((gTacticalStatus.ubTopMessageType == COMPUTER_INTERRUPT_MESSAGE || gTacticalStatus.ubTopMessageType == COMPUTER_TURN_MESSAGE )&& is_server)) && (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT))//update progress bar, not supporting coop yet...
@@ -2353,6 +2359,11 @@ void UpdateSoldierFromNetwork  (RPCParameters *rpcParameters)
 			{
 				pSoldier->EVENT_SetSoldierDesiredDirection( SUpdateNetworkSoldier->ubDirection );
 				//ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"sync ubid:%d dir %d to %d",pSoldier->ubID, pSoldier->ubDirection, SUpdateNetworkSoldier->ubDirection  );
+			}
+			if(pSoldier->ubDesiredHeight != SUpdateNetworkSoldier->ubNewStance && pSoldier->bCollapsed != TRUE)
+			{
+				pSoldier->ChangeSoldierStance( SUpdateNetworkSoldier->ubNewStance );
+				//ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"update stance");
 			}
 		
 
@@ -2719,6 +2730,7 @@ void connect_client ( void )
 			//INTERRUPTS=0;
 			DAMAGE_MULTIPLIER=0;
 			SAME_MERC=0;
+			DISABLE_SPEC_MODE=0;
 
 			GetPrivateProfileString( "Ja2_mp Settings","SERVER_IP", "", ip, MAX_PATH, "..\\Ja2_mp.ini" );
 			GetPrivateProfileString( "Ja2_mp Settings","SERVER_PORT", "", port, MAX_PATH, "..\\Ja2_mp.ini" );

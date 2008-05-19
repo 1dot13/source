@@ -6100,8 +6100,12 @@ void DeathNoMessageTimerCallback( void )
 	else	
 	{
 		ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[40] );
+		if(!DISABLE_SPEC_MODE)
+		{
 		gTacticalStatus.uiFlags |= SHOW_ALL_MERCS;//hayden
 		ScreenMsg( FONT_YELLOW, MSG_CHAT, MPClientMessage[41] );
+		}
+		else ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"spectator mode disabled");
 		teamwiped();
 	}
 }
@@ -8175,8 +8179,12 @@ void EndBattleWithUnconsciousGuysCallback( UINT8 bExitValue )
 	else	
 	{
 		ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[40] );
+		if(!DISABLE_SPEC_MODE)
+		{
 		gTacticalStatus.uiFlags |= SHOW_ALL_MERCS;//hayden
 		ScreenMsg( FONT_YELLOW, MSG_CHAT, MPClientMessage[41] );
+		}
+		else ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"spectator mode disabled");
 		teamwiped();
 	}
 }

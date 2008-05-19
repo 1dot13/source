@@ -258,6 +258,7 @@ typedef struct
 	UINT16 usTactialTurnLimitCounter;
 	UINT16 usTactialTurnLimitMax;
 	UINT8	ubDirection;
+	UINT8		ubNewStance;
 
 } EV_S_UPDATENETWORKSOLDIER;
 

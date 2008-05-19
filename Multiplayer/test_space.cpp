@@ -113,7 +113,7 @@ void test_func2 (void)//now bound to "0" //currently displays coordinates of the
 
 SOLDIERTYPE * pSoldier=MercPtrs[ 0 ];
 
-RemoveOneOpponent( pSoldier );
+//RemoveOneOpponent( pSoldier );
 //SOLDIERTYPE * pSoldier2=MercPtrs[ 127 ];
 //
 ////pSoldier->AdjustNoAPToFinishMove( TRUE );
