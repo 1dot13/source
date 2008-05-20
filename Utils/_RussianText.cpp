@@ -204,7 +204,7 @@ CHAR16 TeamTurnString[][STRING_LENGTH] =
 	L"Ход Противника",
 	L"Ход Тварей",
 	L"Ход Ополчения",
-	L"Ход Гражданских"
+	L"Ход Гражданских",
 	L"Player_Plan",// planning turn
 	L"Client #1",//hayden
 	L"Client #2",//hayden
