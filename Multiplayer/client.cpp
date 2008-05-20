@@ -2051,7 +2051,7 @@ void recieveSTATE(RPCParameters *rpcParameters)
 				pSoldier->EVENT_SetSoldierDirection(	new_state->usNewDirection );
 
 			}
-			if(new_state->usNewState==95)ScreenMsg( FONT_YELLOW, MSG_CHAT, L"All Bandaged.");	
+			//if(new_state->usNewState==95)ScreenMsg( FONT_YELLOW, MSG_CHAT, L"All Bandaged.");	
 
 		pSoldier->EVENT_InitNewSoldierAnim( new_state->usNewState, new_state->usStartingAniCode, new_state->fForce );
 		}
@@ -2316,7 +2316,7 @@ void UpdateSoldierToNetwork ( SOLDIERTYPE *pSoldier )
 
 			SUpdateNetworkSoldier.bLife=pSoldier->stats.bLife;
 			SUpdateNetworkSoldier.bBleeding=pSoldier->bBleeding;
-			SUpdateNetworkSoldier.ubNewStance=pSoldier->ubDesiredHeight;
+			SUpdateNetworkSoldier.ubNewStance= gAnimControl[ pSoldier->usAnimState ].ubEndHeight;
 			
 
 			if((gTacticalStatus.ubTopMessageType == PLAYER_TURN_MESSAGE || gTacticalStatus.ubTopMessageType == PLAYER_INTERRUPT_MESSAGE || ((gTacticalStatus.ubTopMessageType == COMPUTER_INTERRUPT_MESSAGE || gTacticalStatus.ubTopMessageType == COMPUTER_TURN_MESSAGE )&& is_server)) && (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT))//update progress bar, not supporting coop yet...
@@ -2360,7 +2360,7 @@ void UpdateSoldierFromNetwork  (RPCParameters *rpcParameters)
 				pSoldier->EVENT_SetSoldierDesiredDirection( SUpdateNetworkSoldier->ubDirection );
 				//ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"sync ubid:%d dir %d to %d",pSoldier->ubID, pSoldier->ubDirection, SUpdateNetworkSoldier->ubDirection  );
 			}
-			if(pSoldier->ubDesiredHeight != SUpdateNetworkSoldier->ubNewStance && pSoldier->bCollapsed != TRUE)
+			if(gAnimControl[ pSoldier->usAnimState ].ubEndHeight != SUpdateNetworkSoldier->ubNewStance && pSoldier->bCollapsed != TRUE)
 			{
 				pSoldier->ChangeSoldierStance( SUpdateNetworkSoldier->ubNewStance );
 				//ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"update stance");
