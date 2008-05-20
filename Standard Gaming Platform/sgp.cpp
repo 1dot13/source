@@ -387,7 +387,7 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 			break;
 		case FALSE: // We are suspending direct draw
 
-			//if (iScreenMode == 0)
+			if (iScreenMode == 0)//hayden
 			{
 #ifdef JA2
 						// pause the JA2 Global clock
