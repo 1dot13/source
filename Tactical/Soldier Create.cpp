@@ -48,6 +48,7 @@
 #endif
 
 #include "connect.h"
+#include "message.h"
 
 // THESE 3 DIFFICULTY FACTORS MUST ALWAYS ADD UP TO 100% EXACTLY!!!
 #define DIFF_FACTOR_PLAYER_PROGRESS			50
@@ -433,6 +434,12 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 	BOOLEAN tfPP;
 	tbTeam=pCreateStruct->bTeam;
 	tfPP=pCreateStruct->fPlayerPlan; //used as temp indicator of struct sent from the server //hayden.
+
+	if(is_networked && (pCreateStruct->fOnRoof==1))
+	{
+		ScreenMsg( FONT_YELLOW, MSG_CHAT, L"skipping roof merc");
+		return NULL;
+	}
 
 	if(is_client && !is_server && (tbTeam >0 && tbTeam < 5) && tfPP==0)
 	{
