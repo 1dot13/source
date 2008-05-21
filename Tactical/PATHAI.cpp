@@ -792,6 +792,11 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 	INT16 parent = DestNode;
 	INT16 current = parent;
 	unsigned int sizePath = 0;
+	//CHRISL: If, for whatever reason, the pathfinding system gets the wrong Grid values, it's possible that an infinite
+	//	loop can result.  This can often require a hard reboot to get around.  To try and force a CTD in this event, lets
+	//	track all the grids and force a crash if we ever pull the same GridNo.
+	std::vector<INT16>	trackNode;
+	trackNode.resize(1,current);
 	while (current != -1)
 	{
 		sizePath += GetNumSteps( current);
@@ -801,6 +806,17 @@ int AStarPathfinder::GetPath(SOLDIERTYPE *s ,
 			parent = GetAStarParent( parent);
 		}
 		current = GetAStarParent( current);
+		for(unsigned int i = 0; i<trackNode.size(); i++)
+		{
+			if(trackNode.at(i) == current)
+			{
+				//CHAR8		str[128];
+				//sprintf( str, "Duplicate GridNo found during pathfinding" );
+				//AssertMsg( 0, str );
+				AssertMsg( FALSE, String( "Duplicate GridNo found during pathfinding at %d.  Related to soldier %d at GridNo %d.", current, s->ubID, s->sGridNo ) );
+			}
+		}
+		trackNode.push_back(current);
 	}
 
 	// if this function was called because a solider is about to embark on an actual route

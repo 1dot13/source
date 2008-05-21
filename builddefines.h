@@ -19,6 +19,7 @@
 
 #define ROBOT_ALWAYS_READY
 
+#define	FORCE_ASSERTS_ON
 
 #define BLOOD_N_GORE_ENABLED
 

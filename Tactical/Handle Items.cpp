@@ -3081,12 +3081,13 @@ BOOLEAN	GetItemPoolFromGround( INT16 sMapPos, ITEM_POOL **ppItemPool )
 	//if we know the level, we can avoid an if, and this function is called alot
 	LEVELNODE *pObject = gpWorldLevelData[ sMapPos ].pStructHead;
 	//ADB: let's not make 51200 calls to FileWrite ok?
-#ifdef JA2BETAVERSION
-	if ( pObject )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("gpWorldLevelData, %d %d %d", pObject, sMapPos, (&gpWorldLevelData[25600-1]) + sizeof(MAP_ELEMENT) ) );
-	}
-#endif
+//#ifdef JA2BETAVERSION
+//	if ( pObject )
+//	{
+//		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("gpWorldLevelData, %d %d %d", pObject, sMapPos, (&gpWorldLevelData[25600-1]) + sizeof(MAP_ELEMENT) ) );
+//	}
+//#endif
+	(*ppItemPool) = NULL;
 
 	// LOOP THORUGH OBJECT LAYER
 	while( pObject != NULL )
@@ -3104,8 +3105,6 @@ BOOLEAN	GetItemPoolFromGround( INT16 sMapPos, ITEM_POOL **ppItemPool )
 
 		pObject = pObject->pNext;
 	}
-
-	(*ppItemPool) = NULL;
 
 	return( FALSE );
 }

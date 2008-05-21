@@ -265,7 +265,7 @@ UINT32 ErrorScreenHandle(void)
 {
 	InputAtom	InputEvent;
 	static BOOLEAN	fFirstTime = FALSE;
-#ifdef JA2BETAVERSION
+#if defined ( JA2BETAVERSION ) || defined ( FORCE_ASSERTS_ON )
 	CHAR16 str[256];
 #endif
 
@@ -287,7 +287,7 @@ UINT32 ErrorScreenHandle(void)
 	SetFontForeground( FONT_LTRED );
 
 
-#ifdef JA2BETAVERSION
+#if defined ( JA2BETAVERSION ) || defined ( FORCE_ASSERTS_ON )
 
 	if( gubAssertString[0] )
 	{
