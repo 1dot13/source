@@ -27,6 +27,7 @@
 	#include "render fun.h"
 	#include "GameSettings.h"
 #endif
+#include "connect.h"
 
 extern BOOLEAN	gfBasement;
 
@@ -2228,7 +2229,7 @@ BOOLEAN AddMercStructureInfoFromAnimSurface( INT16 sGridNo, SOLDIERTYPE *pSoldie
 		{
 
 			// Debug msg
-			ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"FAILED: add struct info for merc %d (%s), at %d direction %d", pSoldier->ubID, pSoldier->name, sGridNo, pSoldier->ubDirection );
+			if(!is_networked)ScreenMsg( MSG_FONT_RED, MSG_DEBUG, L"FAILED: add struct info for merc %d (%s), at %d direction %d", pSoldier->ubID, pSoldier->name, sGridNo, pSoldier->ubDirection );
 
 			if ( pStructureFileRef->pDBStructureRef[ gOneCDirection[ pSoldier->ubDirection ] ].pDBStructure->ubNumberOfTiles > 1 )
 			{

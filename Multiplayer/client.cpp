@@ -657,6 +657,7 @@ void recieveHIRE(RPCParameters *rpcParameters)
 	gMercProfiles[ pSoldier->ubProfile ].ubMiscFlags |= PROFILE_MISC_FLAG_RECRUITED;
 	if(!SAME_MERC)gMercProfiles[ pSoldier->ubProfile ].bMercStatus = MERC_WORKING_ELSEWHERE;
 	pSoldier->bSide=0; //default coop only
+	gTacticalStatus.Team[MercCreateStruct.bTeam	].bSide=0;
 
 			if(MercCreateStruct.ubProfile==64)//slay
 			{
@@ -669,11 +670,16 @@ void recieveHIRE(RPCParameters *rpcParameters)
 	if(PLAYER_BSIDE==0)//all vs all only
 	{
 		pSoldier->bSide=1;
+		gTacticalStatus.Team[MercCreateStruct.bTeam	].bSide=1;
 		
 	}
 	if(PLAYER_BSIDE==1) //allow teams
 	{
-			if(sHireMerc->team != TEAM)pSoldier->bSide=1;
+			if(sHireMerc->team != TEAM)
+			{
+				pSoldier->bSide=1;
+				gTacticalStatus.Team[MercCreateStruct.bTeam	].bSide=1;
+			}
 
 	}
 
@@ -781,6 +787,7 @@ void send_EndTurn( UINT8 ubNextTeam )
 		
 	
 		turn_struct tStruct;
+		if(is_server)Sawarded=false;
 
 		tStruct.tsnetbTeam = netbTeam;
 		tStruct.tsubNextTeam = ubNextTeam;
@@ -800,6 +807,7 @@ void recieveEndTurn(RPCParameters *rpcParameters)
 		UINT8 ubTeam;
 		sender_bTeam=tStruct->tsnetbTeam;
 		ubTeam=tStruct->tsubNextTeam;
+		if(is_server)Sawarded=false;
 	
 	if(is_server || sender_bTeam==6)
 	{
@@ -1455,7 +1463,7 @@ void send_interrupt (SOLDIERTYPE *pSoldier)
 	
 	//if(gubOutOfTurnPersons>0)ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Sent Int: bTeam-%d ubID-%d", INT.bTeam,INT.ubID );
 	
-	gTacticalStatus.ubCurrentTeam=INT.bTeam;
+		if(INT.bTeam !=netbTeam) gTacticalStatus.ubCurrentTeam=INT.bTeam;
 	
 	client->RPC("sendINTERRUPT",(const char*)&INT, (int)sizeof(INT_STRUCT)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
 
@@ -1465,9 +1473,9 @@ void send_interrupt (SOLDIERTYPE *pSoldier)
 void recieveINTERRUPT (RPCParameters *rpcParameters)
 {
 	INT_STRUCT* INT = (INT_STRUCT*)rpcParameters->input;
-	
+	SOLDIERTYPE* pOpponent = MercPtrs[ INT->Interrupted];
 
-		if(INT->bTeam==netbTeam)
+	if(INT->bTeam==netbTeam)// ||pOpponent->bTeam==1 )//for us or AI
 			{
 				INT->bTeam=0;
 				INT->ubID=INT->ubID - ubID_prefix;
@@ -1484,7 +1492,7 @@ void recieveINTERRUPT (RPCParameters *rpcParameters)
 					
 			}
 
-		if(	INT->bTeam !=0)
+		if(	INT->bTeam != 0)
 			{
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[17] );
 			//stop moving merc who was interrupted and init UI bar
@@ -1499,6 +1507,11 @@ void recieveINTERRUPT (RPCParameters *rpcParameters)
 			gTacticalStatus.fInterruptOccurred = TRUE;
 			
 			}
+		//else if ( pOpponent->bTeam == 1)//
+		//{
+		//	StartInterrupt();
+		//	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"ai is interrupted" );
+		//}
 		else
 			{
 				//it for us ! :)
@@ -1513,7 +1526,7 @@ void recieveINTERRUPT (RPCParameters *rpcParameters)
 					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[37] );
 
 					SOLDIERTYPE* pSoldier = MercPtrs[ INT->ubID ];
-					SOLDIERTYPE* pOpponent = MercPtrs[ INT->Interrupted];
+					//SOLDIERTYPE* pOpponent = MercPtrs[ INT->Interrupted];
 					ManSeesMan(pSoldier,pOpponent,pOpponent->sGridNo,pOpponent->pathing.bLevel,2,1);
 					StartInterrupt();
 				}
@@ -1523,6 +1536,21 @@ void recieveINTERRUPT (RPCParameters *rpcParameters)
 		//if(INT->gubOutOfTurnPersons > 0)ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Recieved Int: bTeam-%d ubID-%d", INT->bTeam,INT->ubID );
 }
 
+void intAI (SOLDIERTYPE *pSoldier )
+			{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[17] );
+			//stop moving merc who was interrupted and init UI bar
+			//SOLDIERTYPE* pMerc = MercPtrs[ INT->ubID ];
+			////AdjustNoAPToFinishMove( pMerc, TRUE );	
+			//pMerc->HaultSoldierFromSighting(TRUE);
+			//pMerc->fTurningFromPronePosition = FALSE;// hmmm ??
+			//FreezeInterfaceForEnemyTurn();
+			//InitEnemyUIBar( 0, 0 );
+			//fInterfacePanelDirty = DIRTYLEVEL2;
+			AddTopMessage( COMPUTER_TURN_MESSAGE, TeamTurnString[ pSoldier->bTeam ] );
+			gTacticalStatus.fInterruptOccurred = TRUE;
+			
+			}
 void end_interrupt ( BOOLEAN fMarkInterruptOccurred )
 {
 
@@ -1537,6 +1565,7 @@ void end_interrupt ( BOOLEAN fMarkInterruptOccurred )
 	memcpy(INT.gubOutOfTurnOrder, gubOutOfTurnOrder, sizeof(UINT8) * MAXMERCS);
 	INT.gubOutOfTurnPersons = gubOutOfTurnPersons;
 	INT.fMarkInterruptOccurred=fMarkInterruptOccurred;
+	if(is_server)Sawarded=false;
 
 	if(INT.bTeam==0)
 	{
@@ -1562,8 +1591,9 @@ void end_interrupt ( BOOLEAN fMarkInterruptOccurred )
 void resume_turn(RPCParameters *rpcParameters)
 {
 	INT_STRUCT* INT = (INT_STRUCT*)rpcParameters->input;
+	if(is_server)Sawarded=false;
 	
-	if(INT->bTeam==netbTeam)//may need working
+	if(INT->bTeam==netbTeam || (INT->bTeam==1 && is_server))//may need working
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, MPClientMessage[18] );
 
@@ -1581,6 +1611,11 @@ void resume_turn(RPCParameters *rpcParameters)
 
 
 		EndInterrupt( INT->fMarkInterruptOccurred );
+	}
+	else if(INT->bTeam==1)
+	{
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"im not server but ai just got back its turn after being interrupted..." );
+		//maybe can add something.
 	}
 }
 
@@ -2625,6 +2660,31 @@ void recieve_heal (RPCParameters *rpcParameters)
 
 }
 
+
+void requestAIint(SOLDIERTYPE *pSoldier )
+{
+	AIint data;
+	data.ubID=pSoldier->ubID;
+	data.bteam=netbTeam;
+	ScreenMsg( FONT_LTGREEN, MSG_INTERFACE, L"interrupt requested" );
+		
+	client->RPC("rINT",(const char*)&data, (int)sizeof(AIint)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
+}
+
+void awardINT (RPCParameters *rpcParameters)
+{
+	AIint* data= (AIint*)rpcParameters->input;
+
+	SOLDIERTYPE *pSoldier = MercPtrs[ data->ubID ];
+
+		StartInterrupt();
+		//send_EndTurn(netbTeam);
+
+	ScreenMsg( FONT_LTGREEN, MSG_INTERFACE, L"interrupt awarded" );
+
+}
+
+
 //***************************
 //*** client connection*****
 //*************************
@@ -2672,6 +2732,7 @@ void connect_client ( void )
 			REGISTER_STATIC_RPC(client, gotoRT);
 			REGISTER_STATIC_RPC(client, recieve_wipe);
 			REGISTER_STATIC_RPC(client, recieve_heal);
+				REGISTER_STATIC_RPC(client, awardINT);
 			//***
 			
 		if (b)

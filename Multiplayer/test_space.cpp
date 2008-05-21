@@ -106,12 +106,14 @@ bool ovh_ready;
 //int cnt = 40;
 
 
-void test_func2 (void)//now bound to "0" //currently displays coordinates of the mouse
+void test_func2 (void)//now bound to "0" 
 {
 	ScreenMsg( FONT_LTGREEN, MSG_CHAT, L"test_func2 - function testing ground:" );
 
 
 SOLDIERTYPE * pSoldier=MercPtrs[ 0 ];
+
+PauseAITemporarily();
 
 //RemoveOneOpponent( pSoldier );
 //SOLDIERTYPE * pSoldier2=MercPtrs[ 127 ];

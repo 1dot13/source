@@ -23,12 +23,14 @@ INT32 gsMAX_MERCS;
 bool gsMORALE;
 int gsREPORT_NAME;
 
+
+
 #include "text.h"
 #include "connect.h"
 #include "message.h"
 #include "network.h"
 #include "overhead.h"
-
+#include "fresh_header.h"
 UINT16 nc; //number of open connection
 UINT16 ncr; //number of ready confirmed connections
 //something keep record of ready connections ..
@@ -58,6 +60,8 @@ RakPeerInterface *server;
 
 int numreadyteams;
 int readyteamreg[10];
+
+bool Sawarded;
 
 SystemAddress blank;
 
@@ -201,6 +205,20 @@ void sendHEAL(RPCParameters *rpcParameters)
 {
 	server->RPC("recieve_heal",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, true, 0, UNASSIGNED_NETWORK_ID,0);
 }
+//
+//void rINT(RPCParameters *rpcParameters)//who is first
+//{
+//
+//		AIint* data = (AIint*)rpcParameters->input;
+//
+//		if( !Sawarded )
+//		{
+//			PauseAITemporarily();
+//			Sawarded=true;
+//			//send back to sender
+//			server->RPC("awardINT",(const char*)rpcParameters->input, (*rpcParameters).numberOfBitsOfData, HIGH_PRIORITY, RELIABLE, 0, rpcParameters->sender, false, 0, UNASSIGNED_NETWORK_ID,0);
+//		}
+//}
 
 void startCOMBAT(RPCParameters *rpcParameters)
 {
@@ -566,6 +584,7 @@ if(gsPLAYER_BSIDE==2)//only enable ai during coop
 		REGISTER_STATIC_RPC(server, startCOMBAT);
 		REGISTER_STATIC_RPC(server, sendWIPE);
 			REGISTER_STATIC_RPC(server, sendHEAL);
+			//REGISTER_STATIC_RPC(server, rINT);
 	//
 
 

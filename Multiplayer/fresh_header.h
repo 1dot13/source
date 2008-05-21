@@ -24,6 +24,13 @@ INT8 bLife;
 INT8 bBleeding;
 }heal;
 
+typedef struct
+{
+	UINT16 ubID;
+	INT8 bteam;
+
+}AIint;
+
 
 void send_door ( SOLDIERTYPE *pSoldier, INT16 sGridNo, BOOLEAN fNoAnimations );
 
@@ -65,6 +72,8 @@ void startCombat(UINT8 ubStartingTeam);
 
 extern int WEAPON_READIED_BONUS;
 
+void intAI (SOLDIERTYPE *pSoldier );
+
 void teamwiped (void);
 
 BOOLEAN check_status (void);
@@ -74,3 +83,5 @@ extern INT8	NumActiveAndConsciousTeamMembers( UINT8 ubTeam );
 void send_heal (SOLDIERTYPE *pSoldier );
 
 extern int DISABLE_SPEC_MODE;
+
+void requestAIint(SOLDIERTYPE *pSoldier );

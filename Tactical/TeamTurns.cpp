@@ -351,6 +351,11 @@ void EndAITurn( void )
 	EndDeadlockMsg( );
 	if (INTERRUPT_QUEUED)
 	{
+			if(is_networked)
+			{
+				end_interrupt( FALSE );//this tells other client to go on from where he was
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"ending interrupt" );
+			}
 		EndInterrupt( FALSE );
 	}
 	else
@@ -1013,12 +1018,15 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 				StartInterrupt();
 
 			}
-			else if(nbTeam == 0) //its an interrupt for own merc team
+			else if(is_server && gTacticalStatus.ubCurrentTeam == 1)//  against ai
 			{
-				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"interrupt for our team");
-				//hayden
-				StartInterrupt();
-				send_interrupt( npSoldier ); //
+
+					//hayden
+					send_interrupt( npSoldier ); //
+						if(nbTeam !=0)intAI(npSoldier);						
+						else StartInterrupt();//					
+					//requestAIint( npSoldier );
+					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"AI is interrupted");
 			}
 			else
 			{
@@ -2033,20 +2041,22 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 				nbTeam = npSoldier->bTeam;
 				
 				
-				if ((nbTeam > 0) && (nbTeam <6 ) && is_server) //is AI and are server
+				if ((nbTeam > 0) && (nbTeam <6 ) && is_server) //is for AI and are server
 					{
 						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"interrupt for AI team");
 						send_interrupt( npSoldier );
 						StartInterrupt();
 
 					}
-				else if(nbTeam == 0 && gTacticalStatus.ubCurrentTeam == 0) //its an interrupt for own merc team && its our turn
+				else if(is_server && gTacticalStatus.ubCurrentTeam == 1)//  against ai
 					{
 
 						//hayden
-						StartInterrupt();
 						send_interrupt( npSoldier ); //
-						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"interrupt for my team");
+						if(nbTeam !=0)intAI(npSoldier);						
+						else StartInterrupt();//
+						//requestAIint( npSoldier );
+						ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"AI is interrupted");
 					}
 				else if(gTacticalStatus.ubCurrentTeam == 0)//its our turn (we are moving)
 				{

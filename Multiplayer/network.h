@@ -3,7 +3,7 @@
 //this one just for structs, variables and functions used between the client and server scripts...
 
 extern  char CLIENT_NAME[30];
-
+extern bool Sawarded;
 
 
 typedef struct
@@ -83,3 +83,4 @@ typedef struct
 {
 	UINT8 ubStartingTeam;
 }sc_struct;
+
