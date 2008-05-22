@@ -57,7 +57,7 @@ STR16 gzIMPSkillTraitsText[]=
 	L"Kampfsport",
 
 	L"Keine",
-	L"B.S.E. Spezialitäten",
+	L"B.S.E. Persönlichkeiten",
 };
 
 //@@@:  New string as of March 3, 2000.

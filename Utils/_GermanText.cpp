@@ -1791,7 +1791,7 @@ STR16 pTransactionText[] =
 	L"Kauf bei Bobby Rays",	 		// Bobby Ray is the name of an arms dealer
 	L"Ausgeglichene Konten bei M.E.R.C.",
 	L"Krankenversicherung für %s", 		// medical deposit for merc 
-	L"BSE-Profilanalyse", 		// IMP is the acronym for International Mercenary Profiling
+	L"B.S.E-Profilanalyse", 		// IMP is the acronym for International Mercenary Profiling
 	L"Versicherung für %s abgeschlossen", 
 	L"Versicherung für %s verringert",
 	L"Versicherung für %s verlängert", 				// johnny contract extended
@@ -2024,7 +2024,7 @@ STR16 pImpButtonText[] =
 {
 	L"Wir über uns", 			// about the IMP site
 	L"BEGINNEN", 			// begin profiling
-	L"Persönlichkeit", 		// personality section
+	L"Persönlichkeiten", 		// personality section
 	L"Eigenschaften", 		// personal stats/attributes section
 	L"Porträt", 			// the personal portrait selection
 	L"Stimme %d", 			// the voice selection
@@ -2052,10 +2052,10 @@ STR16 pImpButtonText[] =
 
 STR16 pExtraIMPStrings[] =
 {
-	L"Um mit der Evaluierung zu beginnen, Persönlichkeit auswählen.",
-	L"Da Sie nun mit der Persönlichkeit fertig sind, wählen Sie Ihre Eigenschaften aus.",
-	L"Nach Festlegung der Eigenschaften können Sie nun mit der Porträtauswahl fortfahren.",
-	L"Wählen Sie abschließend die Stimmprobe aus, die Ihrer eigenen Stimme am nächsten kommt.",
+	L"Nachdem Sie nun die Stimme bestimmt haben, ist es an der Zeit die Persönlichkeiten auszuwählen.",
+	L"Wählen Sie abschließend Ihre Eigenschaften aus.",
+	L"Um mit der Evaluierung zu beginnen wählen Sie ein Porträt aus.",
+	L"Nachdem Sie nun Ihr Porträt ausgewählt haben, wählen Sie die Stimme aus, die Ihnen am nächsten kommt.",
 };
 
 STR16 pFilesTitle[] =
@@ -2105,7 +2105,7 @@ STR16 pHistoryStrings[] =
 	L"Rechnung an M.E.R.C. bezahlt",								// paid outstanding bills at MERC
 	L"Enrico Chivaldoris Auftrag akzeptiert",	
 	//6-10
-	L"BSE-Profil erstellt",
+	L"B.S.E-Profil erstellt",
 	L"Versicherung abgeschlossen für %s.", 				// insurance contract purchased
 	L"Versicherung gekündigt für %s.", 				// insurance contract canceled
 	L"Versicherung ausgezahlt für %s.", 							// insurance claim payout for merc
@@ -3306,7 +3306,7 @@ STR16 zOptionsToggleText[] =
 	L"Tracereffekte für Einzelschüsse",
 	L"Regengeräusche",
 	L"Krähen erlauben",
-	L"Zufällige B.S.E Personalität",
+	L"Zufällige B.S.E Persönlichkeiten",
 	L"Automatisch speichern",
 	L"Stummer Skyrider",
 	L"Niedrige CPU Belastung",
@@ -3386,7 +3386,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, wird Tracereffekt auch für Einzelschüsse angezeigt.",
 	L"Wenn diese Funktion aktiviert ist, werden Regengeräusche hörbar falls es regnet.",
 	L"Wenn diese Funktion aktiviert ist, sind Krähen im Spiel vorhanden.",
-	L"Wenn diese Funktion aktiviert ist, erhalten B.S.E Charaktere zufällige Persönlichkeit und Gesinnung.",
+	L"Wenn diese Funktion aktiviert ist, erhalten B.S.E Charaktere zufällige Persönlichkeiten und Gesinnung.",
 	L"Wenn diese Funktion aktiviert ist, wird nach jeder Runde automatisch gespeichert.",
 	L"Wenn diese Funktion aktiviert ist, wird Skyrider nichts mehr sprechen.",
 	L"Wenn diese Funktion aktiviert ist, wird das Spiel mit viel geringerer CPU Belastung laufen.",

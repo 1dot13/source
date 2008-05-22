@@ -2141,10 +2141,10 @@ STR16 pImpButtonText[] =
 
 STR16 pExtraIMPStrings[] =
 {
-	L"To Commence Actual Profiling, Select Personality.",
-	L"Now That You Have Completed Personality, Select Your Attributes.",
-	L"With Attributes Now Allocated, You Can Proceed to Portrait Selection.",
-	L"To Complete The Process, Select The Voice Sample That Best Fits You.",
+	L"With the voice now selected, it is time to select your skills.",
+	L"To complete the process, select your attributes.",
+	L"To commence actual profiling, select portrait.",
+	L"Now that you have completet your portrait choice, select the voice sample that best fits you.",
 };
 
 STR16 pFilesTitle[] =
