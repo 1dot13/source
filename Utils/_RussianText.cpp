@@ -1,3 +1,4 @@
+
 #ifdef PRECOMPILEDHEADERS
 #include "Utils All.h"
 #else
@@ -1681,7 +1682,7 @@ STR16 pMapScreenBorderButtonHelpText[] =
 
 STR16 pMapScreenBottomFastHelp[] =
 {
-	L"Ноутбук (|L)",
+	L"Лэптоп (|L)",
 	L"Тактический экран (|E|s|c)",
 	L"Настройки (|O)",
 	L"Сжатие времени (|+)", 	// time compress more 
@@ -2043,9 +2044,9 @@ STR16 pBullseyeStrings[] =
 
 STR16 pMiscMapScreenMouseRegionHelpText[] =
 {
-	L"Открыть инвентарь (|В|в|о|д)",
+	L"Показать снаряжение (|В|в|о|д)",
 	L"Выкинуть предмет",
-	L"Закрыть инвентарь (|В|в|о|д)",
+	L"Скрыть снаряжение (|В|в|о|д)",
 };
 
 
@@ -2134,10 +2135,10 @@ STR16 pImpButtonText[] =
 
 STR16 pExtraIMPStrings[] =
 {
-	L"Чтобы создать профиль, укажите свои личные данные.",
-	L"Завершив формирование личности, укажите свои способности и умения.",
-	L"Способности героя заданы. Теперь вы можете выбрать портрет.",
-	L"Чтобы завершить процесс, выберите голос, который вам подходит."
+	L"Чтобы создать профиль, необходимо указать некоторые данные. Начните с выбора портрета.",
+	L"Теперь, выберите голос, который вам подходит.",
+	L"Сейчас необходимо указать ваши способности.",
+	L"Способности героя заданы. Чтобы завершить процесс, укажите свои характеристики."
 };
 
 STR16 pFilesTitle[] =
@@ -2338,7 +2339,7 @@ STR16 gsAtmStartButtonText[] =
 {
 	L"Перевести $", 		// transfer money to merc -- short form
 	L"Параметры", 			// view stats of the merc
-	L"Инвентарь", 			// view the inventory of the merc
+	L"Снаряжение", 			// view the inventory of the merc
 	L"Контракт",
 };
 
@@ -3388,7 +3389,7 @@ STR16			zSaveLoadText[] =
 	L"Огромный",
 	L"Все, включая эксклюзив",
 
-	L"Новый инвентарь, используемый в этом релизе, не работает при разрешении экрана 640х480. Измените разрешение и запустит игру заново.",
+	L"Новый инвентарь, используемый в этом релизе, не работает при разрешении экрана 640х480. Измените разрешение и загрузите игру заново.",
 	L"Новый инвентарь не работает, если выбрана по умолчанию игровая папка 'Data'.",
 };
 
@@ -3616,7 +3617,7 @@ STR16	gzGIOScreenText[] =
 	L"Timed Turns",//hayden
 	L"Not Timed",
 	L"Timed Player Turns",
-	L"Load MP Game",
+	L"Загрузить",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -3831,7 +3832,7 @@ STR16 pMilitiaButtonsHelpText[] =
 
 STR16 pMapScreenJustStartedHelpText[] =
 {
-	L"Отправляйтесь в A.I.M. и наймите бойцов (*Подсказка* - это в ноутбуке).", // to inform the player to hired some mercs to get things going
+	L"Отправляйтесь в A.I.M. и наймите бойцов (*Подсказка* - это в лэптопе).", // to inform the player to hired some mercs to get things going
 	L"Когда будете готовы отправиться в Арулько, включите сжатие времени в правом нижнем углу экрана.", // to inform the player to hit time compression to get the game underway
 };
 
@@ -3850,7 +3851,7 @@ STR16 gzLaptopHelpText[] =
 	L"Просмотреть журнал последних событий",
 	L"Показать информацию о команде",
 	L"Просмотреть финансовые отчеты",
-	L"Закрыть ноутбук",
+	L"Закрыть лэптоп",
 
 	//Bottom task bar icons (if they exist):
 	L"Получена новая почта",
@@ -4355,13 +4356,13 @@ STR16 MPClientMessage[] =
 STR16 MPHelp[] =
 {
 	// 0
-	L"Welcome to Jagged Alliance 2 1.13 Multiplayer",
-	L"Press 'F1' for help",
-	L"Multiplayer controls (from strategy screen)",
-	L"* first set up ja2_mp.ini *",
-	L"'1' - Start server", 
+	L"Добро пожаловать в режим сетевой игры Jagged Alliance 2 1.13",
+	L"Для получения дополнительной информации нажмите 'F1'",
+	L"Управление сетевой игрой (на стратегическом экране)",
+	L"* Сперва установите настройки в файле ja2_mp.ini *",
+	L"'1' - Запустить сервер", 
 	// 5
-	L"'2' - Connect to server",
+	L"'2' - Подключиться к серверу",
 	L"'3' - If server unlock laptop, set client ready for battle",
 	L"'4' - Quit server and client",
 	L"'5' - Display mouse coords (from tactical screen)",
