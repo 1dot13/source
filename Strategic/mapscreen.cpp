@@ -6151,6 +6151,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 
 				case '0':
 					SelectAllCharactersInSquad( 9 ); // internal squad #s start at 0
+					if(is_networked)test_func2();
 					break;
 
 				case '!':

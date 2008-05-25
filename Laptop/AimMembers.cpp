@@ -48,6 +48,7 @@
 
 #include "Strategic Town Loyalty.h"
 #include "connect.h"
+#include "fresh_header.h"
 
 //
 //******	Defines	******
@@ -1217,14 +1218,24 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 	CHAR16			gzItemName[ SIZE_ITEM_NAME ];
 	UINT8				ubItemCount=0;
 //	UINT16			gzTempItemName[ SIZE_ITEM_INFO ];
+	HVOBJECT	hWeaponBoxHandle;
 
 	//if the mercs inventory has already been purchased, dont display the inventory
 	if( gMercProfiles[ ubMercID ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS )
 		return( TRUE );
 
+	UINT16 wnameY = AIM_MEMBER_WEAPON_NAME_Y;
+	PosX = WEAPONBOX_X+3;		// + 3 ( 1 to take care of the shadow, +2 to get past the weapon box border )
 
 	PosY = WEAPONBOX_Y;
-	PosX = WEAPONBOX_X+3;		// + 3 ( 1 to take care of the shadow, +2 to get past the weapon box border )
+	if(is_networked && guiCurrentLaptopMode == LAPTOP_MODE_MERC_FILES)
+	{
+		PosY-=30;
+		wnameY-=30;
+
+	}
+
+
 	for(i=0; i<gMercProfiles[ubMercID].inv.size(); i++)
 	{
 		usItem = gMercProfiles[ubMercID].inv[ i ];
@@ -1268,10 +1279,10 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 			wcscpy( gzItemName, ShortItemNames[ usItem ] );
 
 			//if this will only be a single line, center it in the box
-			if( ( DisplayWrappedString( (UINT16)(PosX-1), AIM_MEMBER_WEAPON_NAME_Y, AIM_MEMBER_WEAPON_NAME_WIDTH, 2, AIM_M_WEAPON_TEXT_FONT, AIM_M_WEAPON_TEXT_COLOR,	gzItemName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED | DONT_DISPLAY_TEXT ) / GetFontHeight( AIM_M_WEAPON_TEXT_FONT ) ) == 1 )
-				DisplayWrappedString( (UINT16)(PosX-1), (UINT16)(AIM_MEMBER_WEAPON_NAME_Y+GetFontHeight( AIM_M_WEAPON_TEXT_FONT )/2), AIM_MEMBER_WEAPON_NAME_WIDTH, 2, AIM_M_WEAPON_TEXT_FONT, AIM_M_WEAPON_TEXT_COLOR,	gzItemName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+			if( ( DisplayWrappedString( (UINT16)(PosX-1), wnameY, AIM_MEMBER_WEAPON_NAME_WIDTH, 2, AIM_M_WEAPON_TEXT_FONT, AIM_M_WEAPON_TEXT_COLOR,	gzItemName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED | DONT_DISPLAY_TEXT ) / GetFontHeight( AIM_M_WEAPON_TEXT_FONT ) ) == 1 )
+				DisplayWrappedString( (UINT16)(PosX-1), (UINT16)(wnameY+GetFontHeight( AIM_M_WEAPON_TEXT_FONT )/2), AIM_MEMBER_WEAPON_NAME_WIDTH, 2, AIM_M_WEAPON_TEXT_FONT, AIM_M_WEAPON_TEXT_COLOR,	gzItemName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 			else
-				DisplayWrappedString( (UINT16)(PosX-1), AIM_MEMBER_WEAPON_NAME_Y, AIM_MEMBER_WEAPON_NAME_WIDTH, 2, AIM_M_WEAPON_TEXT_FONT, AIM_M_WEAPON_TEXT_COLOR,	gzItemName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+				DisplayWrappedString( (UINT16)(PosX-1), wnameY, AIM_MEMBER_WEAPON_NAME_WIDTH, 2, AIM_M_WEAPON_TEXT_FONT, AIM_M_WEAPON_TEXT_COLOR,	gzItemName, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 			PosX += WEAPONBOX_SIZE_X;
 		}

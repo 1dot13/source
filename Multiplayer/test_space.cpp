@@ -102,7 +102,7 @@ bool ovh_advance;
 bool ovh_ready;
 
 #include "opplist.h"
-
+#include "fresh_header.h"
 //int cnt = 40;
 
 
@@ -113,7 +113,7 @@ void test_func2 (void)//now bound to "0"
 
 SOLDIERTYPE * pSoldier=MercPtrs[ 0 ];
 
-PauseAITemporarily();
+
 
 //RemoveOneOpponent( pSoldier );
 //SOLDIERTYPE * pSoldier2=MercPtrs[ 127 ];

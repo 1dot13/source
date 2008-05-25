@@ -31,7 +31,7 @@ typedef struct
 
 }AIint;
 
-
+BOOLEAN DisplayMercsInventory(UINT8 ubMercID);
 void send_door ( SOLDIERTYPE *pSoldier, INT16 sGridNo, BOOLEAN fNoAnimations );
 
 void send_changestate (EV_S_CHANGESTATE * SChangeState);
