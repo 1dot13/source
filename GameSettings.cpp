@@ -44,6 +44,7 @@
 
 #define				GAME_EXTERNAL_OPTIONS_FILE	"Ja2_Options.ini"
 
+
 #define				CD_ROOT_DIR						"DATA\\"
 
 GAME_SETTINGS		gGameSettings;
@@ -368,9 +369,14 @@ extern INT32 CountEmptyIMPSlots( INT8 iSex );
 // Snap: Read options from an INI file in the default of custom Data directory
 void LoadGameExternalOptions()
 {
+
 	//Kaiden: Setting Ja2_Options.ini file to be read
 	CIniReader iniReader(GAME_EXTERNAL_OPTIONS_FILE);
+	
 
+	
+	if(is_networked) memset(&iniReader, 0, sizeof (CIniReader) );//disable ini in mp (taking default values)
+	
 
 	//################# Laptop Settings #################
 
@@ -699,7 +705,6 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.gfAllowMilitiaGroups				= iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_MILITIA_MOBILE_GROUPS",FALSE);
 	gGameExternalOptions.gfmusttrainroaming					= iniReader.ReadBoolean("JA2 Gameplay Settings","MUST_TRAIN_MOBILE_MILITIA",FALSE);
 	gGameExternalOptions.gfAllowReinforcements				= iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_REINFORCEMENTS",FALSE);
-	if(is_networked)gGameExternalOptions.gfAllowReinforcements = FALSE;//hayden
 	gGameExternalOptions.gfAllowReinforcementsOnlyInCity	= iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_REINFORCEMENTS_ONLY_IN_CITIES",FALSE);
 	gGameExternalOptions.guiBaseQueenPoolIncrement			= iniReader.ReadInteger("JA2 Gameplay Settings","QUEEN_POOL_INCREMENT_PER_DIFFICULTY_LEVEL",60);
 

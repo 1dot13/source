@@ -46,6 +46,8 @@
 	#include "Campaign.h"
 #endif
 
+#include "connect.h"
+
 #ifdef JA2BETAVERSION
 extern BOOLEAN gfMercsNeverQuit;
 #endif
@@ -86,6 +88,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 	// Kaiden: Opening the INI File
 	CIniReader iniReader("..\\Ja2_Options.ini");
 
+	if(is_networked) memset(&iniReader, 0, sizeof (CIniReader) );//disable ini in mp (taking default values)
 
 	//Kaiden: Getting Value for MERC Available on Day one?
 	// for some reason, this can't be in gamesettings.cpp

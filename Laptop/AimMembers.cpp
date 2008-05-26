@@ -1218,7 +1218,7 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 	CHAR16			gzItemName[ SIZE_ITEM_NAME ];
 	UINT8				ubItemCount=0;
 //	UINT16			gzTempItemName[ SIZE_ITEM_INFO ];
-	HVOBJECT	hWeaponBoxHandle;
+	
 
 	//if the mercs inventory has already been purchased, dont display the inventory
 	if( gMercProfiles[ ubMercID ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS )
