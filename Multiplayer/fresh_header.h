@@ -4,6 +4,8 @@
 
 extern int readyteamreg[10];
 
+extern bool NOGEAR;
+
 typedef struct
 {
 	UINT16 soldier_id;
@@ -49,6 +51,7 @@ void unlock (void);
 void UpdateSoldierToNetwork ( SOLDIERTYPE *pSoldier );
 
 extern BOOLEAN gfUIInterfaceSetBusy;
+void TrashAllSoldiers( );
 
 void kick_player (void);
 void overide_turn (void);

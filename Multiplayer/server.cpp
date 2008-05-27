@@ -23,7 +23,7 @@ INT32 gsMAX_MERCS;
 bool gsMORALE;
 int gsREPORT_NAME;
 
-
+#include "game init.h"
 
 #include "text.h"
 #include "connect.h"
@@ -391,30 +391,6 @@ void requestSETTINGS(RPCParameters *rpcParameters )
 
 }
 
-//void rOVH (RPCParameters *rpcParameters)
-//{
-//			ovh_struct* rovhs = (ovh_struct*)rpcParameters->input;
-//			
-//			
-//
-//			++mercs_ready[rovhs->ubid];
-//			//ncr++;
-//			nc = server->NumberOfConnections();
-//
-//			if(mercs_ready[rovhs->ubid] >= nc)
-//			{
-//				mercs_ready[rovhs->ubid]=0;
-//				ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"advance %d",rovhs->ubid );
-//
-//				adv aoh;
-//				aoh.ubid=rovhs->ubid;
-//			
-//				server->RPC("advance_ovh_frame",(const char*)&aoh, (int)sizeof(adv)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
-//
-//			}
-//
-//}
-
 
 void start_server (void)
 {
@@ -593,6 +569,7 @@ if(gsPLAYER_BSIDE==2)//only enable ai during coop
 			ScreenMsg( FONT_LTBLUE, MSG_CHAT, MPServerMessage[1]);
 			ScreenMsg( FONT_LTBLUE, MSG_CHAT, MPServerMessage[2]);
 			is_server = true;
+			
 			connect_client();//connect client to server
 		}
 		else

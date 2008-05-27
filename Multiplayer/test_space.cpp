@@ -104,7 +104,7 @@ bool ovh_ready;
 #include "opplist.h"
 #include "fresh_header.h"
 //int cnt = 40;
-
+#include "game init.h"
 
 void test_func2 (void)//now bound to "0" 
 {

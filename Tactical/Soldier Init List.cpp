@@ -48,6 +48,8 @@
 #include "Rotting Corpses.h"
 #endif
 
+#include "connect.h"
+
 #include "Map Edgepoints.h"
 BOOLEAN gfOriginalList = TRUE;
 
@@ -716,7 +718,13 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 	}
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddPlacementToWorld: create soldier"));
+	
+	if(is_networked && (tempDetailedPlacement.bBodyType==23 || tempDetailedPlacement.bBodyType==24 || tempDetailedPlacement.fOnRoof==1))return TRUE;
+	
+	
 	pSoldier = TacticalCreateSoldier( &tempDetailedPlacement, &ubID );
+
+
 	if( pSoldier )
 	{
 		curr->pSoldier = pSoldier;
@@ -744,6 +752,7 @@ BOOLEAN AddPlacementToWorld( SOLDIERINITNODE *curr, GROUP *pGroup = NULL )
 	}
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddPlacementToWorld: return false"));
+	if(is_server)	ScreenMsg( FONT_YELLOW, MSG_CHAT, L"report this MP error (AddPlacementToWorld-FAIL!)");
 	return FALSE;
 }
 

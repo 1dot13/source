@@ -69,7 +69,7 @@
 #endif
 
 #include "Soldier Macros.h"
-
+#include "connect.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -2280,7 +2280,11 @@ void SpreadEffect( INT16 sGridNo, UINT8 ubRadius, UINT16 usItem, UINT8 ubOwner, 
 		fSmokeEffect = TRUE;
 		break;
 	}
-
+if(is_networked)
+{
+	ScreenMsg( FONT_LTBLUE, MSG_CHAT, L"explosives not coded in MP");
+	return;
+}
 	// Set values for recompile region to optimize area we need to recompile for MPs
 	gsRecompileAreaTop = sGridNo / WORLD_COLS;
 	gsRecompileAreaLeft = sGridNo % WORLD_COLS;

@@ -49,6 +49,7 @@
 
 #include "connect.h"
 #include "message.h"
+#include "fresh_header.h"
 
 // THESE 3 DIFFICULTY FACTORS MUST ALWAYS ADD UP TO 100% EXACTLY!!!
 #define DIFF_FACTOR_PLAYER_PROGRESS			50
@@ -430,6 +431,8 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 	*pubID = NOBODY;
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("TacticalCreateSoldier"));
 
+
+
 	INT8 tbTeam;
 	BOOLEAN tfPP;
 	tbTeam=pCreateStruct->bTeam;
@@ -449,28 +452,20 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 	//if(is_server && tbTeam>0 && tbTeam<5)
 	if(is_server && tbTeam>0 && tbTeam<5)
 	{
-		//if(tbTeam==1 && !ENEMY_ENABLED)
-		//{
-		//	return NULL;
-		//}
-		//if(tbTeam==2 && !CREATURE_ENABLED)
-		//{
-		//	return NULL;
-		//}
-		//if(tbTeam==3 && !MILITIA_ENABLED)
-		//{
-		//	return NULL;
-		//}
-		//if(tbTeam==4 && !CIV_ENABLED)
-		//{
-		//	return NULL;
-		//}
 		send_AI(pCreateStruct,pubID);
 	}
 	if(is_client && !is_server && tfPP==1)
 	{
 		pCreateStruct->fPlayerPlan = 0;
 	}
+
+	if(is_networked && (pCreateStruct->bBodyType==23 || pCreateStruct->bBodyType==24))
+	{
+		ScreenMsg( FONT_YELLOW, MSG_CHAT, L"skipping tank");
+		return NULL;
+	}
+
+
 	//hayden
 		//Kris:
 	//Huge no no!	See the header file for description of static detailed placements.

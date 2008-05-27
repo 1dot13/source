@@ -919,7 +919,7 @@ void StartInterrupt( void )
 //		pSoldier = MercPtrs[ubFirstInterrupter];
 
 		//if ( gTacticalStatus.ubCurrentTeam == OUR_TEAM)
-		if ( pSoldier->bTeam != OUR_TEAM )
+		if ( pSoldier->bTeam > OUR_TEAM && pSoldier->bTeam < 6)
 		{
 			// we're being interrupted by the computer!
 			// we delay displaying any interrupt message until the computer

@@ -115,7 +115,7 @@ unsigned char packetIdentifier;
 #include "test_space.h"
 #include "interface panels.h"
 
-
+#include "game init.h"
 
 extern INT8 SquadMovementGroups[ ];
 RakPeerInterface *client;
@@ -1783,7 +1783,7 @@ void requestSETTINGS(void)
 
 	cl_name.cl_edge=atoi(SECT_EDGE);
 	
-
+	
 	client->RPC("requestSETTINGS",(const char*)&cl_name, (int)sizeof(client_info)*8, HIGH_PRIORITY, RELIABLE, 0, UNASSIGNED_SYSTEM_ADDRESS, true, 0, UNASSIGNED_NETWORK_ID,0);
 
 }
@@ -2408,6 +2408,7 @@ void UpdateSoldierFromNetwork  (RPCParameters *rpcParameters)
 	{
 		gTacticalStatus.usTactialTurnLimitCounter = SUpdateNetworkSoldier->usTactialTurnLimitCounter;
 		gTacticalStatus.usTactialTurnLimitMax = SUpdateNetworkSoldier->usTactialTurnLimitMax;
+		
 	}
 }
 
@@ -2760,6 +2761,7 @@ void connect_client ( void )
 		if( !is_connected && !is_connecting)
 		{
 
+			
 			recieved_settings=0;
 			goahead = 0;
 			numready = 0;
@@ -2805,7 +2807,7 @@ void connect_client ( void )
 			GetPrivateProfileString( "Ja2_mp Settings","CLIENT_NAME", "", clname, MAX_PATH, "..\\Ja2_mp.ini" );
 
 		
-
+			
 	
 
 			char op1[30];
@@ -2846,7 +2848,7 @@ void connect_client ( void )
 			/*netbTeam = (CLIENT_NUM)+5;
 			ubID_prefix = gTacticalStatus.Team[ netbTeam ].bFirstID;*/
 
-
+			
 
 
 			//**********************
