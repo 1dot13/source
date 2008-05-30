@@ -1155,17 +1155,17 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 	// INT32 iChance, iResult; 
  
 	// should jams apply to enemies? 
-	if (pSoldier->uiStatusFlags & SOLDIER_PC) 
+	if (pSoldier->flags.uiStatusFlags & SOLDIER_PC) 
 	{ 
 		if ( Item[pSoldier->usAttackingWeapon].usItemClass == IC_GUN && !EXPLOSIVE_GUN( pSoldier->usAttackingWeapon ) ) 
 		{ 
 			pObj = &(pSoldier->inv[pSoldier->ubAttackingHand]); 
-			if (pObj->ItemData.Gun.bGunAmmoStatus > 0) 
+			if ((*pObj)[0]->data.gun.bGunAmmoStatus > 0) 
 			{ 
 				// Algorithm for jamming 
 				int maxJamChance = 50; // Externalize this? 
 				int reliability = Item[pObj->usItem].bReliability; 
-				int condition = pObj->ItemData.Gun.bGunStatus; 
+				int condition = (*pObj)[0]->data.gun.bGunStatus; 
 				int invertedBaseJamChance = condition + (reliability * 2) - 
 					gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * gbCurrentRainIntensity; 
 				if (invertedBaseJamChance < 0) 
@@ -1218,7 +1218,7 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 					gfNextFireJam = FALSE; 
 				 
 					// jam! negate the gun ammo status. 
-					pObj->ItemData.Gun.bGunAmmoStatus *= -1; 
+					(*pObj)[0]->data.gun.bGunAmmoStatus *= -1; 
 				 
 					// Deduct AMMO! 
 					DeductAmmo( pSoldier, pSoldier->ubAttackingHand ); 
@@ -1227,14 +1227,14 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 					return( TRUE ); 
 				} 
 			} 
-			else if (pObj->ItemData.Gun.bGunAmmoStatus < 0) 
+			else if ((*pObj)[0]->data.gun.bGunAmmoStatus < 0) 
 			{ 
 			// try to unjam gun 
-			int iResult = SkillCheck( pSoldier, UNJAM_GUN_CHECK, (INT8) ((Item[pObj->usItem].bReliability + Item[pObj->ItemData.Gun.usGunAmmoItem].bReliability)* 4) ); 
+				int iResult = SkillCheck( pSoldier, UNJAM_GUN_CHECK, (INT8) ((Item[pObj->usItem].bReliability + Item[(*pObj)[0]->data.gun.usGunAmmoItem].bReliability)* 4) ); 
 				if (iResult > 0) 
 				{ 
 					// yay! unjammed the gun 
-					pObj->ItemData.Gun.bGunAmmoStatus *= -1; 
+					(*pObj)[0]->data.gun.bGunAmmoStatus *= -1; 
 				 
 					// MECHANICAL/DEXTERITY GAIN: Unjammed a gun 
 					StatChange( pSoldier, MECHANAMT, 5, FALSE ); 
