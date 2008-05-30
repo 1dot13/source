@@ -4073,6 +4073,7 @@ STR16 NewInvMessage[] =
 	L"Bewegung nicht möglich, während Reißverschluss des Rucksacks offen ist",
 	L"Sind Sie sicher, dass Sie alle Gegenstände im Sektor verkaufen wollen?",
 	L"Sind Sie sicher, dass Sie alle Gegenstände im Sektor löschen wollen?",
+	L"Kann nicht beim Tragen eines Rucksacks klettern",
 };
 
 // WANNE - MP: Multiplayer messages

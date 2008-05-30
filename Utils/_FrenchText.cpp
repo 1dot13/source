@@ -4267,6 +4267,7 @@ STR16 NewInvMessage[] =
 	L"Ne peut pas se déplacer alors que la tirette de baluchon active",
 	L"Êtes vous sûr vous voulez vendre tous les articles de secteur?",
 	L"Êtes vous sûr vous voulez supprimer tous les articles de secteur?",
+	L"Ne peut pas s'élever tout en utilisant un sac à dos",
 };
 
 // WANNE - MP: Multiplayer messages

@@ -7936,7 +7936,7 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof( void )
 
 	//CHRISL: Disable climbing up to a roof while wearing a backpack
 	if((UsingNewInventorySystem() == true) && this->inv[BPACKPOCKPOS].exists() == true) {
-		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Cannot climb while wearing a backpack" );
+		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, NewInvMessage[NIV_NO_CLIMB] );
 		return;
 	}
 	INT8							bNewDirection;

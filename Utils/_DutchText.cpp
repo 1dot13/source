@@ -4286,6 +4286,7 @@ STR16 NewInvMessage[] =
 	L"Kan niet me bewegen terwijl actieve rugzakritssluiting",
 	L"Bent zeker u u wilt alle sectorpunten verkopen?",
 	L"Bent zeker u u wilt alle sectorpunten schr?",
+	L"Kan beklimmen niet terwijl het dragen van een rugzak",
 };
 
 // WANNE - MP: Multiplayer messages

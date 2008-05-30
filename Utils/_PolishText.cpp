@@ -4260,6 +4260,7 @@ STR16 NewInvMessage[] =
 	L"Can not move while backpack zipper active",
 	L"Are you sure you want to sell all sector items?",
 	L"Are you sure you want to delete all sector items?",
+	L"Cannot climb while wearing a backpack",
 };
 
 // WANNE - MP: Multiplayer messages

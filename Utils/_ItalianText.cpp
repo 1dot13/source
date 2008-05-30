@@ -4264,6 +4264,7 @@ STR16 NewInvMessage[] =
 	L"Non può muoversi mentre la chiusura lampo del fagotto attiva",
 	L"Siete sicuri voi desiderate vendere tutti gli articoli del settore?",
 	L"Siete sicuri voi desiderate cancellare tutti gli articoli del settore?",
+	L"Non può arrampicarsi mentre portano uno zaino",
 };
 
 // WANNE - MP: Multiplayer messages

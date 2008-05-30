@@ -1149,95 +1149,111 @@ void AdjustImpactByHitLocation( INT32 iImpact, UINT8 ubHitLocation, INT32 * piNe
 //rain
 extern INT8 gbCurrentRainIntensity;
 //end rain
-BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
-{
-  OBJECTTYPE *	pObj;
-  INT32		iChance, iResult;
-
-  // should jams apply to enemies?
-	if (pSoldier->flags.uiStatusFlags & SOLDIER_PC)
-	{
-		if ( Item[pSoldier->usAttackingWeapon].usItemClass == IC_GUN && !EXPLOSIVE_GUN( pSoldier->usAttackingWeapon ) )
-		{
-			pObj = &(pSoldier->inv[pSoldier->ubAttackingHand]);
-  			if ((*pObj)[0]->data.gun.bGunAmmoStatus > 0)
-			{
-				// gun might jam, figure out the chance
-				//iChance = (80 - (*pObj)[0]->data.gun.bGunStatus);
-
-				//rain
-				iChance = (80 - (*pObj)[0]->data.gun.bGunStatus) + gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * gbCurrentRainIntensity;
-				//end rain
-
-
-				// CJC: removed reliability from formula...
-
-				// jams can happen to unreliable guns "earlier" than normal or reliable ones.
-				//iChance = iChance - Item[pObj->usItem].bReliability * 2;
-
-				// decrease the chance of a jam by 20% per point of reliability;
-				// increased by 20% per negative point...
-				//iChance = iChance * (10 - Item[pObj->usItem].bReliability * 2) / 10;
-
-				//rain
-//				iChance = iChance * (10 - Item[pObj->usItem].bReliability * 2) / 10; // Madd: took it back out
-				//end rain
-
-				if (pSoldier->bDoBurst > 1)
-				{
-					// if at bullet in a burst after the first, higher chance
-					iChance -= PreRandom( 80 );
-				}
-				else
-				{
-					iChance -= PreRandom( 100 );
-				}
-
-#ifdef TESTGUNJAM
-				if ( 1 )
-#else
-				if ((INT32) PreRandom( 100 ) < iChance || gfNextFireJam )
-#endif
-				{
-					gfNextFireJam = FALSE;
-
-					// jam! negate the gun ammo status.
-					(*pObj)[0]->data.gun.bGunAmmoStatus *= -1;
-
-					// Deduct AMMO!
-					DeductAmmo( pSoldier, pSoldier->ubAttackingHand );
-
-					TacticalCharacterDialogue( pSoldier, QUOTE_JAMMED_GUN );
-					return( TRUE );
-				}
-			}
-			else if ((*pObj)[0]->data.gun.bGunAmmoStatus < 0)
-			{
-				// try to unjam gun
-				iResult = SkillCheck( pSoldier, UNJAM_GUN_CHECK, (INT8) ((Item[pObj->usItem].bReliability + Item[(*pObj)[0]->data.gun.usGunAmmoItem].bReliability)* 4) );
-				if (iResult > 0)
-				{
-					// yay! unjammed the gun
-					(*pObj)[0]->data.gun.bGunAmmoStatus *= -1;
-
-					// MECHANICAL/DEXTERITY GAIN: Unjammed a gun
-					StatChange( pSoldier, MECHANAMT, 5, FALSE );
-					StatChange( pSoldier, DEXTAMT, 5, FALSE );
-
-					DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
-
-					// We unjammed gun, return appropriate value!
-					return( 255 );
-				}
-				else
-				{
-					return( TRUE );
-				}
-			}
-		}
-	}
-	return( FALSE );
-}
+BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier ) 
+{ 
+	OBJECTTYPE * pObj; 
+	// INT32 iChance, iResult; 
+ 
+	// should jams apply to enemies? 
+	if (pSoldier->uiStatusFlags & SOLDIER_PC) 
+	{ 
+		if ( Item[pSoldier->usAttackingWeapon].usItemClass == IC_GUN && !EXPLOSIVE_GUN( pSoldier->usAttackingWeapon ) ) 
+		{ 
+			pObj = &(pSoldier->inv[pSoldier->ubAttackingHand]); 
+			if (pObj->ItemData.Gun.bGunAmmoStatus > 0) 
+			{ 
+				// Algorithm for jamming 
+				int maxJamChance = 50; // Externalize this? 
+				int reliability = Item[pObj->usItem].bReliability; 
+				int condition = pObj->ItemData.Gun.bGunStatus; 
+				int invertedBaseJamChance = condition + (reliability * 2) - 
+					gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * gbCurrentRainIntensity; 
+				if (invertedBaseJamChance < 0) 
+					invertedBaseJamChance = 0; 
+				else if (invertedBaseJamChance > 100) 
+					invertedBaseJamChance = 100; 
+				int jamChance = 100 - (int)sqrt((double)invertedBaseJamChance * ((75.0-(int)(pSoldier->bDoBurst>1)*15) + (double)invertedBaseJamChance / 2.0)); 
+				if (jamChance < 0) 
+					jamChance = 0; 
+				else if (jamChance > maxJamChance - reliability) 
+					jamChance = maxJamChance - reliability; 
+			 
+				/* Old jam code 
+				// gun might jam, figure out the chance 
+				//iChance = (80 - pObj->bGunStatus); 
+			 
+				//rain 
+				iChance = (80 - pObj->ItemData.Gun.bGunStatus) + gGameExternalOptions.ubWeaponReliabilityReductionPerRainIntensity * gbCurrentRainIntensity; 
+				//end rain 
+			 
+				// CJC: removed reliability from formula... 
+			 
+				// jams can happen to unreliable guns "earlier" than normal or reliable ones. 
+				//iChance = iChance - Item[pObj->usItem].bReliability * 2; 
+			 
+				// decrease the chance of a jam by 20% per point of reliability; 
+				// increased by 20% per negative point... 
+				//iChance = iChance * (10 - Item[pObj->usItem].bReliability * 2) / 10; 
+			 
+				//rain 
+				// iChance = iChance * (10 - Item[pObj->usItem].bReliability * 2) / 10; // Madd: took it back out 
+				//end rain 
+			 
+				if (pSoldier->bDoBurst > 1) 
+				{ 
+				// if at bullet in a burst after the first, higher chance 
+				iChance -= PreRandom( 80 ); 
+				} 
+				else 
+				{ 
+				iChance -= PreRandom( 100 ); 
+				} 
+			*/ 
+#ifdef TESTGUNJAM 
+				if ( 1 ) 
+#else 
+				if ((INT32) PreRandom( 100 ) < jamChance || gfNextFireJam ) 
+#endif 
+				{ 
+					gfNextFireJam = FALSE; 
+				 
+					// jam! negate the gun ammo status. 
+					pObj->ItemData.Gun.bGunAmmoStatus *= -1; 
+				 
+					// Deduct AMMO! 
+					DeductAmmo( pSoldier, pSoldier->ubAttackingHand ); 
+				 
+					TacticalCharacterDialogue( pSoldier, QUOTE_JAMMED_GUN ); 
+					return( TRUE ); 
+				} 
+			} 
+			else if (pObj->ItemData.Gun.bGunAmmoStatus < 0) 
+			{ 
+			// try to unjam gun 
+			int iResult = SkillCheck( pSoldier, UNJAM_GUN_CHECK, (INT8) ((Item[pObj->usItem].bReliability + Item[pObj->ItemData.Gun.usGunAmmoItem].bReliability)* 4) ); 
+				if (iResult > 0) 
+				{ 
+					// yay! unjammed the gun 
+					pObj->ItemData.Gun.bGunAmmoStatus *= -1; 
+				 
+					// MECHANICAL/DEXTERITY GAIN: Unjammed a gun 
+					StatChange( pSoldier, MECHANAMT, 5, FALSE ); 
+					StatChange( pSoldier, DEXTAMT, 5, FALSE ); 
+				 
+					DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 ); 
+				 
+					// We unjammed gun, return appropriate value! 
+					return( 255 ); 
+				} 
+				else 
+				{ 
+					return( TRUE ); 
+				} 
+			} 
+		} 
+	} 
+	return( FALSE ); 
+} 
 
 
 BOOLEAN	OKFireWeapon( SOLDIERTYPE *pSoldier )
