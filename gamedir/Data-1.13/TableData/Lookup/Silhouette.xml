@@ -96,4 +96,12 @@
 		<id>23</id>
 		<name>Revolver Ammo</name>
 	</Silhouette>
+	<Silhouette>
+		<id>24</id>
+		<name>Large Medical Cross</name>
+	</Silhouette>
+	<Silhouette>
+		<id>25</id>
+		<name>Small Medical Cross</name>
+	</Silhouette>
 </JA2Data>
