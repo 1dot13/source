@@ -2850,19 +2850,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>356</uiIndex>
-<<<<<<< .mine
 		<szItemName>9x19мм, 8 G</szItemName>
 		<szLongItemName>9x19мм магазин к пистолету, 8 Glaser</szLongItemName>
 		<szItemDesc>Боеприпасы с "контролируемой баллистикой" по наносимым повреждениям превосходят стандартные экспансивные патроны в два раза. К несчастью, ими также в два раза сложнее пробить броню.</szItemDesc>
 		<szBRName>9x19мм, 8 Glaser</szBRName>
 		<szBRDesc>Восемь зарядов хрупкого веселья! Пробитие - ничто, останавливающее действие - все!</szBRDesc>
-=======
-		<szItemName>9x19мм, 8G</szItemName>
-		<szLongItemName>9x19мм магазин к пистолету, 8 Glaser</szLongItemName>
-		<szItemDesc>Боеприпасы с "контролируемой баллистикой" по наносимым повреждениям превосходят стандартные экспансивные патроны в два раза. К несчастью, ими также в два раза сложнее пробить броню.</szItemDesc>
-		<szBRName>9x19мм маг, 8 Glaser</szBRName>
-		<szBRDesc>Восемь тонкостенных патронов для безудержного веселья. Максимальная убойная сила при минимальной бронебойности.</szBRDesc>
->>>>>>> .r1007
 	</ITEM>
 	<ITEM>
 		<uiIndex>357</uiIndex>
@@ -3707,17 +3699,10 @@
 	<ITEM>
 		<uiIndex>462</uiIndex>
 		<szItemName>.30-06 AP</szItemName>
-<<<<<<< .mine
 		<szLongItemName>.30-06 AP магазин</szLongItemName>
 		<szItemDesc>Магазин на 8 стандартных оболочечных пуль старинного калибра .30-06.</szItemDesc>
 		<szBRName>.30-06 маг, AP</szBRName>
 		<szBRDesc>Если вам повезло заиметь старую винтовку M1 Garand, то вот для нее и патроны.</szBRDesc>
-=======
-		<szLongItemName>.30-06 AP магазин</szLongItemName>
-		<szItemDesc>Магазин на 8 стандартных оболочечных пуль старинного калибра .30-06.</szItemDesc>
-		<szBRName>.30-06 AP маг.</szBRName>
-		<szBRDesc>Если вам повезло заиметь старую винтовку M1 Garand, то вот для нее и патроны.</szBRDesc>
->>>>>>> .r1007
 	</ITEM>
 	<ITEM>
 		<uiIndex>463</uiIndex>
@@ -4089,19 +4074,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>509</uiIndex>
-<<<<<<< .mine
 		<szItemName>9x18мм, 20 HP</szItemName>
 		<szLongItemName>9x18мм магазин к ПП, 20 HP</szLongItemName>
 		<szItemDesc>Магазин на 20 патронов калибра 9x18мм с пулей, имеющей экспансивную выемку.</szItemDesc>
 		<szBRName>9x18мм маг, 20 HP</szBRName>
 		<szBRDesc>Магазин на 20 патронов калибра 9x18мм с пулей, имеющей экспансивную выемку. За низкую пробивную способность этим пулям отдают свое предпочтение служители закона.</szBRDesc>
-=======
-		<szItemName>9x18мм, 20HP</szItemName>
-		<szLongItemName>9x18мм магазин к ПП, 20 HP</szLongItemName>
-		<szItemDesc>Магазин на 20 патронов калибра 9x18мм с пулей, имеющей экспансивную выемку.</szItemDesc>
-		<szBRName>9x18мм маг, 20 HP</szBRName>
-		<szBRDesc>Магазин на 20 патронов калибра 9x18мм с пулей, имеющей экспансивную выемку. За низкую пробивную способность этим пулям отдают свое предпочтение служители закона.</szBRDesc>
->>>>>>> .r1007
 	</ITEM>
 	<ITEM>
 		<uiIndex>510</uiIndex>
@@ -4633,19 +4610,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>576</uiIndex>
-<<<<<<< .mine
 		<szItemName>.45 бараб</szItemName>
 		<szLongItemName>.45 барабан для ПП, 50</szLongItemName>
 		<szItemDesc>Барабанный магазин на 50 патронов калибра .45 ACP для старенького Томпсона M1928.</szItemDesc>
 		<szBRName>.45 барабан к ПП</szBRName>
 		<szBRDesc>Оригинальный барабанный магазин для пистолет-пулемета Thompson M1928. Содержит 50 стандартных патронов.</szBRDesc>
-=======
-		<szItemName>.45 бараб</szItemName>
-		<szLongItemName>.45 барабан для ПП</szLongItemName>
-		<szItemDesc>Барабанный магазин на 50 патронов калибра .45 ACP для старенького Томпсона M1928.</szItemDesc>
-		<szBRName>.45 барабан к ПП</szBRName>
-		<szBRDesc>Оригинальный барабанный магазин для пистолет-пулемета Thompson M1928. Содержит 50 стандартных патронов.</szBRDesc>
->>>>>>> .r1007
 	</ITEM>
 	<ITEM>
 		<uiIndex>577</uiIndex>
