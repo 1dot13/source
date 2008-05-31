@@ -1,5 +1,5 @@
 
-#include "stdafx.h"
+//#include "stdafx.h"
 #include "profiler.h"
 #include "BinaryHeap.hpp"
 

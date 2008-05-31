@@ -545,7 +545,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="libexpatMT.lib mss32.lib winmm.lib smackw32.lib fmodvc.lib lua51.lib .\Multiplayer\Raknet\RakNetLibStatic.lib ws2_32.lib"
-				OutputFile="C:\games\Jagged Alliance 2\JA2_vs2003_release.exe"
+				OutputFile="D:\games\Jagged Alliance 2 v1.13\JA2 v1.13.2207_EN.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				IgnoreDefaultLibraryNames=""

@@ -1722,6 +1722,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Render Z.cpp">
+			</File>
+			<File
 				RelativePath="renderworld.cpp">
 				<FileConfiguration
 					Name="Demo Bounds Checker|Win32">
@@ -3056,6 +3059,9 @@
 			</File>
 			<File
 				RelativePath="Render Fun.h">
+			</File>
+			<File
+				RelativePath=".\Render Z.h">
 			</File>
 			<File
 				RelativePath="renderworld.h">

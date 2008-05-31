@@ -1452,6 +1452,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Ja2 Libs.cpp">
+			</File>
+			<File
 				RelativePath="LibraryDataBase.cpp">
 				<FileConfiguration
 					Name="Demo Release with Debug Info|Win32">
@@ -2777,6 +2780,9 @@
 			</File>
 			<File
 				RelativePath="Install.h">
+			</File>
+			<File
+				RelativePath=".\Ja2 Libs.h">
 			</File>
 			<File
 				RelativePath="JA2 SGP ALL.H">

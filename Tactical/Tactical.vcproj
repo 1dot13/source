@@ -390,7 +390,7 @@
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="3"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\;..\Utils;..\tacticalai;..\Editor;..\strategic;..\Laptop;.\"
+				AdditionalIncludeDirectories="&quot;..\Standard Gaming Platform&quot;;..\TileEngine;..\;..\Utils;..\tacticalai;..\Editor;..\strategic;..\Laptop;.\;..\Multiplayer;..\lua"
 				PreprocessorDefinitions="CALLBACKTIMER;PRECOMPILEDHEADERS;NDEBUG;WIN32;_WINDOWS;JA2;XML_STATIC;CINTERFACE"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -2766,6 +2766,9 @@
 						PreprocessorDefinitions=""
 						BrowseInformation="1"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Item Types.cpp">
 			</File>
 			<File
 				RelativePath="Items.cpp">
@@ -5613,7 +5616,16 @@
 				RelativePath=".\XML_Launchable.cpp">
 			</File>
 			<File
+				RelativePath=".\XML_LBEPocket.cpp">
+			</File>
+			<File
+				RelativePath=".\XML_LoadBearingEquipment.cpp">
+			</File>
+			<File
 				RelativePath=".\XML_Magazine.cpp">
+			</File>
+			<File
+				RelativePath=".\XML_MercStartingGear.cpp">
 			</File>
 			<File
 				RelativePath=".\XML_Merge.cpp">
@@ -5631,6 +5643,9 @@
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;fi;fd">
+			<File
+				RelativePath=".\Action Items.h">
+			</File>
 			<File
 				RelativePath="aim.h">
 			</File>
@@ -5650,6 +5665,15 @@
 				RelativePath="Arms Dealer Init.h">
 			</File>
 			<File
+				RelativePath=".\ArmsDealerInvInit.h">
+			</File>
+			<File
+				RelativePath=".\AStarPathfinder.h">
+			</File>
+			<File
+				RelativePath=".\Auto Bandage.h">
+			</File>
+			<File
 				RelativePath="Boxing.h">
 			</File>
 			<File
@@ -5659,7 +5683,19 @@
 				RelativePath="Campaign.h">
 			</File>
 			<File
+				RelativePath=".\Civ Quotes.h">
+			</File>
+			<File
 				RelativePath=".\Dialogue Control.h">
+			</File>
+			<File
+				RelativePath=".\DisplayCover.h">
+			</File>
+			<File
+				RelativePath=".\Drugs And Alcohol.h">
+			</File>
+			<File
+				RelativePath=".\End Game.h">
 			</File>
 			<File
 				RelativePath="Enemy Soldier Save.h">
@@ -5668,19 +5704,43 @@
 				RelativePath=".\EnemyItemDrops.h">
 			</File>
 			<File
+				RelativePath=".\faces.h">
+			</File>
+			<File
+				RelativePath=".\fov.h">
+			</File>
+			<File
+				RelativePath=".\Gap.h">
+			</File>
+			<File
+				RelativePath=".\Handle Doors.h">
+			</File>
+			<File
 				RelativePath="Handle Items.h">
+			</File>
+			<File
+				RelativePath=".\Handle UI Plan.h">
 			</File>
 			<File
 				RelativePath="Handle UI.h">
 			</File>
 			<File
+				RelativePath=".\Interface Control.h">
+			</File>
+			<File
 				RelativePath="Interface Cursors.h">
+			</File>
+			<File
+				RelativePath=".\interface Dialogue.h">
 			</File>
 			<File
 				RelativePath="Interface Items.h">
 			</File>
 			<File
 				RelativePath="interface panels.h">
+			</File>
+			<File
+				RelativePath=".\Interface Utils.h">
 			</File>
 			<File
 				RelativePath="Interface.h">
@@ -5704,6 +5764,9 @@
 				RelativePath="Map Information.h">
 			</File>
 			<File
+				RelativePath=".\merc entering.h">
+			</File>
+			<File
 				RelativePath="Merc Hiring.h">
 			</File>
 			<File
@@ -5725,6 +5788,9 @@
 				RelativePath="PATHAI.H">
 			</File>
 			<File
+				RelativePath=".\PathAIDebug.h">
+			</File>
+			<File
 				RelativePath="points.h">
 			</File>
 			<File
@@ -5732,6 +5798,12 @@
 			</File>
 			<File
 				RelativePath=".\Rain.h">
+			</File>
+			<File
+				RelativePath=".\Rotting Corpses.h">
+			</File>
+			<File
+				RelativePath=".\rt time defines.h">
 			</File>
 			<File
 				RelativePath="ShopKeeper Interface.h">
@@ -5755,6 +5827,12 @@
 				RelativePath="Soldier Create.h">
 			</File>
 			<File
+				RelativePath=".\Soldier Find.h">
+			</File>
+			<File
+				RelativePath=".\Soldier Functions.h">
+			</File>
+			<File
 				RelativePath="Soldier Init List.h">
 			</File>
 			<File
@@ -5767,6 +5845,9 @@
 				RelativePath="Soldier Profile.h">
 			</File>
 			<File
+				RelativePath=".\soldier tile.h">
+			</File>
+			<File
 				RelativePath="Spread burst.h">
 			</File>
 			<File
@@ -5776,13 +5857,22 @@
 				RelativePath="Strategic Exit GUI.h">
 			</File>
 			<File
+				RelativePath=".\Structure Wrap.h">
+			</File>
+			<File
 				RelativePath="Tactical All.h">
 			</File>
 			<File
 				RelativePath="Tactical Save.h">
 			</File>
 			<File
+				RelativePath=".\Tactical Turns.h">
+			</File>
+			<File
 				RelativePath="TeamTurns.h">
+			</File>
+			<File
+				RelativePath=".\UI Cursors.h">
 			</File>
 			<File
 				RelativePath="Vehicles.h">
