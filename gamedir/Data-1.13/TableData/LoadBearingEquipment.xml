@@ -616,7 +616,7 @@
 		<lbeIndex>34</lbeIndex>
 		<lbeClass>2</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>26</lbeFilledSize>
+		<lbeFilledSize>29</lbeFilledSize>
 		<lbePocketIndex1>16</lbePocketIndex1>
 		<lbePocketIndex2>17</lbePocketIndex2>
 		<lbePocketIndex3>17</lbePocketIndex3>
@@ -627,19 +627,19 @@
 		<lbePocketIndex8>0</lbePocketIndex8>
 		<lbePocketIndex9>0</lbePocketIndex9>
 		<lbePocketIndex10>0</lbePocketIndex10>
-		<lbePocketIndex11>6</lbePocketIndex11>
-		<lbePocketIndex12>6</lbePocketIndex12>
+		<lbePocketIndex11>22</lbePocketIndex11>
+		<lbePocketIndex12>22</lbePocketIndex12>
 	</LOADBEARINGEQUIPMENT>
 	<LOADBEARINGEQUIPMENT>
 		<lbeIndex>35</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>25</lbeFilledSize>
-		<lbePocketIndex1>0</lbePocketIndex1>
-		<lbePocketIndex2>0</lbePocketIndex2>
-		<lbePocketIndex3>0</lbePocketIndex3>
-		<lbePocketIndex4>18</lbePocketIndex4>
-		<lbePocketIndex5>0</lbePocketIndex5>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbePocketIndex1>21</lbePocketIndex1>
+		<lbePocketIndex2>21</lbePocketIndex2>
+		<lbePocketIndex3>20</lbePocketIndex3>
+		<lbePocketIndex4>0</lbePocketIndex4>
+		<lbePocketIndex5>8</lbePocketIndex5>
 		<lbePocketIndex6>0</lbePocketIndex6>
 		<lbePocketIndex7>0</lbePocketIndex7>
 		<lbePocketIndex8>0</lbePocketIndex8>
@@ -652,10 +652,10 @@
 		<lbeIndex>36</lbeIndex>
 		<lbeClass>1</lbeClass>
 		<lbeCombo>0</lbeCombo>
-		<lbeFilledSize>0</lbeFilledSize>
-		<lbePocketIndex1>0</lbePocketIndex1>
-		<lbePocketIndex2>0</lbePocketIndex2>
-		<lbePocketIndex3>0</lbePocketIndex3>
+		<lbeFilledSize>26</lbeFilledSize>
+		<lbePocketIndex1>21</lbePocketIndex1>
+		<lbePocketIndex2>21</lbePocketIndex2>
+		<lbePocketIndex3>20</lbePocketIndex3>
 		<lbePocketIndex4>18</lbePocketIndex4>
 		<lbePocketIndex5>0</lbePocketIndex5>
 		<lbePocketIndex6>0</lbePocketIndex6>

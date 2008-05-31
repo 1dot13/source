@@ -47,7 +47,7 @@
 		<ubImpact>25</ubImpact>
 		<ubDeadliness>16</ubDeadliness>
 		<ubMagSize>15</ubMagSize>
-		<usRange>110</usRange>
+		<usRange>115</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -74,7 +74,7 @@
 		<ubImpact>25</ubImpact>
 		<ubDeadliness>16</ubDeadliness>
 		<ubMagSize>15</ubMagSize>
-		<usRange>110</usRange>
+		<usRange>115</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>23</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -133,7 +133,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
 		<ubMagSize>15</ubMagSize>
-		<usRange>120</usRange>
+		<usRange>140</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>27</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -162,7 +162,7 @@
 		<ubDeadliness>14</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
 		<ubMagSize>6</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>105</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
@@ -215,7 +215,7 @@
 		<ubImpact>27</ubImpact>
 		<ubDeadliness>16</ubDeadliness>
 		<ubMagSize>9</ubMagSize>
-		<usRange>120</usRange>
+		<usRange>135</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
@@ -269,9 +269,9 @@
 		<ubBulletSpeed>22</ubBulletSpeed>
 		<ubImpact>25</ubImpact>
 		<ubDeadliness>18</ubDeadliness>
-		<bAccuracy>5</bAccuracy>
+		<bAccuracy>3</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>130</usRange>
+		<usRange>115</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -304,7 +304,7 @@
 		<ubDeadliness>19</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>135</usRange>
+		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>27</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
@@ -371,7 +371,7 @@
 		<ubDeadliness>28</ubDeadliness>
 		<bAccuracy>3</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>280</usRange>
+		<usRange>305</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -471,7 +471,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>50</ubMagSize>
-		<usRange>240</usRange>
+		<usRange>235</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
@@ -535,7 +535,7 @@
 		<ubDeadliness>22</ubDeadliness>
 		<bAccuracy>3</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>370</usRange>
+		<usRange>375</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -625,7 +625,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>370</usRange>
+		<usRange>375</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -691,7 +691,7 @@
 		<ubDeadliness>22</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>360</usRange>
+		<usRange>365</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -721,7 +721,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>370</usRange>
+		<usRange>375</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -854,7 +854,7 @@
 		<ubDeadliness>39</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>640</usRange>
+		<usRange>645</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -887,7 +887,7 @@
 		<ubDeadliness>40</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>620</usRange>
+		<usRange>630</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>43</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -920,7 +920,7 @@
 		<ubDeadliness>37</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>560</usRange>
+		<usRange>575</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -1078,7 +1078,7 @@
 		<ubDeadliness>49</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>200</ubMagSize>
-		<usRange>360</usRange>
+		<usRange>365</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>30</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -1146,7 +1146,7 @@
 		<ubDeadliness>54</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>640</usRange>
+		<usRange>645</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -1915,7 +1915,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>380</usRange>
+		<usRange>375</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -1948,7 +1948,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>370</usRange>
+		<usRange>365</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -2013,7 +2013,7 @@
 		<ubDeadliness>50</ubDeadliness>
 		<bAccuracy>7</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>800</usRange>
+		<usRange>795</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -2041,7 +2041,7 @@
 		<ubDeadliness>74</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>11</ubMagSize>
-		<usRange>1000</usRange>
+		<usRange>1100</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
@@ -2178,7 +2178,7 @@
 		<ubDeadliness>27</ubDeadliness>
 		<bAccuracy>2</bAccuracy>
 		<ubMagSize>7</ubMagSize>
-		<usRange>150</usRange>
+		<usRange>145</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -2207,7 +2207,7 @@
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>30</ubDeadliness>
 		<ubMagSize>7</ubMagSize>
-		<usRange>150</usRange>
+		<usRange>155</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -2238,7 +2238,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>180</usRange>
+		<usRange>175</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -2271,7 +2271,7 @@
 		<ubDeadliness>19</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>180</usRange>
+		<usRange>175</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -2305,7 +2305,7 @@
 		<ubDeadliness>21</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>145</usRange>
+		<usRange>135</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -2691,7 +2691,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>345</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -2757,7 +2757,7 @@
 		<ubDeadliness>43</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>345</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -2856,7 +2856,7 @@
 		<ubDeadliness>27</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>270</usRange>
+		<usRange>275</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -3121,7 +3121,7 @@
 		<ubDeadliness>29</ubDeadliness>
 		<bAccuracy>8</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>330</usRange>
+		<usRange>325</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>40</ubAttackVolume>
@@ -3275,7 +3275,7 @@
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>31</ubDeadliness>
 		<ubMagSize>7</ubMagSize>
-		<usRange>150</usRange>
+		<usRange>155</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -3389,7 +3389,7 @@
 		<ubDeadliness>46</ubDeadliness>
 		<bAccuracy>12</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>770</usRange>
+		<usRange>765</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -3519,7 +3519,7 @@
 		<ubDeadliness>37</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>560</usRange>
+		<usRange>575</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -3610,7 +3610,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>370</usRange>
+		<usRange>375</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
@@ -3641,7 +3641,7 @@
 		<ubDeadliness>29</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>330</usRange>
+		<usRange>335</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -3673,7 +3673,7 @@
 		<ubDeadliness>48</ubDeadliness>
 		<bAccuracy>11</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>800</usRange>
+		<usRange>795</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -3756,7 +3756,7 @@
 		<ubImpact>29</ubImpact>
 		<ubDeadliness>17</ubDeadliness>
 		<ubMagSize>8</ubMagSize>
-		<usRange>130</usRange>
+		<usRange>135</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>54</ubAttackVolume>
@@ -3870,7 +3870,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>2</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>125</usRange>
+		<usRange>100</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>31</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -3904,7 +3904,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>160</usRange>
+		<usRange>165</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>25</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -3934,11 +3934,11 @@
 		<ubShotsPerBurst>3</ubShotsPerBurst>
 		<ubBurstPenalty>7</ubBurstPenalty>
 		<ubBulletSpeed>22</ubBulletSpeed>
-		<ubImpact>26</ubImpact>
+		<ubImpact>25</ubImpact>
 		<ubDeadliness>22</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>160</usRange>
+		<usRange>150</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>31</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -3968,7 +3968,7 @@
 		<ubImpact>26</ubImpact>
 		<ubDeadliness>16</ubDeadliness>
 		<ubMagSize>14</ubMagSize>
-		<usRange>120</usRange>
+		<usRange>115</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>52</ubAttackVolume>
@@ -3995,7 +3995,7 @@
 		<ubImpact>25</ubImpact>
 		<ubDeadliness>15</ubDeadliness>
 		<ubMagSize>15</ubMagSize>
-		<usRange>120</usRange>
+		<usRange>115</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>51</ubAttackVolume>
@@ -4026,7 +4026,7 @@
 		<ubDeadliness>37</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>340</usRange>
+		<usRange>345</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>35</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -4059,7 +4059,7 @@
 		<ubDeadliness>35</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>550</usRange>
+		<usRange>565</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -4092,7 +4092,7 @@
 		<ubDeadliness>32</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>410</usRange>
+		<usRange>430</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -4125,7 +4125,7 @@
 		<ubDeadliness>54</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>630</usRange>
+		<usRange>635</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -4159,7 +4159,7 @@
 		<ubDeadliness>50</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>200</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>345</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>65</ubAttackVolume>
@@ -4226,7 +4226,7 @@
 		<ubDeadliness>36</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>280</usRange>
+		<usRange>285</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -4292,7 +4292,7 @@
 		<ubDeadliness>48</ubDeadliness>
 		<bAccuracy>11</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>800</usRange>
+		<usRange>795</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -4324,7 +4324,7 @@
 		<ubDeadliness>40</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>620</usRange>
+		<usRange>630</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -4416,7 +4416,7 @@
 		<ubImpact>25</ubImpact>
 		<ubDeadliness>16</ubDeadliness>
 		<ubMagSize>15</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>105</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
@@ -4545,7 +4545,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>340</usRange>
+		<usRange>335</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -4641,7 +4641,7 @@
 		<ubDeadliness>32</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>370</usRange>
+		<usRange>365</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -4674,7 +4674,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>310</usRange>
+		<usRange>315</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -4707,7 +4707,7 @@
 		<ubDeadliness>34</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>450</usRange>
+		<usRange>470</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -4741,7 +4741,7 @@
 		<ubDeadliness>35</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>370</usRange>
+		<usRange>365</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -4774,7 +4774,7 @@
 		<ubDeadliness>49</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>200</ubMagSize>
-		<usRange>370</usRange>
+		<usRange>365</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -4806,7 +4806,7 @@
 		<ubDeadliness>17</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
 		<ubMagSize>14</ubMagSize>
-		<usRange>120</usRange>
+		<usRange>125</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -4838,7 +4838,7 @@
 		<ubDeadliness>21</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>190</usRange>
+		<usRange>180</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -4900,7 +4900,7 @@
 		<ubBulletSpeed>23</ubBulletSpeed>
 		<ubImpact>26</ubImpact>
 		<ubDeadliness>32</ubDeadliness>
-		<bAccuracy>3</bAccuracy>
+		<bAccuracy>5</bAccuracy>
 		<ubMagSize>40</ubMagSize>
 		<usRange>160</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -4934,7 +4934,7 @@
 		<ubDeadliness>49</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>770</usRange>
+		<usRange>775</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -4960,7 +4960,7 @@
 		<ubImpact>25</ubImpact>
 		<ubDeadliness>13</ubDeadliness>
 		<ubMagSize>8</ubMagSize>
-		<usRange>110</usRange>
+		<usRange>105</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -5109,7 +5109,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>2</bAccuracy>
 		<ubMagSize>12</ubMagSize>
-		<usRange>160</usRange>
+		<usRange>155</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>125</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -5141,7 +5141,7 @@
 		<ubDeadliness>19</ubDeadliness>
 		<bAccuracy>2</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>170</usRange>
+		<usRange>165</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -5173,7 +5173,7 @@
 		<ubDeadliness>75</ubDeadliness>
 		<bAccuracy>9</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>1100</usRange>
+		<usRange>1200</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
@@ -5230,7 +5230,7 @@
 		<ubDeadliness>46</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>750</usRange>
+		<usRange>755</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -5323,7 +5323,7 @@
 		<ubDeadliness>54</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>640</usRange>
+		<usRange>645</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -5356,7 +5356,7 @@
 		<ubDeadliness>17</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>140</usRange>
+		<usRange>135</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>25</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -5475,7 +5475,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>160</usRange>
+		<usRange>165</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -5535,7 +5535,7 @@
 		<ubImpact>39</ubImpact>
 		<ubDeadliness>30</ubDeadliness>
 		<ubMagSize>7</ubMagSize>
-		<usRange>150</usRange>
+		<usRange>155</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -5622,7 +5622,7 @@
 		<ubDeadliness>77</ubDeadliness>
 		<bAccuracy>9</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>1100</usRange>
+		<usRange>1200</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>100</ubAttackVolume>
@@ -5844,7 +5844,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>3</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>380</usRange>
+		<usRange>375</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -5877,7 +5877,7 @@
 		<ubDeadliness>44</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>370</usRange>
+		<usRange>375</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>46</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -6061,7 +6061,7 @@
 		<ubImpact>36</ubImpact>
 		<ubDeadliness>25</ubDeadliness>
 		<ubMagSize>2</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>90</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -6090,7 +6090,7 @@
 		<ubDeadliness>37</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>580</usRange>
+		<usRange>585</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -6218,6 +6218,7 @@
 		<ubBulletSpeed>21</ubBulletSpeed>
 		<ubImpact>25</ubImpact>
 		<ubDeadliness>14</ubDeadliness>
+		<bAccuracy>1</bAccuracy>
 		<ubMagSize>8</ubMagSize>
 		<usRange>120</usRange>
 		<usReloadDelay>200</usReloadDelay>
@@ -6331,7 +6332,7 @@
 		<ubDeadliness>15</ubDeadliness>
 		<bAccuracy>3</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>120</usRange>
+		<usRange>110</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>35</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
@@ -6362,7 +6363,7 @@
 		<ubDeadliness>14</ubDeadliness>
 		<bAccuracy>2</bAccuracy>
 		<ubMagSize>15</ubMagSize>
-		<usRange>110</usRange>
+		<usRange>115</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -6390,7 +6391,7 @@
 		<ubImpact>26</ubImpact>
 		<ubDeadliness>17</ubDeadliness>
 		<ubMagSize>14</ubMagSize>
-		<usRange>110</usRange>
+		<usRange>125</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
@@ -6417,7 +6418,7 @@
 		<ubImpact>25</ubImpact>
 		<ubDeadliness>17</ubDeadliness>
 		<ubMagSize>18</ubMagSize>
-		<usRange>130</usRange>
+		<usRange>125</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -6447,7 +6448,7 @@
 		<ubDeadliness>16</ubDeadliness>
 		<bAccuracy>-1</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>120</usRange>
+		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
@@ -6480,7 +6481,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>160</usRange>
+		<usRange>165</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>55</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -6578,7 +6579,7 @@
 		<ubDeadliness>39</ubDeadliness>
 		<bAccuracy>12</bAccuracy>
 		<ubMagSize>10</ubMagSize>
-		<usRange>610</usRange>
+		<usRange>615</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -6607,7 +6608,7 @@
 		<ubDeadliness>47</ubDeadliness>
 		<bAccuracy>11</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>800</usRange>
+		<usRange>795</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -6697,7 +6698,7 @@
 		<ubImpact>36</ubImpact>
 		<ubDeadliness>27</ubDeadliness>
 		<ubMagSize>4</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>95</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -6875,7 +6876,7 @@
 		<ubImpact>24</ubImpact>
 		<ubDeadliness>13</ubDeadliness>
 		<ubMagSize>8</ubMagSize>
-		<usRange>110</usRange>
+		<usRange>115</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
@@ -6934,7 +6935,7 @@
 		<ubDeadliness>45</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>370</usRange>
+		<usRange>375</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>56</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -7064,7 +7065,7 @@
 		<ubImpact>25</ubImpact>
 		<ubDeadliness>13</ubDeadliness>
 		<ubMagSize>8</ubMagSize>
-		<usRange>110</usRange>
+		<usRange>115</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -7126,7 +7127,7 @@
 		<ubDeadliness>59</ubDeadliness>
 		<bAccuracy>7</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>800</usRange>
+		<usRange>795</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -7154,7 +7155,7 @@
 		<ubDeadliness>21</ubDeadliness>
 		<bAccuracy>9</bAccuracy>
 		<ubMagSize>8</ubMagSize>
-		<usRange>220</usRange>
+		<usRange>215</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>54</ubAttackVolume>
@@ -7184,7 +7185,7 @@
 		<ubDeadliness>45</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>280</usRange>
+		<usRange>285</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -7217,7 +7218,7 @@
 		<ubDeadliness>39</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>370</usRange>
+		<usRange>375</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -7250,7 +7251,7 @@
 		<ubDeadliness>34</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>310</usRange>
+		<usRange>315</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -7406,7 +7407,7 @@
 		<ubDeadliness>42</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>370</usRange>
+		<usRange>365</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -7439,7 +7440,7 @@
 		<ubDeadliness>41</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>310</usRange>
+		<usRange>315</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -7472,7 +7473,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>360</usRange>
+		<usRange>365</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>45</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -7502,7 +7503,7 @@
 		<ubImpact>29</ubImpact>
 		<ubDeadliness>18</ubDeadliness>
 		<ubMagSize>7</ubMagSize>
-		<usRange>130</usRange>
+		<usRange>135</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -7621,7 +7622,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>355</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>55</ubAttackVolume>
@@ -7654,7 +7655,7 @@
 		<ubDeadliness>29</ubDeadliness>
 		<bAccuracy>3</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>290</usRange>
+		<usRange>285</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -7935,7 +7936,7 @@
 		<ubDeadliness>20</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>210</usRange>
+		<usRange>205</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
@@ -8053,7 +8054,7 @@
 		<ubDeadliness>48</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>790</usRange>
+		<usRange>785</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -8142,7 +8143,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>200</usRange>
+		<usRange>195</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>60</ubAttackVolume>
@@ -8175,7 +8176,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>370</usRange>
+		<usRange>375</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -8208,7 +8209,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>310</usRange>
+		<usRange>305</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -8238,7 +8239,7 @@
 		<ubImpact>25</ubImpact>
 		<ubDeadliness>16</ubDeadliness>
 		<ubMagSize>15</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>105</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
@@ -8266,7 +8267,7 @@
 		<ubDeadliness>45</ubDeadliness>
 		<bAccuracy>7</bAccuracy>
 		<ubMagSize>5</ubMagSize>
-		<usRange>690</usRange>
+		<usRange>685</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -8296,7 +8297,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>250</usRange>
+		<usRange>245</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>
@@ -8326,7 +8327,7 @@
 		<ubImpact>27</ubImpact>
 		<ubDeadliness>18</ubDeadliness>
 		<ubMagSize>8</ubMagSize>
-		<usRange>120</usRange>
+		<usRange>130</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>74</ubAttackVolume>
@@ -8388,7 +8389,7 @@
 		<ubDeadliness>38</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>380</usRange>
+		<usRange>385</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -8550,7 +8551,7 @@
 		<ubDeadliness>39</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>25</ubMagSize>
-		<usRange>490</usRange>
+		<usRange>480</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -8584,7 +8585,7 @@
 		<ubDeadliness>21</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>190</usRange>
+		<usRange>175</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -8617,7 +8618,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>25</ubMagSize>
-		<usRange>460</usRange>
+		<usRange>450</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -8650,7 +8651,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>25</ubMagSize>
-		<usRange>460</usRange>
+		<usRange>450</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -8683,7 +8684,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>4</bAccuracy>
 		<ubMagSize>25</ubMagSize>
-		<usRange>460</usRange>
+		<usRange>450</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -8713,7 +8714,7 @@
 		<ubImpact>25</ubImpact>
 		<ubDeadliness>15</ubDeadliness>
 		<ubMagSize>8</ubMagSize>
-		<usRange>100</usRange>
+		<usRange>105</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>72</ubAttackVolume>
@@ -8796,7 +8797,7 @@
 		<ubDeadliness>39</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>640</usRange>
+		<usRange>645</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -8828,7 +8829,7 @@
 		<ubDeadliness>46</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>750</usRange>
+		<usRange>755</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -8857,7 +8858,7 @@
 		<ubImpact>38</ubImpact>
 		<ubDeadliness>28</ubDeadliness>
 		<ubMagSize>4</ubMagSize>
-		<usRange>140</usRange>
+		<usRange>135</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -8886,7 +8887,7 @@
 		<ubDeadliness>29</ubDeadliness>
 		<bAccuracy>1</bAccuracy>
 		<ubMagSize>7</ubMagSize>
-		<usRange>150</usRange>
+		<usRange>155</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -9441,7 +9442,7 @@
 		<ubDeadliness>32</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>25</ubMagSize>
-		<usRange>490</usRange>
+		<usRange>480</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -9474,7 +9475,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>290</usRange>
+		<usRange>285</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -9507,7 +9508,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>170</usRange>
+		<usRange>165</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>63</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -9539,7 +9540,7 @@
 		<ubDeadliness>47</ubDeadliness>
 		<bAccuracy>6</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>690</usRange>
+		<usRange>685</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -9568,7 +9569,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>345</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -9635,7 +9636,7 @@
 		<ubDeadliness>31</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>380</usRange>
+		<usRange>375</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>70</ubAttackVolume>
@@ -9725,7 +9726,7 @@
 		<ubDeadliness>56</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>710</usRange>
+		<usRange>630</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>38</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -9758,7 +9759,7 @@
 		<ubDeadliness>30</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>350</usRange>
+		<usRange>345</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>32</BurstAniDelay>
 		<ubAttackVolume>77</ubAttackVolume>
@@ -9791,7 +9792,7 @@
 		<ubDeadliness>38</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>480</usRange>
+		<usRange>460</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>85</ubAttackVolume>
@@ -9824,7 +9825,7 @@
 		<ubDeadliness>18</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>130</usRange>
+		<usRange>125</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>63</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -9857,7 +9858,7 @@
 		<ubDeadliness>19</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>180</usRange>
+		<usRange>175</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>63</BurstAniDelay>
 		<ubAttackVolume>50</ubAttackVolume>
@@ -9926,7 +9927,7 @@
 		<ubDeadliness>35</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>100</ubMagSize>
-		<usRange>370</usRange>
+		<usRange>365</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -9959,7 +9960,7 @@
 		<ubDeadliness>35</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>200</ubMagSize>
-		<usRange>360</usRange>
+		<usRange>365</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>40</BurstAniDelay>
 		<ubAttackVolume>78</ubAttackVolume>
@@ -9994,7 +9995,7 @@
 		<ubDeadliness>32</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>190</usRange>
+		<usRange>185</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>48</ubAttackVolume>
@@ -10026,7 +10027,7 @@
 		<ubDeadliness>33</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>30</ubMagSize>
-		<usRange>280</usRange>
+		<usRange>275</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>33</BurstAniDelay>
 		<ubAttackVolume>45</ubAttackVolume>
@@ -10056,7 +10057,7 @@
 		<ubImpact>29</ubImpact>
 		<ubDeadliness>19</ubDeadliness>
 		<ubMagSize>7</ubMagSize>
-		<usRange>150</usRange>
+		<usRange>145</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>100</BurstAniDelay>
 		<ubAttackVolume>75</ubAttackVolume>
@@ -10142,7 +10143,7 @@
 		<ubDeadliness>32</ubDeadliness>
 		<bAccuracy>5</bAccuracy>
 		<ubMagSize>20</ubMagSize>
-		<usRange>360</usRange>
+		<usRange>375</usRange>
 		<usReloadDelay>200</usReloadDelay>
 		<BurstAniDelay>50</BurstAniDelay>
 		<ubAttackVolume>80</ubAttackVolume>

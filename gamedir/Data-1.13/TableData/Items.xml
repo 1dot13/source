@@ -803,7 +803,6 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>1100</BR_ROF>
-		<Bipod>10</Bipod>
 	</ITEM>
 	<ITEM>
 		<uiIndex>25</uiIndex>
@@ -5655,7 +5654,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<NightVisionRangeBonus>20</NightVisionRangeBonus>
 		<DayVisionRangeBonus>-20</DayVisionRangeBonus>
-		<CaveVisionRangeBonus>20</CaveVisionRangeBonus>
+		<CaveVisionRangeBonus>10</CaveVisionRangeBonus>
 		<BrightLightVisionRangeBonus>-40</BrightLightVisionRangeBonus>
 	</ITEM>
 	<ITEM>
@@ -8812,7 +8811,7 @@
 		<szLongItemName>9x19mm C-Mag, Tracer</szLongItemName>
 		<szItemDesc>Tracer ammunition in 9mm. In addition to the light show, tracer ammo adds a bonus to hit in burst and autofire modes.</szItemDesc>
 		<szBRName>9x19mm C-Mag Tracer</szBRName>
-		<szBRDesc>Tear off a score of tracer rounds and contribute to the eerie surrealism of any battlefied.</szBRDesc>
+		<szBRDesc>Tear off a score of tracer rounds and contribute to the eerie surrealism of any battlefield.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>53</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
@@ -11041,7 +11040,7 @@
 		<uiIndex>499</uiIndex>
 		<szItemName>7.62x25mm Drum</szItemName>
 		<szLongItemName>7.62x25mm Drum</szLongItemName>
-		<szItemDesc>75-round drum of 7.62 x 25 ammunition.</szItemDesc>
+		<szItemDesc>71-round drum of 7.62 x 25 ammunition.</szItemDesc>
 		<szBRName>7.62x25mm Drum</szBRName>
 		<szBRDesc>7.62 Tk drum fits your vintage Russian SMG.</szBRDesc>
 		<usItemClass>1024</usItemClass>
@@ -14896,6 +14895,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
+		<Bipod>10</Bipod>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -22588,8 +22588,8 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<ToHitBonus>20</ToHitBonus>
 		<BestLaserRange>300</BestLaserRange>
-		<NightVisionRangeBonus>30</NightVisionRangeBonus>
-		<CaveVisionRangeBonus>20</CaveVisionRangeBonus>
+		<NightVisionRangeBonus>20</NightVisionRangeBonus>
+		<CaveVisionRangeBonus>30</CaveVisionRangeBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>951</uiIndex>
@@ -23904,7 +23904,7 @@
 		<ToHitBonus>20</ToHitBonus>
 		<BestLaserRange>100</BestLaserRange>
 		<NightVisionRangeBonus>10</NightVisionRangeBonus>
-		<CaveVisionRangeBonus>10</CaveVisionRangeBonus>
+		<CaveVisionRangeBonus>20</CaveVisionRangeBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1006</uiIndex>
@@ -24334,7 +24334,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<NightVisionRangeBonus>30</NightVisionRangeBonus>
 		<DayVisionRangeBonus>-20</DayVisionRangeBonus>
-		<CaveVisionRangeBonus>30</CaveVisionRangeBonus>
+		<CaveVisionRangeBonus>15</CaveVisionRangeBonus>
 		<BrightLightVisionRangeBonus>-40</BrightLightVisionRangeBonus>
 	</ITEM>
 	<ITEM>
@@ -24364,7 +24364,7 @@
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<NightVisionRangeBonus>40</NightVisionRangeBonus>
 		<DayVisionRangeBonus>-20</DayVisionRangeBonus>
-		<CaveVisionRangeBonus>40</CaveVisionRangeBonus>
+		<CaveVisionRangeBonus>20</CaveVisionRangeBonus>
 		<BrightLightVisionRangeBonus>-40</BrightLightVisionRangeBonus>
 	</ITEM>
 	<ITEM>
@@ -25144,7 +25144,7 @@
 		<uiIndex>1059</uiIndex>
 		<szItemName>5.56mm Mag 42 T</szItemName>
 		<szLongItemName>5.56x45mm Mag, 42 Tracer</szLongItemName>
-		<szItemDesc>Burst fire doesn't have to be a guessing game anymore with 30 rounds of tracer ammo.</szItemDesc>
+		<szItemDesc>Burst fire doesn't have to be a guessing game anymore with 42 rounds of tracer ammo.</szItemDesc>
 		<szBRName>5.56x45mm Mag, 42 Tracer</szBRName>
 		<szBRDesc>Tracer ammo ensures putting those shots on target when it counts.</szBRDesc>
 		<usItemClass>1024</usItemClass>
@@ -28742,33 +28742,42 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1203</uiIndex>
-		<szItemName>SAW-Vest</szItemName>
-		<szLongItemName>SAW-Vest</szLongItemName>
-		<szItemDesc>This vest can take 4 ammobelts for your machinegun, or several drums</szItemDesc>
-		<szBRName>SAW-Vest</szBRName>
+		<szItemName>LRAK</szItemName>
+		<szLongItemName>LRAK SAW-Vest</szLongItemName>
+		<szItemDesc>This vest can take 4 ammobelts for your machinegun, or several drums.</szItemDesc>
+		<szBRName>LRAK SAW-Vest</szBRName>
 		<szBRDesc>Your machinegunner will love this vest, provided he's strong enough to wear it when it is filled to capacity.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<ubClassIndex>34</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>746</ubGraphicNum>
 		<ubWeight>18</ubWeight>
 		<ItemSize>23</ItemSize>
 		<usPrice>185</usPrice>
+		<ubCoolness>5</ubCoolness>
+		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
+		<CamoBonus>5</CamoBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1204</uiIndex>
 		<szItemName>1st Aid</szItemName>
 		<szLongItemName>First Aid Rig</szLongItemName>
-		<szItemDesc>Not ready yet</szItemDesc>
+		<szItemDesc>This leg rig has a first aid pouch with several small belt loops for the neat storage of syringes.</szItemDesc>
 		<szBRName>First Aid Rig</szBRName>
-		<szBRDesc>Not ready yet</szBRDesc>
+		<szBRDesc>Great for storing a first aid kit with additional syringes of whatever stimulants your troops need.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<ubClassIndex>35</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>744</ubGraphicNum>
 		<ubWeight>8</ubWeight>
 		<ItemSize>21</ItemSize>
 		<usPrice>80</usPrice>
+		<ubCoolness>6</ubCoolness>
+		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<BR_NewInventory>3</BR_NewInventory>
@@ -28778,14 +28787,18 @@
 		<uiIndex>1205</uiIndex>
 		<szItemName>Med. Pouch</szItemName>
 		<szLongItemName>Medical Pouch</szLongItemName>
-		<szItemDesc>Not ready yet</szItemDesc>
+		<szItemDesc>This leg rig has a first aid pouch with several small belt loops for the neat storage of syringes, and also carries a canteen.</szItemDesc>
 		<szBRName>Medical Pouch</szBRName>
-		<szBRDesc>Not ready yet</szBRDesc>
+		<szBRDesc>Great for storing a first aid kit with additional syringes of whatever stimulants your troops need. Also keeps a canteen handy.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<ubClassIndex>36</ubClassIndex>
+		<ubGraphicType>1</ubGraphicType>
+		<ubGraphicNum>745</ubGraphicNum>
 		<ubWeight>9</ubWeight>
 		<ItemSize>21</ItemSize>
 		<usPrice>80</usPrice>
+		<ubCoolness>6</ubCoolness>
+		<bRepairEase>2</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
 		<BR_NewInventory>2</BR_NewInventory>
@@ -28819,7 +28832,7 @@
 		<szLongItemName>AR-Mag. / Canteen / Grenade Panel</szLongItemName>
 		<szItemDesc>A modular leg rig panel with an AR-Mag. pouch, canteen pouch, and two grenade pouches.</szItemDesc>
 		<szBRName>AR-Mag. / Canteen / Grenade Panel</szBRName>
-		<szBRDesc>A subversion of one of our other leg rigs, this panel replaces one grenade pouch with a canteen pouch.</szBRDesc>
+		<szBRDesc>A sub-version of one of our other leg rigs, this panel replaces one grenade pouch with a canteen pouch.</szBRDesc>
 		<usItemClass>131072</usItemClass>
 		<ubClassIndex>38</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
