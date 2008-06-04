@@ -393,9 +393,12 @@ void AddPossiblePendingMilitiaToBattle()
 	static UINT8 ubPredefinedRank = 255;
 
 	// Haydent
-	if ((is_client && !is_server) || MILITIA_ENABLED==0)
+	if (is_networked)
 	{
-		return;
+		if ((is_client && !is_server) || MILITIA_ENABLED==0)
+		{
+			return;
+		}
 	}
 
 	//	if( !PlayerMercsInSector( (UINT8)gWorldSectorX, (UINT8)gWorldSectorY, 0 ) || !CountAllMilitiaInSector( gWorldSectorX, gWorldSectorY ) 
