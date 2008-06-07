@@ -2084,11 +2084,26 @@ void PrepareLoadedSector()
 			AddSoldierInitListTeamToWorld( CIV_TEAM, 255 );
 		}
 
-		if(is_server && MILITIA_ENABLED==1)
+		if (is_networked)
+		{
+			if(is_server && MILITIA_ENABLED==1)
+				AddSoldierInitListTeamToWorld( MILITIA_TEAM, 255 );
+		}
+		else
+		{
 			AddSoldierInitListTeamToWorld( MILITIA_TEAM, 255 );
+		}
 		
-		if(is_server && CREATURE_ENABLED==1)
+		if (is_networked)
+		{
+			if(is_server && CREATURE_ENABLED==1)
+				AddSoldierInitListBloodcats();
+		}
+		else
+		{
 			AddSoldierInitListBloodcats();
+		}
+
 
 		//Creatures are only added if there are actually some of them.  It has to go through some
 		//additional checking.
