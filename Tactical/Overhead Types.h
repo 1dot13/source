@@ -23,6 +23,7 @@
 #define MIN_AMB_LEVEL_FOR_MERC_LIGHTS		9
 
 
+#define		MAXTEAMS_SP				6 // WANNE: for singleplayer
 #define     MAXTEAMS				11 //hayden
 #define			MAXMERCS				MAX_NUM_SOLDIERS
 
