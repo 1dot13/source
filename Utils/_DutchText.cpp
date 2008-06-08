@@ -3616,11 +3616,8 @@ STR16	gzGIOScreenText[] =
 	L"Inventory System",
 	L"Old",
 	L"New",
-
-	L"Timed Turns",//hayden
-	L"Not Timed",
-	L"Timed Player Turns",
 	L"Load MP Game",
+	L"INITIAL GAME SETTINGS (Only the server settings take effect)",
 };
 
 STR16 pDeliveryLocationStrings[] =

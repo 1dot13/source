@@ -406,7 +406,7 @@ BOOLEAN		EnterGIOScreen()
 	if(is_networked)
 	{
 	MPgiGIOCancelBtnImage = UseLoadedButtonImage( giGIODoneBtnImage, -1,1,-1,3,-1 );
-	MPguiGIOCancelButton = CreateIconAndTextButton( giGIOCancelBtnImage, gzGIOScreenText[30], OPT_BUTTON_FONT,
+	MPguiGIOCancelButton = CreateIconAndTextButton( giGIOCancelBtnImage, gzGIOScreenText[GIO_LOAD_MP_GAME], OPT_BUTTON_FONT,
 													OPT_BUTTON_ON_COLOR, DEFAULT_SHADOW,
 													OPT_BUTTON_OFF_COLOR, DEFAULT_SHADOW,
 													TEXT_CJUSTIFIED,
@@ -496,25 +496,28 @@ BOOLEAN		EnterGIOScreen()
 	}
 
 	// CHRISL: New inventory options
-	if(IsNIVModeValid() == TRUE){
-		usPosY = GIO_INV_SETTING_Y - GIO_OFFSET_TO_TOGGLE_BOX_Y;
-		for( cnt=0; cnt<NUM_INV_OPTIONS; cnt++)
-		{
-			guiINVOptionToggles[ cnt ] = CreateCheckBoxButton(	GIO_INV_SETTING_X+GIO_OFFSET_TO_TOGGLE_BOX, usPosY, 
-																			"INTERFACE\\OptionsCheck.sti", MSYS_PRIORITY_HIGH+10, 
-																			BtnINVOptionTogglesCallback );
-			MSYS_SetBtnUserData( guiINVOptionToggles[ cnt ], 0, cnt );
+	if (!is_networked)
+	{
+		if(IsNIVModeValid() == TRUE){
+			usPosY = GIO_INV_SETTING_Y - GIO_OFFSET_TO_TOGGLE_BOX_Y;
+			for( cnt=0; cnt<NUM_INV_OPTIONS; cnt++)
+			{
+				guiINVOptionToggles[ cnt ] = CreateCheckBoxButton(	GIO_INV_SETTING_X+GIO_OFFSET_TO_TOGGLE_BOX, usPosY, 
+																				"INTERFACE\\OptionsCheck.sti", MSYS_PRIORITY_HIGH+10, 
+																				BtnINVOptionTogglesCallback );
+				MSYS_SetBtnUserData( guiINVOptionToggles[ cnt ], 0, cnt );
 
-			usPosY += GIO_GAP_BN_SETTINGS-5;
-		}
-		switch( gGameOptions.ubInventorySystem )
-		{
-			case INVENTORY_OLD:
-				ButtonList[ guiINVOptionToggles[ GIO_INV_OLD ] ]->uiFlags |= BUTTON_CLICKED_ON;
-				break;
-			case INVENTORY_NEW:
-				ButtonList[ guiINVOptionToggles[ GIO_INV_NEW ] ]->uiFlags |= BUTTON_CLICKED_ON;
-				break;
+				usPosY += GIO_GAP_BN_SETTINGS-5;
+			}
+			switch( gGameOptions.ubInventorySystem )
+			{
+				case INVENTORY_OLD:
+					ButtonList[ guiINVOptionToggles[ GIO_INV_OLD ] ]->uiFlags |= BUTTON_CLICKED_ON;
+					break;
+				case INVENTORY_NEW:
+					ButtonList[ guiINVOptionToggles[ GIO_INV_NEW ] ]->uiFlags |= BUTTON_CLICKED_ON;
+					break;
+			}
 		}
 	}
 
@@ -641,9 +644,12 @@ BOOLEAN		ExitGIOScreen()
 		RemoveButton( guiBROptionToggles[ cnt ] );
 
 // CHRISL
-	if(IsNIVModeValid() == TRUE){
-		for( cnt=0; cnt<NUM_INV_OPTIONS; cnt++)
-			RemoveButton( guiINVOptionToggles[ cnt ] );
+	if (!is_networked)
+	{
+		if(IsNIVModeValid() == TRUE){
+			for( cnt=0; cnt<NUM_INV_OPTIONS; cnt++)
+				RemoveButton( guiINVOptionToggles[ cnt ] );
+		}
 	}
 
 	// JA2Gold: remove iron man buttons
@@ -742,7 +748,15 @@ BOOLEAN		RenderGIOScreen()
 	ShadowVideoSurfaceRect( FRAME_BUFFER, iScreenWidthOffset, iScreenHeightOffset, iScreenWidthOffset + 640, iScreenHeightOffset + 480 );
 
 	//Display the title
-	DrawTextToScreen( gzGIOScreenText[ GIO_INITIAL_GAME_SETTINGS ], GIO_MAIN_TITLE_X, GIO_MAIN_TITLE_Y, GIO_MAIN_TITLE_WIDTH, GIO_TITLE_FONT, GIO_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	if (!is_networked)
+	{
+		DrawTextToScreen( gzGIOScreenText[ GIO_INITIAL_GAME_SETTINGS ], GIO_MAIN_TITLE_X, GIO_MAIN_TITLE_Y, GIO_MAIN_TITLE_WIDTH, GIO_TITLE_FONT, GIO_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	}
+	else
+	{
+		DrawTextToScreen( gzGIOScreenText[ GIO_INITIAL_GAME_SETTINGS_MP ], GIO_MAIN_TITLE_X, GIO_MAIN_TITLE_Y, GIO_MAIN_TITLE_WIDTH, GIO_TITLE_FONT, GIO_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
+	}
+
 
 	//Display the Dif Settings Title Text
 	//DrawTextToScreen( gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], GIO_DIF_SETTINGS_X, (UINT16)(GIO_DIF_SETTINGS_Y-GIO_GAP_BN_SETTINGS), GIO_DIF_SETTINGS_WIDTH, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );	
@@ -825,14 +839,18 @@ BOOLEAN		RenderGIOScreen()
 	DisplayWrappedString( (UINT16)(GIO_BR_SETTING_X+GIO_OFFSET_TO_TEXT), usPosY, GIO_DIF_SETTINGS_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_BR_AWESOME_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
 // CHRISL
-	if(IsNIVModeValid() == TRUE){
-		DisplayWrappedString( GIO_INV_SETTING_X, (UINT16)(GIO_INV_SETTING_Y-GIO_GAP_BN_SETTINGS), GIO_DIF_SETTINGS_WIDTH + 20, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_INV_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-		usPosY = GIO_INV_SETTING_Y+2;
+	if (!is_networked)
+	{
+		if(IsNIVModeValid() == TRUE)
+		{
+			DisplayWrappedString( GIO_INV_SETTING_X, (UINT16)(GIO_INV_SETTING_Y-GIO_GAP_BN_SETTINGS), GIO_DIF_SETTINGS_WIDTH + 20, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_INV_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+			usPosY = GIO_INV_SETTING_Y+2;
 
-		DisplayWrappedString( (UINT16)(GIO_INV_SETTING_X+GIO_OFFSET_TO_TEXT), usPosY, GIO_DIF_SETTINGS_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_INV_OLD_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-		usPosY += GIO_GAP_BN_SETTINGS-5;
+			DisplayWrappedString( (UINT16)(GIO_INV_SETTING_X+GIO_OFFSET_TO_TEXT), usPosY, GIO_DIF_SETTINGS_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_INV_OLD_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+			usPosY += GIO_GAP_BN_SETTINGS-5;
 
-		DisplayWrappedString( (UINT16)(GIO_INV_SETTING_X+GIO_OFFSET_TO_TEXT), usPosY, GIO_DIF_SETTINGS_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_INV_NEW_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+			DisplayWrappedString( (UINT16)(GIO_INV_SETTING_X+GIO_OFFSET_TO_TEXT), usPosY, GIO_DIF_SETTINGS_WIDTH, 2, GIO_TOGGLE_TEXT_FONT, GIO_TOGGLE_TEXT_COLOR, gzGIOScreenText[ GIO_INV_NEW_TEXT ], FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+		}
 	}
 
 // JA2Gold: Display the iron man Settings Title Text

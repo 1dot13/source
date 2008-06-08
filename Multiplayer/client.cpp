@@ -240,6 +240,7 @@ char ckbag[100];
  char SERVER_IP[30] ;
  char SERVER_PORT[30];
 
+ int INVENTORY_MODE;
  int REPORT_NAME;
  int WEAPON_READIED_BONUS;
  int ALLOW_CUSTOM_NIV;
@@ -1932,41 +1933,36 @@ void recieveSETTINGS (RPCParameters *rpcParameters) //recive settings from serve
 			ALLOW_CUSTOM_NIV=cl_lan->ALLOW_CUSTOM_NIV;
 			DISABLE_SPEC_MODE=cl_lan->DISABLE_SPEC_MODE;
 			
-			
+			// We have to take the selected inventory mode from the server
 			if(ALLOW_CUSTOM_NIV==0)
 			{	
-				// WANNE - MP: If the clients has selected another inventory than the server had choosen.
-				if (gGameOptions.ubInventorySystem != cl_lan->sofNewInv)
-				{
-					gGameOptions.ubInventorySystem=cl_lan->sofNewInv;
-
-					// WANNE - MP: We have to re-initialize the correct interface
-					if((UsingNewInventorySystem() == true) && IsNIVModeValid(true))
-					{
-						InitNewInventorySystem();
-						InitializeSMPanelCoordsNew();
-						InitializeInvPanelCoordsNew();
-					}
-					else
-					{
-						gGameOptions.ubInventorySystem = 0;
-						InitOldInventorySystem();
-						InitializeSMPanelCoordsOld();
-						InitializeInvPanelCoordsOld();
-					}
-
-					// WANNE - MP: We also have to reinitialize the merc profiles because
-					// they depend on the inventory!
-					LoadMercProfiles();
-				}
+				gGameOptions.ubInventorySystem=cl_lan->sofNewInv;
 			}
 
-			
+			// WANNE - MP: We have to re-initialize the correct interface
+			if((UsingNewInventorySystem() == true) && IsNIVModeValid(true))
+			{
+				InitNewInventorySystem();
+				InitializeSMPanelCoordsNew();
+				InitializeInvPanelCoordsNew();
+			}
+			else
+			{
+				gGameOptions.ubInventorySystem = INVENTORY_OLD;
+				InitOldInventorySystem();
+				InitializeSMPanelCoordsOld();
+				InitializeInvPanelCoordsOld();
+			}
+
+			// WANNE - MP: We also have to reinitialize the merc profiles because
+			// they depend on the inventory!
+			LoadMercProfiles();
+				
 			ScreenMsg( FONT_LTGREEN, MSG_CHAT, MPClientMessage[26],cl_lan->client_num,szDefault,cl_lan->cl_edge,cl_lan->team );
 //		if(PLAYER_BSIDE==0)ScreenMsg(FONT_LTGREEN,MSG_CHAT,MPClientMessage[27],cl_lan->cl_ops[0],cl_lan->cl_ops[1],cl_lan->cl_ops[2],cl_lan->cl_ops[3]);
 		//ScreenMsg(FONT_LTGREEN,MSG_CHAT,MPClientMessage[27],cl_lan->team);
 	
-				strcpy(client_names[cl_lan->client_num-1],szDefault);				
+			strcpy(client_names[cl_lan->client_num-1],szDefault);				
 
 		}
 		else 
@@ -2805,8 +2801,8 @@ void connect_client ( void )
 		
 			
 			GetPrivateProfileString( "Ja2_mp Settings","CLIENT_NAME", "", clname, MAX_PATH, "..\\Ja2_mp.ini" );
-
-		
+			
+			gGameOptions.ubInventorySystem = GetPrivateProfileInt( "Ja2_mp Settings","INVENTORY_MODE", INVENTORY_OLD, "..\\Ja2_mp.ini" );
 			
 	
 

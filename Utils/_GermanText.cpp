@@ -3421,11 +3421,8 @@ STR16 gzGIOScreenText[] =
 	L"Inventar System",
 	L"Alt",
 	L"Neu",
-
-	L"Timed Turns",//hayden
-	L"Not Timed",
-	L"Timed Player Turns",
 	L"Lade MP Spiel",
+	L"GRUNDEINSTELLUNGEN (Nur Servereinstellungen werden verwendet)",
 };
 
 STR16 pDeliveryLocationStrings[] =

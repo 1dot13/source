@@ -3613,11 +3613,8 @@ STR16	gzGIOScreenText[] =
 	L"Режим инвентаря",
 	L"Классический",
 	L"Новый вариант",
-
-	L"Timed Turns",//hayden
-	L"Not Timed",
-	L"Timed Player Turns",
 	L"Загрузить",
+	L"УСТАНОВКА НАЧАЛА ИГРЫ (Only the server settings take effect)",
 };
 
 STR16 pDeliveryLocationStrings[] =
