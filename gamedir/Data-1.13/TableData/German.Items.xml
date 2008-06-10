@@ -84,9 +84,9 @@
 		<uiIndex>10</uiIndex>
 		<szItemName>MAC-10</szItemName>
 		<szLongItemName>Ingram MAC-10</szLongItemName>
-		<szItemDesc>Die MAC-10 kam 1970 auf den Markt. Sie schießt nur Dauerfeuer und war für den Einsatz in Spezialeinheiten gedacht. Ihr größter Konkurrent war die HK MP5.</szItemDesc>
+		<szItemDesc>Die MAC-10 kam 1970 auf den Markt und war für den Einsatz in Spezialeinheiten der Polizei und des Militärs gedacht. Sie wurde u.a. vom britischen SAS und des U.S.M.C. verwendet.</szItemDesc>
 		<szBRName>Ingram MAC-10</szBRName>
-		<szBRDesc>Das 'Military Armament Corporation Model 10' wurde 1964 von G. Ingram entwickelt und schnell Standardwaffe bei Spezialeinheiten des U.S.M.C. Inzwischen wird sie von Ingrams eigener Firma gefertigt. Sie kann mit einem Geräuschunterdrücker ausgestattet werden.</szBRDesc>
+		<szBRDesc>Die im Disco-Zeitalter eingeführte MAC-10 war sehr beliebt entlang der Ostküste der USA. Sie wurde 1964 von Gordon Ingram entwickelt und ab 1970 in großen Stückzahlen hergestellt. Sie besitzt nur Dauerfeuer.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>11</uiIndex>
@@ -156,9 +156,9 @@
 		<uiIndex>19</uiIndex>
 		<szItemName>M24 SWS</szItemName>
 		<szLongItemName>Remington M24 SWS</szLongItemName>
-		<szItemDesc>Das M24 SWS gilt aufgrund seiner hohen Präzision als Maßstab für Scharfschützengewehre.</szItemDesc>
+		<szItemDesc>Das M24 SWS gilt aufgrund seiner hohen Zielgenauigkeit als Maßstab für Scharfschützengewehre.</szItemDesc>
 		<szBRName>Remington M24 SWS</szBRName>
-		<szBRDesc>Das M24 SWS gilt aufgrund seiner hohen Präzision als Maßstab für Scharfschützengewehre. Während eines Einsatzes im Irak, konnte ein Schütze mit diesem Gewehr ein Ziel auf 1.250m erfolgreich bekämpfen.</szBRDesc>
+		<szBRDesc>Das M24 SWS gilt aufgrund seiner hohen Zielgenauigkeit als Maßstab für Scharfschützengewehre. Während eines Einsatzes im Irak, konnte ein Schütze mit diesem Gewehr ein Ziel auf 1.250m erfolgreich bekämpfen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>20</uiIndex>
@@ -220,9 +220,9 @@
 		<uiIndex>27</uiIndex>
 		<szItemName>M14</szItemName>
 		<szLongItemName>Winchester M14</szLongItemName>
-		<szItemDesc>Das WINCHESTER M14 löste Ende der 50er Jahre den seit 1936 im Einsatz befindlichen M1 Garand ab. Es besitzt eine herausragende Schussgenauigkeit.</szItemDesc>
+		<szItemDesc>Das M14 löste Ende der 1950er Jahre den seit 1936 im Einsatz befindlichen M1 Garand ab. Es besitzt eine hohe Zielgenauigkeit.</szItemDesc>
 		<szBRName>Winchester M14</szBRName>
-		<szBRDesc>Das WINCHESTER M14 löste Ende der 50er Jahre den seit 1936 im Einsatz befindlichen M1 Garand ab. Aufgrund seiner guten Schussleistung erfreut es sich großer Beliebheit bei Reservisten und Jägern. SPRINGFIELD ARMORY fertigt mit dem Modell M1A eine zivile Variante.</szBRDesc>
+		<szBRDesc>Das M14 löste Ende der 1950er Jahre den seit 1936 im Einsatz befindlichen M1 Garand ab. Aufgrund seiner hohen Zielgenauigkeit ist es bei Reservisten und Jägern sehr beliebt.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>28</uiIndex>
@@ -2341,17 +2341,17 @@
 		<uiIndex>294</uiIndex>
 		<szItemName>SWAT Hose</szItemName>
 		<szLongItemName>SWAT-Hose</szLongItemName>
-		<szItemDesc>Die Schutzkleidung der SWAT-Teams ist aufgrund des einheitlichen Überzugs kräftiger als Kevlar und lässt noch ausrechende Bewegungsfreiheit zu. Schutzklasse: II (NIJ)</szItemDesc>
+		<szItemDesc>Die Schutzkleidung der SWAT-Teams ist aufgrund der eingewebten High-Tech Fasern widerstandsfähiger als Kevlar. Sie ermöglicht eine ausrechende Bewegungsfreiheit. Schutzklasse: II (NIJ)</szItemDesc>
 		<szBRName>SWAT-Hose</szBRName>
-		<szBRDesc>Die Schutzkleidung der SWAT-Teams ist aufgrund des einheitlichen Überzugs kräftiger als Kevlar und lässt noch ausrechende Bewegungsfreiheit zu. Schutzklasse: II (NIJ)</szBRDesc>
+		<szBRDesc>Die Schutzkleidung der SWAT-Teams ist aufgrund der eingewebten High-Tech Fasern widerstandsfähiger als Kevlar. Sie ermöglicht eine ausrechende Bewegungsfreiheit. Schutzklasse: II (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>295</uiIndex>
 		<szItemName>SWAT Weste</szItemName>
 		<szLongItemName>SWAT-Weste</szLongItemName>
-		<szItemDesc>Die Schutzkleidung der SWAT-Teams ist aufgrund des einheitlichen Überzugs kräftiger als Kevlar und lässt noch ausrechende Bewegungsfreiheit zu. Schutzklasse: II (NIJ)</szItemDesc>
+		<szItemDesc>Die Schutzkleidung der SWAT-Teams ist aufgrund der eingewebten High-Tech Fasern widerstandsfähiger als Kevlar. Sie ermöglicht eine ausrechende Bewegungsfreiheit. Schutzklasse: II (NIJ)</szItemDesc>
 		<szBRName>SWAT-Weste</szBRName>
-		<szBRDesc>Die Schutzkleidung der SWAT-Teams ist aufgrund des einheitlichen Überzugs kräftiger als Kevlar und lässt noch ausrechende Bewegungsfreiheit zu. Schutzklasse: II (NIJ)</szBRDesc>
+		<szBRDesc>Die Schutzkleidung der SWAT-Teams ist aufgrund der eingewebten High-Tech Fasern widerstandsfähiger als Kevlar. Sie ermöglicht eine ausrechende Bewegungsfreiheit. Schutzklasse: II (NIJ)</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>296</uiIndex>
@@ -5458,9 +5458,9 @@
 		<uiIndex>684</uiIndex>
 		<szItemName>M21 Tactical</szItemName>
 		<szLongItemName>Springfield M21 Tactical</szLongItemName>
-		<szItemDesc>Das M21 ist ein sehr präzises und zuverlässiges halbautomatisches Scharfschützengewehr. Es basiert auf dem M14-Sturmgewehr.</szItemDesc>
+		<szItemDesc>Die US-Army benötigte während des Vietnam-Krieges ein präzises und zuverlässiges Scharfschützengewehr. Man entschloss sich 1969 das M14/M1A National Match Gewehr mit einigen Änderungen zu verwenden.</szItemDesc>
 		<szBRName>Springfield M21 Tactical</szBRName>
-		<szBRDesc>Dies ist eine verbesserte Variante des M14/M1A National Match Gewehres, welches ursprünglich aus übrig gebliebenen Teilen der M14-Produktion gefertigt wurde. Es hat einen längeren Lauf um die Präzision und Reichweite zu erhöhen sowie eine verfeinerte Abzugscharakteristik.</szBRDesc>
+		<szBRDesc>Die US-Army benötigte während des Vietnam-Krieges ein präzises und zuverlässiges Scharfschützengewehr. Man entschloss sich 1969 das M14/M1A National Match Gewehr mit einigen Änderungen zu verwenden.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>685</uiIndex>
@@ -5488,11 +5488,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>688</uiIndex>
-		<szItemName>MAC-11/9</szItemName>
-		<szLongItemName>Ingram MAC-11/9</szLongItemName>
-		<szItemDesc>Die MAC-10 wurde von der US-Army als Ersatz für vorher verwendeten schwedischen MP-Modelle beschafft.</szItemDesc>
-		<szBRName>Ingram MAC-11/9</szBRName>
-		<szBRDesc>Die MAC-11/9 besitzt nur Dauerfeuer und wurde von der US-Army als Ersatz für vorher verwendete schwedische MP-Modelle beschafft. Sie war für den Einsatz bei Kommando- und Spezialeinheiten gedacht.</szBRDesc>
+		<szItemName>M11/9</szItemName>
+		<szLongItemName>Cobray M11/9</szLongItemName>
+		<szItemDesc>Die M11/9 ist ein Nachbau der berühmten MAC-10 und wurde von COBRAY in den 1980er Jahren hergestellt.</szItemDesc>
+		<szBRName>Cobray M11/9</szBRName>
+		<szBRDesc>Die M11/9 ist ein Nachbau der berühmten MAC-10 und wurde von COBRAY in den 1980er Jahren hergestellt. Sie besitzt nur Dauerfeuer und hat eine Feuerrate von 1200 Schuss/min.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>689</uiIndex>
@@ -5619,7 +5619,7 @@
 		<szItemName>QBZ-97</szItemName>
 		<szLongItemName>QBZ-97</szLongItemName>
 		<szItemDesc>Die Exportversion des chinesischen Bullpup Sturmgewehres.</szItemDesc>
-		<szBRName>QBZ-97</szBRName> 
+		<szBRName>QBZ-97</szBRName>
 		<szBRDesc>Im Jahr 1901 vom britischen Thorneycroft- Karabiner vorgestellt, hat es das 'Bullenkalb'- Design nun auch nach China geschafft. Unsere Importeure bekräftigen, daß die Exportversion qualitativ hochwertiger als die nationale Version ist.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -7153,16 +7153,16 @@
 	<ITEM>
 		<uiIndex>896</uiIndex>
 		<szItemName>M14 EBR</szItemName>
-		<szLongItemName>Winchester M14 EBR</szLongItemName>
-		<szItemDesc>Das WINCHESTER M14 löste Ende der 50er Jahre den seit 1936 im Einsatz befindlichen M1 Garand ab. Es besitzt eine herausragende Schussgenauigkeit. Dies ist die verbesserte Version mit neuem Schaft.</szItemDesc>
-		<szBRName>Winchester M14 EBR</szBRName>
+		<szLongItemName>Sage M14 EBR</szLongItemName>
+		<szItemDesc>Das Mark 14 Mod 0 'Enhanced Battle Rifle' ist eine von SAGE verbesserte Variante des M14 und wurde in Zusamenarbeit mit der U.S. Navy für maritime Einsätze entwickelt. </szItemDesc>
+		<szBRName>Sage M14 EBR</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>897</uiIndex>
 		<szItemName>M21 EBR</szItemName>
 		<szLongItemName>Springfield M21 EBR</szLongItemName>
-		<szItemDesc>Das M21 ist ein sehr präzises und zuverlässiges halbautomatisches Scharfschützengewehr. Es basiert auf dem M14-Sturmgewehr. Dieses hier hat man in den EBR-Schaft gesteckt, der eigentlich für das M14 gedacht war.</szItemDesc>
+		<szItemDesc>Das M21 Tactical ist die Scharfschützen- Variante des M14. Es ist ein präzises und zuverlässiges halbautomatisches Gewehr mit hoher Feuerkraft. Hier die neue EBR-Version mit Kunststoff-Schaft.</szItemDesc>
 		<szBRName>Springfield M21 EBR</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen.</szBRDesc>
 	</ITEM>
@@ -8657,9 +8657,9 @@
 		<uiIndex>1085</uiIndex>
 		<szItemName>Bw-Weste</szItemName>
 		<szLongItemName>Bundeswehr Weste</szLongItemName>
-		<szItemDesc>Die CCG 'Assault Vest' NG3 flecktarn der Bundeswehr wird von KHS gefertigt und besitzt 4x Magazintaschen, 2x Mehrzweck- und 2x Granattaschen. Auf der linken Seite befindet sich eine mittelgroße Tasche.</szItemDesc>
+		<szItemDesc>Die CCG Assault Vest NG3, flecktarn wird von KHS gefertigt und besitzt 4x Magazin-, 2x Mehrzweck- und 2x Granattaschen. Auf der linken Seite befindet sich eine mittelgroße Tasche.</szItemDesc>
 		<szBRName>Bundeswehr Weste</szBRName>
-		<szBRDesc>Die CCG 'Assault Vest' NG3 flecktarn der Bundeswehr wird von KHS gefertigt und besitzt 4x Magazintaschen, 2x Mehrzweck- und 2x Granattaschen. Auf der linken Seite befindet sich eine mittelgroße Tasche.</szBRDesc>
+		<szBRDesc>Die CCG Assault Vest NG3, flecktarn wird von KHS gefertigt und besitzt 4x Magazin-, 2x Mehrzweck- und 2x Granattaschen. Auf der linken Seite befindet sich eine mittelgroße Tasche.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1086</uiIndex>
@@ -9254,9 +9254,9 @@
 		<uiIndex>1203</uiIndex>
 		<szItemName>SAW-Weste</szItemName>
 		<szLongItemName>SAW-Weste</szLongItemName>
-		<szItemDesc>In dieser taktischen Weste können Sie bis zu vier Patronengurte oder mehrere Trommelmagazine verstauen.</szItemDesc>
+		<szItemDesc>In dieser taktischen Weste können Sie bis zu 4x Patronengurte oder mehrere Trommelmagazine verstauen.</szItemDesc>
 		<szBRName>SAW-Weste</szBRName>
-		<szBRDesc>In dieser taktischen Weste können Sie bis zu vier Patronengurte oder mehrere Trommelmagazine verstauen.</szBRDesc>
+		<szBRDesc>In dieser taktischen Weste können Sie bis zu 4x Patronengurte oder mehrere Trommelmagazine verstauen.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1204</uiIndex>
