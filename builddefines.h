@@ -3,13 +3,18 @@
 
 #include "Language Defines.h"
 
-// Remove comment to build Beta version (with lot of debug infos) including the Editor
+// -------------------------------------
+// Remove comment of the 2 defines to build a exe including the Map Editor!
+// Build the exe with "Release" and not "MapEditor".
+// Then you have to make a shortcut of the EXE adding -EDITORAUTO as a starting parameter.
 //#define	JA2BETAVERSION
+//#define JA2EDITOR
+// -------------------------------------
+
 
 // Normal test version
 //#define JA2TESTVERSION
 
-//#define JA2EDITOR
 
 //#define SGP_DEBUG
 
