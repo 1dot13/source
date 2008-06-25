@@ -3,14 +3,9 @@
 
 #include "Language Defines.h"
 
-// -------------------------------------
-// Remove comment of the 2 defines to build a exe including the Map Editor!
-// Build the exe with "Release" and not "MapEditor".
-// Then you have to make a shortcut of the EXE adding -EDITORAUTO as a starting parameter.
-//#define	JA2BETAVERSION
+// Map Editor version - you should use the MapEditor configuration instead of messing with these defines (ChrisL)
+//#define JA2BETAVERSION
 //#define JA2EDITOR
-// -------------------------------------
-
 
 // Normal test version
 //#define JA2TESTVERSION
