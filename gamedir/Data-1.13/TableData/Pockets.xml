@@ -257,7 +257,7 @@
 		<pName>Ammo Belt</pName>
 		<pSilhouette>22</pSilhouette>
 		<pType>2</pType>
-		<pRestriction>1024</pRestriction>
+		<pRestriction>1280</pRestriction>
 		<ItemCapacityPerSize0>1</ItemCapacityPerSize0>
 		<ItemCapacityPerSize1>1</ItemCapacityPerSize1>
 		<ItemCapacityPerSize2>1</ItemCapacityPerSize2>
@@ -761,7 +761,7 @@
 		<pName>Belt Clip</pName>
 		<pSilhouette>21</pSilhouette>
 		<pType>1</pType>
-		<pRestriction>268435456</pRestriction>
+		<pRestriction>268435712</pRestriction>
 		<ItemCapacityPerSize0>0</ItemCapacityPerSize0>
 		<ItemCapacityPerSize1>0</ItemCapacityPerSize1>
 		<ItemCapacityPerSize2>0</ItemCapacityPerSize2>

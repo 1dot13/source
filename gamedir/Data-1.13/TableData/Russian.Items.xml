@@ -7139,27 +7139,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>892</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 892</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>S&amp;W M29</szItemName>
+		<szLongItemName>Smith &amp; Wesson M29</szLongItemName>
+		<szItemDesc>A sturdy .44 Magnum revolver.</szItemDesc>
+		<szBRName>Smith &amp; Wesson M29</szBRName>
+		<szBRDesc>Probably the most famous Magnum revolver, due to its appearance in the Dirty Harry movies.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>893</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 893</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>M29 SATAN</szItemName>
+		<szLongItemName>M29 SATAN</szLongItemName>
+		<szItemDesc>Someone was obviously so impressed by the toy that he made a real one. Go Figure...</szItemDesc>
+		<szBRName>M29 SATAN</szBRName>
+		<szBRDesc>Formerly only available as a toy-gun, we can now offer a real version of this stylish gun. Beware of frauds at Ebay, people may try to sell you the toy for real. Only we offer the genuine article.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>894</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nothing</szLongItemName>
-		<szItemDesc>Index 894</szItemDesc>
-		<szBRName>Nothing</szBRName>
-		<szBRDesc>Nothing</szBRDesc>
+		<szItemName>MR-73</szItemName>
+		<szLongItemName>Manurhin MR-73</szLongItemName>
+		<szItemDesc>Mostly based on S&amp;W revolvers, but with a few features of its own, the MR-73 is the backbone of Manurhin's revolver production.</szItemDesc>
+		<szBRName>Manurhin MR-73</szBRName>
+		<szBRDesc>A French police revolver in use with GIGN, the French counter-terrorist unit, which tells alot about the quality of this gun.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>895</uiIndex>
@@ -9676,10 +9676,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1209</uiIndex>
-		<szItemName>5.56mm G crate</szItemName>
-		<szLongItemName>5,56x45mm G ammo crate</szLongItemName>
+		<szItemName>5.56mm crate</szItemName>
+		<szLongItemName>5,56x45mm ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
-		<szBRName>5,56x45mm G ammo crate</szBRName>
+		<szBRName>5,56x45mm ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -10112,6 +10112,86 @@
 		<szLongItemName>9x39mm ammo crate</szLongItemName>
 		<szItemDesc>ammo crate</szItemDesc>
 		<szBRName>9x39mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1264</uiIndex>
+		<szItemName>5,45x18 AP crate</szItemName>
+		<szLongItemName>5,45x18mm AP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5,45x18mm AP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1265</uiIndex>
+		<szItemName>5,45x18 HP crate</szItemName>
+		<szLongItemName>5,45x18mm HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>5,45x18mm HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1266</uiIndex>
+		<szItemName>9x18 crate</szItemName>
+		<szLongItemName>9x18mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9x18mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1267</uiIndex>
+		<szItemName>9x18 HP crate</szItemName>
+		<szLongItemName>9x18mm HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9x18mm HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1268</uiIndex>
+		<szItemName>9x21 crate</szItemName>
+		<szLongItemName>9x21mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>9x21mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1269</uiIndex>
+		<szItemName>.30car crate</szItemName>
+		<szLongItemName>.30car ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.30car ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1270</uiIndex>
+		<szItemName>.30car HP crate</szItemName>
+		<szLongItemName>.30car HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.30car HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1271</uiIndex>
+		<szItemName>6.8mm crate</szItemName>
+		<szLongItemName>6.8x43mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>6.8x43mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1272</uiIndex>
+		<szItemName>6.8mm HP crate</szItemName>
+		<szLongItemName>6.8x43mm HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>6.8x43mm HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1273</uiIndex>
+		<szItemName>.338 crate</szItemName>
+		<szLongItemName>.338 Lapua ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.338 Lapua ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
 </ITEMLIST>

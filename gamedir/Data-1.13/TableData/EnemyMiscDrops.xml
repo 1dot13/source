@@ -62,12 +62,18 @@
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>10</uiIndex>
-		<usItemClass>268435456</usItemClass>
+		<usItemClass>131072</usItemClass>
 		<ubEnemyDropRate>15</ubEnemyDropRate>
 		<ubMilitiaDropRate>2</ubMilitiaDropRate>
 	</DROPITEM>
 	<DROPITEM>
 		<uiIndex>11</uiIndex>
+		<usItemClass>268435456</usItemClass>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
+	</DROPITEM>
+	<DROPITEM>
+		<uiIndex>12</uiIndex>
 		<usItemClass>536870912</usItemClass>
 		<ubEnemyDropRate>15</ubEnemyDropRate>
 		<ubMilitiaDropRate>2</ubMilitiaDropRate>

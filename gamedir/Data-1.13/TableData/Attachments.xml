@@ -6477,6 +6477,21 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>892</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>893</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
+		<itemIndex>894</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>241</attachmentIndex>
 		<itemIndex>1064</itemIndex>
 		<APCost>5</APCost>
 	</ATTACHMENT>
@@ -17912,6 +17927,21 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1005</attachmentIndex>
+		<itemIndex>892</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1005</attachmentIndex>
+		<itemIndex>893</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1005</attachmentIndex>
+		<itemIndex>894</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1005</attachmentIndex>
 		<itemIndex>1064</itemIndex>
 		<APCost>5</APCost>
 	</ATTACHMENT>
@@ -19133,6 +19163,21 @@
 	<ATTACHMENT>
 		<attachmentIndex>1006</attachmentIndex>
 		<itemIndex>800</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1006</attachmentIndex>
+		<itemIndex>892</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1006</attachmentIndex>
+		<itemIndex>893</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1006</attachmentIndex>
+		<itemIndex>894</itemIndex>
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>
@@ -23003,6 +23048,21 @@
 	<ATTACHMENT>
 		<attachmentIndex>1029</attachmentIndex>
 		<itemIndex>797</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1029</attachmentIndex>
+		<itemIndex>892</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1029</attachmentIndex>
+		<itemIndex>893</itemIndex>
+		<APCost>5</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1029</attachmentIndex>
+		<itemIndex>894</itemIndex>
 		<APCost>5</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>

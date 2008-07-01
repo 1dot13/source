@@ -7120,27 +7120,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>892</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 892</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>S&amp;W M29</szItemName>
+		<szLongItemName>Smith &amp; Wesson M29</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Smith &amp; Wesson M29</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>893</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 893</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>M29 SATAN</szItemName>
+		<szLongItemName>M29 SATAN</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>M29 SATAN</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>894</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 894</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>MR-73</szItemName>
+		<szLongItemName>Manurhin MR-73</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>Manurhin MR-73</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>895</uiIndex>
@@ -9736,6 +9736,86 @@
 		<szLongItemName>9x39mm Munitionskiste</szLongItemName>
 		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers 9x39mm.</szItemDesc>
 		<szBRName>9x39mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1264</uiIndex>
+		<szItemName>5,45x18 PB Kiste</szItemName>
+		<szLongItemName>5,45x18mm PB Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5,45x18mm PB.</szItemDesc>
+		<szBRName>5,45x18mm AP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1265</uiIndex>
+		<szItemName>5,45x18 HS Kiste</szItemName>
+		<szLongItemName>5,45x18mm HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 5,45x18mm HS.</szItemDesc>
+		<szBRName>5,45x18mm HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1266</uiIndex>
+		<szItemName>9x18 Kiste</szItemName>
+		<szLongItemName>9x18mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 9x18mm.</szItemDesc>
+		<szBRName>9x18mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1267</uiIndex>
+		<szItemName>9x18 HS Kiste</szItemName>
+		<szLongItemName>9x18mm HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 9x18mm HS.</szItemDesc>
+		<szBRName>9x18mm HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1268</uiIndex>
+		<szItemName>9x21 Kiste</szItemName>
+		<szLongItemName>9x21mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 9x21mm.</szItemDesc>
+		<szBRName>9x21mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1269</uiIndex>
+		<szItemName>.30car Kiste</szItemName>
+		<szLongItemName>.30car Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .30car.</szItemDesc>
+		<szBRName>.30car Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1270</uiIndex>
+		<szItemName>.30car HS Kiste</szItemName>
+		<szLongItemName>.30car HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .30car HP.</szItemDesc>
+		<szBRName>.30car HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1271</uiIndex>
+		<szItemName>6.8mm Kiste</szItemName>
+		<szLongItemName>6.8x43mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers 6.8x43mm.</szItemDesc>
+		<szBRName>6.8x43mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1272</uiIndex>
+		<szItemName>6.8mm HS Kiste</szItemName>
+		<szLongItemName>6.8x43mm HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers 6.8x43mm HP.</szItemDesc>
+		<szBRName>6.8x43mm HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1273</uiIndex>
+		<szItemName>.338 Kiste</szItemName>
+		<szLongItemName>.338 Lapua Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers .338 Lapua Magnum.</szItemDesc>
+		<szBRName>.338 Lapua Munitionskiste</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
 </ITEMLIST>

@@ -5345,7 +5345,7 @@
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>688</uiIndex>
-		<szWeaponName>Ingram M11/9</szWeaponName>
+		<szWeaponName>Cobray M11/9</szWeaponName>
 		<ubWeaponClass>2</ubWeaponClass>
 		<ubWeaponType>2</ubWeaponType>
 		<ubCalibre>2</ubCalibre>
@@ -8782,6 +8782,87 @@
 		<SwapClips>1</SwapClips>
 		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
 		<ManualReloadSound>476</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>892</uiIndex>
+		<szWeaponName>Smith &amp; Wesson M29</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>26</ubCalibre>
+		<ubShotsPer4Turns>11</ubShotsPer4Turns>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>29</ubImpact>
+		<ubDeadliness>18</ubDeadliness>
+		<bAccuracy>1</bAccuracy>
+		<ubMagSize>6</ubMagSize>
+		<usRange>135</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>60</ubAttackVolume>
+		<ubHitVolume>5</ubHitVolume>
+		<sSound>316</sSound>
+		<sReloadSound>99</sReloadSound>
+		<sLocknLoadSound>105</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<ManualReloadSound>480</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>893</uiIndex>
+		<szWeaponName>M29 SATAN</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>26</ubCalibre>
+		<ubShotsPer4Turns>11</ubShotsPer4Turns>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>29</ubImpact>
+		<ubDeadliness>18</ubDeadliness>
+		<bAccuracy>1</bAccuracy>
+		<ubMagSize>6</ubMagSize>
+		<usRange>160</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>60</ubAttackVolume>
+		<ubHitVolume>5</ubHitVolume>
+		<sSound>316</sSound>
+		<sReloadSound>99</sReloadSound>
+		<sLocknLoadSound>105</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<ManualReloadSound>480</ManualReloadSound>
+	</WEAPON>
+	<WEAPON>
+		<uiIndex>894</uiIndex>
+		<szWeaponName>Manurhin MR-73</szWeaponName>
+		<ubWeaponClass>1</ubWeaponClass>
+		<ubWeaponType>1</ubWeaponType>
+		<ubCalibre>4</ubCalibre>
+		<ubShotsPer4Turns>13</ubShotsPer4Turns>
+		<ubBulletSpeed>20</ubBulletSpeed>
+		<ubImpact>27</ubImpact>
+		<ubDeadliness>16</ubDeadliness>
+		<bAccuracy>1</bAccuracy>
+		<ubMagSize>6</ubMagSize>
+		<usRange>110</usRange>
+		<usReloadDelay>200</usReloadDelay>
+		<BurstAniDelay>100</BurstAniDelay>
+		<ubAttackVolume>60</ubAttackVolume>
+		<ubHitVolume>5</ubHitVolume>
+		<sSound>423</sSound>
+		<sReloadSound>99</sReloadSound>
+		<sLocknLoadSound>105</sLocknLoadSound>
+		<SilencedSound>157</SilencedSound>
+		<bBurstAP>5</bBurstAP>
+		<APsToReload>5</APsToReload>
+		<SwapClips>1</SwapClips>
+		<MaxDistForMessyDeath>7</MaxDistForMessyDeath>
+		<ManualReloadSound>480</ManualReloadSound>
 	</WEAPON>
 	<WEAPON>
 		<uiIndex>896</uiIndex>
