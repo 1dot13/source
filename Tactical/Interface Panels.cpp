@@ -6436,7 +6436,11 @@ void KeyRingItemPanelButtonCallback( MOUSE_REGION * pRegion, INT32 iReason )
 			InvalidateRegion( 0, 107, 261, 359 );
 		}
 
-		InitKeyRingPopup( pSoldier, 35, sStartYPosition, sWidth, sHeight );
+		//CHRISL: In OIV mode, we don't want to offset the keyring popup.
+		if(UsingNewInventorySystem() == false)
+			InitKeyRingPopup( pSoldier, 0, sStartYPosition, sWidth, sHeight );
+		else
+			InitKeyRingPopup( pSoldier, 35, sStartYPosition, sWidth, sHeight );
 	}
 }
 
@@ -7011,6 +7015,7 @@ void GoToMapScreenFromTactical( void )
 		}
 	}
 }*/
+
 
 
 
