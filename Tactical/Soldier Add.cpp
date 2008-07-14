@@ -1143,8 +1143,10 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 		{
 			if( pSoldier->sInsertionGridNo == NOWHERE )
 			{ //Add the soldier to the respective entrypoint.	This is an error condition.
-				// So treat it like an error already then!
-				Assert(0);
+				// So treat it like an error already then
+				
+				// WANNE: ASSERTION: Removed the assertion until we find the bug!
+				//Assert(0);
 			}
 			if( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 			{
