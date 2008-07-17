@@ -3476,7 +3476,13 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					invWidth = 314;
 
 				//InitItemStackPopup( gpSMCurrentMerc, (UINT8)uiHandPos, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, SM_ITEMDESC_WIDTH, SM_ITEMDESC_HEIGHT );
-				InitItemStackPopup( gpSMCurrentMerc, (UINT8)uiHandPos, 248, INV_INTERFACE_START_Y, invWidth, ( SCREEN_HEIGHT - INV_INTERFACE_START_Y ) );
+				//CHRISL: In OIV mode, we don't want to offset the keyring popup.
+				UINT8 inv_interface_start_x;
+				if(UsingNewInventorySystem() == false)
+					inv_interface_start_x = 213;
+				else
+					inv_interface_start_x = 248;
+				InitItemStackPopup( gpSMCurrentMerc, (UINT8)uiHandPos, inv_interface_start_x, INV_INTERFACE_START_Y, invWidth, ( SCREEN_HEIGHT - INV_INTERFACE_START_Y ) );
 
 			}
 		}
@@ -6373,7 +6379,11 @@ void BeginKeyPanelFromKeyShortcut( )
 	if( guiTacticalInterfaceFlags & INTERFACE_SHOPKEEP_INTERFACE )
 		return;
 
-	InitKeyRingPopup( pSoldier, 35, sStartYPosition, sWidth, sHeight );
+	//CHRISL: In OIV mode, we don't want to offset the keyring popup.
+	if(UsingNewInventorySystem() == false)
+		InitKeyRingPopup( pSoldier, 0, sStartYPosition, sWidth, sHeight );
+	else
+		InitKeyRingPopup( pSoldier, 35, sStartYPosition, sWidth, sHeight );
 }
 
 

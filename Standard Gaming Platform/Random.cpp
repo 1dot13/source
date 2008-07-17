@@ -78,8 +78,21 @@ UINT32 PreRandom( UINT32 uiRange )
 
 	//Go to the next index.
 	guiPreRandomIndex++;
-	if( guiPreRandomIndex >= (UINT32)MAX_PREGENERATED_NUMS )
+	//if( guiPreRandomIndex >= (UINT32)MAX_PREGENERATED_NUMS )
+	//	guiPreRandomIndex = 0;
+	// WDS 07/06/2008 fix prerandom
+	if (guiPreRandomIndex == MAX_PREGENERATED_NUMS / 2) {
+		// [0..(MAX_PREGENERATED_NUMS/2) -1]
+		for( unsigned idx = 0; idx < MAX_PREGENERATED_NUMS / 2; ++idx ) {
+			guiPreRandomNums[ idx ] = rand();
+		}
+	} else if (guiPreRandomIndex >= (UINT32)MAX_PREGENERATED_NUMS ) {
+		// MAX_PREGENERATED_NUMS/2 .. MAX_PREGENERATED_NUMS-1]
+		for( unsigned idx = MAX_PREGENERATED_NUMS / 2; idx < MAX_PREGENERATED_NUMS; ++idx ) {
+			guiPreRandomNums[ idx ] = rand();
+		}
 		guiPreRandomIndex = 0;
+	}
 	return uiNum;
 }
 

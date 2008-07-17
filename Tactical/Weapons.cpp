@@ -1717,7 +1717,9 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 				}
 
 				// big penalty to hit
-				if(uiHitChance < 30)
+				// WDS 07/06/2008 fix randoms
+				//if(uiHitChance < 30)
+				if(uiHitChance <= 30)
 					uiHitChance = MINCHANCETOHIT;
 				else
 					uiHitChance -= 30;
@@ -1750,7 +1752,9 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 	}
 	#endif
 
-	fGonnaHit = uiDiceRoll <= uiHitChance;
+	// WDS 07/06/2008 fix randoms
+	//fGonnaHit = uiDiceRoll <= uiHitChance;
+	fGonnaHit = uiDiceRoll = uiHitChance;
 
 	// GET TARGET XY VALUES
   ConvertGridNoToCenterCellXY( sTargetGridNo, &sXMapPos, &sYMapPos );
