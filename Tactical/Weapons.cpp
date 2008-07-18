@@ -1754,7 +1754,7 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 
 	// WDS 07/06/2008 fix randoms
 	//fGonnaHit = uiDiceRoll <= uiHitChance;
-	fGonnaHit = uiDiceRoll = uiHitChance;
+	fGonnaHit = uiDiceRoll < uiHitChance;
 
 	// GET TARGET XY VALUES
   ConvertGridNoToCenterCellXY( sTargetGridNo, &sXMapPos, &sYMapPos );
