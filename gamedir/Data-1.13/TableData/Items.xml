@@ -2856,7 +2856,7 @@
 		<ubWeight>4</ubWeight>
 		<ubPerPocket>4</ubPerPocket>
 		<ItemSize>20</ItemSize>
-		<usPrice>100</usPrice>
+		<usPrice>1000</usPrice>
 		<ubCoolness>5</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
@@ -30012,7 +30012,7 @@
 		<ubGraphicNum>730</ubGraphicNum>
 		<ubWeight>819</ubWeight>
 		<ItemSize>34</ItemSize>
-		<usPrice>15000</usPrice>
+		<usPrice>150000</usPrice>
 		<ubCoolness>8</ubCoolness>
 		<Metal>1</Metal>
 		<Sinks>1</Sinks>
