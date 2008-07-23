@@ -2092,7 +2092,8 @@ BOOLEAN UseBlade( SOLDIERTYPE *pSoldier , INT16 sTargetGridNo )
 		//sprintf( gDebugStr, "Hit Chance: %d %d", (int)uiHitChance, uiDiceRoll );
 
 
-		if ( iDiceRoll <= iHitChance )
+		// WDS 07/19/2008 - Random number use fix
+		if ( iDiceRoll < iHitChance )
 		{
 			fGonnaHit = TRUE;
 
@@ -2317,11 +2318,13 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, BOOLEAN fStea
 		{
 			fFailure=FALSE;
 
+			// WDS 07/19/2008 - Random number use fix
 			// Do we have luck on stealing?
-			if ( iDiceRoll <= iHitChance && iHitChance > 0 )
+			if ( iDiceRoll < iHitChance && iHitChance > 0 )
 			{
+				// WDS 07/19/2008 - Random number use fix
 				// Do we have the chance to steal more than 1 item?
-				if (( iDiceRoll <= iHitChance * 2 / 3) || (pTargetSoldier->bCollapsed))
+				if (( iDiceRoll < iHitChance * 2 / 3) || (pTargetSoldier->bCollapsed))
 				{
 					// The item that the enemy holds in his hand before the stealing
 					usOldItem = pTargetSoldier->inv[HANDPOS].usItem;
@@ -2472,8 +2475,9 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, BOOLEAN fStea
 
 			if ( pSoldier->bTeam == gbPlayerNum && pTargetSoldier->bTeam != gbPlayerNum )
 			{
+				// WDS 07/19/2008 - Random number use fix
 				// made an HTH attack; give experience
-				if ( iDiceRoll <= iHitChance )
+				if ( iDiceRoll < iHitChance )
 				{
 					ubExpGain = 8;
 
@@ -2521,7 +2525,9 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo, BOOLEAN fStea
 				}
 			}
 
-			if ( iDiceRoll <= iHitChance || AreInMeanwhile( ) )
+			// WDS 07/19/2008 - Random number use fix
+			if ( iDiceRoll < iHitChance || AreInMeanwhile( ) )
+
 			{
 				// CALCULATE DAMAGE!
 				iImpact = HTHImpact( pSoldier, pTargetSoldier, (iHitChance - iDiceRoll), FALSE );
