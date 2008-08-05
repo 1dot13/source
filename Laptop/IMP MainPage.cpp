@@ -1031,7 +1031,12 @@ INT32 CountEmptyIMPSlots( INT8 iSex )
 INT32 GetSexOfIMP(INT32 iIMPId)
 {
 	INT32 ui;
-	for (ui = 0; ui < CountIMPSlots(); ++ui)
+	//CHRISL: There is "padding" build into the iaIMPSLots array.  The index after the last male and female entry are both set
+	//	to -1.  The following loop, however, does not take this into consideration.  A female IMP using iIMPId 56 will never
+	//	get setup correctly, resulting in the "Assert(FALSE)" the occurs after the loop.  Since the array is initially setup
+	//	by adding 2 to the male/female totals, do the same here.
+	//for (ui = 0; ui < CountIMPSlots(); ++ui)
+	for (ui = 0; ui < CountIMPSlots()+2; ++ui)
 	{
 		if (gGameExternalOptions.iaIMPSlots[ui] == iIMPId)
 		{
