@@ -3552,7 +3552,7 @@ BOOLEAN ChangeDropPackStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus)
 {
 	INT16	sAPCost = 3;
 	INT32	iBPCost = 0;
-	INT32	worldKey=1;
+	INT32	worldKey=1, iRange=0;
 
 	// Are we dropping a pack that has the zipper open?
 	if(newStatus && pSoldier->flags.ZipperFlag)
@@ -3563,7 +3563,7 @@ BOOLEAN ChangeDropPackStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus)
 	}
 	
 	// Are we currently in combat?
-	if(gTacticalStatus.uiFlags & INCOMBAT)
+	if((gTacticalStatus.uiFlags & INCOMBAT) || (gTacticalStatus.fEnemyInSector))
 	{
 		// If we're standing over the backpack that we're trying to pick up, reset the ap cost to 0
 		if(!newStatus) {
@@ -3578,9 +3578,16 @@ BOOLEAN ChangeDropPackStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus)
 						}
 						if(gWorldItems[wi].object.IsActiveLBE(x)) {
 							if(gWorldItems[wi].object.GetLBEPointer(x)->lbeIndex != NONE) {
-								if(gWorldItems[wi].sGridNo == pSoldier->sGridNo)
+								// Found an associated backpack so figure out how far that pack is from us
+								iRange = GetRangeInCellCoordsFromGridNoDiff( pSoldier->sGridNo, gWorldItems[wi].sGridNo );
+								if(gWorldItems[wi].sGridNo == pSoldier->sGridNo)	// standing on pack - pickup regardless
 								{
 									sAPCost = 0;
+									break;
+								}
+								else if(iRange < 26 && !(gTacticalStatus.uiFlags & INCOMBAT))	// should mean anything within 2 diagonal tiles while not in combat
+								{
+									// just break because we want to allow this with no changes
 									break;
 								}
 								// If not, we can't pick up the item
