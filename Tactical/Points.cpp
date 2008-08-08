@@ -1402,10 +1402,43 @@ void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT16 sGridNo
 		{
 			fAddingRaiseGunCost = TRUE;
 		}
+		//CHRISL: If we are prone and we need to turn, we will need to ready our weapon no matter what our current state is
+		if(fAddingTurningCost && gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_PRONE)
+		{
+			fAddingRaiseGunCost = TRUE;
+		}
 	}
 
 	(*pfChargeTurning) = fAddingTurningCost;
 	(*pfChargeRaise )	= fAddingRaiseGunCost;
+}
+
+UINT16 CalculateTurningCost(SOLDIERTYPE *pSoldier, UINT16 usItem, BOOLEAN fAddingTurningCost)
+{
+	UINT16	usTurningCost = 0;
+
+	if ( fAddingTurningCost )
+	{
+		if ( Item[ usItem ].usItemClass == IC_THROWING_KNIFE )
+			usTurningCost = 1;
+		else
+			usTurningCost = GetAPsToLook( pSoldier );
+	}
+
+	return usTurningCost;
+}
+
+UINT16 CalculateRaiseGunCost(SOLDIERTYPE *pSoldier, BOOLEAN fAddingRaiseGunCost)
+{
+	UINT16	usRaiseGunCost = 0;
+
+	if (fAddingRaiseGunCost )
+	{
+		usRaiseGunCost = GetAPsToReadyWeapon( pSoldier, pSoldier->usAnimState );
+		pSoldier->flags.fDontChargeReadyAPs = FALSE;
+	}
+
+	return usRaiseGunCost;
 }
 
 UINT8 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost)
@@ -1451,24 +1484,16 @@ UINT8 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurni
 	}
 
 	//Calculate usTurningCost
-	if ( fAddingTurningCost )
-	{
-		if ( Item[ usItem ].usItemClass == IC_THROWING_KNIFE )
-			usTurningCost = 1;
-		else
-			usTurningCost = GetAPsToLook( pSoldier );
-	}
+	usTurningCost = CalculateTurningCost(pSoldier, usItem, fAddingTurningCost);
 
 	//Calculate usRaiseGunCost
-	if (fAddingRaiseGunCost )
-	{
-		usRaiseGunCost = GetAPsToReadyWeapon( pSoldier, pSoldier->usAnimState );
-		pSoldier->flags.fDontChargeReadyAPs = FALSE;
-	}
-
+	usRaiseGunCost = CalculateRaiseGunCost(pSoldier, fAddingRaiseGunCost);
 
 	//charge the maximum of the 2
-	bAPCost += __max(usTurningCost,usRaiseGunCost);
+	if ( gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_PRONE )
+		bAPCost += (usTurningCost + usRaiseGunCost);
+	else
+		bAPCost += __max(usTurningCost,usRaiseGunCost);
 
 
 	if ( sGridNo != NOWHERE )

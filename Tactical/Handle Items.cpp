@@ -197,6 +197,8 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT16 usHa
 	BOOLEAN						fAddingRaiseGunCost = FALSE;
 	LEVELNODE					*pIntNode;
 	STRUCTURE					*pStructure;
+	UINT16						usRaiseGunCost = 0;
+	UINT16						usTurningCost = 0;
 
 
 	// Remove any previous actions
@@ -405,13 +407,19 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT16 usHa
 
 
 		GetAPChargeForShootOrStabWRTGunRaises( pSoldier, sTargetGridNo, TRUE, &fAddingTurningCost, &fAddingRaiseGunCost );
+		usTurningCost = CalculateTurningCost(pSoldier, usHandItem, fAddingTurningCost);
+		usRaiseGunCost = CalculateRaiseGunCost(pSoldier, fAddingRaiseGunCost);
 
 		// If we are standing and are asked to turn AND raise gun, ignore raise gun...
-		if ( gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_STAND )
+		//CHRISL: Actually, the display value is based on the higher of turn and raise gun so we should do the same
+		if ( gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE )
 		{
-			if ( fAddingRaiseGunCost )
+			if ( fAddingTurningCost && fAddingRaiseGunCost )
 			{
-				pSoldier->flags.fDontChargeTurningAPs = TRUE;
+				if(usRaiseGunCost > usTurningCost)
+					pSoldier->flags.fDontChargeTurningAPs = TRUE;
+				else
+					pSoldier->flags.fDontChargeReadyAPs = TRUE;
 			}
 		}
 		/*else
@@ -1329,13 +1337,19 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT16 usHa
 		else if ( Item[usHandItem].grenadelauncher )//usHandItem == GLAUNCHER || usHandItem == UNDER_GLAUNCHER )
 		{
 			GetAPChargeForShootOrStabWRTGunRaises( pSoldier, sTargetGridNo, TRUE, &fAddingTurningCost, &fAddingRaiseGunCost );
+			usTurningCost = CalculateTurningCost(pSoldier, usHandItem, fAddingTurningCost);
+			usRaiseGunCost = CalculateRaiseGunCost(pSoldier, fAddingRaiseGunCost);
 
 			// If we are standing and are asked to turn AND raise gun, ignore raise gun...
-			if ( gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_STAND )
+			//CHRISL: Actually, the display value is based on the higher of turn and raise gun so we should do the same
+			if ( gAnimControl[ pSoldier->usAnimState ].ubHeight != ANIM_PRONE )
 			{
-				if ( fAddingRaiseGunCost )
+				if ( fAddingTurningCost && fAddingRaiseGunCost )
 				{
-					pSoldier->flags.fDontChargeTurningAPs = TRUE;
+					if(usRaiseGunCost > usTurningCost)
+						pSoldier->flags.fDontChargeTurningAPs = TRUE;
+					else
+						pSoldier->flags.fDontChargeReadyAPs = TRUE;
 				}
 			}
 			/*else
