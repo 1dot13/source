@@ -1434,9 +1434,9 @@ STR16 pExitingSectorHelpText[] =
 	//There are several strings depending on the gender of the merc and how many EPCs are in the squad.
 	//DO NOT USE THE NEWLINE HERE AS IT IS USED FOR BOTH HELPTEXT AND SCREEN MESSAGES!
 	L"%s не может покинуть сектор один, так как он сопровождает %s.", //male singular
-	L"%s не может покинуть сектор одина, так как она сопровождает %s.", //female singular
+	L"%s не может покинуть сектор одна, так как она сопровождает %s.", //female singular
 	L"%s не может покинуть сектор один, так как он сопровождает группу из нескольких человек.", //male plural
-	L"%s не может покинуть сектор одина, так как она сопровождает группу из нескольких человек.", //female plural
+	L"%s не может покинуть сектор одна, так как она сопровождает группу из нескольких человек.", //female plural
 
 	//If one or more of your mercs in the selected squad aren't in range of the traversal area, then the  "move all" option is disabled,
 	//and this helptext explains why.
