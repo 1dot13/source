@@ -3108,9 +3108,9 @@
 		<uiIndex>388</uiIndex>
 		<szItemName>9x19мм C-Mag HP</szItemName>
 		<szLongItemName>9x19мм C-Mag, HP</szLongItemName>
-		<szItemDesc>This Beta C-Mag holds 100 rounds of federal jacketed hollow point ammunition. It combines the wound characteristics of hollow point with the penetration abilities of standard ball ammunition.</szItemDesc>
+		<szItemDesc>Магазин Beta C-Mag на 100 патронов федерального образца с полуоболочечной пулей, имеющей экспансивную выемку. Совмещает в себе характеристики ранения экспансивной пули с неплохой пробивной способностью.</szItemDesc>
 		<szBRName>9x19мм C-Mag HP</szBRName>
-		<szBRDesc>This 100-round Beta C-Mag of 115 grain Jacketed Hollow Point ammunition is a special buy straight from COR-BON. We guarantee it will make your MP-5 the envy of any SWAT team.</szBRDesc>
+		<szBRDesc>Спец поставка прямо от COR-BON - магазин Beta C-Mag на 100 экспансивных патронов, с весом пули 115 гран (7,452 грамм). Даем гарантию, что с ними ваш MP-5 станет предметом зависти для любой группы S.W.A.T.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>389</uiIndex>
@@ -4258,7 +4258,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>532</uiIndex>
-		<szItemName>10мм маг, 30 HP</szItemName>
+		<szItemName>10мм маг, 30HP</szItemName>
 		<szLongItemName>10мм магазин, 30 HP</szLongItemName>
 		<szItemDesc>Эти 30 патронов с экспансивной пулей калибра 10мм просто разнесут в пыль ваших врагов.</szItemDesc>
 		<szBRName>10мм маг, 30 HP</szBRName>
@@ -4266,7 +4266,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>533</uiIndex>
-		<szItemName>10мм маг, 30 AP</szItemName>
+		<szItemName>10мм маг, 30AP</szItemName>
 		<szLongItemName>10мм магазин, 30 AP</szLongItemName>
 		<szItemDesc>Магазин на 30 патронов с бронебойной пулей калибра 10мм.</szItemDesc>
 		<szBRName>10мм маг, 30 AP</szBRName>
@@ -4274,7 +4274,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>534</uiIndex>
-		<szItemName>10мм маг, 30 AET</szItemName>
+		<szItemName>10мм маг, 30AET</szItemName>
 		<szLongItemName>10мм магазин, 30 AET</szLongItemName>
 		<szItemDesc>Эти пули, сочетающие бронебойные свойства и мощь экспансивных боеприпасов, представляют собой технологическую вершину в сфере баллистики. И эта смертоносная обойма в ваших руках.</szItemDesc>
 		<szBRName>10мм маг, 30 AET</szBRName>
@@ -4698,7 +4698,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>587</uiIndex>
-		<szItemName>10мм маг, 8 HP</szItemName>
+		<szItemName>10мм маг, 8HP</szItemName>
 		<szLongItemName>10мм магазин, 8 HP</szLongItemName>
 		<szItemDesc>Восьми-зарядный пистолетный магазин с экспансивным патроном калибра 10мм Авто.</szItemDesc>
 		<szBRName>10мм маг, 8 HP</szBRName>
@@ -4706,7 +4706,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>588</uiIndex>
-		<szItemName>10мм маг, 8 AP</szItemName>
+		<szItemName>10мм маг, 8AP</szItemName>
 		<szLongItemName>10мм магазин, 8 AP</szLongItemName>
 		<szItemDesc>Восьми-зарядный пистолетный магазин с бронебойными патронами калибра 10мм Авто.</szItemDesc>
 		<szBRName>10мм маг, 8 AP</szBRName>
@@ -4714,7 +4714,7 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>589</uiIndex>
-		<szItemName>10мм маг, 8 AET</szItemName>
+		<szItemName>10мм маг, 8AET</szItemName>
 		<szLongItemName>10мм магазин, 8 AET</szLongItemName>
 		<szItemDesc>Восьми-зарядный пистолетный магазин с патронами калибра 10мм Авто АЕТ.</szItemDesc>
 		<szBRName>10мм маг, 8 AET</szBRName>
@@ -7157,7 +7157,7 @@
 		<uiIndex>894</uiIndex>
 		<szItemName>MR-73</szItemName>
 		<szLongItemName>Manurhin MR-73</szLongItemName>
-		<szItemDesc>Разработан на базе револьверов фирмы S&amp;W, однако, имеет и собственные уникальные наработки. MR-73 представляет основу линейки револьверов фирмы Manurhin.</szItemDesc>
+		<szItemDesc>Разработан на базе револьверов S&amp;W, однако, имеет и собственные уникальные наработки. MR-73 представляет основу линейки револьверов фирмы Manurhin.</szItemDesc>
 		<szBRName>Manurhin MR-73</szBRName>
 		<szBRDesc>Этим полицейским револьвером вооружают французское антитеррористическое подразделение - GIGN, что уже говорит о высоком качестве оружия.</szBRDesc>
 	</ITEM>
