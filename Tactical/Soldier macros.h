@@ -23,6 +23,9 @@
 // Checks if our guy can be controllable .... checks bInSector, team, on duty, etc...
 #define OK_INSECTOR_MERC( p ) ( p->stats.bLife >= OKLIFE && p->bActive && p->bInSector && p->bTeam == gbPlayerNum && p->bAssignment < ON_DUTY )
 		
+// Checks if our guy is controllable but doesn't care about current assignment
+#define OK_CONTROL_MERC( p ) ( p->stats.bLife >= OKLIFE && p->bActive && p->bInSector && p->bTeam == gbPlayerNum )
+
 // Checkf if our guy can be selected and is not in a position where our team has an interupt and he does not have one...
 #define OK_INTERRUPT_MERC( p ) ( ( INTERRUPT_QUEUED != 0 ) ? ( ( p->aiData.bMoved ) ? FALSE : TRUE ) : TRUE )
 

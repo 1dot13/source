@@ -838,7 +838,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 			bool	fValidPointer = false;
 			if ( !InSectorStackPopup( ) && !InItemStackPopup( ) && !InItemDescriptionBox( ) && !InKeyRingPopup( ) && twItem->object.exists() == true && (bSelectedInfoChar != -1 && gCharactersList[bSelectedInfoChar].fValid))
 			{
-				if(OK_CONTROLLABLE_MERC( MercPtrs[gCharactersList[bSelectedInfoChar].usSolID] ))
+				if(OK_CONTROL_MERC( MercPtrs[gCharactersList[bSelectedInfoChar].usSolID] ))
 				{
 					//CHRISL: The old setup had a flaw I didn't consider.  if, for some reason, the ItemSlotLimit = 0
 					//	nothing might happen.  Now we setup a flag to determine if our cursor is value for the item we're
