@@ -81,7 +81,7 @@ BOOLEAN EnterSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 void UpdateMercInSector( SOLDIERTYPE *pSoldier, INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 
-BOOLEAN ReadInMapStructure(STR fileName);
+BOOLEAN ReadInMapStructure(STR fileName, BOOLEAN localizedVersion);
 BOOLEAN ReadInStrategicMapSectorTownNames(STR fileName);
 BOOLEAN WriteInStrategicMapSectorTownNames(STR fileName);
 

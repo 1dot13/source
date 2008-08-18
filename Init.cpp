@@ -574,7 +574,7 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, CITYTABLEFILENAME);
-	if(!ReadInMapStructure(fileName))
+	if(!ReadInMapStructure(fileName, FALSE))
 		return FALSE;
 
 #ifdef RUSSIAN 
@@ -582,7 +582,17 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInMapStructure(fileName))
+		if(!ReadInMapStructure(fileName, TRUE))
+			return FALSE;
+	}
+#endif
+
+#ifdef GERMAN 
+	AddLanguagePrefix( fileName, GERMAN_PREFIX);
+	if ( FileExists(fileName) )
+	{
+		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+		if(!ReadInMapStructure(fileName, TRUE))
 			return FALSE;
 	}
 #endif

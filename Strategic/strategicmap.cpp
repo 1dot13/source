@@ -314,6 +314,8 @@ extern STR16 pBullseyeStrings[];
 
 extern void HandleRPCDescription( );
 
+BOOLEAN locTextOnly;
+
 
 #ifdef CRIPPLED_VERSION
 void CrippledVersionFailureToLoadMapCallBack( UINT8 bExitValue );
@@ -808,6 +810,10 @@ typedef struct
 
 	CHAR8					szCharData[MAX_CHAR_DATA_LENGTH+1];
 	cityInfo				curCityInfo;
+	
+	//cityInfo *				curArray;	// ROMAN: added
+	//UINT32					maxArraySize;	// ROMAN: added
+
 	UINT32					uiRowNumber;
 	UINT32					uiHighestIndex;
 
@@ -1186,6 +1192,10 @@ BOOLEAN ReadInStrategicMapSectorTownNames(STR fileName)
 
 
 	memset(&pData,0,sizeof(pData));
+
+	// TODO: ROMAN
+	//pData.curCityInfo
+
 	NUM_TOWNS = 0;
 	XML_SetUserData(parser, &pData);
 
@@ -1208,9 +1218,11 @@ BOOLEAN ReadInStrategicMapSectorTownNames(STR fileName)
 	return TRUE;
 }
 
-BOOLEAN ReadInMapStructure(STR fileName)
+BOOLEAN ReadInMapStructure(STR fileName, BOOLEAN localizedVersion)
 {
 	memset(StrategicMap, 0, sizeof(StrategicMap));
+
+	locTextOnly = localizedVersion;
 
 	return ReadInStrategicMapSectorTownNames(fileName);
 }
