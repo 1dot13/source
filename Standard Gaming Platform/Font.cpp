@@ -1643,11 +1643,9 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	temp++;
 	*temp = 255; // þ
 	temp++;
-	*temp = 256; // ÿ
-	temp++;
-
-
 	// START OF FUNKY RUSSIAN STUFF
+	*temp = 1040; //À
+	temp++;
 	*temp = 1041;
 	temp++;
 	*temp = 1042;
@@ -1775,6 +1773,61 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	*temp = 1103; // ö
 	temp++;
 
+	//SB: new russian & bellorussian & ukrainian symbols
+	// in ascii
+	*temp = 185; // ¹
+	temp++;
+	*temp = 168; // ¨
+	temp++;
+	*temp = 178; // ²
+	temp++;
+	*temp = 161; // ¡
+	temp++;
+	*temp = 184; // ¸
+	temp++;
+	*temp = 179; // ³
+	temp++;
+	*temp = 162; // ¢
+	temp++;
+	*temp = 165; // ¥
+	temp++;
+	*temp = 170; // ª
+	temp++;
+	*temp = 175; // ¯
+	temp++;
+	*temp = 180; // ´
+	temp++;
+	*temp = 186; // º
+	temp++;
+	*temp = 191; // ¿
+	temp++;
+	// in unicode
+	*temp = 0x2116; // ¹
+	temp++;
+	*temp = 0x0401; // ¨
+	temp++;
+	*temp = 0x0406; // ²
+	temp++;
+	*temp = 0x040E; // ¡
+	temp++;
+	*temp = 0x0451; // ¸
+	temp++;
+	*temp = 0x0456; // ³
+	temp++;
+	*temp = 0x045E; // ¢
+	temp++;
+	*temp = 0x0490; // ¥
+	temp++;
+	*temp = 0x0404; // ª
+	temp++;
+	*temp = 0x0407; // ¯
+	temp++;
+	*temp = 0x0491; // ´
+	temp++;
+	*temp = 0x0454; // º
+	temp++;
+	*temp = 0x0457; // ¿
+	temp++;
 #else
 // Windows Code Page 1252 Western Standard Character Set
 
