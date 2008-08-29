@@ -237,75 +237,27 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 // the uiIndex (for reference), szItemName, szLongItemName, szItemDesc, szBRName, and szBRDesc tags
 
 #ifdef GERMAN
-	strcpy(fileName, directoryName);
-	strcat(fileName, GERMAN_PREFIX);
-	strcat(fileName, ITEMSFILENAME);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInItemStats(fileName,TRUE))
-			return FALSE;
-	}
+	AddLanguagePrefix( fileName, GERMAN_PREFIX);
 #endif
 #ifdef RUSSIAN
-	strcpy(fileName, directoryName);
-	strcat(fileName, RUSSIAN_PREFIX);
-	strcat(fileName, ITEMSFILENAME);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInItemStats(fileName,TRUE))
-			return FALSE;
-	}
+	AddLanguagePrefix( fileName, RUSSIAN_PREFIX);
 #endif
 #ifdef DUTCH
-	strcpy(fileName, directoryName);
-	strcat(fileName, DUTCH_PREFIX);
-	strcat(fileName, ITEMSFILENAME);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInItemStats(fileName,TRUE))
-			return FALSE;
-	}
+	AddLanguagePrefix( fileName, DUTCH_PREFIX);
 #endif
 #ifdef POLISH
-	strcpy(fileName, directoryName);
-	strcat(fileName, POLISH_PREFIX);
-	strcat(fileName, ITEMSFILENAME);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInItemStats(fileName,TRUE))
-			return FALSE;
-	}
+	AddLanguagePrefix( fileName, POLISH_PREFIX);
 #endif
 #ifdef FRENCH
-	strcpy(fileName, directoryName);
-	strcat(fileName, FRENCH_PREFIX);
-	strcat(fileName, ITEMSFILENAME);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInItemStats(fileName,TRUE))
-			return FALSE;
-	}
+	AddLanguagePrefix( fileName, FRENCH_PREFIX);
 #endif
 #ifdef ITALIAN
-	strcpy(fileName, directoryName);
-	strcat(fileName, ITALIAN_PREFIX);
-	strcat(fileName, ITEMSFILENAME);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInItemStats(fileName,TRUE))
-			return FALSE;
-	}
+	AddLanguagePrefix( fileName, ITALIAN_PREFIX);
 #endif
 #ifdef TAIWANESE
-	strcpy(fileName, directoryName);
-	strcat(fileName, TAIWANESE_PREFIX);
-	strcat(fileName, ITEMSFILENAME);
+	AddLanguagePrefix( fileName, TAIWANESE_PREFIX);
+#endif
+#ifndef ENGLISH
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
@@ -386,75 +338,27 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 // Same setup as what Madd used for items.xml
 
 #ifdef GERMAN
-	strcpy(fileName, directoryName);
-	strcat(fileName, GERMAN_PREFIX);
-	strcat(fileName, LBEPOCKETFILENAME);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInLBEPocketStats(fileName,TRUE))
-			return FALSE;
-	}
+	AddLanguagePrefix( fileName, GERMAN_PREFIX);
 #endif
 #ifdef RUSSIAN
-	strcpy(fileName, directoryName);
-	strcat(fileName, RUSSIAN_PREFIX);
-	strcat(fileName, LBEPOCKETFILENAME);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInLBEPocketStats(fileName,TRUE))
-			return FALSE;
-	}
+	AddLanguagePrefix( fileName, RUSSIAN_PREFIX);
 #endif
 #ifdef DUTCH
-	strcpy(fileName, directoryName);
-	strcat(fileName, DUTCH_PREFIX);
-	strcat(fileName, LBEPOCKETFILENAME);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInLBEPocketStats(fileName,TRUE))
-			return FALSE;
-	}
+	AddLanguagePrefix( fileName, DUTCH_PREFIX);
 #endif
 #ifdef POLISH
-	strcpy(fileName, directoryName);
-	strcat(fileName, POLISH_PREFIX);
-	strcat(fileName, LBEPOCKETFILENAME);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInLBEPocketStats(fileName,TRUE))
-			return FALSE;
-	}
+	AddLanguagePrefix( fileName, POLISH_PREFIX);
 #endif
 #ifdef FRENCH
-	strcpy(fileName, directoryName);
-	strcat(fileName, FRENCH_PREFIX);
-	strcat(fileName, LBEPOCKETFILENAME);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInLBEPocketStats(fileName,TRUE))
-			return FALSE;
-	}
+	AddLanguagePrefix( fileName, FRENCH_PREFIX);
 #endif
 #ifdef ITALIAN
-	strcpy(fileName, directoryName);
-	strcat(fileName, ITALIAN_PREFIX);
-	strcat(fileName, LBEPOCKETFILENAME);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInLBEPocketStats(fileName,TRUE))
-			return FALSE;
-	}
+	AddLanguagePrefix( fileName, ITALIAN_PREFIX);
 #endif
 #ifdef TAIWANESE
-	strcpy(fileName, directoryName);
-	strcat(fileName, TAIWANESE_PREFIX);
-	strcat(fileName, LBEPOCKETFILENAME);
+	AddLanguagePrefix( fileName, TAIWANESE_PREFIX);
+#endif
+#ifndef ENGLISH
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
@@ -579,64 +483,30 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 
 #ifdef GERMAN 
 	AddLanguagePrefix( fileName, GERMAN_PREFIX);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInMapStructure(fileName, TRUE))
-			return FALSE;
-	}
 #endif
 #ifdef RUSSIAN 
 	AddLanguagePrefix( fileName, RUSSIAN_PREFIX);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInMapStructure(fileName, TRUE))
-			return FALSE;
-	}
 #endif
 #ifdef DUTCH 
 	AddLanguagePrefix( fileName, DUTCH_PREFIX);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInMapStructure(fileName, TRUE))
-			return FALSE;
-	}
 #endif
 #ifdef POLISH 
 	AddLanguagePrefix( fileName, POLISH_PREFIX);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInMapStructure(fileName, TRUE))
-			return FALSE;
-	}
 #endif
 #ifdef FRENCH 
 	AddLanguagePrefix( fileName, FRENCH_PREFIX);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInMapStructure(fileName, TRUE))
-			return FALSE;
-	}
 #endif
 #ifdef ITALIAN 
 	AddLanguagePrefix( fileName, ITALIAN_PREFIX);
-	if ( FileExists(fileName) )
-	{
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInMapStructure(fileName, TRUE))
-			return FALSE;
-	}
 #endif
 #ifdef TAIWANESE 
 	AddLanguagePrefix( fileName, TAIWANESE_PREFIX);
+#endif
+#ifndef ENGLISH
 	if ( FileExists(fileName) )
 	{
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		if(!ReadInMapStructure(fileName, TRUE))
+		if(!ReadInStrategicMapSectorTownNames(fileName, TRUE))
 			return FALSE;
 	}
 #endif
