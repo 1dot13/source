@@ -82,7 +82,7 @@ void UpdateMercsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 void UpdateMercInSector( SOLDIERTYPE *pSoldier, INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ );
 
 BOOLEAN ReadInMapStructure(STR fileName, BOOLEAN localizedVersion);
-BOOLEAN ReadInStrategicMapSectorTownNames(STR fileName);
+BOOLEAN ReadInStrategicMapSectorTownNames(STR fileName, BOOLEAN localizedVersion);
 BOOLEAN WriteInStrategicMapSectorTownNames(STR fileName);
 
 // get short sector name without town name

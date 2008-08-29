@@ -198,7 +198,7 @@ INT8 gbMercIsNewInThisSector[ MAX_NUM_SOLDIERS ];
 // the amount of time that a soldier will wait to return to desired/old squad
 #define DESIRE_SQUAD_RESET_DELAY 12 * 60
 
-
+BOOLEAN localizedMapTextOnly;
 
 
 UINT8 ubSAMControlledSectors[ MAP_WORLD_Y ][ MAP_WORLD_X ];// = {
@@ -293,7 +293,7 @@ STR8 pHortStrings[]={
 "17",
 };
 
-BOOLEAN ReadInStrategicMapSectorTownNames(STR fileName);
+BOOLEAN ReadInStrategicMapSectorTownNames(STR fileName, BOOLEAN localizedVersion);
 
 void DoneFadeOutAdjacentSector( void );
 void DoneFadeOutExitGridSector( void );
@@ -313,9 +313,6 @@ extern BOOLEAN gfOverrideSector;
 extern STR16 pBullseyeStrings[];
 
 extern void HandleRPCDescription( );
-
-BOOLEAN locTextOnly;
-
 
 #ifdef CRIPPLED_VERSION
 void CrippledVersionFailureToLoadMapCallBack( UINT8 bExitValue );
@@ -860,11 +857,14 @@ citytableStartElementHandle(void *userData, const XML_Char *name, const XML_Char
 		{
 			pData->curElement = CITYTABLE_ELEMENT_CITYLIST;
 
-			memset(sBaseSectorList,0,sizeof(sBaseSectorList));
-			memset(pTownPoints,0,sizeof(pTownPoints));
-			memset(gfTownUsesLoyalty,0,sizeof(gfTownUsesLoyalty));
-			memset(gubTownRebelSentiment,0,sizeof(gubTownRebelSentiment));
-			memset(gfMilitiaAllowedInTown,0,sizeof(gfMilitiaAllowedInTown));
+			if ( !localizedMapTextOnly )
+			{
+				memset(sBaseSectorList,0,sizeof(sBaseSectorList));
+				memset(pTownPoints,0,sizeof(pTownPoints));
+				memset(gfTownUsesLoyalty,0,sizeof(gfTownUsesLoyalty));
+				memset(gubTownRebelSentiment,0,sizeof(gubTownRebelSentiment));
+				memset(gfMilitiaAllowedInTown,0,sizeof(gfMilitiaAllowedInTown));
+			}
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -872,7 +872,8 @@ citytableStartElementHandle(void *userData, const XML_Char *name, const XML_Char
 		{
 			pData->curElement = CITYTABLE_ELEMENT_CITY;
 
-			memset(&pData->curCityInfo,0,sizeof(cityInfo));
+			if ( !localizedMapTextOnly )
+				memset(&pData->curCityInfo,0,sizeof(cityInfo));
 
 			pData->maxReadDepth++; //we are not skipping this element
 		}
@@ -993,7 +994,7 @@ citytableEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = CITYTABLE_ELEMENT_CITYLIST;
 
-			if ( pData->curCityInfo.uiIndex != INVALID_TOWN_INDEX )
+			if ( pData->curCityInfo.uiIndex != INVALID_TOWN_INDEX && !localizedMapTextOnly)
 			{
 				sBaseSectorList       [pData->curCityInfo.uiIndex-1] = SECTOR(pData->curCityInfo.ubBaseX,pData->curCityInfo.ubBaseY);
 				pTownPoints           [pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townPoint;
@@ -1001,6 +1002,10 @@ citytableEndElementHandle(void *userData, const XML_Char *name)
 				gubTownRebelSentiment [pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townRebelSentiment;
 				gfMilitiaAllowedInTown[pData->curCityInfo.uiIndex  ] = pData->curCityInfo.townMilitiaAllowed;
 				//mbstowcs( pTownNames[pData->curCityInfo.uiIndex], pData->curCityInfo.cityName, MAX_TOWN_NAME_LENGHT);
+				MultiByteToWideChar( CP_UTF8, 0, pData->curCityInfo.cityName, -1, pTownNames[pData->curCityInfo.uiIndex], MAX_TOWN_NAME_LENGHT);
+			}
+			else if ( pData->curCityInfo.uiIndex != INVALID_TOWN_INDEX && localizedMapTextOnly)
+			{
 				MultiByteToWideChar( CP_UTF8, 0, pData->curCityInfo.cityName, -1, pTownNames[pData->curCityInfo.uiIndex], MAX_TOWN_NAME_LENGHT);
 			}
 		}
@@ -1155,7 +1160,7 @@ BOOLEAN WriteInStrategicMapSectorTownNames(STR fileName)
 	return TRUE;
 }
 
-BOOLEAN ReadInStrategicMapSectorTownNames(STR fileName)
+BOOLEAN ReadInStrategicMapSectorTownNames(STR fileName, BOOLEAN localizedVersion)
 {
 	HWFILE		hFile;
 	UINT32		uiBytesRead;
@@ -1165,7 +1170,7 @@ BOOLEAN ReadInStrategicMapSectorTownNames(STR fileName)
 
 	citytableParseData pData;
 
-
+	localizedMapTextOnly = localizedVersion;
 
 	// Open weapons file
 	hFile = FileOpen( fileName, FILE_ACCESS_READ, FALSE );
@@ -1222,9 +1227,7 @@ BOOLEAN ReadInMapStructure(STR fileName, BOOLEAN localizedVersion)
 {
 	memset(StrategicMap, 0, sizeof(StrategicMap));
 
-	locTextOnly = localizedVersion;
-
-	return ReadInStrategicMapSectorTownNames(fileName);
+	return ReadInStrategicMapSectorTownNames(fileName,localizedVersion);
 }
 
 UINT32 UndergroundTacticalTraversalTime( INT8 bExitDirection )
