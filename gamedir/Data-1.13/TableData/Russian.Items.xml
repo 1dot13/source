@@ -10194,4 +10194,156 @@
 		<szBRName>.338 Lapua ammo crate</szBRName>
 		<szBRDesc>Not buyable at BR</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1274</uiIndex>
+		<szItemName>7.62x37mm crate</szItemName>
+		<szLongItemName>7.62x37mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x37mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1275</uiIndex>
+		<szItemName>.40S&amp;W crate</szItemName>
+		<szLongItemName>.40S&amp;W ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.40S&amp;W ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1276</uiIndex>
+		<szItemName>.40S&amp;W AP crate</szItemName>
+		<szLongItemName>.40S&amp;W AP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.40S&amp;W AP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1277</uiIndex>
+		<szItemName>.40S&amp;W HP crate</szItemName>
+		<szLongItemName>.40S&amp;W HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.40S&amp;W HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1278</uiIndex>
+		<szItemName>.40S&amp;W M crate</szItemName>
+		<szLongItemName>.40S&amp;W M ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.40S&amp;W M ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1279</uiIndex>
+		<szItemName>.40S&amp;W G crate</szItemName>
+		<szLongItemName>.40S&amp;W G ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.40S&amp;W G ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1280</uiIndex>
+		<szItemName>.40S&amp;W AET crate</szItemName>
+		<szLongItemName>.40S&amp;W AET ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>.40S&amp;W AET ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1281</uiIndex>
+		<szItemName>10mm crate</szItemName>
+		<szLongItemName>10mm ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>10mm ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1282</uiIndex>
+		<szItemName>10mm AP crate</szItemName>
+		<szLongItemName>10mm AP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>10mm AP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1283</uiIndex>
+		<szItemName>10mm HP crate</szItemName>
+		<szLongItemName>10mm HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>10mm HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1284</uiIndex>
+		<szItemName>10mm M crate</szItemName>
+		<szLongItemName>10mm M ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>10mm M ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1285</uiIndex>
+		<szItemName>10mm G crate</szItemName>
+		<szLongItemName>10mm G ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>10mm G ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1286</uiIndex>
+		<szItemName>10mm AET crate</szItemName>
+		<szLongItemName>10mm AET ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>10mm AET ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1287</uiIndex>
+		<szItemName>7.62x25 AP crate</szItemName>
+		<szLongItemName>7.62x25mm AP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x25mm AP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1288</uiIndex>
+		<szItemName>7.62x25 HP crate</szItemName>
+		<szLongItemName>7.62x25mm HP ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x25mm HP ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1289</uiIndex>
+		<szItemName>7.62x25 AET crate</szItemName>
+		<szLongItemName>7.62x25mm AET ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x25mm AET ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1290</uiIndex>
+		<szItemName>7.62x25 AP C crate</szItemName>
+		<szLongItemName>7.62x25mm AP C ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x25mm AP C ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1291</uiIndex>
+		<szItemName>7.62x25 HP C crate</szItemName>
+		<szLongItemName>7.62x25mm HP C ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>7.62x25mm HP C ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1292</uiIndex>
+		<szItemName>12.7 Subs. crate</szItemName>
+		<szLongItemName>12.7x97mm Subs. ammo crate</szLongItemName>
+		<szItemDesc>ammo crate</szItemDesc>
+		<szBRName>12.7x97mm Subs. ammo crate</szBRName>
+		<szBRDesc>Not buyable at BR</szBRDesc>
+	</ITEM>
 </ITEMLIST>

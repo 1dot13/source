@@ -9818,4 +9818,156 @@
 		<szBRName>.338 Lapua Munitionskiste</szBRName>
 		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
 	</ITEM>
+	<ITEM>
+		<uiIndex>1274</uiIndex>
+		<szItemName>7,62x37mm Kiste</szItemName>
+		<szLongItemName>7,62x37mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 3000 Patronen des Kalibers 7.62x37.</szItemDesc>
+		<szBRName>7,62x37mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1275</uiIndex>
+		<szItemName>.40S&amp;W Kiste</szItemName>
+		<szLongItemName>.40S&amp;W Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers .40S&amp;W.</szItemDesc>
+		<szBRName>.40S&amp;W Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1276</uiIndex>
+		<szItemName>.40S&amp;W PB Kiste</szItemName>
+		<szLongItemName>.40S&amp;W PB Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers .40S&amp;W PB.</szItemDesc>
+		<szBRName>.40S&amp;W AP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1277</uiIndex>
+		<szItemName>.40S&amp;W HS Kiste</szItemName>
+		<szLongItemName>.40S&amp;W HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers .40S&amp;W HS.</szItemDesc>
+		<szBRName>.40S&amp;W HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1278</uiIndex>
+		<szItemName>.40S&amp;W M Kiste</szItemName>
+		<szLongItemName>.40S&amp;W M Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers .40S&amp;W M.</szItemDesc>
+		<szBRName>.40S&amp;W M Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1279</uiIndex>
+		<szItemName>.40S&amp;W G Kiste</szItemName>
+		<szLongItemName>.40S&amp;W G Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers .40S&amp;W G.</szItemDesc>
+		<szBRName>.40S&amp;W G Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1280</uiIndex>
+		<szItemName>.40S&amp;W AET Kiste</szItemName>
+		<szLongItemName>.40S&amp;W AET Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers .40S&amp;W AET.</szItemDesc>
+		<szBRName>.40S&amp;W AET Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1281</uiIndex>
+		<szItemName>10mm Kiste</szItemName>
+		<szLongItemName>10mm Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers 10mm Auto.</szItemDesc>
+		<szBRName>10mm Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1282</uiIndex>
+		<szItemName>10mm PB Kiste</szItemName>
+		<szLongItemName>10mm PB Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers 10mm PB.</szItemDesc>
+		<szBRName>10mm AP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1283</uiIndex>
+		<szItemName>10mm HS Kiste</szItemName>
+		<szLongItemName>10mm HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers 10mm HS.</szItemDesc>
+		<szBRName>10mm HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1284</uiIndex>
+		<szItemName>10mm M Kiste</szItemName>
+		<szLongItemName>10mm M Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers 10mm M.</szItemDesc>
+		<szBRName>10mm M Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1285</uiIndex>
+		<szItemName>10mm G Kiste</szItemName>
+		<szLongItemName>10mm G Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers 10mm G.</szItemDesc>
+		<szBRName>10mm G Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1286</uiIndex>
+		<szItemName>10mm AET Kiste</szItemName>
+		<szLongItemName>10mm AET Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 4000 Patronen des Kalibers 10mm AET.</szItemDesc>
+		<szBRName>10mm AET Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1287</uiIndex>
+		<szItemName>7.62x25 PB Kiste</szItemName>
+		<szLongItemName>7.62x25mm PB Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 7.62x25mm PB.</szItemDesc>
+		<szBRName>7.62x25mm AP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1288</uiIndex>
+		<szItemName>7.62x25 HS Kiste</szItemName>
+		<szLongItemName>7.62x25mm HS Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 7.62x25mm HS.</szItemDesc>
+		<szBRName>7.62x25mm HP Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1289</uiIndex>
+		<szItemName>7.62x25 AET Kiste</szItemName>
+		<szLongItemName>7.62x25mm AET Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 7.62x25mm AET.</szItemDesc>
+		<szBRName>7.62x25mm AET Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1290</uiIndex>
+		<szItemName>7.62x25 AP C Kiste</szItemName>
+		<szLongItemName>7.62x25mm AP C Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 7.62x25mm AP C.</szItemDesc>
+		<szBRName>7.62x25mm AP C Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1291</uiIndex>
+		<szItemName>7.62x25 HP C Kiste</szItemName>
+		<szLongItemName>7.62x25mm HP C Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 5000 Patronen des Kalibers 7.62x25mm HP C.</szItemDesc>
+		<szBRName>7.62x25mm HP C Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1292</uiIndex>
+		<szItemName>12.7 Subs. Kiste</szItemName>
+		<szLongItemName>12.7x97mm Subs. Munitionskiste</szLongItemName>
+		<szItemDesc>Munitionskiste mit einem Fassungsvermögen von 300 Patronen des Kalibers 12.7x97mm Subsonic.</szItemDesc>
+		<szBRName>12.7x97mm Subs. Munitionskiste</szBRName>
+		<szBRDesc>Nicht bei BR zu kaufen</szBRDesc>
+	</ITEM>
 </ITEMLIST>
