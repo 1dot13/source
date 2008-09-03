@@ -564,7 +564,7 @@
 		<szWeaponName>Dragunov SVD</szWeaponName>
 		<ubWeaponClass>3</ubWeaponClass>
 		<ubWeaponType>5</ubWeaponType>
-		<ubCalibre>24</ubCalibre>
+		<ubCalibre>10</ubCalibre>
 		<ubReadyTime>4</ubReadyTime>
 		<ubShotsPer4Turns>11</ubShotsPer4Turns>
 		<ubBulletSpeed>22</ubBulletSpeed>
