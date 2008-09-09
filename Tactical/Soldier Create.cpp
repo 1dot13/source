@@ -728,13 +728,16 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			Soldier.ubBattleSoundID = (UINT8)Random( 3 );
 		}
 
-		// Lesh: disable this - yeah! its feminism! :)
+		// WANNE: Extnernalized!
 		// ATE: TEMP : No enemy women mercs (unless elite)!
-		//if( Soldier.ubProfile == NO_PROFILE && Soldier.bTeam == ENEMY_TEAM &&
-		//		Soldier.ubBodyType == REGFEMALE && Soldier.ubSoldierClass != SOLDIER_CLASS_ELITE )
-		//{
-		//	Soldier.ubBodyType = (UINT8)( REGMALE + Random( 3 ) );
-		//}
+		if (gGameExternalOptions.fRestrictFemaleEnemiesExceptElite == TRUE)
+		{
+			if( Soldier.ubProfile == NO_PROFILE && Soldier.bTeam == ENEMY_TEAM &&
+					Soldier.ubBodyType == REGFEMALE && Soldier.ubSoldierClass != SOLDIER_CLASS_ELITE )
+			{
+				Soldier.ubBodyType = (UINT8)( REGMALE + Random( 3 ) );
+			}
+		}
 
 		// ATE
 		// Set some values for variation in anims...

@@ -780,6 +780,8 @@ void LoadGameExternalOptions()
 
 	//afp - use bullet tracers?
 	gGameExternalOptions.gbBulletTracer			= iniReader.ReadBoolean("JA2 Gameplay Settings","USE_BULLET_TRACERS",FALSE);
+
+	gGameExternalOptions.fRestrictFemaleEnemiesExceptElite = iniReader.ReadBoolean("JA2 Gameplay Settings","RESTRICT_FEMALE_ENEMIES_EXCEPT_ELITE",FALSE);
 }
 
 
