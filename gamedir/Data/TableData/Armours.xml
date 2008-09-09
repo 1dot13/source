@@ -72,6 +72,7 @@ ARMOUR CLASSES:
 		<uiIndex>7</uiIndex> <!-- Spec-18 Vest -->
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>36</ubProtection>
+		<ubCoverage>85</ubCoverage>
 		<ubDegradePercent>10</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
@@ -250,28 +251,35 @@ ARMOUR CLASSES:
 		<ubDegradePercent>0</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>33</uiIndex> <!-- T-Shirt -->
+		<uiIndex>33</uiIndex> <!-- Arulco T-Shirt -->
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>1</ubProtection>
 		<ubCoverage>99</ubCoverage>
 		<ubDegradePercent>25</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>34</uiIndex> <!-- Guardian Vest -->
+		<uiIndex>34</uiIndex> <!-- Deidranna T-Shirt -->
+		<ubArmourClass>1</ubArmourClass>
+		<ubProtection>1</ubProtection>
+		<ubCoverage>99</ubCoverage>
+		<ubDegradePercent>25</ubDegradePercent>
+	</ARMOUR>
+	<ARMOUR>
+		<uiIndex>35</uiIndex> <!-- Guardian Vest -->
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>22</ubProtection>
 		<ubCoverage>70</ubCoverage>
 		<ubDegradePercent>20</ubDegradePercent>
 	</ARMOUR>
 	<ARMOUR>
-		<uiIndex>35</uiIndex> <!-- T. Guard Vest -->
+		<uiIndex>36</uiIndex> <!-- T. Guard Vest -->
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>27</ubProtection>
 		<ubCoverage>70</ubCoverage>
 		<ubDegradePercent>15</ubDegradePercent>
 	</ARMOUR>
-	<ARMOUR>
-		<uiIndex>36</uiIndex> <!-- C. Guard Vest -->
+		<ARMOUR>
+		<uiIndex>37</uiIndex> <!-- C. Guard Vest -->
 		<ubArmourClass>1</ubArmourClass>
 		<ubProtection>32</ubProtection>
 		<ubCoverage>70</ubCoverage>
