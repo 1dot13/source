@@ -873,7 +873,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 		{
 			if ( gpItemPointer == NULL )
 			{
-				//fShowMapInventoryPool = FALSE;
+				fShowMapInventoryPool = FALSE;
 			}
 			// else do nothing
 		}

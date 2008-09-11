@@ -103,6 +103,7 @@ extern void WriteSectorSummaryUpdate( STR8 puiFilename, UINT8 ubLevel, SUMMARYFI
 
 extern BOOLEAN gfMustForceUpdateAllMaps;
 extern BOOLEAN gfMajorUpdate;
+BOOLEAN ReEvaluateWorld( const STR8	puiFilename );
 void ApologizeOverrideAndForceUpdateEverything();
 void ClearSummaryInfo();
 

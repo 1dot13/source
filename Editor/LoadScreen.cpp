@@ -87,6 +87,8 @@ INT32	iLastFileClicked;
 INT32 iLastClickTime;
 
 CHAR16 gzFilename[31];
+extern INT16 gsSelSectorX;
+extern INT16 gsSelSectorY;
 
 FDLG_LIST *FileList = NULL;
 
@@ -861,6 +863,8 @@ void InitErrorCatchDialog()
 	gfErrorCatch = FALSE;
 }
 
+extern BOOLEAN ReEvaluateWorld( const STR8	puiFilename );
+
 //Because loading and saving the map takes a few seconds, we want to post a message
 //on the screen and then update it which requires passing the screen back to the main loop.
 //When we come back for the next frame, we then actually save or load the map.  So this
@@ -937,7 +941,8 @@ UINT32 ProcessFileIO()
 			
 			RemoveMercsInSector( );
 
-			if( !LoadWorld( ubNewFilename ) )
+			//CHRISL: What happens if we EvaluateWorld at this point?
+			if( !ReEvaluateWorld( ubNewFilename ) || !LoadWorld( ubNewFilename ) )
 			{ //Want to override crash, so user can do something else.
 				EnableUndo();
 				SetPendingNewScreen( LOADSAVE_SCREEN );

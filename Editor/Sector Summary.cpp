@@ -2493,7 +2493,9 @@ void WriteSectorSummaryUpdate( STR8 puiFilename, UINT8 ubLevel, SUMMARYFILE *pSu
 	fwrite( pSummaryFileInfo, 1, sizeof( SUMMARYFILE ), fp );
 	fclose( fp );
 
-	gusNumEntriesWithOutdatedOrNoSummaryInfo--;
+	//CHRISL:
+	if(gusNumEntriesWithOutdatedOrNoSummaryInfo > 0)
+		gusNumEntriesWithOutdatedOrNoSummaryInfo--;
 	UpdateMasterProgress();
 
 	//extract the sector information out of the filename.
@@ -2576,22 +2578,27 @@ void LoadSummary( STR8 pSector, UINT8 ubLevel, FLOAT dMajorMapVersion )
 	if( !fp )
 	{
 		gusNumEntriesWithOutdatedOrNoSummaryInfo++;
+		//CHRISL: Maybe take things a step further.  Rather then doing a version update, why not wait to do the update until
+		//	we actually try to access the map?  After all, there is really no need to update the maps if we don't make any
+		//	changes to them.
 		//CHRISL:  These will force an update basically every time the editor is loaded.  What's the point of that?
 		//	instead, we should look at the dMajorMapVersion for this map and only load if we need to
 		//ADB don't forget that these might need to be updated!!!
-		if(dMajorMapVersion < gdMajorMapVersion)
+/*		if(dMajorMapVersion < gdMajorMapVersion)
 		{
 			gusNumberOfMapsToBeForceUpdated++;
 			gfMustForceUpdateAllMaps = TRUE;
-		}
+		}*/
 		return;
 	}
 	fread( &temp, 1, sizeof( SUMMARYFILE ), fp );
-	if( temp.ubSummaryVersion < MINIMUMVERSION || dMajorMapVersion < gdMajorMapVersion )
+	//CHRISL: Again, this basically forces the maps to be updated whether we actually access the map or not.  Why don't we just
+	//	update the map when the map actually needs to be loaded?
+/*	if( temp.ubSummaryVersion < MINIMUMVERSION || dMajorMapVersion < gdMajorMapVersion )
 	{
 		gusNumberOfMapsToBeForceUpdated++;
 		gfMustForceUpdateAllMaps = TRUE;
-	}
+	}*/
 	temp.dMajorMapVersion = dMajorMapVersion;
 	UpdateSummaryInfo( &temp );
 	//even if the info is outdated (but existing), allocate the structure, but indicate that the info
@@ -2783,6 +2790,68 @@ void ExtractTempFilename()
 	}
 	if( !wcslen( str ) )
 		swprintf( gszDisplayName, L"test.dat" );
+}
+
+BOOLEAN ReEvaluateWorld( const STR8	puiFilename )
+{
+	STRING512		DataDir;
+	STRING512		MapsDir;
+	FLOAT			dMajorVersion;
+	UINT8			dMinorVersion;
+	UINT8			ubLevel = 0;
+	CHAR8			name[50];
+	HWFILE			hfile;
+	UINT32			uiNumBytesRead;
+
+	GetFileManCurrentDirectory( DataDir );
+	sprintf( MapsDir, "%s\\Maps", DataDir );
+
+	if( gbSectorLevels[gsSelSectorX-1][gsSelSectorY-1] & GROUND_LEVEL_MASK )
+		ubLevel = 0;
+	else if( gbSectorLevels[gsSelSectorX-1][gsSelSectorY-1] & BASEMENT1_LEVEL_MASK )
+		ubLevel = 1;
+	else if( gbSectorLevels[gsSelSectorX-1][gsSelSectorY-1] & BASEMENT2_LEVEL_MASK )
+		ubLevel = 2;
+	else if( gbSectorLevels[gsSelSectorX-1][gsSelSectorY-1] & BASEMENT3_LEVEL_MASK )
+		ubLevel = 3;
+	else if( gbSectorLevels[gsSelSectorX-1][gsSelSectorY-1] & ALTERNATE_GROUND_MASK )
+		ubLevel = 4;
+	else if( gbSectorLevels[gsSelSectorX-1][gsSelSectorY-1] & ALTERNATE_B1_MASK )
+		ubLevel = 5;
+	else if( gbSectorLevels[gsSelSectorX-1][gsSelSectorY-1] & ALTERNATE_B2_MASK )
+		ubLevel = 6;
+	else if( gbSectorLevels[gsSelSectorX-1][gsSelSectorY-1] & ALTERNATE_B3_MASK )
+		ubLevel = 7;
+	
+	SetFileManCurrentDirectory( MapsDir );
+	hfile = FileOpen( puiFilename, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
+	if( hfile )
+	{
+		FileRead( hfile, &dMajorVersion, sizeof( FLOAT ), &uiNumBytesRead );
+		FileRead( hfile, &dMinorVersion, sizeof( UINT8 ), &uiNumBytesRead );
+		FileClose( hfile );
+	}
+	SetFileManCurrentDirectory( DataDir );
+
+	if(dMajorVersion < gdMajorMapVersion || dMinorVersion < gubMinorMapVersion)
+		gfMajorUpdate = TRUE;
+	else
+		gfMajorUpdate = FALSE;
+
+	//CHRISL: If gfMajorUpdate is ever set TRUE, the code will load a map, update it, then save the map... THEN it will
+	//	reload the map so you can look at it.  But I'm thinking the only time we should actually update the actual map
+	//	file is when we intentionally save the file.  So, for now, make sure this flag is always FALSE.
+	gfMajorUpdate = FALSE;
+
+	sprintf( name, "%c%d", (gsSelSectorY-1) + 'A', gsSelSectorX );
+	if( !EvaluateWorld( name, ubLevel ) )
+	{
+		gfMajorUpdate = FALSE;
+		return FALSE;
+	}
+
+	gfMajorUpdate = FALSE;
+	return TRUE;
 }
 
 void ApologizeOverrideAndForceUpdateEverything()

@@ -2445,6 +2445,7 @@ BOOLEAN EvaluateWorld( STR8 pSector, UINT8 ubLevel )
 	LOADDATA( &mapInfo, pBuffer, sizeof( MAPCREATE_STRUCT ) );
 
 	memcpy( &pSummary->MapInfo, &mapInfo, sizeof( MAPCREATE_STRUCT ) );
+	pSummary->MapInfo.ubMapVersion = gubMinorMapVersion;
 
 	if( uiFlags & MAP_FULLSOLDIER_SAVED )
 	{

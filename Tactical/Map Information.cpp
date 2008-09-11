@@ -564,6 +564,14 @@ void UpdateOldVersionMap()
 			LightSetBaseLevel( 13 );
 		}
 	}
+	if( gMapInformation.ubMapVersion < 26 )
+	{ //Allow map edgepoints to be regenerated as new system has been reenabled.
+		gMapInformation.ubMapVersion = 26;
+	}
+	if( gMapInformation.ubMapVersion < 27 )
+	{ //Allow map edgepoints to be regenerated as new system has been reenabled.
+		gMapInformation.ubMapVersion = 27;
+	}
 }
 
 void AutoCalculateItemNoOverwriteStatus()
