@@ -3087,15 +3087,19 @@ UINT32 CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, 
 	UINT32	uiTotalPrice = 0;
 	UINT32	uiDiscountValue;
 //	UINT32	uiDifFrom10 = 0;
+	std::vector<UINT32>	uiItemPrice;
 
+	uiItemPrice.resize(pItemObject->ubNumberOfObjects);
 
-	for (ubCnt = 0; ubCnt < pItemObject->ubNumberOfObjects; ubCnt++ ) {
+	for (ubCnt = 0; ubCnt < pItemObject->ubNumberOfObjects; ubCnt++ )
+	{
+		uiItemPrice[ubCnt] = 0;
 		// add up value of the main item(s), exact procedure depends on its item class
 		switch ( Item [ usItemID ].usItemClass )
 		{
 			case IC_GUN:
 				// add value of the gun
-				uiUnitPrice += (UINT32)( CalcValueOfItemToDealer( gbSelectedArmsDealerID, usItemID, fDealerSelling ) *
+				uiItemPrice[ubCnt] += (UINT32)( CalcValueOfItemToDealer( gbSelectedArmsDealerID, usItemID, fDealerSelling ) *
 											 ItemConditionModifier(usItemID, (*pItemObject)[ubCnt]->data.gun.bGunStatus) *
 											 dModifier );
 
@@ -3106,14 +3110,14 @@ UINT32 CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, 
 					if( Item[ (*pItemObject)[ubCnt]->data.gun.usGunAmmoItem ].usItemClass == IC_AMMO )
 					{
 						// add value of its remaining ammo
-						uiUnitPrice += (UINT32)( CalcValueOfItemToDealer( gbSelectedArmsDealerID, (*pItemObject)[ubCnt]->data.gun.usGunAmmoItem, fDealerSelling ) *
+						uiItemPrice[ubCnt] += (UINT32)( CalcValueOfItemToDealer( gbSelectedArmsDealerID, (*pItemObject)[ubCnt]->data.gun.usGunAmmoItem, fDealerSelling ) *
 																			 ItemConditionModifier((*pItemObject)[ubCnt]->data.gun.usGunAmmoItem, (*pItemObject)[ubCnt]->data.gun.ubGunShotsLeft) *
 																			 dModifier );
 					}
 					else	// assume it's attached ammo (mortar shells, grenades)
 					{
 						// add its value (uses normal status 0-100)
-						uiUnitPrice += (UINT32)( CalcValueOfItemToDealer( gbSelectedArmsDealerID, (*pItemObject)[ubCnt]->data.gun.usGunAmmoItem, fDealerSelling ) *
+						uiItemPrice[ubCnt] += (UINT32)( CalcValueOfItemToDealer( gbSelectedArmsDealerID, (*pItemObject)[ubCnt]->data.gun.usGunAmmoItem, fDealerSelling ) *
 																			 ItemConditionModifier((*pItemObject)[ubCnt]->data.gun.usGunAmmoItem, (*pItemObject)[ubCnt]->data.gun.bGunAmmoStatus) *
 																			 dModifier );
 					}
@@ -3123,7 +3127,7 @@ UINT32 CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, 
 			case IC_AMMO:
 				// add the value of each magazine (multiple mags may have vastly different #bullets left)
 					// for bullets, ItemConditionModifier will convert the #ShotsLeft into a percentage
-					uiUnitPrice += (UINT32)( CalcValueOfItemToDealer( gbSelectedArmsDealerID, usItemID, fDealerSelling ) *
+					uiItemPrice[ubCnt] += (UINT32)( CalcValueOfItemToDealer( gbSelectedArmsDealerID, usItemID, fDealerSelling ) *
 																		 ItemConditionModifier(usItemID, (*pItemObject)[ubCnt]->data.ubShotsLeft) *
 																		 dModifier );
 
@@ -3131,7 +3135,7 @@ UINT32 CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, 
 			default:
 				// add the value of each magazine (multiple mags may have vastly different #bullets left)
 				// for bullets, ItemConditionModifier will convert the #ShotsLeft into a percentage
-				uiUnitPrice += (UINT32)( CalcValueOfItemToDealer( gbSelectedArmsDealerID, usItemID, fDealerSelling ) *
+				uiItemPrice[ubCnt] += (UINT32)( CalcValueOfItemToDealer( gbSelectedArmsDealerID, usItemID, fDealerSelling ) *
 																	 ItemConditionModifier(usItemID, (*pItemObject)[ ubCnt ]->data.objectStatus) *
 																	 dModifier );
 
@@ -3140,54 +3144,63 @@ UINT32 CalcShopKeeperItemPrice( BOOLEAN fDealerSelling, BOOLEAN fUnitPriceOnly, 
 		// loop through any attachments and add in their price
 		for (attachmentList::iterator iter = (*pItemObject)[ubCnt]->attachments.begin(); iter != (*pItemObject)[ubCnt]->attachments.end(); ++iter) {
 			// add value of this particular attachment
-			uiUnitPrice += CalcShopKeeperItemPrice( fDealerSelling, fUnitPriceOnly, iter->usItem, dModifier, &(*iter)) ;
+			uiItemPrice[ubCnt] += CalcShopKeeperItemPrice( fDealerSelling, fUnitPriceOnly, iter->usItem, dModifier, &(*iter)) ;
 		}
-	}
 
-
-
-
-	// if Flo is doing the dealin' and wheelin'
-	if ( gpSMCurrentMerc->ubProfile == FLO )
-	{
-		// if it's a GUN or AMMO (but not Launchers, and all attachments and payload is included)
-		switch ( Item [ usItemID ].usItemClass )
+		// if Flo is doing the dealin' and wheelin'
+		if ( gpSMCurrentMerc->ubProfile == FLO )
 		{
-			case IC_GUN:
-			case IC_AMMO:
-				uiDiscountValue = ( uiUnitPrice * FLO_DISCOUNT_PERCENTAGE ) / 100;
+			// if it's a GUN or AMMO (but not Launchers, and all attachments and payload is included)
+			switch ( Item [ usItemID ].usItemClass )
+			{
+				case IC_GUN:
+				case IC_AMMO:
+					uiDiscountValue = ( uiItemPrice[ubCnt] * FLO_DISCOUNT_PERCENTAGE ) / 100;
 
-				// she gets a discount!  Read her M.E.R.C. profile to understand why
-				if ( fDealerSelling )
-				{
-					// she buys for less...
-					uiUnitPrice -= uiDiscountValue;
-				}
-				else
-				{
-					// and sells for more!
-					uiUnitPrice += uiDiscountValue;
-				}
-				break;
+					// she gets a discount!  Read her M.E.R.C. profile to understand why
+					if ( fDealerSelling )
+					{
+						// she buys for less...
+						uiItemPrice[ubCnt] -= uiDiscountValue;
+					}
+					else
+					{
+						// and sells for more!
+						uiItemPrice[ubCnt] += uiDiscountValue;
+					}
+					break;
+			}
 		}
-	}
 
-
-	// if it's the dealer selling this, make sure the item is worth at least $1
-	// if he is buying this from a player, then we allow a value of 0, since that has a special "worthless" quote #18
-	if( fDealerSelling && ( uiUnitPrice == 0 ) )
-	{
-		uiUnitPrice = 1;
-	}
+		// if it's the dealer selling this, make sure the item is worth at least $1
+		// if he is buying this from a player, then we allow a value of 0, since that has a special "worthless" quote #18
+		if( fDealerSelling && ( uiItemPrice[ubCnt] == 0 ) )
+		{
+			uiItemPrice[ubCnt] = 1;
+		}
 
 /*
-	//if the price is not diviseble by 10, make it so
-	uiDifFrom10 = 10 - uiUnitPrice % 10;
-	if( uiDifFrom10 != 0 && uiDifFrom10 != 10 )
-	{
-		uiUnitPrice += uiDifFrom10;
-	}
+		//if the price is not diviseble by 10, make it so
+		uiDifFrom10 = 10 - uiItemPrice[ubCnt] % 10;
+		if( uiDifFrom10 != 0 && uiDifFrom10 != 10 )
+		{
+			uiItemPrice[ubCnt] += uiDifFrom10;
+		}
 */
+	}
+
+	// if we want the unit price, find the highest price in the stack
+	for (ubCnt = 0; ubCnt < pItemObject->ubNumberOfObjects; ubCnt++ )
+	{
+		if(fUnitPriceOnly == TRUE)
+		{
+			uiUnitPrice = __max(uiUnitPrice, uiItemPrice[ubCnt]);
+		}
+		else
+		{
+			uiUnitPrice += uiItemPrice[ubCnt];
+		}
+	}
 
 	// we're always count the first one
 	uiTotalPrice = uiUnitPrice;
