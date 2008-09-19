@@ -5698,6 +5698,9 @@ BOOLEAN CheckAndHandleUnloadingOfCurrentWorld()
 	gfCaves = FALSE;
 	gfBasement = FALSE;
 
+	//CHRISL: If we're unloading the world, shouldn't be reset the gfWorldLoaded flag?
+	gfWorldLoaded = FALSE;
+
 	return TRUE;
 }
 
