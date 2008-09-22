@@ -300,6 +300,9 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"Beurt bloodcats",
 	L"automatic",
 	L"no full auto",
+	L"accurate",
+	L"inaccurate",
+	L"no semi auto",
 	L"The enemy has no more items to steal!",
 	L"The enemy has no item in its hand!",
 };
@@ -668,22 +671,6 @@ STR16 pAttributeMenuStrings[] =
 	L"Explosief",
 	L"Annuleren",
 };
-
-/*
-STR16 pAttributeMenuStrings[] =
-{
-	L"Kracht",
-	L"Behendig",
-	L"Beweging",
-	L"Schietkunst",
-	L"Trefzekerheid",
-	L"Medisch",
-	L"Technisch",
-	L"Leaderschip",
-	L"Precisie",
-	L"Stop",
-};
-*/
 
 STR16 pTrainingMenuStrings[] =
 {
@@ -1970,7 +1957,7 @@ STR16 pMapErrorString[] =
 	L"heeft een escorte nodig. Plaats haar in een team.", // for a female
 	L"Huurling is nog niet in Arulco aangekomen!",
 	L"Het lijkt erop dat er eerst nog contractbesprekingen gehouden moeten worden.",
-	L"",
+	L"Cannot give a movement order. Air raid is going on.",
 //11-15
 	L"Reisorders? Er is daar een gevecht gaande!",
 	L"Je bent in een hinderlaag gelokt van Bloodcats in sector %s!",
@@ -3430,6 +3417,7 @@ STR16		zMarksMapScreenText[] =
 	L"%s is vol met milities.",
 	L"Huurling heeft eindig contract.",
 	L"Contract Huurling is niet verzekerd",
+	L"Map Overview",		// 24
 };
 
 
@@ -3601,18 +3589,18 @@ STR16	gzGIOScreenText[] =
 	L"Beginneling",
 	L"Ervaren",
 	L"Expert",
+	L"INSANE",
 	L"Ok",
 	L"Stop",
 	L"Extra Moeilijk",
-	L"Ongelimiteerde Tijd",
-	L"Getimede Beurten",
+	L"Save Anytime",
+	L"Iron Man",
 	L"Niet mogelijk bij Demo",
 	L"Bobby Ray's Selection",
 	L"Good",
 	L"Great",
 	L"Excellent",
 	L"Awesome",
-	L"INSANE",
 	L"Inventory System",
 	L"Old",
 	L"New",
@@ -4017,14 +4005,6 @@ STR16 sRepairsDoneString[] =
 	L"%s is klaar met reparatie van ieders vervoerde items",
 };
 
-/*STR16 zGioDifConfirmText[]=
-{
-	L"You have chosen NOVICE mode. This setting is appropriate for those new to Jagged Alliance, those new to strategy games in general, or those wishing shorter battles in the game. Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in Novice mode?",
-	L"You have chosen EXPERIENCED mode. This setting is suitable for those already familiar with Jagged Alliance or similar games. Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in Experienced mode?",
-	L"You have chosen EXPERT mode. We warned you. Don't blame us if you get shipped back in a body bag. Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in Expert mode?",
-};
-*/
-
 STR16 zGioDifConfirmText[]=
 {
 	L"Je hebt de NOVICE-modus geselecteerd. Deze instelling is geschikt voor diegenen die Jagged Alliance voor de eerste keer spelen, voor diegenen die nog niet zo bekend zijn met strategy games, of voor diegenen die kortere gevechten in de game willen hebben.", //Je keuze beïnvloedt dingen in het hele verloop van de game, dus weet wat je doet. Weet je zeker dat je in de Novice-modus wilt spelen?",
@@ -4168,9 +4148,9 @@ STR16 gzLateLocalizedString[] =
 	//Displayed with the version information when cheats are enabled.
 	L"Huidig/Max Voortgang: %d%%/%d%%",
 
-	//59
 	L"John en Mary escorteren?",
-	
+
+	//60	
 	L"Schakelaar geactiveerd.",
 
 	L"%s's armour attachment has been smashed!",
