@@ -1016,7 +1016,10 @@ SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 			{
 				pNewSoldier->inv[cnt] = pSoldier->inv[cnt];
 			}
-			// Next, try to autoplace everything else
+			// Next, direct copy of the gunsling and knife pockets
+			pNewSoldier->inv[GUNSLINGPOCKPOS] = pSoldier->inv[GUNSLINGPOCKPOS];
+			pNewSoldier->inv[KNIFEPOCKPOS] = pSoldier->inv[KNIFEPOCKPOS];
+			// Then, try to autoplace everything else
 			for(cnt = BIGPOCKSTART; cnt < pNewSoldier->inv.size(); cnt++ )
 			{
 				if(pSoldier->inv[cnt].exists() == true)

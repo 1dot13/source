@@ -1775,7 +1775,10 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 
 			for (int i=0; i<TOTAL_SOLDIERS; i++)
 			{
-				Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || MercPtrs[i]->sGridNo != NOWHERE);
+				//CHRISL: We should only bother with this assertion if the soldier is alive.  Dead soliders are moved to
+				//	GridNo = NOWHERE, which causes this assertion to fail
+				if(!(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_DEAD))
+					Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || MercPtrs[i]->sGridNo != NOWHERE );
 			}
 
 			if( gubNumCreaturesAttackingTown && !gbWorldSectorZ &&
@@ -1814,7 +1817,10 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 
 			for (int i=0; i<TOTAL_SOLDIERS; i++)
 			{
-				Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || MercPtrs[i]->sGridNo != NOWHERE);
+				//CHRISL: We should only bother with this assertion if the soldier is alive.  Dead soliders are moved to
+				//	GridNo = NOWHERE, which causes this assertion to fail
+				if(!(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_DEAD))
+					Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || MercPtrs[i]->sGridNo != NOWHERE);
 			}
 
 			return( TRUE );
