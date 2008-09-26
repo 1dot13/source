@@ -409,7 +409,7 @@ void PlaceRoadMacroAtGridNo( INT32 iMapIndex, INT32 iMacroID )
 	while( gRoadMacros[ i ].sMacroID == iMacroID )
 	{
 		AddToUndoList( iMapIndex + gRoadMacros[ i ].sOffset );
-		RemoveAllObjectsOfTypeRange( i, ROADPIECES, ROADPIECES );
+		RemoveAllObjectsOfTypeRange( iMapIndex + gRoadMacros[ i ].sOffset, ROADPIECES, ROADPIECES );//dnl this was but is very wrong and leading to stacking tilesets, RemoveAllObjectsOfTypeRange( i, ROADPIECES, ROADPIECES );
 		GetTileIndexFromTypeSubIndex( ROADPIECES, (UINT16)(i+1) , &usTileIndex );
 		AddObjectToHead( iMapIndex + gRoadMacros[ i ].sOffset, usTileIndex );
 		i++;

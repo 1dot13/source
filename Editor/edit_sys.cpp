@@ -577,6 +577,8 @@ void PasteStructureCommon( UINT32 iMapIndex )
 			fOkayToAdd = OkayToAddStructureToWorld( (INT16)iMapIndex, 0, gTileDatabase[ (gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) ].pDBStructureRef, INVALID_STRUCTURE_ID );
 			if ( fOkayToAdd || (gTileDatabase[ (gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) ].pDBStructureRef == NULL) )
 			{
+				//dnl Remove existing structure before adding the same, seems to solve problem with stacking but possibly dangerous and completly untested
+				RemoveStruct( iMapIndex, (UINT16)(gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) );//dnl
 				// Actual structure info is added by the functions below
 				AddStructToHead( iMapIndex, (UINT16)(gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) );
 				// For now, adjust to shadows by a hard-coded amount,
@@ -640,6 +642,7 @@ void PasteBanks( UINT32 iMapIndex, UINT16 usStructIndex , BOOLEAN fReplace)
 			{
 					if ( usUseObjIndex == FIRSTROAD )
 					{
+						RemoveObject( iMapIndex, (UINT16)( gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex ) );//dnl without this road stacking occur when you holding left mouse key and pasting roads in bank selection
 						AddObjectToHead( iMapIndex, (UINT16)( gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex ) );
 					}
 					else

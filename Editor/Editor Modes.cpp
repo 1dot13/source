@@ -195,6 +195,7 @@ void SetEditorTerrainTaskbarMode( UINT16 usNewMode )
 	UnclickEditorButton( TERRAIN_FGROUND_TEXTURES );
 	UnclickEditorButton( TERRAIN_BGROUND_TEXTURES );
 	UnclickEditorButton( TERRAIN_PLACE_CLIFFS );
+	UnclickEditorButton( TERRAIN_PLACE_ROADS );//dnl Without this road button always remain in clicked state
 	UnclickEditorButton( TERRAIN_PLACE_DEBRIS );
 	UnclickEditorButton( TERRAIN_PLACE_TREES );
 	UnclickEditorButton( TERRAIN_PLACE_ROCKS );

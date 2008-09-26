@@ -215,8 +215,9 @@ void ChooseWeightedTerrainTile()
 
 UINT32 guiSearchType;
 // TODO: change this variable name if not too time consuming (jonathanl)
-extern UINT32 count; // symbol exist already in gamescreen.cpp, this is a REALLY bad global symbol name!!! (jonathanl)
-UINT32 maxCount=0, calls=0;
+//dnl as jonathanl wrote count is changed to Count so this line could be deleted, extern UINT32 count; // symbol exist already in gamescreen.cpp, this is a REALLY bad global symbol name!!! (jonathanl)
+//dnl Generally globals below are not necessary because is only informational for author, Count contains number of current Fill() recursions on stack, maxCount contains the maximum number of Fill() recursions that was putted on Stack during runtime, calls contains total number of Fill() calls during the runtime
+UINT32 Count=0, maxCount=0, calls=0;
 
 void Fill( INT32 x, INT32 y )
 {
@@ -237,7 +238,16 @@ void Fill( INT32 x, INT32 y )
 	}
 	GetTileType( gpWorldLevelData[ iMapIndex ].pLandHead->usIndex , &uiCheckType );
 	if( guiSearchType == uiCheckType )
+	{
 		PasteTextureCommon( iMapIndex );
+		//dnl This condition is mandatory because PasteTextureCommon() not returning information if was successful in adding a tile, without this condition endless loop of calling recursion Fill() was occur when tile was not add. Still without checking Count Stack breach could appear in future if we decide to use very large maps!!!
+		GetTileType( gpWorldLevelData[ iMapIndex ].pLandHead->usIndex , &uiCheckType );
+		if( guiSearchType == uiCheckType )
+		{
+			Count--;
+			return;
+		}
+	}
 	else
 	{
 		count--;
