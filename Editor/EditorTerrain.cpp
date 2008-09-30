@@ -224,16 +224,16 @@ void Fill( INT32 x, INT32 y )
 	INT32 iMapIndex;
 	UINT32 uiCheckType;
 
-	count++;
+	Count++;
 	calls++;
 
-	if( count > maxCount )
-		maxCount = count;
+	if( Count > maxCount )
+		maxCount = Count;
 
 	iMapIndex = y * WORLD_COLS + x;
 	if( !GridNoOnVisibleWorldTile( (INT16)iMapIndex ) )
 	{
-		count--;
+		Count--;
 		return;
 	}
 	GetTileType( gpWorldLevelData[ iMapIndex ].pLandHead->usIndex , &uiCheckType );
@@ -250,7 +250,7 @@ void Fill( INT32 x, INT32 y )
 	}
 	else
 	{
-		count--;
+		Count--;
 		return;
 	}
 
@@ -262,7 +262,7 @@ void Fill( INT32 x, INT32 y )
 		Fill( x-1, y );
 	if( x < WORLD_COLS - 1 )
 		Fill( x+1, y );
-	count--;
+	Count--;
 }
 
 
@@ -278,7 +278,7 @@ void TerrainFill( UINT32 iMapIndex )
 
 	ConvertGridNoToXY( (INT16)iMapIndex, &sX, &sY );
 
-	count = 0;
+	Count = 0;
 
 	Fill( sX, sY );
 
