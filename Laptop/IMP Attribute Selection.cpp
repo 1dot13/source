@@ -988,7 +988,7 @@ void RenderAttributeBoxes( void )
 	INT32 iCnt=STRENGTH_ATTRIBUTE;
 	INT16 sX = 0;
 	INT16 sY = 0;
-	CHAR16 sString[3];
+	CHAR16 sString[4];
 
 	// set last char to null
 	sString[2] = 0;

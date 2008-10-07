@@ -5968,11 +5968,23 @@ BOOLEAN PlaceObjectInSoldierProfile( UINT8 ubProfile, OBJECTTYPE *pObject )
 			{
 				if ( pSoldier->ubProfile == MADLAB )
 				{
+					// remove ammo and drop
+					pSoldier->pTempObject = new OBJECTTYPE;
+					EmptyWeaponMagazine( pObject, pSoldier->pTempObject );
+					AddItemToPool( pSoldier->sGridNo, pSoldier->pTempObject, 1, 0, 0, 0 );
+					pSoldier->pTempObject = NULL;
 					// remove attachments and drop them
 					for (attachmentList::iterator iter = (*pObject)[0]->attachments.begin(); iter != (*pObject)[0]->attachments.end();) {
+						//CHRISL: Because MADLAB needs to remove all attachments, even inseparable ones, we need to temporarily
+						//	make all attachments removable.
+						BOOLEAN	old_inseparable = FALSE;
+						UINT32	old_item = iter->usItem;
 						// drop it in Madlab's tile
 						AddItemToPool( pSoldier->sGridNo, &(*iter), 1, 0, 0, 0 );
+						old_inseparable = Item[old_item].inseparable;
+						Item[old_item].inseparable = FALSE;
 						pObject->RemoveAttachment(&(*iter));
+						Item[old_item].inseparable = old_inseparable;
 						if ((*pObject)[0]->attachments.empty() == true) {
 							break;
 						}
