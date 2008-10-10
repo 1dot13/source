@@ -1058,7 +1058,7 @@ void AddChar( UINT32 uiKey )
 	else
 	{ //insert character after cursor
 		INT16 sChar;
-		sChar = (INT16)(gpActive->ubStrLen + 1);
+		sChar = (INT16)gpActive->ubStrLen;
 		while( sChar >= gubCursorPos )
 		{
 			gpActive->szString[ sChar + 1 ] = gpActive->szString[ sChar ];
