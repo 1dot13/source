@@ -73,6 +73,7 @@
 	#include "Soldier Profile.h"
 	#include "GameSettings.h"
 	#include "Summary Info.h"
+	#include "connect.h"//dnl
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -286,6 +287,9 @@ BOOLEAN EditModeInit( void )
 
 	OutputDebugString( "Entering editor mode...\n" );
 
+	//dnl after multiplayer stuff was implemeted, editor goes to assertion when you leave editor mode, because InitGameOption() is not called anymore from InitializeGame()
+	is_networked = FALSE;
+	InitGameOptions();
 
 	gfRealGunNut = gGameOptions.fGunNut;
 	gGameOptions.fGunNut = TRUE;

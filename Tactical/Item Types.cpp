@@ -142,6 +142,9 @@ void MoveItemsInSlotsToLBE( SOLDIERTYPE *pSoldier, std::vector<INT8>& LBESlots, 
 			// No item in this LBENODE pocket, is pocket active?
 			if(LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbePocketIndex[j] == NONE)	// Pocket is inactive
 				continue;
+			//dnl Pocket is active, so check if there is restriction of type for default item
+			if(LBEPocketType[LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbePocketIndex[j]].pRestriction != 0 && LBEPocketType[LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbePocketIndex[j]].pRestriction != Item[pSoldier->inv[LBESlots[i]].usItem].ubClassIndex)
+				continue;
 			// Pocket is active, can default item fit in this pocket?
 			if(LBEPocketType[LoadBearingEquipment[Item[pObj->usItem].ubClassIndex].lbePocketIndex[j]].ItemCapacityPerSize[dSize] == NONE)	// Pocket can't hold this item size
 				continue;
@@ -217,7 +220,6 @@ BOOLEAN MoveItemsToActivePockets( SOLDIERTYPE *pSoldier, std::vector<INT8>& LBES
 			}
 		}
 	}
-
 
 	// now drop everything that wouldn't fit anywhere else
 	for(unsigned int i=0; i<LBESlots.size() ;i++)

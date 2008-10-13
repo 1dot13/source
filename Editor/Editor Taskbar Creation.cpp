@@ -462,13 +462,7 @@ void InitEditorBuildingsToolbar()
 	//Selection method buttons
 	iEditorButton[BUILDING_PLACE_WALLS] =
 		CreateEasyToggleButton( iScreenWidthOffset + 180,2 * iScreenHeightOffset + 370,"EDITOR//wall.sti", BuildingWallCallback);
-	//SetButtonFastHelpText(iEditorButton[BUILDING_PLACE_WALLS],L"Place walls using selection method");
-
-
-	SetButtonFastHelpText(iEditorButton[BUILDING_PLACE_WALLS],
-		L"Place walls using selection method\nPlace walls using selection method\nPlace walls using selection method\nPlace walls using selection method\nPlace walls using selection method\nPlace walls using selection method\nPlace walls using selection method\nPlace walls using selection method\nPlace walls using selection method\nPlace walls using selection method\nPlace walls using selection method\nPlace walls using selection method\nPlace walls using selection method\nPlace walls using selection method\n");
-
-
+	SetButtonFastHelpText(iEditorButton[BUILDING_PLACE_WALLS],L"Place walls using selection method");//dnl fix for to many tooltip message in place walls
 	iEditorButton[BUILDING_PLACE_DOORS] =
 		CreateEasyToggleButton( iScreenWidthOffset + 210,2 * iScreenHeightOffset + 370,"EDITOR//door.sti",	BuildingDoorCallback);
 	SetButtonFastHelpText(iEditorButton[BUILDING_PLACE_DOORS],L"Place doors using selection method");

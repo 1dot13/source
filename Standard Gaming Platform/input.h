@@ -19,6 +19,8 @@
 #define RIGHT_BUTTON_REPEAT				0x0200
 #define MOUSE_POS									0x0400
 #define MOUSE_WHEEL								0x0800
+#define MIDDLE_BUTTON_UP						0x1000//dnl
+#define MIDDLE_BUTTON_DOWN						0x2000//dnl
 
 #define SHIFT_DOWN								0x01
 #define CTRL_DOWN									0x02
@@ -109,8 +111,10 @@ extern BOOLEAN	gfKeyState[256];	// TRUE = Pressed, FALSE = Not Pressed
 
 extern INT16	gusMouseXPos;		// X position of the mouse on screen
 extern INT16	gusMouseYPos;		// y position of the mouse on screen
+extern INT16 gsMouseWheelDeltaValue;//dnl
 extern BOOLEAN	gfLeftButtonState;	// TRUE = Pressed, FALSE = Not Pressed
 extern BOOLEAN	gfRightButtonState; // TRUE = Pressed, FALSE = Not Pressed
+extern BOOLEAN	gfMiddleButtonState;//dnl TRUE = Pressed, FALSE = Not Pressed
 
 extern BOOLEAN		gfSGPInputReceived;
 
@@ -118,6 +122,8 @@ extern BOOLEAN		gfSGPInputReceived;
 #define _KeyDown(a)		gfKeyState[(a)]
 #define _LeftButtonDown	gfLeftButtonState
 #define _RightButtonDown	gfRightButtonState
+#define _MiddleButtonDown	gfMiddleButtonState//dnl
+#define _WheelValue			gsMouseWheelDeltaValue//dnl
 #define _MouseXPos				gusMouseXPos
 #define _MouseYPos				gusMouseYPos
 

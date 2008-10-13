@@ -3936,6 +3936,7 @@ void GlobalReachableTest( INT16 sStartGridNo )
 	}
 
 	ReconfigurePathAI( ABSMAX_SKIPLIST_LEVEL, ABSMAX_TRAIL_TREE, ABSMAX_PATHQ );
+	gubNPCDistLimit = 0;//dnl without this ASTAR will not calculate map edgepoints
 	FindBestPath( &s, NOWHERE, 0, WALKING, COPYREACHABLE, PATH_THROUGH_PEOPLE );
 	RestorePathAIToDefaults();
 }

@@ -2480,8 +2480,14 @@ void WriteSectorSummaryUpdate( STR8 puiFilename, UINT8 ubLevel, SUMMARYFILE *pSu
 	GetExecutableDirectory( ExecDir );
 	sprintf( Dir, "%s\\DevInfo", ExecDir );
 	if( !SetFileManCurrentDirectory( Dir ) )
-		AssertMsg( 0, "JA2\\DevInfo folder not found and should exist!");
-
+		//AssertMsg( 0, "JA2\\DevInfo folder not found and should exist!");//dnl lead to assertion if you don't have Dir and never create summary info
+	{//dnl
+		//Directory doesn't exist, so create it, and continue.
+		if( !MakeFileManDirectory( Dir ) )
+			AssertMsg( 0, "Can't create new directory, JA2\\DevInfo for summary information update." );
+		if( !SetFileManCurrentDirectory( Dir ) )
+			AssertMsg( 0, "JA2\\DevInfo folder not found and should exist!");
+	}
 	ptr = strstr( (CHAR8 *)puiFilename, ".dat" );
 	if( !ptr )
 		AssertMsg( 0, "Illegal sector summary filename.");

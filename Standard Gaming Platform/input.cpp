@@ -1,3 +1,4 @@
+#define _WIN32_WINNT WINVER//dnl this should be defined globaly on project
 #ifdef JA2_PRECOMPILED_HEADERS
 	#include "JA2 SGP ALL.H"
 #elif defined( WIZ8_PRECOMPILED_HEADERS )
@@ -5,6 +6,7 @@
 #else
 	#include "types.h"
 	#include <windows.h>
+	#include <winuser.h>//dnl
 	#include <stdio.h>
 	#include <memory.h>
 	#include "debug.h"
@@ -67,6 +69,8 @@ UINT32		guiRightButtonRepeatTimer;
 BOOLEAN	gfTrackMousePos;			// TRUE = queue mouse movement events, FALSE = don't
 BOOLEAN	gfLeftButtonState;		// TRUE = Pressed, FALSE = Not Pressed
 BOOLEAN	gfRightButtonState;		// TRUE = Pressed, FALSE = Not Pressed
+BOOLEAN gfMiddleButtonState;//dnl TRUE = Pressed, FALSE = Not Pressed
+INT16 gsMouseWheelDeltaValue;//dnl positive value indicates that the wheel was rotated forward, negative value indicates that the wheel was rotated backward, and user handler procedure for mouse wheel should restore after usege this value to zero!
 INT16	 gusMouseXPos;					// X position of the mouse on screen
 INT16	 gusMouseYPos;					// y position of the mouse on screen
 
@@ -208,6 +212,60 @@ LRESULT CALLBACK MouseHandler(int Code, WPARAM wParam, LPARAM lParam)
 		// Trigger an input event
 		QueueEvent(RIGHT_BUTTON_UP, 0, uiParam);
 		break;
+
+//dnl begin part for additional mouse events
+	case WM_MBUTTONDOWN:
+		// Update the current mouse position
+		mpos = ((MOUSEHOOKSTRUCT *)lParam)->pt;
+		ScreenToClient(ghWindow, &mpos);
+		gusMouseXPos = (INT16)mpos.x;
+		gusMouseYPos = (INT16)mpos.y;
+		uiParam = gusMouseYPos;
+		uiParam = uiParam << 16;
+		uiParam = uiParam | gusMouseXPos;
+		// Update the button state
+		gfMiddleButtonState = TRUE;
+		//Set that we have input
+		gfSGPInputReceived =	TRUE;
+		// Trigger an input event
+		QueueEvent(MIDDLE_BUTTON_DOWN, 0, uiParam);
+		break;
+	case WM_MBUTTONUP:
+		// Update the current mouse position
+		mpos = ((MOUSEHOOKSTRUCT *)lParam)->pt;
+		ScreenToClient(ghWindow, &mpos);
+		gusMouseXPos = (INT16)mpos.x;
+		gusMouseYPos = (INT16)mpos.y;
+		uiParam = gusMouseYPos;
+		uiParam = uiParam << 16;
+		uiParam = uiParam | gusMouseXPos;
+		// Update the button state
+		gfMiddleButtonState = FALSE;
+		//Set that we have input
+		gfSGPInputReceived =	TRUE;
+		// Trigger an input event
+		QueueEvent(MIDDLE_BUTTON_UP, 0, uiParam);
+		break;
+	//case WM_MBUTTONDBLCLK:
+	//	break;
+	case WM_MOUSEWHEEL:
+		// Update the current mouse position
+		mpos = ((MOUSEHOOKSTRUCT *)lParam)->pt;
+		ScreenToClient(ghWindow, &mpos);
+		gusMouseXPos = (INT16)mpos.x;
+		gusMouseYPos = (INT16)mpos.y;
+		uiParam = gusMouseYPos;
+		uiParam = uiParam << 16;
+		uiParam = uiParam | gusMouseXPos;
+		// Update mouse wheel delta value
+		gsMouseWheelDeltaValue = GetMouseWheelDeltaValue(((MOUSEHOOKSTRUCTEX *)lParam)->mouseData);
+		//Set that we have input
+		gfSGPInputReceived =	TRUE;
+		// Trigger an input event
+		QueueEvent(MOUSE_WHEEL, 0, uiParam);
+		break;
+//dnl end part for additional mouse events
+
 	case WM_MOUSEMOVE
 	: // Update the current mouse position
 		mpos = ((MOUSEHOOKSTRUCT *)lParam)->pt;

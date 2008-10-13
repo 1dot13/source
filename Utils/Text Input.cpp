@@ -272,7 +272,7 @@ void AddTextInputField( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight, IN
 	if( szInitText )
 	{
 		pNode->ubStrLen = (UINT8)wcslen( szInitText );
-		Assert( pNode->ubStrLen <= ubMaxChars );
+		Assert( pNode->ubStrLen <= ubMaxChars );//dnl Warning if filename is longer this will throw assertion, need to be consider in future!!!
 		swprintf( pNode->szString, szInitText );
 	}
 	else
@@ -1043,9 +1043,11 @@ void AddChar( UINT32 uiKey )
 	PlayJA2Sample( ENTERING_TEXT, RATE_11025, BTNVOLUME, 1, MIDDLEPAN );
 	if( gpActive->ubStrLen >= gpActive->ubMaxChars )
 	{	//max length reached.	Just replace the last character with new one.
+/*dnl this part has no sense and is wrong escpecially when you insert characters then last was always replace
 		gpActive->ubStrLen = gpActive->ubMaxChars;
 		gpActive->szString[ gpActive->ubStrLen-1 ] = (UINT16)uiKey;
 		gpActive->szString[ gpActive->ubStrLen ] = '\0';
+*/
 		return;
 	}
 	else if( gubCursorPos == gpActive->ubStrLen )
@@ -1058,7 +1060,7 @@ void AddChar( UINT32 uiKey )
 	else
 	{ //insert character after cursor
 		INT16 sChar;
-		sChar = (INT16)gpActive->ubStrLen;
+		sChar = (INT16)gpActive->ubStrLen;//dnl sChar = (INT16)(gpActive->ubStrLen + 1); disbanded because was lead into heap breach detected by debugger because gpActive->szString[ sChar + 1 ] was always overlap 2 bytes out of allocation region
 		while( sChar >= gubCursorPos )
 		{
 			gpActive->szString[ sChar + 1 ] = gpActive->szString[ sChar ];
@@ -1066,6 +1068,7 @@ void AddChar( UINT32 uiKey )
 		}
 		gpActive->szString[ gubCursorPos ] = (UINT16)uiKey;
 		gpActive->ubStrLen++;
+		gpActive->szString[ gpActive->ubStrLen ] = '\0';//dnl
 		gubCursorPos++;
 	}
 }

@@ -7602,6 +7602,9 @@ SOLDIERTYPE *InternalReduceAttackBusyCount( )
 		pSoldier = MercPtrs[ gusSelectedSoldier ];
 	}
 
+	if(!pSoldier && AreInMeanwhile())//dnl fix for preventing game crash in meanwhile after Queen slap Elliot
+		return(NULL);
+
 	ubID = pSoldier->ubID;
 
 	DebugAttackBusy( String( "Ending action for %d\n", ubID ) );

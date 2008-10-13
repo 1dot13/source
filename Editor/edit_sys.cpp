@@ -361,6 +361,9 @@ void PasteSingleWallCommon( UINT32 iMapIndex )
 		// TEMP STUFF FOR ONROOF THINGS!
 		if ( (usUseObjIndex >= FIRSTONROOF) && (usUseObjIndex <= SECONDONROOF ) )
 		{
+			//dnl Remove all onroof things before placing new one to avoid stacking problems of same element
+			RemoveAllOnRoofsOfTypeRange( iMapIndex, FIRSTONROOF, SECONDONROOF );
+
 			// Add to onroof section!
 			AddOnRoofToTail( iMapIndex, (UINT16)(gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) );
 
@@ -577,7 +580,7 @@ void PasteStructureCommon( UINT32 iMapIndex )
 			fOkayToAdd = OkayToAddStructureToWorld( (INT16)iMapIndex, 0, gTileDatabase[ (gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) ].pDBStructureRef, INVALID_STRUCTURE_ID );
 			if ( fOkayToAdd || (gTileDatabase[ (gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) ].pDBStructureRef == NULL) )
 			{
-				//dnl Remove existing structure before adding the same, seems to solve problem with stacking but possibly dangerous and completly untested
+				//dnl Remove existing structure before adding the same, seems to solve problem with stacking but still need test to be sure that is not removed something what should stay
 				RemoveStruct( iMapIndex, (UINT16)(gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) );//dnl
 				// Actual structure info is added by the functions below
 				AddStructToHead( iMapIndex, (UINT16)(gTileTypeStartIndex[ usUseObjIndex ] + usUseIndex) );

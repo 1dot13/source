@@ -2100,6 +2100,14 @@ BOOLEAN SaveWorld( const STR8 puiFilename )
 		SaveMapLights( hfile );
 	}
 
+	if(gMapInformation.sCenterGridNo == -1 || (gMapInformation.sNorthGridNo == -1 && gMapInformation.sEastGridNo == -1 && gMapInformation.sSouthGridNo == -1 && gMapInformation.sWestGridNo == -1))//dnl
+	{
+		swprintf(gzErrorCatchString, L"SAVE ABORTED! Center entry point and at least one entry point (N,S,E,W) should be set.");
+		gfErrorCatch = TRUE;
+		FileClose(hfile);
+		return(FALSE);
+	}
+
 	SaveMapInformation( hfile );
 
 	if( uiFlags & MAP_FULLSOLDIER_SAVED )
@@ -3164,7 +3172,8 @@ BOOLEAN LoadWorld( const STR8	puiFilename, float* pMajorMapVersion, UINT8* pMino
 	{
 		SetRelativeStartAndEndPercentage( 0, 93, 94, L"Init Loaded World..." );
 		RenderProgressBar( 0, 0 );
-		InitLoadedWorld( );
+		if(!(gMapInformation.sNorthGridNo == -1 && gMapInformation.sEastGridNo == -1 && gMapInformation.sSouthGridNo == -1 && gMapInformation.sWestGridNo == -1))//dnl just rough solution for skiping InitLoadedWorld if loaded map doesn't contain any entry point which lead into assertion
+			InitLoadedWorld();
 	}
 
 	if( fGenerateEdgePoints )

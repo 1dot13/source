@@ -1510,7 +1510,7 @@ void AwardExperienceForTravelling( GROUP * pGroup )
 				// award exp...
 				// amount was originally based on getting 100-bLifeMax points for 12 hours of travel (720)
 				// but changed to flat rate since StatChange makes roll vs 100-lifemax as well!
-				uiPoints = pGroup->uiTraverseTime / (450 / 100 - pSoldier->stats.bLifeMax );
+				uiPoints = pGroup->uiTraverseTime / (450 / (100 - pSoldier->stats.bLifeMax ) );
 				if ( uiPoints > 0 )
 				{
 					StatChange( pSoldier, HEALTHAMT, (UINT8) uiPoints, FALSE );
