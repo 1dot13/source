@@ -19,6 +19,7 @@
 	#include "Text.h"
 	#include "Weapons.h"
 	#include "GameSettings.h"
+	#include "Points.h"
 #endif
 
 
@@ -2393,9 +2394,39 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			//Info for weapons
 			//if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
 			{
-				UINT16 gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
+				UINT16		gunDamage = (UINT16)( Weapon[ pItemNumbers[ i ] ].ubImpact + ( (double) Weapon[ pItemNumbers[ i ] ].ubImpact / 100) * gGameExternalOptions.ubGunDamageMultiplier );
+				UINT16		readyAPs = (UINT16)(( Weapon[ pItemNumbers[ i ] ].ubReadyTime * (100 - Item[ pItemNumbers[ i ] ].percentreadytimeapreduction)) / 100);
 
-				swprintf( pStr, L"%s (%s)\n%s %d\n%s %d\n%s %d\n%s %s\n%s %1.1f %s",
+				//Calculate AP's
+				CHAR16		apStr[20];
+				CHAR16		apStr2[20];
+				OBJECTTYPE	pObject;
+
+				CreateItem(pItemNumbers[ i ], 100, &pObject);
+				UINT8		ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, &pObject );
+
+				if ( Weapon[ pItemNumbers[ i ] ].NoSemiAuto )
+					swprintf( apStr, L"-" );
+				else
+					swprintf( apStr, L"%d", ubAttackAPs );
+
+				if (GetShotsPerBurst(&pObject) > 0)
+				{
+					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, &pObject ) );
+					wcscat( apStr, apStr2 );
+				}
+				else
+					wcscat( apStr, L" / -" );
+
+				if (GetAutofireShotsPerFiveAPs(&pObject) > 0)
+				{
+					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, &pObject, 3 ) );
+					wcscat( apStr, apStr2 );
+				}
+				else
+					wcscat( apStr, L" / -" );
+
+				swprintf( pStr, L"%s (%s)\n%s %d\n%s %d\n%s %d\n%s (%d) %s\n%s %1.1f %s",
 					ItemNames[ pItemNumbers[ i ] ],
 					AmmoCaliber[ Weapon[ pItemNumbers[ i ] ].ubCalibre ],
 					gWeaponStatsDesc[ 9 ],					//Accuracy String
@@ -2405,7 +2436,9 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 					gWeaponStatsDesc[ 10 ],					//Range String
 					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? Weapon[ pItemNumbers[ i ] ].usRange/10 : Weapon[ pItemNumbers[ i ] ].usRange,	//Gun Range 
 					gWeaponStatsDesc[ 5 ],					//AP String
-					//apStr,								//AP's
+					//"\n",
+					readyAPs,
+					apStr,									//AP's
 					L"- / - / -",
 					gWeaponStatsDesc[ 12 ],					//Weight String
 					fWeight,								//Weight
