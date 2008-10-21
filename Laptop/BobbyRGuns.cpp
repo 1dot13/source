@@ -2435,11 +2435,10 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 					gunDamage,								//Gun damage
 					gWeaponStatsDesc[ 10 ],					//Range String
 					gGameSettings.fOptions[ TOPTION_SHOW_WEAPON_RANGE_IN_TILES ] ? Weapon[ pItemNumbers[ i ] ].usRange/10 : Weapon[ pItemNumbers[ i ] ].usRange,	//Gun Range 
-					gWeaponStatsDesc[ 5 ],					//AP String
-					//"\n",
+					gWeaponStatsDesc[ 6 ],					//AP String
 					readyAPs,
 					apStr,									//AP's
-					L"- / - / -",
+					//L"- / - / -",
 					gWeaponStatsDesc[ 12 ],					//Weight String
 					fWeight,								//Weight
 					GetWeightUnitString()					//Weight units
