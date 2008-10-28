@@ -907,14 +907,16 @@ void KillTacticalPlacementGUI()
 void ChooseRandomEdgepoints()
 {
 	INT32 i;
+	UINT8	lastValidICode = INSERTION_CODE_GRIDNO;
 	for( i = 0; i < giPlacements; i++ )
 	{
 		if ( !( gMercPlacement[ i ].pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 		{
-			gMercPlacement[ i ].pSoldier->usStrategicInsertionData = ChooseMapEdgepoint( gMercPlacement[ i ].ubStrategicInsertionCode );
+			gMercPlacement[ i ].pSoldier->usStrategicInsertionData = ChooseMapEdgepoint( &gMercPlacement[ i ].ubStrategicInsertionCode, lastValidICode );
 			if( gMercPlacement[ i ].pSoldier->usStrategicInsertionData != NOWHERE )
 			{
 				gMercPlacement[ i ].pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO;
+				lastValidICode = gMercPlacement[ i ].ubStrategicInsertionCode;
 			}
 			else
 			{
@@ -1109,6 +1111,7 @@ void HandleTacticalPlacementClicksInOverheadMap( MOUSE_REGION *reg, INT32 reason
 	INT32 i;
 	INT16 sGridNo;
 	BOOLEAN fInvalidArea = FALSE;
+	UINT8	lastValidICode = INSERTION_CODE_GRIDNO;
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_UP )
 	{ //if we have a selected merc, move him to the new closest map edgepoint of his side.
 		if( gfValidCursor )
@@ -1127,12 +1130,14 @@ void HandleTacticalPlacementClicksInOverheadMap( MOUSE_REGION *reg, INT32 reason
 							//the problem.	If everything's okay, we will place them all.
 							if( gMercPlacement[ i ].pSoldier->ubGroupID == gubSelectedGroupID )
 							{
-								gMercPlacement[ i ].pSoldier->usStrategicInsertionData = SearchForClosestPrimaryMapEdgepoint( sGridNo, gMercPlacement[ i ].ubStrategicInsertionCode );
+								gMercPlacement[ i ].pSoldier->usStrategicInsertionData = SearchForClosestPrimaryMapEdgepoint( sGridNo, gMercPlacement[ i ].ubStrategicInsertionCode, lastValidICode, &gMercPlacement[ i ].ubStrategicInsertionCode );
 								if( gMercPlacement[ i ].pSoldier->usStrategicInsertionData == NOWHERE )
 								{
 									fInvalidArea = TRUE;
 									break;
 								}
+								else
+									lastValidICode = gMercPlacement[ i ].ubStrategicInsertionCode;
 							}
 						}
 						if( !fInvalidArea )

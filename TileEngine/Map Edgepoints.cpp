@@ -1040,7 +1040,7 @@ BOOLEAN LoadMapEdgepoints( INT8 **hBuffer )
 	return TRUE;
 }
 
-UINT16 ChooseMapEdgepoint( UINT8 ubStrategicInsertionCode )
+UINT16 ChooseMapEdgepoint( UINT8 *ubStrategicInsertionCode, UINT8 lastValidICode )
 {
 	INT16 *psArray=NULL;
 	UINT16 usArraySize=0;
@@ -1048,7 +1048,9 @@ UINT16 ChooseMapEdgepoint( UINT8 ubStrategicInsertionCode )
 
 	//First validate and get access to the correct array based on strategic direction.
 	//We will use the selected array to choose insertion gridno's.
-	switch( ubStrategicInsertionCode )
+	if( *ubStrategicInsertionCode == INSERTION_CODE_GRIDNO)
+		*ubStrategicInsertionCode = lastValidICode;
+	switch( *ubStrategicInsertionCode )
 	{
 		case INSERTION_CODE_NORTH:
 			psArray = gps1stNorthEdgepointArray;
@@ -1251,7 +1253,7 @@ void EndMapEdgepointSearch()
 
 
 //THIS CODE ISN'T RECOMMENDED FOR TIME CRITICAL AREAS.
-INT16 SearchForClosestPrimaryMapEdgepoint( INT16 sGridNo, UINT8 ubInsertionCode )
+INT16 SearchForClosestPrimaryMapEdgepoint( INT16 sGridNo, UINT8 ubInsertionCode, UINT8 defaultICode, UINT8 *storedICode )
 {
 	INT32 i, iDirectionLoop;
 	INT16 *psArray=NULL;
@@ -1263,6 +1265,8 @@ INT16 SearchForClosestPrimaryMapEdgepoint( INT16 sGridNo, UINT8 ubInsertionCode 
 	{ //Everything is reserved.
 		AssertMsg( 0, "All closest map edgepoints have been reserved.	We should only have 20 soldiers maximum...");
 	}
+	if( ubInsertionCode == INSERTION_CODE_GRIDNO )
+		*storedICode = ubInsertionCode = defaultICode;
 	switch( ubInsertionCode )
 	{
 		case INSERTION_CODE_NORTH:

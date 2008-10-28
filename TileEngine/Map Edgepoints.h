@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "Fileman.h"
+#include "strategic.h"
 
 typedef struct MAPEDGEPOINTINFO
 {
@@ -11,7 +12,7 @@ typedef struct MAPEDGEPOINTINFO
 	INT16 sGridNo[ 32 ];
 }MAPEDGEPOINTINFO;
 
-UINT16 ChooseMapEdgepoint( UINT8 ubStrategicInsertionCode );
+UINT16 ChooseMapEdgepoint( UINT8 *ubStrategicInsertionCode, UINT8 lastValidICode );
 void ChooseMapEdgepoints( MAPEDGEPOINTINFO *pMapEdgepointInfo, UINT8 ubStrategicInsertionCode, UINT8 ubNumDesiredPoints );
 void GenerateMapEdgepoints();
 void SaveMapEdgepoints( HWFILE fp );
@@ -62,7 +63,7 @@ extern UINT16 gus2ndWestEdgepointMiddleIndex;
 //code shouldn't be used for enemies or anybody else.
 void BeginMapEdgepointSearch();
 void EndMapEdgepointSearch();
-INT16 SearchForClosestPrimaryMapEdgepoint( INT16 sGridNo, UINT8 ubInsertionCode );
+INT16 SearchForClosestPrimaryMapEdgepoint( INT16 sGridNo, UINT8 ubInsertionCode, UINT8 defaultICode = INSERTION_CODE_GRIDNO, UINT8 *storedICode = NULL );
 INT16 SearchForClosestSecondaryMapEdgepoint( INT16 sGridNo, UINT8 ubInsertionCode );
 
 //There are two classes of edgepoints.
