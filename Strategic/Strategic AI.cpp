@@ -5653,6 +5653,20 @@ void CalcNumTroopsBasedOnComposition( UINT8 *pubNumTroops, UINT8 *pubNumElites, 
 			(*pubNumElites)++;
 		}
 	}
+	//CHRISL: For some reason, it's possible for pubNumTroops + pubNumElites to be greater then ubTotal.  It seems that in some
+	//	cases, bTroopPercentage and bElitePercentage can add up to more then 100%.  So we need an extra condition that makes
+	//	sure we don't have more then ubTotal
+	while( *pubNumTroops + *pubNumElites > ubTotal)
+	{
+		if( Chance( gArmyComp[ iCompositionID ].bTroopPercentage ) )
+		{
+			(*pubNumTroops)--;
+		}
+		else
+		{
+			(*pubNumElites)--;
+		}
+	}
 	Assert( *pubNumTroops + *pubNumElites == ubTotal );
 }
 
