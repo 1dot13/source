@@ -3501,6 +3501,11 @@ BOOLEAN OBJECTTYPE::AttachObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttachme
 	if ((*this)[subObject]->attachments.size() >= MAX_ATTACHMENTS) {
 		return FALSE;
 	}
+	//CHRISL: If we're adding a loaded UGL, then we have to make sure there are actually 2 open attachment slots instead of 1
+	if(Item[pAttachment->usItem].grenadelauncher && (*pAttachment)[0]->attachments.size() > 0) {
+		if ((*this)[subObject]->attachments.size() >= (MAX_ATTACHMENTS-1))
+			return FALSE;
+	}
 
 	static OBJECTTYPE attachmentObject;
 
