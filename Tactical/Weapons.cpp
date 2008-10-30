@@ -3715,7 +3715,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAimTime,
 	}
 
 	// If in burst mode, deduct points for change to hit for each shot after the first
-	if ( pSoldier->bDoBurst )
+	if ( pSoldier->bDoBurst > 0 && pSoldier->bDoAutofire == 0 )
 	{
 		// Snap: bipod may reduce burst penalty
 		iPenalty = GetBurstPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)
@@ -3732,7 +3732,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAimTime,
 	{
 		// Snap: bipod may reduce auto penalty
 		iPenalty = GetAutoPenalty(pInHand, gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)
-			* (pSoldier->bDoAutofire - 1);
+			* (pSoldier->bDoBurst - 1);
 
 		// halve the penalty for people with the autofire trait
 		if ( HAS_SKILL_TRAIT( pSoldier, AUTO_WEAPS ) )
