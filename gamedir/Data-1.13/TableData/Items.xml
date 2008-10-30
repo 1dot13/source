@@ -802,6 +802,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>1100</BR_ROF>
+		<Bipod>10</Bipod>
 	</ITEM>
 	<ITEM>
 		<uiIndex>25</uiIndex>
@@ -10060,7 +10061,7 @@
 		<uiIndex>453</uiIndex>
 		<szItemName>7.62x51mm 5 C</szItemName>
 		<szLongItemName>7.62x51mm Mag, 5 Cold</szLongItemName>
-		<szItemDesc>Plink away without disturbing the peace. This cold loaded ammo is 40% less loud.</szItemDesc>
+		<szItemDesc>Plink away without disturbing the peace. This cold loaded ammo is 40 percent less loud.</szItemDesc>
 		<szBRName>7.62x51mm 5 Cold</szBRName>
 		<szBRDesc>Bore holes in the enemy in near noiselessness.</szBRDesc>
 		<usItemClass>1024</usItemClass>
@@ -16601,6 +16602,7 @@
 		<ItemSize>7</ItemSize>
 		<usPrice>3170</usPrice>
 		<ubCoolness>6</ubCoolness>
+		<bReliability>2</bReliability>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -16633,6 +16635,7 @@
 		<ItemSize>6</ItemSize>
 		<usPrice>4950</usPrice>
 		<ubCoolness>7</ubCoolness>
+		<bReliability>2</bReliability>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -16664,6 +16667,7 @@
 		<ItemSize>5</ItemSize>
 		<usPrice>3370</usPrice>
 		<ubCoolness>8</ubCoolness>
+		<bReliability>2</bReliability>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
