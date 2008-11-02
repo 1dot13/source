@@ -853,7 +853,8 @@ UINT32 SexScreenHandle(void)
 	INT16									sX, sY;
 
 	// OK, Clear screen and show smily face....
-	ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, 640,	480, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+	//ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, 640,	480, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
+	ColorFillVideoSurfaceArea( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Get16BPPColor( FROMRGB( 0, 0, 0 ) ) );
 	InvalidateScreen( );
 	// Remove cursor....
 	SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
@@ -923,8 +924,8 @@ UINT32 SexScreenHandle(void)
 	GetVideoObject( &hVObject, guiSMILY );
 	pTrav = &(hVObject->pETRLEObject[ 0 ] );
 
-	sX = (INT16)(( 640 - pTrav->usWidth ) / 2);
-	sY = (INT16)(( 480 - pTrav->usHeight ) / 2);
+	sX = (INT16)(( SCREEN_WIDTH - pTrav->usWidth ) / 2);
+	sY = (INT16)(( SCREEN_HEIGHT - pTrav->usHeight ) / 2);
 
 	if( bCurFrame < 24 )
 	{
