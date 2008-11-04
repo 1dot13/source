@@ -4157,7 +4157,7 @@ STR16 MPClientMessage[] =
 STR16 MPHelp[] =
 {
 	// 0
-	L"Willkommen zu Jagged Alliance 2 1.13 Multiplayer",
+	L"Willkommen zu Jagged Alliance 2 Multiplayer",
 	L"Drücken Sie 'F1' um die Hilfe aufzurufen",
 	L"Mehrspieler Aktionen (Strategische Ansicht)",
 	L"* zuerst solle die Datei ja2_mp.ini angepasst werden *",

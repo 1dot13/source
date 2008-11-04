@@ -271,7 +271,7 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
 		ptWindowSize.x = window.right;
 		ptWindowSize.y = window.bottom;
 
-		hWindow = CreateWindowEx(exstyle, (LPCSTR) ClassName, "Jagged Alliance 2 v1.13", style, window.left, window.top, window.right, window.bottom, NULL, NULL, hInstance, NULL);
+		hWindow = CreateWindowEx(exstyle, (LPCSTR) ClassName, "Jagged Alliance 2", style, window.left, window.top, window.right, window.bottom, NULL, NULL, hInstance, NULL);
 		GetClientRect( hWindow, &window);
 		window.top = window.top;
 	}
@@ -639,7 +639,8 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
 	// This function must be called to setup RGB information
 	//
 
-	GetRGBDistribution();
+	if (GetRGBDistribution() == FALSE)
+		return FALSE;
 
 
 	return TRUE;
