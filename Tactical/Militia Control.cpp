@@ -1289,7 +1289,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 						{
-							DeductPoints( pSoldier, AP_TALK, 0 );
+							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
 							StatChange( pSoldier, LDRAMT, 1, FALSE );
 						}
 
@@ -1315,7 +1315,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 						{
-							DeductPoints( pSoldier, AP_TALK, 0 );
+							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
 							StatChange( pSoldier, LDRAMT, 1, FALSE );
 						}
 
@@ -1362,7 +1362,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 						
 						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 						{
-							DeductPoints( pSoldier, AP_TALK, 0 );
+							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
 							StatChange( pSoldier, LDRAMT, 1, FALSE );
 						}
 
@@ -1411,7 +1411,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 						{
-							DeductPoints( pSoldier, AP_TALK, 0 );
+							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
 							StatChange( pSoldier, LDRAMT, 1, FALSE );
 						}
 
@@ -1438,7 +1438,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 						{
-							DeductPoints( pSoldier, AP_TALK, 0 );
+							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
 							StatChange( pSoldier, LDRAMT, 1, FALSE );
 						}
 
@@ -1479,7 +1479,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 						{
-							DeductPoints( pSoldier, AP_TALK, 0 );
+							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
 							StatChange( pSoldier, LDRAMT, 1, FALSE );
 						}
 
@@ -1513,7 +1513,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 						{
-							DeductPoints( pSoldier, AP_TALK, 0 );
+							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
 							StatChange( pSoldier, LDRAMT, 1, FALSE );
 						}
 
@@ -1545,7 +1545,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 						{
-							DeductPoints( pSoldier, AP_TALK, 0 );
+							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
 							StatChange( pSoldier, LDRAMT, 1, FALSE );
 						}
 
@@ -1608,7 +1608,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 						{
-							DeductPoints( pSoldier, AP_TALK, 0 );
+							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
 							StatChange( pSoldier, LDRAMT, 1, FALSE );
 						}
 
@@ -1662,7 +1662,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 						{
-							DeductPoints( pSoldier, AP_TALK, 0 );
+							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
 							StatChange( pSoldier, LDRAMT, 1, FALSE );
 						}
 
@@ -1713,7 +1713,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 						{
-							DeductPoints( pSoldier, AP_TALK, 0 );
+							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
 							StatChange( pSoldier, LDRAMT, 1, FALSE );
 						}
 
@@ -1750,7 +1750,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 						{
-							DeductPoints( pSoldier, AP_TALK, 0 );
+							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
 							StatChange( pSoldier, LDRAMT, 1, FALSE );
 						}
 
@@ -1825,7 +1825,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 
 						if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 						{
-							DeductPoints( pSoldier, AP_TALK, 0 );
+							DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
 							StatChange( pSoldier, LDRAMT, 1, FALSE );
 						}
 
@@ -1884,7 +1884,7 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 					
 					//if ( GetSoldier( &pSoldier, gusSelectedSoldier )  )
 					//{
-					//	DeductPoints( pSoldier, AP_TALK, 0 );
+					//	DeductPoints( pSoldier, APBPConstants[AP_TALK], 0 );
 					//}
 
 					//	// stop showing menu
@@ -2370,5 +2370,6 @@ void MilitiaControlMenuBtnCallBack( MOUSE_REGION * pRegion, INT32 iReason )
 //
 //	return;
 //}
+
 
 

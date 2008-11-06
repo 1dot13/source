@@ -1962,7 +1962,7 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, UINT16 usItem, UINT8 * pubAPCost )
 {
 	INT32 iLoop = 0;
 	if (pubAPCost) {
-		*pubAPCost = (UINT8)AP_RELOAD_GUN; //default value
+		*pubAPCost = (UINT8)APBPConstants[AP_RELOAD_GUN]; //default value
 	}
 
 	// look for the section of the array pertaining to this attachment...
@@ -2837,7 +2837,7 @@ BOOLEAN PlaceObjectAtObjectIndex( OBJECTTYPE * pSourceObj, OBJECTTYPE * pTargetO
 BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo, UINT32 subObject )
 {
 	UINT16			ubBulletsToMove;
-	INT8			bAPs;
+	INT16			bAPs;
 	UINT16			usReloadSound;
 	BOOLEAN			fSameAmmoType;
 	BOOLEAN			fSameMagazineSize;
@@ -3008,7 +3008,7 @@ BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo
 				bAPs = GetAPsToReloadGunWithAmmo( pSoldier, pGun, pAmmo, 2 );
 				for(int i = 0; i<ubBulletsToMove; i++)
 				{
-					if(EnoughPoints(pSoldier, (bAPs+(i*gGameExternalOptions.ubAPCostPerRound)), 0, FALSE) == FALSE)
+					if(EnoughPoints(pSoldier, (bAPs+(i*APBPConstants[AP_RELOAD_LOOSE])), 0, FALSE) == FALSE)
 					{
 						ubBulletsToMove = i+1;
 						break;
@@ -3042,7 +3042,7 @@ BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo
 					// (suppose his inventory is full!)
 
 					//ADB copying the old ammo to the cursor at any time will screw it up if the cursor ammo is a stack!
-					if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) && !EnoughPoints( pSoldier, (INT8) (bAPs + AP_PICKUP_ITEM), 0, FALSE )
+					if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) && !EnoughPoints( pSoldier, (INT8) (bAPs + APBPConstants[AP_PICKUP_ITEM]), 0, FALSE )
 						|| pAmmo->ubNumberOfObjects > 1)
 					{
 						// try autoplace
@@ -3312,7 +3312,8 @@ INT8 FindAmmoToReload( SOLDIERTYPE * pSoldier, INT8 bWeaponIn, INT8 bExcludeSlot
 BOOLEAN AutoReload( SOLDIERTYPE * pSoldier )
 {
 	OBJECTTYPE *pObj, *pObj2;
-	INT8		bSlot, bAPCost;
+	INT8		bSlot;
+	INT16 bAPCost;
 	BOOLEAN		fRet;
 
 	CHECKF( pSoldier );
@@ -6560,7 +6561,7 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 		return( FALSE );
 	}
 
-	if (!EnoughPoints( pSoldier, AP_CAMOFLAGE, 0, TRUE ) )
+	if (!EnoughPoints( pSoldier, APBPConstants[AP_CAMOFLAGE], 0, TRUE ) )
 	{
     (*pfGoodAPs) = FALSE;
 		return( TRUE );
@@ -6601,7 +6602,7 @@ BOOLEAN ApplyCammo( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodAP
 
 	UseKitPoints( pObj, bPointsToUse, pSoldier );
 
-	DeductPoints( pSoldier, AP_CAMOFLAGE, 0 );
+	DeductPoints( pSoldier, APBPConstants[AP_CAMOFLAGE], 0 );
 
 	// Reload palettes....
 	if ( pSoldier->bInSector )
@@ -6631,7 +6632,7 @@ BOOLEAN ApplyCanteen( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGood
 		return( FALSE );
 	}
 
-	if (!EnoughPoints( pSoldier, AP_DRINK, 0, TRUE ) )
+	if (!EnoughPoints( pSoldier, APBPConstants[AP_DRINK], 0, TRUE ) )
 	{
     (*pfGoodAPs) = FALSE;
 		return( TRUE );
@@ -6652,7 +6653,7 @@ BOOLEAN ApplyCanteen( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGood
 	sPointsToUse = __min( 20, usTotalKitPoints );
 
 	// CJC Feb 9.  Canteens don't seem effective enough, so doubled return from them
-	DeductPoints( pSoldier, AP_DRINK, (INT16) (2 * sPointsToUse * -(100 - pSoldier->bBreath) ) );
+	DeductPoints( pSoldier, APBPConstants[AP_DRINK], (INT16) (2 * sPointsToUse * -(100 - pSoldier->bBreath) ) );
 
 	UseKitPoints( pObj, sPointsToUse, pSoldier );
 
@@ -6680,13 +6681,13 @@ BOOLEAN ApplyElixir( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN *pfGoodA
 		return( FALSE );
 	}
 
-	if (!EnoughPoints( pSoldier, AP_CAMOFLAGE, 0, TRUE ) )
+	if (!EnoughPoints( pSoldier, APBPConstants[AP_CAMOFLAGE], 0, TRUE ) )
 	{
     (*pfGoodAPs) = FALSE;
 		return( TRUE );
 	}
 
-	DeductPoints( pSoldier, AP_CAMOFLAGE, 0 );
+	DeductPoints( pSoldier, APBPConstants[AP_CAMOFLAGE], 0 );
 
 	sPointsToUse = ( MAX_HUMAN_CREATURE_SMELL - pSoldier->aiData.bMonsterSmell ) * 2;
 	sPointsToUse = __min( sPointsToUse, usTotalKitPoints );
@@ -6863,7 +6864,7 @@ void DumpItemsList( void )
 const INT8 STANDARD_STATUS_CUTOFF = 85;
 
 // Scale bonus with item status
-INT16 BonusReduce( INT16 bonus, INT16 status, INT8 statusCutoff = STANDARD_STATUS_CUTOFF )
+INT16 BonusReduce( INT16 bonus, INT16 status, INT16 statusCutoff = STANDARD_STATUS_CUTOFF )
 {
 	if ( bonus > 0 && status < statusCutoff && statusCutoff > 0 && statusCutoff <= 100 )
 		return ( ( status * 100 ) / statusCutoff * bonus ) / 100;
@@ -6872,7 +6873,7 @@ INT16 BonusReduce( INT16 bonus, INT16 status, INT8 statusCutoff = STANDARD_STATU
 }
 
 // Scale bonus with item status. Status < 50% creates a penalty!
-INT16 BonusReduceMore( INT16 bonus, INT16 status, INT8 statusCutoff = 100 )
+INT16 BonusReduceMore( INT16 bonus, INT16 status, INT16 statusCutoff = 100 )
 {
 	if ( bonus > 0 && status < statusCutoff && statusCutoff > 0 && statusCutoff <= 100 )
 		return ( ( ( status * 100 ) / statusCutoff - 50 ) * bonus ) / 50;
@@ -6907,7 +6908,7 @@ BOOLEAN IsScoped( OBJECTTYPE * pObj )
 }
 
 // Snap: get aim bonus for a single item
-INT16 GetItemAimBonus( const INVTYPE* pItem, INT32 iRange, UINT8 ubAimTime )
+INT16 GetItemAimBonus( const INVTYPE* pItem, INT32 iRange, INT16 ubAimTime )
 {
 	if ( iRange <= pItem->minrangeforaimbonus )	return 0;
 
@@ -6937,7 +6938,7 @@ INT16 GetItemAimBonus( const INVTYPE* pItem, INT32 iRange, UINT8 ubAimTime )
 	return(bonus);
 }
 
-INT16 GetAimBonus( OBJECTTYPE * pObj, INT32 iRange, UINT8 ubAimTime )
+INT16 GetAimBonus( OBJECTTYPE * pObj, INT32 iRange, INT16 ubAimTime )
 {
 	INT16 bonus = 0;
 
@@ -6954,7 +6955,7 @@ INT16 GetAimBonus( OBJECTTYPE * pObj, INT32 iRange, UINT8 ubAimTime )
 }
 
 // Madd: check equipment for aim bonus (penalties)
-INT16 GetGearAimBonus( SOLDIERTYPE * pSoldier, INT32 iRange, UINT8 ubAimTime  )
+INT16 GetGearAimBonus( SOLDIERTYPE * pSoldier, INT32 iRange, INT16 ubAimTime  )
 {
 	INT16 bonus=0;
 

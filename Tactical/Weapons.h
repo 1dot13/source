@@ -256,7 +256,9 @@ typedef struct
  UINT8	ubWeaponType;							// exact type (for display purposes)
  UINT8	ubCalibre;				// type of ammunition needed
  UINT8	ubReadyTime;				// APs to ready/unready weapon
- UINT8	ubShotsPer4Turns;			// maximum (mechanical) firing rate
+ //CHRISL: Changed to a float to allow for more control over actual ap costs
+ //UINT8	ubShotsPer4Turns;			// maximum (mechanical) firing rate
+ FLOAT	ubShotsPer4Turns;			// maximum (mechanical) firing rate
  UINT8	ubShotsPerBurst;
  UINT8	ubBurstPenalty;						// % penalty per shot after first
  UINT8	ubBulletSpeed;			 // bullet's travelling speed
@@ -343,11 +345,11 @@ extern void WindowHit( INT16 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowS
 extern INT32 BulletImpact( SOLDIERTYPE *pFirer, SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 iImpact, INT16 sHitBy, UINT8 * pubSpecial );
 extern BOOLEAN InRange( SOLDIERTYPE *pSoldier, INT16 sGridNo );
 extern void ShotMiss( UINT8 ubAttackerID, INT32 iBullet );
-extern UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAimTime, UINT8 ubAimPos );
-extern UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAimTime, UINT8 ubAimPos );
-extern UINT32 CalcChanceToPunch(SOLDIERTYPE *pAttacker, SOLDIERTYPE * pDefender, UINT8 ubAimTime);
-extern UINT32 CalcChanceToStab(SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, UINT8 ubAimTime);
-UINT32 CalcChanceToSteal(SOLDIERTYPE *pAttacker, SOLDIERTYPE * pDefender, UINT8 ubAimTime);
+extern UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime, UINT8 ubAimPos );
+extern UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime, UINT8 ubAimPos );
+extern UINT32 CalcChanceToPunch(SOLDIERTYPE *pAttacker, SOLDIERTYPE * pDefender, INT16 ubAimTime);
+extern UINT32 CalcChanceToStab(SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAimTime);
+UINT32 CalcChanceToSteal(SOLDIERTYPE *pAttacker, SOLDIERTYPE * pDefender, INT16 ubAimTime);
 extern void ReloadWeapon( SOLDIERTYPE *pSoldier, UINT8 ubHandPos );
 // Changed by ADB, rev 1513
 //extern BOOLEAN IsGunWeaponModeCapable( SOLDIERTYPE *pSoldier, UINT8 ubHandPos , UINT8 bWpnMode );
@@ -366,7 +368,7 @@ extern BOOLEAN	OKFireWeapon( SOLDIERTYPE *pSoldier );
 extern BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier );
 
 extern INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed );
-extern UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAimTime, UINT8 ubAimPos );
+extern UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime, UINT8 ubAimPos );
 
 extern void ChangeWeaponMode( SOLDIERTYPE * pSoldier );
 

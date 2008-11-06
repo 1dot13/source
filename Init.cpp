@@ -63,6 +63,8 @@
 #endif
 
 #include "Sector Summary.h"
+extern INT16 APBPConstants[TOTAL_APBP_VALUES] = {0};
+extern INT16 gubMaxActionPoints[28];//MAXBODYTYPES = 28... JUST GETTING IT TO WORK NOW.  GOTTHARD 7/2/08
 extern BOOLEAN GetCDromDriveLetter( STR8	pString );
 
 // The InitializeGame function is responsible for setting up all data and Gaming Engine
@@ -878,3 +880,35 @@ void HandleLaserLockResult( BOOLEAN fSuccess )
 }
 
 #endif
+
+void SetupMaxActionPointsAnimation()
+{
+	gubMaxActionPoints[0] = APBPConstants[AP_MAXIMUM];
+	gubMaxActionPoints[1] = APBPConstants[AP_MAXIMUM];
+	gubMaxActionPoints[2] = APBPConstants[AP_MAXIMUM];
+	gubMaxActionPoints[3] = APBPConstants[AP_MAXIMUM];
+	gubMaxActionPoints[4] = APBPConstants[AP_MONSTER_MAXIMUM];
+	gubMaxActionPoints[5] = APBPConstants[AP_MONSTER_MAXIMUM];
+	gubMaxActionPoints[6] = APBPConstants[AP_MONSTER_MAXIMUM];
+	gubMaxActionPoints[7] = APBPConstants[AP_MONSTER_MAXIMUM];
+	gubMaxActionPoints[8] = APBPConstants[AP_MONSTER_MAXIMUM];
+	gubMaxActionPoints[9] = APBPConstants[AP_MONSTER_MAXIMUM];
+	gubMaxActionPoints[10] = APBPConstants[AP_MONSTER_MAXIMUM];
+	gubMaxActionPoints[11] = APBPConstants[AP_MAXIMUM];
+	gubMaxActionPoints[12] = APBPConstants[AP_MAXIMUM];
+	gubMaxActionPoints[13] = APBPConstants[AP_MAXIMUM];
+	gubMaxActionPoints[14] = APBPConstants[AP_MAXIMUM];
+	gubMaxActionPoints[15] = APBPConstants[AP_MAXIMUM];
+	gubMaxActionPoints[16] = APBPConstants[AP_MAXIMUM];
+	gubMaxActionPoints[17] = APBPConstants[AP_MAXIMUM];
+	gubMaxActionPoints[18] = APBPConstants[AP_MAXIMUM];
+	gubMaxActionPoints[19] = APBPConstants[AP_MAXIMUM];
+	gubMaxActionPoints[20] = APBPConstants[AP_MAXIMUM];
+	gubMaxActionPoints[21] = APBPConstants[AP_MAXIMUM];
+	gubMaxActionPoints[22] = APBPConstants[AP_VEHICLE_MAXIMUM];
+	gubMaxActionPoints[23] = APBPConstants[AP_VEHICLE_MAXIMUM];
+	gubMaxActionPoints[24] = APBPConstants[AP_VEHICLE_MAXIMUM];
+	gubMaxActionPoints[25] = APBPConstants[AP_VEHICLE_MAXIMUM];
+	gubMaxActionPoints[26] = APBPConstants[AP_VEHICLE_MAXIMUM];
+	gubMaxActionPoints[27] = APBPConstants[AP_VEHICLE_MAXIMUM];
+}

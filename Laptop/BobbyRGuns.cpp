@@ -2362,13 +2362,13 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			//if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
 			//{
 			//	INT16 apStr2[20];
-			//	UINT8 ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, pObject );
+			//	UINT8 ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject );
 
 			//	swprintf( apStr, L"%d", ubAttackAPs );
 
 			//	if (GetShotsPerBurst(pObject) > 0)
 			//	{
-			//		swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, pObject ) );
+			//		swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], pObject ) );
 			//		wcscat( apStr, apStr2 );
 			//	}
 			//	else
@@ -2378,7 +2378,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 
 			//	if (GetAutofireShotsPerFiveAPs(pObject) > 0)
 			//	{
-			//		swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, pObject, 3 ) );
+			//		swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], pObject, 3 ) );
 			//		wcscat( apStr, apStr2 );
 			//	}
 			//	else
@@ -2403,7 +2403,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 				OBJECTTYPE	pObject;
 
 				CreateItem(pItemNumbers[ i ], 100, &pObject);
-				UINT8		ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, &pObject );
+				UINT16		ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], &pObject );
 
 				if ( Weapon[ pItemNumbers[ i ] ].NoSemiAuto )
 					swprintf( apStr, L"-" );
@@ -2412,7 +2412,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 
 				if (GetShotsPerBurst(&pObject) > 0)
 				{
-					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, &pObject ) );
+					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], &pObject ) );
 					wcscat( apStr, apStr2 );
 				}
 				else
@@ -2420,7 +2420,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 
 				if (GetAutofireShotsPerFiveAPs(&pObject) > 0)
 				{
-					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, &pObject, 3 ) );
+					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], &pObject, 3 ) );
 					wcscat( apStr, apStr2 );
 				}
 				else
@@ -2455,13 +2455,13 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 			//if ( Item[ pItemNumbers[ i ] ].usItemClass == IC_GUN )
 			//{
 			//	INT16 apStr2[20];
-			//	UINT8 ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, pObject );
+			//	UINT8 ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject );
 
 			//	swprintf( apStr, L"%d", ubAttackAPs );
 
 			//	if (GetShotsPerBurst(pObject) > 0)
 			//	{
-			//		swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, pObject ) );
+			//		swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], pObject ) );
 			//		wcscat( apStr, apStr2 );
 			//	}
 			//	else
@@ -2471,7 +2471,7 @@ void CreateMouseRegionForBigImage( UINT16 usPosY, UINT8 ubCount, INT16 *pItemNum
 
 			//	if (GetAutofireShotsPerFiveAPs(pObject) > 0)
 			//	{
-			//		swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, pObject, 3 ) );
+			//		swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], pObject, 3 ) );
 			//		wcscat( apStr, apStr2 );
 			//	}
 			//	else
@@ -3436,6 +3436,7 @@ void ReportBobbyROrderError( UINT16 usItemNumber, UINT8 ubPurchaseNum, UINT8 ubQ
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("ubNumPurchasing = %d", ubNumPurchasing ) );
 }
 #endif
+
 
 
 

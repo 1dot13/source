@@ -1977,13 +1977,13 @@ BOOLEAN HandleGotoNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving, BOOLE
 		// Do we have APs?
 		if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
 		{
-			sAPCost = AP_JUMPFENCEBPACK;
-			sBPCost = BP_JUMPFENCEBPACK;
+			sAPCost = APBPConstants[AP_JUMPFENCEBPACK];
+			sBPCost = APBPConstants[BP_JUMPFENCEBPACK];
 		}
 		else
 		{
-			sAPCost = AP_JUMPFENCE;
-			sBPCost = BP_JUMPFENCE;
+			sAPCost = APBPConstants[AP_JUMPFENCE];
+			sBPCost = APBPConstants[BP_JUMPFENCE];
 		}
 
 
@@ -7111,7 +7111,6 @@ INT8 CalcSuppressionTolerance( SOLDIERTYPE * pSoldier )
 	return( bTolerance );
 }
 
-#define MAX_APS_SUPPRESSED 8
 void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 {
 	INT8									bTolerance;
@@ -7133,7 +7132,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("HandleSuppressionFire: figure out aps lost"));
 			// multiply by 2, add 1 and divide by 2 to round off to nearest whole number
-			ubPointsLost = ( ((pSoldier->ubSuppressionPoints * 6) / (bTolerance + 6)) * 2 + 1 ) / 2;
+			ubPointsLost = (UINT8)( (FLOAT)((pSoldier->ubSuppressionPoints * APBPConstants[AP_SUPPRESSION_MOD]) / (bTolerance + 6)) * 2 + 1 ) / 2;
 
 			// reduce loss of APs based on stance
 			// ATE: Taken out because we can possibly supress ourselves...
@@ -7150,9 +7149,9 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			//}
 
 			// cap the # of APs we can lose
-			if (ubPointsLost > MAX_APS_SUPPRESSED)
+			if (ubPointsLost > APBPConstants[AP_MAX_SUPPRESSED])
 			{
-				ubPointsLost = MAX_APS_SUPPRESSED;
+				ubPointsLost = (UINT8)APBPConstants[AP_MAX_SUPPRESSED];
 			}
 
 			ubTotalPointsLost = ubPointsLost;
@@ -7187,21 +7186,21 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 					// can't change stance below prone!
 					break;
 				case ANIM_CROUCH:
-					if (ubTotalPointsLost >= AP_PRONE && IsValidStance( pSoldier, ANIM_PRONE ) )
+					if (ubTotalPointsLost >= APBPConstants[AP_PRONE] && IsValidStance( pSoldier, ANIM_PRONE ) )
 					{
 						sClosestOpponent = ClosestKnownOpponent( pSoldier, &sClosestOppLoc, NULL );
 						if (sClosestOpponent == NOWHERE || SpacesAway( pSoldier->sGridNo, sClosestOppLoc ) > 8)
 						{
-							if (ubPointsLost < AP_PRONE)
+							if (ubPointsLost < APBPConstants[AP_PRONE])
 							{
 								// Have to give APs back so that we can change stance without
 								// losing more APs
-								pSoldier->bActionPoints += (AP_PRONE - ubPointsLost);
+								pSoldier->bActionPoints += (APBPConstants[AP_PRONE] - ubPointsLost);
 								ubPointsLost = 0;
 							}
 							else
 							{
-								ubPointsLost -= AP_PRONE;
+								ubPointsLost -= APBPConstants[AP_PRONE];
 							}
 							ubNewStance = ANIM_PRONE;
 						}
@@ -7213,7 +7212,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 						// can't change stance here!
 						break;
 					}
-					else if (ubTotalPointsLost >= (AP_CROUCH + AP_PRONE) && ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_PRONE ) && IsValidStance( pSoldier, ANIM_PRONE ) )
+					else if (ubTotalPointsLost >= (APBPConstants[AP_CROUCH] + APBPConstants[AP_PRONE]) && ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_PRONE ) && IsValidStance( pSoldier, ANIM_PRONE ) )
 					{
 						sClosestOpponent = ClosestKnownOpponent( pSoldier, &sClosestOppLoc, NULL );
 						if ( sClosestOpponent == NOWHERE || SpacesAway( pSoldier->sGridNo, sClosestOppLoc ) > 8 )
@@ -7235,7 +7234,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 							ubNewStance = ANIM_CROUCH;
 						}
 					}
-					else if ( ubTotalPointsLost >= AP_CROUCH && ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_CROUCH ) && IsValidStance( pSoldier, ANIM_CROUCH ) )
+					else if ( ubTotalPointsLost >= APBPConstants[AP_CROUCH] && ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight != ANIM_CROUCH ) && IsValidStance( pSoldier, ANIM_CROUCH ) )
 					{
 						// crouch!
 						ubNewStance = ANIM_CROUCH;

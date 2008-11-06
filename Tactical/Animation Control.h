@@ -556,7 +556,7 @@ extern ANI_SPEED_DEF gubAnimWalkSpeeds[ TOTALBODYTYPES ];
 extern ANI_SPEED_DEF gubAnimRunSpeeds[ TOTALBODYTYPES ];
 extern ANI_SPEED_DEF gubAnimSwatSpeeds[ TOTALBODYTYPES ];
 extern ANI_SPEED_DEF gubAnimCrawlSpeeds[ TOTALBODYTYPES ];
-extern UINT8 gubMaxActionPoints[ TOTALBODYTYPES ];
+extern INT16 gubMaxActionPoints[ TOTALBODYTYPES ];
 
 
 // OK, this array contains definitions for random animations based on bodytype, total # allowed, and what is in their hand....

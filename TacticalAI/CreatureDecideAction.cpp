@@ -661,7 +661,7 @@ INT8 CreatureDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	////////////////////////////////////////////////////////////////////////////
 	if ( CAN_CALL( pSoldier ) )
 	{
-		if ((pSoldier->bActionPoints >= AP_RADIO) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1))
+		if ((pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1))
 		{
 			if (pSoldier->stats.bLife < pSoldier->bOldLife)
 			{
@@ -710,7 +710,7 @@ INT8 CreatureDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	// (we never want NPCs to choose to radio if they would have to wait a turn)
 	if ( CAN_CALL( pSoldier ) && (!gTacticalStatus.Team[pSoldier->bTeam].bAwareOfOpposition) )
 	{
-		if ((pSoldier->bActionPoints >= AP_RADIO) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1))
+		if ((pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1))
 		{
 			// if there hasn't been a general sighting call sent yet
 
@@ -908,8 +908,8 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 {
 	// monster AI - hostile mammals in sense range
  INT16		sClosestOpponent,sBestCover = NOWHERE;
- INT16		sClosestDisturbance;
- UINT8		ubMinAPCost,ubCanMove/*,bInWater*/,bInGas;
+ INT16		sClosestDisturbance,ubMinAPCost;
+ UINT8		ubCanMove/*,bInWater*/,bInGas;
  INT8			bDirection;
  UINT8		ubBestAttackAction;
  INT8			bCanAttack;
@@ -937,7 +937,7 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 
 	if ( CAN_CALL( pSoldier ) )
 	{
-		if ((pSoldier->bActionPoints >= AP_RADIO) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1))
+		if ((pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1))
 		{
 			if (pSoldier->stats.bLife < pSoldier->bOldLife)
 			{
@@ -1339,6 +1339,7 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 		//////////////////////////////////////////////////////////////////////////
 
 		pSoldier->aiData.usActionData = BestAttack.sTarget;
+		//POSSIBLE STRUCTURE PROBLEM WITH INT8/INT16. GOTTHARD 7/14/08
 		pSoldier->aiData.bAimTime			= BestAttack.ubAimTime;
 
 		if ( ubBestAttackAction == AI_ACTION_FIRE_GUN && BestAttack.ubChanceToReallyHit > 50 )

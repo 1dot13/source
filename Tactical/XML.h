@@ -87,7 +87,8 @@ typedef PARSE_STAGE;
 #define ALTSECTORSFILENAME						"Map\\AltSectors.xml"
 #define SAMSITESFILENAME						"Map\\SamSites.xml"
 #define ROAMINGMILITIAFILENAME					"Map\\RestrictedRoamingMilitia.xml"
-
+// Gotthard: Strategic Text Files [2007-10-19]
+#define STRATEGICSECTORNAMETEXTFILENAME			"Map\\SectorNames.xml"
 
 #define GARRISONFILENAME						"Army\\GarrisonGroups.xml"
 #define PATROLFILENAME							"Army\\PatrolGroups.xml"
@@ -103,6 +104,14 @@ typedef PARSE_STAGE;
 // WANNE: Sector loadscreens [2007-05-18]
 #define SECTORLOADSCREENSFILENAME				"Map\\SectorLoadscreens.xml"
 
+// Gotthard: Laptop Text files [2007-10-16]
+#define LAPTOPFLORISTTEXTFILENAME				"Laptop\\Florist.xml"
+#define LAPTOPFUNERALTEXTFILENAME				"Laptop\\Funeral.xml"
+#define LAPTOPBOBBYRAYSTEXTFILENAME				"Laptop\\BobbyRays.xml"
+
+// Gotthard: Website Picture/Text Locations [2007-11-04]
+#define LAPTOPFLORISTLOCATIONFILENAME			"Laptop\\FloristPositions.xml"
+#define LAPTOPFUNERALLOCATIONFILENAME			"Laptop\\FuneralPositions.xml"
 
 extern BOOLEAN ReadInItemStats(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN WriteItemStats();
@@ -213,4 +222,22 @@ extern BOOLEAN WriteInArmyCompositionInfo(STR fileName);
 
 //Kaiden: Roaming Militia Restricted Sectors List
 extern BOOLEAN ReadInRoamingInfo(STR filename);
+
+//Gotthard: Laptop Florist Text
+extern BOOLEAN ReadInFloristText(STR fileName);
+
+//Gotthard: Laptop Funeral Text
+extern BOOLEAN ReadInFuneralText(STR fileName);
+
+//Gotthard: Delivery Locations Text (For Florist, Bobby Ray's)
+extern BOOLEAN ReadInBobbyRaysText(STR fileName);
+
+//Gotthard: Special Sector Names Test (Cambria Hospital, etc.)
+extern BOOLEAN ReadInSectorNamesText(STR fileName);
+
+//Gotthard: Laptop Florist Locations
+extern BOOLEAN ReadInFloristLocations(STR fileName);
+
+//Gotthard: Laptop Funeral Locations
+extern BOOLEAN ReadInFuneralLocations(STR fileName);
 #endif

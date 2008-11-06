@@ -107,6 +107,7 @@ BOOLEAN InitializeGame(void)
 	// Snap: Read options from an INI file in the default of custom Data directory
 	// Moved this up because some settings are used during other inits
 	LoadGameExternalOptions();
+	LoadGameAPBPConstants();
 	InitSightRange(); //lal
 
 	// Initlaize mouse subsystems

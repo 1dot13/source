@@ -539,7 +539,7 @@ BOOLEAN LBENODE::Load( HWFILE hFile )
 {
 	UINT32	uiNumBytesRead;
 	//if we are at the most current version, then fine
-	if ( guiCurrentSaveGameVersion >= CURRENT_SAVEGAME_DATATYPE_VERSION )
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
 		if ( !FileRead( hFile, this, SIZEOF_LBENODE_POD, &uiNumBytesRead ) )
 		{
@@ -566,7 +566,7 @@ BOOLEAN LBENODE::Load( HWFILE hFile )
 	else
 	{
 		//we shouldn't be loading from anything before the first change
-		Assert(guiCurrentSaveGameVersion >= FIRST_SAVEGAME_DATATYPE_CHANGE);
+		Assert(guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE);
 	}
 	return TRUE;
 }
@@ -588,7 +588,7 @@ BOOLEAN	LBENODE::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorMapV
 		}
 	}
 	else {
-		Assert(guiCurrentSaveGameVersion >= FIRST_SAVEGAME_DATATYPE_CHANGE);
+		Assert(guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE);
 	}
 	return TRUE;
 }
@@ -625,7 +625,7 @@ BOOLEAN LoadArmsDealerInventoryFromSavedGameFile( HWFILE hFile )
 	//Free all the dealers special inventory arrays
 	ShutDownArmsDealers();
 
-	if (guiCurrentSaveGameVersion >= FIRST_SAVEGAME_DATATYPE_CHANGE) {
+	if (guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE) {
 		int dealers;
 		if (!FileRead( hFile, &dealers, sizeof( int ), &uiNumBytesRead ))
 		{
@@ -792,7 +792,7 @@ BOOLEAN DEALER_SPECIAL_ITEM::Load(HWFILE hFile)
 {
 	UINT32 uiNumBytesRead;
 	//if we are at the most current version, then fine
-	if ( guiCurrentSaveGameVersion >= CURRENT_SAVEGAME_DATATYPE_VERSION )
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
 		if ( !FileRead( hFile, this, SIZEOF_DEALER_SPECIAL_ITEM_POD, &uiNumBytesRead ) )
 		{
@@ -806,7 +806,7 @@ BOOLEAN DEALER_SPECIAL_ITEM::Load(HWFILE hFile)
 	else
 	{
 		//this will never be loaded from sometime before the first change
-		Assert(guiCurrentSaveGameVersion >= FIRST_SAVEGAME_DATATYPE_CHANGE);
+		Assert(guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE);
 	}
 	return TRUE;
 }
@@ -829,7 +829,7 @@ BOOLEAN REAL_OBJECT::Load(HWFILE hFile)
 {
 	UINT32 uiNumBytesRead;
 	//if we are at the most current version, then fine
-	if ( guiCurrentSaveGameVersion >= CURRENT_SAVEGAME_DATATYPE_VERSION )
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
 		if ( !FileRead( hFile, this, SIZEOF_REAL_OBJECT_POD, &uiNumBytesRead ) )
 		{
@@ -842,7 +842,7 @@ BOOLEAN REAL_OBJECT::Load(HWFILE hFile)
 	}
 	else
 	{
-		if ( guiCurrentSaveGameVersion < FIRST_SAVEGAME_DATATYPE_CHANGE )
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
 		{
 			OLD_REAL_OBJECT_101 oldObject;
 			if ( !FileRead( hFile, &oldObject, sizeof( OLD_REAL_OBJECT_101 ), &uiNumBytesRead ) )
@@ -873,7 +873,7 @@ BOOLEAN INVENTORY_IN_SLOT::Load(HWFILE hFile)
 {
 	UINT32 uiNumBytesRead;
 	//if we are at the most current version, then fine
-	if ( guiCurrentSaveGameVersion >= CURRENT_SAVEGAME_DATATYPE_VERSION )
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
 		if ( !FileRead( hFile, this, SIZEOF_INVENTORY_IN_SLOT_POD, &uiNumBytesRead ) )
 		{
@@ -886,7 +886,7 @@ BOOLEAN INVENTORY_IN_SLOT::Load(HWFILE hFile)
 	}
 	else
 	{
-		if ( guiCurrentSaveGameVersion < FIRST_SAVEGAME_DATATYPE_CHANGE )
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
 		{
 			OLD_INVENTORY_IN_SLOT_101 oldItem;
 			if ( !FileRead( hFile, &oldItem, sizeof( OLD_INVENTORY_IN_SLOT_101 ), &uiNumBytesRead ) )
@@ -912,7 +912,7 @@ BOOLEAN MERC_LEAVE_ITEM::Load(HWFILE hFile)
 {
 	UINT32 uiNumBytesRead;
 	//if we are at the most current version, then fine
-	if ( guiCurrentSaveGameVersion >= CURRENT_SAVEGAME_DATATYPE_VERSION )
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
 		if ( !this->object.Load(hFile) )
 		{
@@ -921,7 +921,7 @@ BOOLEAN MERC_LEAVE_ITEM::Load(HWFILE hFile)
 	}
 	else
 	{
-		if ( guiCurrentSaveGameVersion < FIRST_SAVEGAME_DATATYPE_CHANGE )
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
 		{
 			OLD_MERC_LEAVE_ITEM_101 oldItem;
 			if ( !FileRead( hFile, &oldItem, sizeof( OLD_MERC_LEAVE_ITEM_101 ), &uiNumBytesRead ) )
@@ -938,7 +938,7 @@ BOOLEAN ITEM_CURSOR_SAVE_INFO::Load(HWFILE hFile)
 {
 	UINT32 uiNumBytesRead;
 	//if we are at the most current version, then fine
-	if ( guiCurrentSaveGameVersion >= CURRENT_SAVEGAME_DATATYPE_VERSION )
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
 		//3 bytes of info, screw being neat
 		if ( !FileRead( hFile, this, 3, &uiNumBytesRead ) )
@@ -952,7 +952,7 @@ BOOLEAN ITEM_CURSOR_SAVE_INFO::Load(HWFILE hFile)
 	}
 	else
 	{
-		if ( guiCurrentSaveGameVersion < FIRST_SAVEGAME_DATATYPE_CHANGE )
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
 		{
 			OLD_ITEM_CURSOR_SAVE_INFO_101 oldInfo101;
 			if ( !FileRead( hFile, &oldInfo101, sizeof(OLD_ITEM_CURSOR_SAVE_INFO_101), &uiNumBytesRead ) )
@@ -1032,7 +1032,7 @@ BOOLEAN SOLDIERCREATE_STRUCT::Load(HWFILE hFile, int versionToLoad, bool loadChe
 	guiCurrentSaveGameVersion = versionToLoad;
 
 	//if we are at the most current version, then fine
-	if ( guiCurrentSaveGameVersion >= CURRENT_SAVEGAME_DATATYPE_VERSION)
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE)
 	{
 		//the info has changed at version 102
 		//first, load the POD
@@ -1054,7 +1054,7 @@ BOOLEAN SOLDIERCREATE_STRUCT::Load(HWFILE hFile, int versionToLoad, bool loadChe
 		OLD_SOLDIERCREATE_STRUCT_101 OldSavedSoldierInfo101;
 		//we are loading an older version (only load once, so use "else if")
 		//first load the data based on what version was stored
-		if ( guiCurrentSaveGameVersion < FIRST_SAVEGAME_DATATYPE_CHANGE )
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
 		{
 			if ( !FileRead( hFile, &OldSavedSoldierInfo101, SIZEOF_OLD_SOLDIERCREATE_STRUCT_101_POD, &uiNumBytesRead ) )
 			{
@@ -1069,7 +1069,7 @@ BOOLEAN SOLDIERCREATE_STRUCT::Load(HWFILE hFile, int versionToLoad, bool loadChe
 		*/
 
 		//now we have the data that needs to be converted (keep on converting up, so use "if")
-		if ( guiCurrentSaveGameVersion < FIRST_SAVEGAME_DATATYPE_CHANGE )
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
 		{
 			OldSavedSoldierInfo101.CopyOldInventoryToNew();
 			*this = OldSavedSoldierInfo101;
@@ -1130,7 +1130,7 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 	this->initialize();
 
 	//if we are at the most current version, then fine
-	if ( guiCurrentSaveGameVersion >= CURRENT_SAVEGAME_DATATYPE_VERSION && forceLoadOldVersion == false)
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE && forceLoadOldVersion == false)
 	{
 		if ( !FileRead( hFile, this, SIZEOF_MERCPROFILESTRUCT_POD, &uiNumBytesRead ) )
 		{
@@ -1173,7 +1173,7 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 	{
 		//we are loading an older version (only load once, so use "else if")
 		//first load the data based on what version was stored
-		if ( guiCurrentSaveGameVersion < FIRST_SAVEGAME_DATATYPE_CHANGE || forceLoadOldVersion == true)
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE || forceLoadOldVersion == true)
 		{
 			OLD_MERCPROFILESTRUCT_101 old;
 			typedef BOOLEAN (*functionPtr) ( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiBytesRead );
@@ -1286,18 +1286,68 @@ BOOLEAN SOLDIERTYPE::Save(HWFILE hFile)
 	return TRUE;
 }
 
+INT32 ReadFieldByField(HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount)
+{
+	UINT32	uiNumBytesRead;
+	char	padding[10];
+	UINT32	uiBytesRead = uiCurByteCount;	// used to track our new byte count
+	UINT32	sampleBytesRead = uiBytesRead;	// used to determine how much padding is needed
+
+	while((sampleBytesRead % uiElementSize) > 0)	// as long as we have a remainder
+		sampleBytesRead++;
+
+	if(sampleBytesRead != uiBytesRead)	// if we need padding
+	{
+		FileRead(hFile, &padding, (sampleBytesRead-uiBytesRead), &uiNumBytesRead );
+		uiBytesRead += uiNumBytesRead;
+	}
+
+	// the actual file read
+	FileRead(hFile, pDest, uiFieldSize, &uiNumBytesRead );
+	uiBytesRead += uiNumBytesRead;
+
+	return uiBytesRead;
+}
+
 BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 {
 	UINT32 uiNumBytesRead;
+	INT32	numBytesRead = 0;
+	char	padding[10];
 
 	//if we are at the most current version, then fine
-	if ( guiCurrentSaveGameVersion >= CURRENT_SAVEGAME_DATATYPE_VERSION )
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
 		//the soldier type info has changed at version 102
+		//CHRISL: It was further changed at version 104 to allow for 16bit action points for the 100AP system
 		//first, load the POD
-		if ( !FileRead( hFile, this, SIZEOF_SOLDIERTYPE_POD, &uiNumBytesRead ) )
+		if ( guiCurrentSaveGameVersion >= AP100_SAVEGAME_DATATYPE_CHANGE )
 		{
-			return(FALSE);
+			if ( !FileRead( hFile, this, SIZEOF_SOLDIERTYPE_POD, &uiNumBytesRead ) )
+			{
+				return(FALSE);
+			}
+		}
+		else
+		{
+			numBytesRead = 0;
+			FileRead( hFile, this, (offsetof(SOLDIERTYPE, ubBodyType)+sizeof(ubBodyType)), &uiNumBytesRead );
+			numBytesRead += uiNumBytesRead;
+			numBytesRead = ReadFieldByField(hFile, &this->bActionPoints, 1, 1, numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->bInitialActionPoints, 1, 1, numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->bOldLife, sizeof(bOldLife), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->bVisible, sizeof(bVisible), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->bActive, sizeof(bActive), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByField(hFile, &this->bTeam, sizeof(bTeam), sizeof(INT8), numBytesRead);
+			//CHRISL: in the old structure, there are 3 padding bytes at this point in the file.  We need to account for
+			//	them before continuing.  We also want to include them in our numBytesRead since they cover the changes
+			//	caused by increasing two elements by 1byte each.  This includes shifting one byte of padding
+			FileRead( hFile, padding, 3, &uiNumBytesRead );
+			numBytesRead += uiNumBytesRead;
+			FileRead( hFile, &this->pTempObject, (SIZEOF_SOLDIERTYPE_POD-numBytesRead), &uiNumBytesRead );
+			numBytesRead += uiNumBytesRead;
+			if(numBytesRead != SIZEOF_SOLDIERTYPE_POD)
+				return(FALSE);
 		}
 
 		//load the OO inventory
@@ -1307,10 +1357,90 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		}
 
 		//load some structs, atm just POD but could change
-		if ( !FileRead( hFile, &this->aiData, sizeof(STRUCT_AIData), &uiNumBytesRead ) )
+		//Load STRUCT_AIData
+		numBytesRead = 0;
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bOppList, sizeof(aiData.bOppList), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bLastAction, sizeof(aiData.bLastAction), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bAction, sizeof(aiData.bAction), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.usActionData, sizeof(aiData.usActionData), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bNextAction, sizeof(aiData.bNextAction), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.usNextActionData, sizeof(aiData.usNextActionData), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bActionInProgress, sizeof(aiData.bActionInProgress), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bAlertStatus, sizeof(aiData.bAlertStatus), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bOppCnt, sizeof(aiData.bOppCnt), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bNeutral, sizeof(aiData.bNeutral), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bNewSituation, sizeof(aiData.bNewSituation), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bNextTargetLevel, sizeof(aiData.bNextTargetLevel), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bOrders, sizeof(aiData.bOrders), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bAttitude, sizeof(aiData.bAttitude), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bUnderFire, sizeof(aiData.bUnderFire), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bShock, sizeof(aiData.bShock), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bUnderEscort, sizeof(aiData.bUnderEscort), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bBypassToGreen, sizeof(aiData.bBypassToGreen), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubLastMercToRadio, sizeof(aiData.ubLastMercToRadio), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bDominantDir, sizeof(aiData.bDominantDir), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bPatrolCnt, sizeof(aiData.bPatrolCnt), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bNextPatrolPnt, sizeof(aiData.bNextPatrolPnt), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.sPatrolGrid, sizeof(aiData.sPatrolGrid), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.sNoiseGridno, sizeof(aiData.sNoiseGridno), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubNoiseVolume, sizeof(aiData.ubNoiseVolume), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bLastAttackHit, sizeof(aiData.bLastAttackHit), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubXRayedBy, sizeof(aiData.ubXRayedBy), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.dHeightAdjustment, sizeof(aiData.dHeightAdjustment), sizeof(FLOAT), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bMorale, sizeof(aiData.bMorale), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bTeamMoraleMod, sizeof(aiData.bTeamMoraleMod), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bTacticalMoraleMod, sizeof(aiData.bTacticalMoraleMod), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bStrategicMoraleMod, sizeof(aiData.bStrategicMoraleMod), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bAIMorale, sizeof(aiData.bAIMorale), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubPendingAction, sizeof(aiData.ubPendingAction), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubPendingActionAnimCount, sizeof(aiData.ubPendingActionAnimCount), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.uiPendingActionData1, sizeof(aiData.uiPendingActionData1), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.sPendingActionData2, sizeof(aiData.sPendingActionData2), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bPendingActionData3, sizeof(aiData.bPendingActionData3), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubDoorHandleCode, sizeof(aiData.ubDoorHandleCode), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.uiPendingActionData4, sizeof(aiData.uiPendingActionData4), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bInterruptDuelPts, sizeof(aiData.bInterruptDuelPts), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bPassedLastInterrupt, sizeof(aiData.bPassedLastInterrupt), sizeof(INT8), numBytesRead);
+		if ( guiCurrentSaveGameVersion >= AP100_SAVEGAME_DATATYPE_CHANGE )
+			numBytesRead = ReadFieldByField(hFile, &this->aiData.bIntStartAPs, sizeof(aiData.bIntStartAPs), sizeof(INT8), numBytesRead);
+		else
+			numBytesRead = ReadFieldByField(hFile, &this->aiData.bIntStartAPs, 1, 1, numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bMoved, sizeof(aiData.bMoved), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bHunting, sizeof(aiData.bHunting), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubLastCall, sizeof(aiData.ubLastCall), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.ubCaller, sizeof(aiData.ubCaller), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.sCallerGridNo, sizeof(aiData.sCallerGridNo), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bCallPriority, sizeof(aiData.bCallPriority), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bCallActedUpon, sizeof(aiData.bCallActedUpon), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bFrenzied, sizeof(aiData.bFrenzied), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bNormalSmell, sizeof(aiData.bNormalSmell), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bMonsterSmell, sizeof(aiData.bMonsterSmell), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bMobility, sizeof(aiData.bMobility), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bRTPCombat, sizeof(aiData.bRTPCombat), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.fAIFlags, sizeof(aiData.fAIFlags), sizeof(INT8), numBytesRead);
+		if ( guiCurrentSaveGameVersion >= AP100_SAVEGAME_DATATYPE_CHANGE )
+			numBytesRead = ReadFieldByField(hFile, &this->aiData.bAimTime, sizeof(aiData.bAimTime), sizeof(INT8), numBytesRead);
+		else
+			numBytesRead = ReadFieldByField(hFile, &this->aiData.bAimTime, 1, 1, numBytesRead);
+		numBytesRead = ReadFieldByField(hFile, &this->aiData.bShownAimTime, sizeof(aiData.bShownAimTime), sizeof(INT8), numBytesRead);
+		//CHRISL: We also need to make sure the structure aligns properly and that we don't need to read any extra
+		//	padding bytes
+		while((numBytesRead%__alignof(STRUCT_AIData)) > 0)
 		{
-			return(FALSE);
+			FileRead( hFile, &padding, 1,  &uiNumBytesRead );
+			numBytesRead += uiNumBytesRead;
 		}
+		if ( guiCurrentSaveGameVersion < AP100_SAVEGAME_DATATYPE_CHANGE )
+		{
+			//CHRISL: Because we're increasing the size of two elements in this structure by 1byte each, we need to
+			//	increase the size of numBytesRead by 2 so that our sizes match.  However, we also need to increase the
+			//	size of numBytesRead by another 2 so that the new structure alignment is accounted for.
+			numBytesRead += 4;
+		}
+		if(numBytesRead != sizeof(STRUCT_AIData))
+			return(FALSE);
+
+		//Load STRUCT_Flags
 		if ( !FileRead( hFile, &this->flags, sizeof(STRUCT_Flags), &uiNumBytesRead ) )
 		{
 			return(FALSE);
@@ -1357,7 +1487,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 			pLoadingFunction = &NewJA2EncryptedFileRead;
 		}
 
-		if ( guiCurrentSaveGameVersion < FIRST_SAVEGAME_DATATYPE_CHANGE )
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
 		{
 			OldSavedSoldierInfo101.initialize();
 			if ( !(*pLoadingFunction)( hFile, &OldSavedSoldierInfo101, SIZEOF_OLDSOLDIERTYPE_101_POD, &uiNumBytesRead ) )
@@ -1372,7 +1502,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 		*/
 
 		//now we have the data that needs to be converted (keep on converting up, so use "if")
-		if ( guiCurrentSaveGameVersion < FIRST_SAVEGAME_DATATYPE_CHANGE )
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
 		{
 			OldSavedSoldierInfo101.CopyOldInventoryToNew();
 			(*this) = OldSavedSoldierInfo101;
@@ -1432,7 +1562,7 @@ BOOLEAN WORLDITEM::Load(HWFILE hFile)
 {
 	UINT32	uiNumBytesRead;
 	//if we are at the most current version, then fine
-	if ( guiCurrentSaveGameVersion >= CURRENT_SAVEGAME_DATATYPE_VERSION )
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
 		//load the POD
 		if ( !FileRead( hFile, this, SIZEOF_WORLDITEM_POD, &uiNumBytesRead ) )
@@ -1450,7 +1580,7 @@ BOOLEAN WORLDITEM::Load(HWFILE hFile)
 	else {
 		//load the old data into a suitable structure, it's just POD
 		OLD_WORLDITEM_101	oldWorldItem;
-		if ( guiCurrentSaveGameVersion < FIRST_SAVEGAME_DATATYPE_CHANGE )
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
 		{
 			if ( !FileRead( hFile, &oldWorldItem, sizeof(OLD_WORLDITEM_101), &uiNumBytesRead ) )
 			{
@@ -1460,7 +1590,7 @@ BOOLEAN WORLDITEM::Load(HWFILE hFile)
 
 		//now we have the data that needs to be converted (keep on converting up, so use "if")
 		//the first conversion is simple enough that it can be done here
-		if ( guiCurrentSaveGameVersion < FIRST_SAVEGAME_DATATYPE_CHANGE )
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
 		{
 			*this = oldWorldItem;
 		}
@@ -1473,7 +1603,7 @@ BOOLEAN StackedObjectData::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 u
 	//when this function is called, the file has been loaded into a buffer using FileRead
 	//if we are at the most current version, then fine
 	//but we can also be loading this from a map that is up to date when the savegame isn't!
-	if ( guiCurrentSaveGameVersion >= CURRENT_SAVEGAME_DATATYPE_VERSION
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE
 		|| (dMajorMapVersion == gdMajorMapVersion && gubMinorMapVersion == ubMinorMapVersion))
 	{
 		int size;
@@ -1497,7 +1627,7 @@ BOOLEAN StackedObjectData::Load( HWFILE hFile )
 {
 	UINT32	uiNumBytesRead;
 	//if we are at the most current version, then fine
-	if ( guiCurrentSaveGameVersion >= CURRENT_SAVEGAME_DATATYPE_VERSION )
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
 		if ( !FileRead( hFile, &(this->data), sizeof(ObjectData), &uiNumBytesRead ) )
 		{
@@ -1559,7 +1689,7 @@ BOOLEAN OBJECTTYPE::Load( HWFILE hFile )
 
 	UINT32	uiNumBytesRead;
 	//if we are at the most current version, then fine
-	if ( guiCurrentSaveGameVersion >= CURRENT_SAVEGAME_DATATYPE_VERSION )
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
 		if ( !FileRead( hFile, this, SIZEOF_OBJECTTYPE_POD, &uiNumBytesRead ) )
 		{
@@ -1590,7 +1720,7 @@ BOOLEAN OBJECTTYPE::Load( HWFILE hFile )
 		OLD_OBJECTTYPE_101 OldSavedObject101;
 		//we are loading an older version (only load once, so use "else if")
 		//first load the data based on what version was stored
-		if ( guiCurrentSaveGameVersion < FIRST_SAVEGAME_DATATYPE_CHANGE )
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
 		{
 			if ( !FileRead( hFile, &OldSavedObject101, sizeof(OLD_OBJECTTYPE_101), &uiNumBytesRead ) )
 			{
@@ -1603,7 +1733,7 @@ BOOLEAN OBJECTTYPE::Load( HWFILE hFile )
 		*/
 
 		//now we have the data that needs to be converted (keep on converting up, so use "if")
-		if ( guiCurrentSaveGameVersion < FIRST_SAVEGAME_DATATYPE_CHANGE )
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
 		{
 			(*this) = OldSavedObject101;
 			//OldSavedObject999 = OldSavedObject101;
@@ -2894,7 +3024,7 @@ BOOLEAN LoadSavedGame( UINT8 ubSavedGameID )
 	guiBrokenSaveGameVersion = SaveGameHeader.uiSavedGameVersion;
 
 	// CHRISL: We need to know what inventory system we're using early on
-	if(SaveGameHeader.uiSavedGameVersion < FIRST_SAVEGAME_DATATYPE_CHANGE)
+	if(SaveGameHeader.uiSavedGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE)
 		SaveGameHeader.ubInventorySystem = 0;
 	gGameOptions.ubInventorySystem = SaveGameHeader.ubInventorySystem;
 	if((UsingNewInventorySystem() == true))

@@ -156,8 +156,8 @@ BOOLEAN CalcInteractiveObjectAPs( INT16 sGridNo, STRUCTURE * pStructure, INT16 *
 		// If closed, we do not know what to do yet...
 		//if ( pStructure->fFlags & STRUCTURE_OPEN )
 		//{
-			*psAPCost = AP_OPEN_DOOR;
-			*psBPCost = AP_OPEN_DOOR;
+			*psAPCost = APBPConstants[AP_OPEN_DOOR];
+			*psBPCost = APBPConstants[AP_OPEN_DOOR];
 		//}
 		//else
 		//{
@@ -167,8 +167,8 @@ BOOLEAN CalcInteractiveObjectAPs( INT16 sGridNo, STRUCTURE * pStructure, INT16 *
 	}
 	else
 	{
-		*psAPCost = AP_OPEN_DOOR;
-		*psBPCost = AP_OPEN_DOOR;
+		*psAPCost = APBPConstants[AP_OPEN_DOOR];
+		*psBPCost = APBPConstants[AP_OPEN_DOOR];
 	}
 
 	return( TRUE );

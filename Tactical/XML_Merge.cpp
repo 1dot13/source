@@ -6,6 +6,7 @@
 	#include "weapons.h"
 	#include "Debug Control.h"
 	#include "expat.h"
+	#include "gamesettings.h"
 	#include "XML.h"
 #endif
 
@@ -135,6 +136,7 @@ mergeEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curMerge[5] = (UINT16) atol(pData->szCharData);
+			pData->curMerge[5] = (UINT16)DynamicAdjustAPConstants(pData->curMerge[5], pData->curMerge[5]);
 		}
 
 		pData->maxReadDepth--;

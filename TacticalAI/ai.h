@@ -7,7 +7,7 @@
 
 #define TESTAICONTROL
 
-extern INT8	gubAIPathCosts[19][19];
+extern INT16	gubAIPathCosts[19][19];
 #define AI_PATHCOST_RADIUS 9
 
 extern BOOLEAN gfDisplayCoverValues;

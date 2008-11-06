@@ -1406,7 +1406,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 
 	// if we have the action points remaining to RADIO
 	// (we never want NPCs to choose to radio if they would have to wait a turn)
-	if ( !fCivilian && (pSoldier->bActionPoints >= AP_RADIO) &&
+	if ( !fCivilian && (pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) &&
 		(gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) )
 	{
 		// base chance depends on how much new info we have to radio to the others
@@ -1643,7 +1643,7 @@ INT8 DecideActionYellow(SOLDIERTYPE *pSoldier)
 //						if ( CanClimbFromHere ( pSoldier, fUp ) )
 						if ( pSoldier->sGridNo == sNoiseGridNo)
 						{
-							if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( AP_CLIMBROOF + MinAPsToAttack( pSoldier, sNoiseGridNo, ADDTURNCOST)))
+							if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sNoiseGridNo, ADDTURNCOST)))
 							{
 								return( AI_ACTION_CLIMB_ROOF );
 							}
@@ -2206,6 +2206,7 @@ if(!is_networked)//hayden
 						RearrangePocket(pSoldier,HANDPOS,BestThrow.bWeaponIn,FOREVER);
 
 					pSoldier->aiData.usActionData = BestThrow.sTarget;
+					//POSSIBLE STRUCTURE CHANGE PROBLEM, NOT CURRENTLY CHANGED. GOTTHARD 7/14/08
 					pSoldier->aiData.bAimTime			= BestThrow.ubAimTime;
 
 					return(AI_ACTION_TOSS_PROJECTILE);
@@ -2272,6 +2273,7 @@ if(!is_networked)//hayden
 				RearrangePocket(pSoldier,HANDPOS,BestShot.bWeaponIn,FOREVER);
 
 			pSoldier->aiData.usActionData = BestShot.sTarget;
+			//POSSIBLE STRUCTURE CHANGE PROBLEM. GOTTHARD 7/14/08
 			pSoldier->aiData.bAimTime			= BestShot.ubAimTime;
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, New113Message[ MSG113_SNIPER ] );
 			return(AI_ACTION_FIRE_GUN );
@@ -2324,7 +2326,7 @@ if(!is_networked)//hayden
 
 			pSoldier->aiData.usActionData = BestShot.sTarget;
 			//pSoldier->aiData.bAimTime			= BestShot.ubAimTime;
-			UINT8 ubBurstAPs = 0;
+			INT16 ubBurstAPs = 0;
 
 			pSoldier->bDoAutofire = 0;
 			do
@@ -2366,7 +2368,7 @@ if(!is_networked)//hayden
 	}
 	/*
 	// CALL IN AIR STRIKE & RADIO RED ALERT
-	if ( !fCivilian && pSoldier->bTeam != MILITIA_TEAM && gGameOptions.fAirStrikes && airstrikeavailable && (pSoldier->bActionPoints >= AP_RADIO) && !WillAirRaidBeStopped(pSoldier->sSectorX,pSoldier->sSectorY))
+	if ( !fCivilian && pSoldier->bTeam != MILITIA_TEAM && gGameOptions.fAirStrikes && airstrikeavailable && (pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) && !WillAirRaidBeStopped(pSoldier->sSectorX,pSoldier->sSectorY))
 	{
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: checking to call in an air strike");
@@ -2505,7 +2507,7 @@ if(!is_networked)//hayden
 
 	// if we're a computer merc, and we have the action points remaining to RADIO
 	// (we never want NPCs to choose to radio if they would have to wait a turn)
-	if ( !fCivilian && (pSoldier->bActionPoints >= AP_RADIO) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) )
+	if ( !fCivilian && (pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) )
 	{
 
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: checking to radio red alert");
@@ -2648,12 +2650,12 @@ if(!is_networked)//hayden
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"decideactionred: stop flanking");
 			if (PythSpacesAway ( pSoldier->sGridNo, tempGridNo ) > MIN_FLANK_DIST_RED * 2 )
 			{
-				pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,tempGridNo,AP_PRONE,AI_ACTION_SEEK_OPPONENT,0);
+				pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,tempGridNo,APBPConstants[AP_PRONE],AI_ACTION_SEEK_OPPONENT,0);
 
 				if ( LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, tempGridNo, pSoldier->pathing.bLevel, TRUE) )
 				{
 					// reserve APs for a possible crouch plus a shot
-					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, tempGridNo, (INT8) (MinAPsToAttack( pSoldier, tempGridNo, ADDTURNCOST) + AP_CROUCH), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
+					pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, tempGridNo, (INT8) (MinAPsToAttack( pSoldier, tempGridNo, ADDTURNCOST) + APBPConstants[AP_CROUCH]), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
 					if ( pSoldier->aiData.usActionData != NOWHERE )
 					{
 						pSoldier->aiData.fAIFlags |= AI_CAUTIOUS;
@@ -2678,7 +2680,7 @@ if(!is_networked)//hayden
 		// and have more APs than we want to reserve
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("decideactionred: can we move? = %d, APs = %d",ubCanMove,pSoldier->bActionPoints));
 
-		if (ubCanMove && pSoldier->bActionPoints > MAX_AP_CARRIED)
+		if (ubCanMove && pSoldier->bActionPoints > APBPConstants[MAX_AP_CARRIED])
 		{
 			if (fCivilian)
 			{
@@ -2775,7 +2777,7 @@ if(!is_networked)//hayden
 						//////////////////////////////////////////////////////////////////////
 
 						// try to move towards him
-						pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,sClosestDisturbance,AP_CROUCH,AI_ACTION_SEEK_OPPONENT,0);
+						pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,sClosestDisturbance,APBPConstants[AP_CROUCH],AI_ACTION_SEEK_OPPONENT,0);
 
 						if (pSoldier->aiData.usActionData != NOWHERE)
 						{
@@ -2817,7 +2819,7 @@ if(!is_networked)//hayden
 								//if ( CanClimbFromHere ( pSoldier, fUp ) )
 								if (pSoldier->sGridNo == sClosestDisturbance)
 								{
-									if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( AP_CLIMBROOF + MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST)))
+									if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST)))
 									{
 										return( AI_ACTION_CLIMB_ROOF );
 									}
@@ -2877,12 +2879,12 @@ if(!is_networked)//hayden
 
 								if ( pSoldier->aiData.usActionData == NOWHERE || pSoldier->numFlanks >= MAX_FLANKS_RED )
 								{
-									pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,sClosestDisturbance,AP_CROUCH, AI_ACTION_SEEK_OPPONENT,0);
+									pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,sClosestDisturbance,APBPConstants[AP_CROUCH], AI_ACTION_SEEK_OPPONENT,0);
 									//pSoldier->numFlanks = 0;
 									if ( PythSpacesAway( pSoldier->aiData.usActionData, sClosestDisturbance ) < 5 || LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, sClosestDisturbance, pSoldier->pathing.bLevel, TRUE ) )
 									{
 										// reserve APs for a possible crouch plus a shot
-										pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sClosestDisturbance, (INT8) (MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST) + AP_CROUCH), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
+										pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sClosestDisturbance, (INT8) (MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST) + APBPConstants[AP_CROUCH]), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
 										if ( pSoldier->aiData.usActionData != NOWHERE )
 										{
 											pSoldier->aiData.fAIFlags |= AI_CAUTIOUS;
@@ -2919,7 +2921,7 @@ if(!is_networked)//hayden
 								if ( PythSpacesAway( pSoldier->aiData.usActionData, sClosestDisturbance ) < 5 || LocationToLocationLineOfSightTest( pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, sClosestDisturbance, pSoldier->pathing.bLevel, TRUE ) )
 								{
 									// reserve APs for a possible crouch plus a shot
-									pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sClosestDisturbance, (INT8) (MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST) + AP_CROUCH), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
+									pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier, sClosestDisturbance, (INT8) (MinAPsToAttack( pSoldier, sClosestDisturbance, ADDTURNCOST) + APBPConstants[AP_CROUCH]), AI_ACTION_SEEK_OPPONENT, FLAG_CAUTIOUS );
 									if ( pSoldier->aiData.usActionData != NOWHERE )
 									{
 										pSoldier->aiData.fAIFlags |= AI_CAUTIOUS;
@@ -3016,7 +3018,7 @@ if(!is_networked)//hayden
 						//////////////////////////////////////////////////////////////////////
 						// GO DIRECTLY TOWARDS CLOSEST FRIEND UNDER FIRE OR WHO LAST RADIOED
 						//////////////////////////////////////////////////////////////////////
-						pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,sClosestFriend,AP_CROUCH, AI_ACTION_SEEK_OPPONENT,0);
+						pSoldier->aiData.usActionData = InternalGoAsFarAsPossibleTowards(pSoldier,sClosestFriend,APBPConstants[AP_CROUCH], AI_ACTION_SEEK_OPPONENT,0);
 
 						if (pSoldier->aiData.usActionData != NOWHERE)
 						{
@@ -3041,7 +3043,7 @@ if(!is_networked)//hayden
 								//if ( CanClimbFromHere ( pSoldier, fUp ) )
 								if (pSoldier->sGridNo == sClosestFriend)
 								{
-									if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( AP_CLIMBROOF + MinAPsToAttack( pSoldier, sClosestFriend, ADDTURNCOST)))
+									if (IsActionAffordable(pSoldier) && pSoldier->bActionPoints >= ( APBPConstants[AP_CLIMBROOF] + MinAPsToAttack( pSoldier, sClosestFriend, ADDTURNCOST)))
 									{
 										return( AI_ACTION_CLIMB_ROOF );
 									}
@@ -3106,7 +3108,7 @@ if(!is_networked)//hayden
 							{
 								// either moving significantly closer or into very close range
 								// ensure will we have enough APs for a possible crouch plus a shot
-								if ( InternalGoAsFarAsPossibleTowards( pSoldier, pSoldier->aiData.usActionData, (INT8) (MinAPsToAttack( pSoldier, sClosestOpponent, ADDTURNCOST) + AP_CROUCH), AI_ACTION_TAKE_COVER, 0 ) == pSoldier->aiData.usActionData )
+								if ( InternalGoAsFarAsPossibleTowards( pSoldier, pSoldier->aiData.usActionData, (INT8) (MinAPsToAttack( pSoldier, sClosestOpponent, ADDTURNCOST) + APBPConstants[AP_CROUCH]), AI_ACTION_TAKE_COVER, 0 ) == pSoldier->aiData.usActionData )
 								{
 									return(AI_ACTION_TAKE_COVER);
 								}
@@ -3475,8 +3477,8 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 {
 	INT32	iCoverPercentBetter, iOffense, iDefense, iChance;
 	INT16	sClosestOpponent,sBestCover = NOWHERE;
-	INT16	sClosestDisturbance;
-	UINT8	ubMinAPCost,ubCanMove;
+	INT16	sClosestDisturbance,ubMinAPCost;
+	UINT8	ubCanMove;
 	INT8		bInWater,bInDeepWater,bInGas;
 	INT8		bDirection;
 	UINT8	ubBestAttackAction = AI_ACTION_NONE;
@@ -3493,7 +3495,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 	UINT8	ubBestStance = 1, ubStanceCost;
 	BOOLEAN fChangeStanceFirst; // before firing
 	BOOLEAN fClimb;
-	UINT8	ubBurstAPs;
+	INT16	ubBurstAPs;
 	UINT8	ubOpponentDir;
 	INT16	sCheckGridNo;
 
@@ -4175,13 +4177,14 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 			!(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) )
 		{
 			// make militia a bit more cautious
-			if ( ( (pSoldier->bTeam == MILITIA_TEAM) && (PreRandom( 20 ) > BestAttack.ubChanceToReallyHit) )
-				|| ( (pSoldier->bTeam != MILITIA_TEAM) && (PreRandom( 40 ) > BestAttack.ubChanceToReallyHit) ) )
+			// 3 (UINT16) CONVERSIONS HERE TO AVOID ERRORS.  GOTTHARD 7/15/08
+			if ( ( (pSoldier->bTeam == MILITIA_TEAM) && (PreRandom( 20 ) > (UINT16)BestAttack.ubChanceToReallyHit) )
+				|| ( (pSoldier->bTeam != MILITIA_TEAM) && (PreRandom( 40 ) > (UINT16)BestAttack.ubChanceToReallyHit) ) )
 			{
 				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"AI %d allowing cover check, chance to hit is only %d, at range %d", BestAttack.ubChanceToReallyHit, PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) );
 				// maybe taking cover would be better!
 				fAllowCoverCheck = TRUE;
-				if ( PreRandom( 10 ) > BestAttack.ubChanceToReallyHit )
+				if ( PreRandom( 10 ) > (UINT16)BestAttack.ubChanceToReallyHit )
 				{
 					DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"DecideActionBlack: can't hit so screw the attack");
 					// screw the attack!
@@ -4301,13 +4304,14 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 		fChangeStanceFirst = FALSE;
 
 		// default settings
-		pSoldier->aiData.bAimTime			= BestAttack.ubAimTime;
+		//POSSIBLE STRUCTURE CHANGE PROBLEM, NOT CURRENTLY CHANGED. GOTTHARD 7/14/08		
+		pSoldier->aiData.bAimTime = BestAttack.ubAimTime;
 		pSoldier->bDoBurst			= 0;
 
 		if (ubBestAttackAction == AI_ACTION_FIRE_GUN)
 		{
 			// Do we need to change stance?  NB We'll have to ready our gun again
-			if ( !TANK( pSoldier ) && ( pSoldier->bActionPoints >= BestAttack.ubAPCost + AP_CROUCH + MinAPsToAttack( pSoldier, BestAttack.sTarget, ADDTURNCOST, 1 ) ) )
+			if ( !TANK( pSoldier ) && ( pSoldier->bActionPoints >= BestAttack.ubAPCost + APBPConstants[AP_CROUCH] + MinAPsToAttack( pSoldier, BestAttack.sTarget, ADDTURNCOST, 1 ) ) )
 			{
 				// since the AI considers shooting chance from standing primarily, if we are not
 				// standing we should always consider a stance change
@@ -4758,7 +4762,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 	// (we never want NPCs to choose to radio if they would have to wait a turn)
 	// and we're not swimming in deep water, and somebody has called for spotters
 	// and we see the location of at least 2 opponents
-	if ((gTacticalStatus.ubSpottersCalledForBy != NOBODY) && (pSoldier->bActionPoints >= AP_RADIO) &&
+	if ((gTacticalStatus.ubSpottersCalledForBy != NOBODY) && (pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) &&
 		(pSoldier->aiData.bOppCnt > 1) && !fCivilian &&
 		(gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) && !bInDeepWater)
 	{
@@ -4891,7 +4895,7 @@ INT8 DecideActionBlack(SOLDIERTYPE *pSoldier)
 	// RADIO RED ALERT: determine %chance to call others and report contact
 	////////////////////////////////////////////////////////////////////////////
 
-	if ( pSoldier->bTeam == MILITIA_TEAM && (pSoldier->bActionPoints >= AP_RADIO) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) )
+	if ( pSoldier->bTeam == MILITIA_TEAM && (pSoldier->bActionPoints >= APBPConstants[AP_RADIO]) && (gTacticalStatus.Team[pSoldier->bTeam].bMenInSector > 1) )
 	{
 
 		// if there hasn't been an initial RED ALERT yet in this sector
@@ -5336,4 +5340,7 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier )
 	}
 
 }
+
+
+
 

@@ -51,10 +51,10 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT16 sGridno, INT8 bDir, INT8
 		BOOLEAN		fHiddenStructVisible;				// Used for hidden struct visiblity
 
  if ( pSoldier->bStealthMode )
-	 sAPCost += AP_STEALTH_MODIFIER;
+	 sAPCost += APBPConstants[AP_STEALTH_MODIFIER];
 
  if ( pSoldier->bReverse || gUIUseReverse )
-	 sAPCost += AP_REVERSE_MODIFIER;
+	 sAPCost += APBPConstants[AP_REVERSE_MODIFIER];
 
  //if (GridCost[gridno] == NPCMINECOST)
  //	switchValue = BackupGridCost[gridno];
@@ -109,29 +109,29 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT16 sGridno, INT8 bDir, INT8
 	switch( sSwitchValue )
 	{
 	case TRAVELCOST_DIRTROAD :
-	case TRAVELCOST_FLAT			: sAPCost += AP_MOVEMENT_FLAT; 
+	case TRAVELCOST_FLAT			: sAPCost += APBPConstants[AP_MOVEMENT_FLAT]; 
 		break;
 		//case TRAVELCOST_BUMPY		:		
-	case TRAVELCOST_GRASS		: sAPCost += AP_MOVEMENT_GRASS;
+	case TRAVELCOST_GRASS		: sAPCost += APBPConstants[AP_MOVEMENT_GRASS];
 		break;
-	case TRAVELCOST_THICK		:	sAPCost += AP_MOVEMENT_BUSH;
+	case TRAVELCOST_THICK		:	sAPCost += APBPConstants[AP_MOVEMENT_BUSH];
 		break;
-	case TRAVELCOST_DEBRIS		: sAPCost += AP_MOVEMENT_RUBBLE;
+	case TRAVELCOST_DEBRIS		: sAPCost += APBPConstants[AP_MOVEMENT_RUBBLE];
 		break;
-	case TRAVELCOST_SHORE		: sAPCost += AP_MOVEMENT_SHORE; // wading shallow water
+	case TRAVELCOST_SHORE		: sAPCost += APBPConstants[AP_MOVEMENT_SHORE]; // wading shallow water
 		if (!IS_MERC_BODY_TYPE( pSoldier ))
 		{
 			return -1;
 		}
 		break;
-	case TRAVELCOST_KNEEDEEP	:	sAPCost += AP_MOVEMENT_LAKE; // wading waist/chest deep - very slow
+	case TRAVELCOST_KNEEDEEP	:	sAPCost += APBPConstants[AP_MOVEMENT_LAKE]; // wading waist/chest deep - very slow
 		if (!IS_MERC_BODY_TYPE( pSoldier ))
 		{
 			return -1;
 		}
 		break;
 
-	case TRAVELCOST_DEEPWATER: sAPCost += AP_MOVEMENT_OCEAN; // can swim, so it's faster than wading
+	case TRAVELCOST_DEEPWATER: sAPCost += APBPConstants[AP_MOVEMENT_OCEAN]; // can swim, so it's faster than wading
 		if (!IS_MERC_BODY_TYPE( pSoldier ))
 		{
 			return -1;
@@ -139,7 +139,7 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT16 sGridno, INT8 bDir, INT8
 		break;
 		/*
 		case TRAVELCOST_VEINEND	:
-		case TRAVELCOST_VEINMID	: sAPCost += AP_MOVEMENT_FLAT;
+		case TRAVELCOST_VEINMID	: sAPCost += APBPConstants[AP_MOVEMENT_FLAT];
 		break;
 		*/
 	case TRAVELCOST_DOOR			: 
@@ -147,7 +147,7 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT16 sGridno, INT8 bDir, INT8
 		{
 			return -1;
 		}
-		sAPCost += AP_MOVEMENT_FLAT + AP_OPEN_DOOR + AP_OPEN_DOOR; // Include open and close costs!
+		sAPCost += APBPConstants[AP_MOVEMENT_FLAT] + APBPConstants[AP_OPEN_DOOR] + APBPConstants[AP_OPEN_DOOR]; // Include open and close costs!
 		break;
 
 		// cost for jumping a fence REPLACES all other AP costs!
@@ -158,9 +158,9 @@ INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT16 sGridno, INT8 bDir, INT8
 		}
 		// CHRISL: 
 		if((UsingNewInventorySystem() == true) && pSoldier->inv[BPACKPOCKPOS].exists() == true)
-			return( AP_JUMPFENCEBPACK );
+			return( APBPConstants[AP_JUMPFENCEBPACK] );
 		else
-			return( AP_JUMPFENCE );
+			return( APBPConstants[AP_JUMPFENCE] );
 
 	case TRAVELCOST_NONE			: return( 0 );
 
@@ -229,20 +229,20 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT16 sGridno,INT8 bDir, UINT1
  switch( ubMovementCost )
  {
 	case TRAVELCOST_DIRTROAD	:
-	case TRAVELCOST_FLAT			: iPoints = BP_MOVEMENT_FLAT;		break;
+	case TRAVELCOST_FLAT			: iPoints = APBPConstants[BP_MOVEMENT_FLAT];		break;
 	//case TRAVELCOST_BUMPY			:
-	case TRAVELCOST_GRASS			: iPoints = BP_MOVEMENT_GRASS;	break;
-	case TRAVELCOST_THICK			: iPoints = BP_MOVEMENT_BUSH;		break;
-	case TRAVELCOST_DEBRIS		: iPoints = BP_MOVEMENT_RUBBLE;	break;
-	case TRAVELCOST_SHORE			: iPoints = BP_MOVEMENT_SHORE;	break;	// wading shallow water
-	case TRAVELCOST_KNEEDEEP	: iPoints = BP_MOVEMENT_LAKE;		break;	// wading waist/chest deep - very slow
-	case TRAVELCOST_DEEPWATER	: iPoints = BP_MOVEMENT_OCEAN;	break;	// can swim, so it's faster than wading
+	case TRAVELCOST_GRASS			: iPoints = APBPConstants[BP_MOVEMENT_GRASS];	break;
+	case TRAVELCOST_THICK			: iPoints = APBPConstants[BP_MOVEMENT_BUSH];		break;
+	case TRAVELCOST_DEBRIS		: iPoints = APBPConstants[BP_MOVEMENT_RUBBLE];	break;
+	case TRAVELCOST_SHORE			: iPoints = APBPConstants[BP_MOVEMENT_SHORE];	break;	// wading shallow water
+	case TRAVELCOST_KNEEDEEP	: iPoints = APBPConstants[BP_MOVEMENT_LAKE];		break;	// wading waist/chest deep - very slow
+	case TRAVELCOST_DEEPWATER	: iPoints = APBPConstants[BP_MOVEMENT_OCEAN];	break;	// can swim, so it's faster than wading
 //	case TRAVELCOST_VEINEND		:
-//	case TRAVELCOST_VEINMID		: iPoints = BP_MOVEMENT_FLAT;		break;
+//	case TRAVELCOST_VEINMID		: iPoints = APBPConstants[BP_MOVEMENT_FLAT];		break;
 	default:
 		if ( IS_TRAVELCOST_DOOR( ubMovementCost ) )
 		{
-			iPoints = BP_MOVEMENT_FLAT;
+			iPoints = APBPConstants[BP_MOVEMENT_FLAT];
 			break;
 		}
 /*
@@ -269,19 +269,19 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT16 sGridno,INT8 bDir, UINT1
 		case ADULTMONSTER_WALKING:
 		case BLOODCAT_RUN:
 
-			iPoints *= BP_RUN_ENERGYCOSTFACTOR;		break;
+			iPoints *= APBPConstants[BP_RUN_ENERGYCOSTFACTOR];		break;
 
 		case SIDE_STEP:
 		case WALK_BACKWARDS:
 		case BLOODCAT_WALK_BACKWARDS:
 		case MONSTER_WALK_BACKWARDS:
-		case WALKING :	iPoints *= BP_WALK_ENERGYCOSTFACTOR;	break;
+		case WALKING :	iPoints *= APBPConstants[BP_WALK_ENERGYCOSTFACTOR];	break;
 
 		case START_SWAT:
 		case SWATTING:
 		case SWAT_BACKWARDS:
-			iPoints *= BP_SWAT_ENERGYCOSTFACTOR;	break;
-		case CRAWLING:	iPoints *= BP_CRAWL_ENERGYCOSTFACTOR;	break;
+			iPoints *= APBPConstants[BP_SWAT_ENERGYCOSTFACTOR];	break;
+		case CRAWLING:	iPoints *= APBPConstants[BP_CRAWL_ENERGYCOSTFACTOR];	break;
 
 
 	}
@@ -391,7 +391,7 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, UINT16 u
 			case SIDE_STEP:
 			case WALK_BACKWARDS:
 				// charge crouch APs for ducking head!
-				sPoints += AP_CROUCH;
+				sPoints += APBPConstants[AP_CROUCH];
 				break;
 
 			default:
@@ -490,7 +490,7 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, 
 				// Since it's AFTER.. make sure we will be moving after jump...
 				if ( ( bPathIndex + 2 ) < bPathLength )
 				{
-					sPoints += AP_CROUCH;
+					sPoints += APBPConstants[AP_CROUCH];
 				}
 				break;
 
@@ -499,7 +499,7 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, 
 			case SWAT_BACKWARDS:
 
 				// Add cost to stand once there BEFORE....
-				sPoints += AP_CROUCH;
+				sPoints += APBPConstants[AP_CROUCH];
 				break;
 
 			case CRAWLING:
@@ -517,7 +517,7 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bDir, 
 			case SIDE_STEP:
 			case WALK_BACKWARDS:
 				// charge crouch APs for ducking head!
-				sPoints += AP_CROUCH;
+				sPoints += APBPConstants[AP_CROUCH];
 				break;
 
 			default:
@@ -648,9 +648,9 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost,BOOLEAN f
 
 		// Snap: award some health and strength for exertion
 		// Do 4 StatChange rolls for health (2 for strength) per 10 breath points spent?
-		// NB: The scale of iBPCost is 100 per breath point (BP_RATIO_RED_PTS_TO_NORMAL)
-		if ( PTR_OURTEAM && iBPCost >= BP_MOVEMENT_GRASS && fProactive
-			&& (INT32) PreRandom( 10 * BP_RATIO_RED_PTS_TO_NORMAL ) < iBPCost )
+		// NB: The scale of iBPCost is 100 per breath point (APBPConstants[BP_RATIO_RED_PTS_TO_NORMAL])
+		if ( PTR_OURTEAM && iBPCost >= APBPConstants[BP_MOVEMENT_GRASS] && fProactive
+			&& (INT32) PreRandom( 10 * APBPConstants[BP_RATIO_RED_PTS_TO_NORMAL] ) < iBPCost )
 		{
 			StatChange(pSoldier, HEALTHAMT, 4, FALSE);
 			StatChange(pSoldier, STRAMT, 2, FALSE);
@@ -659,8 +659,8 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost,BOOLEAN f
 		// CJC: moved check for high breathred to below so that negative breath can be detected
 
 		// Snap: kill the overflow bug already!
-		// NB: normally, sBreathRed == (100 - bBreath)*BP_RATIO_RED_PTS_TO_NORMAL
-		const INT16 BREATH_RED_MAX = 100 * BP_RATIO_RED_PTS_TO_NORMAL;
+		// NB: normally, sBreathRed == (100 - bBreath)*APBPConstants[BP_RATIO_RED_PTS_TO_NORMAL]
+		const INT16 BREATH_RED_MAX = 100 * APBPConstants[BP_RATIO_RED_PTS_TO_NORMAL];
 		if ( pSoldier->sBreathRed + iBPCost < 0 )
 		{
 			pSoldier->sBreathRed = 0;
@@ -670,7 +670,7 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost,BOOLEAN f
 			// Snap: moved this up, because it had no effect below
 			// Take off 1 AP per 5 (negative) breath...
 			pSoldier->bActionPoints -= ( pSoldier->sBreathRed + iBPCost - BREATH_RED_MAX )
-									/ ( 5 * BP_RATIO_RED_PTS_TO_NORMAL );
+									/ ( 5 * APBPConstants[BP_RATIO_RED_PTS_TO_NORMAL] );
 			if ( pSoldier->bActionPoints < 0 )
 			{
 				pSoldier->bActionPoints = 0;
@@ -684,8 +684,8 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost,BOOLEAN f
 		}
 
 		// Get new breath
-		bNewBreath = ( pSoldier->bBreathMax * BP_RATIO_RED_PTS_TO_NORMAL - pSoldier->sBreathRed )
-					/ BP_RATIO_RED_PTS_TO_NORMAL;
+		bNewBreath = ( pSoldier->bBreathMax * APBPConstants[BP_RATIO_RED_PTS_TO_NORMAL] - pSoldier->sBreathRed )
+					/ APBPConstants[BP_RATIO_RED_PTS_TO_NORMAL];
 
 		// Snap: This should never happen...
 		if ( bNewBreath > pSoldier->bBreathMax )
@@ -864,10 +864,10 @@ void UnusedAPsToBreath(SOLDIERTYPE *pSold)
 	else
 	{
 		// if merc has any APs left unused this turn (that aren't carrying over)
-		if (pSold->bActionPoints > MAX_AP_CARRIED)
+		if (pSold->bActionPoints > APBPConstants[MAX_AP_CARRIED])
 		{
 
-			sUnusedAPs = pSold->bActionPoints - MAX_AP_CARRIED;
+			sUnusedAPs = pSold->bActionPoints - APBPConstants[MAX_AP_CARRIED];
 
 			sBreathPerAP = GetBreathPerAP( pSold, pSold->usAnimState );
 
@@ -889,28 +889,28 @@ void UnusedAPsToBreath(SOLDIERTYPE *pSold)
 				switch( gGameOptions.ubDifficultyLevel )
 				{
 					case DIF_LEVEL_EASY:
-						sBreathChange = ((AP_MAXIMUM + gGameExternalOptions.iEasyAPBonus)- sUnusedAPs) * sBreathPerAP;
+						sBreathChange = ((APBPConstants[AP_MAXIMUM] + gGameExternalOptions.iEasyAPBonus)- sUnusedAPs) * sBreathPerAP;
 						break;
 
 					case DIF_LEVEL_MEDIUM:
-						sBreathChange = ((AP_MAXIMUM + gGameExternalOptions.iExperiencedAPBonus)-sUnusedAPs) * sBreathPerAP;
+						sBreathChange = ((APBPConstants[AP_MAXIMUM] + gGameExternalOptions.iExperiencedAPBonus)-sUnusedAPs) * sBreathPerAP;
 						break;
 
 					case DIF_LEVEL_HARD:
-						sBreathChange = ((AP_MAXIMUM + gGameExternalOptions.iExpertAPBonus)- sUnusedAPs) * sBreathPerAP;
+						sBreathChange = ((APBPConstants[AP_MAXIMUM] + gGameExternalOptions.iExpertAPBonus)- sUnusedAPs) * sBreathPerAP;
 						break;
 
 					case DIF_LEVEL_INSANE:
-						sBreathChange = ((AP_MAXIMUM + gGameExternalOptions.iInsaneAPBonus)- sUnusedAPs) * sBreathPerAP;
+						sBreathChange = ((APBPConstants[AP_MAXIMUM] + gGameExternalOptions.iInsaneAPBonus)- sUnusedAPs) * sBreathPerAP;
 						break;
 
 					default:
-						sBreathChange = (AP_MAXIMUM - sUnusedAPs) * sBreathPerAP;
+						sBreathChange = (APBPConstants[AP_MAXIMUM] - sUnusedAPs) * sBreathPerAP;
 				}
 			}
 			else
 			{
-				sBreathChange = ((AP_MAXIMUM + gGameExternalOptions.iPlayerAPBonus)- sUnusedAPs) * sBreathPerAP;
+				sBreathChange = ((APBPConstants[AP_MAXIMUM] + gGameExternalOptions.iPlayerAPBonus)- sUnusedAPs) * sBreathPerAP;
 			}
 		}
 		else
@@ -939,7 +939,7 @@ INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 	if ( gAnimControl[ usAnimState ].uiFlags & ANIM_VARIABLE_EFFORT )
 	{
 		// Default effort
-		sBreathPerAP = BP_PER_AP_MIN_EFFORT;
+		sBreathPerAP = APBPConstants[BP_PER_AP_MIN_EFFORT];
 
 		// OK, check if we are in water and are waling/standing
 		if ( pSoldier->MercInWater( ) )
@@ -948,12 +948,12 @@ INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 			{
 				case STANDING:
 
-					sBreathPerAP = BP_PER_AP_LT_EFFORT;
+					sBreathPerAP = APBPConstants[BP_PER_AP_LT_EFFORT];
 					break;
 
 				case WALKING:
 
-					sBreathPerAP = BP_PER_AP_MOD_EFFORT;
+					sBreathPerAP = APBPConstants[BP_PER_AP_MOD_EFFORT];
 					break;
 			}
 		}
@@ -964,12 +964,12 @@ INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 			{
 				case STANDING:
 
-					sBreathPerAP = BP_PER_AP_NO_EFFORT;
+					sBreathPerAP = APBPConstants[BP_PER_AP_NO_EFFORT];
 					break;
 
 				case WALKING:
 
-					sBreathPerAP = BP_PER_AP_LT_EFFORT;
+					sBreathPerAP = APBPConstants[BP_PER_AP_LT_EFFORT];
 					break;
 			}
 		}
@@ -978,19 +978,19 @@ INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 
 	switch ( EFFORT( gAnimControl[ usAnimState ].uiFlags) ) {
 		case 0: // No effort
-			sBreathPerAP = BP_PER_AP_NO_EFFORT;
+			sBreathPerAP = APBPConstants[BP_PER_AP_NO_EFFORT];
 			fAnimTypeFound = TRUE;
 			break;
 		case 1: // Minimal effort
-			sBreathPerAP = BP_PER_AP_MIN_EFFORT;
+			sBreathPerAP = APBPConstants[BP_PER_AP_MIN_EFFORT];
 			fAnimTypeFound = TRUE;
 			break;
 		case 2: // Light effort
-			sBreathPerAP = BP_PER_AP_LT_EFFORT;
+			sBreathPerAP = APBPConstants[BP_PER_AP_LT_EFFORT];
 			fAnimTypeFound = TRUE;
 			break;
 		case 3: // Moderate effort
-			sBreathPerAP = BP_PER_AP_MOD_EFFORT;
+			sBreathPerAP = APBPConstants[BP_PER_AP_MOD_EFFORT];
 			fAnimTypeFound = TRUE;
 			break;
 	}
@@ -1016,13 +1016,13 @@ INT16 GetBreathPerAP( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 }
 
 //UINT8 CalcAPsToBurst( INT8 bBaseActionPoints, UINT16 usItem )
-UINT8 CalcAPsToBurst( INT8 bBaseActionPoints, OBJECTTYPE * pObj )
+INT16 CalcAPsToBurst( INT16 bBaseActionPoints, OBJECTTYPE * pObj )
 {
 	INT32 aps;
 
 	// base APs is what you'd get from CalcActionPoints();
 	// NB round UP, so 21-25 APs pay full
-	aps =	( Weapon[ pObj->usItem ].bBurstAP * bBaseActionPoints + (AP_MAXIMUM - 1) ) / AP_MAXIMUM;
+	aps =	( Weapon[ pObj->usItem ].bBurstAP * bBaseActionPoints + (APBPConstants[AP_MAXIMUM] - 1) ) / APBPConstants[AP_MAXIMUM];
 
 	/*if ( GetPercentBurstFireAPReduction(pObj)>0 )
 	{
@@ -1045,23 +1045,23 @@ UINT8 CalcAPsToBurst( INT8 bBaseActionPoints, OBJECTTYPE * pObj )
 	aps = ( aps * ( 100 - GetPercentBurstFireAPReduction(pObj) ) ) / 100;
 
 	if ( aps < 0 ) aps = 0;
-	else if ( aps > AP_MAXIMUM ) aps = AP_MAXIMUM;
+	else if ( aps > APBPConstants[AP_MAXIMUM] ) aps = APBPConstants[AP_MAXIMUM];
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcAPsToBurst: return aps = %d", aps));
 	return (UINT8) aps;
 }
 
 
-UINT8 CalcAPsToAutofire( INT8 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAutofire )
+INT16 CalcAPsToAutofire( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAutofire )
 {
 //	INT8 bAttachPos;
-	INT32 aps=AP_MAXIMUM + 1;
+	INT32 aps=APBPConstants[AP_MAXIMUM] + 1;
 	if ( GetAutofireShotsPerFiveAPs (pObj) )
 	{
 		// Snap: Do this just like in CalcAPsToBurst
 
 		const INT32 autofireaps =
-		aps = ( ( 5 * bDoAutofire * bBaseActionPoints ) / GetAutofireShotsPerFiveAPs(pObj) + (AP_MAXIMUM - 1) ) / AP_MAXIMUM;
+		aps = ( ( APBPConstants[AUTOFIRE_SHOTS_AP_VALUE] * bDoAutofire * bBaseActionPoints ) / GetAutofireShotsPerFiveAPs(pObj) + (APBPConstants[AP_MAXIMUM] - 1) ) / APBPConstants[AP_MAXIMUM];
 
 		//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcAPsToAutofire: base aps = %d, # shots = %d",aps,pSoldier->bDoAutofire ));
 		//check for spring and bolt
@@ -1093,7 +1093,7 @@ UINT8 CalcAPsToAutofire( INT8 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAut
 		aps = ( aps * ( 100 - GetPercentAutofireAPReduction(pObj) ) ) / 100;
 
 		if ( aps < 0 ) aps = 0;
-		else if ( aps > AP_MAXIMUM ) aps = AP_MAXIMUM;
+		else if ( aps > APBPConstants[AP_MAXIMUM] ) aps = APBPConstants[AP_MAXIMUM];
 	}
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcAPsToAutoFire: return aps = %d", aps));
@@ -1101,7 +1101,7 @@ UINT8 CalcAPsToAutofire( INT8 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAut
 }
 
 
-UINT8 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost, INT8 bAimTime )
+INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost, INT16 bAimTime )
 {
 	UINT16						sAPCost = 0;
 	UINT16						usItemNum;
@@ -1127,7 +1127,7 @@ UINT8 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 		}
 		else
 		{
-			sAPCost += bAimTime;
+			sAPCost += (bAimTime*APBPConstants[AP_CLICK_AIM]);
 		}
 	}
 
@@ -1236,16 +1236,16 @@ UINT8 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 		}
 
 		// Add aim time...
-		sAPCost += bAimTime;
+		sAPCost += (bAimTime*APBPConstants[AP_CLICK_AIM]);
 
 	}
 
 	return( (INT8)sAPCost );
 }
 
-UINT8 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT16 sGridno, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost)
+INT16 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT16 sGridno, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost)
 {
-	UINT16						sAPCost = 0;
+	INT16						sAPCost = 0;
 	UINT32						uiItemClass;
 
 	if ( pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )
@@ -1284,7 +1284,7 @@ UINT8 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT16 sGridno, UINT8 ubAddTurningCos
 		sAPCost = MinAPsToPunch( pSoldier, sGridno, ubAddTurningCost );
 	}
 
-	return( (UINT8)sAPCost );
+	return sAPCost;
 }
 
 INT8 CalcAimSkill( SOLDIERTYPE * pSoldier, UINT16 usWeapon )
@@ -1307,10 +1307,17 @@ INT8 CalcAimSkill( SOLDIERTYPE * pSoldier, UINT16 usWeapon )
 	return( bAimSkill );
 }
 
-UINT8 BaseAPsToShootOrStab( INT8 bAPs, INT8 bAimSkill, OBJECTTYPE * pObj )
+INT16 BaseAPsToShootOrStab( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj )
 {
-	INT32	Top, Bottom, rof;
+	INT32	Top, Bottom;
+	FLOAT	rof;
 //	INT8	bAttachPos;
+
+	//CHRISL: By changing rof to a FLOAT value, we resolve some of the rounding that causes APs to be skipped.  For example:
+	//	assuming bAPs = 80 (default in a 100Ap system) and bAimSkill = 80 (also a default setting)
+	//	If rof = 15, we return an AP cost of 24.  If rof = 16, we return an AP cost of 22.  With an integer value, we can't
+	//	get an AP cost of 23.  But if rof = 15.5, we return an AP cost of 23 (22.94 which gets rounded up).  With an
+	//	rof = 15.46, we return an AP cost of exactly 23.  So this will allow for fine control over "default" AP costs.
 
 	// Calculate default top & bottom of the magic "aiming" formula!
 
@@ -1349,7 +1356,7 @@ UINT8 BaseAPsToShootOrStab( INT8 bAPs, INT8 bAimSkill, OBJECTTYPE * pObj )
 	//{
 	//	Top *= 100;
 	//}
-	Bottom = ( 100 + bAimSkill ) * rof;
+	Bottom = (INT32)(( 100 + bAimSkill ) * rof);
 	// (this will round to the nearest integer)
 	return ( Top + Bottom / 2 ) / Bottom;
 }
@@ -1402,10 +1409,21 @@ void GetAPChargeForShootOrStabWRTGunRaises( SOLDIERTYPE *pSoldier, INT16 sGridNo
 		{
 			fAddingRaiseGunCost = TRUE;
 		}
-		//CHRISL: If we are prone and we need to turn, we will need to ready our weapon no matter what our current state is
-		if(fAddingTurningCost && gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_PRONE)
+		//CHRISL: Handle ready weapon with facing changes based on stance
+		if(fAddingTurningCost)
 		{
-			fAddingRaiseGunCost = TRUE;
+			switch (gAnimControl[ pSoldier->usAnimState ].ubHeight)
+			{
+				case ANIM_STAND:
+					fAddingRaiseGunCost = GetDirectionChangeAmount(sGridNo, pSoldier, 3);
+					break;
+				case ANIM_CROUCH:
+					fAddingRaiseGunCost = GetDirectionChangeAmount(sGridNo, pSoldier, 1);
+					break;
+				case ANIM_PRONE:
+					fAddingRaiseGunCost = TRUE;
+					break;
+			}
 		}
 	}
 
@@ -1420,7 +1438,7 @@ UINT16 CalculateTurningCost(SOLDIERTYPE *pSoldier, UINT16 usItem, BOOLEAN fAddin
 	if ( fAddingTurningCost )
 	{
 		if ( Item[ usItem ].usItemClass == IC_THROWING_KNIFE )
-			usTurningCost = 1;
+			usTurningCost = APBPConstants[AP_LOOK_STANDING];
 		else
 			usTurningCost = GetAPsToLook( pSoldier );
 	}
@@ -1441,13 +1459,13 @@ UINT16 CalculateRaiseGunCost(SOLDIERTYPE *pSoldier, BOOLEAN fAddingRaiseGunCost)
 	return usRaiseGunCost;
 }
 
-UINT8 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost)
+INT16 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost)
 {
 	UINT32	uiMercFlags;
 	UINT16	usTargID;
-	INT8	bFullAPs;
+	INT16	bFullAPs;
 	INT8 bAimSkill;
-	UINT8	bAPCost = AP_MIN_AIM_ATTACK;
+	INT16	bAPCost = APBPConstants[AP_MIN_AIM_ATTACK];
 	BOOLEAN	fAddingTurningCost = FALSE;
 	BOOLEAN	fAddingRaiseGunCost = FALSE;
 	UINT16 usItem;
@@ -1489,11 +1507,8 @@ UINT8 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurni
 	//Calculate usRaiseGunCost
 	usRaiseGunCost = CalculateRaiseGunCost(pSoldier, fAddingRaiseGunCost);
 
-	//charge the maximum of the 2
-	if ( gAnimControl[ pSoldier->usAnimState ].ubHeight == ANIM_PRONE )
-		bAPCost += (usTurningCost + usRaiseGunCost);
-	else
-		bAPCost += __max(usTurningCost,usRaiseGunCost);
+	//charge for turn and/or raise based on the results of fAddingTurningCost & fAddingRaiseGunCost
+	bAPCost += (usTurningCost + usRaiseGunCost);
 
 
 	if ( sGridNo != NOWHERE )
@@ -1508,7 +1523,7 @@ UINT8 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurni
 	// if attacking a new target (or if the specific target is uncertain)
 	if (ubForceRaiseGunCost || (( sGridNo != pSoldier->sLastTarget ) && !Item[usItem].rocketlauncher ))
 	{
-		bAPCost += AP_CHANGE_TARGET;
+		bAPCost += APBPConstants[AP_CHANGE_TARGET];
 	}
 
 	// Snap: reversed DIGICRAB's change.
@@ -1566,11 +1581,11 @@ UINT8 MinAPsToShootOrStab(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurni
 	}
 
 
-	return ( bAPCost );
+	return bAPCost;
 }
 
 
-UINT8 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost)
+INT16 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost)
 {
 	UINT8	bAPCost = 0;
 	UINT16 usTargID;
@@ -1611,21 +1626,21 @@ UINT8 MinAPsToPunch(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost
 				// Is it the same as he's facing?
 				if ( ubDirection != pSoldier->ubDirection )
 				{
-					bAPCost += AP_LOOK_STANDING;
+					bAPCost += APBPConstants[AP_LOOK_STANDING];
 				}
 			}
 		}
 
 	}
 
-	bAPCost += 4;
+	bAPCost += APBPConstants[AP_PUNCH];
 
 	return ( bAPCost );
 }
 
 
 
-INT8 MinPtsToMove(SOLDIERTYPE *pSoldier)
+INT16 MinPtsToMove(SOLDIERTYPE *pSoldier)
 {
 	// look around all 8 directions and return lowest terrain cost
 	UINT8	cnt;
@@ -1673,10 +1688,10 @@ INT8	PtsToMoveDirection(SOLDIERTYPE *pSoldier, INT8 bDirection )
 
 	if ( gubWorldMovementCosts[ sGridno ][ bDirection ][ pSoldier->pathing.bLevel ] != TRAVELCOST_FENCE )
 	{
-	if ( usMoveModeToUse == RUNNING && pSoldier->usAnimState != RUNNING )
-	{
-		sCost += AP_START_RUN_COST;
-	}
+		if ( usMoveModeToUse == RUNNING && pSoldier->usAnimState != RUNNING )
+		{
+			sCost += APBPConstants[AP_START_RUN_COST];
+		}
 	}
 
 	return( (INT8)sCost );
@@ -1692,31 +1707,31 @@ INT8 MinAPsToStartMovement( SOLDIERTYPE * pSoldier, UINT16 usMovementMode )
 		case WALKING:
 			if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)
 			{
-				bAPs += AP_CROUCH + AP_PRONE;
+				bAPs += APBPConstants[AP_CROUCH] + APBPConstants[AP_PRONE];
 			}
 			else if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_CROUCH)
 			{
-				bAPs += AP_CROUCH;
+				bAPs += APBPConstants[AP_CROUCH];
 			}
 			break;
 		case SWATTING:
 			if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE)
 			{
-				bAPs += AP_PRONE;
+				bAPs += APBPConstants[AP_PRONE];
 			}
 			else if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND)
 			{
-				bAPs += AP_CROUCH;
+				bAPs += APBPConstants[AP_CROUCH];
 			}
 			break;
 		case CRAWLING:
 			if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_STAND)
 			{
-				bAPs += AP_CROUCH + AP_PRONE;
+				bAPs += APBPConstants[AP_CROUCH] + APBPConstants[AP_PRONE];
 			}
 			else if (gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_CROUCH)
 			{
-				bAPs += AP_CROUCH;
+				bAPs += APBPConstants[AP_CROUCH];
 			}
 			break;
 		default:
@@ -1725,7 +1740,7 @@ INT8 MinAPsToStartMovement( SOLDIERTYPE * pSoldier, UINT16 usMovementMode )
 
 	if (usMovementMode == RUNNING && pSoldier->usAnimState != RUNNING )
 	{
-		bAPs += AP_START_RUN_COST;
+		bAPs += APBPConstants[AP_START_RUN_COST];
 	}
 	return( bAPs );
 }
@@ -1887,7 +1902,7 @@ void DeductAmmo( SOLDIERTYPE *pSoldier, INT8 bInvPos )
 }
 
 
-UINT16 GetAPsToPickupItem( SOLDIERTYPE *pSoldier, INT16 sMapPos )
+INT16 GetAPsToPickupItem( SOLDIERTYPE *pSoldier, INT16 sMapPos )
 {
 	ITEM_POOL					*pItemPool;
 	UINT16						sAPCost = 0;
@@ -1907,12 +1922,12 @@ UINT16 GetAPsToPickupItem( SOLDIERTYPE *pSoldier, INT16 sMapPos )
 			if ( sAPCost != 0 )
 			{
 				// ADD APS TO PICKUP
-				sAPCost += AP_PICKUP_ITEM;
+				sAPCost += APBPConstants[AP_PICKUP_ITEM];
 			}
 		}
 		else
 		{
-				sAPCost += AP_PICKUP_ITEM;
+				sAPCost += APBPConstants[AP_PICKUP_ITEM];
 		}
 	}
 
@@ -1920,7 +1935,7 @@ UINT16 GetAPsToPickupItem( SOLDIERTYPE *pSoldier, INT16 sMapPos )
 }
 
 
-UINT16 GetAPsToGiveItem( SOLDIERTYPE *pSoldier, INT16 sMapPos )
+INT16 GetAPsToGiveItem( SOLDIERTYPE *pSoldier, INT16 sMapPos )
 {
 	UINT16						sAPCost = 0;
 
@@ -1930,19 +1945,19 @@ UINT16 GetAPsToGiveItem( SOLDIERTYPE *pSoldier, INT16 sMapPos )
 	if ( sAPCost != 0 || pSoldier->sGridNo == sMapPos )
 	{
 		// ADD APS TO PICKUP
-		sAPCost += AP_GIVE_ITEM;
+		sAPCost += APBPConstants[AP_GIVE_ITEM];
 	}
 
 	return( sAPCost );
 }
 
 
-INT8 GetAPsToReloadGunWithAmmo( SOLDIERTYPE *pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo, BOOLEAN usAllAPs )
+INT16 GetAPsToReloadGunWithAmmo( SOLDIERTYPE *pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo, BOOLEAN usAllAPs )
 {
 	if (Item[ pGun->usItem ].usItemClass == IC_LAUNCHER)
 	{
 		// always standard AP cost
-		//return( AP_RELOAD_GUN );
+		//return( APBPConstants[AP_RELOAD_GUN] );
 		return GetAPsToReload(pGun);
 	}
 	if(Weapon[pGun->usItem].swapClips == 1 && GetMagSize(pGun) == Magazine[Item[pAmmo->usItem].ubClassIndex].ubMagSize)
@@ -1953,7 +1968,7 @@ INT8 GetAPsToReloadGunWithAmmo( SOLDIERTYPE *pSoldier, OBJECTTYPE * pGun, OBJECT
 	else if(Weapon[pGun->usItem].swapClips == 1)
 	{
 		// wrong size ammo item
-		return (INT8)(GetAPsToReload(pGun) * gGameExternalOptions.ubWrongMagMult);
+		return (INT8)((GetAPsToReload(pGun) * APBPConstants[AP_WRONG_MAG])/10);
 	}
 	else
 	{
@@ -1962,13 +1977,11 @@ INT8 GetAPsToReloadGunWithAmmo( SOLDIERTYPE *pSoldier, OBJECTTYPE * pGun, OBJECT
 		int rounds = __min((GetMagSize(pGun)-(*pGun)[0]->data.gun.ubGunShotsLeft), Magazine[Item[pAmmo->usItem].ubClassIndex].ubMagSize);
 		if(!((*pGun)[0]->data.gun.ubGunState & GS_WEAPON_BEING_RELOADED))
 			reload = GetAPsToReload(pGun);
-		if(reload > 10)
-			reload = 4;
 		if(usAllAPs == 1)
 		{
 			for(int i = 1; i <= rounds; i++)
 			{
-				if(EnoughPoints(pSoldier,(reload + (i * gGameExternalOptions.ubAPCostPerRound)),0,FALSE) == FALSE)
+				if(EnoughPoints(pSoldier,(reload + (i * APBPConstants[AP_RELOAD_LOOSE])),0,FALSE) == FALSE)
 				{
 					rounds = i-1;
 					break;
@@ -1977,15 +1990,15 @@ INT8 GetAPsToReloadGunWithAmmo( SOLDIERTYPE *pSoldier, OBJECTTYPE * pGun, OBJECT
 		}
 		else if (usAllAPs == 2)
 			rounds = 1;
-		return (reload + (rounds * gGameExternalOptions.ubAPCostPerRound));
+		return (reload + (rounds * APBPConstants[AP_RELOAD_LOOSE]));
 	}
 }
 
-INT8 GetAPsToAutoReload( SOLDIERTYPE * pSoldier )
+INT16 GetAPsToAutoReload( SOLDIERTYPE * pSoldier )
 {
 	OBJECTTYPE *	pObj;
 	INT8					bSlot, bSlot2, bExcludeSlot;
-	INT8					bAPCost = 0, bAPCost2 = 0;;
+	INT16					bAPCost = 0, bAPCost2 = 0;;
 
 	CHECKF( pSoldier );
 	pObj = &(pSoldier->inv[HANDPOS]);
@@ -2074,7 +2087,7 @@ UINT16 GetAPsToReloadRobot( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pRobot )
 
 
 
-UINT16 GetAPsToChangeStance( SOLDIERTYPE *pSoldier, INT8 bDesiredHeight )
+INT16 GetAPsToChangeStance( SOLDIERTYPE *pSoldier, INT8 bDesiredHeight )
 {
 	UINT16						sAPCost = 0;
 	INT8							bCurrentHeight;
@@ -2088,33 +2101,33 @@ UINT16 GetAPsToChangeStance( SOLDIERTYPE *pSoldier, INT8 bDesiredHeight )
 
 	if ( bCurrentHeight == ANIM_STAND && bDesiredHeight == ANIM_PRONE )
 	{
-		sAPCost = AP_CROUCH + AP_PRONE;
+		sAPCost = APBPConstants[AP_CROUCH] + APBPConstants[AP_PRONE];
 	}
 	if ( bCurrentHeight == ANIM_STAND && bDesiredHeight == ANIM_CROUCH )
 	{
-		sAPCost = AP_CROUCH;
+		sAPCost = APBPConstants[AP_CROUCH];
 	}
 	if ( bCurrentHeight == ANIM_CROUCH && bDesiredHeight == ANIM_PRONE )
 	{
-		sAPCost = AP_PRONE;
+		sAPCost = APBPConstants[AP_PRONE];
 	}
 	if ( bCurrentHeight == ANIM_CROUCH && bDesiredHeight == ANIM_STAND )
 	{
-		sAPCost = AP_CROUCH;
+		sAPCost = APBPConstants[AP_CROUCH];
 	}
 	if ( bCurrentHeight == ANIM_PRONE && bDesiredHeight == ANIM_STAND )
 	{
-		sAPCost = AP_PRONE + AP_CROUCH;
+		sAPCost = APBPConstants[AP_PRONE] + APBPConstants[AP_CROUCH];
 	}
 	if ( bCurrentHeight == ANIM_PRONE && bDesiredHeight == ANIM_CROUCH )
 	{
-		sAPCost = AP_PRONE;
+		sAPCost = APBPConstants[AP_PRONE];
 	}
 
 	return( sAPCost );
 }
 
-UINT16 GetBPsToChangeStance( SOLDIERTYPE *pSoldier, INT8 bDesiredHeight )
+INT16 GetBPsToChangeStance( SOLDIERTYPE *pSoldier, INT8 bDesiredHeight )
 {
 	UINT16						sBPCost = 0;
 	INT8							bCurrentHeight;
@@ -2128,51 +2141,51 @@ UINT16 GetBPsToChangeStance( SOLDIERTYPE *pSoldier, INT8 bDesiredHeight )
 
 	if ( bCurrentHeight == ANIM_STAND && bDesiredHeight == ANIM_PRONE )
 	{
-		sBPCost = BP_CROUCH + BP_PRONE;
+		sBPCost = APBPConstants[BP_CROUCH] + APBPConstants[BP_PRONE];
 	}
 	if ( bCurrentHeight == ANIM_STAND && bDesiredHeight == ANIM_CROUCH )
 	{
-		sBPCost = BP_CROUCH;
+		sBPCost = APBPConstants[BP_CROUCH];
 	}
 	if ( bCurrentHeight == ANIM_CROUCH && bDesiredHeight == ANIM_PRONE )
 	{
-		sBPCost = BP_PRONE;
+		sBPCost = APBPConstants[BP_PRONE];
 	}
 	if ( bCurrentHeight == ANIM_CROUCH && bDesiredHeight == ANIM_STAND )
 	{
-		sBPCost = BP_CROUCH;
+		sBPCost = APBPConstants[BP_CROUCH];
 	}
 	if ( bCurrentHeight == ANIM_PRONE && bDesiredHeight == ANIM_STAND )
 	{
-		sBPCost = BP_PRONE + BP_CROUCH;
+		sBPCost = APBPConstants[BP_PRONE] + APBPConstants[BP_CROUCH];
 	}
 	if ( bCurrentHeight == ANIM_PRONE && bDesiredHeight == ANIM_CROUCH )
 	{
-		sBPCost = BP_PRONE;
+		sBPCost = APBPConstants[BP_PRONE];
 	}
 
 	return( sBPCost );
 }
 
 
-UINT16 GetAPsToLook( SOLDIERTYPE *pSoldier )
+INT16 GetAPsToLook( SOLDIERTYPE *pSoldier )
 {
 	// Set # of APs
 	switch( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
 	{
 		// Now change to appropriate animation
 		case ANIM_STAND:
-			return( AP_LOOK_STANDING );
+			return( APBPConstants[AP_LOOK_STANDING] );
 			break;
 
 		case ANIM_CROUCH:
-			return( AP_LOOK_CROUCHED );
+			return( APBPConstants[AP_LOOK_CROUCHED] );
 			break;
 
 		case ANIM_PRONE:
-			// AP_PRONE is the AP cost to go to or from the prone stance.	To turn while prone, your merc has to get up to
-			// crouched, turn, and then go back down.	Hence you go up (AP_PRONE), turn (AP_LOOK_PRONE) and down (AP_PRONE).
-			return( AP_LOOK_PRONE + AP_PRONE + AP_PRONE );
+			// APBPConstants[AP_PRONE] is the AP cost to go to or from the prone stance.	To turn while prone, your merc has to get up to
+			// crouched, turn, and then go back down.	Hence you go up (APBPConstants[AP_PRONE]), turn (APBPConstants[AP_LOOK_PRONE]) and down (APBPConstants[AP_PRONE]).
+			return( APBPConstants[AP_LOOK_PRONE] + APBPConstants[AP_PRONE] + APBPConstants[AP_PRONE] );
 			break;
 
 		// no other values should be possible
@@ -2249,7 +2262,7 @@ INT16 GetAPsToReadyWeapon( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 	// ATE: What was I thinking, hooking into animations like this....
 	//if ( usAnimState == READY_DUAL_STAND || usAnimState == READY_DUAL_CROUCH )
 	//{
-		//return( AP_READY_DUAL );
+		//return( APBPConstants[AP_READY_DUAL] );
 	//}
 	if ( pSoldier->IsValidSecondHandShot( ) )
 	{
@@ -2258,7 +2271,7 @@ INT16 GetAPsToReadyWeapon( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 		rt1 = Weapon[usItem].ubReadyTime * ( 100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[ HANDPOS ]) ) / 100;
 		rt2 = Weapon[pSoldier->inv[SECONDHANDPOS].usItem].ubReadyTime * ( 100 - GetPercentReadyTimeAPReduction(&pSoldier->inv[ SECONDHANDPOS ]) ) / 100;
 
-		return( max(rt1,rt2) + AP_READY_DUAL );
+		return( max(rt1,rt2) + APBPConstants[AP_READY_DUAL] );
 	}
 
 
@@ -2288,17 +2301,17 @@ INT16 GetAPsToReadyWeapon( SOLDIERTYPE *pSoldier, UINT16 usAnimState )
 }
 
 
-INT8 GetAPsToClimbRoof( SOLDIERTYPE *pSoldier, BOOLEAN fClimbDown )
+INT16 GetAPsToClimbRoof( SOLDIERTYPE *pSoldier, BOOLEAN fClimbDown )
 {
 	if ( !fClimbDown )
 	{
 		// OK, add aps to goto stand stance...
-		return( (INT8)( AP_CLIMBROOF + GetAPsToChangeStance( pSoldier, ANIM_STAND ) ) );
+		return(( APBPConstants[AP_CLIMBROOF] + GetAPsToChangeStance( pSoldier, ANIM_STAND ) ) );
 	}
 	else
 	{
 		// Add aps to goto crouch
-		return( (INT8)( AP_CLIMBOFFROOF + GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) ) );
+		return(( APBPConstants[AP_CLIMBOFFROOF] + GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) ) );
 	}
 }
 
@@ -2307,50 +2320,53 @@ INT16 GetBPsToClimbRoof( SOLDIERTYPE *pSoldier, BOOLEAN fClimbDown )
 {
 	if ( !fClimbDown )
 	{
-		return( BP_CLIMBROOF );
+		return( APBPConstants[BP_CLIMBROOF] );
 	}
 	else
 	{
-		return( BP_CLIMBOFFROOF );
+		return( APBPConstants[BP_CLIMBOFFROOF] );
 	}
 }
 
 
-INT8 GetAPsToCutFence( SOLDIERTYPE *pSoldier )
+INT16 GetAPsToCutFence( SOLDIERTYPE *pSoldier )
 {
 	// OK, it's normally just cost, but add some if different stance...
-	return(	GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) + AP_USEWIRECUTTERS );
+	return(	GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) + APBPConstants[AP_USEWIRECUTTERS] );
 }
 
-INT8 GetAPsToBeginFirstAid( SOLDIERTYPE *pSoldier )
+INT16 GetAPsToBeginFirstAid( SOLDIERTYPE *pSoldier )
 {
 	// OK, it's normally just cost, but add some if different stance...
-	return(	GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) + AP_START_FIRST_AID );
+	return(	GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) + APBPConstants[AP_START_FIRST_AID] );
 }
 
-INT8 GetAPsToBeginRepair( SOLDIERTYPE *pSoldier )
+INT16 GetAPsToBeginRepair( SOLDIERTYPE *pSoldier )
 {
 	// OK, it's normally just cost, but add some if different stance...
-	return(	GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) + AP_START_REPAIR );
+	return(	GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) + APBPConstants[AP_START_REPAIR] );
 }
 
-INT8 GetAPsToRefuelVehicle( SOLDIERTYPE *pSoldier )
+INT16 GetAPsToRefuelVehicle( SOLDIERTYPE *pSoldier )
 {
 	// OK, it's normally just cost, but add some if different stance...
-	return( GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) + AP_REFUEL_VEHICLE );
+	return( GetAPsToChangeStance( pSoldier, ANIM_CROUCH ) + APBPConstants[AP_REFUEL_VEHICLE] );
 }
 
 
 #define TOSSES_PER_10TURNS		18		// max # of grenades tossable in 10 turns
-#define AP_MIN_AIM_ATTACK		0		// minimum permitted extra aiming
-#define AP_MAX_AIM_ATTACK		4		// maximum permitted extra aiming
+//COMMENTED OUT, AS THEY WERE
+//1. ALREADY DEFINED IN POINTS.H TO BEGIN WITH
+//2. EXTERNALIZED BY GOTTHARD 7/2/08
+//#define APBPConstants[AP_MIN_AIM_ATTACK]		0		// minimum permitted extra aiming
+//#define APBPConstants[AP_MAX_AIM_ATTACK]		4		// maximum permitted extra aiming
 
 
 INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCost )
 {
 	INT32 iTop, iBottom;
 	INT32	iFullAPs;
-	INT32 iAPCost = AP_MIN_AIM_ATTACK;
+	INT32 iAPCost = APBPConstants[AP_MIN_AIM_ATTACK];
 	UINT16 usInHand;
 	UINT16 usTargID;
 	UINT32 uiMercFlags;
@@ -2408,7 +2424,7 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCos
 	//AXP 25.03.2007: Aim-at-same-tile AP cost/bonus doesn't make any sense for thrown objects
 	//if ( ( sGridNo != pSoldier->sLastTarget ) )
 	//{
-	//	iAPCost += AP_CHANGE_TARGET;
+	//	iAPCost += APBPConstants[AP_CHANGE_TARGET];
 	//}
 
 	iAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
@@ -2448,12 +2464,17 @@ INT16 MinAPsToThrow( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTurningCos
 	return ( (INT16)iAPCost );
 }
 
-UINT16 GetAPsToDropBomb( SOLDIERTYPE *pSoldier )
+INT16 GetAPsToDropBomb( SOLDIERTYPE *pSoldier )
 {
-	return( AP_DROP_BOMB );
+	return( APBPConstants[AP_DROP_BOMB] );
 }
 
-UINT16 GetTotalAPsToDropBomb( SOLDIERTYPE *pSoldier, INT16 sGridNo )
+INT16 GetAPsToPlantMine( SOLDIERTYPE *pSoldier )
+{
+	return( APBPConstants[AP_BURY_MINE] );
+}
+
+INT16 GetTotalAPsToDropBomb( SOLDIERTYPE *pSoldier, INT16 sGridNo )
 {
 	INT16 sAPs = 0;
 
@@ -2461,7 +2482,10 @@ UINT16 GetTotalAPsToDropBomb( SOLDIERTYPE *pSoldier, INT16 sGridNo )
 
 	if ( sAPs > 0 )
 	{
-		sAPs += AP_DROP_BOMB;
+		if(Item[pSoldier->inv[HANDPOS].usItem].mine == 1)
+			sAPs += APBPConstants[AP_BURY_MINE];
+		else
+			sAPs += APBPConstants[AP_DROP_BOMB];
 	}
 
 	return( sAPs );
@@ -2469,15 +2493,15 @@ UINT16 GetTotalAPsToDropBomb( SOLDIERTYPE *pSoldier, INT16 sGridNo )
 
 
 
-UINT16 GetAPsToUseRemote( SOLDIERTYPE *pSoldier )
+INT16 GetAPsToUseRemote( SOLDIERTYPE *pSoldier )
 {
-	return( AP_USE_REMOTE );
+	return( APBPConstants[AP_USE_REMOTE] );
 }
 
 
-INT8 GetAPsToStealItem( SOLDIERTYPE *pSoldier, INT16 sMapPos )
+INT16 GetAPsToStealItem( SOLDIERTYPE *pSoldier, INT16 sMapPos )
 {
-	UINT16						sAPCost = 0;
+	INT16	sAPCost = 0;
 
 	if (sMapPos != -1)
 	{
@@ -2485,7 +2509,7 @@ INT8 GetAPsToStealItem( SOLDIERTYPE *pSoldier, INT16 sMapPos )
 	}
 
 	// ADD APS TO PICKUP
-	sAPCost += AP_STEAL_ITEM;
+	sAPCost += APBPConstants[AP_STEAL_ITEM];
 
 	// CJC August 13 2002: added cost to stand into equation
 	if (!(PTR_STANDING))
@@ -2493,19 +2517,19 @@ INT8 GetAPsToStealItem( SOLDIERTYPE *pSoldier, INT16 sMapPos )
 		sAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
 	}
 
-	return( (INT8)sAPCost );
+	return sAPCost;
 
 }
 
-INT8 GetBPsToStealItem( SOLDIERTYPE *pSoldier )
+INT16 GetBPsToStealItem( SOLDIERTYPE *pSoldier )
 {
-	return( BP_STEAL_ITEM );
+	return( APBPConstants[BP_STEAL_ITEM] );
 }
 
 
-INT8 GetAPsToUseJar( SOLDIERTYPE *pSoldier, INT16 sMapPos )
+INT16 GetAPsToUseJar( SOLDIERTYPE *pSoldier, INT16 sMapPos )
 {
-	UINT16						sAPCost = 0;
+	INT16						sAPCost = 0;
 
 	sAPCost = PlotPath( pSoldier, sMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
 
@@ -2513,16 +2537,16 @@ INT8 GetAPsToUseJar( SOLDIERTYPE *pSoldier, INT16 sMapPos )
 	if ( sAPCost != 0 )
 	{
 		// ADD APS TO PICKUP
-		sAPCost += AP_TAKE_BLOOD;
+		sAPCost += APBPConstants[AP_TAKE_BLOOD];
 	}
 
-	return( (INT8)sAPCost );
+	return sAPCost;
 
 }
 
-INT8 GetAPsToUseCan( SOLDIERTYPE *pSoldier, INT16 sMapPos )
+INT16 GetAPsToUseCan( SOLDIERTYPE *pSoldier, INT16 sMapPos )
 {
-	UINT16						sAPCost = 0;
+	INT16	sAPCost = 0;
 
 	sAPCost = PlotPath( pSoldier, sMapPos, NO_COPYROUTE, NO_PLOT, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
 
@@ -2530,15 +2554,15 @@ INT8 GetAPsToUseCan( SOLDIERTYPE *pSoldier, INT16 sMapPos )
 	if ( sAPCost != 0 )
 	{
 		// ADD APS TO PICKUP
-		sAPCost += AP_ATTACH_CAN;
+		sAPCost += APBPConstants[AP_ATTACH_CAN];
 	}
 
-	return( (INT8)sAPCost );
+	return sAPCost;
 
 }
 
 
-INT8 GetAPsToJumpOver( SOLDIERTYPE *pSoldier )
+INT16 GetAPsToJumpOver( SOLDIERTYPE *pSoldier )
 {
-	return(	GetAPsToChangeStance( pSoldier, ANIM_STAND ) + AP_JUMP_OVER );
+	return(	GetAPsToChangeStance( pSoldier, ANIM_STAND ) + APBPConstants[AP_JUMP_OVER] );
 }

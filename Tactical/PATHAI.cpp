@@ -119,7 +119,7 @@ struct path_s
 	TRAILCELLTYPE			usCostToGo;			//2
 	TRAILCELLTYPE			usTotalCost;					//2
 	INT8							bLevel;								//1
-	UINT8							ubTotalAPCost;				//1
+	INT16							ubTotalAPCost;				//1
 	UINT8							ubLegDistance;				//1
 };
 
@@ -401,7 +401,7 @@ static path_t * pClosedHead;
 #define BLUESTEPSTART			48
 #define ORANGESTEPSTART		64
 
-UINT8 gubNPCAPBudget = 0;
+INT16 gubNPCAPBudget = 0;
 UINT16 gusNPCMovementMode;
 UINT8 gubNPCDistLimit = 0;
 BOOLEAN gfNPCCircularDistLimit = FALSE;
@@ -1241,7 +1241,7 @@ INT16 AStarPathfinder::CalcStartingAP()
 	{
 		if ( movementMode == RUNNING && pSoldier->usAnimState != RUNNING )
 		{
-			startingAPCost = startingAPCost - AP_START_RUN_COST;
+			startingAPCost = startingAPCost - APBPConstants[AP_START_RUN_COST];
 		}
 	}
 	return startingAPCost;
@@ -1277,28 +1277,28 @@ INT16 AStarPathfinder::CalcAP(int const terrainCost, UINT8 const direction)
 		case TRAVELCOST_NONE:		movementAPCost = 0; break;
 
 		case TRAVELCOST_DIRTROAD:
-		case TRAVELCOST_FLAT:		movementAPCost = AP_MOVEMENT_FLAT; break;
+		case TRAVELCOST_FLAT:		movementAPCost = APBPConstants[AP_MOVEMENT_FLAT]; break;
 
 		//case TRAVELCOST_BUMPY:
-		case TRAVELCOST_GRASS:		movementAPCost = AP_MOVEMENT_GRASS; break;
+		case TRAVELCOST_GRASS:		movementAPCost = APBPConstants[AP_MOVEMENT_GRASS]; break;
 
-		case TRAVELCOST_THICK:		movementAPCost = AP_MOVEMENT_BUSH; break;
+		case TRAVELCOST_THICK:		movementAPCost = APBPConstants[AP_MOVEMENT_BUSH]; break;
 
-		case TRAVELCOST_DEBRIS:		movementAPCost = AP_MOVEMENT_RUBBLE; break;
+		case TRAVELCOST_DEBRIS:		movementAPCost = APBPConstants[AP_MOVEMENT_RUBBLE]; break;
 
-		case TRAVELCOST_SHORE:		movementAPCost = AP_MOVEMENT_SHORE; break; // wading shallow water
+		case TRAVELCOST_SHORE:		movementAPCost = APBPConstants[AP_MOVEMENT_SHORE]; break; // wading shallow water
 
-		case TRAVELCOST_KNEEDEEP:	movementAPCost = AP_MOVEMENT_LAKE; break; // wading waist/chest deep - very slow
+		case TRAVELCOST_KNEEDEEP:	movementAPCost = APBPConstants[AP_MOVEMENT_LAKE]; break; // wading waist/chest deep - very slow
 
 
-		case TRAVELCOST_DEEPWATER:	movementAPCost = AP_MOVEMENT_OCEAN; break; // can swim, so it's faster than wading
+		case TRAVELCOST_DEEPWATER:	movementAPCost = APBPConstants[AP_MOVEMENT_OCEAN]; break; // can swim, so it's faster than wading
 
 		//case TRAVELCOST_VEINEND:
-		//case TRAVELCOST_VEINMID:	movementAPCost = AP_MOVEMENT_FLAT; break;
+		//case TRAVELCOST_VEINMID:	movementAPCost = APBPConstants[AP_MOVEMENT_FLAT]; break;
 
-		//case TRAVELCOST_DOOR:		movementAPCost = AP_MOVEMENT_FLAT; break;
+		//case TRAVELCOST_DOOR:		movementAPCost = APBPConstants[AP_MOVEMENT_FLAT]; break;
 
-		case TRAVELCOST_FENCE:		movementAPCost = AP_JUMPFENCE; break;
+		case TRAVELCOST_FENCE:		movementAPCost = APBPConstants[AP_JUMPFENCE]; break;
 
 		case TRAVELCOST_OBSTACLE:
 		default:					return -1;	// Cost too much to be considered!
@@ -1348,12 +1348,12 @@ INT16 AStarPathfinder::CalcAP(int const terrainCost, UINT8 const direction)
 			case RUNNING:
 			case WALKING :
 				// Here pessimistically assume the path will continue after hopping the fence
-				movementAPCost += AP_CROUCH;
+				movementAPCost += APBPConstants[AP_CROUCH];
 				break;
 
 			case SWATTING:
 				// Add cost to stand once there BEFORE jumping....
-				movementAPCost += AP_CROUCH;
+				movementAPCost += APBPConstants[AP_CROUCH];
 				break;
 
 			case CRAWLING:
@@ -1368,7 +1368,7 @@ INT16 AStarPathfinder::CalcAP(int const terrainCost, UINT8 const direction)
 			case RUNNING:
 			case WALKING :
 				// charge crouch APs for ducking head!
-				movementAPCost += AP_CROUCH;
+				movementAPCost += APBPConstants[AP_CROUCH];
 				break;
 
 			default:
@@ -1379,7 +1379,7 @@ INT16 AStarPathfinder::CalcAP(int const terrainCost, UINT8 const direction)
 	{
 		// Uh, there IS a cost to close the door too!
 		// Then if the door has to be unlocked to open there's the cost of locking and unlocking.
-		movementAPCost += AP_OPEN_DOOR + AP_OPEN_DOOR;
+		movementAPCost += APBPConstants[AP_OPEN_DOOR] + APBPConstants[AP_OPEN_DOOR];
 		fGoingThroughDoor = FALSE;
 	}
 	return movementAPCost;
@@ -2353,8 +2353,8 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMo
 	INT16	sCurPathNdx;
 	INT32 prevCost;
 	INT32 iWaterToWater;
-	UINT8 ubCurAPCost,ubAPCost;
-	UINT8 ubNewAPCost=0;
+	INT16 ubCurAPCost,ubAPCost;
+	INT16 ubNewAPCost=0;
 	#ifdef VEHICLE
 		//BOOLEAN fTurnSlow = FALSE;
 		//BOOLEAN fReverse = FALSE; // stuff for vehicles turning
@@ -3256,34 +3256,34 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMo
 																		break;
 
 					case TRAVELCOST_DIRTROAD:
-					case TRAVELCOST_FLAT		: ubAPCost = AP_MOVEMENT_FLAT;
+					case TRAVELCOST_FLAT		: ubAPCost = APBPConstants[AP_MOVEMENT_FLAT];
 																		break;
 					//case TRAVELCOST_BUMPY	:
-					case TRAVELCOST_GRASS		: ubAPCost = AP_MOVEMENT_GRASS;
+					case TRAVELCOST_GRASS		: ubAPCost = APBPConstants[AP_MOVEMENT_GRASS];
 																		break;
-					case TRAVELCOST_THICK		:	ubAPCost = AP_MOVEMENT_BUSH;
+					case TRAVELCOST_THICK		:	ubAPCost = APBPConstants[AP_MOVEMENT_BUSH];
 																		break;
-					case TRAVELCOST_DEBRIS	: ubAPCost = AP_MOVEMENT_RUBBLE;
+					case TRAVELCOST_DEBRIS	: ubAPCost = APBPConstants[AP_MOVEMENT_RUBBLE];
 																		break;
-					case TRAVELCOST_SHORE		: ubAPCost = AP_MOVEMENT_SHORE; // wading shallow water
+					case TRAVELCOST_SHORE		: ubAPCost = APBPConstants[AP_MOVEMENT_SHORE]; // wading shallow water
 																		break;
-					case TRAVELCOST_KNEEDEEP:	ubAPCost = AP_MOVEMENT_LAKE; // wading waist/chest deep - very slow
+					case TRAVELCOST_KNEEDEEP:	ubAPCost = APBPConstants[AP_MOVEMENT_LAKE]; // wading waist/chest deep - very slow
 																		break;
 
-					case TRAVELCOST_DEEPWATER:ubAPCost = AP_MOVEMENT_OCEAN; // can swim, so it's faster than wading
+					case TRAVELCOST_DEEPWATER:ubAPCost = APBPConstants[AP_MOVEMENT_OCEAN]; // can swim, so it's faster than wading
 																		break;
 					//case TRAVELCOST_VEINEND	:
-					//case TRAVELCOST_VEINMID	: ubAPCost = AP_MOVEMENT_FLAT;
+					//case TRAVELCOST_VEINMID	: ubAPCost = APBPConstants[AP_MOVEMENT_FLAT];
 					//													break;
 
-					//case TRAVELCOST_DOOR		:	ubAPCost = AP_MOVEMENT_FLAT;
+					//case TRAVELCOST_DOOR		:	ubAPCost = APBPConstants[AP_MOVEMENT_FLAT];
 					//													break;
 
 					case TRAVELCOST_FENCE		: 
 						if((UsingNewInventorySystem() == true) && s->inv[BPACKPOCKPOS].exists() == true)
-							ubAPCost = AP_JUMPFENCEBPACK;
+							ubAPCost = APBPConstants[AP_JUMPFENCEBPACK];
 						else
-							ubAPCost = AP_JUMPFENCE;
+							ubAPCost = APBPConstants[AP_JUMPFENCE];
 			
 /*
 			if ( sSwitchValue == TRAVELCOST_FENCE )
@@ -3301,7 +3301,7 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMo
 						// Since it's AFTER.. make sure we will be moving after jump...
 						if ( ( iCnt + 2 ) < iLastGrid )
 						{
-							sPoints += AP_CROUCH;
+							sPoints += APBPConstants[AP_CROUCH];
 						}
 						break;
 
@@ -3387,13 +3387,13 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMo
 						case RUNNING:
 						case WALKING :
 							// Here pessimistically assume the path will continue after hopping the fence
-							ubAPCost += AP_CROUCH;
+							ubAPCost += APBPConstants[AP_CROUCH];
 							break;
 
 						case SWATTING:
 
 							// Add cost to stand once there BEFORE jumping....
-							ubAPCost += AP_CROUCH;
+							ubAPCost += APBPConstants[AP_CROUCH];
 							break;
 
 						case CRAWLING:
@@ -3409,7 +3409,7 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMo
 						case RUNNING:
 						case WALKING :
 							// charge crouch APs for ducking head!
-							ubAPCost += AP_CROUCH;
+							ubAPCost += APBPConstants[AP_CROUCH];
 							break;
 
 						default:
@@ -3418,7 +3418,7 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT16 sDestination, INT8 ubLevel, INT16 usMo
 				}
 				else if (fGoingThroughDoor)
 				{
-					ubAPCost += AP_OPEN_DOOR;
+					ubAPCost += APBPConstants[AP_OPEN_DOOR];
 					fGoingThroughDoor = FALSE;
 				}
 
@@ -4148,7 +4148,7 @@ INT16 PlotPath( SOLDIERTYPE *pSold, INT16 sDestGridno, INT8 bCopyRoute, INT8 bPl
 		if (pSold->usAnimState != RUNNING)
 		{
 			// for estimation purposes, always pay penalty
-			sPointsRun = AP_START_RUN_COST;
+			sPointsRun = APBPConstants[AP_START_RUN_COST];
 		}
 
 	 // Add to points, those needed to start from different stance!
@@ -4161,7 +4161,7 @@ INT16 PlotPath( SOLDIERTYPE *pSold, INT16 sDestGridno, INT8 bCopyRoute, INT8 bPl
 		{
 			if ( usMovementMode == RUNNING && pSold->usAnimState != RUNNING )
 			{
-				sPoints -= AP_START_RUN_COST;
+				sPoints -= APBPConstants[AP_START_RUN_COST];
 			}
 		}
 
@@ -4170,17 +4170,17 @@ INT16 PlotPath( SOLDIERTYPE *pSold, INT16 sDestGridno, INT8 bCopyRoute, INT8 bPl
 		switch(pSold->usAnimState)
 		{
 			//case START_AID	:
-			//case GIVING_AID	:	sAnimCost = AP_STOP_FIRST_AID;
+			//case GIVING_AID	:	sAnimCost = APBPConstants[AP_STOP_FIRST_AID];
 			//										break;
 			//case TWISTOMACH	:
-			//case COLLAPSED	:	sAnimCost = AP_GET_UP;
+			//case COLLAPSED	:	sAnimCost = APBPConstants[AP_GET_UP];
 			//										break;
 			//case TWISTBACK	:
-			//case UNCONSCIOUS :	sAnimCost = (AP_ROLL_OVER+AP_GET_UP);
+			//case UNCONSCIOUS :	sAnimCost = (APBPConstants[AP_ROLL_OVER]+APBPConstants[AP_GET_UP]);
 			//										break;
 
 			//	case CROUCHING	:	if (usMovementMode == WALKING || usMovementMode == RUNNING)
-			//													sAnimCost = AP_CROUCH;
+			//													sAnimCost = APBPConstants[AP_CROUCH];
 			//											break;
 			}
 */
@@ -4250,7 +4250,7 @@ INT16 PlotPath( SOLDIERTYPE *pSold, INT16 sDestGridno, INT8 bCopyRoute, INT8 bPl
 						// Since it's AFTER.. make sure we will be moving after jump...
 						if ( ( iCnt + 2 ) < iLastGrid )
 						{
-							sExtraCostStand += AP_CROUCH;
+							sExtraCostStand += APBPConstants[AP_CROUCH];
 
 				// ATE: if running, charge extra point to srart again
 				if ( usMovementModeToUseForAPs== RUNNING )
@@ -4265,7 +4265,7 @@ INT16 PlotPath( SOLDIERTYPE *pSold, INT16 sDestGridno, INT8 bCopyRoute, INT8 bPl
 					case SWATTING:
 
 						// Add cost to stand once there BEFORE....
-						sExtraCostSwat += AP_CROUCH;
+						sExtraCostSwat += APBPConstants[AP_CROUCH];
 						sPoints = sPoints + sExtraCostSwat;              
 						break;
 
@@ -4287,7 +4287,7 @@ INT16 PlotPath( SOLDIERTYPE *pSold, INT16 sDestGridno, INT8 bCopyRoute, INT8 bPl
 						case RUNNING:
 						case WALKING :
 							// charge crouch APs for ducking head!
-							sExtraCostStand += AP_CROUCH;
+							sExtraCostStand += APBPConstants[AP_CROUCH];
 							break;
 
 						default:

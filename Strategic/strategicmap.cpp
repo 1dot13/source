@@ -1196,11 +1196,11 @@ BOOLEAN ReadInStrategicMapSectorTownNames(STR fileName, BOOLEAN localizedVersion
 	XML_SetCharacterDataHandler(parser, citytableCharacterDataHandle);
 
 
-	memset(&pData,0,sizeof(pData));
-
 	// TODO: ROMAN
 	//pData.curCityInfo
 
+
+	memset(&pData,0,sizeof(pData));
 	NUM_TOWNS = 0;
 	XML_SetUserData(parser, &pData);
 
@@ -1778,7 +1778,9 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 				//CHRISL: We should only bother with this assertion if the soldier is alive.  Dead soliders are moved to
 				//	GridNo = NOWHERE, which causes this assertion to fail
 				if(!(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_DEAD))
+				{
 					Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || MercPtrs[i]->sGridNo != NOWHERE || MercPtrs[i]->bVehicleID == iHelicopterVehicleId );
+				}
 			}
 
 			if( gubNumCreaturesAttackingTown && !gbWorldSectorZ &&
@@ -1820,7 +1822,9 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 				//CHRISL: We should only bother with this assertion if the soldier is alive.  Dead soliders are moved to
 				//	GridNo = NOWHERE, which causes this assertion to fail
 				if(!(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_DEAD))
+				{
 					Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || MercPtrs[i]->sGridNo != NOWHERE || MercPtrs[i]->bVehicleID == iHelicopterVehicleId );
+				}
 			}
 
 			return( TRUE );

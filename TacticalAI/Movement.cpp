@@ -443,7 +443,7 @@ INT8 RandomPointPatrolAI(SOLDIERTYPE *pSoldier)
 
 
 
-INT16 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT16 sDesGrid, INT8 bReserveAPs, INT8 bAction, INT8 fFlags )
+INT16 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT16 sDesGrid, INT16 bReserveAPs, INT8 bAction, INT8 fFlags )
 {
 #ifdef DEBUGDECISIONS
  STR16 tempstr;
@@ -470,7 +470,7 @@ INT16 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT16 sDesGrid, IN
 		}
 		else
 		{
-			bReserveAPs = MAX_AP_CARRIED;
+			bReserveAPs = APBPConstants[MAX_AP_CARRIED];
 		}
 	}
 
@@ -703,15 +703,15 @@ INT16 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT16 sDesGrid, IN
 				// in theory, no NPC should ever be in one of these animations as
 				// things stand (they don't medic anyone), but leave it for robustness
 				case START_AID	:
-				case GIVING_AID	: sAnimCost = AP_STOP_FIRST_AID;
+				case GIVING_AID	: sAnimCost = APBPConstants[AP_STOP_FIRST_AID];
 					break;
 
 				case TWISTOMACH	:
-				case COLLAPSED	: sAnimCost = AP_GET_UP;
+				case COLLAPSED	: sAnimCost = APBPConstants[AP_GET_UP];
 					break;
 
 				case TWISTBACK	:
-				case UNCONSCIOUS : sAnimCost = (AP_ROLL_OVER + AP_GET_UP);
+				case UNCONSCIOUS : sAnimCost = (APBPConstants[AP_ROLL_OVER] + APBPConstants[AP_GET_UP]);
 					break;
 
 				default			: sAnimCost = 0;
@@ -723,7 +723,7 @@ INT16 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT16 sDesGrid, IN
 
 			if (pSoldier->usUIMovementMode == RUNNING)
 			{
-				sAPCost += AP_START_RUN_COST;
+				sAPCost += APBPConstants[AP_START_RUN_COST];
 			}
 			}
 

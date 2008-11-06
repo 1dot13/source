@@ -118,13 +118,13 @@ BOOLEAN gfReportHitChances = FALSE;
 #define ASRIFLE( ammo, update, impact, rt, rof, burstrof, burstpenal, deadl, acc, clip, range, av, hv, sd, bsd )	{ RIFLECLASS,		GUN_AS_RIFLE,	ammo,				rt,								rof, burstrof, burstpenal, update, (UINT8) (impact), deadl, acc, clip, range, 200, av, hv, sd, bsd, S_RELOAD_RIFLE, S_LNL_RIFLE }
 #define SHOTGUN( ammo, update, impact, rt, rof, burstrof, burstpenal, deadl, acc, clip, range, av, hv, sd, bsd )	{ SHOTGUNCLASS,	GUN_SHOTGUN,	ammo,				rt,								rof, burstrof, burstpenal, update, (UINT8) (impact), deadl, acc, clip, range, 200, av, hv, sd, bsd, S_RELOAD_SHOTGUN, S_LNL_SHOTGUN }
 #define LMG( ammo, update, impact, rt, rof, burstrof, burstpenal, deadl, acc, clip, range, av, hv, sd, bsd )			{ MGCLASS,			GUN_LMG,			ammo,				rt,								rof, burstrof, burstpenal, update, (UINT8) (impact), deadl, acc, clip, range, 200, av, hv, sd, bsd, S_RELOAD_LMG, S_LNL_LMG }
-#define BLADE( impact, rof, deadl, range, av, sd )																																{ KNIFECLASS,		NOT_GUN,			0,					AP_READY_KNIFE,		rof, 0,				 0,					 0,			 (UINT8) (impact), deadl, 0,	 0,		 range, 200, av, 0,  sd, NO_WEAPON_SOUND, NO_WEAPON_SOUND, NO_WEAPON_SOUND }
-#define THROWINGBLADE( impact, rof, deadl, range, av, sd )																												{ KNIFECLASS,		NOT_GUN,			0,					AP_READY_KNIFE,		rof, 0,				 0,					 0,			 (UINT8) (impact), deadl, 0,	 0,		 range, 200, av, 0,  sd, NO_WEAPON_SOUND, NO_WEAPON_SOUND, NO_WEAPON_SOUND }
+#define BLADE( impact, rof, deadl, range, av, sd )																																{ KNIFECLASS,		NOT_GUN,			0,					APBPConstants[AP_READY_KNIFE],		rof, 0,				 0,					 0,			 (UINT8) (impact), deadl, 0,	 0,		 range, 200, av, 0,  sd, NO_WEAPON_SOUND, NO_WEAPON_SOUND, NO_WEAPON_SOUND }
+#define THROWINGBLADE( impact, rof, deadl, range, av, sd )																												{ KNIFECLASS,		NOT_GUN,			0,					APBPConstants[AP_READY_KNIFE],		rof, 0,				 0,					 0,			 (UINT8) (impact), deadl, 0,	 0,		 range, 200, av, 0,  sd, NO_WEAPON_SOUND, NO_WEAPON_SOUND, NO_WEAPON_SOUND }
 #define PUNCHWEAPON( impact, rof, deadl, av, sd )																																	{ KNIFECLASS,		NOT_GUN,			0,					0,								rof, 0,				 0,					 0,			 (UINT8) (impact), deadl, 0,	 0,		 10,		200, av, 0,  sd, NO_WEAPON_SOUND, NO_WEAPON_SOUND, NO_WEAPON_SOUND }
 #define LAUNCHER( update, rt, rof, deadl, acc, range, av, hv, sd)																									{ RIFLECLASS,		NOT_GUN,			NOAMMO,			rt,								rof, 0,				 0,					 update, 1,								 deadl, acc, 0,		 range, 200, av, hv, sd, NO_WEAPON_SOUND, NO_WEAPON_SOUND, NO_WEAPON_SOUND }
 #define LAW( update, rt, rof, deadl, acc, range, av, hv, sd)																											{ RIFLECLASS,		NOT_GUN,			NOAMMO,			rt,								rof, 0,				 0,					 update, 80,							 deadl, acc, 1,		 range, 200, av, hv, sd, NO_WEAPON_SOUND, NO_WEAPON_SOUND, NO_WEAPON_SOUND }
 #define CANNON( update, rt, rof, deadl, acc, range, av, hv, sd)																										{ RIFLECLASS,		NOT_GUN,			NOAMMO,			rt,								rof, 0,				 0,					 update, 80,							 deadl, acc, 1,		 range, 200, av, hv, sd, NO_WEAPON_SOUND, NO_WEAPON_SOUND, NO_WEAPON_SOUND }
-#define MONSTSPIT( impact, rof, deadl, clip, range, av, hv, sd)																										{ MONSTERCLASS, NOT_GUN,			AMMOMONST,	AP_READY_KNIFE,		rof, 0,				 0,					 250,		 (UINT8) (impact), deadl, 0,	 clip, range, 200, av, hv, sd, NO_WEAPON_SOUND, NO_WEAPON_SOUND, NO_WEAPON_SOUND }
+#define MONSTSPIT( impact, rof, deadl, clip, range, av, hv, sd)																										{ MONSTERCLASS, NOT_GUN,			AMMOMONST,	APBPConstants[AP_READY_KNIFE],		rof, 0,				 0,					 250,		 (UINT8) (impact), deadl, 0,	 clip, range, 200, av, hv, sd, NO_WEAPON_SOUND, NO_WEAPON_SOUND, NO_WEAPON_SOUND }
 
 // ranges are in world units, calculated by:
 // 100 + real-range-in-metres/10
@@ -347,7 +347,6 @@ struct
 }
 typedef weaponParseData;
 
-
 static void XMLCALL
 weaponStartElementHandle(void *userData, const XML_Char *name, const XML_Char **atts)
 {
@@ -489,11 +488,12 @@ weaponEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
 			pData->curWeapon.ubReadyTime = (UINT8) atol(pData->szCharData);
+			pData->curWeapon.ubReadyTime = (UINT8)DynamicAdjustAPConstants(pData->curWeapon.ubReadyTime, pData->curWeapon.ubReadyTime);
 		}
 		else if(strcmp(name, "ubShotsPer4Turns") == 0)
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
-			pData->curWeapon.ubShotsPer4Turns = (UINT8) atol(pData->szCharData);
+			pData->curWeapon.ubShotsPer4Turns = (FLOAT) atof(pData->szCharData);
 		}
 		else if(strcmp(name, "ubShotsPerBurst") == 0)
 		{
@@ -579,6 +579,7 @@ weaponEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
 			pData->curWeapon.bBurstAP = (UINT8) atol(pData->szCharData);
+			pData->curWeapon.bBurstAP = (UINT8)DynamicAdjustAPConstants(pData->curWeapon.bBurstAP, pData->curWeapon.bBurstAP);
 		}
 		else if(strcmp(name, "bAutofireShotsPerFiveAP") == 0)
 		{
@@ -589,6 +590,7 @@ weaponEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
 			pData->curWeapon.APsToReload = (UINT8) atol(pData->szCharData);
+			pData->curWeapon.APsToReload = (UINT8)DynamicAdjustAPConstants(pData->curWeapon.APsToReload, pData->curWeapon.APsToReload);
 		}
 		else if(strcmp(name, "SilencedSound") == 0)
 		{
@@ -626,6 +628,7 @@ weaponEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = WEAPON_ELEMENT_WEAPON;
             pData->curWeapon.APsToReloadManually = (UINT8) atol(pData->szCharData);
+			pData->curWeapon.APsToReloadManually = (UINT8)DynamicAdjustAPConstants(pData->curWeapon.APsToReloadManually, pData->curWeapon.APsToReloadManually);
 		}
    		else if(strcmp(name, "ManualReloadSound") == 0)
 		{
@@ -1230,25 +1233,31 @@ BOOLEAN CheckForGunJam( SOLDIERTYPE * pSoldier )
 			else if ((*pObj)[0]->data.gun.bGunAmmoStatus < 0) 
 			{ 
 			// try to unjam gun 
-				int iResult = SkillCheck( pSoldier, UNJAM_GUN_CHECK, (INT8) ((Item[pObj->usItem].bReliability + Item[(*pObj)[0]->data.gun.usGunAmmoItem].bReliability)* 4) ); 
-				if (iResult > 0) 
-				{ 
-					// yay! unjammed the gun 
-					(*pObj)[0]->data.gun.bGunAmmoStatus *= -1; 
-				 
-					// MECHANICAL/DEXTERITY GAIN: Unjammed a gun 
-					StatChange( pSoldier, MECHANAMT, 5, FALSE ); 
-					StatChange( pSoldier, DEXTAMT, 5, FALSE ); 
-				 
-					DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 ); 
-				 
-					// We unjammed gun, return appropriate value! 
-					return( 255 ); 
-				} 
-				else 
-				{ 
-					return( TRUE ); 
-				} 
+				if(EnoughPoints(pSoldier, APBPConstants[AP_UNJAM], APBPConstants[BP_UNJAM], FALSE))
+				{
+					DeductPoints(pSoldier, APBPConstants[AP_UNJAM], APBPConstants[BP_UNJAM]);
+					int iResult = SkillCheck( pSoldier, UNJAM_GUN_CHECK, (INT8) ((Item[pObj->usItem].bReliability + Item[(*pObj)[0]->data.gun.usGunAmmoItem].bReliability)* 4) ); 
+					if (iResult > 0) 
+					{ 
+						// yay! unjammed the gun 
+						(*pObj)[0]->data.gun.bGunAmmoStatus *= -1; 
+					 
+						// MECHANICAL/DEXTERITY GAIN: Unjammed a gun 
+						StatChange( pSoldier, MECHANAMT, 5, FALSE ); 
+						StatChange( pSoldier, DEXTAMT, 5, FALSE ); 
+					 
+						DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 ); 
+					 
+						// We unjammed gun, return appropriate value! 
+						return( 255 ); 
+					} 
+					else 
+					{ 
+						return( TRUE ); 
+					} 
+				}
+				else
+					return( TRUE );
 			} 
 		} 
 	} 
@@ -2667,7 +2676,7 @@ BOOLEAN UseThrown( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo )
 	//	costs are deducted. Final throw cost is deducted on creating the grenade object
 	if ( (UINT8)GetDirectionFromGridNo( sTargetGridNo, pSoldier ) != pSoldier->ubDirection )
 			sAPCost += (INT16)GetAPsToLook( pSoldier );
-	sAPCost += (INT16)GetAPsToChangeStance( pSoldier, ANIM_STAND );
+	sAPCost += GetAPsToChangeStance( pSoldier, ANIM_STAND );
 
 	HandleSoldierThrowItem( pSoldier, pSoldier->sTargetGridNo );
 	DeductPoints( pSoldier, sAPCost, 0 );
@@ -3518,7 +3527,7 @@ BOOLEAN InRange( SOLDIERTYPE *pSoldier, INT16 sGridNo )
 	 return( FALSE );
 }
 
-UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAimTime, UINT8 ubAimPos )
+UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime, UINT8 ubAimPos )
 {
   //SOLDIERTYPE *vicpSoldier;
 	SOLDIERTYPE * pTarget;
@@ -4249,7 +4258,7 @@ UINT32 CalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAimTime,
   return (iChance);
 }
 
-UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAimTime, UINT8 ubAimPos )
+UINT32 AICalcChanceToHitGun(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime, UINT8 ubAimPos )
 {
 	UINT16	usTrueState;
 	UINT32	uiChance;
@@ -4981,7 +4990,7 @@ void ShotMiss( UINT8 ubAttackerID, INT32 iBullet )
 	// FreeUpAttacker( ubAttackerID );
 }
 
-UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, UINT8 ubAimTime, UINT8 ubMode )
+UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAimTime, UINT8 ubMode )
 {
   UINT16 usInHand;
 	UINT8 ubBandaged;
@@ -5311,17 +5320,17 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, UINT8 ubAi
   return (iChance);
 }
 
-UINT32 CalcChanceToStab(SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, UINT8 ubAimTime)
+UINT32 CalcChanceToStab(SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAimTime)
 {
 	return( CalcChanceHTH( pAttacker, pDefender, ubAimTime, HTH_MODE_STAB ) );
 }
 
-UINT32 CalcChanceToPunch(SOLDIERTYPE *pAttacker, SOLDIERTYPE * pDefender, UINT8 ubAimTime)
+UINT32 CalcChanceToPunch(SOLDIERTYPE *pAttacker, SOLDIERTYPE * pDefender, INT16 ubAimTime)
 {
 	return( CalcChanceHTH( pAttacker, pDefender, ubAimTime, HTH_MODE_PUNCH ) );
 }
 
-UINT32 CalcChanceToSteal(SOLDIERTYPE *pAttacker, SOLDIERTYPE * pDefender, UINT8 ubAimTime)
+UINT32 CalcChanceToSteal(SOLDIERTYPE *pAttacker, SOLDIERTYPE * pDefender, INT16 ubAimTime)
 {
 	return( CalcChanceHTH( pAttacker, pDefender, ubAimTime, HTH_MODE_STEAL ) );
 }
@@ -5572,7 +5581,7 @@ INT32 CalcMaxTossRange( SOLDIERTYPE * pSoldier, UINT16 usItem, BOOLEAN fArmed )
 }
 
 
-UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAimTime, UINT8 ubAimPos )
+UINT32 CalcThrownChanceToHit(SOLDIERTYPE *pSoldier, INT16 sGridNo, INT16 ubAimTime, UINT8 ubAimPos )
 {
 	INT32 iChance, iMaxRange, iRange;
 	UINT16	usHandItem;
@@ -5991,6 +6000,9 @@ INT8 GetAPsToReload( OBJECTTYPE *pObj )
 		( 100 - GetPercentReloadTimeAPReduction(pObj) ) ) / 100;
 
 }
+
+
+
 
 
 

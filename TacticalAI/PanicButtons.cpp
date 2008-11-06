@@ -220,7 +220,7 @@ void PossiblyMakeThisEnemyChosenOne( SOLDIERTYPE * pSoldier )
 	pSoldier->flags.bHasKeys = (pSoldier->flags.bHasKeys << 1) | 1;
 
 	// if he can't get to a spot where he could get at the panic trigger
-	iAPCost = AP_PULL_TRIGGER;
+	iAPCost = APBPConstants[AP_PULL_TRIGGER];
 	if (pSoldier->sGridNo != sPanicTriggerGridNo)
 	{
 		iPathCost = PlotPath( pSoldier, sPanicTriggerGridNo, FALSE, FALSE, FALSE, RUNNING, FALSE, FALSE, 0);
@@ -269,7 +269,7 @@ INT8 PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove)
 			//////////////////////////////////////////////////////////////////////
 
 			// if we have enough APs to activate it now
-			if (pSoldier->bActionPoints >= AP_USE_REMOTE)
+			if (pSoldier->bActionPoints >= APBPConstants[AP_USE_REMOTE])
 			{
 #ifdef TESTVERSION
 				sprintf(tempstr,"TEST MSG: %s - ACTIVATING his DETONATOR!",pSoldier->name);
@@ -344,7 +344,7 @@ INT8 PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove)
 					////////////////////////////////////////////////////////////////
 
 					// and we have enough APs left to pull the trigger
-					if (pSoldier->bActionPoints >= AP_PULL_TRIGGER)
+					if (pSoldier->bActionPoints >= APBPConstants[AP_PULL_TRIGGER])
 					{
 						// blow up the all the PANIC bombs (or just the journal)
 						pSoldier->aiData.usActionData = sPanicTriggerGridNo;

@@ -1842,9 +1842,9 @@ void SetUpArmorForVehicle( UINT8 ubID )
 	return;
 }
 
-void AdjustVehicleAPs( SOLDIERTYPE *pSoldier, UINT8 *pubPoints )
+void AdjustVehicleAPs( SOLDIERTYPE *pSoldier, INT16 *pubPoints )
 {
-	UINT8 pubDeducations = 0;
+	INT16 pubDeducations = 0;
 	INT32 iCounter = 0;
 
 	(*pubPoints) += 35;
@@ -2530,6 +2530,7 @@ BOOLEAN DoesVehicleGroupHaveAnyPassengers( GROUP *pGroup )
 
 	return DoesVehicleHaveAnyPassengers( iVehicleID );
 }
+
 
 
 

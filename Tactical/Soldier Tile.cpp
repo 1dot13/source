@@ -813,8 +813,8 @@ void SwapMercPositions( SOLDIERTYPE *pSoldier1, SOLDIERTYPE *pSoldier2 )
 BOOLEAN CanExchangePlaces( SOLDIERTYPE *pSoldier1, SOLDIERTYPE *pSoldier2, BOOLEAN fShow )
 {
 	// NB checks outside of this function
-	if ( EnoughPoints( pSoldier1, AP_EXCHANGE_PLACES, 0, fShow ) ){
-	if ( EnoughPoints( pSoldier2, AP_EXCHANGE_PLACES, 0, fShow ) ){
+	if ( EnoughPoints( pSoldier1, APBPConstants[AP_EXCHANGE_PLACES], 0, fShow ) ){
+	if ( EnoughPoints( pSoldier2, APBPConstants[AP_EXCHANGE_PLACES], 0, fShow ) ){
 		if ( ( gAnimControl[ pSoldier2->usAnimState ].uiFlags & ANIM_MOVING ) )
 			return( FALSE );
 

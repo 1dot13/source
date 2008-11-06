@@ -1815,7 +1815,7 @@ void HandleAutoFaces( )
 	FACETYPE				*pFace;
 	INT8	bLife;
 	INT8	bInSector;
-	INT8	bAPs;
+	INT16	bAPs;
 	BOOLEAN	fRerender = FALSE;
 	BOOLEAN	fHandleFace;
 	BOOLEAN	fHandleUIHatch;

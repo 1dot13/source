@@ -6,6 +6,7 @@
 	#include "weapons.h"
 	#include "Debug Control.h"
 	#include "expat.h"
+	#include "gamesettings.h"
 	#include "XML.h"
 #endif
 
@@ -114,6 +115,7 @@ attachmentEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curAttachment[2] = (UINT16) atol(pData->szCharData);
+			pData->curAttachment[2] = (UINT16)DynamicAdjustAPConstants(pData->curAttachment[2], pData->curAttachment[2]);
 		}
 
 		pData->maxReadDepth--;

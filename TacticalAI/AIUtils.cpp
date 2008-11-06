@@ -145,15 +145,15 @@ BOOLEAN ConsiderProne( SOLDIERTYPE * pSoldier )
 	}
 }
 
-UINT8 StanceChange( SOLDIERTYPE * pSoldier, UINT8 ubAttackAPCost )
+UINT8 StanceChange( SOLDIERTYPE * pSoldier, INT16 ubAttackAPCost )
 {
 	// consider crouching or going prone
 
 	if (PTR_STANDING)
 	{
-		if (pSoldier->bActionPoints - ubAttackAPCost >= AP_CROUCH)
+		if (pSoldier->bActionPoints - ubAttackAPCost >= APBPConstants[AP_CROUCH])
 		{
-			if ( (pSoldier->bActionPoints - ubAttackAPCost >= AP_CROUCH + AP_PRONE) && IsValidStance( pSoldier, ANIM_PRONE ) && ConsiderProne( pSoldier ) )
+			if ( (pSoldier->bActionPoints - ubAttackAPCost >= APBPConstants[AP_CROUCH] + APBPConstants[AP_PRONE]) && IsValidStance( pSoldier, ANIM_PRONE ) && ConsiderProne( pSoldier ) )
 			{
 				return( ANIM_PRONE );
 			}
@@ -165,7 +165,7 @@ UINT8 StanceChange( SOLDIERTYPE * pSoldier, UINT8 ubAttackAPCost )
 	}
 	else if (PTR_CROUCHED)
 	{
-		if ( (pSoldier->bActionPoints - ubAttackAPCost >= AP_PRONE) && IsValidStance( pSoldier, ANIM_PRONE ) && ConsiderProne( pSoldier ) )
+		if ( (pSoldier->bActionPoints - ubAttackAPCost >= APBPConstants[AP_PRONE]) && IsValidStance( pSoldier, ANIM_PRONE ) && ConsiderProne( pSoldier ) )
 		{
 			return( ANIM_PRONE );
 		}
@@ -192,7 +192,7 @@ UINT8 ShootingStanceChange( SOLDIERTYPE * pSoldier, ATTACKTYPE * pAttack, INT8 b
 	uiCurrChanceOfDamage = 0;
 
 	bAPsAfterAttack = pSoldier->bActionPoints - MinAPsToAttack( pSoldier, pAttack->sTarget, ADDTURNCOST, 1);
-	if (bAPsAfterAttack < AP_CROUCH)
+	if (bAPsAfterAttack < APBPConstants[AP_CROUCH])
 	{
 		return( 0 );
 	}
@@ -220,7 +220,7 @@ UINT8 ShootingStanceChange( SOLDIERTYPE * pSoldier, ATTACKTYPE * pAttack, INT8 b
 	for (bLoop = 0; bLoop < 3; bLoop++)
 	{
 		bStanceDiff = abs( bLoop - bStanceNum );
-		if (bStanceDiff == 2 && bAPsAfterAttack < AP_CROUCH + AP_PRONE)
+		if (bStanceDiff == 2 && bAPsAfterAttack < APBPConstants[AP_CROUCH] + APBPConstants[AP_PRONE])
 		{
 			// can't consider this!
 			continue;
@@ -450,7 +450,7 @@ void NewDest(SOLDIERTYPE *pSoldier, UINT16 usGridNo)
 
 BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 {
-	INT8	bMinPointsNeeded = 0;
+	INT16	bMinPointsNeeded = 0;
 	INT8 bAPForStandUp = 0;
 	INT8 bAPToLookAtWall = ( FindDirectionForClimbing( pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel ) == pSoldier->ubDirection ) ? 0 : 1;
 
@@ -487,7 +487,7 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 			break;
 
 		case AI_ACTION_PICKUP_ITEM:           // grab things lying on the ground
-			bMinPointsNeeded = __max( MinPtsToMove( pSoldier ), AP_PICKUP_ITEM );
+			bMinPointsNeeded = __max( MinPtsToMove( pSoldier ), APBPConstants[AP_PICKUP_ITEM] );
 			break;
 
 		case AI_ACTION_OPEN_OR_CLOSE_DOOR:
@@ -497,7 +497,7 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 			break;
 
 		case AI_ACTION_DROP_ITEM:
-			bMinPointsNeeded = AP_PICKUP_ITEM;
+			bMinPointsNeeded = APBPConstants[AP_PICKUP_ITEM];
 			break;
 
 		case AI_ACTION_FIRE_GUN:              // shoot at nearby opponent
@@ -520,21 +520,21 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 			break;
 
 		case AI_ACTION_PULL_TRIGGER:          // activate an adjacent panic trigger
-			bMinPointsNeeded = AP_PULL_TRIGGER;
+			bMinPointsNeeded = APBPConstants[AP_PULL_TRIGGER];
 			break;
 
 		case AI_ACTION_USE_DETONATOR:         // grab detonator and set off bomb(s)
-			bMinPointsNeeded = AP_USE_REMOTE;
+			bMinPointsNeeded = APBPConstants[AP_USE_REMOTE];
 			break;
 
 		case AI_ACTION_YELLOW_ALERT:          // tell friends opponent(s) heard
 		case AI_ACTION_RED_ALERT:             // tell friends opponent(s) seen
 		case AI_ACTION_CREATURE_CALL:				 // for now
-			bMinPointsNeeded = AP_RADIO;
+			bMinPointsNeeded = APBPConstants[AP_RADIO];
 			break;
 
 		case AI_ACTION_CHANGE_STANCE:                // crouch
-			bMinPointsNeeded = AP_CROUCH;
+			bMinPointsNeeded = APBPConstants[AP_CROUCH];
 			break;
 
 		case AI_ACTION_GIVE_AID:              // help injured/dying friend
@@ -546,12 +546,12 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier)
 			{
 				if( PTR_CROUCHED ) bAPForStandUp = 2;
 				if( PTR_PRONE ) bAPForStandUp = 4;
-				bMinPointsNeeded = AP_CLIMBROOF + bAPForStandUp + bAPToLookAtWall;
+				bMinPointsNeeded = APBPConstants[AP_CLIMBROOF] + bAPForStandUp + bAPToLookAtWall;
 			}
 			else
 			{
 				if( !PTR_CROUCHED ) bAPForStandUp = 2;
-				bMinPointsNeeded = AP_CLIMBOFFROOF + bAPForStandUp + bAPToLookAtWall;
+				bMinPointsNeeded = APBPConstants[AP_CLIMBOFFROOF] + bAPForStandUp + bAPToLookAtWall;
 			}
 			break;
 
@@ -1457,15 +1457,15 @@ INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT16 sDestGridNo, INT
 					if (fAddCostAfterClimbingUp)
 					{
 						// add in cost of later climbing up, too
-						sPathCost += AP_CLIMBOFFROOF + AP_CLIMBROOF;
+						sPathCost += APBPConstants[AP_CLIMBOFFROOF] + APBPConstants[AP_CLIMBROOF];
 						// add in an estimate of getting there after climbing down
-						sPathCost += (AP_MOVEMENT_FLAT + WALKCOST) * PythSpacesAway( sClimbGridNo, sDestGridNo );
+						sPathCost += (APBPConstants[AP_MOVEMENT_FLAT] + WALKCOST) * PythSpacesAway( sClimbGridNo, sDestGridNo );
 					}
 					else
 					{
-						sPathCost += AP_CLIMBOFFROOF;
+						sPathCost += APBPConstants[AP_CLIMBOFFROOF];
 						// add in an estimate of getting there after climbing down, *but not on top of roof*
-						sPathCost += (AP_MOVEMENT_FLAT + WALKCOST) * PythSpacesAway( sClimbGridNo, sDestGridNo ) / 2;
+						sPathCost += (APBPConstants[AP_MOVEMENT_FLAT] + WALKCOST) * PythSpacesAway( sClimbGridNo, sDestGridNo ) / 2;
 					}
 					*pfClimbingNecessary = TRUE;
 					*psClimbGridNo = sClimbGridNo;
@@ -1500,21 +1500,21 @@ INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT16 sDestGridNo, INT
 				if (pSoldier->pathing.bLevel == 0)
 				{
 					// must climb up
-					sPathCost += AP_CLIMBROOF;
+					sPathCost += APBPConstants[AP_CLIMBROOF];
 					if (fAddCostAfterClimbingUp)
 					{
 						// add to path a rough estimate of how far to go from the climb gridno to the friend
 						// estimate walk cost
-						sPathCost += (AP_MOVEMENT_FLAT + WALKCOST) * PythSpacesAway( sClimbGridNo, sDestGridNo );
+						sPathCost += (APBPConstants[AP_MOVEMENT_FLAT] + WALKCOST) * PythSpacesAway( sClimbGridNo, sDestGridNo );
 					}
 				}
 				else
 				{
 					// must climb down
-					sPathCost += AP_CLIMBOFFROOF;
+					sPathCost += APBPConstants[AP_CLIMBOFFROOF];
 					// add to path a rough estimate of how far to go from the climb gridno to the friend
 					// estimate walk cost
-					sPathCost += (AP_MOVEMENT_FLAT + WALKCOST) * PythSpacesAway( sClimbGridNo, sDestGridNo );
+					sPathCost += (APBPConstants[AP_MOVEMENT_FLAT] + WALKCOST) * PythSpacesAway( sClimbGridNo, sDestGridNo );
 				}
 				*pfClimbingNecessary = TRUE;
 				*psClimbGridNo = sClimbGridNo;

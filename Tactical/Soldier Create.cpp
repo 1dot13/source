@@ -640,7 +640,6 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			Soldier.iFaceIndex = InitSoldierFace( &Soldier );
 		}
 
-
 		Soldier.bActionPoints					= Soldier.CalcActionPoints(	);
 		Soldier.bInitialActionPoints	= Soldier.bActionPoints;
 		Soldier.bSide									= gTacticalStatus.Team[ Soldier.bTeam ].bSide;

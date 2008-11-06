@@ -67,7 +67,7 @@ INT16 FindGridNoFromSweetSpot( SOLDIERTYPE *pSoldier, INT16 sSweetGridNo, INT8 u
 	INT32					leftmost;
 	BOOLEAN	fFound = FALSE;
 	SOLDIERTYPE soldier;
-	UINT8 ubSaveNPCAPBudget;
+	INT16 ubSaveNPCAPBudget;
 	UINT8 ubSaveNPCDistLimit;
 
 	//Save AI pathing vars.	changing the distlimit restricts how
@@ -168,7 +168,7 @@ INT16 FindGridNoFromSweetSpotThroughPeople( SOLDIERTYPE *pSoldier, INT16 sSweetG
 	INT32					leftmost;
 	BOOLEAN	fFound = FALSE;
 	SOLDIERTYPE soldier;
-	UINT8 ubSaveNPCAPBudget;
+	INT16 ubSaveNPCAPBudget;
 	UINT8 ubSaveNPCDistLimit;
 
 	//Save AI pathing vars.	changing the distlimit restricts how
@@ -267,7 +267,7 @@ INT16 FindGridNoFromSweetSpotWithStructData( SOLDIERTYPE *pSoldier, UINT16 usAni
 	INT32					leftmost;
 	BOOLEAN	fFound = FALSE;
 	SOLDIERTYPE soldier;
-	UINT8 ubSaveNPCAPBudget;
+	INT16 ubSaveNPCAPBudget;
 	UINT8 ubSaveNPCDistLimit;
 	UINT8	ubBestDirection=0;
 
@@ -429,7 +429,7 @@ INT16 FindGridNoFromSweetSpotWithStructDataUsingGivenDirectionFirst( SOLDIERTYPE
 	INT32					leftmost;
 	BOOLEAN	fFound = FALSE;
 	SOLDIERTYPE soldier;
-	UINT8 ubSaveNPCAPBudget;
+	INT16 ubSaveNPCAPBudget;
 	UINT8 ubSaveNPCDistLimit;
 	UINT8	ubBestDirection=0;
 
@@ -602,7 +602,7 @@ INT16 FindGridNoFromSweetSpotWithStructDataFromSoldier( SOLDIERTYPE *pSoldier, U
 	INT16		sLowestGridNo=-1;
 	INT32					leftmost;
 	BOOLEAN	fFound = FALSE;
-	UINT8 ubSaveNPCAPBudget;
+	INT16 ubSaveNPCAPBudget;
 	UINT8 ubSaveNPCDistLimit;
 	UINT8	ubBestDirection=0;
 	INT16 sSweetGridNo;
@@ -933,7 +933,7 @@ INT16 FindRandomGridNoFromSweetSpot( SOLDIERTYPE *pSoldier, INT16 sSweetGridNo, 
 	BOOLEAN	fFound = FALSE;
 	UINT32		cnt = 0;
 	SOLDIERTYPE soldier;
-	UINT8 ubSaveNPCAPBudget;
+	INT16 ubSaveNPCAPBudget;
 	UINT8 ubSaveNPCDistLimit;
 	INT16	sTop, sBottom;
 	INT16	sLeft, sRight;
@@ -1733,5 +1733,6 @@ INT16 GetSoldierIDFromMercID(UINT8 ubMercID)
 
 	return( -1 );
 }
+
 
 

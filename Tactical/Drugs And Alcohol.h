@@ -21,7 +21,7 @@ UINT8 GetDrugType( UINT16 usItem );
 BOOLEAN ApplyDrugs( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObject );
 
 void HandleEndTurnDrugAdjustments( SOLDIERTYPE *pSoldier );
-void HandleAPEffectDueToDrugs( SOLDIERTYPE *pSoldier, UINT8 *pubPoints );
+void HandleAPEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT16 *pubPoints );
 void HandleBPEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT16 *psPoints );
 
 

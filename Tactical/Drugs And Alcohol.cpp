@@ -342,7 +342,7 @@ INT8 GetDrugSideEffect( SOLDIERTYPE *pSoldier, UINT8 ubDrugType )
 	}
 }
 
-void HandleAPEffectDueToDrugs( SOLDIERTYPE *pSoldier, UINT8 *pubPoints )
+void HandleAPEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT16 *pubPoints )
 {
 	INT8	bDrunkLevel;
 	INT16	sPoints = (*pubPoints);
@@ -358,9 +358,9 @@ void HandleAPEffectDueToDrugs( SOLDIERTYPE *pSoldier, UINT8 *pubPoints )
 		// Adjust!
 		sPoints -= pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_ADRENALINE ];
 
-		if ( sPoints < AP_MINIMUM )
+		if ( sPoints < APBPConstants[APBPConstants[APBPConstants[AP_MINIMUM]]] )
 		{
-			sPoints = AP_MINIMUM;
+			sPoints = APBPConstants[APBPConstants[APBPConstants[AP_MINIMUM]]];
 		}
 	}
 
@@ -371,13 +371,13 @@ void HandleAPEffectDueToDrugs( SOLDIERTYPE *pSoldier, UINT8 *pubPoints )
 		// Reduce....
 		sPoints -= HANGOVER_AP_REDUCE;
 
-		if ( sPoints < AP_MINIMUM )
+		if ( sPoints < APBPConstants[APBPConstants[APBPConstants[AP_MINIMUM]]] )
 		{
-			sPoints = AP_MINIMUM;
+			sPoints = APBPConstants[APBPConstants[APBPConstants[AP_MINIMUM]]];
 		}
 	}
 
-	(*pubPoints) = (UINT8)sPoints;
+	(*pubPoints) = sPoints;
 }
 
 
@@ -389,12 +389,12 @@ void HandleBPEffectDueToDrugs( SOLDIERTYPE *pSoldier, INT16 *psPointReduction )
 	if ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_ADRENALINE ] )
 	{
 		// Adjust!
-		(*psPointReduction) -= ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_ADRENALINE ] * BP_RATIO_RED_PTS_TO_NORMAL );
+		(*psPointReduction) -= ( pSoldier->drugs.bDrugEffect[ DRUG_TYPE_ADRENALINE ] * APBPConstants[BP_RATIO_RED_PTS_TO_NORMAL] );
 	}
 	else if ( pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_ADRENALINE ] )
 	{
 		// Adjust!
-		(*psPointReduction) += ( pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_ADRENALINE ] * BP_RATIO_RED_PTS_TO_NORMAL );
+		(*psPointReduction) += ( pSoldier->drugs.bDrugSideEffect[ DRUG_TYPE_ADRENALINE ] * APBPConstants[BP_RATIO_RED_PTS_TO_NORMAL] );
 	}
 
 	bDrunkLevel = GetDrunkLevel( pSoldier );

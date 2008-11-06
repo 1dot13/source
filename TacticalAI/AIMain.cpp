@@ -54,6 +54,7 @@
 #include "Campaign Types.h"
 #include "Queen Command.h"
 #include "cheats.h"
+#include "points.h"
 #endif
 
 #include "connect.h"
@@ -1643,7 +1644,7 @@ void TurnBasedHandleNPCAI(SOLDIERTYPE *pSoldier)
 	{
 	// if he lacks the breath, or APs to get up this turn (life checked above)
 	// OR... (new June 13/96 Ian) he's getting first aid...
-	if ((pSoldier->bBreath < OKBREATH) || (pSoldier->bActionPoints < (AP_GET_UP + AP_ROLL_OVER))
+	if ((pSoldier->bBreath < OKBREATH) || (pSoldier->bActionPoints < (APBPConstants[AP_GET_UP] + APBPConstants[AP_ROLL_OVER]))
 	|| pSoldier->service)
 	{
 	#ifdef RECORDNET
@@ -2458,7 +2459,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 		pSoldier->EVENT_InitNewSoldierAnim( AI_PULL_SWITCH, 0 , FALSE );
 
-		DeductPoints( pSoldier, AP_PULL_TRIGGER, 0 );
+		DeductPoints( pSoldier, APBPConstants[AP_PULL_TRIGGER], 0 );
 
 		//gTacticalStatus.fPanicFlags					= 0; // turn all flags off
 		gTacticalStatus.ubTheChosenOne			= NOBODY;
@@ -2470,7 +2471,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		//gTacticalStatus.sPanicTriggerGridno	= NOWHERE;
 
 		// grab detonator and set off bomb(s)
-		DeductPoints( pSoldier, AP_USE_REMOTE, BP_USE_DETONATOR);// pay for it!
+		DeductPoints( pSoldier, APBPConstants[AP_USE_REMOTE], APBPConstants[BP_USE_DETONATOR]);// pay for it!
 		//SetOffPanicBombs(1000,COMMUNICATE);    // BOOOOOOOOOOOOOOOOOOOOM!!!!!
 		SetOffPanicBombs( pSoldier->ubID, 0 );
 
@@ -2498,7 +2499,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 		SendNetData(ALL_NODES);
 		*/
-		DeductPoints(pSoldier,AP_RADIO,BP_RADIO);// pay for it!
+		DeductPoints(pSoldier,APBPConstants[AP_RADIO],APBPConstants[BP_RADIO]);// pay for it!
 		RadioSightings(pSoldier,EVERYBODY,pSoldier->bTeam);      // about everybody
 		// action completed immediately, cancel it right away
 
@@ -2508,7 +2509,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 		break;
 
 	case AI_ACTION_CREATURE_CALL:									// creature calling to others
-		DeductPoints(pSoldier,AP_RADIO,BP_RADIO);// pay for it!
+		DeductPoints(pSoldier,APBPConstants[AP_RADIO],APBPConstants[BP_RADIO]);// pay for it!
 		CreatureCall( pSoldier );
 		//return( FALSE ); // no longer in progress
 		break;

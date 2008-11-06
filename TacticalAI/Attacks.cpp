@@ -122,10 +122,12 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 	INT32 iThreatValue;
 	INT32 iHitRate,iBestHitRate,iPercentBetter;
 	INT32 iEstDamage;
-	UINT8 ubRawAPCost,ubMinAPcost,ubMaxPossibleAimTime,ubAimTime,ubBestAimTime;
-	UINT8 ubChanceToHit,ubChanceToGetThrough,ubChanceToReallyHit,ubBestChanceToHit = 0;
+	UINT8 ubMaxPossibleAimTime;
+	INT16 ubAimTime,ubMinAPcost,ubRawAPCost;
+	UINT8 ubChanceToReallyHit = 0;
+	INT16 ubChanceToHit,ubBestAimTime,ubChanceToGetThrough,ubBestChanceToHit;
 	SOLDIERTYPE *pOpponent;
-	UINT8 ubBurstAPs;
+	INT16 ubBurstAPs;
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CalcBestShot");
 
@@ -243,7 +245,7 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		{
 			// raw AP cost calculation included cost of changing target!
 			// Not unless we really needed to change targets!
-			//ubRawAPCost -= AP_CHANGE_TARGET;
+			//ubRawAPCost -= APBPConstants[AP_CHANGE_TARGET];
 		}
 
 		iBestHitRate = 0;					 // reset best hit rate to minimum
@@ -272,13 +274,13 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		// consider the various aiming times
 		if ( !Weapon[pSoldier->usAttackingWeapon].NoSemiAuto )
 		{
-			for (ubAimTime = AP_MIN_AIM_ATTACK; ubAimTime <= ubMaxPossibleAimTime; ubAimTime++)
+			for (ubAimTime = APBPConstants[AP_MIN_AIM_ATTACK]; ubAimTime <= ubMaxPossibleAimTime; ubAimTime++)
 			{
 				//HandleMyMouseCursor(KEYBOARDALSO);
 
 				//NumMessage("ubAimTime = ",ubAimTime);
 
-				ubChanceToHit = (UINT8) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,ubAimTime, AIM_SHOT_TORSO);
+				ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,ubAimTime, AIM_SHOT_TORSO);
 				// ExtMen[pOpponent->ubID].haveStats = TRUE;
 				//NumMessage("chance to Hit = ",ubChanceToHit);
 
@@ -299,8 +301,8 @@ void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN shootUns
 		}
 		else
 		{
-			ubAimTime = AP_MIN_AIM_ATTACK;
-			ubChanceToHit = (UINT8) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,ubAimTime, AIM_SHOT_TORSO);
+			ubAimTime = APBPConstants[AP_MIN_AIM_ATTACK];
+			ubChanceToHit = (INT16) AICalcChanceToHitGun(pSoldier,pOpponent->sGridNo,ubAimTime, AIM_SHOT_TORSO);
 			Assert( ubRawAPCost > 0);
 			iHitRate = (pSoldier->bActionPoints * ubChanceToHit) / (ubRawAPCost + ubAimTime);
 
@@ -461,7 +463,8 @@ void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 	INT8	bFriendLevel[MAXMERCS], bOpponentLevel[MAXMERCS];
 	INT32 iEstDamage;
 	UINT8 ubFriendCnt = 0,ubOpponentCnt = 0, ubOpponentID[MAXMERCS];
-	UINT8 ubRawAPCost,ubMinAPcost,ubMaxPossibleAimTime;
+	UINT8 ubMaxPossibleAimTime;
+	INT16 ubRawAPCost,ubMinAPcost;
 	UINT8 ubChanceToHit,ubChanceToGetThrough,ubChanceToReallyHit;
 	UINT32 uiPenalty;
 	UINT8 ubSearchRange;
@@ -1174,11 +1177,12 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 	INT32 iAttackValue;
 	INT32 iThreatValue,iHitRate,iBestHitRate,iPercentBetter, iEstDamage;
 	BOOLEAN fSurpriseStab;
-	UINT8 ubRawAPCost,ubMinAPCost,ubMaxPossibleAimTime,ubAimTime,ubBestAimTime = 0;
-	UINT8 ubChanceToHit,ubChanceToReallyHit,ubBestChanceToHit = 0;
+	INT16 ubRawAPCost,ubMinAPCost,ubMaxPossibleAimTime = 0;
+	INT16 ubChanceToReallyHit = 0;
+	INT16 ubAimTime,ubChanceToHit,ubBestAimTime;
 	SOLDIERTYPE *pOpponent;
 	UINT16 usTrueMovementMode;
-
+	INT16 ubBestChanceToHit;
 	InitAttackType(pBestStab);		// set all structure fields to defaults
 
 	pSoldier->usAttackingWeapon = pSoldier->inv[HANDPOS].usItem;
@@ -1248,8 +1252,8 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 		//KeepInterfaceGoing();
 
 		// calc next attack's minimum stabbing cost (excludes movement & turning)
-		//ubRawAPCost = MinAPsToShootOrStab(pSoldier,pOpponent->sGridNo, FALSE) - AP_CHANGE_TARGET;
-		ubRawAPCost = MinAPsToAttack(pSoldier,pOpponent->sGridNo, FALSE) - AP_CHANGE_TARGET;
+		//ubRawAPCost = MinAPsToShootOrStab(pSoldier,pOpponent->sGridNo, FALSE) - APBPConstants[AP_CHANGE_TARGET];
+		ubRawAPCost = MinAPsToAttack(pSoldier,pOpponent->sGridNo, FALSE) - APBPConstants[AP_CHANGE_TARGET];
 		//NumMessage("ubRawAPCost to stab this opponent = ",ubRawAPCost);
 
 
@@ -1274,7 +1278,7 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 		//NumMessage("Max Possible Aim Time = ",ubMaxPossibleAimTime);
 
 		// consider the various aiming times
-		for (ubAimTime = AP_MIN_AIM_ATTACK; ubAimTime <= ubMaxPossibleAimTime; ubAimTime++)
+		for (ubAimTime = APBPConstants[AP_MIN_AIM_ATTACK]; ubAimTime <= ubMaxPossibleAimTime; ubAimTime++)
 		{
 			//HandleMyMouseCursor(KEYBOARDALSO);
 
@@ -1284,11 +1288,11 @@ void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAt
 			{
 				if (fBladeAttack)
 				{
-					ubChanceToHit = (UINT8) CalcChanceToStab(pSoldier,pOpponent,ubAimTime);
+					ubChanceToHit = (INT16) CalcChanceToStab(pSoldier,pOpponent,ubAimTime);
 				}
 				else
 				{
-					ubChanceToHit = (UINT8) CalcChanceToPunch(pSoldier,pOpponent,ubAimTime);
+					ubChanceToHit = (INT16) CalcChanceToPunch(pSoldier,pOpponent,ubAimTime);
 				}
 			}
 			else
@@ -1387,8 +1391,9 @@ void CalcTentacleAttack(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab )
 	INT32 iAttackValue;
 	INT32 iThreatValue,iHitRate,iBestHitRate, iEstDamage;
 	BOOLEAN fSurpriseStab;
-	UINT8 ubRawAPCost,ubMinAPCost,ubMaxPossibleAimTime,ubAimTime,ubBestAimTime = 0;
-	UINT8 ubChanceToHit,ubChanceToReallyHit,ubBestChanceToHit = 0;
+	UINT8 ubMaxPossibleAimTime = 0;
+	INT16 ubBestChanceToHit,ubAimTime,ubMinAPCost,ubChanceToHit,ubBestAimTime,ubRawAPCost;
+	INT16 ubChanceToReallyHit = 0;
 	SOLDIERTYPE *pOpponent;
 
 
@@ -1435,8 +1440,8 @@ void CalcTentacleAttack(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab )
 
 
 		// calc next attack's minimum stabbing cost (excludes movement & turning)
-		//ubRawAPCost = MinAPsToShootOrStab(pSoldier,pOpponent->sGridNo, FALSE) - AP_CHANGE_TARGET;
-		ubRawAPCost = MinAPsToAttack(pSoldier,pOpponent->sGridNo, FALSE) - AP_CHANGE_TARGET;
+		//ubRawAPCost = MinAPsToShootOrStab(pSoldier,pOpponent->sGridNo, FALSE) - APBPConstants[AP_CHANGE_TARGET];
+		ubRawAPCost = MinAPsToAttack(pSoldier,pOpponent->sGridNo, FALSE) - APBPConstants[AP_CHANGE_TARGET];
 		//NumMessage("ubRawAPCost to stab this opponent = ",ubRawAPCost);
 
 		// determine if this is a surprise stab (for tentacles, enemy must not see us, no dist limit)
@@ -1457,7 +1462,7 @@ void CalcTentacleAttack(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab )
 		//NumMessage("Max Possible Aim Time = ",ubMaxPossibleAimTime);
 
 		// consider the various aiming times
-		for (ubAimTime = AP_MIN_AIM_ATTACK; ubAimTime <= ubMaxPossibleAimTime; ubAimTime++)
+		for (ubAimTime = APBPConstants[AP_MIN_AIM_ATTACK]; ubAimTime <= ubMaxPossibleAimTime; ubAimTime++)
 		{
 			//HandleMyMouseCursor(KEYBOARDALSO);
 
@@ -1465,7 +1470,7 @@ void CalcTentacleAttack(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab )
 
 			if (!fSurpriseStab)
 			{
-				ubChanceToHit = (UINT8) CalcChanceToStab(pSoldier,pOpponent,ubAimTime);
+				ubChanceToHit = (INT16) CalcChanceToStab(pSoldier,pOpponent,ubAimTime);
 			}
 			else
 				ubChanceToHit = MAXCHANCETOHIT;
@@ -1557,7 +1562,7 @@ UINT8 NumMercsCloseTo( INT16 sGridNo, UINT8 ubMaxDist )
 	return( bNumber );
 }
 
-INT32 EstimateShotDamage(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ubChanceToHit)
+INT32 EstimateShotDamage(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT16 ubChanceToHit)
 {
 	INT32 iRange,iMaxRange,iPowerLost;
 	INT32 iDamage;
@@ -1811,7 +1816,7 @@ INT32 EstimateThrowDamage( SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *
 }
 
 INT32 EstimateStabDamage( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,
-						UINT8 ubChanceToHit, BOOLEAN fBladeAttack )
+						INT16 ubChanceToHit, BOOLEAN fBladeAttack )
 {
 	INT32 iImpact, iFluke, iBonus;
 
@@ -2030,7 +2035,7 @@ INT8 CanNPCAttack(SOLDIERTYPE *pSoldier)
 void CheckIfTossPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow)
 {
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CheckIfTossPossible");
-	UINT8 ubMinAPcost;
+	INT16 ubMinAPcost;
 
 	pSoldier->bWeaponMode = WM_NORMAL;
 
@@ -2412,7 +2417,7 @@ INT16 AdvanceToFiringRange( SOLDIERTYPE * pSoldier, INT16 sClosestOpponent )
 {
 	// see how far we can go down a path and still shoot
 
-	INT8		bAttackCost, bTrueActionPoints;
+	INT16		bAttackCost, bTrueActionPoints;
 	UINT16	usActionData;
 
 	bAttackCost = MinAPsToAttack(pSoldier, sClosestOpponent, ADDTURNCOST);
@@ -2429,7 +2434,7 @@ INT16 AdvanceToFiringRange( SOLDIERTYPE * pSoldier, INT16 sClosestOpponent )
 	pSoldier->bActionPoints -= bAttackCost;
 
 	usActionData = GoAsFarAsPossibleTowards( pSoldier, sClosestOpponent, AI_ACTION_SEEK_OPPONENT );
-
+	//POSSIBLE STRUCTURE PROBLEM HERE.  GOTTHARD 7/15/08
 	pSoldier->bActionPoints = bTrueActionPoints;
 
 	return( usActionData );
@@ -2441,7 +2446,7 @@ INT16 AdvanceToFiringRange( SOLDIERTYPE * pSoldier, INT16 sClosestOpponent )
 void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN suppressionFire)
 {
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CheckIfShotPossible");
-	UINT8 ubMinAPcost;
+	INT16 ubMinAPcost;
 	pBestShot->ubPossible = FALSE;
 	pBestShot->bWeaponIn = NO_SLOT;
 

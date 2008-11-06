@@ -2932,7 +2932,7 @@ BOOLEAN SelectedMercCanAffordAttack( )
 					sTargetGridNo	= sMapPos;
 				}
 
-				sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, TRUE, (INT8)(pSoldier->aiData.bShownAimTime ) );
+				sAPCost = CalcTotalAPsToAttack( pSoldier, sTargetGridNo, TRUE, (INT16)(pSoldier->aiData.bShownAimTime ) );
 
 				if ( EnoughPoints( pSoldier, sAPCost, 0, TRUE ) )
 				{
@@ -3861,7 +3861,7 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT16 sMapPos, UINT32 uiFlags )
 			sActionGridNo =	FindAdjacentGridEx( pSoldier, sIntTileGridNo, &ubDirection, NULL, FALSE, TRUE );
 			if ( sActionGridNo != -1 )
 			{
-				sAPCost = AP_ATTACH_CAN;
+				sAPCost = APBPConstants[AP_ATTACH_CAN];
 				sAPCost += UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
 
 				if ( sActionGridNo != pSoldier->sGridNo )
@@ -4026,7 +4026,7 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT16 sMapPos, UINT32 uiFlags )
 			{
 				sActionGridNo = sAdjustedGridNo;
 			}
-			sAPCost += AP_STEAL_ITEM;
+			sAPCost += APBPConstants[AP_STEAL_ITEM];
 			// CJC August 13 2002: take into account stance in AP prediction
 			if (!(PTR_STANDING))
 			{
@@ -4043,7 +4043,10 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT16 sMapPos, UINT32 uiFlags )
 	}
 	else if ( uiFlags == MOVEUI_TARGET_BOMB )
 	{
-		sAPCost += GetAPsToDropBomb( pSoldier );
+		if(Item[pSoldier->inv[HANDPOS].usItem].mine == 1)
+			sAPCost += GetAPsToPlantMine( pSoldier );
+		else
+			sAPCost += GetAPsToDropBomb( pSoldier );
 		sAPCost += UIPlotPath( pSoldier, sMapPos, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
 
 		gfUIHandleShowMoveGrid = TRUE;
@@ -4087,12 +4090,12 @@ INT8 DrawUIMovementPath( SOLDIERTYPE *pSoldier, INT16 sMapPos, UINT32 uiFlags )
 					sAPCost += UIPlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, fPlot, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
 					if ( sAPCost != 0 )
 					{
-						sAPCost += AP_PICKUP_ITEM;
+						sAPCost += APBPConstants[AP_PICKUP_ITEM];
 					}
 				}
 				else
 				{
-					sAPCost += AP_PICKUP_ITEM;
+					sAPCost += APBPConstants[AP_PICKUP_ITEM];
 				}
 
 				if ( sActionGridNo != pSoldier->sGridNo )
@@ -4139,13 +4142,13 @@ INT16 APsToTurnAround(SOLDIERTYPE *pSoldier, INT16 sAdjustedGridNo)
 			switch( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
 			{
 			case ANIM_STAND:
-				sAPCost += AP_LOOK_STANDING;
+				sAPCost += APBPConstants[AP_LOOK_STANDING];
 				break;
 			case ANIM_CROUCH:
-				sAPCost += AP_LOOK_CROUCHED;
+				sAPCost += APBPConstants[AP_LOOK_CROUCHED];
 				break;
 			case ANIM_PRONE:
-				sAPCost += AP_LOOK_PRONE;
+				sAPCost += APBPConstants[AP_LOOK_PRONE];
 				break;
 			}
 		}
@@ -4367,43 +4370,43 @@ BOOLEAN SoldierCanAffordNewStance( SOLDIERTYPE *pSoldier, UINT8 ubDesiredStance 
 		if((UsingNewInventorySystem() == true))
 			if(pSoldier->inv[BPACKPOCKPOS].exists() == true && !pSoldier->flags.ZipperFlag)
 				bAP = bBP = 1;
-		bAP += AP_CROUCH;
-		bBP += BP_CROUCH;
+		bAP += APBPConstants[AP_CROUCH];
+		bBP += APBPConstants[BP_CROUCH];
 		break;
 	case ANIM_CROUCH - ANIM_STAND:
 		if((UsingNewInventorySystem() == true))
 			if(pSoldier->inv[BPACKPOCKPOS].exists() == true && !pSoldier->flags.ZipperFlag)
 				bAP = bBP = 2;
-		bAP += AP_CROUCH;
-		bBP += BP_CROUCH;
+		bAP += APBPConstants[AP_CROUCH];
+		bBP += APBPConstants[BP_CROUCH];
 		break;
 	case ANIM_STAND - ANIM_PRONE:
 		if((UsingNewInventorySystem() == true))
 			if(pSoldier->inv[BPACKPOCKPOS].exists() == true && !pSoldier->flags.ZipperFlag)
 				bAP = bBP = 2;
-		bAP += AP_CROUCH + AP_PRONE;
-		bBP += BP_CROUCH + BP_PRONE;
+		bAP += APBPConstants[AP_CROUCH] + APBPConstants[AP_PRONE];
+		bBP += APBPConstants[BP_CROUCH] + APBPConstants[BP_PRONE];
 		break;
 	case ANIM_PRONE - ANIM_STAND:
 		if((UsingNewInventorySystem() == true))
 			if(pSoldier->inv[BPACKPOCKPOS].exists() == true && !pSoldier->flags.ZipperFlag)
 				bAP = bBP = 4;
-		bAP += AP_CROUCH + AP_PRONE;
-		bBP += BP_CROUCH + BP_PRONE;
+		bAP += APBPConstants[AP_CROUCH] + APBPConstants[AP_PRONE];
+		bBP += APBPConstants[BP_CROUCH] + APBPConstants[BP_PRONE];
 		break;
 	case ANIM_CROUCH - ANIM_PRONE:
 		if((UsingNewInventorySystem() == true))
 			if(pSoldier->inv[BPACKPOCKPOS].exists() == true && !pSoldier->flags.ZipperFlag)
 				bAP = bBP = 1;
-		bAP += AP_PRONE;
-		bBP += BP_PRONE;
+		bAP += APBPConstants[AP_PRONE];
+		bBP += APBPConstants[BP_PRONE];
 		break;
 	case ANIM_PRONE - ANIM_CROUCH:
 		if((UsingNewInventorySystem() == true))
 			if(pSoldier->inv[BPACKPOCKPOS].exists() == true && !pSoldier->flags.ZipperFlag)
 				bAP = bBP = 2;
-		bAP += AP_PRONE;
-		bBP += BP_PRONE;
+		bAP += APBPConstants[AP_PRONE];
+		bBP += APBPConstants[BP_PRONE];
 		break;
 
 	}
@@ -4626,9 +4629,12 @@ UINT32 UIHandleLCOnTerrain( UI_EVENT *pUIEvent )
 
 		gsCurrentActionPoints = 0;
 
+		//CHRISL: Why are we doing this?  If we ready a weapon, we spend the AP_CHANGE_TARGET APs, but then if we actually shoot
+		//	at someone in our current firing arc, we'll again pay the AP_CHANGE_TARGET cost because it's considered a new tartget.
+		//	Should be simply pay the ready weapon cost and only pay the AP_CHANGE_TARGET when we actually aim at a target?
 		// Lesh: raise weapon include APs to set weapon towards enemy and APs to aquire/change target
-		if( pSoldier->sLastTarget != sXPos + (MAXCOL * sYPos ) )
-			gsCurrentActionPoints = AP_CHANGE_TARGET;
+		//if( pSoldier->sLastTarget != sXPos + (MAXCOL * sYPos ) )
+		//	gsCurrentActionPoints = APBPConstants[AP_CHANGE_TARGET];
 
 		if( usAnimState != INVALID_ANIMATION )
 		{
@@ -4715,9 +4721,13 @@ BOOLEAN MakeSoldierTurn( SOLDIERTYPE *pSoldier, INT16 sXPos, INT16 sYPos )
 
 		sAPCostToReady = sAPCost = 0;
 
+		//CHRISL: We should only charge AP_CHANGE_TARGET if we're actually pointing at a new target.  Don't charge just
+		//	to ready a weapon since we'll charge AP_CHANGE_TARGET when we actually fire.
+		SOLDIERTYPE * pTarget = SimpleFindSoldier( sXPos + (MAXCOL * sYPos ), pSoldier->bTargetLevel );
+
 		// Lesh: raise weapon include APs to set weapon towards enemy and APs to aquire/change target
-		if( pSoldier->sLastTarget != sXPos + (MAXCOL * sYPos ) )
-			sAPCost = AP_CHANGE_TARGET;
+		if( pSoldier->sLastTarget != sXPos + (MAXCOL * sYPos ) && pTarget != NULL )
+			sAPCost = APBPConstants[AP_CHANGE_TARGET];
 
 		if( usAnimState != INVALID_ANIMATION )
 		{
@@ -5793,7 +5803,7 @@ BOOLEAN HandleTalkInit(	)
 					gfNPCCircularDistLimit = FALSE;
 
 					// First calculate APs and validate...
-					sAPCost = AP_TALK;
+					sAPCost = APBPConstants[AP_TALK];
 					//sAPCost += UIPlotPath( pSoldier, sGoodGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints );
 
 					// Check AP cost...
@@ -5815,7 +5825,7 @@ BOOLEAN HandleTalkInit(	)
 			}
 			else
 			{
-				sAPCost = AP_TALK;
+				sAPCost = APBPConstants[AP_TALK];
 
 				// Check AP cost...
 				if ( !EnoughPoints( pSoldier, sAPCost, 0, TRUE ) )

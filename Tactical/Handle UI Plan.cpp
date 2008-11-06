@@ -67,7 +67,7 @@ BOOLEAN AddUIPlan( INT16 sGridNo, UINT8 ubPlanID )
 		// Adjust for running if we are not already running
 		if (	gpUIPlannedSoldier->usUIMovementMode == RUNNING )
 		{
-			sAPCost += AP_START_RUN_COST;
+			sAPCost += APBPConstants[AP_START_RUN_COST];
 		}
 
 		if ( EnoughPoints( gpUIPlannedSoldier, sAPCost, 0, FALSE ) )
@@ -142,7 +142,7 @@ BOOLEAN AddUIPlan( INT16 sGridNo, UINT8 ubPlanID )
 	}
 	else if ( ubPlanID == UIPLAN_ACTION_FIRE )
 	{
- 	sAPCost = CalcTotalAPsToAttack( gpUIPlannedSoldier, sGridNo, TRUE, (INT8)(gpUIPlannedSoldier->aiData.bShownAimTime ) );
+ 	sAPCost = CalcTotalAPsToAttack( gpUIPlannedSoldier, sGridNo, TRUE, (INT16)(gpUIPlannedSoldier->aiData.bShownAimTime ) );
 
 		// Get XY from Gridno
 		ConvertGridNoToCenterCellXY( sGridNo, &sXPos, &sYPos );

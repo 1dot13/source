@@ -565,7 +565,7 @@ extern void UpdateItemHatches();
 extern SOLDIERTYPE *FindNextActiveSquad( SOLDIERTYPE *pSoldier );
 
 // Wraps up check for AP-s get from a different soldier for in a vehicle...
-INT8 GetUIApsToDisplay( SOLDIERTYPE *pSoldier )
+INT16 GetUIApsToDisplay( SOLDIERTYPE *pSoldier )
 {
 	SOLDIERTYPE *pVehicle;
 
@@ -3505,11 +3505,11 @@ void SMInvClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 BOOLEAN  ChangeZipperStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus)
 {
 	INT16	sAPCost;
-	INT32	iBPCost = 0;
+	INT32	iBPCost = APBPConstants[BP_WORK_ZIPPER];
 	INT8	bNewStance;
 
 	//Set AP cost based on what we're doing
-	sAPCost = (newStatus) ? 7 : 6;
+	sAPCost = (newStatus) ? APBPConstants[AP_CLOSE_ZIPPER] : APBPConstants[AP_OPEN_ZIPPER];
 	//Are we currently in combat?
 	if(gTacticalStatus.uiFlags & INCOMBAT)
 	{
@@ -3550,8 +3550,8 @@ BOOLEAN  ChangeZipperStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus)
 // CHRISL: Function to adjust droppack packpack button status
 BOOLEAN ChangeDropPackStatus(SOLDIERTYPE *pSoldier, BOOLEAN newStatus)
 {
-	INT16	sAPCost = 3;
-	INT32	iBPCost = 0;
+	INT16	sAPCost = APBPConstants[AP_BACK_PACK];
+	INT32	iBPCost = APBPConstants[BP_BACK_PACK];
 	INT32	worldKey=1, iRange=0;
 
 	// Are we dropping a pack that has the zipper open?

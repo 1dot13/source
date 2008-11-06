@@ -1083,7 +1083,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT16 usHa
 			if ( sActionGridNo != -1 )
 			{
 				// Calculate AP costs...
-				sAPCost = AP_ATTACH_CAN;
+				sAPCost = APBPConstants[AP_ATTACH_CAN];
 				sAPCost += PlotPath( pSoldier, sActionGridNo, NO_COPYROUTE, FALSE, TEMPORARY, (UINT16)pSoldier->usUIMovementMode, NOT_STEALTH, FORWARD, pSoldier->bActionPoints);
 
 				if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
@@ -1134,7 +1134,7 @@ INT32 HandleItem( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel, UINT16 usHa
 	// Check for remote detonator cursor....
 	if ( Item[ usHandItem ].ubCursor == REMOTECURS )
 	{
-		sAPCost = AP_USE_REMOTE;
+		sAPCost = APBPConstants[AP_USE_REMOTE];
 
 		if ( EnoughPoints( pSoldier, sAPCost, 0, fFromUI ) )
 		{
@@ -1984,7 +1984,24 @@ void HandleSoldierPickupItem( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT16 sGr
 				gfDisarmingBuriedBomb = TRUE;
 				gbTrapDifficulty = gWorldItems[ iItemIndex ].object[0]->data.bTrap;
 
-				DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ DISARM_TRAP_PROMPT ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, BoobyTrapMessageBoxCallBack, NULL );
+				wchar_t * ptr;
+				if((gTacticalStatus.uiFlags & INCOMBAT) || (gTacticalStatus.fEnemyInSector))
+				{
+					wchar_t * string = L" (";
+					wchar_t string2[20];
+
+					ptr = wcscat(TacticalStr[ DISARM_TRAP_PROMPT ], string);
+					_ltow(APBPConstants[AP_DISARM_MINE], string2, 10);
+					ptr = wcscat(TacticalStr[ DISARM_TRAP_PROMPT ], string2);
+					string = L"AP)";
+					ptr = wcscat(TacticalStr[ DISARM_TRAP_PROMPT ], string);
+				}
+				else
+				{
+					ptr = wcscat(TacticalStr[ DISARM_TRAP_PROMPT ], L"");
+				}
+
+				DoMessageBox( MSG_BOX_BASIC_STYLE, ptr, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, BoobyTrapMessageBoxCallBack, NULL );
 			}
 			else
 			{
@@ -3962,7 +3979,7 @@ void SoldierGiveItemFromAnimation( SOLDIERTYPE *pSoldier )
 	ubTargetMercID = (UINT8)pSoldier->aiData.uiPendingActionData4;
 
 	// ATE: Deduct APs!
-	DeductPoints( pSoldier, AP_PICKUP_ITEM, 0 );
+	DeductPoints( pSoldier, APBPConstants[AP_PICKUP_ITEM], 0 );
 
 	if ( VerifyGiveItem( pSoldier, &pTSoldier ) )
 	{
@@ -4511,6 +4528,15 @@ void BoobyTrapMessageBoxCallBack( UINT8 ubExitValue )
 
 		// Snap: make it easier to disarm our own traps.
 		// If we succede - we get exp, but if we fail - we pay fair and square!
+
+		//CHRISL: first things first.  If we're in combat, we need to spend some APs to disarm the device
+		if((gTacticalStatus.uiFlags & INCOMBAT) || (gTacticalStatus.fEnemyInSector))
+		{
+			if(EnoughPoints(gpBoobyTrapSoldier, APBPConstants[AP_DISARM_MINE], APBPConstants[BP_DISARM_MINE], TRUE))
+				DeductPoints(gpBoobyTrapSoldier, APBPConstants[AP_DISARM_MINE], APBPConstants[BP_DISARM_MINE]);
+			else
+				return;
+		}
 
 		// NB owner grossness... bombs 'owned' by the enemy are stored with side value 1 in
 		// the map. So if we want to detect a bomb placed by the player, owner is > 1, and
@@ -5254,7 +5280,7 @@ INT16 FindNearestAvailableGridNoForItem( INT16 sSweetGridNo, INT8 ubRadius )
 	INT32					leftmost;
 	BOOLEAN	fFound = FALSE;
 	SOLDIERTYPE soldier;
-	UINT8 ubSaveNPCAPBudget;
+	INT16 ubSaveNPCAPBudget;
 	UINT8 ubSaveNPCDistLimit;
 
 	cnt3 = 0;

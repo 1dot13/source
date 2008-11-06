@@ -43,7 +43,7 @@
 	extern void RenderCoverDebug( void );
 #endif
 
-INT8	gubAIPathCosts[19][19];
+INT16	gubAIPathCosts[19][19];
 
 // FindBestNearbyCover - "Net" related stuff commented out
 extern UINT8 gubAICounter;
@@ -127,13 +127,13 @@ INT8 CalcWorstCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT16 sOpp
 		switch (bCubeLevel)
 		{
 			case 1:
-				if (iMyAPsLeft < AP_CROUCH + AP_PRONE)
+				if (iMyAPsLeft < APBPConstants[AP_CROUCH] + APBPConstants[AP_PRONE])
 				{
 					continue;
 				}
 				break;
 			case 2:
-				if (iMyAPsLeft < AP_CROUCH)
+				if (iMyAPsLeft < APBPConstants[AP_CROUCH])
 				{
 					continue;
 				}
@@ -167,13 +167,13 @@ INT8 CalcAverageCTGTForPosition( SOLDIERTYPE * pSoldier, UINT8 ubOppID, INT16 sO
 			switch (bCubeLevel)
 		{
 			case 1:
-				if (iMyAPsLeft < AP_CROUCH + AP_PRONE)
+				if (iMyAPsLeft < APBPConstants[AP_CROUCH] + APBPConstants[AP_PRONE])
 				{
 					continue;
 				}
 				break;
 			case 2:
-				if (iMyAPsLeft < AP_CROUCH)
+				if (iMyAPsLeft < APBPConstants[AP_CROUCH])
 				{
 					continue;
 				}
@@ -429,7 +429,7 @@ INT32 CalcCoverValue(SOLDIERTYPE *pMe, INT16 sMyGridNo, INT32 iMyThreat, INT32 i
 	{
 	// if I CAN'T crouch when I get there, that makes it significantly less
 	// appealing a spot (how much depends on range), so that's a penalty to me
-	if (iMyAPsLeft < AP_CROUCH)
+	if (iMyAPsLeft < APBPConstants[AP_CROUCH])
 	 // subtract another 1 % penalty for NOT being able to crouch per tile
 	 // the farther away we are, the bigger a difference crouching will make!
 	 iMyPosValue -= ((iMyPosValue * (AIM_PENALTY_TARGET_CROUCHED + (iRange / CELL_X_SIZE))) / 100);
@@ -1657,7 +1657,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 		return AI_ACTION_NONE;
 	}
 
-	if (pSoldier->bActionPoints < AP_PICKUP_ITEM)
+	if (pSoldier->bActionPoints < APBPConstants[AP_PICKUP_ITEM])
 	{
 		return( AI_ACTION_NONE );
 	}
@@ -1714,7 +1714,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 
 	// set an AP limit too, to our APs less the cost of picking up an item
 	// and less the cost of dropping an item since we might need to do that
-	gubNPCAPBudget = pSoldier->bActionPoints - AP_PICKUP_ITEM;
+	gubNPCAPBudget = pSoldier->bActionPoints - APBPConstants[AP_PICKUP_ITEM];
 
 	// reset the "reachable" flags in the region we're looking at
 	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
@@ -1951,7 +1951,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 			//if (pSoldier->inv[HANDPOS].exists() == true && PlaceInAnyPocket(pSoldier, &pSoldier->inv[HANDPOS], false) == false)
 			if (FindBetterSpotForItem( pSoldier, HANDPOS ) == FALSE)
 			{
-				if (pSoldier->bActionPoints < AP_PICKUP_ITEM + AP_PICKUP_ITEM)
+				if (pSoldier->bActionPoints < APBPConstants[AP_PICKUP_ITEM] + APBPConstants[AP_PICKUP_ITEM])
 				{
 					return( AI_ACTION_NONE );
 				}
@@ -1960,7 +1960,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 					// destroy this item!
 					DebugAI( String( "%d decides he must drop %S first so destroys it", pSoldier->ubID, ItemNames[ pSoldier->inv[HANDPOS].usItem ] ) );
 					DeleteObj( &(pSoldier->inv[HANDPOS]) );
-					DeductPoints( pSoldier, AP_PICKUP_ITEM, 0 );
+					DeductPoints( pSoldier, APBPConstants[AP_PICKUP_ITEM], 0 );
 				}
 				else
 				{
@@ -2846,5 +2846,6 @@ INT8 FindDirectionForClimbing( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel
 	}
 	return DIRECTION_IRRELEVANT;
 }
+
 
 

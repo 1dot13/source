@@ -1792,11 +1792,11 @@ void HandleCrowShadowNewPosition( SOLDIERTYPE *pSoldier )
 	}
 }
 
+extern INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse);
 
-
-INT8 SOLDIERTYPE::CalcActionPoints( void )
+INT16 SOLDIERTYPE::CalcActionPoints( void )
 {
-	UINT8 ubPoints,ubMaxAPs;
+	INT16 ubPoints,ubMaxAPs;
 	INT8  bBandage;
 
 	// dead guys don't get any APs (they shouldn't be here asking for them!)
@@ -1807,15 +1807,20 @@ INT8 SOLDIERTYPE::CalcActionPoints( void )
 	if ( (this->bSleepDrugCounter > 0) && this->bCollapsed )
 		return( 0 );
 
+	//CHRISL: Update this calucalation to give a default range of 40-100
 	// Calculate merc's action points at 100% capability (range is 10 - 25)
 	// round fractions of .5 up (that's why the +20 before the division!
-	ubPoints = 5 + (((10 * EffectiveExpLevel( this ) +
+	//ubPoints = 5 + (((10 * EffectiveExpLevel( this ) +
+	//	3 * EffectiveAgility( this )   +
+	//	2 * this->stats.bLifeMax   +
+	//	2 * EffectiveDexterity( this ) ) + 20) / 40);
+	ubPoints = 20 + (((10 * EffectiveExpLevel( this ) +
 		3 * EffectiveAgility( this )   +
 		2 * this->stats.bLifeMax   +
-		2 * EffectiveDexterity( this ) ) + 20) / 40);
+		2 * EffectiveDexterity( this ) ) + 5) / 10);
 
 	//if (GameOption[INCREASEDAP] % 2 == 1)
-	//points += AP_INCREASE;
+	//points += APBPConstants[AP_INCREASE];
 
 	//Madd: Add in AP Bonuses (Penalties) from worn gear
 	ubPoints += GetGearAPBonus ( this );
@@ -1840,14 +1845,18 @@ INT8 SOLDIERTYPE::CalcActionPoints( void )
 	}
 
 	// If resulting APs are below our permitted minimum, raise them to it!
-	if (ubPoints < AP_MINIMUM)
-		ubPoints = AP_MINIMUM;
+	if (ubPoints < APBPConstants[AP_MINIMUM])
+		ubPoints = APBPConstants[AP_MINIMUM];
+
+	//CHRISL: Moved this down here so that all ubPoints adjustments can be made to the default 100AP system
+	// Adjust ubPoints based on actual AP_MAXIMUM setting
+	ubPoints = DynamicAdjustAPConstants(ubPoints, ubPoints);
 
 	// make sure action points doesn't exceed the permitted maximum
 	ubMaxAPs = gubMaxActionPoints[ this->ubBodyType ];
 
 	//if (GameOption[INCREASEDAP] % 2 == 1)
-	// maxAPs += AP_INCREASE;
+	// maxAPs += APBPConstants[AP_INCREASE];
 
 
 	// If resulting APs are below our permitted minimum, raise them to it!
@@ -1857,21 +1866,21 @@ INT8 SOLDIERTYPE::CalcActionPoints( void )
 	if ( this->ubBodyType == BLOODCAT )
 	{
 		// use same as young monsters
-		ubPoints = (ubPoints * AP_YOUNG_MONST_FACTOR) / 10;
+		ubPoints = (ubPoints * APBPConstants[AP_YOUNG_MONST_FACTOR]) / 10;
 	}
 	else if (this->flags.uiStatusFlags & SOLDIER_MONSTER)
 	{
 		// young monsters get extra APs
 		if ( this->ubBodyType == YAF_MONSTER || this->ubBodyType == YAM_MONSTER || this->ubBodyType == INFANT_MONSTER )
 		{
-			ubPoints = (ubPoints * AP_YOUNG_MONST_FACTOR) / 10;
+			ubPoints = (ubPoints * APBPConstants[AP_YOUNG_MONST_FACTOR]) / 10;
 		}
 
 		// if frenzied, female monsters get more APs! (for young females, cumulative!)
 		if (this->aiData.bFrenzied)
 		{
 
-			ubPoints = (ubPoints * AP_MONST_FRENZY_FACTOR) / 10;
+			ubPoints = (ubPoints * APBPConstants[AP_MONST_FRENZY_FACTOR]) / 10;
 		}
 	}
 
@@ -1880,11 +1889,11 @@ INT8 SOLDIERTYPE::CalcActionPoints( void )
 	{
 		if ( (gMercProfiles[ this->ubProfile ].bPersonalityTrait == CLAUSTROPHOBIC) && (gbWorldSectorZ > 0) )
 		{
-			ubPoints = (ubPoints * AP_CLAUSTROPHOBE) / 10;
+			ubPoints = (ubPoints * APBPConstants[AP_CLAUSTROPHOBE]) / 10;
 		}
 		else if ( (gMercProfiles[ this->ubProfile ].bPersonalityTrait == FEAR_OF_INSECTS) && (MercSeesCreature( this ) ) )
 		{
-			ubPoints = (ubPoints * AP_AFRAID_OF_INSECTS) / 10;
+			ubPoints = (ubPoints * APBPConstants[AP_AFRAID_OF_INSECTS]) / 10;
 		}
 	}
 
@@ -1950,16 +1959,17 @@ void SOLDIERTYPE::CalcNewActionPoints( void )
 	if ( gTacticalStatus.bBoxingState == BOXING || gTacticalStatus.bBoxingState == PRE_BOXING )
 	{
 		// if we are in boxing mode, carry 1/2 as many points
-		if (this->bActionPoints > MAX_AP_CARRIED / 2)
+		if (this->bActionPoints > APBPConstants[MAX_AP_CARRIED] / 2)
 		{
-			this->bActionPoints = MAX_AP_CARRIED / 2;
+			this->bActionPoints = APBPConstants[MAX_AP_CARRIED] / 2;
 		}
 	}
 	else
 	{
-		if (this->bActionPoints > MAX_AP_CARRIED)
+		//POSSIBLE STRUCTURE CHANGE PROBLEM, NOT CURRENTLY CHANGED. GOTTHARD 7/14/08		
+		if (this->bActionPoints > APBPConstants[MAX_AP_CARRIED])
 		{
-			this->bActionPoints = MAX_AP_CARRIED;
+			this->bActionPoints = APBPConstants[MAX_AP_CARRIED];
 		}
 	}
 
@@ -3301,11 +3311,11 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 				// CHRISL
 				if((UsingNewInventorySystem() == true) && this->inv[BPACKPOCKPOS].exists() == true)
 				{
-					sAPCost = AP_START_RUN_COST + 2;
+					sAPCost = APBPConstants[AP_START_RUN_COST] + 2;
 					sBPCost += 2;
 				}
 				else
-					sAPCost = AP_START_RUN_COST;
+					sAPCost = APBPConstants[AP_START_RUN_COST];
 				DeductPoints( this, sAPCost, sBPCost );
 			}
 			// Set pending action count to 0
@@ -3333,24 +3343,24 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 				{
 					if(usNewState == KNEEL_UP || usNewState == BIGMERC_CROUCH_TRANS_OUTOF)
 					{
-						sAPCost=AP_CROUCH+2;
-						sBPCost=BP_CROUCH+2;
+						sAPCost=APBPConstants[AP_CROUCH]+2;
+						sBPCost=APBPConstants[BP_CROUCH]+2;
 					}
 					else if(usNewState == KNEEL_DOWN || usNewState == BIGMERC_CROUCH_TRANS_INTO)
 					{
-						sAPCost=AP_CROUCH+1;
-						sBPCost=BP_CROUCH+1;
+						sAPCost=APBPConstants[AP_CROUCH]+1;
+						sBPCost=APBPConstants[BP_CROUCH]+1;
 					}
 					else
 					{
-						sAPCost=AP_CROUCH;
-						sBPCost=BP_CROUCH;
+						sAPCost=APBPConstants[AP_CROUCH];
+						sBPCost=APBPConstants[BP_CROUCH];
 					}
 				}
 				else
 				{
-					sAPCost=AP_CROUCH;
-					sBPCost=BP_CROUCH;
+					sAPCost=APBPConstants[AP_CROUCH];
+					sBPCost=APBPConstants[BP_CROUCH];
 				}
 				DeductPoints( this, sAPCost, sBPCost );
 			}
@@ -3371,19 +3381,19 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 					{
 						if(usNewState == PRONE_UP)
 						{
-						sAPCost=AP_PRONE+2;
-						sBPCost=BP_PRONE+2;
+						sAPCost=APBPConstants[AP_PRONE]+2;
+						sBPCost=APBPConstants[BP_PRONE]+2;
 						}
 						else
 						{
-						sAPCost=AP_PRONE+1;
-						sBPCost=BP_PRONE+1;
+						sAPCost=APBPConstants[AP_PRONE]+1;
+						sBPCost=APBPConstants[BP_PRONE]+1;
 						}
 					}
 					else
 					{
-					sAPCost=AP_PRONE;
-					sBPCost=BP_PRONE;
+					sAPCost=APBPConstants[AP_PRONE];
+					sBPCost=APBPConstants[BP_PRONE];
 					}
 					DeductPoints( this, sAPCost, sBPCost );
 				}
@@ -3398,21 +3408,24 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 
 		case START_AID:
 
-			DeductPoints( this, AP_START_FIRST_AID, BP_START_FIRST_AID );
+			DeductPoints( this, APBPConstants[AP_START_FIRST_AID], APBPConstants[BP_START_FIRST_AID] );
 			break;
 
 		case CUTTING_FENCE:
-			DeductPoints( this, AP_USEWIRECUTTERS, BP_USEWIRECUTTERS );
+			DeductPoints( this, APBPConstants[AP_USEWIRECUTTERS], APBPConstants[BP_USEWIRECUTTERS] );
 			break;
 
 		case PLANT_BOMB:
 
-			DeductPoints( this, AP_DROP_BOMB, 0 );
+			if(Item[this->inv[HANDPOS].usItem].mine == 1)	// bury a mine
+				DeductPoints( this, APBPConstants[AP_BURY_MINE], APBPConstants[BP_BURY_MINE] );
+			else
+				DeductPoints( this, APBPConstants[AP_DROP_BOMB], APBPConstants[BP_DROP_BOMB] );
 			break;
 
 		case STEAL_ITEM:
 
-			DeductPoints( this, AP_STEAL_ITEM, 0 );
+			DeductPoints( this, APBPConstants[AP_STEAL_ITEM], 0 );
 			break;
 
 		case CROW_DIE:
@@ -3440,7 +3453,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 
 		case USE_REMOTE:
 
-			DeductPoints( this, AP_USE_REMOTE, 0 );
+			DeductPoints( this, APBPConstants[AP_USE_REMOTE], 0 );
 			break;
 
 			//case PUNCH:
@@ -3454,21 +3467,21 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 
 			// CHRISL
 			if((UsingNewInventorySystem() == true) && this->inv[BPACKPOCKPOS].exists() == true)
-				DeductPoints( this, AP_JUMPFENCEBPACK, BP_JUMPFENCEBPACK );
+				DeductPoints( this, APBPConstants[AP_JUMPFENCEBPACK], APBPConstants[BP_JUMPFENCEBPACK] );
 			else
-				DeductPoints( this, AP_JUMPFENCE, BP_JUMPFENCE );
+				DeductPoints( this, APBPConstants[AP_JUMPFENCE], APBPConstants[BP_JUMPFENCE] );
 			break;
 
 			// Deduct aps for falling down....
 		case FALLBACK_HIT_STAND:
 		case FALLFORWARD_FROMHIT_STAND:
 
-			DeductPoints( this, AP_FALL_DOWN, BP_FALL_DOWN );
+			DeductPoints( this, APBPConstants[AP_FALL_DOWN], APBPConstants[BP_FALL_DOWN] );
 			break;
 
 		case FALLFORWARD_FROMHIT_CROUCH:
 
-			DeductPoints( this, (AP_FALL_DOWN/2), (BP_FALL_DOWN/2) );
+			DeductPoints( this, (APBPConstants[AP_FALL_DOWN]/2), (APBPConstants[BP_FALL_DOWN]/2) );
 			break;
 
 		case QUEEN_SWIPE:
@@ -3482,7 +3495,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			// disable sight
 			gTacticalStatus.uiFlags |= DISALLOW_SIGHT;
 
-			DeductPoints( this, AP_CLIMBOFFROOF, BP_CLIMBOFFROOF );
+			DeductPoints( this, APBPConstants[AP_CLIMBOFFROOF], APBPConstants[BP_CLIMBOFFROOF] );
 			break;
 
 		case CLIMBUPROOF:
@@ -3490,7 +3503,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			// disable sight
 			gTacticalStatus.uiFlags |= DISALLOW_SIGHT;
 
-			DeductPoints( this, AP_CLIMBROOF, BP_CLIMBROOF );
+			DeductPoints( this, APBPConstants[AP_CLIMBROOF], APBPConstants[BP_CLIMBROOF] );
 			break;
 
 		case JUMP_OVER_BLOCKING_PERSON:
@@ -3499,7 +3512,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 			{
 				INT16 sNewGridNo;
 
-				DeductPoints( this, AP_JUMP_OVER, BP_JUMP_OVER );
+				DeductPoints( this, APBPConstants[AP_JUMP_OVER], APBPConstants[BP_JUMP_OVER] );
 
 				sNewGridNo = NewGridNo( (INT16)this->sGridNo, DirectionInc( this->ubDirection ) );
 				sNewGridNo = NewGridNo( (INT16)sNewGridNo, DirectionInc( this->ubDirection ) );
@@ -4714,7 +4727,7 @@ BOOLEAN SOLDIERTYPE::InternalSoldierReadyWeapon( UINT8 sFacingDir, BOOLEAN fEndR
 		// Check if facing dir is different from ours and change direction if so!
 		//if ( sFacingDir != this->ubDirection )
 		//{
-		//	DeductPoints( this, AP_CHANGE_FACING, 0 );
+		//	DeductPoints( this, APBPConstants[AP_CHANGE_FACING], 0 );
 		//}//
 
 	}
@@ -4960,7 +4973,7 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 	// setting new func to intercept testhit
 	else if ( Item[ usWeaponIndex ].usItemClass & ( IC_GUN | IC_THROWING_KNIFE ) && ubAttackerID == NOBODY)
 	{
-		sBreathLoss += BP_GET_HIT;
+		sBreathLoss += APBPConstants[BP_GET_HIT];
 		ubReason = TAKE_DAMAGE_GUNFIRE;
 	}
 	// callahan update end
@@ -5001,12 +5014,12 @@ void SOLDIERTYPE::EVENT_SoldierGotHit( UINT16 usWeaponIndex, INT16 sDamage, INT1
 			// Dirty panel
 			fInterfacePanelDirty = DIRTYLEVEL2;
 		}
-		sBreathLoss += BP_GET_HIT;
+		sBreathLoss += APBPConstants[BP_GET_HIT];
 		ubReason = TAKE_DAMAGE_GUNFIRE;
 	}
 	else if ( Item[ usWeaponIndex ].usItemClass & IC_BLADE )
 	{
-		sBreathLoss = BP_GET_HIT;
+		sBreathLoss = APBPConstants[BP_GET_HIT];
 		ubReason = TAKE_DAMAGE_BLADE;
 	}
 	else if ( Item[ usWeaponIndex ].usItemClass & IC_PUNCH )
@@ -6339,15 +6352,15 @@ void EVENT_InternalSetSoldierDesiredDirection( SOLDIERTYPE *pSoldier, UINT8	ubNe
 			{
 				// Now change to appropriate animation
 			case ANIM_STAND:
-				DeductPoints( pSoldier, AP_LOOK_STANDING, 0 );
+				DeductPoints( pSoldier, APBPConstants[AP_LOOK_STANDING], 0 );
 				break;
 
 			case ANIM_CROUCH:
-				DeductPoints( pSoldier, AP_LOOK_CROUCHED, 0 );
+				DeductPoints( pSoldier, APBPConstants[AP_LOOK_CROUCHED], 0 );
 				break;
 
 			case ANIM_PRONE:
-				DeductPoints( pSoldier, AP_LOOK_PRONE, 0 );
+				DeductPoints( pSoldier, APBPConstants[AP_LOOK_PRONE], 0 );
 				break;
 			}
 
@@ -6533,8 +6546,8 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 
 		// save unused action points up to a maximum
 		/*
-		if ((savedPts = this->aiData.bActionPts) > MAX_AP_CARRIED)
-		savedPts = MAX_AP_CARRIED;
+		if ((savedPts = this->aiData.bActionPts) > APBPConstants[MAX_AP_CARRIED])
+		savedPts = APBPConstants[MAX_AP_CARRIED];
 		*/
 		if ( this->flags.uiStatusFlags & SOLDIER_GASSED )
 		{
@@ -8449,8 +8462,11 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 
 	}
 
+	//CHRISL: We need this to dynamically adjust based on maxAP.  Otherwise sLifeDeduct=16 results in a greater effective penalty
+	//	the lower our AP_MAXIMUM value is set to.
 	// Deduct breath AND APs!
-	sAPCost = (sLifeDeduct / AP_GET_WOUNDED_DIVISOR); // + fallCost;
+	//sAPCost = (sLifeDeduct / APBPConstants[AP_GET_WOUNDED_DIVISOR]); // + fallCost;
+	sAPCost = (sLifeDeduct / APBPConstants[AP_GET_WOUNDED_DIVISOR]) / 100 * APBPConstants[AP_MAXIMUM];
 
 	// ATE: if the robot, do not deduct
 	if ( !AM_A_ROBOT( this ) )
@@ -9411,6 +9427,41 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 
 	//	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("X: %f Y: %f", dXPos, dYPos ) );
 
+}
+
+BOOLEAN GetDirectionChangeAmount( INT16 sGridNo, SOLDIERTYPE *pSoldier, UINT8 uiTurnAmount)
+{
+	//CHRISL: This function should return TRUE if the difference between our current facing and the facing needed to put
+	//	the indicated sGrinNo into our facing is greater then uiTurnAmount
+	UINT8	ubDirection = GetDirectionFromGridNo( sGridNo, pSoldier );
+	UINT8	subDirection = pSoldier->ubDirection + 3;
+	UINT8	uiDirArray[16] = {5,6,7,8,1,2,3,4,5,6,7,8,1,2,3,4};
+
+	//Failsafe; just check to make sure we actually have to turn.
+	if(ubDirection == pSoldier->ubDirection)
+		return FALSE;
+
+	// We'll never turn more then 180 degrees (4) so reset uiTurnAmount if needed
+	uiTurnAmount = min(uiTurnAmount, 4);
+
+	// Loop up the array
+	for(UINT8 i = 1; i <= 4; i++)
+	{
+		if(uiDirArray[subDirection+i] == ubDirection)
+		{
+			return !(i<=uiTurnAmount);
+		}
+	}
+	// Loop down the array
+	for(UINT8 i = 1; i <= 4; i++)
+	{
+		if(uiDirArray[subDirection-i] == ubDirection)
+		{
+			return !(i<=uiTurnAmount);
+		}
+	}
+
+	return TRUE;
 }
 
 UINT8 GetDirectionFromGridNo( INT16 sGridNo, SOLDIERTYPE *pSoldier )
@@ -10865,7 +10916,7 @@ UINT32 SOLDIERTYPE::SoldierDressWound( SOLDIERTYPE *pVictim, INT16 sKitPts, INT1
 		uiUsedAPs = ( uiUsedAPs * 2) / 3;	// reverse 50% bonus by taking 2/3rds
 	}
 
-	DeductPoints( this, (INT16)uiUsedAPs, (INT16)( ( uiUsedAPs * BP_PER_AP_LT_EFFORT) ) );
+	DeductPoints( this, (INT16)uiUsedAPs, (INT16)( ( uiUsedAPs * APBPConstants[BP_PER_AP_LT_EFFORT]) ) );
 
 
 	SOLDIERTYPE* pSoldier = this;
@@ -12688,7 +12739,7 @@ BOOLEAN SOLDIERTYPE::PlayerSoldierStartTalking( UINT8 ubTargetID, BOOLEAN fValid
 	}
 
 	// Get APs...
-	sAPCost = AP_TALK;
+	sAPCost = APBPConstants[AP_TALK];
 
 	if ( !(gTacticalStatus.uiFlags & INCOMBAT) || (gTacticalStatus.uiFlags & REALTIME) ) //lal
 	{

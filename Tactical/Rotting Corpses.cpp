@@ -1573,7 +1573,7 @@ INT16 FindNearestAvailableGridNoForCorpse( ROTTING_CORPSE_DEFINITION *pDef, INT8
 	INT32					leftmost;
 	BOOLEAN	fFound = FALSE;
 	SOLDIERTYPE soldier;
-	UINT8 ubSaveNPCAPBudget;
+	INT16 ubSaveNPCAPBudget;
 	UINT8 ubSaveNPCDistLimit;
 	STRUCTURE_FILE_REF * pStructureFileRef = NULL;
 	CHAR8						zFilename[150];

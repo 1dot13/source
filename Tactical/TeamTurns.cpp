@@ -960,7 +960,7 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 	SOLDIERTYPE *		pTempSoldier;
 	INT32						cnt;
 	BOOLEAN					fFound;
-	UINT8						ubMinAPsToAttack;
+	INT16						ubMinAPsToAttack;
 
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"EndInterrupt");
 
@@ -1304,7 +1304,7 @@ BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT8 ubOpponent
 {
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"StandardInterruptConditionsMet");
 //	UINT8 ubAniType;
-	UINT8						ubMinPtsNeeded;
+	INT16						ubMinPtsNeeded;
 	INT8						bDir;
 	SOLDIERTYPE *		pOpponent;
 
@@ -1459,7 +1459,7 @@ BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT8 ubOpponent
 
 
 	// the bare minimum default is enough APs left to TURN
-	ubMinPtsNeeded = AP_CHANGE_FACING;
+	ubMinPtsNeeded = APBPConstants[AP_CHANGE_FACING];
 
 	// if the opponent is SOMEBODY
 	if (ubOpponentID < TOTAL_SOLDIERS)
@@ -1538,7 +1538,7 @@ BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT8 ubOpponent
 			// if the soldier isn't currently crouching
 			if (!PTR_CROUCHED)
 			{
-				ubMinPtsNeeded = AP_CROUCH;
+				ubMinPtsNeeded = APBPConstants[AP_CROUCH];
 			}
 			else
 			{

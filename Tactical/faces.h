@@ -125,7 +125,7 @@ typedef struct
 	UINT8			ubExpression;
 	
 	INT8			bOldSoldierLife;
-	INT8			bOldActionPoints;
+	INT16			bOldActionPoints;
 	BOOLEAN		fOldHandleUIHatch;
 	BOOLEAN		fOldShowHighlight;
 	INT8			bOldAssignment;

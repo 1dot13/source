@@ -2341,8 +2341,8 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 												// All's good!
 												SwapMercPositions( pSoldier1, pSoldier2 );
 
-												DeductPoints( pSoldier1, AP_EXCHANGE_PLACES, 0 );
-												DeductPoints( pSoldier2, AP_EXCHANGE_PLACES, 0 );
+												DeductPoints( pSoldier1, APBPConstants[AP_EXCHANGE_PLACES], 0 );
+												DeductPoints( pSoldier2, APBPConstants[AP_EXCHANGE_PLACES], 0 );
 											}
 										}
 									}
@@ -5197,7 +5197,7 @@ INT8 HandleMoveModeInteractiveClick( INT16 sMapPos, UINT32 *puiNewEvent )
 
 BOOLEAN HandleUIReloading( SOLDIERTYPE *pSoldier )
 {
-	INT8 bAPs = 0;
+	INT16 bAPs = 0;
 
 	// CHECK OUR CURRENT CURSOR...
 

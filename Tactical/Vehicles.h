@@ -173,7 +173,7 @@ void VehicleTakeDamage( UINT8 ubID, UINT8 ubReason, INT16 sDamage, INT16 sGridNo
 // the soldiertype containing this tactical incarnation of this vehicle
 SOLDIERTYPE * GetSoldierStructureForVehicle( INT32 iId );
 
-void AdjustVehicleAPs( SOLDIERTYPE *pSoldier, UINT8 *pubPoints );
+void AdjustVehicleAPs( SOLDIERTYPE *pSoldier, INT16 *pubPoints );
 
 // get orig armor values for vehicle in this location
 //INT16 GetOrigInternalArmorValueForVehicleInLocation( UINT8 ubID, UINT8 ubLocation );

@@ -241,7 +241,7 @@ INT16 FindGridNoFromSweetSpotCloseToExitGrid( SOLDIERTYPE *pSoldier, INT16 sSwee
 	INT32					leftmost;
 	BOOLEAN	fFound = FALSE;
 	SOLDIERTYPE soldier;
-	UINT8 ubSaveNPCAPBudget;
+	INT16 ubSaveNPCAPBudget;
 	UINT8 ubSaveNPCDistLimit;
 	EXITGRID	ExitGrid;
 	UINT8	ubGotoSectorX, ubGotoSectorY, ubGotoSectorZ;
@@ -404,6 +404,7 @@ INT16 FindClosestExitGrid( SOLDIERTYPE *pSoldier, INT16 sSrcGridNo, INT8 ubRadiu
 		return( NOWHERE );
 	}
 }
+
 
 
 

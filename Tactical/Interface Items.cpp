@@ -221,7 +221,6 @@ extern int SM_ITEMDESC_START_Y;
 #define BAD_WEIGHT									45
 #define BAD_RANGE									150
 #define BAD_MAGAZINE								10
-#define BAD_AP_COST									9
 #define BAD_RELIABILITY							-2
 #define BAD_REPAIR_EASE							-2
 #define BAD_ACCURACY							-1
@@ -667,7 +666,7 @@ void GenerateProsString( STR16 zItemPros, OBJECTTYPE * pObject, UINT32 uiPixLimi
 		}
 	}
 
-	if (BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, gpItemDescObject ) <= EXCEPTIONAL_AP_COST)
+	if (BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject ) <= EXCEPTIONAL_AP_COST)
 	{
 		zTemp = Message[STR_QUICK_FIRING];
 		if ( ! AttemptToAddSubstring( zItemPros, zTemp, &uiStringLength, uiPixLimit ) )
@@ -794,7 +793,7 @@ void GenerateConsString( STR16 zItemCons, OBJECTTYPE * pObject, UINT32 uiPixLimi
 		}
 	}
 
-	if (BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, gpItemDescObject ) >= BAD_AP_COST)
+	if (BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject ) >= APBPConstants[BAD_AP_COST])
 	{
 		zTemp = Message[STR_SLOW_FIRING];
 		if ( ! AttemptToAddSubstring( zItemCons, zTemp, &uiStringLength, uiPixLimit ) )
@@ -3663,7 +3662,7 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		else
 		{
 			// ATE: Make sure we have enough AP's to drop it if we pick it up!
-			if ( pAttachment && EnoughPoints( gpItemDescSoldier, ( AttachmentAPCost( pAttachment->usItem, gpItemDescObject->usItem ) + AP_PICKUP_ITEM ), 0, TRUE ) )
+			if ( pAttachment && EnoughPoints( gpItemDescSoldier, ( AttachmentAPCost( pAttachment->usItem, gpItemDescObject->usItem ) + APBPConstants[AP_PICKUP_ITEM] ), 0, TRUE ) )
 			{
 				// Get attachment if there is one
 				// The follwing function will handle if no attachment is here
@@ -3750,7 +3749,7 @@ void RenderItemDescriptionBox( )
 	INT32									cnt;
 	FLOAT									fWeight;
 	INT16								usX, usY;
-	UINT8									ubAttackAPs;
+	INT16									ubAttackAPs;
 	BOOLEAN								fHatchOutAttachments = gfItemDescObjectIsAttachment; // if examining attachment, always hatch out attachment slots
 	INT16									sProsConsIndent;
 	INT8							showBox=0;
@@ -4061,7 +4060,7 @@ void RenderItemDescriptionBox( )
 			 mprintf( usX, usY, pStr );
 		  }
 
-			ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, gpItemDescObject );
+			ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject );
 
 			if (ubAttackAPs <= EXCEPTIONAL_AP_COST)
 			{
@@ -4092,7 +4091,7 @@ void RenderItemDescriptionBox( )
 					SetFontForeground( 5 );
 				}
 
-			  swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, gpItemDescObject ) );
+			  swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpItemDescObject ) );
 			  FindFontRightCoordinates( (INT16)(gMapWeaponStats[ 6 ].sX + gsInvDescX + gMapWeaponStats[ 6 ].sValDx), (INT16)(gMapWeaponStats[ 6 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 			  mprintf( usX, usY, pStr );
 			 }
@@ -4101,7 +4100,7 @@ void RenderItemDescriptionBox( )
 
 					SetFontForeground( 5 );
 
-					swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, gpItemDescObject, 3 ) );
+					swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpItemDescObject, 3 ) );
 					FindFontRightCoordinates( (INT16)(gMapWeaponStats[ 6 ].sX + gsInvDescX + gMapWeaponStats[ 6 ].sValDx), (INT16)(gMapWeaponStats[ 6 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 					mprintf( usX, usY, pStr );
 			 }
@@ -4564,7 +4563,7 @@ void RenderItemDescriptionBox( )
 				mprintf( usX, usY, pStr );
 			}
 
-			ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, gpItemDescObject );
+			ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject );
 
 			if (ubAttackAPs <= EXCEPTIONAL_AP_COST)
 			{
@@ -4593,14 +4592,14 @@ void RenderItemDescriptionBox( )
 					SetFontForeground( 5 );
 				}
 
-				swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, gpItemDescObject ) );
+				swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpItemDescObject ) );
 				FindFontRightCoordinates( (INT16)(gWeaponStats[ 6 ].sX + gsInvDescX + gWeaponStats[ 6 ].sValDx), (INT16)(gWeaponStats[ 6 ].sY + gsInvDescY ), ITEM_STATS_WIDTH, ITEM_STATS_HEIGHT, pStr, BLOCKFONT2, &usX, &usY );
 				mprintf( usX, usY, pStr );
 			}
 			else if (GetAutofireShotsPerFiveAPs(gpItemDescObject)> 0)
 			{
 				SetFontForeground( 5 );
-				swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, gpItemDescObject ) );
+				swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpItemDescObject ) );
 				FindFontRightCoordinates( (INT16)(gWeaponStats[ 6 ].sX + gsInvDescX + gWeaponStats[ 6 ].sValDx), (INT16)(gWeaponStats[ 6 ].sY + gsInvDescY ), ITEM_STATS_WIDTH, ITEM_STATS_HEIGHT, pStr, BLOCKFONT2, &usX, &usY );
 				mprintf( usX, usY, pStr );
 			}
@@ -5480,11 +5479,11 @@ void DrawItemTileCursor( )
 			// If we are tossing...
 			if (  sDist <= 1 && gfUIMouseOnValidCatcher == 0 || gfUIMouseOnValidCatcher == 4 )
 			{
-				gsCurrentActionPoints = AP_PICKUP_ITEM;
+				gsCurrentActionPoints = APBPConstants[AP_PICKUP_ITEM];
 			}
 			else
 			{
-				gsCurrentActionPoints = AP_TOSS_ITEM;
+				gsCurrentActionPoints = APBPConstants[AP_TOSS_ITEM];
 			}
 
 		}
@@ -5719,7 +5718,7 @@ BOOLEAN HandleItemPointerClick( INT16 sMapPos )
 	// Check if we have APs....
 	if ( !EnoughPoints( gpItemPointerSoldier, gsCurrentActionPoints, 0, TRUE ) )
 	{
-		if ( gfDontChargeAPsToPickup && gsCurrentActionPoints == AP_PICKUP_ITEM )
+		if ( gfDontChargeAPsToPickup && gsCurrentActionPoints == APBPConstants[AP_PICKUP_ITEM] )
 		{
 
 		}
@@ -5882,7 +5881,7 @@ BOOLEAN HandleItemPointerClick( INT16 sMapPos )
 			if ( !gfDontChargeAPsToPickup )
 			{
 				// Deduct points
-				DeductPoints( gpItemPointerSoldier, AP_PICKUP_ITEM, 0 );
+				DeductPoints( gpItemPointerSoldier, APBPConstants[AP_PICKUP_ITEM], 0 );
 			}
 
 			SoldierDropItem( gpItemPointerSoldier, gpItemPointer );
@@ -5898,7 +5897,7 @@ BOOLEAN HandleItemPointerClick( INT16 sMapPos )
 				if ( !gfDontChargeAPsToPickup )
 				{
 					// Deduct points
-					DeductPoints( gpItemPointerSoldier, AP_PICKUP_ITEM, 0 );
+					DeductPoints( gpItemPointerSoldier, APBPConstants[AP_PICKUP_ITEM], 0 );
 				}
 
 				// Play animation....
@@ -5936,7 +5935,7 @@ BOOLEAN HandleItemPointerClick( INT16 sMapPos )
 				if ( !gfDontChargeAPsToPickup )
 				{
 					// Deduct points
-					DeductPoints( gpItemPointerSoldier, AP_PICKUP_ITEM, 0 );
+					DeductPoints( gpItemPointerSoldier, APBPConstants[AP_PICKUP_ITEM], 0 );
 				}
 
 				SoldierDropItem( gpItemPointerSoldier, gpItemPointer );
@@ -6047,7 +6046,7 @@ BOOLEAN HandleItemPointerClick( INT16 sMapPos )
 			}
 
 			// Deduct points
-			//DeductPoints( gpItemPointerSoldier, AP_TOSS_ITEM, 0 );
+			//DeductPoints( gpItemPointerSoldier, APBPConstants[AP_TOSS_ITEM], 0 );
 			gpItemPointerSoldier->flags.fDontChargeTurningAPs = TRUE;
 			// Will be dome later....
 
@@ -8667,7 +8666,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 				//Calculate AP's
 				CHAR16 apStr[20];
 				CHAR16 apStr2[20];
-				UINT8 ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, pObject );
+				INT16 ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject );
 
 				if ( Weapon[ usItem ].NoSemiAuto )
 				{
@@ -8680,7 +8679,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 				if (GetShotsPerBurst(pObject) > 0)
 				{
-					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, pObject ) );
+					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], pObject ) );
 					wcscat( apStr, apStr2 );
 				}
 				else
@@ -8690,7 +8689,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 				if (GetAutofireShotsPerFiveAPs(pObject) > 0)
 				{
-					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, pObject, 3 ) );
+					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], pObject, 3 ) );
 					wcscat( apStr, apStr2 );
 				}
 				else
@@ -8726,13 +8725,13 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 				//Calculate AP's
 				CHAR16 apStr[20];
 				CHAR16 apStr2[20];
-				UINT8 ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, pObject );
+				INT16 ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject );
 
 				swprintf( apStr, L"%d", ubAttackAPs );
 
 				if (GetShotsPerBurst(pObject) > 0)
 				{
-					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, pObject ) );
+					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], pObject ) );
 					wcscat( apStr, apStr2 );
 				}
 				else
@@ -8742,7 +8741,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 				if (GetAutofireShotsPerFiveAPs(pObject) > 0)
 				{
-					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, pObject, 3 ) );
+					swprintf( apStr2, L" / %d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], pObject, 3 ) );
 					wcscat( apStr, apStr2 );
 				}
 				else
@@ -8780,7 +8779,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 					gWeaponStatsDesc[ 11 ],					//Damage String
 					GetDamage(pObject), 					//Melee damage
 					gWeaponStatsDesc[ 5 ],					//AP String
-					BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, pObject ), //AP's
+					BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], pObject ), //AP's
 					gWeaponStatsDesc[ 12 ],					//Weight String
 					fWeight,								//Weight
 					GetWeightUnitString()					//Weight units

@@ -868,7 +868,7 @@ BOOLEAN EnterShopKeeperInterface()
 		{
 			// First calculate APs and validate...
 			// Check AP cost...
-			if ( !EnoughPoints( pSoldier, AP_TALK, 0, TRUE ) )
+			if ( !EnoughPoints( pSoldier, APBPConstants[AP_TALK], 0, TRUE ) )
 			{
 				return( FALSE );
 			}

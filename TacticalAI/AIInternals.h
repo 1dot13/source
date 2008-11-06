@@ -17,6 +17,7 @@ extern BOOLEAN gfTurnBasedAI;
 #define ACTING_ON_SCHEDULE( p ) ( (p)->aiData.fAIFlags & AI_CHECK_SCHEDULE )
 
 // the AI should try to have this many APs before climbing a roof, if possible
+//THIS IS NOT EXTERNALIZED!!!  CHECK THIS!  GOTTHARD 7/2/08
 #define AI_AP_CLIMBROOF 15
 
 #define TEMPORARILY	 0
@@ -121,12 +122,14 @@ typedef struct
 {
  UINT8 ubPossible;			// is this attack form possible?	T/F
  UINT8 ubOpponent;			// which soldier is the victim?
- UINT8 ubAimTime;							// how many extra APs to spend on aiming
- UINT8 ubChanceToReallyHit;	// chance to hit * chance to get through cover
+ //CHANGED STRUCTURE VALUE BY GOTTHARD 7/14/07
+ INT16 ubAimTime;							// how many extra APs to spend on aiming
+ INT16 ubChanceToReallyHit;	// chance to hit * chance to get through cover
+ //END STRUCTURE CHANGE BY GOTTHARD 7/14/07
  INT32 iAttackValue;			// relative worthiness of this type of attack
  INT16 sTarget;								// target gridno of this attack
  INT8	bTargetLevel;					// target level of this attack
- UINT8 ubAPCost;							// how many APs the attack will use up
+ INT16 ubAPCost;							// how many APs the attack will use up
  INT8	bWeaponIn;							// the inv slot of the weapon in question
 } ATTACKTYPE;
 
@@ -173,8 +176,8 @@ void DecideAlertStatus( SOLDIERTYPE *pSoldier );
 INT8 DecideAutoBandage( SOLDIERTYPE * pSoldier );
 UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction );
 
-INT32 EstimateShotDamage(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, UINT8 ubChanceToHit);
-INT32 EstimateStabDamage(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,	UINT8 ubChanceToHit, BOOLEAN fBladeAttack);
+INT32 EstimateShotDamage(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT16 ubChanceToHit);
+INT32 EstimateStabDamage(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent,	INT16 ubChanceToHit, BOOLEAN fBladeAttack);
 INT32 EstimateThrowDamage(SOLDIERTYPE *pSoldier, UINT8 ubItemPos, SOLDIERTYPE *pOpponent, INT16 sGridno);
 INT16 EstimatePathCostToLocation( SOLDIERTYPE * pSoldier, INT16 sDestGridNo, INT8 bDestLevel, BOOLEAN fAddCostAfterClimbingUp, BOOLEAN * pfClimbingNecessary, INT16 * psClimbGridNo );
 
@@ -194,7 +197,7 @@ BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT16 sGridNo );
 
 void InitAttackType(ATTACKTYPE *pAttack);
 
-INT16 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT16 sDesGrid, INT8 bReserveAPs, INT8 bAction, INT8 fFlags );
+INT16 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT16 sDesGrid, INT16 bReserveAPs, INT8 bAction, INT8 fFlags );
 
 int LegalNPCDestination(SOLDIERTYPE *pSoldier, INT16 sGridno, UINT8 ubPathMode, UINT8 ubWaterOK, UINT8 fFlags);
 void LoadWeaponIfNeeded(SOLDIERTYPE *pSoldier);
@@ -214,7 +217,7 @@ void RTHandleAI( SOLDIERTYPE * pSoldier );
 UINT16 RunAway( SOLDIERTYPE * pSoldier );
 INT8	SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem );
 UINT8 ShootingStanceChange( SOLDIERTYPE * pSoldier, ATTACKTYPE * pAttack, INT8 bDesiredDirection );
-UINT8 StanceChange( SOLDIERTYPE * pSoldier, UINT8 ubAttackAPCost );
+UINT8 StanceChange( SOLDIERTYPE * pSoldier, INT16 ubAttackAPCost );
 INT16 TrackScent( SOLDIERTYPE * pSoldier );
 void RefreshAI(SOLDIERTYPE *pSoldier);
 BOOLEAN InLightAtNight( INT16 sGridNo, INT8 bLevel );
@@ -227,4 +230,5 @@ void CheckIfShotPossible(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot, BOOLEAN s
 INT16 FindBestCoverNearTheGridNo(SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubSearchRadius );
 
 INT8 FindDirectionForClimbing( SOLDIERTYPE *pSoldier, INT16 sGridNo, INT8 bLevel);
+
 

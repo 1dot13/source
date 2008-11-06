@@ -10590,7 +10590,11 @@ void RebuildWayPointsForAllSelectedCharsGroups( void )
 			else
 			{
 				// mercs on foot
-				ppMovePath = &( Menptr[gCharactersList[ bSelectedDestChar ].usSolID].pMercPath );
+				/*CHRISL: I don't understand why we're using bSelectedDestChar to generate the ppMovePath but iCounter to
+					generate ubGroupId.  For vehicles, we use the iVhicleId to generate both.  Shouldn't we be using the
+					same system here?  Meaning, shouldn't ppMovePath be generated with the soldier indicated with iCounter?*/
+				//ppMovePath = &( Menptr[gCharactersList[ bSelectedDestChar ].usSolID].pMercPath );
+				ppMovePath = &( pSoldier->pMercPath );
 				ubGroupId = pSoldier->ubGroupID;
 			}
 

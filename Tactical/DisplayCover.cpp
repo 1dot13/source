@@ -469,7 +469,7 @@ INT8	CalcCoverForGridNoBasedOnTeamKnownEnemies( SOLDIERTYPE *pSoldier, INT16 sTa
 		}
 
 		iGetThrough = SoldierToLocationChanceToGetThrough( pOpponent, sTargetGridNo, pSoldier->pathing.bLevel, bStance, NOBODY );
-//	iBulletGetThrough = CalcChanceToHitGun( pOpponent, sTargetGridNo, AP_MAX_AIM_ATTACK, AIM_SHOT_TORSO );
+//	iBulletGetThrough = CalcChanceToHitGun( pOpponent, sTargetGridNo, APBPConstants[AP_MAX_AIM_ATTACK], AIM_SHOT_TORSO );
 
 		if( WeaponInHand( pOpponent ) )
 		{
@@ -635,7 +635,7 @@ void DisplayRangeToTarget( SOLDIERTYPE *pSoldier, INT16 sTargetGridNo )
 		//AXP 30.03.2007: Fix CtH calculation for first shot after changing aim level (roof/ground)
 		INT8 bTempTargetLevel = pSoldier->bTargetLevel;
 		pSoldier->bTargetLevel = (INT8)gsInterfaceLevel;
-		uiHitChance = CalcChanceToHitGun( pSoldier, sTargetGridNo, (INT8)(pSoldier->aiData.bShownAimTime ), pSoldier->bAimShotLocation );
+		uiHitChance = CalcChanceToHitGun( pSoldier, sTargetGridNo, (pSoldier->aiData.bShownAimTime ), pSoldier->bAimShotLocation );
 		pSoldier->bTargetLevel = bTempTargetLevel;
 
 		swprintf( zOutputString, zNewTacticalMessages[ TCTL_MSG__GUN_RANGE_AND_CTH ], Weapon[ pSoldier->inv[HANDPOS].usItem ].usRange / 10, uiHitChance );

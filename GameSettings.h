@@ -444,11 +444,6 @@ BOOLEAN gbBulletTracer;
 	// CHRISL: option to allow Slay to remain as a hired PC
 	BOOLEAN fEnableSlayForever;
 
-	// CHRISL: New setting to determine the AP cost to reload 1 loose round of ammo
-	INT32 ubAPCostPerRound;
-
-	// CHRISL: New setting to determine AP multiplier when reloading with wrong sized clip
-	FLOAT ubWrongMagMult;
 	// CHRISL: Setting to turn off the description and stack popup options from the sector inventory panel
 	BOOLEAN fSectorDesc;
 
@@ -470,6 +465,7 @@ BOOLEAN	SaveGameSettings();
 BOOLEAN LoadGameSettings();
 // Snap: Read options from an INI file in the default of custom Data directory
 void LoadGameExternalOptions();
+void LoadGameAPBPConstants();
 void FreeGameExternalOptions();
 
 void InitGameOptions();
@@ -485,5 +481,7 @@ BOOLEAN MeanwhileSceneSeen( UINT8 ubMeanwhile );
 BOOLEAN SetMeanwhileSceneSeen( UINT8 ubMeanwhile );
 
 BOOLEAN	CanGameBeSaved();
+
+INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse = FALSE);
 
 #endif

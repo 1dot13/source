@@ -213,7 +213,7 @@ UINT16 MagazineClassIndexToItemType(UINT16 usMagIndex);
 // Item property-related stuff added by Madd Mugsy
 
 BOOLEAN IsScoped( OBJECTTYPE * pObj );
-INT16 GetAimBonus( OBJECTTYPE * pObj, INT32 iRange, UINT8 ubAimTime );
+INT16 GetAimBonus( OBJECTTYPE * pObj, INT32 iRange, INT16 ubAimTime );
 INT16 GetMinAimBonusRange( OBJECTTYPE * pObj );
 INT16 GetToHitBonus( OBJECTTYPE * pObj, INT32 iRange, UINT8 bLightLevel, BOOLEAN fProneStance = FALSE );
 UINT32 FindRangeBonusAttachment( OBJECTTYPE * pObj );
@@ -300,7 +300,7 @@ INT16 GetStealthBonus( OBJECTTYPE * pObj );
 
 void ApplyEquipmentBonuses(SOLDIERTYPE * pSoldier);
 
-INT16 GetGearAimBonus( SOLDIERTYPE * pSoldier, INT32 iRange, UINT8 ubAimTime);
+INT16 GetGearAimBonus( SOLDIERTYPE * pSoldier, INT32 iRange, INT16 ubAimTime);
 INT16 GetGearToHitBonus( SOLDIERTYPE * pSoldier );
 INT16 GetGearAPBonus( SOLDIERTYPE * pSoldier );
 
@@ -322,5 +322,6 @@ INT16 GetSnowCamoBonus( OBJECTTYPE * pObj );
 
 
 #endif
+
 
 

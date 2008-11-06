@@ -415,7 +415,7 @@ public:
 	UINT32											uiPendingActionData4;
 	INT8												bInterruptDuelPts;
 	INT8												bPassedLastInterrupt;
-	INT8												bIntStartAPs;
+	INT16												bIntStartAPs;	//100AP
 	INT8												bMoved;
 	INT8												bHunting;
 	UINT8												ubLastCall;
@@ -429,7 +429,7 @@ public:
 	INT8												bMobility;
 	INT8												bRTPCombat;
 	INT8												fAIFlags;
-	INT8												bAimTime;
+	INT16												bAimTime;	//100AP
 	INT8												bShownAimTime;
 };
 
@@ -656,8 +656,8 @@ public:
 
 	// DESCRIPTION / STATS, ETC
 	UINT8												ubBodyType;
-	INT8												bActionPoints;
-	INT8												bInitialActionPoints;
+	INT16												bActionPoints;	//100AP
+	INT16												bInitialActionPoints;	//100AP
 	INT8												bOldLife;			// life at end of last turn, recorded for monster AI
 	INT8												bVisible;			// to render or not to render...
 	INT8												bActive;
@@ -1133,7 +1133,7 @@ public:
 
 	// UTILITY FUNCTUIONS
 	void MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckRange );
-	INT8 CalcActionPoints( void );
+	INT16 CalcActionPoints( void );
 	BOOLEAN IsActionInterruptable( void );
 	// This function is now obsolete.	Call ReduceAttackBusyCount instead.
 	// void ReleaseSoldiersAttacker( SOLDIERTYPE *pSoldier );
@@ -1302,6 +1302,7 @@ BOOLEAN DeletePaletteData( );
 // UTILITY FUNCTUIONS
 void MoveMercFacingDirection( SOLDIERTYPE *pSoldier, BOOLEAN fReverse, FLOAT dMovementDist );
 UINT8 GetDirectionFromXY( INT16 sXPos, INT16 sYPos, SOLDIERTYPE *pSoldier );
+BOOLEAN GetDirectionChangeAmount( INT16 sGridNo, SOLDIERTYPE *pSoldier, UINT8 uiTurnAmount);
 UINT8 GetDirectionFromGridNo( INT16 sGridNo, SOLDIERTYPE *pSoldier );
 UINT8 atan8( INT16 sXPos, INT16 sYPos, INT16 sXPos2, INT16 sYPos2 );
 UINT8 atan8FromAngle( DOUBLE dAngle );
@@ -2024,4 +2025,7 @@ public:
 }; // OLDSOLDIERTYPE_101;	
 
 #endif
+
+
+
 

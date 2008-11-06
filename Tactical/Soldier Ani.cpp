@@ -1010,7 +1010,7 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 					else
 					{
 						// ATE: Deduct points!
-						DeductPoints( pSoldier, AP_TOSS_ITEM, 0 );
+						DeductPoints( pSoldier, APBPConstants[AP_TOSS_ITEM], 0 );
 					}
 
 					CreatePhysicalObject( pSoldier->pTempObject, pSoldier->pThrowParams->dLifeSpan,	pSoldier->pThrowParams->dX, pSoldier->pThrowParams->dY, pSoldier->pThrowParams->dZ, pSoldier->pThrowParams->dForceX, pSoldier->pThrowParams->dForceY, pSoldier->pThrowParams->dForceZ, pSoldier->ubID, pSoldier->pThrowParams->ubActionCode, pSoldier->pThrowParams->uiActionData, FALSE );

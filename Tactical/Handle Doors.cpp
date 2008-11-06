@@ -475,8 +475,8 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *p
 	if ( pStructure->fFlags & STRUCTURE_OPEN )
 	{
 		// Set costs for these
-		sAPCost = AP_OPEN_DOOR;
-		sBPCost = BP_OPEN_DOOR;
+		sAPCost = APBPConstants[AP_OPEN_DOOR];
+		sBPCost = APBPConstants[BP_OPEN_DOOR];
 
 		fHandleDoor = TRUE;
 	}
@@ -500,8 +500,8 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *p
 
 						// Set costs for these
 						// Set AP costs to that of opening a door
-						sAPCost = AP_OPEN_DOOR;
-						sBPCost = BP_OPEN_DOOR;
+						sAPCost = APBPConstants[AP_OPEN_DOOR];
+						sBPCost = APBPConstants[BP_OPEN_DOOR];
 
 						pSoldier->ChangeSoldierState( GetAnimStateForInteraction( pSoldier, fDoor, END_OPEN_DOOR ), 0, FALSE );
 
@@ -584,8 +584,8 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *p
 						if ( pDoor == NULL )
 						{
 							// Set costs for these
-							sAPCost = AP_OPEN_DOOR;
-							sBPCost = BP_OPEN_DOOR;
+							sAPCost = APBPConstants[AP_OPEN_DOOR];
+							sBPCost = APBPConstants[BP_OPEN_DOOR];
 
 							// Open if it's not locked....
 							pSoldier->ChangeSoldierState( GetAnimStateForInteraction( pSoldier, fDoor, END_OPEN_DOOR ), 0, FALSE );
@@ -623,8 +623,8 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *p
 					case HANDLE_DOOR_FORCE:
 
 						// Set costs for these
-						sAPCost = AP_BOOT_DOOR;
-						sBPCost = BP_BOOT_DOOR;
+						sAPCost = APBPConstants[AP_BOOT_DOOR];
+						sBPCost = APBPConstants[BP_BOOT_DOOR];
 
 						// OK, using force, if we have no lock, just open the door!
 						if ( pDoor == NULL )
@@ -656,8 +656,8 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *p
 					case HANDLE_DOOR_CROWBAR:
 
 						// Set costs for these
-						sAPCost = AP_USE_CROWBAR;
-						sBPCost = BP_USE_CROWBAR;
+						sAPCost = APBPConstants[AP_USE_CROWBAR];
+						sBPCost = APBPConstants[BP_USE_CROWBAR];
 
 						// OK, using force, if we have no lock, just open the door!
 						if ( pDoor == NULL )
@@ -689,8 +689,8 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *p
 					case HANDLE_DOOR_EXPLODE:
 
 						// Set costs for these
-						sAPCost = AP_EXPLODE_DOOR;
-						sBPCost = BP_EXPLODE_DOOR;
+						sAPCost = APBPConstants[AP_EXPLODE_DOOR];
+						sBPCost = APBPConstants[BP_EXPLODE_DOOR];
 
 						if ( pDoor == NULL )
 						{
@@ -717,8 +717,8 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *p
 					case HANDLE_DOOR_LOCKPICK:
 
 						// Set costs for these
-						sAPCost = AP_PICKLOCK;
-						sBPCost = BP_PICKLOCK;
+						sAPCost = APBPConstants[AP_PICKLOCK];
+						sBPCost = APBPConstants[BP_PICKLOCK];
 
 						// Attempt to pick lock
 						if ( pDoor == NULL )
@@ -745,8 +745,8 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *p
 					case HANDLE_DOOR_EXAMINE:
 
 						// Set costs for these
-						sAPCost = AP_EXAMINE_DOOR;
-						sBPCost = BP_EXAMINE_DOOR;
+						sAPCost = APBPConstants[AP_EXAMINE_DOOR];
+						sBPCost = APBPConstants[BP_EXAMINE_DOOR];
 
 						// Attempt to examine door
 						// Whatever the result, end the open animation
@@ -788,8 +788,8 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *p
 					case HANDLE_DOOR_UNLOCK:
 
 						// Set costs for these
-						sAPCost = AP_UNLOCK_DOOR;
-						sBPCost = BP_UNLOCK_DOOR;
+						sAPCost = APBPConstants[AP_UNLOCK_DOOR];
+						sBPCost = APBPConstants[BP_UNLOCK_DOOR];
 
 						// OK, if we have no lock, show that!
 						if ( pDoor == NULL )
@@ -834,8 +834,8 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *p
 					case HANDLE_DOOR_UNTRAP:
 
 						// Set costs for these
-						sAPCost = AP_UNTRAP_DOOR;
-						sBPCost = BP_UNTRAP_DOOR;
+						sAPCost = APBPConstants[AP_UNTRAP_DOOR];
+						sBPCost = APBPConstants[BP_UNTRAP_DOOR];
 
 						// OK, if we have no lock, show that!
 						if ( pDoor == NULL )
@@ -891,8 +891,8 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *p
 					case HANDLE_DOOR_LOCK:
 
 						// Set costs for these
-						sAPCost = AP_LOCK_DOOR;
-						sBPCost = BP_LOCK_DOOR;
+						sAPCost = APBPConstants[AP_LOCK_DOOR];
+						sBPCost = APBPConstants[BP_LOCK_DOOR];
 
 						// OK, if we have no lock, show that!
 						if ( pDoor == NULL )
@@ -931,8 +931,8 @@ BOOLEAN HandleOpenableStruct( SOLDIERTYPE *pSoldier, INT16 sGridNo, STRUCTURE *p
 		else
 		{
 			// Set costs for these
-			sAPCost = AP_OPEN_DOOR;
-			sBPCost = BP_OPEN_DOOR;
+			sAPCost = APBPConstants[AP_OPEN_DOOR];
+			sBPCost = APBPConstants[BP_OPEN_DOOR];
 
 			// Open if it's not locked....
 			pSoldier->ChangeSoldierState( GetAnimStateForInteraction( pSoldier, fDoor, END_OPEN_DOOR ), 0, FALSE );

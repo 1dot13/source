@@ -33,6 +33,7 @@
 	#include "strategicmap.h"
 	#include "Queen Command.h"
 	#include "Game Clock.h"
+	#include "Init.h"
 #endif
 
 #include "Text.h"
@@ -44,6 +45,7 @@
 
 #define				GAME_EXTERNAL_OPTIONS_FILE	"Ja2_Options.ini"
 
+#define				AP_BP_CONSTANTS_FILE	"APBPConstants.ini"
 
 #define				CD_ROOT_DIR						"DATA\\"
 
@@ -54,6 +56,7 @@ GAME_EXTERNAL_OPTIONS gGameExternalOptions;
 
 extern	SGPFILENAME	gCheckFilenames[];
 extern	CHAR8		gzErrorMsg[256];
+extern INT16 APBPConstants[TOTAL_APBP_VALUES];
 
 void		InitGameSettings();
 
@@ -769,12 +772,6 @@ void LoadGameExternalOptions()
 	// CHRISL: New setting to allow Slay to remain as a hired PC
 	gGameExternalOptions.fEnableSlayForever					= iniReader.ReadBoolean("JA2 Gameplay Settings", "SLAY_FOREVER", FALSE);
 
-	// CHRISL: New setting to determine the AP cost to reload 1 loose round of ammo
-	gGameExternalOptions.ubAPCostPerRound			= iniReader.ReadInteger("JA2 Gameplay Settings","AP_COST_PER_ROUND",2);
-
-	// CHRISL: New setting to determine AP multiplier when reloading with wrong sized clip
-	gGameExternalOptions.ubWrongMagMult			= iniReader.ReadFloat("JA2 Gameplay Settings","WRONG_MAG_MULT",2);
-
 	// CHRISL: Setting to turn off the description and stack popup options from the sector inventory panel
 	gGameExternalOptions.fSectorDesc			= iniReader.ReadBoolean("JA2 Gameplay Settings","ALLOW_SECTOR_DESCRIPTION_WINDOW",TRUE);
 
@@ -784,6 +781,168 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fRestrictFemaleEnemiesExceptElite = iniReader.ReadBoolean("JA2 Gameplay Settings","RESTRICT_FEMALE_ENEMIES_EXCEPT_ELITE",FALSE);
 }
 
+INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse)
+{
+	//CHRISL: This function will dynamically adjust all the APBPConstant values based on the AP_MAXIMUM value.  This way
+	//	if you want to use a 50AP system instead of the default, you only need to alter one value in the INI file and all
+	//	the other values will automatically be updated to reflect the new max value.  The way I've coded this, however, if
+	//	you set your own value, you'll override this dynamic system.
+	if(iniReadValue == iniDefaultValue)
+	{
+		if(!reverse)
+			iniReadValue = (INT16)(((FLOAT)iniReadValue*(FLOAT)APBPConstants[AP_MAXIMUM]/100)+.5);
+		else
+			iniReadValue = (INT16)(((FLOAT)iniReadValue/(FLOAT)APBPConstants[AP_MAXIMUM]*100)+.5);
+	}
+
+	return iniReadValue;
+}
+
+void LoadGameAPBPConstants()
+{
+	CIniReader iniReader(AP_BP_CONSTANTS_FILE);
+	//CHRISL: To allow for dynamic settings, we need to switch AP_MAXIMUM and AP_MINIMUM so that only the max value needs
+	//	to be changed to effect the entire system.  This will require a change in the ENUM so that we can use a loop to
+	//	modify the remaining values.
+	APBPConstants[AP_MAXIMUM] = iniReader.ReadInteger("APConstants","AP_MAXIMUM",100);
+ 
+	//CHRISL: Once we've loaded the AP_MAXIMUM value, we can use it to modifiy all the remaining values
+	APBPConstants[AP_MINIMUM] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MINIMUM",40),40);
+	APBPConstants[AP_MONSTER_MAXIMUM] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MONSTER_MAXIMUM",160),160);
+	APBPConstants[AP_VEHICLE_MAXIMUM] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_VEHICLE_MAXIMUM",200),200);
+	APBPConstants[MAX_AP_CARRIED] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","MAX_AP_CARRIED",20),20);
+
+	//CHRISL: The following five values are actually used as percentile adjustments so we don't want to dynamically alter
+	//	them.  I.E. 9 actually means 90% of the calculated APs.  15 = 150%.  etc.
+	APBPConstants[AP_YOUNG_MONST_FACTOR] = iniReader.ReadInteger("APConstants","AP_YOUNG_MONST_FACTOR",15);
+	APBPConstants[AP_MONST_FRENZY_FACTOR] = iniReader.ReadInteger("APConstants","AP_MONST_FRENZY_FACTOR",13);
+	APBPConstants[AP_CLAUSTROPHOBE] = iniReader.ReadInteger("APConstants","AP_CLAUSTROPHOBE",9);
+	APBPConstants[AP_AFRAID_OF_INSECTS] = iniReader.ReadInteger("APConstants","AP_AFRAID_OF_INSECTS",8);
+	APBPConstants[AP_WRONG_MAG] = iniReader.ReadInteger("APConstants","AP_WRONG_MAG",15);
+
+	APBPConstants[AP_EXCHANGE_PLACES] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_EXCHANGE_PLACES",20),20);
+	APBPConstants[AP_REVERSE_MODIFIER] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_REVERSE_MODIFIER",4),4);
+	APBPConstants[AP_STEALTH_MODIFIER] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_STEALTH_MODIFIER",8),8);
+	APBPConstants[AP_STEAL_ITEM] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_STEAL_ITEM",56),56);
+	APBPConstants[AP_TAKE_BLOOD] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_TAKE_BLOOD",40),40);
+	APBPConstants[AP_TALK] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_TALK",24),24);
+	APBPConstants[AP_MOVEMENT_FLAT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MOVEMENT_FLAT",12),12);
+	APBPConstants[AP_MOVEMENT_GRASS] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MOVEMENT_GRASS",14),14);
+	APBPConstants[AP_MOVEMENT_BUSH] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MOVEMENT_BUSH",18),18);
+	APBPConstants[AP_MOVEMENT_RUBBLE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MOVEMENT_RUBBLE",24),24);
+	APBPConstants[AP_MOVEMENT_SHORE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MOVEMENT_SHORE",28),28);
+	APBPConstants[AP_MOVEMENT_LAKE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MOVEMENT_LAKE",36),36);
+	APBPConstants[AP_MOVEMENT_OCEAN] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MOVEMENT_OCEAN",32),32);
+	APBPConstants[AP_CHANGE_FACING] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CHANGE_FACING",4),4);
+	APBPConstants[AP_CHANGE_TARGET] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CHANGE_TARGET",2),2);
+	APBPConstants[AP_TOSS_ITEM] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_TOSS_ITEM",32),32);
+	APBPConstants[AP_REFUEL_VEHICLE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_REFUEL_VEHICLE",40),40);
+	APBPConstants[AP_RADIO] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_RADIO",20),20);
+	APBPConstants[AP_CROUCH] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CROUCH",6),6);
+	APBPConstants[AP_PRONE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_PRONE",8),8);
+	APBPConstants[AP_LOOK_STANDING] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_LOOK_STANDING",4),4);
+	APBPConstants[AP_LOOK_CROUCHED] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_LOOK_CROUCHED",6),6);
+	APBPConstants[AP_LOOK_PRONE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_LOOK_PRONE",8),8);
+	APBPConstants[AP_READY_KNIFE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_READY_KNIFE",0),0);
+	APBPConstants[AP_READY_DUAL] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_READY_DUAL",4),4);
+	APBPConstants[AP_MIN_AIM_ATTACK] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MIN_AIM_ATTACK",0),0);
+	APBPConstants[AP_DROP_BOMB] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_DROP_BOMB",12),12);
+	APBPConstants[AP_RELOAD_GUN] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_RELOAD_GUN",20),20);
+	APBPConstants[AP_START_FIRST_AID] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_START_FIRST_AID",20),20);
+	APBPConstants[AP_START_REPAIR] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_START_REPAIR",20),20);
+
+	//CHRISL: This value is a divisor which should not be dynamically altered based on maxAP
+	APBPConstants[AP_GET_WOUNDED_DIVISOR] = iniReader.ReadInteger("APConstants","AP_GET_WOUNDED_DIVISOR",1);
+
+	APBPConstants[AP_FALL_DOWN] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_FALL_DOWN",16),16);
+	APBPConstants[AP_OPEN_DOOR] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_OPEN_DOOR",12),12);
+	APBPConstants[AP_PICKLOCK] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_PICKLOCK",40),40);
+	APBPConstants[AP_EXAMINE_DOOR] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_EXAMINE_DOOR",20),20);
+	APBPConstants[AP_BOOT_DOOR] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_BOOT_DOOR",32),32);
+	APBPConstants[AP_USE_CROWBAR] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_USE_CROWBAR",40),40);
+	APBPConstants[AP_UNLOCK_DOOR] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_UNLOCK_DOOR",24),24);
+	APBPConstants[AP_LOCK_DOOR] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_LOCK_DOOR",24),24);
+	APBPConstants[AP_EXPLODE_DOOR] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_EXPLODE_DOOR",40),40);
+	APBPConstants[AP_UNTRAP_DOOR] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_UNTRAP_DOOR",40),40);
+	APBPConstants[AP_USEWIRECUTTERS] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_USEWIRECUTTERS",40),40);
+	APBPConstants[AP_CLIMBROOF] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CLIMBROOF",40),40);
+	APBPConstants[AP_CLIMBOFFROOF] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CLIMBOFFROOF",24),24);
+	APBPConstants[AP_JUMPFENCE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMPFENCE",24),24);
+	APBPConstants[AP_JUMPFENCEBPACK] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMPFENCEBPACK",32),32);
+	APBPConstants[AP_USE_REMOTE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_USE_REMOTE",8),8);
+	APBPConstants[AP_PULL_TRIGGER] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_PULL_TRIGGER",8),8);
+	APBPConstants[AP_PUNCH] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_PUNCH",16),16);
+	APBPConstants[AP_PICKUP_ITEM] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_PICKUP_ITEM",12),12);
+	APBPConstants[AP_GIVE_ITEM] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_GIVE_ITEM",4),4);
+	APBPConstants[AP_BURY_MINE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_BURY_MINE",30),30);
+	APBPConstants[AP_DISARM_MINE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_DISARM_MINE",40),40);
+	APBPConstants[AP_DRINK] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_DRINK",20),20);
+	APBPConstants[AP_CAMOFLAGE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CAMOFLAGE",40),40);
+	APBPConstants[AP_START_RUN_COST] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_START_RUN_COST",4),4);
+	APBPConstants[AP_ATTACH_CAN] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_ATTACH_CAN",20),20);
+	APBPConstants[AP_JUMP_OVER] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_JUMP_OVER",20),20);
+	APBPConstants[AP_BACK_PACK] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_BACK_PACK",12),12);
+	APBPConstants[AP_OPEN_ZIPPER] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_OPEN_ZIPPER",24),24);
+	APBPConstants[AP_CLOSE_ZIPPER] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CLOSE_ZIPPER",28),28);
+	APBPConstants[AP_CLICK_AIM] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_CLICK_AIM",4),4);
+	APBPConstants[AUTOFIRE_SHOTS_AP_VALUE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AUTOFIRE_SHOTS_AP_VALUE",20),20);
+	APBPConstants[BAD_AP_COST] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","BAD_AP_COST",36),36);
+	APBPConstants[AP_RELOAD_LOOSE] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_RELOAD_LOOSE",8),8);
+	APBPConstants[AP_UNJAM] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_UNJAM",2),2);
+	APBPConstants[AP_MAX_SUPPRESSED] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_MAX_SUPPRESSED",32),32);
+	APBPConstants[AP_SUPPRESSION_MOD] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","AP_SUPPRESSION_MOD",24),24);
+	APBPConstants[DEFAULT_APS] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","DEFAULT_APS",80),80);
+	APBPConstants[DEFAULT_AIMSKILL] = iniReader.ReadInteger("APConstants","DEFAULT_AIMSKILL",80);
+
+	APBPConstants[BP_RATIO_RED_PTS_TO_NORMAL] = iniReader.ReadInteger("BPConstants","BP_RATIO_RED_PTS_TO_NORMAL",100);
+	APBPConstants[BP_RUN_ENERGYCOSTFACTOR] = iniReader.ReadInteger("BPConstants","BP_RUN_ENERGYCOSTFACTOR",3);
+	APBPConstants[BP_WALK_ENERGYCOSTFACTOR] = iniReader.ReadInteger("BPConstants","BP_WALK_ENERGYCOSTFACTOR",1);
+	APBPConstants[BP_SWAT_ENERGYCOSTFACTOR] = iniReader.ReadInteger("BPConstants","BP_SWAT_ENERGYCOSTFACTOR",2);
+	APBPConstants[BP_CRAWL_ENERGYCOSTFACTOR] = iniReader.ReadInteger("BPConstants","BP_CRAWL_ENERGYCOSTFACTOR",4);
+	APBPConstants[BP_RADIO] = iniReader.ReadInteger("BPConstants","BP_RADIO",0);
+	APBPConstants[BP_USE_DETONATOR] = iniReader.ReadInteger("BPConstants","BP_USE_DETONATOR",0);
+	APBPConstants[BP_PER_AP_NO_EFFORT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","BP_PER_AP_NO_EFFORT",-50),-50, TRUE);
+	APBPConstants[BP_PER_AP_MIN_EFFORT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","BP_PER_AP_MIN_EFFORT",-25),-25, TRUE);
+	APBPConstants[BP_PER_AP_LT_EFFORT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","BP_PER_AP_LT_EFFORT",-12),-12, TRUE);
+	APBPConstants[BP_PER_AP_MOD_EFFORT] = DynamicAdjustAPConstants(iniReader.ReadInteger("APConstants","BP_PER_AP_MOD_EFFORT",6),6, TRUE);
+	APBPConstants[BP_MOVEMENT_FLAT] = iniReader.ReadInteger("BPConstants","BP_MOVEMENT_FLAT",5);
+	APBPConstants[BP_MOVEMENT_GRASS] = iniReader.ReadInteger("BPConstants","BP_MOVEMENT_GRASS",10);
+	APBPConstants[BP_MOVEMENT_BUSH] = iniReader.ReadInteger("BPConstants","BP_MOVEMENT_BUSH",20);
+	APBPConstants[BP_MOVEMENT_RUBBLE] = iniReader.ReadInteger("BPConstants","BP_MOVEMENT_RUBBLE",35);
+	APBPConstants[BP_MOVEMENT_SHORE] = iniReader.ReadInteger("BPConstants","BP_MOVEMENT_SHORE",50);
+	APBPConstants[BP_MOVEMENT_LAKE] = iniReader.ReadInteger("BPConstants","BP_MOVEMENT_LAKE",75);
+	APBPConstants[BP_MOVEMENT_OCEAN] = iniReader.ReadInteger("BPConstants","BP_MOVEMENT_OCEAN",100);
+	APBPConstants[BP_CROUCH] = iniReader.ReadInteger("BPConstants","BP_CROUCH",10);
+	APBPConstants[BP_PRONE] = iniReader.ReadInteger("BPConstants","BP_PRONE",10);
+	APBPConstants[BP_CLIMBROOF] = iniReader.ReadInteger("BPConstants","BP_CLIMBROOF",500);
+	APBPConstants[BP_CLIMBOFFROOF] = iniReader.ReadInteger("BPConstants","BP_CLIMBOFFROOF",250);
+	APBPConstants[BP_JUMPFENCE] = iniReader.ReadInteger("BPConstants","BP_JUMPFENCE",200);
+	APBPConstants[BP_JUMPFENCEBPACK] = iniReader.ReadInteger("BPConstants","BP_JUMPFENCEBPACK",500);
+	APBPConstants[BP_STEAL_ITEM] = iniReader.ReadInteger("BPConstants","BP_STEAL_ITEM",50);
+	APBPConstants[BP_START_FIRST_AID] = iniReader.ReadInteger("BPConstants","BP_START_FIRST_AID",0);
+	APBPConstants[BP_GET_HIT] = iniReader.ReadInteger("BPConstants","BP_GET_HIT",200);
+	APBPConstants[BP_GET_WOUNDED] = iniReader.ReadInteger("BPConstants","BP_GET_WOUNDED",50);
+	APBPConstants[BP_FALL_DOWN] = iniReader.ReadInteger("BPConstants","BP_FALL_DOWN",250);
+	APBPConstants[BP_OPEN_DOOR] = iniReader.ReadInteger("BPConstants","BP_OPEN_DOOR",30);
+	APBPConstants[BP_PICKLOCK] = iniReader.ReadInteger("BPConstants","BP_PICKLOCK",-250);
+	APBPConstants[BP_EXAMINE_DOOR] = iniReader.ReadInteger("BPConstants","BP_EXAMINE_DOOR",-250);
+	APBPConstants[BP_BOOT_DOOR] = iniReader.ReadInteger("BPConstants","BP_BOOT_DOOR",200);
+	APBPConstants[BP_USE_CROWBAR] = iniReader.ReadInteger("BPConstants","BP_USE_CROWBAR",350);
+	APBPConstants[BP_UNLOCK_DOOR] = iniReader.ReadInteger("BPConstants","BP_UNLOCK_DOOR",50);
+	APBPConstants[BP_EXPLODE_DOOR] = iniReader.ReadInteger("BPConstants","BP_EXPLODE_DOOR",-250);
+	APBPConstants[BP_UNTRAP_DOOR] = iniReader.ReadInteger("BPConstants","BP_UNTRAP_DOOR",150);
+	APBPConstants[BP_LOCK_DOOR] = iniReader.ReadInteger("BPConstants","BP_LOCK_DOOR",50);
+	APBPConstants[BP_USEWIRECUTTERS] = iniReader.ReadInteger("BPConstants","BP_USEWIRECUTTERS",200);
+	APBPConstants[BP_DROP_BOMB] = iniReader.ReadInteger("BPConstants","BP_DROP_BOMB",0);
+	APBPConstants[BP_BURY_MINE] = iniReader.ReadInteger("BPConstants","BP_BURY_MINE",250);
+	APBPConstants[BP_DISARM_MINE] = iniReader.ReadInteger("BPConstants","BP_DISARM_MINE",0);
+	APBPConstants[BP_JUMP_OVER] = iniReader.ReadInteger("BPConstants","BP_JUMP_OVER",250);
+	APBPConstants[BP_BACK_PACK] = iniReader.ReadInteger("APConstants","BP_JUMP_OVER",50);
+	APBPConstants[BP_WORK_ZIPPER] = iniReader.ReadInteger("APConstants","BP_WORK_ZIPPER",250);
+	APBPConstants[BP_UNJAM] = iniReader.ReadInteger("APConstants","BP_WORK_ZIPPER",0);
+
+	SetupMaxActionPointsAnimation();
+}
 
 void FreeGameExternalOptions()
 {

@@ -683,6 +683,7 @@ itemEndElementHandle(void *userData, const XML_Char *name)
 		{
 			pData->curElement = ELEMENT;
 			pData->curItem.APBonus = (INT16) atol(pData->szCharData);
+			pData->curItem.APBonus = (INT16)DynamicAdjustAPConstants(pData->curItem.APBonus, pData->curItem.APBonus);
 		}
 		else if(strcmp(name, "RateOfFireBonus")	 == 0)
 		{
