@@ -103,12 +103,12 @@ FAST HELP TEXT -- Explains how the syntax of fast help text works.
 STR16 pCreditsJA2113[] =
 {
 	L"@T,{;JA2 v1.13 Development Team",
-	L"@T,C144,R134,{;Coding",
-	L"@T,C144,R134,{;Graphics and Sounds",
-	L"@};(Various other mods!)",
-	L"@T,C144,R134,{;Items",
-	L"@T,C144,R134,{;Other Contributors",
-	L"@};(All other community members who contributed input and feedback!)",
+	L"@T,C144,R134,{;Kodowanie",
+	L"@T,C144,R134,{;Grafika i dŸwiêki",
+	L"@};(Ró¿ne inne mody!)",
+	L"@T,C144,R134,{;Przedmioty",
+	L"@T,C144,R134,{;Pozostali autorzy",
+	L"@};(Wszyscy pozostali cz³onkowie sceny JA którzy nas wsparli!)",
 };
 
 CHAR16 ItemNames[MAXITEMS][80] =
@@ -144,8 +144,10 @@ CHAR16 AmmoCaliber[MAXITEMS][20];// =
 //	L"5.7mm",
 //	L"Monstrum",
 //	L"Rakiety",
-//	L"", // dart
+//	L"strza³ka", // dart
 //	L"", // flame
+//	L".50 cal", // barrett
+//	L"9mm Hvy", // Val silent
 //};
 
 // This BobbyRayAmmoCaliber is virtually the same as AmmoCaliber however the bobby version doesnt have as much room for the words.
@@ -172,11 +174,14 @@ CHAR16 BobbyRayAmmoCaliber[MAXITEMS][20] ;//=
 //	L"5.7mm",
 //	L"Monstrum",
 //	L"Rakiety",
-//	L"", // dart
+//	L"strza³ka", // dart
+//	L"", // flamethrower
+//	L".50 cal", // barrett
+//	L"9mm Hvy", // Val silent
 //};
 
 
-CHAR16 WeaponType[][30] =
+CHAR16 WeaponType[MAXITEMS][30] =
 {
 	L"Inny",
 	L"Pistolet",
@@ -247,7 +252,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"du¿a waga",
 	L"niewielkie rozmiary",
 	L"szybki ci¹g³y ogieñ",
-	L"brak ci¹g³ego ognia",
+	L"brak mo¿liwoœci strzelania seri¹",
 	L"du¿y magazynek",
 	L"ma³y magazynek",
 
@@ -289,7 +294,7 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"Ta zmiana bêdzie trwa³a. Kontynuowaæ?",
 	L"%s ma wiêcej energii!",
 	L"%s poœlizgn¹³(nê³a) siê na kulkach!",
-	L"%s nie chwyci³(a) - %s!",
+	L"%s nie chwyci³(a) - %s!",    //to by³o - L"%s nie zdo³a³ chwyciæ %s!",		teraz jest - L"%s nie zdo³a³ zabraæ %s z rêki wroga!",
 	L"%s naprawi³(a) %s",
 	L"Przerwanie dla: ",
 	L"Poddaæ siê?",
@@ -298,10 +303,13 @@ CHAR16 Message[][STRING_LENGTH] =
   	L"Aby podró¿owaæ helikopterem Skyridera, musisz najpierw zmieniæ przydzia³ najemników na POJAZD/HELIKOPTER.",
 	L"%s mia³(a) czas by prze³adowaæ tylko jedn¹ broñ",
 	L"Tura dzikich kotów",
-	L"automatic",
-	L"no full auto",
-	L"The enemy has no more items to steal!",
-	L"The enemy has no item in its hand!",
+	L"ogieñ ci¹g³y",
+	L"brak ognia ci¹g³ego",
+	L"celna",
+	L"niecelna",
+	L"broñ samoczynna",
+	L"Wróg nie ma przedmiotów, które mo¿na ukraœæ!",
+	L"Wróg nie ma ¿adnego przedmiotu w rêce!",
 };
 
 
@@ -366,13 +374,13 @@ STR16 pAssignmentStrings[] =
 	L"S³u¿ba", // on active duty
 	L"Lekarz", // administering medical aid
 	L"Pacjent", // getting medical aid
-	L"Pojazd", // sitting around resting
+	L"Pojazd", // in a vehicle
 	L"Podró¿", // in transit - abbreviated form
 	L"Naprawa", // repairing
-	L"Praktyka", // training themselves  // ***************NEW******************** as of June 24. 1998
-	L"Samoobr.", // training a town to revolt // *************NEW******************** as of June 24, 1998
+	L"Praktyka", // training themselves  
+	L"Samoobr.", // training a town to revolt 
 	L"Instruk.", // training a teammate
-	L"Uczeñ", // being trained by someone else // *******************NEW************** as of June 24, 1998
+	L"Uczeñ", // being trained by someone else 
 	L"Nie ¿yje", // dead
 	L"Obezw³.", // abbreviation for incapacitated
 	L"Jeniec", // Prisoner of war - captured
@@ -497,7 +505,7 @@ STR16 pLongAssignmentStrings[] =
 	L"Nie ¿yje",
 	L"Obezw³adniony",
 	L"Jeniec",
-	L"W szpitalu",
+	L"W szpitalu", // patient in a hospital 
 	L"Pusty",	// Vehicle is empty
 };
 
@@ -540,8 +548,8 @@ STR16 pInvPanelTitleStrings[] =
 	L"Os³ona", // the armor rating of the merc
 	L"Ekwip.", // the weight the merc is carrying
 	L"Kamuf.", // the merc's camouflage rating
-	L"Camouflage:",
-	L"Protection:",
+	L"Kamufla¿:",
+	L"Ochrona:",
 };
 
 STR16 pShortAttributeStrings[] =
@@ -561,7 +569,7 @@ STR16 pShortAttributeStrings[] =
 
 STR16 pUpperLeftMapScreenStrings[] =
 {
-	L"Przydzia³", // the mercs current assignment // *********************NEW****************** as of June 24, 1998
+	L"Przydzia³", // the mercs current assignment 
 	L"Kontrakt", // the contract info about the merc
 	L"Zdrowie", // the health level of the current merc
 	L"Morale", // the morale of the current merc
@@ -571,10 +579,10 @@ STR16 pUpperLeftMapScreenStrings[] =
 
 STR16 pTrainingStrings[] =
 {
-	L"Praktyka", // tell merc to train self // ****************************NEW******************* as of June 24, 1998
-	L"Samoobrona", // tell merc to train town // *****************************NEW ****************** as of June 24, 1998
+	L"Praktyka", // tell merc to train self 
+	L"Samoobrona", // tell merc to train town 
 	L"Instruktor", // tell merc to act as trainer
-	L"Uczeñ", // tell merc to be train by other // **********************NEW******************* as of June 24, 1998
+	L"Uczeñ", // tell merc to be train by other 
 };
 
 STR16 pGuardMenuStrings[] =
@@ -621,31 +629,31 @@ STR16 pAssignMenuStrings[] =
 //lal
 STR16 pMilitiaControlMenuStrings[] =
 {
-	L"Attack", // set militia to aggresive
-	L"Hold Position", // set militia to stationary
-	L"Retreat", // retreat militia
-	L"Come to me", // retreat militia
-	L"Get down", // retreat militia	
-	L"Take cover",
-	L"All: Attack", 
-	L"All: Hold Position",
-	L"All: Retreat",
-	L"All: Come to me",
-	L"All: Spread out",
-	L"All: Get down",
-	L"All: Take cover",
-	//L"All: Find items",
-	L"Cancel", // cancel this menu
+	L"Atakuj", // set militia to aggresive
+	L"Utrzymaj pozycjê", // set militia to stationary
+	L"Wycofaj siê", // retreat militia
+	L"ChodŸ do mnie", // retreat militia
+	L"Padnij", // retreat militia	
+	L"Kryj siê",
+	L"Wszyscy: Atakujcie", 
+	L"Wszyscy: Utrzymajcie pozycje",
+	L"Wszyscy: Wycofajcie siê",
+	L"Wszyscy: ChodŸcie do mnie",
+	L"Wszyscy: Rozproszcie siê",
+	L"Wszyscy: Padnijcie",
+	L"Wszyscy: Kryjcie siê",
+	//L"Wszyscy: Szukajcie przedmiotów",
+	L"Anuluj", // cancel this menu
 };
 
 //STR16 pTalkToAllMenuStrings[] =
 //{
-//	L"Attack", // set militia to aggresive
-//	L"Hold Position", // set militia to stationary
-//	L"Retreat", // retreat militia
-//	L"Come to me", // retreat militia
-//	L"Get down", // retreat militia		 
-//	L"Cancel", // cancel this menu
+//	L"Atak", // set militia to aggresive
+//	L"Utrzymaj pozycjê", // set militia to stationary
+//	L"Odwrót", // retreat militia
+//	L"Za mn¹", // retreat militia
+//	L"Padnij", // retreat militia		 
+//	L"Anuluj", // cancel this menu
 //};
 
 STR16 pRemoveMercStrings[] =
@@ -670,10 +678,10 @@ STR16 pAttributeMenuStrings[] =
 
 STR16 pTrainingMenuStrings[] =
 {
- L"Praktyka", // train yourself //****************************NEW************************** as of June 24, 1998
- L"Samoobrona", // train the town // ****************************NEW ************************* as of June 24, 1998
- L"Instruktor", // train your teammates // *******************NEW************************** as of June 24, 1998
- L"Uczeñ",  // be trained by an instructor //***************NEW************************** as of June 24, 1998
+ L"Praktyka", // train yourself 
+ L"Samoobrona", // train the town 
+ L"Instruktor", // train your teammates 
+ L"Uczeñ",  // be trained by an instructor 
  L"Anuluj", // cancel this menu
 };
 
@@ -743,23 +751,23 @@ STR16 gzMercSkillText[] =
 {
 	L"Brak umiejêtnoœci",
 	L"Otwieranie zamków",
-	L"Walka wrêcz",
+	L"Walka wrêcz",		//JA25: modified
 	L"Elektronika",
-	L"Nocne operacje",
+	L"Nocne operacje",			//JA25: modified
 	L"Rzucanie",
 	L"Szkolenie",
 	L"Ciê¿ka broñ",
 	L"Broñ automatyczna",
 	L"Skradanie siê",
 	L"Oburêcznoœæ",
-	L"Kradzie¿e",
+	L"Kradzie¿",
 	L"Sztuki walki",
 	L"Broñ bia³a",
-	L"Sniper",
-	L"Kamufla¿",
-	L"Kamufla¿ (Urban)",
-	L"Kamufla¿ (Desert)",
-	L"Kamufla¿ (Snow)",
+	L"Snajper",				//JA25: modified
+	L"Kamufla¿",						//JA25: modified
+	L"Kamufla¿ (miasto)",
+	L"Kamufla¿ (pustynia)",
+	L"Kamufla¿ (œnieg)",
 	L"(Eksp.)",
 };
 
@@ -820,7 +828,7 @@ STR16 pMapScreenMouseRegionHelpText[] =
 	L"Nanieœ trasê podró¿y",
 	L"Kontrakt najemnika",
 	L"Usuñ najemnika",
-	L"Œpij", // *****************************NEW********************* as of June 29, 1998
+	L"Œpij", 
 };
 
 // volumes of noises 
@@ -977,9 +985,9 @@ STR16 gpStrategicString[] =
 	//The different headers(titles) for the prebattle interface.
 	L"STARCIE Z WROGIEM",							//STR_PB_ENEMYENCOUNTER_HEADER,
 	L"INWAZJA WROGA",							//STR_PB_ENEMYINVASION_HEADER, // 30
-	L"ZASADZKA WROGA",
-	L"WEJŒCIE DO WROGIEGO SEKTORA",				
-	L"ATAK STWORÓW",
+	L"ZASADZKA WROGA",								//STR_PB_ENEMYAMBUSH_HEADER
+	L"WEJŒCIE DO WROGIEGO SEKTORA",				//STR_PB_ENTERINGENEMYSECTOR_HEADER
+	L"ATAK STWORÓW",							//STR_PB_CREATUREATTACK_HEADER
 	L"ATAK DZIKICH KOTÓW",							//STR_PB_BLOODCATAMBUSH_HEADER
 	L"WEJŒCIE DO LEGOWISKA DZIKICH KOTÓW",			//STR_PB_ENTERINGBLOODCATLAIR_HEADER
 
@@ -994,7 +1002,7 @@ STR16 gpStrategicString[] =
 	L"Dzikie koty",
 	L"Sektor",
 	L"Brak",		//If there are no uninvolved mercs in this fight.
-	L"N/D",			//Acronym of Not Applicable N/A
+	L"N/D",			//Acronym of Not Applicable
 	L"d",			//One letter abbreviation of day
 	L"g",			//One letter abbreviation of hour
 
@@ -1069,24 +1077,207 @@ STR16 sKeyDescriptionStrings[2] =
 
 //The headers used to describe various weapon statistics.
 
-CHAR16		gWeaponStatsDesc[][ 14 ] =
+CHAR16		gWeaponStatsDesc[][ 16 ] =
 {
-	L"Waga (%s):", // change kg to another weight unit if your standard is not kilograms, and TELL SIR-TECH!
+	// HEADROCK: Changed this for Extended Description project
 	L"Stan:",
-	L"Iloœæ:", 		// Number of bullets left in a magazine
+	L"Waga (%s):", 
+	L"PA Koszty",	
 	L"Zas.:",		// Range
 	L"Si³a:",		// Damage
+	L"Iloœæ:", 		// Number of bullets left in a magazine
     L"PA:",                 // abbreviation for Action Points
-	L"",
 	L"=",
 	L"=",
 						//Lal: additional strings for tooltips
-	L"Accuracy:",	//9
-	L"Range:",		//10	
-	L"Damage:", 	//11
-	L"Weight:",		//12
-	L"Stun Damage:",//13
+	L"Celnoœæ:",	//9
+	L"Zasiêg:",		//10	
+	L"Si³a:",		//11
+	L"Waga:",		//12
+	L"Og³uszenie:",//13
+	// HEADROCK: Added new strings for extended description ** REDUNDANT **
+	L"AUTOPEN:",	//14
+	L"AUTO/5:",		//15
+	L"Amount:",		//16
+
 };
+
+// HEADROCK: Several arrays of tooltip text for new Extended Description Box
+// Please note, several of these are artificially inflated to 19 entries to help fix a complication with
+// changing item type while watching its description box
+STR16		gzWeaponStatsFasthelp[ 27 ] =
+{
+	L"Range",
+	L"Damage",
+	L"Burst/Auto Penalty",
+	L"Autofire shots per 5 AP",
+	L"Accuracy",
+	L"Reliability",
+	L"Repair Ease",
+	L"APs to ready",
+	L"APs to fire Single",
+	L"APs to fire Burst",
+	L"APs to fire Auto",
+	L"APs to Reload",
+	L"APs to Reload Manually",
+	L"Flash Suppression",
+	L"Loudness (Lower is better)",
+	L"To-Hit Modifier",
+	L"Average Best Laser Range",
+	L"Aiming Modifier",
+	L"Min. Range for Aiming Bonus",
+	L"Bipod Modifier",
+	L"APs to Throw",
+	L"APs to Launch",
+	L"APs to Stab",
+	L"No Single Shot!",
+	L"No Burst Mode!",
+	L"No Auto Mode!",
+	L"APs to Bash",
+};
+
+STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
+{
+	L"Range",
+	L"Damage",
+	L"Burst/Auto Penalty",
+	L"Autofire shots per 5 AP",
+	L"Accuracy",
+	L"Reliability",
+	L"Repair Ease",
+	L"APs to ready",
+	L"APs to fire Single",
+	L"APs to fire Burst",
+	L"APs to fire Auto",
+	L"APs to Reload",
+	L"APs to Reload Manually",
+	L"To-Hit Modifier",
+	L"Average Best Laser Range",
+	L"Aiming Modifier",
+	L"Min. Range for Aiming Bonus",
+	L"Flash Suppression",
+	L"Loudness (Lower is better)",
+	L"Bipod Modifier",
+	L"APs to Throw",
+	L"APs to Launch",
+	L"APs to Stab",
+	L"No Single Shot!",
+	L"No Burst Mode!",
+	L"No Auto Mode!",
+	L"APs to Bash",
+};
+
+STR16		gzAmmoStatsFasthelp[ 20 ] =
+{
+	L"Armor Penetration (Lower is better)",
+	L"Bullet Tumble (Higher is better)",
+	L"Pre-impact Explosion (Higher is better)",
+	L"Tracer Effect",
+	L"Anti-Tank",
+	L"Lockbuster",
+	L"Ignores Armor",
+	L"Acidic",
+	L"Range Modifier",
+	L"Damage Modifier",
+	L"To-Hit Modifier",
+	L"Burst/Auto Penalty Modifier (Higher is better)",
+	L"Reliability Modifier",
+	L"Loudness Modifier (Lower is better)",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+};
+
+STR16		gzArmorStatsFasthelp[ 20 ] =
+{
+	L"Protection",
+	L"Coverage (Higher is better)",
+	L"Degrade Rate (Lower is better)",
+	L"AP Modifier",
+	L"To-Hit Modifier",
+	L"Woodland Camo",
+	L"Urban Camo",
+	L"Desert Camo",
+	L"Snow Camo",
+	L"Stealth Modifier",
+	L"Vision Range Modifier",
+	L"Day Vision Range Modifier",
+	L"Night Vision Range Modifier",
+	L"Bright Light Vision Range Modifier",
+	L"Cave Vision Range Modifier",
+	L"Tunnel Vision Percentage",
+	L"Hearing Range Modifier",
+	L"",
+	L"",
+	L"",
+};
+
+STR16		gzExplosiveStatsFasthelp[ 20 ] =
+{
+	L"Damage",
+	L"Stun Damage",
+	L"Blast Loudness (Lower is better)",
+	L"Volatility!!! (Lower is better)",
+	L"Blast Radius",
+	L"Effect Start Radius",
+	L"Effect Final Radius ",
+	L"Effect Duration",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+};
+
+STR16		gzMiscItemStatsFasthelp[ 34 ] =
+{
+	L"Item Size Modifier (Lower is better)", // 0
+	L"Reliability Modifier",
+	L"Loudness Modifier (Lower is better)",
+	L"Hides Muzzle Flash",
+	L"Bipod Modifier",
+	L"Range Modifier", // 5
+	L"To-Hit Modifier",
+	L"Best Laser Range",
+	L"Aiming Bonus Modifier",
+	L"Burst Size Modifier",
+	L"Burst Penalty Modifier (Higher is better)", // 10
+	L"Auto-Fire Penalty Modifier (Higher is better)",
+	L"AP Modifier",
+	L"AP to Burst Modifier (Lower is better)",
+	L"AP to Auto-Fire Modifier (Lower is better)",
+	L"AP to Ready Modifier (Lower is better)", // 15
+	L"AP to Reload Modifier (Lower is better)",
+	L"Magazine Size Modifier",
+	L"AP to Attack Modifier (Lower is better)",
+	L"Damage Modifier",
+	L"Melee Damage Modifier", // 20
+	L"Woodland Camo",
+	L"Urban Camo",
+	L"Desert Camo",
+	L"Snow Camo",
+	L"Stealth Modifier", // 25
+	L"Hearing Range Modifier",
+	L"Vision Range Modifier",
+	L"Day Vision Range Modifier",
+	L"Night Vision Range Modifier",
+	L"Bright Light Vision Range Modifier", //30
+	L"Cave Vision Range Modifier",
+	L"Tunnel Vision Percentage (Lower is better)",
+	L"Minimum Range for Aiming Bonus",
+};
+
+// HEADROCK: End new tooltip text
 
 //The headers used for the merc's money.
 
@@ -1309,7 +1500,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Wycisz",
 	L"Pozycja do góry (|P|g|U|p)",
 	L"Poziom kursora (|T|a|b)",
-	L"Wspinaj siê / Zeskocz",
+	L"Wspinaj siê / |Zeskocz",
 	L"Pozycja w dó³ (|P|g|D|n)",
 	L"Badaæ (|C|t|r|l)",
 	L"Poprzedni najemnik",
@@ -1395,7 +1586,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Ktoœ inny majstruje przy tych drzwiach.",
 	L"Stan: %d/%d\nPaliwo: %d/%d",
 	L"%s nie widzi - %s.",  // Cannot see person trying to talk to
-	L"Attachment removed",
+	L"Dodatek usuniêty",
 	L"Can not gain another vehicle as you already have 2",
 };
 
@@ -1704,38 +1895,38 @@ STR16 pSenderNameList[] =
 	L"Pomoc",
 	L"Psych Pro Inc",
 	L"Speck",
-	L"R.I.S.",
+	L"R.I.S.",		//5
 	L"Barry",
 	L"Blood",
 	L"Lynx",
 	L"Grizzly",
-	L"Vicki",
+	L"Vicki",			//10
 	L"Trevor",
 	L"Grunty",
 	L"Ivan",
 	L"Steroid",
-	L"Igor",
+	L"Igor",			//15
 	L"Shadow",
 	L"Red",
 	L"Reaper",
 	L"Fidel",
-	L"Fox",
+	L"Fox",				//20
 	L"Sidney",
 	L"Gus",
 	L"Buns",
 	L"Ice",
-	L"Spider",
+	L"Spider",		//25
 	L"Cliff",
 	L"Bull",
 	L"Hitman",
 	L"Buzz",
-	L"Raider",
+	L"Raider",		//30
 	L"Raven",
 	L"Static",
 	L"Len",
 	L"Danny",
 	L"Magic",
-	L"Stephan",
+	L"Stephen",
 	L"Scully",
 	L"Malice",
 	L"Dr.Q",
@@ -1824,8 +2015,8 @@ STR16 pFinanceSummary[] =
 STR16 pFinanceHeaders[] =
 {
 	L"Dzieñ", 					// the day column
-	L"Ma", 				// the credits column
-	L"Winien",				// the debits column
+	L"Ma", 				// the credits column (to ADD money to your account)
+	L"Winien",				// the debits column (to SUBTRACT money from your account)
 	L"Transakcja", 			// transaction type - see TransactionText below
 	L"Saldo", 				// balance at this point in time
 	L"Strona", 				// page number
@@ -1863,6 +2054,7 @@ STR16 pTransactionText[] =
 	L"Samoobrona w - %s", // initial cost to equip a town's militia
 	L"Zakupy u - %s.",	//is used for the Shop keeper interface.  The dealers name will be appended to the end of the string.
 	L"%s wp³aci³(a) pieni¹dze.",
+	L"Sprzedano rzecz(y) miejscowym",
 };
 
 STR16 pTransactionAlternateText[] =
@@ -1953,7 +2145,7 @@ STR16 pMapErrorString[] =
 	L"musi mieæ eskortê, aby siê przemieszczaæ. Umieœæ j¹ w oddziale z eskort¹.", // for a female
 	L"Najemnik nie przyby³ jeszcze do Arulco!",
 	L"Wygl¹da na to, ¿e trzeba wpierw uregulowaæ sprawy kontraktu.",
-	L"",
+	L"Nie mo¿na przemieœciæ najemnika. Trwa nalot powietrzny.",
 //11-15
 	L"Rozkazy przemieszczenia? Trwa walka!",
 	L"Zaatakowa³y ciê dzikie koty, w sektorze %s!",
@@ -1968,10 +2160,10 @@ STR16 pMapErrorString[] =
 	L"%s nie mo¿e siê przy³¹czyæ, poniewa¿ %s jest zbyt daleko.",
 //21-25
 	L"%s - kopalnia zosta³a przejêta przez si³y Deidranny!",
-	L"Si³y Deidranny w³aœnie zaatakowa³y bazê rakiet Ziemia-Powietrze w - %s.",
-	L"Si³y Deidranny w³aœnie zaatakowa³y - %s.",
-	L"W³aœnie zauwa¿ono si³y Deidranny w - %s.",
-	L"Si³y Deidranny w³aœnie przejê³y - %s.",
+	L"Si³y wroga w³aœnie zaatakowa³y bazê rakiet Ziemia-Powietrze w - %s.",
+	L"Si³y wroga w³aœnie zaatakowa³y - %s.",
+	L"W³aœnie zauwa¿ono si³y wroga w - %s.",
+	L"Si³y wroga w³aœnie przejê³y - %s.",
 //26-30
 	L"Przynajmniej jeden z twoich najemników nie móg³ siê po³o¿yæ spaæ.",
 	L"Przynajmniej jeden z twoich najemników nie móg³ wstaæ.",
@@ -2070,6 +2262,8 @@ STR16 pMercContractOverStrings[] =
 
 // Text used on IMP Web Pages
 
+// WDS: Allow flexible numbers of IMPs of each sex
+//    note: I only updated the English text to remove "three" below
 STR16 pImpPopUpStrings[] =
 {
 	L"Nieprawid³owy kod dostêpu",
@@ -2079,11 +2273,11 @@ STR16 pImpPopUpStrings[] =
 	L"Opcja tym razem nieaktywna.",
 	L"Aby wykonaæ profil, musisz mieæ miejsce dla przynajmniej jednego cz³onka za³ogi.",
 	L"Profil zosta³ ju¿ wykonany.",
-	L"Cannot load I.M.P. character from disk.",
-	L"You have already reached the maximum number of I.M.P. characters.",
-	L"You have already three I.M.P characters with the same gender on your team.",
-	L"You cannot afford the I.M.P character.",
-	L"The new I.M.P character has joined your team.",
+	L"Nie mo¿na za³adowaæ postaci I.M.P. z dysku.",
+	L"Wykorzysta³eœ ju¿ maksymaln¹ liczbê postaci I.M.P.",
+	L"Masz ju¿ w oddziale trzy postacie I.M.P. tej samej p³ci.",					//L"You have already the maximum number of I.M.P characters with that gender on your team.",  BY£o ->>L"You have already three I.M.P characters with the same gender on your team.",
+	L"Nie staæ ciê na postaæ I.M.P.",
+	L"Nowa postaæ I.M.P. do³¹czy³a do oddzia³u.",
 };
 
 
@@ -2093,7 +2287,7 @@ STR16 pImpButtonText[] =
 {
 	L"O Nas", 			// about the IMP site
 	L"ZACZNIJ", 			// begin profiling
-	L"Osobowoœæ", 		// personality section
+	L"Umiejêtnoœci", 		// personality section
 	L"Atrybuty", 		// personal stats/attributes section
 	L"Portret", 			// the personal portrait selection
 	L"G³os %d", 			// the voice selection
@@ -2361,7 +2555,7 @@ STR16 pPersonnelString[] =
 
 STR16 pWebTitle[ ]=
 {
-	L"sir-FER 4.0",		// our name for thL"sir-FER 4.0",		// our name for the version of the browser, play on company name
+	L"sir-FER 4.0",		// our name for the version of the browser, play on company name
 };
 
 
@@ -2556,8 +2750,7 @@ STR16			InsContractText[] =
 { 
 	L"Wstecz",
 	L"Dalej",
-	//L"Akceptujê",
-	L"OK",
+	L"Akceptujê",
 	L"Skasuj",
 };
 
@@ -2594,8 +2787,8 @@ STR16			MercAccountText[] =
 STR16			MercAccountPageText[] = 
 {
 	// Text on the buttons on the bottom of the screen
-	L"Previous",
-  L"Next",
+	L"Wstecz",
+	L"Dalej",
 };
 
 //For use at the M.E.R.C. web site. Text relating a MERC mercenary
@@ -2808,49 +3001,49 @@ STR16			BobbyROrderFormText[] =
 STR16			BobbyRFilter[] =
 {
 	// Guns
-	L"Heavy W.",
-	L"Pistol",
-	L"M. Pistol",
-	L"SMG",
-	L"Rifle",
-	L"SN Rifle",
-	L"AS Rifle",
-	L"MG",
-	L"Shotgun",
+	L"Inny",
+	L"Pistolet",
+	L"Pistolet maszynowy",
+	L"Karabin maszynowy",
+	L"Karabin",
+	L"Karabin snajperski",
+	L"Karabin bojowy",
+	L"Lekki karabin maszynowy",
+	L"Strzelba",
 
 	// Ammo
-	L"Pistol",
-	L"M. Pistol",
-	L"SMG",
-	L"Rifle",
-	L"SN Rifle",
-	L"AS Rifle",
-	L"MG",
-	L"Shotgun",
+	L"Pistolet",
+	L"Pistolet maszynowy",
+	L"Karabin maszynowy",
+	L"Karabin",
+	L"Karabin snajperski",
+	L"Karabin bojowy",
+	L"Lekki karabin maszynowy",
+	L"Strzelba",
 
 	// Used
-	L"Guns",
-	L"Armor",
+	L"Broñ",
+	L"Pancerz",
 	L"LBE Gear",
-	L"Misc",
+	L"Ró¿ne",
 
 	// Armour
-	L"Helmets",
-	L"Vests",
-	L"Leggings",
-	L"Plates",
+	L"He³my",
+	L"Kamizelki",
+	L"Getry ochronne",
+	L"P³ytki ceramiczne",
 
 	// Misc
-	L"Blades",
-	L"Th. Knives",
+	L"Ostrza",
+	L"No¿e do rzucania",
 	L"Punch. W.",
-	L"Grenades",
-	L"Bombs",
-	L"Med. Kits",
-	L"Kits",
-	L"Face Items",
+	L"Granaty",
+	L"Bomby",
+	L"Apteczki",
+	L"Ekwipunek",
+	L"Na twarz",
 	L"LBE Gear",
-	L"Misc.",
+	L"Inne",
 };
 
 
@@ -2859,8 +3052,8 @@ STR16			BobbyRFilter[] =
 STR16			BobbyRText[] = 
 {
 	L"Zamów",				// Title
-	
-	L"Kliknij wybrane towary. Lewym klawiszem zwiêkszasz iloœæ towaru, a prawym zmniejszasz. Gdy ju¿ skompletujesz swoje zakupy przejdŸ do formularza zamówienia.",			// instructions on how to order
+	// instructions on how to order
+	L"Kliknij wybrane towary. Lewym klawiszem zwiêkszasz iloœæ towaru, a prawym zmniejszasz. Gdy ju¿ skompletujesz swoje zakupy przejdŸ do formularza zamówienia.",			
 
 	//Text on the buttons to go the various links
 
@@ -2888,7 +3081,7 @@ STR16			BobbyRText[] =
 	L"Mag:",			// number of rounds of ammo the Magazine can hold
 	L"Zas:",				// The range of the gun
 	L"Si³a:",				// Damage of the weapon	
-	L"CS:",			// Weapon's Rate Of Fire, acroymn ROF
+	L"CS:",			// Weapon's Rate Of Fire, acronym ROF
 	L"Koszt:",			// Cost of the item
 	L"Na stanie:",			// The number of items still in the store's inventory
 	L"Iloœæ na zamów.:",		// The number of items on order
@@ -2943,8 +3136,8 @@ STR16			BobbyRaysFrontText[] =
 STR16			AimSortText[] =
 {
 	L"Cz³onkowie A.I.M.",				// Title
-	
-	L"Sortuj wg:",					// Title for the way to sort
+	// Title for the way to sort
+	L"Sortuj wg:",					
 
 	// sort by...
 
@@ -3097,7 +3290,7 @@ STR16			AimPopUpText[] =
 
 	//If you try to hire more mercs than game can support
 
-	L"Masz ju¿ pe³ny zespó³ najemników.",
+	L"Masz ju¿ pe³ny zespó³ 18 najemników.",
 
 	L"Nagrana wiadomoœæ",
 	L"Wiadomoœæ zapisana",
@@ -3171,6 +3364,7 @@ STR16			AimFiText[] =
 
 STR16			AimAlumniText[] =
 {
+	// Text of the buttons
 
 	L"STRONA 1",
 	L"STRONA 2",
@@ -3367,12 +3561,13 @@ STR16			zSaveLoadText[] =
 	L"Elementy S-F",
 
 	L"Stopieñ trudnoœci",
-	L"Platyna", //Placeholder English
-	L"Bobby Ray's",
-	L"Good Selection",
-	L"Great Selection",
-	L"Excellent Selection",
-	L"Awesome Selection",
+	L"Platynowy tryb", //Placeholder English
+
+	L"Wyposa¿enie Bobby Ray's",
+	L"Normalne",
+	L"Œwietne",
+	L"Wyœmienite",
+	L"Niewiarygodne",
 
 	L"New Inventory does not work in 640x480 screen size.  Please resize and try again.",
 	L"New Inventory does not work from the default 'Data' folder.",
@@ -3400,8 +3595,8 @@ STR16		zMarksMapScreenText[] =
 	L"Najemnik posiada zastaw na ¿ycie.", 
 	
 	// other items
-	L"Lekarze", // people acting a field medics and bandaging wounded mercs // **************************************NEW******** as of July 09, 1998
-	L"Pacjenci", // people who are being bandaged by a medic // ****************************************************NEW******** as of July 10, 1998
+	L"Lekarze", // people acting a field medics and bandaging wounded mercs 
+	L"Pacjenci", // people who are being bandaged by a medic 
 	L"Gotowe", // Continue on with the game after autobandage is complete 
 	L"Przerwij", // Stop autobandaging of patients by medics now 
 	L"Przykro nam, ale ta opcja jest wy³¹czona w wersji demo.", // informs player this option/button has been disabled in the demo 
@@ -3410,7 +3605,8 @@ STR16		zMarksMapScreenText[] =
 	L"Brak chêtnych ludzi do szkolenia, w tej chwili.",
 	L"%s posiada ju¿ maksymaln¹ liczbê oddzia³ów samoobrony.",
 	L"Najemnik ma kontrakt na okreœlony czas.",
-  L"Kontrakt najemnika nie jest ubezpieczony",
+	L"Kontrakt najemnika nie jest ubezpieczony",
+	L"Mapa",		// 24
 };
 
 
@@ -3460,111 +3656,113 @@ STR16		zOptionsToggleText[] =
 	L"Stara metoda wyboru",
 	L"Pokazuj trasê ruchu",
 	L"Pokazuj chybione strza³y",
-	L"Potwierdzenia w trybie Real-Time",
-	L"Informacja, ¿e najemnik œpi/budzi siê",
+	L"Potwierdzenia Real-Time",
+	L"Najemnik œpi/budzi siê",
 	L"U¿ywaj systemu metrycznego",
-	L"Œwiat³o wokó³ najemników podczas ruchu",
+	L"Oœwietlenie podczas ruchu",
 	L"Przyci¹gaj kursor do najemników",
 	L"Przyci¹gaj kursor do drzwi",
 	L"Pulsuj¹ce przedmioty",
 	L"Pokazuj korony drzew",
 	L"Pokazuj siatkê",
 	L"Pokazuj kursor 3D",
-	L"Show Chance to Hit on cursor",
-	L"GL Burst uses Burst cursor",
-	L"Enemies Drop all Items",
-	L"High angle Grenade launching",
-	L"Restrict extra Aim Levels",
-	L"Space selects next Squad",
-	L"Show Item Shadow",
-	L"Show Weapon Ranges in Tiles",
-	L"Tracer effect for single shot",
-	L"Rain noises",
-	L"Allow crows",
-	L"Random I.M.P personality",
-	L"Auto save",
-	L"Silent Skyrider",
-	L"Low CPU usage",
+	L"Pokazuj szansê na trafienie",
+	L"Zamiana kursora granatnika",
+	L"Wróg opuszcza ca³y ekwipunek",
+	L"Wysoki k¹t strza³ów z granatnika",
+	L"Ograniczenie poziomów celowania",
+	L"Spacja = nastêpny oddzia³",
+	L"Pokazuj cienie przedmiotów",
+	L"Pokazuj zasiêg broni w polach",
+	L"Efekt smugowy dla poj. strza³u",
+	L"Odg³osy padaj¹cego deszczu",
+	L"Pokazuj wrony",
+	L"Losowa osobowoœæ postaci I.M.P.",
+	L"Automatyczny zapis",
+	L"Cichy Skyrider",
+	L"Niskie obci¹¿enie procesora",
+	L"Enhanced Description Box",
 };
 
 //This is the help text associated with the above toggles.
 STR16	zOptionsScreenHelpText[] =
 {
 	//speech
-	L"W³¹cz tê opcjê, jeœli chcesz s³uchaæ dialogów.",
+	L"Jeœli W£¥CZONE, w grze pojawiaæ siê bêd¹ dialogi.",
 
 	//Mute Confirmation
-	L"W³¹cza lub wy³¹cza g³osowe potwierzenia postaci.",
+	L"Jeœli W£¥CZONE, g³osowe potwierdzenia postaci zostan¹ wyciszone.",
 
 		//Subtitles
-	L"W³¹cza lub wy³¹cza napisy podczas dialogów.",
+	L"Jeœli W£¥CZONE, pojawiaæ siê bêd¹ napisy podczas rozmów z innymi postaciami.",
 
 	//Key to advance speech
-	L"Jeœli napisy s¹ w³¹czone, opcja ta pozwoli ci spokojnie je przeczytaæ podczas dialogu.",
+	L"Jeœli W£¥CZONE, napisy pojawiaj¹ce siê podczas dialogów bêd¹ znika³y dopiero po klikniêciu.",
 
 	//Toggle smoke animation
-	L"Wy³¹cz tê opcjê, aby poprawiæ p³ynnoœæ dzia³ania gry.",
+	L"Jeœli W£¥CZONE, dym z granatów bêdzie animowany. Mo¿e spowolniæ dzia³anie gry.",
 
 	//Blood n Gore
-	L"Wy³¹cz tê opcjê, jeœli nie lubisz widoku krwi.",
+	L"Jeœli W£¥CZONE, pokazywane bêd¹ bardzo drastyczne sceny.",
 
 	//Never move my mouse
-	L"Wy³¹cz tê opcjê, aby kursor myszki automatycznie ustawia³ siê nad pojawiaj¹cymi siê okienkami dialogowymi.",
+	L"Jeœli W£¥CZONE, kursor nie bêdzie automatycznie ustawia³ siê nad pojawiaj¹cymi siê okienkami dialogowymi.",
 
 	//Old selection method
-	L"W³¹cz tê opcjê, aby wybór postaci dzia³a³ tak jak w poprzedniej wersji gry.",
+	L"Jeœli W£¥CZONE, wybór postaci bêdzie dzia³a³ tak jak w poprzednich czêœciach gry.",
 
 	//Show movement path
-	L"W³¹cz tê opcjê jeœli chcesz widzieæ trasê ruchu w trybie Real-Time.",
+	L"Jeœli W£¥CZONE, bêdziesz widzia³ trasê ruchu w trybie Real-Time.",
 
 	//show misses
-	L"W³¹cz tê opcjê, aby zobaczyæ w co trafiaj¹ twoje kule gdy pud³ujesz.",
+	L"Jeœli W£¥CZONE, bêdzie móg³ obserwowaæ w co trafiaj¹ twoje kule gdy spud³ujesz.",
 	
 	//Real Time Confirmation
-	L"Gdy opcja ta jest w³¹czona, ka¿dy ruch najemnika w trybie Real-Time bêdzie wymaga³ dodatkowego, potwierdzaj¹cego klikniêcia.",
+	L"Jeœli W£¥CZONE, ka¿dy ruch najemnika w trybie Real-Time bêdzie wymaga³ dodatkowego, potwierdzaj¹cego klikniêcia.",
 
 	//Sleep/Wake notification
-  	L"Gdy opcja ta jest w³¹czona, wyœwietlana bêdzie informacja, ¿e najemnik po³o¿y³ siê spaæ lub wsta³ i wróci³ do pracy.",
+	L"Jeœli W£¥CZONE, wyœwietlana bêdzie informacja, ¿e najemnik po³o¿y³ siê spaæ lub wsta³ i wróci³ do pracy.",
 
 	//Use the metric system
-	L"Gdy opcja ta jest w³¹czona, gra u¿ywa systemu metrycznego.",
+	L"Jeœli W£¥CZONE, gra bêdzie u¿ywa³a systemu metrycznego.",
 
 	//Merc Lighted movement
-	L"Gdy opcja ta jest w³¹czona, teren wokó³ najemnika bêdzie oœwietlony podczas ruchu. Wy³¹cz tê opcjê, jeœli obni¿a p³ynnoœæ gry.",
+	L"Jeœli W£¥CZONE, teren wokó³ najemnika bêdzie oœwietlony podczas ruchu. Mo¿e spowolniæ dzia³anie gry.",
 
 	//Smart cursor
-	L"Gdy opcja ta jest w³¹czona, kursor automatycznie ustawia siê na najemnikach gdy znajdzie siê w ich pobli¿u.",
+	L"Jeœli W£¥CZONE, kursor bêdzie automatycznie ustawia³ siê na najemnikach gdy znajdzie siê w ich pobli¿u.",
 
 	//snap cursor to the door
-	L"Gdy opcja ta jest w³¹czona, kursor automatycznie ustawi siê na drzwiach gdy znajdzie siê w ich pobli¿u.",
+	L"Jeœli W£¥CZONE, kursor bêdzie automatycznie ustawia³ siê na drzwiach gdy znajdzie siê w ich pobli¿u.",
 
 	//glow items 
-	L"Gdy opcja ta jest w³¹czona, przedmioty pulsuj¹. ( |I )",
+	L"Jeœli W£¥CZONE, przedmioty bêd¹ pulsowaæ. ( |I )",
 
 	//toggle tree tops
-	L"Gdy opcja ta jest w³¹czona, wyœwietlane s¹ korony drzew. ( |T )",
+	L"Jeœli W£¥CZONE, wyœwietlane bêd¹ korony drzew. ( |T )",
 
 	//toggle wireframe
-	L"Gdy opcja ta jest w³¹czona, wyœwietlane s¹ zarysy niewidocznych œcian. ( |W )",
+	L"Jeœli W£¥CZONE, wyœwietlane bêd¹ zarysy niewidocznych œcian. ( |W )",
 
-	L"Gdy opcja ta jest w³¹czona, kursor ruchu wyœwietlany jest w 3D. ( |Home )",
+	L"Jeœli W£¥CZONE, kursor ruchu wyœwietlany bêdzie w 3D. ( |Home )",
 
 	// Options for 1.13
-	L"When ON, the chance to hit is shown on the cursor.",
-	L"When ON, GL burst uses burst cursor.",
-	L"When ON, dead enemies drop all items.",
-	L"When ON, grenade launchers fire grenades at higher angles (|Q).",
-	L"When ON, aim levels beyond 4 are restricted to rifles and sniper rifles.",
-	L"When ON, |S|p|a|c|e selects next squad automatically.",
-	L"When ON, item shadows will be shown.",
-	L"When ON, weapon ranges will be shown in tiles.",
-	L"When ON, tracer effect will be shown for single shots.",
-	L"When ON, you will hear rain noises when it is raining.",
-	L"When ON, the crows are present in game.",
-	L"When ON, I.M.P characters will get random personality and attitude.",
-	L"When ON, game will be saved after each players turn.",
-	L"When ON, Skyrider will not talk anymore.",
-	L"When ON, game will run with much lower CPU usage.",
+	L"Jeœli W£¥CZONE, kursor bêdzie pokazywa³ szansê na trafienie.",
+	L"Jeœli W£¥CZONE, seria z granatnika bêdzie u¿ywa³a kursora serii z broni palnej.",
+	L"Jeœli W£¥CZONE, martwi wrogowie bêd¹ upuszczaæ ca³y ekwipunek.",
+	L"Jeœli W£¥CZONE, granatniki bêd¹ strzela³y pod wysokim k¹tem. ( |Q )",
+	L"Jeœli W£¥CZONE, poziom celowania powy¿ej 4 bêdzie dostêpny tylko dla karabinów i karabinów snajperskich.",
+	L"Jeœli W£¥CZONE, |S|p|a|c|j|a wybiera kolejny oddzia³.",
+	L"Jeœli W£¥CZONE, pokazywane bêd¹ cienie przedmiotów.",
+	L"Jeœli W£¥CZONE, zasiêg broni bêdzie wyœwietlany w polach.",
+	L"Jeœli W£¥CZONE, pojedynczy strza³ bêdzie z efektem pocisku smugowego",
+	L"Jeœli W£¥CZONE, bêdziesz s³ysza³ padaj¹cy deszcz.",
+	L"Jeœli W£¥CZONE, w grze pojawiaæ siê bêd¹ wrony.",
+	L"Jeœli W£¥CZONE, postacie I.M.P. bêd¹ otrzymywaæ losow¹ osobowoœæ i postawê.",
+	L"Jeœli W£¥CZONE, gra bêdzie zapisywana ka¿dorazowo po zakoñczeniu tury gracza.",
+	L"Jeœli W£¥CZONE, Skyrider nie bêdzie nic mówi³.",
+	L"Jeœli W£¥CZONE, gra bêdzie obci¹¿a³a procesor w mniejszym stopniu.",
+	L"Jeœli W£¥CZONE, gra bêdzie u¿yciem "Enhanced Description Box" opisu.",
 };
 
 
@@ -3574,7 +3772,7 @@ STR16	gzGIOScreenText[] =
 	L"Styl gry",
 	L"Realistyczny",
 	L"S-F",
-	L"Platyna", //Placeholder English
+	L"Platynowy", //Placeholder English
 	L"Opcje broni",
 	L"Mnóstwo broni",
 	L"Standardowe uzbrojenie",
@@ -3582,23 +3780,23 @@ STR16	gzGIOScreenText[] =
 	L"Nowicjusz",
 	L"Doœwiadczony",
 	L"Ekspert",
-	L"INSANE",
+	L"SZALONY",
 	L"Ok",
 	L"Anuluj",
-	L"Dodatkowe opcje",
-	L"Nielimitowany czas",
-	L"Tury limitowane czasowo",
+	L"Rozszerzony poziom trudnoœci",
+	L"Zapis gry w dowolnym momencie",
+	L"CZ£OWIEK ZE STALI",
 	L"Nie dzia³a w wersji demo",
-	L"Bobby Ray's Selection",
-	L"Good",
-	L"Great",
-	L"Excellent",
-	L"Awesome",
-	L"Inventory System",
-	L"Old",
-	L"New",
+	L"Wyposa¿enie Bobby Ray's",
+	L"Normalne",
+	L"Œwietne",
+	L"Wyœmienite",
+	L"Niewiarygodne",
+	L"System Inwentarza",
+	L"Stara",
+	L"Nowa",
 	L"Load MP Game",
-	L"INITIAL GAME SETTINGS (Only the server settings take effect)",
+	L"POCZ¥TKOWE USTAWIENIA GRY (Only the server settings take effect)",
 };
 
 STR16 pDeliveryLocationStrings[] =
@@ -3683,7 +3881,7 @@ STR16 pMessageStrings[] =
 	L"Brak opisu", //Save slots that don't have a description.
 	L"Gra zapisana.",
 	L"Gra zapisana.",
-	L"Szybki zapis", //The name of the quicksave file (filename, text reference)
+	L"Szybki zapis", //10	The name of the quicksave file (filename, text reference)
 	L"SaveGame",	//The name of the normal savegame file, such as SaveGame01, SaveGame02, etc.
 	L"sav",				//The 3 character dos extension (represents sav)
 	L"..\\SavedGames", //The name of the directory where games are saved.
@@ -3693,7 +3891,7 @@ STR16 pMessageStrings[] =
 	L"Demo",				//Demo of JA2
 	L"Debug",				//State of development of a project (JA2) that is a debug build
 	L"",			//Release build for JA2
-	L"strz/min",					//Abbreviation for Rounds per minute -- the potential # of bullets fired in a minute.
+	L"strz/min",					//20	Abbreviation for Rounds per minute -- the potential # of bullets fired in a minute.
 	L"min",					//Abbreviation for minute.
 	L"m",						//One character abbreviation for meter (metric distance measurement unit).
 	L"kul",				//Abbreviation for rounds (# of bullets)
@@ -3703,7 +3901,7 @@ STR16 pMessageStrings[] =
 	L"USD",					//Abbreviation to US dollars
 	L"N/D",					//Lowercase acronym for not applicable.
 	L"Tymczasem",		//Meanwhile
-	L"%s przyby³(a) do sektora %s%s", //Name/Squad has arrived in sector A9.  Order must not change without notifying
+	L"%s przyby³(a) do sektora %s%s", //30	Name/Squad has arrived in sector A9.  Order must not change without notifying
 																		//SirTech
 	L"Wersja",
 	L"Wolna pozycja na szybki zapis",
@@ -3714,7 +3912,7 @@ STR16 pMessageStrings[] =
 	L"Najêto - %s z A.I.M.", 
 	L"%s z³apa³(a) %s",		//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
 	L"%s zaaplikowa³(a) sobie lekarstwo", //'Merc name' has taken the drug
-	L"%s nie posiada wiedzy medycznej",//'Merc name' has no medical skill.
+	L"%s nie posiada wiedzy medycznej",//40	'Merc name' has no medical skill.
 
 	//CDRom errors (such as ejecting CD while attempting to read the CD)
 	L"Integralnoœæ gry zosta³a nara¿ona na szwank.",
@@ -3736,7 +3934,7 @@ STR16 pMessageStrings[] =
 	L"Brak wolnego miejsca, by przekazaæ %s do - %s.", //pass "item" to "merc".  Same instructions as above.
 
 	//A list of attachments appear after the items.  Ex:  Kevlar vest ( Ceramic Plate 'Attached )'
-	L" do³¹czono )",
+	L" do³¹czono]",			// 50
 
 	//Cheat modes
 	L"Pierwszy poziom lamerskich zagrywek osi¹gniêty",
@@ -3756,30 +3954,30 @@ STR16 pMessageStrings[] =
 	//These are used in the cheat modes for changing levels in the game.  Going from a basement level to
 	//an upper level, etc.  
 	L"Nie mo¿na wyjœæ do góry z tego poziomu...",
-	L"Nie ma ju¿ ni¿szych poziomów...",
+	L"Nie ma ju¿ ni¿szych poziomów...",		// 60
 	L"Wejœcie na %d poziom pod ziemi¹...",
 	L"Wyjœcie z podziemii...",
 
-	L" - ",		// used in the shop keeper inteface to mark the ownership of the item eg Red's gun
+	L"'s",		// used in the shop keeper inteface to mark the ownership of the item eg Red's gun
 	L"Automatyczne centrowanie ekranu wy³¹czone.",
 	L"Automatyczne centrowanie ekranu w³¹czone.",
 	L"Kursor 3D wy³¹czony.",
 	L"Kursor 3D w³¹czony.",
 	L"Oddzia³ %d aktywny.",
 	L"%s - Nie staæ ciê by wyp³aciæ jej/jemu dzienn¹ pensjê w wysokoœci %s.",	//first %s is the mercs name, the seconds is a string containing the salary
-	L"Pomiñ",
+	L"Pomiñ",				// 70
 	L"%s nie mo¿e odejœæ sam(a).",
 	L"Utworzono zapis gry o nazwie SaveGame99.sav. W razie potrzeby zmieñ jego nazwê na SaveGame01..10. Wtedy bêdzie mo¿na go odczytaæ ze standardowego okna odczytu gry.",
 	L"%s wypi³(a) trochê - %s",
 	L"Przesy³ka dotar³a do Drassen.",
  	L"%s przybêdzie do wyznaczonego punktu zrzutu (sektor %s) w dniu %d, oko³o godziny %s.",		//first %s is mercs name, next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival	
 	L"Lista historii zaktualizowana.",
-	L"Grenade Bursts use Targeting Cursor (Spread fire enabled)",
-	L"Grenade Bursts use Trajectory Cursor (Spread fire disabled)",
-	L"Drop All Enabled",
-	L"Drop All Disabled",
-	L"Grenade Launchers fire at standard angles",
-	L"Grenade Launchers fire at higher angles",
+	L"Seria z granatnika u¿ywa kursora celowania (dostêpny ogieñ rozproszony)",		//L"Grenade Bursts use Targeting Cursor (Spread fire enabled)", BY£O -->>L"Grenade Bursts - Using Targeting Cursor (Spread fire enabled)",
+	L"Seria z granatnika u¿ywa kursora trajektorii (dostêpny ogieñ rozproszony)",		//L"Grenade Bursts use Trajectory Cursor (Spread fire disabled)", BY£O -->L"Grenade Bursts - Using Trajectory Cursor (Spread fire disabled)",
+	L"Upuszczanie wszystkiego w³¹czone",
+	L"Upuszczanie wszystkiego wy³¹czone",
+	L"Granatniki strzelaj¹ pod standardowymi k¹tami",					//L"Grenade Launchers fire at standard angles", BY£o->>L"Grenade Launchers - Fire at standard angles",
+	L"Granatniki strzelaj¹ pod wysokimi k¹tami",						//L"Grenade Launchers fire at higher angles", BY£o-->>L"Grenade Launchers - Fire at high angles",
 #ifdef JA2BETAVERSION
 	L"Automatyczny zapis zosta³ pomyœlnie wykonany.",
 #endif
@@ -3953,7 +4151,7 @@ STR16	gzCreditNameTitle[]=
 {
 	L"Game Internals Programmer", 			// Chris Camfield
 	L"Co-designer/Writer",							// Shaun Lyng
-	L"Strategic Systems & Editor Programmer",					//Kris Marnes
+	L"Strategic Systems & Editor Programmer",					//Kris \"The Cow Rape Man\" Marnes
 	L"Producer/Co-designer",						// Ian Currie
 	L"Co-designer/Map Designer",				// Linda Currie
 	L"Artist",													// Eric \"WTF\" Cheng
@@ -3997,15 +4195,13 @@ STR16 sRepairsDoneString[] =
 	L"%s skoñczy³(a) naprawiaæ ekwipunek wszystkich cz³onków oddzia³u",
 };
 
-
 STR16 zGioDifConfirmText[]=
 {
-	L"Wybrano opcjê Nowicjusz. Opcja ta jest przeznaczona dla niedoœwiadczonych graczy, lub dla tych, którzy nie maj¹ ochoty na d³ugie i ciê¿kie walki. Pamiêtaj, ¿e opcja ta ma wp³yw na przebieg ca³ej gry. Czy na pewno chcesz graæ w trybie Nowicjusz?",
-	L"Wybrano opcjê Doœwiadczony. Opcja ta jest przenaczona dla graczy posiadaj¹cych ju¿ pewne doœwiadczenie w grach tego typu. Pamiêtaj, ¿e opcja ta ma wp³yw na przebieg ca³ej gry. Czy na pewno chcesz graæ w trybie Doœwiadczony?",
-	L"Wybrano opcjê Ekspert. Jakby co, to ostrzegaliœmy ciê. Nie obwiniaj nas, jeœli wrócisz w plastikowym worku. Pamiêtaj, ¿e opcja ta ma wp³yw na przebieg ca³ej gry. Czy na pewno chcesz graæ w trybie Ekspert?",
-	L"You have chosen INSANE mode. WARNING: Don't blame us if you get shipped back in little pieces... Deidranna WILL kick your ass.  Hard.  Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in INSANE mode?",
+	L"Wybrano opcjê NOWICJUSZ. Opcja ta jest przeznaczona dla niedoœwiadczonych graczy, lub dla tych, którzy nie maj¹ ochoty na d³ugie i ciê¿kie walki. Pamiêtaj, ¿e opcja ta ma wp³yw na przebieg ca³ej gry. Czy na pewno chcesz graæ w trybie Nowicjusz?",
+	L"Wybrano opcjê DOŒWIADCZONY. Opcja ta jest przenaczona dla graczy posiadaj¹cych ju¿ pewne doœwiadczenie w grach tego typu. Pamiêtaj, ¿e opcja ta ma wp³yw na przebieg ca³ej gry. Czy na pewno chcesz graæ w trybie Doœwiadczony?",
+	L"Wybrano opcjê EKSPERT. Jakby co, to ostrzegaliœmy ciê. Nie obwiniaj nas, jeœli wrócisz w plastikowym worku. Pamiêtaj, ¿e opcja ta ma wp³yw na przebieg ca³ej gry. Czy na pewno chcesz graæ w trybie Ekspert?",
+	L"Wybrano opcjê SZALONY. OSTRZE¯ENIE: Nie obwiniaj nas, jeœli wrócisz w malutkich kawa³eczkach... Deidranna NAPRAWDÊ skopie ci ty³ek. Mocno. Pamiêtaj, ¿e opcja ta ma wp³yw na przebieg ca³ej gry. Czy na pewno chcesz graæ w trybie SZALONY?",
 };
-
 
 STR16 gzLateLocalizedString[] =
 {
@@ -4142,64 +4338,64 @@ STR16 gzLateLocalizedString[] =
 	//Displayed with the version information when cheats are enabled.
 	L"Bie¿¹cy/Maks. postêp: %d%%/%d%%",
 
-	//59
 	L"Eskortowaæ Johna i Mary?",
 	
-  L"Prze³¹cznik aktywowany.",
+	// 60
+	L"Prze³¹cznik aktywowany.",
 
-  L"%s's armour attachment has been smashed!",
-	L"%s fires %d more rounds than intended!",
-	L"%s fires %d more round than intended!",
+	L"%s: dodatki do pancerza zosta³y zniszczone!",
+	L"%s wystrzeli³(a) %d pocisk(ów) wiêcej ni¿ to by³o zamierzone!",
+	L"%s wystrzeli³(a) %d pocisk(ów) wiêcej ni¿ to by³o zamierzone!",
 };
 
 STR16 gzCWStrings[] = 
 {
-	L"Call reinforcements from adjacent sectors?",
+	L"Wezwaæ posi³ki z s¹siednich sektorów?",
 };
 
 // WANNE: Tooltips
 STR16 gzTooltipStrings[] =
 {
 	// Debug info
-	L"%s|Location: %d\n",
-	L"%s|Brightness: %d / %d\n",
-	L"%s|Range to |Target: %d\n",
+	L"%s|Miejsce: %d\n",
+	L"%s|Jasnoœæ: %d / %d\n",
+	L"%s|Odleg³oœæ do |Celu: %d\n",
 	L"%s|I|D: %d\n",
-	L"%s|Orders: %d\n",
-	L"%s|Attitude: %d\n",
-	L"%s|Current |A|Ps: %d\n",
-	L"%s|Current |Health: %d\n",
+	L"%s|Rozkazy: %d\n",
+	L"%s|Postawa: %d\n",
+	L"%s|Aktualne |P|A: %d\n",
+	L"%s|Aktualne |Zdrowie: %d\n",
 	// Full info
-	L"%s|Helmet: %s\n",
-	L"%s|Vest: %s\n",
-	L"%s|Leggings: %s\n",
+	L"%s|He³m: %s\n",
+	L"%s|Kamizelka: %s\n",
+	L"%s|Getry ochronne: %s\n",
 	// Limited, Basic
-	L"|Armor: ",
-	L"Helmet ",
-	L"Vest ",
-	L"Leggings",
-	L"worn",
-	L"no Armor",
+	L"|Pancerz: ",
+	L"he³m ",
+	L"kamizelka ",
+	L"getry ochronne",
+	L"u¿ywane",
+	L"brak pancerza",
 	L"%s|N|V|G: %s\n",
-	L"no NVG",
-	L"%s|Gas |Mask: %s\n",
-	L"no Gas Mask",
-	L"%s|Head |Position |1: %s\n",
-	L"%s|Head |Position |2: %s\n",
-	L"\n(in Backpack) ",
-	L"%s|Weapon: %s ",
-	L"no Weapon",
-	L"Handgun",
+	L"brak NVG",
+	L"%s|Maska |Gazowa: %s\n",
+	L"brak maski gazowej",
+	L"%s|Pozycja |G³owy |1: %s\n",
+	L"%s|Pozycja |G³ów |2: %s\n",
+	L"\n(w plecaku) ",
+	L"%s|Broñ: %s ",
+	L"brak broni",
+	L"rewolwer",
 	L"SMG",
-	L"Rifle",
+	L"karabin",
 	L"MG",
-	L"Shotgun",
-	L"Knife",
-	L"Heavy Weapon",
-	L"no Helmet",
-	L"no Vest",
-	L"no Leggings",
-	L"|Armor: %s\n", 
+	L"strzelba",
+	L"nó¿",
+	L"broñ Ciê¿ka",
+	L"brak he³mu",
+	L"brak kamizelki",
+	L"brak getrów ochronnych",
+	L"|Pancerz: %s\n", 
 };
 
 STR16 New113Message[] =
@@ -4339,7 +4535,7 @@ STR16 MPClientMessage[] =
 STR16 MPHelp[] =
 {
 	// 0
-	L"Welcome to Jagged Alliance 2 Multiplayer",
+	L"Welcome to JAGGED ALLIANCE 2 v1.13 Multiplayer",
 	L"Press 'F1' for help",
 	L"Multiplayer controls (from strategy screen)",
 	L"* first set up ja2_mp.ini *",

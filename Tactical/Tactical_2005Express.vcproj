@@ -393,6 +393,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Interface Enhanced.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Interface Items.h"
 				>
 			</File>
@@ -708,6 +712,10 @@
 			</File>
 			<File
 				RelativePath=".\Interface Dialogue.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Interface Enhanced.cpp"
 				>
 			</File>
 			<File

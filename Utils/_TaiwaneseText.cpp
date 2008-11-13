@@ -1083,15 +1083,16 @@ STR16 sKeyDescriptionStrings[2] =
 
 //The headers used to describe various weapon statistics.
 
-CHAR16		gWeaponStatsDesc[][ 14 ] =
+CHAR16		gWeaponStatsDesc[][ 16 ] =
 {
-	L"Weight (%s):", 
+	// HEADROCK: Changed this for Extended Description project
 	L"Status:",
-	L"Amount:", 	// Number of bullets left in a magazine
+	L"Weight (%s):", 
+	L"AP Costs",	
 	L"Rng:",		// Range
 	L"Dam:",		// Damage
+	L"Amount:", 	// Number of bullets left in a magazine
 	L"AP:",			// abbreviation for Action Points
-	L"",
 	L"=",
 	L"=",
 					//Lal: additional strings for tooltips
@@ -1100,9 +1101,189 @@ CHAR16		gWeaponStatsDesc[][ 14 ] =
 	L"Damage:", 	//11
 	L"Weight:",		//12
 	L"Stun Damage:",//13
-
+	// HEADROCK: Added new strings for extended description ** REDUNDANT **
+	L"AUTOPEN:",	//14
+	L"AUTO/5:",		//15
+	L"Amount:",		//16
 
 };
+
+// HEADROCK: Several arrays of tooltip text for new Extended Description Box
+// Please note, several of these are artificially inflated to 19 entries to help fix a complication with
+// changing item type while watching its description box
+STR16		gzWeaponStatsFasthelp[ 27 ] =
+{
+	L"Range",
+	L"Damage",
+	L"Burst/Auto Penalty",
+	L"Autofire shots per 5 AP",
+	L"Accuracy",
+	L"Reliability",
+	L"Repair Ease",
+	L"APs to ready",
+	L"APs to fire Single",
+	L"APs to fire Burst",
+	L"APs to fire Auto",
+	L"APs to Reload",
+	L"APs to Reload Manually",
+	L"Flash Suppression",
+	L"Loudness (Lower is better)",
+	L"To-Hit Modifier",
+	L"Average Best Laser Range",
+	L"Aiming Modifier",
+	L"Min. Range for Aiming Bonus",
+	L"Bipod Modifier",
+	L"APs to Throw",
+	L"APs to Launch",
+	L"APs to Stab",
+	L"No Single Shot!",
+	L"No Burst Mode!",
+	L"No Auto Mode!",
+	L"APs to Bash",
+};
+
+STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
+{
+	L"Range",
+	L"Damage",
+	L"Burst/Auto Penalty",
+	L"Autofire shots per 5 AP",
+	L"Accuracy",
+	L"Reliability",
+	L"Repair Ease",
+	L"APs to ready",
+	L"APs to fire Single",
+	L"APs to fire Burst",
+	L"APs to fire Auto",
+	L"APs to Reload",
+	L"APs to Reload Manually",
+	L"To-Hit Modifier",
+	L"Average Best Laser Range",
+	L"Aiming Modifier",
+	L"Min. Range for Aiming Bonus",
+	L"Flash Suppression",
+	L"Loudness (Lower is better)",
+	L"Bipod Modifier",
+	L"APs to Throw",
+	L"APs to Launch",
+	L"APs to Stab",
+	L"No Single Shot!",
+	L"No Burst Mode!",
+	L"No Auto Mode!",
+	L"APs to Bash",
+};
+
+STR16		gzAmmoStatsFasthelp[ 20 ] =
+{
+	L"Armor Penetration (Lower is better)",
+	L"Bullet Tumble (Higher is better)",
+	L"Pre-impact Explosion (Higher is better)",
+	L"Tracer Effect",
+	L"Anti-Tank",
+	L"Lockbuster",
+	L"Ignores Armor",
+	L"Acidic",
+	L"Range Modifier",
+	L"Damage Modifier",
+	L"To-Hit Modifier",
+	L"Burst/Auto Penalty Modifier (Higher is better)",
+	L"Reliability Modifier",
+	L"Loudness Modifier (Lower is better)",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+};
+
+STR16		gzArmorStatsFasthelp[ 20 ] =
+{
+	L"Protection",
+	L"Coverage (Higher is better)",
+	L"Degrade Rate (Lower is better)",
+	L"AP Modifier",
+	L"To-Hit Modifier",
+	L"Woodland Camo",
+	L"Urban Camo",
+	L"Desert Camo",
+	L"Snow Camo",
+	L"Stealth Modifier",
+	L"Vision Range Modifier",
+	L"Day Vision Range Modifier",
+	L"Night Vision Range Modifier",
+	L"Bright Light Vision Range Modifier",
+	L"Cave Vision Range Modifier",
+	L"Tunnel Vision Percentage",
+	L"Hearing Range Modifier",
+	L"",
+	L"",
+	L"",
+};
+
+STR16		gzExplosiveStatsFasthelp[ 20 ] =
+{
+	L"Damage",
+	L"Stun Damage",
+	L"Blast Loudness (Lower is better)",
+	L"Volatility!!! (Lower is better)",
+	L"Blast Radius",
+	L"Effect Start Radius",
+	L"Effect Final Radius ",
+	L"Effect Duration",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+};
+
+STR16		gzMiscItemStatsFasthelp[ 34 ] =
+{
+	L"Item Size Modifier (Lower is better)", // 0
+	L"Reliability Modifier",
+	L"Loudness Modifier (Lower is better)",
+	L"Hides Muzzle Flash",
+	L"Bipod Modifier",
+	L"Range Modifier", // 5
+	L"To-Hit Modifier",
+	L"Best Laser Range",
+	L"Aiming Bonus Modifier",
+	L"Burst Size Modifier",
+	L"Burst Penalty Modifier (Higher is better)", // 10
+	L"Auto-Fire Penalty Modifier (Higher is better)",
+	L"AP Modifier",
+	L"AP to Burst Modifier (Lower is better)",
+	L"AP to Auto-Fire Modifier (Lower is better)",
+	L"AP to Ready Modifier (Lower is better)", // 15
+	L"AP to Reload Modifier (Lower is better)",
+	L"Magazine Size Modifier",
+	L"AP to Attack Modifier (Lower is better)",
+	L"Damage Modifier",
+	L"Melee Damage Modifier", // 20
+	L"Woodland Camo",
+	L"Urban Camo",
+	L"Desert Camo",
+	L"Snow Camo",
+	L"Stealth Modifier", // 25
+	L"Hearing Range Modifier",
+	L"Vision Range Modifier",
+	L"Day Vision Range Modifier",
+	L"Night Vision Range Modifier",
+	L"Bright Light Vision Range Modifier", //30
+	L"Cave Vision Range Modifier",
+	L"Tunnel Vision Percentage (Lower is better)",
+	L"Minimum Range for Aiming Bonus",
+};
+
+// HEADROCK: End new tooltip text
 
 //The headers used for the merc's money.
 
@@ -3506,6 +3687,7 @@ STR16		zOptionsToggleText[] =
 	L"Auto save",
 	L"Silent Skyrider",
 	L"Low CPU usage",
+	L"Enhanced Description Box",
 };
 
 //This is the help text associated with the above toggles.

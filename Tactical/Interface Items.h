@@ -9,6 +9,7 @@
 #define		BIG_INV_SLOT_HEIGHT				22
 #define		SM_INV_SLOT_WIDTH					30
 #define		SM_INV_SLOT_HEIGHT				23
+#define		MAP_ATTACH_SLOT_WIDTH			32
 #define		VEST_INV_SLOT_WIDTH				43
 #define		VEST_INV_SLOT_HEIGHT			24
 #define		LEGS_INV_SLOT_WIDTH				43
@@ -17,6 +18,72 @@
 #define		HEAD_INV_SLOT_HEIGHT			24
 
 
+//CHRISL: moved from Interface Items.cpp
+typedef struct
+{
+	INT16		sX;
+	INT16		sY;
+	INT16		sValDx;
+
+} INV_DESC_STATS;
+typedef struct
+{
+	UINT32	uiTotalAmount;
+	UINT32	uiMoneyRemaining;
+	UINT32	uiMoneyRemoving;
+
+} REMOVE_MONEY;
+typedef struct
+{
+	UINT16 x;
+	UINT16 y;
+} MoneyLoc;
+void ItemDescCallback( MOUSE_REGION * pRegion, INT32 iReason );
+#define		ITEMDESC_FONT					BLOCKFONT2
+#define		INV_BAR_DX						5
+#define		INV_BAR_DY						21
+#define		ITEM_STATS_WIDTH				26
+#define		ITEM_STATS_HEIGHT				8
+#define		EXCEPTIONAL_DAMAGE				40
+#define		EXCEPTIONAL_WEIGHT				20
+#define		EXCEPTIONAL_RANGE				400
+#define		EXCEPTIONAL_MAGAZINE			50
+#define		EXCEPTIONAL_AP_COST				5
+#define		EXCEPTIONAL_BURST_SIZE			5
+#define		EXCEPTIONAL_RELIABILITY			2
+#define		EXCEPTIONAL_REPAIR_EASE			2
+#define		EXCEPTIONAL_ACCURACY			4
+#define		ITEMDESC_FONTHIGHLIGHT			FONT_MCOLOR_WHITE
+#define		MAP_ITEMDESC_NAME_X				(7 + gsInvDescX)
+#define		MAP_ITEMDESC_NAME_Y				(65 + gsInvDescY)
+
+//CHRISL: extern'd for EDB project
+extern INT16	gsInvDescX;
+extern INT16	gsInvDescY;
+extern INT16	ITEMDESC_CALIBER_X;
+extern INT16	ITEMDESC_CALIBER_Y;
+extern INT16	BULLET_SING_X;
+extern INT16	BULLET_SING_Y;
+extern INT16	BULLET_BURST_X;
+extern INT16	BULLET_BURST_Y;
+extern INT16	MAP_BULLET_SING_X;
+extern INT16	MAP_BULLET_SING_Y;
+extern INT16	MAP_BULLET_BURST_X;
+extern INT16	MAP_BULLET_BURST_Y;
+extern INT16	ITEMDESC_DESC_START_X;
+extern INT16	ITEMDESC_DESC_START_Y;
+extern INT16	ITEMDESC_PROS_START_X;
+extern INT16	ITEMDESC_PROS_START_Y;
+extern INT16	ITEMDESC_CONS_START_X;
+extern INT16	ITEMDESC_CONS_START_Y;
+extern INT16	MAP_ITEMDESC_DESC_START_X;
+extern INT16	MAP_ITEMDESC_DESC_START_Y;
+extern INT16	MAP_ITEMDESC_PROS_START_X;
+extern INT16	MAP_ITEMDESC_PROS_START_Y;
+extern INT16	MAP_ITEMDESC_CONS_START_X;
+extern INT16	MAP_ITEMDESC_CONS_START_Y;
+extern INT16	ITEMDESC_DESC_WIDTH;
+extern UINT8	gubItemDescStatusIndex;
 
 // A STRUCT USED INTERNALLY FOR INV SLOT REGIONS
 typedef struct
@@ -132,6 +199,7 @@ extern BOOLEAN		gfInItemDescBox;
 BOOLEAN InItemDescriptionBox( );
 BOOLEAN InitItemDescriptionBox( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sX, INT16 sY, UINT8 ubStatusIndex );
 BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY, UINT8 ubStatusIndex, SOLDIERTYPE *pSoldier, UINT8 ubPosition = NUM_INV_SLOTS );
+void UpdateAttachmentTooltips( OBJECTTYPE *pObject, UINT8 ubStatusIndex );
 BOOLEAN InitKeyItemDescriptionBox( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sX, INT16 sY, UINT8 ubStatusIndex );
 void RenderItemDescriptionBox( );
 void HandleItemDescriptionBox( BOOLEAN *pfDirty );

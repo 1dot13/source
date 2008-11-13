@@ -986,6 +986,10 @@ void MSYS_RemoveRegion(MOUSE_REGION *region)
 			return;
 		AssertMsg( 0, "Attempting to remove a NULL region.");
 	}
+	//CHRISL: Obviously, we should never run this function if a region hasn't been setup, but a failsafe would be nice
+	if(region->IDNumber == 0)
+		return;
+
 	#ifdef MOUSESYSTEM_DEBUGGING
 	if( !(region->uiFlags & MSYS_REGION_EXISTS) )
 		AssertMsg( 0, "Attempting to remove an already removed region." );

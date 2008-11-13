@@ -8526,3 +8526,255 @@ INT16 GetWornStealth( SOLDIERTYPE * pSoldier )
 
 	return __min( ttl, 100 );
 }
+
+
+/////////////////////////////
+// HEADROCK: Several functions created for the Enhanced Description Box project, but may generally be useful some
+// day. They calculate item bonuses, ammo bonuses and attachment bonuses, without requiring a SOLDIERTYPE or any
+// other variable.
+////////////////////////////
+
+// HEADROCK: Function to get the total aim-bonus from the gun and its attachments
+INT16 GetFlatAimBonus( OBJECTTYPE * pObj )
+{
+	INT16 bonus = 0;
+
+	bonus += Item[pObj->usItem].aimbonus;
+	
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+	{
+		bonus += Item[iter->usItem].aimbonus;
+	}
+
+	return( bonus );
+}
+
+// HEADROCK: Function to get the final Loudness value of a gun, after ammo and attachment reductions
+INT16 GetFinalLoudness( OBJECTTYPE * pObj )
+{
+	INT16 loudness = 0;
+	INT16 loudnessModifier = 0;
+
+	loudness = Weapon[Item[pObj->usItem].ubClassIndex].ubAttackVolume;
+
+	loudnessModifier += Item[pObj->usItem].percentnoisereduction;
+	
+	if ( (*pObj)[0]->data.gun.ubGunShotsLeft > 0 )
+		loudnessModifier += Item[(*pObj)[0]->data.gun.usGunAmmoItem].percentnoisereduction ;
+
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+		{
+			loudnessModifier += BonusReduce( Item[iter->usItem].percentnoisereduction, (*iter)[0]->data.objectStatus ) ;
+		}
+
+	loudness = loudness * ( 100 - loudnessModifier ) / 100;
+	loudness = __max(loudness, 1);
+
+	return ( loudness );
+}
+
+// HEADROCK: Function to get AP bonus from an item rather than a soldier
+
+INT16 GetAPBonus( OBJECTTYPE * pObj )
+{
+	INT16 bonus=0;
+
+	bonus += Item[ pObj->usItem ].APBonus;
+
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+	{
+		bonus += Item[iter->usItem].APBonus;
+	}
+
+	return( bonus );
+}
+
+// HEADROCK: Alternative function to determine flat to-hit bonus of weapon
+INT16 GetFlatToHitBonus( OBJECTTYPE * pObj )
+{
+	INT16 bonus=0;
+
+	bonus = Item[pObj->usItem].tohitbonus;
+	bonus += Item[(*pObj)[0]->data.gun.usGunAmmoItem].tohitbonus;
+
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+	{
+		bonus += Item[iter->usItem].tohitbonus;
+	}
+
+	return( bonus );
+}
+
+// HEADROCK: Function to get average of all "best laser range" attributes from weapon and attachments
+INT16 GetAverageBestLaserRange( OBJECTTYPE * pObj )
+{
+	INT16 bonus=0;
+	INT16 numModifiers=0;
+
+	if (Item[pObj->usItem].bestlaserrange > 0)
+	{
+		numModifiers++;
+		bonus += Item[pObj->usItem].bestlaserrange;
+	}
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+	{
+		if (Item[iter->usItem].bestlaserrange > 0)
+		{
+			numModifiers++;
+			bonus += Item[iter->usItem].bestlaserrange;
+		}
+	}
+
+	if (numModifiers>0)
+	{
+		bonus = bonus / numModifiers;
+	}
+
+	return( bonus );
+}
+
+// HEADROCK: This function determines the bipod bonii of the gun or its attachments
+INT16 GetBipodBonus( OBJECTTYPE * pObj )
+{
+	INT16 bonus=0;
+
+	bonus = Item[pObj->usItem].bipod;
+
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
+	{
+		bonus += Item[iter->usItem].bipod;
+	}
+
+	return( bonus );
+}
+
+// HEADROCK: Added a function to calculate the vision range bonus of an object and its attachments. Takes an argument which determines what type
+// of vision range bonus we want to get:
+// 0 - Regular
+// 1 - Day
+// 2 - Night
+// 3 - Bright Light
+// 4 - Cave
+INT16 GetItemVisionRangeBonus( OBJECTTYPE * pObj, INT16 VisionType )
+{
+	INT16 bonus = 0;
+
+	if (VisionType == 0)
+	{
+		bonus += Item[ pObj->usItem ].visionrangebonus;
+		
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+		{
+			bonus += Item[iter->usItem].visionrangebonus;
+		}		
+	}
+	else if (VisionType == 1)
+	{
+		bonus += Item[ pObj->usItem ].dayvisionrangebonus;
+		
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+		{
+			bonus += Item[iter->usItem].dayvisionrangebonus;
+		}		
+	}
+	else if (VisionType == 2)
+	{
+		bonus += Item[ pObj->usItem ].nightvisionrangebonus;
+		
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+		{
+			bonus += Item[iter->usItem].nightvisionrangebonus;
+		}		
+	}
+	else if (VisionType == 3)
+	{
+		bonus += Item[ pObj->usItem ].brightlightvisionrangebonus;
+		
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+		{
+			bonus += Item[iter->usItem].brightlightvisionrangebonus;
+		}		
+	}
+	else if (VisionType == 4)
+	{
+		bonus += Item[ pObj->usItem ].cavevisionrangebonus;
+		
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+		{
+			bonus += Item[iter->usItem].cavevisionrangebonus;
+		}		
+	}
+
+	return( bonus );
+
+}
+
+// HEADROCK: function to get Tunnel Vision percent from an item and its attachments
+
+UINT8 GetItemPercentTunnelVision( OBJECTTYPE * pObj )
+{
+	UINT8 bonus = 0;
+
+	bonus += Item[ pObj->usItem ].percenttunnelvision;
+
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+	{
+		bonus += Item[iter->usItem].percenttunnelvision;
+	}
+
+	bonus = __min(bonus, 100);
+
+	return( bonus );
+}
+
+// HEADROCK: Function to calculate hearing range bonus without SOLDIERTYPE, from an item and its attachments
+INT16 GetItemHearingRangeBonus( OBJECTTYPE * pObj )
+{
+	INT16 bonus = 0;
+
+	bonus += Item[ pObj->usItem ].hearingrangebonus;
+
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) 
+	{
+		bonus += Item[ iter->usItem ].hearingrangebonus;
+	}
+
+	return( bonus );
+
+}
+
+// HEADROCK: Flash Suppression Detector function that does not use SOLDIERTYPE. 
+BOOLEAN IsFlashSuppressorAlt( OBJECTTYPE * pObj )
+{
+	if ( AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].tracerEffect )
+		return FALSE;
+
+	if ( Item[pObj->usItem].hidemuzzleflash )
+		return TRUE;
+
+	if ( Item[(*pObj)[0]->data.gun.usGunAmmoItem].hidemuzzleflash )
+		return TRUE;
+
+	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
+		if (Item[iter->usItem].hidemuzzleflash  )
+		{
+			return( TRUE );
+		}
+	}
+	return( FALSE );
+}
+
+// HEADROCK: Calculate stealth not based on item status
+INT16 GetBasicStealthBonus( OBJECTTYPE * pObj )
+{
+	INT16 bonus = 0;
+	if ( pObj->exists() == true ) {
+		bonus = Item[pObj->usItem].stealthbonus;
+
+		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
+			bonus += (INT16) Item[iter->usItem].stealthbonus;
+		}
+	}
+	return( bonus );
+}
+

@@ -310,6 +310,7 @@ void InitGameSettings()
 	gGameSettings.fOptions[ TOPTION_USE_AUTO_SAVE ]						= FALSE;
 	gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ]					= FALSE;
 	gGameSettings.fOptions[ TOPTION_LOW_CPU_USAGE ]						= FALSE;
+	gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ]					= FALSE;
 
 	gGameSettings.ubSizeOfDisplayCover = 4;
 	gGameSettings.ubSizeOfLOS = 4;
@@ -779,6 +780,9 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.gbBulletTracer			= iniReader.ReadBoolean("JA2 Gameplay Settings","USE_BULLET_TRACERS",FALSE);
 
 	gGameExternalOptions.fRestrictFemaleEnemiesExceptElite = iniReader.ReadBoolean("JA2 Gameplay Settings","RESTRICT_FEMALE_ENEMIES_EXCEPT_ELITE",FALSE);
+
+	// HEADROCK: Use Enhanced Item Description Box?
+	gGameExternalOptions.fEnhancedDescriptionBox	= iniReader.ReadInteger("JA2 Gameplay Settings","USE_ENHANCED_DESCRIPTION_BOX",0);
 }
 
 INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse)

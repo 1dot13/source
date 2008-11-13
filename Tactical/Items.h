@@ -214,8 +214,18 @@ UINT16 MagazineClassIndexToItemType(UINT16 usMagIndex);
 
 BOOLEAN IsScoped( OBJECTTYPE * pObj );
 INT16 GetAimBonus( OBJECTTYPE * pObj, INT32 iRange, INT16 ubAimTime );
+// HEADROCK: Function to get the natural aimbonus of the weapon and its attachments
+INT16 GetFlatAimBonus( OBJECTTYPE * pObj );
+// HEADROCK: Function to get the final loudness value of a weapon, after reduction from its own characteristics, ammo and attachments
+INT16 GetFinalLoudness( OBJECTTYPE * pObj );
 INT16 GetMinAimBonusRange( OBJECTTYPE * pObj );
 INT16 GetToHitBonus( OBJECTTYPE * pObj, INT32 iRange, UINT8 bLightLevel, BOOLEAN fProneStance = FALSE );
+// HEADROCK: Added alternate function that only returns the natural to-hit-bonii of a weapon, ammo and attachments
+INT16 GetFlatToHitBonus( OBJECTTYPE * pObj );
+// HEADROCK: Function to get average of best laser ranges from weapon and attachments
+INT16 GetAverageBestLaserRange( OBJECTTYPE * pObj );
+// HEADROCK: Function to get bipod bonus from weapon and its attachments
+INT16 GetBipodBonus( OBJECTTYPE * pObj );
 UINT32 FindRangeBonusAttachment( OBJECTTYPE * pObj );
 INT16 GetRangeBonus( OBJECTTYPE * pObj );
 INT16 GetBurstToHitBonus( OBJECTTYPE * pObj, BOOLEAN fProneStance = FALSE );
@@ -244,6 +254,11 @@ INT16 GetMagSizeBonus( OBJECTTYPE * pObj );
 // GetBrightLightVisionRangeBonus: bLightLevel < NORMAL_LIGHTLEVEL_DAY
 // (remember: darker is higher!)
 INT16 GetTotalVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel );
+// HEADROCK: Following function used to get the vision range bonus of an item and its attachments. Second argument controls specific
+// vision type.
+INT16 GetItemVisionRangeBonus( OBJECTTYPE * pObj, INT16 VisionType );
+// HEADROCK: This function calculates percent tunnel vision from an object and its attachments.
+UINT8 GetItemPercentTunnelVision( OBJECTTYPE * pObj );
 
 // Snap: Scale night vision bonus with light level
 INT16 NightBonusScale( INT16 bonus, UINT8 bLightLevel );
@@ -253,6 +268,8 @@ BOOLEAN HasThermalOptics( SOLDIERTYPE * pSoldier );
 
 INT8 FindHearingAid( SOLDIERTYPE * pSoldier );
 INT16 GetHearingRangeBonus( SOLDIERTYPE * pSoldier );
+// HEADROCK: This is the same function as above, but calculates hearing range bonus without SOLDIERTYPE, from an item and its attachments
+INT16 GetItemHearingRangeBonus( OBJECTTYPE * pObj );
 
 INT8 IsGrenadeLauncher( OBJECTTYPE * pObj );
 INT16 GetGrenadeLauncherStatus( OBJECTTYPE * pObj );
@@ -266,6 +283,8 @@ OBJECTTYPE* FindNonSmokeLaunchableAttachment( OBJECTTYPE * pObj, UINT16 usWeapon
 UINT16 PickARandomLaunchable(UINT16 itemIndex);
 
 BOOLEAN IsFlashSuppressor( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier );
+// HEADROCK: Declaration of new function to detect flash suppression without SOLDIERTYPE argument
+BOOLEAN IsFlashSuppressorAlt( OBJECTTYPE * pObj );
 INT16 GetFlashSuppressorStatus( OBJECTTYPE * pObj );
 BOOLEAN IsRemoteDetonator( OBJECTTYPE * pObj );
 BOOLEAN IsDetonator( OBJECTTYPE * pObj );
@@ -297,12 +316,16 @@ INT16 GetWornCamo( SOLDIERTYPE * pSoldier );
 INT16 GetCamoBonus( OBJECTTYPE * pObj );
 INT16 GetWornStealth( SOLDIERTYPE * pSoldier );
 INT16 GetStealthBonus( OBJECTTYPE * pObj );
+// HEADROCK: Non-status-dependent version of the above
+INT16 GetBasicStealthBonus( OBJECTTYPE * pObj );
 
 void ApplyEquipmentBonuses(SOLDIERTYPE * pSoldier);
 
 INT16 GetGearAimBonus( SOLDIERTYPE * pSoldier, INT32 iRange, INT16 ubAimTime);
 INT16 GetGearToHitBonus( SOLDIERTYPE * pSoldier );
 INT16 GetGearAPBonus( SOLDIERTYPE * pSoldier );
+// HEADROCK: This function gets total AP bonus for an item and its attachments
+INT16 GetAPBonus( OBJECTTYPE * pObj );
 
 UINT16 GetFirstExplosiveOfType(UINT16 expType);
 

@@ -55,6 +55,7 @@ enum
 	TOPTION_USE_AUTO_SAVE,
 	TOPTION_SILENT_SKYRIDER,
 	TOPTION_LOW_CPU_USAGE,
+	TOPTION_ENHANCED_DESC_BOX,
 	NUM_GAME_OPTIONS,				//Toggle up this will be able to be Toggled by the player
 	
 
@@ -449,6 +450,9 @@ BOOLEAN gbBulletTracer;
 
 	// WANNE: Restrict female enemies from beeing in the queens army (except Female Elite enemies)?
 	BOOLEAN fRestrictFemaleEnemiesExceptElite;
+
+	// HEADROCK: Enhanced Item Description Box ON/OFF
+	BOOLEAN fEnhancedDescriptionBox;
 
 } GAME_EXTERNAL_OPTIONS;
 

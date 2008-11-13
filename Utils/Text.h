@@ -397,7 +397,17 @@ extern STR16		gzMoneyAmounts[6];
 extern CHAR16		gzProsLabel[10];
 extern CHAR16		gzConsLabel[10];
 extern CHAR16		gMoneyStatsDesc[][ 13 ];
-extern CHAR16		gWeaponStatsDesc[][ 14 ];
+// HEADROCK: Altered value to 16
+extern CHAR16		gWeaponStatsDesc[][ 16 ];
+// HEADROCK: Added externs for Item Description Box icon and stat tooltips
+// Note that I've inflated some of these to 20 to avoid issues.
+extern STR16		gzWeaponStatsFasthelp[ 27 ];
+extern STR16		gzWeaponStatsFasthelpTactical[ 27 ];
+extern STR16		gzAmmoStatsFasthelp[ 20 ];
+extern STR16		gzArmorStatsFasthelp[ 20 ];
+extern STR16		gzExplosiveStatsFasthelp[ 20 ];
+extern STR16		gzMiscItemStatsFasthelp[ 34 ];
+// Headrock: End Externs
 extern STR16		sKeyDescriptionStrings[2];
 extern CHAR16		zHealthStr[][13];
 extern STR16		zVehicleName[ 6 ];

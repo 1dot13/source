@@ -1052,15 +1052,16 @@ STR16 sKeyDescriptionStrings[2]=
 };
 
 //The headers used to describe various weapon statistics.
-CHAR16		gWeaponStatsDesc[][ 14 ] = //USED TO BE 13
+CHAR16		gWeaponStatsDesc[][ 16 ] =
 {
-	L"Gew. (%s):", //weight
+	// HEADROCK: Changed this for Extended Description project
 	L"Status:",
-	L"Anzahl:", 		// Number of bullets left in a magazine
+	L"Gew. (%s):", //weight
+	L"AP Kosten",	
 	L"Reichw.:",		// Range
 	L"Schaden:",		
+	L"Anzahl:", 		// Number of bullets left in a magazine
 	L"AP:",			// abbreviation for Action Points
-	L"",
 	L"=",
 	L"=",
 						//Lal: additional strings for tooltips
@@ -1069,7 +1070,189 @@ CHAR16		gWeaponStatsDesc[][ 14 ] = //USED TO BE 13
 	L"Schaden:", 		//11
 	L"Gewicht:",		//12
 	L"Bet. Schaden:",	//13
+	// HEADROCK: Added new strings for extended description ** REDUNDANT **
+	L"AUTOSTRAFE:",	//14
+	L"AUTO/5:",		//15
+	L"Menge:",		//16
+
 };
+
+// HEADROCK: Several arrays of tooltip text for new Extended Description Box
+// Please note, several of these are artificially inflated to 19 entries to help fix a complication with
+// changing item type while watching its description box
+STR16		gzWeaponStatsFasthelp[ 27 ] =
+{
+	L"Reichweite",
+	L"Schaden",
+	L"Burst/Auto Strafe",
+	L"Autofeuer Schüsse für 5 AP",
+	L"Genauigkeit",
+	L"Zuverlässigkeit",
+	L"Reparaturleichtigkeit",
+	L"APs zum Anlegen",
+	L"APs für Einzelschuss",
+	L"APs für Feuerstoß",
+	L"APs für Autofeuer",
+	L"APs zum Nachladen",
+	L"APs zum manuellen Nachladen",
+	L"Mündungsfeuerdämpfung",
+	L"Lautstärke (Niedriger ist besser)",
+	L"Treffer Modifikator",
+	L"Durchschn. beste Laser Reichweite",
+	L"Zielen Modifikator",
+	L"Min. Reichweite für Zielen Bonus",
+	L"Zweibein Modifikator",
+	L"APs zum Werfen",
+	L"APs zum Abschießen",
+	L"APs zum Stechen",
+	L"Kein Einzelschuss!",
+	L"Kein Feuerstoß!",
+	L"Kein Autofeuer!",
+	L"APs zum Schlagen",
+};
+
+STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
+{
+	L"Reichweite",
+	L"Schaden",
+	L"Feuerstoß/Autofeuer Strafe",
+	L"Autofeuer Schüsse für 5 AP",
+	L"Genauigkeit",
+	L"Zuverlässigkeit",
+	L"Reparaturleichtigkeit",
+	L"APs zum Anlegen",
+	L"APs für Einzelschuss",
+	L"APs für Feuerstoß",
+	L"APs für Autofeuer",
+	L"APs zum Nachladen",
+	L"APs zum manuellen Nachladen",
+	L"Treffer Modifikator",
+	L"Durchschn. beste Laser Reichweite",
+	L"Zielen Modifikator",
+	L"Min. Reichweite für Zielen Bonus",
+	L"Mündungsfeuerdämpfung",
+	L"Lautstärke (Niedriger ist besser)",
+	L"Zweibein Modifikator",
+	L"APs zum Werfen",
+	L"APs zum Abschießen",
+	L"APs zum Stechen",
+	L"Kein Einzelschuss!",
+	L"Kein Feuerstoß!",
+	L"Kein Autofeuer!",
+	L"APs zum Schlagen",
+};
+
+STR16		gzAmmoStatsFasthelp[ 20 ] =
+{
+	L"Rüstungsdurchschlag (Niedriger ist besser)",
+	L"Projektilsturz (Höher ist besser)",
+	L"Voraufprall Explosion (Höher ist besser)",
+	L"Leuchtspur Effekt",
+	L"Panzerbrechend",
+	L"Schlossbrecher",
+	L"Ignoriert Rüstung",
+	L"Säurehaltig",
+	L"Reichweite MOdifikator",
+	L"Schaden Modifikator",
+	L"Treffer Modifikator",
+	L"Feuerstoß/Autofeuer Strafe Modifikator (Höher ist besser)",
+	L"Zuverlässigheits Modifikator",
+	L"Lautstärke Modifikator (Niedriger ist besser)",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+};
+
+STR16		gzArmorStatsFasthelp[ 20 ] =
+{
+	L"Schutz",
+	L"Deckung (Höher ist besser)",
+	L"Abschwächungsgrad (Niedriger ist besser) ",
+	L"AP Modifikator",
+	L"Treffer Modifikator",
+	L"Waldgebiet Tarnung",
+	L"Stadt Tarnung",
+	L"Wüste Tarnung",
+	L"Schnee Tarnung",
+	L"Anschleichen Modifikator",
+	L"Sichtweite Modifikator",
+	L"Tagsichtweite Modifikator",
+	L"Nachtsichtweite Modifikator",
+	L"Grelles Licht Modifikator",
+	L"Höhle Sichtweite Modifikator",
+	L"Tunnelsicht Modifikator",
+	L"Geräuschreichweite Modifikator",
+	L"",
+	L"",
+	L"",
+};
+
+STR16		gzExplosiveStatsFasthelp[ 20 ] =
+{
+	L"Schaden",
+	L"Betäubungsschaden",
+	L"Detonation Geräusch (Niedriger ist besser)",
+	L"Verflüchtigung!!! (Niedriger ist besser)",
+	L"Detonationsbereich",
+	L"Startauswirkungsbereich",
+	L"Endauswirkungsbereich",
+	L"Auswirkungsdauer",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+	L"",
+};
+
+STR16		gzMiscItemStatsFasthelp[ 34 ] =
+{
+	L"Gegenstandsgröße Modifikator (Niedriger ist besser)",
+	L"Zuverlässigkeits Modifikator",
+	L"Lautstärke Modifikator (Niedriger ist besser)",
+	L"Verbirgt Mündungsfeuer",
+	L"Zweibein Modifikator",
+	L"Reichweite Modifikator",
+	L"Treffer Modifikator",
+	L"Beste Laser Reichweite",
+	L"Zielen Bonus Modifikator",
+	L"Feuerstoßgröße Modifikator",
+	L"Feuerstoß Strafe Modifikator",
+	L"Autofeuer Strafe Modifikator",
+	L"AP Modifikator",
+	L"AP für Feuerstoß Modifikator (Niedriger ist besser)",
+	L"AP für Autofeuer Modifikator (Niedriger ist besser)",
+	L"AP für Anlegen Modifikator",
+	L"AP für Nachladen Mofifikator",
+	L"Magazingröße Modifikator",
+	L"AP für Angriff Modifikator",
+	L"Schaden Modifikator",
+	L"Nahkampf Modifikator",
+	L"Waldgebiet Tarnung",
+	L"Stadt Tarnung",
+	L"Wüsten Tarnung",
+	L"Schnee Tarnung",
+	L"Anschleichen Modifikator",
+	L"Geräuschreichweite Modifikator",
+	L"Sichtweite Modifikator",
+	L"Tagsichtweite Modifikator",
+	L"Nachtsichtweite Modifikator",
+	L"Grelles Licht Modifikator",
+	L"Höhle Sichtweite Modifikator",
+	L"Tunnelsicht Modifikator (Niedriger ist besser)",
+	L"Minimale Reichweiter für Zielbonus",
+};
+
+// HEADROCK: End new tooltip text
 
 //The headers used for the merc's money.
 CHAR16 gMoneyStatsDesc[][ 13 ] =
@@ -3310,6 +3493,7 @@ STR16 zOptionsToggleText[] =
 	L"Automatisch speichern",
 	L"Stummer Skyrider",
 	L"Niedrige CPU Belastung",
+	L"Enhanced Description Box",
 };
 
 //This is the help text associated with the above toggles.
