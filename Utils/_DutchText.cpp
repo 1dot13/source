@@ -3756,6 +3756,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, game will be saved after each players turn.",
 	L"When ON, Skyrider will not talk anymore.",
 	L"When ON, game will run with much lower CPU usage.",
+	L"When ON, enhanced descriptions will be shown for items and weapons.",
 };
 
 
@@ -3901,7 +3902,7 @@ STR16 pMessageStrings[] =
 	L"Dit slot is gereserveerd voor SnelBewaren tijdens tactische en kaartoverzichten m.b.v. ALT+S.",
 	L"Geopend",
 	L"Gesloten",
-	L"Schijfruimte raakt op. Er is slects %s MB vrij en Jagged Alliance 2 heeft %s MB nodig.",
+	L"Schijfruimte raakt op. Er is slects %s MB vrij en Jagged Alliance 2 v1.13 heeft %s MB nodig.",
 	L"%s ingehuurd van AIM",
 	L"%s heeft %s gevangen.",		//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
 	L"%s heeft de drug genomen.",		//'Merc name' has taken the drug
@@ -4324,7 +4325,7 @@ STR16 gzLateLocalizedString[] =
 	//55 
 	L"Kan tijd niet versneller tijdens bekijken van sector inventaris.",
 
-	L"Kan de Jagged Alliance 2 SPEL CD niet vinden. Programma wordt afgesloten.",
+	L"Kan de Jagged Alliance 2 v1.13 SPEL CD niet vinden. Programma wordt afgesloten.",
 
 	L"Items succesvol gecombineerd.",
 	
@@ -4529,7 +4530,7 @@ STR16 MPClientMessage[] =
 STR16 MPHelp[] =
 {
 	// 0
-	L"Welcome to Jagged Alliance 2 Multiplayer",
+	L"Welcome to Jagged Alliance 2 v1.13 Multiplayer",
 	L"Press 'F1' for help",
 	L"Multiplayer controls (from strategy screen)",
 	L"* first set up ja2_mp.ini *",

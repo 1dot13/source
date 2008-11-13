@@ -446,7 +446,7 @@ BOOLEAN HandleJA2CDCheck( )
 
 		sprintf( zErrorMessage, "%S", gzLateLocalizedString[ 56 ] );
 		// Pop up message boc and get answer....
-		if ( MessageBox( NULL, zErrorMessage, "Jagged Alliance 2", MB_OK ) == IDOK )
+		if ( MessageBox( NULL, zErrorMessage, "Jagged Alliance 2 v1.13", MB_OK ) == IDOK )
 		{
 			return( FALSE );
 		}
@@ -489,7 +489,7 @@ BOOLEAN HandleJA2CDCheckTwo( )
 
 		sprintf( zErrorMessage, "%S", gzLateLocalizedString[ 56 ] );
 		// Pop up message boc and get answer....
-		if ( MessageBox( NULL, zErrorMessage, "Jagged Alliance 2", MB_OK ) == IDOK )
+		if ( MessageBox( NULL, zErrorMessage, "Jagged Alliance 2 v1.13", MB_OK ) == IDOK )
 		{
 			return( FALSE );
 		}
@@ -519,7 +519,7 @@ BOOLEAN PerformTimeLimitedCheck()
 	if( sSystemTime.wYear > 1999 || sSystemTime.wMonth > 7 )
 	{
 		//spit out an error message
-		MessageBox( NULL, "This time limited version of Jagged Alliance 2 has expired.", "Ja2 Error!", MB_OK	);
+		MessageBox( NULL, "This time limited version of Jagged Alliance 2 v1.13 has expired.", "Ja2 Error!", MB_OK	);
 		return( FALSE );
 	}
 

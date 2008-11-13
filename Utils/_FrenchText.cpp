@@ -3757,6 +3757,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, game will be saved after each players turn.",
 	L"When ON, Skyrider will not talk anymore.",
 	L"When ON, game will run with much lower CPU usage.",
+	L"When ON, enhanced descriptions will be shown for items and weapons.",
 };
 
 
@@ -3903,7 +3904,7 @@ STR16 pMessageStrings[] =
 	L"Cet emplacement est réservé aux sauvegardes rapides effectuées depuis l'écran tactique (ALT+S).",
 	L"Ouverte",
 	L"Fermée",
-	L"Espace disque insuffisant. Il ne vous reste que %s Mo de libre et Jagged Alliance 2 nécessite %s Mo.",
+	L"Espace disque insuffisant. Il ne vous reste que %s Mo de libre et Jagged Alliance 2 v1.13 nécessite %s Mo.",
 	L"%s embauché(e) sur le site AIM", 
 	L"%s prend %s.",		//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
 	L"%s a pris la drogue.", //'Merc name' has taken the drug
@@ -4325,7 +4326,7 @@ STR16 gzLateLocalizedString[] =
 	//55 
 	L"Compression du temps impossible dans l'écran d'inventaire.",
 
-	L"Le CD Play de Jagged Alliance 2 est introuvable. L'application va se terminer.",
+	L"Le CD Play de Jagged Alliance 2 v1.13 est introuvable. L'application va se terminer.",
 
 	L"Objets associés.",
 	
@@ -4530,7 +4531,7 @@ STR16 MPClientMessage[] =
 STR16 MPHelp[] =
 {
 	// 0
-	L"Welcome to Jagged Alliance 2 Multiplayer",
+	L"Welcome to Jagged Alliance 2 v1.13 Multiplayer",
 	L"Press 'F1' for help",
 	L"Multiplayer controls (from strategy screen)",
 	L"* first set up ja2_mp.ini *",

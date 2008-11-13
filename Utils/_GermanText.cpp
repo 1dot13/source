@@ -3574,6 +3574,7 @@ STR16 zOptionsScreenHelpText[] =
 	L"Wenn diese Funktion aktiviert ist, wird nach jeder Runde automatisch gespeichert.",
 	L"Wenn diese Funktion aktiviert ist, wird Skyrider nichts mehr sprechen.",
 	L"Wenn diese Funktion aktiviert ist, wird das Spiel mit viel geringerer CPU Belastung laufen.",
+	L"Wenn diese Funktion aktiviert ist, werden erweiterte Beschreibungen zu den Waffen und Gegenständen angezeigt.",
 };
 
 STR16 gzGIOScreenText[] =
@@ -3716,7 +3717,7 @@ STR16 pMessageStrings[] =
 	L"Dieser Slot ist nur für Quick-Saves aus den Map Screens und dem Taktik-Bildschirm. Speichern mit ALT+S",
 	L"offen",
 	L"zu",
-	L"Ihr Festplattenspeicher ist knapp. Sie haben lediglich %sMB frei und Jagged Alliance 2 benötigt %sMB.",
+	L"Ihr Festplattenspeicher ist knapp. Sie haben lediglich %sMB frei und Jagged Alliance 2 v1.13 benötigt %sMB.",
 	L"%s von AIM angeheuert", 
 	L"%s hat %s gefangen.",		//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
 
@@ -4129,7 +4130,7 @@ STR16 gzLateLocalizedString[] =
 	//55
 	L"Die Zeit kann nicht komprimiert werden während das Sektorinventar eingesehen wird.",
 
-	L"Die Jagged Alliance 2 PLAY CD wurde nicht gefunden. Das Programm wird jetzt beendet.",
+	L"Die Jagged Alliance 2 v1.13 PLAY CD wurde nicht gefunden. Das Programm wird jetzt beendet.",
 
 	//L"Im Sektor sind Feinde entdeckt worden",		//STR_DETECTED_SIMULTANEOUS_ARRIVAL
 
@@ -4341,7 +4342,7 @@ STR16 MPClientMessage[] =
 STR16 MPHelp[] =
 {
 	// 0
-	L"Willkommen zu Jagged Alliance 2 Multiplayer",
+	L"Willkommen zu Jagged Alliance 2 v1.13 Multiplayer",
 	L"Drücken Sie 'F1' um die Hilfe aufzurufen",
 	L"Mehrspieler Aktionen (Strategische Ansicht)",
 	L"* zuerst solle die Datei ja2_mp.ini angepasst werden *",

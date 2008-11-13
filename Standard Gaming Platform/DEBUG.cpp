@@ -540,7 +540,7 @@ void _FailMessage( STR8 pString, UINT32 uiLineNum, STR8 pSourceFile )
 	if( !FontObjs[0] )
 	{ //Font manager hasn't yet been initialized so use the windows error system
 		sprintf( gubErrorText, "Assertion Failure -- Line %d in %s", uiLineNum, pSourceFile );
-		MessageBox( NULL, gubErrorText, "Jagged Alliance 2", MB_OK );
+		MessageBox( NULL, gubErrorText, "Jagged Alliance 2 v1.13", MB_OK );
 		gfProgramIsRunning = FALSE;
 		return;
 	}

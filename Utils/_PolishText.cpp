@@ -4330,7 +4330,7 @@ STR16 gzLateLocalizedString[] =
 	//55 
 	L"Nie mo¿na kompresowaæ czasu, gdy otwarty jest inwentarz sektora.",
 
-	L"Nie odnaleziono p³yty nr 2 Jagged Alliance 2.",
+	L"Nie odnaleziono p³yty nr 2 Jagged Alliance 2 v1.13.",
 
 	L"Przedmioty zosta³y pomyœlnie po³¹czone.",
 	
@@ -4535,7 +4535,7 @@ STR16 MPClientMessage[] =
 STR16 MPHelp[] =
 {
 	// 0
-	L"Welcome to JAGGED ALLIANCE 2 v1.13 Multiplayer",
+	L"Welcome to Jagged Alliance2 2 v1.13 Multiplayer",
 	L"Press 'F1' for help",
 	L"Multiplayer controls (from strategy screen)",
 	L"* first set up ja2_mp.ini *",

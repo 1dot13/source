@@ -3768,6 +3768,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, game will be saved after each players turn.",
 	L"When ON, Skyrider will not talk anymore.",
 	L"When ON, game will run with much lower CPU usage.",
+	L"When ON, enhanced descriptions will be shown for items and weapons.",
 };
 
 
@@ -3914,7 +3915,7 @@ STR16 pMessageStrings[] =
 	L"This slot is reserved for Quick Saves made from the tactical and map screens using ALT+S.",
 	L"Opened",
 	L"Closed",
-	L"You are running low on disk space.  You only have %sMB free and Jagged Alliance 2 requires %sMB.",
+	L"You are running low on disk space.  You only have %sMB free and Jagged Alliance 2 v1.13 requires %sMB.",
 	L"Hired %s from AIM", 
 	L"%s has caught %s.",		//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
 	L"%s has taken the drug.", //'Merc name' has taken the drug
@@ -4336,7 +4337,7 @@ STR16 gzLateLocalizedString[] =
 	//55 
 	L"Can't compress time while viewing sector inventory.",
 
-	L"The Jagged Alliance 2 PLAY DISK was not found. Program will now exit.",
+	L"The Jagged Alliance 2 v1.13 PLAY DISK was not found. Program will now exit.",
 
 	L"Items successfully combined.",
 	
@@ -4541,7 +4542,7 @@ STR16 MPClientMessage[] =
 STR16 MPHelp[] =
 {
 	// 0
-	L"Welcome to Jagged Alliance 2 Multiplayer",
+	L"Welcome to Jagged Alliance 2 v1.13 Multiplayer",
 	L"Press 'F1' for help",
 	L"Multiplayer controls (from strategy screen)",
 	L"* first set up ja2_mp.ini *",
