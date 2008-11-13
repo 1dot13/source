@@ -1,3 +1,4 @@
 <XMLEditor>
 	<Data_Directory>Data-1.13</Data_Directory>
+	<AP_Maximum>100</AP_Maximum>
 </XMLEditor>

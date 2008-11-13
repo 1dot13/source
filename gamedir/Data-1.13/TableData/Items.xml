@@ -540,7 +540,8 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
-		<BR_NewInventory>1</BR_NewInventory>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>900</BR_ROF>
 		<BurstToHitBonus>5</BurstToHitBonus>
 		<AutoFireToHitBonus>5</AutoFireToHitBonus>
@@ -968,7 +969,8 @@
 		<ShowStatus>1</ShowStatus>
 		<TwoHanded>1</TwoHanded>
 		<SciFi>1</SciFi>
-		<BR_NewInventory>1</BR_NewInventory>
+		<BR_NewInventory>2</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>600</BR_ROF>
 		<DefaultAttachment>1029</DefaultAttachment>
 	</ITEM>
@@ -999,7 +1001,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
-		<PercentAPReduction>8</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>32</uiIndex>
@@ -1248,7 +1250,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>12</BR_ROF>
-		<PercentAPReduction>7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<GrenadeLauncher>1</GrenadeLauncher>
 	</ITEM>
 	<ITEM>
@@ -3910,6 +3912,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-2</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>166</uiIndex>
@@ -3932,6 +3935,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<AimBonus>-1</AimBonus>
+		<APBonus>-1</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>167</uiIndex>
@@ -3956,7 +3960,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>-4</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-3</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>168</uiIndex>
@@ -3979,7 +3983,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<AimBonus>-4</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>169</uiIndex>
@@ -4002,7 +4006,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>170</uiIndex>
@@ -4025,7 +4029,7 @@
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<APBonus>-1</APBonus>
+		<APBonus>-3</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>171</uiIndex>
@@ -4047,7 +4051,7 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>172</uiIndex>
@@ -4069,7 +4073,7 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>173</uiIndex>
@@ -4093,7 +4097,7 @@
 		<ShowStatus>1</ShowStatus>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<APBonus>-2</APBonus>
+		<APBonus>-6</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>174</uiIndex>
@@ -4115,7 +4119,7 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
-		<APBonus>-2</APBonus>
+		<APBonus>-8</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>175</uiIndex>
@@ -4137,7 +4141,7 @@
 		<Sinks>1</Sinks>
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
-		<APBonus>-2</APBonus>
+		<APBonus>-7</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>176</uiIndex>
@@ -4466,6 +4470,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<AimBonus>-1</AimBonus>
+		<APBonus>-1</APBonus>
 		<LeatherJacket>1</LeatherJacket>
 	</ITEM>
 	<ITEM>
@@ -4591,7 +4596,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-3</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>197</uiIndex>
@@ -4614,7 +4619,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>198</uiIndex>
@@ -4636,7 +4641,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<AimBonus>-2</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>199</uiIndex>
@@ -6268,7 +6273,7 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<APBonus>-1</APBonus>
+		<APBonus>-3</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -6296,6 +6301,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-1</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -6561,7 +6567,7 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<APBonus>-1</APBonus>
+		<APBonus>-3</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>295</uiIndex>
@@ -6586,6 +6592,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-1</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>296</uiIndex>
@@ -7485,7 +7492,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>12</BR_ROF>
-		<PercentAPReduction>7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
 	<ITEM>
@@ -7656,7 +7663,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>20</BR_ROF>
-		<PercentAPReduction>8</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>342</uiIndex>
@@ -13938,7 +13945,7 @@
 		<BR_ROF>20</BR_ROF>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
-		<PercentAPReduction>8</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>622</uiIndex>
@@ -14988,6 +14995,7 @@
 		<BigGunList>1</BigGunList>
 		<Unaerodynamic>1</Unaerodynamic>
 		<BR_NewInventory>1</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>12</BR_ROF>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
@@ -15728,6 +15736,7 @@
 		<BigGunList>1</BigGunList>
 		<Unaerodynamic>1</Unaerodynamic>
 		<BR_NewInventory>1</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>18</BR_ROF>
 		<DefaultAttachment>1000</DefaultAttachment>
 	</ITEM>
@@ -15898,6 +15907,7 @@
 		<ItemSize>3</ItemSize>
 		<usPrice>1080</usPrice>
 		<ubCoolness>3</ubCoolness>
+		<bReliability>-1</bReliability>
 		<bRepairEase>-1</bRepairEase>
 		<Damageable>1</Damageable>
 		<Repairable>1</Repairable>
@@ -16078,7 +16088,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>22</BR_ROF>
-		<PercentAPReduction>8</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>695</uiIndex>
@@ -16161,6 +16171,7 @@
 		<BigGunList>1</BigGunList>
 		<Unaerodynamic>1</Unaerodynamic>
 		<BR_NewInventory>1</BR_NewInventory>
+		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>12</BR_ROF>
 		<DefaultAttachment>208</DefaultAttachment>
 	</ITEM>
@@ -17614,7 +17625,7 @@
 		<BR_NewInventory>4</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>26</BR_ROF>
-		<PercentAPReduction>7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 	</ITEM>
 	<ITEM>
 		<uiIndex>748</uiIndex>
@@ -19224,7 +19235,7 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<APBonus>-1</APBonus>
+		<APBonus>-3</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>803</uiIndex>
@@ -19304,7 +19315,7 @@
 		<Unaerodynamic>1</Unaerodynamic>
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<APBonus>-3</APBonus>
+		<APBonus>-12</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>806</uiIndex>
@@ -19332,7 +19343,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>-10</AimBonus>
-		<APBonus>-2</APBonus>
+		<APBonus>-8</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>807</uiIndex>
@@ -19464,7 +19475,7 @@
 		<BigGunList>1</BigGunList>
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<APBonus>-1</APBonus>
+		<APBonus>-3</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>812</uiIndex>
@@ -19491,7 +19502,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-3</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>813</uiIndex>
@@ -19539,7 +19550,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>815</uiIndex>
@@ -19564,6 +19575,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>816</uiIndex>
@@ -19609,7 +19621,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<Unaerodynamic>1</Unaerodynamic>
-		<APBonus>-2</APBonus>
+		<APBonus>-12</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>818</uiIndex>
@@ -19633,7 +19645,7 @@
 		<BigGunList>1</BigGunList>
 		<Unaerodynamic>1</Unaerodynamic>
 		<AimBonus>-10</AimBonus>
-		<APBonus>-2</APBonus>
+		<APBonus>-8</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>819</uiIndex>
@@ -19677,7 +19689,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>821</uiIndex>
@@ -19700,6 +19712,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-2</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>822</uiIndex>
@@ -19745,7 +19758,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>824</uiIndex>
@@ -19769,7 +19782,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>825</uiIndex>
@@ -19816,7 +19829,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-3</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>827</uiIndex>
@@ -19888,7 +19901,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<Unaerodynamic>1</Unaerodynamic>
-		<APBonus>-2</APBonus>
+		<APBonus>-10</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>830</uiIndex>
@@ -19913,7 +19926,7 @@
 		<BigGunList>1</BigGunList>
 		<Unaerodynamic>1</Unaerodynamic>
 		<AimBonus>-8</AimBonus>
-		<APBonus>-2</APBonus>
+		<APBonus>-6</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>831</uiIndex>
@@ -19956,7 +19969,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-3</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>833</uiIndex>
@@ -19979,6 +19992,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-1</AimBonus>
+		<APBonus>-1</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>834</uiIndex>
@@ -20023,7 +20037,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-3</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>836</uiIndex>
@@ -20047,7 +20061,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-3</APBonus>
 	</ITEM>
 	<ITEM>
 		<uiIndex>837</uiIndex>
@@ -20224,6 +20238,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-3</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20249,6 +20264,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-3</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20273,6 +20289,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
+		<APBonus>-3</APBonus>
 		<CamoBonus>15</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20297,6 +20314,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
+		<APBonus>-3</APBonus>
 		<CamoBonus>15</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20322,6 +20340,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-1</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20347,7 +20366,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20373,7 +20392,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20399,7 +20418,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-4</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20425,6 +20444,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20449,7 +20469,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20474,7 +20494,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20499,7 +20519,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-2</APBonus>
+		<APBonus>-7</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20524,7 +20544,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20550,6 +20570,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-1</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20575,7 +20596,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20601,7 +20622,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20627,7 +20648,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-4</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20653,6 +20674,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20677,7 +20699,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20702,7 +20724,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20727,7 +20749,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-2</APBonus>
+		<APBonus>-7</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20752,7 +20774,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20778,6 +20800,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-1</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20803,7 +20826,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20829,7 +20852,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20855,7 +20878,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-4</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20881,6 +20904,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20905,7 +20929,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>15</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20930,7 +20954,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>15</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20955,7 +20979,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-2</APBonus>
+		<APBonus>-7</APBonus>
 		<CamoBonus>15</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -20980,7 +21004,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>15</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -21581,7 +21605,7 @@
 		<BR_NewInventory>1</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>12</BR_ROF>
-		<PercentAPReduction>7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<Mortar>1</Mortar>
 	</ITEM>
 	<ITEM>
@@ -21728,7 +21752,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>14</BR_ROF>
-		<PercentAPReduction>8</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<GrenadeLauncher>1</GrenadeLauncher>
 	</ITEM>
 	<ITEM>
@@ -21757,7 +21781,7 @@
 		<BR_NewInventory>3</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>12</BR_ROF>
-		<PercentAPReduction>7</PercentAPReduction>
+		<PercentAPReduction>0</PercentAPReduction>
 		<GrenadeLauncher>1</GrenadeLauncher>
 	</ITEM>
 	<ITEM>
@@ -23771,8 +23795,8 @@
 		<Electronic>1</Electronic>
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
-		<AimBonus>12</AimBonus>
-		<MinRangeForAimBonus>45</MinRangeForAimBonus>
+		<AimBonus>11</AimBonus>
+		<MinRangeForAimBonus>40</MinRangeForAimBonus>
 		<NightVisionRangeBonus>20</NightVisionRangeBonus>
 		<DayVisionRangeBonus>40</DayVisionRangeBonus>
 		<CaveVisionRangeBonus>10</CaveVisionRangeBonus>
@@ -26299,6 +26323,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-1</AimBonus>
+		<APBonus>-2</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26323,6 +26348,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26348,6 +26374,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26371,6 +26398,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
+		<APBonus>-5</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26395,6 +26423,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
+		<APBonus>-4</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26419,6 +26448,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-3</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26443,7 +26473,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-6</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26469,7 +26499,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26494,7 +26524,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-4</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-6</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26520,6 +26550,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
+		<APBonus>-2</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26543,7 +26574,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-6</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26568,7 +26599,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26592,7 +26623,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-2</APBonus>
+		<APBonus>-9</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26617,7 +26648,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26642,6 +26673,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-3</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26666,7 +26698,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-6</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26692,7 +26724,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26717,7 +26749,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-4</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-6</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26743,6 +26775,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
+		<APBonus>-2</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26766,7 +26799,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-6</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26791,7 +26824,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26815,7 +26848,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-2</APBonus>
+		<APBonus>-9</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26840,7 +26873,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26865,6 +26898,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-3</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26889,7 +26923,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-6</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26915,7 +26949,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26940,7 +26974,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-4</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-6</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26966,6 +27000,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
+		<APBonus>-2</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -26989,7 +27024,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-6</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27014,7 +27049,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27038,7 +27073,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-2</APBonus>
+		<APBonus>-9</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27063,7 +27098,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27160,6 +27195,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-1</AimBonus>
+		<APBonus>-1</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27185,6 +27221,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27210,6 +27247,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-3</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27233,6 +27271,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
+		<APBonus>-4</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27257,6 +27296,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
+		<APBonus>-3</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27281,6 +27321,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-2</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27306,7 +27347,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27332,7 +27373,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27358,7 +27399,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-4</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27384,6 +27425,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27407,7 +27449,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27432,7 +27474,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27457,7 +27499,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-2</APBonus>
+		<APBonus>-8</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27482,7 +27524,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27507,6 +27549,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-2</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27532,7 +27575,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27558,7 +27601,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27584,7 +27627,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-4</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27610,6 +27653,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27633,7 +27677,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27658,7 +27702,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27683,7 +27727,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-2</APBonus>
+		<APBonus>-8</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27708,7 +27752,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>10</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27733,6 +27777,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-2</AimBonus>
+		<APBonus>-2</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27758,7 +27803,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27784,7 +27829,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27810,7 +27855,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-4</AimBonus>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27836,6 +27881,7 @@
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
 		<AimBonus>-3</AimBonus>
+		<APBonus>-1</APBonus>
 		<CamoBonus>25</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27859,7 +27905,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-5</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27884,7 +27930,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27909,7 +27955,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-2</APBonus>
+		<APBonus>-8</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
@@ -27934,7 +27980,7 @@
 		<ShowStatus>1</ShowStatus>
 		<NotBuyable>1</NotBuyable>
 		<BigGunList>1</BigGunList>
-		<APBonus>-1</APBonus>
+		<APBonus>-4</APBonus>
 		<CamoBonus>20</CamoBonus>
 	</ITEM>
 	<ITEM>
