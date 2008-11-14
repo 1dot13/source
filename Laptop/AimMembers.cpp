@@ -49,6 +49,7 @@
 #include "Strategic Town Loyalty.h"
 #include "connect.h"
 #include "fresh_header.h"
+#include "Encrypted File.h"
 
 //
 //******	Defines	******
@@ -1100,7 +1101,7 @@ BOOLEAN LoadMercBioInfo(UINT8 ubIndex, STR16 pInfoString, STR16 pAddInfo)
 {
 	HWFILE		hFile;
 	UINT32		uiBytesRead;
-	UINT16		i;
+	//UINT16		i;
 	UINT32		uiStartSeekAmount;
 
 
@@ -1124,38 +1125,39 @@ BOOLEAN LoadMercBioInfo(UINT8 ubIndex, STR16 pInfoString, STR16 pAddInfo)
 		return( FALSE );
 	}
 
-	// Decrement, by 1, any value > 32
-	for(i=0; (i<SIZE_MERC_BIO_INFO) && (pInfoString[i] != 0); i++ )
-	{
-		if( pInfoString[i] > 33 )
-			pInfoString[i] -= 1;
-		#ifdef POLISH
-			switch( pInfoString[ i ] )
-			{
-				case 260:		pInfoString[ i ] = 165;		break;
-				case 262:		pInfoString[ i ] = 198;		break;
-				case 280:		pInfoString[ i ] = 202;		break;
-				case 321:		pInfoString[ i ] = 163;		break;
-				case 323:		pInfoString[ i ] = 209;		break;
-				case 211:		pInfoString[ i ] = 211;		break;
+	//// Decrement, by 1, any value > 32
+	//for(i=0; (i<SIZE_MERC_BIO_INFO) && (pInfoString[i] != 0); i++ )
+	//{
+	//	if( pInfoString[i] > 33 )
+	//		pInfoString[i] -= 1;
+	//	#ifdef POLISH
+	//		switch( pInfoString[ i ] )
+	//		{
+	//			case 260:		pInfoString[ i ] = 165;		break;
+	//			case 262:		pInfoString[ i ] = 198;		break;
+	//			case 280:		pInfoString[ i ] = 202;		break;
+	//			case 321:		pInfoString[ i ] = 163;		break;
+	//			case 323:		pInfoString[ i ] = 209;		break;
+	//			case 211:		pInfoString[ i ] = 211;		break;
 
-				case 346:		pInfoString[ i ] = 338;		break;
-				case 379:		pInfoString[ i ] = 175;		break;
-				case 377:		pInfoString[ i ] = 143;		break;
-				case 261:		pInfoString[ i ] = 185;		break;
-				case 263:		pInfoString[ i ] = 230;		break;
-				case 281:		pInfoString[ i ] = 234;		break;
+	//			case 346:		pInfoString[ i ] = 338;		break;
+	//			case 379:		pInfoString[ i ] = 175;		break;
+	//			case 377:		pInfoString[ i ] = 143;		break;
+	//			case 261:		pInfoString[ i ] = 185;		break;
+	//			case 263:		pInfoString[ i ] = 230;		break;
+	//			case 281:		pInfoString[ i ] = 234;		break;
 
-				case 322:		pInfoString[ i ] = 179;		break;
-				case 324:		pInfoString[ i ] = 241;		break;
-				case 243:		pInfoString[ i ] = 243;		break;
-				case 347:		pInfoString[ i ] = 339;		break;
-				case 380:		pInfoString[ i ] = 191;		break;
-				case 378:		pInfoString[ i ] = 376;		break;
-			}
-		#endif
-	}
-
+	//			case 322:		pInfoString[ i ] = 179;		break;
+	//			case 324:		pInfoString[ i ] = 241;		break;
+	//			case 243:		pInfoString[ i ] = 243;		break;
+	//			case 347:		pInfoString[ i ] = 339;		break;
+	//			case 380:		pInfoString[ i ] = 191;		break;
+	//			case 378:		pInfoString[ i ] = 376;		break;
+	//		}
+	//	#endif
+	//}
+	
+	DecodeString(pInfoString, SIZE_MERC_BIO_INFO);
 
 	// Get the additional info
 	uiStartSeekAmount = ((SIZE_MERC_BIO_INFO + SIZE_MERC_ADDITIONAL_INFO) * ubIndex )+ SIZE_MERC_BIO_INFO ;
@@ -1169,37 +1171,39 @@ BOOLEAN LoadMercBioInfo(UINT8 ubIndex, STR16 pInfoString, STR16 pAddInfo)
 		return( FALSE );
 	}
 
-	// Decrement, by 1, any value > 32
-	for(i=0; (i<SIZE_MERC_BIO_INFO) && (pAddInfo[i] != 0); i++ )
-	{
-		if( pAddInfo[i] > 33 )
-			pAddInfo[i] -= 1;
-		#ifdef POLISH
-			switch( pAddInfo[ i ] )
-			{
-				case 260:		pAddInfo[ i ] = 165;		break;
-				case 262:		pAddInfo[ i ] = 198;		break;
-				case 280:		pAddInfo[ i ] = 202;		break;
-				case 321:		pAddInfo[ i ] = 163;		break;
-				case 323:		pAddInfo[ i ] = 209;		break;
-				case 211:		pAddInfo[ i ] = 211;		break;
+	//// Decrement, by 1, any value > 32
+	//for(i=0; (i<SIZE_MERC_BIO_INFO) && (pAddInfo[i] != 0); i++ )
+	//{
+	//	if( pAddInfo[i] > 33 )
+	//		pAddInfo[i] -= 1;
+	//	#ifdef POLISH
+	//		switch( pAddInfo[ i ] )
+	//		{
+	//			case 260:		pAddInfo[ i ] = 165;		break;
+	//			case 262:		pAddInfo[ i ] = 198;		break;
+	//			case 280:		pAddInfo[ i ] = 202;		break;
+	//			case 321:		pAddInfo[ i ] = 163;		break;
+	//			case 323:		pAddInfo[ i ] = 209;		break;
+	//			case 211:		pAddInfo[ i ] = 211;		break;
 
-				case 346:		pAddInfo[ i ] = 338;		break;
-				case 379:		pAddInfo[ i ] = 175;		break;
-				case 377:		pAddInfo[ i ] = 143;		break;
-				case 261:		pAddInfo[ i ] = 185;		break;
-				case 263:		pAddInfo[ i ] = 230;		break;
-				case 281:		pAddInfo[ i ] = 234;		break;
+	//			case 346:		pAddInfo[ i ] = 338;		break;
+	//			case 379:		pAddInfo[ i ] = 175;		break;
+	//			case 377:		pAddInfo[ i ] = 143;		break;
+	//			case 261:		pAddInfo[ i ] = 185;		break;
+	//			case 263:		pAddInfo[ i ] = 230;		break;
+	//			case 281:		pAddInfo[ i ] = 234;		break;
 
-				case 322:		pAddInfo[ i ] = 179;		break;
-				case 324:		pAddInfo[ i ] = 241;		break;
-				case 243:		pAddInfo[ i ] = 243;		break;
-				case 347:		pAddInfo[ i ] = 339;		break;
-				case 380:		pAddInfo[ i ] = 191;		break;
-				case 378:		pAddInfo[ i ] = 376;		break;
-			}
-		#endif
-	}
+	//			case 322:		pAddInfo[ i ] = 179;		break;
+	//			case 324:		pAddInfo[ i ] = 241;		break;
+	//			case 243:		pAddInfo[ i ] = 243;		break;
+	//			case 347:		pAddInfo[ i ] = 339;		break;
+	//			case 380:		pAddInfo[ i ] = 191;		break;
+	//			case 378:		pAddInfo[ i ] = 376;		break;
+	//		}
+	//	#endif
+	//}
+
+	DecodeString(pAddInfo, SIZE_MERC_BIO_INFO);
 
 	FileClose(hFile);
 	return(TRUE);

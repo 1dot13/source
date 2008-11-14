@@ -1,3 +1,4 @@
+#pragma setlocale("GERMAN")
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
 #else

@@ -1,4 +1,4 @@
-
+#pragma setlocale("RUSSIAN")
 #ifdef PRECOMPILEDHEADERS
 #include "Utils All.h"
 #else
@@ -243,33 +243,33 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"%s и %s оказывают первую помощь (любая клавиша - отмена).",
 	// the following 17 strings are used to create lists of gun advantages and disadvantages
 	// (separated by commas)
-	L"надежен",
-	L"ненадежен",
+	L"надёжно",
+	L"ненадёжно",
 	L"простой ремонт",
 	L"сложный ремонт",
 	L"большой урон",
 	L"малый урон",
-	L"скорострельный",
-	L"нескоростр.",
+	L"скорострельное",
+	L"нескорострельное",
 	L"дальний бой",
 	L"ближний бой",
-	L"легкий",
-	L"тяжелый",
-	L"компактный",
-	L"очередями",
-	L"",		//нет отсечки очереди
+	L"лёгкое",
+	L"тяжёлое",
+	L"компактное",
+	L"очередями",	//fast burst fire
+	L"нет отсечки очереди",
 	L"бол.магазин",
 	L"мал.магазин",
 
 	// In the following two lines, all %s's are merc names
 
-	L"%s: камуфляжная краска стерлась.",
+	L"%s: камуфляжная краска стёрлась.",
 	L"%s: камуфляжная краска смылась.",
 
 	// The first %s is a merc name and the second %s is an item name
 
 	L"Второе оружие: закончились патроны!",
-	L"%s крадет %s.",
+	L"%s крадёт %s.",
 
 	// The %s is a merc name
 
@@ -1101,7 +1101,7 @@ CHAR16		gWeaponStatsDesc[][ 16 ] =
 	L"Вес:",		//12
 	L"Оглушение:",//13
 	// HEADROCK: Added new strings for extended description ** REDUNDANT **
-	L"АВТОШТРАФ:",	//14
+	L"AUTOPEN:",	//14
 	L"AUTO/5:",		//15
 	L"Всего:",		//16
 
@@ -1112,41 +1112,41 @@ CHAR16		gWeaponStatsDesc[][ 16 ] =
 // changing item type while watching its description box
 STR16		gzWeaponStatsFasthelp[ 27 ] =
 {
-	L"Дальность",
-	L"Урон",
-	L"Burst/Auto Penalty",
-	L"Autofire shots per 5 AP",
-	L"Точность",
-	L"Надёжность",
-	L"Простота ремонта",
-	L"ОД на вскидку",
-	L"ОД на 1 выстрел",
-	L"ОД на огонь с отсечкой",
-	L"ОД на огонь очередью",
-	L"ОД на замену магазина",
-	L"ОД на досылку патрона",
-	L"Пламегаситель",
-	L"Шумность (Чем меньше, тем лучше)",
-	L"To-Hit Modifier",
-	L"Average Best Laser Range",
-	L"Aiming Modifier",
-	L"Min. Range for Aiming Bonus",
-	L"Bipod Modifier",
-	L"ОД на бросок",
-	L"ОД на выстрел",
-	L"ОД на удар ножом",
-	L"Не стреляет одиночными!",
-	L"Нет отсечки патрона!",
-	L"Нет автоматического режима!",
-	L"ОД на удар",
+	L"Дальнобойность",						//Range
+	L"Урон",							//Damage
+	L"Штраф за отдачу при\nстрельбе очередью\n(c отсечкой/без)",	//Burst/Auto Penalty
+	L"Выстрелов в автоматическом\nрежиме за 5 ОД",			//Autofire shots per 5 AP
+	L"Точность",							//Accuracy
+	L"Надёжность",							//Reliability
+	L"Простота ремонта",						//Repair Ease
+	L"ОД на вскидку",						//APs to ready
+	L"ОД на 1 выстрел",						//APs to fire Single
+	L"ОД на огонь с отсечкой",					//APs to fire Burst
+	L"ОД на огонь очередью",					//APs to fire Auto
+	L"ОД на замену магазина",					//APs to Reload
+	L"ОД на досылку патрона",					//APs to Reload Manually
+	L"Пламегаситель",						//Flash Suppression
+	L"Шумность (чем меньше, тем лучше)",				//Loudness (Lower is better)
+	L"Модификатор точности",					//To-Hit Modifier
+	L"Радиус наилучшей видимости\nточки прицеливания",		//Average Best Laser Range
+	L"Модификатор прицельной стрельбы",				//Aiming Modifier
+	L"Минимальная эффективная дальность",				//Min. Range for Aiming Bonus
+	L"Бонус от сошек\n(при стрельбе лёжа)",				//Bipod Modifier
+	L"ОД на бросок",						//APs to Throw
+	L"ОД на выстрел",						//APs to Launch
+	L"ОД на удар ножом",						//APs to Stab
+	L"Не стреляет одиночными!",					//No Single Shot!
+	L"Нет отсечки патрона!",					//No Burst Mode!
+	L"Нет автоматического режима!",					//No Auto Mode!
+	L"ОД на удар",							//APs to Bash
 };
 
 STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
 {
-	L"Дальность",
+	L"Дальнобойность",
 	L"Урон",
-	L"Burst/Auto Penalty",
-	L"Autofire shots per 5 AP",
+	L"Штраф за отдачу при\nстрельбе очередью\n(c отсечкой/без)",
+	L"Выстрелов в автоматическом\nрежиме за 5 ОД",
 	L"Точность",
 	L"Надёжность",
 	L"Простота ремонта",
@@ -1156,13 +1156,13 @@ STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
 	L"ОД на огонь очередью",
 	L"ОД на замену магазина",
 	L"ОД на досылку патрона",
-	L"To-Hit Modifier",
-	L"Average Best Laser Range",
-	L"Aiming Modifier",
-	L"Min. Range for Aiming Bonus",
+	L"Модификатор точности",
+	L"Радиус наилучшей видимости\nточки прицеливания",
+	L"Модификатор прицельной стрельбы",
+	L"Минимальная эффективная дальность",
 	L"Пламегаситель",
-	L"Шумность\n(Чем меньше, тем лучше)",
-	L"Bipod Modifier",
+	L"Шумность\n(чем меньше, тем лучше)",
+	L"Бонус от сошек\n(при стрельбе лёжа)",
 	L"ОД на бросок",
 	L"ОД на выстрел",
 	L"ОД на удар ножом",
@@ -1177,17 +1177,17 @@ STR16		gzAmmoStatsFasthelp[ 20 ] =
 	L"Armor Penetration (Lower is better)",
 	L"Bullet Tumble (Higher is better)",
 	L"Pre-impact Explosion (Higher is better)",
-	L"Трассирующий эффект",
-	L"Anti-Tank",
+	L"Трассирующий эффект",					//Tracer Effect
+	L"Кумулятивные",					//Anti-Tank
 	L"Lockbuster",
-	L"Ignores Armor",
-	L"Acidic",
-	L"Range Modifier",
-	L"Damage Modifier",
-	L"To-Hit Modifier",
+	L"Игнорируется наличие брони",				//Ignores Armor
+	L"Кислотный эффект",					//Acidic
+	L"Модификатор дальнобойности",				//Range Modifier
+	L"Модификатор урона",					//Damage Modifier
+	L"Модификатор точности",				//To-Hit Modifier
 	L"Burst/Auto Penalty Modifier (Higher is better)",
-	L"Reliability Modifier",
-	L"Loudness Modifier (Lower is better)",
+	L"Модификатор надёжности",				//Reliability Modifier
+	L"Модификатор шумности\n(чем меньше, тем лучше)",	//Loudness Modifier (Lower is better)
 	L"",
 	L"",
 	L"",
@@ -1198,23 +1198,23 @@ STR16		gzAmmoStatsFasthelp[ 20 ] =
 
 STR16		gzArmorStatsFasthelp[ 20 ] =
 {
-	L"Защита",
-	L"Покрытие тела\n(чем больше, тем лучше)",
-	L"Изнашиваемость\n(чем меньше, тем лучше)",
-	L"Влияние на подвижность",
-	L"To-Hit Modifier",
-	L"Камуфляж (Лес)",
-	L"Камуфляж (Город)",
-	L"Камуфляж (Пустыня)",
-	L"Камуфляж (Снег)",
-	L"Stealth Modifier",
-	L"Vision Range Modifier",
-	L"Day Vision Range Modifier",
-	L"Night Vision Range Modifier",
-	L"Bright Light Vision Range Modifier",
-	L"Cave Vision Range Modifier",
-	L"Tunnel Vision Percentage",
-	L"Hearing Range Modifier",
+	L"Защита",						//Protection
+	L"Покрытие тела\n(чем больше, тем лучше)",		//Coverage (Higher is better)
+	L"Изнашиваемость\n(чем меньше, тем лучше)",		//Degrade Rate (Lower is better)
+	L"Влияние на подвижность",				//AP Modifier
+	L"Модификатор точности",				//To-Hit Modifier
+	L"Камуфляж 'Лес'",
+	L"Камуфляж 'Город'",
+	L"Камуфляж 'Пустыня'",
+	L"Камуфляж 'Снег'",
+	L"Модификатор скрытности",				//Stealth Modifier
+	L"Модификатор диапазона\nвидимости",			//Vision Range Modifier
+	L"Модификатор диапазона\nвидимости днём",		//Day Vision Range Modifier
+	L"Модификатор диапазона\nвидимости ночью",		//Night Vision Range Modifier
+	L"Модификатор диапазона\nвидимости при ярком освещении",//Bright Light Vision Range Modifier
+	L"Модификатор диапазона\nвидимости в пещере",		//Cave Vision Range Modifier
+	L"Процент видимости в тоннеле",				//Tunnel Vision Percentage
+	L"Модификатор диапазона\nслышимости",			//Hearing Range Modifier
 	L"",
 	L"",
 	L"",
@@ -1222,14 +1222,14 @@ STR16		gzArmorStatsFasthelp[ 20 ] =
 
 STR16		gzExplosiveStatsFasthelp[ 20 ] =
 {
-	L"Урон",
-	L"Оглушение", //отнимает энергию
-	L"Зона слышимости взрыва\n(чем меньше, тем лучше)",
-	L"Взрывоопасность!!!\n(чем меньше, тем лучше)",
-	L"Зона действия взрыва",
-	L"Начальная зона действия",
-	L"Максимальная зона действия",
-	L"Время действия",
+	L"Урон",						//Damage
+	L"Оглушение", //отнимает энергию			//Stun Damage
+	L"Зона слышимости взрыва\n(чем меньше, тем лучше)",	//Blast Loudness (Lower is better)
+	L"Взрывоопасность!!!\n(чем меньше, тем лучше)",		//Volatility!!! (Lower is better)
+	L"Зона действия взрыва",				//Blast Radius
+	L"Начальная зона действия",				//Effect Start Radius
+	L"Конечная зона действия",				//Effect Final Radius
+	L"Время действия",					//Effect Duration
 	L"",
 	L"",
 	L"",
@@ -1247,13 +1247,13 @@ STR16		gzExplosiveStatsFasthelp[ 20 ] =
 STR16		gzMiscItemStatsFasthelp[ 34 ] =
 {
 	L"Item Size Modifier (Lower is better)", // 0
-	L"Reliability Modifier",
-	L"Loudness Modifier (Lower is better)",
-	L"Hides Muzzle Flash",
-	L"Bipod Modifier",
-	L"Range Modifier", // 5
-	L"To-Hit Modifier",
-	L"Best Laser Range",
+	L"Модификатор надёжности",						//Reliability Modifier
+	L"Модификатор шумности\n(чем меньше, тем лучше)",			//Loudness Modifier (Lower is better)
+	L"Скрывает вспышку",							//Hides Muzzle Flash
+	L"Модификатор сошек",							//Bipod Modifier
+	L"Модификатор дальнобойности", // 5					//Range Modifier
+	L"Модификатор точности",						//To-Hit Modifier
+	L"Радиус наилучшей видимости\nточки прицеливания",			//Best Laser Range
 	L"Aiming Bonus Modifier",
 	L"Burst Size Modifier",
 	L"Burst Penalty Modifier (Higher is better)", // 10
@@ -1263,23 +1263,23 @@ STR16		gzMiscItemStatsFasthelp[ 34 ] =
 	L"AP to Auto-Fire Modifier (Lower is better)",
 	L"AP to Ready Modifier (Lower is better)", // 15
 	L"AP to Reload Modifier (Lower is better)",
-	L"Magazine Size Modifier",
+	L"Модификатор объёма магазина",						//Magazine Size Modifier
 	L"AP to Attack Modifier (Lower is better)",
-	L"Damage Modifier",
+	L"Модификатор урона",							//Damage Modifier
 	L"Melee Damage Modifier", // 20
-	L"Камуфляж (Лес)",
-	L"Камуфляж (Город)",
-	L"Камуфляж (Пустыня)",
-	L"Камуфляж (Снег)",
-	L"Stealth Modifier", // 25
-	L"Hearing Range Modifier",
-	L"Vision Range Modifier",
-	L"Day Vision Range Modifier",
-	L"Night Vision Range Modifier",
-	L"Bright Light Vision Range Modifier", //30
-	L"Cave Vision Range Modifier",
-	L"Tunnel Vision Percentage (Lower is better)",
-	L"Minimum Range for Aiming Bonus",
+	L"Камуфляж 'Лес'",
+	L"Камуфляж 'Город'",
+	L"Камуфляж 'Пустыня'",
+	L"Камуфляж 'Снег'",
+	L"Модификатор скрытности", // 25
+	L"Модификатор диапазона\nслышимости",
+	L"Модификатор диапазона\nвидимости",
+	L"Модификатор диапазона\nвидимости днём",
+	L"Модификатор диапазона\nвидимости ночью",
+	L"Модификатор диапазона\nвидимости при ярком освещении", //30
+	L"Модификатор диапазона\nвидимости в пещере",
+	L"Процент видимости в тоннеле\n(чем меньше, тем лучше)",		//Tunnel Vision Percentage (Lower is better)
+	L"Минимальная эффективная\nдальность оптики",				//Minimum Range for Aiming Bonus
 };
 
 // HEADROCK: End new tooltip text
@@ -3683,7 +3683,7 @@ STR16		zOptionsToggleText[] =
 	L"Автосохранение каждый ход",
 	L"Молчаливый пилот вертолёта",
 	L"Низкая загрузка процессора",
-	L"Расширенное описание предметов", //Enhanced Description Box
+	L"Подробное описание предметов", //Enhanced Description Box
 };
 
 //This is the help text associated with the above toggles.
@@ -3729,7 +3729,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, то используется метрическая система мер,\nиначе будет британская.",
 
 	//Merc Lighted movement
-	L"При ходьбе карта подсвечивается вокруг бойца (|G).\nВыключите опцию для повышения производительности системы.",
+	L"При ходьбе карта подсвечивается вокруг бойца (|G).\nОтключите эту настройку для повышения производительности системы.",
 
 	//Smart cursor
 	L"Если включено, то перемещение курсора возле наемника\nавтоматически выбирает его.",
@@ -3764,7 +3764,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, игра будет автоматически сохраняться\nпосле каждого хода игрока.",
 	L"Если включено, Небесный Всадник\nне будет вас раздражать болтливостью.",
 	L"Если включено, игра будет использовать\nменьше процессорного времени.",
-	L"Если включено, будет задействовано\nрасширенное описание предметов.", //EDB description
+	L"Если включено, будет задействовано\nподробное описание предметов.", //EDB description
 };
 
 
@@ -3910,7 +3910,7 @@ STR16 pMessageStrings[] =
 	L"Эта ячейка зарезервирована для Быстрого Сохранения, которое можно провести с тактической карты или с глобальной карты, нажав клавиши ALT+S.",
 	L"Открытая",
 	L"Закрытая",
-	L"У вас заканчивается свободное дисковое пространство. На диске есть всего %sMб свободного места, а для Jagged Alliance 2 v1.13 требуется %sMб.",
+	L"У вас заканчивается свободное дисковое пространство. На диске есть всего %sMб свободного места, а для Jagged Alliance 2 требуется %sMб.",
 	L"Из A.I.M. нанят боец %s.", 
 	L"%s ловит %s.",		//'Merc name' has caught 'item' -- let SirTech know if name comes after item.
 	L"%s принимает препарат.", //'Merc name' has taken the drug
@@ -4539,7 +4539,7 @@ STR16 MPClientMessage[] =
 STR16 MPHelp[] =
 {
 	// 0
-	L"Запущена сетевая игра Jagged Alliance 2 v1.13",
+	L"Запущена сетевая игра Jagged Alliance 2",
 	L"Нажмите F1 для просмотра помощи.",
 	L"Управление сетевой игрой (на стратегическом экране)",
 	L"* Сперва установите настройки в файле ja2_mp.ini *",

@@ -1,3 +1,4 @@
+#pragma setlocale("POLISH")
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
 	#include "_Ja25Polishtext.h"

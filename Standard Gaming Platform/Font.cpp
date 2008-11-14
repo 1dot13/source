@@ -657,6 +657,8 @@ INT16 GetIndex(CHAR16 siChar)
 	UINT16 ssCount=0;
 	UINT16	usNumberOfSymbols = pFManager->pTranslationTable->usNumberOfSymbols;
 
+	siChar = GetUnicodeChar(siChar);
+
 	// search the Translation Table and return the index for the font
 	pTrav = pFManager->pTranslationTable->DynamicArrayOf16BitValues;
 	while (ssCount < usNumberOfSymbols )
@@ -676,6 +678,144 @@ INT16 GetIndex(CHAR16 siChar)
 	return 0;
 }
 
+
+CHAR16 GetUnicodeChar(CHAR16 siChar)
+{
+		#ifdef GERMAN
+		   //switch( siChar )
+		   //{
+		   //     // ь
+		   //     case 252:          siChar = 252;          break;
+		   //     // Ь
+		   //     case 220:          siChar = 220;          break;
+		   //     // д
+		   //     case 228:          siChar = 228;          break;
+		   //     // Д
+		   //     case 196:          siChar = 196;          break;
+		   //     // ц
+		   //     case 246:          siChar = 246;          break;
+		   //     // Ц
+		   //     case 214:          siChar = 214;          break;
+		   //     // Я
+		   //     case 223:          siChar = 223;          break;
+		   //}
+	#endif
+
+	#ifdef RUSSIAN
+		switch( siChar )
+		{
+			//capital letters
+			case 168:          siChar = 1025;  break;	//U+0401		   d0 81     CYRILLIC CAPITAL LETTER IO
+			case 192:          siChar = 1040;  break; //U+0410     A     d0 90     CYRILLIC CAPITAL LETTER A
+			case 193:          siChar = 1041;  break;
+			case 194:          siChar = 1042;  break;
+			case 195:          siChar = 1043;  break;
+			case 196:          siChar = 1044;  break;
+			case 197:          siChar = 1045;  break;
+			case 198:          siChar = 1046;  break;
+			case 199:          siChar = 1047;  break;
+			case 200:          siChar = 1048;  break;
+			case 201:          siChar = 1049;  break;
+			case 202:          siChar = 1050;  break;
+			case 203:          siChar = 1051;  break;
+			case 204:          siChar = 1052;  break;
+			case 205:          siChar = 1053;  break;
+			case 206:          siChar = 1054;  break;
+			case 207:          siChar = 1055;  break;
+			case 208:          siChar = 1056;  break;
+			case 209:          siChar = 1057;  break;
+			case 210:          siChar = 1058;  break;
+			case 211:          siChar = 1059;  break;
+			case 212:          siChar = 1060;  break;
+			case 213:          siChar = 1061;  break;
+			case 214:          siChar = 1062;  break;
+			case 215:          siChar = 1063;  break;
+			case 216:          siChar = 1064;  break;
+			case 217:          siChar = 1065;  break;
+			case 218:          siChar = 1066;  break;
+			case 219:          siChar = 1067;  break;
+			case 220:          siChar = 1068;  break;
+			case 221:          siChar = 1069;  break;
+			case 222:          siChar = 1070;  break;
+			case 223:          siChar = 1071;  break; //U+042F           d0 af     CYRILLIC CAPITAL LETTER YA
+
+			//small letters
+		    case 185:          siChar = 8470;  break;		// ?
+            case 178:          siChar = 1030;  break;		// ?
+            case 161:          siChar = 1038;  break;		// н
+            case 179:          siChar = 1110;  break;		// ?
+            case 162:          siChar = 1118;  break;		// у
+            case 165:          siChar = 1168;  break;		// С
+            case 170:          siChar = 1028;  break;		// ¬
+            case 175:          siChar = 1031;  break;		// »
+            case 180:          siChar = 1169;  break;		// ?
+            case 186:          siChar = 1108;  break;		// ?
+            case 191:          siChar = 1111;  break;		// ?
+
+			case 184:          siChar = 1105;  break; //U+0451           d1 91     CYRILLIC SMALL LETTER IO
+			case 224:          siChar = 1072;  break; //U+0430     a     d0 b0     CYRILLIC SMALL LETTER A
+			case 225:          siChar = 1073;  break;
+			case 226:          siChar = 1074;  break;
+			case 227:          siChar = 1075;  break;
+			case 228:          siChar = 1076;  break;
+			case 229:          siChar = 1077;  break;
+			case 230:          siChar = 1078;  break;
+			case 231:          siChar = 1079;  break;
+			case 232:          siChar = 1080;  break;
+			case 233:          siChar = 1081;  break;
+			case 234:          siChar = 1082;  break;
+			case 235:          siChar = 1083;  break;
+			case 236:          siChar = 1084;  break;
+			case 237:          siChar = 1085;  break;
+			case 238:          siChar = 1086;  break;
+			case 239:          siChar = 1087;  break; //U+043F           d0 bf     CYRILLIC SMALL LETTER PE
+			case 240:          siChar = 1088;  break; //U+0440     p     d1 80     CYRILLIC SMALL LETTER ER
+			case 241:          siChar = 1089;  break;
+			case 242:          siChar = 1090;  break;
+			case 243:          siChar = 1091;  break;
+			case 244:          siChar = 1092;  break;
+			case 245:          siChar = 1093;  break;
+			case 246:          siChar = 1094;  break;
+			case 247:          siChar = 1095;  break;
+			case 248:          siChar = 1096;  break;
+			case 249:          siChar = 1097;  break;
+			case 250:          siChar = 1098;  break;
+			case 251:          siChar = 1099;  break;
+			case 252:          siChar = 1100;  break;
+			case 253:          siChar = 1101;  break;
+			case 254:          siChar = 1102;  break;
+			case 255:          siChar = 1103;  break; //U+044F           d1 8f     CYRILLIC SMALL LETTER YA                
+		}
+	#endif
+
+	#ifdef POLISH
+	   switch( siChar )
+	   {
+			case 165:          siChar = 260;          break;
+			case 198:          siChar = 262;          break;
+			case 202:          siChar = 280;          break;
+			case 163:          siChar = 321;          break;
+			case 209:          siChar = 323;          break;
+			case 211:          siChar = 211;          break;
+
+			case 338:          siChar = 346;          break;
+			case 175:          siChar = 379;          break;
+			case 143:          siChar = 377;          break;
+			case 185:          siChar = 261;          break;
+			case 230:          siChar = 263;          break;
+			case 234:          siChar = 281;          break;
+
+			case 179:          siChar = 322;          break;
+			case 241:          siChar = 324;          break;
+			case 243:          siChar = 243;          break;
+			case 339:          siChar = 347;          break;
+			case 191:          siChar = 380;          break;
+			case 376:          siChar = 378;          break;
+	   }
+	#endif
+
+	return siChar;
+}
 
 //*****************************************************************************
 // SetFont
@@ -1285,12 +1425,15 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	pTable = (FontTranslationTable *)MemAlloc(sizeof(FontTranslationTable));
 	memset(pTable, 0, sizeof(FontTranslationTable) );
 
-#ifdef JA2
-		// ha ha, we have more than Wizardry now (again)
-		pTable->usNumberOfSymbols = 255;
-	#else
-		pTable->usNumberOfSymbols = 255;
-	#endif
+	//#ifdef JA2
+	//	// ha ha, we have more than Wizardry now (again)
+	//	pTable->usNumberOfSymbols = 255;
+	//#else
+	//	pTable->usNumberOfSymbols = 255;
+	//#endif
+
+	pTable->usNumberOfSymbols = 200;
+
 	pTable->DynamicArrayOf16BitValues = (UINT16 *)MemAlloc(pTable->usNumberOfSymbols * 2);
 	temp = pTable->DynamicArrayOf16BitValues;
 
@@ -1481,9 +1624,7 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	*temp = ' '; //93
 	temp++;
 
-#ifdef JA2
-
-#ifdef GERMAN
+	// GERMAN letters in UNICODE
 	*temp = 196; // "A" umlaut
 	temp++;
 	*temp = 214; // "O" umlaut
@@ -1496,469 +1637,220 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	temp++;
 	*temp = 252; // "u" umlaut
 	temp++;
-	*temp = 223; // double-s that looks like a beta/B	// 100
+	*temp = 223; // double-s that looks like a beta/B
 	temp++;
-#else
-	*temp = 0; // "A" umlaut
-	temp++;
-	*temp = 0; // "O" umlaut
-	temp++;
-	*temp = 0; // "U" umlaut
-	temp++;
-	*temp = 0; // "a" umlaut
-	temp++;
-	*temp = 0; // "o" umlaut
-	temp++;
-	*temp = 0; // "u" umlaut
-	temp++;
-	*temp = 0; // double-s that looks like a beta/B	// 100
-	temp++;
-#endif
 
-	*temp = 192; // А
-	temp++;
-	*temp = 193; // Б
-	temp++;
-	*temp = 194; // Г
-	temp++;
-	*temp = 195; // Д
-	temp++;
-	*temp = 196; // Е
-	temp++;
-	*temp = 197; // Ё
-	temp++;
-	*temp = 198; // Ж
-	temp++;
-	*temp = 199; // З
-	temp++;
-	*temp = 200; // И				140
-	temp++;
-	*temp = 201; // Й
-	temp++;
-	*temp = 202; // К
-	temp++;
-	*temp = 203; // Л
-	temp++;
-	*temp = 204; // М
-	temp++;
-	*temp = 205; // Н
-	temp++;
-	*temp = 206; // О
-	temp++;
-	*temp = 207; // П
-	temp++;
-	*temp = 208; // Р
-	temp++;
-	*temp = 209; // С
-	temp++;
-	*temp = 210; // Т				150
-	temp++;
-	*temp = 211; // У
-	temp++;
-	*temp = 212; // Ф
-	temp++;
-	*temp = 213; // Х
-	temp++;
-	*temp = 214; // Ц
-	temp++;
-	*temp = 215; // Ч
-	temp++;
-	*temp = 216; // Ш
-	temp++;
-	*temp = 217; // Щ
-	temp++;
-	*temp = 218; // Ъ
-	temp++;
-	*temp = 219; // Ы
-	temp++;
-	*temp = 220; // Ь				160
-	temp++;
-	*temp = 221; // Э
-	temp++;
-	*temp = 222; // Ю
-	temp++;
-	*temp = 223; // Я
-	temp++;
-	*temp = 224; // а
-	temp++;
-	*temp = 225; // б
-	temp++;
-	*temp = 226; // в
-	temp++;
-	*temp = 227; // г
-	temp++;
-	*temp = 228; // д
-	temp++;
-	*temp = 229; // е
-	temp++;
-	*temp = 230; // ё				170
-	temp++;
-	*temp = 231; // ж
-	temp++;
-	*temp = 232; // з
-	temp++;
-	*temp = 233; // и
-	temp++;
-	*temp = 234; // й
-	temp++;
-	*temp = 235; // к
-	temp++;
-	*temp = 236; // л
-	temp++;
-	*temp = 237; // м
-	temp++;
-	*temp = 238; // н
-	temp++;
-	*temp = 239; // о				170
-	temp++;
-	*temp = 240; // п
-	temp++;
-	*temp = 241; // р
-	temp++;
-	*temp = 242; // с
-	temp++;
-	*temp = 243; // т
-	temp++;
-	*temp = 244; // у
-	temp++;
-	*temp = 245; // ф
-	temp++;
-	*temp = 246; // х
-	temp++;
-	*temp = 247; // ц
-	temp++;
-	*temp = 248; // ч
-	temp++;
-	*temp = 249; // ш				170
-	temp++;
-	*temp = 250; // щ
-	temp++;
-	*temp = 251; // ъ
-	temp++;
-	*temp = 252; // ы
-	temp++;
-	*temp = 253; // ь				170
-	temp++;
-	*temp = 254; // э
-	temp++;
-	*temp = 255; // ю
-	temp++;
-	// START OF FUNKY RUSSIAN STUFF
+	// RUSSIAN letters in UNICODE
 	*temp = 1040; //А
 	temp++;
-	*temp = 1041;
+	*temp = 1041; //Б
 	temp++;
-	*temp = 1042;
+	*temp = 1042; //В
 	temp++;
-	*temp = 1043;
+	*temp = 1043; //Г
 	temp++;
-	*temp = 1044;
+	*temp = 1044; //Д
 	temp++;
-	*temp = 1045;
+	*temp = 1045; //Е
 	temp++;
-	*temp = 1046;
+	*temp = 1046; //Ж
 	temp++;
-	*temp = 1047;
+	*temp = 1047; //З
 	temp++;
-	*temp = 1048;
+	*temp = 1048; //И
 	temp++;
-	*temp = 1049;				//110
+	*temp = 1049; //Й
 	temp++;
-	*temp = 1050;
+	*temp = 1050; //К
 	temp++;
-	*temp = 1051;
+	*temp = 1051; //Л
 	temp++;
-	*temp = 1052;
+	*temp = 1052; //М
 	temp++;
-	*temp = 1053;
+	*temp = 1053; //Н
 	temp++;
-	*temp = 1054;
+	*temp = 1054; //О
 	temp++;
-	*temp = 1055;
+	*temp = 1055; //П
 	temp++;
-	*temp = 1056;
+	*temp = 1056; //Р
 	temp++;
-	*temp = 1057;
+	*temp = 1057; //С
 	temp++;
-	*temp = 1058;
+	*temp = 1058; //Т
 	temp++;
-	*temp = 1059;				//120
+	*temp = 1059; //У
 	temp++;
-	*temp = 1060;
+	*temp = 1060; //Ф
 	temp++;
-	*temp = 1061;
+	*temp = 1061; //Х
 	temp++;
-	*temp = 1062;
+	*temp = 1062; //Ц
 	temp++;
-	*temp = 1063;
+	*temp = 1063; //Ч
 	temp++;
-	*temp = 1064;
+	*temp = 1064; //Ш
 	temp++;
-	*temp = 1065;
+	*temp = 1065; //Щ
 	temp++;
-	*temp = 1066;
+	*temp = 1066; //Ъ
 	temp++;
-	*temp = 1067;
+	*temp = 1067; //Ы
 	temp++;
-	*temp = 1068;
+	*temp = 1068; //Ь
 	temp++;
-	*temp = 1069; // 130
+	*temp = 1069; //Э
 	temp++;
-	*temp = 1070;
+	*temp = 1070; //Ю
 	temp++;
-	*temp = 1071;
+	*temp = 1071; //Я
+	temp++;	
+	*temp = 1072; // а
 	temp++;
-	*temp = 1072; // Д
+	*temp = 1073; // б 
 	temp++;
-	*temp = 1073; // А
+	*temp = 1074; // в 
 	temp++;
-	*temp = 1074; // Б
+	*temp = 1075; // г
 	temp++;
-	*temp = 1075; // В
+	*temp = 1076; // д
 	temp++;
-	*temp = 1076; // Г
+	*temp = 1077; // е
 	temp++;
-	*temp = 1077; // Е
+	*temp = 1078; // ж
 	temp++;
-	*temp = 1078; // Ё
+	*temp = 1079; // з
 	temp++;
-	*temp = 1079; // З				140
+	*temp = 1080; // и
 	temp++;
-	*temp = 1080; // Л
+	*temp = 1081; // й
 	temp++;
-	*temp = 1081; // И
+	*temp = 1082; // к
 	temp++;
-	*temp = 1082; // Й				140
+	*temp = 1083; // л
 	temp++;
-	*temp = 1083; // К
+	*temp = 1084; // м
 	temp++;
-	*temp = 1084; // П
+	*temp = 1085; // н
 	temp++;
-	*temp = 1085; // Ц
+	*temp = 1086; // о
 	temp++;
-	*temp = 1086; // Т
+	*temp = 1087; // п
 	temp++;
-	*temp = 1087; // У
+	*temp = 1088; // р
 	temp++;
-	*temp = 1088; // Ф
+	*temp = 1089; // с
 	temp++;
-	*temp = 1089; // Ь				150
+	*temp = 1090; // т
 	temp++;
-	*temp = 1090; // Щ
+	*temp = 1091; // у
 	temp++;
-	*temp = 1091; // Ъ
+	*temp = 1092; // ф
 	temp++;
-	*temp = 1092; // Ы				150
+	*temp = 1093; // х
 	temp++;
-	*temp = 1093; // д
+	*temp = 1094; // ц
 	temp++;
-	*temp = 1094; // а
+	*temp = 1095; // ч
 	temp++;
-	*temp = 1095; // б
+	*temp = 1096; // ш
 	temp++;
-	*temp = 1096; // в
+	*temp = 1097; // щ
 	temp++;
-	*temp = 1097; // з
+	*temp = 1098; // ъ
 	temp++;
-	*temp = 1098; // л
+	*temp = 1099; // ы
 	temp++;
-	*temp = 1099; // и				160
+	*temp = 1100; // ь
 	temp++;
-	*temp = 1100; // й
+	*temp = 1101; // э
 	temp++;
-	*temp = 1101; // к
+	*temp = 1102; // ю
 	temp++;
-	*temp = 1102; // п				160
-	temp++;
-	*temp = 1103; // ц
+	*temp = 1103; // я
 	temp++;
 
-	//SB: new russian & bellorussian & ukrainian symbols
-	// in ascii
-	*temp = 185; // №
+	// BELORUSSIAN and UKRAINIAN letters in UNICODE
+	*temp = 8470; // №
 	temp++;
-	*temp = 168; // Ё
+	*temp = 1025; // Ё
 	temp++;
-	*temp = 178; // І
+	*temp = 1030; // І
 	temp++;
-	*temp = 161; // Ў
+	*temp = 1038; // Ў
 	temp++;
-	*temp = 184; // ё
+	*temp = 1105; // ё
 	temp++;
-	*temp = 179; // і
+	*temp = 1110; // і
 	temp++;
-	*temp = 162; // ў
+	*temp = 1118; // ў
 	temp++;
-	*temp = 165; // Ґ
+	*temp = 1168; // Ґ
 	temp++;
-	*temp = 170; // Є
+	*temp = 1028; // Є
 	temp++;
-	*temp = 175; // Ї
+	*temp = 1031; // Ї
 	temp++;
-	*temp = 180; // ґ
+	*temp = 1169; // ґ
 	temp++;
-	*temp = 186; // є
+	*temp = 1108; // є
 	temp++;
-	*temp = 191; // ї
+	*temp = 1111; // ї
 	temp++;
-	// in unicode
-	*temp = 0x2116; // №
-	temp++;
-	*temp = 0x0401; // Ё
-	temp++;
-	*temp = 0x0406; // І
-	temp++;
-	*temp = 0x040E; // Ў
-	temp++;
-	*temp = 0x0451; // ё
-	temp++;
-	*temp = 0x0456; // і
-	temp++;
-	*temp = 0x045E; // ў
-	temp++;
-	*temp = 0x0490; // Ґ
-	temp++;
-	*temp = 0x0404; // Є
-	temp++;
-	*temp = 0x0407; // Ї
-	temp++;
-	*temp = 0x0491; // ґ
-	temp++;
-	*temp = 0x0454; // є
-	temp++;
-	*temp = 0x0457; // ї
-	temp++;
-#else
-// Windows Code Page 1252 Western Standard Character Set
 
-	*temp = 193;	// "A" acute
+	// POLISH letters in UNICODE
+	*temp = 260; // Ґ (он)
 	temp++;
-	*temp = 192;	// "A" grave
+	*temp = 262; // Ж (це)
 	temp++;
-	*temp = 193;	// "A" circumflex
+	*temp = 280; // К (эн)
 	temp++;
-	*temp = 196;	// "A" umlaut
+	*temp = 321; // Ј (эль)
 	temp++;
-	*temp = 195;	// "A" tilde
+	*temp = 323; // С (энь)
 	temp++;
-	*temp = 197;	// "A" ring
+	*temp = 211; // У (о краткое)
 	temp++;
-	*temp = 199;	// "C" cedile
+	*temp = 346; // Њ (эсь)
 	temp++;
-	*temp = 201;	// "E" acute
+	*temp = 379; // Ї (жет)
 	temp++;
-	*temp = 200;	// "E" grave
+	*temp = 377; // Џ (зет)
 	temp++;
-	*temp = 202;	// "E" circumflex
+	*temp = 261; // № (он)
 	temp++;
-	*temp = 203;	// "E" umlaut
+	*temp = 263; // ж (це)
 	temp++;
-	*temp = 205; // "I" acute
+	*temp = 281; // к (эн)
 	temp++;
-	*temp = 204;	// "I" grave
+	*temp = 322; // і (эль)
 	temp++;
-	*temp = 206;	// "I" circumflex
+	*temp = 324; // с (энь)
 	temp++;
-	*temp = 207;	// "I" umlaut
+	*temp = 243; // у (о краткое)
 	temp++;
-	*temp = 209;	// "N" tilde
+	*temp = 347; // њ (эсь)
 	temp++;
-	*temp = 211;	// "O" acute
+	*temp = 380; // ї (жет)
 	temp++;
-	*temp = 210;	// "O" grave
+	*temp = 378; // џ (зет)
 	temp++;
-	*temp = 212;	// "O" circumflex
-	temp++;
-	*temp = 214;	// "O" umlaut
-	temp++;
-	*temp = 213;	// "O" tilde
-	temp++;
-	*temp = 216;	// "0" O strike-through
-	temp++;
-	*temp = 218;	// "U" acute
-	temp++;
-	*temp = 217;	// "U" grave
-	temp++;
-	*temp = 219;	// "U" circumflex
-	temp++;
-	*temp = 220;	// "U" umlaut
-	temp++;
-	*temp = 221;	// "Y" acute
-	temp++;
-	*temp = 225;	// "a" acute
-	temp++;
-	*temp = 224;	// "a" grave
-	temp++;
-	*temp = 226;	// "a" circumflex
-	temp++;
-	*temp = 228;	// "a" umlaut
-	temp++;
-	*temp = 227;	// "a" tilde
-	temp++;
-	*temp = 229;	// "a" ring
-	temp++;
-	*temp = 231;	// "c" cedile
-	temp++;
-	*temp = 233;	// "e" acute
-	temp++;
-	*temp = 232;	// "e" grave
-	temp++;
-	*temp = 234;	// "e" circumflex
-	temp++;
-	*temp = 235;	// "e" umlaut
-	temp++;
-	*temp = 237;	// "i" acute
-	temp++;
-	*temp = 236;	// "i" grave
-	temp++;
-	*temp = 238;	// "i" circumflex
-	temp++;
-	*temp = 239;	// "i" umlaut
-	temp++;
-	*temp = 241;	// "n" tilde
-	temp++;
-	*temp = 243;	// "o" acute
-	temp++;
-	*temp = 242;	// "o" grave
-	temp++;
-	*temp = 244;	// "o" circumflex
-	temp++;
-	*temp = 246;	// "o" umlaut
-	temp++;
-	*temp = 245;	// "o" tilde
-	temp++;
-	*temp = 248;	// "o" strike-through
-	temp++;
-	*temp = 250;	// "u" acute
-	temp++;
-	*temp = 249;	// "u" grave
-	temp++;
-	*temp = 251;	// "u" circumflex
-	temp++;
-	*temp = 252;	// "u" umlaut
-	temp++;
-	*temp = 254;	// "y" acute
-	temp++;
-	*temp = 255;	// "y" umlaut
-	temp++;
-	*temp = 223;	// beta
 
-// Font glyphs for spell targeting icons
+	// Font glyphs for spell targeting icons
 	//ATE: IMPORTANT! INcreate the array above if you add any new items here...
-	temp++;
-	*temp = FONT_GLYPH_TARGET_POINT;
-	temp++;
-	*temp = FONT_GLYPH_TARGET_CONE;
-	temp++;
-	*temp = FONT_GLYPH_TARGET_SINGLE;
-	temp++;
-	*temp = FONT_GLYPH_TARGET_GROUP;
-	temp++;
-	*temp = FONT_GLYPH_TARGET_NONE;
+	//temp++;
+	//*temp = FONT_GLYPH_TARGET_POINT;
+	//temp++;
+	//*temp = FONT_GLYPH_TARGET_CONE;
+	//temp++;
+	//*temp = FONT_GLYPH_TARGET_SINGLE;
+	//temp++;
+	//*temp = FONT_GLYPH_TARGET_GROUP;
+	//temp++;
+	//*temp = FONT_GLYPH_TARGET_NONE;
 
-// 154
-#endif
-
+	// 200
+	
 	return pTable;
 }
 

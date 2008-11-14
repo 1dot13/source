@@ -1,3 +1,4 @@
+#pragma setlocale("RUSSIAN")
 #ifdef PRECOMPILEDHEADERS
 	#include "Utils All.h"
 	#include "_Ja25RussianText.h"

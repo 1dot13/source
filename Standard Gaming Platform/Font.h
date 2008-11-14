@@ -183,3 +183,5 @@ void FindFontCenterCoordinates( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHe
 */
 
 #endif
+
+CHAR16 GetUnicodeChar(CHAR16 siChar);
