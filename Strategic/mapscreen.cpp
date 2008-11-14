@@ -6136,7 +6136,8 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 				case '5':
 				case '6':
 				case '7':
-					if (is_networked)
+					// WANNE: Only show the override panel when '7' is pressed
+					if (is_networked && InputEvent.usParam == '7')
 					{
 						// haydent
 						manual_overide();

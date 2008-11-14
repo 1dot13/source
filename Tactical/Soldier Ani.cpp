@@ -368,11 +368,13 @@ BOOLEAN AdjustToNextAnimationFrame( SOLDIERTYPE *pSoldier )
 				SFireWeapon.bTargetLevel		= pSoldier->bTargetLevel;
 				SFireWeapon.bTargetCubeLevel= pSoldier->bTargetCubeLevel;
 				if((is_server && pSoldier->ubID<120) || (!is_server && is_client && pSoldier->ubID<20) || (!is_server && !is_client) )
-				{//only carry on if own werc
-				AddGameEvent( S_FIREWEAPON, 0, &SFireWeapon );
+				{
+					//only carry on if own werc
+					AddGameEvent( S_FIREWEAPON, 0, &SFireWeapon );
 				
-				//hayden
-				if(is_server || (is_client && pSoldier->ubID <20) ) send_fireweapon( &SFireWeapon );
+					//hayden
+					if(is_server || (is_client && pSoldier->ubID <20) ) 
+						send_fireweapon( &SFireWeapon );
 				}
 				//DIGICRAB: Burst UnCap
 				//Loop around in the animation if we still have burst rounds to fire
