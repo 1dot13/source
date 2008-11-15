@@ -826,6 +826,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 	INT16 sDistanceFromObject = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 	CHAR16 sString[ 128 ];
+	extern OBJECTTYPE	*gpItemDescObject;
 
 	iCounter = MSYS_GetRegionUserData( pRegion, 0 );
 
@@ -886,6 +887,9 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 		{
 			// Return if empty
 			if ( pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object.exists() == false )
+				return;
+			// CHRISL: Also return if the item we've clicked on is currently displayed in the item description box
+			if(InItemDescriptionBox( ) && gpItemDescObject == &pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ].object)
 				return;
 		}
 

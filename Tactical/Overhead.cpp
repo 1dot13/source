@@ -7118,6 +7118,7 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 	UINT8									ubPointsLost, ubTotalPointsLost, ubNewStance;
 	UINT32								uiLoop;
 	UINT8									ubLoop2;
+	UINT16								uiLoop3;
 	SOLDIERTYPE *					pSoldier;
 
 	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
@@ -7166,7 +7167,9 @@ void HandleSuppressionFire( UINT8 ubTargetedMerc, UINT8 ubCausedAttacker )
 			// morale modifier
 			if (ubTotalPointsLost / 2 > pSoldier->ubAPsLostToSuppression / 2)
 			{
-				for ( ubLoop2 = 0; ubLoop2 < (ubTotalPointsLost / 2) - (pSoldier->ubAPsLostToSuppression / 2); ubLoop2++ )
+				//CHRISL: This should dynamically adjust the number of times we run the morale loop based on AP_MAXIMUM
+				uiLoop3 = (((ubTotalPointsLost / 2) - (pSoldier->ubAPsLostToSuppression / 2)) * APBPConstants[AP_MAXIMUM]) / 100;
+				for ( ubLoop2 = 0; ubLoop2 < uiLoop3; ubLoop2++ )
 				{
 					HandleMoraleEvent( pSoldier, MORALE_SUPPRESSED, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 				}

@@ -3731,7 +3731,7 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 	INT8 bTraineeSkill = 0;
 	INT8 bTrainerEffSkill = 0;
 	INT8 bTrainerNatSkill = 0;
-	INT8 bTrainingBonus = 0;
+	INT16 bTrainingBonus = 0;
 	INT8 bOpinionFactor;
 
 	// assume training impossible for max pts
@@ -3916,7 +3916,7 @@ INT16 GetBonusTrainingPtsDueToInstructor( SOLDIERTYPE *pInstructor, SOLDIERTYPE 
 INT16 GetSoldierTrainingPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, BOOLEAN fAtGunRange, UINT16 *pusMaxPts )
 {
 	INT16 sTrainingPts = 0;
-	INT8	bTrainingBonus = 0;
+	INT16	bTrainingBonus = 0;
 	INT8	bSkill = 0;
 
 	// assume training impossible for max pts
@@ -3992,7 +3992,7 @@ INT16 GetSoldierTrainingPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, BOOLEAN fAt
 INT16 GetSoldierStudentPts( SOLDIERTYPE *pSoldier, INT8 bTrainStat, BOOLEAN fAtGunRange, UINT16 *pusMaxPts )
 {
 	INT16 sTrainingPts = 0;
-	INT8	bTrainingBonus = 0;
+	INT16	bTrainingBonus = 0;
 	INT8	bSkill = 0;
 
 	INT16 sBestTrainingPts, sTrainingPtsDueToInstructor;
@@ -4228,7 +4228,7 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 INT16 GetTownTrainPtsForCharacter( SOLDIERTYPE *pTrainer, UINT16 *pusMaxPts )
 {
 	INT16 sTotalTrainingPts = 0;
-	INT8 bTrainingBonus = 0;
+	INT16 bTrainingBonus = 0;
 //	UINT8 ubTownId = 0;
 
 	// calculate normal training pts - what it would be if his stats were "normal" (ignoring drugs, fatigue)
