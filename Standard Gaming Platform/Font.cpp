@@ -798,7 +798,7 @@ CHAR16 GetUnicodeChar(CHAR16 siChar)
 			case 209:          siChar = 323;          break;
 			case 211:          siChar = 211;          break;
 
-			case 338:          siChar = 346;          break;
+			case 140:          siChar = 346;          break;
 			case 175:          siChar = 379;          break;
 			case 143:          siChar = 377;          break;
 			case 185:          siChar = 261;          break;
@@ -808,9 +808,9 @@ CHAR16 GetUnicodeChar(CHAR16 siChar)
 			case 179:          siChar = 322;          break;
 			case 241:          siChar = 324;          break;
 			case 243:          siChar = 243;          break;
-			case 339:          siChar = 347;          break;
+			case 156:          siChar = 347;          break;
 			case 191:          siChar = 380;          break;
-			case 376:          siChar = 378;          break;
+			case 159:          siChar = 378;          break;
 	   }
 	#endif
 
