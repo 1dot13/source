@@ -4311,7 +4311,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 	SetFontForeground( 6 );
 
 	// ShotsPer4Turns -> ubAttackAPs, used later for all shot AP values
-	ubAttackAPs = BaseAPsToShootOrStab( DEFAULT_APS, DEFAULT_AIMSKILL, gpItemDescObject );
+	ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject );
 
 	// SINGLE SHOT AP
 	if ( !Weapon[gpItemDescObject->usItem].NoSemiAuto )
@@ -4344,7 +4344,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 
 		// print value
 		SetFontForeground( 5 );
-		swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToBurst( DEFAULT_APS, gpItemDescObject ) );
+		swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpItemDescObject ) );
 		FindFontRightCoordinates( (INT16)(gWeaponStats[ 12 ].sX + gsInvDescX + gWeaponStats[ 12 ].sValDx), (INT16)(gWeaponStats[ 12 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 		mprintf( usX, usY, pStr );
 		SetFontForeground( 6 );
@@ -4358,7 +4358,7 @@ void DrawWeaponValues( OBJECTTYPE * gpItemDescObject )
 
 		// print value
 		SetFontForeground( 5 );
-		swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToAutofire( DEFAULT_APS, gpItemDescObject, 3 ) );
+		swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpItemDescObject, 3 ) );
 		FindFontRightCoordinates( (INT16)(gWeaponStats[ 13 ].sX + gsInvDescX + gWeaponStats[ 13 ].sValDx), (INT16)(gWeaponStats[ 13 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 		mprintf( usX, usY, pStr );
 		SetFontForeground( 6 );
