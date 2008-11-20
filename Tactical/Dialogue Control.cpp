@@ -2041,11 +2041,12 @@ void ExecuteTacticalTextBox( INT16 sLeftPosition, STR16 pString )
 
 	memset( &VideoOverlayDesc, 0, sizeof( VIDEO_OVERLAY_DESC ) );
 
+	//never use it anymore
+	//SET_USE_WINFONTS( TRUE );
+	//SET_WINFONT( giSubTitleWinFont );
 	// Prepare text box
-	SET_USE_WINFONTS( TRUE );
-	SET_WINFONT( giSubTitleWinFont );
 	iDialogueBox = PrepareMercPopupBox( iDialogueBox , BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER, pString, DIALOGUE_DEFAULT_SUBTITLE_WIDTH, 0, 0, 0, &gusSubtitleBoxWidth, &gusSubtitleBoxHeight );
-	SET_USE_WINFONTS( FALSE );
+	//SET_USE_WINFONTS( FALSE );
 
 
 	VideoOverlayDesc.sLeft			= sLeftPosition;

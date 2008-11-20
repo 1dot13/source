@@ -203,6 +203,9 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 #ifdef TAIWANESE
 	strcat(fileName, TAIWANESE_PREFIX); // add Polish. prefix to filename
 #endif
+#ifdef CHINESE
+	strcat(fileName, CHINESE_PREFIX); // add Polish. prefix to filename
+#endif
 	strcat(fileName, AMMOFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 	if(!ReadInAmmoStats(fileName))
@@ -258,6 +261,9 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 #endif
 #ifdef TAIWANESE
 	AddLanguagePrefix( fileName, TAIWANESE_PREFIX);
+#endif
+#ifdef CHINESE
+	AddLanguagePrefix( fileName, CHINESE_PREFIX);
 #endif
 #ifndef ENGLISH
 	if ( FileExists(fileName) )
@@ -359,6 +365,9 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 #endif
 #ifdef TAIWANESE
 	AddLanguagePrefix( fileName, TAIWANESE_PREFIX);
+#endif
+#ifdef CHINESE
+	AddLanguagePrefix( fileName, CHINESE_PREFIX);
 #endif
 #ifndef ENGLISH
 	if ( FileExists(fileName) )
@@ -502,6 +511,9 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	AddLanguagePrefix( fileName, ITALIAN_PREFIX);
 #endif
 #ifdef TAIWANESE 
+	AddLanguagePrefix( fileName, TAIWANESE_PREFIX);
+#endif
+#ifdef CHINESE
 	AddLanguagePrefix( fileName, TAIWANESE_PREFIX);
 #endif
 #ifndef ENGLISH

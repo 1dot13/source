@@ -10,12 +10,6 @@ extern		INT32		giCurWinFont;
 // ATE: Use this define to enable winfonts in JA2
 // #define	 WINFONTS
 
-#ifdef WINFONTS
-	#define	 USE_WINFONTS( )				( gfUseWinFonts )
-#else
-	#define	 USE_WINFONTS( )				( FALSE )
-#endif
-
 #define	 GET_WINFONT( )				( giCurWinFont )
 #define	 SET_USE_WINFONTS( fSet )		( gfUseWinFonts = fSet );
 #define	 SET_WINFONT( fFont )			( giCurWinFont = fFont );
@@ -97,7 +91,7 @@ extern INT32						gpHugeFont;
 extern HVOBJECT				gvoHugeFont;
 #endif
 
-extern INT32			giSubTitleWinFont;
+//extern INT32			giSubTitleWinFont;
 
 
 extern BOOLEAN					gfFontsInit;

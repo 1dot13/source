@@ -257,6 +257,9 @@ BYTE *LockVideoSurface( UINT32 uiVSurface, UINT32 *puiPitch )
 {
 	VSURFACE_NODE *curr;
 
+#ifdef WINFONTS
+	CurrentSurface = uiVSurface;
+#endif
 	//
 	// Check if given backbuffer or primary buffer
 	//

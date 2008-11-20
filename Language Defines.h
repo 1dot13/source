@@ -18,7 +18,7 @@
  *											 (2006-10-10, Sergeant_Kolja)
  */
 
-#if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH) && !defined(FRENCH) && !defined(ITALIAN) && !defined(TAIWANESE)
+#if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH) && !defined(FRENCH) && !defined(ITALIAN) && !defined(TAIWANESE) && !defined(CHINESE)
 /* please set one manually here (by uncommenting) if not willingly to set Workspace wide */
 #define ENGLISH
 //#define GERMAN
@@ -29,6 +29,10 @@
 //#define ITALIAN
 //#define TAIWANESE
 
+// If we like to build chinese version, we also have to define WINFONTS
+//#define CHINESE
+//#define WINFONTS
+
 #endif
 
 
@@ -37,7 +41,7 @@
  * Regardless of if we did it Workspace wide or by uncommenting above,
  * HERE we must see, what language was selected. If one, we
  */
-#if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH) && !defined(FRENCH) && !defined(ITALIAN) && !defined(TAIWANESE)
+#if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH) && !defined(FRENCH) && !defined(ITALIAN) && !defined(TAIWANESE) && !defined(CHINESE)
 #  error "At least You have to specify a Language somewhere. See comments above."
 #endif
 

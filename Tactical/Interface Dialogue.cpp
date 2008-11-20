@@ -784,11 +784,7 @@ void RenderTalkingMenu( )
 		RemoveMercPopupBoxFromIndex( iInterfaceDialogueBox );
 		iInterfaceDialogueBox = -1;
 		}
-
-		SET_USE_WINFONTS( TRUE );
-		SET_WINFONT( giSubTitleWinFont );
 			iInterfaceDialogueBox = PrepareMercPopupBox( iInterfaceDialogueBox,BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER,	gTalkPanel.zQuoteStr, TALK_PANEL_DEFAULT_SUBTITLE_WIDTH, 0, 0, 0, &usTextBoxWidth, &usTextBoxHeight );
-		SET_USE_WINFONTS( FALSE );
 
 			gTalkPanel.fSetupSubTitles = FALSE;
 

@@ -15,7 +15,7 @@
 #endif
 
 INT32		  giCurWinFont = 0;
-BOOLEAN		gfUseWinFonts = FALSE;
+//BOOLEAN		gfUseWinFonts = FALSE;
 
 
 // Global variables for video objects
@@ -87,7 +87,7 @@ HVOBJECT				gvo14PointHumanist;
 	HVOBJECT			gvoHugeFont;
 #endif
 
-INT32		  giSubTitleWinFont;
+//INT32		  giSubTitleWinFont;
 
 
 
@@ -221,21 +221,7 @@ BOOLEAN	InitializeFonts( )
 
   // ATE: Init WinFont System and any winfonts we wish...
 #ifdef WINFONTS
-
 	InitWinFonts( );
-
-  //giSubTitleWinFont = CreateWinFont( -16, 0, 0,  0, FALSE, FALSE, FALSE, L"標楷體", CHINESEBIG5_CHARSET );
-	giSubTitleWinFont = CreateWinFont( -16, 0, 0,  0, FALSE, FALSE, FALSE, L"新細明體", CHINESEBIG5_CHARSET );
-
-  SET_USE_WINFONTS( TRUE );
-  SET_WINFONT( giSubTitleWinFont );
-  Color = FROMRGB( 255, 255, 255 );
-  SetWinFontForeColor( giSubTitleWinFont, &Color );
-	PrintWinFont( FRAME_BUFFER, giSubTitleWinFont, 10, 100, L"Font %s initialized", gzFontName );
-	InvalidateScreen();
-	RefreshScreen( NULL );
-  SET_USE_WINFONTS( FALSE );
-
 #endif
 
 	return( TRUE );
@@ -265,7 +251,7 @@ void ShutdownFonts( )
 
   // ATE: Shutdown any win fonts
 #ifdef WINFONTS
-	DeleteWinFont( giSubTitleWinFont );
+	ShutdownWinFonts();
 #endif
 }
 
@@ -342,31 +328,13 @@ UINT16 CreateFontPaletteTables(HVOBJECT pObj )
 
 UINT16	WFGetFontHeight( INT32 FontNum )
 {
-  if ( USE_WINFONTS( ) )
-  {
-		// return how many Y pixels we used
-	return( GetWinFontHeight( L"a\0", GET_WINFONT( ) ) );
-  }
-  else
-  {
-		// return how many Y pixels we used
 	return( GetFontHeight( FontNum ) );
-  }
 }
 
 
 INT16 WFStringPixLength( STR16 string,INT32 UseFont )
 {
-  if ( USE_WINFONTS( ) )
-  {
-		// return how many Y pixels we used
-	return( WinFontStringPixLength( string, GET_WINFONT( ) ) );
-  }
-  else
-  {
-		// return how many Y pixels we used
 	return( StringPixLength( string, UseFont ) );
-  }
 }
 
 

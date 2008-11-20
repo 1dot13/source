@@ -229,7 +229,21 @@ WRAPPED_STRING *LineWrap(UINT32 ulFont, UINT16 usLineWidthPixels, UINT16 *pusLin
 		}
 
 
-		if((usCurrentWidthPixels > usLineWidthPixels))//||(DestString[ usDestIndex ]==NEWLINE_CHAR )||(fNewLine))
+		if((usCurrentWidthPixels > usLineWidthPixels)
+#ifdef CHINESE
+		  && TempString[usCurIndex] != L'£¬'
+		  && TempString[usCurIndex] != L'¡£'
+		  && TempString[usCurIndex] != L'£»'
+		  && TempString[usCurIndex] != L'¡±'
+		  && TempString[usCurIndex] != L'¡¯'
+		  && TempString[usCurIndex] != L'£º'
+		  && TempString[usCurIndex] != L'¡¢'
+		  && TempString[usCurIndex] != L'?'
+		  && TempString[usCurIndex] != L'£¿'
+		  && TempString[usCurIndex] != L')'
+		  && TempString[usCurIndex] != L'£©'
+#endif
+			)//||(DestString[ usDestIndex ]==NEWLINE_CHAR )||(fNewLine))
 		{
 
 			//if an error has occured, and the string is too long
@@ -237,7 +251,11 @@ WRAPPED_STRING *LineWrap(UINT32 ulFont, UINT16 usLineWidthPixels, UINT16 *pusLin
 				DestString[ usDestIndex ] = L' ';
 
 			//Go back to begining of word
-			while(	(DestString[ usDestIndex ] != L' ') && (usCurIndex > 0) )
+			while(	(DestString[ usDestIndex ] != L' ') && (usCurIndex > 0)
+#ifdef CHINESE
+		 && DestString[usDestIndex] < 255
+#endif
+				)
 			{
 				OneChar[0] = DestString[ usDestIndex ];
 
@@ -246,6 +264,26 @@ WRAPPED_STRING *LineWrap(UINT32 ulFont, UINT16 usLineWidthPixels, UINT16 *pusLin
 				usCurIndex--;
 				usDestIndex--;
 			}
+#ifdef CHINESE
+	  if (DestString[usDestIndex] > 255)
+	    {
+	     if (DestString[usDestIndex] == L'£¬'
+		  || DestString[usDestIndex] == L','
+		  || DestString[usDestIndex] == L'¡£'
+		  || DestString[usDestIndex] == L'£»'
+		  || DestString[usDestIndex] == L'¡±'
+		  || DestString[usDestIndex] == L'¡¯'
+		  || DestString[usDestIndex] == L'£º'
+		  || DestString[usDestIndex] == L'¡¢'
+	  	  || DestString[usDestIndex] == L'?'
+		  || DestString[usDestIndex] == L'£¿'
+		  || DestString[usDestIndex] == L')'
+		  || DestString[usDestIndex] == L'£©')
+	     	{usDestIndex++;}
+	     else 
+	      {usCurIndex--;}
+	    }
+#endif
 			usEndIndex = usDestIndex;
 
 			if( usEndIndex < 0 )
@@ -472,34 +510,12 @@ BOOLEAN DrawTextToScreen(STR16 pStr, UINT16 usLocX, UINT16 usLocY, UINT16 usWidt
 
 	SetFont(ulFont);
 
-	if ( USE_WINFONTS( ) )
-	{
-	COLORVAL Color = FROMRGB( 255, 255, 255 );
-	SetWinFontForeColor( GET_WINFONT( ), &Color );
-	}
-	else
-	{
 	SetFontForeground(ubColor);
 	SetFontBackground( ubBackGroundColor );
-	}
 
 	if( ulFlags & TEXT_SHADOWED )
 		ShadowText( FRAME_BUFFER, pStr, ulFont, (UINT16)(usPosX-1), (UINT16)(usPosY-1 ) );
 
-	if ( USE_WINFONTS( ) )
-	{
-	if( fDirty )
-	{
-		gprintfdirty( usPosX, usPosY, pStr);
-		WinFont_mprintf( GET_WINFONT( ), usPosX,usPosY,pStr);
-	}
-	else
-	{
-		WinFont_mprintf( GET_WINFONT( ), usPosX,usPosY,pStr);
-	}
-	}
-	else
-	{
 	if( fDirty )
 	{
 		gprintfdirty( usPosX, usPosY, pStr);
@@ -508,7 +524,6 @@ BOOLEAN DrawTextToScreen(STR16 pStr, UINT16 usLocX, UINT16 usLocY, UINT16 usWidt
 	else
 	{
 		mprintf(usPosX,usPosY,pStr);
-	}
 	}
 
 	if( IAN_WRAP_NO_SHADOW & ulFlags )
@@ -555,7 +570,11 @@ UINT16 IanDisplayWrappedString(UINT16 usPosX, UINT16 usPosY, UINT16 usWidth, UIN
 	do
 	{
 		// each character goes towards building a new word
-		if (pString[usSourceCounter] != TEXT_SPACE && pString[usSourceCounter] != 0)
+		if (pString[usSourceCounter] != TEXT_SPACE && pString[usSourceCounter] != 0
+#ifdef CHINESE
+	  && pString[usSourceCounter] < 255
+#endif
+	  )
 		{
 			zWordString[usDestCounter++] = pString[usSourceCounter];
 		}
@@ -1348,12 +1367,24 @@ INT16 IanDisplayWrappedStringToPages(UINT16 usPosX, UINT16 usPosY, UINT16 usWidt
 			}
 			else // not a special character
 			{
+#ifdef CHINESE
+	      wchar_t currentChar=pString[usSourceCounter];
+	      if (currentChar> 255 )
+			{
+			if (usDestCounter == 0)
+		  		{zWordString[usDestCounter++] = currentChar;}
+			else
+		 		{usSourceCounter--;}
+			}
+#endif
 				// terminate the string TEMPORARILY
 				zWordString[usDestCounter]	= 0;
 
 				// get the length (in pixels) of this word
 				usWordLengthPixels = WFStringPixLength(zWordString,uiLocalFont);
-
+#ifdef CHINESE
+		      if (currentChar <= 255)
+#endif
 				// add a space (in case we add another word to it)
 				zWordString[usDestCounter++] = 32;
 
@@ -1361,7 +1392,22 @@ INT16 IanDisplayWrappedStringToPages(UINT16 usPosX, UINT16 usPosY, UINT16 usWidt
 				zWordString[usDestCounter]	= 0;
 
 				// can we fit it onto the length of our "line" ?
-				if ((usLineLengthPixels + usWordLengthPixels) < usWidth)
+				if ((usLineLengthPixels + usWordLengthPixels) < usWidth
+#ifdef CHINESE
+		  || pString[usSourceCounter] == L'£¬'
+		  || pString[usSourceCounter] == L','
+		  || pString[usSourceCounter] == L'¡£'
+		  || pString[usSourceCounter] == L'£»'
+		  || pString[usSourceCounter] == L'¡±'
+		  || pString[usSourceCounter] == L'¡¯'
+		  || pString[usSourceCounter] == L'£º'
+		  || pString[usSourceCounter] == L'¡¢'
+		  || pString[usSourceCounter] == L'?'
+		  || pString[usSourceCounter] == L'£¿'
+		  || pString[usSourceCounter] == L')'
+		  || pString[usSourceCounter] == L'£©'
+#endif					
+					)
 				{
 					// yes we can fit this word.
 
@@ -1446,7 +1492,11 @@ UINT16 IanWrappedStringHeight(UINT16 usPosX, UINT16 usPosY, UINT16 usWidth, UINT
 	do
 	{
 		// each character goes towards building a new word
-		if (pString[usSourceCounter] != TEXT_SPACE && pString[usSourceCounter] != 0)
+		if (pString[usSourceCounter] != TEXT_SPACE && pString[usSourceCounter] != 0
+#ifdef CHINESE
+	  && pString[usSourceCounter] <= 255
+#endif			
+			)
 		{
 			zWordString[usDestCounter++] = pString[usSourceCounter];
 		}
@@ -1659,12 +1709,24 @@ UINT16 IanWrappedStringHeight(UINT16 usPosX, UINT16 usPosY, UINT16 usWidth, UINT
 			}
 			else // not a special character
 			{
+#ifdef CHINESE
+	      wchar_t currentChar = pString[usSourceCounter];
+			if (currentChar > 255 )
+				  {
+				   if (usDestCounter == 0)
+					  {zWordString[usDestCounter++] = currentChar;}
+				   else
+					  {usSourceCounter--;}
+				  }
+#endif
 				// terminate the string TEMPORARILY
 				zWordString[usDestCounter]	= 0;
 
 				// get the length (in pixels) of this word
 				usWordLengthPixels = WFStringPixLength(zWordString,uiLocalFont);
-
+#ifdef CHINESE
+	      if (currentChar <= 255)
+#endif
 				// add a space (in case we add another word to it)
 				zWordString[usDestCounter++] = 32;
 
@@ -1672,7 +1734,19 @@ UINT16 IanWrappedStringHeight(UINT16 usPosX, UINT16 usPosY, UINT16 usWidth, UINT
 				zWordString[usDestCounter]	= 0;
 
 				// can we fit it onto the length of our "line" ?
-				if ((usLineLengthPixels + usWordLengthPixels) <= usWidth)
+				if ((usLineLengthPixels + usWordLengthPixels) <= usWidth
+#ifdef CHINESE
+		  || pString[usSourceCounter] == L'£¬'
+		  || pString[usSourceCounter] == L','
+		  || pString[usSourceCounter] == L'¡£'
+		  || pString[usSourceCounter] == L'£»'
+		  || pString[usSourceCounter] == L'¡±'
+		  || pString[usSourceCounter] == L'¡¯'
+		  || pString[usSourceCounter] == L'£º'
+		  || pString[usSourceCounter] == L')'
+		  || pString[usSourceCounter] == L'£©'
+#endif
+					)
 				{
 					// yes we can fit this word.
 

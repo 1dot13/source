@@ -14,7 +14,7 @@
 
 BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 {
-	#if defined( ENGLISH ) || defined( TAIWANESE ) || defined( FRENCH )
+	#if defined( ENGLISH ) || defined( TAIWANESE ) || defined( FRENCH ) || defined (CHINESE)
 		switch( usMLGGraphicID )
 		{
 			case MLG_AIMSYMBOL:
@@ -266,6 +266,10 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 		  sprintf( (char *)zLanguage, "SPANISH" );
 		#elif defined( TAIWANESE )
 		  sprintf( (char *)zLanguage, "TAIWANESE" );
+		#elif defined( CHINESE)
+		  sprintf( (char *)zLangauge, "CHINESE");
+		#else
+		#	error "At least You have to specify a Language somewhere. See comments above."
 		#endif
 
 //SB: Also check for russian Gold version, like English

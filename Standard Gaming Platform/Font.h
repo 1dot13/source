@@ -4,7 +4,10 @@
 #include "Types.h"
 #include "himage.h"
 #include "vobject.h"
-
+#ifdef WINFONTS
+#include "WinFont.h"
+#endif
+#include "Font Control.h"
 
 #define		DEFAULT_SHADOW			2
 #define		MILITARY_SHADOW			67

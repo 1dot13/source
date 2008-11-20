@@ -1594,11 +1594,12 @@ void DisplayTextForSpeckVideoPopUp(STR16 pString)
 		DrawMercVideoBackGround();
 	}
 
+	//never use it anymore
+	//SET_USE_WINFONTS( TRUE );
+	//SET_WINFONT( giSubTitleWinFont );
 	//Create the popup box
-	SET_USE_WINFONTS( TRUE );
-	SET_WINFONT( giSubTitleWinFont );
 	iMercPopUpBox = PrepareMercPopupBox( iMercPopUpBox, BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER, gsSpeckDialogueTextPopUp, 300, 0, 0, 0, &gusSpeckDialogueActualWidth, &usActualHeight);
-	SET_USE_WINFONTS( FALSE );
+	//SET_USE_WINFONTS( FALSE );
 
 	gusSpeckDialogueX = iScreenWidthOffset + 111 + ((640 - 111) / 2 - (gusSpeckDialogueActualWidth / 2));
 

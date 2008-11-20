@@ -758,16 +758,8 @@ INT32 iBack;
 	vswprintf(string, pFontString, argptr);	// process gprintf string (get output str)
 	va_end(argptr);
 
-	if ( USE_WINFONTS( ) )
-	{
-	uiStringLength=WinFontStringPixLength( string, GET_WINFONT( ) );
-	uiStringHeight=GetWinFontHeight( string, GET_WINFONT( ) );
-	}
-	else
-	{
 	uiStringLength=StringPixLength(string, FontDefault);
 	uiStringHeight=GetFontHeight(FontDefault);
-	}
 
 	if ( uiStringLength > 0 )
 	{

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="Utils_2005Express"
 	ProjectGUID="{262A5F80-0B99-4E8E-A6C7-74CB1FD0A67C}"
 	RootNamespace="Utils_2005Express"
@@ -431,6 +431,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\_ChineseText.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\_DutchText.cpp"
 				>
 			</File>
@@ -448,6 +452,10 @@
 			</File>
 			<File
 				RelativePath=".\_ItalianText.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\_Ja25ChineseText.cpp"
 				>
 			</File>
 			<File

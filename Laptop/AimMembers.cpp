@@ -1876,13 +1876,13 @@ BOOLEAN DisplayVideoConferencingDisplay()
 		UINT16 usActualWidth;
 		UINT16 usActualHeight;
 		UINT16 usPosX;
-
-	SET_USE_WINFONTS( TRUE );
-	SET_WINFONT( giSubTitleWinFont );
+//never use it anymore
+//	SET_USE_WINFONTS( TRUE );
+//	SET_WINFONT( giSubTitleWinFont );
 
 	iAimMembersBoxId = PrepareMercPopupBox( iAimMembersBoxId ,BASIC_MERC_POPUP_BACKGROUND, BASIC_MERC_POPUP_BORDER, gsTalkingMercText, 300, 0, 0, 0, &usActualWidth, &usActualHeight);
 
-	SET_USE_WINFONTS( FALSE );
+//	SET_USE_WINFONTS( FALSE );
 
 		usPosX = iScreenWidthOffset + ( 613 - usActualWidth ) / 2 ;
 

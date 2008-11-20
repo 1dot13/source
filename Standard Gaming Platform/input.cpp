@@ -1,3 +1,4 @@
+//It make trouble in vs2008, uncomment it if you need it
 #define _WIN32_WINNT WINVER//dnl this should be defined globaly on project
 #ifdef JA2_PRECOMPILED_HEADERS
 	#include "JA2 SGP ALL.H"

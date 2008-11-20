@@ -1564,7 +1564,12 @@ void AdjustLoyaltyForCivsEatenByMonsters( INT16 sSectorX, INT16 sSectorY, UINT8 
 
 	//Report this to player
 	GetSectorIDString( sSectorX, sSectorY, 0, pSectorString, TRUE );
+#ifdef CHINESE
+	//diffrent order of words in Chinese
+	swprintf( str, gpStrategicString[ STR_DIALOG_CREATURES_KILL_CIVILIANS ], pSectorString, ubHowMany);
+#else
 	swprintf( str, gpStrategicString[ STR_DIALOG_CREATURES_KILL_CIVILIANS ], ubHowMany, pSectorString );
+#endif
 	DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
 
 	// use same formula as if it were a civilian "murder" in tactical!!!
