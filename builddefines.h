@@ -3,6 +3,7 @@
 
 #include "Language Defines.h"
 
+
 // Map Editor version - you should use the MapEditor configuration instead of messing with these defines (ChrisL)
 //#define JA2BETAVERSION
 //#define JA2EDITOR

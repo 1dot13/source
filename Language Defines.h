@@ -18,6 +18,7 @@
  *											 (2006-10-10, Sergeant_Kolja)
  */
 
+
 #if !defined(ENGLISH) && !defined(GERMAN) && !defined(RUSSIAN) && !defined(DUTCH) && !defined(POLISH) && !defined(FRENCH) && !defined(ITALIAN) && !defined(TAIWANESE) && !defined(CHINESE)
 /* please set one manually here (by uncommenting) if not willingly to set Workspace wide */
 #define ENGLISH
@@ -28,10 +29,11 @@
 //#define FRENCH
 //#define ITALIAN
 //#define TAIWANESE
-
-// If we like to build chinese version, we also have to define WINFONTS
 //#define CHINESE
-//#define WINFONTS
+
+#ifdef CHINESE
+	#define WINFONTS
+#endif
 
 #endif
 
