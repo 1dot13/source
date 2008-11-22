@@ -29,11 +29,11 @@
 //#define FRENCH
 //#define ITALIAN
 //#define TAIWANESE
-//#define CHINESE
 
-#ifdef CHINESE
-	#define WINFONTS
-#endif
+// For CHINESE language we also have to define WINFONTS!
+//#define CHINESE
+//#define WINFONTS
+
 
 #endif
 

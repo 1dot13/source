@@ -99,7 +99,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="C:\games\jagged alliance 2 EN"
+			OutputDirectory="\games\jagged alliance 2"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets=".\ja2_2005Express.vsprops"
