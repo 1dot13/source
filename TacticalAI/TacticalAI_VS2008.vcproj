@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="TacticalAI_VS2008"
 	ProjectGUID="{27A49DAF-3F5A-4FF2-B943-9559F0B63032}"
 	RootNamespace="TacticalAI_VS2008"
@@ -106,6 +106,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
+				Optimization="2"
 				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="0"
@@ -167,6 +168,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
+				Optimization="2"
 				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
 				RuntimeLibrary="0"
@@ -358,6 +360,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
+				Optimization="2"
 				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;WINFONTS;CHINESE"
 				RuntimeLibrary="0"

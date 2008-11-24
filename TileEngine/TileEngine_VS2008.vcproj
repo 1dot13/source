@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="TileEngine_VS2008"
 	ProjectGUID="{FC1938E8-9253-49A8-AA99-4639BBB46C1B}"
 	RootNamespace="TileEngine_VS2008"
@@ -106,6 +106,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
+				Optimization="2"
 				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="0"
@@ -167,6 +168,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
+				Optimization="2"
 				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
 				RuntimeLibrary="0"
@@ -358,6 +360,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
+				Optimization="2"
 				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;WINFONTS;CHINESE"
 				RuntimeLibrary="0"

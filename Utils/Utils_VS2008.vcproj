@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="Utils_VS2008"
 	ProjectGUID="{262A5F80-0B99-4E8E-A6C7-74CB1FD0A67C}"
 	RootNamespace="Utils_VS2008"
@@ -106,6 +106,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
+				Optimization="2"
 				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="0"
@@ -167,6 +168,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
+				Optimization="2"
 				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="0"
@@ -416,6 +418,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
+				Optimization="2"
 				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;WINFONTS;CHINESE"
 				RuntimeLibrary="0"
