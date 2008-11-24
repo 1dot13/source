@@ -3730,8 +3730,11 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 				DoAttachment((UINT8)ubStatusIndex);
 
-				UpdateAttachmentTooltips(gpItemDescObject, ubStatusIndex);
-				InternalInitEDBTooltipRegion(gpItemDescObject, guiCurrentItemDescriptionScreen);
+				if(gpItemDescObject != NULL)
+				{
+					UpdateAttachmentTooltips(gpItemDescObject, ubStatusIndex);
+					InternalInitEDBTooltipRegion(gpItemDescObject, guiCurrentItemDescriptionScreen);
+				}
 			}
 		}
 		else
@@ -3773,8 +3776,11 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 					UpdateItemHatches();
 
-					UpdateAttachmentTooltips(gpItemDescObject, ubStatusIndex);
-					InternalInitEDBTooltipRegion(gpItemDescObject, guiCurrentItemDescriptionScreen);
+					if(gpItemDescObject != NULL)
+					{
+						UpdateAttachmentTooltips(gpItemDescObject, ubStatusIndex);
+						InternalInitEDBTooltipRegion(gpItemDescObject, guiCurrentItemDescriptionScreen);
+					}
 				}
 			}
 		}
