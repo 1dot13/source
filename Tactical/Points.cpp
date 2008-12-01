@@ -616,7 +616,7 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost,BOOLEAN f
 		sNewAP = 0;
 	}
 
-	pSoldier->bActionPoints = (INT8)sNewAP;
+	pSoldier->bActionPoints = sNewAP;
 
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Deduct Points (%d at %d) %d %d", pSoldier->ubID, pSoldier->sGridNo, sAPCost, iBPCost	) );
 
