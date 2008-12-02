@@ -2942,6 +2942,23 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					ShouldTheHelpScreenComeUp( HELP_SCREEN_TACTICAL, TRUE );
 				}
 				break;
+			case 'I':
+				//CHRISL: This will create a large number of objects for checking overloading
+				if( fAlt && fCtrl )
+				{
+					INT16	tempMapPos = sMapPos;
+					if( CHEATER_CHEAT_LEVEL( ) )
+					{
+						for(UINT16 i = 1; i < 1300; i++)
+						{
+							if(i == OWNERSHIP || i == CHALICE)
+								continue;
+							//tempMapPos = sMapPos + (i / 200);
+							CreateItem(i, 100, &gTempObject);
+							AddItemToPool( tempMapPos, &gTempObject, VISIBLE , 0, WORLD_ITEM_REACHABLE, 0 );
+						}
+					}
+				}
 
 			case 'i':
 
