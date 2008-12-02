@@ -7096,27 +7096,27 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>889</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 889</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>PRO-9</szItemName>
+		<szLongItemName>FN PRO-9</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>FN PRO-9</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>890</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 890</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>Forty-Nine</szItemName>
+		<szLongItemName>FN Forty-Nine</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>FN Forty-Nine</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>891</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 891</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>FNP-45</szItemName>
+		<szLongItemName>FN FNP-45</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>FN FNP-45</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>892</uiIndex>
@@ -7328,10 +7328,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>918</uiIndex>
-		<szItemName>RPO-A</szItemName>
-		<szLongItemName>RPO-A</szLongItemName>
+		<szItemName>RPO-M</szItemName>
+		<szLongItemName>RPO-M</szLongItemName>
 		<szItemDesc>Die RPO kommt bei der Bekämpfung von Infanteristengruppen, Gebäuden, Bunkern sowie leicht gepanzerten Fahrzeugen zum Einsatz.</szItemDesc>
-		<szBRName>RPO-A</szBRName>
+		<szBRName>RPO-M</szBRName>
 		<szBRDesc>Die RPO ist ein leichter, tragbarer Raketenwerfer, der Brand-, Blend- oder Explosivladung verschießt. Das Startrohr kann nur einmal verwendet werden, es wird nach Gebrauch weggeworfen.</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -7360,11 +7360,11 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>922</uiIndex>
-		<szItemName>Nada</szItemName>
-		<szLongItemName>Nichts</szLongItemName>
-		<szItemDesc>Index 922</szItemDesc>
-		<szBRName>Nichts</szBRName>
-		<szBRDesc>Nichts</szBRDesc>
+		<szItemName>KAC M203</szItemName>
+		<szLongItemName>KAC Launcher System</szLongItemName>
+		<szItemDesc>Beschreibung erwünscht</szItemDesc>
+		<szBRName>KAC M203 KAC Launcher System</szBRName>
+		<szBRDesc>Beschreibung erwünscht</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>923</uiIndex>
