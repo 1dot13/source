@@ -121,30 +121,8 @@ INT16	ITEMDESC_START_X;
 INT16	ITEMDESC_START_Y;
 INT16	ITEMDESC_HEIGHT;
 INT16	ITEMDESC_WIDTH;
-INT16   MAP_ITEMDESC_HEIGHT;
-INT16	MAP_ITEMDESC_WIDTH;
 extern int SM_ITEMDESC_START_X;
 extern int SM_ITEMDESC_START_Y;
-
-//#define		ITEMDESC_START_X					214
-//#define		ITEMDESC_START_Y					1 + INV_INTERFACE_START_Y
-//#define		ITEMDESC_HEIGHT					133
-//#define		ITEMDESC_WIDTH					320
-//#define   MAP_ITEMDESC_HEIGHT     268
-//#define   MAP_ITEMDESC_WIDTH      272
-#define		ITEMDESC_NAME_X					(16 + gsInvDescX)
-#define		ITEMDESC_NAME_Y					(67 + gsInvDescY)
-
-// HEADROCK: Changed fron #define to INT16 for later definition (EDB project)
-INT16		ITEMDESC_CALIBER_X;
-INT16		ITEMDESC_CALIBER_Y;
-
-#define		ITEMDESC_CALIBER_WIDTH	142
-#define		MAP_ITEMDESC_CALIBER_X			(105 + gsInvDescX)
-#define		MAP_ITEMDESC_CALIBER_Y			(66 + gsInvDescY)
-#define		MAP_ITEMDESC_CALIBER_WIDTH	149
-#define		ITEMDESC_ITEM_X					(8 + gsInvDescX)
-#define		ITEMDESC_ITEM_Y					(11 + gsInvDescY)
 
 #define		CAMO_REGION_HEIGHT			75
 #define		CAMO_REGION_WIDTH				75
@@ -159,60 +137,35 @@ INT16		BULLET_BURST_Y;
 #define		BULLET_WIDTH						3
 #define		BULLET_GAP							5
 
-// HEADROCK: Changed to INT16s for dynamic ODB-EDB switch. These are icon locations for the Description Box.
-// With EDB, many more icons will appear, for new object data fields.
-INT16		MAP_BULLET_SING_X;
-INT16		MAP_BULLET_SING_Y;
-INT16		MAP_BULLET_BURST_X;
-INT16		MAP_BULLET_BURST_Y;
-
-//CHRISL: Moved to Interface Items.h for EDB
-//#define		MAP_ITEMDESC_NAME_X					(7 + gsInvDescX)
-//#define		MAP_ITEMDESC_NAME_Y					(65 + gsInvDescY)
-#define		MAP_ITEMDESC_ITEM_X					(25 + gsInvDescX)
-#define		MAP_ITEMDESC_ITEM_Y					(6 + gsInvDescY)
-
-// HEADROCK: Changed to INT16s for dynamic ODB-EDB switch
+INT16		ITEMDESC_CALIBER_X;
+INT16		ITEMDESC_CALIBER_Y;
+INT16		ITEMDESC_CALIBER_WIDTH;
+INT16		ITEMDESC_NAME_X;
+INT16		ITEMDESC_NAME_Y;
+INT16		ITEMDESC_ITEM_X;
+INT16		ITEMDESC_ITEM_Y;
 INT16		ITEMDESC_DESC_START_X;
 INT16		ITEMDESC_DESC_START_Y;
 INT16		ITEMDESC_PROS_START_X;
 INT16		ITEMDESC_PROS_START_Y;
 INT16		ITEMDESC_CONS_START_X;
 INT16		ITEMDESC_CONS_START_Y;
+INT16		ITEMDESC_DESC_WIDTH;
+INT16		ITEMDESC_ITEM_STATUS_X;
+INT16		ITEMDESC_ITEM_STATUS_Y;
+INT16		ITEMDESC_ITEM_STATUS_HEIGHT;
 
-#define		ITEMDESC_ITEM_STATUS_X					( 6 + gsInvDescX )
-#define		ITEMDESC_ITEM_STATUS_Y					( 60 + gsInvDescY )
 #define		DOTDOTDOT L"..."
 #define		COMMA_AND_SPACE L", "
 
 #define		ITEM_PROS_AND_CONS( usItem ) ( ( Item[ usItem ].usItemClass & IC_GUN && !Item[ usItem ].rocketlauncher ) )
 
-// HEADROCK: Changed to INT16s for dynamic ODB-EDB switch
-INT16		MAP_ITEMDESC_DESC_START_X;
-INT16		MAP_ITEMDESC_DESC_START_Y;
-INT16		MAP_ITEMDESC_PROS_START_X;
-INT16		MAP_ITEMDESC_PROS_START_Y;
-INT16		MAP_ITEMDESC_CONS_START_X;
-INT16		MAP_ITEMDESC_CONS_START_Y;
-
-#define		MAP_ITEMDESC_ITEM_STATUS_X					( 18 + gsInvDescX )
-#define		MAP_ITEMDESC_ITEM_STATUS_Y					( 53 + gsInvDescY )
-
 #define		ITEMDESC_ITEM_STATUS_WIDTH			2
-#define		ITEMDESC_ITEM_STATUS_HEIGHT			50
-#define   ITEMDESC_ITEM_STATUS_HEIGHT_MAP 40
-
-// HEADROCK: Changed to INT16s for dynamic ODB-EDB switch
-INT16		ITEMDESC_DESC_WIDTH;
-
-#define   MAP_ITEMDESC_DESC_WIDTH 220
 #define		ITEMDESC_ITEM_WIDTH			117
 #define		ITEMDESC_ITEM_HEIGHT		54
 
 #define		ITEMDESC_AMMO_X					( 10 + gsInvDescX )
 #define		ITEMDESC_AMMO_Y					( 50 + gsInvDescY )
-#define		MAP_ITEMDESC_AMMO_X					( 28 + gsInvDescX )
-#define		MAP_ITEMDESC_AMMO_Y					( 45 + gsInvDescY )
 
 #define		ITEMDESC_AMMO_TEXT_X	3
 #define		ITEMDESC_AMMO_TEXT_Y	1
@@ -350,7 +303,6 @@ extern BOOLEAN	gfSMDisableForItems;
  */
 MoneyLoc			gMoneyButtonLoc;// =			{ (343 + INTERFACE_START_Y), ( 11 + INV_INTERFACE_START_Y ) };
 MoneyLoc			gMoneyButtonOffsets[] = { 0,0,  34,0,  0,32, 34,32, 8,22 };
-MoneyLoc			gMapMoneyButtonLoc =	{ 174, 115 };
 
 // show the description
 extern BOOLEAN fShowDescriptionFlag;
@@ -459,7 +411,8 @@ UINT8		ubRGBItemCyclePlacedItemColors[] =
 
 } INV_DESC_STATS;*/
 
-typedef struct
+//CHRISL: Moved to interface items.h
+/*typedef struct
 {
 	INT16		sX;
 	INT16		sY;
@@ -468,7 +421,7 @@ typedef struct
 	INT16		sBarDx;
 	INT16		sBarDy;
 
-} INV_ATTACHXY;
+} INV_ATTACHXY;*/
 
 #define NUM_INV_HELPTEXT_ENTRIES 1
 
@@ -491,22 +444,7 @@ INV_DESC_STATS gMoneyStats[6];
 //CHRISL: Created for LBENODE Rendering with EDB
 INV_DESC_STATS gLBEStats[48];
 
-INV_ATTACHXY	gItemDescAttachmentsXY[] =
-{
-	129,		12,		SM_INV_SLOT_HEIGHT,		SM_INV_SLOT_WIDTH,		INV_BAR_DX-1,		INV_BAR_DY+1,
-	163,		12,		SM_INV_SLOT_HEIGHT,		SM_INV_SLOT_WIDTH,		INV_BAR_DX-1,		INV_BAR_DY+1,
-	129,		39,		SM_INV_SLOT_HEIGHT,		SM_INV_SLOT_WIDTH,		INV_BAR_DX-1,		INV_BAR_DY+1,
-	163,		39,		SM_INV_SLOT_HEIGHT,		SM_INV_SLOT_WIDTH,		INV_BAR_DX-1,		INV_BAR_DY+1
-};
-
-INV_ATTACHXY gMapItemDescAttachmentsXY[] =
-{
-	// HEADROCK: Adjusted it slightly so it looks better. Not part of EDB ;)
-	175,		9,		SM_INV_SLOT_HEIGHT,		MAP_ATTACH_SLOT_WIDTH,		INV_BAR_DX-9,		INV_BAR_DY, // someone drew the STI wrong! ;)
-	213,		9,		SM_INV_SLOT_HEIGHT,		MAP_ATTACH_SLOT_WIDTH,		INV_BAR_DX-9,		INV_BAR_DY,
-	175,		37,		SM_INV_SLOT_HEIGHT,		MAP_ATTACH_SLOT_WIDTH,		INV_BAR_DX-9,		INV_BAR_DY,
-	213,		37,		SM_INV_SLOT_HEIGHT,		MAP_ATTACH_SLOT_WIDTH,		INV_BAR_DX-9,		INV_BAR_DY,
-};
+INV_ATTACHXY	gItemDescAttachmentsXY[4];
 
 //CHRISL: Moved declaration to InitDescStatCoords for EDB
 SGPRect gItemDescProsConsRects[2];
@@ -1048,8 +986,13 @@ BOOLEAN InitInvSlotInterface( INV_REGION_DESC *pRegionDesc , INV_REGION_DESC *pC
  */
 
 	// CHRISL: Adjusted location of the Money button on the tactical inventory screen
-  	// HEADROCK: Readjusted this, for the TACTICAL Enhanced Description Box 
-	if ( UsingEDBSystem() > 0 )
+	// HEADROCK: Readjusted this, for the TACTICAL Enhanced Description Box 
+	if ( guiCurrentScreen == MAP_SCREEN )
+	{
+		gMoneyButtonLoc.x = 174;
+		gMoneyButtonLoc.y = 115;
+	}
+	else if ( UsingEDBSystem() > 0 )
 	{
 		gMoneyButtonLoc.x = ((UsingNewInventorySystem() == false)) ? (343 + INTERFACE_START_X) : (244 + INTERFACE_START_X);
 		gMoneyButtonLoc.y = ( 11 + INV_INTERFACE_START_Y );
@@ -2907,13 +2850,16 @@ void InitItemDescriptionBoxStartCoords( BOOLEAN fIsEnhanced )
 	}
 
 	//CHRISL: This allows EDB to work in Strategic OIV mode
-	if(iResolution == 0)	// 640x480 res
-		MAP_ITEMDESC_HEIGHT = 268;
-	else if(iResolution == 2 || UsingNewInventorySystem() == true)	// 1024x768 or NIV
-		MAP_ITEMDESC_HEIGHT = 490;
-	else if(iResolution == 1)	// 800x600
-		MAP_ITEMDESC_HEIGHT = 373;
-	MAP_ITEMDESC_WIDTH	= ((UsingNewInventorySystem() == true && iResolution != 0)) ? 272 : 272;
+	if(guiCurrentScreen == MAP_SCREEN)
+	{
+		if(iResolution == 0)	// 640x480 res
+			ITEMDESC_HEIGHT = 268;
+		else if(iResolution == 2 || UsingNewInventorySystem() == true)	// 1024x768 or NIV
+			ITEMDESC_HEIGHT = 490;
+		else if(iResolution == 1)	// 800x600
+			ITEMDESC_HEIGHT = 373;
+		ITEMDESC_WIDTH	= ((UsingNewInventorySystem() == true && iResolution != 0)) ? 272 : 272;
+	}
 }
 
 BOOLEAN InitKeyItemDescriptionBox( SOLDIERTYPE *pSoldier, UINT8 ubPosition, INT16 sX, INT16 sY, UINT8 ubStatusIndex )
@@ -2990,7 +2936,7 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 
 		//return( FALSE );
 
-			MSYS_DefineRegion( &gInvDesc, (UINT16)gsInvDescX, (UINT16)gsInvDescY ,(UINT16)(gsInvDescX + MAP_ITEMDESC_WIDTH), (UINT16)(gsInvDescY + MAP_ITEMDESC_HEIGHT), MSYS_PRIORITY_HIGHEST - 2,
+			MSYS_DefineRegion( &gInvDesc, (UINT16)gsInvDescX, (UINT16)gsInvDescY ,(UINT16)(gsInvDescX + ITEMDESC_WIDTH), (UINT16)(gsInvDescY + ITEMDESC_HEIGHT), MSYS_PRIORITY_HIGHEST - 2,
 				CURSOR_NORMAL, MSYS_NO_CALLBACK, ItemDescCallback );
 		 	MSYS_AddRegion( &gInvDesc);
 
@@ -3246,7 +3192,7 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 																 5, DEFAULT_SHADOW,
 																 5, DEFAULT_SHADOW,
 																 TEXT_CJUSTIFIED,
-																 (UINT16)(gMapMoneyButtonLoc.x + gMoneyButtonOffsets[cnt].x), (UINT16)(gMapMoneyButtonLoc.y + gMoneyButtonOffsets[cnt].y), BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
+																 (UINT16)(gMoneyButtonLoc.x + gMoneyButtonOffsets[cnt].x), (UINT16)(gMoneyButtonLoc.y + gMoneyButtonOffsets[cnt].y), BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 																 DEFAULT_MOVE_CALLBACK, BtnMoneyButtonCallback );
 				MSYS_SetBtnUserData( guiMoneyButtonBtn[cnt], 0, cnt);
 				if( cnt == M_1000 && gRemoveMoney.uiTotalAmount < 1000 )
@@ -3262,7 +3208,7 @@ BOOLEAN InternalInitItemDescriptionBox( OBJECTTYPE *pObject, INT16 sX, INT16 sY,
 															 5, DEFAULT_SHADOW,
 															 5, DEFAULT_SHADOW,
 															 TEXT_CJUSTIFIED,
-															 (UINT16)(gMapMoneyButtonLoc.x + gMoneyButtonOffsets[cnt].x), (UINT16)(gMapMoneyButtonLoc.y + gMoneyButtonOffsets[cnt].y), BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
+															 (UINT16)(gMoneyButtonLoc.x + gMoneyButtonOffsets[cnt].x), (UINT16)(gMoneyButtonLoc.y + gMoneyButtonOffsets[cnt].y), BUTTON_TOGGLE, MSYS_PRIORITY_HIGHEST,
 															 DEFAULT_MOVE_CALLBACK, BtnMoneyButtonCallback );
 			MSYS_SetBtnUserData( guiMoneyButtonBtn[cnt], 0, cnt);
 
@@ -3377,7 +3323,7 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 		// Build a mouse region here that is over any others.....
 		//if (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
 		if( guiCurrentItemDescriptionScreen == MAP_SCREEN )
-			 MSYS_DefineRegion( &gItemDescAttachmentRegions[cnt], (INT16)(gsInvDescX + gMapItemDescAttachmentsXY[cnt].sX), (INT16)(gsInvDescY + gMapItemDescAttachmentsXY[cnt].sY), (INT16)(gsInvDescX + gMapItemDescAttachmentsXY[cnt].sX + gMapItemDescAttachmentsXY[cnt].sWidth), (INT16)(gsInvDescY + gMapItemDescAttachmentsXY[cnt].sY + gMapItemDescAttachmentsXY[cnt].sHeight), MSYS_PRIORITY_HIGHEST,
+			 MSYS_DefineRegion( &gItemDescAttachmentRegions[cnt], (INT16)(gsInvDescX + gItemDescAttachmentsXY[cnt].sX), (INT16)(gsInvDescY + gItemDescAttachmentsXY[cnt].sY), (INT16)(gsInvDescX + gItemDescAttachmentsXY[cnt].sX + gItemDescAttachmentsXY[cnt].sWidth), (INT16)(gsInvDescY + gItemDescAttachmentsXY[cnt].sY + gItemDescAttachmentsXY[cnt].sHeight), MSYS_PRIORITY_HIGHEST,
 							 MSYS_NO_CURSOR, MSYS_NO_CALLBACK, ItemDescAttachmentsCallback );
 		else
 			 MSYS_DefineRegion( &gItemDescAttachmentRegions[cnt], (INT16)(gsInvDescX + gItemDescAttachmentsXY[cnt].sX), (INT16)(gsInvDescY + gItemDescAttachmentsXY[cnt].sY), (INT16)(gsInvDescX + gItemDescAttachmentsXY[cnt].sX + gItemDescAttachmentsXY[cnt].sBarDx + gItemDescAttachmentsXY[cnt].sWidth), (INT16)(gsInvDescY + gItemDescAttachmentsXY[cnt].sY + gItemDescAttachmentsXY[cnt].sHeight), MSYS_PRIORITY_HIGHEST,
@@ -3820,6 +3766,47 @@ void ItemDescAttachmentsCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	}
 }
 
+INT8 DetermineShowBox( )
+{
+	if(gpItemDescObject == NULL)
+		return 0;
+
+	if(iResolution == 0)
+		return 0;
+	else if(UsingNewInventorySystem() == false)	//OIV
+	{
+		if (UsingEDBSystem() == 2)
+		{
+			if (Item[gpItemDescObject->usItem].usItemClass & (IC_WEAPON|IC_EXPLOSV|IC_AMMO|IC_ARMOUR|IC_PUNCH) && UsingEDBSystem() > 0 )
+				return 6;
+			else
+				return 7;
+		}
+		else if (guiCurrentItemDescriptionScreen == MAP_SCREEN)
+		{
+			if (Item[gpItemDescObject->usItem].usItemClass & (IC_WEAPON|IC_EXPLOSV|IC_AMMO|IC_ARMOUR|IC_PUNCH) && UsingEDBSystem() > 0 )
+				return 6;
+			else
+				return 1;
+		}
+		else
+			return 0;
+	}
+	else if(UsingNewInventorySystem() == true)	//NIV
+	{
+		if(gpItemDescObject->IsActiveLBE(gubItemDescStatusIndex))
+			return (gpItemDescObject->GetLBEPointer(gubItemDescStatusIndex)->lbeClass + (guiCurrentItemDescriptionScreen == MAP_SCREEN ? 1 : 0));
+		else if(Item[gpItemDescObject->usItem].usItemClass == IC_LBEGEAR)
+			return (LoadBearingEquipment[Item[gpItemDescObject->usItem].ubClassIndex].lbeClass + (guiCurrentItemDescriptionScreen == MAP_SCREEN ? 1 : 0));
+		else if (Item[gpItemDescObject->usItem].usItemClass & (IC_WEAPON|IC_EXPLOSV|IC_AMMO|IC_ARMOUR|IC_PUNCH) && UsingEDBSystem() > 0 )
+			return (guiCurrentItemDescriptionScreen == MAP_SCREEN ? 6 : 5);
+		else
+			return (guiCurrentItemDescriptionScreen == MAP_SCREEN ? 1 : 0);
+	}
+
+	return 0;
+}
+
 void RenderItemDescriptionBox( )
 {
   ETRLEObject						*pTrav;
@@ -3836,7 +3823,7 @@ void RenderItemDescriptionBox( )
 	INT16									ubAttackAPs;
 	BOOLEAN								fHatchOutAttachments = gfItemDescObjectIsAttachment; // if examining attachment, always hatch out attachment slots
 	INT16									sProsConsIndent;
-	INT8							showBox=0;
+	INT8							showBox=DetermineShowBox();
 
 	int status = 0;
 	int shotsLeft = 0;
@@ -3845,7 +3832,7 @@ void RenderItemDescriptionBox( )
 		shotsLeft = (*gpItemDescObject)[ gubItemDescStatusIndex ]->data.ubShotsLeft;
 	}
 
-	if( ( guiCurrentItemDescriptionScreen == MAP_SCREEN ) &&(gfInItemDescBox ) )
+	if( gfInItemDescBox )
 	{
     	// TAKE A LOOK AT THE VIDEO OBJECT SIZE ( ONE OF TWO SIZES ) AND CENTER!
 		GetVideoObject( &hVObject, guiItemGraphic );
@@ -3855,39 +3842,25 @@ void RenderItemDescriptionBox( )
 
 		// CENTER IN SLOT!
 		// REMOVE OFFSETS!
-		sCenX = MAP_ITEMDESC_ITEM_X + (INT16)( abs( ITEMDESC_ITEM_WIDTH - (double)usWidth ) / 2 ) - pTrav->sOffsetX;
-		sCenY = MAP_ITEMDESC_ITEM_Y + (INT16)( abs( ITEMDESC_ITEM_HEIGHT - (double)usHeight ) / 2 )- pTrav->sOffsetY;
+		sCenX = ITEMDESC_ITEM_X + (INT16)( abs( ITEMDESC_ITEM_WIDTH - (double)usWidth ) / 2 ) - pTrav->sOffsetX;
+		sCenY = ITEMDESC_ITEM_Y + (INT16)( abs( ITEMDESC_ITEM_HEIGHT - (double)usHeight ) / 2 )- pTrav->sOffsetY;
 
-		// CHRISL: Determine if we're looking at an LBENODE and display alternate box graphic
-		// HEADROCK: CHRISL: These conditions have been altered so that EDB will work
-		if(iResolution == 0)	//640x480 always uses the very first graphic
-			showBox = 0;
-		else if(UsingNewInventorySystem() == false)	//OIV
-		{
-			if (Item[gpItemDescObject->usItem].usItemClass & (IC_WEAPON|IC_EXPLOSV|IC_AMMO|IC_ARMOUR|IC_PUNCH) && UsingEDBSystem() > 0 )
-				showBox = 6;
-			else
-				showBox = 1;
-		}
-		else if(UsingNewInventorySystem() == true)	//NIV
-		{
-			if(gpItemDescObject->IsActiveLBE(gubItemDescStatusIndex))
-				showBox = gpItemDescObject->GetLBEPointer(gubItemDescStatusIndex)->lbeClass + 1;
-			else if(Item[gpItemDescObject->usItem].usItemClass == IC_LBEGEAR)
-				showBox = LoadBearingEquipment[Item[gpItemDescObject->usItem].ubClassIndex].lbeClass + 1;
-			else if (Item[gpItemDescObject->usItem].usItemClass & (IC_WEAPON|IC_EXPLOSV|IC_AMMO|IC_ARMOUR|IC_PUNCH) && UsingEDBSystem() > 0 )
-				showBox = 6;
-			else
-				showBox = 1;
-		}
+		RenderBackpackButtons(1);	/* CHRISL: Needed for new inventory backpack buttons */
 
-		BltVideoObjectFromIndex( guiSAVEBUFFER, guiMapItemDescBox, showBox, gsInvDescX, gsInvDescY, VO_BLT_SRCTRANSPARENCY, NULL );
+		if( guiCurrentItemDescriptionScreen == MAP_SCREEN )
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiMapItemDescBox, showBox, gsInvDescX, gsInvDescY, VO_BLT_SRCTRANSPARENCY, NULL );
+		else
+		{
+			if(guiItemDescBoxBackground != 0)
+				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemDescBoxBackground, iResolution, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemDescBox, showBox, gsInvDescX, gsInvDescY, VO_BLT_SRCTRANSPARENCY, NULL );
+		}
 
 		//Display the money 'seperating' border
-		if ( gpItemDescObject->usItem == MONEY )
+ 		if ( gpItemDescObject->usItem == MONEY )
 		{
 			//Render the money Boxes
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiMoneyGraphicsForDescBox, 0, (UINT16)(gMapMoneyButtonLoc.x + gMoneyButtonOffsets[0].x), (UINT16)(gMapMoneyButtonLoc.y + gMoneyButtonOffsets[0].y), VO_BLT_SRCTRANSPARENCY, NULL );
+			BltVideoObjectFromIndex( guiSAVEBUFFER, guiMoneyGraphicsForDescBox, 0, (UINT16)(gMoneyButtonLoc.x + gMoneyButtonOffsets[0].x - 1), (UINT16)(gMoneyButtonLoc.y + gMoneyButtonOffsets[0].y), VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		// Display item
@@ -3895,8 +3868,8 @@ void RenderItemDescriptionBox( )
 
 		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemGraphic, 0, sCenX, sCenY, VO_BLT_SRCTRANSPARENCY, NULL );
 
-		// Display ststus
-		DrawItemUIBarEx( gpItemDescObject, gubItemDescStatusIndex, (INT16)MAP_ITEMDESC_ITEM_STATUS_X, (INT16)MAP_ITEMDESC_ITEM_STATUS_Y, ITEMDESC_ITEM_STATUS_WIDTH, ITEMDESC_ITEM_STATUS_HEIGHT_MAP, 	Get16BPPColor( DESC_STATUS_BAR ), Get16BPPColor( DESC_STATUS_BAR_SHADOW ), TRUE, guiSAVEBUFFER );
+		// Display status
+		DrawItemUIBarEx( gpItemDescObject, gubItemDescStatusIndex, (INT16)ITEMDESC_ITEM_STATUS_X, (INT16)ITEMDESC_ITEM_STATUS_Y, ITEMDESC_ITEM_STATUS_WIDTH, ITEMDESC_ITEM_STATUS_HEIGHT, 	Get16BPPColor( DESC_STATUS_BAR ), Get16BPPColor( DESC_STATUS_BAR_SHADOW ), TRUE, guiSAVEBUFFER );
 
 		// CHRISL:  This block will display hatching for inactive LBE pockets
 		// Display LBENODE attached items
@@ -3908,7 +3881,7 @@ void RenderItemDescriptionBox( )
 		if (gpItemPointer)
 		{
 //			if ( ( Item[ gpItemPointer->usItem ].fFlags & ITEM_HIDDEN_ADDON ) ||
-			if ( ( Item[ gpItemPointer->usItem ].hiddenaddon  ) ||
+			if ( ( Item[ gpItemPointer->usItem ].hiddenaddon ) ||
 
 			 ( !ValidItemAttachment( gpItemDescObject, gpItemPointer->usItem, FALSE ) &&
 				 !ValidMerge( gpItemPointer->usItem, gpItemDescObject->usItem ) && !ValidLaunchable( gpItemPointer->usItem, gpItemDescObject->usItem ) ) )
@@ -3923,19 +3896,18 @@ void RenderItemDescriptionBox( )
 		for (attachmentList::iterator iter = (*gpItemDescObject)[gubItemDescStatusIndex]->attachments.begin();
 			iter != (*gpItemDescObject)[gubItemDescStatusIndex]->attachments.end(); ++iter, ++cnt) {
 
-			sCenX = (INT16)( gsInvDescX + gMapItemDescAttachmentsXY[cnt].sX);
-			sCenY = (INT16)( gsInvDescY + gMapItemDescAttachmentsXY[cnt].sY);
-			INVRenderItem( guiSAVEBUFFER, NULL, gpItemDescObject, sCenX, sCenY, gMapItemDescAttachmentsXY[cnt].sWidth, gMapItemDescAttachmentsXY[cnt].sHeight, DIRTYLEVEL2, NULL, (UINT8)(RENDER_ITEM_ATTACHMENT1 + cnt), FALSE, 0, gubItemDescStatusIndex );
-			sCenX = gsInvDescX + gMapItemDescAttachmentsXY[cnt].sX + gMapItemDescAttachmentsXY[cnt].sBarDx;
-			sCenY = gsInvDescY + gMapItemDescAttachmentsXY[cnt].sY + gMapItemDescAttachmentsXY[cnt].sBarDy;
+			sCenX = gsInvDescX + gItemDescAttachmentsXY[cnt].sX;
+			sCenY = gsInvDescY + gItemDescAttachmentsXY[cnt].sY;
+			INVRenderItem( guiSAVEBUFFER, NULL, gpItemDescObject, sCenX, sCenY, gItemDescAttachmentsXY[cnt].sWidth, gItemDescAttachmentsXY[cnt].sHeight, DIRTYLEVEL2, NULL, (UINT8)(RENDER_ITEM_ATTACHMENT1 + cnt), FALSE, 0, gubItemDescStatusIndex );
+			sCenX = sCenX + gItemDescAttachmentsXY[cnt].sBarDx;
+			sCenY = sCenY + gItemDescAttachmentsXY[cnt].sBarDy;
 			DrawItemUIBarEx( gpItemDescObject, (UINT8)(DRAW_ITEM_STATUS_ATTACHMENT1 + cnt), sCenX, sCenY, ITEM_BAR_WIDTH, ITEM_BAR_HEIGHT, Get16BPPColor( STATUS_BAR ), Get16BPPColor( STATUS_BAR_SHADOW ), TRUE , guiSAVEBUFFER, gubItemDescStatusIndex );
-			//this code was the same inside both branches of the if below!
 		}
 		for (cnt = 0; cnt < MAX_ATTACHMENTS; ++cnt)
 		{
-			if (fHatchOutAttachments )
+			if (fHatchOutAttachments)
 			{
-				DrawHatchOnInventory( guiSAVEBUFFER, (INT16) (gsInvDescX + gMapItemDescAttachmentsXY[ cnt ].sX), (INT16) (gsInvDescY + gMapItemDescAttachmentsXY[ cnt ].sY - 2), (INT16)(gMapItemDescAttachmentsXY[ cnt ].sWidth + gMapItemDescAttachmentsXY[ cnt ].sBarDx), (INT16) (gMapItemDescAttachmentsXY[ cnt ].sHeight + 2) );
+				DrawHatchOnInventory( guiSAVEBUFFER, (INT16) (gsInvDescX + gItemDescAttachmentsXY[ cnt ].sX), (INT16) (gsInvDescY + gItemDescAttachmentsXY[ cnt ].sY - 2), (INT16)(gItemDescAttachmentsXY[ cnt ].sWidth + gItemDescAttachmentsXY[ cnt ].sBarDx), (INT16) (gItemDescAttachmentsXY[ cnt ].sHeight + 2) );
 			}
 		}
 
@@ -3971,14 +3943,14 @@ void RenderItemDescriptionBox( )
 				if ( !Weapon[gpItemDescObject->usItem].NoSemiAuto )
 					BltVideoObjectFromIndex( guiSAVEBUFFER, guiBullet, 0, BULLET_SING_X, BULLET_SING_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 
-				if (GetShotsPerBurst(gpItemDescObject)> 0)
+				if ( GetShotsPerBurst(gpItemDescObject) > 0 )
 				{
 					for ( cnt = 0; cnt < __min(GetShotsPerBurst(gpItemDescObject),12); cnt++ )
 					{
 						BltVideoObjectFromIndex( guiSAVEBUFFER, guiBullet, 0, BULLET_BURST_X + cnt * (BULLET_WIDTH/2 + 1), BULLET_BURST_Y, VO_BLT_SRCTRANSPARENCY, NULL );
 					}
 				}
-				else if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
+				else if ( GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
 				{
 					for ( cnt = 0; cnt < 10; cnt++ )
 					{
@@ -3989,7 +3961,10 @@ void RenderItemDescriptionBox( )
 			}
 		}
 
-		RestoreExternBackgroundRect( gsInvDescX, gsInvDescY, MAP_ITEMDESC_WIDTH, MAP_ITEMDESC_HEIGHT );
+		if( guiCurrentItemDescriptionScreen == GAME_SCREEN )
+			RestoreExternBackgroundRect( SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, ITEMDESC_WIDTH, ITEMDESC_HEIGHT );
+		else
+			RestoreExternBackgroundRect( gsInvDescX, gsInvDescY, ITEMDESC_WIDTH, ITEMDESC_HEIGHT );
 
 		// CHRISL: This block will display misc information for items stored in LBE Pockets
 		// Display LBENODE attached items
@@ -4005,17 +3980,19 @@ void RenderItemDescriptionBox( )
 		SetFontShadow( ITEMDESC_FONTSHADOW3 );
 
 		// Render name
+		// SET CLIPPING RECT FOR FONTS
 		#ifdef JA2TESTVERSION
-			mprintf( MAP_ITEMDESC_NAME_X, MAP_ITEMDESC_NAME_Y, L"%s (%d)", gzItemName, gpItemDescObject->usItem );
+			mprintf( ITEMDESC_NAME_X, ITEMDESC_NAME_Y, L"%s (%d)", gzItemName, gpItemDescObject->usItem );
 		#else
-			mprintf( MAP_ITEMDESC_NAME_X, MAP_ITEMDESC_NAME_Y, L"%s", gzItemName );
+			mprintf( ITEMDESC_NAME_X, ITEMDESC_NAME_Y, L"%s", gzItemName );
 		#endif
 
+		// Render "normal" item data
 		SetFontForeground( FONT_BLACK );
 		SetFontShadow( ITEMDESC_FONTSHADOW2 );
 
 		// Item Full Description
-		DisplayWrappedString( (INT16)ITEMDESC_DESC_START_X, (INT16)ITEMDESC_DESC_START_Y, MAP_ITEMDESC_DESC_WIDTH, 2, ITEMDESC_FONT, FONT_BLACK,  gzItemDesc, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+		DisplayWrappedString( (INT16)ITEMDESC_DESC_START_X, (INT16)ITEMDESC_DESC_START_Y, ITEMDESC_DESC_WIDTH, 2, ITEMDESC_FONT, FONT_BLACK,  gzItemDesc, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 		if ( ITEM_PROS_AND_CONS( gpItemDescObject->usItem ) )
 		{
@@ -4028,10 +4005,10 @@ void RenderItemDescriptionBox( )
 			else
 			{
 				// No Fingerprint ID
-				swprintf( pStr, L"%s %s", AmmoCaliber[ Weapon[ gpItemDescObject->usItem ].ubCalibre ], WeaponType[ Weapon[ gpItemDescObject->usItem ].ubWeaponType ] );
+ 				swprintf( pStr, L"%s %s", AmmoCaliber[ Weapon[ gpItemDescObject->usItem ].ubCalibre ], WeaponType[ Weapon[ gpItemDescObject->usItem ].ubWeaponType ] );
 			}
 
-			FindFontRightCoordinates( (INT16) MAP_ITEMDESC_CALIBER_X, (INT16) MAP_ITEMDESC_CALIBER_Y, MAP_ITEMDESC_CALIBER_WIDTH, ITEM_STATS_HEIGHT, pStr, ITEMDESC_FONT, &usX, &usY);
+			FindFontRightCoordinates( (INT16) ITEMDESC_CALIBER_X, (INT16) ITEMDESC_CALIBER_Y, ITEMDESC_CALIBER_WIDTH, ITEM_STATS_HEIGHT, pStr, ITEMDESC_FONT, &usX, &usY);
 			mprintf( usX, usY, pStr );
 
 			SetFontForeground( FONT_MCOLOR_DKWHITE2 );
@@ -4039,14 +4016,18 @@ void RenderItemDescriptionBox( )
 			// PROs
 			mprintf( (INT16)ITEMDESC_PROS_START_X, (INT16)ITEMDESC_PROS_START_Y, gzProsLabel );
 
-			sProsConsIndent = __max( StringPixLength( gzProsLabel, ITEMDESC_FONT ), StringPixLength( gzConsLabel, ITEMDESC_FONT ) ) + 10;
-
-			GenerateProsString( gzItemPros, gpItemDescObject, MAP_ITEMDESC_DESC_WIDTH - sProsConsIndent - StringPixLength( DOTDOTDOT, ITEMDESC_FONT ) );
-			if (gzItemPros[0] != 0)
+			// HEADROCK: Disabled PROs/CONs text for OIV EDB Tactical
+			if (UsingEDBSystem() != 2)
 			{
-				SetFontForeground( FONT_BLACK );
-				SetFontShadow( ITEMDESC_FONTSHADOW2 );
-				DisplayWrappedString( (INT16)(ITEMDESC_PROS_START_X + sProsConsIndent), (INT16)ITEMDESC_PROS_START_Y, (INT16)(ITEMDESC_DESC_WIDTH - sProsConsIndent), 2, ITEMDESC_FONT, FONT_BLACK,  gzItemPros, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+				sProsConsIndent = __max( StringPixLength( gzProsLabel, ITEMDESC_FONT ), StringPixLength( gzConsLabel, ITEMDESC_FONT ) ) + 10;
+				gzItemPros[0] = 0;
+				GenerateProsString( gzItemPros, gpItemDescObject, ITEMDESC_DESC_WIDTH - sProsConsIndent - StringPixLength( DOTDOTDOT, ITEMDESC_FONT ) );
+				if (gzItemPros[0] != 0)
+				{
+					SetFontForeground( FONT_BLACK );
+					SetFontShadow( ITEMDESC_FONTSHADOW2 );
+					DisplayWrappedString( (INT16)(ITEMDESC_PROS_START_X + sProsConsIndent), (INT16)ITEMDESC_PROS_START_Y, (INT16)(ITEMDESC_DESC_WIDTH - sProsConsIndent), 2, ITEMDESC_FONT, FONT_BLACK,  gzItemPros, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+				}
 			}
 
 			SetFontForeground( FONT_MCOLOR_DKWHITE2 );
@@ -4054,28 +4035,19 @@ void RenderItemDescriptionBox( )
 			// CONs
 			mprintf( (INT16)ITEMDESC_CONS_START_X, (INT16)ITEMDESC_CONS_START_Y, gzConsLabel );
 
-			GenerateConsString( gzItemCons, gpItemDescObject, MAP_ITEMDESC_DESC_WIDTH - sProsConsIndent - StringPixLength( DOTDOTDOT, ITEMDESC_FONT ) );
-			if (gzItemCons[0] != 0)
+			// HEADROCK: Disabled PROs/CONs text for OIV EDB Tactical
+			if (UsingEDBSystem() != 2)
 			{
-				SetFontForeground( FONT_BLACK );
-				SetFontShadow( ITEMDESC_FONTSHADOW2 );
-				DisplayWrappedString( (INT16)(ITEMDESC_CONS_START_X + sProsConsIndent), (INT16)ITEMDESC_CONS_START_Y, (INT16)(MAP_ITEMDESC_DESC_WIDTH - sProsConsIndent), 2, ITEMDESC_FONT, FONT_BLACK,  gzItemCons, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+				GenerateConsString( gzItemCons, gpItemDescObject, ITEMDESC_DESC_WIDTH - sProsConsIndent - StringPixLength( DOTDOTDOT, ITEMDESC_FONT ) );
+				if (gzItemCons[0] != 0)
+				{
+					SetFontForeground( FONT_BLACK );
+					SetFontShadow( ITEMDESC_FONTSHADOW2 );
+					DisplayWrappedString( (INT16)(ITEMDESC_CONS_START_X + sProsConsIndent), (INT16)ITEMDESC_CONS_START_Y, (INT16)(ITEMDESC_DESC_WIDTH - sProsConsIndent), 2, ITEMDESC_FONT, FONT_BLACK,  gzItemCons, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+				}
 			}
 		}
 
-/*
-		DisplayWrappedString( (INT16)MAP_ITEMDESC_PROS_START_X, (INT16)MAP_ITEMDESC_PROS_START_Y, MAP_ITEMDESC_DESC_WIDTH, 2, ITEMDESC_FONT, FONT_BLACK,  gzProsLabel, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
-		if (gzItemPros[0] != 0)
-		{
-			DisplayWrappedString( (INT16)MAP_ITEMDESC_PROS_START_X, (INT16)MAP_ITEMDESC_PROS_START_Y, MAP_ITEMDESC_DESC_WIDTH, 2, ITEMDESC_FONT, FONT_BLACK,  gzItemPros, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
-		}
-
-		DisplayWrappedString( (INT16)MAP_ITEMDESC_CONS_START_X, (INT16)MAP_ITEMDESC_CONS_START_Y, MAP_ITEMDESC_DESC_WIDTH, 2, ITEMDESC_FONT, FONT_BLACK,  gzConsLabel, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
-		if (gzItemCons[0] != 0)
-		{
-			DisplayWrappedString( (INT16)MAP_ITEMDESC_CONS_START_X, (INT16)MAP_ITEMDESC_CONS_START_Y, MAP_ITEMDESC_DESC_WIDTH, 2, ITEMDESC_FONT, FONT_BLACK,  gzItemCons, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
-		}
-*/
 		// Get length of string
 		uiRightLength=35;
 
@@ -4101,7 +4073,10 @@ void RenderItemDescriptionBox( )
 			// print value
 			// This is gross, but to get the % to work out right...
 			swprintf( pStr, L"%2d%%", status);
-			FindFontRightCoordinates( (INT16)(gWeaponStats[ 0 ].sX + gsInvDescX + gWeaponStats[ 0 ].sValDx + 6), (INT16)(gWeaponStats[ 0 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+			if (UsingEDBSystem() == 2)
+				FindFontRightCoordinates( (INT16)(gWeaponStats[ 0 ].sX + gsInvDescX + gWeaponStats[ 0 ].sValDx), (INT16)(gWeaponStats[ 0 ].sY + gsInvDescY + 12 ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+			else
+				FindFontRightCoordinates( (INT16)(gWeaponStats[ 0 ].sX + gsInvDescX + gWeaponStats[ 0 ].sValDx), (INT16)(gWeaponStats[ 0 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 			wcscat( pStr, L"%%" );
 			mprintf( usX, usY, pStr );
 		}
@@ -4134,7 +4109,10 @@ void RenderItemDescriptionBox( )
 			}
 			//Weight
 			swprintf( pStr, L"%1.1f", fWeight );
-			FindFontRightCoordinates( (INT16)(gWeaponStats[ 1 ].sX + gsInvDescX + gWeaponStats[ 1 ].sValDx+6), (INT16)(gWeaponStats[ 1 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+			if (UsingEDBSystem() == 2)
+				FindFontRightCoordinates( (INT16)(gWeaponStats[ 1 ].sX + gsInvDescX + gWeaponStats[ 1 ].sValDx), (INT16)(gWeaponStats[ 1 ].sY + gsInvDescY + 12 ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+			else
+				FindFontRightCoordinates( (INT16)(gWeaponStats[ 1 ].sX + gsInvDescX + gWeaponStats[ 1 ].sValDx), (INT16)(gWeaponStats[ 1 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY, pStr );
 		}
 
@@ -4204,7 +4182,7 @@ void RenderItemDescriptionBox( )
 						mprintf( gWeaponStats[ 7 ].sX + gsInvDescX, gWeaponStats[ 7 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 7 ] );
 				}
 
-				if (GetShotsPerBurst(gpItemDescObject) > 0 || GetAutofireShotsPerFiveAPs(gpItemDescObject)>0)
+				if (GetShotsPerBurst(gpItemDescObject) > 0 || GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
 				{
 					mprintf( gWeaponStats[ 8 ].sX + gsInvDescX, gWeaponStats[ 8 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 8 ] );
 				}
@@ -4220,7 +4198,7 @@ void RenderItemDescriptionBox( )
 					SetFontForeground( 5 );
 				}
 
-				 //Ap's
+				 //AP's
 				if ( !Weapon[gpItemDescObject->usItem].NoSemiAuto )
 				{
 					swprintf( pStr, L"%2d", ubAttackAPs );
@@ -4244,622 +4222,9 @@ void RenderItemDescriptionBox( )
 				}
 				else if (GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0)
 				{
-						SetFontForeground( 5 );
-						swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpItemDescObject, 3 ) );
-						FindFontRightCoordinates( (INT16)(gWeaponStats[ 6 ].sX + gsInvDescX + gWeaponStats[ 6 ].sValDx), (INT16)(gWeaponStats[ 6 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-						mprintf( usX, usY, pStr );
-				}
-			}
-		}
-		else if ( gpItemDescObject->usItem == MONEY )
-		{
-			SetFontForeground( FONT_FCOLOR_WHITE );
-			SetFontShadow( DEFAULT_SHADOW );
-
-			//
-			// Display the total amount of money
-			//
-
-			// if the player is taking money from their account
-			if( gfAddingMoneyToMercFromPlayersAccount )
-				swprintf( pStr, L"%ld", LaptopSaveInfo.iCurrentBalance );
-			else
-				swprintf( pStr, L"%ld", gRemoveMoney.uiTotalAmount );
-
-			InsertCommasForDollarFigure( pStr );
-			InsertDollarSignInToString( pStr );
-			uiStringLength=StringPixLength(pStr, ITEMDESC_FONT );
-			sStrX =  MAP_ITEMDESC_NAME_X + ( 245 - uiStringLength );
-			mprintf( sStrX, MAP_ITEMDESC_NAME_Y, pStr );
-
-			SetFont( BLOCKFONT2 );
-
-			SetFontForeground( 6 );
-			SetFontShadow( DEFAULT_SHADOW );
-
-			//Display the 'Removing'
-			mprintf( gMoneyStats[ 0 ].sX + gsInvDescX, gMoneyStats[ 0 ].sY + gsInvDescY, L"%s", gMoneyStatsDesc[ MONEY_DESC_AMOUNT ] );
-			//Display the 'REmaining'
-			mprintf( gMoneyStats[ 2 ].sX + gsInvDescX, gMoneyStats[ 2 ].sY + gsInvDescY, L"%s", gMoneyStatsDesc[ MONEY_DESC_AMOUNT_2_SPLIT ] );
-
-			//Display the 'Amt removing'
-			mprintf( gMoneyStats[ 1 ].sX + gsInvDescX, gMoneyStats[ 1 ].sY + gsInvDescY, L"%s", gMoneyStatsDesc[ MONEY_DESC_REMAINING ] );
-			//Display the 'REmaining amount'
-			mprintf( gMoneyStats[ 3 ].sX + gsInvDescX, gMoneyStats[ 3 ].sY + gsInvDescY, L"%s", gMoneyStatsDesc[ MONEY_DESC_TO_SPLIT ] );
-
-			SetFontForeground( 5 );
-
-			//Display the 'Seperate text'
-			mprintf( (UINT16)(gMapMoneyButtonLoc.x + gMoneyButtonOffsets[cnt].x), (UINT16)(gMapMoneyButtonLoc.y + gMoneyButtonOffsets[cnt].y ), gzMoneyAmounts[4] );
-
-			// The Money Remaining
-			swprintf( pStr, L"%ld", gRemoveMoney.uiMoneyRemaining );
-			InsertCommasForDollarFigure( pStr );
-			InsertDollarSignInToString( pStr );
-			if(UsingEDBSystem() > 0)
-				FindFontRightCoordinates( (INT16)(gMoneyStats[ 4 ].sX + gsInvDescX + gMoneyStats[ 4 ].sValDx), (INT16)(gMoneyStats[ 4 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-			else
-				FindFontRightCoordinates( (INT16)(gMoneyStats[ 1 ].sX + gsInvDescX + gMoneyStats[ 1 ].sValDx), (INT16)(gMoneyStats[ 1 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-			mprintf( usX, usY, pStr );
-
-
-			// The money removing
-			SetFontForeground( 5 );
-			swprintf( pStr, L"%ld", gRemoveMoney.uiMoneyRemoving );
-			InsertCommasForDollarFigure( pStr );
-			InsertDollarSignInToString( pStr );
-			if(UsingEDBSystem() > 0)
-				FindFontRightCoordinates( (INT16)(gMoneyStats[ 5 ].sX + gsInvDescX + gMoneyStats[ 5 ].sValDx), (INT16)(gMoneyStats[ 5 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-			else
-				FindFontRightCoordinates( (INT16)(gMoneyStats[ 3 ].sX + gsInvDescX + gMoneyStats[ 3 ].sValDx), (INT16)(gMoneyStats[ 3 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			// print label for amount
-
-//			SetFontForeground( ITEMDESC_FONTFORE1 );
-//			if(UsingEDBSystem() > 0)
-//				mprintf( gMoneyStats[ 1 ].sX + gsInvDescX, gMoneyStats[ 1 ].sY + gsInvDescY, L"%s", gMoneyStats[ 1 ].zDesc );
-//			else
-//				mprintf( gMoneyStats[ 1 ].sX + gsInvDescX, gMoneyStats[ 1 ].sY + gsInvDescY, L"%s", gMoneyStats[ 1 ].zDesc );
-		}
-		else if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_MONEY )
-		{
-			SetFontForeground( FONT_FCOLOR_WHITE );
-			SetFontShadow( DEFAULT_SHADOW );
-			swprintf( pStr, L"%ld", (*gpItemDescObject)[gubItemDescStatusIndex]->data.money.uiMoneyAmount );
-			InsertCommasForDollarFigure( pStr );
-			InsertDollarSignInToString( pStr );
-			uiStringLength=StringPixLength(pStr, ITEMDESC_FONT );
-			sStrX =  MAP_ITEMDESC_NAME_X + ( 245 - uiStringLength );
-			mprintf( sStrX, MAP_ITEMDESC_NAME_Y, pStr );
-		}
-		else if ( ( InKeyRingPopup() == TRUE ) || ( Item[ gpItemDescObject->usItem ].usItemClass & IC_KEY ) )
-		{
-			SetFontForeground( 6 );
-
-			if(UsingEDBSystem() > 0)
-			{
-				// build description for keys .. the sector found
-				swprintf( pStr, L"%s", sKeyDescriptionStrings[ 0 ] );
-				mprintf( gWeaponStats[ 2 ].sX + gsInvDescX, gWeaponStats[ 2 ].sY + gsInvDescY, pStr );
-				swprintf( pStr, L"%s", sKeyDescriptionStrings[ 1 ] );
-				mprintf( gWeaponStats[ 5 ].sX + gsInvDescX, gWeaponStats[ 5 ].sY + gsInvDescY, pStr );
-			}
-			else
-			{
-				// build description for keys .. the sector found
-				swprintf( pStr, L"%s", sKeyDescriptionStrings[ 0 ] );
-				mprintf( gWeaponStats[ 3 ].sX + gsInvDescX, gWeaponStats[ 3 ].sY + gsInvDescY, pStr );
-				swprintf( pStr, L"%s", sKeyDescriptionStrings[ 1 ] );
-				mprintf( gWeaponStats[ 5 ].sX + gsInvDescX, gWeaponStats[ 5 ].sY + gsInvDescY , pStr );
-			}
-
-			SetFontForeground( 5 );
-			GetShortSectorString( ( INT16 ) SECTORX( KeyTable[ (*gpItemDescObject)[gubItemDescStatusIndex]->data.key.ubKeyID ].usSectorFound ), ( INT16 ) SECTORY( KeyTable[ (*gpItemDescObject)[gubItemDescStatusIndex]->data.key.ubKeyID ].usSectorFound ), sTempString  );
-			swprintf( pStr, L"%s", sTempString );
-			if(UsingEDBSystem() > 0)
-			{
-				FindFontRightCoordinates( (INT16)(gMiscItemStatsEDB[ 15 ].sX + gsInvDescX + gMiscItemStatsEDB[ 15 ].sValDx), (INT16)(gMiscItemStatsEDB[ 15 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
-				mprintf( sStrX, gMiscItemStatsEDB[ 15 ].sY + gsInvDescY, pStr );
-			}
-			else
-			{
-				FindFontRightCoordinates( (INT16)(gWeaponStats[ 3 ].sX + gsInvDescX ), (INT16)(gWeaponStats[ 3 ].sY + gsInvDescY ), 110 ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-			}
-
-			swprintf( pStr, L"%d", KeyTable[ (*gpItemDescObject)[gubItemDescStatusIndex]->data.key.ubKeyID ].usDateFound );
-			if(UsingEDBSystem() > 0)
-			{
-				FindFontRightCoordinates( (INT16)(gMiscItemStatsEDB[ 18 ].sX + gsInvDescX + gMiscItemStatsEDB[ 18 ].sValDx), (INT16)(gMiscItemStatsEDB[ 18 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
-				mprintf( sStrX, gMiscItemStatsEDB[ 18 ].sY + gsInvDescY, pStr );
-			}
-			else
-			{
-				FindFontRightCoordinates( (INT16)(gWeaponStats[ 5 ].sX + gsInvDescX ), (INT16)(gWeaponStats[ 5 ].sY + gsInvDescY ), 110 ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-			}
-		}
-		else
-		{
-			//Labels
-			SetFont( BLOCKFONT2 );
-
-			SetFontForeground( 6 );
-			SetFontShadow( DEFAULT_SHADOW );
-
-			if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_AMMO )
-			{
-				if(UsingEDBSystem() > 0)
-					DrawAmmoValues(gpItemDescObject,shotsLeft);
-				else
-				{
-					mprintf( gWeaponStats[ 0 ].sX + gsInvDescX, gWeaponStats[ 0 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 5 ] );
-
-					// Values
 					SetFontForeground( 5 );
-
-					// Ammo
-					swprintf( pStr, L"%d/%d", shotsLeft, Magazine[ Item[ gpItemDescObject->usItem ].ubClassIndex ].ubMagSize ); //Pulmu: Correct # of rounds for stacked ammo.
-					uiStringLength=StringPixLength(pStr, ITEMDESC_FONT );
-					FindFontRightCoordinates( (INT16)(gWeaponStats[ 0 ].sX + gsInvDescX + gWeaponStats[ 0 ].sValDx+6), (INT16)(gWeaponStats[ 0 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
-					mprintf( sStrX, gWeaponStats[ 0 ].sY + gsInvDescY, pStr );
-				}
-			}
-			else if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_EXPLOSV )
-			{
-				if(UsingEDBSystem() > 0)
-					DrawExplosiveValues(gpItemDescObject);
-			}
-			else if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_ARMOUR )
-			{
-				if(UsingEDBSystem() > 0)
-					DrawArmorValues(gpItemDescObject);
-			}
-			else
-			{
-				if(UsingEDBSystem() > 0)
-					DrawMiscValues(gpItemDescObject);
-			}
-		}
-		SetFontShadow( DEFAULT_SHADOW );
-	}
-	else if ( gfInItemDescBox )
-	{
-		// TAKE A LOOK AT THE VIDEO OBJECT SIZE ( ONE OF TWO SIZES ) AND CENTER!
-		GetVideoObject( &hVObject, guiItemGraphic );
-		pTrav = &(hVObject->pETRLEObject[ 0 ] );
-		usHeight				= (UINT32)pTrav->usHeight;
-		usWidth					= (UINT32)pTrav->usWidth;
-
-		// CENTER IN SLOT!
-		sCenX = ITEMDESC_ITEM_X + (INT16)( abs( ITEMDESC_ITEM_WIDTH - (double)usWidth ) / 2 ) - pTrav->sOffsetX;
-		sCenY = ITEMDESC_ITEM_Y + (INT16)( abs( ITEMDESC_ITEM_HEIGHT - (double)usHeight ) / 2 ) - pTrav->sOffsetY;
-
-		// CHRISL: Determine if we're looking at an LBENODE and display alternate box graphic
-		RenderBackpackButtons(1);	/* CHRISL: Needed for new inventory backpack buttons */
-		// HEADROCK EDB 1.3: added new STI for OIV/EDB Tactical
-		if(UsingNewInventorySystem() == false  && iResolution != 0)	//OIV
-		{
-			if (UsingEDBSystem() == 2)
-			{
-				if (Item[gpItemDescObject->usItem].usItemClass & (IC_WEAPON|IC_EXPLOSV|IC_AMMO|IC_ARMOUR|IC_PUNCH) && UsingEDBSystem() > 0 )
-					showBox = 6;
-				else
-					showBox = 7;
-
-				if(guiItemDescBoxBackground != 0)
-					BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemDescBoxBackground, iResolution, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
-			}
-		}
-		if((UsingNewInventorySystem() == true) && iResolution != 0)
-		{
-			if(gpItemDescObject->IsActiveLBE(gubItemDescStatusIndex))
-				showBox = gpItemDescObject->GetLBEPointer(gubItemDescStatusIndex)->lbeClass;
-			else if(Item[gpItemDescObject->usItem].usItemClass == IC_LBEGEAR)
-				showBox = LoadBearingEquipment[Item[gpItemDescObject->usItem].ubClassIndex].lbeClass;
-			else if (Item[gpItemDescObject->usItem].usItemClass & (IC_WEAPON|IC_EXPLOSV|IC_AMMO|IC_ARMOUR|IC_PUNCH) && UsingEDBSystem() > 0 )
-				showBox = 5;
-			else
-				showBox = 0;
-
-			if(guiItemDescBoxBackground != 0)
-				BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemDescBoxBackground, iResolution, SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, VO_BLT_SRCTRANSPARENCY, NULL );
-		}
-		// CHRISL: Setup default coords if we haven't initialized them yet
-		if(gsInvDescX == NONE && gsInvDescY == NONE)
-		{
-			gsInvDescX = 115;
-			gsInvDescY = (INT16)(INV_INTERFACE_START_Y + 1 );
-		}
-		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemDescBox, showBox, gsInvDescX, gsInvDescY, VO_BLT_SRCTRANSPARENCY, NULL );
-
-		if ( gpItemDescObject->usItem == MONEY )
-		{
-			//Render the money Boxes
-			BltVideoObjectFromIndex( guiSAVEBUFFER, guiMoneyGraphicsForDescBox, 0, (UINT16)(gsInvDescX+gItemDescAttachmentsXY[0].sX-1), (UINT16)(gsInvDescY+gItemDescAttachmentsXY[0].sY-2), VO_BLT_SRCTRANSPARENCY, NULL );
-		}
-
-
-		// Display item
-		if(gGameSettings.fOptions[ TOPTION_SHOW_ITEM_SHADOW ]) BltVideoObjectOutlineShadowFromIndex( guiSAVEBUFFER, guiItemGraphic, 0, sCenX - 2, sCenY + 2  );
-		BltVideoObjectFromIndex( guiSAVEBUFFER, guiItemGraphic, 0, sCenX, sCenY, VO_BLT_SRCTRANSPARENCY, NULL );
-
-		// Display status
-		DrawItemUIBarEx( gpItemDescObject, gubItemDescStatusIndex, (INT16)ITEMDESC_ITEM_STATUS_X, (INT16)ITEMDESC_ITEM_STATUS_Y, ITEMDESC_ITEM_STATUS_WIDTH, ITEMDESC_ITEM_STATUS_HEIGHT, 	Get16BPPColor( DESC_STATUS_BAR ), Get16BPPColor( DESC_STATUS_BAR_SHADOW ), TRUE, guiSAVEBUFFER );
-	
-		// CHRISL:  This block will display hatching for inactive LBE pockets
-		// Display LBENODE attached items
-		if(UsingNewInventorySystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_LBEGEAR)
-		{
-			RenderLBENODEItems( gpItemDescObject, gubItemDescStatusIndex );
-		}
-
-		if (gpItemPointer)
-		{
-//			if ( ( Item[ gpItemPointer->usItem ].fFlags & ITEM_HIDDEN_ADDON ) ||
-			if ( ( Item[ gpItemPointer->usItem ].hiddenaddon ) ||
-
-			 ( !ValidItemAttachment( gpItemDescObject, gpItemPointer->usItem, FALSE ) &&
-				 !ValidMerge( gpItemPointer->usItem, gpItemDescObject->usItem ) && !ValidLaunchable( gpItemPointer->usItem, gpItemDescObject->usItem ) ) )
-			{
-				// hatch out the attachment panels
-				fHatchOutAttachments = TRUE;
-			}
-		}
-
-		// Display attachments
-		cnt = 0;
-		for (attachmentList::iterator iter = (*gpItemDescObject)[gubItemDescStatusIndex]->attachments.begin();
-			iter != (*gpItemDescObject)[gubItemDescStatusIndex]->attachments.end(); ++iter, ++cnt) {
-
-			sCenX = (INT16)( gsInvDescX + gItemDescAttachmentsXY[cnt].sX + 5 );
-			sCenY = (INT16)( gsInvDescY + gItemDescAttachmentsXY[cnt].sY - 1 );
-			INVRenderItem( guiSAVEBUFFER, NULL, gpItemDescObject, sCenX, sCenY, gItemDescAttachmentsXY[cnt].sWidth, gItemDescAttachmentsXY[cnt].sHeight, DIRTYLEVEL2, NULL, (UINT8)(RENDER_ITEM_ATTACHMENT1 + cnt), FALSE, 0, gubItemDescStatusIndex );
-			sCenX = sCenX - gItemDescAttachmentsXY[cnt].sBarDx;
-			sCenY = sCenY + gItemDescAttachmentsXY[cnt].sBarDy;
-			DrawItemUIBarEx( gpItemDescObject, (UINT8)(DRAW_ITEM_STATUS_ATTACHMENT1 + cnt), sCenX, sCenY, ITEM_BAR_WIDTH, ITEM_BAR_HEIGHT, Get16BPPColor( STATUS_BAR ), Get16BPPColor( STATUS_BAR_SHADOW ), TRUE , guiSAVEBUFFER, gubItemDescStatusIndex );
-
-			SetRegionFastHelpText( &(gItemDescAttachmentRegions[ cnt ]), ItemNames[ iter->usItem ] );
-			SetRegionHelpEndCallback( &(gItemDescAttachmentRegions[ cnt ]), HelpTextDoneCallback );
-		}
-		for (; cnt < MAX_ATTACHMENTS; ++cnt)
-		{
-			//for the attachments that don't exist
-			 SetRegionFastHelpText( &(gItemDescAttachmentRegions[ cnt ]), Message[ STR_ATTACHMENTS ] );
-			 SetRegionHelpEndCallback( &(gItemDescAttachmentRegions[ cnt ]), HelpTextDoneCallback );
-		}
-		for (cnt = 0; cnt < MAX_ATTACHMENTS; ++cnt)
-		{
-			//now for all attachment slots regardless
-			if (fHatchOutAttachments)
-			{
-				//UINT32 uiWhichBuffer = ( guiCurrentItemDescriptionScreen == MAP_SCREEN ) ? guiSAVEBUFFER : guiRENDERBUFFER;
-				DrawHatchOnInventory( guiSAVEBUFFER, (INT16) (gsInvDescX + gItemDescAttachmentsXY[ cnt ].sX), (INT16) (gsInvDescY + gItemDescAttachmentsXY[ cnt ].sY - 2), (INT16)(gItemDescAttachmentsXY[ cnt ].sWidth + gItemDescAttachmentsXY[ cnt ].sBarDx), (INT16) (gItemDescAttachmentsXY[ cnt ].sHeight + 2) );
-			}
-		}
-
-		//HEADROCK/CHRISL: This condition needs to run differently depending on whether EDB is active of not
-		if(UsingEDBSystem() > 0)
-		{
-			if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON || Item[ gpItemDescObject->usItem ].usItemClass & IC_PUNCH )
-			{
-				DrawWeaponStats(gpItemDescObject);
-			}
-			else if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_AMMO )
-			{
-				DrawAmmoStats(gpItemDescObject);
-			}
-			else if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_EXPLOSV )
-			{
-				DrawExplosiveStats(gpItemDescObject);
-			}
-			else if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_ARMOUR )
-			{
-				DrawArmorStats(gpItemDescObject);
-			}
-			else
-			{
-				DrawMiscStats(gpItemDescObject);
-			}
-		}
-		else
-		{
-			if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_GUN || Item[ gpItemDescObject->usItem ].usItemClass & IC_LAUNCHER )
-			{
-				// display bullets for ROF
-				if ( !Weapon[gpItemDescObject->usItem].NoSemiAuto )
-					BltVideoObjectFromIndex( guiSAVEBUFFER, guiBullet, 0, BULLET_SING_X, BULLET_SING_Y, VO_BLT_SRCTRANSPARENCY, NULL );
-
-				if (GetShotsPerBurst(gpItemDescObject) > 0)
-				{
-					for ( cnt = 0; cnt < __min(GetShotsPerBurst(gpItemDescObject),12); cnt++ )
-					{
-						BltVideoObjectFromIndex( guiSAVEBUFFER, guiBullet, 0, BULLET_BURST_X + cnt * (BULLET_WIDTH/2 + 1), BULLET_BURST_Y, VO_BLT_SRCTRANSPARENCY, NULL );
-					}
-				}
-				else if ( GetAutofireShotsPerFiveAPs(gpItemDescObject) > 0 )
-				{
-					for ( cnt = 0; cnt < 10; cnt++ )
-					{
-						BltVideoObjectFromIndex( guiSAVEBUFFER, guiBullet, 0, BULLET_BURST_X + cnt * (BULLET_WIDTH/2 + 1), BULLET_BURST_Y, VO_BLT_SRCTRANSPARENCY, NULL );
-					}
-				}
-
-			}
-		}
-
-		if(guiCurrentItemDescriptionScreen == SHOPKEEPER_SCREEN)
-		{
-			RestoreExternBackgroundRect( gsInvDescX, gsInvDescY, ITEMDESC_WIDTH, ITEMDESC_HEIGHT );
-			//RestoreExternBackgroundRect( gsInvDescX, gsInvDescY, 320, 135 );
-		}
-		else
-			RestoreExternBackgroundRect( SM_ITEMDESC_START_X, SM_ITEMDESC_START_Y, ITEMDESC_WIDTH, ITEMDESC_HEIGHT );
-
-		// CHRISL: This block will display misc information for items stored in LBE Pockets
-		// Display LBENODE attached items
-		if(UsingNewInventorySystem() == true && Item[gpItemDescObject->usItem].usItemClass == IC_LBEGEAR)
-		{
-			RenderLBENODEItems( gpItemDescObject, gubItemDescStatusIndex );
-		}
-
-		// Render font desc
-		SetFont( ITEMDESC_FONT );
-		SetFontBackground( FONT_MCOLOR_BLACK );
-		SetFontForeground( FONT_FCOLOR_WHITE );
-		SetFontShadow( ITEMDESC_FONTSHADOW3 );
-
-		// Render name
-		// SET CLIPPING RECT FOR FONTS
-		#ifdef JA2TESTVERSION
-			mprintf( ITEMDESC_NAME_X, ITEMDESC_NAME_Y, L"%s (%d)", gzItemName, gpItemDescObject->usItem );
-		#else
-			mprintf( ITEMDESC_NAME_X, ITEMDESC_NAME_Y, L"%s", gzItemName );
-		#endif
-
-		// Render "normal" item data
-		SetFontForeground( FONT_BLACK );
-		SetFontShadow( ITEMDESC_FONTSHADOW2 );
-
-		DisplayWrappedString( (INT16)ITEMDESC_DESC_START_X, (INT16)ITEMDESC_DESC_START_Y, ITEMDESC_DESC_WIDTH, 2, ITEMDESC_FONT, FONT_BLACK,  gzItemDesc, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
-
-		if ( ITEM_PROS_AND_CONS( gpItemDescObject->usItem ) )
-		{
-			if ( ( Item[gpItemDescObject->usItem].fingerprintid ) && (*gpItemDescObject)[gubItemDescStatusIndex]->data.ubImprintID < NO_PROFILE )
-			{
-				// add name noting imprint
-				swprintf( pStr, L"%s %s (%s)", AmmoCaliber[ Weapon[ gpItemDescObject->usItem ].ubCalibre ], WeaponType[ Weapon[ gpItemDescObject->usItem ].ubWeaponType ], gMercProfiles[ (*gpItemDescObject)[gubItemDescStatusIndex]->data.ubImprintID ].zNickname );
-			}
-			else
-			{
-				swprintf( pStr, L"%s %s", AmmoCaliber[ Weapon[ gpItemDescObject->usItem ].ubCalibre ], WeaponType[ Weapon[ gpItemDescObject->usItem ].ubWeaponType ] );
-			}
-
-			FindFontRightCoordinates( (INT16) ITEMDESC_CALIBER_X, (INT16) ITEMDESC_CALIBER_Y, ITEMDESC_CALIBER_WIDTH, ITEM_STATS_HEIGHT, pStr, ITEMDESC_FONT, &usX, &usY);
-			mprintf( usX, usY, pStr );
-
-			SetFontForeground( FONT_MCOLOR_DKWHITE2 );
-			SetFontShadow( ITEMDESC_FONTSHADOW3 );
-			mprintf( (INT16)ITEMDESC_PROS_START_X, (INT16)ITEMDESC_PROS_START_Y, gzProsLabel );
-
-			// HEADROCK: Disabled PROs/CONs text for OIV EDB Tactical
-			if (UsingEDBSystem() != 2)
-			{
-				sProsConsIndent = __max( StringPixLength( gzProsLabel, ITEMDESC_FONT ), StringPixLength( gzConsLabel, ITEMDESC_FONT ) ) + 10;
-
-				gzItemPros[0] = 0;
-				GenerateProsString( gzItemPros, gpItemDescObject, ITEMDESC_DESC_WIDTH - sProsConsIndent - StringPixLength( DOTDOTDOT, ITEMDESC_FONT ) );
-				if (gzItemPros[0] != 0)
-				{
-					SetFontForeground( FONT_BLACK );
-					SetFontShadow( ITEMDESC_FONTSHADOW2 );
-					DisplayWrappedString( (INT16)(ITEMDESC_PROS_START_X + sProsConsIndent), (INT16)ITEMDESC_PROS_START_Y, (INT16)(ITEMDESC_DESC_WIDTH - sProsConsIndent), 2, ITEMDESC_FONT, FONT_BLACK,  gzItemPros, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
-				}
-			}
-
-			SetFontForeground( FONT_MCOLOR_DKWHITE2 );
-			SetFontShadow( ITEMDESC_FONTSHADOW3 );
-			mprintf( (INT16)ITEMDESC_CONS_START_X, (INT16)ITEMDESC_CONS_START_Y, gzConsLabel );
-			if (UsingEDBSystem() != 2)
-			{
-				GenerateConsString( gzItemCons, gpItemDescObject, ITEMDESC_DESC_WIDTH - sProsConsIndent - StringPixLength( DOTDOTDOT, ITEMDESC_FONT ) );
-				if (gzItemCons[0] != 0)
-				{
-					SetFontForeground( FONT_BLACK );
-					SetFontShadow( ITEMDESC_FONTSHADOW2 );
-					DisplayWrappedString( (INT16)(ITEMDESC_CONS_START_X + sProsConsIndent), (INT16)ITEMDESC_CONS_START_Y, (INT16)(ITEMDESC_DESC_WIDTH - sProsConsIndent), 2, ITEMDESC_FONT, FONT_BLACK,  gzItemCons, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
-				}
-			}
-		}
-
-
-		// Get length of string
-		uiRightLength=35;
-
-		//////////////////////////////////////////////////////////////////////////////
-		// DATA VALUES
-		// This segment combines the printing of "equals" signs and actual characteristic
-		// data for each characterstic displayed. Labels are no longer used for most data, 
-		// they are replaced by icons, which have already been blitted above.
-		//////////////////////////////////////////////////////////////////////////////
-
-		// We begin by printing out data for ALL items, namely status and weight.
-
-		SetFont( BLOCKFONT2 );
-		SetFontForeground( 6 );
-		SetFontShadow( DEFAULT_SHADOW );
-
-		// For ammo, capacity replaces status. Money and Keys do not get a status display at all.
-		if ( Item[ gpItemDescObject->usItem ].usItemClass != IC_AMMO && Item[ gpItemDescObject->usItem ].usItemClass != IC_MONEY )
-		{
-			// STATUS
-			// label
-			mprintf( gWeaponStats[ 0 ].sX + gsInvDescX, gWeaponStats[ 0 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 0 ] );
-			SetFontForeground( 5 );
-			// print value
-			// This is gross, but to get the % to work out right...
-			swprintf( pStr, L"%2d%%", status);
-			if (UsingEDBSystem() == 2)
-			{
-				FindFontRightCoordinates( (INT16)(gWeaponStats[ 0 ].sX + gsInvDescX + gWeaponStats[ 0 ].sValDx), (INT16)(gWeaponStats[ 0 ].sY + gsInvDescY + 12), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-			}
-			else
-			{
-				FindFontRightCoordinates( (INT16)(gWeaponStats[ 0 ].sX + gsInvDescX + gWeaponStats[ 0 ].sValDx), (INT16)(gWeaponStats[ 0 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-			}
-			wcscat( pStr, L"%%" );
-			mprintf( usX, usY, pStr );
-		}
-
-		if(Item[ gpItemDescObject->usItem ].usItemClass != IC_MONEY)
-		{
-			// WEIGHT 
-			SetFontForeground( 6 );
-			swprintf( sTempString, gWeaponStatsDesc[ 1 ], GetWeightUnitString() );
-			mprintf( gWeaponStats[ 1 ].sX + gsInvDescX, gWeaponStats[ 1 ].sY + gsInvDescY, sTempString );
-
-			// Calculate total weight of item and attachments
-			fWeight = gpItemDescObject->GetWeightOfObjectInStack(gubItemDescStatusIndex) / 10.0f;
-			if ( !gGameSettings.fOptions[ TOPTION_USE_METRIC_SYSTEM ] ) // metric units not enabled
-			{
-				fWeight = fWeight * 2.2f;
-			}
-			if ( fWeight < 0.1 && gubItemDescStatusIndex < gpItemDescObject->ubNumberOfObjects )
-			{
-				fWeight = 0.1f;
-			}
-			// Values
-			if (fWeight <= (EXCEPTIONAL_WEIGHT / 10) && Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON )
-			{
-				SetFontForeground( ITEMDESC_FONTHIGHLIGHT );
-			}
-			else
-			{
-				SetFontForeground( 5 );
-			}
-			//Wieght
-			swprintf( pStr, L"%1.1f", fWeight );
-			if (UsingEDBSystem() == 2)
-			{
-				FindFontRightCoordinates( (INT16)(gWeaponStats[ 1 ].sX + gsInvDescX + gWeaponStats[ 1 ].sValDx), (INT16)(gWeaponStats[ 1 ].sY + gsInvDescY + 12 ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-			}
-			else
-			{
-				FindFontRightCoordinates( (INT16)(gWeaponStats[ 1 ].sX + gsInvDescX + gWeaponStats[ 1 ].sValDx), (INT16)(gWeaponStats[ 1 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-			}
-			mprintf( usX, usY, pStr );
-		}
-
-		/////////////////////////////////////////
-		// BEGIN WEAPONS-SPECIFIC CHARACTERISTICS
-		/////////////////////////////////////////
-		if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_WEAPON || Item[ gpItemDescObject->usItem ].usItemClass & IC_PUNCH )
-		{
-			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_LAUNCHER|IC_THROWING_KNIFE) )
-			{
-				// RANGE
-				SetFontForeground( 6 );
-				if(UsingEDBSystem() > 0)
-					mprintf( gWeaponStats[ 23 ].sX + gsInvDescX, gWeaponStats[ 23 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 8 ] );
-				else
-					mprintf( gWeaponStats[ 2 ].sX + gsInvDescX, gWeaponStats[ 2 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 3 ] );
-
-				if ( GunRange( gpItemDescObject ) >= EXCEPTIONAL_RANGE)
-				{
-					SetFontForeground( ITEMDESC_FONTHIGHLIGHT );
-				}
-				else
-				{
-					SetFontForeground( 5 );
-				}
-				swprintf( pStr, L"%2d", ( GunRange( gpItemDescObject ) ) / 10 );
-				FindFontRightCoordinates( (INT16)(gWeaponStats[ 2 ].sX + gsInvDescX + gWeaponStats[ 2 ].sValDx), (INT16)(gWeaponStats[ 2 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-			}
-			if ( Item[ gpItemDescObject->usItem ].usItemClass & (IC_GUN|IC_PUNCH|IC_BLADE|IC_THROWING_KNIFE) && !Item[ gpItemDescObject->usItem ].singleshotrocketlauncher )
-			{
-				// DAMAGE
-				SetFontForeground( 6 );
-				if(UsingEDBSystem() > 0)
-					mprintf( gWeaponStats[ 24 ].sX + gsInvDescX, gWeaponStats[ 24 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 8 ] );
-				else
-					mprintf( gWeaponStats[ 3 ].sX + gsInvDescX, gWeaponStats[ 3 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 4 ] );
-
-				UINT8 ubImpact = GetDamage(gpItemDescObject);
-
-				if ( ubImpact  >= EXCEPTIONAL_DAMAGE)
-				{
-					SetFontForeground( ITEMDESC_FONTHIGHLIGHT );
-				}
-				else
-				{
-					SetFontForeground( 5 );
-				}
-
-				//Damage
-				swprintf( pStr, L"%2d", ubImpact );
-				FindFontRightCoordinates( (INT16)(gWeaponStats[ 3 ].sX + gsInvDescX + gWeaponStats[ 3 ].sValDx), (INT16)(gWeaponStats[ 3 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-				mprintf( usX, usY, pStr );
-			}
-
-			if(UsingEDBSystem() > 0)
-				DrawWeaponValues(gpItemDescObject);
-			else
-			{
-				//LABELS
-				SetFontForeground( 6 );
-				mprintf( gWeaponStats[ 5 ].sX + gsInvDescX, gWeaponStats[ 5 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 6 ] );
-				if ( Item[ gpItemDescObject->usItem ].usItemClass & IC_GUN || Item[ gpItemDescObject->usItem ].usItemClass & IC_LAUNCHER )
-				{
-					if ( !Weapon[gpItemDescObject->usItem].NoSemiAuto )
-						mprintf( gWeaponStats[ 7 ].sX + gsInvDescX, gWeaponStats[ 7 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 7 ] );
-				}
-
-				if (GetShotsPerBurst(gpItemDescObject) > 0 || GetAutofireShotsPerFiveAPs(gpItemDescObject))
-				{
-					mprintf( gWeaponStats[ 8 ].sX + gsInvDescX, gWeaponStats[ 8 ].sY + gsInvDescY, L"%s", gWeaponStatsDesc[ 8 ] );
-				}
-
-				ubAttackAPs = BaseAPsToShootOrStab( APBPConstants[DEFAULT_APS], APBPConstants[DEFAULT_AIMSKILL], gpItemDescObject );
-
-				if (ubAttackAPs <= EXCEPTIONAL_AP_COST)
-				{
-					SetFontForeground( ITEMDESC_FONTHIGHLIGHT );
-				}
-				else
-				{
-					SetFontForeground( 5 );
-				}
-
-				if ( !Weapon[gpItemDescObject->usItem].NoSemiAuto )
-				{
-					swprintf( pStr, L"%2d", ubAttackAPs );
-					FindFontRightCoordinates( (INT16)(gWeaponStats[ 5 ].sX + gsInvDescX + gWeaponStats[ 5 ].sValDx), (INT16)(gWeaponStats[ 5 ].sY + gsInvDescY ), ITEM_STATS_WIDTH, ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-					mprintf( usX, usY, pStr );
-				}
-
-				if (GetShotsPerBurst(gpItemDescObject)> 0)
-				{
-					if (GetShotsPerBurst(gpItemDescObject) >= EXCEPTIONAL_BURST_SIZE )//|| gpItemDescObject->usItem == G11)
-					{
-						SetFontForeground( ITEMDESC_FONTHIGHLIGHT );
-					}
-					else
-					{
-						SetFontForeground( 5 );
-					}
-
-					swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpItemDescObject ) );
-					FindFontRightCoordinates( (INT16)(gWeaponStats[ 6 ].sX + gsInvDescX + gWeaponStats[ 6 ].sValDx), (INT16)(gWeaponStats[ 6 ].sY + gsInvDescY ), ITEM_STATS_WIDTH, ITEM_STATS_HEIGHT, pStr, BLOCKFONT2, &usX, &usY );
-					mprintf( usX, usY, pStr );
-				}
-				else if (GetAutofireShotsPerFiveAPs(gpItemDescObject)> 0)
-				{
-					SetFontForeground( 5 );
-					swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToBurst( APBPConstants[DEFAULT_APS], gpItemDescObject ) );
-					FindFontRightCoordinates( (INT16)(gWeaponStats[ 6 ].sX + gsInvDescX + gWeaponStats[ 6 ].sValDx), (INT16)(gWeaponStats[ 6 ].sY + gsInvDescY ), ITEM_STATS_WIDTH, ITEM_STATS_HEIGHT, pStr, BLOCKFONT2, &usX, &usY );
+					swprintf( pStr, L"%2d", ubAttackAPs + CalcAPsToAutofire( APBPConstants[DEFAULT_APS], gpItemDescObject, 3 ) );
+					FindFontRightCoordinates( (INT16)(gWeaponStats[ 6 ].sX + gsInvDescX + gWeaponStats[ 6 ].sValDx), (INT16)(gWeaponStats[ 6 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 					mprintf( usX, usY, pStr );
 				}
 			}
@@ -4872,14 +4237,12 @@ void RenderItemDescriptionBox( )
 			SetFontForeground( 6 );
 
 			//Display the 'Seperate text'
-
-			//if the player is removing money from the players account
 			if( gfAddingMoneyToMercFromPlayersAccount )
 				mprintf( (UINT16)(gMoneyButtonLoc.x + gMoneyButtonOffsets[4].x), (UINT16)(gMoneyButtonLoc.y + gMoneyButtonOffsets[4].y), gzMoneyAmounts[5] );
 			else
-				mprintf( (UINT16)(gMoneyButtonLoc.x + gMoneyButtonOffsets[4].x), (UINT16)(gMoneyButtonLoc.y + gMoneyButtonOffsets[4].y), gzMoneyAmounts[4] );
+				mprintf( (UINT16)(gMoneyButtonLoc.x + gMoneyButtonOffsets[4].x), (UINT16)(gMoneyButtonLoc.y + gMoneyButtonOffsets[4].y ), gzMoneyAmounts[4] );
 
-			// if the player is taking money from their account
+			//if the player is removing money from the players account
 			if( gfAddingMoneyToMercFromPlayersAccount )
 			{
 				//Display the 'Removing'
@@ -4890,12 +4253,10 @@ void RenderItemDescriptionBox( )
 			else
 			{
 				//Display the 'Removing'
-				mprintf( gMoneyStats[ 0 ].sX + gsInvDescX, gMoneyStats[ 0 ].sY + gsInvDescY, L"%s", gMoneyStatsDesc[ 0 ] );
+				mprintf( gMoneyStats[ 0 ].sX + gsInvDescX, gMoneyStats[ 0 ].sY + gsInvDescY, L"%s", gMoneyStatsDesc[ MONEY_DESC_AMOUNT ] );
 				//Display the 'REmaining'
-				mprintf( gMoneyStats[ 2 ].sX + gsInvDescX, gMoneyStats[ 2 ].sY + gsInvDescY, L"%s", gMoneyStatsDesc[ 2 ] );
+				mprintf( gMoneyStats[ 2 ].sX + gsInvDescX, gMoneyStats[ 2 ].sY + gsInvDescY, L"%s", gMoneyStatsDesc[ MONEY_DESC_AMOUNT_2_SPLIT ] );
 			}
-
-			SetFontForeground( 6 );
 
 			// if the player is taking money from their account
 			if( gfAddingMoneyToMercFromPlayersAccount )
@@ -4908,26 +4269,35 @@ void RenderItemDescriptionBox( )
 			else
 			{
 				//Display the 'Amt removing'
-				mprintf( gMoneyStats[ 1 ].sX + gsInvDescX, gMoneyStats[ 1 ].sY + gsInvDescY, L"%s", gMoneyStatsDesc[ 1 ] );
+				mprintf( gMoneyStats[ 1 ].sX + gsInvDescX, gMoneyStats[ 1 ].sY + gsInvDescY, L"%s", gMoneyStatsDesc[ MONEY_DESC_REMAINING ] );
 				//Display the 'REmaining amount'
-				mprintf( gMoneyStats[ 3 ].sX + gsInvDescX, gMoneyStats[ 3 ].sY + gsInvDescY, L"%s", gMoneyStatsDesc[ 3 ] );
+				mprintf( gMoneyStats[ 3 ].sX + gsInvDescX, gMoneyStats[ 3 ].sY + gsInvDescY, L"%s", gMoneyStatsDesc[ MONEY_DESC_TO_SPLIT ] );
 			}
 
-			// Values
-			SetFontForeground( 5 );
-
 			//Display the total amount of money remaining
+			SetFontForeground( 5 );
 			swprintf( pStr, L"%ld", gRemoveMoney.uiMoneyRemaining );
 			InsertCommasForDollarFigure( pStr );
 			InsertDollarSignInToString( pStr );
-			FindFontRightCoordinates( (INT16)(gMoneyStats[ 1 ].sX + gsInvDescX + gMoneyStats[ 1 ].sValDx), (INT16)(gMoneyStats[ 1 ].sY + gsInvDescY ), (UINT16)(ITEM_STATS_WIDTH-3),ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+			if( guiCurrentItemDescriptionScreen != MAP_SCREEN )
+				FindFontRightCoordinates( (INT16)(gMoneyStats[ 1 ].sX + gsInvDescX + gMoneyStats[ 1 ].sValDx), (INT16)(gMoneyStats[ 1 ].sY + gsInvDescY ), (UINT16)(ITEM_STATS_WIDTH-3) ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+			else if(UsingEDBSystem() > 0)
+				FindFontRightCoordinates( (INT16)(gMoneyStats[ 4 ].sX + gsInvDescX + gMoneyStats[ 4 ].sValDx), (INT16)(gMoneyStats[ 4 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+			else
+				FindFontRightCoordinates( (INT16)(gMoneyStats[ 1 ].sX + gsInvDescX + gMoneyStats[ 1 ].sValDx), (INT16)(gMoneyStats[ 1 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY, pStr );
 
 			//Display the total amount of money removing
+			SetFontForeground( 5 );
 			swprintf( pStr, L"%ld", gRemoveMoney.uiMoneyRemoving );
 			InsertCommasForDollarFigure( pStr );
 			InsertDollarSignInToString( pStr );
-			FindFontRightCoordinates( (INT16)(gMoneyStats[ 3 ].sX + gsInvDescX + gMoneyStats[ 3 ].sValDx), (INT16)(gMoneyStats[ 3 ].sY + gsInvDescY), (UINT16)(ITEM_STATS_WIDTH-3) ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+			if( guiCurrentItemDescriptionScreen != MAP_SCREEN )
+				FindFontRightCoordinates( (INT16)(gMoneyStats[ 3 ].sX + gsInvDescX + gMoneyStats[ 3 ].sValDx), (INT16)(gMoneyStats[ 3 ].sY + gsInvDescY), (UINT16)(ITEM_STATS_WIDTH-3) ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+			else if(UsingEDBSystem() > 0)
+				FindFontRightCoordinates( (INT16)(gMoneyStats[ 5 ].sX + gsInvDescX + gMoneyStats[ 5 ].sValDx), (INT16)(gMoneyStats[ 5 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+			else
+				FindFontRightCoordinates( (INT16)(gMoneyStats[ 3 ].sX + gsInvDescX + gMoneyStats[ 3 ].sValDx), (INT16)(gMoneyStats[ 3 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY, pStr );
 		}
 		else if ( Item[ gpItemDescObject->usItem ].usItemClass == IC_MONEY )
@@ -4937,18 +4307,15 @@ void RenderItemDescriptionBox( )
 			swprintf( pStr, L"%ld", (*gpItemDescObject)[gubItemDescStatusIndex]->data.money.uiMoneyAmount );
 			InsertCommasForDollarFigure( pStr );
 			InsertDollarSignInToString( pStr );
-
-			if ( UsingEDBSystem() == 2 )
-			{
+			if( guiCurrentItemDescriptionScreen == MAP_SCREEN )
+				FindFontRightCoordinates( (INT16)(ITEMDESC_NAME_X), (INT16)(ITEMDESC_NAME_Y ), 245, ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
+			else if ( UsingEDBSystem() > 0 )
 				FindFontRightCoordinates( (INT16) ITEMDESC_CALIBER_X, (INT16) ITEMDESC_CALIBER_Y, ITEMDESC_CALIBER_WIDTH, ITEM_STATS_HEIGHT, pStr, ITEMDESC_FONT, &usX, &usY);
-			}
 			else
-			{
-				FindFontRightCoordinates( (INT16)(ITEMDESC_NAME_X), (INT16)(ITEMDESC_NAME_Y ), 295,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
-			}
+				FindFontRightCoordinates( (INT16)(ITEMDESC_NAME_X), (INT16)(ITEMDESC_NAME_Y ), 295, ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &usX, &usY);
 			mprintf( usX, usY, pStr );
 		}
-		else if( ( InKeyRingPopup() == TRUE ) || ( Item[ gpItemDescObject->usItem ].usItemClass & IC_KEY ) )
+		else if ( ( InKeyRingPopup() == TRUE ) || ( Item[ gpItemDescObject->usItem ].usItemClass & IC_KEY ) )
 		{
 			SetFontForeground( 6 );
 
@@ -4977,7 +4344,12 @@ void RenderItemDescriptionBox( )
 			swprintf( pStr, L"%s", sTempString );
 			if(UsingEDBSystem() > 0)
 			{
-				if (UsingEDBSystem() == 1)
+				if( guiCurrentItemDescriptionScreen == MAP_SCREEN )
+				{
+					FindFontRightCoordinates( (INT16)(gMiscItemStatsEDB[ 15 ].sX + gsInvDescX + gMiscItemStatsEDB[ 15 ].sValDx), (INT16)(gMiscItemStatsEDB[ 15 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
+					mprintf( sStrX, gMiscItemStatsEDB[ 15 ].sY + gsInvDescY, pStr );
+				}
+				else if (UsingEDBSystem() == 1)
 				{
 					FindFontRightCoordinates( (INT16)(gMiscItemStatsEDB[ 12 ].sX + gsInvDescX + gMiscItemStatsEDB[ 12 ].sValDx), (INT16)(gMiscItemStatsEDB[ 12 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
 					mprintf( sStrX, gMiscItemStatsEDB[ 12 ].sY + gsInvDescY, pStr );
@@ -4997,7 +4369,12 @@ void RenderItemDescriptionBox( )
 			swprintf( pStr, L"%d", KeyTable[ (*gpItemDescObject)[gubItemDescStatusIndex]->data.key.ubKeyID ].usDateFound );
 			if(UsingEDBSystem() > 0)
 			{
-				if (UsingEDBSystem() == 1)
+				if( guiCurrentItemDescriptionScreen == MAP_SCREEN )
+				{
+					FindFontRightCoordinates( (INT16)(gMiscItemStatsEDB[ 18 ].sX + gsInvDescX + gMiscItemStatsEDB[ 18 ].sValDx), (INT16)(gMiscItemStatsEDB[ 18 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
+					mprintf( sStrX, gMiscItemStatsEDB[ 18 ].sY + gsInvDescY, pStr );
+				}
+				else if (UsingEDBSystem() == 1)
 				{				
 					FindFontRightCoordinates( (INT16)(gMiscItemStatsEDB[ 15 ].sX + gsInvDescX + gMiscItemStatsEDB[ 15 ].sValDx), (INT16)(gMiscItemStatsEDB[ 13 ].sY + gsInvDescY ), ITEM_STATS_WIDTH ,ITEM_STATS_HEIGHT ,pStr, BLOCKFONT2, &sStrX, &usY);
 					mprintf( sStrX, gMiscItemStatsEDB[ 15 ].sY + gsInvDescY, pStr );
@@ -5055,11 +4432,8 @@ void RenderItemDescriptionBox( )
 					DrawMiscValues(gpItemDescObject);
 			}
 		}
-
 		SetFontShadow( DEFAULT_SHADOW );
-
 	}
-
 }
 
 // CHRISL: New function to display items stored in an LBENODE

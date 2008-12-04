@@ -264,6 +264,7 @@ extern INV_DESC_STATS gWeaponStats[];
 extern INV_DESC_STATS gMoneyStats[];
 extern SGPRect gItemDescProsConsRects[];
 extern INV_DESC_STATS gLBEStats[];
+extern INV_ATTACHXY gItemDescAttachmentsXY[];
 
 // HEADROCK: New array to contain locations for MiscItem stats.
 INV_DESC_STATS gMiscItemStatsEDB[28];
@@ -291,7 +292,7 @@ UINT8 UsingEDBSystem()
 		return 0;
 	if(gGameSettings.fOptions[ TOPTION_ENHANCED_DESC_BOX ] == TRUE)
 	{
-		if(guiCurrentScreen ==MAP_SCREEN)	//Strategic
+		if(guiCurrentScreen == MAP_SCREEN)	//Strategic
 		{
 			if(gGameExternalOptions.fEnhancedDescriptionBox == 0)
 				return 1;
@@ -735,14 +736,40 @@ void InitEDBCoords()
 	}
 }
 
+void SetupItemDescAttachmentsXY(UINT8 ID, INT16 sX, INT16 sY, INT16 sHeight, INT16 sWidth, INT16 sBarDx, INT16 sBarDy)
+{
+	gItemDescAttachmentsXY[ID].sX		= sX;
+	gItemDescAttachmentsXY[ID].sY		= sY;
+	gItemDescAttachmentsXY[ID].sHeight	= sHeight;
+	gItemDescAttachmentsXY[ID].sWidth	= sWidth;
+	gItemDescAttachmentsXY[ID].sBarDx	= sBarDx;
+	gItemDescAttachmentsXY[ID].sBarDy	= sBarDy;
+}
+
 void InitDescStatCoords()
 {
+	if( guiCurrentScreen == MAP_SCREEN )
+	{
+		SetupItemDescAttachmentsXY(0, 175,  9, SM_INV_SLOT_HEIGHT, ATTACH_SLOT_WIDTH, INV_BAR_DX-9, INV_BAR_DY);
+		SetupItemDescAttachmentsXY(1, 213,  9, SM_INV_SLOT_HEIGHT, ATTACH_SLOT_WIDTH, INV_BAR_DX-9, INV_BAR_DY);
+		SetupItemDescAttachmentsXY(2, 175, 37, SM_INV_SLOT_HEIGHT, ATTACH_SLOT_WIDTH, INV_BAR_DX-9, INV_BAR_DY);
+		SetupItemDescAttachmentsXY(3, 213, 37, SM_INV_SLOT_HEIGHT, ATTACH_SLOT_WIDTH, INV_BAR_DX-9, INV_BAR_DY);
+	}
+	else
+	{
+		SetupItemDescAttachmentsXY(0, 133, 11, SM_INV_SLOT_HEIGHT, ATTACH_SLOT_WIDTH, INV_BAR_DX-8, INV_BAR_DY+1);
+		SetupItemDescAttachmentsXY(1, 167, 11, SM_INV_SLOT_HEIGHT, ATTACH_SLOT_WIDTH, INV_BAR_DX-8, INV_BAR_DY+1);
+		SetupItemDescAttachmentsXY(2, 133, 38, SM_INV_SLOT_HEIGHT, ATTACH_SLOT_WIDTH, INV_BAR_DX-8, INV_BAR_DY+1);
+		SetupItemDescAttachmentsXY(3, 167, 38, SM_INV_SLOT_HEIGHT, ATTACH_SLOT_WIDTH, INV_BAR_DX-8, INV_BAR_DY+1);
+	}
+
 	if(UsingEDBSystem() > 0)
 	{
 		if( guiCurrentScreen == MAP_SCREEN )
 		{
-			gWeaponStats[0].sX = 52;	gWeaponStats[0].sY = 98;	gWeaponStats[0].sValDx = 70;	// 0) STATUS
-			gWeaponStats[1].sX = 52;	gWeaponStats[1].sY = 108;	gWeaponStats[1].sValDx = 70;	// 1) WEIGHT
+			gWeaponStats[0].sX = 52;	gWeaponStats[0].sY = 98;	gWeaponStats[0].sValDx = 76;	// 0) STATUS
+			gWeaponStats[1].sX = 52;	gWeaponStats[1].sY = 108;	gWeaponStats[1].sValDx = 76;	// 1) WEIGHT
+			// Labels and Values
 			gWeaponStats[2].sX = 47;	gWeaponStats[2].sY = 124;	gWeaponStats[2].sValDx = 30;	// 2) COL 1; ROW 1
 			gWeaponStats[3].sX = 47;	gWeaponStats[3].sY = 136;	gWeaponStats[3].sValDx = 30;	// 3) COL 1; ROW 2
 			gWeaponStats[4].sX = 47;	gWeaponStats[4].sY = 148;	gWeaponStats[4].sValDx = 30;	// 4) COL 1; ROW 3
@@ -935,8 +962,8 @@ void InitDescStatCoords()
 	{
 		if(guiCurrentScreen ==MAP_SCREEN)
 		{
-			gWeaponStats[0].sX = 52;	gWeaponStats[0].sY = 98;	gWeaponStats[0].sValDx = 80;	// 0) STATUS
-			gWeaponStats[1].sX = 52;	gWeaponStats[1].sY = 108;	gWeaponStats[1].sValDx = 80;	// 1) WEIGHT
+			gWeaponStats[0].sX = 52;	gWeaponStats[0].sY = 98;	gWeaponStats[0].sValDx = 89;	// 0) STATUS
+			gWeaponStats[1].sX = 52;	gWeaponStats[1].sY = 108;	gWeaponStats[1].sValDx = 89;	// 1) WEIGHT
 			gWeaponStats[2].sX = 117;	gWeaponStats[2].sY = 124;	gWeaponStats[2].sValDx = 21;	// 2) RANGE
 			gWeaponStats[3].sX = 52;	gWeaponStats[3].sY = 124;	gWeaponStats[3].sValDx = 30;	// 3) DAMAGE
 			gWeaponStats[4].sX = 52;	gWeaponStats[4].sY = 98;	gWeaponStats[4].sValDx = 80;
@@ -1434,28 +1461,51 @@ void InitItemDescriptionBoxOffsets()
 			BULLET_COL2ROW6_Y = (184 + gsInvDescY);
 			BULLET_COL2ROW7_X = (144 + gsInvDescX);
 			BULLET_COL2ROW7_Y = (196 + gsInvDescY);
+
+			ITEMDESC_CALIBER_X		= (105 + gsInvDescX);
+			ITEMDESC_CALIBER_Y		= ( 66 + gsInvDescY);
+			ITEMDESC_CALIBER_WIDTH	= 149;
+			ITEMDESC_NAME_X			= (  7 + gsInvDescX);
+			ITEMDESC_NAME_Y			= ( 65 + gsInvDescY);
+			ITEMDESC_ITEM_X			= ( 25 + gsInvDescX);
+			ITEMDESC_ITEM_Y			= (  6 + gsInvDescY);
 			// END ICONS SEGMENT
-			ITEMDESC_DESC_START_X	=	( 23 + gsInvDescX );
-			ITEMDESC_DESC_START_Y	=	(230 + gsInvDescY);
-			ITEMDESC_PROS_START_X	=	( 23 + gsInvDescX );
-			ITEMDESC_PROS_START_Y	=	(290 + gsInvDescY);
-			ITEMDESC_CONS_START_X	=	( 23 + gsInvDescX );
-			ITEMDESC_CONS_START_Y	=	(300 + gsInvDescY);
+			ITEMDESC_DESC_START_X	= ( 23 + gsInvDescX );
+			ITEMDESC_DESC_START_Y	= (230 + gsInvDescY);
+			ITEMDESC_PROS_START_X	= ( 23 + gsInvDescX );
+			ITEMDESC_PROS_START_Y	= (290 + gsInvDescY);
+			ITEMDESC_CONS_START_X	= ( 23 + gsInvDescX );
+			ITEMDESC_CONS_START_Y	= (300 + gsInvDescY);
+			ITEMDESC_DESC_WIDTH		= 220;
+			ITEMDESC_ITEM_STATUS_X	= ( 18 + gsInvDescX );
+			ITEMDESC_ITEM_STATUS_Y	= ( 53 + gsInvDescY );
+			ITEMDESC_ITEM_STATUS_HEIGHT	= 40;
 		}
 		else
 		{
 			// STRATEGIC Description Box Icon locations
-			BULLET_SING_X				= (77 + gsInvDescX);
-			BULLET_SING_Y				= (135 + gsInvDescY);
+			BULLET_SING_X			= ( 77 + gsInvDescX);
+			BULLET_SING_Y			= (135 + gsInvDescY);
 			BULLET_BURST_X			= (117 + gsInvDescX);
 			BULLET_BURST_Y			= (135 + gsInvDescY);
+			ITEMDESC_CALIBER_X		= (105 + gsInvDescX);
+			ITEMDESC_CALIBER_Y		= ( 66 + gsInvDescY);
+			ITEMDESC_CALIBER_WIDTH	= 149;
+			ITEMDESC_NAME_X			= (  7 + gsInvDescX);
+			ITEMDESC_NAME_Y			= ( 65 + gsInvDescY);
+			ITEMDESC_ITEM_X			= ( 25 + gsInvDescX);
+			ITEMDESC_ITEM_Y			= (  6 + gsInvDescY);
 			// END ICONS SEGMENT
-			ITEMDESC_DESC_START_X	=	( 23 + gsInvDescX ); // Description Text Box, Strategic
-			ITEMDESC_DESC_START_Y	=	(170 + gsInvDescY);
-			ITEMDESC_PROS_START_X	=	( 23 + gsInvDescX ); // Pros, Strategic
-			ITEMDESC_PROS_START_Y	=	(230 + gsInvDescY);
-			ITEMDESC_CONS_START_X	=	( 23 + gsInvDescX ); // Cons, Strategic
-			ITEMDESC_CONS_START_Y	=	(240 + gsInvDescY);
+			ITEMDESC_DESC_START_X	= ( 23 + gsInvDescX ); // Description Text Box, Strategic
+			ITEMDESC_DESC_START_Y	= (170 + gsInvDescY);
+			ITEMDESC_PROS_START_X	= ( 23 + gsInvDescX ); // Pros, Strategic
+			ITEMDESC_PROS_START_Y	= (230 + gsInvDescY);
+			ITEMDESC_CONS_START_X	= ( 23 + gsInvDescX ); // Cons, Strategic
+			ITEMDESC_CONS_START_Y	= (240 + gsInvDescY);
+			ITEMDESC_DESC_WIDTH		= 220;
+			ITEMDESC_ITEM_STATUS_X	= ( 18 + gsInvDescX );
+			ITEMDESC_ITEM_STATUS_Y	= ( 53 + gsInvDescY );
+			ITEMDESC_ITEM_STATUS_HEIGHT	= 40;
 		}
 	}
 	else	//Tactical
@@ -1615,16 +1665,23 @@ void InitItemDescriptionBoxOffsets()
 			BULLET_COL1ROW11_Y =	(164 + gsInvDescY);
 			BULLET_COL1ROW12_X =	(203 + gsInvDescX);
 			BULLET_COL1ROW12_Y =	(176 + gsInvDescY);
-			ITEMDESC_CALIBER_X	=		(50 + gsInvDescX);
-			ITEMDESC_CALIBER_Y	=		(78 + gsInvDescY);
-			ITEMDESC_DESC_START_X	=	(11 + gsInvDescX);
-			ITEMDESC_DESC_START_Y	=	(94 + gsInvDescY);
-			ITEMDESC_PROS_START_X	=	( 11 + gsInvDescX );
-			ITEMDESC_PROS_START_Y	=	(168 + gsInvDescY);
-			ITEMDESC_CONS_START_X	=	( 11 + gsInvDescX );
-			ITEMDESC_CONS_START_Y	=	(178 + gsInvDescY);
-
+			ITEMDESC_CALIBER_X		= ( 50 + gsInvDescX);
+			ITEMDESC_CALIBER_Y		= ( 78 + gsInvDescY);
+			ITEMDESC_CALIBER_WIDTH	= 142;
+			ITEMDESC_NAME_X			= ( 16 + gsInvDescX);
+			ITEMDESC_NAME_Y			= ( 67 + gsInvDescY);
+			ITEMDESC_ITEM_X			= (  8 + gsInvDescX);
+			ITEMDESC_ITEM_Y			= ( 11 + gsInvDescY);
+			ITEMDESC_DESC_START_X	= ( 11 + gsInvDescX);
+			ITEMDESC_DESC_START_Y	= ( 94 + gsInvDescY);
+			ITEMDESC_PROS_START_X	= ( 11 + gsInvDescX );
+			ITEMDESC_PROS_START_Y	= (168 + gsInvDescY);
+			ITEMDESC_CONS_START_X	= ( 11 + gsInvDescX );
+			ITEMDESC_CONS_START_Y	= (178 + gsInvDescY);
 			ITEMDESC_DESC_WIDTH		=	180;
+			ITEMDESC_ITEM_STATUS_X	= (  6 + gsInvDescX );
+			ITEMDESC_ITEM_STATUS_Y	= ( 60 + gsInvDescY );
+			ITEMDESC_ITEM_STATUS_HEIGHT	= 50;
 		}
 		else if(UsingEDBSystem() == 2) // OIV EDB
 		{
@@ -1781,16 +1838,23 @@ void InitItemDescriptionBoxOffsets()
 			BULLET_COL1ROW11_Y =	(50 + gsInvDescY);
 			BULLET_COL1ROW12_X =	(375 + gsInvDescX);
 			BULLET_COL1ROW12_Y =	(62 + gsInvDescY);
-			ITEMDESC_CALIBER_X	=		(53 + gsInvDescX); // Caliber text moved two lines below item name, and pulled closer
-			ITEMDESC_CALIBER_Y	=		(78 + gsInvDescY);
-			ITEMDESC_DESC_START_X	=	(11 + gsInvDescX); // Description text Y moved downwards one line.
-			ITEMDESC_DESC_START_Y	=	(102 + gsInvDescY);
-			ITEMDESC_PROS_START_X	=	(438 + gsInvDescX ); // Pros and cons moved to the extreme right of the text box. They
-			ITEMDESC_PROS_START_Y	=	(106 + gsInvDescY);  // now show just the words "PROS" and "CONS", and have a tooltip
-			ITEMDESC_CONS_START_X	=	(438 + gsInvDescX ); // region over them for expanded text. :D
-			ITEMDESC_CONS_START_Y	=	(118 + gsInvDescY);
-
+			ITEMDESC_CALIBER_X		= ( 53 + gsInvDescX); // Caliber text moved two lines below item name, and pulled closer
+			ITEMDESC_CALIBER_Y		= ( 78 + gsInvDescY);
+			ITEMDESC_CALIBER_WIDTH	= 142;
+			ITEMDESC_NAME_X			= ( 16 + gsInvDescX);
+			ITEMDESC_NAME_Y			= ( 67 + gsInvDescY);
+			ITEMDESC_ITEM_X			= (  8 + gsInvDescX);
+			ITEMDESC_ITEM_Y			= ( 11 + gsInvDescY);
+			ITEMDESC_DESC_START_X	= (11 + gsInvDescX); // Description text Y moved downwards one line.
+			ITEMDESC_DESC_START_Y	= (102 + gsInvDescY);
+			ITEMDESC_PROS_START_X	= (438 + gsInvDescX ); // Pros and cons moved to the extreme right of the text box. They
+			ITEMDESC_PROS_START_Y	= (106 + gsInvDescY);  // now show just the words "PROS" and "CONS", and have a tooltip
+			ITEMDESC_CONS_START_X	= (438 + gsInvDescX ); // region over them for expanded text. :D
+			ITEMDESC_CONS_START_Y	= (118 + gsInvDescY);
 			ITEMDESC_DESC_WIDTH		=	415; // Much wider in OIV tactical than other shapes
+			ITEMDESC_ITEM_STATUS_X	= (  6 + gsInvDescX );
+			ITEMDESC_ITEM_STATUS_Y	= ( 60 + gsInvDescY );
+			ITEMDESC_ITEM_STATUS_HEIGHT	= 50;
 		}
 		else
 		{
@@ -1799,15 +1863,23 @@ void InitItemDescriptionBoxOffsets()
 			BULLET_SING_Y	=			(49 + gsInvDescY);
 			BULLET_BURST_X	=		(263 + gsInvDescX);
 			BULLET_BURST_Y	=		(49 + gsInvDescY);
-			ITEMDESC_CALIBER_X	=		(162 + gsInvDescX); // Gun Caliber string location, Tactical
-			ITEMDESC_CALIBER_Y	=		(67 + gsInvDescY);
-			ITEMDESC_DESC_START_X	=	(11 + gsInvDescX); // Item Desc Box offset, tactical
-			ITEMDESC_DESC_START_Y	=	(80 + gsInvDescY);
-			ITEMDESC_PROS_START_X	=	( 11 + gsInvDescX ); // Pros, tactical
-			ITEMDESC_PROS_START_Y	=	(110 + gsInvDescY);
-			ITEMDESC_CONS_START_X	=	( 11 + gsInvDescX ); // Cons, Tactical
-			ITEMDESC_CONS_START_Y	=	(120 + gsInvDescY);
-			ITEMDESC_DESC_WIDTH		=	301; // Text box width, Tactical
+			ITEMDESC_CALIBER_X		= (162 + gsInvDescX); // Gun Caliber string location, Tactical
+			ITEMDESC_CALIBER_Y		= ( 67 + gsInvDescY);
+			ITEMDESC_CALIBER_WIDTH	= 142;
+			ITEMDESC_NAME_X			= ( 16 + gsInvDescX);
+			ITEMDESC_NAME_Y			= ( 67 + gsInvDescY);
+			ITEMDESC_ITEM_X			= (  8 + gsInvDescX);
+			ITEMDESC_ITEM_Y			= ( 11 + gsInvDescY);
+			ITEMDESC_DESC_START_X	= (11 + gsInvDescX); // Item Desc Box offset, tactical
+			ITEMDESC_DESC_START_Y	= (80 + gsInvDescY);
+			ITEMDESC_PROS_START_X	= ( 11 + gsInvDescX ); // Pros, tactical
+			ITEMDESC_PROS_START_Y	= (110 + gsInvDescY);
+			ITEMDESC_CONS_START_X	= ( 11 + gsInvDescX ); // Cons, Tactical
+			ITEMDESC_CONS_START_Y	= (120 + gsInvDescY);
+			ITEMDESC_DESC_WIDTH		= 301; // Text box width, Tactical
+			ITEMDESC_ITEM_STATUS_X	= (  6 + gsInvDescX );
+			ITEMDESC_ITEM_STATUS_Y	= ( 60 + gsInvDescY );
+			ITEMDESC_ITEM_STATUS_HEIGHT	= 50;
 		}
 	}
 }
