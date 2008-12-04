@@ -490,11 +490,11 @@ void LoadGameExternalOptions()
 	gGameExternalOptions.fAllowTacticalMilitiaCommand	= iniReader.ReadBoolean("JA2 Tactical Settings","ALLOW_TACTICAL_MILITIA_COMMAND",0);
 
 	// Enemy AP settings
-	gGameExternalOptions.iEasyAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","NOVICE_AP_BONUS",0);
-	gGameExternalOptions.iExperiencedAPBonus			= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","EXPERIENCED_AP_BONUS",0);
-	gGameExternalOptions.iExpertAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","EXPERT_AP_BONUS",0);
-	gGameExternalOptions.iInsaneAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","INSANE_AP_BONUS",0);
-	gGameExternalOptions.iPlayerAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","PLAYER_AP_BONUS",0);
+	gGameExternalOptions.iEasyAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","NOVICE_AP_BONUS",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
+	gGameExternalOptions.iExperiencedAPBonus			= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","EXPERIENCED_AP_BONUS",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
+	gGameExternalOptions.iExpertAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","EXPERT_AP_BONUS",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
+	gGameExternalOptions.iInsaneAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","INSANE_AP_BONUS",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
+	gGameExternalOptions.iPlayerAPBonus					= (INT8) iniReader.ReadInteger("JA2 Tactical Settings","PLAYER_AP_BONUS",0,__max(-APBPConstants[AP_MINIMUM],-128),127);
 
 	// Sight range
 	gGameExternalOptions.ubStraightSightRange				= iniReader.ReadInteger("JA2 Tactical Settings","BASE_SIGHT_RANGE",13);
