@@ -223,10 +223,10 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"%s получает ранение в плечо и теряет в ловкости!",
 	L"%s получает ранение в грудь и теряет в силе!",
 	L"%s получает ранение в ногу и теряет в проворности!",
-	L"%s получает ранение в голову и теряет %d очков интеллекта!",
-	L"%s получает ранение в плечо и теряет %d очков ловкости!",
-	L"%s получает ранение в грудь и теряет %d очков силы!",
-	L"%s получает ранение в ногу и теряет %d очков проворности!",
+	L"%s получает ранение в голову и теряет %d единиц интеллекта!",
+	L"%s получает ранение в плечо и теряет %d единиц ловкости!",
+	L"%s получает ранение в грудь и теряет %d единиц силы!",
+	L"%s получает ранение в ногу и теряет %d единиц проворности!",
 	L"Перехват!",
 
 	// The first %s is a merc's name, the second is a string from pNoiseVolStr,
@@ -1174,18 +1174,18 @@ STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
 
 STR16		gzAmmoStatsFasthelp[ 20 ] =
 {
-	L"Armor Penetration (Lower is better)",
-	L"Bullet Tumble (Higher is better)",
-	L"Pre-impact Explosion (Higher is better)",
+	L"Проникающий эффект\n(чем меньше, тем лучше)",		//Armor Penetration (Lower is better)
+	L"Блуждающий эффект\n(чем выше, тем лучше)",		//Bullet Tumble (Higher is better)
+	L"Разрывной эффект\n(чем выше, тем лучше)",		//Pre-impact Explosion (Higher is better)
 	L"Трассирующий эффект",					//Tracer Effect
-	L"Кумулятивные",					//Anti-Tank
-	L"Lockbuster",
+	L"Противотанковые",					//Anti-Tank
+	L"Разрушают замок",					//Lockbuster
 	L"Игнорируется наличие брони",				//Ignores Armor
 	L"Кислотный эффект",					//Acidic
 	L"Модификатор дальнобойности",				//Range Modifier
 	L"Модификатор урона",					//Damage Modifier
 	L"Модификатор точности",				//To-Hit Modifier
-	L"Burst/Auto Penalty Modifier (Higher is better)",
+	L"Модификатор штрафа\nза отдачу при\nстрельбе очередью\n(c отсечкой/без)",	//Burst/Auto Penalty Modifier (Higher is better)",
 	L"Модификатор надёжности",				//Reliability Modifier
 	L"Модификатор шумности\n(чем меньше, тем лучше)",	//Loudness Modifier (Lower is better)
 	L"",
@@ -1213,7 +1213,7 @@ STR16		gzArmorStatsFasthelp[ 20 ] =
 	L"Модификатор диапазона\nвидимости ночью",		//Night Vision Range Modifier
 	L"Модификатор диапазона\nвидимости при ярком освещении",//Bright Light Vision Range Modifier
 	L"Модификатор диапазона\nвидимости в пещере",		//Cave Vision Range Modifier
-	L"Процент видимости в тоннеле",				//Tunnel Vision Percentage
+	L"Сужение сектора обзора",				//Tunnel Vision Percentage
 	L"Модификатор диапазона\nслышимости",			//Hearing Range Modifier
 	L"",
 	L"",
@@ -1246,27 +1246,27 @@ STR16		gzExplosiveStatsFasthelp[ 20 ] =
 
 STR16		gzMiscItemStatsFasthelp[ 34 ] =
 {
-	L"Item Size Modifier (Lower is better)", // 0
+	L"Модификатор размера предмета\n(чем меньше, тем лучше)",		//Item Size Modifier (Lower is better)
 	L"Модификатор надёжности",						//Reliability Modifier
 	L"Модификатор шумности\n(чем меньше, тем лучше)",			//Loudness Modifier (Lower is better)
 	L"Скрывает вспышку",							//Hides Muzzle Flash
 	L"Модификатор сошек",							//Bipod Modifier
-	L"Модификатор дальнобойности", // 5					//Range Modifier
+	L"Модификатор дальнобойности",						//Range Modifier
 	L"Модификатор точности",						//To-Hit Modifier
 	L"Радиус наилучшей видимости\nточки прицеливания",			//Best Laser Range
-	L"Aiming Bonus Modifier",
-	L"Burst Size Modifier",
-	L"Burst Penalty Modifier (Higher is better)", // 10
-	L"Auto-Fire Penalty Modifier (Higher is better)",
-	L"AP Modifier",
-	L"AP to Burst Modifier (Lower is better)",
-	L"AP to Auto-Fire Modifier (Lower is better)",
-	L"AP to Ready Modifier (Lower is better)", // 15
-	L"AP to Reload Modifier (Lower is better)",
+	L"Модификатор бонусов оптики",						//Aiming Bonus Modifier
+	L"Модификатор очереди с отсечкой",					//Burst Size Modifier
+	L"Модификатор штрафа за отдачу\nпри стрельбе c отсечкой\n(чем больше, тем лучше)",	//Burst Penalty Modifier (Higher is better)
+	L"Модификатор штрафа за отдачу\nпри стрельбе очередью\n(чем больше, тем лучше)",	//Auto-Fire Penalty Modifier (Higher is better)
+	L"Модификатор ОД",							//AP Modifier
+	L"Модификатор ОД\nна очередь с отсечкой\n(чем меньше, тем лучше)",	//AP to Burst Modifier (Lower is better)
+	L"Модификатор ОД\nна очередь без отсечки\n(чем меньше, тем лучше)",	//AP to Auto-Fire Modifier (Lower is better)
+	L"Модификатор ОД на вскидку\n(чем меньше, тем лучше)",			//AP to Ready Modifier (Lower is better)
+	L"Модификатор ОД\nна замену магазина\n(чем меньше, тем лучше)",		//AP to Reload Modifier (Lower is better)
 	L"Модификатор объёма магазина",						//Magazine Size Modifier
-	L"AP to Attack Modifier (Lower is better)",
+	L"Модификатор ОД на выстрел\n(чем меньше, тем лучше)",			//AP to Attack Modifier (Lower is better)
 	L"Модификатор урона",							//Damage Modifier
-	L"Melee Damage Modifier", // 20
+	L"Модификатор урона\nв ближнем бою", 					//Melee Damage Modifier
 	L"Камуфляж 'Лес'",
 	L"Камуфляж 'Город'",
 	L"Камуфляж 'Пустыня'",
@@ -1278,7 +1278,7 @@ STR16		gzMiscItemStatsFasthelp[ 34 ] =
 	L"Модификатор диапазона\nвидимости ночью",
 	L"Модификатор диапазона\nвидимости при ярком освещении", //30
 	L"Модификатор диапазона\nвидимости в пещере",
-	L"Процент видимости в тоннеле\n(чем меньше, тем лучше)",		//Tunnel Vision Percentage (Lower is better)
+	L"Сужение сектора обзора\n(чем меньше, тем лучше)",		//Tunnel Vision Percentage (Lower is better)
 	L"Минимальная эффективная\nдальность оптики",				//Minimum Range for Aiming Bonus
 };
 

@@ -1588,7 +1588,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Stan: %d/%d\nPaliwo: %d/%d",
 	L"%s nie widzi - %s.",  // Cannot see person trying to talk to
 	L"Dodatek usuniêty",
-	L"Can not gain another vehicle as you already have 2",
+	L"Nie mo¿esz zdobyæ kolejnego pojazdu, poniewa¿ posiadasz ju¿ 2",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
@@ -1799,7 +1799,7 @@ STR16 pMapInventoryErrorString[] =
 	L"Podczas walki nie mo¿na korzystaæ z tego panelu.",
 	L"Podczas walki nie mo¿na korzystaæ z tego panelu.",
 	L"%s nie mo¿e tu zostawiæ tego przedmiotu, gdy¿ nie jest w tym sektorze.",
-	L"During combat, you can't reload with an ammo crate.",
+	L"W trakcie walki nie mo¿esz do³adowywaæ magazynka.",
 };
 
 STR16 pMapInventoryStrings[] =
@@ -1939,7 +1939,7 @@ STR16 pSenderNameList[] =
 	L"Meltdown",
 	//----------
 	L"M.I.S. Ubezpieczenia",	
-	L"Bobby Ray",
+	L"Bobby Rays",
 	L"Kingpin",
 	L"John Kulba",
 	L"A.I.M.",
@@ -3025,7 +3025,7 @@ STR16			BobbyRFilter[] =
 	// Used
 	L"Broñ",
 	L"Pancerz",
-	L"LBE Gear",
+	L"Oporz¹dzenie",
 	L"Ró¿ne",
 
 	// Armour
@@ -3043,7 +3043,7 @@ STR16			BobbyRFilter[] =
 	L"Apteczki",
 	L"Ekwipunek",
 	L"Na twarz",
-	L"LBE Gear",
+	L"Oporz¹dzenie",	//LBE Gear
 	L"Inne",
 };
 
@@ -3390,7 +3390,7 @@ STR16			AimScreenText[] =
 	
 	L"Znaki A.I.M. i logo A.I.M. s¹ prawnie chronione w wiêkszoœci krajów.",
 	L"Wiêc nawet nie myœl o próbie ich podrobienia.",
-	L"Copyright 1998-1999 A.I.M., Ltd. All rights reserved.",
+	L"Copyright 2005 A.I.M., Ltd. All rights reserved.",
 
 	//Text for an advertisement that gets displayed on the AIM page
 
@@ -3570,8 +3570,8 @@ STR16			zSaveLoadText[] =
 	L"Wyœmienite",
 	L"Niewiarygodne",
 
-	L"New Inventory does not work in 640x480 screen size.  Please resize and try again.",
-	L"New Inventory does not work from the default 'Data' folder.",
+	L"Nowy inwentarz nie dzia³a w rozdzielczoœci 640x480. Aby z niego korzystaæ zmieñ rozdzielczoœæ i spróbuj ponownie.",
+	L"Nowy inwentarz nie korzysta z domyœlnego folderu 'Data'.",
 };
 
 
@@ -3793,8 +3793,8 @@ STR16	gzGIOScreenText[] =
 	L"Wyœmienite",
 	L"Niewiarygodne",
 	L"System Inwentarza",
-	L"Stara",
-	L"Nowa",
+	L"Tradycyjny",
+	L"Rozbudowany",
 	L"Load MP Game",
 	L"POCZ¥TKOWE USTAWIENIA GRY (Only the server settings take effect)",
 };
@@ -4169,20 +4169,20 @@ STR16	gzCreditNameTitle[]=
 STR16	gzCreditNameFunny[]=
 {
 	L"", 																			// Chris Camfield
-	L"(still learning punctuation)",					// Shaun Lyng
-	L"(\"It's done. I'm just fixing it\")",	//Kris \"The Cow Rape Man\" Marnes
-	L"(getting much too old for this)",				// Ian Currie
-	L"(and working on Wizardry 8)",						// Linda Currie
-	L"(forced at gunpoint to also do QA)",			// Eric \"WTF\" Cheng
-	L"(Left us for the CFSA - go figure...)",	// Lynn Holowka
+	L"(wci¹¿ uczy siê interpunkcji)",					// Shaun Lyng
+	L"(\"Skoñczone, tylko to posk³adam\")",	//Kris \"The Cow Rape Man\" Marnes
+	L"(robiê siê na to za stary)",				// Ian Currie
+	L"(i pracuje nad Wizardry 8)",						// Linda Currie
+	L"(zmuszony pod broni¹ do koñcowych testów jakoœci produktu)",			// Eric \"WTF\" Cheng
+	L"(Opuœci³ nas dla Stowarzyszenia na Rzecz Rozs¹dnych Wynagrodzeñ. Ciekawe czemu... )",	// Lynn Holowka
 	L"",																			// Norman \"NRG\" Olsen
 	L"",																			// George Brooks
-	L"(Dead Head and jazz lover)",						// Andrew Stacey
-	L"(his real name is Robert)",							// Scot Loving
-	L"(the only responsible person)",					// Andrew \"Big Cheese Doddle\" Emmons
-	L"(can now get back to motocrossing)",	// Dave French
-	L"(stolen from Wizardry 8)",							// Alex Meduna
-	L"(did items and loading screens too!)",	// Joey \"Joeker\" Whelan",
+	L"(mi³oœnik zespo³u Dead Head i jazzu)",						// Andrew Stacey
+	L"(tak naprawdê na imiê ma Robert)",							// Scot Loving
+	L"(jedyna odpowiedzialna osoba)",					// Andrew \"Big Cheese Doddle\" Emmons
+	L"(teraz mo¿e wróciæ do motocrossu)",	// Dave French
+	L"(ukradziony z projektu Wizardry 8)",							// Alex Meduna
+	L"(zrobi³ przedmioty i ekrany wczytywania!!)",	// Joey \"Joeker\" Whelan",
 };
 
 STR16 sRepairsDoneString[] =
@@ -4191,8 +4191,8 @@ STR16 sRepairsDoneString[] =
 	L"%s skoñczy³(a) naprawiaæ broñ i ochraniacze wszystkich cz³onków oddzia³u",
 	L"%s skoñczy³(a) naprawiaæ wyposa¿enie wszystkich cz³onków oddzia³u",
 	L"%s skoñczy³(a) naprawiaæ ekwipunek wszystkich cz³onków oddzia³u",
-	L"%s skoñczy³(a) naprawiaæ ekwipunek wszystkich cz³onków oddzia³u",
-	L"%s skoñczy³(a) naprawiaæ ekwipunek wszystkich cz³onków oddzia³u",
+	L"%s zakoñczy³(a) naprawê ekwipunku oddzia³u",
+	L"%s zakoñczy³(a) naprawê ekwipunku oddzia³u",
 };
 
 STR16 zGioDifConfirmText[]=
@@ -4400,24 +4400,24 @@ STR16 gzTooltipStrings[] =
 
 STR16 New113Message[] =
 {
-	L"Storm started.",
-	L"Storm ended.",
-	L"Rain started.",
-	L"Rain ended.",
-	L"Watch out for snipers...",
-	L"Suppression fire!",	
+	L"Nadesz³a burza.",
+	L"Burza skoñczy³a siê.",
+	L"Rozpada³ siê deszcz.",
+	L"Deszcz przesta³ padaæ.",
+	L"Uwa¿aj na snajperów...",
+	L"Ogieñ d³awi¹cy!",	
 	L"BRST",
 	L"AUTO",
 	L"GL",
 	L"GL BRST",
 	L"GL AUTO",
-	L"Sniper!",
-	L"Unable to split money due to having an item on your cursor.",
-	L"Arrival of new recruits is being rerouted to sector %s, as scheduled drop-off point of sector %s is enemy occupied.",
-	L"Deleted item",
-	L"Deleted all items of this type",
-	L"Sold item",
-	L"Sold all items of this type",
+	L"Snajper!",
+	L"Nie mo¿na podzieliæ pieniêdzy z powodu przedmiotu na kursorze.",
+	L"Przybycie nowych rekrutów zosta³o przekierowane do sektora %s , z uwagi na to, ¿e poprzedni punkt zrzutu w sektorze %s jest zajêty przez wroga.",
+	L"Przedmiot usuniêty",
+	L"Usuniêto wszystkie przedmioty tego typu",
+	L"Przedmiot sprzedany",
+	L"Wszystkie przedmioty tego typu sprzedane",
 };
 
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
@@ -4425,13 +4425,13 @@ STR16 New113Message[] =
 STR16	New113MERCMercMailTexts[] =
 {
 	// Gaston: Text from Line 39 in Email.edt
-	L"Hereby be informed that due to Gastons's past performance his fees for services rendered have undergone an increase. Personally, I'm not surprised. ± ± Speck T. Kline ± ",
+	L"Niniejszym informujê, i¿ w zwi¹zku z dotychczasowymi osi¹gniêciami Gastona, op³ata za jego us³ugi zosta³a podniesiona. Osobiœcie, nie jestem tymfaktem zaskoczony.  ± ± Speck T. Kline ± ",
 	// Stogie: Text from Line 43 in Email.edt
-	L"Please be advised that, as of this moment, Stogies's fees for services rendered have increased to coincide with the increase in his abilities. ± ± Speck T. Kline ± ", 
+	L"Informujemy, i¿ od chwili obecnej cena za us³ugi œwiadczone przez pana Stoggiego wzros³a w zwi¹zku ze wzrostem jego umiejêtnoœci. ± ± Speck T. Kline ± ", 
 	// Tex: Text from Line 45 in Email.edt
-	L"Please be advised that Tex's experience entitles him to more equitable compensation. He's fees have therefore been increased to more accurately reflect his worth. ± ± Speck T. Kline ± ",
+	L"Informujemy, i¿ nabyte przez Texa doœwiadczenie upowa¿nia go do wy¿szego wynagrodzenia, z tego wzglêdu jego wynagrodzenie zosta³o zwiêkszone w celu lepszego odzwierciedlenia jego wartoœci. ± ± Speck T. Kline ± ",
 	// Biggens: Text from Line 49 in Email.edt
-	L"Please take note. Due to the improved performance of Biggens his fees for services rendered have undergone an increase. ± ± Speck T. Kline ± ",
+	L"Proszê o zwrócenie uwagi, i¿ w zwi¹zku ze wzrostem jakoœci us³ug œwiadczonych przez pana Biggens`a jego pensja tak¿e uleg³a podwy¿szeniu. ± ± Speck T. Kline ± ",
 };
 
 // WANNE: These are the missing skills from the impass.edt file
@@ -4439,20 +4439,20 @@ STR16	New113MERCMercMailTexts[] =
 STR16 MissingIMPSkillsDescriptions[] =
 {
 	// Sniper
-	L"Sniper: Eyes of a hawk, you can shoot the wings from a fly at a hundred yards! ± ",
+	L"Snajper: Sokole oczy! Mo¿esz odstrzeliæ skrzyd³a muszce ze stu jardów. ± ",
 	// Camouflage
-	L"Camouflage: Besides you even bushes look synthetic! ± ",	
+	L"Kamufla¿: Przy tobie nawet krzaki wygl¹daj¹ na sztuczne! ± ",	
 };
 
 STR16 NewInvMessage[] = 
 {
-	L"Cannot pickup backpack at this time",
-	L"No place to put backpack",
-	L"Backpack not found",
-	L"Zipper only works in combat",
-	L"Can not move while backpack zipper active",
-	L"Are you sure you want to sell all sector items?",
-	L"Are you sure you want to delete all sector items?",
+	L"Nie mo¿esz teraz podnieœæ plecaka.",
+	L"Nie ma miejsca, aby po³o¿yæ tutaj plecak",
+	L"Nie znaleziono plecaka",
+	L"Zamek b³yskawiczny dzia³a tylko podczas walki.",
+	L"Nie mo¿esz siê przemieszczaæ, gdy zamek plecaka jest aktywny.",
+	L"Na pewno chcesz sprzedaæ wszystkie przedmioty z tego sektora?",
+	L"Na pewno chcesz skasowaæ wszystkie przedmioty z tego sektora?",
 	L"Cannot climb while wearing a backpack",
 };
 

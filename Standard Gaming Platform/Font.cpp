@@ -711,19 +711,19 @@ CHAR16 GetUnicodeChar(CHAR16 siChar)
 		#ifdef GERMAN
 		   //switch( siChar )
 		   //{
-		   //     // ?
+		   //     // ь
 		   //     case 252:          siChar = 252;          break;
-		   //     // ?
+		   //     // Ь
 		   //     case 220:          siChar = 220;          break;
-		   //     // ?
+		   //     // д
 		   //     case 228:          siChar = 228;          break;
-		   //     // ?
+		   //     // Д
 		   //     case 196:          siChar = 196;          break;
-		   //     // ?
+		   //     // ц
 		   //     case 246:          siChar = 246;          break;
-		   //     // ?
+		   //     // Ц
 		   //     case 214:          siChar = 214;          break;
-		   //     // ?
+		   //     // Я
 		   //     case 223:          siChar = 223;          break;
 		   //}
 	#endif
@@ -767,17 +767,17 @@ CHAR16 GetUnicodeChar(CHAR16 siChar)
 			case 223:          siChar = 1071;  break; //U+042F           d0 af     CYRILLIC CAPITAL LETTER YA
 
 			//small letters
-		    case 185:          siChar = 8470;  break;		// ?
-            case 178:          siChar = 1030;  break;		// ?
-            case 161:          siChar = 1038;  break;		// ?
-            case 179:          siChar = 1110;  break;		// ?
-            case 162:          siChar = 1118;  break;		// ?
-            case 165:          siChar = 1168;  break;		// ?
-            case 170:          siChar = 1028;  break;		// ?
-            case 175:          siChar = 1031;  break;		// ?
-            case 180:          siChar = 1169;  break;		// ?
-            case 186:          siChar = 1108;  break;		// ?
-            case 191:          siChar = 1111;  break;		// ?
+            case 185:          siChar = 8470;  break;		// №
+            case 178:          siChar = 1030;  break;		// І
+            case 161:          siChar = 1038;  break;		// Ў
+            case 179:          siChar = 1110;  break;		// і
+            case 162:          siChar = 1118;  break;		// ў
+            case 165:          siChar = 1168;  break;		// Ґ
+            case 170:          siChar = 1028;  break;		// Є
+            case 175:          siChar = 1031;  break;		// Ї
+            case 180:          siChar = 1169;  break;		// ґ
+            case 186:          siChar = 1108;  break;		// є
+            case 191:          siChar = 1111;  break;		// ї
 
 			case 184:          siChar = 1105;  break; //U+0451           d1 91     CYRILLIC SMALL LETTER IO
 			case 224:          siChar = 1072;  break; //U+0430     a     d0 b0     CYRILLIC SMALL LETTER A
@@ -838,6 +838,48 @@ CHAR16 GetUnicodeChar(CHAR16 siChar)
 			case 156:          siChar = 347;          break;
 			case 191:          siChar = 380;          break;
 			case 159:          siChar = 378;          break;
+	   }
+	#endif
+
+	#ifdef FRENCH
+	   switch( siChar )
+	   {
+			//capital letters
+			//case 192:          siChar = 192;          break;	//А
+			//case 194:          siChar = 194;          break;	//В
+			//case 199:          siChar = 199;          break;	//З
+			//case 200:          siChar = 200;          break;	//И
+			//case 201:          siChar = 201;          break;	//Й
+			//case 202:          siChar = 202;          break;	//К
+			//case 203:          siChar = 203;          break;	//Л
+			//case 206:          siChar = 206;          break;	//О
+			//case 207:          siChar = 207;          break;	//П
+			//case 212:          siChar = 212;          break;	//Ф
+			//case 217:          siChar = 217;          break;	//Щ
+			//case 219:          siChar = 219;          break;	//Ы
+			case 143:          siChar = 376;          break;	//џ
+
+			//small letters
+			//case 224:          siChar = 224;          break;	//а
+			//case 226:          siChar = 226;          break;	//в
+			//case 231:          siChar = 231;          break;	//з
+			//case 232:          siChar = 232;          break;	//и
+			//case 233:          siChar = 233;          break;	//й
+			//case 234:          siChar = 234;          break;	//к
+			//case 235:          siChar = 235;          break;	//л
+			//case 238:          siChar = 238;          break;	//о
+			//case 239:          siChar = 239;          break;	//п
+			//case 244:          siChar = 244;          break;	//ф
+			//case 249:          siChar = 249;          break;	//щ
+			//case 251:          siChar = 251;          break;	//ы
+			//case 255:          siChar = 255;          break;	//я
+
+//inshy: I've added the character codes for French ligatures to the sources, but I haven't added them in the fonts!
+			//Ligature
+			//case 198:          siChar = 198;          break;	//Ж
+			//case 140:          siChar = 338;          break;	//Њ
+			//case 230:          siChar = 230;          break;	//ж
+			//case 156:          siChar = 339;          break;	//њ
 	   }
 	#endif
 
@@ -1504,7 +1546,7 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	//	pTable->usNumberOfSymbols = 255;
 	//#endif
 
-	pTable->usNumberOfSymbols = 200;
+	pTable->usNumberOfSymbols = 255;
 
 	pTable->DynamicArrayOf16BitValues = (UINT16 *)MemAlloc(pTable->usNumberOfSymbols * 2);
 	temp = pTable->DynamicArrayOf16BitValues;
@@ -1713,200 +1755,265 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	temp++;
 
 	// RUSSIAN letters in UNICODE
-	*temp = 1040; //?
+	*temp = 1040; //А
 	temp++;
-	*temp = 1041; //?
+	*temp = 1041; //Б
 	temp++;
-	*temp = 1042; //?
+	*temp = 1042; //В
 	temp++;
-	*temp = 1043; //?
+	*temp = 1043; //Г
 	temp++;
-	*temp = 1044; //?
+	*temp = 1044; //Д
 	temp++;
-	*temp = 1045; //?
+	*temp = 1045; //Е
 	temp++;
-	*temp = 1046; //?
+	*temp = 1046; //Ж
 	temp++;
-	*temp = 1047; //?
+	*temp = 1047; //З
 	temp++;
-	*temp = 1048; //?
+	*temp = 1048; //И
 	temp++;
-	*temp = 1049; //?
+	*temp = 1049; //Й
 	temp++;
-	*temp = 1050; //?
+	*temp = 1050; //К
 	temp++;
-	*temp = 1051; //?
+	*temp = 1051; //Л
 	temp++;
-	*temp = 1052; //?
+	*temp = 1052; //М
 	temp++;
-	*temp = 1053; //?
+	*temp = 1053; //Н
 	temp++;
-	*temp = 1054; //?
+	*temp = 1054; //О
 	temp++;
-	*temp = 1055; //?
+	*temp = 1055; //П
 	temp++;
-	*temp = 1056; //?
+	*temp = 1056; //Р
 	temp++;
-	*temp = 1057; //?
+	*temp = 1057; //С
 	temp++;
-	*temp = 1058; //?
+	*temp = 1058; //Т
 	temp++;
-	*temp = 1059; //?
+	*temp = 1059; //У
 	temp++;
-	*temp = 1060; //?
+	*temp = 1060; //Ф
 	temp++;
-	*temp = 1061; //?
+	*temp = 1061; //Х
 	temp++;
-	*temp = 1062; //?
+	*temp = 1062; //Ц
 	temp++;
-	*temp = 1063; //?
+	*temp = 1063; //Ч
 	temp++;
-	*temp = 1064; //?
+	*temp = 1064; //Ш
 	temp++;
-	*temp = 1065; //?
+	*temp = 1065; //Щ
 	temp++;
-	*temp = 1066; //?
+	*temp = 1066; //Ъ
 	temp++;
-	*temp = 1067; //?
+	*temp = 1067; //Ы
 	temp++;
-	*temp = 1068; //?
+	*temp = 1068; //Ь
 	temp++;
-	*temp = 1069; //?
+	*temp = 1069; //Э
 	temp++;
-	*temp = 1070; //?
+	*temp = 1070; //Ю
 	temp++;
-	*temp = 1071; //?
+	*temp = 1071; //Я
 	temp++;	
-	*temp = 1072; // ?
+	*temp = 1072; // а
 	temp++;
-	*temp = 1073; // ?
+	*temp = 1073; // б 
 	temp++;
-	*temp = 1074; // ?
+	*temp = 1074; // в 
 	temp++;
-	*temp = 1075; // ?
+	*temp = 1075; // г
 	temp++;
-	*temp = 1076; // ?
+	*temp = 1076; // д
 	temp++;
-	*temp = 1077; // ?
+	*temp = 1077; // е
 	temp++;
-	*temp = 1078; // ?
+	*temp = 1078; // ж
 	temp++;
-	*temp = 1079; // ?
+	*temp = 1079; // з
 	temp++;
-	*temp = 1080; // ?
+	*temp = 1080; // и
 	temp++;
-	*temp = 1081; // ?
+	*temp = 1081; // й
 	temp++;
-	*temp = 1082; // ?
+	*temp = 1082; // к
 	temp++;
-	*temp = 1083; // ?
+	*temp = 1083; // л
 	temp++;
-	*temp = 1084; // ?
+	*temp = 1084; // м
 	temp++;
-	*temp = 1085; // ?
+	*temp = 1085; // н
 	temp++;
-	*temp = 1086; // ?
+	*temp = 1086; // о
 	temp++;
-	*temp = 1087; // ?
+	*temp = 1087; // п
 	temp++;
-	*temp = 1088; // ?
+	*temp = 1088; // р
 	temp++;
-	*temp = 1089; // ?
+	*temp = 1089; // с
 	temp++;
-	*temp = 1090; // ?
+	*temp = 1090; // т
 	temp++;
-	*temp = 1091; // ?
+	*temp = 1091; // у
 	temp++;
-	*temp = 1092; // ?
+	*temp = 1092; // ф
 	temp++;
-	*temp = 1093; // ?
+	*temp = 1093; // х
 	temp++;
-	*temp = 1094; // ?
+	*temp = 1094; // ц
 	temp++;
-	*temp = 1095; // ?
+	*temp = 1095; // ч
 	temp++;
-	*temp = 1096; // ?
+	*temp = 1096; // ш
 	temp++;
-	*temp = 1097; // ?
+	*temp = 1097; // щ
 	temp++;
-	*temp = 1098; // ?
+	*temp = 1098; // ъ
 	temp++;
-	*temp = 1099; // ?
+	*temp = 1099; // ы
 	temp++;
-	*temp = 1100; // ?
+	*temp = 1100; // ь
 	temp++;
-	*temp = 1101; // ?
+	*temp = 1101; // э
 	temp++;
-	*temp = 1102; // ?
+	*temp = 1102; // ю
 	temp++;
 	*temp = 1103; // я
 	temp++;
 
 	// BELORUSSIAN and UKRAINIAN letters in UNICODE
-	*temp = 8470; // ?
+	*temp = 8470; // №
 	temp++;
-	*temp = 1025; // ?
+	*temp = 1025; // Ё
 	temp++;
-	*temp = 1030; // ?
+	*temp = 1030; // І
 	temp++;
-	*temp = 1038; // ?
+	*temp = 1038; // Ў
 	temp++;
-	*temp = 1105; // ?
+	*temp = 1105; // ё
 	temp++;
-	*temp = 1110; // ?
+	*temp = 1110; // і
 	temp++;
-	*temp = 1118; // ?
+	*temp = 1118; // ў
 	temp++;
-	*temp = 1168; // ?
+	*temp = 1168; // Ґ
 	temp++;
-	*temp = 1028; // ?
+	*temp = 1028; // Є
 	temp++;
-	*temp = 1031; // ?
+	*temp = 1031; // Ї
 	temp++;
-	*temp = 1169; // ?
+	*temp = 1169; // ґ
 	temp++;
-	*temp = 1108; // ?
+	*temp = 1108; // є
 	temp++;
-	*temp = 1111; // ?
+	*temp = 1111; // ї
 	temp++;
 
 	// POLISH letters in UNICODE
-	*temp = 260; // ?(он)
+	*temp = 260; // Ґ (он)
 	temp++;
-	*temp = 262; // ?(це)
+	*temp = 262; // Ж (це)
 	temp++;
-	*temp = 280; // ?(эн)
+	*temp = 280; // К (эн)
 	temp++;
-	*temp = 321; // ?(эл?
+	*temp = 321; // Ј (эль)
 	temp++;
-	*temp = 323; // ?(эн?
+	*temp = 323; // С (энь)
 	temp++;
-	*temp = 211; // ?(?кратко?
+	*temp = 211; // У (о краткое)
 	temp++;
-	*temp = 346; // ?(эс?
+	*temp = 346; // Њ (эсь)
 	temp++;
-	*temp = 379; // ?(же?
+	*temp = 379; // Ї (жет)
 	temp++;
-	*temp = 377; // ?(зе?
+	*temp = 377; // Џ (зет)
 	temp++;
-	*temp = 261; // ?(он)
+	*temp = 261; // № (он)
 	temp++;
-	*temp = 263; // ?(це)
+	*temp = 263; // ж (це)
 	temp++;
-	*temp = 281; // ?(эн)
+	*temp = 281; // к (эн)
 	temp++;
-	*temp = 322; // ?(эл?
+	*temp = 322; // і (эль)
 	temp++;
-	*temp = 324; // ?(эн?
+	*temp = 324; // с (энь)
 	temp++;
-	*temp = 243; // ?(?кратко?
+	*temp = 243; // у (о краткое)
 	temp++;
-	*temp = 347; // ?(эс?
+	*temp = 347; // њ (эсь)
 	temp++;
-	*temp = 380; // ?(же?
+	*temp = 380; // ї (жет)
 	temp++;
-	*temp = 378; // ?(зе?
+	*temp = 378; // џ (зет)
 	temp++;
+
+	// FRENCH letters in UNICODE
+	*temp = 192; //А
+	temp++;
+	*temp = 194; //В
+	temp++;
+	*temp = 199; //З
+	temp++;
+	*temp = 200; //И
+	temp++;
+	*temp = 201; //Й
+	temp++;
+	*temp = 202; //К
+	temp++;
+	*temp = 203; //Л
+	temp++;
+	*temp = 206; //О
+	temp++;
+	*temp = 207; //П
+	temp++;
+	*temp = 212; //Ф
+	temp++;
+	*temp = 217; //Щ
+	temp++;
+	*temp = 219; //Ы
+	temp++;
+	*temp = 376; //џ
+	temp++;
+//small letters
+	*temp = 224; //а
+	temp++;
+	*temp = 226; //в
+	temp++;
+	*temp = 231; //з
+	temp++;
+	*temp = 232; //и
+	temp++;
+	*temp = 233; //й
+	temp++;
+	*temp = 234; //к
+	temp++;
+	*temp = 235; //л
+	temp++;
+	*temp = 238; //о
+	temp++;
+	*temp = 239; //п
+	temp++;
+	*temp = 244; //ф
+	temp++;
+	*temp = 249; //щ
+	temp++;
+	*temp = 251; //ы
+	temp++;
+	*temp = 255; //я
+	temp++;
+//inshy: I've added the character codes for French ligatures to the sources, but I haven't added them in the fonts!
+//Ligature
+//	*temp = 198; //Ж
+//	temp++;
+//	*temp = 338; //Њ
+//	temp++;
+//	*temp = 230; //ж
+//	temp++;
+//	*temp = 339; //њ
+//	temp++;
 
 	// Font glyphs for spell targeting icons
 	//ATE: IMPORTANT! INcreate the array above if you add any new items here...
