@@ -427,8 +427,12 @@ BOOLEAN EnterBobbyRMailOrder()
 													DEFAULT_MOVE_CALLBACK, BtnBobbyRClearOrderCallback);
 	SetButtonCursor(guiBobbyRClearOrder, CURSOR_LAPTOP_SCREEN);
 	SpecifyDisabledButtonStyle( guiBobbyRClearOrder, DISABLED_STYLE_NONE );
+ //inshy: fix position of text for buttons
+#ifdef FRENCH
+	SpecifyButtonTextOffsets( guiBobbyRClearOrder, 13, 10, TRUE );
+#else
 	SpecifyButtonTextOffsets( guiBobbyRClearOrder, 39, 10, TRUE );
-
+#endif
 
 	// Accept Order button
 	guiBobbyRAcceptOrderImage = LoadButtonImage("LAPTOP\\AcceptOrderButton.sti", 2,0,-1,1,-1 );
@@ -439,8 +443,12 @@ BOOLEAN EnterBobbyRMailOrder()
 													BOBBYR_ACCEPT_ORDER_X, BOBBYR_ACCEPT_ORDER_Y+4, BUTTON_TOGGLE, MSYS_PRIORITY_HIGH,
 													DEFAULT_MOVE_CALLBACK, BtnBobbyRAcceptOrderCallback);
 	SetButtonCursor( guiBobbyRAcceptOrder, CURSOR_LAPTOP_SCREEN);
+ //inshy: fix position of text for buttons
+#ifdef FRENCH
+	SpecifyButtonTextOffsets( guiBobbyRAcceptOrder, 15, 24, TRUE );
+#else
 	SpecifyButtonTextOffsets( guiBobbyRAcceptOrder, 43, 24, TRUE );
-
+#endif
 	SpecifyDisabledButtonStyle( guiBobbyRAcceptOrder, DISABLED_STYLE_SHADED );
 
 	if( gbSelectedCity == -1 )
