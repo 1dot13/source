@@ -1,5 +1,7 @@
-// VS2008: If compiling with VS2008 disable the next line!
-#define _WIN32_WINNT WINVER
+// WANNE: Only include _WIN32_WINNT WINVER in VS versions <= 2005
+#if _MSC_VER < 1500
+	#define _WIN32_WINNT WINVER
+#endif
 
 #ifdef JA2_PRECOMPILED_HEADERS
 	#include "JA2 SGP ALL.H"
