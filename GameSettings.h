@@ -452,7 +452,11 @@ BOOLEAN gbBulletTracer;
 	BOOLEAN fRestrictFemaleEnemiesExceptElite;
 
 	// HEADROCK: Enhanced Item Description Box ON/OFF
-	BOOLEAN fEnhancedDescriptionBox;
+	// WANNE: Changed from BOOLEAN to INT32!
+	INT32 fEnhancedDescriptionBox;
+
+	// WANNE: Always use "prof.dat".
+	BOOLEAN fAlwaysUseProfDat;  
 
 } GAME_EXTERNAL_OPTIONS;
 

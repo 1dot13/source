@@ -244,36 +244,45 @@ BOOLEAN LoadMercProfiles(void)
 
 	UINT32 uiLoop, uiLoop2;//, uiLoop3;
 	UINT16 usItem;//, usNewGun, usAmmo, usNewAmmo;
-	switch ( gGameOptions.ubDifficultyLevel)
+
+	if (gGameExternalOptions.fAlwaysUseProfDat == FALSE)
 	{
-		case DIF_LEVEL_EASY:
-			if ( gGameOptions.fGunNut )
-				fptr = FileOpen(pFileName1_Tons, FILE_ACCESS_READ, FALSE );
-			else
-				fptr = FileOpen(pFileName1_Normal, FILE_ACCESS_READ, FALSE );
-			break;
-		case DIF_LEVEL_MEDIUM:
-			if ( gGameOptions.fGunNut )
-				fptr = FileOpen(pFileName2_Tons, FILE_ACCESS_READ, FALSE );
-			else
-				fptr = FileOpen(pFileName2_Normal, FILE_ACCESS_READ, FALSE );
-			break;
-		case DIF_LEVEL_HARD:
-			if ( gGameOptions.fGunNut )
-				fptr = FileOpen(pFileName3_Tons, FILE_ACCESS_READ, FALSE );
-			else
-				fptr = FileOpen(pFileName3_Normal, FILE_ACCESS_READ, FALSE );
-			break;
-		case DIF_LEVEL_INSANE:
-			if ( gGameOptions.fGunNut )
-				fptr = FileOpen(pFileName4_Tons, FILE_ACCESS_READ, FALSE );
-			else
-				fptr = FileOpen(pFileName4_Normal, FILE_ACCESS_READ, FALSE );
-			break;
-		default:
-			fptr = FileOpen(pFileName, FILE_ACCESS_READ, FALSE );
-			break;
+		switch ( gGameOptions.ubDifficultyLevel)
+		{
+			case DIF_LEVEL_EASY:
+				if ( gGameOptions.fGunNut )
+					fptr = FileOpen(pFileName1_Tons, FILE_ACCESS_READ, FALSE );
+				else
+					fptr = FileOpen(pFileName1_Normal, FILE_ACCESS_READ, FALSE );
+				break;
+			case DIF_LEVEL_MEDIUM:
+				if ( gGameOptions.fGunNut )
+					fptr = FileOpen(pFileName2_Tons, FILE_ACCESS_READ, FALSE );
+				else
+					fptr = FileOpen(pFileName2_Normal, FILE_ACCESS_READ, FALSE );
+				break;
+			case DIF_LEVEL_HARD:
+				if ( gGameOptions.fGunNut )
+					fptr = FileOpen(pFileName3_Tons, FILE_ACCESS_READ, FALSE );
+				else
+					fptr = FileOpen(pFileName3_Normal, FILE_ACCESS_READ, FALSE );
+				break;
+			case DIF_LEVEL_INSANE:
+				if ( gGameOptions.fGunNut )
+					fptr = FileOpen(pFileName4_Tons, FILE_ACCESS_READ, FALSE );
+				else
+					fptr = FileOpen(pFileName4_Normal, FILE_ACCESS_READ, FALSE );
+				break;
+			default:
+				fptr = FileOpen(pFileName, FILE_ACCESS_READ, FALSE );
+				break;
+		}
 	}
+	else
+	{
+		fptr = FileOpen(pFileName, FILE_ACCESS_READ, FALSE );
+	}
+
 
 	if( !fptr )
 	{

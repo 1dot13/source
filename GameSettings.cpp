@@ -783,6 +783,9 @@ void LoadGameExternalOptions()
 
 	// HEADROCK: Use Enhanced Item Description Box?
 	gGameExternalOptions.fEnhancedDescriptionBox	= iniReader.ReadInteger("JA2 Gameplay Settings","USE_ENHANCED_DESCRIPTION_BOX",0);
+
+	// WANNE: Always use prof.dat??
+	gGameExternalOptions.fAlwaysUseProfDat = iniReader.ReadBoolean("JA2 Gameplay Settings", "ALWAYS_USE_PROF_DAT", FALSE);
 }
 
 INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEAN reverse)
