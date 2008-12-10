@@ -1093,7 +1093,8 @@ INT16 CalcAPsToAutofire( INT16 bBaseActionPoints, OBJECTTYPE * pObj, UINT8 bDoAu
 		aps = ( aps * ( 100 - GetPercentAutofireAPReduction(pObj) ) ) / 100;
 
 		if ( aps < 0 ) aps = 0;
-		else if ( aps > APBPConstants[AP_MAXIMUM] ) aps = APBPConstants[AP_MAXIMUM];
+		//CHRISL: This can cause problem if a player uses any of the xxx_AP_BONUS values in the INI file.
+		//else if ( aps > APBPConstants[AP_MAXIMUM] ) aps = APBPConstants[AP_MAXIMUM];
 	}
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("CalcAPsToAutoFire: return aps = %d", aps));
@@ -1240,7 +1241,7 @@ INT16 CalcTotalAPsToAttack( SOLDIERTYPE *pSoldier, INT16 sGridNo, UINT8 ubAddTur
 
 	}
 
-	return( (INT8)sAPCost );
+	return( sAPCost );
 }
 
 INT16 MinAPsToAttack(SOLDIERTYPE *pSoldier, INT16 sGridno, UINT8 ubAddTurningCost, UINT8 ubForceRaiseGunCost)

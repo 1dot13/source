@@ -797,9 +797,9 @@ INT16 DynamicAdjustAPConstants(INT16 iniReadValue, INT16 iniDefaultValue, BOOLEA
 	if(iniReadValue == iniDefaultValue)
 	{
 		if(!reverse)
-			iniReadValue = (INT16)(((FLOAT)iniReadValue*(FLOAT)APBPConstants[AP_MAXIMUM]/100)+.5);
+			iniReadValue = (INT16)(((FLOAT)iniReadValue*(FLOAT)APBPConstants[AP_MAXIMUM]/100)+(iniReadValue<0?-.5:.5));
 		else
-			iniReadValue = (INT16)(((FLOAT)iniReadValue/(FLOAT)APBPConstants[AP_MAXIMUM]*100)+.5);
+			iniReadValue = (INT16)(((FLOAT)iniReadValue/(FLOAT)APBPConstants[AP_MAXIMUM]*100)+(iniReadValue<0?-.5:.5));
 	}
 
 	return iniReadValue;

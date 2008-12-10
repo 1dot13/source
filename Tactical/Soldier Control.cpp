@@ -8466,7 +8466,7 @@ UINT8 SOLDIERTYPE::SoldierTakeDamage( INT8 bHeight, INT16 sLifeDeduct, INT16 sBr
 	//	the lower our AP_MAXIMUM value is set to.
 	// Deduct breath AND APs!
 	//sAPCost = (sLifeDeduct / APBPConstants[AP_GET_WOUNDED_DIVISOR]); // + fallCost;
-	sAPCost = (sLifeDeduct / APBPConstants[AP_GET_WOUNDED_DIVISOR]) / 100 * APBPConstants[AP_MAXIMUM];
+	sAPCost = (sLifeDeduct / APBPConstants[AP_GET_WOUNDED_DIVISOR]) * APBPConstants[AP_MAXIMUM] / 100;
 
 	// ATE: if the robot, do not deduct
 	if ( !AM_A_ROBOT( this ) )
