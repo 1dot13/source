@@ -2,11 +2,10 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="TileEngine_VS2008"
-	ProjectGUID="{FC1938E8-9253-49A8-AA99-4639BBB46C1B}"
-	RootNamespace="TileEngine_VS2008"
-	Keyword="Win32Proj"
-	TargetFrameworkVersion="131072"
+	Name="TileEngine"
+	ProjectGUID="{1437EB92-83CB-4F0D-A1DB-1576FFEF3F14}"
+	RootNamespace="TileEngine"
+	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
 		<Platform
@@ -18,10 +17,11 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="Debug"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -40,18 +40,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				RuntimeLibrary="3"
 				WarningLevel="3"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -83,10 +78,12 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="Release"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops"
+			CharacterSet="0"
+			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -105,13 +102,11 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\Multiplayer"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				EnableIntrinsicFunctions="true"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
 				RuntimeLibrary="0"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -145,10 +140,12 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditor|Win32"
-			OutputDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			CharacterSet="0"
+			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -167,13 +164,11 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
 				RuntimeLibrary="0"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -207,10 +202,11 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditorD|Win32"
-			OutputDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -229,145 +225,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				RuntimeLibrary="3"
 				WarningLevel="3"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="ChineseDebug|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;CHINESE;WINFONTS;SGP_DEBUG"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="ChineseRelease|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				Optimization="2"
-				AdditionalIncludeDirectories="..\Multiplayer"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;WINFONTS;CHINESE"
-				RuntimeLibrary="0"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -402,322 +266,318 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath=".\Ambient Control.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Ambient Types.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Buildings.h"
-				>
-			</File>
-			<File
-				RelativePath=".\environment.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Exit Grids.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Explosion Control.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Fog Of War.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Interactive Tiles.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Isometric Utils.h"
-				>
-			</File>
-			<File
-				RelativePath=".\LightEffects.h"
-				>
-			</File>
-			<File
-				RelativePath=".\lighting.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Map Edgepoints.h"
-				>
-			</File>
-			<File
-				RelativePath=".\overhead map.h"
-				>
-			</File>
-			<File
-				RelativePath=".\phys math.h"
-				>
-			</File>
-			<File
-				RelativePath=".\physics.h"
-				>
-			</File>
-			<File
-				RelativePath=".\pits.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Radar Screen.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Render Dirty.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Render Fun.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Render Z.h"
-				>
-			</File>
-			<File
-				RelativePath=".\renderworld.h"
-				>
-			</File>
-			<File
-				RelativePath=".\SaveLoadMap.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Shade Table Util.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Simple Render Utils.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Smell.h"
-				>
-			</File>
-			<File
-				RelativePath=".\SmokeEffects.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Structure Internals.h"
-				>
-			</File>
-			<File
-				RelativePath=".\structure.h"
-				>
-			</File>
-			<File
-				RelativePath=".\sysutil.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Tactical Placement GUI.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Tile Animation.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Tile Cache.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Tile Surface.h"
-				>
-			</File>
-			<File
-				RelativePath=".\TileDat.h"
-				>
-			</File>
-			<File
-				RelativePath=".\tiledef.h"
-				>
-			</File>
-			<File
-				RelativePath=".\TileEngine All.h"
-				>
-			</File>
-			<File
-				RelativePath=".\World Tileset Enums.h"
-				>
-			</File>
-			<File
-				RelativePath=".\WorldDat.h"
-				>
-			</File>
-			<File
-				RelativePath=".\worlddef.h"
-				>
-			</File>
-			<File
-				RelativePath=".\worldman.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\Ambient Control.cpp"
+				RelativePath="Ambient Control.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Buildings.cpp"
+				RelativePath="Buildings.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\environment.cpp"
+				RelativePath="environment.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Exit Grids.cpp"
+				RelativePath="Exit Grids.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Explosion Control.cpp"
+				RelativePath="Explosion Control.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Fog Of War.cpp"
+				RelativePath="Fog Of War.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Interactive Tiles.cpp"
+				RelativePath="Interactive Tiles.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Isometric Utils.cpp"
+				RelativePath="Isometric Utils.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\LightEffects.cpp"
+				RelativePath="LightEffects.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\lighting.cpp"
+				RelativePath="lighting.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Map Edgepoints.cpp"
+				RelativePath="Map Edgepoints.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\overhead map.cpp"
+				RelativePath="overhead map.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\phys math.cpp"
+				RelativePath="phys math.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\physics.cpp"
+				RelativePath="physics.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\pits.cpp"
+				RelativePath="pits.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Radar Screen.cpp"
+				RelativePath="Radar Screen.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Render Dirty.cpp"
+				RelativePath="Render Dirty.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Render Fun.cpp"
+				RelativePath="Render Fun.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Render Z.cpp"
+				RelativePath="Render Z.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\renderworld.cpp"
+				RelativePath="renderworld.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\SaveLoadMap.cpp"
+				RelativePath="SaveLoadMap.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Shade Table Util.cpp"
+				RelativePath="Shade Table Util.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Simple Render Utils.cpp"
+				RelativePath="Simple Render Utils.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Smell.cpp"
+				RelativePath="Smell.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\SmokeEffects.cpp"
+				RelativePath="SmokeEffects.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\structure.cpp"
+				RelativePath="structure.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\sysutil.cpp"
+				RelativePath="sysutil.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Tactical Placement GUI.cpp"
+				RelativePath="Tactical Placement GUI.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Tile Animation.cpp"
+				RelativePath="Tile Animation.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Tile Cache.cpp"
+				RelativePath="Tile Cache.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Tile Surface.cpp"
+				RelativePath="Tile Surface.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\TileDat.cpp"
+				RelativePath="TileDat.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\tiledef.cpp"
+				RelativePath="tiledef.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\WorldDat.cpp"
+				RelativePath="WorldDat.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\worlddef.cpp"
+				RelativePath="worlddef.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\worldman.cpp"
+				RelativePath="worldman.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\XML_ExplosionData.cpp"
+				RelativePath="XML_ExplosionData.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
+			<File
+				RelativePath="Ambient Control.h"
+				>
+			</File>
+			<File
+				RelativePath="Ambient Types.h"
+				>
+			</File>
+			<File
+				RelativePath="Buildings.h"
+				>
+			</File>
+			<File
+				RelativePath="environment.h"
+				>
+			</File>
+			<File
+				RelativePath="Exit Grids.h"
+				>
+			</File>
+			<File
+				RelativePath="Explosion Control.h"
+				>
+			</File>
+			<File
+				RelativePath="Fog Of War.h"
+				>
+			</File>
+			<File
+				RelativePath="Interactive Tiles.h"
+				>
+			</File>
+			<File
+				RelativePath="Isometric Utils.h"
+				>
+			</File>
+			<File
+				RelativePath="LightEffects.h"
+				>
+			</File>
+			<File
+				RelativePath="lighting.h"
+				>
+			</File>
+			<File
+				RelativePath="Map Edgepoints.h"
+				>
+			</File>
+			<File
+				RelativePath="overhead map.h"
+				>
+			</File>
+			<File
+				RelativePath="phys math.h"
+				>
+			</File>
+			<File
+				RelativePath="physics.h"
+				>
+			</File>
+			<File
+				RelativePath="pits.h"
+				>
+			</File>
+			<File
+				RelativePath="Radar Screen.h"
+				>
+			</File>
+			<File
+				RelativePath="Render Dirty.h"
+				>
+			</File>
+			<File
+				RelativePath="Render Fun.h"
+				>
+			</File>
+			<File
+				RelativePath="Render Z.h"
+				>
+			</File>
+			<File
+				RelativePath="renderworld.h"
+				>
+			</File>
+			<File
+				RelativePath="SaveLoadMap.h"
+				>
+			</File>
+			<File
+				RelativePath="Shade Table Util.h"
+				>
+			</File>
+			<File
+				RelativePath="Simple Render Utils.h"
+				>
+			</File>
+			<File
+				RelativePath="Smell.h"
+				>
+			</File>
+			<File
+				RelativePath="SmokeEffects.h"
+				>
+			</File>
+			<File
+				RelativePath="Structure Internals.h"
+				>
+			</File>
+			<File
+				RelativePath="structure.h"
+				>
+			</File>
+			<File
+				RelativePath="sysutil.h"
+				>
+			</File>
+			<File
+				RelativePath="Tactical Placement GUI.h"
+				>
+			</File>
+			<File
+				RelativePath="Tile Animation.h"
+				>
+			</File>
+			<File
+				RelativePath="Tile Cache.h"
+				>
+			</File>
+			<File
+				RelativePath="Tile Surface.h"
+				>
+			</File>
+			<File
+				RelativePath="TileDat.h"
+				>
+			</File>
+			<File
+				RelativePath="tiledef.h"
+				>
+			</File>
+			<File
+				RelativePath="TileEngine All.h"
+				>
+			</File>
+			<File
+				RelativePath="WorldDat.h"
+				>
+			</File>
+			<File
+				RelativePath="worlddef.h"
+				>
+			</File>
+			<File
+				RelativePath="worldman.h"
 				>
 			</File>
 		</Filter>

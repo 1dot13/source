@@ -2,11 +2,10 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="ja2_VS2008"
-	ProjectGUID="{F44669E7-74AC-444B-B75F-F16F4B9F0265}"
-	RootNamespace="ja2_VS2008"
-	Keyword="Win32Proj"
-	TargetFrameworkVersion="131072"
+	Name="ja2"
+	ProjectGUID="{BAB4E408-421C-4214-84ED-5469A24C8533}"
+	RootNamespace="ja2"
+	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
 		<Platform
@@ -18,11 +17,10 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="\games\jagged alliance 2"
+			OutputDirectory="\Games\Jagged Alliance 2"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_VS2008Debug.vsprops"
-			UseOfMFC="0"
+			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_VS2008Debug.vsprops;.\ja2_VS2008Linker.vsprops;.\ja2_VS2008Libs.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -42,19 +40,14 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				FavorSizeOrSpeed="0"
-				AdditionalIncludeDirectories=".\;.\Utils;.\TileEngine;.\TacticalAI;.\Tactical;.\Strategic;&quot;.\Standard Gaming Platform&quot;;.\Res;.\lua;.\Laptop;.\Editor;.\Multiplayer;.\Multiplayer\raknet"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -67,11 +60,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStaticDebug.lib ws2_32.lib"
-				OutputFile="$(OutDir)\ja2_debug_2417_en.exe"
+				AdditionalDependencies="Winmm.lib RakNetLibStaticDebug.lib ws2_32.lib"
+				OutputFile="$(OutDir)\ja2_debug_2445_en.exe"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="Multiplayer\raknet"
+				IgnoreDefaultLibraryNames="libcmtd"
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				EntryPointSymbol=""
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				TargetMachine="1"
@@ -96,6 +92,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
@@ -103,8 +100,7 @@
 			OutputDirectory="\games\jagged alliance 2"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets=".\ja2_VS2008.vsprops"
-			UseOfMFC="0"
+			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_VS2008Linker.vsprops;.\ja2_VS2008Libs.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="1"
 			>
@@ -125,13 +121,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="2"
-				AdditionalIncludeDirectories=".\;.\Utils;.\TileEngine;.\TacticalAI;.\Tactical;.\Strategic;&quot;.\Standard Gaming Platform&quot;;.\Res;.\lua;.\Laptop;.\Editor;.\Multiplayer;.\Multiplayer\raknet"
+				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="false"
 				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -146,15 +141,17 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStatic.lib ws2_32.lib"
-				OutputFile="$(OutDir)\ja2_release_2417_en.exe"
+				AdditionalDependencies="Winmm.lib RakNetLibStatic.lib ws2_32.lib"
+				OutputFile="$(OutDir)\ja2_release_2445_en.exe"
 				LinkIncremental="1"
-				GenerateDebugInformation="true"
-				GenerateMapFile="true"
-				MapFileName="$(TargetDir)$(TargetName).map"
+				AdditionalLibraryDirectories="Multiplayer\raknet"
+				IgnoreDefaultLibraryNames="libcmt"
+				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				TargetMachine="1"
@@ -179,7 +176,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
@@ -187,8 +183,7 @@
 			OutputDirectory="\games\jagged alliance 2"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_VS2008Editor.vsprops"
-			UseOfMFC="0"
+			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_VS2008Linker.vsprops;.\ja2_VS2008Libs.vsprops;.\ja2_VS2008Editor.vsprops"
 			CharacterSet="0"
 			WholeProgramOptimization="1"
 			>
@@ -209,13 +204,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="2"
-				AdditionalIncludeDirectories=".\;.\Utils;.\TileEngine;.\TacticalAI;.\Tactical;.\Strategic;&quot;.\Standard Gaming Platform&quot;;.\Res;.\lua;.\Laptop;.\Editor;.\Multiplayer;.\Multiplayer\raknet"
+				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="false"
 				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -230,15 +224,17 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStatic.lib ws2_32.lib"
-				OutputFile="$(OutDir)\Map Editor_2389_en.exe"
+				AdditionalDependencies="Winmm.lib RakNetLibStatic.lib ws2_32.lib"
+				OutputFile="$(OutDir)\MapEditor_release_2389_en.exe"
 				LinkIncremental="1"
-				GenerateDebugInformation="true"
-				GenerateMapFile="true"
-				MapFileName="$(TargetDir)$(TargetName).map"
+				AdditionalLibraryDirectories="Multiplayer\raknet"
+				IgnoreDefaultLibraryNames="libcmt"
+				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				OptimizeForWindows98="0"
+				LinkTimeCodeGeneration="1"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				TargetMachine="1"
@@ -263,7 +259,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
@@ -271,8 +266,7 @@
 			OutputDirectory="\games\jagged alliance 2"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
-			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_VS2008Editor.vsprops"
-			UseOfMFC="0"
+			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_VS2008Linker.vsprops;.\ja2_VS2008Libs.vsprops;.\ja2_VS2008Editor.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -292,18 +286,14 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\;.\Utils;.\TileEngine;.\TacticalAI;.\Tactical;.\Strategic;&quot;.\Standard Gaming Platform&quot;;.\Res;.\lua;.\Laptop;.\Editor;.\Multiplayer;.\Multiplayer\raknet"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -316,175 +306,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStaticDebug.lib ws2_32.lib"
-				OutputFile="$(OutDir)\Map EditorD_2389_en.exe"
+				AdditionalDependencies="Winmm.lib RakNetLibStaticDebug.lib ws2_32.lib"
+				OutputFile="$(OutDir)\MapEditor_debug_2389_en.exe"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="Multiplayer\raknet"
+				IgnoreDefaultLibraryNames="libcmtd"
 				GenerateDebugInformation="true"
 				SubSystem="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="ChineseDebug|Win32"
-			OutputDirectory="d:\game\ja2 1.13"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
-			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_VS2008Debug.vsprops"
-			UseOfMFC="0"
-			CharacterSet="0"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				Optimization="0"
-				AdditionalIncludeDirectories=".\;.\Utils;.\TileEngine;.\TacticalAI;.\Tactical;.\Strategic;&quot;.\Standard Gaming Platform&quot;;.\Res;.\lua;.\Laptop;.\Editor;.\Multiplayer;.\Multiplayer\raknet"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;CHINESE;WINFONTS;SGP_DEBUG"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStaticDebug.lib ws2_32.lib"
-				OutputFile="$(OutDir)\ja2_debug_2389_cn.exe"
-				LinkIncremental="2"
-				GenerateDebugInformation="true"
-				SubSystem="2"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="ChineseRelease|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
-			InheritedPropertySheets=".\ja2_VS2008.vsprops"
-			UseOfMFC="0"
-			CharacterSet="0"
-			WholeProgramOptimization="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				Optimization="2"
-				AdditionalIncludeDirectories=".\;.\Utils;.\TileEngine;.\TacticalAI;.\Tactical;.\Strategic;&quot;.\Standard Gaming Platform&quot;;.\Res;.\lua;.\Laptop;.\Editor;.\Multiplayer;.\Multiplayer\raknet"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;WINFONTS;CHINESE"
-				RuntimeLibrary="0"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="Winmm.lib .\Multiplayer\raknet\RakNetLibStatic.lib ws2_32.lib"
-				OutputFile="$(OutDir)\ja2_release_2389_en.exe"
-				LinkIncremental="1"
-				GenerateDebugInformation="true"
-				GenerateMapFile="true"
-				MapFileName="$(TargetDir)$(TargetName).map"
-				SubSystem="2"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
+				EntryPointSymbol=""
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
 				TargetMachine="1"
@@ -522,95 +351,95 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\aniviewscreen.cpp"
+				RelativePath="aniviewscreen.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Credits.cpp"
+				RelativePath="Credits.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Fade Screen.cpp"
+				RelativePath="Fade Screen.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\GameInitOptionsScreen.cpp"
+				RelativePath="GameInitOptionsScreen.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\gameloop.cpp"
+				RelativePath="gameloop.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\gamescreen.cpp"
+				RelativePath="gamescreen.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\GameSettings.cpp"
+				RelativePath="GameSettings.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\GameVersion.cpp"
+				RelativePath="GameVersion.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\HelpScreen.cpp"
+				RelativePath="HelpScreen.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Init.cpp"
+				RelativePath="Init.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Intro.cpp"
+				RelativePath="Intro.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\JA2 Splash.cpp"
+				RelativePath="JA2 Splash.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\jascreens.cpp"
+				RelativePath="jascreens.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Language Defines.cpp"
+				RelativePath="Language Defines.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Loading Screen.cpp"
+				RelativePath="Loading Screen.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MainMenuScreen.cpp"
+				RelativePath="MainMenuScreen.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MessageBoxScreen.cpp"
+				RelativePath="MessageBoxScreen.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Options Screen.cpp"
+				RelativePath="Options Screen.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\profiler.cpp"
+				RelativePath="profiler.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\SaveLoadGame.cpp"
+				RelativePath="SaveLoadGame.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\SaveLoadScreen.cpp"
+				RelativePath="SaveLoadScreen.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\SCREENS.cpp"
+				RelativePath="SCREENS.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Sys Globals.cpp"
+				RelativePath="Sys Globals.cpp"
 				>
 			</File>
 		</Filter>
@@ -620,131 +449,131 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\builddefines.h"
+				RelativePath="builddefines.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Cheats.h"
+				RelativePath="Cheats.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Credits.h"
+				RelativePath="Credits.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Fade Screen.h"
+				RelativePath="Fade Screen.h"
 				>
 			</File>
 			<File
-				RelativePath=".\GameInitOptionsScreen.h"
+				RelativePath="GameInitOptionsScreen.h"
 				>
 			</File>
 			<File
-				RelativePath=".\gameloop.h"
+				RelativePath="gameloop.h"
 				>
 			</File>
 			<File
-				RelativePath=".\gamescreen.h"
+				RelativePath="gamescreen.h"
 				>
 			</File>
 			<File
-				RelativePath=".\GameSettings.h"
+				RelativePath="GameSettings.h"
 				>
 			</File>
 			<File
-				RelativePath=".\GameVersion.h"
+				RelativePath="GameVersion.h"
 				>
 			</File>
 			<File
-				RelativePath=".\HelpScreen.h"
+				RelativePath="HelpScreen.h"
 				>
 			</File>
 			<File
-				RelativePath=".\HelpScreenText.h"
+				RelativePath="HelpScreenText.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Init.h"
+				RelativePath="Init.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Intro.h"
+				RelativePath="Intro.h"
 				>
 			</File>
 			<File
-				RelativePath=".\JA2 All.h"
+				RelativePath="JA2 All.h"
 				>
 			</File>
 			<File
-				RelativePath=".\JA2 Demo Ads.h"
+				RelativePath="JA2 Demo Ads.h"
 				>
 			</File>
 			<File
-				RelativePath=".\JA2 Splash.h"
+				RelativePath="JA2 Splash.h"
 				>
 			</File>
 			<File
-				RelativePath=".\ja2.h"
+				RelativePath="ja2.h"
 				>
 			</File>
 			<File
-				RelativePath=".\JA2Prototypes.h"
+				RelativePath="JA2Prototypes.h"
 				>
 			</File>
 			<File
-				RelativePath=".\jascreens.h"
+				RelativePath="jascreens.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Language Defines.h"
+				RelativePath="Language Defines.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Loading Screen.h"
+				RelativePath="Loading Screen.h"
 				>
 			</File>
 			<File
-				RelativePath=".\local.h"
+				RelativePath="local.h"
 				>
 			</File>
 			<File
-				RelativePath=".\mainmenuscreen.h"
+				RelativePath="mainmenuscreen.h"
 				>
 			</File>
 			<File
-				RelativePath=".\MessageBoxScreen.h"
+				RelativePath="MessageBoxScreen.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Options Screen.h"
+				RelativePath="Options Screen.h"
 				>
 			</File>
 			<File
-				RelativePath=".\profiler.h"
+				RelativePath="profiler.h"
 				>
 			</File>
 			<File
-				RelativePath=".\SaveLoadGame.h"
+				RelativePath="SaveLoadGame.h"
 				>
 			</File>
 			<File
-				RelativePath=".\SaveLoadScreen.h"
+				RelativePath="SaveLoadScreen.h"
 				>
 			</File>
 			<File
-				RelativePath=".\screenids.h"
+				RelativePath="screenids.h"
 				>
 			</File>
 			<File
-				RelativePath=".\SCREENS.H"
+				RelativePath="SCREENS.H"
 				>
 			</File>
 			<File
-				RelativePath=".\Sys Globals.h"
+				RelativePath="Sys Globals.h"
 				>
 			</File>
 			<File
-				RelativePath=".\VtuneApi.h"
+				RelativePath="VtuneApi.h"
 				>
 			</File>
 		</Filter>
@@ -754,67 +583,15 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath=".\Console\Console.rc"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-						AdditionalIncludeDirectories=".\Res"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-						AdditionalIncludeDirectories=".\Res"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="MapEditor|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-						AdditionalIncludeDirectories=".\Res"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="MapEditorD|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-						AdditionalIncludeDirectories=".\Res"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ChineseDebug|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-						AdditionalIncludeDirectories=".\Res"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="ChineseRelease|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-						AdditionalIncludeDirectories=".\Res"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\Res\ja2.rc"
+				RelativePath="Res\ja2.rc"
 				>
 			</File>
 			<File
-				RelativePath=".\Res\jagged3.ico"
+				RelativePath="Res\jagged3.ico"
 				>
 			</File>
 			<File
-				RelativePath=".\Res\resource.h"
+				RelativePath="Res\resource.h"
 				>
 			</File>
 		</Filter>
@@ -823,229 +600,41 @@
 			>
 			<Filter
 				Name="Header Files"
-				Filter="h;hpp;hxx;hm;inl;inc;xsd"
 				>
 				<File
-					RelativePath=".\Multiplayer\connect.h"
+					RelativePath="Multiplayer\connect.h"
 					>
 				</File>
 				<File
-					RelativePath=".\Multiplayer\fresh_header.h"
+					RelativePath="Multiplayer\fresh_header.h"
 					>
 				</File>
 				<File
-					RelativePath=".\Multiplayer\network.h"
+					RelativePath="Multiplayer\network.h"
 					>
 				</File>
 				<File
-					RelativePath=".\Multiplayer\test_space.h"
+					RelativePath="Multiplayer\test_space.h"
 					>
 				</File>
 			</Filter>
 			<Filter
 				Name="Source Files"
-				Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 				>
 				<File
-					RelativePath=".\Multiplayer\client.cpp"
+					RelativePath="Multiplayer\client.cpp"
 					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="MapEditor|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="MapEditorD|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ChineseDebug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ChineseRelease|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
 				</File>
 				<File
-					RelativePath=".\Multiplayer\server.cpp"
+					RelativePath="Multiplayer\server.cpp"
 					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="MapEditor|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="MapEditorD|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ChineseDebug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ChineseRelease|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
 				</File>
 				<File
-					RelativePath=".\Multiplayer\test_space.cpp"
+					RelativePath="Multiplayer\test_space.cpp"
 					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="MapEditor|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="MapEditorD|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ChineseDebug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ChineseRelease|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							ObjectFile="$(IntDir)\$(InputName)1.obj"
-							XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
-						/>
-					</FileConfiguration>
 				</File>
 			</Filter>
 		</Filter>
-		<File
-			RelativePath=".\fmodvc.lib"
-			>
-		</File>
-		<File
-			RelativePath=".\libexpatMT.lib"
-			>
-		</File>
-		<File
-			RelativePath=".\lua51.lib"
-			>
-		</File>
-		<File
-			RelativePath=".\mss32.lib"
-			>
-		</File>
-		<File
-			RelativePath=".\SMACKW32.LIB"
-			>
-		</File>
-		<File
-			RelativePath=".\VtuneApi.lib"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

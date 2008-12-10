@@ -2,11 +2,10 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="Strategic_VS2008"
-	ProjectGUID="{AB8837DB-0435-40C7-916A-0AACF5CFF1C4}"
-	RootNamespace="Strategic_VS2008"
-	Keyword="Win32Proj"
-	TargetFrameworkVersion="131072"
+	Name="Strategic"
+	ProjectGUID="{AD7326E2-4A75-4A02-8930-762D3A532D8A}"
+	RootNamespace="Strategic"
+	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
 		<Platform
@@ -18,10 +17,11 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="Debug"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -40,18 +40,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				RuntimeLibrary="3"
 				WarningLevel="3"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -83,10 +78,12 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="Release"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops"
+			CharacterSet="0"
+			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -105,13 +102,11 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\Multiplayer"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				EnableIntrinsicFunctions="true"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
 				RuntimeLibrary="0"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -145,10 +140,12 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditor|Win32"
-			OutputDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			CharacterSet="0"
+			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -167,13 +164,11 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
 				RuntimeLibrary="0"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -207,10 +202,11 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditorD|Win32"
-			OutputDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -229,145 +225,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				RuntimeLibrary="3"
 				WarningLevel="3"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="ChineseDebug|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;CHINESE;WINFONTS;SGP_DEBUG"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="ChineseRelease|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				Optimization="2"
-				AdditionalIncludeDirectories="..\Multiplayer"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;WINFONTS;CHINESE"
-				RuntimeLibrary="0"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -402,362 +266,362 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath=".\Assignments.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Auto Resolve.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Campaign Init.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Campaign Types.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Creature Spreading.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Game Clock.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Game Event Hook.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Game Events.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Game Init.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Map Screen Helicopter.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Map Screen Interface Border.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Map Screen Interface Bottom.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Map Screen Interface Map Inventory.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Map Screen Interface Map.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Map Screen Interface TownMine Info.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Map Screen Interface.h"
-				>
-			</File>
-			<File
-				RelativePath=".\mapscreen.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Meanwhile.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Merc Contract.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MilitiaSquads.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Player Command.h"
-				>
-			</File>
-			<File
-				RelativePath=".\PreBattle Interface.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Queen Command.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Quest Debug System.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Quests.h"
-				>
-			</File>
-			<File
-				RelativePath=".\QuestText.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Reinforcement.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Scheduling.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Strategic AI.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Strategic All.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Strategic Event Handler.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Strategic Merc Handler.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Strategic Mines.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Strategic Movement.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Strategic Pathing.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Strategic Status.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Strategic Town Loyalty.h"
-				>
-			</File>
-			<File
-				RelativePath=".\strategic town reputation.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Strategic Turns.h"
-				>
-			</File>
-			<File
-				RelativePath=".\strategic.h"
-				>
-			</File>
-			<File
-				RelativePath=".\strategicmap.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Town Militia.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\AI Viewer.cpp"
+				RelativePath="AI Viewer.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Assignments.cpp"
+				RelativePath="Assignments.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Auto Resolve.cpp"
+				RelativePath="Auto Resolve.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Campaign Init.cpp"
+				RelativePath="Campaign Init.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Creature Spreading.cpp"
+				RelativePath="Creature Spreading.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Game Clock.cpp"
+				RelativePath="Game Clock.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Game Event Hook.cpp"
+				RelativePath="Game Event Hook.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Game Events.cpp"
+				RelativePath="Game Events.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Game Init.cpp"
+				RelativePath="Game Init.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Hourly Update.cpp"
+				RelativePath="Hourly Update.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Map Screen Helicopter.cpp"
+				RelativePath="Map Screen Helicopter.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Map Screen Interface Border.cpp"
+				RelativePath="Map Screen Interface Border.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Map Screen Interface Bottom.cpp"
+				RelativePath="Map Screen Interface Bottom.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Map Screen Interface Map Inventory.cpp"
+				RelativePath="Map Screen Interface Map Inventory.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Map Screen Interface Map.cpp"
+				RelativePath="Map Screen Interface Map.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Map Screen Interface TownMine Info.cpp"
+				RelativePath="Map Screen Interface TownMine Info.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Map Screen Interface.cpp"
+				RelativePath="Map Screen Interface.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\mapscreen.cpp"
+				RelativePath="mapscreen.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Meanwhile.cpp"
+				RelativePath="Meanwhile.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Merc Contract.cpp"
+				RelativePath="Merc Contract.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MilitiaSquads.cpp"
+				RelativePath="MilitiaSquads.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Player Command.cpp"
+				RelativePath="Player Command.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\PreBattle Interface.cpp"
+				RelativePath="PreBattle Interface.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Queen Command.cpp"
+				RelativePath="Queen Command.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Quest Debug System.cpp"
+				RelativePath="Quest Debug System.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Quests.cpp"
+				RelativePath="Quests.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\QuestText.cpp"
+				RelativePath="QuestText.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Reinforcement.cpp"
+				RelativePath="Reinforcement.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Scheduling.cpp"
+				RelativePath="Scheduling.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Strategic AI.cpp"
+				RelativePath="Strategic AI.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Strategic Event Handler.cpp"
+				RelativePath="Strategic Event Handler.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Strategic Merc Handler.cpp"
+				RelativePath="Strategic Merc Handler.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Strategic Mines.cpp"
+				RelativePath="Strategic Mines.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Strategic Movement Costs.cpp"
+				RelativePath="Strategic Movement Costs.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Strategic Movement.cpp"
+				RelativePath="Strategic Movement.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Strategic Pathing.cpp"
+				RelativePath="Strategic Pathing.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Strategic Status.cpp"
+				RelativePath="Strategic Status.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Strategic Town Loyalty.cpp"
+				RelativePath="Strategic Town Loyalty.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\strategic town reputation.cpp"
+				RelativePath="strategic town reputation.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Strategic Turns.cpp"
+				RelativePath="Strategic Turns.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\strategic.cpp"
+				RelativePath="strategic.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\strategicmap.cpp"
+				RelativePath="strategicmap.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Town Militia.cpp"
+				RelativePath="Town Militia.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\XML_Army.cpp"
+				RelativePath="XML_Army.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\XML_Roaming.cpp"
+				RelativePath="XML_Roaming.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
+			<File
+				RelativePath="Assignments.h"
+				>
+			</File>
+			<File
+				RelativePath="Auto Resolve.h"
+				>
+			</File>
+			<File
+				RelativePath="Campaign Init.h"
+				>
+			</File>
+			<File
+				RelativePath="Campaign Types.h"
+				>
+			</File>
+			<File
+				RelativePath="Creature Spreading.h"
+				>
+			</File>
+			<File
+				RelativePath="Game Clock.h"
+				>
+			</File>
+			<File
+				RelativePath="Game Event Hook.h"
+				>
+			</File>
+			<File
+				RelativePath="Game Events.h"
+				>
+			</File>
+			<File
+				RelativePath="Game Init.h"
+				>
+			</File>
+			<File
+				RelativePath="Map Screen Helicopter.h"
+				>
+			</File>
+			<File
+				RelativePath="Map Screen Interface Border.h"
+				>
+			</File>
+			<File
+				RelativePath="Map Screen Interface Bottom.h"
+				>
+			</File>
+			<File
+				RelativePath="Map Screen Interface Map Inventory.h"
+				>
+			</File>
+			<File
+				RelativePath="Map Screen Interface Map.h"
+				>
+			</File>
+			<File
+				RelativePath="Map Screen Interface TownMine Info.h"
+				>
+			</File>
+			<File
+				RelativePath="Map Screen Interface.h"
+				>
+			</File>
+			<File
+				RelativePath="mapscreen.h"
+				>
+			</File>
+			<File
+				RelativePath="Meanwhile.h"
+				>
+			</File>
+			<File
+				RelativePath="Merc Contract.h"
+				>
+			</File>
+			<File
+				RelativePath="MilitiaSquads.h"
+				>
+			</File>
+			<File
+				RelativePath="Player Command.h"
+				>
+			</File>
+			<File
+				RelativePath="PreBattle Interface.h"
+				>
+			</File>
+			<File
+				RelativePath="Queen Command.h"
+				>
+			</File>
+			<File
+				RelativePath="Quest Debug System.h"
+				>
+			</File>
+			<File
+				RelativePath="Quests.h"
+				>
+			</File>
+			<File
+				RelativePath="QuestText.h"
+				>
+			</File>
+			<File
+				RelativePath="Reinforcement.h"
+				>
+			</File>
+			<File
+				RelativePath="Scheduling.h"
+				>
+			</File>
+			<File
+				RelativePath="Strategic AI.h"
+				>
+			</File>
+			<File
+				RelativePath="Strategic All.h"
+				>
+			</File>
+			<File
+				RelativePath="Strategic Event Handler.h"
+				>
+			</File>
+			<File
+				RelativePath="Strategic Merc Handler.h"
+				>
+			</File>
+			<File
+				RelativePath="Strategic Mines.h"
+				>
+			</File>
+			<File
+				RelativePath="Strategic Movement.h"
+				>
+			</File>
+			<File
+				RelativePath="Strategic Pathing.h"
+				>
+			</File>
+			<File
+				RelativePath="Strategic Status.h"
+				>
+			</File>
+			<File
+				RelativePath="Strategic Town Loyalty.h"
+				>
+			</File>
+			<File
+				RelativePath="strategic town reputation.h"
+				>
+			</File>
+			<File
+				RelativePath="Strategic Turns.h"
+				>
+			</File>
+			<File
+				RelativePath="strategic.h"
+				>
+			</File>
+			<File
+				RelativePath="strategicmap.h"
+				>
+			</File>
+			<File
+				RelativePath="Town Militia.h"
 				>
 			</File>
 		</Filter>

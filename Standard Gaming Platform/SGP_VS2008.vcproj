@@ -2,11 +2,10 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="SGP_VS2008"
-	ProjectGUID="{6283CE93-2960-4596-8E74-7A6FBA8716FF}"
-	RootNamespace="SGP_VS2008"
-	Keyword="Win32Proj"
-	TargetFrameworkVersion="131072"
+	Name="SGP"
+	ProjectGUID="{5FD3FB5E-D0E5-4C0C-90BC-65EFF70D62EA}"
+	RootNamespace="SGP"
+	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
 		<Platform
@@ -18,10 +17,11 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="Debug"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -40,18 +40,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;NO_ZLIB_COMPRESSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				RuntimeLibrary="3"
 				WarningLevel="3"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -83,10 +78,12 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="Release"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops"
+			CharacterSet="0"
+			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -105,13 +102,11 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\Multiplayer"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;NO_ZLIB_COMPRESSION;WINFONTS;CHINESE"
+				EnableIntrinsicFunctions="true"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;NO_ZLIB_COMPRESSION"
 				RuntimeLibrary="0"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -145,10 +140,12 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditor|Win32"
-			OutputDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			CharacterSet="0"
+			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -167,13 +164,11 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;NO_ZLIB_COMPRESSION"
 				RuntimeLibrary="0"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -207,10 +202,11 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditorD|Win32"
-			OutputDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -229,145 +225,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;NO_ZLIB_COMPRESSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				RuntimeLibrary="3"
 				WarningLevel="3"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="ChineseDebug|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;NO_ZLIB_COMPRESSION;CHINESE;WINFONTS;SGP_DEBUG"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="ChineseRelease|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				Optimization="2"
-				AdditionalIncludeDirectories="..\Multiplayer"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;NO_ZLIB_COMPRESSION;WINFONTS;CHINESE"
-				RuntimeLibrary="0"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -402,437 +266,433 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath=".\Bitmap.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Button Sound Control.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Button System.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Compression.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Container.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Cursor Control.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DbMan.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ddraw.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DEBUG.H"
-				>
-			</File>
-			<File
-				RelativePath=".\DirectDraw Calls.h"
-				>
-			</File>
-			<File
-				RelativePath=".\DirectX Common.h"
-				>
-			</File>
-			<File
-				RelativePath=".\dsound.h"
-				>
-			</File>
-			<File
-				RelativePath=".\english.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ExceptionHandling.h"
-				>
-			</File>
-			<File
-				RelativePath=".\expat.h"
-				>
-			</File>
-			<File
-				RelativePath=".\FileCat.h"
-				>
-			</File>
-			<File
-				RelativePath=".\FileMan.h"
-				>
-			</File>
-			<File
-				RelativePath=".\flic.h"
-				>
-			</File>
-			<File
-				RelativePath=".\fmod.h"
-				>
-			</File>
-			<File
-				RelativePath=".\fmod_errors.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Font.h"
-				>
-			</File>
-			<File
-				RelativePath=".\himage.h"
-				>
-			</File>
-			<File
-				RelativePath=".\imgfmt.h"
-				>
-			</File>
-			<File
-				RelativePath=".\impTGA.h"
-				>
-			</File>
-			<File
-				RelativePath=".\input.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Install.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Ja2 Libs.h"
-				>
-			</File>
-			<File
-				RelativePath=".\JA2 SGP ALL.H"
-				>
-			</File>
-			<File
-				RelativePath=".\LibraryDataBase.h"
-				>
-			</File>
-			<File
-				RelativePath=".\line.h"
-				>
-			</File>
-			<File
-				RelativePath=".\MemMan.h"
-				>
-			</File>
-			<File
-				RelativePath=".\mousesystem.h"
-				>
-			</File>
-			<File
-				RelativePath=".\mousesystem_macros.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Mss-old.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Mss.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Mutex Manager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\pcx.h"
-				>
-			</File>
-			<File
-				RelativePath=".\RAD.H"
-				>
-			</File>
-			<File
-				RelativePath=".\random.h"
-				>
-			</File>
-			<File
-				RelativePath=".\readdir.h"
-				>
-			</File>
-			<File
-				RelativePath=".\RegInst.h"
-				>
-			</File>
-			<File
-				RelativePath=".\sgp.h"
-				>
-			</File>
-			<File
-				RelativePath=".\shading.h"
-				>
-			</File>
-			<File
-				RelativePath=".\SMACK.H"
-				>
-			</File>
-			<File
-				RelativePath=".\soundman.h"
-				>
-			</File>
-			<File
-				RelativePath=".\STCI.h"
-				>
-			</File>
-			<File
-				RelativePath=".\stringicmp.h"
-				>
-			</File>
-			<File
-				RelativePath=".\timer.h"
-				>
-			</File>
-			<File
-				RelativePath=".\TopicIDs.h"
-				>
-			</File>
-			<File
-				RelativePath=".\TopicOps.h"
-				>
-			</File>
-			<File
-				RelativePath=".\trle.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Types.h"
-				>
-			</File>
-			<File
-				RelativePath=".\video.h"
-				>
-			</File>
-			<File
-				RelativePath=".\video_private.h"
-				>
-			</File>
-			<File
-				RelativePath=".\vobject.h"
-				>
-			</File>
-			<File
-				RelativePath=".\vobject_blitters.h"
-				>
-			</File>
-			<File
-				RelativePath=".\vobject_private.h"
-				>
-			</File>
-			<File
-				RelativePath=".\vsurface.h"
-				>
-			</File>
-			<File
-				RelativePath=".\vsurface_private.h"
-				>
-			</File>
-			<File
-				RelativePath=".\WCheck.h"
-				>
-			</File>
-			<File
-				RelativePath=".\WinFont.h"
-				>
-			</File>
-			<File
-				RelativePath=".\WizShare.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ZCONF.H"
-				>
-			</File>
-			<File
-				RelativePath=".\ZLIB.H"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\Button Sound Control.cpp"
+				RelativePath="Button Sound Control.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Button System.cpp"
+				RelativePath="Button System.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Compression.cpp"
+				RelativePath="Compression.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Container.cpp"
+				RelativePath="Container.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Cursor Control.cpp"
+				RelativePath="Cursor Control.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DbMan.cpp"
+				RelativePath="DbMan.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DEBUG.cpp"
+				RelativePath="DEBUG.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DirectDraw Calls.cpp"
+				RelativePath="DirectDraw Calls.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\DirectX Common.cpp"
+				RelativePath="DirectX Common.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\English.cpp"
+				RelativePath="English.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\ExceptionHandling.cpp"
+				RelativePath="ExceptionHandling.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\FileCat.cpp"
+				RelativePath="FileCat.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\FileMan.cpp"
+				RelativePath="FileMan.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Flic.cpp"
+				RelativePath="Flic.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Font.cpp"
+				RelativePath="Font.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\himage.cpp"
+				RelativePath="himage.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\impTGA.cpp"
+				RelativePath="impTGA.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\input.cpp"
+				RelativePath="input.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Install.cpp"
+				RelativePath="Install.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Ja2 Libs.cpp"
+				RelativePath="Ja2 Libs.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\LibraryDataBase.cpp"
+				RelativePath="LibraryDataBase.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\line.cpp"
+				RelativePath="line.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\MemMan.cpp"
+				RelativePath="MemMan.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\mousesystem.cpp"
+				RelativePath="mousesystem.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Mutex Manager.cpp"
+				RelativePath="Mutex Manager.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\PCX.cpp"
+				RelativePath="PCX.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Random.cpp"
+				RelativePath="Random.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\readdir.cpp"
+				RelativePath="readdir.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\RegInst.cpp"
+				RelativePath="RegInst.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\sgp.cpp"
+				RelativePath="sgp.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\shading.cpp"
+				RelativePath="shading.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\soundman.cpp"
+				RelativePath="soundman.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\STCI.cpp"
+				RelativePath="STCI.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\stringicmp.cpp"
+				RelativePath="stringicmp.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\timer.cpp"
+				RelativePath="timer.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\video.cpp"
+				RelativePath="video.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\vobject.cpp"
+				RelativePath="vobject.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\vobject_blitters.cpp"
+				RelativePath="vobject_blitters.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\vsurface.cpp"
+				RelativePath="vsurface.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\WinFont.cpp"
+				RelativePath="WinFont.cpp"
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\ddraw.lib"
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-		</File>
+			<File
+				RelativePath="Bitmap.h"
+				>
+			</File>
+			<File
+				RelativePath="Button Sound Control.h"
+				>
+			</File>
+			<File
+				RelativePath="Button System.h"
+				>
+			</File>
+			<File
+				RelativePath="Compression.h"
+				>
+			</File>
+			<File
+				RelativePath="Container.h"
+				>
+			</File>
+			<File
+				RelativePath="Cursor Control.h"
+				>
+			</File>
+			<File
+				RelativePath="DbMan.h"
+				>
+			</File>
+			<File
+				RelativePath="ddraw.h"
+				>
+			</File>
+			<File
+				RelativePath="DEBUG.H"
+				>
+			</File>
+			<File
+				RelativePath="DirectDraw Calls.h"
+				>
+			</File>
+			<File
+				RelativePath="DirectX Common.h"
+				>
+			</File>
+			<File
+				RelativePath="dsound.h"
+				>
+			</File>
+			<File
+				RelativePath="english.h"
+				>
+			</File>
+			<File
+				RelativePath="ExceptionHandling.h"
+				>
+			</File>
+			<File
+				RelativePath="expat.h"
+				>
+			</File>
+			<File
+				RelativePath="FileCat.h"
+				>
+			</File>
+			<File
+				RelativePath="FileMan.h"
+				>
+			</File>
+			<File
+				RelativePath="flic.h"
+				>
+			</File>
+			<File
+				RelativePath="fmod.h"
+				>
+			</File>
+			<File
+				RelativePath="fmod_errors.h"
+				>
+			</File>
+			<File
+				RelativePath="Font.h"
+				>
+			</File>
+			<File
+				RelativePath="himage.h"
+				>
+			</File>
+			<File
+				RelativePath="imgfmt.h"
+				>
+			</File>
+			<File
+				RelativePath="impTGA.h"
+				>
+			</File>
+			<File
+				RelativePath="input.h"
+				>
+			</File>
+			<File
+				RelativePath="Install.h"
+				>
+			</File>
+			<File
+				RelativePath="Ja2 Libs.h"
+				>
+			</File>
+			<File
+				RelativePath="JA2 SGP ALL.H"
+				>
+			</File>
+			<File
+				RelativePath="LibraryDataBase.h"
+				>
+			</File>
+			<File
+				RelativePath="line.h"
+				>
+			</File>
+			<File
+				RelativePath="MemMan.h"
+				>
+			</File>
+			<File
+				RelativePath="mousesystem.h"
+				>
+			</File>
+			<File
+				RelativePath="mousesystem_macros.h"
+				>
+			</File>
+			<File
+				RelativePath="Mss-old.h"
+				>
+			</File>
+			<File
+				RelativePath="Mss.h"
+				>
+			</File>
+			<File
+				RelativePath="Mutex Manager.h"
+				>
+			</File>
+			<File
+				RelativePath="pcx.h"
+				>
+			</File>
+			<File
+				RelativePath="RAD.H"
+				>
+			</File>
+			<File
+				RelativePath="random.h"
+				>
+			</File>
+			<File
+				RelativePath="readdir.h"
+				>
+			</File>
+			<File
+				RelativePath="RegInst.h"
+				>
+			</File>
+			<File
+				RelativePath="sgp.h"
+				>
+			</File>
+			<File
+				RelativePath="shading.h"
+				>
+			</File>
+			<File
+				RelativePath="SMACK.H"
+				>
+			</File>
+			<File
+				RelativePath="soundman.h"
+				>
+			</File>
+			<File
+				RelativePath="STCI.h"
+				>
+			</File>
+			<File
+				RelativePath="stringicmp.h"
+				>
+			</File>
+			<File
+				RelativePath="timer.h"
+				>
+			</File>
+			<File
+				RelativePath="TopicIDs.h"
+				>
+			</File>
+			<File
+				RelativePath="TopicOps.h"
+				>
+			</File>
+			<File
+				RelativePath="trle.h"
+				>
+			</File>
+			<File
+				RelativePath="Types.h"
+				>
+			</File>
+			<File
+				RelativePath="video.h"
+				>
+			</File>
+			<File
+				RelativePath="video_private.h"
+				>
+			</File>
+			<File
+				RelativePath="vobject.h"
+				>
+			</File>
+			<File
+				RelativePath="vobject_blitters.h"
+				>
+			</File>
+			<File
+				RelativePath="vobject_private.h"
+				>
+			</File>
+			<File
+				RelativePath="vsurface.h"
+				>
+			</File>
+			<File
+				RelativePath="vsurface_private.h"
+				>
+			</File>
+			<File
+				RelativePath="WCheck.h"
+				>
+			</File>
+			<File
+				RelativePath="WinFont.h"
+				>
+			</File>
+			<File
+				RelativePath="WizShare.h"
+				>
+			</File>
+			<File
+				RelativePath="ZCONF.H"
+				>
+			</File>
+			<File
+				RelativePath="ZLIB.H"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>

@@ -2,11 +2,10 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="Laptop_VS2008"
-	ProjectGUID="{5234CD2E-97F1-42FF-828D-CE0A1B46805E}"
-	RootNamespace="Laptop_VS2008"
-	Keyword="Win32Proj"
-	TargetFrameworkVersion="131072"
+	Name="Laptop"
+	ProjectGUID="{949A2F14-4838-46DF-AFF6-50B3B44417E2}"
+	RootNamespace="Laptop"
+	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
 		<Platform
@@ -18,10 +17,11 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="Debug"
-			IntermediateDirectory="Debug"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -40,18 +40,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				RuntimeLibrary="3"
 				WarningLevel="3"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -83,10 +78,12 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="Release"
-			IntermediateDirectory="Release"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops"
+			CharacterSet="0"
+			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -105,13 +102,11 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
 				RuntimeLibrary="0"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -145,10 +140,12 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditor|Win32"
-			OutputDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			CharacterSet="0"
+			WholeProgramOptimization="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -167,13 +164,11 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\Multiplayer"
+				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
 				RuntimeLibrary="0"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -207,10 +202,11 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditorD|Win32"
-			OutputDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -229,145 +225,13 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
+				RuntimeLibrary="3"
 				WarningLevel="3"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="ChineseDebug|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\Multiplayer"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;CHINESE;WINFONTS;SGP_DEBUG"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLibrarianTool"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="ChineseRelease|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
-			InheritedPropertySheets="..\ja2_VS2008.vsprops"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/D &quot;_CRT_SECURE_NO_DEPRECATE&quot;"
-				Optimization="2"
-				AdditionalIncludeDirectories="..\Multiplayer"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;WINFONTS;CHINESE"
-				RuntimeLibrary="0"
-				RuntimeTypeInfo="false"
-				UsePrecompiledHeader="0"
-				WarningLevel="3"
-				DebugInformationFormat="3"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -402,490 +266,494 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath=".\aim.h"
-				>
-			</File>
-			<File
-				RelativePath=".\AimArchives.h"
-				>
-			</File>
-			<File
-				RelativePath=".\AimFacialIndex.h"
-				>
-			</File>
-			<File
-				RelativePath=".\AimHistory.h"
-				>
-			</File>
-			<File
-				RelativePath=".\AimLinks.h"
-				>
-			</File>
-			<File
-				RelativePath=".\AimMembers.h"
-				>
-			</File>
-			<File
-				RelativePath=".\AimPolicies.h"
-				>
-			</File>
-			<File
-				RelativePath=".\AimSort.h"
-				>
-			</File>
-			<File
-				RelativePath=".\BobbyR.h"
-				>
-			</File>
-			<File
-				RelativePath=".\BobbyRAmmo.h"
-				>
-			</File>
-			<File
-				RelativePath=".\BobbyRArmour.h"
-				>
-			</File>
-			<File
-				RelativePath=".\BobbyRGuns.h"
-				>
-			</File>
-			<File
-				RelativePath=".\BobbyRMailOrder.h"
-				>
-			</File>
-			<File
-				RelativePath=".\BobbyRMisc.h"
-				>
-			</File>
-			<File
-				RelativePath=".\BobbyRShipments.h"
-				>
-			</File>
-			<File
-				RelativePath=".\BobbyRUsed.h"
-				>
-			</File>
-			<File
-				RelativePath=".\BrokenLink.h"
-				>
-			</File>
-			<File
-				RelativePath=".\CharProfile.h"
-				>
-			</File>
-			<File
-				RelativePath=".\email.h"
-				>
-			</File>
-			<File
-				RelativePath=".\files.h"
-				>
-			</File>
-			<File
-				RelativePath=".\finances.h"
-				>
-			</File>
-			<File
-				RelativePath=".\florist Cards.h"
-				>
-			</File>
-			<File
-				RelativePath=".\florist Gallery.h"
-				>
-			</File>
-			<File
-				RelativePath=".\florist Order Form.h"
-				>
-			</File>
-			<File
-				RelativePath=".\florist.h"
-				>
-			</File>
-			<File
-				RelativePath=".\funeral.h"
-				>
-			</File>
-			<File
-				RelativePath=".\GunEmporium.h"
-				>
-			</File>
-			<File
-				RelativePath=".\history.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP AboutUs.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP Attribute Entrance.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP Attribute Finish.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP Attribute Selection.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP Begin Screen.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP Compile Character.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP Confirm.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP Finish.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP HomePage.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP MainPage.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP Personality Entrance.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP Personality Finish.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP Personality Quiz.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP Portraits.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP Skill Trait.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP Text System.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMP Voices.h"
-				>
-			</File>
-			<File
-				RelativePath=".\IMPVideoObjects.h"
-				>
-			</File>
-			<File
-				RelativePath=".\insurance Comments.h"
-				>
-			</File>
-			<File
-				RelativePath=".\insurance Contract.h"
-				>
-			</File>
-			<File
-				RelativePath=".\insurance Info.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Insurance Text.h"
-				>
-			</File>
-			<File
-				RelativePath=".\insurance.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Laptop All.h"
-				>
-			</File>
-			<File
-				RelativePath=".\laptop.h"
-				>
-			</File>
-			<File
-				RelativePath=".\LaptopSave.h"
-				>
-			</File>
-			<File
-				RelativePath=".\mercs Account.h"
-				>
-			</File>
-			<File
-				RelativePath=".\mercs Files.h"
-				>
-			</File>
-			<File
-				RelativePath=".\mercs No Account.h"
-				>
-			</File>
-			<File
-				RelativePath=".\mercs.h"
-				>
-			</File>
-			<File
-				RelativePath=".\personnel.h"
-				>
-			</File>
-			<File
-				RelativePath=".\sirtech.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Speck Quotes.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Store Inventory.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\aim.cpp"
+				RelativePath="aim.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\AimArchives.cpp"
+				RelativePath="AimArchives.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\AimFacialIndex.cpp"
+				RelativePath="AimFacialIndex.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\AimHistory.cpp"
+				RelativePath="AimHistory.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\AimLinks.cpp"
+				RelativePath="AimLinks.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\AimMembers.cpp"
+				RelativePath="AimMembers.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\AimPolicies.cpp"
+				RelativePath="AimPolicies.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\AimSort.cpp"
+				RelativePath="AimSort.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\BobbyR.cpp"
+				RelativePath="BobbyR.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\BobbyRAmmo.cpp"
+				RelativePath="BobbyRAmmo.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\BobbyRArmour.cpp"
+				RelativePath="BobbyRArmour.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\BobbyRGuns.cpp"
+				RelativePath="BobbyRGuns.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\BobbyRMailOrder.cpp"
+				RelativePath="BobbyRMailOrder.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\BobbyRMisc.cpp"
+				RelativePath="BobbyRMisc.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\BobbyRShipments.cpp"
+				RelativePath="BobbyRShipments.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\BobbyRUsed.cpp"
+				RelativePath="BobbyRUsed.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\BrokenLink.cpp"
+				RelativePath="BrokenLink.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\CharProfile.cpp"
+				RelativePath="CharProfile.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\email.cpp"
+				RelativePath="email.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\files.cpp"
+				RelativePath="files.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\finances.cpp"
+				RelativePath="finances.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\florist Cards.cpp"
+				RelativePath="florist Cards.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\florist Gallery.cpp"
+				RelativePath="florist Gallery.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\florist Order Form.cpp"
+				RelativePath="florist Order Form.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\florist.cpp"
+				RelativePath="florist.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\funeral.cpp"
+				RelativePath="funeral.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\history.cpp"
+				RelativePath="GunEmporium.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP AboutUs.cpp"
+				RelativePath="history.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP Attribute Entrance.cpp"
+				RelativePath="IMP AboutUs.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP Attribute Finish.cpp"
+				RelativePath="IMP Attribute Entrance.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP Attribute Selection.cpp"
+				RelativePath="IMP Attribute Finish.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP Begin Screen.cpp"
+				RelativePath="IMP Attribute Selection.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP Compile Character.cpp"
+				RelativePath="IMP Begin Screen.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP Confirm.cpp"
+				RelativePath="IMP Compile Character.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP Finish.cpp"
+				RelativePath="IMP Confirm.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP HomePage.cpp"
+				RelativePath="IMP Finish.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP MainPage.cpp"
+				RelativePath="IMP HomePage.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP Personality Entrance.cpp"
+				RelativePath="IMP MainPage.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP Personality Finish.cpp"
+				RelativePath="IMP Personality Entrance.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP Personality Quiz.cpp"
+				RelativePath="IMP Personality Finish.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP Portraits.cpp"
+				RelativePath="IMP Personality Quiz.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP Skill Trait.cpp"
+				RelativePath="IMP Portraits.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP Text System.cpp"
+				RelativePath="IMP Skill Trait.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMP Voices.cpp"
+				RelativePath="IMP Text System.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\IMPVideoObjects.cpp"
+				RelativePath="IMP Voices.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\insurance Comments.cpp"
+				RelativePath="IMPVideoObjects.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\insurance Contract.cpp"
+				RelativePath="insurance Comments.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\insurance Info.cpp"
+				RelativePath="insurance Contract.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\insurance.cpp"
+				RelativePath="insurance Info.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\laptop.cpp"
+				RelativePath="insurance.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\mercs Account.cpp"
+				RelativePath="laptop.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\mercs Files.cpp"
+				RelativePath="mercs Account.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\mercs No Account.cpp"
+				RelativePath="mercs Files.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\mercs.cpp"
+				RelativePath="mercs No Account.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\personnel.cpp"
+				RelativePath="mercs.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\sirtech.cpp"
+				RelativePath="personnel.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\Store Inventory.cpp"
+				RelativePath="sirtech.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Store Inventory.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
+			<File
+				RelativePath="aim.h"
+				>
+			</File>
+			<File
+				RelativePath="AimArchives.h"
+				>
+			</File>
+			<File
+				RelativePath="AimFacialIndex.h"
+				>
+			</File>
+			<File
+				RelativePath="AimHistory.h"
+				>
+			</File>
+			<File
+				RelativePath="AimLinks.h"
+				>
+			</File>
+			<File
+				RelativePath="AimMembers.h"
+				>
+			</File>
+			<File
+				RelativePath="AimPolicies.h"
+				>
+			</File>
+			<File
+				RelativePath="AimSort.h"
+				>
+			</File>
+			<File
+				RelativePath="BobbyR.h"
+				>
+			</File>
+			<File
+				RelativePath="BobbyRAmmo.h"
+				>
+			</File>
+			<File
+				RelativePath="BobbyRArmour.h"
+				>
+			</File>
+			<File
+				RelativePath="BobbyRGuns.h"
+				>
+			</File>
+			<File
+				RelativePath="BobbyRMailOrder.h"
+				>
+			</File>
+			<File
+				RelativePath="BobbyRMisc.h"
+				>
+			</File>
+			<File
+				RelativePath="BobbyRShipments.h"
+				>
+			</File>
+			<File
+				RelativePath="BobbyRUsed.h"
+				>
+			</File>
+			<File
+				RelativePath="BrokenLink.h"
+				>
+			</File>
+			<File
+				RelativePath="CharProfile.h"
+				>
+			</File>
+			<File
+				RelativePath="email.h"
+				>
+			</File>
+			<File
+				RelativePath="files.h"
+				>
+			</File>
+			<File
+				RelativePath="finances.h"
+				>
+			</File>
+			<File
+				RelativePath="florist Cards.h"
+				>
+			</File>
+			<File
+				RelativePath="florist Gallery.h"
+				>
+			</File>
+			<File
+				RelativePath="florist Order Form.h"
+				>
+			</File>
+			<File
+				RelativePath="florist.h"
+				>
+			</File>
+			<File
+				RelativePath="funeral.h"
+				>
+			</File>
+			<File
+				RelativePath="GunEmporium.h"
+				>
+			</File>
+			<File
+				RelativePath="history.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP AboutUs.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP Attribute Entrance.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP Attribute Finish.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP Attribute Selection.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP Begin Screen.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP Compile Character.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP Confirm.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP Finish.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP HomePage.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP MainPage.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP Personality Entrance.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP Personality Finish.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP Personality Quiz.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP Portraits.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP Skill Trait.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP Text System.h"
+				>
+			</File>
+			<File
+				RelativePath="IMP Voices.h"
+				>
+			</File>
+			<File
+				RelativePath="IMPVideoObjects.h"
+				>
+			</File>
+			<File
+				RelativePath="insurance Comments.h"
+				>
+			</File>
+			<File
+				RelativePath="insurance Contract.h"
+				>
+			</File>
+			<File
+				RelativePath="insurance Info.h"
+				>
+			</File>
+			<File
+				RelativePath="Insurance Text.h"
+				>
+			</File>
+			<File
+				RelativePath="insurance.h"
+				>
+			</File>
+			<File
+				RelativePath="Laptop All.h"
+				>
+			</File>
+			<File
+				RelativePath="laptop.h"
+				>
+			</File>
+			<File
+				RelativePath="LaptopSave.h"
+				>
+			</File>
+			<File
+				RelativePath="mercs Account.h"
+				>
+			</File>
+			<File
+				RelativePath="mercs Files.h"
+				>
+			</File>
+			<File
+				RelativePath="mercs No Account.h"
+				>
+			</File>
+			<File
+				RelativePath="mercs.h"
+				>
+			</File>
+			<File
+				RelativePath="personnel.h"
+				>
+			</File>
+			<File
+				RelativePath="sirtech.h"
+				>
+			</File>
+			<File
+				RelativePath="Speck Quotes.h"
+				>
+			</File>
+			<File
+				RelativePath="Store Inventory.h"
 				>
 			</File>
 		</Filter>

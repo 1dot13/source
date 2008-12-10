@@ -2,12 +2,12 @@
 <VisualStudioPropertySheet
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="ja2_VS2008"
+	Name="ja2"
 	>
 	<Tool
 		Name="VCCLCompilerTool"
-		AdditionalIncludeDirectories="..\Utils;..\TileEngine;..\TacticalAI;..\Tactical;..\Strategic;&quot;..\Standard Gaming Platform&quot;;..\Res;..\lua;..\Laptop;..\Editor;..\;..\Console;$(NOINHERIT)"
-		PreprocessorDefinitions="JA2;CINTERFACE;XML_STATIC"
+		AdditionalIncludeDirectories=".\.;..\.;..\Utils;.\Utils;..\TileEngine;.\TileEngine;..\TacticalAI;.\TacticalAI;..\Tactical;.\Tactical;..\Strategic;.\Strategic;&quot;..\Standard Gaming Platform&quot;;&quot;.\Standard Gaming Platform&quot;;..\Res;.\Res;..\lua;.\lua;..\Laptop;.\Laptop;..\Multiplayer;.\Multiplayer;..\Multiplayer\raknet;.\Multiplayer\raknet;..\Editor;.\Editor;..\Console;.\Console;$(NOINHERIT)"
+		PreprocessorDefinitions="JA2;CINTERFACE;XML_STATIC;_CRT_SECURE_NO_DEPRECATE"
 		Detect64BitPortabilityProblems="false"
 	/>
 </VisualStudioPropertySheet>

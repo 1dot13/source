@@ -2,7 +2,7 @@
 <VisualStudioPropertySheet
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="ja2_VS2008Debug"
+	Name="ja2_Debug"
 	>
 	<Tool
 		Name="VCCLCompilerTool"
