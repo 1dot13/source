@@ -669,8 +669,10 @@ void DeductPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost,BOOLEAN f
 		{
 			// Snap: moved this up, because it had no effect below
 			// Take off 1 AP per 5 (negative) breath...
-			pSoldier->bActionPoints -= ( pSoldier->sBreathRed + iBPCost - BREATH_RED_MAX )
-									/ ( 5 * APBPConstants[BP_RATIO_RED_PTS_TO_NORMAL] );
+			//CHRISL: Need to adjust this so that AP lose is based on AP_MAXIMUM
+			pSoldier->bActionPoints -= (INT16)( (float)( pSoldier->sBreathRed + iBPCost - BREATH_RED_MAX )
+									/ (float)( 5 * APBPConstants[BP_RATIO_RED_PTS_TO_NORMAL])
+									* (float)(4 * (float)APBPConstants[AP_MAXIMUM] / 100));
 			if ( pSoldier->bActionPoints < 0 )
 			{
 				pSoldier->bActionPoints = 0;

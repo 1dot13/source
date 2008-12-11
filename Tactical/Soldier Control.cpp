@@ -1844,13 +1844,13 @@ INT16 SOLDIERTYPE::CalcActionPoints( void )
 		ubPoints = (UINT8) ( ((UINT32)ubPoints) * 100 / this->sWeightCarriedAtTurnStart );
 	}
 
-	// If resulting APs are below our permitted minimum, raise them to it!
-	if (ubPoints < APBPConstants[AP_MINIMUM])
-		ubPoints = APBPConstants[AP_MINIMUM];
-
 	//CHRISL: Moved this down here so that all ubPoints adjustments can be made to the default 100AP system
 	// Adjust ubPoints based on actual AP_MAXIMUM setting
 	ubPoints = DynamicAdjustAPConstants(ubPoints, ubPoints);
+
+	// If resulting APs are below our permitted minimum, raise them to it!
+	if (ubPoints < APBPConstants[AP_MINIMUM])
+		ubPoints = APBPConstants[AP_MINIMUM];
 
 	// make sure action points doesn't exceed the permitted maximum
 	ubMaxAPs = gubMaxActionPoints[ this->ubBodyType ];
