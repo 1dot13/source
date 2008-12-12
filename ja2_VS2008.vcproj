@@ -3,8 +3,9 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="ja2"
-	ProjectGUID="{BAB4E408-421C-4214-84ED-5469A24C8533}"
+	ProjectGUID="{B112F6BA-AF32-489C-B405-916C0F182D10}"
 	RootNamespace="ja2"
+	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -17,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="\Games\Jagged Alliance 2"
+			OutputDirectory="\games\jagged alliance 2"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets=".\ja2_VS2008.vsprops;.\ja2_VS2008Debug.vsprops;.\ja2_VS2008Linker.vsprops;.\ja2_VS2008Libs.vsprops"
@@ -44,8 +45,8 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				RuntimeTypeInfo="false"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -60,16 +61,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Winmm.lib RakNetLibStaticDebug.lib ws2_32.lib"
+				AdditionalDependencies="Winmm.lib RakNetLibStatic.lib ws2_32.lib"
 				OutputFile="$(OutDir)\ja2_debug_2445_en.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="Multiplayer\raknet"
-				IgnoreDefaultLibraryNames="libcmtd"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
-				EntryPointSymbol=""
 				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -92,7 +91,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
@@ -123,12 +121,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="false"
-				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -145,15 +144,11 @@
 				OutputFile="$(OutDir)\ja2_release_2445_en.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="Multiplayer\raknet"
-				IgnoreDefaultLibraryNames="libcmt"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				OptimizeForWindows98="0"
-				LinkTimeCodeGeneration="1"
 				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -206,12 +201,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="false"
-				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -225,18 +221,14 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="Winmm.lib RakNetLibStatic.lib ws2_32.lib"
-				OutputFile="$(OutDir)\MapEditor_release_2389_en.exe"
+				OutputFile="$(OutDir)\Map Editor_2389_en.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="Multiplayer\raknet"
-				IgnoreDefaultLibraryNames="libcmt"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				OptimizeForWindows98="0"
-				LinkTimeCodeGeneration="1"
 				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -290,8 +282,8 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				RuntimeTypeInfo="false"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -306,16 +298,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Winmm.lib RakNetLibStaticDebug.lib ws2_32.lib"
-				OutputFile="$(OutDir)\MapEditor_debug_2389_en.exe"
+				AdditionalDependencies="Winmm.lib RakNetLibStatic.lib ws2_32.lib"
+				OutputFile="$(OutDir)\Map EditorD_2389_en.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="Multiplayer\raknet"
-				IgnoreDefaultLibraryNames="libcmtd"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
-				EntryPointSymbol=""
 				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -338,111 +328,12 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine=""
 			/>
 		</Configuration>
 	</Configurations>
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-			>
-			<File
-				RelativePath="aniviewscreen.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Credits.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Fade Screen.cpp"
-				>
-			</File>
-			<File
-				RelativePath="GameInitOptionsScreen.cpp"
-				>
-			</File>
-			<File
-				RelativePath="gameloop.cpp"
-				>
-			</File>
-			<File
-				RelativePath="gamescreen.cpp"
-				>
-			</File>
-			<File
-				RelativePath="GameSettings.cpp"
-				>
-			</File>
-			<File
-				RelativePath="GameVersion.cpp"
-				>
-			</File>
-			<File
-				RelativePath="HelpScreen.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Init.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Intro.cpp"
-				>
-			</File>
-			<File
-				RelativePath="JA2 Splash.cpp"
-				>
-			</File>
-			<File
-				RelativePath="jascreens.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Language Defines.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Loading Screen.cpp"
-				>
-			</File>
-			<File
-				RelativePath="MainMenuScreen.cpp"
-				>
-			</File>
-			<File
-				RelativePath="MessageBoxScreen.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Options Screen.cpp"
-				>
-			</File>
-			<File
-				RelativePath="profiler.cpp"
-				>
-			</File>
-			<File
-				RelativePath="SaveLoadGame.cpp"
-				>
-			</File>
-			<File
-				RelativePath="SaveLoadScreen.cpp"
-				>
-			</File>
-			<File
-				RelativePath="SCREENS.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Sys Globals.cpp"
-				>
-			</File>
-		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
@@ -578,24 +469,6 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-			>
-			<File
-				RelativePath="Res\ja2.rc"
-				>
-			</File>
-			<File
-				RelativePath="Res\jagged3.ico"
-				>
-			</File>
-			<File
-				RelativePath="Res\resource.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Multiplayer"
 			>
 			<Filter
@@ -634,6 +507,120 @@
 					>
 				</File>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Resource Files"
+			>
+			<File
+				RelativePath="Res\ja2.rc"
+				>
+			</File>
+			<File
+				RelativePath="Res\jagged3.ico"
+				>
+			</File>
+			<File
+				RelativePath="Res\resource.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			>
+			<File
+				RelativePath="aniviewscreen.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Credits.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Fade Screen.cpp"
+				>
+			</File>
+			<File
+				RelativePath="GameInitOptionsScreen.cpp"
+				>
+			</File>
+			<File
+				RelativePath="gameloop.cpp"
+				>
+			</File>
+			<File
+				RelativePath="gamescreen.cpp"
+				>
+			</File>
+			<File
+				RelativePath="GameSettings.cpp"
+				>
+			</File>
+			<File
+				RelativePath="GameVersion.cpp"
+				>
+			</File>
+			<File
+				RelativePath="HelpScreen.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Init.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Intro.cpp"
+				>
+			</File>
+			<File
+				RelativePath="JA2 Splash.cpp"
+				>
+			</File>
+			<File
+				RelativePath="jascreens.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Language Defines.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Loading Screen.cpp"
+				>
+			</File>
+			<File
+				RelativePath="MainMenuScreen.cpp"
+				>
+			</File>
+			<File
+				RelativePath="MessageBoxScreen.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Options Screen.cpp"
+				>
+			</File>
+			<File
+				RelativePath="profiler.cpp"
+				>
+			</File>
+			<File
+				RelativePath="SaveLoadGame.cpp"
+				>
+			</File>
+			<File
+				RelativePath="SaveLoadScreen.cpp"
+				>
+			</File>
+			<File
+				RelativePath="SCREENS.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Sys Globals.cpp"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

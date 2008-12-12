@@ -3,8 +3,9 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="lua"
-	ProjectGUID="{C6EBEF77-2FAF-4F79-A38A-F2BB529A6693}"
+	ProjectGUID="{60D5BF89-B609-4A30-A38D-9FE417FB12B6}"
 	RootNamespace="lua"
+	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -17,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
 			CharacterSet="0"
@@ -41,14 +42,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				RuntimeTypeInfo="false"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -80,8 +80,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops"
 			CharacterSet="0"
@@ -106,11 +106,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				StringPooling="true"
 				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="true"
+				EnableFunctionLevelLinking="false"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -142,8 +144,8 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditor|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
 			CharacterSet="0"
@@ -168,11 +170,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				StringPooling="true"
 				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="true"
+				EnableFunctionLevelLinking="false"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -204,8 +208,8 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditorD|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
 			CharacterSet="0"
@@ -228,14 +232,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				RuntimeTypeInfo="false"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
-				DisableSpecificWarnings="4100"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -270,35 +273,7 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-			>
-			<File
-				RelativePath="lua.cpp"
-				>
-			</File>
-			<File
-				RelativePath="lua_env.cpp"
-				>
-			</File>
-			<File
-				RelativePath="lua_strategic.cpp"
-				>
-			</File>
-			<File
-				RelativePath="lua_tactical.cpp"
-				>
-			</File>
-			<File
-				RelativePath="lwstring.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
 				RelativePath="lauxlib.h"
@@ -326,6 +301,30 @@
 			</File>
 			<File
 				RelativePath="lwstring.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Source Files"
+			>
+			<File
+				RelativePath="lua.cpp"
+				>
+			</File>
+			<File
+				RelativePath="lua_env.cpp"
+				>
+			</File>
+			<File
+				RelativePath="lua_strategic.cpp"
+				>
+			</File>
+			<File
+				RelativePath="lua_tactical.cpp"
+				>
+			</File>
+			<File
+				RelativePath="lwstring.cpp"
 				>
 			</File>
 		</Filter>

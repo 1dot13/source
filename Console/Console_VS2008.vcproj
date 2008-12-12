@@ -3,8 +3,9 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="Console"
-	ProjectGUID="{5E47B66B-6071-422C-B8CA-AF0689825767}"
+	ProjectGUID="{0BE7070B-C8C5-409A-82DD-0701D54A1C6C}"
 	RootNamespace="Console"
+	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -17,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
 			CharacterSet="0"
@@ -41,10 +42,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -79,8 +81,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops"
 			CharacterSet="0"
@@ -105,11 +107,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				StringPooling="true"
 				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="true"
+				EnableFunctionLevelLinking="false"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -142,8 +146,8 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditor|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
 			CharacterSet="0"
@@ -168,11 +172,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				StringPooling="true"
 				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="true"
+				EnableFunctionLevelLinking="false"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -205,8 +211,8 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditorD|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
 			CharacterSet="0"
@@ -229,10 +235,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -270,31 +277,7 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-			>
-			<File
-				RelativePath="Console.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Cursors.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Dialogs.cpp"
-				>
-			</File>
-			<File
-				RelativePath="FileStream.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
 				RelativePath="ComBSTROut.h"
@@ -322,12 +305,22 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			Name="Source Files"
 			>
 			<File
-				RelativePath="console.ico"
+				RelativePath="Console.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Cursors.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Dialogs.cpp"
+				>
+			</File>
+			<File
+				RelativePath="FileStream.cpp"
 				>
 			</File>
 		</Filter>

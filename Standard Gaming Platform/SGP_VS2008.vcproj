@@ -3,8 +3,9 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="SGP"
-	ProjectGUID="{5FD3FB5E-D0E5-4C0C-90BC-65EFF70D62EA}"
+	ProjectGUID="{96FA90B1-2ABD-42E7-9CAB-14804DFD3240}"
 	RootNamespace="SGP"
+	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -17,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
 			CharacterSet="0"
@@ -44,7 +45,8 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;NO_ZLIB_COMPRESSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -78,8 +80,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops"
 			CharacterSet="0"
@@ -105,10 +107,12 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;NO_ZLIB_COMPRESSION"
+				StringPooling="true"
 				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="true"
+				EnableFunctionLevelLinking="false"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -140,8 +144,8 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditor|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
 			CharacterSet="0"
@@ -167,10 +171,12 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;NO_ZLIB_COMPRESSION"
+				StringPooling="true"
 				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="true"
+				EnableFunctionLevelLinking="false"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -202,8 +208,8 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditorD|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
 			CharacterSet="0"
@@ -229,7 +235,8 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;NO_ZLIB_COMPRESSION"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -266,175 +273,7 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
-			>
-			<File
-				RelativePath="Button Sound Control.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Button System.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Compression.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Container.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Cursor Control.cpp"
-				>
-			</File>
-			<File
-				RelativePath="DbMan.cpp"
-				>
-			</File>
-			<File
-				RelativePath="DEBUG.cpp"
-				>
-			</File>
-			<File
-				RelativePath="DirectDraw Calls.cpp"
-				>
-			</File>
-			<File
-				RelativePath="DirectX Common.cpp"
-				>
-			</File>
-			<File
-				RelativePath="English.cpp"
-				>
-			</File>
-			<File
-				RelativePath="ExceptionHandling.cpp"
-				>
-			</File>
-			<File
-				RelativePath="FileCat.cpp"
-				>
-			</File>
-			<File
-				RelativePath="FileMan.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Flic.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Font.cpp"
-				>
-			</File>
-			<File
-				RelativePath="himage.cpp"
-				>
-			</File>
-			<File
-				RelativePath="impTGA.cpp"
-				>
-			</File>
-			<File
-				RelativePath="input.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Install.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Ja2 Libs.cpp"
-				>
-			</File>
-			<File
-				RelativePath="LibraryDataBase.cpp"
-				>
-			</File>
-			<File
-				RelativePath="line.cpp"
-				>
-			</File>
-			<File
-				RelativePath="MemMan.cpp"
-				>
-			</File>
-			<File
-				RelativePath="mousesystem.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Mutex Manager.cpp"
-				>
-			</File>
-			<File
-				RelativePath="PCX.cpp"
-				>
-			</File>
-			<File
-				RelativePath="Random.cpp"
-				>
-			</File>
-			<File
-				RelativePath="readdir.cpp"
-				>
-			</File>
-			<File
-				RelativePath="RegInst.cpp"
-				>
-			</File>
-			<File
-				RelativePath="sgp.cpp"
-				>
-			</File>
-			<File
-				RelativePath="shading.cpp"
-				>
-			</File>
-			<File
-				RelativePath="soundman.cpp"
-				>
-			</File>
-			<File
-				RelativePath="STCI.cpp"
-				>
-			</File>
-			<File
-				RelativePath="stringicmp.cpp"
-				>
-			</File>
-			<File
-				RelativePath="timer.cpp"
-				>
-			</File>
-			<File
-				RelativePath="video.cpp"
-				>
-			</File>
-			<File
-				RelativePath="vobject.cpp"
-				>
-			</File>
-			<File
-				RelativePath="vobject_blitters.cpp"
-				>
-			</File>
-			<File
-				RelativePath="vsurface.cpp"
-				>
-			</File>
-			<File
-				RelativePath="WinFont.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
 				RelativePath="Bitmap.h"
@@ -690,6 +529,170 @@
 			</File>
 			<File
 				RelativePath="ZLIB.H"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Source Files"
+			>
+			<File
+				RelativePath="Button Sound Control.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Button System.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Compression.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Container.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Cursor Control.cpp"
+				>
+			</File>
+			<File
+				RelativePath="DbMan.cpp"
+				>
+			</File>
+			<File
+				RelativePath="DEBUG.cpp"
+				>
+			</File>
+			<File
+				RelativePath="DirectDraw Calls.cpp"
+				>
+			</File>
+			<File
+				RelativePath="DirectX Common.cpp"
+				>
+			</File>
+			<File
+				RelativePath="English.cpp"
+				>
+			</File>
+			<File
+				RelativePath="ExceptionHandling.cpp"
+				>
+			</File>
+			<File
+				RelativePath="FileCat.cpp"
+				>
+			</File>
+			<File
+				RelativePath="FileMan.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Flic.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Font.cpp"
+				>
+			</File>
+			<File
+				RelativePath="himage.cpp"
+				>
+			</File>
+			<File
+				RelativePath="impTGA.cpp"
+				>
+			</File>
+			<File
+				RelativePath="input.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Install.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Ja2 Libs.cpp"
+				>
+			</File>
+			<File
+				RelativePath="LibraryDataBase.cpp"
+				>
+			</File>
+			<File
+				RelativePath="line.cpp"
+				>
+			</File>
+			<File
+				RelativePath="MemMan.cpp"
+				>
+			</File>
+			<File
+				RelativePath="mousesystem.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Mutex Manager.cpp"
+				>
+			</File>
+			<File
+				RelativePath="PCX.cpp"
+				>
+			</File>
+			<File
+				RelativePath="Random.cpp"
+				>
+			</File>
+			<File
+				RelativePath="readdir.cpp"
+				>
+			</File>
+			<File
+				RelativePath="RegInst.cpp"
+				>
+			</File>
+			<File
+				RelativePath="sgp.cpp"
+				>
+			</File>
+			<File
+				RelativePath="shading.cpp"
+				>
+			</File>
+			<File
+				RelativePath="soundman.cpp"
+				>
+			</File>
+			<File
+				RelativePath="STCI.cpp"
+				>
+			</File>
+			<File
+				RelativePath="stringicmp.cpp"
+				>
+			</File>
+			<File
+				RelativePath="timer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="video.cpp"
+				>
+			</File>
+			<File
+				RelativePath="vobject.cpp"
+				>
+			</File>
+			<File
+				RelativePath="vobject_blitters.cpp"
+				>
+			</File>
+			<File
+				RelativePath="vsurface.cpp"
+				>
+			</File>
+			<File
+				RelativePath="WinFont.cpp"
 				>
 			</File>
 		</Filter>

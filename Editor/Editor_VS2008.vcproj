@@ -3,8 +3,9 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="Editor"
-	ProjectGUID="{B19F93C9-F829-4230-A805-6D809CF112F9}"
+	ProjectGUID="{99341DB1-FD6E-4E87-919B-25C813F08D18}"
 	RootNamespace="Editor"
+	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -17,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
 			CharacterSet="0"
@@ -41,10 +42,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -78,8 +80,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops"
 			CharacterSet="0"
@@ -104,11 +106,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				StringPooling="true"
 				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="true"
+				EnableFunctionLevelLinking="false"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -140,8 +144,8 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditor|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
 			CharacterSet="0"
@@ -166,11 +170,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				StringPooling="true"
 				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="true"
+				EnableFunctionLevelLinking="false"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -202,8 +208,8 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditorD|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
 			CharacterSet="0"
@@ -226,10 +232,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -266,9 +273,123 @@
 	</References>
 	<Files>
 		<Filter
+			Name="Header Files"
+			>
+			<File
+				RelativePath="Button Defines.h"
+				>
+			</File>
+			<File
+				RelativePath="Cursor Modes.h"
+				>
+			</File>
+			<File
+				RelativePath="edit_sys.h"
+				>
+			</File>
+			<File
+				RelativePath="Editor All.h"
+				>
+			</File>
+			<File
+				RelativePath="Editor Callback Prototypes.h"
+				>
+			</File>
+			<File
+				RelativePath="Editor Modes.h"
+				>
+			</File>
+			<File
+				RelativePath="Editor Taskbar Creation.h"
+				>
+			</File>
+			<File
+				RelativePath="Editor Taskbar Utils.h"
+				>
+			</File>
+			<File
+				RelativePath="Editor Undo.h"
+				>
+			</File>
+			<File
+				RelativePath="EditorBuildings.h"
+				>
+			</File>
+			<File
+				RelativePath="EditorDefines.h"
+				>
+			</File>
+			<File
+				RelativePath="EditorItems.h"
+				>
+			</File>
+			<File
+				RelativePath="EditorMapInfo.h"
+				>
+			</File>
+			<File
+				RelativePath="EditorMercs.h"
+				>
+			</File>
+			<File
+				RelativePath="EditorTerrain.h"
+				>
+			</File>
+			<File
+				RelativePath="editscreen.h"
+				>
+			</File>
+			<File
+				RelativePath="Item Statistics.h"
+				>
+			</File>
+			<File
+				RelativePath="LoadScreen.h"
+				>
+			</File>
+			<File
+				RelativePath="messagebox.h"
+				>
+			</File>
+			<File
+				RelativePath="newsmooth.h"
+				>
+			</File>
+			<File
+				RelativePath="popupmenu.h"
+				>
+			</File>
+			<File
+				RelativePath="Road Smoothing.h"
+				>
+			</File>
+			<File
+				RelativePath="Sector Summary.h"
+				>
+			</File>
+			<File
+				RelativePath="selectwin.h"
+				>
+			</File>
+			<File
+				RelativePath="SmartMethod.h"
+				>
+			</File>
+			<File
+				RelativePath="smooth.h"
+				>
+			</File>
+			<File
+				RelativePath="Smoothing Utils.h"
+				>
+			</File>
+			<File
+				RelativePath="Summary Info.h"
+				>
+			</File>
+		</Filter>
+		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
 				RelativePath="Cursor Modes.cpp"
@@ -364,120 +485,6 @@
 			</File>
 			<File
 				RelativePath="Smoothing Utils.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath="Button Defines.h"
-				>
-			</File>
-			<File
-				RelativePath="Cursor Modes.h"
-				>
-			</File>
-			<File
-				RelativePath="edit_sys.h"
-				>
-			</File>
-			<File
-				RelativePath="Editor All.h"
-				>
-			</File>
-			<File
-				RelativePath="Editor Callback Prototypes.h"
-				>
-			</File>
-			<File
-				RelativePath="Editor Modes.h"
-				>
-			</File>
-			<File
-				RelativePath="Editor Taskbar Creation.h"
-				>
-			</File>
-			<File
-				RelativePath="Editor Taskbar Utils.h"
-				>
-			</File>
-			<File
-				RelativePath="Editor Undo.h"
-				>
-			</File>
-			<File
-				RelativePath="EditorBuildings.h"
-				>
-			</File>
-			<File
-				RelativePath="EditorDefines.h"
-				>
-			</File>
-			<File
-				RelativePath="EditorItems.h"
-				>
-			</File>
-			<File
-				RelativePath="EditorMercs.h"
-				>
-			</File>
-			<File
-				RelativePath="EditorTerrain.h"
-				>
-			</File>
-			<File
-				RelativePath="editscreen.h"
-				>
-			</File>
-			<File
-				RelativePath="Item Statistics.h"
-				>
-			</File>
-			<File
-				RelativePath="LoadScreen.h"
-				>
-			</File>
-			<File
-				RelativePath="messagebox.h"
-				>
-			</File>
-			<File
-				RelativePath="newsmooth.h"
-				>
-			</File>
-			<File
-				RelativePath="popupmenu.h"
-				>
-			</File>
-			<File
-				RelativePath="Road Smoothing.h"
-				>
-			</File>
-			<File
-				RelativePath="Sector Summary.h"
-				>
-			</File>
-			<File
-				RelativePath="selectwin.h"
-				>
-			</File>
-			<File
-				RelativePath="SmartMethod.h"
-				>
-			</File>
-			<File
-				RelativePath="smooth.h"
-				>
-			</File>
-			<File
-				RelativePath="Smoothing Utils.h"
-				>
-			</File>
-			<File
-				RelativePath="Summary Info.h"
 				>
 			</File>
 		</Filter>

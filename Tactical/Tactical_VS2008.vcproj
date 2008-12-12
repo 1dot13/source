@@ -3,8 +3,9 @@
 	ProjectType="Visual C++"
 	Version="9,00"
 	Name="Tactical"
-	ProjectGUID="{80BE1D23-9651-47C8-AF66-6F76756E6CF3}"
+	ProjectGUID="{8E3BD72D-8791-497B-A38E-D71B255F0A66}"
 	RootNamespace="Tactical"
+	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -17,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Debug.vsprops"
 			CharacterSet="0"
@@ -41,10 +42,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -78,8 +80,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops"
 			CharacterSet="0"
@@ -104,11 +106,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				StringPooling="true"
 				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="true"
+				EnableFunctionLevelLinking="false"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -140,8 +144,8 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditor|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
 			CharacterSet="0"
@@ -166,11 +170,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				StringPooling="true"
 				RuntimeLibrary="0"
-				EnableFunctionLevelLinking="true"
+				EnableFunctionLevelLinking="false"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="3"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -202,8 +208,8 @@
 		</Configuration>
 		<Configuration
 			Name="MapEditorD|Win32"
-			OutputDirectory="$(SolutionDir)lib\$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\lib\VS2008\$(ConfigurationName)"
+			IntermediateDirectory="..\build\VS2008\$(ProjectName)_$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="..\ja2_VS2008.vsprops;..\ja2_VS2008Editor.vsprops"
 			CharacterSet="0"
@@ -226,10 +232,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -266,9 +273,339 @@
 	</References>
 	<Files>
 		<Filter
+			Name="Header Files"
+			>
+			<File
+				RelativePath="Action Items.h"
+				>
+			</File>
+			<File
+				RelativePath="Air Raid.h"
+				>
+			</File>
+			<File
+				RelativePath="Animation Cache.h"
+				>
+			</File>
+			<File
+				RelativePath="Animation Control.h"
+				>
+			</File>
+			<File
+				RelativePath="Animation Data.h"
+				>
+			</File>
+			<File
+				RelativePath="Arms Dealer Init.h"
+				>
+			</File>
+			<File
+				RelativePath="ArmsDealerInvInit.h"
+				>
+			</File>
+			<File
+				RelativePath="AStarPathfinder.h"
+				>
+			</File>
+			<File
+				RelativePath="Auto Bandage.h"
+				>
+			</File>
+			<File
+				RelativePath="BinaryHeap.hpp"
+				>
+			</File>
+			<File
+				RelativePath="Boxing.h"
+				>
+			</File>
+			<File
+				RelativePath="Bullets.h"
+				>
+			</File>
+			<File
+				RelativePath="Campaign.h"
+				>
+			</File>
+			<File
+				RelativePath="Civ Quotes.h"
+				>
+			</File>
+			<File
+				RelativePath="Dialogue Control.h"
+				>
+			</File>
+			<File
+				RelativePath="DisplayCover.h"
+				>
+			</File>
+			<File
+				RelativePath="Drugs And Alcohol.h"
+				>
+			</File>
+			<File
+				RelativePath="End Game.h"
+				>
+			</File>
+			<File
+				RelativePath="Enemy Soldier Save.h"
+				>
+			</File>
+			<File
+				RelativePath="EnemyItemDrops.h"
+				>
+			</File>
+			<File
+				RelativePath="faces.h"
+				>
+			</File>
+			<File
+				RelativePath="fov.h"
+				>
+			</File>
+			<File
+				RelativePath="GAP.H"
+				>
+			</File>
+			<File
+				RelativePath="Handle Doors.h"
+				>
+			</File>
+			<File
+				RelativePath="Handle Items.h"
+				>
+			</File>
+			<File
+				RelativePath="Handle UI Plan.h"
+				>
+			</File>
+			<File
+				RelativePath="Handle UI.h"
+				>
+			</File>
+			<File
+				RelativePath="Interface Control.h"
+				>
+			</File>
+			<File
+				RelativePath="Interface Cursors.h"
+				>
+			</File>
+			<File
+				RelativePath="interface Dialogue.h"
+				>
+			</File>
+			<File
+				RelativePath="Interface Enhanced.h"
+				>
+			</File>
+			<File
+				RelativePath="Interface Items.h"
+				>
+			</File>
+			<File
+				RelativePath="Interface Panels.h"
+				>
+			</File>
+			<File
+				RelativePath="Interface Utils.h"
+				>
+			</File>
+			<File
+				RelativePath="Interface.h"
+				>
+			</File>
+			<File
+				RelativePath="Inventory Choosing.h"
+				>
+			</File>
+			<File
+				RelativePath="Item Types.h"
+				>
+			</File>
+			<File
+				RelativePath="Items.h"
+				>
+			</File>
+			<File
+				RelativePath="Keys.h"
+				>
+			</File>
+			<File
+				RelativePath="LOS.h"
+				>
+			</File>
+			<File
+				RelativePath="Map Information.h"
+				>
+			</File>
+			<File
+				RelativePath="merc entering.h"
+				>
+			</File>
+			<File
+				RelativePath="Merc Hiring.h"
+				>
+			</File>
+			<File
+				RelativePath="Militia Control.h"
+				>
+			</File>
+			<File
+				RelativePath="Morale.h"
+				>
+			</File>
+			<File
+				RelativePath="opplist.h"
+				>
+			</File>
+			<File
+				RelativePath="Overhead Types.h"
+				>
+			</File>
+			<File
+				RelativePath="Overhead.h"
+				>
+			</File>
+			<File
+				RelativePath="PATHAI.H"
+				>
+			</File>
+			<File
+				RelativePath="PathAIDebug.h"
+				>
+			</File>
+			<File
+				RelativePath="Points.h"
+				>
+			</File>
+			<File
+				RelativePath="qarray.h"
+				>
+			</File>
+			<File
+				RelativePath="Rain.h"
+				>
+			</File>
+			<File
+				RelativePath="Rotting Corpses.h"
+				>
+			</File>
+			<File
+				RelativePath="rt time defines.h"
+				>
+			</File>
+			<File
+				RelativePath="ShopKeeper Interface.h"
+				>
+			</File>
+			<File
+				RelativePath="ShopKeeper Quotes.h"
+				>
+			</File>
+			<File
+				RelativePath="SkillCheck.h"
+				>
+			</File>
+			<File
+				RelativePath="Soldier Add.h"
+				>
+			</File>
+			<File
+				RelativePath="Soldier Ani.h"
+				>
+			</File>
+			<File
+				RelativePath="Soldier Control.h"
+				>
+			</File>
+			<File
+				RelativePath="Soldier Create.h"
+				>
+			</File>
+			<File
+				RelativePath="Soldier Find.h"
+				>
+			</File>
+			<File
+				RelativePath="Soldier Functions.h"
+				>
+			</File>
+			<File
+				RelativePath="Soldier Init List.h"
+				>
+			</File>
+			<File
+				RelativePath="Soldier macros.h"
+				>
+			</File>
+			<File
+				RelativePath="soldier profile type.h"
+				>
+			</File>
+			<File
+				RelativePath="Soldier Profile.h"
+				>
+			</File>
+			<File
+				RelativePath="soldier tile.h"
+				>
+			</File>
+			<File
+				RelativePath="Spread burst.h"
+				>
+			</File>
+			<File
+				RelativePath="Squads.h"
+				>
+			</File>
+			<File
+				RelativePath="Strategic Exit GUI.h"
+				>
+			</File>
+			<File
+				RelativePath="Structure Wrap.h"
+				>
+			</File>
+			<File
+				RelativePath="Tactical All.h"
+				>
+			</File>
+			<File
+				RelativePath="Tactical Save.h"
+				>
+			</File>
+			<File
+				RelativePath="Tactical Turns.h"
+				>
+			</File>
+			<File
+				RelativePath="TeamTurns.h"
+				>
+			</File>
+			<File
+				RelativePath="UI Cursors.h"
+				>
+			</File>
+			<File
+				RelativePath="Vehicles.h"
+				>
+			</File>
+			<File
+				RelativePath="Weapons.h"
+				>
+			</File>
+			<File
+				RelativePath="World Items.h"
+				>
+			</File>
+			<File
+				RelativePath="XML.h"
+				>
+			</File>
+		</Filter>
+		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
 				RelativePath="Air Raid.cpp"
@@ -296,10 +633,6 @@
 			</File>
 			<File
 				RelativePath="Auto Bandage.cpp"
-				>
-			</File>
-			<File
-				RelativePath="BinaryHeap.hpp"
 				>
 			</File>
 			<File
@@ -672,336 +1005,6 @@
 			</File>
 			<File
 				RelativePath="XML_TonyInventory.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
-				RelativePath="Action Items.h"
-				>
-			</File>
-			<File
-				RelativePath="Air Raid.h"
-				>
-			</File>
-			<File
-				RelativePath="Animation Cache.h"
-				>
-			</File>
-			<File
-				RelativePath="Animation Control.h"
-				>
-			</File>
-			<File
-				RelativePath="Animation Data.h"
-				>
-			</File>
-			<File
-				RelativePath="Arms Dealer Init.h"
-				>
-			</File>
-			<File
-				RelativePath="ArmsDealerInvInit.h"
-				>
-			</File>
-			<File
-				RelativePath="AStarPathfinder.h"
-				>
-			</File>
-			<File
-				RelativePath="Auto Bandage.h"
-				>
-			</File>
-			<File
-				RelativePath="Boxing.h"
-				>
-			</File>
-			<File
-				RelativePath="Bullets.h"
-				>
-			</File>
-			<File
-				RelativePath="Campaign.h"
-				>
-			</File>
-			<File
-				RelativePath="Civ Quotes.h"
-				>
-			</File>
-			<File
-				RelativePath="Dialogue Control.h"
-				>
-			</File>
-			<File
-				RelativePath="DisplayCover.h"
-				>
-			</File>
-			<File
-				RelativePath="Drugs And Alcohol.h"
-				>
-			</File>
-			<File
-				RelativePath="End Game.h"
-				>
-			</File>
-			<File
-				RelativePath="Enemy Soldier Save.h"
-				>
-			</File>
-			<File
-				RelativePath="EnemyItemDrops.h"
-				>
-			</File>
-			<File
-				RelativePath="faces.h"
-				>
-			</File>
-			<File
-				RelativePath="fov.h"
-				>
-			</File>
-			<File
-				RelativePath="GAP.H"
-				>
-			</File>
-			<File
-				RelativePath="Handle Doors.h"
-				>
-			</File>
-			<File
-				RelativePath="Handle Items.h"
-				>
-			</File>
-			<File
-				RelativePath="Handle UI Plan.h"
-				>
-			</File>
-			<File
-				RelativePath="Handle UI.h"
-				>
-			</File>
-			<File
-				RelativePath="Interface Control.h"
-				>
-			</File>
-			<File
-				RelativePath="Interface Cursors.h"
-				>
-			</File>
-			<File
-				RelativePath="interface Dialogue.h"
-				>
-			</File>
-			<File
-				RelativePath="Interface Enhanced.h"
-				>
-			</File>
-			<File
-				RelativePath="Interface Items.h"
-				>
-			</File>
-			<File
-				RelativePath="Interface Panels.h"
-				>
-			</File>
-			<File
-				RelativePath="Interface Utils.h"
-				>
-			</File>
-			<File
-				RelativePath="Interface.h"
-				>
-			</File>
-			<File
-				RelativePath="Inventory Choosing.h"
-				>
-			</File>
-			<File
-				RelativePath="Item Types.h"
-				>
-			</File>
-			<File
-				RelativePath="Items.h"
-				>
-			</File>
-			<File
-				RelativePath="Keys.h"
-				>
-			</File>
-			<File
-				RelativePath="LOS.h"
-				>
-			</File>
-			<File
-				RelativePath="Map Information.h"
-				>
-			</File>
-			<File
-				RelativePath="merc entering.h"
-				>
-			</File>
-			<File
-				RelativePath="Merc Hiring.h"
-				>
-			</File>
-			<File
-				RelativePath="Militia Control.h"
-				>
-			</File>
-			<File
-				RelativePath="Morale.h"
-				>
-			</File>
-			<File
-				RelativePath="opplist.h"
-				>
-			</File>
-			<File
-				RelativePath="Overhead Types.h"
-				>
-			</File>
-			<File
-				RelativePath="Overhead.h"
-				>
-			</File>
-			<File
-				RelativePath="PATHAI.H"
-				>
-			</File>
-			<File
-				RelativePath="PathAIDebug.h"
-				>
-			</File>
-			<File
-				RelativePath="Points.h"
-				>
-			</File>
-			<File
-				RelativePath="qarray.h"
-				>
-			</File>
-			<File
-				RelativePath="Rain.h"
-				>
-			</File>
-			<File
-				RelativePath="Rotting Corpses.h"
-				>
-			</File>
-			<File
-				RelativePath="rt time defines.h"
-				>
-			</File>
-			<File
-				RelativePath="ShopKeeper Interface.h"
-				>
-			</File>
-			<File
-				RelativePath="ShopKeeper Quotes.h"
-				>
-			</File>
-			<File
-				RelativePath="SkillCheck.h"
-				>
-			</File>
-			<File
-				RelativePath="Soldier Add.h"
-				>
-			</File>
-			<File
-				RelativePath="Soldier Ani.h"
-				>
-			</File>
-			<File
-				RelativePath="Soldier Control.h"
-				>
-			</File>
-			<File
-				RelativePath="Soldier Create.h"
-				>
-			</File>
-			<File
-				RelativePath="Soldier Find.h"
-				>
-			</File>
-			<File
-				RelativePath="Soldier Functions.h"
-				>
-			</File>
-			<File
-				RelativePath="Soldier Init List.h"
-				>
-			</File>
-			<File
-				RelativePath="Soldier macros.h"
-				>
-			</File>
-			<File
-				RelativePath="soldier profile type.h"
-				>
-			</File>
-			<File
-				RelativePath="Soldier Profile.h"
-				>
-			</File>
-			<File
-				RelativePath="soldier tile.h"
-				>
-			</File>
-			<File
-				RelativePath="Spread burst.h"
-				>
-			</File>
-			<File
-				RelativePath="Squads.h"
-				>
-			</File>
-			<File
-				RelativePath="Strategic Exit GUI.h"
-				>
-			</File>
-			<File
-				RelativePath="Structure Wrap.h"
-				>
-			</File>
-			<File
-				RelativePath="Tactical All.h"
-				>
-			</File>
-			<File
-				RelativePath="Tactical Save.h"
-				>
-			</File>
-			<File
-				RelativePath="Tactical Turns.h"
-				>
-			</File>
-			<File
-				RelativePath="TeamTurns.h"
-				>
-			</File>
-			<File
-				RelativePath="UI Cursors.h"
-				>
-			</File>
-			<File
-				RelativePath="Vehicles.h"
-				>
-			</File>
-			<File
-				RelativePath="Weapons.h"
-				>
-			</File>
-			<File
-				RelativePath="World Items.h"
-				>
-			</File>
-			<File
-				RelativePath="XML.h"
 				>
 			</File>
 		</Filter>

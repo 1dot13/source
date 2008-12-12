@@ -6,7 +6,7 @@
 	>
 	<Tool
 		Name="VCLinkerTool"
-		AdditionalLibraryDirectories="&quot;.\Standard Gaming Platform&quot;"
-		AdditionalDependencies="libexpatMT.lib mss32.lib SMACKW32.LIB fmodvc.lib lua51.vc9.lib VtuneApi.lib ddraw.lib"
+		AdditionalLibraryDirectories=".\.;&quot;Standard Gaming Platform&quot;"
+		AdditionalDependencies="libexpatMT.lib mss32.lib SMACKW32.LIB fmodvc.lib lua51.lib VtuneApi.lib ddraw.lib"
 	/>
 </VisualStudioPropertySheet>
