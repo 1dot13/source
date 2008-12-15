@@ -47,6 +47,7 @@
 #define		BOBBYR_SHIPMENT_HOME_BUTTON_Y							BOBBYR_SHIPMENT_BACK_BUTTON_Y
 
 #define		BOBBYR_SHIPMENT_NUM_PREVIOUS_SHIPMENTS		13
+#define     MAX_SHIPMENTS_THAT_FIT_ON_SCREEN 13
 
 
 
@@ -155,8 +156,15 @@ BOOLEAN EnterBobbyRShipments()
 	{
 		INT32 iCnt;
 
+		// WDS - If there are more than 13 shipments only show 13 because
+		// that is all that will fit on the screen.  If you show more things
+		// get corrupted.
+		INT32 max = giNumberOfNewBobbyRShipment;
+		if (max > MAX_SHIPMENTS_THAT_FIT_ON_SCREEN)
+			max = MAX_SHIPMENTS_THAT_FIT_ON_SCREEN;
+
 		//get the first shipment #
-		for( iCnt=0; iCnt<giNumberOfNewBobbyRShipment; iCnt++ )
+		for( iCnt=0; iCnt<max; iCnt++ )
 		{
 			if( gpNewBobbyrShipments[iCnt].fActive )
 				giBobbyRShipmentSelectedShipment = iCnt;
@@ -352,7 +360,14 @@ void CreatePreviousShipmentsMouseRegions()
 	UINT16	usHeight = GetFontHeight( BOBBYR_SHIPMENT_STATIC_TEXT_FONT );
 	UINT32	uiNumItems = CountNumberOfBobbyPurchasesThatAreInTransit();
 
-	for( uiCnt=0; uiCnt<uiNumItems; uiCnt++ )
+		// WDS - If there are more than 13 shipments only show 13 because
+		// that is all that will fit on the screen.  If you show more things
+		// get corrupted.
+		UINT32 max = uiNumItems;
+		if (max > MAX_SHIPMENTS_THAT_FIT_ON_SCREEN)
+			max = MAX_SHIPMENTS_THAT_FIT_ON_SCREEN;
+
+	for( uiCnt=0; uiCnt<max; uiCnt++ )
 	{
 		MSYS_DefineRegion( &gSelectedPreviousShipmentsRegion[uiCnt], BOBBYR_SHIPMENT_ORDER_NUM_X, usPosY, (UINT16)(BOBBYR_SHIPMENT_ORDER_NUM_X+usWidth), (UINT16)(usPosY+usHeight), MSYS_PRIORITY_HIGH,
 								CURSOR_WWW, MSYS_NO_CALLBACK, SelectPreviousShipmentsRegionCallBack );
