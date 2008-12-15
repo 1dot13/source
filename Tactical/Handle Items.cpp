@@ -1984,21 +1984,24 @@ void HandleSoldierPickupItem( SOLDIERTYPE *pSoldier, INT32 iItemIndex, INT16 sGr
 				gfDisarmingBuriedBomb = TRUE;
 				gbTrapDifficulty = gWorldItems[ iItemIndex ].object[0]->data.bTrap;
 
+				// WDS - Use local buffer for storing modified string instead of original copy
+				CHAR16 buffer[99];
 				wchar_t * ptr;
+				wcscpy(buffer,TacticalStr[ DISARM_TRAP_PROMPT ]);
 				if((gTacticalStatus.uiFlags & INCOMBAT) || (gTacticalStatus.fEnemyInSector))
 				{
 					wchar_t * string = L" (";
 					wchar_t string2[20];
 
-					ptr = wcscat(TacticalStr[ DISARM_TRAP_PROMPT ], string);
+					ptr = wcscat(buffer, string);
 					_ltow(APBPConstants[AP_DISARM_MINE], string2, 10);
-					ptr = wcscat(TacticalStr[ DISARM_TRAP_PROMPT ], string2);
+					ptr = wcscat(buffer, string2);
 					string = L"AP)";
-					ptr = wcscat(TacticalStr[ DISARM_TRAP_PROMPT ], string);
+					ptr = wcscat(buffer, string);
 				}
 				else
 				{
-					ptr = wcscat(TacticalStr[ DISARM_TRAP_PROMPT ], L"");
+					ptr = wcscat(buffer, L"");
 				}
 
 				DoMessageBox( MSG_BOX_BASIC_STYLE, ptr, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, BoobyTrapMessageBoxCallBack, NULL );
