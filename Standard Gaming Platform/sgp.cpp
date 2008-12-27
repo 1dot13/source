@@ -826,7 +826,16 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 	// Use this one ONLY if you're having memory corruption issues that can be repeated in a short time
 	// Otherwise it will just run out of memory.
 	//_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_DELAY_FREE_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_ALWAYS_DF);
-	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_EVERY_1024_DF);
+	
+	/****************************************************************************************************/
+	/*                                                                                                	*/
+	/*               DEBUG MEMORY ALLOCATION ON THE HEAP :  uncomment when required                   	*/
+	/*          ------------------------------------------------------------------------              	*/
+	/*                                                                                                	*/
+	/*	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_EVERY_1024_DF);  	*/
+	/*                                                                                                	*/
+	/****************************************************************************************************/	
+
 #endif
 
 	ghInstance = hInstance;
