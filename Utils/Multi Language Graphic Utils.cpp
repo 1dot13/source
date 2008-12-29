@@ -14,7 +14,7 @@
 
 BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 {
-	#if defined( ENGLISH ) || defined( TAIWANESE ) || defined( FRENCH ) || defined (CHINESE)
+	#if defined( ENGLISH ) || defined( TAIWANESE ) || defined (CHINESE)
 		switch( usMLGGraphicID )
 		{
 			case MLG_AIMSYMBOL:
@@ -118,6 +118,13 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 				return TRUE;
 			case MLG_IMPSYMBOL:
 				sprintf( filename, "LAPTOP\\IMPSymbol.sti" );
+				return TRUE;
+//inshy: translation needed for russian version
+			case MLG_BOBBYRAYTITLE:
+				sprintf( filename, "LAPTOP\\BOBBYRAYTITLE.STI" );
+				return TRUE;
+			case MLG_BR:
+				sprintf( filename, "LAPTOP\\BR.STI" );
 				return TRUE;
 		}
 
@@ -230,6 +237,13 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 				return TRUE;
 			case MLG_SPLASH:
 				sprintf( filename, "German\\splash_german.sti" );
+				return TRUE;
+//inshy: Same graphic (no translation needed)
+			case MLG_BOBBYRAYTITLE:
+				sprintf( filename, "LAPTOP\\BOBBYRAYTITLE.STI" );
+				return TRUE;
+			case MLG_BR:
+				sprintf( filename, "LAPTOP\\BR.STI" );
 				return TRUE;
 		}
 
@@ -377,6 +391,13 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 			case MLG_IMPSYMBOL:
 				sprintf( filename, "%s\\IMPSymbol_%s.sti", zLanguage, zLanguage );
 				break;
+//inshy: translation needed for russian version
+			case MLG_BOBBYRAYTITLE:
+				sprintf( filename, "%s\\BOBBYRAYTITLE_%s.STI", zLanguage, zLanguage );
+				break;
+			case MLG_BR:
+				sprintf( filename, "%s\\BR_%s.STI", zLanguage, zLanguage );
+				break;
 			default:
 				return FALSE;
 		}
@@ -487,6 +508,13 @@ BOOLEAN GetMLGFilename( SGPFILENAME filename, UINT16 usMLGGraphicID )
 			return TRUE;
 		case MLG_IMPSYMBOL:
 			sprintf( filename, "LAPTOP\\IMPSymbol.sti" );
+			return TRUE;
+//inshy: translation needed for russian version
+		case MLG_BOBBYRAYTITLE:
+			sprintf( filename, "LAPTOP\\BOBBYRAYTITLE.STI" );
+			return TRUE;
+		case MLG_BR:
+			sprintf( filename, "LAPTOP\\BR.STI" );
 			return TRUE;
 		}
 

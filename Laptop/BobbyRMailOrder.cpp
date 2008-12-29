@@ -2259,7 +2259,7 @@ BOOLEAN CreateBobbyRayOrderTitle()
 
 		// load BobbyRayTitle graphic and add it
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("LAPTOP\\BobbyRayTitle.sti", VObjectDesc.ImageFile);
+	GetMLGFilename( VObjectDesc.ImageFile,  MLG_BOBBYRAYTITLE );
 	CHECKF(AddVideoObject(&VObjectDesc, &guiBobbyRayTitle));
 
 	//the link to home page from the title

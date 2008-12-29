@@ -1040,11 +1040,11 @@ STR16 gpStrategicString[] =
 
 	//These entries are for button popup help text for the prebattle interface.  All popup help
 	//text supports the use of \n to denote new line.  Do not use spaces before or after the \n.
-	L"|Automatycznie prowadzi walkê za ciebie,\nnie ³aduj¹c planszy.",
-	L"Atakuj¹c sektor wroga nie mo¿na automatycznie rozstrzygn¹æ walki.",
-	L"Wejœcie do s|ektora by nawi¹zaæ walkê z wrogiem.",
-	L"Wycofuje oddzia³ do s¹siedniego sekto|ra.",				//singular version
-	L"Wycofuje wszystkie oddzia³y do s¹siedniego sekto|ra.", //multiple groups with same previous sector
+	L"Automatycznie prowadzi walkê za ciebie, \nnie ³aduj¹c planszy. (|A)",
+	L"Atakuj¹c sektor wroga \nnie mo¿na automatycznie rozstrzygn¹æ walki.",
+	L"Wejœcie do sektora \nby nawi¹zaæ walkê z wrogiem. (|E)",
+	L"Wycofuje oddzia³ \ndo s¹siedniego sektora. (|R)",				//singular version
+	L"Wycofuje wszystkie oddzia³y \ndo s¹siedniego sektora. (|R)", //multiple groups with same previous sector
 
 	//various popup messages for battle conditions.  
 
@@ -1099,7 +1099,7 @@ CHAR16		gWeaponStatsDesc[][ 16 ] =
 	// HEADROCK: Added new strings for extended description ** REDUNDANT **
 	L"AUTOPEN:",	//14
 	L"AUTO/5:",		//15
-	L"Amount:",		//16
+	L"Liczba:",		//16
 
 };
 
@@ -1108,82 +1108,82 @@ CHAR16		gWeaponStatsDesc[][ 16 ] =
 // changing item type while watching its description box
 STR16		gzWeaponStatsFasthelp[ 27 ] =
 {
-	L"Range",
-	L"Damage",
-	L"Burst/Auto Penalty",
-	L"Autofire shots per 5 AP",
-	L"Accuracy",
-	L"Reliability",
-	L"Repair Ease",
-	L"APs to ready",
-	L"APs to fire Single",
-	L"APs to fire Burst",
-	L"APs to fire Auto",
-	L"APs to Reload",
-	L"APs to Reload Manually",
-	L"Flash Suppression",
-	L"Loudness (Lower is better)",
-	L"To-Hit Modifier",
-	L"Average Best Laser Range",
-	L"Aiming Modifier",
-	L"Min. Range for Aiming Bonus",
-	L"Bipod Modifier",
-	L"APs to Throw",
-	L"APs to Launch",
-	L"APs to Stab",
-	L"No Single Shot!",
-	L"No Burst Mode!",
-	L"No Auto Mode!",
-	L"APs to Bash",
+	L"Zas.",
+	L"Obra¿.",
+	L"PA:",
+	L"Auto/5AP",
+	L"Celnoœæ",
+	L"Stan",
+	L"Trud napraw",
+	L"AP/przygot.",
+	L"AP za 1 strza³",
+	L"AP za seriê",
+	L"AP za Auto",
+	L"AP/prze³aduj",
+	L"AP/prze³aduj rêcznie",
+	L"T³umienie b³ysku",
+	L"G³oœnoœæ (mniej - lepiej)",
+	L"Modyf. trafieñ",
+	L"Œredni max zasg. lasera",
+	L"Modf. celowania",
+	L"Min. zasg. dla bonusu cel.",
+	L"Modf. dwójnogu",
+	L"AP za rzut",
+	L"AP za strza³",
+	L"AP/cios-nó¿",
+	L"Wy³. 1 strza³!",
+	L"Wy³. seriê!",
+	L"Wy³. auto!",
+	L"AP/cios-³om",
 };
 
 STR16		gzWeaponStatsFasthelpTactical[ 27 ] =
 {
-	L"Range",
-	L"Damage",
-	L"Burst/Auto Penalty",
-	L"Autofire shots per 5 AP",
-	L"Accuracy",
-	L"Reliability",
-	L"Repair Ease",
-	L"APs to ready",
-	L"APs to fire Single",
-	L"APs to fire Burst",
-	L"APs to fire Auto",
-	L"APs to Reload",
-	L"APs to Reload Manually",
-	L"To-Hit Modifier",
-	L"Average Best Laser Range",
-	L"Aiming Modifier",
-	L"Min. Range for Aiming Bonus",
-	L"Flash Suppression",
-	L"Loudness (Lower is better)",
-	L"Bipod Modifier",
-	L"APs to Throw",
-	L"APs to Launch",
-	L"APs to Stab",
-	L"No Single Shot!",
-	L"No Burst Mode!",
-	L"No Auto Mode!",
-	L"APs to Bash",
+	L"Zas.",
+	L"Obra¿.",
+	L"PA:",
+	L"Auto/5AP",
+	L"Celnoœæ",
+	L"Stan",
+	L"Trud napraw",
+	L"AP/przygot.",
+	L"AP za 1 strza³",
+	L"AP za seriê",
+	L"AP za Auto",
+	L"AP/prze³aduj",
+	L"AP/prze³aduj rêcznie",
+	L"Modyf. trafieñ",
+	L"Œredni max zasg. lasera",
+	L"Modf. celowania",
+	L"Min. zasg. dla bonusu cel.",
+	L"T³umienie b³ysku",
+	L"G³oœnoœæ (mniej - lepiej)",
+	L"Modf. dwójnogu",
+	L"AP za rzut",
+	L"AP za strza³",
+	L"AP/cios-nó¿",
+	L"Wy³. 1 strza³!",
+	L"Wy³. seriê!",
+	L"Wy³. auto!",
+	L"AP/cios-³om",
 };
 
 STR16		gzAmmoStatsFasthelp[ 20 ] =
 {
-	L"Armor Penetration (Lower is better)",
-	L"Bullet Tumble (Higher is better)",
-	L"Pre-impact Explosion (Higher is better)",
-	L"Tracer Effect",
-	L"Anti-Tank",
-	L"Lockbuster",
-	L"Ignores Armor",
-	L"Acidic",
-	L"Range Modifier",
-	L"Damage Modifier",
-	L"To-Hit Modifier",
-	L"Burst/Auto Penalty Modifier (Higher is better)",
-	L"Reliability Modifier",
-	L"Loudness Modifier (Lower is better)",
+	L"Penetracja os³on (mniej – lepiej)",
+	L"Moc obalaj¹ca (wiêcej – lepiej)",
+	L"Eksplozja przed celem (wiêcej – lepiej)",
+	L"Efekt smugowy",
+	L"P. czo³g.",
+	L"Nisc zamka",
+	L"Pomija os³onê",
+	L"Korozj",
+	L"Modyf. zasg.",
+	L"Modyf. obra¿eñ",
+	L"Modyf. trafieñ",
+	L"Modyf. kary za seriê/auto (wiêcej – lepiej)",
+	L"Modyf. sprawnoœci",
+	L"Modyf. g³oœnoœci (mniej - lepiej)",
 	L"",
 	L"",
 	L"",
@@ -1194,23 +1194,23 @@ STR16		gzAmmoStatsFasthelp[ 20 ] =
 
 STR16		gzArmorStatsFasthelp[ 20 ] =
 {
-	L"Protection",
-	L"Coverage (Higher is better)",
-	L"Degrade Rate (Lower is better)",
-	L"AP Modifier",
-	L"To-Hit Modifier",
-	L"Woodland Camo",
-	L"Urban Camo",
-	L"Desert Camo",
-	L"Snow Camo",
-	L"Stealth Modifier",
-	L"Vision Range Modifier",
-	L"Day Vision Range Modifier",
-	L"Night Vision Range Modifier",
-	L"Bright Light Vision Range Modifier",
-	L"Cave Vision Range Modifier",
-	L"Tunnel Vision Percentage",
-	L"Hearing Range Modifier",
+	L"Os³ona",
+	L"Pokrycie (wiêcej - lepiej)",
+	L"Zu¿ycie (mniej - lepiej)",
+	L"Modyf. AP",
+	L"Modyf. trafieñ",
+	L"Kam leœny",
+	L"Kam miasto",
+	L"Kam pustyn.",
+	L"Kam œnieg",
+	L"Modyf. skradania",
+	L"Modyf. zasg. wzroku",
+	L"Modyf. zasg. wzroku/dzieñ",
+	L"Modyf. zasg. wzroku/noc",
+	L"Modyf. zasg. wzroku/jasne œwiat³o",
+	L"Modyf. zasg. wzr./jaskinia",
+	L"Widzenie tunelowe (w %)",
+	L"Modyf. zasg. s³uchu",
 	L"",
 	L"",
 	L"",
@@ -1218,14 +1218,14 @@ STR16		gzArmorStatsFasthelp[ 20 ] =
 
 STR16		gzExplosiveStatsFasthelp[ 20 ] =
 {
-	L"Damage",
-	L"Stun Damage",
-	L"Blast Loudness (Lower is better)",
-	L"Volatility!!! (Lower is better)",
-	L"Blast Radius",
-	L"Effect Start Radius",
-	L"Effect Final Radius ",
-	L"Effect Duration",
+	L"Obra¿.",
+	L"Og³uszanie",
+	L"G³oœn. wybuchu (mniej - lepiej)",
+	L"Niestabilnoœæ! (mniej - lepiej)",
+	L"Zsg. wybuchu",
+	L"Zsg efektu pocz¹tk.",
+	L"Zsg. efektu koñcow.",
+	L"Trwanie efektu",
 	L"",
 	L"",
 	L"",
@@ -1242,40 +1242,40 @@ STR16		gzExplosiveStatsFasthelp[ 20 ] =
 
 STR16		gzMiscItemStatsFasthelp[ 34 ] =
 {
-	L"Item Size Modifier (Lower is better)", // 0
-	L"Reliability Modifier",
-	L"Loudness Modifier (Lower is better)",
-	L"Hides Muzzle Flash",
-	L"Bipod Modifier",
-	L"Range Modifier", // 5
-	L"To-Hit Modifier",
-	L"Best Laser Range",
-	L"Aiming Bonus Modifier",
-	L"Burst Size Modifier",
-	L"Burst Penalty Modifier (Higher is better)", // 10
-	L"Auto-Fire Penalty Modifier (Higher is better)",
-	L"AP Modifier",
-	L"AP to Burst Modifier (Lower is better)",
-	L"AP to Auto-Fire Modifier (Lower is better)",
-	L"AP to Ready Modifier (Lower is better)", // 15
-	L"AP to Reload Modifier (Lower is better)",
-	L"Magazine Size Modifier",
-	L"AP to Attack Modifier (Lower is better)",
-	L"Damage Modifier",
-	L"Melee Damage Modifier", // 20
-	L"Woodland Camo",
-	L"Urban Camo",
-	L"Desert Camo",
-	L"Snow Camo",
-	L"Stealth Modifier", // 25
-	L"Hearing Range Modifier",
-	L"Vision Range Modifier",
-	L"Day Vision Range Modifier",
-	L"Night Vision Range Modifier",
-	L"Bright Light Vision Range Modifier", //30
-	L"Cave Vision Range Modifier",
-	L"Tunnel Vision Percentage (Lower is better)",
-	L"Minimum Range for Aiming Bonus",
+	L"Modyf. rozmiaru (mniej - lepiej)", // 0
+	L"Modyf. sprawnoœci",
+	L"Modyf. g³oœnoœci (mniej - lepiej)",
+	L"Ukrywa b³ysk",
+	L"Modf. dwójnogu",
+	L"Modyf. zasiêgu", // 5
+	L"Modyf. trafieñ",
+	L"Max zasg. lasera",
+	L"Modf bonusu celowania",
+	L"Modyf. d³ug. serii",
+	L"Modyf. kary za seriê (wiêcej - lepiej)", // 10
+	L"Modyf. kary za ogieñ auto (wiêcej - lepiej)",
+	L"Modyf. AP",
+	L"Modyf. AP za seriê (mniej - lepiej)",
+	L"Modyf. AP za ogieñ auto (mniej - lepiej)",
+	L"Modf AP/przygotwanie (mniej - lepiej)", // 15
+	L"Modf AP/prze³adowanie (mniej - lepiej)",
+	L"Modyf. wlk. magazynka",
+	L"Modyf. AP/atak (mniej - lepiej)",
+	L"Modyf. obra¿eñ",
+	L"Modf obr. walki wrêcz", // 20
+	L"Kam leœny",
+	L"Kam miasto",
+	L"Kam pustyn.",
+	L"Kam œnieg",
+	L"Modyf. skradania", // 25
+	L"Modyf. zasg. s³uchu",
+	L"Modyf. zasg. wzroku",
+	L"Modyf. zasg. wzroku/dzieñ",
+	L"Modyf. zasg. wzroku/noc",
+	L"Modyf. zasg. wzroku/jasne œwiat³o", //30
+	L"Modyf. zasg. wzr./jaskinia",
+	L"Widzenie tunelowe w % (mniej - lepiej)",
+	L"Min. zasg. dla bonusu cel.",
 };
 
 // HEADROCK: End new tooltip text
@@ -1501,7 +1501,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Wycisz",
 	L"Pozycja do góry (|P|g|U|p)",
 	L"Poziom kursora (|T|a|b)",
-	L"Wspinaj siê / |Zeskocz",
+	L"Wspinaj siê / Zeskocz (|J)",
 	L"Pozycja w dó³ (|P|g|D|n)",
 	L"Badaæ (|C|t|r|l)",
 	L"Poprzedni najemnik",
@@ -3682,7 +3682,7 @@ STR16		zOptionsToggleText[] =
 	L"Automatyczny zapis",
 	L"Cichy Skyrider",
 	L"Niskie obci¹¿enie procesora",
-	L"Enhanced Description Box",
+	L"Rozszerzone Okno Opisu (EDB)",	//Enhanced Description Box
 };
 
 //This is the help text associated with the above toggles.
@@ -3763,7 +3763,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Jeœli W£¥CZONE, gra bêdzie zapisywana ka¿dorazowo po zakoñczeniu tury gracza.",
 	L"Jeœli W£¥CZONE, Skyrider nie bêdzie nic mówi³.",
 	L"Jeœli W£¥CZONE, gra bêdzie obci¹¿a³a procesor w mniejszym stopniu.",
-	L"Jeœli W£¥CZONE, gra bêdzie u¿yciem 'Enhanced Description Box' opisu.",
+	L"Jeœli W£¥CZONE, rozszerzone opisy bêd¹ pokazane dla przedmiotów i broni.",
 };
 
 STR16	gzGIOScreenText[] =
@@ -4453,108 +4453,108 @@ STR16 NewInvMessage[] =
 	L"Nie mo¿esz siê przemieszczaæ, gdy zamek plecaka jest aktywny.",
 	L"Na pewno chcesz sprzedaæ wszystkie przedmioty z tego sektora?",
 	L"Na pewno chcesz skasowaæ wszystkie przedmioty z tego sektora?",
-	L"Cannot climb while wearing a backpack",
+	L"Nie mo¿na wspinaæ siê z plecakiem",
 };
 
 // WANNE - MP: Multiplayer messages
 STR16 MPServerMessage[] =
 {
 	// 0
-	L"Initiating RakNet server...",
-	L"Server started, waiting for connections...",
-	L"You must now connect with your client to the server by pressing '2'.",
-	L"Server is already running.",
-	L"Server failed to start. Terminating.",
+	L"Inicjacja serwera RakNet...",
+	L"Serwer w³., oczekiwanie na po³¹czenie",
+	L"Musisz teraz po³¹czyæ swojego klienta z serwerem, wciskaj¹c 2",
+	L"Serwer ju¿ dzia³a",
+	L"W³. nie powiod³o siê. Przerwanie.",
 	// 5
-	L"%d/%d clients are ready for realtime-mode.",
-	L"Server disconnected and shutdown.",
-	L"Server is not running.",
-	L"Clients are still loading, please wait...",
-	L"You cannot change dropzone after the server has started.",
+	L"%d/%d klientów gotowych na tryb realtime.",
+	L"Serwer roz³¹czony i wy³.",
+	L"Serwer nie dzia³a",
+	L"£adowanie klientów, czekaj.",
+	L"Nie mo¿na zmieniaæ miejsc zrzutu po starcie serwera.",
 };
 
 STR16 MPClientMessage[] =
 {
 	// 0
-	L"Initiating RakNet client...",		
-	L"Connecting to IP: %S ...",
-	L"Received game settings:",
-	L"You are already connected.",
-	L"You are already connecting...",
+	L"Inicjacja klienta RakNet…",		
+	L"£¹czenie z IP: %S ...",
+	L"Otrzymano ustawienia:",
+	L"Jesteœ ju¿ po³¹czony.",
+	L"Jesteœ ju¿ w trakcie ³¹czenia",
 	// 5
-	L"Client #%d - '%S' has hired '%s'.",
-	L"Client #%d - '%S' has hired another merc.",
-	L"You are ready - Total ready = %d/%d.",
-	L"You are no longer ready - Total ready = %d/%d.",
-	L"Starting battle...",
+	L"Klient #%d - '%S' wynaj¹³ '%s'.",
+	L"Klient #%d - '%S' has hired another merc.",
+	L"Gotowy! Wszystkich gotowych - %d/%d.",
+	L"Nie jesteœ ju¿ gotowy. Gotowych - %d/%d.",
+	L"Pocz¹tek bitwy...",
 	// 10
-	L"Client #%d - '%S' is ready - Total ready = %d/%d.",
-	L"Client #%d - '%S' is no longer ready - Total ready = %d/%d",
-	L"You are ready. Awaiting other clients... Press 'OK' if you are not ready anymore.",
-	L"Let us the battle begin!",
-	L"A client must be running for starting the game.",
+	L"Klient #%d - '%S' jest gotów. Gotowych - %d/%d.",
+	L"Klient #%d - '%S' nie jest ju¿ gotowy. Gotowych - %d/%d",
+	L"Jesteœ gotów. Czekanie na pozosta³ych… Naciœnij OK., jeœli ju¿ nie jesteœ gotów.",
+	L"Zaczynajmy ju¿!",
+	L"Klient A musi dzia³aæ, by zacz¹æ grê.",
 	// 15
-	L"Game cannot start. No mercs are hired...",
-	L"Awaiting 'OK' from server to unlock the laptop...",
-	L"Interrupted",
-	L"Finish from interrupt",
-	L"Mouse Grid Coordinates:",
+	L"Nie mo¿na zacz¹æ. Brak najemników.",
+	L"Czekaj na zgodê serwera, by odblokowaæ laptopa…",
+	L"Przerwano",
+	L"Koniec przerwania",
+	L"Po³o¿enie siatki myszy:",
 	// 20
 	L"X: %d, Y: %d",
-	L"Grid Number: %d",
-	L"Server only feature",
-	L"Choose server manual override stage:  ('1' - Enable laptop/hiring)  ('2' - Launch/load level)  ('3' - Unlock UI)  ('4' - Finish placement)",
-	//L"Sector=%s, Max Clients=%d, Max Mercs=%d, Game_Mode=%d, Same Merc=%d, Damage Multiplier=%f, Enemies=%d, Creatures=%d, Militias=%d, Civilians=%d, Timed Turns=%d, Secs/Tic=%d, Starting Cash=$%d, Tons of Guns=%d, Sci-Fi=%d, Difficulty=%d, Iron-Man=%d, BobbyRays Range=%d, Dis BobbyRay=%d, Dis Aim/Merc Equip=%d, Dis Morale=%d, Testing=%d",
-	L"Sector=%s, Max Clients=%d, Max Mercs=%d, Game_Mode=%d, Same Merc=%d, Damage Multiplier=%f, Timed Turns=%d, Secs/Tic=%d, Dis BobbyRay=%d, Dis Aim/Merc Equip=%d, Dis Morale=%d, Testing=%d",
+	L"Numer siatki %d",
+	L"W³aœciwoœci serwera",
+	L"Ustaw rêcznie stopieñ nadrzêdnoœci serwera: ‘1’ – w³.laptop/rekrut.; ‘2’- w³./³aduj poziom; ‘3’ – odblok. UI; ‘4’ – koñczy rozmieszczanie",
+	//L"Sektor=%s, MaxKlientów=%d, Max Najem=%d, Tryb_Gry=%d, TenSamNaj=%d, Mno¿nik obra¿.=%f, Wrogów=%d, Stworzeñ=%d, Milicji=%d, Cywili=%d, TuryCzasowe=%d, Sek/ruch=%d,  Kasa na start=$%d, Kupa broni=%d, Sci-Fi=%d, Trudnoœæ=%d, Iron-Man=%d, Zasób BobbyRays=%d, Wy³ BobbyRay=%d, Wy³ ekwip Aim/Merc=%d, Wy³ morale=%d, Test=%d",
+	L"Sektor=%s, MaxKlientów=%d, Max Najem=%d, Tryb_Gry=%d, TenSamNaj=%d, Mno¿nik obra¿.=%f, TuryCzas=%d, Sek/ruch=%d, Dis BobbyRay=%d, Wy³ Aim/Merc Ekwip=%d, Wy³ morale=%d, Test=%d",
 	// 25
-	L"Testing and cheat function '9' is enabled.",
-	L"New connection: Client #%d - '%S', Edge: %d, Team: %d.",
+	L"Test, funkcja cheat’ów '9' jest w³¹czona.",
+	L"Nowe po³¹czenie Client #%d - '%S', Edge: %d, Team: %d.",
 	L"Team: %d.",//not used any more
-	L"'%s' (client %d - '%S') was killed by '%s' (client %d - '%S')",
-	L"Kicked client #%d - '%S'",
+	L"'%s' (klient %d - '%S') zabity przez '%s' (client %d - '%S')",
+	L"Wyrzucono #%d - '%S'",
 	// 30
-	L"Start turn for client number: #1 - '%S' | #2 - '%S' | #3 - '%S' | #4 - '%S'",
-	L"Starting turn for client #%d",
-	L"Requesting for realtime...",
-	L"Switched back to realtime.",
-	L"Error: Something went wrong switching back.",
+	L"Zacz¹æ turê dla klientów nr: #1 - '%S' | #2 - '%S' | #3 - '%S' | #4 - '%S'",
+	L"Pocz¹tek tury dla #%d",
+	L"¯¹danie trybu realtime…",
+	L"Zmieniono w tryb realtime.",
+	L"B³¹d. Coœ posz³o nie tak przy prze³¹czaniu.",
 	// 35
-	L"Unlock laptop for hiring? (Are all clients connected?)",
-	L"The server has unlocked the laptop. Begin hiring!",
-	L"Interruptor.",
-	L"You cannot change dropzone if you are only the client and not the server.",
-	L"You declined the offer to surrender, because you are in a multiplayer game.",
+	L"Odblokowaæ laptopy? (Czy gracze s¹ ju¿ pod³¹czeni?)",
+	L"Serwer odblokowa³ laptopa. Zaczynaj rekrutowaæ!",
+	L"Przerywaj¹cy",
+	L"Nie mo¿esz zmieniaæ strefy zrzutu, jeœli nie  jesteœ serwerem gry.",
+	L"Odrzuci³eœ ofertê poddania siê, gdy¿ grasz w trybie Multiplayer.",
 	// 40
-	L"All your mercs are wiped dead!",
-	L"Spectator mode enabled.",
-	L"You have been defeated!",
-	L"Sorry, climbing is disable in MP",
-	L"You Hired '%s'",
+	L"Wszyscy twoi ludzie s¹ martwi!",
+	L"Tryb obserwatora w³..",
+	L"Zosta³eœ pokonany!",
+	L"Wspinanie wy³¹czone w MP",
+	L"Wynajêto '%s'",
 };
 
 STR16 MPHelp[] =
 {
 	// 0
-	L"Welcome to JAGGED ALLIANCE 2 v1.13 Multiplayer",
-	L"Press 'F1' for help",
-	L"Multiplayer controls (from strategy screen)",
-	L"* first set up ja2_mp.ini *",
-	L"'1' - Start server", 
+	L"Witaj w  JAGGED ALLIANCE 2 v1.13 Multiplayer",
+	L"F1 - pomoc ",
+	L"Przyciski mutliplayera (ekran strategii)",
+	L"* Ustaw ja2_mp.ini *",
+	L"'1' - W³. serwer", 
 	// 5
-	L"'2' - Connect to server",
-	L"'3' - If server unlock laptop, set client ready for battle",
-	L"'4' - Quit server and client",
-	L"'5' - Display mouse coords (from tactical screen)",
-	L"'7' - Popup dialog for server override panel",
+	L"'2' - Po³¹cz z serwerem",
+	L"'3' - Gdy serwer odblokuje laptopa, ustaw gotów do bitwy",
+	L"'4' - Opuœæ serwera i klient",
+	L"'5' - Poka¿ po³o¿enie myszy (ekr. taktyczny)",
+	L"'7' - Pop-up dla komunikatów serwera",
 	// 10
-	L"'F2' - Display secondary help",
-	L"See readme_mp.html for further details",
-	L"Tips: (assuming ja2_mp.ini is set up)",
-	L"* Make sure all clients have unique CLIENT_NUM *",
-	L"* Game save doesn't record bobby rays order *",
+	L"'F2' - Wyœwietl 2. pomoc",
+	L"Czytaj readme_mp.html po wiêcej info.",
+	L"Tip: (gdy ja2_mp.ini jest ustawione)",
+	L"* Upewnij siê ¿e wszyscy maj¹ ró¿ne CLIENT_NUM *",
+	L"* Gra nie zapisuje porz¹dku w Bobby ray’s *",
 	// 15
-	L"* Avoid placing opposed mercs in immediate sight *",
-	L"'F1' - Display primary help",
+	L"* Nie ustawiaj przeciwników w zasiêgu ich wzroku *",
+	L"'F1' - Wyœwietl 1. pomoc",
 };
 
 #endif //POLISH

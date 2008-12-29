@@ -189,22 +189,22 @@ BOOLEAN LoadExternalGameplayData(STR directoryName)
 	strcat(fileName, RUSSIAN_PREFIX); // add Russian. prefix to filename
 #endif
 #ifdef DUTCH
-	strcat(fileName, DUTCH_PREFIX); // add Polish. prefix to filename
+	strcat(fileName, DUTCH_PREFIX); // add Dutch. prefix to filename
 #endif
 #ifdef POLISH
 	strcat(fileName, POLISH_PREFIX); // add Polish. prefix to filename
 #endif
 #ifdef FRENCH
-	strcat(fileName, FRENCH_PREFIX); // add Polish. prefix to filename
+	strcat(fileName, FRENCH_PREFIX); // add French. prefix to filename
 #endif
 #ifdef ITALIAN
-	strcat(fileName, ITALIAN_PREFIX); // add Polish. prefix to filename
+	strcat(fileName, ITALIAN_PREFIX); // add Italian. prefix to filename
 #endif
 #ifdef TAIWANESE
-	strcat(fileName, TAIWANESE_PREFIX); // add Polish. prefix to filename
+	strcat(fileName, TAIWANESE_PREFIX); // add Taiwanese. prefix to filename
 #endif
 #ifdef CHINESE
-	strcat(fileName, CHINESE_PREFIX); // add Polish. prefix to filename
+	strcat(fileName, CHINESE_PREFIX); // add Chinese. prefix to filename
 #endif
 	strcat(fileName, AMMOFILENAME);
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));

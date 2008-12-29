@@ -204,7 +204,7 @@ CHAR16 WeaponType[][30] =
 CHAR16 TeamTurnString[][STRING_LENGTH] =
 {
 	L"Tour du joueur", // player's turn
-	L"Tour de l'adversaire",
+	L"Tour de l'ennemi",
 	L"Tour des créatures",
 	L"Tour de la milice",
 	L"Tour des civils",
@@ -553,7 +553,7 @@ STR16 pLongAttributeStrings[] =
 
 STR16 pInvPanelTitleStrings[] =
 {
-	L"Protection", // the armor rating of the merc
+	L"Protec.", // the armor rating of the merc
 	L"Poids", // the weight the merc is carrying
 	L"Cam.", // the merc's camouflage rating
 	L"Camouflage:",
@@ -784,11 +784,11 @@ STR16 gzMercSkillText[] =
 
 STR16 pTacticalPopupButtonStrings[] =
 {
-	L"|Debout/Marcher",
-	L"|Accroupi/Avancer",
-	L"Debout/|Courir",
-	L"|A terre/Ramper",
-	L"|Regarder",
+	L"Debout/Marcher (|S)",
+	L"Accroupi/Avancer (|C)",
+	L"Debout/Courir (|R)",
+	L"A terre/Ramper (|P)",
+	L"Regarder (|L)",
 	L"Action",
 	L"Parler",
 	L"Examiner (|C|t|r|l)",
@@ -1024,9 +1024,9 @@ STR16 gpStrategicString[] =
 
 	//The help text for the four buttons.  Use \n to denote new line (just like enter).
 
-	L"|Annule le déploiement des mercenaires \net vous permet de les déployer vous-même.", 
-	L"Disperse |aléatoirement vos mercenaires \nà chaque fois.",
-	L"Vous permet de placer votre groupe |de mercenaires.",
+	L"Annule le déploiement des mercenaires \net vous permet de les déployer vous-même. (|C)", 
+	L"Disperse aléatoirement vos mercenaires \nà chaque fois. (|S)",
+	L"Vous permet de placer votre groupe de mercenaires. (|G)",
 	L"Cliquez sur ce bouton lorsque vous avez déployé \nvos mercenaires. (|E|n|t|r|é|e)",
 	L"Vous devez déployer vos mercenaires \navant d'engager le combat.",
 
@@ -1047,11 +1047,11 @@ STR16 gpStrategicString[] =
 
 	//These entries are for button popup help text for the prebattle interface.  All popup help
 	//text supports the use of \n to denote new line.  Do not use spaces before or after the \n.
-	L"|Résolution automatique du combat\nsans charger la carte.",
-	L"|Résolution automatique impossible lorsque\nvous attaquez.",
-	L"|Pénétrez dans le secteur pour engager le combat.",
-	L"|Faire retraite vers le secteur précédent.",				//singular version
-	L"|Faire retraite vers les secteurs précédents.", //multiple groups with same previous sector
+	L"Résolution automatique du combat\nsans charger la carte. (|A)",
+	L"Résolution automatique impossible lorsque\nvous attaquez.",
+	L"Pénétrez dans le secteur pour engager le combat. (|E)",
+	L"Faire retraite vers le secteur précédent. (|R)",				//singular version
+	L"Faire retraite vers les secteurs précédents. (|R)", //multiple groups with same previous sector
 
 	//various popup messages for battle conditions.  
 
@@ -1502,20 +1502,20 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// These are different buttons that the player can turn on and off.
 
 	L"Discretion (|Z)",
-	L"|Carte",
-	L"|OK (Fin du tour)",
+	L"Carte (|M)",
+	L"Fin du tour (|D)",
 	L"Parler à",
 	L"Muet",
 	L"Se relever (|P|g|U|p)",
 	L"Niveau du curseur (|T|a|b)",
-	L"Grimper / Sauter",
+	L"Grimper/Sauter (|J)",
 	L"Se coucher (|P|g|D|n)",
 	L"Examiner (|C|t|r|l)",
 	L"Mercenaire précédent",
-	L"Mercenaire suivant (E|s|p|a|c|e)",
-	L"|Options",
-	L"|Rafale",
-	L"|Regarder/Pivoter",
+	L"Mercenaire suivant (|E|s|p|a|c|e)",
+	L"Options (|O)",
+	L"Rafale (|B)",
+	L"Regarder/Pivoter (|L)",
 	L"Santé : %d/%d\nEnergie : %d/%d\nMoral : %s",
 	L"Pardon ?",					//this means "what?" 
 	L"Suite",					//an abbrieviation for "Continued" 
@@ -1857,20 +1857,20 @@ STR16 pUpdateMercStrings[] =
 
 STR16 pMapScreenBorderButtonHelpText[] =
 {
-	L"Afficher |Villes",
-	L"Afficher |Mines",
-	L"Afficher |Escouades & Ennemis",
-	L"Afficher |Espace aérien",
-	L"Afficher |Objets",
-	L"Afficher Milice & Ennemis (|Z)",
+	L"Villes (|W)",
+	L"Mines (|M)",
+	L"Escouades & Ennemis (|T)",
+	L"Espace aérien (|A)",
+	L"Objets (|I)",
+	L"Milice & Ennemis (|Z)",
 };
 
 
 STR16 pMapScreenBottomFastHelp[] =
 {
-	L"|PC Portable",
+	L"PC Portable (|L)",
 	L"Tactique (|E|c|h|a|p)",
-	L"|Options",
+	L"Options (|O)",
 	L"Compression du temps (|+)", 	// time compress more
 	L"Compression du temps (|-)", 	// time compress less
 	L"Message précédent (|U|p)\nPage précédente (|P|g|U|p)", 	// previous message in scrollable list
@@ -3685,7 +3685,7 @@ STR16		zOptionsToggleText[] =
 	L"Balle Traçante pour tir simple",
 	L"Son de pluie",
 	L"Afficher corbeaux",
-	L"Personnalité I.M.P aleatiore",
+	L"Personnalité I.M.P aléatiore",
 	L"Sauvegarde auto",
 	L"Silence Skyrider !",
 	L"Faible consommation processeur",
@@ -3705,7 +3705,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Affichage des sous-titres à l'écran.",
 
 	//Key to advance speech
-	L"Si les sous-titres s'affichent à l'écran, cette option vous permet de prendre le temps de les lire.",
+	L"Si les sous-titres s'affichent à l'écran, \ncette option vous permet de prendre le temps de les lire.",
 
 	//Toggle smoke animation
 	L"Désactivez cette option si votre machine n'est pas suffisamment puissante.",
@@ -3720,7 +3720,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Activez cette option pour retrouver vos automatismes de la version précédente.",
 
 	//Show movement path
-	L"Activez cette option pour afficher le chemin suivi par les mercenaires. Vous pouvez la désactiver et utiliser la touche MAJ en cours de jeu.",
+	L"Activez cette option pour afficher le chemin suivi par les mercenaires. \nVous pouvez la désactiver et utiliser la touche MAJ en cours de jeu.",
 
 	//show misses
 	L"Activez cette option pour voir où atterrissent tous vos tirs.",
@@ -3735,7 +3735,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Activez cette option pour que le jeu utilise le système métrique.",
 
 	//Merc Lighted movement
-	L"Activez cette option pour éclairer les environs des mercenaires. Désactivez-le si votre machine n'est pas suffisamment puissante.",
+	L"Activez cette option pour éclairer les environs des mercenaires. (|G) \nDésactivez-le si votre machine n'est pas suffisamment puissante.",
 
 	//Smart cursor
 	L"Activez cette option pour que le curseur se positionne directement sur un mercenaire quand il est à proximité.",
@@ -3744,15 +3744,15 @@ STR16	zOptionsScreenHelpText[] =
 	L"Activez cette option pour que le curseur se positionne directement sur une porte quand il est à proximité.",
 
 	//glow items 
-	L"Activez cette option pour mettre les objets en évidence",
+	L"Activez cette option pour mettre les objets en évidence. (|I)",
 
 	//toggle tree tops
-	L"Activez cette option pour afficher le cime des arbres.",
+	L"Activez cette option pour afficher le cime des arbres. (|T)",
 
 	//toggle wireframe
-	L"Activez cette option pour afficher les murs en fil de fer.",
+	L"Activez cette option pour afficher les murs en fil de fer. (|W)",
 
-	L"Activez cette option pour afficher le curseur Toît. ( |Home )",
+	L"Activez cette option pour afficher le curseur Toît. (|Home)",
 
 	// Options for 1.13
 	L"Si activé, affiche une barre de probabilités de succès sur le curseur.",
@@ -3766,7 +3766,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Si activé, les effets de traçantes sont affichés pour les tir simples.",
 	L"Si activé, le son de pluie est audible quand il pleut.",
 	L"Si activé, les corbeaux sont présents dans le jeu.",
-	L"Si activé, le(s) personnage(s) IMP sont affectés d'une personnalité aleatoire.",
+	L"Si activé, le(s) personnage(s) IMP sont affectés d'une personnalité aléatoire.",
 	L"Si activé, le jeu est sauvegardé à chaque nouveau tour joueur.",
 	L"Si activé, les confirmations insistantes de Skyrider cessent.",
 	L"Si activé, le jeu restreint l'utilisation du processeur.",
@@ -4063,8 +4063,8 @@ STR16	gzHelpScreenText[] =
 STR16 gzNonPersistantPBIText[] =
 {
 	L"Vous êtes en plein combat. Vous pouvez donner l'ordre de retraite depuis l'écran tactique.",
-	L"|Pénétrez dans le secteur pour reprendre le cours du combat.",
-	L"|Résolution automatique du combat.",
+	L"Pénétrez dans le secteur pour reprendre le cours du combat. (|E)",
+	L"Résolution automatique du combat. (|A)",
 	L"Résolution automatique impossible lorsque vous êtes l'attaquant.",
 	L"Résolution automatique impossible lorsque vous êtes pris en embuscade.",
 	L"Résolution automatique impossible lorsque vous combattez des créatures dans les mines.",

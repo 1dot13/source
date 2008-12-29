@@ -873,13 +873,18 @@ CHAR16 GetUnicodeChar(CHAR16 siChar)
 			//case 249:          siChar = 249;          break;	//щ
 			//case 251:          siChar = 251;          break;	//ы
 			//case 255:          siChar = 255;          break;	//я
-
+//inshy: italian letters
+			//case 204:          siChar = 204;          break;	//I'
+			//case 236:          siChar = 236;          break;	//i'
+			//case 210:          siChar = 210;          break;	//O'
+			//case 242:          siChar = 242;          break;	//o'
 //inshy: I've added the character codes for French ligatures to the sources, but I haven't added them in the fonts!
 			//Ligature
 			//case 198:          siChar = 198;          break;	//Ж
 			//case 140:          siChar = 338;          break;	//Њ
 			//case 230:          siChar = 230;          break;	//ж
 			//case 156:          siChar = 339;          break;	//њ
+
 	   }
 	#endif
 
@@ -1950,7 +1955,7 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	*temp = 378; // џ (зет)
 	temp++;
 
-	// FRENCH letters in UNICODE
+	// FRENCH and ITALIAN letters in UNICODE
 	*temp = 192; //А
 	temp++;
 	*temp = 194; //В
@@ -2004,6 +2009,16 @@ FontTranslationTable *CreateEnglishTransTable(	)
 	temp++;
 	*temp = 255; //я
 	temp++;
+//Italian letters
+	*temp = 204; //I'
+	temp++;
+	*temp = 236; //i'
+	temp++;
+	*temp = 210; //O'
+	temp++;
+	*temp = 242; //o'
+	temp++;
+
 //inshy: I've added the character codes for French ligatures to the sources, but I haven't added them in the fonts!
 //Ligature
 //	*temp = 198; //Ж
@@ -2014,6 +2029,7 @@ FontTranslationTable *CreateEnglishTransTable(	)
 //	temp++;
 //	*temp = 339; //њ
 //	temp++;
+
 
 	// Font glyphs for spell targeting icons
 	//ATE: IMPORTANT! INcreate the array above if you add any new items here...

@@ -227,6 +227,10 @@ int EvalLua (const wchar_t* buff) {
 	return TRUE;
 }
 
-void ShutdownLua( ) {
-	lua_close(L);
+void ShutdownLua( )
+{
+	if(L)
+	{
+		lua_close(L);
+	}
 }

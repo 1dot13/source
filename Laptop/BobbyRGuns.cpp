@@ -20,6 +20,7 @@
 	#include "Weapons.h"
 	#include "GameSettings.h"
 	#include "Points.h"
+	#include "Multi Language Graphic Utils.h"
 #endif
 
 
@@ -454,7 +455,7 @@ BOOLEAN InitBobbyBrTitle()
 
 	// load the br title graphic and add it
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("LAPTOP\\br.sti", VObjectDesc.ImageFile);
+	GetMLGFilename( VObjectDesc.ImageFile, MLG_BR );
 	CHECKF(AddVideoObject(&VObjectDesc, &guiBrTitle));
 
 	//initialize the link to the homepage by clicking on the title

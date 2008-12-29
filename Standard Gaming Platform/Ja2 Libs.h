@@ -50,6 +50,10 @@
 		LIBRARY_RUSSIAN_DATA,
 #endif
 
+#ifdef FRENCH
+		LIBRARY_FRENCH_DATA,
+#endif
+
 		NUMBER_OF_LIBRARIES
 	};
 
