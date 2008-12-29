@@ -269,8 +269,13 @@ UINT32 ErrorScreenHandle(void)
 	CHAR16 str[256];
 #endif
 
+	// WANNE: Added SetFontDestBuffer and removed StartFrameBufferRender
+	// This is a fix from Birdflu.
+
 	// For quick setting of new video stuff / to be changed
-	StartFrameBufferRender( );
+	//StartFrameBufferRender( );
+	SetFontDestBuffer(FRAME_BUFFER,0,0,SCREEN_WIDTH,SCREEN_HEIGHT,FALSE );
+
 
 	// Create string
 	SetFont( LARGEFONT1 );
