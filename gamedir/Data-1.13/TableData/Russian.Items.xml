@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <ITEMLIST>
 	<ITEM>
 		<uiIndex>0</uiIndex>
@@ -7117,25 +7117,25 @@
 		<uiIndex>889</uiIndex>
 		<szItemName>PRO-9</szItemName>
 		<szLongItemName>FN PRO-9</szLongItemName>
-		<szItemDesc>Yet another fine service pistol from FN.</szItemDesc>
+		<szItemDesc>Ещё одна модель отличного служебного пистолета от фирмы FN.</szItemDesc>
 		<szBRName>FN PRO-9</szBRName>
-		<szBRDesc>This is the civilian version of the new all-black military FNP-9, with the same qualities, of course.</szBRDesc>
+		<szBRDesc>Гражданская модель военного пистолета FNP-9. Естественно, такого же отличного качества, как и оригинал.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>890</uiIndex>
 		<szItemName>Forty-Nine</szItemName>
 		<szLongItemName>FN Forty-Nine</szLongItemName>
-		<szItemDesc>Another pistol from FN. A little bit harder to control due to the heavy trigger-pull, but a bit more reliable if ammo of dubious quality is used.</szItemDesc>
+		<szItemDesc>Очередная модель пистолета от FN. Немного тяжелее в управлении из-за значительного усилия на спусковом крючке, но зато более надёжен при использовании патронов сомнительного качества.</szItemDesc>
 		<szBRName>FN Forty-Nine</szBRName>
-		<szBRDesc>A new service pistol from FN, this one is a true DAO pistol, which makes it somewhat more reliable, thought the trigger-pull may be a bit much for some people.</szBRDesc>
+		<szBRDesc>Новый служебный пистолет от FN. Пистолет имеет ударниковый УСМ, что делает его более надёжным, однако усилие на спусковом крючке в 4-5 кг для некоторых может стать непреодолимым.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>891</uiIndex>
 		<szItemName>FNP-45</szItemName>
 		<szLongItemName>FN FNP-45</szLongItemName>
-		<szItemDesc>Announced in 2007, this new pistol is FN's latest addition to the civilian and law enforcement market.</szItemDesc>
+		<szItemDesc>Новинка от фирмы FN, анонсированная в 2007, стала новейшим дополнением линейки оружия для гражданских и правоохранительных структур.</szItemDesc>
 		<szBRName>FN FNP-45</szBRName>
-		<szBRDesc>Brand new in the line of FN's new pistols (Forty-Nine, PRO-9), this one is chambered for the good old and never dying .45ACP-round.</szBRDesc>
+		<szBRDesc>Своего рода брэнд среди новейшего семейства пистолетов FN (Forty-Nine, PRO-9). Разработан под добрый старый и вечный патрон .45ACP калибра.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>892</uiIndex>
@@ -7380,10 +7380,10 @@
 	<ITEM>
 		<uiIndex>922</uiIndex>
 		<szItemName>KAC M203</szItemName>
-		<szLongItemName>KAC Launcher System</szLongItemName>
-		<szItemDesc>A longbarreled standalone M203 grenade launcher mounted to a pistolgrip and retractable buttstock.</szItemDesc>
-		<szBRName>KAC M203 KAC Launcher System</szBRName>
-		<szBRDesc>KAC decided to copy Colt in making some gear that makes the M203 launcher usable without a rifle. We have decided to stock the longbarreled version.</szBRDesc>
+		<szLongItemName>Гранатомет KAC M203</szLongItemName>
+		<szItemDesc>Независимый длинноствольный гранатомет M203, установленный на пистолетную рукоятку с выдвижным ложе-прикладом.</szItemDesc>
+		<szBRName>Гранатомет KAC M203</szBRName>
+		<szBRDesc>Фирма KAC решила, по примеру Кольт, сделать устройство, которое позволяет использовать подствольный гранатомёт M203 без винтовки. Мы предлагаем его длинноствольный вариант.</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>923</uiIndex>

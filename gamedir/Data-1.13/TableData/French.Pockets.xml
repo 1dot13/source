@@ -1,24 +1,24 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <POCKETLIST>
 	<POCKET>
 		<pIndex>0</pIndex>
-		<pName>Ничего</pName>
+		<pName>Nothing</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>1</pIndex>
-		<pName>Ружейный ремень</pName>
+		<pName>Gun Sling</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>2</pIndex>
-		<pName>Нож </pName>
+		<pName>Knife</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>3</pIndex>
-		<pName>Автомобиль</pName>
+		<pName>Vehicle</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>4</pIndex>
-		<pName>Большой слот</pName>
+		<pName>General Large</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>5</pIndex>
@@ -26,70 +26,70 @@
 	</POCKET>
 	<POCKET>
 		<pIndex>6</pIndex>
-		<pName>Патрон. лента </pName>
+		<pName>Ammo Belt</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>7</pIndex>
-		<pName>Кобура ПП </pName>
+		<pName>SMG Holster</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>8</pIndex>
-		<pName>Средний слот</pName>
+		<pName>Medium General</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>9</pIndex>
-		<pName>Подс. маг. </pName>
+		<pName>LgMagPocket</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>10</pIndex>
-		<pName>Шт. маг. </pName>
+		<pName>AR Mag</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>11</pIndex>
-		<pName>Пист. кобура </pName>
+		<pName>Pistol Holster</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>12</pIndex>
-		<pName>ПП маг. </pName>
+		<pName>SMG Mag</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>13</pIndex>
-		<pName>Ружейная гр. </pName>
+		<pName>Rifle Grenade</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>14</pIndex>
-		<pName>Граната </pName>
+		<pName>Grenade</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>15</pIndex>
-		<pName>Пист. маг. </pName>
+		<pName>Pistol Mag</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>16</pIndex>
-		<pName>Мелкий слот </pName>
+		<pName>Tiny General</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>17</pIndex>
-		<pName>Малый слот </pName>
+		<pName>Small General</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>18</pIndex>
-		<pName>Доп. подсумок</pName>
+		<pName>Belt Clip</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>19</pIndex>
-		<pName>Б. обойма </pName>
+		<pName>Speedloader</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>20</pIndex>
-		<pName>Мед. карман </pName>
+		<pName>Medical Pocket</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>21</pIndex>
-		<pName>Карман шприца</pName>
+		<pName>Syringe Pocket</pName>
 	</POCKET>
 	<POCKET>
 		<pIndex>22</pIndex>
-		<pName>Двойная лента</pName>
+		<pName>Double Belt</pName>
 	</POCKET>
 </POCKETLIST>
