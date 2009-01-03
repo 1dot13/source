@@ -566,6 +566,12 @@ void MSYS_UpdateMouseRegion(void)
 	BOOLEAN fFound=FALSE;
 	found=FALSE;
 
+	// WANNE: Error handling Bugfix by birdflu (to avoid Stack Overflow)
+	if(guiCurrentScreen == ERROR_SCREEN)
+	{
+		return;
+	}
+
 	// Check previous region!
 	if(MSYS_Mouse_Grabbed)
 	{
