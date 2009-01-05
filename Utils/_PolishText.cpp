@@ -2884,7 +2884,7 @@ STR16			sFloristText[] =
 
 	L"\"Zrzucamy z samolotu w dowolnym miejscu\"",
 	L"1-555-POCZUJ-MNIE",
-	L"Ul. Nosowska 333, Zapuszczone miasto, CA USA 90210",
+	L"333 Dr Nos, Miasto Nasion, CA USA 90210",
 	L"http://www.poczuj-mnie.com",
 
 	// detail of the florist page
@@ -3390,7 +3390,7 @@ STR16			AimScreenText[] =
 	
 	L"Znaki A.I.M. i logo A.I.M. s¹ prawnie chronione w wiêkszoœci krajów.",
 	L"Wiêc nawet nie myœl o próbie ich podrobienia.",
-	L"Copyright 2005 A.I.M., Ltd. All rights reserved.",
+	L"Wszelkie prawa zastrze¿one A.I.M. 2005, Ltd.",
 
 	//Text for an advertisement that gets displayed on the AIM page
 
@@ -3641,7 +3641,7 @@ STR16	gzMoneyWithdrawMessageText[] =
 
 STR16	gzCopyrightText[] = 
 {
-	L"Copyright (C) 1999 Sir-tech Canada Ltd.  All rights reserved.",
+	L"Prawa autorskie nale¿¹ do (C) 1999 Sir-tech Canada Ltd. Wszelkie prawa zastrze¿one.",
 };
 
 //option Text
@@ -3906,8 +3906,8 @@ STR16 pMessageStrings[] =
 	L"Wersja",
 	L"Wolna pozycja na szybki zapis",
 	L"Ta pozycja zarezerwowana jest na szybkie zapisy wykonywane podczas gry kombinacj¹ klawiszy ALT+S.",
-	L"Otw.",
-	L"Zamkn.",
+	L"Otwarte",
+	L"Zamkniête",
 	L"Brak miejsca na dysku twardym.  Na dysku wolne jest %s MB, a wymagane jest przynajmniej %s MB.",
 	L"Najêto - %s z A.I.M.", 
 	L"%s z³apa³(a) %s",		//'Merc name' has caught 'item' -- let SirTech know if name comes after item.

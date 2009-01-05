@@ -3942,7 +3942,7 @@ STR16 pMessageStrings[] =
 	L"Impossible de donner %s à %s.", //pass "item" to "merc".  Same instructions as above.
 
 	//A list of attachments appear after the items.  Ex:  Kevlar vest ( Ceramic Plate 'Attached )'
-	L" combiné )",
+	L" combiné]",
 
 	//Cheat modes
 	L"Triche niveau 1",
