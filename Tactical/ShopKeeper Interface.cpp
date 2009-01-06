@@ -7125,6 +7125,13 @@ void ReturnItemToPlayerSomehow( INVENTORY_IN_SLOT *pInvSlot, SOLDIERTYPE *pDropS
 			ShopkeeperAddItemToPool( pDropSoldier->sGridNo, &pInvSlot->ItemObject, VISIBLE, pDropSoldier->pathing.bLevel, 0, 0 );
 		}
 	}
+	//CHRISL: We need to handle LBENODE items a little differently so we don't lose anything stored in them.  Instead of
+	// trying to return the item, simply drop the item to the ground.
+	if(UsingNewInventorySystem() == true && pInvSlot->ItemObject.IsActiveLBE(0) == true)
+	{
+		pDropSoldier->inv[pInvSlot->bSlotIdInOtherLocation].initialize();
+		ShopkeeperAddItemToPool( pDropSoldier->sGridNo, &pInvSlot->ItemObject, VISIBLE, pDropSoldier->pathing.bLevel, 0, 0 );
+	}
 }
 
 

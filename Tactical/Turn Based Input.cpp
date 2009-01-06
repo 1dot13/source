@@ -2540,6 +2540,10 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					SOLDIERTYPE *pjSoldier;
 					if ( GetSoldier( &pjSoldier, gusSelectedSoldier ) )
 					{
+						// CHRISL: Turn off manual jumping while wearing a backpack
+						if(UsingNewInventorySystem() == true && pjSoldier->inv[BPACKPOCKPOS].exists() == true)
+							break;
+
 						BOOLEAN	fNearHeigherLevel;
 						BOOLEAN	fNearLowerLevel;
 						INT8	bDirection;
