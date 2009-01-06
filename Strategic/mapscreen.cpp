@@ -1069,7 +1069,7 @@ void BeginSellAllCallBack( UINT8 bExitValue )
 	if( bExitValue == MSG_BOX_RETURN_YES )
 	{
 		fRestoreBackgroundForMessageBox = TRUE;
-		if ( gpItemPointer != NULL )
+		if ( gpItemPointer != NULL || InSectorStackPopup( ) || InItemStackPopup( ) || InItemDescriptionBox( ) || InKeyRingPopup( ) )
 		{
 			return;
 		}
@@ -1107,7 +1107,7 @@ void BeginDeleteAllCallBack( UINT8 bExitValue )
 	if( bExitValue == MSG_BOX_RETURN_YES )
 	{
 		fRestoreBackgroundForMessageBox = TRUE;
-		if ( gpItemPointer != NULL )
+		if ( gpItemPointer != NULL || InSectorStackPopup( ) || InItemStackPopup( ) || InItemDescriptionBox( ) || InKeyRingPopup( ) )
 		{
 			return;
 		}
@@ -6272,16 +6272,19 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 				case 'D':
 					if( fCtrl )
 					{
-						//CHRISL: Delete all items
-						if(!fShowMapInventoryPool)
+						if ( !InSectorStackPopup( ) && !InItemStackPopup( ) && !InItemDescriptionBox( ) && !InKeyRingPopup( ) )
 						{
-							fShowMapInventoryPool = TRUE;
-							CreateDestroyMapInventoryPoolButtons( TRUE );
-						}
-						DoMessageBox( MSG_BOX_BASIC_STYLE, NewInvMessage[NIV_DELETE_ALL], guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_YESNO, BeginDeleteAllCallBack, NULL );
-						if(fShowMapInventoryPool)
-						{
-							fShowMapInventoryPool = FALSE;
+							//CHRISL: Delete all items
+							if(!fShowMapInventoryPool)
+							{
+								fShowMapInventoryPool = TRUE;
+								CreateDestroyMapInventoryPoolButtons( TRUE );
+							}
+							DoMessageBox( MSG_BOX_BASIC_STYLE, NewInvMessage[NIV_DELETE_ALL], guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_YESNO, BeginDeleteAllCallBack, NULL );
+							if(fShowMapInventoryPool)
+							{
+								fShowMapInventoryPool = FALSE;
+							}
 						}
 					}
 					break;
@@ -6625,18 +6628,21 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 				case 'S':
 					if( fCtrl )
 					{
-						//CHRISL: Sell all items
-						if(gGameExternalOptions.fSellAll == TRUE)
+						if ( !InSectorStackPopup( ) && !InItemStackPopup( ) && !InItemDescriptionBox( ) && !InKeyRingPopup( ) )
 						{
-							if(!fShowMapInventoryPool)
+							//CHRISL: Sell all items
+							if(gGameExternalOptions.fSellAll == TRUE)
 							{
-								fShowMapInventoryPool = TRUE;
-								CreateDestroyMapInventoryPoolButtons( TRUE );
-							}
-							DoMessageBox( MSG_BOX_BASIC_STYLE, NewInvMessage[NIV_SELL_ALL], guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_YESNO, BeginSellAllCallBack, NULL );
-							if(fShowMapInventoryPool)
-							{
-								fShowMapInventoryPool = FALSE;
+								if(!fShowMapInventoryPool)
+								{
+									fShowMapInventoryPool = TRUE;
+									CreateDestroyMapInventoryPoolButtons( TRUE );
+								}
+								DoMessageBox( MSG_BOX_BASIC_STYLE, NewInvMessage[NIV_SELL_ALL], guiCurrentScreen, ( UINT8 )MSG_BOX_FLAG_YESNO, BeginSellAllCallBack, NULL );
+								if(fShowMapInventoryPool)
+								{
+									fShowMapInventoryPool = FALSE;
+								}
 							}
 						}
 					}
