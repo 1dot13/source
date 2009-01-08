@@ -42,6 +42,11 @@ typedef enum
 #define	SHOW_LOCATOR_NORMAL					1
 #define SHOW_LOCATOR_FAST					2
 
+extern int	INTERFACE_CLOCK_X;
+extern int	INTERFACE_CLOCK_Y;
+extern int	LOCATION_NAME_X;
+extern int	LOCATION_NAME_Y;
+
 BOOLEAN CreateSMPanelButtons( );
 void	RemoveSMPanelButtons( );
 BOOLEAN InitializeSMPanel(	);

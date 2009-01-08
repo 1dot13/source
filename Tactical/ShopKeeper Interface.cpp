@@ -1396,9 +1396,13 @@ void HandleShopKeeperInterface()
 		fInterfacePanelDirty = DIRTYLEVEL0;
 	}
 
-	RenderClock( CLOCK_X, CLOCK_Y );
+	// CHRISL: If in NIV mode, don't display the clock
+	//RenderClock( CLOCK_X, CLOCK_Y );
+	if( UsingNewInventorySystem() == false )
+		RenderClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
 	// CHRISL: Added X,Y parameters to allow control of TownID string placement.
-	RenderTownIDString( CLOCK_X, (CLOCK_Y - 29) );
+	//RenderTownIDString( CLOCK_X, (CLOCK_Y - 29) );
+	RenderTownIDString( LOCATION_NAME_X, LOCATION_NAME_Y );
 
 //ATM:
 //	RenderSkiAtmPanel();
@@ -1543,9 +1547,13 @@ BOOLEAN RenderShopKeeperInterface()
 	CrossOutUnwantedItems( );
 
 	//Render the clock and the town name
-	RenderClock( CLOCK_X, CLOCK_Y );
+	// CHRISL: If in NIV mode, don't display the clock
+	//RenderClock( CLOCK_X, CLOCK_Y );
+	if( UsingNewInventorySystem() == false )
+		RenderClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
 	// CHRISL: Added X,Y parameters to allow control of TownID string placement.
-	RenderTownIDString( CLOCK_X, (CLOCK_Y - 29) );
+	RenderTownIDString( LOCATION_NAME_X, LOCATION_NAME_Y );
+	//RenderTownIDString( CLOCK_X, (CLOCK_Y - 29) );
 
 //	RenderTacticalInterface( );
 //	RenderSMPanel( &fDirty );

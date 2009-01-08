@@ -2734,7 +2734,9 @@ void RenderSMPanel( BOOLEAN *pfDirty )
 	if( fRenderRadarScreen == TRUE )
 	{
 		// Render clock
-		RenderClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
+		// CHRISL: If we're in NIV mode, don't render the clock on the SM panel
+		if(UsingNewInventorySystem() == false)
+			RenderClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
 		CreateMouseRegionForPauseOfClock( INTERFACE_CLOCK_X, INTERFACE_CLOCK_Y );
 		// CHRISL: Change function call to include X,Y coordinates.
 		RenderTownIDString( LOCATION_NAME_X, LOCATION_NAME_Y );
