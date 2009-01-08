@@ -1789,6 +1789,9 @@ void PutNonSquadMercsInPlayerGroupOnSquads( GROUP *pGroup, BOOLEAN fExitVehicles
 						// placement screen can't handle mercs on the same squad arriving from difference edges!
 						fSuccess = AddCharacterToSquad( pSoldier, bUniqueVehicleSquad );
 					}
+					//CHRISL: So what's supposed to happen in the merc is assigned to a vehicle but fExitVehicles is FALSE?
+					else
+						fSuccess = TRUE;
 				}
 				else
 				{
