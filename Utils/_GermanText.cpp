@@ -1691,7 +1691,7 @@ STR16 sFacilitiesStrings[] =
 	L"Gefängnis",
 	L"Militär",
 	L"Flughafen",
-	L"Reichweite",		// a field for soldiers to practise their shooting skills
+	L"Schießstand",		// a field for soldiers to practise their shooting skills
 };
 
 // text for inventory pop up button
@@ -2492,7 +2492,7 @@ STR16 pWebPagesTitles[] =
 	L"Bobby Rays - Rüstungen",
 	L"Bobby Rays - Sonst.",							//misc is an abbreviation for miscellaneous				
 	L"Bobby Rays - Gebraucht",
-	L"Bobby Rays - Mail Order",
+	L"Bobby Rays - Versandauftrag",
 	L"B.S.E",
 	L"B.S.E",
 	L"Fleuropa",
@@ -2706,7 +2706,7 @@ STR16 MercInfo[] =
 	L"Weiter",
 	L"Zusatzinfo",
 	L"Home",
-	L"Abwesend",	
+	L"Angestellt",	
 	L"Sold:",
 	L"Pro Tag",
 	L"Verstorben",	
@@ -2846,7 +2846,7 @@ STR16 BobbyROrderFormText[] =
 	L"Preis",				// the item's weight
 	L"Summe",				//5	// The total price of all of items of the same type
 	L"Zwischensumme",				// The sub total of all the item totals added
-	L"Frachtk. (vgl. Bestimmungsort)",		// S&H is an acronym for Shipping and Handling 
+	L"Versandkosten (vgl. Bestimmungsort)",		// S&H is an acronym for Shipping and Handling 
 	L"Endbetrag",			// The grand total of all item totals + the shipping and handling
 	L"Bestimmungsort",				
 	L"Liefergeschwindigkeit",			//10	// See below
@@ -2858,12 +2858,12 @@ STR16 BobbyROrderFormText[] =
 	L"Bestellen",			// Accept the order
 	L"Zurück",				// text on the button that returns to the previous page
 	L"Home",				// Text on the button that returns to the home page
-	L"* Gebrauchte Gegenstände anzeigen",		// Disclaimer stating that the item is used
+	L"* Gebrauchter Gegenstand",		// Disclaimer stating that the item is used
 	L"Sie haben nicht genug Geld.",		//20	// A popup message that to warn of not enough money
 	L"<KEINER>",				// Gets displayed when there is no valid city selected
 	L"Wollen Sie Ihre Bestellung wirklich nach %s schicken?",		// A popup that asks if the city selected is the correct one
-	L"Packungs-Gew.**",			// Displays the weight of the package
-	L"** Min. Gew.",				// Disclaimer states that there is a minimum weight for the package
+	L"Packungsgewicht**",			// Displays the weight of the package
+	L"** Mindestgewicht",				// Disclaimer states that there is a minimum weight for the package
 	L"Lieferungen",	
 };
 
@@ -2942,11 +2942,11 @@ STR16 BobbyRText[] =
 
 	//The following lines provide information on the items
 
-	L"Gew.:",			// Weight of all the items of the same type
+	L"Gewicht:",			// Weight of all the items of the same type
 	L"Kal:",			// the caliber of the gun
 	L"Mag:",			// number of rounds of ammo the Magazine can hold
-	L"Reichw.",				// The range of the gun
-	L"Schaden",				// Damage of the weapon	
+	L"Reichw.:",				// The range of the gun
+	L"Schaden:",				// Damage of the weapon	
 	L"Freq.:",			// Weapon's Rate Of Fire, acroymn ROF
 	L"Preis:",			// Cost of the item
 	L"Vorrätig:",			// The number of items still in the store's inventory
@@ -2954,7 +2954,7 @@ STR16 BobbyRText[] =
 	L"Beschädigt",			// If the item is damaged
 	L"Gew.:",			// the Weight of the item
 	L"Summe:",			// The total cost of all items on order
-	L"* %% Funktion",		// if the item is damaged, displays the percent function of the item
+	L"* %% funktionstüchtig",		// if the item is damaged, displays the percent function of the item
 
 	//Popup that tells the player that they can only order 10 items at a time
 	L"Mist! Mit diesem Formular können Sie nur 10 Sachen bestellen. Wenn Sie mehr wollen (was wir sehr hoffen), füllen Sie bitte noch ein Formular aus.",
@@ -3447,7 +3447,7 @@ STR16 pMilitiaConfirmStrings[] =
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel
 STR16 gzMoneyWithdrawMessageText[] = 
 {
-	L"Sie können nur max. 20,000$ abheben.",
+	L"Sie können nur max. 20.000$ abheben.",
 	L"Wollen Sie wirklich %s auf Ihr Konto einzahlen?",
 };
 
