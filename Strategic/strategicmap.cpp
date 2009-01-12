@@ -1777,7 +1777,9 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			{
 				//CHRISL: We should only bother with this assertion if the soldier is alive.  Dead soliders are moved to
 				//	GridNo = NOWHERE, which causes this assertion to fail
-				if(!(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_DEAD))
+				//CHRISL: There's also an issue with vehicles.  Soldiers in any vehicle are considered to be in sGridNo = NOWHERE
+				//	This will result in an assertion error, so let's skip the assertion if the merc is assigned to a vehicle
+				if(!(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_DEAD) && MercPtrs[i]->bAssignment != VEHICLE)
 				{
 					Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || MercPtrs[i]->sGridNo != NOWHERE || MercPtrs[i]->bVehicleID == iHelicopterVehicleId );
 				}
@@ -1821,7 +1823,9 @@ BOOLEAN	SetCurrentWorldSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 			{
 				//CHRISL: We should only bother with this assertion if the soldier is alive.  Dead soliders are moved to
 				//	GridNo = NOWHERE, which causes this assertion to fail
-				if(!(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_DEAD))
+				//CHRISL: There's also an issue with vehicles.  Soldiers in any vehicle are considered to be in sGridNo = NOWHERE
+				//	This will result in an assertion error, so let's skip the assertion if the merc is assigned to a vehicle
+				if(!(MercPtrs[i]->flags.uiStatusFlags & SOLDIER_DEAD) && MercPtrs[i]->bAssignment != VEHICLE)
 				{
 					Assert( !MercPtrs[i]->bActive || !MercPtrs[i]->bInSector || MercPtrs[i]->sGridNo != NOWHERE || MercPtrs[i]->bVehicleID == iHelicopterVehicleId );
 				}
