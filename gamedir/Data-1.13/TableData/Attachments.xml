@@ -20032,11 +20032,6 @@
 	</ATTACHMENT>
 	<ATTACHMENT>
 		<attachmentIndex>1008</attachmentIndex>
-		<itemIndex>35</itemIndex>
-		<APCost>20</APCost>
-	</ATTACHMENT>
-	<ATTACHMENT>
-		<attachmentIndex>1008</attachmentIndex>
 		<itemIndex>68</itemIndex>
 		<APCost>20</APCost>
 	</ATTACHMENT>
@@ -24118,6 +24113,11 @@
 	<ATTACHMENT>
 		<attachmentIndex>1183</attachmentIndex>
 		<itemIndex>719</itemIndex>
+		<APCost>20</APCost>
+	</ATTACHMENT>
+	<ATTACHMENT>
+		<attachmentIndex>1183</attachmentIndex>
+		<itemIndex>786</itemIndex>
 		<APCost>20</APCost>
 	</ATTACHMENT>
 	<ATTACHMENT>

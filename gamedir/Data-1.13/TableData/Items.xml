@@ -10348,9 +10348,9 @@
 		<uiIndex>466</uiIndex>
 		<szItemName>7.62x51mm 20 HP C</szItemName>
 		<szLongItemName>7.62x51mm Mag, 20 HP Cold</szLongItemName>
-		<szItemDesc>20 rounds of extra quiet 7.62x51mm.</szItemDesc>
+		<szItemDesc>20 reduced noise hollow point rounds.</szItemDesc>
 		<szBRName>7.62x51mm 20 HP Cold</szBRName>
-		<szBRDesc>Cold loaded ammo for muted marauding.</szBRDesc>
+		<szBRDesc>Need to reduce a target to a bloody, amorphous mass? Is noise an issue?  This is the ammo for you.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>205</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
@@ -10370,9 +10370,9 @@
 		<uiIndex>467</uiIndex>
 		<szItemName>7.62x51mm 20 C</szItemName>
 		<szLongItemName>7.62x51mm Mag, 20 Cold</szLongItemName>
-		<szItemDesc>20 reduced noise hollow point rounds.</szItemDesc>
+		<szItemDesc>20 rounds of extra quiet 7.62x51mm.</szItemDesc>
 		<szBRName>7.62x51mm 20 Cold</szBRName>
-		<szBRDesc>Need to reduce a target to a bloody, amorphous mass? Is noise an issue?  This is the ammo for you.</szBRDesc>
+		<szBRDesc>Cold loaded ammo for muted marauding.</szBRDesc>
 		<usItemClass>1024</usItemClass>
 		<ubClassIndex>206</ubClassIndex>
 		<ubGraphicType>1</ubGraphicType>
@@ -16697,7 +16697,6 @@
 		<HideMuzzleFlash>1</HideMuzzleFlash>
 		<ToHitBonus>-1</ToHitBonus>
 		<PercentReadyTimeAPReduction>30</PercentReadyTimeAPReduction>
-		<DefaultAttachment>209</DefaultAttachment>
 	</ITEM>
 	<ITEM>
 		<uiIndex>716</uiIndex>
@@ -18784,6 +18783,7 @@
 		<BR_NewInventory>2</BR_NewInventory>
 		<BR_UsedInventory>1</BR_UsedInventory>
 		<BR_ROF>36</BR_ROF>
+		<DefaultAttachment>1183</DefaultAttachment>
 	</ITEM>
 	<ITEM>
 		<uiIndex>787</uiIndex>
